@@ -2,89 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5D9A35A8C
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 10:43:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE4DA35A8F
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 10:44:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 816CCC78F8D;
-	Fri, 14 Feb 2025 09:43:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96781C78F8D;
+	Fri, 14 Feb 2025 09:44:10 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC899C78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12154C78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 09:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739526219; x=1771062219;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=zLq34zyZ+vn2x8EHLG71uh1H2EfQ4PWpqK69Hy66e7w=;
- b=l4LGfMjsrNQrVb0AvoqZO9dAaXMMEgd887nnPNbGgYad/qLzBhDY5v7u
- EhNWyLik6Y1jA7k7Mnfdtuv00E1W+i/eGCMQr0XW7TOJfjMK5U/qolAC+
- AwiOTN3XUn6oIlBeWIAwh/OLABa93gT5KX9dHEqgrsv3RFfGSarwdlzfT
- HMEs2FR+TenQQ0jMLwZxGuiWMFwFLbXU63b5VjDQ156fVbYle7NHX1I6b
- 2fviSLpnDag94qMCOCIILwCNhp3+5iZwE0ADIAatnYUeoEVbyHRoDQZX5
- 7a7eZI2tkzf2uDM+PBc4NPHuwtO4ISOZZDZfs/IzHl9pcA5KDlCp+Zle0 Q==;
-X-CSE-ConnectionGUID: Ic7OpFDnQNmRs4KZs++PuQ==
-X-CSE-MsgGUID: bV/b/zmFRyOWXZef1AXNSw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11344"; a="44197309"
-X-IronPort-AV: E=Sophos;i="6.13,285,1732608000"; d="scan'208";a="44197309"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2025 01:43:30 -0800
-X-CSE-ConnectionGUID: ZO0UWXkJQOin2e28wbPaEw==
-X-CSE-MsgGUID: Hg2vL6gvSzaFtD29bl+/3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="118036852"
-Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.89.75])
- ([10.247.89.75])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2025 01:43:22 -0800
-Message-ID: <641ab972-e110-4af2-ad9b-6688cee56562@linux.intel.com>
-Date: Fri, 14 Feb 2025 17:43:19 +0800
+ Fri, 14 Feb 2025 09:44:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 334F5A42555;
+ Fri, 14 Feb 2025 09:42:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C057C4CED1;
+ Fri, 14 Feb 2025 09:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739526247;
+ bh=euxH5xTB3npndNEOhGf9KR+p/1GlHm5dq8S6R5vtFvg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QKgThIZQsDXvHi250nXVACftNulY+hDA56lG4gV0mWDqpQmEI/IeByxEkZ30VumCF
+ L+r2W1g/8OTElc/khx4mIaSFrKtauo7k7wzOS5jT9SBbtUlYjgOkI86coP9+s3NYwT
+ y3Pkf0q3FPGmXw9gDN2jBCwdfFjlwHIM6NMKxRNfAHvOj6MfdWa4J64sZrCZ+2mWp8
+ rvLAPOGA4lz6JczHmcz0aTOHczOZk73pBCHAN90DCEiXiuHnMIe8lrWw5JBzcFdPvS
+ NBKHdwztH01NncybK/yA9xE55/oALEeW+VtQObpTVt07tlkncpFvbP/wa1DsJj+6au
+ giWDWVolgoUpA==
+Date: Fri, 14 Feb 2025 10:44:04 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Anusha Srivatsa <asrivats@redhat.com>
+Message-ID: <20250214-quixotic-fossa-of-art-b8bb9f@houat>
+References: <20250205-mem-cocci-newapi-v1-0-aebf2b0e2300@redhat.com>
+ <20250205-mem-cocci-newapi-v1-11-aebf2b0e2300@redhat.com>
+ <20250206-hallowed-ultra-tiger-cfec8e@houat>
+ <CAN9Xe3SpTG7r2UkN7_pH0uMXhU5u+dkWhaM9+w5VyOQZp9byNg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kurt Kanzenbach <kurt@linutronix.de>,
- Vladimir Oltean <vladimir.oltean@nxp.com>
-References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250212220121.ici3qll66pfoov62@skbuf>
- <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
- <87cyfmnjdh.fsf@kurt.kurt.home>
- <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
- <20250213130003.nxt2ev47a6ppqzrq@skbuf>
- <1c981aa1-e796-4c53-9853-3eae517f2f6d@linux.intel.com>
- <877c5undbg.fsf@kurt.kurt.home> <20250213184613.cqc2zhj2wkaf5hn7@skbuf>
- <87v7td3bi1.fsf@kurt.kurt.home>
- <b7740709-6b4a-4f44-b4d7-e265bb823aca@linux.intel.com>
- <874j0wrjk2.fsf@kurt.kurt.home>
-Content-Language: en-US
-From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-In-Reply-To: <874j0wrjk2.fsf@kurt.kurt.home>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+In-Reply-To: <CAN9Xe3SpTG7r2UkN7_pH0uMXhU5u+dkWhaM9+w5VyOQZp9byNg@mail.gmail.com>
+Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Xinliang Liu <xinliang.liu@linaro.org>, Stefan Agner <stefan@agner.ch>,
+ Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Simona Vetter <simona@ffwll.ch>,
+ Marek Vasut <marex@denx.de>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Alison Wang <alison.wang@nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Tian Tao <tiantao6@hisilicon.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
  linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for
- Frame Preemption feature in IGC
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-stm32@st-md-mailman.stormreply.com, Sandy Huang <hjc@rock-chips.com>,
+ linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Yongqin Liu <yongqin.liu@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 11/12] drm/vc4: move to
+ devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,60 +83,146 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4160609428407695613=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxNC8yLzIwMjUgNDo1NiBwbSwgS3VydCBLYW56ZW5iYWNoIHdyb3RlOgo+IE9uIEZyaSBG
-ZWIgMTQgMjAyNSwgQWJkdWwgUmFoaW0sIEZhaXphbCB3cm90ZToKPj4gT24gMTQvMi8yMDI1IDM6
-MTIgYW0sIEt1cnQgS2FuemVuYmFjaCB3cm90ZToKPj4+IE9uIFRodSBGZWIgMTMgMjAyNSwgVmxh
-ZGltaXIgT2x0ZWFuIHdyb3RlOgo+Pj4+IFNvLCBjb25mdXNpbmdseSB0byBtZSwgaXQgc2VlbXMg
-bGlrZSBvbmUgb3BlcmF0aW5nIG1vZGUgaXMgZnVuZGFtZW50YWxseQo+Pj4+IGRpZmZlcmVudCBm
-cm9tIHRoZSBvdGhlciwgYW5kIHNvbWV0aGluZyB3aWxsIGhhdmUgdG8gY2hhbmdlIGlmIGJvdGgg
-d2lsbAo+Pj4+IGJlIG1hZGUgdG8gYmVoYXZlIHRoZSBzYW1lLiBXaGF0IHdpbGwgY2hhbmdlPyBZ
-b3Ugc2F5IG1xcHJpbyB3aWxsIGJlaGF2ZQo+Pj4+IGxpa2UgdGFwcmlvLCBidXQgSSB0aGluayBp
-ZiBhbnl0aGluZywgbXFwcmlvIGlzIHRoZSBvbmUgd2hpY2ggZG9lcyB0aGUKPj4+PiByaWdodCB0
-aGluZywgaW4gaWdjX3Rzbl90eF9hcmIoKSwgYW5kIHRhcHJpbyBzZWVtcyB0byB1c2UgdGhlIGRl
-ZmF1bHQgVHgKPj4+PiBhcmJpdHJhdGlvbiBzY2hlbWU/Cj4+Pgo+Pj4gQ29ycmVjdC4gdGFwcmlv
-IGlzIHVzaW5nIHRoZSBkZWZhdWx0IHNjaGVtZS4gbXFwcmlvIGNvbmZpZ3VyZXMgaXQgdG8KPj4+
-IHdoYXQgZXZlciB0aGUgdXNlciBwcm92aWRlZCAoaW4gaWdjX3Rzbl90eF9hcmIoKSkuCj4+Pgo+
-Pj4+IEkgZG9uJ3QgdGhpbmsgSSdtIG9uIHRoZSBzYW1lIHBhZ2UgYXMgeW91IGd1eXMsIGJlY2F1
-c2UgdG8gbWUsIGl0IGlzCj4+Pj4ganVzdCBvZGQgdGhhdCB0aGUgUCB0cmFmZmljIGNsYXNzZXMg
-d291bGQgYmUgdGhlIGZpcnN0IG9uZXMgd2l0aAo+Pj4+IG1xcHJpbywgYnV0IHRoZSBsYXN0IG9u
-ZXMgd2l0aCB0YXByaW8uCj4+Pgo+Pj4gSSB0aGluayB3ZSBhcmUgb24gdGhlIHNhbWUgcGFnZSBo
-ZXJlLiBBdCB0aGUgZW5kIGJvdGggaGF2ZSB0byBiZWhhdmUgdGhlCj4+PiBzYW1lLiBFaXRoZXIg
-YnkgdXNpbmcgaWdjX3Rzbl90eF9hcmIoKSBmb3IgdGFwcmlvIHRvbyBvciBvbmx5IHVzaW5nIHRo
-ZQo+Pj4gZGVmYXVsdCBzY2hlbWUgZm9yIGJvdGggKGFuZCB0aGVyZWJ5IGtlZXBpbmcgYnJva2Vu
-X21xcHJpbykuIFdoYXRldmVyCj4+PiBGYWl6YWwgaW1wbGVtZW50cyBJJ2xsIG1hdGNoIHRoZSBi
-ZWhhdmlvciB3aXRoIG1xcHJpby4KPj4+Cj4+Cj4+IEhpIEt1cnQgJiBWbGFkaW1pciwKPj4KPj4g
-QWZ0ZXIgcmVhZGluZyBWbGFkaW1pcidzIHJlcGx5IG9uIHRjLCBodyBxdWV1ZSwgYW5kIHNvY2tl
-dCBwcmlvcml0eSBtYXBwaW5nCj4+IGZvciBib3RoIHRhcHJpbyBhbmQgbXFwcmlvLCBJIGFncmVl
-IHRoZXkgc2hvdWxkIGZvbGxvdyB0aGUgc2FtZSBwcmlvcml0eQo+PiBzY2hlbWUgZm9yIGNvbnNp
-c3RlbmN54oCUYm90aCBpbiBjb2RlIGFuZCBjb21tYW5kIHVzYWdlIChpLmUuLCB0YXByaW8sCj4+
-IG1xcHJpbywgYW5kIGZwZSBpbiBib3RoIGNvbmZpZ3VyYXRpb25zKS4gU2luY2UgaWdjX3Rzbl90
-eF9hcmIoKSBlbnN1cmVzIGEKPj4gc3RhbmRhcmQgbWFwcGluZyBvZiB0Yywgc29ja2V0IHByaW9y
-aXR5LCBhbmQgaGFyZHdhcmUgcXVldWUgcHJpb3JpdHksIEknbGwKPj4gZW5hYmxlIHRhcHJpbyB0
-byB1c2UgaWdjX3Rzbl90eF9hcmIoKSBpbiBhIHNlcGFyYXRlIHBhdGNoIHN1Ym1pc3Npb24uCj4g
-Cj4gVGhlcmUncyBvbmUgcG9pbnQgdG8gY29uc2lkZXIgaGVyZTogaWdjX3Rzbl90eF9hcmIoKSBj
-aGFuZ2VzIHRoZSBtYXBwaW5nCj4gYmV0d2VlbiBwcmlvcml0aWVzIGFuZCBUeCBxdWV1ZXMuIEkg
-aGF2ZSBubyBpZGVhIGhvdyBtYW55IHBlb3BsZSByZWx5IG9uCj4gdGhlIGZhY3QgdGhhdCBxdWV1
-ZSAwIGhhcyBhbHdheXMgdGhlIGhpZ2hlc3QgcHJpb3JpdHkuIEZvciBleGFtcGxlLCBpdAo+IHdp
-bGwgY2hhbmdlIHRoZSBUeCBiZWhhdmlvciBmb3Igc2NoZWR1bGVzIHdoaWNoIG9wZW4gbXVsdGlw
-bGUgdHJhZmZpYwo+IGNsYXNzZXMgYXQgdGhlIHNhbWUgdGltZS4gVXNlcnMgbWF5IG5vdGljZS4K
-ClllYWgsIEkgd2FzIGNvbnNpZGVyaW5nIHRoZSBpbXBhY3Qgb24gZXhpc3RpbmcgdXNlcnMgdG9v
-LiBJIGhhZG7igJl0IGdpdmVuIGl0IAptdWNoIHRob3VnaHQgaW5pdGlhbGx5IGFuZCBmaWd1cmVk
-IHRoZXnigJlkIGp1c3QgbmVlZCB0byBhZGFwdCB0byB0aGUgCmNoYW5nZXMsIGJ1dCBub3cgdGhh
-dCBJIHRoaW5rIGFib3V0IGl0LCBwcm9wZXJseSBjb21tdW5pY2F0aW5nIHRoaXMgd291bGQgCmJl
-IHRvdWdoLiB0YXByaW8gb24gaWdjIChpMjI1LCBpMjI2KSBoYXMgYmVlbiBhcm91bmQgZm9yIGEg
-d2hpbGUsIHNvIGEgbG90IApvZiB1c2VycyB3b3VsZCBiZSBhZmZlY3RlZC4KCj4gT1RPSCBjaGFu
-Z2luZyBtcXByaW8gdG8gdGhlIGJyb2tlbl9tcXByaW8gbW9kZWwgaXMgZWFzeSwgYmVjYXVzZSBB
-RkFJSwo+IHRoZXJlJ3Mgb25seSBvbmUgY3VzdG9tZXIgdXNpbmcgdGhpcy4KPiAKCkhtbW1tLCBu
-b3cgSeKAmW0gbGVhbmluZyB0b3dhcmQga2VlcGluZyB0YXByaW8gYXMgaXMgKGh3IHF1ZXVlIDAg
-aGlnaGVzdCAKcHJpb3JpdHkpIGFuZCBoYXZpbmcgbXFwcmlvIGZvbGxvdyB0aGUgZGVmYXVsdCBw
-cmlvcml0eSBzY2hlbWUgKGFrYSAKYnJva2VuX21xcHJpbykuIEV2ZW4gdGhvdWdoIGl04oCZcyBu
-b3QgdGhlIG5vcm0sIHRoZSBpbXBhY3QgZG9lc27igJl0IHNlZW0gCndvcnRoIHRoZSBnYWluLiBP
-cGVuIHRvIGhlYXJpbmcgb3RoZXJzJyB0aG91Z2h0cy4KCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============4160609428407695613==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="tmymxs4x7znmvcxa"
+Content-Disposition: inline
+
+
+--tmymxs4x7znmvcxa
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 11/12] drm/vc4: move to devm_platform_ioremap_resource()
+ usage
+MIME-Version: 1.0
+
+On Tue, Feb 11, 2025 at 12:08:57PM -0500, Anusha Srivatsa wrote:
+> On Thu, Feb 6, 2025 at 11:13=E2=80=AFAM Maxime Ripard <mripard@kernel.org=
+> wrote:
+>=20
+> > On Wed, Feb 05, 2025 at 03:08:07PM -0500, Anusha Srivatsa wrote:
+> > > Replace platform_get_resource_byname + devm_ioremap_resource
+> > > with just devm_platform_ioremap_resource()
+> > >
+> > > Used Coccinelle to do this change. SmPl patch:
+> > > //rule s/(devm_)platform_get_resource_byname +
+> > > //(devm_)ioremap/devm_platform_ioremap_resource.
+> > > @rule_3@
+> > > identifier res;
+> > > expression ioremap;
+> > > identifier pdev;
+> > > constant mem;
+> > > expression name;
+> > > @@
+> > > -struct resource *res;
+> > > <+...
+> > > -res =3D platform_get_resource_byname(pdev,mem,name);
+> > > <...
+> > > -if (!res) {
+> > > -...
+> > > -}
+> > > ...>
+> > > -ioremap =3D devm_ioremap(...);
+> > > +ioremap =3D devm_platform_ioremap_resource_byname(pdev,name);
+> > > ...+>
+> > >
+> > > v2: Change the SmPl patch to work on multiple occurences of
+> > > the pattern. This also fixes the compilation error.
+> > >
+> > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > > Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
+> > > Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
+> > > ---
+> > >  drivers/gpu/drm/vc4/vc4_hdmi.c | 55
+> > +++++++++++-------------------------------
+> > >  1 file changed, 14 insertions(+), 41 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > > index
+> > 47d9ada98430634cfd8c1e21c2a4d00d501bab7e..066f1246dab420ee889845b0c573d=
+80ce7c88595
+> > 100644
+> > > --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> > > @@ -2951,71 +2951,44 @@ static int vc5_hdmi_init_resources(struct
+> > drm_device *drm,
+> > >  {
+> > >       struct platform_device *pdev =3D vc4_hdmi->pdev;
+> > >       struct device *dev =3D &pdev->dev;
+> > > -     struct resource *res;
+> > >       int ret;
+> > >
+> > > -     res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hdm=
+i");
+> > > -     if (!res)
+> > > -             return -ENODEV;
+> > > -
+> > > -     vc4_hdmi->hdmicore_regs =3D devm_ioremap(dev, res->start,
+> > > -                                            resource_size(res));
+> > > +     vc4_hdmi->hdmicore_regs =3D
+> > devm_platform_ioremap_resource_byname(pdev,
+> > > +
+> >  "hdmi");
+> > >       if (!vc4_hdmi->hdmicore_regs)
+> > >               return -ENOMEM;
+> > >
+> > > -     res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "hd"=
+);
+> > > -     if (!res)
+> > > -             return -ENODEV;
+> > > -
+> > > -     vc4_hdmi->hd_regs =3D devm_ioremap(dev, res->start,
+> > resource_size(res));
+> > > +     vc4_hdmi->hd_regs =3D devm_platform_ioremap_resource_byname(pde=
+v,
+> > "hd");
+> > >       if (!vc4_hdmi->hd_regs)
+> > >               return -ENOMEM;
+> >
+> > I *think* that one is shared between both HDMI controllers on the
+> > RaspberryPi4, so we can't claim them from both instances. We should add
+> > a comment there to document that it's on purpose.
+>
+> How about vc4_hdmi->hdmicore_regs? It also has another instance
+> vc4_hdmi_init_resources(). Looks like that also doesnt need any converting
+> and shold be left as is.
+
+No, each controller will have its own set of registers there, so it can
+be converted.
+
+Maxime
+
+--tmymxs4x7znmvcxa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ68QXwAKCRAnX84Zoj2+
+dnJFAX44qxSqH4/9r1lPWe6YsBKR9clH1sZQRZaWBdRICp0iE+/MJiNA/tJghQgy
+Xb2262kBgMGvJFpuBmHvz9HJegWf00i39I2+ctkME/qrOcHQhoIwF07ezVrQyZOZ
+z9Q+kadHOg==
+=d/Gf
+-----END PGP SIGNATURE-----
+
+--tmymxs4x7znmvcxa--
+
+--===============4160609428407695613==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4160609428407695613==--
