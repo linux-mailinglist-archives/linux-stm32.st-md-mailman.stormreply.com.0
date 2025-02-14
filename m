@@ -2,70 +2,165 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5BC0A36168
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 16:20:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF0AA363D4
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 18:03:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A3E0C78F8C;
-	Fri, 14 Feb 2025 15:20:57 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B963C78F8C;
+	Fri, 14 Feb 2025 17:03:37 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36BCDC78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 715B5C78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 15:20:50 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51ECjkJC012402;
- Fri, 14 Feb 2025 16:20:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- XIGWT/hG4tpt7K0ywnil/ic7qyIjws86Nr7lEaaCFVs=; b=wiDAEXVTGHJtLkQr
- /TkMG3g8S+w7ayPRJsIpOHOijNJn8pAUEfAWlRbA4kvjev2Sn0QQ/UHbMTJ+fs0f
- VTAlenMa76krHFtcykdMbiFpKX/JPf9wxx4VZXsoy6kRXTXFjj599xsTYd0XWb02
- sLDjqZFkNE+weUcY8z5p71g8CGTD56ugaW/mF4DLCaeE6pH9+XRKs3ADj6V3lO/q
- 1zfhNtcX6Bbcr++WJ4fcR2EAFtv1PtbXa5XKqA38+4KFtaMWTwxx6vJI+YaGMNp9
- x+B9zOy/c1nIRRP/c6G7qlbyt07yrWYJOpldbf5Js3zHvp92ZyI+YS6DUWh+RUZq
- PO/WxA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44rrfum80j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 14 Feb 2025 16:20:39 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 03B9F40047;
- Fri, 14 Feb 2025 16:19:29 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 351DA2DC032;
- Fri, 14 Feb 2025 16:18:33 +0100 (CET)
-Received: from [10.48.87.120] (10.48.87.120) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Feb
- 2025 16:18:32 +0100
-Message-ID: <e76829e9-26ee-44cc-8378-6e83f62eccd5@foss.st.com>
-Date: Fri, 14 Feb 2025 16:18:31 +0100
-MIME-Version: 1.0
+ Fri, 14 Feb 2025 17:03:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u+1RRkTvEaPGxguwWsRDCuKBJQZ6Uaq0Q3is5Plqk1HZDpdPGO6iP1QyIWl47SGi5q+imQCTigViQY4qHsXjxxeosUaMjlfvhKXrBK2SqMehCWyRerabhm6+rKC5P5kOuk2jvePjFM9Snw6JzR1+FEg+odKjrin20yNoc4cDcM4BaPRJLkBnyR1+MsY9sHRA+SyJUXvd0usSLQ6JG4Q9xWWAzg0l5P9TnviLs4Xlm6x+oXCEOMLeaipE34Ag9rJMV8tES2jPsCWInVke+4Duao+3O/wEa0bAdR50LghESP0Q+YL+XDdXtDngwzOAizmad7hva/tLoQe1OnE7W4tUYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OFZ5q94qCb6gQ2z83DH6McxaDI95HqSUaNhYnMxrkeY=;
+ b=XdH5WxVDxlrGI+/m7UO/sXfX7N26ciA+dFQp3UINuJSiSQ1crhu1PvM7w9QrTUklt3v6q5O0D0sLaHLieOa0zJ1gKaAPHwvhb6l1jUgwhpnDt6xE4wfjNOmMZqNm+FjF00b4Kj8leGn4IXtr0XFVb9cpSaIpLbStNkq8LxashRFAVorz/zmsTRnCZ8qWZ27w12sQKWh2HBZ5NoL2Pdgmg9gp9kaKxze5O7n/+ne2Bxf/vRtTStVK27VuvzMJtbFOl9Jwu0JHfi/nPDT61JOeZHVcdZAi/rCGjzkOc075VUku3gw58HZaCBJzebcbSCFtcB9HjHGgEiMFdXIxV8nOGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OFZ5q94qCb6gQ2z83DH6McxaDI95HqSUaNhYnMxrkeY=;
+ b=G7hwf/R8E6SknNaJA/6aAOb/eyxup+QGLTfKJ4Ky35rHkCKHs416GcH7n6nGMnlx7+sReq8yIzvt2A3oo6mQ0cgYr2kcnGdbhup5mCtBH17b8CU0LDAkpCfL6JoFn/mCtQJAeHxkrbVVN6TOu4UBFj6qEtn/ZVDIS3Y50MpS8MIjFadpY1ES/Ku5xic6PfIckaCZZk5MCBUYaSmp8v/7ixZG/qNRP8SH0NPAUAEiWDgqb/Wl1Jicexeztg1lkmOG912OB0QnYCAekU030r+JiGSu2DoEfHTUBGrNlYVLWe33Fw0jBrbxw7c6kxN4Tw1vr30AKhCcPJv/JbV6SB4jhA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11)
+ by PH0PR12MB8824.namprd12.prod.outlook.com (2603:10b6:510:26f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.15; Fri, 14 Feb
+ 2025 17:03:26 +0000
+Received: from SJ2PR12MB8784.namprd12.prod.outlook.com
+ ([fe80::1660:3173:eef6:6cd9]) by SJ2PR12MB8784.namprd12.prod.outlook.com
+ ([fe80::1660:3173:eef6:6cd9%6]) with mapi id 15.20.8445.013; Fri, 14 Feb 2025
+ 17:03:26 +0000
+Message-ID: <53a47904-cb6c-4d76-86fd-2f78b911833c@nvidia.com>
+Date: Fri, 14 Feb 2025 17:03:19 +0000
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>
-References: <20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com>
- <20250210-b4-stm32mp2_new_dts-v1-8-e8ef1e666c5e@foss.st.com>
- <20250213-accurate-acoustic-mushroom-a0dfbd@krzk-bin>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <Z4gdtOaGsBhQCZXn@shell.armlinux.org.uk>
+ <E1tYAEG-0014QH-9O@rmk-PC.armlinux.org.uk>
+ <6ab08068-7d70-4616-8e88-b6915cbf7b1d@nvidia.com>
+ <Z63Zbaf_4Rt57sox@shell.armlinux.org.uk>
+ <Z63e-aFlvKMfqNBj@shell.armlinux.org.uk>
+ <05987b45-94b9-4744-a90d-9812cf3566d9@nvidia.com>
+ <Z68nSJqVxcnCc1YB@shell.armlinux.org.uk>
+From: Jon Hunter <jonathanh@nvidia.com>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20250213-accurate-acoustic-mushroom-a0dfbd@krzk-bin>
-X-Originating-IP: [10.48.87.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-14_06,2025-02-13_01,2024-11-22_01
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
+In-Reply-To: <Z68nSJqVxcnCc1YB@shell.armlinux.org.uk>
+X-ClientProxiedBy: LO4P123CA0014.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:150::19) To SJ2PR12MB8784.namprd12.prod.outlook.com
+ (2603:10b6:a03:4d0::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8784:EE_|PH0PR12MB8824:EE_
+X-MS-Office365-Filtering-Correlation-Id: 415c2a01-a6b9-4076-5a93-08dd4d197f71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|376014|7416014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y0kvTFFLbnpiaVZZek9NajUrR21HYm5CZVhLVkRRaHluTTlQSTlEeU5LNjNm?=
+ =?utf-8?B?TWtjQUlaZmFPUDZ4YThOb3JUSFJLd2NMVG9MYnVjSEZkVEI2N2VJekJEQUIx?=
+ =?utf-8?B?MkZET2lxNWhpTnNZSDE3amJOMmx6T3dGSnUvZkx2V3BJUTZGUDBMSzNyaEw3?=
+ =?utf-8?B?eEM2ZXFZN1BlOEo2ZjNBdmNlR1ZBM0ZiNnZteFUyT0pQbXRscWhwTjczL1hD?=
+ =?utf-8?B?eVp0ZlBuQ3FsMW1FZ24rNnlYS1FHTnNESy9UM2hDTHd0SXFnTkNJcWJIRS85?=
+ =?utf-8?B?UlFzVDFxZHpSWjZVZGNJc2NQbzMxcHQ4TnUvUFpVNnJIZXlia202dGp0Ungv?=
+ =?utf-8?B?Z1Q5bFZwckJVa2J0MWtmSGhIMVNScW93dlFQYm5ZRytsSFUyQiszdGVWNytS?=
+ =?utf-8?B?VGVraUYwT1FsbWNzeG95YjNjQ2pqK2swWWZlVitjbjlxVWg3aGp3bmYxQUgz?=
+ =?utf-8?B?UkhJbnp0eENkbDFLUVZaUlpCaGVuby9mSXR5cnNUcy9JNlQzSGd4ZmVVMUxH?=
+ =?utf-8?B?c295UHlNQnk2aW1tWC9Xei9ERUhLRy8ra0ZqWDRORlIzd01mQXAveE5WaStW?=
+ =?utf-8?B?SlhTYk95WHdOeU93ZG5yejg3aUQrWlBXUDg2RjdJdlRLalNzbGdoT29TWUxr?=
+ =?utf-8?B?WWlmblBXNnBpNlRJZGxZNjkrNE1DR040RGZnc05LbTVtcEVYWnRVamUxQkhE?=
+ =?utf-8?B?UWJhQjhDU2FZT1FXNXp6Y08ydE9Dem1CNUVWb2w5WG0vM3QzRGlrSWNLclE4?=
+ =?utf-8?B?d0Zyd3hqQjlDb2FqR1l5ODF3U1RUckt2YTZGTjZxc2tNRnFqWVEyVGxJdHgw?=
+ =?utf-8?B?R1BGd2lRbHdQeHJsSGJvT3Nzc014aDNyNVhheU82MTNlQVIzR3UyU0pIL0lp?=
+ =?utf-8?B?NnBackdiM2dYcGR5R2JzUVhOSzRPUDROYzg0TlFEcE94YnV5b3I0QWg0TWxF?=
+ =?utf-8?B?enA3SHZ1TGYvTWxOaHNpUFVYMnAzKzFKM0lXYWhsRlJXNVptanNGUjJDQlJ6?=
+ =?utf-8?B?Nk4vME8wRFBINDlUR3o1eHkxcmVQUGVHMWZ6VnNmZytnNnFGQmFlalN1ZHJI?=
+ =?utf-8?B?MTl4WE9oWDh3SDFEOWhINi9Da0U0cWFPaE1WaERseDkrQW4vVTRnMENOalNq?=
+ =?utf-8?B?ZXJyeHEyNzFTTWtwcmdjV0h5RTJmbHh5L1RJZ0hEYzdEMmxUZEtEd1B1cFJo?=
+ =?utf-8?B?S0tuanFMS2V5MVRXRS9aWFJ2cW1tOU04WllxQ29pTDBpN1hIYzBRbE05R3lh?=
+ =?utf-8?B?TG8xRjlNUzdVbDRkbnB3bTVQZ1Raa0t4eHRnZmVadGpzbWI3WlA4MTMvY3Rs?=
+ =?utf-8?B?SVFDV1dTNFlWb0Z2SnFmZGd1ZHBzWVZPVFVUaFVPdmdaWTJ6UDBJUzJwMnEx?=
+ =?utf-8?B?RGp0R0Zvd0J1K2o1SnZka0hVQXhNNUVGZUhpeFNodGZtcC9PWjJpbDNnUkxJ?=
+ =?utf-8?B?ekM1VDVEN0tleXNPalZudEp0bmxRalNXcWNxaGF6V2FXUnFVYXhEek9MM01V?=
+ =?utf-8?B?dS93M3BjbzQwcUpvL05qbXVRUTFFVXg0Vm1vK2F4NUIwTzIvZGVzYUJDdXNl?=
+ =?utf-8?B?d01URHErVUo2WXlZZnE3dmwyU2Z3SER6MFZvOTRXdkd0b1NFRUVFazR2Sm9Y?=
+ =?utf-8?B?NlpkYkloV21nWmg4MG5Nd0hCanVtVFREdDZsS0NLc1BRN3JsRUp6QkJleXJ1?=
+ =?utf-8?B?K3dOWnZ4RittdEd6b1FvMzlaZktpOHZ5MUN6cDBHNUtXaDNpTmFuMlYvRjky?=
+ =?utf-8?B?N1pNSW8vRDhtUnhFL1BlK04vNFd5UThNNU4vVmxuSzJYa3dYbmdMYlI5U0M0?=
+ =?utf-8?B?S1pqcW5UcjNmcGRvYlc5ZDB2T2lMai8zWnNsbjRmeDhtL21mT0FzcE9IRTVS?=
+ =?utf-8?Q?B0WldhquZ/VMn?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8784.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(7416014); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0hiQnRZb3JmRDNFb0RuRHM4cktWNWQxbm5FNnRha0RvdzBoWHIyMmEzK3li?=
+ =?utf-8?B?cTJYUi9XOFU2N0U0cXNQM2JvM2podEtpN3RVRytTUkRwS3FwcDRET3BXUjM2?=
+ =?utf-8?B?L045MGdOM0x6RGtRT0plOFBMcDNEUHQ5NnUyMndjZU82UU1wRzBBNVErK3Vq?=
+ =?utf-8?B?RXV1SFlPWHRsbFFsSkVrcDE1Q3BlR0FvdnpGUkRINEpta1NUay9xRWpudEVZ?=
+ =?utf-8?B?Yk52SFg5VkNXNG5ESjcxakVHVEpEOHpPdmJBOUJicjF3TjJCdklFeGJ0RkVJ?=
+ =?utf-8?B?L2Q0Y21VN2IzYTl2dFFhZDkyU2tCVk42ZnplbklmbFJxYTJMOWE2WnY5QXBl?=
+ =?utf-8?B?cTRNdzg4NGpyU1FpcDBWM1h3NmlWenZxMjdJbEFwRmhmT2g4TmxjMEYyV3Fo?=
+ =?utf-8?B?K3F3aVhGN0FNZk1YRXROWXloOU1mZ2tVWG1XK0pObWJITTZoUG9acFlhdi9G?=
+ =?utf-8?B?NTVQVzJLYUZhYWdvQ3doSmh3T1hjcDZlNWlYMG0wS05jbnRyWVFZdmgrcUgr?=
+ =?utf-8?B?ZklEVnJtbFNIY2lESHA4ZW5BL2cxQTVidFhiSDJZSUVvcExjdWkyWlJjTTVO?=
+ =?utf-8?B?WHl4RVgyejBZbEZjUlRHOWNnMDlxRHJKVjBHUm9PbEJPRHZXOUxuMk0yL2Jq?=
+ =?utf-8?B?L0hYTHJMNWxIb1ZTWmJRdHFPREZFN3NOWkY5YUJsVnBUVVc4WENucXo4T1Vs?=
+ =?utf-8?B?OEhXTlZBRE1BRXh0a2VaYStqdW1reVNQYXIvMU5KWGpRZVB1d2MvcHFJQjlX?=
+ =?utf-8?B?cDR1M0ZzbGtrVHNsTzdlQW9GYnd5UjkyaUExMXNZa3gxd25FM2M5TjhZdWJs?=
+ =?utf-8?B?NVc0N0VBL29RYkk3bEszRVZ1cDVFZ1l3Y2xacE1JbU1hU0tCRWFmOGJnUjBR?=
+ =?utf-8?B?NXJtTFlUVlZmY3J2d01LOE1vTnlmVTZySzd5N1oxdldxcWVFeTFVUHl0UFVp?=
+ =?utf-8?B?a0RGcGc0UHVHZzEwejA0MW5WdDNWanNGZU9RM1VoZmVmalk4RHE2NW9NYjAx?=
+ =?utf-8?B?Q2ROTDhITkQvRjhGWHgrYnpJL1ZNdVJMQ1hnbkp0ZlZaa2JXM1NqaTRxTGJC?=
+ =?utf-8?B?Ny9WZUtlNTVIb1pINkpkcEZUU2I1TjVTbnFHWjRsUXJCSDBHQS9INWNoN3RN?=
+ =?utf-8?B?N09IR2hDYytaKzl1MHZVN3dJZW5heGY5L1pFMXB4ckVlOHl0ZERwL3J5R2Fo?=
+ =?utf-8?B?SVY0cTk3anJSak4ra0RQV1FQZG1OaVN2aDBKSVpDMmpIekQ0cE1sU0xHQnR1?=
+ =?utf-8?B?emUyZFpNNTM0UktWcDhGT2UvR0ZVTFlNanlZMHZ2WXRSTUFMRGM4a0hoSExT?=
+ =?utf-8?B?Vk1kQ1Fna2pWZVN3QnM1MjF3SW02MTVGczNEQXU1QnplREtUT0ZxWmprRnF1?=
+ =?utf-8?B?d0RYUVgwaldEZ0g0VFYwMHR3Wk5ja05XTDYzbGNkcHZ0TWM5VnJ6NnVGQi9y?=
+ =?utf-8?B?OTl1b3Q5L2dRR0Z4aXFsWnB1UFJ1V01zRGVTdUZ1c2d6Q2N4WTFxOGR4dE5l?=
+ =?utf-8?B?UG9yWFNqNlhiR2QveC9vcEwxQitlWTNtQzlQSTMxOGNaMUlxNW5lTFkrTE5X?=
+ =?utf-8?B?dWw1YTVNaTdzQjlrYlpaaWdoSUducXJYTWRTMVJRZUc0SWZQM01sSVl2U3F5?=
+ =?utf-8?B?Z21QVHNmT1NjNEtzcWQyWkk2WmxPU3h1Yldta1kybnE1cWdBK0JkY1pRYlFJ?=
+ =?utf-8?B?LzVGZHpwMmlDYTJQWHZaV05IRTVCZ2c2eWFjd2hUcTlpZjdjUzZKOStMaVdz?=
+ =?utf-8?B?M3U4Tll3UHZVQzh0OFJCTXNlMFAvT0VHbUxGRkdaMTBNZmJTR25tQjczV2lM?=
+ =?utf-8?B?RHdUVjNGYzdZQzEwQVJBemxhdWhzR2FWUEVxQ2UwUU1RZlZQblBkWHRXekxo?=
+ =?utf-8?B?emk4bHpmb3duR0hycHA2NlR5OWpoSWwwWmJwTS9yWklLK0VNV1NGdzNHNi94?=
+ =?utf-8?B?OHZ0Y3RRSDZYNm5MZ0JTSk5VakZKeVpWRzMyK0w3ODExVXBGZkxPU2NTQ1dV?=
+ =?utf-8?B?cGhXbHFwVnB5eU15eGc2NGNBNS9NNm9zVmVSMDBFcGdGT1kySnRCRVpieWZr?=
+ =?utf-8?B?TUdxRTNqMUVvbVd2M3BIM3NUZndpUkg0OXpJcHJlR0hYYjZlbzE3SjFzN0tZ?=
+ =?utf-8?B?aDlBRzZjVmxUeEFYMXJxODFtLzFpZk9lQlNoUk1mV21BZzV0eHVGcHZOeUFU?=
+ =?utf-8?B?SEtCTkt4UkliL0I5Z1NuKzA3dDN3V2gxUU1VWDhuVERhL0tXcCs1OFRBNG1l?=
+ =?utf-8?B?UDJpUFFNR2crdjV3RURnd2R4Rkh3PT0=?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 415c2a01-a6b9-4076-5a93-08dd4d197f71
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8784.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2025 17:03:26.7055 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M1VLwkNP+f5oRF6P/GxpzvOnR7KUglNleES4EsK/MvUHtmN2FAcFsYsJHXT6dwwhyeQSPPEGNY2PkdgcUHBiFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8824
+Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+ UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 08/10] arm64: dts: st: introduce stm32mp21
-	SoCs family
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: convert to
+ phylink managed EEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,260 +177,75 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/13/25 10:02, Krzysztof Kozlowski wrote:
-> On Mon, Feb 10, 2025 at 04:21:02PM +0100, Amelie Delaunay wrote:
->> From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+
+On 14/02/2025 11:21, Russell King (Oracle) wrote:
+> On Fri, Feb 14, 2025 at 10:58:55AM +0000, Jon Hunter wrote:
+>> Thanks for the feedback. So ...
 >>
->> STM32MP21 family is composed of 3 SoCs defined as following:
+>> 1. I can confirm that suspend works if I disable EEE via ethtool
+>> 2. Prior to this change I do see phy_eee_rx_clock_stop being called
+>>     to enable the clock resuming from suspend, but after this change
+>>     it is not.
 >>
->> -STM32MP211: common part composed of 1*Cortex-A35, common peripherals
->> like SDMMC, UART, SPI, I2C, parallel display, 1*ETH ...
+>> Prior to this change I see (note the prints around 389-392 are when
+>> we resume from suspend) ...
 >>
->> -STM32MP213: STM32MP211 + a second ETH, CAN-FD.
+>> [    4.654454] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 0
+> 
+> This is a bug in phylink - it shouldn't have been calling
+> phy_eee_rx_clock_stop() where a MAC doesn't support phylink managed EEE.
+> 
+>> [    4.723123] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
+>> [    7.629652] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
+> 
+> Presumably, this is when the link comes up before suspend, so the PHY
+> has been configured to allow the RX clock to be stopped prior to suspend
+> 
+>> [  389.086185] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
+>> [  392.863744] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
+> 
+> Presumably, as this is after resume, this is again when the link comes
+> up (that's the only time that stmmac calls phy_eee_rx_clock_stop().)
+> 
+>> After this change I see ...
 >>
->> -STM32MP215: STM32MP213 + Display and CSI2.
->>
->> A second diversity layer exists for security features/ A35 frequency:
->> -STM32MP21xY, "Y" gives information:
->>   -Y = A means A35@1.2GHz + no cryp IP and no secure boot.
->>   -Y = C means A35@1.2GHz + cryp IP and secure boot.
->>   -Y = D means A35@1.5GHz + no cryp IP and no secure boot.
->>   -Y = F means A35@1.5GHz + cryp IP and secure boot.
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
->> ---
->>   arch/arm64/boot/dts/st/stm32mp211.dtsi  | 130 ++++++++++++++++++++++++++++++++
->>   arch/arm64/boot/dts/st/stm32mp213.dtsi  |   9 +++
->>   arch/arm64/boot/dts/st/stm32mp215.dtsi  |   9 +++
->>   arch/arm64/boot/dts/st/stm32mp21xc.dtsi |   8 ++
->>   arch/arm64/boot/dts/st/stm32mp21xf.dtsi |   8 ++
->>   5 files changed, 164 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..d384359e0ea16e2593795ff48d4a699324c8ca75
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
->> @@ -0,0 +1,130 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
->> +/*
->> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
->> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->> + */
->> +#include <dt-bindings/interrupt-controller/arm-gic.h>
->> +
->> +/ {
->> +	#address-cells = <2>;
->> +	#size-cells = <2>;
->> +
->> +	cpus {
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +
->> +		cpu0: cpu@0 {
->> +			compatible = "arm,cortex-a35";
->> +			device_type = "cpu";
->> +			reg = <0>;
->> +			enable-method = "psci";
->> +		};
->> +	};
->> +
->> +	arm-pmu {
->> +		compatible = "arm,cortex-a35-pmu";
->> +		interrupts = <GIC_SPI 368 IRQ_TYPE_LEVEL_HIGH>;
->> +		interrupt-affinity = <&cpu0>;
->> +		interrupt-parent = <&intc>;
->> +	};
->> +
->> +	arm_wdt: watchdog {
->> +		compatible = "arm,smc-wdt";
->> +		arm,smc-id = <0xbc000000>;
->> +		status = "disabled";
->> +	};
->> +
->> +	clocks {
->> +		ck_flexgen_08: ck-flexgen-08 {
->> +			#clock-cells = <0>;
->> +			compatible = "fixed-clock";
->> +			clock-frequency = <64000000>;
->> +		};
->> +
->> +		ck_flexgen_51: ck-flexgen-51 {
->> +			#clock-cells = <0>;
->> +			compatible = "fixed-clock";
->> +			clock-frequency = <200000000>;
->> +		};
->> +	};
->> +
->> +	firmware {
->> +		optee {
->> +			compatible = "linaro,optee-tz";
->> +			method = "smc";
->> +		};
->> +
->> +		scmi: scmi {
->> +			compatible = "linaro,scmi-optee";
->> +			#address-cells = <1>;
->> +			#size-cells = <0>;
->> +			linaro,optee-channel-id = <0>;
->> +
->> +			scmi_clk: protocol@14 {
->> +				reg = <0x14>;
->> +				#clock-cells = <1>;
->> +			};
->> +
->> +			scmi_reset: protocol@16 {
->> +				reg = <0x16>;
->> +				#reset-cells = <1>;
->> +			};
->> +		};
->> +	};
->> +
->> +	intc: interrupt-controller@4ac00000 {
+>> [    4.644614] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
+>> [    4.679224] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
+>> [  191.219828] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
 > 
-> MMIO nodes belong to the soc.
+> To me, this looks no different - the PHY was configured for clock stop
+> before suspending in both cases.
 > 
+> However, something else to verify with the old code - after boot and the
+> link comes up (so you get the second phy_eee_rx_clock_stop() at 7s),
+> try unplugging the link and re-plugging it. Then try suspending.
 
-Indeed.
+OK will do. I will have to try that when I am back in the office next week.
 
->> +		compatible = "arm,cortex-a7-gic";
->> +		#interrupt-cells = <3>;
->> +		interrupt-controller;
->> +		reg = <0x0 0x4ac10000 0x0 0x1000>,
->> +		      <0x0 0x4ac20000 0x0 0x2000>,
->> +		      <0x0 0x4ac40000 0x0 0x2000>,
->> +		      <0x0 0x4ac60000 0x0 0x2000>;
->> +	};
->> +
->> +	psci {
->> +		compatible = "arm,psci-1.0";
->> +		method = "smc";
->> +	};
->> +
->> +	timer {
->> +		compatible = "arm,armv8-timer";
->> +		interrupt-parent = <&intc>;
->> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
->> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
->> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
->> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
->> +		arm,no-tick-in-suspend;
->> +	};
->> +
->> +	soc@0 {
->> +		compatible = "simple-bus";
->> +		#address-cells = <1>;
->> +		#size-cells = <2>;
->> +		interrupt-parent = <&intc>;
->> +		ranges = <0x0 0x0 0x0 0x0 0x80000000>;
+> The point of this test is to verify whether the PHY ignores changes to
+> the RX clock stop configuration while the link is up.
 > 
-> ranges is the second property. See DTS coding style.
 > 
+> 
+> The next stage is to instrument dwmac4_set_eee_mode(),
+> dwmac4_reset_eee_mode() and dwmac4_set_eee_lpi_entry_timer() to print
+> the final register values in each function vs dwmac4_set_lpi_mode() in
+> the new code. Also, I think instrumenting stmmac_common_interrupt() to
+> print a message when we get either CORE_IRQ_TX_PATH_IN_LPI_MODE or
+> CORE_IRQ_TX_PATH_EXIT_LPI_MODE indicating a change in LPI state would
+> be a good idea.
+> 
+> I'd like to see how this all ties up with suspend, resume, link up
+> and down events, so please don't trim the log so much.
 
-Ok.
+OK thanks. I will instrument these too and get some more logs.
 
->> +		dma-ranges = <0x0 0x0 0x80000000 0x1 0x0>;
->> +
->> +		rifsc: bus@42080000 {
->> +			compatible = "simple-bus";
->> +			reg = <0x42080000 0x0 0x1000>;
->> +			#address-cells = <1>;
->> +			#size-cells = <2>;
->> +			ranges;
-> 
-> and here is third.
-> 
->> +			dma-ranges;
->> +
->> +			usart2: serial@400e0000 {
-> 
-> Although addresses seem wrong. How bus could start at 0x4208 but device
-> at 0x400e?
-> 
->> +				compatible = "st,stm32h7-uart";
->> +				reg = <0x400e0000 0x0 0x400>;
->> +				interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
->> +				clocks = <&ck_flexgen_08>;
->> +				status = "disabled";
->> +			};
->> +		};
->> +
->> +		syscfg: syscon@44230000 {
->> +			compatible = "st,stm32mp25-syscfg", "syscon";
-> 
-> Which soc is this? DTSI says stm32mp211, commit STM32MP21, but
-> compatible xxx25?
-> 
+Cheers!
+Jon
 
-Looks like a new compatible is needed, and I guess it is also true for 
-stm32mp231.
+-- 
+nvpublic
 
->> +			reg = <0x44230000 0x0 0x10000>;
->> +		};
->> +	};
->> +};
->> diff --git a/arch/arm64/boot/dts/st/stm32mp213.dtsi b/arch/arm64/boot/dts/st/stm32mp213.dtsi
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..22cdedd9abbf4efac2334d497618daa6cc76727b
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/st/stm32mp213.dtsi
->> @@ -0,0 +1,9 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
->> +/*
->> + * Copyright (C) STMicroelectronics 2024 - All Rights Reserved
->> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->> + */
->> +#include "stm32mp211.dtsi"
->> +
->> +/ {
->> +};
->> diff --git a/arch/arm64/boot/dts/st/stm32mp215.dtsi b/arch/arm64/boot/dts/st/stm32mp215.dtsi
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..d2c63e92b3cc15ec64898374fd2e745a9c71eb6d
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/st/stm32mp215.dtsi
->> @@ -0,0 +1,9 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
->> +/*
->> + * Copyright (C) STMicroelectronics 2024 - All Rights Reserved
->> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->> + */
->> +#include "stm32mp213.dtsi"
->> +
->> +/ {
->> +};
-> 
-> What is the point of this file exactly?
-> 
-
-Skeleton file for upcoming second ethernet and can-fd peripherals, not 
-available on stm32mp211.
-
->> diff --git a/arch/arm64/boot/dts/st/stm32mp21xc.dtsi b/arch/arm64/boot/dts/st/stm32mp21xc.dtsi
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..39507a7564c8488647a3276eb227eb5f446359e6
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/st/stm32mp21xc.dtsi
->> @@ -0,0 +1,8 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
->> +/*
->> + * Copyright (C) STMicroelectronics 2024 - All Rights Reserved
->> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
->> + */
->> +
->> +/ {
->> +};
-> 
-> And this and others.
-> 
-
-Skeleton file for upcoming cryptographic support, not available on 
-stm32mp21xa and stm32mp21xd.
-As said previously, same split is used on other STM32 MPUs.
-
-Regards,
-Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
