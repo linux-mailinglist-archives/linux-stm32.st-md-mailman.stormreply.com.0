@@ -2,63 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 247FFA35929
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 09:44:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F015A35977
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 09:56:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C074BC78F8C;
-	Fri, 14 Feb 2025 08:44:05 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCDEAC78F8D;
+	Fri, 14 Feb 2025 08:56:39 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6E0FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06340C78F8C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 08:44:03 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3D198441E5;
- Fri, 14 Feb 2025 08:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1739522643;
+ Fri, 14 Feb 2025 08:56:33 +0000 (UTC)
+From: Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1739523392;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=WSaeyfo8DQwqJGKUIUvYkkgVgRZAUJU2hAJTGaurvSE=;
- b=iF611NiJf5UmWwAeRJ9fSRHPIr3slCUYg5J6GAy0IdyLMF/8cuZA6Vlvrdk9KqZZpGEpG8
- kLtnvTavAgWOoMu/olJ9i0hTVWQZKGjyvLFuGt9ENeeuW2gHQeRM3dozeIy233+ZMMhS5l
- 4cDs+4mGEpzgEf4vKDvoq+1MDohQXLjW1DGeXMvZ8xsXfUVsOcYUKMMVf6067nFcAb05mB
- cfewLHnFQN1PM5oKIbQVBVnPsEDPGm/PFVLg9W1dFGD/POGdAICBc/mMRZ+80qIVM1vKux
- lBikh5Q99/eDpUU7L0gR4sCdqdJ80nrXpDpQzlbTGaohs3kqxrCBjUkk1PI9qQ==
-Message-ID: <1274bae7-e473-4711-9235-de0aeeadb02f@bootlin.com>
-Date: Fri, 14 Feb 2025 09:44:01 +0100
+ bh=k0/rnce+Rd2CzFJn7uWLGWjtLuFwcjvq8VkWuHMSEk0=;
+ b=y10N4J9imkiBtiYErNuQfAugaMY9dHIlTa6jk8nKosC2v3SJXWJPHGe0xyePWHxt5jNQ6T
+ L/ztRknGyeA7Ns0IJ6FPBweOlUPBYXdwQ22t13502qrl/DYm+97dI93sRuilT2WFHVC/EX
+ er0YaIC3PVdb575p/Y3t+1pBXzT9ZJIp5kXqP5muSZ5gkhkgdbv92HWqI5qkQ4gl1QdOsu
+ VAZKX5eFMzikPH2LlvgnyCY4Ir85tRH4gO7C7O9Q0qVCZxV/BChg8B08D0Xc0TyLLwbXF3
+ UXNEo+jwiwNye1bUL3UQYINieP08qiLR9RH4GvRI8adb8RWPMDzevf+2L7L4AA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1739523392;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=k0/rnce+Rd2CzFJn7uWLGWjtLuFwcjvq8VkWuHMSEk0=;
+ b=LDC6z2ymJ85I5KfU1stXIGjBN0B1fRLsUag1totGNYe1kesSKGeCfmxgBkcQVb3dce2pYR
+ Xvz4tS+FkQBIsZDQ==
+To: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>, Vladimir
+ Oltean <vladimir.oltean@nxp.com>
+In-Reply-To: <b7740709-6b4a-4f44-b4d7-e265bb823aca@linux.intel.com>
+References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
+ <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
+ <20250212220121.ici3qll66pfoov62@skbuf>
+ <b19357dc-590d-458c-9646-ee5993916044@linux.intel.com>
+ <87cyfmnjdh.fsf@kurt.kurt.home>
+ <5902cc28-a649-4ae9-a5ba-83aa265abaf8@linux.intel.com>
+ <20250213130003.nxt2ev47a6ppqzrq@skbuf>
+ <1c981aa1-e796-4c53-9853-3eae517f2f6d@linux.intel.com>
+ <877c5undbg.fsf@kurt.kurt.home> <20250213184613.cqc2zhj2wkaf5hn7@skbuf>
+ <87v7td3bi1.fsf@kurt.kurt.home>
+ <b7740709-6b4a-4f44-b4d7-e265bb823aca@linux.intel.com>
+Date: Fri, 14 Feb 2025 09:56:29 +0100
+Message-ID: <874j0wrjk2.fsf@kurt.kurt.home>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jonathan Corbet <corbet@lwn.net>
-References: <20250214-atomic_sleep_mctrl_serial_gpio-v2-1-1e60c732fd90@bootlin.com>
-From: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20250214-atomic_sleep_mctrl_serial_gpio-v2-1-1e60c732fd90@bootlin.com>
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegledvtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpeetlhgvgihishcunfhothhhohhrrocuoegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepvdetteektdehudelheehkeeggfejgfelveevgeevtdejudfgveetgefhtdduuedtnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopegludelvddrudeikedrtddrvddungdpmhgrihhlfhhrohhmpegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepvddtpdhrtghpthhtohepghhrvghgkhhhsehlihhnuhigfhhouhhnuggrthhiohhnrdhorhhgpdhrtghpthhtohepjhhirhhishhlrggshieskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhhitghhrghrugdrghgvnhhouhgusegsohhothhlihhnrdgtohhmpdhrtghpthhtohepnhhitgholhgrshdrfhgvrhhrvgesmhhitghro
- hgthhhiphdrtghomhdprhgtphhtthhopegrlhgvgigrnhgurhgvrdgsvghllhhonhhisegsohhothhlihhnrdgtohhmpdhrtghpthhtoheptghlrghuughiuhdrsggviihnvggrsehtuhigohhnrdguvghvpdhrtghpthhtohepshhhrgifnhhguhhosehkvghrnhgvlhdrohhrghdprhgtphhtthhopehsrdhhrghuvghrsehpvghnghhuthhrohhnihigrdguvg
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: imx@lists.linux.dev, linux-serial@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] serial: mctrl_gpio: add parameter to
-	skip sync
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
+ bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH iwl-next v4 0/9] igc: Add support for
+ Frame Preemption feature in IGC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,65 +85,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5408270772367322677=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8xNC8yNSAwOTozOCwgQWxleGlzIExvdGhvcsOpIHdyb3RlOgo+IFRoZSBmb2xsb3dpbmcg
-c3BsYXQgaGFzIGJlZW4gb2JzZXJ2ZWQgb24gYSBTQU1BNUQyNyBwbGF0Zm9ybSB1c2luZwo+IGF0
-bWVsX3NlcmlhbDoKPiAKPiBCVUc6IHNsZWVwaW5nIGZ1bmN0aW9uIGNhbGxlZCBmcm9tIGludmFs
-aWQgY29udGV4dCBhdCBrZXJuZWwvaXJxL21hbmFnZS5jOjczOAo+IGluX2F0b21pYygpOiAxLCBp
-cnFzX2Rpc2FibGVkKCk6IDEyOCwgbm9uX2Jsb2NrOiAwLCBwaWQ6IDI3LCBuYW1lOiBrd29ya2Vy
-L3U1OjAKPiBwcmVlbXB0X2NvdW50OiAxLCBleHBlY3RlZDogMAo+IElORk86IGxvY2tkZXAgaXMg
-dHVybmVkIG9mZi4KPiBpcnEgZXZlbnQgc3RhbXA6IDAKPiBoYXJkaXJxcyBsYXN0ICBlbmFibGVk
-IGF0ICgwKTogWzwwMDAwMDAwMD5dIDB4MAo+IGhhcmRpcnFzIGxhc3QgZGlzYWJsZWQgYXQgKDAp
-OiBbPGMwMTU4OGYwPl0gY29weV9wcm9jZXNzKzB4MWM0Yy8weDdiZWMKPiBzb2Z0aXJxcyBsYXN0
-ICBlbmFibGVkIGF0ICgwKTogWzxjMDE1ODk0ND5dIGNvcHlfcHJvY2VzcysweDFjYTAvMHg3YmVj
-Cj4gc29mdGlycXMgbGFzdCBkaXNhYmxlZCBhdCAoMCk6IFs8MDAwMDAwMDA+XSAweDAKPiBDUFU6
-IDAgVUlEOiAwIFBJRDogMjcgQ29tbToga3dvcmtlci91NTowIE5vdCB0YWludGVkIDYuMTMuMC1y
-YzcrICM3NAo+IEhhcmR3YXJlIG5hbWU6IEF0bWVsIFNBTUE1Cj4gV29ya3F1ZXVlOiBoY2kwIGhj
-aV9wb3dlcl9vbiBbYmx1ZXRvb3RoXQo+IENhbGwgdHJhY2U6Cj4gICB1bndpbmRfYmFja3RyYWNl
-IGZyb20gc2hvd19zdGFjaysweDE4LzB4MWMKPiAgIHNob3dfc3RhY2sgZnJvbSBkdW1wX3N0YWNr
-X2x2bCsweDQ0LzB4NzAKPiAgIGR1bXBfc3RhY2tfbHZsIGZyb20gX19taWdodF9yZXNjaGVkKzB4
-MzhjLzB4NTk4Cj4gICBfX21pZ2h0X3Jlc2NoZWQgZnJvbSBkaXNhYmxlX2lycSsweDFjLzB4NDgK
-PiAgIGRpc2FibGVfaXJxIGZyb20gbWN0cmxfZ3Bpb19kaXNhYmxlX21zKzB4NzQvMHhjMAo+ICAg
-bWN0cmxfZ3Bpb19kaXNhYmxlX21zIGZyb20gYXRtZWxfZGlzYWJsZV9tcy5wYXJ0LjArMHg4MC8w
-eDFmNAo+ICAgYXRtZWxfZGlzYWJsZV9tcy5wYXJ0LjAgZnJvbSBhdG1lbF9zZXRfdGVybWlvcysw
-eDc2NC8weDExZTgKPiAgIGF0bWVsX3NldF90ZXJtaW9zIGZyb20gdWFydF9jaGFuZ2VfbGluZV9z
-ZXR0aW5ncysweDE1Yy8weDk5NAo+ICAgdWFydF9jaGFuZ2VfbGluZV9zZXR0aW5ncyBmcm9tIHVh
-cnRfc2V0X3Rlcm1pb3MrMHgyYjAvMHg2NjgKPiAgIHVhcnRfc2V0X3Rlcm1pb3MgZnJvbSB0dHlf
-c2V0X3Rlcm1pb3MrMHg2MDAvMHg4ZWMKPiAgIHR0eV9zZXRfdGVybWlvcyBmcm9tIHR0eXBvcnRf
-c2V0X2Zsb3dfY29udHJvbCsweDE4OC8weDFlMAo+ICAgdHR5cG9ydF9zZXRfZmxvd19jb250cm9s
-IGZyb20gd2lsY19zZXR1cCsweGQwLzB4NTI0IFtoY2lfd2lsY10KPiAgIHdpbGNfc2V0dXAgW2hj
-aV93aWxjXSBmcm9tIGhjaV9kZXZfb3Blbl9zeW5jKzB4MzMwLzB4MjAzYyBbYmx1ZXRvb3RoXQo+
-ICAgaGNpX2Rldl9vcGVuX3N5bmMgW2JsdWV0b290aF0gZnJvbSBoY2lfZGV2X2RvX29wZW4rMHg0
-MC8weGIwIFtibHVldG9vdGhdCj4gICBoY2lfZGV2X2RvX29wZW4gW2JsdWV0b290aF0gZnJvbSBo
-Y2lfcG93ZXJfb24rMHgxMmMvMHg2NjQgW2JsdWV0b290aF0KPiAgIGhjaV9wb3dlcl9vbiBbYmx1
-ZXRvb3RoXSBmcm9tIHByb2Nlc3Nfb25lX3dvcmsrMHg5OTgvMHgxYTM4Cj4gICBwcm9jZXNzX29u
-ZV93b3JrIGZyb20gd29ya2VyX3RocmVhZCsweDZlMC8weGZiNAo+ICAgd29ya2VyX3RocmVhZCBm
-cm9tIGt0aHJlYWQrMHgzZDQvMHg0ODQKPiAgIGt0aHJlYWQgZnJvbSByZXRfZnJvbV9mb3JrKzB4
-MTQvMHgyOAo+IAo+IFRoaXMgd2FybmluZyBpcyBlbWl0dGVkIHdoZW4gdHJ5aW5nIHRvIHRvZ2ds
-ZSwgYXQgdGhlIGhpZ2hlc3QgbGV2ZWwsCj4gc29tZSBmbG93IGNvbnRyb2wgKHdpdGggc2VyZGV2
-X2RldmljZV9zZXRfZmxvd19jb250cm9sKSBpbiBhIGRldmljZQo+IGRyaXZlci4gQXQgdGhlIGxv
-d2VzdCBsZXZlbCwgdGhlIGF0bWVsX3NlcmlhbCBkcml2ZXIgaXMgdXNpbmcKPiBzZXJpYWxfbWN0
-cmxfZ3BpbyBsaWIgdG8gZW5hYmxlL2Rpc2FibGUgdGhlIGNvcnJlc3BvbmRpbmcgSVJRcwo+IGFj
-Y29yZGluZ2x5LiAgVGhlIHdhcm5pbmcgZW1pdHRlZCBieSBDT05GSUdfREVCVUdfQVRPTUlDX1NM
-RUVQIGlzIGR1ZSB0bwo+IGRpc2FibGVfaXJxIChjYWxsZWQgaW4gbWN0cmxfZ3Bpb19kaXNhYmxl
-X21zKSBiZWluZyBwb3NzaWJseSBjYWxsZWQgaW4KPiBzb21lIGF0b21pYyBjb250ZXh0IChzb21l
-IHR0eSBkcml2ZXJzIHBlcmZvcm0gbW9kZW0gbGluZXMgY29uZmlndXJhdGlvbgo+IGluIHJlZ2lv
-bnMgcHJvdGVjdGVkIGJ5IHBvcnQgbG9jaykuCj4gCj4gU3BsaXQgbWN0cmxfZ3Bpb19kaXNhYmxl
-X21zIGludG8gdHdvIGRpZmZlcmVudHMgQVBJcywgYSBub24tYmxvY2tpbmcgb25lCj4gYW5kIGEg
-YmxvY2tpbmcgb25lLiBSZXBsYWNlIG1jdHJsX2dwaW9fZGlzYWJsZV9tcyBjYWxscyB3aXRoIHRo
-ZQo+IHJlbGV2YW50IHZlcnNpb24gZGVwZW5kaW5nIG9uIHdoZXRoZXIgdGhlIGNhbGwgaXMgcHJv
-dGVjdGVkIGJ5IHNvbWUgcG9ydAo+IGxvY2suCj4gCj4gU3VnZ2VzdGVkLWJ5OiBKaXJpIFNsYWJ5
-IDxqaXJpc2xhYnlAa2VybmVsLm9yZz4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4aXMgTG90aG9yw6kg
-PGFsZXhpcy5sb3Rob3JlQGJvb3RsaW4uY29tPgoKU28gZGVzcGl0ZSBjaGFuZ2luZyB0aGUgY29t
-bWl0IGRlc2NyaXB0aW9uLCBJIGZvcmdvdCB0byB1cGRhdGUgdGhlIGFjdHVhbCBjb21taXQKbWVz
-c2FnZSwgd2hpY2ggaXMgZXZlbnR1YWxseSBub3QgYWRkaW5nIGEgZmxhZyBhbnltb3JlIGJ1dCBu
-ZXcgQVBJcy4gdjMgd2lsbApmb2xsb3csIHNvcnJ5IGZvciB0aGUgbm9pc2UuCgpBbGV4aXMKCgot
-LSAKQWxleGlzIExvdGhvcsOpLCBCb290bGluCkVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwgZW5n
-aW5lZXJpbmcKaHR0cHM6Ly9ib290bGluLmNvbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+--===============5408270772367322677==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Fri Feb 14 2025, Abdul Rahim, Faizal wrote:
+> On 14/2/2025 3:12 am, Kurt Kanzenbach wrote:
+>> On Thu Feb 13 2025, Vladimir Oltean wrote:
+>>> So, confusingly to me, it seems like one operating mode is fundamentally
+>>> different from the other, and something will have to change if both will
+>>> be made to behave the same. What will change? You say mqprio will behave
+>>> like taprio, but I think if anything, mqprio is the one which does the
+>>> right thing, in igc_tsn_tx_arb(), and taprio seems to use the default Tx
+>>> arbitration scheme?
+>>=20
+>> Correct. taprio is using the default scheme. mqprio configures it to
+>> what ever the user provided (in igc_tsn_tx_arb()).
+>>=20
+>>> I don't think I'm on the same page as you guys, because to me, it is
+>>> just odd that the P traffic classes would be the first ones with
+>>> mqprio, but the last ones with taprio.
+>>=20
+>> I think we are on the same page here. At the end both have to behave the
+>> same. Either by using igc_tsn_tx_arb() for taprio too or only using the
+>> default scheme for both (and thereby keeping broken_mqprio). Whatever
+>> Faizal implements I'll match the behavior with mqprio.
+>>=20
+>
+> Hi Kurt & Vladimir,
+>
+> After reading Vladimir's reply on tc, hw queue, and socket priority mappi=
+ng=20
+> for both taprio and mqprio, I agree they should follow the same priority=
+=20
+> scheme for consistency=E2=80=94both in code and command usage (i.e., tapr=
+io,=20
+> mqprio, and fpe in both configurations). Since igc_tsn_tx_arb() ensures a=
+=20
+> standard mapping of tc, socket priority, and hardware queue priority, I'l=
+l=20
+> enable taprio to use igc_tsn_tx_arb() in a separate patch submission.
+
+There's one point to consider here: igc_tsn_tx_arb() changes the mapping
+between priorities and Tx queues. I have no idea how many people rely on
+the fact that queue 0 has always the highest priority. For example, it
+will change the Tx behavior for schedules which open multiple traffic
+classes at the same time. Users may notice.
+
+OTOH changing mqprio to the broken_mqprio model is easy, because AFAIK
+there's only one customer using this.
+
+Thanks,
+Kurt
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEvLm/ssjDfdPf21mSwZPR8qpGc4IFAmevBT0THGt1cnRAbGlu
+dXRyb25peC5kZQAKCRDBk9HyqkZzgsbpD/9AxFeEEq8XNrGj2pz6LdoAUuyEQfHj
+t+9vHsspGPBsJxkOhM3JG10feAFjH823FcdQIruXggTynYrEO8GZH+G5a1qa24dh
+6QAhDEi5ALUqVUD65fdIddO/wfEdDzSQj81bkkehRPqJ5V5bkaGGV9EJ6OYCEREE
+L0PJ7rmipFvhZkbZ/1AKmO6U2yB8qDh2lwfAAKCYStjQDn7XdKrDhZVHAgxVn7UJ
+rlxoaRVV9a419VYNs8lyeOkBrANThzcX4UPv8gs0ar6PtgDriPrVpeHa6wvFa+xl
+/s1b9FtCHwZGjhaQVlRSMYuSF4N4TqBW9aXsCW81hJb2wka+MV8PTtGntss/yv6k
+WU5dso/sCDXTD/4r4AQiS2p9w5exEIgNkcT55/0mnjiJNJ2Lzk+0ikrEC6LLnfZj
+0UME5TLxP09SOIa68d5wHzi4JRKr+NTwcEevieGsxS78sC1UYvMi2jWiUa6C9fdz
+TPU8/YpJ4Mw/8orXm/1Dkb5XKd3ef5/RF5uFG5Cu3vem7SJJJya8BrTqiUDesuy0
+n3Wgx2CUBZ/sl1qssCGu2HwOfU/EeWtc4Pxr7UE9WKPc+aeMmJMt0qONmPYln/iJ
+dPr18MvJNHlWM1NFmuAEV6ZJoo/LzvWEbvwNlJmKb8GodD4To4YEk5/iGWncaXkP
+noqBzMdqbY5wEw==
+=EOqX
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============5408270772367322677==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5408270772367322677==--
