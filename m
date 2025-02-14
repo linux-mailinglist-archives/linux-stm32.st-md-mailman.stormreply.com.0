@@ -2,103 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D988A355EA
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 05:54:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D366BA3562F
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 06:23:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2262C78F89;
-	Fri, 14 Feb 2025 04:54:49 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 839D8C78F8C;
+	Fri, 14 Feb 2025 05:23:34 +0000 (UTC)
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3CC5C78F7D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68812C78F8B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 04:54:41 +0000 (UTC)
+ Fri, 14 Feb 2025 05:23:27 +0000 (UTC)
 Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20250214045438epoutp014c7ee1a7080c1d7a219e1d3b16a6d48e~j_hveieox0990809908epoutp01U
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20250214052324epoutp03032a9d969ba92837442ee191303bd28b~j_624lOre1092310923epoutp03g
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 04:54:38 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20250214045438epoutp014c7ee1a7080c1d7a219e1d3b16a6d48e~j_hveieox0990809908epoutp01U
+ Fri, 14 Feb 2025 05:23:24 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20250214052324epoutp03032a9d969ba92837442ee191303bd28b~j_624lOre1092310923epoutp03g
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1739508878;
- bh=GFJe4qALkeQEhys3xW/L0dietQst9PmodQmHtovFhEA=;
+ s=mail20170921; t=1739510604;
+ bh=fjzZ8g1rId+ba7sBsfiAyhOJa4sqp8a1IhoPL8J8YzQ=;
  h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=OCSJZ3NGxdDlcKb32darMlmiZ9woTMMT0+iKvYj9+6VOgcr23M/cPHMpDXwV7R90r
- Hj0yIWN7mJrwtZb2aCdAFsucsVLf0WfdJUylOlj7nLVHW6RE8pIIglbtzrZM9f9VOn
- yYh275MWgLFb8JTa9dkuTKY34fit/TYk7wIISdww=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas5p4.samsung.com (KnoxPortal) with ESMTP id
- 20250214045438epcas5p40ed000ae5a1d8c794f122852605f60e7~j_hu587St1722717227epcas5p4t;
- Fri, 14 Feb 2025 04:54:38 +0000 (GMT)
-Received: from epsmgec5p1new.samsung.com (unknown [182.195.38.182]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 4YvKTm1MtZz4x9Px; Fri, 14 Feb
- 2025 04:54:36 +0000 (GMT)
-Received: from epcas5p4.samsung.com ( [182.195.41.42]) by
- epsmgec5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 43.3F.19710.C8CCEA76; Fri, 14 Feb 2025 13:54:36 +0900 (KST)
+ b=irqqnmASkQa7cNtEGnYM4PV9/8czDACH+/ZI5FXUk2TQtMEAdh4bqGZNlHDVgHiDV
+ SUpK+peH3ql2DAfrza3cRo1mhmWfpQSCaDBaVJHfYakptthXVrGm8XrwxelZIwuJec
+ fkmOW1FW11DVpyIGJ5Yo2bfe2u51VPSCW4OWimyE=
+Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTP id
+ 20250214052324epcas5p28619e8fcb61431668ad2fe26a2df304e~j_62Ut5Xr1362413624epcas5p2A;
+ Fri, 14 Feb 2025 05:23:24 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.182]) by
+ epsnrtp1.localdomain (Postfix) with ESMTP id 4YvL6y2Y81z4x9Py; Fri, 14 Feb
+ 2025 05:23:22 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ A7.13.19956.A43DEA76; Fri, 14 Feb 2025 14:23:22 +0900 (KST)
 Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20250214045402epcas5p3396c5963c8764122bd0ea8e6def478bd~j_hNb8N6R1547315473epcas5p3p;
- Fri, 14 Feb 2025 04:54:02 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20250214051751epcas5p13fec2d1ca9c6505cab1d4c1476346ed6~j_2ANQKv51034810348epcas5p1F;
+ Fri, 14 Feb 2025 05:17:51 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
  epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20250214045402epsmtrp17cf0464ecfc999f324a0bf7b16616463~j_hNaQEVX3205132051epsmtrp1b;
- Fri, 14 Feb 2025 04:54:02 +0000 (GMT)
-X-AuditID: b6c32a44-36bdd70000004cfe-19-67aecc8cc583
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 2F.57.18949.96CCEA76; Fri, 14 Feb 2025 13:54:02 +0900 (KST)
-Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip1.samsung.com
+ 20250214051751epsmtrp1f0278ea4befacc1dbd7830b91405ea38~j_2AL8CY71384613846epsmtrp1f;
+ Fri, 14 Feb 2025 05:17:51 +0000 (GMT)
+X-AuditID: b6c32a4b-fe9f470000004df4-34-67aed34a1690
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 80.22.18729.EF1DEA76; Fri, 14 Feb 2025 14:17:50 +0900 (KST)
+Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip2.samsung.com
  (KnoxPortal) with ESMTPA id
- 20250214045359epsmtip1b27101d3b6fca803c4f2c4f69c76a4e4~j_hK_pWn-1563615636epsmtip1K;
- Fri, 14 Feb 2025 04:53:59 +0000 (GMT)
+ 20250214051748epsmtip2eee9fbb4db52194ff8db30436d46d2f9~j_19qkrIS0466404664epsmtip2G;
+ Fri, 14 Feb 2025 05:17:48 +0000 (GMT)
 From: "Swathi K S" <swathi.ks@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>
-In-Reply-To: <27b0f5c5-ae51-4192-8847-20e471c55be7@kernel.org>
-Date: Fri, 14 Feb 2025 10:23:49 +0530
-Message-ID: <00ad01db7e9c$76c288a0$644799e0$@samsung.com>
+To: "'Andrew Lunn'" <andrew@lunn.ch>
+In-Reply-To: <85e0dec0-5b40-427a-9417-cae0ed2aa484@lunn.ch>
+Date: Fri, 14 Feb 2025 10:47:39 +0530
+Message-ID: <00b001db7e9f$ca7cfbd0$5f76f370$@samsung.com>
 MIME-Version: 1.0
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQFMfZy5LnHh86L+CikZ+hKlrx3PbgHP/Q5uAh59lGQBgzSo3AGBIR3uAawmoOC0H0U3EA==
+Thread-Index: AQFMfZy5LnHh86L+CikZ+hKlrx3PbgHP/Q5uAh59lGQCP3Rr5rQy085A
 Content-Language: en-in
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrNJsWRmVeSWpSXmKPExsWy7bCmlm7PmXXpBjtOslv8fDmN0WL5gx2s
- Fmv2nmOymHO+hcVi/pFzrBZPjz1it3g56x6bxfnzG9gtLmzrY7XY9Pgaq8XlXXPYLLquPWG1
- mPd3LavFsQViFt9Ov2G0OHLmBbPFpf6JTBb/9+xgdxDyuHztIrPHlpU3mTye9m9l99g56y67
- x4JNpR6bVnWyeWxeUu+xc8dnJo/3+66yeRzcZ+jxeZNcAHdUtk1GamJKapFCal5yfkpmXrqt
- kndwvHO8qZmBoa6hpYW5kkJeYm6qrZKLT4CuW2YO0F9KCmWJOaVAoYDE4mIlfTubovzSklSF
- jPziElul1IKUnAKTAr3ixNzi0rx0vbzUEitDAwMjU6DChOyMN18+MhaclKzY0v+brYHxmkgX
- IyeHhICJxJ6Dt9lAbCGB3YwS/58ldTFyAdmfGCVmHzjLBuF8Y5RY/vgjO0xH44puZojEXkaJ
- e73voKpeMEqsOLoPbBabgJbEor59YB0iAroSm28sZwcpYhZ4wCzRM2MOC0iCU8BOYseW10Cj
- ODiEBQIl2o7ygYRZBFQlJiw+CFbCK2Apcf3JVShbUOLkzCdgNrOAtsSyhSCtIBcpSPx8uowV
- ZIyIQJjE9n86ECXiEkd/9oAdKiHQzSlxb+EjqA9cJNbMn8gGYQtLvDq+BSouJfGyvw3KjpdY
- 3QexV0IgQ+LuL5h6e4kDV0DO5wBaoCmxfpc+RFhWYuqpdUwQe/kken8/YYKI80rsmAdjK0v8
- fX0NaqSkxLal79knMCrNQvLZLCSfzULywiyEbQsYWVYxSqYWFOempyabFhjmpZbD4zs5P3cT
- IzjVa7nsYLwx/5/eIUYmDsZDjBIczEoivBLT1qQL8aYkVlalFuXHF5XmpBYfYjQFBvdEZinR
- 5HxgtskriTc0sTQwMTMzM7E0NjNUEudt3tmSLiSQnliSmp2aWpBaBNPHxMEp1cAU/uZfacRa
- 9WT51PXLp52tv2pn5cncUau27/4kOamlve8KNfNvyl9o8dzeGNs+2+vUlHPaDtcFszuj1nwN
- YvNPPpp3P4PN4L7L6tWa753uCpQIuhUneJ+/FXno7Yzqn5P9bJa0qDYZBy14I1nkrS7XxbVa
- Y7Olwa13a99yXKw/v9y2X5A9dM+S1swqMe22yNm+P5x/tLXqtovNqA3bLVF1tyUwKFtNclnz
- ze9xrKK63hO+LJuyrdUi6si7I3ucb58LvnEtiy3xndht7YyD0tcVJa99dF8d2ad3xNBYj+Pf
- jYvNvWfnreW+rzRBper/qph3kdMT3l+ZsmJR5ovzB8JfX1c7evRLnd+FIw/4+ISVWIozEg21
- mIuKEwGklvbGfgQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrCIsWRmVeSWpSXmKPExsWy7bCSnG7WmXXpBl1nGS1+vpzGaLH8wQ5W
- izV7zzFZzDnfwmIx/8g5Vounxx6xW7ycdY/N4vz5DewWF7b1sVpsenyN1eLyrjlsFl3XnrBa
- zPu7ltXi2AIxi2+n3zBaHDnzgtniUv9EJov/e3awOwh5XL52kdljy8qbTB5P+7eye+ycdZfd
- Y8GmUo9NqzrZPDYvqffYueMzk8f7fVfZPA7uM/T4vEkugDuKyyYlNSezLLVI3y6BK+PplVbm
- gq8SFSe2b2ZrYGwS6WLk5JAQMJFoXNHNDGILCexmlJj4SxciLinxqXkqK4QtLLHy33P2LkYu
- oJpnjBIr359iAUmwCWhJLOrbxw5iiwjoSmy+sRysiFngC7PE7PuTmSA6zjJJLG1bxQRSxSlg
- J7Fjy2uwdcIC/hLve0+CdbMIqEpMWHwQbCqvgKXE9SdXoWxBiZMzn4DZzALaEk9vPoWzly2E
- mCMhoCDx8+kyoFM5gK4Ik9j+TweiRFzi6M8e5gmMwrOQTJqFZNIsJJNmIWlZwMiyilEytaA4
- Nz232LDAKC+1XK84Mbe4NC9dLzk/dxMjOOK1tHYw7ln1Qe8QIxMH4yFGCQ5mJRFeiWlr0oV4
- UxIrq1KL8uOLSnNSiw8xSnOwKInzfnvdmyIkkJ5YkpqdmlqQWgSTZeLglGpg0jHubrzP6WGy
- ntHTZ8qKp/c2TjFfxTVtSqJcbfiJhWqrvxzpel/Q4NJwcU149AT188EGjxbGvPqQGfcrYfrS
- wsXef5vTGhamsgiZnmKos/7kw9qTWGdZcEbq8t4lWms/zbzVrXB9YvNFw2nJUy8lVlaycO99
- f0T94intueIXNrjOlfFkO1Ll8kB16o21i96eZz3dXXYg9taMsnQ1kz4NmTjjlD8cPA/sw/i1
- uq8GGAqEH3x468JCn6vG7EYxXe3nvkuuXvTvknyZ/rSu53cmMMg7Bp+VlIpNaou97l3A1td2
- /e7OItfYrPYrfjYvbObH8a7N/up4yWy5/uTD/ku/T3x9qEmh8s7x7++TzOetUWIpzkg01GIu
- Kk4EABZLXqpnAwAA
-X-CMS-MailID: 20250214045402epcas5p3396c5963c8764122bd0ea8e6def478bd
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMJsWRmVeSWpSXmKPExsWy7bCmhq7X5XXpBjP381n8fDmN0WL5gx2s
+ FufvHmK2WLP3HJPFnPMtLBbzj5xjtXh67BG7xctZ99gsLmzrY7XY9Pgaq8XlXXPYLLquPWG1
+ mPd3LavFsQViFt9Ov2G0WLT1C7vFkTMvmC0u9U9ksvi/Zwe7g7DH5WsXmT22rLzJ5PG0fyu7
+ x85Zd9k9Fmwq9di0qpPNY/OSeo+dOz4zebzfd5XNo2/LKkaPg/sMPT5vkgvgicq2yUhNTEkt
+ UkjNS85PycxLt1XyDo53jjc1MzDUNbS0MFdSyEvMTbVVcvEJ0HXLzAH6UEmhLDGnFCgUkFhc
+ rKRvZ1OUX1qSqpCRX1xiq5RakJJTYFKgV5yYW1yal66Xl1piZWhgYGQKVJiQnXFxaz9TQSN3
+ xfYDFg2Mkzm7GDk4JARMJB5uY+ti5OIQEtjNKHHw23emLkZOIOcTo8SNM9IQiW+MEm8XLAJL
+ gDQsnjqPHSKxl1Hi2ZSJjBAdLxglvq8DK2IT0JJY1LePHcQWEVCRmDd3ChNIA7NAP4vEsxet
+ bCAJTgFriTunH7KDnCEsECjRdpQPJMwioCpxZOt2sDm8ApYSK24uYoWwBSVOznzCAmIzC8hL
+ bH87hxniIAWJn0+XsULscpNYs/4PO0SNuMTRnz3MIHslBOZzSlxZcQ3qAxeJyZemskDYwhKv
+ jm9hh7ClJF72t0HZ8RKr+65C1WRI3P01kQ3Ctpc4cGUOC8jNzAKaEut36UOEZSWmnoL4nVmA
+ T6L39xOoVbwSO+bB2MoSf19fgxopKbFt6Xv2CYxKs5C8NgvJa7OQvDALYdsCRpZVjJKpBcW5
+ 6anFpgXGeanl8NhOzs/dxAhO/VreOxgfPfigd4iRiYPxEKMEB7OSCK/EtDXpQrwpiZVVqUX5
+ 8UWlOanFhxhNgeE9kVlKNDkfmH3ySuINTSwNTMzMzEwsjc0MlcR5m3e2pAsJpCeWpGanphak
+ FsH0MXFwSjUwiX3NKLzUl2LJb/t2mf3jnqxNLfdNQpc0vM6YkfRVMuRtknmUbOt+zq7Um9N3
+ 6Ii7vmaP5jHmnrnkabH6GwmWPfxTQ+al/VG48zje7d3nuE3XFZtMg3bv7Zuc9IalxsG80X3x
+ h//u04u5pAuN6w25BY5vELofcqD9xoQEn1iH9sbq2Z5Vt/2cTp/iTVzglj1JbtHma18fB07V
+ VSlTffB2pqdtzymnVQem6Acda059KrfNPzM+fMH08rbLiQKXiphMt1x4qvR35ZudqiYt+xfd
+ VhcPU3b9cOhBRcHOifa+EvvUU5fasJz8JMhmdmZlWP5qIxXnxr9s269MeRKooK+y0fLm/Wkc
+ Tw6xVzVHuB5XYinOSDTUYi4qTgQA2fa+FIYEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0hTYRzGec9lO8eyTi7yzaJsWZC12UDqlcSkwE4klH7IqA+23GmZTuem
+ ZhdLy5JMt26THMtkk9KlmbM1Vym1LAxL87ayWnTx3sWwm5bd3Ir89oPneX78P/wp3MdF+FHx
+ SamcKkmaKOR5EVdvC+eKfrZeki+tqQlBowOFAF14UUuiFpcDRxV1zRgytOQQ6FxDM4l67r7i
+ owH9cx56eFVDIstrJ4narxl4KM/ZTaLiH5UkulsyA31peguQ0fqJjxru9+OoTXsCQ79u1PLD
+ BWy7sxVnr5R3YWyP1spn7XoXny2xpLEW81EeW1N6gLXXfsTYofpOHqu5YgbsrXoJ+9EyZ8Pk
+ zV6hMi4xPp1TBYVt9drRatViyuxJGbabKAucovMATUEmGJp0xfw84EX5MNcB7Ous4nmCmXD4
+ kI70sACW/+z7W+oFUHusmz8e8JhAaNTUu3k6EwCLz57Gxks4YyKgznEU8ywGAbQf6QDjLZpZ
+ AZ81vXQvBMx6OFRwz80EswA2WG3YOHszIbCsy0h6eBq8V9RN5AHqj1UMj1S7NTgzF9reGXDP
+ df5wtOc86TkiAlZUjfE9HV94ZzQfPw4E+gkm/X+TfoJJP2FRAggzmMkp1Qq5Qi1RSpK4XWK1
+ VKFOS5KL45IVFuD+gMBFtcBm/iB2AIwCDgApXDjdGxZWyH28ZdLdezhVcqwqLZFTO8AsihD6
+ evv2F8h8GLk0lUvgOCWn+pdiFO2Xha2sW4iFdVUtj6gM7J0S9NlfWC3aVKbCFJOoJQlyV9RB
+ mVLGiAYGr7WVLbG/GT6RTose5/Qv+wwkvJ3fhPrGJrMmouN728uHoQVbCEnk8MbnUfbcmrey
+ +ZExdOPh+NKEVU5tmkZdlD+qygw3mbL9q/Nj96wyCqw5RbqKEcXXmLCMbY/j6uYVGHVcPqJT
+ cwvHst9UUll9D4RzEsWuJ61DUSGX38c1jw0P/ohzOk0Bot7r6Sen0pvqE/bHltOCNfdTw8sf
+ GTKTj4eevpjSaPsWGb3dBHYvXR2zOHOv4eYyeiRlLTn16ew7++LbXbkX1+EjGUUh2y6cGYv2
+ C/bVNuwihIR6h1QSiKvU0t+jXAZjcAMAAA==
+X-CMS-MailID: 20250214051751epcas5p13fec2d1ca9c6505cab1d4c1476346ed6
 X-Msg-Generator: CA
 X-Sendblock-Type: REQ_APPROVE
 CMS-TYPE: 105P
@@ -108,15 +108,14 @@ X-CMS-RootMailID: 20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff
 References: <20250213044624.37334-1-swathi.ks@samsung.com>
  <CGME20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff@epcas5p1.samsung.com>
  <20250213044624.37334-2-swathi.ks@samsung.com>
- <20250213-adorable-arboreal-degu-6bdcb8@krzk-bin>
- <009a01db7e07$132feb60$398fc220$@samsung.com>
- <27b0f5c5-ae51-4192-8847-20e471c55be7@kernel.org>
+ <85e0dec0-5b40-427a-9417-cae0ed2aa484@lunn.ch>
 Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, netdev@vger.kernel.org, richardcochran@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- krzk+dt@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+ edumazet@google.com, mcoquelin.stm32@gmail.com,
+ 'Pankaj Dubey' <pankaj.dubey@samsung.com>, kuba@kernel.org, krzk+dt@kernel.org,
+ pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS
  device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -138,8 +137,8 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 > -----Original Message-----
-> From: Krzysztof Kozlowski <krzk@kernel.org>
-> Sent: 13 February 2025 17:31
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: 14 February 2025 05:50
 > To: Swathi K S <swathi.ks@samsung.com>
 > Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch; davem@davemloft.net;
 > edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
@@ -151,76 +150,31 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 > Subject: Re: [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS device tree
 > bindings
 > 
-> On 13/02/2025 12:04, Swathi K S wrote:
-> >
-> >
-> >> -----Original Message-----
-> >> From: Krzysztof Kozlowski <krzk@kernel.org>
-> >> Sent: 13 February 2025 13:24
-> >> To: Swathi K S <swathi.ks@samsung.com>
-> >> Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch;
-> davem@davemloft.net;
-> >> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
-> >> robh@kernel.org; conor+dt@kernel.org; richardcochran@gmail.com;
-> >> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
-> >> rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
-> >> devicetree@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com;
-> >> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> >> Subject: Re: [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS device
-> >> tree bindings
-> >>
-> >> On Thu, Feb 13, 2025 at 10:16:23AM +0530, Swathi K S wrote:
-> >>> +  clock-names:
-> >>> +    minItems: 5
-> >>> +    maxItems: 10
-> >>> +    contains:
-> >>> +      enum:
-> >>> +        - ptp_ref
-> >>> +        - master_bus
-> >>> +        - slave_bus
-> >>> +        - tx
-> >>> +        - rx
-> >>> +        - master2_bus
-> >>> +        - slave2_bus
-> >>> +        - eqos_rxclk_mux
-> >>> +        - eqos_phyrxclk
-> >>> +        - dout_peric_rgmii_clk
-> >>
-> >> This does not match the previous entry. It should be strictly ordered
-> >> with
-> >> minItems: 5.
-> >
-> > Hi Krzysztof,
-> > Thanks for reviewing.
-> > In FSD SoC, we have 2 instances of ethernet in two blocks.
-> > One instance needs 5 clocks and the other needs 10 clocks.
+> > +  phy-mode:
+> > +    enum:
+> > +      - rgmii-id
 > 
-> I understand and I do not think this is contradictory to what I asked.
-> If it is, then why/how?
+> phy-mode is normally a board property, in the .dts file, since the board
+might
+> decide to have extra long clock lines and so want 'rgmii'.
 > 
-> >
-> > I tried to understand this by looking at some other dt-binding files
-> > as given below, but looks like they follow similar approach
-> > Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> > Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
-> >
-> > Could you please guide me on how to implement this?
-> > Also, please help me understand what is meant by 'strictly ordered'
-> 
-> Every other 99% of bindings. Just like your clocks property.
+> The only reason i can think of putting rgmii-id here is if the MAC only
+> supports 'rgmii-id', it is impossible to make it not add delays.
+> If that is true, a comment would be good.
 
-Hi Krzysztof,
-Thanks for your feedback.
-I want to make sure I fully understand your comment. 
-I can see we have added clocks and clock names in the same order.
-Could you please help in detail what specifically needs to be modified regarding the ordering and minItems/maxItems usage?
+
+Hi Andrew,
+Thanks for reviewing.
+I think we already discussed this part some time back here [1]
+[1] :
+https://patchwork.kernel.org/project/linux-arm-kernel/patch/20230814112539.7
+0453-2-sriranjani.p@samsung.com/#25879995
+Please do let me know if there is any other concern on this.
 
 -Swathi
 
 > 
-> Best regards,
-> Krzysztof
+> 	Andrew
 
 _______________________________________________
 Linux-stm32 mailing list
