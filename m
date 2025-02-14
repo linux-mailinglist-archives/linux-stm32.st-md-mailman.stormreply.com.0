@@ -2,163 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77174A35C08
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 11:59:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49981A35C25
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Feb 2025 12:09:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DBE5C78F8C;
-	Fri, 14 Feb 2025 10:59:12 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3A24C78F8C;
+	Fri, 14 Feb 2025 11:09:26 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5876FC78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5F1C78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Feb 2025 10:59:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AjDTjrExpSuDl6LkYnIePWC+zPc/Bmbt977rA7IhlFWuepHxl8xsRNyCCElw5Vh8Xo8wBQQKDms1CTB6RWuh8Ut7aiz5SrQLiEMYbPD8gW5Zg95DA9FfKsp9uCydJGYGlcAjPZ9mmmU7lx5yYBMMOEYCGswJDNfuZakT45/uP9VTAdw0vWayK7nz562zV1d3Lm2JAtTNU736vS1rL9ppuMZgh2N/HEMXAfUPyFOtH4wzfBsVpPQTc6vz3pfZE2/J1sqcCDYanxqENHr9NX0n61ZkE1OCqkljZO69ryBiFJGbk++SbUIkwifnfl5r/6p7XxJF5yngk7jcYliXaimBJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IMb/WE3l6QZ2x6sQ1uFj9wxvEJ9f6/0Lq1zSg9iMPS4=;
- b=wmURKxHuvzuJmZ0q5uztuguI6pRzM5yXwUahAByfV9U+yA2S6I6RNric6/etZLMwVo1/1SoaskykzHzo1+GyVgYb3LtWPX8pVYwIV+QlauNCIxovsQcgea0E/6i7zs9RnvzjDsNKOGtrlsaywAE5l9kX2Tnbe6X2jyyOInXvBW9XqMILl6e5X2XTK/tavo9xBz+S2jWka3BfzQlFQHPaSDUKp+v3pnD5Yb4xwALljDIFLwnVM3Is/rubu00mYC4rGVEqQUVlkpGBipQdPmzyitwgHucpVdLaiqFxYud8zpqdN3f5CrM0sMH5/t3+hllJ3PBDtkCi1mQVZy6AjrsfMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IMb/WE3l6QZ2x6sQ1uFj9wxvEJ9f6/0Lq1zSg9iMPS4=;
- b=a9yZ3Kzi0ix2PAo421pWBfpANOLcPT+hgD8d3VWwnZfAVlO014m1k6Y1AbiOZC1RI7cYhuz3DUlCaVU20vRX2dr70LUO7LKG1RhrkWtWK+WKQYltnWkM3gcX5e3u2oMbVWjp4bCnDrOe2ywRwA/NkR8c7iEmJu+aJCcgVRGJaFcrvwi17lS9KY7vR/1paxidq8ssfCdxxSWFJDL+3v7WLq4GWpCjkyfLONmXBUXIlyWotCdoI5di2UsZaJc2RHzliOjwybPfekNbcXDDicv6PChvSheK2o2hfMKox5dgtuWoALlcI/IqSSnK8PQhWmEzN+Xrf7qFrVcNrK522d86Zg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11)
- by BY5PR12MB4131.namprd12.prod.outlook.com (2603:10b6:a03:212::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.18; Fri, 14 Feb
- 2025 10:59:02 +0000
-Received: from SJ2PR12MB8784.namprd12.prod.outlook.com
- ([fe80::1660:3173:eef6:6cd9]) by SJ2PR12MB8784.namprd12.prod.outlook.com
- ([fe80::1660:3173:eef6:6cd9%6]) with mapi id 15.20.8445.013; Fri, 14 Feb 2025
- 10:59:01 +0000
-Message-ID: <05987b45-94b9-4744-a90d-9812cf3566d9@nvidia.com>
-Date: Fri, 14 Feb 2025 10:58:55 +0000
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-References: <Z4gdtOaGsBhQCZXn@shell.armlinux.org.uk>
- <E1tYAEG-0014QH-9O@rmk-PC.armlinux.org.uk>
- <6ab08068-7d70-4616-8e88-b6915cbf7b1d@nvidia.com>
- <Z63Zbaf_4Rt57sox@shell.armlinux.org.uk>
- <Z63e-aFlvKMfqNBj@shell.armlinux.org.uk>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <Z63e-aFlvKMfqNBj@shell.armlinux.org.uk>
-X-ClientProxiedBy: LO4P123CA0300.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:196::17) To SJ2PR12MB8784.namprd12.prod.outlook.com
- (2603:10b6:a03:4d0::11)
+ Fri, 14 Feb 2025 11:09:19 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-38dcac27bcbso1896629f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Feb 2025 03:09:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739531358; x=1740136158;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=V7+4mem2ft+RVvvLEGTsxFIwY8eDWNZdbE4U/VEn5OU=;
+ b=lMQsFk66mcUKr5nIR9ycM1x056AnAKFuXqLgUwi64kprgeEy0Ljo61RrSkwCyqGO8Q
+ RYy9mRzoKtZ6EVKvADg/7JiBmamOotsF1dKtCGcUOGNm++wkXjB/SBSE5w0gldQeejKz
+ 2ugjIIwowY4HKpLTuV2mQEwmTA4lTJqu2kTX/GeHf3a80cVeApsSM7bHITKVx4SWrKOk
+ 4CfnXn2qJynfs61Ks9oU2McZC1zyzKfWBNfsfUJqlE17mQ3ejOd5/ZgKgkRU8Y4XaT/P
+ FA9FNx4pOaG2cUHrhXmrDEUafHnvev2BNKnJXM7he4HFLXh19eoanlndxveoWwAW12/O
+ Oanw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739531358; x=1740136158;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=V7+4mem2ft+RVvvLEGTsxFIwY8eDWNZdbE4U/VEn5OU=;
+ b=t/0HGCihewNoR19DvsaWz1YQNN43wWjEhoA7jd3zqCmVNOFAlpUPgKNx4F4jvCTdlQ
+ Sqls8fEH2lpsxSQiTcGUHQgRC7auYh+HAmngIfpD6KjIyxeFcwbrxtRqNvJ/0Th4zLyU
+ EOgW6ADic7TpNyDm4lsIZRZFdFf4ic93KGbbbql1qK4x7q4R6Dqb15bKqnXT/GZWM5Id
+ 2CTvfHWFX9SPpQWyvjh9gKeFCWFZtuc2oDy+TnGyd1E4b2ra7lkSAkPZUv/GonkElSvf
+ V5TpOUedkoN3ptMZCVDDD7iq0GumVmJ1Op7YEwnkk9uxKqMSKFZ9dz6AkdvBxVAO7qea
+ GEwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWDTEtxCyW1I8wGjdvpD8hsXKUBdjC5Esxk2dOrD+UIHfj4ckgKUIVY20ruh2j7d8pKOvfWzV/RVvhk4w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzYXABxn7cT7xIRmQTvfy/7Zy5jpxSbbj4oKHLAtrbnrENQnKoW
+ wKaGRPNUPcSqW8b6xydYYOMzQsTMgZMjFpZQDtB7nG1+UcKCDW0EGf0bpXTSKFU=
+X-Gm-Gg: ASbGncvMJJkEwHu3RV+7uYkcm0Izx9fUuzzExh8CsfAJr6FfDTW5oFhCv8IpJGDP4GK
+ T4Z+8DG/q2K3cQ/4U2YNA9A9+b2z2e3gQ+z8rAgtLrXn1h+muL0Ng7VwPfPJLC4EgJb3zjYb6qf
+ rU7eEnYW+RrKQVXw1NHZd9Cwtlm5Xw1eAOOXX9RQOBhvMOD7sCjqal+9Sak2rnPPEepypkw3Y8M
+ oYg5XQCHGP9ZGCFKDKyVYq7Or06X4xdw+IfkTgMZ2PJpL7KXZpsUZMb3EoATkrg0MlkLl9YBt2W
+ iviR9HIvhV+sEI4ArKyPd+V4Ng==
+X-Google-Smtp-Source: AGHT+IHSYzmRWK6x5dqInVV0CJ5pE2+xfHMxdXlGP6JgPhn1Wonrdhujy16nNDJTyIehflsH4kOBJw==
+X-Received: by 2002:a05:6000:71c:b0:38f:2b64:5327 with SMTP id
+ ffacd0b85a97d-38f2b6457ccmr2854936f8f.24.1739531358487; 
+ Fri, 14 Feb 2025 03:09:18 -0800 (PST)
+Received: from [192.168.68.163] ([145.224.90.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f25913eb6sm4373298f8f.51.2025.02.14.03.09.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Feb 2025 03:09:18 -0800 (PST)
+Message-ID: <b61af324-7488-4a4f-9f9e-2ecb004fc4c7@linaro.org>
+Date: Fri, 14 Feb 2025 11:09:16 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8784:EE_|BY5PR12MB4131:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bd12dfa-d8da-4080-5a65-08dd4ce696f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|10070799003; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Rks5OHVhYmZXNkxTbGd6UHBPd1ljdlpwTWttMURRYzBHbnNHL0w2MFRCbHMr?=
- =?utf-8?B?cVpUK2RzMTV6WmJObU1PcTYydTNKVlRwZG5lcjNsN2I5eGZrY21oNGI3UWkx?=
- =?utf-8?B?YXlnWXZKZHVmNFJYWGZvMHdDc21EeEFhVDZnUlNvRmc4ZU45K1BBY2ROVDc5?=
- =?utf-8?B?QXZrZUU4VmZIdjA0akhkdWNEelRGYzlrN1FlRlBjQ0Rma0FJb2t6WUV6WXJo?=
- =?utf-8?B?VnI2SzBGbmVpTXYyK2ZJTVlJMUZhZWRMVHpneEV0QW5vZ0hxMXdCam1iNE5O?=
- =?utf-8?B?ZnNBNW1Lb1NLSHZYd0twNXQzWStvbU5zS2pUajhxNzRYV25rQlU1dVpTV1Yv?=
- =?utf-8?B?Y2N6N0tKZExPeVE1emVxeFhWUmZ5eXJxcmROZnpra01DTEFvUGYrUHB6OHl5?=
- =?utf-8?B?TW15TlQ2cHNSYnRIVEwwZHJ4K09lQVJqNUlscGFDamZUTEdvd1EvTzV1S3JH?=
- =?utf-8?B?TW96YkxGdEhXNTJSellnc3JzbTUyU3RvOEJCczBvdytXYkhRVjNoZ29SSVI3?=
- =?utf-8?B?UGVnYlZmY2tIRnErOEpRV09IYjFoelJGZW5ZR0pLRkFUbVZ0RFFNa2FXOWhu?=
- =?utf-8?B?amJrMjkxaVdDVjlZcnM0ZStCT2VMY01lZVMzZUJtcFFXL2tsMVBWTUZHdncy?=
- =?utf-8?B?cDdIWkNmZ1c1QjRYZjBma08veDFOQk9TQmNDRHQxeW5UOUhvakZaYm5HL0Rz?=
- =?utf-8?B?TFZlS3l1czFpTm1IRFdTY0VIeEZrVDl2KzRHL0hTWFFSNHpNV1Z6MkczdTZO?=
- =?utf-8?B?djVzY0pwdUllU1VpdEpZZUd1NVVWZk5Rc0EyMnI5RlVUS1lyaDEzcllyN2FC?=
- =?utf-8?B?S3Urd3Jpdmw5cFdwUnJZTVlFZE15UUdvTDNDTGl3dWx5dkg1KzkrVDJTaHBo?=
- =?utf-8?B?TytNSFlRL243TWhXb29JUE1weCtGOWFlQ2RqQzdIRDk1R3JDbTQzSFVIalBK?=
- =?utf-8?B?U0xHOHB1K2xKWUNtTHJXa2xBZFZsMlU4Y3d3dk1INlNUMlU5V1lSVDEwT0xo?=
- =?utf-8?B?T2xmWlU0SEUvUG9TbFdtS1RtRVdQNS9TN1BXbDlUcXFaOGxLL1J2L3VNZk5F?=
- =?utf-8?B?RWdLcTFwcXNacm53MllWd1NHYi9WVTE5UURtNTk0Z2ZFeWp4bVpLeWt1SU9C?=
- =?utf-8?B?SjFOM1poVkFkbzZwSTM5OU5BcnIzM0cvdTF1cy9hSEN3SWR6NkUvb2RpNlF5?=
- =?utf-8?B?Vkg2R0pxbTF4c3FuNk1jcWNVaU1YZWFYWXZEYkNGSnc1NkNoL1ZmZU1wdVdC?=
- =?utf-8?B?N3dDMFlTdDcxQ3dDRUsveS9lZTVLNXFKT0lDeGtneGZOSk1yYXhCSzBtMCtZ?=
- =?utf-8?B?aDRKVHFRS1Y3U0xQcnJGODlmTThqRTN0ZlloNDJzN2RPV0wrcStJT29NRSsr?=
- =?utf-8?B?TTdUQW85OUxIVWZGSlVDeUhwZ0pCeWt2cnphMjVaVlZRd1Qrc2ZhaWRwb3cr?=
- =?utf-8?B?SSttaU5XWkFOdk4vVUNWSFZFV0dvMldhUUUvU2x2c05WaGIzQzhud1ZxRU8v?=
- =?utf-8?B?Sy9MNjk0NlFkSnVyWXRxZ1NJVU9hcTdZL2haNGZudXllL0x0NExyMnB5S0tD?=
- =?utf-8?B?a2czUG8vV1NYNkpUUzh1eUo4ZjJRNnRqSlMwdDRuSGc4NmlMRlRwODVuT0V1?=
- =?utf-8?B?eGt3OTdoZm5JT0dBM0RlMFJGMzFvVW9sN0x3MG5BQWRFcGZ4R1BNVmRLaS82?=
- =?utf-8?B?M0hib3JHckthU3F6UVdsT3NXNFlEREF5ejRNSzBMajZ5ZmZqbGpHTmZ1VFRV?=
- =?utf-8?B?d3AvQVlkZGlhcFFOUUJzaTA3UmhKdlB4MU9XY3NtU1V6emtaNUNjL2srVUlN?=
- =?utf-8?B?WExPQlNNK3hEV0FUdmRYSDZSTk91SUFlZ1hZcHRWSERSSzdJeExnWUpOcWJj?=
- =?utf-8?Q?+1Bx94Tb4dV9x?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB8784.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(10070799003); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTBiMmRiSjh0aFQ1aG54cWJCRmYrZ0F3YXNmelBlVG8rTUhLZmw0TEVqeld6?=
- =?utf-8?B?OFkvRTRLQVJsa0s4RlBmcUI5a05mbkZIREc1ZU5NSEhKalJoN01ZT0ViR3dz?=
- =?utf-8?B?RVZxUFdJU2sxM21qUkpyTnd2RkFLdTg3YXU2WER1MzlJVG1hOW02MW9yd2x4?=
- =?utf-8?B?WHpUUG5ySUdJMVN6RUVQUlJ1MTNpNFFKQlVndG93ODVVaXlOdjV4Z3BVTTVw?=
- =?utf-8?B?V29CZ3ZnN3NnWCtLK3E5L29rZUZ3QU93YVJIeFF0aC91d3E1TEhKR0xxTmxJ?=
- =?utf-8?B?SkpJcngydThZK0VadE1BRFZvUzdOalVseW1xTFRiL1R4RVRTZG9yM3BUblpq?=
- =?utf-8?B?S2hJRGJ3d3dVdUN6YjQwdkRBU1YwVWtJNVFuOHdTdGFCdW1JaUVSY3hZejdw?=
- =?utf-8?B?WkpzVUMzN1lwRmhrdEFKZ0xtbVMzZmNsRkI3M0dzdWdBTDArUkkxVDMrSGNl?=
- =?utf-8?B?ei94dHpDTVM0NjduR3F2b0c2b01sRDV4NjlPN0Q4dnkvbzZEMUZlYVcxNDIw?=
- =?utf-8?B?Y0t3KzZ0RVBibGxic29LdzQxNTFuYTNaK0g3bFhIaWZMdk5BdEV0TGlNZWNC?=
- =?utf-8?B?ektUZWNHQ1hlelFlWVFRNXhEcUdHY0VJWFN2a3RxVGNxNkJ3bUtBeFdkblU2?=
- =?utf-8?B?S3ZkSDRva2Ivb2h2TDFPdGthVmVpa3VsbHlLeDgvY3FVRW1QRXNvNUN0bjBR?=
- =?utf-8?B?ZGgwb0w0bWRsM0JDczc3dllrQ0NjYTdYQjhCeUZ4L1VSN3JNQWxHb0YvaHh5?=
- =?utf-8?B?eWVsSFVLV3I1K1R6bi9pYmN1TjZvT3J4RFhtdkh2bW9XNitOTjN6YXBhMGpO?=
- =?utf-8?B?Z04wUVFhU2drTkNuT3NvY1p2cndvaTlQZ3ZBN3JKa2Vja25zajBOTk1WT0oy?=
- =?utf-8?B?bUlzdUZvL2Q5SVM1WHMwTm1NN2I5MEJxQnlVeUVBL29mQVVRUjFJWGJTLzBu?=
- =?utf-8?B?MHpRUFRHTndIcXcwQS9KSjVvOG5HQXp6elJKMGJjUHIyaEdWdFBEcW5pSEVj?=
- =?utf-8?B?WHJoZHBYQ1FWZ0ZMYWppOTNzd2NnaXNHZWhaT2ludmY3ZGhoLzd6U01jVXhD?=
- =?utf-8?B?WnVnOER6ZFJNRkUzL3prZk1KVXQ4dC83KzBsaWxBUlllOE0zTUlqdGdBVmtl?=
- =?utf-8?B?ZHoxUFBKRVhUZWVLMW1mZFRvSW5sd1l4YkpaNTUxSE4ya0RTODhjQlBJeUto?=
- =?utf-8?B?SWswOUJVcWNBQ2h3MHg5L2E0RlYwRmcxYk05WkdZVTBuQkg4RXUvWFRuTUZx?=
- =?utf-8?B?NTNneGp3OWF3SHUwc1lSUGlnVlJ6QjJWSm1qd2pVY2g2MHMrbnU5MnBHNnlO?=
- =?utf-8?B?Y2JnYXNLUFhua0pKNWt4S0JOVVc0Rnp6NURUVm9rd1ova0JjRkFzWmZiNFNl?=
- =?utf-8?B?MnUvNDV6cEZqMndJRjZDQzU0THpCQ3YwVlNVOTRJRmhGaTlGcXpRRTV2ZU1C?=
- =?utf-8?B?YWZncEJhemFnazNqSlNTTFZjYWR5WlhBVG9GWEg0WkhqSitNcFRITkw0dHRY?=
- =?utf-8?B?K3o3VlM3OWJnYXFYYi9Gby9FZWRNRTJQOFpxWGxZMnVoTjVnRms2UDZoaW5t?=
- =?utf-8?B?N2dUejkzRm5UT0pqanlyMkVXVGsrTnlwUlNYcDlnR2lBWG5pUHg5VFpTUDds?=
- =?utf-8?B?WXBlZXlGOXl6aVpSdzRVbXFzeThnTHdSSCt5QkZUQjZ5elRNSk9FYXVEd1lw?=
- =?utf-8?B?eG1qTG5Qb0VTQ3UyeFdzVnZJR01ISVV6S1k4VENFWU5WY0swRy8wWjhkL2hi?=
- =?utf-8?B?T2o2YkhUb0RwbUlpcUxKdkZaR1dOeE1iZUxJM0h6Y1ZLaFZvNEdRUHhDdmFT?=
- =?utf-8?B?WVlMYitKTHRGM0M2b3dLaFMxamN1MFQxZGJOZmpQMlkwbnpXU21SUzBPZzU4?=
- =?utf-8?B?YmprUWlZdldCV29GejV2NURBUjFNTGljN25Ma2w1RWQ4T3B3NDVVOU1Dcnhw?=
- =?utf-8?B?ZXdNN21DVktWckw5R2ZYU0IzUGRlaG1WRkZSRnVabk13RWwya0kyOG1ka00w?=
- =?utf-8?B?aTJSR0t2OTZCQ3k4eTJ6TWNRL1duNy9wY1R0a3N2aExYTUtuV0xqOUhUY0Ey?=
- =?utf-8?B?aTJqVE9reVR4U1FPdERSZ0VEV2hxZDRTTXhRZjU3a0hWWCtQZysweUlRdUlr?=
- =?utf-8?B?bW41ZTZCSVZuNXhpWHprYnBxYWpJT2YyNzByQ1p5K2gwOHVML2VmSVdtSGlj?=
- =?utf-8?B?T2xsMFVVQTRIeGM2NWtlNlc4MEVFbnAxNFlISnhKMWx3dGZvM3M0cGYxWExy?=
- =?utf-8?B?T3AvUDJRdlpCZVQzb1FldzdLZ0pBPT0=?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bd12dfa-d8da-4080-5a65-08dd4ce696f5
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8784.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2025 10:59:01.7920 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y8OufsAl2d2RTgELJp5sQNoWn+e94UMvqx3HJeLNjzhuKRs9zdULmotLTxUm2DxeQuxxWHfVegDjy6Zpz0Ytmw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4131
-Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: convert to
- phylink managed EEE support
+User-Agent: Mozilla Thunderbird
+To: Jie Gan <quic_jiegan@quicinc.com>
+References: <20250207064213.2314482-1-quic_jiegan@quicinc.com>
+ <20250207064213.2314482-5-quic_jiegan@quicinc.com>
+ <a633f52c-81e8-4c0d-aca7-cc18360866eb@linaro.org>
+ <4b521b49-7104-4f25-82cb-4f9be7b235f4@quicinc.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <4b521b49-7104-4f25-82cb-4f9be7b235f4@quicinc.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v10 4/7] Coresight: Introduce a new struct
+	coresight_path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -170,96 +97,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On 13/02/2025 12:00, Russell King (Oracle) wrote:
-
-...
-
->>> I have been tracking down a suspend regression on Tegra186 and bisect is
->>> pointing to this change. If I revert this on top of v6.14-rc2 then
->>> suspend is working again. This is observed on the Jetson TX2 board
->>> (specifically tegra186-p2771-0000.dts).
->>
->> Thanks for the report.
->>
->>> This device is using NFS for testing. So it appears that for this board
->>> networking does not restart and the board hangs. Looking at the logs I
->>> do see this on resume ...
->>>
->>> [   64.129079] dwc-eth-dwmac 2490000.ethernet: Failed to reset the dma
->>> [   64.133125] dwc-eth-dwmac 2490000.ethernet eth0: stmmac_hw_setup: DMA engine initialization failed
->>>
->>> My first thought was if 'dma_cap.eee' is not supported for this device,
->>> but from what I can see it is and 'dma_cap.eee' is true. Here are some
->>> more details on this device regarding the ethernet controller.
->>
->> Could you see whether disabling EEE through ethtool (maybe first try
->> turning tx-lpi off before using the "eee off") to see whether that
->> makes any difference please?
-> 
-> One thing that I'm wondering is - old code used to do:
-> 
-> -             phy_eee_rx_clock_stop(phy, !(priv->plat->flags &
-> -                                          STMMAC_FLAG_RX_CLK_RUNS_IN_LPI));
-> 
-> The new code sets:
-> 
-> +     if (!(priv->plat->flags & STMMAC_FLAG_RX_CLK_RUNS_IN_LPI))
-> +             priv->phylink_config.eee_rx_clk_stop_enable = true;
-> 
-> which does the same thing in phylink - phylink_bringup_phy() will call
-> phy_eee_rx_clock_stop() when the PHY is attahed. So this happens at a
-> different time.
-> 
-> We know that stmmac_reset() can fail when the PHY receive clock is
-> stopped - at least with some cores.
-> 
-> So, I'm wondering whether I've inadvertently fixed another bug in stmmac
-> which has uncovered a different bug - maybe the PHY clock must never be
-> stopped even in LPI - or maybe we need to have a way of temporarily
-> disabling the PHY's clock-stop ability during stmmac_reset().
-> 
-> In addition to what I asked previously, could you also intrument
-> phy_eee_rx_clock_stop() and test before/after this patch to see
-> (a) whether it gets called at all before this patch and (b) confirm
-> the enable/disable state before and after.
-
-
-Thanks for the feedback. So ...
-
-1. I can confirm that suspend works if I disable EEE via ethtool
-2. Prior to this change I do see phy_eee_rx_clock_stop being called
-    to enable the clock resuming from suspend, but after this change
-    it is not.
-
-Prior to this change I see (note the prints around 389-392 are when
-we resume from suspend) ...
-
-[    4.654454] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 0
-[    4.723123] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
-[    7.629652] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
-[  389.086185] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
-[  392.863744] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
-
-After this change I see ...
-
-[    4.644614] Broadcom BCM89610 stmmac-0:00: phy_eee_rx_clock_stop: clk_stop_enable 1
-[    4.679224] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
-[  191.219828] dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii link mode
-
-So yes definitely related to the PHY clock.
-
-Jon
-
--- 
-nvpublic
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxNC8wMi8yMDI1IDE6MzQgYW0sIEppZSBHYW4gd3JvdGU6Cj4gCj4gCj4gT24gMi8xNC8y
+MDI1IDEyOjAwIEFNLCBKYW1lcyBDbGFyayB3cm90ZToKPj4KPj4KPj4gT24gMDcvMDIvMjAyNSA2
+OjQyIGFtLCBKaWUgR2FuIHdyb3RlOgo+Pj4gQWRkICdzdHJ1Y3QgY29yZXNpZ2h0X3BhdGgnIHRv
+IHN0b3JlIHRoZSBkYXRhIHRoYXQgaXMgbmVlZGVkIGJ5Cj4+PiBjb3Jlc2lnaHRfZW5hYmxlX3Bh
+dGgvY29yZXNpZ2h0X2Rpc2FibGVfcGF0aC4gVGhlIHN0cnVjdHVyZSB3aWxsIGJlCj4+PiB0cmFu
+c21pdHRlZCB0byBhbnkgcmVxdWlyZWQgZGV2aWNlcyB0byBlbmFibGUgcmVsYXRlZCBmdW5jYXRp
+b25hbGl0aWVzLgo+Pj4KPj4+IFRoZSB0cmFjZV9pZCB3aWxsIGJlIGFsbG9jYXRlZCBhZnRlciB0
+aGUgcGF0aCBpcyBidWlsdC4gQ29uc2VxdWVudGx5LAo+Pj4gVGhlIEVUTTN4IGFuZCBFVE00eCBk
+ZXZpY2VzIHdpbGwgZGlyZWN0bHkgcmVhZCB0aGUgdHJhY2VfaWQgZnJvbSBwYXRoCj4+PiB3aGlj
+aCByZXN1bHQgaW4gZXRtX3JlYWRfYWxsb2NfdHJhY2VfaWQgYW5kIGV0bTRfcmVhZF9hbGxvY190
+cmFjZV9pZAo+Pj4gYmVpbmcgZGVsZXRlZC4KPj4+Cj4+PiBDby1kZXZlbG9wZWQtYnk6IEphbWVz
+IENsYXJrIDxqYW1lcy5jbGFya0BsaW5hcm8ub3JnPgo+Pj4gU2lnbmVkLW9mZi1ieTogSmFtZXMg
+Q2xhcmsgPGphbWVzLmNsYXJrQGxpbmFyby5vcmc+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBKaWUgR2Fu
+IDxxdWljX2ppZWdhbkBxdWljaW5jLmNvbT4KPj4+IC0tLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNp
+bmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmPCoCB8IDEwNiArKysrKysrKysrKysrLS0tLS0K
+Pj4+IMKgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZHVtbXkuYyB8wqDC
+oCA1ICstCj4+PiDCoCAuLi4vaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtLXBlcmYu
+Y8KgIHzCoCAzMCArKystLQo+Pj4gwqAgLi4uL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0
+LWV0bS1wZXJmLmjCoCB8wqDCoCAyICstCj4+PiDCoCBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
+aHQvY29yZXNpZ2h0LWV0bS5owqDCoCB8wqDCoCAxIC0KPj4+IMKgIC4uLi9jb3Jlc2lnaHQvY29y
+ZXNpZ2h0LWV0bTN4LWNvcmUuY8KgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNTQgKystLS0tLS0tCj4+
+PiDCoCAuLi4vY29yZXNpZ2h0L2NvcmVzaWdodC1ldG00eC1jb3JlLmPCoMKgwqDCoMKgwqDCoMKg
+wqAgfMKgIDU0ICsrLS0tLS0tLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2Nv
+cmVzaWdodC1ldG00eC5oIHzCoMKgIDEgLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNp
+Z2h0L2NvcmVzaWdodC1wcml2LmjCoCB8wqAgMTIgKy0KPj4+IMKgIGRyaXZlcnMvaHd0cmFjaW5n
+L2NvcmVzaWdodC9jb3Jlc2lnaHQtc3RtLmPCoMKgIHzCoMKgIDMgKy0KPj4+IMKgIGRyaXZlcnMv
+aHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtc3lzZnMuYyB8wqAgMTcgKystCj4+PiDCoCBk
+cml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRwZG0uY8KgIHzCoMKgIDMgKy0K
+Pj4+IMKgIGluY2x1ZGUvbGludXgvY29yZXNpZ2h0LmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHzCoCAxMiArLQo+Pj4gwqAgMTMgZmlsZXMgY2hhbmdlZCwgMTQzIGlu
+c2VydGlvbnMoKyksIDE1NyBkZWxldGlvbnMoLSkKPj4+Cj4+IFsuLi5dCj4+PiBAQCAtMzUyLDcg
+KzM1Miw3IEBAIHN0YXRpYyB2b2lkICpldG1fc2V0dXBfYXV4KHN0cnVjdCBwZXJmX2V2ZW50IAo+
+Pj4gKmV2ZW50LCB2b2lkICoqcGFnZXMsCj4+PiDCoMKgwqDCoMKgwqAgKiBDUFVzLCB3ZSBjYW4g
+aGFuZGxlIGl0IGFuZCBmYWlsIHRoZSBzZXNzaW9uLgo+Pj4gwqDCoMKgwqDCoMKgICovCj4+PiDC
+oMKgwqDCoMKgIGZvcl9lYWNoX2NwdShjcHUsIG1hc2spIHsKPj4+IC3CoMKgwqDCoMKgwqDCoCBz
+dHJ1Y3QgbGlzdF9oZWFkICpwYXRoOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jlc2ln
+aHRfcGF0aCAqcGF0aDsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Rl
+dmljZSAqY3NkZXY7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgY3NkZXYgPSBwZXJfY3B1KGNzZGV2
+X3NyYywgY3B1KTsKPj4+IEBAIC00MDUsMTUgKzQwNSwxNSBAQCBzdGF0aWMgdm9pZCAqZXRtX3Nl
+dHVwX2F1eChzdHJ1Y3QgcGVyZl9ldmVudCAKPj4+ICpldmVudCwgdm9pZCAqKnBhZ2VzLAo+Pj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY3B1bWFza19jbGVhcl9jcHUoY3B1LCBtYXNrKTsK
+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+Pj4gwqDCoMKgwqDCoMKg
+wqDCoMKgIH0KPj4+IC0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCAvKiBlbnN1cmUgd2UgY2FuIGFs
+bG9jYXRlIGEgdHJhY2UgSUQgZm9yIHRoaXMgQ1BVICovCj4+PiAtwqDCoMKgwqDCoMKgwqAgdHJh
+Y2VfaWQgPSBjb3Jlc2lnaHRfdHJhY2VfaWRfZ2V0X2NwdV9pZF9tYXAoY3B1LCAmc2luay0gCj4+
+PiA+cGVyZl9zaW5rX2lkX21hcCk7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKCFJU19WQUxJRF9D
+U19UUkFDRV9JRCh0cmFjZV9pZCkpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoCB0cmFjZV9pZCA9IGNv
+cmVzaWdodF9wYXRoX2Fzc2lnbl90cmFjZV9pZChwYXRoLCBDU19NT0RFX1BFUkYpOwo+Pj4gKwo+
+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qIENhbiBiZSAwIGFuZCB2YWxpZCwgRVRFIGRvZXNuJ3QgbmVl
+ZCBhbiBJRCAqLwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICh0cmFjZV9pZCA8IDApIHsKPj4KPj4g
+Tm90IHN1cmUgd2h5IEkgd3JvdGUgaXQgbGlrZSB0aGlzLCBidXQgSSB0aGluayB3ZSBzaG91bGQg
+bGVhdmUgaXQgYXMgCj4+IGl0IHdhcyB3aXRoICFJU19WQUxJRF9DU19UUkFDRV9JRCgpLiBFdmVu
+IHdpdGggRVRFIGl0IGNhbGxzIHRoZSB0cmFjZSAKPj4gSUQgYWxsb2NhdG9yLCBzbyBub3RoaW5n
+IGhhcyBjaGFuZ2VkIGhlcmUuCj4+Cj4gU3VyZSwgV2lsbCByZXN0b3JlLiBGb3IgRVRFIG9yIEVU
+TSwgd2UgZG9udCBuZWVkIHRyYXZlcnNlIHRoZSBwYXRoLCBqdXN0IAo+IGRpcmVjdGx5IGFsbG9j
+YXRlIHRoZSB0cmFjZSBpZCBiYXNlZCBvbiBjcHUgaWQuCj4gCj4gSmllCj4gCj4gCgpTb3JyeSBJ
+IG1lYW50IHRvIG9ubHkga2VlcCB0aGUgIUlTX1ZBTElEX0NTX1RSQUNFX0lEKCkgYml0LiBXZSBz
+dGlsbCAKbmVlZCB0byBjYWxsIHRoZSBuZXcgY29yZXNpZ2h0X3BhdGhfYXNzaWduX3RyYWNlX2lk
+KCkgb3RoZXJ3aXNlIGl0IApkb2Vzbid0IGdldCBhc3NpZ25lZCB0byB0aGUgcGF0aC4gSSBzYXcg
+dGhhdCBnb3QgcmVtb3ZlZCBpbiB2MTEuCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
