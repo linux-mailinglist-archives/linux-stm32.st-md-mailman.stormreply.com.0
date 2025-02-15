@@ -2,39 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08065A3704C
-	for <lists+linux-stm32@lfdr.de>; Sat, 15 Feb 2025 20:02:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D68A37054
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Feb 2025 20:04:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92437C78F80;
-	Sat, 15 Feb 2025 19:02:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C242CC78F80;
+	Sat, 15 Feb 2025 19:04:40 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02781C78F7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1121C78F7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Feb 2025 19:02:04 +0000 (UTC)
+ Sat, 15 Feb 2025 19:04:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A681A5C0FCD;
- Sat, 15 Feb 2025 19:01:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D0BC4CEDF;
- Sat, 15 Feb 2025 19:02:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7CE5C5C485C;
+ Sat, 15 Feb 2025 19:03:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D038CC4CEDF;
+ Sat, 15 Feb 2025 19:04:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739646122;
- bh=HudMfY49mSqAmZgoZf2dNEnXXORoyrdxby3o1hdTgAM=;
+ s=k20201202; t=1739646271;
+ bh=Df2b8aVgJjFNJGQ3bD+jOZ3m5M4kbFV5KsneEFnbz1Y=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dhHbjle+yGglktEW8k7sNojmTldB4vX4N3Z0d65mfgb3kNBfztQtB2ihersP3kWQ+
- Kk2mNdH9UeVAkubXqkexsfz7Wnrc/zOLsJASmtFLlTV5tW4ropul2XVQLV9Yhf+5td
- 3uUaW14oEhvOWOJxbjRpgTMBoyh8jn2Yt/fhpoQoiF80vBk4k1YiaTfAQmntQrXSCJ
- jQmVne+gM1bZ0OEemKcArDYoPcbiU6iP52UDfirZH955ffStsNghUdmWNzyecpCR/w
- YxuaZmNxQSjg60JVHX/zShnBQEuc16jrPdoMByZZRYzL4dx71LLA7F3Tt92GS/58zT
- Cp8DMnbuH0G7Q==
-Date: Sat, 15 Feb 2025 11:01:59 -0800
+ b=HOSb0Y5rS2c+iF55klymj6B0z0P3nkofcNiCgsMP5plndlLE+6Ux2rzZK9kiCXW0A
+ 8Xv9r5UvZhELq5KpOx3B3v+yWB5mCSwHcqK5aJtn5i9hYLs9s/hOsJ+NSMtxlU6Qzl
+ SAmAb3QN87QQ4fNEWxSaL0jt3Bc2P5Unl9V11YdJZrVbuWkOxjDpNQv8aOVjjCDGEk
+ BRrau+nibXXPqTvtcM4xYrX6rwfHPAQUZu1Sr7G6uCXWbwx3ZmngcvJqZYiyb0h0rq
+ WO1T/S5i1kzxfiA2YYuU0zPyax6bsKZ3H6dUECjmFG8VpVNYCdjH2uRurDUOBQw58t
+ V3Llh8KYjzaug==
+Date: Sat, 15 Feb 2025 11:04:28 -0800
 From: Jakub Kicinski <kuba@kernel.org>
 To: Song Yoong Siang <yoong.siang.song@intel.com>
-Message-ID: <20250215110159.0c1888ae@kernel.org>
-In-Reply-To: <20250207021943.814768-2-yoong.siang.song@intel.com>
+Message-ID: <20250215110428.68f25c5e@kernel.org>
+In-Reply-To: <20250215110159.0c1888ae@kernel.org>
 References: <20250207021943.814768-1-yoong.siang.song@intel.com>
  <20250207021943.814768-2-yoong.siang.song@intel.com>
+ <20250215110159.0c1888ae@kernel.org>
 MIME-Version: 1.0
 Cc: Jose Abreu <joabreu@synopsys.com>, linux-kselftest@vger.kernel.org,
  Florian Bezdeka <florian.bezdeka@siemens.com>, Joe Damato <jdamato@fastly.com>,
@@ -81,14 +82,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri,  7 Feb 2025 10:19:39 +0800 Song Yoong Siang wrote:
-> Extend the XDP Tx metadata framework so that user can requests launch time
-> hardware offload, where the Ethernet device will schedule the packet for
-> transmission at a pre-determined time called launch time. The value of
-> launch time is communicated from user space to Ethernet driver via
-> launch_time field of struct xsk_tx_metadata.
+On Sat, 15 Feb 2025 11:01:59 -0800 Jakub Kicinski wrote:
+> On Fri,  7 Feb 2025 10:19:39 +0800 Song Yoong Siang wrote:
+> > Extend the XDP Tx metadata framework so that user can requests launch time
+> > hardware offload, where the Ethernet device will schedule the packet for
+> > transmission at a pre-determined time called launch time. The value of
+> > launch time is communicated from user space to Ethernet driver via
+> > launch_time field of struct xsk_tx_metadata.  
+> 
+> Acked-by: Jakub Kicinski <kuba@kernel.org>
 
-Acked-by: Jakub Kicinski <kuba@kernel.org>
+Sorry, I take that back, you haven't regenerated the code after
+renaming the flag:
+
+diff --git a/include/uapi/linux/netdev.h b/include/uapi/linux/netdev.h
+index fc0aa971d276..b97ff8bbb0c6 100644
+--- a/include/uapi/linux/netdev.h
++++ b/include/uapi/linux/netdev.h
+@@ -59,13 +59,13 @@ enum netdev_xdp_rx_metadata {
+  *   by the driver.
+  * @NETDEV_XSK_FLAGS_TX_CHECKSUM: L3 checksum HW offload is supported by the
+  *   driver.
+- * @NETDEV_XSK_FLAGS_LAUNCH_TIME: Launch Time HW offload is supported by the
+- *   driver.
++ * @NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO: Launch time HW offload is supported
++ *   by the driver.
+  */
+ enum netdev_xsk_flags {
+        NETDEV_XSK_FLAGS_TX_TIMESTAMP = 1,
+        NETDEV_XSK_FLAGS_TX_CHECKSUM = 2,
+-       NETDEV_XSK_FLAGS_LAUNCH_TIME = 4,
++       NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO = 4,
+ };
+ 
+ enum netdev_queue_type {
+diff --git a/tools/include/uapi/linux/netdev.h b/tools/include/uapi/linux/netdev.h
+index fc0aa971d276..b97ff8bbb0c6 100644
+--- a/tools/include/uapi/linux/netdev.h
++++ b/tools/include/uapi/linux/netdev.h
+@@ -59,13 +59,13 @@ enum netdev_xdp_rx_metadata {
+  *   by the driver.
+  * @NETDEV_XSK_FLAGS_TX_CHECKSUM: L3 checksum HW offload is supported by the
+  *   driver.
+- * @NETDEV_XSK_FLAGS_LAUNCH_TIME: Launch Time HW offload is supported by the
+- *   driver.
++ * @NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO: Launch time HW offload is supported
++ *   by the driver.
+  */
+ enum netdev_xsk_flags {
+        NETDEV_XSK_FLAGS_TX_TIMESTAMP = 1,
+        NETDEV_XSK_FLAGS_TX_CHECKSUM = 2,
+-       NETDEV_XSK_FLAGS_LAUNCH_TIME = 4,
++       NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO = 4,
+ };
+ 
+ enum netdev_queue_type {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
