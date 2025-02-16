@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79290A37262
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Feb 2025 08:43:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B27A37264
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Feb 2025 08:43:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC52CC78F71;
-	Sun, 16 Feb 2025 07:43:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8014C78F71;
+	Sun, 16 Feb 2025 07:43:26 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7697C78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 393FFC78F71
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Feb 2025 07:43:14 +0000 (UTC)
+ Sun, 16 Feb 2025 07:43:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739691801; x=1771227801;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=87GM8HlgLSNaSn9xUX/AU6UCHTgwGPEeDyK2++wM2as=;
- b=gNBFA3Zip7nR/7WSU12s8NiT3RqZyzxMOvFVGdVkuFrhkU1fG/Nh85ue
- WFN4oi3QKv2CDd9dphjPfIBIoT5+BU6y0rwCfFRqGF2/drlDU0L4zW+uL
- QtDN9t/qZtMGxkxdIL2jf0pP50QyV6MLWxVtUwJNsjZnk3oQIYofGr5S2
- zCn3Vzb7j11pmJC+1aR3fxJV47CR5U7qAfRQqHq006FtTgIostwTHS6F2
- rMLZAUGq4vLUeebeBtzHN3hnLjaS7G6oZ1oIMU4XNKdR1j273zj7TXuGA
- qxeA7MA4yHOSuqizB960XD71Pgo7sZO3CprdYdl/WLQ5cUPjNxGtKKisW g==;
-X-CSE-ConnectionGUID: D+pI7SySQsWYtr9mK/e51A==
-X-CSE-MsgGUID: 6jL8grRZSSKHDtBq8K5PyQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="40515306"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="40515306"
+ t=1739691805; x=1771227805;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=vnkPTaXwS392lQHSJNXig3Myd7SyoYXVGhj9yFSZpPE=;
+ b=Qc86XPzMKkK7e63en+mmu1/AxLP9fmA93zRWycTww80IeGlNAFPI+r5u
+ 9b7x4osS/PT2adQTqmSu7CSRYEU42TKPsGL0gHr6sUktnzExTBu89DFXr
+ odd/WOurNlVoPKvWFmJlYVj2xIWoOpfL/WoH0HpqNiw+9kO82kz/hvHXD
+ TXWuCLil/3wNN6ynfeIBPVIRoyl8vhY03iEWKlhqbI7zxdcWCjsxSJJ7h
+ meLaKPhmOIv879B1e4KO5ag+ybV+E+AJfYD86Nq9932mgQxzkk31uFN0j
+ m+nnAYOzsAdGbg+c08aCraWTAXRuGzSypQcy5y4WT5ci/NfAG3FiRu05u g==;
+X-CSE-ConnectionGUID: UCHaoOp2SN+WYS8eErqNKQ==
+X-CSE-MsgGUID: 00VYphf8RIi2ZYSEQr9sLg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="40515346"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="40515346"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2025 23:43:13 -0800
-X-CSE-ConnectionGUID: YGd+s1l7TIC00ZsWGJvgYg==
-X-CSE-MsgGUID: G/twFTHqTtubz/pdgmDvUw==
+ 15 Feb 2025 23:43:24 -0800
+X-CSE-ConnectionGUID: 0A9PH0ZaQ96qevPqUymckQ==
+X-CSE-MsgGUID: f8EZMhN7SOqhqmMH0qkv3A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,290,1732608000"; d="scan'208";a="114027688"
+X-IronPort-AV: E=Sophos;i="6.13,290,1732608000"; d="scan'208";a="114027871"
 Received: from p12ill20yoongsia.png.intel.com ([10.88.227.38])
- by fmviesa008.fm.intel.com with ESMTP; 15 Feb 2025 23:43:01 -0800
+ by fmviesa008.fm.intel.com with ESMTP; 15 Feb 2025 23:43:12 -0800
 From: Song Yoong Siang <yoong.siang.song@intel.com>
 To: "David S . Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -70,17 +70,19 @@ To: "David S . Miller" <davem@davemloft.net>,
  Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
  Choong Yong Liang <yong.liang.choong@linux.intel.com>,
  Bouska Zdenek <zdenek.bouska@siemens.com>
-Date: Sun, 16 Feb 2025 15:42:57 +0800
-Message-Id: <20250216074302.956937-1-yoong.siang.song@intel.com>
+Date: Sun, 16 Feb 2025 15:42:58 +0800
+Message-Id: <20250216074302.956937-2-yoong.siang.song@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250216074302.956937-1-yoong.siang.song@intel.com>
+References: <20250216074302.956937-1-yoong.siang.song@intel.com>
 MIME-Version: 1.0
 Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-wired-lan@lists.osuosl.org, linux-kselftest@vger.kernel.org,
  bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH bpf-next v11 0/5] xsk: TX metadata Launch Time
-	support
+Subject: [Linux-stm32] [PATCH bpf-next v11 1/5] xsk: Add launch time
+	hardware offload support to XDP Tx metadata
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,131 +99,294 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series expands the XDP TX metadata framework to allow user
-applications to pass per packet 64-bit launch time directly to the kernel
-driver, requesting launch time hardware offload support. The XDP TX
-metadata framework will not perform any clock conversion or packet
-reordering.
+Extend the XDP Tx metadata framework so that user can requests launch time
+hardware offload, where the Ethernet device will schedule the packet for
+transmission at a pre-determined time called launch time. The value of
+launch time is communicated from user space to Ethernet driver via
+launch_time field of struct xsk_tx_metadata.
 
-Please note that the role of Tx metadata is just to pass the launch time,
-not to enable the offload feature. Users will need to enable the launch
-time hardware offload feature of the device by using the respective
-command, such as the tc-etf command.
+Suggested-by: Stanislav Fomichev <sdf@fomichev.me>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+---
+ Documentation/netlink/specs/netdev.yaml      |  4 ++
+ Documentation/networking/xsk-tx-metadata.rst | 62 ++++++++++++++++++++
+ include/net/xdp_sock.h                       | 10 ++++
+ include/net/xdp_sock_drv.h                   |  1 +
+ include/uapi/linux/if_xdp.h                  | 10 ++++
+ include/uapi/linux/netdev.h                  |  3 +
+ net/core/netdev-genl.c                       |  2 +
+ net/xdp/xsk.c                                |  3 +
+ tools/include/uapi/linux/if_xdp.h            | 10 ++++
+ tools/include/uapi/linux/netdev.h            |  3 +
+ 10 files changed, 108 insertions(+)
 
-Although some devices use the tc-etf command to enable their launch time
-hardware offload feature, xsk packets will not go through the etf qdisc.
-Therefore, in my opinion, the launch time should always be based on the PTP
-Hardware Clock (PHC). Thus, i did not include a clock ID to indicate the
-clock source.
-
-To simplify the test steps, I modified the xdp_hw_metadata bpf self-test
-tool in such a way that it will set the launch time based on the offset
-provided by the user and the value of the Receive Hardware Timestamp, which
-is against the PHC. This will eliminate the need to discipline System Clock
-with the PHC and then use clock_gettime() to get the time.
-
-Please note that AF_XDP lacks a feedback mechanism to inform the
-application if the requested launch time is invalid. So, users are expected
-to familiar with the horizon of the launch time of the device they use and
-not request a launch time that is beyond the horizon. Otherwise, the driver
-might interpret the launch time incorrectly and react wrongly. For stmmac
-and igc, where modulo computation is used, a launch time larger than the
-horizon will cause the device to transmit the packet earlier that the
-requested launch time.
-
-Although there is no feedback mechanism for the launch time request
-for now, user still can check whether the requested launch time is
-working or not, by requesting the Transmit Completion Hardware Timestamp.
-
-v11:
-  - regenerate netdev_xsk_flags based on latest netdev.yaml (Jakub)
-
-v10: https://lore.kernel.org/netdev/20250207021943.814768-1-yoong.siang.song@intel.com/
-  - use net_err_ratelimited(), instead of net_ratelimit() (Maciej)
-  - accumulate the amount of used descs in local variable and update the
-    igc_metadata_request::used_desc once (Maciej)
-  - Ensure reverse christmas tree rule (Maciej)
-
-V9: https://lore.kernel.org/netdev/20250206060408.808325-1-yoong.siang.song@intel.com/
-  - Remove the igc_desc_unused() checking (Maciej)
-  - Ensure that skb allocation and DMA mapping work before proceeding to
-    fill in igc_tx_buffer info, context desc, and data desc (Maciej)
-  - Rate limit the error messages (Maciej)
-  - Update the comment to indicate that the 2 descriptors needed by the
-    empty frame are already taken into consideration (Maciej)
-  - Handle the case where the insertion of an empty frame fails and
-    explain the reason behind (Maciej)
-  - put self SOB tag as last tag (Maciej)
-
-V8: https://lore.kernel.org/netdev/20250205024116.798862-1-yoong.siang.song@intel.com/
-  - check the number of used descriptor in xsk_tx_metadata_request()
-    by using used_desc of struct igc_metadata_request, and then decreases
-    the budget with it (Maciej)
-  - submit another bug fix patch to set the buffer type for empty frame (Maciej):
-    https://lore.kernel.org/netdev/20250205023603.798819-1-yoong.siang.song@intel.com/
-
-V7: https://lore.kernel.org/netdev/20250204004907.789330-1-yoong.siang.song@intel.com/
-  - split the refactoring code of igc empty packet insertion into a separate
-    commit (Faizal)
-  - add explanation on why the value "4" is used as igc transmit budget
-    (Faizal)
-  - perform a stress test by sending 1000 packets with 10ms interval and
-    launch time set to 500us in the future (Faizal & Yong Liang)
-
-V6: https://lore.kernel.org/netdev/20250116155350.555374-1-yoong.siang.song@intel.com/
-  - fix selftest build errors by using asprintf() and realloc(), instead of
-    managing the buffer sizes manually (Daniel, Stanislav)
-
-V5: https://lore.kernel.org/netdev/20250114152718.120588-1-yoong.siang.song@intel.com/
-  - change netdev feature name from tx-launch-time to tx-launch-time-fifo
-    to explicitly state the FIFO behaviour (Stanislav)
-  - improve the looping of xdp_hw_metadata app to wait for packet tx
-    completion to be more readable by using clock_gettime() (Stanislav)
-  - add launch time setup steps into xdp_hw_metadata app (Stanislav)
-
-V4: https://lore.kernel.org/netdev/20250106135506.9687-1-yoong.siang.song@intel.com/
-  - added XDP launch time support to the igc driver (Jesper & Florian)
-  - added per-driver launch time limitation on xsk-tx-metadata.rst (Jesper)
-  - added explanation on FIFO behavior on xsk-tx-metadata.rst (Jakub)
-  - added step to enable launch time in the commit message (Jesper & Willem)
-  - explicitly documented the type of launch_time and which clock source
-    it is against (Willem)
-
-V3: https://lore.kernel.org/netdev/20231203165129.1740512-1-yoong.siang.song@intel.com/
-  - renamed to use launch time (Jesper & Willem)
-  - changed the default launch time in xdp_hw_metadata apps from 1s to 0.1s
-    because some NICs do not support such a large future time.
-
-V2: https://lore.kernel.org/netdev/20231201062421.1074768-1-yoong.siang.song@intel.com/
-  - renamed to use Earliest TxTime First (Willem)
-  - renamed to use txtime (Willem)
-
-V1: https://lore.kernel.org/netdev/20231130162028.852006-1-yoong.siang.song@intel.com/
-
-Song Yoong Siang (5):
-  xsk: Add launch time hardware offload support to XDP Tx metadata
-  selftests/bpf: Add launch time request to xdp_hw_metadata
-  net: stmmac: Add launch time support to XDP ZC
-  igc: Refactor empty frame insertion for launch time support
-  igc: Add launch time support to XDP ZC
-
- Documentation/netlink/specs/netdev.yaml       |   4 +
- Documentation/networking/xsk-tx-metadata.rst  |  62 +++++++
- drivers/net/ethernet/intel/igc/igc.h          |   1 +
- drivers/net/ethernet/intel/igc/igc_main.c     | 143 +++++++++++----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   2 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  13 ++
- include/net/xdp_sock.h                        |  10 ++
- include/net/xdp_sock_drv.h                    |   1 +
- include/uapi/linux/if_xdp.h                   |  10 ++
- include/uapi/linux/netdev.h                   |   3 +
- net/core/netdev-genl.c                        |   2 +
- net/xdp/xsk.c                                 |   3 +
- tools/include/uapi/linux/if_xdp.h             |  10 ++
- tools/include/uapi/linux/netdev.h             |   3 +
- tools/testing/selftests/bpf/xdp_hw_metadata.c | 168 +++++++++++++++++-
- 15 files changed, 396 insertions(+), 39 deletions(-)
-
+diff --git a/Documentation/netlink/specs/netdev.yaml b/Documentation/netlink/specs/netdev.yaml
+index cbb544bd6c84..901b5afb3df0 100644
+--- a/Documentation/netlink/specs/netdev.yaml
++++ b/Documentation/netlink/specs/netdev.yaml
+@@ -70,6 +70,10 @@ definitions:
+         name: tx-checksum
+         doc:
+           L3 checksum HW offload is supported by the driver.
++      -
++        name: tx-launch-time-fifo
++        doc:
++          Launch time HW offload is supported by the driver.
+   -
+     name: queue-type
+     type: enum
+diff --git a/Documentation/networking/xsk-tx-metadata.rst b/Documentation/networking/xsk-tx-metadata.rst
+index e76b0cfc32f7..df53a10ccac3 100644
+--- a/Documentation/networking/xsk-tx-metadata.rst
++++ b/Documentation/networking/xsk-tx-metadata.rst
+@@ -50,6 +50,10 @@ The flags field enables the particular offload:
+   checksum. ``csum_start`` specifies byte offset of where the checksumming
+   should start and ``csum_offset`` specifies byte offset where the
+   device should store the computed checksum.
++- ``XDP_TXMD_FLAGS_LAUNCH_TIME``: requests the device to schedule the
++  packet for transmission at a pre-determined time called launch time. The
++  value of launch time is indicated by ``launch_time`` field of
++  ``union xsk_tx_metadata``.
+ 
+ Besides the flags above, in order to trigger the offloads, the first
+ packet's ``struct xdp_desc`` descriptor should set ``XDP_TX_METADATA``
+@@ -65,6 +69,63 @@ In this case, when running in ``XDK_COPY`` mode, the TX checksum
+ is calculated on the CPU. Do not enable this option in production because
+ it will negatively affect performance.
+ 
++Launch Time
++===========
++
++The value of the requested launch time should be based on the device's PTP
++Hardware Clock (PHC) to ensure accuracy. AF_XDP takes a different data path
++compared to the ETF queuing discipline, which organizes packets and delays
++their transmission. Instead, AF_XDP immediately hands off the packets to
++the device driver without rearranging their order or holding them prior to
++transmission. Since the driver maintains FIFO behavior and does not perform
++packet reordering, a packet with a launch time request will block other
++packets in the same Tx Queue until it is sent. Therefore, it is recommended
++to allocate separate queue for scheduling traffic that is intended for
++future transmission.
++
++In scenarios where the launch time offload feature is disabled, the device
++driver is expected to disregard the launch time request. For correct
++interpretation and meaningful operation, the launch time should never be
++set to a value larger than the farthest programmable time in the future
++(the horizon). Different devices have different hardware limitations on the
++launch time offload feature.
++
++stmmac driver
++-------------
++
++For stmmac, TSO and launch time (TBS) features are mutually exclusive for
++each individual Tx Queue. By default, the driver configures Tx Queue 0 to
++support TSO and the rest of the Tx Queues to support TBS. The launch time
++hardware offload feature can be enabled or disabled by using the tc-etf
++command to call the driver's ndo_setup_tc() callback.
++
++The value of the launch time that is programmed in the Enhanced Normal
++Transmit Descriptors is a 32-bit value, where the most significant 8 bits
++represent the time in seconds and the remaining 24 bits represent the time
++in 256 ns increments. The programmed launch time is compared against the
++PTP time (bits[39:8]) and rolls over after 256 seconds. Therefore, the
++horizon of the launch time for dwmac4 and dwxlgmac2 is 128 seconds in the
++future.
++
++igc driver
++----------
++
++For igc, all four Tx Queues support the launch time feature. The launch
++time hardware offload feature can be enabled or disabled by using the
++tc-etf command to call the driver's ndo_setup_tc() callback. When entering
++TSN mode, the igc driver will reset the device and create a default Qbv
++schedule with a 1-second cycle time, with all Tx Queues open at all times.
++
++The value of the launch time that is programmed in the Advanced Transmit
++Context Descriptor is a relative offset to the starting time of the Qbv
++transmission window of the queue. The Frst flag of the descriptor can be
++set to schedule the packet for the next Qbv cycle. Therefore, the horizon
++of the launch time for i225 and i226 is the ending time of the next cycle
++of the Qbv transmission window of the queue. For example, when the Qbv
++cycle time is set to 1 second, the horizon of the launch time ranges
++from 1 second to 2 seconds, depending on where the Qbv cycle is currently
++running.
++
+ Querying Device Capabilities
+ ============================
+ 
+@@ -74,6 +135,7 @@ Refer to ``xsk-flags`` features bitmask in
+ 
+ - ``tx-timestamp``: device supports ``XDP_TXMD_FLAGS_TIMESTAMP``
+ - ``tx-checksum``: device supports ``XDP_TXMD_FLAGS_CHECKSUM``
++- ``tx-launch-time-fifo``: device supports ``XDP_TXMD_FLAGS_LAUNCH_TIME``
+ 
+ See ``tools/net/ynl/samples/netdev.c`` on how to query this information.
+ 
+diff --git a/include/net/xdp_sock.h b/include/net/xdp_sock.h
+index bfe625b55d55..a58ae7589d12 100644
+--- a/include/net/xdp_sock.h
++++ b/include/net/xdp_sock.h
+@@ -110,11 +110,16 @@ struct xdp_sock {
+  *     indicates position where checksumming should start.
+  *     csum_offset indicates position where checksum should be stored.
+  *
++ * void (*tmo_request_launch_time)(u64 launch_time, void *priv)
++ *     Called when AF_XDP frame requested launch time HW offload support.
++ *     launch_time indicates the PTP time at which the device can schedule the
++ *     packet for transmission.
+  */
+ struct xsk_tx_metadata_ops {
+ 	void	(*tmo_request_timestamp)(void *priv);
+ 	u64	(*tmo_fill_timestamp)(void *priv);
+ 	void	(*tmo_request_checksum)(u16 csum_start, u16 csum_offset, void *priv);
++	void	(*tmo_request_launch_time)(u64 launch_time, void *priv);
+ };
+ 
+ #ifdef CONFIG_XDP_SOCKETS
+@@ -162,6 +167,11 @@ static inline void xsk_tx_metadata_request(const struct xsk_tx_metadata *meta,
+ 	if (!meta)
+ 		return;
+ 
++	if (ops->tmo_request_launch_time)
++		if (meta->flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
++			ops->tmo_request_launch_time(meta->request.launch_time,
++						     priv);
++
+ 	if (ops->tmo_request_timestamp)
+ 		if (meta->flags & XDP_TXMD_FLAGS_TIMESTAMP)
+ 			ops->tmo_request_timestamp(priv);
+diff --git a/include/net/xdp_sock_drv.h b/include/net/xdp_sock_drv.h
+index 784cd34f5bba..fe4afb251719 100644
+--- a/include/net/xdp_sock_drv.h
++++ b/include/net/xdp_sock_drv.h
+@@ -199,6 +199,7 @@ static inline void *xsk_buff_raw_get_data(struct xsk_buff_pool *pool, u64 addr)
+ #define XDP_TXMD_FLAGS_VALID ( \
+ 		XDP_TXMD_FLAGS_TIMESTAMP | \
+ 		XDP_TXMD_FLAGS_CHECKSUM | \
++		XDP_TXMD_FLAGS_LAUNCH_TIME | \
+ 	0)
+ 
+ static inline bool
+diff --git a/include/uapi/linux/if_xdp.h b/include/uapi/linux/if_xdp.h
+index 42ec5ddaab8d..42869770776e 100644
+--- a/include/uapi/linux/if_xdp.h
++++ b/include/uapi/linux/if_xdp.h
+@@ -127,6 +127,12 @@ struct xdp_options {
+  */
+ #define XDP_TXMD_FLAGS_CHECKSUM			(1 << 1)
+ 
++/* Request launch time hardware offload. The device will schedule the packet for
++ * transmission at a pre-determined time called launch time. The value of
++ * launch time is communicated via launch_time field of struct xsk_tx_metadata.
++ */
++#define XDP_TXMD_FLAGS_LAUNCH_TIME		(1 << 2)
++
+ /* AF_XDP offloads request. 'request' union member is consumed by the driver
+  * when the packet is being transmitted. 'completion' union member is
+  * filled by the driver when the transmit completion arrives.
+@@ -142,6 +148,10 @@ struct xsk_tx_metadata {
+ 			__u16 csum_start;
+ 			/* Offset from csum_start where checksum should be stored. */
+ 			__u16 csum_offset;
++
++			/* XDP_TXMD_FLAGS_LAUNCH_TIME */
++			/* Launch time in nanosecond against the PTP HW Clock */
++			__u64 launch_time;
+ 		} request;
+ 
+ 		struct {
+diff --git a/include/uapi/linux/netdev.h b/include/uapi/linux/netdev.h
+index e4be227d3ad6..aac92afa917e 100644
+--- a/include/uapi/linux/netdev.h
++++ b/include/uapi/linux/netdev.h
+@@ -59,10 +59,13 @@ enum netdev_xdp_rx_metadata {
+  *   by the driver.
+  * @NETDEV_XSK_FLAGS_TX_CHECKSUM: L3 checksum HW offload is supported by the
+  *   driver.
++ * @NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO: Launch Time HW offload is supported
++ *   by the driver.
+  */
+ enum netdev_xsk_flags {
+ 	NETDEV_XSK_FLAGS_TX_TIMESTAMP = 1,
+ 	NETDEV_XSK_FLAGS_TX_CHECKSUM = 2,
++	NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO = 4,
+ };
+ 
+ enum netdev_queue_type {
+diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
+index 715f85c6b62e..7832abc5ca6e 100644
+--- a/net/core/netdev-genl.c
++++ b/net/core/netdev-genl.c
+@@ -52,6 +52,8 @@ XDP_METADATA_KFUNC_xxx
+ 			xsk_features |= NETDEV_XSK_FLAGS_TX_TIMESTAMP;
+ 		if (netdev->xsk_tx_metadata_ops->tmo_request_checksum)
+ 			xsk_features |= NETDEV_XSK_FLAGS_TX_CHECKSUM;
++		if (netdev->xsk_tx_metadata_ops->tmo_request_launch_time)
++			xsk_features |= NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO;
+ 	}
+ 
+ 	if (nla_put_u32(rsp, NETDEV_A_DEV_IFINDEX, netdev->ifindex) ||
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 89d2bef96469..41093ea63700 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -742,6 +742,9 @@ static struct sk_buff *xsk_build_skb(struct xdp_sock *xs,
+ 						goto free_err;
+ 				}
+ 			}
++
++			if (meta->flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
++				skb->skb_mstamp_ns = meta->request.launch_time;
+ 		}
+ 	}
+ 
+diff --git a/tools/include/uapi/linux/if_xdp.h b/tools/include/uapi/linux/if_xdp.h
+index 42ec5ddaab8d..42869770776e 100644
+--- a/tools/include/uapi/linux/if_xdp.h
++++ b/tools/include/uapi/linux/if_xdp.h
+@@ -127,6 +127,12 @@ struct xdp_options {
+  */
+ #define XDP_TXMD_FLAGS_CHECKSUM			(1 << 1)
+ 
++/* Request launch time hardware offload. The device will schedule the packet for
++ * transmission at a pre-determined time called launch time. The value of
++ * launch time is communicated via launch_time field of struct xsk_tx_metadata.
++ */
++#define XDP_TXMD_FLAGS_LAUNCH_TIME		(1 << 2)
++
+ /* AF_XDP offloads request. 'request' union member is consumed by the driver
+  * when the packet is being transmitted. 'completion' union member is
+  * filled by the driver when the transmit completion arrives.
+@@ -142,6 +148,10 @@ struct xsk_tx_metadata {
+ 			__u16 csum_start;
+ 			/* Offset from csum_start where checksum should be stored. */
+ 			__u16 csum_offset;
++
++			/* XDP_TXMD_FLAGS_LAUNCH_TIME */
++			/* Launch time in nanosecond against the PTP HW Clock */
++			__u64 launch_time;
+ 		} request;
+ 
+ 		struct {
+diff --git a/tools/include/uapi/linux/netdev.h b/tools/include/uapi/linux/netdev.h
+index e4be227d3ad6..aac92afa917e 100644
+--- a/tools/include/uapi/linux/netdev.h
++++ b/tools/include/uapi/linux/netdev.h
+@@ -59,10 +59,13 @@ enum netdev_xdp_rx_metadata {
+  *   by the driver.
+  * @NETDEV_XSK_FLAGS_TX_CHECKSUM: L3 checksum HW offload is supported by the
+  *   driver.
++ * @NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO: Launch Time HW offload is supported
++ *   by the driver.
+  */
+ enum netdev_xsk_flags {
+ 	NETDEV_XSK_FLAGS_TX_TIMESTAMP = 1,
+ 	NETDEV_XSK_FLAGS_TX_CHECKSUM = 2,
++	NETDEV_XSK_FLAGS_TX_LAUNCH_TIME_FIFO = 4,
+ };
+ 
+ enum netdev_queue_type {
 -- 
 2.34.1
 
