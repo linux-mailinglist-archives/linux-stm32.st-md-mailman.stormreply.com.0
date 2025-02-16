@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 060B6A3742C
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Feb 2025 13:40:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13E22A3742E
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Feb 2025 13:40:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB665C7802E;
-	Sun, 16 Feb 2025 12:40:33 +0000 (UTC)
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7226C7802E;
+	Sun, 16 Feb 2025 12:40:36 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3AD8C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8E00C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Feb 2025 12:40:31 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-7c0892e4b19so191091285a.3
+ Sun, 16 Feb 2025 12:40:35 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-46fee2b9c7aso31208411cf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Feb 2025 04:40:31 -0800 (PST)
+ Sun, 16 Feb 2025 04:40:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739709631; x=1740314431;
+ d=gmail.com; s=20230601; t=1739709634; x=1740314434;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LbqdsXVR3N15jF5g1M1GQwDGOPgdER4+dFi3kR5bHSs=;
- b=mi6OSaW2V5bT9nMnT4Km0YMr0ZTLn5h0zPGM4bHqpyjZgl7flOGlU9tG7azoJpco87
- 0AQk8WAnjxnb7kX6laxGLBPq4itCmDa3CudjNfdAx9YRh8EKdOOXChEoCLbvKRTSS9SF
- 8PX3N9Td1pszrPSHj7P7FU6O+v6OoG2qg8j2w3cx1aeyEVYM81TYLeJnMZaQWvPHcA1q
- z+GxDwmX+6qhUaKkkWcMgPFVRGp4JmdX8bXXBgYBV8MkeTnLAjNTJ+aPXrWcpaol+MqK
- hrYAnAXXPv8ogQzVgcKoCkvJoVX8v7dRb+zhYQPwMf75oJmaXY4EInd/ZqTiqh+QgFfF
- t+ow==
+ bh=4KFRnQlxBlj8MitIqq9TpK3sWiM8HCVYDpiQS/J2Je0=;
+ b=M53+ww/mk+QHPrZ+BhT12GcnEyp7GWi+3mGW67mZAmmOnL4wn8rN/mEtRG155u9p4Z
+ JdU2ErvrPpcyrJfbfBIduhpRIoWOptwsYezLm466CwMuhvanSd7dvittHOyGRHGSns2Z
+ NX+8YqRh/LeV1wU80deGI1NwXMIErOmBY9DD5icypmNX8ITycQeuKxZCNHZdxpLhcYPC
+ i85sIhDRYRdpXmoJdzBtYoew87lwCHnW/E86mZFJWJ5iwVm+tApNKF0QhIAwBSE6ojAZ
+ 1iknptsGbJqnNmsM385kYWhckgDSPEj3Oo/BVv4GAesIS5eF6oP8SxDRVnOFW70kdXad
+ +kyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739709631; x=1740314431;
+ d=1e100.net; s=20230601; t=1739709635; x=1740314435;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LbqdsXVR3N15jF5g1M1GQwDGOPgdER4+dFi3kR5bHSs=;
- b=YK+px2XsmYRyOfEDIbNAwK+S0JzZzi/b9J9ow5hqpzd8r0QzXqTxKjciDYr4IHZUoE
- Iqbj7frLPqVSubYTA7mz4bcSzarfplwY3oUTUmR37Up3Lum8pBgIlfPJ+yNtO/QOgkbj
- 7+WGHsNMipNesO5mbXSVVdq3BbICB44QI6L+RtqmJ/tMiKdpmUO8IUFFIaN0fC6V526n
- h7kR8LckLco9qdAKEKA9NTAtxPRvX5dn3QgN4BUBolsjwQPPoG4a098n1UDhsp0oeSnG
- MI3b974oeqasQAhPpcb4GgjFebuhYYtgJN3FWOWtB1KqQjHqbItSB9WSJEm6Mjo9svV5
- Vp5w==
+ bh=4KFRnQlxBlj8MitIqq9TpK3sWiM8HCVYDpiQS/J2Je0=;
+ b=q+YQVdEw6VNp+evZuFd4wEfvqTalcoSjWYm1z2sMohu1leW1TWkWQpBKnU9sKOl+1C
+ vLbynU91q+6AJu9eL0M8cnGKNY05Kwtlymhus7eB7Ybpta1sBNANiSDcEwm19p0Octx7
+ j7MKGP+1QxPQwVRM/VF2KhZFOV8eSXaL0ejW7CW3a97HuSqCWrfFHfCR/jlYj0E1uqlC
+ s7fp6VLq/CBhCK+jFmYyQPUH9H+pk/JveB/dxdmShd6a7OsrtCyTA5zsAqjyUecm0iIL
+ iARf8Rdlh3k9fXSi9Uw9YKz8PXfDRiPFc7Wkd1VNjV/StHPTZNJ4kXyhjwOnQCrGpmdD
+ GlRQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX+4gTc2kRJ6PCYeh3qO5PqWrT/tU1jDTlbzzPfnxt9tWBjFWCbogsVUG+/kEFA4UgkPSYwO/Z41tHxNA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx9HwIUQQLAgu7G9mMDkUVs2Qc6/quFK+05jHakUlrgImjcMZ2N
- poX0n61wj8jEtoEwITYvUvq3coZCPTyW/yxcNjvpt8lRvUerwq4f
-X-Gm-Gg: ASbGnctr9f4GBR7swofG64fc/z5voFICYjNIudMWZW3rPhVhWWZChCVJWkGvtI7BbQ7
- qmlM6UMi6MiIyRsJP0NNGj7jqJEsFBFqX9y5NxsPX4jU+iBo+iy1k2wwGeZFPZMPvUljQI8CMsc
- xwZBxnH4XqTPM9SW0oyPfCJdY34jhlL2QfgjoBh9xREjIcuz+THLUgDl3VWxQuJd3Kmulh0snOw
- yakbYxY4rABPTizcGzKPRxfNsI1YDkLuQzWno4dNjLgkmJgNCWzJ/t3EW7ttVPIcKs=
-X-Google-Smtp-Source: AGHT+IF5XSuhiI2P5QLx2nsbWyypxYdcETy3LCJ+aCkIcrEcibIXS/f4XBYvlBrBHEwSP+ZxkyRe4w==
-X-Received: by 2002:a05:620a:4010:b0:7bf:fffb:5818 with SMTP id
- af79cd13be357-7c08aaa2cc8mr943249585a.57.1739709630750; 
- Sun, 16 Feb 2025 04:40:30 -0800 (PST)
+ AJvYcCUzVcmaNcQRrndNu2YGkkn8vA31nelz0o2JSs3TkRRyaH7y3lCbIrN4PUDCX35dNNPgiw2neKpF0TYhxg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywwvt2PrCNc7lAd0OcQcoMt74+hZh9LvhVzTY/tX3dC5pPWqsGy
+ /jjDU1LJ8SZK1ebJBMJ0LlT3yVAXbjWPwLPHNu3rWN5Syc5LE5A8
+X-Gm-Gg: ASbGncvXvJLus+9bARmOHRKTLIUpo2L7ncL8X+6gV7gHsLM03h2L10O3fWpDAOIL3cA
+ 1lVjSpfEcDyJuAAner/eplDKzX2797jU+dKqTyjT6yVJpWQxeGDcXHvMOpoAVxpmJvzNvndVeeD
+ 4eThP1pz33x1ZMA9MDKWXN/UNbPSX8VQ09MIYQWCDaBcy03g7wzAKHjCw5l6H5xjKpof+xtv8fA
+ YUBnEuk0iPryJ8/J4n73O7s0LiBXD6o8TvWNxlKtD45DWTkGwyrfvuKI4VSAvzE7WY=
+X-Google-Smtp-Source: AGHT+IHtPqzqpeM26zZRpTzLLu/33zKztkr8vbt8BLSYA3H4NJ3o65rJ7atKUIP33d/TkeRY7YUrcg==
+X-Received: by 2002:a05:6214:dc5:b0:6d8:6a74:ae68 with SMTP id
+ 6a1803df08f44-6e66cd1a6dfmr88111666d6.29.1739709634524; 
+ Sun, 16 Feb 2025 04:40:34 -0800 (PST)
 Received: from localhost ([2001:da8:7001:11::cb])
  by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7c09a14d45dsm31099185a.10.2025.02.16.04.40.29
+ 6a1803df08f44-6e65d9f3458sm41060086d6.92.2025.02.16.04.40.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Feb 2025 04:40:30 -0800 (PST)
+ Sun, 16 Feb 2025 04:40:34 -0800 (PST)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>,
@@ -85,19 +85,19 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Lothar Rubusch <l.rubusch@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Sun, 16 Feb 2025 20:39:50 +0800
-Message-ID: <20250216123953.1252523-3-inochiama@gmail.com>
+Date: Sun, 16 Feb 2025 20:39:51 +0800
+Message-ID: <20250216123953.1252523-4-inochiama@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250216123953.1252523-1-inochiama@gmail.com>
 References: <20250216123953.1252523-1-inochiama@gmail.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Longbin Li <looong.bin@gmail.com>,
- sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 2/3] net: stmmac: platform: Add
-	snps, dwmac-5.30a IP compatible string
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, sophgo@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add glue layer
+	for Sophgo SG2044 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,50 +114,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add "snps,dwmac-5.30a" compatible string for 5.30a version that can avoid
-to define some platform data in the glue layer.
+Adds Sophgo dwmac driver support on the Sophgo SG2044 SoC.
 
 Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-Reviewed-by: Romain Gantois <romain.gantois@bootlin.com>
 ---
- .../ethernet/stmicro/stmmac/stmmac_platform.c   | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 107 ++++++++++++++++++
+ 3 files changed, 119 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index d0e61aa1a495..8dc3bd6946c6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -405,6 +405,17 @@ static int stmmac_of_get_mac_mode(struct device_node *np)
- 	return -ENODEV;
- }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 4cc85a36a1ab..b6ff51e1ebce 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -181,6 +181,17 @@ config DWMAC_SOCFPGA
+ 	  for the stmmac device driver. This driver is used for
+ 	  arria5 and cyclone5 FPGA SoCs.
  
-+/* Compatible string array for all gmac4 devices */
-+static const char * const stmmac_gmac4_compats[] = {
-+	"snps,dwmac-4.00",
-+	"snps,dwmac-4.10a",
-+	"snps,dwmac-4.20a",
-+	"snps,dwmac-5.10a",
-+	"snps,dwmac-5.20",
-+	"snps,dwmac-5.30a",
-+	NULL
++config DWMAC_SOPHGO
++	tristate "Sophgo dwmac support"
++	depends on OF && (ARCH_SOPHGO || COMPILE_TEST)
++	default m if ARCH_SOPHGO
++	help
++	  Support for ethernet controllers on Sophgo RISC-V SoCs
++
++	  This selects the Sophgo SoC specific glue layer support
++	  for the stmmac device driver. This driver is used for the
++	  ethernet controllers on various Sophgo SoCs.
++
+ config DWMAC_STARFIVE
+ 	tristate "StarFive dwmac support"
+ 	depends on OF && (ARCH_STARFIVE || COMPILE_TEST)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index b26f0e79c2b3..594883fb4164 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -24,6 +24,7 @@ obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+ obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
+ obj-$(CONFIG_DWMAC_S32)		+= dwmac-s32.o
+ obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
++obj-$(CONFIG_DWMAC_SOPHGO)	+= dwmac-sophgo.o
+ obj-$(CONFIG_DWMAC_STARFIVE)	+= dwmac-starfive.o
+ obj-$(CONFIG_DWMAC_STI)		+= dwmac-sti.o
+ obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+new file mode 100644
+index 000000000000..93ea280da6bd
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+@@ -0,0 +1,107 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Sophgo DWMAC platform driver
++ *
++ * Copyright (C) 2024 Inochi Amaoto <inochiama@gmail.com>
++ */
++
++#include <linux/clk.h>
++#include <linux/module.h>
++#include <linux/mod_devicetable.h>
++#include <linux/phy.h>
++#include <linux/platform_device.h>
++
++#include "stmmac_platform.h"
++
++struct sophgo_dwmac {
++	struct device *dev;
++	struct clk *clk_tx;
 +};
 +
- /**
-  * stmmac_probe_config_dt - parse device-tree driver parameters
-  * @pdev: platform_device structure
-@@ -538,11 +549,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 		plat->pmt = 1;
- 	}
- 
--	if (of_device_is_compatible(np, "snps,dwmac-4.00") ||
--	    of_device_is_compatible(np, "snps,dwmac-4.10a") ||
--	    of_device_is_compatible(np, "snps,dwmac-4.20a") ||
--	    of_device_is_compatible(np, "snps,dwmac-5.10a") ||
--	    of_device_is_compatible(np, "snps,dwmac-5.20")) {
-+	if (of_device_compatible_match(np, stmmac_gmac4_compats)) {
- 		plat->has_gmac4 = 1;
- 		plat->has_gmac = 0;
- 		plat->pmt = 1;
++static void sophgo_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
++{
++	struct sophgo_dwmac *dwmac = priv;
++	long rate;
++	int ret;
++
++	rate = rgmii_clock(speed);
++	if (rate < 0) {
++		dev_err(dwmac->dev, "invalid speed %u\n", speed);
++		return;
++	}
++
++	ret = clk_set_rate(dwmac->clk_tx, rate);
++	if (ret)
++		dev_err(dwmac->dev, "failed to set tx rate %ld: %pe\n",
++			rate, ERR_PTR(ret));
++}
++
++static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
++				    struct plat_stmmacenet_data *plat_dat,
++				    struct stmmac_resources *stmmac_res)
++{
++	struct sophgo_dwmac *dwmac;
++
++	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
++	if (!dwmac)
++		return -ENOMEM;
++
++	dwmac->clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
++	if (IS_ERR(dwmac->clk_tx))
++		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->clk_tx),
++				     "failed to get tx clock\n");
++
++	dwmac->dev = &pdev->dev;
++	plat_dat->bsp_priv = dwmac;
++	plat_dat->flags |= STMMAC_FLAG_SPH_DISABLE;
++	plat_dat->fix_mac_speed = sophgo_dwmac_fix_mac_speed;
++	plat_dat->multicast_filter_bins = 0;
++	plat_dat->unicast_filter_entries = 1;
++
++	return 0;
++}
++
++static int sophgo_dwmac_probe(struct platform_device *pdev)
++{
++	struct plat_stmmacenet_data *plat_dat;
++	struct stmmac_resources stmmac_res;
++	struct device *dev = &pdev->dev;
++	int ret;
++
++	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to get platform resources\n");
++
++	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	if (IS_ERR(plat_dat))
++		return dev_err_probe(dev, PTR_ERR(plat_dat),
++				     "failed to parse DT parameters\n");
++
++	ret = sophgo_sg2044_dwmac_init(pdev, plat_dat, &stmmac_res);
++	if (ret)
++		return ret;
++
++	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
++}
++
++static const struct of_device_id sophgo_dwmac_match[] = {
++	{ .compatible = "sophgo,sg2044-dwmac" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, sophgo_dwmac_match);
++
++static struct platform_driver sophgo_dwmac_driver = {
++	.probe  = sophgo_dwmac_probe,
++	.remove = stmmac_pltfr_remove,
++	.driver = {
++		.name = "sophgo-dwmac",
++		.pm = &stmmac_pltfr_pm_ops,
++		.of_match_table = sophgo_dwmac_match,
++	},
++};
++module_platform_driver(sophgo_dwmac_driver);
++
++MODULE_AUTHOR("Inochi Amaoto <inochiama@gmail.com>");
++MODULE_DESCRIPTION("Sophgo DWMAC platform driver");
++MODULE_LICENSE("GPL");
 -- 
 2.48.1
 
