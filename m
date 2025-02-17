@@ -2,79 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 148E4A38221
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2025 12:45:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F098EA3848B
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Feb 2025 14:26:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8FD6C7803C;
-	Mon, 17 Feb 2025 11:45:22 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1628C7803C;
+	Mon, 17 Feb 2025 13:26:04 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 433E5C7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61486C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Feb 2025 11:45:17 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-38f3ee8a119so632100f8f.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Feb 2025 03:45:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1739792717; x=1740397517;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gslSeLU065wOuo/exeqAIaqsKgFJISNX/u1ft+G91Cc=;
- b=KOJoNFKidxhi5BRTvNgTL16CMSSwoRHC3Ty0GFmf/ENzHmGp9SnlD5+A/Wf6oHqBSG
- iK5x1vBEMTaeIginGDjEpzHMJq8uXwrt/WvLMmURhHH6OchSx7e61dOfr9oIJ4F4KmJt
- a9/g+aCARNQnoVLIdgbyklZcTBs830Be8Lagk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739792717; x=1740397517;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gslSeLU065wOuo/exeqAIaqsKgFJISNX/u1ft+G91Cc=;
- b=PImvOSE7xDdEQEakOdfbooj0bdjEOVci2Q1OjI/oQFQm3b57kOjS4+gN9BsQRPf/Yf
- pi3yr7g0nOaaVxPVDyF4ZZorkVdUSurgOwP9/2Hq5iCZVl52JmFnujserbSY87kY1BcU
- 3D4sOXAOCxU5sEVYWZoyQCxztCXm5s81RcL61kb5lqNaO6Uq8s1pgCwoqsGoJsX4Umj8
- NjXbPmJbxrCI4OwX2LHU/8IhpG7aA3VB7+yqkc6mwTx5q4ldgRHtu/cksz7ftvkXcL5w
- e56uah7T/wUs5GmYGC5oyrRubhm3NKWALe6GIB931eqTKBS2ukHQ6yuGxru7xqyCTeu7
- m/3Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVJslrL1t3hZxCvwVJfZcaOffCwRdBmhEgdHJyJ62RLt+88tuJclG4DhSuqJo+/oMeYwetQKubocieVzg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxePCQtjEMTM8KIqyzh+83ukZR2Pb9ZQh67wDMIckeX2lLxEkaj
- EWwGo2hCsApzGSY1GOIACYytVJEqPTdNj8Ubx1DA/+JS+6LmjyF+ctATSo/fEeA=
-X-Gm-Gg: ASbGnctNuX/dkiNs+dDu9Hbl4ZGrmP7Bdo5fs4/B3eI368kt2VM1otzJJRoZFGqaWwS
- MgGOSJFY6DrNKiSCURBZOnhRtyfm4hfX9ZO+xdmzVsLC5Khnq+cGTPCB5p/Sa1T5roJCkf/XelO
- 3vFfwfRON1raYtTsZa1TSAEbX2+qsDnmu9OTA0kA3mTJ4NuHfsdLs/dXqmcj7lbm1cE9aiPiC49
- 2VqxeEveXI6YjqlH95kCwkc0z73TKuD5YCVLkMoz3fouaKXdJ9OYoloHMwjBhee8hvYQyc78Bfj
- uh/Vi5f1+VgSCRTghW7+rc64h9NwW8GwGi/cVk4JCAxZ7iYtZgjZ8FjppqMfXC97M2+JbIt3prn
- 5PVMdSKCCQS4=
-X-Google-Smtp-Source: AGHT+IEWoZF68RXu+nKi7MNugaByBfNsuJdBAp6ZRW5eMiRrJibFJTDidK0cVOcEQlNep0we4lB5PQ==
-X-Received: by 2002:a5d:47a3:0:b0:38f:37bd:1707 with SMTP id
- ffacd0b85a97d-38f37bd18f8mr7646742f8f.0.1739792716753; 
- Mon, 17 Feb 2025 03:45:16 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.amarulasolutions.com
- ([2001:b07:6474:ebbf:78d7:ec72:38e9:87de])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38f258ddbe0sm12181637f8f.39.2025.02.17.03.45.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 03:45:16 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 17 Feb 2025 12:45:09 +0100
-Message-ID: <20250217114513.1098844-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250217114513.1098844-1-dario.binacchi@amarulasolutions.com>
-References: <20250217114513.1098844-1-dario.binacchi@amarulasolutions.com>
+ Mon, 17 Feb 2025 13:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=n1lANnOPXNFw9+jCC+O+JmddS9eVCLKsMBkqQM9HxPs=; b=xWEIyvI3phTtqKVI7bTSQRyPcu
+ /NMHD76dJCeNa5jgn+xig73XONXqClF5J/EwDZ9+FeTkRFnqyVLjq5hXwd667RWD1lGbicbnXF5p0
+ ezpB0RAZGdCmgDma+ZKtx/xe8O7FOiHoSp77+dmaBtjv2fLJPg7fyXSWb8gxIAw+PEfk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1tk17t-00Eycl-Uk; Mon, 17 Feb 2025 14:25:33 +0100
+Date: Mon, 17 Feb 2025 14:25:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <24eecc48-9061-4575-9e3b-6ef35226407a@lunn.ch>
+References: <20250216123953.1252523-1-inochiama@gmail.com>
+ <20250216123953.1252523-4-inochiama@gmail.com>
+ <Z7IIht2Q-iXEFw7x@shell.armlinux.org.uk>
+ <5e481b95-3cf8-4f71-a76b-939d96e1c4f3@lunn.ch>
+ <js3z3ra7fyg4qwxbly24xqpnvsv76jyikbhk7aturqigewllbx@gvus6ub46vow>
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <js3z3ra7fyg4qwxbly24xqpnvsv76jyikbhk7aturqigewllbx@gvus6ub46vow>
+Cc: Longbin Li <looong.bin@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Jisheng Zhang <jszhang@kernel.org>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Chen Wang <unicorn_wang@outlook.com>,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
+ sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Hariprasad Kelam <hkelam@marvell.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: add usr3 LED node to
-	stm32f769-disco
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add glue
+ layer for Sophgo SG2044 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +79,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As indicated by the board silkscreen, there are three user LEDs.
-Add the missing one.
+> I am not sure all whether devices has this clock, but it appears in
+> the databook. So I think it is possible to move this in the core so
+> any platform with these clock can reuse it.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+Great
 
- arch/arm/boot/dts/st/stm32f769-disco.dts | 3 +++
- 1 file changed, 3 insertions(+)
+The next problem will be, has everybody called it the same thing in
+DT. Since there has been a lot of cut/paste, maybe they have, by
+accident.
 
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
-index d52e36aedcfb..535cfdc4681c 100644
---- a/arch/arm/boot/dts/st/stm32f769-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32f769-disco.dts
-@@ -86,6 +86,9 @@ led-usr2 {
- 		led-usr1 {
- 			gpios = <&gpioj 13 GPIO_ACTIVE_HIGH>;
- 		};
-+		led-usr3 {
-+			gpios = <&gpioa 12 GPIO_ACTIVE_HIGH>;
-+		};
- 	};
- 
- 	gpio-keys {
--- 
-2.43.0
-
+Thanks
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
