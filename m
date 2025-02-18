@@ -2,81 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 712C1A3994C
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 11:41:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A804A39A36
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 12:15:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12A39C78F87;
-	Tue, 18 Feb 2025 10:41:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D218C78F87;
+	Tue, 18 Feb 2025 11:15:11 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61D99C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4CE2C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 10:41:06 +0000 (UTC)
+ Tue, 18 Feb 2025 11:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Z8u1HFNvQFj00JNaA7UaE7kZ0fKIp/C21Or6VG3Kq3c=; b=o6c4u2Hq6aOiw0zopooYt7wvcp
- E3+jJCUM7nHq46JD0aXLOfQ5Jm9ZhiuFSdXnxjiWn9cVMEovMxHN7TD4ujzEjPQEVc6txt7E4gDph
- BHWvbtGL9aaT4ZgG0CHp7d6oKKCXz32SmZ0jB9UccZ/92My6rP3+Y5OrkuvJ8ftIm4VjlE02Pbr4k
- nIrWR3UsptipUVbzuYoaJvi8ShzHrPLpO88aDnZusLz1wytWrp0eazSi9VGFBz9Pa7EZgViJT1rCI
- Ae0dUoitzhjc8huX/pRHtI95OX5/ZxGGj5lqlzmrV1FnqdO7uzbiTcQG61C0pcjWDafsPxQS+tWSX
- ji52VNQQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48852)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5ZH1bVksmCx0plQEMgCUt60mErOEDPQEJF+dciIer4w=; b=mMsS565BSOMEGYOhTy8coteI7H
+ zXwIWtFNm0MvmcZVzpD+jAe66mi/w59zeijL3/EsJbdlgdMYcPursaxV9e7LdvSyw0zEzxds6x41U
+ fv0HweRrjDM0J0PPQnApZCK7F4cppq6OFlsB4RxDE2tpqouFWlVPj+9ZmcSoBFWS9YNj1m2A6owR6
+ fWNAUzsdHlyHJvq8YOXdQ4vuEK2DkTb3fG6+cgDaFedYNLg4+VT1y/fEi0hPZUxz330WkFmSavAHp
+ 1Xy6nP+2w3jlQ8xBM3mqpliVx6JqIKVxpwvX7DC2EbCzMfob2ROcsQySWxq1Y+xWOrby97FZX52JL
+ KVnlHfkw==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51354 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tkL1a-0001bu-2a;
- Tue, 18 Feb 2025 10:40:22 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tkL1S-0007CN-2u;
- Tue, 18 Feb 2025 10:40:14 +0000
-Date: Tue, 18 Feb 2025 10:40:14 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <Z7Rjjo5nZ0gnCbzq@shell.armlinux.org.uk>
-References: <20250216123953.1252523-1-inochiama@gmail.com>
- <20250216123953.1252523-4-inochiama@gmail.com>
- <Z7IIht2Q-iXEFw7x@shell.armlinux.org.uk>
- <5e481b95-3cf8-4f71-a76b-939d96e1c4f3@lunn.ch>
- <js3z3ra7fyg4qwxbly24xqpnvsv76jyikbhk7aturqigewllbx@gvus6ub46vow>
- <24eecc48-9061-4575-9e3b-6ef35226407a@lunn.ch>
- <Z7NDakd7zpQ_345D@shell.armlinux.org.uk>
- <rsysy3p5ium5umzz34rtinppcu2b36klgjdtq5j4lm3mylbqbz@z44yeje5wgat>
- <Z7PEeGmNvlYD33rZ@shell.armlinux.org.uk>
- <6obom7jyciq2kqw5iuqlugbzbsebgd7ymnq2crlm565ybbz7de@n7o3tcqn5idi>
+ (envelope-from <rmk@armlinux.org.uk>) id 1tkLZ5-0001hg-1A;
+ Tue, 18 Feb 2025 11:14:59 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1tkLYl-004RYv-Gz; Tue, 18 Feb 2025 11:14:39 +0000
+In-Reply-To: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
+References: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6obom7jyciq2kqw5iuqlugbzbsebgd7ymnq2crlm565ybbz7de@n7o3tcqn5idi>
-Cc: Andrew Lunn <andrew@lunn.ch>, Longbin Li <looong.bin@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Jisheng Zhang <jszhang@kernel.org>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Chen Wang <unicorn_wang@outlook.com>, Furong Xu <0x1207@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
- sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Hariprasad Kelam <hkelam@marvell.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
+Message-Id: <E1tkLYl-004RYv-Gz@rmk-PC.armlinux.org.uk>
+Date: Tue, 18 Feb 2025 11:14:39 +0000
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jon Hunter <jonathanh@nvidia.com>, Jakub Kicinski <kuba@kernel.org>,
+ Thierry Reding <treding@nvidia.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add glue
- layer for Sophgo SG2044 SoC
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Minda Chen <minda.chen@starfivetech.com>, linux-arm-kernel@lists.infradead.org,
+ Paolo Abeni <pabeni@redhat.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH RFC net-next 1/7] net: stmmac: provide generic
+ transmit clock configuration hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,89 +73,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 18, 2025 at 09:01:59AM +0800, Inochi Amaoto wrote:
-> On Mon, Feb 17, 2025 at 11:21:28PM +0000, Russell King (Oracle) wrote:
-> > On Tue, Feb 18, 2025 at 06:50:24AM +0800, Inochi Amaoto wrote:
-> > > On Mon, Feb 17, 2025 at 02:10:50PM +0000, Russell King (Oracle) wrote:
-> > > > On Mon, Feb 17, 2025 at 02:25:33PM +0100, Andrew Lunn wrote:
-> > > > > > I am not sure all whether devices has this clock, but it appears in
-> > > > > > the databook. So I think it is possible to move this in the core so
-> > > > > > any platform with these clock can reuse it.
-> > > > > 
-> > > > > Great
-> > > > > 
-> > > > > The next problem will be, has everybody called it the same thing in
-> > > > > DT. Since there has been a lot of cut/paste, maybe they have, by
-> > > > > accident.
-> > > > 
-> > > > Tegra186: "tx"
-> > > > imx: "tx"
-> > > > intel: "tx_clk"
-> > > > rk: "clk_mac_speed"
-> > > > s32: "tx"
-> > > > starfive: "tx"
-> > > > sti: "sti-ethclk"
-> > > > 
-> > > 
-> > > The dwc-qos-eth also use clock name "tx", but set the clock with
-> > > extra calibration logic.
-> > 
-> > Yep, that's what I meant by "Tegra186" above.
-> > 
-> > > > so 50% have settled on "tx" and the rest are doing their own thing, and
-> > > > that horse has already bolted.
-> > > > 
-> > > 
-> > > The "rx" clock in s32 also uses the same logic. I think the core also
-> > > needs to take it, as this rx clock is also mentioned in the databook.
-> > 
-> > The "rx" clock on s32 seems to only be set to 125MHz, and the driver
-> > seems to be limited to RGMII.
-> > 
-> > This seems weird as the receive clock is supposed to be supplied by the
-> > PHY, and is recovered from the media (and thus will be 2.5, 25 or
-> > 125MHz as determined by the PHY.) So, I'm not sure that the s32 "rx"
-> > clock is really the clk_rx_i clock supplied to the DWMAC core.
-> > 
-> > Certainly on stm32mp151, it states that ETH_RX_CLK in RGMII mode will
-> > be 2.5, 25 or 125MHz provided by the PHY, and the clock tree indicates
-> > that ETH_RX_CLK in RGMII mode will be routed directly to the clk_rx_i
-> > input on the DWMAC(4) core.
-> > 
-> 
-> RGMII is not the problem. The databook says the RGMII clock (rx/tx)
-> follows this set rate logic. 
+Several stmmac sub-drivers which support RGMII follow the same pattern.
+They calculate the transmit clock, and then call the clk API to set a
+clock to that rate.
 
-Sorry, I find this ambiguous. "This" doesn't tell me whether you are
-referring to either what s32 does (setting the "rx" clock to 125MHz
-only) or what RGMII spec says about RX_CLK (which is that it comes from
-the PHY and is 2.5/25/125MHz) which stm32mp151 agrees with and feeds
-the PHY's RX_CLK to the clk_rx_i inputs on the DWMAC in RGMII, GMII
-and MII modes.
+Analysis of documentation suggests that the platform is responsible for
+providing the transmit clock to the DWMAC core (clk_tx_i). The expected
+rates are:
 
-clk_rx_i comes through a bunch of muxes on stm32mp151. When the clock
-tree is configured for RMII mode, the rate on clk_rx_i depends on the
-MAC speed (10/100Mbps).
+	10Mbps	100Mbps	1Gbps
+MII	2.5MHz	25MHz
+GMII			125MHz
+RGMI	2.5MHz	25MHz	125MHz
+RMII	2.5MHz	25MHz
 
-This suggests as far as the core is concerned, the clock supplied as
-clk_rx_i isn't a fixed rate clock but depends on the speed just like
-the transmit clock.
+It seems some platforms require this clock to be manually configured,
+but there are outputs from the MAC core that indicate the speed, so a
+platform may use these to automatically configure the clock. Thus, we
+can't just provide one solution to configuring the clock.
 
-> For other things, I agree with you. A fixed "rx" clock does reach the
-> limit of what I know. And the databook told nothing about it. As we
-> can not determine the rx clock of s32 and it may be set for the phy,
-> it will be better to not move it into the core.
+Moreover, the clock may need to be derived from one of several sources
+depending on the interface mode.
 
-I'm intending to leave s32's rx clock alone for this reason as it does
-not match what I expect. Maybe on s32 there is a bunch of dividers
-which are selected by the mac_speed_o signals from the core to divide
-the 125MHz clock down to 25 or 2.5MHz for 100 and 10Mbps respectively.
-As I don't know, it's safer that I leave it alone as that means the
-"rx" clock used there is not clk_rx_i.
+Provide a platform hook that is passed the interface mode, speed, and
+transmit clock.
 
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++++++
+ include/linux/stmmac.h                            |  4 ++++
+ 2 files changed, 15 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 4d542f482ecb..f7ff94a09da2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -928,6 +928,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
+ 	unsigned int flow_ctrl;
+ 	u32 old_ctrl, ctrl;
++	int ret;
+ 
+ 	if ((priv->plat->flags & STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP) &&
+ 	    priv->plat->serdes_powerup)
+@@ -1000,6 +1001,16 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ 	if (priv->plat->fix_mac_speed)
+ 		priv->plat->fix_mac_speed(priv->plat->bsp_priv, speed, mode);
+ 
++	if (priv->plat->set_clk_tx_rate) {
++		ret = priv->plat->set_clk_tx_rate(priv->plat->bsp_priv,
++						priv->plat->clk_tx_i,
++						interface, speed);
++		if (ret < 0)
++			netdev_err(priv->dev,
++				   "failed to configure transmit clock for %dMbps: %pe\n",
++				   speed, ERR_PTR(ret));
++	}
++
+ 	if (!duplex)
+ 		ctrl &= ~priv->hw->link.duplex;
+ 	else
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 6d2aa77ea963..cd0d1383df87 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -78,6 +78,7 @@
+ 			| DMA_AXI_BLEN_32 | DMA_AXI_BLEN_64 \
+ 			| DMA_AXI_BLEN_128 | DMA_AXI_BLEN_256)
+ 
++struct clk;
+ struct stmmac_priv;
+ 
+ /* Platfrom data for platform device structure's platform_data field */
+@@ -231,6 +232,8 @@ struct plat_stmmacenet_data {
+ 	u8 tx_sched_algorithm;
+ 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
+ 	struct stmmac_txq_cfg tx_queues_cfg[MTL_MAX_TX_QUEUES];
++	int (*set_clk_tx_rate)(void *priv, struct clk *clk_tx_i,
++			       phy_interface_t interface, int speed);
+ 	void (*fix_mac_speed)(void *priv, int speed, unsigned int mode);
+ 	int (*fix_soc_reset)(void *priv, void __iomem *ioaddr);
+ 	int (*serdes_powerup)(struct net_device *ndev, void *priv);
+@@ -252,6 +255,7 @@ struct plat_stmmacenet_data {
+ 	struct clk *stmmac_clk;
+ 	struct clk *pclk;
+ 	struct clk *clk_ptp_ref;
++	struct clk *clk_tx_i;		/* clk_tx_i to MAC core */
+ 	unsigned long clk_ptp_rate;
+ 	unsigned long clk_ref_rate;
+ 	struct clk_bulk_data *clks;
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
