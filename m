@@ -2,72 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99924A397F8
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 11:02:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B076AA3980B
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 11:03:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BE16C7128F;
-	Tue, 18 Feb 2025 10:02:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74A61C7128F;
+	Tue, 18 Feb 2025 10:03:40 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 388DEC71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E106CC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 10:02:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51I94PEF032546;
- Tue, 18 Feb 2025 11:01:46 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- z3wEKkLu5QCqpmQjBX/R1HGC8LIFTH2BqVnQP1sjqLY=; b=D0H00fvIP3QIekZK
- zmcNw2hxSvyJ63GJgCKeaFJHyAkaymoqU8byOStBxukUNjVDkmDV6rHdgE6H271Z
- qOYDVxpJ7B2kc2WK7BbmCCxGQEdCUGHEr6p2Vq0qwIkgQraZmVCXqNaX1vIFqMxV
- YalAPaALoY9wXaCaRWZcCB3kFHqRpCgmqzOIAwF6+GL+A+rYJM6ugbOA0i9RgCzw
- kRuD3z3pczuM0itP5OQrUR6Y/yBE2dLx39R+KsyzG6nZSU2oB2C4shacURfM0B2d
- 0FwQ7TgI83joO3CEEoUD0KjvVEbOhKtUtTbJzGI7S9XsY+0bJgIu0zF1xJkfg0iX
- wAO3qw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44tm1ub3ch-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Feb 2025 11:01:45 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D07F540046;
- Tue, 18 Feb 2025 11:00:29 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E8D73AF671;
- Tue, 18 Feb 2025 10:58:23 +0100 (CET)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Feb
- 2025 10:58:22 +0100
-Message-ID: <5dde0e21-eddb-4bbf-a246-a2760792eb59@foss.st.com>
-Date: Tue, 18 Feb 2025 10:58:22 +0100
+ Tue, 18 Feb 2025 10:03:32 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4394a0c65fcso57366555e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 18 Feb 2025 02:03:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1739873012; x=1740477812;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0839DbdluWzWpmaiM9EB2MAfOdwxjWy1MJ5estDULzs=;
+ b=NYV3b+0zVc7N0Zj7lhw2DQSiBg8gPRqRhVp5eD1bLEL0TCEH0QSChAioT9tsGhheEf
+ in2OzvXN1aCjpqrGsUGP0MjYLboq5iXcb/7i4qEeAyuepF2HqgEnTg2hd4Z/8V+MUy3T
+ PzGb0GzDdDw3fCA0pKgpF/QlHTHwD71rcOY6ysjjO9FEEjdkPl8T3xUpOf60jlb5As/p
+ kHClqg1VJNVVb25ZH25eIwyfU5ztMz7ryL6jiHsjpx8NG+Qso+8nAoVP4ld4lYN8Wx0o
+ mJkyiAi09yOi1t1I6d1zR9pvlpAYaJHgAbdRCVvz4gsUjHC6FNjx8B5+pXr9zgEqrz42
+ 0S1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739873012; x=1740477812;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0839DbdluWzWpmaiM9EB2MAfOdwxjWy1MJ5estDULzs=;
+ b=Mu9amZis39TMrNbXF0dkbIZNwxAO+c8rUXJtHUaPkeGLwXOTnJPkvGeI8Gq7wCtuUz
+ r8OjLySbj/7wn/dHjCAWOi7AQiGmEb8B8TEzGCDXLv9W4hD5byfuX+POUpEI2lvDDfDr
+ dDYs8Nrkqv+aWEpbDseny5QOcMSsSwI1b0Rbe4Pp2nrDJD9e2yaVQrKGVSSRCFkBkoRF
+ FSSlyfQEsw8jVLf+Pl7PE0or5J2f5+a/B34V6E9x8RR+afonuKl6sGyf2ScoaEXByrPm
+ 3ufzx6A3isIbOf4GyqBXoivSWIVO7LwMml9OOYXRi9h7lcBWbbTnleKPHAJ4v6CBJPEb
+ uTVw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVB8xtt1WI0I+QnLfskq96u83tHMKT7AdDG+qKLqteni4zJXDRzhOGer5WTOTwiA4N289q9A8l1SbuTdw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyV1nE9ctRLgOudyp9ZCZwc0HQfJZUNTBf4Yx+Md7IXhxQPxxCh
+ aWvTVdGwSLCP8ESuC0moQVBiCsogObrQY0ufIFN9v/gKvtqLJ8Lq10DPVoIBnP8=
+X-Gm-Gg: ASbGncvWK12qhNPPFzctxbdgm9SQS7bf6Q0YB9D162JMUilkGzN8XHQCZ3OAZ4g7oIB
+ iYOL+KjryTrluDMASazLAFZssBv1seU9qCSVpBwORkwbkflMnzvaMcdrsnWQH5lCRzFJaUrC1TU
+ dRC2Jt198+yl+DAa6jE0EZCyAGi8y4MlDY/SJNIi34X7lHRsk9yCZmlHtsPrJUuYMtOW3hc6SkM
+ eMa4nTo36yZMM1CCMhrJyPkG7+MMAo1gPlCf2QYfTUIrMir9I5/nZ25B0t7jWli4mLNe8Y5z4yd
+ cdyXE+E0cr+pu0BHQqrNN6ZtNA==
+X-Google-Smtp-Source: AGHT+IGWbXagYwqDWRSF8X9rCootz68CXEnP/Ij/n5wLMpuiaoorUGPClGjqgWRNOLdoR1bU27EBOQ==
+X-Received: by 2002:a5d:64cc:0:b0:38f:4fcf:d295 with SMTP id
+ ffacd0b85a97d-38f4fcfd742mr3216642f8f.29.1739873012294; 
+ Tue, 18 Feb 2025 02:03:32 -0800 (PST)
+Received: from [192.168.68.163] ([145.224.90.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f258ddbe0sm14730522f8f.39.2025.02.18.02.03.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Feb 2025 02:03:31 -0800 (PST)
+Message-ID: <9adf9f13-128d-4ef0-ae31-4db4d295e2fe@linaro.org>
+Date: Tue, 18 Feb 2025 10:03:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>
-References: <20250210131826.220318-1-patrice.chotard@foss.st.com>
- <20250210131826.220318-4-patrice.chotard@foss.st.com>
- <20250213-adorable-conscious-pogona-4114cf@krzk-bin>
+To: Jie Gan <quic_jiegan@quicinc.com>
+References: <20250217093024.1133096-1-quic_jiegan@quicinc.com>
+ <20250217093024.1133096-4-quic_jiegan@quicinc.com>
 Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20250213-adorable-conscious-pogona-4114cf@krzk-bin>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-18_03,2025-02-18_01,2024-11-22_01
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/8] dt-bindings: memory-controllers:
- Add STM32 Octo Memory Manager controller
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20250217093024.1133096-4-quic_jiegan@quicinc.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v12 3/7] Coresight: Use
+ coresight_etm_get_trace_id() in traceid_show()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,192 +95,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 2/13/25 09:00, Krzysztof Kozlowski wrote:
-> On Mon, Feb 10, 2025 at 02:18:21PM +0100, patrice.chotard@foss.st.com wrote:
->> From: Patrice Chotard <patrice.chotard@foss.st.com>
->>
->> Add bindings for STM32 Octo Memory Manager (OMM) controller.
->>
->> OMM manages:
->>   - the muxing between 2 OSPI busses and 2 output ports.
->>     There are 4 possible muxing configurations:
->>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
->>         output is on port 2
->>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
->>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
->>         OSPI2 output is on port 1
->>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
->>   - the split of the memory area shared between the 2 OSPI instances.
->>   - chip select selection override.
->>   - the time between 2 transactions in multiplexed mode.
->>
->> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
->> ---
->>  .../memory-controllers/st,stm32mp25-omm.yaml  | 201 ++++++++++++++++++
->>  1 file changed, 201 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
->> new file mode 100644
->> index 000000000000..c897e6bf490d
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
->> @@ -0,0 +1,201 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/memory-controllers/st,stm32mp25-omm.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: STM32 Octo Memory Manager (OMM)
->> +
->> +maintainers:
->> +  - Patrice Chotard <patrice.chotard@foss.st.com>
->> +
->> +description: |
->> +  The STM32 Octo Memory Manager is a low-level interface that enables an
->> +  efficient OCTOSPI pin assignment with a full I/O matrix (before alternate
->> +  function map) and multiplex of single/dual/quad/octal SPI interfaces over
->> +  the same bus. It Supports up to:
->> +    - Two single/dual/quad/octal SPI interfaces
->> +    - Two ports for pin assignment
->> +
->> +properties:
->> +  compatible:
->> +    const: st,stm32mp25-omm
->> +
->> +  "#address-cells":
->> +    const: 2
->> +
->> +  "#size-cells":
->> +    const: 1
->> +
->> +  ranges:
->> +    description: |
->> +      Reflects the memory layout with four integer values per OSPI instance.
->> +      Format:
->> +      <chip-select> 0 <registers base address> <size>
->> +    minItems: 2
->> +    maxItems: 2
->> +
->> +  reg:
->> +    items:
->> +      - description: OMM registers
->> +      - description: OMM memory map area
->> +
->> +  reg-names:
->> +    items:
->> +      - const: regs
->> +      - const: memory_map
->> +
->> +  memory-region:
->> +    description: |
->> +      Memory region shared between the 2 OCTOSPI instance.
->> +      One or two phandle to a node describing a memory mapped region
->> +      depending of child number.
->> +    minItems: 1
->> +    maxItems: 2
->> +
->> +  memory-region-names:
->> +    description: |
->> +      OCTOSPI instance's name to which memory region is associated
->> +    items:
->> +      enum: [ospi1, ospi2]
->> +    minItems: 1
->> +    maxItems: 2
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  resets:
->> +    maxItems: 1
->> +
->> +  access-controllers:
->> +    maxItems: 1
->> +
->> +  st,syscfg-amcr:
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->> +    description: |
->> +      The Address Mapping Control Register (AMCR) is used to split the 256MB
->> +      memory map area shared between the 2 OSPI instance. The Octo Memory
->> +      Manager sets the AMCR depending of the memory-region configuration.
->> +      The memory split bitmask description is:
->> +        - 000: OCTOSPI1 (256 Mbytes), OCTOSPI2 unmapped
->> +        - 001: OCTOSPI1 (192 Mbytes), OCTOSPI2 (64 Mbytes)
->> +        - 010: OCTOSPI1 (128 Mbytes), OCTOSPI2 (128 Mbytes)
->> +        - 011: OCTOSPI1 (64 Mbytes), OCTOSPI2 (192 Mbytes)
->> +        - 1xx: OCTOSPI1 unmapped, OCTOSPI2 (256 Mbytes)
->> +    items:
->> +      - description: phandle to syscfg
->> +      - description: register offset within syscfg
->> +      - description: register bitmask for memory split
->> +
->> +  st,omm-req2ack-ns:
->> +    description: |
->> +      In multiplexed mode (MUXEN = 1), this field defines the time in
->> +      nanoseconds between two transactions.
+On 17/02/2025 9:30 am, Jie Gan wrote:
+> From: James Clark <james.clark@linaro.org>
 > 
-> default: ?
+> Use the new API, coresight_etm_get_trace_id, to read the traceid of the ETM
+> device when call traceid_show via sysfs node.
+> 
+> Signed-off-by: James Clark <james.clark@linaro.org>
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-etm3x-sysfs.c | 3 +--
+>   drivers/hwtracing/coresight/coresight-etm4x-sysfs.c | 4 ++--
+>   2 files changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> index 68c644be9813..b9006451f515 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> @@ -1190,10 +1190,9 @@ static DEVICE_ATTR_RO(cpu);
+>   static ssize_t traceid_show(struct device *dev,
+>   			    struct device_attribute *attr, char *buf)
+>   {
+> -	int trace_id;
+>   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+> +	int trace_id = coresight_etm_get_trace_id(drvdata->csdev, CS_MODE_SYSFS, NULL);
+>   
+> -	trace_id = etm_read_alloc_trace_id(drvdata);
+>   	if (trace_id < 0)
+>   		return trace_id;
+>   
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> index c767f8ae4cf1..e5216c0f60da 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> @@ -4,6 +4,7 @@
+>    * Author: Mathieu Poirier <mathieu.poirier@linaro.org>
+>    */
+>   
+> +#include <linux/coresight.h>
+>   #include <linux/pid_namespace.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/sysfs.h>
+> @@ -2402,10 +2403,9 @@ static ssize_t trctraceid_show(struct device *dev,
+>   			       struct device_attribute *attr,
+>   			       char *buf)
+>   {
+> -	int trace_id;
+>   	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+> +	int trace_id = coresight_etm_get_trace_id(drvdata->csdev, CS_MODE_SYSFS, NULL);
+>   
+> -	trace_id = etm4_read_alloc_trace_id(drvdata);
+>   	if (trace_id < 0)
+>   		return trace_id;
+>   
 
-Yes, i will add the default value
+Reviewed-by: James Clark <james.clark@linaro.org>
 
-> 
->> +
->> +  st,omm-cssel-ovr:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: |
->> +      Configure the chip select selector override for the 2 OCTOSPIs.
->> +      - 0: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS1
->> +      - 1: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS1
->> +      - 2: OCTOSPI1 chip select send to NCS1 OCTOSPI2 chip select send to NCS2
->> +      - 3: OCTOSPI1 chip select send to NCS2 OCTOSPI2 chip select send to NCS2
->> +    minimum: 0
->> +    maximum: 3
-> 
-> default: ?
-
-ditto
-
-> 
->> +
->> +  st,omm-mux:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: |
->> +      Configure the muxing between the 2 OCTOSPIs busses and the 2 output ports.
->> +      - 0: direct mode, default
-> 
-> Don't repeat constraints in free form text.
-> 
-ok
-
->> +      - 1: mux OCTOSPI1 and OCTOSPI2 to port 1
->> +      - 2: swapped mode
->> +      - 3: mux OCTOSPI1 and OCTOSPI2 to port 2
->> +    minimum: 0
->> +    maximum: 3
-> 
-> default: ?
-
-i will add the default value as well
-
-Thanks 
-Patrice
-
-> 
-> None of them are required, so usually we expect defaults.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> Best regards,
-> Krzysztof
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
