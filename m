@@ -2,107 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEDD6A39CC0
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 14:03:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D04A39D60
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 14:27:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FFF0C78F8B;
-	Tue, 18 Feb 2025 13:03:28 +0000 (UTC)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 067B6C78F8B;
+	Tue, 18 Feb 2025 13:27:54 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6494CC6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC122C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 13:03:27 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-7c0a1677aebso154420085a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 05:03:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739883806; x=1740488606;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=shcHVe5ScV+KF73Cqgadpco0XHdM/Pvt/zjUdwF7k8A=;
- b=EkRfQLArJe/STjAhk0KCX64GDvw1DzJqlf0mtDJAoZfsfYvQfweMC9133TS0zKX93J
- ItSFtkXzfXeeBMYTilstgm4sSyl1e15vBZmFrQ1j2/G0RAQhclVU3f7Ix8VN06lSp0+G
- Tbvq8paUDEhXVsP/YIl93KSGtJ7tYajNUNtjc5jsfMVsYA2Li4sAuzxIHopJFG9Qtxhr
- SxzkhyQf/cRWDb8Mh6xJVD7+Cy54kKnrXP5GH6eTSKVTtn4zEfFoJ7MLPaoL1hxaD/xR
- lCPUgYESUlyMD5Rg7LrYU5nJvo4dM6ZI9oOu2LpZ030TG1UBwNvd5RaGbIGQr9JsPv1C
- j+Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739883806; x=1740488606;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=shcHVe5ScV+KF73Cqgadpco0XHdM/Pvt/zjUdwF7k8A=;
- b=gqzQfVRV8r/HjSmyt+C8pq57R8RuJ+WbhoL8m+K8BFX6LwjSrCtS7wGDMdQ9b1S1AX
- HedT+Od5hQck7Gh6mn6sNZXScDmTouQX8y67RA07FOpI7AeKe4SrkbuVynUFQw0muiX1
- SoIkIZpNjZqPmohDpFCRHJBaY6BDRumNbAhrtNr11jrOwAoDnI9yWGYyuasREFDOi8IR
- ksRXRdD+rKnj/CTXczaYUEfGjg/Ir+4XGqldpxHj9gftuRTLIvUK1xlkCnqThXtOzp+8
- r8uDvKiWyqw5coRBUMfmMWx6z6j/bZOINW0m/yUgSTwoMGiYaQnyQ8eqhuQ/6eKuKkHu
- pJyA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBF8hAtf6sdR0ZlYK8s9J6HectXITDpmK5TK7zUFuGeyHUcDHaq1eXACVNra0p9HaO3kQoNhDFBLhgyQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxBYKA1IfZc3o9SyshUWpQRH2thUUxr8Yd7MInZM4e5IS1bhy8z
- byG3gtIMV1ugZa7w1/R9+jeT2yogpBbkgpBttkLAiKLn4sFXh7hG
-X-Gm-Gg: ASbGncvS/v3IgZuCTJIliEM9LdDXT5u41uUAmYPfEtitI7HIt3oUQ3yDznNpSxIxNMP
- RhSJ1x1oxZBN8ywlp2I61YeZGT6IIT6jkH4wq2nlD3v/w3qwDV0ioz/VBq98bcFz1oG9oPfPjEo
- 3LyXrMQfSaMYg4JU9IXvbnu+hGDLFImzUNijmfxaGGyyWM/IYTKeTKJguZQ+ZZN7SWQn8WojKZS
- 7NpL559F6hvzxP0O7GExF0302Gc+0o1Q/lL3FCeZ3xHuzCXtshS07tMDr6E1067lp8=
-X-Google-Smtp-Source: AGHT+IHMvBa2pdrsPXBeOhKSDCxofcBeoktPP7uW0o0YVj6yGzgsaMY5yizsS+ID7z1U76ykO/2aOg==
-X-Received: by 2002:a05:620a:31a2:b0:7c0:7ca3:b123 with SMTP id
- af79cd13be357-7c08aa98cdfmr1890605085a.46.1739883806193; 
- Tue, 18 Feb 2025 05:03:26 -0800 (PST)
-Received: from localhost ([2001:da8:7001:11::cb])
- by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7c0a28e8700sm189185085a.113.2025.02.18.05.03.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 05:03:25 -0800 (PST)
-Date: Tue, 18 Feb 2025 21:03:13 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <rkcf6tmgv44uxof3oxsmzqduvc4bumtnsjlkvenxezu2tjrp6l@vy5rbr4p7f3d>
-References: <Z7IIht2Q-iXEFw7x@shell.armlinux.org.uk>
- <5e481b95-3cf8-4f71-a76b-939d96e1c4f3@lunn.ch>
- <js3z3ra7fyg4qwxbly24xqpnvsv76jyikbhk7aturqigewllbx@gvus6ub46vow>
- <24eecc48-9061-4575-9e3b-6ef35226407a@lunn.ch>
- <Z7NDakd7zpQ_345D@shell.armlinux.org.uk>
- <rsysy3p5ium5umzz34rtinppcu2b36klgjdtq5j4lm3mylbqbz@z44yeje5wgat>
- <Z7PEeGmNvlYD33rZ@shell.armlinux.org.uk>
- <6obom7jyciq2kqw5iuqlugbzbsebgd7ymnq2crlm565ybbz7de@n7o3tcqn5idi>
- <Z7Rjjo5nZ0gnCbzq@shell.armlinux.org.uk>
- <thc5oknaqaw54wghyxpx6nr4kbykxvpgkgvpqsnsp2osjlxgwv@dekgtkxoywrm>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <thc5oknaqaw54wghyxpx6nr4kbykxvpgkgvpqsnsp2osjlxgwv@dekgtkxoywrm>
-Cc: Andrew Lunn <andrew@lunn.ch>, Longbin Li <looong.bin@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Jisheng Zhang <jszhang@kernel.org>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Chen Wang <unicorn_wang@outlook.com>, Furong Xu <0x1207@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Tue, 18 Feb 2025 13:27:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 05646A40413;
+ Tue, 18 Feb 2025 13:26:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2AB1C4CEE2;
+ Tue, 18 Feb 2025 13:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739885265;
+ bh=AJKyiXBafQUU2GUK7AJl0waPaVhJd3oQT87yxSvobvE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=p+kxQs1YIab8Jsxu8m5/6WK6C1bPtYDQRySad4qGSEE4/CavI+ZXsPmAYNRZxKDN/
+ gs+acWA7zva4f052NKytP/Z/jNhM3dc5XBpEZtllL1rSnCWlGSWx/vdkwSh24RDX22
+ H6E5HQJ6SUEwHVtcBRacnzo6vevnIDt3tHgQ2UraOP6tQddnYmDUolehDZauQp8Neo
+ oU2TsQCIPqWel4Pe91YXBaYLxRKY/Vmt3CSVO3bg/+7EzSO5//NuoFns0tNLebaylG
+ sPAqmlyeFDO5niDOcQ70O8iMoJ2qkdBBV3GpdiXvFwz1qihcjaAx+2ivV8QEKZUxWB
+ GDI2aPis+n8lw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
- sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Hariprasad Kelam <hkelam@marvell.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add glue
- layer for Sophgo SG2044 SoC
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Yanteng Si <si.yanteng@linux.dev>, Huacai Chen <chenhuacai@kernel.org>,
+ Yinggang Gu <guyinggang@loongson.cn>,
+ Feiyang Chen <chenfeiyang@loongson.cn>
+Date: Tue, 18 Feb 2025 14:21:21 +0100
+Message-ID: <20250218132120.124038-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.47.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, Philipp Stanner <pstanner@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] stmmac: Replace deprecated PCI functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,99 +62,181 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 18, 2025 at 07:34:47PM +0800, Inochi Amaoto wrote:
-> On Tue, Feb 18, 2025 at 10:40:14AM +0000, Russell King (Oracle) wrote:
-> > On Tue, Feb 18, 2025 at 09:01:59AM +0800, Inochi Amaoto wrote:
-> > > On Mon, Feb 17, 2025 at 11:21:28PM +0000, Russell King (Oracle) wrote:
-> > > > On Tue, Feb 18, 2025 at 06:50:24AM +0800, Inochi Amaoto wrote:
-> > > > > On Mon, Feb 17, 2025 at 02:10:50PM +0000, Russell King (Oracle) wrote:
-> > > > > > On Mon, Feb 17, 2025 at 02:25:33PM +0100, Andrew Lunn wrote:
-> > > > > > > > I am not sure all whether devices has this clock, but it appears in
-> > > > > > > > the databook. So I think it is possible to move this in the core so
-> > > > > > > > any platform with these clock can reuse it.
-> > > > > > > 
-> > > > > > > Great
-> > > > > > > 
-> > > > > > > The next problem will be, has everybody called it the same thing in
-> > > > > > > DT. Since there has been a lot of cut/paste, maybe they have, by
-> > > > > > > accident.
-> > > > > > 
-> > > > > > Tegra186: "tx"
-> > > > > > imx: "tx"
-> > > > > > intel: "tx_clk"
-> > > > > > rk: "clk_mac_speed"
-> > > > > > s32: "tx"
-> > > > > > starfive: "tx"
-> > > > > > sti: "sti-ethclk"
-> > > > > > 
-> > > > > 
-> > > > > The dwc-qos-eth also use clock name "tx", but set the clock with
-> > > > > extra calibration logic.
-> > > > 
-> > > > Yep, that's what I meant by "Tegra186" above.
-> > > > 
-> > > > > > so 50% have settled on "tx" and the rest are doing their own thing, and
-> > > > > > that horse has already bolted.
-> > > > > > 
-> > > > > 
-> > > > > The "rx" clock in s32 also uses the same logic. I think the core also
-> > > > > needs to take it, as this rx clock is also mentioned in the databook.
-> > > > 
-> > > > The "rx" clock on s32 seems to only be set to 125MHz, and the driver
-> > > > seems to be limited to RGMII.
-> > > > 
-> > > > This seems weird as the receive clock is supposed to be supplied by the
-> > > > PHY, and is recovered from the media (and thus will be 2.5, 25 or
-> > > > 125MHz as determined by the PHY.) So, I'm not sure that the s32 "rx"
-> > > > clock is really the clk_rx_i clock supplied to the DWMAC core.
-> > > > 
-> > > > Certainly on stm32mp151, it states that ETH_RX_CLK in RGMII mode will
-> > > > be 2.5, 25 or 125MHz provided by the PHY, and the clock tree indicates
-> > > > that ETH_RX_CLK in RGMII mode will be routed directly to the clk_rx_i
-> > > > input on the DWMAC(4) core.
-> > > > 
-> > > 
-> > > RGMII is not the problem. The databook says the RGMII clock (rx/tx)
-> > > follows this set rate logic. 
-> > 
-> > Sorry, I find this ambiguous. "This" doesn't tell me whether you are
-> > referring to either what s32 does (setting the "rx" clock to 125MHz
-> > only) or what RGMII spec says about RX_CLK (which is that it comes from
-> > the PHY and is 2.5/25/125MHz) which stm32mp151 agrees with and feeds
-> > the PHY's RX_CLK to the clk_rx_i inputs on the DWMAC in RGMII, GMII
-> > and MII modes.
-> > 
-> 
-> What I said follows the second, the clock is set at 2.5/25/125MHz
-> with speed at 10/100/1000Mbps. The only thing I can refer to is the
-> ip databook.
-> 
-> > clk_rx_i comes through a bunch of muxes on stm32mp151. When the clock
-> > tree is configured for RMII mode, the rate on clk_rx_i depends on the
-> > MAC speed (10/100Mbps).
-> > 
-> 
-> OK, I have no problem and find some descriptions related to this in
-> the databook.
-> 
-> > This suggests as far as the core is concerned, the clock supplied as
-> > clk_rx_i isn't a fixed rate clock but depends on the speed just like
-> > the transmit clock.
-> > 
-> 
-> This is what I want to say. clk_rx_i is not fixed but the
-> s32 uses it as a fixed one (This is the thing I felt weird).
-> 
+From: Philipp Stanner <pstanner@redhat.com>
 
-> In fact, Non-fixed clk_rx_i is why I suggested adding the rx
-> clock to the core at first. Since the drive may not use rx
-> clock as the databook says, it is good to leave it alone.
+The PCI functions
+  - pcim_iomap_regions()
+  - pcim_iomap_table() and
+  - pcim_iounmap_regions()
+have been deprecated.
 
-Please ignore my wrong point, I mistake the direction of the
-rx clock. It is not provided by the mac, but the phy.
+The usage of pcim_* cleanup functions in the driver detach path (remove
+callback) is actually not necessary, since they perform that cleanup
+automatically.
 
-Regards,
-Inochi
+Furthermore, loongson_dwmac_probe() contains a surplus loop. That loop
+does not use index i in pcim_iomap_regions(), but costantly attempts to
+request and ioremap BAR 0. This would actually fail (since you cannot
+request the same BAR more than once), but presumably never fails because
+the preceding length check detects that all BARs except for 0 do not
+exist.
+
+Replace them with pcim_iomap_region(). Remove the surplus loop.
+
+Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+---
+Changes in v2:
+  - Fix build errors because of missing ';'
+  - Address in the commit message why the patch removes a loop. (Andrew)
+---
+ .../ethernet/stmicro/stmmac/dwmac-loongson.c  | 31 ++++++-------------
+ .../net/ethernet/stmicro/stmmac/stmmac_pci.c  | 24 ++++----------
+ 2 files changed, 15 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index bfe6e2d631bd..6f7c479c1a51 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -11,6 +11,8 @@
+ #include "dwmac_dma.h"
+ #include "dwmac1000.h"
+ 
++#define DRIVER_NAME "dwmac-loongson-pci"
++
+ /* Normal Loongson Tx Summary */
+ #define DMA_INTR_ENA_NIE_TX_LOONGSON	0x00040000
+ /* Normal Loongson Rx Summary */
+@@ -520,9 +522,9 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ {
+ 	struct plat_stmmacenet_data *plat;
+ 	struct stmmac_pci_info *info;
+-	struct stmmac_resources res;
++	struct stmmac_resources res = {};
+ 	struct loongson_data *ld;
+-	int ret, i;
++	int ret;
+ 
+ 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
+ 	if (!plat)
+@@ -552,17 +554,10 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ 	pci_set_master(pdev);
+ 
+ 	/* Get the base address of device */
+-	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+-		if (pci_resource_len(pdev, i) == 0)
+-			continue;
+-		ret = pcim_iomap_regions(pdev, BIT(0), pci_name(pdev));
+-		if (ret)
+-			goto err_disable_device;
+-		break;
+-	}
+-
+-	memset(&res, 0, sizeof(res));
+-	res.addr = pcim_iomap_table(pdev)[0];
++	res.addr = pcim_iomap_region(pdev, 0, DRIVER_NAME);
++	ret = PTR_ERR_OR_ZERO(res.addr);
++	if (ret)
++		goto err_disable_device;
+ 
+ 	plat->bsp_priv = ld;
+ 	plat->setup = loongson_dwmac_setup;
+@@ -606,7 +601,6 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
+ 	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+ 	struct loongson_data *ld;
+-	int i;
+ 
+ 	ld = priv->plat->bsp_priv;
+ 	stmmac_dvr_remove(&pdev->dev);
+@@ -617,13 +611,6 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
+ 	if (ld->loongson_id == DWMAC_CORE_LS_MULTICHAN)
+ 		loongson_dwmac_msi_clear(pdev);
+ 
+-	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+-		if (pci_resource_len(pdev, i) == 0)
+-			continue;
+-		pcim_iounmap_regions(pdev, BIT(i));
+-		break;
+-	}
+-
+ 	pci_disable_device(pdev);
+ }
+ 
+@@ -673,7 +660,7 @@ static const struct pci_device_id loongson_dwmac_id_table[] = {
+ MODULE_DEVICE_TABLE(pci, loongson_dwmac_id_table);
+ 
+ static struct pci_driver loongson_dwmac_driver = {
+-	.name = "dwmac-loongson-pci",
++	.name = DRIVER_NAME,
+ 	.id_table = loongson_dwmac_id_table,
+ 	.probe = loongson_dwmac_probe,
+ 	.remove = loongson_dwmac_remove,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+index 352b01678c22..9d45af70d8a2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+@@ -155,7 +155,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+ {
+ 	struct stmmac_pci_info *info = (struct stmmac_pci_info *)id->driver_data;
+ 	struct plat_stmmacenet_data *plat;
+-	struct stmmac_resources res;
++	struct stmmac_resources res = {};
+ 	int i;
+ 	int ret;
+ 
+@@ -188,13 +188,13 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+ 		return ret;
+ 	}
+ 
+-	/* Get the base address of device */
++	/* The first BAR > 0 is the base IO addr of our device. */
+ 	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+ 		if (pci_resource_len(pdev, i) == 0)
+ 			continue;
+-		ret = pcim_iomap_regions(pdev, BIT(i), pci_name(pdev));
+-		if (ret)
+-			return ret;
++		res.addr = pcim_iomap_region(pdev, i, STMMAC_RESOURCE_NAME);
++		if (IS_ERR(res.addr))
++			return PTR_ERR(res.addr);
+ 		break;
+ 	}
+ 
+@@ -204,8 +204,6 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	memset(&res, 0, sizeof(res));
+-	res.addr = pcim_iomap_table(pdev)[i];
+ 	res.wol_irq = pdev->irq;
+ 	res.irq = pdev->irq;
+ 
+@@ -226,21 +224,11 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+  * stmmac_pci_remove
+  *
+  * @pdev: platform device pointer
+- * Description: this function calls the main to free the net resources
+- * and releases the PCI resources.
++ * Description: Main driver resource release function
+  */
+ static void stmmac_pci_remove(struct pci_dev *pdev)
+ {
+-	int i;
+-
+ 	stmmac_dvr_remove(&pdev->dev);
+-
+-	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+-		if (pci_resource_len(pdev, i) == 0)
+-			continue;
+-		pcim_iounmap_regions(pdev, BIT(i));
+-		break;
+-	}
+ }
+ 
+ static int __maybe_unused stmmac_pci_suspend(struct device *dev)
+-- 
+2.47.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
