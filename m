@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A529BA39CB4
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E5C4A39CB0
 	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 14:02:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 250C8C78F9C;
-	Tue, 18 Feb 2025 13:02:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD43C78F8B;
+	Tue, 18 Feb 2025 13:02:36 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C731C78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07A07C78F95
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 13:02:32 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51ICTMUp005880;
- Tue, 18 Feb 2025 14:02:19 +0100
+ Tue, 18 Feb 2025 13:02:31 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51ICTR5j017234;
+ Tue, 18 Feb 2025 14:02:15 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- CdybSsPkvSWYJRfesz++DC37KlekJmyO0IzskUGhkLk=; b=mvsfdy42dL0zmjqV
- /atRGQS9/j1ktjFZ7Pi82zsnoLfK44pJaRnv/8pq915dhMl9OfxAR2U83+C6KeB3
- RTm8EQ7VQ/dGjD8g6sduZ4Xr0tC22yl2whFMegzhVpmzVnyxvLvp/4GCfCl92eTZ
- VTKJcZmmS7Ji1tvm3ubmyWthx2kP6DmnLiS+7a4I6xQAfF+3bU6FM1QjGXRm0GaQ
- 5mh44wNRcQdO3MLeVXDCngCoHS8kHRsbGD0KnpMATRLgMOC41vgzI4vbdiEGaXwf
- 4nF1jopknTrXsVGjhXlEzptLZirGz/zVKPr0KIfB9Ywe34KKUFrbXbPPNQXGfWJN
- ar4zjw==
+ vt89S6pzijLj7oWLrPzmzdiGrX2lA3/klO9FWSjgKdY=; b=b6k/BRVhJsBQ9EKb
+ Rl7/GmNHPRt/zlEL1R3+L9A6TBRm/RmI7eJakVYZW+kAH5RLjBn8zRgR2mra7KK9
+ nJlOGigAnIAscgb3hJZoUU34IU4XPHWvWSUELDUz/DbLa7EBBUt4VatgHFK7I0J7
+ wOtW24i+D/lGP8NEFhTEn+JSvuou55pP5Q9vAMNjQv3iTRt+Jr1j5gYc7w9wuec6
+ 3ui8ZyKpQ3UVmE3HjssxYS8kw97WKfaQvsm6JsNjgrrDKOVwge76Nwr/Ih5KBElH
+ kZ+PdS6zqjyN57ptGI+SMW/kcsABCf2rpy2ya6o4rZ5ubJFv2w5q/VITBUL2mVQz
+ nrjJ1Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44u5c3t95b-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44tkvmmcrr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 18 Feb 2025 14:02:19 +0100 (CET)
+ Tue, 18 Feb 2025 14:02:15 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A0A5B4004F;
- Tue, 18 Feb 2025 14:01:10 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AECFF4002D;
+ Tue, 18 Feb 2025 14:01:09 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9D7813276AF;
- Tue, 18 Feb 2025 14:00:06 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 617D83276B6;
+ Tue, 18 Feb 2025 14:00:07 +0100 (CET)
 Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Feb
- 2025 14:00:06 +0100
+ 2025 14:00:07 +0100
 From: <patrice.chotard@foss.st.com>
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
  Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
@@ -48,8 +48,8 @@ To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
  <p.zabel@pengutronix.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg
  Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
  Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Date: Tue, 18 Feb 2025 13:59:57 +0100
-Message-ID: <20250218130000.87889-6-patrice.chotard@foss.st.com>
+Date: Tue, 18 Feb 2025 13:59:58 +0100
+Message-ID: <20250218130000.87889-7-patrice.chotard@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250218130000.87889-1-patrice.chotard@foss.st.com>
 References: <20250218130000.87889-1-patrice.chotard@foss.st.com>
@@ -63,8 +63,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 5/8] arm64: dts: st: Add OMM node on
-	stm32mp251
+Subject: [Linux-stm32] [PATCH v4 6/8] arm64: dts: st: Add ospi port1 pinctrl
+	entries in stm32mp25-pinctrl.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,73 +83,75 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Add Octo Memory Manager (OMM) entry on stm32mp251 and its two
-OSPI instance.
+Add pinctrl entry related to OSPI's port1 in stm32mp25-pinctrl.dtsi
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 48 ++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 51 +++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index f3c6cdfd7008..2565236e369f 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -768,6 +768,54 @@ rng: rng@42020000 {
- 				status = "disabled";
- 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+index 8fdd5f020425..cf5be316de26 100644
+--- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+@@ -101,6 +101,57 @@ pins2 {
+ 		};
+ 	};
  
-+			ommanager: ommanager@40500000 {
-+				compatible = "st,stm32mp25-omm";
-+				reg = <0x40500000 0x400>, <0x60000000 0x10000000>;
-+				reg-names = "regs", "memory_map";
-+				ranges = <0 0 0x40430000 0x400>,
-+					 <1 0 0x40440000 0x400>;
-+				clocks = <&rcc CK_BUS_OSPIIOM>;
-+				resets = <&rcc OSPIIOM_R>;
-+				access-controllers = <&rifsc 111>;
-+				power-domains = <&CLUSTER_PD>;
-+				#address-cells = <2>;
-+				#size-cells = <1>;
-+				st,syscfg-amcr = <&syscfg 0x2c00 0x7>;
-+				status = "disabled";
++	ospi_port1_clk_pins_a: ospi-port1-clk-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 0, AF10)>; /* OSPI1_CLK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++	};
 +
-+				ospi1: spi@40430000 {
-+					compatible = "st,stm32mp25-ospi";
-+					reg = <0 0 0x400>;
-+					interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-+					dmas = <&hpdma 2 0x62 0x00003121>,
-+					       <&hpdma 2 0x42 0x00003112>;
-+					dma-names = "tx", "rx";
-+					clocks = <&scmi_clk CK_SCMI_OSPI1>;
-+					resets = <&scmi_reset RST_SCMI_OSPI1>,
-+						 <&scmi_reset RST_SCMI_OSPI1DLL>;
-+					access-controllers = <&rifsc 74>;
-+					power-domains = <&CLUSTER_PD>;
-+					st,syscfg-dlyb = <&syscfg 0x1000>;
-+					status = "disabled";
-+				};
++	ospi_port1_clk_sleep_pins_a: ospi-port1-clk-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 0, ANALOG)>; /* OSPI1_CLK */
++		};
++	};
 +
-+				ospi2: spi@40440000 {
-+					compatible = "st,stm32mp25-ospi";
-+					reg = <1 0 0x400>;
-+					interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
-+					dmas = <&hpdma 3 0x62 0x00003121>,
-+					       <&hpdma 3 0x42 0x00003112>;
-+					dma-names = "tx", "rx";
-+					clocks = <&scmi_clk CK_SCMI_OSPI2>;
-+					resets = <&scmi_reset RST_SCMI_OSPI2>,
-+						 <&scmi_reset RST_SCMI_OSPI2DLL>;
-+					access-controllers = <&rifsc 75>;
-+					power-domains = <&CLUSTER_PD>;
-+					st,syscfg-dlyb = <&syscfg 0x1400>;
-+					status = "disabled";
-+				};
-+			};
++	ospi_port1_cs0_pins_a: ospi-port1-cs0-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 3, AF10)>; /* OSPI_NCS0 */
++			bias-pull-up;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++	};
 +
- 			spi8: spi@46020000 {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
++	ospi_port1_cs0_sleep_pins_a: ospi-port1-cs0-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 3, ANALOG)>; /* OSPI_NCS0 */
++		};
++	};
++
++	ospi_port1_io03_pins_a: ospi-port1-io03-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 4, AF10)>, /* OSPI_IO0 */
++				 <STM32_PINMUX('D', 5, AF10)>, /* OSPI_IO1 */
++				 <STM32_PINMUX('D', 6, AF10)>, /* OSPI_IO2 */
++				 <STM32_PINMUX('D', 7, AF10)>; /* OSPI_IO3 */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++	};
++
++	ospi_port1_io03_sleep_pins_a: ospi-port1-io03-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('D', 4, ANALOG)>, /* OSPI_IO0 */
++				 <STM32_PINMUX('D', 5, ANALOG)>, /* OSPI_IO1 */
++				 <STM32_PINMUX('D', 6, ANALOG)>, /* OSPI_IO2 */
++				 <STM32_PINMUX('D', 7, ANALOG)>; /* OSPI_IO3 */
++		};
++	};
++
+ 	sdmmc1_b4_od_pins_a: sdmmc1-b4-od-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('E', 4, AF10)>, /* SDMMC1_D0 */
 -- 
 2.25.1
 
