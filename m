@@ -2,93 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68BD5A39C24
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 13:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61B4A39CB5
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 14:02:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16113C78F8B;
-	Tue, 18 Feb 2025 12:29:25 +0000 (UTC)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3210DC7A827;
+	Tue, 18 Feb 2025 13:02:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E424CC78F87
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F230C78F98
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 12:29:17 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-30613802a6bso55951681fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 04:29:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739881756; x=1740486556;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=h+VJIQ0ApMIfEX8niiA/w5UOINZk4mk6qd15CEV+pRs=;
- b=X8sMLlBOUhW8DDechVUx/ji9LJbAEc3Ypn2tSY0z5eNsp+PSf4yhckzMt0y0+Zp1nS
- BW/Ay7tF64CWJYj+j+fvo065wORCsfeC4kGr9uYEuHrX2jjHfvBeZ5OLoY3Ja0k0eieI
- pBmZLEy/uAvP0B9JaOuOyGV5TqOZbgOX6vakd1SYmLYCvmMJGGWKYXbvwfRKuZzPE0Au
- SN/t3peUsIrQoKd2v5SUpRCVbWVL3BdS06nMKWwoOpwZlPwDASrqgvvbYXnJ4vMdzH6W
- Gxy+JTHlcONtHahK4qwebGR+psVv8CRgMRwpB38Poj/vykGjjBC6pcqW5FlgG9ZpwM0m
- dMhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVEn7G3lsfmvBoiHVflTocjs8XpgO7Vn+LdwCuzzHKjjdjGa+g+/Vo3x+oA43Twimg7nqBi92YNKT6gqg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzJDWYVu2xhJYSdCIfPlzgAuCMYF8TAzWXQVq+fgQeb8a4dl//y
- pjJL6MZdyjJO6Ieybat2XSJzjwAvXxMFMQYL5vvHZ6PWaIAyEQsj9Z9rj2M80Mc=
-X-Gm-Gg: ASbGncuMAqtXhwvfGmEUYnWaOBoZsV6AoN0+k2McSQCMjZThlDZXkdRGz6iUqZmGvYu
- k7FJHFkT3iChjOqT58XPpEGTx3znpBnwzUFsSnKP3h5bBW+OxDTXWqnyO+r9gHMsJoVxNdZ93Kh
- 3zpM9ZWcQW610Zzf3eiYjN4sp1/mGxi7YZYVxdQ/zB2Y0Z6gmQi+CVWCeWbgEqEzAxGk8Ev0Oqh
- e3f9ShCMarbYj9pKx+CtBELosh3pGhU+3Sc9DYaDGa/eMpSNLPO1YOo3xYIsSYG4D/JbmsHmzwc
- 48sfBHkzUjeE5t9/yRXDvftNyw/xnckOf5HkVmCOJ6ivTEDV
-X-Google-Smtp-Source: AGHT+IEW7pSyNwJ3ftUbEQXBZZd9V5AC5ct1t/bSDIKI1M+gqGwyQy1B760X1A9UdI1vQHJTKGKiyw==
-X-Received: by 2002:a05:6512:3d01:b0:545:109b:a9c7 with SMTP id
- 2adb3069b0e04-5452fe6afa9mr4143496e87.35.1739881755415; 
- Tue, 18 Feb 2025 04:29:15 -0800 (PST)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com.
- [209.85.208.175]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-545318aa476sm1157757e87.254.2025.02.18.04.29.15
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Feb 2025 04:29:15 -0800 (PST)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-30795988ebeso56308741fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 04:29:15 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJclU1X+kA+LmyUQJGS2dC3OOs8oSTJrJI8os0wKiyAn26mynf3K5ZiEPetUT7LOPd0DF0MfJJFfrP2w==@st-md-mailman.stormreply.com
-X-Received: by 2002:a2e:9995:0:b0:308:fac7:9cc9 with SMTP id
- 38308e7fff4ca-30927a474acmr41266951fa.14.1739881754898; Tue, 18 Feb 2025
- 04:29:14 -0800 (PST)
+ Tue, 18 Feb 2025 13:02:33 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51ICTPPa005901;
+ Tue, 18 Feb 2025 14:02:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=+em1inQNrRqOlMWnK47j76
+ Xsx89tO6jQVhAJigvgbyE=; b=I05K1oL5Uu/xc0zwJKgm/xbZN0WNhLmJT3HyKq
+ OkNs6FIVid9zko+BlmeP0g0fpGDjG2RTbKwXWQwlhaZwsVD8gzej2vsUFMO/iH3b
+ HMY+34IrRREP8SvuW9SM7MjapBLF1cna9XnlJnblU3YrNRhi8hcdeqDoZTZv1wp0
+ 7XrjQkc6cRsACYtfo8Q9cZiP042wdWrZy+BEzfSxDx0IS/wH4XPmaq00xI03sEac
+ /w16g17eTzcCUhlhBpC9rPcZO5IAfQytdphmciTlZERcYE6YTPj0V7M6qd+mcy6N
+ XLEUZ/j1NVTvXCZZjjJiJrHJMXRtEpkphECUrMLYd3T1dw/Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44u5c3t958-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Feb 2025 14:02:19 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id ECFB540045;
+ Tue, 18 Feb 2025 14:00:58 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2A6103CB70E;
+ Tue, 18 Feb 2025 14:00:03 +0100 (CET)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Feb
+ 2025 14:00:02 +0100
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Date: Tue, 18 Feb 2025 13:59:52 +0100
+Message-ID: <20250218130000.87889-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <Z7Rf2daOaf778TOg@shell.armlinux.org.uk>
- <E1tkKmN-004ObM-Ge@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1tkKmN-004ObM-Ge@rmk-PC.armlinux.org.uk>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Tue, 18 Feb 2025 20:29:02 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67xPoo-LQp9Z70yEBDXmgJTD=RvLP0tYYEXUJZr6B+Xkw@mail.gmail.com>
-X-Gm-Features: AWEUYZmOiTlBF_l0MM194DGfKDDxifchVc42QrgCh8BPzRfhHgMRNbv9Q3dSaz0
-Message-ID: <CAGb2v67xPoo-LQp9Z70yEBDXmgJTD=RvLP0tYYEXUJZr6B+Xkw@mail.gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Guo Ren <guoren@kernel.org>, linux-riscv@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Drew Fustini <drew@pdp7.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Jan Petrous <jan.petrous@oss.nxp.com>,
- Minda Chen <minda.chen@starfivetech.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: "speed" passed
- to fix_mac_speed is an int
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-18_05,2025-02-18_01,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 0/8] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,28 +72,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: wens@csie.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBGZWIgMTgsIDIwMjUgYXQgNjoyNeKAr1BNIFJ1c3NlbGwgS2luZyAoT3JhY2xlKQo8
-cm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWs+IHdyb3RlOgo+Cj4gcHJpdi0+cGxhdC0+Zml4X21h
-Y19zcGVlZCgpIGlzIGNhbGxlZCBmcm9tIHN0bW1hY19tYWNfbGlua191cCgpLCB3aGljaAo+IGlz
-IHBhc3NlZCB0aGUgc3BlZWQgYXMgYW4gImludCIuIEhvd2V2ZXIsIGZpeF9tYWNfc3BlZWQoKSBp
-bXBsaWNpdGx5Cj4gY2FzdHMgdGhpcyB0byBhbiB1bnNpZ25lZCBpbnQuIFNvbWUgcGxhdGZvcm0g
-Z2x1ZSBjb2RlIHByaW50IHRoaXMgdmFsdWUKPiB1c2luZyAldSwgb3RoZXJzIHdpdGggJWQuIFNv
-bWUgaW1wbGljaXRseSBjYXN0IGl0IGJhY2sgdG8gYW4gaW50LCBhbmQKPiBvdGhlcnMgdG8gdTMy
-Lgo+Cj4gR29vZCBwcmFjdGljZSBpcyB0byB1c2Ugb25lIHR5cGUgYW5kIG9ubHkgb25lIHR5cGUg
-dG8gcmVwcmVzZW50IGEgdmFsdWUKPiBiZWluZyBwYXNzZWQgYXJvdW5kIGEgZHJpdmVyLgo+Cj4g
-U3dpdGNoIGFsbCBvZiB0aGVzZSBvdmVyIHRvIGNvbnNpc3RlbnRseSB1c2UgImludCIgd2hlbiBk
-ZWFsaW5nIHdpdGggYQo+IHNwZWVkIHBhc3NlZCBmcm9tIHN0bW1hY19tYWNfbGlua191cCgpLCBl
-dmVuIHRob3VnaCB0aGUgc3BlZWQgd2lsbAo+IGFsd2F5cyBiZSBwb3NpdGl2ZS4KPgo+IFNpZ25l
-ZC1vZmYtYnk6IFJ1c3NlbGwgS2luZyAoT3JhY2xlKSA8cm1rK2tlcm5lbEBhcm1saW51eC5vcmcu
-dWs+Cj4gLS0tCgo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1z
-dW54aS5jICAgICAgIHwgMiArLQoKQWNrZWQtYnk6IENoZW4tWXUgVHNhaSA8d2Vuc0Bjc2llLm9y
-Zz4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
+
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint 
+between its 2 Octo SPI children.
+
+Due to these depedencies, this series adds support for: 
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
+
+The device tree files adds Octo Memory Manager and its 2 associated Octo 
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns, 
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between 
+    Octo Memory Manager and its 2 Octo SPI children.
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
+
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by 
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to 
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
+
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
+
+
+Patrice Chotard (8):
+  dt-bindings: spi: Add STM32 OSPI controller
+  spi: stm32: Add OSPI driver
+  dt-bindings: memory-controllers: Add STM32 Octo Memory Manager
+    controller
+  memory: Add STM32 Octo Memory Manager driver
+  arm64: dts: st: Add OMM node on stm32mp251
+  arm64: dts: st: Add ospi port1 pinctrl entries in
+    stm32mp25-pinctrl.dtsi
+  arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board
+  arm64: defconfig: Enable STM32 Octo Memory Manager and OcstoSPI driver
+
+ .../memory-controllers/st,stm32mp25-omm.yaml  |  204 ++++
+ .../bindings/spi/st,stm32mp25-ospi.yaml       |  105 ++
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |   51 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |   48 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |   32 +
+ arch/arm64/configs/defconfig                  |    2 +
+ drivers/memory/Kconfig                        |   17 +
+ drivers/memory/Makefile                       |    1 +
+ drivers/memory/stm32_omm.c                    |  522 ++++++++
+ drivers/spi/Kconfig                           |   10 +
+ drivers/spi/Makefile                          |    1 +
+ drivers/spi/spi-stm32-ospi.c                  | 1065 +++++++++++++++++
+ 12 files changed, 2058 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/memory-controllers/st,stm32mp25-omm.yaml
+ create mode 100644 Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml
+ create mode 100644 drivers/memory/stm32_omm.c
+ create mode 100644 drivers/spi/spi-stm32-ospi.c
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
