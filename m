@@ -2,106 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B101EA39017
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 02:02:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 576BFA39273
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Feb 2025 06:14:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5280BC78F69;
-	Tue, 18 Feb 2025 01:02:21 +0000 (UTC)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E22FCC78F87;
+	Tue, 18 Feb 2025 05:14:27 +0000 (UTC)
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CD77C78006
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5C48C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Feb 2025 01:02:14 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-7c0a5aa0f84so90511685a.1
+ Tue, 18 Feb 2025 05:14:20 +0000 (UTC)
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20250218051417epoutp04d2d1249a9369e52d0194bffe7b5b88f8~lNYCqsMfM2380323803epoutp04E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Feb 2025 17:02:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739840533; x=1740445333;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Edn74AFcsuP9KsL9TiLXPO+mD82mDfRGLigRZWWQmH0=;
- b=NEZkK4PczIGAExlFoj6YW2OG/AtJX9Z8BobbsuX/LaYyAeh+RQSyT5LbLRPPbeF26U
- uyr+oa3DvTk/ruHZmrWEkfx6HwpSM4SKSgPNCIHuZFF+viQxJrbVgxEYdaMDueZ89V7c
- Ibc+9jE1rtBnsOoA7J9sSos3EQ4wCFRtE9GTcuAnPmUa4uvi47jgSsc8+aF8m2szF5MF
- KLtMa0rj0nIGURH9YFGb2sC1/VNt+JPdHggw0hqi0Lo6D+1D2PY//1tHsEx45UD8MDHm
- epaCfeF8BdWA3GgHlXF0CE/54crKv3hJYgp1O37SKjYyA6ysBWE/MO5AE/mciRZnZsi8
- XhCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739840533; x=1740445333;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Edn74AFcsuP9KsL9TiLXPO+mD82mDfRGLigRZWWQmH0=;
- b=meaatsx5xSLNGvlJO0mk+rF1I14YP8Iuml7D+zyjD2tkdd5YaKmc2IoeF5NfAd/JvL
- oKuz1gyPL1M8YFns3r8Q5F+biK6Dacp5k5vy/GiY+WlSXML4UL9G6vFY8iKKtWdAPznz
- S+DGQR+Fvk7k5Ins+cCUKcuAaqgk0x4V7sfBlkTEQPjlcymC9MZxG8O/kgq2SUgIXXz3
- Rt2rPyHioAm0Hdj1wLudbN0m8xT+PCFoNG3mFoMN0gLwKfm29nAaOAmoMpYXWGrCTa9u
- ptCcQw1+xBz6MzmxZcoeNmTxWLkby2R8XckbfoJH7otcNDvDO4Wldolst+Z9XVzOYIwS
- ZUjQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVOhF9CpoBQ2CZyHJ7VhTIk3y5jy1+b7WgmbhDkkjUxnPx2gxab50337Afx4v9srsB7ohxjUJ5+kC38YA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxw60lVn47PK5rxJCOrs1ZSXX0aZc+sCTXpNS2TQJZ3IKYlZhjs
- Nmvt1EL4AnBNyjkr/s8tRTfVpojN7j+XjY5YUgw8nio7YN+i9/Ny
-X-Gm-Gg: ASbGncuI+MYB76AAfUVzCzTUbaeBt3cSggc7d1Pqp8Z4Imc60yn2uREhMq13+NHXslh
- pqtWP4FCb/e81ObCF/rFqMaIm24yB1p+VHXEnH1hNFqyroTH5bNa5JYA3naoRt0JLq+h5b6R3PS
- frT3L0u+2EE30PtAx7PLKHrQ/gC+NED4/hktxPrrYkNnbe7CAdXvk2t8TfumWyq5XB+o3pGMFMJ
- iVVq6sV4abZ1ZG6qtYMABBN49ssOHQWbqaFRG9U39fxsR41o/GKfBrI9OffBlqUSAE=
-X-Google-Smtp-Source: AGHT+IED0MT/Y3Zl2u3Z7wdGB5LOycEU5pxFY7tKuSKPsLRXNIGrw99KUylS24xgTBikaz1r1N9Tbw==
-X-Received: by 2002:a05:620a:3729:b0:7ac:b95b:7107 with SMTP id
- af79cd13be357-7c07a892c13mr2798593385a.12.1739840532807; 
- Mon, 17 Feb 2025 17:02:12 -0800 (PST)
-Received: from localhost ([2001:da8:7001:11::cb])
- by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7c07c608291sm597329685a.43.2025.02.17.17.02.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2025 17:02:11 -0800 (PST)
-Date: Tue, 18 Feb 2025 09:01:59 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <6obom7jyciq2kqw5iuqlugbzbsebgd7ymnq2crlm565ybbz7de@n7o3tcqn5idi>
-References: <20250216123953.1252523-1-inochiama@gmail.com>
- <20250216123953.1252523-4-inochiama@gmail.com>
- <Z7IIht2Q-iXEFw7x@shell.armlinux.org.uk>
- <5e481b95-3cf8-4f71-a76b-939d96e1c4f3@lunn.ch>
- <js3z3ra7fyg4qwxbly24xqpnvsv76jyikbhk7aturqigewllbx@gvus6ub46vow>
- <24eecc48-9061-4575-9e3b-6ef35226407a@lunn.ch>
- <Z7NDakd7zpQ_345D@shell.armlinux.org.uk>
- <rsysy3p5ium5umzz34rtinppcu2b36klgjdtq5j4lm3mylbqbz@z44yeje5wgat>
- <Z7PEeGmNvlYD33rZ@shell.armlinux.org.uk>
+ Tue, 18 Feb 2025 05:14:17 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20250218051417epoutp04d2d1249a9369e52d0194bffe7b5b88f8~lNYCqsMfM2380323803epoutp04E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1739855657;
+ bh=p9TjVATQJ+VnRioxoU2Dp5yamug+dRBPU+0D6cLYC2Y=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=O1OmSidaueXtwowa1xF/cFP9PqU4bARLZXXGfiqAdQcy6utuavmhMTFAqAcmBS6z2
+ SY6m1DKWOY85swq2QlsebC4R39F/e4Wa5h2F2n1C9CtgyRRrgOJSbzF1pt3Y9sQeRz
+ 3waHgStEGsBzom0Kqu4XKbi3nw1vTPEY7z1DtuGg=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20250218051417epcas5p445bc19aa4bf59eeb56c0d7b63f940742~lNYCGTc3V3054330543epcas5p42;
+ Tue, 18 Feb 2025 05:14:17 +0000 (GMT)
+Received: from epsmges5p3new.samsung.com (unknown [182.195.38.178]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4Yxnkb164tz4x9QG; Tue, 18 Feb
+ 2025 05:14:15 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ B6.C5.19956.72714B76; Tue, 18 Feb 2025 14:14:15 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20250218035521epcas5p26e1a209f2c2e7ab1a3647c92a8b80923~lMTH7mDnE1309513095epcas5p2W;
+ Tue, 18 Feb 2025 03:55:21 +0000 (GMT)
+Received: from epsmgmcp1.samsung.com (unknown [182.195.42.82]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20250218035521epsmtrp2d0c1d66c7f5fd524c35480f8738994c5~lMTH6Nyor0419904199epsmtrp2R;
+ Tue, 18 Feb 2025 03:55:21 +0000 (GMT)
+X-AuditID: b6c32a4b-fd1f170000004df4-c9-67b41727575f
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgmcp1.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 56.65.33707.9A404B76; Tue, 18 Feb 2025 12:55:21 +0900 (KST)
+Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20250218035518epsmtip1336114b755255f30d7612582e4870568~lMTFPqGa01544215442epsmtip1C;
+ Tue, 18 Feb 2025 03:55:18 +0000 (GMT)
+From: "Swathi K S" <swathi.ks@samsung.com>
+To: "'Andrew Lunn'" <andrew@lunn.ch>
+In-Reply-To: <18746e2f-4124-4f85-97d2-a040b78b4b34@lunn.ch>
+Date: Tue, 18 Feb 2025 09:25:08 +0530
+Message-ID: <015601db81b8$ee7237f0$cb56a7d0$@samsung.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Z7PEeGmNvlYD33rZ@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Longbin Li <looong.bin@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Jisheng Zhang <jszhang@kernel.org>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Chen Wang <unicorn_wang@outlook.com>, Furong Xu <0x1207@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
- sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
- Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Hariprasad Kelam <hkelam@marvell.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add glue
- layer for Sophgo SG2044 SoC
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFMfZy5LnHh86L+CikZ+hKlrx3PbgHP/Q5uAh59lGQCP3Rr5gHaDzZ5Aa7CoQMBhZsMSAJJpHR7s/5FypA=
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNJsWRmVeSWpSXmKPExsWy7bCmhq66+JZ0g7VHWC1+vpzGaLH8wQ5W
+ i/N3DzFbrNl7jslizvkWFov5R86xWjw99ojd4uWse2wWF7b1sVpsenyN1eLyrjlsFl3XnrBa
+ zPu7ltXi2AIxi2+n3zBaLNr6hd3i4Yc97BZHzrxgtrjUP5HJ4v+eHewOIh6Xr11k9tiy8iaT
+ x9P+reweO2fdZfdYsKnUY9OqTjaPzUvqPXbu+Mzk8X7fVTaPvi2rGD0O7jP0+LxJLoAnKtsm
+ IzUxJbVIITUvOT8lMy/dVsk7ON453tTMwFDX0NLCXEkhLzE31VbJxSdA1y0zB+hNJYWyxJxS
+ oFBAYnGxkr6dTVF+aUmqQkZ+cYmtUmpBSk6BSYFecWJucWleul5eaomVoYGBkSlQYUJ2xtR3
+ RxkLbolWXDq7ma2BsVewi5GTQ0LARGLG5BbmLkYuDiGB3YwS3bdPMUI4nxglnh/7woLgHL8O
+ lOEAa/n0lAkivpNRom3JMijnBaPE8u//WEDmsgloSSzq28cOYosIqEjMmzsFrIhZYCWLxOXr
+ K1lBEpwC1hJXVixhA5kqLBAo0XaUDyTMIqAqceDMP7ASXgFLic41D5ggbEGJkzOfgM1nFpCX
+ 2P52DjPEDwoSP58uY4XYlSTRPPM+M0SNuMTRnz1gv0kILOaUuNh8hAmiwUWip+cJG4QtLPHq
+ +BZ2CFtK4vO7vVDxeInVfVdZIOwMibu/JkLF7SUOXJnDAnIzs4CmxPpd+hBhWYmpp9YxQezl
+ k+j9/QRqFa/EjnkwtrLE39fXoEZKSmxb+p59AqPSLCSvzULy2iwkL8xC2LaAkWUVo2RqQXFu
+ emqxaYFxXmo5PMKT83M3MYJzgZb3DsZHDz7oHWJk4mA8xCjBwawkwnuoa0O6EG9KYmVValF+
+ fFFpTmrxIUZTYHhPZJYSTc4HZqO8knhDE0sDEzMzMxNLYzNDJXHe5p0t6UIC6YklqdmpqQWp
+ RTB9TBycUg1Mt5807JiltG2z+Z0Ztg5BbBcSA5SnrE7j2l1a/Ol6urDX7g/Rx7ZrX5obECrG
+ tEs5PdDSPo/7qNTRRWnHOq5ud7edt+l39MOmpcYf5K+uKarpK2apfcHqeMx26pIujSB7scjO
+ FXZ1paUZLYsvPmYMl7vJzN9kLtwtY9KsfF9u/X/RTW4/WJ7kXd29cbbfzyeHRZvsnYVE5h7s
+ ld6l8fS+uE2x3yTWZ/wnX/NuvFDPL/34cv3k1zkn1v0qv/FgdnC7MrdK1A+FqJuv7A69mBl7
+ 9U7IXcXySWIn/TYXHJl79oSCkF7Mymv5ujLfz05beCM4+vbzZT1bm4/vuTf3/rRrh3/YSe6Z
+ ZrOeK/r8tJTzLEosxRmJhlrMRcWJABQwCA+OBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0iTURzGOe9lezdavN7a8YLVyoJVK8vglCHVh3gpqFAKutqmr1N0OjYn
+ FYSGljnLjLLLWibD0pmazeUtm7WmZF6XZRcyLTUtTMV1YZCrthH57cc5v+fh+fCncN8BIohK
+ Sk1nVanSFBGHT9Q9EYWuMhJm+RpXexhyfr4MUNlQA4l6Bqw4qnzYjSF9Tw6Bbtq6STTa9pGL
+ Puvec1BvXQGJTMP9JOpr0nOQtn+ERMWzVSRqK1mAfnRMAGS4/42LPkw3c5GtcxxHz89fwNDv
+ 5gbuZn+mr9+OM2bjG4wZPX+fyzTqBrhMiUnDmCryOExtaSbT2ODAmCnLSw5TYK4AzGNLOOMw
+ he6et5+/KZ5NScpgVaujjvATiyZbgfJtwNHnXbWcLHDORwsoCtIRcGYU0wIe5UvXA9g2luhm
+ SAfCmewi0st+0Oga42oB/6/zCcBuh8sT4NBiaCiwcN3sTy+FxTcuYW4Jp1sIeEl3nfAmSnE4
+ 8WLQU8WjI+GL8lKOm/3oXXDqXLsnTdBh8FGny+MI6A0wr3II87IPbL82QriX4rQEnr4H3M84
+ vRDWf9Xj3nWLoHP0NukdIYPZ1wZxryOErc6zeCHw081p0v1v0s1p0s1JlACiAgSwSrVCrohT
+ hkvUUoVakyqXxKUpTMBzAeLoBnD77qzECjAKWAGkcJG/wKqtkfsK4qXHjrOqtFiVJoVVW0Ew
+ RYiEgiUpefG+tFyaziazrJJV/fvFKF5QFlbIj8yZn/Bd8jqfZ2yxbSvinVmcW0w9ezhUPTU4
+ YQ7BWzSWbqr6TKZ8o/jql9h1IQd4zFjtJisdmFszuzqDnxHzbfGAuFKk3PGrd+9R8vEVLDQk
+ aTw3YfvO5lNX3gmGbXccW/a+msrU7nxanjyiWb41KuaEsDHzYNSyCIF5T1lPV9pks/6RIcvn
+ 5Cpp31p9k+Xqg9CaFe32+b/kuyfybdur1xpkhi12o9hx88DgSpkid/x4RLD28I8uYWqd/e6D
+ ZfvL1tsCOvbJCrT5zrjW6S6ZK8EUXTUjr7pu/50t+fnBNDzd2xT0UVU4fvrQLb8FNQGM4uKK
+ jCZhr4KcxpLznMtFhDpRGi7GVWrpH0u44rdwAwAA
+X-CMS-MailID: 20250218035521epcas5p26e1a209f2c2e7ab1a3647c92a8b80923
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff
+References: <20250213044624.37334-1-swathi.ks@samsung.com>
+ <CGME20250213044955epcas5p110d1e582c8ee02579ead73f9686819ff@epcas5p1.samsung.com>
+ <20250213044624.37334-2-swathi.ks@samsung.com>
+ <85e0dec0-5b40-427a-9417-cae0ed2aa484@lunn.ch>
+ <00b001db7e9f$ca7cfbd0$5f76f370$@samsung.com>
+ <ffb13051-ab93-4729-8b98-20e278552673@lunn.ch>
+ <011901db80fb$8e968f60$abc3ae20$@samsung.com>
+ <18746e2f-4124-4f85-97d2-a040b78b4b34@lunn.ch>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ ravi.patel@samsung.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ 'Pankaj	Dubey' <pankaj.dubey@samsung.com>, kuba@kernel.org, krzk+dt@kernel.org,
+ pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS
+ device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,86 +138,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 17, 2025 at 11:21:28PM +0000, Russell King (Oracle) wrote:
-> On Tue, Feb 18, 2025 at 06:50:24AM +0800, Inochi Amaoto wrote:
-> > On Mon, Feb 17, 2025 at 02:10:50PM +0000, Russell King (Oracle) wrote:
-> > > On Mon, Feb 17, 2025 at 02:25:33PM +0100, Andrew Lunn wrote:
-> > > > > I am not sure all whether devices has this clock, but it appears in
-> > > > > the databook. So I think it is possible to move this in the core so
-> > > > > any platform with these clock can reuse it.
-> > > > 
-> > > > Great
-> > > > 
-> > > > The next problem will be, has everybody called it the same thing in
-> > > > DT. Since there has been a lot of cut/paste, maybe they have, by
-> > > > accident.
-> > > 
-> > > Tegra186: "tx"
-> > > imx: "tx"
-> > > intel: "tx_clk"
-> > > rk: "clk_mac_speed"
-> > > s32: "tx"
-> > > starfive: "tx"
-> > > sti: "sti-ethclk"
-> > > 
-> > 
-> > The dwc-qos-eth also use clock name "tx", but set the clock with
-> > extra calibration logic.
-> 
-> Yep, that's what I meant by "Tegra186" above.
-> 
-> > > so 50% have settled on "tx" and the rest are doing their own thing, and
-> > > that horse has already bolted.
-> > > 
-> > 
-> > The "rx" clock in s32 also uses the same logic. I think the core also
-> > needs to take it, as this rx clock is also mentioned in the databook.
-> 
-> The "rx" clock on s32 seems to only be set to 125MHz, and the driver
-> seems to be limited to RGMII.
-> 
-> This seems weird as the receive clock is supposed to be supplied by the
-> PHY, and is recovered from the media (and thus will be 2.5, 25 or
-> 125MHz as determined by the PHY.) So, I'm not sure that the s32 "rx"
-> clock is really the clk_rx_i clock supplied to the DWMAC core.
-> 
-> Certainly on stm32mp151, it states that ETH_RX_CLK in RGMII mode will
-> be 2.5, 25 or 125MHz provided by the PHY, and the clock tree indicates
-> that ETH_RX_CLK in RGMII mode will be routed directly to the clk_rx_i
-> input on the DWMAC(4) core.
-> 
 
-RGMII is not the problem. The databook says the RGMII clock (rx/tx)
-follows this set rate logic. 
 
-For other things, I agree with you. A fixed "rx" clock does reach the
-limit of what I know. And the databook told nothing about it. As we
-can not determine the rx clock of s32 and it may be set for the phy,
-it will be better to not move it into the core.
+> -----Original Message-----
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: 17 February 2025 20:48
+> To: Swathi K S <swathi.ks@samsung.com>
+> Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch; davem@davemloft.net;
+> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
+> robh@kernel.org; conor+dt@kernel.org; richardcochran@gmail.com;
+> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
+> rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
+> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
+'Pankaj
+> Dubey' <pankaj.dubey@samsung.com>; ravi.patel@samsung.com
+> Subject: Re: [PATCH v6 1/2] dt-bindings: net: Add FSD EQoS device tree
+> bindings
+> 
+> > > > > > +  phy-mode:
+> > > > > > +    enum:
+> > > > > > +      - rgmii-id
+> > > > >
+> > > > > phy-mode is normally a board property, in the .dts file, since
+> > > > > the board
+> > > > might
+> > > > > decide to have extra long clock lines and so want 'rgmii'.
+> 
+> > Hi Andrew,
+> > What you said is right. Generally, PCB provides internal delay.
+> 
+> It is actually pretty unusual for the PCB to add the delays. But there are
+some
+> boards which do this. Which is why you should support it.
+> 
+> > But in this case, due to customer request, the delay was added into SoC.
+> 
+> Idealy, by the PHY. However, in terms of DT, the board .dts file just
+needs to
+> say 'rmgii-id', meaning that the board does not provide the delays, so the
+> MAC/PHY pair needs to provide the delay.
+> 
+> > The following doc on rgmii says that "Devices which implement internal
+> > delay shall be referred to as RGMII-ID.
+> > Devices may offer an option to operate with/without internal delay and
+> > still remain compliant with this spec"
+> >
+> https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-
+> proces
+> > sors/2
+> > 0655/1/RGMIIv2_0_final_hp.pdf
+> >
+> > Also, the driver is in such a way that it handles all four rgmii in
+> > the same way.
+> >
+> > Considering this, could you let us know what will be the right
+> > approach to take in this case?
+> 
+> List all four phy-modes in the binding. They should all be valid. However,
+the
+> .dtsi file should not list a phy-mode, since it is a board property, not a
+SoC
+> property.
 
-> > > I have some ideas on sorting this out, and I'm working on some patches
-> > > today.
-> > 
-> > Great, Could you cc me when you submit them? So I can take it and
-> > change my series.
-> 
-> Will do - I'm almost at that point, I have three other cleanup patches
-> I will be sending before hand, so I'll send those out and then this
-> series as RFC.
-> 
-> The only platform drivers I've left with a call to rgmii_clock() are
-> sti, imx (for imx93 only as that does extra fiddling after setting the
-> clock and I'm not sure if there's an ordering dependency there) and
-> the rk platforms.
-> 
-> Five platforms converted, three not, and hopefully your platform can
-> also use the helper as well!
-> 
+Hi Andrew, 
+Thanks for the clarification.
+Will post v7 with the following updates:
 
-I think my platform can fit. Thanks for your effort.
+1. Changing phy-mode in dt-binding as shown below:
+  phy-mode:
+    enum:
+      - rgmii
+      - rgmii-id
+      - rgmii-rxid
+      - rgmii-txid
+	  
+2. Removing phy-mode from .dtsi and example given in dt-binding
+3. Add phy-mode to .dts file and specify 'rgmii-id' there.
 
-Regards,
-Inochi
+Hope this will address your review comment.
+
+Thanks,
+Swathi
+
+> 
+> 	Andrew
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
