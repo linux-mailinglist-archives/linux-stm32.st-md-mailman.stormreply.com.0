@@ -2,80 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE3CA3AF1B
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2025 02:48:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D5DA3B1DB
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Feb 2025 07:55:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5B52C78F96;
-	Wed, 19 Feb 2025 01:48:58 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0930FC78F89;
+	Wed, 19 Feb 2025 06:55:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7655BC7803A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCC79C78F7D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Feb 2025 01:48:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1739929737; x=1771465737;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=/6YPLRHm6H9wPjnB667+gK6xaD7arKiwsNiLpHXnheg=;
- b=mXsirviXn5s1a6/B5lH+nQeyPBTAbr3ntFgG5BQuwoCSDQhxm/ttSxcv
- KQc2X3i2RCI84A+Cu3mZJAsqzeWakFNXBZ5WU+hRFyusEJ5+YFLTvOMq5
- /tWO+SuTc7SRpiu29618828ahGDhKCwwblAsp1TG75LQJdWCW52qF5hzg
- kuTJ5ynQqxVB9eaXfAKKfN/QuFtul911uSGrC+o/VSKwVEOKlsh3Fyefr
- tww6PumeDleDpGP+U2bQE3gmdRa78+QDnNKgyu4xVas3Nz8yaQYyaE1cQ
- PsamPt74bfJ2/zq5NPjNxJo+VSb30vr+yGDCbqsl7O5VdKdDFIaAV1eDW A==;
-X-CSE-ConnectionGUID: QRb/FsZHST+zKvK+xavhVw==
-X-CSE-MsgGUID: Q3RFqgsuRAyGHOP8pPPCMw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11348"; a="66006878"
-X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="66006878"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 17:48:49 -0800
-X-CSE-ConnectionGUID: 3tCnTqP2SCm9n+J0hFQeZw==
-X-CSE-MsgGUID: pUBD94G+R3qLe0pCfMzcOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,296,1732608000"; d="scan'208";a="114748406"
-Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.64.179])
- ([10.247.64.179])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2025 17:48:36 -0800
-Message-ID: <b3e02516-d59c-4ed4-b59d-afa72c23d04b@linux.intel.com>
-Date: Wed, 19 Feb 2025 09:48:34 +0800
+ Wed, 19 Feb 2025 06:55:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4E28D5C55DA;
+ Wed, 19 Feb 2025 06:55:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365C4C4CED1;
+ Wed, 19 Feb 2025 06:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739948149;
+ bh=lKL07hpkqKPa7EJ1nz83HEESyv1fKohu5Phb0PaVMUU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GdtBxxgvnvlcIiG+4adf/nDn93/DlgtMXPAOEnDSOn6tPJIJgfBCbZx4aBZ/l4PBt
+ Ryr8LzbnEZ57e1bGfAvnJwVZNXmCZrpqL9izo+u5ppBnk4daAintCAT6Xbe7lq/IBp
+ QrU3gU8kwna+qm7IVvBQCV6OAvrrJhLjkKWY8fV7D10ozlSJmJmXEQP2pzHRcXePfQ
+ 4G/kn9N8nivBMKjVGvm9OzEGZ2RbmiqSm1V/LvlGxcR4GGzVj0QFhaS7cvvopO+8bz
+ sPWcXwPunyzigGEQZfTmlaMAwuBOF9tZJTbQ7E3wZIgxvClCMaJum9PkVagvILp7Qu
+ T3sahQtj2YRcA==
+Message-ID: <1462982d-c3eb-4028-ba87-412cf9922e69@kernel.org>
+Date: Wed, 19 Feb 2025 07:55:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Simon Horman <horms@kernel.org>
-References: <20250210070207.2615418-1-faizal.abdul.rahim@linux.intel.com>
- <20250210070207.2615418-6-faizal.abdul.rahim@linux.intel.com>
- <20250217113113.GK1615191@kernel.org>
+To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+References: <20250218130000.87889-1-patrice.chotard@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-In-Reply-To: <20250217113113.GK1615191@kernel.org>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Alexei Starovoitov <ast@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, bpf@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v4 5/9] igc: Add support for
- frame preemption verification
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250218130000.87889-1-patrice.chotard@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 0/8] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,54 +103,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 18/02/2025 13:59, patrice.chotard@foss.st.com wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
+> 
+> This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
+> 
+> On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+> the memory area split, the chip select override and the time constraint 
+> between its 2 Octo SPI children.
+> 
+> Due to these depedencies, this series adds support for: 
+>   - Octo Memory Manager driver.
+>   - Octo SPI driver.
+>   - yaml schema for Octo Memory Manager and Octo SPI drivers.
+> 
+> The device tree files adds Octo Memory Manager and its 2 associated Octo 
+> SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+> board.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> 
+> Changes in v4:
+>   - Add default value requested by Krzysztof for st,omm-req2ack-ns, 
+>     st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+>   - Remove constraint in free form test for st,omm-mux property.
+>   - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+>   - Fix SPDX-License-Identifier for stm32-omm.c.
+>   - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+>   - Add missing pm_runtime_disable() in the error handling path in
+>     stm32-omm.c.
+>   - Replace an int by an unsigned int in stm32-omm.c
+>   - Remove uneeded "," after terminator in stm32-omm.c.
+>   - Update cover letter description to explain dependecies between 
+>     Octo Memory Manager and its 2 Octo SPI children.
+>   - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
 
+If only people could start using b4, like we ask them...
 
-On 17/2/2025 7:31 pm, Simon Horman wrote:
-> On Mon, Feb 10, 2025 at 02:02:03AM -0500, Faizal Rahim wrote:
-> 
-> ...
-> 
->> diff --git a/drivers/net/ethernet/intel/igc/igc_tsn.c b/drivers/net/ethernet/intel/igc/igc_tsn.c
-> 
-> ...
-> 
->> +bool igc_fpe_transmitted_smd_v(union igc_adv_tx_desc *tx_desc)
->> +{
->> +	u8 smd = FIELD_GET(IGC_TXD_POPTS_SMD_MASK, tx_desc->read.olinfo_status);
-> 
-> olininfo_status is little-endian, so I think it needs
-> to be converted to host byte order when used as an
-> argument to FIELD_GET().
-> 
-> Flagged by Sparse.
-> 
->> +
->> +	return smd == SMD_V;
->> +}
-> 
-> ...
-> 
->> diff --git a/drivers/net/ethernet/intel/igc/igc_tsn.h b/drivers/net/ethernet/intel/igc/igc_tsn.h
-> 
-> ...
-> 
->> +static inline void igc_fpe_lp_event_status(union igc_adv_rx_desc *rx_desc,
->> +					   struct ethtool_mmsv *mmsv)
->> +{
->> +	__le32 status_error = le32_to_cpu(rx_desc->wb.upper.status_error);
-> 
-> It looks like the type of status_error should be a host byte order integer,
-> such as u32.
-> 
-> Also flagged by Sparse.
-
-Thanks for spotting these, I'll update them.
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
