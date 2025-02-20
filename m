@@ -2,96 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3476A3D2FF
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Feb 2025 09:21:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0703DA3D3DB
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Feb 2025 09:59:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 524DAC78F9F;
-	Thu, 20 Feb 2025 08:21:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36B5AC78F96
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91C2FC7A820;
+	Thu, 20 Feb 2025 08:59:15 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42322C78F9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Feb 2025 08:21:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C0D7B5C5C0C;
- Thu, 20 Feb 2025 08:21:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C196AC4CEE4;
- Thu, 20 Feb 2025 08:21:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740039709;
- bh=CbeXuoiGFZQ70AfXrqqYy0da8e+BHVxPbEhnsbE7NMw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kd0iNM4MfN9Zm59iNyF9hyhGAmicRzHSrBealkIu37LlcEzJt0Vlu7qfFyi9el+Ks
- V587NKIBGzKERvKyfQmUpv59+ER2zcwzEGT7HR1WI0osRR4EspXrvhnQ01dz0wlDwr
- eq1wG7kwpg5tjT6Fj4ORZ1770Nli0hWQ1qDG+O9l7O62QwUuhoMA4c3B0uNxak/kOQ
- zHw4Sggo3T+6VGv9XnE++HcDq8/XCZmOKkZ2z3hPwPjiWkrWTeHx3LmPNdj1ibE+id
- /a+v7kf/NnNPPiHQSI+K9TSlNLmAz9UXGEdYnHIpqRF3m1dp3QAFlNvAR19J/sAB3N
- 8YPnsshpBZnMA==
-Message-ID: <63f69d97-6a0a-4568-b3ac-d8dd320fb3b3@kernel.org>
-Date: Thu, 20 Feb 2025 09:21:41 +0100
+ Thu, 20 Feb 2025 08:59:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1740041953;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Vi69fi8DpFTd/RNozd1wgX4NhzxErJ/nkr6IYJg5tZI=;
+ b=YPLqnOPQxjtbUmrqHf6OIWH4m+Cli+6n5WeOu3RiHgDxuAf2ZR4Mqf/KvqBcMr37sbrcxW
+ o+EywCwnVGi3qMQbXQTwnWrSB2zMtvGtae+RFymeM3qk2tE6H9kMuzVDHaOJNIYyWi3oCa
+ Zbl12CLTAVxg6wYQv9UV7iRjJlYr7AQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-653-pnqWxW6OMt2zY2_CZqXLGA-1; Thu, 20 Feb 2025 03:59:12 -0500
+X-MC-Unique: pnqWxW6OMt2zY2_CZqXLGA-1
+X-Mimecast-MFC-AGG-ID: pnqWxW6OMt2zY2_CZqXLGA_1740041951
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-38f62a0ec3fso350183f8f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Feb 2025 00:59:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740041951; x=1740646751;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vi69fi8DpFTd/RNozd1wgX4NhzxErJ/nkr6IYJg5tZI=;
+ b=sOxxYioU8oD/qEtLOO/8EW3ZgkyvBEP6Sd6sCY+kMMF0k9+pBZmQSKN/jPoLXqorHa
+ O2MLaAruZKCMC1yxAT7ipUDdyz4fuVTb1GFR+5jb8yZ2mSVwRIIwDrsp6UIvRhyWsicF
+ pyorrBx+3r3mBcgTm8zLB82O4g1uQrh75bss74zwtg9EViDFa/J8b7Sk0gfSPTV4uMbE
+ gtdsNNTe8xZlOrgVl8XmkzLIfmElnC3PXOFHJjoLk+yHtlWhvmrlfOmmg3fp26fN7yzS
+ VYBCCCxHlyIPIL+wxbbbmp9a+lZ9FlTWULn6kBNHqZaVzDQ5lSq8fQ/evXeKmj67gqrF
+ LZhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXU5Cz+4/AhXI5KwH4NAFxdPIuyj6c1pZD2erWkB9/AjgjOnIajsQj7zcFpzFga2XIJkmVVaoE1A4KpkA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzU9Rl8bagER98tTetohtIW+zMgIQML8LPdBikdd0VUq2dRqnCc
+ LqS6BW/xQ1gbEIvYOaEYPZmRUeuM4P8aEIApHJDSs9vQvzXtu6aGQtMq7mP2T19U/xgSoEQR6ik
+ zx/bqAfSxy6y1uj1iWch2abipOjPkXvahu3mmNAV+3gR/DYF0W4sX1zASzYwh06fiGiX1X5ESv+
+ 3vRg==
+X-Gm-Gg: ASbGncusQ2+AfQswB/8lpXcAWTSbaeoDLIo7eis+XiAVIglI0cD11/TC2KhSgybvsCC
+ xGTTnIaX+oyhptVJ6Jfg/3imfPRrEf2Ngnr6Z8Vx8MU08+qniDKx4s5RF+NeBJKl1OeyiJccY5S
+ Dm7ekqF88lfrtpJC8mIBg7ji8baPUA71m07drNtn8bGBGmrQYfla8abw+XyzAy8eP/4gYB9gBhB
+ bRu7TkSR2OccjtKPf8XOsy1UK3afzrdCddVOVDoYhrLEYN52LFXoKQXDzpbcz2cKC1KAUn+7hkQ
+ D5DyfWNEnxc8fwNkenPM/3BsLVsDskb5uhQ=
+X-Received: by 2002:a05:6000:8c:b0:38f:2cec:f3df with SMTP id
+ ffacd0b85a97d-38f33f44f80mr15027987f8f.24.1740041950842; 
+ Thu, 20 Feb 2025 00:59:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEI9cLg9zTTlh2PcmYGIgTxMmZCopbpnVJC7SeH7bbA6kcEpvNnjuVI80LLj0zkozJx/pc/eQ==
+X-Received: by 2002:a05:6000:8c:b0:38f:2cec:f3df with SMTP id
+ ffacd0b85a97d-38f33f44f80mr15027962f8f.24.1740041950468; 
+ Thu, 20 Feb 2025 00:59:10 -0800 (PST)
+Received: from [192.168.88.253] (146-241-89-107.dyn.eolo.it. [146.241.89.107])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38f25915719sm20217153f8f.60.2025.02.20.00.59.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Feb 2025 00:59:10 -0800 (PST)
+Message-ID: <2dba7bb6-23bb-4e05-b126-b147769ad1be@redhat.com>
+Date: Thu, 20 Feb 2025 09:59:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com
-References: <20250220043712.31966-1-swathi.ks@samsung.com>
- <CGME20250220044128epcas5p1484d81bea4377bef4cbe7bc7b9f03713@epcas5p1.samsung.com>
- <20250220043712.31966-2-swathi.ks@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Philipp Stanner <phasta@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Yanteng Si <si.yanteng@linux.dev>,
+ Huacai Chen <chenhuacai@kernel.org>, Yinggang Gu <guyinggang@loongson.cn>,
+ Feiyang Chen <chenfeiyang@loongson.cn>
+References: <20250218132120.124038-2-phasta@kernel.org>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20250218132120.124038-2-phasta@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: tAY0sKpGsEV0gYbZ2MY92eJkblgwIGDEcuiCskGZ3dY_1740041951
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20250220043712.31966-2-swathi.ks@samsung.com>
-Cc: devicetree@vger.kernel.org, ravi.patel@samsung.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
- pankaj.dubey@samsung.com, gost.dev@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 1/2] dt-bindings: net: Add FSD EQoS
- device tree bindings
+Cc: netdev@vger.kernel.org, Philipp Stanner <pstanner@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] stmmac: Replace deprecated PCI
+	functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,19 +106,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/02/2025 05:37, Swathi K S wrote:
-> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
-> Ethernet YAML schema to enable the DT validation.
-> 
-> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
-> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
-> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
-> ---
+On 2/18/25 2:21 PM, Philipp Stanner wrote:
+> @@ -520,9 +522,9 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+>  {
+>  	struct plat_stmmacenet_data *plat;
+>  	struct stmmac_pci_info *info;
+> -	struct stmmac_resources res;
+> +	struct stmmac_resources res = {};
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+I'm sorry for nit picking, but please respect the reverse christmas
+tree above - what is relevant is the full line lenght.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> index 352b01678c22..9d45af70d8a2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+> @@ -155,7 +155,7 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+>  {
+>  	struct stmmac_pci_info *info = (struct stmmac_pci_info *)id->driver_data;
+>  	struct plat_stmmacenet_data *plat;
+> -	struct stmmac_resources res;
+> +	struct stmmac_resources res = {};
+>  	int i;
+>  	int ret;
+
+Even more nit-picking: since you are touching this code chunck, could
+you please fix the variables declaration order above?
+
+Also, please add the target tree in the subj prefix, in this case
+'net-next'.
+
+Thanks!
+
+Paolo
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
