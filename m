@@ -2,63 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB24A3EA38
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 02:40:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 190C4A3EA7A
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 03:02:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50DAAC7A832;
-	Fri, 21 Feb 2025 01:40:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2E5EC7A832;
+	Fri, 21 Feb 2025 02:02:02 +0000 (UTC)
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com
+ [95.215.58.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A241C7A831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB146C7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Feb 2025 01:40:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 31A1A683B5;
- Fri, 21 Feb 2025 01:40:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72347C4CED1;
- Fri, 21 Feb 2025 01:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740102009;
- bh=btDMxeNfHBPNti2EoCCt/T314QWXygFwMOmYrLNf9ro=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=MXepqXaRM4dVPsZFOEB7ouyCJSGm2Meq4q/xIOE+jd15D6NGJv5MlJ11lOtELov26
- vb6Qo/vCHwGaWuM6j+aECkThrTXqJuj9n4Co8AF/jGKjsrhioPuVmOveu2YTkIbu8Q
- wk8fBvXTzPE9xVv3mHz9ZKEHZsm4VYbRYMV3C/tftMDf4OyJPnoTk9+/nJmJOcmIN5
- qTPKkOO8pMG98R/rr+JkAKcE2wHkRz5SR+PgOMhg28NxWpGz07teN/RQ+DsvRHUrxj
- JHI03CieeTQBe9pXC9MrKEU1Ekw0EKKEd1dz/sbBXjosAXPCXyksjvP1fO+R97RMjj
- Gwyk8ilUJvQFA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 71AB6380CEE2; Fri, 21 Feb 2025 01:40:41 +0000 (UTC)
+ Fri, 21 Feb 2025 02:02:01 +0000 (UTC)
+Message-ID: <a4e790d1-b849-415f-b2f9-66cf162204e2@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1740103320;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3JqdjXDM88sRcfHs8bACHsX2p5kwYZxIV4OvMQywdYw=;
+ b=nKTK4z9LxrUw60XZ3wf06j5YoddDQVU6IzWrRl5iiQdRSE8N1tUTAEgpjJNXsrzPA4M6WZ
+ xddSJYH5MKzpDexbsRKxymLNDoG4pRfp6Nl1k+ZvxupNNRDWM5JuoeRo4HqqiuAEoKCoJ7
+ pYFlosba7/q9E75gZnFnpOWBbKXKwEw=
+Date: Fri, 21 Feb 2025 10:01:50 +0800
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174010204026.1539943.5735764109259382582.git-patchwork-notify@kernel.org>
-Date: Fri, 21 Feb 2025 01:40:40 +0000
-References: <20250216093430.957880-1-yoong.siang.song@intel.com>
-In-Reply-To: <20250216093430.957880-1-yoong.siang.song@intel.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
-Cc: joabreu@synopsys.com, linux-kselftest@vger.kernel.org,
- florian.bezdeka@siemens.com, jdamato@fastly.com, ast@kernel.org,
- faizal.abdul.rahim@linux.intel.com, song@kernel.org, edumazet@google.com,
- anthony.l.nguyen@intel.com, danielj@nvidia.com, yonghong.song@linux.dev,
- shuah@kernel.org, jolsa@kernel.org, almasrymina@google.com,
- xuanzhuo@linux.alibaba.com, mykolal@fb.com, xdp-hints@xdp-project.net,
- donald.hunter@gmail.com, daniel@iogearbox.net, corbet@lwn.net,
- przemyslaw.kitszel@intel.com, linux-doc@vger.kernel.org,
- john.fastabend@gmail.com, andrii@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, sdf@fomichev.me,
- intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- eddyz87@gmail.com, maciej.fijalkowski@intel.com, hawk@kernel.org,
- kpsingh@kernel.org, yong.liang.choong@linux.intel.com,
- magnus.karlsson@intel.com, haoluo@google.com, willemb@google.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- zdenek.bouska@siemens.com, andrew+netdev@lunn.ch, bjorn@kernel.org,
- horms@kernel.org, jonathan.lemon@gmail.com, bpf@vger.kernel.org,
- martin.lau@linux.dev, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH bpf-next v12 0/5] xsk: TX metadata Launch
-	Time support
+To: Philipp Stanner <phasta@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Yinggang Gu <guyinggang@loongson.cn>,
+ Feiyang Chen <chenfeiyang@loongson.cn>, Qunqin Zhao
+ <zhaoqunqin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
+References: <20250218132120.124038-2-phasta@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Yanteng Si <si.yanteng@linux.dev>
+In-Reply-To: <20250218132120.124038-2-phasta@kernel.org>
+X-Migadu-Flow: FLOW_OUT
+Cc: netdev@vger.kernel.org, Philipp Stanner <pstanner@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] stmmac: Replace deprecated PCI
+	functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,49 +58,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to bpf/bpf-next.git (net)
-by Martin KaFai Lau <martin.lau@kernel.org>:
-
-On Sun, 16 Feb 2025 17:34:25 +0800 you wrote:
-> This series expands the XDP TX metadata framework to allow user
-> applications to pass per packet 64-bit launch time directly to the kernel
-> driver, requesting launch time hardware offload support. The XDP TX
-> metadata framework will not perform any clock conversion or packet
-> reordering.
-> 
-> Please note that the role of Tx metadata is just to pass the launch time,
-> not to enable the offload feature. Users will need to enable the launch
-> time hardware offload feature of the device by using the respective
-> command, such as the tc-etf command.
-> 
-> [...]
-
-Here is the summary with links:
-  - [bpf-next,v12,1/5] xsk: Add launch time hardware offload support to XDP Tx metadata
-    https://git.kernel.org/bpf/bpf-next/c/ca4419f15abd
-  - [bpf-next,v12,2/5] selftests/bpf: Add launch time request to xdp_hw_metadata
-    https://git.kernel.org/bpf/bpf-next/c/6164847e5403
-  - [bpf-next,v12,3/5] net: stmmac: Add launch time support to XDP ZC
-    https://git.kernel.org/bpf/bpf-next/c/04f64dea1364
-  - [bpf-next,v12,4/5] igc: Refactor empty frame insertion for launch time support
-    https://git.kernel.org/bpf/bpf-next/c/f9b53bb13923
-  - [bpf-next,v12,5/5] igc: Add launch time support to XDP ZC
-    https://git.kernel.org/bpf/bpf-next/c/d7c3a7ff7502
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CuWcqCAyLzE4LzI1IDk6MjEgUE0sIFBoaWxpcHAgU3Rhbm5lciDlhpnpgZM6Cj4gRnJvbTogUGhp
+bGlwcCBTdGFubmVyIDxwc3Rhbm5lckByZWRoYXQuY29tPgo+Cj4gVGhlIFBDSSBmdW5jdGlvbnMK
+PiAgICAtIHBjaW1faW9tYXBfcmVnaW9ucygpCj4gICAgLSBwY2ltX2lvbWFwX3RhYmxlKCkgYW5k
+Cj4gICAgLSBwY2ltX2lvdW5tYXBfcmVnaW9ucygpCj4gaGF2ZSBiZWVuIGRlcHJlY2F0ZWQuCj4K
+PiBUaGUgdXNhZ2Ugb2YgcGNpbV8qIGNsZWFudXAgZnVuY3Rpb25zIGluIHRoZSBkcml2ZXIgZGV0
+YWNoIHBhdGggKHJlbW92ZQo+IGNhbGxiYWNrKSBpcyBhY3R1YWxseSBub3QgbmVjZXNzYXJ5LCBz
+aW5jZSB0aGV5IHBlcmZvcm0gdGhhdCBjbGVhbnVwCj4gYXV0b21hdGljYWxseS4KPgo+IEZ1cnRo
+ZXJtb3JlLCBsb29uZ3Nvbl9kd21hY19wcm9iZSgpIGNvbnRhaW5zIGEgc3VycGx1cyBsb29wLiBU
+aGF0IGxvb3AKPiBkb2VzIG5vdCB1c2UgaW5kZXggaSBpbiBwY2ltX2lvbWFwX3JlZ2lvbnMoKSwg
+YnV0IGNvc3RhbnRseSBhdHRlbXB0cyB0bwo+IHJlcXVlc3QgYW5kIGlvcmVtYXAgQkFSIDAuIFRo
+aXMgd291bGQgYWN0dWFsbHkgZmFpbCAoc2luY2UgeW91IGNhbm5vdAo+IHJlcXVlc3QgdGhlIHNh
+bWUgQkFSIG1vcmUgdGhhbiBvbmNlKSwgYnV0IHByZXN1bWFibHkgbmV2ZXIgZmFpbHMgYmVjYXVz
+ZQo+IHRoZSBwcmVjZWRpbmcgbGVuZ3RoIGNoZWNrIGRldGVjdHMgdGhhdCBhbGwgQkFScyBleGNl
+cHQgZm9yIDAgZG8gbm90Cj4gZXhpc3QuCgo+IFJlcGxhY2UgdGhlbSB3aXRoIHBjaW1faW9tYXBf
+cmVnaW9uKCkuIFJlbW92ZSB0aGUgc3VycGx1cyBsb29wLgoKU28sIHR3byB0aGluZ3MgYXJlIGRv
+bmUgaW4gb25lIHBhdGNoLiBIb3cgYWJvdXQgc3BsaXR0aW5nIGl0IGludG8gdHdvIApwYXRjaGVz
+PwoKCj4KPiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXBwIFN0YW5uZXIgPHBzdGFubmVyQHJlZGhhdC5j
+b20+Cj4gLS0tCj4gQ2hhbmdlcyBpbiB2MjoKPiAgICAtIEZpeCBidWlsZCBlcnJvcnMgYmVjYXVz
+ZSBvZiBtaXNzaW5nICc7Jwo+ICAgIC0gQWRkcmVzcyBpbiB0aGUgY29tbWl0IG1lc3NhZ2Ugd2h5
+IHRoZSBwYXRjaCByZW1vdmVzIGEgbG9vcC4gKEFuZHJldykKPiAtLS0KPiAgIC4uLi9ldGhlcm5l
+dC9zdG1pY3JvL3N0bW1hYy9kd21hYy1sb29uZ3Nvbi5jICB8IDMxICsrKysrKy0tLS0tLS0tLS0t
+LS0KPiAgIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX3BjaS5jICB8IDI0
+ICsrKystLS0tLS0tLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDQw
+IGRlbGV0aW9ucygtKQoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNy
+by9zdG1tYWMvZHdtYWMtbG9vbmdzb24uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
+c3RtbWFjL2R3bWFjLWxvb25nc29uLmMKPiBpbmRleCBiZmU2ZTJkNjMxYmQuLjZmN2M0NzljMWE1
+MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21h
+Yy1sb29uZ3Nvbi5jCj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
+ZHdtYWMtbG9vbmdzb24uYwo+IEBAIC0xMSw2ICsxMSw4IEBACj4gICAjaW5jbHVkZSAiZHdtYWNf
+ZG1hLmgiCj4gICAjaW5jbHVkZSAiZHdtYWMxMDAwLmgiCj4gICAKPiArI2RlZmluZSBEUklWRVJf
+TkFNRSAiZHdtYWMtbG9vbmdzb24tcGNpIgoKVGhpcyBhcHBlYXJzIHRvIGhhdmUgbm90aGluZyB0
+byBkbyB3aXRoIHRoZSBjb21taXQgbWVzc2FnZS4KCkkgYmVsaWV2ZSBpdCB3b3VsZCBiZSBiZXR0
+ZXIgaWYgaXQgd2VyZSBzcGxpdCBvZmYgYW5kIG1hZGUgaW50bwoKYW4gaW5kZXBlbmRlbnQgcGF0
+Y2guCgo+ICsKPiAgIC8qIE5vcm1hbCBMb29uZ3NvbiBUeCBTdW1tYXJ5ICovCj4gICAjZGVmaW5l
+IERNQV9JTlRSX0VOQV9OSUVfVFhfTE9PTkdTT04JMHgwMDA0MDAwMAo+ICAgLyogTm9ybWFsIExv
+b25nc29uIFJ4IFN1bW1hcnkgKi8KPiBAQCAtNTIwLDkgKzUyMiw5IEBAIHN0YXRpYyBpbnQgbG9v
+bmdzb25fZHdtYWNfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIGNvbnN0IHN0cnVjdCBwY2lf
+ZGV2aWNlX2lkCj4gICB7Cj4gICAJc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0Owo+
+ICAgCXN0cnVjdCBzdG1tYWNfcGNpX2luZm8gKmluZm87Cj4gLQlzdHJ1Y3Qgc3RtbWFjX3Jlc291
+cmNlcyByZXM7Cj4gKwlzdHJ1Y3Qgc3RtbWFjX3Jlc291cmNlcyByZXMgPSB7fTsKPiAgIAlzdHJ1
+Y3QgbG9vbmdzb25fZGF0YSAqbGQ7Cj4gLQlpbnQgcmV0LCBpOwo+ICsJaW50IHJldDsKPiAgIAo+
+ICAgCXBsYXQgPSBkZXZtX2t6YWxsb2MoJnBkZXYtPmRldiwgc2l6ZW9mKCpwbGF0KSwgR0ZQX0tF
+Uk5FTCk7Cj4gICAJaWYgKCFwbGF0KQo+IEBAIC01NTIsMTcgKzU1NCwxMCBAQCBzdGF0aWMgaW50
+IGxvb25nc29uX2R3bWFjX3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwZGV2LCBjb25zdCBzdHJ1Y3Qg
+cGNpX2RldmljZV9pZAo+ICAgCXBjaV9zZXRfbWFzdGVyKHBkZXYpOwo+ICAgCj4gICAJLyogR2V0
+IHRoZSBiYXNlIGFkZHJlc3Mgb2YgZGV2aWNlICovCj4gLQlmb3IgKGkgPSAwOyBpIDwgUENJX1NU
+RF9OVU1fQkFSUzsgaSsrKSB7Cj4gLQkJaWYgKHBjaV9yZXNvdXJjZV9sZW4ocGRldiwgaSkgPT0g
+MCkKPiAtCQkJY29udGludWU7Cj4gLQkJcmV0ID0gcGNpbV9pb21hcF9yZWdpb25zKHBkZXYsIEJJ
+VCgwKSwgcGNpX25hbWUocGRldikpOwo+IC0JCWlmIChyZXQpCj4gLQkJCWdvdG8gZXJyX2Rpc2Fi
+bGVfZGV2aWNlOwo+IC0JCWJyZWFrOwo+IC0JfQo+IC0KPiAtCW1lbXNldCgmcmVzLCAwLCBzaXpl
+b2YocmVzKSk7Cj4gLQlyZXMuYWRkciA9IHBjaW1faW9tYXBfdGFibGUocGRldilbMF07Cj4gKwly
+ZXMuYWRkciA9IHBjaW1faW9tYXBfcmVnaW9uKHBkZXYsIDAsIERSSVZFUl9OQU1FKTsKPiArCXJl
+dCA9IFBUUl9FUlJfT1JfWkVSTyhyZXMuYWRkcik7Cj4gKwlpZiAocmV0KQo+ICsJCWdvdG8gZXJy
+X2Rpc2FibGVfZGV2aWNlOwo+ICAgCj4gICAJcGxhdC0+YnNwX3ByaXYgPSBsZDsKPiAgIAlwbGF0
+LT5zZXR1cCA9IGxvb25nc29uX2R3bWFjX3NldHVwOwoKQWNjb3JkaW5nIHRvIHRoZSBkZXNjcmlw
+dGlvbiBpbiB0aGUgY29tbWl0IG1lc3NhZ2UsIHRoZSByZWFzb24gZm9yCgpyZW1vdmUgdGhlIHN1
+cnBsdXMgbG9vcCBoZXJlIGlzIHRvIGZpeCB0aGUgcHJvYmxlbSBvZiByZXF1ZXN0aW5nCgp0aGUg
+c2FtZSBCQVIgbXVsdGlwbGUgdGltZXMsIHRoYXQncyBnb29kLgoKPiBAQCAtNjA2LDcgKzYwMSw2
+IEBAIHN0YXRpYyB2b2lkIGxvb25nc29uX2R3bWFjX3JlbW92ZShzdHJ1Y3QgcGNpX2RldiAqcGRl
+dikKPiAgIAlzdHJ1Y3QgbmV0X2RldmljZSAqbmRldiA9IGRldl9nZXRfZHJ2ZGF0YSgmcGRldi0+
+ZGV2KTsKPiAgIAlzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYgPSBuZXRkZXZfcHJpdihuZGV2KTsK
+PiAgIAlzdHJ1Y3QgbG9vbmdzb25fZGF0YSAqbGQ7Cj4gLQlpbnQgaTsKPiAgIAo+ICAgCWxkID0g
+cHJpdi0+cGxhdC0+YnNwX3ByaXY7Cj4gICAJc3RtbWFjX2R2cl9yZW1vdmUoJnBkZXYtPmRldik7
+Cj4gQEAgLTYxNywxMyArNjExLDYgQEAgc3RhdGljIHZvaWQgbG9vbmdzb25fZHdtYWNfcmVtb3Zl
+KHN0cnVjdCBwY2lfZGV2ICpwZGV2KQo+ICAgCWlmIChsZC0+bG9vbmdzb25faWQgPT0gRFdNQUNf
+Q09SRV9MU19NVUxUSUNIQU4pCj4gICAJCWxvb25nc29uX2R3bWFjX21zaV9jbGVhcihwZGV2KTsK
+PiAgIAo+IC0JZm9yIChpID0gMDsgaSA8IFBDSV9TVERfTlVNX0JBUlM7IGkrKykgewo+IC0JCWlm
+IChwY2lfcmVzb3VyY2VfbGVuKHBkZXYsIGkpID09IDApCj4gLQkJCWNvbnRpbnVlOwo+IC0JCXBj
+aW1faW91bm1hcF9yZWdpb25zKHBkZXYsIEJJVChpKSk7Cj4gLQkJYnJlYWs7Cj4gLQl9Cj4gLQo+
+ICAgCXBjaV9kaXNhYmxlX2RldmljZShwZGV2KTsKPiAgIH0KCkFjY29yZGluZyB0byB0aGUgY29t
+bWl0IG1lc3NhZ2UsIHRoZSByZWFzb24gZm9yIHJlbW92aW5nIHRoZSBzdXJwbHVzCgpsb29wIGhl
+cmUgaXMgdGhhdCB0aGVyZSdzIG5vIG5lZWQgdG8gdXNlIHRoZSBwY2ltXyogY2xlYW51cCBmdW5j
+dGlvbnMgaW4KCnRoZSBgcmVtb3ZlKClgIGZ1bmN0aW9uLiBUaGlzIGlzIGRpZmZlcmVudCBmcm9t
+IHRoZSBtb2RpZmljYXRpb25zIGluIHRoZQoKYHByb2JlKClgIGZ1bmN0aW9uLiBJIHRoaW5rIGl0
+IGNhbiBiZSBzcGxpdCBvdXQgYW5kIG1hZGUgaW50byBhIHNlcGFyYXRlCgpwYXRjaC4KCgpIb3cg
+YWJvdXQgc3BsaXR0aW5nIGl0IGxpa2UgdGhpcz8KClBhdGNoIDEvMzogVXNlIHRoZSBgRFJJVkVS
+X05BTUVgIG1hY3JvLgoKUGF0Y2ggMi8zOiByZW1vdmUgdGhlIHN1cnBsdXMgbG9vcCB0byBmaXgg
+dGhlIHByb2JsZW0gb2YgcmVxdWVzdGluZyB0aGUgCnNhbWUgQkFSIG11bHRpcGxlIHRpbWVzCgpQ
+YXRjaCAzLzM6IHJlbW92ZSB0aGUgc3VycGx1cyBwY2ltXyogY2xlYW51cCBmdW5jdGlvbnMgaW4g
+dGhlIGByZW1vdmUoKWAgCmZ1bmN0aW9uCgoKSHVhY2FpLCBRdW5xaW4sIFdvdWxkIHlvdSBtaW5k
+IGhlbHBpbmcgdG8gdGVzdCBpdD8KCgpUaGFua3MsCgpZYW50ZW5nCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
+TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
