@@ -2,44 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22191A3F6F7
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 15:15:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D490A3F6FA
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 15:15:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6A24C7A839;
-	Fri, 21 Feb 2025 14:15:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC5EDC7A839;
+	Fri, 21 Feb 2025 14:15:44 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D16EBC7A837
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04BE5C7A837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Feb 2025 14:15:32 +0000 (UTC)
+ Fri, 21 Feb 2025 14:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ZN090mxAPz84RAmjDf1ffqgTe4ng9t/Mi1/ZHq++UpE=; b=0/Sbe6zBOF5wWfA8ZGcllkkHOu
- tAQPGfV0LWLk2aLeX2iOW3NchjXJWQjzLAX652zVJ8XRPNZc6RRylLZVEzVtOfzgC9GgS5bxFd0WC
- TyG0hSJXiSZSnId8QQCxJVWSdnr1ccNyBUxwUx0Wsbxx/C06VxWuEhNFProVooYVF1ShrIV7i1MK8
- An9WxG+DHPwaJGy8aCFnKRKK0unAJjNtjvSfjl1/AKDj+Ie8ttmp2B+12n5mUEaV0gG5nJ5hFmGEM
- ln+zk/UrQfwec/G+KuVUJakLk7zIqlAG/lv3zM2UoOrSb/ooFhNywzerlCXYNVMnb2+tfUS8S9WuJ
- ZhqypXRQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33718)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YmtTGwJJXhwMoenv9f1jJWRnRB0B2anyfjKqb6F0t6g=; b=i7UoQF2blTPs6VW1UGIaXkZX+k
+ IJh5rrOMM3jtyTYE0yyIPfqvAgr5J7kr8tlhOag8TsD7uog8dTn/hrI9Zonguyry25QPpZ6Macig8
+ Hnfw5IrCLzLsHbISCogcINMGXG0py/E+l9QG6MhzVO2xlW5UhzyKnu3PEP0H0JRM4QI1524TREqMO
+ tV9vQsuHBH7ZBNmMBz9SoBHIM1/vgqeF6ghyFxiJBucJK2OlbNDI03ABq7My+5Y2QHYmErA/5CQsd
+ UBZEl6/LX14f1p5R6sq5zrh3OTMqFZRvRu8MJh3bAJVUpaeM9S93akICrUQNRteaalKd0QlFOXt0x
+ Gp6cO1Pw==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50498 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tlToH-0004nV-1b;
- Fri, 21 Feb 2025 14:15:21 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tlToD-00023s-0v;
- Fri, 21 Feb 2025 14:15:17 +0000
-Date: Fri, 21 Feb 2025 14:15:17 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z7iKdaCp4hLWWgJ2@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1tlToX-0004o0-1B;
+ Fri, 21 Feb 2025 14:15:37 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1tlToD-004W3g-HB; Fri, 21 Feb 2025 14:15:17 +0000
+In-Reply-To: <Z7iKdaCp4hLWWgJ2@shell.armlinux.org.uk>
+References: <Z7iKdaCp4hLWWgJ2@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1tlToD-004W3g-HB@rmk-PC.armlinux.org.uk>
+Date: Fri, 21 Feb 2025 14:15:17 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Guo Ren <guoren@kernel.org>, Drew Fustini <drew@pdp7.com>,
@@ -47,8 +50,8 @@ Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-riscv@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Fu Wei <wefu@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: thead: clean up
-	clock rate setting
+Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: thead: ensure
+ divisor gives proper rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,22 +68,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+thead was checking that the stmmac_clk rate was a multiple of the
+RGMII rates for 1G and 100M, but didn't check for 10M. Rather than
+use this with hard-coded speeds, check that the calculated divisor
+gives the required rate by multplying the transmit clock rate back
+up to the stmmac clock rate and checking that it agrees.
 
-This series cleans up the thead clock rate setting to use the
-rgmii_clock() helper function added to phylib.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-The first patch switches over to using the rgmii_clock() helper,
-and the second patch cleans up the verification that the desired
-clock rate is achievable, allowing the private clock rate
-definitions to be removed.
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c | 28 ++++++++---------------
- 1 file changed, 9 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
+index f16fa341aadb..f9f2bd65959f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
+@@ -45,9 +45,6 @@
+ #define  TXCLK_DIR_OUTPUT		FIELD_PREP(TXCLK_DIR_MASK, 0)
+ #define  TXCLK_DIR_INPUT		FIELD_PREP(TXCLK_DIR_MASK, 1)
+ 
+-#define GMAC_GMII_RGMII_RATE	125000000
+-#define GMAC_MII_RATE		25000000
+-
+ struct thead_dwmac {
+ 	struct plat_stmmacenet_data *plat;
+ 	void __iomem *apb_base;
+@@ -124,11 +121,6 @@ static void thead_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 		rate = clk_get_rate(plat->stmmac_clk);
+-		if (!rate || rate % GMAC_GMII_RGMII_RATE != 0 ||
+-		    rate % GMAC_MII_RATE != 0) {
+-			dev_err(dwmac->dev, "invalid gmac rate %ld\n", rate);
+-			return;
+-		}
+ 
+ 		writel(0, dwmac->apb_base + GMAC_PLLCLK_DIV);
+ 
+@@ -139,6 +131,10 @@ static void thead_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+ 		}
+ 
+ 		div = rate / tx_rate;
++		if (rate != tx_rate * div) {
++			dev_err(dwmac->dev, "invalid gmac rate %lu\n", rate);
++			return;
++		}
+ 
+ 		reg = FIELD_PREP(GMAC_PLLCLK_DIV_EN, 1) |
+ 		      FIELD_PREP(GMAC_PLLCLK_DIV_NUM, div);
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
