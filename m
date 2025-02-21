@@ -2,45 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80F4A3F319
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 12:39:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C226A3F34B
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 12:50:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C8C2C7A837;
-	Fri, 21 Feb 2025 11:39:41 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBE47C6C841
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CA56C7A837;
+	Fri, 21 Feb 2025 11:50:04 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB77BC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Feb 2025 11:39:39 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C597E1516;
- Fri, 21 Feb 2025 03:39:56 -0800 (PST)
-Received: from [10.57.36.38] (unknown [10.57.36.38])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D3F393F59E;
- Fri, 21 Feb 2025 03:39:35 -0800 (PST)
-Message-ID: <35d1a923-4e8e-4fe2-bf4a-0b78b1d511e3@arm.com>
-Date: Fri, 21 Feb 2025 11:39:34 +0000
+ Fri, 21 Feb 2025 11:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YRbeIpTW2o5n4pIxMblvC9/4iZSat+Ow4QvCwIGQR6Y=; b=OpZXhP+eI/cOxTTuMaXQ9z6OVz
+ JMKExuezMP4gafNgpnHPFVzPcyqwJed97diGCdUBcXtsWEHgOxetVJCALAa/MC54RZcoFdU3FAQ0M
+ JxL6IZBDXrJc1YmoqiqrniqtamHB6Hplg/sAnFApgzQkaKdVTBxj9+oSbzk26GADU8j6V8RJw2OZV
+ xBdaeFggqZ7gsbrd3ESk+/EfPlGHKcU3xGwx/hVwQ3SmrkbGULa3jzpzq1fSTm9r6ptPTonMxLYcf
+ quhZVVFxk6WuYYhQUvBjOohO3cwj6c+W3f4BP3sUBiaqe894rC9RhS6c0cVWo2Zw5Z0B5shn+TT35
+ PZMi3Ebw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45184)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tlRXR-0004SP-2d;
+ Fri, 21 Feb 2025 11:49:49 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tlRXM-0001yQ-2s;
+ Fri, 21 Feb 2025 11:49:44 +0000
+Date: Fri, 21 Feb 2025 11:49:44 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Swathi K S <swathi.ks@samsung.com>
+Message-ID: <Z7hoWHfMCMEABJlp@shell.armlinux.org.uk>
+References: <20250220043712.31966-1-swathi.ks@samsung.com>
+ <CGME20250220044132epcas5p305e4ed7ed1c84f9800299c2091ea0790@epcas5p3.samsung.com>
+ <20250220043712.31966-3-swathi.ks@samsung.com>
+ <Z7cimPBdZ3W9GKmI@shell.armlinux.org.uk>
+ <02b701db844c$36b7aeb0$a4270c10$@samsung.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Jie Gan <quic_jiegan@quicinc.com>, Mike Leach <mike.leach@linaro.org>,
- James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250217093024.1133096-1-quic_jiegan@quicinc.com>
- <20250217093024.1133096-7-quic_jiegan@quicinc.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20250217093024.1133096-7-quic_jiegan@quicinc.com>
-Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
+Content-Disposition: inline
+In-Reply-To: <02b701db844c$36b7aeb0$a4270c10$@samsung.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ ravi.patel@samsung.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, gost.dev@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, pankaj.dubey@samsung.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v12 6/7] Coresight: Add Coresight TMC
-	Control Unit driver
+Subject: Re: [Linux-stm32] [PATCH v7 2/2] net: stmmac: dwc-qos: Add FSD EQoS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,446 +66,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 17/02/2025 09:30, Jie Gan wrote:
-> The Coresight TMC Control Unit hosts miscellaneous configuration registers
-> which control various features related to TMC ETR sink.
+On Fri, Feb 21, 2025 at 04:04:25PM +0530, Swathi K S wrote:
 > 
-> Based on the trace ID, which is programmed in the related CTCU ATID
-> register of a specific ETR, trace data with that trace ID gets into
-> the ETR buffer, while other trace data gets dropped.
 > 
-> Enabling source device sets one bit of the ATID register based on
-> source device's trace ID.
-> Disabling source device resets the bit according to the source
-> device's trace ID.
+> > -----Original Message-----
+> > From: Russell King (Oracle) <linux@armlinux.org.uk>
+> > Sent: 20 February 2025 18:10
+> > To: Swathi K S <swathi.ks@samsung.com>
+> > Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch; davem@davemloft.net;
+> > edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
+> > robh@kernel.org; conor+dt@kernel.org; richardcochran@gmail.com;
+> > mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
+> > netdev@vger.kernel.org; devicetree@vger.kernel.org; linux-stm32@st-md-
+> > mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
+> > kernel@vger.kernel.org; pankaj.dubey@samsung.com;
+> > ravi.patel@samsung.com; gost.dev@samsung.com
+> > Subject: Re: [PATCH v7 2/2] net: stmmac: dwc-qos: Add FSD EQoS support
+> > 
+> > On Thu, Feb 20, 2025 at 10:07:12AM +0530, Swathi K S wrote:
+> > > +static int fsd_eqos_probe(struct platform_device *pdev,
+> > > +			  struct plat_stmmacenet_data *data,
+> > > +			  struct stmmac_resources *res)
+> > > +{
+> > > +	struct clk *clk_rx1 = NULL;
+> > > +	struct clk *clk_rx2 = NULL;
+> > > +
+> > > +	for (int i = 0; i < data->num_clks; i++) {
+> > > +		if (strcmp(data->clks[i].id, "slave_bus") == 0)
+> > > +			data->stmmac_clk = data->clks[i].clk;
+> > > +		else if (strcmp(data->clks[i].id, "eqos_rxclk_mux") == 0)
+> > > +			clk_rx1 = data->clks[i].clk;
+> > > +		else if (strcmp(data->clks[i].id, "eqos_phyrxclk") == 0)
+> > > +			clk_rx2 = data->clks[i].clk;
+> > > +	}
+> > > +
+> > > +	/* Eth0 RX clock doesn't support MUX */
+> > > +	if (clk_rx1)
+> > > +		clk_set_parent(clk_rx1, clk_rx2);
+> > 
+> > Isn't there support in DT for automatically setting the clock tree?
+> > See
+> > https://protect2.fireeye.com/v1/url?k=f0089f78-90ea0225-f0091437-
+> > 000babd9f1ba-cf835b8b94ccd94a&q=1&e=4ae794ec-f443-4d77-aee4-
+> > 449f53a3a1a4&u=https%3A%2F%2Fgithub.com%2Fdevicetree-org%2Fdt-
+> > schema%2Fblob%2Fmain%2Fdtschema%2Fschemas%2Fclock%2Fclock.yaml
+> > %23L24
+> > 
+> > Also, I think a cleanup like the below (sorry, it's on top of other
+> patches I'm
+> > working on at the moment but could be rebased) would make sense.
+> > 
+> > With both of these, this should mean that your changes amount to:
+> > 
+> > 1. making data->probe optional
+> > 2. providing a dwc_eth_dwmac_data structure that has .stmmac_clk_name
+> >    filled in
+> > 3. adding your compatible to the match data with a pointer to the
+> >    above structure.
 > 
-> Reviewed-by: James Clark <james.clark@linaro.org>
-> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
-> ---
->   drivers/hwtracing/coresight/Kconfig          |  12 +
->   drivers/hwtracing/coresight/Makefile         |   1 +
->   drivers/hwtracing/coresight/coresight-ctcu.c | 268 +++++++++++++++++++
->   drivers/hwtracing/coresight/coresight-ctcu.h |  24 ++
->   include/linux/coresight.h                    |   3 +-
->   5 files changed, 307 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/hwtracing/coresight/coresight-ctcu.c
->   create mode 100644 drivers/hwtracing/coresight/coresight-ctcu.h
+> Hi Russell, 
+> Thanks for your input.
+> Will implement this in v8.
+> But I could not find your patch 'net: stmmac: clean up clock initialisation'
+> in mailing list
+> Could you point me to that?
+> Or do you want me to integrate the below changes into my patch series and
+> post?
 > 
-> diff --git a/drivers/hwtracing/coresight/Kconfig b/drivers/hwtracing/coresight/Kconfig
-> index 06f0a7594169..ecd7086a5b83 100644
-> --- a/drivers/hwtracing/coresight/Kconfig
-> +++ b/drivers/hwtracing/coresight/Kconfig
-> @@ -133,6 +133,18 @@ config CORESIGHT_STM
->   	  To compile this driver as a module, choose M here: the
->   	  module will be called coresight-stm.
->   
-> +config CORESIGHT_CTCU
-> +	tristate "CoreSight TMC Control Unit driver"
-> +	depends on CORESIGHT_LINK_AND_SINK_TMC
-> +	help
-> +	  This driver provides support for CoreSight TMC Control Unit
-> +	  that hosts miscellaneous configuration registers. This is
-> +	  primarily used for controlling the behaviors of the TMC
-> +	  ETR device.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called coresight-ctcu.
-> +
->   config CORESIGHT_CPU_DEBUG
->   	tristate "CoreSight CPU Debug driver"
->   	depends on ARM || ARM64
-> diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
-> index 4ba478211b31..1b7869910a12 100644
-> --- a/drivers/hwtracing/coresight/Makefile
-> +++ b/drivers/hwtracing/coresight/Makefile
-> @@ -51,3 +51,4 @@ coresight-cti-y := coresight-cti-core.o	coresight-cti-platform.o \
->   		   coresight-cti-sysfs.o
->   obj-$(CONFIG_ULTRASOC_SMB) += ultrasoc-smb.o
->   obj-$(CONFIG_CORESIGHT_DUMMY) += coresight-dummy.o
-> +obj-$(CONFIG_CORESIGHT_CTCU) += coresight-ctcu.o
-> diff --git a/drivers/hwtracing/coresight/coresight-ctcu.c b/drivers/hwtracing/coresight/coresight-ctcu.c
-> new file mode 100644
-> index 000000000000..e1460a627c4d
-> --- /dev/null
-> +++ b/drivers/hwtracing/coresight/coresight-ctcu.c
-> @@ -0,0 +1,268 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/coresight.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/kernel.h>
-> +#include <linux/init.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +
-> +#include "coresight-ctcu.h"
-> +#include "coresight-priv.h"
-> +
-> +DEFINE_CORESIGHT_DEVLIST(ctcu_devs, "ctcu");
-> +
-> +#define ctcu_writel(drvdata, val, offset)	__raw_writel((val), drvdata->base + offset)
-> +#define ctcu_readl(drvdata, offset)		__raw_readl(drvdata->base + offset)
-> +
-> +/*
-> + * The TMC Coresight Control Unit uses four ATID registers to control the data
-> + * filter function based on the trace ID for each TMC ETR sink. The length of
-> + * each ATID register is 32 bits. Therefore, the ETR has a related field in
-> + * CTCU that is 128 bits long. Each trace ID is represented by one bit in that
-> + * filed.
-> + * e.g. ETR0ATID0 layout, set bit 5 for traceid 5
-> + *                                           bit5
-> + * ------------------------------------------------------
-> + * |   |28|   |24|   |20|   |16|   |12|   |8|  1|4|   |0|
-> + * ------------------------------------------------------
-> + *
-> + * e.g. ETR0:
-> + * 127                     0 from ATID_offset for ETR0ATID0
-> + * -------------------------
-> + * |ATID3|ATID2|ATID1|ATID0|
-> + */
-> +#define CTCU_ATID_REG_OFFSET(traceid, atid_offset) \
-> +		((traceid / 32) * 4 + atid_offset)
-> +
-> +#define CTCU_ATID_REG_BIT(traceid)	(traceid % 32)
-> +#define CTCU_ATID_REG_SIZE		0x10
-> +
-> +struct ctcu_atid_config {
-> +	const u32 atid_offset;
-> +	const u32 port_num;
-> +};
-> +
-> +struct ctcu_config {
-> +	const struct ctcu_atid_config *atid_config;
-> +	int num_atid_config;
-> +};
-> +
-> +static const struct ctcu_atid_config sa8775p_atid_cfgs[] = {
-> +	{0xf8,  0},
-> +	{0x108, 1},
-> +};
-> +
-> +static const struct ctcu_config sa8775p_cfgs = {
-> +	.atid_config		= sa8775p_atid_cfgs,
-> +	.num_atid_config	= ARRAY_SIZE(sa8775p_atid_cfgs),
-> +};
-> +
-> +static void ctcu_program_atid_register(struct ctcu_drvdata *drvdata, u32 reg_offset,
-> +				       u8 bit, bool enable)
-> +{
-> +	u32 val;
-> +
-> +	CS_UNLOCK(drvdata->base);
-> +	val = ctcu_readl(drvdata, reg_offset);
-> +	val = enable? (val | BIT(bit)) : (val & ~BIT(bit));
+> Please let me know
 
-minor nit: If possible do not use the ternary operator like this. It is 
-much better readable as:
+Please have patience - I'm a volunteer here, and I included the patch in
+the email for you. You're not the only one whom I'm addressing issues in
+the stmmac driver for. Since Sunday, I have a total of 16 new stmmac
+patches plus been debugging a regression someone has reported.
 
-	if (enable)
-		val |= BIT(bit);
-	else
-		val &= ~BIT(bit);
+Coincidentally, I just sent out the patch as a stand-alone patch, it
+should be quicker to get it into net-next rather than trying to get all
+the other patches I'd *already* had queued up in first.
 
-> +	ctcu_writel(drvdata, val, reg_offset);
-> +	CS_LOCK(drvdata->base);
-> +}
-> +
-> +/*
-> + * __ctcu_set_etr_traceid: Set bit in the ATID register based on trace ID when enable is true.
-> + * Reset the bit of the ATID register based on trace ID when enable is false.
-> + *
-> + * @csdev:	coresight_device struct related to the device
-> + * @traceid:	trace ID of the source tracer.
-> + * @port_num:	port number from TMC ETR sink.
-> + * @enable:	True for set bit and false for reset bit.
-> + *
-> + * Returns 0 indicates success. Non-zero result means failure.
-> + */
-> +static int __ctcu_set_etr_traceid(struct coresight_device *csdev, u8 traceid, int port_num,
-> +				  bool enable)
-> +{
-> +	struct ctcu_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> +	u32 atid_offset, reg_offset;
-> +	u8 refcnt, bit;
-> +
-> +	atid_offset = drvdata->atid_offset[port_num];
-> +	if (atid_offset == 0)
-> +		return -EINVAL;
-> +
-> +	bit = CTCU_ATID_REG_BIT(traceid);
-> +	reg_offset = CTCU_ATID_REG_OFFSET(traceid, atid_offset);
-> +	if (reg_offset - atid_offset > CTCU_ATID_REG_SIZE)
-> +		return -EINVAL;
-> +
-> +	guard(raw_spinlock_irqsave)(&drvdata->spin_lock);
-> +	refcnt = drvdata->traceid_refcnt[port_num][traceid];
-> +	/* Only program the atid register when the refcnt value is 0 or 1 */
+https://lore.kernel.org/r/E1tlRMP-004Vt5-W1@rmk-PC.armlinux.org.uk
 
-A normal trace source won't be enabled more than once (e.g., ETM). The 
-only odd one out is the STM, which may be driven by multiple agents.
-So this refcounting looks necessary.
+However, I'm expecting someone to say that dwc_eth_find_clk() should be
+moved into the stmmac platform code, and the other platforms need to be
+converted to use it... so it may be some time before we're at a stage
+where you can proceed.
 
-> +	if (enable && (++refcnt == 1))
-> +		ctcu_program_atid_register(drvdata, reg_offset, bit, enable);
-> +	else if (!enable && (--refcnt == 0))
-> +		ctcu_program_atid_register(drvdata, reg_offset, bit, enable);
+Please be patient.
 
-minor nit:
-
-	if ((enable && !refcount++) ||
-	    (!enable && --refcount))
-		ctcu_program_atid_register(drvdata, reg_offset, bit, enable);
-
-
-Also, see my comment the bottom for "refcount" being u8 .
-
-
-> +
-> +	drvdata->traceid_refcnt[port_num][traceid] = refcnt;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ctcu_get_active_port(struct coresight_device *sink, struct coresight_device *helper)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < sink->pdata->nr_outconns; ++i) {
-> +		if (sink->pdata->out_conns[i]->dest_dev)
-> +			return sink->pdata->out_conns[i]->dest_port;
-
-Don't we need to make sure it matches the helper ? What if there are 
-multiple helpers ? e.g, a CATU connected to the ETR and CTCU ?
-Or even try the opposite ? i.e. search the helper and find the port
-matching the sink ?
-
-	struct coresight_platform_data *pdata = helper->pdata;
-
-	for (i = 0; i < pdata->nr_inconns; ++i)
-		if (pdata->in_conns[i]->dest_dev == sink)
-			return pdata->in_conns[i]->src_port;
-
-Not sure if that works with the helper device connection, James ?
-
-
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight_path *path,
-> +				bool enable)
-> +{
-> +	struct coresight_device *sink = coresight_get_sink(path);
-> +	u8 traceid = path->trace_id;
-> +	int port_num;
-> +
-> +	if ((sink == NULL) || !IS_VALID_CS_TRACE_ID(traceid)) {
-> +		dev_err(&csdev->dev, "Invalid parameters\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	port_num = ctcu_get_active_port(sink, csdev);
-> +	if (port_num < 0)
-> +		return -EINVAL;
-> +
-> +	dev_dbg(&csdev->dev, "traceid is %d\n", traceid);
-> +
-> +	return __ctcu_set_etr_traceid(csdev, traceid, port_num, enable);
-> +}
-> +
-> +static int ctcu_enable(struct coresight_device *csdev, enum cs_mode mode,
-> +		       void *data)
-> +{
-> +	struct coresight_path *path = (struct coresight_path *)data;
-> +
-> +	return ctcu_set_etr_traceid(csdev, path, true);
-> +}
-> +
-> +static int ctcu_disable(struct coresight_device *csdev, void *data)
-> +{
-> +	struct coresight_path *path = (struct coresight_path *)data;
-> +
-> +	return ctcu_set_etr_traceid(csdev, path, false);
-> +}
-> +
-> +static const struct coresight_ops_helper ctcu_helper_ops = {
-> +	.enable = ctcu_enable,
-> +	.disable = ctcu_disable,
-> +};
-> +
-> +static const struct coresight_ops ctcu_ops = {
-> +	.helper_ops = &ctcu_helper_ops,
-> +};
-> +
-> +static int ctcu_probe(struct platform_device *pdev)
-> +{
-> +	int i;
-> +	void __iomem *base;
-> +	struct device *dev = &pdev->dev;
-> +	struct coresight_platform_data *pdata;
-> +	struct ctcu_drvdata *drvdata;
-> +	struct coresight_desc desc = { 0 };
-> +	const struct ctcu_config *cfgs;
-> +	const struct ctcu_atid_config *atid_cfg;
-> +
-> +	desc.name = coresight_alloc_device_name(&ctcu_devs, dev);
-> +	if (!desc.name)
-> +		return -ENOMEM;
-> +
-> +	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-> +	if (!drvdata)
-> +		return -ENOMEM;
-> +
-> +	pdata = coresight_get_platform_data(dev);
-> +	if (IS_ERR(pdata))
-> +		return PTR_ERR(pdata);
-> +	dev->platform_data = pdata;
-> +
-> +	base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
-> +	if (!base)
-> +		return -ENOMEM;
-> +
-> +	drvdata->apb_clk = coresight_get_enable_apb_pclk(dev);
-> +	if (IS_ERR(drvdata->apb_clk))
-> +		return -ENODEV;
-> +
-> +	cfgs = of_device_get_match_data(dev);
-> +	if (cfgs) {
-> +		if (cfgs->num_atid_config <= ATID_MAX_NUM) {
-> +			for (i = 0; i < cfgs->num_atid_config; i++) {
-> +				atid_cfg = &cfgs->atid_config[i];
-> +				drvdata->atid_offset[i] = atid_cfg->atid_offset;
-> +			}
-> +		}
-> +	}
-> +
-> +	drvdata->base = base;
-> +	drvdata->dev = dev;
-> +	platform_set_drvdata(pdev, drvdata);
-> +
-> +	desc.type = CORESIGHT_DEV_TYPE_HELPER;
-> +	desc.subtype.helper_subtype = CORESIGHT_DEV_SUBTYPE_HELPER_CTCU;
-> +	desc.pdata = pdata;
-> +	desc.dev = dev;
-> +	desc.ops = &ctcu_ops;
-
-Please set the desc.access
-
-	desc.access = CSDEV_ACCESS_IOMEM(drvdata->base);
-
-> +
-> +	drvdata->csdev = coresight_register(&desc);
-> +	if (IS_ERR(drvdata->csdev)) {
-> +		if (!IS_ERR_OR_NULL(drvdata->apb_clk))
-> +			clk_put(drvdata->apb_clk);
-> +
-> +		return PTR_ERR(drvdata->csdev);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void ctcu_remove(struct platform_device *pdev)
-> +{
-> +	struct ctcu_drvdata *drvdata = platform_get_drvdata(pdev);
-> +
-> +	coresight_unregister(drvdata->csdev);
-> +	if (!IS_ERR_OR_NULL(drvdata->apb_clk))
-> +		clk_put(drvdata->apb_clk);
-
-Why isn't the clock get/put at runtime via pm_runtime calls ?
-See coresight-replicator driver for e.g.
-
-
-> +}
-> +
-> +static const struct of_device_id ctcu_match[] = {
-> +	{.compatible = "qcom,sa8775p-ctcu", .data = &sa8775p_cfgs},
-> +	{}
-> +};
-> +
-> +static struct platform_driver ctcu_driver = {
-> +	.probe          = ctcu_probe,
-> +	.remove         = ctcu_remove,
-> +	.driver         = {
-> +		.name   = "coresight-ctcu",
-> +		.of_match_table = ctcu_match,
-> +		.suppress_bind_attrs = true,
-> +	},
-> +};
-> +module_platform_driver(ctcu_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("CoreSight TMC Control Unit driver");
-> diff --git a/drivers/hwtracing/coresight/coresight-ctcu.h b/drivers/hwtracing/coresight/coresight-ctcu.h
-> new file mode 100644
-> index 000000000000..9890c3da5ec8
-> --- /dev/null
-> +++ b/drivers/hwtracing/coresight/coresight-ctcu.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#ifndef _CORESIGHT_CTCU_H
-> +#define _CORESIGHT_CTCU_H
-> +#include "coresight-trace-id.h"
-> +
-> +/* Maximum number of supported sink devices for a single CTCU in current projects. */
-> +#define ATID_MAX_NUM 	2
-> +
-> +struct ctcu_drvdata {
-> +	void __iomem		*base;
-> +	struct clk		*apb_clk;
-> +	phys_addr_t		pbase;
-
-Where is this used ?
-
-> +	struct device		*dev;
-> +	struct coresight_device	*csdev;
-> +	raw_spinlock_t		spin_lock;
-> +	u32			atid_offset[ATID_MAX_NUM];
-> +	/* refcnt for each traceid of each sink */
-> +	u8			traceid_refcnt[ATID_MAX_NUM][CORESIGHT_TRACE_ID_RES_TOP];
-
-Hopefully u8 is sufficient, but is it ? Why don't we check this in 
-"enable" path to see if we are going to overflow ?
-
-
-
-> +};
-> +#endif
-> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-> index 03d833a15726..55bb825d509e 100644
-> --- a/include/linux/coresight.h
-> +++ b/include/linux/coresight.h
-> @@ -71,7 +71,8 @@ enum coresight_dev_subtype_source {
->   
->   enum coresight_dev_subtype_helper {
->   	CORESIGHT_DEV_SUBTYPE_HELPER_CATU,
-> -	CORESIGHT_DEV_SUBTYPE_HELPER_ECT_CTI
-> +	CORESIGHT_DEV_SUBTYPE_HELPER_ECT_CTI,
-> +	CORESIGHT_DEV_SUBTYPE_HELPER_CTCU,
->   };
->   
->   /**
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
