@@ -2,156 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A1AA3F25A
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 11:43:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82CFA3F2E5
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Feb 2025 12:26:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC100C7A838;
-	Fri, 21 Feb 2025 10:43:43 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A993C7A836;
+	Fri, 21 Feb 2025 11:26:46 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23FC4C7A836
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C92AC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Feb 2025 10:43:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AbFzuF0KvZVsDyrvSduMqoLwuLWWwXVRMQi3+btQhqI7dcU6oBm/rcx5kt0WwL7woDygOkNtrss7xHsGkfenqX/OUKyXl2tRaJ5Pg1aFFuVzcbTgQGOZvX3bncsy1HveQZFieQu/yDnOc8dLt/NbfKl7C6ADeic+SG/cnp6+oAEkRUy+4+KADwoykeaH2+WqoTSJY6MVBkFeMqQngU2Xln0RbYp5YmJvrycJwQBLRa1OMkVm5feY2mK8GwO6CeBTU1AoJwTicRcRiY71+J+ZIhtmN6KVzmYn7ytoBfafuvLewlPRRSeCnHiyAvau8ZMDLi+4P/+mwxB6ZnzP2bNgTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4CFWJf09zmzYGYfYYeZY10EiUYQURk8uX2RNg888TK0=;
- b=dV4mDYHeVkfM8Dcc9t8SV812oBtSWACqTSjGFXPOOy7hO2XBPI+aWbIl/ruR9Lad/2wX2TLz0dXdXQ+gEuo/iRucOOtNpBqfTrW/GCg+g+YY5oaI77cztU7WBX2Ugam3NjCt12VeWP2+OMT9vzkaiYBetDE3rJvb2f1DRBTiwSEbkQk0lHS9BvzHp35sSrGge0Bo3aaFc6xbg2us3mH9c8S0zGAhkldSpIv7Jf824Ld02FXnT0x0CsKemtDhMy43fm3E0RvTKHNPd+vQqzveyQov5mR/PjryL3xxne6ffnqXAo/TA9LDScF3vuxpPygEF+Tyi52fMPXu2AxJZan5wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4CFWJf09zmzYGYfYYeZY10EiUYQURk8uX2RNg888TK0=;
- b=UYd/P8+kFBSyXz8XniBCPLNEo0PskZE44xfeJlbZuTmcuP46TYBVwGgfdWgkV+eNo8hvjOloeqRIJyXB13eIecWNdnQksC/XjEBO8DQHKhZrtUPm5vpPSJH6Eq5wdvwauDlT91dXbwQmJ3iqTrXFF6ynj2VKIpe08zH14A/yxH/fYZgNnTtmamHOw4+UBXfK//OleTeziRXOIjLtlIyJcOpZAJZJ0wcxssVvgr0sLkSRIWh2rWfEAwNJ94iNC3XJKfAZjF/IFaR5I4/fmOtNeMD2IaZAnoljTUoho2jTI0uSpSd0d3ndk6lqtc+oqbjrY+f57EH+xjBEcGEncNmEdQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com (2603:10a6:20b:24b::14)
- by GVXPR04MB10971.eurprd04.prod.outlook.com (2603:10a6:150:21a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.17; Fri, 21 Feb
- 2025 10:43:38 +0000
-Received: from AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2]) by AM8PR04MB7779.eurprd04.prod.outlook.com
- ([fe80::7417:d17f:8d97:44d2%6]) with mapi id 15.20.8466.016; Fri, 21 Feb 2025
- 10:43:38 +0000
-Date: Fri, 21 Feb 2025 12:43:33 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Furong Xu <0x1207@gmail.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-Message-ID: <20250221104333.6s7nvn2wwco3axr3@skbuf>
-References: <20250220025349.3007793-1-faizal.abdul.rahim@linux.intel.com>
- <20250220025349.3007793-2-faizal.abdul.rahim@linux.intel.com>
- <20250221174249.000000cc@gmail.com>
- <20250221095651.npjpkoy2y6nehusy@skbuf>
- <20250221182409.00006fd1@gmail.com>
-Content-Disposition: inline
-In-Reply-To: <20250221182409.00006fd1@gmail.com>
-X-ClientProxiedBy: VI1PR04CA0086.eurprd04.prod.outlook.com
- (2603:10a6:803:64::21) To AM8PR04MB7779.eurprd04.prod.outlook.com
- (2603:10a6:20b:24b::14)
+ Fri, 21 Feb 2025 11:26:44 +0000 (UTC)
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20250221112641epoutp016723db86241b2abcc2c0d48ccd3b6883~mNZCTXW6x0325003250epoutp01J
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Feb 2025 11:26:41 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20250221112641epoutp016723db86241b2abcc2c0d48ccd3b6883~mNZCTXW6x0325003250epoutp01J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1740137201;
+ bh=FC2a7r9b8EaahE6S8ThbScqtlkOLkA61RMYEzBudLJI=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=HFyo8V+W0oGfVIpcTeOwk/8/jS7xJYoO3JULX3QBONh3AX2nZ4gSaOEKVZ2pT9kfJ
+ Tb19EHyWZB2cV363RbDMYC5MHLAFipwFb/pvfXNog5DOl4sIJLWhDkuDanVtS8MVln
+ WbMQcFMQ6rbvoT+pELm7qY7KmDIeAqiAvlj8KDV4=
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTP id
+ 20250221112640epcas5p2b59e9083652c09779847fba4ea0ba7b5~mNZByuAuO1579915799epcas5p2L;
+ Fri, 21 Feb 2025 11:26:40 +0000 (GMT)
+Received: from epsmges5p2new.samsung.com (unknown [182.195.38.176]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4Yznrt4zKrz4x9Pv; Fri, 21 Feb
+ 2025 11:26:38 +0000 (GMT)
+Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
+ epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 85.8A.19933.EE268B76; Fri, 21 Feb 2025 20:26:38 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20250221103441epcas5p2c8e62837664debd0d110c4867101b6ee~mMroj_Z6p3072330723epcas5p2h;
+ Fri, 21 Feb 2025 10:34:41 +0000 (GMT)
+Received: from epsmgmcp1.samsung.com (unknown [182.195.42.82]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20250221103441epsmtrp1d7e41e6faff723be9bc894665ae37201~mMrojJCUO3243132431epsmtrp1K;
+ Fri, 21 Feb 2025 10:34:41 +0000 (GMT)
+X-AuditID: b6c32a4a-c1fda70000004ddd-ed-67b862eeb0fa
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgmcp1.samsung.com (Symantec Messaging Gateway) with SMTP id
+ D6.65.33707.0C658B76; Fri, 21 Feb 2025 19:34:40 +0900 (KST)
+Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20250221103435epsmtip29eb15f0027d30a7bbbce44d7a9e548d3~mMrjithd30551405514epsmtip2G;
+ Fri, 21 Feb 2025 10:34:35 +0000 (GMT)
+From: "Swathi K S" <swathi.ks@samsung.com>
+To: "'Russell King \(Oracle\)'" <linux@armlinux.org.uk>
+In-Reply-To: <Z7cimPBdZ3W9GKmI@shell.armlinux.org.uk>
+Date: Fri, 21 Feb 2025 16:04:25 +0530
+Message-ID: <02b701db844c$36b7aeb0$a4270c10$@samsung.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7779:EE_|GVXPR04MB10971:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a922cca-d036-488e-6166-08dd52649954
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?31Rh0BkkoMP8r77dR4FxSzZ+w5+pYiPVqOhsgcflkyE2BWkBz9AsS2Y28Zdz?=
- =?us-ascii?Q?vrryMF8bUSIG69ARPivmadO0FlO2T2wm/k9qidMou7N6tI1E60fFkhhhRcBi?=
- =?us-ascii?Q?/mFOvuircl2QGHE4QLrn8015czA8g7ldjhYKnwNF88y1YFgCipPTulcBr5Vb?=
- =?us-ascii?Q?8Z4scdgJXY3412ca5y1P26Npc42zlN6f0qis80KbIuEN89xXSXnzgBRYYkDw?=
- =?us-ascii?Q?FPJI/3M0qWBWNzFoCrfxW2bJkhpyRhBfOX0FDqxXTujJ4JqGCsn9iwwwT7Gr?=
- =?us-ascii?Q?Y+aMvZLN4AhjKm3N3nSZECh2sledL8N5FHBhUjGk4H7m2AeaprKqxl9tS6dK?=
- =?us-ascii?Q?F7jW6ExS/H2o1EWiZe0V8PV2xO5SLhaoEeasnlhW+UOgkUsQHiijnB9qu0iJ?=
- =?us-ascii?Q?EnBifIDSXl1aoZjK98VA/BdSfAxMIh/DdnCbLGObyDG7zS1NEof1AjdW5ojG?=
- =?us-ascii?Q?QRV36N2rL+ntk2KgPnzy1bba53AR+ufPc/oY2my9/uPY1CbuOh8i3BNd6nLy?=
- =?us-ascii?Q?YIMMdfckFEhozub7v8aXzWey19MUyKxY3PoOq7vuGIzmBI40PZ/4SVnAJRhb?=
- =?us-ascii?Q?RPTsJ3j4ZDgyTWJfTGxLQaLsFNMa3a003WzgHbNOIF8eQ9Ntor/+9iZgJvSQ?=
- =?us-ascii?Q?5oxMXbl3vODLwnKFurvNwF9MWNA7zg0uVu4rBDC3LcIYhIcrnYzhgCC+KdCK?=
- =?us-ascii?Q?La9umIDHqpUu6QHbgK6oh2Y3Rdm2fX+WcbasoVkp0wnyw6mhO4lvibeVJhyk?=
- =?us-ascii?Q?bVAtyt+NPJO7Cy9z8n2T0XnCvC0meKAMJTIJVnUNqJBBcR1Ch6+cs8jXEMfG?=
- =?us-ascii?Q?pV4LQw0vjbD+05EPgdb2KtdkqGxmT1337NasQQWZVmA0ISJT0W8NHYQwuNzY?=
- =?us-ascii?Q?nUWjD4WvXYtT/zhALqQelThtwUL6jBA1vAa8GS7lQljFtAe/a5A4U5zJiN/8?=
- =?us-ascii?Q?XG+Ab6dgLjW8EW+xoIeeudneTaMQRGFMBXcxwYUWruHiQOOvKlU+Q3g98HeQ?=
- =?us-ascii?Q?nz+RP0x4HNQPkEUTusAu4ezE5yNtbmmyf5WTy7DKYYQB1so3ncMjNKVef9sl?=
- =?us-ascii?Q?8GzHUS/GmT1usJdKR0LxZ9qnxbVQcSGEe3fFO6ZYQlIVSD7IXuMBqTNQv+he?=
- =?us-ascii?Q?GeR3nJXn+ZCONXWwx1LEn3ffsT+m/7+2YrowLWoEh0dpaJGUsSrh5kSBJi4M?=
- =?us-ascii?Q?5WXCQ1E87mS9t51F0JojlOj6FT6wSxn8tE8+aE58flQbh3yrOV02FikU2npQ?=
- =?us-ascii?Q?31mUT5JWIH5HvSGcb+1WRJ1A+Sk4rRtHsVzLi8V18ioG1Z4SaxENh1y3Bljq?=
- =?us-ascii?Q?Gb3Hg5kfRRd8r+4CgXcLLT9qQ+BL0s9HxoMB1LwcUCKl7I/vF/UXu1TgnWJW?=
- =?us-ascii?Q?kEjJYMRXJcpxtECGQJBtXGUp94Ol?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7779.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AWOUjLdubmL0ilXUtpfOczPYSUTgwz7O616BCPyHLxMW3JgOsebP7IQ6TXgR?=
- =?us-ascii?Q?lpB+mN/p3eMBmDt+ZLUb/rabr8Av2PmGMroEgVgLv8lx7k6pXar3fBzDx9/s?=
- =?us-ascii?Q?ui95lQfhGFYinxh43t8G8/Xnh0MgNPkaFGKvdi1oH5W2VYFREEj6h2KHsxFv?=
- =?us-ascii?Q?1vFKfWXMGhRsU1+L7muto40+oFpr8rukFj50TVlyg2mQ7YtCzDTc16uFOexD?=
- =?us-ascii?Q?gYQHNNmlHU7y2W8jM5jQH6pvz2GzOhUp7miZWdTADPlszGnoQfxYqaRVL2wA?=
- =?us-ascii?Q?I/BvhhsznA0fovJkkeByr7xO8EC3FAU3uCTCMZHhY8E33GcM5PlmPH0nM0Dm?=
- =?us-ascii?Q?V0iAnKliu8ZBSWqacUxnwZP+8OWPiaUrCIdosFFLfOhqORxkpRralVO/uW5g?=
- =?us-ascii?Q?F4kydcfQuXT0fodLTsZv3JcmnhWdRTk6BxkM7uu2XctkWyAuvErDH4ei6/6i?=
- =?us-ascii?Q?X0EG4BUGrSwOxIHoTtYRP4zEdl8VtzVsb5XDV9KHfTRVBn7DxBkRfHMuF0QS?=
- =?us-ascii?Q?S2Do6q2IqPCgDQui/8KuuivmRwYbGZdrX5YYiAEyxQsXGUeAc6qfcfLkjTmy?=
- =?us-ascii?Q?kKyJpkvsp7WYI/WmBdhFQ52JiNcUQyHLVznkyCxsdXcPrxDNBS3Hk6Cyexwg?=
- =?us-ascii?Q?qYH3ueY0EholAOV5+jQP11NENJaa9P1aLb/1gtsASeYKZX2rJVCJ8oTY5g5r?=
- =?us-ascii?Q?5UzfpLC8VVQnzeVUJv7VdaEh03hnwS8hjZE1kMNQ3fVAFER3Ou6I4RhnSEs3?=
- =?us-ascii?Q?8rU295M7W7K7Z5Lc66nsmt1LJWb3dunAinLYX2OqQNd1PxtuZ3z8G4pnDNXG?=
- =?us-ascii?Q?EAiDlHtcQKw0M/0etWga8gUnw4+vQw938ykcMLmXLeZ4I0xLJkA8t2oklF5C?=
- =?us-ascii?Q?S+QXgRzUrCoe4hNFmRxyVeiWDFo1BM/WgiBoEWN/7Rjy/gssH9scaPZXfiZy?=
- =?us-ascii?Q?ERLv0Mbq+KGdXq/xLnqFXzlqmoCbdEZCM7Yf0CWOpRnxd1CPBzcB3zLBARO1?=
- =?us-ascii?Q?x6/iEJyAMhmEF8kiSjeHQWDLXo/EHthf6bcPRWz7LCmF9FMxx0p2XTu9dca/?=
- =?us-ascii?Q?i2gQqIGSjr32dQdhraTihBGSORdBfubyvWBadKg3BblF9LFtgwsQqmDpyvVx?=
- =?us-ascii?Q?qXqChAt3GbrnYg58H4PMlP5CHdlJuzgcQveQFjGQa8HFxoBWazUtOx+Z0V5E?=
- =?us-ascii?Q?HwkQoj08UbV0sZLdJo1Xms+zeUbht2YL+J+lY8P+3NrXrJPCq2HmLbMl7hta?=
- =?us-ascii?Q?SoRTguJH+2hXYJ3Y28HKm9IAY2c5XRHGjYXPaNr1gbAaVTq+DycPZBF6zVQd?=
- =?us-ascii?Q?khGMXQZ0091qpmRBD1rFMjZTSKPWaxoahq5QB3VvT3n9vT/ov+U9Etr760hu?=
- =?us-ascii?Q?5sZ2JuOObHivq27eyk4CTEtjs7DOodisGy6Hk7D0KCs/jAXNpHNRZIyFXAJ3?=
- =?us-ascii?Q?f93d0d3P/YjSm3AVTZEv0KS47gUkvlaeQ95e4MCW3yoWTAq5ioGc+Va6wJAI?=
- =?us-ascii?Q?DqJaV5RaPmfqipynNPwRrZiVZpu/kgM2bbTNQ1O9rRZAXhbzbzo7n1a5+yCK?=
- =?us-ascii?Q?dku6ZPrkNy5DylV1Ud8hrYDUUILkL6zViJIAr0XrkVegyBlugtfn9s7x7/TV?=
- =?us-ascii?Q?tg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a922cca-d036-488e-6166-08dd52649954
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7779.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 10:43:38.0583 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 74geiKKLS2ECvYseyT3d5zg2aCkfEOYTgbLyDxBrhOC8j9ShWWU3wvcCIltJfSef34IoY8bDhNK8zG4qOB2k8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10971
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Alexei Starovoitov <ast@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, intel-wired-lan@lists.osuosl.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v5 1/9] net: ethtool: mm: extract
- stmmac verification logic into common library
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGZEuZRAcWsCKSMCeR5cs/NRCOZvwH8VK0qAZITr+wCOUn/krOoNIYg
+Content-Language: en-in
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Te0xTVxzHc+6jtxBrLojzwIKy62vgKC1ry8WJbpPhjZsR2CvBbfVC7wqh
+ tF0fG4qmLhAizUAgotARID5YhkOyyqMVC8gKuI2hhNGlWVh4PzYcZIoZEHWUi47/Pr9fvr/f
+ 93zPyRGigcuCEGGG1sQZtKyGEvhjzT+Eh0f+nepQSxqvU/TizAVAfzPswOnvXH0IXXk3D6Or
+ 3X04PdE9StDeDidCz9j+END3motw2j7mwemBm5UC2uoZx+nOMhegqx7X43R3zQv0o59nAX2p
+ 6SFBj8zfImh37zRKP73lIF4PYgY8/SjT+K0XYSbONRGM0zZEMDV2M2OvKxAwN65YGKfjAcLM
+ tQ0KmKLGOsDcbpMyD+xbEzekZO5L51gVZwjjtGk6VYZWHUe9/a7yoFKukEgjpbF0DBWmZbO4
+ OCr+ncTIhAzNSkwq7HNWY15pJbJGIxW1f59BZzZxYek6oymO4vQqjV6mFxvZLKNZqxZrOdNe
+ qUQSLV8RHs9M73PMEvqv5dnV+cPIGXBtjxX4CSEpg/1zVwRW4C8MJFsBnHL343zxD4DfN1Rj
+ z4v6p27UCoSrI1NjJr7vBHChoJ7gi2kAR4YKEN9eARkBLxW1ET4OImNgWYF7dS1KlmKwvGkS
+ 8W3yI+XwrAv4NJvIBOiZ7F3VY+ROODzvxnwsImPhbOs0wXMA/LFifLWPkttgy/1KlM8QBhcn
+ anHeKwHW1j3Cec0W2LX4FerzheRlPzju6kf4gXhY0VuI87wJ/tnTSPAcAmfO5a+xEl4rGsR4
+ TodDSyUCng/Ajl8rMd/5UTIcNtyM4tuhsOyn6wjvuxEWLo+vWYmgo+oZb4eP//KsrQyGzVfn
+ iGJA2dZFs62LZlsXwfa/Ww3A6kAwpzdmqTmjXB+t5b54/uBpuiw7WP0FEYcdYGR4XtwJECHo
+ BFCIUkGifEujOlCkYk+c5Aw6pcGs4YydQL5y3yVoyOY03co30pqUUlmsRKZQKGSxryqk1BZR
+ rjNPHUiqWROXyXF6zvBsDhH6hZxBZMm7TtWeh6VbS5Psd9w7Hvb82x0sGevqbVko5dKoE32Y
+ cohi8L0XLKacHUkxTs2u0ZzTztPn7R/lvXb02HZZxVR5WULNJ9jAKZkjSyzusVydV2+cR1sK
+ ygND0WJMnGueaveaDy3e2JmSpCgZ8AZE3M1eOvJZk/zO7d9m38jtuDhAfMAIvYUv92YnZcvb
+ qzIsX+7xSjJ1v9QvPdk8pSrOtV1Wtx77OGHwoNUZyrafTd0/eeD9Ghd2HM353b2sOhmw+/Ar
+ 91Lvb9iWFMI1PLH5tSezKersrhdD8z+ti7bEE6N97HvauIvRTov1pQaPK+pQf/nCQq7Vv/vD
+ 5uC3RMlvHqUwYzorjUANRvY/ThNrt44EAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0iTYRTGe7/7JOXzkr5qWC26sHBlWL3liOhiH0F3KRPCln6utWlrUyuz
+ FIyRw1ZRCq2hZst0KeK8zUorWwvJSyXOtNsqLRNNyzAks5oj8r+Hc57fc54/DoP7vCaCGHlS
+ Mq9OkiqFlAdR+1A4J/T+HqtsWetYBBr/nAfQTaeVRGUNbRgytp8hUIGtjUR99vc06r5fj6HP
+ hjcUelqrJ5Hlg4NEHbeNFNI5eknUlNsAUP6vchLZC/3R2JNBgIpqvtPo3chdGtla+nH0+66V
+ XufHdTie4Vx1aTfG9Z2vobl6w2uaK7SkcBZzNsVVmTK4eusoxg03dlKcvtoMuAeNYdyoJWTH
+ zBgPSTyvlKfy6qVrD3gcarMO0qqrK44XaJ1YJri1RAcYBrLh8NOHZB3wYHzYOgDbr5VgOiD4
+ Ow+E37JySbf2haWTn2i36SOA3cMXKNeCYkWwSN9Iu7QfuwrmZttIlwlnSwj4ovEV4SZ6ASzr
+ Kadc5wTsCni2AbgAXzYSOj62TMEEuwA6R2yES3uyq+HgnX7arb1h85VewoXirBhqK6dQnJ0D
+ 64aMuLvcXDjeV0y6O0TCYvMY6fYEwEfjOfgF4GuYlmT4n2SYlmSYRhQCwgxm8SpNoiwxThUm
+ 1kgTNSlJMnHckUQLmPoA0S4rKK74JW4CGAOaAGRwoZ+nNqNa5uMZLz2RxquPxKpTlLymCQQz
+ hDDAc74yO96HlUmTeQXPq3j1vy3GCIIysXMqTf66SoUjpOJHaHCOZFPCCUVq7Clx1MG92wV5
+ y7vR/rIue0Deev/be7qW/BjYNjyv3DwjPGZ2ZJE+dKR1d+yM/psLIx53TXbEOdeezL3Ya5rZ
+ vM+UL/cv2v713gbyzEaRRCXKejk0+YK6VHxyU8ciZ34431kuOS067Pd2sTxziEpYOtAzYRdK
+ JU8nsKPLn8sEip3VPaYb9RrSuPfeyuCGpCivFu+q9Ah8KDZjy/VrXjBVniM93G6/sSU9oDnN
+ pgv5Yp0cfZTe93OiZjzmJxVVYLRVaQey1ng9SaigXraleitGC8XHQqO/RwcpT6cdi78cadKL
+ Nrdu1QZ2cuRWc6CQ0BySholwtUb6Bw/KCtdwAwAA
+X-CMS-MailID: 20250221103441epcas5p2c8e62837664debd0d110c4867101b6ee
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20250220044132epcas5p305e4ed7ed1c84f9800299c2091ea0790
+References: <20250220043712.31966-1-swathi.ks@samsung.com>
+ <CGME20250220044132epcas5p305e4ed7ed1c84f9800299c2091ea0790@epcas5p3.samsung.com>
+ <20250220043712.31966-3-swathi.ks@samsung.com>
+ <Z7cimPBdZ3W9GKmI@shell.armlinux.org.uk>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ ravi.patel@samsung.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, gost.dev@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, pankaj.dubey@samsung.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 2/2] net: stmmac: dwc-qos: Add FSD EQoS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,29 +134,199 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 21, 2025 at 06:24:09PM +0800, Furong Xu wrote:
-> Your fix is better when link is up/down, so I vote verify_enabled.
 
-Hmmm... I thought this was a bug in stmmac that was carried over to
-ethtool_mmsv, but it looks like it isn't.
 
-In fact, looking at the original refactoring patch I had attached in
-this email:
-https://lore.kernel.org/netdev/20241217002254.lyakuia32jbnva46@skbuf/
+> -----Original Message-----
+> From: Russell King (Oracle) <linux@armlinux.org.uk>
+> Sent: 20 February 2025 18:10
+> To: Swathi K S <swathi.ks@samsung.com>
+> Cc: krzk+dt@kernel.org; andrew+netdev@lunn.ch; davem@davemloft.net;
+> edumazet@google.com; kuba@kernel.org; pabeni@redhat.com;
+> robh@kernel.org; conor+dt@kernel.org; richardcochran@gmail.com;
+> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com;
+> netdev@vger.kernel.org; devicetree@vger.kernel.org; linux-stm32@st-md-
+> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
+> kernel@vger.kernel.org; pankaj.dubey@samsung.com;
+> ravi.patel@samsung.com; gost.dev@samsung.com
+> Subject: Re: [PATCH v7 2/2] net: stmmac: dwc-qos: Add FSD EQoS support
+> 
+> On Thu, Feb 20, 2025 at 10:07:12AM +0530, Swathi K S wrote:
+> > +static int fsd_eqos_probe(struct platform_device *pdev,
+> > +			  struct plat_stmmacenet_data *data,
+> > +			  struct stmmac_resources *res)
+> > +{
+> > +	struct clk *clk_rx1 = NULL;
+> > +	struct clk *clk_rx2 = NULL;
+> > +
+> > +	for (int i = 0; i < data->num_clks; i++) {
+> > +		if (strcmp(data->clks[i].id, "slave_bus") == 0)
+> > +			data->stmmac_clk = data->clks[i].clk;
+> > +		else if (strcmp(data->clks[i].id, "eqos_rxclk_mux") == 0)
+> > +			clk_rx1 = data->clks[i].clk;
+> > +		else if (strcmp(data->clks[i].id, "eqos_phyrxclk") == 0)
+> > +			clk_rx2 = data->clks[i].clk;
+> > +	}
+> > +
+> > +	/* Eth0 RX clock doesn't support MUX */
+> > +	if (clk_rx1)
+> > +		clk_set_parent(clk_rx1, clk_rx2);
+> 
+> Isn't there support in DT for automatically setting the clock tree?
+> See
+> https://protect2.fireeye.com/v1/url?k=f0089f78-90ea0225-f0091437-
+> 000babd9f1ba-cf835b8b94ccd94a&q=1&e=4ae794ec-f443-4d77-aee4-
+> 449f53a3a1a4&u=https%3A%2F%2Fgithub.com%2Fdevicetree-org%2Fdt-
+> schema%2Fblob%2Fmain%2Fdtschema%2Fschemas%2Fclock%2Fclock.yaml
+> %23L24
+> 
+> Also, I think a cleanup like the below (sorry, it's on top of other
+patches I'm
+> working on at the moment but could be rebased) would make sense.
+> 
+> With both of these, this should mean that your changes amount to:
+> 
+> 1. making data->probe optional
+> 2. providing a dwc_eth_dwmac_data structure that has .stmmac_clk_name
+>    filled in
+> 3. adding your compatible to the match data with a pointer to the
+>    above structure.
 
-these 2 lines in ethtool_mmsv_link_state_handle() didn't exist at all.
+Hi Russell, 
+Thanks for your input.
+Will implement this in v8.
+But I could not find your patch 'net: stmmac: clean up clock initialisation'
+in mailing list
+Could you point me to that?
+Or do you want me to integrate the below changes into my patch series and
+post?
 
-	} else {
->>>>		mmsv->status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
->>>>		mmsv->verify_retries = ETHTOOL_MM_MAX_VERIFY_RETRIES;
+Please let me know
 
-		/* No link or pMAC not enabled */
-		ethtool_mmsv_configure_pmac(mmsv, false);
-		ethtool_mmsv_configure_tx(mmsv, false);
-	}
+- Swathi
 
-Faizal, could you remind me why they were added? I don't see this
-explained in change logs.
+> 
+> In other words, support for your device becomes just a matter of adding
+data
+> structures rather than a chunk of extra code.
+> 
+> Thanks.
+> 
+> 8<====
+> From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+> Subject: [PATCH net-next] net: stmmac: clean up clock initialisation
+> 
+> Clean up the clock initialisation by providing a helper to find a named
+clock in
+> the bulk clocks, and provide the name of the stmmac clock in match data so
+> we can locate the stmmac clock in generic code.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 32 +++++++++++--------
+>  1 file changed, 18 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> index 581c0b40db57..8e343ab7a7e2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> @@ -34,6 +34,16 @@ struct tegra_eqos {
+>  	struct gpio_desc *reset;
+>  };
+> 
+> +static struct clk *dwc_eth_find_clk(struct plat_stmmacenet_data
+*plat_dat,
+> +				    const char *name)
+> +{
+> +	for (int i = 0; i < plat_dat->num_clks; i++)
+> +		if (strcmp(plat_dat->clks[i].id, name) == 0)
+> +			return plat_dat->clks[i].clk;
+> +
+> +	return 0;
+> +}
+> +
+>  static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
+>  				   struct plat_stmmacenet_data *plat_dat)  {
+> @@ -120,12 +130,7 @@ static int dwc_qos_probe(struct platform_device
+> *pdev,
+>  			 struct plat_stmmacenet_data *plat_dat,
+>  			 struct stmmac_resources *stmmac_res)  {
+> -	for (int i = 0; i < plat_dat->num_clks; i++) {
+> -		if (strcmp(plat_dat->clks[i].id, "apb_pclk") == 0)
+> -			plat_dat->stmmac_clk = plat_dat->clks[i].clk;
+> -		else if (strcmp(plat_dat->clks[i].id, "phy_ref_clk") == 0)
+> -			plat_dat->pclk = plat_dat->clks[i].clk;
+> -	}
+> +	plat_dat->pclk = dwc_eth_find_clk(plat_dat, "phy_ref_clk");
+> 
+>  	return 0;
+>  }
+> @@ -230,18 +235,12 @@ static int tegra_eqos_probe(struct platform_device
+> *pdev,
+> 
+>  	eqos->dev = &pdev->dev;
+>  	eqos->regs = res->addr;
+> +	eqos->clk_slave = data->stmmac_clk;
+> 
+>  	if (!is_of_node(dev->fwnode))
+>  		goto bypass_clk_reset_gpio;
+> 
+> -	for (int i = 0; i < data->num_clks; i++) {
+> -		if (strcmp(data->clks[i].id, "slave_bus") == 0) {
+> -			eqos->clk_slave = data->clks[i].clk;
+> -			data->stmmac_clk = eqos->clk_slave;
+> -		} else if (strcmp(data->clks[i].id, "tx") == 0) {
+> -			data->clk_tx_i = data->clks[i].clk;
+> -		}
+> -	}
+> +	data->clk_tx_i = dwc_eth_find_clk(data, "tx");
+> 
+>  	eqos->reset = devm_gpiod_get(&pdev->dev, "phy-reset",
+> GPIOD_OUT_HIGH);
+>  	if (IS_ERR(eqos->reset)) {
+> @@ -306,15 +305,18 @@ struct dwc_eth_dwmac_data {
+>  		     struct plat_stmmacenet_data *data,
+>  		     struct stmmac_resources *res);
+>  	void (*remove)(struct platform_device *pdev);
+> +	const char *stmmac_clk_name;
+>  };
+> 
+>  static const struct dwc_eth_dwmac_data dwc_qos_data = {
+>  	.probe = dwc_qos_probe,
+> +	.stmmac_clk_name = "apb_pclk",
+>  };
+> 
+>  static const struct dwc_eth_dwmac_data tegra_eqos_data = {
+>  	.probe = tegra_eqos_probe,
+>  	.remove = tegra_eqos_remove,
+> +	.stmmac_clk_name = "slave_bus",
+>  };
+> 
+>  static int dwc_eth_dwmac_probe(struct platform_device *pdev) @@ -354,6
+> +356,8 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return dev_err_probe(&pdev->dev, ret, "Failed to enable
+> clocks\n");
+> 
+> +	data->stmmac_clk = dwc_eth_find_clk(plat_dat, data-
+> >stmmac_clk_name);
+> +
+>  	ret = data->probe(pdev, plat_dat, &stmmac_res);
+>  	if (ret < 0) {
+>  		dev_err_probe(&pdev->dev, ret, "failed to probe
+> subdriver\n");
+> --
+> 2.30.2
+> 
+> 
+> --
+> RMK's Patch system: https://protect2.fireeye.com/v1/url?k=bd23955d-
+> ddc10800-bd221e12-000babd9f1ba-890d84739eaced1c&q=1&e=4ae794ec-
+> f443-4d77-aee4-
+> 449f53a3a1a4&u=https%3A%2F%2Fwww.armlinux.org.uk%2Fdeveloper%2F
+> patches%2F
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
