@@ -2,56 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B44A42ACF
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Feb 2025 19:14:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 793F0A42ACD
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Feb 2025 19:13:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C27FC7803B;
-	Mon, 24 Feb 2025 18:14:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29BDAC7803B;
+	Mon, 24 Feb 2025 18:13:54 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C504C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4013DC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Feb 2025 18:13:59 +0000 (UTC)
+ Mon, 24 Feb 2025 18:13:53 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51OEnHnD025112;
- Mon, 24 Feb 2025 19:13:50 +0100
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51OFKCXP023814;
+ Mon, 24 Feb 2025 19:13:43 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=caTOVoBOyF0MRwCSZLjQta
- /N2cLC0otSKq3vfvnJa1k=; b=hZxP1mkOfRngm5RL60oLFe+P5QXMX3xTexdEVl
- r2x+eIpTbr7WghKVqnotLaXzBtP6Rwc0rK2iaYAzfTPvP/1N2WjcCvTxOKxYiY7G
- XkHVYMbIj5x8BRGk4Vx3RFTNHG0geClTz3Nwtbt8CWV5BuMxEQN9/Nv8Ae07hbEQ
- bgVCLpfVaZC/MAQT8ofiOJ4hdIY8UdeT9pT8F/uOoYja0yCiSU4rrSZCLleGdNLj
- 2RMUTlYrTbogHnZlDnzp6RNWXKFkxIyh8Qf08PY7THwYRdpW7pHUWfMTCCsDMqDu
- ofjozVhCqDtpQYr6YLbNy1l5kzi1u5kq687RXGSbjaH6HSIg==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 3Pv8LFCx4t6NMriqTItuy7XpPPudhzwAqEqZ8Lq4mjI=; b=SEzwfKKXhOi0idtv
+ A6QNfbDuVgfR9QDuvk2NlwNvjRR2k17PvPHMp/2BgxeolZJ/7A1icFkNT5GdLttU
+ Rs/I56jtDtEsLC208t0ujEia+MiAfKMcZMR3etFYpksvgB8ySlp+qSHCs9Y68JVD
+ g6cJ008Q+5MbkcFSQrUMKm3HocBeNo7zHrzjny1418gl0H1KCd6RNqT0hvr6G8fT
+ iCVoG93zwc3V2WUjEJNPg0GRSXxGJ7D9TpjoHeP1goDngUyCFQghC0GTGTUvfhI3
+ GKYWk8ClQujK4Vjk33KTNbK82Pk/Z+EPgZAjK2fDG+jPbCwOruto868lDCi7cmoC
+ XxvPjQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44y6bh0hwq-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 44y6bh0hw4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Feb 2025 19:13:50 +0100 (CET)
+ Mon, 24 Feb 2025 19:13:38 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8D8B440046;
- Mon, 24 Feb 2025 19:12:25 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C9221544742;
- Mon, 24 Feb 2025 19:02:29 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 184994002D;
+ Mon, 24 Feb 2025 19:12:21 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 933E553FC05;
+ Mon, 24 Feb 2025 19:02:30 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Feb
- 2025 19:02:29 +0100
+ 2025 19:02:30 +0100
 Received: from localhost (10.252.23.75) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Feb
- 2025 19:02:29 +0100
+ 2025 19:02:30 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <lee@kernel.org>, <ukleinek@kernel.org>, <alexandre.torgue@foss.st.com>,
  <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
  <wbg@kernel.org>, <jic23@kernel.org>, <daniel.lezcano@linaro.org>,
  <tglx@linutronix.de>
-Date: Mon, 24 Feb 2025 19:01:42 +0100
-Message-ID: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
+Date: Mon, 24 Feb 2025 19:01:43 +0100
+Message-ID: <20250224180150.3689638-2-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
+References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.252.23.75]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
@@ -63,8 +66,8 @@ Cc: devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-iio@vger.kernel.org, catalin.marinas@arm.com,
  linux-kernel@vger.kernel.org, will@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/8] Add STM32MP25 LPTIM support: MFD, PWM, IIO,
-	counter, clocksource
+Subject: [Linux-stm32] [PATCH 1/8] dt-bindings: mfd: stm32-lptimer: add
+	support for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,40 +84,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series adds support for STM32MP25 to MFD PWM, IIO, counter and
-clocksource low-power timer (LPTIM) drivers.
-This new variant is managed by using a new DT compatible string.
-It comes with a slightly updated register set, some new features and new
-interconnect signals inside the SoC.
-Same feature list as on STM32MP1x is supported currently.
-The device tree files add all instances in stm32mp251 dtsi file.
+Add a new stm32mp25 compatible to stm32-lptimer dt-bindings, to support
+STM32MP25 SoC. Some features has been added to the low-power timer like
+new capture compare channels (hence more PWM channels, and PWM input
+capture). Some registers/bits has been revisited to support this.
+So introduce a new compatible to handle this diversity.
 
-Fabrice Gasnier (6):
-  dt-bindings: mfd: stm32-lptimer: add support for stm32mp25
-  mfd: stm32-lptimer: add support for stm32mp25
-  pwm: stm32-lp: add support for stm32mp25
-  counter: stm32-lptimer-cnt: add support for stm32mp25
-  arm64: defconfig: enable STM32 LP timers drivers
-  arm64: dts: st: add low-power timer nodes on stm32mp251
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ .../bindings/mfd/st,stm32-lptimer.yaml        | 23 +++++++++++++++----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-Olivier Moysan (1):
-  iio: trigger: stm32-lptimer: add support for stm32mp25
-
-Patrick Delaunay (1):
-  clocksource: stm32-lptimer: add stm32mp25 support
-
- .../bindings/mfd/st,stm32-lptimer.yaml        |  23 +-
- arch/arm64/boot/dts/st/stm32mp251.dtsi        | 177 ++++++++++++++
- arch/arm64/configs/defconfig                  |   5 +
- drivers/clocksource/timer-stm32-lp.c          |   1 +
- drivers/counter/stm32-lptimer-cnt.c           |   1 +
- drivers/iio/trigger/stm32-lptimer-trigger.c   | 109 +++++++--
- drivers/mfd/stm32-lptimer.c                   |  30 ++-
- drivers/pwm/pwm-stm32-lp.c                    | 220 +++++++++++++++---
- include/linux/iio/timer/stm32-lptim-trigger.h |   9 +
- include/linux/mfd/stm32-lptimer.h             |  32 ++-
- 10 files changed, 554 insertions(+), 53 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+index d41308856408..4822ce5d0c76 100644
+--- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
++++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+@@ -21,7 +21,9 @@ maintainers:
+ 
+ properties:
+   compatible:
+-    const: st,stm32-lptimer
++    enum:
++      - st,stm32-lptimer
++      - st,stm32mp25-lptimer
+ 
+   reg:
+     maxItems: 1
+@@ -48,13 +50,18 @@ properties:
+     minItems: 1
+     maxItems: 2
+ 
++  power-domains:
++    maxItems: 1
++
+   pwm:
+     type: object
+     additionalProperties: false
+ 
+     properties:
+       compatible:
+-        const: st,stm32-pwm-lp
++        enum:
++          - st,stm32-pwm-lp
++          - st,stm32mp25-pwm-lp
+ 
+       "#pwm-cells":
+         const: 3
+@@ -69,7 +76,9 @@ properties:
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-counter
++        enum:
++          - st,stm32-lptimer-counter
++          - st,stm32mp25-lptimer-counter
+ 
+     required:
+       - compatible
+@@ -80,7 +89,9 @@ properties:
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-timer
++        enum:
++          - st,stm32-lptimer-timer
++          - st,stm32mp25-lptimer-timer
+ 
+     required:
+       - compatible
+@@ -92,7 +103,9 @@ patternProperties:
+ 
+     properties:
+       compatible:
+-        const: st,stm32-lptimer-trigger
++        enum:
++          - st,stm32-lptimer-trigger
++          - st,stm32mp25-lptimer-trigger
+ 
+       reg:
+         description: Identify trigger hardware block.
 -- 
 2.25.1
 
