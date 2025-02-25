@@ -2,71 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A4DDA4480D
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 18:30:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AD3EA44AA2
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 19:37:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E188C78F9F;
-	Tue, 25 Feb 2025 17:30:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFE75C78F9F;
+	Tue, 25 Feb 2025 18:37:50 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FCF3C78F9B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6885AC78F65
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 17:30:12 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PF2BBx000811;
- Tue, 25 Feb 2025 18:29:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- zboDa3cKQkLjfjJd+7M0V2NhLphn96I5A2P8IRJH05M=; b=wgvvxZWW/CqAHK3j
- H8sgxDoRLndjNM9Sd34CXs4PXk5zv6HAYe1E3VwWDrRK8sHF482eocl9THKJ9N27
- yUIfiqlKj2VdC+Ir8+dPwx5EA4NCnMKxl1X74e4c8S/swBVfsjJ5v5afQa3fhJwA
- +wVJ268wjp6nEHEytQg/Qn8skofLorecSxqwEzRIZSUNK5tkojzeyZEkWpK/srzJ
- aeOeQuvy7TX65vAKcnizUIptGUgD3I37OoEY1gX1imisG+4JVwTQoQmwekuHf55P
- SdTs5UrdwLlMDkQhIEF1hSH752cpuFUHY6BKJf01wEcWhzjbcne0+Dwif5rwpHDr
- RsHO+Q==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4512sp4xep-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Feb 2025 18:29:59 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 877F4400E2;
- Tue, 25 Feb 2025 18:28:50 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6783C4C5307;
- Tue, 25 Feb 2025 17:09:41 +0100 (CET)
-Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Feb
- 2025 17:09:40 +0100
-Message-ID: <b257aa79-6ca9-4f57-988a-ec00225992ab@foss.st.com>
-Date: Tue, 25 Feb 2025 17:09:40 +0100
+ Tue, 25 Feb 2025 18:37:49 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4397dff185fso52200525e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Feb 2025 10:37:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740508669; x=1741113469;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3iaVHc4/XfXA2DF9jl+povuubBeCM8bFfr3Gc9B5VcM=;
+ b=J6mAR5zKv1T5s1dCa0LGTer+52G09zQkCLQiopvmHK9MVqpdLIxnZky8GJ9/a9omkv
+ 5VaPcjeov4TPxkoeGjpYXRai3hlJffgSMkc9b9bbhsxZcNdqEyFXkzY4ZtQHKd9agO9x
+ JcwHCmJP4wPDFj3agTSf9mbTqPWECm5Fka5hRzony2MvFxSgUA563Zt7p2EYORa0AsZh
+ TB1BJ/vJ1zwjNfIoUTJQersZGPZbiuvo38jx5mXPk3MxgYeNa7sNBWiP51yzt5DU8nnI
+ Zm7CedvgmBK5schWcd39Md5bjAW91lUzWyrrVTtb4oY+ncu2k6Dj4qKbwd6xP0/vrjGo
+ nfyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740508669; x=1741113469;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3iaVHc4/XfXA2DF9jl+povuubBeCM8bFfr3Gc9B5VcM=;
+ b=boUzZSo+BUC1glkSRwQ3LtHxhLE+cWCfwEaXJUhTsjeFb+9eVFW2OVp85HZRPRDSrd
+ gLSGKiwvTOmVwz0WQqSgoBHLdmf/WmaFX4yr2esi1/DwQZwFV4c37XIbAISgllZcOziV
+ YDxNAYKjThjLEdui7fk53NDPZgZgVSioYp89PBFL0vA9MvtB3K3Hw0jNvgBSNmmjOgdl
+ su5XcZ6XiRbcMBAWoBIQ7bm3uhzphzZz6t8tOGyR9P9bY13UKh2oUBWzYoKlTJ10zl2a
+ wWU/Ue2VMa1hx/ww3MiNSJ3pYQuIZ318fiBzSL0O3cv2T+/Q22SKgXKSWvL4RZutLL+o
+ PJUQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVvNMTIc7SJWeU3uRM/YCmYo7eCsh5zA3XSvvNjAfdDOc8ZIepWT2hss4qDcKOQxgE8iImqvPc4YmIluw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyNAGYTsPuGC7GeDHDLZSigE5VXmw1C1iTBR8HWtaX9xPE15q2o
+ 2BEkkgfWaot5ZihyOfNoN0qodAp8cEoKK1rBHd/AzGG4AAotHWLo
+X-Gm-Gg: ASbGncvvzYUWrBvA0DNLxInQIebelbCw3onbYhQzKsIpUg6ALxsl1yG1TpCxqQ1L5Gd
+ OhC24zN7+vvG3h5CB1LDZ5MH23KzITLoN9fD2looBUPDCavVGWsZVyU1m7IXtASLqp35ndPUVRY
+ ICWlUEQAkVVvpyoBA9Mw/W8wc+zIGujORegFREiw8LU+mv/oq/dUlkg7z9t3pbtMsf+Gu7bD6WZ
+ U7qMwfsGP/7SNGEt0VnJDimmfcAgPnKy+r7fhWIjtWNoxrRnZj5BF2mJxYXjzq64P0xKEUX/uEy
+ YzswN38D62d55w9UaO0gf7Zw9YA2f78TfloV0cA3v1UGsIUKCx73tNMcKHMIt+VT5JlYVwhWnzP
+ GuF04dA/4AV9R
+X-Google-Smtp-Source: AGHT+IH5jV0WLJwr4meYw5t5geNhiZJeRS99N5uTizzJ/xzS+uRzG3Le5O1v29l/A3y6EY3d135kgQ==
+X-Received: by 2002:a05:600c:1d0e:b0:439:6712:643d with SMTP id
+ 5b1f17b1804b1-43ab8fd8620mr5118395e9.9.1740508668374; 
+ Tue, 25 Feb 2025 10:37:48 -0800 (PST)
+Received: from orome (p200300e41f187700f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f18:7700:f22f:74ff:fe1f:3a53])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-439b02ce735sm149842745e9.3.2025.02.25.10.37.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Feb 2025 10:37:46 -0800 (PST)
+Date: Tue, 25 Feb 2025 19:37:44 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <5qx6hg33brb2zjjqzk3cr7dt56m5jxcwzioejtw5woweemskg5@suu43pp3nsg4>
+References: <Z7yj_BZa6yG02KcI@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
- <20250225-hdp-upstream-v1-7-9d049c65330a@foss.st.com>
- <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
-Content-Language: en-US
-From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-In-Reply-To: <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
-X-Originating-IP: [10.48.86.185]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-25_05,2025-02-25_03,2024-11-22_01
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 7/9] ARM: dts: stm32: add Hardware debug
- port (HDP) on stm32mp25
+In-Reply-To: <Z7yj_BZa6yG02KcI@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/2] net: stmmac: dwc-qos:
+ clean up clock initialisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,29 +88,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4845264915548031981=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8yNS8yNSAxNDowNSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiBPbiAyNS8wMi8y
-MDI1IDA5OjQ4LCBDbMOpbWVudCBMZSBHb2ZmaWMgd3JvdGU6Cj4+IEFkZCB0aGUgaGRwIGRldmlj
-ZXRyZWUgbm9kZSBmb3Igc3RtMzJtcDI1IFNvQyBmYW1pbHkKPj4KPj4gU2lnbmVkLW9mZi1ieTog
-Q2zDqW1lbnQgTGUgR29mZmljIDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPgo+PiAtLS0K
-Pj4gICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTEuZHRzaSB8IDcgKysrKysrKwo+
-PiAgIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdpdCBhL2Fy
-Y2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpIGIvYXJjaC9hcm02NC9ib290L2R0
-cy9zdC9zdG0zMm1wMjUxLmR0c2kKPj4gaW5kZXggZjNjNmNkZmQ3MDA4Li40M2FhZWQ0ZmNmMTAg
-MTAwNjQ0Cj4+IC0tLSBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpCj4+
-ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpCj4+IEBAIC05MTgs
-NiArOTE4LDEzIEBAIHBhY2thZ2Vfb3RwQDFlOCB7Cj4+ICAgCQkJfTsKPj4gICAJCX07Cj4+ICAg
-Cj4+ICsJCWhkcDogcGluY3RybEA0NDA5MDAwMCB7Cj4+ICsJCQljb21wYXRpYmxlID0gInN0LHN0
-bTMybXAtaGRwIjsKPiAKPiBTbyBoZXJlIGFnYWluIC0geW91IGhhdmUgc3RtMzJtcDI1MSBTb0Ms
-IGJ1dCB1c2UgZW50aXJlbHkgZGlmZmVyZW50Cj4gY29tcGF0aWJsZS4KCk9rIHNvIEkgd2lsbCB1
-c2UgInN0LHN0bTMybXAxNS1oZHAiCgo+IFNhbWUgZmVlZGJhY2sgYXMgd2l0aCBwcmV2aW91cyBw
-YXRjaHNldHMgZnJvbSBTVC4gUGxlYXNlIHRha2UgaXQgaW5zaWRlLAo+IGRpZ2VzdCBpbnRlcm5h
-bGx5IGFuZCBkbyBub3QgcmVwZWF0IHNhbWUgaXNzdWVzLgo+IAo+IEJlc3QgcmVnYXJkcywKPiBL
-cnp5c3p0b2YKCkJlc3QgcmVnYXJkcywKCkNsw6ltZW50Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============4845264915548031981==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="f3i4x2skmc3z4dxx"
+Content-Disposition: inline
+
+
+--f3i4x2skmc3z4dxx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net-next v3 0/2] net: stmmac: dwc-qos: clean up clock
+ initialisation
+MIME-Version: 1.0
+
+On Mon, Feb 24, 2025 at 04:53:16PM +0000, Russell King (Oracle) wrote:
+> Hi,
+>=20
+> My single v1 patch has become two patches as a result of the build
+> error, as it appears this code uses "data" differently from others.
+> v2 still produced build warnings despite local builds being clean,
+> so v3 addresses those.
+>=20
+> The first patch brings some consistency with other drivers, naming
+> local variables that refer to struct plat_stmmacenet_data as
+> "plat_dat", as is used elsewhere in this driver.
+>=20
+>  .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 53 ++++++++++++----=
+------
+>  1 file changed, 29 insertions(+), 24 deletions(-)
+
+Tested and works fine on Jetson TX2:
+
+Tested-by: Thierry Reding <treding@nvidia.com>
+
+--f3i4x2skmc3z4dxx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAme+DfgACgkQ3SOs138+
+s6Hc5xAAns6YS5EqizTjVtcybrFLTInegeZ0X+D5ciydxOvm9iHAwZY2/4ywuY9e
+gq6UePIgB51vAzfDfxy5R5X4GvK5+922IL841tyDAJejg54ylBHTFiDoWJVNXUll
+QJbbhM+dL0vRRaxTqPzJfJzkIO7ZyU0BylQwr3GYka21DUkYK4J/LnTleP1b3LMu
+1W0QlEMWq5DznlUJuQ8C9Tn1C4Pr4+ZRmDjSPF7t8coFAP5XNs9Db5KK0DWkTWto
+P0HugDfCHPdDHodfPFzHnT9QxCESDiIHjX4P+PTcR9w4eqg+gjMkiXq1EDpTYu/O
+ph05+xPdywaHeGftW0K2RAf3ZdSRep1YWI90autg4U/g0JTq/P9fCyOwR8p3WEen
+AtGz3MvZmcGbe6FGY7ZjnY/tVKAwPVP07DVSJcD1DzTe+YusCryfWRUTIHfpe69L
+Ric7GRdggYEOZL88Y/bpybtv6kb3baNOpUDwKHj8xDn72FA8coa6Xl8KYDhZvzQe
+4jxMzrghudcWAQ8XKxgxB2q+lZ7B+ZFRt1xU6jc7x+KdMsAGI8XHXc1Y0LiiJMfs
+xNyl8+5hHbissm7ie2JbC/UyuXB4pCtB51+qfRJrzdZs+DTHXbyZZT5TtUWbtHpB
+AzcgVhxrv05jSv7AzsbQiFjNoCC9WZvdMfzZg3Ja2bAh62bFw+o=
+=BS53
+-----END PGP SIGNATURE-----
+
+--f3i4x2skmc3z4dxx--
+
+--===============4845264915548031981==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4845264915548031981==--
