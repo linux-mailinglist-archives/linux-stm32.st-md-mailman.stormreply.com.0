@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18ECBA445E5
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 17:23:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD52A445E6
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 17:23:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0427C78F9C;
-	Tue, 25 Feb 2025 16:23:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E550BC78F9C;
+	Tue, 25 Feb 2025 16:23:36 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFD31C78F9B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABF72C78F9B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 16:23:23 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PEsxG7025684;
- Tue, 25 Feb 2025 17:23:07 +0100
+ Tue, 25 Feb 2025 16:23:35 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PF69IC022886;
+ Tue, 25 Feb 2025 17:23:27 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- wqgFWeoQivzhLETwW+Q6wbE8s0MXA+Zaes1DQ9N8L94=; b=OgoS/t3Lbxp32NRq
- naIljPbKwZjr091WEhth+xRTbwEvzSk/tLAsR8GGUbCX4EJcw45zSGkWEMsSAPA+
- 0jtddvtuWP5j4x+EM/+zRbQ5H3tuh2T0m2tBFY5/xzcINPAj6K98NzjPP5CLF8Iz
- hjkTAM9heRqObmD4CLkTJUjb742v4ghuIoHFn5Dzl4p/lwrYH+dSK75Z4Jmd8rK6
- nSezAbmEvZT0YC6zTRBimbtDnvxlkax1p6AYWGCvDJhptSoGf+dsmLpHUrml1+Ca
- /K9GKj0gTA/WfKroXfTL3MjXE3YVlagShG2IX+/6axek79yU12tzinLvjxW6W80b
- zJImDA==
+ PXz/daQoPl9vRa9N4mM+seFELokRLIOzCneeJp1maXM=; b=VAucme6bAbNWdggq
+ b0PvGfNYPnsbc2ydRLnri3S16Bo1Fx9tWERsEoZ49Fd+yVHacE22cDmcv8tUCtRd
+ AxXho4yG7VSaMv84JB5yspb3Pf+ErNOL7hMkA20VnqEwGtHf5Xq6Wz5oFM/UhO8Z
+ iCCNX27M6wR83ph58WaV54kbx5cFN4aIC7EG350RuuGX9ksPpAoRISe2R4CBbOlx
+ GJzs66XcVVsuvOn9pnlKrKms4FLsy3r7tIWhYh0UloJqermZbkGZ2ExwJyEH3jCy
+ jPOf5nOPUjlYZMEtKTFziwd/BDXkyMhbpfK8H7TI7U/BIzfbzK2HAHU4Imgz6j4F
+ NucuTg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4512spvjyq-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4512sp4kbf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Feb 2025 17:23:07 +0100 (CET)
+ Tue, 25 Feb 2025 17:23:27 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2819E4006C;
- Tue, 25 Feb 2025 17:21:53 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3142E52CB63;
- Tue, 25 Feb 2025 15:58:26 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 0290540074;
+ Tue, 25 Feb 2025 17:22:19 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EBEE141878C;
+ Tue, 25 Feb 2025 15:58:48 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Feb
- 2025 15:58:26 +0100
+ 2025 15:58:48 +0100
 Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
  (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Feb
- 2025 15:58:25 +0100
-Message-ID: <e309c016-4dcb-49e3-945e-54ddadfbddb8@foss.st.com>
-Date: Tue, 25 Feb 2025 15:58:24 +0100
+ 2025 15:58:47 +0100
+Message-ID: <4ffc3fe3-78ab-43b2-b0d5-8f9cb545f9c5@foss.st.com>
+Date: Tue, 25 Feb 2025 15:58:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Krzysztof Kozlowski <krzk@kernel.org>
 References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
- <20250224180150.3689638-6-fabrice.gasnier@foss.st.com>
- <20250225-psychedelic-iguana-of-education-d5fff7@krzk-bin>
+ <20250224180150.3689638-7-fabrice.gasnier@foss.st.com>
+ <20250225-pelican-of-pleasurable-might-e9a7e8@krzk-bin>
 Content-Language: en-US
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20250225-psychedelic-iguana-of-education-d5fff7@krzk-bin>
+In-Reply-To: <20250225-pelican-of-pleasurable-might-e9a7e8@krzk-bin>
 X-Originating-IP: [10.48.86.222]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
  (10.75.90.17)
@@ -68,8 +68,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
  linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  ukleinek@kernel.org, linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org,
  will@kernel.org, tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 5/8] pwm: stm32-lp: add support for
-	stm32mp25
+Subject: Re: [Linux-stm32] [PATCH 6/8] counter: stm32-lptimer-cnt: add
+	support for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,30 +86,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2/25/25 13:04, Krzysztof Kozlowski wrote:
-> On Mon, Feb 24, 2025 at 07:01:47PM +0100, Fabrice Gasnier wrote:
->>  	}
+On 2/25/25 13:02, Krzysztof Kozlowski wrote:
+> On Mon, Feb 24, 2025 at 07:01:48PM +0100, Fabrice Gasnier wrote:
+>> Add support for STM32MP25 SoC. Use newly introduced compatible to handle
+>> this new HW variant, even if no major change is expected on the counter
+>> driver.
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> ---
+>>  drivers/counter/stm32-lptimer-cnt.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+>> index b249c8647639..a5dce017c37b 100644
+>> --- a/drivers/counter/stm32-lptimer-cnt.c
+>> +++ b/drivers/counter/stm32-lptimer-cnt.c
+>> @@ -508,6 +508,7 @@ static SIMPLE_DEV_PM_OPS(stm32_lptim_cnt_pm_ops, stm32_lptim_cnt_suspend,
 >>  
->>  	return pinctrl_pm_select_sleep_state(dev);
->> @@ -246,6 +413,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(stm32_pwm_lp_pm_ops, stm32_pwm_lp_suspend,
->>  
->>  static const struct of_device_id stm32_pwm_lp_of_match[] = {
->>  	{ .compatible = "st,stm32-pwm-lp", },
->> +	{ .compatible = "st,stm32mp25-pwm-lp", },
+>>  static const struct of_device_id stm32_lptim_cnt_of_match[] = {
+>>  	{ .compatible = "st,stm32-lptimer-counter", },
+>> +	{ .compatible = "st,stm32mp25-lptimer-counter", },
 > 
-> No driver data suggests device is backwards compatible. Commit msg
-> suggests not, so that's confusing.
+> So fully compatible? Why this change then?
 
+Hi Krzysztof,
 
-The LPTimer PWM driver takes benefit of the MFD parent driver to feed in
-data, e.g. 'num_cc_chans'. Number of channels is now variable, on
-STM32MP25 (e.g. not a single channel). But it can't be hard-coded as
-compatible data. (there's only 1 channel on earlier LP Timer hardware
-revision).
+I should have mentioned it in the commit message:
 
-The hardware controller is a bit different, hence the new compatible.
+Currently, same feature list as on STM32MP1x is supported.
+New capture input stage is now available in the hardware. It's not added
+yet to the driver.
+
+The Low Power Timer (LPTIM) hardware isn't fully backward compatible,
+hence add a new compatible to properly support it.
 
 Best regards,
 Fabrice
