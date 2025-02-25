@@ -2,81 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05F7A44C54
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 21:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC40A44D5F
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 21:30:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 946F5C78F9B;
-	Tue, 25 Feb 2025 20:17:41 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A1FEC78F9F;
+	Tue, 25 Feb 2025 20:30:59 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CDA8C78F6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E49FC78F9B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 20:17:40 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5dc89df7eccso10805041a12.3
+ Tue, 25 Feb 2025 20:30:58 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so53042675e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 12:17:40 -0800 (PST)
+ Tue, 25 Feb 2025 12:30:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1740514660; x=1741119460;
+ d=gmail.com; s=20230601; t=1740515458; x=1741120258;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=9oqKP1MS3Cu+ZpN/VBDxQixq+TL+46JCnPqhnNV9a8M=;
- b=mLLvR2AyQvuM2LVGWl3V7MFaw9r41ok69l6xoVq8wHOQxqLtEbkI8TvMiw0lnTgAOo
- 1WBNAQdpQQgEZiZrz/uI/3c0t4VQgVeKxNyX343xN9pmcbRN4RdoPPnzRVPyOztkWarB
- RRGdXiVUV440gA1askYThOQ5OhmaiPhGYwV2ryyHlLo9lewzM5WSe9b7UOBVR0E6bI/D
- TbFChXvQoRb4+WOQzrss+QgKSeHz9AoXEGQD7rZlboyUCzrVj1mffxnxWcjflgBfjZY2
- 8bwjfL8dshvDBJsbBitE8nvcuRmcIiij0ZKtLZI9CGmSbtRQrlt3VWEnmmpoV//NmnE6
- 9+Kg==
+ bh=YV7wOBCDxZKolRjf9GF1nGz4gKy85D71AXPs47WKJWg=;
+ b=UhbplfEVj1jLbJP3PXl62wIDR0kd2E+PysZ+l/ZAFvGYdGirsaV+NwgahBxb24nQzk
+ bNO9sG8OIxcCop3au3I2XlDfZHO9aFNYAgc2bXueXZb0i03rgH2hdyXL6p1fELfSnJzi
+ 1+9XbjNADgiO8noogBRhYJMAp7UgR/sddguzp80meEUxtPDf8Dn5p0sWgO5saxRCUxQn
+ qCQJ2uZfpmxffu49Fzd3guZR6DoesXSsCeURhfWl5MxyqkqhU1EZStMP55yg2PL69L9c
+ Dc1rIXYiwiQE0JuEH+B6CuSeaSETQzozlCummwlNXFjbn9lwEbDZR+3ErbTcWvFRwXV0
+ fNaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740514660; x=1741119460;
+ d=1e100.net; s=20230601; t=1740515458; x=1741120258;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9oqKP1MS3Cu+ZpN/VBDxQixq+TL+46JCnPqhnNV9a8M=;
- b=Lake80TifLejid3GJLmGiA+BMl3UAhhEp+ld8YUiXYp+apcLn8QyS0WWjFBbgboZ6S
- ddk1MkTBvyPjfxvPaMdPeElACD23upuxCk6XuReLpXN1hLCCr8M/pXrVRc46MqJ1P3I0
- hrRodpEQ/rdArNJ4p0x2KWvLik/ofCaRGvIbb9EHn156t/45M1taqXhEQoKHXulSvVor
- xF0q+cG9jSHhkhFSa2UZuf4/FM8vfA0u/CbnuBDzkpSq6MwI5G1zjfbK0beQXedYFKsZ
- OxnVixJmmK72sA6CBF9Lq0HMt/JMya8pfWAH+Hx+p6wPJUDwYbtDq6k/syyzYnQIdlj/
- eXYg==
+ bh=YV7wOBCDxZKolRjf9GF1nGz4gKy85D71AXPs47WKJWg=;
+ b=JIy1Tjsf4+apLB8RcD/Jr+j26nFLJmGuSL7+4fx+6LJN/7WS2UBSfPgvmgzps2gAg5
+ x9pYqzue25b8xtSmgITMaN0N/8lxSumiwMgEQUuGFEcAZH8oYDicY6ZksImxlR4nVhlT
+ M+bmzrmie+Gvl8AvRZxcUY8eUFEJCG0T5F5s7CPpkTui8CovnAu15dC5RNTTF6gVrmj9
+ 5OnmxcAA0HNUlI1EhBqFyNuqWXxJBe9sxNi55BEOPFAb46uRipvyMaOgzBL1Ko2UpibO
+ gXuZVjKWKmGHAkGAKqAoGv1OpfUoQrA5pdhiaHTJbxSx8OsFfDmkiR5vKS147rMQKoBW
+ wloA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUbTT0mDOBLcZvpvwilzubwRurjghL8j4lVJWjbryv1X0RcaOxFhcp6Rj8xlD8w9L3aW2wZvaDyxX1g7w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw/N89h+j/U1P4SorjSx5PQ/VB5AdVh28zkez5zt4x0Ccr4qEW4
- fJWSr1g1IF2b85K50EaM2re8eppysNLK+fAn7t/QVgsqyS7ifOpPh9ALYv87R3U=
-X-Gm-Gg: ASbGncuEvuOoWclfX7Zi98YPZzZJ/yho2Q/EFOH1fHT61SFUiv46N5GfvbfL27YHzWb
- JNGbP2zToXPeWoHPBZQCImAh5L67Eo4kYbGuQPudHnWuWu9aoCHyDYPARkvGrwdl308U/GlgiQq
- spiHEvkJmENGIwkRs0mbAYQZ/gLWB0qFR+rCdy71yLN19Mchy+Xv+OxpvUN719WnL/X3tkL1aiu
- lapWDqXnGdRftICkVGwStZXB5UbkN7E41jr+vyS4KF1qmApMT/Hee1xxKOj7Ckv+1gprSioGFAa
- 03iXONPbM4QSKquolI0XPEgpw5qK/m8=
-X-Google-Smtp-Source: AGHT+IEP4H83eueMuTFXJWlrHU2PDik7Lal5HqZTmunkxw5tmpnhf4TdWmcw3iZXzovmtEQLvNVBdA==
-X-Received: by 2002:a05:6402:50c8:b0:5d9:a62:32b with SMTP id
- 4fb4d7f45d1cf-5e44448118fmr4326163a12.7.1740514659840; 
- Tue, 25 Feb 2025 12:17:39 -0800 (PST)
-Received: from localhost ([2a02:8071:b783:6940:36f3:9aff:fec2:7e46])
+ AJvYcCVIEcchPafa7SICd1TYLuHriXWGae77IVmnPpj0W4YSGyIwaH3R1jqewjq8KVIYUID2chAORq9L+gwLhQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzjdRACn30EyqdZnVHQltzoW4qjVX8VtZDFs7mRIXeyzkxjdvYE
+ Ou9Y0N2f9zu1SYlw2vliM67IErqrOg//iq0n3FHsE/N1qHPa3Bmn
+X-Gm-Gg: ASbGnctS4u5YQ6WXdsjGzZb9x/vKeKakQ59Ysc/1mWfZGx1oMV6cudHR66QrrCYVAKQ
+ 2nI7yshryi9bTPi1DQpq6ZBQ5NkiJ3ZJF1v+rWAMZPiZYUni4Xq8LubZN3IF6Z6V9g3o45hjKbI
+ 8VQrfJP9hqtiEuiGLWlzUaRNrMltXBaVWD+vPthywDbIdeE2wfm9RJ+DH4zrjk91s1/0sESpbFa
+ YI5XwRRgMxZqi7rX499D1K7txGh6CijuxtZRGuyX0GWQKVxjVbXWF3+I5txu+e/8IDDBbZmvt0L
+ EmDHedQiA5ftTc4Ih8SAjlMJkRhq/I0a78xmtSQUC2KSbjSbH3spbf/lq6f2k8J2cnKCB04Hfs9
+ BX7ePmREwVsVS
+X-Google-Smtp-Source: AGHT+IGMx5pU7RRODJDtq0qCQl84I8Udv96NunCF2+SS/JZM7mWzu9hAPxehyg/ka5oYvjP72VnZ3Q==
+X-Received: by 2002:a05:600c:4688:b0:439:63de:3611 with SMTP id
+ 5b1f17b1804b1-43ab901d6b4mr6206895e9.24.1740515457376; 
+ Tue, 25 Feb 2025 12:30:57 -0800 (PST)
+Received: from orome (p200300e41f187700f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f18:7700:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5e4518460dcsm1697685a12.0.2025.02.25.12.17.37
+ 5b1f17b1804b1-43ab156a136sm38626675e9.35.2025.02.25.12.30.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 12:17:38 -0800 (PST)
-Date: Tue, 25 Feb 2025 21:17:35 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <ccjng5mrvqngfg6eujq6mtl6dj2sz5vsqvjoqz6gm5ntcibduz@wqoc6zhchrvv>
-References: <20250225145332.1116557-1-arnd@kernel.org>
- <6xoycaft6wnd4sm74f2o4koc7lvyl2mtxp2kc6lc4dzpjvby53@ejm5ssbfzbph>
- <a6d10d80-79d3-426f-9dc8-0ddab77e89d9@app.fastmail.com>
+ Tue, 25 Feb 2025 12:30:55 -0800 (PST)
+Date: Tue, 25 Feb 2025 21:30:52 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <deshe54mqty6ozlcbncliwxfxtszubrn44onswjlmo62lltcvx@42piilxcqwba>
+References: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <a6d10d80-79d3-426f-9dc8-0ddab77e89d9@app.fastmail.com>
-Cc: Arnd Bergmann <arnd@kernel.org>, Yu Jiaoliang <yujiaoliang@vivo.com>,
- Oliver Graute <oliver.graute@kococonnector.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] [v2] Input: stmpe-ts - mark OF related
- data as maybe unused
+In-Reply-To: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
+ Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Minda Chen <minda.chen@starfivetech.com>, linux-arm-kernel@lists.infradead.org,
+ Thierry Reding <treding@nvidia.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 0/7] net: stmmac: cleanup
+ transmit clock setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,96 +95,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4203901277211194420=="
+Content-Type: multipart/mixed; boundary="===============4600109143049112114=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4203901277211194420==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f55raej2e5xwtv3g"
+--===============4600109143049112114==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4erhebjcgk6jk4go"
 Content-Disposition: inline
 
 
---f55raej2e5xwtv3g
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+--4erhebjcgk6jk4go
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] [v2] Input: stmpe-ts - mark OF related data as maybe
- unused
+Subject: Re: [PATCH RFC net-next 0/7] net: stmmac: cleanup transmit clock
+ setting
 MIME-Version: 1.0
 
-Hello Arnd,
-
-On Tue, Feb 25, 2025 at 05:25:05PM +0100, Arnd Bergmann wrote:
-> On Tue, Feb 25, 2025, at 16:47, Uwe Kleine-K=F6nig wrote:
-> > On Tue, Feb 25, 2025 at 03:53:26PM +0100, Arnd Bergmann wrote:
-> >> diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touc=
-hscreen/
-> >
-> > With=20
-> >
-> > diff --git a/include/linux/module.h b/include/linux/module.h
-> > index 30e5b19bafa9..014f033ef1ba 100644
-> > --- a/include/linux/module.h
-> > +++ b/include/linux/module.h
-> > @@ -250,7 +250,8 @@ extern void cleanup_module(void);
-> >  extern typeof(name) __mod_device_table__##type##__##name		\
-> >    __attribute__ ((unused, alias(__stringify(name))))
-> >  #else  /* !MODULE */
-> > -#define MODULE_DEVICE_TABLE(type, name)
-> > +#define MODULE_DEVICE_TABLE(type, name)					\
-> > +static const typeof(name) *__mod_device_table__##type##__##name##_ptr=
-=20
-> > __attribute__((unused)) =3D &(name)
-> >  #endif
-> >=20
-> >  /* Version of form [<epoch>:]<version>[-<extra-version>].
-
-Hu?
-
-> > the warning goes away and stmpe_ts_ids isn't included in the .o file
-> > without having to add __maybe_unused to the driver.
-> >
-> > I would consider that a superior approach.
+On Tue, Feb 18, 2025 at 11:14:39AM +0000, Russell King (Oracle) wrote:
+> Hi,
 >=20
-> Not sure, I can see how this avoids some warnings, but this is
-> currently the only remaining instance of this problem (I fixed
-> another two recently), and in most cases a MODULE_DEVICE_TABLE()
-> entry that is completely unused ends up pointing to a real bug,
-> where there is a table but it's not also part of the
-> device_driver definition.
+> A lot of stmmac platform code which sets the transmit clock is very
+> similar - they decode the speed to the clock rate (125, 25 or 2.5 MHz)
+> and then set a clock to that rate.
+>=20
+> The DWMAC core appears to have a clock input for the transmit section
+> called clk_tx_i which requires this rate.
+>=20
+> This series moves the code which sets this clock into the core stmmac
+> code.
+>=20
+> Patch 1 adds a hook that platforms can use to configure the clock rate.
+> Patch 2 adds a generic implementation.
+> Patches 3 through 7 convert the easy-to-convert platforms to use this
+> new infrastructure.
+>=20
+>  .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 10 +----
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    |  5 ++-
+>  .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c | 24 ++----------
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 22 ++---------
+>  .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   | 26 ++-----------
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 43 ++++++++++++++++=
+++++++
+>  include/linux/stmmac.h                             |  4 ++
+>  8 files changed, 65 insertions(+), 71 deletions(-)
 
-It might be the only instance without __maybe_unused and so triggering a
-warning. But there is also:
+Seems to work fine on Jetson TX2, so patches 1-3 are:
 
-$ git grep -E 'of_device_id.*__maybe_unused' | wc -l
-231
+Tested-by: Thierry Reding <treding@nvidia.com>
 
-$ git grep -E 'mdio_device_id.*__maybe_unused' | wc -l
-58
-
-Best regards
-Uwe
-
---f55raej2e5xwtv3g
+--4erhebjcgk6jk4go
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAme+JVwACgkQj4D7WH0S
-/k74zAf/dGlacxqVy9vAqpyEEhNrerDYdon6jOL4XYedysGHXBDPOFK38QCnWC6d
-19Lu/uVu0sftbAmTRLbUOjCAQ5sLlJLOYIsoeXm03OQ1u4DjDS12Xz43uphpMlBX
-jl5NMQs6PApcy7z+KPjuc0mcHnhFse71fpWfNyCxN7l2KAIRkCRXqLWgZ8eJfeLV
-pLvIN4/VkcCzIXXP7qLJrz4ZezjGkjvgxBaMVH2DVmkxHymmo0RycjP2QooDJAk7
-S6iir9ZFD+UfFeujJBsx70rkrsJ3dXSGNn97DNiulacw7UwLU+aUxjs89g/DIsPA
-9+qrSzSEFDXZZSOh2ocNUbgfzl9mPQ==
-=d8EH
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAme+KHgACgkQ3SOs138+
+s6FT4w/9GoN6QrYW3VP35tGhx3VaNaXACzYRu4GB5krW+p4Ixhq8LfnSKek6/MHu
+SkB1lalSpNyFg9ZHeBHeLUMG0bulJzaqUNj38OnTv2YFI+hGXs4rkoLWKf1L+T9k
+5Ci+UCoA5wGzrt+eKHixzKsu9V9oVexQOq0gp8AW+4dO8SQxqRgkTL5meN+ArqLr
+O1F9jGuCNvJSIOeI4wFQ97s18GRHYTIJeq832LftTqIcJlGGT0dn59tcbLBLm+2f
+2vbEqND6mv4cSADvXn1VbUqvCPFO+8p/U75Edy2D9hkl7ZjEjLv31bNQusqiPLFX
+gq+JtMbP82gkdQEUDM/K1Ld5CVG5tioTgxWkBBLgU6Ly9TJZBLhN8V+FKJwUhswr
+bpBS+gia4bBuu+04aiqgt4Klwb3o4opietJt5ZtJy7r1THx3kGXC/xfl6LVPyLEK
+Rbtfv8c61+QmD75lC4Ydatoam55Gu1wjcct4SeqDWO/OiyJRRduoJWvOfCl7h4AI
+bDjKuBvoOOTaTOMV70s65FghmyDlNLSyuOGpTMGlTqXgSNYMMehxHPsdo46S2N/5
+SYZPImYOXvYaja3UcCYl8mqZn2/yFYPaI0Y8B6v08nof4iYiKdlL+sS7cK1XAkeF
+emLTs/BQbziyTrK2sMmeZsY/Yiyr2y53PIxFvgAfnxNEIyl9+ZQ=
+=A0bt
 -----END PGP SIGNATURE-----
 
---f55raej2e5xwtv3g--
+--4erhebjcgk6jk4go--
 
---===============4203901277211194420==
+--===============4600109143049112114==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -188,4 +180,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4203901277211194420==--
+--===============4600109143049112114==--
