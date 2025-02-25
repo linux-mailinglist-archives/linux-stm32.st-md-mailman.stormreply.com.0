@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76977A44DA3
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 21:36:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB78CA44DEA
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 21:44:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25BC0C7A824;
-	Tue, 25 Feb 2025 20:36:48 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EE7CC7A824;
+	Tue, 25 Feb 2025 20:44:01 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14189C7A822
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D88BC7A822
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 20:36:47 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-abb999658fbso751363366b.3
+ Tue, 25 Feb 2025 20:44:00 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-38f325dd9e6so3190949f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 12:36:47 -0800 (PST)
+ Tue, 25 Feb 2025 12:44:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740515806; x=1741120606;
+ d=gmail.com; s=20230601; t=1740516240; x=1741121040;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=e4QFWKkvK1MfnhL/90Bgctff+RTyO4G/8PgMsyHu6Bc=;
- b=XtPXglvEJlJ4R9Ku21LQtSZVDc0kseZ04k9bSzBj849Z6nijZk3N9nWtXguoX2W+2p
- u8EDb8N+I+zPZvfLH/oOA+FoZqkLHtjyu2t+uYlFFEOBM1WAtzCmQrYLZeTrMAHT81YP
- RnqWaB4uu3bC5VqHxlNeCgYUM9ZJP3an9GAw1XXTtCcEbIJRiqPRS07IKzWRXD6EZNHT
- vuhvNteS4V6OdAGh5fzkmLX5sHNnL3VNtR4JhS4/0aLal+VO6yAFZSWMUQ3IJ3vH+01X
- QwKLkQoSkDd4DsdDIGJ+uY2uqjo61AV9XOHuOW6cVefmxcFY7A/KX91exAf2XJfmq649
- 17Pw==
+ bh=km6GgyUtBYWlPDyGMWfcUJBELXq839o82rzSdqdT8ck=;
+ b=LHWTmka0F/TWkH9eWPsWREDtPelO6PZxGq/p6WKP/Bs0ySNEB2IISFvaBu5nhsMJx9
+ 206Z1xpIWQa+zTdWRdZKORO99y9B3gLaG4D1sRcymkl+OJ+woZfIXiNhTXfYaE1g3aih
+ TRVL3UCBzMI6lLiXktX6LenwzwqlCSiWW5goiibAT9ymCXMGJYjHI3oCriCf1WhP1TV0
+ 8al4p0TWgFcGQWF6NYvq/Nb4lgf6D0rRKEIamtJzHKmtSrrTv64WqbgtJoeMBOw7jGRj
+ gSLW1+es1WnUyDco9x/Gsv/WHpY5v3AsryY5qe7DQrU45ffLXw/UusOczClsOdPv5Mm3
+ rDvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740515806; x=1741120606;
+ d=1e100.net; s=20230601; t=1740516240; x=1741121040;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=e4QFWKkvK1MfnhL/90Bgctff+RTyO4G/8PgMsyHu6Bc=;
- b=gx0kHcgUrlhkJtKm3eirHURn8jbPKbfiAVEOk4qOnz4/1A+1hz7Uv8W1cKjMd3Cvtp
- nzk3ft6rcFI4Tl3dAJoN6NEVDC4XRRfdOSkm5vrQX+HtRUvHxK9pNX62IvceTiEDOrTA
- hOkc3Td9OIc/EvQSpSNXXEJNq9/B+P/d5Yk05IXzSmJ09kvlzpkFiZJOkfvG9xbF/TSF
- 0CXJUPy8Gidlq8n+9YtW0udHQ/UGdvj3mRJ+MlHusgzgV+f5WZKm4+7aYO/kjbwJOCfj
- 6xzXSowi7Yzod2cyvVzn1hYAOwPgj9p+/gp7qKcGmKm7HJug9/OMgyIrNzSbM04fV8g5
- wwVA==
+ bh=km6GgyUtBYWlPDyGMWfcUJBELXq839o82rzSdqdT8ck=;
+ b=Ks1EaAl3+FPmCMbLobGaCTfb9M1Kx6orAHzNckIz2lzczjp5PUf0cICiNVf4pLlmZd
+ f2Q1h+UuAGtHJvhEOASRsLrInnaad2u4FLtesIw32RHDZGjIv8HCNGyyglRmRWCchweS
+ JfjlDGfdAIemTaM/Apk/auLIinuMkampGjsXtvXH5pxyVWKuCMTScjRGKZC6JY8mNALA
+ dxYHSKOFhuUNts3YyKPkX4R3/D+enKWht4m/QCNpKfbIwhJstQ8mqwS6guXatQ1R+q1X
+ MsIhR09GQi1a1IWqNQYYSUxtkZArQCuFFZNIStFFw+6J3NKQM/WnMLXq4igk3oB6VnB6
+ 4/ng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1BJ+QdWBCwlALmh17zkwM5gjnQlNHsv/tm8JCC1lr8VL23FlOPB7+r/qWXfHgIiv/8DkSLQnAl8LuxA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzi9dEvhzRUZVhWRjJLCD7lrCz9Du6VNBRKdUcnI10TCoRoOPMV
- 1w+ZCi6eaUEGc7paEG6KS/+zkI0e+mO8/DyzbBZ1IUZF5knmAcMg
-X-Gm-Gg: ASbGncvh8zjsjrAEbp2WemeCtY0Fy2tHqyHYkpCS1EUXdyLCCxXYT0efBd8DUfkVPZu
- u/8W+wyURvEqTDyreWsZuANQMWxoFQDtNNsyZjkNSfvo4K8IiHKgrz+Mkq+/Jc2zvgcJ5fHLSIG
- SHeXodZjYU8AOuxoMLmdhHLWSvUZdHPAqCznTzMk/TWBrrwqJWTEbRon3BUG0vK6OGUbs2hykC6
- poFOHcQeQ1IZ4Zko8NcxZ07aUIhvcvdD1NTCjinBPinaIfE4gUCvYZ5fquDsi2ZsU5eQLJffWJV
- 1AlidRor7InjDCovbDLVBhLp0nS5NqbD5XDeBs3V5ClNp0+tANEJ7P12sZUlB0zP22H5F1JTqtU
- dSdbWtYGx8adJ
-X-Google-Smtp-Source: AGHT+IFncxJntu78FR7b4qYIZj+yv/K48D2ocZTvPMdxZVQ+iCvW4E3ccfSm9iifNVJPhsHG3qsgrQ==
-X-Received: by 2002:a05:6402:3512:b0:5dc:ea7e:8c56 with SMTP id
- 4fb4d7f45d1cf-5e44a256cc9mr9383487a12.22.1740515806327; 
- Tue, 25 Feb 2025 12:36:46 -0800 (PST)
+ AJvYcCVtiYur1NknGq7g8KFuziufvBjoNg168Aav/6FVPHke1MWlo13Kc3nqEYoz2nDWxXbjKpKB+0lRwePzBA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy2OpxLHxq3Q0jDMbLqEjnb7W6yB2kE+wI8UQgea31lBiEWMYeO
+ HXlyjK2GNBrdXs+sZQsyGdcOUqby4x4Wm/Tthl2BAfWVG911K8aN
+X-Gm-Gg: ASbGnctzVKXnyod8//Th/DuWTKAcBbDMuv2MLywdRQngXO6hKwC9kIV6DjAX+9RdG3u
+ cGlOATUVJrlFSsQtYHFQS2jpK6mVQfYZLKofdnCsdGuD7vvwFqi8oqOBCI0M4NYLTbHMFeHAbG/
+ 1HicBFCvkHiI3TCaGYBZkFpdwMINbo22j/GZFHQB1fZ0v1/+bQYEUDgH1iQ53sF5zms5nJ15eEw
+ RJn9mL+CVEOLShrXcGMfLo+dLD9Sew9ht668FOKkFVpZ1AxqQUUWV7+Jmk/ZoWiOhcb/yDRyHeU
+ gFKI+5J1c8p1tzOjzpMCL1j6VsIHgzxNzNLzfh0EaW4wMbH7IyS8zIBtfCjb6zQw6haJDB9Zw2X
+ OsAj+w5/HXIBf
+X-Google-Smtp-Source: AGHT+IFn60vNyjvN8suXWrn3N7MNMCvoYB7tyLvf0VIb/vaa4GNGBrrZf3vgpHtm6zuKbQT61XRnPw==
+X-Received: by 2002:a5d:64e9:0:b0:38b:f4dc:4483 with SMTP id
+ ffacd0b85a97d-390d4f421e7mr518360f8f.29.1740516239496; 
+ Tue, 25 Feb 2025 12:43:59 -0800 (PST)
 Received: from orome (p200300e41f187700f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f18:7700:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abed205c7efsm199478066b.149.2025.02.25.12.36.44
+ ffacd0b85a97d-390cd86ce49sm3473823f8f.36.2025.02.25.12.43.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 12:36:45 -0800 (PST)
-Date: Tue, 25 Feb 2025 21:36:42 +0100
+ Tue, 25 Feb 2025 12:43:58 -0800 (PST)
+Date: Tue, 25 Feb 2025 21:43:56 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <auqbgnqka3hdrwbxoaa3so6caju6jzzpsbr5yufaqgbqmhjmap@nbawhyq3nz6q>
+Message-ID: <x56yik7opvpr3o5vjlxoxzxdicrz2pimsh4lkpxol7c64r6irs@t7dfqy7ybn2a>
 References: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
- <E1tkLZ0-004RZH-SL@rmk-PC.armlinux.org.uk>
+ <E1tkLZ6-004RZO-0H@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <E1tkLZ0-004RZH-SL@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1tkLZ6-004RZO-0H@rmk-PC.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
  Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
@@ -83,8 +83,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 4/7] net: stmmac: starfive:
- use generic stmmac_set_clk_tx_rate()
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 5/7] net: stmmac: s32: use
+ generic stmmac_set_clk_tx_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,59 +96,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8575313041807000173=="
+Content-Type: multipart/mixed; boundary="===============1802101794998997037=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============8575313041807000173==
+--===============1802101794998997037==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="npnnru3ejcetrulh"
+	protocol="application/pgp-signature"; boundary="ofk7odbwikmdng6s"
 Content-Disposition: inline
 
 
---npnnru3ejcetrulh
+--ofk7odbwikmdng6s
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC net-next 4/7] net: stmmac: starfive: use generic
+Subject: Re: [PATCH RFC net-next 5/7] net: stmmac: s32: use generic
  stmmac_set_clk_tx_rate()
 MIME-Version: 1.0
 
-On Tue, Feb 18, 2025 at 11:14:54AM +0000, Russell King (Oracle) wrote:
+On Tue, Feb 18, 2025 at 11:15:00AM +0000, Russell King (Oracle) wrote:
 > Use the generic stmmac_set_clk_tx_rate() to configure the MAC transmit
 > clock.
 >=20
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 26 +++----------------
->  1 file changed, 4 insertions(+), 22 deletions(-)
+
+I wonder if the clk_set_rate() call for gmac->tx_clk could also be
+removed from s32_gmac_init(). Comparing to the other drivers that
+doesn't seem to be relevant since ->set_clk_tx_rate() will be called
+anyway when the interface is brought up.
+
+But it might be more difficult because somebody would actually have to
+go and test this, whereas this patch here is the equivalent of the
+previous code, so:
 
 Reviewed-by: Thierry Reding <treding@nvidia.com>
 
---npnnru3ejcetrulh
+--ofk7odbwikmdng6s
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAme+KdoACgkQ3SOs138+
-s6E3eA//VXPPJ389lkM7hL4gCsrCvhxDMVKpYPMFI55f6tZgLN36yUUjjp/67nLz
-TWhWj74unoSnThtfJlOzxs/l/n6/XM23PEtj+TVrBk507ao3hEWLWY0KPW7fHU0/
-kb7Jfe85CfqmkzrtLINfqpxvbb7bgSxP5yALfculXlykp61GY0aPIHUAXXWWUn2u
-SdgqTvYdA3oTDBJ2Cc+unBpVTSuH84RpMvnPLvtLu2+0t0ppjAf4MYJG09t3f/jr
-Ku7m1c9zlNWDrv1fSsIJ4kd8YakZsB9aDGxcP4rQhr/73uBetaUFfz92tTvMPAvn
-/vTqP75LzOPXu88BGK7ZV6SvdOBstrxxMOTM2/7/DSyCHv2V1Yt3xvplbP5YCble
-ORxVJNlzH0JweLWggg9xcvDlwas+jagLOYYp5If3cqsae9CFLxJr7zywxu+UaVT1
-DIpGMI0dnVaJcwOc01nlEWCzeOy0oe0lG9UZkUPKWbxoBB9Eit4ZibSmoTCf3l3q
-fjPgZBKRJa1hHMBEecD7gQja1zqMg0ZOcdXowP67ZIF9AkfCQHZNorMqQwicvA69
-w8x2PvFSXgexu6zDEAZ/5SMc7+iLQQ8gTR1SZHpna+9pl5S2X/CiYK4Ihvzs4EPY
-uXWe3lJzBecVr9TdDq5tgbk7cTqduZOS4Yvc1XkGEGgKA/JT4c8=
-=slen
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAme+K4wACgkQ3SOs138+
+s6G4pQ/9HAe8mzGeYLufQVT2wUZVpeDW6XeOv6EOFIvwsgTf+44yqDw3xiulERM5
+tTs3b8w6d4j3xO1PLdXoIlx3vANG5xRtGEcxXY3sB8HjmuSGWWig1zuSTAOJegbs
+we7h3FfZwYlMaSJAfvQNZsX/rDN/auA0R8opcByCxOqFAqRwwJSEH+avYvvVgKEZ
+Mmzov1YSzCyzB0pEEsAkdaB07XMdwl6Ee+ShlKaXzk88WS8KhxZKhYHWNFaAmqLo
+1jyGoa08Vz/Y1WMhLPLCMPrjmWjrMcVjhjCNp9xmCffiJHDAec+eRfV41Cwmp6HC
+wjh85xTUS/4hGh+Md5EWO8bxv9aTGHOkGwI4qVxl6xZVFJRkwZkAgrO4teY2RXy1
+/flh/cJcM9x88N9LAemunvF+RuPBv5mHV8VWgnJW2a91p7hWKZWV2gxcbzEL4L8p
+oKBcQDleR7I9gCunuLnQRiQlwSyw4oKX/96IQ86Dbr8th4/4pKsWtxfDPjHtqzo0
+XzbRtT+vlLIFlTprG9nh5PLO/Lxs9OzJ0kiqhJh24nAwMNxbXS/msQ+m8PRWT3C/
+/okF5ojWT+0ZijDIGhWi5uwBNWxiwav1tElTfJGEHIyz2qOiFZyFhUH7oi5E9iB4
+rin6SAkxYbIF5XDT+zuqAifn/g0BNDr2moVdUvgImYtAMQUCLmo=
+=c/GH
 -----END PGP SIGNATURE-----
 
---npnnru3ejcetrulh--
+--ofk7odbwikmdng6s--
 
---===============8575313041807000173==
+--===============1802101794998997037==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -159,4 +165,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============8575313041807000173==--
+--===============1802101794998997037==--
