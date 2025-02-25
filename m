@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4DCEA44FAE
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 23:21:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5053A44FB1
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 23:21:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A1F9C7A822;
-	Tue, 25 Feb 2025 22:21:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 885B0C7A824;
+	Tue, 25 Feb 2025 22:21:26 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81ECBC78F9F
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26FB1C78F9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 22:21:13 +0000 (UTC)
+ Tue, 25 Feb 2025 22:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1740522072;
+ s=mimecast20190719; t=1740522084;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=HmdS/AlEx+8JlcqZ5mtM6o9rE+VmGN6xnAqIajbGwQA=;
- b=I7xLYShdWKN7CCfNIXdMCxEgA0I1e4EjmMheNcyMJCFuocRVXH5+JCPKynlvFM1OKe9vf4
- 5Y1N6Akx5qUfl9cFqRnRhDyhrrdnUr6uSvzBJFaRaIkJIBOp4paExvHOyDuzNqbNsk4geY
- +1vYl35+/X5kkQdXeNTuAFEymuV/Soc=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fXC/g2hx4+SuKNdvLb6DJYqgd3Fo4tqg7uIP9fRKLiE=;
+ b=Z6w95W9v/WTHzOtkEpEJ4+ajBafqr4Uml31l8Hc8UVpILlYwFWd488aR3rcCAjsR86CIR7
+ /hBl6L1eLCdCSkGI2Hl4BcH+4fAQgP38pdZaC5P6QykbxA/H70q0q+mPhdflTWRrLFbeCi
+ VTlGF5yYwf/HTZUH5b0fSVmAnSDCv8Y=
+Received: from mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-bEt8P_VWOeaeQWGLKOdHDg-1; Tue,
- 25 Feb 2025 17:21:08 -0500
-X-MC-Unique: bEt8P_VWOeaeQWGLKOdHDg-1
-X-Mimecast-MFC-AGG-ID: bEt8P_VWOeaeQWGLKOdHDg_1740522063
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-583-KyhcA59cM1-BWPF_GwZ8XQ-1; Tue,
+ 25 Feb 2025 17:21:20 -0500
+X-MC-Unique: KyhcA59cM1-BWPF_GwZ8XQ-1
+X-Mimecast-MFC-AGG-ID: KyhcA59cM1-BWPF_GwZ8XQ_1740522074
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A699A1800874; Tue, 25 Feb 2025 22:20:59 +0000 (UTC)
+ by mx-prod-mc-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 2B59918EB2C3; Tue, 25 Feb 2025 22:21:12 +0000 (UTC)
 Received: from asrivats-na.rmtustx.csb (unknown [10.2.16.79])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 8BC6E1800359; Tue, 25 Feb 2025 22:20:46 +0000 (UTC)
+ id 2DAF9180035F; Tue, 25 Feb 2025 22:20:59 +0000 (UTC)
 From: Anusha Srivatsa <asrivats@redhat.com>
-Date: Tue, 25 Feb 2025 17:20:41 -0500
-Message-Id: <20250225-memory-drm-misc-next-v1-0-9d0e8761107a@redhat.com>
+Date: Tue, 25 Feb 2025 17:20:42 -0500
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIADlCvmcC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDIyNT3dzU3PyiSt2Uolzd3MziZN281IoS3SQjExOTJBMLi5QkIyWg1oK
- i1LTMCrCx0UpBrsGufi5KsbW1AGMd+zJuAAAA
-X-Change-ID: 20250225-memory-drm-misc-next-b2444b488db2
+Message-Id: <20250225-memory-drm-misc-next-v1-1-9d0e8761107a@redhat.com>
+References: <20250225-memory-drm-misc-next-v1-0-9d0e8761107a@redhat.com>
+In-Reply-To: <20250225-memory-drm-misc-next-v1-0-9d0e8761107a@redhat.com>
 To: Joel Stanley <joel@jms.id.au>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -81,25 +80,21 @@ To: Joel Stanley <joel@jms.id.au>,
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
  Jonathan Corbet <corbet@lwn.net>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1740522045; l=4600;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1740522045; l=1480;
  i=asrivats@redhat.com; s=20250122; h=from:subject:message-id;
- bh=VRew4thqjNNr9Bhh7XZ9CycetampVVfLEpViJv98lrg=;
- b=ECHxTPhmX8SH8mJXx2ad9sYUXYHscl1DXpCA8GXt5zVBerbXI/IktA9aaJ7pdl+ts3xeDePFN
- 9Ct46KCSVgmCxQFFFX9oDZfk9E0JAYbrP432VYqTJmou2zlqrmetjZp
+ bh=Ji2upCwA2YC69EXYhE7xdrMWzAZFX1xUI3aJsw8TVlU=;
+ b=DdfQ2GZmNJIAnLQLuMwyCjQyCNxnWwAGvIaThNcrvWSxsm+dwd/vHuHsmVFm/giZCmo/zRMpW
+ jYHBm++WaPQAHFDQoesclZIx86uVez3dOkR1k3aY3PejKo57J/l+FxU
 X-Developer-Key: i=asrivats@redhat.com; a=ed25519;
  pk=brnIHkBsUZEhyW6Zyn0U92AeIZ1psws/q8VFbIkf1AU=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GiP2IcC44I1ot5y88gkQ__8L4EK3vLRmWIEmtoZObwY_1740522063
-X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-doc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- CK Hu <ck.hu@mediatek.com>, linux-mediatek@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-tegra@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RESEND 00/12] drm: Move to using
- devm_platform_ioremap_resource
+Subject: [Linux-stm32] [PATCH RESEND 01/12] drm/aspeed: move to
+ devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,26 +111,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Start replacing the below occurences with the newer API:
-- (devm_)platform_get_resource + devm_ioremap_resource
-- (devm_)platform_get_resource + (devm_)ioremap
-- platform_get_resource_byname + devm_ioremap
-Move all these occurences to uses devm_platform_ioremap_resource
-instead.
+Replace platform_get_resource + devm_ioremap_resource
+with just devm_platform_ioremap_resource()
 
-This is a resend of v3 of the series. Sending this from drm-misc-next.
-Changes from v2 [1]:
-- Keep the old snippet of documentation and add further
-clarification (Thomas)
-- change in vc4 driver for the a resource is not needed.
-Add a comment to clarify why that is left behind (Maxime)
-
-[1] - https://patchwork.freedesktop.org/series/144073/
-
-Used Coccinelle to make the code changes.Semantic patch:
-
-//First Case
-//rule s/platform_get_resource + devm_ioremap_resource/devm_platform_ioremap_resource
+Used Coccinelle to do this change. SmPl patch:
 @rule_1@
 identifier res;
 expression ioremap_res;
@@ -147,97 +126,34 @@ identifier pdev;
 -ioremap_res = devm_ioremap_resource(...);
 +ioremap_res = devm_platform_ioremap_resource(pdev,0);
 
-//Second case
-//rule s/(devm_)platform_get_resource + (devm_)ioremap/devm_platform_ioremap_resource.
-@rule_2@
-identifier res;
-expression ioremap;
-identifier pdev;
-@@
--struct resource *res;
-...
--res = platform_get_resource(pdev,...);
-<...
--if (!res) {
--...
--}
-...>
--ioremap = devm_ioremap(...);
-+ioremap = devm_platform_ioremap_resource(pdev,0);
-
-//Third case
-//rule s/(devm_)platform_get_resource_byname + (devm_)ioremap/devm_platform_ioremap_resource_byname.
-@rule_3@
-identifier res;
-expression ioremap;
-identifier pdev;
-constant mem;
-expression name;
-@@
--struct resource *res;
-<+...
--res = platform_get_resource_byname(pdev,mem,name);
-<...
--if (!res) {
--...
--}
-...>
--ioremap = devm_ioremap(...);
-+ioremap = devm_platform_ioremap_resource_byname(pdev,name);
-...+>
-
+Cc: Joel Stanley <joel@jms.id.au>
+Acked-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
 ---
-Anusha Srivatsa (12):
-      drm/aspeed: move to devm_platform_ioremap_resource() usage
-      drm/fsl-dcu: move to devm_platform_ioremap_resource() usage
-      drm/hisilicon: move to devm_platform_ioremap_resource() usage
-      drm/mediatek: move to devm_platform_ioremap_resource() usage
-      drm/mxsfb: move to devm_platform_ioremap_resource() usage
-      drm/sprd: move to devm_platform_ioremap_resource() usage
-      drm/sti: move to devm_platform_ioremap_resource() usage
-      drm/stm: move to devm_platform_ioremap_resource() usage
-      drm/tegra: move to devm_platform_ioremap_resource() usage
-      drm/tiny: move to devm_platform_ioremap_resource() usage
-      drm/vc4: move to devm_platform_ioremap_resource() usage
-      Documentation: Update the todo
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
- Documentation/gpu/todo.rst                      | 13 +++---
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c         |  4 +-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c       |  4 +-
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c    |  4 +-
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c |  4 +-
- drivers/gpu/drm/mediatek/mtk_disp_color.c       |  4 +-
- drivers/gpu/drm/mediatek/mtk_disp_gamma.c       |  4 +-
- drivers/gpu/drm/mediatek/mtk_disp_merge.c       |  4 +-
- drivers/gpu/drm/mediatek/mtk_disp_ovl.c         |  4 +-
- drivers/gpu/drm/mediatek/mtk_disp_rdma.c        |  4 +-
- drivers/gpu/drm/mediatek/mtk_dsi.c              |  4 +-
- drivers/gpu/drm/mediatek/mtk_hdmi.c             |  4 +-
- drivers/gpu/drm/mediatek/mtk_mdp_rdma.c         |  4 +-
- drivers/gpu/drm/mxsfb/lcdif_drv.c               |  4 +-
- drivers/gpu/drm/mxsfb/mxsfb_drv.c               |  4 +-
- drivers/gpu/drm/sprd/sprd_dpu.c                 |  9 +----
- drivers/gpu/drm/sprd/sprd_dsi.c                 |  9 +----
- drivers/gpu/drm/sti/sti_compositor.c            | 10 +----
- drivers/gpu/drm/sti/sti_dvo.c                   | 10 +----
- drivers/gpu/drm/sti/sti_hda.c                   |  9 +----
- drivers/gpu/drm/sti/sti_hdmi.c                  | 11 +----
- drivers/gpu/drm/sti/sti_hqvdp.c                 | 10 +----
- drivers/gpu/drm/sti/sti_tvout.c                 | 10 +----
- drivers/gpu/drm/sti/sti_vtg.c                   | 10 +----
- drivers/gpu/drm/stm/ltdc.c                      |  4 +-
- drivers/gpu/drm/tegra/dsi.c                     |  4 +-
- drivers/gpu/drm/tiny/arcpgu.c                   |  4 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                  | 53 +++++++++----------------
- 28 files changed, 51 insertions(+), 171 deletions(-)
----
-base-commit: 27d4815149ba0c80ef2db2a82f0512f647e76d62
-change-id: 20250225-memory-drm-misc-next-b2444b488db2
+diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+index 397e677a691c2c6d199063f44358196a4569b389..46094cca297479d1cf19f6db99538c5e7a0fec92 100644
+--- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
++++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+@@ -144,11 +144,9 @@ static int aspeed_gfx_load(struct drm_device *drm)
+ 	struct aspeed_gfx *priv = to_aspeed_gfx(drm);
+ 	struct device_node *np = pdev->dev.of_node;
+ 	const struct aspeed_gfx_config *config;
+-	struct resource *res;
+ 	int ret;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	priv->base = devm_ioremap_resource(drm->dev, res);
++	priv->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
 
-Best regards,
 -- 
-Anusha Srivatsa <asrivats@redhat.com>
+2.48.1
 
 _______________________________________________
 Linux-stm32 mailing list
