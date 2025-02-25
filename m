@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51211A4385E
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 09:57:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4BDA43865
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 09:57:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F114C78F6A;
-	Tue, 25 Feb 2025 08:57:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AC6FC7A849;
+	Tue, 25 Feb 2025 08:57:43 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BC5CC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48DCBC7A83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 08:57:30 +0000 (UTC)
+ Tue, 25 Feb 2025 08:57:42 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51P7jf7w018116;
- Tue, 25 Feb 2025 09:57:21 +0100
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51P7jf80018116;
+ Tue, 25 Feb 2025 09:57:34 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 20owZPyvCqdzO67jL6iAj7bGP8jkca0HcDebvg0pgwc=; b=L5l6jviacu61kees
- gmuQAzj44Wv1uU1hXNRC4tdmrJzs69SjLDcpOxCsNHw7R1TVPFMAi5qwtrJ08hD6
- fUEKAxySxmBP3P45t7Rkrr55xaTDyeRY0euFdEd3J8uaTby5lMhkLyOOqa1pdkj2
- JZ9UmxD8W0XDLy19MF7qO7b4PvIkihC+0+Vl86MZ8QDKgeqG0JKsKaieM2B7162z
- FXsilfzu5CJXet5Bsu6z1/6+/i3OH83YERGyc5ujDUzSM0GFfC56/FAI4+J2FEYB
- ojr6Nt3hHvS3bJg97iuLKELzHr6LdW91VQFXf+VVEzGce0sG3g+0b8jztx4WkoTa
- DJ1fyw==
+ n3HMULhTdJvMc73sd1m2swXp0fxdZg6FQdwJWWZoV0I=; b=KVJgjNLF0FrKAKLA
+ 5kvBxLZQUY2/7Tb8VgSFel/Gjvpdqzk6BKDYtFyp075Xsqih+niQVYlyNt6PR3pF
+ TtBYVaPxgbcJQjm+Mk0tUVWl1Szzk9OsVBR6FwHubxFtA6xL+l40iSpYLEDkW8I7
+ Daf4YIKmBI4aYbbIn8nCwZD6sGYjgvHrhWV3LJgWAYIibl+iwQapdRMZFE8hh0sc
+ F+fvZmS4BPat+SlclKLFmjO9O46/zbK79hebpC6WzZ553oJkiriNMNZThweqLZBu
+ Flx6DvibnwLlJIwSzpFVdyjQcQB2SoRc0x6Ttvh2s4sDEwJr7P3Y59xveP+zemzv
+ D5BtKQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4512sqsssk-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4512sqsstp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Feb 2025 09:57:21 +0100 (CET)
+ Tue, 25 Feb 2025 09:57:34 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 792D84008D;
- Tue, 25 Feb 2025 09:56:12 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 540E64008E;
+ Tue, 25 Feb 2025 09:56:15 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B5AA647D0EE;
- Tue, 25 Feb 2025 09:54:31 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6ECDD47D0DE;
+ Tue, 25 Feb 2025 09:54:32 +0100 (CET)
 Received: from localhost (10.48.87.120) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Feb
- 2025 09:54:31 +0100
+ 2025 09:54:32 +0100
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 25 Feb 2025 09:54:06 +0100
+Date: Tue, 25 Feb 2025 09:54:07 +0100
 MIME-Version: 1.0
-Message-ID: <20250225-b4-stm32mp2_new_dts-v2-3-1a628c1580c7@foss.st.com>
+Message-ID: <20250225-b4-stm32mp2_new_dts-v2-4-1a628c1580c7@foss.st.com>
 References: <20250225-b4-stm32mp2_new_dts-v2-0-1a628c1580c7@foss.st.com>
 In-Reply-To: <20250225-b4-stm32mp2_new_dts-v2-0-1a628c1580c7@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 03/10] arm64: Kconfig: expand STM32 Armv8
- SoC with STM32MP21/STM32MP23 SoCs family
+Subject: [Linux-stm32] [PATCH v2 04/10] dt-bindings: stm32: add STM32MP21
+ and STM32MP23 compatibles for syscon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,36 +82,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Expand config ARCH_STM32 with two new SoCs families:
-- STM32MP21 SoCs family, which is composed of STM32MP211, STM32MP213 and
-  STM32MP215 SoCs;
-- STM32MP23 SoCs family, which is composed of STM32MP231, STM32MP233 and
-  STM32MP235 SoCs.
+Add the new syscon compatibles for STM32MP21 syscfg = "st,stm32mp21-syscfg"
+and for STM32MP23 syscfg = "st,stm32mp23-syscfg".
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-
 ---
-Changes in v2:
-- STM32MP21 and STM32MP23 added in a single patch
----
- arch/arm64/Kconfig.platforms | 4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
-index 02f9248f7c84da36619ddb8dac55a4bfd96d65e3..6b7ca916c9c1e21d4fb2d7edf444780745c8d926 100644
---- a/arch/arm64/Kconfig.platforms
-+++ b/arch/arm64/Kconfig.platforms
-@@ -321,6 +321,10 @@ config ARCH_STM32
- 	help
- 	  This enables support for ARMv8 based STMicroelectronics
- 	  STM32 family, including:
-+		- STM32MP21:
-+			- STM32MP211, STM32MP213, STM32MP215.
-+		- STM32MP23:
-+			- STM32MP231, STM32MP233, STM32MP235.
- 		- STM32MP25:
- 			- STM32MP251, STM32MP253, STM32MP255 and STM32MP257.
- 
+diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+index d083d8ad48b70ef68150f3d1b177890282ca025a..ed97652c84922813e94b1818c07fe8714891c089 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+@@ -21,6 +21,8 @@ properties:
+               - st,stm32f4-gcan
+               - st,stm32mp151-pwr-mcu
+               - st,stm32mp157-syscfg
++              - st,stm32mp21-syscfg
++              - st,stm32mp23-syscfg
+               - st,stm32mp25-syscfg
+           - const: syscon
+       - items:
 
 -- 
 2.25.1
