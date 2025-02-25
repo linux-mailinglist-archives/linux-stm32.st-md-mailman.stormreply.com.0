@@ -2,81 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD3EA44AA2
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 19:37:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A536A44C16
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Feb 2025 21:12:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFE75C78F9F;
-	Tue, 25 Feb 2025 18:37:50 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40FB6C78F9B;
+	Tue, 25 Feb 2025 20:12:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6885AC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82C77C78F6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 18:37:49 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4397dff185fso52200525e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Feb 2025 10:37:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740508669; x=1741113469;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3iaVHc4/XfXA2DF9jl+povuubBeCM8bFfr3Gc9B5VcM=;
- b=J6mAR5zKv1T5s1dCa0LGTer+52G09zQkCLQiopvmHK9MVqpdLIxnZky8GJ9/a9omkv
- 5VaPcjeov4TPxkoeGjpYXRai3hlJffgSMkc9b9bbhsxZcNdqEyFXkzY4ZtQHKd9agO9x
- JcwHCmJP4wPDFj3agTSf9mbTqPWECm5Fka5hRzony2MvFxSgUA563Zt7p2EYORa0AsZh
- TB1BJ/vJ1zwjNfIoUTJQersZGPZbiuvo38jx5mXPk3MxgYeNa7sNBWiP51yzt5DU8nnI
- Zm7CedvgmBK5schWcd39Md5bjAW91lUzWyrrVTtb4oY+ncu2k6Dj4qKbwd6xP0/vrjGo
- nfyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740508669; x=1741113469;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3iaVHc4/XfXA2DF9jl+povuubBeCM8bFfr3Gc9B5VcM=;
- b=boUzZSo+BUC1glkSRwQ3LtHxhLE+cWCfwEaXJUhTsjeFb+9eVFW2OVp85HZRPRDSrd
- gLSGKiwvTOmVwz0WQqSgoBHLdmf/WmaFX4yr2esi1/DwQZwFV4c37XIbAISgllZcOziV
- YDxNAYKjThjLEdui7fk53NDPZgZgVSioYp89PBFL0vA9MvtB3K3Hw0jNvgBSNmmjOgdl
- su5XcZ6XiRbcMBAWoBIQ7bm3uhzphzZz6t8tOGyR9P9bY13UKh2oUBWzYoKlTJ10zl2a
- wWU/Ue2VMa1hx/ww3MiNSJ3pYQuIZ318fiBzSL0O3cv2T+/Q22SKgXKSWvL4RZutLL+o
- PJUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVvNMTIc7SJWeU3uRM/YCmYo7eCsh5zA3XSvvNjAfdDOc8ZIepWT2hss4qDcKOQxgE8iImqvPc4YmIluw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyNAGYTsPuGC7GeDHDLZSigE5VXmw1C1iTBR8HWtaX9xPE15q2o
- 2BEkkgfWaot5ZihyOfNoN0qodAp8cEoKK1rBHd/AzGG4AAotHWLo
-X-Gm-Gg: ASbGncvvzYUWrBvA0DNLxInQIebelbCw3onbYhQzKsIpUg6ALxsl1yG1TpCxqQ1L5Gd
- OhC24zN7+vvG3h5CB1LDZ5MH23KzITLoN9fD2looBUPDCavVGWsZVyU1m7IXtASLqp35ndPUVRY
- ICWlUEQAkVVvpyoBA9Mw/W8wc+zIGujORegFREiw8LU+mv/oq/dUlkg7z9t3pbtMsf+Gu7bD6WZ
- U7qMwfsGP/7SNGEt0VnJDimmfcAgPnKy+r7fhWIjtWNoxrRnZj5BF2mJxYXjzq64P0xKEUX/uEy
- YzswN38D62d55w9UaO0gf7Zw9YA2f78TfloV0cA3v1UGsIUKCx73tNMcKHMIt+VT5JlYVwhWnzP
- GuF04dA/4AV9R
-X-Google-Smtp-Source: AGHT+IH5jV0WLJwr4meYw5t5geNhiZJeRS99N5uTizzJ/xzS+uRzG3Le5O1v29l/A3y6EY3d135kgQ==
-X-Received: by 2002:a05:600c:1d0e:b0:439:6712:643d with SMTP id
- 5b1f17b1804b1-43ab8fd8620mr5118395e9.9.1740508668374; 
- Tue, 25 Feb 2025 10:37:48 -0800 (PST)
-Received: from orome (p200300e41f187700f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f18:7700:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02ce735sm149842745e9.3.2025.02.25.10.37.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 10:37:46 -0800 (PST)
-Date: Tue, 25 Feb 2025 19:37:44 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <5qx6hg33brb2zjjqzk3cr7dt56m5jxcwzioejtw5woweemskg5@suu43pp3nsg4>
-References: <Z7yj_BZa6yG02KcI@shell.armlinux.org.uk>
+ Tue, 25 Feb 2025 20:12:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3E7475C708F;
+ Tue, 25 Feb 2025 20:11:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941DFC4CEDD;
+ Tue, 25 Feb 2025 20:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1740514356;
+ bh=yTCj5mHCtdBx8pk+52dg55Yg5D96C+PxN6w8CQznwjM=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=qA/yQo2Dj7sATmTqu+FxRMZ65j9/jCkahdI62i/V40ioGuSi2VPnHu+ozuj0hCykM
+ 7SwJsjXxnFwy5gAEVVto5RF/S13qmg4gmUdYBgf6i+zc8r0IROTfT+VESyZEPDRs4H
+ UxNacRkez6vE1G0S562m0LjxY9fD5f/Qub7y8BpjbWIkVKPsdJlRHbcAXQfPCJ4xLH
+ DQyQUfZ+U1hwVn5ZH6fcdjIQJJ7uOc1hu6AAK1njsVkcmXuyu5F1ItA39HdEWxd/qN
+ 7p1JfHl5t6QAegMK+0wFDo2wggGt9kTyPga4LZqk3/r281/fkY6jUdkoUe6vqE6OGZ
+ cdwFm+tgF71yQ==
+Date: Tue, 25 Feb 2025 14:12:34 -0600
 MIME-Version: 1.0
-In-Reply-To: <Z7yj_BZa6yG02KcI@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/2] net: stmmac: dwc-qos:
- clean up clock initialisation
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
+References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
+Message-Id: <174051415125.2971414.5163158019956863310.robh@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
+ linux-pwm@vger.kernel.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ lee@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, ukleinek@kernel.org, jic23@kernel.org,
+ tglx@linutronix.de, will@kernel.org, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, wbg@kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/8] Add STM32MP25 LPTIM support: MFD, PWM,
+ IIO, counter, clocksource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,76 +54,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4845264915548031981=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4845264915548031981==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="f3i4x2skmc3z4dxx"
-Content-Disposition: inline
+On Mon, 24 Feb 2025 19:01:42 +0100, Fabrice Gasnier wrote:
+> This series adds support for STM32MP25 to MFD PWM, IIO, counter and
+> clocksource low-power timer (LPTIM) drivers.
+> This new variant is managed by using a new DT compatible string.
+> It comes with a slightly updated register set, some new features and new
+> interconnect signals inside the SoC.
+> Same feature list as on STM32MP1x is supported currently.
+> The device tree files add all instances in stm32mp251 dtsi file.
+> 
+> Fabrice Gasnier (6):
+>   dt-bindings: mfd: stm32-lptimer: add support for stm32mp25
+>   mfd: stm32-lptimer: add support for stm32mp25
+>   pwm: stm32-lp: add support for stm32mp25
+>   counter: stm32-lptimer-cnt: add support for stm32mp25
+>   arm64: defconfig: enable STM32 LP timers drivers
+>   arm64: dts: st: add low-power timer nodes on stm32mp251
+> 
+> Olivier Moysan (1):
+>   iio: trigger: stm32-lptimer: add support for stm32mp25
+> 
+> Patrick Delaunay (1):
+>   clocksource: stm32-lptimer: add stm32mp25 support
+> 
+>  .../bindings/mfd/st,stm32-lptimer.yaml        |  23 +-
+>  arch/arm64/boot/dts/st/stm32mp251.dtsi        | 177 ++++++++++++++
+>  arch/arm64/configs/defconfig                  |   5 +
+>  drivers/clocksource/timer-stm32-lp.c          |   1 +
+>  drivers/counter/stm32-lptimer-cnt.c           |   1 +
+>  drivers/iio/trigger/stm32-lptimer-trigger.c   | 109 +++++++--
+>  drivers/mfd/stm32-lptimer.c                   |  30 ++-
+>  drivers/pwm/pwm-stm32-lp.c                    | 220 +++++++++++++++---
+>  include/linux/iio/timer/stm32-lptim-trigger.h |   9 +
+>  include/linux/mfd/stm32-lptimer.h             |  32 ++-
+>  10 files changed, 554 insertions(+), 53 deletions(-)
+> 
+> --
+> 2.25.1
+> 
+> 
+> 
 
 
---f3i4x2skmc3z4dxx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net-next v3 0/2] net: stmmac: dwc-qos: clean up clock
- initialisation
-MIME-Version: 1.0
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
-On Mon, Feb 24, 2025 at 04:53:16PM +0000, Russell King (Oracle) wrote:
-> Hi,
->=20
-> My single v1 patch has become two patches as a result of the build
-> error, as it appears this code uses "data" differently from others.
-> v2 still produced build warnings despite local builds being clean,
-> so v3 addresses those.
->=20
-> The first patch brings some consistency with other drivers, naming
-> local variables that refer to struct plat_stmmacenet_data as
-> "plat_dat", as is used elsewhere in this driver.
->=20
->  .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 53 ++++++++++++----=
-------
->  1 file changed, 29 insertions(+), 24 deletions(-)
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
 
-Tested and works fine on Jetson TX2:
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
 
-Tested-by: Thierry Reding <treding@nvidia.com>
+  pip3 install dtschema --upgrade
 
---f3i4x2skmc3z4dxx
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/st/' for 20250224180150.3689638-1-fabrice.gasnier@foss.st.com:
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAme+DfgACgkQ3SOs138+
-s6Hc5xAAns6YS5EqizTjVtcybrFLTInegeZ0X+D5ciydxOvm9iHAwZY2/4ywuY9e
-gq6UePIgB51vAzfDfxy5R5X4GvK5+922IL841tyDAJejg54ylBHTFiDoWJVNXUll
-QJbbhM+dL0vRRaxTqPzJfJzkIO7ZyU0BylQwr3GYka21DUkYK4J/LnTleP1b3LMu
-1W0QlEMWq5DznlUJuQ8C9Tn1C4Pr4+ZRmDjSPF7t8coFAP5XNs9Db5KK0DWkTWto
-P0HugDfCHPdDHodfPFzHnT9QxCESDiIHjX4P+PTcR9w4eqg+gjMkiXq1EDpTYu/O
-ph05+xPdywaHeGftW0K2RAf3ZdSRep1YWI90autg4U/g0JTq/P9fCyOwR8p3WEen
-AtGz3MvZmcGbe6FGY7ZjnY/tVKAwPVP07DVSJcD1DzTe+YusCryfWRUTIHfpe69L
-Ric7GRdggYEOZL88Y/bpybtv6kb3baNOpUDwKHj8xDn72FA8coa6Xl8KYDhZvzQe
-4jxMzrghudcWAQ8XKxgxB2q+lZ7B+ZFRt1xU6jc7x+KdMsAGI8XHXc1Y0LiiJMfs
-xNyl8+5hHbissm7ie2JbC/UyuXB4pCtB51+qfRJrzdZs+DTHXbyZZT5TtUWbtHpB
-AzcgVhxrv05jSv7AzsbQiFjNoCC9WZvdMfzZg3Ja2bAh62bFw+o=
-=BS53
------END PGP SIGNATURE-----
+arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: timer@46060000: trigger@3:reg:0:0: 3 is greater than the maximum of 2
+	from schema $id: http://devicetree.org/schemas/mfd/st,stm32-lptimer.yaml#
+arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: timer@46070000: trigger@4:reg:0:0: 4 is greater than the maximum of 2
+	from schema $id: http://devicetree.org/schemas/mfd/st,stm32-lptimer.yaml#
 
---f3i4x2skmc3z4dxx--
 
---===============4845264915548031981==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4845264915548031981==--
