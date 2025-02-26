@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C9DA46378
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 15:48:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B91EDA4637B
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 15:48:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73E9CC7A832;
-	Wed, 26 Feb 2025 14:48:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F221C7A832;
+	Wed, 26 Feb 2025 14:48:15 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9CA3C7A830
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C18BBC7A833
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 14:48:10 +0000 (UTC)
+ Wed, 26 Feb 2025 14:48:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7AF5E5C67EA;
- Wed, 26 Feb 2025 14:47:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611C8C4CED6;
- Wed, 26 Feb 2025 14:48:07 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 856855C6FE4;
+ Wed, 26 Feb 2025 14:47:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B021EC4CED6;
+ Wed, 26 Feb 2025 14:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740581289;
- bh=xd3neVQnKKxta6h/dkB0x1HKr/mwp+2cJLoVDQVsKqc=;
+ s=k20201202; t=1740581292;
+ bh=R2Gx1N8K9KgoekiAVlPfyhUXC/d2nYfvQ5VD+gdozZ8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nHrrOgkRXHnaJloFeHcTWFMBS6+Fcuy0rjgphJAHpsvi2mcRgDXskJXRe9cOWAM/E
- qWcdyAlnrIYnU/YXtzy91y/uCmVTRbC6NG2k3edfTHzrU0+t85qoTgvzMqQdmexUYg
- mr9+yn7QMTIuQ88tg2bhQ62xsrJfU6xRQvlCCwiO3nCH6Sp5x5WkpK+wcLPpsNxp3R
- gS82Bdf0KbW3RpECZNRxtrhyFtVe7JQB012Bpz4dzC0cXAH40wvOdCLVF5zAkIZ+Yo
- VFILJ39/Ko+fJCQJPSn30MYVJgydxJQdZaL3EdvHCHu7HYo2T4UGp0ZOASwU4xCu75
- P2Wgfmk+Jlr2g==
+ b=mApHC7rWxqw1e5UqFq0sDaKSoI4NkQu7LB1ljIILqMN0JjNxHvceSMwUIkXVxxNom
+ 1G0Nyk5XM30FeLOiOiBNnBv6x/HUwPXtiakVbjALWlrEXZh5S0WnhuYVQda8xGrfAZ
+ nr3BxFeo4NG4jZs+g8UZ3El7iT9yREbDcaJT5sL9qMF66fqQEuElw3nWKPY8blZKli
+ iGZK3o162kcTBe1ELSFF4rxVAciArDijitJkBGi9k3sTLjgww7QcWMF3zKjBKsttJZ
+ us1mTGNayqOu8jrgRuxyFmH5cn/BI7Gcsuh67owAcwxVbvrSpnSSpWMuEPySYgLQO4
+ TmYabkCkmWmhw==
 From: Maxime Ripard <mripard@kernel.org>
 To: Joel Stanley <joel@jms.id.au>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -64,20 +64,21 @@ To: Joel Stanley <joel@jms.id.au>,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Jonathan Corbet <corbet@lwn.net>, Anusha Srivatsa <asrivats@redhat.com>
-Date: Wed, 26 Feb 2025 15:47:53 +0100
-Message-ID: <174058126145.2737122.17862276006786077975.b4-ty@kernel.org>
+Date: Wed, 26 Feb 2025 15:47:54 +0100
+Message-ID: <174058126145.2737122.14070360232416372378.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250225-memory-drm-misc-next-v1-1-9d0e8761107a@redhat.com>
+In-Reply-To: <20250225-memory-drm-misc-next-v1-4-9d0e8761107a@redhat.com>
 References: <20250225-memory-drm-misc-next-v1-0-9d0e8761107a@redhat.com>
- <20250225-memory-drm-misc-next-v1-1-9d0e8761107a@redhat.com>
+ <20250225-memory-drm-misc-next-v1-4-9d0e8761107a@redhat.com>
 MIME-Version: 1.0
 Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH RESEND 01/12] drm/aspeed: move to
-	devm_platform_ioremap_resource() usage
+ dri-devel@lists.freedesktop.org, CK Hu <ck.hu@mediatek.com>,
+ linux-mediatek@lists.infradead.org, Maxime Ripard <mripard@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH RESEND 04/12] drm/mediatek: move
+	to devm_platform_ioremap_resource() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,7 +95,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Feb 2025 17:20:42 -0500, Anusha Srivatsa wrote:
+On Tue, 25 Feb 2025 17:20:45 -0500, Anusha Srivatsa wrote:
 > Replace platform_get_resource + devm_ioremap_resource
 > with just devm_platform_ioremap_resource()
 > 
