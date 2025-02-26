@@ -2,74 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95D0BA4570C
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:50:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40740A456F7
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:49:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C9D2C7A82F;
-	Wed, 26 Feb 2025 07:50:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0634C7A82F;
+	Wed, 26 Feb 2025 07:49:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0616CC7A82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19DD6C7A82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 07:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740556248; x=1772092248;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=cmKtuwnc2KIDaRI+wvWtnzBRpft8byHlKWXn0enjH2M=;
- b=XE8HVoksAJbQzfh1P9UTAXe+8GwAoidBD0PGJgarvoDzPLQ0+jdPA6hd
- iD9zQ2fC6jxvWSV39vOvw6IWxIQUQSMBblg9V2uxCSEjSRvjXVmLjGeRy
- hAZlALYGWHx8ym/Eo4iokIojYjGfWL/Umm6P5jls66brZOqRUYDuYibfa
- dDfKcsSNUvYKc/XBtxxddOIhVcVzl7oDYg5KPvZcBnMnBnRDvHoiTu4fZ
- /L53K9+/oCurTMZUPsiBCOdclxZVhKy2ErmCYGy7z5yTlz5bgWxlA56I/
- QIwdRZcRqD7E3mVVPxVbSsFR8Tmw/Dy7wIbirOUZtY9DSR7Riun9At9aJ Q==;
-X-CSE-ConnectionGUID: q7LN3j0rSBCfAzMivRBBeA==
-X-CSE-MsgGUID: MGMQXvjHRDuQxaOgZHF13A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11356"; a="45305251"
-X-IronPort-AV: E=Sophos;i="6.13,316,1732608000"; d="scan'208";a="45305251"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2025 23:50:46 -0800
-X-CSE-ConnectionGUID: fM5vSBR0ToyfuZ21hlmvgA==
-X-CSE-MsgGUID: 7VkCjDaiTceTPs/wK8065A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120743067"
-Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
- by fmviesa003.fm.intel.com with ESMTP; 25 Feb 2025 23:50:39 -0800
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- David E Box <david.e.box@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jiawen Wu <jiawenwu@trustnetic.com>,
- Mengyuan Lou <mengyuanlou@net-swift.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Wed, 26 Feb 2025 15:48:37 +0800
-Message-Id: <20250226074837.1679988-7-yong.liang.choong@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
-References: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
+ Wed, 26 Feb 2025 07:49:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E2A285C64B0;
+ Wed, 26 Feb 2025 07:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A726C4CED6;
+ Wed, 26 Feb 2025 07:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1740556184;
+ bh=uCdI2UsWlcFy8fTHJqUUUV32JgbPg3zTDIP1SgS/OEs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=q9UdPKmChEoDGVsxMpCoa+eWVBARu/cco2J+eMzALEGG++aZ5H/205d2hEmEaI5NZ
+ 1qOO+a/Rjt8mT1PnYPaaZliVlGnN+yqp3xe3kvSJszoKIdQqy8UvLYarHqgYdXXg4u
+ +MFcuZP3ZGHvtVUhnstYEHnjIfkv8wK7pGz23KIfMMVER0mQCt8Anu4ZDe7+0uPTUQ
+ sKQTOMkSnJDzQh8pSSHbLIaXNPtT3Gf189JgLZG7sfz5SNBKEYgidP8eJsJtBCWf1k
+ QSP7+yiLEse5Od4PAA5x923hSNHRBzomuzMGO1mbLb0n28O2sUBCSLB/+k1H5I0iuV
+ BHoKqVapGyGtQ==
+Message-ID: <b9b3844e-bdd5-4f50-aa10-8bf97751c566@kernel.org>
+Date: Wed, 26 Feb 2025 08:49:37 +0100
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 6/6] stmmac: intel: interface
-	switching support for ADL-N platform
+User-Agent: Mozilla Thunderbird
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
+ <20250224180150.3689638-7-fabrice.gasnier@foss.st.com>
+ <20250225-pelican-of-pleasurable-might-e9a7e8@krzk-bin>
+ <4ffc3fe3-78ab-43b2-b0d5-8f9cb545f9c5@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <4ffc3fe3-78ab-43b2-b0d5-8f9cb545f9c5@foss.st.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
+ linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ ukleinek@kernel.org, linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org,
+ will@kernel.org, tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
+Subject: Re: [Linux-stm32] [PATCH 6/8] counter: stm32-lptimer-cnt: add
+	support for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,98 +107,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The intel_config_serdes function was provided to handle interface mode
-changes for the ADL-N platform.
+On 25/02/2025 15:58, Fabrice Gasnier wrote:
+> On 2/25/25 13:02, Krzysztof Kozlowski wrote:
+>> On Mon, Feb 24, 2025 at 07:01:48PM +0100, Fabrice Gasnier wrote:
+>>> Add support for STM32MP25 SoC. Use newly introduced compatible to handle
+>>> this new HW variant, even if no major change is expected on the counter
+>>> driver.
+>>>
+>>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>>> ---
+>>>  drivers/counter/stm32-lptimer-cnt.c | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+>>> index b249c8647639..a5dce017c37b 100644
+>>> --- a/drivers/counter/stm32-lptimer-cnt.c
+>>> +++ b/drivers/counter/stm32-lptimer-cnt.c
+>>> @@ -508,6 +508,7 @@ static SIMPLE_DEV_PM_OPS(stm32_lptim_cnt_pm_ops, stm32_lptim_cnt_suspend,
+>>>  
+>>>  static const struct of_device_id stm32_lptim_cnt_of_match[] = {
+>>>  	{ .compatible = "st,stm32-lptimer-counter", },
+>>> +	{ .compatible = "st,stm32mp25-lptimer-counter", },
+>>
+>> So fully compatible? Why this change then?
+> 
+> Hi Krzysztof,
+> 
+> I should have mentioned it in the commit message:
+> 
+> Currently, same feature list as on STM32MP1x is supported.
+> New capture input stage is now available in the hardware. It's not added
+> yet to the driver.
 
-The Modphy register lane was provided to configure the serdes when
-changing interface modes.
+Which is the exact meaning of compatible. Express it properly in
+bindings and driver.
 
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 52 ++++++++++++++++++-
- 1 file changed, 51 insertions(+), 1 deletion(-)
+> 
+> The Low Power Timer (LPTIM) hardware isn't fully backward compatible,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index f73a48f98581..9c8de47ee149 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -87,6 +87,7 @@ static const struct pmc_serdes_regs pid_modphy1_2p5g_regs[] = {
- };
- 
- static const int ehl_tsn_lane_regs[] = {7, 8, 9, 10, 11};
-+static const int adln_tsn_lane_regs[] = {6};
- 
- static int stmmac_pci_find_phy_addr(struct pci_dev *pdev,
- 				    const struct dmi_system_id *dmi_list)
-@@ -1004,6 +1005,55 @@ static int adls_sgmii_phy1_data(struct pci_dev *pdev,
- static struct stmmac_pci_info adls_sgmii1g_phy1_info = {
- 	.setup = adls_sgmii_phy1_data,
- };
-+
-+static int adln_common_data(struct pci_dev *pdev,
-+			    struct plat_stmmacenet_data *plat)
-+{
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
-+	plat->rx_queues_to_use = 6;
-+	plat->tx_queues_to_use = 4;
-+	plat->clk_ptp_rate = 204800000;
-+
-+	plat->safety_feat_cfg->tsoee = 1;
-+	plat->safety_feat_cfg->mrxpee = 0;
-+	plat->safety_feat_cfg->mestee = 1;
-+	plat->safety_feat_cfg->mrxee = 1;
-+	plat->safety_feat_cfg->mtxee = 1;
-+	plat->safety_feat_cfg->epsi = 0;
-+	plat->safety_feat_cfg->edpp = 0;
-+	plat->safety_feat_cfg->prtyen = 0;
-+	plat->safety_feat_cfg->tmouten = 0;
-+
-+	intel_priv->tsn_lane_regs = adln_tsn_lane_regs;
-+	intel_priv->max_tsn_lane_regs = ARRAY_SIZE(adln_tsn_lane_regs);
-+
-+	return intel_mgbe_common_data(pdev, plat);
-+}
-+
-+static int adln_sgmii_phy0_data(struct pci_dev *pdev,
-+				struct plat_stmmacenet_data *plat)
-+{
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
-+	plat->bus_id = 1;
-+	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->serdes_powerup = intel_serdes_powerup;
-+	plat->serdes_powerdown = intel_serdes_powerdown;
-+	plat->mac_finish = intel_mac_finish;
-+
-+	intel_priv->pid_1g.regs = pid_modphy1_1g_regs;
-+	intel_priv->pid_1g.num_regs = ARRAY_SIZE(pid_modphy1_1g_regs);
-+	intel_priv->pid_2p5g.regs = pid_modphy1_2p5g_regs;
-+	intel_priv->pid_2p5g.num_regs = ARRAY_SIZE(pid_modphy1_2p5g_regs);
-+
-+	return adln_common_data(pdev, plat);
-+}
-+
-+static struct stmmac_pci_info adln_sgmii1g_phy0_info = {
-+	.setup = adln_sgmii_phy0_data,
-+};
-+
- static const struct stmmac_pci_func_data galileo_stmmac_func_data[] = {
- 	{
- 		.func = 6,
-@@ -1386,7 +1436,7 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
- 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1, &tgl_sgmii1g_phy1_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
--	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &tgl_sgmii1g_phy0_info) },
-+	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &adln_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &tgl_sgmii1g_phy0_info) },
- 	{}
- };
--- 
-2.34.1
+How so? How can it work then with above ID table?
 
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
