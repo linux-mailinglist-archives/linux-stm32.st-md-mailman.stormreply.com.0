@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17199A46406
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 16:05:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A1D8A4641A
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 16:08:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA4F1C7A832;
-	Wed, 26 Feb 2025 15:05:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB2D7C7A832;
+	Wed, 26 Feb 2025 15:08:10 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3474FC7A830
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3248EC7A830
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 15:05:37 +0000 (UTC)
+ Wed, 26 Feb 2025 15:08:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5192261171;
- Wed, 26 Feb 2025 15:05:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61D4C4CED6;
- Wed, 26 Feb 2025 15:05:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 72BF561171;
+ Wed, 26 Feb 2025 15:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B509FC4CEE8;
+ Wed, 26 Feb 2025 15:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740582335;
- bh=aKsWQB1CAlUK5Cm9Str0bXC/fuAE5a6GytVvT9WpSwQ=;
+ s=k20201202; t=1740582488;
+ bh=0rPdT/Eug1q9+BytDIeKO5UaT3azhJ0eQ11NkLFoPDw=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E5lR1/RzHzUkxREwq/zFpM6dNAJg6FBORcTq34Ngz7n5jss+MumqXyhv6zoOh6YPB
- BvEvhistIvvVIpX5iXQxhuZ/EBzeQBHyDeYtui2LKJvXSXqHzIN/H7akmlDkuBO2IM
- cHMKTudtb8oqdHSWQL6GSxnl1pF7+K5y2omNbl7i5ueNo/Ttn1gaRW1SjSYWKyFz6I
- 5KIMD8JX89o+0nl42BW7/pdQuHfoyWfAZTtfb61bZJFnD1vXoR+XvJXAWi5Hjqwkhx
- p1OiiBUvNrw6Yj0o9QDlPZc68ew74TqKTQCd4zITnWpXC0sYn8xw7JmRo7veXEXyON
- n8uTyZl1GJbrg==
-Message-ID: <46fbdccb-610a-4b73-8697-d7bcf4942a41@kernel.org>
-Date: Wed, 26 Feb 2025 16:05:30 +0100
+ b=UdoQywKtDOHZzWhnKn/7ndX+HgtAWdIRdEWLrZ9yZO11GontNCf8nsUVT5deqYzWs
+ yFENoLpHCZ164ETg99rfHCCvr28D17/TqX6zia9bacjRSaP1ZN99mOyCDuWexpybom
+ KTqqIahWCiprwxgl3fhs2I/VqBc3rDEUuHcuIsjReFK4pA+cRfJcxed/hmLGrC8N66
+ 8KvQNgFXiNvmWWuSZgMDWl7Ahx1WdZwaZ0+IV2gqP9BRWMGGpUNXJXoeGhl25ZkTnK
+ eqGXZme3fU+xqXszyf+YwVpazrhkjc0hzBmeAWAHX/5P7Mbm4m5W/UXYK0vGIlYwbA
+ v388qiii722vw==
+Message-ID: <55beb3e7-65ac-4145-adae-fb064378c78d@kernel.org>
+Date: Wed, 26 Feb 2025 16:08:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Clement LE GOFFIC <clement.legoffic@foss.st.com>,
  Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
 References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
- <20250225-hdp-upstream-v1-2-9d049c65330a@foss.st.com>
- <6fc80544-6fc3-4450-a0cc-bfc740fe97bb@kernel.org>
- <91f19306-4b31-41fe-8ad2-680b1a339204@foss.st.com>
- <00526b1d-b753-4ee5-8f83-67d27d66a43c@kernel.org>
- <264d7fb8-06c2-4ada-82bc-4d3a7cc5e184@foss.st.com>
+ <20250225-hdp-upstream-v1-7-9d049c65330a@foss.st.com>
+ <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
+ <b257aa79-6ca9-4f57-988a-ec00225992ab@foss.st.com>
+ <b57e3c9e-244e-435b-8a7b-cf90f3a973b3@kernel.org>
+ <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,12 +89,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <264d7fb8-06c2-4ada-82bc-4d3a7cc5e184@foss.st.com>
+In-Reply-To: <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
 Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: pinctrl: stm32:
-	Introduce HDP
+Subject: Re: [Linux-stm32] [PATCH 7/9] ARM: dts: stm32: add Hardware debug
+ port (HDP) on stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,73 +106,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjYvMDIvMjAyNSAxMTo1MiwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4gT24gMi8yNi8y
-NSAwODoyMSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMjUvMDIvMjAyNSAxNjo1
-MSwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4+PiBPbiAyLzI1LzI1IDE0OjA0LCBLcnp5c3p0
-b2YgS296bG93c2tpIHdyb3RlOgo+Pj4+IE9uIDI1LzAyLzIwMjUgMDk6NDgsIENsw6ltZW50IExl
-IEdvZmZpYyB3cm90ZToKPj4+Pj4gKwo+Pj4+PiArbWFpbnRhaW5lcnM6Cj4+Pj4+ICsgIC0gQ2zD
-qW1lbnQgTEUgR09GRklDIDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPgo+Pj4+PiArCj4+
-Pj4+ICtkZXNjcmlwdGlvbjogfAo+Pj4+Cj4+Pj4KPj4+PiBEbyBub3QgbmVlZCAnfCcgdW5sZXNz
-IHlvdSBuZWVkIHRvIHByZXNlcnZlIGZvcm1hdHRpbmcuCj4+Pgo+Pj4gT2sKPj4+Cj4+Pj4+ICsg
-IFNUTWljcm9lbGVjdHJvbmljcydzIFNUTTMyIE1QVXMgaW50ZWdyYXRlIGEgSGFyZHdhcmUgRGVi
-dWcgUG9ydCAoSERQKS4KPj4+Pj4gKyAgSXQgYWxsb3dzIHRvIG91dHB1dCBpbnRlcm5hbCBzaWdu
-YWxzIG9uIFNvQydzIEdQSU8uCj4+Pj4+ICsKPj4+Pj4gK3Byb3BlcnRpZXM6Cj4+Pj4+ICsgIGNv
-bXBhdGlibGU6Cj4+Pj4+ICsgICAgY29uc3Q6IHN0LHN0bTMybXAtaGRwCj4+Pj4KPj4+PiBUaGVy
-ZSBpcyBhIG1lc3MgaW4gU1RNIFNvQ3MuIFNvbWV0aW1lcyB5b3UgY2FsbCBTb0Mgc3RtMzIsIHNv
-bWV0aW1lcwo+Pj4+IHN0bTMybXAgYW5kIHNvbWV0aW1lcyBzdG0zMm1wWFguCj4+Pj4KPj4+PiBE
-ZWZpbmUgZm9yIGFsbCB5b3VyIFNUTSBjb250cmlidXRpb25zIHdoYXQgaXMgdGhlIGFjdHVhbCBT
-b0MuIFRoaXMKPj4+PiBmZWVkYmFjayB3YXMgYWxyZWFkeSBnaXZlbiB0byBTVC4KPj4+Pgo+Pj4+
-PiArCj4+Pj4+ICsgIHJlZzoKPj4+Pj4gKyAgICBtYXhJdGVtczogMQo+Pj4+PiArCj4+Pj4+ICsg
-IGNsb2NrczoKPj4+Pj4gKyAgICBtYXhJdGVtczogMQo+Pj4+PiArCj4+Pj4+ICtwYXR0ZXJuUHJv
-cGVydGllczoKPj4+Pj4gKyAgJy1waW5zJCc6Cj4+Pj4+ICsgICAgdHlwZTogb2JqZWN0Cj4+Pj4+
-ICsgICAgJHJlZjogcGlubXV4LW5vZGUueWFtbCMKPj4+Pj4gKwo+Pj4+PiArICAgIHByb3BlcnRp
-ZXM6Cj4+Pj4+ICsgICAgICBmdW5jdGlvbjoKPj4+Pj4gKyAgICAgICAgZW51bTogWyAiMCIsICIx
-IiwgIjIiLCAiMyIsICI0IiwgIjUiLCAiNiIsICI3IiwKPj4+Pj4gKyAgICAgICAgICAgICAgICAi
-OCIsICI5IiwgIjEwIiwgIjExIiwgIjEyIiwgIjEzIiwgIjE0IiwKPj4+Pj4gKyAgICAgICAgICAg
-ICAgICAiMTUiIF0KPj4+Pgo+Pj4+IEZ1bmN0aW9uIHdoaWNoIGhhcyBhIG51bWJlciBpcyBub3Qg
-cmVhbGx5IHVzZWZ1bC4gV2hhdCBkb2VzIGl0IGV2ZW4gZXhwcmVzcz8KPj4+Cj4+PiBBcyBzYWlk
-IGluIG15IHByZXZpb3VzIGFuc3dlciwgZnVuY3Rpb24gbmFtZXMgYXJlIHZlcnkgZGlmZmVyZW50
-IGZyb20KPj4+IG9uZSBwbGF0Zm9ybSB0byBhbm90aGVyLiBOdW1iZXJzIHdlcmUgdXNlZCBhcyBz
-dHJpbmcgdG8gYmUgZ2VuZXJpYy4KPj4+IEknbGwgY29uc2lkZXIgaXQgaW4gYSBWMi4KPj4KPj4g
-V2hhdCBkb2VzIGl0IG1lYW4gIm9uZSBwbGF0Zm9ybSB0byBhbm90aGVyIj8gVGhpcyBpcyBvbmUg
-cGxhdGZvcm0hIElzCj4+IHRoaXMgc29tZSBzb3J0IG9mIGNvbnRpbnVhdGlvbiBvZiBTb0MgY29t
-cGF0aWJsZSBtZXNzPwo+IAo+IEkgbWF5IHVzZWQgaW5jb3JyZWN0bHkgdGhlIHdvcmQgcGxhdGZv
-cm0uCj4gVGhpcyBkcml2ZXIgaXMgdGhlIHNhbWUgZm9yIHRoZSB0aHJlZSBTb0MgZmFtaWxpZXMg
-U1RNMzJNUDEzLCBTVE0zMk1QMTUgCgpUaGF0J3MgZHJpdmVyIGFuZCBpdCBpcyBmaW5lLCBidXQg
-d2UgdGFsayBhYm91dCBoYXJkd2FyZSBoZXJlLiBUaGUKYmluZGluZyBpcyBmb3IgZ2l2ZW4gc3Bl
-Y2lmaWMgaGFyZHdhcmUuCgo+IGFuZCBTVE0zMk1QMjUgYmVjYXVzZSB0aGUgaGFyZHdhcmUgaXMg
-bW9zdGx5IHRoZSBzYW1lLgo+IAo+IFdoeSBtb3N0bHkgPwo+IAo+IFRoZSBwZXJpcGhlcmFsIGlz
-IGJlaGF2aW5nIGFzIGEgbXV4LCB0aGVyZSBhcmUgOCBIRFAgcG9ydHMsIGZvciBlYWNoIAo+IHBv
-cnQgdGhlcmUgaXMgdXAgdG8gMTYgcG9zc2libGUgaGFyZHdhcmUgc2lnbmFscy4gTnVtYmVyZWQg
-ZnJvbSAwIHRvIDE1Lgo+IEVhY2ggb2YgdGhpcyBudW1iZXIgcmVwcmVzZW50IGEgc2lnbmFsIG9u
-IHRoZSBwb3J0Lgo+IAo+IEJ1dCB0aGUgaGFyZHdhcmUgc2lnbmFsIGJlaGluZCB0aGUgbnVtYmVy
-IGlzIG5vdCB0aGUgc2FtZSBmcm9tIG9uZSBTb0MgCj4gZmFtaWx5IHRvIGFub3RoZXIuCj4gQXMg
-ZXhhbXBsZSwgaW4gU1RNMzJNUDE1IGZhbWlseSB0aGUgSERQIGlzIGFibGUgdG8gb3V0cHV0IEdQ
-VSBoYXJkd2FyZSAKPiBzaWduYWxzIGJlY2F1c2UgdGhlIGZhbWlseSBoYXMgYSBHUFUgYnV0IGlu
-IHRoZSBTVE0zMk1QMTMgZmFtaWx5IHRoaXMgCj4gc2lnbmFsIGlzIG5vdCBwcmVzZW50LgoKSXQg
-bG9va3MgbGlrZSB5b3UgaGF2ZSBjbGVhciBtYXBwaW5nIGJldHdlZW4gZnVuY3Rpb24gYW5kIHBv
-cnQgbnVtYmVyCih5b3VyIGhlYWRlciBhbHNvIHN1Z2dlc3RzIHRoYXQpLCBzbyB0aGUgZnVuY3Rp
-b24gcHJvcGVydHkgc2hvdWxkIGZvbGxvdwp0aGF0IHVzZXItdmlzaWJsZSBmdW5jdGlvbi4KCkp1
-c3QgbGlrZSB3ZSBkbyBmb3IgbWFueSBvdGhlciBhcmNoaXRlY3R1cmVzIC0gaXQgaXMgbm90IHRo
-YXQgdmVyeSwgdmVyeQpkaWZmZXJlbnQsIEkgdGhpbmsuIGFsbCBvZiBwbGF0Zm9ybSBoYXJkd2Fy
-ZXMgZG8gbm90IG9wZXJhdGUgb24gc3RyaW5ncwpidXQgc29tZSBiaXRzIGluIHJlZ2lzdGVycyAo
-c28gbnVtYmVycykgYnV0IGFsbCAoaWRlYWxseSkgYmluZGluZ3MKb3BlcmF0ZSBvbiBzdHJpbmdz
-LiBZb3UgY3JlYXRlZCBoZXJlIGV4Y2VwdGlvbiBvbiBiYXNpcyB0aGlzIGlzIHNvbWVob3cKc3Bl
-Y2lhbCwgYnV0IHRoZSBwb2ludCBpczogaXQgaXMgbm90IHNwZWNpYWwuCgo+IAo+IFRoZSBwdXJw
-b3NlIG9mIG15IGhlbHBlcnMgd2FzIHRvIGdpdmUgYSByZWFkYWJsZSBuYW1lIHRvIGZhY2lsaXRh
-dGUgdGhlIAo+IGNvbmZpZ3VyYXRpb24gaW4gYm9hcmRzIGRldmljZXRyZWUncy4gSWYgbmVlZGVk
-IEkgY2FuIGdldCByaWQgb2YgdGhhdCAKPiBhbmQgdXNlIG9ubHkgdGhlIG51bWJlciBhcyBzdHJp
-bmcuCgpJZiB5b3UgdXNlICJuYW1lcyIgeW91IGRvIG5vdCBuZWVkIGV2ZW4gdGhhdCBoZWxwZXIg
-aGVhZGVyLgoKPiAKPj4gV2hhdCBhcmUgdGhlIGV4YWN0IGZ1bmN0aW9ucyB3cml0dGVuIGluIGRh
-dGFzaGVldD8KPiAKPiBUaGUgZXhhY3QgZnVuY3Rpb25zIG5hbWUgd3JpdHRlbiBpbiB0aGUgZGF0
-YXNoZWV0IGFyZSB0aGUgb25lcyBvZiBteSAKPiBoZWxwZXIgZmlsZSB3aXRob3V0IHRoZSBIRFAg
-cHJlZml4LgoKc28gZnVsbCBzdHJpbmdzICJwd3JfcHdyd2FrZV9zeXMiIGFuZCB0aGVzZSBzaG91
-bGQgYmUgdXNlZC4KCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 26/02/2025 10:33, Alexandre TORGUE wrote:
+>>>>> +		hdp: pinctrl@44090000 {
+>>>>> +			compatible = "st,stm32mp-hdp";
+>>>>
+>>>> So here again - you have stm32mp251 SoC, but use entirely different
+>>>> compatible.
+>>>
+>>> Ok so I will use "st,stm32mp15-hdp"
+>>
+>>
+>> This means this is stm32mp15 SoC. I do not see such SoC on list of your
+>> SoCs in bindings. What's more, there are no bindings for other SoC
+>> components for stm32mp15!
+> 
+> Yes stm32mp15 is not a "real SoC". I agree that at the beginning of the 
+> STM32 story we didn't have a clear rule/view to correctly naming our 
+> compatible. We tried to improve the situation to avoid compatible like 
+> "st,stm32", "st,stm32mp" or "st,stm32mp1". So we introduced 
+> "st,stm32mp13", "st,stm32mp15" or "st,stm32mp25" for new drivers. So yes 
+> it represents a SoC family and not a real SoC. We haven't had much 
+> negative feedback it.
+> 
+> But, if it's not clean to do it in this way, lets define SoC compatible 
+> for any new driver.
+
+Compatibles are for hardware.
+
+> For the HDP case it is: "st,stm32mp157" and used for STM32MP13, 
+> STM32MP15 end STM32MP25 SoC families (if driver is the same for all 
+> those SoCs).
+
+No, it's three compatibles, because you have three SoCs. BTW, writing
+bindings (and online resources and previous reviews and my talks) are
+saying that, so we do not ask for anything new here, anything different.
+At least not new when looking at last 5 years, because 10 years ago many
+rules were relaxed...
+
+
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
