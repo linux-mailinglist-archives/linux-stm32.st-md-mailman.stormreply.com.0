@@ -2,45 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D822A45DE5
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 12:55:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92BCA45E89
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 13:20:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0894C7A831;
-	Wed, 26 Feb 2025 11:55:49 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CAB4C7A830
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 618F3C7A831;
+	Wed, 26 Feb 2025 12:20:13 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39E2BC7A820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 11:55:48 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCD60106F;
- Wed, 26 Feb 2025 03:56:03 -0800 (PST)
-Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BB17A3F6A8;
- Wed, 26 Feb 2025 03:55:45 -0800 (PST)
-Message-ID: <abad8cd1-2436-416b-9db8-3c5e9eb38d73@arm.com>
-Date: Wed, 26 Feb 2025 11:55:40 +0000
+ Wed, 26 Feb 2025 12:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=bZlwIOxkAACUPrshgQHP61y/YpLPScyN6eb23KhD2xM=; b=I93yfmCNTOJXyvpcdVodzhVYqQ
+ 0VWn5iCDf9O8PsZH/JLw8zF8L9kNKW3Zq/seBdz4VP0ERhNRIrXfekRUh18IM4BPbxsYDT9wKibvl
+ Hk5TbcjcjIHyLC/adSlGeXSi2sI+X2qWT6RAY4kqiDzvaFAa+TS3lXPvwj5/OOleV18CCVLTRoh3g
+ ugEdNUXe22F+MGuVrbn1BPPkeOJ3GB3ZQqeU+M3D5AOXCKnLBHYeBrSpRWj58nQx2Xzu2KJWFzTiU
+ F63dJyLsyB4SKsSKJ/ET8l3F7tgKpUfo40Sa/1r6O24qoWaGOP/o+gnuLwxVmrHUEccpFCpuJXMIy
+ ZNGNB3CA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59272)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tnGOM-0004Bm-0r;
+ Wed, 26 Feb 2025 12:19:58 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tnGOF-00074L-06;
+ Wed, 26 Feb 2025 12:19:51 +0000
+Date: Wed, 26 Feb 2025 12:19:50 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Thierry Reding <thierry.reding@gmail.com>
+Message-ID: <Z78G5tqpMrsm8iUD@shell.armlinux.org.uk>
+References: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
+ <E1tkLYv-004RZ7-Ot@rmk-PC.armlinux.org.uk>
+ <qcarhmsd6u33ij4kupaiyxvyr7jxxv2uxvr6jsnhxjd3o3axkt@z4m3zvdpxogb>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jie Gan <quic_jiegan@quicinc.com>, Mike Leach <mike.leach@linaro.org>,
- James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+Content-Disposition: inline
+In-Reply-To: <qcarhmsd6u33ij4kupaiyxvyr7jxxv2uxvr6jsnhxjd3o3axkt@z4m3zvdpxogb>
+Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
+ Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250226041342.53933-1-quic_jiegan@quicinc.com>
- <20250226041342.53933-3-quic_jiegan@quicinc.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20250226041342.53933-3-quic_jiegan@quicinc.com>
-Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v14 02/10] Coresight: Add trace_id
- function to retrieving the trace ID
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Minda Chen <minda.chen@starfivetech.com>, linux-arm-kernel@lists.infradead.org,
+ Thierry Reding <treding@nvidia.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 3/7] net: stmmac:
+ dwc-qos-eth: use generic stmmac_set_clk_tx_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,226 +70,108 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 26/02/2025 04:13, Jie Gan wrote:
-> Add 'trace_id' function pointer in coresight_ops. It's responsible for retrieving
-> the device's trace ID.
+On Tue, Feb 25, 2025 at 09:35:52PM +0100, Thierry Reding wrote:
+> On Tue, Feb 18, 2025 at 11:14:49AM +0000, Russell King (Oracle) wrote:
+> > Use the generic stmmac_set_clk_tx_rate() to configure the MAC transmit
+> > clock.
+> > 
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > ---
+> >  .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 10 ++--------
+> >  1 file changed, 2 insertions(+), 8 deletions(-)
 > 
-> Co-developed-by: James Clark <james.clark@linaro.org>
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> Reviewed-by: James Clark <james.clark@linaro.org>
-> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
-> ---
->   drivers/hwtracing/coresight/coresight-core.c  | 27 +++++++++++++++++++
->   drivers/hwtracing/coresight/coresight-dummy.c | 13 ++++++++-
->   .../coresight/coresight-etm3x-core.c          |  1 +
->   .../coresight/coresight-etm4x-core.c          |  1 +
->   drivers/hwtracing/coresight/coresight-stm.c   | 11 ++++++++
->   drivers/hwtracing/coresight/coresight-tpda.c  | 11 ++++++++
->   include/linux/coresight.h                     |  5 ++++
->   7 files changed, 68 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index 0a9380350fb5..6cad777757f3 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -23,6 +23,7 @@
->   #include "coresight-etm-perf.h"
->   #include "coresight-priv.h"
->   #include "coresight-syscfg.h"
-> +#include "coresight-trace-id.h"
->   
->   /*
->    * Mutex used to lock all sysfs enable and disable actions and loading and
-> @@ -1515,6 +1516,32 @@ void coresight_remove_driver(struct amba_driver *amba_drv,
->   }
->   EXPORT_SYMBOL_GPL(coresight_remove_driver);
->   
-> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
-> +			       struct coresight_device *sink)
-> +{
-> +	int trace_id;
-> +	int cpu = source_ops(csdev)->cpu_id(csdev);
-> +
-> +	switch (mode) {
-> +	case CS_MODE_SYSFS:
-> +		trace_id = coresight_trace_id_get_cpu_id(cpu);
-> +		break;
-> +	case CS_MODE_PERF:
+> Reviewed-by: Thierry Reding <treding@nvidia.com>
 
-Please could we handle a case where "sink" may be passed NULL ?
+Hi Thierry,
 
-		if (WARN_ON(!sink))
-			return -EINVAL;
+Please note that things changed in this patch as a result of:
 
-Sorry, didn't spot that in the last review.
+cff608268baf net: stmmac: dwc-qos: name struct plat_stmmacenet_data consistently
 
-Suzuki
+which has now been merged. Are you still happy for me to add your
+r-b? The current patch is below.
+
+8<===
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH net-next] net: stmmac: dwc-qos: use generic
+ stmmac_set_clk_tx_rate()
+
+Use the generic stmmac_set_clk_tx_rate() to configure the MAC transmit
+clock.
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index 6cadf24a575c..3f0f4ea6cf2e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -30,7 +30,6 @@ struct tegra_eqos {
+ 
+ 	struct reset_control *rst;
+ 	struct clk *clk_slave;
+-	struct clk *clk_tx;
+ 
+ 	struct gpio_desc *reset;
+ };
+@@ -150,7 +149,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+ {
+ 	struct tegra_eqos *eqos = priv;
+ 	bool needs_calibration = false;
+-	long rate = 125000000;
+ 	u32 value;
+ 	int err;
+ 
+@@ -161,7 +159,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+ 		fallthrough;
+ 
+ 	case SPEED_10:
+-		rate = rgmii_clock(speed);
+ 		break;
+ 
+ 	default:
+@@ -208,10 +205,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+ 		value &= ~AUTO_CAL_CONFIG_ENABLE;
+ 		writel(value, eqos->regs + AUTO_CAL_CONFIG);
+ 	}
+-
+-	err = clk_set_rate(eqos->clk_tx, rate);
+-	if (err < 0)
+-		dev_err(eqos->dev, "failed to set TX rate: %d\n", err);
+ }
+ 
+ static int tegra_eqos_init(struct platform_device *pdev, void *priv)
+@@ -247,7 +240,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
+ 	if (!is_of_node(dev->fwnode))
+ 		goto bypass_clk_reset_gpio;
+ 
+-	eqos->clk_tx = dwc_eth_find_clk(plat_dat, "tx");
++	plat_dat->clk_tx_i = dwc_eth_find_clk(plat_dat, "tx");
+ 
+ 	eqos->reset = devm_gpiod_get(&pdev->dev, "phy-reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(eqos->reset)) {
+@@ -281,6 +274,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
+ 
+ bypass_clk_reset_gpio:
+ 	plat_dat->fix_mac_speed = tegra_eqos_fix_speed;
++	plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+ 	plat_dat->init = tegra_eqos_init;
+ 	plat_dat->bsp_priv = eqos;
+ 	plat_dat->flags |= STMMAC_FLAG_SPH_DISABLE;
+-- 
+2.30.2
 
 
-> +		trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
-
-> +		break;
-> +	default:
-> +		trace_id = -EINVAL;
-> +		break;
-> +	}
-> +
-> +	if (!IS_VALID_CS_TRACE_ID(trace_id))
-> +		dev_err(&csdev->dev,
-> +			"Failed to allocate trace ID on CPU%d\n", cpu);
-> +
-> +	return trace_id;
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_etm_get_trace_id);
-> +
->   MODULE_LICENSE("GPL v2");
->   MODULE_AUTHOR("Pratik Patel <pratikp@codeaurora.org>");
->   MODULE_AUTHOR("Mathieu Poirier <mathieu.poirier@linaro.org>");
-> diff --git a/drivers/hwtracing/coresight/coresight-dummy.c b/drivers/hwtracing/coresight/coresight-dummy.c
-> index 9be53be8964b..b5692ba358c1 100644
-> --- a/drivers/hwtracing/coresight/coresight-dummy.c
-> +++ b/drivers/hwtracing/coresight/coresight-dummy.c
-> @@ -41,6 +41,16 @@ static void dummy_source_disable(struct coresight_device *csdev,
->   	dev_dbg(csdev->dev.parent, "Dummy source disabled\n");
->   }
->   
-> +static int dummy_source_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
-> +				 __maybe_unused struct coresight_device *sink)
-> +{
-> +	struct dummy_drvdata *drvdata;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +
-> +	return drvdata->traceid;
-> +}
-> +
->   static int dummy_sink_enable(struct coresight_device *csdev, enum cs_mode mode,
->   				void *data)
->   {
-> @@ -62,7 +72,8 @@ static const struct coresight_ops_source dummy_source_ops = {
->   };
->   
->   static const struct coresight_ops dummy_source_cs_ops = {
-> -	.source_ops = &dummy_source_ops,
-> +	.trace_id	= dummy_source_trace_id,
-> +	.source_ops	= &dummy_source_ops,
->   };
->   
->   static const struct coresight_ops_sink dummy_sink_ops = {
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> index c103f4c70f5d..c1dda4bc4a2f 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> @@ -704,6 +704,7 @@ static const struct coresight_ops_source etm_source_ops = {
->   };
->   
->   static const struct coresight_ops etm_cs_ops = {
-> +	.trace_id	= coresight_etm_get_trace_id,
->   	.source_ops	= &etm_source_ops,
->   };
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> index 2c1a60577728..cfd116b87460 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> @@ -1067,6 +1067,7 @@ static const struct coresight_ops_source etm4_source_ops = {
->   };
->   
->   static const struct coresight_ops etm4_cs_ops = {
-> +	.trace_id	= coresight_etm_get_trace_id,
->   	.source_ops	= &etm4_source_ops,
->   };
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index b581a30a1cd9..aca25b5e3be2 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -281,12 +281,23 @@ static void stm_disable(struct coresight_device *csdev,
->   	}
->   }
->   
-> +static int stm_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
-> +			__maybe_unused struct coresight_device *sink)
-> +{
-> +	struct stm_drvdata *drvdata;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +
-> +	return drvdata->traceid;
-> +}
-> +
->   static const struct coresight_ops_source stm_source_ops = {
->   	.enable		= stm_enable,
->   	.disable	= stm_disable,
->   };
->   
->   static const struct coresight_ops stm_cs_ops = {
-> +	.trace_id	= stm_trace_id,
->   	.source_ops	= &stm_source_ops,
->   };
->   
-> diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
-> index 189a4abc2561..68079169b11b 100644
-> --- a/drivers/hwtracing/coresight/coresight-tpda.c
-> +++ b/drivers/hwtracing/coresight/coresight-tpda.c
-> @@ -241,12 +241,23 @@ static void tpda_disable(struct coresight_device *csdev,
->   	dev_dbg(drvdata->dev, "TPDA inport %d disabled\n", in->dest_port);
->   }
->   
-> +static int tpda_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
-> +			 __maybe_unused struct coresight_device *sink)
-> +{
-> +	struct tpda_drvdata *drvdata;
-> +
-> +	drvdata = dev_get_drvdata(csdev->dev.parent);
-> +
-> +	return drvdata->atid;
-> +}
-> +
->   static const struct coresight_ops_link tpda_link_ops = {
->   	.enable		= tpda_enable,
->   	.disable	= tpda_disable,
->   };
->   
->   static const struct coresight_ops tpda_cs_ops = {
-> +	.trace_id	= tpda_trace_id,
->   	.link_ops	= &tpda_link_ops,
->   };
->   
-> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-> index 157c4bd009a1..ce89ad24c2a2 100644
-> --- a/include/linux/coresight.h
-> +++ b/include/linux/coresight.h
-> @@ -335,6 +335,7 @@ enum cs_mode {
->   	CS_MODE_PERF,
->   };
->   
-> +#define coresight_ops(csdev)	csdev->ops
->   #define source_ops(csdev)	csdev->ops->source_ops
->   #define sink_ops(csdev)		csdev->ops->sink_ops
->   #define link_ops(csdev)		csdev->ops->link_ops
-> @@ -410,6 +411,8 @@ struct coresight_ops_helper {
->   };
->   
->   struct coresight_ops {
-> +	int (*trace_id)(struct coresight_device *csdev, enum cs_mode mode,
-> +			struct coresight_device *sink);
->   	const struct coresight_ops_sink *sink_ops;
->   	const struct coresight_ops_link *link_ops;
->   	const struct coresight_ops_source *source_ops;
-> @@ -697,4 +700,6 @@ int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
->   
->   void coresight_remove_driver(struct amba_driver *amba_drv,
->   			     struct platform_driver *pdev_drv);
-> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
-> +			       struct coresight_device *sink);
->   #endif		/* _LINUX_COREISGHT_H */
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
