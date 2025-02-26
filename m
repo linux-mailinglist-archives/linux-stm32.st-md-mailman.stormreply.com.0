@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BACFEA458EC
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 09:52:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4BFA458EE
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 09:52:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E6EDC7A830;
-	Wed, 26 Feb 2025 08:52:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88E0BC7A830;
+	Wed, 26 Feb 2025 08:52:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9848FC7A82F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E87F0C7A82F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 08:52:25 +0000 (UTC)
+ Wed, 26 Feb 2025 08:52:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A82395C2771;
- Wed, 26 Feb 2025 08:51:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5C4C4CEF6;
- Wed, 26 Feb 2025 08:52:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 935EC61291;
+ Wed, 26 Feb 2025 08:52:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F16C4CEE7;
+ Wed, 26 Feb 2025 08:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740559944;
- bh=XHzsxcNRyzu969GVfBaBMQi0w2xQRXFs1QAQkqGdpgg=;
+ s=k20201202; t=1740559948;
+ bh=lIHNdIK6hPFeIvlmwhxstmnP1ls57wGiXfAx3JVAMPs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DfmwfQyPXr938AnGXS1WVjh5l+UFUW3/P9KbawLcNl53rjOUXP1pt9QvuBO2557L2
- /jDlIi8gf+cziocJi9ts3Ea7UibMNuQlUyRZD7b+GZrFXtncAZe30aiEVmqdcjaO4b
- MtH23sHIcpA4qHgbmLS3ncl18WmCQAtxv3OZLqjToXkWQl0BPruKeMRHv0O97lyhQq
- TvoEf884VG7bZTPY0gGrRi4YxNl4n+6sgwz0zsx8emGm2DOchMcCFi9gXe8ki+lqVG
- tbdMSdghJjXOS2p1KybYeUIsvOD3zxYdn/zmAEZtVmu7P//kJKUEBIYZpNE7h48gEv
- Bg3g9g6x5291A==
+ b=gTowQrOCigkrCNEJ5MDYX1TfpdKJ7irp6D2SLGUimP7EB2DjqC7qTbvC6zHn4rxHk
+ RV19+A7GI2mMdDQkBp+7lzM0p6WVpS9bOD3qG6Z9GKvrKjVguv9I8XsCGRAW9wkkDl
+ AcVCmDTWJviFwngRasFTH6OnLXQqr3Nbp4/ohqCAoTuh0jiYEIFLHo3ugM0Gdy0gME
+ cT1tdRfMOVMo6eeWmuELYJTv4yX5OSgbmR3Ca29QAif/ibjrYV3HZq2g87/8SDfzn/
+ k588T+6J+wTzvACZyu0kPuFjRzfv7nsQoHLsmjSA1UiCVKeBez2s7d8BYHIScSni3n
+ 80oSu7NeH49/A==
 From: Philipp Stanner <phasta@kernel.org>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>,
@@ -40,8 +40,8 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Feiyang Chen <chenfeiyang@loongson.cn>,
  Philipp Stanner <pstanner@redhat.com>,
  Jiaxun Yang <jiaxun.yang@flygoat.com>, Qing Zhang <zhangqing@loongson.cn>
-Date: Wed, 26 Feb 2025 09:52:06 +0100
-Message-ID: <20250226085208.97891-3-phasta@kernel.org>
+Date: Wed, 26 Feb 2025 09:52:07 +0100
+Message-ID: <20250226085208.97891-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250226085208.97891-1-phasta@kernel.org>
 References: <20250226085208.97891-1-phasta@kernel.org>
@@ -49,9 +49,9 @@ MIME-Version: 1.0
 Cc: Philipp Stanner <phasta@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Henry Chen <chenx97@aosc.io>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Huacai Chen <chenhuacai@loongson.cn>
-Subject: [Linux-stm32] [PATCH net-next v4 2/4] stmmac: loongson: Remove
-	surplus loop
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v4 3/4] stmmac: Remove pcim_*
+	functions for driver detach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,53 +68,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-loongson_dwmac_probe() contains a loop which doesn't have an effect,
-because it tries to call pcim_iomap_regions() with the same parameters
-several times. The break statement at the loop's end furthermore ensures
-that the loop only runs once anyways.
+Functions prefixed with "pcim_" are managed devres functions which
+perform automatic cleanup once the driver unloads. It is, thus, not
+necessary to call any cleanup functions in remove() callbacks.
 
-Remove the surplus loop.
+Remove the pcim_ cleanup function calls in the remove() callbacks.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 Tested-by: Henry Chen <chenx97@aosc.io>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-loongson.c    | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c |  8 --------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c     | 12 +-----------
+ 2 files changed, 1 insertion(+), 19 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 73a6715a93e6..e2959ac5c1ca 100644
+index e2959ac5c1ca..5d7746d787ac 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -524,7 +524,7 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 	struct stmmac_pci_info *info;
- 	struct stmmac_resources res;
+@@ -603,7 +603,6 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
+ 	struct net_device *ndev = dev_get_drvdata(&pdev->dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
  	struct loongson_data *ld;
--	int ret, i;
-+	int ret;
+-	int i;
  
- 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
- 	if (!plat)
-@@ -554,14 +554,9 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 	pci_set_master(pdev);
+ 	ld = priv->plat->bsp_priv;
+ 	stmmac_dvr_remove(&pdev->dev);
+@@ -614,13 +613,6 @@ static void loongson_dwmac_remove(struct pci_dev *pdev)
+ 	if (ld->loongson_id == DWMAC_CORE_LS_MULTICHAN)
+ 		loongson_dwmac_msi_clear(pdev);
  
- 	/* Get the base address of device */
 -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
 -		if (pci_resource_len(pdev, i) == 0)
 -			continue;
--		ret = pcim_iomap_regions(pdev, BIT(0), DRIVER_NAME);
--		if (ret)
--			goto err_disable_device;
+-		pcim_iounmap_regions(pdev, BIT(i));
 -		break;
 -	}
-+	ret = pcim_iomap_regions(pdev, BIT(0), DRIVER_NAME);
-+	if (ret)
-+		goto err_disable_device;
+-
+ 	pci_disable_device(pdev);
+ }
  
- 	memset(&res, 0, sizeof(res));
- 	res.addr = pcim_iomap_table(pdev)[0];
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+index 352b01678c22..1637c8139b9d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
+@@ -226,21 +226,11 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
+  * stmmac_pci_remove
+  *
+  * @pdev: platform device pointer
+- * Description: this function calls the main to free the net resources
+- * and releases the PCI resources.
++ * Description: this function calls the main to free the net resources.
+  */
+ static void stmmac_pci_remove(struct pci_dev *pdev)
+ {
+-	int i;
+-
+ 	stmmac_dvr_remove(&pdev->dev);
+-
+-	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+-		if (pci_resource_len(pdev, i) == 0)
+-			continue;
+-		pcim_iounmap_regions(pdev, BIT(i));
+-		break;
+-	}
+ }
+ 
+ static int __maybe_unused stmmac_pci_suspend(struct device *dev)
 -- 
 2.48.1
 
