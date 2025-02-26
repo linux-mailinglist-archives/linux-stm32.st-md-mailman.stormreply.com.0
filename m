@@ -2,36 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4491AA46D66
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 22:27:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE88A46D7F
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 22:31:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09763C7A830;
-	Wed, 26 Feb 2025 21:27:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51A99C7A832;
+	Wed, 26 Feb 2025 21:31:27 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D8B8C78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BB45C7A830
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 21:27:35 +0000 (UTC)
+ Wed, 26 Feb 2025 21:31:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A77355C6076;
- Wed, 26 Feb 2025 21:26:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCCDFC4CED6;
- Wed, 26 Feb 2025 21:27:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5E2F15C6C1F;
+ Wed, 26 Feb 2025 21:30:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31AF5C4CEE7;
+ Wed, 26 Feb 2025 21:31:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740605254;
- bh=QBF3gK7K+8XyqisYuWi4FlxcFrpOykFsHbOMdaD+jO8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Cy1LDM2s4HzDSgUGAmgr/JODHJxrsVjMMNP/47jQ1He4q+kNlS0GKvfQY2too9PXW
- yUrxWuKyke82/OhQjxZBrQ7WOEBymVivlqTaVZXTD/nA5/M2EGz2BOu4Czy9QkHeWq
- B9UpDihHPXzd0gmJYpWlSQxq1cxiriOkoeOGox//dGyotChkUWCwnD0QTz919exoLx
- hhCXg85BQvMCbUriEhSDswVwvL7bObC5J2UeCTm+mZq4Ton1yjlfz+Z2yjK6EJOx0x
- Wvqa7TmHAMWxCzqqmpzo6FVjNclNKEmBs/bo1saxMBnPGZ7PACJM1uXMEkxlGRgmxx
- DdO4Z8rL3LuTg==
-Message-ID: <1de58672-5355-4b75-99f4-c48687017d2f@kernel.org>
-Date: Wed, 26 Feb 2025 22:27:26 +0100
+ s=k20201202; t=1740605484;
+ bh=PRE/A1VqtcxDcp5QHrfXCdxA0NkFgqWuo0KK3OU5E/o=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=VbT+32uoi+S966XSIV43IVdHDOCkoR4xt4GkRsdG5Gfx0l/lk1OZaGmab0b9KJBJH
+ PPnRDqjW1RQZPJl35PtQKX7iCuxXhRoCatilQzGbYf3TRETC4bv+lfwo/fgLQldyhf
+ dNwjEvsTbU5kS2bPjXX7kHW6Vm4MAbhYCsNw0GgRaHR4sAADfynFS1pdGgH/fTHzNn
+ MVInle6Att2aa+UNdkDx41uw3/9Fqxslx/pRhfaEUavE57Ai6nypu1uqF/CtDnmzEC
+ InDnIgYKUi+0s2+ZiBWM0fk7yk5IBnq/IWJvlLg/V3SXnAtftMVIhixKbYmmNwbMJw
+ FXDXX4fOk9O3g==
+Message-ID: <17450f7d-d398-4a75-8b53-6c9c396661ab@kernel.org>
+Date: Wed, 26 Feb 2025 22:31:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
  Clement LE GOFFIC <clement.legoffic@foss.st.com>,
  Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
@@ -46,8 +47,7 @@ References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
  <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
  <55beb3e7-65ac-4145-adae-fb064378c78d@kernel.org>
  <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
- <248f63ff-b6ec-4f58-8a96-7aee2fcd6038@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <48cc626a-d632-444f-8563-07a9ea0ecc71@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -92,7 +92,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <248f63ff-b6ec-4f58-8a96-7aee2fcd6038@foss.st.com>
+In-Reply-To: <48cc626a-d632-444f-8563-07a9ea0ecc71@kernel.org>
 Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
@@ -114,7 +114,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 26/02/2025 17:54, Alexandre TORGUE wrote:
+On 26/02/2025 22:26, Krzysztof Kozlowski wrote:
+> On 26/02/2025 16:30, Alexandre TORGUE wrote:
+>>
+>>
+>> On 2/26/25 16:08, Krzysztof Kozlowski wrote:
+>>> On 26/02/2025 10:33, Alexandre TORGUE wrote:
+>>>>>>>> +		hdp: pinctrl@44090000 {
+>>>>>>>> +			compatible = "st,stm32mp-hdp";
+>>>>>>>
+>>>>>>> So here again - you have stm32mp251 SoC, but use entirely different
+>>>>>>> compatible.
+>>>>>>
+>>>>>> Ok so I will use "st,stm32mp15-hdp"
+>>>>>
+>>>>>
+>>>>> This means this is stm32mp15 SoC. I do not see such SoC on list of your
+>>>>> SoCs in bindings. What's more, there are no bindings for other SoC
+>>>>> components for stm32mp15!
+>>>>
+>>>> Yes stm32mp15 is not a "real SoC". I agree that at the beginning of the
+>>>> STM32 story we didn't have a clear rule/view to correctly naming our
+>>>> compatible. We tried to improve the situation to avoid compatible like
+>>>> "st,stm32", "st,stm32mp" or "st,stm32mp1". So we introduced
+>>>> "st,stm32mp13", "st,stm32mp15" or "st,stm32mp25" for new drivers. So yes
+>>>> it represents a SoC family and not a real SoC. We haven't had much
+>>>> negative feedback it.
+>>>>
 >>>> But, if it's not clean to do it in this way, lets define SoC compatible
 >>>> for any new driver.
 >>>
@@ -131,20 +157,34 @@ On 26/02/2025 17:54, Alexandre TORGUE wrote:
 >>> rules were relaxed...
 >>
 >> So adding 3 times the same IP in 3 different SoCs implies to have 3 
+> 
+> Yes. Always, as requested by writing bindings.
+> 
 >> different compatibles. So each time we use this same IP in a new SoC, we 
 >> have to add a new compatible. My (wrong) understanding was: as we have 
+> 
+> Yes, as requested by writing bindings and followed up by all recent
+> platforms having decent/active upstream support. See qcom, nxp, renesas
+> for example.
+> 
 >> the same IP (same hardware) in each SoC we have the same compatible (and 
+> 
+> You do not have same hardware. You have same IP, or almost same because
+> they are almost never same, implemented in different hardware.
+> 
 >> IP integration differences (clocks, interrupts) are handled by DT 
 >> properties.
 > 
-> Just to complete, reading the Linux kernel doc, as device are same we 
-> will use fallbacks like this:
-> 
-> MP15: compatible = "st,stm32mp151-hdp";
-> MP13: compatible = "st,stm32mp131-hdp", "st,stm32mp151-hdp";
-> MP25: compatible = "st,stm32mp251-hdp", "st,stm32mp151-hdp";
+> Which binding doc/guide suggested such way? Countless reviews from DT
+> maintainers were saying opposite.
+I was not precise: IP integration differences are of course handles as
+DT properties, but I wanted to say that it does not solve the problem
+that IP integration means you might have differences in this device and
+you should have different quirks.
 
-Yes, this looks correct.
+And the example in this patchset: entirely different pin functions is a
+proof. This device behaves/operates/integrates differently, thus
+different compatible.
 
 Best regards,
 Krzysztof
