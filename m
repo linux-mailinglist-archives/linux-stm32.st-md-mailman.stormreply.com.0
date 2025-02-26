@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6E9A45713
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:51:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBB01A4572C
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:54:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C873C7A82F;
-	Wed, 26 Feb 2025 07:51:30 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0C72C7A82F;
+	Wed, 26 Feb 2025 07:54:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9478EC7A82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EECC6C7A82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 07:51:28 +0000 (UTC)
+ Wed, 26 Feb 2025 07:54:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C19385C3F42;
- Wed, 26 Feb 2025 07:50:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07280C4CEE2;
- Wed, 26 Feb 2025 07:51:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5960661283;
+ Wed, 26 Feb 2025 07:54:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE84C4CED6;
+ Wed, 26 Feb 2025 07:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740556287;
- bh=9eFHXpGsf3ECjgV3E67TSiU05/e2Y8rXQci+VACk4XY=;
+ s=k20201202; t=1740556450;
+ bh=92ToKjMng5UJUg3byfnfnCY3Q+fzsJoKi/ZAArA68TU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=WlndDT8raEr4NnEzyhjKw9QpCmbUwYWGO60bPAtCHgbIIGRCOC5v095KILS2MqmgV
- Wu+tLLUHnZfeMzPnnEHduboaYP8tSAfZUNMMQmFzIr1525nsoN/lJ2u6/SWIhAwV2y
- FiEnK24nL8TAoWijHNI4/RDEeL4GVQkZjDM3VqEaP9o3hMeauMz7akBEydItfN0Xav
- aIIfIuD9exIcWIhTZlAGkMN14MJEacXCHmV49b17nskRmgfe4nYGbVqQ/gjt+7z8Wy
- CjVrTMbSENOprnPHAl+guVQ0Yz4de79CQuOUf4eiP1Ls0YAzjklhEe1hd0qRLUXDEw
- ZRc2oNA5Bkc+A==
-Message-ID: <8b42f0ad-2993-43b8-9055-6d74dc3bafbe@kernel.org>
-Date: Wed, 26 Feb 2025 08:51:19 +0100
+ b=ce6nZdwnF5HOI22QJhzYb5t8RwkQjtWsnao+FKm1SpQOChhAwFCdysaLhkPDn04Cv
+ NLqqqCVkdQ4hXH/0C8lupYVVQwdw74TRcto1HT22ydBm6UPA0aHHuiW3FCDrfBQiWj
+ YQTGu9w88jPqL5CC4ixAE41VGoRyTl8y/CUrrQMGB8G3VQN9BcaRzFbZJFCXw60UKx
+ T5X+8mD8ZR3+2UMmMa+BzJi5fp1TtWDewmKuZzXpJ7XiZhlbrlCi5Hl57n6l+O/Hir
+ /uD02db9EF+GZeXCdMQq1cmLZbL3oO4UHX082Akmi0g/thcbG2F68JUnBk6h+UkHSJ
+ jFIOpzoK8m2WA==
+Message-ID: <e15754dd-5f4e-424d-a3a9-308dae814708@kernel.org>
+Date: Wed, 26 Feb 2025 08:54:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
- <20250224180150.3689638-2-fabrice.gasnier@foss.st.com>
- <20250225-outgoing-scorpion-of-music-be0bea@krzk-bin>
- <acabacb8-8ea1-4b16-a562-8ffba64fdd36@foss.st.com>
+ <20250224180150.3689638-6-fabrice.gasnier@foss.st.com>
+ <20250225-psychedelic-iguana-of-education-d5fff7@krzk-bin>
+ <e309c016-4dcb-49e3-945e-54ddadfbddb8@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,15 +82,15 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <acabacb8-8ea1-4b16-a562-8ffba64fdd36@foss.st.com>
+In-Reply-To: <e309c016-4dcb-49e3-945e-54ddadfbddb8@foss.st.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
  linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  ukleinek@kernel.org, linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org,
  will@kernel.org, tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/8] dt-bindings: mfd: stm32-lptimer: add
- support for stm32mp25
+Subject: Re: [Linux-stm32] [PATCH 5/8] pwm: stm32-lp: add support for
+	stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,52 +107,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/02/2025 15:57, Fabrice Gasnier wrote:
-> On 2/25/25 13:02, Krzysztof Kozlowski wrote:
->> On Mon, Feb 24, 2025 at 07:01:43PM +0100, Fabrice Gasnier wrote:
->>>    pwm:
->>>      type: object
->>>      additionalProperties: false
+On 25/02/2025 15:58, Fabrice Gasnier wrote:
+> 
+> 
+> On 2/25/25 13:04, Krzysztof Kozlowski wrote:
+>> On Mon, Feb 24, 2025 at 07:01:47PM +0100, Fabrice Gasnier wrote:
+>>>  	}
 >>>  
->>>      properties:
->>>        compatible:
->>> -        const: st,stm32-pwm-lp
->>> +        enum:
->>> +          - st,stm32-pwm-lp
->>> +          - st,stm32mp25-pwm-lp
+>>>  	return pinctrl_pm_select_sleep_state(dev);
+>>> @@ -246,6 +413,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(stm32_pwm_lp_pm_ops, stm32_pwm_lp_suspend,
 >>>  
->>>        "#pwm-cells":
->>>          const: 3
->>> @@ -69,7 +76,9 @@ properties:
->>>  
->>>      properties:
->>>        compatible:
->>> -        const: st,stm32-lptimer-counter
->>> +        enum:
->>> +          - st,stm32-lptimer-counter
->>> +          - st,stm32mp25-lptimer-counter
+>>>  static const struct of_device_id stm32_pwm_lp_of_match[] = {
+>>>  	{ .compatible = "st,stm32-pwm-lp", },
+>>> +	{ .compatible = "st,stm32mp25-pwm-lp", },
 >>
->> Driver changes suggest many of these are compatible. Why isn't this expressed?
+>> No driver data suggests device is backwards compatible. Commit msg
+>> suggests not, so that's confusing.
 > 
-> Hi Krzysztof,
 > 
-> The Low Power Timer (LPTIM) hardware isn't fully backward compatible.
+> The LPTimer PWM driver takes benefit of the MFD parent driver to feed in
+> data, e.g. 'num_cc_chans'. Number of channels is now variable, on
+
+This means this ID table is useless. You do the matching via parent
+device, so stop growing the table and call it deprecated or something.
+
+> STM32MP25 (e.g. not a single channel). But it can't be hard-coded as
+> compatible data. (there's only 1 channel on earlier LP Timer hardware
+> revision).
 > 
-> At driver level, as indicated in the cover-letter, same feature list as
-> on STM32MP1x is supported currently. This is probably what makes it look
-> like it's compatible, but it's not fully compatible.
+> The hardware controller is a bit different, hence the new compatible
 
-I don't understand. Same feature list is supported means fully
-compatible, but you say not fully compatible. You are aware that
-compatible means not the same?
-
-> 
-> The hardware controller is a bit different. Some registers/bits has been
-> revisited among other things. This is the purpose for these new compatibles.
-
-We do not discuss new compatibles. We discuss lack of compatibility. If
-registers/bits are changed, how existing driver can work with same ID table?
-
+If it works with old compatible, it's an easy proof that it is
+compatible, so please counter argument that with something specific.
+What is different that driver cannot work with new device using old
+interface or old features?
 
 
 Best regards,
