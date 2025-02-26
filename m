@@ -2,168 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F734A46606
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 17:06:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B82CA46901
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 19:10:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC28FC7A832;
-	Wed, 26 Feb 2025 16:06:16 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 426BDC7A832;
+	Wed, 26 Feb 2025 18:10:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D53B4C7A831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5269BC7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 16:06:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AS31WtkQNT0xqw9QY4ahz8C4JVdslLMrAkguIVatCqni8k6Eg02gCfmmiaAzrUFZq3zaImr6Xfm5HDc3tZ4ClzetZG23Nubmn/JeUtusCHMacWJGCWZtwh+10u4Hy1UGGEWZezawT0+tLZpjrIZo1Jsj2Z8kM6MKw4kAg4vAI9OnCfA2RFRF2L7q6D/ZkoK4eH0RjY68xfE9S1oU6LzMd4v/UHdh9ir8zvwWaDPss82Ey5d01ujZCSF39qGzbphekha5hTvR+QpFYl4i5cNRIolX9+LKHXwMmlakhm0I2fEPZm/YiMmsBJ0UZiuT0CBhL1N6sGiQFfgTpRnZHPLiYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9GAv7KnsrTUkn0jHtFLhgqdTWfESGKdmqysIaPun+oE=;
- b=PphVgH1oB4XQHDMLw8Bsx2xjTQp9X5H4FGtACgPICBi4qYK2lhaD4BLKxshml1O4yXmr3N2fACTlSRzJ+Q4orKEm3hfI1CRm1REykou+xZjKjLAXJJWhMfm0vfO33xy8KUKGqPtM9k+2NMzCt8sPJsZrevJlDDMxWG/D9eTke7XGcbKgErsFWOpzUM7bn/d09r5teBZdVmmaPRaQEStxoBx04bY7EoLKZvTojSFILnvBnXRdjbcuR11vHDZYROsWOVcdCOtfwDQOU1htxg+RPmThf3wI1mBoM/cjqZJ3CkI0Fv+kKCRcw9UfEB3IV3spUWgvlbQdLtITlILtxF9r6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9GAv7KnsrTUkn0jHtFLhgqdTWfESGKdmqysIaPun+oE=;
- b=PRuQxA0DdXUE+YmGvXto3qnLG7kDpmUbdTVardBIPrO1UEb0ddftWWEiCYokhYesf0V02li17HQODBJI9Fc9mavrSuQL4SkTGaS84nGXdG0dlnwhkFYQT73GnnztZ6GqB/ky4cBKmKWoy6RxTFx/hWLu1swgFAxyntX2qAcnrSi2pJpx73L+8iZ6S5DZlTmDv6KlgKyOrH/Ry1q6W1StOu76ltm+6Ouf0WBeXoC3qUWpVVFK5ZmEeyf6IYzkGcEIUHljmx5OoahECs3icraG1wuVpCCjF3M+wCAv3bQ4djoSkF3/C08Qt7ldysZkNQS8dT7kpVMaFEOWAgIlZnfniQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11)
- by PH0PR12MB7792.namprd12.prod.outlook.com (2603:10b6:510:281::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Wed, 26 Feb
- 2025 16:06:10 +0000
-Received: from SJ2PR12MB8784.namprd12.prod.outlook.com
- ([fe80::1660:3173:eef6:6cd9]) by SJ2PR12MB8784.namprd12.prod.outlook.com
- ([fe80::1660:3173:eef6:6cd9%6]) with mapi id 15.20.8466.016; Wed, 26 Feb 2025
- 16:06:10 +0000
-Message-ID: <757869f5-7341-402e-b81e-fb6a8ce8d801@nvidia.com>
-Date: Wed, 26 Feb 2025 16:06:03 +0000
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-References: <Z7X6Z8yLMsQ1wa2D@shell.armlinux.org.uk>
- <203871c2-c673-4a98-a0a3-299d1cf71cf0@nvidia.com>
- <Z7YtWmkVl0rWFvQO@shell.armlinux.org.uk>
- <fd4af708-0c92-4295-9801-bf53db3a16cc@nvidia.com>
- <Z7ZF0dA4-jwU7O2E@shell.armlinux.org.uk>
- <31731125-ab8f-48d9-bd6f-431d49431957@nvidia.com>
- <Z77myuNCoe_la7e4@shell.armlinux.org.uk>
- <dd1f65bf-8579-4d32-9c9c-9815d25cc116@nvidia.com>
- <Z770LRrhPOjOsdrd@shell.armlinux.org.uk>
- <63f9d470-e4e4-4e06-a057-1e1ab0aca9d0@nvidia.com>
- <Z786jCGYDewTH7bN@shell.armlinux.org.uk>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <Z786jCGYDewTH7bN@shell.armlinux.org.uk>
-X-ClientProxiedBy: LO2P265CA0113.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::29) To SJ2PR12MB8784.namprd12.prod.outlook.com
- (2603:10b6:a03:4d0::11)
+ Wed, 26 Feb 2025 18:10:28 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51QFHewT022188;
+ Wed, 26 Feb 2025 19:10:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ rG1C6cXlzhh7ZHVodv74JTH3XP7VRDVgNV9VI18sWQA=; b=3yKEGCAk+JFFurwh
+ A/VoQvxQfCKgGyaGnzIscwH3s+avLqtQF9jyGAM7Q8HJo1+YCqdsXZAMdn8BP6u/
+ CeXYiF+QLc6DLfZWZr0z2+xXkt5/4va74qko67jNOQgFE6cDu8BFXGe+0EmG7kSY
+ cTEDQGf4LYCbfka9Mb/BNB7kEMSiZon8GDaI0vs3xl8EZtCv4EiqcP1gjNirbfk2
+ qWlBZj0kXIRiWf8ZTnl0oKuRrc/VFvJ4rDL7FbLciaLu+5Xcv16F26YZY2+P5bAe
+ 6zbx1fpBdjFOxQQruEsjc5SyOeM+AMyApBDu9C1ch9uB4RUvlydBagM5dlqsKkat
+ 06y4xA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 451psrea92-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Feb 2025 19:10:14 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 86625400C8;
+ Wed, 26 Feb 2025 19:09:05 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 10BB54FF132;
+ Wed, 26 Feb 2025 17:54:13 +0100 (CET)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Feb
+ 2025 17:54:12 +0100
+Message-ID: <248f63ff-b6ec-4f58-8a96-7aee2fcd6038@foss.st.com>
+Date: Wed, 26 Feb 2025 17:54:11 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8784:EE_|PH0PR12MB7792:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4a9622f-30a9-49a0-417a-08dd567f7c61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|10070799003; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N3NhdUlJSDVGdTI3RThqbzMxYi9uZEtSYjF3eUJxSW9zRzllSHFQdHNmYjl6?=
- =?utf-8?B?V1FqMmtzcmpIeXRrVFN3Nm1LR21xYjF0UGl1RlYrV3FUcVdjdFZlVVBOci9j?=
- =?utf-8?B?cHQxdzltaG40VHZ5RnFOZlBUeVhFVDZ3R1lScmowK2hVc3hmTTN2cHhjNG8y?=
- =?utf-8?B?SkJCcUIzaVlzY1h5dEZETjZHSGR5eW9ETEVSaForNzQ0Mmp0anh4UytFZzhZ?=
- =?utf-8?B?Qzg4VGl4dVI1aGU3cmhrdnFLL2d3SUhLYVZQaUxYQk1QWnZ6aXIxYzVnVEF2?=
- =?utf-8?B?cThPVitycnc0V3VmS3ZtZjhDbXdaWDZCRkJrcnl2TDlOa2tTbmlLUEhGNk5C?=
- =?utf-8?B?aGU0bVhoY0RBWXhQRWltRmZlek1zMDlTWmNWZ3h6alNwOUVzbEVYU0ZjMlRM?=
- =?utf-8?B?NTZ1ZCt6Nm92UExNSWNlc2tmQ2UwelR6VGtIcHlFd2hibEpGeUl3NVUzQnZs?=
- =?utf-8?B?OHVvV3BmcFJpQUphK3lpekdjdFJpNFBqUVFYUFgzSng5eE5PdnROL1MxQ1Ns?=
- =?utf-8?B?d0M0RTh2eEpHR2gwUmc3KzhINW1lRW5ZS0xSazNjdDNMWjZET1pFQm5vc2l5?=
- =?utf-8?B?MUlLMnY1L0VZV245TFZaRG5Fek9aUkRMME1zWVdoVCtIWjAzNG1xamMzWWNl?=
- =?utf-8?B?UW15TkxvUFY3bmxRdWhqT0dHdTlqVGdUTytvR1J1WkZSOFRaQ3JJcDhUVGxa?=
- =?utf-8?B?cWplc1hLV2tjR3JQREpNY3NZWkRUVzVCZHdTRDRsd0pBU1hQckxweGVUODRu?=
- =?utf-8?B?aXp2c2ppbmovbytMVHlLL2R6NFhOZXAvOHdoUk9kYWM3ZCtlR2V0SkkzdTNK?=
- =?utf-8?B?WFZJamFFNU04VDdVMHJpQU9BbEV2SGd6WmVzVG1yRzNOZDZQWjdaUDVSdHkw?=
- =?utf-8?B?L0xjeHgzWDNmcVRsRU1iSzRWZlhqUUlPZktBbm00ejVMQ0p5SGR2T2IvRE9m?=
- =?utf-8?B?bFdxandUQ0lkbHdnd1E0QWZqMkpTRjIvYjFFVXp4SitFZk9XNXNSd2JRVFZo?=
- =?utf-8?B?ck1SVUtYVWQ3VHBGV0JLZUdOUHpUMVFVY1hSNDcrNStRT1NFU0dxY0VQQWFU?=
- =?utf-8?B?RnhlN3pIWkZMd2ZTUGZCUytSaTY1b2E5WU5CMUE5aXl2RE94Si94akx2QVZj?=
- =?utf-8?B?dTFHT1dMc29JeFhIeWordFpiYlZEbHRQNFhjUy96V0RtSzhpSW56dmNnVEJi?=
- =?utf-8?B?MHVhazRScmZybzhoVUJsZmNpNDBPQWlXU0YrYkxXUWVNNmk2RlMvZ2o2YXFh?=
- =?utf-8?B?bUVBZzc3WXo0R1RtdzNUaGM2Q3hUWFJqdklyZ29jOTM5dzVDdGFVZlluTW81?=
- =?utf-8?B?VmxvRzBEYzZuZXUxTUJmb25MTkxuWlhYTS8ycWd0VEhnOHUxWWVkazVDMC8x?=
- =?utf-8?B?UlJwNkZTWmNSK2pvcnMwNGxWVklidmVNT01va1NFMXR6dk5zUldyeDlWV0dM?=
- =?utf-8?B?N1pna2pPTDdoclBaNzFLVHU4V3FyT0Vyb0lTQXR1a1hOWXY1N2h4eTRINEM3?=
- =?utf-8?B?eXVodllSMWc3NitLWE53cUJLK1lUOC9BcFVwQllnTy9lSCtqclFjNlpHQkZE?=
- =?utf-8?B?N1ZNbjB4Ukdob2NydXo2RC9OR1BQUlN3WW90WGdGRUhRK0cyRzJKUkgzM29r?=
- =?utf-8?B?N09VTytHb0o0M3hOaTE2K3Z6c0JWNmc2SHUzcWhJcktFTlY0SmltWDRVMGtT?=
- =?utf-8?B?Zlg5TXoxOFN6eURNV3BIU3ZxQnA2dmRoSjhLaVFVWHRCN0NsbFpMZmZOamhq?=
- =?utf-8?B?Z04rblJDcTQyS3B3U2lxZFloL2syaGFFQTZqczVicy9PRFRsYnlKMzBGaWRn?=
- =?utf-8?B?eGY0Wkt6QTlRT3czYVErUkorQVl5TTVGdnVKOEMvdzZYL0JIRmZDdmlIaE9r?=
- =?utf-8?Q?K3iE++Og+Pw1F?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB8784.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(10070799003); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFpsNXVLSGZnVVg3N3NCOVlpY1ZmNUw3M1hudW9meVhFeldENDdvN0gxaGlp?=
- =?utf-8?B?L0ZaWVE0RkY3Q3BiTGNvbFJoTjQvZnJmckxLM2NvR3k4WjJIV1hLMGUzT2tG?=
- =?utf-8?B?QzN4ZkpMRFlHRTdaTVZ2ZjBRUXFpMUZQVGdEbTEvWFRWcDNKbjFqUWpBbGYv?=
- =?utf-8?B?USsrc0k1dnNXb0p6Wmc1OTBHOC8vNGhwT1hYSzgzMXZHYXJVRXo1bXlLOWlz?=
- =?utf-8?B?VGsxRCtMaFdnVllmdHJmSHBkK1hrSG5peEsrNXN3cG9POUdoTlJJVll3aFhi?=
- =?utf-8?B?a2tlK0Mzb0FVUVl3eXVDalhXak5uSnYyWkFpeWxQYlQzbmx3Z2ZUVFNNNFRT?=
- =?utf-8?B?cjlEdVFEMm5kbUVkR3g1NWJhWVRJcEhVbTg4SWV5OHpaOTlOdXZlRzNIRDBo?=
- =?utf-8?B?SFRHV1ZSUlBrbVVTTitDN2VhQnA2Q2QremxKUGNiQjdTZkgrc0pGRlBwcGlK?=
- =?utf-8?B?NU5yVi9BUSs0VUZsdkFwbTRteksvR243YjJHMjhWMjZyZXJMNVZab2lPMWpO?=
- =?utf-8?B?dUpTQjF2MnI1bW1UTGRpSWU5ajdkQXg1amJwbWpOMENnRGVNczkxc3VSKzRC?=
- =?utf-8?B?djVJZk1kNnFRT2xJRTNrM3pWa3ZmOGJpTlVlTVhGREZSZEtDQjAvZmNmMjR5?=
- =?utf-8?B?MG8xdnZaYnBrUHpOcUlpeEc3S1QwRDcwN0YzQm1lTlRIR0hsZ3ZBeFMzRTAz?=
- =?utf-8?B?T2lZRzMrRDNvdlF1UTNIeGJhTVdWUUNXdUFra05ERHVXdUdlakRrVnNwYkhu?=
- =?utf-8?B?WFowRHBMQm1hc3Iwd1NZQVA5alNlNEFsd090dlRUek5nOVRjTzJkOUtxanVk?=
- =?utf-8?B?eXNYcnF5NmtCdUNOUHJZUlRXSXpDaG5ISEVhMVUxNnJOQTc5c1kvL2VISEc0?=
- =?utf-8?B?YlJES3NnNS9YNkprWUNHNWFFZ1Y5dGtYQThJVlBLcWQyM3BqSm9YTWtjTlBZ?=
- =?utf-8?B?NXRxN2llTk14dnpOWm55Z2FHeWJCTjB6aFVYaGc3M0lNd2FNOUcwazFsVG05?=
- =?utf-8?B?UmtHdFp3eEx1NW56MnF2cGVqUittZFkxWlNJaWh3VVVxbDRpdHplSXZOZ0w5?=
- =?utf-8?B?bVFFUE5USE5LKzl4bi9BNGtiRjF5bjJXeGtLaEkxVytKcy9PSXl0MHIrdTdH?=
- =?utf-8?B?S1ArMUNGTk5ZU3IxY3pVK0lVbzQ5MWNDbEFNK010T0VPZU1EditCMVRyWDJN?=
- =?utf-8?B?cHlnQmRjK1RsWE1yU0NYc2FCUkJTUEg3TGwzMkhoQ0puVE5hWHFWWXQ2eWJs?=
- =?utf-8?B?ak9NVU4wOUd2dXpzSVBrZnAyei9LUVpCQzNFYW1VUk5XUm5rNi8wOVhnTjlv?=
- =?utf-8?B?TDJPRUIwalY1SUxsUlFkSzZKeWIydjZEeEdxaTVsV3Y4aFVXYUtod0Q2b0FH?=
- =?utf-8?B?ZTZBYnlYa2FyeFdIZXhLY0VGY2oralgzVjd4OWF6YVVZbjJRSmFNallUc1lM?=
- =?utf-8?B?dHc5UUtGcVlJelBNNG5BZWg2UmduVTc2Ni9ZL3dtYWlNR0NRZXZqRlkwWFBJ?=
- =?utf-8?B?Q3IwU0s0NHJNWmtJTjVvT2NSTkZWWTZUZVlMcnBqK2EweUVGVmlRdlJQcGti?=
- =?utf-8?B?ZHZ3MllWeFpFdEVCUkJ6VXJseE03U0lidHArRlpoSXNvMTQwbEg5ZjFPOGc5?=
- =?utf-8?B?NkNDZ2o1bHdmVjUrYk5UYStwZllJY1dqdFAyWWlIVnp3WjllVElHYVN2NWVn?=
- =?utf-8?B?Wm8rSC9JTVdaUFNqcDNLYmRRVGwzd3J3TTJMbHUyUmNza054WjBOc3JrOTll?=
- =?utf-8?B?TDBQNGNrVFZpb09tMWtXa2F5MC9nQVlUamx5TmQ5cnhSOEpQU1h1alNDamRZ?=
- =?utf-8?B?Yzk4bkdPZDNvem5UTDk2aTh2TUdhTnE4RlYrdDg3anozZWpreG9xREEraVR6?=
- =?utf-8?B?cnQ5amRXOUh2YnorZHlQTWNLZ0NHdXkraXM5cjZoVDYrSU9LelFIUDJUYTli?=
- =?utf-8?B?bUs1U1pBaWRrOGJXNVdxNTJtcFZ3YmwwZ2VTS3pyZTJpSGZyQzRqQ1BIUU9D?=
- =?utf-8?B?cXY0VzFzbGxNd3MvcEwxSm1kVHMyaThXQmR6eHhlWko5b3FLV1VwSmltWUoz?=
- =?utf-8?B?MExWOG81Tm05R2d5eWZRZXhFcmxwalVYUkFlV21senFodGJjVGJiT3RQUmJp?=
- =?utf-8?B?KzZBZk1SQmNUVDUyRHkyOEJ2akdYSDlPUkhqeEJNamlNU0tMM3FmZ3dGc1V0?=
- =?utf-8?Q?Mx77LAx/++pOijXvdxuzE1ug8DXovTS86y+wajfA4gwN?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4a9622f-30a9-49a0-417a-08dd567f7c61
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8784.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2025 16:06:10.5955 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eX6NoL6t6bUbYTL6n7Ee/c5gGnooPnGH4sIHJoVFJEp+m3H0yLegk1o+UW12gXLaFG4E0GwnUXpWgxPdUexOzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7792
-Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: convert to
- phylink managed EEE support
+User-Agent: Mozilla Thunderbird
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Clement LE GOFFIC
+ <clement.legoffic@foss.st.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
+ <20250225-hdp-upstream-v1-7-9d049c65330a@foss.st.com>
+ <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
+ <b257aa79-6ca9-4f57-988a-ec00225992ab@foss.st.com>
+ <b57e3c9e-244e-435b-8a7b-cf90f3a973b3@kernel.org>
+ <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
+ <55beb3e7-65ac-4145-adae-fb064378c78d@kernel.org>
+ <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-02-26_04,2025-02-26_01,2024-11-22_01
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 7/9] ARM: dts: stm32: add Hardware debug
+ port (HDP) on stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -175,128 +84,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On 26/02/2025 16:00, Russell King (Oracle) wrote:
-> On Wed, Feb 26, 2025 at 03:55:47PM +0000, Jon Hunter wrote:
->>
->> On 26/02/2025 10:59, Russell King (Oracle) wrote:
->>> On Wed, Feb 26, 2025 at 10:11:58AM +0000, Jon Hunter wrote:
->>>>
->>>> On 26/02/2025 10:02, Russell King (Oracle) wrote:
->>>>> On Tue, Feb 25, 2025 at 02:21:01PM +0000, Jon Hunter wrote:
->>>>>> Hi Russell,
->>>>>>
->>>>>> On 19/02/2025 20:57, Russell King (Oracle) wrote:
->>>>>>> So, let's try something (I haven't tested this, and its likely you
->>>>>>> will need to work it in to your other change.)
->>>>>>>
->>>>>>> Essentially, this disables the receive clock stop around the reset,
->>>>>>> something the stmmac driver has never done in the past.
->>>>>>>
->>>>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>>>>>> index 1cbea627b216..8e975863a2e3 100644
->>>>>>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>>>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>>>>>> @@ -7926,6 +7926,8 @@ int stmmac_resume(struct device *dev)
->>>>>>>      	rtnl_lock();
->>>>>>>      	mutex_lock(&priv->lock);
->>>>>>> +	phy_eee_rx_clock_stop(priv->dev->phydev, false);
->>>>>>> +
->>>>>>>      	stmmac_reset_queues_param(priv);
->>>>>>>      	stmmac_free_tx_skbufs(priv);
->>>>>>> @@ -7937,6 +7939,9 @@ int stmmac_resume(struct device *dev)
->>>>>>>      	stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
->>>>>>> +	phy_eee_rx_clock_stop(priv->dev->phydev,
->>>>>>> +			      priv->phylink_config.eee_rx_clk_stop_enable);
->>>>>>> +
->>>>>>>      	stmmac_enable_all_queues(priv);
->>>>>>>      	stmmac_enable_all_dma_irq(priv);
->>>>>>
->>>>>>
->>>>>> Sorry for the delay, I have been testing various issues recently and needed
->>>>>> a bit more time to test this.
->>>>>>
->>>>>> It turns out that what I had proposed last week does not work. I believe
->>>>>> that with all the various debug/instrumentation I had added, I was again
->>>>>> getting lucky. So when I tested again this week on top of vanilla v6.14-rc2,
->>>>>> it did not work :-(
->>>>>>
->>>>>> However, what you are suggesting above, all by itself, is working. I have
->>>>>> tested this on top of vanilla v6.14-rc2 and v6.14-rc4 and it is working
->>>>>> reliably. I have also tested on some other boards that use the same stmmac
->>>>>> driver (but use the Aquantia PHY) and I have not seen any issues. So this
->>>>>> does fix the issue I am seeing.
->>>>>>
->>>>>> I know we are getting quite late in the rc for v6.14, but not sure if we
->>>>>> could add this as a fix?
->>>>>
->>>>> The patch above was something of a hack, bypassing the layering, so I
->>>>> would like to consider how this should be done properly.
->>>>>
->>>>> I'm still wondering whether the early call to phylink_resume() is
->>>>> symptomatic of this same issue, or whether there is a PHY that needs
->>>>> phy_start() to be called to output its clock even with link down that
->>>>> we don't know about.
->>>>>
->>>>> The phylink_resume() call is relevant to this because I'd like to put:
->>>>>
->>>>> 	phy_eee_rx_clock_stop(priv->dev->phydev,
->>>>> 			      priv->phylink_config.eee_rx_clk_stop_enable);
->>>>>
->>>>> in there to ensure that the PHY is correctly configured for clock-stop,
->>>>> but given stmmac's placement that wouldn't work.
->>>>>
->>>>> I'm then thinking of phylink_pre_resume() to disable the EEE clock-stop
->>>>> at the PHY.
->>>>>
->>>>> I think the only thing we could do is try solving this problem as per
->>>>> above and see what the fall-out from it is. I don't get the impression
->>>>> that stmmac users are particularly active at testing patches though, so
->>>>> it may take months to get breakage reports.
->>>>
->>>>
->>>> We can ask Furong to test as he seems to active and making changes, but
->>>> otherwise I am not sure how well it is being tested across various devices.
->>>> On the other hand, it feels like there are still lingering issues like this
->>>> with the driver and so I would hope this is moving in the right direction.
->>>>
->>>> Let me know if you have a patch you want me to test and I will run in on our
->>>> Tegra186, Tegra194 and Tegra234 devices that all use this.
->>>
->>> Do we think this needs to be a patch for the net tree or the net-next
->>> tree? I think we've established that it's been a long-standing bug,
->>> so maybe if we target net-next to give it more time to be tested?
->>>
->>
->> Yes I agree there is a long-standing issue here. What is unfortunate for
->> Linux v6.14 is that failure rate is much higher. However, I don't see what I
->> can really do about that. I can mark suspend as broken for Linux v6.14 for
->> this device and then hopefully we will get this resolved properly.
-> 
-> If we put the patches in net-next, it can have longer to be tested - it
-> won't go straight into 6.14, but will wait until after net-next gets
-> merged, and it'll then be backported to 6.14 stable trees.
-
-Yes that would be great.
-
-> I think the fix that I've outlined is too big and too risky to go
-> straight into 6.14, but the smaller fix may be better, but would then
-> need to be rewritten into the larger fix.
-
-I think it is fine and better to get it fixed for the long term.
-
-Thanks
-Jon
-
--- 
-nvpublic
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAyLzI2LzI1IDE2OjMwLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IAo+IAo+IE9uIDIv
+MjYvMjUgMTY6MDgsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6Cj4+IE9uIDI2LzAyLzIwMjUg
+MTA6MzMsIEFsZXhhbmRyZSBUT1JHVUUgd3JvdGU6Cj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGhk
+cDogcGluY3RybEA0NDA5MDAwMCB7Cj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29t
+cGF0aWJsZSA9ICJzdCxzdG0zMm1wLWhkcCI7Cj4+Pj4+Pgo+Pj4+Pj4gU28gaGVyZSBhZ2FpbiAt
+IHlvdSBoYXZlIHN0bTMybXAyNTEgU29DLCBidXQgdXNlIGVudGlyZWx5IGRpZmZlcmVudAo+Pj4+
+Pj4gY29tcGF0aWJsZS4KPj4+Pj4KPj4+Pj4gT2sgc28gSSB3aWxsIHVzZSAic3Qsc3RtMzJtcDE1
+LWhkcCIKPj4+Pgo+Pj4+Cj4+Pj4gVGhpcyBtZWFucyB0aGlzIGlzIHN0bTMybXAxNSBTb0MuIEkg
+ZG8gbm90IHNlZSBzdWNoIFNvQyBvbiBsaXN0IG9mIHlvdXIKPj4+PiBTb0NzIGluIGJpbmRpbmdz
+LiBXaGF0J3MgbW9yZSwgdGhlcmUgYXJlIG5vIGJpbmRpbmdzIGZvciBvdGhlciBTb0MKPj4+PiBj
+b21wb25lbnRzIGZvciBzdG0zMm1wMTUhCj4+Pgo+Pj4gWWVzIHN0bTMybXAxNSBpcyBub3QgYSAi
+cmVhbCBTb0MiLiBJIGFncmVlIHRoYXQgYXQgdGhlIGJlZ2lubmluZyBvZiB0aGUKPj4+IFNUTTMy
+IHN0b3J5IHdlIGRpZG4ndCBoYXZlIGEgY2xlYXIgcnVsZS92aWV3IHRvIGNvcnJlY3RseSBuYW1p
+bmcgb3VyCj4+PiBjb21wYXRpYmxlLiBXZSB0cmllZCB0byBpbXByb3ZlIHRoZSBzaXR1YXRpb24g
+dG8gYXZvaWQgY29tcGF0aWJsZSBsaWtlCj4+PiAic3Qsc3RtMzIiLCAic3Qsc3RtMzJtcCIgb3Ig
+InN0LHN0bTMybXAxIi4gU28gd2UgaW50cm9kdWNlZAo+Pj4gInN0LHN0bTMybXAxMyIsICJzdCxz
+dG0zMm1wMTUiIG9yICJzdCxzdG0zMm1wMjUiIGZvciBuZXcgZHJpdmVycy4gU28geWVzCj4+PiBp
+dCByZXByZXNlbnRzIGEgU29DIGZhbWlseSBhbmQgbm90IGEgcmVhbCBTb0MuIFdlIGhhdmVuJ3Qg
+aGFkIG11Y2gKPj4+IG5lZ2F0aXZlIGZlZWRiYWNrIGl0Lgo+Pj4KPj4+IEJ1dCwgaWYgaXQncyBu
+b3QgY2xlYW4gdG8gZG8gaXQgaW4gdGhpcyB3YXksIGxldHMgZGVmaW5lIFNvQyBjb21wYXRpYmxl
+Cj4+PiBmb3IgYW55IG5ldyBkcml2ZXIuCj4+Cj4+IENvbXBhdGlibGVzIGFyZSBmb3IgaGFyZHdh
+cmUuCj4+Cj4+PiBGb3IgdGhlIEhEUCBjYXNlIGl0IGlzOiAic3Qsc3RtMzJtcDE1NyIgYW5kIHVz
+ZWQgZm9yIFNUTTMyTVAxMywKPj4+IFNUTTMyTVAxNSBlbmQgU1RNMzJNUDI1IFNvQyBmYW1pbGll
+cyAoaWYgZHJpdmVyIGlzIHRoZSBzYW1lIGZvciBhbGwKPj4+IHRob3NlIFNvQ3MpLgo+Pgo+PiBO
+bywgaXQncyB0aHJlZSBjb21wYXRpYmxlcywgYmVjYXVzZSB5b3UgaGF2ZSB0aHJlZSBTb0NzLiBC
+VFcsIHdyaXRpbmcKPj4gYmluZGluZ3MgKGFuZCBvbmxpbmUgcmVzb3VyY2VzIGFuZCBwcmV2aW91
+cyByZXZpZXdzIGFuZCBteSB0YWxrcykgYXJlCj4+IHNheWluZyB0aGF0LCBzbyB3ZSBkbyBub3Qg
+YXNrIGZvciBhbnl0aGluZyBuZXcgaGVyZSwgYW55dGhpbmcgZGlmZmVyZW50Lgo+PiBBdCBsZWFz
+dCBub3QgbmV3IHdoZW4gbG9va2luZyBhdCBsYXN0IDUgeWVhcnMsIGJlY2F1c2UgMTAgeWVhcnMg
+YWdvIG1hbnkKPj4gcnVsZXMgd2VyZSByZWxheGVkLi4uCj4gCj4gU28gYWRkaW5nIDMgdGltZXMg
+dGhlIHNhbWUgSVAgaW4gMyBkaWZmZXJlbnQgU29DcyBpbXBsaWVzIHRvIGhhdmUgMyAKPiBkaWZm
+ZXJlbnQgY29tcGF0aWJsZXMuIFNvIGVhY2ggdGltZSB3ZSB1c2UgdGhpcyBzYW1lIElQIGluIGEg
+bmV3IFNvQywgd2UgCj4gaGF2ZSB0byBhZGQgYSBuZXcgY29tcGF0aWJsZS4gTXkgKHdyb25nKSB1
+bmRlcnN0YW5kaW5nIHdhczogYXMgd2UgaGF2ZSAKPiB0aGUgc2FtZSBJUCAoc2FtZSBoYXJkd2Fy
+ZSkgaW4gZWFjaCBTb0Mgd2UgaGF2ZSB0aGUgc2FtZSBjb21wYXRpYmxlIChhbmQgCj4gSVAgaW50
+ZWdyYXRpb24gZGlmZmVyZW5jZXMgKGNsb2NrcywgaW50ZXJydXB0cykgYXJlIGhhbmRsZWQgYnkg
+RFQgCj4gcHJvcGVydGllcy4KCkp1c3QgdG8gY29tcGxldGUsIHJlYWRpbmcgdGhlIExpbnV4IGtl
+cm5lbCBkb2MsIGFzIGRldmljZSBhcmUgc2FtZSB3ZSAKd2lsbCB1c2UgZmFsbGJhY2tzIGxpa2Ug
+dGhpczoKCk1QMTU6IGNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDE1MS1oZHAiOwpNUDEzOiBjb21w
+YXRpYmxlID0gInN0LHN0bTMybXAxMzEtaGRwIiwgInN0LHN0bTMybXAxNTEtaGRwIjsKTVAyNTog
+Y29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMjUxLWhkcCIsICJzdCxzdG0zMm1wMTUxLWhkcCI7Cgo+
+IAo+Pgo+Pgo+PiBCZXN0IHJlZ2FyZHMsCj4+IEtyenlzenRvZgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
