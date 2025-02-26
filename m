@@ -2,78 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567AFA46C4D
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 21:25:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48333A46D61
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 22:26:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 096AFC7A833;
-	Wed, 26 Feb 2025 20:25:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E79D8C7A830;
+	Wed, 26 Feb 2025 21:26:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A21BC7A832
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 062F0C78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 20:25:04 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51QG3IeZ028965;
- Wed, 26 Feb 2025 21:23:45 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 40P6YA6Gfjsk6WHscxOoeamuC5y6WvMtWXK5t1BqI08=; b=zK2QGdzDvDEwtaNd
- jhHpzdye3apCHNzgIoAFSUSptp4j/yLQaM0OmteUdHVLpIkXDoooJnQazJeT1qhT
- YoSZoPIlUViwT3l+Tzlwir+k9zv9A6nz/rImAL6WVi/mRqka4lbJ6pjtxitMg+b/
- Cayt3540zUhomSar9Gvctmb03ILdrkBYvuI3C/XkfHb14LcxgVgvFlfBxBVle2mW
- nbbHqkKcyQ8MZpn4Wy+wF3/e/hccjcfYPAXvw5kicp5UHzkhHlvLcL6Sxdy+TutG
- oidbpuKMGawsOi32QXmrZafcxpI6kRq9xfq2vVEbC6a3kpWIGZqWcfZGobGp/CW9
- IDD4rg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 451pt3phb8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Feb 2025 21:23:45 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 06B0C40069;
- Wed, 26 Feb 2025 21:22:35 +0100 (CET)
-Received: by euls16034.sgp.st.com (STMicroelectronics, from userid 89)
- id 6DCAC4D33B6; Wed, 26 Feb 2025 19:17:26 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3B053443D2B;
- Wed, 26 Feb 2025 19:17:26 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Feb
- 2025 19:17:26 +0100
-Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 26 Feb
- 2025 19:17:25 +0100
-Message-ID: <4010c7b7-f285-40e6-a032-055c4252ecb7@foss.st.com>
-Date: Wed, 26 Feb 2025 19:17:24 +0100
+ Wed, 26 Feb 2025 21:26:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CAC8D5C6076;
+ Wed, 26 Feb 2025 21:26:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08592C4CED6;
+ Wed, 26 Feb 2025 21:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1740605209;
+ bh=N0p6giHID6vuUMte39YzG4bLLkWWTqAf5RxVREU0uHs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=NMfD/eQQrqHV9pTdIckatEZl4BeD6NYAHsAUl5qBh4MVZcdnA3aEIwj40FR8CBStq
+ 4OsXX5vfQHb/YJAcgsShtWEAO7ptB7eQ8p4R6MRaF6ZzD5o2TFtsBYx8YYuRalTGgp
+ jHxbv0JAcrjYH5E0IjK5+CJSRKCS1y0UyjZFoj+Nc22yyGH9zbFDLSo9ePtEiXE0Ik
+ GxXuV1Fzm6uIN43JbNgroBjkPuQmRjOy3s9T6DCYgcQ9pNSeu/8pibvKJJfupavdcz
+ VQrBKZhoOx08Gp6LfKT+zxDWfGLJpc5RzZtLAsYAr0oPrkPrjSk2NdgXLqE1m0UyuO
+ OmcHsaqWS4dNw==
+Message-ID: <48cc626a-d632-444f-8563-07a9ea0ecc71@kernel.org>
+Date: Wed, 26 Feb 2025 22:26:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>
-References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
- <20250224180150.3689638-2-fabrice.gasnier@foss.st.com>
- <20250225-outgoing-scorpion-of-music-be0bea@krzk-bin>
- <acabacb8-8ea1-4b16-a562-8ffba64fdd36@foss.st.com>
- <8b42f0ad-2993-43b8-9055-6d74dc3bafbe@kernel.org>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Clement LE GOFFIC <clement.legoffic@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
+ <20250225-hdp-upstream-v1-7-9d049c65330a@foss.st.com>
+ <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
+ <b257aa79-6ca9-4f57-988a-ec00225992ab@foss.st.com>
+ <b57e3c9e-244e-435b-8a7b-cf90f3a973b3@kernel.org>
+ <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
+ <55beb3e7-65ac-4145-adae-fb064378c78d@kernel.org>
+ <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <8b42f0ad-2993-43b8-9055-6d74dc3bafbe@kernel.org>
-X-Originating-IP: [10.48.86.222]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-26_06,2025-02-26_01,2024-11-22_01
-Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- ukleinek@kernel.org, linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org,
- will@kernel.org, tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/8] dt-bindings: mfd: stm32-lptimer: add
- support for stm32mp25
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 7/9] ARM: dts: stm32: add Hardware debug
+ port (HDP) on stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,80 +113,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/26/25 08:51, Krzysztof Kozlowski wrote:
-> On 25/02/2025 15:57, Fabrice Gasnier wrote:
->> On 2/25/25 13:02, Krzysztof Kozlowski wrote:
->>> On Mon, Feb 24, 2025 at 07:01:43PM +0100, Fabrice Gasnier wrote:
->>>>    pwm:
->>>>      type: object
->>>>      additionalProperties: false
->>>>  
->>>>      properties:
->>>>        compatible:
->>>> -        const: st,stm32-pwm-lp
->>>> +        enum:
->>>> +          - st,stm32-pwm-lp
->>>> +          - st,stm32mp25-pwm-lp
->>>>  
->>>>        "#pwm-cells":
->>>>          const: 3
->>>> @@ -69,7 +76,9 @@ properties:
->>>>  
->>>>      properties:
->>>>        compatible:
->>>> -        const: st,stm32-lptimer-counter
->>>> +        enum:
->>>> +          - st,stm32-lptimer-counter
->>>> +          - st,stm32mp25-lptimer-counter
+On 26/02/2025 16:30, Alexandre TORGUE wrote:
+> 
+> 
+> On 2/26/25 16:08, Krzysztof Kozlowski wrote:
+>> On 26/02/2025 10:33, Alexandre TORGUE wrote:
+>>>>>>> +		hdp: pinctrl@44090000 {
+>>>>>>> +			compatible = "st,stm32mp-hdp";
+>>>>>>
+>>>>>> So here again - you have stm32mp251 SoC, but use entirely different
+>>>>>> compatible.
+>>>>>
+>>>>> Ok so I will use "st,stm32mp15-hdp"
+>>>>
+>>>>
+>>>> This means this is stm32mp15 SoC. I do not see such SoC on list of your
+>>>> SoCs in bindings. What's more, there are no bindings for other SoC
+>>>> components for stm32mp15!
 >>>
->>> Driver changes suggest many of these are compatible. Why isn't this expressed?
+>>> Yes stm32mp15 is not a "real SoC". I agree that at the beginning of the
+>>> STM32 story we didn't have a clear rule/view to correctly naming our
+>>> compatible. We tried to improve the situation to avoid compatible like
+>>> "st,stm32", "st,stm32mp" or "st,stm32mp1". So we introduced
+>>> "st,stm32mp13", "st,stm32mp15" or "st,stm32mp25" for new drivers. So yes
+>>> it represents a SoC family and not a real SoC. We haven't had much
+>>> negative feedback it.
+>>>
+>>> But, if it's not clean to do it in this way, lets define SoC compatible
+>>> for any new driver.
 >>
->> Hi Krzysztof,
+>> Compatibles are for hardware.
 >>
->> The Low Power Timer (LPTIM) hardware isn't fully backward compatible.
+>>> For the HDP case it is: "st,stm32mp157" and used for STM32MP13,
+>>> STM32MP15 end STM32MP25 SoC families (if driver is the same for all
+>>> those SoCs).
 >>
->> At driver level, as indicated in the cover-letter, same feature list as
->> on STM32MP1x is supported currently. This is probably what makes it look
->> like it's compatible, but it's not fully compatible.
+>> No, it's three compatibles, because you have three SoCs. BTW, writing
+>> bindings (and online resources and previous reviews and my talks) are
+>> saying that, so we do not ask for anything new here, anything different.
+>> At least not new when looking at last 5 years, because 10 years ago many
+>> rules were relaxed...
 > 
-> I don't understand. Same feature list is supported means fully
-> compatible, but you say not fully compatible. You are aware that
-> compatible means not the same?
-> 
->>
->> The hardware controller is a bit different. Some registers/bits has been
->> revisited among other things. This is the purpose for these new compatibles.
-> 
-> We do not discuss new compatibles. We discuss lack of compatibility. If
-> registers/bits are changed, how existing driver can work with same ID table?
+> So adding 3 times the same IP in 3 different SoCs implies to have 3 
 
-Hi Krzysztof,
+Yes. Always, as requested by writing bindings.
 
-To summarize on dt-bindings side, here is my view, following your
-comments on per driver basis of the compatible usage.
+> different compatibles. So each time we use this same IP in a new SoC, we 
+> have to add a new compatible. My (wrong) understanding was: as we have 
 
-Let's keep these new compatibles:
-- "st,stm32mp25-lptimer-trigger"
-- "st,stm32mp25-lptimer-counter"
+Yes, as requested by writing bindings and followed up by all recent
+platforms having decent/active upstream support. See qcom, nxp, renesas
+for example.
 
-Both reflect not only LPTimer hardware update, but also specific
-interconnect to other hardware blocks throughout all the STM32MP25 SoC.
+> the same IP (same hardware) in each SoC we have the same compatible (and 
 
-Other compatible strings may be dropped. Reading the
-revision/identification register of the LPTimer should be enough for
-compatibility in the related drivers.
+You do not have same hardware. You have same IP, or almost same because
+they are almost never same, implemented in different hardware.
 
-I'll update this in next revision of the series.
+> IP integration differences (clocks, interrupts) are handled by DT 
+> properties.
 
-Thanks for reviewing,
-Best Regards,
-Fabrice
+Which binding doc/guide suggested such way? Countless reviews from DT
+maintainers were saying opposite.
 
-> 
-> 
-> 
-> Best regards,
-> Krzysztof
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
