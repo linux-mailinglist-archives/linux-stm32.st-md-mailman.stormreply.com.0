@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49317A4564C
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:05:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D23DA4565D
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:07:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0800C7A82F;
-	Wed, 26 Feb 2025 07:05:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D375C7A82F;
+	Wed, 26 Feb 2025 07:07:28 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72A6AC7A82E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32781C7A82E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 07:05:36 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PMXW9f025583;
- Wed, 26 Feb 2025 07:05:22 GMT
+ Wed, 26 Feb 2025 07:07:26 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51PMX2Qe011930;
+ Wed, 26 Feb 2025 07:07:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KaQzoCs3Zw9VXe/sQVOhnMVotHeAsAZdnujMalOQT8c=; b=Tg5eUGcghHb81LE2
- jKoC7vh4uo505lQrxDxDkTORAacXLN//hgtQC8EfITixgMOpanbEljWyaDbhNdXW
- P1alkCAv1W15K5cvMbwBAQeJmtOopAZc5vMfsVP4VA9/qZxXWPYpOQsE6dromzx1
- F/rmLQAFpHmYHfleSs2eyTiN4GQF8WKgKtfihsMWGZVyR/sX8eSheqXmMKFpXCsA
- MWId9PK6To4KDx1Qlo7mnsG3PItzJ6fHDeG+zepSPwAY2zEEO/PQBQ4QkS+nK0Pc
- IQyKHPBPAH5zAXAVpoSkhdP/l6uR+M6h6l3zBIPsM9xxUdZheAekYYcZIt0Gq71m
- nVGg0A==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ F7MIpx44Gj5enmHF9B2AM5F5bduKIt2BmivQCHi/jfA=; b=QlRsrQZaPcdqcfJC
+ WOBd907LSofhHZILplJfXXLSa1EVQdV0+OR0z2YXHlPpjf/aXH2/2oNmm2DC2crs
+ Kl6mUOglWCMmj4jJMExW0C/ebFq2zhp2uD7dYsuUB9s22Sj3KM5awVzuMS8u3npY
+ XqoOYPx3QsrGYfchosHZDwYfINJbMa3TLniL5+MElMxeAkIKlNRe3uJR/MOnGJRW
+ 0q3IwMtBMXvjvoHiFyzP4u/EJzvfjUm/p9ajLVv4AJxa76akC88cNzP99O5nL1OV
+ 7DUCBST0qNdeX7l+r6nOykDlzp5DDZp5Q9EV8skKeCqfGqmO9ryZZ6TJ/vIk3blr
+ +ze+kw==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 451prmh2ry-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 451prk92v8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Feb 2025 07:05:22 +0000 (GMT)
+ Wed, 26 Feb 2025 07:07:13 +0000 (GMT)
 Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
  [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51Q75LBZ004877
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 51Q77CLa015990
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Feb 2025 07:05:21 GMT
+ Wed, 26 Feb 2025 07:07:12 GMT
 Received: from [10.64.68.153] (10.80.80.8) by nalasex01c.na.qualcomm.com
  (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 25 Feb
- 2025 23:05:16 -0800
-Message-ID: <627fdd72-4383-4172-9a51-c77ea32b7c60@quicinc.com>
-Date: Wed, 26 Feb 2025 15:05:13 +0800
+ 2025 23:07:07 -0800
+Message-ID: <2d16609b-2423-489e-a45c-0e73ee9af006@quicinc.com>
+Date: Wed, 26 Feb 2025 15:07:05 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jie Gan <quic_jiegan@quicinc.com>
@@ -55,32 +55,33 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
 References: <20250226041342.53933-1-quic_jiegan@quicinc.com>
+ <20250226041342.53933-6-quic_jiegan@quicinc.com>
 Content-Language: en-US
-In-Reply-To: <20250226041342.53933-1-quic_jiegan@quicinc.com>
+In-Reply-To: <20250226041342.53933-6-quic_jiegan@quicinc.com>
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nalasex01c.na.qualcomm.com (10.47.97.35)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: pRA4g7_k6bHbwcLYhmdR58Uz-2HvNgfo
-X-Proofpoint-ORIG-GUID: pRA4g7_k6bHbwcLYhmdR58Uz-2HvNgfo
+X-Proofpoint-GUID: sE1QsX_3kYUv6bDqm3J0z-mkWUDmhznT
+X-Proofpoint-ORIG-GUID: sE1QsX_3kYUv6bDqm3J0z-mkWUDmhznT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-02-25_08,2025-02-26_01,2024-11-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0 mlxscore=0
- priorityscore=1501 adultscore=0 spamscore=0 mlxlogscore=999
- lowpriorityscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2502100000 definitions=main-2502260055
+ suspectscore=0 mlxscore=0
+ bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502100000 definitions=main-2502260055
 Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
  linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Tingwei Zhang <quic_tingweiz@quicinc.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v14 00/10] Coresight: Add Coresight TMC
- Control Unit driver
+Subject: Re: [Linux-stm32] [PATCH v14 05/10] Coresight: Allocate trace ID
+ after building the path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,196 +93,141 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyLzI2LzIwMjUgMTI6MTMgUE0sIEppZSBHYW4gd3JvdGU6Cj4gVGhlIENvcmVzaWdodCBU
-TUMgQ29udHJvbCBVbml0KENUQ1UpIGRldmljZSBob3N0cyBtaXNjZWxsYW5lb3VzIGNvbmZpZ3Vy
-YXRpb24KPiByZWdpc3RlcnMgdG8gY29udHJvbCB2YXJpb3VzIGZlYXR1cmVzIHJlbGF0ZWQgdG8g
-VE1DIEVUUiBkZXZpY2UuCj4gCgpbLi4uXQpIaSwgSmFtZXMKClNvcnJ5IGZvciB0aGUgbWlzdGFr
-ZSwgSSBqdXN0IGZvdW5kIEkgZm9yZ2V0IHRvIGFkZCB0aGUgY28tZGV2ZWxvcGVkLWJ5IAp0YWcg
-dG8gcGF0Y2goNS8xMCksIHBhdGNoKDYvMTApIGFmdGVyIHRoZSBkaXZpc2lvbi4KCkRvIEkgbmVl
-ZCByZXNlbmQgdGhlIHBhdGNoIHNlcmllcz8KCkppZQoKPiAKPiBTaW5jZXJlIHRoYW5rcyB0byBK
-YW1lcyBDbGFyayBmb3IgcHJvdmlkaW5nIGFuIGV4Y2VsbGVudCBpZGVhIHRvIGhhbmRsZQo+IHRo
-ZSB0cmFjZV9pZCBvZiB0aGUgcGF0aC4KPiAKPiAtLS0KPiBDaGFuZ2VzIGluIFYxNDoKPiAxLiBE
-cm9wIHRoZSByZXZpZXdlZC1ieSB0YWcgZm9yIHByZXZpb3VzIHBhdGNoOiBDb3Jlc2lnaHQtSW50
-cm9kdWNlLWEtbmV3LXN0cnVjdC1jb3Jlc2lnaHRfcGF0aAo+ICAgICBkdWUgdG8gYSBtYXNzaXZl
-IG1vZGlmaWNhdGlvbi4KPiAyLiBTcGxpdCB0aGUgcGF0Y2gsIENvcmVzaWdodC1JbnRyb2R1Y2Ut
-YS1uZXctc3RydWN0LWNvcmVzaWdodF9wYXRoLCBpbnRvCj4gICAgIGZvdXIgcGF0Y2hlcy4KPiAg
-ICAgLSBDb3Jlc2lnaHQtSW50cm9kdWNlLWEtbmV3LXN0cnVjdC1jb3Jlc2lnaHRfcGF0aAo+ICAg
-ICAtIENvcmVzaWdodC1BbGxvY2F0ZS10cmFjZS1JRC1hZnRlci1idWlsZGluZy10aGUtcGF0aAo+
-ICAgICAtIENvcmVzaWdodC1DaGFuZ2UtdG8tcmVhZC10aGUtdHJhY2UtSUQtZnJvbS1jb3Jlc2ln
-aHRfcGF0aAo+ICAgICAtIENvcmVzaWdodC1DaGFuZ2UtZnVuY3Rpb25zLXRvLWFjY2VwdC10aGUt
-Y29yZXNpZ2h0X3BhdGgKPiAzLiBDaGFuZ2UgdGhlIHR5cGUgb2YgdGhlIGNvcmVzaWdodF9wYXRo
-X2Fzc2lnbl90cmFjZV9pZCBmdW5jdGlvbiB0byB2b2lkLgo+IDQuIENoYW5nZSB0aGUgdHlwZSBv
-ZiB0aGUgcGF0aF9saXN0IGZyb20gc3RydWN0IGxpc3RfaGVhZCAqIHRvIHN0cnVjdCBsaXN0X2hl
-YWQgdG8gYXZvaWQKPiAgICAgZXh0cmEgbWVtb3J5IGFsbG9jYXRlL2ZyZWUuCj4gNS4gUmVuYW1l
-IHRoZSBmaWxlIGNvcmVzaWdodC1jdGN1LmMgdG8gY29yZXNpZ2h0LWN0Y3UtY29yZS5jIHRvIGlt
-cHJvdmUgc2NhbGliaWxpdHkuCj4gNi4gQWRkIHBtX29wcyBmb3IgQ1RDVSBkcml2ZXIuCj4gNy4g
-UmVuYW1lIHRoZSBzdHJ1Y3QgY3RjdV9hdGlkX2NvbmZpZyB0byBjdGN1X2V0cl9jb25maWcgdG8g
-aW1wcm92ZSBzY2FsaWJpbGl0eS4KPiA4LiBPcHRpbWl6ZSBmb2xsb3dpbmcgZnVuY3Rpb25zIG9m
-IHRoZSBDVENVIGRyaXZlciB0byBpbXByb3ZlIHJlYWRhYmlsaXR5Lgo+ICAgICAtIGN0Y3VfcHJv
-Z3JhbV9hdGlkX3JlZ2lzdGVyCj4gICAgIC0gX19jdGN1X3NldF9ldHJfdHJhY2VpZAo+IDkuIENo
-YW5nZSB0aGUgd2F5IHRvIGdldCB0aGUgcG9ydCBudW1iZXIuIFRoZSBuZXcgc29sdXRpb24gaXMg
-c2VhcmNoaW5nCj4gICAgIHRoZSBzaW5rIGRldmljZSBmcm9tIENUQ1UncyB2aWV3Lgo+IDEwLiBB
-ZGQgZGVzYy5hY2Nlc3MgZm9yIENUQ1UgZHJpdmVyLgo+IExpbmsgdG8gVjEzIC0gaHR0cHM6Ly9s
-b3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLW1zbS8yMDI1MDIyMTA2MDU0My4yODk4ODQ1LTEtcXVp
-Y19qaWVnYW5AcXVpY2luYy5jb20vCj4gLS0tCj4gCj4gLS0tCj4gQ2hhbmdlcyBpbiBWMTM6Cj4g
-MS4gTW92ZSB0aGUgdHJhY2VfaWQgY2FsbGJhY2sgdG8gY29yZXNpZ2h0X29wcyB0byBzaW1wbGlm
-eSB0aGUgY29kZS4KPiBMaW5rIHRvIFYxMiAtIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4
-LWFybS1tc20vMjAyNTAyMTcwOTMwMjQuMTEzMzA5Ni0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29t
-Lwo+IC0tLQo+IAo+IC0tLQo+IENoYW5nZXMgaW4gVjEyOgo+IDEuIFVwZGF0ZSB0aGUgbWV0aG9k
-IGZvciBhbGxvY2F0aW5nIHRyYWNlX2lkIGZvciBwZXJmIG1vZGUuCj4gTGluayB0byBWMTEgLSBo
-dHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0tbXNtLzIwMjUwMjE0MDI0MDIxLjI0OTY1
-NS0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29tLwo+IC0tLQo+IAo+IC0tLQo+IENoYW5nZXMgaW4g
-VjExOgo+IDEuIEFkZCByZXZpZXdlZC1ieSB0YWcgdG8gcGF0Y2goMi83KSwgKDQvNyksICg2Lzcp
-LiBQYXRjaCgzLzcpIGlzCj4gICAgIGNvbnRyaWJ1dGVkIGJ5IEphbWVzLCBzbyBkaWRub3QgYWRk
-IHJldmlld2VkLWJ5IHRhZyBvZiBKYW1lcy4KPiAyLiBGaXggd2FybmluZyByZXBvcnRlZCBieSBr
-ZXJuZWwgYm90IGFuZCB2ZXJpZmllZCB3aXRoIGJ1aWxkKFc9MSkuCj4gMy4gUmVzdG9yZSB0byB0
-aGUgb3JpZ2luYWwgbG9naWMgdGhhdCByZXNwb25zaWJsZSBmb3IgYWxsb2NhdGUgdHJhY2VfaWQK
-PiAgICAgb2YgRVRNIGRldmljZSBpbiBwZXJmIG1vZGUgYWNjb3JkaW5nIHRvIEphbWVzJyBjb21t
-ZW50Lgo+IExpbmsgdG8gVjEwIC0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLW1z
-bS8yMDI1MDIwNzA2NDIxMy4yMzE0NDgyLTEtcXVpY19qaWVnYW5AcXVpY2luYy5jb20vCj4gLS0t
-Cj4gCj4gLS0tCj4gQ2hhbmdlcyBpbiBWMTA6Cj4gMS4gSW50cm9kdWNlIGEgbmV3IEFQSSB0byBh
-bGxvY2F0ZSBhbmQgcmVhZCB0cmFjZV9pZCBhZnRlciBwYXRoIGlzIGJ1aWx0Lgo+IDIuIEludHJv
-ZHVjZSBhIG5ldyBBUEkgdG8gYWxsb2NhdGUgYW5kIHJlYWQgdHJhY2VfaWQgb2YgRVRNIGRldmlj
-ZS4KPiAzLiBBZGQgYSBuZXcgcGF0Y2g6IFtQQVRDSCB2MTAgMy83XSBDb3Jlc2lnaHQ6IFVzZSBj
-b3Jlc2lnaHRfZXRtX2dldF90cmFjZV9pZCgpIGluIHRyYWNlaWRfc2hvdygpCj4gNC4gUmVtb3Zl
-IHBlcmYgaGFuZGxlIGZyb20gY29yZXNpZ2h0X3BhdGguCj4gNS4gVXNlIHU4IGluc3RlYWQgb2Yg
-YXRvbWljX3QgZm9yIHRyYWNlaWRfcmVmY250Lgo+IDYuIE9wdGltaXplIHRoZSBwYXJ0IG9mIGNv
-ZGUgaW4gQ1RDVSBkcnZpZXIgdGhhdCBpcyByZXNwb25zaWJsZSBmb3IgcHJvZ3JhbSBhdGlkIHJl
-Z2lzdGVyLgo+IExpbmsgdG8gVjkgLSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNTAx
-MjQwNzI1MzcuMTgwMTAzMC0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29tLwo+IAo+IENoYW5nZXMg
-aW4gVjk6Cj4gMS4gUmViYXNlZCBvbiB0YWcgbmV4dC0yMDI1MDExMy4KPiAyLiBTZXBhcmF0ZSB0
-aGUgcHJldmlvdXMgdHJhY2VfaWQgcGF0Y2ggKHBhdGNoIDIvNSBDb3Jlc2lnaHQ6IEFkZCB0cmFj
-ZV9pZCBmdW5jdGlvbiB0bwo+ICAgICByZXRyaWV2aW5nIHRoZSB0cmFjZSBJRCkgaW50byB0d28g
-cGF0Y2hlcy4KPiAzLiBJbnRyb2R1Y2UgYSBuZXcgc3RydWN0IGNvcmVzaWdodF9wYXRoIGluc3Rl
-YWQgb2YgY3Nfc2lua19kYXRhIHdoaWNoIHdhcwo+ICAgICBjcmVhdGVkIGluIHByZXZpb3VzIHZl
-cnNpb24uIFRoZSBjb3Jlc2lnaHRfcGF0aCB3aWxsIGJlIGluaXRpYWxpemVkCj4gICAgIGFuZCBj
-b25zdHJ1Y3RlZCBpbiBjb3Jlc2lnaHRfYnVpbGRfcGF0aCBmdW5jdGlvbiBhbmQgcmVsZWFzZWQg
-YnkKPiAgICAgY29yZXNpZ2h0X3JlbGVhc2VfcGF0aCBmdW5jdGlvbi4KPiAgICAgRGV0YWlsIG9m
-IHRoZSBzdHJ1Y3QgY29yZXNpZ2h0X3BhdGggaXMgc2hvd24gYmVsb3c6Cj4gLyoqCj4gICAqIHN0
-cnVjdCBjb3Jlc2lnaHRfcGF0aCAtIGRhdGEgbmVlZGVkIGJ5IGVuYWJsZS9kaXNhYmxlIHBhdGgK
-PiAgICogQHBhdGg6ICAgICAgICAgICAgICAgcGF0aCBmcm9tIHNvdXJjZSB0byBzaW5rLgo+ICAg
-KiBAdHJhY2VfaWQ6ICAgICAgICAgICB0cmFjZV9pZCBvZiB0aGUgd2hvbGUgcGF0aC4KPiAgICov
-Cj4gc3RydWN0IGNvcmVzaWdodF9wYXRoIHsKPiAgICAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICAg
-ICAgICAgICAgICAgICpwYXRoOwo+ICAgICAgICAgIHU4ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdHJhY2VfaWQ7Cj4gfTsKPiAKPiA0LiBJbnRyb2R1Y2UgYW4gYXJyYXkgb2YgYXRvbWlj
-IGluIENUQ1UgZHJpdmVyIHRvIHJlcHJlc2VudCB0aGUgcmVmY250IG9yIGVhY2gKPiAgICAgZW5h
-YmxlZCB0cmFjZV9pZCBmb3IgZWFjaCBzaW5rLiBUaGUgcmVhc29uIGlzIHRoZXJlIGlzIGEgc2Nl
-bmFyaW8gdGhhdCBtb3JlCj4gICAgIHRoYW4gb25lIFRQRE0gZGV2aWNlIHBoeXNpY2FsbHkgY29u
-bmVjdGVkIHRvIHRoZSBzYW1lIFRQREEgZGV2aWNlIGhhcwo+ICAgICBiZWVuIGVuYWJsZWQuIFRo
-ZSBDVENVIGRyaXZlciBtdXN0IHZlcmlmeSB0aGUgcmVmY250IGJlZm9yZSByZXNldHRpbmcgdGhl
-Cj4gICAgIGJpdCBvZiB0aGUgYXRpZCByZWdpc3RlciBhY2NvcmRpbmcgdG8gdGhlIHRyYWNlX2lk
-IG9mIHRoZSBUUERBIGRldmljZS4KPiA1LiBSZW1vdmUgcmVkdW5kYW50IGNvZGVzIGluIENUQ1Ug
-ZHJpdmVyLgo+IDYuIEFkZCByZXZpZXdlZC1ieSB0YWcgdG8gdGhlIGNvbW1pdCBtZXNzYWdlIGZv
-ciBBUEIgY2xvY2sgcGF0aChwYXRjaAo+ICAgICAxLzUpLgo+IExpbmsgdG8gVjggLSBodHRwczov
-L2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNDEyMjYwMTEwMjIuMTQ3NzE2MC0xLXF1aWNfamllZ2Fu
-QHF1aWNpbmMuY29tLwo+IAo+IENoYW5nZXMgaW4gVjg6Cj4gMS4gUmViYXNlZCBvbiB0YWcgbmV4
-dC0yMDI0MTIyMC4KPiAyLiBVc2UgcmF3X3NwaW5sb2NrX3QgaW5zdGVhZCBvZiBzcGlubG9ja190
-Lgo+IDMuIFJlbW92ZSByZWR1bmRhbnQgY29kZXMgaW4gQ1RDVSBkcml2ZXI6Cj4gICAgIC0gRWxp
-bWluYXRlIHVubmVjZXNzYXJ5IHBhcmFtZXRlciB2YWxpZGF0aW9ucy4KPiAgICAgLSBDb3JyZWN0
-IGxvZyBsZXZlbCB3aGVuIGFuIGVycm9yIG9jY3Vycy4KPiAgICAgLSBPcHRpbWl6ZSBjb2Rlcy4K
-PiA0LiBDb3JyZWN0IHRoZSBzdWJqZWN0IHByZWZpeCBmb3IgRFQgcGF0Y2guCj4gNS4gQ29sbGVj
-dGVkIHJldmlld2VkLWJ5IHRhZyBmcm9tIEtvbnJhZCBEeWJjaWIgZm9yIERUIHBhdGNoLgo+IExp
-bmsgdG8gVjcgLSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNDEyMTAwMzE1NDUuMzQ2
-ODU2MS0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29tLwo+IAo+IENoYW5nZXMgaW4gVjc6Cj4gMS4g
-UmViYXNlZCBvbiB0YWcgbmV4dC0yMDI0MTIwNC4KPiAyLiBGaXggZm9ybWF0IGlzc3VlIGZvciBk
-dHMgcGF0Y2guCj4gICAgIC0gUGFkZGluZyB0aGUgYWRkcmVzcyBwYXJ0IHRvIDggZGlnaXRzCj4g
-TGluayB0byBWNiAtIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWFybS1tc20vMjAyNDEw
-MDkxMTI1MDMuMTg1MTU4NS0xLXF1aWNfamllZ2FuQHF1aWNpbmMuY29tLwo+IAo+IENoYW5nZXMg
-aW4gVjY6Cj4gMS4gQ29sbGVjdGVkIHJldmlld2VkLWJ5IHRhZyBmcm9tIFJvYiBmb3IgZHQtYmlu
-ZGluZyBwYXRjaC4KPiAyLiBSZWJhc2VkIG9uIHRhZyBuZXh0LTIwMjQxMDA4Lgo+IDMuIERyb3Bw
-ZWQgYWxsIGRlcGVuZHMtb24gdGFncy4KPiBMaW5rIHRvIFY1IC0gaHR0cHM6Ly9sb3JlLmtlcm5l
-bC5vcmcvbGludXgtYXJtLW1zbS8yMDI0MDkwOTAzMzQ1OC4zMTE4MjM4LTEtcXVpY19qaWVnYW5A
-cXVpY2luYy5jb20vCj4gCj4gQ2hhbmdlcyBpbiBWNToKPiAxLiBGaXggdGhlIGZvcm1hdCBpc3N1
-ZSBmb3IgZGVzY3JpcHRpb24gcGFyYWdyYWggaW4gZHQgYmluZGluZyBmaWxlLgo+IDIuIFByZXZp
-b3VzIGRpc2N1c3Npb24gZm9yIHdoeSB1c2UgImluLXBvcnRzIiBwcm9wZXJ0eSBpbnN0ZWFkIG9m
-ICJwb3J0cyIuCj4gTGluayB0byBWNCAtIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWFy
-bS1tc20vMjAyNDA4MjgwMTI3MDYuNTQzNjA1LTEtcXVpY19qaWVnYW5AcXVpY2luYy5jb20vCj4g
-Cj4gQ2hhbmdlcyBpbiBWNDoKPiAxLiBBZGQgVE1DIGRlc2NyaXB0aW9uIGluIGJpbmRpbmcgZmls
-ZS4KPiAyLiBSZXN0cmljdCB0aGUgbnVtYmVyIG9mIHBvcnRzIGZvciB0aGUgQ1RDVSBkZXZpY2Ug
-dG8gYSByYW5nZSBvZiAwIHRvIDEgaW4gdGhlIGJpbmRpbmcgZmlsZSwKPiAgICAgYmVjYXVzZSB0
-aGUgbWF4aW11bSBudW1iZXIgb2YgQ1RDVSBkZXZpY2VzIGlzIDIgZm9yIGV4aXN0aW5nIHByb2pl
-Y3RzLgo+IExpbmsgdG8gVjMgLSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0ta2Vy
-bmVsLzIwMjQwODEyMDI0MTQxLjI4Njc2NTUtMS1xdWljX2ppZWdhbkBxdWljaW5jLmNvbS8KPiAK
-PiBDaGFuZ2VzIGluIFYzOgo+IDEuIFJlbmFtZSB0aGUgZGV2aWNlIHRvIENvcmVzaWdodCBUTUMg
-Q29udHJvbCBVbml0KENUQ1UpLgo+IDIuIEludHJvZHVjZSBhIG5ldyB3YXkgdG8gZGVmaW5lIHRo
-ZSBwbGF0Zm9ybSByZWxhdGVkIGNvbmZpZ3MuIFRoZSBuZXcKPiAgICAgc3RydWN0dXJlLCBxY29t
-X2N0Y3VfY29uZmlnLCBpcyB1c2VkIHRvIHN0b3JlIGNvbmZpZ3VyYXRpb25zIHNwZWNpZmljCj4g
-ICAgIHRvIGEgcGxhdGZvcm0uIEVhY2ggcGxhdGZvcm0gc2hvdWxkIGhhdmUgaXRzIG93biBxY29t
-X2N0Y3VfY29uZmlnIHN0cnVjdHVyZS4KPiAzLiBJbiBwZXJmIG1vZGUsIHRoZSBFVE0gZGV2aWNl
-cyBhbGxvY2F0ZSB0aGVpciB0cmFjZSBJRHMgdXNpbmcgdGhlCj4gICAgIHBlcmZfc2lua19pZF9t
-YXAuIEluIHN5c2ZzIG1vZGUsIHRoZSBFVE0gZGV2aWNlcyBhbGxvY2F0ZSB0aGVpciB0cmFjZQo+
-ICAgICBJRHMgdXNpbmcgdGhlIGlkX21hcF9kZWZhdWx0Lgo+IDQuIENvbnNpZGVyaW5nIHRoZSBz
-Y2VuYXJpbyB3aGVyZSBib3RoIEVUUiBkZXZpY2VzIG1pZ2h0IGJlIGVuYWJsZWQgc2ltdWx0YW5l
-b3VzbHkKPiAgICAgd2l0aCBtdWx0aXBsZSBzb3VyY2VzLCByZXRyaWV2aW5nIGFuZCB1c2luZyB0
-cmFjZSBJRHMgaW5zdGVhZCBvZiBpZF9tYXAgaXMgbW9yZSBlZmZlY3RpdmUKPiAgICAgZm9yIHRo
-ZSBDVENVIGRldmljZSBpbiBzeXNmcyBtb2RlLiBGb3IgZXhhbXBsZSwgV2UgY2FuIGNvbmZpZ3Vy
-ZSBvbmUgRVRSIGFzIHNpbmsgZm9yIGhpZ2gKPiAgICAgdGhyb3VnaHB1dCB0cmFjZSBkYXRhIGxp
-a2UgRVRNIGFuZCBhbm90aGVyIEVUUiBmb3IgbG93IHRocm91Z2hwdXQgdHJhY2UgZGF0YSBsaWtl
-IFNUTS4KPiAgICAgSW4gdGhpcyBjYXNlLCBTVE0gZGF0YSB3b27igJl0IGJlIGZsdXNoZWQgb3V0
-IGJ5IEVUTSBkYXRhIHF1aWNrbHkuIEhvd2V2ZXIsIGlmIHdlIHVzZSBpZF9tYXAgdG8KPiAgICAg
-bWFuYWdlIHRoZSB0cmFjZSBJRHMsIHdlIG5lZWQgdG8gY3JlYXRlIGEgc2VwYXJhdGUgaWRfbWFw
-IGZvciBlYWNoIEVUUiBkZXZpY2UuIEFkZHRpb25hbGx5LCBXZQo+ICAgICB3b3VsZCBuZWVkIHRv
-IGl0ZXJhdGUgdGhyb3VnaCB0aGUgZW50aXJlIGlkX21hcCBmb3IgZWFjaCBjb25maWd1cmF0aW9u
-Lgo+IDUuIEFkZCBzdXBwb3J0IGZvciBhcGIncyBjbG9jayBuYW1lICJhcGIiLiBJZiB0aGUgZnVu
-Y3Rpb24gZmFpbHMgdG8gb2J0YWluIHRoZSBjbG9jayB3aXRoCj4gICAgIHRoZSBuYW1lICJhcGJf
-cGNsayIsIGl0IHdpbGwgYXR0ZW1wdCB0byBhY3F1aXJlIHRoZSBjbG9jayB3aXRoIHRoZSBuYW1l
-ICJhcGIiLgo+IExpbmsgdG8gVjIgLSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0t
-bXNtLzIwMjQwNzA1MDkwMDQ5LjE2NTY5ODYtMS1xdWljX2ppZWdhbkBxdWljaW5jLmNvbS9ULyN0
-Cj4gCj4gQ2hhbmdlcyBpbiBWMjoKPiAxLiBSZW5hbWUgdGhlIGRldmljZSB0byBDb3Jlc2lnaHQg
-Q29udHJvbCBVbml0Lgo+IDIuIEludHJvZHVjZSB0aGUgdHJhY2VfaWQgZnVuY3Rpb24gcG9pbnRl
-ciB0byBhZGRyZXNzIHRoZSBjaGFsbGVuZyBob3cgdG8KPiAgICAgcHJvcGVybHkgY29sbGVjdCB0
-aGUgdHJhY2UgSUQgb2YgdGhlIGRldmljZS4KPiAzLiBJbnRyb2R1Y2UgYSBuZXcgd2F5IHRvIGRl
-ZmluZSB0aGUgcWNvbSxjY3UtYXRpZC1vZmZzZXQgcHJvcGVydHkgaW4KPiBkZXZpY2UgdHJlZS4K
-PiA0LiBEaXNhYmxpbmcgdGhlIGZpbHRlciBmdW5jdGlvbiBibG9ja2VkIG9uIGFjcXVpcmluZyB0
-aGUgQVRJRC1vZmZzZXQsCj4gICAgIHdoaWNoIHdpbGwgYmUgYWRkcmVzc2VkIGluIGEgc2VwYXJh
-dGUgcGF0Y2ggb25jZSBpdOKAmXMgcmVhZHkuCj4gTGluayB0byBWMSAtIGh0dHBzOi8vbG9yZS5r
-ZXJuZWwub3JnL2xrbWwvMjAyNDA2MTgwNzI3MjYuMzc2Nzk3NC0xLXF1aWNfamllZ2FuQHF1aWNp
-bmMuY29tL1QvI3QKPiAtLS0KPiAKPiBKYW1lcyBDbGFyayAoMSk6Cj4gICAgQ29yZXNpZ2h0OiBV
-c2UgY29yZXNpZ2h0X2V0bV9nZXRfdHJhY2VfaWQoKSBpbiB0cmFjZWlkX3Nob3coKQo+IAo+IEpp
-ZSBHYW4gKDkpOgo+ICAgIENvcmVzaWdodDogQWRkIHN1cHBvcnQgZm9yIG5ldyBBUEIgY2xvY2sg
-bmFtZQo+ICAgIENvcmVzaWdodDogQWRkIHRyYWNlX2lkIGZ1bmN0aW9uIHRvIHJldHJpZXZpbmcg
-dGhlIHRyYWNlIElECj4gICAgQ29yZXNpZ2h0OiBJbnRyb2R1Y2UgYSBuZXcgc3RydWN0IGNvcmVz
-aWdodF9wYXRoCj4gICAgQ29yZXNpZ2h0OiBNb3ZlIHRyYWNlX2lkIHRvIGNvcmVzaWdodF9wYXRo
-IGFuZCBhbGxvY2F0ZSBpdCBhZnRlcgo+ICAgICAgYnVpbGRpbmcgdGhlIHBhdGgKPiAgICBDb3Jl
-c2lnaHQ6IENoYW5nZSB0byByZWFkIHRoZSB0cmFjZSBJRCBmcm9tIGNvcmVzaWdodF9wYXRoCj4g
-ICAgQ29yZXNpZ2h0OiBDaGFuZ2UgZnVuY3Rpb25zIHRvIGFjY2VwdCB0aGUgY29yZXNpZ2h0X3Bh
-dGgKPiAgICBkdC1iaW5kaW5nczogYXJtOiBBZGQgQ29yZXNpZ2h0IFRNQyBDb250cm9sIFVuaXQg
-aGFyZHdhcmUKPiAgICBDb3Jlc2lnaHQ6IEFkZCBDb3Jlc2lnaHQgVE1DIENvbnRyb2wgVW5pdCBk
-cml2ZXIKPiAgICBhcm02NDogZHRzOiBxY29tOiBzYTg3NzVwOiBBZGQgQ1RDVSBhbmQgRVRSIG5v
-ZGVzCj4gCj4gICAuLi4vYmluZGluZ3MvYXJtL3Fjb20sY29yZXNpZ2h0LWN0Y3UueWFtbCAgICAg
-fCAgODQgKysrKysKPiAgIGFyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYTg3NzVwLmR0c2kgICAg
-ICAgICB8IDE1MyArKysrKysrKwo+ICAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L0tjb25m
-aWcgICAgICAgICAgIHwgIDEyICsKPiAgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9NYWtl
-ZmlsZSAgICAgICAgICB8ICAgMiArCj4gICBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29y
-ZXNpZ2h0LWNvcmUuYyAgfCAxMjIgKysrKystLQo+ICAgLi4uL2h3dHJhY2luZy9jb3Jlc2lnaHQv
-Y29yZXNpZ2h0LWN0Y3UtY29yZS5jIHwgMzI2ICsrKysrKysrKysrKysrKysrKwo+ICAgZHJpdmVy
-cy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jdGN1LmggIHwgIDM5ICsrKwo+ICAgZHJp
-dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1kdW1teS5jIHwgIDE1ICstCj4gICAu
-Li4vaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtLXBlcmYuYyAgfCAgMjcgKy0KPiAg
-IC4uLi9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0tcGVyZi5oICB8ICAgMiArLQo+
-ICAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1ldG0uaCAgIHwgICAxIC0K
-PiAgIC4uLi9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LWNvcmUuYyAgICAgICAgICB8ICA1NSAr
-LS0KPiAgIC4uLi9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTN4LXN5c2ZzLmMgICAgICAgICB8ICAg
-MyArLQo+ICAgLi4uL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtY29yZS5jICAgICAgICAgIHwg
-IDU1ICstLQo+ICAgLi4uL2NvcmVzaWdodC9jb3Jlc2lnaHQtZXRtNHgtc3lzZnMuYyAgICAgICAg
-IHwgICA0ICstCj4gICBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTR4
-LmggfCAgIDEgLQo+ICAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wcml2
-LmggIHwgIDE0ICstCj4gICBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXN0
-bS5jICAgfCAgMTMgKy0KPiAgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQt
-c3lzZnMuYyB8ICAxNyArLQo+ICAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdo
-dC10cGRhLmMgIHwgIDExICsKPiAgIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2ln
-aHQtdHBkbS5jICB8ICAgMiArLQo+ICAgaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaCAgICAgICAg
-ICAgICAgICAgICAgIHwgIDI3ICstCj4gICAyMiBmaWxlcyBjaGFuZ2VkLCA4MjQgaW5zZXJ0aW9u
-cygrKSwgMTYxIGRlbGV0aW9ucygtKQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcWNvbSxjb3Jlc2lnaHQtY3RjdS55YW1sCj4gICBj
-cmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1j
-dGN1LWNvcmUuYwo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVz
-aWdodC9jb3Jlc2lnaHQtY3RjdS5oCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 2/26/2025 12:13 PM, Jie Gan wrote:
+> The trace_id will be stored in coresight_path instead of being declared
+> everywhere and allocated after building the path.
+> 
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+
+Correct tags:
+Co-developed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+
+Jie
+
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c  | 44 +++++++++++++++++++
+>   .../hwtracing/coresight/coresight-etm-perf.c  |  5 +--
+>   drivers/hwtracing/coresight/coresight-priv.h  |  2 +
+>   drivers/hwtracing/coresight/coresight-sysfs.c |  4 ++
+>   4 files changed, 52 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index 9c2a088a28d8..7d010d996f01 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -654,6 +654,50 @@ static void coresight_drop_device(struct coresight_device *csdev)
+>   	}
+>   }
+>   
+> +/*
+> + * coresight device will read their existing or alloc a trace ID, if their trace_id
+> + * callback is set.
+> + *
+> + * Return 0 if the trace_id callback is not set.
+> + * Return the result of the trace_id callback if it is set. The return value
+> + * will be the trace_id if successful, and an error number if it fails.
+> + */
+> +static int coresight_get_trace_id(struct coresight_device *csdev,
+> +				  enum cs_mode mode,
+> +				  struct coresight_device *sink)
+> +{
+> +	if (coresight_ops(csdev)->trace_id)
+> +		return coresight_ops(csdev)->trace_id(csdev, mode, sink);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Call this after creating the path and before enabling it. This leaves
+> + * the trace ID set on the path, or it remains 0 if it couldn't be assigned.
+> + */
+> +void coresight_path_assign_trace_id(struct coresight_path *path,
+> +				    enum cs_mode mode)
+> +{
+> +	struct coresight_device *sink = coresight_get_sink(&path->path_list);
+> +	struct coresight_node *nd;
+> +	int trace_id;
+> +
+> +	list_for_each_entry(nd, &path->path_list, link) {
+> +		/* Assign a trace ID to the path for the first device that wants to do it */
+> +		trace_id = coresight_get_trace_id(nd->csdev, mode, sink);
+> +
+> +		/*
+> +		 * 0 in this context is that it didn't want to assign so keep searching.
+> +		 * Non 0 is either success or fail.
+> +		*/
+> +		if (trace_id != 0) {
+> +			path->trace_id = trace_id;
+> +			return;
+> +		}
+> +	}
+> +}
+> +
+>   /**
+>    * _coresight_build_path - recursively build a path from a @csdev to a sink.
+>    * @csdev:	The device to start from.
+> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> index b0426792f08a..134290ab622e 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+> @@ -319,7 +319,6 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+>   {
+>   	u32 id, cfg_hash;
+>   	int cpu = event->cpu;
+> -	int trace_id;
+>   	cpumask_t *mask;
+>   	struct coresight_device *sink = NULL;
+>   	struct coresight_device *user_sink = NULL, *last_sink = NULL;
+> @@ -409,8 +408,8 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
+>   		}
+>   
+>   		/* ensure we can allocate a trace ID for this CPU */
+> -		trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
+> -		if (!IS_VALID_CS_TRACE_ID(trace_id)) {
+> +		coresight_path_assign_trace_id(path, CS_MODE_PERF);
+> +		if (!IS_VALID_CS_TRACE_ID(path->trace_id)) {
+>   			cpumask_clear_cpu(cpu, mask);
+>   			coresight_release_path(path);
+>   			continue;
+> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+> index 27b7dc348d4a..2bea35bae0d4 100644
+> --- a/drivers/hwtracing/coresight/coresight-priv.h
+> +++ b/drivers/hwtracing/coresight/coresight-priv.h
+> @@ -152,6 +152,8 @@ int coresight_make_links(struct coresight_device *orig,
+>   void coresight_remove_links(struct coresight_device *orig,
+>   			    struct coresight_connection *conn);
+>   u32 coresight_get_sink_id(struct coresight_device *csdev);
+> +void coresight_path_assign_trace_id(struct coresight_path *path,
+> +				   enum cs_mode mode);
+>   
+>   #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM3X)
+>   extern int etm_readl_cp14(u32 off, unsigned int *val);
+> diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
+> index cb4c39732d26..d03751bf3d8a 100644
+> --- a/drivers/hwtracing/coresight/coresight-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-sysfs.c
+> @@ -209,6 +209,10 @@ int coresight_enable_sysfs(struct coresight_device *csdev)
+>   		goto out;
+>   	}
+>   
+> +	coresight_path_assign_trace_id(path, CS_MODE_SYSFS);
+> +	if (!IS_VALID_CS_TRACE_ID(path->trace_id))
+> +		goto err_path;
+> +
+>   	ret = coresight_enable_path(&path->path_list, CS_MODE_SYSFS, NULL);
+>   	if (ret)
+>   		goto err_path;
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
