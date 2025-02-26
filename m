@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE4BA46520
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 16:41:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88A76A46539
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 16:43:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 148D3C7A832;
-	Wed, 26 Feb 2025 15:41:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 430BFC7A832;
+	Wed, 26 Feb 2025 15:43:42 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4F93C7A831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7DB7C7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 15:41:16 +0000 (UTC)
+ Wed, 26 Feb 2025 15:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JQFHZ/kdDsS4cmacYVEXIC+sRK+7fav8gHKUqIh5pBo=; b=ya8e/MihaW9zZqW6s9mBDHFloc
- Sm5jbxrIfXIRjDtO8huDZnrzi5pWuHJVcEart1ut2y2g1y8SE+OI1Qs3gsoWm6iJNcW+nOB5XCZ99
- FGQ1LNq8aoLJ2cSJmqsNg9V8YJLA+9TOEQ1My3owfK18QKqSxD16YV82bHL7KXCT+MypbIm6MB75i
- O4UMnBszWlJB5AsJ77jMv/RtDPaenNeZo7YB6hqmWjCjmv3D19S7uqFsAW/AnL8NMYJ4V56Xs1EDu
- 5aFm05oKk7nSsSeE71wde3f8TFBoaWmWI6FRuLSfE8OLignQUE5U6iEhXEMTGMLcwA4yc9AlsVYcE
- klDf8hjw==;
+ bh=a/Qb5wr4Rktc7tGiLjgQsav252MOo0XtSMwhk7qeqzs=; b=QudsgOBLA9IYJ3c1Izp+exRAYJ
+ I6tGKvgOw4TgPpxeHoFVHf4MSl9ILu7W+9BjMZHD6rWe+ZyqrdbM6uZFpBUI5XCZ+irh8rJE0wyx6
+ BWjjWJRHN7p+ZRePLH+aQnZAq6pvC8LgE3WdRL6pVN01ai14LVj8M3qpmBgvIeeO1twxc5/Z+slHJ
+ kkivBkwv2WLg9kLWreuvHJ6zhSzamCKGFVRiAC9UZHNPEn4WGBod2FefrsfgHXEk2XaMcgL84Bu1Z
+ YwWqkWFwZSnzxGFIDlwzLUBRXGQsNf4oNRFb2YAEkqoVl3SoHzvZN3nxQk0JbJOG87KUJtRuQGzOI
+ H50kXAJw==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42196)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40300)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tnJWm-0004kG-2T;
- Wed, 26 Feb 2025 15:40:52 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tnJZ1-0004ky-0z;
+ Wed, 26 Feb 2025 15:43:11 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tnJWk-0007DX-0U;
- Wed, 26 Feb 2025 15:40:50 +0000
-Date: Wed, 26 Feb 2025 15:40:49 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tnJYx-0007Dk-1g;
+ Wed, 26 Feb 2025 15:43:07 +0000
+Date: Wed, 26 Feb 2025 15:43:07 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <Z782AcW4a7SEfDUT@shell.armlinux.org.uk>
+Message-ID: <Z782i67tlpj6d57m@shell.armlinux.org.uk>
 References: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
- <20250226074837.1679988-6-yong.liang.choong@linux.intel.com>
+ <20250226074837.1679988-5-yong.liang.choong@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250226074837.1679988-6-yong.liang.choong@linux.intel.com>
+In-Reply-To: <20250226074837.1679988-5-yong.liang.choong@linux.intel.com>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
  Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
@@ -62,8 +62,8 @@ Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
  "David S . Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v8 5/6] net: stmmac: configure
- SerDes on mac_finish
+Subject: Re: [Linux-stm32] [PATCH net-next v8 4/6] stmmac: intel: configure
+ SerDes according to the interface mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,15 +80,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 26, 2025 at 03:48:36PM +0800, Choong Yong Liang wrote:
-> SerDes will configure according to the provided interface mode after
-> finish a major reconfiguration of the interface mode.
-> 
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+On Wed, Feb 26, 2025 at 03:48:35PM +0800, Choong Yong Liang wrote:
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index 6d2aa77ea963..af22a11c2b8a 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -236,6 +236,10 @@ struct plat_stmmacenet_data {
+>  	int (*serdes_powerup)(struct net_device *ndev, void *priv);
+>  	void (*serdes_powerdown)(struct net_device *ndev, void *priv);
+>  	void (*speed_mode_2500)(struct net_device *ndev, void *priv);
+> +	int (*mac_finish)(struct net_device *ndev,
+> +			  void *priv,
+> +			  unsigned int mode,
+> +			  phy_interface_t interface);
+>  	void (*ptp_clk_freq_config)(struct stmmac_priv *priv);
+>  	int (*init)(struct platform_device *pdev, void *priv);
+>  	void (*exit)(struct platform_device *pdev, void *priv);
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+This should be part of patch 5, and the order of patches 4 and 5
+reversed.
 
-Thanks!
+The subject line should also be "net: stmmac: ..."
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
