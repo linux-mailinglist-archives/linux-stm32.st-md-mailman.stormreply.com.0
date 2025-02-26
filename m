@@ -2,67 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A4FA45D50
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 12:38:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D822A45DE5
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 12:55:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECCA5C7A831;
-	Wed, 26 Feb 2025 11:38:19 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66D0BC7A830
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0894C7A831;
+	Wed, 26 Feb 2025 11:55:49 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CAB4C7A830
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 11:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=y9BAqSnFFNaw8imer/kwMAPgxvAbHzc55cjQboyE68c=; b=D1SpJUTlsB6X390df0Z143pp1m
- N4oNs6gz9iuF/Ff/JFJvTgpa0RWUOjFTKJD1ClCHelSSvsi1BoG0rr/FuAfjG2Vhra1TdP88nmhj0
- JI3RC7uOPNGJHKp9mpZheKAe7V9xczdeNqdpcEu5Kfb/h15ixpMWWbyH6i46iPo+i85+hq5PbrUuj
- dfi4P49Smxd4FXvbsvPl9H1ygrhLEyL3hF/SnqiO1qJzyhtAoDU3HQnc5rJ/H1hEPYdNLkXW6VUnM
- NnEUh55FDtXESogMy7zcOXjUYXSNNdQV6rTv5h2M4DjsHshAtXzYsXDKvxlkZOoZd2ssH1c7Pn4mf
- eLE6cs1Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36448)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tnFjo-00046K-2J;
- Wed, 26 Feb 2025 11:38:04 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tnFjj-00071h-28;
- Wed, 26 Feb 2025 11:37:59 +0000
-Date: Wed, 26 Feb 2025 11:37:59 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <Z779FzlWTwbbKW1s@shell.armlinux.org.uk>
-References: <Z68nSJqVxcnCc1YB@shell.armlinux.org.uk>
- <86fae995-1700-420b-8d84-33ab1e1f6353@nvidia.com>
- <Z7X6Z8yLMsQ1wa2D@shell.armlinux.org.uk>
- <203871c2-c673-4a98-a0a3-299d1cf71cf0@nvidia.com>
- <Z7YtWmkVl0rWFvQO@shell.armlinux.org.uk>
- <fd4af708-0c92-4295-9801-bf53db3a16cc@nvidia.com>
- <Z7ZF0dA4-jwU7O2E@shell.armlinux.org.uk>
- <31731125-ab8f-48d9-bd6f-431d49431957@nvidia.com>
- <Z77myuNCoe_la7e4@shell.armlinux.org.uk>
- <dd1f65bf-8579-4d32-9c9c-9815d25cc116@nvidia.com>
+ Wed, 26 Feb 2025 11:55:48 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCD60106F;
+ Wed, 26 Feb 2025 03:56:03 -0800 (PST)
+Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BB17A3F6A8;
+ Wed, 26 Feb 2025 03:55:45 -0800 (PST)
+Message-ID: <abad8cd1-2436-416b-9db8-3c5e9eb38d73@arm.com>
+Date: Wed, 26 Feb 2025 11:55:40 +0000
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="6YZS2zdWWQ7tS9pq"
-Content-Disposition: inline
-In-Reply-To: <dd1f65bf-8579-4d32-9c9c-9815d25cc116@nvidia.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: convert to
- phylink managed EEE support
+User-Agent: Mozilla Thunderbird
+To: Jie Gan <quic_jiegan@quicinc.com>, Mike Leach <mike.leach@linaro.org>,
+ James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20250226041342.53933-1-quic_jiegan@quicinc.com>
+ <20250226041342.53933-3-quic_jiegan@quicinc.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20250226041342.53933-3-quic_jiegan@quicinc.com>
+Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v14 02/10] Coresight: Add trace_id
+ function to retrieving the trace ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,388 +52,227 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---6YZS2zdWWQ7tS9pq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Feb 26, 2025 at 10:11:58AM +0000, Jon Hunter wrote:
-> On 26/02/2025 10:02, Russell King (Oracle) wrote:
-> > The patch above was something of a hack, bypassing the layering, so I
-> > would like to consider how this should be done properly.
-> > 
-> > I'm still wondering whether the early call to phylink_resume() is
-> > symptomatic of this same issue, or whether there is a PHY that needs
-> > phy_start() to be called to output its clock even with link down that
-> > we don't know about.
-> > 
-> > The phylink_resume() call is relevant to this because I'd like to put:
-> > 
-> > 	phy_eee_rx_clock_stop(priv->dev->phydev,
-> > 			      priv->phylink_config.eee_rx_clk_stop_enable);
-> > 
-> > in there to ensure that the PHY is correctly configured for clock-stop,
-> > but given stmmac's placement that wouldn't work.
-> > 
-> > I'm then thinking of phylink_pre_resume() to disable the EEE clock-stop
-> > at the PHY.
-> > 
-> > I think the only thing we could do is try solving this problem as per
-> > above and see what the fall-out from it is. I don't get the impression
-> > that stmmac users are particularly active at testing patches though, so
-> > it may take months to get breakage reports.
+On 26/02/2025 04:13, Jie Gan wrote:
+> Add 'trace_id' function pointer in coresight_ops. It's responsible for retrieving
+> the device's trace ID.
 > 
+> Co-developed-by: James Clark <james.clark@linaro.org>
+> Signed-off-by: James Clark <james.clark@linaro.org>
+> Reviewed-by: James Clark <james.clark@linaro.org>
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c  | 27 +++++++++++++++++++
+>   drivers/hwtracing/coresight/coresight-dummy.c | 13 ++++++++-
+>   .../coresight/coresight-etm3x-core.c          |  1 +
+>   .../coresight/coresight-etm4x-core.c          |  1 +
+>   drivers/hwtracing/coresight/coresight-stm.c   | 11 ++++++++
+>   drivers/hwtracing/coresight/coresight-tpda.c  | 11 ++++++++
+>   include/linux/coresight.h                     |  5 ++++
+>   7 files changed, 68 insertions(+), 1 deletion(-)
 > 
-> We can ask Furong to test as he seems to active and making changes, but
-> otherwise I am not sure how well it is being tested across various devices.
-> On the other hand, it feels like there are still lingering issues like this
-> with the driver and so I would hope this is moving in the right direction.
-> 
-> Let me know if you have a patch you want me to test and I will run in on our
-> Tegra186, Tegra194 and Tegra234 devices that all use this.
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index 0a9380350fb5..6cad777757f3 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -23,6 +23,7 @@
+>   #include "coresight-etm-perf.h"
+>   #include "coresight-priv.h"
+>   #include "coresight-syscfg.h"
+> +#include "coresight-trace-id.h"
+>   
+>   /*
+>    * Mutex used to lock all sysfs enable and disable actions and loading and
+> @@ -1515,6 +1516,32 @@ void coresight_remove_driver(struct amba_driver *amba_drv,
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_remove_driver);
+>   
+> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
+> +			       struct coresight_device *sink)
+> +{
+> +	int trace_id;
+> +	int cpu = source_ops(csdev)->cpu_id(csdev);
+> +
+> +	switch (mode) {
+> +	case CS_MODE_SYSFS:
+> +		trace_id = coresight_trace_id_get_cpu_id(cpu);
+> +		break;
+> +	case CS_MODE_PERF:
 
-The attached patches shows what I'm thinking of - it's just been roughed
-out, and only been build tested.
+Please could we handle a case where "sink" may be passed NULL ?
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+		if (WARN_ON(!sink))
+			return -EINVAL;
 
---6YZS2zdWWQ7tS9pq
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-net-phylink-add-config-of-PHY-receive-clock-stop-in-.patch"
+Sorry, didn't spot that in the last review.
 
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Bcc: linux@mail.armlinux.org.uk
-Subject: [PATCH net-next 1/5] net: phylink: add config of PHY receive
- clock-stop in phylink_resume()
-MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="utf-8"
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/phy/phylink.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index a3b186ab3854..0aae0bb2a254 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -2264,7 +2264,7 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
- 	pl->mac_tx_clk_stop = phy_eee_tx_clock_stop_capable(phy) > 0;
- 
- 	if (pl->mac_supports_eee_ops) {
--		/* Explicitly configure whether the PHY is allowed to stop it's
-+		/* Explicitly configure whether the PHY is allowed to stop its
- 		 * receive clock.
- 		 */
- 		ret = phy_eee_rx_clock_stop(phy,
-@@ -2645,8 +2645,22 @@ EXPORT_SYMBOL_GPL(phylink_suspend);
-  */
- void phylink_resume(struct phylink *pl)
- {
-+	int ret;
-+
- 	ASSERT_RTNL();
- 
-+	if (pl->mac_supports_eee_ops && pl->phydev) {
-+		/* Explicitly configure whether the PHY is allowed to stop its
-+		 * receive clock on resume to ensure that it is correctly
-+		 * configured.
-+		 */
-+		ret = phy_eee_rx_clock_stop(pl->phydev,
-+					    pl->config->eee_rx_clk_stop_enable);
-+		if (ret == -EOPNOTSUPP)
-+			phylink_warn(pl, "failed to set rx clock stop: %pe\n",
-+				     ERR_PTR(ret));
-+	}
-+
- 	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
- 		/* Wake-on-Lan enabled, MAC handling */
- 
--- 
-2.30.2
+Suzuki
 
 
---6YZS2zdWWQ7tS9pq
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0002-net-phylink-add-phylink_prepare_resume.patch"
+> +		trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
 
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Bcc: linux@mail.armlinux.org.uk
-Subject: [PATCH net-next 2/5] net: phylink: add phylink_prepare_resume()
-MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="utf-8"
-
-Add a resume preparation function, which will ensure that the receive
-clock from the PHY is appropriately configured while resuming.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/phy/phylink.c | 24 ++++++++++++++++++++++++
- include/linux/phylink.h   |  1 +
- 2 files changed, 25 insertions(+)
-
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 0aae0bb2a254..976e569feb70 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -2636,6 +2636,30 @@ void phylink_suspend(struct phylink *pl, bool mac_wol)
- }
- EXPORT_SYMBOL_GPL(phylink_suspend);
- 
-+/**
-+ * phylink_prepare_resume() - prepare to resume a network device
-+ * @pl: a pointer to a &struct phylink returned from phylink_create()
-+ *
-+ * Optional, thus must be called prior to phylink_resume().
-+ *
-+ * Prepare to resume a network device, preparing the PHY as necessary.
-+ */
-+void phylink_prepare_resume(struct phylink *pl)
-+{
-+	ASSERT_RTNL();
-+
-+	/* If the MAC requires the receive clock, but receive clock
-+	 * stop was enabled at the PHY, we need to ensure that the
-+	 * receive clock is running. Disable receive clock stop.
-+	 * phylink_resume() will re-enable it if necessary.
-+	 */
-+	if (pl->mac_supports_eee_ops && pl->phydev &&
-+	    pl->config->mac_requires_rxc &&
-+	    pl->config->eee_rx_clk_stop_enable)
-+		phy_eee_rx_clock_stop(pl->phydev, false);
-+}
-+EXPORT_SYMBOL_GPL(phylink_prepare_resume);
-+
- /**
-  * phylink_resume() - handle a network device resume event
-  * @pl: a pointer to a &struct phylink returned from phylink_create()
-diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-index 08df65f6867a..071ed4683c8c 100644
---- a/include/linux/phylink.h
-+++ b/include/linux/phylink.h
-@@ -699,6 +699,7 @@ void phylink_start(struct phylink *);
- void phylink_stop(struct phylink *);
- 
- void phylink_suspend(struct phylink *pl, bool mac_wol);
-+void phylink_prepare_resume(struct phylink *pl);
- void phylink_resume(struct phylink *pl);
- 
- void phylink_ethtool_get_wol(struct phylink *, struct ethtool_wolinfo *);
--- 
-2.30.2
-
-
---6YZS2zdWWQ7tS9pq
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0003-net-stmmac-move-phylink_resume-after-resume-setup-is.patch"
-
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Bcc: linux@mail.armlinux.org.uk
-Subject: [PATCH net-next 3/5] net: stmmac: move phylink_resume() after resume
- setup is complete
-MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="utf-8"
-
-Move phylink_resume() to be after the setup in stmmac_resume() has
-completed, as phylink_resume() may result in an immediate call to the
-.mac_link_up method, which will enable the transmitter and receiver,
-and enable the transmit queues.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d552e64eaa90..b9f651d77c4f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7926,16 +7926,6 @@ int stmmac_resume(struct device *dev)
- 			return ret;
- 	}
- 
--	rtnl_lock();
--	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
--		phylink_resume(priv->phylink);
--	} else {
--		phylink_resume(priv->phylink);
--		if (device_may_wakeup(priv->device))
--			phylink_speed_up(priv->phylink);
--	}
--	rtnl_unlock();
--
- 	rtnl_lock();
- 	mutex_lock(&priv->lock);
- 
-@@ -7954,6 +7944,15 @@ int stmmac_resume(struct device *dev)
- 	stmmac_enable_all_dma_irq(priv);
- 
- 	mutex_unlock(&priv->lock);
-+
-+	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
-+		phylink_resume(priv->phylink);
-+	} else {
-+		phylink_resume(priv->phylink);
-+		if (device_may_wakeup(priv->device))
-+			phylink_speed_up(priv->phylink);
-+	}
-+
- 	rtnl_unlock();
- 
- 	netif_device_attach(ndev);
--- 
-2.30.2
-
-
---6YZS2zdWWQ7tS9pq
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0004-net-stmmac-simplify-calls-to-phylink_suspend-and-phy.patch"
-
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Bcc: linux@mail.armlinux.org.uk
-Subject: [PATCH net-next 4/5] net: stmmac: simplify calls to phylink_suspend()
- and phylink_resume()
-MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="utf-8"
-
-Currently, the calls to phylink's suspend and resume functions are
-inside overly complex tests, and boil down to:
-
-	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
-		call phylink
-	} else {
-		call phylink and
-		if (device_may_wakeup(priv->device))
-			do something else
-	}
-
-This results in phylink always being called, possibly with differing
-arguments for phylink_suspend().
-
-Simplify this code, noting that each site is slightly different due to
-the order in which phylink is called and the "something else".
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++------------
- 1 file changed, 8 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b9f651d77c4f..262718e5c4f3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7831,13 +7831,11 @@ int stmmac_suspend(struct device *dev)
- 	mutex_unlock(&priv->lock);
- 
- 	rtnl_lock();
--	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
--		phylink_suspend(priv->phylink, true);
--	} else {
--		if (device_may_wakeup(priv->device))
--			phylink_speed_down(priv->phylink, false);
--		phylink_suspend(priv->phylink, false);
--	}
-+	if (device_may_wakeup(priv->device) && !priv->plat->pmt)
-+		phylink_speed_down(priv->phylink, false);
-+
-+	phylink_suspend(priv->phylink,
-+			device_may_wakeup(priv->device) && priv->plat->pmt);
- 	rtnl_unlock();
- 
- 	if (stmmac_fpe_supported(priv))
-@@ -7945,13 +7943,9 @@ int stmmac_resume(struct device *dev)
- 
- 	mutex_unlock(&priv->lock);
- 
--	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
--		phylink_resume(priv->phylink);
--	} else {
--		phylink_resume(priv->phylink);
--		if (device_may_wakeup(priv->device))
--			phylink_speed_up(priv->phylink);
--	}
-+	phylink_resume(priv->phylink);
-+	if (device_may_wakeup(priv->device) && !priv->plat->pmt)
-+		phylink_speed_up(priv->phylink);
- 
- 	rtnl_unlock();
- 
--- 
-2.30.2
-
-
---6YZS2zdWWQ7tS9pq
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0005-net-stmmac-call-phylink_prepare_resume.patch"
-
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Bcc: linux@mail.armlinux.org.uk
-Subject: [PATCH net-next 5/5] net: stmmac: call phylink_prepare_resume()
-MIME-Version: 1.0
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="utf-8"
-
-The stmmac core needs the receive clock to be running in order to
-complete its software triggered reset. However, the media link may
-be in EEE low-power mode, and as the driver allows the PHY receive
-clock to be disabled, the receive clock may not be present while
-resuming. This has been observed with Tegra 186.
-
-Fix this by using the newly provided phylink_prepare_resume() to
-temporarily disable receive clock stop while resuming. phylink_resume()
-will restore the receive clock stop setting according to the
-configuration passed from the netdev driver.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 262718e5c4f3..31ec1818211d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7925,6 +7925,8 @@ int stmmac_resume(struct device *dev)
- 	}
- 
- 	rtnl_lock();
-+	phylink_prepare_resume(priv->phylink);
-+
- 	mutex_lock(&priv->lock);
- 
- 	stmmac_reset_queues_param(priv);
--- 
-2.30.2
-
-
---6YZS2zdWWQ7tS9pq
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +		break;
+> +	default:
+> +		trace_id = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	if (!IS_VALID_CS_TRACE_ID(trace_id))
+> +		dev_err(&csdev->dev,
+> +			"Failed to allocate trace ID on CPU%d\n", cpu);
+> +
+> +	return trace_id;
+> +}
+> +EXPORT_SYMBOL_GPL(coresight_etm_get_trace_id);
+> +
+>   MODULE_LICENSE("GPL v2");
+>   MODULE_AUTHOR("Pratik Patel <pratikp@codeaurora.org>");
+>   MODULE_AUTHOR("Mathieu Poirier <mathieu.poirier@linaro.org>");
+> diff --git a/drivers/hwtracing/coresight/coresight-dummy.c b/drivers/hwtracing/coresight/coresight-dummy.c
+> index 9be53be8964b..b5692ba358c1 100644
+> --- a/drivers/hwtracing/coresight/coresight-dummy.c
+> +++ b/drivers/hwtracing/coresight/coresight-dummy.c
+> @@ -41,6 +41,16 @@ static void dummy_source_disable(struct coresight_device *csdev,
+>   	dev_dbg(csdev->dev.parent, "Dummy source disabled\n");
+>   }
+>   
+> +static int dummy_source_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+> +				 __maybe_unused struct coresight_device *sink)
+> +{
+> +	struct dummy_drvdata *drvdata;
+> +
+> +	drvdata = dev_get_drvdata(csdev->dev.parent);
+> +
+> +	return drvdata->traceid;
+> +}
+> +
+>   static int dummy_sink_enable(struct coresight_device *csdev, enum cs_mode mode,
+>   				void *data)
+>   {
+> @@ -62,7 +72,8 @@ static const struct coresight_ops_source dummy_source_ops = {
+>   };
+>   
+>   static const struct coresight_ops dummy_source_cs_ops = {
+> -	.source_ops = &dummy_source_ops,
+> +	.trace_id	= dummy_source_trace_id,
+> +	.source_ops	= &dummy_source_ops,
+>   };
+>   
+>   static const struct coresight_ops_sink dummy_sink_ops = {
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> index c103f4c70f5d..c1dda4bc4a2f 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> @@ -704,6 +704,7 @@ static const struct coresight_ops_source etm_source_ops = {
+>   };
+>   
+>   static const struct coresight_ops etm_cs_ops = {
+> +	.trace_id	= coresight_etm_get_trace_id,
+>   	.source_ops	= &etm_source_ops,
+>   };
+>   
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> index 2c1a60577728..cfd116b87460 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -1067,6 +1067,7 @@ static const struct coresight_ops_source etm4_source_ops = {
+>   };
+>   
+>   static const struct coresight_ops etm4_cs_ops = {
+> +	.trace_id	= coresight_etm_get_trace_id,
+>   	.source_ops	= &etm4_source_ops,
+>   };
+>   
+> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
+> index b581a30a1cd9..aca25b5e3be2 100644
+> --- a/drivers/hwtracing/coresight/coresight-stm.c
+> +++ b/drivers/hwtracing/coresight/coresight-stm.c
+> @@ -281,12 +281,23 @@ static void stm_disable(struct coresight_device *csdev,
+>   	}
+>   }
+>   
+> +static int stm_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+> +			__maybe_unused struct coresight_device *sink)
+> +{
+> +	struct stm_drvdata *drvdata;
+> +
+> +	drvdata = dev_get_drvdata(csdev->dev.parent);
+> +
+> +	return drvdata->traceid;
+> +}
+> +
+>   static const struct coresight_ops_source stm_source_ops = {
+>   	.enable		= stm_enable,
+>   	.disable	= stm_disable,
+>   };
+>   
+>   static const struct coresight_ops stm_cs_ops = {
+> +	.trace_id	= stm_trace_id,
+>   	.source_ops	= &stm_source_ops,
+>   };
+>   
+> diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
+> index 189a4abc2561..68079169b11b 100644
+> --- a/drivers/hwtracing/coresight/coresight-tpda.c
+> +++ b/drivers/hwtracing/coresight/coresight-tpda.c
+> @@ -241,12 +241,23 @@ static void tpda_disable(struct coresight_device *csdev,
+>   	dev_dbg(drvdata->dev, "TPDA inport %d disabled\n", in->dest_port);
+>   }
+>   
+> +static int tpda_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+> +			 __maybe_unused struct coresight_device *sink)
+> +{
+> +	struct tpda_drvdata *drvdata;
+> +
+> +	drvdata = dev_get_drvdata(csdev->dev.parent);
+> +
+> +	return drvdata->atid;
+> +}
+> +
+>   static const struct coresight_ops_link tpda_link_ops = {
+>   	.enable		= tpda_enable,
+>   	.disable	= tpda_disable,
+>   };
+>   
+>   static const struct coresight_ops tpda_cs_ops = {
+> +	.trace_id	= tpda_trace_id,
+>   	.link_ops	= &tpda_link_ops,
+>   };
+>   
+> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+> index 157c4bd009a1..ce89ad24c2a2 100644
+> --- a/include/linux/coresight.h
+> +++ b/include/linux/coresight.h
+> @@ -335,6 +335,7 @@ enum cs_mode {
+>   	CS_MODE_PERF,
+>   };
+>   
+> +#define coresight_ops(csdev)	csdev->ops
+>   #define source_ops(csdev)	csdev->ops->source_ops
+>   #define sink_ops(csdev)		csdev->ops->sink_ops
+>   #define link_ops(csdev)		csdev->ops->link_ops
+> @@ -410,6 +411,8 @@ struct coresight_ops_helper {
+>   };
+>   
+>   struct coresight_ops {
+> +	int (*trace_id)(struct coresight_device *csdev, enum cs_mode mode,
+> +			struct coresight_device *sink);
+>   	const struct coresight_ops_sink *sink_ops;
+>   	const struct coresight_ops_link *link_ops;
+>   	const struct coresight_ops_source *source_ops;
+> @@ -697,4 +700,6 @@ int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
+>   
+>   void coresight_remove_driver(struct amba_driver *amba_drv,
+>   			     struct platform_driver *pdev_drv);
+> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
+> +			       struct coresight_device *sink);
+>   #endif		/* _LINUX_COREISGHT_H */
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---6YZS2zdWWQ7tS9pq--
