@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E842A45701
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:50:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D83A45706
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:50:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22A21C7A830;
-	Wed, 26 Feb 2025 07:50:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E086C7A82F;
+	Wed, 26 Feb 2025 07:50:24 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69119C7A82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73DA6C7A82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 07:50:11 +0000 (UTC)
+ Wed, 26 Feb 2025 07:50:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740556212; x=1772092212;
+ t=1740556223; x=1772092223;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=u/mi+LCXMe4ShYx5Tg1OkjWGnid4ORB7ALNFCdTPXsg=;
- b=MBzJJ62ltMt75hn6vYzSW6vbuPjXaTWV6Mmu2cA5geE2uUxNYijlollR
- 0x9kysYq5m/yBtx/4yXzfUZv3Dhw/26p7RG0Hjvm5PQctIANvWNShvXMF
- 1unt7vOfV250HMMExzLVm50fDa6uwvKyhZd1FRNPMXUdrJ1/ZwEnNIPJ4
- NcOUDIV+N2WdPPEI8Qb82ePXM86IMaomrAlR6ktmAXFzZkIjOkr4pm1hX
- AGOja3zzxkuL2A4VjJrf7MWSbxbTaIH//XM5jfC1BECQIWBL9KaxxTZqL
- 5oumPghvmGPZX+nPrOolonv83UJqpn5o6jKTVzapcl/8hVCsT7KqisJ/6 A==;
-X-CSE-ConnectionGUID: yKHmVIjETWOOTJ6Ks2KPaw==
-X-CSE-MsgGUID: nhpJS9qeSYSqvqOd15o5QQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11356"; a="45305078"
-X-IronPort-AV: E=Sophos;i="6.13,316,1732608000"; d="scan'208";a="45305078"
+ bh=J2WrRdXsHM4g/4BW0LGzBua9ax0dXvOez2jZneAIugs=;
+ b=fVgrWwimODL6PhXYiP/DF2WezFNTGQ0K4JoN/RGuNaktz5oCIDlNv/fn
+ fDqo7zDkEwkTxtsEefa9B8uYMM2Hq2FNifz5mbEQ6d/vIFhrQU4ktmL83
+ iizIJ4BAlnYd1YdiHvF6HGhy5IPEGe39g97kZKI6SsbOQ2eJwnfz40uKQ
+ if1EZSKOrDCjZDXKBKwESXpx/9yjM5JR6gb6ZwIvf1UWZYHxAOOrfbYHx
+ WaqvWKwjeOaFGE+Xvr9H5klDhDqUQl27jsvfn0iruSMrAisQtC36ewc3+
+ vH41svmrmIutdCvucTtJRNzS4OqJPM9JeHy4fiqAjxCzNkJY8DT2pPSiF Q==;
+X-CSE-ConnectionGUID: 5cgRUlwzQFub7d0e0Y2NYg==
+X-CSE-MsgGUID: IT+jSgg+QLih8Bq1PAN4+w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11356"; a="45305140"
+X-IronPort-AV: E=Sophos;i="6.13,316,1732608000"; d="scan'208";a="45305140"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2025 23:50:11 -0800
-X-CSE-ConnectionGUID: i/OO3VdcRvuKu0+EnZjkoQ==
-X-CSE-MsgGUID: UDgjKog5QnuTjCxpgoys2g==
+ 25 Feb 2025 23:50:20 -0800
+X-CSE-ConnectionGUID: QfjVcDevS3id+luAHduEVg==
+X-CSE-MsgGUID: k29dyh/ITGCV0Y+PbmRcEg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120743002"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="120743019"
 Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
- by fmviesa003.fm.intel.com with ESMTP; 25 Feb 2025 23:50:04 -0800
+ by fmviesa003.fm.intel.com with ESMTP; 25 Feb 2025 23:50:13 -0800
 From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>,
@@ -59,8 +59,8 @@ To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Serge Semin <fancer.lancer@gmail.com>
-Date: Wed, 26 Feb 2025 15:48:33 +0800
-Message-Id: <20250226074837.1679988-3-yong.liang.choong@linux.intel.com>
+Date: Wed, 26 Feb 2025 15:48:34 +0800
+Message-Id: <20250226074837.1679988-4-yong.liang.choong@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
 References: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
@@ -68,8 +68,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 2/6] net: pcs: xpcs: re-initiate
-	clause 37 Auto-negotiation
+Subject: [Linux-stm32] [PATCH net-next v8 3/6] arch: x86: add IPC mailbox
+	accessor function and add SoC register access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,92 +86,135 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The xpcs_switch_interface_mode function was introduced to handle
-interface switching.
+From: "David E. Box" <david.e.box@linux.intel.com>
 
-According to the XPCS datasheet, a soft reset is required to initiate
-Clause 37 auto-negotiation when the XPCS switches interface modes.
+- Exports intel_pmc_ipc() for host access to the PMC IPC mailbox
+- Enables the host to access specific SoC registers through the PMC
+firmware using IPC commands. This access method is necessary for
+registers that are not available through direct Memory-Mapped I/O (MMIO),
+which is used for other accessible parts of the PMC.
 
-When the interface mode switches from 2500BASE-X to SGMII,
-re-initiating Clause 37 auto-negotiation is required for the SGMII
-interface mode to function properly.
-
+Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+Signed-off-by: Chao Qin <chao.qin@intel.com>
 Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 ---
- drivers/net/pcs/pcs-xpcs-wx.c |  4 +---
- drivers/net/pcs/pcs-xpcs.c    | 29 +++++++++++++++++++++++++----
- 2 files changed, 26 insertions(+), 7 deletions(-)
+ MAINTAINERS                                   |  1 +
+ .../linux/platform_data/x86/intel_pmc_ipc.h   | 94 +++++++++++++++++++
+ 2 files changed, 95 insertions(+)
+ create mode 100644 include/linux/platform_data/x86/intel_pmc_ipc.h
 
-diff --git a/drivers/net/pcs/pcs-xpcs-wx.c b/drivers/net/pcs/pcs-xpcs-wx.c
-index fc52f7aa5f59..f73ab04d09f0 100644
---- a/drivers/net/pcs/pcs-xpcs-wx.c
-+++ b/drivers/net/pcs/pcs-xpcs-wx.c
-@@ -172,11 +172,9 @@ int txgbe_xpcs_switch_mode(struct dw_xpcs *xpcs, phy_interface_t interface)
- 		return 0;
- 	}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8019d5a97546..aff084824b89 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11864,6 +11864,7 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-platform-intel-pmc
+ F:	drivers/platform/x86/intel/pmc/
++F:	linux/platform_data/x86/intel_pmc_ipc.h
  
--	if (xpcs->interface == interface && !txgbe_xpcs_mode_quirk(xpcs))
-+	if (!txgbe_xpcs_mode_quirk(xpcs))
- 		return 0;
- 
--	xpcs->interface = interface;
--
- 	ret = txgbe_pcs_poll_power_up(xpcs);
- 	if (ret < 0)
- 		return ret;
-diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index e32dec4b812e..c506797f9b63 100644
---- a/drivers/net/pcs/pcs-xpcs.c
-+++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -602,12 +602,37 @@ static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
- 		__set_bit(compat->interface, interfaces);
- }
- 
-+static int xpcs_switch_interface_mode(struct dw_xpcs *xpcs,
-+				      phy_interface_t interface)
+ INTEL PMIC GPIO DRIVERS
+ M:	Andy Shevchenko <andy@kernel.org>
+diff --git a/include/linux/platform_data/x86/intel_pmc_ipc.h b/include/linux/platform_data/x86/intel_pmc_ipc.h
+new file mode 100644
+index 000000000000..6e603a8c075f
+--- /dev/null
++++ b/include/linux/platform_data/x86/intel_pmc_ipc.h
+@@ -0,0 +1,94 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Intel Core SoC Power Management Controller Header File
++ *
++ * Copyright (c) 2025, Intel Corporation.
++ * All Rights Reserved.
++ *
++ */
++#ifndef INTEL_PMC_IPC_H
++#define INTEL_PMC_IPC_H
++#include <linux/acpi.h>
++
++#define IPC_SOC_REGISTER_ACCESS			0xAA
++#define IPC_SOC_SUB_CMD_READ			0x00
++#define IPC_SOC_SUB_CMD_WRITE			0x01
++#define PMC_IPCS_PARAM_COUNT			7
++#define VALID_IPC_RESPONSE			5
++
++struct pmc_ipc_cmd {
++	u32 cmd;
++	u32 sub_cmd;
++	u32 size;
++	u32 wbuf[4];
++};
++
++struct pmc_ipc_rbuf {
++	u32 buf[4];
++};
++
++/**
++ * intel_pmc_ipc() - PMC IPC Mailbox accessor
++ * @ipc_cmd:  Prepared input command to send
++ * @rbuf:     Allocated array for returned IPC data
++ *
++ * Return: 0 on success. Non-zero on mailbox error
++ */
++static inline int intel_pmc_ipc(struct pmc_ipc_cmd *ipc_cmd, struct pmc_ipc_rbuf *rbuf)
 +{
-+	int ret = 0;
++	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
++	union acpi_object params[PMC_IPCS_PARAM_COUNT] = {
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++	};
++	struct acpi_object_list arg_list = { PMC_IPCS_PARAM_COUNT, params };
++	union acpi_object *obj;
++	int status;
 +
-+	if (xpcs->interface != interface) {
-+		if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
-+			ret = txgbe_xpcs_switch_mode(xpcs, interface);
-+			if (ret)
-+				return ret;
-+		} else if (interface == PHY_INTERFACE_MODE_SGMII) {
-+			xpcs->need_reset = true;
-+		}
++	if (!ipc_cmd || !rbuf)
++		return -EINVAL;
 +
-+		xpcs->interface = interface;
++	/*
++	 * 0: IPC Command
++	 * 1: IPC Sub Command
++	 * 2: Size
++	 * 3-6: Write Buffer for offset
++	 */
++	params[0].integer.value = ipc_cmd->cmd;
++	params[1].integer.value = ipc_cmd->sub_cmd;
++	params[2].integer.value = ipc_cmd->size;
++	params[3].integer.value = ipc_cmd->wbuf[0];
++	params[4].integer.value = ipc_cmd->wbuf[1];
++	params[5].integer.value = ipc_cmd->wbuf[2];
++	params[6].integer.value = ipc_cmd->wbuf[3];
++
++	status = acpi_evaluate_object(NULL, "\\IPCS", &arg_list, &buffer);
++	if (ACPI_FAILURE(status))
++		return -ENODEV;
++
++	obj = buffer.pointer;
++
++	if (obj && obj->type == ACPI_TYPE_PACKAGE &&
++	    obj->package.count == VALID_IPC_RESPONSE) {
++		const union acpi_object *objs = obj->package.elements;
++
++		if ((u8)objs[0].integer.value != 0)
++			return -EINVAL;
++
++		rbuf->buf[0] = objs[1].integer.value;
++		rbuf->buf[1] = objs[2].integer.value;
++		rbuf->buf[2] = objs[3].integer.value;
++		rbuf->buf[3] = objs[4].integer.value;
++	} else {
++		return -EINVAL;
 +	}
 +
 +	return 0;
 +}
 +
- static void xpcs_pre_config(struct phylink_pcs *pcs, phy_interface_t interface)
- {
- 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
- 	const struct dw_xpcs_compat *compat;
- 	int ret;
- 
-+	ret = xpcs_switch_interface_mode(xpcs, interface);
-+	if (ret)
-+		dev_err(&xpcs->mdiodev->dev, "switch interface failed: %pe\n",
-+			ERR_PTR(ret));
-+
- 	if (!xpcs->need_reset)
- 		return;
- 
-@@ -799,10 +824,6 @@ static int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
- 		return -ENODEV;
- 
- 	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
--		ret = txgbe_xpcs_switch_mode(xpcs, interface);
--		if (ret)
--			return ret;
--
- 		/* Wangxun devices need backplane CL37 AN enabled for
- 		 * SGMII and 1000base-X
- 		 */
++#endif /* INTEL_PMC_IPC_H */
 -- 
 2.34.1
 
