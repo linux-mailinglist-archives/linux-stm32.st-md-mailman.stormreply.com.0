@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58822A45682
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:20:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 698FCA45687
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 08:21:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B6CEC7A82F;
-	Wed, 26 Feb 2025 07:20:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22913C7A82F;
+	Wed, 26 Feb 2025 07:21:09 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B727C7A82E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C7D8C7A82E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 07:20:05 +0000 (UTC)
+ Wed, 26 Feb 2025 07:21:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 160D861128;
- Wed, 26 Feb 2025 07:19:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F849C4CED6;
- Wed, 26 Feb 2025 07:20:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E8A2961139;
+ Wed, 26 Feb 2025 07:20:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5E6C4CEE2;
+ Wed, 26 Feb 2025 07:21:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740554404;
- bh=wTTdKmIse4ca7h/gjxh9HC9YCPX8M8gZcWnwJ0f1gQ8=;
+ s=k20201202; t=1740554467;
+ bh=QegaP2Da7E1JZvVAchd05hz3+HLw4pHhxmZVYmicUQQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VCkFmz/5Bu/vlRbdiwFTbonhh+iN0v9QN90eaCbsoGIU3Xg9HVuyTsODOWhxiZDX2
- p5sGIaW0ym40ew7DKIACUGi4U6tA9ERtL+fo/IAInghpemXtwcIUrgla3vBDBaFjLt
- XCa/dRCBOFlkbtoZiptJgbS14IRUiznBSXquRUJbbQT/seFfszWRYmCJIq+ij5T4jS
- 41qo+3jwDqoxs+XU8QlfY3pE0dyrYzdcDtME7bFY1wJ/PLCW1Ut9ClpoV8LoaSSSMN
- eCnDGr2WJyWV/+mue8xUZkGK7O+elEOHo4dt+sW7csVsGhlSPvs0RhL2KfBkwU9irT
- 7WXDEK0KzQrZg==
-Message-ID: <459fe67d-0602-41c5-a94c-d9e9697c80b4@kernel.org>
-Date: Wed, 26 Feb 2025 08:19:58 +0100
+ b=CP3R7TuXqviDoYcwaepIbuSIGdnf60Nsa9lHT+WW8r7Too1AZKMSjmCD1LS3zePkV
+ BFeKkSOeWhjoTYlTOfJB5P2eJbN0Dwyh8kMNvxgdYvE4w/+wyc6q7cujyW/3puCbbn
+ fguCBEjAxmDYpsHHuKS2O8zj24BYfPIQn2KJic/Rfdl1VCG4835z703J8I/v08yazJ
+ G1ABsieQNik94oYbOoRuHLhyLwPjXDzVxXyaRyLNK3U5IRsL/79f/x5UNlo8Y9Icpx
+ C+V/Vm9ukQCEMOAkmw8Sk25afT9qMKvepBls4oNiZYEhbyOBVinWxCEyb8LNnuq7h+
+ X3bznEDKsSIBg==
+Message-ID: <00526b1d-b753-4ee5-8f83-67d27d66a43c@kernel.org>
+Date: Wed, 26 Feb 2025 08:21:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
@@ -39,9 +39,9 @@ To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
 References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
- <20250225-hdp-upstream-v1-1-9d049c65330a@foss.st.com>
- <f17eadf3-eb2d-470d-ad77-909f00584d44@kernel.org>
- <7bc5c425-1d6e-4e25-b913-287478d4149f@foss.st.com>
+ <20250225-hdp-upstream-v1-2-9d049c65330a@foss.st.com>
+ <6fc80544-6fc3-4450-a0cc-bfc740fe97bb@kernel.org>
+ <91f19306-4b31-41fe-8ad2-680b1a339204@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,12 +87,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <7bc5c425-1d6e-4e25-b913-287478d4149f@foss.st.com>
+In-Reply-To: <91f19306-4b31-41fe-8ad2-680b1a339204@foss.st.com>
 Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] dt-bindings: pinctrl: stm32: Add HDP
- includes for stm32mp platforms
+Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: pinctrl: stm32:
+	Introduce HDP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,34 +104,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/02/2025 16:46, Clement LE GOFFIC wrote:
->>
->> Why this is a string not a number?
->>
->> Where is it used? I don't see usage in the driver, so this does not look
->> like binding (and DTS is not a driver).
-> 
-> Those files are helpers for the devicetrees and may be included in 
-> stm32mp*-pinctrl.dtsi files.
-
-So not a binding, see other platforms/header files how it is done.
-
-> It is a string because it is an helper for the `function` property of 
-> `pinmux-node.yaml` which is a string.
-> 
-> I understand that having a number as a string is not easily understandable.
-> I'll consider it in a V2 by trying to use the `pinmux` property.
-
-Let's keep discussing this part in the bindings doc patch.
-
-Best regards,
-Krzysztof
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjUvMDIvMjAyNSAxNjo1MSwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4gT24gMi8yNS8y
+NSAxNDowNCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMjUvMDIvMjAyNSAwOTo0
+OCwgQ2zDqW1lbnQgTGUgR29mZmljIHdyb3RlOgo+Pj4gKwo+Pj4gK21haW50YWluZXJzOgo+Pj4g
+KyAgLSBDbMOpbWVudCBMRSBHT0ZGSUMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4+
+PiArCj4+PiArZGVzY3JpcHRpb246IHwKPj4KPj4KPj4gRG8gbm90IG5lZWQgJ3wnIHVubGVzcyB5
+b3UgbmVlZCB0byBwcmVzZXJ2ZSBmb3JtYXR0aW5nLgo+IAo+IE9rCj4gCj4+PiArICBTVE1pY3Jv
+ZWxlY3Ryb25pY3MncyBTVE0zMiBNUFVzIGludGVncmF0ZSBhIEhhcmR3YXJlIERlYnVnIFBvcnQg
+KEhEUCkuCj4+PiArICBJdCBhbGxvd3MgdG8gb3V0cHV0IGludGVybmFsIHNpZ25hbHMgb24gU29D
+J3MgR1BJTy4KPj4+ICsKPj4+ICtwcm9wZXJ0aWVzOgo+Pj4gKyAgY29tcGF0aWJsZToKPj4+ICsg
+ICAgY29uc3Q6IHN0LHN0bTMybXAtaGRwCj4+Cj4+IFRoZXJlIGlzIGEgbWVzcyBpbiBTVE0gU29D
+cy4gU29tZXRpbWVzIHlvdSBjYWxsIFNvQyBzdG0zMiwgc29tZXRpbWVzCj4+IHN0bTMybXAgYW5k
+IHNvbWV0aW1lcyBzdG0zMm1wWFguCj4+Cj4+IERlZmluZSBmb3IgYWxsIHlvdXIgU1RNIGNvbnRy
+aWJ1dGlvbnMgd2hhdCBpcyB0aGUgYWN0dWFsIFNvQy4gVGhpcwo+PiBmZWVkYmFjayB3YXMgYWxy
+ZWFkeSBnaXZlbiB0byBTVC4KPj4KPj4+ICsKPj4+ICsgIHJlZzoKPj4+ICsgICAgbWF4SXRlbXM6
+IDEKPj4+ICsKPj4+ICsgIGNsb2NrczoKPj4+ICsgICAgbWF4SXRlbXM6IDEKPj4+ICsKPj4+ICtw
+YXR0ZXJuUHJvcGVydGllczoKPj4+ICsgICctcGlucyQnOgo+Pj4gKyAgICB0eXBlOiBvYmplY3QK
+Pj4+ICsgICAgJHJlZjogcGlubXV4LW5vZGUueWFtbCMKPj4+ICsKPj4+ICsgICAgcHJvcGVydGll
+czoKPj4+ICsgICAgICBmdW5jdGlvbjoKPj4+ICsgICAgICAgIGVudW06IFsgIjAiLCAiMSIsICIy
+IiwgIjMiLCAiNCIsICI1IiwgIjYiLCAiNyIsCj4+PiArICAgICAgICAgICAgICAgICI4IiwgIjki
+LCAiMTAiLCAiMTEiLCAiMTIiLCAiMTMiLCAiMTQiLAo+Pj4gKyAgICAgICAgICAgICAgICAiMTUi
+IF0KPj4KPj4gRnVuY3Rpb24gd2hpY2ggaGFzIGEgbnVtYmVyIGlzIG5vdCByZWFsbHkgdXNlZnVs
+LiBXaGF0IGRvZXMgaXQgZXZlbiBleHByZXNzPwo+IAo+IEFzIHNhaWQgaW4gbXkgcHJldmlvdXMg
+YW5zd2VyLCBmdW5jdGlvbiBuYW1lcyBhcmUgdmVyeSBkaWZmZXJlbnQgZnJvbSAKPiBvbmUgcGxh
+dGZvcm0gdG8gYW5vdGhlci4gTnVtYmVycyB3ZXJlIHVzZWQgYXMgc3RyaW5nIHRvIGJlIGdlbmVy
+aWMuCj4gSSdsbCBjb25zaWRlciBpdCBpbiBhIFYyLgoKV2hhdCBkb2VzIGl0IG1lYW4gIm9uZSBw
+bGF0Zm9ybSB0byBhbm90aGVyIj8gVGhpcyBpcyBvbmUgcGxhdGZvcm0hIElzCnRoaXMgc29tZSBz
+b3J0IG9mIGNvbnRpbnVhdGlvbiBvZiBTb0MgY29tcGF0aWJsZSBtZXNzPwoKV2hhdCBhcmUgdGhl
+IGV4YWN0IGZ1bmN0aW9ucyB3cml0dGVuIGluIGRhdGFzaGVldD8KCkJlc3QgcmVnYXJkcywKS3J6
+eXN6dG9mCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
