@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92BCA45E89
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 13:20:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1A6BA45EC4
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 13:24:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 618F3C7A831;
-	Wed, 26 Feb 2025 12:20:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC6BEC7A831;
+	Wed, 26 Feb 2025 12:24:24 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39E2BC7A820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F416C7A820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 12:20:12 +0000 (UTC)
+ Wed, 26 Feb 2025 12:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bZlwIOxkAACUPrshgQHP61y/YpLPScyN6eb23KhD2xM=; b=I93yfmCNTOJXyvpcdVodzhVYqQ
- 0VWn5iCDf9O8PsZH/JLw8zF8L9kNKW3Zq/seBdz4VP0ERhNRIrXfekRUh18IM4BPbxsYDT9wKibvl
- Hk5TbcjcjIHyLC/adSlGeXSi2sI+X2qWT6RAY4kqiDzvaFAa+TS3lXPvwj5/OOleV18CCVLTRoh3g
- ugEdNUXe22F+MGuVrbn1BPPkeOJ3GB3ZQqeU+M3D5AOXCKnLBHYeBrSpRWj58nQx2Xzu2KJWFzTiU
- F63dJyLsyB4SKsSKJ/ET8l3F7tgKpUfo40Sa/1r6O24qoWaGOP/o+gnuLwxVmrHUEccpFCpuJXMIy
- ZNGNB3CA==;
+ bh=emOQzapFrQT5vVxsL8UHzprrVS/y5Fj4+zQUs5X4tHE=; b=N+imwegbzOoqUjYGfsuVGY8h1/
+ UTPAQv5dwe/+Om4CMF/zSIMQ9vqmslf+3Ayv8tpsS9JP9gtvjdjN6HDFB0uBduYrpb/oiIYctKuUU
+ yXPBzbaZDpnaLob4tBw338prJhgmbNg0eihxO4SJJXcPFYne4B7k+VzViKgmK0RULvkohOcU5IdGQ
+ 4XEG+2G+wbIzDigQl06K6kQMt18qejm82FahjXyLULVH+XglcvAvg/bimsdDx/cFpuK95yOPMdBp4
+ eNP0//PJIwXFeOkHGYiZ5HbUJiVDzM5iKY2Mmw+wlh6fbhzQhByx++P0HqQm9gg77CEf932RoFTpf
+ KYd9CVDA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59272)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:47836)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tnGOM-0004Bm-0r;
- Wed, 26 Feb 2025 12:19:58 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tnGSV-0004Cg-0N;
+ Wed, 26 Feb 2025 12:24:15 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tnGOF-00074L-06;
- Wed, 26 Feb 2025 12:19:51 +0000
-Date: Wed, 26 Feb 2025 12:19:50 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tnGSS-00074i-2i;
+ Wed, 26 Feb 2025 12:24:12 +0000
+Date: Wed, 26 Feb 2025 12:24:12 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <Z78G5tqpMrsm8iUD@shell.armlinux.org.uk>
+Message-ID: <Z78H7F7oBsC-cCB-@shell.armlinux.org.uk>
 References: <Z7RrnyER5ewy0f3T@shell.armlinux.org.uk>
- <E1tkLYv-004RZ7-Ot@rmk-PC.armlinux.org.uk>
- <qcarhmsd6u33ij4kupaiyxvyr7jxxv2uxvr6jsnhxjd3o3axkt@z4m3zvdpxogb>
+ <E1tkLZ6-004RZO-0H@rmk-PC.armlinux.org.uk>
+ <x56yik7opvpr3o5vjlxoxzxdicrz2pimsh4lkpxol7c64r6irs@t7dfqy7ybn2a>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <qcarhmsd6u33ij4kupaiyxvyr7jxxv2uxvr6jsnhxjd3o3axkt@z4m3zvdpxogb>
+In-Reply-To: <x56yik7opvpr3o5vjlxoxzxdicrz2pimsh4lkpxol7c64r6irs@t7dfqy7ybn2a>
 Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Emil Renner Berthing <kernel@esmil.dk>, imx@lists.linux.dev,
  Eric Dumazet <edumazet@google.com>, Fabio Estevam <festevam@gmail.com>,
@@ -57,8 +57,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 3/7] net: stmmac:
- dwc-qos-eth: use generic stmmac_set_clk_tx_rate()
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 5/7] net: stmmac: s32: use
+ generic stmmac_set_clk_tx_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,99 +75,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 25, 2025 at 09:35:52PM +0100, Thierry Reding wrote:
-> On Tue, Feb 18, 2025 at 11:14:49AM +0000, Russell King (Oracle) wrote:
+On Tue, Feb 25, 2025 at 09:43:56PM +0100, Thierry Reding wrote:
+> On Tue, Feb 18, 2025 at 11:15:00AM +0000, Russell King (Oracle) wrote:
 > > Use the generic stmmac_set_clk_tx_rate() to configure the MAC transmit
 > > clock.
 > > 
 > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 10 ++--------
-> >  1 file changed, 2 insertions(+), 8 deletions(-)
+> 
+> I wonder if the clk_set_rate() call for gmac->tx_clk could also be
+> removed from s32_gmac_init(). Comparing to the other drivers that
+> doesn't seem to be relevant since ->set_clk_tx_rate() will be called
+> anyway when the interface is brought up.
+> 
+> But it might be more difficult because somebody would actually have to
+> go and test this, whereas this patch here is the equivalent of the
+> previous code, so:
 > 
 > Reviewed-by: Thierry Reding <treding@nvidia.com>
 
-Hi Thierry,
+I'd prefer not to change the code behaviour in this patch series. It's
+entirely possible that's somehow necessary to ensure a correct clock
+is supplied before attempting to reset the MAC core on this hardware.
 
-Please note that things changed in this patch as a result of:
+It could be something to be cleaned up in the future.
 
-cff608268baf net: stmmac: dwc-qos: name struct plat_stmmacenet_data consistently
-
-which has now been merged. Are you still happy for me to add your
-r-b? The current patch is below.
-
-8<===
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Subject: [PATCH net-next] net: stmmac: dwc-qos: use generic
- stmmac_set_clk_tx_rate()
-
-Use the generic stmmac_set_clk_tx_rate() to configure the MAC transmit
-clock.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-index 6cadf24a575c..3f0f4ea6cf2e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-@@ -30,7 +30,6 @@ struct tegra_eqos {
- 
- 	struct reset_control *rst;
- 	struct clk *clk_slave;
--	struct clk *clk_tx;
- 
- 	struct gpio_desc *reset;
- };
-@@ -150,7 +149,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
- {
- 	struct tegra_eqos *eqos = priv;
- 	bool needs_calibration = false;
--	long rate = 125000000;
- 	u32 value;
- 	int err;
- 
-@@ -161,7 +159,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
- 		fallthrough;
- 
- 	case SPEED_10:
--		rate = rgmii_clock(speed);
- 		break;
- 
- 	default:
-@@ -208,10 +205,6 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
- 		value &= ~AUTO_CAL_CONFIG_ENABLE;
- 		writel(value, eqos->regs + AUTO_CAL_CONFIG);
- 	}
--
--	err = clk_set_rate(eqos->clk_tx, rate);
--	if (err < 0)
--		dev_err(eqos->dev, "failed to set TX rate: %d\n", err);
- }
- 
- static int tegra_eqos_init(struct platform_device *pdev, void *priv)
-@@ -247,7 +240,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
- 	if (!is_of_node(dev->fwnode))
- 		goto bypass_clk_reset_gpio;
- 
--	eqos->clk_tx = dwc_eth_find_clk(plat_dat, "tx");
-+	plat_dat->clk_tx_i = dwc_eth_find_clk(plat_dat, "tx");
- 
- 	eqos->reset = devm_gpiod_get(&pdev->dev, "phy-reset", GPIOD_OUT_HIGH);
- 	if (IS_ERR(eqos->reset)) {
-@@ -281,6 +274,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
- 
- bypass_clk_reset_gpio:
- 	plat_dat->fix_mac_speed = tegra_eqos_fix_speed;
-+	plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
- 	plat_dat->init = tegra_eqos_init;
- 	plat_dat->bsp_priv = eqos;
- 	plat_dat->flags |= STMMAC_FLAG_SPH_DISABLE;
--- 
-2.30.2
-
+Thanks!
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
