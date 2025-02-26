@@ -2,169 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F38A45B9C
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 11:21:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 039CDA45C6D
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Feb 2025 12:00:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B911C7A831;
-	Wed, 26 Feb 2025 10:21:18 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A47E6C7A831;
+	Wed, 26 Feb 2025 11:00:14 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E279C78F8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07C61C7A830
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Feb 2025 10:21:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6363D21197;
- Wed, 26 Feb 2025 10:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1740565276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=15oD9F9LF4ihAw9LiWAc/1ckpc1w8RXcncpMlXfhcS8=;
- b=NBuUhnR+9yjyKCdcjlR8ffMrStU0q3O4Gn9HOXfir3Y0k09+3KZFgPX13+WkHXApGEvhUp
- atnR0NdbNxsw1m5KZ+BsvRVICwGU63iKHuPN04yoBGyau3rq/YfWARVe/ViV+xVO3nGQSq
- UvqN7JOUAPFqWuJrVlQduEYNiMTAaeg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1740565276;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=15oD9F9LF4ihAw9LiWAc/1ckpc1w8RXcncpMlXfhcS8=;
- b=1dBq1ESwdP+6fjZI8BtYhs8qsoSzB2F/x41N/q8fJeUZaVXxMET7HA6MsYb+i7ZNzw1PbV
- k0RYDHPjQYTE2RDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NBuUhnR+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=1dBq1ESw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1740565276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=15oD9F9LF4ihAw9LiWAc/1ckpc1w8RXcncpMlXfhcS8=;
- b=NBuUhnR+9yjyKCdcjlR8ffMrStU0q3O4Gn9HOXfir3Y0k09+3KZFgPX13+WkHXApGEvhUp
- atnR0NdbNxsw1m5KZ+BsvRVICwGU63iKHuPN04yoBGyau3rq/YfWARVe/ViV+xVO3nGQSq
- UvqN7JOUAPFqWuJrVlQduEYNiMTAaeg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1740565276;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=15oD9F9LF4ihAw9LiWAc/1ckpc1w8RXcncpMlXfhcS8=;
- b=1dBq1ESwdP+6fjZI8BtYhs8qsoSzB2F/x41N/q8fJeUZaVXxMET7HA6MsYb+i7ZNzw1PbV
- k0RYDHPjQYTE2RDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 248931377F;
- Wed, 26 Feb 2025 10:21:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xdCZBxvrvmegbAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 26 Feb 2025 10:21:15 +0000
-Message-ID: <faaf92d2-f157-48c4-af1c-7251f65e8c2d@suse.de>
-Date: Wed, 26 Feb 2025 11:21:14 +0100
+ Wed, 26 Feb 2025 11:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=u959TBYWOv9S7YvoxEBIspvDOHEq4YyJ10CaapL1Rnw=; b=YpuC46+xpDCnI9LSS2IXu08VWA
+ RAQ4FGKjOmXC7t3M5vbVF2q93gZ/nbORvFCxSvEZAW1CdpdJsBLQSOA50BBqM0qKA6NBQ1EQn2sQ7
+ jTAYkPaiNYVJvfNElRkwbjFDmwkq0XQG66S7ZKmB1Ze/GkTIa5moVBOKdTsULxLvxcsOj3lWeM9qe
+ pk5jghlkg/CZxlwKFYkAqfWWCoBmUwScTMyFqomSM5F6kfqHfV1c4O6PA3qlqDik3d7jlsrQNXPa1
+ 8bV/HpTG2ICCPy2zXQutFS2/sUBKCvMlNpmdMnrUCXB5oIo8CKPMUu5j1AXX1R9KKE5AWTgAtk3US
+ 1H5xstuQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52384)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tnF8z-00041N-02;
+ Wed, 26 Feb 2025 11:00:01 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tnF8v-000704-13;
+ Wed, 26 Feb 2025 10:59:57 +0000
+Date: Wed, 26 Feb 2025 10:59:57 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <Z770LRrhPOjOsdrd@shell.armlinux.org.uk>
+References: <Z68nSJqVxcnCc1YB@shell.armlinux.org.uk>
+ <86fae995-1700-420b-8d84-33ab1e1f6353@nvidia.com>
+ <Z7X6Z8yLMsQ1wa2D@shell.armlinux.org.uk>
+ <203871c2-c673-4a98-a0a3-299d1cf71cf0@nvidia.com>
+ <Z7YtWmkVl0rWFvQO@shell.armlinux.org.uk>
+ <fd4af708-0c92-4295-9801-bf53db3a16cc@nvidia.com>
+ <Z7ZF0dA4-jwU7O2E@shell.armlinux.org.uk>
+ <31731125-ab8f-48d9-bd6f-431d49431957@nvidia.com>
+ <Z77myuNCoe_la7e4@shell.armlinux.org.uk>
+ <dd1f65bf-8579-4d32-9c9c-9815d25cc116@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Anusha Srivatsa <asrivats@redhat.com>, Joel Stanley <joel@jms.id.au>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Jeffery
- <andrew@codeconstruct.com.au>, Stefan Agner <stefan@agner.ch>,
- Alison Wang <alison.wang@nxp.com>, Xinliang Liu <xinliang.liu@linaro.org>,
- Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Yongqin Liu
- <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Marek Vasut <marex@denx.de>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Jonathan Corbet <corbet@lwn.net>
-References: <20250225-memory-drm-misc-next-v1-0-9d0e8761107a@redhat.com>
- <20250225-memory-drm-misc-next-v1-12-9d0e8761107a@redhat.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20250225-memory-drm-misc-next-v1-12-9d0e8761107a@redhat.com>
-X-Rspamd-Queue-Id: 6363D21197
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[redhat.com,jms.id.au,linux.intel.com,kernel.org,gmail.com,ffwll.ch,codeconstruct.com.au,agner.ch,nxp.com,linaro.org,hisilicon.com,google.com,pengutronix.de,collabora.com,denx.de,linux.alibaba.com,foss.st.com,nvidia.com,synopsys.com,raspberrypi.com,igalia.com,lwn.net];
- FUZZY_BLOCKED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RL5qdohruh175rhiw1bqi96ifb)];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; TO_MATCH_ENVRCPT_SOME(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCPT_COUNT_GT_50(0.00)[51];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.de:email,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
-X-Spam-Level: 
-Cc: imx@lists.linux.dev, linux-aspeed@lists.ozlabs.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND 12/12] Documentation: Update the
-	todo
+Content-Disposition: inline
+In-Reply-To: <dd1f65bf-8579-4d32-9c9c-9815d25cc116@nvidia.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+ UNGLinuxDriver@microchip.com, Bryan Whitehead <bryan.whitehead@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: convert to
+ phylink managed EEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -176,67 +73,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Feb 26, 2025 at 10:11:58AM +0000, Jon Hunter wrote:
+> 
+> On 26/02/2025 10:02, Russell King (Oracle) wrote:
+> > On Tue, Feb 25, 2025 at 02:21:01PM +0000, Jon Hunter wrote:
+> > > Hi Russell,
+> > > 
+> > > On 19/02/2025 20:57, Russell King (Oracle) wrote:
+> > > > So, let's try something (I haven't tested this, and its likely you
+> > > > will need to work it in to your other change.)
+> > > > 
+> > > > Essentially, this disables the receive clock stop around the reset,
+> > > > something the stmmac driver has never done in the past.
+> > > > 
+> > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > index 1cbea627b216..8e975863a2e3 100644
+> > > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > > > @@ -7926,6 +7926,8 @@ int stmmac_resume(struct device *dev)
+> > > >    	rtnl_lock();
+> > > >    	mutex_lock(&priv->lock);
+> > > > +	phy_eee_rx_clock_stop(priv->dev->phydev, false);
+> > > > +
+> > > >    	stmmac_reset_queues_param(priv);
+> > > >    	stmmac_free_tx_skbufs(priv);
+> > > > @@ -7937,6 +7939,9 @@ int stmmac_resume(struct device *dev)
+> > > >    	stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
+> > > > +	phy_eee_rx_clock_stop(priv->dev->phydev,
+> > > > +			      priv->phylink_config.eee_rx_clk_stop_enable);
+> > > > +
+> > > >    	stmmac_enable_all_queues(priv);
+> > > >    	stmmac_enable_all_dma_irq(priv);
+> > > 
+> > > 
+> > > Sorry for the delay, I have been testing various issues recently and needed
+> > > a bit more time to test this.
+> > > 
+> > > It turns out that what I had proposed last week does not work. I believe
+> > > that with all the various debug/instrumentation I had added, I was again
+> > > getting lucky. So when I tested again this week on top of vanilla v6.14-rc2,
+> > > it did not work :-(
+> > > 
+> > > However, what you are suggesting above, all by itself, is working. I have
+> > > tested this on top of vanilla v6.14-rc2 and v6.14-rc4 and it is working
+> > > reliably. I have also tested on some other boards that use the same stmmac
+> > > driver (but use the Aquantia PHY) and I have not seen any issues. So this
+> > > does fix the issue I am seeing.
+> > > 
+> > > I know we are getting quite late in the rc for v6.14, but not sure if we
+> > > could add this as a fix?
+> > 
+> > The patch above was something of a hack, bypassing the layering, so I
+> > would like to consider how this should be done properly.
+> > 
+> > I'm still wondering whether the early call to phylink_resume() is
+> > symptomatic of this same issue, or whether there is a PHY that needs
+> > phy_start() to be called to output its clock even with link down that
+> > we don't know about.
+> > 
+> > The phylink_resume() call is relevant to this because I'd like to put:
+> > 
+> > 	phy_eee_rx_clock_stop(priv->dev->phydev,
+> > 			      priv->phylink_config.eee_rx_clk_stop_enable);
+> > 
+> > in there to ensure that the PHY is correctly configured for clock-stop,
+> > but given stmmac's placement that wouldn't work.
+> > 
+> > I'm then thinking of phylink_pre_resume() to disable the EEE clock-stop
+> > at the PHY.
+> > 
+> > I think the only thing we could do is try solving this problem as per
+> > above and see what the fall-out from it is. I don't get the impression
+> > that stmmac users are particularly active at testing patches though, so
+> > it may take months to get breakage reports.
+> 
+> 
+> We can ask Furong to test as he seems to active and making changes, but
+> otherwise I am not sure how well it is being tested across various devices.
+> On the other hand, it feels like there are still lingering issues like this
+> with the driver and so I would hope this is moving in the right direction.
+> 
+> Let me know if you have a patch you want me to test and I will run in on our
+> Tegra186, Tegra194 and Tegra234 devices that all use this.
 
-
-Am 25.02.25 um 23:20 schrieb Anusha Srivatsa:
-> Update the Documentation to be more precise.
->
-> v2: Update for clarity
-> v3: Further details in Todo
->
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
-
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks for the update.
-
-> ---
->   Documentation/gpu/todo.rst | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 256d0d1cb2164bd94f9b610a751b907834d96a21..c57777a24e03d91b1ffe04365f7356f2d938befd 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -441,14 +441,15 @@ Contact: Thomas Zimmermann <tzimmermann@suse.de>
->   
->   Level: Intermediate
->   
-> -Request memory regions in all drivers
-> --------------------------------------
-> +Request memory regions in all fbdev drivers
-> +--------------------------------------------
->   
-> -Go through all drivers and add code to request the memory regions that the
-> -driver uses. This requires adding calls to request_mem_region(),
-> +Old/ancient fbdev drivers do not request their memory properly.
-> +Go through these drivers and add code to request the memory regions
-> +that the driver uses. This requires adding calls to request_mem_region(),
->   pci_request_region() or similar functions. Use helpers for managed cleanup
-> -where possible.
-> -
-> +where possible. Problematic areas include hardware that has exclusive ranges
-> +like VGA. VGA16fb does not request the range as it is expected.
->   Drivers are pretty bad at doing this and there used to be conflicts among
->   DRM and fbdev drivers. Still, it's the correct thing to do.
->   
->
+Do we think this needs to be a patch for the net tree or the net-next
+tree? I think we've established that it's been a long-standing bug,
+so maybe if we target net-next to give it more time to be tested?
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
