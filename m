@@ -2,79 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30067A47D60
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 13:18:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 838A1A47D82
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 13:22:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB4CAC7A822;
-	Thu, 27 Feb 2025 12:18:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C2AFC7A822;
+	Thu, 27 Feb 2025 12:22:44 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38D61C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DEB9C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 12:18:48 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51R9RU3K012382;
- Thu, 27 Feb 2025 13:18:38 +0100
+ Thu, 27 Feb 2025 12:22:43 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51R9fYMn007889;
+ Thu, 27 Feb 2025 13:22:39 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 5VtVpJbGl3ABqgeyotfSFZTXggVBvrafMpv9raSwNMI=; b=nJwZcULPguYTFbLK
- s00zfJzJvVpHQh6/3RohsrUhqhjn5Uu6s/W72KrdQhfvtEj9v+b+VBIjBKouXUJc
- cTA0ai1DvN6SC2Qa3r7gMUqs2gSODT9cie56XWXiyf9MYzV1yuPJgY7Gtu0dmXvh
- Z/3KS9y5wUYK6E415GV7CkqaP48Iv9fyC018NbQ/6iRK99WgnP/BKdDKh66+hW5Y
- LZqNKHjDzI9l8hcBnnQ8qB8f1u8X80M9IY0sAcmgA2fNjLo9VizKFhsty8DZWyti
- Hny0mmZFyCUzaLhMZyZdzQn3vcIdkOp13Whwhn8ebzvG13LCYBjw22njwSWnOnHs
- NRhWRw==
+ kjFTq1l5h2rlORWEgpooT7HwJNfav0oSiejMbAdGK3o=; b=SRRlZt6Sw7e5ZK98
+ lQkdMkpIfoU175HX9Egzrs1mTprxOEp3JujprooTEmmbpPtUwxZjiPGSYH13peF1
+ GmJ2a3Lc0iSuoXnltuO36Vjz7IXtmSyjtmkC5J7gL5mNXnAwoODKNmbjULxnE5+W
+ 2PaELkUFr+Ay+wj/xVVTOuo9GSNSzGUPi2eoENuWEK80lPtRaxZ0kSlFI0xWaNd6
+ O06lTozYVrE4YU8ov+C/bqWS4+Ek76Nupm3LKaHj7lej6anryptwMNTtkweKnJfH
+ k4/zK8egwimZ2C0T1v4v3McLNppbIbnj10uS7MhblwklttMqT8ztp9vBU4TMhTr3
+ DNW8mQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 451psvah7m-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 451psrjhgj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Feb 2025 13:18:38 +0100 (CET)
+ Thu, 27 Feb 2025 13:22:39 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 45CEC40045;
- Thu, 27 Feb 2025 13:17:31 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CD73940044;
+ Thu, 27 Feb 2025 13:21:54 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 73A2540E4F0;
- Thu, 27 Feb 2025 13:16:43 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8CD2841E17D;
+ Thu, 27 Feb 2025 13:21:39 +0100 (CET)
 Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
- 2025 13:16:42 +0100
-Message-ID: <df74157e-d141-4045-a244-3168c58c0ff4@foss.st.com>
-Date: Thu, 27 Feb 2025 13:16:42 +0100
+ 2025 13:21:39 +0100
+Message-ID: <a280b07d-f0f8-403f-b3fd-3bc2525a44cc@foss.st.com>
+Date: Thu, 27 Feb 2025 13:21:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Clement LE GOFFIC
- <clement.legoffic@foss.st.com>, Linus Walleij <linus.walleij@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20250225-hdp-upstream-v1-0-9d049c65330a@foss.st.com>
- <20250225-hdp-upstream-v1-7-9d049c65330a@foss.st.com>
- <418a80a9-8c08-4dd1-bf49-1bd7378321aa@kernel.org>
- <b257aa79-6ca9-4f57-988a-ec00225992ab@foss.st.com>
- <b57e3c9e-244e-435b-8a7b-cf90f3a973b3@kernel.org>
- <988667a4-4bc0-4594-8dfd-a7b652b149b2@foss.st.com>
- <55beb3e7-65ac-4145-adae-fb064378c78d@kernel.org>
- <8cdc7e52-f9e2-4fc9-be68-0dd72a25ee1b@foss.st.com>
- <48cc626a-d632-444f-8563-07a9ea0ecc71@kernel.org>
- <17450f7d-d398-4a75-8b53-6c9c396661ab@kernel.org>
+To: Christophe Parant <C.Parant@phytec.fr>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+References: <20250110150216.309760-1-c.parant@phytec.fr>
+ <5467805a-c8a7-4c09-9ff5-1cf77541c3fb@foss.st.com>
+ <d4f9b1513c695f75f74774d601c6b9f6a2858bc4.camel@phytec.fr>
 Content-Language: en-US
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <17450f7d-d398-4a75-8b53-6c9c396661ab@kernel.org>
+In-Reply-To: <d4f9b1513c695f75f74774d601c6b9f6a2858bc4.camel@phytec.fr>
 X-Originating-IP: [10.48.86.79]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-02-27_05,2025-02-27_01,2024-11-22_01
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 7/9] ARM: dts: stm32: add Hardware debug
- port (HDP) on stm32mp25
+Cc: "upstream@lists.phytec.de" <upstream@lists.phytec.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 00/11] Rework and fix STM32MP15x PHYTEC dts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,97 +74,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2/26/25 22:31, Krzysztof Kozlowski wrote:
-> On 26/02/2025 22:26, Krzysztof Kozlowski wrote:
->> On 26/02/2025 16:30, Alexandre TORGUE wrote:
->>>
->>>
->>> On 2/26/25 16:08, Krzysztof Kozlowski wrote:
->>>> On 26/02/2025 10:33, Alexandre TORGUE wrote:
->>>>>>>>> +		hdp: pinctrl@44090000 {
->>>>>>>>> +			compatible = "st,stm32mp-hdp";
->>>>>>>>
->>>>>>>> So here again - you have stm32mp251 SoC, but use entirely different
->>>>>>>> compatible.
->>>>>>>
->>>>>>> Ok so I will use "st,stm32mp15-hdp"
->>>>>>
->>>>>>
->>>>>> This means this is stm32mp15 SoC. I do not see such SoC on list of your
->>>>>> SoCs in bindings. What's more, there are no bindings for other SoC
->>>>>> components for stm32mp15!
->>>>>
->>>>> Yes stm32mp15 is not a "real SoC". I agree that at the beginning of the
->>>>> STM32 story we didn't have a clear rule/view to correctly naming our
->>>>> compatible. We tried to improve the situation to avoid compatible like
->>>>> "st,stm32", "st,stm32mp" or "st,stm32mp1". So we introduced
->>>>> "st,stm32mp13", "st,stm32mp15" or "st,stm32mp25" for new drivers. So yes
->>>>> it represents a SoC family and not a real SoC. We haven't had much
->>>>> negative feedback it.
->>>>>
->>>>> But, if it's not clean to do it in this way, lets define SoC compatible
->>>>> for any new driver.
->>>>
->>>> Compatibles are for hardware.
->>>>
->>>>> For the HDP case it is: "st,stm32mp157" and used for STM32MP13,
->>>>> STM32MP15 end STM32MP25 SoC families (if driver is the same for all
->>>>> those SoCs).
->>>>
->>>> No, it's three compatibles, because you have three SoCs. BTW, writing
->>>> bindings (and online resources and previous reviews and my talks) are
->>>> saying that, so we do not ask for anything new here, anything different.
->>>> At least not new when looking at last 5 years, because 10 years ago many
->>>> rules were relaxed...
->>>
->>> So adding 3 times the same IP in 3 different SoCs implies to have 3
->>
->> Yes. Always, as requested by writing bindings.
->>
->>> different compatibles. So each time we use this same IP in a new SoC, we
->>> have to add a new compatible. My (wrong) understanding was: as we have
->>
->> Yes, as requested by writing bindings and followed up by all recent
->> platforms having decent/active upstream support. See qcom, nxp, renesas
->> for example.
->>
->>> the same IP (same hardware) in each SoC we have the same compatible (and
->>
->> You do not have same hardware. You have same IP, or almost same because
->> they are almost never same, implemented in different hardware.
->>
->>> IP integration differences (clocks, interrupts) are handled by DT
->>> properties.
->>
->> Which binding doc/guide suggested such way? Countless reviews from DT
->> maintainers were saying opposite.
-> I was not precise: IP integration differences are of course handles as
-> DT properties, but I wanted to say that it does not solve the problem
-> that IP integration means you might have differences in this device and
-> you should have different quirks.
-
-Yes I agree. We'll take care of it for future development. Maybe, It 
-would be nice to apply this rule in our current drivers/DT already 
-upstream ?
-
-> 
-> And the example in this patchset: entirely different pin functions is a
-> proof. This device behaves/operates/integrates differently, thus
-> different compatible.
-
-Yes, discussing with Clement, it is clear that we need 3 different 
-compatibles.
-
-> Best regards,
-> Krzysztof
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZQoKT24gMi8yNy8yNSAxMjozNSwgQ2hyaXN0b3BoZSBQYXJhbnQgd3JvdGU6
+Cj4gSGkgQWxleGFuZHJlLAo+IAo+IExlIGpldWRpIDI3IGbDqXZyaWVyIDIwMjUgw6AgMDk6NTIg
+KzAxMDAsIEFsZXhhbmRyZSBUT1JHVUUgYSDDqWNyaXTCoDoKPj4gSGkgQ2hyaXN0b3BoZQo+Pgo+
+PiBPbiAxLzEwLzI1IDE2OjAyLCBDaHJpc3RvcGhlIFBhcmFudCB3cm90ZToKPj4+IFRoaXMgcGF0
+Y2ggc2VyaWVzIHJlbmFtZSBhbmQgcmVvcmdhbml6ZSB0aGUgU1RNMzJNUDE1eCBQSFlURUMKPj4+
+IGJhc2Vib2FyZCAocGh5Qk9BUkQtU2FyZ2FzKSBhbmQgU29NIChwaHlDT1JFLVNUTTMyTVAxNXgp
+IGRldmljZQo+Pj4gdHJlZQo+Pj4gZmlsZXMuCj4+PiBJbmRlZWQsIHRoZSBjdXJyZW50IGRldmlj
+ZSB0cmVlIG5hbWluZyBhbmQgb3JnYW5pemF0aW9uIGlzIG5vdAo+Pj4gcmVhbGx5Cj4+PiBjb25z
+aXN0ZW50IGFzIGl0IGRvZXMgbm90IGFsaWduIHdpdGggb3RoZXJzIFNUTTMyTVAgYm9hcmRzICh1
+c2UKPj4+IGNvbW1vbgo+Pj4gZHRzaSBmaWxlIGFzIG11Y2ggYXMgcG9zc2libGUsIHVzZSBvbmUg
+ZHRzaSBmb3IgU29NIGFuZCBvbmUgZHRzaQo+Pj4gZm9yCj4+PiBiYXNlYm9hcmQpLgo+Pj4KPj4+
+IFRoZSBzZXJpZXMgYWxzbyBmaXhlcyBzb21lIGltcG9ydGFudCBwaW5jdHJsIGlzc3VlcyBhbmQg
+bWlub3Igb25lCj4+PiAoY29kaW5nCj4+PiBzdHlsZSkuIEFkZGl0aW9uYWwgcGluY3RybCBpcyBh
+bHNvIGFkZGVkIGZvciB0aGUgb3B0aW9ubmFsCj4+PiBpbnRlcmZhY2VzCj4+PiB0aGF0IGFyZSBu
+b3QgZW5hYmxlZCBieSBkZWZhdWx0IChGTUMsIExUREMsIERDTUksIFBXTSkuCj4+Pgo+Pj4gQ2hy
+aXN0b3BoZSBQYXJhbnQgKDExKToKPj4+ICDCoMKgIEFSTTogZHRzOiBzdG0zMm1wMTU6IHBoeWNv
+cmU6IFJlbmFtZSBkZXZpY2UgdHJlZSBmaWxlcwo+Pj4gIMKgwqAgQVJNOiBkdHM6IHN0bTMybXAx
+NTogcGh5Ym9hcmQtc2FyZ2FzOiBJbnRyb2R1Y2UgU29NIGRldmljZSB0cmVlCj4+PiAgwqDCoCBk
+dC1iaW5kaW5nczogYXJtOiBzdG0zMjogUmVuYW1lIFNUTTMyTVAxNXggUGh5dGVjIGJvYXJkIGFu
+ZCBTb00KPj4+ICDCoMKgIEFSTTogZHRzOiBzdG0zMm1wMTU6IEFkZCBuZXcgcGlubXV4IGdyb3Vw
+cyBmb3IgcGh5Y29yZSBhbmQKPj4+IHBoeWJvYXJkCj4+PiAgwqDCoCBBUk06IGR0czogc3RtMzJt
+cDE1OiBwaHlib2FyZC1zYXJnYXM6IEZpeCB1YXJ0NCBhbmQgc2FpMiBwaW5jdHJsCj4+PiAgwqDC
+oCBBUk06IGR0czogc3RtMzJtcDE1OiBwaHljb3JlOiBxc3BpOiBGaXggbWVtb3J5IG1hcCBhbmQg
+cGluY3RybAo+Pj4gIMKgwqAgQVJNOiBkdHM6IHN0bTMybXAxNTogcGh5Y29yZTogQWRkIGR1bW15
+IG1lbW9yeS1ub2RlCj4+PiAgwqDCoCBBUk06IGR0czogc3RtMzJtcDE1OiBwaHlib2FyZC1zYXJn
+YXM6IE1vdmUgYWxpYXNlcyBmcm9tIGR0cyB0bwo+Pj4gZHRzaQo+Pj4gIMKgwqAgQVJNOiBkdHM6
+IHN0bTMybXAxNTogcGh5Y29yZTogRGlzYWJsZSBvcHRpb25hbCBTb00gcGVyaXBoZXJhbHMKPj4+
+ICDCoMKgIEFSTTogZHRzOiBzdG0zMm1wMTU6IHBoeWNvcmUgYW5kIHBoeWJvYXJkOiBGaXggY29k
+aW5nIHN0eWxlCj4+PiBpc3N1ZXMKPj4+ICDCoMKgIEFSTTogZHRzOiBzdG0zMm1wMTU6IHBoeWNv
+cmUgYW5kIHBoeWJvYXJkOiBBZGQgb3B0aW9uYWwKPj4+IGludGVyZmFjZXMKPj4+Cj4+PiAgwqAg
+Li4uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWzCoCB8wqDCoCA3ICst
+Cj4+PiAgwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3QvTWFrZWZpbGXCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB8wqDCoCAyICstCj4+PiAgwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3Rt
+MzJtcDE1LXBpbmN0cmwuZHRzacKgwqAgfCAxNjQgKysrKysrKysrCj4+PiAgwqAgLi4uL3N0L3N0
+bTMybXAxNTdjLXBoeWJvYXJkLXNhcmdhcy1yZGsuZHRzwqDCoMKgIHzCoCA0MiArKysKPj4+ICDC
+oCAuLi4vZHRzL3N0L3N0bTMybXAxNTdjLXBoeWNvcmUtc3RtMzJtcDEtMy5kdHMgfMKgIDYwIC0t
+LQo+Pj4gIMKgIC4uLi9kdHMvc3Qvc3RtMzJtcDE1eHgtcGh5Ym9hcmQtc2FyZ2FzLmR0c2nCoMKg
+IHwgMjg2Cj4+PiArKysrKysrKysrKysrKysKPj4+ICDCoCAuLi4tc29tLmR0c2kgPT4gc3RtMzJt
+cDE1eHgtcGh5Y29yZS1zb20uZHRzaX0gfCAzNDQgKysrKy0tLS0tLS0tLQo+Pj4gLS0tLS0KPj4+
+ICDCoCA3IGZpbGVzIGNoYW5nZWQsIDU2NCBpbnNlcnRpb25zKCspLCAzNDEgZGVsZXRpb25zKC0p
+Cj4+PiAgwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAx
+NTdjLXBoeWJvYXJkLQo+Pj4gc2FyZ2FzLXJkay5kdHMKPj4+ICDCoCBkZWxldGUgbW9kZSAxMDA2
+NDQgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2MtcGh5Y29yZS0KPj4+IHN0bTMybXAx
+LTMuZHRzCj4+PiAgwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0
+bTMybXAxNXh4LXBoeWJvYXJkLQo+Pj4gc2FyZ2FzLmR0c2kKPj4+ICDCoCByZW5hbWUgYXJjaC9h
+cm0vYm9vdC9kdHMvc3Qve3N0bTMybXAxNTdjLXBoeWNvcmUtc3RtMzJtcDE1LQo+Pj4gc29tLmR0
+c2kgPT4gc3RtMzJtcDE1eHgtcGh5Y29yZS1zb20uZHRzaX0gKDUzJSkKPj4+Cj4+Cj4+IFVzaW5n
+IGI0IHRvIGdldCB5b3VyIHNlcmllcywgSSBqdXN0IHNlZSB0aGF0IHRoZXJlIG5vIG1haWxpbmcg
+bGlzdAo+PiBhbmQKPj4gRHQgbWFpbnRhaW5lciBpbiBDQyBvZiB5b3VyIHNlcmllcy4gRGlkIHlv
+dSB1c2UgImdldF9tYWludGFpbmVyLnBsIgo+PiBzY3JpcHQgPwo+Pgo+IE5vLCBJIG9ubHkgcmVs
+aWVkIG9uIHJlYWRpbmcgdGhlIE1BSU5UQUlORVIgZmlsZS4gQnV0IHRoYW5rcywgSSBub3cKPiBr
+bm93IHRoYXQgSSBoYXZlIHRvIHVzZSB0aGUgImdldF9tYWludGFpbmVyLnBsIiBzY3JpcHQuCj4g
+Cj4+IENhbiB5b3UgcGxlYXNlIHJlc2VuZCBhZGRpbmcgY29ycmVjdCBDQyBhbmQgVE8gbGlzdCA/
+Cj4gWWVzIHN1cmUuIFNob3VsZCBJIGNvbnRpbnVlIHRhZ2luZyB0aGUgc2VyaWVzIGFzIHYyID8K
+PiBJIHdpbGwgbWFkZSBhIG5ldyB0aW55IGNvZGluZyBzdHlsZSBmaXggZGV0ZWN0ZWQgYnkgY2hl
+Y2twYXRoLnBsICh0b29sCj4gdGhhdCBJIGhhdm4ndCBydW4gYmVmb3JlKS4gU28gaXQgd291bGQg
+YmUgYSB2MyBpbiB0aGlzIGNhc2UuCgpFaXRoZXIgeW91IGNvbnRpbnVlIHdpdGggVjMgYWRkaW5n
+IG5ldyBwZW9wbGUgaW4gQ0MvVE8gYnV0IGl0IGNvdWxkIGJlIGEgCmJpdCBzdHJhbmdlIGZvciB0
+aGVtIGFzIHRoZXkgZGlkbid0IGdldCB0aGUgVjEgYW5kIFYyLgpPciB5b3UgcmVzdGFydCB5b3Vy
+IHNlcmllcyBmcm9tIHNjcmF0Y2ggYXMgb25seSBsaW51eC1zdG0zMiBzdWJzY3JpYmVycyAKYW5k
+IFBoeXRlYyBndXlzIHdlcmUgYXdhcmUgb2YgdGhpcyBzZXJpZXMuIEluIHRoaXMgY2FzZSB5b3Ug
+Y291bGQgbWFyayAKdGhlIGN1cnJlbnQgc2VyaWVzIGFzICJhYmFuZG9uZWQiCgoKPj4KPj4gTm90
+ZTogQVJNOiBkdHM6IHN0bTMybXAxNTogLS0+IEFSTTogZHRzOiBzdG0zMgo+IE9rIEkgd2lsbCBj
+b3JyZWN0IHRoYXQuIEFzIFBIWVRFQyBwcm92aWRlcyBwaHljb3JlIGZvciBib3RoIE1QMTV4IGFu
+ZAo+IE1QMTN4IHN0bTMyIFNvQywgSSB3YW50ZWQgdG8gdXNlIHRoaXMgc3ludGF4IHRvIG1ha2Ug
+ZGlzdGluY3Rpb24uIEkgd2FzCj4gbm90IHN1cmUgdGhpcyB3YXMgYWxsb3dlZC4KPiAKPiBSZWdh
+cmRzLAo+IENocmlzdG9waGUKPj4KPj4gdGhhbmtzCj4+IEFsZXgKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
