@@ -2,60 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3142A48225
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 15:56:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF5CA4823F
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 16:00:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C850C7A849;
-	Thu, 27 Feb 2025 14:56:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC4C0C7A849;
+	Thu, 27 Feb 2025 15:00:38 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CE0BC01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB8FCC01E99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 14:56:23 +0000 (UTC)
+ Thu, 27 Feb 2025 15:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JZ0rC//sE06hPYVngKetF+Xs1DKrHPyHj2XylN4/E1I=; b=ZH5nw2HmODeAQoGF5DwatfyRge
- +AUj4ZofsP5hrrQshUdx0NTfcOTcd0tqxPCrtp8XyTAidSTzSozayjo2LiC0BN9fB8BWk8CY8ZHKs
- 11tHep8i8RET06cu+C1Bi7sMZ4F9/O2toXvO+0tdoGMg8QPJYBQOe1FYgQW3zvab1IPI363kK57TP
- kPC3nL/5VU1GGO8Ur+zAH0nT0pp3kB16gwYYMR2YEUHWeZalIO3BovKycBe+bkMg3XKVwynxoSw1v
- E+IAuGrytIT/0lY/KRfWfujqysevSnma6znK3JlmuO0u3z0kPf/CWLKPTpBHhN6DWuHYCmnEWKPJJ
- J6IIAaYQ==;
+ bh=PgMRekuM6/wN27KKXDqw9MR6fLL7vwR1VpZwGH+P4Y8=; b=a9KJOkrzhoferwAPNCQyMPdkU2
+ qZq3mkWYyvs6Z4TJGj35fJVHCiby0eopRMzZYQ5xd0L6GlUXgF3/QPA/AOsBkurMLKePFqo0iHFLK
+ AlGAlRAPdSiZj5m+yHUBbsES7QgzC4r2bJWRb1u3BBTEWgDJmFIaG+xLeVwlj4uq51q+kNwyV7M2M
+ hvvLTPAUWPEK9XJIhQ7+N7rxB2Xao20o/RB+zNLhcu6qspur//+lo795Ax+Eml/Iu6IdgnV55xvp5
+ qqytsHGLIeT7+mWIjr5Z9FQ7vmG9AR/49sH9HCIfxFKxHUzsMhkIe6f6DRcz/cyq8++/4JGaST5wZ
+ xogKCMyg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57152)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54178)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tnfJ8-0007Un-1W;
- Thu, 27 Feb 2025 14:56:14 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1tnfNH-0007Vv-0H;
+ Thu, 27 Feb 2025 15:00:31 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tnfJ5-0008Dz-0M;
- Thu, 27 Feb 2025 14:56:11 +0000
-Date: Thu, 27 Feb 2025 14:56:10 +0000
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tnfNE-0008EE-31;
+ Thu, 27 Feb 2025 15:00:28 +0000
+Date: Thu, 27 Feb 2025 15:00:28 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Message-ID: <Z8B9Cie3nFVY7mMS@shell.armlinux.org.uk>
-References: <Z8AtX-wyPal1auVO@shell.armlinux.org.uk>
- <E1tna0z-0052tN-O1@rmk-PC.armlinux.org.uk>
- <2198e689-ed38-4842-9964-dca42468088a@linaro.org>
- <Z8B4OSbY954Zy37S@shell.armlinux.org.uk>
- <f21edb2c-e49d-4448-a25d-fb75f44c902a@linaro.org>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z8B-DPGhuibIjiA7@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <f21edb2c-e49d-4448-a25d-fb75f44c902a@linaro.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- Jerome Brunet <jbrunet@baylibre.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 10/11] net: stmmac: meson: switch
- to use set_clk_tx_rate() hook
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC 0/5] net: stmmac: fix setting RE and TE
+	inappropriately
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,42 +64,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 27, 2025 at 03:38:53PM +0100, Neil Armstrong wrote:
-> On 27/02/2025 15:35, Russell King (Oracle) wrote:
-> > On Thu, Feb 27, 2025 at 03:18:22PM +0100, Neil Armstrong wrote:
-> > > Hi,
-> > > 
-> > > On 27/02/2025 10:17, Russell King (Oracle) wrote:
-> > > > Switch from using the fix_mac_speed() hook to set_clk_tx_rate() to
-> > > > manage the transmit clock.
-> > > > 
-> > > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > > ---
-> > > >    drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c | 9 ++++++---
-> > > >    1 file changed, 6 insertions(+), 3 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> > > > index b115b7873cef..07c504d07604 100644
-> > > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> > > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-> > > > @@ -22,9 +22,10 @@ struct meson_dwmac {
-> > > >    	void __iomem	*reg;
-> > > >    };
-> > > > -static void meson6_dwmac_fix_mac_speed(void *priv, int speed, unsigned int mode)
-> > > > +static int meson6_dwmac_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
-> > > > +					phy_interface_t interface, int speed)
-> > > 
-> > > You can keep priv as first argument name and remove the next changes
-> > 
-> > I *can* but I don't want to. Inside the bulk of the stmmac driver,
-> > "priv" is used with struct stmmac_priv. "plat_dat" is used with
-> > struct plat_stmmacenet_data.
-> 
-> Right, it's still an unrelated change in this case.
+Hi,
 
-This is a new method, even though it happens to have mostly the same
-body. All instances of this new method use "bsp_priv" for this argument,
-therefore it is consistent.
+Note: this series depends on "net: stmmac: fix resume failures due to
+RX clock".
+
+This series addresses inappropriate setting of the receive and transmit
+enables in the GMAC control register.
+
+The databook is clear for the receive enable, that this should not be
+set until the initialisation of the MAC and DMA has been completed.
+The previous RFC patch series ("net: stmmac: fix resume failures due to
+RX clock") which moves phylink_resume() solves that, but we are left
+with these enables being set when the link is down. This is not correct.
+
+Sadly, when XDP support was added, new calls to netif_carrier_on() and
+netif_carrier_off() were added, which are incorrect in drivers that
+make use of phylink - by doing so, the driver has no guarantee that
+the .mac_link_up() and .mac_link_down() methods will be called in
+sequence anymore.
+
+Solving this requires a number of changes. First, fixing XDP to call
+into phylink to bring the link down. This removes a source of
+phylink method de-sync mentioned above.
+
+Then we remove the racy teardown in the driver's remove method -
+nothing should be torn down while userspace still has access to the
+netdev.
+
+Then we remove an unnecessary call to disable the enable bits in
+the .ndo_stop() method.
+
+Finally, we remove manipulation of the RE and TE bits from the
+start_tx(), stop_tx(), start_rx() and stop_rx() methods.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c   |  8 --------
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 12 ------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 22 ++++++----------------
+ 3 files changed, 6 insertions(+), 36 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
