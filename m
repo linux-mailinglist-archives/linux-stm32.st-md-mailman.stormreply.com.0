@@ -2,44 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C76A7A4804F
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 15:02:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 144A7A4805E
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 15:03:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89A2EC7A84B;
-	Thu, 27 Feb 2025 14:02:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D184DC7A84C;
+	Thu, 27 Feb 2025 14:03:21 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 003C7C7A84B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED17AC7A84A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 14:02:51 +0000 (UTC)
+ Thu, 27 Feb 2025 14:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=ScUAY0cVN3AiCj1Pv3Q9M56FbP0eZiiumkcl17a6prk=; b=KUbLhr+V4K7WYfSP7M+gQiKTwC
- B0QXrCN1ruVMwYesbOVb1+GeRTGWR6/lgCs1sf/TsC5IyvAKulZNOBqv/2SnnGigAeMljOpf0NRb1
- Aa5LMcaM3jIqrAsYXJA2udZ7IwG6PQm2zYW7jb15ig+TxArIULFgduSH72qnzIvYwFTE=;
+ bh=xePIqSZRtPqrkucMriIXQPaMQ+IQJ/L4yNAy7Utb37g=; b=cMKpHQSyYbw/5y0ZY1r+4/MfZx
+ rWjB74uh1dq8N1mfCSbSuTSsxWrHDuQjY/5ZOX5pl0eF+ZMaQtvK2RsFjGU6rEfrayx5whJcoE7iS
+ ZlmBZTKNEGllIhnPCMsz+nNdtEWV3GBtO8EnkpWMJseUupKgG7YMUrBHKkkByE2Z8rpY=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1tneTO-000bzh-0J; Thu, 27 Feb 2025 15:02:46 +0100
-Date: Thu, 27 Feb 2025 15:02:45 +0100
+ id 1tneTn-000c1o-CW; Thu, 27 Feb 2025 15:03:11 +0100
+Date: Thu, 27 Feb 2025 15:03:11 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <4f3b032c-6a29-42f3-a72b-c6c6c57fd2c8@lunn.ch>
+Message-ID: <08b59e95-263b-47ae-9ac4-529c1e643d26@lunn.ch>
 References: <Z8AtX-wyPal1auVO@shell.armlinux.org.uk>
- <E1tna0u-0052tH-KQ@rmk-PC.armlinux.org.uk>
+ <E1tna0z-0052tN-O1@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1tna0u-0052tH-KQ@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <E1tna0z-0052tN-O1@rmk-PC.armlinux.org.uk>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Paolo Abeni <pabeni@redhat.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kevin Hilman <khilman@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-amlogic@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 09/11] net: stmmac: ipq806x:
- switch to use set_clk_tx_rate() hook
+Subject: Re: [Linux-stm32] [PATCH net-next 10/11] net: stmmac: meson: switch
+ to use set_clk_tx_rate() hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,8 +59,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 27, 2025 at 09:17:04AM +0000, Russell King (Oracle) wrote:
-61;7803;1c> Switch from using the fix_mac_speed() hook to set_clk_tx_rate() to
+On Thu, Feb 27, 2025 at 09:17:09AM +0000, Russell King (Oracle) wrote:
+> Switch from using the fix_mac_speed() hook to set_clk_tx_rate() to
 > manage the transmit clock.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
