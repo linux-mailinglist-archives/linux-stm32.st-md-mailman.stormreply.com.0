@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A65A47BC7
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 12:18:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 277E8A47BCC
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 12:18:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2F2FC7A847;
-	Thu, 27 Feb 2025 11:18:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD74BC7A847;
+	Thu, 27 Feb 2025 11:18:39 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5CD1C7A843
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8C31C7A843
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 11:18:13 +0000 (UTC)
+ Thu, 27 Feb 2025 11:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740655094; x=1772191094;
+ t=1740655118; x=1772191118;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=K9BvBv3hLYw0IGq8eJuii6hDq4mM87UTjkwNlZVz44I=;
- b=Rtj2VP+Z1pmPotlofU3WtSOI6ZVTLWFhsJDEfC8/5WbncKY/myW9zPJv
- RNDUrYPrv3ebDggQgWrLn9Q04UHNsRj4IE9my1nLkGH+g1jzcKdD9W+GY
- msG+7r95ZyCu3cqZHKFVxtPKKD4EftZ3oLkXGcqengsbstX9mvtjEesTj
- wvfZDZ3RhtQyfVgpvW2l2bmDRjRh07WCkQyBp6fsOxanw+9j7fngVPCXK
- zRnY3Da/O87B+ToRlfEmmulVdJ6oEmU1KXabkcyaQpBHoeUaKEE5faqUx
- 6e38Umo2TjfETDeDiX2Ciyi5lYTtDlKarmfJEQVKvQ/glQAVrJKqbxtu/ g==;
-X-CSE-ConnectionGUID: i2T36zf1R0OeNAvyqPgLgw==
-X-CSE-MsgGUID: YohfcMONRoC0FjwT5TzKDw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11357"; a="58955536"
-X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="58955536"
+ bh=IDZov/Dczn2f/ieNl0tUIoh9CnexHmfb2x1sTLNrFZA=;
+ b=D7ss2VTtVfOPCleJDguLbD1wEByflEvVOS1A4u04ZALSorWd6oPq1TEm
+ Xoddi8hEXQuySSwKF/ZvmAoNNSKFGHLmw3YM9USfhBAvbDvmINosJKmrC
+ M7K60so5XAIu5US62aTLbbMX9Z+L6hfHs3S3qZ5SJljKRO0O1MCLYereK
+ /ImTyujUGcmsVSiDoXvticwO2XKCJAonv2QvilynfKCrOmTjLZG0z8ojF
+ ap5fe0G8/vTwtSTuQ6Vs+hrQSi9jqt00BhvjiXl7yUgbLT2+Py2Xtw0ps
+ BAuNE2t1BpOX8V3Bro2dBT1zdh1nXSnFXXxY4DvVgQKpnVqxWkM9wn2xr w==;
+X-CSE-ConnectionGUID: CHRN1X+GSLOEFLSVO2a/2A==
+X-CSE-MsgGUID: h7Pn6DiATLSt2aG+atL+gw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11357"; a="58955633"
+X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="58955633"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2025 03:18:12 -0800
-X-CSE-ConnectionGUID: PDI93uncReGm6znVKxCg+w==
-X-CSE-MsgGUID: 4PYYlND1R6+gWOxBvTmk5A==
+ 27 Feb 2025 03:18:36 -0800
+X-CSE-ConnectionGUID: CyeTxPjwSHeHLctx7MMYQw==
+X-CSE-MsgGUID: 9QUOdIUaRUO9MO1mKfn1Wg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="117172348"
+X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="117172376"
 Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.247.81.210])
  ([10.247.81.210])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2025 03:18:04 -0800
-Message-ID: <55ddacb9-dc00-4477-aeab-9b8861563194@linux.intel.com>
-Date: Thu, 27 Feb 2025 19:18:02 +0800
+ 27 Feb 2025 03:18:28 -0800
+Message-ID: <8395554a-4aaf-45fb-a89d-34f5b10255fb@linux.intel.com>
+Date: Thu, 27 Feb 2025 19:18:26 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
 References: <20250226074837.1679988-1-yong.liang.choong@linux.intel.com>
- <20250226074837.1679988-3-yong.liang.choong@linux.intel.com>
- <Z78141ZNWEYDSi5l@shell.armlinux.org.uk>
+ <20250226074837.1679988-5-yong.liang.choong@linux.intel.com>
+ <Z782i67tlpj6d57m@shell.armlinux.org.uk>
 Content-Language: en-US
 From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <Z78141ZNWEYDSi5l@shell.armlinux.org.uk>
+In-Reply-To: <Z782i67tlpj6d57m@shell.armlinux.org.uk>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
  Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
@@ -70,8 +70,8 @@ Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
  "David S . Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v8 2/6] net: pcs: xpcs:
- re-initiate clause 37 Auto-negotiation
+Subject: Re: [Linux-stm32] [PATCH net-next v8 4/6] stmmac: intel: configure
+ SerDes according to the interface mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,64 +90,32 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 26/2/2025 11:40 pm, Russell King (Oracle) wrote:
-> On Wed, Feb 26, 2025 at 03:48:33PM +0800, Choong Yong Liang wrote:
->> diff --git a/drivers/net/pcs/pcs-xpcs-wx.c b/drivers/net/pcs/pcs-xpcs-wx.c
->> index fc52f7aa5f59..f73ab04d09f0 100644
->> --- a/drivers/net/pcs/pcs-xpcs-wx.c
->> +++ b/drivers/net/pcs/pcs-xpcs-wx.c
->> @@ -172,11 +172,9 @@ int txgbe_xpcs_switch_mode(struct dw_xpcs *xpcs, phy_interface_t interface)
->>   		return 0;
->>   	}
->>   
->> -	if (xpcs->interface == interface && !txgbe_xpcs_mode_quirk(xpcs))
->> +	if (!txgbe_xpcs_mode_quirk(xpcs))
->>   		return 0;
->>   
->> -	xpcs->interface = interface;
->> -
+On 26/2/2025 11:43 pm, Russell King (Oracle) wrote:
+> On Wed, Feb 26, 2025 at 03:48:35PM +0800, Choong Yong Liang wrote:
+>> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+>> index 6d2aa77ea963..af22a11c2b8a 100644
+>> --- a/include/linux/stmmac.h
+>> +++ b/include/linux/stmmac.h
+>> @@ -236,6 +236,10 @@ struct plat_stmmacenet_data {
+>>   	int (*serdes_powerup)(struct net_device *ndev, void *priv);
+>>   	void (*serdes_powerdown)(struct net_device *ndev, void *priv);
+>>   	void (*speed_mode_2500)(struct net_device *ndev, void *priv);
+>> +	int (*mac_finish)(struct net_device *ndev,
+>> +			  void *priv,
+>> +			  unsigned int mode,
+>> +			  phy_interface_t interface);
+>>   	void (*ptp_clk_freq_config)(struct stmmac_priv *priv);
+>>   	int (*init)(struct platform_device *pdev, void *priv);
+>>   	void (*exit)(struct platform_device *pdev, void *priv);
 > 
-> ...
+> This should be part of patch 5, and the order of patches 4 and 5
+> reversed.
 > 
->> --- a/drivers/net/pcs/pcs-xpcs.c
->> +++ b/drivers/net/pcs/pcs-xpcs.c
->> @@ -602,12 +602,37 @@ static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
->>   		__set_bit(compat->interface, interfaces);
->>   }
->>   
->> +static int xpcs_switch_interface_mode(struct dw_xpcs *xpcs,
->> +				      phy_interface_t interface)
->> +{
->> +	int ret = 0;
->> +
->> +	if (xpcs->interface != interface) {
->> +		if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
->> +			ret = txgbe_xpcs_switch_mode(xpcs, interface);
->> +			if (ret)
->> +				return ret;
+> The subject line should also be "net: stmmac: ..."
 > 
-> The above modification changes the functionality.
-> 
-> In the old code, txgbe_xpcs_switch_mode() does its work when
-> xpcs->interface is not the same as interface OR txgbe_xpcs_mode_quirk()
-> is true.
-> 
-> Your replacement code calls txgbe_xpcs_switch_mode() when
-> xpcs->interface is not the same as interface, *and* it can do its
-> work when txgbe_xpcs_mode_quirk() returns true.
-> 
-> So, e.g. when txgbe_xpcs_mode_quirk() returns false, but the interface
-> changes, txgbe_xpcs_mode_quirk() used to do its work, but as a result
-> if your changes, it becomes a no-op.
-> 
-> The point of txgbe_xpcs_mode_quirk() is to always do the work if it
-> returns true, even if the interface mode doesn't change.
-> 
-> Therefore, this patch is logically incorrect, and likely breaks TXGBE.
-> 
-Thank you for pointing out the oversight. I will review the logic and make 
-the necessary corrections to ensure the patch does not disrupt the expected 
-behavior.
+Thank you for your guidance. I will adjust the patch sequence as suggested 
+and update the subject line to "net: stmmac: ...". I appreciate your 
+attention to detail.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
