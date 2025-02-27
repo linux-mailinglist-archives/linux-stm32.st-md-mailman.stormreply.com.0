@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BA1A478DD
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 10:17:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08704A478DF
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 10:17:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7505C7A83E;
-	Thu, 27 Feb 2025 09:17:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2B99C7A83E;
+	Thu, 27 Feb 2025 09:17:42 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25102C7A83B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C25EEC7A83B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 09:17:35 +0000 (UTC)
+ Thu, 27 Feb 2025 09:17:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=iWnPECP85hSj80bfwjHgzvvanWg0iFIEd3mo6R2Ssbs=; b=xikXrqHkwfP9GNCfi+BVPe4Nwb
- et0s7E0VCYJN5fG5eKUAMEBzd8HRWpsJWXrejf7FZcFOlaKtEZLJyOZS+U2/bgVFWk3NAQjm8/MSW
- 54rMdQbA2MxWIyuyFfMHqwWwXeUI+l3WblBMxYoSqhkWdQ0DUQIoTzZEX+kxOyGOWVojGo+5cqrrl
- 6JixAOyo2xnOSx0GGBCY85hdzpsxDGGXHnjczs5SIbxTLziNXdhmC0smmLucsyqu7dYigWX7FmX/n
- 41lEkpEbCTnga4KiuigfVyZ3zs7oH6nX25Dhmvnqhppy/NOZKaKUN16AitEd5o9OmvOYkBts1/cRP
- xSsOsYLQ==;
+ bh=ufZqnl34vm+Pc3lq/GZFpFx8vvNtFX+vITx7KqbOkWc=; b=Cu0S5ynVTtTZxDgbsXX8fgD9Pf
+ iCbv2qYrqpBlzm2jdjz8Lf2cwvZOvlriYf2nXoV65RT4m2GcPFqwxrBWj9tPGMnYLzRb40RTAErcv
+ yrDjd51be6Xot7fWRCTUjhrFULrwoWHYpdCPihoOPmkZDuMyxl3QP7OGELscLIFPPl5fvaTRdSc5B
+ uCZ8H83Kb8xkDCZmPiCJhg0FUQ3SHbVCNj4bqN/cp9iZ2TbUtBl6Xu0NL2OHRiwKMo4mZr6YTpyrU
+ kkVtFRioqKVS55ri5MiPhJmvjEJCtQZJmoHpEPj6OsEjrCpwUpktLQOwOji8mtu52ojl6GcBoLRcD
+ 4vFlmDYg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38326 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37578 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tna1J-0006e3-2Q;
- Thu, 27 Feb 2025 09:17:29 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1tna1O-0006eI-36;
+ Thu, 27 Feb 2025 09:17:35 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tna0z-0052tN-O1; Thu, 27 Feb 2025 09:17:09 +0000
+ id 1tna14-0052tT-S4; Thu, 27 Feb 2025 09:17:14 +0000
 In-Reply-To: <Z8AtX-wyPal1auVO@shell.armlinux.org.uk>
 References: <Z8AtX-wyPal1auVO@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,17 +41,16 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1tna0z-0052tN-O1@rmk-PC.armlinux.org.uk>
-Date: Thu, 27 Feb 2025 09:17:09 +0000
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
+Message-Id: <E1tna14-0052tT-S4@rmk-PC.armlinux.org.uk>
+Date: Thu, 27 Feb 2025 09:17:14 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH net-next 10/11] net: stmmac: meson: switch to
+ Guo Ren <guoren@kernel.org>, Drew Fustini <drew@pdp7.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-riscv@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Fu Wei <wefu@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next 11/11] net: stmmac: thead: switch to
  use set_clk_tx_rate() hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,44 +73,74 @@ manage the transmit clock.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-thead.c  | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-index b115b7873cef..07c504d07604 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
-@@ -22,9 +22,10 @@ struct meson_dwmac {
- 	void __iomem	*reg;
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
+index f9f2bd65959f..c72ee759aae5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
+@@ -101,10 +101,11 @@ static int thead_dwmac_set_txclk_dir(struct plat_stmmacenet_data *plat)
+ 	return 0;
+ }
  
--static void meson6_dwmac_fix_mac_speed(void *priv, int speed, unsigned int mode)
-+static int meson6_dwmac_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
-+					phy_interface_t interface, int speed)
+-static void thead_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
++static int thead_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
++				 phy_interface_t interface, int speed)
  {
--	struct meson_dwmac *dwmac = priv;
-+	struct meson_dwmac *dwmac = bsp_priv;
- 	unsigned int val;
++	struct thead_dwmac *dwmac = bsp_priv;
+ 	struct plat_stmmacenet_data *plat;
+-	struct thead_dwmac *dwmac = priv;
+ 	unsigned long rate;
+ 	long tx_rate;
+ 	u32 div, reg;
+@@ -114,7 +115,7 @@ static void thead_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+ 	switch (plat->mac_interface) {
+ 	/* For MII, rxc/txc is provided by phy */
+ 	case PHY_INTERFACE_MODE_MII:
+-		return;
++		return 0;
  
- 	val = readl(dwmac->reg);
-@@ -39,6 +40,8 @@ static void meson6_dwmac_fix_mac_speed(void *priv, int speed, unsigned int mode)
- 	}
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+@@ -127,23 +128,24 @@ static void thead_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+ 		tx_rate = rgmii_clock(speed);
+ 		if (tx_rate < 0) {
+ 			dev_err(dwmac->dev, "invalid speed %d\n", speed);
+-			return;
++			return tx_rate;
+ 		}
  
- 	writel(val, dwmac->reg);
+ 		div = rate / tx_rate;
+ 		if (rate != tx_rate * div) {
+ 			dev_err(dwmac->dev, "invalid gmac rate %lu\n", rate);
+-			return;
++			return -EINVAL;
+ 		}
+ 
+ 		reg = FIELD_PREP(GMAC_PLLCLK_DIV_EN, 1) |
+ 		      FIELD_PREP(GMAC_PLLCLK_DIV_NUM, div);
+ 		writel(reg, dwmac->apb_base + GMAC_PLLCLK_DIV);
+-		break;
++		return 0;
 +
-+	return 0;
+ 	default:
+ 		dev_err(dwmac->dev, "unsupported phy interface %d\n",
+ 			plat->mac_interface);
+-		return;
++		return -EINVAL;
+ 	}
  }
  
- static int meson6_dwmac_probe(struct platform_device *pdev)
-@@ -65,7 +68,7 @@ static int meson6_dwmac_probe(struct platform_device *pdev)
- 		return PTR_ERR(dwmac->reg);
+@@ -235,7 +237,7 @@ static int thead_dwmac_probe(struct platform_device *pdev)
+ 	dwmac->plat = plat;
+ 	dwmac->apb_base = apb;
+ 	plat->bsp_priv = dwmac;
+-	plat->fix_mac_speed = thead_dwmac_fix_speed;
++	plat->set_clk_tx_rate = thead_set_clk_tx_rate;
+ 	plat->init = thead_dwmac_init;
  
- 	plat_dat->bsp_priv = dwmac;
--	plat_dat->fix_mac_speed = meson6_dwmac_fix_mac_speed;
-+	plat_dat->set_clk_tx_rate = meson6_dwmac_set_clk_tx_rate;
- 
- 	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- }
+ 	return devm_stmmac_pltfr_probe(pdev, plat, &stmmac_res);
 -- 
 2.30.2
 
