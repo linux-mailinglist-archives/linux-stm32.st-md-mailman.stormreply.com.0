@@ -2,50 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD5C0A48008
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 14:54:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6F2A48022
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 14:58:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59D63C7A84A;
-	Thu, 27 Feb 2025 13:54:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E917C7A84A;
+	Thu, 27 Feb 2025 13:58:02 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75489C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1F98C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 13:54:07 +0000 (UTC)
+ Thu, 27 Feb 2025 13:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=+7p+whL+y2ixszcQ8G1Y9xt2LHqMnZq6hXYHzWoyza0=; b=ZEwSO2rCiGPMOuBHO8x1SYughN
- fgqx5F8nB+leOGzlDnAeTvXiV5RenBG4RfJroRdp+uK1TO3ZTSPLA79yHFN4qIn3wk+X8V37Tz7Au
- Nz68ETmYRp+jludadMpYqCvj0FvHQ+eNtTGDIwaBQqpQYUWRSFPKFIA6F8t08MlPB/WU=;
+ bh=N9ysxQNObpMj0tWTkCYvhUMD6pgSFGpBY5F4SuiIMoE=; b=zaGAyN1ir95YVFpBH/l2clB/C6
+ ELGOAHxUhnzWb2aSaFC/W9lTCHcs4TeT1mp/5OsyXt+fMOpBjadz8IXffkh/C54sb09La7dV2y6yY
+ cvYS7vsYuw0igvJqPRKwjDKjG0uCp3zspwJgqjcA8GeXvfszkkEnkxps0FTUT/6rNigA=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1tneKs-000bj1-01; Thu, 27 Feb 2025 14:53:58 +0100
-Date: Thu, 27 Feb 2025 14:53:57 +0100
+ id 1tneOd-000bnQ-Bz; Thu, 27 Feb 2025 14:57:51 +0100
+Date: Thu, 27 Feb 2025 14:57:51 +0100
 From: Andrew Lunn <andrew@lunn.ch>
-To: Kever Yang <kever.yang@rock-chips.com>
-Message-ID: <c523a7a8-34db-4902-bfc2-b8207ce4f4a0@lunn.ch>
-References: <20250227110652.2342729-1-kever.yang@rock-chips.com>
- <20250227110652.2342729-3-kever.yang@rock-chips.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <97073a6f-3200-46da-856b-e7431e09c859@lunn.ch>
+References: <Z8AtX-wyPal1auVO@shell.armlinux.org.uk>
+ <E1tna0F-0052sS-Lr@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250227110652.2342729-3-kever.yang@rock-chips.com>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>,
- Paolo Abeni <pabeni@redhat.com>, heiko@sntech.de,
- Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-rockchip@lists.infradead.org,
- Eric Dumazet <edumazet@google.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] ethernet: stmmac: dwmac-rk: Make
- the phy clock could be used for external phy
+In-Reply-To: <E1tna0F-0052sS-Lr@rmk-PC.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 01/11] net: stmmac: provide
+ set_clk_tx_rate() hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,48 +56,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 27, 2025 at 07:06:52PM +0800, Kever Yang wrote:
-> From: David Wu <david.wu@rock-chips.com>
+On Thu, Feb 27, 2025 at 09:16:23AM +0000, Russell King (Oracle) wrote:
+> Several stmmac sub-drivers which support RGMII follow the same pattern.
+> They calculate the transmit clock rate, and then call clk_set_rate().
 > 
-> Use the phy_clk to prepare_enable and unprepare_disable related phy clock.
+> Analysis of several implementation documents suggests that the platform
+> is responsible for providing the transmit clock to the DWMAC core's
+> clk_tx_i. The expected rates are:
 > 
-> Signed-off-by: David Wu <david.wu@rock-chips.com>
-> Signed-off-by: Kever Yang <kever.yang@rock-chips.com>
-> ---
+> 	10Mbps	100Mbps	1Gbps
+> MII	2.5MHz	25MHz
+> RMII	2.5MHz	25MHz
+> GMII			125MHz
+> RGMI	2.5MHz	25MHz	125MHz
 > 
-> Changes in v2: None
+> It seems some platforms require this clock to be manually configured,
+> but there are outputs from the MAC core that indicate the speed, so a
+> platform may use these to automatically configure the clock. Thus, we
+> can't just provide one solution to configure this clock rate.
 > 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> Moreover, the clock may need to be derived from one of several sources
+> depending on the interface mode.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index ccf4ecdffad3..cc90c74ec70c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1867,12 +1867,14 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
->  		clk_set_rate(bsp_priv->clk_mac, 50000000);
->  	}
->  
-> -	if (plat->phy_node && bsp_priv->integrated_phy) {
-> +	if (plat->phy_node) {
->  		bsp_priv->clk_phy = of_clk_get(plat->phy_node, 0);
->  		ret = PTR_ERR_OR_ZERO(bsp_priv->clk_phy);
->  		if (ret)
->  			return dev_err_probe(dev, ret, "Cannot get PHY clock\n");
-> -		clk_set_rate(bsp_priv->clk_phy, 50000000);
-> +		/* If it is not integrated_phy, clk_phy is optional */
-> +		if (bsp_priv->integrated_phy)
-> +			clk_set_rate(bsp_priv->clk_phy, 50000000);
+> Provide a platform hook that is passed the transmit clock, interface
+> mode and speed.
+> 
+> Reviewed-by: Thierry Reding <treding@nvidia.com>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-That does not look backwards compatible. Older DT blobs which don't
-have an integrated PHY won't have a clock in the node, so of_clk_get()
-will return an error, and this function then exits with an error code.
-
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
     Andrew
-
----
-pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
