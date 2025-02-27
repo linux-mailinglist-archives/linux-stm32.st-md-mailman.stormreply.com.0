@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C275EA47D43
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 13:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAF3BA47D45
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Feb 2025 13:17:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87E2EC7A848;
-	Thu, 27 Feb 2025 12:16:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93302C7A849;
+	Thu, 27 Feb 2025 12:17:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8CE5C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39351C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Feb 2025 12:16:50 +0000 (UTC)
+ Thu, 27 Feb 2025 12:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740658611; x=1772194611;
+ t=1740658620; x=1772194620;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NYawYn9fgjJ9B2nyK205uvx2Cn8hPNrYyHvM0GhLl6w=;
- b=mwFL/OTAC4V8RY1/t4OoDE6Q1VwDqeIAWVtoT1ltYzNdUtxXbeB0yHvf
- tETfGdTedry3ZOe9SsyA5Deqja3oQWH3JnGwN1tm7l1TNiNZYYrMOyBoe
- W+aX3ZD6iuRBA2MAGDtDnWBSPB0GHRxQsZH8NPk7vNnnEsLqDeNESp8Vx
- fS9I6Y1TTvtHpFZtrV9Vh47+EGP0/uTGm6S8EnKW6QMOcvMm+cWu8/hbd
- mlk+hQIc8oBcOC/NUBUH/teW5Zusc39n34vu/Wop3xqalBxF8A3t+rQTU
- BzrjfQvLsmWoHKJy36q4FEnFlEfstLxA3Z1YSaKXWAIqyxUSU8jibRPj9 g==;
-X-CSE-ConnectionGUID: uTAIvHxDRkaTpoeWtfTf6w==
-X-CSE-MsgGUID: qzjfRDZKQFqRLgR5teEKmQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="41464308"
-X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="41464308"
+ bh=Exo83tyIGsx8vIazCzq/svZKyosoCsshSHaLf3vfos4=;
+ b=XLUghlFfb4C7CADuIZJzIApE2JjxKysOVoZo5g3W3RgphILKx8+TyOuD
+ XvdCBewXojzTCdvUevowG2dzqsfOjTT1GDu/eH24m40NOFV/plaTkfSJN
+ O5L6LWr3um4mFiMKGPW7J6g+nm+u5nCBJiaiDVheB9dTxi6q9SKO6Pw6r
+ oaHzuLaMEZn9HiJDGp+oBc1/yMbFU3xJv3u1MPyANM+m6+wO4OQ23/iey
+ J3s6YUb66RaHfafOOmMJFAM9mx6AdExILXEFGWOC8qEYu5JhiEqvgZ2Na
+ ZtL8eNF47t/fl0tT3OLn1NXBAryRXIZOn4KoEvXgu87mZUMaos/YpYHLo Q==;
+X-CSE-ConnectionGUID: j5iWzMfJRlibK2k5SE1QAQ==
+X-CSE-MsgGUID: 3FOa5tt/TPWiYOBJx3sxeg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11358"; a="41464328"
+X-IronPort-AV: E=Sophos;i="6.13,319,1732608000"; d="scan'208";a="41464328"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2025 04:16:49 -0800
-X-CSE-ConnectionGUID: Nl22v1fXTTeGGVjyJnRpgA==
-X-CSE-MsgGUID: e9rhUHc2SZS3HBqF1ZQxJA==
+ 27 Feb 2025 04:16:58 -0800
+X-CSE-ConnectionGUID: cxWTGBpoS1Gdm8QvUjv+8A==
+X-CSE-MsgGUID: 2wswAz/qSBSc1y4YX2hdrA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="117519106"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="117519141"
 Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
- by orviesa007.jf.intel.com with ESMTP; 27 Feb 2025 04:16:42 -0800
+ by orviesa007.jf.intel.com with ESMTP; 27 Feb 2025 04:16:52 -0800
 From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>,
@@ -59,8 +59,8 @@ To: Simon Horman <horms@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
  =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Serge Semin <fancer.lancer@gmail.com>
-Date: Thu, 27 Feb 2025 20:15:17 +0800
-Message-Id: <20250227121522.1802832-2-yong.liang.choong@linux.intel.com>
+Date: Thu, 27 Feb 2025 20:15:18 +0800
+Message-Id: <20250227121522.1802832-3-yong.liang.choong@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250227121522.1802832-1-yong.liang.choong@linux.intel.com>
 References: <20250227121522.1802832-1-yong.liang.choong@linux.intel.com>
@@ -68,8 +68,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
  platform-driver-x86@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v9 1/6] net: phylink: use
-	pl->link_interface in phylink_expects_phy()
+Subject: [Linux-stm32] [PATCH net-next v9 2/6] net: pcs: xpcs: re-initiate
+	clause 37 Auto-negotiation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,50 +86,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The phylink_expects_phy() function allows MAC drivers to check if they are
-expecting a PHY to attach. The checking condition in phylink_expects_phy()
-aims to achieve the same result as the checking condition in
-phylink_attach_phy().
+The xpcs_switch_interface_mode function was introduced to handle
+interface switching.
 
-However, the checking condition in phylink_expects_phy() uses
-pl->link_config.interface, while phylink_attach_phy() uses
-pl->link_interface.
+According to the XPCS datasheet, a soft reset is required to initiate
+Clause 37 auto-negotiation when the XPCS switches interface modes.
 
-Initially, both pl->link_interface and pl->link_config.interface are set
-to SGMII, and pl->cfg_link_an_mode is set to MLO_AN_INBAND.
+When the interface mode switches from 2500BASE-X to SGMII,
+re-initiating Clause 37 auto-negotiation is required for the SGMII
+interface mode to function properly.
 
-When the interface switches from SGMII to 2500BASE-X,
-pl->link_config.interface is updated by phylink_major_config().
-At this point, pl->cfg_link_an_mode remains MLO_AN_INBAND, and
-pl->link_config.interface is set to 2500BASE-X.
-Subsequently, when the STMMAC interface is taken down
-administratively and brought back up, it is blocked by
-phylink_expects_phy().
-
-Since phylink_expects_phy() and phylink_attach_phy() aim to achieve the
-same result, phylink_expects_phy() should check pl->link_interface,
-which never changes, instead of pl->link_config.interface, which is
-updated by phylink_major_config().
-
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 ---
- drivers/net/phy/phylink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/pcs/pcs-xpcs.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index a3b186ab3854..a3f64b6d2d34 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -2044,7 +2044,7 @@ bool phylink_expects_phy(struct phylink *pl)
- {
- 	if (pl->cfg_link_an_mode == MLO_AN_FIXED ||
- 	    (pl->cfg_link_an_mode == MLO_AN_INBAND &&
--	     phy_interface_mode_is_8023z(pl->link_config.interface)))
-+	     phy_interface_mode_is_8023z(pl->link_interface)))
- 		return false;
- 	return true;
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index e32dec4b812e..3d1bd5aac093 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -602,12 +602,33 @@ static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
+ 		__set_bit(compat->interface, interfaces);
  }
+ 
++static int xpcs_switch_interface_mode(struct dw_xpcs *xpcs,
++				      phy_interface_t interface)
++{
++	int ret = 0;
++
++	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
++		ret = txgbe_xpcs_switch_mode(xpcs, interface);
++	} else if (xpcs->interface != interface) {
++		if (interface == PHY_INTERFACE_MODE_SGMII)
++			xpcs->need_reset = true;
++		xpcs->interface = interface;
++	}
++
++	return ret;
++}
++
+ static void xpcs_pre_config(struct phylink_pcs *pcs, phy_interface_t interface)
+ {
+ 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
+ 	const struct dw_xpcs_compat *compat;
+ 	int ret;
+ 
++	ret = xpcs_switch_interface_mode(xpcs, interface);
++	if (ret)
++		dev_err(&xpcs->mdiodev->dev, "switch interface failed: %pe\n",
++			ERR_PTR(ret));
++
+ 	if (!xpcs->need_reset)
+ 		return;
+ 
+@@ -799,10 +820,6 @@ static int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
+ 		return -ENODEV;
+ 
+ 	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
+-		ret = txgbe_xpcs_switch_mode(xpcs, interface);
+-		if (ret)
+-			return ret;
+-
+ 		/* Wangxun devices need backplane CL37 AN enabled for
+ 		 * SGMII and 1000base-X
+ 		 */
 -- 
 2.34.1
 
