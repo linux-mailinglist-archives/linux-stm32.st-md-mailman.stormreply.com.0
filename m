@@ -2,52 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0789AA48EAD
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Feb 2025 03:35:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47472A48EB6
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Feb 2025 03:40:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A52BECFAC47;
-	Fri, 28 Feb 2025 02:35:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04B46CFAC47;
+	Fri, 28 Feb 2025 02:40:01 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDAACCFAC45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 778BFCFAC45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Feb 2025 02:35:48 +0000 (UTC)
+ Fri, 28 Feb 2025 02:39:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 63AE1612E1;
- Fri, 28 Feb 2025 02:35:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E87C4CEDD;
- Fri, 28 Feb 2025 02:35:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EBF09615E7;
+ Fri, 28 Feb 2025 02:39:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26155C4CEDD;
+ Fri, 28 Feb 2025 02:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1740710147;
- bh=mPYw4QtWI6b6bDDohPnfGl05s5iuP5VCTsCxQaqOyug=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jmMjitD8MqAkQdJCrpH+yb2ZxSj8PoHtWyuVi+skqgrhC6ZsN3oeGtzNuCPWU8qav
- zEl4D/HDfuzf+Sa98HT0ZvZzBapAJt2XI0Kqxep7tI59wF4hCrT7LlJjTDr5AaN4aw
- E5ayk3NKMZfmjmREG+tHx+wqGFazG79fThpFTs4N1wdakDR+MUr/1G+A6GWdVDUbQV
- AdRBoZxSdGnIA9/FMnmbWDQEQkfBy8Wj5zOKDrTIp1kngbmor7OnZkbVsCi9n21JCU
- b5p8lEHBQ/yGgVTBkh08Zp9YGlNbDhOfVihj2w2yoNQaQ1b6Fleu1hj4yu5MEMAVJT
- EyQEwxqBVUQmw==
-Date: Thu, 27 Feb 2025 18:35:45 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-Message-ID: <20250227183545.0848dd61@kernel.org>
-In-Reply-To: <20250226085208.97891-2-phasta@kernel.org>
-References: <20250226085208.97891-1-phasta@kernel.org>
- <20250226085208.97891-2-phasta@kernel.org>
+ s=k20201202; t=1740710398;
+ bh=n0lGgWpVMdnQZ8WaaunYSs+CDhI/VkhN2UbParMgr2A=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=lQQHrPpD+qj/hLOXAvWRKd+wUtlnOEvLwA1qNuPa0Xm5IeQ/ApRUE7/M4B38OJUMS
+ UoiDSempoQesgGf/J74EmhD5qO7Mo+DWCWNcFzLU6+mM08kmZr7cJ4l0LsEuIIUJ1P
+ hNgzdZWAlSS3XFGwO9njIS0gbOunwlhPhC7SoMZt5zxZ036v/gTh+81ARspORygJDx
+ ahb415ZWI8n7o4OwrbaZuL0Y0TOOiDLt/2fbx8PXTVO30LyTFaRDwoLaDMbEHC8Jj6
+ rzhwWa/+a4KryvShnTEUYuVPzG+jgN51Y5N2yZCmLirQbxUGdBKRUvneN5YHsqnq7W
+ fjtLvWFYOFNrA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 71F10380AACB; Fri, 28 Feb 2025 02:40:31 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, Feiyang Chen <chenfeiyang@loongson.cn>,
- Yanteng Si <si.yanteng@linux.dev>, linux-kernel@vger.kernel.org,
- Philipp Stanner <pstanner@redhat.com>, netdev@vger.kernel.org,
- Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Henry Chen <chenx97@aosc.io>,
- Qing Zhang <zhangqing@loongson.cn>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/4] stmmac: loongson: Pass
- correct arg to PCI function
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174071043026.1661895.15370002818806136916.git-patchwork-notify@kernel.org>
+Date: Fri, 28 Feb 2025 02:40:30 +0000
+References: <20250226085208.97891-1-phasta@kernel.org>
+In-Reply-To: <20250226085208.97891-1-phasta@kernel.org>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: chenfeiyang@loongson.cn, si.yanteng@linux.dev, linux-kernel@vger.kernel.org,
+ pstanner@redhat.com, netdev@vger.kernel.org, guyinggang@loongson.cn,
+ chenhuacai@kernel.org, jiaxun.yang@flygoat.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ zhangqing@loongson.cn, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 0/4] stmmac: Several
+	PCI-related improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,21 +63,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 26 Feb 2025 09:52:05 +0100 Philipp Stanner wrote:
-> pcim_iomap_regions() should receive the driver's name as its third
-> parameter, not the PCI device's name.
-> 
-> Define the driver name with a macro and use it at the appropriate
-> places, including pcim_iomap_regions().
-> 
-> Cc: stable@vger.kernel.org # v5.14+
-> Fixes: 30bba69d7db4 ("stmmac: pci: Add dwmac support for Loongson")
+Hello:
 
-Since you sent this as a fix (which.. yea.. I guess.. why not..)
-I'll apply it to the fixes tree. But then the other patches have 
-to wait and be reposted next Thu. The fixes are merged with net-next
-every Thu, but since this series was tagged as net-next I missed
-it in today's cross merge :(
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 26 Feb 2025 09:52:04 +0100 you wrote:
+> Changes in v4:
+>   - Add missing full stop. (Yanteng)
+>   - Move forgotten unused-variable-removes to the appropriate places.
+>   - Add applicable RB / TB tags
+> 
+> Changes in v3:
+>   - Several formatting nits (Paolo)
+>   - Split up patch into a patch series (Yanteng)
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v4,1/4] stmmac: loongson: Pass correct arg to PCI function
+    https://git.kernel.org/netdev/net/c/00371a3f4877
+  - [net-next,v4,2/4] stmmac: loongson: Remove surplus loop
+    (no matching commit)
+  - [net-next,v4,3/4] stmmac: Remove pcim_* functions for driver detach
+    (no matching commit)
+  - [net-next,v4,4/4] stmmac: Replace deprecated PCI functions
+    (no matching commit)
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
