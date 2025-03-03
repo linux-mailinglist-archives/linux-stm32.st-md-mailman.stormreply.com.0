@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E96DA4BC0B
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Mar 2025 11:27:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE5CA4BC10
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Mar 2025 11:27:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D20C7C78F62;
-	Mon,  3 Mar 2025 10:27:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4852C78F62;
+	Mon,  3 Mar 2025 10:27:42 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23835C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6FBDC78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Mar 2025 10:27:32 +0000 (UTC)
+ Mon,  3 Mar 2025 10:27:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1740997653; x=1772533653;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FDz6ptuo+7Aft80tGDKuObfSvghbYDAnsgP6ShdB+h8=;
- b=mWhW/vlzJrrBtMt50U3AunzSfRIX1nMZNF+ruZZF4YEsSDOETQu2hq4f
- 249tzjdFgRAUYG9NKGjFqyLQ0d2nkMDppB8Jw0q8Xkwqb0Q5C5vq1YB+t
- eugSu7ILkB/c2L1Vwdu1XfGNBaeys9L7ncraKc451nFWAKuCjpoqqG1XB
- oR2lYAwrmhS/wzWT/hICbvagT6kwF/HG2eU48i3kksCIb+fQbfE/lasv8
- NHETOPpMDLncMKOGWFL3MKmDRdBt8f/hXJeE8YoAs6ikMfqmbWpwZjYq+
- Ioc5RW2MOJi8EWB8EkgbO40IwfGOsSZFa6rZ5oTbYfxKryEy308WyTGha A==;
-X-CSE-ConnectionGUID: evNU9YUgQe6WF5Lf5bdKAg==
-X-CSE-MsgGUID: TLIbMZ8xTBejFysDSMDDTg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11361"; a="64310042"
-X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="64310042"
+ t=1740997661; x=1772533661;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=zqdHhFjj5+k7uI0KA3AtQEAxOad+rBp0eb0gLY4j5TQ=;
+ b=XC7jz3letMcbQPO22kaPVCEx7W4VBYnqomFKLfU0NXZbCIJGDJ1U9k/x
+ jnAw6Fqn1Gze/YyeeV0DH2q86/A3oz/60IjN16zQX/19eXUPQDYjMfWIV
+ gsMC13p56u5gNBUoWWDcMGaLIpWD0SqRG0mK2RPv4oQiDWpPttFumHmm4
+ 6cALc2yuMKon9OHQ1/3Xk9g2jS5dHn8f3Ll4VZINF5vnL61NK5jI86zSE
+ 3sTbfnNBR3c0hWn3mBWqZ7UcQDqOU9nXQcfAxkaOOqwCVQmO0jusetwC1
+ RBJl0Zekl2DvjJFCvDm06q7fmQQY+vRP7IUthJH/y/hxy+6A7v4TUnXge A==;
+X-CSE-ConnectionGUID: +cdH5gpiTGScp4wzp3s3ig==
+X-CSE-MsgGUID: KBs4gRCRSPepVEYudDIxzA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11361"; a="64310076"
+X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="64310076"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2025 02:27:31 -0800
-X-CSE-ConnectionGUID: hMmtywriTWO7zIp6xwLCmg==
-X-CSE-MsgGUID: 3pHgk5o+Sj624jh43tBMjQ==
+ 03 Mar 2025 02:27:39 -0800
+X-CSE-ConnectionGUID: mHMRyzQPQWOUMOws8mqpEA==
+X-CSE-MsgGUID: DnuPBVS7T16Z7A32tLrKlw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="122569850"
+X-IronPort-AV: E=Sophos;i="6.13,329,1732608000"; d="scan'208";a="122569862"
 Received: from mohdfai2-ilbpg12-1.png.intel.com ([10.88.227.73])
- by fmviesa005.fm.intel.com with ESMTP; 03 Mar 2025 02:27:22 -0800
+ by fmviesa005.fm.intel.com with ESMTP; 03 Mar 2025 02:27:31 -0800
 From: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>,
  Przemek Kitszel <przemyslaw.kitszel@intel.com>,
@@ -67,12 +67,14 @@ To: Tony Nguyen <anthony.l.nguyen@intel.com>,
  intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
-Date: Mon,  3 Mar 2025 05:26:49 -0500
-Message-Id: <20250303102658.3580232-1-faizal.abdul.rahim@linux.intel.com>
+Date: Mon,  3 Mar 2025 05:26:50 -0500
+Message-Id: <20250303102658.3580232-2-faizal.abdul.rahim@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250303102658.3580232-1-faizal.abdul.rahim@linux.intel.com>
+References: <20250303102658.3580232-1-faizal.abdul.rahim@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [PATCH iwl-next v7 0/9] igc: Add support for Frame
-	Preemption feature in IGC
+Subject: [Linux-stm32] [PATCH iwl-next v7 1/9] net: ethtool: mm: extract
+	stmmac verification logic into common library
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,122 +86,848 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SW50cm9kdWNlcyBzdXBwb3J0IGZvciB0aGUgRlBFIGZlYXR1cmUgaW4gdGhlIElHQyBkcml2ZXIu
-CgpUaGUgcGF0Y2hlcyBhbGlnbnMgd2l0aCB0aGUgdXBzdHJlYW0gRlBFIEFQSToKaHR0cHM6Ly9w
-YXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L25ldGRldmJwZi9jb3Zlci8yMDIzMDIyMDEyMjM0
-My4xMTU2NjE0LTEtdmxhZGltaXIub2x0ZWFuQG54cC5jb20vCmh0dHBzOi8vcGF0Y2h3b3JrLmtl
-cm5lbC5vcmcvcHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyMzAxMTkxMjI3MDUuNzMwNTQtMS12
-bGFkaW1pci5vbHRlYW5AbnhwLmNvbS8KCkl0IGJ1aWxkcyB1cG9uIGVhcmxpZXIgd29yazoKaHR0
-cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L25ldGRldmJwZi9jb3Zlci8yMDIyMDUy
-MDAxMTUzOC4xMDk4ODg4LTEtdmluaWNpdXMuZ29tZXNAaW50ZWwuY29tLwoKVGhlIHBhdGNoIHNl
-cmllcyBhZGRzIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb25hbGl0aWVzIHRvIHRoZSBJR0MgZHJpdmVy
-OgphKSBDb25maWd1cmUgRlBFIHVzaW5nIGBldGh0b29sIC0tc2V0LW1tYC4KYikgRGlzcGxheSBG
-UEUgc2V0dGluZ3MgdmlhIGBldGh0b29sIC0tc2hvdy1tbWAuCmMpIFZpZXcgRlBFIHN0YXRpc3Rp
-Y3MgdXNpbmcgYGV0aHRvb2wgLS1pbmNsdWRlLXN0YXRpc3RpY3MgLS1zaG93LW1tJy4KZSkgQmxv
-Y2sgc2V0dGluZyBwcmVlbXB0aWJsZSB0YyBpbiB0YXByaW8gc2luY2UgaXQgaXMgbm90IHN1cHBv
-cnRlZCB5ZXQuCiAgIEV4aXN0aW5nIGNvZGUgYWxyZWFkeSBibG9ja3MgaXQgaW4gbXFwcmlvLgoK
-VGVzdGVkOgpFbmFibGVkIENPTkZJR19QUk9WRV9MT0NLSU5HLCBDT05GSUdfREVCVUdfQVRPTUlD
-X1NMRUVQLCBDT05GSUdfRE1BX0FQSV9ERUJVRywgYW5kIENPTkZJR19LQVNBTgoxKSBzZWxmdGVz
-dHMKMikgbmV0ZGV2IGRvd24vdXAgY3ljbGVzCjMpIHN1c3BlbmQvcmVzdW1lIGN5Y2xlcwo0KSBm
-cGUgdmVyaWZpY2F0aW9uCgpObyBidWdzIG9yIHVudXN1YWwgZG1lc2cgbG9ncyB3ZXJlIG9ic2Vy
-dmVkLgpSYW4gMSksIDIpIGFuZCAzKSB3aXRoIGFuZCB3aXRob3V0IHRoZSBwYXRjaCBzZXJpZXMs
-IGNvbXBhcmVkIGRtZXNnIGFuZCBzZWxmdGVzdCBsb2dzIOKAlCBubyBkaWZmZXJlbmNlcyBmb3Vu
-ZC4KCkNoYW5nZSBMb2c6CnY2IC0+IHY3OgotIFNxdWFzaCB0aGUgY3B1IHBhcmFtIHRvIHRoZSBw
-cmV2IGxpbmUgKFByemVtZWsgS2l0c3plbCkKLSBVc2UgaWdjXyBwcmVmaXggZm9yIGZwZV90IChQ
-cnplbWVrIEtpdHN6ZWwpCi0gTW92ZSBuZXcgb3BzIHRvIGRpZmZlcmVudCBsaW5lIGluIGlnY19l
-dGh0b29sX29wcyAoUHJ6ZW1layBLaXRzemVsKQotIERvY3VtZW50YXRpb24gZm9yIGlnY19lbmFi
-bGVfZW1wdHlfYWRkcl9yZWN2ICgpOiByeCAtPiBSeCAoUHJ6ZW1layBLaXRzemVsKQotIERvY3Vt
-ZW50YXRpb24gZm9yIGlnY19lbmFibGVfZW1wdHlfYWRkcl9yZWN2ICgpOiBzL0lHQy90aGUgZHJp
-dmVyLyAoUHJ6ZW1layBLaXRzemVsKQotIENoYW5nZSBwcmVmZXJyZWQgc3R5bGUgb2YgaW5pdCwg
-ZnJvbSB7IH0sIHRvIHt9IChQcnplbWVrIEtpdHN6ZWwpCi0gUmVtb3ZlIGluY2x1c2lvbiBvZiB1
-bWJyZWxsYSBoZWFkZXIgPGxpbnV4L2tlcm5lbC5oPiBpbiBpZ2NfdHNuLmMgKFByemVtZWsgS2l0
-c3plbCkKLSBFbmQgZW51bSB3aXRoICIsIiBpbiBpZ2NfdHhkX3BvcHRzX3R5cGUgKFByemVtZWsg
-S2l0c3plbCkKLSBSZW1vdmUgdW5uZWNlc3NhcnkgYnJhY2VzIGluIGlnY19mcGVfaXNfdmVyaWZ5
-X29yX3Jlc3BvbnNlKCkgKFByemVtZWsgS2l0c3plbCkKCnY1IC0+IHY2OgotIEFkZGVkIFRlc3Rl
-ZC1ieTogRnVyb25nIFh1IGZvciBwYXRjaCAxLzkgKFZsYWRpbWlyLCBGdXJvbmcgWHUpCi0gVXBk
-YXRlZCBsb2dpYyBpbiBldGh0b29sX21tc3ZfbGlua19zdGF0ZV9oYW5kbGUoKSAoVmxhZGltaXIs
-IEZ1cm9uZyBYdSkKLSBTd2FwIHNlcXVlbmNlIG9mIGZ1bmN0aW9uIGNhbGwgaW4gc3RtbWFjX3Nl
-dF9tbSgpIChGdXJvbmcgWHUpCi0gTG9nIGFuIGVycm9yIGlmIGlnY19lbmFibGVfZW1wdHlfYWRk
-cl9yZWN2KCkgZmFpbHMgKFZsYWRpbWlyKQotIE1vdmUgdGhlIHBhdGNoICIuLiBCbG9jayBzZXR0
-aW5nIHByZWVtcHRpYmxlIHRyYWZmaWMgLi4iIGJlZm9yZSAiLi4gQWRkIHN1cHBvcnQgdG8gZ2V0
-IE1BQyBNZXJnZSBkYXRhIC4uIiAoVmxhZGltaXIpCi0gTW92ZSBtbXN2IGZ1bmN0aW9uIGtlcm5l
-bC1kb2MgZnJvbSAuaCB0byAuYyBmaWxlIChWbGFkaW1pcikKCnY0IC0+IHY1OgotIFJlbW92ZSAi
-aWdjOiBBZGQgc3VwcG9ydCBmb3IgcHJlZW1wdGlibGUgdHJhZmZpYyBjbGFzcyBpbiB0YXByaW8i
-IHBhdGNoIChWbGFkaW1pcikKLSBBZGQgYSBuZXcgcGF0Y2ggImlnYzogQmxvY2sgc2V0dGluZyBw
-cmVlbXB0aWJsZSB0cmFmZmljIGNsYXNzZXMgaW4gdGFwcmlvIiAoVmxhZGltaXIpCi0gQWRkIGtl
-cm5lbC1kb2MgZm9yIG1tc3YgYXBpIChWbGFkaW1pcikKLSBvbGluaW5mb19zdGF0dXMgdG8gdXNl
-IGhvc3QgYnl0ZSBvcmRlciAoU2ltb24pCi0gc3RhdHVzX2Vycm9yIHNob3VsZCBob3N0IGJ5dGUg
-dHlwZSAoU2ltb24pCi0gU29tZSBjb2RlIHdhcyBtaXNwbGFjZWQgaW4gdGhlIHdyb25nIHBhdGNo
-IChWbGFkaW1pcikKLSBNaXggb2YgdGFicyBhbmQgc3BhY2VzIGluIHBhdGNoIGRlc2NyaXB0aW9u
-IChWbGFkaW1pcikKLSBDcmVhdGVkIGlnY19pc19wbWFjX2VuYWJsZWQoKSB0byByZWR1Y2UgY29k
-ZSByZXBldGl0aW9uIChWbGFkaW1pcikKCnYzIC0+IHY0OgotIEZpeCBjb21waWxhdGlvbiB3YXJu
-aW5ncyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2ggc2VyaWVzCgp2MiAtPiB2MzoKLSBJbXBsZW1l
-bnQgY29uZmlndXJlX3R4KCkgbW1zdiBjYWxsYmFjayAoVmxhZGltaXIpCi0gVXNlIHN0YXRpY19i
-cmFuY2hfaW5jKCkgYW5kIHN0YXRpY19icmFuY2hfZGVjKCkgKFZsYWRpbWlyKQotIEFkZCBhZGFw
-dGVyLT5mcGUubW1zdi5wbWFjX2VuYWJsZWQgYXMgZXh0cmEgY2hlY2sgKFZsYWRpbWlyKQotIFJl
-bW92ZSB1bm5lY2Vzc2FyeSBlcnJvciBjaGVjayBpbiBpZ2NfZnBlX2luaXRfdHhfZGVzY3JpcHRv
-cigpIChWbGFkaW1pcikKLSBBZGRpdGlvbmFsIHBsYWNlcyB0byB1c2UgRklFTERfUFJFUCgpIGlu
-c3RlYWQgb2YgbWFudWFsIGJpdCBtYW5pcHVsYXRpb24gKFZsYWRpbWlyKQotIElHQ19UWERfUE9Q
-VFNfU01EX1YgYW5kIElHQ19UWERfUE9QVFNfU01EX1IgdHlwZSBjaGFuZ2UgdG8gZW51bSAoVmxh
-ZGltaXIpCi0gUmVtb3ZlIHVubmVjZXNzYXJ5IG5ldGlmX3J1bm5pbmcoKSBjaGVjayBpbiBpZ2Nf
-ZnBlX3htaXRfZnJhbWUgKFZsYWRpbWlyKQotIFJhdGUgbGltaXQgcHJpbnQgaW4gaWdjX2ZwZV9z
-ZW5kX21wYWNrZXQgKFZsYWRpbWlyKQoKdjEgLT4gdjI6Ci0gRXh0cmFjdCB0aGUgc3RtbWFjIHZl
-cmlmaWNhdGlvbiBsb2dpYyBpbnRvIGEgY29tbW9uIGxpYnJhcnkgKFZsYWRpbWlyKQotIGlnYyB0
-byB1c2UgY29tbW9uIGxpYnJhcnkgZm9yIHZlcmlmaWNhdGlvbiAoVmxhZGltaXIpCi0gRml4IHN5
-bnRheCBmb3Iga2VybmVsLWRvYyB0byB1c2UgIlJldHVybjoiIChWbGFkaW1pcikKLSBVc2UgRklF
-TERfR0VUIGluc3RlYWQgb2YgbWFudWFsIGJpdCBtYXNraW5nIChWbGFkaW1pcikKLSBEb24ndCBh
-c3NpZ24gMCB0byBzdGF0aXN0aWNzIGNvdW50ZXIgaW4gaWdjX2V0aHRvb2xfZ2V0X21tX3N0YXRz
-KCkgKFZsYWRpbWlyKQotIFVzZSBwbWFjLWVuYWJsZWQgYXMgYSBjb25kaXRpb24gdG8gYWxsb3cg
-TUFDIGFkZHJlc3MgdmFsdWUgMCAoVmxhZGltaXIpCi0gRGVmaW5lIG1hY3JvIHJlZ2lzdGVyIHZh
-bHVlIGluIGluY3JlYXNpbmcgdmFsdWUgb3JkZXIgKFZsYWRpbWlyKQotIEZpeCB0eC1taW4tZnJh
-Zy1zaXplIGhhbmRsaW5nIGZvciBpZ2MgKFZsYWRpbWlyKQotIEhhbmRsZSBsaW5rIHN0YXRlIGNo
-YW5nZXMgd2l0aCB2ZXJpZmljYXRpb24gaW4gaWdjIChWbGFkaW1pcikKLSBBZGQgc3RhdGljIGtl
-eSBmb3IgZmFzdCBwYXRoIGNvZGUgKFZsYWRpbWlyKQotIHJ4X21pbl9mcmFnX3NpemUgZ2V0IGZy
-b20gY29uc3RhbnQgKFZsYWRpbWlyKQoKdjE6IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcv
-cHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyNDEyMTYwNjQ3MjAuOTMxNTIyLTEtZmFpemFsLmFi
-ZHVsLnJhaGltQGxpbnV4LmludGVsLmNvbS8KdjI6IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5v
-cmcvcHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyNTAyMDUxMDA1MjQuMTEzODUyMy0xLWZhaXph
-bC5hYmR1bC5yYWhpbUBsaW51eC5pbnRlbC5jb20vCnYzOiBodHRwczovL3BhdGNod29yay5rZXJu
-ZWwub3JnL3Byb2plY3QvbmV0ZGV2YnBmL2NvdmVyLzIwMjUwMjA3MTY1NjQ5LjIyNDUzMjAtMS1m
-YWl6YWwuYWJkdWwucmFoaW1AbGludXguaW50ZWwuY29tLwp2NDogaHR0cHM6Ly9wYXRjaHdvcmsu
-a2VybmVsLm9yZy9wcm9qZWN0L25ldGRldmJwZi9jb3Zlci8yMDI1MDIxMDA3MDIwNy4yNjE1NDE4
-LTEtZmFpemFsLmFiZHVsLnJhaGltQGxpbnV4LmludGVsLmNvbS8KdjU6IGh0dHBzOi8vcGF0Y2h3
-b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9uZXRkZXZicGYvY292ZXIvMjAyNTAyMjAwMjUzNDkuMzAw
-Nzc5My0xLWZhaXphbC5hYmR1bC5yYWhpbUBsaW51eC5pbnRlbC5jb20vCnY2OiBodHRwczovL3Bh
-dGNod29yay5rZXJuZWwub3JnL3Byb2plY3QvbmV0ZGV2YnBmL2NvdmVyLzIwMjUwMjI3MTQwMTU4
-LjIxMjk5ODgtMS1mYWl6YWwuYWJkdWwucmFoaW1AbGludXguaW50ZWwuY29tLwoKRmFpemFsIFJh
-aGltICg4KToKICBpZ2M6IFJlbmFtZSB4ZHBfZ2V0X3R4X3JpbmcoKSBmb3Igbm9uLXhkcCB1c2Fn
-ZQogIGlnYzogT3B0aW1pemUgdGhlIFRYIHBhY2tldCBidWZmZXIgdXRpbGl6YXRpb24KICBpZ2M6
-IFNldCB0aGUgUlggcGFja2V0IGJ1ZmZlciBzaXplIGZvciBUU04gbW9kZQogIGlnYzogQWRkIHN1
-cHBvcnQgZm9yIGZyYW1lIHByZWVtcHRpb24gdmVyaWZpY2F0aW9uCiAgaWdjOiBBZGQgc3VwcG9y
-dCB0byBzZXQgdHgtbWluLWZyYWctc2l6ZQogIGlnYzogQmxvY2sgc2V0dGluZyBwcmVlbXB0aWJs
-ZSB0cmFmZmljIGNsYXNzIGluIHRhcHJpbwogIGlnYzogQWRkIHN1cHBvcnQgdG8gZ2V0IE1BQyBN
-ZXJnZSBkYXRhIHZpYSBldGh0b29sCiAgaWdjOiBBZGQgc3VwcG9ydCB0byBnZXQgZnJhbWUgcHJl
-ZW1wdGlvbiBzdGF0aXN0aWNzIHZpYSBldGh0b29sCgpWbGFkaW1pciBPbHRlYW4gKDEpOgogIG5l
-dDogZXRodG9vbDogbW06IGV4dHJhY3Qgc3RtbWFjIHZlcmlmaWNhdGlvbiBsb2dpYyBpbnRvIGNv
-bW1vbgogICAgbGlicmFyeQoKIGRyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2lnYy9pZ2MuaCAg
-ICAgICAgICB8ICAxNSArLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWdjL2lnY19iYXNl
-LmggICAgIHwgICAxICsKIGRyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2lnYy9pZ2NfZGVmaW5l
-cy5oICB8ICAxNSArLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWdjL2lnY19ldGh0b29s
-LmMgIHwgIDc2ICsrKysrCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9pbnRlbC9pZ2MvaWdjX21haW4u
-YyAgICAgfCAgNjYgKysrLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWdjL2lnY19yZWdz
-LmggICAgIHwgIDE2ICsKIGRyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2lnYy9pZ2NfdHNuLmMg
-ICAgICB8IDE5MiArKysrKysrKysrKy0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2lnYy9p
-Z2NfdHNuLmggICAgICB8ICA1MiArKysrCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9zdG1tYWMuaCAgfCAgMTYgKy0KIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1t
-YWNfZXRodG9vbC5jICB8ICA0MSArLS0KIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
-c3RtbWFjX2ZwZS5jICB8IDE3NCArKystLS0tLS0tLQogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9zdG1tYWNfZnBlLmggIHwgICA1IC0KIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjX21haW4uYyB8ICAgOCArLQogaW5jbHVkZS9saW51eC9ldGh0b29sLmggICAg
-ICAgICAgICAgICAgICAgICAgIHwgIDczICsrKysrCiBuZXQvZXRodG9vbC9tbS5jICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgfCAyODEgKysrKysrKysrKysrKysrKystCiAxNSBmaWxlcyBj
-aGFuZ2VkLCA4MTQgaW5zZXJ0aW9ucygrKSwgMjE3IGRlbGV0aW9ucygtKQoKLS0KMi4zNC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+
+It appears that stmmac is not the only hardware which requires a
+software-driven verification state machine for the MAC Merge layer.
+
+While on the one hand it's good to encourage hardware implementations,
+on the other hand it's quite difficult to tolerate multiple drivers
+implementing independently fairly non-trivial logic.
+
+Extract the hardware-independent logic from stmmac into library code and
+put it in ethtool. Name the state structure "mmsv" for MAC Merge
+Software Verification. Let this expose an operations structure for
+executing the hardware stuff: sync hardware with the tx_active boolean
+(result of verification process), enable/disable the pMAC, send mPackets,
+notify library of external events (reception of mPackets), as well as
+link state changes.
+
+Note that it is assumed that the external events are received in hardirq
+context. If they are not, it is probably a good idea to disable hardirqs
+when calling ethtool_mmsv_event_handle(), because the library does not
+do so.
+
+Also, the MM software verification process has no business with the
+tx_min_frag_size, that is all the driver's to handle.
+
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Co-developed-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Co-developed-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+Signed-off-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+Tested-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Tested-by: Furong Xu <0x1207@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  16 +-
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  41 +--
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.c  | 174 +++--------
+ .../net/ethernet/stmicro/stmmac/stmmac_fpe.h  |   5 -
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   8 +-
+ include/linux/ethtool.h                       |  73 +++++
+ net/ethtool/mm.c                              | 279 +++++++++++++++++-
+ 7 files changed, 395 insertions(+), 201 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index f05cae103d83..c9cc41af258a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -147,21 +147,9 @@ struct stmmac_channel {
+ };
+ 
+ struct stmmac_fpe_cfg {
+-	/* Serialize access to MAC Merge state between ethtool requests
+-	 * and link state updates.
+-	 */
+-	spinlock_t lock;
+-
++	struct ethtool_mmsv mmsv;
+ 	const struct stmmac_fpe_reg *reg;
+-	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
+-
+-	enum ethtool_mm_verify_status status;
+-	struct timer_list verify_timer;
+-	bool verify_enabled;
+-	int verify_retries;
+-	bool pmac_enabled;
+-	u32 verify_time;
+-	bool tx_enabled;
++	u32 fpe_csr;	/* MAC_FPE_CTRL_STS reg cache */
+ };
+ 
+ struct stmmac_tc_entry {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 918a32f8fda8..25533d6a3175 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -1210,37 +1210,17 @@ static int stmmac_get_mm(struct net_device *ndev,
+ 			 struct ethtool_mm_state *state)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+-	unsigned long flags;
+ 	u32 frag_size;
+ 
+ 	if (!stmmac_fpe_supported(priv))
+ 		return -EOPNOTSUPP;
+ 
+-	spin_lock_irqsave(&priv->fpe_cfg.lock, flags);
++	ethtool_mmsv_get_mm(&priv->fpe_cfg.mmsv, state);
+ 
+-	state->max_verify_time = STMMAC_FPE_MM_MAX_VERIFY_TIME_MS;
+-	state->verify_enabled = priv->fpe_cfg.verify_enabled;
+-	state->pmac_enabled = priv->fpe_cfg.pmac_enabled;
+-	state->verify_time = priv->fpe_cfg.verify_time;
+-	state->tx_enabled = priv->fpe_cfg.tx_enabled;
+-	state->verify_status = priv->fpe_cfg.status;
+ 	state->rx_min_frag_size = ETH_ZLEN;
+-
+-	/* FPE active if common tx_enabled and
+-	 * (verification success or disabled(forced))
+-	 */
+-	if (state->tx_enabled &&
+-	    (state->verify_status == ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED ||
+-	     state->verify_status == ETHTOOL_MM_VERIFY_STATUS_DISABLED))
+-		state->tx_active = true;
+-	else
+-		state->tx_active = false;
+-
+ 	frag_size = stmmac_fpe_get_add_frag_size(priv);
+ 	state->tx_min_frag_size = ethtool_mm_frag_size_add_to_min(frag_size);
+ 
+-	spin_unlock_irqrestore(&priv->fpe_cfg.lock, flags);
+-
+ 	return 0;
+ }
+ 
+@@ -1248,8 +1228,6 @@ static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+ 			 struct netlink_ext_ack *extack)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+-	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+-	unsigned long flags;
+ 	u32 frag_size;
+ 	int err;
+ 
+@@ -1258,23 +1236,8 @@ static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
+ 	if (err)
+ 		return err;
+ 
+-	/* Wait for the verification that's currently in progress to finish */
+-	timer_shutdown_sync(&fpe_cfg->verify_timer);
+-
+-	spin_lock_irqsave(&fpe_cfg->lock, flags);
+-
+-	fpe_cfg->verify_enabled = cfg->verify_enabled;
+-	fpe_cfg->pmac_enabled = cfg->pmac_enabled;
+-	fpe_cfg->verify_time = cfg->verify_time;
+-	fpe_cfg->tx_enabled = cfg->tx_enabled;
+-
+-	if (!cfg->verify_enabled)
+-		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
+-
+ 	stmmac_fpe_set_add_frag_size(priv, frag_size);
+-	stmmac_fpe_apply(priv);
+-
+-	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
++	ethtool_mmsv_set_mm(&priv->fpe_cfg.mmsv, cfg);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+index 3a4bee029c7f..75b470ee621a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.c
+@@ -27,12 +27,6 @@
+ #define STMMAC_MAC_FPE_CTRL_STS_SVER	BIT(1)
+ #define STMMAC_MAC_FPE_CTRL_STS_EFPE	BIT(0)
+ 
+-/* FPE link-partner hand-shaking mPacket type */
+-enum stmmac_mpacket_type {
+-	MPACKET_VERIFY = 0,
+-	MPACKET_RESPONSE = 1,
+-};
+-
+ struct stmmac_fpe_reg {
+ 	const u32 mac_fpe_reg;		/* offset of MAC_FPE_CTRL_STS */
+ 	const u32 mtl_fpe_reg;		/* offset of MTL_FPE_CTRL_STS */
+@@ -48,10 +42,10 @@ bool stmmac_fpe_supported(struct stmmac_priv *priv)
+ 		priv->hw->mac->fpe_map_preemption_class;
+ }
+ 
+-static void stmmac_fpe_configure(struct stmmac_priv *priv, bool tx_enable,
+-				 bool pmac_enable)
++static void stmmac_fpe_configure_tx(struct ethtool_mmsv *mmsv, bool tx_enable)
+ {
+-	struct stmmac_fpe_cfg *cfg = &priv->fpe_cfg;
++	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
++	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
+ 	const struct stmmac_fpe_reg *reg = cfg->reg;
+ 	u32 num_rxq = priv->plat->rx_queues_to_use;
+ 	void __iomem *ioaddr = priv->ioaddr;
+@@ -68,6 +62,15 @@ static void stmmac_fpe_configure(struct stmmac_priv *priv, bool tx_enable,
+ 		cfg->fpe_csr = 0;
+ 	}
+ 	writel(cfg->fpe_csr, ioaddr + reg->mac_fpe_reg);
++}
++
++static void stmmac_fpe_configure_pmac(struct ethtool_mmsv *mmsv, bool pmac_enable)
++{
++	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
++	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
++	const struct stmmac_fpe_reg *reg = cfg->reg;
++	void __iomem *ioaddr = priv->ioaddr;
++	u32 value;
+ 
+ 	value = readl(ioaddr + reg->int_en_reg);
+ 
+@@ -85,47 +88,45 @@ static void stmmac_fpe_configure(struct stmmac_priv *priv, bool tx_enable,
+ 	writel(value, ioaddr + reg->int_en_reg);
+ }
+ 
+-static void stmmac_fpe_send_mpacket(struct stmmac_priv *priv,
+-				    enum stmmac_mpacket_type type)
++static void stmmac_fpe_send_mpacket(struct ethtool_mmsv *mmsv,
++				    enum ethtool_mpacket type)
+ {
+-	const struct stmmac_fpe_reg *reg = priv->fpe_cfg.reg;
++	struct stmmac_fpe_cfg *cfg = container_of(mmsv, struct stmmac_fpe_cfg, mmsv);
++	struct stmmac_priv *priv = container_of(cfg, struct stmmac_priv, fpe_cfg);
++	const struct stmmac_fpe_reg *reg = cfg->reg;
+ 	void __iomem *ioaddr = priv->ioaddr;
+-	u32 value = priv->fpe_cfg.fpe_csr;
++	u32 value = cfg->fpe_csr;
+ 
+-	if (type == MPACKET_VERIFY)
++	if (type == ETHTOOL_MPACKET_VERIFY)
+ 		value |= STMMAC_MAC_FPE_CTRL_STS_SVER;
+-	else if (type == MPACKET_RESPONSE)
++	else if (type == ETHTOOL_MPACKET_RESPONSE)
+ 		value |= STMMAC_MAC_FPE_CTRL_STS_SRSP;
+ 
+ 	writel(value, ioaddr + reg->mac_fpe_reg);
+ }
+ 
++static const struct ethtool_mmsv_ops stmmac_mmsv_ops = {
++	.configure_tx = stmmac_fpe_configure_tx,
++	.configure_pmac = stmmac_fpe_configure_pmac,
++	.send_mpacket = stmmac_fpe_send_mpacket,
++};
++
+ static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
+ {
+ 	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
++	struct ethtool_mmsv *mmsv = &fpe_cfg->mmsv;
+ 
+-	/* This is interrupt context, just spin_lock() */
+-	spin_lock(&fpe_cfg->lock);
+-
+-	if (!fpe_cfg->pmac_enabled || status == FPE_EVENT_UNKNOWN)
+-		goto unlock_out;
++	if (status == FPE_EVENT_UNKNOWN)
++		return;
+ 
+-	/* LP has sent verify mPacket */
+ 	if ((status & FPE_EVENT_RVER) == FPE_EVENT_RVER)
+-		stmmac_fpe_send_mpacket(priv, MPACKET_RESPONSE);
++		ethtool_mmsv_event_handle(mmsv, ETHTOOL_MMSV_LP_SENT_VERIFY_MPACKET);
+ 
+-	/* Local has sent verify mPacket */
+-	if ((status & FPE_EVENT_TVER) == FPE_EVENT_TVER &&
+-	    fpe_cfg->status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED)
+-		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_VERIFYING;
++	if ((status & FPE_EVENT_TVER) == FPE_EVENT_TVER)
++		ethtool_mmsv_event_handle(mmsv, ETHTOOL_MMSV_LD_SENT_VERIFY_MPACKET);
+ 
+-	/* LP has sent response mPacket */
+-	if ((status & FPE_EVENT_RRSP) == FPE_EVENT_RRSP &&
+-	    fpe_cfg->status == ETHTOOL_MM_VERIFY_STATUS_VERIFYING)
+-		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED;
+-
+-unlock_out:
+-	spin_unlock(&fpe_cfg->lock);
++	if ((status & FPE_EVENT_RRSP) == FPE_EVENT_RRSP)
++		ethtool_mmsv_event_handle(mmsv, ETHTOOL_MMSV_LP_SENT_RESPONSE_MPACKET);
+ }
+ 
+ void stmmac_fpe_irq_status(struct stmmac_priv *priv)
+@@ -164,119 +165,16 @@ void stmmac_fpe_irq_status(struct stmmac_priv *priv)
+ 	stmmac_fpe_event_status(priv, status);
+ }
+ 
+-/**
+- * stmmac_fpe_verify_timer - Timer for MAC Merge verification
+- * @t:  timer_list struct containing private info
+- *
+- * Verify the MAC Merge capability in the local TX direction, by
+- * transmitting Verify mPackets up to 3 times. Wait until link
+- * partner responds with a Response mPacket, otherwise fail.
+- */
+-static void stmmac_fpe_verify_timer(struct timer_list *t)
+-{
+-	struct stmmac_fpe_cfg *fpe_cfg = from_timer(fpe_cfg, t, verify_timer);
+-	struct stmmac_priv *priv = container_of(fpe_cfg, struct stmmac_priv,
+-						fpe_cfg);
+-	unsigned long flags;
+-	bool rearm = false;
+-
+-	spin_lock_irqsave(&fpe_cfg->lock, flags);
+-
+-	switch (fpe_cfg->status) {
+-	case ETHTOOL_MM_VERIFY_STATUS_INITIAL:
+-	case ETHTOOL_MM_VERIFY_STATUS_VERIFYING:
+-		if (fpe_cfg->verify_retries != 0) {
+-			stmmac_fpe_send_mpacket(priv, MPACKET_VERIFY);
+-			rearm = true;
+-		} else {
+-			fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_FAILED;
+-		}
+-
+-		fpe_cfg->verify_retries--;
+-		break;
+-
+-	case ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED:
+-		stmmac_fpe_configure(priv, true, true);
+-		break;
+-
+-	default:
+-		break;
+-	}
+-
+-	if (rearm) {
+-		mod_timer(&fpe_cfg->verify_timer,
+-			  jiffies + msecs_to_jiffies(fpe_cfg->verify_time));
+-	}
+-
+-	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+-}
+-
+-static void stmmac_fpe_verify_timer_arm(struct stmmac_fpe_cfg *fpe_cfg)
+-{
+-	if (fpe_cfg->pmac_enabled && fpe_cfg->tx_enabled &&
+-	    fpe_cfg->verify_enabled &&
+-	    fpe_cfg->status != ETHTOOL_MM_VERIFY_STATUS_FAILED &&
+-	    fpe_cfg->status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED) {
+-		timer_setup(&fpe_cfg->verify_timer, stmmac_fpe_verify_timer, 0);
+-		mod_timer(&fpe_cfg->verify_timer, jiffies);
+-	}
+-}
+-
+ void stmmac_fpe_init(struct stmmac_priv *priv)
+ {
+-	priv->fpe_cfg.verify_retries = STMMAC_FPE_MM_MAX_VERIFY_RETRIES;
+-	priv->fpe_cfg.verify_time = STMMAC_FPE_MM_MAX_VERIFY_TIME_MS;
+-	priv->fpe_cfg.status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
+-	timer_setup(&priv->fpe_cfg.verify_timer, stmmac_fpe_verify_timer, 0);
+-	spin_lock_init(&priv->fpe_cfg.lock);
++	ethtool_mmsv_init(&priv->fpe_cfg.mmsv, priv->dev,
++			  &stmmac_mmsv_ops);
+ 
+ 	if ((!priv->fpe_cfg.reg || !priv->hw->mac->fpe_map_preemption_class) &&
+ 	    priv->dma_cap.fpesel)
+ 		dev_info(priv->device, "FPE is not supported by driver.\n");
+ }
+ 
+-void stmmac_fpe_apply(struct stmmac_priv *priv)
+-{
+-	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+-
+-	/* If verification is disabled, configure FPE right away.
+-	 * Otherwise let the timer code do it.
+-	 */
+-	if (!fpe_cfg->verify_enabled) {
+-		stmmac_fpe_configure(priv, fpe_cfg->tx_enabled,
+-				     fpe_cfg->pmac_enabled);
+-	} else {
+-		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
+-		fpe_cfg->verify_retries = STMMAC_FPE_MM_MAX_VERIFY_RETRIES;
+-
+-		if (netif_running(priv->dev))
+-			stmmac_fpe_verify_timer_arm(fpe_cfg);
+-	}
+-}
+-
+-void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+-{
+-	struct stmmac_fpe_cfg *fpe_cfg = &priv->fpe_cfg;
+-	unsigned long flags;
+-
+-	timer_shutdown_sync(&fpe_cfg->verify_timer);
+-
+-	spin_lock_irqsave(&fpe_cfg->lock, flags);
+-
+-	if (is_up && fpe_cfg->pmac_enabled) {
+-		/* VERIFY process requires pmac enabled when NIC comes up */
+-		stmmac_fpe_configure(priv, false, true);
+-
+-		/* New link => maybe new partner => new verification process */
+-		stmmac_fpe_apply(priv);
+-	} else {
+-		/* No link => turn off EFPE */
+-		stmmac_fpe_configure(priv, false, false);
+-	}
+-
+-	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+-}
+-
+ int stmmac_fpe_get_add_frag_size(struct stmmac_priv *priv)
+ {
+ 	const struct stmmac_fpe_reg *reg = priv->fpe_cfg.reg;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
+index b884eac7142d..3fc46acf7001 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_fpe.h
+@@ -9,15 +9,10 @@
+ #include <linux/types.h>
+ #include <linux/netdevice.h>
+ 
+-#define STMMAC_FPE_MM_MAX_VERIFY_RETRIES	3
+-#define STMMAC_FPE_MM_MAX_VERIFY_TIME_MS	128
+-
+ struct stmmac_priv;
+ 
+-void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up);
+ bool stmmac_fpe_supported(struct stmmac_priv *priv);
+ void stmmac_fpe_init(struct stmmac_priv *priv);
+-void stmmac_fpe_apply(struct stmmac_priv *priv);
+ void stmmac_fpe_irq_status(struct stmmac_priv *priv);
+ int stmmac_fpe_get_add_frag_size(struct stmmac_priv *priv);
+ void stmmac_fpe_set_add_frag_size(struct stmmac_priv *priv, u32 add_frag_size);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d04543e5697b..8f723f9e84ba 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -992,7 +992,7 @@ static void stmmac_mac_link_down(struct phylink_config *config,
+ 		stmmac_set_eee_pls(priv, priv->hw, false);
+ 
+ 	if (stmmac_fpe_supported(priv))
+-		stmmac_fpe_link_state_handle(priv, false);
++		ethtool_mmsv_link_state_handle(&priv->fpe_cfg.mmsv, false);
+ }
+ 
+ static void stmmac_mac_link_up(struct phylink_config *config,
+@@ -1100,7 +1100,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+ 		stmmac_set_eee_pls(priv, priv->hw, true);
+ 
+ 	if (stmmac_fpe_supported(priv))
+-		stmmac_fpe_link_state_handle(priv, true);
++		ethtool_mmsv_link_state_handle(&priv->fpe_cfg.mmsv, true);
+ 
+ 	if (priv->plat->flags & STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY)
+ 		stmmac_hwtstamp_correct_latency(priv, priv);
+@@ -4097,7 +4097,7 @@ static int stmmac_release(struct net_device *dev)
+ 	stmmac_release_ptp(priv);
+ 
+ 	if (stmmac_fpe_supported(priv))
+-		timer_shutdown_sync(&priv->fpe_cfg.verify_timer);
++		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
+ 
+ 	pm_runtime_put(priv->device);
+ 
+@@ -7822,7 +7822,7 @@ int stmmac_suspend(struct device *dev)
+ 	rtnl_unlock();
+ 
+ 	if (stmmac_fpe_supported(priv))
+-		timer_shutdown_sync(&priv->fpe_cfg.verify_timer);
++		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
+ 
+ 	priv->speed = SPEED_UNKNOWN;
+ 	return 0;
+diff --git a/include/linux/ethtool.h b/include/linux/ethtool.h
+index 870994cc3ef7..b4b8eaf1f256 100644
+--- a/include/linux/ethtool.h
++++ b/include/linux/ethtool.h
+@@ -17,9 +17,13 @@
+ #include <linux/compat.h>
+ #include <linux/if_ether.h>
+ #include <linux/netlink.h>
++#include <linux/timer_types.h>
+ #include <uapi/linux/ethtool.h>
+ #include <uapi/linux/net_tstamp.h>
+ 
++#define ETHTOOL_MM_MAX_VERIFY_TIME_MS		128
++#define ETHTOOL_MM_MAX_VERIFY_RETRIES		3
++
+ struct compat_ethtool_rx_flow_spec {
+ 	u32		flow_type;
+ 	union ethtool_flow_union h_u;
+@@ -710,6 +714,75 @@ struct ethtool_mm_stats {
+ 	u64 MACMergeHoldCount;
+ };
+ 
++enum ethtool_mmsv_event {
++	ETHTOOL_MMSV_LP_SENT_VERIFY_MPACKET,
++	ETHTOOL_MMSV_LD_SENT_VERIFY_MPACKET,
++	ETHTOOL_MMSV_LP_SENT_RESPONSE_MPACKET,
++};
++
++/* MAC Merge verification mPacket type */
++enum ethtool_mpacket {
++	ETHTOOL_MPACKET_VERIFY,
++	ETHTOOL_MPACKET_RESPONSE,
++};
++
++struct ethtool_mmsv;
++
++/**
++ * struct ethtool_mmsv_ops - Operations for MAC Merge Software Verification
++ * @configure_tx: Driver callback for the event where the preemptible TX
++ *		  becomes active or inactive. Preemptible traffic
++ *		  classes must be committed to hardware only while
++ *		  preemptible TX is active.
++ * @configure_pmac: Driver callback for the event where the pMAC state
++ *		    changes as result of an administrative setting
++ *		    (ethtool) or a call to ethtool_mmsv_link_state_handle().
++ * @send_mpacket: Driver-provided method for sending a Verify or a Response
++ *		  mPacket.
++ */
++struct ethtool_mmsv_ops {
++	void (*configure_tx)(struct ethtool_mmsv *mmsv, bool tx_active);
++	void (*configure_pmac)(struct ethtool_mmsv *mmsv, bool pmac_enabled);
++	void (*send_mpacket)(struct ethtool_mmsv *mmsv, enum ethtool_mpacket mpacket);
++};
++
++/**
++ * struct ethtool_mmsv - MAC Merge Software Verification
++ * @ops: operations for MAC Merge Software Verification
++ * @dev: pointer to net_device structure
++ * @lock: serialize access to MAC Merge state between
++ *	  ethtool requests and link state updates.
++ * @status: current verification FSM state
++ * @verify_timer: timer for verification in local TX direction
++ * @verify_enabled: indicates if verification is enabled
++ * @verify_retries: number of retries for verification
++ * @pmac_enabled: indicates if the preemptible MAC is enabled
++ * @verify_time: time for verification in milliseconds
++ * @tx_enabled: indicates if transmission is enabled
++ */
++struct ethtool_mmsv {
++	const struct ethtool_mmsv_ops *ops;
++	struct net_device *dev;
++	spinlock_t lock;
++	enum ethtool_mm_verify_status status;
++	struct timer_list verify_timer;
++	bool verify_enabled;
++	int verify_retries;
++	bool pmac_enabled;
++	u32 verify_time;
++	bool tx_enabled;
++};
++
++void ethtool_mmsv_stop(struct ethtool_mmsv *mmsv);
++void ethtool_mmsv_link_state_handle(struct ethtool_mmsv *mmsv, bool up);
++void ethtool_mmsv_event_handle(struct ethtool_mmsv *mmsv,
++			       enum ethtool_mmsv_event event);
++void ethtool_mmsv_get_mm(struct ethtool_mmsv *mmsv,
++			 struct ethtool_mm_state *state);
++void ethtool_mmsv_set_mm(struct ethtool_mmsv *mmsv, struct ethtool_mm_cfg *cfg);
++void ethtool_mmsv_init(struct ethtool_mmsv *mmsv, struct net_device *dev,
++		       const struct ethtool_mmsv_ops *ops);
++
+ /**
+  * struct ethtool_rxfh_param - RXFH (RSS) parameters
+  * @hfunc: Defines the current RSS hash function used by HW (or to be set to).
+diff --git a/net/ethtool/mm.c b/net/ethtool/mm.c
+index 2816bb23c3ad..ad9b40034003 100644
+--- a/net/ethtool/mm.c
++++ b/net/ethtool/mm.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Copyright 2022-2023 NXP
++ * Copyright 2022-2025 NXP
++ * Copyright 2024 Furong Xu <0x1207@gmail.com>
+  */
+ #include "common.h"
+ #include "netlink.h"
+@@ -282,3 +283,279 @@ bool ethtool_dev_mm_supported(struct net_device *dev)
+ 	return supported;
+ }
+ EXPORT_SYMBOL_GPL(ethtool_dev_mm_supported);
++
++static void ethtool_mmsv_configure_tx(struct ethtool_mmsv *mmsv,
++				      bool tx_active)
++{
++	if (mmsv->ops->configure_tx)
++		mmsv->ops->configure_tx(mmsv, tx_active);
++}
++
++static void ethtool_mmsv_configure_pmac(struct ethtool_mmsv *mmsv,
++					bool pmac_enabled)
++{
++	if (mmsv->ops->configure_pmac)
++		mmsv->ops->configure_pmac(mmsv, pmac_enabled);
++}
++
++static void ethtool_mmsv_send_mpacket(struct ethtool_mmsv *mmsv,
++				      enum ethtool_mpacket mpacket)
++{
++	if (mmsv->ops->send_mpacket)
++		mmsv->ops->send_mpacket(mmsv, mpacket);
++}
++
++/**
++ * ethtool_mmsv_verify_timer - Timer for MAC Merge verification
++ * @t: timer_list struct containing private info
++ *
++ * Verify the MAC Merge capability in the local TX direction, by
++ * transmitting Verify mPackets up to 3 times. Wait until link
++ * partner responds with a Response mPacket, otherwise fail.
++ */
++static void ethtool_mmsv_verify_timer(struct timer_list *t)
++{
++	struct ethtool_mmsv *mmsv = from_timer(mmsv, t, verify_timer);
++	unsigned long flags;
++	bool rearm = false;
++
++	spin_lock_irqsave(&mmsv->lock, flags);
++
++	switch (mmsv->status) {
++	case ETHTOOL_MM_VERIFY_STATUS_INITIAL:
++	case ETHTOOL_MM_VERIFY_STATUS_VERIFYING:
++		if (mmsv->verify_retries != 0) {
++			ethtool_mmsv_send_mpacket(mmsv, ETHTOOL_MPACKET_VERIFY);
++			rearm = true;
++		} else {
++			mmsv->status = ETHTOOL_MM_VERIFY_STATUS_FAILED;
++		}
++
++		mmsv->verify_retries--;
++		break;
++
++	case ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED:
++		ethtool_mmsv_configure_tx(mmsv, true);
++		break;
++
++	default:
++		break;
++	}
++
++	if (rearm) {
++		mod_timer(&mmsv->verify_timer,
++			  jiffies + msecs_to_jiffies(mmsv->verify_time));
++	}
++
++	spin_unlock_irqrestore(&mmsv->lock, flags);
++}
++
++static void ethtool_mmsv_verify_timer_arm(struct ethtool_mmsv *mmsv)
++{
++	if (mmsv->pmac_enabled && mmsv->tx_enabled && mmsv->verify_enabled &&
++	    mmsv->status != ETHTOOL_MM_VERIFY_STATUS_FAILED &&
++	    mmsv->status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED) {
++		timer_setup(&mmsv->verify_timer, ethtool_mmsv_verify_timer, 0);
++		mod_timer(&mmsv->verify_timer, jiffies);
++	}
++}
++
++static void ethtool_mmsv_apply(struct ethtool_mmsv *mmsv)
++{
++	/* If verification is disabled, configure FPE right away.
++	 * Otherwise let the timer code do it.
++	 */
++	if (!mmsv->verify_enabled) {
++		ethtool_mmsv_configure_pmac(mmsv, mmsv->pmac_enabled);
++		ethtool_mmsv_configure_tx(mmsv, mmsv->tx_enabled);
++	} else {
++		mmsv->status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
++		mmsv->verify_retries = ETHTOOL_MM_MAX_VERIFY_RETRIES;
++
++		if (netif_running(mmsv->dev))
++			ethtool_mmsv_verify_timer_arm(mmsv);
++	}
++}
++
++/**
++ * ethtool_mmsv_stop() - Stop MAC Merge Software Verification
++ * @mmsv: MAC Merge Software Verification state
++ *
++ * Drivers should call this method in a state where the hardware is
++ * about to lose state, like ndo_stop() or suspend(), and turning off
++ * MAC Merge features would be superfluous. Otherwise, prefer
++ * ethtool_mmsv_link_state_handle() with up=false.
++ */
++void ethtool_mmsv_stop(struct ethtool_mmsv *mmsv)
++{
++	timer_shutdown_sync(&mmsv->verify_timer);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_stop);
++
++/**
++ * ethtool_mmsv_link_state_handle() - Inform MAC Merge Software Verification
++ *				      of link state changes
++ * @mmsv: MAC Merge Software Verification state
++ * @up: True if device carrier is up and able to pass verification packets
++ *
++ * Calling context is expected to be from a task, interrupts enabled.
++ */
++void ethtool_mmsv_link_state_handle(struct ethtool_mmsv *mmsv, bool up)
++{
++	unsigned long flags;
++
++	ethtool_mmsv_stop(mmsv);
++
++	spin_lock_irqsave(&mmsv->lock, flags);
++
++	if (up && mmsv->pmac_enabled) {
++		/* VERIFY process requires pMAC enabled when NIC comes up */
++		ethtool_mmsv_configure_pmac(mmsv, true);
++
++		/* New link => maybe new partner => new verification process */
++		ethtool_mmsv_apply(mmsv);
++	} else {
++		/* Reset the reported verification state while the link is down */
++		if (mmsv->verify_enabled)
++			mmsv->status = ETHTOOL_MM_VERIFY_STATUS_INITIAL;
++
++		/* No link or pMAC not enabled */
++		ethtool_mmsv_configure_pmac(mmsv, false);
++		ethtool_mmsv_configure_tx(mmsv, false);
++	}
++
++	spin_unlock_irqrestore(&mmsv->lock, flags);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_link_state_handle);
++
++/**
++ * ethtool_mmsv_event_handle() - Inform MAC Merge Software Verification
++ *				 of interrupt-based events
++ * @mmsv: MAC Merge Software Verification state
++ * @event: Event which took place (packet transmission or reception)
++ *
++ * Calling context expects to have interrupts disabled.
++ */
++void ethtool_mmsv_event_handle(struct ethtool_mmsv *mmsv,
++			       enum ethtool_mmsv_event event)
++{
++	/* This is interrupt context, just spin_lock() */
++	spin_lock(&mmsv->lock);
++
++	if (!mmsv->pmac_enabled)
++		goto unlock;
++
++	switch (event) {
++	case ETHTOOL_MMSV_LP_SENT_VERIFY_MPACKET:
++		/* Link partner has sent verify mPacket */
++		ethtool_mmsv_send_mpacket(mmsv, ETHTOOL_MPACKET_RESPONSE);
++		break;
++	case ETHTOOL_MMSV_LD_SENT_VERIFY_MPACKET:
++		/* Local device has sent verify mPacket */
++		if (mmsv->status != ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED)
++			mmsv->status = ETHTOOL_MM_VERIFY_STATUS_VERIFYING;
++		break;
++	case ETHTOOL_MMSV_LP_SENT_RESPONSE_MPACKET:
++		/* Link partner has sent response mPacket */
++		if (mmsv->status == ETHTOOL_MM_VERIFY_STATUS_VERIFYING)
++			mmsv->status = ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED;
++		break;
++	}
++
++unlock:
++	spin_unlock(&mmsv->lock);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_event_handle);
++
++static bool ethtool_mmsv_is_tx_active(struct ethtool_mmsv *mmsv)
++{
++	/* TX is active if administratively enabled, and verification either
++	 * succeeded, or was administratively disabled.
++	 */
++	return mmsv->tx_enabled &&
++	       (mmsv->status == ETHTOOL_MM_VERIFY_STATUS_SUCCEEDED ||
++	       mmsv->status == ETHTOOL_MM_VERIFY_STATUS_DISABLED);
++}
++
++/**
++ * ethtool_mmsv_get_mm() - get_mm() hook for MAC Merge Software Verification
++ * @mmsv: MAC Merge Software Verification state
++ * @state: see struct ethtool_mm_state
++ *
++ * Drivers are expected to call this from their ethtool_ops :: get_mm()
++ * method.
++ */
++void ethtool_mmsv_get_mm(struct ethtool_mmsv *mmsv,
++			 struct ethtool_mm_state *state)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&mmsv->lock, flags);
++
++	state->max_verify_time = ETHTOOL_MM_MAX_VERIFY_TIME_MS;
++	state->verify_enabled = mmsv->verify_enabled;
++	state->pmac_enabled = mmsv->pmac_enabled;
++	state->verify_time = mmsv->verify_time;
++	state->tx_enabled = mmsv->tx_enabled;
++	state->verify_status = mmsv->status;
++	state->tx_active = ethtool_mmsv_is_tx_active(mmsv);
++
++	spin_unlock_irqrestore(&mmsv->lock, flags);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_get_mm);
++
++/**
++ * ethtool_mmsv_set_mm() - set_mm() hook for MAC Merge Software Verification
++ * @mmsv: MAC Merge Software Verification state
++ * @cfg: see struct ethtool_mm_cfg
++ *
++ * Drivers are expected to call this from their ethtool_ops :: set_mm()
++ * method.
++ */
++void ethtool_mmsv_set_mm(struct ethtool_mmsv *mmsv, struct ethtool_mm_cfg *cfg)
++{
++	unsigned long flags;
++
++	/* Wait for the verification that's currently in progress to finish */
++	ethtool_mmsv_stop(mmsv);
++
++	spin_lock_irqsave(&mmsv->lock, flags);
++
++	mmsv->verify_enabled = cfg->verify_enabled;
++	mmsv->pmac_enabled = cfg->pmac_enabled;
++	mmsv->verify_time = cfg->verify_time;
++	mmsv->tx_enabled = cfg->tx_enabled;
++
++	if (!cfg->verify_enabled)
++		mmsv->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
++
++	ethtool_mmsv_apply(mmsv);
++
++	spin_unlock_irqrestore(&mmsv->lock, flags);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_set_mm);
++
++/**
++ * ethtool_mmsv_init() - Initialize MAC Merge Software Verification state
++ * @mmsv: MAC Merge Software Verification state
++ * @dev: Pointer to network interface
++ * @ops: Methods for implementing the generic functionality
++ *
++ * The MAC Merge Software Verification is a timer- and event-based state
++ * machine intended for network interfaces which lack a hardware-based
++ * TX verification process (as per IEEE 802.3 clause 99.4.3). The timer
++ * is managed by the core code, whereas events are supplied by the
++ * driver explicitly calling one of the other API functions.
++ */
++void ethtool_mmsv_init(struct ethtool_mmsv *mmsv, struct net_device *dev,
++		       const struct ethtool_mmsv_ops *ops)
++{
++	mmsv->ops = ops;
++	mmsv->dev = dev;
++	mmsv->verify_retries = ETHTOOL_MM_MAX_VERIFY_RETRIES;
++	mmsv->verify_time = ETHTOOL_MM_MAX_VERIFY_TIME_MS;
++	mmsv->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
++	timer_setup(&mmsv->verify_timer, ethtool_mmsv_verify_timer, 0);
++	spin_lock_init(&mmsv->lock);
++}
++EXPORT_SYMBOL_GPL(ethtool_mmsv_init);
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
