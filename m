@@ -2,84 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5398EA4BB77
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Mar 2025 10:58:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D652A4BB01
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Mar 2025 10:43:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1771FC78F62;
-	Mon,  3 Mar 2025 09:58:41 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0366EC78F62;
+	Mon,  3 Mar 2025 09:43:11 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4B68C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 304FFC78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Mar 2025 09:58:39 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 522Nv8Vo021685;
- Mon, 3 Mar 2025 03:30:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kuBJB7XxvG4MqTPTWAvI7cMjrzfrgqemSm2LA+axgaM=; b=BzbsX36mZVqJ3V3u
- 27C4F8Y+lmFWDxDLj0N12R2jbfw0V1ru4HbSe3QjHWhhAycw/vIKBvCxQmrLN3gR
- 19ES/h3WRymCb3M2k5AWDTTz5ozBsmGydXFKnb523I0PWdSnQ2cs8+Xe63Hgtob6
- 5gNhnPKDJ4q3pAHnX+8X56ixy6UleUP6u3Z8rKH/O/STdXWWIakN27AJ7HxNohKl
- P9iGnUlDyr3+ZYKwkN9aZ4Jkhk1/Zb4O3LtwjheFuRlnYu+lzHQEr16QGWhN6m6U
- AbT05mmZ1/qNGGds1R5c/kT3ahDN9CYnwV02iVNVBKfcuqx3o5pf5wBwNbdlwmMi
- 1sDomQ==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 453t993cfr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Mar 2025 03:30:50 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5233Un4M032540
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Mar 2025 03:30:49 GMT
-Received: from jiegan-gv.qualcomm.com (10.80.80.8) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Sun, 2 Mar 2025 19:30:43 -0800
-From: Jie Gan <quic_jiegan@quicinc.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 3 Mar 2025 11:29:30 +0800
-Message-ID: <20250303032931.2500935-10-quic_jiegan@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
-References: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
+ Mon,  3 Mar 2025 09:43:10 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-439a1e8ba83so39775155e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 03 Mar 2025 01:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1740994989; x=1741599789;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=I7HD702RfpHXjFSS9LnmCasnaIsMWIVtBEVPu04XVSc=;
+ b=22moVTbuz8aPhVbeiJu96NLS05Hn27E3UFVQW/OstyxGUGZobf9LEiwQtIE5Inq9Sb
+ 6AeO3i/KEPQms40B3UGk/Wn85E8OZ5iv4RuTRhiC+wXVZiUFzI9VNnzbgBE9JO3TFBcq
+ xK6VGLU+MEgxejaW/cYm14J6vKD+CJ7ZydcuIupiMi8AwNSt9GJRrT3cmA3Ddc1fHvLe
+ eI5AAcZN0idszdmBuRF0XQczlVFpDTrf0mmvHgxpiVNBukYHOKFQVHZSrP4/J7AtrdUe
+ pj1wEuxQEwQ2flry3ATo+ewoFwy6m4i+9y05g8Skk92Lr5SuJS34vF2KSK6R9bX5GIdP
+ 7oUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740994989; x=1741599789;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I7HD702RfpHXjFSS9LnmCasnaIsMWIVtBEVPu04XVSc=;
+ b=Fc0ZczNPyU21gLhQU8dfIxHVUMnjcX0I6HRsd7r9nv3wxUXKlOyH3V1fT2OV0l8vd5
+ ops1zAHoWvp8/BpanOpoVSIUGzArstWFuGBiP6P6U8T31hde+Jqg6MvlLu1bYd+yVHh5
+ 9fnXQ6hsu6ye9rhud9/vYi5+PQ/EZE4IpW1fwT02zE6b7j5tkxdaBB0xXof4OzNbC37q
+ tzmTzn8hb/FyPxbzViBLgxo1g6iM8tGbGafQK/UX6KfyYLIZYgKlCJTfQcG6LMLirXPf
+ tPugYFaqUaJcXBLYw5AEGrpcCv0D3LC0hrNQqVjVwto/vpHVAqAm3sPg/KmIuCzonIjZ
+ 1B/Q==
+X-Gm-Message-State: AOJu0YwNByr+SsJNLlxT+OvChTRtxCjlMbChKMMUtFKowEC36wfw97r+
+ JSTx1VVlgpQWXaz4jLxm6AJZTkutZspT12KS4q0jJLLvGBG9GL9HTd2jY6kkgew=
+X-Gm-Gg: ASbGnctTE49SLenOrxRm9Tq0fBSt8TUgoXYLQG10UnDILjSiOd/4UmWwxoLE1b0yvRS
+ aj2G/7kAhRU7xwSZHA0Wt9GWhIKSQo40Z+7Rwms2GVYCQjBpnzQBrVSWY4XkyNCtF66jxNaK58X
+ aGu8hAQtR1FbL17d9vlsPTHMZ2RRhQWHsS5lLXqlgzSdS2p40a++nSNuQJk+2NVHl1RHXhHsq1b
+ moatE2vLTjjaNkCAMKKaprIjYBDrGAtd2zEG4dE9jLmIEeBbEO/yrAsHkvdCIxPnOytM/LO7D/s
+ UQKAe1n5e5TZq/6PCuvY2+xcyct/68ZvwavJijblzLBP2CAAtLjRPCVFD9w3jwmVKa5EPbOURHX
+ CfJO+xje9GnIg0wWh5OfNxqBc3A==
+X-Google-Smtp-Source: AGHT+IGioXL+ceLlmWfZZmydFoO+5l0CmYAT/WRogvwkcEnYKD7My0ndm6CmTHlXPf3FtWobh/14Lw==
+X-Received: by 2002:a05:600c:1547:b0:439:98f6:8bc8 with SMTP id
+ 5b1f17b1804b1-43ba6760ca3mr81796515e9.26.1740994989516; 
+ Mon, 03 Mar 2025 01:43:09 -0800 (PST)
+Received: from localhost (amontpellier-556-1-148-206.w109-210.abo.wanadoo.fr.
+ [109.210.4.206]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-390e47b7b6asm14251498f8f.51.2025.03.03.01.43.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 01:43:08 -0800 (PST)
+Date: Mon, 3 Mar 2025 10:43:07 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-pwm@vger.kernel.org
+Message-ID: <miozabyaeoagqrw7evl4c44augcfbrdtupf4ium62xz5kb77cm@vndlz2rcoyj4>
+References: <20250215143723.636591-2-u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 1XoISDcMXbNyipkQ4qCXo4WT0HoWUBZU
-X-Proofpoint-GUID: 1XoISDcMXbNyipkQ4qCXo4WT0HoWUBZU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-03_01,2025-02-28_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 mlxlogscore=999
- mlxscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
- clxscore=1015 spamscore=0 adultscore=0 impostorscore=0 malwarescore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502100000 definitions=main-2503030024
-Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
+In-Reply-To: <20250215143723.636591-2-u.kleine-koenig@baylibre.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v15 09/10] Coresight: Add Coresight TMC
-	Control Unit driver
+Subject: Re: [Linux-stm32] [PATCH] pwm: stmpe: Allow to compile as a module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,463 +81,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4622746381703738185=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Coresight TMC Control Unit hosts miscellaneous configuration registers
-which control various features related to TMC ETR sink.
 
-Based on the trace ID, which is programmed in the related CTCU ATID
-register of a specific ETR, trace data with that trace ID gets into
-the ETR buffer, while other trace data gets dropped.
+--===============4622746381703738185==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dszzsrs7iiegpzat"
+Content-Disposition: inline
 
-Enabling source device sets one bit of the ATID register based on
-source device's trace ID.
-Disabling source device resets the bit according to the source
-device's trace ID.
 
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
----
- drivers/hwtracing/coresight/Kconfig           |  12 +
- drivers/hwtracing/coresight/Makefile          |   2 +
- .../hwtracing/coresight/coresight-ctcu-core.c | 326 ++++++++++++++++++
- drivers/hwtracing/coresight/coresight-ctcu.h  |  39 +++
- include/linux/coresight.h                     |   3 +-
- 5 files changed, 381 insertions(+), 1 deletion(-)
- create mode 100644 drivers/hwtracing/coresight/coresight-ctcu-core.c
- create mode 100644 drivers/hwtracing/coresight/coresight-ctcu.h
+--dszzsrs7iiegpzat
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: stmpe: Allow to compile as a module
+MIME-Version: 1.0
 
-diff --git a/drivers/hwtracing/coresight/Kconfig b/drivers/hwtracing/coresight/Kconfig
-index 06f0a7594169..ecd7086a5b83 100644
---- a/drivers/hwtracing/coresight/Kconfig
-+++ b/drivers/hwtracing/coresight/Kconfig
-@@ -133,6 +133,18 @@ config CORESIGHT_STM
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called coresight-stm.
- 
-+config CORESIGHT_CTCU
-+	tristate "CoreSight TMC Control Unit driver"
-+	depends on CORESIGHT_LINK_AND_SINK_TMC
-+	help
-+	  This driver provides support for CoreSight TMC Control Unit
-+	  that hosts miscellaneous configuration registers. This is
-+	  primarily used for controlling the behaviors of the TMC
-+	  ETR device.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called coresight-ctcu.
-+
- config CORESIGHT_CPU_DEBUG
- 	tristate "CoreSight CPU Debug driver"
- 	depends on ARM || ARM64
-diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
-index 46ce7f39d05f..8e62c3150aeb 100644
---- a/drivers/hwtracing/coresight/Makefile
-+++ b/drivers/hwtracing/coresight/Makefile
-@@ -51,3 +51,5 @@ coresight-cti-y := coresight-cti-core.o	coresight-cti-platform.o \
- 		   coresight-cti-sysfs.o
- obj-$(CONFIG_ULTRASOC_SMB) += ultrasoc-smb.o
- obj-$(CONFIG_CORESIGHT_DUMMY) += coresight-dummy.o
-+obj-$(CONFIG_CORESIGHT_CTCU) += coresight-ctcu.o
-+coresight-ctcu-y := coresight-ctcu-core.o
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-new file mode 100644
-index 000000000000..da35d8b4d579
---- /dev/null
-+++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-@@ -0,0 +1,326 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/coresight.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/slab.h>
-+
-+#include "coresight-ctcu.h"
-+#include "coresight-priv.h"
-+
-+DEFINE_CORESIGHT_DEVLIST(ctcu_devs, "ctcu");
-+
-+#define ctcu_writel(drvdata, val, offset)	__raw_writel((val), drvdata->base + offset)
-+#define ctcu_readl(drvdata, offset)		__raw_readl(drvdata->base + offset)
-+
-+/*
-+ * The TMC Coresight Control Unit utilizes four ATID registers to control the data
-+ * filter function based on the trace ID for each TMC ETR sink. The length of each
-+ * ATID register is 32 bits. Therefore, an ETR device has a 128-bit long field
-+ * in CTCU. Each trace ID is represented by one bit in that filed.
-+ * e.g. ETR0ATID0 layout, set bit 5 for traceid 5
-+ *                                           bit5
-+ * ------------------------------------------------------
-+ * |   |28|   |24|   |20|   |16|   |12|   |8|  1|4|   |0|
-+ * ------------------------------------------------------
-+ *
-+ * e.g. ETR0:
-+ * 127                     0 from ATID_offset for ETR0ATID0
-+ * -------------------------
-+ * |ATID3|ATID2|ATID1|ATID0|
-+ */
-+#define CTCU_ATID_REG_OFFSET(traceid, atid_offset) \
-+		((traceid / 32) * 4 + atid_offset)
-+
-+#define CTCU_ATID_REG_BIT(traceid)	(traceid % 32)
-+#define CTCU_ATID_REG_SIZE		0x10
-+#define CTCU_ETR0_ATID0			0xf8
-+#define CTCU_ETR1_ATID0			0x108
-+
-+static const struct ctcu_etr_config sa8775p_etr_cfgs[] = {
-+	{
-+		.atid_offset	= CTCU_ETR0_ATID0,
-+		.port_num	= 0,
-+	},
-+	{
-+		.atid_offset	= CTCU_ETR1_ATID0,
-+		.port_num	= 1,
-+	},
-+};
-+
-+static const struct ctcu_config sa8775p_cfgs = {
-+	.etr_cfgs	= sa8775p_etr_cfgs,
-+	.num_etr_config	= ARRAY_SIZE(sa8775p_etr_cfgs),
-+};
-+
-+static void ctcu_program_atid_register(struct ctcu_drvdata *drvdata, u32 reg_offset,
-+				       u8 bit, bool enable)
-+{
-+	u32 val;
-+
-+	CS_UNLOCK(drvdata->base);
-+	val = ctcu_readl(drvdata, reg_offset);
-+	if (enable)
-+		val |= BIT(bit);
-+	else
-+		val &= ~BIT(bit);
-+
-+	ctcu_writel(drvdata, val, reg_offset);
-+	CS_LOCK(drvdata->base);
-+}
-+
-+/*
-+ * __ctcu_set_etr_traceid: Set bit in the ATID register based on trace ID when enable is true.
-+ * Reset the bit of the ATID register based on trace ID when enable is false.
-+ *
-+ * @csdev:	coresight_device of CTCU.
-+ * @traceid:	trace ID of the source tracer.
-+ * @port_num:	port number connected to TMC ETR sink.
-+ * @enable:	True for set bit and false for reset bit.
-+ *
-+ * Returns 0 indicates success. Non-zero result means failure.
-+ */
-+static int __ctcu_set_etr_traceid(struct coresight_device *csdev, u8 traceid, int port_num,
-+				  bool enable)
-+{
-+	struct ctcu_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-+	u32 atid_offset, reg_offset;
-+	u8 refcnt, bit;
-+
-+	atid_offset = drvdata->atid_offset[port_num];
-+	if (atid_offset == 0)
-+		return -EINVAL;
-+
-+	bit = CTCU_ATID_REG_BIT(traceid);
-+	reg_offset = CTCU_ATID_REG_OFFSET(traceid, atid_offset);
-+	if (reg_offset - atid_offset > CTCU_ATID_REG_SIZE)
-+		return -EINVAL;
-+
-+	guard(raw_spinlock_irqsave)(&drvdata->spin_lock);
-+	refcnt = drvdata->traceid_refcnt[port_num][traceid];
-+	/* Only program the atid register when the refcnt value is 1 or 0 */
-+	if ((enable && !refcnt++) || (!enable && !--refcnt))
-+		ctcu_program_atid_register(drvdata, reg_offset, bit, enable);
-+
-+	drvdata->traceid_refcnt[port_num][traceid] = refcnt;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Searching the sink device from helper's view in case there are multiple helper devices
-+ * connected to the sink device.
-+ */
-+static int ctcu_get_active_port(struct coresight_device *sink, struct coresight_device *helper)
-+{
-+	struct coresight_platform_data *pdata = helper->pdata;
-+	int i;
-+
-+	for (i = 0; i < pdata->nr_inconns; ++i) {
-+		if (pdata->in_conns[i]->src_dev == sink)
-+			return pdata->in_conns[i]->dest_port;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight_path *path,
-+				bool enable)
-+{
-+	struct coresight_device *sink = coresight_get_sink(path);
-+	u8 traceid = path->trace_id;
-+	int port_num;
-+
-+	if ((sink == NULL) || !IS_VALID_CS_TRACE_ID(traceid)) {
-+		dev_err(&csdev->dev, "Invalid sink device or trace ID\n");
-+		return -EINVAL;
-+	}
-+
-+	port_num = ctcu_get_active_port(sink, csdev);
-+	if (port_num < 0)
-+		return -EINVAL;
-+
-+	dev_dbg(&csdev->dev, "traceid is %d\n", traceid);
-+
-+	return __ctcu_set_etr_traceid(csdev, traceid, port_num, enable);
-+}
-+
-+static int ctcu_enable(struct coresight_device *csdev, enum cs_mode mode, void *data)
-+{
-+	struct coresight_path *path = (struct coresight_path *)data;
-+
-+	return ctcu_set_etr_traceid(csdev, path, true);
-+}
-+
-+static int ctcu_disable(struct coresight_device *csdev, void *data)
-+{
-+	struct coresight_path *path = (struct coresight_path *)data;
-+
-+	return ctcu_set_etr_traceid(csdev, path, false);
-+}
-+
-+static const struct coresight_ops_helper ctcu_helper_ops = {
-+	.enable = ctcu_enable,
-+	.disable = ctcu_disable,
-+};
-+
-+static const struct coresight_ops ctcu_ops = {
-+	.helper_ops = &ctcu_helper_ops,
-+};
-+
-+static int ctcu_probe(struct platform_device *pdev)
-+{
-+	const struct ctcu_etr_config *etr_cfg;
-+	struct coresight_platform_data *pdata;
-+	struct coresight_desc desc = { 0 };
-+	struct device *dev = &pdev->dev;
-+	const struct ctcu_config *cfgs;
-+	struct ctcu_drvdata *drvdata;
-+	void __iomem *base;
-+	int i;
-+
-+	desc.name = coresight_alloc_device_name(&ctcu_devs, dev);
-+	if (!desc.name)
-+		return -ENOMEM;
-+
-+	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	pdata = coresight_get_platform_data(dev);
-+	if (IS_ERR(pdata))
-+		return PTR_ERR(pdata);
-+	dev->platform_data = pdata;
-+
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
-+	if (!base)
-+		return -ENOMEM;
-+
-+	drvdata->apb_clk = coresight_get_enable_apb_pclk(dev);
-+	if (IS_ERR(drvdata->apb_clk))
-+		return -ENODEV;
-+
-+	cfgs = of_device_get_match_data(dev);
-+	if (cfgs) {
-+		if (cfgs->num_etr_config <= ETR_MAX_NUM) {
-+			for (i = 0; i < cfgs->num_etr_config; i++) {
-+				etr_cfg = &cfgs->etr_cfgs[i];
-+				drvdata->atid_offset[i] = etr_cfg->atid_offset;
-+			}
-+		}
-+	}
-+
-+	drvdata->base = base;
-+	drvdata->dev = dev;
-+	platform_set_drvdata(pdev, drvdata);
-+
-+	desc.type = CORESIGHT_DEV_TYPE_HELPER;
-+	desc.subtype.helper_subtype = CORESIGHT_DEV_SUBTYPE_HELPER_CTCU;
-+	desc.pdata = pdata;
-+	desc.dev = dev;
-+	desc.ops = &ctcu_ops;
-+	desc.access = CSDEV_ACCESS_IOMEM(base);
-+
-+	drvdata->csdev = coresight_register(&desc);
-+	if (IS_ERR(drvdata->csdev)) {
-+		if (!IS_ERR_OR_NULL(drvdata->apb_clk))
-+			clk_put(drvdata->apb_clk);
-+
-+		return PTR_ERR(drvdata->csdev);
-+	}
-+
-+	return 0;
-+}
-+
-+static void ctcu_remove(struct platform_device *pdev)
-+{
-+	struct ctcu_drvdata *drvdata = platform_get_drvdata(pdev);
-+
-+	coresight_unregister(drvdata->csdev);
-+}
-+
-+static int ctcu_platform_probe(struct platform_device *pdev)
-+{
-+	int ret;
-+
-+	pm_runtime_get_noresume(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = ctcu_probe(pdev);
-+	pm_runtime_put(&pdev->dev);
-+	if (ret)
-+		pm_runtime_disable(&pdev->dev);
-+
-+	return ret;
-+}
-+
-+static void ctcu_platform_remove(struct platform_device *pdev)
-+{
-+	struct ctcu_drvdata *drvdata = platform_get_drvdata(pdev);
-+
-+	if (WARN_ON(!drvdata))
-+		return;
-+
-+	ctcu_remove(pdev);
-+	pm_runtime_disable(&pdev->dev);
-+	if (!IS_ERR_OR_NULL(drvdata->apb_clk))
-+		clk_put(drvdata->apb_clk);
-+}
-+
-+#ifdef CONFIG_PM
-+static int ctcu_runtime_suspend(struct device *dev)
-+{
-+	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
-+		clk_disable_unprepare(drvdata->apb_clk);
-+
-+	return 0;
-+}
-+
-+static int ctcu_runtime_resume(struct device *dev)
-+{
-+	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
-+		clk_prepare_enable(drvdata->apb_clk);
-+
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops ctcu_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(ctcu_runtime_suspend, ctcu_runtime_resume, NULL)
-+};
-+
-+static const struct of_device_id ctcu_match[] = {
-+	{.compatible = "qcom,sa8775p-ctcu", .data = &sa8775p_cfgs},
-+	{}
-+};
-+
-+static struct platform_driver ctcu_driver = {
-+	.probe          = ctcu_platform_probe,
-+	.remove         = ctcu_platform_remove,
-+	.driver         = {
-+		.name   = "coresight-ctcu",
-+		.of_match_table = ctcu_match,
-+		.pm	= &ctcu_dev_pm_ops,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+module_platform_driver(ctcu_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("CoreSight TMC Control Unit driver");
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu.h b/drivers/hwtracing/coresight/coresight-ctcu.h
-new file mode 100644
-index 000000000000..11201e8266ff
---- /dev/null
-+++ b/drivers/hwtracing/coresight/coresight-ctcu.h
-@@ -0,0 +1,39 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
-+
-+#ifndef _CORESIGHT_CTCU_H
-+#define _CORESIGHT_CTCU_H
-+#include "coresight-trace-id.h"
-+
-+/* Maximum number of supported ETR devices for a single CTCU. */
-+#define ETR_MAX_NUM 	2
-+
-+/**
-+ * struct ctcu_etr_config
-+ * @atid_offset:	offset to the ATID0 Register.
-+ * @port_num:		in-port number of CTCU device that connected to ETR.
-+ */
-+struct ctcu_etr_config {
-+	const u32 atid_offset;
-+	const u32 port_num;
-+};
-+
-+struct ctcu_config {
-+	const struct ctcu_etr_config *etr_cfgs;
-+	int num_etr_config;
-+};
-+
-+struct ctcu_drvdata {
-+	void __iomem		*base;
-+	struct clk		*apb_clk;
-+	struct device		*dev;
-+	struct coresight_device	*csdev;
-+	raw_spinlock_t		spin_lock;
-+	u32			atid_offset[ETR_MAX_NUM];
-+	/* refcnt for each traceid of each sink */
-+	u8			traceid_refcnt[ETR_MAX_NUM][CORESIGHT_TRACE_ID_RES_TOP];
-+};
-+
-+#endif
-diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-index c7b17672df50..78b670d71e98 100644
---- a/include/linux/coresight.h
-+++ b/include/linux/coresight.h
-@@ -71,7 +71,8 @@ enum coresight_dev_subtype_source {
- 
- enum coresight_dev_subtype_helper {
- 	CORESIGHT_DEV_SUBTYPE_HELPER_CATU,
--	CORESIGHT_DEV_SUBTYPE_HELPER_ECT_CTI
-+	CORESIGHT_DEV_SUBTYPE_HELPER_ECT_CTI,
-+	CORESIGHT_DEV_SUBTYPE_HELPER_CTCU,
- };
- 
- /**
--- 
-2.34.1
+Hello,
+
+On Sat, Feb 15, 2025 at 03:37:22PM +0100, Uwe Kleine-K=F6nig wrote:
+> pwm-stmpe is the only driver that cannot be built as a module. Add the
+> necessary boilerplate to also make this driver modular.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+
+Applied to
+
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+
+=2E
+
+Best regards
+Uwe
+
+--dszzsrs7iiegpzat
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmfFeagACgkQj4D7WH0S
+/k5Q0Af/fTmRfYYk6lWXxsIcFhHDAF6paE6ZWIq5+TiCzoRCcX8S4fiH92Kmz0kD
+FcFDNskZuj/MZEUmfQ+xXClJVwpXTEhZL0589ALzo8uSv1FNZUg2tHk/tPT30Rxw
+wfNynJPHkyO4gVQ6dm81qJ2e82VI6B85KNxN54DkJphIYhynS/OstQdsuT/kvsFf
+cT1ei+v101ww6s1ycVH44lrCbC06sb9tC4XVkS3ZCQw443EzJM2A4nIE6MrIdLsa
+A8pb7ggUHf/sUtQC/BDssdTAvWvq1hgXDDQSnVpuhg8lXhUyAW4xeoCZan2mFPrk
+8nJ2zdNMDZPQ4WWaLC8jEJy5z4syUw==
+=Uees
+-----END PGP SIGNATURE-----
+
+--dszzsrs7iiegpzat--
+
+--===============4622746381703738185==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4622746381703738185==--
