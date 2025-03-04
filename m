@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFB3A4ECF8
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 20:15:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C978DA4EDD9
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 20:50:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CC40C78F6A;
-	Tue,  4 Mar 2025 19:15:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79C70C78F6A;
+	Tue,  4 Mar 2025 19:50:40 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9E5FC78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C5FFC78F61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Mar 2025 19:15:18 +0000 (UTC)
+ Tue,  4 Mar 2025 19:50:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1820EA4491D;
- Tue,  4 Mar 2025 19:09:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA93C4CEE5;
- Tue,  4 Mar 2025 19:15:17 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4B424A45C40;
+ Tue,  4 Mar 2025 19:45:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADEEDC4CEE5;
+ Tue,  4 Mar 2025 19:50:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741115717;
- bh=m8gpsFcvErC+OBg1crSKmlYcazdRoOwZ0xMnwbncoLg=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=Wd+VYz5Z5pmq6PMWBMCh4meGD69gSJjcGdaQqppo0JES4AT8CP7BglSfJgGMVA3y7
- UTxQvO0wRGmTbAZ1rh01lKFGskbhM75iCjZ6guHgUT/y704xVrwXatSv5etp8opAL/
- hMX2QJSLGU+L4BspbNuRwWw7D+P0z4vZhF8JcjMhBRoudk+xaT0kjlBU8ik1AI4bbJ
- /804WbtwyRXPPLHq2RrTziJNifSXLCDEj8XSDDzcF/V/DkuC7iaKTrjOhKSmKp2bfF
- 1M63SfvUoiIkLLZzovZrXd1NTBWJJQ7O8Xg5BWl8JiUITB6tWMIjQ2m2VpPjnnVLjG
- opGhzPH4Pok/A==
-Date: Tue, 04 Mar 2025 13:15:15 -0600
+ s=k20201202; t=1741117837;
+ bh=fwSFelqnv16O3Z5CfuJeHvjUeDPCoeSC6mIkfvyX/co=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=HIkd9Ij2H85qYKpF0MGi3HY94MySHtt+hjxDsSYKSNYnV+0uG1M8K0JtFT34w91f8
+ ZFlFXdeybOfg2N1SYlxOjz11OAUt5MIQllkzSmR/Qu9F6uq72JMkouYukJpLbB/K06
+ KGU1xzb0hHmjiLAYATZTbeIVuZEBPR+hBpS7YpZkx5+u/UHgZtrcV81FAW4/3YjKug
+ vSIs0f70ziIk/CBnoc8OprIJaVCrAC1v31vrOE3Iaef7wWNVfAGzWZSS53EFfeWjjF
+ Q3hUZ8iFAu+Ya9G+w1TrqASpOCbcfpVJket5PMDdGiGoV/6Y3LlTi4Pf4sgyRQykP5
+ D1fudmyYA+Oyw==
+Message-ID: <2e9b95d5ac648daf07101cc0da77d20a.sboyd@kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20250304173229.3215445-2-fabrice.gasnier@foss.st.com>
-References: <20250304173229.3215445-1-fabrice.gasnier@foss.st.com>
- <20250304173229.3215445-2-fabrice.gasnier@foss.st.com>
-Message-Id: <174111571576.3307031.12348647271786435979.robh@kernel.org>
-Cc: linux-pwm@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org,
- devicetree@vger.kernel.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- daniel.lezcano@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, ukleinek@kernel.org,
- linux-arm-kernel@lists.infradead.org, tglx@linutronix.de, will@kernel.org,
- krzk+dt@kernel.org, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/8] dt-bindings: mfd: stm32-lptimer:
- add support for stm32mp25
+In-Reply-To: <20250124111711.1051436-1-dario.binacchi@amarulasolutions.com>
+References: <20250124111711.1051436-1-dario.binacchi@amarulasolutions.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-kernel@vger.kernel.org
+Date: Tue, 04 Mar 2025 11:50:35 -0800
+User-Agent: alot/0.12.dev1+gaa8c22fdeedb
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] clk: stm32f4: fix an uninitialized
+	variable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,61 +61,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Tue, 04 Mar 2025 18:32:22 +0100, Fabrice Gasnier wrote:
-> Add a new stm32mp25 compatible to stm32-lptimer dt-bindings, to support
-> STM32MP25 SoC. Some features has been updated or added to the low-power
-> timer:
-> - new capture compare channels
-> - up to two PWM channels
-> - PWM input capture
-> - peripheral interconnect in stm32mp25 has been updated (new triggers).
-> - registers/bits has been added or revisited (IER access).
-> So introduce a new compatible to handle this diversity.
+Quoting Dario Binacchi (2025-01-24 03:16:54)
+> The variable s, used by pr_debug() to print the mnemonic of the modulation
+> depth in use, was not initialized. Fix the output by addressing the correct
+> mnemonic.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
-> Changes in V2:
-> - Use fallback compatibles, along with stm32mp25 specific compatible
-> - trigger identifier can be up to 4 (e.g. from LPTIM1..5)
-> ---
->  .../bindings/mfd/st,stm32-lptimer.yaml        | 40 ++++++++++++++++---
->  1 file changed, 34 insertions(+), 6 deletions(-)
+> Fixes: 65b3516dbe50 ("clk: stm32f4: support spread spectrum clock generation")
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > 
+> ---
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:26:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:29:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:67:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:70:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:87:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:90:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:103:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:106:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:120:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-./Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml:123:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-
-dtschema/dtc warnings/errors:
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250304173229.3215445-2-fabrice.gasnier@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Applied to clk-next
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
