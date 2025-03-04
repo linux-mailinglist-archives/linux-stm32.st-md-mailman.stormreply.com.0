@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7C67A4DA75
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 11:29:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 165ECA4DB6E
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 11:53:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F7F2C7803A;
-	Tue,  4 Mar 2025 10:29:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE3DDC7803D;
+	Tue,  4 Mar 2025 10:53:29 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C811CFAC44
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 117A8C7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Mar 2025 10:29:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5D67E5C49BD;
- Tue,  4 Mar 2025 10:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A307AC4CEE5;
- Tue,  4 Mar 2025 10:29:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741084158;
- bh=EplWlSoRJA83AmlqX8c2hMFGp2dhjVihkkYBWa3OdiY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pCEw2nDVmaMxddk+m0CxK9txDxc76pc+CXngQjvGIXPsu0HykeXtCHepJ6nX9feIX
- HKFp+zbC3ngQmgzo2RAbfhObvVm+KSGUal7pEeGi/hTkg44iiNaF90pfa4lIKS3x6o
- Qvv0rxoRcAfLjQraZH4FMzphDqWSBACDQ6AULldtUPt69f+9gV7aeP+3fhHZsYsS2h
- c6NDfUovmdiz1WiidYCZqJX/3OcC4dMtOix2g19bY8lLJUzGVYCTHEX7VW+ia8uRW+
- JTA+GJ3zSWBKsQQ4UrA8ekhsTQF1nLIgFUqjXDZl4SoNAY7OPAqXNudJCEdAeF8hVF
- /NmyTeDsE7c5A==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Tue,  4 Mar 2025 19:28:42 +0900
-Message-ID: <174108402893.227977.9200776572329997415.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250224170657.3368236-1-fabrice.gasnier@foss.st.com>
-References: <20250224170657.3368236-1-fabrice.gasnier@foss.st.com>
+ Tue,  4 Mar 2025 10:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2HcV5lQ7x+LEiGJklba2pLXleYozVURaZeAXXeJEOQ4=; b=qCIG+mvdWJAgyvByTMC/wU6eAn
+ utt46qOaRF/vgmX9D7Z9COGpU4nZrZB8H5rQCXo331GBzKtBu8IwAvT+EqLbkTxpg1J0SSw7J2JSp
+ J4TNrIshIYA7sMUG+E8EQ/fK86xSkEHLP/2cgr4HBBi1p+7ZHrbg98Rae7arroAI12mwZmzNnKWmL
+ vNwxq/Dpy1WIdPG5ASL6uavEvgDtjGzk5pXECfS6w8rzjtwimKCWj1eif8QtesFBxBKjLSSEkvE8p
+ pQYDbGyuyaysH3Wj25s3OoRywiDCLgJiL4M3rTR/ITKg6y3nS2qHEedvCPs2NeppKGwIj8VovVVD7
+ pmc75hUg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43106)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tpPto-0002UN-29;
+ Tue, 04 Mar 2025 10:53:20 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tpPtl-0004jJ-1G;
+ Tue, 04 Mar 2025 10:53:17 +0000
+Date: Tue, 4 Mar 2025 10:53:17 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jon Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>,
+ "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Message-ID: <Z8bbnSG67rqTj0pH@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=758; i=wbg@kernel.org;
- h=from:subject:message-id; bh=voCn1RjNuoiczOEdMALQZ3vX+Eb+fDa/WmXmEaBSPz8=;
- b=owGbwMvMwCW21SPs1D4hZW3G02pJDOnHru6brC/xqmPi2tDZG2b0cfjqJiZluXM5y1dI3N1vp
- uKiV7Kro5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjIqkmMDCear2b9vbU4Ikb1
- hO1OrsO/Xhd1LJvO3pB5sfEPz+94s4eMDG9Osugv4eVMn6adcZt1R4JAkaitr2HlzADdaZnVCh4
- eXAA=
-X-Developer-Key: i=wbg@kernel.org; a=openpgp;
- fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- William Breathitt Gray <wbg@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-lptimer-cnt: fix error
-	handling when enabling
+Content-Disposition: inline
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH RFC net-next 0/3] net: stmmac: approach 2 to
+ solve EEE LPI reset issues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,27 +65,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi,
 
-On Mon, 24 Feb 2025 18:06:57 +0100, Fabrice Gasnier wrote:
-> In case the stm32_lptim_set_enable_state() fails to update CMP and ARR,
-> a timeout error is raised, by regmap_read_poll_timeout. It may happen,
-> when the lptimer runs on a slow clock, and the clock is gated only
-> few times during the polling.
-> 
-> Badly, when this happen, STM32_LPTIM_ENABLE in CR register has been set.
-> So the 'enable' state in sysfs wrongly lies on the counter being
-> correctly enabled, due to CR is read as one in stm32_lptim_is_enabled().
-> 
-> [...]
+This is a second approach to solving the STMMAC reset issues caused by
+the lack of receive clock from the PHY where the media is in low power
+mode with a PHY that supports receive clock-stop.
 
-Applied, thanks!
+The first approach centred around only addressing the issue in the
+resume path, but it seems to also happen when the platform glue module
+is removed and re-inserted (Jon - can you check whether that's also
+the case for you please?)
 
-[1/1] counter: stm32-lptimer-cnt: fix error handling when enabling
-      commit: 8744dcd4fc7800de2eb9369410470bb2930d4c14
+As this is more targetted, I've dropped the patches from this series
+which move the call to phylink_resume(), so the link may still come
+up too early on resume - but that's something I also intend to fix.
 
-Best regards,
+This is experimental - so I value test reports for this change.
+
+As mentioned recently, the reset timeout will only occur if the PHY
+receive clock is actually stopped at the moment that stmmac_reset()
+is called and remains stopped for the duration of the timeout.
+Network activity can wake up the link, causing the PHY to restart
+its receive clock and allow reset to complete. So, careful testing
+with and without these patches is necessary.
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  3 ++
+ drivers/net/phy/phylink.c                         | 54 ++++++++++++++++++++++-
+ include/linux/phylink.h                           |  3 ++
+ 3 files changed, 59 insertions(+), 1 deletion(-)
+
 -- 
-William Breathitt Gray <wbg@kernel.org>
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
