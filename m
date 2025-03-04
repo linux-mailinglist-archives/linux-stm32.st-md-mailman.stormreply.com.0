@@ -2,105 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CDD7A4D95A
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 10:54:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C67A4DA75
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Mar 2025 11:29:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C4AFC7803A;
-	Tue,  4 Mar 2025 09:54:41 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D38C5CFAC44
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F7F2C7803A;
+	Tue,  4 Mar 2025 10:29:21 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C811CFAC44
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Mar 2025 09:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1741082079;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=u7cLRomgT9aYrM8YJE7hwcT94wlH0qz2XRoudr3Vr10=;
- b=P7F1tfveGx7sbKQfgNrnqVOyKW6oY+YWQfFzCeKFfDBdhrsWPgg+WUVmPx5oxQ3+lEO5KG
- m8aaf7+d5z954gsn9yHVO4aVHJGgBR1qJTokOKMmpQ6/LPYGJZxnp54wHhZjTJReQzGL4D
- VHQwtemXON7iqrxHqRemhl8ZL2imMZk=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-397-itEi5bQXPDeXlOYDAps0bg-1; Tue, 04 Mar 2025 04:54:38 -0500
-X-MC-Unique: itEi5bQXPDeXlOYDAps0bg-1
-X-Mimecast-MFC-AGG-ID: itEi5bQXPDeXlOYDAps0bg_1741082077
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-43995bff469so37918125e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Mar 2025 01:54:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741082077; x=1741686877;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u7cLRomgT9aYrM8YJE7hwcT94wlH0qz2XRoudr3Vr10=;
- b=RIqyebghs0LkMgxyjpEQBXjpzwIMMRYrZQ4cz7nIoxqETqnC0B5XQrqgEwE8ubuyj9
- pUcOVJttUhcnG3ikWwpxYGkppvNwRDDMXrRqkTWlTIxp6C3GlSVkU7iqXQDVEKhVMk65
- Je7S0dA3WASno7iqvKKbBED1fJt/0erWxmYqiU+wcaB5AvGS8TsT48jvSxIbdWdrbDq3
- CYUPICBzOhduzis6M/Uic+1fthZEBVYzhlNS2wI/b8YUZDF+juQ0BXkX1qQH7Fhtcny/
- 88xdJwA9VJcdRQZClZ5EKorD/saDAfpNVe0Svp8ojtxSXc4TWCBHaLjkhj+bQuygzy93
- AETA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCULenJGa96rNzCysgmhvujSPBxakqGnlBwXEw9DzViObHfWU7jDBIknBsxU30wcDCWeH0JjbsDxeTvxOQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyGlZuaH7q+ak4aAkjacUMT5QTS9jKqVREBtlhOzTX06cVZbuEE
- c1lqjxBxzOkcf1YHde8CK4XiKIaokNbp8CcLS4FRGXXhj+U1fGmRWqN5PdUoObMnWxfnvwCA1Sq
- k4Pnuv6Fh/ih+JzbLLv4ka/8As9jX/tGXGE65wxYi0AzYTBqNjZsqLmnxCPqEGW1I8sV7tnc8/v
- VPXA==
-X-Gm-Gg: ASbGncti1A5Kl4xpCzX9EyYr9P8j8XFfVZW8ieLM8eQXfgq3G8JgJB70MilBSEY/LPM
- VccYrqH8H2hd9GjRgh1Vljpa2x9QUFaFwWYdvQjr4fgcrPNXwYeQN7vDVinZ+dd/6o34NcWpWPf
- pDfAE+vzMo36e8W07xbmIxTDgJKkfDlkwSwIivOJyAf5HGl3MZPXJZHjuFDrqTTLvGPpMjrXU9z
- d8tYdSaY3TkzSdnz9YWhcUxhB/WYRpv8cYZwz2gkDCV/WzJhmzimfRF/bmq54gzm3oWc8IE/Zhe
- 7XJRAysRZm3eFFcQradd1gaj8MAxaXpMXqcqpwDrm7Nt3g==
-X-Received: by 2002:a05:600c:1c8c:b0:439:9ba1:5f7e with SMTP id
- 5b1f17b1804b1-43ba675a843mr118312655e9.21.1741082077454; 
- Tue, 04 Mar 2025 01:54:37 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGCYvnIe76LEUSPaxBjczhESkT9xksjygv9YFGPgN7D+cz81nubOVGbUrKCatMMMLTJvcstbw==
-X-Received: by 2002:a05:600c:1c8c:b0:439:9ba1:5f7e with SMTP id
- 5b1f17b1804b1-43ba675a843mr118312285e9.21.1741082077032; 
- Tue, 04 Mar 2025 01:54:37 -0800 (PST)
-Received: from [192.168.88.253] (146-241-81-153.dyn.eolo.it. [146.241.81.153])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43bbc030d24sm82094335e9.22.2025.03.04.01.54.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Mar 2025 01:54:36 -0800 (PST)
-Message-ID: <48885074-b590-41e6-9794-49ec12713cce@redhat.com>
-Date: Tue, 4 Mar 2025 10:54:34 +0100
+ Tue,  4 Mar 2025 10:29:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5D67E5C49BD;
+ Tue,  4 Mar 2025 10:27:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A307AC4CEE5;
+ Tue,  4 Mar 2025 10:29:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741084158;
+ bh=EplWlSoRJA83AmlqX8c2hMFGp2dhjVihkkYBWa3OdiY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=pCEw2nDVmaMxddk+m0CxK9txDxc76pc+CXngQjvGIXPsu0HykeXtCHepJ6nX9feIX
+ HKFp+zbC3ngQmgzo2RAbfhObvVm+KSGUal7pEeGi/hTkg44iiNaF90pfa4lIKS3x6o
+ Qvv0rxoRcAfLjQraZH4FMzphDqWSBACDQ6AULldtUPt69f+9gV7aeP+3fhHZsYsS2h
+ c6NDfUovmdiz1WiidYCZqJX/3OcC4dMtOix2g19bY8lLJUzGVYCTHEX7VW+ia8uRW+
+ JTA+GJ3zSWBKsQQ4UrA8ekhsTQF1nLIgFUqjXDZl4SoNAY7OPAqXNudJCEdAeF8hVF
+ /NmyTeDsE7c5A==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Tue,  4 Mar 2025 19:28:42 +0900
+Message-ID: <174108402893.227977.9200776572329997415.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250224170657.3368236-1-fabrice.gasnier@foss.st.com>
+References: <20250224170657.3368236-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-References: <20250227121522.1802832-1-yong.liang.choong@linux.intel.com>
- <20250227121522.1802832-4-yong.liang.choong@linux.intel.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20250227121522.1802832-4-yong.liang.choong@linux.intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3jRPtm29pzVhO5eEJYJmwUK47W9fx1kTeWwjRR_d950_1741082077
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Jiawen Wu <jiawenwu@trustnetic.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, Borislav Petkov <bp@alien8.de>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 3/6] arch: x86: add IPC
- mailbox accessor function and add SoC register access
+X-Developer-Signature: v=1; a=openpgp-sha256; l=758; i=wbg@kernel.org;
+ h=from:subject:message-id; bh=voCn1RjNuoiczOEdMALQZ3vX+Eb+fDa/WmXmEaBSPz8=;
+ b=owGbwMvMwCW21SPs1D4hZW3G02pJDOnHru6brC/xqmPi2tDZG2b0cfjqJiZluXM5y1dI3N1vp
+ uKiV7Kro5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjIqkmMDCear2b9vbU4Ikb1
+ hO1OrsO/Xhd1LJvO3pB5sfEPz+94s4eMDG9Osugv4eVMn6adcZt1R4JAkaitr2HlzADdaZnVCh4
+ eXAA=
+X-Developer-Key: i=wbg@kernel.org; a=openpgp;
+ fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ William Breathitt Gray <wbg@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] counter: stm32-lptimer-cnt: fix error
+	handling when enabling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,26 +65,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/27/25 1:15 PM, Choong Yong Liang wrote:
-> From: "David E. Box" <david.e.box@linux.intel.com>
+
+On Mon, 24 Feb 2025 18:06:57 +0100, Fabrice Gasnier wrote:
+> In case the stm32_lptim_set_enable_state() fails to update CMP and ARR,
+> a timeout error is raised, by regmap_read_poll_timeout. It may happen,
+> when the lptimer runs on a slow clock, and the clock is gated only
+> few times during the polling.
 > 
-> - Exports intel_pmc_ipc() for host access to the PMC IPC mailbox
-> - Enables the host to access specific SoC registers through the PMC
-> firmware using IPC commands. This access method is necessary for
-> registers that are not available through direct Memory-Mapped I/O (MMIO),
-> which is used for other accessible parts of the PMC.
+> Badly, when this happen, STM32_LPTIM_ENABLE in CR register has been set.
+> So the 'enable' state in sysfs wrongly lies on the counter being
+> correctly enabled, due to CR is read as one in stm32_lptim_is_enabled().
 > 
-> Signed-off-by: David E. Box <david.e.box@linux.intel.com>
-> Signed-off-by: Chao Qin <chao.qin@intel.com>
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+> [...]
 
-Hans, Ilpo, are you ok with this patch going through the netdev/net-next
-tree?
+Applied, thanks!
 
-Thanks,
+[1/1] counter: stm32-lptimer-cnt: fix error handling when enabling
+      commit: 8744dcd4fc7800de2eb9369410470bb2930d4c14
 
-Paolo
-
+Best regards,
+-- 
+William Breathitt Gray <wbg@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
