@@ -2,95 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5C8A50361
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 16:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C713A503AD
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 16:42:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1654C78037;
-	Wed,  5 Mar 2025 15:26:16 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B036FC78037;
+	Wed,  5 Mar 2025 15:42:30 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA8C6CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26EE9C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 15:26:14 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 525B9eVc023734;
- Wed, 5 Mar 2025 15:25:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dKvxObN86d4Vbg+X52/nftAyUjn6LRPj22SlDXkazqE=; b=GJVcKOMyIUk/HEQo
- iG4q8/AOapjM2jqcHqdyP7zT6qhD014PwUkN0MbNR3XEc/jY5Wkqb34fr3/6YBdG
- YStWK12SiDyPX0ww3T1ZGHmb8srctEMg0Dm8vyVR5K2N2MDuOrV0ib3KphoOMiUg
- LbKa1KDxjU0vR3mYQxPO7d96Q8LEG6OY83DZgnNetFVIx1psJsXEtYklH5ucXHcH
- ETpqcXTzj+WBkcTaulI4eIa2xlZcwW+/cix9+GrbQW+ciq1cXEUVwTdaNm969tBD
- L3e4nh5zOtYBwFS/JSY82iFC0fjSfV53Qw354srHYRoA0Ri2F1Z4m+zDZlqXvXvY
- 4L72Cw==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6t5tqk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Mar 2025 15:25:53 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 525FPqUX018053
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 5 Mar 2025 15:25:52 GMT
-Received: from [10.133.33.61] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 5 Mar 2025
- 07:25:47 -0800
-Message-ID: <d4ae3dc1-e722-43cd-8e3e-aa13b21de8ba@quicinc.com>
-Date: Wed, 5 Mar 2025 23:25:34 +0800
+ Wed,  5 Mar 2025 15:42:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 61C50A4586B;
+ Wed,  5 Mar 2025 15:36:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1E9C4CED1;
+ Wed,  5 Mar 2025 15:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741189347;
+ bh=yagdOSnXnjo1SpjZgTWz3AJT2AK15uo4DTy3HxHN1EQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=LVz40yeiR0bZrtsWnB8XQANTdCgNnRIOEMt0Iyapb18wdGI00WqUvgIGZ9DAxQlZ9
+ jPAP5ZZWLuAaXRjS0z7iiOP9BCT4Un1O6lybi/a/sQY2c8DYzx6VWK4NFYnXkP3lHG
+ agNmAei/lHIs5GJvq88BxPFOny2slLx8P9+rpT6oGeSM3qxeQ2EJ/S17w6LtSy+Ne4
+ 453pBEIyyWbMhBtqUe0u6K7V29rVdgOZBQ5aHWygqA2LLXY0hMpboLr9mXW7hMrUXX
+ MnxCxOhjw13/zM5hYiYGC83l7Ajv6d/HWx5H1pis518cw1AuaIatMxZPf0cVdPL9GX
+ 7UKD4vWks8Lkg==
+Message-ID: <89dcfb2a-d093-48f9-b6d7-af99b383a1bc@kernel.org>
+Date: Wed, 5 Mar 2025 16:42:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Mike Leach <mike.leach@linaro.org>
-References: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
- <20250303032931.2500935-3-quic_jiegan@quicinc.com>
- <CAJ9a7VgGp4YqzN-yx0x+NiZG8now6SCmnimaou2Z=exYcoiegw@mail.gmail.com>
- <7fe6c345-85cf-4114-b419-f50d1a6cbef1@quicinc.com>
- <CAJ9a7Vhx293H6r6HGwVOQ46PDu+sQ8LPONvAbwAtxGFt0ad+Ww@mail.gmail.com>
+To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+References: <20250305091246.106626-1-swathi.ks@samsung.com>
+ <CGME20250305091852epcas5p18a0853e85a5ed3d36d5d42ef89735ca6@epcas5p1.samsung.com>
+ <20250305091246.106626-2-swathi.ks@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Jie Gan <quic_jiegan@quicinc.com>
-In-Reply-To: <CAJ9a7Vhx293H6r6HGwVOQ46PDu+sQ8LPONvAbwAtxGFt0ad+Ww@mail.gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=I/ufRMgg c=1 sm=1 tr=0 ts=67c86d01 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8
- a=KKAkSRfTAAAA:8 a=LpQP-O61AAAA:8
- a=IxFrTbeWSl6y_tmf9k8A:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
- a=cvBusfyB2V15izCimMoJ:22 a=pioyyrs4ZptJ924tMmac:22
-X-Proofpoint-GUID: lUObeaWTcVJyVCpjgXepAivPMFWNp7Ps
-X-Proofpoint-ORIG-GUID: lUObeaWTcVJyVCpjgXepAivPMFWNp7Ps
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-05_06,2025-03-05_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxscore=0
- spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 phishscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0
- clxscore=1015 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
- definitions=main-2503050119
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jinlong Mao <quic_jinlmao@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- coresight@lists.linaro.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v15 02/10] Coresight: Add trace_id
- function to retrieving the trace ID
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250305091246.106626-2-swathi.ks@samsung.com>
+Cc: devicetree@vger.kernel.org, ravi.patel@samsung.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
+ pankaj.dubey@samsung.com, gost.dev@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS
+ device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,269 +103,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 3/5/2025 10:58 PM, Mike Leach wrote:
-> Hi Jie
+On 05/03/2025 10:12, Swathi K S wrote:
+> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
+> Ethernet YAML schema to enable the DT validation.
 > 
-> On Wed, 5 Mar 2025 at 13:27, Jie Gan <quic_jiegan@quicinc.com> wrote:
->>
->>
->>
->> On 3/5/2025 7:07 PM, Mike Leach wrote:
->>> Hi,
->>>
->>> On Mon, 3 Mar 2025 at 03:30, Jie Gan <quic_jiegan@quicinc.com> wrote:
->>>>
->>>> Add 'trace_id' function pointer in coresight_ops. It's responsible for retrieving
->>>> the device's trace ID.
->>>>
->>>> Co-developed-by: James Clark <james.clark@linaro.org>
->>>> Signed-off-by: James Clark <james.clark@linaro.org>
->>>> Reviewed-by: James Clark <james.clark@linaro.org>
->>>> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
->>>> ---
->>>>    drivers/hwtracing/coresight/coresight-core.c  | 30 +++++++++++++++++++
->>>>    drivers/hwtracing/coresight/coresight-dummy.c | 13 +++++++-
->>>>    .../coresight/coresight-etm3x-core.c          |  1 +
->>>>    .../coresight/coresight-etm4x-core.c          |  1 +
->>>>    drivers/hwtracing/coresight/coresight-stm.c   | 11 +++++++
->>>>    drivers/hwtracing/coresight/coresight-tpda.c  | 11 +++++++
->>>>    include/linux/coresight.h                     |  5 ++++
->>>>    7 files changed, 71 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
->>>> index ab55e10d4b79..32aa07f4f8c1 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-core.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-core.c
->>>> @@ -24,6 +24,7 @@
->>>>    #include "coresight-etm-perf.h"
->>>>    #include "coresight-priv.h"
->>>>    #include "coresight-syscfg.h"
->>>> +#include "coresight-trace-id.h"
->>>>
->>>>    /*
->>>>     * Mutex used to lock all sysfs enable and disable actions and loading and
->>>> @@ -1557,6 +1558,35 @@ void coresight_remove_driver(struct amba_driver *amba_drv,
->>>>    }
->>>>    EXPORT_SYMBOL_GPL(coresight_remove_driver);
->>>>
->>>> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
->>>> +                              struct coresight_device *sink)
->>>> +{
->>>> +       int trace_id;
->>>> +       int cpu = source_ops(csdev)->cpu_id(csdev);
->>>> +
->>>
->>> This is a global funciton so need to check that this csdev is a
->>> source,. and does provide a cpu  function before calling it.
->>>
->>
->> Hi Mike,
->>
->> I put this function here because it's required by etm3x and etm4x. It's
->> intended to be called only by ETM devices, which are definitely source
->> devices and have a cpu function.
->>
-> 
-> I fully understand the intent, but for a function that can be accessed
-> from anywhere, it is safer to validate input rather than assume any
-> caller will always respect the input conditions.
-> Lots of other places in the coresight drivers check that these
-> functions exist before calling them.
-> 
+> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
+> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
+> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
 
-Hi Mike,
+<form letter>
+This is a friendly reminder during the review process.
 
-I agree with you. I will send another patch to fix it. Thanks for comment.
+It looks like you received a tag and forgot to add it.
 
-Jie
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
+of patchset, under or above your Signed-off-by tag, unless patch changed
+significantly (e.g. new properties added to the DT bindings). Tag is
+"received", when provided in a message replied to you on the mailing
+list. Tools like b4 can help here. However, there's no need to repost
+patches *only* to add the tags. The upstream maintainer will do that for
+tags received on the version they apply.
 
-> Regards
-> 
-> Mike
-> 
->> Jie
->>
->>>> +       switch (mode) {
->>>> +       case CS_MODE_SYSFS:
->>>> +               trace_id = coresight_trace_id_get_cpu_id(cpu);
->>>> +               break;
->>>> +       case CS_MODE_PERF:
->>>> +               if (WARN_ON(!sink))
->>>> +                       return -EINVAL;
->>>> +
->>>> +               trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
->>>> +               break;
->>>> +       default:
->>>> +               trace_id = -EINVAL;
->>>> +               break;
->>>> +       }
->>>> +
->>>> +       if (!IS_VALID_CS_TRACE_ID(trace_id))
->>>> +               dev_err(&csdev->dev,
->>>> +                       "Failed to allocate trace ID on CPU%d\n", cpu);
->>>> +
->>>> +       return trace_id;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(coresight_etm_get_trace_id);
->>>> +
->>>>    MODULE_LICENSE("GPL v2");
->>>>    MODULE_AUTHOR("Pratik Patel <pratikp@codeaurora.org>");
->>>>    MODULE_AUTHOR("Mathieu Poirier <mathieu.poirier@linaro.org>");
->>>> diff --git a/drivers/hwtracing/coresight/coresight-dummy.c b/drivers/hwtracing/coresight/coresight-dummy.c
->>>> index 9be53be8964b..b5692ba358c1 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-dummy.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-dummy.c
->>>> @@ -41,6 +41,16 @@ static void dummy_source_disable(struct coresight_device *csdev,
->>>>           dev_dbg(csdev->dev.parent, "Dummy source disabled\n");
->>>>    }
->>>>
->>>> +static int dummy_source_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
->>>> +                                __maybe_unused struct coresight_device *sink)
->>>> +{
->>>> +       struct dummy_drvdata *drvdata;
->>>> +
->>>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
->>>> +
->>>> +       return drvdata->traceid;
->>>> +}
->>>> +
->>>>    static int dummy_sink_enable(struct coresight_device *csdev, enum cs_mode mode,
->>>>                                   void *data)
->>>>    {
->>>> @@ -62,7 +72,8 @@ static const struct coresight_ops_source dummy_source_ops = {
->>>>    };
->>>>
->>>>    static const struct coresight_ops dummy_source_cs_ops = {
->>>> -       .source_ops = &dummy_source_ops,
->>>> +       .trace_id       = dummy_source_trace_id,
->>>> +       .source_ops     = &dummy_source_ops,
->>>>    };
->>>>
->>>>    static const struct coresight_ops_sink dummy_sink_ops = {
->>>> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
->>>> index c103f4c70f5d..c1dda4bc4a2f 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
->>>> @@ -704,6 +704,7 @@ static const struct coresight_ops_source etm_source_ops = {
->>>>    };
->>>>
->>>>    static const struct coresight_ops etm_cs_ops = {
->>>> +       .trace_id       = coresight_etm_get_trace_id,
->>>>           .source_ops     = &etm_source_ops,
->>>>    };
->>>>
->>>> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
->>>> index 2c1a60577728..cfd116b87460 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
->>>> @@ -1067,6 +1067,7 @@ static const struct coresight_ops_source etm4_source_ops = {
->>>>    };
->>>>
->>>>    static const struct coresight_ops etm4_cs_ops = {
->>>> +       .trace_id       = coresight_etm_get_trace_id,
->>>>           .source_ops     = &etm4_source_ops,
->>>>    };
->>>>
->>>> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
->>>> index b581a30a1cd9..aca25b5e3be2 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-stm.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-stm.c
->>>> @@ -281,12 +281,23 @@ static void stm_disable(struct coresight_device *csdev,
->>>>           }
->>>>    }
->>>>
->>>> +static int stm_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
->>>> +                       __maybe_unused struct coresight_device *sink)
->>>> +{
->>>> +       struct stm_drvdata *drvdata;
->>>> +
->>>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
->>>> +
->>>> +       return drvdata->traceid;
->>>> +}
->>>> +
->>>>    static const struct coresight_ops_source stm_source_ops = {
->>>>           .enable         = stm_enable,
->>>>           .disable        = stm_disable,
->>>>    };
->>>>
->>>>    static const struct coresight_ops stm_cs_ops = {
->>>> +       .trace_id       = stm_trace_id,
->>>>           .source_ops     = &stm_source_ops,
->>>>    };
->>>>
->>>> diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
->>>> index 573da8427428..94c2201fc8d3 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-tpda.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-tpda.c
->>>> @@ -241,12 +241,23 @@ static void tpda_disable(struct coresight_device *csdev,
->>>>           dev_dbg(drvdata->dev, "TPDA inport %d disabled\n", in->dest_port);
->>>>    }
->>>>
->>>> +static int tpda_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
->>>> +                        __maybe_unused struct coresight_device *sink)
->>>> +{
->>>> +       struct tpda_drvdata *drvdata;
->>>> +
->>>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
->>>> +
->>>> +       return drvdata->atid;
->>>> +}
->>>> +
->>>>    static const struct coresight_ops_link tpda_link_ops = {
->>>>           .enable         = tpda_enable,
->>>>           .disable        = tpda_disable,
->>>>    };
->>>>
->>>>    static const struct coresight_ops tpda_cs_ops = {
->>>> +       .trace_id       = tpda_trace_id,
->>>>           .link_ops       = &tpda_link_ops,
->>>>    };
->>>>
->>>> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
->>>> index c7cd5886c908..ce9a5e71b261 100644
->>>> --- a/include/linux/coresight.h
->>>> +++ b/include/linux/coresight.h
->>>> @@ -335,6 +335,7 @@ enum cs_mode {
->>>>           CS_MODE_PERF,
->>>>    };
->>>>
->>>> +#define coresight_ops(csdev)   csdev->ops
->>>>    #define source_ops(csdev)      csdev->ops->source_ops
->>>>    #define sink_ops(csdev)                csdev->ops->sink_ops
->>>>    #define link_ops(csdev)                csdev->ops->link_ops
->>>> @@ -421,6 +422,8 @@ struct coresight_ops_panic {
->>>>    };
->>>>
->>>>    struct coresight_ops {
->>>> +       int (*trace_id)(struct coresight_device *csdev, enum cs_mode mode,
->>>> +                       struct coresight_device *sink);
->>>>           const struct coresight_ops_sink *sink_ops;
->>>>           const struct coresight_ops_link *link_ops;
->>>>           const struct coresight_ops_source *source_ops;
->>>> @@ -709,4 +712,6 @@ int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
->>>>
->>>>    void coresight_remove_driver(struct amba_driver *amba_drv,
->>>>                                struct platform_driver *pdev_drv);
->>>> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
->>>> +                              struct coresight_device *sink);
->>>>    #endif         /* _LINUX_COREISGHT_H */
->>>> --
->>>> 2.34.1
->>>>
->>>
->>>
->>
-> 
-> 
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
 
+If a tag was not added on purpose, please state why and what changed.
+</form letter>
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
