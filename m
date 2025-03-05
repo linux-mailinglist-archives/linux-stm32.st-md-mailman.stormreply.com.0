@@ -2,60 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31B78A4FEC1
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 13:37:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77248A4FF0E
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 13:55:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6BBCC78037;
-	Wed,  5 Mar 2025 12:37:47 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F207C78037;
+	Wed,  5 Mar 2025 12:55:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E5A6CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D440CFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 12:37:46 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1tpo0P-0003XA-U0; Wed, 05 Mar 2025 13:37:45 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpo0O-00495a-0K;
- Wed, 05 Mar 2025 13:37:44 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpo0N-00ERN3-37;
- Wed, 05 Mar 2025 13:37:43 +0100
-Date: Wed, 5 Mar 2025 13:37:43 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Message-ID: <Z8hFlwK27AM4d17b@pengutronix.de>
-References: <20250305102103.1194277-1-o.rempel@pengutronix.de>
- <20250305102103.1194277-2-o.rempel@pengutronix.de>
- <174117806721.1245382.8322491579922154490.robh@kernel.org>
+ Wed,  5 Mar 2025 12:55:14 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 525Bpj1m010815;
+ Wed, 5 Mar 2025 13:55:07 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=5qR5OAEjVcqhFEhB6Kg5+d
+ lLt98AeFnFdzL54hTZvlw=; b=WQo9AnKQGjuAo9tnbOQrifVGQxt8Il91K/8yw7
+ tppqFNxXzUh8OPYin9zOOSvxipmff/mcqf/7dOmONtyVZ/MeFWZvRytc2h94PhdJ
+ /e4UBd+nFC6wkuDxQTkvfJoTiL8McfITWWLFruYSo5TY/2kBDHNGimhls4JpAKLS
+ 8dEkiec5FReXI4EgDyDXD8Y7uw8x4PMS0K3XaLP4zjxosmVH9OtFxAyWN9N8xjOk
+ 7VkbVGM0GdUuPQCEntvpm+gYtMRv/rPnpny4sjMF44GcxffC1vx9lonCLD5po6K6
+ xUNrI9jdYcwRbDapKgnO/AhsSDqTngeL3FB8eqcr/kVkE1Hg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 455wbhuk9g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Mar 2025 13:55:07 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9C2674008B;
+ Wed,  5 Mar 2025 13:54:05 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C38B62D58A;
+ Wed,  5 Mar 2025 13:51:54 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Mar
+ 2025 13:51:54 +0100
+Received: from localhost (10.48.86.222) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Mar
+ 2025 13:51:53 +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
+Date: Wed, 5 Mar 2025 13:51:46 +0100
+Message-ID: <20250305125146.1858978-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <174117806721.1245382.8322491579922154490.robh@kernel.org>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Woojung Huh <woojung.huh@microchip.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- kernel@pengutronix.de, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v4 1/4] dt-bindings: sound: convert
- ICS-43432 binding to YAML
+X-Originating-IP: [10.48.86.222]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-05_05,2025-03-05_01,2024-11-22_01
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] clocksource: stm32-lptimer: use wakeup
+	capable instead of init wakeup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,46 +76,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Mar 05, 2025 at 06:34:27AM -0600, Rob Herring (Arm) wrote:
-> 
-> On Wed, 05 Mar 2025 11:21:00 +0100, Oleksij Rempel wrote:
-> > Convert the ICS-43432 MEMS microphone device tree binding from text format
-> > to YAML.
-> > 
-> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > ---
-> > changes v4:
-> > - add Reviewed-by: Rob...
-> > changes v3:
-> > - add maintainer
-> > - remove '|' after 'description:'
-> > changes v2:
-> > - use "enum" instead "oneOf + const"
-> > ---
-> >  .../devicetree/bindings/sound/ics43432.txt    | 19 -------
-> >  .../bindings/sound/invensense,ics43432.yaml   | 51 +++++++++++++++++++
-> >  2 files changed, 51 insertions(+), 19 deletions(-)
-> >  delete mode 100644 Documentation/devicetree/bindings/sound/ics43432.txt
-> >  create mode 100644 Documentation/devicetree/bindings/sound/invensense,ics43432.yaml
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/invensense,ics43432.yaml: maintainers:0: 'N/A' does not match '@'
-> 	from schema $id: http://devicetree.org/meta-schemas/base.yaml#
-> 
+From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-Sorry, i picked the old version...
+"wakeup-source" property describes a device which has wakeup capability
+but should not force this device as a wakeup source.
 
+Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ drivers/clocksource/timer-stm32-lp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/clocksource/timer-stm32-lp.c b/drivers/clocksource/timer-stm32-lp.c
+index 96d975adf7a4..f08baa6720f8 100644
+--- a/drivers/clocksource/timer-stm32-lp.c
++++ b/drivers/clocksource/timer-stm32-lp.c
+@@ -186,9 +186,7 @@ static int stm32_clkevent_lp_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	if (of_property_read_bool(pdev->dev.parent->of_node, "wakeup-source")) {
+-		ret = device_init_wakeup(&pdev->dev, true);
+-		if (ret)
+-			goto out_clk_disable;
++		device_set_wakeup_capable(&pdev->dev, true);
+ 
+ 		ret = dev_pm_set_wake_irq(&pdev->dev, irq);
+ 		if (ret)
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
