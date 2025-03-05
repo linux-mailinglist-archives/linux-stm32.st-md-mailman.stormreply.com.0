@@ -2,49 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B6DA50245
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 15:38:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62FF1A50276
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 15:44:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B27B3C78037;
-	Wed,  5 Mar 2025 14:38:43 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 178F3C78037;
+	Wed,  5 Mar 2025 14:44:17 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18A81CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0861BCFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 14:38:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 306905C6996;
- Wed,  5 Mar 2025 14:36:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3645EC4CED1;
- Wed,  5 Mar 2025 14:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741185520;
- bh=4TB5DOPQd21hKHuqCzgn5hFKWa7l8WTPFGMMoIXKVUE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=o8paCwND1OXZaThX0PBLZWfCWlsxJ85F5H8VUjHQrn9/EBMgPgPJQEDjZ21qk5qTw
- OPPlKAEpsUSpBj5gMZ0xgHJ8IGSct0+CTaTYtJRUoUQ1vAjsnpx0QmkszxcTkCQK1f
- EnOzHP8+FM9qrjEJ8znAPwUg1mgVaUQo6oWRXHpuHlnLTIAKZqqK6UtHfPM7NqzI8/
- /y0k9aiJH+0XHNmZpCESikQdr7fQ4Bej3LtO47+8RIDIbQM02S90xuv6n3G9wD6jWR
- mrpLy/4PvwNuBgtTlUV/gSleToWNNn/w2gFGrXeNrd5hh+eYJ5HZJO3K9NL9XwtX0e
- JmFDe47NMYz1Q==
-Date: Wed, 5 Mar 2025 14:38:24 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20250305143824.138a2605@jic23-huawei>
-In-Reply-To: <20250224180150.3689638-4-fabrice.gasnier@foss.st.com>
-References: <20250224180150.3689638-1-fabrice.gasnier@foss.st.com>
- <20250224180150.3689638-4-fabrice.gasnier@foss.st.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
+ Wed,  5 Mar 2025 14:44:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ezfHGj2cBWaEtzI2GUJQGGe0pXWbLGhCMJSGAb0XXr4=; b=jW9wJ7/ppvRin+Y4JUSWXTLaM1
+ yehJW1Smm4DGYwEuwb5ZvnlCk/wtdsusMLbKAZjT74M3C2oeSJFjV1z67c8sepbl0eBldOJOSZQdq
+ JShkPG3qy+eEoQwya185JoDQGas0okfzmC29Q6E+26u5/JB4hlyr6S5VfDe9Ch25F8I4Prf86oI2G
+ T7OAdYOsXBDpahK2sJya6ri14yku28ZMfZ2PIEqjK0tfSFMvKSDAUdxE3d3nqbI9oi+Qg8e/SAtY2
+ pS8pI8x/yJhA8HBfvyDWjao6InfAmpX3NHEWmFtK97D06F3vJMQd+CAkQPfOy5VeVYS6rNCf6tRCg
+ 0A+NQqJw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45016)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tppyZ-0004Sc-2H;
+ Wed, 05 Mar 2025 14:43:59 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tppyS-0005rB-2p;
+ Wed, 05 Mar 2025 14:43:52 +0000
+Date: Wed, 5 Mar 2025 14:43:52 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Swathi K S <swathi.ks@samsung.com>
+Message-ID: <Z8hjKI1ZqU19nrTP@shell.armlinux.org.uk>
+References: <20250305091246.106626-1-swathi.ks@samsung.com>
+ <CGME20250305091856epcas5p4228c09989c7acfe45a99541eef01fbcd@epcas5p4.samsung.com>
+ <20250305091246.106626-3-swathi.ks@samsung.com>
 MIME-Version: 1.0
-Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- ukleinek@kernel.org, krzk+dt@kernel.org, will@kernel.org, tglx@linutronix.de,
- linux-arm-kernel@lists.infradead.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 3/8] iio: trigger: stm32-lptimer: add
- support for stm32mp25
+Content-Disposition: inline
+In-Reply-To: <20250305091246.106626-3-swathi.ks@samsung.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ ravi.patel@samsung.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, gost.dev@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, pankaj.dubey@samsung.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v8 2/2] net: stmmac: dwc-qos: Add FSD EQoS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,165 +69,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 24 Feb 2025 19:01:45 +0100
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
-
-> From: Olivier Moysan <olivier.moysan@foss.st.com>
+On Wed, Mar 05, 2025 at 02:42:46PM +0530, Swathi K S wrote:
+> The FSD SoC contains two instance of the Synopsys DWC ethernet QOS IP core.
+> The binding that it uses is slightly different from existing ones because
+> of the integration (clocks, resets).
 > 
-> Add support for STM32MP25 SoC. Use newly introduced compatible to handle
-> this new HW variant. Add new trigger definitions that can be used by the
-> stm32 analog-to-digital converter. Use compatible data to identify them.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
 
-Hi. I'm not really following why you can't use devm calls for the
-trigger probe path and hence why you need the explicit remove.
-Feels like a lot of infrastructure and I can't see why we need it.
+This looks much better!
 
-Jonathan
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
+Thanks!
 
-> @@ -54,25 +82,49 @@ bool is_stm32_lptim_trigger(struct iio_trigger *trig)
->  }
->  EXPORT_SYMBOL(is_stm32_lptim_trigger);
->  
-> -static int stm32_lptim_setup_trig(struct stm32_lptim_trigger *priv)
-> +static void stm32_lptim_unregister_triggers(struct stm32_lptim_trigger *priv)
->  {
-> -	struct iio_trigger *trig;
-> +	struct iio_trigger *tr;
->  
-> -	trig = devm_iio_trigger_alloc(priv->dev, "%s", priv->trg);
-> -	if  (!trig)
-> -		return -ENOMEM;
-> +	list_for_each_entry(tr, &priv->tr_list, alloc_list)
-> +		iio_trigger_unregister(tr);
-> +}
-> +
-> +static int stm32_lptim_register_triggers(struct stm32_lptim_trigger *priv)
-> +{
-> +	const char * const *cur = priv->triggers;
-> +	int ret;
->  
-> -	trig->dev.parent = priv->dev->parent;
-> -	trig->ops = &stm32_lptim_trigger_ops;
-> -	iio_trigger_set_drvdata(trig, priv);
-> +	INIT_LIST_HEAD(&priv->tr_list);
->  
-> -	return devm_iio_trigger_register(priv->dev, trig);
-> +	while (cur && *cur) {
-> +		struct iio_trigger *trig;
-> +
-> +		trig = devm_iio_trigger_alloc(priv->dev, "%s", *cur);
-> +		if  (!trig)
-> +			return -ENOMEM;
-> +
-> +		trig->dev.parent = priv->dev->parent;
-> +		trig->ops = &stm32_lptim_trigger_ops;
-> +		iio_trigger_set_drvdata(trig, priv);
-> +
-> +		ret = iio_trigger_register(trig);
-
-I'm not really following why you can't use devm_iio_trigger_register() here
-and avoid your own tracking with the list below.
-
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		list_add_tail(&trig->alloc_list, &priv->tr_list);
-> +		cur++;
-> +	}
-> +
-> +	return 0;
->  }
->  
->  static int stm32_lptim_trigger_probe(struct platform_device *pdev)
->  {
->  	struct stm32_lptim_trigger *priv;
-> +	struct stm32_lptim_cfg const *lptim_cfg;
->  	u32 index;
-> +	int ret;
->  
->  	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
->  	if (!priv)
-> @@ -81,23 +133,42 @@ static int stm32_lptim_trigger_probe(struct platform_device *pdev)
->  	if (device_property_read_u32(&pdev->dev, "reg", &index))
->  		return -EINVAL;
->  
-> -	if (index >= ARRAY_SIZE(stm32_lptim_triggers))
-> +	lptim_cfg = device_get_match_data(&pdev->dev);
-> +
-> +	if (index >= lptim_cfg->nb_triggers)
->  		return -EINVAL;
->  
->  	priv->dev = &pdev->dev;
-> -	priv->trg = stm32_lptim_triggers[index];
-> +	priv->triggers = lptim_cfg->triggers[index];
-> +
-> +	ret = stm32_lptim_register_triggers(priv);
-> +	if (ret) {
-> +		stm32_lptim_unregister_triggers(priv);
-> +		return ret;
-> +	}
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	return 0;
-> +}
-> +
-> +static void stm32_lptim_trigger_remove(struct platform_device *pdev)
-> +{
-> +	struct stm32_lptim_trigger *priv = platform_get_drvdata(pdev);
->  
-> -	return stm32_lptim_setup_trig(priv);
-> +	stm32_lptim_unregister_triggers(priv);
-
-Why not a devm_add_action_or_reset?
-or for that matter a devm_iio_trigger_register() in the first place.
-
->  }
->  
->  static const struct of_device_id stm32_lptim_trig_of_match[] = {
-> -	{ .compatible = "st,stm32-lptimer-trigger", },
-> +	{ .compatible = "st,stm32-lptimer-trigger", .data = (void *)&stm32mp15_lptim_cfg },
-> +	{ .compatible = "st,stm32mp25-lptimer-trigger", .data = (void *)&stm32mp25_lptim_cfg},
-Why cast away a const then pass it to a const void *?
-
-That is I don't think the casts are needed.
-
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, stm32_lptim_trig_of_match);
->  
->  static struct platform_driver stm32_lptim_trigger_driver = {
->  	.probe = stm32_lptim_trigger_probe,
-> +	.remove = stm32_lptim_trigger_remove,
->  	.driver = {
->  		.name = "stm32-lptimer-trigger",
->  		.of_match_table = stm32_lptim_trig_of_match,
-> diff --git a/include/linux/iio/timer/stm32-lptim-trigger.h b/include/linux/iio/timer/stm32-lptim-trigger.h
-> index a34dcf6a6001..ce3cf0addb2e 100644
-> --- a/include/linux/iio/timer/stm32-lptim-trigger.h
-> +++ b/include/linux/iio/timer/stm32-lptim-trigger.h
-> @@ -14,6 +14,15 @@
->  #define LPTIM1_OUT	"lptim1_out"
->  #define LPTIM2_OUT	"lptim2_out"
->  #define LPTIM3_OUT	"lptim3_out"
-> +#define LPTIM4_OUT	"lptim4_out"
-> +#define LPTIM5_OUT	"lptim5_out"
-> +
-> +#define LPTIM1_CH1	"lptim1_ch1"
-> +#define LPTIM1_CH2	"lptim1_ch2"
-> +#define LPTIM2_CH1	"lptim2_ch1"
-> +#define LPTIM2_CH2	"lptim2_ch2"
-> +#define LPTIM3_CH1	"lptim3_ch1"
-> +#define LPTIM4_CH1	"lptim4_ch1"
->  
->  #if IS_REACHABLE(CONFIG_IIO_STM32_LPTIMER_TRIGGER)
->  bool is_stm32_lptim_trigger(struct iio_trigger *trig);
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
