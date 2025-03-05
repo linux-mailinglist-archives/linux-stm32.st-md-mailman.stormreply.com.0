@@ -2,72 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D88CEA4FAB3
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 10:54:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C2EA4FBB5
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 11:21:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0F42C78F97;
-	Wed,  5 Mar 2025 09:54:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A39BDC78F85;
+	Wed,  5 Mar 2025 10:21:31 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90746C78F8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52149C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 09:54:24 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5258qMgM027811;
- Wed, 5 Mar 2025 10:53:58 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 2wY6Dic8hzBm+S2wld/DgwBFhKKy9RZVyTbW8u8LUKQ=; b=dwBf4Mioiwv2Zu4l
- INts2S2Ok7dimOSV+L0M6etY0G775n4SH5tmarEcC5Ibw+A1q1v2wRE9aep8P0U8
- Z6TrdLUAkozG1VaCDf2i2oJZEXISCSwoy00CEYbXknCbM8PmuQhxy7Zm24+PNSnU
- B0NoKf3CcmMycPbWKNVzZLW3zm1vaxF6wDRCfyaMKBABB9a81qRTC2lk6FevvvvA
- oKCbfQikaOr6KtDV9LsnhmERFCU8Mtl35jnH2Zbv2fDm7AjgDU00BNRdRvNrNxAP
- 5foz5C4FFAsXG2YmA1pbnqmuUXjes6S0kKQOJ3IVmPCok6FFziHby5QCpMRtqFib
- Kw8YOg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 454cp8ncfg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Mar 2025 10:53:58 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2109840092;
- Wed,  5 Mar 2025 10:52:50 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DDBCC5AB282;
- Wed,  5 Mar 2025 10:49:57 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Mar
- 2025 10:49:57 +0100
-Received: from localhost (10.48.86.222) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 5 Mar
- 2025 10:49:57 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <lee@kernel.org>, <ukleinek@kernel.org>, <alexandre.torgue@foss.st.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <jic23@kernel.org>, <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
-Date: Wed, 5 Mar 2025 10:49:35 +0100
-Message-ID: <20250305094935.595667-9-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250305094935.595667-1-fabrice.gasnier@foss.st.com>
-References: <20250305094935.595667-1-fabrice.gasnier@foss.st.com>
+ Wed,  5 Mar 2025 10:21:30 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1tplsA-0001n1-K3; Wed, 05 Mar 2025 11:21:06 +0100
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tpls8-0047xi-1o;
+ Wed, 05 Mar 2025 11:21:04 +0100
+Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ore@pengutronix.de>) id 1tpls8-0050h8-1X;
+ Wed, 05 Mar 2025 11:21:04 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Woojung Huh <woojung.huh@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>
+Date: Wed,  5 Mar 2025 11:20:59 +0100
+Message-Id: <20250305102103.1194277-1-o.rempel@pengutronix.de>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.222]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-05_03,2025-03-05_01,2024-11-22_01
-Cc: devicetree@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- wbg@kernel.org
-Subject: [Linux-stm32] [PATCH v3 8/8] arm64: dts: st: use lptimer3 as tick
-	broadcast source on stm32mp257f-ev1
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v4 0/4] Add support for Plymovent AQM board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +65,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-During the low power modes the generic ARM timer is deactivated, so the
-the tick broadcast is used, based on LPTIMER3 which is clocked by LSE on
-STMicroelectronics boards.
+This patch series adds support for the Plymovent AQM board based on the
+STM32MP151C SoC. Additionally, the ICS-43432 device tree binding is
+converted to YAML to address a validation warning.
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+The ICS-43432 patch resolves one of the devicetree validation warnings.
+However, the false-positive warning:
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 1b88485a62a1..242115863ab4 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -190,6 +190,14 @@ &i2c8 {
- 	status = "disabled";
- };
- 
-+/* use LPTIMER with tick broadcast for suspend mode */
-+&lptimer3 {
-+	status = "okay";
-+	timer {
-+		status = "okay";
-+	};
-+};
-+
- &rtc {
- 	status = "okay";
- };
--- 
-2.25.1
+  "audio-controller@44004000: port:endpoint: Unevaluated properties are
+   not allowed ('format' was unexpected)"
+
+remains unresolved. The "format" property is required for proper
+functionality of this device.
+
+Best regards,
+
+Oleksij Rempel (4):
+  dt-bindings: sound: convert ICS-43432 binding to YAML
+  dt-bindings: arm: stm32: Add Plymovent AQM board
+  ARM: dts: stm32: Add pinmux groups for Plymovent AQM board
+  arm: dts: stm32: Add Plymovent AQM devicetree
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   1 +
+ .../devicetree/bindings/sound/ics43432.txt    |  19 -
+ .../bindings/sound/invensense,ics43432.yaml   |  51 +++
+ arch/arm/boot/dts/st/Makefile                 |   1 +
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi   | 292 ++++++++++++++
+ arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts   | 376 ++++++++++++++++++
+ 6 files changed, 721 insertions(+), 19 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/ics43432.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/invensense,ics43432.yaml
+ create mode 100644 arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts
+
+--
+2.39.5
 
 _______________________________________________
 Linux-stm32 mailing list
