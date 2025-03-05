@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE56EA4FFE3
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 14:14:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A68A4FFE8
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 14:14:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8ADEBC78F6E;
-	Wed,  5 Mar 2025 13:14:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCD5C78F83;
+	Wed,  5 Mar 2025 13:14:52 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 827EDC78037
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 059D0CFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 13:14:49 +0000 (UTC)
+ Wed,  5 Mar 2025 13:14:51 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ore@pengutronix.de>)
- id 1tpoZw-0000xd-A1; Wed, 05 Mar 2025 14:14:28 +0100
+ id 1tpoZw-0000xe-A1; Wed, 05 Mar 2025 14:14:28 +0100
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpoZv-0049PA-1e;
+ (envelope-from <ore@pengutronix.de>) id 1tpoZv-0049PB-1k;
  Wed, 05 Mar 2025 14:14:27 +0100
 Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpoZv-006G5t-1O;
+ (envelope-from <ore@pengutronix.de>) id 1tpoZv-006G63-1T;
  Wed, 05 Mar 2025 14:14:27 +0100
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -36,8 +36,8 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Woojung Huh <woojung.huh@microchip.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>
-Date: Wed,  5 Mar 2025 14:14:24 +0100
-Message-Id: <20250305131425.1491769-4-o.rempel@pengutronix.de>
+Date: Wed,  5 Mar 2025 14:14:25 +0100
+Message-Id: <20250305131425.1491769-5-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250305131425.1491769-1-o.rempel@pengutronix.de>
 References: <20250305131425.1491769-1-o.rempel@pengutronix.de>
@@ -50,8 +50,8 @@ X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
  kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 3/4] ARM: dts: stm32: Add pinmux groups for
-	Plymovent AQM board
+Subject: [Linux-stm32] [PATCH v5 4/4] arm: dts: stm32: Add Plymovent AQM
+	devicetree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,388 +63,173 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pinmux groups required for the Plymovent AQM board.
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
----
- arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 292 ++++++++++++++++++++
- 1 file changed, 292 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-index 95fafc51a1c8..40605ea85ee1 100644
---- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
-@@ -25,6 +25,13 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	adc1_in10_pins_a: adc1-in10-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('C', 0, ANALOG)>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	adc12_ain_pins_a: adc12-ain-0 {
- 		pins {
-@@ -584,6 +591,43 @@ pins1 {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	ethernet0_rmii_pins_d: rmii-3 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 12, AF11)>, /* ETH1_RMII_TXD0 */
-+				 <STM32_PINMUX('B', 13, AF11)>, /* ETH1_RMII_TXD1 */
-+				 <STM32_PINMUX('B', 11, AF11)>, /* ETH1_RMII_TX_EN */
-+				 <STM32_PINMUX('A', 1, AF11)>, /* ETH1_RMII_REF_CLK */
-+				 <STM32_PINMUX('A', 2, AF11)>, /* ETH1_MDIO */
-+				 <STM32_PINMUX('C', 1, AF11)>; /* ETH1_MDC */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <2>;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('C', 4, AF11)>, /* ETH1_RMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, AF11)>, /* ETH1_RMII_RXD1 */
-+				 <STM32_PINMUX('A', 7, AF11)>; /* ETH1_RMII_CRS_DV */
-+			bias-disable;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	ethernet0_rmii_sleep_pins_d: rmii-sleep-3 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 12, ANALOG)>, /* ETH1_RMII_TXD0 */
-+				 <STM32_PINMUX('B', 13, ANALOG)>, /* ETH1_RMII_TXD1 */
-+				 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_RMII_TX_EN */
-+				 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH1_MDIO */
-+				 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH1_MDC */
-+				 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH1_RMII_RXD0 */
-+				 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH1_RMII_RXD1 */
-+				 <STM32_PINMUX('A', 1, ANALOG)>, /* ETH1_RMII_REF_CLK */
-+				 <STM32_PINMUX('A', 7, ANALOG)>; /* ETH1_RMII_CRS_DV */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	fmc_pins_a: fmc-0 {
- 		pins1 {
-@@ -725,6 +769,25 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2c1_pins_c: i2c1-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D', 12, AF5)>, /* I2C1_SCL */
-+				 <STM32_PINMUX('D', 13, AF5)>; /* I2C1_SDA */
-+			bias-disable;
-+			drive-open-drain;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	i2c1_sleep_pins_c: i2c1-sleep-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D', 12, ANALOG)>, /* I2C1_SCL */
-+				 <STM32_PINMUX('D', 13, ANALOG)>; /* I2C1_SDA */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2c2_pins_a: i2c2-0 {
- 		pins {
-@@ -819,6 +882,27 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2s1_pins_a: i2s1-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 6, AF5)>, /* I2S2_SDI */
-+				 <STM32_PINMUX('A', 4, AF5)>, /* I2S2_WS */
-+				 <STM32_PINMUX('A', 5, AF5)>; /* I2S2_CK */
-+			slew-rate = <0>;
-+			drive-push-pull;
-+			bias-disable;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	i2s1_sleep_pins_a: i2s1-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 6, ANALOG)>, /* I2S2_SDI */
-+				 <STM32_PINMUX('A', 4, ANALOG)>, /* I2S2_WS */
-+				 <STM32_PINMUX('A', 5, ANALOG)>; /* I2S2_CK */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	i2s2_pins_a: i2s2-0 {
- 		pins {
-@@ -1418,6 +1502,23 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	pwm1_pins_d: pwm1-3 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 0, AF2)>; /* TIM5_CH1 */
-+			bias-pull-down;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	pwm1_sleep_pins_d: pwm1-sleep-3 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 0, ANALOG)>;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	pwm2_pins_a: pwm2-0 {
- 		pins {
-@@ -2160,6 +2261,66 @@ pins3 {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	sdmmc2_b4_pins_c: sdmmc2-b4-2 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 7, AF10)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('E', 3, AF9)>; /* SDMMC2_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc2_b4_od_pins_c: sdmmc2-b4-od-2 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 7, AF10)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, AF9)>; /* SDMMC2_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('E', 3, AF9)>; /* SDMMC2_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins3 {
-+			pinmux = <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-open-drain;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc2_b4_sleep_pins_c: sdmmc2-b4-sleep-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 7, ANALOG)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('E', 3, ANALOG)>, /* SDMMC2_CK */
-+				 <STM32_PINMUX('G', 6, ANALOG)>; /* SDMMC2_CMD */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	sdmmc2_d47_pins_a: sdmmc2-d47-0 {
- 		pins {
-@@ -2389,6 +2550,66 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	sdmmc3_b4_pins_c: sdmmc3-b4-2 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('D', 1, AF10)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('D', 4, AF10)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, AF10)>, /* SDMMC3_D3 */
-+				 <STM32_PINMUX('D', 0, AF10)>; /* SDMMC3_CMD */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('G', 15, AF10)>; /* SDMMC3_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc3_b4_od_pins_c: sdmmc3-b4-od-2 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('D', 1, AF10)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('D', 4, AF10)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, AF10)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, AF10)>; /* SDMMC3_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('G', 15, AF10)>; /* SDMMC3_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+
-+		pins3 {
-+			pinmux = <STM32_PINMUX('D', 0, AF10)>; /* SDMMC3_CMD */
-+			slew-rate = <1>;
-+			drive-open-drain;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc3_b4_sleep_pins_c: sdmmc3-b4-sleep-2 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D', 1, ANALOG)>, /* SDMMC3_D0 */
-+				 <STM32_PINMUX('D', 4, ANALOG)>, /* SDMMC3_D1 */
-+				 <STM32_PINMUX('D', 5, ANALOG)>, /* SDMMC3_D2 */
-+				 <STM32_PINMUX('D', 7, ANALOG)>, /* SDMMC3_D3 */
-+				 <STM32_PINMUX('G', 15, ANALOG)>, /* SDMMC3_CK */
-+				 <STM32_PINMUX('D', 0, ANALOG)>; /* SDMMC3_CMD */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	spdifrx_pins_a: spdifrx-0 {
- 		pins {
-@@ -2600,6 +2821,41 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	uart4_pins_e: uart4-4 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('G', 11, AF6)>; /* UART4_TX */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('B', 8, AF8)>; /* UART4_RX */
-+			bias-disable;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	uart4_idle_pins_e: uart4-idle-4 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('G', 11, ANALOG)>; /* UART4_TX */
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('B', 8, AF8)>; /* UART4_RX */
-+			bias-disable;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	uart4_sleep_pins_e: uart4-sleep-4 {
-+		pins {
-+			pinmux = <STM32_PINMUX('G', 11, ANALOG)>, /* UART4_TX */
-+				 <STM32_PINMUX('B', 8, ANALOG)>; /* UART4_RX */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart5_pins_a: uart5-0 {
- 		pins1 {
-@@ -2677,6 +2933,23 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	uart7_pins_d: uart7-3 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 7, AF7)>, /* UART7_TX */
-+				 <STM32_PINMUX('F', 8, AF7)>; /* UART7_RTS */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+
-+		pins2 {
-+			pinmux = <STM32_PINMUX('E', 7, AF7)>, /* UART7_RX */
-+				 <STM32_PINMUX('F', 9, AF7)>; /* UART7_CTS */
-+			bias-disable;
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	uart8_pins_a: uart8-0 {
- 		pins1 {
-@@ -3118,6 +3391,25 @@ pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	i2c6_pins_b: i2c6-1 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 11, AF2)>, /* I2C6_SCL */
-+				 <STM32_PINMUX('A', 12, AF2)>; /* I2C6_SDA */
-+			bias-disable;
-+			drive-open-drain;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	i2c6_sleep_pins_b: i2c6-sleep-1 {
-+		pins {
-+			pinmux = <STM32_PINMUX('A', 11, ANALOG)>, /* I2C6_SCL */
-+				 <STM32_PINMUX('A', 12, ANALOG)>; /* I2C6_SDA */
-+		};
-+	};
-+
- 	/omit-if-no-ref/
- 	spi1_pins_a: spi1-0 {
- 		pins1 {
--- 
-2.39.5
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SW50cm9kdWNlIHRoZSBkZXZpY2V0cmVlIGZvciB0aGUgUGx5bW92ZW50IEFRTSBib2FyZAooc3Rt
+MzJtcDE1MWMtcGx5YXFtKSwgYmFzZWQgb24gdGhlIFNUTTMyTVAxNTEgU29DLgoKU2lnbmVkLW9m
+Zi1ieTogT2xla3NpaiBSZW1wZWwgPG8ucmVtcGVsQHBlbmd1dHJvbml4LmRlPgotLS0KY2hhbmdl
+cyB2NDoKLSBtb3ZlIGFsbCBwaW5jdHJscyB0byBzdG0zMm1wMTUtcGluY3RybC5kdHNpCi0gcmVt
+b3ZlIHNvbWUgb2YgY29tbWVudHMKY2hhbmdlcyB2MjoKLSByZW1vdmUgc3BpZGV2Ci0tLQogYXJj
+aC9hcm0vYm9vdC9kdHMvc3QvTWFrZWZpbGUgICAgICAgICAgICAgICB8ICAgMSArCiBhcmNoL2Fy
+bS9ib290L2R0cy9zdC9zdG0zMm1wMTUxYy1wbHlhcW0uZHRzIHwgMzc2ICsrKysrKysrKysrKysr
+KysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDM3NyBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MWMtcGx5YXFtLmR0cwoKZGlmZiAt
+LWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlIGIvYXJjaC9hcm0vYm9vdC9kdHMv
+c3QvTWFrZWZpbGUKaW5kZXggZDhmMjk3MDM1ODEyLi41NjE4MTllZjdhMzIgMTAwNjQ0Ci0tLSBh
+L2FyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0
+L01ha2VmaWxlCkBAIC0zOCw2ICszOCw3IEBAIGR0Yi0kKENPTkZJR19BUkNIX1NUTTMyKSArPSBc
+CiAJc3RtMzJtcDE1MWEtZGhjb3ItdGVzdGJlbmNoLmR0YiBcCiAJc3RtMzJtcDE1MWMtbWVjaW8x
+cjAuZHRiIFwKIAlzdG0zMm1wMTUxYy1tZWN0MXMuZHRiIFwKKwlzdG0zMm1wMTUxYy1wbHlhcW0u
+ZHRiIFwKIAlzdG0zMm1wMTUzYy1kaGNvbS1kcmMwMi5kdGIgXAogCXN0bTMybXAxNTNjLWRoY29y
+LWRyYy1jb21wYWN0LmR0YiBcCiAJc3RtMzJtcDE1M2MtbHhhLXRhYy1nZW4zLmR0YiBcCmRpZmYg
+LS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTUxYy1wbHlhcW0uZHRzIGIvYXJj
+aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MWMtcGx5YXFtLmR0cwpuZXcgZmlsZSBtb2RlIDEw
+MDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjM5YTMyMTFjNjEzMwotLS0gL2Rldi9udWxsCisrKyBi
+L2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTFjLXBseWFxbS5kdHMKQEAgLTAsMCArMSwz
+NzYgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCsgT1IgQlNELTMtQ2xh
+dXNlKQorL2R0cy12MS87CisKKyNpbmNsdWRlIDxhcm0vc3Qvc3RtMzJtcDE1MS5kdHNpPgorI2lu
+Y2x1ZGUgPGFybS9zdC9zdG0zMm1wMTV4Yy5kdHNpPgorI2luY2x1ZGUgPGFybS9zdC9zdG0zMm1w
+MTUtcGluY3RybC5kdHNpPgorI2luY2x1ZGUgPGFybS9zdC9zdG0zMm1wMTV4eGFkLXBpbmN0cmwu
+ZHRzaT4KKyNpbmNsdWRlIDxhcm0vc3Qvc3RtMzJtcDE1LXNjbWkuZHRzaT4KKyNpbmNsdWRlIDxk
+dC1iaW5kaW5ncy9ncGlvL2dwaW8uaD4KKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9sZWRzL2NvbW1v
+bi5oPgorCisvIHsKKwltb2RlbCA9ICJQbHltb3ZlbnQgQVFNIGJvYXJkIjsKKwljb21wYXRpYmxl
+ID0gInBseSxwbHlhcW0iLCAic3Qsc3RtMzJtcDE1MSI7CisKKwlhbGlhc2VzIHsKKwkJZXRoZXJu
+ZXQwID0gJmV0aGVybmV0MDsKKwkJc2VyaWFsMCA9ICZ1YXJ0NDsKKwkJc2VyaWFsMSA9ICZ1YXJ0
+NzsKKwl9OworCisJY29kZWMgeworCQljb21wYXRpYmxlID0gImludmVuc2Vuc2UsaWNzNDM0MzIi
+OworCisJCXBvcnQgeworCQkJY29kZWNfZW5kcG9pbnQ6IGVuZHBvaW50IHsKKwkJCQlyZW1vdGUt
+ZW5kcG9pbnQgPSA8JmkyczFfZW5kcG9pbnQ+OworCQkJCWRhaS1mb3JtYXQgPSAiaTJzIjsKKwkJ
+CX07CisJCX07CisJfTsKKworCWZpcm13YXJlIHsKKwkJb3B0ZWUgeworCQkJY29tcGF0aWJsZSA9
+ICJsaW5hcm8sb3B0ZWUtdHoiOworCQkJbWV0aG9kID0gInNtYyI7CisJCX07CisJfTsKKworCWxl
+ZHMgeworCQljb21wYXRpYmxlID0gImdwaW8tbGVkcyI7CisKKwkJbGVkLTAgeworCQkJZ3Bpb3Mg
+PSA8JmdwaW9hIDMgR1BJT19BQ1RJVkVfSElHSD47IC8qIFdISVRFX0VOICovCisJCQljb2xvciA9
+IDxMRURfQ09MT1JfSURfV0hJVEU+OworCQkJZGVmYXVsdC1zdGF0ZSA9ICJvbiI7CisJCX07CisJ
+fTsKKworCXYzdjM6IGZpeGVkLXJlZ3VsYXRvci12M3YzIHsKKwkJY29tcGF0aWJsZSA9ICJyZWd1
+bGF0b3ItZml4ZWQiOworCQlyZWd1bGF0b3ItbmFtZSA9ICJ2M3YzIjsKKwkJcmVndWxhdG9yLW1p
+bi1taWNyb3ZvbHQgPSA8MzMwMDAwMD47CisJCXJlZ3VsYXRvci1tYXgtbWljcm92b2x0ID0gPDMz
+MDAwMDA+OworCX07CisKKwl2NXZfc3c6IGZpeGVkLXJlZ3VsYXRvci12NXN3IHsKKwkJY29tcGF0
+aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOworCQlyZWd1bGF0b3ItbmFtZSA9ICI1di1zd2l0Y2hl
+ZCI7CisJCXJlZ3VsYXRvci1taW4tbWljcm92b2x0ID0gPDUwMDAwMDA+OworCQlyZWd1bGF0b3It
+bWF4LW1pY3Jvdm9sdCA9IDw1MDAwMDAwPjsKKwkJZ3BpbyA9IDwmZ3Bpb2UgMTAgR1BJT19BQ1RJ
+VkVfSElHSD47IC8qIDVWX1NXSVRDSEVEX0VOICovCisJCXN0YXJ0dXAtZGVsYXktdXMgPSA8MTAw
+MDAwPjsKKwkJZW5hYmxlLWFjdGl2ZS1oaWdoOworCQlyZWd1bGF0b3ItYm9vdC1vbjsKKwl9Owor
+CisJcmVzZXJ2ZWQtbWVtb3J5IHsKKwkJI2FkZHJlc3MtY2VsbHMgPSA8MT47CisJCSNzaXplLWNl
+bGxzID0gPDE+OworCQlyYW5nZXM7CisKKwkJb3B0ZWVAY2ZkMDAwMDAgeworCQkJcmVnID0gPDB4
+Y2ZkMDAwMDAgMHgzMDAwMDA+OworCQkJbm8tbWFwOworCQl9OworCX07CisKKwlzb3VuZCB7CisJ
+CWNvbXBhdGlibGUgPSAiYXVkaW8tZ3JhcGgtY2FyZCI7CisJCWxhYmVsID0gIlNUTTMyTVAxNSI7
+CisJCWRhaXMgPSA8JmkyczFfcG9ydD47CisJfTsKKworCXdpZmlfcHdyc2VxOiB3aWZpLXB3cnNl
+cSB7CisJCWNvbXBhdGlibGUgPSAibW1jLXB3cnNlcS1zaW1wbGUiOworCQlyZXNldC1ncGlvcyA9
+IDwmZ3Bpb2UgMTIgR1BJT19BQ1RJVkVfTE9XPjsgLyogV0xBTl9SRUdfT04gKi8KKwl9OworfTsK
+KworJmFkYyB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKKwlwaW5jdHJsLTAgPSA8JmFk
+YzFfaW4xMF9waW5zX2E+OworCXZkZGEtc3VwcGx5ID0gPCZ2M3YzPjsKKwl2cmVmLXN1cHBseSA9
+IDwmdjN2Mz47CisJc3RhdHVzID0gIm9rYXkiOworCisJYWRjQDAgeworCQkjYWRkcmVzcy1jZWxs
+cyA9IDwxPjsKKwkJI3NpemUtY2VsbHMgPSA8MD47CisJCXN0YXR1cyA9ICJva2F5IjsKKworCQlj
+aGFubmVsQDEwIHsgLyogTlRDICovCisJCQlyZWcgPSA8MTA+OworCQkJc3QsbWluLXNhbXBsZS10
+aW1lLW5zID0gPDEwMDAwPjsgIC8qIDEwwrVzIHNhbXBsaW5nIHRpbWUgKi8KKwkJfTsKKwl9Owor
+fTsKKworJmNwdTAgeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9NUFU+OworfTsKKwor
+JmNyeXAxIHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfQ1JZUDE+OworCXJlc2V0cyA9
+IDwmc2NtaV9yZXNldCBSU1RfU0NNSV9DUllQMT47CisJc3RhdHVzID0gIm9rYXkiOworfTsKKwor
+JmV0aGVybmV0MCB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IiwgInNsZWVwIjsKKwlwaW5j
+dHJsLTAgPSA8JmV0aGVybmV0MF9ybWlpX3BpbnNfZD47CisJcGluY3RybC0xID0gPCZldGhlcm5l
+dDBfcm1paV9zbGVlcF9waW5zX2Q+OworCXBoeS1tb2RlID0gInJtaWkiOworCW1heC1zcGVlZCA9
+IDwxMDA+OworCXBoeS1oYW5kbGUgPSA8JmV0aHBoeTA+OworCXN0YXR1cyA9ICJva2F5IjsKKwor
+CW1kaW8geworCQkjYWRkcmVzcy1jZWxscyA9IDwxPjsKKwkJI3NpemUtY2VsbHMgPSA8MD47CisJ
+CWNvbXBhdGlibGUgPSAic25wcyxkd21hYy1tZGlvIjsKKworCQkvKiBLU1o4MDgxUk5BIFBIWSAq
+LworCQlldGhwaHkwOiBldGhlcm5ldC1waHlAMCB7CisJCQlyZWcgPSA8MD47CisJCQlpbnRlcnJ1
+cHRzLWV4dGVuZGVkID0gPCZncGlvYiAwIElSUV9UWVBFX0xFVkVMX0xPVz47CisJCQlyZXNldC1n
+cGlvcyA9IDwmZ3Bpb2IgMSBHUElPX0FDVElWRV9MT1c+OworCQkJcmVzZXQtYXNzZXJ0LXVzID0g
+PDEwMDAwPjsKKwkJCXJlc2V0LWRlYXNzZXJ0LXVzID0gPDMwMD47CisJCX07CisJfTsKK307CisK
+KyZncGlvYSB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIiLCAiIiwgIiIsICIiLCAiIiwg
+IiIsICIiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICJIV0lEX1BMX04iLCAiSFdJRF9DUCIsICIi
+OworfTsKKworJmdwaW9iIHsKKwlncGlvLWxpbmUtbmFtZXMgPQorCQkiIiwgIiIsICIiLCAiIiwg
+IiIsICIiLCAiTEVEX0xBVENIIiwgIiIsCisJCSIiLCAiUkVMQVkxX0VOIiwgIiIsICIiLCAiIiwg
+IiIsICIiLCAiIjsKK307CisKKyZncGlvYyB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIi
+LCAiIiwgIiIsICIiLCAiIiwgIiIsICIiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICJIV0lEX1E3
+IiwgIiIsICIiOworfTsKKworJmdwaW9lIHsKKwlncGlvLWxpbmUtbmFtZXMgPQorCQkiIiwgIiIs
+ICIiLCAiIiwgIlJFTEFZMl9FTiIsICIiLCAiIiwgIiIsCisJCSIiLCAiIiwgIiIsICIiLCAiIiwg
+IiIsICIiLCAiIjsKK307CisKKyZncGlvZyB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIi
+LCAiIiwgIiIsICIiLCAiIiwgIiIsICJTVzEiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICIiLCAi
+IiwgIiI7Cit9OworCismZ3Bpb3ogeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9HUElP
+Wj47Cit9OworCismaGFzaDEgeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9IQVNIMT47
+CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0hBU0gxPjsKK307CisKKyZpMmMxIHsK
+KwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOworCXBpbmN0cmwtMCA9IDwmaTJj
+MV9waW5zX2M+OworCXBpbmN0cmwtMSA9IDwmaTJjMV9zbGVlcF9waW5zX2M+OworCWkyYy1zY2wt
+cmlzaW5nLXRpbWUtbnMgPSA8MTg1PjsKKwlpMmMtc2NsLWZhbGxpbmctdGltZS1ucyA9IDwyMD47
+CisJc3RhdHVzID0gIm9rYXkiOworCS9kZWxldGUtcHJvcGVydHkvZG1hczsKKwkvZGVsZXRlLXBy
+b3BlcnR5L2RtYS1uYW1lczsKK307CisKKyZpMmM0IHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENL
+X1NDTUlfSTJDND47CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0kyQzQ+OworfTsK
+KworJmkyYzYgeworCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIsICJzbGVlcCI7CisJcGluY3Ry
+bC0wID0gPCZpMmM2X3BpbnNfYj47CisJcGluY3RybC0xID0gPCZpMmM2X3NsZWVwX3BpbnNfYj47
+CisJaTJjLXNjbC1yaXNpbmctdGltZS1ucyA9IDwxODU+OworCWkyYy1zY2wtZmFsbGluZy10aW1l
+LW5zID0gPDIwPjsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfSTJDNj47CisJcmVzZXRz
+ID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0kyQzY+OworCXN0YXR1cyA9ICJva2F5IjsKKwkvZGVs
+ZXRlLXByb3BlcnR5L2RtYXM7CisJL2RlbGV0ZS1wcm9wZXJ0eS9kbWEtbmFtZXM7CisKKwlwcmVz
+c3VyZS1zZW5zb3JANDcgeworCQljb21wYXRpYmxlID0gImJvc2NoLGJtcDU4MCI7CisJCXJlZyA9
+IDwweDQ3PjsKKwkJdmRkYS1zdXBwbHkgPSA8JnY1dl9zdz47CisJCXZkZGQtc3VwcGx5ID0gPCZ2
+NXZfc3c+OworCX07CisKKwljbzItc2Vuc29yQDYyIHsKKwkJY29tcGF0aWJsZSA9ICJzZW5zaXJp
+b24sc2NkNDEiOworCQlyZWcgPSA8MHg2Mj47CisJCXZkZC1zdXBwbHkgPSA8JnY1dl9zdz47CisJ
+fTsKKworCXBtLXNlbnNvckA2OSB7CisJCWNvbXBhdGlibGUgPSAic2Vuc2lyaW9uLHNwczMwIjsK
+KwkJcmVnID0gPDB4Njk+OworCX07Cit9OworCismaTJzMSB7CisJcGluY3RybC1uYW1lcyA9ICJk
+ZWZhdWx0IiwgInNsZWVwIjsKKwlwaW5jdHJsLTAgPSA8JmkyczFfcGluc19hPjsKKwlwaW5jdHJs
+LTEgPSA8JmkyczFfc2xlZXBfcGluc19hPjsKKwljbG9ja3MgPSA8JnJjYyBTUEkxPiwgPCZyY2Mg
+U1BJMV9LPiwgPCZyY2MgUExMM19RPiwgPCZyY2MgUExMM19SPjsKKwljbG9jay1uYW1lcyA9ICJw
+Y2xrIiwgImkyc2NsayIsICJ4OGsiLCAieDExayI7CisJI2Nsb2NrLWNlbGxzID0gPDA+OyAvKiBT
+ZXQgSTJTMiBhcyBtYXN0ZXIgY2xvY2sgcHJvdmlkZXIgKi8KKwlzdGF0dXMgPSAib2theSI7CisK
+KwlpMnMxX3BvcnQ6IHBvcnQgeworCQlpMnMxX2VuZHBvaW50OiBlbmRwb2ludCB7CisJCQlmb3Jt
+YXQgPSAiaTJzIjsKKwkJCW1jbGstZnMgPSA8MjU2PjsKKwkJCXJlbW90ZS1lbmRwb2ludCA9IDwm
+Y29kZWNfZW5kcG9pbnQ+OworCQl9OworCX07Cit9OworCismaXdkZzIgeworCWNsb2NrcyA9IDwm
+cmNjIElXREcyPiwgPCZzY21pX2NsayBDS19TQ01JX0xTST47CisJc3RhdHVzID0gIm9rYXkiOwor
+fTsKKworJm00X3Jwcm9jIHsKKwkvZGVsZXRlLXByb3BlcnR5LyBzdCxzeXNjZmctaG9sZGJvb3Q7
+CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX01DVT4sCisJCSA8JnNjbWlfcmVzZXQg
+UlNUX1NDTUlfTUNVX0hPTERfQk9PVD47CisJcmVzZXQtbmFtZXMgPSAgIm1jdV9yc3QiLCAiaG9s
+ZF9ib290IjsKK307CisKKyZtZG1hMSB7CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01J
+X01ETUE+OworfTsKKworJnJjYyB7CisJY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMS1yY2Mtc2Vj
+dXJlIiwgInN5c2NvbiI7CisJY2xvY2stbmFtZXMgPSAiaHNlIiwgImhzaSIsICJjc2kiLCAibHNl
+IiwgImxzaSI7CisJY2xvY2tzID0gPCZzY21pX2NsayBDS19TQ01JX0hTRT4sCisJCSA8JnNjbWlf
+Y2xrIENLX1NDTUlfSFNJPiwKKwkJIDwmc2NtaV9jbGsgQ0tfU0NNSV9DU0k+LAorCQkgPCZzY21p
+X2NsayBDS19TQ01JX0xTRT4sCisJCSA8JnNjbWlfY2xrIENLX1NDTUlfTFNJPjsKK307CisKKyZy
+bmcxIHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfUk5HMT47CisJcmVzZXRzID0gPCZz
+Y21pX3Jlc2V0IFJTVF9TQ01JX1JORzE+OworCXN0YXR1cyA9ICJva2F5IjsKK307CisKKyZydGMg
+eworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9SVENBUEI+LCA8JnNjbWlfY2xrIENLX1ND
+TUlfUlRDPjsKK307CisKKy8qIFNEIGNhcmQgd2l0aG91dCBDYXJkLWRldGVjdCAqLworJnNkbW1j
+MSB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IiwgIm9wZW5kcmFpbiIsICJzbGVlcCI7CisJ
+cGluY3RybC0wID0gPCZzZG1tYzFfYjRfcGluc19hPjsKKwlwaW5jdHJsLTEgPSA8JnNkbW1jMV9i
+NF9vZF9waW5zX2E+OworCXBpbmN0cmwtMiA9IDwmc2RtbWMxX2I0X3NsZWVwX3BpbnNfYT47CisJ
+YnJva2VuLWNkOworCW5vLXNkaW87CisJbm8tMS04LXY7CisJc3QsbmVnLWVkZ2U7CisJYnVzLXdp
+ZHRoID0gPDQ+OworCXZtbWMtc3VwcGx5ID0gPCZ2M3YzPjsKKwlzdGF0dXMgPSAib2theSI7Cit9
+OworCisvKiBFTU1DICovCismc2RtbWMyIHsKKwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAi
+b3BlbmRyYWluIiwgInNsZWVwIjsKKwlwaW5jdHJsLTAgPSA8JnNkbW1jMl9iNF9waW5zX2MgJnNk
+bW1jMl9kNDdfcGluc19iPjsKKwlwaW5jdHJsLTEgPSA8JnNkbW1jMl9iNF9vZF9waW5zX2MgJnNk
+bW1jMl9kNDdfcGluc19iPjsKKwlwaW5jdHJsLTIgPSA8JnNkbW1jMl9iNF9zbGVlcF9waW5zX2Mg
+JnNkbW1jMl9kNDdfc2xlZXBfcGluc19iPjsKKwlub24tcmVtb3ZhYmxlOworCW5vLXNkOworCW5v
+LXNkaW87CisJbm8tMS04LXY7CisJc3QsbmVnLWVkZ2U7CisJYnVzLXdpZHRoID0gPDg+OworCXZt
+bWMtc3VwcGx5ID0gPCZ2M3YzPjsKKwlzdGF0dXMgPSAib2theSI7Cit9OworCisvKiBXaWZpICov
+Cismc2RtbWMzIHsKKwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAib3BlbmRyYWluIiwgInNs
+ZWVwIjsKKwlwaW5jdHJsLTAgPSA8JnNkbW1jM19iNF9waW5zX2M+OworCXBpbmN0cmwtMSA9IDwm
+c2RtbWMzX2I0X29kX3BpbnNfYz47CisJcGluY3RybC0yID0gPCZzZG1tYzNfYjRfc2xlZXBfcGlu
+c19jPjsKKwlub24tcmVtb3ZhYmxlOworCXN0LG5lZy1lZGdlOworCWJ1cy13aWR0aCA9IDw0PjsK
+Kwl2bW1jLXN1cHBseSA9IDwmdjN2Mz47CisJbW1jLXB3cnNlcSA9IDwmd2lmaV9wd3JzZXE+Owor
+CSNhZGRyZXNzLWNlbGxzID0gPDE+OworCSNzaXplLWNlbGxzID0gPDA+OworCXN0YXR1cyA9ICJv
+a2F5IjsKKworCXdpZmlAMSB7CisJCXJlZyA9IDwxPjsKKwkJY29tcGF0aWJsZSA9ICJicmNtLGJj
+bTQzMjktZm1hYyI7CisJfTsKK307CisKKyZ0aW1lcnM1IHsKKwlzdGF0dXMgPSAib2theSI7CisJ
+L2RlbGV0ZS1wcm9wZXJ0eS9kbWFzOworCS9kZWxldGUtcHJvcGVydHkvZG1hLW5hbWVzOworCisJ
+cHdtIHsKKwkJcGluY3RybC0wID0gPCZwd20xX3BpbnNfZD47CisJCXBpbmN0cmwtMSA9IDwmcHdt
+MV9zbGVlcF9waW5zX2Q+OworCQlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOwor
+CQlzdGF0dXMgPSAib2theSI7CisJfTsKK307CisKKyZ1YXJ0NCB7CisJcGluY3RybC1uYW1lcyA9
+ICJkZWZhdWx0IiwgInNsZWVwIiwgImlkbGUiOworCXBpbmN0cmwtMCA9IDwmdWFydDRfcGluc19l
+PjsKKwlwaW5jdHJsLTEgPSA8JnVhcnQ0X2lkbGVfcGluc19lPjsKKwlwaW5jdHJsLTIgPSA8JnVh
+cnQ0X3NsZWVwX3BpbnNfZT47CisJL2RlbGV0ZS1wcm9wZXJ0eS9kbWFzOworCS9kZWxldGUtcHJv
+cGVydHkvZG1hLW5hbWVzOworCXN0YXR1cyA9ICJva2F5IjsKK307CisKKyZ1YXJ0NyB7CisJcGlu
+Y3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKKwlwaW5jdHJsLTAgPSA8JnVhcnQ3X3BpbnNfZD47CisJ
+dWFydC1oYXMtcnRzY3RzOworCXN0YXR1cyA9ICJva2F5IjsKKworCWJsdWV0b290aCB7CisJCWNv
+bXBhdGlibGUgPSAiYnJjbSxiY200MzQzOC1idCI7CisJCXNodXRkb3duLWdwaW9zID0gPCZncGlv
+ZSAxMSBHUElPX0FDVElWRV9ISUdIPjsgLyogQlRfUkVHX09OICovCisJCW1heC1zcGVlZCA9IDw0
+MDAwMDAwPjsKKwkJdmJhdC1zdXBwbHkgPSA8JnYzdjM+OworCQl2ZGRpby1zdXBwbHkgPSA8JnYz
+djM+OworCQlpbnRlcnJ1cHQtcGFyZW50ID0gPCZncGlvZz47CisJCWludGVycnVwdHMgPSA8MTIg
+SVJRX1RZUEVfRURHRV9SSVNJTkc+OyAvKiBCVF9IT1NUX1dBS0UgKi8KKwkJaW50ZXJydXB0LW5h
+bWVzID0gImhvc3Qtd2FrZXVwIjsKKwl9OworfTsKLS0gCjIuMzkuNQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
