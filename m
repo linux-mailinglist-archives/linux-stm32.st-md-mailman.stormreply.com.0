@@ -2,56 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12A68A4FFE8
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 14:14:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244A9A50083
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Mar 2025 14:28:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCD5C78F83;
-	Wed,  5 Mar 2025 13:14:52 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD4DCC78037;
+	Wed,  5 Mar 2025 13:28:08 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 059D0CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AEE8CFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 Mar 2025 13:14:51 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1tpoZw-0000xe-A1; Wed, 05 Mar 2025 14:14:28 +0100
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpoZv-0049PB-1k;
- Wed, 05 Mar 2025 14:14:27 +0100
-Received: from ore by dude04.red.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1tpoZv-006G63-1T;
- Wed, 05 Mar 2025 14:14:27 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Woojung Huh <woojung.huh@microchip.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>
-Date: Wed,  5 Mar 2025 14:14:25 +0100
-Message-Id: <20250305131425.1491769-5-o.rempel@pengutronix.de>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250305131425.1491769-1-o.rempel@pengutronix.de>
-References: <20250305131425.1491769-1-o.rempel@pengutronix.de>
+ Wed,  5 Mar 2025 13:28:07 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 525B19UP028088;
+ Wed, 5 Mar 2025 13:27:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XfWLYP57gVsIyTQR+W3aALSmFfgRt/y1vRXHXiE9DW4=; b=J9uoP7ECC637HiZl
+ QtnRPAUvy4H7tYkShruj8LM9vQoCd4Y5XT+0VIRWJH/LkqCcjbrryFEeKAaf3l3P
+ YYcW2iv+5gbBwRaPNbjJ//ejBXxhq+Tu/srjibCuZhchzewrw0ohwKaVhGdbJqXz
+ oMBfMcWi8kSs+YRXfBLmHEH17RQ5mLUfyHYC2H2RanCRY7+GukKJLck+iGGSCb3C
+ RAF4Duf2SgF/x8KVMQ8IbngmncL9xINwscSXcVy+oxNrVSv2/nWVlFKGzKJhk4GM
+ o1Q8P72XCo9aLzWj1EhwgSarJ0SzP0TUWK8jDJdhasFAU4mqQHF6x1PGIqKuz6+s
+ 2crPqg==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 455p6vdc7w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Mar 2025 13:27:47 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 525DRQG7002596
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 5 Mar 2025 13:27:26 GMT
+Received: from [10.133.33.61] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 5 Mar 2025
+ 05:27:20 -0800
+Message-ID: <7fe6c345-85cf-4114-b419-f50d1a6cbef1@quicinc.com>
+Date: Wed, 5 Mar 2025 21:27:17 +0800
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
- kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 4/4] arm: dts: stm32: Add Plymovent AQM
-	devicetree
+User-Agent: Mozilla Thunderbird
+To: Mike Leach <mike.leach@linaro.org>
+References: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
+ <20250303032931.2500935-3-quic_jiegan@quicinc.com>
+ <CAJ9a7VgGp4YqzN-yx0x+NiZG8now6SCmnimaou2Z=exYcoiegw@mail.gmail.com>
+Content-Language: en-US
+From: Jie Gan <quic_jiegan@quicinc.com>
+In-Reply-To: <CAJ9a7VgGp4YqzN-yx0x+NiZG8now6SCmnimaou2Z=exYcoiegw@mail.gmail.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: ZX3-QF7poviCcbiF4XHdi-8RCpyBDC1H
+X-Authority-Analysis: v=2.4 cv=bPnsIO+Z c=1 sm=1 tr=0 ts=67c85153 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=COk6AnOGAAAA:8
+ a=KKAkSRfTAAAA:8 a=LpQP-O61AAAA:8
+ a=_YhmHaDjSWNydp913SEA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+ a=cvBusfyB2V15izCimMoJ:22 a=pioyyrs4ZptJ924tMmac:22
+X-Proofpoint-GUID: ZX3-QF7poviCcbiF4XHdi-8RCpyBDC1H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-05_05,2025-03-05_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ spamscore=0 mlxscore=0 clxscore=1015 bulkscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam authscore=0 authtc=n/a authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.19.0-2502100000
+ definitions=main-2503050107
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jinlong Mao <quic_jinlmao@quicinc.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ coresight@lists.linaro.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v15 02/10] Coresight: Add trace_id
+ function to retrieving the trace ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,173 +100,242 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SW50cm9kdWNlIHRoZSBkZXZpY2V0cmVlIGZvciB0aGUgUGx5bW92ZW50IEFRTSBib2FyZAooc3Rt
-MzJtcDE1MWMtcGx5YXFtKSwgYmFzZWQgb24gdGhlIFNUTTMyTVAxNTEgU29DLgoKU2lnbmVkLW9m
-Zi1ieTogT2xla3NpaiBSZW1wZWwgPG8ucmVtcGVsQHBlbmd1dHJvbml4LmRlPgotLS0KY2hhbmdl
-cyB2NDoKLSBtb3ZlIGFsbCBwaW5jdHJscyB0byBzdG0zMm1wMTUtcGluY3RybC5kdHNpCi0gcmVt
-b3ZlIHNvbWUgb2YgY29tbWVudHMKY2hhbmdlcyB2MjoKLSByZW1vdmUgc3BpZGV2Ci0tLQogYXJj
-aC9hcm0vYm9vdC9kdHMvc3QvTWFrZWZpbGUgICAgICAgICAgICAgICB8ICAgMSArCiBhcmNoL2Fy
-bS9ib290L2R0cy9zdC9zdG0zMm1wMTUxYy1wbHlhcW0uZHRzIHwgMzc2ICsrKysrKysrKysrKysr
-KysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDM3NyBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9kZSAx
-MDA2NDQgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MWMtcGx5YXFtLmR0cwoKZGlmZiAt
-LWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlIGIvYXJjaC9hcm0vYm9vdC9kdHMv
-c3QvTWFrZWZpbGUKaW5kZXggZDhmMjk3MDM1ODEyLi41NjE4MTllZjdhMzIgMTAwNjQ0Ci0tLSBh
-L2FyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0
-L01ha2VmaWxlCkBAIC0zOCw2ICszOCw3IEBAIGR0Yi0kKENPTkZJR19BUkNIX1NUTTMyKSArPSBc
-CiAJc3RtMzJtcDE1MWEtZGhjb3ItdGVzdGJlbmNoLmR0YiBcCiAJc3RtMzJtcDE1MWMtbWVjaW8x
-cjAuZHRiIFwKIAlzdG0zMm1wMTUxYy1tZWN0MXMuZHRiIFwKKwlzdG0zMm1wMTUxYy1wbHlhcW0u
-ZHRiIFwKIAlzdG0zMm1wMTUzYy1kaGNvbS1kcmMwMi5kdGIgXAogCXN0bTMybXAxNTNjLWRoY29y
-LWRyYy1jb21wYWN0LmR0YiBcCiAJc3RtMzJtcDE1M2MtbHhhLXRhYy1nZW4zLmR0YiBcCmRpZmYg
-LS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTUxYy1wbHlhcW0uZHRzIGIvYXJj
-aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MWMtcGx5YXFtLmR0cwpuZXcgZmlsZSBtb2RlIDEw
-MDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjM5YTMyMTFjNjEzMwotLS0gL2Rldi9udWxsCisrKyBi
-L2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTFjLXBseWFxbS5kdHMKQEAgLTAsMCArMSwz
-NzYgQEAKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCsgT1IgQlNELTMtQ2xh
-dXNlKQorL2R0cy12MS87CisKKyNpbmNsdWRlIDxhcm0vc3Qvc3RtMzJtcDE1MS5kdHNpPgorI2lu
-Y2x1ZGUgPGFybS9zdC9zdG0zMm1wMTV4Yy5kdHNpPgorI2luY2x1ZGUgPGFybS9zdC9zdG0zMm1w
-MTUtcGluY3RybC5kdHNpPgorI2luY2x1ZGUgPGFybS9zdC9zdG0zMm1wMTV4eGFkLXBpbmN0cmwu
-ZHRzaT4KKyNpbmNsdWRlIDxhcm0vc3Qvc3RtMzJtcDE1LXNjbWkuZHRzaT4KKyNpbmNsdWRlIDxk
-dC1iaW5kaW5ncy9ncGlvL2dwaW8uaD4KKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9sZWRzL2NvbW1v
-bi5oPgorCisvIHsKKwltb2RlbCA9ICJQbHltb3ZlbnQgQVFNIGJvYXJkIjsKKwljb21wYXRpYmxl
-ID0gInBseSxwbHlhcW0iLCAic3Qsc3RtMzJtcDE1MSI7CisKKwlhbGlhc2VzIHsKKwkJZXRoZXJu
-ZXQwID0gJmV0aGVybmV0MDsKKwkJc2VyaWFsMCA9ICZ1YXJ0NDsKKwkJc2VyaWFsMSA9ICZ1YXJ0
-NzsKKwl9OworCisJY29kZWMgeworCQljb21wYXRpYmxlID0gImludmVuc2Vuc2UsaWNzNDM0MzIi
-OworCisJCXBvcnQgeworCQkJY29kZWNfZW5kcG9pbnQ6IGVuZHBvaW50IHsKKwkJCQlyZW1vdGUt
-ZW5kcG9pbnQgPSA8JmkyczFfZW5kcG9pbnQ+OworCQkJCWRhaS1mb3JtYXQgPSAiaTJzIjsKKwkJ
-CX07CisJCX07CisJfTsKKworCWZpcm13YXJlIHsKKwkJb3B0ZWUgeworCQkJY29tcGF0aWJsZSA9
-ICJsaW5hcm8sb3B0ZWUtdHoiOworCQkJbWV0aG9kID0gInNtYyI7CisJCX07CisJfTsKKworCWxl
-ZHMgeworCQljb21wYXRpYmxlID0gImdwaW8tbGVkcyI7CisKKwkJbGVkLTAgeworCQkJZ3Bpb3Mg
-PSA8JmdwaW9hIDMgR1BJT19BQ1RJVkVfSElHSD47IC8qIFdISVRFX0VOICovCisJCQljb2xvciA9
-IDxMRURfQ09MT1JfSURfV0hJVEU+OworCQkJZGVmYXVsdC1zdGF0ZSA9ICJvbiI7CisJCX07CisJ
-fTsKKworCXYzdjM6IGZpeGVkLXJlZ3VsYXRvci12M3YzIHsKKwkJY29tcGF0aWJsZSA9ICJyZWd1
-bGF0b3ItZml4ZWQiOworCQlyZWd1bGF0b3ItbmFtZSA9ICJ2M3YzIjsKKwkJcmVndWxhdG9yLW1p
-bi1taWNyb3ZvbHQgPSA8MzMwMDAwMD47CisJCXJlZ3VsYXRvci1tYXgtbWljcm92b2x0ID0gPDMz
-MDAwMDA+OworCX07CisKKwl2NXZfc3c6IGZpeGVkLXJlZ3VsYXRvci12NXN3IHsKKwkJY29tcGF0
-aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOworCQlyZWd1bGF0b3ItbmFtZSA9ICI1di1zd2l0Y2hl
-ZCI7CisJCXJlZ3VsYXRvci1taW4tbWljcm92b2x0ID0gPDUwMDAwMDA+OworCQlyZWd1bGF0b3It
-bWF4LW1pY3Jvdm9sdCA9IDw1MDAwMDAwPjsKKwkJZ3BpbyA9IDwmZ3Bpb2UgMTAgR1BJT19BQ1RJ
-VkVfSElHSD47IC8qIDVWX1NXSVRDSEVEX0VOICovCisJCXN0YXJ0dXAtZGVsYXktdXMgPSA8MTAw
-MDAwPjsKKwkJZW5hYmxlLWFjdGl2ZS1oaWdoOworCQlyZWd1bGF0b3ItYm9vdC1vbjsKKwl9Owor
-CisJcmVzZXJ2ZWQtbWVtb3J5IHsKKwkJI2FkZHJlc3MtY2VsbHMgPSA8MT47CisJCSNzaXplLWNl
-bGxzID0gPDE+OworCQlyYW5nZXM7CisKKwkJb3B0ZWVAY2ZkMDAwMDAgeworCQkJcmVnID0gPDB4
-Y2ZkMDAwMDAgMHgzMDAwMDA+OworCQkJbm8tbWFwOworCQl9OworCX07CisKKwlzb3VuZCB7CisJ
-CWNvbXBhdGlibGUgPSAiYXVkaW8tZ3JhcGgtY2FyZCI7CisJCWxhYmVsID0gIlNUTTMyTVAxNSI7
-CisJCWRhaXMgPSA8JmkyczFfcG9ydD47CisJfTsKKworCXdpZmlfcHdyc2VxOiB3aWZpLXB3cnNl
-cSB7CisJCWNvbXBhdGlibGUgPSAibW1jLXB3cnNlcS1zaW1wbGUiOworCQlyZXNldC1ncGlvcyA9
-IDwmZ3Bpb2UgMTIgR1BJT19BQ1RJVkVfTE9XPjsgLyogV0xBTl9SRUdfT04gKi8KKwl9OworfTsK
-KworJmFkYyB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKKwlwaW5jdHJsLTAgPSA8JmFk
-YzFfaW4xMF9waW5zX2E+OworCXZkZGEtc3VwcGx5ID0gPCZ2M3YzPjsKKwl2cmVmLXN1cHBseSA9
-IDwmdjN2Mz47CisJc3RhdHVzID0gIm9rYXkiOworCisJYWRjQDAgeworCQkjYWRkcmVzcy1jZWxs
-cyA9IDwxPjsKKwkJI3NpemUtY2VsbHMgPSA8MD47CisJCXN0YXR1cyA9ICJva2F5IjsKKworCQlj
-aGFubmVsQDEwIHsgLyogTlRDICovCisJCQlyZWcgPSA8MTA+OworCQkJc3QsbWluLXNhbXBsZS10
-aW1lLW5zID0gPDEwMDAwPjsgIC8qIDEwwrVzIHNhbXBsaW5nIHRpbWUgKi8KKwkJfTsKKwl9Owor
-fTsKKworJmNwdTAgeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9NUFU+OworfTsKKwor
-JmNyeXAxIHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfQ1JZUDE+OworCXJlc2V0cyA9
-IDwmc2NtaV9yZXNldCBSU1RfU0NNSV9DUllQMT47CisJc3RhdHVzID0gIm9rYXkiOworfTsKKwor
-JmV0aGVybmV0MCB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IiwgInNsZWVwIjsKKwlwaW5j
-dHJsLTAgPSA8JmV0aGVybmV0MF9ybWlpX3BpbnNfZD47CisJcGluY3RybC0xID0gPCZldGhlcm5l
-dDBfcm1paV9zbGVlcF9waW5zX2Q+OworCXBoeS1tb2RlID0gInJtaWkiOworCW1heC1zcGVlZCA9
-IDwxMDA+OworCXBoeS1oYW5kbGUgPSA8JmV0aHBoeTA+OworCXN0YXR1cyA9ICJva2F5IjsKKwor
-CW1kaW8geworCQkjYWRkcmVzcy1jZWxscyA9IDwxPjsKKwkJI3NpemUtY2VsbHMgPSA8MD47CisJ
-CWNvbXBhdGlibGUgPSAic25wcyxkd21hYy1tZGlvIjsKKworCQkvKiBLU1o4MDgxUk5BIFBIWSAq
-LworCQlldGhwaHkwOiBldGhlcm5ldC1waHlAMCB7CisJCQlyZWcgPSA8MD47CisJCQlpbnRlcnJ1
-cHRzLWV4dGVuZGVkID0gPCZncGlvYiAwIElSUV9UWVBFX0xFVkVMX0xPVz47CisJCQlyZXNldC1n
-cGlvcyA9IDwmZ3Bpb2IgMSBHUElPX0FDVElWRV9MT1c+OworCQkJcmVzZXQtYXNzZXJ0LXVzID0g
-PDEwMDAwPjsKKwkJCXJlc2V0LWRlYXNzZXJ0LXVzID0gPDMwMD47CisJCX07CisJfTsKK307CisK
-KyZncGlvYSB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIiLCAiIiwgIiIsICIiLCAiIiwg
-IiIsICIiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICJIV0lEX1BMX04iLCAiSFdJRF9DUCIsICIi
-OworfTsKKworJmdwaW9iIHsKKwlncGlvLWxpbmUtbmFtZXMgPQorCQkiIiwgIiIsICIiLCAiIiwg
-IiIsICIiLCAiTEVEX0xBVENIIiwgIiIsCisJCSIiLCAiUkVMQVkxX0VOIiwgIiIsICIiLCAiIiwg
-IiIsICIiLCAiIjsKK307CisKKyZncGlvYyB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIi
-LCAiIiwgIiIsICIiLCAiIiwgIiIsICIiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICJIV0lEX1E3
-IiwgIiIsICIiOworfTsKKworJmdwaW9lIHsKKwlncGlvLWxpbmUtbmFtZXMgPQorCQkiIiwgIiIs
-ICIiLCAiIiwgIlJFTEFZMl9FTiIsICIiLCAiIiwgIiIsCisJCSIiLCAiIiwgIiIsICIiLCAiIiwg
-IiIsICIiLCAiIjsKK307CisKKyZncGlvZyB7CisJZ3Bpby1saW5lLW5hbWVzID0KKwkJIiIsICIi
-LCAiIiwgIiIsICIiLCAiIiwgIiIsICJTVzEiLAorCQkiIiwgIiIsICIiLCAiIiwgIiIsICIiLCAi
-IiwgIiI7Cit9OworCismZ3Bpb3ogeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9HUElP
-Wj47Cit9OworCismaGFzaDEgeworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9IQVNIMT47
-CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0hBU0gxPjsKK307CisKKyZpMmMxIHsK
-KwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOworCXBpbmN0cmwtMCA9IDwmaTJj
-MV9waW5zX2M+OworCXBpbmN0cmwtMSA9IDwmaTJjMV9zbGVlcF9waW5zX2M+OworCWkyYy1zY2wt
-cmlzaW5nLXRpbWUtbnMgPSA8MTg1PjsKKwlpMmMtc2NsLWZhbGxpbmctdGltZS1ucyA9IDwyMD47
-CisJc3RhdHVzID0gIm9rYXkiOworCS9kZWxldGUtcHJvcGVydHkvZG1hczsKKwkvZGVsZXRlLXBy
-b3BlcnR5L2RtYS1uYW1lczsKK307CisKKyZpMmM0IHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENL
-X1NDTUlfSTJDND47CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0kyQzQ+OworfTsK
-KworJmkyYzYgeworCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIsICJzbGVlcCI7CisJcGluY3Ry
-bC0wID0gPCZpMmM2X3BpbnNfYj47CisJcGluY3RybC0xID0gPCZpMmM2X3NsZWVwX3BpbnNfYj47
-CisJaTJjLXNjbC1yaXNpbmctdGltZS1ucyA9IDwxODU+OworCWkyYy1zY2wtZmFsbGluZy10aW1l
-LW5zID0gPDIwPjsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfSTJDNj47CisJcmVzZXRz
-ID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX0kyQzY+OworCXN0YXR1cyA9ICJva2F5IjsKKwkvZGVs
-ZXRlLXByb3BlcnR5L2RtYXM7CisJL2RlbGV0ZS1wcm9wZXJ0eS9kbWEtbmFtZXM7CisKKwlwcmVz
-c3VyZS1zZW5zb3JANDcgeworCQljb21wYXRpYmxlID0gImJvc2NoLGJtcDU4MCI7CisJCXJlZyA9
-IDwweDQ3PjsKKwkJdmRkYS1zdXBwbHkgPSA8JnY1dl9zdz47CisJCXZkZGQtc3VwcGx5ID0gPCZ2
-NXZfc3c+OworCX07CisKKwljbzItc2Vuc29yQDYyIHsKKwkJY29tcGF0aWJsZSA9ICJzZW5zaXJp
-b24sc2NkNDEiOworCQlyZWcgPSA8MHg2Mj47CisJCXZkZC1zdXBwbHkgPSA8JnY1dl9zdz47CisJ
-fTsKKworCXBtLXNlbnNvckA2OSB7CisJCWNvbXBhdGlibGUgPSAic2Vuc2lyaW9uLHNwczMwIjsK
-KwkJcmVnID0gPDB4Njk+OworCX07Cit9OworCismaTJzMSB7CisJcGluY3RybC1uYW1lcyA9ICJk
-ZWZhdWx0IiwgInNsZWVwIjsKKwlwaW5jdHJsLTAgPSA8JmkyczFfcGluc19hPjsKKwlwaW5jdHJs
-LTEgPSA8JmkyczFfc2xlZXBfcGluc19hPjsKKwljbG9ja3MgPSA8JnJjYyBTUEkxPiwgPCZyY2Mg
-U1BJMV9LPiwgPCZyY2MgUExMM19RPiwgPCZyY2MgUExMM19SPjsKKwljbG9jay1uYW1lcyA9ICJw
-Y2xrIiwgImkyc2NsayIsICJ4OGsiLCAieDExayI7CisJI2Nsb2NrLWNlbGxzID0gPDA+OyAvKiBT
-ZXQgSTJTMiBhcyBtYXN0ZXIgY2xvY2sgcHJvdmlkZXIgKi8KKwlzdGF0dXMgPSAib2theSI7CisK
-KwlpMnMxX3BvcnQ6IHBvcnQgeworCQlpMnMxX2VuZHBvaW50OiBlbmRwb2ludCB7CisJCQlmb3Jt
-YXQgPSAiaTJzIjsKKwkJCW1jbGstZnMgPSA8MjU2PjsKKwkJCXJlbW90ZS1lbmRwb2ludCA9IDwm
-Y29kZWNfZW5kcG9pbnQ+OworCQl9OworCX07Cit9OworCismaXdkZzIgeworCWNsb2NrcyA9IDwm
-cmNjIElXREcyPiwgPCZzY21pX2NsayBDS19TQ01JX0xTST47CisJc3RhdHVzID0gIm9rYXkiOwor
-fTsKKworJm00X3Jwcm9jIHsKKwkvZGVsZXRlLXByb3BlcnR5LyBzdCxzeXNjZmctaG9sZGJvb3Q7
-CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01JX01DVT4sCisJCSA8JnNjbWlfcmVzZXQg
-UlNUX1NDTUlfTUNVX0hPTERfQk9PVD47CisJcmVzZXQtbmFtZXMgPSAgIm1jdV9yc3QiLCAiaG9s
-ZF9ib290IjsKK307CisKKyZtZG1hMSB7CisJcmVzZXRzID0gPCZzY21pX3Jlc2V0IFJTVF9TQ01J
-X01ETUE+OworfTsKKworJnJjYyB7CisJY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMS1yY2Mtc2Vj
-dXJlIiwgInN5c2NvbiI7CisJY2xvY2stbmFtZXMgPSAiaHNlIiwgImhzaSIsICJjc2kiLCAibHNl
-IiwgImxzaSI7CisJY2xvY2tzID0gPCZzY21pX2NsayBDS19TQ01JX0hTRT4sCisJCSA8JnNjbWlf
-Y2xrIENLX1NDTUlfSFNJPiwKKwkJIDwmc2NtaV9jbGsgQ0tfU0NNSV9DU0k+LAorCQkgPCZzY21p
-X2NsayBDS19TQ01JX0xTRT4sCisJCSA8JnNjbWlfY2xrIENLX1NDTUlfTFNJPjsKK307CisKKyZy
-bmcxIHsKKwljbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfUk5HMT47CisJcmVzZXRzID0gPCZz
-Y21pX3Jlc2V0IFJTVF9TQ01JX1JORzE+OworCXN0YXR1cyA9ICJva2F5IjsKK307CisKKyZydGMg
-eworCWNsb2NrcyA9IDwmc2NtaV9jbGsgQ0tfU0NNSV9SVENBUEI+LCA8JnNjbWlfY2xrIENLX1ND
-TUlfUlRDPjsKK307CisKKy8qIFNEIGNhcmQgd2l0aG91dCBDYXJkLWRldGVjdCAqLworJnNkbW1j
-MSB7CisJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IiwgIm9wZW5kcmFpbiIsICJzbGVlcCI7CisJ
-cGluY3RybC0wID0gPCZzZG1tYzFfYjRfcGluc19hPjsKKwlwaW5jdHJsLTEgPSA8JnNkbW1jMV9i
-NF9vZF9waW5zX2E+OworCXBpbmN0cmwtMiA9IDwmc2RtbWMxX2I0X3NsZWVwX3BpbnNfYT47CisJ
-YnJva2VuLWNkOworCW5vLXNkaW87CisJbm8tMS04LXY7CisJc3QsbmVnLWVkZ2U7CisJYnVzLXdp
-ZHRoID0gPDQ+OworCXZtbWMtc3VwcGx5ID0gPCZ2M3YzPjsKKwlzdGF0dXMgPSAib2theSI7Cit9
-OworCisvKiBFTU1DICovCismc2RtbWMyIHsKKwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAi
-b3BlbmRyYWluIiwgInNsZWVwIjsKKwlwaW5jdHJsLTAgPSA8JnNkbW1jMl9iNF9waW5zX2MgJnNk
-bW1jMl9kNDdfcGluc19iPjsKKwlwaW5jdHJsLTEgPSA8JnNkbW1jMl9iNF9vZF9waW5zX2MgJnNk
-bW1jMl9kNDdfcGluc19iPjsKKwlwaW5jdHJsLTIgPSA8JnNkbW1jMl9iNF9zbGVlcF9waW5zX2Mg
-JnNkbW1jMl9kNDdfc2xlZXBfcGluc19iPjsKKwlub24tcmVtb3ZhYmxlOworCW5vLXNkOworCW5v
-LXNkaW87CisJbm8tMS04LXY7CisJc3QsbmVnLWVkZ2U7CisJYnVzLXdpZHRoID0gPDg+OworCXZt
-bWMtc3VwcGx5ID0gPCZ2M3YzPjsKKwlzdGF0dXMgPSAib2theSI7Cit9OworCisvKiBXaWZpICov
-Cismc2RtbWMzIHsKKwlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAib3BlbmRyYWluIiwgInNs
-ZWVwIjsKKwlwaW5jdHJsLTAgPSA8JnNkbW1jM19iNF9waW5zX2M+OworCXBpbmN0cmwtMSA9IDwm
-c2RtbWMzX2I0X29kX3BpbnNfYz47CisJcGluY3RybC0yID0gPCZzZG1tYzNfYjRfc2xlZXBfcGlu
-c19jPjsKKwlub24tcmVtb3ZhYmxlOworCXN0LG5lZy1lZGdlOworCWJ1cy13aWR0aCA9IDw0PjsK
-Kwl2bW1jLXN1cHBseSA9IDwmdjN2Mz47CisJbW1jLXB3cnNlcSA9IDwmd2lmaV9wd3JzZXE+Owor
-CSNhZGRyZXNzLWNlbGxzID0gPDE+OworCSNzaXplLWNlbGxzID0gPDA+OworCXN0YXR1cyA9ICJv
-a2F5IjsKKworCXdpZmlAMSB7CisJCXJlZyA9IDwxPjsKKwkJY29tcGF0aWJsZSA9ICJicmNtLGJj
-bTQzMjktZm1hYyI7CisJfTsKK307CisKKyZ0aW1lcnM1IHsKKwlzdGF0dXMgPSAib2theSI7CisJ
-L2RlbGV0ZS1wcm9wZXJ0eS9kbWFzOworCS9kZWxldGUtcHJvcGVydHkvZG1hLW5hbWVzOworCisJ
-cHdtIHsKKwkJcGluY3RybC0wID0gPCZwd20xX3BpbnNfZD47CisJCXBpbmN0cmwtMSA9IDwmcHdt
-MV9zbGVlcF9waW5zX2Q+OworCQlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiLCAic2xlZXAiOwor
-CQlzdGF0dXMgPSAib2theSI7CisJfTsKK307CisKKyZ1YXJ0NCB7CisJcGluY3RybC1uYW1lcyA9
-ICJkZWZhdWx0IiwgInNsZWVwIiwgImlkbGUiOworCXBpbmN0cmwtMCA9IDwmdWFydDRfcGluc19l
-PjsKKwlwaW5jdHJsLTEgPSA8JnVhcnQ0X2lkbGVfcGluc19lPjsKKwlwaW5jdHJsLTIgPSA8JnVh
-cnQ0X3NsZWVwX3BpbnNfZT47CisJL2RlbGV0ZS1wcm9wZXJ0eS9kbWFzOworCS9kZWxldGUtcHJv
-cGVydHkvZG1hLW5hbWVzOworCXN0YXR1cyA9ICJva2F5IjsKK307CisKKyZ1YXJ0NyB7CisJcGlu
-Y3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKKwlwaW5jdHJsLTAgPSA8JnVhcnQ3X3BpbnNfZD47CisJ
-dWFydC1oYXMtcnRzY3RzOworCXN0YXR1cyA9ICJva2F5IjsKKworCWJsdWV0b290aCB7CisJCWNv
-bXBhdGlibGUgPSAiYnJjbSxiY200MzQzOC1idCI7CisJCXNodXRkb3duLWdwaW9zID0gPCZncGlv
-ZSAxMSBHUElPX0FDVElWRV9ISUdIPjsgLyogQlRfUkVHX09OICovCisJCW1heC1zcGVlZCA9IDw0
-MDAwMDAwPjsKKwkJdmJhdC1zdXBwbHkgPSA8JnYzdjM+OworCQl2ZGRpby1zdXBwbHkgPSA8JnYz
-djM+OworCQlpbnRlcnJ1cHQtcGFyZW50ID0gPCZncGlvZz47CisJCWludGVycnVwdHMgPSA8MTIg
-SVJRX1RZUEVfRURHRV9SSVNJTkc+OyAvKiBCVF9IT1NUX1dBS0UgKi8KKwkJaW50ZXJydXB0LW5h
-bWVzID0gImhvc3Qtd2FrZXVwIjsKKwl9OworfTsKLS0gCjIuMzkuNQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 3/5/2025 7:07 PM, Mike Leach wrote:
+> Hi,
+> 
+> On Mon, 3 Mar 2025 at 03:30, Jie Gan <quic_jiegan@quicinc.com> wrote:
+>>
+>> Add 'trace_id' function pointer in coresight_ops. It's responsible for retrieving
+>> the device's trace ID.
+>>
+>> Co-developed-by: James Clark <james.clark@linaro.org>
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+>> Reviewed-by: James Clark <james.clark@linaro.org>
+>> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+>> ---
+>>   drivers/hwtracing/coresight/coresight-core.c  | 30 +++++++++++++++++++
+>>   drivers/hwtracing/coresight/coresight-dummy.c | 13 +++++++-
+>>   .../coresight/coresight-etm3x-core.c          |  1 +
+>>   .../coresight/coresight-etm4x-core.c          |  1 +
+>>   drivers/hwtracing/coresight/coresight-stm.c   | 11 +++++++
+>>   drivers/hwtracing/coresight/coresight-tpda.c  | 11 +++++++
+>>   include/linux/coresight.h                     |  5 ++++
+>>   7 files changed, 71 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+>> index ab55e10d4b79..32aa07f4f8c1 100644
+>> --- a/drivers/hwtracing/coresight/coresight-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-core.c
+>> @@ -24,6 +24,7 @@
+>>   #include "coresight-etm-perf.h"
+>>   #include "coresight-priv.h"
+>>   #include "coresight-syscfg.h"
+>> +#include "coresight-trace-id.h"
+>>
+>>   /*
+>>    * Mutex used to lock all sysfs enable and disable actions and loading and
+>> @@ -1557,6 +1558,35 @@ void coresight_remove_driver(struct amba_driver *amba_drv,
+>>   }
+>>   EXPORT_SYMBOL_GPL(coresight_remove_driver);
+>>
+>> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
+>> +                              struct coresight_device *sink)
+>> +{
+>> +       int trace_id;
+>> +       int cpu = source_ops(csdev)->cpu_id(csdev);
+>> +
+> 
+> This is a global funciton so need to check that this csdev is a
+> source,. and does provide a cpu  function before calling it.
+> 
+
+Hi Mike,
+
+I put this function here because it's required by etm3x and etm4x. It's 
+intended to be called only by ETM devices, which are definitely source 
+devices and have a cpu function.
+
+Jie
+
+>> +       switch (mode) {
+>> +       case CS_MODE_SYSFS:
+>> +               trace_id = coresight_trace_id_get_cpu_id(cpu);
+>> +               break;
+>> +       case CS_MODE_PERF:
+>> +               if (WARN_ON(!sink))
+>> +                       return -EINVAL;
+>> +
+>> +               trace_id = coresight_trace_id_get_cpu_id_map(cpu, &sink->perf_sink_id_map);
+>> +               break;
+>> +       default:
+>> +               trace_id = -EINVAL;
+>> +               break;
+>> +       }
+>> +
+>> +       if (!IS_VALID_CS_TRACE_ID(trace_id))
+>> +               dev_err(&csdev->dev,
+>> +                       "Failed to allocate trace ID on CPU%d\n", cpu);
+>> +
+>> +       return trace_id;
+>> +}
+>> +EXPORT_SYMBOL_GPL(coresight_etm_get_trace_id);
+>> +
+>>   MODULE_LICENSE("GPL v2");
+>>   MODULE_AUTHOR("Pratik Patel <pratikp@codeaurora.org>");
+>>   MODULE_AUTHOR("Mathieu Poirier <mathieu.poirier@linaro.org>");
+>> diff --git a/drivers/hwtracing/coresight/coresight-dummy.c b/drivers/hwtracing/coresight/coresight-dummy.c
+>> index 9be53be8964b..b5692ba358c1 100644
+>> --- a/drivers/hwtracing/coresight/coresight-dummy.c
+>> +++ b/drivers/hwtracing/coresight/coresight-dummy.c
+>> @@ -41,6 +41,16 @@ static void dummy_source_disable(struct coresight_device *csdev,
+>>          dev_dbg(csdev->dev.parent, "Dummy source disabled\n");
+>>   }
+>>
+>> +static int dummy_source_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+>> +                                __maybe_unused struct coresight_device *sink)
+>> +{
+>> +       struct dummy_drvdata *drvdata;
+>> +
+>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
+>> +
+>> +       return drvdata->traceid;
+>> +}
+>> +
+>>   static int dummy_sink_enable(struct coresight_device *csdev, enum cs_mode mode,
+>>                                  void *data)
+>>   {
+>> @@ -62,7 +72,8 @@ static const struct coresight_ops_source dummy_source_ops = {
+>>   };
+>>
+>>   static const struct coresight_ops dummy_source_cs_ops = {
+>> -       .source_ops = &dummy_source_ops,
+>> +       .trace_id       = dummy_source_trace_id,
+>> +       .source_ops     = &dummy_source_ops,
+>>   };
+>>
+>>   static const struct coresight_ops_sink dummy_sink_ops = {
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> index c103f4c70f5d..c1dda4bc4a2f 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+>> @@ -704,6 +704,7 @@ static const struct coresight_ops_source etm_source_ops = {
+>>   };
+>>
+>>   static const struct coresight_ops etm_cs_ops = {
+>> +       .trace_id       = coresight_etm_get_trace_id,
+>>          .source_ops     = &etm_source_ops,
+>>   };
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> index 2c1a60577728..cfd116b87460 100644
+>> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+>> @@ -1067,6 +1067,7 @@ static const struct coresight_ops_source etm4_source_ops = {
+>>   };
+>>
+>>   static const struct coresight_ops etm4_cs_ops = {
+>> +       .trace_id       = coresight_etm_get_trace_id,
+>>          .source_ops     = &etm4_source_ops,
+>>   };
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
+>> index b581a30a1cd9..aca25b5e3be2 100644
+>> --- a/drivers/hwtracing/coresight/coresight-stm.c
+>> +++ b/drivers/hwtracing/coresight/coresight-stm.c
+>> @@ -281,12 +281,23 @@ static void stm_disable(struct coresight_device *csdev,
+>>          }
+>>   }
+>>
+>> +static int stm_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+>> +                       __maybe_unused struct coresight_device *sink)
+>> +{
+>> +       struct stm_drvdata *drvdata;
+>> +
+>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
+>> +
+>> +       return drvdata->traceid;
+>> +}
+>> +
+>>   static const struct coresight_ops_source stm_source_ops = {
+>>          .enable         = stm_enable,
+>>          .disable        = stm_disable,
+>>   };
+>>
+>>   static const struct coresight_ops stm_cs_ops = {
+>> +       .trace_id       = stm_trace_id,
+>>          .source_ops     = &stm_source_ops,
+>>   };
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
+>> index 573da8427428..94c2201fc8d3 100644
+>> --- a/drivers/hwtracing/coresight/coresight-tpda.c
+>> +++ b/drivers/hwtracing/coresight/coresight-tpda.c
+>> @@ -241,12 +241,23 @@ static void tpda_disable(struct coresight_device *csdev,
+>>          dev_dbg(drvdata->dev, "TPDA inport %d disabled\n", in->dest_port);
+>>   }
+>>
+>> +static int tpda_trace_id(struct coresight_device *csdev, __maybe_unused enum cs_mode mode,
+>> +                        __maybe_unused struct coresight_device *sink)
+>> +{
+>> +       struct tpda_drvdata *drvdata;
+>> +
+>> +       drvdata = dev_get_drvdata(csdev->dev.parent);
+>> +
+>> +       return drvdata->atid;
+>> +}
+>> +
+>>   static const struct coresight_ops_link tpda_link_ops = {
+>>          .enable         = tpda_enable,
+>>          .disable        = tpda_disable,
+>>   };
+>>
+>>   static const struct coresight_ops tpda_cs_ops = {
+>> +       .trace_id       = tpda_trace_id,
+>>          .link_ops       = &tpda_link_ops,
+>>   };
+>>
+>> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+>> index c7cd5886c908..ce9a5e71b261 100644
+>> --- a/include/linux/coresight.h
+>> +++ b/include/linux/coresight.h
+>> @@ -335,6 +335,7 @@ enum cs_mode {
+>>          CS_MODE_PERF,
+>>   };
+>>
+>> +#define coresight_ops(csdev)   csdev->ops
+>>   #define source_ops(csdev)      csdev->ops->source_ops
+>>   #define sink_ops(csdev)                csdev->ops->sink_ops
+>>   #define link_ops(csdev)                csdev->ops->link_ops
+>> @@ -421,6 +422,8 @@ struct coresight_ops_panic {
+>>   };
+>>
+>>   struct coresight_ops {
+>> +       int (*trace_id)(struct coresight_device *csdev, enum cs_mode mode,
+>> +                       struct coresight_device *sink);
+>>          const struct coresight_ops_sink *sink_ops;
+>>          const struct coresight_ops_link *link_ops;
+>>          const struct coresight_ops_source *source_ops;
+>> @@ -709,4 +712,6 @@ int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
+>>
+>>   void coresight_remove_driver(struct amba_driver *amba_drv,
+>>                               struct platform_driver *pdev_drv);
+>> +int coresight_etm_get_trace_id(struct coresight_device *csdev, enum cs_mode mode,
+>> +                              struct coresight_device *sink);
+>>   #endif         /* _LINUX_COREISGHT_H */
+>> --
+>> 2.34.1
+>>
+> 
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
