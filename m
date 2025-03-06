@@ -2,125 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62885A54462
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:14:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67AEBA544DA
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:29:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 248DCC78002;
-	Thu,  6 Mar 2025 08:14:13 +0000 (UTC)
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E2CC71289;
+	Thu,  6 Mar 2025 08:29:02 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20AC1C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93E78CFAC4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 08:14:11 +0000 (UTC)
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20250306081408epoutp03fdbc5a49939acb298a3a93ed6c800cc4~qKJo1XL122640126401epoutp03k
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 08:14:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20250306081408epoutp03fdbc5a49939acb298a3a93ed6c800cc4~qKJo1XL122640126401epoutp03k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1741248848;
- bh=k6mnkPFomq2MGfRQMtgnPUDBce80u9EQGOgXgPA1+xs=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=HF0rffSXDqhsnmM54aUq5+ZRyqRdGkmV1MvgSSslW7Rh3O0cwX548zh/Y6/nACohJ
- Qe0idONuj5mZcuhCKJ2z2CQGKJURQhIAm1fOsvSPhk2Jmh9o6G3BjQg3DHFiItcGBz
- WbyRNkdAkdgu8dXGyNoEJLPC1eTfTqbGutSS5LOk=
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas5p2.samsung.com (KnoxPortal) with ESMTP id
- 20250306081408epcas5p2cc5cdb6d66503223b5cebc08e06df4f9~qKJoSUYnV1774417744epcas5p2J;
- Thu,  6 Mar 2025 08:14:08 +0000 (GMT)
-Received: from epsmgec5p1new.samsung.com (unknown [182.195.38.177]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4Z7hyk0Pxzz4x9QK; Thu,  6 Mar
- 2025 08:14:06 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
- epsmgec5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 10.85.19710.D4959C76; Thu,  6 Mar 2025 17:14:05 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
- 20250306074847epcas5p286f512436a15d1b62ee1e5cc65b8a291~qJzgaAEVu2622726227epcas5p2O;
- Thu,  6 Mar 2025 07:48:47 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20250306074847epsmtrp2908ed13f055262cc6cec405330b5e0af~qJzgY7Ck91823218232epsmtrp2N;
- Thu,  6 Mar 2025 07:48:47 +0000 (GMT)
-X-AuditID: b6c32a44-36bdd70000004cfe-14-67c9594d1953
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 92.FE.18729.F5359C76; Thu,  6 Mar 2025 16:48:47 +0900 (KST)
-Received: from FDSFTE596 (unknown [107.122.82.131]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20250306074844epsmtip29eefffb54bed9090fc6baa6289c5ff5b~qJzdkUr7x2203522035epsmtip2g;
- Thu,  6 Mar 2025 07:48:44 +0000 (GMT)
-From: "Swathi K S" <swathi.ks@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, <krzk+dt@kernel.org>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
- <kuba@kernel.org>, <pabeni@redhat.com>, <robh@kernel.org>,
- <conor+dt@kernel.org>, <richardcochran@gmail.com>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
-In-Reply-To: <a9ddeccf-8fc6-453c-af62-55e895888a77@kernel.org>
-Date: Thu, 6 Mar 2025 13:18:37 +0530
-Message-ID: <012901db8e6c$3179a730$946cf590$@samsung.com>
+ Thu,  6 Mar 2025 08:29:00 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 284A044537;
+ Thu,  6 Mar 2025 08:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1741249739;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=mLaGdp8YbDuKJDS27qr7DpF30lE39Y2UTMae3idzC+k=;
+ b=QgCkjePBKvLNC63g9kZ5aWfuy70/ftJqqY7atcr7qEA2lv4rKFNJbjUByT/KLZptwsScbU
+ J5AyCoEa/nSAgpbu/XxmJUJHKkWE7Vw2rVX0mePVVfDOQAeuiYobvqs4VOTW7EZTymPpz/
+ G5DuKRw0kKlJ+qPr0Z+Ak9DJnK10JT3czoUGqBPjaaXBMHsqMDlI45haZ9yFLdaMYGWhn/
+ h8iLuwQgVulxGTUGO8GBJohSvnddf+Mns//HDwvFzh6XlvO8v8BUlamYtpAMt3MxYX03eR
+ BG5NcsU0pjcG2pUVpfI5IuVW9JQlL0+mhJNT+5zBegg6g1JMw462WDdstbAXAA==
+Date: Thu, 6 Mar 2025 09:28:57 +0100
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250306092857.5cafd6d4@fedora.home>
+In-Reply-To: <E1tpt2t-005UNB-MC@rmk-PC.armlinux.org.uk>
+References: <Z8iRM8Q9Sb-y3fR_@shell.armlinux.org.uk>
+ <E1tpt2t-005UNB-MC@rmk-PC.armlinux.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-in
-Thread-Index: AQHcwqSBZNYxUrKMqce/4F1P5N/GfgGyT6S5AetEnA8CjXdBygKIabXqAWIbQ0mzEqYV4A==
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Te0xTVxzOubftLQpyByJH9khTTQhslFZKdzCUmY3NuxdjD93GNuECdy0C
- bdPHcGbO6tA4Bi3ofDWVl1NcGbh1QAoKImgZolRkFInrFAcISkTGQgIbspYLG/995/u+3/n9
- vnPy4+NBRiKMn6XSM1oVnSPkreA0tEeER735YadCXNQdj2bGjgBUdcfBRT80d2PI6srnoLJL
- 3Vw07LxLoIHWRgyNWX7nIZfrRwJdbzBxkf0PNxf1Nll5qMA9xEWlczVc5Cxfg6a7xgGqrP+L
- QIOPzhPo0tVRHN0wl2Bo/ryD2BRC9bp7cKru+wGMGjbXE1SjxUNQ5XYDZbd9zaN+/m431eiY
- wqiJlj4eZaqzAepii4Sasj+T7J+SHa9k6ExGK2BUGerMLJVCLnz93dSXUmNlYkmUJA49LxSo
- 6FxGLkx8Iznqlawcb1ah4DM6x+ClkmmdThidEK9VG/SMQKnW6eVCRpOZo5FqRDo6V2dQKUQq
- Rr9RIhZviPUa07KVta3tQLNfsKNjupAwgn1PFgA/PiSlcOToCaIArOAHkecALNp/iOMTgsg/
- AWyaTGKFaQBHHx8mlipuTY7xWKEZwPbifi57GAXwjG2a53PxyEhYaWpZqFhNNmNwZE+yz4ST
- 5Rj8qeMk5hP8yATYO9KL+3Aw+Ta0On8DPswh18PxvdULngAyDt4/MgtY/ATsPD60MB9OPgtP
- VzzA2ZEEcGb4NJflQ+HlmUIvz/c23gq/tW319YVklR+c6rvGYf2JsPHQUm0wvN9RtxgtDE49
- bOaxOBVWm/oW/UromS1Z5F+Arb9aOb77cTICnm2KZumn4eErtRg7wipY9PcQxvIB0FG6hNfB
- uQfuxSvXwoZTE0QxEFqWJbMsS2ZZlsbyf7dywLGBtYxGl6tgMmI1EhWT99+HZ6hz7WBhFSIT
- HeBm2WNRG8D4oA1APi5cHdCT1KkICsikP9/JaNWpWkMOo2sDsd7nLsHDQjLU3l1S6VMl0jix
- VCaTSeNiZBJhaMBXjfmKIFJB65lshtEw2qU6jO8XZsQEB4j019zUGm3FUMW8w9/UVdv/xcUt
- mz0t4Rd0Edcdw+mhN17eIG/xp9/PxNJGRQ/Xmdy7inecdLuDtZXDc8pvnNXiLdVv3Qu8reko
- KufXEJtcbkPxwWbzreK6Vo05haRWlealVHyaf7B9m3bCEwI+PofjxsmNr2ZHZ/Vw9jzXYzx7
- Jt4ym7TdVW/cvWtbv7z6l0+eMp+wfymirC/Gm+94yMs9hpu30zgrXahbdKzwwF7rsZWB3Pds
- 0ojCWPlVxRXncee9wXx6e0Zv1QdlDfYLkcmSa55HmwvJ/sEaevKjBHGMLB3mdVFxdeED7wSe
- coz7tcpy5+/G/LOvLC+qyb5TyNEpaUkkrtXR/wJmf8iikwQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrJIsWRmVeSWpSXmKPExsWy7bCSvG588Ml0gwNrNS1+vpzGaLH8wQ5W
- izV7zzFZzDnfwmIx/8g5Vounxx6xW9w8sJPJ4uWse2wW589vYLe4sK2P1WLT42usFpd3zWGz
- 6Lr2hNVi3t+1rBbHFohZfDv9htFi0dYv7BYPP+xhtzhy5gWzxaX+iUwW//fsYHcQ9bh87SKz
- x5aVN5k8nvZvZffYOesuu8eCTaUem1Z1snlsXlLvsXPHZyaP9/uusnn0bVnF6HFwn6HH501y
- ATxRXDYpqTmZZalF+nYJXBmPZq5mK5gjX3FpWkUD42ypLkZODgkBE4nbH1+ydTFycQgJ7GaU
- uHH+IDtEQlLiU/NUVghbWGLlv+fsEEXPGCV+9/awgCTYBLQkFvXtA0uICJxmkvjR/g/MYRZY
- xSSxbekpJoiW80wSN+Y8YgNp4RSwk7j87DIziC0s4C/RdG8mmM0ioCLxpmk1E4jNK2Ap8Wra
- L0YIW1Di5MwnYOuYBbQleh+2MsLYyxa+Zoa4T0Hi59NlrBBxcYmjP3uA4hxAJ4VJTFkVNoFR
- eBaSSbOQTJqFZNIsJN0LGFlWMUqmFhTnpucWGxYY5qWW6xUn5haX5qXrJefnbmIEpwYtzR2M
- 21d90DvEyMTBeIhRgoNZSYT3ot/JdCHelMTKqtSi/Pii0pzU4kOM0hwsSuK84i96U4QE0hNL
- UrNTUwtSi2CyTBycUg1MPUI/s/Tl+z92JAp5H98/Le33Kd3lQcdzHd0nbbHhP8DzOoSpd5re
- /4O6HJOOeDSbPFSYtUYyySFpYySThYWthFfI7pKvprbXp/kuTtyb8X6egK/Q1Zp9H8O9ZOzO
- NMiacTgcUMqYLm736EbE2TUPHqz9ujM+e8sUfqbwXdqfG/o3P75stys3OKBQrDIzWfWRttdq
- bT7LyQkcvZ/apKyvmq3zm+4vOulentPispXRFjrvLn1YnnhUvOQIf5Rm08yZF79o/VESiztR
- 55xmdzRMpSFLofj4lq2/PJuilrOXtAlJ+sYlbjcTYtXU6svad6bu/8kySb2nd/mbHT5PebSl
- VIr1k8C7hEVGB2M8PJVYijMSDbWYi4oTATPsM7d8AwAA
-X-CMS-MailID: 20250306074847epcas5p286f512436a15d1b62ee1e5cc65b8a291
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20250305091852epcas5p18a0853e85a5ed3d36d5d42ef89735ca6
-References: <20250305091246.106626-1-swathi.ks@samsung.com>
- <CGME20250305091852epcas5p18a0853e85a5ed3d36d5d42ef89735ca6@epcas5p1.samsung.com>
- <20250305091246.106626-2-swathi.ks@samsung.com>
- <89dcfb2a-d093-48f9-b6d7-af99b383a1bc@kernel.org>
- <00e301db8e49$95bfbf90$c13f3eb0$@samsung.com>
- <a9ddeccf-8fc6-453c-af62-55e895888a77@kernel.org>
-Cc: devicetree@vger.kernel.org, ravi.patel@samsung.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
- pankaj.dubey@samsung.com, gost.dev@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS
- device tree bindings
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddutdejvdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpeforgigihhmvgcuvehhvghvrghllhhivghruceomhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeevledtvdevueehhfevhfelhfekveeftdfgiedufeffieeltddtgfefuefhueeknecukfhppedvrgdtudemtggsudelmeekugegtgemlehftddtmegstgdvudemkeekleelmeehgedttgemvgehlegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddumegtsgduleemkegugegtmeelfhdttdemsggtvddumeekkeelleemheegtdgtmegvheelvgdphhgvlhhopehfvgguohhrrgdrhhhomhgvpdhmrghilhhfrhhomhepmhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudeipdhrtghpthhtoheprhhmkhdokhgvrhhnvghlsegrrhhmlhhinhhugidrohhrghdruhhkpdhrtghpthhtohepjhhonhgrthhhrghnhhesnhhvihguihgrrdgtohhmpdhrtghpthhtohepthhrvgguihhnghesnhhvihgui
+ hgrrdgtohhmpdhrtghpthhtohepphhrrggshhgrkhgrrhdrtghsvghnghhgsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhsshdrshhtrdgtohhmpdhrtghpthhtoheprghnughrvgifsehluhhnnhdrtghhpdhrtghpthhtoheprghnughrvgifodhnvghtuggvvheslhhunhhnrdgthhdprhgtphhtthhopegurghvvghmsegurghvvghmlhhofhhtrdhnvght
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Thierry Reding <treding@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: phylink: add functions
+ to block/unblock rx clock stop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,97 +69,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello Russell,
 
+On Wed, 05 Mar 2025 18:00:39 +0000
+"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzk@kernel.org>
-> Sent: 06 March 2025 12:35
-> To: Swathi K S <swathi.ks@samsung.com>; krzk+dt@kernel.org;
-> andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
-> kuba@kernel.org; pabeni@redhat.com; robh@kernel.org;
-> conor+dt@kernel.org; richardcochran@gmail.com;
-> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com
-> Cc: rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
-> devicetree@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> pankaj.dubey@samsung.com; ravi.patel@samsung.com;
-> gost.dev@samsung.com
-> Subject: Re: [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS device tree
-> bindings
+> Some MACs require the PHY receive clock to be running to complete setup
+> actions. This may fail if the PHY has negotiated EEE, the MAC supports
+> receive clock stop, and the link has entered LPI state. Provide a pair
+> of APIs that MAC drivers can use to temporarily block the PHY disabling
+> the receive clock.
 > 
-> On 06/03/2025 04:40, Swathi K S wrote:
-> >
-> >
-> >> -----Original Message-----
-> >> From: Krzysztof Kozlowski <krzk@kernel.org>
-> >> Sent: 05 March 2025 21:12
-> >> To: Swathi K S <swathi.ks@samsung.com>; krzk+dt@kernel.org;
-> >> andrew+netdev@lunn.ch; davem@davemloft.net;
-> edumazet@google.com;
-> >> kuba@kernel.org; pabeni@redhat.com; robh@kernel.org;
-> >> conor+dt@kernel.org; richardcochran@gmail.com;
-> >> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com
-> >> Cc: rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
-> >> devicetree@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com;
-> >> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
-> >> pankaj.dubey@samsung.com; ravi.patel@samsung.com;
-> >> gost.dev@samsung.com
-> >> Subject: Re: [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS device
-> >> tree bindings
-> >>
-> >> On 05/03/2025 10:12, Swathi K S wrote:
-> >>> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add
-> >>> FSD Ethernet YAML schema to enable the DT validation.
-> >>>
-> >>> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
-> >>> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
-> >>> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
-> >>
-> >> <form letter>
-> >> This is a friendly reminder during the review process.
-> >>
-> >> It looks like you received a tag and forgot to add it.
-> >>
-> >> If you do not know the process, here is a short explanation:
-> >> Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-> >> versions of patchset, under or above your Signed-off-by tag, unless
-> >> patch changed significantly (e.g. new properties added to the DT
-> >> bindings). Tag is "received", when provided in a message replied to you
-> on the mailing list.
-> >> Tools like b4 can help here. However, there's no need to repost
-> >> patches
-> >> *only* to add the tags. The upstream maintainer will do that for tags
-> >> received on the version they apply.
-> >>
-> >> Please read:
-> >> https://protect2.fireeye.com/v1/url?k=19972162-781c345b-1996aa2d-
-> >> 000babffae10-7bd6b1a1d78b210b&q=1&e=94dcc3a6-5303-441a-8c1e-
-> >> de696b216f86&u=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv6.12-
-> >> rc3%2Fsource%2FDocumentation%2Fprocess%2Fsubmitting-
-> >> patches.rst%23L577
-> >>
-> >> If a tag was not added on purpose, please state why and what changed.
-> >
-> > Hi Krzysztof,
-> > As per a review comment received from Russell, I had added 2 new
-> properties to the DT - assigned-clocks and assigned-clock-parents properties.
-> > The example in the DT binding reflects the same.
-> > I felt it wouldn't be fair to add 'Reviewed-by' tag without you reviewing the
-> updates again.
-> > But I should have mentioned that in cover letter and apologies for missing
-> to do that.
-> Nothing in changelog explained new properties. Nothing mentioned
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Had mentioned under 'changes since v7' in the cover letter patch where I had mentioned about addressing Russell's comment and corresponding DT binding example changes of setting clock tree in DT.
+I only have comments on the implementation, see below :)
 
-- Swathi 
-
-> dropping tag, which you always must explicitly say.
+> ---
+>  drivers/net/phy/phylink.c | 50 +++++++++++++++++++++++++++++++++++++++
+>  include/linux/phylink.h   |  3 +++
+>  2 files changed, 53 insertions(+)
 > 
-> Best regards,
-> Krzysztof
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index a3b186ab3854..8f93b597d019 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -88,6 +88,7 @@ struct phylink {
+>  	bool mac_enable_tx_lpi;
+>  	bool mac_tx_clk_stop;
+>  	u32 mac_tx_lpi_timer;
+> +	u8 mac_rx_clk_stop_blocked;
+>  
+>  	struct sfp_bus *sfp_bus;
+>  	bool sfp_may_have_phy;
+> @@ -2592,6 +2593,55 @@ void phylink_stop(struct phylink *pl)
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_stop);
+>  
+> +
+> +void phylink_rx_clk_stop_block(struct phylink *pl)
+> +{
+> +	ASSERT_RTNL();
+> +
+> +	if (pl->mac_rx_clk_stop_blocked == U8_MAX) {
+> +		phylink_warn(pl, "%s called too many times - ignoring\n",
+> +			     __func__);
+> +		dump_stack();
+> +		return;
+> +	}
+> +
+> +	/* Disable PHY receive clock stop if this is the first time this
+> +	 * function has been called and clock-stop was previously enabled.
+> +	 */
+> +	if (pl->mac_rx_clk_stop_blocked++ == 0 &&
+> +	    pl->mac_supports_eee_ops && pl->phydev)
+> +	    pl->config->eee_rx_clk_stop_enable)
 
+Looks like there's an extra closing ')' here
+
+> +		phy_eee_rx_clock_stop(pl->phydev, false);
+> +}
+
+Do you need an EXPORT_SYMBOL_GPL here as this will be used by MAC
+drivers?
+
+> +
+> +/**
+> + * phylink_rx_clk_stop_unblock() - unblock PHY ability to stop receive clock
+> + * @pl: a pointer to a &struct phylink returned from phylink_create()
+> + *
+> + * All calls to phylink_rx_clk_stop_block() must be balanced with a
+> + * corresponding call to phylink_rx_clk_stop_unblock() to restore the PHYs
+> + * clock stop ability.
+> + */
+> +void phylink_rx_clk_stop_unblock(struct phylink *pl)
+> +{
+> +	ASSERT_RTNL();
+> +
+> +	if (pl->mac_rx_clk_stop_blocked == 0) {
+> +		phylink_warn(pl, "%s called too many times - ignoring\n",
+> +			     __func__);
+> +		dump_stack();
+> +		return;
+> +	}
+> +
+> +	/* Re-enable PHY receive clock stop if the number of unblocks matches
+> +	 * the number of calls to the block function above.
+> +	 */
+> +	if (--pl->mac_rx_clk_stop_blocked == 0 &&
+> +	    pl->mac_supports_eee_ops && pl->phydev &&
+> +	    pl->config->eee_rx_clk_stop_enable)
+> +		phy_eee_rx_clock_stop(pl->phydev, true);
+> +}
+
+Same for the EXPORT_SYMBOL_GPL
+
+Thanks,
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
