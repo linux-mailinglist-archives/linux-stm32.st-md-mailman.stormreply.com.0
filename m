@@ -2,53 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3A7A54ED9
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 16:24:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E516DA54EDB
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 16:24:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87960C7801E;
-	Thu,  6 Mar 2025 15:24:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FAB5C7801E;
+	Thu,  6 Mar 2025 15:24:22 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C679FC71292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAAD6C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 15:24:09 +0000 (UTC)
+ Thu,  6 Mar 2025 15:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=R2zhQ4Pm2jNY/eOab+WCiVsh8dTyvXui2Cp/FvWzXlI=; b=hwdu5oWWDsv1M1nPGXWRtmOoBa
- ZTzMnK3JxL54nbJSZPSc12uQI8Is7OP+DnjUU1HtB1gGdm45wIEF5o5Aj9OZG9GPOdpBkVCZvEIDC
- G9nTJhOKDMtc18p5uq+PficPxFkNowL/jDwSy398f+R7d2rd2x5swVQQjrUaSmUxBSZ/UxTGpk7iw
- P+jM4++UFdAkIX5aympIv4ymay6a9twZ9OWHtxyCctY4Tf4H5igv4M2TJErGD0wXpxZThv1cS2kP4
- Hu758r1IIkdEgRtQ6TxRpxZa8qGQ1pYgbiguJXz3xjyUXpAhmemv5jwWQzvln6vfO1SfDRkmtFaWI
- wgHSgPBg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41572)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1osmxLM0JPtN1QjPJqhrKT1uQMk9kT2l9BrM2YTPnUY=; b=RTn0a8A+Hzq3+ziFUCBoaSW9Ed
+ 2wAN0+i9k/4vAN13PesmIcZsX697ts0SgZZWVEy4QPZnEKbutgeLeOOVIabcKi2C5WPrQ7uXGbBll
+ Eh5MlD84xnyWZgJggLlRcIY1pO/Cq978SmslVCWWqnzD6nCCsRz+TJ8wOP4RzYWNwKl3oogfCI/p5
+ sy1fO16BhgEuLRFPbR09VHOXYeKimQO81p6r7nw0kdTXKs5CjDI7BfLA9L65pxdus4JciLViUbmgQ
+ KPKLf732a+ZBpfM48oOCssNNAY9KgOOnLZUn1OGwsTM7wZw15LCaJkgmMkX0falSDih6rtJC4Un1H
+ Uypn+EeQ==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58532 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tqD4n-00064v-2p;
- Thu, 06 Mar 2025 15:23:57 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tqD4j-0006tm-31;
- Thu, 06 Mar 2025 15:23:53 +0000
-Date: Thu, 6 Mar 2025 15:23:53 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1tqD57-00065S-0l;
+ Thu, 06 Mar 2025 15:24:17 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1tqD4n-005Xx6-3l; Thu, 06 Mar 2025 15:23:57 +0000
+In-Reply-To: <Z8m-CRucPxDW5zZK@shell.armlinux.org.uk>
+References: <Z8m-CRucPxDW5zZK@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Jon Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>,
  "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Message-ID: <Z8m-CRucPxDW5zZK@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1tqD4n-005Xx6-3l@rmk-PC.armlinux.org.uk>
+Date: Thu, 06 Mar 2025 15:23:57 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH RFC net-next v2 0/3] net: stmmac: approach 2
- to solve EEE LPI reset issues
+Subject: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: block PHY rx
+ clock-stop over reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,40 +67,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This is a second approach to solving the STMMAC reset issues caused by
-the lack of receive clock from the PHY where the media is in low power
-mode with a PHY that supports receive clock-stop.
-
-The first approach centred around only addressing the issue in the
-resume path, but it seems to also happen when the platform glue module
-is removed and re-inserted (Jon - can you check whether that's also
-the case for you please?)
-
-As this is more targetted, I've dropped the patches from this series
-which move the call to phylink_resume(), so the link may still come
-up too early on resume - but that's something I also intend to fix.
-
-This is experimental - so I value test reports for this change.
-
-As mentioned recently, the reset timeout will only occur if the PHY
-receive clock is actually stopped at the moment that stmmac_reset()
-is called and remains stopped for the duration of the timeout.
-Network activity can wake up the link, causing the PHY to restart
-its receive clock and allow reset to complete. So, careful testing
-with and without these patches is necessary.
-
-v2: add EXPORT_SYMBOL_GPL(), fix if() statement, add kerneldoc
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  3 ++
- drivers/net/phy/phylink.c                         | 54 ++++++++++++++++++++++-
- include/linux/phylink.h                           |  3 ++
- 3 files changed, 59 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6924df893e42..037039a9a33b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3096,7 +3096,10 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
+ 	if (priv->extend_desc && (priv->mode == STMMAC_RING_MODE))
+ 		priv->plat->dma_cfg->atds = 1;
+ 
++	/* Note that the PHY clock must be running for reset to complete. */
++	phylink_rx_clk_stop_block(priv->phylink);
+ 	ret = stmmac_reset(priv, priv->ioaddr);
++	phylink_rx_clk_stop_unblock(priv->phylink);
+ 	if (ret) {
+ 		netdev_err(priv->dev, "Failed to reset the dma\n");
+ 		return ret;
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
