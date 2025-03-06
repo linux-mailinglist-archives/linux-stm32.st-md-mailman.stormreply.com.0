@@ -2,98 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1964A5404C
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 03:09:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5DCA54094
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 03:20:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BF47C78F6E;
-	Thu,  6 Mar 2025 02:09:30 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31914C78F6E;
+	Thu,  6 Mar 2025 02:20:49 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD5EBC78F6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F8C0C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 02:09:29 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-22398e09e39so1537915ad.3
+ Thu,  6 Mar 2025 02:20:47 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2234e4b079cso1615635ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 05 Mar 2025 18:09:29 -0800 (PST)
+ Wed, 05 Mar 2025 18:20:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741226968; x=1741831768;
+ d=gmail.com; s=20230601; t=1741227646; x=1741832446;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=z1rT13AxT6i7F5Ycxl5JT25b4uDj1fZ8K6rhKfIa2rM=;
- b=e7cBOBvxQg9wHLnr6nWw0AHVnBl4YbJiaB++1VWOpmyH0GfdqIHRqQH4ob/QTN6SiX
- LzyaY9ASo7QVGQ3u4TOrciuEdQjuNCX89tPvCyST7wJCc1bKGrjs5RfCNQibYHaKdmqC
- Mv9P1NKaRISjRD2MH4h4Bm2vZmD94ZFOZst+PAfgQp2Rf0cCSfegLsntp+7r74Xqna1e
- 9V8gy69DNCw0tAyGfIL5wcBckxHtkAPCg3MaHC3xhnWxUMjsNJPK523IrL7eo1d6BvoY
- TND/xVbblPZZ3WDxQuZHtJKFekBtR70HUtmCBNlFqFa0hurt9qKWH+9rKdRgydqvbHgD
- Vspg==
+ bh=G2hivNpIs9Yw9hGUFhjmLsY68kEzvfhce8DVHWNRyC0=;
+ b=hhv4bxCzLWK/5Rrpqb7eL+4uz84dHIAWYBvbVX8pbSx74d6NEQX+bzHZpO1xm1n8QP
+ LxTtYFhBfEVkJoKM5jiVVdV0pjxrwt4CYDqZJZaTFlvdTigi9A3so0C+0XjUB8WJRj+r
+ T4E0hhbrgMvKuWxv38muzUAhjbuslDJ8pL8qTKM+L0tM87dNgAZ+z1AgcI2704o85DLh
+ gedpRiDyZCSVK+J3QO4d5DFcKOe+C7Amd8za8a5UQtCdJoakBrDqWkKJ4gAT2I8+Gvoa
+ qivcnPVV390eTeui+uldljJ36A7F6PYzjvRYv/lAqoC9cGfy+9SPdIsTEHwzlATqhFz5
+ 72iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741226968; x=1741831768;
+ d=1e100.net; s=20230601; t=1741227646; x=1741832446;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=z1rT13AxT6i7F5Ycxl5JT25b4uDj1fZ8K6rhKfIa2rM=;
- b=bR2p5ZJN0qejakz9OT4L9ZdH0rcsWSOWsgNu8sZKFR39XQwTsFYOAkjMdhk3iQNpFC
- bYUky5+4VnZyrxIgSmUmkK2C878xZU+A6kc2AAu9KDoh+MlNrWz1+B4q8vnhtjMi2/Kt
- GkPBPmRnN6fqUqSuaeSzYJLAOClspdzbqdFsoOjFHy+QhSso/9xsAMRjKft3QBlDOZmt
- 7BsUGRwSY7fD6zvltDTfXU17qIVX3BPzUGjKKc0WkO5Z8K1ZtTfCx9C71Dvxw/0CcUHi
- Opc/Mxi+5duwQC6HDA8FpjUkvxxzwYUfnTjNd5UUOWtFhLJ+tB6D1ZriZa3exCOwaeUV
- OPgg==
+ bh=G2hivNpIs9Yw9hGUFhjmLsY68kEzvfhce8DVHWNRyC0=;
+ b=IS+lGi/qXOC7X+OeaCU6jqXJbQD4bpsN881v9EMT2vW+3eYeDyss0IZImcDz0LIF0w
+ BhoIIED33GvPc4HRFyueUyfMYrYXtTy/btz2KY21oom3UFjOfCkuOKb2ZZCQMY1gF/kN
+ CwnkbENQn9oOpAH34h6boUinDVMIZEcZLYpeKdpm/FDEL/XG2S4zOE/03/3fNWBWmWqt
+ C0JOg6oHMXQeoynQWpgjelH29qTiQ6r0zjht6aV3uHTVO+ArX5IEyWZn2QsqCdPjiOg2
+ LSkRlsUueD/yJRiX/lo3EujDVVNmtnAVtC4UFlts17084qWyQROl8Ez1N8DrsYfL6BC+
+ pdmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgJ+4XnkUvA0ldB2YcwAKrxpyqOaEzWUviaDYhAEBcygO/46WvogdAHz0Sc3S++517HWrhe4A0dH7PhA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxkYlENXTFZ7sy2N1QdM7qERQwryRQ8ofP0qB7bLvsS6USvYzsT
- D7iODmAqFqzHJv7kryUBJ2r/cjnoGzEi3adnRL6ig8fpjh/BL3hW
-X-Gm-Gg: ASbGncu0uoIIjN5G3UPSfWIs4+y/nd0bWG+MbbVFM+DTygopeYfHEwOA/Y4UoxorsjV
- WWeeBj7mLz40DSIBc3VML0aKuof9z4Bh6Ffw90CkOO/SyBJC04Vtt7QvjT5p9vDNNFxZuC9qXRh
- 984Y1wE2bdJeIypG38CboqkoeI9aOhnX9mriogS99MY5ORH37OJxtGnVNOh/NZu/1VIztOSVqsw
- ihMevrUD8VBtXvFtQfEV3Ke12g7n2hHtCFMY5YJEhd6ZkBogcCMxWhrXbc8EXe+63HU+AEw7vxv
- u/Oo1GX8EwUpHUm+4haFze+oKCYGOgRm4vIYYw==
-X-Google-Smtp-Source: AGHT+IF9QeRgv+6Z/cPJtnzTG5KuBBCd8Qdr6JTrB73F+Bp0n4Wqinq/xvlObO2mPBHhOim0ujthOA==
-X-Received: by 2002:a05:6a00:889:b0:736:55ec:ea8b with SMTP id
- d2e1a72fcca58-73682d00a42mr7712708b3a.24.1741226967842; 
- Wed, 05 Mar 2025 18:09:27 -0800 (PST)
+ AJvYcCXCcWMJ2ZY60pq5cTz3tySVa+UjDIXBzJj+nXsDc2rZfxvFcPvEG0GcTb7NtH2rY3+Pbb0mPLNYawU2Zg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxbKoh5E3kEyPGt2dO67a4elnjYUiPIzFlcwDE+iqLV+rBTMkbY
+ oYz/1cxhStTCnxS4TvlEX0baGZhCqXTAOMT7s7jiyqvKZt9iVwaC
+X-Gm-Gg: ASbGnctbv60jIWceIjCgXy8p9Zwoan1qV8eiHQEw3H08a1kY8/E5fVo17cMWcSijhEl
+ Y3N+OOWxA8nZECW7pEizYfxgyzfmYzHt29cuqflkSY683+iwiu2y0rOL4WProQTSIWyYzygCC4k
+ lH5y3VRaMxPNUKh6zrFDmrRe1WG64kjeiplswEXojHeg82kOCzDlpHnyQupDd6x9FVeWAa7IDJg
+ Jd1OyeeqKCdbnDRuy+YL7jYuyG0ru6xjWMQ+4siNqesGdSFoG2hBfOxLO5PZd6l0wlwCF4WimpY
+ cuAFVkzmyILgsCLFcFe86bhX6i4kbCJrqIR24Q==
+X-Google-Smtp-Source: AGHT+IHkLXtXH1Ai+gYOOPrG6bG0WcyyOkT8w2yuVJZyzRqP4bS4nX9Piol8DXMXXfkC08Bx4bmSFQ==
+X-Received: by 2002:a05:6a00:1788:b0:730:9502:d564 with SMTP id
+ d2e1a72fcca58-73682be6b5bmr8585186b3a.14.1741227646199; 
+ Wed, 05 Mar 2025 18:20:46 -0800 (PST)
 Received: from localhost ([144.24.43.60]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73698519026sm139246b3a.144.2025.03.05.18.09.18
+ d2e1a72fcca58-736985387d3sm147939b3a.172.2025.03.05.18.20.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Mar 2025 18:09:27 -0800 (PST)
-Date: Thu, 6 Mar 2025 10:09:13 +0800
+ Wed, 05 Mar 2025 18:20:45 -0800 (PST)
+Date: Thu, 6 Mar 2025 10:20:37 +0800
 From: Furong Xu <0x1207@gmail.com>
-To: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
-Message-ID: <20250306100913.00005bb8@gmail.com>
-In-Reply-To: <20250305130026.642219-2-faizal.abdul.rahim@linux.intel.com>
-References: <20250305130026.642219-1-faizal.abdul.rahim@linux.intel.com>
- <20250305130026.642219-2-faizal.abdul.rahim@linux.intel.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250306102037.000007ab@gmail.com>
+In-Reply-To: <E1tpswn-005U6I-TU@rmk-PC.armlinux.org.uk>
+References: <E1tpswn-005U6I-TU@rmk-PC.armlinux.org.uk>
 X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Alexei Starovoitov <ast@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Chwee-Lin Choong <chwee.lin.choong@intel.com>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, intel-wired-lan@lists.osuosl.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v8 01/11] net: stmmac: move
- frag_size handling out of spin_lock
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: mostly remove
+	"buf_sz"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,73 +92,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed,  5 Mar 2025 08:00:16 -0500
-Faizal Rahim <faizal.abdul.rahim@linux.intel.com> wrote:
+On Wed, 05 Mar 2025 17:54:21 +0000
+"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-> The upcoming patch will extract verification logic into a new module,
-> MMSV (MAC Merge Software Verification). MMSV will handle most FPE fields,
-> except frag_size. It introduces its own lock (mmsv->lock), replacing
-> fpe_cfg->lock.
+> The "buf_sz" parameter is not used in the stmmac driver - there is one
+> place where the value of buf_sz is validated, and two places where it
+> is written. It is otherwise unused.
 > 
-> Since frag_size handling remains in the driver, the existing rtnl_lock()
-> is sufficient. Move frag_size handling out of spin_lock_irq_save() to keep
-> the upcoming patch a pure refactoring without behavior changes.
+> Remove these accesses. However, leave the module parameter in place as
+> removing it could cause module load to fail, breaking user setups.
 > 
-> Signed-off-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> index 918a32f8fda8..cfe5aea24549 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> @@ -1216,6 +1216,10 @@ static int stmmac_get_mm(struct net_device *ndev,
->  	if (!stmmac_fpe_supported(priv))
->  		return -EOPNOTSUPP;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index cb5099caecd0..037039a9a33b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -101,6 +101,7 @@ static int tc = TC_DEFAULT;
+>  module_param(tc, int, 0644);
+>  MODULE_PARM_DESC(tc, "DMA threshold control value");
 >  
-> +	state->rx_min_frag_size = ETH_ZLEN;
-> +	frag_size = stmmac_fpe_get_add_frag_size(priv);
-> +	state->tx_min_frag_size = ethtool_mm_frag_size_add_to_min(frag_size);
-> +
->  	spin_lock_irqsave(&priv->fpe_cfg.lock, flags);
+> +/* This is unused */
+>  #define	DEFAULT_BUFSIZE	1536
+>  static int buf_sz = DEFAULT_BUFSIZE;
+>  module_param(buf_sz, int, 0644);
+> @@ -218,8 +219,6 @@ static void stmmac_verify_args(void)
+>  {
+>  	if (unlikely(watchdog < 0))
+>  		watchdog = TX_TIMEO;
+> -	if (unlikely((buf_sz < DEFAULT_BUFSIZE) || (buf_sz > BUF_SIZE_16KiB)))
+> -		buf_sz = DEFAULT_BUFSIZE;
+>  	if (unlikely((pause < 0) || (pause > 0xffff)))
+>  		pause = PAUSE_TIME;
 >  
->  	state->max_verify_time = STMMAC_FPE_MM_MAX_VERIFY_TIME_MS;
-> @@ -1224,7 +1228,6 @@ static int stmmac_get_mm(struct net_device *ndev,
->  	state->verify_time = priv->fpe_cfg.verify_time;
->  	state->tx_enabled = priv->fpe_cfg.tx_enabled;
->  	state->verify_status = priv->fpe_cfg.status;
-> -	state->rx_min_frag_size = ETH_ZLEN;
+> @@ -4018,7 +4017,6 @@ static int __stmmac_open(struct net_device *dev,
+>  		}
+>  	}
 >  
->  	/* FPE active if common tx_enabled and
->  	 * (verification success or disabled(forced))
-> @@ -1236,9 +1239,6 @@ static int stmmac_get_mm(struct net_device *ndev,
->  	else
->  		state->tx_active = false;
->  
-> -	frag_size = stmmac_fpe_get_add_frag_size(priv);
-> -	state->tx_min_frag_size = ethtool_mm_frag_size_add_to_min(frag_size);
-> -
->  	spin_unlock_irqrestore(&priv->fpe_cfg.lock, flags);
->  
->  	return 0;
-> @@ -1258,6 +1258,8 @@ static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
->  	if (err)
->  		return err;
->  
-> +	stmmac_fpe_set_add_frag_size(priv, frag_size);
-> +
->  	/* Wait for the verification that's currently in progress to finish */
->  	timer_shutdown_sync(&fpe_cfg->verify_timer);
->  
-> @@ -1271,7 +1273,6 @@ static int stmmac_set_mm(struct net_device *ndev, struct ethtool_mm_cfg *cfg,
->  	if (!cfg->verify_enabled)
->  		fpe_cfg->status = ETHTOOL_MM_VERIFY_STATUS_DISABLED;
->  
-> -	stmmac_fpe_set_add_frag_size(priv, frag_size);
->  	stmmac_fpe_apply(priv);
->  
->  	spin_unlock_irqrestore(&fpe_cfg->lock, flags);
+> -	buf_sz = dma_conf->dma_buf_sz;
+>  	for (int i = 0; i < MTL_MAX_TX_QUEUES; i++)
+>  		if (priv->dma_conf.tx_queue[i].tbs & STMMAC_TBS_EN)
+>  			dma_conf->tx_queue[i].tbs = priv->dma_conf.tx_queue[i].tbs;
+> @@ -7973,9 +7971,6 @@ static int __init stmmac_cmdline_opt(char *str)
+>  		} else if (!strncmp(opt, "phyaddr:", 8)) {
+>  			if (kstrtoint(opt + 8, 0, &phyaddr))
+>  				goto err;
+> -		} else if (!strncmp(opt, "buf_sz:", 7)) {
+> -			if (kstrtoint(opt + 7, 0, &buf_sz))
+> -				goto err;
+>  		} else if (!strncmp(opt, "tc:", 3)) {
+>  			if (kstrtoint(opt + 3, 0, &tc))
+>  				goto err;
 
 Reviewed-by: Furong Xu <0x1207@gmail.com>
 
