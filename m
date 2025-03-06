@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90DECA544EC
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:32:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF1CBA544F2
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:33:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E25C78002;
-	Thu,  6 Mar 2025 08:32:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76802C78002;
+	Thu,  6 Mar 2025 08:33:12 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B1BCC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58763C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 08:32:10 +0000 (UTC)
+ Thu,  6 Mar 2025 08:33:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1B5DE5C5575;
- Thu,  6 Mar 2025 08:29:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1A6C4CEE4;
- Thu,  6 Mar 2025 08:32:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5C3015C49BE;
+ Thu,  6 Mar 2025 08:30:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60659C4CEE2;
+ Thu,  6 Mar 2025 08:33:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741249928;
- bh=Asa+Q9Dadytnu7IE9OxlqukGoe3IuAv6i5AaA0FHBGk=;
+ s=k20201202; t=1741249989;
+ bh=W1vlfejmBdJ9OrBJVwnv8CtY5kHu1G54rZbxMYZx5Sg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=AuL6yP092N4mZZp4lPZrPmir5Z0U1OP8VCaF3OvFoWFlwHXcR7zwaz0Tjy60P+VXS
- LE6RgdmuzLV1/8aRbMJlrm4nhinol3hhizwCOGZ+TTEu39zsVtwl5ETW+w6f5r/wmI
- RRB7jbefUMLD9GhAQLcU3wzlsuPGocOxrGOUC5cnK49qBSQvAuJwd6MJtKcq2Osj7P
- xQ9CR+dv2Rco8rfKTkePMbob+wUoO1Nk8/Z9jq0ynY4wJoX9hSBF2WiksKa0+1OgQD
- KG9mvAIviuc4xFGBBKleov7vBsfAstwQhmQoTEgZo/Hj2Hn7ZixWrzb6To4Vn6St7i
- Q8ks3xoloqH/g==
-Message-ID: <1f14fdfe-379b-4718-812b-820c90f58e27@kernel.org>
-Date: Thu, 6 Mar 2025 09:31:57 +0100
+ b=puxbGR39RPY7d5MG4B9a7p3LWolV1DKKVt2VvdxSBHAGTE5V9eoWcSmcIVKowZ5TC
+ eT/M7QoWTFJdYfp3F5WAEOj3JG0eBxYq8CsZzt2Jhc8urDjxtSaPOs0RcCRlFAc6GR
+ 3jpcLJUq9CpcBl75ltun5/j0JDesOpWf+DvXn4eW1oGTm/KDr8kDZrfmohRUbI8LQC
+ +L09oyT0biIz6nwDpRc0pmiABqGid2OM+iAZbybhlVKJf6i6npg2a0Kd1Y+5ULmLCY
+ nfS9A675CpYW6J+p8MozNmq3Ja5iRmsHEyervUB7/dcjwSzGkaMYKIPY4rka+VuA3g
+ DYaBlWeQgmfHw==
+Message-ID: <c1bf7e68-c23b-4e73-8369-4480c7f080fc@kernel.org>
+Date: Thu, 6 Mar 2025 09:33:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
@@ -40,8 +40,6 @@ To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
 References: <20250305091246.106626-1-swathi.ks@samsung.com>
  <CGME20250305091852epcas5p18a0853e85a5ed3d36d5d42ef89735ca6@epcas5p1.samsung.com>
  <20250305091246.106626-2-swathi.ks@samsung.com>
- <789ecb2f-dddc-491b-b9f8-5fb89058fd1b@kernel.org>
- <012701db8e6b$950550c0$bf0ff240$@samsung.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,7 +85,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <012701db8e6b$950550c0$bf0ff240$@samsung.com>
+In-Reply-To: <20250305091246.106626-2-swathi.ks@samsung.com>
 Cc: devicetree@vger.kernel.org, ravi.patel@samsung.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
  pankaj.dubey@samsung.com, gost.dev@samsung.com,
@@ -110,58 +108,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/03/2025 08:44, Swathi K S wrote:
+On 05/03/2025 10:12, Swathi K S wrote:
+> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
+> Ethernet YAML schema to enable the DT validation.
 > 
-> 
->> -----Original Message-----
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->> Sent: 06 March 2025 12:45
->> To: Swathi K S <swathi.ks@samsung.com>; krzk+dt@kernel.org;
->> andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
->> kuba@kernel.org; pabeni@redhat.com; robh@kernel.org;
->> conor+dt@kernel.org; richardcochran@gmail.com;
->> mcoquelin.stm32@gmail.com; alexandre.torgue@foss.st.com
->> Cc: rmk+kernel@armlinux.org.uk; netdev@vger.kernel.org;
->> devicetree@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
->> linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
->> pankaj.dubey@samsung.com; ravi.patel@samsung.com;
->> gost.dev@samsung.com
->> Subject: Re: [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS device tree
->> bindings
->>
->> On 05/03/2025 10:12, Swathi K S wrote:
->>> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
->>> Ethernet YAML schema to enable the DT validation.
->>>
->>> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
->>> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
->>> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
->>> ---
->>>  .../devicetree/bindings/net/snps,dwmac.yaml   |   5 +-
->>>  .../bindings/net/tesla,fsd-ethqos.yaml        | 118 ++++++++++++++++++
->>>  2 files changed, 121 insertions(+), 2 deletions(-)  create mode
->>> 100644 Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml
->>>
->>
->> I tried and did not see any differences, so point me exactly to any difference
->> in the binding (binding!) which would justify dropping review?
-> 
-> Added the following in the example given in DT binding doc:
+> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
+> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
+> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
+> ---
 
-OK, but that's an example, not the binding, so no new properties in the
-binding.
-
-> 
-> assigned-clocks = <&clock_peric PERIC_EQOS_PHYRXCLK_MUX>,
->                                 <&clock_peric PERIC_EQOS_PHYRXCLK>;
-> assigned-clock-parents = <&clock_peric PERIC_EQOS_PHYRXCLK>;
-> 
-> Given the significance of these changes, I assumed the changes need to be reviewed again.
-
-Adding standard properties to the example is not significant change. It
-is really a minor change.
-
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
