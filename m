@@ -2,69 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47953A5450C
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:38:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5143BA54513
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 09:39:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5FCAC78002;
-	Thu,  6 Mar 2025 08:38:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19CB6C78002;
+	Thu,  6 Mar 2025 08:39:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEC15C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98078C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 08:38:39 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52675g1x027727;
- Thu, 6 Mar 2025 09:38:23 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- THTPti0GSVkJ4Cd75xheL2m4nwMeiJGZ76Ql1T7hNSg=; b=RRnXXZamHslG4g3e
- Uj+5ddeHAS1FF0PnwSRao4wSH4kqc1blP1txTUwJjJ1OVy5EIqkdi2gabTmdPF28
- UAbwr3nRHkwDUN2laKtxlY4xfiKlVQtDdXBavK4Sn57Hs5+DwHVzQvXq24kizUp3
- rI9XT0Em724nOCx2sDMTh9kBwcS0LzZsaP1aiJc5bS6o86AVz+JFBdmWCed+ETkW
- ADpZLcqFMXsMTW7u2l+WJyZ6ek2QHy5Q8urrPmrgxU3TFNF1HO9TXUlW4dNSsLy4
- h19IrDtz40YnMlhQ/J4lMc5tZ9zS3uPi7c/Hm2+Ets5anIUPnCmc1LswiPHZ6F5S
- 7ZaMHw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 454cp8x3cp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Mar 2025 09:38:23 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6EF8740049;
- Thu,  6 Mar 2025 09:37:38 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC809411871;
- Thu,  6 Mar 2025 09:37:16 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 09:37:16 +0100
-Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 6 Mar
- 2025 09:37:16 +0100
-Message-ID: <4081d99c-1283-45a4-9cb8-8e6f8dbd635d@foss.st.com>
-Date: Thu, 6 Mar 2025 09:37:15 +0100
+ Thu,  6 Mar 2025 08:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741250391; x=1772786391;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=7WIRXk0lkMJA49/eFijGOr0gBbp7GJYo8Y5tLpulrd0=;
+ b=g0zrWx8XD3RvObZYQ7AogALZKlZlpg56UrQc+I6SbKd2Py+ksuTIO9SZ
+ TRAx3X77AGsYWZhdqJ0ZGZ5S+Qsw4S+/ft1bcLUk6gbyeA8LhUTLNaa03
+ CyqEK0Rds0hyTFT67SaJ1deWZIC/p7YNp+S1xG6x91xKQxzMGD/DYW0A6
+ pOQSkLDxyXhIC38a7UeZo3wePeZ8juUj3Hgh/hRhqTGUJ69MSTBYGdgJl
+ Wls17UccG79m3uwNbrQYxOgfgyKBi+TRhnKqgrJsMefrxxawLzNeq+yLm
+ 5oQXmUORkMOikOVn3Blx4fT9Cg4dN6OUcS6mICc9kW+SeGKDQ/p450f5v A==;
+X-CSE-ConnectionGUID: 9lz5NqROS1SKn6sXQQbRPQ==
+X-CSE-MsgGUID: FcJO9vOqQgqHq75QQPtLXQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="42162169"
+X-IronPort-AV: E=Sophos;i="6.14,225,1736841600"; d="scan'208";a="42162169"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 00:39:49 -0800
+X-CSE-ConnectionGUID: E3nQX3CgSkGV1z1AAcpQgg==
+X-CSE-MsgGUID: ytnhRbI4SIiTiI1GaBHdcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="118872684"
+Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.247.67.95])
+ ([10.247.67.95])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 00:39:41 -0800
+Message-ID: <601c88fb-8ec8-4866-a45d-f28dea6d9625@linux.intel.com>
+Date: Thu, 6 Mar 2025 16:39:38 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
-References: <20250305125146.1858978-1-fabrice.gasnier@foss.st.com>
- <a7489f16-ca31-4530-8ef1-33079b3c99a9@linaro.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20250227121522.1802832-1-yong.liang.choong@linux.intel.com>
+ <20250227121522.1802832-6-yong.liang.choong@linux.intel.com>
+ <Z8lLm9Ze9VAx3cE_@surfacebook.localdomain>
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <a7489f16-ca31-4530-8ef1-33079b3c99a9@linaro.org>
-X-Originating-IP: [10.48.86.222]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-06_03,2025-03-06_01,2024-11-22_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] clocksource: stm32-lptimer: use wakeup
- capable instead of init wakeup
+From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+In-Reply-To: <Z8lLm9Ze9VAx3cE_@surfacebook.localdomain>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
+ Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
+ x86@kernel.org, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Mengyuan Lou <mengyuanlou@net-swift.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Simon Horman <horms@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
+ Borislav Petkov <bp@alien8.de>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ linux-arm-kernel@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v9 5/6] net: stmmac: configure
+ SerDes according to the interface mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,38 +83,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMy81LzI1IDE4OjIzLCBEYW5pZWwgTGV6Y2FubyB3cm90ZToKPiBPbiAwNS8wMy8yMDI1IDEz
-OjUxLCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4+IEZyb206IEFsZXhhbmRyZSBUb3JndWUgPGFs
-ZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+Cj4+ICJ3YWtldXAtc291cmNlIiBwcm9wZXJ0
-eSBkZXNjcmliZXMgYSBkZXZpY2Ugd2hpY2ggaGFzIHdha2V1cCBjYXBhYmlsaXR5Cj4+IGJ1dCBz
-aG91bGQgbm90IGZvcmNlIHRoaXMgZGV2aWNlIGFzIGEgd2FrZXVwIHNvdXJjZS4KPiAKPiBJcyB0
-aGF0IGEgZml4IHRvIGJlIGNhcnJpZWQgb24gPwoKSGkgRGFuaWVsLAoKVGhhbmtzIGZvciByZXZp
-ZXdpbmcsCkkganVzdCBoYXZlIHNlbnQgYSBWMiB3aXRoIEZpeGVzIHRhZywgYW5kIGhhdmUgQ0Mn
-ZWQgc3RhYmxlLgoKUGxlYXNlIHJldmlldyB0aGVyZSwKQmVzdCBSZWdhcmRzLApGYWJyaWNlCgpG
-aXhlczogNDhiNDFjNWUyZGU2ICgiY2xvY2tzb3VyY2U6IEFkZCBMb3cgUG93ZXIgU1RNMzIgdGlt
-ZXJzIGRyaXZlciIpCj4gCj4+IFNpZ25lZC1vZmYtYnk6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhh
-bmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEZhYnJpY2UgR2Fzbmll
-ciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9jbG9j
-a3NvdXJjZS90aW1lci1zdG0zMi1scC5jIHwgNCArLS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAx
-IGluc2VydGlvbigrKSwgMyBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Y2xvY2tzb3VyY2UvdGltZXItc3RtMzItbHAuYwo+PiBiL2RyaXZlcnMvY2xvY2tzb3VyY2UvdGlt
-ZXItc3RtMzItbHAuYwo+PiBpbmRleCA5NmQ5NzVhZGY3YTQuLmYwOGJhYTY3MjBmOCAxMDA2NDQK
-Pj4gLS0tIGEvZHJpdmVycy9jbG9ja3NvdXJjZS90aW1lci1zdG0zMi1scC5jCj4+ICsrKyBiL2Ry
-aXZlcnMvY2xvY2tzb3VyY2UvdGltZXItc3RtMzItbHAuYwo+PiBAQCAtMTg2LDkgKzE4Niw3IEBA
-IHN0YXRpYyBpbnQgc3RtMzJfY2xrZXZlbnRfbHBfcHJvYmUoc3RydWN0Cj4+IHBsYXRmb3JtX2Rl
-dmljZSAqcGRldikKPj4gwqDCoMKgwqDCoCB9Cj4+IMKgIMKgwqDCoMKgwqAgaWYgKG9mX3Byb3Bl
-cnR5X3JlYWRfYm9vbChwZGV2LT5kZXYucGFyZW50LT5vZl9ub2RlLAo+PiAid2FrZXVwLXNvdXJj
-ZSIpKSB7Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSBkZXZpY2VfaW5pdF93YWtldXAoJnBkZXYt
-PmRldiwgdHJ1ZSk7Cj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+PiAtwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBnb3RvIG91dF9jbGtfZGlzYWJsZTsKPj4gK8KgwqDCoMKgwqDCoMKgIGRldmlj
-ZV9zZXRfd2FrZXVwX2NhcGFibGUoJnBkZXYtPmRldiwgdHJ1ZSk7Cj4+IMKgIMKgwqDCoMKgwqDC
-oMKgwqDCoCByZXQgPSBkZXZfcG1fc2V0X3dha2VfaXJxKCZwZGV2LT5kZXYsIGlycSk7Cj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+IAo+IApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 6/3/2025 3:15 pm, Andy Shevchenko wrote:
+> Thu, Feb 27, 2025 at 08:15:21PM +0800, Choong Yong Liang kirjoitti:
+>> Intel platform will configure the SerDes through PMC API based on the
+>> provided interface mode.
+>> This patch adds several new functions below:-
+>> - intel_tsn_lane_is_available(): This new function reads FIA lane
+>>    ownership registers and common lane registers through IPC commands
+>>    to know which lane the mGbE port is assigned to.
+>> - intel_mac_finish(): To configure the SerDes based on the assigned
+>>    lane and latest interface mode, it sends IPC command to the PMC through
+>>    PMC driver/API. The PMC acts as a proxy for R/W on behalf of the driver.
+>> - intel_set_reg_access(): Set the register access to the available TSN
+>>    interface.
+> ...
+> 
+>> config DWMAC_INTEL
+>>   	default X86
+>>   	depends on X86 && STMMAC_ETH && PCI
+>>   	depends on COMMON_CLK
+>> +	depends on ACPI
+> Stray and unexplained change. Please, fix it. We don't need the dependencies
+> which are not realised in the compile time.
+> 
+> -- With Best Regards, Andy Shevchenko
+
+Hi Andy,
+
+The dependency on ACPI is necessary because the intel_pmc_ipc.h header 
+relies on ACPI functionality to interact with the Intel PMC.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
