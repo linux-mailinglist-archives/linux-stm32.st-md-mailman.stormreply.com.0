@@ -2,91 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD4FA545D0
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 10:05:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE816A546CE
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 10:48:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B501FC78002;
-	Thu,  6 Mar 2025 09:05:46 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 693F7C7801E;
+	Thu,  6 Mar 2025 09:48:41 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3975CC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0744CFAC4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 09:05:45 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-abf64aa2a80so81600266b.0
+ Thu,  6 Mar 2025 09:48:38 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-391211ea598so296741f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Mar 2025 01:05:45 -0800 (PST)
+ Thu, 06 Mar 2025 01:48:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741251944; x=1741856744;
+ d=linaro.org; s=google; t=1741254518; x=1741859318;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qF1a4xy5g06O2GkwhB05ytvAS2BqrA8TH0Jy33gZxiw=;
- b=l5u4RkLOrYWex65Os3ojIDm27PcmdO0oS9CV+yQan5YWsm9c55/Eac3ScMgqBqs8rO
- /s4iXor5uRR9zm6i2zylzrbiz5N56eYK4GJ0aSVUQXg7JA1ISwaHFrx0RYo8nZgEnadQ
- /k5hr2h+2eXHI+o31353MSowK8Y5ueH4URAo0W47eTTfBMVdcscqiUQ+ojnuyTZctFOr
- o9e6or4uJ3wGsxFjOWfiloyIv2PuDtvwTNyqwC71iRTmMIHlOxkyXTwNc680Zo71u2J8
- ow2t/BrAWj+UhCoCxYOP5hrdZnnKPd46Utb+1uDWUoYiW24nw/y/tbXOIuYr3LCKhWYV
- wz5A==
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dYb6T/3vLosF9o5q+Y5UiX2/6xC2fpf9CrlM4eItM9w=;
+ b=b7gdVaq2132Vi0scxTgfbFLnHGshyRUOhkrgJEQ72KZm9ep4gbq3w+1CIIhYdWyk+d
+ uCHkWhR68m1LrnvpXVLGaks/CRbIcOWTOcnnXMY8DvtLe230kttAoLo/1nxb5puXTpCE
+ NrhjF2+Y25mvy9O0YwqGQWhkOCNC5gvo3ulIfJqoGT8NIgDqLjMPNHLRGjWZEb25loaw
+ kF3NQeRDd7cv9ab+vzg+Mx8WnQ3f82F5QZRpqnjYJOZ5yr1qFhtheR7Jk0uMZYTOn+ME
+ 2+ccMJ7h4y6evmtlhXLt2eW5y3BYnDDo3RRMfy5/q6u448vytp9x6e6MiOmkuEWMz+tq
+ UNQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741251944; x=1741856744;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qF1a4xy5g06O2GkwhB05ytvAS2BqrA8TH0Jy33gZxiw=;
- b=HbyZkLI79FEptjlzD4EiT642LfVTOSvgh75zfe61CrFKbvLT1FrIFfLOb/KX13f+J3
- Z19uTjctorM1Rgoo/pVbCwZ4tglY0bN2C5SL+13BqTk2HccSy1fdluiT/6KjQeEXSSNS
- xKBNOWlt75FtjrVRXnb9LidDBbBDgUA/oj3sOxI4gk+CrmpJP0Ys9P6S4sf3YQg0k+3M
- 4MIZ5iwznv62ntqFlNBQYAr73r8J1mkCGB7bjZNJWadXZFmiHniG4BpFNzPbI2STc35j
- V1LXn7B6ivn7RwFwGIFboo2fDubMj3PhkgoN5A1NtE0naLvIU7/74PywQq3vdz/i7EqA
- G/EA==
+ d=1e100.net; s=20230601; t=1741254518; x=1741859318;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dYb6T/3vLosF9o5q+Y5UiX2/6xC2fpf9CrlM4eItM9w=;
+ b=ixL3LWsW3gOaYuF6T6rW+AhMs3pffulqaoeDN/tEGHsUCX4WUXXsPUhKCK/ZIMYaEp
+ alfUCM83+7c0vtNq9D5Wo0wTe0AA3+ew/uTE32pxjXC9fdNNIBsWvR2cZn/nU8QqT7bt
+ xpxV6yatiznQPEdDXbSnPKvh3BCYi5pTVy9KGKZYN6U2stQbGVk1fO1BUs6mI35iOiWV
+ nqrgSNNiSQEtVL9DAiZRnUPif8t1lcpNNPytUAEUTf8RZvtIISlQNqlnYzf9mxBYs61P
+ D+hT04v7mQ5ECR2LLfiXl2L2+7L5a12foOGCWk7B4zoBys2ysqte0kGqcH3a89JbS1Ra
+ daGw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXhM0yweIZFy3N4bXIPIUkkxKCWGmCkJEVB8wKeK/IbYxpW/o02kRgPD86YLTZ+cjLwsBq51VU3MHlqCg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzJRXJ72KOjpBVLXXP3FgavIQLnUBpjo/a025FzgPm3LFRHD9rp
- E4b2YpstHmLSV2oS9uUxgKMRr+LOZKHsLH2r534f7yLEjnoDrVFd4zZtjR3L5K9dfVsKdf4Y1Ux
- 3WrKezaYZcurMVY1wnsUJ83PgkyI=
-X-Gm-Gg: ASbGncsOkGsQqZIG/E4R6zrC81Q8wEUq2v+/HXZTp92VSmI3EVVXaDCfLdw/qE+F4lQ
- PmeDVlesEJsRiiE61lYQ4hBo6iJkcu0fY1ktvXfTDzn7XF92hS2sHSDKDM3WL2dDegoJMZjWJGC
- 1SOvWS8PX3eRgwaJDesc1YeAwXEhjX
-X-Google-Smtp-Source: AGHT+IEZf+mByLmt2C5pECGvzvf9DNU4dvPx4rdt3aJSm/Ho3YYl4NaclXM6a/5zGcCuNqGotXObOzkukzSbT9Fj/lE=
-X-Received: by 2002:a17:907:2d21:b0:ac1:de84:dea1 with SMTP id
- a640c23a62f3a-ac20da878e7mr662880966b.43.1741251944175; Thu, 06 Mar 2025
- 01:05:44 -0800 (PST)
+ AJvYcCWRYhludXH0aZmWAlJaDI0oFVcHplMRJNydnWJp9UsLaMtDl6iwwVuVLjQKgynUghmBz/N2Wnr2EHqp2A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyzNd7TqS+f4miIA3Qm4uEkkQbQQhafJxITECSl1qSLGW7FJU2G
+ 8iOM02zeP87KK/3LnAriDbbR6o74LQc7l7rhxiHHXXTS/m26QoaANKo99qCZbeA=
+X-Gm-Gg: ASbGncuuQJo69Mxj7xjvMwBwhFAbo1TgY/KQg77d9tmGZq5JifzgWhpKGTnTKJFlKux
+ ccEaGDqIMK4h00yiBiKgkcwccTJO4uGuFF4ewPYDf5CKda6O//FWNn8oamCWAIlzhP2CPD7AFQM
+ xJbCLVknj+Vi8LtVvvt+z8aVzggvb0oV/cy/bFguZdEi/0pN9RqGYSnQdjY6ZXAIyDTiByx51Dl
+ /mbRCQt2LxYCDZdtC+Kl+XXxgezkmJ6P3PT0Y7F1l3xj7Q7tpoItFA+TupsIOBuPELHJSX7vdxv
+ aIuwU5/QPftQhW8v82qzrpRRDBWbvRDNR2SPzR7xNHfYKrpp7A==
+X-Google-Smtp-Source: AGHT+IFBd/ryvsqo4SuH5AoV+P7wyT4wM81i1izptWSUavGGlpTSK4T7eUmgeLPy3GMlZioDo8QvWA==
+X-Received: by 2002:a05:6000:10d:b0:391:225:9521 with SMTP id
+ ffacd0b85a97d-3911f7bd8b2mr4846113f8f.38.1741254518181; 
+ Thu, 06 Mar 2025 01:48:38 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3912bfba66esm1527318f8f.18.2025.03.06.01.48.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Mar 2025 01:48:37 -0800 (PST)
+Date: Thu, 6 Mar 2025 12:48:34 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+Message-ID: <bc4c9123-df43-4616-962f-765801d30b4c@stanley.mountain>
 MIME-Version: 1.0
-References: <20250227121522.1802832-1-yong.liang.choong@linux.intel.com>
- <20250227121522.1802832-6-yong.liang.choong@linux.intel.com>
- <Z8lLm9Ze9VAx3cE_@surfacebook.localdomain>
- <601c88fb-8ec8-4866-a45d-f28dea6d9625@linux.intel.com>
-In-Reply-To: <601c88fb-8ec8-4866-a45d-f28dea6d9625@linux.intel.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 6 Mar 2025 11:05:08 +0200
-X-Gm-Features: AQ5f1JpWFPB7HB7xwoyOVydwoKV_kFgASdMk4fd6Z1W-9JCutpUYIBvLsaYm1DU
-Message-ID: <CAHp75VeOKbAsvSuf5+VQnGFmUcN92TNnR2eF1+70h3PjaMdMqA@mail.gmail.com>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, David E Box <david.e.box@intel.com>,
- Eric Dumazet <edumazet@google.com>, David E Box <david.e.box@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, linux-stm32@st-md-mailman.stormreply.com,
- x86@kernel.org, Russell King <linux@armlinux.org.uk>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Mengyuan Lou <mengyuanlou@net-swift.com>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Simon Horman <horms@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Jiawen Wu <jiawenwu@trustnetic.com>,
- Borislav Petkov <bp@alien8.de>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- linux-arm-kernel@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 5/6] net: stmmac: configure
- SerDes according to the interface mode
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH next] spi: stm32-ospi: Fix an IS_ERR() vs NULL
+ bug in stm32_ospi_get_resources()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +83,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBNYXIgNiwgMjAyNSBhdCAxMDozOeKAr0FNIENob29uZyBZb25nIExpYW5nCjx5b25n
-LmxpYW5nLmNob29uZ0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgo+IE9uIDYvMy8yMDI1IDM6MTUg
-cG0sIEFuZHkgU2hldmNoZW5rbyB3cm90ZToKPiA+IFRodSwgRmViIDI3LCAyMDI1IGF0IDA4OjE1
-OjIxUE0gKzA4MDAsIENob29uZyBZb25nIExpYW5nIGtpcmpvaXR0aToKCi4uLgoKPiA+PiBjb25m
-aWcgRFdNQUNfSU5URUwKPiA+PiAgICAgIGRlZmF1bHQgWDg2Cj4gPj4gICAgICBkZXBlbmRzIG9u
-IFg4NiAmJiBTVE1NQUNfRVRIICYmIFBDSQo+ID4+ICAgICAgZGVwZW5kcyBvbiBDT01NT05fQ0xL
-Cj4gPj4gKyAgICBkZXBlbmRzIG9uIEFDUEkKPiA+IFN0cmF5IGFuZCB1bmV4cGxhaW5lZCBjaGFu
-Z2UuIFBsZWFzZSwgZml4IGl0LiBXZSBkb24ndCBuZWVkIHRoZSBkZXBlbmRlbmNpZXMKPiA+IHdo
-aWNoIGFyZSBub3QgcmVhbGlzZWQgaW4gdGhlIGNvbXBpbGUgdGltZS4KPgo+IFRoZSBkZXBlbmRl
-bmN5IG9uIEFDUEkgaXMgbmVjZXNzYXJ5IGJlY2F1c2UgdGhlIGludGVsX3BtY19pcGMuaCBoZWFk
-ZXIKPiByZWxpZXMgb24gQUNQSSBmdW5jdGlvbmFsaXR5IHRvIGludGVyYWN0IHdpdGggdGhlIElu
-dGVsIFBNQy4KClNvLCB0aGF0IGhlYWRlciBoYXMgdG8gYmUgZml4ZWQgYXMgQUNQSSBoZXJlIGlz
-IHJlYWxseSB1bm5lZWRlZApkZXBlbmRlbmN5IGZvciB0aGUgY2FzZXMgd2hlbiBzb21lYm9keSAo
-Zm9yIHdoYXRldmVyIHJlYXNvbnMpIHdhbnQgdG8KYnVpbGQgYSBrZXJuZWwgd2l0aG91dCBBQ1BJ
-IHN1cHBvcnQgYnV0IHdpdGggdGhlIGRyaXZlciBlbmFibGVkIGZvcgpsZXQncyBzYXkgUENJIGRl
-dmljZS4KCgotLSAKV2l0aCBCZXN0IFJlZ2FyZHMsCkFuZHkgU2hldmNoZW5rbwpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The devm_ioremap() function returns NULL on error, it doesn't return
+error pointers.  Fix the check to match.
+
+Fixes: 79b8a705e26c ("spi: stm32: Add OSPI driver")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/spi/spi-stm32-ospi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index 8eadcb64f34a..a544d7897edf 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -835,10 +835,10 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
+ 	if (rmem) {
+ 		ospi->mm_size = rmem->size;
+ 		ospi->mm_base = devm_ioremap(dev, rmem->base, rmem->size);
+-		if (IS_ERR(ospi->mm_base)) {
++		if (!ospi->mm_base) {
+ 			dev_err(dev, "unable to map memory region: %pa+%pa\n",
+ 				&rmem->base, &rmem->size);
+-			ret = PTR_ERR(ospi->mm_base);
++			ret = -ENOMEM;
+ 			goto err_dma;
+ 		}
+ 
+-- 
+2.47.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
