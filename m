@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CAF4A54349
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 08:09:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697F9A5436A
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Mar 2025 08:15:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4C9DC78F6E;
-	Thu,  6 Mar 2025 07:09:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2334EC78F6E;
+	Thu,  6 Mar 2025 07:15:09 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85322C78F6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 605FAC78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Mar 2025 07:09:51 +0000 (UTC)
+ Thu,  6 Mar 2025 07:15:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 03F08A40ADD;
- Thu,  6 Mar 2025 07:04:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46444C4CEE4;
- Thu,  6 Mar 2025 07:09:43 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id BA3BEA40B3B;
+ Thu,  6 Mar 2025 07:09:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D799BC4CEE4;
+ Thu,  6 Mar 2025 07:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741244990;
- bh=EP/2OzblPB5fEA8S496jYOnDzsVwjUYkXmbBY2uXZQU=;
+ s=k20201202; t=1741245306;
+ bh=XJIMiL0K7y9DfdSjMQIYYyq4R6d3/GrM2ZzC9MoWLtE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PCipHMVs2wDZAx5qquTkBOjLYgWz00kvpXPyIsybNOpVGDhDuqxtIagPpo59lbZY/
- +Uo3BFyy/+ucaSG5q597z9Oh5y9hxZ2sytozQiP4gE96PNdkytAxCtMQNN5rwza7Gk
- 0krjuDiXfI0/SfZj+KBidbi+jgVeoIfzytD3OmAN/NzEhQGhRXB8jN+AHilmiXn5uw
- R1MRSGvkcC4gna8Jn33tVgupvmg4BjFAO80SX+KOjbAxHUh7LDjcaBRhe7eYO+d95u
- 4UvuxL4dpn5h+mW+7dMnYGaeB2gyIsWxpCjefdPsJhb/m264z6D/Uqn5MQ+tBV+mCp
- bWYASCeptYutg==
-Message-ID: <041d55fd-99f0-4b55-92e5-fa46f37096c1@kernel.org>
-Date: Thu, 6 Mar 2025 08:09:40 +0100
+ b=rGGZAxkdmlz6aMntaSvaqI4j3yzPHU5IubqOr17HjUV5BZIFiGw1pW9x+HaQbm2zp
+ RhJpygD79AduGVYNKtgTt9rw0sE8mmGUyfjI5slL2DpWq7vWp/uZ5ABoLAlj1Xsrey
+ C54JQo5dxQjnAPUfDiO8H9FZumDU7UBapMkUxkYCshX1O7knY0TdlfK1wDxs/Nluby
+ 6TBWOJY9B6xy+mirOTMsCkGYNoMk2XHRWVcyhjlG2xiQoTJOSW6Psxd8GgCcVcFwb/
+ IwCModRptWQf3ijiAFzN8stVqoHBg5bdbc+UDZ8bHdd/Xz4OMn6rLrtTmIcrMKFd+U
+ v/5Jl6Oa3af2A==
+Message-ID: <789ecb2f-dddc-491b-b9f8-5fb89058fd1b@kernel.org>
+Date: Thu, 6 Mar 2025 08:14:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
@@ -37,8 +37,9 @@ To: Swathi K S <swathi.ks@samsung.com>, krzk+dt@kernel.org,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, conor+dt@kernel.org,
  richardcochran@gmail.com, mcoquelin.stm32@gmail.com,
  alexandre.torgue@foss.st.com
-References: <CGME20250305091845epcas5p1689eda3ba03572377997897271636cfd@epcas5p1.samsung.com>
- <20250305091246.106626-1-swathi.ks@samsung.com>
+References: <20250305091246.106626-1-swathi.ks@samsung.com>
+ <CGME20250305091852epcas5p18a0853e85a5ed3d36d5d42ef89735ca6@epcas5p1.samsung.com>
+ <20250305091246.106626-2-swathi.ks@samsung.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -84,13 +85,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20250305091246.106626-1-swathi.ks@samsung.com>
+In-Reply-To: <20250305091246.106626-2-swathi.ks@samsung.com>
 Cc: devicetree@vger.kernel.org, ravi.patel@samsung.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
- tools@linux.kernel.org, pankaj.dubey@samsung.com, gost.dev@samsung.com,
+ pankaj.dubey@samsung.com, gost.dev@samsung.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 0/2] net: stmmac: dwc-qos: Add FSD EQoS
-	support
+Subject: Re: [Linux-stm32] [PATCH v8 1/2] dt-bindings: net: Add FSD EQoS
+ device tree bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,28 +109,21 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 05/03/2025 10:12, Swathi K S wrote:
-> FSD platform has two instances of EQoS IP, one is in FSYS0 block and
-> another one is in PERIC block. This patch series add required DT binding
-> and platform driver specific changes for the same.
+> Add FSD Ethernet compatible in Synopsys dt-bindings document. Add FSD
+> Ethernet YAML schema to enable the DT validation.
 > 
-> Changes since v1:
-> 1. Updated dwc_eqos_setup_rxclock() function as per the review comments
-> given by Andrew.
+> Signed-off-by: Pankaj Dubey <pankaj.dubey@samsung.com>
+> Signed-off-by: Ravi Patel <ravi.patel@samsung.com>
+> Signed-off-by: Swathi K S <swathi.ks@samsung.com>
+> ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |   5 +-
+>  .../bindings/net/tesla,fsd-ethqos.yaml        | 118 ++++++++++++++++++
+>  2 files changed, 121 insertions(+), 2 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/tesla,fsd-ethqos.yaml
 > 
-Please stop referencing some other threads in your email headers via
-"References". This is neither necessary nor helping our tools. I can
-never compare your patches because this makes b4 busy 100%:
 
-b4 diff -C '<20250305091246.106626-2-swathi.ks@samsung.com>'
-Grabbing thread from
-lore.kernel.org/all/20250305091246.106626-2-swathi.ks@samsung.com/t.mbox.gz
-Checking for older revisions
-  Added from v7: 3 patches
----
-Analyzing 86 messages in the thread
-Preparing fake-am for v7: dt-bindings: net: Add FSD EQoS device tree
-bindings
-<never ends, 100% CPU>
+I tried and did not see any differences, so point me exactly to any
+difference in the binding (binding!) which would justify dropping review?
 
 Best regards,
 Krzysztof
