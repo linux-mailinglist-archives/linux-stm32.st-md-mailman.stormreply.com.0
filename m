@@ -2,81 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75B0A55E3B
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 04:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390FAA5616C
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 08:05:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 985D2C78F86;
-	Fri,  7 Mar 2025 03:21:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCCA4C78F96;
+	Fri,  7 Mar 2025 07:05:08 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.59])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC593C78F85
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8D62C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Mar 2025 03:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741317686; x=1772853686;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Jg5XeRxyuKD825uDbJYMZSOpqP9zMmh8t5nyw3/cSXk=;
- b=K1O4GCPaJDuqltioLdQKzZaH/YCzyVeHZf5a2xz9MvI2/IuM+0LkzcS4
- VvNh6t3gqLrCqFxi0wWjWEpzyInkE2nr+SddIrpZnmQqvomiXiVDuxeX0
- peMrVFQ/gyLPdfEJOe2QSwYcMe69Vcd1/Pki4RBANnLgSyYW/rHDwYex1
- 8o6CkXrUjptNtpwU6TBWYDHR1BUMFSuJI9YhnWZSWNMSpoz2/9ZxJE1/8
- aFyLVnyAupWvvmkSQWUrKbjci+MBuXbOE97+7vkVZqpg0vKEy0gCuKwtG
- QCjf2yga1+IZ4z5xyh+8WxfFLsjCCTIOKSDREkDjPULcto/gg7XnLh0b5 g==;
-X-CSE-ConnectionGUID: WuzBU6QQSwaoT6c4gK8Suw==
-X-CSE-MsgGUID: bdnnrx3uR/2mNTTTnCHM3g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11365"; a="45164200"
-X-IronPort-AV: E=Sophos;i="6.14,228,1736841600"; d="scan'208";a="45164200"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2025 19:21:23 -0800
-X-CSE-ConnectionGUID: iDlWGXgBRa+qU7VDX2G/zg==
-X-CSE-MsgGUID: jWEeBpZ0ToCaX0rjX89xkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,228,1736841600"; d="scan'208";a="119388873"
-Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.100.177])
- ([10.247.100.177])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2025 19:20:57 -0800
-Message-ID: <df5f2ff0-2ead-4074-a40e-8a2fc9b63339@linux.intel.com>
-Date: Fri, 7 Mar 2025 11:20:53 +0800
+ Thu,  6 Mar 2025 20:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1741293552; bh=7JyxP8FBRDIO7vgzFTNLCIrseIO0xPkXO1N8Yvb5Wzo=;
+ b=GtgTQN2oDlV0PMA/FiADS5r9Q2gEr6hWpP+OdXOaUZLuBR79H3K67A+7eyf0MJ2rV6Im3eNf1
+ lQyHBYpYetibF7aeXiONg7N2mQrNVKlkyIeqx+qPgn2RvH9x4Tz02Fp4YZz8TszDgup3wJVjgze
+ 0SRTH6LeFliQqP2tORTBO5LizKEQHUtnsoQCwJvoxqu5BF9mWZYCsrwEdXa86PFsOXt6gJ5YEMB
+ UgVM/ZWmAGwAlKVCZk5nMcjHidrcB55d60nHk6kXhjLSBAE47loTpRl3FUl9uIcheBCeIxjQf8c
+ Hi/XIb71882bOGkUkAgwfzQGmuFAXG+RiX5XHT1+OwRw==
+X-Forward-Email-ID: 67ca07ecdeafcb1458af9261
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.59
+X-Forward-Email-Version: 0.4.40
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Heiko Stuebner <heiko@sntech.de>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Wadim Egorov <w.egorov@phytec.de>
+Date: Thu,  6 Mar 2025 20:38:52 +0000
+Message-ID: <20250306203858.1677595-2-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250306203858.1677595-1-jonas@kwiboo.se>
+References: <20250306203858.1677595-1-jonas@kwiboo.se>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-References: <20250305130026.642219-1-faizal.abdul.rahim@linux.intel.com>
- <20250305130026.642219-1-faizal.abdul.rahim@linux.intel.com>
- <20250305130026.642219-12-faizal.abdul.rahim@linux.intel.com>
- <20250305130026.642219-12-faizal.abdul.rahim@linux.intel.com>
- <20250306004809.q2x565rys5zja6kh@skbuf>
-Content-Language: en-US
-From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
-In-Reply-To: <20250306004809.q2x565rys5zja6kh@skbuf>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Chwee-Lin Choong <chwee.lin.choong@intel.com>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
- John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>,
- Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH iwl-next v8 11/11] igc: add support to get
- frame preemption statistics via ethtool
+X-Mailman-Approved-At: Fri, 07 Mar 2025 07:05:06 +0000
+Cc: Jonas Karlman <jonas@kwiboo.se>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/3] net: stmmac: dwmac-rk: Use DELAY_ENABLE
+	macro for RK3328
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,49 +61,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Support for Rockchip RK3328 GMAC and addition of the DELAY_ENABLE macro
+was merged in the same merge window. This resulted in RK3328 not being
+converted to use the new DELAY_ENABLE macro.
 
+Change to use the DELAY_ENABLE macro to help disable MAC delay when
+RGMII_ID/RXID/TXID is used.
 
-On 6/3/2025 8:48 am, Vladimir Oltean wrote:
-> On Wed, Mar 05, 2025 at 08:00:26AM -0500, Faizal Rahim wrote:
->> +/* Received out of order packets with SMD-C */
->> +#define IGC_PRMEXCPRCNT_OOO_SMDC			0x000000FF
->> +/* Received out of order packets with SMD-C and wrong Frame CNT */
->> +#define IGC_PRMEXCPRCNT_OOO_FRAME_CNT			0x0000FF00
->> +/* Received out of order packets with SMD-C and wrong Frag CNT */
->> +#define IGC_PRMEXCPRCNT_OOO_FRAG_CNT			0x00FF0000
->> +/* Received packets with SMD-S and wrong Frag CNT and Frame CNT */
->> +#define IGC_PRMEXCPRCNT_MISS_FRAME_FRAG_CNT		0xFF000000
->>   
->> +/**
->> + * igc_ethtool_get_frame_ass_error - Get the frame assembly error count.
->> + * @reg_value: Register value for IGC_PRMEXCPRCNT
->> + * Return: The count of frame assembly errors.
->> + */
->> +static u64 igc_ethtool_get_frame_ass_error(u32 reg_value)
->> +{
->> +	u32 ooo_frame_cnt, ooo_frag_cnt; /* Out of order statistics */
->> +	u32 miss_frame_frag_cnt;
->> +
->> +	ooo_frame_cnt = FIELD_GET(IGC_PRMEXCPRCNT_OOO_FRAME_CNT, reg_value);
->> +	ooo_frag_cnt = FIELD_GET(IGC_PRMEXCPRCNT_OOO_FRAG_CNT, reg_value);
->> +	miss_frame_frag_cnt = FIELD_GET(IGC_PRMEXCPRCNT_MISS_FRAME_FRAG_CNT, reg_value);
->> +
->> +	return ooo_frame_cnt + ooo_frag_cnt + miss_frame_frag_cnt;
->> +}
-> 
-> These counters are quite small (8 bits each). What is their behavior
-> once they reach 255? Saturate? Truncate? Do they clear on read?
-> 
-Hi Vladimir,
+Fixes: eaf70ad14cbb ("net: stmmac: dwmac-rk: Add handling for RGMII_ID/RXID/TXID")
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-These are part of the statistic registers, which in IGC, reset upon read. 
-When they reach their maximum value, each field remain at 0xFF.
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 003fa5cf42c3..297fa93e4a39 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -593,8 +593,7 @@ static void rk3328_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 	regmap_write(bsp_priv->grf, RK3328_GRF_MAC_CON1,
+ 		     RK3328_GMAC_PHY_INTF_SEL_RGMII |
+ 		     RK3328_GMAC_RMII_MODE_CLR |
+-		     RK3328_GMAC_RXCLK_DLY_ENABLE |
+-		     RK3328_GMAC_TXCLK_DLY_ENABLE);
++		     DELAY_ENABLE(RK3328, tx_delay, rx_delay));
+ 
+ 	regmap_write(bsp_priv->grf, RK3328_GRF_MAC_CON0,
+ 		     RK3328_GMAC_CLK_RX_DL_CFG(rx_delay) |
+-- 
+2.48.1
 
 _______________________________________________
 Linux-stm32 mailing list
