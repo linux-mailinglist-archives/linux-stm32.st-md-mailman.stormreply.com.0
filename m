@@ -2,96 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F046CA55CC8
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 02:12:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 454C9A55CF5
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 02:16:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A093BC78F85;
-	Fri,  7 Mar 2025 01:12:39 +0000 (UTC)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFC7AC78F85;
+	Fri,  7 Mar 2025 01:16:57 +0000 (UTC)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A3BAC78F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F8D5C78F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Mar 2025 01:12:38 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-7c04df48a5bso125341585a.2
+ Fri,  7 Mar 2025 01:16:56 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-6dd420f82e2so17517836d6.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Mar 2025 17:12:38 -0800 (PST)
+ Thu, 06 Mar 2025 17:16:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741309957; x=1741914757;
+ d=gmail.com; s=20230601; t=1741310215; x=1741915015;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=RoTiwV/penO5v76PscVulf4a30dmwygkJIwyLi0333I=;
- b=jFQ4P6P0riCskk7VGLQ6Fnl+Gab0iMd9TIsWUZZQoHYxmChmCswxs2g+YNnru/TJWm
- QENvdQ0hoUNb+KVuDq9JJ3QQLhmDwDpj+K7Qq/fmc/gfiIcH5I+orogNcbxG3gAj03N6
- StUX02CVMrrsFOQUs8BqQqOm6UylVVBxAig+c5nTQeiya9U/9cBx8hsS/hA+/FTKO8Mk
- SzXomUbc/uBi2DQ1m1XLRrXYA8nRpA8gkBrt4YwQLFBOPUDf550SqfSynPtzkOOXcwE3
- jQHV5TxU/2OnI60OxkDehhMvqn94Hm2mu5jKPqVkSdGNSmtB/V/lOtqhkfxZBCZAwoX4
- 4voQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gdvNoZdxI+TWENbSWz9hBd4EuJ//tH9knwU3HWPo67o=;
+ b=QU9R1HC4SohBuc4HAd48HpdRHSnm4AiqOnAD+xVZsM/QZXfnAlF9OXoT2yVre1XhED
+ 266G6YrYE4Sh9L4EseAGrhUBvlhArsg9GHjT08OPaHiKVOxNUmAgkANSCFBDbZMcSGCw
+ 0I7UwMlZ0soNRRu1RDlNWhav/1vE4Y/Y29e4CP+lryYu1y4j5Rn0r/Hu4ZvnPuwK/2Sd
+ G7j/1Wj2f+nfY4PkLAq3qxXBn66rdXumkuOAMVcdJVP6hJmyr8KKox0kBa+EV4tpqQ5G
+ 8n4SFZmvJhYRi8RzgC4NVl3+laeUaPgYujFs6kGho+N4WaHl5dSHm27bu7lf6Td+S4wT
+ G1eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741309957; x=1741914757;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RoTiwV/penO5v76PscVulf4a30dmwygkJIwyLi0333I=;
- b=LAvaZrBIAkrIi5JpUtFxJkeFVZJps6S1epS2ZSYsR/V+Wvczk+II/67jO6zI1UBjQX
- 3oKDnmDEirKenTo4ZOkN5LqI3QGHU9FPzDgzlt0Q0I3RtvT1IjK5CdQwlZRf1LiMomMw
- U7Eosh/3U7M2q67Q7qY6wt17INuiaiPT4DE/B1iyJRYvSGC+51mKVVPhwxIgx/aBC6HZ
- QdS5m2ncGSKo/bfUYcuX3gpTrJ1wQYK+19v/WngavIyvYlqX7GVE4rmw4gEJomJEXhyI
- OcodvHKcRKd5CsjjxxZdb5T317S6H/d3AqeEdHRc1J/cXPxqD7vcuWKoOwgmZbUGNCqL
- zIlg==
+ d=1e100.net; s=20230601; t=1741310215; x=1741915015;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gdvNoZdxI+TWENbSWz9hBd4EuJ//tH9knwU3HWPo67o=;
+ b=DHdtXXnqDcc8ESVSIVqJ5zwiIpINi55VArrAg8kmpOxFDv6Vb48aPbX1/IkYeWCSjp
+ otdmf//LsW6p0c4KF+10cotH00c5F30TmzTH0qHKgGs8fpkMAArwAtAW7XUNkF8MHQU2
+ BtnazaczHsYwKgDp78q9pm/peUbOfHggniTzMT5Lp8OWWFwq2WHB2nS0CxDEurd/D4JX
+ /e7tWrAfkhnI/zajWDadN5SCpEwfWD8kkIQzxYFpJ+19P0er2afLN76SlsY2+VV22/pw
+ z3t8XEijSpKKSbqj2NjFhPVuujgiEzcehOgzM5qg/AYoHjnGQkVCa+G4Rda9yzMdCYOJ
+ 4E1w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUVYaKnaXntaMpq4sl1K1tAQgT6Kx8OvqpiKEf/zUUN0ITM8sw8ycDzBnCRA3ZV1phTEJQx7gG0iAXYFw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy4k7Vd2DRrzCNEC05AzHjlfmqlL9ZxLb0UbzAxN6ZUpJORBwsW
- p7eXs/piqENnVT94uPwHDQHmcN5tMtNaFTyGihDQMhI1LLZIzRwG
-X-Gm-Gg: ASbGncv722ZZZT4NhISLLJdaHKZxiQbrxLK5vE63iWlGI7g6rIIUqvoXgazp8cM9Qcy
- W2/EPsUTIi94L8Cizjojn/APf25zEq3aTHoTI1i0fFYP5hzatnw1dah9koN4Hks8UQ7SsY8asHf
- ax9N7kj02tTwsFlBXDykbsfwDXkQYZ5bzf1f2BEbNQpw1II+d3Q3b1DYheuxvx0VnHJ4Df5oiWW
- 20qlxcTD9bdfAJE2w9DHSplkPhNant6UwmqyGQ5fU499JPHSn4A5QtCe/wpQCMfDSm4nawpuzmd
- hFxh868v4/IM+3aqyzB5
-X-Google-Smtp-Source: AGHT+IFUBVq3F43PYm5XLqPTMM7AQh1lBI2X72APqLeXMYlSNYjEqY6EGkejol6T0++oyIAOjKb56g==
-X-Received: by 2002:a05:620a:6607:b0:7c0:ae2e:630d with SMTP id
- af79cd13be357-7c4e168299dmr213772785a.16.1741309957325; 
- Thu, 06 Mar 2025 17:12:37 -0800 (PST)
+ AJvYcCXN5UKwxIyS4exf7G4A1PK2nSmioTLjAAS+yoBObGTgZ8PxujMxk4OaT0MUDzXgSDDAGQEb63CApvENow==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxtrD0Pxc2IbWCHTQolsVGWg+Re1a2YtZGF/GwfE1JLZvZAl8U9
+ myNDHo2sCbGYNVPq3We40z8VtAHdAhuovAddbzgF/yI8+RjTGIeF
+X-Gm-Gg: ASbGncsrsdqwdLVnoW5aig0V0XFkPDXE9Xw6f+UCQdnAHaYR1avff1TdzIk8qDcvOHv
+ jYKKxU6taqyhhyV8FoFVeiiZQ41F1Pl8We9bqpNshvW5H+f1FD50wEXKTeXibUDhQkguZCWQH5k
+ GQScxdep4czi/4DWaljxBOgLmZyZBKTRynVZOA8YhboAMFUfwH7N8MpOeNN/+j5W0po1stWJ2Sd
+ y7jNBo2fJUIX1F0r+xTOynor9SvxzKcff+JrzGGCsrm4f3qdVoBI6YSfIQ+hkEx71x8V6QLpWl2
+ 9gvRx0cmIxpLJ2CL7hsU
+X-Google-Smtp-Source: AGHT+IFF4yBb+hCS7ZBQCfCT1ORUYw/Gj0CKaqbDjWG3VtyoJXnhpEJioVXA7e3Pa/pLe1dzFKh+kA==
+X-Received: by 2002:a05:6214:1c49:b0:6e8:fa72:be47 with SMTP id
+ 6a1803df08f44-6e900604eaamr17244676d6.8.1741310215325; 
+ Thu, 06 Mar 2025 17:16:55 -0800 (PST)
 Received: from localhost ([2001:da8:7001:11::cb])
  by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7c3e54ffa6bsm163770985a.80.2025.03.06.17.12.35
+ 6a1803df08f44-6e8f71724d4sm13217566d6.112.2025.03.06.17.16.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Mar 2025 17:12:35 -0800 (PST)
-Date: Fri, 7 Mar 2025 09:12:33 +0800
+ Thu, 06 Mar 2025 17:16:41 -0800 (PST)
 From: Inochi Amaoto <inochiama@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <ptq4ujomkffgpizhikejfjjbjcg44vyzw4pwbs7kureqqndy6e@alxgdc3qkm7q>
-References: <20250305063920.803601-1-inochiama@gmail.com>
- <20250306165931.7ffefe3a@kernel.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250306165931.7ffefe3a@kernel.org>
-Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Chen Wang <unicorn_wang@outlook.com>, Furong Xu <0x1207@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Simon Horman <horms@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
- sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Hariprasad Kelam <hkelam@marvell.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 0/4] riscv: sophgo: Add
- ethernet support for SG2044
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
+ Inochi Amaoto <inochiama@outlook.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Jisheng Zhang <jszhang@kernel.org>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Vladimir Oltean <olteanv@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+ Lothar Rubusch <l.rubusch@gmail.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Fri,  7 Mar 2025 09:16:13 +0800
+Message-ID: <20250307011623.440792-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.48.1
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+ Inochi Amaoto <inochiama@gmail.com>, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, netdev@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v7 0/4] riscv: sophgo: Add ethernet
+	support for SG2044
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,21 +115,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Mar 06, 2025 at 04:59:31PM -0800, Jakub Kicinski wrote:
-> On Wed,  5 Mar 2025 14:39:12 +0800 Inochi Amaoto wrote:
-> > The ethernet controller of SG2044 is Synopsys DesignWare IP with
-> > custom clock. Add glue layer for it.
-> 
-> Looks like we have a conflict on the binding, could you rebase
-> against latest net-next/main and repost?
-> -- 
-> pw-bot: cr
+The ethernet controller of SG2044 is Synopsys DesignWare IP with
+custom clock. Add glue layer for it.
 
-Yeah, I see a auto merge when cherry-pick here. I will send a
-new version for it.
+Changed from v6:
+- https://lore.kernel.org/netdev/20250305063920.803601-1-inochiama@gmail.com/
+1. rebase against latest net-next/main
 
-Regards,
-Inochi
+Changed from v5:
+- https://lore.kernel.org/netdev/20250216123953.1252523-1-inochiama@gmail.com/
+1. apply Andrew's tag for patch 2,3
+3. patch 1: add dma-noncoherent property.
+2. patch 2,3: separate original patch into 2 part
+4. patch 4: adopt new stmmac_set_clk_tx_rate helper function
+
+Changed from v4:
+- https://lore.kernel.org/netdev/20250209013054.816580-1-inochiama@gmail.com/
+1. apply Romain's tag
+2. patch 3: use device variable to replace &pdev->dev.
+3. patch 3: remove unused include.
+4. patch 3: make error message more useful.
+
+Changed from v3:
+- https://lore.kernel.org/netdev/20241223005843.483805-1-inochiama@gmail.com/
+1. rebase for 6.14.rc1
+2. remove the dependency requirement as it was already merged
+   into master.
+
+Changed from RFC:
+- https://lore.kernel.org/netdev/20241101014327.513732-1-inochiama@gmail.com/
+1. patch 1: apply Krzysztof' tag
+
+Changed from v2:
+- https://lore.kernel.org/netdev/20241025011000.244350-1-inochiama@gmail.com/
+1. patch 1: merge the first and the second bindings patch to show the all
+            compatible change.
+2. patch 2: use of_device_compatible_match helper function to perform check.
+2. patch 3: remove unused include and sort the left.
+3. patch 3: fix wrong variable usage in sophgo_dwmac_fix_mac_speed
+4. patch 3: drop unused variable in the patch.
+
+Changed from v1:
+- https://lore.kernel.org/netdev/20241021103617.653386-1-inochiama@gmail.com/
+1. patch 2: remove sophgo,syscon as this mac delay is resolved.
+2. patch 2: apply all the properties unconditionally.
+3. patch 4: remove sophgo,syscon code as this mac delay is resolved.
+4. patch 4: use the helper function to compute rgmii clock.
+5. patch 4: use remove instead of remove_new for the platform driver.
+
+Inochi Amaoto (4):
+  dt-bindings: net: Add support for Sophgo SG2044 dwmac
+  net: stmmac: platform: Group GMAC4 compatible check
+  net: stmmac: platform: Add snps,dwmac-5.30a IP compatible string
+  net: stmmac: Add glue layer for Sophgo SG2044 SoC
+
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   4 +
+ .../bindings/net/sophgo,sg2044-dwmac.yaml     | 126 ++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-sophgo.c    |  75 +++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |  17 ++-
+ 6 files changed, 229 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+
+--
+2.48.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
