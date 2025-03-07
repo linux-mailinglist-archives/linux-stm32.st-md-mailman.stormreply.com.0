@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57627A55C32
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 01:50:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D05DA55C34
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 01:50:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22956C78F86;
-	Fri,  7 Mar 2025 00:50:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FFB0C78F8B;
+	Fri,  7 Mar 2025 00:50:09 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FA1FC78F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A15CC78F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Mar 2025 00:50:07 +0000 (UTC)
+ Fri,  7 Mar 2025 00:50:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 29C5A5C5AFC;
- Fri,  7 Mar 2025 00:47:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1166C4CEE5;
- Fri,  7 Mar 2025 00:50:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3FB075C569F;
+ Fri,  7 Mar 2025 00:47:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D42C9C4CEE5;
+ Fri,  7 Mar 2025 00:50:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741308605;
- bh=k+QGs8UJazLvwtaSasdsV2fYOGm2zy64SGuQoDxyQqg=;
+ s=k20201202; t=1741308606;
+ bh=5E7QrRtVE031fm+0oQBlEfIWLHzTajXqxBcwX74S8Q4=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=a3q+bQgc7pQM+7XfeDpWgiRv8eL0ZlvII6KhdWJZDaachKhuGfMOpnaC2+TmfxH7I
- MtiTttWHCGD73I0njm4+BvEljdRtd/2+xsOzrbMYpSBubI2sfBNUpBNt166bjxHaPQ
- k5TAXd2okviQiArRXAhy3jVvI6dOUdqS6SJ73LpEFxngQTE3bI5ao+UULZTL/NLHok
- ulgYjuQEh/0hgyESuom8GJmX9Ejo7VjY43kMyoG2gu+7HmWGFhah8n3V4Qiu7jBC2P
- fuT7P8TjYkR+Pawm3F6hDi36CM/iS0ImItJWrPqGJ5stx82Uq12gBZkgcXXegxBfv9
- MU9kAjBhZmBlg==
+ b=frIgPf6wI9fVxTERiWPafyss4uNcBrf+ieJqOGr/EklkxPj8AM+kQ+DlxgC4qnXxK
+ F32IvEiXGrSp7TH99vvRvJ83UoD2CQgUwoBld7Gs1nrNQS53jO+MBJhoir1dhh/XKT
+ 6y7BHdLmtpl9X9y6rfM1T/f5uC3japAQ267W0fkIysS3yGBP0W4BsYQLB9ItFZN2RS
+ pzG/9Uzc3Urxk5Fo2wxHUJi33DxXsWRvtzLGZhrFkJOmGfzQ003C/Tv+6xBBze5dPG
+ xMRI3t3jSd4oAFITDWyqjdzrqBmO4zd0/J7pZo4NPKI9+iTsQPP3N/rdknhgpomLAi
+ 3xOBZ8PEp+dZw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33C61380CFF6; Fri,  7 Mar 2025 00:50:40 +0000 (UTC)
+ 70BD1380CFF6; Fri,  7 Mar 2025 00:50:41 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174130863899.1835493.10259048343165526348.git-patchwork-notify@kernel.org>
-Date: Fri, 07 Mar 2025 00:50:38 +0000
-References: <E1tpQL1-005St4-Hn@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1tpQL1-005St4-Hn@rmk-PC.armlinux.org.uk>
+Message-Id: <174130864025.1835493.2395705293072394933.git-patchwork-notify@kernel.org>
+Date: Fri, 07 Mar 2025 00:50:40 +0000
+References: <E1tpswi-005U6C-Py@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1tpswi-005U6C-Py@rmk-PC.armlinux.org.uk>
 To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+Cc: andrew@lunn.ch, hawk@kernel.org, daniel@iogearbox.net,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ john.fastabend@gmail.com, ast@kernel.org, andrew+netdev@lunn.ch,
  edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: simplify
- phylink_suspend() and phylink_resume() calls
+ bpf@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: avoid shadowing
+	global buf_sz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,23 +67,19 @@ Hello:
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 04 Mar 2025 11:21:27 +0000 you wrote:
-> Currently, the calls to phylink's suspend and resume functions are
-> inside overly complex tests, and boil down to:
+On Wed, 05 Mar 2025 17:54:16 +0000 you wrote:
+> stmmac_rx() declares a local variable named "buf_sz" but there is also
+> a global variable for a module parameter which is called the same. To
+> avoid confusion, rename the local variable.
 > 
-> 	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
-> 		call phylink
-> 	} else {
-> 		call phylink and
-> 		if (device_may_wakeup(priv->device))
-> 			do something else
-> 	}
-> 
-> [...]
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
 Here is the summary with links:
-  - [net-next] net: stmmac: simplify phylink_suspend() and phylink_resume() calls
-    https://git.kernel.org/netdev/net-next/c/f732549eb303
+  - [net-next] net: stmmac: avoid shadowing global buf_sz
+    https://git.kernel.org/netdev/net-next/c/876cfb20e889
 
 You are awesome, thank you!
 -- 
