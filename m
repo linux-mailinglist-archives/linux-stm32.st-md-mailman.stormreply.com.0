@@ -2,97 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA94A55D0A
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 02:20:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75B0A55E3B
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Mar 2025 04:21:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77BC3C78F85;
-	Fri,  7 Mar 2025 01:20:06 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 985D2C78F86;
+	Fri,  7 Mar 2025 03:21:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E70DC78F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC593C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Mar 2025 01:20:05 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-7c0a159ded2so146827685a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Mar 2025 17:20:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741310404; x=1741915204;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HxS+VSdF+25Ta0OPbr+oK1VDaaV8dgOLYKtTqCm4wmA=;
- b=UFoH9RSRR1t0X/v3erZ5qKNyerz5edy2nAOr12SJcy7p/pGBnNve9R0AZXS0n6cW6x
- iKRT5Aj/+5MJdr7uU5vNNlHmw/eUBkNawNIyzypWSKXnQbh9DcUN+eM9JWa5KpyJKyGG
- gAQswvJSyxxzTCrcIsXNJrADA9x+YajXJ+xEleQg4HKE23FrIiF6V4tvhAODRSDU/Rqa
- JzPdAYRhh7nGwSW655+XjUNSmm6H8bhqQDDzmRnXwkwfauBokLXltnr9MQf50h+NQtO6
- UrE5Xd4D3WqY48i/Ih6+TgThVdyiNWG+IwbL4gQDajfTBqio2HI4jzYGZsZXY8z3s97d
- /ELw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741310404; x=1741915204;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HxS+VSdF+25Ta0OPbr+oK1VDaaV8dgOLYKtTqCm4wmA=;
- b=Mc7qEZ0SkWeDqOc8pOxqYeXx9q3DvHzhX1Wt9wtUxsGgeIzFuu6XLoeocc/pPGwd5U
- oYqkgDtuGNrZxAhngWowwvpje1HTs7wXMdepbUuUTStLHuEOfD3gNHrarwNc/fvaDu/I
- 5kAxTotDmMOsxS3BfwO6YMZGp0t9RZfyZyRUNbirtCHCxa5rjIAhaZ0JQiPxwgnOx3Xl
- orqun5GUF2qwckNgV9EXshRzilKACxmLRhYeCw/irP+eqgnN7/kVAynp3bLw3o5U7hs4
- hTUfLXqCmxsT5n/72I3P3DfSaH4RDcbgMDCpVfbuyp6J3bmgstxl0vEDaq9W0r17QJkL
- XkkQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbcd6lcMnW8+iQH3zFrtBtlX+I6WSdSMJqkoXoPZSnhnawAkqZImjabxHANwVVxWN37feZXBhhqTpOoA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxwnHv7fQfyTYMKKDsmQoUTgj25mbNJ7igbay7/hpUwauOtgsBH
- HNrO7+OqM4xxoxTjElcW0CXUiKtfFezriZiXFrhkWEQYKQXk9M9J
-X-Gm-Gg: ASbGncuD3yoMGBpu2WxeITKPd0rvRbRjEDLdhcHLYA8di/YITRn64Uh9AwlC4do8Vkx
- Nz2CTtTYYd1si9TOtrGRYyKfRQydcGU0jbIEvkUsWeCN8y/kErBdTOd/PS+AR/7/phJ5N7Vff02
- ufBU35i4Mrxfxzohl2fgl0hIz02hArab9aqjxiRyk0OIVKf0EOWO0ugfsrgLF43Dz/41/JxqCcU
- 5zQmJ5HndDFn3Fu70O/gHXOgrs1oZCdsM/BNNo4pVX4bPGh5SSBb/jlH28GYvA/x+rh9K+nH0MG
- 0lbWSD6lM2QPyGHpXzI4
-X-Google-Smtp-Source: AGHT+IGUO6/phCwAva8wDxFUHQEGREx4oP4CpMn1qmy+ZBLZmOEMjsqOLMniC66oleMf4LpqVxo2lw==
-X-Received: by 2002:a05:620a:838c:b0:7c0:a0ba:2029 with SMTP id
- af79cd13be357-7c4e6178ce4mr254618085a.40.1741310404496; 
- Thu, 06 Mar 2025 17:20:04 -0800 (PST)
-Received: from localhost ([2001:da8:7001:11::cb])
- by smtp.gmail.com with UTF8SMTPSA id
- af79cd13be357-7c3e551181dsm164602585a.110.2025.03.06.17.20.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Mar 2025 17:20:04 -0800 (PST)
-Date: Fri, 7 Mar 2025 09:20:00 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <w7p3jnevmwumcblrkbpot7wpvajgf6enwpl4db5rbme4322hej@mxm54kytlguy>
-References: <20250305063920.803601-1-inochiama@gmail.com>
- <20250306165931.7ffefe3a@kernel.org>
- <ptq4ujomkffgpizhikejfjjbjcg44vyzw4pwbs7kureqqndy6e@alxgdc3qkm7q>
+ Fri,  7 Mar 2025 03:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741317686; x=1772853686;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Jg5XeRxyuKD825uDbJYMZSOpqP9zMmh8t5nyw3/cSXk=;
+ b=K1O4GCPaJDuqltioLdQKzZaH/YCzyVeHZf5a2xz9MvI2/IuM+0LkzcS4
+ VvNh6t3gqLrCqFxi0wWjWEpzyInkE2nr+SddIrpZnmQqvomiXiVDuxeX0
+ peMrVFQ/gyLPdfEJOe2QSwYcMe69Vcd1/Pki4RBANnLgSyYW/rHDwYex1
+ 8o6CkXrUjptNtpwU6TBWYDHR1BUMFSuJI9YhnWZSWNMSpoz2/9ZxJE1/8
+ aFyLVnyAupWvvmkSQWUrKbjci+MBuXbOE97+7vkVZqpg0vKEy0gCuKwtG
+ QCjf2yga1+IZ4z5xyh+8WxfFLsjCCTIOKSDREkDjPULcto/gg7XnLh0b5 g==;
+X-CSE-ConnectionGUID: WuzBU6QQSwaoT6c4gK8Suw==
+X-CSE-MsgGUID: bdnnrx3uR/2mNTTTnCHM3g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11365"; a="45164200"
+X-IronPort-AV: E=Sophos;i="6.14,228,1736841600"; d="scan'208";a="45164200"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 19:21:23 -0800
+X-CSE-ConnectionGUID: iDlWGXgBRa+qU7VDX2G/zg==
+X-CSE-MsgGUID: jWEeBpZ0ToCaX0rjX89xkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,228,1736841600"; d="scan'208";a="119388873"
+Received: from mohdfai2-mobl.gar.corp.intel.com (HELO [10.247.100.177])
+ ([10.247.100.177])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2025 19:20:57 -0800
+Message-ID: <df5f2ff0-2ead-4074-a40e-8a2fc9b63339@linux.intel.com>
+Date: Fri, 7 Mar 2025 11:20:53 +0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ptq4ujomkffgpizhikejfjjbjcg44vyzw4pwbs7kureqqndy6e@alxgdc3qkm7q>
-Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Chen Wang <unicorn_wang@outlook.com>, Furong Xu <0x1207@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
- =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Simon Horman <horms@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch <l.rubusch@gmail.com>,
- sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Hariprasad Kelam <hkelam@marvell.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 0/4] riscv: sophgo: Add
- ethernet support for SG2044
+User-Agent: Mozilla Thunderbird
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+References: <20250305130026.642219-1-faizal.abdul.rahim@linux.intel.com>
+ <20250305130026.642219-1-faizal.abdul.rahim@linux.intel.com>
+ <20250305130026.642219-12-faizal.abdul.rahim@linux.intel.com>
+ <20250305130026.642219-12-faizal.abdul.rahim@linux.intel.com>
+ <20250306004809.q2x565rys5zja6kh@skbuf>
+Content-Language: en-US
+From: "Abdul Rahim, Faizal" <faizal.abdul.rahim@linux.intel.com>
+In-Reply-To: <20250306004809.q2x565rys5zja6kh@skbuf>
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Chwee-Lin Choong <chwee.lin.choong@intel.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, Gal Pressman <gal@nvidia.com>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Xiaolei Wang <xiaolei.wang@windriver.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
+ bpf@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH iwl-next v8 11/11] igc: add support to get
+ frame preemption statistics via ethtool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,31 +88,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 07, 2025 at 09:12:33AM +0800, Inochi Amaoto wrote:
-> On Thu, Mar 06, 2025 at 04:59:31PM -0800, Jakub Kicinski wrote:
-> > On Wed,  5 Mar 2025 14:39:12 +0800 Inochi Amaoto wrote:
-> > > The ethernet controller of SG2044 is Synopsys DesignWare IP with
-> > > custom clock. Add glue layer for it.
-> > 
-> > Looks like we have a conflict on the binding, could you rebase
-> > against latest net-next/main and repost?
-> > -- 
-> > pw-bot: cr
-> 
-> Yeah, I see a auto merge when cherry-pick here. I will send a
-> new version for it.
-> 
 
-Here is the new version:
-https://lore.kernel.org/netdev/20250307011623.440792-1-inochiama@gmail.com/
 
-Regards,
-Inochi
+On 6/3/2025 8:48 am, Vladimir Oltean wrote:
+> On Wed, Mar 05, 2025 at 08:00:26AM -0500, Faizal Rahim wrote:
+>> +/* Received out of order packets with SMD-C */
+>> +#define IGC_PRMEXCPRCNT_OOO_SMDC			0x000000FF
+>> +/* Received out of order packets with SMD-C and wrong Frame CNT */
+>> +#define IGC_PRMEXCPRCNT_OOO_FRAME_CNT			0x0000FF00
+>> +/* Received out of order packets with SMD-C and wrong Frag CNT */
+>> +#define IGC_PRMEXCPRCNT_OOO_FRAG_CNT			0x00FF0000
+>> +/* Received packets with SMD-S and wrong Frag CNT and Frame CNT */
+>> +#define IGC_PRMEXCPRCNT_MISS_FRAME_FRAG_CNT		0xFF000000
+>>   
+>> +/**
+>> + * igc_ethtool_get_frame_ass_error - Get the frame assembly error count.
+>> + * @reg_value: Register value for IGC_PRMEXCPRCNT
+>> + * Return: The count of frame assembly errors.
+>> + */
+>> +static u64 igc_ethtool_get_frame_ass_error(u32 reg_value)
+>> +{
+>> +	u32 ooo_frame_cnt, ooo_frag_cnt; /* Out of order statistics */
+>> +	u32 miss_frame_frag_cnt;
+>> +
+>> +	ooo_frame_cnt = FIELD_GET(IGC_PRMEXCPRCNT_OOO_FRAME_CNT, reg_value);
+>> +	ooo_frag_cnt = FIELD_GET(IGC_PRMEXCPRCNT_OOO_FRAG_CNT, reg_value);
+>> +	miss_frame_frag_cnt = FIELD_GET(IGC_PRMEXCPRCNT_MISS_FRAME_FRAG_CNT, reg_value);
+>> +
+>> +	return ooo_frame_cnt + ooo_frag_cnt + miss_frame_frag_cnt;
+>> +}
+> 
+> These counters are quite small (8 bits each). What is their behavior
+> once they reach 255? Saturate? Truncate? Do they clear on read?
+> 
+Hi Vladimir,
+
+These are part of the statistic registers, which in IGC, reset upon read. 
+When they reach their maximum value, each field remain at 0xFF.
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
