@@ -2,15 +2,15 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C7FA57E97
+	by mail.lfdr.de (Postfix) with ESMTPS id 80EBFA57E98
 	for <lists+linux-stm32@lfdr.de>; Sat,  8 Mar 2025 22:37:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A141C78F62;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B4C8C78F6F;
 	Sat,  8 Mar 2025 21:37:45 +0000 (UTC)
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.59])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 053EFC78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 089A0C78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sat,  8 Mar 2025 21:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
@@ -24,7 +24,7 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  /ZgjG7iHjM8XVDDQVl7cZVfJ//qTI1ThLDSRbwKwYjUQ==
 X-Forward-Email-ID: 67ccb8a0bfe70eb1bfc13b1e
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.59
+ 121.127.44.73
 X-Forward-Email-Version: 0.4.40
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
