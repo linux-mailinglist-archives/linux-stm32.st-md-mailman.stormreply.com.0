@@ -2,49 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DC08A577EF
-	for <lists+linux-stm32@lfdr.de>; Sat,  8 Mar 2025 04:40:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97F4A579F5
+	for <lists+linux-stm32@lfdr.de>; Sat,  8 Mar 2025 12:17:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 479A4C78F95;
-	Sat,  8 Mar 2025 03:40:16 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33B16C78F67;
+	Sat,  8 Mar 2025 11:17:07 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0A80C78023
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70DF8C78023
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  8 Mar 2025 03:40:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BE2AC5C66AE;
- Sat,  8 Mar 2025 03:37:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61973C4CED1;
- Sat,  8 Mar 2025 03:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741405214;
- bh=/1551EvwFLFRJgDZVyhrnnVaVXrnUUlMvSTMNOwJ2lU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=fN9oY017Ls8+PnLtnXlkLqnk6xJ8SIsGVkNRV7njjgGQunqPJ1J3CZshucoLnX7fq
- 34gDS4FJM05Udfnjt83J+sk/d+WcNTHZEa4eEUDcVLpHLRBMb06QIdNB4+ImB3zjDX
- DulC7OrPKKo7TYefkXHYNY1laYXghgaRJmjQBF5SDfvhL2AOBzXtvj2iwnAGeeSF0l
- 2egyiTsIls2QcjHWcqtVyO5zu/rnP68+jCaioXLrQJmP9W8EibmxD0RVk2diDCOhAj
- mcHuzyjHAggi1DmnxNe4S4bN0eGw84zo7d5MPm5V7ZtvGhzAGgpbYO+xZDMJfKkb4v
- TFvhu6ilXUfnQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33D93380CFFB; Sat,  8 Mar 2025 03:40:49 +0000 (UTC)
+ Sat,  8 Mar 2025 11:17:06 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-43bd5644de8so29759715e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 08 Mar 2025 03:17:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1741432626; x=1742037426;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xnnNqxownKeU3GNDrkJTrs8uiEmC7dJ+ZmSVhNEpneo=;
+ b=ypxonluwp8eIoX+jPnoiRsJSE1yEsy8LT+mufdeeJJUNq4e+HMpXG5PZ78xFDpisZ5
+ 3PTBIvl3TEQ+E0y/sUhr3/HUVC4vDGsSAurJ1C2Ngecf0KQLrISgw0LY8k/aSF7JyvOc
+ zAfcXjDYG+/mvmrNuPDA+JILSRg95XFBRcx3oYJg6RttoXShVrT41sAmZAJow6/mI1rv
+ +Gu7JiCVZgnsE/6TbQyQO+hrZN5IzHAe7w8bEaw8YFp0A6FcQjeJsdKgJU/mMkhA2bjO
+ QA1lJdUEsPbiwtrH54O/S37+QanSJOm5Bbl2DQfnf9l1lubCHAa5TnRoSn/gcRXut9Ki
+ i62g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741432626; x=1742037426;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xnnNqxownKeU3GNDrkJTrs8uiEmC7dJ+ZmSVhNEpneo=;
+ b=LH9TDz8tZ+aD6uQASCRXEJGlBYD0MYlUu7EuZ3rKPFYfcKiqe+TwBYZseN4fkt+WVj
+ fkrCJ+c/opHgbzR5ZzQoi3vYJLSY5vruouv6uksHmrrsAdpLdKdD0wd5qBdgW2jv2M5C
+ bZmp9mUwC51qquEBY+1dXyfItGunL38SnTG9e2oHjX55/AuajJ+5n5IsLcUIwNTe465l
+ iTAVV8DGTbemxgESp5p3PmaKmvCmw84mpIRNadETjNFmv/EewHqCAjUhQs0S7SSeakWg
+ czCw8TyTQCDeZjioLvaLItkDcxSdRpl1xLdcEnT//HUGdXDcoQKGRcdPm39+KqBUUULQ
+ P3pA==
+X-Gm-Message-State: AOJu0Yw3Gfl9VD9eQ9JCm6Vy4i93Gf/Du2LX7RZy4lr4Ukb/R7LxDkcc
+ n0i2XGdeaboQaICw1ip9+4kdX84ql4M3aR5aALecdTLgy5eujaOx20DzaqPTtdg=
+X-Gm-Gg: ASbGnctfhvMNM/N/gYAFwUYBAO44qPEJv3VTuI61mfLe8mI1sD3J963q1GJs6968DQQ
+ LmqATI5NZBcHtjpQOzOdKYQgvc5iOWcJhrY2Z6P0CVfPhX4RWt5QKPRsJTRrNjHxGBr/e0PehL1
+ mg/5MRcc7BMA9ZykV6vly1ZPZTBHSdFZuTGWp+BcSuyeKV1SNEJaNma9kYmd1k8dgfO9DjN7cRr
+ Dh6bHElxTjX3hGRhLo0Y6TUpR8i60vma/FLCyP6e8+MrTUzJB169B5pKvXtPJ08wrrxjyC0YR2m
+ +AVxWXRPZMPICnTpx+RSkiq/LkrDfvbvB2nu7bnXoykte0UrKQ==
+X-Google-Smtp-Source: AGHT+IHgPy2ipS9U13tlaxW/er4uS9dL0vgcgs/ixqt3JyEdpvktSnhmqJQ1s8kCsjFpv/J/9JwBaQ==
+X-Received: by 2002:a05:6000:1fa9:b0:391:212:459a with SMTP id
+ ffacd0b85a97d-39132d3b46fmr6741762f8f.22.1741432625810; 
+ Sat, 08 Mar 2025 03:17:05 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3912c015d1csm8339913f8f.44.2025.03.08.03.17.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Mar 2025 03:17:05 -0800 (PST)
+Date: Sat, 8 Mar 2025 14:17:00 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Message-ID: <677ffce5-0d76-4b97-abd3-1ac7608417f3@stanley.mountain>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174140524774.2565853.6497124340077503983.git-patchwork-notify@kernel.org>
-Date: Sat, 08 Mar 2025 03:40:47 +0000
-References: <E1tqLJJ-005aQm-Mv@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1tqLJJ-005aQm-Mv@rmk-PC.armlinux.org.uk>
-To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: remove write-only
-	priv->speed
+Content-Disposition: inline
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [bug report] net: stmmac: configure SerDes according
+ to the interface mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,32 +83,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hello Choong Yong Liang,
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Commit a42f6b3f1cc1 ("net: stmmac: configure SerDes according to the
+interface mode") from Feb 27, 2025 (linux-next), leads to the
+following Smatch static checker warning:
 
-On Fri, 07 Mar 2025 00:11:29 +0000 you wrote:
-> priv->speed is only ever written to in two locations, but never
-> read. Therefore, it serves no useful purpose. Remove this unnecessary
-> struct member.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 1 -
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ---
->  2 files changed, 4 deletions(-)
+	drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:497 intel_tsn_lane_is_available()
+	warn: missing error code? 'ret'
 
-Here is the summary with links:
-  - [net-next] net: stmmac: remove write-only priv->speed
-    https://git.kernel.org/netdev/net-next/c/64fdb808660d
+drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+    472 static int intel_tsn_lane_is_available(struct net_device *ndev,
+    473                                        struct intel_priv_data *intel_priv)
+    474 {
+    475         struct stmmac_priv *priv = netdev_priv(ndev);
+    476         struct pmc_ipc_cmd tmp = {};
+    477         struct pmc_ipc_rbuf rbuf = {};
+    478         int ret = 0, i, j;
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Better to avoid initializing ret so that bug show up as uninitialized
+variables.
 
+    479         const int max_fia_regs = 5;
+    480 
+    481         tmp.cmd = IPC_SOC_REGISTER_ACCESS;
+    482         tmp.sub_cmd = IPC_SOC_SUB_CMD_READ;
+    483 
+    484         for (i = 0; i < max_fia_regs; i++) {
+    485                 tmp.wbuf[0] = R_PCH_FIA_15_PCR_LOS1_REG_BASE + i;
+    486 
+    487                 ret = intel_pmc_ipc(&tmp, &rbuf);
+    488                 if (ret < 0) {
+    489                         netdev_info(priv->dev, "Failed to read from PMC.\n");
+    490                         return ret;
+    491                 }
+    492 
+    493                 for (j = 0; j <= intel_priv->max_tsn_lane_regs; j++)
+    494                         if ((rbuf.buf[0] >>
+    495                                 (4 * (intel_priv->tsn_lane_regs[j] % 8)) &
+    496                                         B_PCH_FIA_PCR_L0O) == 0xB)
+--> 497                                 return ret;
 
+This should probably be return -EINVAL, right?
+
+    498         }
+    499 
+    500         return ret;
+
+It's more clear to just return 0 for the success path.  Otherwise you
+have to read the code a bit.
+
+    501 }
+
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
