@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BCF7A5853B
-	for <lists+linux-stm32@lfdr.de>; Sun,  9 Mar 2025 16:02:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C9DFA5853D
+	for <lists+linux-stm32@lfdr.de>; Sun,  9 Mar 2025 16:02:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0363EC78F73;
-	Sun,  9 Mar 2025 15:02:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1164AC78F73;
+	Sun,  9 Mar 2025 15:02:52 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A32FC78F6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9725C78F6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  9 Mar 2025 15:02:45 +0000 (UTC)
+ Sun,  9 Mar 2025 15:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=EjTTpaZia4xPDrHFP8XfvKcQeiE7s1ZisD7eXsEguQI=; b=CIT2vDEcIkQZahNG9MZxS/nLAd
- IKQ5L2mYxMAkoITqMILETe6PkR1T2SY2U700eCD3oLMDMnwdSyr3OWM7nhmpv4YvKn0z3UrttyCHw
- WqNEtu+VY4rqYEV8+KpHJbiZzdWAscHKk/sNH21fV8lwWtTPapOuNC7QdWqi9FYbZAOn5603Pnw6X
- Z2T3jqMbVPMSvFACFljYDt2DoQ/M+5WCc6LgClKZJ2H5KG9QbrGm7w/UYBdsC3Kb2RcgOTyI1aHaz
- 5x/AcRIQ9wI8mJNtNhsIEDp4TQLPs2q3JRh2CcvfBlEL0fBWQ92YF00tjrJzq6qtd1wscNChx8GJB
- PHksNOcw==;
+ bh=DHaJAgb84V8aMUutZwPQWCAxCUaidjZX4yslhRdqYrw=; b=iDe6dognGE1zU+dDTgL4uC9O+o
+ pV5AKzWpSiMflaIy1/D/Jf4Jk0sQiHnGk/jMrSreXgd9o3ZkujReAoBy/F+Pic5YJcyKRI19A7qaa
+ 9m7T/lYyDfZOaadi94tzaxyx9nsR/Yo3KymdWxbVgJ3ldF84HJ4SSt7PUMQ7LJDPfiNexOVyiOy11
+ X54AOnU7qAjTqMLd2XNmHu8FyOH8+tw2+3DFNiKnlsJWsFNuTXQDVvQKjtFOQYIYbqbuMV9elxkjl
+ gbNDET8vp4ZU5IgfDZWtIcnGaIvHIA7IY8X4qKvzKQV58/4RPGVYNhVnySdFKT6EQt/y+aZBeUjSo
+ hqfUsU/w==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:36610 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:36620 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1trIAb-0001Pn-0p;
- Sun, 09 Mar 2025 15:02:25 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1trIAh-0001QA-0F;
+ Sun, 09 Mar 2025 15:02:31 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1trIAF-005ntc-S5; Sun, 09 Mar 2025 15:02:03 +0000
+ id 1trIAK-005nti-W5; Sun, 09 Mar 2025 15:02:09 +0000
 In-Reply-To: <Z82tWYZulV12Pjir@shell.armlinux.org.uk>
 References: <Z82tWYZulV12Pjir@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1trIAF-005ntc-S5@rmk-PC.armlinux.org.uk>
-Date: Sun, 09 Mar 2025 15:02:03 +0000
+Message-Id: <E1trIAK-005nti-W5@rmk-PC.armlinux.org.uk>
+Date: Sun, 09 Mar 2025 15:02:08 +0000
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  Rob Herring <robh@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
@@ -58,8 +58,8 @@ Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 4/7] riscv: dts: starfive: remove
- "snps, en-tx-lpi-clockgating" property
+Subject: [Linux-stm32] [PATCH net-next 5/7] ARM: dts: stm32: remove "snps,
+ en-tx-lpi-clockgating" property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,36 +81,28 @@ of the PHY (there is a capability bit that should be checked first.)
 Whether the MAC is capable of stopping the transmit clock is a separate
 issue, but this is already handled by the core DesignWare MAC code.
 
-As commit "net: stmmac: starfive: use PHY capability for TX clock stop"
+As commit "net: stmmac: stm32: use PHY capability for TX clock stop"
 adds the flag to use the PHY capability, remove the DT property that is
 now unecessary.
 
 Cc: Samin Guo <samin.guo@starfivetech.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- arch/riscv/boot/dts/starfive/jh7110.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+ arch/arm/boot/dts/st/stm32mp151.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-index 0d8339357bad..a7aed4a21b65 100644
---- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-@@ -1022,7 +1022,6 @@ gmac0: ethernet@16030000 {
- 			snps,force_thresh_dma_mode;
- 			snps,axi-config = <&stmmac_axi_setup>;
- 			snps,tso;
--			snps,en-tx-lpi-clockgating;
- 			snps,txpbl = <16>;
- 			snps,rxpbl = <16>;
- 			starfive,syscon = <&aon_syscon 0xc 0x12>;
-@@ -1053,7 +1052,6 @@ gmac1: ethernet@16040000 {
- 			snps,force_thresh_dma_mode;
- 			snps,axi-config = <&stmmac_axi_setup>;
- 			snps,tso;
--			snps,en-tx-lpi-clockgating;
- 			snps,txpbl = <16>;
- 			snps,rxpbl = <16>;
- 			starfive,syscon = <&sys_syscon 0x90 0x2>;
+diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+index b9a87fbe971d..0daa8ffe2ff5 100644
+--- a/arch/arm/boot/dts/st/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+@@ -1781,7 +1781,6 @@ ethernet0: ethernet@5800a000 {
+ 				st,syscon = <&syscfg 0x4>;
+ 				snps,mixed-burst;
+ 				snps,pbl = <2>;
+-				snps,en-tx-lpi-clockgating;
+ 				snps,axi-config = <&stmmac_axi_config_0>;
+ 				snps,tso;
+ 				access-controllers = <&etzpc 94>;
 -- 
 2.30.2
 
