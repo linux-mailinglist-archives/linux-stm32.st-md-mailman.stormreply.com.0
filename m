@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851D7A58351
-	for <lists+linux-stm32@lfdr.de>; Sun,  9 Mar 2025 11:48:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930FFA58355
+	for <lists+linux-stm32@lfdr.de>; Sun,  9 Mar 2025 11:48:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48457C78F6C;
-	Sun,  9 Mar 2025 10:48:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55171C78F6C;
+	Sun,  9 Mar 2025 10:48:40 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A52EFC78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86DBDC78F64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  9 Mar 2025 10:48:30 +0000 (UTC)
+ Sun,  9 Mar 2025 10:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741517311; x=1773053311;
+ t=1741517319; x=1773053319;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Ocq5e0cvJCj6sSblL8b9kb+v9HOHoUW+NcBfEhCLAg4=;
- b=OxTkjs48JpvX/hW4tLTcxp4hufuTDoFC8Hd71t3ZU5OMlcsvi5YoE5a0
- U2tHs1xAQ3TOe1YkT46s/REXM8wAi+3trV98m/AlUKKKCv3Np7Jzbo803
- YILrGLFr2WQ04J/UoZPfNDHN8ZeerQG0rzNtg9He7WA6vuW3oQMEZcHFP
- axAXi4n3oZRD/VKcBSvSNcqvkEpx7CF24xNXqr71yjOC1nONGVZ8yOS8j
- BkcXaCJ29A25XAt5VzvwU4hp1rft3UcciRSTx5bCL26kRuzMT/h0aJ2YK
- QKV7idwoWDWRqRrXnzQtwuGu2Tw3RXmftQuIM4bzLZL1CSSJIoITf6dL+ A==;
-X-CSE-ConnectionGUID: QBOF7VE+SK+V74QWvaHdig==
-X-CSE-MsgGUID: YAEgVTjbQnCmbwhcl9td2g==
-X-IronPort-AV: E=McAfee;i="6700,10204,11367"; a="42636141"
-X-IronPort-AV: E=Sophos;i="6.14,234,1736841600"; d="scan'208";a="42636141"
+ bh=SSg48PFLu9MLb8qoAQr7IacJyhQASfev4zsoNzSKWZg=;
+ b=T6DOvDR4PLnyXimU1TY5f/qn02i5+XoLSvR8NA2HQcuUdiJWdrrxFh1m
+ Nfu2o1Ysg7vO8oJSgsX/lmzSW6lzLsIanRYi9U9hLZ3JcDaIKfjjME259
+ FqI5GC4wfH+QsDUOF5932M9k3Pc7L9IrFZyorWol9yOY6tC2WgD4ubC0k
+ BDHgV3dsNeyrDNUmgl5f55GYAq+GTncPJowrS8gKH0Dyc3vPDquEs5uIa
+ 5fiSzKYfxrCUFl/A5jvRmH5w4yygpMEEuBDUIsZSMnbufI57OUdGX/SPn
+ 6bSknTRn73u8fJFJkInFWMDGo120rkc09xFRfU1MoftXULLXfLnj5HfqB Q==;
+X-CSE-ConnectionGUID: SYtoOLpURRCowt9VvIdakA==
+X-CSE-MsgGUID: gHIP/FunQ+GJYePfFttfbA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11367"; a="42636161"
+X-IronPort-AV: E=Sophos;i="6.14,234,1736841600"; d="scan'208";a="42636161"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2025 03:48:29 -0700
-X-CSE-ConnectionGUID: bA9EKfNKRpuXm3mKYtZVlg==
-X-CSE-MsgGUID: IHMZ2A0sRnSSqUpzMYSp8Q==
+ 09 Mar 2025 03:48:37 -0700
+X-CSE-ConnectionGUID: RhbiQyynTVa0T2lQaHKf/A==
+X-CSE-MsgGUID: LnBMitNIRTKKk1tdoV/hWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,234,1736841600"; d="scan'208";a="124655116"
+X-IronPort-AV: E=Sophos;i="6.14,234,1736841600"; d="scan'208";a="124655128"
 Received: from mohdfai2-ilbpg12-1.png.intel.com ([10.88.227.73])
- by orviesa003.jf.intel.com with ESMTP; 09 Mar 2025 03:48:21 -0700
+ by orviesa003.jf.intel.com with ESMTP; 09 Mar 2025 03:48:29 -0700
 From: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>,
  Przemek Kitszel <przemyslaw.kitszel@intel.com>,
@@ -67,14 +67,14 @@ To: Tony Nguyen <anthony.l.nguyen@intel.com>,
  intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org
-Date: Sun,  9 Mar 2025 06:46:42 -0400
-Message-Id: <20250309104648.3895551-9-faizal.abdul.rahim@linux.intel.com>
+Date: Sun,  9 Mar 2025 06:46:43 -0400
+Message-Id: <20250309104648.3895551-10-faizal.abdul.rahim@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250309104648.3895551-1-faizal.abdul.rahim@linux.intel.com>
 References: <20250309104648.3895551-1-faizal.abdul.rahim@linux.intel.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [PATCH iwl-next v9 08/14] igc: use FIELD_PREP and
-	GENMASK for existing RX packet buffer size
+Subject: [Linux-stm32] [PATCH iwl-next v9 09/14] igc: set the RX packet
+	buffer size for TSN mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,51 +91,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Prepare for an upcoming patch that modifies the RX buffer size in TSN mode.
-Refactor IGC_RXPBSIZE_EXP_BMC_DEFAULT and IGC_RXPBS_CFG_TS_EN using
-FIELD_PREP and GENMASK to improve clarity and maintainability. Refactor
-both macros for consistency, even though the upcoming patch only use
-IGC_RXPBSIZE_EXP_BMC_DEFAULT.
+In preparation for supporting frame preemption, when entering TSN mode,
+set the receive packet buffer to 15KB for the Express MAC, 15KB for
+the Preemptible MAC and 2KB for the BMC.
+
+References:
+I225/I226 SW User Manual, Section 4.7.9, Section 7.1.3.2, Section 8.3.1
 
 The newly introduced macros follow the naming from the i226 SW User Manual
 for easy reference.
 
-I've tested IGC_RXPBSIZE_EXP_BMC_DEFAULT and IGC_RXPBS_CFG_TS_EN before
-and after the refactoring, and their values remain unchanged.
-
+Co-developed-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 Signed-off-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
 ---
- drivers/net/ethernet/intel/igc/igc_defines.h | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/intel/igc/igc_defines.h |  5 ++++
+ drivers/net/ethernet/intel/igc/igc_tsn.c     | 25 ++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
 
 diff --git a/drivers/net/ethernet/intel/igc/igc_defines.h b/drivers/net/ethernet/intel/igc/igc_defines.h
-index db937931c646..3564d15df57b 100644
+index 3564d15df57b..d753a8ec36ae 100644
 --- a/drivers/net/ethernet/intel/igc/igc_defines.h
 +++ b/drivers/net/ethernet/intel/igc/igc_defines.h
-@@ -396,9 +396,20 @@
- #define IGC_RCTL_PMCF		0x00800000 /* pass MAC control frames */
- #define IGC_RCTL_SECRC		0x04000000 /* Strip Ethernet CRC */
- 
--/* RXPBSIZE default value for Express and BMC buffer */
--#define IGC_RXPBSIZE_EXP_BMC_DEFAULT	0x000000A2
--#define IGC_RXPBS_CFG_TS_EN		0x80000000 /* Timestamp in Rx buffer */
-+/* Mask for RX packet buffer size */
-+#define IGC_RXPBSIZE_EXP_MASK		GENMASK(5, 0)
-+#define IGC_BMC2OSPBSIZE_MASK		GENMASK(11, 6)
-+/* Mask for timestamp in RX buffer */
-+#define IGC_RXPBS_CFG_TS_EN_MASK	GENMASK(31, 31)
-+/* High-priority RX packet buffer size (KB). Used for Express traffic when preemption is enabled */
-+#define IGC_RXPBSIZE_EXP(x)		FIELD_PREP(IGC_RXPBSIZE_EXP_MASK, (x))
-+/* BMC to OS packet buffer size in KB */
-+#define IGC_BMC2OSPBSIZE(x)		FIELD_PREP(IGC_BMC2OSPBSIZE_MASK, (x))
-+/* Enable RX packet buffer for timestamp descriptor, saving 16 bytes per packet if set */
-+#define IGC_RXPBS_CFG_TS_EN		FIELD_PREP(IGC_RXPBS_CFG_TS_EN_MASK, 1)
-+/* Default value following I225/I226 SW User Manual Section 8.3.1 */
-+#define IGC_RXPBSIZE_EXP_BMC_DEFAULT ( \
-+	IGC_RXPBSIZE_EXP(34) | IGC_BMC2OSPBSIZE(2))
+@@ -399,17 +399,22 @@
+ /* Mask for RX packet buffer size */
+ #define IGC_RXPBSIZE_EXP_MASK		GENMASK(5, 0)
+ #define IGC_BMC2OSPBSIZE_MASK		GENMASK(11, 6)
++#define IGC_RXPBSIZE_BE_MASK		GENMASK(17, 12)
+ /* Mask for timestamp in RX buffer */
+ #define IGC_RXPBS_CFG_TS_EN_MASK	GENMASK(31, 31)
+ /* High-priority RX packet buffer size (KB). Used for Express traffic when preemption is enabled */
+ #define IGC_RXPBSIZE_EXP(x)		FIELD_PREP(IGC_RXPBSIZE_EXP_MASK, (x))
+ /* BMC to OS packet buffer size in KB */
+ #define IGC_BMC2OSPBSIZE(x)		FIELD_PREP(IGC_BMC2OSPBSIZE_MASK, (x))
++/* Low-priority RX packet buffer size (KB). Used for BE traffic when preemption is enabled */
++#define IGC_RXPBSIZE_BE(x)		FIELD_PREP(IGC_RXPBSIZE_BE_MASK, (x))
+ /* Enable RX packet buffer for timestamp descriptor, saving 16 bytes per packet if set */
+ #define IGC_RXPBS_CFG_TS_EN		FIELD_PREP(IGC_RXPBS_CFG_TS_EN_MASK, 1)
+ /* Default value following I225/I226 SW User Manual Section 8.3.1 */
+ #define IGC_RXPBSIZE_EXP_BMC_DEFAULT ( \
+ 	IGC_RXPBSIZE_EXP(34) | IGC_BMC2OSPBSIZE(2))
++#define IGC_RXPBSIZE_EXP_BMC_BE_TSN ( \
++	IGC_RXPBSIZE_EXP(15) | IGC_BMC2OSPBSIZE(2) | IGC_RXPBSIZE_BE(15))
  
  /* Mask for TX packet buffer size */
  #define IGC_TXPB0SIZE_MASK		GENMASK(5, 0)
+diff --git a/drivers/net/ethernet/intel/igc/igc_tsn.c b/drivers/net/ethernet/intel/igc/igc_tsn.c
+index 498741d83ca6..5b3b1bc0b64a 100644
+--- a/drivers/net/ethernet/intel/igc/igc_tsn.c
++++ b/drivers/net/ethernet/intel/igc/igc_tsn.c
+@@ -125,6 +125,27 @@ static void igc_tsn_tx_arb(struct igc_adapter *adapter, u16 *queue_per_tc)
+ 	wr32(IGC_TXARB, txarb);
+ }
+ 
++/**
++ * igc_tsn_set_rxpbsize - Set the receive packet buffer size
++ * @adapter: Pointer to the igc_adapter structure
++ * @rxpbs_exp_bmc_be: Value to set the receive packet buffer size, including
++ *                    express buffer, BMC buffer, and Best Effort buffer
++ *
++ * The IGC_RXPBS register value may include allocations for the Express buffer,
++ * BMC buffer, Best Effort buffer, and the timestamp descriptor buffer (IGC_RXPBS_CFG_TS_EN).
++ */
++static void igc_tsn_set_rxpbsize(struct igc_adapter *adapter, u32 rxpbs_exp_bmc_be)
++{
++	struct igc_hw *hw = &adapter->hw;
++	u32 rxpbs = rd32(IGC_RXPBS);
++
++	rxpbs &= ~(IGC_RXPBSIZE_EXP_MASK | IGC_BMC2OSPBSIZE_MASK |
++		   IGC_RXPBSIZE_BE_MASK);
++	rxpbs |= rxpbs_exp_bmc_be;
++
++	wr32(IGC_RXPBS, rxpbs);
++}
++
+ /* Returns the TSN specific registers to their default values after
+  * the adapter is reset.
+  */
+@@ -139,6 +160,8 @@ static int igc_tsn_disable_offload(struct igc_adapter *adapter)
+ 	wr32(IGC_TXPBS, IGC_TXPBSIZE_DEFAULT);
+ 	wr32(IGC_DTXMXPKTSZ, IGC_DTXMXPKTSZ_DEFAULT);
+ 
++	igc_tsn_set_rxpbsize(adapter, IGC_RXPBSIZE_EXP_BMC_DEFAULT);
++
+ 	if (igc_is_device_id_i226(hw))
+ 		igc_tsn_restore_retx_default(adapter);
+ 
+@@ -202,6 +225,8 @@ static int igc_tsn_enable_offload(struct igc_adapter *adapter)
+ 	wr32(IGC_DTXMXPKTSZ, IGC_DTXMXPKTSZ_TSN);
+ 	wr32(IGC_TXPBS, IGC_TXPBSIZE_TSN);
+ 
++	igc_tsn_set_rxpbsize(adapter, IGC_RXPBSIZE_EXP_BMC_BE_TSN);
++
+ 	if (igc_is_device_id_i226(hw))
+ 		igc_tsn_set_retx_qbvfullthreshold(adapter);
+ 
 -- 
 2.34.1
 
