@@ -2,177 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60B66A59692
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 14:43:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251DCA596C8
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 14:55:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20CDCC78F97;
-	Mon, 10 Mar 2025 13:43:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9AACC78F97;
+	Mon, 10 Mar 2025 13:55:11 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D6C2C7802E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B06C9C7802E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 13:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1741614205; x=1773150205;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=xFhhZi3d057iC3S7Vm8ag5NDJ9S7hMpaSK8HIW8jUcI=;
- b=g3/NrfWHngqeWbjlU1E9OdjYq2ZuVbxbQum6i2+/MBIWsUVLZPMLQfrr
- q752gzocvrTTQ/jQLDxA1/wLUPvYsIqtdIIEtsEsGtrvxldNIwk9svKNj
- hsZbWiRyZ/fU8rU+7gsfLBCtX2cRxySJuUL5skfK9A5BUmCwOL82hZn4+
- 8Sg657ngRuSPRh9NBhYWHAVj0VmN+e14Rrqh2D8cT6g5G9zcib7CAtX3n
- Be8UB6crbABHcXFsAUtKsbkXyKOaLeq6qy2Hiyu9ZVhXXcnMBu+O1INfX
- ay6svyPFw10cjtSsuhig6n73Sv4hTizIOXjHkPJ3lINUnjyAUmREQIkQt g==;
-X-CSE-ConnectionGUID: fXufqo20RnyCvBtjj8m0KA==
-X-CSE-MsgGUID: 3HivwXedR0ez5MjqFFVqnw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11369"; a="60159006"
-X-IronPort-AV: E=Sophos;i="6.14,236,1736841600"; d="scan'208";a="60159006"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2025 06:43:22 -0700
-X-CSE-ConnectionGUID: eRJ/g0q5Q4aFXs/1A/Zk+w==
-X-CSE-MsgGUID: KZA3uYnUQay7aVkxwpXdOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,236,1736841600"; d="scan'208";a="157199335"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2025 06:43:22 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Mon, 10 Mar 2025 06:43:21 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Mon, 10 Mar 2025 06:43:21 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Mon, 10 Mar 2025 06:43:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BuKua69m759q6xUAufIVgQG5oPH1ZR5hPvkvs19rHmkDo714VGw8a1iRfVP2H8jtVNdZD1hVCOuRt4y7ZyTmEb0Tp8yJ3bzRG8KvIP0r0g3KGAXl9Z7j327T8k0VvcCOrz9WtAJLjYVhmpK4+yTQ2kKbBq0znk3eUNJ5jEAznBTbzJhVdQ1glwJEw+OzMitrIQfBiCY1c8Qsy86Y3s9kfQGw8mDv2p6hefdBB6LtGvuP8rrk1Xzzu+NcJyCBUaOY1d8IfbMh6QUYQTEopMemNIjld79gS1Gf1NxrzLxOQiaBngjSppDgTLUDQiFqU4zkyA2OrUnEL1NJiRUnedy2WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7oU7o6+ucZQ/I1gmGdjpyYcBr+AEX2cGpBtjwRsVKqs=;
- b=YBznrVXDaLoyz+Ki3tb/XdGnZ3SifelgmEfIUQ7QBS205MSTf5CDyRaDV1ri3xzTVDm5J0ek8+j5PsYyRQtWuJ7K73eLVQMrntthQvaXGNczr/HdRqgJGj06G+jyWFzO9FOFYi7+B24poF/dZwKxReTxuMtYvf+edH2lZeBmxxPyQxaQMNJTisfGEciJPHi+TxIrv91uxJQ/NcG1m/WWeX6LWD4TnXxS1L2qUhXBy1uEsTovepitlW8IkICwJZ1puq2eTo/5IllrLrHoj9fdCQLS7yKrbGIoVTcV6OkU+jLXCLmohJypLHx+aOmOu+AEkBZF60vsdPqqMO/SXGH7Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8665.namprd11.prod.outlook.com (2603:10b6:8:1b8::6) by
- SN7PR11MB7018.namprd11.prod.outlook.com (2603:10b6:806:2ad::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Mon, 10 Mar
- 2025 13:42:50 +0000
-Received: from DS0PR11MB8665.namprd11.prod.outlook.com
- ([fe80::8e7e:4f8:f7e4:3955]) by DS0PR11MB8665.namprd11.prod.outlook.com
- ([fe80::8e7e:4f8:f7e4:3955%4]) with mapi id 15.20.8511.026; Mon, 10 Mar 2025
- 13:42:50 +0000
-Date: Mon, 10 Mar 2025 14:42:37 +0100
-From: Michal Kubiak <michal.kubiak@intel.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <Z87sTf8ZzMIpjXEw@localhost.localdomain>
-References: <Z87WVk0NzMUyaxDj@shell.armlinux.org.uk>
-Content-Disposition: inline
-In-Reply-To: <Z87WVk0NzMUyaxDj@shell.armlinux.org.uk>
-X-ClientProxiedBy: MI2P293CA0014.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:45::13) To DS0PR11MB8665.namprd11.prod.outlook.com
- (2603:10b6:8:1b8::6)
+ Mon, 10 Mar 2025 13:55:10 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52ACwmV7013411;
+ Mon, 10 Mar 2025 14:54:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ Wj1lLI8KT7D0AmFMm+zq3zyTE36qeVUtRFfr55Zjr3g=; b=4zJVgdoYfxispjxF
+ nm4bnPL9RQ9nva3gGCOTbyVZPnmBSk4/ebCbptlj+/1Pza1iIIoD8OBRCCsajMko
+ 9x24lERH2mo2s8WmvJ8331nlQgifEIOXcpI9TMIWFhcW5qkQsiO8XGi3S5czUIP2
+ 4nfZLdnaNKD1KCNCRJ6j6TuPlaOQERuUU+SE8yCR1o/SnbSwfdOqiNb1i3WJH/al
+ 9VFTyECF8fo1cNm/kcFQD8d2/5tyof4TaMrMBEsFhxW0G8H348Fdo3laKfakjdi4
+ 3xCCUlXmM2qGKCCwciiBi0n+xhEg8dLtQTvZdlc1nQ0GxxUzgHhvD3G5hvToXBBJ
+ HAJWdA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 458ey6unwy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Mar 2025 14:54:46 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CFE3A40048;
+ Mon, 10 Mar 2025 14:53:28 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 38FBB49F0B9;
+ Mon, 10 Mar 2025 14:52:28 +0100 (CET)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
+ 2025 14:52:27 +0100
+Message-ID: <6e1757ea-3f5e-4cc0-b142-aee52f016c8f@foss.st.com>
+Date: Mon, 10 Mar 2025 14:52:26 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8665:EE_|SN7PR11MB7018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6999b34e-ae5d-401f-2d05-08dd5fd97345
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lq+mIsSC7D3lWy9aHuGbzMWDD/yIRJes8iRx9D/QFAuR2zEA8jKsAvvJYjj6?=
- =?us-ascii?Q?0dpXkhn5MS00bLSpR/+s2hryEpcrqeyIrcCY+EEH9lTwpcJJAJVvJtW3aXlS?=
- =?us-ascii?Q?pfuvruGnwrsBejJsEqh+YeMUKOOSFgfvgNJxy41bouOXmqq0WCpfQQftrrSa?=
- =?us-ascii?Q?MyOALA1FPktYUwSo7THBhlRMLHj+3ABlFsFwro8UaG6a7rkCt1XHGQziFzyr?=
- =?us-ascii?Q?NZgkBzVN7rmtaPzaJMcNXAPDwc6IeWGGL+IhRagelykFo2X1dNaf91/hZrfd?=
- =?us-ascii?Q?+0cjTk9VEb69L5scd8e4LMq5ucU0pK0CJuDrQOm5tk09kMjleWnkppRRhwcQ?=
- =?us-ascii?Q?kAOf7dsz3VPEcERHXotW88HnPBtANvl9pnoJ4+8tRLTXi09jS/sNqctGa9JK?=
- =?us-ascii?Q?O03U8UT5l1ywb6VvNcraZswhXgWHl3vZ6rl8rAvp9suE74l2U52ZoOUKaOnw?=
- =?us-ascii?Q?o2CSP/ePwUzB3nEyCZJTPJVZNr5E+9vNo/+n/E223TfVLwmDYAazQb5iy0yB?=
- =?us-ascii?Q?gHRPoaMfXDBlaTs6nBjKMT4T9RZmc6BuhhCsJBrhpoblfCxllLVeRnSQJ40r?=
- =?us-ascii?Q?HiYUdH764HZJXJrr+gYZV3KBEuXf64Pr32wFMxtpvfboMavLXaervrTcxYt0?=
- =?us-ascii?Q?wbdNahvChYD9jbnUl2P2pt/n3KLnipv2ZPkRBKANz7QlIQZIhn18NJTdX/PA?=
- =?us-ascii?Q?a9qxwpw9RcqV+kwLOBp21wrea9kWfXoYc/1IrUWQd6uqPM+GM3Q+6uc/ZIVM?=
- =?us-ascii?Q?mtrcXC3A7AQIFdRQ9GQIIPvZcDhC6SuiC3rLg0dndDNVi5dwF4QynOIRUfSl?=
- =?us-ascii?Q?Ve3MZOBfdrfrh5UvScBY9YJ8RY5448dYYDX9uPRiOB3Pqk2acei6chRajGTF?=
- =?us-ascii?Q?odo5YRv2iWFBEicfKWq8mwFlyNyDXU6FiekJ+awenKTrPbKOIPDn7XgG7iR1?=
- =?us-ascii?Q?aSXSiDCLdbQQpZafqqqMeUH8FVpxH92BcC1U6lEtpq3bUxcPtYErGnDPJZmY?=
- =?us-ascii?Q?nZnPeSEcJCqHfHN8HiluPyV0VtP4K7yAnjOSDOtVZ/e+4y/YKjV1z8YBXe7O?=
- =?us-ascii?Q?D2uAfwVx/owYW/1SCSWZyFArcsAWS5KkqT7LxKIDeHmB4SBNLgMjfMYVzKzW?=
- =?us-ascii?Q?mg02fdIMZ/5GLgzy5y3XV8yc8ZAm08DorToQ+o2jVkbElIeM7WYkpJJWwGOX?=
- =?us-ascii?Q?5LPFmneD4Wi9luwU0/IDpgYD8tcBUw/FEiLi2LDXKCrHkpPaBGwDtl7UMPtO?=
- =?us-ascii?Q?kWzbmvT3m7h38PYYczeUCHCT5PzbcMgpsiOvZS5TrZcHGjFA0eJWn0gwhz2Y?=
- =?us-ascii?Q?6cbsDnCOJk1WA4R+1Ue5RjKg/Lp2qyxtk9DbnV8CRAM3LrG0KmpTktH7f51f?=
- =?us-ascii?Q?xFPJxRS37tWMbMyb1S396z0QB521?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8665.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Tm+GYb5W/Al/s3L1EXLkF6CFF+613siYRf3s8wwHp3hrYNbFA6euKCSGDuC4?=
- =?us-ascii?Q?uAm9Db9K8SKYVAEd+JHaip+Z4O7jcYpNMZBD+Z3Tk5UuWN/8lbc/rJMO+p1k?=
- =?us-ascii?Q?GhxRyT/Q/QH9jzC6lrwSEI3NzKVXKF7TOiXkIgDmWlkWdCv4UHuFDrGkM0OM?=
- =?us-ascii?Q?T2J1wQZGW42usCS033ir5Z2W2qw+WjnrRFN/9e316NhEbUWPN3PHRh9QAguz?=
- =?us-ascii?Q?EXeII7PDJ55gacfi0GUHP2lb27ZhE3abkRqQL83nRolBAMKIMsW9sRuA69B/?=
- =?us-ascii?Q?TI9IqakL4ejQ4fdqsAb41oAyG21mg9NpxkLTUfgE9kvMWCLP3i6/YEAS4Lqp?=
- =?us-ascii?Q?cG/Uy/aken/y1mW1fsaEFi3TWfBcflrCH0BEMVHY18JVqReNtDFPyXCPqRgB?=
- =?us-ascii?Q?rudL3KROAWhCQKBEqMUYdHGFy9E7p5CrzDAsU2YTt6jOJEbrDP3whpu51W4H?=
- =?us-ascii?Q?yCt8/gxWJr4PJAeD5LrZsMsqrjb5xt/UKqTpirz9VcBWfJMN2K1ZYQ5OcQnf?=
- =?us-ascii?Q?mpIUn/qsu9YnrHPQWfjQXAj3H1PBNVaoDVOukHsnepyRKQrIH60qBkOIe8Qp?=
- =?us-ascii?Q?/fnaMqKCR7GdfzFObrnpIG2aJ9d9AtKF15e33aovGN615CtA77SX5WQRa9bw?=
- =?us-ascii?Q?fhEDOPbIBuoVZeyHseN//wawITx+jmJekPpYyIBod1UCuRsgKrhgcJkqcIRO?=
- =?us-ascii?Q?K81gnq+yibKFdVxGogvaULaNvjUXjxOBDEJpFvpnG9HOHZ9mCmWajBQVj+oK?=
- =?us-ascii?Q?LYv54gGqWCEYidVjP0L1bsOEH8+jqdy+6uMdJR9jPg+RZ+UKkTVlQoUQaAj6?=
- =?us-ascii?Q?Y623nL1Wbr/lj8AKaQ5gwJ7bGUapx+SrvGwT20Jy4IMdlHqUdddJ4NCpPote?=
- =?us-ascii?Q?JqxsxLSi7dJ7ieMn8LbgA3lNnODhCdKWYQFBYKdyCRUeZv935w5eJbUbq8qN?=
- =?us-ascii?Q?gg0Jki244gpGelVCIOGO0yUhMLtAf2O88PYwm0PleBJ9euO+BPU6mt+CDG+k?=
- =?us-ascii?Q?/wH0vJLERQDUF18U5kiAVR2/J7GAP58XyW95gauSLvM8oZoU8NZ5kdyYvEUS?=
- =?us-ascii?Q?y4S/kIW2O9GWyUj5364wKqFq8fB62vzKwdB010GWCKoZcbyrSdjjC0eRZbqG?=
- =?us-ascii?Q?0CoWQywnZOxIgvnjLamFyjY/HnBC0RioJlz7kbH0hkyAiJiszfAzGPHr9zo0?=
- =?us-ascii?Q?oVK8riqrhH7s8MRnEKt7hQGy5MSGKQ3RV494D16EY4feXJkvQVv8B6Ju+ZIE?=
- =?us-ascii?Q?lxK4rdja5wBUQK4jkV8tUxOu6ChRsJcPSeiXnbYNCeXGIz17iySPh5REkl+u?=
- =?us-ascii?Q?4QAqoV38vwIhudoxNK1hJTvXwLTyQmHB1mIaSp6ThHwDf/cfV2XLaB7bGBuJ?=
- =?us-ascii?Q?76HrRmCvgX6iBTQjRXa+XtMdleuJdf786s5Fc29vCjhTqbqt6kTQlYl/EEz+?=
- =?us-ascii?Q?W8gCbYJ0ukPhKpIfsvAnLU902v2YhcS+MkcxAUpnmii8nlIx/g6QiFxKAT0X?=
- =?us-ascii?Q?oyJ+1/vy5+3788jb4c8tcQ6AkYCGVJtft3wbRwpkWOaOLxFkX0Q5HhHRApl/?=
- =?us-ascii?Q?e8b7N7kEqJB+uL2pypXqwVmpPtFRtpoOVSVNhsi+0QZS8CRNZX74ta5pdNNh?=
- =?us-ascii?Q?CA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6999b34e-ae5d-401f-2d05-08dd5fd97345
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8665.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 13:42:50.4561 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oHwGYexLAKde3deIVsfhEiGM1MxnzFNwu/QMQZf41U3FQ2vOvU1/uoIRFvQ58+ZXmlzaT6Pgh6uWbpF9IrPrUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7018
-X-OriginatorOrg: intel.com
-Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/9] net: stmmac: remove
- unnecessary of_get_phy_mode() calls
+User-Agent: Mozilla Thunderbird
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+References: <20250219080059.367045-1-patrice.chotard@foss.st.com>
+ <20250219080059.367045-5-patrice.chotard@foss.st.com>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20250219080059.367045-5-patrice.chotard@foss.st.com>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-10_05,2025-03-07_03,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 4/8] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -189,28 +83,610 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 10, 2025 at 12:08:54PM +0000, Russell King (Oracle) wrote:
-> Hi,
-> 
-> This series removes unnecessary of_get_phy_mode() calls from the stmmac
-> glue drivers. stmmac_probe_config_dt() / devm_stmmac_probe_config_dt()
-> already gets the interface mode using device_get_phy_mode() and stores
-> it in plat_dat->phy_interface.
-> 
-> Therefore, glue drivers using of_get_phy_mode() are just duplicating
-> the work that has already been done.
-> 
-> This series adjusts the glue drivers to remove their usage of
-> of_get_phy_mode().
-> 
 
-The series looks reasonable.
 
-Thanks,
-Michal
+On 2/19/25 09:00, patrice.chotard@foss.st.com wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
+> 
+> Octo Memory Manager driver (OMM) manages:
+>   - the muxing between 2 OSPI busses and 2 output ports.
+>     There are 4 possible muxing configurations:
+>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>         output is on port 2
+>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>         OSPI2 output is on port 1
+>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>   - the split of the memory area shared between the 2 OSPI instances.
+>   - chip select selection override.
+>   - the time between 2 transactions in multiplexed mode.
+>   - check firewall access.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> ---
+>  drivers/memory/Kconfig     |  17 ++
+>  drivers/memory/Makefile    |   1 +
+>  drivers/memory/stm32_omm.c | 522 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 540 insertions(+)
+>  create mode 100644 drivers/memory/stm32_omm.c
+> 
+> diff --git a/drivers/memory/Kconfig b/drivers/memory/Kconfig
+> index c82d8d8a16ea..3a0703fbfee7 100644
+> --- a/drivers/memory/Kconfig
+> +++ b/drivers/memory/Kconfig
+> @@ -225,6 +225,23 @@ config STM32_FMC2_EBI
+>  	  devices (like SRAM, ethernet adapters, FPGAs, LCD displays, ...) on
+>  	  SOCs containing the FMC2 External Bus Interface.
+>  
+> +config STM32_OMM
+> +	tristate "STM32 Octo Memory Manager"
+> +	depends on SPI_STM32_OSPI || COMPILE_TEST
+> +	help
+> +	  This driver manages the muxing between the 2 OSPI busses and
+> +	  the 2 output ports. There are 4 possible muxing configurations:
+> +	  - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+> +	       output is on port 2
+> +	  - OSPI1 and OSPI2 are multiplexed over the same output port 1
+> +	  - swapped mode (no multiplexing), OSPI1 output is on port 2,
+> +	       OSPI2 output is on port 1
+> +	  - OSPI1 and OSPI2 are multiplexed over the same output port 2
+> +	  It also manages :
+> +	    - the split of the memory area shared between the 2 OSPI instances.
+> +	    - chip select selection override.
+> +	    - the time between 2 transactions in multiplexed mode.
+> +
+>  source "drivers/memory/samsung/Kconfig"
+>  source "drivers/memory/tegra/Kconfig"
+>  
+> diff --git a/drivers/memory/Makefile b/drivers/memory/Makefile
+> index d2e6ca9abbe0..c1959661bf63 100644
+> --- a/drivers/memory/Makefile
+> +++ b/drivers/memory/Makefile
+> @@ -24,6 +24,7 @@ obj-$(CONFIG_DA8XX_DDRCTL)	+= da8xx-ddrctl.o
+>  obj-$(CONFIG_PL353_SMC)		+= pl353-smc.o
+>  obj-$(CONFIG_RENESAS_RPCIF)	+= renesas-rpc-if.o
+>  obj-$(CONFIG_STM32_FMC2_EBI)	+= stm32-fmc2-ebi.o
+> +obj-$(CONFIG_STM32_OMM)		+= stm32_omm.o
+>  
+>  obj-$(CONFIG_SAMSUNG_MC)	+= samsung/
+>  obj-$(CONFIG_TEGRA_MC)		+= tegra/
+> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
+> new file mode 100644
+> index 000000000000..8f7f475769e7
+> --- /dev/null
+> +++ b/drivers/memory/stm32_omm.c
+> @@ -0,0 +1,522 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+> + * Author(s): Patrice Chotard <patrice.chotard@foss.st.com> for STMicroelectronics.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bus/stm32_firewall_device.h>
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/pinctrl/consumer.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +
+> +#define OMM_CR			0
+> +#define CR_MUXEN		BIT(0)
+> +#define CR_MUXENMODE_MASK	GENMASK(1, 0)
+> +#define CR_CSSEL_OVR_EN		BIT(4)
+> +#define CR_CSSEL_OVR_MASK	GENMASK(6, 5)
+> +#define CR_REQ2ACK_MASK		GENMASK(23, 16)
+> +
+> +#define OMM_CHILD_NB		2
+> +
+> +struct ospi_child {
+> +	struct device *dev;
+> +	struct device_node *node;
+> +	struct clk *clk;
+> +};
+> +
+> +struct stm32_omm {
+> +	struct ospi_child child[OMM_CHILD_NB];
+> +	struct resource *mm_res;
+> +	struct clk *clk;
+> +	void __iomem *io_base;
+> +	u32 cr;
+> +	u8 nb_child;
+> +	bool restore_omm;
+> +};
+> +
+> +static int stm32_omm_set_amcr(struct device *dev, bool set)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	struct regmap *syscfg_regmap;
+> +	struct device_node *node;
+> +	struct resource res, res1;
+> +	resource_size_t mm_ospi2_size = 0;
+> +	static const char * const mm_name[] = { "ospi1", "ospi2" };
+> +	u32 amcr_base, amcr_mask;
+> +	int ret, idx;
+> +	unsigned int i, amcr, read_amcr;
+> +
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		idx = of_property_match_string(dev->of_node,
+> +					       "memory-region-names",
+> +					       mm_name[i]);
+> +		if (idx < 0)
+> +			continue;
+> +
+> +		/* res1 only used on second loop iteration */
+> +		res1.start = res.start;
+> +		res1.end = res.end;
+> +
+> +		node = of_parse_phandle(dev->of_node, "memory-region", idx);
+> +		if (!node)
+> +			continue;
+> +
+> +		ret = of_address_to_resource(node, 0, &res);
+> +		if (ret) {
+> +			dev_err(dev, "unable to resolve memory region\n");
+> +			return ret;
+> +		}
+> +
+> +		/* check that memory region fits inside OMM memory map area */
+> +		if (!resource_contains(omm->mm_res, &res)) {
+> +			dev_err(dev, "%s doesn't fit inside OMM memory map area\n",
+> +				mm_name[i]);
+> +			dev_err(dev, "%pR doesn't fit inside %pR\n", &res, omm->mm_res);
+> +
+> +			return -EFAULT;
+> +		}
+> +
+> +		if (i == 1) {
+> +			mm_ospi2_size = resource_size(&res);
+> +
+> +			/* check that OMM memory region 1 doesn't overlap memory region 2 */
+> +			if (resource_overlaps(&res, &res1)) {
+> +				dev_err(dev, "OMM memory-region %s overlaps memory region %s\n",
+> +					mm_name[0], mm_name[1]);
+> +				dev_err(dev, "%pR overlaps %pR\n", &res1, &res);
+> +
+> +				return -EFAULT;
+> +			}
+> +		}
+> +	}
+> +
+> +	syscfg_regmap = syscon_regmap_lookup_by_phandle(dev->of_node, "st,syscfg-amcr");
+> +	if (IS_ERR(syscfg_regmap)) {
+> +		dev_err(dev, "Failed to get st,syscfg-amcr property\n");
+> +		return PTR_ERR(syscfg_regmap);
+> +	}
+> +
+> +	ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 1,
+> +					 &amcr_base);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 2,
+> +					 &amcr_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	amcr = mm_ospi2_size / SZ_64M;
+> +
+> +	if (set)
+> +		regmap_update_bits(syscfg_regmap, amcr_base, amcr_mask, amcr);
+> +
+> +	/* read AMCR and check coherency with memory-map areas defined in DT */
+> +	regmap_read(syscfg_regmap, amcr_base, &read_amcr);
+> +	read_amcr = read_amcr >> (ffs(amcr_mask) - 1);
+> +
+> +	if (amcr != read_amcr) {
+> +		dev_err(dev, "AMCR value not coherent with DT memory-map areas\n");
+> +		ret = -EINVAL;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int stm32_omm_enable_child_clock(struct device *dev, bool enable)
+> +{
+> +	/* As there is only 2 children, remember first child in case of error */
+> +	struct clk *first_child_clk = NULL;
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	u8 i;
+> +	int ret;
+> +
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		if (enable) {
+> +			ret = clk_prepare_enable(omm->child[i].clk);
+> +			if (ret) {
+> +				if (first_child_clk)
+> +					clk_disable_unprepare(first_child_clk);
+> +
+> +				dev_err(dev, "Can not enable clock\n");
+> +				return ret;
+> +			}
+> +		} else {
+> +			clk_disable_unprepare(omm->child[i].clk);
+> +		}
+> +
+> +		first_child_clk = omm->child[i].clk;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_omm_configure(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	struct reset_control *rstc;
+> +	unsigned long clk_rate, clk_rate_max = 0;
+> +	int ret;
+> +	u8 i;
+> +	u32 mux = 0;
+> +	u32 cssel_ovr = 0;
+> +	u32 req2ack = 0;
+> +
+> +	omm->clk = devm_clk_get(dev, NULL);
+> +	if (IS_ERR(omm->clk)) {
+> +		dev_err(dev, "Failed to get OMM clock (%ld)\n",
+> +			PTR_ERR(omm->clk));
+> +
+> +		return PTR_ERR(omm->clk);
+> +	}
+> +
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* parse children's clock */
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		clk_rate = clk_get_rate(omm->child[i].clk);
+> +		if (!clk_rate) {
+> +			dev_err(dev, "Invalid clock rate\n");
+> +			pm_runtime_disable(dev);
+> +			goto err_clk_disable;
+> +		}
+> +
+> +		if (clk_rate > clk_rate_max)
+> +			clk_rate_max = clk_rate;
+> +	}
+> +
+> +	rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(rstc)) {
+> +		ret = dev_err_probe(dev, PTR_ERR(rstc), "reset get failed\n");
+> +		pm_runtime_disable(dev);
+> +		goto err_clk_disable;
+> +	}
+> +
+> +	reset_control_assert(rstc);
+> +	udelay(2);
+> +	reset_control_deassert(rstc);
+> +
+> +	omm->cr = readl_relaxed(omm->io_base + OMM_CR);
+> +	/* optional */
+> +	ret = of_property_read_u32(dev->of_node, "st,omm-mux", &mux);
+> +	if (!ret) {
+> +		if (mux & CR_MUXEN) {
+> +			ret = of_property_read_u32(dev->of_node, "st,omm-req2ack-ns",
+> +						   &req2ack);
+> +			if (!ret && !req2ack) {
+> +				req2ack = DIV_ROUND_UP(req2ack, NSEC_PER_SEC / clk_rate_max) - 1;
+> +
+> +				if (req2ack > 256)
+> +					req2ack = 256;
+> +			}
+> +
+> +			req2ack = FIELD_PREP(CR_REQ2ACK_MASK, req2ack);
+> +
+> +			omm->cr &= ~CR_REQ2ACK_MASK;
+> +			omm->cr |= FIELD_PREP(CR_REQ2ACK_MASK, req2ack);
+> +
+> +			/*
+> +			 * If the mux is enabled, the 2 OSPI clocks have to be
+> +			 * always enabled
+> +			 */
+> +			ret = stm32_omm_enable_child_clock(dev, true);
+> +			if (ret) {
+> +				pm_runtime_disable(dev);
+> +				goto err_clk_disable;
+> +			}
+> +		}
+> +
+> +		omm->cr &= ~CR_MUXENMODE_MASK;
+> +		omm->cr |= FIELD_PREP(CR_MUXENMODE_MASK, mux);
+> +	}
+> +
+> +	/* optional */
+> +	ret = of_property_read_u32(dev->of_node, "st,omm-cssel-ovr", &cssel_ovr);
+> +	if (!ret) {
+> +		omm->cr &= ~CR_CSSEL_OVR_MASK;
+> +		omm->cr |= FIELD_PREP(CR_CSSEL_OVR_MASK, cssel_ovr);
+> +		omm->cr |= CR_CSSEL_OVR_EN;
+> +	}
+> +
+> +	omm->restore_omm = true;
+> +	writel_relaxed(omm->cr, omm->io_base + OMM_CR);
+> +
+> +	ret = stm32_omm_set_amcr(dev, true);
+> +
+> +err_clk_disable:
+> +	pm_runtime_put_sync_suspend(dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int stm32_omm_check_access(struct device *dev, struct device_node *np)
+> +{
+> +	struct stm32_firewall firewall;
+> +	int ret;
+> +
+> +	ret = stm32_firewall_get_firewall(np, &firewall, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return stm32_firewall_grant_access(&firewall);
+> +}
+> +
+> +static int stm32_omm_disable_child(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	struct reset_control *reset;
+> +	int ret;
+> +	u8 i;
+> +
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		ret = clk_prepare_enable(omm->child[i].clk);
+> +		if (ret) {
+> +			dev_err(dev, "Can not enable clock\n");
+> +			return ret;
+> +		}
+> +
+> +		reset = of_reset_control_get_exclusive(omm->child[i].node, 0);
+> +		if (IS_ERR(reset)) {
+> +			dev_err(dev, "Can't get child reset\n");
+> +			return PTR_ERR(reset);
+> +		};
+> +
+> +		/* reset OSPI to ensure CR_EN bit is set to 0 */
+> +		reset_control_assert(reset);
+> +		udelay(2);
+> +		reset_control_deassert(reset);
+> +
+> +		reset_control_put(reset);
+> +		clk_disable_unprepare(omm->child[i].clk);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_omm_probe(struct platform_device *pdev)
+> +{
+> +	struct platform_device *vdev;
+> +	struct device *dev = &pdev->dev;
+> +	struct stm32_omm *omm;
+> +	struct clk *clk;
+> +	int ret;
+> +	u8 child_access_granted = 0;
+> +	u8 i, j;
+> +	bool child_access[OMM_CHILD_NB];
+> +
+> +	omm = devm_kzalloc(dev, sizeof(*omm), GFP_KERNEL);
+> +	if (!omm)
+> +		return -ENOMEM;
+> +
+> +	omm->io_base = devm_platform_ioremap_resource_byname(pdev, "regs");
+> +	if (IS_ERR(omm->io_base))
+> +		return PTR_ERR(omm->io_base);
+> +
+> +	omm->mm_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "memory_map");
+> +	if (IS_ERR(omm->mm_res))
+> +		return PTR_ERR(omm->mm_res);
+> +
+> +	/* check child's access */
+> +	for_each_child_of_node_scoped(dev->of_node, child) {
+> +		if (omm->nb_child >= OMM_CHILD_NB) {
+> +			dev_err(dev, "Bad DT, found too much children\n");
+> +			ret = -E2BIG;
+> +			goto err_clk_release;
+> +		}
+> +
+> +		if (!of_device_is_compatible(child, "st,stm32mp25-ospi")) {
+> +			ret = -EINVAL;
+> +			goto err_clk_release;
+> +		}
+> +
+> +		ret = stm32_omm_check_access(dev, child);
+> +		if (ret < 0 && ret != -EACCES)
+> +			goto err_clk_release;
+> +
+> +		child_access[omm->nb_child] = false;
+> +		if (!ret) {
+> +			child_access_granted++;
+> +			child_access[omm->nb_child] = true;
+> +		}
+> +
+> +		omm->child[omm->nb_child].node = child;
+> +
+> +		clk = of_clk_get(child, 0);
+> +		if (IS_ERR(clk)) {
+> +			dev_err(dev, "Can't get child clock\n");
+> +			ret = PTR_ERR(clk);
+> +			goto err_clk_release;
+> +		};
+> +
+> +		omm->child[omm->nb_child].clk = clk;
+> +		omm->nb_child++;
+> +	}
+> +
+> +	if (omm->nb_child != OMM_CHILD_NB) {
+> +		ret = -EINVAL;
+> +		goto err_clk_release;
+> +	}
+> +
+> +	platform_set_drvdata(pdev, omm);
+> +
+> +	pm_runtime_enable(dev);
+> +
+> +	/* check if OMM's resource access is granted */
+> +	ret = stm32_omm_check_access(dev, dev->of_node);
+> +	if (ret < 0 && ret != -EACCES)
+> +		goto err_clk_release;
+> +
+> +	if (!ret && child_access_granted == OMM_CHILD_NB) {
+> +		/* Ensure both OSPI instance are disabled before configuring OMM */
+> +		ret = stm32_omm_disable_child(dev);
+> +		if (ret)
+> +			goto err_clk_release;
+> +
+> +		ret = stm32_omm_configure(dev);
+> +		if (ret)
+> +			goto err_clk_release;
+> +	} else {
+> +		dev_dbg(dev, "Octo Memory Manager resource's access not granted\n");
+> +		/*
+> +		 * AMCR can't be set, so check if current value is coherent
+> +		 * with memory-map areas defined in DT
+> +		 */
+> +		ret = stm32_omm_set_amcr(dev, false);
+> +		if (ret)
+> +			goto err_clk_release;
+> +	}
+> +
+> +	/* for each child, if resource access is granted and status "okay", probe it */
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		if (!child_access[i] || !of_device_is_available(omm->child[i].node))
+> +			continue;
+> +
+> +		vdev = of_platform_device_create(omm->child[i].node, NULL, NULL);
+> +		if (!vdev) {
+> +			dev_err(dev, "Failed to create Octo Memory Manager child\n");
+> +			for (j = i; j > 0; --j) {
+> +				if (omm->child[j].dev)
+> +					of_platform_device_destroy(omm->child[j].dev, NULL);
+> +			}
+> +
+> +			ret = -EINVAL;
+> +			goto err_clk_release;
+> +		}
+> +		omm->child[i].dev = &vdev->dev;
+> +	}
+> +
+> +err_clk_release:
+> +	for (i = 0; i < omm->nb_child; i++)
+> +		clk_put(omm->child[i].clk);
+> +
+> +	return ret;
+> +}
+> +
+> +static void stm32_omm_remove(struct platform_device *pdev)
+> +{
+> +	struct stm32_omm *omm = platform_get_drvdata(pdev);
+> +	int i;
+> +
+> +	for (i = 0; i < omm->nb_child; i++)
+> +		if (omm->child[i].dev)
+> +			of_platform_device_destroy(omm->child[i].dev, NULL);
+> +
+> +	if (omm->cr & CR_MUXEN)
+> +		stm32_omm_enable_child_clock(&pdev->dev, false);
+> +
+> +	pm_runtime_disable(&pdev->dev);
+> +}
+> +
+> +static const struct of_device_id stm32_omm_of_match[] = {
+> +	{ .compatible = "st,stm32mp25-omm", },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, stm32_omm_of_match);
+> +
+> +static int __maybe_unused stm32_omm_runtime_suspend(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +
+> +	clk_disable_unprepare(omm->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused stm32_omm_runtime_resume(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +
+> +	return clk_prepare_enable(omm->clk);
+> +}
+> +
+> +static int __maybe_unused stm32_omm_suspend(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +
+> +	if (omm->restore_omm && omm->cr & CR_MUXEN)
+> +		stm32_omm_enable_child_clock(dev, false);
+> +
+> +	return pinctrl_pm_select_sleep_state(dev);
+> +}
+> +
+> +static int __maybe_unused stm32_omm_resume(struct device *dev)
+> +{
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	pinctrl_pm_select_default_state(dev);
+> +
+> +	if (!omm->restore_omm)
+> +		return 0;
+> +
+> +	/* Ensure both OSPI instance are disabled before configuring OMM */
+> +	ret = stm32_omm_disable_child(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	writel_relaxed(omm->cr, omm->io_base + OMM_CR);
+> +	ret = stm32_omm_set_amcr(dev, true);
+> +	pm_runtime_put_sync_suspend(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (omm->cr & CR_MUXEN)
+> +		ret = stm32_omm_enable_child_clock(dev, true);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct dev_pm_ops stm32_omm_pm_ops = {
+> +	SET_RUNTIME_PM_OPS(stm32_omm_runtime_suspend,
+> +			   stm32_omm_runtime_resume, NULL)
+> +	SET_SYSTEM_SLEEP_PM_OPS(stm32_omm_suspend, stm32_omm_resume)
+> +};
+> +
+> +static struct platform_driver stm32_omm_driver = {
+> +	.probe	= stm32_omm_probe,
+> +	.remove = stm32_omm_remove,
+> +	.driver	= {
+> +		.name = "stm32-omm",
+> +		.of_match_table = stm32_omm_of_match,
+> +		.pm = &stm32_omm_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(stm32_omm_driver);
+> +
+> +MODULE_DESCRIPTION("STMicroelectronics Octo Memory Manager driver");
+> +MODULE_LICENSE("GPL");
 
-For the series:
-Reviewed-by: Michal Kubiak <michal.kubiak@intel.com>
+
+Hi all,
+
+Anybody alse has additionnal remarks on this driver ?
+
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
