@@ -2,95 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF75A58AB9
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 03:58:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83B39A58B88
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 06:08:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 101A1C78F85;
-	Mon, 10 Mar 2025 02:58:03 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13FB3C78F97;
+	Mon, 10 Mar 2025 05:08:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F2FEC78F77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0E61C78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 02:58:01 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 529MtPYX012672;
- Mon, 10 Mar 2025 02:57:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qEoCZTviZ2GCsxW2OdhKOgQUL5/J0NoI75VbggP73rw=; b=IY6XfO+cyEyKgtTh
- VvwZBcAkKx5ZDHo5iFWZd+3zeGNlVAgcUYEEjtGnGFtOHHMr2/7LDIs9+q4PZhnJ
- zAAl8pQmpSgsxI+jW41MyxCrevjIYKmkwN/Sl1SFPRw9TesoT8SHJxiWXF8zc+1K
- qeiRCdQQjin5WNF2j21k4fTy9qSnubuDlxM3MPZlx3sbeAfNxSTvaLNyie2Pp8yl
- U+fXFQp3m642p+ST9DzaYpGTgAfzez4rhzyaZZzyWANZxlDBHE54EMnBNN6FrSEf
- ACw29qurRz8qqyc7RUorX8y9J4Uc4VZEzS1WBR5EtKwsrv/8sy9QipcWJ2tZV+j7
- i+7bXg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 458ex0uath-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Mar 2025 02:57:45 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 52A2vi3f005518
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Mar 2025 02:57:44 GMT
-Received: from [10.64.68.153] (10.80.80.8) by nalasex01c.na.qualcomm.com
- (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Sun, 9 Mar 2025
- 19:57:38 -0700
-Message-ID: <942d0b2f-c3c1-466d-b894-9dd32ec4e6a1@quicinc.com>
-Date: Mon, 10 Mar 2025 10:57:36 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
+ Mon, 10 Mar 2025 05:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1741583332; x=1773119332;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vZk5dZKIa4Fkbt7Ox6MVoxXVuECx2sVWiZptJoBL78g=;
+ b=JsLyuXcLoAC455srKeYOpdR77AAjlxvmlFp7psSY9pmIObozn7tFYcWq
+ TzXSnEEUc98rssSTO9l0iTL8A//a6xYZcOYNSYHFIYpAptWe+eGTv+Axh
+ WDqHOtpnoitlyZ6WYqiYuIZMxwqJ9a/XbK1BryKgx+Cmr1gqbg0XGiWGC
+ tpzRfSAWTwsopPqjX4yYWscYi9DJTiV3xPKdFwrcSl9Pnk1g9iNqibSgs
+ 7x/kXxDYm52i9SplbaqTVanHLEjQs4lypBsIPda6w9aVyEVvSA9uHpgkP
+ EjAqrsT1jYq+ziQmGNjFcaCqbQ7rb3sYS9mFwVT2yJ58irvlo8B3ACBII g==;
+X-CSE-ConnectionGUID: nbvd0dukQUSprTu63mIMvA==
+X-CSE-MsgGUID: 6swXhTVmRhWWVk25TIKKmg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11368"; a="42779843"
+X-IronPort-AV: E=Sophos;i="6.14,235,1736841600"; d="scan'208";a="42779843"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2025 22:08:49 -0700
+X-CSE-ConnectionGUID: Gq4sFC+MRZCgyTTGigxMtg==
+X-CSE-MsgGUID: HPWWkEnYTUCNLCdy22OdpQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="124050655"
+Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
+ by fmviesa003.fm.intel.com with ESMTP; 09 Mar 2025 22:08:47 -0700
+From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
- <20250303032931.2500935-11-quic_jiegan@quicinc.com>
- <0be31ecd-4386-4eb6-ad6f-a4409a3fc6ad@arm.com>
-Content-Language: en-US
-From: Jie Gan <quic_jiegan@quicinc.com>
-In-Reply-To: <0be31ecd-4386-4eb6-ad6f-a4409a3fc6ad@arm.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: tFJVOVLCoCIHttOaOYSCI63izxriGM9H
-X-Authority-Analysis: v=2.4 cv=f/qyBPyM c=1 sm=1 tr=0 ts=67ce5529 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10 a=EUspDBNiAAAA:8
- a=COk6AnOGAAAA:8 a=7CQSdrXTAAAA:8
- a=wwPabD9cbYV0bnQw2J4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: tFJVOVLCoCIHttOaOYSCI63izxriGM9H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-10_01,2025-03-07_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=999 clxscore=1015
- priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 mlxscore=0
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2502100000
- definitions=main-2503100022
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Jinlong Mao <quic_jinlmao@quicinc.com>, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v15 10/10] arm64: dts: qcom: sa8775p: Add
- CTCU and ETR nodes
+ Dan Carpenter <dan.carpenter@linaro.org>
+Date: Mon, 10 Mar 2025 13:08:35 +0800
+Message-Id: <20250310050835.808870-1-yong.liang.choong@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v1 1/1] stmmac: intel: Fix warning
+	message for return value in intel_tsn_lane_is_available()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,157 +65,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAzLzQvMjAyNSA4OjI4IFBNLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDAzLzAz
-LzIwMjUgMDM6MjksIEppZSBHYW4gd3JvdGU6Cj4+IEFkZCBDVENVIGFuZCBFVFIgbm9kZXMgaW4g
-RFQgdG8gZW5hYmxlIHJlbGF0ZWQgZnVuY3Rpb25hbGl0aWVzLgo+Pgo+PiBSZXZpZXdlZC1ieTog
-S29ucmFkIER5YmNpbyA8a29ucmFkLmR5YmNpb0Bvc3MucXVhbGNvbW0uY29tPgo+PiBTaWduZWQt
-b2ZmLWJ5OiBKaWUgR2FuIDxxdWljX2ppZWdhbkBxdWljaW5jLmNvbT4KPiAKPiBBc3N1bWluZyB0
-aGlzIGdvZXMgdmlhIHRoZSBzb2MgdHJlZSwKPiAKPiBBY2tlZC1ieTogU3V6dWtpIEsgUG91bG9z
-ZSA8c3V6dWtpLnBvdWxvc2VAYXJtLmNvbT4KCkhpIEJqb3JuLCBLb25yYWQKCkdlbnRsZSBwaW5n
-LgoKVGhlIGRyaXZlciBwYXJ0IGhhcyBhcHBsaWVkLiBCVFcsIEkgZm91bmQgdGhpcyBwYXRjaCBo
-YXMgYSBjb25mbGljdCBvbiAKdGFnIG5leHQtMjAyNTAzMDcsIGRvIHlvdSBuZWVkIG1lIHRvIHNl
-bmQgYSBuZXcgcmViYXNlZCBwYXRjaD8KClRoYW5rcywKSmllCgo+IAo+IAo+PiAtLS0KPj4gwqAg
-YXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NhODc3NXAuZHRzaSB8IDE1MyArKysrKysrKysrKysr
-KysrKysrKysrKysrKwo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMTUzIGluc2VydGlvbnMoKykKPj4K
-Pj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcWNvbS9zYTg3NzVwLmR0c2kgYi9h
-cmNoL2FybTY0L2Jvb3QvIAo+PiBkdHMvcWNvbS9zYTg3NzVwLmR0c2kKPj4gaW5kZXggMzM5NGFl
-MmQxMzAwLi4zMWFhOTRkMmEwNDMgMTAwNjQ0Cj4+IC0tLSBhL2FyY2gvYXJtNjQvYm9vdC9kdHMv
-cWNvbS9zYTg3NzVwLmR0c2kKPj4gKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NhODc3
-NXAuZHRzaQo+PiBAQCAtMjQyOSw2ICsyNDI5LDM1IEBAIGNyeXB0bzogY3J5cHRvQDFkZmEwMDAg
-ewo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnRlcmNvbm5lY3QtbmFtZXMgPSAibWVt
-b3J5IjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCBjdGN1QDQw
-MDEwMDAgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gInFjb20sc2E4
-Nzc1cC1jdGN1IjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDB4MCAweDA0MDAx
-MDAwIDB4MCAweDEwMDA+Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNsb2NrcyA9
-IDwmYW9zc19xbXA+Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lcyA9ICJh
-cGIiOwo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGluLXBvcnRzIHsKPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAjYWRkcmVzcy1jZWxscyA9IDwxPjsKPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAjc2l6ZS1jZWxscyA9IDwwPjsKPj4gKwo+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvcnRAMCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MD47Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGN0Y3VfaW4wOiBlbmRwb2ludCB7Cj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlbW90ZS1lbmRwb2ludCA9
-IDwmZXRyMF9vdXQ+Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-fTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiArCj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydEAxIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwxPjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgY3RjdV9pbjE6IGVuZHBvaW50IHsKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZl
-dHIxX291dD47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+PiArCj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCBzdG06IHN0bUA0MDAyMDAwIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29tcGF0
-aWJsZSA9ICJhcm0sY29yZXNpZ2h0LXN0bSIsICJhcm0scHJpbWVjZWxsIjsKPj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDB4MCAweDQwMDIwMDAgMHgwIDB4MTAwMD4sCj4+IEBA
-IC0yNjMzLDYgKzI2NjIsMTIyIEBAIHFkc3NfZnVubmVsX2luMTogZW5kcG9pbnQgewo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8Kg
-wqDCoMKgwqDCoMKgIHJlcGxpY2F0b3JANDA0NjAwMCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGNvbXBhdGlibGUgPSAiYXJtLGNvcmVzaWdodC1keW5hbWljLXJlcGxpY2F0b3IiLCAKPj4g
-ImFybSxwcmltZWNlbGwiOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MHgwIDB4
-MDQwNDYwMDAgMHgwIDB4MTAwMD47Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2xv
-Y2tzID0gPCZhb3NzX3FtcD47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVz
-ID0gImFwYl9wY2xrIjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbi1wb3J0cyB7
-Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydCB7Cj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBxZHNzX3JlcF9pbjogZW5kcG9pbnQgewo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1vdGUtZW5k
-cG9pbnQgPSA8JnN3YW9fcmVwX291dDA+Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IG91dC1wb3J0cyB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydCB7Cj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBxZHNzX3JlcF9vdXQwOiBl
-bmRwb2ludCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHJlbW90ZS1lbmRwb2ludCA9IDwmZXRyX3JlcF9pbj47Cj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCB9
-Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoCB0bWNfZXRyOiB0bWNANDA0ODAwMCB7Cj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGUgPSAiYXJtLGNvcmVzaWdodC10bWMiLCAiYXJt
-LHByaW1lY2VsbCI7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwweDAgMHgwNDA0
-ODAwMCAweDAgMHgxMDAwPjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjbG9ja3Mg
-PSA8JmFvc3NfcW1wPjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXMgPSAi
-YXBiX3BjbGsiOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpb21tdXMgPSA8JmFwcHNfc21t
-dSAweDA0YzAgMHgwMD47Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXJtLHNjYXR0
-ZXItZ2F0aGVyOwo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGluLXBvcnRzIHsKPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwb3J0IHsKPj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGV0cjBfaW46IGVuZHBvaW50IHsKPj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0g
-PCZldHJfcmVwX291dDA+Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgfTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB9Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG91dC1wb3J0
-cyB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydCB7Cj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBldHIwX291dDogZW5kcG9pbnQgewo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1vdGUtZW5k
-cG9pbnQgPSA8JmN0Y3VfaW4wPjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDCoMKgwqDCoMKgIH07Cj4+ICsKPj4gK8KgwqDC
-oMKgwqDCoMKgIHJlcGxpY2F0b3JANDA0ZTAwMCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbXBhdGlibGUgPSAiYXJtLGNvcmVzaWdodC1keW5hbWljLXJlcGxpY2F0b3IiLCAKPj4gImFy
-bSxwcmltZWNlbGwiOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MHgwIDB4MDQw
-NGUwMDAgMHgwIDB4MTAwMD47Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2xvY2tz
-ID0gPCZhb3NzX3FtcD47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVzID0g
-ImFwYl9wY2xrIjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbi1wb3J0cyB7Cj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydCB7Cj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBldHJfcmVwX2luOiBlbmRwb2ludCB7Cj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlbW90ZS1lbmRwb2lu
-dCA9IDwmcWRzc19yZXBfb3V0MD47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCB9Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgb3V0
-LXBvcnRzIHsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAjYWRkcmVzcy1jZWxs
-cyA9IDwxPjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAjc2l6ZS1jZWxscyA9
-IDwwPjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvcnRAMCB7Cj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MD47Cj4+ICsK
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGV0cl9yZXBfb3V0MDog
-ZW5kcG9pbnQgewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCByZW1vdGUtZW5kcG9pbnQgPSA8JmV0cjBfaW4+Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB9Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydEAxIHsKPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwxPjsKPj4gKwo+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXRyX3JlcF9vdXQxOiBl
-bmRwb2ludCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHJlbW90ZS1lbmRwb2ludCA9IDwmZXRyMV9pbj47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+
-PiArCj4+ICvCoMKgwqDCoMKgwqDCoCB0bWNfZXRyMTogdG1jQDQwNGYwMDAgewo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlID0gImFybSxjb3Jlc2lnaHQtdG1jIiwgImFybSxw
-cmltZWNlbGwiOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MHgwIDB4MDQwNGYw
-MDAgMHgwIDB4MTAwMD47Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2xvY2tzID0g
-PCZhb3NzX3FtcD47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVzID0gImFw
-Yl9wY2xrIjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW9tbXVzID0gPCZhcHBzX3NtbXUg
-MHgwNGEwIDB4NDA+Owo+PiArCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFybSxzY2F0dGVy
-LWdhdGhlcjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXJtLGJ1ZmZlci1zaXplID0gPDB4
-NDAwMDAwPjsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbi1wb3J0cyB7Cj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydCB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBldHIxX2luOiBlbmRwb2ludCB7Cj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlbW90ZS1lbmRwb2ludCA9IDwm
-ZXRyX3JlcF9vdXQxPjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsKPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfTsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvdXQtcG9ydHMg
-ewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvcnQgewo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXRyMV9vdXQ6IGVuZHBvaW50IHsKPj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBv
-aW50ID0gPCZjdGN1X2luMT47Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB9Owo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+PiArCj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCBmdW5uZWxANGIwNDAwMCB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbXBhdGlibGUgPSAiYXJtLGNvcmVzaWdodC1keW5hbWljLWZ1bm5lbCIsIAo+PiAiYXJtLHBy
-aW1lY2VsbCI7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwweDAgMHg0YjA0
-MDAwIDB4MCAweDEwMDA+Owo+PiBAQCAtMjcwOCw2ICsyODUzLDE0IEBAIG91dC1wb3J0cyB7Cj4+
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgI2FkZHJlc3MtY2VsbHMgPSA8MT47
-Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgI3NpemUtY2VsbHMgPSA8MD47
-Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcG9ydEAwIHsKPj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwwPjsKPj4gKwo+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3dhb19yZXBfb3V0MDogZW5kcG9pbnQg
-ewo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1v
-dGUtZW5kcG9pbnQgPSA8JnFkc3NfcmVwX2luPjsKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIH07Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfTsK
-Pj4gKwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBvcnRAMSB7Cj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MT47Cj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzd2FvX3JlcF9vdXQxOiBl
-bmRwb2ludCB7Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Fix the warning "warn: missing error code? 'ret'" in the
+intel_tsn_lane_is_available() function.
+
+The function now returns 0 to indicate that a TSN lane was found and
+returns -EINVAL when it is not found.
+
+Fixes: a42f6b3f1cc1 ("net: stmmac: configure SerDes according to the interface mode")
+Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 9c8de47ee149..5910571a954f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -494,10 +494,10 @@ static int intel_tsn_lane_is_available(struct net_device *ndev,
+ 			if ((rbuf.buf[0] >>
+ 				(4 * (intel_priv->tsn_lane_regs[j] % 8)) &
+ 					B_PCH_FIA_PCR_L0O) == 0xB)
+-				return ret;
++				return 0;
+ 	}
+ 
+-	return ret;
++	return -EINVAL;
+ }
+ 
+ static int intel_set_reg_access(const struct pmc_serdes_regs *regs, int max_regs)
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
