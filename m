@@ -2,73 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74B5A59710
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 15:08:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20761A5971D
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 15:11:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CFC3C78F97;
-	Mon, 10 Mar 2025 14:08:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2CA2C78F97;
+	Mon, 10 Mar 2025 14:11:04 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74E9BC7802E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A49D7C7802E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 14:08:11 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52ABsrVw030002;
- Mon, 10 Mar 2025 15:07:52 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- wHZLk8GMBYcp21rNrCan1n6xZhSfhobwhRSqB5Pb/MY=; b=jY6+5yJFskM7sedP
- xRJKKRvkjPeLpa/SWUjtjEHRHLKj/BIy1KhqyC1v9NxVheYl8L06KRzUeNRBaKlc
- PStW2gqgICRmIYHskEvQKFU4H780H2DIfO8kkRL6dP2IQAzV325OyOewUUgAI6hX
- 8spLWZxJCAgTmfJL5cc/S0Qo7Zh2Ncxmc88cz1wfFdst/zMYVIcXWLV8M28rbSca
- x21yuHrHOtiYRvP8fZycl+pDzdcEIOdqJYR7sQ0/fL8S8imyR7TFo8iiSgYuut90
- o5Fk7twnByLML0apClcnGdkinnqUGGSILZxO40jNhMmuXAu6eWMGtpU7P+QzsGl/
- JN80ug==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 458ev648m8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Mar 2025 15:07:51 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2E5BE4004B;
- Mon, 10 Mar 2025 15:06:37 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8419D4F631D;
- Mon, 10 Mar 2025 15:05:20 +0100 (CET)
-Received: from [10.48.87.120] (10.48.87.120) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
- 2025 15:05:19 +0100
-Message-ID: <6f776853-65e9-4574-85c2-c2a0446addfe@foss.st.com>
-Date: Mon, 10 Mar 2025 15:05:19 +0100
+ Mon, 10 Mar 2025 14:11:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 740A8A45D72;
+ Mon, 10 Mar 2025 14:05:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209EDC4CEEB;
+ Mon, 10 Mar 2025 14:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741615862;
+ bh=yz+QldxCtNgccfZ6ARlzhW3yaYz3Keq073Sg+hhKyCs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ClPl/EeA+JDtzs/dylVUaL3LMNXCfH9IIGzt0B2A90glh5jVcCyQu7WEqNZ8Kri3Z
+ ndxfKVNWPZ8PJyfIKbR+SQPKoCp5cSsLK7WYGmOcVwpsGyZ/cKoTwAJbS1P72lUWok
+ q4tKhELl9uAMVBJXtyrO7bLlDDSFGk5mmjVtSS4QnSr2smEzNcbyD8kdeAoQ3R4oI9
+ 9faifbo8q0JzcvCkTYrxJDUPaHdPfJ2xy4HwJqx3Socb4AnWbpu9EOLqlIh0wp+8Ns
+ FChOu42LWzSBbPPM7cfZ1yky9oQNkVHztx3Y4hqOMIoY3lcWS5dFpAxwgXlm7z5Mub
+ SoNEohrLD5urA==
+Message-ID: <ebc23aa2-c850-43c3-baa0-922da31208df@kernel.org>
+Date: Mon, 10 Mar 2025 15:10:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-References: <20250225-b4-stm32mp2_new_dts-v2-0-1a628c1580c7@foss.st.com>
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+References: <20250219080059.367045-1-patrice.chotard@foss.st.com>
+ <20250219080059.367045-5-patrice.chotard@foss.st.com>
+ <6e1757ea-3f5e-4cc0-b142-aee52f016c8f@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20250225-b4-stm32mp2_new_dts-v2-0-1a628c1580c7@foss.st.com>
-X-Originating-IP: [10.48.87.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-10_05,2025-03-07_03,2024-11-22_01
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 00/10] Expand STM32MP2 family with new
-	SoC and boards
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <6e1757ea-3f5e-4cc0-b142-aee52f016c8f@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 4/8] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,85 +106,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/25/25 09:54, Amelie Delaunay wrote:
-> Add STM32MP25 Discovery Kit board [1] STM32MP257F-DK. It is based on a
-> different package of STM32MP257 SoC than STM32MP257F-EV1, and has 4GB of
-> LPDDR4 instead of DDR4.
-> Introduce two new SoC families [2] with Arm Cortex-A35 and Cortex-M33,
-> in development:
-> - STM32MP23x SoCs family, with STM32MP231 (single Arm Cortex-A35),
-> STM32MP233 and STM32MP235 (dual Arm Cortex-A35) [3]. Add STM32MP235F-DK
-> board to demonstrate the differences with STM32MP257F-DK board;
-> - STM32MP21x SoCs family, based on Cortex-A35 single-core, with
-> STM32MP211, STM32MP213 and STM32MP215. Add STM32MP215F-DK board based on
-> STM32MP215 SoC, with 2GB of LPDDR4.
+On 10/03/2025 14:52, Patrice CHOTARD wrote:
 > 
-> [1] https://www.st.com/en/evaluation-tools/stm32mp257f-dk.html
-> [2] https://www.st.com/en/microcontrollers-microprocessors/stm32-arm-cortex-mpus.html
-> [3] https://www.st.com/en/microcontrollers-microprocessors/stm32mp235.html
 > 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
-> Changes in v2:
-> - Address Krzysztof's comments:
->    - squash arm64 Kconfig updates for STM32MP21 and STM32MP23
->    - add new compatibles st,stm32mp21-syscfg and st,stm32mp23-syscfg
->    - comply with DTS coding style
->    - move interrupt controller node under soc
->    - remove status property from button nodes
-> - Link to v1: https://lore.kernel.org/r/20250210-b4-stm32mp2_new_dts-v1-0-e8ef1e666c5e@foss.st.com
+> On 2/19/25 09:00, patrice.chotard@foss.st.com wrote:
+>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>
+>> Octo Memory Manager driver (OMM) manages:
+>>   - the muxing between 2 OSPI busses and 2 output ports.
+>>     There are 4 possible muxing configurations:
+>>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>>         output is on port 2
+>>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>>         OSPI2 output is on port 1
+>>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>>   - the split of the memory area shared between the 2 OSPI instances.
+>>   - chip select selection override.
+>>   - the time between 2 transactions in multiplexed mode.
+>>   - check firewall access.
+>>
 
-Hi,
 
-Gentle ping, are there any additional comments on this series?
 
-Regards,
-Amelie
+Please kindly trim the replies from unnecessary context. It makes it
+much easier to find new content.
 
+...
 > 
-> ---
-> Alexandre Torgue (3):
->        arm64: dts: st: add stm32mp257f-dk board support
->        arm64: dts: st: introduce stm32mp23 SoCs family
->        arm64: dts: st: introduce stm32mp21 SoCs family
 > 
-> Amelie Delaunay (7):
->        dt-bindings: stm32: document stm32mp257f-dk board
->        arm64: Kconfig: expand STM32 Armv8 SoC with STM32MP21/STM32MP23 SoCs family
->        dt-bindings: stm32: add STM32MP21 and STM32MP23 compatibles for syscon
->        dt-bindings: stm32: document stm32mp235f-dk board
->        arm64: dts: st: add stm32mp235f-dk board support
->        dt-bindings: stm32: document stm32mp215f-dk board
->        arm64: dts: st: add stm32mp215f-dk board support
+> Hi all,
 > 
->   .../bindings/arm/stm32/st,stm32-syscon.yaml        |    2 +
->   .../devicetree/bindings/arm/stm32/stm32.yaml       |   13 +
->   arch/arm64/Kconfig.platforms                       |    4 +
->   arch/arm64/boot/dts/st/Makefile                    |    6 +-
->   arch/arm64/boot/dts/st/stm32mp211.dtsi             |  128 +++
->   arch/arm64/boot/dts/st/stm32mp213.dtsi             |    9 +
->   arch/arm64/boot/dts/st/stm32mp215.dtsi             |    9 +
->   arch/arm64/boot/dts/st/stm32mp215f-dk.dts          |   49 +
->   arch/arm64/boot/dts/st/stm32mp21xc.dtsi            |    8 +
->   arch/arm64/boot/dts/st/stm32mp21xf.dtsi            |    8 +
->   arch/arm64/boot/dts/st/stm32mp231.dtsi             | 1214 ++++++++++++++++++++
->   arch/arm64/boot/dts/st/stm32mp233.dtsi             |   94 ++
->   arch/arm64/boot/dts/st/stm32mp235.dtsi             |   16 +
->   arch/arm64/boot/dts/st/stm32mp235f-dk.dts          |  113 ++
->   arch/arm64/boot/dts/st/stm32mp23xc.dtsi            |    8 +
->   arch/arm64/boot/dts/st/stm32mp23xf.dtsi            |    8 +
->   arch/arm64/boot/dts/st/stm32mp257f-dk.dts          |  113 ++
->   17 files changed, 1801 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 8c6d469f524960a0f97ec74f1d9ac737a39c3f1e
-> change-id: 20250210-b4-stm32mp2_new_dts-8fddd389850a
-> 
-> Best regards,
+> Anybody alse has additionnal remarks on this driver ?
+
+I am waiting too...
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
