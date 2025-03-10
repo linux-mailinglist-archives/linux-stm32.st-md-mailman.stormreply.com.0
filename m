@@ -2,68 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88F4AA59650
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 14:30:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04015A59676
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 14:38:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 333B1C78F97;
-	Mon, 10 Mar 2025 13:30:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51739C7802E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B21DEC78F97;
+	Mon, 10 Mar 2025 13:38:27 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48302C7802E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 13:30:05 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52ABZfuq030529;
- Mon, 10 Mar 2025 14:29:46 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- dHKwU4dD4caBYMxPbtfYgf/Hwmnr7yW84qJlA1H5dsk=; b=jvrqgR5dPNW8tn0m
- UG7F2Fuqyne//saP+/Y4LS7wG0nI4r6Bo+ODHz/g/2/6f8N31UrckzLDqCAl+Dyy
- yQXUax7kosbkf6TrYlCtDU/1oHSbh2sVdE04iHSg5mWKwdviKQ/YyDmlEmEUzbQ2
- WiulXmUrQ4cLfUFx+/2EbMPhlPlUkNGY0tW2/c3FQTY2/5ncT3IjOfvEHzdkLIQS
- X54CFKJ004cUXOURM6f9r9OTc5g7m1fkLC52wqJAXQytz7QXTiAeFYYeZ+wqySMK
- oq/IoZznFDMx3Yevo7oCCfMZ/g77K5NqjTe8HLaA6Quu1kHqXolInzDHgmEwkwZe
- 7uczfQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 458ev63x6k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Mar 2025 14:29:45 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5DE964005F;
- Mon, 10 Mar 2025 14:28:25 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E2BA54DF6BC;
- Mon, 10 Mar 2025 14:27:43 +0100 (CET)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
- 2025 14:27:43 +0100
-Message-ID: <6d42bdc8-825a-4fd9-80ab-cfe02fff6c86@foss.st.com>
-Date: Mon, 10 Mar 2025 14:27:43 +0100
+ Mon, 10 Mar 2025 13:38:26 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6784153B;
+ Mon, 10 Mar 2025 06:38:36 -0700 (PDT)
+Received: from donnerap.manchester.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1E9E63F673;
+ Mon, 10 Mar 2025 06:38:22 -0700 (PDT)
+Date: Mon, 10 Mar 2025 13:38:19 +0000
+From: Andre Przywara <andre.przywara@arm.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250310133819.7c2204a6@donnerap.manchester.arm.com>
+In-Reply-To: <E1trbyA-005qYf-Hb@rmk-PC.armlinux.org.uk>
+References: <Z87WVk0NzMUyaxDj@shell.armlinux.org.uk>
+ <E1trbyA-005qYf-Hb@rmk-PC.armlinux.org.uk>
+Organization: ARM
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20250302152605.54792-1-marex@denx.de>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20250302152605.54792-1-marex@denx.de>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-10_05,2025-03-07_03,2024-11-22_01
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
+Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add support for
- STM32MP13xx DHCOR SoM and DHSBC rev.200 board
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 8/9] net: stmmac: sun8i: remove
+ of_get_phy_mode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,111 +57,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
+On Mon, 10 Mar 2025 12:10:54 +0000
+"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-On 3/2/25 16:25, Marek Vasut wrote:
-> LDO2 is expansion connector supply on STM32MP13xx DHCOR DHSBC rev.200.
-> LDO5 is carrier board supply on STM32MP13xx DHCOR DHSBC rev.200. Keep
-> both regulators always enabled to make sure both the carrier board and
-> the expansion connector is always powered on and supplied with correct
-> voltage.
+Hi,
+
+> devm_stmmac_probe_config_dt() already gets the PHY mode from firmware,
+> which is stored in plat_dat->phy_interface. Therefore, we don't need to
+> get it in platform code.
 > 
-> Describe ST33TPHF2XSPI TPM 2.0 chip interrupt and reset lines.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
+> sun8i was using of_get_phy_mode() to set plat_dat->mac_interface, which
+> defaults to plat_dat->phy_interface when the mac-mode DT property is
+> not present. As nothing in arch/*/boot/dts sets the mac-mode property,
+> it is highly likely that these two will be identical, and thus there
+> is no need for this glue driver to set plat_dat->mac_interface.
+
+Well, the current sun8i code wouldn't help anyway, because the driver
+would set mac_interface to the value of "phy-mode", not "mac-mode", which
+is strictly speaking a bug.
+But in any case this is indeed redundant, so:
+
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+Cheers,
+Andre
+
 > ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->   .../boot/dts/st/stm32mp135f-dhcor-dhsbc.dts   | 30 +++++++++++++++++--
->   1 file changed, 28 insertions(+), 2 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
 > 
-> diff --git a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-> index 853dc21449d99..9902849ed0406 100644
-> --- a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 4b7b2582a120..85723a78793a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -1155,11 +1155,10 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+>  	struct stmmac_resources stmmac_res;
+>  	struct sunxi_priv_data *gmac;
+>  	struct device *dev = &pdev->dev;
+> -	phy_interface_t interface;
+> -	int ret;
+>  	struct stmmac_priv *priv;
+>  	struct net_device *ndev;
+>  	struct regmap *regmap;
+> +	int ret;
+>  
+>  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+>  	if (ret)
+> @@ -1219,10 +1218,6 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> -	ret = of_get_phy_mode(dev->of_node, &interface);
+> -	if (ret)
+> -		return -EINVAL;
+> -
+>  	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+>  	if (IS_ERR(plat_dat))
+>  		return PTR_ERR(plat_dat);
+> @@ -1230,7 +1225,6 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+>  	/* platform data specifying hardware features and callbacks.
+>  	 * hardware features were copied from Allwinner drivers.
+>  	 */
+> -	plat_dat->mac_interface = interface;
+>  	plat_dat->rx_coe = STMMAC_RX_COE_TYPE2;
+>  	plat_dat->tx_coe = 1;
+>  	plat_dat->flags |= STMMAC_FLAG_HAS_SUN8I;
 
-
-Applied on stm32-next.
-
-Thanks
-Alex
-
-> @@ -176,7 +176,7 @@ &gpioa {
->   	gpio-line-names = "", "", "", "",
->   			  "", "DHSBC_USB_PWR_CC1", "", "",
->   			  "", "", "", "DHSBC_nETH1_RST",
-> -			  "", "DHCOR_HW-CODING_0", "", "";
-> +			  "", "DHCOR_HW-CODING_0", "", "DHSBC_HW-CODE_2";
->   };
->   
->   &gpiob {
-> @@ -197,7 +197,7 @@ &gpiod {
->   	gpio-line-names = "", "", "", "",
->   			  "", "DHCOR_RAM-CODING_0", "", "",
->   			  "", "DHCOR_RAM-CODING_1", "", "",
-> -			  "", "", "", "";
-> +			  "", "DHSBC_HW-CODE_1", "", "";
->   };
->   
->   &gpioe {
-> @@ -221,6 +221,13 @@ &gpiog {
->   			  "DHSBC_ETH1_INTB", "", "", "DHSBC_ETH2_INTB";
->   };
->   
-> +&gpioh {
-> +	gpio-line-names = "", "", "", "DHSBC_HW-CODE_0",
-> +			  "", "", "", "",
-> +			  "", "", "", "",
-> +			  "", "", "", "";
-> +};
-> +
->   &gpioi {
->   	gpio-line-names = "DHCOR_RTC_nINT", "DHCOR_HW-CODING_1",
->   			  "DHCOR_BT_REG_ON", "DHCOR_PMIC_nINT",
-> @@ -296,6 +303,9 @@ &spi2 {
->   	st33htph: tpm@0 {
->   		compatible = "st,st33htpm-spi", "tcg,tpm_tis-spi";
->   		reg = <0>;
-> +		interrupt-parent = <&gpioe>;
-> +		interrupts = <9 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios = <&gpioe 12 GPIO_ACTIVE_LOW>;
->   		spi-max-frequency = <24000000>;
->   	};
->   };
-> @@ -419,3 +429,19 @@ connector {
->   		type = "micro";
->   	};
->   };
-> +
-> +/* LDO2 is expansion connector 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
-> +&vdd_ldo2 {
-> +	regulator-always-on;
-> +	regulator-boot-on;
-> +	regulator-min-microvolt = <3300000>;
-> +	regulator-max-microvolt = <3300000>;
-> +};
-> +
-> +/* LDO5 is carrier board 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
-> +&vdd_sd {
-> +	regulator-always-on;
-> +	regulator-boot-on;
-> +	regulator-min-microvolt = <3300000>;
-> +	regulator-max-microvolt = <3300000>;
-> +};
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
