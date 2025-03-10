@@ -2,59 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3958AA59531
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 13:54:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED9CA595D4
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 14:14:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F82C78F96;
-	Mon, 10 Mar 2025 12:54:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FB91C78F97;
+	Mon, 10 Mar 2025 13:14:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52365C78F74
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23165C78F96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 12:53:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2B7225C5BE7;
- Mon, 10 Mar 2025 12:51:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7079CC4CEE5;
- Mon, 10 Mar 2025 12:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741611237;
- bh=J1e0tuX0R2dKRPJ+pB6GcyRcQHThRSNrXsdiWBni5Qk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sINWN16ngmfU2lykcPSvEltv8suz+4O4FzbpqqAf8sN1TkxAateKk8xaWROXzZlg/
- 4lKExBHdAJhTMm/zIyb7EjXGys2rB3rHGsL9TxpkaSK9WzmatdOIuYHViAbazwRVRx
- IS2iaG3Ocpg2eRRLOJdc+t5PDggdRzoe+fOKYDFI2WjPO1G3fEl3/mZAQZe+Pdnhsd
- yzfgHJadIf7kxez3j5tOJkx/cPK3eQ2lcqMaIl4R2CIPdG5y32mnhK+XpT5rLaF+BC
- KkJV7Vt9a4FqNJME2iX0fxvjPhZFHGtPSgfKx91tzXj0w69Q4R8z7/Dw3TJXqDx9JE
- 68olY1HAX1M+g==
-Date: Mon, 10 Mar 2025 07:53:55 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <174161123533.3885448.13844393493565707617.robh@kernel.org>
-References: <Z82tWYZulV12Pjir@shell.armlinux.org.uk>
- <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
+ Mon, 10 Mar 2025 13:14:42 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52ACqr1I032195;
+ Mon, 10 Mar 2025 14:14:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ YEH/1gxIk510Nqct1xMg/A/MiupcMO3/eGizj/qCq8U=; b=2Hw0ok2xiRUCGTVk
+ 3ZLzBswqFGoVzIwoLTz4mfpwk/vpdLN7K7hD1r33l0Fu7Mr04uYvZ3HGyg5FiBM0
+ xrwR8Tp4azVEURP8wcUx3OJ6SidBq7AogkO9S87iBWOAbEArTrh5OwOVPvl/c5uY
+ iJUFgUzp0M7hP6CODjA6FQ8YRVZheRDeH4QCdzs27WnS6kegJxoxIwJ5oYTsJ13l
+ shZ7Wur3nkVRlgG4YD5UVWyhx44H/cM/0lCGY1CfBhxYs9DJ8pjUMIbUfLnmiNB3
+ 8JAzYib25h6ddPT5Tm2wqNj5OytbPCgjV6JwbD64ypwBz2VGTAIkodYk8IT3H1T4
+ gTp55g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 458f573me0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Mar 2025 14:14:28 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2F7394005E;
+ Mon, 10 Mar 2025 14:13:04 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A9E8B4DD53D;
+ Mon, 10 Mar 2025 14:12:22 +0100 (CET)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
+ 2025 14:12:22 +0100
+Message-ID: <37d0b2f0-05c9-4e52-9fa9-d73ed0c56ec0@foss.st.com>
+Date: Mon, 10 Mar 2025 14:12:21 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
- Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Alexandre Ghiti <alex@ghiti.fr>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Minda Chen <minda.chen@starfivetech.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Palmer Dabbelt <palmer@dabbelt.com>,
+User-Agent: Mozilla Thunderbird
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20250310122402.8795-1-dario.binacchi@amarulasolutions.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20250310122402.8795-1-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-10_05,2025-03-07_03,2024-11-22_01
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 6/7] dt-bindings: deprecate "snps,
- en-tx-lpi-clockgating" property
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] ARM: dts: stm32: use
+ IRQ_TYPE_EDGE_FALLING on stm32mp157c-dk2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,29 +75,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Dario
 
-On Sun, 09 Mar 2025 15:02:14 +0000, Russell King (Oracle) wrote:
-> Whether the MII transmit clock can be stopped is primarily a property
-> of the PHY (there is a capability bit that should be checked first.)
-> Whether the MAC is capable of stopping the transmit clock is a separate
-> issue, but this is already handled by the core DesignWare MAC code.
+On 3/10/25 13:23, Dario Binacchi wrote:
+> Replace the number 2 with the appropriate numerical constant defined in
+> dt-bindings/interrupt-controller/irq.h.
 > 
-> Therefore, snps,en-tx-lpi-clockgating is technically incorrect, so this
-> commit deprecates the property in the binding.
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
->  1 file changed, 1 insertion(+)
 > 
+> Changes in v2:
+> - Drop inclusion of dt-bindings/interrupt-controller/irq.h header
+> - Add Reviewed-by tag of Antonio Borneo
+> 
+>   arch/arm/boot/dts/st/stm32mp157c-dk2.dts | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
+> index 5f9c0160a9c4..324f7bb988d1 100644
+> --- a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
+> +++ b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
+> @@ -67,7 +67,7 @@ &i2c1 {
+>   	touchscreen@38 {
+>   		compatible = "focaltech,ft6236";
+>   		reg = <0x38>;
+> -		interrupts = <2 2>;
+> +		interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
+>   		interrupt-parent = <&gpiof>;
+>   		touchscreen-size-x = <480>;
+>   		touchscreen-size-y = <800>;
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Applied on stm32-next.
 
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
