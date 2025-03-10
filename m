@@ -2,51 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32A2A59488
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 13:31:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3958AA59531
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 13:54:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78504C78F74;
-	Mon, 10 Mar 2025 12:31:43 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F82C78F96;
+	Mon, 10 Mar 2025 12:54:00 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30F6CC78F65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52365C78F74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 12:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=itOKGgzpHi7KgaNmFHmHfax9kY4jmtqWEweC2RyI/Og=; b=erPLNA9wWzqDRpmp0jTUNuVy8R
- jHoaL6nv4fDf/jTi6npkgPDWsRHfZpbV/JUCNy7xFneykv3fIKU8bDnM6pGxIYVpTD2kwzYjJjR4A
- VQa5K0G93KLS31qrG03TYdVqFV4Z9zOt1lLJFKJqL+tRH4VNi2+Z6gXTLa1kynvf9a+XhqlIT7Zo7
- ho1BYiMtFsvOVWshin+zBspSykHdSP/bqqBdQs7wq++fc0MPQNBgQxrnXfsBOF+uLtI3Q86BObTUj
- N/ESrcqixtcf+FSXaP3TKKokW3raS17kxirnnwX423itWxAjrmR4Zv1uI8jmhJ8Z2bFv+frFaKHFq
- angen7XQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38120)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1trcIB-0002dh-1b;
- Mon, 10 Mar 2025 12:31:35 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1trcI8-0002TM-19;
- Mon, 10 Mar 2025 12:31:32 +0000
-Date: Mon, 10 Mar 2025 12:31:32 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z87bpDd7QYYVU0ML@shell.armlinux.org.uk>
+ Mon, 10 Mar 2025 12:53:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2B7225C5BE7;
+ Mon, 10 Mar 2025 12:51:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7079CC4CEE5;
+ Mon, 10 Mar 2025 12:53:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741611237;
+ bh=J1e0tuX0R2dKRPJ+pB6GcyRcQHThRSNrXsdiWBni5Qk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sINWN16ngmfU2lykcPSvEltv8suz+4O4FzbpqqAf8sN1TkxAateKk8xaWROXzZlg/
+ 4lKExBHdAJhTMm/zIyb7EjXGys2rB3rHGsL9TxpkaSK9WzmatdOIuYHViAbazwRVRx
+ IS2iaG3Ocpg2eRRLOJdc+t5PDggdRzoe+fOKYDFI2WjPO1G3fEl3/mZAQZe+Pdnhsd
+ yzfgHJadIf7kxez3j5tOJkx/cPK3eQ2lcqMaIl4R2CIPdG5y32mnhK+XpT5rLaF+BC
+ KkJV7Vt9a4FqNJME2iX0fxvjPhZFHGtPSgfKx91tzXj0w69Q4R8z7/Dw3TJXqDx9JE
+ 68olY1HAX1M+g==
+Date: Mon, 10 Mar 2025 07:53:55 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <174161123533.3885448.13844393493565707617.robh@kernel.org>
+References: <Z82tWYZulV12Pjir@shell.armlinux.org.uk>
+ <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: avoid unnecessary
- work in stmmac_release()/stmmac_dvr_remove()
+In-Reply-To: <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
+ Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, Alexandre Ghiti <alex@ghiti.fr>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 6/7] dt-bindings: deprecate "snps,
+ en-tx-lpi-clockgating" property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,18 +71,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
 
-This small series is a subset of a RFC I sent earlier. These two
-patches remove code that is unnecessary and/or wrong in these paths.
-Details in each commit.
+On Sun, 09 Mar 2025 15:02:14 +0000, Russell King (Oracle) wrote:
+> Whether the MII transmit clock can be stopped is primarily a property
+> of the PHY (there is a capability bit that should be checked first.)
+> Whether the MAC is capable of stopping the transmit clock is a separate
+> issue, but this is already handled by the core DesignWare MAC code.
+> 
+> Therefore, snps,en-tx-lpi-clockgating is technically incorrect, so this
+> commit deprecates the property in the binding.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 -----
- 1 file changed, 5 deletions(-)
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
