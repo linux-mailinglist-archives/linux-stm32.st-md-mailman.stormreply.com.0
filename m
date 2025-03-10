@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F50AA58F04
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 10:07:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B92A58F0C
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Mar 2025 10:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32C9AC78F9A;
-	Mon, 10 Mar 2025 09:07:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49DC2C78F9A;
+	Mon, 10 Mar 2025 09:08:31 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0490CC78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7297C78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Mar 2025 09:07:32 +0000 (UTC)
+ Mon, 10 Mar 2025 09:08:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E650A5C5661;
- Mon, 10 Mar 2025 09:05:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A548C4CEE5;
- Mon, 10 Mar 2025 09:07:23 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id B84BBA45164;
+ Mon, 10 Mar 2025 09:02:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31D7C4CEE5;
+ Mon, 10 Mar 2025 09:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741597651;
- bh=qqZhkPRwUpaoAjzdi9JHwcv9INAknt/YcI8iZPeoNfo=;
+ s=k20201202; t=1741597708;
+ bh=oikO8h1nTOFZbX/6PBbnHyP3rIFuP32fPuQIBMhkF3U=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ROKa6JMyCGoEK1zQZ+eBDyj+9hajyMmPMUo7p+ulN5c9OciTut+lyLieibDtMKm+k
- +34mUJ1+bQNND/80CkFxp1gNAq/0l/C3PdHkixjHL10WU3ncQXusTkGHL8HevDyAnP
- FwOwrUWavuWxXpyc6bT9o3YCBYxq/uab27I3jsoljb8MbJ73Kku/9GunWxIwtvxMUS
- 41LXhWzVdBgyEWT2ciP6fbLx1jpsiil+14U9o/NXpmUJBkgfKOFj0tt23ngXDaJxCW
- xuiyLHB0GUMYNjYaaMc6uW1AtXs0MDLdPvxHhnxSAW1R8M/KbYdtVslWNivVVqFAuj
- SkB+EFV0WQQtg==
-Message-ID: <b724d9c1-cd73-4e4e-aed1-101049204c90@kernel.org>
-Date: Mon, 10 Mar 2025 10:07:20 +0100
+ b=sCFYU3c1HKIbUi+R2euxOeb9kAL88lod4P/ZItKzaa+6sXfG/vvo/he4Y/i22y7mT
+ G74X50wnERgGiwFjZTUiqv3yBWd0WEuDw1kPud7YFDODRLPxbUyTXz+5s8PageQBzV
+ gbZDUXFkLtmx5y300d1Wp0TQkeyeJve46/zOgSg4a7zhbrKL4UhVFyvV+zhILde5X5
+ s8yB+PbUrTI8et2Ls+5L6ZtZVKhPxGEh5jOWO+kQqS3Uot3R9pBCgLBko/G/AHjXlr
+ NhUofbY3N7docCwH+mT/N3TM7tfivQBwEzJcYkO0hfH2uC2fIGH6e2LyJhmFX65Q6X
+ 3ZQtebDAGiPVQ==
+Message-ID: <24d5b56f-5078-4128-be66-436b1755d4b7@kernel.org>
+Date: Mon, 10 Mar 2025 10:08:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jie Gan <quic_jiegan@quicinc.com>,
@@ -42,7 +42,7 @@ To: Jie Gan <quic_jiegan@quicinc.com>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>
 References: <20250310090407.2069489-1-quic_jiegan@quicinc.com>
- <20250310090407.2069489-2-quic_jiegan@quicinc.com>
+ <20250310090407.2069489-5-quic_jiegan@quicinc.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,14 +88,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20250310090407.2069489-2-quic_jiegan@quicinc.com>
+In-Reply-To: <20250310090407.2069489-5-quic_jiegan@quicinc.com>
 Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
  linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Tingwei Zhang <quic_tingweiz@quicinc.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/4] coresight: tmc: Introduce new APIs
- to get the RWP offset of ETR buffer
+Subject: Re: [Linux-stm32] [PATCH v1 4/4] arm64: dts: qcom: sa8775p: Add
+ interrupts to CTCU device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,28 +113,13 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 10/03/2025 10:04, Jie Gan wrote:
-> +static long tmc_sg_get_rwp_offset(struct tmc_drvdata *drvdata)
-> +{
-> +	struct etr_buf *etr_buf = drvdata->sysfs_buf;
-> +	struct etr_sg_table *etr_table = etr_buf->private;
-> +	struct tmc_sg_table *table = etr_table->sg_table;
-> +	long w_offset;
-> +	u64 rwp;
-> +
-> +	rwp = tmc_read_rwp(drvdata);
-> +	w_offset = tmc_sg_get_data_page_offset(table, rwp);
-> +
-> +	return w_offset;
-> +}
-> +
-> +/*
-> + * Retrieve the offset to the write pointer of the ETR buffer based on whether
-> + * the memory mode is SG, flat or reserved.
-> + */
-> +long tmc_get_rwp_offset(struct tmc_drvdata *drvdata)
-
-You need kerneldoc for exports.
-
+> Add interrupts to enable byte-cntr function for TMC ETR devices.
+> 
+> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
+> ---
+> Dependency:
+> prerequisite-message-id: 20250303032931.2500935-11-quic_jiegan@quicinc.com
+Which too generated such changelog? Why this cannot be lore link?
 
 Best regards,
 Krzysztof
