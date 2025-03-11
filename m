@@ -2,86 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FDBBA5C2B3
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Mar 2025 14:30:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC07A5C31D
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Mar 2025 14:59:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDE90C78F85;
-	Tue, 11 Mar 2025 13:30:41 +0000 (UTC)
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 737BBC78F85;
+	Tue, 11 Mar 2025 13:59:08 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 853D6C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85D8DC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Mar 2025 13:30:40 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-51eb1a6ca1bso2243374e0c.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Mar 2025 06:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1741699839; x=1742304639;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OS+kx1EYJx8zGVZAVZxDQft66T1VTJ/fMWqkBxUi750=;
- b=CxSH6i+lU9ki7Muo4ShrZIc1rYHyDfpPcLd8FcLrYgDIFYsmN81vckM+6qcuBYX5i8
- IpCR9qVzf9iOKc9AhRTDBzfqmkojcicefNiXAeUVA+1IhTyeguNgmMlPQbK0y6bgXve2
- u5bW/OgdRFWEaH+KKc2j046LF3FV9ePX+UU4N6PSTu/emr0j3mz4TImp3Wuz24E8D1vA
- Oybeqk1n7YYph8Mkss79vO3ltYokNarU3y4r7++NS+t3eyZY2SVcYcpKabcjL5rmup0W
- 1GMq0v553a1cGL+k/FnPFZoclj86QjCiU5yCk8X7gioWhxyQfhMr5wA9LvPw05Oe6Fug
- SxXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741699839; x=1742304639;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OS+kx1EYJx8zGVZAVZxDQft66T1VTJ/fMWqkBxUi750=;
- b=AmzHydTX4NTo+7ZtpZk98LGWtoS2BnleN6paoMHZg1VoEpyO0s5HWD7z6VvEhAMufd
- 9MbWubmbdVEyoPnPwoj81f0cWjd863uEEBEgYPMLZQACBj5dysAR03ejRVcrJPcoXrz9
- OS0BdT/rEWGwjs+p6/D/g4pk2fva1eHindxF2D3HmhFDRWtdl1MSi7d8MvJtFqlOtw0f
- Km136wRiMxqJCUbdciXpi7nf3xu3GQi/VdxnASQqb13UGsTYAToFEehpZpVtKXbnOY+T
- nZtszaneOJ54xmwdU1Am4K03VzCOuzuGaf38h9vm/O09U0JXaib0pewcyskkK6hcmyNj
- vHQQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUG13VYKAoer7Z1VEmkeM56P9fHrvJ8uG0sEaLcYeDcHWKhChMBF8DYTkfLePOd4qBLJkw+DjoQXzv0SQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz79kYTqpJoXBz1HLRTRvXd7/Im0go49SETrj+/brHes15ykyeU
- 62McTXYiz+D8vNrEPF+iOwk8MwBB51c3sUrM0kSl324gLY+/5XI73U8YDju3PZbu+AI5PVWVx05
- D28Ko3K4IG2XmqWVMd8iy7dUTdWk=
-X-Gm-Gg: ASbGnct6j1jY7hwWl5HaOl7QfvtZ1OTW8I2abog/6Gc7iDOOM4TRH1qReuJmjQK7Guu
- VI1k/757oHtFRSLIgkXy1em1yX+QVZ7yn8LEwfZ6J87vBeX8woDLEwFeB4NdzHYYOFuC1NNVgdi
- onh9tTZygtXEEJL7XBWOUSfurZ6Q==
-X-Google-Smtp-Source: AGHT+IFy2Sl8rkBIl4+/ZfojG+Lp511BkNoNkiebfxbXz25a/xXmKtCtJuK/D9U65TOMGgOaav+c8ESCttCkqV6X1J8=
-X-Received: by 2002:a05:6122:2011:b0:520:42d3:91aa with SMTP id
- 71dfb90a1353d-523e3ff118fmr11782712e0c.2.1741699839299; Tue, 11 Mar 2025
- 06:30:39 -0700 (PDT)
+ Tue, 11 Mar 2025 13:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=c31Au5Z3vjkCmDnoykVdRiiAKpObyn6ZiX9CIg67pFs=; b=PEpDOO16pea+huwGIgozxoDZg3
+ 36osatx1+RTIwSoOugwM++KacKkpXV3oDurwFLiXm4fv/V4MJoribyeZa+BgxHtxhf3IxDiWnNjHa
+ 4jVNslKcMFpH1J0MHKPTh/oE5lmLd90Gd4hy5btm0Xsn09dITYR12NJuooMkTTsesFQC14Xt4J1CW
+ W815n01d8HsOciSwonZ2nNLaRUIW5rcuPwTo1KeGuVVaY7jTK8M3+vygREE+1YysefOl59mj64OVw
+ 1vaeGgRbCyByd5Ij8SP+E76I267s58PArPBUObpW8x/iO53qCbK6kwPyaEsvnDxuNKInkRLbi2u3K
+ nuhRVoBA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41136)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1ts08F-00049D-1m;
+ Tue, 11 Mar 2025 13:58:55 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1ts08B-0003Xt-27;
+ Tue, 11 Mar 2025 13:58:51 +0000
+Date: Tue, 11 Mar 2025 13:58:51 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <Z9BBm6tievFukbO8@shell.armlinux.org.uk>
+References: <Z8m-CRucPxDW5zZK@shell.armlinux.org.uk>
+ <29bc7abd-b5cc-4359-8aa6-dbf66e8b70e4@nvidia.com>
+ <Z8sn7b_ra_QnWUjw@shell.armlinux.org.uk>
+ <673e453b-798f-4fc1-8ed1-3cf597e926b4@nvidia.com>
+ <4fe02d97-2c38-4d40-b17d-5f8174d2f7cc@nvidia.com>
 MIME-Version: 1.0
-References: <Z82tWYZulV12Pjir@shell.armlinux.org.uk>
- <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1trIAQ-005nto-3w@rmk-PC.armlinux.org.uk>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 11 Mar 2025 13:30:13 +0000
-X-Gm-Features: AQ5f1Jp3UtuRRhR-96fKi5aM9eNN6ctPoGEYrjWhhbpHpPNGlFs33K9fIDMWwbw
-Message-ID: <CA+V-a8u34cKgccW=qEw=FC34HH+Q6pVmRqeMq7Q_btxqkqNtnQ@mail.gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
- Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Alexandre Ghiti <alex@ghiti.fr>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Minda Chen <minda.chen@starfivetech.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Palmer Dabbelt <palmer@dabbelt.com>,
+Content-Disposition: inline
+In-Reply-To: <4fe02d97-2c38-4d40-b17d-5f8174d2f7cc@nvidia.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Thierry Reding <treding@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 6/7] dt-bindings: deprecate "snps,
- en-tx-lpi-clockgating" property
+Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 0/3] net: stmmac: approach
+ 2 to solve EEE LPI reset issues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,38 +68,233 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU3VuLCBNYXIgOSwgMjAyNSBhdCAzOjEz4oCvUE0gUnVzc2VsbCBLaW5nIChPcmFjbGUpCjxy
-bWsra2VybmVsQGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4KPiBXaGV0aGVyIHRoZSBNSUkgdHJh
-bnNtaXQgY2xvY2sgY2FuIGJlIHN0b3BwZWQgaXMgcHJpbWFyaWx5IGEgcHJvcGVydHkKPiBvZiB0
-aGUgUEhZICh0aGVyZSBpcyBhIGNhcGFiaWxpdHkgYml0IHRoYXQgc2hvdWxkIGJlIGNoZWNrZWQg
-Zmlyc3QuKQo+IFdoZXRoZXIgdGhlIE1BQyBpcyBjYXBhYmxlIG9mIHN0b3BwaW5nIHRoZSB0cmFu
-c21pdCBjbG9jayBpcyBhIHNlcGFyYXRlCj4gaXNzdWUsIGJ1dCB0aGlzIGlzIGFscmVhZHkgaGFu
-ZGxlZCBieSB0aGUgY29yZSBEZXNpZ25XYXJlIE1BQyBjb2RlLgo+Cj4gVGhlcmVmb3JlLCBzbnBz
-LGVuLXR4LWxwaS1jbG9ja2dhdGluZyBpcyB0ZWNobmljYWxseSBpbmNvcnJlY3QsIHNvIHRoaXMK
-PiBjb21taXQgZGVwcmVjYXRlcyB0aGUgcHJvcGVydHkgaW4gdGhlIGJpbmRpbmcuCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3Jn
-LnVrPgo+IC0tLQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3NucHMs
-ZHdtYWMueWFtbCB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgoKUmV2
-aWV3ZWQtYnk6IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5l
-c2FzLmNvbT4KCkNoZWVycywKUHJhYmhha2FyCgo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3NucHMsZHdtYWMueWFtbCBiL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc25wcyxkd21hYy55YW1sCj4gaW5kZXggM2YwYWE0NmQ3
-OThlLi43OGIzMDMwZGM1NmQgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL25ldC9zbnBzLGR3bWFjLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbmV0L3NucHMsZHdtYWMueWFtbAo+IEBAIC00OTQsNiArNDk0LDcgQEAg
-dGl0bGU6IFN5bm9wc3lzIERlc2lnbldhcmUgTUFDCj4KPiAgICBzbnBzLGVuLXR4LWxwaS1jbG9j
-a2dhdGluZzoKPiAgICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL2Zs
-YWcKPiArICAgIGRlcHJlY2F0ZWQ6IHRydWUKPiAgICAgIGRlc2NyaXB0aW9uOgo+ICAgICAgICBF
-bmFibGUgZ2F0aW5nIG9mIHRoZSBNQUMgVFggY2xvY2sgZHVyaW5nIFRYIGxvdy1wb3dlciBtb2Rl
-Cj4KPiAtLQo+IDIuMzAuMgo+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwo+IGxpbnV4LXJpc2N2IG1haWxpbmcgbGlzdAo+IGxpbnV4LXJpc2N2QGxp
-c3RzLmluZnJhZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXJpc2N2Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Mar 11, 2025 at 01:25:58PM +0000, Jon Hunter wrote:
+> =
+
+> On 10/03/2025 14:20, Jon Hunter wrote:
+> > =
+
+> > On 07/03/2025 17:07, Russell King (Oracle) wrote:
+> > > On Fri, Mar 07, 2025 at 04:11:19PM +0000, Jon Hunter wrote:
+> > > > Hi Russell,
+> > > > =
+
+> > > > On 06/03/2025 15:23, Russell King (Oracle) wrote:
+> > > > > Hi,
+> > > > > =
+
+> > > > > This is a second approach to solving the STMMAC reset issues caus=
+ed by
+> > > > > the lack of receive clock from the PHY where the media is in low =
+power
+> > > > > mode with a PHY that supports receive clock-stop.
+> > > > > =
+
+> > > > > The first approach centred around only addressing the issue in the
+> > > > > resume path, but it seems to also happen when the platform glue m=
+odule
+> > > > > is removed and re-inserted (Jon - can you check whether that's al=
+so
+> > > > > the case for you please?)
+> > > > > =
+
+> > > > > As this is more targetted, I've dropped the patches from this ser=
+ies
+> > > > > which move the call to phylink_resume(), so the link may still co=
+me
+> > > > > up too early on resume - but that's something I also intend to fi=
+x.
+> > > > > =
+
+> > > > > This is experimental - so I value test reports for this change.
+> > > > =
+
+> > > > =
+
+> > > > The subject indicates 3 patches, but I only see 2 patches? Can
+> > > > you confirm
+> > > > if there are 2 or 3?
+> > > =
+
+> > > Yes, 2 patches is correct.
+> > > =
+
+> > > > So far I have only tested to resume case with the 2 patches to make=
+ that
+> > > > that is working but on Tegra186, which has been the most
+> > > > problematic, it is
+> > > > not working reliably on top of next-20250305.
+> > > =
+
+> > > To confirm, you're seeing stmmac_reset() sporadically timing out on
+> > > resume even with these patches appled? That's rather disappointing.
+> > =
+
+> > So I am no longer seeing the reset fail, from what I can see, but now
+> > NFS is not responding after resume ...
+> > =
+
+> > [=A0=A0 49.825094] Enabling non-boot CPUs ...
+> > [=A0=A0 49.829760] Detected PIPT I-cache on CPU1
+> > [=A0=A0 49.832694] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_CTR_EL0. Boot CPU: 0x0000008444c004, CPU1: 0x0000009444c004
+> > [=A0=A0 49.844120] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_ID_AA64DFR0_EL1. Boot CPU: 0x00000010305106, CPU1: 0x00000010305116
+> > [=A0=A0 49.856231] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_ID_DFR0_EL1. Boot CPU: 0x00000003010066, CPU1: 0x00000003001066
+> > [=A0=A0 49.868081] CPU1: Booted secondary processor 0x0000000000 [0x4e0=
+f0030]
+> > [=A0=A0 49.875389] CPU1 is up
+> > [=A0=A0 49.877187] Detected PIPT I-cache on CPU2
+> > [=A0=A0 49.880824] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_CTR_EL0. Boot CPU: 0x0000008444c004, CPU2: 0x0000009444c004
+> > [=A0=A0 49.892266] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_ID_AA64DFR0_EL1. Boot CPU: 0x00000010305106, CPU2: 0x00000010305116
+> > [=A0=A0 49.904467] CPU features: SANITY CHECK: Unexpected variation in
+> > SYS_ID_DFR0_EL1. Boot CPU: 0x00000003010066, CPU2: 0x00000003001066
+> > [=A0=A0 49.916257] CPU2: Booted secondary processor 0x0000000001 [0x4e0=
+f0030]
+> > [=A0=A0 49.923610] CPU2 is up
+> > [=A0=A0 49.925194] Detected PIPT I-cache on CPU3
+> > [=A0=A0 49.929010] CPU3: Booted secondary processor 0x0000000101 [0x411=
+fd073]
+> > [=A0=A0 49.935866] CPU3 is up
+> > [=A0=A0 49.937983] Detected PIPT I-cache on CPU4
+> > [=A0=A0 49.941824] CPU4: Booted secondary processor 0x0000000102 [0x411=
+fd073]
+> > [=A0=A0 49.948593] CPU4 is up
+> > [=A0=A0 49.950810] Detected PIPT I-cache on CPU5
+> > [=A0=A0 49.954651] CPU5: Booted secondary processor 0x0000000103 [0x411=
+fd073]
+> > [=A0=A0 49.961431] CPU5 is up
+> > [=A0=A0 50.069784] dwc-eth-dwmac 2490000.ethernet eth0: configuring for=
+ phy/
+> > rgmii link mode
+> > [=A0=A0 50.077634] dwmac4: Master AXI performs any burst length
+> > [=A0=A0 50.080718] dwc-eth-dwmac 2490000.ethernet eth0: No Safety Featu=
+res
+> > support found
+> > [=A0=A0 50.088172] dwc-eth-dwmac 2490000.ethernet eth0: IEEE 1588-2008
+> > Advanced Timestamp supported
+> > [=A0=A0 50.096851] dwc-eth-dwmac 2490000.ethernet eth0: Link is Up - 1G=
+bps/
+> > Full - flow control rx/tx
+> > [=A0=A0 50.110897] usb-conn-gpio 3520000.padctl:ports:usb2-0:connector:
+> > repeated role: device
+> > [=A0=A0 50.113922] tegra-xusb 3530000.usb: Firmware timestamp: 2020-07-=
+06
+> > 13:39:28 UTC
+> > [=A0=A0 50.147552] OOM killer enabled.
+> > [=A0=A0 50.148441] Restarting tasks ... done.
+> > [=A0=A0 50.152552] VDDIO_SDMMC3_AP: voltage operation not allowed
+> > [=A0=A0 50.154761] random: crng reseeded on system resumption
+> > [=A0=A0 50.162912] PM: suspend exit
+> > [=A0=A0 50.212215] VDDIO_SDMMC3_AP: voltage operation not allowed
+> > [=A0=A0 50.271578] VDDIO_SDMMC3_AP: voltage operation not allowed
+> > [=A0=A0 50.338597] VDDIO_SDMMC3_AP: voltage operation not allowed
+> > [=A0 234.474848] nfs: server 10.26.51.252 not responding, still trying
+> > [=A0 234.538769] nfs: server 10.26.51.252 not responding, still trying
+> > [=A0 237.546922] nfs: server 10.26.51.252 not responding, still trying
+> > [=A0 254.762753] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.762771] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.766376] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.766392] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.783778] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.789582] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.795421] nfs: server 10.26.51.252 not responding, timed out
+> > [=A0 254.801193] nfs: server 10.26.51.252 not responding, timed out
+> > =
+
+> > > Do either of the two attached diffs make any difference?
+> > =
+
+> > I will try these next.
+> =
+
+> =
+
+> I tried both of the diffs, but both had the same problem as above and
+> I see these nfs timeouts after resuming. What works the best is the
+> original change you proposed (this is based upon the latest two
+> patches) ...
+
+I'm wondering whether there's something else which needs the RX clock
+running in order to take effect.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index e2146d3aee74..48a646b76a29 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3109,10 +3109,7 @@ static int stmmac_init_dma_engine(struct stmmac_pr=
+iv *priv)
+>         if (priv->extend_desc && (priv->mode =3D=3D STMMAC_RING_MODE))
+>                 priv->plat->dma_cfg->atds =3D 1;
+> -       /* Note that the PHY clock must be running for reset to complete.=
+ */
+> -       phylink_rx_clk_stop_block(priv->phylink);
+>         ret =3D stmmac_reset(priv, priv->ioaddr);
+> -       phylink_rx_clk_stop_unblock(priv->phylink);
+>         if (ret) {
+>                 netdev_err(priv->dev, "Failed to reset the dma\n");
+>                 return ret;
+> @@ -7951,6 +7948,8 @@ int stmmac_resume(struct device *dev)
+>         rtnl_lock();
+>         mutex_lock(&priv->lock);
+> +       /* Note that the PHY clock must be running for reset to complete.=
+ */
+> +       phylink_rx_clk_stop_block(priv->phylink);
+>         stmmac_reset_queues_param(priv);
+>         stmmac_free_tx_skbufs(priv);
+> @@ -7961,6 +7960,7 @@ int stmmac_resume(struct device *dev)
+>         stmmac_set_rx_mode(ndev);
+>         stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
+> +       phylink_rx_clk_stop_unblock(priv->phylink);
+>         stmmac_enable_all_queues(priv);
+>         stmmac_enable_all_dma_irq(priv);
+
+If you haven't already, can you try shrinking down the number of
+functions that are within the block..unblock region please?
+
+Looking at the functions called:
+
+stmmac_reset_queues_param()
+stmmac_free_tx_skbufs()
+stmmac_clear_descriptors()
+	These look like it's only manipulating software state
+
+stmmac_hw_setup()
+	We know this calls stmmac_reset() and thus needs the blocking
+
+stmmac_init_coalesce()
+	Looks like it's only manipulating software state
+
+stmmac_set_rx_mode()
+	This manipulates GMAC_RXQ_CTRL4, GMAC_HASH_TAB(*),
+	GMAC_ADDR_HIGH(*), GMAC_ADDR_LOW(*), and GMAC_PACKET_FILTER.
+
+stmmac_restore_hw_vlan_rx_fltr()
+	This manipulates GMAC_VLAN_TAG_DATA, GMAC_VLAN_TAG,
+	GMAC_VLAN_HASH_TABLE, GMAC_VLAN_TAG
+
+I wonder whether the last two also require the RX clock to be running.
+
+The reason I want to track this down is that we may need to add
+block..unblock elsewhere in the driver to ensure that the RX clock
+is running when configuration is done elsewhere.
+
+Thanks.
+
+-- =
+
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
