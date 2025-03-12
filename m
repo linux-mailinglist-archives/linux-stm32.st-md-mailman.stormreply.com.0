@@ -2,51 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA2EEA5E238
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 18:06:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0A4AA5E32E
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 18:57:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E9F3C7128F;
-	Wed, 12 Mar 2025 17:06:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 713CDC78011;
+	Wed, 12 Mar 2025 17:57:02 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6736C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99179C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Mar 2025 17:06:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C1D815C5CD7;
- Wed, 12 Mar 2025 17:04:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3862FC4CEEA;
- Wed, 12 Mar 2025 17:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1741799191;
- bh=Ku0zOGsgy8nW6TnGyeloxNuOmdzoa1Y4XqlQKPQdjPc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BUkNneDdy4EQ1GGzUpIewE4E4iTQmS0e9bVbzsMi3PHjvkj/O783BQSn5VTPFDGxt
- vuoTI0RaaY5t6ILNVue9uAIPvOq0kMnkTgl7nCMOhXZlkF++JB7ZrZPOOPiRqrJdSk
- +65SdIAYPreQ+sHathgQZz6hLTU6KOeAM/unXaVoXTrqu8VILDKEJqH5dmcueyfsfh
- niXA2hvWzDVU/nG1EBbBiJ1bkU0LlMYugSqNxEEAGc8ohDaEnOlQAPw3Nmifoy6EmK
- CwUPkmPAPJOnKVFkDCVOLiB3XBrEvLS4tzRW+29IxIToXuU+s4pcECGhuYLO0UzvRY
- prTE+ERTfIQ3g==
-Date: Wed, 12 Mar 2025 18:06:21 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jonas Karlman <jonas@kwiboo.se>
-Message-ID: <20250312170621.GW4159220@kernel.org>
-References: <20250308213720.2517944-1-jonas@kwiboo.se>
- <20250308213720.2517944-4-jonas@kwiboo.se>
+ Wed, 12 Mar 2025 17:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ELtPug0i9sYUL+KNurYXq5o8o8QrKvtedx3uFu2ZYk4=; b=q8FeuJsN7tk0jIYeKrRIbI3M4L
+ qdS+KCCiGpBGH6aXAxkRQ0VbZl3VYoBD40R3DRTmbZgmSlol7/PO3rJHy8+lyGQHlmTb+Ty9psR4V
+ XlvtlC3f5rPcm8rtkOuSdgZFs7G3VZHgOvgCQbN95hhP2f3NNk31G0o/xvVPc+AcfSX9ax0hpWEZA
+ vVa8FZBWONTVb7WoNPki6EaeWQI3EyJRU6ogVKIMhY2m+dRgjOAxkIEDO2W3dwJMoVhFavh/4gLf/
+ Hw1PerJFMIqxaxlcwkYjQFMFyLgOXUbpPmutNNpVM4pCkR5kpcE1Q00uBd371DejM7cndyLZiWE6z
+ 8x8SIfPw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56474)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tsQJz-0005yq-08;
+ Wed, 12 Mar 2025 17:56:47 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tsQJt-0004kK-3A;
+ Wed, 12 Mar 2025 17:56:42 +0000
+Date: Wed, 12 Mar 2025 17:56:41 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Swathi K S <swathi.ks@samsung.com>
+Message-ID: <Z9HK2de5Ba_Vbeo7@shell.armlinux.org.uk>
+References: <20250305091246.106626-1-swathi.ks@samsung.com>
+ <CGME20250305091856epcas5p4228c09989c7acfe45a99541eef01fbcd@epcas5p4.samsung.com>
+ <20250305091246.106626-3-swathi.ks@samsung.com>
+ <Z8hjKI1ZqU19nrTP@shell.armlinux.org.uk>
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="KgFmUEDr5J23NjRy"
 Content-Disposition: inline
-In-Reply-To: <20250308213720.2517944-4-jonas@kwiboo.se>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: dwmac-rk: Remove
- unneeded GRF and peripheral GRF checks
+In-Reply-To: <Z8hjKI1ZqU19nrTP@shell.armlinux.org.uk>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ ravi.patel@samsung.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, gost.dev@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, pankaj.dubey@samsung.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v8 2/2] net: stmmac: dwc-qos: Add FSD EQoS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,23 +66,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Mar 08, 2025 at 09:37:15PM +0000, Jonas Karlman wrote:
-> Now that GRF, and peripheral GRF where needed, is validated at probe
-> time there is no longer any need to check and log an error in each SoC
-> specific operation.
-> 
-> Remove unneeded IS_ERR() checks and early bail out from each SoC
-> specific operation.
-> 
-> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+--KgFmUEDr5J23NjRy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Mar 05, 2025 at 02:43:52PM +0000, Russell King (Oracle) wrote:
+> On Wed, Mar 05, 2025 at 02:42:46PM +0530, Swathi K S wrote:
+> > The FSD SoC contains two instance of the Synopsys DWC ethernet QOS IP core.
+> > The binding that it uses is slightly different from existing ones because
+> > of the integration (clocks, resets).
+> > 
+> > Signed-off-by: Swathi K S <swathi.ks@samsung.com>
+> 
+> This looks much better!
+> 
+> Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> 
+> Thanks!
+
+Hi Swathi,
+
+Please can you test with my TX clock gating series applied
+( https://lore.kernel.org/r/Z9FVHEf3uUqtKzyt@shell.armlinux.org.uk )
+with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP set as per the attached diff.
+Please let me know whether this passes your testing, so I know whether
+this platform supports it - please check that this results in a
+message in the kernel log indicating "tx_clk_stop = 1". Thanks.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+
+--KgFmUEDr5J23NjRy
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename="stmmac-dwc-qos-eth-tx-clk-stop.diff"
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index a94088b32c11..64867a65e875 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -363,6 +363,7 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+ 
+ 	plat_dat->stmmac_clk = dwc_eth_find_clk(plat_dat,
+ 						data->stmmac_clk_name);
++	plat_dat->flags |= STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP;
+ 
+ 	if (data->probe)
+ 		ret = data->probe(pdev, plat_dat, &stmmac_res);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6f29804148b6..b015240e4121 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1109,6 +1109,8 @@ static int stmmac_mac_enable_tx_lpi(struct phylink_config *config, u32 timer,
+ 	if (priv->plat->flags & STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP)
+ 		priv->tx_lpi_clk_stop = tx_clk_stop;
+ 
++	netdev_info(priv->dev, "tx_clk_stop = %u\n", priv->tx_lpi_clk_stop);
++
+ 	stmmac_set_eee_timer(priv, priv->hw, STMMAC_DEFAULT_LIT_LS,
+ 			     STMMAC_DEFAULT_TWT_LS);
+ 
+
+--KgFmUEDr5J23NjRy
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--KgFmUEDr5J23NjRy--
