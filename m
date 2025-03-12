@@ -2,68 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B44DEA5DD1F
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 13:54:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5751EA5DDD2
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 14:22:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66511C7801E;
-	Wed, 12 Mar 2025 12:54:55 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07B37C7801E;
+	Wed, 12 Mar 2025 13:22:23 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E491C78011
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 662D3C78011
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Mar 2025 12:54:54 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-22548a28d0cso43707895ad.3
+ Wed, 12 Mar 2025 13:22:22 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-224019ad9edso148685765ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Mar 2025 05:54:54 -0700 (PDT)
+ Wed, 12 Mar 2025 06:22:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1741784093; x=1742388893;
+ d=linaro.org; s=google; t=1741785741; x=1742390541;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=P41L4c+Opb1IQnEi9LDyI8HBaw91mzMN/9HEGsnySy8=;
- b=EAXgHleNowy0dMZHrQrqpoNX2sU1i8wPUxvAfAw9R4zn1CTgub9FJQPHeGOYsXwfTE
- +U4DKilHRzbu9dNuzJbGS/QFR+NicAV8jkX13GNaKxkvbDws+LyLn4BE8F0ovr/YM+BQ
- 0oNFdcBDJTStWmRjWAIwjzWkO40WwO8uEnI8ULFTKmSEJ3GOr9GsQgP3zByIntixYNAn
- Kcv714t15u2HOl6CjLHz5wrKGFD6bKe5RsCKYUfhgDMh5OcJfo13hDRnJTaDu+qojrHJ
- iqda1RhmqhcKIvsrF+MboooMjlK6uFoe2oqRIEAo2qQTWIxKSTuLV+nNXCXvF4OcWKNn
- NYVw==
+ bh=s27ne428wojOwsBAshie2tilJzFTOz/pVe8QIl0k2F0=;
+ b=dCZgNcW5xGe/1PPqnnAH6F/h5jdJja4kE/QYeala6IFrsLRyJP/pm3LeJrr7h5gxEj
+ tzVV/1SgNkkMusovHdFzqGO+5TecrR6DgAlFCAcY4l1bDc3X/FXoYllFypE49d02obxK
+ Z1Htnw7p8iESEYhaIc004Q7ZAXnaR8TvGscXJqSuqVZvw3YJQnsWstyo6qvo8bsFb+t5
+ wFjup1EdhS5U6vGALE5flfnrbxK/yjf2/3dekkgoQAzMNDIVAswcN22Pc8pzEH+HxejE
+ Aezh6VM7E/2VcSU8EboRgINgWTgTgdvSvBlqeCnUHMuiMi5eAdUdKz/spRiFOm2fdKe4
+ eEXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741784093; x=1742388893;
+ d=1e100.net; s=20230601; t=1741785741; x=1742390541;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=P41L4c+Opb1IQnEi9LDyI8HBaw91mzMN/9HEGsnySy8=;
- b=hA1ySPESB33VDmDyUnztaRhEtMosfF9yilbocUPnhdjEMMPvvqOTzFu0BEKVPAmgFT
- g1DHY4xc4qpAW15ZlgL4UmTfJFiYC2TG0mAqi9cBjlh5bPOza7neXLzEKHclV0eFmhg+
- PAPY0T2nuZFkK9rRT4QexZcBn92evsXqEYdPlmhFI+Sc2RADGjWAlwxtK1QKh1dIvlqv
- 23I6AWiU8P2WwO4QrV+s26c5mI8hcUKiGTniS/6lttv8FmbmGCQMzNb5r2VmGpolUoIL
- y3Bx2NEA5cF4GnEudYg0ikvokVgJUa93CvLgFEzhf0219g644rOVkz0YhIH6fDgi7A+p
- UxhA==
+ bh=s27ne428wojOwsBAshie2tilJzFTOz/pVe8QIl0k2F0=;
+ b=Vu7y0uaVX/fn6cOlzP71LXfc3Tn+Wvt9062kA/e3liil6MZijNU+7YHPNFK2GUvdlJ
+ EBsnNjHhPD2s2lpkubbg11d4iYlWTjLlzI+vCvR9N9jXvDup1v5ux5emE5OcCnCdUE09
+ mLQwOBtzXRzXv3vFm0R53AUxadFzdqb1+pQ0VupzX29Gy985p+6ib8SMbgrE0y1ahwJn
+ qy3N2RyLd2Ac5kcke0vY5DN2r5z5yk6Mva4xB/vh/co4BSKTsyd6VRh6mcbVmaOC4uT2
+ jhvEt/kE4dbnGYZcSjULhgiowVZB3JXzqFR4V3ys5FDakdif3v30+akCS0A1flMYjOKh
+ rmtA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVkGu0f99yc6h8pA0E2F7l4xEyl77v9G1ZsGtSohexi5F2FO/6lp5YJCmkkN71ZoZJqEIDlUdie7hIYeA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxujVPz0P4M4dMnJx4TBMQ8l3uxtqcfd+CUaNK1btvevVZAIWf/
- vjduElWNq6B0RRhPBnQOlGIYVqQKEu0s1B2phRvaJP8irdVkFtfGTpjV/Zgwxag4kLb4T4dJYUK
- iUXKce/vzOq4QrKmHW0kmImUDLWExd6xCvXGmvg==
-X-Gm-Gg: ASbGncvLMfnWGyCWgsZl3T+OPMPHNRc5VrCLOLN9X7lrqlbZ0sssGskjqBfk0qg0y74
- gdiaFngMGjttlWZ0etvEStJfmLKzon5iAYUOU2o54AJZE1ls/DNOiDrPXwbDrJKzyzWDYwaJznJ
- dcMFdSlxcJC0ipsltH/scheAaqEPg=
-X-Google-Smtp-Source: AGHT+IEmvzgsrnWJ3LS9iuiefnI5/Y1q51JDiJPKEl1YavKMn2nS0Mp6TQ/OYLWI5gnSPzE5ELMRM9TgS5WSMkJCuv0=
-X-Received: by 2002:a05:6a00:194b:b0:736:5e6f:295b with SMTP id
- d2e1a72fcca58-736aaa5d6c4mr32299739b3a.12.1741784092687; Wed, 12 Mar 2025
- 05:54:52 -0700 (PDT)
+ AJvYcCVkQvAg7kThHwc+MHNb7wczs/45mvU1BmXRZ2LpNDXWAuiqUYkKvTcOy4ZllaiwFejaLJNtuKuqUF4Q8A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwNIia46HxAyYTcotIcmGvqU46AETnIRDN/QQSnMDxF54gE5eiA
+ GhqI/OWTth3kne8lFaYwwQ2iaREr8mJs+QK83cgffY5l+pBmvs7x31dTeR5VILkSHUzmQJYXxGL
+ GkC5Ht+g0l6v1Y9l6/5norO7gUEodKSklj8Wqxw==
+X-Gm-Gg: ASbGnctOdqDgKTjUgg848Vm6R+/0DUhuwfDTALzU5x4EnzDHGeDl/YIhZVki4mzWSgB
+ Fk0Mxr8xXF/U7Zx4hoCes2MxE5ZnLs6M/EXN+LlYWurLcAFJMaG+xkIUHt4zl73DFE49mdeT34q
+ a1vV2YklIbotoaOAh5OdEfm900T0o14k/dnEcz0A==
+X-Google-Smtp-Source: AGHT+IGmt/3UktMaOMFJgApftv3nZ067gpwV3LHvs4wr2QCvCVRTWlevRuRQpnJ3GdbEdKToZ/jiLjTzfEOKYcYZ6Lk=
+X-Received: by 2002:a05:6a00:987:b0:736:4830:68a6 with SMTP id
+ d2e1a72fcca58-736aa9b3cb0mr30689940b3a.4.1741785740656; Wed, 12 Mar 2025
+ 06:22:20 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250310090407.2069489-1-quic_jiegan@quicinc.com>
- <20250310090407.2069489-2-quic_jiegan@quicinc.com>
- <CAJ9a7Vh7PmBBbvwnUETfCYrTSiXNzeiWpsz+XAGaUWt1Rq1aZw@mail.gmail.com>
- <cef984d5-f369-4892-b970-a71285c2ebc5@quicinc.com>
-In-Reply-To: <cef984d5-f369-4892-b970-a71285c2ebc5@quicinc.com>
+In-Reply-To: <20250310090407.2069489-1-quic_jiegan@quicinc.com>
 From: Mike Leach <mike.leach@linaro.org>
-Date: Wed, 12 Mar 2025 12:54:41 +0000
-X-Gm-Features: AQ5f1JrjHjNAhBmSqhZ9QdvfeDjrNBtawx-M2q_IwgCWoudUHO1tG95UqLFNpqQ
-Message-ID: <CAJ9a7VhDD3813LtH_5AYyM-2mhCNP+vRmqXn4RWqg5F8FEe-Mg@mail.gmail.com>
+Date: Wed, 12 Mar 2025 13:22:09 +0000
+X-Gm-Features: AQ5f1JoVaTUjPnEeh2tsJVsCs5mqAeippvAwDr6IKbNgE69l9whq43Fk1D-kCtg
+Message-ID: <CAJ9a7Vj=Ni_o94u1B+oouv0GD5DVmST=N31-hsN=SPSbaoqO_Q@mail.gmail.com>
 To: Jie Gan <quic_jiegan@quicinc.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Jinlong Mao <quic_jinlmao@quicinc.com>,
@@ -76,8 +73,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  coresight@lists.linaro.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/4] coresight: tmc: Introduce new APIs
- to get the RWP offset of ETR buffer
+Subject: Re: [Linux-stm32] [PATCH v1 0/4] coresight: ctcu: Enable byte-cntr
+	function for TMC ETR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,204 +91,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jie,
+Hi,
 
-On Wed, 12 Mar 2025 at 01:21, Jie Gan <quic_jiegan@quicinc.com> wrote:
+On Mon, 10 Mar 2025 at 09:05, Jie Gan <quic_jiegan@quicinc.com> wrote:
 >
+> From: Jie Gan <jie.gan@oss.qualcomm.com>
 >
+> The byte-cntr function provided by the CTCU device is used to transfer data
+> from the ETR buffer to the userspace. An interrupt is tiggered if the data
+> size exceeds the threshold set in the BYTECNTRVAL register. The interrupt
+> handler counts the number of triggered interruptions and the read function
+> will read the data from the ETR buffer if the IRQ count is greater than 0.
+> Each successful read process will decrement the IRQ count by 1.
 >
-> On 3/12/2025 12:49 AM, Mike Leach wrote:
-> > Hi,
-> >
-> > On Mon, 10 Mar 2025 at 09:04, Jie Gan <quic_jiegan@quicinc.com> wrote:
-> >>
-> >> The new functions calculate and return the offset to the write pointer of
-> >> the ETR buffer based on whether the memory mode is SG, flat or reserved.
-> >> The functions have the RWP offset can directly read data from ETR buffer,
-> >> enabling the transfer of data to any required location.
-> >>
-> >> Signed-off-by: Jie Gan <quic_jiegan@quicinc.com>
-> >> ---
-> >>   .../hwtracing/coresight/coresight-tmc-etr.c   | 40 +++++++++++++++++++
-> >>   drivers/hwtracing/coresight/coresight-tmc.h   |  1 +
-> >>   2 files changed, 41 insertions(+)
-> >>
-> >> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> >> index eda7cdad0e2b..ec636ab1fd75 100644
-> >> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> >> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> >> @@ -267,6 +267,46 @@ void tmc_free_sg_table(struct tmc_sg_table *sg_table)
-> >>   }
-> >>   EXPORT_SYMBOL_GPL(tmc_free_sg_table);
-> >>
-> >> +static long tmc_flat_resrv_get_rwp_offset(struct tmc_drvdata *drvdata)
-> >> +{
-> >> +       dma_addr_t paddr = drvdata->sysfs_buf->hwaddr;
-> >> +       u64 rwp;
-> >> +
-> >
-> > It is not valid to read RWP if the TMC is running. It must be in the
-> > stopped or disabled state - see the specifications for TMC /ETR
-> >
-> > It is likely that CSUNLOCK / CSLOCK are needed here too,  along with
-> > the spinlock that protects drvdata
-> >
-> > See the code in coresight_tmc_etr.c :-
-> >
-> > e.g. in
-> >
-> > tmc_update_etr_buffer()
-> >
-> > ...
-> > <take spinlock>
-> > ...
-> > CS_UNLOCK(drvdata->base);
-> > tmc_flush_and_stop(drvdata); // this ensures tmc is stopped and
-> > flushed to memory - essential to ensure full formatted frame is in
-> > memory.
-> > tmc_sync_etr_buf(drvdata); // this function reads rwp.
-> > CS_LOCK(drvdata->base);
-> > <release spinlokc>
-> >
-> > This type of program flow is common to both sysfs and perf handling of
-> > TMC buffers.
+> The byte cntr function will start when the device node is opened for reading,
+> and the IRQ count will reset when the byte cntr function has stopped. When
+> the file node is opened, the w_offset of the ETR buffer will be read and
+> stored in byte_cntr_data, serving as the original r_offset (indicating
+> where reading starts) for the byte counter function.
 >
-> Hi Mike,
+> The work queue for the read operation will wake up once when ETR is stopped,
+> ensuring that the remaining data in the ETR buffer has been flushed based on
+> the w_offset read at the time of stopping.
 >
-> I am fully understood your point here.
+> The following shell commands write threshold to BYTECNTRVAL registers.
 >
-> The function is designed this way to read the w_offset (which may not be
-> entirely accurate because the etr buffer is not synced) when the
-
-Why would you ever base memory access on a pointer that is not
-entirely accurate?
-
-The manuals for TMC/ETR all state that reads to both RWP and RRP when
-the ETR is running return unknown values. These cannot be used to
-access the buffer, or determine how much of the buffer has been used
-on a running ETR.
-
-The ETR specification specifically states that it is not permitted to
-read the buffer data while the ETR is running, when configured in
-circular buffer mode - which is the mode used in the TMC-ETR linux
-drivers.
-
-Reading the buffer while ETR is running is only permitted if
-configured in Software FIFO mode 2 - were the ETR will stop on full
-and stall incoming trace until some data is read out, signalled to the
-ETR via the RURP.
-
-I also note that you are reading back the etr_buf data without doing
-any dma_sync operations that the perf and sysfs methods in the driver
-do, after stopping the tmc.
-
-> byte-cntr devnode is opened, aiming to reduce the length of redundant
-> trace data. In this case, we cannot ensure the TMC is stopped or
-> disabled.
-
-The specification requires that you must ensure the TMC is stopped to
-read these registers.
-
-
->The byte-cntr only requires an offset to know where it can
-> start before the expected trace data gets into ETR buffer.
+> Only enable byte-cntr for ETR0:
+> echo 0x10000 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
 >
-> The w_offset is also read when the byte-cntr function stops, which
-> occurs after the TMC is disabled.
+> Enable byte-cntr for both ETR0 and ETR1(support both hex and decimal values):
+> echo 0x10000 4096 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
 >
-> Maybe this is not a good idea and I should read r_offset upon open?
-> The primary goal for byte-cntr is trying to transfer useful trace data
-> from the ETR buffer to the userspace, if we start from r_offset, a large
-> number of redundant trace data which the user does not expect will be
-> transferred simultaneously.
+> Setting the BYTECNTRVAL registers to 0 disables the byte-cntr function.
+> Disable byte-cntr for ETR0:
+> echo 0 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
 >
+> Disable byte-cntr for both ETR0 and ETR1:
+> echo 0 0 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
+>
+> There is a minimum threshold to prevent generating too many interrupts.
+> The minimum threshold is 4096 bytes. The write process will fail if user try
+> to set the BYTECNTRVAL registers to a value less than 4096 bytes(except
+> for 0).
+>
+> Finally, the user can read data from the ETR buffer through the byte-cntr file
+> nodes located under /dev, for example reads data from the ETR0 buffer:
+> cat /dev/byte-cntr0
+>
+> Way to enable and start byte-cntr for ETR0:
+> echo 0x10000 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
+> echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
+> echo 1 > /sys/bus/coresight/devices/etm0/enable_source
+> cat /dev/byte-cntr0
 >
 
-It is difficult to justify adding code to a driver that does not
-correspond to the specification of the hardware device.
+There is a significant issue with attempting to drain an ETR buffer
+while it is live in the way you appear to be doing.
+
+You have no way of knowing if the TMC hardware write pointer wraps and
+overtakes the point where you are currently reading. This could cause
+data corruption as TMC writes as you are reading, or contention for
+the buffer that affects the TMC write.
+
+Even if those two events do not occur, then the trace capture sequence
+is corrupted.
+
+Take a simple example - suppose we split the buffer into 4 blocks of
+trace, which are filled by the ETR
+
+buffer = 1, 2, 3, 4
+
+Now you suppose you have read 1 & 2 into your userspace buffer / file.
+
+file = 1, 2
+
+If there is now some system event that prevents your userspace code
+from running for a while, then it is possible that the ETR continues,
+wraps and the buffer is now
+
+buffer = 5, 6, 7, 4
+
+Your next two reads will be 7, 4
+
+file = 1, 2, 7, 4
+
+This trace is now corrupt and will cause decode errors. There is no
+way for the decoder to determine that the interface between blocks 2 &
+7 is not correct. If you are fortunate then this issue will cause an
+actual explicit decode error, if you are less fortunate then decode
+will continue but in fact be inaccurate, with no obvious way to detect
+the inaccuracy.
+
+We encountered this problem early in the development of the perf data
+collection. Even though perf was stopping the trace to copy the
+hardware buffer, it would concatenate unrelated trace blocks into the
+perf userspace buffer, which initially caused decoding errors. This is
+now mitigated in perf by marking boundaries and recording indexes of
+the boundaries, so the tool can reset the decoder at the start of non
+contiguous blocks.
+
+If you do not stop the TMC when draining the ETR buffer, you have no
+way of determining if this has occurred.
+
+Clearly using large buffers, split into smaller blocks can mitigate
+the possibility of a wrap in this way - but never eliminate it,
+especially given the extreme rate that trace data can be generated.
 
 Regards
 
 Mike
 
-> >
-> >> +       rwp = tmc_read_rwp(drvdata);
-> >> +       return rwp - paddr;
-> >> +}
-> >> +
-> >> +static long tmc_sg_get_rwp_offset(struct tmc_drvdata *drvdata)
-> >> +{
-> >> +       struct etr_buf *etr_buf = drvdata->sysfs_buf;
-> >> +       struct etr_sg_table *etr_table = etr_buf->private;
-> >> +       struct tmc_sg_table *table = etr_table->sg_table;
-> >> +       long w_offset;
-> >> +       u64 rwp;
-> >> +
-> >
-> > Same comments as above
-> >
-> >> +       rwp = tmc_read_rwp(drvdata);
-> >> +       w_offset = tmc_sg_get_data_page_offset(table, rwp);
-> >> +
-> >> +       return w_offset;
-> >> +}
-> >> +
-> >> +/*
-> >> + * Retrieve the offset to the write pointer of the ETR buffer based on whether
-> >> + * the memory mode is SG, flat or reserved.
-> >> + */
-> >> +long tmc_get_rwp_offset(struct tmc_drvdata *drvdata)
-> >> +{
-> >> +       struct etr_buf *etr_buf = drvdata->sysfs_buf;
-> >> +
-> >
-> > As this is an exported function, please ensure that the inputs are
-> > valid - check the pointers
+
+> Jie Gan (4):
+>   coresight: tmc: Introduce new APIs to get the RWP offset of ETR buffer
+>   dt-bindings: arm: Add an interrupt property for Coresight CTCU
+>   coresight: ctcu: Enable byte-cntr for TMC ETR devices
+>   arm64: dts: qcom: sa8775p: Add interrupts to CTCU device
 >
-> Sure, will do.
+>  .../bindings/arm/qcom,coresight-ctcu.yaml     |  17 +
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi         |   5 +
+>  drivers/hwtracing/coresight/Makefile          |   2 +-
+>  .../coresight/coresight-ctcu-byte-cntr.c      | 339 ++++++++++++++++++
+>  .../hwtracing/coresight/coresight-ctcu-core.c |  96 ++++-
+>  drivers/hwtracing/coresight/coresight-ctcu.h  |  59 ++-
+>  .../hwtracing/coresight/coresight-tmc-etr.c   |  45 ++-
+>  drivers/hwtracing/coresight/coresight-tmc.h   |   3 +
+>  8 files changed, 556 insertions(+), 10 deletions(-)
+>  create mode 100644 drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
 >
-> Thanks,
-> Jie
->
-> >
-> > Code to ensure TMC is flushed and stopped could be inserted here.
-> >
-> > Regards
-> >
-> > Mike
-> >
-> >> +       if (etr_buf->mode == ETR_MODE_ETR_SG)
-> >> +               return tmc_sg_get_rwp_offset(drvdata);
-> >> +       else if (etr_buf->mode == ETR_MODE_FLAT || etr_buf->mode == ETR_MODE_RESRV)
-> >> +               return tmc_flat_resrv_get_rwp_offset(drvdata);
-> >> +       else
-> >> +               return -EINVAL;
-> >> +}
-> >> +EXPORT_SYMBOL_GPL(tmc_get_rwp_offset);
-> >> +
-> >>   /*
-> >>    * Alloc pages for the table. Since this will be used by the device,
-> >>    * allocate the pages closer to the device (i.e, dev_to_node(dev)
-> >> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
-> >> index b48bc9a01cc0..baedb4dcfc3f 100644
-> >> --- a/drivers/hwtracing/coresight/coresight-tmc.h
-> >> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
-> >> @@ -442,5 +442,6 @@ void tmc_etr_remove_catu_ops(void);
-> >>   struct etr_buf *tmc_etr_get_buffer(struct coresight_device *csdev,
-> >>                                     enum cs_mode mode, void *data);
-> >>   extern const struct attribute_group coresight_etr_group;
-> >> +long tmc_get_rwp_offset(struct tmc_drvdata *drvdata);
-> >>
-> >>   #endif
-> >> --
-> >> 2.34.1
-> >>
-> >
-> >
+> --
+> 2.34.1
 >
 
 
---
+-- 
 Mike Leach
 Principal Engineer, ARM Ltd.
 Manchester Design Centre. UK
