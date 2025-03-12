@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3EB5A5D936
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 10:21:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEDBDA5D93A
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Mar 2025 10:21:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B63FC78F6E;
-	Wed, 12 Mar 2025 09:21:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88791C78F6E;
+	Wed, 12 Mar 2025 09:21:36 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8F63C78F6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6ECC9C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Mar 2025 09:21:28 +0000 (UTC)
+ Wed, 12 Mar 2025 09:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tCIQrcidtiVCweAkfFXT55reJoGIAv89y6H+L+TRf7U=; b=y15Rnjd3t9qXzaI/jqnpsqXwYv
- ZSttmPl8EJbW9XdTALzAWZs9Vuv+YbWbxVJ8hGShfRoAkJLOTh4eyyjPwbVLdgzph9G7L3SzEeV1R
- 6UYlXpy1siEYdr8FbB/dIDeDDbsrTzQmNNG0PEYoCOt/DKyh7MRJw+xOuclNzMjdTnoO/7ldhXYoH
- t/FdBrGekOc4iC5K2de1PItsIaszUteQXSjoumADxjlM3OldDzPmBO47y4RC7iAtuHWmCDCzlnroj
- JYBNYmon0Of4VpV/sxFD+eCOVZ2yJqQqorFuSWhz2zMR1im8nscFH8F+m4cr4xQezPF+2e8wM4EYw
- ppyHzLLw==;
+ bh=W0NbgiSVxZElbT/GJasxYhblixLWxPwWj25QtFWdosQ=; b=kuJac0fqff2B52fdjv7KGalsnw
+ 89oXdP9CjUkgUc2mcQdThOQf2Z9BB+f+eOZKdP1rAE6Dy30plm7U0q+QlqVq3lFDvnJ9yLSHqaLTm
+ kll+5JUgnWRTr7mw65CAg4cyHni0FBUepse5OQccIel0bJlyfw5YO0Q+dnCKLSEOgoOJnETPNGWkB
+ X9+HACLxpp+KWgfLg3X9un5jMoi1gnwg3wSdu/yw5b2fbY8Hi1TerMD/KFGaKaJy+2ccplyRZE50E
+ 0mvHw0H2ceWh8JCsFhu7una8FvFvn9rshmjET/jMcB6MjJsQORyFOe8g72kFdYY6dQqXnw5sSth8m
+ UGRnT4Vg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39780 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53868 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tsIH0-0005CU-0M;
- Wed, 12 Mar 2025 09:21:10 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1tsIH6-0005Cl-1w;
+ Wed, 12 Mar 2025 09:21:16 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tsIGd-005uzr-0C; Wed, 12 Mar 2025 09:20:47 +0000
+ id 1tsIGi-005uzx-3p; Wed, 12 Mar 2025 09:20:52 +0000
 In-Reply-To: <Z9FQjQZb0IMaQJ9H@shell.armlinux.org.uk>
 References: <Z9FQjQZb0IMaQJ9H@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1tsIGd-005uzr-0C@rmk-PC.armlinux.org.uk>
-Date: Wed, 12 Mar 2025 09:20:47 +0000
+Message-Id: <E1tsIGi-005uzx-3p@rmk-PC.armlinux.org.uk>
+Date: Wed, 12 Mar 2025 09:20:52 +0000
 Cc: Eric Dumazet <edumazet@google.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
  Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
@@ -58,8 +58,8 @@ Cc: Eric Dumazet <edumazet@google.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v2 5/9] net: stmmac: meson8b: remove
- of_get_phy_mode()
+Subject: [Linux-stm32] [PATCH net-next v2 6/9] net: stmmac: rk: remove
+	of_get_phy_mode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,31 +80,27 @@ devm_stmmac_probe_config_dt() already gets the PHY mode from firmware,
 which is stored in plat_dat->phy_interface. Therefore, we don't need to
 get it in platform code.
 
-Set dwmac->phy_mode from plat_dat->phy_interface.
+Set bsp_priv->phy_iface from plat->phy_interface.
 
 Reviewed-by: Michal Kubiak <michal.kubiak@intel.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-index 9c2d62d133ad..a50782994b97 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-@@ -417,11 +417,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
- 		return PTR_ERR(dwmac->regs);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 003fa5cf42c3..40e8197812e2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1749,7 +1749,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 	if (!bsp_priv)
+ 		return ERR_PTR(-ENOMEM);
  
- 	dwmac->dev = &pdev->dev;
--	ret = of_get_phy_mode(pdev->dev.of_node, &dwmac->phy_mode);
--	if (ret) {
--		dev_err(&pdev->dev, "missing phy-mode property\n");
--		return ret;
--	}
-+	dwmac->phy_mode = plat_dat->phy_interface;
+-	of_get_phy_mode(dev->of_node, &bsp_priv->phy_iface);
++	bsp_priv->phy_iface = plat->phy_interface;
+ 	bsp_priv->ops = ops;
  
- 	/* use 2ns as fallback since this value was previously hardcoded */
- 	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+ 	/* Some SoCs have multiple MAC controllers, which need
 -- 
 2.30.2
 
