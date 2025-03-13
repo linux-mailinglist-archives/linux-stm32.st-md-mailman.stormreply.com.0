@@ -2,38 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60173A5F2E9
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Mar 2025 12:46:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5DF2A5F5FE
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Mar 2025 14:32:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C180C78F85;
-	Thu, 13 Mar 2025 11:46:57 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54B59C78F83
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A838C78F81;
+	Thu, 13 Mar 2025 13:32:48 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF7F9C78F67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Mar 2025 11:46:55 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3DE01C00;
- Thu, 13 Mar 2025 04:47:04 -0700 (PDT)
-Received: from localhost (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 041C33F673;
- Thu, 13 Mar 2025 04:46:53 -0700 (PDT)
-Date: Thu, 13 Mar 2025 11:46:49 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Message-ID: <20250313114649.GP9682@e132581.arm.com>
-References: <20250211103945.967495-1-james.clark@linaro.org>
- <20250211103945.967495-4-james.clark@linaro.org>
+ Thu, 13 Mar 2025 13:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=LurvroALJiFFUqQVBPfZNyUS7B5O5JecXIdBbGhWMuQ=; b=f6kUMBlq4MkGaeexc5NT0xriiQ
+ 4rpww/4LWQ9zSeK9gC5NNzyJhfrpLUk75OQbZ9wL1/Yoim+9fhE7LDC6F1LpU16RGniRZpDMhGuJB
+ 2B/X27ncZjcp99C3NML0rT8VGHfnL2xJB9Kaq4HqqdyHL5YCt/gjeCqb0UMjUS6gyXuM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1tsifp-00505E-BD; Thu, 13 Mar 2025 14:32:33 +0100
+Date: Thu, 13 Mar 2025 14:32:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <a889db9a-1aa9-4a17-9762-01c74911e39b@lunn.ch>
+References: <E1tsRyv-0064nU-O9@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250211103945.967495-4-james.clark@linaro.org>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, lcherian@marvell.com,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 3/7] coresight: Only check bottom two
-	claim bits
+In-Reply-To: <E1tsRyv-0064nU-O9@rmk-PC.armlinux.org.uk>
+Cc: Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lars Persson <larper@axis.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwc-qos-eth: use
+ devm_kzalloc() for AXI data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,59 +57,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 11, 2025 at 10:39:39AM +0000, James Clark wrote:
+On Wed, Mar 12, 2025 at 07:43:09PM +0000, Russell King (Oracle) wrote:
+> Everywhere else in the driver uses devm_kzalloc() when allocating the
+> AXI data, so there is no kfree() of this structure. However,
+> dwc-qos-eth uses kzalloc(), which leads to this memory being leaked.
+> Switch to use devm_kzalloc().
 > 
-> The use of the whole register and == could break the claim mechanism if
-> any of the other bits are used in the future. The referenced doc "PSCI -
-> ARM DEN 0022D" also says to only read and clear the bottom two bits.
-> 
-> Use FIELD_GET() to extract only the relevant part.
-> 
-> Signed-off-by: James Clark <james.clark@linaro.org>
+> Fixes: d8256121a91a ("stmmac: adding new glue driver dwmac-dwc-qos-eth")
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-I checked the latest PSCI spec DEN0022F.b, which has no change for
-for only using lowest two bits in claim register.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-
-
-> ---
->  drivers/hwtracing/coresight/coresight-core.c | 3 ++-
->  drivers/hwtracing/coresight/coresight-priv.h | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index a669872b4118..7b53165c93af 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -129,7 +129,8 @@ coresight_find_out_connection(struct coresight_device *csdev,
-> 
->  static inline u32 coresight_read_claim_tags(struct csdev_access *csa)
->  {
-> -       return csdev_access_relaxed_read32(csa, CORESIGHT_CLAIMCLR);
-> +       return FIELD_GET(CORESIGHT_CLAIM_MASK,
-> +                        csdev_access_relaxed_read32(csa, CORESIGHT_CLAIMCLR));
->  }
-> 
->  static inline bool coresight_is_claimed_self_hosted(struct csdev_access *csa)
-> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-> index 05f891ca6b5c..cc7ff1e36ef4 100644
-> --- a/drivers/hwtracing/coresight/coresight-priv.h
-> +++ b/drivers/hwtracing/coresight/coresight-priv.h
-> @@ -35,6 +35,7 @@ extern const struct device_type coresight_dev_type[];
->   * Coresight device CLAIM protocol.
->   * See PSCI - ARM DEN 0022D, Section: 6.8.1 Debug and Trace save and restore.
->   */
-> +#define CORESIGHT_CLAIM_MASK           GENMASK(1, 0)
->  #define CORESIGHT_CLAIM_SELF_HOSTED    BIT(1)
-> 
->  #define TIMEOUT_US             100
-> --
-> 2.34.1
-> 
-> _______________________________________________
-> CoreSight mailing list -- coresight@lists.linaro.org
-> To unsubscribe send an email to coresight-leave@lists.linaro.org
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
