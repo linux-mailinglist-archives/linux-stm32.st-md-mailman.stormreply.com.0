@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755D6A618EF
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Mar 2025 19:03:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF49A61B54
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Mar 2025 21:01:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3465EC7A828;
-	Fri, 14 Mar 2025 18:03:12 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 424A8C78F64;
+	Fri, 14 Mar 2025 20:01:52 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2258CC7A826
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BA1DC78027
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Mar 2025 18:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TgHfgZdfHwr3VmPVenW/lrNRZErmyNxPVMe0JcfQ1QY=; b=tgCW5XDH3faGlWtg3QVF6uope3
- kDyVymeZhDdoTIRHMZm2ZgbkIU3NSKYuUdk4dcFb1gdTeIeCAHhoI68mJR9N9srnLZlxPKIkeDRf/
- icp1oXrp+44SVSIPnvYGsFkAzsJURuJda1WDOAl5u+QbvabMLf5dKv7/oArVqgAAq2/e2Hpd3cKde
- 23nvDnH82EE0MjxWWQy2zABD3BR2piwFeBBeUZr+COkpIuBWKcuiEuOai1DJQipwx3T0PFgbefuc6
- 9AWmgACO78bc+n0mei+87fAIvLZhSPK34nLqFpu11R/0JO7qZYdF32P7MIguKZRYS3JlyssvtRgVp
- TD+zshhw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59374 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1tt9NB-0000fU-28;
- Fri, 14 Mar 2025 18:03:05 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1tt9Mq-006xIG-IC; Fri, 14 Mar 2025 18:02:44 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Fri, 14 Mar 2025 20:01:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7D7AB5C55F4;
+ Fri, 14 Mar 2025 19:59:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5386C4CEE3;
+ Fri, 14 Mar 2025 20:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1741982510;
+ bh=I2/xCpzzeaxrkmm7yQ3y21IF5fQqrnzVJEYGyz3cje8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=JYRyztuPRhxcAKA69kTgFlLLOKjWM9BARguq+/o6PX8iovbyQUKPzKeTbWJTQJxAs
+ GadHX53ZubESMMnb7s+6MmPFMKnsU+xpf1EIS0GDHbiKi1qZhavsWNG/jsli0wWvGP
+ jTcfJgmE/whopTSI09a1X/MUutMDBVnR1438EOYPxFOlvMKVFDeEw3/yWbLe8crwkS
+ P03s8MbroD/Aqmo2cMPUbwt/Jy1TyTWYZNToGjhSQXBj2eqh/vtYoxvwXihDR10Uet
+ jNA8eZfodKwEzcTdlGGwbUCQ6xDLbKyEBT6MGRWtNVlo2Rwu5OuwFI8BL/C6VVbdGP
+ CdjCrP9+6gOfw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Jie Gan <quic_jiegan@quicinc.com>
+Date: Fri, 14 Mar 2025 15:01:03 -0500
+Message-ID: <174198247887.1604753.1605423266163412383.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
+References: <20250303032931.2500935-1-quic_jiegan@quicinc.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1tt9Mq-006xIG-IC@rmk-PC.armlinux.org.uk>
-Date: Fri, 14 Mar 2025 18:02:44 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: remove unnecessary
- stmmac_mac_set() in stmmac_release()
+Subject: Re: [Linux-stm32] (subset) [PATCH v15 00/10] Coresight: Add
+	Coresight TMC Control Unit driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,35 +66,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-stmmac_release() calls phylink_stop() and then goes on to call
-stmmac_mac_set(, false). However, phylink_stop() will call
-stmmac_mac_link_down() before returning, which will do this work.
-Remove this unnecessary call.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Tested-by: Furong Xu <0x1207@gmail.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ---
- 1 file changed, 3 deletions(-)
+On Mon, 03 Mar 2025 11:29:21 +0800, Jie Gan wrote:
+> From: Jie Gan <jie.gan@oss.qualcomm.com>
+> 
+> The Coresight TMC Control Unit(CTCU) device hosts miscellaneous configuration
+> registers to control various features related to TMC ETR device.
+> 
+> The CTCU device works as a helper device physically connected to the TMC ETR device.
+> ---------------------------------------------------------
+>              |ETR0|             |ETR1|
+>               . \                 / .
+>               .  \               /  .
+>               .   \             /   .
+>               .    \           /    .
+> ---------------------------------------------------
+> ETR0ATID0-ETR0ATID3     CTCU    ETR1ATID0-ETR1ATID3
+> ---------------------------------------------------
+> Each ETR has four ATID registers with 128 bits long in total.
+> e.g. ETR0ATID0-ETR0ATID3 registers are used by ETR0 device.
+> 
+> [...]
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c2ee6c0af3fd..839ecebf5f5f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4129,9 +4129,6 @@ static int stmmac_release(struct net_device *dev)
- 	/* Release and free the Rx/Tx resources */
- 	free_dma_desc_resources(priv, &priv->dma_conf);
- 
--	/* Disable the MAC Rx/Tx */
--	stmmac_mac_set(priv, priv->ioaddr, false);
--
- 	/* Powerdown Serdes if there is */
- 	if (priv->plat->serdes_powerdown)
- 		priv->plat->serdes_powerdown(dev, priv->plat->bsp_priv);
+Applied, thanks!
+
+[10/10] arm64: dts: qcom: sa8775p: Add CTCU and ETR nodes
+        commit: 05ed68070d7a061f62f502d07f883c05dc666990
+
+Best regards,
 -- 
-2.30.2
-
+Bjorn Andersson <andersson@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
