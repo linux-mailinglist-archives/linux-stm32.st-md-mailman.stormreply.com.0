@@ -2,84 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A009A64CDE
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Mar 2025 12:36:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59BA6A64D68
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Mar 2025 12:56:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1A6CC78F80;
-	Mon, 17 Mar 2025 11:36:43 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7B1FC78F80;
+	Mon, 17 Mar 2025 11:56:21 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ABD8CFAC45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AD66CFAC45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Mar 2025 11:36:42 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso13210455e9.0
+ Mon, 17 Mar 2025 11:56:20 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-abec8b750ebso795727266b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Mar 2025 04:36:42 -0700 (PDT)
+ Mon, 17 Mar 2025 04:56:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1742211401; x=1742816201;
+ d=linaro.org; s=google; t=1742212579; x=1742817379;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=jN0+M4gX8uMSJYT62hKxDE04ZoXl8RCCMboFMq8K3LM=;
- b=jwT72jtiXEei/UHQ6H2vY8rpEUQpXc/k/KU3QflUvjnE+w9A7+EdFqFsrSrnNZYgdW
- Ns5qzyexEGOMWIzWf4wo+sXcdzsl8UQA3b68ALbvOY/9SMKntuLuWccPoJCfBU6tERjs
- ih9Xd/4DaoQC+kJ2gZF0cXKALjGT0PzfIkzHRgKd0xVv5ZZ2IRJGMrCFzOT6w1gQTbwI
- NlvU/xrGzbfCU2Zf/qIPDnxWqo42hk72tAXmFWMfKhxnH19cSYgnf45sIp0NuWokAqU6
- QW1lB8VEfGqyaRZbL3aU8CabqZ9WXI8dI8ngW8NprjRtUx0qGbqBepGXjUmLk9q2lqcL
- MTxA==
+ bh=nvSmeQlqS0PVSiztlrJp1EnapLR9YnzwoX8WjGMczkU=;
+ b=iVEMfaqXFqGEOki87TbvSQXyiHpXhjMFrv////5ePmKPXuP+AqR0SY+Uy4GYpPIdny
+ b58m9FSEECFNAUDam/GeDXFbm9Wbau8D0xgo1Ecm2eqguYGp5r1uRMr0UdEd22yw0zzh
+ 3CAmn6s7FAaRCjnrTLU1j8J6kgJXF2TEXQQCq1SVo8nb+Q85CazdQBRsWJp830LLSkt+
+ TZ3zE1awKyA3Qg1gCvrZPeUDoubampByvfixq7/l/Ybjl4dcWllaXmrxCNhRZyiuudO8
+ aV35TcQy3YBQ5+mYzFouWLpRBoJAf1PF/M8KUATkClEBuwi1/dc5vT1+/8H1GszoT3l3
+ xENw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742211401; x=1742816201;
+ d=1e100.net; s=20230601; t=1742212579; x=1742817379;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jN0+M4gX8uMSJYT62hKxDE04ZoXl8RCCMboFMq8K3LM=;
- b=gT1m6H9t8aJ6C0XBe8WQHRH/xCtgF5gISxMUHBTiepkKr2y8djZbLBdBwojax0MSMW
- PwgLo7+ZuYRLUzca9t5jQb6gYUISQ7QuXajGKv7M0m1EADJNCpduzXPTolpJpn86eCWl
- s4Z8U+pwgX4MUkD3lZLD9ZYjmc8UYWk6y6y0+/MPEaMaI5MEzvJgXHz2VPKOEwLyyOdB
- n9bYUzsUDF4Dt7RwbaGzoOAoyvvGeyAZT0AgUvhpX347inCHyAK+GIYX1gt5FdJE99b2
- A4w2Fgr/w65/EYRFtwgrJ74O+zxw+mKDpjIlXSJgEBMTcb3Qy9oSC6E356k63vh9B/3O
- nXqA==
+ bh=nvSmeQlqS0PVSiztlrJp1EnapLR9YnzwoX8WjGMczkU=;
+ b=M8KPhvNgPlspFZlLvxVGbKmlejGO1SDBpvj4vWNc6Fau2XrbP1dhRNnrffaJwLuMG1
+ i7/stVB31JNu+k6IC4eqB1Mig+IFiPjaGjBEkKuKP8fzkeNQbSh1lNerSe/XGqBNzjUC
+ nYUovofh1hbScg1h0ovg1sUjh6ETCTDCoLlzwJiS/1ByIXzEAYfWQxzxFTgDUKWwegiE
+ AUErpV6t/ymXP3loDUkMFsZJIIeMhlEDLPSSWub0hhUYm6aJ1WkPBrfjO+MKGrFBBPdf
+ u6zk0H5o6Y/HugEODn+WY3axETG8KvOt5BACSCE4BLznw4DB1gm2E+tIgfK+uVKxe2C9
+ JLCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW71t5c5/9J+DaJZfWIpFdwNEdADw0LIOvegHDlNOC7A3+oNL4WnVzlsZouyirkkLHxLmB1y35pji7ZKQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzess5baMKpVAQ2Q/fyAw6u+fqkGxT/01NDl11MIlh7O0f+kBGX
- YW9wC7/oAJ1Xd5ront7vec5hfmqjV4JmxRpGy/N6fJ87HapCvNT9c9M3tM5ALLI=
-X-Gm-Gg: ASbGncuFUQrQbF7bZLgLjDqf4lTctC3ZWwcdvcJHipAfsXB4U6viM/FTRPZRUl68krK
- E1SlQYpTJ7fnQ2kEilZfaL81v1TmU18zR4lY59FYwD+g8uJ766yw0N8EIIRPqhBHiRGzJndEl1a
- g5Nuau6hX1AdfHZM8S2b/h5H+uHY5u27qVSCHC4BGuZFtYiyqDCboxwDwfVgnJ3UWTOob+2uVLX
- rs4of6OeddyRDm2iWXn7HTl7fO7Th9UPsg8CdfriJv6bmusXwDLEFD+cg7pT7kNiJnxDYkFrDEX
- BYm9KqEmV92Bru0lwseGgtAHp0GfThzhSHBPNnBmMUUeBnJ9bxDlPw==
-X-Google-Smtp-Source: AGHT+IGpe6gVPMzyOS93xBARTNQJHQXaN3m0Z+9TNyPFS5vYkYlGiqRdgGrs5Bmtix92MgU8E4mTig==
-X-Received: by 2002:a05:600c:358c:b0:43c:f513:958a with SMTP id
- 5b1f17b1804b1-43d1ecc3969mr122779395e9.13.1742211401582; 
- Mon, 17 Mar 2025 04:36:41 -0700 (PDT)
+ AJvYcCW+im4AHSB+y/rCk5U5ADWLw0UmVt9uYCSUurX0Hs7css0nfYJSkkN/Ymhlub4zsODIDVHSjmZRrtO4KA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywer1xZ5QqAcLdPcGKWsrFBNQGYdGdrqlOJ8xN63vxbh9EXygbl
+ 0Ch1Yks32a+qJA1FgffvGueT/whRyrpISljnSHuZ/3ifl317h6lToM2EiCh3xJ8=
+X-Gm-Gg: ASbGncvpNdQ/JHGCLddDp4NUo9RT3TvBosfC7/058k17NYpWoFE/m8MipFS0R1TD8a8
+ F9UWSjFM/wh9gIjGDfsQgDBvaxxOUH16MpFkQK8b1R8mCQwCaCuvTz/CieKoGQ0zuqI+8nlUE7u
+ U4taFRnLVJkXUhZ+mndHZVdONbk8uk0J75JSENQJbD4TnuvJqH7v5hvlcFXei8CzDE28TTliL3k
+ +SUhfMChBUFLk0NXrObgINM4jPR87jWtcgry8az1qav4cxR69xCEVROdsIvgCL87OGKjsfTqEXr
+ PSUc2AfvVbGETMCBEkkDTz5sCwHDDYbteBhMz06OJDw01/CwEkA3Ag==
+X-Google-Smtp-Source: AGHT+IElqC4N7WBdN/UwREha3sJL0AOI9i9gOEBfGevhPlzqhMr3fPOn8XBHjesPAtYa3nhFewNk9Q==
+X-Received: by 2002:a17:907:a089:b0:ac1:ea39:9b9f with SMTP id
+ a640c23a62f3a-ac330461ce4mr1164128466b.54.1742212579456; 
+ Mon, 17 Mar 2025 04:56:19 -0700 (PDT)
 Received: from [192.168.1.247] ([145.224.67.123])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb7ec14bsm14651972f8f.100.2025.03.17.04.36.40
+ a640c23a62f3a-ac314a3e0e4sm657815566b.136.2025.03.17.04.56.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 17 Mar 2025 04:36:41 -0700 (PDT)
-Message-ID: <c6a86373-64be-4101-a08a-74aa302bf64c@linaro.org>
-Date: Mon, 17 Mar 2025 11:36:40 +0000
+ Mon, 17 Mar 2025 04:56:19 -0700 (PDT)
+Message-ID: <a4bce4f5-88c3-4755-9ac5-3ce6fb78dfbf@linaro.org>
+Date: Mon, 17 Mar 2025 11:56:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Leo Yan <leo.yan@arm.com>
 References: <20250211103945.967495-1-james.clark@linaro.org>
- <20250211103945.967495-3-james.clark@linaro.org>
- <20250313145456.GR9682@e132581.arm.com>
+ <20250211103945.967495-5-james.clark@linaro.org>
+ <20250313144005.GQ9682@e132581.arm.com>
 Content-Language: en-US
 From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20250313145456.GR9682@e132581.arm.com>
+In-Reply-To: <20250313144005.GQ9682@e132581.arm.com>
 Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, lcherian@marvell.com,
  Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 2/7] coresight: Convert disclaim functions
- to take a struct cs_access
+Subject: Re: [Linux-stm32] [PATCH 4/7] coresight: Add claim tag warnings and
+	debug messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,28 +98,71 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 13/03/2025 2:54 pm, Leo Yan wrote:
-> On Tue, Feb 11, 2025 at 10:39:38AM +0000, James Clark wrote:
-> 
-> [...]
-> 
->>   static inline bool coresight_is_claimed_any(struct coresight_device *csdev)
->>   {
->> -       return coresight_read_claim_tags(csdev) != 0;
->> +       return coresight_read_claim_tags(&csdev->access) != 0;
+On 13/03/2025 2:40 pm, Leo Yan wrote:
+> On Tue, Feb 11, 2025 at 10:39:40AM +0000, James Clark wrote:
+>>
+>> Add a dev_dbg() message so that external debugger conflicts are more
+>> visible. There are multiple reasons for -EBUSY so a message for this
+>> particular one could be helpful. Add errors for and enumerate all the
+>> other cases that are impossible.
+>>
+>> Signed-off-by: James Clark <james.clark@linaro.org>
+>> ---
+>>   drivers/hwtracing/coresight/coresight-core.c | 48 ++++++++++++--------
+>>   drivers/hwtracing/coresight/coresight-priv.h |  5 +-
+>>   2 files changed, 34 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+>> index 7b53165c93af..7fe5d5d432c4 100644
+>> --- a/drivers/hwtracing/coresight/coresight-core.c
+>> +++ b/drivers/hwtracing/coresight/coresight-core.c
+>> @@ -133,16 +133,6 @@ static inline u32 coresight_read_claim_tags(struct csdev_access *csa)
+>>                           csdev_access_relaxed_read32(csa, CORESIGHT_CLAIMCLR));
 >>   }
+>>
+>> -static inline bool coresight_is_claimed_self_hosted(struct csdev_access *csa)
+>> -{
+>> -       return coresight_read_claim_tags(csa) == CORESIGHT_CLAIM_SELF_HOSTED;
+>> -}
+>> -
+>> -static inline bool coresight_is_claimed_any(struct coresight_device *csdev)
+>> -{
+>> -       return coresight_read_claim_tags(&csdev->access) != 0;
+>> -}
+>> -
+>>   static inline void coresight_set_self_claim_tag(struct csdev_access *csa)
+>>   {
+>>          csdev_access_relaxed_write32(csa, CORESIGHT_CLAIM_SELF_HOSTED,
+>> @@ -169,18 +159,40 @@ static inline void coresight_clear_self_claim_tag(struct csdev_access *csa)
+>>    */
+>>   int coresight_claim_device_unlocked(struct coresight_device *csdev)
+>>   {
+>> +       int tag;
+>> +       struct csdev_access *csa;
+>> +
+>>          if (WARN_ON(!csdev))
+>>                  return -EINVAL;
+>>
+>> -       if (coresight_is_claimed_any(csdev))
+>> +       csa = &csdev->access;
+>> +       tag = coresight_read_claim_tags(csa);
+>> +
+>> +       switch (tag) {
+>> +       case CORESIGHT_CLAIM_FREE:
+>> +               coresight_set_self_claim_tag(csa);
+>> +               if (coresight_read_claim_tags(csa) == CORESIGHT_CLAIM_SELF_HOSTED)
+>> +                       return 0;
+>> +
 > 
-> Likewise other claim functions, can coresight_is_claimed_any() change its
-> argument type from struct coresight_device to struct csdev_access?
+> It would be a rare case if a failure happens here.  Seems to me, it
+> would be valuable to print a log for this edge case.
 > 
-> Thanks,
-> Leo
+> Otherwise, looks good to me.
+> 
 
-I only wanted to change the ones that I had to. I think we should 
-prioritize passing csdev as much as possible in the coresight framework 
-to make everything consistent. Otherwise it's extra churn for no 
-benefit, and if we need something from csdev here in the future we'll 
-have to change this one back again.
+Yeah I can add dev_dbg("Busy: Couldn't set self claim tag"). Just to 
+distinguish this race case from the other busy case.
+
 
 _______________________________________________
 Linux-stm32 mailing list
