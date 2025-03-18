@@ -2,133 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0947BA668C6
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Mar 2025 05:57:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A63E8A66FB7
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Mar 2025 10:27:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2FC3C78F6D;
-	Tue, 18 Mar 2025 04:57:03 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54A20C7802B;
+	Tue, 18 Mar 2025 09:27:14 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EFA9C7803B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37F8BC78025
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Mar 2025 04:57:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XnbAs54gPNau14t6lRbkfakcJIFRudf5g3gH7iAqQmxBoWk683+TQM8wiMKEa7V3BLjErBsuKXv5fp7U1FfSEClLaG9ZjZl5HyhvxxwPWfe/Qnn71HhzHmboGBaQY7cmeNO9T20KTb7kKHfyauuu1WxFgoLC0+6FaLoelSXDMmvrnj/f8rK3kMc1j0Fe9fra/bhLCWfb4dJdfxELRwg1TxPHxD6pvlpEk3RMA6F5yBSH+OmKrO5VhE4yCtuIYtZdXHToVLgRvq/Oj2ohGJEZvC0lu0rSQGeZuJS9IfzehIiZcgQHPqe3REsowPhpqC6JpaHtUFvDwA80u9Y/B94V5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k5rlZc62dv5AUo5lJyryoZgi/mwGEvOeps4cgdCPUn0=;
- b=sx8aGysyUMpD+6Seal7fJjiMCZNnL0ciCmzT4ZTtOgI36xCsR7NOquUzYQZHv0MNptO2tFkyN1yhJioYpRQMuNN+zhEeLSH7ZrltNhUdXQ5PVXXOP7QJ2DexGF5yFyD3ZxscEAIXn0RSD4LzqOtzw9sZEq6TBG8XpIliQKc0E1bgmeTwaZ6JHqA2AI/4Rq5AC1VEsFdVQDQFoZpQipB4B4mPutcEoGr/dveJDXgSXOiOIMThLSbwTpcKyh4FHzsXCT0vCKBqd+95RYVoLS1KbFYZ9N8FGv8ErXVJmzlAfZsVxbJ2tXjwuSogJq2ALuOrFofbpgv1b3QfD/5tl43k5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k5rlZc62dv5AUo5lJyryoZgi/mwGEvOeps4cgdCPUn0=;
- b=ukbpa7kDYkwgwXKRDrQ24p7/fyVe5G9Qq8KZPnOO5ndNb93S3pp/ZWq/r6gzq9NLKGSDyQb+eAjbaUx3i1iNl3fDyI0vKsXN8ecqsIpbQZ5wl/5El8EZEIuqPrjtXzyVcGc5RUxmEqRgn/w+o43ixfffKlvO1y+rEShlBM0aok2s5OVImJJlF+9bhxUgAjUVNziCCvsd3GZjM4ZHIXzl6y+qzI6IoXOYKFnPgacco63LZRmCo7/AHTE0B9e4mZwQBLTFLz9U/vxikkqstPYNBRq+g7DFKGyY9De6dI1fCpfNk9Utz1PDkuTlImt6jTFveJkwE13vEgpTIrzm9sYx0A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by PAXPR04MB8845.eurprd04.prod.outlook.com (2603:10a6:102:20c::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Tue, 18 Mar
- 2025 04:57:00 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::165a:30a2:5835:9630%4]) with mapi id 15.20.8534.031; Tue, 18 Mar 2025
- 04:57:00 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: broonie@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Tue, 18 Mar 2025 12:55:49 +0800
-Message-Id: <20250318045549.1711502-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.37.1
-X-ClientProxiedBy: SG2PR03CA0095.apcprd03.prod.outlook.com
- (2603:1096:4:7c::23) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+ Tue, 18 Mar 2025 09:27:13 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-3913fdd003bso2633342f8f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 18 Mar 2025 02:27:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1742290032; x=1742894832;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=C7TGD/sTJc0OtjwahroX9tclP8lTIbogOcbW0Jwqg2g=;
+ b=oqt/cnUuVf48hxVLxim8SVO4HTu8UeheETWgF54UXapCCUUpMKS+kfQ41A32wRjJXP
+ OQywNiXUaQRkcZxmGGBQIrBVAOPNKWPYtx1dShOw4du8kLw4wyof4Dv0BOZzy40wu/sM
+ j1uZAwip+TRuB22y0TZAZOXWJEX6LuIOuDkBq9kMUJMhkM+cJ6TBY8W/JCFyqQYorG8B
+ Rvd/MSeZ6uViS5CBVdFptQaPlTfulAa3kq8Sc/CO9PkFzLJRKKlg7G5Bb1Ppy4zQR1D+
+ zfOy2BSByuyQyUGZt0hV7T3lW2iptfHkyl9CI67H4koEI113BQ3J6MTLhpPAc7dr6Qqo
+ cFKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742290032; x=1742894832;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=C7TGD/sTJc0OtjwahroX9tclP8lTIbogOcbW0Jwqg2g=;
+ b=oe95UPgyV1fKqewt8llS/pal5muoX157keHHv/vuS6MTphyAxzLkcW1mRcHp3tghOM
+ caIMaBr2ErZQOD5TuShz+xZxbfkkin0pbGFVWvXQrSDDfZYv1xqm0wQxz+IJzkiYef9u
+ R1Tf+Vd4X8qhACHznj0lrd1Ur5ejXnvZqDfNffEgQ8fqSqNGeJYR+J0JIoq90XuYtckJ
+ Csq0gKmqzpom8fUppjcPynLLtMgXuAvoLoJDiQtSgzeBssgPA92TQ2JTBFAITd+reps1
+ yAGa7JVW1eaQ2j/t7G7zRIvfsvFgxfX3Mk29oLweIg/c9btvAsITgOtZX3D5WpinA3hq
+ sNrw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVKJUP/p5L+kg5JMBym4JerrKhywhF4Cu4CafqbUdEnM00TlihunytU5rjF0xfL5ECH57rbqKon0XMigQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy5/ljYcpOKWwMkud5HT2GnzVpcpLb+WkyDSuOGjTaPJxNAmakX
+ dYgfh0WygdydkYvq+0aauUKvNLMdM8+rgfjDxCQU1fUy6zczk1r54UjVFR8yrf4=
+X-Gm-Gg: ASbGncsIhHWN343Hb9qyRZVtqIhlaWFFe4X6aeNhy9MDYLzKwIf3GnimD7T7BEVrgsc
+ 6budQcE/AEBAZv2ml5OWgn76xpR/gUNNmgppUDOjegHGd2ZOw3JYND3JfPrSLZo/2gDhd2bujOk
+ 4PdU65HqwztcN77FciDpeZHusQD1WCi3jQXq9rnJV/qcuQTmeda4gFUHSxgq0hN4Ord/F5lvcux
+ +Bvn1t+iAcu9hiv9wmuM2XNDQbFV4tFBrszr/DZy6hMuFyx80oSL1B6yzIrWYta+vQmdJZk2MmD
+ ylKfL2hLGZONgOpPCjptQHnFLjHlqeN6lQg4AD/i3rdGvmsP4/IHyQ==
+X-Google-Smtp-Source: AGHT+IH73QS1D5UWCRs0ctMHCS8bma4/x/bL3ofL41GBF2GkxNIuYWlfCICxcIlvecm4Hmc0Weksew==
+X-Received: by 2002:a5d:64c3:0:b0:38d:ba8e:7327 with SMTP id
+ ffacd0b85a97d-3996b935107mr1858488f8f.8.1742290032371; 
+ Tue, 18 Mar 2025 02:27:12 -0700 (PDT)
+Received: from [192.168.1.247] ([145.224.67.123])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395cb318a3dsm17661397f8f.74.2025.03.18.02.27.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Mar 2025 02:27:11 -0700 (PDT)
+Message-ID: <b6c2622a-5c54-4951-be23-7f05599fc10d@linaro.org>
+Date: Tue, 18 Mar 2025 09:27:10 +0000
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|PAXPR04MB8845:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92195100-41ee-464a-055e-08dd65d950fb
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|52116014|366016|376014|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?1yV8li2xr88wNij3tGXU807kqCL2QtF5heTf9OdSgc0P5iUvL3UQ1Wt2ucqc?=
- =?us-ascii?Q?3ftllec7+qQs8TYwHxigb+FlWtzHrRGnQ8LJrotrh6MZn99gVKPMxVDzevcg?=
- =?us-ascii?Q?NO5nw5xZkO723jsOjBODomDAuZ0bY3HFqkSdeAz6P9e7cdJvrv0TIKA1vw9v?=
- =?us-ascii?Q?hlbSqFXRA3LZlGNP98c7eXowuut7AMzeznjDMjSeI2y9y1dapYun+bnkOKEI?=
- =?us-ascii?Q?y+Lk1vypThW6TCvFHZ8dVxhv43dr7ha8T9yvV5NBSSailZQHR9htQSz6mvVi?=
- =?us-ascii?Q?sSGEtZYhe27qxNBAReBHMA7PobrEnNymRVKs+7Vp+QAwd1aV82AyP8gGEEVC?=
- =?us-ascii?Q?1SgFeqoOIeDG1D3IYdX/0zONm2L5KiaHmQWYtM5m8tjLEyoadq3PxbtkXyl8?=
- =?us-ascii?Q?I/U2xZaNeXdvOhlmSXc0kQmtgpYZjfLH/rdQlLP9HtL/BGo3Ap8w2ClQygZs?=
- =?us-ascii?Q?kihive0aw2gvRAjk7F42EyfQTfHAu4XV59hBhcs4yRmdQEAaRUxK/qMY9cnR?=
- =?us-ascii?Q?x5gtVOM3I8MPb8t2Dy/lCDjbtjGAQ7BMgVNvuikRc1fNzWC0J0yyIRTIZI5+?=
- =?us-ascii?Q?CjPcDCIWqKSKxWjaryf0TvZRLPmywCg81nUEjUGqtrs4gdc8d6wnTcA1ieQe?=
- =?us-ascii?Q?U9KSdek34jhwC5JDh1jJmXogcOmkPzkgBd5Kzs0AG2GvVYfHmnTkEBie5sD7?=
- =?us-ascii?Q?xWlslfJN1MWbW3+vwD30BqSg499WKHSFEOnHsclhYmEyeFylr58EIkBgJaCV?=
- =?us-ascii?Q?j9KWc1O9pEkdzWmdzahnqv/5y4059ViqIU1KoBoEucEAEfdzkQPCqZSzgIPW?=
- =?us-ascii?Q?CzArVp79b+NOY8O0OQuzNkEAY5RaaVpCkDshkkrXw2tq0SgRtyJLHWBBZWeH?=
- =?us-ascii?Q?uZklb95PLdKXYo93FL0ZbZ6nkToxzepk3DP9sxTN+TUE3x2gLLuF/Ch6XMxn?=
- =?us-ascii?Q?lDT6/ZxgcYwcDRDwMiD9qaxAneVc7qpnKtPywBRj6FUdtmWZg4BwAqlLZmon?=
- =?us-ascii?Q?rZFK5FoJFdDQeVys+jnLMb7CyulrQwySjCuIjFN+UtqnmoMraT73rABG0iuu?=
- =?us-ascii?Q?aHEuRganYLXbJj+74FEFu4n+yTy82bgbqkwaaZpqSGkS7cEnCdPm2CLUf6Lu?=
- =?us-ascii?Q?GZHJwG+dda6MmDrzPvmjytvvzGYRJBY15XvQA0CSEtMAeCYl5IgM+KD/ZL/j?=
- =?us-ascii?Q?bDVx2W6nrH7L0+tshVOfLua+UvR2cDCOa8Grc91ERM37VaKoeeaFFO7p+gX4?=
- =?us-ascii?Q?c722oLdS4LWJ3l2QStZvWtdwkGJAJZwgWQvl1ZZ/mqo/4hY37jX3XguxpiPz?=
- =?us-ascii?Q?xDffrX4ZcC1CFAGnQA01scleTnMRtYfJfBHzCkM8y5uxJn7VJQdzKvWb3N3z?=
- =?us-ascii?Q?tOppwzPOPx2HdFO551ZsEpVAFv+TTrsqyPqbYiv9ifOrjruUIvI4OJsUs/OS?=
- =?us-ascii?Q?8AjlFYZhMvKgINNyIeVhRpgj4XseIwpI?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB8459.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(52116014)(366016)(376014)(38350700014); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ePBKUF9KDF/nk5BdqJlpgBfLiz8GAFQZ8PSZR+SW0vfmkvc6YWqAKj6oVJzy?=
- =?us-ascii?Q?MLHhDaXx7piFVR0wyrzIn21ho4OWmYH9Dk2SxdIb2Jk+U2YVCFfFndE0f1X4?=
- =?us-ascii?Q?P3oMkvtl18S0zgzryonrzpw5gElxLRo5piBPpBeLtOctG4wMaSBquPE8mUFU?=
- =?us-ascii?Q?5sHAT4QLlFouxtB9fEy8SwYbLSLjgwuWRvQnrYscmGJihLUthEbFccRnY2px?=
- =?us-ascii?Q?RjjiCUMbX63MRYgcHirVjxMyh4ym03Ijy60Aq+YLxLKkTMmiof7nJeWlaU8J?=
- =?us-ascii?Q?HPBEj6G/KG7f/yq9fPp9WEBFkh94qy9VPUR1QKKkNojGoxjitN3NR1oDTFG5?=
- =?us-ascii?Q?KjrxdR58QBQryblSGH9sAj+r+PtTOcLJeEilfk0O6iHSJ96I/C7JtdwhnJY8?=
- =?us-ascii?Q?qhoM632snm4QR4JKufNjDQFRh4ByYe6tstAaelqm/IcbtIapYnJF/QS54ixa?=
- =?us-ascii?Q?YIM34xhI9HybDyndjYyP0oiZcWGD3WpUXO7xz8QIKKkjyDUbpusU0act0MOw?=
- =?us-ascii?Q?NaADY3h5bf0ZxdIh2v6YDzBAQYaj4L/31EmYSEdtQNiha1mS+cbHi9O+iOON?=
- =?us-ascii?Q?n5GXSliVn1Ke60anW2KX34ufTMkd+k8OeoYYX5PFwbduOCgY8fsPlsUE6qLj?=
- =?us-ascii?Q?n7ybj2ieZnf+F7Oux5Thz2xB8AClMZ9WlohoRkiPn6EKpseNfsNotXfy4Nms?=
- =?us-ascii?Q?7m6AFWWQjJEVVH7UwFjgX1lEdcQ+2CmAKBWBDhjzZqBkcjBZwvgnrbnHQxy/?=
- =?us-ascii?Q?IKbP9ZA+DjBKLIb7BdF/nXoxkj7nW9ZD+BDWwSncv4s7/Gy9Loo0gbU5HEaw?=
- =?us-ascii?Q?2GvPisi6R9/yMzMqe+Zl85W3qOFEHXRsbPGAffT/e/B/wXFW4VO+gyu1/3df?=
- =?us-ascii?Q?NgOsT64OkbLUpgB29U/rxlX2jxBcWnpmJFPCet0MgvhzIAkGwrEbSM4hEVkZ?=
- =?us-ascii?Q?jfGyRNBMDzrXOAFx8BLLjFR0fMdB7ikdX7a6eA+W5mpR5nO3h1fHdYiScmRR?=
- =?us-ascii?Q?FivUG6kJnOjd5LfRzR/GQ28CLcHZWF/Lsw0GlMEXkpOEVCp1PcX6UBFDUUxq?=
- =?us-ascii?Q?S/gwJoSdrVcCH8kPvN2RXl17uecOpHbg52ej04gFWaPvmloNfSFcXFLzSEFA?=
- =?us-ascii?Q?l5oJVjZQYzEoaSF5ESsZ2FwlFWquv0p3aB1VZW1JwFvqI5qUf4R7wUVgn+zM?=
- =?us-ascii?Q?2GD8Pk+pkBUfVZaE+rIpfiHdHBNGIaxCC6kQgZom9SccMwdUxBLVYwZAUY2D?=
- =?us-ascii?Q?BNO5tPKx07i+d9CnYZ+Hd/bvdSNMB6buTbNT5fNvIFFeaM21eL8HxV/7rIS6?=
- =?us-ascii?Q?19MPBvTwaRPOJodHskHwlCcgAVIr93DvPrN3sBhgnY7gFsNlO0W8JYA8zVyh?=
- =?us-ascii?Q?KadGMVNH4bahZ9dtvK5k0TSXDPRSzv3+32edOIq59tTyLx85u6LX7MddAltb?=
- =?us-ascii?Q?ukIxxZ6p6OVsHyvyq7WL+fAUb723nun9qYbG37IEsbnc2u8BetHnLoZ5Smkj?=
- =?us-ascii?Q?6NpdQD+/ayxtFr3hCJfmvE3gGbB2SryAirrHtnIuLjSXMeKVE3oaC+ciVEjV?=
- =?us-ascii?Q?sNKw2Yyl82KvJQSl0JytZiCWWRylycwbwBad4FSP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92195100-41ee-464a-055e-08dd65d950fb
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2025 04:57:00.1117 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Ay5o6srrh6vDDUcf1IKWw9n1/x7Fy0WqqlMKW+UnsQY05D3nsYqs2DhePM0avw8VpNO3FLDYZyncEidNADJ+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8845
-Cc: linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] spi: stm32-ospi: Include "gpio/consumer.h"
+User-Agent: Mozilla Thunderbird
+To: Leo Yan <leo.yan@arm.com>
+References: <20250211103945.967495-1-james.clark@linaro.org>
+ <20250211103945.967495-3-james.clark@linaro.org>
+ <20250313145456.GR9682@e132581.arm.com>
+ <c6a86373-64be-4101-a08a-74aa302bf64c@linaro.org>
+ <20250317182957.GL2487211@e132581.arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20250317182957.GL2487211@e132581.arm.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, lcherian@marvell.com,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 2/7] coresight: Convert disclaim functions
+ to take a struct cs_access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,42 +93,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Peng Fan <peng.fan@nxp.com>
 
-of_gpio.h should be deprecated, use "gpio/consumer.h".
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/spi/spi-stm32-ospi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 17/03/2025 6:29 pm, Leo Yan wrote:
+> On Mon, Mar 17, 2025 at 11:36:40AM +0000, James Clark wrote:
+>>
+>>
+>> On 13/03/2025 2:54 pm, Leo Yan wrote:
+>>> On Tue, Feb 11, 2025 at 10:39:38AM +0000, James Clark wrote:
+>>>
+>>> [...]
+>>>
+>>>>    static inline bool coresight_is_claimed_any(struct coresight_device *csdev)
+>>>>    {
+>>>> -       return coresight_read_claim_tags(csdev) != 0;
+>>>> +       return coresight_read_claim_tags(&csdev->access) != 0;
+>>>>    }
+>>>
+>>> Likewise other claim functions, can coresight_is_claimed_any() change its
+>>> argument type from struct coresight_device to struct csdev_access?
+>>
+>> I only wanted to change the ones that I had to. I think we should prioritize
+>> passing csdev as much as possible in the coresight framework to make
+>> everything consistent. Otherwise it's extra churn for no benefit, and if we
+>> need something from csdev here in the future we'll have to change this one
+>> back again.
+> 
+> The function coresight_is_claimed_any() has been deleted in a later
+> patch.  So this is fine for me.
+> 
+> In theory, claim tags are low level operations and don't need a
+> CoreSight device context, I prefer we can keep them as simple as
+> possible.
+> 
+> With this series, we can see coresight_claim_device() and
+> coresight_disclaim_device() are inconsistent for their parameters:
+> one is using "struct coresight_device *" and another is
+> "struct csdev_access *".  Maybe we just proceed to use csdev_access
+> for all claim tag functions?
+> 
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index d4f413c8c3ce..668022098b1e 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -10,6 +10,7 @@
- #include <linux/dmaengine.h>
- #include <linux/err.h>
- #include <linux/errno.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -19,7 +20,6 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_device.h>
--#include <linux/of_gpio.h>
- #include <linux/of_reserved_mem.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/platform_device.h>
--- 
-2.37.1
+That's because coresight_claim_device() has logging which requires the 
+device name to make it useful. If anything, coresight_disclaim_device() 
+should actually take a csdev and then print a better log message. I 
+don't think there's a way to make it consistent when there are different 
+requirements for each level of operations. The ones with logging need a 
+csdev and the lower level ones used on probe need to work with only csa.
+
+> If later we need to use a CoreSight device context when operating
+> claim tags, it means we might have different scenarios and we can
+> handle that separately.
+> 
+> Thanks,
+> Leo
+
 
 _______________________________________________
 Linux-stm32 mailing list
