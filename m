@@ -2,37 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD37AA69CB6
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 00:27:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C9BA69CE3
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 00:52:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 872C9C7803C;
-	Wed, 19 Mar 2025 23:27:35 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D50CC7803A;
+	Wed, 19 Mar 2025 23:52:51 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BF34C78027
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4020BC78023
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Mar 2025 23:27:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=FdSpIzyf+llrdg8XcPEMUxKcgtQ++dr3cdEiEfiZOjg=; b=Eod0avKETzyIpe3Cfd2VNwFXlJ
- muknsdw7nPJPkCBV6TgBw/dsbXbWdLUk8keX24+2KO+Qr876Y+nqlK/aLJGR+vF1vkRPf4xHgKkWD
- AhI4/qN9GmvXwbPbsCIhjySMmUZiJ3rWeohuNMm5DzT7jkQhCNGPp6zStRJZ8AWHjgTk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1tv2og-006QMr-97; Thu, 20 Mar 2025 00:27:18 +0100
-Date: Thu, 20 Mar 2025 00:27:18 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jonas Karlman <jonas@kwiboo.se>
-Message-ID: <d53a2119-2650-4a87-af94-1b9c2297cf72@lunn.ch>
+ Wed, 19 Mar 2025 23:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1742428367;
+ bh=v2ctdz7uayF07UCPNi//R/x3v+JmE0rED8OH/LNmzM8=;
+ b=Y3S5WI6xpmkz+Q6UhQjTY/0SaTkK5aYfcIFcLidi3iFwtqC72nUcJ6Yx34M+qUEQHyBZ4ARea
+ 3ekNjEmPeO/9GKuF184P1j+hTfOe1hus1biCB98kyNFdKYOhki2oXAgEkhAJK3eKoCrVq+vhJ74
+ GBjriivA+XvOprCqytd/KaQl6zj75sO5USH0Pfg1yCqlnMHXuKJBXqSrS+AG5wTv20c1TN6Hezb
+ h2+ZVnvYqufr2SLgf5I3xhVuqs9D70RQN60zSFwbOmO/fqAC7lkXhHcN6N9doreGaKr8WrD82F5
+ qCC/O0u2ufSe4LHpilOJXtjpyIyiwVIdvULx23koO7Sw==
+X-Forward-Email-ID: 67db58c827ee59b783a8734c
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 0.4.40
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <eabc0fb8-10cc-465c-9434-b0804418dcb6@kwiboo.se>
+Date: Thu, 20 Mar 2025 00:52:34 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
 References: <20250319214415.3086027-1-jonas@kwiboo.se>
  <20250319214415.3086027-6-jonas@kwiboo.se>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250319214415.3086027-6-jonas@kwiboo.se>
+ <d53a2119-2650-4a87-af94-1b9c2297cf72@lunn.ch>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <d53a2119-2650-4a87-af94-1b9c2297cf72@lunn.ch>
 Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
@@ -62,15 +71,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Mar 19, 2025 at 09:44:09PM +0000, Jonas Karlman wrote:
-> Rockchip RK3528 (and RV1106) has a different integrated PHY compared to
-> the integrated PHY on RK3228/RK3328.
+Hi Andrew,
 
-What ID does this PHY have? Is it just the reset which is different,
-or is it actually a different PHY, and the rockchip PHY driver needs
-additions?
+On 2025-03-20 00:27, Andrew Lunn wrote:
+> On Wed, Mar 19, 2025 at 09:44:09PM +0000, Jonas Karlman wrote:
+>> Rockchip RK3528 (and RV1106) has a different integrated PHY compared to
+>> the integrated PHY on RK3228/RK3328.
+> 
+> What ID does this PHY have? Is it just the reset which is different,
+> or is it actually a different PHY, and the rockchip PHY driver needs
+> additions?
 
-	Andrew
+Sorry, look like I missed to include the phy-id reported in this patch
+and only included that detail in the related device tree patch [1].
+
+This PHY seem to be different compared to the PHY used in older SoCs.
+
+The PHY identified on addr 0x2 as 0044.1400 and in vendor kernel this
+relate to the Rockchip RK630 PHY [2].
+
+  #define RK630_PHY_ID				0x00441400
+
+  /*
+   * Fixed address:
+   * Addr: 1 --- RK630@S40
+   *       2 --- RV1106@T22
+   */
+  #define PHY_ADDR_S40				1
+  #define PHY_ADDR_T22				2
+
+[1] https://lore.kernel.org/all/20250310001254.1516138-2-jonas@kwiboo.se/
+[2] https://github.com/armbian/linux-rockchip/blob/rk-6.1-rkr5/drivers/net/phy/rk630phy.c
+
+Regards,
+Jonas
+
+> 
+> 	Andrew
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
