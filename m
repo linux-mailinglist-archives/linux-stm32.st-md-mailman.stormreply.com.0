@@ -2,177 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5CEBA68077
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Mar 2025 00:08:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FBCEA685D7
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Mar 2025 08:37:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F3D8C7802F;
-	Tue, 18 Mar 2025 23:08:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4238BC78F62;
+	Wed, 19 Mar 2025 07:37:24 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FFF8C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9655C78F61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Mar 2025 23:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742339320; x=1773875320;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=jhIG6t8tYJgm/s2b/d74/QFB+vPlU6QYbeuLESpNgEE=;
- b=TpyiYvVgk0TZ0F5iCJnEagbrV+eBBj4P7zXyUcwmaDG4VA0PlJyOrnFl
- hjEF6aCUGACs9dfTko43ep1A4zsTdmq7o6oeGDTdfUaoG6HJ0zEa9I5IK
- SOqiWCqWS4oZmlimHXib1GkUBxvxD0ZrOlDt7Q1BWSU06l/Ow2MvtIZDX
- NirUSAbijrYanGgnkfgIXZXU4qZifIRdU8VhsXoiJhhz5xpAPBgnv93X7
- 78V+8WdmaFWC+yr7i/VJS6uQuo9oVcWmqh1LWZYP0LXOq50O+a+E/NkFx
- WNTm7EFTDwZm7OIWVd1rBRyDAk8FENHAYh070urtK6D0VOdnDSR2hGHK7 w==;
-X-CSE-ConnectionGUID: mNRdHy42RUGx5knqmMvi2A==
-X-CSE-MsgGUID: UP1DzBTlTAyREQzoQX0bFg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11377"; a="54889300"
-X-IronPort-AV: E=Sophos;i="6.14,258,1736841600"; d="scan'208";a="54889300"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Mar 2025 16:08:38 -0700
-X-CSE-ConnectionGUID: P2bl57e8SWq1kF16PsiNYg==
-X-CSE-MsgGUID: ZcYSSkrtR6OOD6jS3c6E7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,258,1736841600"; d="scan'208";a="122875869"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orviesa007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 18 Mar 2025 16:08:39 -0700
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Tue, 18 Mar 2025 16:08:37 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44 via Frontend Transport; Tue, 18 Mar 2025 16:08:37 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.46) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Tue, 18 Mar 2025 16:08:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l3XWTiQDkh8peNOYrwaPrcRmnsX+aoS3xnnb2L/MbINSfdij4DnQXlXG41QM+Cq386Ap4Dx+OAyEnJ104o+CbioJkS4JEZukGqEMLIxkgB6Es7iyWdSLoZ+yhsyctzoqhsJUMkx7ZtjuSJpWOwgBBpH0hBJWDtxejESbNaCLWyxVIwDDGkvxQTAy0aU6ZD6kB9TLuECXXw2py5IYEXOD8EWK9ETMZpE/2Hp46oskjhCeG9NewxBj3fhZt5dgWxKLxhXwU8RMJrYcE5zS1QrZSMlwphyAB4rQzAxIW71p+S0U20xMb+Di/smiK0ELVERtYVJH4Yv1t7W0SER/v4FOLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jhIG6t8tYJgm/s2b/d74/QFB+vPlU6QYbeuLESpNgEE=;
- b=Zdb0p4ceuPIgKrUNOJVWXByUyAoeIZTj9uJJpHmr2Z7kERTh2XGNfvDXlnnh9073wlkZWUHwAtVChzUSVOXz73ceAJiJAUyp8dRtVOmniSl28IrjozYH+ilve/UryM6zAs4PbGAM/TsX12VhmMWkrny26rMpH4Pv1P+0eiYCqgTvITjmC3UEZyJGbMU3bGFx+QNJ0Zm8tG5Bj3LLLjOVC8tBYE8yTknTnJhogWiDmoscPPg92qEe71F8bLkDkZyN/jcCskOmn3CX8/vjkjL5EreHrTXxIbZV2d74Vi6XEOr8/rK2teb9HaGg+ZvVZsqr8WIJVdTt/F23Tj2oC2+uUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
- by DM4PR11MB6120.namprd11.prod.outlook.com (2603:10b6:8:af::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Tue, 18 Mar
- 2025 23:08:06 +0000
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::7de8:e1b1:a3b:b8a8]) by CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::7de8:e1b1:a3b:b8a8%4]) with mapi id 15.20.8534.034; Tue, 18 Mar 2025
- 23:08:06 +0000
-From: "Keller, Jacob E" <jacob.e.keller@intel.com>
-To: Qingfang Deng <dqfext@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, "Dumazet, Eric"
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
- Torgue" <alexandre.torgue@foss.st.com>, "Ong, Boon Leong"
- <boon.leong.ong@intel.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH net v2] net: stmmac: Fix accessing freed irq affinity_hint
-Thread-Index: AQHbl7VhABnakp124EeLJ87M+19parN5ha9w
-Date: Tue, 18 Mar 2025 23:08:06 +0000
-Message-ID: <CO1PR11MB50891366B8997C225707C519D6DE2@CO1PR11MB5089.namprd11.prod.outlook.com>
-References: <20250318032424.112067-1-dqfext@gmail.com>
-In-Reply-To: <20250318032424.112067-1-dqfext@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB5089:EE_|DM4PR11MB6120:EE_
-x-ms-office365-filtering-correlation-id: d9fdd461-1152-42cb-b602-08dd6671be02
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|1800799024|366016|376014|921020|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?tWqdwwMV1xrUueY2GOFPxibFOpcaqda8h3AZBf1RQw8uxjlPiwJyYhuXIgUo?=
- =?us-ascii?Q?jbmwfuaAAdnwUWNNtTGaPJTr179Geoy/IbwKUeR9dyShoDiXPFGN1Yith5oW?=
- =?us-ascii?Q?WepqH+JJRdsFBhUO8fYkTsRhxlnaJS4gz7V5ETEFWCj5Pah/gKuw9dXiHd2B?=
- =?us-ascii?Q?51km/S6Jf/s+ZHx7+jawrIfPbj6bvKIg9zWUOWkuHI+tFRE8GFFmIkkErbWZ?=
- =?us-ascii?Q?xf0Gg0oErdIKwL+IMxz25xKhC+4nKXG3KyEz+EB/j3TEqYN2z1jQD4TTXNzN?=
- =?us-ascii?Q?44Vvx4ywJ7exqtpKVujVPDAoIvJD3M/qq29kb0mbH0i2qpjzSpEbRgWgL188?=
- =?us-ascii?Q?4Ur6r7nOHwvZHfJnM4/nIgRsV1iCBfJ+bOQjlbnabevGBJRKJrrZYjjvOUbt?=
- =?us-ascii?Q?4VpZOWb8tGf/h1OOzNt+4fZm3MaBoy4f4hVHrTqPkbL27OErvvDRJ1hw6CIT?=
- =?us-ascii?Q?6JrFSHMsxoOVtYCVaniQ9MFa6u0ZVRL8DUFIn/JxndBQLk+bLM5C2t/t9xpF?=
- =?us-ascii?Q?wqYjLPdZrKkiKzsAHAAZxx1n1O9152ubrsWnYXfPstqppfwtG7fp6rBcscQ1?=
- =?us-ascii?Q?YqAAPEeJEdfQ41g8sq3VNRvxvKMxSWC9vq+WDx3zOtB7PSeKPj206dkzYmzE?=
- =?us-ascii?Q?8mq9+jvlbOXV3xRPJvAV1h4Rw4Ar9T0HvNoWCqBGwNGEyi8sVHOLG6d1J5TI?=
- =?us-ascii?Q?KMMSAlATUdFv04zHWkKeo2YfN7ytKs0QVLSbLAJc9o9+6DVe1hLdzDPta6Ns?=
- =?us-ascii?Q?sY0Uwc8wiDUmZJH/Ef2j2Im1WcAFXj9O0mxQTQikmDNV5MU52rgyYm6W2s0u?=
- =?us-ascii?Q?/5p6NXjf/Hwghxe9DWssz/GDfEP9pjkjLw/cbptrDrchwTXFb9rZwDSxIR6u?=
- =?us-ascii?Q?WBvwAqCPwEAPSxZikS7gx2zXc/6KbnLR7zfKS+BSsfLrt2xyp3u6m4hI+KP5?=
- =?us-ascii?Q?6+/tY9mVauS1uy17aAAr5e7wpyF1+8oY9dLCCY8ASAURI2ZNHK1F2o7JtXfJ?=
- =?us-ascii?Q?F1udAVw57dpoN9l0DI74djuLpqE/7Pk3RpkwYi7YLbpoo4c8sOXEaQGm7Wd/?=
- =?us-ascii?Q?j5W5gUa9OW43pZFP6U/rhubb23T5rqDtqi6XZCv6dKpgJ6kBzd4xroKkTOu+?=
- =?us-ascii?Q?M+nOvPvojGOe1ZXzVZOe/HBoaVn+eEs0NnyBv5j0MYDjcegXNbPJkVwwn4uD?=
- =?us-ascii?Q?0CpYtx8e3L98PVwdRlo2kSLQNB5ucvU0CAuLvmIy7d8aNGUOGcuKvQ3ITlYX?=
- =?us-ascii?Q?HM8yrhwmrlq/+3qmR5WJWtvyk8jPr7egltjTXbcUJu8EQyJxnn+Vv0lCoxVV?=
- =?us-ascii?Q?dWeLsB3Xu+0GgncF2tNomXfdmXeuKrR328XPAzT/RkKVo+Ux+sU8J4KyVOqi?=
- =?us-ascii?Q?s6aSzwEl8FYJWFxl3bu2MUeJj9kH/w9vXxETf9AvxSPqA1wlVXhGlVjBbZmo?=
- =?us-ascii?Q?BaggVQazGpzU29RAzEWRguHQaopDYY51XTWuKwtNvZ4R7wbXIPSVpQ=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(366016)(376014)(921020)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hiVW8vnC7Stxs41euoxozDxJAADtBKVvI7regCyiuxd/tXz98pruXSV/U0SZ?=
- =?us-ascii?Q?N8Ut9GQW/ysPJsLZ6zzVUGP8pRWuUltGpsLvFkQ3FwL2MgpyZSJ8jCS7vdcx?=
- =?us-ascii?Q?vMj+oTZaUiKgqES0MJcwCnlu2T/TczlAlBN4PDzn/GeZsCNW0msy3YQ7NOhV?=
- =?us-ascii?Q?PRV7guaUjlOeXMly35ZP3h9/0S26F7tFuQekQCi+ZRxnOHeK4msqR1I4zvwi?=
- =?us-ascii?Q?Ku2lG2Z2gtHVUEwJFn7mLbii8NyvPah51xFmuf0nr+xIIHFOxlbWkechFZxg?=
- =?us-ascii?Q?6iaMhrINhDegAo/YVy34T4lIKRtxeuO21U0Vc1lBhq3bhoNMhhhKaC3J+sHf?=
- =?us-ascii?Q?ClVWETRjpjfL9xFLK5t+2tXbnBKRQvnynH8oJI1bCIIdzeAv29+cmZM9Y+3c?=
- =?us-ascii?Q?tjiA6k1M2ztA0BAMFPOjE56tTQ3xQV2ybiS3VhWoAqdNm5J6glPNH1kBrsbE?=
- =?us-ascii?Q?zQotaTDhoB4hHylf2FJCIs4ia91/QTI3SX2VRg4HKU1CYS88VP+OePV9tCW0?=
- =?us-ascii?Q?XT+3gX6VJtTmi/OEoGJs2p+G+cDtnWi6wpyGN+Tsf+HTsasWde703h8cN8s5?=
- =?us-ascii?Q?OwR5u5hmNzMD3e6VMv56icSY5sd7J03sr5UwYyALyRwhylJq0bhsp61Zqt0d?=
- =?us-ascii?Q?DcjqZTJft4wDFV9a0ubP7S1sBhMWKKxg6u5+R0/qq1S4cLhazmYPFY1RKzuN?=
- =?us-ascii?Q?HfCCEm3NpXOvjCYDARwheKNNNwaItsqoueUbHUiad9GxKKMaIQE6xa7IlTu/?=
- =?us-ascii?Q?JjfE8ulGHOdii6V9pD4GPmD0PZ8r0lwcFFMQwfWSknhzAXsooiMVXuGw7Yf/?=
- =?us-ascii?Q?BaP+PPl5yN8iS2cAUVQxtpdexw5d2CD0EWa9hf69uBckGVASs8j3e3ErrdRT?=
- =?us-ascii?Q?Ojnk4fmO6wKnniM5ExU2cLq6ZjXEtK3c+pF55+l7Bymf7uNWsPvYK+wqELE+?=
- =?us-ascii?Q?UAZQkSA4txkvcvFylwcuGqQJETR+G2DmmBhg/gQ7KUQXQT1WinFMB5GjGnCE?=
- =?us-ascii?Q?LzSF0lydSNxQlVz4BQ4SS/Ufu3FOC9GjTOekLNLhQxHwjNLVykPNt8lx3ubV?=
- =?us-ascii?Q?noYUgmLzA/3fl73cf2q560bQ8tskcFN+HNF8kLFoWbt3JT9ZTPI0TO1yPINS?=
- =?us-ascii?Q?//cCeNKRsCfhWeW+0xB7JXYysk+hLSwLrZZ4O5rdna0D7r5ePPXx9lSje4Fa?=
- =?us-ascii?Q?llqLgacvuj+e+GEISVScrxKXzK0ovxQsjR3sumafY+1OQwnGFGZFopouWwXX?=
- =?us-ascii?Q?C6ushT06zJQXNzstQOzlSZis3OUthRMwl4U89128+eoA+kM0mGe8IlG68XKa?=
- =?us-ascii?Q?Aiv6MD2PnUqb++JdLiazzDjejxWepOqfFjBmZf2AJXVI+wnHCnBPQVtJW4Ce?=
- =?us-ascii?Q?vvjelV/gGkJBU+AXg2B7Is6SQh1nsA9HkuhbQfYMdHr6tRUN1TkV/DXZoGAR?=
- =?us-ascii?Q?qE8/FQHaMZPUO03MeSuW7rGKMSEVmgYL9I9EqViWCEgTdpXbyDxYz0Pht2kU?=
- =?us-ascii?Q?AfwbeIsge8BAFu5+1JBb6JBkaU+gfsDuZq/a4bUAwhqDzNtK4Metsdt15Npc?=
- =?us-ascii?Q?ya61SefEAjc3V1SdTiM7m5P5QaCaEf2cacii1ILq?=
+ Wed, 19 Mar 2025 07:37:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 495EAA487A0;
+ Wed, 19 Mar 2025 07:31:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D842C4CEE9;
+ Wed, 19 Mar 2025 07:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1742369841;
+ bh=HdltGd7siJH9RYxJ15cpnOShcpA2EJrNfVj9wn5/93k=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=DWy0RlwDvAstD9rVaFYGL04wEdoIMnLva0KwnxsBswCTR94RO7JLJqB3KN+X71iky
+ rb1wrSKhXprGdznlb3ir2JyJXrsTR8xwSBb8W2PvBo58R7SBm+2h3W8AR+UEkzHVc6
+ L09CNkQymCVs+hWaCmGQSHLnZv9IYC4bqv0bbBpidBSYZgLUKjmuUJcsw3wpLPcCXr
+ ThJ+o/OuM+bsZsEsdBneuHSa6A/BTOALjb6e5Bv/MDNG1d4b9B0l9tJq468fMCf7fX
+ Pu+qtAu7YT7BLdyeB9r/7G31xSCn+JQU3b6RwrbxnlvwL1rfJuTJVyUMGey5xdrVDE
+ Uz4FCuJnxeEiQ==
+Message-ID: <f508b96e-81c8-41bd-baca-ebd1b4419904@kernel.org>
+Date: Wed, 19 Mar 2025 08:37:12 +0100
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9fdd461-1152-42cb-b602-08dd6671be02
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2025 23:08:06.1490 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f22ozoGiD0ithUKYUkvmwGfqdxCOPIsYyfCPK/e9C8mu4AfaAbtuZm2q94sMPAmu7LHRztGes/qZPBC7Eta38tz4ERt0rDwnD/VC1kDR3Nc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6120
-X-OriginatorOrg: intel.com
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Fix accessing freed
-	irq affinity_hint
+User-Agent: Mozilla Thunderbird
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+References: <20250219080059.367045-1-patrice.chotard@foss.st.com>
+ <20250219080059.367045-5-patrice.chotard@foss.st.com>
+ <eaf1ecca-4fde-4128-8590-6013c3a13a04@kernel.org>
+ <8b1b7df5-07f4-4f95-88e7-4e95ee909ffd@foss.st.com>
+ <ac119dba-6e73-496c-97e1-d59ac0fe4a27@kernel.org>
+ <06244bfb-1bd0-4a07-a928-3d2e68a89259@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <06244bfb-1bd0-4a07-a928-3d2e68a89259@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 4/8] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -189,34 +114,262 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 18/03/2025 14:40, Patrice CHOTARD wrote:
+> 
+> 
+> On 3/13/25 08:33, Krzysztof Kozlowski wrote:
+>> On 12/03/2025 15:23, Patrice CHOTARD wrote:
+>>>>> +static int stm32_omm_disable_child(struct device *dev)
+>>>>> +{
+>>>>> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+>>>>> +	struct reset_control *reset;
+>>>>> +	int ret;
+>>>>> +	u8 i;
+>>>>> +
+>>>>> +	for (i = 0; i < omm->nb_child; i++) {
+>>>>> +		ret = clk_prepare_enable(omm->child[i].clk);
+>>>>> +		if (ret) {
+>>>>> +			dev_err(dev, "Can not enable clock\n");
+>>>>> +			return ret;
+>>>>> +		}
+>>>>> +
+>>>>> +		reset = of_reset_control_get_exclusive(omm->child[i].node, 0);
+>>>>> +		if (IS_ERR(reset)) {
+>>>>> +			dev_err(dev, "Can't get child reset\n");
+>>>>
+>>>> Why do you get reset of child? Parent is not suppposed to poke there.
+>>>> You might not have the reset there in the first place and it would not
+>>>> be an error.
+>>>
+>>> By ressetting child (OSPI), we ensure they are disabled and in a known state.
+>>> See the comment below.
+>>>
+>>>>
+>>>>
+>>>>> +			return PTR_ERR(reset);
+>>>>> +		};
+>>>>> +
+>>>>> +		/* reset OSPI to ensure CR_EN bit is set to 0 */
+>>>>> +		reset_control_assert(reset);
+>>>>> +		udelay(2);
+>>>>> +		reset_control_deassert(reset);
+>>>>
+>>>> No, the child should handle this, not parent.
+>>>
+>>> Octo Memory Manager can only be configured if both child are disabled.
+>>> That's why here, parent handles this.
+>>
+>> So if device by any chance started and is doing some useful work, then
+>> you cancel that work and reset it?
+> 
+> stm32_omm_configure() is only called if we get access granted on both children.
+> That means we are authorized to use these devices, so we can reset them.
+> 
+>>
+>> And what if child does not have reset line? Your binding allows that, so
+>> how is it supposed to work then?
+> 
+> Ah yes, you are right, the OSPI bindings need to be updated
+> by requiring reset lines and the driver spi-stm32-ospi.c as well.
+> I will send a fix for that.
+> 
+> Thanks for pointing this.
+> 
+>>
+>> This also leads me to questions about bindings - if you need to assert
+>> some reset, doesn't it mean that these resets are also coming through
+>> this device so they are part of this device node?
+> 
+> As we are able to retrieve children's reset from their respective node,
+> if you don't mind, OMM bindings can be kept as it's currently.
+
+But that is what the entire discussion is about - I do mind. I said it
+already - you are not supposed to poke into child's node.
+
+If you need to toggle child's resources, then I claim these are your
+resources as well.
+
+> 
+> And another information, on some MP2 SoCs family, there is only one 
+> OSPI instance. So for these SoCs, there is no Octo Memory Manager.
+> 
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +		reset_control_put(reset);
+>>>>> +		clk_disable_unprepare(omm->child[i].clk);
+>>>>> +	}
+>>>>> +
+>>>>> +	return 0;
+>>>>> +}
+>>>>> +
+>>>>> +static int stm32_omm_probe(struct platform_device *pdev)
+>>>>> +{
+>>>>> +	struct platform_device *vdev;
+>>>>> +	struct device *dev = &pdev->dev;
+>>>>> +	struct stm32_omm *omm;
+>>>>> +	struct clk *clk;
+>>>>> +	int ret;
+>>>>> +	u8 child_access_granted = 0;
+>>>>
+>>>> Keep inits/assignments together
+>>>
+>>> ok
+>>>
+>>>>
+>>>>> +	u8 i, j;
+>>>>> +	bool child_access[OMM_CHILD_NB];
+>>>>> +
+>>>>> +	omm = devm_kzalloc(dev, sizeof(*omm), GFP_KERNEL);
+>>>>> +	if (!omm)
+>>>>> +		return -ENOMEM;
+>>>>> +
+>>>>> +	omm->io_base = devm_platform_ioremap_resource_byname(pdev, "regs");
+>>>>> +	if (IS_ERR(omm->io_base))
+>>>>> +		return PTR_ERR(omm->io_base);
+>>>>> +
+>>>>> +	omm->mm_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "memory_map");
+>>>>> +	if (IS_ERR(omm->mm_res))
+>>>>> +		return PTR_ERR(omm->mm_res);
+>>>>> +
+>>>>> +	/* check child's access */
+>>>>> +	for_each_child_of_node_scoped(dev->of_node, child) {
+>>>>> +		if (omm->nb_child >= OMM_CHILD_NB) {
+>>>>> +			dev_err(dev, "Bad DT, found too much children\n");
+>>>>> +			ret = -E2BIG;
+>>>>> +			goto err_clk_release;
+>>>>> +		}
+>>>>> +
+>>>>> +		if (!of_device_is_compatible(child, "st,stm32mp25-ospi")) {
+>>>>> +			ret = -EINVAL;
+>>>>> +			goto err_clk_release;
+>>>>> +		}
+>>>>> +
+>>>>> +		ret = stm32_omm_check_access(dev, child);
+>>>>> +		if (ret < 0 && ret != -EACCES)
+>>>>> +			goto err_clk_release;
+>>>>> +
+>>>>> +		child_access[omm->nb_child] = false;
+>>>>> +		if (!ret) {
+>>>>> +			child_access_granted++;
+>>>>> +			child_access[omm->nb_child] = true;
+>>>>> +		}
+>>>>> +
+>>>>> +		omm->child[omm->nb_child].node = child;
+>>>>> +
+>>>>> +		clk = of_clk_get(child, 0);
+>>>>
+>>>> Why are you taking children clock? And why with this API, not clk_get?
+>>>
+>>> I need children's clock to reset them.
+>>
+>>
+>> The device driver should reset its device. It is not a discoverable bus,
+>> that would explain power sequencing from the parent.
+>>
+>>> Why of_clk_get() usage is a problem here ? i can't get your point ?
+>>
+>> Because it is not the API which device drivers should use. You should
+>> use clk_get or devm_clk_get.
+> 
+> 
+> ok, i will update this part using clk_get().
+> 
+>>
+>>
+>>>
+>>>> This looks like mixing clock provider in the clock consumer.
+>>>>
+>>>>> +		if (IS_ERR(clk)) {
+>>>>> +			dev_err(dev, "Can't get child clock\n");
+>>>>
+>>>> Syntax is always return dev_err_probe (or ret = dev_err_probe).
+>>>
+>>> ok
+>>>
+>>>>
+>>>>> +			ret = PTR_ERR(clk);
+>>>>> +			goto err_clk_release;
+>>>>> +		};
+>>>>> +
+>>>>> +		omm->child[omm->nb_child].clk = clk;
+>>>>> +		omm->nb_child++;
+>>>>> +	}
+>>>>> +
+>>>>> +	if (omm->nb_child != OMM_CHILD_NB) {
+>>>>> +		ret = -EINVAL;
+>>>>> +		goto err_clk_release;
+>>>>> +	}
+>>>>> +
+>>>>> +	platform_set_drvdata(pdev, omm);
+>>>>> +
+>>>>> +	pm_runtime_enable(dev);
+>>>>> +
+>>>>> +	/* check if OMM's resource access is granted */
+>>>>> +	ret = stm32_omm_check_access(dev, dev->of_node);
+>>>>> +	if (ret < 0 && ret != -EACCES)
+>>>>> +		goto err_clk_release;
+>>>>> +
+>>>>> +	if (!ret && child_access_granted == OMM_CHILD_NB) {
+>>>>> +		/* Ensure both OSPI instance are disabled before configuring OMM */
+>>>>> +		ret = stm32_omm_disable_child(dev);
+>>>>> +		if (ret)
+>>>>> +			goto err_clk_release;
+>>>>> +
+>>>>> +		ret = stm32_omm_configure(dev);
+>>>>> +		if (ret)
+>>>>> +			goto err_clk_release;
+>>>>> +	} else {
+>>>>> +		dev_dbg(dev, "Octo Memory Manager resource's access not granted\n");
+>>>>> +		/*
+>>>>> +		 * AMCR can't be set, so check if current value is coherent
+>>>>> +		 * with memory-map areas defined in DT
+>>>>> +		 */
+>>>>> +		ret = stm32_omm_set_amcr(dev, false);
+>>>>> +		if (ret)
+>>>>> +			goto err_clk_release;
+>>>>> +	}
+>>>>> +
+>>>>> +	/* for each child, if resource access is granted and status "okay", probe it */
+>>>>> +	for (i = 0; i < omm->nb_child; i++) {
+>>>>> +		if (!child_access[i] || !of_device_is_available(omm->child[i].node))
+>>>>
+>>>> If you have a device available, why do you create one more platform device?
+>>>>
+>>>>> +			continue;
+>>>>> +
+>>>>> +		vdev = of_platform_device_create(omm->child[i].node, NULL, NULL);
+>>>>
+>>>> Why you cannot just populate the children?
+>>>
+>>> I can't use of_platform_populate(), by default it will populate all OMM's child.
+>>> Whereas here, we want to probe only the OMM's child which match our criteria.  
+>>
+>>
+>> Why wouldn't you populate everyone? The task of bus driver is not to
+>> filter out DT. If you got such DT - with all device nodes - you are
+>> expected to populate all of them. Otherwise, if you do not want all of
+>> them, it is expected that firmware or bootloader will give you DT
+>> without these nodes.
+> 
+> We don't want to populate every child by default because we can get 
+> cases where one child is shared between Cortex A and Cortex M.
+
+But in such case DTB would not have that child enabled.
+
+> That's why we must check if access is granted which ensure that 
+> firewall semaphore is available (RIFSC semaphore in our case).
+
+If you do not have access, means child is assigned to other processor,
+right? In that case that child would not have been enabled in your DTB.
+
+Fix your DTB instead of creating another layer of handling children
+inside drivers.
 
 
-> -----Original Message-----
-> From: Qingfang Deng <dqfext@gmail.com>
-> Sent: Monday, March 17, 2025 8:24 PM
-> To: Andrew Lunn <andrew+netdev@lunn.ch>; David S. Miller
-> <davem@davemloft.net>; Dumazet, Eric <edumazet@google.com>; Jakub Kicinski
-> <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Ong, Boon Leong
-> <boon.leong.ong@intel.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Subject: [PATCH net v2] net: stmmac: Fix accessing freed irq affinity_hint
-> 
-> The cpumask should not be a local variable, since its pointer is saved
-> to irq_desc and may be accessed from procfs.
-> To fix it, use the persistent mask cpumask_of(cpu#).
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 8deec94c6040 ("net: stmmac: set IRQ affinity hint for multi MSI vectors")
-> Signed-off-by: Qingfang Deng <dqfext@gmail.com>
-> ---
-> v2: use cpumask_of()
-> 
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
