@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840F3A69636
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Mar 2025 18:20:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0826BA697DF
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Mar 2025 19:19:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35889C6DD6B;
-	Wed, 19 Mar 2025 17:20:01 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0842C78F60;
+	Wed, 19 Mar 2025 18:19:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F3EFC640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89DB4C7803C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Mar 2025 17:19:59 +0000 (UTC)
+ Wed, 19 Mar 2025 18:19:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B8AFFA44978;
- Wed, 19 Mar 2025 17:14:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4E2C4CEE4;
- Wed, 19 Mar 2025 17:19:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3F063682C6;
+ Wed, 19 Mar 2025 18:19:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540ACC4CEE9;
+ Wed, 19 Mar 2025 18:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742404797;
- bh=LrltH36LcKzUeNqpvSJ0cSNyUs04mlDZqxOw+sb1OXc=;
+ s=k20201202; t=1742408394;
+ bh=1uv1URa/oRq4i2/FSY/Z0hXKn2aDIlpZ/PJX3KA9iqs=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Gwmk/3sCXrryWVFn02KC6xjpk+pafHJkPHLPh/Zq5TEj0QR7BCneUeEc6Jc1jpNTN
- KEEHR+DrxNT/D6DS6N38wBO+yj8ywpgpl4I2meuluRDkKjBzrC+0Ls5xAymsYS7pAF
- PPdJ0EovZxtO61R9xfmGLHs5BmDaOfDQmn+CY+MQNE+w0enB0FHsICj2dIaf7gMdxC
- ujBr2jVJbYOk6d5oUF22g+7kxmDYXqMSwc3vmmFmc8Qi8N8tO5DqM3Y8GdAzY8SBx1
- MoI4Gjhad2t5bV1YP4VujVh7LGr+2BlRB4H4N9dnFMPA73Q1rbX/l3ecEiAqnc/quo
- j3pL/y6P8ntig==
+ b=Ogkry/uLGFZPAuy9ejUxn3abPrdKF6wuiAYtx7Ke5zGAoP9cciScohsOPprgiOBHj
+ Mq2O9kLJliQOawhOYOX0HV4eHyeqyahRbkeBdvQRW/QrcYCNbMATJElWb1iEJhQ6De
+ Yc1hgyUQmpXnj7PlAexV3FvsN7LZ70bJHmRP7CzJUPB4/XLAI0s0XorSnA/fxgSRom
+ WYU+okgQyi/zJLo7oBxhHXo+ZcUUVvBLe9VsBXdTSaa2LQzettZzLnvnT24mLFwc+0
+ uj9+duZ2Xo6/NN2M94mFN2E+Lykvv7lArfUaBdIAfoB9eurJ9/C/uh8mK5oJU7lU7/
+ sblt3k6OiHOFQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- AE637380CFFE; Wed, 19 Mar 2025 17:20:34 +0000 (UTC)
+ 369E1380CFFE; Wed, 19 Mar 2025 18:20:31 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174240483352.1121844.16892728893562053636.git-patchwork-notify@kernel.org>
-Date: Wed, 19 Mar 2025 17:20:33 +0000
-References: <Z9FVHEf3uUqtKzyt@shell.armlinux.org.uk>
-In-Reply-To: <Z9FVHEf3uUqtKzyt@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, kernel@esmil.dk, edumazet@google.com,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, alex@ghiti.fr, joabreu@synopsys.com,
- samin.guo@starfivetech.com, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
- prabhakar.mahadev-lad.rj@bp.renesas.com, minda.chen@starfivetech.com,
- paul.walmsley@sifive.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, conor@kernel.org,
- andrew+netdev@lunn.ch, palmer@dabbelt.com, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/7] net: stmmac: deprecate
- "snps, en-tx-lpi-clockgating" property
+Message-Id: <174240843003.1143902.13702964341385385111.git-patchwork-notify@kernel.org>
+Date: Wed, 19 Mar 2025 18:20:30 +0000
+References: <E1tsRyv-0064nU-O9@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1tsRyv-0064nU-O9@rmk-PC.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, jpinto@synopsys.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, larper@axis.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwc-qos-eth: use
+	devm_kzalloc() for AXI data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,37 +63,23 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net.git (main)
 by Paolo Abeni <pabeni@redhat.com>:
 
-On Wed, 12 Mar 2025 09:34:20 +0000 you wrote:
-> On Sun, Mar 09, 2025 at 03:01:45PM +0000, Russell King (Oracle) wrote:
-> Hi,
+On Wed, 12 Mar 2025 19:43:09 +0000 you wrote:
+> Everywhere else in the driver uses devm_kzalloc() when allocating the
+> AXI data, so there is no kfree() of this structure. However,
+> dwc-qos-eth uses kzalloc(), which leads to this memory being leaked.
+> Switch to use devm_kzalloc().
 > 
-> This series deprecates the "snps,en-tx-lpi-clockgating" property for
-> stmmac.
-> 
-> MII Transmit clock gating, where the MAC hardware supports gating this
-> clock, is a function of the connected PHY capabilities, which it
-> reports through its status register.
+> Fixes: d8256121a91a ("stmmac: adding new glue driver dwmac-dwc-qos-eth")
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v2,1/7] net: stmmac: allow platforms to use PHY tx clock stop capability
-    https://git.kernel.org/netdev/net-next/c/0c1f1eb65425
-  - [net-next,v2,2/7] net: stmmac: starfive: use PHY capability for TX clock stop
-    https://git.kernel.org/netdev/net-next/c/5f250bd72a01
-  - [net-next,v2,3/7] net: stmmac: stm32: use PHY capability for TX clock stop
-    https://git.kernel.org/netdev/net-next/c/a5bc19e2abeb
-  - [net-next,v2,4/7] riscv: dts: starfive: remove "snps,en-tx-lpi-clockgating" property
-    https://git.kernel.org/netdev/net-next/c/637af286f9fc
-  - [net-next,v2,5/7] ARM: dts: stm32: remove "snps,en-tx-lpi-clockgating" property
-    https://git.kernel.org/netdev/net-next/c/50a84bbc7ec1
-  - [net-next,v2,6/7] dt-bindings: deprecate "snps,en-tx-lpi-clockgating" property
-    https://git.kernel.org/netdev/net-next/c/a62b7901d3a9
-  - [net-next,v2,7/7] net: stmmac: deprecate "snps,en-tx-lpi-clockgating" property
-    https://git.kernel.org/netdev/net-next/c/cf0a96de397e
+  - [net] net: stmmac: dwc-qos-eth: use devm_kzalloc() for AXI data
+    https://git.kernel.org/netdev/net/c/c9cb135bc604
 
 You are awesome, thank you!
 -- 
