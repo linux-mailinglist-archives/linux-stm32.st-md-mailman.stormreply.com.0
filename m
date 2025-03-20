@@ -2,77 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97627A6A733
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 14:31:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0A0A6A8A4
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 15:35:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D4D4C78F67;
-	Thu, 20 Mar 2025 13:31:51 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9459C78F64;
+	Thu, 20 Mar 2025 14:35:09 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCDC5C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82674C78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Mar 2025 13:31:49 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52K8qApU025723;
- Thu, 20 Mar 2025 14:31:22 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 2GhEP0iObycxxgMfhvUnZ9ov+e48SKG/yYCAdiHKKuU=; b=TsmNuXGS/snz4UFE
- P68BI2sd+ASVIYb5eUGJ/71BUzcbD56/h2Vr21LC+gOz2McBMXUSk+7EG/uh9q0d
- eE8Q3bMrLLrUDa2f6sax/g9rS1QpWmjQ/815M0P3VLasNkomG2Mb1FKaV5DHVDFK
- OS3cxR5G59cP5IVsaVfe6kORjbjGpT3/oF0vRhViLSomzt1DdpRToVn7f78kyUH6
- B+i0QpMNkF+jdBWi8aruybvG3I4DEe7/jjZxsMJvSM1yRQFSyYMs1qaSFV8TarQf
- c3f5OIaNwIgElO5psBEBSqeCMD/cBFNurkh/iPbBcn7SXSbf4/wTRGLfyeDWOr/6
- IItEXA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45fuc8p0ke-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 20 Mar 2025 14:31:21 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D1FF640045;
- Thu, 20 Mar 2025 14:29:59 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7496A8095E1;
- Thu, 20 Mar 2025 14:28:53 +0100 (CET)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Mar
- 2025 14:28:52 +0100
-Message-ID: <1e3498a2-9279-4363-a0d9-8187933f6691@foss.st.com>
-Date: Thu, 20 Mar 2025 14:28:51 +0100
+ Thu, 20 Mar 2025 14:35:08 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-3995ff6b066so503574f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 20 Mar 2025 07:35:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1742481308; x=1743086108;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=T3uKjmvKFIJwQeQjhs6y043yl808flrdLcwtYSXqapk=;
+ b=MXR83yXf8lpodxSndqRQno5Ab/1xbiqrzyku/r+yjjFjGXWXZPpXhG9V3L56CVFf5l
+ /Ntwp79SrTL+/YX6Kx/g5E649zqOJozB3+CIhUDpdgB8LmUACA7pp4CSRydSVs3dR/Jz
+ AQy0CTvj3A9zl4TJovFRTM3wTmEHu43kkPdGuQ2mC98wz8MAaIaVcZ4Cj0OT+7e0Aa43
+ znZCpG07nFzmzEKUgvxTeegqg0Y1hT54myeMGdoh+Daznvx7/Mdo3xYdvZo5mIlDzlHc
+ tvg3BLyudmvvYUc+CmMhoFIvc0zwRDIvZRGr+MQc8v7jOJI4tFt0y9gGyqfapwMWd2n3
+ DMag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742481308; x=1743086108;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=T3uKjmvKFIJwQeQjhs6y043yl808flrdLcwtYSXqapk=;
+ b=frJlnYTnlCuGg+ky67ZNZt6o26mA0T3QmPutLrewqGt7hgld/OVn1c1N76Yvy3cwv2
+ JiW1Ib8IiSmamyjxJg/dgzLMSkvPt59kr/Ggn/VDWCH2EiAPc9SD16JkIKpS8m4gZorY
+ I8kPj3fpfQcg+2R3fvswltkegXwMJAbh8iNT0GJC8UkTeeBC82fz3HN539UVng9TkDT+
+ ZjYnAYYyTGPdbeWmF+aQ09FaWya+7sMqgWiX1HE5p/4eRcMG+BTlP2ya7J8cUEiDFzPL
+ lss/qhz1QE/2bQwA06C2upxMkTzCeVRfAoFqEyEZAeVGjwzo1sw+CRGtHzpfmIak4i55
+ kZrw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/Nj4vklbQGPthkp6OOzQD3ziOpzOhlUHD6mUCYS5AqH6SHuLA6m9N6azNWK/on4xV712onZFS6GE2EQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz/OpXEE+d2jOuG1q0n4pyf2qf70fXFoz37j/vDZK6zpxe//c+8
+ sICkYg9TBkyp4zs/qY8MSk8kBNnbyOlf72EGbrPYwPboF00f9EdhNZUWAZWbywI=
+X-Gm-Gg: ASbGncuQYWf7vUh4FJPsHE2n2G6GvX5fIualKFJHwRPgqV5Jnz6b10NDZQIG3Nzh7m7
+ s0LHSR20ri/2cmU0puAmsPK74eI8vbVP5N3794F6N5IjYJLIDqKvom57dKTAp+3LOpMuW+G9Yyy
+ m/Wo6nGS5xwGC7u1KBoWGMMYyua55vJ60rPoWd/j6VwowT4BJXTmxRMjrI99xsdi0kbygGkc//c
+ ZVW0xd+UiYVvtnWaI7JIDWU9/47TywnvwrD24xbG+Wvg9+IqnDJLsMvh3WLFc0eMoEfxvKZR0P4
+ 1WQ5YmLBPX2ZjG3wBtZAft9KIsVTM26xyzvB+O2LWdXLuzk=
+X-Google-Smtp-Source: AGHT+IEi+3lvXUBBl0Xfy6+/zMNSE6JUBwO9nHsVgmXy4u5Zz77pany2bxefRYqYSeHLwQMSeBXSLA==
+X-Received: by 2002:a5d:64c4:0:b0:391:2d97:7d0e with SMTP id
+ ffacd0b85a97d-39973af6beamr6757865f8f.42.1742481307687; 
+ Thu, 20 Mar 2025 07:35:07 -0700 (PDT)
+Received: from pop-os.lan ([145.224.67.123]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c83b6a27sm24238187f8f.31.2025.03.20.07.35.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Mar 2025 07:35:07 -0700 (PDT)
+From: James Clark <james.clark@linaro.org>
+Date: Thu, 20 Mar 2025 14:34:09 +0000
+Message-Id: <20250320-james-coresight-claim-tags-v3-0-d3145c153820@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <20250219080059.367045-1-patrice.chotard@foss.st.com>
- <20250219080059.367045-5-patrice.chotard@foss.st.com>
- <eaf1ecca-4fde-4128-8590-6013c3a13a04@kernel.org>
- <8b1b7df5-07f4-4f95-88e7-4e95ee909ffd@foss.st.com>
- <ac119dba-6e73-496c-97e1-d59ac0fe4a27@kernel.org>
- <06244bfb-1bd0-4a07-a928-3d2e68a89259@foss.st.com>
- <f508b96e-81c8-41bd-baca-ebd1b4419904@kernel.org>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <f508b96e-81c8-41bd-baca-ebd1b4419904@kernel.org>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-20_03,2025-03-20_01,2024-11-22_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 4/8] memory: Add STM32 Octo Memory
-	Manager driver
+X-B4-Tracking: v=1; b=H4sIAGEn3GcC/33Oyw6CMBCF4VcxXTukLde68j0Mi6YMMF6omRKiI
+ by7BWN05fIkk2/+WQRkwiAOu1kwThTID3Gk+51wvR06BGriFlrqXKaqhLO9YQDnGQN1/Qjuauk
+ Go+0CWFRZoVrV5ihFBO6MLT02/FTH3bKPlz2j/ZJaKSVTk+WJKcrM5KDeH5Lo8uV4pcGyTzx3K
+ 9hTGD0/t9hJr+ynq/rXNWmQgMZV1rgGqwx/2XpZlheviR+aBgEAAA==
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Suzuki.Poulose@arm.com, 
+ leo.yan@arm.com
+X-Mailer: b4 0.14.0
+Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 0/7] coresight: Clear self hosted claim tag
+	on probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,278 +94,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+I've gotten stuck a few times with unusable Coresight after a warm boot
+due to lingering claim tags, especially when testing the Coresight
+panic patchsets.
 
+This change does some tidy ups, adds some debug messages and clears the
+self hosted claim tag on probe. The last two commits are unrelated
+tidyups but they touch some of the same functions so to avoid extra
+conflicts I'm including them here.
 
-On 3/19/25 08:37, Krzysztof Kozlowski wrote:
-> On 18/03/2025 14:40, Patrice CHOTARD wrote:
->>
->>
->> On 3/13/25 08:33, Krzysztof Kozlowski wrote:
->>> On 12/03/2025 15:23, Patrice CHOTARD wrote:
->>>>>> +static int stm32_omm_disable_child(struct device *dev)
->>>>>> +{
->>>>>> +	struct stm32_omm *omm = dev_get_drvdata(dev);
->>>>>> +	struct reset_control *reset;
->>>>>> +	int ret;
->>>>>> +	u8 i;
->>>>>> +
->>>>>> +	for (i = 0; i < omm->nb_child; i++) {
->>>>>> +		ret = clk_prepare_enable(omm->child[i].clk);
->>>>>> +		if (ret) {
->>>>>> +			dev_err(dev, "Can not enable clock\n");
->>>>>> +			return ret;
->>>>>> +		}
->>>>>> +
->>>>>> +		reset = of_reset_control_get_exclusive(omm->child[i].node, 0);
->>>>>> +		if (IS_ERR(reset)) {
->>>>>> +			dev_err(dev, "Can't get child reset\n");
->>>>>
->>>>> Why do you get reset of child? Parent is not suppposed to poke there.
->>>>> You might not have the reset there in the first place and it would not
->>>>> be an error.
->>>>
->>>> By ressetting child (OSPI), we ensure they are disabled and in a known state.
->>>> See the comment below.
->>>>
->>>>>
->>>>>
->>>>>> +			return PTR_ERR(reset);
->>>>>> +		};
->>>>>> +
->>>>>> +		/* reset OSPI to ensure CR_EN bit is set to 0 */
->>>>>> +		reset_control_assert(reset);
->>>>>> +		udelay(2);
->>>>>> +		reset_control_deassert(reset);
->>>>>
->>>>> No, the child should handle this, not parent.
->>>>
->>>> Octo Memory Manager can only be configured if both child are disabled.
->>>> That's why here, parent handles this.
->>>
->>> So if device by any chance started and is doing some useful work, then
->>> you cancel that work and reset it?
->>
->> stm32_omm_configure() is only called if we get access granted on both children.
->> That means we are authorized to use these devices, so we can reset them.
->>
->>>
->>> And what if child does not have reset line? Your binding allows that, so
->>> how is it supposed to work then?
->>
->> Ah yes, you are right, the OSPI bindings need to be updated
->> by requiring reset lines and the driver spi-stm32-ospi.c as well.
->> I will send a fix for that.
->>
->> Thanks for pointing this.
->>
->>>
->>> This also leads me to questions about bindings - if you need to assert
->>> some reset, doesn't it mean that these resets are also coming through
->>> this device so they are part of this device node?
->>
->> As we are able to retrieve children's reset from their respective node,
->> if you don't mind, OMM bindings can be kept as it's currently.
-> 
-> But that is what the entire discussion is about - I do mind. I said it
-> already - you are not supposed to poke into child's node.
-> 
-> If you need to toggle child's resources, then I claim these are your
-> resources as well.
+This gets as far as fixing the claim tag issue, but there is some other
+state not being cleared on probe that results in the following error.
+This can be fixed up as a later change:
 
-Hi Krzysztof 
+  coresight tmc_etf0: timeout while waiting for TMC to be Ready
+  coresight tmc_etf0: Failed to enable : TMC is not ready
 
-Ok i will update both OMM driver and bindings accordingly.
+Changes in v3:
+- Collapse rename and locked/unlocked addition commits of
+  coresight_clear_self_claim_tag() so we don't change the name twice.
+- Make coresight_clear_self_claim_tag() a bit more generic by only
+  doing UNLOCK for MMIO devices (although there is no use of this right
+  now)
+- Link to v2: https://lore.kernel.org/r/20250318-james-coresight-claim-tags-v2-0-e9c8a9cde84e@linaro.org
 
-> 
->>
->> And another information, on some MP2 SoCs family, there is only one 
->> OSPI instance. So for these SoCs, there is no Octo Memory Manager.
->>
->>>
->>>>
->>>>>
->>>>>> +
->>>>>> +		reset_control_put(reset);
->>>>>> +		clk_disable_unprepare(omm->child[i].clk);
->>>>>> +	}
->>>>>> +
->>>>>> +	return 0;
->>>>>> +}
->>>>>> +
->>>>>> +static int stm32_omm_probe(struct platform_device *pdev)
->>>>>> +{
->>>>>> +	struct platform_device *vdev;
->>>>>> +	struct device *dev = &pdev->dev;
->>>>>> +	struct stm32_omm *omm;
->>>>>> +	struct clk *clk;
->>>>>> +	int ret;
->>>>>> +	u8 child_access_granted = 0;
->>>>>
->>>>> Keep inits/assignments together
->>>>
->>>> ok
->>>>
->>>>>
->>>>>> +	u8 i, j;
->>>>>> +	bool child_access[OMM_CHILD_NB];
->>>>>> +
->>>>>> +	omm = devm_kzalloc(dev, sizeof(*omm), GFP_KERNEL);
->>>>>> +	if (!omm)
->>>>>> +		return -ENOMEM;
->>>>>> +
->>>>>> +	omm->io_base = devm_platform_ioremap_resource_byname(pdev, "regs");
->>>>>> +	if (IS_ERR(omm->io_base))
->>>>>> +		return PTR_ERR(omm->io_base);
->>>>>> +
->>>>>> +	omm->mm_res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "memory_map");
->>>>>> +	if (IS_ERR(omm->mm_res))
->>>>>> +		return PTR_ERR(omm->mm_res);
->>>>>> +
->>>>>> +	/* check child's access */
->>>>>> +	for_each_child_of_node_scoped(dev->of_node, child) {
->>>>>> +		if (omm->nb_child >= OMM_CHILD_NB) {
->>>>>> +			dev_err(dev, "Bad DT, found too much children\n");
->>>>>> +			ret = -E2BIG;
->>>>>> +			goto err_clk_release;
->>>>>> +		}
->>>>>> +
->>>>>> +		if (!of_device_is_compatible(child, "st,stm32mp25-ospi")) {
->>>>>> +			ret = -EINVAL;
->>>>>> +			goto err_clk_release;
->>>>>> +		}
->>>>>> +
->>>>>> +		ret = stm32_omm_check_access(dev, child);
->>>>>> +		if (ret < 0 && ret != -EACCES)
->>>>>> +			goto err_clk_release;
->>>>>> +
->>>>>> +		child_access[omm->nb_child] = false;
->>>>>> +		if (!ret) {
->>>>>> +			child_access_granted++;
->>>>>> +			child_access[omm->nb_child] = true;
->>>>>> +		}
->>>>>> +
->>>>>> +		omm->child[omm->nb_child].node = child;
->>>>>> +
->>>>>> +		clk = of_clk_get(child, 0);
->>>>>
->>>>> Why are you taking children clock? And why with this API, not clk_get?
->>>>
->>>> I need children's clock to reset them.
->>>
->>>
->>> The device driver should reset its device. It is not a discoverable bus,
->>> that would explain power sequencing from the parent.
->>>
->>>> Why of_clk_get() usage is a problem here ? i can't get your point ?
->>>
->>> Because it is not the API which device drivers should use. You should
->>> use clk_get or devm_clk_get.
->>
->>
->> ok, i will update this part using clk_get().
->>
->>>
->>>
->>>>
->>>>> This looks like mixing clock provider in the clock consumer.
->>>>>
->>>>>> +		if (IS_ERR(clk)) {
->>>>>> +			dev_err(dev, "Can't get child clock\n");
->>>>>
->>>>> Syntax is always return dev_err_probe (or ret = dev_err_probe).
->>>>
->>>> ok
->>>>
->>>>>
->>>>>> +			ret = PTR_ERR(clk);
->>>>>> +			goto err_clk_release;
->>>>>> +		};
->>>>>> +
->>>>>> +		omm->child[omm->nb_child].clk = clk;
->>>>>> +		omm->nb_child++;
->>>>>> +	}
->>>>>> +
->>>>>> +	if (omm->nb_child != OMM_CHILD_NB) {
->>>>>> +		ret = -EINVAL;
->>>>>> +		goto err_clk_release;
->>>>>> +	}
->>>>>> +
->>>>>> +	platform_set_drvdata(pdev, omm);
->>>>>> +
->>>>>> +	pm_runtime_enable(dev);
->>>>>> +
->>>>>> +	/* check if OMM's resource access is granted */
->>>>>> +	ret = stm32_omm_check_access(dev, dev->of_node);
->>>>>> +	if (ret < 0 && ret != -EACCES)
->>>>>> +		goto err_clk_release;
->>>>>> +
->>>>>> +	if (!ret && child_access_granted == OMM_CHILD_NB) {
->>>>>> +		/* Ensure both OSPI instance are disabled before configuring OMM */
->>>>>> +		ret = stm32_omm_disable_child(dev);
->>>>>> +		if (ret)
->>>>>> +			goto err_clk_release;
->>>>>> +
->>>>>> +		ret = stm32_omm_configure(dev);
->>>>>> +		if (ret)
->>>>>> +			goto err_clk_release;
->>>>>> +	} else {
->>>>>> +		dev_dbg(dev, "Octo Memory Manager resource's access not granted\n");
->>>>>> +		/*
->>>>>> +		 * AMCR can't be set, so check if current value is coherent
->>>>>> +		 * with memory-map areas defined in DT
->>>>>> +		 */
->>>>>> +		ret = stm32_omm_set_amcr(dev, false);
->>>>>> +		if (ret)
->>>>>> +			goto err_clk_release;
->>>>>> +	}
->>>>>> +
->>>>>> +	/* for each child, if resource access is granted and status "okay", probe it */
->>>>>> +	for (i = 0; i < omm->nb_child; i++) {
->>>>>> +		if (!child_access[i] || !of_device_is_available(omm->child[i].node))
->>>>>
->>>>> If you have a device available, why do you create one more platform device?
->>>>>
->>>>>> +			continue;
->>>>>> +
->>>>>> +		vdev = of_platform_device_create(omm->child[i].node, NULL, NULL);
->>>>>
->>>>> Why you cannot just populate the children?
->>>>
->>>> I can't use of_platform_populate(), by default it will populate all OMM's child.
->>>> Whereas here, we want to probe only the OMM's child which match our criteria.  
->>>
->>>
->>> Why wouldn't you populate everyone? The task of bus driver is not to
->>> filter out DT. If you got such DT - with all device nodes - you are
->>> expected to populate all of them. Otherwise, if you do not want all of
->>> them, it is expected that firmware or bootloader will give you DT
->>> without these nodes.
->>
->> We don't want to populate every child by default because we can get 
->> cases where one child is shared between Cortex A and Cortex M.
-> 
-> But in such case DTB would not have that child enabled.
-> 
->> That's why we must check if access is granted which ensure that 
->> firewall semaphore is available (RIFSC semaphore in our case).
-> 
-> If you do not have access, means child is assigned to other processor,
-> right? In that case that child would not have been enabled in your DTB.
-> 
-> Fix your DTB instead of creating another layer of handling children
-> inside drivers.
+Changes in v2:
+ * Revert most of the interface changes, just call
+   coresight_clear_self_claim_tag() directly. This is possible because
+   we're not doing the read first, so it has fewer knock on effects.
+ * Split out the change to add struct cs_access to etm3x
+ * Add another warning for racing with external debugger
 
-In fact, initially, we wanted to avoid to trigger Illegal Access in case user 
-didn't use correct DT, that's why, here, double checks have been implemented.
-But Ok, i will clean this part and simply populate children.
+--
+2.34.1
 
-Thanks
-Patrice.
+---
+James Clark (7):
+      coresight: Convert tag clear function to take a struct cs_access
+      coresight: Only check bottom two claim bits
+      coresight: Add claim tag warnings and debug messages
+      coresight: etm3x: Convert raw base pointer to struct coresight access
+      coresight: Clear self hosted claim tag on probe
+      coresight: Remove inlines from static function definitions
+      coresight: Remove extern from function declarations
 
-> 
-> 
-> Best regards,
-> Krzysztof
+ drivers/hwtracing/coresight/coresight-catu.c       | 12 +--
+ drivers/hwtracing/coresight/coresight-core.c       | 87 ++++++++++++++--------
+ drivers/hwtracing/coresight/coresight-cti-core.c   |  2 +
+ drivers/hwtracing/coresight/coresight-etb10.c      |  4 +-
+ drivers/hwtracing/coresight/coresight-etm.h        |  6 +-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c | 28 +++----
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    |  8 +-
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 10 ++-
+ .../hwtracing/coresight/coresight-etm4x-sysfs.c    |  4 +-
+ drivers/hwtracing/coresight/coresight-funnel.c     |  1 +
+ drivers/hwtracing/coresight/coresight-platform.c   | 26 +++----
+ drivers/hwtracing/coresight/coresight-priv.h       | 20 ++---
+ drivers/hwtracing/coresight/coresight-replicator.c |  3 +-
+ drivers/hwtracing/coresight/coresight-stm.c        |  6 +-
+ .../coresight/coresight-syscfg-configfs.c          |  2 +-
+ drivers/hwtracing/coresight/coresight-tmc-core.c   |  9 ++-
+ drivers/hwtracing/coresight/coresight-tmc-etr.c    | 16 ++--
+ drivers/hwtracing/coresight/coresight-trbe.c       | 18 ++---
+ include/linux/coresight.h                          | 40 +++++-----
+ 19 files changed, 168 insertions(+), 134 deletions(-)
+---
+base-commit: 5442d22da7dbff3ba8c6720fc6f23ea4934d402d
+change-id: 20250317-james-coresight-claim-tags-ae1461f1f5e0
+
+Best regards,
+-- 
+James Clark <james.clark@linaro.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
