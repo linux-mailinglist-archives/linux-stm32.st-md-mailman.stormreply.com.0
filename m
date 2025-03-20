@@ -2,71 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D116AA6ACA5
-	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 19:02:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C495FA6B062
+	for <lists+linux-stm32@lfdr.de>; Thu, 20 Mar 2025 23:11:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8289FC78F67;
-	Thu, 20 Mar 2025 18:02:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7873CC78F64;
+	Thu, 20 Mar 2025 22:11:21 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 944FCC78F64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00EAAC78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Mar 2025 18:02:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CEC326158D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Mar 2025 18:02:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3393BC4CEE8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Mar 2025 18:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742493744;
- bh=y9R11PCeG0aC7T4yQOMfIHSqYCQ5IC3utAoKlffVDss=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=FExZuvSgG7lQ0nphnU46uCB3BITIfCUTFx/gRRNQECKgcsiWtNME41GgHctBairTj
- L2E4xjss89M+TnVQmJP3gNRjnUYvu3j22ltM8HOhpjuVYuimADN8rrVXMdfbsEwg/o
- FedshALdXFQlmmCNDqhhTbjSuJm60rHbMJpBjvugGcJ75Z77+vWHqHsj1ileqG8Pb/
- WqFwlWO8YJmUHunQSgj7i4OOkw4X//d/uscB7e10Kegh3pry9R0esBPLI1F4sswS9F
- qyRVrIrrc1RN+zEOhuXNUCBBuH9upKVbOG96on8DouTIArXT0b80FQXG77FldV3Nth
- 1Bvi4yL9YGukA==
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-5dc89df7eccso1959877a12.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Mar 2025 11:02:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUYxgcJM48UySy6OPQSBwWwsuW+oQ4C+DEJ30lzzbHxY9cnAY+yn4qZCk279X5jXn8MlJD1fFQtziuaVw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz4CSydIPiMUK4SwExwQ385ktiAghC3lerwtHKznKvVne4r9Ctv
- cNzqzZSgXrYVayutSF4JKfZxGTvh1SglxCYw9MKxWPMcyMxfSzMKPk6aBn92BsImSk3iGSC246s
- /CJfajQWh9an6lcenNM8quqaJbA==
-X-Google-Smtp-Source: AGHT+IHQN97QVgyFz09nfrYtWbO3Ru8zTNvSZPoniI5opPgH/pEzb20TQeGjO3i0k0wm7am1Inl8y3sD3mZZgGtCBU4=
-X-Received: by 2002:a05:6402:13d6:b0:5de:aa54:dc30 with SMTP id
- 4fb4d7f45d1cf-5ebcd40b7d9mr238445a12.5.1742493742665; Thu, 20 Mar 2025
- 11:02:22 -0700 (PDT)
+ Thu, 20 Mar 2025 22:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=o2gc0uIp20vFRrnjWwjQL7GVMAiQPOp+xknJd1vKRXg=; b=zL/WnoNqfYWh3Mti5728U+lclE
+ 2m1aEpeUrW2f04ehkDtHsXEpjUzEhltqRDM5857u4bHpUaqps2fC02FG1C6QhAL23wyVfOeWfVQmq
+ dQC/Od8YASee8xAGz7FH9fG6OBKSDSRu7OsJsr54PW2LJDYuiD6AJJWGilAvZkyvMyXasQ8xAh6xW
+ H+KhiLVMAZurplAxKb+giGb+K6rlDPf15mSrZG/EA0x8GdBpDCBrUnMT64kd4ST4aNPrS+r8BPcM9
+ P369Zlx4RLutSYU+sZjkoa+1E8SqxiWfEQurT9icE5zxEjfPVWY6P0S4B/hZep4BP8+E6WlJURFkk
+ /5lLWd4w==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56530)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1tvO6Y-0008DL-1J;
+ Thu, 20 Mar 2025 22:11:10 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1tvO6V-0006z8-0N;
+ Thu, 20 Mar 2025 22:11:07 +0000
+Date: Thu, 20 Mar 2025 22:11:06 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z9ySeo61VYTClIJJ@shell.armlinux.org.uk>
 MIME-Version: 1.0
-References: <20250317232426.952188-1-robh@kernel.org>
- <20250317232426.952188-4-robh@kernel.org>
- <26e72cb2-c355-4c40-bb98-fc0ff267bf4f@foss.st.com>
- <CAL_Jsq+7ZhMWgbFDvPB+3BG7YfiS9PweybOGNY3r=d40RbGHJA@mail.gmail.com>
- <130d61a8-6f03-46dc-94ca-f098bc09babc@foss.st.com>
-In-Reply-To: <130d61a8-6f03-46dc-94ca-f098bc09babc@foss.st.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 20 Mar 2025 13:02:11 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJZkEpx26=ro_y8hHA2x1Zm6z_SFOQHjQ-WzUa-gy+s0w@mail.gmail.com>
-X-Gm-Features: AQ5f1Jr2DWg_p_3pOGaFM-d8b9OA-WiVr1l9JRvSP10bkvbhKAdr3MGldt734ck
-Message-ID: <CAL_JsqJZkEpx26=ro_y8hHA2x1Zm6z_SFOQHjQ-WzUa-gy+s0w@mail.gmail.com>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, imx@lists.linux.dev,
- Saravana Kannan <saravanak@google.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] remoteproc: Use
- of_reserved_mem_region_* functions for "memory-region"
+Content-Disposition: inline
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/5] net: improve stmmac resume rx
+	clocking
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,123 +58,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBNYXIgMjAsIDIwMjUgYXQgNDoyM+KAr0FNIEFybmF1ZCBQT1VMSVFVRU4KPGFybmF1
-ZC5wb3VsaXF1ZW5AZm9zcy5zdC5jb20+IHdyb3RlOgo+Cj4KPgo+IE9uIDMvMjAvMjUgMDA6MDQs
-IFJvYiBIZXJyaW5nIHdyb3RlOgo+ID4gT24gV2VkLCBNYXIgMTksIDIwMjUgYXQgMTA6MjbigK9B
-TSBBcm5hdWQgUE9VTElRVUVOCj4gPiA8YXJuYXVkLnBvdWxpcXVlbkBmb3NzLnN0LmNvbT4gd3Jv
-dGU6Cj4gPj4KPiA+PiBIZWxsbyBSb2IsCj4gPj4KPiA+PiBPbiAzLzE4LzI1IDAwOjI0LCBSb2Ig
-SGVycmluZyAoQXJtKSB3cm90ZToKPiA+Pj4gVXNlIHRoZSBuZXdseSBhZGRlZCBvZl9yZXNlcnZl
-ZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlKCkgYW5kCj4gPj4+IG9mX3Jlc2VydmVkX21lbV9yZWdp
-b25fY291bnQoKSBmdW5jdGlvbnMgdG8gaGFuZGxlICJtZW1vcnktcmVnaW9uIgo+ID4+PiBwcm9w
-ZXJ0aWVzLgo+ID4+Pgo+ID4+PiBUaGUgZXJyb3IgaGFuZGxpbmcgaXMgYSBiaXQgZGlmZmVyZW50
-IGluIHNvbWUgY2FzZXMuIE9mdGVuCj4gPj4+ICJtZW1vcnktcmVnaW9uIiBpcyBvcHRpb25hbCwg
-c28gZmFpbGVkIGxvb2t1cCBpcyBub3QgYW4gZXJyb3IuIEJ1dCB0aGVuCj4gPj4+IGFuIGVycm9y
-IGluIG9mX3Jlc2VydmVkX21lbV9sb29rdXAoKSBpcyB0cmVhdGVkIGFzIGFuIGVycm9yLiBIb3dl
-dmVyLAo+ID4+PiB0aGF0IGRpc3RpbmN0aW9uIGlzIG5vdCByZWFsbHkgaW1wb3J0YW50LiBFaXRo
-ZXIgdGhlIHJlZ2lvbiBpcyBhdmFpbGFibGUKPiA+Pj4gYW5kIHVzYWJsZSBvciBpdCBpcyBub3Qu
-IFNvIG5vdywgaXQgaXMganVzdAo+ID4+PiBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291
-cmNlKCkgd2hpY2ggaXMgY2hlY2tlZCBmb3IgYW4gZXJyb3IuCj4gPj4+Cj4gPj4+IFNpZ25lZC1v
-ZmYtYnk6IFJvYiBIZXJyaW5nIChBcm0pIDxyb2JoQGtlcm5lbC5vcmc+Cj4gPj4+IC0tLQo+ID4+
-PiBGb3IgdjYuMTYKPiA+Pj4KPiA+Cj4gPiBbLi4uXQo+ID4KPiA+Pj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jIGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0bTMy
-X3Jwcm9jLmMKPiA+Pj4gaW5kZXggYjAyYjM2YTNmNTE1Li45ZDJiZDg5MDRjNDkgMTAwNjQ0Cj4g
-Pj4+IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCj4gPj4+ICsrKyBiL2Ry
-aXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCj4gPj4+IEBAIC0yMTMsNTIgKzIxMyw0NiBA
-QCBzdGF0aWMgaW50IHN0bTMyX3Jwcm9jX3ByZXBhcmUoc3RydWN0IHJwcm9jICpycHJvYykKPiA+
-Pj4gIHsKPiA+Pj4gICAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gcnByb2MtPmRldi5wYXJlbnQ7
-Cj4gPj4+ICAgICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAgPSBkZXYtPm9mX25vZGU7Cj4gPj4+
-IC0gICAgIHN0cnVjdCBvZl9waGFuZGxlX2l0ZXJhdG9yIGl0Owo+ID4+PiAgICAgICBzdHJ1Y3Qg
-cnByb2NfbWVtX2VudHJ5ICptZW07Cj4gPj4+IC0gICAgIHN0cnVjdCByZXNlcnZlZF9tZW0gKnJt
-ZW07Cj4gPj4+ICAgICAgIHU2NCBkYTsKPiA+Pj4gLSAgICAgaW50IGluZGV4ID0gMDsKPiA+Pj4g
-KyAgICAgaW50IGluZGV4ID0gMCwgbXIgPSAwOwo+ID4+Pgo+ID4+PiAgICAgICAvKiBSZWdpc3Rl
-ciBhc3NvY2lhdGVkIHJlc2VydmVkIG1lbW9yeSByZWdpb25zICovCj4gPj4+IC0gICAgIG9mX3Bo
-YW5kbGVfaXRlcmF0b3JfaW5pdCgmaXQsIG5wLCAibWVtb3J5LXJlZ2lvbiIsIE5VTEwsIDApOwo+
-ID4+PiAtICAgICB3aGlsZSAob2ZfcGhhbmRsZV9pdGVyYXRvcl9uZXh0KCZpdCkgPT0gMCkgewo+
-ID4+PiAtICAgICAgICAgICAgIHJtZW0gPSBvZl9yZXNlcnZlZF9tZW1fbG9va3VwKGl0Lm5vZGUp
-Owo+ID4+PiAtICAgICAgICAgICAgIGlmICghcm1lbSkgewo+ID4+PiAtICAgICAgICAgICAgICAg
-ICAgICAgb2Zfbm9kZV9wdXQoaXQubm9kZSk7Cj4gPj4+IC0gICAgICAgICAgICAgICAgICAgICBk
-ZXZfZXJyKGRldiwgInVuYWJsZSB0byBhY3F1aXJlIG1lbW9yeS1yZWdpb25cbiIpOwo+ID4+PiAt
-ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPj4+IC0gICAgICAgICAgICAg
-fQo+ID4+PiArICAgICB3aGlsZSAoMSkgewo+ID4+PiArICAgICAgICAgICAgIHN0cnVjdCByZXNv
-dXJjZSByZXM7Cj4gPj4+ICsgICAgICAgICAgICAgaW50IHJldDsKPiA+Pj4gKwo+ID4+PiArICAg
-ICAgICAgICAgIHJldCA9IG9mX3Jlc2VydmVkX21lbV9yZWdpb25fdG9fcmVzb3VyY2UobnAsIG1y
-KyssICZyZXMpOwo+ID4+PiArICAgICAgICAgICAgIGlmIChyZXQpCj4gPj4+ICsgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gMDsKPiA+Pj4KPiA+Pj4gLSAgICAgICAgICAgICBpZiAoc3RtMzJf
-cnByb2NfcGFfdG9fZGEocnByb2MsIHJtZW0tPmJhc2UsICZkYSkgPCAwKSB7Cj4gPj4+IC0gICAg
-ICAgICAgICAgICAgICAgICBvZl9ub2RlX3B1dChpdC5ub2RlKTsKPiA+Pj4gLSAgICAgICAgICAg
-ICAgICAgICAgIGRldl9lcnIoZGV2LCAibWVtb3J5IHJlZ2lvbiBub3QgdmFsaWQgJXBhXG4iLAo+
-ID4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmcm1lbS0+YmFzZSk7Cj4gPj4+ICsg
-ICAgICAgICAgICAgaWYgKHN0bTMyX3Jwcm9jX3BhX3RvX2RhKHJwcm9jLCByZXMuc3RhcnQsICZk
-YSkgPCAwKSB7Cj4gPj4+ICsgICAgICAgICAgICAgICAgICAgICBkZXZfZXJyKGRldiwgIm1lbW9y
-eSByZWdpb24gbm90IHZhbGlkICVwUlxuIiwgJnJlcyk7Cj4gPj4+ICAgICAgICAgICAgICAgICAg
-ICAgICByZXR1cm4gLUVJTlZBTDsKPiA+Pj4gICAgICAgICAgICAgICB9Cj4gPj4+Cj4gPj4+ICAg
-ICAgICAgICAgICAgLyogIE5vIG5lZWQgdG8gbWFwIHZkZXYgYnVmZmVyICovCj4gPj4+IC0gICAg
-ICAgICAgICAgaWYgKHN0cmNtcChpdC5ub2RlLT5uYW1lLCAidmRldjBidWZmZXIiKSkgewo+ID4+
-PiArICAgICAgICAgICAgIGlmIChzdHJjbXAocmVzLm5hbWUsICJ2ZGV2MGJ1ZmZlciIpKSB7Cj4g
-Pj4KPiA+PiBJIHRlc3RlZCB5b3VyIHBhdGNoZXMKPiA+Cj4gPiBUaGFuayB5b3UuCj4gPgo+ID4+
-IFRoZSB1cGRhdGUgaW50cm9kdWNlcyBhIHJlZ3Jlc3Npb24gaGVyZS4gVGhlIHN0cmNtcCBmdW5j
-dGlvbiBuZXZlciByZXR1cm5zIDAuCj4gPj4gSW5kZWVkLCBpdC5ub2RlLT5uYW1lIHN0b3JlcyB0
-aGUgbWVtb3J5IHJlZ2lvbiBsYWJlbCAidmRldjBidWZmZXIsIiB3aGlsZQo+ID4+IHJlcy5uYW1l
-IHN0b3JlcyB0aGUgbWVtb3J5IHJlZ2lvbiBuYW1lICJ2ZGV2MGJ1ZmZlckAxMDA0MjAwMC4iCj4g
-Pj4KPiA+PiBTZXZlcmFsIHJlbW90ZXByb2MgZHJpdmVycyBtYXkgZmFjZSB0aGUgc2FtZSBpc3N1
-ZSBhcyB0aGV5IGVtYmVkIHNpbWlsYXIgY29kZS4KPiA+Cj4gPiBJbmRlZWQuIEkgY29uZnVzZWQg
-bXlzZWxmIGJlY2F1c2Ugbm9kZSAnbmFtZScgaXMgd2l0aG91dCB0aGUKPiA+IHVuaXQtYWRkcmVz
-cywgYnV0IHRoaXMgaXMgdXNpbmcgdGhlIGZ1bGwgbmFtZS4gSSd2ZSByZXBsYWNlZCB0aGUKPiA+
-IHN0cmNtcCdzIHdpdGggc3Ryc3RhcnRzKCkgdG8gYWRkcmVzcyB0aGlzLiBJJ3ZlIHVwZGF0ZWQg
-bXkgYnJhbmNoIHdpdGgKPiA+IHRoZSBjaGFuZ2VzLgo+Cj4gVGhpcyBpcyBub3QgZW5vdWdoIGFz
-IHRoZSByZW1vdGVwcm9jIGNvcmUgZnVuY3Rpb24gcnByb2NfZmluZF9jYXJ2ZW91dF9ieV9uYW1l
-KCkKPiBhbHNvIGNvbXBhcmVzIHRoZSBtZW1vcnkgbmFtZXMuIFdpdGggdGhlIGZvbGxvd2luZyBh
-ZGRpdGlvbmFsIGZpeCwgaXQgaXMgd29ya2luZwo+IG9uIG15IFNUTTMyTVAxNS1ESyBib2FyZC4K
-Pgo+IEBAIC0zMDksMTEgKzMwOSwxMSBAQCBycHJvY19maW5kX2NhcnZlb3V0X2J5X25hbWUoc3Ry
-dWN0IHJwcm9jICpycHJvYywgY29uc3QKPiBjaGFyICpuYW1lLCAuLi4pCj4gICAgICAgICB2c25w
-cmludGYoX25hbWUsIHNpemVvZihfbmFtZSksIG5hbWUsIGFyZ3MpOwo+ICAgICAgICAgdmFfZW5k
-KGFyZ3MpOwo+Cj4gICAgICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KGNhcnZlb3V0LCAmcnByb2Mt
-PmNhcnZlb3V0cywgbm9kZSkgewo+ICAgICAgICAgICAgICAgICAvKiBDb21wYXJlIGNhcnZlb3V0
-IGFuZCByZXF1ZXN0ZWQgbmFtZXMgKi8KPiAtICAgICAgICAgICAgICAgaWYgKCFzdHJjbXAoY2Fy
-dmVvdXQtPm5hbWUsIF9uYW1lKSkgewo+ICsgICAgICAgICAgICAgICBpZiAoc3Ryc3RhcnRzKGNh
-cnZlb3V0LT5uYW1lLCBfbmFtZSkpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICBtZW0gPSBj
-YXJ2ZW91dDsKPiAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPiAgICAgICAgICAgICAg
-ICAgfQo+ICAgICAgICAgfQo+Cj4gSSBqdXN0IHdvbmRlciBpZiB3b3VsZCBub3QgYmUgbW9yZSBz
-dWl0YWJsZSB0byBhZGRyZXNzIHRoaXMgdXNpbmcgdGhlCj4gIm1lbW9yeS1yZWdpb24tbmFtZXMi
-IGZpZWxkLgoKVGhhdCB3b3VsZCBiZSBiZXR0ZXIgYXMgeW91IHNob3VsZG4ndCByZWFsbHkgY2Fy
-ZSB3aGF0IGEgcHJvdmlkZXIgbm9kZQpuYW1lIGlzIHdoZXJlLWFzICJtZW1vcnktcmVnaW9uLW5h
-bWVzIiBpcyBtZWFuaW5nZnVsIHRvIHRoZSBkcml2ZXIuCgo+Cj4gVGhlIGRyYXdiYWNrIGlzIHRo
-YXQgd2Ugd291bGQgYnJlYWsgY29tcGF0aWJpbGl0eSB3aXRoIGxlZ2FjeSBib2FyZHMuLi4KClNv
-IG5vdCBhbiBvcHRpb24uCgpJIHRoaW5rIEknbGwgaGF2ZSB0byBmaXggdGhpcyB3aXRoaW4gdGhl
-IHJlc2VydmVkIG1lbSBjb2RlIHN0b3JpbmcgdGhlCm5hbWUgb3IgZG8gc29tZXRoaW5nIGxpa2Ug
-dGhlIGRpZmYgYmVsb3cuIEknZCBsaWtlIHRvIGF2b2lkIHRoZQpmb3JtZXIuIFVzaW5nIHRoZSBv
-cmlnaW5hbCBkZXZpY2Vfbm9kZS5uYW1lIGlzIGFsc28gcHJvYmxlbWF0aWMKYmVjYXVzZSBJIHdh
-bnQgdG8gZ2V0IHJpZCBvZiBpdC4gV2UgcmVkdW5kYW50bHkgc3RvcmUgdGhlIG5vZGUgbmFtZQp3
-aXRoIGFuZCB3aXRob3V0IHRoZSB1bml0LWFkZHJlc3MuIFRoZXJlJ3MgYSBsb3Qgb2YgcGxhY2Vz
-IGxpa2UgdGhpcwpvbmUgd2hlcmUgd2UgaGFuZCBvdXQgdGhlIHBvaW50ZXIgd2l0aCBubyBsaWZl
-dGltZS4KCmRpZmYgLS1naXQgYS9kcml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYyBiL2Ry
-aXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCmluZGV4IDFlOTQ5Njk0ZDM2NS4uY2RlZTg3
-YzZmZmUwIDEwMDY0NAotLS0gYS9kcml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYworKysg
-Yi9kcml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYwpAQCAtMjM5LDcgKzIzOSw3IEBAIHN0
-YXRpYyBpbnQgc3RtMzJfcnByb2NfcHJlcGFyZShzdHJ1Y3QgcnByb2MgKnJwcm9jKQogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXNvdXJjZV9zaXpl
-KCZyZXMpLCBkYSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc3RtMzJfcnByb2NfbWVtX2FsbG9jLAogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBzdG0zMl9ycHJvY19tZW1fcmVsZWFzZSwKLSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzLm5hbWUpOworICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiJS4qcyIsCnN0
-cmNocm51bChyZXMubmFtZSwgJ0AnKSAtIHJlcy5uYW1lLCByZXMubmFtZSk7CgogICAgICAgICAg
-ICAgICAgICAgICAgICBpZiAobWVtKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJw
-cm9jX2NvcmVkdW1wX2FkZF9zZWdtZW50KHJwcm9jLCBkYSwKQEAgLTI0OSw3ICsyNDksNyBAQCBz
-dGF0aWMgaW50IHN0bTMyX3Jwcm9jX3ByZXBhcmUoc3RydWN0IHJwcm9jICpycHJvYykKICAgICAg
-ICAgICAgICAgICAgICAgICAgbWVtID0gcnByb2Nfb2ZfcmVzbV9tZW1fZW50cnlfaW5pdChkZXYs
-IGluZGV4LAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJlc291cmNlX3NpemUoJnJlcyksCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzLnN0YXJ0LAotICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlcy5uYW1lKTsK
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAidmRldjBidWZmZXIiKTsKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBpZiAo
-IW1lbSkgewpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+Hi,
+
+stmmac has had a long history of problems with resuming, illustrated by
+reset failure due to the receive clock not running.
+
+Several attempts have been attempted over the years to address this
+issue, such as moving phylink_start() (now phylink_resume()) super
+early in stmmac_resume() in commit 90702dcd19c0 ("net: stmmac: fix MAC
+not working when system resume back with WoL a ctive.") However, this
+has the downside that stmmac_mac_link_up() can (and demonstrably is)
+called before or during the driver initialisation in another thread.
+This can cause issues as packets could begin to be queued, and the
+transmit/receive enable bits will be set before any initialisation has
+been done.
+
+Another attempt is used by dwmac-socfpga.c in commit 2d871aa07136 ("net:
+stmmac: add platform init/exit for Altera's ARM socfpga") which
+pre-dates the above commit.
+
+Neither of these two approaches consider the effect of EEE with a PHY
+that supports receive clock-stop and has that feature enabled (which
+the stmmac driver does enable). If the link is up, then there is the
+possibility for the receive path to be in low-power mode, and the PHY
+may stop its receive clock.
+
+This series addresses these issues by (each is not necessarily a
+separate patch):
+
+1) introducing phylink_prepare_resume(), which can be used by MAC
+   drivers to ensure that the PHY is resumed prior to doing any
+   re-initialisation work. This call is added to stmmac_resume().
+
+2) moving phylink_resume() after all re-initialisation has completed,
+   thereby ensuring that the hardware is ready to be enabled for
+   packet reception/transmission.
+
+3) with (1) and (2) addressed, the need for socfpga to have a private
+   work-around is no longer necessary, so it is removed.
+
+4) introducing phylink functions to block/unblock the receive clock-
+   stop at the PHY. As these require PHY access over the MDIO bus,
+   they can sleep, so are not suitable for atomic access.
+
+5) the stmmac hardware requires the receive clock to be running for
+   reset to complete. Depending on synthesis options, this requirement
+   may also extend to writing various registers as well, e.g. setting
+   the MAC address, writing some of the vlan registers, etc. Full
+   details are in the databook.
+
+   We add blocking/unblocking of the PHY receive clock-stop around
+   parts of the main stmmac driver where we have a context that we
+   can sleep. These are wrapped with the new phylink functions.
+
+   However, depending on synthesis options, there could be other
+   places where the net core calls the driver with a BH-disabled
+   context where we can't sleep, and thus can't block the PHY from
+   disabling its receive clock. These are documented with FIXME
+   comments.
+
+Given the last paragraph above, I am wondering whether a better
+approach would be to ensure that receive clock-stop is always disabled
+at the PHY with stmmac. From what I can see, implementations do not
+document to this level of detail, which makes it difficult to tell
+which registers require the receive clock to be running to behave
+correctly.
+
+This patch series has been tested on the Tegra194 Jetson Xavier NX
+board kindly donated by NVidia, with two additional patches that are
+pending in patchwork - the first is required to have EEE's LPI mode
+passed through to the MAC on this platform to allow testing under
+PHY clock-stop scenarios. The second is a bug fix for PHYLIB and
+makes "eee off" functional, but should not affect this series.
+
+All patches on top of net-next commit f749448ce9f1 ("Merge branch
+'net-mlx5-hw-steering-cleanups'")
+
+https://patchwork.kernel.org/project/netdevbpf/patch/E1ttnHW-00785s-Uq@rmk-PC.armlinux.org.uk/
+https://patchwork.kernel.org/project/netdevbpf/patch/E1ttmWN-0077Mb-Q6@rmk-PC.armlinux.org.uk/
+
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 18 -----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 46 ++++++++++--
+ drivers/net/phy/phylink.c                          | 84 ++++++++++++++++++++++
+ include/linux/phylink.h                            |  4 ++
+ 4 files changed, 129 insertions(+), 23 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
