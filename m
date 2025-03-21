@@ -2,56 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1888EA6B8EB
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 11:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B394A6B966
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 12:02:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C31DEC78037;
-	Fri, 21 Mar 2025 10:40:43 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 953B5C71287
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D2D1C78037;
+	Fri, 21 Mar 2025 11:02:07 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A6EEC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Mar 2025 10:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=w0LKCPTWLqOz0v0nFE+m771YyCcWhP2oMeKQU76uMec=; b=GGV8D1vtw9RNsDDh0sGL/X/tYv
- usnovAyelwqv0yDopXgbrW6cYz0L5Bs2S/E+Jvo0w1H4nbClisHkcSex6ceeD2aFDLNUM89EsFqwQ
- SshPS4xhujhu9WQoDE4SPoLqgs439O+PNOqOi52YnQPZdANuRf0qw/qYJMCBFJl7PqhOVA8r8h6Fo
- U2dF4m6s2JfRh4TID8XKCVac42mgFPDV5+Lhfn9BHz81vR+Cavkl29IrFUlVaC8MV5muLolcvTdiU
- j7bMAEnNwvpO/teQRE1uVsJcENho2xqr1OFywzPafJ2+6938uJNVoqeSkquEb4KH/rXI7cy/9FFvz
- J4VVLEeQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53034)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1tvZnm-0000S9-0C;
- Fri, 21 Mar 2025 10:40:34 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1tvZni-0007aA-1A;
- Fri, 21 Mar 2025 10:40:30 +0000
-Date: Fri, 21 Mar 2025 10:40:30 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <Z91CHjqVc0-BmTPX@shell.armlinux.org.uk>
-References: <20250321103502.1303539-1-maxime.chevallier@bootlin.com>
+ Fri, 21 Mar 2025 11:02:05 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0417F1063;
+ Fri, 21 Mar 2025 04:02:12 -0700 (PDT)
+Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52A943F673;
+ Fri, 21 Mar 2025 04:02:03 -0700 (PDT)
+Message-ID: <3bbf8aee-7b84-405a-8a3f-648c74196c2c@arm.com>
+Date: Fri, 21 Mar 2025 11:02:02 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250321103502.1303539-1-maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Call
- xpcs_config_eee_mult_fact() only when xpcs is present
+User-Agent: Mozilla Thunderbird
+To: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@linaro.org>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, leo.yan@arm.com
+References: <20250320-james-coresight-claim-tags-v3-0-d3145c153820@linaro.org>
+ <20250320-james-coresight-claim-tags-v3-1-d3145c153820@linaro.org>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20250320-james-coresight-claim-tags-v3-1-d3145c153820@linaro.org>
+Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/7] coresight: Convert tag clear
+ function to take a struct cs_access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,41 +45,125 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 21, 2025 at 11:35:01AM +0100, Maxime Chevallier wrote:
-> Some dwmac variants such as dwmac_socfpga don't use xpcs but lynx_pcs.
+On 20/03/2025 14:34, James Clark wrote:
+> The self hosted claim tag will be reset on device probe in a later
+> commit. We'll want to do this before coresight_register() is called so
+> won't have a coresight_device and have to use cs_access instead.
 > 
-> Don't call xpcs_config_eee_mult_fact() in this case, as this causes a
-> crash at init :
+> Also make them public and create locked and unlocked versions for
+> later use.
 > 
->  Unable to handle kernel NULL pointer dereference at virtual address 00000039 when write
+> These look functions look like they set the whole tags register as one
+> value, but they only set and clear the self hosted bit using a SET/CLR
+> bits mechanism so also rename the functions to reflect this better.
 > 
->  [...]
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
+> Signed-off-by: James Clark <james.clark@linaro.org>
+> ---
+>   drivers/hwtracing/coresight/coresight-core.c | 27 +++++++++++++++++++--------
+>   include/linux/coresight.h                    |  3 ++-
+>   2 files changed, 21 insertions(+), 9 deletions(-)
 > 
->  Call trace:
->   xpcs_config_eee_mult_fact from stmmac_pcs_setup+0x40/0x10c
->   stmmac_pcs_setup from stmmac_dvr_probe+0xc0c/0x1244
->   stmmac_dvr_probe from socfpga_dwmac_probe+0x130/0x1bc
->   socfpga_dwmac_probe from platform_probe+0x5c/0xb0
-> 
-> Fixes: 060fb27060e8 ("net: stmmac: call xpcs_config_eee_mult_fact()")
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+> index fb43ef6a3b1f..8471aefeac76 100644
+> --- a/drivers/hwtracing/coresight/coresight-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-core.c
+> @@ -144,19 +144,30 @@ static inline bool coresight_is_claimed_any(struct coresight_device *csdev)
+>   	return coresight_read_claim_tags(csdev) != 0;
+>   }
+>   
+> -static inline void coresight_set_claim_tags(struct coresight_device *csdev)
+> +static inline void coresight_set_self_claim_tag(struct coresight_device *csdev)
 
-Yes, I had noticed that but haven't had time to patch it, so thanks for
-submitting the patch. However, I think the code structure could be
-better in this function. Let's get the bug fixed, so:
+nit: For consistency, this should be renamed to _unlocked ?
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Rest looks fine to me
 
-Thanks!
+Suzuki
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+
+>   {
+>   	csdev_access_relaxed_write32(&csdev->access, CORESIGHT_CLAIM_SELF_HOSTED,
+>   				     CORESIGHT_CLAIMSET);
+>   	isb();
+>   }
+>   
+> -static inline void coresight_clear_claim_tags(struct coresight_device *csdev)
+> +void coresight_clear_self_claim_tag(struct csdev_access *csa)
+>   {
+> -	csdev_access_relaxed_write32(&csdev->access, CORESIGHT_CLAIM_SELF_HOSTED,
+> +	if (csa->io_mem)
+> +		CS_UNLOCK(csa->base);
+> +	coresight_clear_self_claim_tag_unlocked(csa);
+> +	if (csa->io_mem)
+> +		CS_LOCK(csa->base);
+> +}
+> +EXPORT_SYMBOL_GPL(coresight_clear_self_claim_tag);
+> +
+> +void coresight_clear_self_claim_tag_unlocked(struct csdev_access *csa)
+> +{
+> +	csdev_access_relaxed_write32(csa, CORESIGHT_CLAIM_SELF_HOSTED,
+>   				     CORESIGHT_CLAIMCLR);
+>   	isb();
+>   }
+> +EXPORT_SYMBOL_GPL(coresight_clear_self_claim_tag_unlocked);
+>   
+>   /*
+>    * coresight_claim_device_unlocked : Claim the device for self-hosted usage
+> @@ -176,11 +187,11 @@ int coresight_claim_device_unlocked(struct coresight_device *csdev)
+>   	if (coresight_is_claimed_any(csdev))
+>   		return -EBUSY;
+>   
+> -	coresight_set_claim_tags(csdev);
+> +	coresight_set_self_claim_tag(csdev);
+>   	if (coresight_is_claimed_self_hosted(csdev))
+>   		return 0;
+> -	/* There was a race setting the tags, clean up and fail */
+> -	coresight_clear_claim_tags(csdev);
+> +	/* There was a race setting the tag, clean up and fail */
+> +	coresight_clear_self_claim_tag_unlocked(&csdev->access);
+>   	return -EBUSY;
+>   }
+>   EXPORT_SYMBOL_GPL(coresight_claim_device_unlocked);
+> @@ -201,7 +212,7 @@ int coresight_claim_device(struct coresight_device *csdev)
+>   EXPORT_SYMBOL_GPL(coresight_claim_device);
+>   
+>   /*
+> - * coresight_disclaim_device_unlocked : Clear the claim tags for the device.
+> + * coresight_disclaim_device_unlocked : Clear the claim tag for the device.
+>    * Called with CS_UNLOCKed for the component.
+>    */
+>   void coresight_disclaim_device_unlocked(struct coresight_device *csdev)
+> @@ -211,7 +222,7 @@ void coresight_disclaim_device_unlocked(struct coresight_device *csdev)
+>   		return;
+>   
+>   	if (coresight_is_claimed_self_hosted(csdev))
+> -		coresight_clear_claim_tags(csdev);
+> +		coresight_clear_self_claim_tag_unlocked(&csdev->access);
+>   	else
+>   		/*
+>   		 * The external agent may have not honoured our claim
+> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
+> index d79a242b271d..00134a80d358 100644
+> --- a/include/linux/coresight.h
+> +++ b/include/linux/coresight.h
+> @@ -685,7 +685,8 @@ extern int coresight_timeout_action(struct csdev_access *csa, u32 offset,
+>   
+>   extern int coresight_claim_device(struct coresight_device *csdev);
+>   extern int coresight_claim_device_unlocked(struct coresight_device *csdev);
+> -
+> +void coresight_clear_self_claim_tag(struct csdev_access *csa);
+> +void coresight_clear_self_claim_tag_unlocked(struct csdev_access *csa);
+>   extern void coresight_disclaim_device(struct coresight_device *csdev);
+>   extern void coresight_disclaim_device_unlocked(struct coresight_device *csdev);
+>   extern char *coresight_alloc_device_name(struct coresight_dev_list *devs,
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
