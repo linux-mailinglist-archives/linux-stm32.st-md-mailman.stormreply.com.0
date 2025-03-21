@@ -2,38 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF87DA6BA54
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 13:10:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95131A6BAE8
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 13:42:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FB41C78034;
-	Fri, 21 Mar 2025 12:10:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46363C78037;
+	Fri, 21 Mar 2025 12:42:23 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 024D8CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60FECC71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Mar 2025 12:10:50 +0000 (UTC)
+ Fri, 21 Mar 2025 12:42:21 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56E60106F;
- Fri, 21 Mar 2025 05:10:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFBA3106F;
+ Fri, 21 Mar 2025 05:42:27 -0700 (PDT)
 Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B0A813F694;
- Fri, 21 Mar 2025 05:10:48 -0700 (PDT)
-Message-ID: <40e30ec8-a7ea-46b9-b687-aa7efa8cf0e1@arm.com>
-Date: Fri, 21 Mar 2025 12:10:47 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 23F393F63F;
+ Fri, 21 Mar 2025 05:42:19 -0700 (PDT)
+Message-ID: <2d3fb704-172c-4632-9e95-02bbfb8c0f90@arm.com>
+Date: Fri, 21 Mar 2025 12:42:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
 To: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@linaro.org>, 
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, leo.yan@arm.com
 References: <20250320-james-coresight-claim-tags-v3-0-d3145c153820@linaro.org>
- <20250320-james-coresight-claim-tags-v3-2-d3145c153820@linaro.org>
+ <20250320-james-coresight-claim-tags-v3-1-d3145c153820@linaro.org>
+ <3bbf8aee-7b84-405a-8a3f-648c74196c2c@arm.com>
 Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20250320-james-coresight-claim-tags-v3-2-d3145c153820@linaro.org>
+In-Reply-To: <3bbf8aee-7b84-405a-8a3f-648c74196c2c@arm.com>
 Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 2/7] coresight: Only check bottom two
-	claim bits
+Subject: Re: [Linux-stm32] [PATCH v3 1/7] coresight: Convert tag clear
+ function to take a struct cs_access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,62 +46,105 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/03/2025 14:34, James Clark wrote:
-> The use of the whole register and == could break the claim mechanism if
-> any of the other bits are used in the future. The referenced doc "PSCI -
-> ARM DEN 0022D" also says to only read and clear the bottom two bits.
-> 
-> Use FIELD_GET() to extract only the relevant part.
-> 
-> Reviewed-by: Leo Yan <leo.yan@arm.com>
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->   drivers/hwtracing/coresight/coresight-core.c | 3 ++-
->   drivers/hwtracing/coresight/coresight-priv.h | 1 +
->   2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index 8471aefeac76..26d149a4c579 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -131,7 +131,8 @@ coresight_find_out_connection(struct coresight_device *csdev,
->   
->   static inline u32 coresight_read_claim_tags(struct coresight_device *csdev)
->   {
-> -	return csdev_access_relaxed_read32(&csdev->access, CORESIGHT_CLAIMCLR);
-> +	return FIELD_GET(CORESIGHT_CLAIM_MASK,
-> +			 csdev_access_relaxed_read32(&csdev->access, CORESIGHT_CLAIMCLR));
->   }
->   
->   static inline bool coresight_is_claimed_self_hosted(struct coresight_device *csdev)
-> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-> index 82644aff8d2b..38bb4e8b50ef 100644
-> --- a/drivers/hwtracing/coresight/coresight-priv.h
-> +++ b/drivers/hwtracing/coresight/coresight-priv.h
-> @@ -35,6 +35,7 @@ extern const struct device_type coresight_dev_type[];
->    * Coresight device CLAIM protocol.
->    * See PSCI - ARM DEN 0022D, Section: 6.8.1 Debug and Trace save and restore.
->    */
-> +#define CORESIGHT_CLAIM_MASK		GENMASK(1, 0)
->   #define CORESIGHT_CLAIM_SELF_HOSTED	BIT(1)
-
-I am checking with the Arm CoreSight architects on this. This is
-problematic, if another agent is assigned, say BIT(2) and we wouldn't
-forward compatible.
-
-Suzuki
-
-
->   
->   #define TIMEOUT_US		100
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjEvMDMvMjAyNSAxMTowMiwgU3V6dWtpIEsgUG91bG9zZSB3cm90ZToKPiBPbiAyMC8wMy8y
+MDI1IDE0OjM0LCBKYW1lcyBDbGFyayB3cm90ZToKPj4gVGhlIHNlbGYgaG9zdGVkIGNsYWltIHRh
+ZyB3aWxsIGJlIHJlc2V0IG9uIGRldmljZSBwcm9iZSBpbiBhIGxhdGVyCj4+IGNvbW1pdC4gV2Un
+bGwgd2FudCB0byBkbyB0aGlzIGJlZm9yZSBjb3Jlc2lnaHRfcmVnaXN0ZXIoKSBpcyBjYWxsZWQg
+c28KPj4gd29uJ3QgaGF2ZSBhIGNvcmVzaWdodF9kZXZpY2UgYW5kIGhhdmUgdG8gdXNlIGNzX2Fj
+Y2VzcyBpbnN0ZWFkLgo+Pgo+PiBBbHNvIG1ha2UgdGhlbSBwdWJsaWMgYW5kIGNyZWF0ZSBsb2Nr
+ZWQgYW5kIHVubG9ja2VkIHZlcnNpb25zIGZvcgo+PiBsYXRlciB1c2UuCj4+Cj4+IFRoZXNlIGxv
+b2sgZnVuY3Rpb25zIGxvb2sgbGlrZSB0aGV5IHNldCB0aGUgd2hvbGUgdGFncyByZWdpc3RlciBh
+cyBvbmUKPj4gdmFsdWUsIGJ1dCB0aGV5IG9ubHkgc2V0IGFuZCBjbGVhciB0aGUgc2VsZiBob3N0
+ZWQgYml0IHVzaW5nIGEgU0VUL0NMUgo+PiBiaXRzIG1lY2hhbmlzbSBzbyBhbHNvIHJlbmFtZSB0
+aGUgZnVuY3Rpb25zIHRvIHJlZmxlY3QgdGhpcyBiZXR0ZXIuCj4+Cj4+IFJldmlld2VkLWJ5OiBM
+ZW8gWWFuIDxsZW8ueWFuQGFybS5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEphbWVzIENsYXJrIDxq
+YW1lcy5jbGFya0BsaW5hcm8ub3JnPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29y
+ZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmMgfCAyNyArKysrKysrKysrKysrKysrKysgCj4+ICstLS0t
+LS0tLQo+PiDCoCBpbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5owqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgfMKgIDMgKystCj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgMjEgaW5z
+ZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0
+cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtY29yZS5jIGIvZHJpdmVycy8gCj4+IGh3dHJhY2lu
+Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWNvcmUuYwo+PiBpbmRleCBmYjQzZWY2YTNiMWYuLjg0NzFh
+ZWZlYWM3NiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
+aWdodC1jb3JlLmMKPj4gKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdo
+dC1jb3JlLmMKPj4gQEAgLTE0NCwxOSArMTQ0LDMwIEBAIHN0YXRpYyBpbmxpbmUgYm9vbCAKPj4g
+Y29yZXNpZ2h0X2lzX2NsYWltZWRfYW55KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldikK
+Pj4gwqDCoMKgwqDCoCByZXR1cm4gY29yZXNpZ2h0X3JlYWRfY2xhaW1fdGFncyhjc2RldikgIT0g
+MDsKPj4gwqAgfQo+PiAtc3RhdGljIGlubGluZSB2b2lkIGNvcmVzaWdodF9zZXRfY2xhaW1fdGFn
+cyhzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAKPj4gKmNzZGV2KQo+PiArc3RhdGljIGlubGluZSB2
+b2lkIGNvcmVzaWdodF9zZXRfc2VsZl9jbGFpbV90YWcoc3RydWN0IAo+PiBjb3Jlc2lnaHRfZGV2
+aWNlICpjc2RldikKPiAKPiBuaXQ6IEZvciBjb25zaXN0ZW5jeSwgdGhpcyBzaG91bGQgYmUgcmVu
+YW1lZCB0byBfdW5sb2NrZWQgPwo+IAoKbWlub3Igbml0IG9uIHRoZSBzdWJqZWN0OwoKcy9jc19h
+Y2Nlc3MvY3NkZXZfYWNjZXNzLwoKU3V6dWtpCgoKPiAKClJlc3QgbG9va3MgZmluZSB0byBtZQo+
+IAo+IFN1enVraQo+IAo+IAo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgY3NkZXZfYWNjZXNzX3JlbGF4
+ZWRfd3JpdGUzMigmY3NkZXYtPmFjY2VzcywgCj4+IENPUkVTSUdIVF9DTEFJTV9TRUxGX0hPU1RF
+RCwKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQ09SRVNJ
+R0hUX0NMQUlNU0VUKTsKPj4gwqDCoMKgwqDCoCBpc2IoKTsKPj4gwqAgfQo+PiAtc3RhdGljIGlu
+bGluZSB2b2lkIGNvcmVzaWdodF9jbGVhcl9jbGFpbV90YWdzKHN0cnVjdCBjb3Jlc2lnaHRfZGV2
+aWNlIAo+PiAqY3NkZXYpCj4+ICt2b2lkIGNvcmVzaWdodF9jbGVhcl9zZWxmX2NsYWltX3RhZyhz
+dHJ1Y3QgY3NkZXZfYWNjZXNzICpjc2EpCj4+IMKgIHsKPj4gLcKgwqDCoCBjc2Rldl9hY2Nlc3Nf
+cmVsYXhlZF93cml0ZTMyKCZjc2Rldi0+YWNjZXNzLCAKPj4gQ09SRVNJR0hUX0NMQUlNX1NFTEZf
+SE9TVEVELAo+PiArwqDCoMKgIGlmIChjc2EtPmlvX21lbSkKPj4gK8KgwqDCoMKgwqDCoMKgIENT
+X1VOTE9DSyhjc2EtPmJhc2UpOwo+PiArwqDCoMKgIGNvcmVzaWdodF9jbGVhcl9zZWxmX2NsYWlt
+X3RhZ191bmxvY2tlZChjc2EpOwo+PiArwqDCoMKgIGlmIChjc2EtPmlvX21lbSkKPj4gK8KgwqDC
+oMKgwqDCoMKgIENTX0xPQ0soY3NhLT5iYXNlKTsKPj4gK30KPj4gK0VYUE9SVF9TWU1CT0xfR1BM
+KGNvcmVzaWdodF9jbGVhcl9zZWxmX2NsYWltX3RhZyk7Cj4+ICsKPj4gK3ZvaWQgY29yZXNpZ2h0
+X2NsZWFyX3NlbGZfY2xhaW1fdGFnX3VubG9ja2VkKHN0cnVjdCBjc2Rldl9hY2Nlc3MgKmNzYSkK
+Pj4gK3sKPj4gK8KgwqDCoCBjc2Rldl9hY2Nlc3NfcmVsYXhlZF93cml0ZTMyKGNzYSwgQ09SRVNJ
+R0hUX0NMQUlNX1NFTEZfSE9TVEVELAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBDT1JFU0lHSFRfQ0xBSU1DTFIpOwo+PiDCoMKgwqDCoMKgIGlzYigpOwo+
+PiDCoCB9Cj4+ICtFWFBPUlRfU1lNQk9MX0dQTChjb3Jlc2lnaHRfY2xlYXJfc2VsZl9jbGFpbV90
+YWdfdW5sb2NrZWQpOwo+PiDCoCAvKgo+PiDCoMKgICogY29yZXNpZ2h0X2NsYWltX2RldmljZV91
+bmxvY2tlZCA6IENsYWltIHRoZSBkZXZpY2UgZm9yIHNlbGYtIAo+PiBob3N0ZWQgdXNhZ2UKPj4g
+QEAgLTE3NiwxMSArMTg3LDExIEBAIGludCBjb3Jlc2lnaHRfY2xhaW1fZGV2aWNlX3VubG9ja2Vk
+KHN0cnVjdCAKPj4gY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+IMKgwqDCoMKgwqAgaWYgKGNv
+cmVzaWdodF9pc19jbGFpbWVkX2FueShjc2RldikpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1
+cm4gLUVCVVNZOwo+PiAtwqDCoMKgIGNvcmVzaWdodF9zZXRfY2xhaW1fdGFncyhjc2Rldik7Cj4+
+ICvCoMKgwqAgY29yZXNpZ2h0X3NldF9zZWxmX2NsYWltX3RhZyhjc2Rldik7Cj4+IMKgwqDCoMKg
+wqAgaWYgKGNvcmVzaWdodF9pc19jbGFpbWVkX3NlbGZfaG9zdGVkKGNzZGV2KSkKPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiAtwqDCoMKgIC8qIFRoZXJlIHdhcyBhIHJhY2Ugc2V0
+dGluZyB0aGUgdGFncywgY2xlYW4gdXAgYW5kIGZhaWwgKi8KPj4gLcKgwqDCoCBjb3Jlc2lnaHRf
+Y2xlYXJfY2xhaW1fdGFncyhjc2Rldik7Cj4+ICvCoMKgwqAgLyogVGhlcmUgd2FzIGEgcmFjZSBz
+ZXR0aW5nIHRoZSB0YWcsIGNsZWFuIHVwIGFuZCBmYWlsICovCj4+ICvCoMKgwqAgY29yZXNpZ2h0
+X2NsZWFyX3NlbGZfY2xhaW1fdGFnX3VubG9ja2VkKCZjc2Rldi0+YWNjZXNzKTsKPj4gwqDCoMKg
+wqDCoCByZXR1cm4gLUVCVVNZOwo+PiDCoCB9Cj4+IMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNvcmVz
+aWdodF9jbGFpbV9kZXZpY2VfdW5sb2NrZWQpOwo+PiBAQCAtMjAxLDcgKzIxMiw3IEBAIGludCBj
+b3Jlc2lnaHRfY2xhaW1fZGV2aWNlKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlIAo+PiAqY3NkZXYp
+Cj4+IMKgIEVYUE9SVF9TWU1CT0xfR1BMKGNvcmVzaWdodF9jbGFpbV9kZXZpY2UpOwo+PiDCoCAv
+Kgo+PiAtICogY29yZXNpZ2h0X2Rpc2NsYWltX2RldmljZV91bmxvY2tlZCA6IENsZWFyIHRoZSBj
+bGFpbSB0YWdzIGZvciB0aGUgCj4+IGRldmljZS4KPj4gKyAqIGNvcmVzaWdodF9kaXNjbGFpbV9k
+ZXZpY2VfdW5sb2NrZWQgOiBDbGVhciB0aGUgY2xhaW0gdGFnIGZvciB0aGUgCj4+IGRldmljZS4K
+Pj4gwqDCoCAqIENhbGxlZCB3aXRoIENTX1VOTE9DS2VkIGZvciB0aGUgY29tcG9uZW50Lgo+PiDC
+oMKgICovCj4+IMKgIHZvaWQgY29yZXNpZ2h0X2Rpc2NsYWltX2RldmljZV91bmxvY2tlZChzdHJ1
+Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYpCj4+IEBAIC0yMTEsNyArMjIyLDcgQEAgdm9pZCBj
+b3Jlc2lnaHRfZGlzY2xhaW1fZGV2aWNlX3VubG9ja2VkKHN0cnVjdCAKPj4gY29yZXNpZ2h0X2Rl
+dmljZSAqY3NkZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+IMKgwqDCoMKgwqAg
+aWYgKGNvcmVzaWdodF9pc19jbGFpbWVkX3NlbGZfaG9zdGVkKGNzZGV2KSkKPj4gLcKgwqDCoMKg
+wqDCoMKgIGNvcmVzaWdodF9jbGVhcl9jbGFpbV90YWdzKGNzZGV2KTsKPj4gK8KgwqDCoMKgwqDC
+oMKgIGNvcmVzaWdodF9jbGVhcl9zZWxmX2NsYWltX3RhZ191bmxvY2tlZCgmY3NkZXYtPmFjY2Vz
+cyk7Cj4+IMKgwqDCoMKgwqAgZWxzZQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLyoKPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgKiBUaGUgZXh0ZXJuYWwgYWdlbnQgbWF5IGhhdmUgbm90IGhvbm91cmVk
+IG91ciBjbGFpbQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9jb3Jlc2lnaHQuaCBiL2lu
+Y2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gaW5kZXggZDc5YTI0MmIyNzFkLi4wMDEzNGE4MGQz
+NTggMTAwNjQ0Cj4+IC0tLSBhL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gKysrIGIvaW5j
+bHVkZS9saW51eC9jb3Jlc2lnaHQuaAo+PiBAQCAtNjg1LDcgKzY4NSw4IEBAIGV4dGVybiBpbnQg
+Y29yZXNpZ2h0X3RpbWVvdXRfYWN0aW9uKHN0cnVjdCAKPj4gY3NkZXZfYWNjZXNzICpjc2EsIHUz
+MiBvZmZzZXQsCj4+IMKgIGV4dGVybiBpbnQgY29yZXNpZ2h0X2NsYWltX2RldmljZShzdHJ1Y3Qg
+Y29yZXNpZ2h0X2RldmljZSAqY3NkZXYpOwo+PiDCoCBleHRlcm4gaW50IGNvcmVzaWdodF9jbGFp
+bV9kZXZpY2VfdW5sb2NrZWQoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgCj4+ICpjc2Rldik7Cj4+
+IC0KPj4gK3ZvaWQgY29yZXNpZ2h0X2NsZWFyX3NlbGZfY2xhaW1fdGFnKHN0cnVjdCBjc2Rldl9h
+Y2Nlc3MgKmNzYSk7Cj4+ICt2b2lkIGNvcmVzaWdodF9jbGVhcl9zZWxmX2NsYWltX3RhZ191bmxv
+Y2tlZChzdHJ1Y3QgY3NkZXZfYWNjZXNzICpjc2EpOwo+PiDCoCBleHRlcm4gdm9pZCBjb3Jlc2ln
+aHRfZGlzY2xhaW1fZGV2aWNlKHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2Rldik7Cj4+IMKg
+IGV4dGVybiB2b2lkIGNvcmVzaWdodF9kaXNjbGFpbV9kZXZpY2VfdW5sb2NrZWQoc3RydWN0IAo+
+PiBjb3Jlc2lnaHRfZGV2aWNlICpjc2Rldik7Cj4+IMKgIGV4dGVybiBjaGFyICpjb3Jlc2lnaHRf
+YWxsb2NfZGV2aWNlX25hbWUoc3RydWN0IGNvcmVzaWdodF9kZXZfbGlzdCAKPj4gKmRldnMsCj4+
+Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
