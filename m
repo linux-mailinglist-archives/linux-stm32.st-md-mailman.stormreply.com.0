@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CF8A6B777
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 10:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D517FA6B7EC
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 10:46:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B674C78F60;
-	Fri, 21 Mar 2025 09:34:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A329C78F65;
+	Fri, 21 Mar 2025 09:46:12 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15B77CFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89311CFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Mar 2025 09:34:43 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52L58g15007292;
- Fri, 21 Mar 2025 10:34:34 +0100
+ Fri, 21 Mar 2025 09:46:11 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52L7Wugv022748;
+ Fri, 21 Mar 2025 10:46:01 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- WwkG1pZIiujSvSdNAeNRVIU4m+oKTZ5N+BMPOnssFpU=; b=4U0PB6XM2gh6OPAB
- VWn4O85SC8oaCqO50cshe0tpqfsQjZZnKS6qvjK/e8HsPiqQON2lC3VTOtAUTOkv
- 2FH6d+C73xhTLrY1b19GXJFHIxeeiKV0MZvI3WNKpKzzz40oSymjII4G7ykg32H5
- 29/m7IaBnSyQlZVZ3WjMAPK5P3s1Jo0PfNi532XwiQSSmIpLgE/+OGxcTLKeX9f4
- ZEOEUZzrlBx0x+XetBUS2hyhp1Tnui0da8Dmy09xLqstoBlJPXo/QxLhbBigxnxM
- WBwR760FX/2RH4cJ0ConLI64dGpP8RbbNL1EyFQotfHa2KJuTk17HgXeEz169Eyu
- T0BrUQ==
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=7Y7qy82W/MHyCEGXEwG2Lm
+ tsCr2HxaEkUE++ooAr6hc=; b=sieHespPBE871IVXmcCJp+MWOXdP3dKvauL2JH
+ uH2kHRNpgYjjk/PEp2QM+uM9HNDZLOdV8neSNY1zHNfcNpYV5UPPl317EXHk6s1c
+ WwfRXK97/VQ/q9kmPWXO4orkhNhtW3om4yrRtQL23HAIk1BkaCymJ0Ftv3oOTULb
+ lVZauc43F8dN6q+DUCiYVsDThhi/ZyFNpfj7+8Dr3a+NGIo7TWJEKU9rqqLaGXke
+ sdf997s7G3LHsteRcbyjar1CZ8y7k0qWIoowlbnUmlGXfTSplgV+qqC4yLw8VZwv
+ czADI3at8qrExPMvdxFM6DSNuB1Ecw0HT0z8iC/wyvbaVeAg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45gh76vnq8-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45h3tqrq41-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Mar 2025 10:34:34 +0100 (CET)
+ Fri, 21 Mar 2025 10:46:01 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1FEF540061;
- Fri, 21 Mar 2025 10:33:21 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CBA5D40051;
+ Fri, 21 Mar 2025 10:44:55 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0C4A37BD057;
- Fri, 21 Mar 2025 10:32:32 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EA89F7C17B5;
+ Fri, 21 Mar 2025 10:44:06 +0100 (CET)
 Received: from localhost (10.252.27.50) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Mar
- 2025 10:32:31 +0100
+ 2025 10:44:06 +0100
 From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Fri, 21 Mar 2025 10:32:27 +0100
+Date: Fri, 21 Mar 2025 10:44:05 +0100
+Message-ID: <20250321-upstream_ospi_required_resets-v1-0-9aa4702e3ae2@foss.st.com>
 MIME-Version: 1.0
-Message-ID: <20250321-upstream_ospi_v6-v6-7-37bbcab43439@foss.st.com>
-References: <20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com>
-In-Reply-To: <20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAOU03WcC/x3MQQqDQAxG4atI1h0wo9XSqxSRUf+2WajTREUQ7
+ 97B3fs27yCDCoye2UGKTUzmKYFvGfXfMH3gZEgmn/t7Xnh2a7RFEcZ2tiit4reKYkhhWMwVZXh
+ 0XFfMXUXpERVv2a//qznPP7YLko5vAAAA
+X-Change-ID: 20250321-upstream_ospi_required_resets-34a8b17611b6
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
 X-Mailer: b4 0.14.2
 X-Originating-IP: [10.252.27.50]
 X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-21_03,2025-03-20_01,2024-11-22_01
+ definitions=2025-03-21_04,2025-03-20_01,2024-11-22_01
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 7/7] arm64: defconfig: Enable STM32 Octo
- Memory Manager and OcstoSPI driver
+Subject: [Linux-stm32] [PATCH 0/2] spi: spi-stm32-ospi: dt-bindings fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,38 +80,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable STM32 OctoSPI driver.
-Enable STM32 Octo Memory Manager (OMM) driver which is needed
-for OSPI usage on STM32MP257F-EV1 board.
+Make "resets" property mandatory.
+Update spi-stm32-ospi driver and dt-bindings accordingly.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm64/configs/defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+Patrice Chotard (2):
+      spi: dt-bindings: st,stm32mp25-ospi: Make "resets" a required property
+      spi: spi-stm32-ospi: Make "resets" a required property
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index bde1287ad9a7a1341162b817873eb651bb310d52..3674d9138bae6deba19c0d13586aa6e1de6750c5 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -580,6 +580,7 @@ CONFIG_SPI_QUP=y
- CONFIG_SPI_QCOM_GENI=m
- CONFIG_SPI_S3C64XX=y
- CONFIG_SPI_SH_MSIOF=m
-+CONFIG_SPI_STM32_OSPI=m
- CONFIG_SPI_SUN6I=y
- CONFIG_SPI_TEGRA210_QUAD=m
- CONFIG_SPI_TEGRA114=m
-@@ -1518,6 +1519,7 @@ CONFIG_EXTCON_USB_GPIO=y
- CONFIG_EXTCON_USBC_CROS_EC=y
- CONFIG_FSL_IFC=y
- CONFIG_RENESAS_RPCIF=m
-+CONFIG_STM32_OMM=m
- CONFIG_IIO=y
- CONFIG_EXYNOS_ADC=y
- CONFIG_IMX8QXP_ADC=m
+ Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml | 1 +
+ drivers/spi/spi-stm32-ospi.c                                 | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+---
+base-commit: e94bd4ec45ac156616da285a0bf03056cd7430fc
+change-id: 20250321-upstream_ospi_required_resets-34a8b17611b6
 
+Best regards,
 -- 
-2.25.1
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
