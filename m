@@ -2,38 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B394A6B966
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 12:02:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84747A6B9B9
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 12:18:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D2D1C78037;
-	Fri, 21 Mar 2025 11:02:07 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A6EEC71287
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23E42C78037;
+	Fri, 21 Mar 2025 11:18:34 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0B64C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Mar 2025 11:02:05 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0417F1063;
- Fri, 21 Mar 2025 04:02:12 -0700 (PDT)
-Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52A943F673;
- Fri, 21 Mar 2025 04:02:03 -0700 (PDT)
-Message-ID: <3bbf8aee-7b84-405a-8a3f-648c74196c2c@arm.com>
-Date: Fri, 21 Mar 2025 11:02:02 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@linaro.org>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Fri, 21 Mar 2025 11:18:32 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-ac2bdea5a38so304382766b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 21 Mar 2025 04:18:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1742555912; x=1743160712;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wabejZpAhNXZ4/gZ6Mz5z7QPUdV1DRKOqhima9IvQnA=;
+ b=fHT4x21EFSaD3gPbRa9qZjwOHQR9d5xi0rYdnU7KN6Nw09+nnJaGVfYWeWXsyK/qvI
+ h8v9wsRfRQcZ23PcoxV01VRpKJ6tBuF/2AwWPdBbWCRWhA6gbrj9KYUT3WQnk2uciacd
+ Zb1Hl8wE2FWDIIpEHZ9TH3J1ILoIOwJZ+zSpegq7Z3+aCtpVYwidvUsphn4hJIDcrLja
+ 8JcLo2Bl/ZI945BizWtuzeMFrf5eP9fNm2mSBPZax2Ng+NwkPwdIOj/gFueCf+9QwEHY
+ 4W8Ywzkp7ZidazFVzKLaVswmh38u+rUxkuNVl2Jc8zFkFhhfm/KOtQW4p7XB7Oee+fvN
+ 4eCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742555912; x=1743160712;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wabejZpAhNXZ4/gZ6Mz5z7QPUdV1DRKOqhima9IvQnA=;
+ b=STeAGrBrIV4iFBgxa650yis4JrZotd7kYHBoA8A/EHuahXxxqnZxHxpH6y1DWySgJT
+ GldXqgXyOVetAf0F+4O2XHAlUbjqE+Mx5ubYl+L0Jt8TDz7tfvAyA1WukuGbSpKUroma
+ 5I/u6GG0gIkYVpiq3otOQpdtzWMf2qXLdzK41TA/Tkwuz3cB7c/OykKGf3GeYhd/esJI
+ duez45q6DdblPX60ix9u7V87boGQus2JAt+/3XLSR+zSD5t/y4rn36aRk6XVfXnbVcIb
+ TEMNdzTbdCiY3cEaGAV8HD62fJBIOW59Venk0iSUjHPIWvzKTTovOAto73OSEMbRiUt1
+ 4J8g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXIba0vWIeU1vpHUzbehId/lO6zruJG6lrp9ht9f/GR0gG/UELOj2U8lhzAfDHzyS49EPNaxp/QOsvyXQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwUbE1ssT9Lh6cOdKiKqyjmc7bkKmRhRJcEKktoIUtRjaiwUS3w
+ VabBclY1DIo29zzNILUtIG9GBLos2Zg5X0OVeFl48DpduHFn1xq8
+X-Gm-Gg: ASbGncvcDcOYD6/tLrRtcswuMkX2ZQfd1l21eVsnDPx8pKUDbAl5m01Y3BpL433rBDx
+ v+rHCzS2uvqLL3piRzAWtdakK0Xbkx1mW15I5pr6IvQVz9QeyTFdPMahVzjGRp8smABT8u7THtL
+ aEYupyebtB+DLvOVaakFm6EUuiu0d0uZ/KNCXJmhse8fxVQFxvHAptahJp7DBoub7Z+6h4bLvqX
+ AXN3xovINyB8C4JKIbSIu6a1rb5/lIw/onwU//6nzC9dZEi0gNVt9m4sMSvlZa7ZaOWxx4LJHSR
+ /sDNASGkmceRJkeXRw2W/b/zwYAiOFENldwa7eZ/Cr/FCV6M
+X-Google-Smtp-Source: AGHT+IHMumxU+/ISFAj+iAHmIZdUWCL4jaCPHJzJ+2s0QvWW8i+j2WLpKz/19GnwzdojwRlGDakcKQ==
+X-Received: by 2002:a17:907:da0c:b0:ac3:ed4c:6a17 with SMTP id
+ a640c23a62f3a-ac3f224dab8mr322426666b.24.1742555911781; 
+ Fri, 21 Mar 2025 04:18:31 -0700 (PDT)
+Received: from wslxew242.. ([188.193.103.108])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3efd569f3sm134228866b.171.2025.03.21.04.18.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Mar 2025 04:18:31 -0700 (PDT)
+From: =?UTF-8?q?Goran=20Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, leo.yan@arm.com
-References: <20250320-james-coresight-claim-tags-v3-0-d3145c153820@linaro.org>
- <20250320-james-coresight-claim-tags-v3-1-d3145c153820@linaro.org>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20250320-james-coresight-claim-tags-v3-1-d3145c153820@linaro.org>
-Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/7] coresight: Convert tag clear
- function to take a struct cs_access
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 21 Mar 2025 12:18:18 +0100
+Message-ID: <20250321111821.361419-4-goran.radni@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250321111821.361419-1-goran.radni@gmail.com>
+References: <20250321111821.361419-1-goran.radni@gmail.com>
+MIME-Version: 1.0
+Cc: =?UTF-8?q?Goran=20Ra=C4=91enovi=C4=87?= <gradenovic@ultratronik.de>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 3/4] dt-bindings: arm: stm32: Document
+	Ultratronik's Fly board DT binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,126 +88,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/03/2025 14:34, James Clark wrote:
-> The self hosted claim tag will be reset on device probe in a later
-> commit. We'll want to do this before coresight_register() is called so
-> won't have a coresight_device and have to use cs_access instead.
-> 
-> Also make them public and create locked and unlocked versions for
-> later use.
-> 
-> These look functions look like they set the whole tags register as one
-> value, but they only set and clear the self hosted bit using a SET/CLR
-> bits mechanism so also rename the functions to reflect this better.
-> 
-> Reviewed-by: Leo Yan <leo.yan@arm.com>
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->   drivers/hwtracing/coresight/coresight-core.c | 27 +++++++++++++++++++--------
->   include/linux/coresight.h                    |  3 ++-
->   2 files changed, 21 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index fb43ef6a3b1f..8471aefeac76 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -144,19 +144,30 @@ static inline bool coresight_is_claimed_any(struct coresight_device *csdev)
->   	return coresight_read_claim_tags(csdev) != 0;
->   }
->   
-> -static inline void coresight_set_claim_tags(struct coresight_device *csdev)
-> +static inline void coresight_set_self_claim_tag(struct coresight_device *csdev)
-
-nit: For consistency, this should be renamed to _unlocked ?
-
-Rest looks fine to me
-
-Suzuki
-
-
->   {
->   	csdev_access_relaxed_write32(&csdev->access, CORESIGHT_CLAIM_SELF_HOSTED,
->   				     CORESIGHT_CLAIMSET);
->   	isb();
->   }
->   
-> -static inline void coresight_clear_claim_tags(struct coresight_device *csdev)
-> +void coresight_clear_self_claim_tag(struct csdev_access *csa)
->   {
-> -	csdev_access_relaxed_write32(&csdev->access, CORESIGHT_CLAIM_SELF_HOSTED,
-> +	if (csa->io_mem)
-> +		CS_UNLOCK(csa->base);
-> +	coresight_clear_self_claim_tag_unlocked(csa);
-> +	if (csa->io_mem)
-> +		CS_LOCK(csa->base);
-> +}
-> +EXPORT_SYMBOL_GPL(coresight_clear_self_claim_tag);
-> +
-> +void coresight_clear_self_claim_tag_unlocked(struct csdev_access *csa)
-> +{
-> +	csdev_access_relaxed_write32(csa, CORESIGHT_CLAIM_SELF_HOSTED,
->   				     CORESIGHT_CLAIMCLR);
->   	isb();
->   }
-> +EXPORT_SYMBOL_GPL(coresight_clear_self_claim_tag_unlocked);
->   
->   /*
->    * coresight_claim_device_unlocked : Claim the device for self-hosted usage
-> @@ -176,11 +187,11 @@ int coresight_claim_device_unlocked(struct coresight_device *csdev)
->   	if (coresight_is_claimed_any(csdev))
->   		return -EBUSY;
->   
-> -	coresight_set_claim_tags(csdev);
-> +	coresight_set_self_claim_tag(csdev);
->   	if (coresight_is_claimed_self_hosted(csdev))
->   		return 0;
-> -	/* There was a race setting the tags, clean up and fail */
-> -	coresight_clear_claim_tags(csdev);
-> +	/* There was a race setting the tag, clean up and fail */
-> +	coresight_clear_self_claim_tag_unlocked(&csdev->access);
->   	return -EBUSY;
->   }
->   EXPORT_SYMBOL_GPL(coresight_claim_device_unlocked);
-> @@ -201,7 +212,7 @@ int coresight_claim_device(struct coresight_device *csdev)
->   EXPORT_SYMBOL_GPL(coresight_claim_device);
->   
->   /*
-> - * coresight_disclaim_device_unlocked : Clear the claim tags for the device.
-> + * coresight_disclaim_device_unlocked : Clear the claim tag for the device.
->    * Called with CS_UNLOCKed for the component.
->    */
->   void coresight_disclaim_device_unlocked(struct coresight_device *csdev)
-> @@ -211,7 +222,7 @@ void coresight_disclaim_device_unlocked(struct coresight_device *csdev)
->   		return;
->   
->   	if (coresight_is_claimed_self_hosted(csdev))
-> -		coresight_clear_claim_tags(csdev);
-> +		coresight_clear_self_claim_tag_unlocked(&csdev->access);
->   	else
->   		/*
->   		 * The external agent may have not honoured our claim
-> diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-> index d79a242b271d..00134a80d358 100644
-> --- a/include/linux/coresight.h
-> +++ b/include/linux/coresight.h
-> @@ -685,7 +685,8 @@ extern int coresight_timeout_action(struct csdev_access *csa, u32 offset,
->   
->   extern int coresight_claim_device(struct coresight_device *csdev);
->   extern int coresight_claim_device_unlocked(struct coresight_device *csdev);
-> -
-> +void coresight_clear_self_claim_tag(struct csdev_access *csa);
-> +void coresight_clear_self_claim_tag_unlocked(struct csdev_access *csa);
->   extern void coresight_disclaim_device(struct coresight_device *csdev);
->   extern void coresight_disclaim_device_unlocked(struct coresight_device *csdev);
->   extern char *coresight_alloc_device_name(struct coresight_dev_list *devs,
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogR29yYW4gUmHEkWVub3ZpxIcgPGdyYWRlbm92aWNAdWx0cmF0cm9uaWsuZGU+CgpUaGlz
+IGNvbW1pdCBkb2N1bWVudHMgdWx0cmEtZmx5LXNiYyBkZXZpY2V0cmVlIGJpbmRpbmcgYmFzZWQg
+b24KU1RNMzJNUDE1NyBTb0MuCgpTaWduZWQtb2ZmLWJ5OiBHb3JhbiBSYcSRZW5vdmnEhyA8Z3Jh
+ZGVub3ZpY0B1bHRyYXRyb25pay5kZT4KLS0tCiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwgfCA1ICsrKysrCiAxIGZpbGUgY2hhbmdlZCwgNSBp
+bnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL2FybS9zdG0zMi9zdG0zMi55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL2FybS9zdG0zMi9zdG0zMi55YW1sCmluZGV4IGI2YzU2ZDRjZTZiOS4uYzFjYjU0ZmZiMjEw
+IDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMy
+L3N0bTMyLnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9z
+dG0zMi9zdG0zMi55YW1sCkBAIC0xNzUsNiArMTc1LDExIEBAIHByb3BlcnRpZXM6CiAgICAgICAg
+ICAgLSBjb25zdDogcGh5dGVjLHBoeWNvcmUtc3RtMzJtcDE1N2Mtc29tCiAgICAgICAgICAgLSBj
+b25zdDogc3Qsc3RtMzJtcDE1NwogCisgICAgICAtIGRlc2NyaXB0aW9uOiBVbHRyYXRyb25payBT
+VE0zMk1QMSBTQkMgYmFzZWQgQm9hcmRzCisgICAgICAgIGl0ZW1zOgorICAgICAgICAgIC0gY29u
+c3Q6IHVsdHJhdHJvbmlrLHN0bTMybXAxNTdjLXVsdHJhLWZseS1zYmMKKyAgICAgICAgICAtIGNv
+bnN0OiBzdCxzdG0zMm1wMTU3CisKICAgICAgIC0gZGVzY3JpcHRpb246IFNUIFNUTTMyTVAyNTcg
+YmFzZWQgQm9hcmRzCiAgICAgICAgIGl0ZW1zOgogICAgICAgICAgIC0gZW51bToKLS0gCjIuNDMu
+MAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
