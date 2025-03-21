@@ -2,81 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02248A6B607
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 09:25:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA5AA6B77B
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Mar 2025 10:34:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A129C6DD9A;
-	Fri, 21 Mar 2025 08:25:13 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CA27C78F67;
+	Fri, 21 Mar 2025 09:34:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A693BCFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDB42C78037
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Mar 2025 08:25:12 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52L7XAjn022991;
- Fri, 21 Mar 2025 09:24:52 +0100
+ Fri, 21 Mar 2025 09:34:46 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52L6aNsT022716;
+ Fri, 21 Mar 2025 10:34:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- BJsB749pnTX72RwDRztsFQHu4pIA8A7ILSPDLgStd4o=; b=qw1wgFDZ4OU12BJK
- sxhLItBYLieB0GN9SwtUcs6S5dUjLJcjecgsdOZBykhcsvhRQa5hMsrLWsJx4Cwe
- pKXxuUYVLv5ldP8vmq+w2zYCkoAMPYPR2xNlsISpNyH+W2AHpIYTZBkAooVX2n0p
- +QEb0UDtgMVM4hft1BcZGRDzdEMmzxq4wCgh8uVveCt+dpLpZ+ui0VBDy9Foqz/g
- x3svWBaNPKP9mB0Qo4vWlz0sNHRwgdt+qJpW3d0JdzgE8kL0jC4uKKHiKnE4WalJ
- uskPxqv9deihvesTAN6IekfwhenzbkYL2p+SbLzAVS2RuN0q2GrJsGkWl+Qlfn2p
- mNbTmQ==
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Zsmdh6nu+UJnS8Y882xvMr
+ X/hRslcMdqQk91zAyTeUM=; b=gduAHBk4A5DkYZP8H9MJxdny5IxbEc+HE0AKO7
+ hSvYtEzqqlETpW4tCPVZwQO9wsFZrIGWfZ3jHkhldYWox/DjoXvlBPWS96uYVbBM
+ jRhvgaNf1XeocXPkJvKQaO75AU2GRIzFPyfLB9qiiiRn3R8tPFtpy1OFOH1fAV8G
+ avNooEz47mic31BbnHb2JU2/teejiD6YiLtPsLaQXNcMlRRxNlWE+w9SWy4fNaiD
+ WjBJnn9lS1U02xLvOEGMvgJTkTILGt+gewTpr8qGmGjw2qSGa8xthbQh0BDXgE+0
+ 0SRAhEG3lPgO9Q3bJe4xF5zs70gZeW/mEsrkbDc9lwewCnpA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45h3tqr7g2-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45ght64hse-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Mar 2025 09:24:52 +0100 (CET)
+ Fri, 21 Mar 2025 10:34:29 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4153E40068;
- Fri, 21 Mar 2025 09:23:33 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ABB387C6A8F;
- Fri, 21 Mar 2025 09:22:31 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4CFBA40059;
+ Fri, 21 Mar 2025 10:33:16 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BA87F7B7160;
+ Fri, 21 Mar 2025 10:32:25 +0100 (CET)
+Received: from localhost (10.252.27.50) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Mar
- 2025 09:22:31 +0100
-Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Mar
- 2025 09:22:30 +0100
-Message-ID: <4eddc37b-5164-453a-9b7f-c4331a7d6243@foss.st.com>
-Date: Fri, 21 Mar 2025 09:22:30 +0100
+ 2025 10:32:25 +0100
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Fri, 21 Mar 2025 10:32:20 +0100
+Message-ID: <20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>
-References: <20250317232426.952188-1-robh@kernel.org>
- <20250317232426.952188-4-robh@kernel.org>
- <26e72cb2-c355-4c40-bb98-fc0ff267bf4f@foss.st.com>
- <CAL_Jsq+7ZhMWgbFDvPB+3BG7YfiS9PweybOGNY3r=d40RbGHJA@mail.gmail.com>
- <130d61a8-6f03-46dc-94ca-f098bc09babc@foss.st.com>
- <CAL_JsqJZkEpx26=ro_y8hHA2x1Zm6z_SFOQHjQ-WzUa-gy+s0w@mail.gmail.com>
-Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <CAL_JsqJZkEpx26=ro_y8hHA2x1Zm6z_SFOQHjQ-WzUa-gy+s0w@mail.gmail.com>
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
+X-B4-Tracking: v=1; b=H4sIACQy3WcC/x3MSwqAMAwA0atI1hZq/OJVRErRqFmopdEiFO9uc
+ fkWMxGEPJNAn0XwFFj4PBKaPINps8dKiudkQI21LlGr28nlye7mFMcmNGquSrRd0WKha0iZ87T
+ w8y+H8X0/Axy0L2IAAAA=
+X-Change-ID: 20250320-upstream_ospi_v6-d432a8172105
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.252.27.50]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-03-21_03,2025-03-20_01,2024-11-22_01
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, imx@lists.linux.dev,
- Saravana Kannan <saravanak@google.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] remoteproc: Use
- of_reserved_mem_region_* functions for "memory-region"
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6 0/7] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,127 +76,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAzLzIwLzI1IDE5OjAyLCBSb2IgSGVycmluZyB3cm90ZToKPiBPbiBUaHUsIE1hciAyMCwg
-MjAyNSBhdCA0OjIz4oCvQU0gQXJuYXVkIFBPVUxJUVVFTgo+IDxhcm5hdWQucG91bGlxdWVuQGZv
-c3Muc3QuY29tPiB3cm90ZToKPj4KPj4KPj4KPj4gT24gMy8yMC8yNSAwMDowNCwgUm9iIEhlcnJp
-bmcgd3JvdGU6Cj4+PiBPbiBXZWQsIE1hciAxOSwgMjAyNSBhdCAxMDoyNuKAr0FNIEFybmF1ZCBQ
-T1VMSVFVRU4KPj4+IDxhcm5hdWQucG91bGlxdWVuQGZvc3Muc3QuY29tPiB3cm90ZToKPj4+Pgo+
-Pj4+IEhlbGxvIFJvYiwKPj4+Pgo+Pj4+IE9uIDMvMTgvMjUgMDA6MjQsIFJvYiBIZXJyaW5nIChB
-cm0pIHdyb3RlOgo+Pj4+PiBVc2UgdGhlIG5ld2x5IGFkZGVkIG9mX3Jlc2VydmVkX21lbV9yZWdp
-b25fdG9fcmVzb3VyY2UoKSBhbmQKPj4+Pj4gb2ZfcmVzZXJ2ZWRfbWVtX3JlZ2lvbl9jb3VudCgp
-IGZ1bmN0aW9ucyB0byBoYW5kbGUgIm1lbW9yeS1yZWdpb24iCj4+Pj4+IHByb3BlcnRpZXMuCj4+
-Pj4+Cj4+Pj4+IFRoZSBlcnJvciBoYW5kbGluZyBpcyBhIGJpdCBkaWZmZXJlbnQgaW4gc29tZSBj
-YXNlcy4gT2Z0ZW4KPj4+Pj4gIm1lbW9yeS1yZWdpb24iIGlzIG9wdGlvbmFsLCBzbyBmYWlsZWQg
-bG9va3VwIGlzIG5vdCBhbiBlcnJvci4gQnV0IHRoZW4KPj4+Pj4gYW4gZXJyb3IgaW4gb2ZfcmVz
-ZXJ2ZWRfbWVtX2xvb2t1cCgpIGlzIHRyZWF0ZWQgYXMgYW4gZXJyb3IuIEhvd2V2ZXIsCj4+Pj4+
-IHRoYXQgZGlzdGluY3Rpb24gaXMgbm90IHJlYWxseSBpbXBvcnRhbnQuIEVpdGhlciB0aGUgcmVn
-aW9uIGlzIGF2YWlsYWJsZQo+Pj4+PiBhbmQgdXNhYmxlIG9yIGl0IGlzIG5vdC4gU28gbm93LCBp
-dCBpcyBqdXN0Cj4+Pj4+IG9mX3Jlc2VydmVkX21lbV9yZWdpb25fdG9fcmVzb3VyY2UoKSB3aGlj
-aCBpcyBjaGVja2VkIGZvciBhbiBlcnJvci4KPj4+Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogUm9i
-IEhlcnJpbmcgKEFybSkgPHJvYmhAa2VybmVsLm9yZz4KPj4+Pj4gLS0tCj4+Pj4+IEZvciB2Ni4x
-Ngo+Pj4+Pgo+Pj4KPj4+IFsuLi5dCj4+Pgo+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZW1v
-dGVwcm9jL3N0bTMyX3Jwcm9jLmMgYi9kcml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYwo+
-Pj4+PiBpbmRleCBiMDJiMzZhM2Y1MTUuLjlkMmJkODkwNGM0OSAxMDA2NDQKPj4+Pj4gLS0tIGEv
-ZHJpdmVycy9yZW1vdGVwcm9jL3N0bTMyX3Jwcm9jLmMKPj4+Pj4gKysrIGIvZHJpdmVycy9yZW1v
-dGVwcm9jL3N0bTMyX3Jwcm9jLmMKPj4+Pj4gQEAgLTIxMyw1MiArMjEzLDQ2IEBAIHN0YXRpYyBp
-bnQgc3RtMzJfcnByb2NfcHJlcGFyZShzdHJ1Y3QgcnByb2MgKnJwcm9jKQo+Pj4+PiAgewo+Pj4+
-PiAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYgPSBycHJvYy0+ZGV2LnBhcmVudDsKPj4+Pj4gICAg
-ICAgc3RydWN0IGRldmljZV9ub2RlICpucCA9IGRldi0+b2Zfbm9kZTsKPj4+Pj4gLSAgICAgc3Ry
-dWN0IG9mX3BoYW5kbGVfaXRlcmF0b3IgaXQ7Cj4+Pj4+ICAgICAgIHN0cnVjdCBycHJvY19tZW1f
-ZW50cnkgKm1lbTsKPj4+Pj4gLSAgICAgc3RydWN0IHJlc2VydmVkX21lbSAqcm1lbTsKPj4+Pj4g
-ICAgICAgdTY0IGRhOwo+Pj4+PiAtICAgICBpbnQgaW5kZXggPSAwOwo+Pj4+PiArICAgICBpbnQg
-aW5kZXggPSAwLCBtciA9IDA7Cj4+Pj4+Cj4+Pj4+ICAgICAgIC8qIFJlZ2lzdGVyIGFzc29jaWF0
-ZWQgcmVzZXJ2ZWQgbWVtb3J5IHJlZ2lvbnMgKi8KPj4+Pj4gLSAgICAgb2ZfcGhhbmRsZV9pdGVy
-YXRvcl9pbml0KCZpdCwgbnAsICJtZW1vcnktcmVnaW9uIiwgTlVMTCwgMCk7Cj4+Pj4+IC0gICAg
-IHdoaWxlIChvZl9waGFuZGxlX2l0ZXJhdG9yX25leHQoJml0KSA9PSAwKSB7Cj4+Pj4+IC0gICAg
-ICAgICAgICAgcm1lbSA9IG9mX3Jlc2VydmVkX21lbV9sb29rdXAoaXQubm9kZSk7Cj4+Pj4+IC0g
-ICAgICAgICAgICAgaWYgKCFybWVtKSB7Cj4+Pj4+IC0gICAgICAgICAgICAgICAgICAgICBvZl9u
-b2RlX3B1dChpdC5ub2RlKTsKPj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgIGRldl9lcnIoZGV2
-LCAidW5hYmxlIHRvIGFjcXVpcmUgbWVtb3J5LXJlZ2lvblxuIik7Cj4+Pj4+IC0gICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPj4+Pj4gLSAgICAgICAgICAgICB9Cj4+Pj4+ICsg
-ICAgIHdoaWxlICgxKSB7Cj4+Pj4+ICsgICAgICAgICAgICAgc3RydWN0IHJlc291cmNlIHJlczsK
-Pj4+Pj4gKyAgICAgICAgICAgICBpbnQgcmV0Owo+Pj4+PiArCj4+Pj4+ICsgICAgICAgICAgICAg
-cmV0ID0gb2ZfcmVzZXJ2ZWRfbWVtX3JlZ2lvbl90b19yZXNvdXJjZShucCwgbXIrKywgJnJlcyk7
-Cj4+Pj4+ICsgICAgICAgICAgICAgaWYgKHJldCkKPj4+Pj4gKyAgICAgICAgICAgICAgICAgICAg
-IHJldHVybiAwOwo+Pj4+Pgo+Pj4+PiAtICAgICAgICAgICAgIGlmIChzdG0zMl9ycHJvY19wYV90
-b19kYShycHJvYywgcm1lbS0+YmFzZSwgJmRhKSA8IDApIHsKPj4+Pj4gLSAgICAgICAgICAgICAg
-ICAgICAgIG9mX25vZGVfcHV0KGl0Lm5vZGUpOwo+Pj4+PiAtICAgICAgICAgICAgICAgICAgICAg
-ZGV2X2VycihkZXYsICJtZW1vcnkgcmVnaW9uIG5vdCB2YWxpZCAlcGFcbiIsCj4+Pj4+IC0gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICZybWVtLT5iYXNlKTsKPj4+Pj4gKyAgICAgICAgICAg
-ICBpZiAoc3RtMzJfcnByb2NfcGFfdG9fZGEocnByb2MsIHJlcy5zdGFydCwgJmRhKSA8IDApIHsK
-Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgIGRldl9lcnIoZGV2LCAibWVtb3J5IHJlZ2lvbiBu
-b3QgdmFsaWQgJXBSXG4iLCAmcmVzKTsKPj4+Pj4gICAgICAgICAgICAgICAgICAgICAgIHJldHVy
-biAtRUlOVkFMOwo+Pj4+PiAgICAgICAgICAgICAgIH0KPj4+Pj4KPj4+Pj4gICAgICAgICAgICAg
-ICAvKiAgTm8gbmVlZCB0byBtYXAgdmRldiBidWZmZXIgKi8KPj4+Pj4gLSAgICAgICAgICAgICBp
-ZiAoc3RyY21wKGl0Lm5vZGUtPm5hbWUsICJ2ZGV2MGJ1ZmZlciIpKSB7Cj4+Pj4+ICsgICAgICAg
-ICAgICAgaWYgKHN0cmNtcChyZXMubmFtZSwgInZkZXYwYnVmZmVyIikpIHsKPj4+Pgo+Pj4+IEkg
-dGVzdGVkIHlvdXIgcGF0Y2hlcwo+Pj4KPj4+IFRoYW5rIHlvdS4KPj4+Cj4+Pj4gVGhlIHVwZGF0
-ZSBpbnRyb2R1Y2VzIGEgcmVncmVzc2lvbiBoZXJlLiBUaGUgc3RyY21wIGZ1bmN0aW9uIG5ldmVy
-IHJldHVybnMgMC4KPj4+PiBJbmRlZWQsIGl0Lm5vZGUtPm5hbWUgc3RvcmVzIHRoZSBtZW1vcnkg
-cmVnaW9uIGxhYmVsICJ2ZGV2MGJ1ZmZlciwiIHdoaWxlCj4+Pj4gcmVzLm5hbWUgc3RvcmVzIHRo
-ZSBtZW1vcnkgcmVnaW9uIG5hbWUgInZkZXYwYnVmZmVyQDEwMDQyMDAwLiIKPj4+Pgo+Pj4+IFNl
-dmVyYWwgcmVtb3RlcHJvYyBkcml2ZXJzIG1heSBmYWNlIHRoZSBzYW1lIGlzc3VlIGFzIHRoZXkg
-ZW1iZWQgc2ltaWxhciBjb2RlLgo+Pj4KPj4+IEluZGVlZC4gSSBjb25mdXNlZCBteXNlbGYgYmVj
-YXVzZSBub2RlICduYW1lJyBpcyB3aXRob3V0IHRoZQo+Pj4gdW5pdC1hZGRyZXNzLCBidXQgdGhp
-cyBpcyB1c2luZyB0aGUgZnVsbCBuYW1lLiBJJ3ZlIHJlcGxhY2VkIHRoZQo+Pj4gc3RyY21wJ3Mg
-d2l0aCBzdHJzdGFydHMoKSB0byBhZGRyZXNzIHRoaXMuIEkndmUgdXBkYXRlZCBteSBicmFuY2gg
-d2l0aAo+Pj4gdGhlIGNoYW5nZXMuCj4+Cj4+IFRoaXMgaXMgbm90IGVub3VnaCBhcyB0aGUgcmVt
-b3RlcHJvYyBjb3JlIGZ1bmN0aW9uIHJwcm9jX2ZpbmRfY2FydmVvdXRfYnlfbmFtZSgpCj4+IGFs
-c28gY29tcGFyZXMgdGhlIG1lbW9yeSBuYW1lcy4gV2l0aCB0aGUgZm9sbG93aW5nIGFkZGl0aW9u
-YWwgZml4LCBpdCBpcyB3b3JraW5nCj4+IG9uIG15IFNUTTMyTVAxNS1ESyBib2FyZC4KPj4KPj4g
-QEAgLTMwOSwxMSArMzA5LDExIEBAIHJwcm9jX2ZpbmRfY2FydmVvdXRfYnlfbmFtZShzdHJ1Y3Qg
-cnByb2MgKnJwcm9jLCBjb25zdAo+PiBjaGFyICpuYW1lLCAuLi4pCj4+ICAgICAgICAgdnNucHJp
-bnRmKF9uYW1lLCBzaXplb2YoX25hbWUpLCBuYW1lLCBhcmdzKTsKPj4gICAgICAgICB2YV9lbmQo
-YXJncyk7Cj4+Cj4+ICAgICAgICAgbGlzdF9mb3JfZWFjaF9lbnRyeShjYXJ2ZW91dCwgJnJwcm9j
-LT5jYXJ2ZW91dHMsIG5vZGUpIHsKPj4gICAgICAgICAgICAgICAgIC8qIENvbXBhcmUgY2FydmVv
-dXQgYW5kIHJlcXVlc3RlZCBuYW1lcyAqLwo+PiAtICAgICAgICAgICAgICAgaWYgKCFzdHJjbXAo
-Y2FydmVvdXQtPm5hbWUsIF9uYW1lKSkgewo+PiArICAgICAgICAgICAgICAgaWYgKHN0cnN0YXJ0
-cyhjYXJ2ZW91dC0+bmFtZSwgX25hbWUpKSB7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIG1l
-bSA9IGNhcnZlb3V0Owo+PiAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPj4gICAgICAg
-ICAgICAgICAgIH0KPj4gICAgICAgICB9Cj4+Cj4+IEkganVzdCB3b25kZXIgaWYgd291bGQgbm90
-IGJlIG1vcmUgc3VpdGFibGUgdG8gYWRkcmVzcyB0aGlzIHVzaW5nIHRoZQo+PiAibWVtb3J5LXJl
-Z2lvbi1uYW1lcyIgZmllbGQuCj4gCj4gVGhhdCB3b3VsZCBiZSBiZXR0ZXIgYXMgeW91IHNob3Vs
-ZG4ndCByZWFsbHkgY2FyZSB3aGF0IGEgcHJvdmlkZXIgbm9kZQo+IG5hbWUgaXMgd2hlcmUtYXMg
-Im1lbW9yeS1yZWdpb24tbmFtZXMiIGlzIG1lYW5pbmdmdWwgdG8gdGhlIGRyaXZlci4KPiAKPj4K
-Pj4gVGhlIGRyYXdiYWNrIGlzIHRoYXQgd2Ugd291bGQgYnJlYWsgY29tcGF0aWJpbGl0eSB3aXRo
-IGxlZ2FjeSBib2FyZHMuLi4KPiAKPiBTbyBub3QgYW4gb3B0aW9uLgoKPiAKPiBJIHRoaW5rIEkn
-bGwgaGF2ZSB0byBmaXggdGhpcyB3aXRoaW4gdGhlIHJlc2VydmVkIG1lbSBjb2RlIHN0b3Jpbmcg
-dGhlCj4gbmFtZSBvciBkbyBzb21ldGhpbmcgbGlrZSB0aGUgZGlmZiBiZWxvdy4gSSdkIGxpa2Ug
-dG8gYXZvaWQgdGhlCj4gZm9ybWVyLiBVc2luZyB0aGUgb3JpZ2luYWwgZGV2aWNlX25vZGUubmFt
-ZSBpcyBhbHNvIHByb2JsZW1hdGljCj4gYmVjYXVzZSBJIHdhbnQgdG8gZ2V0IHJpZCBvZiBpdC4g
-V2UgcmVkdW5kYW50bHkgc3RvcmUgdGhlIG5vZGUgbmFtZQo+IHdpdGggYW5kIHdpdGhvdXQgdGhl
-IHVuaXQtYWRkcmVzcy4gVGhlcmUncyBhIGxvdCBvZiBwbGFjZXMgbGlrZSB0aGlzCj4gb25lIHdo
-ZXJlIHdlIGhhbmQgb3V0IHRoZSBwb2ludGVyIHdpdGggbm8gbGlmZXRpbWUuCj4gCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jIGIvZHJpdmVycy9yZW1vdGVw
-cm9jL3N0bTMyX3Jwcm9jLmMKPiBpbmRleCAxZTk0OTY5NGQzNjUuLmNkZWU4N2M2ZmZlMCAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL3JlbW90ZXByb2Mvc3RtMzJfcnByb2MuYwo+ICsrKyBiL2RyaXZl
-cnMvcmVtb3RlcHJvYy9zdG0zMl9ycHJvYy5jCj4gQEAgLTIzOSw3ICsyMzksNyBAQCBzdGF0aWMg
-aW50IHN0bTMyX3Jwcm9jX3ByZXBhcmUoc3RydWN0IHJwcm9jICpycHJvYykKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXNvdXJjZV9zaXplKCZy
-ZXMpLCBkYSwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBzdG0zMl9ycHJvY19tZW1fYWxsb2MsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgc3RtMzJfcnByb2NfbWVtX3JlbGVhc2UsCj4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzLm5hbWUpOwo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIlLipz
-IiwKPiBzdHJjaHJudWwocmVzLm5hbWUsICdAJykgLSByZXMubmFtZSwgcmVzLm5hbWUpOwo+IAo+
-ICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChtZW0pCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBycHJvY19jb3JlZHVtcF9hZGRfc2VnbWVudChycHJvYywgZGEsCj4gQEAgLTI0
-OSw3ICsyNDksNyBAQCBzdGF0aWMgaW50IHN0bTMyX3Jwcm9jX3ByZXBhcmUoc3RydWN0IHJwcm9j
-ICpycHJvYykKPiAgICAgICAgICAgICAgICAgICAgICAgICBtZW0gPSBycHJvY19vZl9yZXNtX21l
-bV9lbnRyeV9pbml0KGRldiwgaW5kZXgsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXNvdXJjZV9zaXplKCZyZXMpLAo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVz
-LnN0YXJ0LAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmVzLm5hbWUpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgInZkZXYwYnVmZmVyIik7Cj4gICAgICAgICAgICAg
-ICAgIH0KPiAKPiAgICAgICAgICAgICAgICAgaWYgKCFtZW0pIHsKCgpUaGF0J3Mgd29yayBvbiBt
-eSBzaWRlLgpDb3VsZCB3ZSBoYXZlIGFuIE9GIGhlbHBlciB0byByZXRyaWV2ZSB0aGUgbmFtZSBm
-cm9tIHRoZSBmdWxsIG5hbWU/CgpUaGFua3MsCkFybmF1ZApfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
+
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint
+between its 2 Octo SPI children.
+
+Due to these depedencies, this series adds support for:
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
+
+The device tree files adds Octo Memory Manager and its 2 associated Octo
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+    
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Changes in v6:
+  - Update MAINTAINERS file.
+  - Remove previous patch 1/8 and 2/8, merged by Mark Brown in spi git tree.
+  - Fix Signed-off-by order for patch 3.
+  - OMM driver:
+    - Add dev_err_probe() in error path.
+    - Rename stm32_omm_enable_child_clock() to stm32_omm_toggle_child_clock().
+    - Reorder initialised/non-initialized variable in stm32_omm_configure()
+          and stm32_omm_probe().
+    - Move pm_runtime_disable() calls from stm32_omm_configure() to
+      stm32_omm_probe().
+    - Update children's clocks and reset management.
+    - Use of_platform_populate() to probe children.
+    - Add missing pm_runtime_disable().
+    - Remove useless stm32_omm_check_access's first parameter.
+  - Update OMM's dt-bindings by adding OSPI's clocks and resets.
+  - Update stm32mp251.dtsi by adding OSPI's clock and reset in OMM's node.
+
+Changes in v5:
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
+
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns,
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between
+Octo Memory Manager and its 2 Octo SPI children.
+
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
+
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+Patrice Chotard (7):
+      MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
+      dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
+      memory: Add STM32 Octo Memory Manager driver
+      arm64: dts: st: Add OMM node on stm32mp251
+      arm64: dts: st: Add ospi port1 pinctrl entries in stm32mp25-pinctrl.dtsi
+      arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board
+      arm64: defconfig: Enable STM32 Octo Memory Manager and OcstoSPI driver
+
+ .../memory-controllers/st,stm32mp25-omm.yaml       | 227 ++++++++++
+ MAINTAINERS                                        |   6 +
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi      |  51 +++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             |  54 +++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |  32 ++
+ arch/arm64/configs/defconfig                       |   2 +
+ drivers/memory/Kconfig                             |  17 +
+ drivers/memory/Makefile                            |   1 +
+ drivers/memory/stm32_omm.c                         | 474 +++++++++++++++++++++
+ 9 files changed, 864 insertions(+)
+---
+base-commit: 88424abd55ab36c3565898a656589a0a25ecd92f
+change-id: 20250320-upstream_ospi_v6-d432a8172105
+
+Best regards,
+-- 
+Patrice Chotard <patrice.chotard@foss.st.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
