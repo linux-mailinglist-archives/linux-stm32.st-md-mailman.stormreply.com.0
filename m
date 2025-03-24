@@ -2,57 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD23A6E46C
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 21:31:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F3BA6E4A5
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 21:50:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E778C78F65;
-	Mon, 24 Mar 2025 20:31:17 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09870C78F65;
+	Mon, 24 Mar 2025 20:50:10 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89DC1C7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15787C7802F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 20:31:16 +0000 (UTC)
+ Mon, 24 Mar 2025 20:50:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9E7C361590;
- Mon, 24 Mar 2025 20:31:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC1FC4CEDD;
- Mon, 24 Mar 2025 20:31:14 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 007CEA4A522;
+ Mon, 24 Mar 2025 20:44:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBADEC4CEDD;
+ Mon, 24 Mar 2025 20:50:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742848275;
- bh=XZ2Yktl6mmKJfiTNy+Z4/IvVxFgIZo5WawcMrRO2Vbw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KFuZW06FF/l/+XccYW9mOLm0/T/y+rQ5Qey1sx5gf4IDaXAPgVGHQnHICkOj2UmZU
- PDykSuBwUEVADe6TdOjuKw5QO577NinlTsZimjhVNndV+uT/QF2NWLD0KNSrhsi0MI
- KO6BpOsq9Hl8egajcNvUPEudOv9SNJhFWRHqJQFRyzT1WHtvDIrlMg9stNwULybj+M
- BrUElG7Trs8lG1eluh+AtsXNGzvNnGeOi0P7Dlji1cjRBLjpqvGDXDk+yLmDF92QVM
- HY89MNPoMV56QNAw8di8kHyUcASHkvgva7nx0zVefH0OjCTcc2EeKbkkR51Kcbzo7D
- YfL6AJQifexgw==
-Date: Mon, 24 Mar 2025 15:31:14 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <174284827311.819192.14616231717400662961.robh@kernel.org>
-References: <20250324125313.82226-1-krzysztof.kozlowski@linaro.org>
- <20250324125313.82226-2-krzysztof.kozlowski@linaro.org>
+ s=k20201202; t=1742849407;
+ bh=+ou0UbncUs03M6sufG6N3xTDsMBOOlOxZOY7cw8WuOw=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=fCJ47wN1+6+QohEGuqVMAAGxKIxnmr77Sz6Lx5TpDQX+4kl3ZcS1W7ZYR/KIoIGWo
+ Qc8FVEBTEFp6FlYB2AD6znBsWXDAaXtUFFk5R3uR+6JkMMmX4g4i4NLr+W2gdhH0Ru
+ NEsIkcdrUlbQnoKgCWLs8vPaqCf3BsqbqniTpdR/N9eD42A+8wwOQf1fMZ7a3JoJZn
+ /s/G3/AYQEorFapa+7V9PwohFTJ7lDuuN6AME9/Pm8+9Tj8LjsK1XguSvqJ6S3cnLB
+ Eh5/USzW7nZ1GAW88iH8WPMX0ThF8XUUcodgNHmIaoOXLE/HoYgrMw1Lz6CS63qFja
+ stHr7WqJHlzLw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33F0E380664D; Mon, 24 Mar 2025 20:50:45 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250324125313.82226-2-krzysztof.kozlowski@linaro.org>
-Cc: linux-iio@vger.kernel.org, Petre Rodan <petre.rodan@subdimension.ro>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Anshul Dalal <anshulusr@gmail.com>,
- Ramona Gradinariu <ramona.gradinariu@analog.com>,
- Robert Budai <robert.budai@analog.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>, Andreas Klinger <ak@it-klinger.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Kim Seer Paller <kimseer.paller@analog.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] dt-bindings: iio: Use
- unevaluatedProperties for SPI devices
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174284944375.4167801.10275229682419761555.git-patchwork-notify@kernel.org>
+Date: Mon, 24 Mar 2025 20:50:43 +0000
+References: <20250321103502.1303539-1-maxime.chevallier@bootlin.com>
+In-Reply-To: <20250321103502.1303539-1-maxime.chevallier@bootlin.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: andrew@lunn.ch, f.fainelli@gmail.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Call
+ xpcs_config_eee_mult_fact() only when xpcs is present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,26 +62,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
-On Mon, 24 Mar 2025 13:53:13 +0100, Krzysztof Kozlowski wrote:
-> SPI devices should use unevaluatedProperties:false instead of
-> additionalProperties:false, to allow any SPI device properties listed in
-> spi-peripheral-props.yaml.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml      | 2 +-
->  Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml      | 2 +-
->  Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml      | 2 +-
->  .../devicetree/bindings/iio/dac/microchip,mcp4821.yaml          | 2 +-
->  Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml     | 2 +-
->  Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml    | 2 +-
->  .../devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml    | 2 +-
->  .../devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml | 2 +-
->  8 files changed, 8 insertions(+), 8 deletions(-)
-> 
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+On Fri, 21 Mar 2025 11:35:01 +0100 you wrote:
+> Some dwmac variants such as dwmac_socfpga don't use xpcs but lynx_pcs.
+> 
+> Don't call xpcs_config_eee_mult_fact() in this case, as this causes a
+> crash at init :
+> 
+>  Unable to handle kernel NULL pointer dereference at virtual address 00000039 when write
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next] net: stmmac: Call xpcs_config_eee_mult_fact() only when xpcs is present
+    https://git.kernel.org/netdev/net-next/c/53cd6820f5a0
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
