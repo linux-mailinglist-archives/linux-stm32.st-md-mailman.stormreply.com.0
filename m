@@ -2,57 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C076A6D444
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 07:28:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF0F6A6D757
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 10:30:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFC31C78F64;
-	Mon, 24 Mar 2025 06:27:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83FF1C78F65;
+	Mon, 24 Mar 2025 09:30:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8390CC78037
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B53CCC7802F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 06:27:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1742797679; x=1774333679;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=eITHe9O29qurQr+w4lnf9ce6r8QgdKu3VSz+sAB0QJc=;
- b=d9MBV2dy8KxY5d38CeHeevGjYjvx8ZJmvYe3vpogOkLVT2KkP4Q0M5bK
- ITpLgI4oKFdNnmJnBGR0OTLzww2moW6zvkcMXj2BEuVdIUv3SZHFuErUA
- UWUD832iizE8QK61UkNoT9nrznDSy05DaOnWOchPeWSL1uMlGnDVyL65L
- qYbdXDHhVkxQQAlyOGJcSnsS3n0XAnf7RKOA+xvdYMudmafHIa64CaXK9
- +0YqL4yEiY8bzI+D3IfzrtgFwfVEthVUVOa4IV7MZtgMXtQKMuZRjYuQD
- e75sR/gehIKiNgnz4OT5Eef2TkrHLeabNEcfKVYI+lFSV//P2klDzLFIT g==;
-X-CSE-ConnectionGUID: tzDCR7qfQIGl9e3oRGZITw==
-X-CSE-MsgGUID: lYLoS8btSlyUfDbvmr34EQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11382"; a="47638758"
-X-IronPort-AV: E=Sophos;i="6.14,271,1736841600"; d="scan'208";a="47638758"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2025 23:27:56 -0700
-X-CSE-ConnectionGUID: B48+T+GRQwqiLpAT4hNPdA==
-X-CSE-MsgGUID: BDisJXbXTsSeVaZTCIRHpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,271,1736841600"; d="scan'208";a="124901989"
-Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.227.39])
- by orviesa008.jf.intel.com with ESMTP; 23 Mar 2025 23:27:54 -0700
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+ Mon, 24 Mar 2025 09:30:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id F2F8643B60;
+ Mon, 24 Mar 2025 09:29:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D84C4CEDD;
+ Mon, 24 Mar 2025 09:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1742808600;
+ bh=kHfo3Vih2l9KqIfcBsMDzy1nd79VOQV4cHZiOu5Oohs=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jYyDFxs+4KJxugNp064ddqYYC75ZQBsQjnzXTd6fFhpbmsiao6QTJHteOJm1Gc0in
+ GT9cQIQ2RnmCZEdXRJfGLzGH0HqdZ2LKe3l3sYWkTxIUsZaTdQkAJto7Qffz2R6UN1
+ nMzf2t2kHwdZOLYN7XW76bLqPImdlsYYeYqtPdHI3yeK6Aw3GSxGJVPYWIrRszmQxm
+ 8vKxtdqdyQDZsShTNob3cMX6ORR7N2gFIuL0Hsg30dXjav9g2t2pZ2q2hhcM31/eAB
+ PNaHGFH6iHK1hSUOlJCHy12nuR5Gg5nV9cQJ4GjbwA9fPw8Cc3ox0Mg7lDsb6yObsA
+ /5WxCIMxtLuZQ==
+From: Philipp Stanner <phasta@kernel.org>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
+ "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 24 Mar 2025 14:27:42 +0800
-Message-Id: <20250324062742.462771-1-yong.liang.choong@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Huacai Chen <chenhuacai@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Serge Semin <fancer.lancer@gmail.com>, Yinggang Gu <guyinggang@loongson.cn>
+Date: Mon, 24 Mar 2025 10:29:26 +0100
+Message-ID: <20250324092928.9482-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v1 1/1] stmmac: intel: interface
-	switching support for RPL-P platform
+Cc: Philipp Stanner <phasta@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v4 0/3] stmmac: Several PCI-related
+	improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,31 +62,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Based on the patch series [1], the enablement of interface switching for
-RPL-P will use the same handling as ADL-N.
+Resend of v4, rebased onto net-next due to a merge conflict.
 
-Link: https://patchwork.kernel.org/project/netdevbpf/cover/20250227121522.1802832-1-yong.liang.choong@linux.intel.com/ [1]
+Changes in v4:
+  - Add missing full stop. (Yanteng)
+  - Move forgotten unused-variable-removes to the appropriate places.
+  - Add applicable RB / TB tags
 
-Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+  - Several formatting nits (Paolo)
+  - Split up patch into a patch series (Yanteng)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 5910571a954f..c8bb9265bbb4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -1437,7 +1437,7 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
- 	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &adln_sgmii1g_phy0_info) },
--	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &tgl_sgmii1g_phy0_info) },
-+	{ PCI_DEVICE_DATA(INTEL, RPLP_SGMII1G, &adln_sgmii1g_phy0_info) },
- 	{}
- };
- MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
+Philipp Stanner (3):
+  stmmac: loongson: Remove surplus loop
+  stmmac: Remove pcim_* functions for driver detach
+  stmmac: Replace deprecated PCI functions
+
+ .../ethernet/stmicro/stmmac/dwmac-loongson.c  | 27 +++++--------------
+ .../net/ethernet/stmicro/stmmac/stmmac_pci.c  | 24 +++++------------
+ 2 files changed, 12 insertions(+), 39 deletions(-)
+
 -- 
-2.34.1
+2.48.1
 
 _______________________________________________
 Linux-stm32 mailing list
