@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAA8CA6DA5F
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 13:53:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EEFA6DA61
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 13:53:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 639C7C7802F;
-	Mon, 24 Mar 2025 12:53:18 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 728C5C7802F;
+	Mon, 24 Mar 2025 12:53:21 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CC4EC7801E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7BB6C78037
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 12:53:17 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-43cf861f936so5976415e9.3
+ Mon, 24 Mar 2025 12:53:19 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-3978ef9a778so211384f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 05:53:17 -0700 (PDT)
+ Mon, 24 Mar 2025 05:53:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1742820797; x=1743425597;
+ d=linaro.org; s=google; t=1742820799; x=1743425599;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DhkKbL6Pj56pOT19f4sCe0HKXFmoTLO1O69IhcGdyYM=;
- b=n7ZPj4bgKzUjJD0DEJ4wE2BTLAucLwIDD8nQrtffRwT6N/ZXMjPDSSKGg8tDBSFZaH
- EvtSlX+DSNimcX/iul7wVRLytQ+p8ZEiXu1WszOm4H9Ga5odFOERDltfA/e5tC2DuPzQ
- dZmBM0B/pYZ9xtnZZt+tZoau3eKutJNJ0d3kf1FzvcdKsxTVdALvwkGGL72qPDtekHsL
- CDraiw88/g1So5mY28ResKwLbyriJ7FQqHwT67HM3bQXxhU76V+zgjHh/bP/3NyvZcbt
- lZncS9PPHlIiUTUBKxrsspTNTID5V/QG9X7w0AP5Itjkr3Bd596oZ5Ry4FRYaOPxKJGQ
- cPvg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oDq573A1DEo78oa8q5EaQH/G4SAW0wK6UJ6KkottKQQ=;
+ b=jVcUyHq9HzpmxF8iWZHXXNQfoXI1e57DZGTQcE0v1uzt9OdaWB30s8K3+qxW5Pl7F7
+ 3tcXPrqKU1rbG3+QgT932THfscTltsEygallkzhnFrg67F9+1aaOZKi4yWsi+YQmNDJW
+ 6Qb7B6Ur997IJvxQopt5keg3KCtqF7lSkcjJXlZh61s9hrzWxTeNPuRhvy4wpVvkn+2U
+ jOUfA6pjDx4HR+nHkOhoHcwGUZv/glbFBEvQuuEig64/X7jg0Wc+LZdmQs3dwLCC5gS4
+ aBITqrYtp85K5LkNMJJULVMLo+fbo6WOclvL3gQcEXBhpSDfHCx9iCdkGoIlBd8JdpCg
+ zzzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742820797; x=1743425597;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DhkKbL6Pj56pOT19f4sCe0HKXFmoTLO1O69IhcGdyYM=;
- b=BgOdj6B6LDT2Olwy07AFFWhZ8dt1cy1XDG6cAGjdVWejpqFpEqHPK0k6fAQ9u/YN4P
- WMSd+GiNZxzgkkDCMfd2V7oQdmOq7immHxelE6ONuMzpbDHdkvu1XZ26smq98XYrTGWH
- WRH76ntwaPG6xMiyKfcHxw00raGAAzkKBQCU7MtE7fstoJ327fQdRTt6V3brOp0yDZE4
- Zk1qbnSfNfucMHXT3nVEy2SRk8s+9OkradiIOOCjWYdGCWJeE+O3ljAET9sCzYcLY4Fq
- 3Z4s8JBDR1oK5cvCVl6YohTb1cMMD5tz/ROHtsqr8sDdd6moUcICGgl4JwejldatpGvT
- Jbhg==
+ d=1e100.net; s=20230601; t=1742820799; x=1743425599;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oDq573A1DEo78oa8q5EaQH/G4SAW0wK6UJ6KkottKQQ=;
+ b=TwP+60kCNy86+Ahp8kG8fKQ0rRBC0ZUBrpEtKvRg5EYR3q9Yxa9szJtGj/3X05bRfa
+ p2xSbHg4tIdpvY7RFb4exaVcx9t2n22SmeZhUN1CElNT5C2SxFWLRYm5bzo7NpzoD7ck
+ /sbW+4JF5pNsD5NN8ch1qw63Z6BvJlpwaGmMJCTVL41aA/sAytYsevnNwg2YTLlKQ9Pi
+ JDglqxoCyAzGo4efYIsrEtP7WYbHHhXgyQA95+yiHnuJapXDKMWlNLhfB3be5fsUbpSV
+ IpfrLeCyo76hwJi+GKL4CSG74Ad7V+lB87NGfgL6vu6P1ZDlQ8/Dpbp0jWb1kSao0OJL
+ ngNQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUof0OGs/PxgJh7mmPjPEJM6PKPRKvQYi0mP9ZMHp+J8KqFf4l1bsKQ/DfIHi8kL2+qdQgVnVaByQ1E6A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz7HlIZtOaonFfK6qxdf9ShoCfzJtP3Xw2Bx2zEemYPx3i6mOgj
- /ehZ8ROUjtah+3Ra7Hf9qCnFxn1b4uIO8evS1GeyRu1SLGyj/8EMAtXsaMvFC8I=
-X-Gm-Gg: ASbGncsndQr8Xu224XKbRA8z2oTpWTbLKusv8rVEfUYhTj++37DASV5X9rh9ByWARlu
- R53/BEGZQIxJEs95nbG5EIEL8gx/eW+1HrD2F+XqiLqNzY8dTcpBJn1tI/WP+rj8G/DT+8u8n/1
- ppmf1K+Zb7NCwunUp1T2YDCwMBZLCTTl6TL2MQaQfFOG7m10aIv+8FGAm9T1FA/01iUGQ0dKVgP
- XZnJXe4Dz1Jeb3shkEPmAZ4Ed1ol7zupqo1zk7Zq7X0gElMrFJPZWBM9inRaJa6jfC9lpZYdE57
- eKrFNCckckjco7gayT9V4SkoSN9aEep/S1UI/Etb2NdUq3rANY4c9iY/nYuGp6hZUK4S
-X-Google-Smtp-Source: AGHT+IELSRnS6+jDcoXD4ACf2eotZaDufAhTgDfQtnO8l4nSz1FNdFEmD6wP6RQaXMoBJDuTs30T2A==
-X-Received: by 2002:a05:6000:1842:b0:391:2f03:4cb9 with SMTP id
- ffacd0b85a97d-3997f8f9c98mr4498820f8f.1.1742820796672; 
- Mon, 24 Mar 2025 05:53:16 -0700 (PDT)
+ AJvYcCWDuHRg8YSUAXx/FhSXLoJXloIls+dYKgRQcuE4uD1k+S9+2GVGOTGhrkrA8z7MW5TOHKjGtWKCbeOwXA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxLrJDYQOzUzBV90Ory00bO3G7kwAo14XvLsQPReR/SSoI+aSHJ
+ Px3F6W4FrESn7zCkKu5aBT6kJ1/MwOK9Ne6+JPlm+pmsLC5T+5csaYJT2V2vUBQ=
+X-Gm-Gg: ASbGncsDEdgjLY/kqBViOQb5RKxXceSRhutuvd0JggaaagGGrJmUT8Jgkg2lS6jLHcD
+ b2jule0+bjS/vQrCDLsLkLAjBuAZhrSMa5sBS7Kbd0H0zZKjCgMhaJ1NLpOFpaK1TjfLhXxaHtN
+ tcDd5TRnRBnp5MtYVUBFwPASdZJ8UMtsYX3/yDlkWftoX1o5MYlsRlzIlvpTpWc95BvNj6gmcgw
+ leVOg0wxcDtMn0xxIe07dMyaeyDgR+2T6ZYaHbX7XyVEhfWKYgv+YCKUBKJ/CVC0Xv72DRuSvdx
+ U/oMZit0BXZYDvIQQnzg2VCVcXXyXc/wVNob8UFKvEpb9KfNzXYaHfOOxA==
+X-Google-Smtp-Source: AGHT+IEyXr4XfE4jQQNiBxD85qyqtlDpxh8WZZdKdE91l17CgQn/QudC/yJi3NGWG6c+9LLhlw/Xcg==
+X-Received: by 2002:a5d:6c61:0:b0:38d:be5e:b2a7 with SMTP id
+ ffacd0b85a97d-3997f937550mr4866832f8f.10.1742820799028; 
+ Mon, 24 Mar 2025 05:53:19 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.198.86]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9efd61sm11017167f8f.91.2025.03.24.05.53.14
+ ffacd0b85a97d-3997f9efd61sm11017167f8f.91.2025.03.24.05.53.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Mar 2025 05:53:16 -0700 (PDT)
+ Mon, 24 Mar 2025 05:53:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -78,13 +79,15 @@ To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Matti Vaittinen <mazziesaccount@gmail.com>, linux-iio@vger.kernel.org,
  devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 24 Mar 2025 13:53:12 +0100
-Message-ID: <20250324125313.82226-1-krzysztof.kozlowski@linaro.org>
+Date: Mon, 24 Mar 2025 13:53:13 +0100
+Message-ID: <20250324125313.82226-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250324125313.82226-1-krzysztof.kozlowski@linaro.org>
+References: <20250324125313.82226-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: iio: Correct indentation and
-	style in DTS example
+Subject: [Linux-stm32] [PATCH 2/2] dt-bindings: iio: Use
+	unevaluatedProperties for SPI devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,167 +104,126 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DTS example in the bindings should be indented with 2- or 4-spaces and
-aligned with opening '- |', so correct any differences like 3-spaces or
-mixtures 2- and 4-spaces in one binding.
-
-No functional changes here, but saves some comments during reviews of
-new patches built on existing code.
+SPI devices should use unevaluatedProperties:false instead of
+additionalProperties:false, to allow any SPI device properties listed in
+spi-peripheral-props.yaml.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- .../bindings/iio/adc/st,stm32-adc.yaml        | 102 +++++++++---------
- 1 file changed, 51 insertions(+), 51 deletions(-)
+ Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml      | 2 +-
+ Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml      | 2 +-
+ Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml      | 2 +-
+ .../devicetree/bindings/iio/dac/microchip,mcp4821.yaml          | 2 +-
+ Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml     | 2 +-
+ Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml    | 2 +-
+ .../devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml    | 2 +-
+ .../devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-index ef9dcc365eab..17bb60e18a1c 100644
---- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-@@ -498,7 +498,7 @@ patternProperties:
+diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml
+index 2d2561a52683..547044b8e246 100644
+--- a/Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/adi,ad3552r.yaml
+@@ -217,7 +217,7 @@ required:
+   - reg
+   - spi-max-frequency
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
  examples:
    - |
-     // Example 1: with stm32f429, ADC1, single-ended channel 8
--      adc123: adc@40012000 {
-+    adc123: adc@40012000 {
-         compatible = "st,stm32f4-adc-core";
-         reg = <0x40012000 0x400>;
-         interrupts = <18>;
-@@ -512,28 +512,28 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         adc@0 {
--          compatible = "st,stm32f4-adc";
--          #io-channel-cells = <1>;
--          reg = <0x0>;
--          clocks = <&rcc 0 168>;
--          interrupt-parent = <&adc123>;
--          interrupts = <0>;
--          st,adc-channels = <8>;
--          dmas = <&dma2 0 0 0x400 0x0>;
--          dma-names = "rx";
--          assigned-resolution-bits = <8>;
-+            compatible = "st,stm32f4-adc";
-+            #io-channel-cells = <1>;
-+            reg = <0x0>;
-+            clocks = <&rcc 0 168>;
-+            interrupt-parent = <&adc123>;
-+            interrupts = <0>;
-+            st,adc-channels = <8>;
-+            dmas = <&dma2 0 0 0x400 0x0>;
-+            dma-names = "rx";
-+            assigned-resolution-bits = <8>;
-         };
-         // ...
-         // other adc child nodes follow...
--      };
-+    };
+diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml
+index 33490853497b..1aece3392b77 100644
+--- a/Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml
+@@ -144,7 +144,7 @@ required:
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
  
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
    - |
-     // Example 2: with stm32mp157c to setup ADC1 with:
-     // - channels 0 & 1 as single-ended
-     // - channels 2 & 3 as differential (with resp. 6 & 7 negative inputs)
--      #include <dt-bindings/interrupt-controller/arm-gic.h>
--      #include <dt-bindings/clock/stm32mp1-clks.h>
--      adc12: adc@48003000 {
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    adc12: adc@48003000 {
-         compatible = "st,stm32mp1-adc-core";
-         reg = <0x48003000 0x400>;
-         interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
-@@ -550,27 +550,27 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         adc@0 {
--          compatible = "st,stm32mp1-adc";
--          #io-channel-cells = <1>;
--          reg = <0x0>;
--          interrupt-parent = <&adc12>;
--          interrupts = <0>;
--          st,adc-channels = <0 1>;
--          st,adc-diff-channels = <2 6>, <3 7>;
--          st,min-sample-time-nsecs = <5000>;
--          dmas = <&dmamux1 9 0x400 0x05>;
--          dma-names = "rx";
-+            compatible = "st,stm32mp1-adc";
-+            #io-channel-cells = <1>;
-+            reg = <0x0>;
-+            interrupt-parent = <&adc12>;
-+            interrupts = <0>;
-+            st,adc-channels = <0 1>;
-+            st,adc-diff-channels = <2 6>, <3 7>;
-+            st,min-sample-time-nsecs = <5000>;
-+            dmas = <&dmamux1 9 0x400 0x05>;
-+            dma-names = "rx";
-         };
-         // ...
-         // other adc child node follow...
--      };
-+    };
+diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml
+index c8c434c10643..3c8e5781e42c 100644
+--- a/Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/adi,ltc2672.yaml
+@@ -124,7 +124,7 @@ required:
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
  
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
    - |
-     // Example 3: with stm32mp157c to setup ADC2 with:
-     // - internal channels 13, 14, 15.
--      #include <dt-bindings/interrupt-controller/arm-gic.h>
--      #include <dt-bindings/clock/stm32mp1-clks.h>
--      adc122: adc@48003000 {
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    adc122: adc@48003000 {
-         compatible = "st,stm32mp1-adc-core";
-         reg = <0x48003000 0x400>;
-         interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
-@@ -587,28 +587,28 @@ examples:
-         #address-cells = <1>;
-         #size-cells = <0>;
-         adc@100 {
--          compatible = "st,stm32mp1-adc";
--          #io-channel-cells = <1>;
--          reg = <0x100>;
--          interrupts = <1>;
--          #address-cells = <1>;
--          #size-cells = <0>;
--          channel@13 {
--            reg = <13>;
--            label = "vrefint";
--            st,min-sample-time-ns = <9000>;
--          };
--          channel@14 {
--            reg = <14>;
--            label = "vddcore";
--            st,min-sample-time-ns = <9000>;
--          };
--          channel@15 {
--            reg = <15>;
--            label = "vbat";
--            st,min-sample-time-ns = <9000>;
--          };
-+            compatible = "st,stm32mp1-adc";
-+            #io-channel-cells = <1>;
-+            reg = <0x100>;
-+            interrupts = <1>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            channel@13 {
-+                reg = <13>;
-+                label = "vrefint";
-+                st,min-sample-time-ns = <9000>;
-+            };
-+            channel@14 {
-+                reg = <14>;
-+                label = "vddcore";
-+                st,min-sample-time-ns = <9000>;
-+            };
-+            channel@15 {
-+                reg = <15>;
-+                label = "vbat";
-+                st,min-sample-time-ns = <9000>;
-+            };
-         };
--      };
-+    };
+diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp4821.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp4821.yaml
+index 0dc577c33918..26011b5639d8 100644
+--- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp4821.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp4821.yaml
+@@ -64,7 +64,7 @@ required:
+   - reg
+   - vdd-supply
  
- ...
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml b/Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml
+index 941a49c93943..188b00333dfb 100644
+--- a/Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/rohm,bd79703.yaml
+@@ -43,7 +43,7 @@ required:
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+index a4c273c7a67f..cf5324de4fd6 100644
+--- a/Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
++++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+@@ -53,7 +53,7 @@ required:
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml b/Documentation/devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml
+index 89977b9f01cf..412c7bcc310f 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/honeywell,hsc030pa.yaml
+@@ -102,7 +102,7 @@ required:
+ allOf:
+   - $ref: /schemas/spi/spi-peripheral-props.yaml
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ dependentSchemas:
+   honeywell,pmin-pascal:
+diff --git a/Documentation/devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml b/Documentation/devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml
+index 6994b30015bd..c756aa863103 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/honeywell,mprls0025pa.yaml
+@@ -115,7 +115,7 @@ allOf:
+         honeywell,pmin-pascal: false
+         honeywell,pmax-pascal: false
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 -- 
 2.43.0
 
