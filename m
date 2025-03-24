@@ -2,68 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D9AA6D7BE
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 10:43:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C25A6D7E8
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 11:00:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99C80C78F6A;
-	Mon, 24 Mar 2025 09:43:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C40DBC7802F;
+	Mon, 24 Mar 2025 10:00:26 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A447C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAD0EC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 09:43:22 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O9BbeC031035;
- Mon, 24 Mar 2025 10:42:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- yT8oLnhtXkXINGnaV4SHYt3aHucazcGEQTHZoc9QZSc=; b=DNAUbfq6/Jhr49dY
- UZilZG/nPpJwxSNbjdOvw8cWhtKG/mHo2Y0ypVErwGGlkSe1cK97HchCEhDqF6BE
- +1ZkOxPxph/8n7q9NqR0zNKhYFVOpa8pXZZm2W9ITA4na6iyPIzV5A3mt28oojBs
- VQ73wEQoDPj6GoKshGNVxWD1Fevf6NytbNHGaWCYh3pkRX4PepyD5FYcgXZv7YV3
- jh8XbguA0IC31l3kDeM8aJCTx4/Qkxozorv4HEL88YKnJCjbvPLqvbCVfI5uLAnT
- m2YQ72WpAGy6wR3zolGKfe7YdaPQloUzGcYRc0QnJHJrypJ+enO+93ZvO781orGb
- E9dGgw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45hkgr71x2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Mar 2025 10:42:59 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DFB6A40063;
- Mon, 24 Mar 2025 10:41:40 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87D8D7EE783;
- Mon, 24 Mar 2025 10:40:17 +0100 (CET)
-Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Mar
- 2025 10:40:17 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Mon, 24 Mar 2025 10:40:14 +0100
+ Mon, 24 Mar 2025 10:00:25 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3913d129c1aso2922034f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Mar 2025 03:00:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1742810425; x=1743415225;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3RzGV1RpQts5giBdaR6NJZIGRMhOnCTfW5GoZwlJYO8=;
+ b=Oczx3di1sA74WxsRCQzMTVP8qBvrU6DPnUplaP+nde0oGsA7ZlD663c/oIkDu5r3nH
+ zY76iaNKJC7z9N31fNBWYNN2fb1pIF71BcxRYwuSqILtZ23lurrj0JrfoxcBVP9HgdoZ
+ GtS6pPsSeAEv62VDev703ZrxGExWmMk2HjKgKf2OwUh5PYuJBPVqG5RFJLvclD/6inOj
+ 949NJukd+yqBqWYiGrMNVTKlHUkeznQaE47v6Yz2LBrNWQJneKOqovLHFmMq8QBGiaBu
+ iNnl5ontLgUGZz0JRBMQryLkBsXBGVFBu0W9MYtXgIGTXAp8UXCUjl+QHSMW22xMF7dg
+ pDOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742810425; x=1743415225;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3RzGV1RpQts5giBdaR6NJZIGRMhOnCTfW5GoZwlJYO8=;
+ b=O2LIF8dLajY5YBNGTHbRAWDwLedghhju+lYTnLh+9gzqFE1QYES/HL0bpwLbJrO+Pi
+ 63UCb43+RAC1CYJO9IEqlGotglK6O0zTDZPyRwYbDofUadJcPzfMH0Z8gRK/uFyZIgQ4
+ 9JP0Ku3ZmXr53wCeySdasy/6tfRTncs2oSzmHtYi0iEdD5GioI4cuxTvXTaJzdRdSX+C
+ StaMwY2ou945rfoUClw5dDWUG4CsF3e49Dl/qHFZSPy+ClxEDKex9IJkZFSLNH+9zGBJ
+ D2m/2xKHtZwBmyfGM1agr0MmogXyPo85VtX6Se1bRCUSiVFguF0VZmUd4Zn+U6tENI6u
+ TPpw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXk9vNhG24P49b+cuuVQbF8zVOV6wyoxq3l5Ziph6+iS94CgiwbTZ/pSs8HdangOpDLxINcXezFMFIhcQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyrPh+nC33tSk67YuMat/vMBIIeAWdA/c0daI0sY9gFIETRc+PU
+ uoNPvUcx1Xm+8B3E8DH0uZ22ZuUPtEObh4gCYpGjzvz2gPn4RpUgAZDpNSPg4dM=
+X-Gm-Gg: ASbGncsZ5Tvc5Zu2w3xvqA0criqt9+feYNylEj45yjEzrc1/hK8ruNcbZA6VBxRRQ6W
+ SKVwKktfNeHcWk/TaE11zfAX88odueRIPmacnHaM62CJxracDyir2qSnfpApsYsUpxSLd9i8EDX
+ mA9+bMK915aACB+eqyZjsquu6wiHuiWRF4fW+UMsVyzHY3Cy0fs+TiTgcLKGb1BkcjT8GuhM9lO
+ JTT99V2JOuK713BVoAoMNSFCV/iSmMpxTgRHr6kLF6kF9iJDmvVZhoDIktVfPabAUrYDCQDMUlL
+ HAysZlx267XMRvwWnPjPDWnvC0/LgRY1/2v1Jp/lb/hwBlrIHDhkJVeAgsy8fKHOUumvz2g=
+X-Google-Smtp-Source: AGHT+IGVC5Cc2BTYBbFdNtgjSgvA47GAhTFPvWufLC91XobhDpo2M7uGRnbnSjRmU2ARwM+unXFsow==
+X-Received: by 2002:a5d:47af:0:b0:391:21e2:ec3b with SMTP id
+ ffacd0b85a97d-3997f8f743dmr9193072f8f.3.1742810424883; 
+ Mon, 24 Mar 2025 03:00:24 -0700 (PDT)
+Received: from mai.. (146725694.box.freepro.com. [130.180.211.218])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f995611sm10625933f8f.15.2025.03.24.03.00.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Mar 2025 03:00:24 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: daniel.lezcano@linaro.org,
+	tglx@linutronix.de
+Date: Mon, 24 Mar 2025 11:00:05 +0100
+Message-ID: <20250324100008.346009-1-daniel.lezcano@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Message-ID: <20250324-upstream_ospi_required_resets-v2-2-85a48afcedec@foss.st.com>
-References: <20250324-upstream_ospi_required_resets-v2-0-85a48afcedec@foss.st.com>
-In-Reply-To: <20250324-upstream_ospi_required_resets-v2-0-85a48afcedec@foss.st.com>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-24_04,2025-03-21_01,2024-11-22_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org,
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] spi: spi-stm32-ospi: Make "resets" a
- required property
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Fossati <thomas.fossati@linaro.org>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: NXP System Timer Module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,32 +94,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On some STM32MP2 SoCs, an Octo Memory Manager is embedded and
-need to retrieve OSPI's reset to perform its own initialization.
-Make "resets" property mandatory.
+Add the System Timer Module description found on the NXP s32 platform
+and the compatible for the s32g2 variant.
 
-Fixes: 79b8a705e26c ("spi: stm32: Add OSPI driver")
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Thomas Fossati <thomas.fossati@linaro.org>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
 ---
- drivers/spi/spi-stm32-ospi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/timer/nxp,stm-timer.yaml         | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index d4f413c8c3ce1a51d2302602d46c7605a8bbc605..d3839a4dacf9f2eb95bafad9f7a8538ce2bb3598 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	ospi->rstc = devm_reset_control_array_get_optional_exclusive(dev);
-+	ospi->rstc = devm_reset_control_array_get_exclusive(dev);
- 	if (IS_ERR(ospi->rstc))
- 		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
- 				     "Can't get reset\n");
-
+diff --git a/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml b/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
+new file mode 100644
+index 000000000000..41093892c617
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/nxp,stm-timer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP System Timer Module (STM)
++
++maintainers:
++  - Daniel Lezcano <daniel.lezcano@kernel.org>
++
++description: |
++  The System Timer Module supports commonly required system and
++  application software timing functions. STM includes a 32-bit
++  count-up timer and four 32-bit compare channels with a separate
++  interrupt source for each channel. The timer is driven by the STM
++  module clock divided by an 8-bit prescale value.
++
++properties:
++  compatible:
++    oneOf:
++      - const: nxp,s32g2-stm
++      - items:
++          - const: nxp,s32g2-stm
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: System Timer Module clock
++
++  clock-names:
++    items:
++      - const: stm
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    stm@4011c000 {
++        compatible = "nxp,s32g2-stm";
++        reg = <0x4011c000 0x3000>;
++        interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clks 0x3b>;
++        clock-names = "stm";
++    };
 -- 
-2.25.1
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
