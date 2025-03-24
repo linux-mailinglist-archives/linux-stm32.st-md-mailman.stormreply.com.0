@@ -2,54 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA3DA6D75D
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 10:30:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E03D7A6D7BD
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Mar 2025 10:43:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B42F8C78F65;
-	Mon, 24 Mar 2025 09:30:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DECFC78F67;
+	Mon, 24 Mar 2025 09:43:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5664C7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F8EFC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Mar 2025 09:30:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7EC1A5C2FAE;
- Mon, 24 Mar 2025 09:28:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1E9C4CEDD;
- Mon, 24 Mar 2025 09:30:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742808624;
- bh=IPzrS0/Zcd1NgbTKD2p6gprmFogxoNJ569d846NwIW0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ijNDJqpOO/9i/N70VDeLvEcXIYYBfUVNZaMbGsiH+SN6JXsWEQNTYaU5Yg56bkDrq
- ASlVFNPr8XpZVXQbahLP5/XBLN6Vx9RDzHQKrh1XtCDR5FH8VEDTp+hM3jcvJotkZn
- Y9jx6KGtekRJi97hnODq2Qm2TsRIUYsPsZ+4w6RDLu5DhQuYQAeESzjUGqQUBo+Fpr
- cFBLJPAZjIjR9Xg6vbNAZtuiPACjWDcXk2OwCWR3gGSHBWEZmMghj+Cvty9uYa2ng1
- Kl08LPtdM9Q6vSI829TTCo8Fd+e9OJ+64lpH2n35grdfFUhwmitVXWeAWCTLH3zIkW
- hfGs94nL4i1cQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Huacai Chen <chenhuacai@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Serge Semin <fancer.lancer@gmail.com>, Yinggang Gu <guyinggang@loongson.cn>
-Date: Mon, 24 Mar 2025 10:29:30 +0100
-Message-ID: <20250324092928.9482-6-phasta@kernel.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250324092928.9482-2-phasta@kernel.org>
-References: <20250324092928.9482-2-phasta@kernel.org>
+ Mon, 24 Mar 2025 09:43:21 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52O7ELVd032168;
+ Mon, 24 Mar 2025 10:42:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=5fV2R1E3CKBb4WFfRo1d9P
+ Yp2TC8wiqYUiEwsJbh6Qc=; b=o0SeTaSKKMUsYOUmOa4/jofgvOu2CbNHqPZR4J
+ 0590RDqcPG3Niu91HZ96V9+SDVJLcRZEQxzXpO+NqAsm1OdYKg7GrrGWPHiB5sCq
+ eS32CMq9KCaOAzG0KB64861IdL8niNlDmjJiJdaWejHtDhX/i8alovllZCCZyVu5
+ YamOpIJRGcro4TNuZ9uI25C0c8Gjk+12Lc+FN9BtTMY7/NUvNvDG9O34TtlN2U7F
+ H4LWx37jWYYfr8jMweBJRTkARmFIVR4W3VmvEpYMLV8vFKZgS3jjBxWuygR5X+go
+ ufO4+/kzPAsIOeYUpViumltgWd4rZih9TcGGtSNkPku75yvQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45j7n84eqn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Mar 2025 10:42:59 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E3BD1400DA;
+ Mon, 24 Mar 2025 10:41:40 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 14FE17EE902;
+ Mon, 24 Mar 2025 10:40:16 +0100 (CET)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Mar
+ 2025 10:40:15 +0100
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Mon, 24 Mar 2025 10:40:12 +0100
+Message-ID: <20250324-upstream_ospi_required_resets-v2-0-85a48afcedec@foss.st.com>
 MIME-Version: 1.0
-Cc: Philipp Stanner <phasta@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Henry Chen <chenx97@aosc.io>, Jacob Keller <jacob.e.keller@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Huacai Chen <chenhuacai@loongson.cn>
-Subject: [Linux-stm32] [PATCH net-next v4 3/3] stmmac: Replace deprecated
-	PCI functions
+X-B4-Tracking: v=1; b=H4sIAHwo4WcC/42NQQ6CMBBFr0JmbUlbENSV9zCEFBhkFlCcKURDu
+ LuVE7j77y/e20CQCQVuyQaMKwn5KYI9JdAObnqioi4yWG3POrNGLbMERjfWXmaqGV8LMXZxCAZ
+ RWe4ujSkLY5oComNm7Ol9+B9V5IEkeP4cudX83n/Nq1FaXZ3LS20xc2jvvRdJJaStH6Ha9/0LN
+ jJtXcwAAAA=
+X-Change-ID: 20250321-upstream_ospi_required_resets-34a8b17611b6
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-24_04,2025-03-21_01,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/2] spi: spi-stm32-ospi: dt-bindings fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,96 +81,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The PCI functions
-  - pcim_iomap_regions() and
-  - pcim_iomap_table()
-have been deprecated.
+Make "resets" property mandatory.
+Update spi-stm32-ospi driver and dt-bindings accordingly.
 
-Replace them with their successor function, pcim_iomap_region().
-
-Make variable declaration order at closeby places comply with reverse
-christmas tree order.
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Tested-by: Henry Chen <chenx97@aosc.io>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c |  8 +++-----
- drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c     | 12 +++++-------
- 2 files changed, 8 insertions(+), 12 deletions(-)
+Changes in v2:
+- Update dt-bindings commit message to explain why OSPI's resets becomes
+  a required property.
+- Link to v1: https://lore.kernel.org/r/20250321-upstream_ospi_required_resets-v1-0-9aa4702e3ae2@foss.st.com
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index e015e54d9190..1a93787056a7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -533,8 +533,8 @@ static int loongson_dwmac_fix_reset(void *priv, void __iomem *ioaddr)
- static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	struct plat_stmmacenet_data *plat;
-+	struct stmmac_resources res = {};
- 	struct stmmac_pci_info *info;
--	struct stmmac_resources res;
- 	struct loongson_data *ld;
- 	int ret;
- 
-@@ -566,13 +566,11 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 	pci_set_master(pdev);
- 
- 	/* Get the base address of device */
--	ret = pcim_iomap_regions(pdev, BIT(0), DRIVER_NAME);
-+	res.addr = pcim_iomap_region(pdev, 0, DRIVER_NAME);
-+	ret = PTR_ERR_OR_ZERO(res.addr);
- 	if (ret)
- 		goto err_disable_device;
- 
--	memset(&res, 0, sizeof(res));
--	res.addr = pcim_iomap_table(pdev)[0];
--
- 	plat->bsp_priv = ld;
- 	plat->setup = loongson_dwmac_setup;
- 	plat->fix_soc_reset = loongson_dwmac_fix_reset;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index 1637c8139b9d..9c1b54b701f7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -155,9 +155,9 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
- {
- 	struct stmmac_pci_info *info = (struct stmmac_pci_info *)id->driver_data;
- 	struct plat_stmmacenet_data *plat;
--	struct stmmac_resources res;
--	int i;
-+	struct stmmac_resources res = {};
- 	int ret;
-+	int i;
- 
- 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
- 	if (!plat)
-@@ -192,9 +192,9 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
- 	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
- 		if (pci_resource_len(pdev, i) == 0)
- 			continue;
--		ret = pcim_iomap_regions(pdev, BIT(i), pci_name(pdev));
--		if (ret)
--			return ret;
-+		res.addr = pcim_iomap_region(pdev, i, STMMAC_RESOURCE_NAME);
-+		if (IS_ERR(res.addr))
-+			return PTR_ERR(res.addr);
- 		break;
- 	}
- 
-@@ -204,8 +204,6 @@ static int stmmac_pci_probe(struct pci_dev *pdev,
- 	if (ret)
- 		return ret;
- 
--	memset(&res, 0, sizeof(res));
--	res.addr = pcim_iomap_table(pdev)[i];
- 	res.wol_irq = pdev->irq;
- 	res.irq = pdev->irq;
- 
+---
+Patrice Chotard (2):
+      spi: dt-bindings: st,stm32mp25-ospi: Make "resets" a required property
+      spi: spi-stm32-ospi: Make "resets" a required property
+
+ Documentation/devicetree/bindings/spi/st,stm32mp25-ospi.yaml | 1 +
+ drivers/spi/spi-stm32-ospi.c                                 | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+---
+base-commit: e94bd4ec45ac156616da285a0bf03056cd7430fc
+change-id: 20250321-upstream_ospi_required_resets-34a8b17611b6
+
+Best regards,
 -- 
-2.48.1
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
