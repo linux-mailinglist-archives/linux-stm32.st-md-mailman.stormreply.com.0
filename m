@@ -2,94 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB2DA6EA80
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Mar 2025 08:30:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5070A6ED2C
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Mar 2025 11:00:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DD2CC78F67;
-	Tue, 25 Mar 2025 07:30:17 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94E66C78F77;
+	Tue, 25 Mar 2025 10:00:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAE3FC78F61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3A43C78F68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Mar 2025 07:30:15 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A6D1361587;
- Tue, 25 Mar 2025 07:30:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30FCC4CEED;
- Tue, 25 Mar 2025 07:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742887814;
- bh=NUU1tKtyrxbh9CycUXEnU1sTP9HW1U1NnObVJRtZG2w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BwkKoGHEW9V+JQcsH/bEvyCDpG+0TBXS0TPr1qtq706PzmG+P3Z5QMVAWgBmf1dtU
- NZsuJN9NkeYlWLDaYHniaX2fRGRUE+wnZ178h/YfmMoMcDgK6TnwEsjJDbRVvfSkQ3
- XlwHJQUP/2OXQ+v+UsjfTLkriIoPUyaES8DMCvmztDX5JvxIVtxA/1s3TfzRfhyigD
- N5t6Zi9NVw/V6yR4aDpe7KlTtaz1JMGfv+qKmJa9+2JYo/sv1XMNSE1sGyIDafa+Xc
- u/InFkKuFool34dv31mYqVHpBUq+2fhozZPk7fHU2RprMRgwDWPHi3g80VFizesotc
- 76zwboL0N2/0w==
-Message-ID: <bb7e4740-9608-4534-9c19-3ac066e2aa8f@kernel.org>
-Date: Tue, 25 Mar 2025 08:30:08 +0100
+ Tue, 25 Mar 2025 10:00:52 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52P69SAF005985;
+ Tue, 25 Mar 2025 11:00:38 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=pjwodPeGoQRNskM8wRB/+5
+ v/OYaad9fMmX1WtOfP2Ug=; b=C9bnNZUZubciQOiwpWJibY0aPgIVkw+SJaz/Ps
+ aaliIjjvmLR9uWL/nlp/Ji+MyFzxP9K0wOlEifwtYAeIxzvoZ122sCdVnNKL8QhM
+ djJEozRmLNwD5E+tfvlm6Uf12lwGF/CKZEW2ZPo1JJTFkaQ6HqIdPvEaHMf7jEpl
+ WpoiFj25hTD+xgGnz32GwBFrL3j/UNQ3KrQyE28QWMPcM4LUJglxpDfXwOaA0Kbd
+ o8qkKB4yplNtWVJC1/WBzPkfDZUnV6+1NzeFPZKoXd0YS95+ry2LyHz/DuQw80OD
+ rtRAUCu2ywEKG5WHofSfnxGor3fEvZTcdUqg/UR3MsdkyaWw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45hk7d3yg3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 25 Mar 2025 11:00:38 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1B07940055;
+ Tue, 25 Mar 2025 10:59:36 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EFBF3823755;
+ Tue, 25 Mar 2025 10:58:44 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 10:58:44 +0100
+Received: from localhost (10.252.12.99) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 10:58:44 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Tue, 25 Mar 2025 10:58:27 +0100
+Message-ID: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, tglx@linutronix.de
-References: <20250324100008.346009-1-daniel.lezcano@linaro.org>
- <20250324100008.346009-2-daniel.lezcano@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20250324100008.346009-2-daniel.lezcano@linaro.org>
-Cc: "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Larisa Grigore <Larisa.Grigore@nxp.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Fossati <thomas.fossati@linaro.org>,
- Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] clocksource/drivers/nxp-timer: Add
- the System Timer Module for the s32g platform
+X-Originating-IP: [10.252.12.99]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-25_04,2025-03-25_01,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v16 0/6] Introduction of a remoteproc tee to
+	load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,209 +80,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/03/2025 11:00, Daniel Lezcano wrote:
-> +
-> +static int __init nxp_stm_clocksource_init(struct device *dev, const char *name,
-> +					   void __iomem *base, struct clk *clk)
-> +{
-> +	struct stm_timer *stm_timer;
-> +	int ret;
-> +
-> +	stm_timer = devm_kzalloc(dev, sizeof(*stm_timer), GFP_KERNEL);
-> +	if (!stm_timer)
-> +		return -ENOMEM;
-> +
-> +	stm_timer->base = base;
-> +	stm_timer->rate = clk_get_rate(clk);
-> +
-> +	stm_timer->scs.cs.name = name;
+Main updates from version V15[1]:
+- Removed the rproc_ops:load_fw() operation introduced in the previous version.
+- Returned to managing the remoteproc firmware loading in rproc_tee_parse_fw to
+  load and authenticate the firmware before getting the resource table.
+- Added spinlock and dev_link mechanisms in remoteproc TEE to better manage
+  bind/unbind.
 
-You are aware that all node names will have exactly the same name? All
-of them will be called "timer"?
+More details are available in each patch commit message.
 
+[1] https://lore.kernel.org/linux-remoteproc/20241128084219.2159197-7-arnaud.pouliquen@foss.st.com/T/
 
-> +	stm_timer->scs.cs.rating = 460;
-> +	stm_timer->scs.cs.read = nxp_stm_clocksource_read;
-> +	stm_timer->scs.cs.enable = nxp_stm_clocksource_enable;
-> +	stm_timer->scs.cs.disable = nxp_stm_clocksource_disable;
-> +	stm_timer->scs.cs.suspend = nxp_stm_clocksource_suspend;
-> +	stm_timer->scs.cs.resume = nxp_stm_clocksource_resume;
-> +	stm_timer->scs.cs.mask = CLOCKSOURCE_MASK(32);
-> +	stm_timer->scs.cs.flags = CLOCK_SOURCE_IS_CONTINUOUS;
-> +
-> +	ret = clocksource_register_hz(&stm_timer->scs.cs, stm_timer->rate);
-> +	if (ret)
-> +		return ret;
-> +
-> +	stm_sched_clock = stm_timer;
-> +
-> +	sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
-> +
-> +	dev_set_drvdata(dev, stm_timer);
-> +
-> +	dev_dbg(dev, "Registered clocksource %s\n", name);
+Tested-on: commit 0a0ba9924445 ("Linux 6.14-rc7")
 
-Since all names will be the same, this makes little sense in debugging.
-I guess you wanted one of the OF printk-formats for full node name.
+Description of the feature:
+--------------------------
+This series proposes the implementation of a remoteproc tee driver to
+communicate with a TEE trusted application responsible for authenticating
+and loading the remoteproc firmware image in an Arm secure context.
 
+1) Principle:
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int nxp_stm_clockevent_read_counter(struct stm_timer *stm_timer)
-> +{
-> +	return readl(stm_timer->base + STM_CNT);
-> +}
-> +
+The remoteproc tee driver provides services to communicate with the OP-TEE
+trusted application running on the Trusted Execution Context (TEE).
+The trusted application in TEE manages the remote processor lifecycle:
 
-...
+- authenticating and loading firmware images,
+- isolating and securing the remote processor memories,
+- supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+- managing the start and stop of the firmware by the TEE.
 
-> +
-> +static int __init nxp_stm_timer_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *np = dev->of_node;
-> +	struct stm_instances *stm_instances;
-> +	const char *name = of_node_full_name(np);
-> +	void __iomem *base;
-> +	int irq, ret;
-> +	struct clk *clk;
-> +
-> +	stm_instances = (typeof(stm_instances))of_device_get_match_data(dev);
+2) Format of the signed image:
 
-No, you *cannot* drop the const. It's there on purpose. Match data
-should be const because it defines per variant differences. That's why
-the prototype of of_device_get_match_data() has such return type.
-You just want some global singleton, not match data.
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
 
-> +	if (!stm_instances) {
-> +		dev_err(dev, "No STM instances associated with a cpu");
-> +		return -EINVAL;
-> +	}
-> +
-> +	base = devm_of_iomap(dev, np, 0, NULL);
-> +	if (IS_ERR(base)) {
-> +		dev_err(dev, "Failed to iomap %pOFn\n", np);
+3) OP-TEE trusted application API:
 
-You need to clean up the downstream code to match upstream. All of these
-should be return dev_err_probe().
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
 
-> +		return PTR_ERR(base);
-> +	}
-> +
-> +	irq = irq_of_parse_and_map(np, 0);
-> +	if (irq <= 0) {
-> +		dev_err(dev, "Failed to parse and map IRQ: %d\n", irq);
-> +		return -EINVAL;
-> +	}
-> +
-> +	clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(clk)) {
-> +		dev_err(dev, "Clock not found\n");
+4) OP-TEE signature script
 
-And this is clearly incorrect - spamming logs. Syntax is:
-return dev_err_probe
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
 
-> +		return PTR_ERR(clk);
-> +	}
-> +
-> +	ret = clk_prepare_enable(clk);
-
-Drop, devm_clk_get_enabled.
-
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable STM timer clock: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (!stm_instances->clocksource && (stm_instances->features & STM_CLKSRC)) {
-> +
-> +		/*
-> +		 * First probed STM will be a clocksource
-> +		 */
-> +		ret = nxp_stm_clocksource_init(dev, name, base, clk);
-> +		if (ret)
-> +			return ret;
-> +		stm_instances->clocksource++;
-
-That's racy. Devices can be brought async, ideally. This should be
-rather idr or probably entire structure protected with a mutex.
-
-> +
-> +	} else if (!stm_instances->clockevent_broadcast &&
-> +		   (stm_instances->features & STM_CLKEVT_BROADCAST)) {
-> +
-> +		/*
-> +		 * Second probed STM will be a broadcast clockevent
-> +		 */
-> +		ret = nxp_stm_clockevent_broadcast_init(dev, name, base, irq, clk);
-> +		if (ret)
-> +			return ret;
-> +		stm_instances->clockevent_broadcast++;
-> +
-> +	} else if (stm_instances->clockevent_per_cpu < num_possible_cpus() &&
-> +		   (stm_instances->features & STM_CLKEVT_PER_CPU)) {
-> +
-> +		/*
-> +		 * Next probed STM will be a per CPU clockevent, until
-> +		 * we probe as much as we have CPUs available on the
-> +		 * system, we do a partial initialization
-> +		 */
-> +		ret = nxp_stm_clockevent_per_cpu_init(dev, name, base, irq, clk,
-> +						      stm_instances->clockevent_per_cpu);
-> +		if (ret)
-> +			return ret;
-> +
-> +		stm_instances->clockevent_per_cpu++;
-> +
-> +		/*
-> +		 * The number of probed STM for per CPU clockevent is
-> +		 * equal to the number of available CPUs on the
-> +		 * system. We install the cpu hotplug to finish the
-> +		 * initialization by registering the clockevents
-> +		 */
-> +		if (stm_instances->clockevent_per_cpu == num_possible_cpus()) {
-> +			ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "STM timer:starting",
-> +						nxp_stm_clockevent_starting_cpu, NULL);
-> +			if (ret < 0)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct stm_instances s32g_stm_instances = { .features = STM_CLKSRC | STM_CLKEVT_PER_CPU };
-
-Missing const. Or misplaced - all file-scope static variables are
-declared at the top.
-
-> +
-> +static const struct of_device_id nxp_stm_of_match[] = {
-> +	{ .compatible = "nxp,s32g2-stm", &s32g_stm_instances },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, nxp_stm_of_match);
-> +
-> +static struct platform_driver nxp_stm_probe = {
-> +	.probe	= nxp_stm_timer_probe,
-> +	.driver	= {
-> +		.name = "nxp-stm",
-> +		.of_match_table = of_match_ptr(nxp_stm_of_match),
-
-Drop of_match_ptr, you have here warnings.
-
-> +	},
-> +};
-> +module_platform_driver(nxp_stm_probe);
-> +
-> +MODULE_DESCRIPTION("NXP System Timer Module driver");
-> +MODULE_LICENSE("GPL");
+Example of usage:
+sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
 
 
-Best regards,
-Krzysztof
+5) Impact on User space Application
+
+No sysfs impact. The user only needs to provide the signed firmware image
+instead of the ELF image.
+
+
+For more information about the implementation, a presentation is available here
+(note that the format of the signed image has evolved between the presentation
+and the integration in OP-TEE).
+
+https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+
+
+
+Arnaud Pouliquen (6):
+  remoteproc: core: Introduce rproc_pa_to_va helper
+  remoteproc: Add TEE support
+  remoteproc: Introduce release_fw optional operation
+  dt-bindings: remoteproc: Add compatibility for TEE support
+  remoteproc: stm32: Create sub-functions to request shutdown and
+    release
+  remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+ drivers/remoteproc/Kconfig                    |  10 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/remoteproc_core.c          |  52 ++
+ drivers/remoteproc/remoteproc_internal.h      |   6 +
+ drivers/remoteproc/remoteproc_tee.c           | 619 ++++++++++++++++++
+ drivers/remoteproc/stm32_rproc.c              | 139 +++-
+ include/linux/remoteproc.h                    |   4 +
+ include/linux/remoteproc_tee.h                |  90 +++
+ 9 files changed, 935 insertions(+), 44 deletions(-)
+ create mode 100644 drivers/remoteproc/remoteproc_tee.c
+ create mode 100644 include/linux/remoteproc_tee.h
+
+
+base-commit: 0a0ba99244455fea8706c4a53f5f66a45d87905d
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
