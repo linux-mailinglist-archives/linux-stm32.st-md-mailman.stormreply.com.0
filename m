@@ -2,49 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC13CA704A2
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Mar 2025 16:10:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52372A70876
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Mar 2025 18:50:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AB9AC78F7F;
-	Tue, 25 Mar 2025 15:10:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09181C78F68;
+	Tue, 25 Mar 2025 17:50:03 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFCF2C78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAF29CFAC42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Mar 2025 15:10:04 +0000 (UTC)
+ Tue, 25 Mar 2025 17:50:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1874243CE3;
- Tue, 25 Mar 2025 15:10:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5FDC4CEE4;
- Tue, 25 Mar 2025 15:10:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 937E65C55B6;
+ Tue, 25 Mar 2025 17:47:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450E9C4CEE4;
+ Tue, 25 Mar 2025 17:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742915403;
- bh=LeTQS4831V5MzsLiMC9LAw9t50lIBowdpyY0TiML4j8=;
+ s=k20201202; t=1742925000;
+ bh=EL3VnTPJo+P5z/KHMukRAuwWkDM/Ve3eT4OQHlZyvHk=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=OSv+owgNR70SmVzshxqqtEMPZkBl/rNogjzzKsghyVHlQ28cLSkSU9S/GVwbqpgsq
- hUMhkGTKbJ4QDckbTjwRefRsG3C+58481bAz4v/iuCcIHMWR6LXkqfwdV2bMHUywZM
- 5DLt3iDXsoGjGGu6GRI6rzgDeRTKkjRiC4ERjnzDbUyP5s7NTWOmL61d847gDli+aI
- r86gRcsJ0VfBhzqFu4Wmg0kAuLtov8i/nSGY52Odk9mDRowrmnZmS8WfIkJwGDCFY/
- sngqbstTr1Xy/huJRbp/lTdykx9mm7/aeG7I7zf37Rm5vsjWlXBPNTPtP1KESIqN1y
- BinaN4QGIvxaA==
+ b=V0VoNwWFYekJ6GE+Mh79Ye9r10xvX4kYy61L4qTDJYZ1lCE0NvGznWgAIfKpFL7xD
+ 93yeRa9iyQKS0iQXWhRf4rTKrc48UDEQbIBtWY6q3w4dUpWn6P9CQwZJera0SBAvE0
+ +iSXQnrcIbftNlmdBBxtqi3q1IjsHheOyBj42UlEWxEinvkWqO9+h9IkNSJb2Fmocm
+ WpnfHJ+VbBj/x8zgx4vl11u0dcmQnoWX/HH6lbmAPrG1fiVVQfnbwP7I+XNqgaU/mP
+ OOtZzZhkx1ys+0Hd5tNPncbgutqCCn0S8r0zcXGa2Mrxlq+7SGv20faqTavfOwki07
+ 3P5WJTPbkKqKw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- B0FBF380CFE7; Tue, 25 Mar 2025 15:10:40 +0000 (UTC)
+ B061F380CFE7; Tue, 25 Mar 2025 17:50:37 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174291543949.609648.15797575724114490670.git-patchwork-notify@kernel.org>
-Date: Tue, 25 Mar 2025 15:10:39 +0000
-References: <Z9ySeo61VYTClIJJ@shell.armlinux.org.uk>
-In-Reply-To: <Z9ySeo61VYTClIJJ@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+Message-Id: <174292503611.665771.17143313687582113005.git-patchwork-notify@kernel.org>
+Date: Tue, 25 Mar 2025 17:50:36 +0000
+References: <20250324062742.462771-1-yong.liang.choong@linux.intel.com>
+In-Reply-To: <20250324062742.462771-1-yong.liang.choong@linux.intel.com>
+To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
  edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 0/5] net: improve stmmac resume
-	rx clocking
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/1] stmmac: intel: interface
+ switching support for RPL-P platform
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,38 +62,22 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 20 Mar 2025 22:11:06 +0000 you wrote:
-> Hi,
+On Mon, 24 Mar 2025 14:27:42 +0800 you wrote:
+> Based on the patch series [1], the enablement of interface switching for
+> RPL-P will use the same handling as ADL-N.
 > 
-> stmmac has had a long history of problems with resuming, illustrated by
-> reset failure due to the receive clock not running.
+> Link: https://patchwork.kernel.org/project/netdevbpf/cover/20250227121522.1802832-1-yong.liang.choong@linux.intel.com/ [1]
 > 
-> Several attempts have been attempted over the years to address this
-> issue, such as moving phylink_start() (now phylink_resume()) super
-> early in stmmac_resume() in commit 90702dcd19c0 ("net: stmmac: fix MAC
-> not working when system resume back with WoL a ctive.") However, this
-> has the downside that stmmac_mac_link_up() can (and demonstrably is)
-> called before or during the driver initialisation in another thread.
-> This can cause issues as packets could begin to be queued, and the
-> transmit/receive enable bits will be set before any initialisation has
-> been done.
+> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,1/5] net: phylink: add phylink_prepare_resume()
-    https://git.kernel.org/netdev/net-next/c/367f1854d442
-  - [net-next,2/5] net: stmmac: address non-LPI resume failures properly
-    https://git.kernel.org/netdev/net-next/c/ef43e5132895
-  - [net-next,3/5] net: stmmac: socfpga: remove phy_resume() call
-    https://git.kernel.org/netdev/net-next/c/366aeeba7908
-  - [net-next,4/5] net: phylink: add functions to block/unblock rx clock stop
-    https://git.kernel.org/netdev/net-next/c/ddf4bd3f7384
-  - [net-next,5/5] net: stmmac: block PHY RXC clock-stop
-    https://git.kernel.org/netdev/net-next/c/dd557266cf5f
+  - [net-next,v1,1/1] stmmac: intel: interface switching support for RPL-P platform
+    https://git.kernel.org/netdev/net-next/c/cc04ed502457
 
 You are awesome, thank you!
 -- 
