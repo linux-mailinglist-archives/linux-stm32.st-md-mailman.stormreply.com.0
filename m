@@ -2,68 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F469A710B1
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Mar 2025 07:44:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B57AA71150
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Mar 2025 08:24:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1016C78F7F;
-	Wed, 26 Mar 2025 06:44:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C022C78F7F;
+	Wed, 26 Mar 2025 07:24:23 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 704D6C78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91DB5C78F68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Mar 2025 06:44:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E322961144
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Mar 2025 06:44:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B11C4CEF2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Mar 2025 06:44:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1742971490;
- bh=N+Le9MFtc/k1LZ1LVkIPmZk2oGdIyqo4T5HKb+AHZPQ=;
- h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
- b=mGexHaIgLbSTRVHs1aAeFQlPGcyoCZW7ra4H38PmdGzDelCOcdKx1PSXmCzV7zHg4
- t4BXlaPJZl4M++7SmdtJc6OS8JjvQRphtWZwBCWtmx/alHR1Io5/u7TZToVoyJOSou
- 96VjLRob86BRO7cjMzROfgRLhBnxIvMMr+R4vtlIUeOGTcng2xdyftnauroj5ZowGD
- xzqLtB/oFZyge5ZZJr/oxGRcBJ2TtgorNnVd6M4vPVwtA8/remvhxw2JO6w5AmNBGW
- LWfgRtD9plTNy/EtRrTL21OA4Ltzhsl8gLg9J9a66/mPT8tJvI+frlHwy6w6//C7jk
- Cj6THAiU6V/PQ==
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-30c416cdcc0so66700381fa.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Mar 2025 23:44:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWYNOQVPYrjXZU8c5a/poMh/38dVNg18DJPAweNVKUTBVZ2tZYvkALPoEQaXAttRyr/9FwAegivkcIbQw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxH3DMYk6g7J8c4iC1PJSCqWQBkad1gREqdv3nx3yxXhfBosNUJ
- CTJc4vll0TwU/D992oOTxA8Ko0yhxixcYZo13rB7aIHWYHmL2fGBsnQ2lDSGQnvLZmz9NPW4YUl
- /7eR+wFhqmJXtOmNnd2xjRWPAnK0=
-X-Google-Smtp-Source: AGHT+IGMF6j2X+Jr6WCvccPSUBNATvTU7YZt+i3mWvl9VVSwRgH7cCtIrbRrCInxLepNvpLKepp5tmas4mw+ODC5pdo=
-X-Received: by 2002:a05:651c:201c:b0:30b:f924:3554 with SMTP id
- 38308e7fff4ca-30d7e236c49mr59160551fa.21.1742971488912; Tue, 25 Mar 2025
- 23:44:48 -0700 (PDT)
+ Tue, 25 Mar 2025 10:00:52 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52P8UCwx001949;
+ Tue, 25 Mar 2025 11:00:38 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ La+GKsof1rnVMVjBT4LQDc6NEeLSlU5rDexY7kQkC+E=; b=X9G4RLfeapZH6hgL
+ zvu81LAmBl3n3F9nzd0R31BrmbXIU399jYTevRaIRTkhBw5N+4CYnCUbcjZ9QZwm
+ RXRqN7my1MvSINUJa/45RO+27/AulHjY0/Gc/qrUzrO6a70E3hUcE5a7SD9BKaDN
+ H10/divWb2uE4uRxyqB5hSwEwlKTz6uTbtlMvD5RpEcURLnSkZvXwS9uNqKGajLv
+ ZdP2zcAjh7NyTyR3RU7rfLOHYyiRu3o91ujbOBcZI6igTUVcbD7aNfP0GR+KYJ8F
+ Kq0Z8Ad5DvCJJ9A2PZs/Yfp2xAwn9xKnV6Pgy65513aywkaXKnhC6+nwqunPJ7hF
+ oWoB2A==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45j91s9ahf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 25 Mar 2025 11:00:38 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C56AE40056;
+ Tue, 25 Mar 2025 10:59:40 +0100 (CET)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D7F348250DB;
+ Tue, 25 Mar 2025 10:58:45 +0100 (CET)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 10:58:45 +0100
+Received: from localhost (10.252.12.99) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 10:58:45 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Tue, 25 Mar 2025 10:58:28 +0100
+Message-ID: <20250325095833.3059895-2-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
+References: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-References: <20250317232426.952188-1-robh@kernel.org>
- <20250317232426.952188-3-robh@kernel.org>
-In-Reply-To: <20250317232426.952188-3-robh@kernel.org>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Wed, 26 Mar 2025 14:44:36 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65djD5DLQnjQrp9kSHTQYVd9p_vP9WySj2Cx81rHmh5Mw@mail.gmail.com>
-X-Gm-Features: AQ5f1Jq6AIDujd8iNXwgSFrroWq7EbdFM1zyiw-quoSbfHrKnBQnEEqsHIIoRaI
-Message-ID: <CAGb2v65djD5DLQnjQrp9kSHTQYVd9p_vP9WySj2Cx81rHmh5Mw@mail.gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, imx@lists.linux.dev,
- Saravana Kannan <saravanak@google.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] of: Simplify
-	of_dma_set_restricted_buffer() to use of_for_each_phandle()
+X-Originating-IP: [10.252.12.99]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1093,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-03-25_04,2025-03-25_01,2024-11-22_01
+X-Mailman-Approved-At: Wed, 26 Mar 2025 07:24:22 +0000
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v16 1/6] remoteproc: core: Introduce
+	rproc_pa_to_va helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,112 +79,96 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: wens@kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpPbiBUdWUsIE1hciAxOCwgMjAyNSBhdCA3OjI54oCvQU0gUm9iIEhlcnJpbmcgKEFybSkg
-PHJvYmhAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBTaW1wbGlmeSBvZl9kbWFfc2V0X3Jlc3RyaWN0
-ZWRfYnVmZmVyKCkgYnkgdXNpbmcgb2ZfcHJvcGVydHlfcHJlc2VudCgpCj4gYW5kIG9mX2Zvcl9l
-YWNoX3BoYW5kbGUoKSBpdGVyYXRvci4KPgo+IFNpZ25lZC1vZmYtYnk6IFJvYiBIZXJyaW5nIChB
-cm0pIDxyb2JoQGtlcm5lbC5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvb2YvZGV2aWNlLmMgfCAzNCAr
-KysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBp
-bnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL29m
-L2RldmljZS5jIGIvZHJpdmVycy9vZi9kZXZpY2UuYwo+IGluZGV4IGVkZjNiZTE5NzI2NS4uYmI0
-YTQ3ZDU4MjQ5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvb2YvZGV2aWNlLmMKPiArKysgYi9kcml2
-ZXJzL29mL2RldmljZS5jCj4gQEAgLTM1LDQ0ICszNSwzNiBAQCBFWFBPUlRfU1lNQk9MKG9mX21h
-dGNoX2RldmljZSk7Cj4gIHN0YXRpYyB2b2lkCj4gIG9mX2RtYV9zZXRfcmVzdHJpY3RlZF9idWZm
-ZXIoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wKQo+ICB7Cj4gLSAg
-ICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5vZGUsICpvZl9ub2RlID0gZGV2LT5vZl9ub2RlOwo+
-IC0gICAgICAgaW50IGNvdW50LCBpOwo+ICsgICAgICAgc3RydWN0IGRldmljZV9ub2RlICpvZl9u
-b2RlID0gZGV2LT5vZl9ub2RlOwo+ICsgICAgICAgc3RydWN0IG9mX3BoYW5kbGVfaXRlcmF0b3Ig
-aXQ7Cj4gKyAgICAgICBpbnQgcmMsIGkgPSAwOwo+Cj4gICAgICAgICBpZiAoIUlTX0VOQUJMRUQo
-Q09ORklHX0RNQV9SRVNUUklDVEVEX1BPT0wpKQo+ICAgICAgICAgICAgICAgICByZXR1cm47Cj4K
-PiAtICAgICAgIGNvdW50ID0gb2ZfcHJvcGVydHlfY291bnRfZWxlbXNfb2Zfc2l6ZShvZl9ub2Rl
-LCAibWVtb3J5LXJlZ2lvbiIsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgc2l6ZW9mKHUzMikpOwo+ICAgICAgICAgLyoKPiAgICAgICAgICAqIElmIGRl
-di0+b2Zfbm9kZSBkb2Vzbid0IGV4aXN0IG9yIGRvZXNuJ3QgY29udGFpbiBtZW1vcnktcmVnaW9u
-LCB0cnkKPiAgICAgICAgICAqIHRoZSBPRiBub2RlIGhhdmluZyBETUEgY29uZmlndXJhdGlvbi4K
-PiAgICAgICAgICAqLwo+IC0gICAgICAgaWYgKGNvdW50IDw9IDApIHsKPiArICAgICAgIGlmICgh
-b2ZfcHJvcGVydHlfcHJlc2VudChvZl9ub2RlLCAibWVtb3J5LXJlZ2lvbiIpKQo+ICAgICAgICAg
-ICAgICAgICBvZl9ub2RlID0gbnA7Cj4gLSAgICAgICAgICAgICAgIGNvdW50ID0gb2ZfcHJvcGVy
-dHlfY291bnRfZWxlbXNfb2Zfc2l6ZSgKPiAtICAgICAgICAgICAgICAgICAgICAgICBvZl9ub2Rl
-LCAibWVtb3J5LXJlZ2lvbiIsIHNpemVvZih1MzIpKTsKPiAtICAgICAgIH0KPgo+IC0gICAgICAg
-Zm9yIChpID0gMDsgaSA8IGNvdW50OyBpKyspIHsKPiAtICAgICAgICAgICAgICAgbm9kZSA9IG9m
-X3BhcnNlX3BoYW5kbGUob2Zfbm9kZSwgIm1lbW9yeS1yZWdpb24iLCBpKTsKPiArICAgICAgIG9m
-X2Zvcl9lYWNoX3BoYW5kbGUoJml0LCByYywgb2Zfbm9kZSwgIm1lbW9yeS1yZWdpb24iLCBOVUxM
-LCAwKSB7Cj4gICAgICAgICAgICAgICAgIC8qCj4gICAgICAgICAgICAgICAgICAqIFRoZXJlIG1p
-Z2h0IGJlIG11bHRpcGxlIG1lbW9yeSByZWdpb25zLCBidXQgb25seSBvbmUKPiAgICAgICAgICAg
-ICAgICAgICogcmVzdHJpY3RlZC1kbWEtcG9vbCByZWdpb24gaXMgYWxsb3dlZC4KPiAgICAgICAg
-ICAgICAgICAgICovCj4gLSAgICAgICAgICAgICAgIGlmIChvZl9kZXZpY2VfaXNfY29tcGF0aWJs
-ZShub2RlLCAicmVzdHJpY3RlZC1kbWEtcG9vbCIpICYmCj4gLSAgICAgICAgICAgICAgICAgICBv
-Zl9kZXZpY2VfaXNfYXZhaWxhYmxlKG5vZGUpKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAg
-b2Zfbm9kZV9wdXQobm9kZSk7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAg
-ICAgICAgICAgICAgIGlmIChvZl9kZXZpY2VfaXNfY29tcGF0aWJsZShpdC5ub2RlLCAicmVzdHJp
-Y3RlZC1kbWEtcG9vbCIpICYmCj4gKyAgICAgICAgICAgICAgICAgICBvZl9kZXZpY2VfaXNfYXZh
-aWxhYmxlKGl0Lm5vZGUpKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKCFvZl9yZXNl
-cnZlZF9tZW1fZGV2aWNlX2luaXRfYnlfaWR4KGRldiwgb2Zfbm9kZSwgaSkpIHsKPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIG9mX25vZGVfcHV0KGl0Lm5vZGUpOwo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+ICsgICAgICAgICAgICAgICAgICAgICAg
-IH0KPiAgICAgICAgICAgICAgICAgfQo+IC0gICAgICAgICAgICAgICBvZl9ub2RlX3B1dChub2Rl
-KTsKPiArICAgICAgICAgICAgICAgaSsrOwo+ICAgICAgICAgfQo+Cj4gLSAgICAgICAvKgo+IC0g
-ICAgICAgICogQXR0ZW1wdCB0byBpbml0aWFsaXplIGEgcmVzdHJpY3RlZC1kbWEtcG9vbCByZWdp
-b24gaWYgb25lIHdhcyBmb3VuZC4KPiAtICAgICAgICAqIE5vdGUgdGhhdCBjb3VudCBjYW4gaG9s
-ZCBhIG5lZ2F0aXZlIGVycm9yIGNvZGUuCj4gLSAgICAgICAgKi8KPiAtICAgICAgIGlmIChpIDwg
-Y291bnQgJiYgb2ZfcmVzZXJ2ZWRfbWVtX2RldmljZV9pbml0X2J5X2lkeChkZXYsIG9mX25vZGUs
-IGkpKQo+IC0gICAgICAgICAgICAgICBkZXZfd2FybihkZXYsICJmYWlsZWQgdG8gaW5pdGlhbGlz
-ZSBcInJlc3RyaWN0ZWQtZG1hLXBvb2xcIiBtZW1vcnkgbm9kZVxuIik7Cj4gKyAgICAgICBkZXZf
-d2FybihkZXYsICJmYWlsZWQgdG8gaW5pdGlhbGlzZSBcInJlc3RyaWN0ZWQtZG1hLXBvb2xcIiBt
-ZW1vcnkgbm9kZVxuIik7CgpUaGlzIGNoYW5nZXMgdGhlIGJlaGF2aW9yLiBCZWZvcmUgdGhpcyBw
-YXRjaCwgaXQgd2FzOgoKICAgIGlmIGEgcmVzdHJpY3RlZCBkbWEgcG9vbCB3YXMgZm91bmQsIGJ1
-dCBpbml0aWFsaXppbmcgaXQgZmFpbGVkLCBwcmludAogICAgYSB3YXJuaW5nLgoKV2hlcmVhcyBu
-b3cgaXQgaGFzIGJlY29tZToKCiAgICAgcHJpbnQgYSB3YXJuaW5nIHVubGVzcyBhIHJlc3RyaWN0
-ZWQgZG1hIHBvb2wgd2FzIGZvdW5kIGFuZCBzdWNjZXNzZnVsbHkKICAgICBpbml0aWFsaXplZC4K
-ClRoaXMgY2hhbmdlIGNhdXNlcyB0aGUga2VybmVsIHRvIHByaW50IG91dCB0aGUgd2FybmluZyBm
-b3IgZGV2aWNlcyB0aGF0CmRvbid0IGV2ZW4gZG8gRE1BOgoKc2ltcGxlLXBtLWJ1cyBzb2M6IGZh
-aWxlZCB0byBpbml0aWFsaXNlICJyZXN0cmljdGVkLWRtYS1wb29sIiBtZW1vcnkgbm9kZQpzaW1w
-bGUtcG0tYnVzIDEwMDA2MDAwLnN5c2NvbjogZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0
-ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCm10ay10cGh5IHNvYzp0LXBoeUAxMWM4MDAwMDogZmFp
-bGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCm10ay10
-cGh5IHNvYzp0LXBoeUAxMWNhMDAwMDogZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0ZWQt
-ZG1hLXBvb2wiIG1lbW9yeSBub2RlCm1lZGlhdGVrLW1pcGktdHggMTFjYzAwMDAuZHNpLXBoeTog
-ZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCm1l
-ZGlhdGVrLW1pcGktdHggMTFjYzAwMDAuZHNpLXBoeTogY2FuJ3QgZ2V0IG52bWVtX2NlbGxfZ2V0
-LCBpZ25vcmUgaXQKY2xrLW10ODE4Ni1hcG1peGVkIDEwMDBjMDAwLnN5c2NvbjogZmFpbGVkIHRv
-IGluaXRpYWxpc2UKInJlc3RyaWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCmNsay1tdDgxODYt
-dG9wY2sgMTAwMDAwMDAuc3lzY29uOiBmYWlsZWQgdG8gaW5pdGlhbGlzZQoicmVzdHJpY3RlZC1k
-bWEtcG9vbCIgbWVtb3J5IG5vZGUKY2xrLW10ODE4Ni1pbmZyYS1hbyAxMDAwMTAwMC5zeXNjb246
-IGZhaWxlZCB0byBpbml0aWFsaXNlCiJyZXN0cmljdGVkLWRtYS1wb29sIiBtZW1vcnkgbm9kZQpj
-bGstbXQ4MTg2LWNhbSAxYTAwMDAwMC5jbG9jay1jb250cm9sbGVyOiBmYWlsZWQgdG8gaW5pdGlh
-bGlzZQoicmVzdHJpY3RlZC1kbWEtcG9vbCIgbWVtb3J5IG5vZGUKY2xrLW10ODE4Ni1jYW0gMWEw
-NGYwMDAuY2xvY2stY29udHJvbGxlcjogZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0ZWQt
-ZG1hLXBvb2wiIG1lbW9yeSBub2RlCmNsay1tdDgxODYtY2FtIDFhMDZmMDAwLmNsb2NrLWNvbnRy
-b2xsZXI6IGZhaWxlZCB0byBpbml0aWFsaXNlCiJyZXN0cmljdGVkLWRtYS1wb29sIiBtZW1vcnkg
-bm9kZQpjbGstbXQ4MTg2LWltZyAxNTAyMDAwMC5jbG9jay1jb250cm9sbGVyOiBmYWlsZWQgdG8g
-aW5pdGlhbGlzZQoicmVzdHJpY3RlZC1kbWEtcG9vbCIgbWVtb3J5IG5vZGUKY2xrLW10ODE4Ni1p
-bWcgMTU4MjAwMDAuY2xvY2stY29udHJvbGxlcjogZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3Ry
-aWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCmNsay1tdDgxODYtaW1wX2lpY193cmFwIDExMDE3
-MDAwLmNsb2NrLWNvbnRyb2xsZXI6IGZhaWxlZCB0bwppbml0aWFsaXNlICJyZXN0cmljdGVkLWRt
-YS1wb29sIiBtZW1vcnkgbm9kZQpjbGstbXQ4MTg2LWlwZSAxYzAwMDAwMC5jbG9jay1jb250cm9s
-bGVyOiBmYWlsZWQgdG8gaW5pdGlhbGlzZQoicmVzdHJpY3RlZC1kbWEtcG9vbCIgbWVtb3J5IG5v
-ZGUKY2xrLW10ODE4Ni1tY3UgYzUzYTAwMC5zeXNjb246IGZhaWxlZCB0byBpbml0aWFsaXNlCiJy
-ZXN0cmljdGVkLWRtYS1wb29sIiBtZW1vcnkgbm9kZQpjbGstbXQ4MTg2LW1kcCAxYjAwMDAwMC5j
-bG9jay1jb250cm9sbGVyOiBmYWlsZWQgdG8gaW5pdGlhbGlzZQoicmVzdHJpY3RlZC1kbWEtcG9v
-bCIgbWVtb3J5IG5vZGUKY2xrLW10ODE4Ni1tZmcgMTMwMDAwMDAuY2xvY2stY29udHJvbGxlcjog
-ZmFpbGVkIHRvIGluaXRpYWxpc2UKInJlc3RyaWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCmNs
-ay1tdDgxODYtdmRlYyAxNjAyZjAwMC5jbG9jay1jb250cm9sbGVyOiBmYWlsZWQgdG8gaW5pdGlh
-bGlzZQoicmVzdHJpY3RlZC1kbWEtcG9vbCIgbWVtb3J5IG5vZGUKY2xrLW10ODE4Ni12ZW5jIDE3
-MDAwMDAwLmNsb2NrLWNvbnRyb2xsZXI6IGZhaWxlZCB0byBpbml0aWFsaXNlCiJyZXN0cmljdGVk
-LWRtYS1wb29sIiBtZW1vcnkgbm9kZQpjbGstbXQ4MTg2LXdwZSAxNDAyMDAwMC5jbG9jay1jb250
-cm9sbGVyOiBmYWlsZWQgdG8gaW5pdGlhbGlzZQoicmVzdHJpY3RlZC1kbWEtcG9vbCIgbWVtb3J5
-IG5vZGUKbXQtcG1pYy1wd3JhcCAxMDAwZDAwMC5wd3JhcDogZmFpbGVkIHRvIGluaXRpYWxpc2UK
-InJlc3RyaWN0ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCnBsYXRmb3JtIDEwMDBkMDAwLnB3cmFw
-OnBtaWM6IGZhaWxlZCB0byBpbml0aWFsaXNlCiJyZXN0cmljdGVkLWRtYS1wb29sIiBtZW1vcnkg
-bm9kZQptdGstc3ZzIDExMDBiYzAwLnN2czogZmFpbGVkIHRvIGluaXRpYWxpc2UgInJlc3RyaWN0
-ZWQtZG1hLXBvb2wiIG1lbW9yeSBub2RlCgoKQ2hlbll1Cj4gIH0KPgo+ICAvKioKPiAtLQo+IDIu
-NDcuMgo+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+When a resource table is loaded by an external entity such as U-boot or
+OP-TEE, we do not necessarily get the device address(da) but the physical
+address(pa).
+This helper performs similar translation than the rproc_da_to_va()
+but based on a physical address.
+
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 46 ++++++++++++++++++++++++++++
+ include/linux/remoteproc.h           |  1 +
+ 2 files changed, 47 insertions(+)
+
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index c2cf0d277729..f05122b699b7 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -230,6 +230,52 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
+ }
+ EXPORT_SYMBOL(rproc_da_to_va);
+ 
++/**
++ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
++ * memory
++ *
++ * @rproc: handle of a remote processor
++ * @pa: remoteproc physical address
++ * @len: length of the memory region @pa is pointing to
++ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
++ *
++ * This function is a helper function similar to rproc_da_to_va() but it deals with physical
++ * addresses instead of device addresses.
++ *
++ * Return: a valid kernel address on success or NULL on failure
++ */
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
++{
++	struct rproc_mem_entry *carveout;
++	void *ptr = NULL;
++
++	list_for_each_entry(carveout, &rproc->carveouts, node) {
++		int offset = pa - carveout->dma;
++
++		/*  Verify that carveout is allocated */
++		if (!carveout->va)
++			continue;
++
++		/* try next carveout if da is too small */
++		if (offset < 0)
++			continue;
++
++		/* try next carveout if da is too large */
++		if (offset + len > carveout->len)
++			continue;
++
++		ptr = carveout->va + offset;
++
++		if (is_iomem)
++			*is_iomem = carveout->is_iomem;
++
++		break;
++	}
++
++	return ptr;
++}
++EXPORT_SYMBOL(rproc_pa_to_va);
++
+ /**
+  * rproc_find_carveout_by_name() - lookup the carveout region by a name
+  * @rproc: handle of a remote processor
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index b4795698d8c2..8fd0d7f63c8e 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -690,6 +690,7 @@ int rproc_detach(struct rproc *rproc);
+ int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
+ void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
+ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
++void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
+ 
+ /* from remoteproc_coredump.c */
+ void rproc_coredump_cleanup(struct rproc *rproc);
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
