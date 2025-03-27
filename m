@@ -2,71 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 471F8A72B81
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Mar 2025 09:30:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1207CA72FD1
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Mar 2025 12:38:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F233CC78F74;
-	Thu, 27 Mar 2025 08:30:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD83BC78F75
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CDA8C78F73;
+	Thu, 27 Mar 2025 11:38:24 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB103C78F6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Mar 2025 08:30:23 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 52R89RxZ028645;
- Thu, 27 Mar 2025 09:30:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 4spI71XBW9TktNPtgUKlhmqprWhHOZmJMEc8QqOQvcI=; b=2RpZwxSO5XM74kUR
- Xd7QhwnrX0ayzf9nUUJP8QHePjZSkMTl+SZTM3AQCk4kji6BvhVuo5Iuickozzlp
- dMKeUW0lf/fAL7nyg2nIrhmfcWF11Zrj1o+z5cu2JCkhYCY3xB6qZNHOz6xie9nJ
- TsS2rZ5qhWEYNzn8wnhONGr8dNeQt/Ya9QJK9cXHw5TSlo9W2JcMcDIVaWDzo57u
- l+FN3waH2aV3VvdJ2DDqOrmoWUrp91x9SamMgIRohF7owMqjZKNUjjgtT6bVNQUg
- 5HZPO6veSDHT4KyBIHQv5IS1UWfqE0tRuohu7pZfdUcuWnt+qSWfy+WDwSm07CbF
- oQTMbQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45hkgrtt26-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Mar 2025 09:30:09 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 14E3F400B7;
- Thu, 27 Mar 2025 09:28:59 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 55E368329E1;
- Thu, 27 Mar 2025 09:27:34 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Mar
- 2025 09:27:34 +0100
-Received: from localhost (10.252.3.68) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Mar
- 2025 09:27:33 +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 27 Mar 2025 09:27:21 +0100
-Message-ID: <20250327082721.641278-3-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250327082721.641278-1-arnaud.pouliquen@foss.st.com>
-References: <20250327082721.641278-1-arnaud.pouliquen@foss.st.com>
+ Thu, 27 Mar 2025 11:38:22 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3A061063;
+ Thu, 27 Mar 2025 04:38:26 -0700 (PDT)
+Received: from e132581.cambridge.arm.com (e132581.arm.com [10.1.196.87])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D6C5F3F58B;
+ Thu, 27 Mar 2025 04:38:19 -0700 (PDT)
+From: Leo Yan <leo.yan@arm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Date: Thu, 27 Mar 2025 11:37:54 +0000
+Message-Id: <20250327113803.1452108-1-leo.yan@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.252.3.68]
-X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-03-26_09,2025-03-26_02,2024-11-22_01
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] drivers: remoteproc: stm32_rproc:
-	Allow to specify firmware default name
+Cc: Leo Yan <leo.yan@arm.com>
+Subject: [Linux-stm32] [PATCH v1 0/9] coresight: Fix and improve clock usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,44 +49,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enhance the stm32_rproc driver to allow enabling the configuration of the
-firmware name based on the 'firmware-name' property in the device tree,
-offering flexibility compared to using the remote proc device node
-name.
+This series fixes and improves clock usage in the Arm CoreSight drivers.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/stm32_rproc.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Based on the DT binding documents, the trace clock (atclk) is defined in
+some CoreSight modules, but the corresponding drivers to support it are
+absent.  In most cases, the issue is hidden because atclk is shared by
+multiple CoreSight modules and is enabled anyway by other drivers.
+The first three patches address this issue.
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index b02b36a3f515..431648607d53 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -835,6 +835,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct stm32_rproc *ddata;
- 	struct device_node *np = dev->of_node;
-+	const char *fw_name;
- 	struct rproc *rproc;
- 	unsigned int state;
- 	int ret;
-@@ -843,7 +844,12 @@ static int stm32_rproc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-+	/* Look for an optional firmware name */
-+	ret = rproc_of_parse_firmware(dev, 0, &fw_name);
-+	if (ret < 0 && ret != -EINVAL)
-+		return ret;
-+
-+	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, fw_name, sizeof(*ddata));
- 	if (!rproc)
- 		return -ENOMEM;
- 
+The programming clock (pclk) management in CoreSight drivers does not
+use the devm_XXX() variant APIs, so the drivers needs to manually
+disable and release clocks for errors and for normal module exit.
+However, the drivers miss to disable clocks during module exit.
+
+Another issue is pclk might be enabled twice in init phase - once by
+AMBA bus driver, and again by CoreSight drivers.
+
+Patches 04 and 05 fix pclk issues.
+
+The atclk may also not be disabled in CoreSight drivers during module
+exit.  This is fixed in patch 06.
+
+Patches 07 to 09 refactor the clock related code.  Patch 07 makes the
+clock enabling sequence consistent.  Patch 08 removes redundant
+condition checks and adds error handling in runtime PM.  Patch 09
+consolidats the clock initialization into a central place.
+
+This series is verified on Arm64 Hikey960 platform.
+
+
+Leo Yan (9):
+  coresight: tmc: Support atclk
+  coresight: catu: Support atclk
+  coresight: etm4x: Support atclk
+  coresight: Disable programming clock properly
+  coresight: Avoid enable programming clock duplicately
+  coresight: Disable trace bus clock properly
+  coresight: Make clock sequence consistent
+  coresight: Refactor runtime PM
+  coresight: Consolidate clock enabling
+
+ drivers/hwtracing/coresight/coresight-catu.c       | 53 ++++++++++++++++-----------------
+ drivers/hwtracing/coresight/coresight-catu.h       |  1 +
+ drivers/hwtracing/coresight/coresight-cpu-debug.c  | 41 +++++++++-----------------
+ drivers/hwtracing/coresight/coresight-ctcu-core.c  | 24 +++++----------
+ drivers/hwtracing/coresight/coresight-etb10.c      | 18 ++++--------
+ drivers/hwtracing/coresight/coresight-etm3x-core.c | 17 ++++-------
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 32 ++++++++++----------
+ drivers/hwtracing/coresight/coresight-etm4x.h      |  4 ++-
+ drivers/hwtracing/coresight/coresight-funnel.c     | 66 +++++++++++++++---------------------------
+ drivers/hwtracing/coresight/coresight-replicator.c | 63 ++++++++++++++--------------------------
+ drivers/hwtracing/coresight/coresight-stm.c        | 34 +++++++++-------------
+ drivers/hwtracing/coresight/coresight-tmc-core.c   | 48 +++++++++++++++---------------
+ drivers/hwtracing/coresight/coresight-tmc.h        |  2 ++
+ drivers/hwtracing/coresight/coresight-tpiu.c       | 36 ++++++++++-------------
+ include/linux/coresight.h                          | 47 ++++++++++++++++++------------
+ 15 files changed, 206 insertions(+), 280 deletions(-)
+
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
