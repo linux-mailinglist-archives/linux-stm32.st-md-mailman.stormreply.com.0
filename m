@@ -2,21 +2,21 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1207CA72FD1
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Mar 2025 12:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF04A72FD2
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Mar 2025 12:38:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CDA8C78F73;
-	Thu, 27 Mar 2025 11:38:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD25BC78F75;
+	Thu, 27 Mar 2025 11:38:26 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB103C78F6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7D22C78F74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Mar 2025 11:38:22 +0000 (UTC)
+ Thu, 27 Mar 2025 11:38:24 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3A061063;
- Thu, 27 Mar 2025 04:38:26 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 401791762;
+ Thu, 27 Mar 2025 04:38:29 -0700 (PDT)
 Received: from e132581.cambridge.arm.com (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D6C5F3F58B;
- Thu, 27 Mar 2025 04:38:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 094503F58B;
+ Thu, 27 Mar 2025 04:38:21 -0700 (PDT)
 From: Leo Yan <leo.yan@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
@@ -27,12 +27,14 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 27 Mar 2025 11:37:54 +0000
-Message-Id: <20250327113803.1452108-1-leo.yan@arm.com>
+Date: Thu, 27 Mar 2025 11:37:55 +0000
+Message-Id: <20250327113803.1452108-2-leo.yan@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250327113803.1452108-1-leo.yan@arm.com>
+References: <20250327113803.1452108-1-leo.yan@arm.com>
 MIME-Version: 1.0
 Cc: Leo Yan <leo.yan@arm.com>
-Subject: [Linux-stm32] [PATCH v1 0/9] coresight: Fix and improve clock usage
+Subject: [Linux-stm32] [PATCH v1 1/9] coresight: tmc: Support atclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -44,72 +46,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series fixes and improves clock usage in the Arm CoreSight drivers.
-
-Based on the DT binding documents, the trace clock (atclk) is defined in
-some CoreSight modules, but the corresponding drivers to support it are
-absent.  In most cases, the issue is hidden because atclk is shared by
-multiple CoreSight modules and is enabled anyway by other drivers.
-The first three patches address this issue.
-
-The programming clock (pclk) management in CoreSight drivers does not
-use the devm_XXX() variant APIs, so the drivers needs to manually
-disable and release clocks for errors and for normal module exit.
-However, the drivers miss to disable clocks during module exit.
-
-Another issue is pclk might be enabled twice in init phase - once by
-AMBA bus driver, and again by CoreSight drivers.
-
-Patches 04 and 05 fix pclk issues.
-
-The atclk may also not be disabled in CoreSight drivers during module
-exit.  This is fixed in patch 06.
-
-Patches 07 to 09 refactor the clock related code.  Patch 07 makes the
-clock enabling sequence consistent.  Patch 08 removes redundant
-condition checks and adds error handling in runtime PM.  Patch 09
-consolidats the clock initialization into a central place.
-
-This series is verified on Arm64 Hikey960 platform.
-
-
-Leo Yan (9):
-  coresight: tmc: Support atclk
-  coresight: catu: Support atclk
-  coresight: etm4x: Support atclk
-  coresight: Disable programming clock properly
-  coresight: Avoid enable programming clock duplicately
-  coresight: Disable trace bus clock properly
-  coresight: Make clock sequence consistent
-  coresight: Refactor runtime PM
-  coresight: Consolidate clock enabling
-
- drivers/hwtracing/coresight/coresight-catu.c       | 53 ++++++++++++++++-----------------
- drivers/hwtracing/coresight/coresight-catu.h       |  1 +
- drivers/hwtracing/coresight/coresight-cpu-debug.c  | 41 +++++++++-----------------
- drivers/hwtracing/coresight/coresight-ctcu-core.c  | 24 +++++----------
- drivers/hwtracing/coresight/coresight-etb10.c      | 18 ++++--------
- drivers/hwtracing/coresight/coresight-etm3x-core.c | 17 ++++-------
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 32 ++++++++++----------
- drivers/hwtracing/coresight/coresight-etm4x.h      |  4 ++-
- drivers/hwtracing/coresight/coresight-funnel.c     | 66 +++++++++++++++---------------------------
- drivers/hwtracing/coresight/coresight-replicator.c | 63 ++++++++++++++--------------------------
- drivers/hwtracing/coresight/coresight-stm.c        | 34 +++++++++-------------
- drivers/hwtracing/coresight/coresight-tmc-core.c   | 48 +++++++++++++++---------------
- drivers/hwtracing/coresight/coresight-tmc.h        |  2 ++
- drivers/hwtracing/coresight/coresight-tpiu.c       | 36 ++++++++++-------------
- include/linux/coresight.h                          | 47 ++++++++++++++++++------------
- 15 files changed, 206 insertions(+), 280 deletions(-)
-
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIGF0Y2xrIGlzIGFuIG9wdGlvbmFsIGNsb2NrIGZvciB0aGUgQ29yZVNpZ2h0IFRNQywgYnV0
+IHRoZSBkcml2ZXIKbWlzc2VzIHRvIGluaXRpYWxpemUgaXQuICBJbiBtb3N0IGNhc2VzLCB0aGUg
+VE1DIHNoYXJlcyB0aGUgc2FtZSBhdGNsawp3aXRoIG90aGVyIENvcmVTaWdodCBjb21wb25lbnRz
+LiAgU2luY2UgdGhlc2UgY29tcG9uZW50cyBlbmFibGUgdGhlCmNsb2NrIGJlZm9yZSB0aGUgVE1D
+IGRldmljZSBpcyBpbml0aWFsaXplZCwgdGhlIFRNQyBjb250aW51ZXMgcHJvcGVybHksCndoaWNo
+IGlzIHdoeSB3ZSBkb27igJl0IG9ic2VydmUgYW55IGxvY2t1cCBpc3N1ZXMuCgpUaGlzIGNoYW5n
+ZSBlbmFibGVzIGF0Y2xrIGluIHByb2JlIG9mIHRoZSBUTUMgZHJpdmVyLiAgR2l2ZW4gdGhlIGNs
+b2NrCmlzIG9wdGlvbmFsLCBpdCBpcyBwb3NzaWJsZSB0byByZXR1cm4gTlVMTCBpZiB0aGUgY2xv
+Y2sgZG9lcyBub3QgZXhpc3QuCklTX0VSUigpIGlzIHRvbGVyYW50IGZvciB0aGlzIGNhc2UuCgpE
+eW5hbWljYWxseSBkaXNhYmxlIGFuZCBlbmFibGUgYXRjbGsgZHVyaW5nIHN1c3BlbmQgYW5kIHJl
+c3VtZS4gIFRoZQpjbG9jayBwb2ludGVycyB3aWxsIG5ldmVyIGJlIGVycm9yIHZhbHVlcyBpZiB0
+aGUgZHJpdmVyIGhhcyBzdWNjZXNzZnVsbHkKcHJvYmVkLCBhbmQgdGhlIGNhc2Ugb2YgYSBOVUxM
+IHBvaW50ZXIgY2FzZSB3aWxsIGJlIGhhbmRsZWQgYnkgdGhlIGNsb2NrCmNvcmUgbGF5ZXIuICBU
+aGUgZHJpdmVyIGRhdGEgaXMgYWx3YXlzIHZhbGlkIGFmdGVyIHByb2JlLiBUaGVyZWZvcmUsCnJl
+bW92ZSB0aGUgcmVsYXRlZCBjaGVja3MuICBBbHNvIGluIHRoZSByZXN1bWUgZmxvdyBhZGRzIGVy
+cm9yIGhhbmRsaW5nLgoKRml4ZXM6IGJjNGJmN2ZlOThkYSAoImNvcmVzaWdodC10bWM6IGFkZCBD
+b3JlU2lnaHQgVE1DIGRyaXZlciIpClNpZ25lZC1vZmYtYnk6IExlbyBZYW4gPGxlby55YW5AYXJt
+LmNvbT4KLS0tCiBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3Jl
+LmMgfCAyMiArKysrKysrKysrKysrKysrKy0tLS0tCiBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
+aHQvY29yZXNpZ2h0LXRtYy5oICAgICAgfCAgMiArKwogMiBmaWxlcyBjaGFuZ2VkLCAxOSBpbnNl
+cnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5n
+L2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWNvcmUuYyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVz
+aWdodC9jb3Jlc2lnaHQtdG1jLWNvcmUuYwppbmRleCA1OTc4YmNkYTI1NTYuLjZhYWQyYWNkMDM3
+OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMt
+Y29yZS5jCisrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWNv
+cmUuYwpAQCAtNzg5LDYgKzc4OSwxMCBAQCBzdGF0aWMgaW50IF9fdG1jX3Byb2JlKHN0cnVjdCBk
+ZXZpY2UgKmRldiwgc3RydWN0IHJlc291cmNlICpyZXMpCiAJc3RydWN0IGNvcmVzaWdodF9kZXNj
+IGRlc2MgPSB7IDAgfTsKIAlzdHJ1Y3QgY29yZXNpZ2h0X2Rldl9saXN0ICpkZXZfbGlzdCA9IE5V
+TEw7CiAKKwlkcnZkYXRhLT5hdGNsayA9IGRldm1fY2xrX2dldF9vcHRpb25hbF9lbmFibGVkKGRl
+diwgImF0Y2xrIik7CisJaWYgKElTX0VSUihkcnZkYXRhLT5hdGNsaykpCisJCXJldHVybiBQVFJf
+RVJSKGRydmRhdGEtPmF0Y2xrKTsKKwogCXJldCA9IC1FTk9NRU07CiAKIAkvKiBWYWxpZGl0eSBm
+b3IgdGhlIHJlc291cmNlIGlzIGFscmVhZHkgY2hlY2tlZCBieSB0aGUgQU1CQSBjb3JlICovCkBA
+IC0xMDE5LDE4ICsxMDIzLDI2IEBAIHN0YXRpYyBpbnQgdG1jX3J1bnRpbWVfc3VzcGVuZChzdHJ1
+Y3QgZGV2aWNlICpkZXYpCiB7CiAJc3RydWN0IHRtY19kcnZkYXRhICpkcnZkYXRhID0gZGV2X2dl
+dF9kcnZkYXRhKGRldik7CiAKLQlpZiAoZHJ2ZGF0YSAmJiAhSVNfRVJSX09SX05VTEwoZHJ2ZGF0
+YS0+cGNsaykpCi0JCWNsa19kaXNhYmxlX3VucHJlcGFyZShkcnZkYXRhLT5wY2xrKTsKKwljbGtf
+ZGlzYWJsZV91bnByZXBhcmUoZHJ2ZGF0YS0+YXRjbGspOworCWNsa19kaXNhYmxlX3VucHJlcGFy
+ZShkcnZkYXRhLT5wY2xrKTsKKwogCXJldHVybiAwOwogfQogCiBzdGF0aWMgaW50IHRtY19ydW50
+aW1lX3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpCiB7CiAJc3RydWN0IHRtY19kcnZkYXRhICpk
+cnZkYXRhID0gZGV2X2dldF9kcnZkYXRhKGRldik7CisJaW50IHJldDsKIAotCWlmIChkcnZkYXRh
+ICYmICFJU19FUlJfT1JfTlVMTChkcnZkYXRhLT5wY2xrKSkKLQkJY2xrX3ByZXBhcmVfZW5hYmxl
+KGRydmRhdGEtPnBjbGspOwotCXJldHVybiAwOworCXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShk
+cnZkYXRhLT5wY2xrKTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCisJcmV0ID0gY2xrX3By
+ZXBhcmVfZW5hYmxlKGRydmRhdGEtPmF0Y2xrKTsKKwlpZiAocmV0KQorCQljbGtfZGlzYWJsZV91
+bnByZXBhcmUoZHJ2ZGF0YS0+cGNsayk7CisKKwlyZXR1cm4gcmV0OwogfQogI2VuZGlmCiAKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLmggYi9k
+cml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy5oCmluZGV4IDY1NDFhMjdh
+MDE4ZS4uY2JiNGJhNDM5MTU4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
+aHQvY29yZXNpZ2h0LXRtYy5oCisrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jl
+c2lnaHQtdG1jLmgKQEAgLTIxMCw2ICsyMTAsNyBAQCBzdHJ1Y3QgdG1jX3Jlc3J2X2J1ZiB7CiAK
+IC8qKgogICogc3RydWN0IHRtY19kcnZkYXRhIC0gc3BlY2lmaWNzIGFzc29jaWF0ZWQgdG8gYW4g
+VE1DIGNvbXBvbmVudAorICogQGF0Y2xrOglvcHRpb25hbCBjbG9jayBmb3IgdGhlIGNvcmUgcGFy
+dHMgb2YgdGhlIFRNQy4KICAqIEBwY2xrOglBUEIgY2xvY2sgaWYgcHJlc2VudCwgb3RoZXJ3aXNl
+IE5VTEwKICAqIEBiYXNlOgltZW1vcnkgbWFwcGVkIGJhc2UgYWRkcmVzcyBmb3IgdGhpcyBjb21w
+b25lbnQuCiAgKiBAY3NkZXY6CWNvbXBvbmVudCB2aXRhbHMgbmVlZGVkIGJ5IHRoZSBmcmFtZXdv
+cmsuCkBAIC0yNDQsNiArMjQ1LDcgQEAgc3RydWN0IHRtY19yZXNydl9idWYgewogICoJCSBVc2Vk
+IGJ5IEVUUi9FVEYuCiAgKi8KIHN0cnVjdCB0bWNfZHJ2ZGF0YSB7CisJc3RydWN0IGNsawkJKmF0
+Y2xrOwogCXN0cnVjdCBjbGsJCSpwY2xrOwogCXZvaWQgX19pb21lbQkJKmJhc2U7CiAJc3RydWN0
+IGNvcmVzaWdodF9kZXZpY2UJKmNzZGV2OwotLSAKMi4zNC4xCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
