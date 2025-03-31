@@ -2,85 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3167EA7543F
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 Mar 2025 06:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54052A7628D
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Mar 2025 10:38:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6372C78F77;
-	Sat, 29 Mar 2025 05:04:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB807C78F8F;
+	Mon, 31 Mar 2025 08:38:21 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F215C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95F8FC78F8C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Mar 2025 05:04:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DD97C5C03BC;
- Sat, 29 Mar 2025 05:01:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7A8AC4CEE2;
- Sat, 29 Mar 2025 05:04:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743224648;
- bh=lYO+q8seCZ2rCtp87F3094VljvpXkkXa7eg6tmFl/sk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=IuTME070DKGOGws3i2K8vP1pjugsfZJ4jJ8C/su6eyeYIR0m1lhyc+ivIufD7D4SN
- 8v7ficS37zcXSWW3hxURxhdrl+DqDq25Psbll0HAicNvKahGBRTlbXw9V3PymmB3dN
- 97u8mGh65Kyud8WTz/IXm80QbkWCyBasTx4wVa+VOfrHJms5JT0N0wJ2tVwseBxtn+
- 7dvvhGPBl8K7VOrLReyih9cThGsqfXCEGEUSuAW6/m3EQIFI4ET2CwK5uTFdJWDcTc
- p6m+KZvgWovVtOxDrlCpGOmxNTwyOw2nhHOltpZZ2sYBOXTPFQ4Pwu+82NkE7DxiPX
- b/6UrDJIdttUg==
-Message-ID: <a81c615a-a1f5-4dfc-81ce-6235abed0820@kernel.org>
-Date: Sat, 29 Mar 2025 06:03:59 +0100
+ Mon, 31 Mar 2025 08:38:20 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so829275e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 31 Mar 2025 01:38:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1743410300; x=1744015100;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sSvzNDeWLA9j3MF9b45BUxK0OhrQzBBAn5lDkDpSzqk=;
+ b=tZYCaKX5x1jaAvecDNzaGHBo1qiG5cgSbrjrmnbDnJszpQ03rR5kVCiP2YKEYrqE+S
+ gTDguXOt+WTsc3ACNy2NaW9tl6ro3qVO82s8EfvlBbEULQroNHGY3xwNSnaao5wYMxr/
+ 1UzZetcuu4eWhKASgIgzOz/H97rxViQV0n7dr+OLkiXuqPear3GavNk6pP54KsaumIBv
+ E17EXM3/afXvXtPqeg9Jnf6l6r+80kg7pWxejB4Rim/TDd/s0ZQAaJFS9y5qBHXb1fL6
+ sa+Q+ivTAnGd/cS8ZF/MQiXuQoRdx+rpDkMr5OMDY752wmZxmFa0E4myiw8k0hOE3IvG
+ yaIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743410300; x=1744015100;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=sSvzNDeWLA9j3MF9b45BUxK0OhrQzBBAn5lDkDpSzqk=;
+ b=S5ZfycoxGahk18oe/Bk5m9i7qzN8yXvEBfO59Xr7Rw8dGaBNgXaZfXh9g7Picf0U2N
+ RxQseeg3hF66mAnub+tGuLgxE8j9sOKKbXSpr3KVy305r60NwIciPF85fQBR6wMSzlsm
+ Kj4ndF0HeOOyYKmRrPIrh1D6jf7G7MnHPVu+S++lAVXvNnFyvn5y4wfI4bbcL3mdXwss
+ JA3M4Bre017E+rnMgBdiE50ImPtk2q4wt71AeEZASQdlGbkFAtHbqjsQ918/H/fR8ExA
+ o/tjLmm2hfs4hZ6fweCDaRioh/yKin8agGGb7VpzzHywJWcFDqmfjSzsjJT9JDMNaivv
+ q/tA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkoPPBa12i2wkOrQ109+KK/calKsd67XctgBF1vyxHPTLRuZ89wcje387U2nBApQON2CmMj8RaKVjELQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YybtKWx193CtGE6HWkR6Z1TZZTTbhf8e/6w0O4zokpn+IlAAwPi
+ fCgDM2ar7VlCHABeCdAlhidIsEzlXaeCvFJhKJP+PhRg3RADb5p1KSbtLFMXlxg=
+X-Gm-Gg: ASbGncsH2JUDGzcv2szgYME5khcGOd3GEFX5iYhi+XXPNIcP5JzLY/JjrYVnFqGYKz3
+ /brTMdw6AZsHrwrlV9aWongDSiL8cuaxFr0L/ISEOLZTmBMzszkNaMcttygp+KrWG88EVVxLPL4
+ 1J2tNQ9xCeRQOC+06bn2tRpMJY9w/iHKJsbT+OjNwKoTul6wShnenv2M3oejMhvy/HxUItc1V94
+ 0U2Szapc1AYWf0mDLuTpPWmEzaReUrfIgSg3nMPV7ZMb37q+CR4x184b/KSYDvQkBgaEW+15i9Y
+ FO//gBSooV77OvRUeq0yxFWZ2GJH23ZgD0SRN+byyKnd7xZHhuWB/RLwIokwEbC/rbmnHziFG9M
+ C5iNlc8rr
+X-Google-Smtp-Source: AGHT+IHnymAzt9wzLtLJDSjlzRXQxVPcbpSsh6FvhFdIm6eixK9JeGM+C1pvqMUaMqG2vD0oiiyYsQ==
+X-Received: by 2002:a05:600c:310c:b0:43b:c0fa:f9cd with SMTP id
+ 5b1f17b1804b1-43db6227ac9mr57538675e9.7.1743410299906; 
+ Mon, 31 Mar 2025 01:38:19 -0700 (PDT)
+Received: from [192.168.10.46] (146725694.box.freepro.com. [130.180.211.218])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-43d82dedd6fsm163362265e9.7.2025.03.31.01.38.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Mar 2025 01:38:18 -0700 (PDT)
+Message-ID: <6bca05ac-13d0-4197-b4af-5509884c83c6@linaro.org>
+Date: Mon, 31 Mar 2025 10:38:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Daniel Lezcano <daniel.lezcano@linaro.org>, tglx@linutronix.de
+To: Krzysztof Kozlowski <krzk@kernel.org>, tglx@linutronix.de
 References: <20250328134208.2183653-1-daniel.lezcano@linaro.org>
  <20250328134208.2183653-2-daniel.lezcano@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <a81c615a-a1f5-4dfc-81ce-6235abed0820@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20250328134208.2183653-2-daniel.lezcano@linaro.org>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <a81c615a-a1f5-4dfc-81ce-6235abed0820@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  S32@nxp.com, "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
@@ -106,75 +98,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/03/2025 14:42, Daniel Lezcano wrote:
-> Add the System Timer Module description found on the NXP s32 platform
-> and the compatible for the s32g2 variant.
-> 
-> Cc: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
-> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Cc: Thomas Fossati <thomas.fossati@linaro.org>
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
-> ---
-
-I got only this patch, no cover letter, no changelog. What happened here?
-
->  .../bindings/timer/nxp,stm-timer.yaml         | 50 +++++++++++++++++++
->  1 file changed, 50 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml b/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
-> new file mode 100644
-> index 000000000000..a9c0151d62be
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/nxp,stm-timer.yaml
-
-Filename following compatible.
-
-> @@ -0,0 +1,50 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/timer/nxp,stm-timer.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP System Timer Module (STM)
-> +
-> +maintainers:
-> +  - Daniel Lezcano <daniel.lezcano@kernel.org>
-> +
-> +description:
-> +  The System Timer Module supports commonly required system and application
-> +  software timing functions. STM includes a 32-bit count-up timer and four
-> +  32-bit compare channels with a separate interrupt source for each channel.
-> +  The timer is driven by the STM module clock divided by an 8-bit prescale
-> +  value.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nxp,s32g-stm
-
-Previously it was told to me there is no such soc as s32g but they are
-named differently, e.g. s32g2. See other bindings.
-
-Please consult internally and come with one unified approach to all NXP
-bindings. Otherwise, if this is a real soc, fix this for top level
-compatibles, because there is no s32g there either.
-
-This applies to all NXP-related patches (which I am sure was previously
-discussed on the lists).
-
-What is confusing: previous compatible was correct and I did not ask to
-change it.
-
-Best regards,
-Krzysztof
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjkvMDMvMjAyNSAwNjowMywgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiBPbiAyOC8w
+My8yMDI1IDE0OjQyLCBEYW5pZWwgTGV6Y2FubyB3cm90ZToKPj4gQWRkIHRoZSBTeXN0ZW0gVGlt
+ZXIgTW9kdWxlIGRlc2NyaXB0aW9uIGZvdW5kIG9uIHRoZSBOWFAgczMyIHBsYXRmb3JtCj4+IGFu
+ZCB0aGUgY29tcGF0aWJsZSBmb3IgdGhlIHMzMmcyIHZhcmlhbnQuCj4+Cj4+IENjOiBHaGVubmFk
+aSBQcm9jb3BjaXVjIDxnaGVubmFkaS5wcm9jb3BjaXVjQG9zcy5ueHAuY29tPgo+PiBDYzogS3J6
+eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPgo+PiBDYzog
+VGhvbWFzIEZvc3NhdGkgPHRob21hcy5mb3NzYXRpQGxpbmFyby5vcmc+Cj4+IFNpZ25lZC1vZmYt
+Ynk6IERhbmllbCBMZXpjYW5vIDxkYW5pZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgo+PiAtLS0KPiAK
+PiBJIGdvdCBvbmx5IHRoaXMgcGF0Y2gsIG5vIGNvdmVyIGxldHRlciwgbm8gY2hhbmdlbG9nLiBX
+aGF0IGhhcHBlbmVkIGhlcmU/CgpNeSBiYWQsIG15IHNjcmlwdHMgbmVlZHMgc29tZSBtb3JlIHdv
+cmsgOikKCldpbGwgQ2MgeW91IGluIHRoZSBuZXh0IHZlcnNpb24KCj4+ICAgLi4uL2JpbmRpbmdz
+L3RpbWVyL254cCxzdG0tdGltZXIueWFtbCAgICAgICAgIHwgNTAgKysrKysrKysrKysrKysrKysr
+Kwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA1MCBpbnNlcnRpb25zKCspCj4+ICAgY3JlYXRlIG1vZGUg
+MTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9ueHAsc3RtLXRp
+bWVyLnlhbWwKPj4KPj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy90aW1lci9ueHAsc3RtLXRpbWVyLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvdGltZXIvbnhwLHN0bS10aW1lci55YW1sCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0
+Cj4+IGluZGV4IDAwMDAwMDAwMDAwMC4uYTljMDE1MWQ2MmJlCj4+IC0tLSAvZGV2L251bGwKPj4g
+KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3RpbWVyL254cCxzdG0tdGlt
+ZXIueWFtbAo+IAo+IEZpbGVuYW1lIGZvbGxvd2luZyBjb21wYXRpYmxlLgo+IAo+PiBAQCAtMCww
+ICsxLDUwIEBACj4+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9S
+IEJTRC0yLUNsYXVzZSkKPj4gKyVZQU1MIDEuMgo+PiArLS0tCj4+ICskaWQ6IGh0dHA6Ly9kZXZp
+Y2V0cmVlLm9yZy9zY2hlbWFzL3RpbWVyL254cCxzdG0tdGltZXIueWFtbCMKPj4gKyRzY2hlbWE6
+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIwo+PiArCj4+ICt0
+aXRsZTogTlhQIFN5c3RlbSBUaW1lciBNb2R1bGUgKFNUTSkKPj4gKwo+PiArbWFpbnRhaW5lcnM6
+Cj4+ICsgIC0gRGFuaWVsIExlemNhbm8gPGRhbmllbC5sZXpjYW5vQGtlcm5lbC5vcmc+Cj4+ICsK
+Pj4gK2Rlc2NyaXB0aW9uOgo+PiArICBUaGUgU3lzdGVtIFRpbWVyIE1vZHVsZSBzdXBwb3J0cyBj
+b21tb25seSByZXF1aXJlZCBzeXN0ZW0gYW5kIGFwcGxpY2F0aW9uCj4+ICsgIHNvZnR3YXJlIHRp
+bWluZyBmdW5jdGlvbnMuIFNUTSBpbmNsdWRlcyBhIDMyLWJpdCBjb3VudC11cCB0aW1lciBhbmQg
+Zm91cgo+PiArICAzMi1iaXQgY29tcGFyZSBjaGFubmVscyB3aXRoIGEgc2VwYXJhdGUgaW50ZXJy
+dXB0IHNvdXJjZSBmb3IgZWFjaCBjaGFubmVsLgo+PiArICBUaGUgdGltZXIgaXMgZHJpdmVuIGJ5
+IHRoZSBTVE0gbW9kdWxlIGNsb2NrIGRpdmlkZWQgYnkgYW4gOC1iaXQgcHJlc2NhbGUKPj4gKyAg
+dmFsdWUuCj4+ICsKPj4gK3Byb3BlcnRpZXM6Cj4+ICsgIGNvbXBhdGlibGU6Cj4+ICsgICAgZW51
+bToKPj4gKyAgICAgIC0gbnhwLHMzMmctc3RtCj4gCj4gUHJldmlvdXNseSBpdCB3YXMgdG9sZCB0
+byBtZSB0aGVyZSBpcyBubyBzdWNoIHNvYyBhcyBzMzJnIGJ1dCB0aGV5IGFyZQo+IG5hbWVkIGRp
+ZmZlcmVudGx5LCBlLmcuIHMzMmcyLiBTZWUgb3RoZXIgYmluZGluZ3MuCj4gCj4gUGxlYXNlIGNv
+bnN1bHQgaW50ZXJuYWxseSBhbmQgY29tZSB3aXRoIG9uZSB1bmlmaWVkIGFwcHJvYWNoIHRvIGFs
+bCBOWFAKPiBiaW5kaW5ncy4gT3RoZXJ3aXNlLCBpZiB0aGlzIGlzIGEgcmVhbCBzb2MsIGZpeCB0
+aGlzIGZvciB0b3AgbGV2ZWwKPiBjb21wYXRpYmxlcywgYmVjYXVzZSB0aGVyZSBpcyBubyBzMzJn
+IHRoZXJlIGVpdGhlci4KPiAKPiBUaGlzIGFwcGxpZXMgdG8gYWxsIE5YUC1yZWxhdGVkIHBhdGNo
+ZXMgKHdoaWNoIEkgYW0gc3VyZSB3YXMgcHJldmlvdXNseQo+IGRpc2N1c3NlZCBvbiB0aGUgbGlz
+dHMpLgo+IAo+IFdoYXQgaXMgY29uZnVzaW5nOiBwcmV2aW91cyBjb21wYXRpYmxlIHdhcyBjb3Jy
+ZWN0IGFuZCBJIGRpZCBub3QgYXNrIHRvCj4gY2hhbmdlIGl0LgoKWWVhaCwgSSB0aGluayB0aGUg
+YW5zd2VyIGlzIHN0cmFpZ2h0Zm9yd2FyZC4gSXQgaXMgczMyZzIgYW5kIHMzMmczLCB0aGUgCnR3
+byBwbGF0Zm9ybXMgaGF2aW5nIHRoZSBTVE0uIEknbGwgd2lsbCBmaXggdGhlIGNvbXBhdGlibGVz
+LgoKLS0gCjxodHRwOi8vd3d3LmxpbmFyby5vcmcvPiBMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJj
+ZSBzb2Z0d2FyZSBmb3IgQVJNIFNvQ3MKCkZvbGxvdyBMaW5hcm86ICA8aHR0cDovL3d3dy5mYWNl
+Ym9vay5jb20vcGFnZXMvTGluYXJvPiBGYWNlYm9vayB8CjxodHRwOi8vdHdpdHRlci5jb20vIyEv
+bGluYXJvb3JnPiBUd2l0dGVyIHwKPGh0dHA6Ly93d3cubGluYXJvLm9yZy9saW5hcm8tYmxvZy8+
+IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
