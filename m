@@ -2,55 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 552ADA77463
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Apr 2025 08:17:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F2EEA77AD1
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Apr 2025 14:24:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF810C78F8F;
-	Tue,  1 Apr 2025 06:17:38 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E34C78F90;
+	Tue,  1 Apr 2025 12:24:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3A18C78F8C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14923C78F9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Apr 2025 06:17:36 +0000 (UTC)
-Received: from localhost (unknown [124.16.138.129])
- by APP-05 (Coremail) with SMTP id zQCowACn3wfchOtn05WcBA--.19358S2;
- Tue, 01 Apr 2025 14:17:02 +0800 (CST)
-From: Chen Ni <nichen@iscas.ac.cn>
-To: andrii@kernel.org, eddyz87@gmail.com, mykolal@fb.com, ast@kernel.org,
- daniel@iogearbox.net, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, john.fastabend@gmail.com, kpsingh@kernel.org,
- sdf@fomichev.me, haoluo@google.com, jolsa@kernel.org, shuah@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- peterz@infradead.org, ameryhung@gmail.com, juntong.deng@outlook.com,
- oleg@redhat.com
-Date: Tue,  1 Apr 2025 14:15:46 +0800
-Message-Id: <20250401061546.1990156-1-nichen@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+ Tue,  1 Apr 2025 12:24:01 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 531BGm2Y032351;
+ Tue, 1 Apr 2025 14:23:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Nd0QLdvnS5lVPHO72YfmEM
+ QvHtPA5bvSdPHpNLfeApg=; b=465T5R9EYq/MbQHx1DH992QYuGDhw+4YihNPan
+ UJspO/j8oi28wyRrqnI+bIcwx3vzLQAcleaxfk+1IQSQz+EX016kaDrytQFk1YBy
+ tSxlbQayLkKh1expQ/nLQvJmf3C/ftYROpy+LE7Hih5Z19jW3h4sjiGZnN46BjPN
+ d41KaCecEDtQlFh/6SGT4TIqI8VED4PhZ+zmjIplShiy4HF89v63Jf6XavsqfHm3
+ Gmcli2rb/oCGN2blWrpRUSDaWDyssrdJiq/zXxdRpGiQlXs4B/sUERu1fPXD7qMR
+ YwTyUplnLxvry2FPbUnRJU0nkeuotJjlExtG0e/BJEI2jZuQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45pua7ttc1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 01 Apr 2025 14:23:46 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B00D040052;
+ Tue,  1 Apr 2025 14:22:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 326F28A047E;
+ Tue,  1 Apr 2025 14:21:48 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 1 Apr
+ 2025 14:21:47 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Tue, 1 Apr 2025 14:21:44 +0200
+Message-ID: <20250401-upstream_ospi_v6-v7-0-0ef28513ed81@foss.st.com>
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowACn3wfchOtn05WcBA--.19358S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF17ur4DKrWUZF4kWFyrtFb_yoW8Cr47pa
- 4fXw1DAr1xJa1UJa1xKa9Fqr1S9rsIq3y7Jas3Kr93Xa13t3W3XryUtr18twnxXF4rXa15
- uw1YvFyv9an7ZrDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
- 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
- 8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxEwVAFwVW8AwCF04k20xvY0x0EwI
- xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
- Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7
- IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
- 6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
- AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRzMKAUUUUU=
-X-Originating-IP: [124.16.138.129]
-X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
-Cc: Chen Ni <nichen@iscas.ac.cn>, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+X-B4-Tracking: v=1; b=H4sIAFja62cC/2WNQQqDMBREryJ/3UhMomm76j2KSKKx/oUm5Ftpk
+ dy9qdBVYTZvYN7sQC6iI7gWO0S3IaFfMuhTAf1klodjOGQGwUXNpeDsGWiNzsydp4Dd1rBBSWH
+ OlRYVryHPQnQjvg7lvc08Ia0+vo+Hrfm2P1n1L8vhTGpre2OVVPJyGz1RSWvZ+xnalNIHlEyfZ
+ 7IAAAA=
+X-Change-ID: 20250320-upstream_ospi_v6-d432a8172105
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-01_05,2025-03-27_02,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] selftests/bpf: Convert comma to semicolon
+Subject: [Linux-stm32] [PATCH v7 0/7] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,45 +82,116 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace comma between expressions with semicolons.
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
 
-Using a ',' in place of a ';' can have unintended side effects.
-Although that is not the case here, it is seems best to use ';'
-unless ',' is intended.
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint
+between its 2 Octo SPI children.
 
-Found by inspection.
-No functional change intended.
-Compile tested only.
+Due to these depedencies, this series adds support for:
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
 
-Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+The device tree files adds Octo Memory Manager and its 2 associated Octo
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+    
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Changes in v7:
+  - update OMM's dt-bindings by updating :
+    - clock-names and reset-names properties.
+    - spi unit-address node.
+    - example.
+  - update stm32mp251.dtsi to match with OMM's bindings update.
+  - update stm32mp257f-ev1.dts to match with OMM's bindings update.
+  - Link to v6: https://lore.kernel.org/r/20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com
+
+Changes in v6:
+  - Update MAINTAINERS file.
+  - Remove previous patch 1/8 and 2/8, merged by Mark Brown in spi git tree.
+  - Fix Signed-off-by order for patch 3.
+  - OMM driver:
+    - Add dev_err_probe() in error path.
+    - Rename stm32_omm_enable_child_clock() to stm32_omm_toggle_child_clock().
+    - Reorder initialised/non-initialized variable in stm32_omm_configure()
+          and stm32_omm_probe().
+    - Move pm_runtime_disable() calls from stm32_omm_configure() to
+      stm32_omm_probe().
+    - Update children's clocks and reset management.
+    - Use of_platform_populate() to probe children.
+    - Add missing pm_runtime_disable().
+    - Remove useless stm32_omm_check_access's first parameter.
+  - Update OMM's dt-bindings by adding OSPI's clocks and resets.
+  - Update stm32mp251.dtsi by adding OSPI's clock and reset in OMM's node.
+
+Changes in v5:
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
+
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns,
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between
+Octo Memory Manager and its 2 Octo SPI children.
+
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
+
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- tools/testing/selftests/bpf/test_kmods/bpf_testmod.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Patrice Chotard (7):
+      MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
+      dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
+      memory: Add STM32 Octo Memory Manager driver
+      arm64: dts: st: Add OMM node on stm32mp251
+      arm64: dts: st: Add ospi port1 pinctrl entries in stm32mp25-pinctrl.dtsi
+      arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board
+      arm64: defconfig: Enable STM32 Octo Memory Manager and OcstoSPI driver
 
-diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-index 3220f1d28697..f38eaf0d35ef 100644
---- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-+++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-@@ -1340,7 +1340,7 @@ static int st_ops_gen_prologue_with_kfunc(struct bpf_insn *insn_buf, bool direct
- 	*insn++ = BPF_STX_MEM(BPF_DW, BPF_REG_6, BPF_REG_7, offsetof(struct st_ops_args, a));
- 	*insn++ = BPF_JMP_IMM(BPF_JA, 0, 0, 2);
- 	*insn++ = BPF_MOV64_REG(BPF_REG_1, BPF_REG_0);
--	*insn++ = BPF_CALL_KFUNC(0, bpf_cgroup_release_id),
-+	*insn++ = BPF_CALL_KFUNC(0, bpf_cgroup_release_id);
- 	*insn++ = BPF_MOV64_REG(BPF_REG_1, BPF_REG_8);
- 	*insn++ = prog->insnsi[0];
- 
-@@ -1379,7 +1379,7 @@ static int st_ops_gen_epilogue_with_kfunc(struct bpf_insn *insn_buf, const struc
- 	*insn++ = BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_6, offsetof(struct st_ops_args, a));
- 	*insn++ = BPF_JMP_IMM(BPF_JA, 0, 0, 2);
- 	*insn++ = BPF_MOV64_REG(BPF_REG_1, BPF_REG_0);
--	*insn++ = BPF_CALL_KFUNC(0, bpf_cgroup_release_id),
-+	*insn++ = BPF_CALL_KFUNC(0, bpf_cgroup_release_id);
- 	*insn++ = BPF_MOV64_REG(BPF_REG_0, BPF_REG_6);
- 	*insn++ = BPF_ALU64_IMM(BPF_MUL, BPF_REG_0, 2);
- 	*insn++ = BPF_EXIT_INSN();
+ .../memory-controllers/st,stm32mp25-omm.yaml       | 227 ++++++++++
+ MAINTAINERS                                        |   6 +
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi      |  51 +++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             |  54 +++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |  32 ++
+ arch/arm64/configs/defconfig                       |   2 +
+ drivers/memory/Kconfig                             |  17 +
+ drivers/memory/Makefile                            |   1 +
+ drivers/memory/stm32_omm.c                         | 474 +++++++++++++++++++++
+ 9 files changed, 864 insertions(+)
+---
+base-commit: 88424abd55ab36c3565898a656589a0a25ecd92f
+change-id: 20250320-upstream_ospi_v6-d432a8172105
+
+Best regards,
 -- 
-2.25.1
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
