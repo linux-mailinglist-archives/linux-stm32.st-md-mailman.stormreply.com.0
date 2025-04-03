@@ -2,39 +2,160 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56371A79BE7
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 08:23:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA21A79C01
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 08:33:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07028C7803C;
-	Thu,  3 Apr 2025 06:23:53 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD681C7801F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97B59C7803C;
+	Thu,  3 Apr 2025 06:33:19 +0000 (UTC)
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02on2060.outbound.protection.outlook.com [40.107.249.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3EF4C7803B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Apr 2025 06:23:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81689106F;
- Wed,  2 Apr 2025 23:23:52 -0700 (PDT)
-Received: from [10.163.48.25] (unknown [10.163.48.25])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 309253F59E;
- Wed,  2 Apr 2025 23:23:44 -0700 (PDT)
-Message-ID: <e5abeb48-daf7-4d07-821e-93ef50a1d403@arm.com>
-Date: Thu, 3 Apr 2025 11:53:42 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20250327113803.1452108-1-leo.yan@arm.com>
- <20250327113803.1452108-4-leo.yan@arm.com>
+ Thu,  3 Apr 2025 06:33:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ik0SfYV21gBrtU7AqAy/RAGfZ6eWblV7fIH0QeMa0bEQEZU7yC6zDWAzxSs7F1v6JN7g1V9tQq+NMQqD9pS2fDypnPZNBdA1ONTAlVQEnE5zTBXiEpNRveArDj84NsZPbretYGRkXzFh0u4TREn6QS8Ph8qO6pQ7rP2jQzpZ8g83WmnpfGTH3+GzLErfYpjsHe2HMTOe5/QDPEsBBqVeRapWdvM+6B+Sn4PARdLWoXVhvrxEe3UQTVRwsxsAAE6PesF1Rzvqm9WeV5Y/NOiK2wELl11qi/fOrGMFMiikKyO2ey4g5K3TSIKKZ9QDw2ydmSvmFVxx//PajuOlMuQcTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xae3hdtBol3nEf5pCgV8Pv2zLEiKsM7P1OUStf2/6zk=;
+ b=T+DbcbkpucJfzIfwOxmeGf1Xu0hh4gkgfbVbBSn0GnyTANbW1qb9a7H20j8AaSTx6qh6+bsBwwjU9azgYz4WO/lo/2lt1HinlGUrCJhHgo6J8C4v3p5DZ/h9KP0/pR1ndiFv0SUNYalXsZPOwxj3ShIsXGJx0QsbGmSyOvZiYRIrmokiqAhagdMMUzQTKUsgg33XscWLnnjCMsYGFZ/JkDTYKeVeni0NiqKZh2zYrPmkrzEUqew02BpblYyxGeJebaAcrbc/zEztBPCUUQgOAexikA0BwCA9gujTJ6spJDWqI8m3eyYbqnpEgVNcLCH6LQsoCs1DCADCDMs5M/mVIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xae3hdtBol3nEf5pCgV8Pv2zLEiKsM7P1OUStf2/6zk=;
+ b=SmvfJBfczz6xpIVCrwDXcJ4tC63dw92RYxWSlvtpOPXmMSpBBfEgUDDhCeQaEH5N57EPHSqlwmlVirdjSLukwZbkV5rHeQXy3c4V95GIcwdkdKo6M+pV7Re9CQFlnS4nDZnZurttfk9724FaEMf1T1PL7WS+z60sL2AmH0FjhVB0O0FwBSirrCVl+Q37MRbmfnYj2ZgABxQTEkf5+/B9UTQKnegLR1DsZhT8t6M2z0G+Lg/ak9VPq1Grj00No2Sh2kSRjGtnYGGfs9cU+KzwaaccaTkY+6sskwOfc6y7KUGQ0nDtV9EIU1GtlrZVyZshxK60qfAHEHh63GCH/KqrSQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU2PR04MB8582.eurprd04.prod.outlook.com (2603:10a6:10:2d9::24)
+ by VI1PR04MB7070.eurprd04.prod.outlook.com (2603:10a6:800:123::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.50; Thu, 3 Apr
+ 2025 06:33:15 +0000
+Received: from DU2PR04MB8582.eurprd04.prod.outlook.com
+ ([fe80::c96e:12f1:67b7:ed74]) by DU2PR04MB8582.eurprd04.prod.outlook.com
+ ([fe80::c96e:12f1:67b7:ed74%5]) with mapi id 15.20.8534.052; Thu, 3 Apr 2025
+ 06:33:15 +0000
+Message-ID: <2503deb2-b993-7fd1-adf3-cafa1e7bd2f4@oss.nxp.com>
+Date: Thu, 3 Apr 2025 09:33:11 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
 Content-Language: en-US
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <20250327113803.1452108-4-leo.yan@arm.com>
-Subject: Re: [Linux-stm32] [PATCH v1 3/9] coresight: etm4x: Support atclk
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, tglx@linutronix.de
+References: <20250402090714.3548055-1-daniel.lezcano@linaro.org>
+ <20250402090714.3548055-2-daniel.lezcano@linaro.org>
+From: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+In-Reply-To: <20250402090714.3548055-2-daniel.lezcano@linaro.org>
+X-ClientProxiedBy: AM0PR01CA0117.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:168::22) To DU2PR04MB8582.eurprd04.prod.outlook.com
+ (2603:10a6:10:2d9::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8582:EE_|VI1PR04MB7070:EE_
+X-MS-Office365-Filtering-Correlation-Id: f90426ee-05f2-4fd3-70bf-08dd72796a26
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MHlMc0VTaW1DVDI1N2V0Ym9TRE8yMk84RW54eDFxeUtoUWdkMzhKQXRSZmNB?=
+ =?utf-8?B?OFpzVy9FOXFSNDBYaEJySjI0enB6aTcwRGxYUTdSUytGT0JWK0VZVDNTOTdp?=
+ =?utf-8?B?bU1HUUV0NXZncTlQbURtTWJwc3lnamxKRzFvdldpdk9DYUFzMi9HemZpWm1a?=
+ =?utf-8?B?TnZENEhTT0xidTJGaTc2M1dtdDdLVm1jME9ZbjZsNW84Rm51OTB2aDJOZ2Jk?=
+ =?utf-8?B?QW5ieUFkWXhseXVDSWE3VkVhRGhNSnFKZ3h5Z3p6b3pNRHFWbjdmNGxrYkxw?=
+ =?utf-8?B?UDlEL0dDdjViSDU5S3doTjZ3WDJRYlBlQ0RUWFA0eHUrRmJUWU43bFdXY2Nk?=
+ =?utf-8?B?K21KeEZvYis1NENHTitzOUhYZUxHcGkxSUEvampDNmR3MmwrZFphd3hPWE9n?=
+ =?utf-8?B?MW9QZ1ppekgwSXlzb1R5WXVDc3M4RUpFcHc1VWdsZllLQWZUWkxLWHJ1R2pU?=
+ =?utf-8?B?RWx3UmlTYnBENkpZaXgxd2JhNGxEZ1JrVS82VFY4WUZJVTE3K2VDbVBZTFNN?=
+ =?utf-8?B?ZFhNeHlIUzBFVldhcDlPdVEvZUNoQ0F4ZVMvNE8rNEhlc0lyYlBvWkg5QWZx?=
+ =?utf-8?B?QUQ1dHJwdXpNZTJiOW80dzN6UVpwRG5nNkhCNDYvV3RWb3FnTDlpcFZxQmY1?=
+ =?utf-8?B?RitJTUp4M2pIa0pCMitJSXczSm5EK1kwUjQwcS9rR2xpV1dkbmxIbGxwUGRh?=
+ =?utf-8?B?SnpxTGZhR3NucnBBSU5hQWtKZnEyR05hWmJ1KzdTUGJTaWh4YmJydUdpTUxR?=
+ =?utf-8?B?M0ZuOU5qVEx5bm0zaEpXNHcwdkRIaEk4N1ZOVWE5MlJ2d3Y1S3F6SndDWXBT?=
+ =?utf-8?B?clBqY3F2a2xjWWFPZThuc0kzZ0lkK3BsU0hDLzFnKzRBbE5JL3pFWHAxa3VJ?=
+ =?utf-8?B?QURsOEhzdHExQmoxWTVrVVpUMDZSRTU3ampEeGF0Z0drVUhGL0l0cXdqUlQx?=
+ =?utf-8?B?eEZTVUxYTjl5Z1FQbVlzUzhlRFZiclNZRGJCaXlucU1IdnA2MzVUVFdRNjBX?=
+ =?utf-8?B?SmloMERRdlRNR2xnNE9nL1V0bzdNMERwUXhSVUt1RlNtT3BOZ1Bza05oaVJt?=
+ =?utf-8?B?SjVLaFB3SzhqeEZFSHFCQmhDK3BmajZpdFE2dFRieWJCdnhBdVV4di9WME5t?=
+ =?utf-8?B?OTNSMm1sN0lDS0dYZlRkQkduaFJRSVMrdGluQ1ZuRld1aHJ0TS9helNpdW0z?=
+ =?utf-8?B?L2xkd0QrOWRwVDF3L2VLYWozUXd6UGxTT3pqZEY1dEV4Rm5mSU8xVG54K3o2?=
+ =?utf-8?B?NDRxSUpEQ2hWK0gvTlF5VXp5V1M0U1UxSmtYMHBqalFkNk1ZeGJBSWJ5S1d5?=
+ =?utf-8?B?SjlHZzVJNDcwVDJGSk5IeFlwOG44TUZRRHFyODRsZFhUUU9jbnFsaVR4WEJQ?=
+ =?utf-8?B?MUpIYzI3RUw3MTlhT3ZTZk84Q1ZLWUhsVTdrdFd0MmNaOXFIUk9sYkJOV0Qz?=
+ =?utf-8?B?Q3g3VXhuZWhoUXAvQWhNazdmU1YrRGRXa2dkMndKeWxENVhDQnBmaWRNQVZl?=
+ =?utf-8?B?UlNKSDFQSWhMY3pCMzdaVFNSdHlhSHUyYmhLQVNJU0ZHa3lyVUNQK0pRSitG?=
+ =?utf-8?B?NGZzczV3SEtxUGZTaUtzZHV0NG5IRjc5dnNkRk4rZ1lhSS9ScnFKTXVYSFZj?=
+ =?utf-8?B?NmZwS2hLa21QZ1l2Wno4cmJ3QlJYNjVDcmJDVHBmWUdoWWdoUk1TenE5SVcz?=
+ =?utf-8?B?ZDV3enloYk5ZMDJNaFZBOU9yMXpKVkJlWFVobTBjYmFzQzU2Z1RReTViSUYv?=
+ =?utf-8?B?aDV3QjlNVjZHMitSY3lrTitrNFUwMENiZ1lqcVF2cDExTXMxVW1iVWVTd29B?=
+ =?utf-8?B?QVEzRzJVUWxnL0tnZ2U0UjhYeS9kN3pyMHhIdmhja3RsY0lEK010ZW0vSmFL?=
+ =?utf-8?Q?8L2cQBl4PHb8+?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DU2PR04MB8582.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkJZWHdUaFZKZFBjbDltYzFaa2NpVVpyRGpNV1laSlAxUm02UUMvaEtZMXJ0?=
+ =?utf-8?B?ai9ycmw5VVJrNUkxYjRFc25jdXRtZTE3OVgzRXdIS09BaHBKS0Z5ZjF2V2F2?=
+ =?utf-8?B?Zy9lOGxuQmlUMjd4MENmeGVuUTNnb2l0U2tBT3N6cXo3QkVJUmJKTjRDb2p6?=
+ =?utf-8?B?MjhVMWoxdlZhWVlYN0hiN1VoNHc1dFlzMlExV1YvZU9Ub213YytBVkNJTnFn?=
+ =?utf-8?B?c3ZsWjYzeUNYci8yN2J2SkwvMzNMNUI3SmFsTkVWRmlsZS9MQy9FakYydjB0?=
+ =?utf-8?B?QnVGNjQ0LzBUaUd6ellpZ2NVYzFPWUFNZm1DTnArK2RBU1dLbVFKMmIwcjdT?=
+ =?utf-8?B?SzBWV1B6NU1XSWM0ZnF6aEZ0OEpDdUJZbncwcHQwbWlGOHJTZjFNNGxyOERz?=
+ =?utf-8?B?N3NKUUV5WlRDaEhxWXhjckt3Mm5icDVEd2lDa0NrcUNibFRRTE0vdk9uTFdO?=
+ =?utf-8?B?aGg4VGdqN1hYSkNlSy8ydVhSVXc1cEo2Wm5NdmhLRDFiNm13eTF1Ym04enhT?=
+ =?utf-8?B?Z3VZaWVxTVg2VWRIaU05MkdlQVNFZmJKN2oxU0t1c3V1NXVxalBkc2JiZG1X?=
+ =?utf-8?B?QXpkTUFvY0c0dVJNUzF6dTBjd0haSWwvU2VhSkd4YXBxMDlRUUQzTVdGbzdu?=
+ =?utf-8?B?YUxRRkd4dWt0UlVpcnVYYWFOQkRQKzA2L080YUYwdDZaYkl6Y1RjUXE4RHgr?=
+ =?utf-8?B?a09vSCtxWC85ZVhvMWJLVVlqUndrTWZLbUp5djY1UVJRdi9VUk9HL2hlaUsr?=
+ =?utf-8?B?TXQxTkoyQ0pPRE1rekNyYkZUcnBOV25XbktyTU12bGQwWENsdzljR1dkaWZM?=
+ =?utf-8?B?RC9uay9xczFLazBScEwvMTJoQ1FQQUdFb1V1R0pRbFZSUitHMXNtbVNsUysr?=
+ =?utf-8?B?ZklKSFhsSVFHWVF3UFpBLy9MM1ZsSnRBZTR2bXhWUURlVGZFaysybXZ4TnRN?=
+ =?utf-8?B?cEkrcmFla1BwOHJCMURPb1BWaEFvZ1VBc3paZ3h0M0o2TnU0aHI5MGw1SC9I?=
+ =?utf-8?B?a0t2YmhPMHIvOWN4QldweGdsV2NHaWkxL1ZlREpaTnZLT09JeU1VOVN3d2JW?=
+ =?utf-8?B?a3ovTkN3ZlJhUXB2V3RkaURIRmNJM0FjTWZOdHBXOUJZcTNWaWt2a0xSWE9q?=
+ =?utf-8?B?RDRtKzFhL2FIVWFJa1ZUMllzYVFxbXhXQ2dRcFdsYkxacW9ISHJEUVE0MitZ?=
+ =?utf-8?B?RWRnWEU3QmJWYU1iUWVoWWx3K0k1MHhaQ2xybTlEL0Z0a0psanA2enRwckVX?=
+ =?utf-8?B?NG1pV3U1YmdYYWZ5OUd2MG1NU1ZTVEFhME50Z284ZCtDNy9UaC8vQzBjM1hE?=
+ =?utf-8?B?Q1BoSlhyQ2lBSUovcmJUcE5NbFlxU1FWWHU0Wlk1aTY1aERVMzdlWkRPK08v?=
+ =?utf-8?B?UWhnYk9CNE4xVjUzdkQxRWxNVmFlSmNyVkxUeGpReUIrZGtmd0VDV2lDekFu?=
+ =?utf-8?B?eC9lY0JrWThaYkZicUtJdDhNc3JnYWZtcW1YbEVRRld6dVd4ZjgwcG9MT0c3?=
+ =?utf-8?B?UU9ja2JuR3EzZ3diTlo3OVltYWtZT0N5WFFJek50VUZ6LzhrVnd6SEtPOUZC?=
+ =?utf-8?B?dVhWVFJjY1A5eTNZOE0rMFVXZlUyUW03UHJoa3ltWEREYVJiVCtUZWk5Sm1U?=
+ =?utf-8?B?WVh0QXFad05UazhxUFQ5cEhaRENtYTE4ZUQrUHNwNzlMUnFXVnpkL05Eb2xu?=
+ =?utf-8?B?Qk5ncU9CWkhyb1lzbVZtOW1McHVGK09ZdllwMEl4aXpwVDc5U0tKVU5CaURJ?=
+ =?utf-8?B?eldYRnZmRXpRdWVwQWdqdFIzeE9iSktWY2paZjZMS3VRa0NFNTlqaEgzclY3?=
+ =?utf-8?B?TG96Ykh4ajI5SFIvY1ZQVUxLaFEvSlo2d29NSVlXanpBZU1INnIwY1E0cmdi?=
+ =?utf-8?B?RnRxaVVuekV4dmp4VW14elBMYTF2Tk1nY2ZiZmJQQW5GMmVEcWVrTkJ3ZFpw?=
+ =?utf-8?B?SDhWL0JyeW1RdjRVMFpOWndIUmlVb3BVUkI2TGJCUy9Ca3Yvbm5HSWxtWmtD?=
+ =?utf-8?B?emNGNE9EQlpXUkJlNVFackxNdjhKSGlOUHB0V2FscW1sNnl2aGRCV1hjMjdC?=
+ =?utf-8?B?R2tISTlScWovUmNNQUdkSEgrNjBiUm80ZmFDMjZTa3dMbWVmUCszLzhjR05X?=
+ =?utf-8?B?TjI0NE1OOHdVbUhVbXQxVG9zeGk4NnoxQ2FyNGVnWVZGVExSVWNnbkg4a1dt?=
+ =?utf-8?Q?wIJ+2spcBJp17aw5rx1ju+E=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f90426ee-05f2-4fd3-70bf-08dd72796a26
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8582.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2025 06:33:15.5862 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bQbJ9kQ1MKzl27xtAunOFASmBjAceoqhOP8A+rmksetw1xg6nke9u3XzhdTljmVNAxTj4+a9iIyMzJCiWPTrGjCmmza58fSLG80kxvxAtEo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7070
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ S32@nxp.com, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Larisa.Grigore@nxp.com,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, thomas.fossati@linaro.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, ghennadi.procopciuc@nxp.com,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: timer: Add NXP System
+	Timer Module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,99 +172,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 3/27/25 17:07, Leo Yan wrote:
-> The atclk is an optional clock for the CoreSight ETMv4, but the driver
-> misses to initialize it.
-> 
-> This change enables atclk in probe of the ETMv4 driver, and dynamically
-> control the clock during suspend and resume.
-> 
-> No need to check the driver data and clock pointer in the runtime
-> suspend and resume, so remove checks.  And add error handling in the
-> resume function.
-> 
-> Add a minor fix to the comment format when adding the atclk field.
-> 
-> Fixes: 2e1cdfe184b5 ("coresight-etm4x: Adding CoreSight ETM4x driver")
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->  drivers/hwtracing/coresight/coresight-etm4x-core.c | 20 +++++++++++++++-----
->  drivers/hwtracing/coresight/coresight-etm4x.h      |  4 +++-
->  2 files changed, 18 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> index e5972f16abff..537d57006a25 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> @@ -2149,6 +2149,10 @@ static int etm4_probe(struct device *dev)
->  	if (WARN_ON(!drvdata))
->  		return -ENOMEM;
->  
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
+On 4/2/2025 12:07 PM, Daniel Lezcano wrote:
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 > +
->  	if (pm_save_enable == PARAM_PM_SAVE_FIRMWARE)
->  		pm_save_enable = coresight_loses_context_with_cpu(dev) ?
->  			       PARAM_PM_SAVE_SELF_HOSTED : PARAM_PM_SAVE_NEVER;
-> @@ -2397,8 +2401,8 @@ static int etm4_runtime_suspend(struct device *dev)
->  {
->  	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata->pclk && !IS_ERR(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
-> +	clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->pclk);
->  
->  	return 0;
->  }
-> @@ -2406,11 +2410,17 @@ static int etm4_runtime_suspend(struct device *dev)
->  static int etm4_runtime_resume(struct device *dev)
->  {
->  	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(drvdata->pclk);
-> +	if (ret)
-> +		return ret;
->  
-> -	if (drvdata->pclk && !IS_ERR(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> +	ret = clk_prepare_enable(drvdata->atclk);
-> +	if (ret)
-> +		clk_disable_unprepare(drvdata->pclk);
->  
-> -	return 0;
-> +	return ret;
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
-> index bd7db36ba197..0c21832b5d69 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x.h
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x.h
-> @@ -919,7 +919,8 @@ struct etmv4_save_state {
->  
->  /**
->   * struct etm4_drvdata - specifics associated to an ETM component
-> - * @pclk        APB clock if present, otherwise NULL
-> + * @pclk:       APB clock if present, otherwise NULL
-> + * @atclk:      Optional clock for the core parts of the ETMv4.
->   * @base:       Memory mapped base address for this component.
->   * @csdev:      Component vitals needed by the framework.
->   * @spinlock:   Only one at a time pls.
-> @@ -987,6 +988,7 @@ struct etmv4_save_state {
->   */
->  struct etmv4_drvdata {
->  	struct clk			*pclk;
-> +	struct clk			*atclk;
->  	void __iomem			*base;
->  	struct coresight_device		*csdev;
->  	raw_spinlock_t			spinlock;
+> +    timer@4011c000 {
+> +        compatible = "nxp,s32g2-stm";
+> +        reg = <0x4011c000 0x3000>;
+> +        interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&clks 0x3b>;
+> +    };
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+The S32G reference manual specifies two clocks for the STM module: one
+for the registers and another for the counter itself. Shouldn't both
+clocks be represented in the bindings?
+
+-- 
+Regards,
+Ghennadi
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
