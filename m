@@ -2,52 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 260FEA7902E
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Apr 2025 15:47:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E203A7996E
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 02:30:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2B2AC78012;
-	Wed,  2 Apr 2025 13:47:31 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD76CC78F7F;
+	Thu,  3 Apr 2025 00:30:31 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A34FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3860CC78039
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Apr 2025 13:47:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5C1EFA44535;
- Wed,  2 Apr 2025 13:42:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714F0C4CEDD;
- Wed,  2 Apr 2025 13:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743601648;
- bh=mqlsTKVrn+AgGvdUDfL4V1yyT+cMX8N7L5XXQmEr3Yo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=g/o5JVCQG+s/zpSNBsc2udu6u3eF1njWqXvag/0VmwJLHFrNy9dtkIAELz8/OXM3t
- 8EoMZk22fAUMhMiwnmZ5UVKvOYFAoSKAbcLkHDf3PA2zQNlwQkQcRrJO+lETPEzTkp
- ipGfjXqV1nLY/xqXrvpDZeJ1KEZrcG2P9Dkg6HDj+Ty7Jl+C1xjrqbVNUNl91JZrud
- KpRC+Fi+0xUXFl2+wgyc2KJkPpdspeGYbUAeciYUZrE4GkyuooaZsDk8oSqzbEIycw
- yhf/iY9lSk5iST5iWWdKaapkJ1XUp+dmSyosSxt693xE7kXNaycLxsxvr1g77h/THd
- LY9628QXysVCw==
-Date: Wed, 2 Apr 2025 08:47:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20250402134725.GA145044-robh@kernel.org>
-References: <20250401-upstream_ospi_v6-v7-0-0ef28513ed81@foss.st.com>
- <20250401-upstream_ospi_v6-v7-2-0ef28513ed81@foss.st.com>
- <20250401222015.GA4071342-robh@kernel.org>
- <71c301ea-0be7-4349-92d6-93b3ffc9c593@kernel.org>
+ Thu,  3 Apr 2025 00:30:30 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 532KDUZH010705;
+ Thu, 3 Apr 2025 00:30:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 1XAoUUayoifpo55P//Cqrg5SgnVcz0v+hTrWQ+934mc=; b=caQgEfccM3lZ3dQ5
+ WiUl/fv42O8PHC//5U9tl32ChayLC25HVaiDHx1bXh6byd6Mc4trdPSiUwu8pqN5
+ 2ntNosVtTR4AE/bhnj/s1Jxm7GBdAsrNAWUKPBgJ+IdkUigkJO5YADkxCInAdjb9
+ D9bpP4NPO+gjftC5I/LBl4rL+HKPrJ6sBjYU/opeAj3ed2BnflpZ1RDyqgj4Yr3t
+ GGAWDnvqJvIaR6l4+TyNOQeQTVzaRjP5TwCM+bvn4G1EY+a3ueo9KbfZtNgO2CNJ
+ hVNlcD71/6cM4NWzEX/OehKzJw8pSuzwu0U8yFoGTxItjv8UVSafpxPbIm90Gyp1
+ W27rQg==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45sc2yrdwp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Apr 2025 00:30:00 +0000 (GMT)
+Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
+ [10.47.97.35])
+ by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5330TwxS016430
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 3 Apr 2025 00:29:58 GMT
+Received: from [10.133.33.117] (10.80.80.8) by nalasex01c.na.qualcomm.com
+ (10.47.97.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 2 Apr 2025
+ 17:29:55 -0700
+Message-ID: <1a496341-cb74-4636-a3dd-9644dee4fc36@quicinc.com>
+Date: Thu, 3 Apr 2025 08:29:52 +0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <71c301ea-0be7-4349-92d6-93b3ffc9c593@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
+User-Agent: Mozilla Thunderbird
+To: Leo Yan <leo.yan@arm.com>
+References: <20250327113803.1452108-1-leo.yan@arm.com>
+ <20250327113803.1452108-10-leo.yan@arm.com>
+ <b9046586-c884-484f-a308-9f256d3d99f5@linaro.org>
+ <8a34b1ac-5681-4cd8-b960-a154d8678fa2@quicinc.com>
+ <20250402090147.GF115840@e132581.arm.com>
+Content-Language: en-US
+From: Jie Gan <quic_jiegan@quicinc.com>
+In-Reply-To: <20250402090147.GF115840@e132581.arm.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01c.na.qualcomm.com (10.47.97.35)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=AMoviu7M c=1 sm=1 tr=0 ts=67edd688 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10
+ a=ffThkBl6m3zit5QCpSIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: yfsHR0kEGPzQucPIHdfVV8GGndp5T9Xh
+X-Proofpoint-ORIG-GUID: yfsHR0kEGPzQucPIHdfVV8GGndp5T9Xh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-02_11,2025-04-02_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 mlxscore=0 impostorscore=0
+ clxscore=1015 spamscore=0 phishscore=0 mlxlogscore=834 adultscore=0
+ suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504020155
+Cc: Rob Herring <robh@kernel.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ James Clark <james.clark@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 2/7] dt-bindings: memory-controllers:
- Add STM32 Octo Memory Manager controller
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v1 9/9] coresight: Consolidate clock
+	enabling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,71 +98,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 02, 2025 at 10:45:08AM +0200, Krzysztof Kozlowski wrote:
-> On 02/04/2025 00:20, Rob Herring wrote:
-> >> +      clocks = <&rcc CK_BUS_OSPIIOM>,
-> >> +               <&scmi_clk CK_SCMI_OSPI1>,
-> >> +               <&scmi_clk CK_SCMI_OSPI2>;
-> >> +      clock-names = "omm", "ospi1", "ospi2";
-> >> +      resets = <&rcc OSPIIOM_R>,
-> >> +               <&scmi_reset RST_SCMI_OSPI1>,
-> >> +               <&scmi_reset RST_SCMI_OSPI2>;
-> >> +      reset-names = "omm", "ospi1", "ospi2";
-> >> +      access-controllers = <&rifsc 111>;
-> >> +      power-domains = <&CLUSTER_PD>;
-> >> +      #address-cells = <2>;
-> >> +      #size-cells = <1>;
-> >> +      st,syscfg-amcr = <&syscfg 0x2c00 0x7>;
-> >> +      st,omm-req2ack-ns = <0>;
-> >> +      st,omm-mux = <0>;
-> >> +      st,omm-cssel-ovr = <0>;
-> >> +
-> >> +      spi@0 {
-> >> +        compatible = "st,stm32mp25-ospi";
-> >> +        reg = <0 0 0x400>;
-> >> +        memory-region = <&mm_ospi1>;
-> >> +        interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
-> >> +        dmas = <&hpdma 2 0x62 0x00003121 0x0>,
-> >> +               <&hpdma 2 0x42 0x00003112 0x0>;
-> >> +        dma-names = "tx", "rx";
-> >> +        clocks = <&scmi_clk CK_SCMI_OSPI1>;
-> >> +        resets = <&scmi_reset RST_SCMI_OSPI1>, <&scmi_reset RST_SCMI_OSPI1DLL>;
-> > 
-> > Looks like you are duplicating properties in the parent and child nodes. 
-> > Maybe that accurately models the h/w, but if it is just so the drivers 
-> > can get the resources from "the driver's node", you can always just look 
-> > in the child nodes for the resources (as probably you want to drop the 
-> > per instance resources from the parent).
-> 
-> 
-> The current solution was actually my suggestion because if a parent
-> device has to toggle child's reset, it means it actually is the consumer
-> of that reset one way or another. IOW, it is one of its resources.
-> 
-> This also might matter for some of the implementations because we might
-> need to setup device links or do some probe-ordering (in the future)
-> between parent and the reset provider.
-> 
-> Without reset resource in the parent, I could imagine probe order:
-> 1. parent (pokes into the child for reset)
-> 2. reset and clock providers
-> 3. child
-> which would defer between 1 and 2.
-> 
-> With parent having the resource it would be re-ordered into:
-> 1. reset and clock providers
-> 2. parent
-> 3. child
-
-Okay, fair enough.
-
-Rob
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA0LzIvMjAyNSA1OjAxIFBNLCBMZW8gWWFuIHdyb3RlOgo+IEhpIEppZSwKPiAKPiBbICsg
+Um9iIF0KPiAKPiBPbiBXZWQsIEFwciAwMiwgMjAyNSBhdCAwODo1NTo1MUFNICswODAwLCBKaWUg
+R2FuIHdyb3RlOgo+IAo+IFsuLi5dCj4gCj4+Pj4gIMKgIHsKPj4+PiAtwqDCoMKgIHN0cnVjdCBj
+bGsgKnBjbGsgPSBOVUxMOwo+Pj4+ICvCoMKgwqAgV0FSTl9PTighcGNsayk7Cj4+Pj4gIMKgwqDC
+oMKgwqAgaWYgKCFkZXZfaXNfYW1iYShkZXYpKSB7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgIHBjbGsg
+PSBkZXZtX2Nsa19nZXRfZW5hYmxlZChkZXYsICJhcGJfcGNsayIpOwo+Pj4+IC3CoMKgwqDCoMKg
+wqDCoCBpZiAoSVNfRVJSKHBjbGspKQo+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBjbGsg
+PSBkZXZtX2Nsa19nZXRfZW5hYmxlZChkZXYsICJhcGIiKTsKPj4+PiArwqDCoMKgwqDCoMKgwqAg
+KnBjbGsgPSBkZXZtX2Nsa19nZXRfZW5hYmxlZChkZXYsICJhcGJfcGNsayIpOwo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoCBpZiAoSVNfRVJSKCpwY2xrKSkKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAqcGNsayA9IGRldm1fY2xrX2dldF9lbmFibGVkKGRldiwgImFwYiIpOwo+Pj4+ICvCoMKgwqDC
+oMKgwqDCoCBpZiAoSVNfRVJSKCpwY2xrKSkKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXR1cm4gUFRSX0VSUigqcGNsayk7Cj4+Pj4gK8KgwqDCoCB9IGVsc2Ugewo+Pj4+ICvCoMKgwqDC
+oMKgwqDCoCAvKiBEb24ndCBlbmFibGUgcGNsayBmb3IgYW4gQU1CQSBkZXZpY2UgKi8KPj4+PiAr
+wqDCoMKgwqDCoMKgwqAgKnBjbGsgPSBOVUxMOwo+Pj4KPj4+IE5vdyB0aGUgImFwYiIgY2xvY2sg
+d29uJ3QgYmUgZW5hYmxlZCBmb3IgYW1iYSBkZXZpY2VzLiBJJ20gYXNzdW1pbmcKPj4+IHRoYXQn
+cyBmaW5lIGlmIHRoZSBjbG9jayB3YXMgYWx3YXlzIGNhbGxlZCAiYXBiX3BjbGsiIGZvciB0aGVt
+LCBidXQgdGhlCj4+PiBjb21taXQgdGhhdCBhZGRlZCB0aGUgbmV3IGNsb2NrIG5hbWUgZGlkbid0
+IHNwZWNpZnkgYW55IHNwZWNpYWwgY2FzaW5nCj4+PiBlaXRoZXIuCj4+Pgo+Pj4gQ2FuIHdlIGhh
+dmUgYSBjb21tZW50IHRoYXQgc2F5cyBpdCdzIGRlbGliZXJhdGU/IEJ1dCB0aGUgbW9yZSBJIHRo
+aW5rCj4+PiBhYm91dCBpdCB0aGUgbW9yZSBJJ20gY29uZnVzZWQgd2h5IENUQ1UgbmVlZGVkIGEg
+ZGlmZmVyZW50IGNsb2NrIG5hbWUgdG8KPj4+IGJlIGRlZmluZWQsIHdoZW4gYWxsIHRoZSBvdGhl
+ciBDb3Jlc2lnaHQgZGV2aWNlcyB1c2UgImFwYl9wY2xrIi4KPj4KPj4gSGkgSmFtZXMsCj4+Cj4+
+IFRoZSBvcmlnaW5hbCBjbG9jay1uYW1lIGZvciBDVENVIGlzIGFwYl9wY2xrLCBidXQgdGhlIGR0
+LWJpbmRpbmcgbWFpbnRhaW5lcgo+PiByZXF1ZXN0IG1lIHRvIGNoYW5nZSBpdCB0byBhcGIsIHRo
+YXQncyB3aHkgdGhlIGNsb2NrIG5hbWUgaXMgZGlmZmVyZW50IGZyb20KPj4gb3RoZXJzLgo+Pgo+
+PiBJIGFtIG5vdCB3aHkgd2UgbmVlZCBhcGIgaW5zdGVhZCBvZiBhcGJfcGNsayBpbiBkdC1iaW5k
+aW5nLiBNYXliZSBzb21lIHJ1bGVzCj4+IGhhdmUgY2hhbmdlZCBmb3IgZHQtYmluZGluZyByZXF1
+aXJlbWVudC4KPiAKPiBNeSBjb25jbHVzaW9uIGlzIHRoYXQgaWYgYSBkZXZpY2UgaXMgYW4gQXJt
+IFByaW1lY2VsbCBwZXJpcGhlcmFsLCBpdAo+IHNob3VsZCB1c2UgdGhlIGNsb2NrIG5hbWUgImFw
+Yl9wY2xrIiAoU2VlIHRoZSBEVCBiaW5kaW5nIGRvYyBbMV0pLgo+IAo+IENUQ1UgaXMgbm90IGFu
+IEFybSBQcmltZWNlbGwgcGVyaXBoZXJhbCwgc28gaXQgZG9lcyBub3QgbmVlZCB0byBzdHJpY3Rs
+eQo+IGZvbGxvdyB1cCB0aGUgY2xvY2sgbmFtaW5nIGZvciBQcmltZWNlbGwgcGVyaXBoZXJhbC4K
+PiAKPiBJbiBBcm0gQ29yZVNpZ2h0IGZyYW1ld29yaywgZm9yIGNvZGUgY29uc2lzdGVuY3ksIEkg
+d291bGQgc3VnZ2VzdAo+IHVzaW5nIHRoZSBjbG9jayBuYW1pbmcgImFwYl9wY2xrIiBmb3IgdGhl
+IEFQQiBjbG9jayBmb3IgYSBuZXdseSBhZGRlZAo+IGRldmljZSB0aGF0IGV2ZW4gaXQgaXMgbm90
+IGEgUHJpbWVjZWxsIHBlcmlwaGVyYWwuCj4gCj4gKFdlIGRvbid0IG5lZWQgdG8gbWFrZSBhbnkg
+Y2hhbmdlIHRvIHRoZSBDVENVIGRyaXZlciwgYXMgd2UgbmVlZCB0bwo+IHJlbWFpbiBjb21wYXRp
+YmxlIHdpdGggZXhpc3RlZCBEVEIgYmxvYnMpLgo+IAo+IENjJ2luZyBSb2IgaW4gY2FzZSBoZSBo
+YXMgYW55IHN1Z2dlc3Rpb25zLgoKSGkgTGVvLAoKVGhhbmtzIGZvciB0aGUgZXhwbGFuYXRpb24u
+IEkgYWdyZWUgd2l0aCB5b3UsIHdlIHNob3VsZCB1c2UgdGhlIAoiYXBiX3BjbGsiIGZvciB0aGUg
+QVBCIGNsb2NrIGZvciBhIG5ld2x5IGFkZGVkIGRldmljZS4KClRoYW5rcywKSmllCgo+IAo+IFRo
+YW5rcywKPiBMZW8KPiAKPiBbMV0gRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Fy
+bS9wcmltZWNlbGwueWFtbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
