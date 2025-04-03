@@ -2,40 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E88A79CE6
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 09:26:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE2FA79F88
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 11:08:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25201C78F60;
-	Thu,  3 Apr 2025 07:26:03 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E006AC7803D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50EB7C78F85;
+	Thu,  3 Apr 2025 09:08:03 +0000 (UTC)
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.216.63.35])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4352C7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Apr 2025 07:26:00 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D7EDD106F;
- Thu,  3 Apr 2025 00:26:02 -0700 (PDT)
-Received: from [10.163.48.25] (unknown [10.163.48.25])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE38F3F63F;
- Thu,  3 Apr 2025 00:25:52 -0700 (PDT)
-Message-ID: <89aa249c-ac1d-40e3-8518-1b5a545b28c7@arm.com>
-Date: Thu, 3 Apr 2025 12:55:46 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20250327113803.1452108-1-leo.yan@arm.com>
- <20250327113803.1452108-7-leo.yan@arm.com>
-Content-Language: en-US
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <20250327113803.1452108-7-leo.yan@arm.com>
-Subject: Re: [Linux-stm32] [PATCH v1 6/9] coresight: Disable trace bus clock
-	properly
+ Thu,  3 Apr 2025 07:41:55 +0000 (UTC)
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4ZStwd126qz5B1J4;
+ Thu,  3 Apr 2025 15:41:53 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+ by mse-fl2.zte.com.cn with SMTP id 5337fetw066040;
+ Thu, 3 Apr 2025 15:41:40 +0800 (+08)
+ (envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid32;
+ Thu, 3 Apr 2025 15:41:42 +0800 (CST)
+Date: Thu, 3 Apr 2025 15:41:42 +0800 (CST)
+X-Zmail-TransId: 2af967ee3bb677c-3db59
+X-Mailer: Zmail v1.0
+Message-ID: <20250403154142936Po-soX8Bifyvw_eWSbddT@zte.com.cn>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <olivier.moysan@foss.st.com>
+X-MAIL: mse-fl2.zte.com.cn 5337fetw066040
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 67EE3BC1.001/4ZStwd126qz5B1J4
+X-Mailman-Approved-At: Thu, 03 Apr 2025 09:08:02 +0000
+Cc: linux-kernel@vger.kernel.org, zhang.enpei@zte.com.cn, tiwai@suse.com,
+ linux-sound@vger.kernel.org, lgirdwood@gmail.com, yang.yang29@zte.com.cn,
+ broonie@kernel.org, xu.xin16@zte.com.cn, mcoquelin.stm32@gmail.com,
+ ye.xingchen@zte.com.cn, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] =?utf-8?q?=5BPATCH=5D_sound=3A_soc=3A_stm=3A_stm32?=
+	=?utf-8?b?X3NhaTogVXNlIGRldl9lcnJfcHJvYmUoKQ==?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,276 +58,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Zhang Enpei <zhang.enpei@zte.com.cn>
 
+Replace the open-code with dev_err_probe() to simplify the code.
 
-On 3/27/25 17:08, Leo Yan wrote:
-> Some CoreSight components have trace bus clocks 'atclk' and are enabled
-> using clk_prepare_enable().  These clocks are not disabled when modules
-> exit.
-> 
-> As atclk is optional, use devm_clk_get_optional_enabled() to manage it.
-> The benefit is the driver model layer can automatically disable and
-> release clocks.
-> 
-> Check the returned value with IS_ERR() to detect errors but leave the
-> NULL pointer case if the clock is not found.  And remove the error
-> handling codes which are no longer needed.
-> 
-> Fixes: d1839e687773 ("coresight: etm: retrieve and handle atclk")
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
+Signed-off-by: Zhang Enpei <zhang.enpei@zte.com.cn>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+ sound/soc/stm/stm32_sai.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-This patch probably should be positioned right after [PATCH 4/9] which
-replaces pclk clock init with devm_clk_get_enabled().
+diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
+index 504a14584765..fa821e3fb427 100644
+--- a/sound/soc/stm/stm32_sai.c
++++ b/sound/soc/stm/stm32_sai.c
+@@ -169,20 +169,14 @@ static int stm32_sai_get_parent_clk(struct stm32_sai_data *sai)
+ 	struct device *dev = &sai->pdev->dev;
 
-> ---
->  drivers/hwtracing/coresight/coresight-etb10.c      | 10 ++++------
->  drivers/hwtracing/coresight/coresight-etm3x-core.c |  9 +++------
->  drivers/hwtracing/coresight/coresight-funnel.c     | 36 +++++++++++-------------------------
->  drivers/hwtracing/coresight/coresight-replicator.c | 34 ++++++++++------------------------
->  drivers/hwtracing/coresight/coresight-stm.c        |  9 +++------
->  drivers/hwtracing/coresight/coresight-tpiu.c       | 10 +++-------
->  6 files changed, 34 insertions(+), 74 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-> index 7948597d483d..45c2f8f50a3f 100644
-> --- a/drivers/hwtracing/coresight/coresight-etb10.c
-> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
-> @@ -730,12 +730,10 @@ static int etb_probe(struct amba_device *adev, const struct amba_id *id)
->  	if (!drvdata)
->  		return -ENOMEM;
->  
-> -	drvdata->atclk = devm_clk_get(&adev->dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
-> +
->  	dev_set_drvdata(dev, drvdata);
->  
->  	/* validity for the resource is already checked by the AMBA core */
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> index 8927bfaf3af2..adbb134f80e6 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> @@ -832,12 +832,9 @@ static int etm_probe(struct amba_device *adev, const struct amba_id *id)
->  
->  	spin_lock_init(&drvdata->spinlock);
->  
-> -	drvdata->atclk = devm_clk_get(&adev->dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
->  
->  	drvdata->cpu = coresight_get_cpu(dev);
->  	if (drvdata->cpu < 0)
-> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-> index 3fb9d0a37d55..ec6d3e656548 100644
-> --- a/drivers/hwtracing/coresight/coresight-funnel.c
-> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
-> @@ -213,7 +213,6 @@ ATTRIBUTE_GROUPS(coresight_funnel);
->  
->  static int funnel_probe(struct device *dev, struct resource *res)
->  {
-> -	int ret;
->  	void __iomem *base;
->  	struct coresight_platform_data *pdata = NULL;
->  	struct funnel_drvdata *drvdata;
-> @@ -231,12 +230,9 @@ static int funnel_probe(struct device *dev, struct resource *res)
->  	if (!drvdata)
->  		return -ENOMEM;
->  
-> -	drvdata->atclk = devm_clk_get(dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
->  
->  	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
->  	if (IS_ERR(drvdata->pclk))
-> @@ -248,10 +244,8 @@ static int funnel_probe(struct device *dev, struct resource *res)
->  	 */
->  	if (res) {
->  		base = devm_ioremap_resource(dev, res);
-> -		if (IS_ERR(base)) {
-> -			ret = PTR_ERR(base);
-> -			goto out_disable_clk;
-> -		}
-> +		if (IS_ERR(base))
-> +			return PTR_ERR(base);
->  		drvdata->base = base;
->  		desc.groups = coresight_funnel_groups;
->  		desc.access = CSDEV_ACCESS_IOMEM(base);
-> @@ -260,10 +254,9 @@ static int funnel_probe(struct device *dev, struct resource *res)
->  	dev_set_drvdata(dev, drvdata);
->  
->  	pdata = coresight_get_platform_data(dev);
-> -	if (IS_ERR(pdata)) {
-> -		ret = PTR_ERR(pdata);
-> -		goto out_disable_clk;
-> -	}
-> +	if (IS_ERR(pdata))
-> +		return PTR_ERR(pdata);
-> +
->  	dev->platform_data = pdata;
->  
->  	raw_spin_lock_init(&drvdata->spinlock);
-> @@ -273,17 +266,10 @@ static int funnel_probe(struct device *dev, struct resource *res)
->  	desc.pdata = pdata;
->  	desc.dev = dev;
->  	drvdata->csdev = coresight_register(&desc);
-> -	if (IS_ERR(drvdata->csdev)) {
-> -		ret = PTR_ERR(drvdata->csdev);
-> -		goto out_disable_clk;
-> -	}
-> +	if (IS_ERR(drvdata->csdev))
-> +		return PTR_ERR(drvdata->csdev);
->  
-> -	ret = 0;
-> -
-> -out_disable_clk:
-> -	if (ret && !IS_ERR_OR_NULL(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> -	return ret;
-> +	return 0;
->  }
->  
->  static int funnel_remove(struct device *dev)
-> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-> index 87346617b852..460af0f7b537 100644
-> --- a/drivers/hwtracing/coresight/coresight-replicator.c
-> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
-> @@ -219,7 +219,6 @@ static const struct attribute_group *replicator_groups[] = {
->  
->  static int replicator_probe(struct device *dev, struct resource *res)
->  {
-> -	int ret = 0;
->  	struct coresight_platform_data *pdata = NULL;
->  	struct replicator_drvdata *drvdata;
->  	struct coresight_desc desc = { 0 };
-> @@ -238,12 +237,9 @@ static int replicator_probe(struct device *dev, struct resource *res)
->  	if (!drvdata)
->  		return -ENOMEM;
->  
-> -	drvdata->atclk = devm_clk_get(dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
->  
->  	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
->  	if (IS_ERR(drvdata->pclk))
-> @@ -255,10 +251,8 @@ static int replicator_probe(struct device *dev, struct resource *res)
->  	 */
->  	if (res) {
->  		base = devm_ioremap_resource(dev, res);
-> -		if (IS_ERR(base)) {
-> -			ret = PTR_ERR(base);
-> -			goto out_disable_clk;
-> -		}
-> +		if (IS_ERR(base))
-> +			return PTR_ERR(base);
->  		drvdata->base = base;
->  		desc.groups = replicator_groups;
->  		desc.access = CSDEV_ACCESS_IOMEM(base);
-> @@ -271,10 +265,8 @@ static int replicator_probe(struct device *dev, struct resource *res)
->  	dev_set_drvdata(dev, drvdata);
->  
->  	pdata = coresight_get_platform_data(dev);
-> -	if (IS_ERR(pdata)) {
-> -		ret = PTR_ERR(pdata);
-> -		goto out_disable_clk;
-> -	}
-> +	if (IS_ERR(pdata))
-> +		return PTR_ERR(pdata);
->  	dev->platform_data = pdata;
->  
->  	raw_spin_lock_init(&drvdata->spinlock);
-> @@ -285,17 +277,11 @@ static int replicator_probe(struct device *dev, struct resource *res)
->  	desc.dev = dev;
->  
->  	drvdata->csdev = coresight_register(&desc);
-> -	if (IS_ERR(drvdata->csdev)) {
-> -		ret = PTR_ERR(drvdata->csdev);
-> -		goto out_disable_clk;
-> -	}
-> +	if (IS_ERR(drvdata->csdev))
-> +		return PTR_ERR(drvdata->csdev);
->  
->  	replicator_reset(drvdata);
-> -
-> -out_disable_clk:
-> -	if (ret && !IS_ERR_OR_NULL(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> -	return ret;
-> +	return 0;
->  }
->  
->  static int replicator_remove(struct device *dev)
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index c32d0bd92f30..f13fbab4d7a2 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -842,12 +842,9 @@ static int __stm_probe(struct device *dev, struct resource *res)
->  	if (!drvdata)
->  		return -ENOMEM;
->  
-> -	drvdata->atclk = devm_clk_get(dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
->  
->  	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
->  	if (IS_ERR(drvdata->pclk))
-> diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-> index 4b9634941752..cac1b5bba086 100644
-> --- a/drivers/hwtracing/coresight/coresight-tpiu.c
-> +++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-> @@ -128,7 +128,6 @@ static const struct coresight_ops tpiu_cs_ops = {
->  
->  static int __tpiu_probe(struct device *dev, struct resource *res)
->  {
-> -	int ret;
->  	void __iomem *base;
->  	struct coresight_platform_data *pdata = NULL;
->  	struct tpiu_drvdata *drvdata;
-> @@ -144,12 +143,9 @@ static int __tpiu_probe(struct device *dev, struct resource *res)
->  
->  	spin_lock_init(&drvdata->spinlock);
->  
-> -	drvdata->atclk = devm_clk_get(dev, "atclk"); /* optional */
-> -	if (!IS_ERR(drvdata->atclk)) {
-> -		ret = clk_prepare_enable(drvdata->atclk);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
-> +	if (IS_ERR(drvdata->atclk))
-> +		return PTR_ERR(drvdata->atclk);
->  
->  	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
->  	if (IS_ERR(drvdata->pclk))
+ 	sai->clk_x8k = devm_clk_get(dev, "x8k");
+-	if (IS_ERR(sai->clk_x8k)) {
+-		if (PTR_ERR(sai->clk_x8k) != -EPROBE_DEFER)
+-			dev_err(dev, "missing x8k parent clock: %ld\n",
+-				PTR_ERR(sai->clk_x8k));
+-		return PTR_ERR(sai->clk_x8k);
+-	}
++	if (IS_ERR(sai->clk_x8k))
++		return dev_err_probe(dev, PTR_ERR(sai->clk_x8k),
++				     "missing x8k parent clock\n");
+
+ 	sai->clk_x11k = devm_clk_get(dev, "x11k");
+-	if (IS_ERR(sai->clk_x11k)) {
+-		if (PTR_ERR(sai->clk_x11k) != -EPROBE_DEFER)
+-			dev_err(dev, "missing x11k parent clock: %ld\n",
+-				PTR_ERR(sai->clk_x11k));
+-		return PTR_ERR(sai->clk_x11k);
+-	}
++	if (IS_ERR(sai->clk_x11k))
++		return dev_err_probe(dev, PTR_ERR(sai->clk_x11k),
++				     "missing x11k parent clock\n");
+
+ 	return 0;
+ }
+-- 
+2.25.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
