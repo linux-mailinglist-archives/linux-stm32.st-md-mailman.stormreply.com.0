@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9168BA7A892
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 19:27:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79C8A7A8DF
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 19:50:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18EC4C78F85;
-	Thu,  3 Apr 2025 17:27:59 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60EDCC78F85;
+	Thu,  3 Apr 2025 17:50:15 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14FD1C78F83
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E365DC78F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Apr 2025 17:27:57 +0000 (UTC)
+ Thu,  3 Apr 2025 17:50:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 695EB5C68FA;
- Thu,  3 Apr 2025 17:25:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BB5C4CEE3;
- Thu,  3 Apr 2025 17:27:56 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 16723A428CC;
+ Thu,  3 Apr 2025 17:44:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85771C4CEE3;
+ Thu,  3 Apr 2025 17:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743701276;
- bh=bYRGDxwUgmJOdrUaQaMSOv+cxYHSKhylhTsWPM09ziw=;
+ s=k20201202; t=1743702612;
+ bh=UPGMlSF/FpTS0gjQBFwpi/aCoqZhru+VpIxxEDgIdLI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=uTy9IWnZfGwj/kOhXEx60AAN+jzV4EcbW45eoOMKQf2yLE48fMFvIx+wyTf0eyIGn
- rVTUe1L26I6oh1IKpyXZy1ZL2+5peL3p9EDWNTmIIR7yBo+sS56xGY/K2Ri1KTxpGD
- m4J+ta6FC7L6M2IE8e/vJz13uEvUN6i/E7yuxffoXJGSA1UuMPMtYNQsnonLM249q4
- rAUYwI5ZCT/IL8Betqt01DBc0D8MqlJKTBcWUFX5IVRSrpc28QeTupRm9jol3oWB6i
- U/oRgG2O4Dmovd4zjyGpfjAcK7DhYe0ZXaRq0yxzWAldZmLUxhOPqnqwLATPlCD0IK
- 0sDrtAMzw1aIg==
+ b=oEWoXS8y3UmyKJpgkuIIsrxk5K4An9PBriFGth1yrBYy779+IfJV2I03pxIyeiMmd
+ G7Lru65enhHMrC/Wnx5vSVhuV5qEl5WochlbZiqrgmOXSkREVPGFIu/vNM9UYBgpon
+ +dnjB6bnPDIlWGDAerxUvFwlpZQI61VUH6OOoIvog8Hs99r/xo6WkVjpC1DN36QBzd
+ MrBKYJyNYm6bIaGXviKy5Li+OQhOd8/IglAKk6PG+0eP36R/Opz3b9PTHiO8S1+oTI
+ PtTvza/cAW9Q3KpIxIdsTY1MTzLBe5DMdNH+v++0ug3gHUshvVoDLYpa0r0P9EeMCl
+ kyjfG2XMT6jqA==
 Received: from sofa.misterjones.org ([185.219.108.64]
  helo=lobster-girl.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <maz@kernel.org>) id 1u0OM5-0021yp-KD;
- Thu, 03 Apr 2025 18:27:53 +0100
-Date: Thu, 03 Apr 2025 18:27:55 +0100
-Message-ID: <874iz5yx2c.wl-maz@kernel.org>
+ (envelope-from <maz@kernel.org>) id 1u0Ohe-0022Kw-1K;
+ Thu, 03 Apr 2025 18:50:10 +0100
+Date: Thu, 03 Apr 2025 18:50:12 +0100
+Message-ID: <8734epyw17.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20250403122805.1574086-4-christian.bruel@foss.st.com>
+In-Reply-To: <20250403122805.1574086-3-christian.bruel@foss.st.com>
 References: <20250403122805.1574086-1-christian.bruel@foss.st.com>
- <20250403122805.1574086-4-christian.bruel@foss.st.com>
+ <20250403122805.1574086-3-christian.bruel@foss.st.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
  (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -58,8 +58,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, tglx@linutronix.de, krzk+dt@kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] arm64: dts: st: add st,
-	stm32mp2-cortex-a7-gic in intc node in stm32mp251.dtsi
+Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/gic: Use 0x10000 offset to
+	access GICC_DIR on STM32MP2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,31 +76,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 03 Apr 2025 13:28:05 +0100,
+On Thu, 03 Apr 2025 13:28:04 +0100,
 Christian Bruel <christian.bruel@foss.st.com> wrote:
 > 
-> Add st,stm32mp2-cortex-a7-gic to enable the GICC_DIR register remap
-> 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> ---
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index f3c6cdfd7008..030e5da67a7e 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -115,7 +115,7 @@ scmi_vdda18adc: regulator@7 {
->  	};
->  
->  	intc: interrupt-controller@4ac00000 {
-> -		compatible = "arm,cortex-a7-gic";
-> +		compatible = "st,stm32mp2-cortex-a7-gic", "arm,cortex-a7-gic";
+> When GIC_4KNOT64K bit in the GIC configuration register is
+> 0 (64KB), address block is modified in such a way than only the
+> first 4KB of the GIC cpu interface are accessible with default
+> offsets.
+> With this bit mapping GICC_DIR register is accessible at
+> offset 0x10000 instead of 0x1000, thus remap accordingly
 
-What nonsense is this? This is an *arm64* machine, with I expect a
-GIC400. Where is this A7 compat coming from?
+And I'm pretty sure the whole of the GICC range is correctly
+accessible at offset 0xF000, giving you the full 8kB you need. That's
+because each page of the GIC is aliased over two 64kB blocks, as per
+the integration guidelines so that MMU isolation can be provided on a
+64kB boundary.
+
+Funnily enough, all it takes is to adjust GICC region. You can either:
+
+- make it 128kB wide, and the driver will take care of it (details in
+  gic_check_eoimode()). On one of my boxes that is similarly
+  configured, I get:
+
+  [    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+  [    0.000000] GIC: Adjusting CPU interface base to 0x00000000780af000
+  [    0.000000] Root IRQ handler: gic_handle_irq
+  [    0.000000] GIC: Using split EOI/Deactivate mode
+
+  See below for what I expect to be the correct fix.
+  
+- make it 8kB wide from offset 0xF000.
+
+Unless the ST HW folks have been even more creative, none of this
+overly complicated stuff should be necessary. Just describe the HW
+correctly.
 
 	M.
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index f3c6cdfd7008..97b7a7106a02 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -120,7 +120,7 @@ intc: interrupt-controller@4ac00000 {
+ 		#address-cells = <1>;
+ 		interrupt-controller;
+ 		reg = <0x0 0x4ac10000 0x0 0x1000>,
+-		      <0x0 0x4ac20000 0x0 0x2000>,
++		      <0x0 0x4ac20000 0x0 0x20000>,
+ 		      <0x0 0x4ac40000 0x0 0x2000>,
+ 		      <0x0 0x4ac60000 0x0 0x2000>;
+ 	};
 
 -- 
 Jazz isn't dead. It just smells funny.
