@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE2FA79F88
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 11:08:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67356A7A1AB
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 13:10:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50EB7C78F85;
-	Thu,  3 Apr 2025 09:08:03 +0000 (UTC)
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.216.63.35])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DC99C78F85;
+	Thu,  3 Apr 2025 11:10:13 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4352C7801F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C9EDC78F83
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Apr 2025 07:41:55 +0000 (UTC)
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mxhk.zte.com.cn (FangMail) with ESMTPS id 4ZStwd126qz5B1J4;
- Thu,  3 Apr 2025 15:41:53 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
- by mse-fl2.zte.com.cn with SMTP id 5337fetw066040;
- Thu, 3 Apr 2025 15:41:40 +0800 (+08)
- (envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid32;
- Thu, 3 Apr 2025 15:41:42 +0800 (CST)
-Date: Thu, 3 Apr 2025 15:41:42 +0800 (CST)
-X-Zmail-TransId: 2af967ee3bb677c-3db59
-X-Mailer: Zmail v1.0
-Message-ID: <20250403154142936Po-soX8Bifyvw_eWSbddT@zte.com.cn>
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <olivier.moysan@foss.st.com>
-X-MAIL: mse-fl2.zte.com.cn 5337fetw066040
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 67EE3BC1.001/4ZStwd126qz5B1J4
-X-Mailman-Approved-At: Thu, 03 Apr 2025 09:08:02 +0000
+ Thu,  3 Apr 2025 11:10:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6CBEDA40818;
+ Thu,  3 Apr 2025 11:04:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F2AC4CEE3;
+ Thu,  3 Apr 2025 11:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1743678610;
+ bh=htwI5zsh8ZDaI94Lm8c3UJRY0TNj20AHOyFODzHrsRg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JDOhLyn0xYLRzSvccPU8EviC8cR6irF7BDJvH8ACOAdUQzHQH7oP/7wYujcxO+NjF
+ GgY2xgBpssfWkG1WsjPDgdBi0nkVLNmQuj7vdHyeM2DsDwYSPD9qDsrfuYj0WWsPah
+ G7FDtZORFO+rimKjF7CbjHQbT9uuROt2jdGtPEDeuW/dt5Kx2J1GvenawEct3O0SoS
+ Uo8PX1xw/niwV9hUIuhDFfnkEKfrdyMd0X5Sf46MelotqgSxu2VVk6SA7mz/eOaFDJ
+ HoPO9zn4Vc6zD+ANTRl/YKXupC3sqi6yHP4dPfKlO5jsS9+ko5WOXpbKrRmvIzhObh
+ m92UasI15X0dw==
+Date: Thu, 3 Apr 2025 12:10:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: shao.mingyin@zte.com.cn
+Message-ID: <f78f066f-2be6-47f3-bb06-03f1c2ed3d22@sirena.org.uk>
+References: <20250403154142936Po-soX8Bifyvw_eWSbddT@zte.com.cn>
+MIME-Version: 1.0
+In-Reply-To: <20250403154142936Po-soX8Bifyvw_eWSbddT@zte.com.cn>
+X-Cookie: Logic is the chastity belt of the mind!
 Cc: linux-kernel@vger.kernel.org, zhang.enpei@zte.com.cn, tiwai@suse.com,
  linux-sound@vger.kernel.org, lgirdwood@gmail.com, yang.yang29@zte.com.cn,
- broonie@kernel.org, xu.xin16@zte.com.cn, mcoquelin.stm32@gmail.com,
- ye.xingchen@zte.com.cn, perex@perex.cz,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] =?utf-8?q?=5BPATCH=5D_sound=3A_soc=3A_stm=3A_stm32?=
-	=?utf-8?b?X3NhaTogVXNlIGRldl9lcnJfcHJvYmUoKQ==?=
+ xu.xin16@zte.com.cn, mcoquelin.stm32@gmail.com, ye.xingchen@zte.com.cn,
+ perex@perex.cz, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] sound: soc: stm: stm32_sai: Use
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,55 +54,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6195330122309090604=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Zhang Enpei <zhang.enpei@zte.com.cn>
 
-Replace the open-code with dev_err_probe() to simplify the code.
+--===============6195330122309090604==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VJtFOiDls7d3k31G"
+Content-Disposition: inline
 
-Signed-off-by: Zhang Enpei <zhang.enpei@zte.com.cn>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
- sound/soc/stm/stm32_sai.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
-index 504a14584765..fa821e3fb427 100644
---- a/sound/soc/stm/stm32_sai.c
-+++ b/sound/soc/stm/stm32_sai.c
-@@ -169,20 +169,14 @@ static int stm32_sai_get_parent_clk(struct stm32_sai_data *sai)
- 	struct device *dev = &sai->pdev->dev;
+--VJtFOiDls7d3k31G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- 	sai->clk_x8k = devm_clk_get(dev, "x8k");
--	if (IS_ERR(sai->clk_x8k)) {
--		if (PTR_ERR(sai->clk_x8k) != -EPROBE_DEFER)
--			dev_err(dev, "missing x8k parent clock: %ld\n",
--				PTR_ERR(sai->clk_x8k));
--		return PTR_ERR(sai->clk_x8k);
--	}
-+	if (IS_ERR(sai->clk_x8k))
-+		return dev_err_probe(dev, PTR_ERR(sai->clk_x8k),
-+				     "missing x8k parent clock\n");
+On Thu, Apr 03, 2025 at 03:41:42PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Zhang Enpei <zhang.enpei@zte.com.cn>
+>=20
+> Replace the open-code with dev_err_probe() to simplify the code.
 
- 	sai->clk_x11k = devm_clk_get(dev, "x11k");
--	if (IS_ERR(sai->clk_x11k)) {
--		if (PTR_ERR(sai->clk_x11k) != -EPROBE_DEFER)
--			dev_err(dev, "missing x11k parent clock: %ld\n",
--				PTR_ERR(sai->clk_x11k));
--		return PTR_ERR(sai->clk_x11k);
--	}
-+	if (IS_ERR(sai->clk_x11k))
-+		return dev_err_probe(dev, PTR_ERR(sai->clk_x11k),
-+				     "missing x11k parent clock\n");
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
- 	return 0;
- }
--- 
-2.25.1
+--VJtFOiDls7d3k31G
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmfubIwACgkQJNaLcl1U
+h9CeLQf/R93pQE1PWEoaKn2ix4KLyiBG73yedrtnMdMp+o5mrdfBQ7mMCsCUr9D2
+OYklJCVdg5UGii26J9AHrpPFJ/maeTRCZLWSYi8jSkDvVOzITy74IiQN+3fMSyvo
+lG/EJg7WhDkLyGdQm3FM6/GD3QqppgcfzTFJkKTGxFwXeTCYJoanUdk2rn7iNqyO
+ZIfIQYS56l4O1FR/xTJG+n5iyS2HsYUACJRFyrnHW+CjpGpEVXRWEMOmhzhVl0TQ
+EjDsPh4BWWbOX2Cvca66T1c5mJ5SHEFBlcQEIJ+RaDP5koM9IiMMuRAKY98HA3rK
+mYbd3uFbhvGA9EVRiMkS/8iOsQJUTA==
+=LR/E
+-----END PGP SIGNATURE-----
+
+--VJtFOiDls7d3k31G--
+
+--===============6195330122309090604==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6195330122309090604==--
