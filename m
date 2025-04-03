@@ -2,51 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7942FA7A730
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 17:43:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC77A7A7F5
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Apr 2025 18:28:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 247B5C78F85;
-	Thu,  3 Apr 2025 15:43:54 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B33C3C78F85;
+	Thu,  3 Apr 2025 16:28:22 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5F14C78F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E206C78F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Apr 2025 15:43:53 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1743695032;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zw2Q8IErZl7b2iE4osU+g+AbXrA3g7lMnn18YWn6OGA=;
- b=dFWiJT0FPb501rI4xZxAByeZrueh0d+1tmsohsU10/skaN4SqFYNYnNUBrxpwGfwv6ZgFe
- sRGiTo7ylfSy8Ansnahrr1ZZ/GGkol94OFKkcdGM6NI6cZg0b3rzO+I8Cx/6v/yUkgQza0
- lT9KtmHQ61kb1AX+T8hP4C/RMdBbpv+jJFqYMR9t47lLg+ao9k9Gh9sl5n8MaRm3bmf2Jv
- tqp7J++dTsLFYelx0UX0mA5+w06DJY45qs/FCA6WG1SKALnZZrs7LeN5kJzhbRBFQdHevE
- HpJIUFwbhOtGkX4c3pD1LyWqRZEy7x/rNBcowLk0kP0k5KGjgmtsQpWuLiF6Zw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1743695032;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zw2Q8IErZl7b2iE4osU+g+AbXrA3g7lMnn18YWn6OGA=;
- b=v8VAC7w3EX8v79DHy2WTqiCxnEnOI+yD68u3RIJprG8VcGaUoghq9uoYwhGbQp8UrheL3f
- SKmG2quvzSHdxNBg==
-To: Christian Bruel <christian.bruel@foss.st.com>, maz@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-In-Reply-To: <20250403122805.1574086-3-christian.bruel@foss.st.com>
-References: <20250403122805.1574086-1-christian.bruel@foss.st.com>
- <20250403122805.1574086-3-christian.bruel@foss.st.com>
-Date: Thu, 03 Apr 2025 17:43:52 +0200
-Message-ID: <87mscxuu6f.ffs@tglx>
+ Thu,  3 Apr 2025 16:28:21 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 533BPkd8024168;
+ Thu, 3 Apr 2025 18:28:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=Ah0TZGtUrsVvEFBC1fVW/Y
+ qrrmYj+hZ4lBmeNXKbcZM=; b=Bpsuto1naypPj/7FNujwTbvYkxWE3xsuM0Tlva
+ VSxwJwK8qogA12QCLDCIBcxfGabnbXgIo6fwCaLW2AQyFofetj2tS2HiD8AVpCaR
+ 5GrG62sYWAUMWtIEWm8xyAJww/Xz+8XoDDcrQPhH8C6WtA7+x/4CAFhReXFFOw4x
+ Wv12FsNGS3XZHazEci1SqACJEYW9JvbWnlawCewOvHVuWgWGOgLtG4nJVgHnhhbZ
+ bBMC6hA86uVTG5B4CaV1k1hZdFI0A8q9HGOkhvW/3OiONEY3Exxu6evAYUpixqe4
+ PEtfCbSDiMaqP2Rz6l6bW3hVWcY1FBlguUJZlZdPRDzCpL1w==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45s2c7fdwx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Apr 2025 18:28:02 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6E4924007E;
+ Thu,  3 Apr 2025 18:26:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E01CE8C49E5;
+ Thu,  3 Apr 2025 18:24:31 +0200 (CEST)
+Received: from localhost (10.48.87.151) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Apr
+ 2025 18:24:31 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 3 Apr 2025 18:23:57 +0200
+Message-ID: <20250403162358.1257370-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/gic: Use 0x10000 offset to
- access GICC_DIR on STM32MP2
+X-Originating-IP: [10.48.87.151]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-03_07,2025-04-03_01,2024-11-22_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32: add oversampling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,50 +73,370 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Apr 03 2025 at 14:28, Christian Bruel wrote:
+Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
+STM32F4 ADC has no oversampling feature.
 
-> When GIC_4KNOT64K bit in the GIC configuration register is
-> 0 (64KB), address block is modified in such a way than only the
+The current support of the oversampling feature aims at increasing
+the data SNR, without changing the data resolution.
+As the oversampling by itself increases data resolution,
+a right shift is applied to keep initial resolution.
+Only the oversampling ratio corresponding to a power of two are
+supported here, to get a direct link between right shift and
+oversampling ratio. (2exp(n) ratio <=> n right shift)
 
-s/than/that/
+The oversampling ratio is shared by all channels, whatever channel type.
+(e.g. single ended or differential).
 
-> first 4KB of the GIC cpu interface are accessible with default
-> offsets.
-> With this bit mapping GICC_DIR register is accessible at
+Oversampling can be configured using IIO ABI:
+- in_voltage_oversampling_ratio_available
+- in_voltage_oversampling_ratio
 
-What's 'this bit mapping' ? This sentence does not parse.
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 
-> offset 0x10000 instead of 0x1000, thus remap accordingly
+---
+Changes in v2:
+- Remove useless header files
+- Use FIELD_PREP macro
+- Reorder stm32_adc_write_raw() function
+---
+ drivers/iio/adc/stm32-adc-core.h |  14 ++++
+ drivers/iio/adc/stm32-adc.c      | 137 +++++++++++++++++++++++++++++++
+ 2 files changed, 151 insertions(+)
 
-...
+diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
+index 73b2c2e91c08..bfd42c5456bf 100644
+--- a/drivers/iio/adc/stm32-adc-core.h
++++ b/drivers/iio/adc/stm32-adc-core.h
+@@ -91,6 +91,7 @@
+ #define STM32H7_ADC_IER			0x04
+ #define STM32H7_ADC_CR			0x08
+ #define STM32H7_ADC_CFGR		0x0C
++#define STM32H7_ADC_CFGR2		0x10
+ #define STM32H7_ADC_SMPR1		0x14
+ #define STM32H7_ADC_SMPR2		0x18
+ #define STM32H7_ADC_PCSEL		0x1C
+@@ -160,6 +161,13 @@
+ #define STM32H7_DMNGT_SHIFT		0
+ #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
+ 
++/* STM32H7_ADC_CFGR2 bit fields */
++#define STM32H7_OVSR_MASK		GENMASK(25, 16) /* Correspond to OSVR field in datasheet */
++#define STM32H7_OVSR(v)			FIELD_PREP(STM32H7_OVSR_MASK, v)
++#define STM32H7_OVSS_MASK		GENMASK(8, 5)
++#define STM32H7_OVSS(v)			FIELD_PREP(STM32H7_OVSS_MASK, v)
++#define STM32H7_ROVSE			BIT(0)
++
+ enum stm32h7_adc_dmngt {
+ 	STM32H7_DMNGT_DR_ONLY,		/* Regular data in DR only */
+ 	STM32H7_DMNGT_DMA_ONESHOT,	/* DMA one shot mode */
+@@ -226,6 +234,12 @@ enum stm32h7_adc_dmngt {
+ #define STM32MP13_RES_SHIFT		3
+ #define STM32MP13_RES_MASK		GENMASK(4, 3)
+ 
++/* STM32MP13_ADC_CFGR2 bit fields */
++#define STM32MP13_OVSR_MASK		GENMASK(4, 2)
++#define STM32MP13_OVSR(v)		FIELD_PREP(STM32MP13_OVSR_MASK, v)
++#define STM32MP13_OVSS_MASK		GENMASK(8, 5)
++#define STM32MP13_OVSS(v)		FIELD_PREP(STM32MP13_OVSS_MASK, v)
++
+ /* STM32MP13_ADC_DIFSEL - bit fields */
+ #define STM32MP13_DIFSEL_MASK		GENMASK(18, 0)
+ 
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 5dbf5f136768..0f0910e05de8 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -6,6 +6,7 @@
+  * Author: Fabrice Gasnier <fabrice.gasnier@st.com>.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+@@ -202,11 +203,13 @@ struct stm32_adc;
+  * @has_boostmode:	boost mode support flag
+  * @has_linearcal:	linear calibration support flag
+  * @has_presel:		channel preselection support flag
++ * @has_oversampling:	oversampling support flag
+  * @prepare:		optional prepare routine (power-up, enable)
+  * @start_conv:		routine to start conversions
+  * @stop_conv:		routine to stop conversions
+  * @unprepare:		optional unprepare routine (disable, power-down)
+  * @irq_clear:		routine to clear irqs
++ * @set_ovs:		routine to set oversampling configuration
+  * @smp_cycles:		programmable sampling time (ADC clock cycles)
+  * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
+  */
+@@ -219,11 +222,13 @@ struct stm32_adc_cfg {
+ 	bool has_boostmode;
+ 	bool has_linearcal;
+ 	bool has_presel;
++	bool has_oversampling;
+ 	int (*prepare)(struct iio_dev *);
+ 	void (*start_conv)(struct iio_dev *, bool dma);
+ 	void (*stop_conv)(struct iio_dev *);
+ 	void (*unprepare)(struct iio_dev *);
+ 	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
++	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
+ 	const unsigned int *smp_cycles;
+ 	const unsigned int *ts_int_ch;
+ };
+@@ -255,6 +260,7 @@ struct stm32_adc_cfg {
+  * @num_diff:		number of differential channels
+  * @int_ch:		internal channel indexes array
+  * @nsmps:		number of channels with optional sample time
++ * @ovs_idx:		current oversampling ratio index (in oversampling array)
+  */
+ struct stm32_adc {
+ 	struct stm32_adc_common	*common;
+@@ -282,6 +288,7 @@ struct stm32_adc {
+ 	u32			num_diff;
+ 	int			int_ch[STM32_ADC_INT_CH_NB];
+ 	int			nsmps;
++	int			ovs_idx;
+ };
+ 
+ struct stm32_adc_diff_channel {
+@@ -293,12 +300,24 @@ struct stm32_adc_diff_channel {
+  * struct stm32_adc_info - stm32 ADC, per instance config data
+  * @max_channels:	Number of channels
+  * @resolutions:	available resolutions
++ * @oversampling:	available oversampling ratios
+  * @num_res:		number of available resolutions
++ * @num_ovs:		number of available oversampling ratios
+  */
+ struct stm32_adc_info {
+ 	int max_channels;
+ 	const unsigned int *resolutions;
++	const unsigned int *oversampling;
+ 	const unsigned int num_res;
++	const unsigned int num_ovs;
++};
++
++static const unsigned int stm32h7_adc_oversampling_avail[] = {
++1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
++};
++
++static const unsigned int stm32mp13_adc_oversampling_avail[] = {
++1, 2, 4, 8, 16, 32, 64, 128, 256
+ };
+ 
+ static const unsigned int stm32f4_adc_resolutions[] = {
+@@ -322,14 +341,18 @@ static const unsigned int stm32h7_adc_resolutions[] = {
+ static const struct stm32_adc_info stm32h7_adc_info = {
+ 	.max_channels = STM32_ADC_CH_MAX,
+ 	.resolutions = stm32h7_adc_resolutions,
++	.oversampling = stm32h7_adc_oversampling_avail,
+ 	.num_res = ARRAY_SIZE(stm32h7_adc_resolutions),
++	.num_ovs = ARRAY_SIZE(stm32h7_adc_oversampling_avail),
+ };
+ 
+ /* stm32mp13 can have up to 19 channels */
+ static const struct stm32_adc_info stm32mp13_adc_info = {
+ 	.max_channels = 19,
+ 	.resolutions = stm32f4_adc_resolutions,
++	.oversampling = stm32mp13_adc_oversampling_avail,
+ 	.num_res = ARRAY_SIZE(stm32f4_adc_resolutions),
++	.num_ovs = ARRAY_SIZE(stm32mp13_adc_oversampling_avail),
+ };
+ 
+ /*
+@@ -889,6 +912,41 @@ static void stm32mp13_adc_start_conv(struct iio_dev *indio_dev, bool dma)
+ 	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
+ }
+ 
++static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	u32 ovsr_bits, bits, msk;
++
++	msk = STM32H7_ROVSE | STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
++	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
++
++	if (!ovs_idx)
++		return;
++
++	ovsr_bits = (1 << ovs_idx) - 1;
++	bits = STM32H7_ROVSE | STM32H7_OVSS(ovs_idx) | STM32H7_OVSR(ovsr_bits);
++
++	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
++}
++
++static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	u32 bits, msk;
++
++	msk = STM32H7_ROVSE | STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
++	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
++
++	if (!ovs_idx)
++		return;
++
++	bits = STM32H7_ROVSE | STM32MP13_OVSS(ovs_idx);
++	if (ovs_idx - 1)
++		bits |= STM32MP13_OVSR(ovs_idx - 1);
++
++	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
++}
++
+ static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
+ {
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+@@ -1461,6 +1519,69 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+ 	return ret;
+ }
+ 
++static int stm32_adc_write_raw(struct iio_dev *indio_dev,
++			       struct iio_chan_spec const *chan,
++			       int val, int val2, long mask)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++	struct device *dev = indio_dev->dev.parent;
++	int nb = adc->cfg->adc_info->num_ovs;
++	u32 idx;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		if (val2)
++			return -EINVAL;
++
++		for (idx = 0; idx < nb; idx++)
++			if (adc->cfg->adc_info->oversampling[idx] == val)
++				break;
++
++		if (idx >= nb)
++			return -EINVAL;
++
++		ret = iio_device_claim_direct_mode(indio_dev);
++		if (ret)
++			return ret;
++
++		ret = pm_runtime_resume_and_get(dev);
++		if (ret < 0)
++			goto err;
++
++		adc->cfg->set_ovs(indio_dev, idx);
++
++		pm_runtime_mark_last_busy(dev);
++		pm_runtime_put_autosuspend(dev);
++
++		adc->ovs_idx = idx;
++
++err:
++		iio_device_release_direct_mode(indio_dev);
++
++		return ret;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int stm32_adc_read_avail(struct iio_dev *indio_dev,
++				struct iio_chan_spec const *chan,
++				const int **vals, int *type, int *length, long m)
++{
++	struct stm32_adc *adc = iio_priv(indio_dev);
++
++	switch (m) {
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*type = IIO_VAL_INT;
++		*length = adc->cfg->adc_info->num_ovs;
++		*vals = adc->cfg->adc_info->oversampling;
++		return IIO_AVAIL_LIST;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
+ 			      struct iio_chan_spec const *chan,
+ 			      int *val, int *val2, long mask)
+@@ -1502,6 +1623,10 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
+ 			*val = 0;
+ 		return IIO_VAL_INT;
+ 
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
++		*val = adc->cfg->adc_info->oversampling[adc->ovs_idx];
++		return IIO_VAL_INT;
++
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1678,6 +1803,8 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
+ 
+ static const struct iio_info stm32_adc_iio_info = {
+ 	.read_raw = stm32_adc_read_raw,
++	.write_raw = stm32_adc_write_raw,
++	.read_avail = stm32_adc_read_avail,
+ 	.validate_trigger = stm32_adc_validate_trigger,
+ 	.hwfifo_set_watermark = stm32_adc_set_watermark,
+ 	.update_scan_mode = stm32_adc_update_scan_mode,
+@@ -1971,6 +2098,10 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+ 		chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+ 	chan->info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |
+ 					 BIT(IIO_CHAN_INFO_OFFSET);
++	if (adc->cfg->has_oversampling) {
++		chan->info_mask_shared_by_all |= BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
++		chan->info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
++	}
+ 	chan->scan_type.sign = 'u';
+ 	chan->scan_type.realbits = adc->cfg->adc_info->resolutions[adc->res];
+ 	chan->scan_type.storagebits = 16;
+@@ -2587,6 +2718,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.has_boostmode = true,
+ 	.has_linearcal = true,
+ 	.has_presel = true,
++	.has_oversampling = true,
+ 	.start_conv = stm32h7_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2594,6 +2726,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
+ 	.smp_cycles = stm32h7_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_h7,
++	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+ static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
+@@ -2607,6 +2740,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.has_boostmode = true,
+ 	.has_linearcal = true,
+ 	.has_presel = true,
++	.has_oversampling = true,
+ 	.start_conv = stm32h7_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2614,6 +2748,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+ 	.smp_cycles = stm32h7_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_mp1,
++	.set_ovs = stm32h7_adc_set_ovs,
+ };
+ 
+ static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
+@@ -2623,6 +2758,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+ 	.regs = &stm32mp13_adc_regspec,
+ 	.adc_info = &stm32mp13_adc_info,
+ 	.trigs = stm32h7_adc_trigs,
++	.has_oversampling = true,
+ 	.start_conv = stm32mp13_adc_start_conv,
+ 	.stop_conv = stm32h7_adc_stop_conv,
+ 	.prepare = stm32h7_adc_prepare,
+@@ -2630,6 +2766,7 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
+ 	.smp_cycles = stm32mp13_adc_smp_cycles,
+ 	.irq_clear = stm32h7_adc_irq_clear,
+ 	.ts_int_ch = stm32_adc_min_ts_mp13,
++	.set_ovs = stm32mp13_adc_set_ovs,
+ };
+ 
+ static const struct of_device_id stm32_adc_of_match[] = {
+-- 
+2.25.1
 
-> +/*
-> + * 8kB GICC range is not accessible with the default 4kB translation
-> + * granule. 0x1000 offset is accessible at 64kB translation.
-> + */
-
-I have a hard time to map this comment to the change log, which suggests
-to me that this is the other way round.
-
-> +static bool gic_8kbaccess(void *data)
-> +{
-> +	struct gic_chip_data *gic = data;
-> +	void __iomem *alt;
-> +
-> +	if (!is_hyp_mode_available())
-> +		return false;
-> +
-> +	alt = ioremap(gic->cpu_phys_base, GIC_STM32MP2_CPU_DEACTIVATE + 4);
-> +	if (!alt) {
-> +		pr_err("Unable to remap GICC_DIR register\n");
-> +		return false;
-
-That's a hack because in case that the remap fails, this leaves the
-thing enabled, but disfunctional.
-
-Thanks,
-
-        tglx
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
