@@ -2,46 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93080A7BEC8
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 16:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D8CA7BF7A
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 16:35:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A771C7802F;
-	Fri,  4 Apr 2025 14:13:27 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9414BC78002
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B86C0C7802F;
+	Fri,  4 Apr 2025 14:35:29 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B29E2C78012
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 14:13:26 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAE311515;
- Fri,  4 Apr 2025 07:13:27 -0700 (PDT)
-Received: from donnerap.manchester.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 909073F63F;
- Fri,  4 Apr 2025 07:13:22 -0700 (PDT)
-Date: Fri, 4 Apr 2025 15:13:20 +0100
-From: Andre Przywara <andre.przywara@arm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20250404151320.53c4698b@donnerap.manchester.arm.com>
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-4-4d2df5603332@linaro.org>
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
- <20250404-kconfig-defaults-clk-v1-4-4d2df5603332@linaro.org>
-Organization: ARM
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
+ Fri,  4 Apr 2025 14:35:28 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-7c53b9d66fdso269650885a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 04 Apr 2025 07:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1743777327; x=1744382127;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bK+c3D63UjZ8jufbmxbZOM/a2XsXZv8kRnKHQX4cpEI=;
+ b=ixS461BZlukMBkgLHDOFAgKQzpANFtwrVLZjhoxLXOPt4JD72oMyzVijETLvmSOlwN
+ Bo+GIzNx0X5Y8fZhf7J/AHqGEbi9/ExzFZB09GyiK/AKziNiReac0u3R6X4ECWxhA9RN
+ cOp6QNGfi9X+djpf4pU42XTgA+u/LYiJemo58AzWeSBRc36dEmWIO6n2bDM0/RflXv6P
+ hwb12rFcrRirakESxE+5kattm1qlUpmvyf2VWh0BDmDKqE6I2MUah2uQnZR47FptseKU
+ KIL1EPEM4tI0uYwkKr1FG8sMnAEwjvOGqylPI0n8rUR6P8J9VvjncGy0pz6afnr6svjz
+ Mijg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743777327; x=1744382127;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bK+c3D63UjZ8jufbmxbZOM/a2XsXZv8kRnKHQX4cpEI=;
+ b=daj47JxDyK12CBORZBoezUIH/aSTN57dNKz9XJvn8ZvNdsL5qNFMbd1NbGPuazqCw5
+ qRY66BUpjAbns5o+0xmnXtW3ETnER4cgk1ynjjUOthUivXgq890MmZ0U7blFyEUnbhS2
+ ipmucHaDojNgqMy/VTJ5d6eY4IuYj1/YHbLKcisQ8Y5VZCx0wfSLAqKPCfdxbIbk9bT3
+ rIaf0wEi30ruAGSzc0y7L7x16NwkglNKYAgBrAxbQGr8ZDYY3Jn0YiqSovrMcJDeZekm
+ jzuJ7JNVotsfNwuQJxXo0/FAFDuGNCnz+JJHwtmXVFM+21BmZa7a1zI2PAT8apKKruOp
+ Ozzg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJyrXuWvjnnHKfY+y1EC6acYTeNClA+O3WmTOyzBOfr7Tl5Qt48MIz4/JBUj0N5fHFjKfkt2snIunHWg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwDoo3kpRwVpDocmV0+AakzAKQNG4+MRSq5LkhIxZCZIg7Z0G4p
+ H+5Ug0xdAHHNwPz4ZdqUuqSEopGixLXRzYnRm1i2YmBVtzPni/VVOK2WafGc/4U=
+X-Gm-Gg: ASbGncue2YLG/mIrH8uywWrzt22NKpc1OKZvcd36P2cfZX2ayPetluncFBCLg+wnDbP
+ E3FzPWpbrU/Z/GjWicvW+CxKjFc5+3Or6m0p9aqvPGSBaOM97cYWeVVoeJn6HR9ySEfcwxrpOUG
+ Uxp+D60H7zArKnjVvdIZnCPMFzQEduO16YQeyh3BA9VPyuZ9IYGRy8jaHH46IR+Pp6M5bRV83at
+ tc2jcENkUHHU8fdwV4FxeL+jtBEpm6Yag0uZ8//hdAlLaIBw5imq2Y+uZaf8B4xs9xOMAKq0g3D
+ bnHvloJPedPjiLAjRC0v8SckQ7S28JfVkv3zErYheGpDNIiPkfizW91xMcPJUxQxCOg0sJS8g3I
+ =
+X-Google-Smtp-Source: AGHT+IGpe2CJgpCsJsGayaNpUYmgMLrht7bkJyklskD3eOS7aHMmjw5yzUjbFsf/0aNBZKBvoN2DUw==
+X-Received: by 2002:a05:620a:170a:b0:7c5:50dd:5079 with SMTP id
+ af79cd13be357-7c774d2779cmr487860885a.1.1743777327595; 
+ Fri, 04 Apr 2025 07:35:27 -0700 (PDT)
+Received: from localhost.localdomain ([50.212.55.90])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7c76e735419sm224204585a.15.2025.04.04.07.35.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Apr 2025 07:35:27 -0700 (PDT)
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Date: Fri,  4 Apr 2025 10:35:14 -0400
+Message-ID: <20250404143514.860126-1-ben.wolsieffer@hefring.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Emilio =?UTF-8?B?TMOzcGV6?= <emilio@elopez.com.ar>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH 4/5] clk: sunxi-ng: Do not enable by
- default during compile testing
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Ben Wolsieffer <ben.wolsieffer@hefring.com>
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add low power timer on
+	STM32F746
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,195 +91,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 04 Apr 2025 13:57:00 +0200
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+Add device tree node for the low power timer on the STM32F746.
 
-Hi 
-> Enabling the compile test should not cause automatic enabling of all
-> drivers.  Restrict the default to ARCH also for individual drivers, even
-> though their choice is not visible without selecting parent Kconfig
-> symbol, because otherwise selecting parent would select the child during
-> compile testing.
+Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+---
+ arch/arm/boot/dts/st/stm32f746.dtsi | 34 +++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-so I remember we changed this to "default y", because there were some
-tricky problems with regards to RISC-V and ARM. See commits:
-
-commit 0ff347db4c97cc16b4e428dc1db550ba3628f1e2
-Author: Samuel Holland <samuel@sholland.org>
-Date:   Sat Dec 31 17:14:25 2022 -0600
-    clk: sunxi-ng: Move SoC driver conditions to dependencies
-
-and 
-
-commit a26dc096f683ca27ac5e68703bfd3098b4212abd
-Author: Samuel Holland <samuel@sholland.org>
-Date:   Sat Dec 31 17:14:24 2022 -0600
-    clk: sunxi-ng: Remove duplicate ARCH_SUNXI dependencies
-
-Don't remember what broke, exactly, but just wanted to give a heads up.
-
-Cheers,
-Andre
-
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/clk/sunxi-ng/Kconfig | 48 ++++++++++++++++++++++----------------------
->  1 file changed, 24 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
-> index 5830a9d87bf25d536ac787fe83669c64c8214952..8896fd052ef1784d60d488ab1498737c1405deb2 100644
-> --- a/drivers/clk/sunxi-ng/Kconfig
-> +++ b/drivers/clk/sunxi-ng/Kconfig
-> @@ -9,123 +9,123 @@ if SUNXI_CCU
->  
->  config SUNIV_F1C100S_CCU
->  	tristate "Support for the Allwinner newer F1C100s CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUNIV || COMPILE_TEST
->  
->  config SUN20I_D1_CCU
->  	tristate "Support for the Allwinner D1/R528/T113 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || RISCV || COMPILE_TEST
->  
->  config SUN20I_D1_R_CCU
->  	tristate "Support for the Allwinner D1/R528/T113 PRCM CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || RISCV || COMPILE_TEST
->  
->  config SUN50I_A64_CCU
->  	tristate "Support for the Allwinner A64 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN50I_A100_CCU
->  	tristate "Support for the Allwinner A100 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN50I_A100_R_CCU
->  	tristate "Support for the Allwinner A100 PRCM CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN50I_H6_CCU
->  	tristate "Support for the Allwinner H6 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN50I_H616_CCU
->  	tristate "Support for the Allwinner H616 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN50I_H6_R_CCU
->  	tristate "Support for the Allwinner H6 and H616 PRCM CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN55I_A523_CCU
->  	tristate "Support for the Allwinner A523/T527 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN55I_A523_R_CCU
->  	tristate "Support for the Allwinner A523/T527 PRCM CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on ARM64 || COMPILE_TEST
->  
->  config SUN4I_A10_CCU
->  	tristate "Support for the Allwinner A10/A20 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN4I || MACH_SUN7I || COMPILE_TEST
->  
->  config SUN5I_CCU
->  	bool "Support for the Allwinner sun5i family CCM"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN5I || COMPILE_TEST
->  	depends on SUNXI_CCU=y
->  
->  config SUN6I_A31_CCU
->  	tristate "Support for the Allwinner A31/A31s CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN6I || COMPILE_TEST
->  
->  config SUN6I_RTC_CCU
->  	tristate "Support for the Allwinner H616/R329 RTC CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || ARM64 || RISCV || COMPILE_TEST
->  
->  config SUN8I_A23_CCU
->  	tristate "Support for the Allwinner A23 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || COMPILE_TEST
->  
->  config SUN8I_A33_CCU
->  	tristate "Support for the Allwinner A33 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || COMPILE_TEST
->  
->  config SUN8I_A83T_CCU
->  	tristate "Support for the Allwinner A83T CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || COMPILE_TEST
->  
->  config SUN8I_H3_CCU
->  	tristate "Support for the Allwinner H3 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || ARM64 || COMPILE_TEST
->  
->  config SUN8I_V3S_CCU
->  	tristate "Support for the Allwinner V3s CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || COMPILE_TEST
->  
->  config SUN8I_DE2_CCU
->  	tristate "Support for the Allwinner SoCs DE2 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || ARM64 || RISCV || COMPILE_TEST
->  
->  config SUN8I_R40_CCU
->  	tristate "Support for the Allwinner R40 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || COMPILE_TEST
->  
->  config SUN9I_A80_CCU
->  	tristate "Support for the Allwinner A80 CCU"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN9I || COMPILE_TEST
->  
->  config SUN8I_R_CCU
->  	tristate "Support for Allwinner SoCs' PRCM CCUs"
-> -	default y
-> +	default ARCH_SUNXI
->  	depends on MACH_SUN8I || ARM64 || COMPILE_TEST
->  
->  endif
-> 
+diff --git a/arch/arm/boot/dts/st/stm32f746.dtsi b/arch/arm/boot/dts/st/stm32f746.dtsi
+index 2537b3d47e6f..208f8c6dfc9d 100644
+--- a/arch/arm/boot/dts/st/stm32f746.dtsi
++++ b/arch/arm/boot/dts/st/stm32f746.dtsi
+@@ -43,6 +43,7 @@
+ #include "../armv7-m.dtsi"
+ #include <dt-bindings/clock/stm32fx-clock.h>
+ #include <dt-bindings/mfd/stm32f7-rcc.h>
++#include <dt-bindings/interrupt-controller/irq.h>
+ 
+ / {
+ 	#address-cells = <1>;
+@@ -245,6 +246,39 @@ pwm {
+ 			};
+ 		};
+ 
++		lptimer1: timer@40002400 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			compatible = "st,stm32-lptimer";
++			reg = <0x40002400 0x400>;
++			interrupts-extended = <&exti 23 IRQ_TYPE_EDGE_RISING>;
++			clocks = <&rcc 1 CLK_LPTIMER>;
++			clock-names = "mux";
++			status = "disabled";
++
++			pwm {
++				compatible = "st,stm32-pwm-lp";
++				#pwm-cells = <3>;
++				status = "disabled";
++			};
++
++			trigger@0 {
++				compatible = "st,stm32-lptimer-trigger";
++				reg = <0>;
++				status = "disabled";
++			};
++
++			counter {
++				compatible = "st,stm32-lptimer-counter";
++				status = "disabled";
++			};
++
++			timer {
++				compatible = "st,stm32-lptimer-timer";
++				status = "disabled";
++			};
++		};
++
+ 		rtc: rtc@40002800 {
+ 			compatible = "st,stm32-rtc";
+ 			reg = <0x40002800 0x400>;
+-- 
+2.48.1
 
 _______________________________________________
 Linux-stm32 mailing list
