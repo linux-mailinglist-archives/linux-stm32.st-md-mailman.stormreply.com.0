@@ -2,48 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6516DA7C038
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 17:07:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83C39A7C120
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 18:00:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AF59C78F85;
-	Fri,  4 Apr 2025 15:07:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A9AFC78F85;
+	Fri,  4 Apr 2025 16:00:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81FACC78012
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CB07C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 15:07:10 +0000 (UTC)
+ Fri,  4 Apr 2025 15:59:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 10A8C61137;
- Fri,  4 Apr 2025 15:07:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ED5C4CEDD;
- Fri,  4 Apr 2025 15:07:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 125784504A;
+ Fri,  4 Apr 2025 15:59:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8E5C4CEDD;
+ Fri,  4 Apr 2025 15:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743779229;
- bh=PApck01QYV/Gm3ye6uMvwA27Rqmi2H7xw7efZ8WzdfU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WIVwUz30QNkraC8Xbe2q5/YV+CRnzJXgiz5dfbAw/VNjgtceqvuhvaQfe/3Tu4/7W
- 7NX6rriinaFRtTk+uq5VcbmM8sd1ZYAHSt1dceBtZZxK+II7I1aeSAfrJvHW4Rapff
- l13UNnkHR4aV+DryGxG2GXlzocwwzL/FSakfnwayYbDyhbOWqHk+PEos94TiVntBLj
- fZPblxb4W1XZFj4wYrCL6eth6KPYjbhde+GGVPqNxZ+Zkj2D8TVOfrfxJduZZFd6Da
- imfLRsiyftRIRtblv2qnh00VdRN/gg+jo1j/TngHM2gNDqKOVA3gl8ZyheRm7AybpZ
- 7e93sDPzqX4EA==
-Date: Fri, 4 Apr 2025 17:07:06 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <biwwcmsjatsmjdsgeiz27rfukeidkz64nfxdtdajpfp7ace4j7@5d5b5mvfoy43>
-References: <20250314171451.3497789-1-fabrice.gasnier@foss.st.com>
- <20250314171451.3497789-6-fabrice.gasnier@foss.st.com>
+ s=k20201202; t=1743782398;
+ bh=WrZEF9Yxb5ULBShRbFH48qvpHj9RvDQIE9VPe6LC7pI=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=LAEp/ntu2bwl+Irpk6BuOuLI2cgXnKNQat2ed18ZIW5NctNUL1ZzhUd0SiXglWQhU
+ wIgNo+pKH0sDGZc3CfjfhKe1E6uLnrSyFFyYIl3nEmcFKvLiqsr900F+GMsCUafUM2
+ DSN9Sby7QD1DZoyazHYKnflfzSSO66Ayv/hTocDCBinOtlm/T1P9gOKgzbM39naJXN
+ L1UOjaY0n+Afa09d9XFzORjYckdqmIc35buJxrJshty8ZLuuq6Vq+JbSVc52McYwxi
+ 37zgbu6RCMIJzQo2jfoX/8U0wTXaJ1N8Vtp20CSSmQEpFEPYwjCQEiSc5BKkPgBSae
+ 0UqgzEXJK8QwQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ AE4F33822D28; Fri,  4 Apr 2025 16:00:36 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20250314171451.3497789-6-fabrice.gasnier@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 5/8] pwm: stm32-lp: add support for
-	stm32mp25
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174378243553.3310001.5428425724896312604.git-patchwork-notify@kernel.org>
+Date: Fri, 04 Apr 2025 16:00:35 +0000
+References: <20250401061546.1990156-1-nichen@iscas.ac.cn>
+In-Reply-To: <20250401061546.1990156-1-nichen@iscas.ac.cn>
+To: Chen Ni <nichen@iscas.ac.cn>
+Cc: yonghong.song@linux.dev, peterz@infradead.org, linux-kernel@vger.kernel.org,
+ song@kernel.org, linux-kselftest@vger.kernel.org, shuah@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, juntong.deng@outlook.com,
+ mykolal@fb.com, daniel@iogearbox.net, john.fastabend@gmail.com,
+ andrii@kernel.org, sdf@fomichev.me, mcoquelin.stm32@gmail.com, ast@kernel.org,
+ ameryhung@gmail.com, kpsingh@kernel.org, linux-arm-kernel@lists.infradead.org,
+ haoluo@google.com, oleg@redhat.com, eddyz87@gmail.com, jolsa@kernel.org,
+ bpf@vger.kernel.org, martin.lau@linux.dev
+Subject: Re: [Linux-stm32] [PATCH] selftests/bpf: Convert comma to semicolon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,83 +58,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4874809862617568554=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
---===============4874809862617568554==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5sewg2xfq5x3bxnf"
-Content-Disposition: inline
+This patch was applied to bpf/bpf-next.git (master)
+by Andrii Nakryiko <andrii@kernel.org>:
 
+On Tue,  1 Apr 2025 14:15:46 +0800 you wrote:
+> Replace comma between expressions with semicolons.
+> 
+> Using a ',' in place of a ';' can have unintended side effects.
+> Although that is not the case here, it is seems best to use ';'
+> unless ',' is intended.
+> 
+> Found by inspection.
+> No functional change intended.
+> Compile tested only.
+> 
+> [...]
 
---5sewg2xfq5x3bxnf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 5/8] pwm: stm32-lp: add support for stm32mp25
-MIME-Version: 1.0
+Here is the summary with links:
+  - selftests/bpf: Convert comma to semicolon
+    https://git.kernel.org/bpf/bpf-next/c/c9661394850d
 
-Hello,
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-On Fri, Mar 14, 2025 at 06:14:48PM +0100, Fabrice Gasnier wrote:
-> Add support for STM32MP25 SoC. A new compatible has been added to the
-> dt-bindings. It represents handle new features, registers and bits
-> diversity.
-> It isn't used currently in the driver, as matching is done by retrieving
-> MFD parent data.
->=20
-> New dedicated capture/compare channels has been added: e.g. a new compare
-> register for channel 2. Some controls (polarity / cc channel enable) are
-> handled in CCMR register on this new variant (instead of wavepol bit).
->=20
-> So, Low-power timer can now have up to two PWM outputs. Use device data
-> from the MFD parent to configure the number of PWM channels e.g. 'npwm'.
->=20
-> Update current get_state() and apply() ops to support either:
-> - one PWM channel (as on older revision, or LPTIM5 on STM32MP25)
-> - two PWM channels (e.g. LPTIM1/2/3/4 on STM32MP25 that has the full
->   feature set)
-> Introduce new routines to manage common prescaler, reload register and
-> global enable bit.
->=20
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-I didn't do an in-depth review, but the patch looks fine to me.
-It's ok for me if Lee picks this up for v6.16-rc1, so:
-
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
-
-Best regards
-Uwe
-
---5sewg2xfq5x3bxnf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmfv9ZcACgkQj4D7WH0S
-/k53Pwf/Zw3MFYpS7c/OdBkw9qirsB7YS6C3Y3MBc/vAYhYrhcxBpVevHbyFLsyW
-yLhfba05+l6U2GOdtWltJUqVwzdVX8kt7J61y1jtQnRDTAExxJDwjTH+rfKSv7wO
-3ZtQ9/BEO41/8sLLrZ8/eBxhG2SYgK4xBi46yR/b0Hx0/hGGPW82036L/xjxR3Cp
-N5+q3kjLaDYxUIBGy/dJ5N500yM1fizFEK+ejjfR18yhcYR3bWXLoMGHsXSChnZw
-3GnD89vE8w1ciehkBpbUWvjBXlFj0Qs+AUQmLAOBENriiX1OoH6+LI+qW9kqlef8
-58L7lQyOAj2g1DyQ0B20iXRaCCxtCg==
-=lIiW
------END PGP SIGNATURE-----
-
---5sewg2xfq5x3bxnf--
-
---===============4874809862617568554==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4874809862617568554==--
