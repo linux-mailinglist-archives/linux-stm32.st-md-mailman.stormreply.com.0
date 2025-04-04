@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1FB9A7C16E
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 18:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3353FA7C17E
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 18:25:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E47FC78F85;
-	Fri,  4 Apr 2025 16:20:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4A64C78F85;
+	Fri,  4 Apr 2025 16:25:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C685C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04198C78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 16:20:57 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 534C4qNv029984;
- Fri, 4 Apr 2025 18:20:45 +0200
+ Fri,  4 Apr 2025 16:25:06 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 534C4w9E024189;
+ Fri, 4 Apr 2025 18:24:48 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 1NKt9MGk7ZEOtW9yl+h4WTA3wA9CpVLn+mNMcHfKAhU=; b=IPxQ45rlu7+o8yi4
- P4i53sGBKbLIQeId/7GJJNo4duzK01pjiygyNrVSkEFNErmTGQWnepIKgiu1yFdX
- ui77G8b6N46xs1K4kkoylKxUISjZKFYqjabB5QqZI5i2LsW86hKRBHUUJiI2Cxst
- XeIUM+GBJk/4qtMDVtGk+djcIX/lE+2hvO6DWlcYPyh+Zr6JEC5bDuvqMY1E2b7R
- V0ufWH6OSmpVL7/pS7P2cJXwJUK2evuoeqUmLLCyVnpnqXyFTichVnxWlCmO0+v9
- /nvW4kWhtrB3ZrNJdhbBB0l8pfo/6WHV4bOxSgXYZ+VmekajmANSP2mR4CzecLm2
- /XSbLg==
+ b/eiqZHdZQvwyfWZe39Nel4pZGk4oMDE2ktEcKkJ+Bg=; b=GPs1mCk6so4eBW/i
+ lXR2Q8uSv9mTWSYzCTrsYIUpsGVl+b5KkwSPJUAiC+X8RPBpkWci6nFGYbKlJPU0
+ MyourA9U0IenCcBTUMRgeqcVY+RR+/Wan6EWNGFmsruygSbB5xREg+n77mKuz87V
+ hZAUYUfu76BpWVOB3T2Ws6OEytqZ2bQSz1NldoRVDBqIheVCCrxgb9UaFRGd3g4c
+ U2TwBLVAcig1ZN+EdMCoPaMk/RipFouF0wptUuRwaY3E8UKD3fx1ReRULWyIzgOO
+ TU3abhVTmwqEbP6nB2jFDuf3m4CRvQoerDEM6dppKj9+6u5Omms/F92d6PPSVwUe
+ mwNPDA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45t2ct4368-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45t2cjv2uh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Apr 2025 18:20:45 +0200 (MEST)
+ Fri, 04 Apr 2025 18:24:48 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 85F5040053;
- Fri,  4 Apr 2025 18:19:40 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9A85E4004B;
+ Fri,  4 Apr 2025 18:23:17 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 89DA09645B9;
- Fri,  4 Apr 2025 18:18:51 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0BD4C921962;
+ Fri,  4 Apr 2025 18:19:28 +0200 (CEST)
 Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
  (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Apr
- 2025 18:18:50 +0200
-Message-ID: <ddfc03e2-d4a6-460f-aafd-933019751dbf@foss.st.com>
-Date: Fri, 4 Apr 2025 18:18:32 +0200
+ 2025 18:19:24 +0200
+Message-ID: <d2b38bb5-4551-4c8b-90bb-753f2176ff1e@foss.st.com>
+Date: Fri, 4 Apr 2025 18:19:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Christian Bruel <christian.bruel@foss.st.com>
@@ -145,15 +145,15 @@ greping other platforms there are a bunch 0xf000 offset 8KB mapped:
   arm/juno-base.dtsi
   mediatek/mt8516.dtsi
 
-but, looking at the stm32mp25 memory map (1)
+but, looking at the stm32mp25 memory map (1) page 239:
 
 0x4AC22000 - 0x4AC3FFFF 120 Reserved -
 0x4AC20000 - 0x4AC21FFF 8   GICC
 
-I can know guess that the  Reserved 120kB is for aliasing the 64kB 
-blocks. Thus describing the GICC range at 128kB makes sense
+I can know guess that the "Reserved" 120kB is for aliasing the 64kB 
+blocks. Thus describing the GICC 128KB range size makes sense
 
-similarly 4 kB + 120 Reserved for GICH and 8kB + 120 Reserved for GICV
+similarly 4KB + 120KB Reserved for GICH and 8KB + 120KB Reserved for GICV
 
 (1) 
 https://www.st.com/resource/en/reference_manual/rm0457-stm32mp25xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
@@ -174,8 +174,8 @@ https://www.st.com/resource/en/reference_manual/rm0457-stm32mp25xx-advanced-armb
 > parameter in the integration, dropping bits [15:12] from the PA
 > presented to the CPU interface.
 
-sorry, misunderstanding, I was referring about my dropped quirk that I 
-now dropped, not your options
+there might be a misunderstanding, I was referring to my dropped quirk 
+that I now dropped, not your options
 
 thanks
 
