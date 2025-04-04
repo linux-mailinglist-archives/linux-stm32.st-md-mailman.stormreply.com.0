@@ -2,70 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC34A7BBF5
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 13:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC9E1A7BBF6
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 13:57:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 601F3C7A826;
-	Fri,  4 Apr 2025 11:57:04 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BEDFC7A829;
+	Fri,  4 Apr 2025 11:57:05 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12686C7A826
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10344C7A826
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 11:57:03 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-391324ef4a0so191521f8f.2
+ Fri,  4 Apr 2025 11:57:04 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3913290f754so218061f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Apr 2025 04:57:03 -0700 (PDT)
+ Fri, 04 Apr 2025 04:57:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1743767822; x=1744372622;
+ d=linaro.org; s=google; t=1743767823; x=1744372623;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=V2NzIbuLVsOaJahdT641xBUsFIJNpkjAwbl7cZpldXQ=;
- b=r0faIFl2ESVqAmN6VII1swHuIsnwOoIIT3g2QoUu0aGjz0r+zZciSlStd2J5gFlRXf
- QvuT2QMmWgiczFgj94HX/bPvj7ki/daDrr3TUnC+lp9HnXsFu6b1OD0Gp9TwDqLrATVt
- 4aZ8POoakIzfx0flt/abPpsRbbjkXwlSPmiIU9FgCszVyYaZSUM6oL2hu+IZTyYxbKhq
- GLJJuRhc8p3VB3iZClDJ64WuJQtejzvUOvW3xPIpyawBI2XgLWi0Uhk8fVtsBDUcV3uV
- GOjD4YQ9qipmedDGtCkKWlEqiHQ4ogcT2mtxqm/BKRHwjXvtJbxkRHcBdE9Ywp8couZ9
- Fbzg==
+ :reply-to; bh=rP6n61SWekMknO/zRlSYN14fVYP5G3VDX27XosLbmfk=;
+ b=b3OCvX8Zviv5ekSlwDEcMXTuTNZlRcl4CGwZ4sZRMvbfoJmGHdGy4B2hsymQlS5xYA
+ ao4mg62FvU//0VD6+d7zIxXJ+aG4yCh4rK2y89mi8HMwAReO3oeK9aTL+RTuOAc19t1B
+ KSXrEQCVubrAQ7xOlj+o7t/ML5oMn4+03SoQpk8XCTESQEGNfHNEI0uL+Q4SCwio3Mwx
+ rlTp90fXUhbQ1kTI4MwkeEtMZOGiHd3JgRKutSaKk0dHzGxawdbRDJTwVEYQ2pWeRsiM
+ UrXxIX9myYkOyAxIRf/gSw9O+LWVyHPL09MC2OtlwKfYeeUiPz5fuw/nd6pOslfP1koU
+ sM6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743767822; x=1744372622;
+ d=1e100.net; s=20230601; t=1743767823; x=1744372623;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V2NzIbuLVsOaJahdT641xBUsFIJNpkjAwbl7cZpldXQ=;
- b=kEhIhZel8QSFBUsG/n3QJ5O7Nu+TWsoxsnK8ZKRdYUGHFIRqAXUTQqkcH/d6Ph9g/1
- CkjoMNyaoFl7lJLrsgNtLusG94MphaxN8um3oo61IZpii2zLNkMJXVm9k46UaDoCdiGI
- 8mHtQ6hS7kFLEQzO+UmbCUpuPPmhbxw1DAbyk77R0H8tRxa9b+67/U1bae/JGeQ4skdV
- ds1UuHV8tAB245mRFC10BqwbdZjxAmYMEB9s2zqEBZitrdehdY08TLdRzlR7nMZj4kkK
- yi+Ex4soSJdmA+ceXptUl/1fp0c3+sf9E69jTsvH8eT3iGNKXyrqMnz2oX2WFR+zbip/
- EGqA==
+ bh=rP6n61SWekMknO/zRlSYN14fVYP5G3VDX27XosLbmfk=;
+ b=nr3yM7wdgMNIHsaW1jAbuyl2pGVX7Vl9pwqzn+i3/pz7xT79/ORdTE/UHM3p0yokOb
+ rTYMSKxCuny6SCgLp3Ff3UCcGdRZvpZQ/wEzWqAHQoL2yD61+qPPyEQMI4nZGHpuNDau
+ hca1OhcAn2gS68FS7X7vOZoFTLhtIB4yRCH7nxyWuwtFAeyyWwQtvvBKf6VgMXibQt1Z
+ J5rWXJnU4tZURrY1Nsk+YxxhsSZtlf0DZ+bZy/+jRJedZ1Ohk6FwS70SMG7tZXL12GqS
+ ZAObzuY9WOV+UFGaIfnEVK+hIOPegpE2lXI+fH2wJjsDsctAU6uLf9o6+3hukomgbs4h
+ i8CA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX0Ji+krIdgRCotVfwfjudgBU6axxufTxPQlkhf9yNQAYcPgz0Gqs8TFvXuMGErW3YCsap7BUnMNHIc/A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz/ygowDA6ckJ/+UPKCCMmPYPWEcT/af4k9ST8W65Oywh6TY2oO
- qFCtt6Klh5PnnmVPTINveONd8IK+1XMkcK3ang10USn+qTvxOTjAQR+3vu5K+c4Tb/faPixY76Y
- A
-X-Gm-Gg: ASbGncu8lL/YVa1yGbit5qbWL3rePexWjL+xCUZPz53qAJwTlb3bwdzdaEy702JTbXA
- HrmHMJpbV4J6h3gGfdY0d2zCPcqo4QpxBoG1LJthu7gaf6G3Dv4XLRjNuCBrw1OTnPXGPwm19/e
- rsJ44xEG1p+Rca3XFXR1y6usBmRL4YwNOKaUcSr57qW5ejzJjM320I5TtFpPWOnrOB/wXyzO1zG
- Bde06HWUJWO3IwF3tz0+qvWq53/Xc7FOFEhlmZvhS6wXdySnaDWHnHtPZyQrvg45QWhLEe9Rv/g
- 2njNO4YXEOR+mA+l6dqj7+IQOKGBZYJCSgj5uOBGficZHravbofgGvoismxx9KXtwK24oE2jhA=
- =
-X-Google-Smtp-Source: AGHT+IFxuBP0nmnZWUjwXivSZyFM5R5EOm7OqMfFckNVWAgHA5LCnGmvvIDCOlE0EShLntnYXKvpnQ==
-X-Received: by 2002:a05:600c:348b:b0:439:8c80:6aee with SMTP id
- 5b1f17b1804b1-43ecf9c2b5emr11378355e9.4.1743767821387; 
- Fri, 04 Apr 2025 04:57:01 -0700 (PDT)
+ AJvYcCX/tXHzdULCufkGvJxU10ZVeEqsmV3yXn5/whnPBE7/V3GgVELmHDGi5RgPybPcL3CrGK2ICKTBZZM11w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwPXNxBEfaryW9xHCb7yFX3ZkyvRn6oKLKPnZK/un8U2IoSP4JB
+ gwEwIGbvRVQbOewSX/CszCZLWGqt8OD9XH8NCpbGMdPInsJxuzROwmtK6ZSUCzzon2gzjCqPS6U
+ 0
+X-Gm-Gg: ASbGncvz9CHLDRLevSb6u6C6sQspIeLzfg7Q+eU/YK6eUNbbDgMZciW9rj5qBlmsckt
+ +65evV28gSlLxV9K9YZIqvXnI/sZNhDn32Ogw7sgzUWMp69n34MIh3S0sGF+R5o0AjqKgG++mKk
+ VUGSWc5nbG7H5W3TUvgbnFUpWZ1nEKEEkNgLGaBM/jXduYO81fN3O7DQJYnE/hfxPwlI0LnCofu
+ iieLmyi+OloCg5hyPCepKC8D1MmW4AXJVBC331ZzkoeORq8NfkYPwEO5QpBZeKzyF+550NS1UrP
+ Cpg+Pzl0QX224WMb4R7ftyaZ/eS12dqT/PPL7aBRPujE7IosH6B3AjAXN/V7EDM=
+X-Google-Smtp-Source: AGHT+IGREdRnQ2gEflgpMySypGT2xrFpTeuT80iZBzxVkRizH3MB1Iv/GdfxP0Mu67TBThpOTa6MIw==
+X-Received: by 2002:a05:6000:188e:b0:39c:266c:dae with SMTP id
+ ffacd0b85a97d-39cba936215mr862740f8f.11.1743767823172; 
+ Fri, 04 Apr 2025 04:57:03 -0700 (PDT)
 Received: from [192.168.1.26] ([178.197.198.86])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec364cb9asm43842815e9.31.2025.04.04.04.56.59
+ 5b1f17b1804b1-43ec364cb9asm43842815e9.31.2025.04.04.04.57.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Apr 2025 04:57:00 -0700 (PDT)
+ Fri, 04 Apr 2025 04:57:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 04 Apr 2025 13:56:57 +0200
+Date: Fri, 04 Apr 2025 13:56:58 +0200
 MIME-Version: 1.0
-Message-Id: <20250404-kconfig-defaults-clk-v1-1-4d2df5603332@linaro.org>
+Message-Id: <20250404-kconfig-defaults-clk-v1-2-4d2df5603332@linaro.org>
 References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
 In-Reply-To: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -84,7 +83,7 @@ Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/5] clk: meson: Do not enable by default
+Subject: [Linux-stm32] [PATCH 2/5] clk: nuvoton: Do not enable by default
  during compile testing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -103,89 +102,38 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Enabling the compile test should not cause automatic enabling of all
-drivers.
+drivers.  Restrict the default to ARCH also for individual driver, even
+though its choice is not visible without selecting parent Kconfig
+symbol, because otherwise selecting parent would select the child during
+compile testing.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/clk/meson/Kconfig | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/clk/nuvoton/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/meson/Kconfig b/drivers/clk/meson/Kconfig
-index be2e3a5f83363b07cdcec2601acf15780ff24892..ff003dc5ab20d904c91fc34c701ba499a11d0b63 100644
---- a/drivers/clk/meson/Kconfig
-+++ b/drivers/clk/meson/Kconfig
-@@ -55,7 +55,7 @@ config COMMON_CLK_MESON_CPU_DYNDIV
- config COMMON_CLK_MESON8B
- 	bool "Meson8 SoC Clock controller support"
- 	depends on ARM
+diff --git a/drivers/clk/nuvoton/Kconfig b/drivers/clk/nuvoton/Kconfig
+index fe4b7f62f467048b7c86890972d55faebd066947..e7019b69ea74824de6943108f30ec259aa52e5f4 100644
+--- a/drivers/clk/nuvoton/Kconfig
++++ b/drivers/clk/nuvoton/Kconfig
+@@ -4,7 +4,7 @@
+ config COMMON_CLK_NUVOTON
+ 	bool "Nuvoton clock controller common support"
+ 	depends on ARCH_MA35 || COMPILE_TEST
 -	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_CLKC_UTILS
- 	select COMMON_CLK_MESON_MPLL
-@@ -70,7 +70,7 @@ config COMMON_CLK_MESON8B
- config COMMON_CLK_GXBB
- 	tristate "GXBB and GXL SoC clock controllers support"
- 	depends on ARM64
++	default ARCH_MA35
+ 	help
+ 	  Say y here to enable common clock controller for Nuvoton platforms.
+ 
+@@ -12,7 +12,7 @@ if COMMON_CLK_NUVOTON
+ 
+ config CLK_MA35D1
+ 	bool "Nuvoton MA35D1 clock controller support"
 -	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_DUALDIV
- 	select COMMON_CLK_MESON_VID_PLL_DIV
-@@ -86,7 +86,7 @@ config COMMON_CLK_GXBB
- config COMMON_CLK_AXG
- 	tristate "AXG SoC clock controllers support"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_DUALDIV
- 	select COMMON_CLK_MESON_MPLL
-@@ -136,7 +136,7 @@ config COMMON_CLK_A1_PERIPHERALS
- config COMMON_CLK_C3_PLL
- 	tristate "Amlogic C3 PLL clock controller"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_PLL
- 	select COMMON_CLK_MESON_CLKC_UTILS
-@@ -149,7 +149,7 @@ config COMMON_CLK_C3_PLL
- config COMMON_CLK_C3_PERIPHERALS
- 	tristate "Amlogic C3 peripherals clock controller"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_DUALDIV
- 	select COMMON_CLK_MESON_CLKC_UTILS
-@@ -163,7 +163,7 @@ config COMMON_CLK_C3_PERIPHERALS
- config COMMON_CLK_G12A
- 	tristate "G12 and SM1 SoC clock controllers support"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_DUALDIV
- 	select COMMON_CLK_MESON_MPLL
-@@ -181,7 +181,7 @@ config COMMON_CLK_G12A
- config COMMON_CLK_S4_PLL
- 	tristate "S4 SoC PLL clock controllers support"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_CLKC_UTILS
- 	select COMMON_CLK_MESON_MPLL
- 	select COMMON_CLK_MESON_PLL
-@@ -194,7 +194,7 @@ config COMMON_CLK_S4_PLL
- config COMMON_CLK_S4_PERIPHERALS
- 	tristate "S4 SoC peripherals clock controllers support"
- 	depends on ARM64
--	default y
-+	default ARCH_MESON
- 	select COMMON_CLK_MESON_CLKC_UTILS
- 	select COMMON_CLK_MESON_REGMAP
- 	select COMMON_CLK_MESON_DUALDIV
++	default ARCH_MA35
+ 	help
+ 	  Build the clock controller driver for MA35D1 SoC.
+ 
 
 -- 
 2.45.2
