@@ -2,89 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFAD5A7BBFB
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 13:57:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5206A7BCC4
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 14:39:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A63A5C7A826;
-	Fri,  4 Apr 2025 11:57:11 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CC2BC78F9E;
+	Fri,  4 Apr 2025 12:39:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D7FEC7A827
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 512CFC78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 11:57:10 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-39127effa72so177456f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 04 Apr 2025 04:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1743767829; x=1744372629;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=d106TqNSzkY12ISczNEwfjZ5zhpWhqK85bfmJ3moKtE=;
- b=j0Rp6eui1TQ31vWm8ASm/Y3yxcVOlkyXXXJ6jg/PEhCCUCohko2HuNVcAcTOPh+55W
- M7u8iQIpsGKBFy2DiqputJczmyWguUd+zZXst+Uo2Z6hLVUnKTCUNFHNloGnVNgy6sCr
- GoxHSYDj/q3SsvYU/gWA64EmIEaTOCS/tnHy4qsRNWcRwyHQ6KQonu6iRYTn7xJq/wYx
- vv9FTEp3NhX0xbduFZP1Kzw2MVz4inxBhXIUgHwyfFDSpozNHNAd8bALJEmdw+Tf8JDG
- na3fX9LuOkCWCKYwnlmQVN6byMeFldL0ZDO74kaATJOh9Alcdc+pG3yL9wy1QurX/j+S
- qZBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743767829; x=1744372629;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=d106TqNSzkY12ISczNEwfjZ5zhpWhqK85bfmJ3moKtE=;
- b=kdqPYqQIO+a+uN1rcKxEWnmHbhJns1Kr4I2JMlj4nybmF0jYtnvBsFgGqtvgswn9rG
- xHmFh2xRDlfBbzXbDKKhWGZ405yO7fd/ewMsYHAiyo0FnMkkKfvfKAZ/Xu3A2NPTwr28
- fPK11G2UpEdvZGGSFGH65XZEnBvW/DNK97gcOp/RuO6e/eRcFWGDsGzdjGYc91p1FzRV
- UDrYcSamlutH0QYrJ+isdw/8Sth08PkQhZBEHVKP11PXrT7Qr9LdYxXkJnxAyeZkvYXo
- xCRGCMPd1mdKZgaysFWQIJuaub15b5+T5G2bbkcxQDnvSMHfLLKVPKjl8qdMX+62095C
- pV6w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7aK8AF+YlreICIqblQ8pBiBbdNRLb1Z+hoILmcnJ6VyytIX0jH+X9jjqtBLMy7RQk6VsCPjNphM6H0A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyDf77tNDHRya/abnTl+6sfLZpJUR0cDQyjK9ndeWLISTGOfEWi
- 0VpmxikPicRNU7Sx3j76817Ah4u9QgeRHlemBlwA12i7N2hUtHL7fMxma+DFMlxR4ErBdLDDqVo
- k
-X-Gm-Gg: ASbGncuHtLPe+Xeg3iVGo5LNnuKS+ByVxBa/RTXJkX0v7ZDl97uvHZu6kOeaswVCa0o
- niuCWU0u370kNXEp/65oCe1mgZ/cuQx1ICtGNHyp+5gjVHrxvq0I6NH6j5ezNkyOmMo5lWx9/+H
- xSIhZonCff2czjhcFai4RL0XduUfN19cYgiGVeKL+BqpSiUeZBEnsHQ+qjlDFWflgvNXFwd+muy
- oQpMe4bvfaYWLTBpi0WdsIpk65wzCmfBRBLLKCu7AIMEGk9/ktqA38C5QrPmuN1DxzXPamyOYUc
- BfoTpq0TcezUENJ/G3CxXsVcbTow5sOsOuFlkC3IuJ4KA66jNE2aj349VZQh//g=
-X-Google-Smtp-Source: AGHT+IFUn3Ncq3UJFAd17WQ9Pi1CnRMlttoznJGCzpSMvyRtLW9B9mLaVZY4lCtohUQhqeiWfvicpw==
-X-Received: by 2002:a05:600c:3592:b0:439:9ec5:dfa with SMTP id
- 5b1f17b1804b1-43ecfa18f83mr8121025e9.7.1743767829072; 
- Fri, 04 Apr 2025 04:57:09 -0700 (PDT)
-Received: from [192.168.1.26] ([178.197.198.86])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec364cb9asm43842815e9.31.2025.04.04.04.57.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Apr 2025 04:57:08 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Fri, 04 Apr 2025 13:57:01 +0200
+ Fri,  4 Apr 2025 12:39:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 534C4vUb020207;
+ Fri, 4 Apr 2025 14:39:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ xplZ6xEcU+DkYF8wzl/Jp0Ro9pXnhMJndHcBpcssC24=; b=gR9gGnxNRswbHnZe
+ PZvH+BDoBIr3K3Z0Z2KVBA042OjzZXci0P9mnvtGmWIXPBnWJOrFO0i1L71rt0YI
+ 894O8dhomZvPu3RlSEj2UUWh1fTS69lAuJUZg22vwKuXyG2HGM30qYPpt6/prvdY
+ qzmCntc4tXTaBwDefBq/QUakp8wDpxGn4PMLciP6NMDe2wA/U/J1Gvx+oFdbFmFy
+ FJrjvsIz/oomgO9kaYUtspulfaegLXeo5ZryI0nWSWWEhMijzCN608WZQuigg9BP
+ pj8zJF1lNrTbgxxQdPrlX6kb2HRxE+5Zn9H3ZNcuc2Dmfo5jMIDYE0/cmBtT37ix
+ Ee5amw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45t2ck34bd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Apr 2025 14:39:24 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9690C40082;
+ Fri,  4 Apr 2025 14:37:51 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E7D778F1FF3;
+ Fri,  4 Apr 2025 14:34:24 +0200 (CEST)
+Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Apr
+ 2025 14:34:24 +0200
+Message-ID: <1213dbfb-821a-4534-947b-acc4eac9da81@foss.st.com>
+Date: Fri, 4 Apr 2025 14:15:05 +0200
 MIME-Version: 1.0
-Message-Id: <20250404-kconfig-defaults-clk-v1-5-4d2df5603332@linaro.org>
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- =?utf-8?q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>
-X-Mailer: b4 0.14.2
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
+User-Agent: Mozilla Thunderbird
+To: Marc Zyngier <maz@kernel.org>
+References: <20250403122805.1574086-1-christian.bruel@foss.st.com>
+ <20250403122805.1574086-3-christian.bruel@foss.st.com>
+ <8734epyw17.wl-maz@kernel.org>
+From: Christian Bruel <christian.bruel@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <8734epyw17.wl-maz@kernel.org>
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-04_05,2025-04-03_03,2024-11-22_01
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, tglx@linutronix.de, krzk+dt@kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/5] clk: sunxi: Do not enable by default
- during compile testing
+Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/gic: Use 0x10000 offset to
+ access GICC_DIR on STM32MP2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,72 +75,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enabling the compile test should not cause automatic enabling of all
-drivers.  Restrict the default to ARCH also for individual drivers, even
-though their choice is not visible without selecting parent Kconfig
-symbol, because otherwise selecting parent would select the child during
-compile testing.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/clk/sunxi/Kconfig | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/clk/sunxi/Kconfig b/drivers/clk/sunxi/Kconfig
-index 1c4e543366ddb76c1669b577c1ac337dc1be616f..5e2f92bfe4120981ab68b175dce798ac8b3268b0 100644
---- a/drivers/clk/sunxi/Kconfig
-+++ b/drivers/clk/sunxi/Kconfig
-@@ -2,13 +2,13 @@
- menuconfig CLK_SUNXI
- 	bool "Legacy clock support for Allwinner SoCs"
- 	depends on (ARM && ARCH_SUNXI) || COMPILE_TEST
--	default y
-+	default (ARM && ARCH_SUNXI)
- 
- if CLK_SUNXI
- 
- config CLK_SUNXI_CLOCKS
- 	bool "Legacy clock drivers"
--	default y
-+	default ARCH_SUNXI
- 	help
- 	  Legacy clock drivers being used on older (A10, A13, A20,
- 	  A23, A31, A80) SoCs. These drivers are kept around for
-@@ -19,14 +19,14 @@ config CLK_SUNXI_CLOCKS
- 
- config CLK_SUNXI_PRCM_SUN6I
- 	bool "Legacy A31 PRCM driver"
--	default y
-+	default ARCH_SUNXI
- 	help
- 	  Legacy clock driver for the A31 PRCM clocks. Those are
- 	  usually needed for the PMIC communication, mostly.
- 
- config CLK_SUNXI_PRCM_SUN8I
- 	bool "Legacy sun8i PRCM driver"
--	default y
-+	default ARCH_SUNXI
- 	help
- 	  Legacy clock driver for the sun8i family PRCM clocks.
- 	  Those are usually needed for the PMIC communication,
-@@ -34,7 +34,7 @@ config CLK_SUNXI_PRCM_SUN8I
- 
- config CLK_SUNXI_PRCM_SUN9I
- 	bool "Legacy A80 PRCM driver"
--	default y
-+	default ARCH_SUNXI
- 	help
- 	  Legacy clock driver for the A80 PRCM clocks. Those are
- 	  usually needed for the PMIC communication, mostly.
+On 4/3/25 19:50, Marc Zyngier wrote:
+> On Thu, 03 Apr 2025 13:28:04 +0100,
+> Christian Bruel <christian.bruel@foss.st.com> wrote:
+>>
+>> When GIC_4KNOT64K bit in the GIC configuration register is
+>> 0 (64KB), address block is modified in such a way than only the
+>> first 4KB of the GIC cpu interface are accessible with default
+>> offsets.
+>> With this bit mapping GICC_DIR register is accessible at
+>> offset 0x10000 instead of 0x1000, thus remap accordingly
+> 
+> And I'm pretty sure the whole of the GICC range is correctly
+> accessible at offset 0xF000, giving you the full 8kB you need. That's
+> because each page of the GIC is aliased over two 64kB blocks, as per
+> the integration guidelines so that MMU isolation can be provided on a
+> 64kB boundary.
 
--- 
-2.45.2
+Thanks a lot for this explanation, indeed this works like a charm.
 
+> 
+> Funnily enough, all it takes is to adjust GICC region. You can either:
+> 
+> - make it 128kB wide, and the driver will take care of it (details in
+>    gic_check_eoimode()). On one of my boxes that is similarly
+>    configured, I get:
+> 
+>    [    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+>    [    0.000000] GIC: Adjusting CPU interface base to 0x00000000780af000
+>    [    0.000000] Root IRQ handler: gic_handle_irq
+>    [    0.000000] GIC: Using split EOI/Deactivate mode
+> 
+>    See below for what I expect to be the correct fix.
+>    
+> - make it 8kB wide from offset 0xF000.
+
+I checked both and they work. I will go for the former to show real 8kB 
+size to be exposed in the DT. And there are a few other platforms that
+use this alias
+
+> 
+> Unless the ST HW folks have been even more creative, none of this
+> overly complicated stuff should be necessary. Just describe the HW
+> correctly.
+
+I was unable to find this information in the GIC-400 trm 
+(https://developer.arm.com/documentation/ddi0471/b/programmers-model/gic-400-register-map). 
+Now I also prefer to use GICC alias at
+offset 0xf000 as suggested rather than the quirk solution
+
+thank you very much
+
+Christian
+
+> 
+> 	M.
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index f3c6cdfd7008..97b7a7106a02 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -120,7 +120,7 @@ intc: interrupt-controller@4ac00000 {
+>   		#address-cells = <1>;
+>   		interrupt-controller;
+>   		reg = <0x0 0x4ac10000 0x0 0x1000>,
+> -		      <0x0 0x4ac20000 0x0 0x2000>,
+> +		      <0x0 0x4ac20000 0x0 0x20000>,
+>   		      <0x0 0x4ac40000 0x0 0x2000>,
+>   		      <0x0 0x4ac60000 0x0 0x2000>;
+>   	};
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
