@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34FBAA7BCDC
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 14:45:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6734CA7BDF6
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Apr 2025 15:36:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8FEAC78F9E;
-	Fri,  4 Apr 2025 12:45:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A7BFC7802F;
+	Fri,  4 Apr 2025 13:36:15 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE914C78F85
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F021CC78002
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Apr 2025 12:45:12 +0000 (UTC)
+ Fri,  4 Apr 2025 13:36:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E52754393C;
- Fri,  4 Apr 2025 12:45:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AFC4C4CEDD;
- Fri,  4 Apr 2025 12:45:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2CD0744E74;
+ Fri,  4 Apr 2025 13:36:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8456CC4CEE8;
+ Fri,  4 Apr 2025 13:36:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1743770711;
- bh=+f9bptQzXW02fg/r/Fn12knWGTzQttrVy41KB2g3QZ4=;
+ s=k20201202; t=1743773772;
+ bh=nB8hhdyLpxbnHmC76tdnlII8bmXVnl4tnHoovM2c5PY=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dat10KXg8qGBRc6wGr53pYS2oCTMA1VLmxkoVxpX7r9er25pw4MdWL04Hy1t+FRn0
- WvanxZFRMN0ABsf8CwgkBg7gqlnepiYF75sXDI7vaDepE0LKLRib2BhfcAaOil1Xbu
- 1WUEK7IMvBY9QSX2qyr/uFjkct2AYFoL0FLzf969RVdpPn66mrYlBmRhteMQyz05HY
- 4leuNuDOZvtElIeFwz/8qQhSjkQcxZrZiZP9ayeF75uNQ5clm/SLcn8MOOlExX2S0u
- XUtpWC5GICfNvbfbiRpuopV99cvd0gxQEV7eTgSZ/q/ah2HfvunyBscvuBxnR79dAC
- MVOO3KkpueQYg==
+ b=DhepgBwwFIvXZHbUMKM6Z7vGdvaQmPijJDmhV19O+I1M0ZdFEu2fueSyoE8kTsVlq
+ QB7na3fopG9hU3MLcBAsuBQ1yb5RDdQ6K2w0u2PTq+UWKGVwofVOaT+4OTS2Se0GwN
+ K1SYCPhlHXaKToLzvai9weta93C65b4IOdxe+sd3xL/PpqgfTKvXttTFDX17BEqBjL
+ WbiR/01P9QCvdCu6d1Sqgm8xbzqM6SFUAWzbLfm7pMvehEOMQlGTb/FCYuhiAfjrkS
+ 3EbxVGnguxBB447dXDYSUflq0TIyRJ97nJ8y7ura9MScmqtCFS6YZ0n/x4IVNcE9C4
+ mi7/60ib4Jwtg==
 Received: from sofa.misterjones.org ([185.219.108.64]
  helo=lobster-girl.misterjones.org)
  by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <maz@kernel.org>) id 1u0gQ0-002LQk-R4;
- Fri, 04 Apr 2025 13:45:09 +0100
-Date: Fri, 04 Apr 2025 13:45:11 +0100
-Message-ID: <87zfgwxfhk.wl-maz@kernel.org>
+ (envelope-from <maz@kernel.org>) id 1u0hDO-002MP1-Hr;
+ Fri, 04 Apr 2025 14:36:10 +0100
+Date: Fri, 04 Apr 2025 14:36:12 +0100
+Message-ID: <87y0wgxd4j.wl-maz@kernel.org>
 From: Marc Zyngier <maz@kernel.org>
 To: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <1c9a49cb-35a1-4bcc-abd5-b14a49d4d094@foss.st.com>
+In-Reply-To: <1213dbfb-821a-4534-947b-acc4eac9da81@foss.st.com>
 References: <20250403122805.1574086-1-christian.bruel@foss.st.com>
- <20250403122805.1574086-4-christian.bruel@foss.st.com>
- <874iz5yx2c.wl-maz@kernel.org>
- <1c9a49cb-35a1-4bcc-abd5-b14a49d4d094@foss.st.com>
+ <20250403122805.1574086-3-christian.bruel@foss.st.com>
+ <8734epyw17.wl-maz@kernel.org>
+ <1213dbfb-821a-4534-947b-acc4eac9da81@foss.st.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
  (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -60,8 +60,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, tglx@linutronix.de, krzk+dt@kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] arm64: dts: st: add st,
-	stm32mp2-cortex-a7-gic in intc node in stm32mp251.dtsi
+Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/gic: Use 0x10000 offset to
+	access GICC_DIR on STM32MP2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,44 +78,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 04 Apr 2025 13:17:08 +0100,
+On Fri, 04 Apr 2025 13:15:05 +0100,
 Christian Bruel <christian.bruel@foss.st.com> wrote:
 > 
 > 
 > 
-> On 4/3/25 19:27, Marc Zyngier wrote:
-> > On Thu, 03 Apr 2025 13:28:05 +0100,
+> On 4/3/25 19:50, Marc Zyngier wrote:
+> > On Thu, 03 Apr 2025 13:28:04 +0100,
 > > Christian Bruel <christian.bruel@foss.st.com> wrote:
 > >> 
-> >> Add st,stm32mp2-cortex-a7-gic to enable the GICC_DIR register remap
-> >> 
-> >> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> >> ---
-> >>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
-> >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> >> 
-> >> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> >> index f3c6cdfd7008..030e5da67a7e 100644
-> >> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> >> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> >> @@ -115,7 +115,7 @@ scmi_vdda18adc: regulator@7 {
-> >>   	};
-> >>     	intc: interrupt-controller@4ac00000 {
-> >> -		compatible = "arm,cortex-a7-gic";
-> >> +		compatible = "st,stm32mp2-cortex-a7-gic", "arm,cortex-a7-gic";
+> >> When GIC_4KNOT64K bit in the GIC configuration register is
+> >> 0 (64KB), address block is modified in such a way than only the
+> >> first 4KB of the GIC cpu interface are accessible with default
+> >> offsets.
+> >> With this bit mapping GICC_DIR register is accessible at
+> >> offset 0x10000 instead of 0x1000, thus remap accordingly
 > > 
-> > What nonsense is this? This is an *arm64* machine, with I expect a
-> > GIC400. Where is this A7 compat coming from?
+> > And I'm pretty sure the whole of the GICC range is correctly
+> > accessible at offset 0xF000, giving you the full 8kB you need. That's
+> > because each page of the GIC is aliased over two 64kB blocks, as per
+> > the integration guidelines so that MMU isolation can be provided on a
+> > 64kB boundary.
 > 
-> Probably historical, as the first port was for aarch32. I will fix
-> this separately. thanks for the head up!
+> Thanks a lot for this explanation, indeed this works like a charm.
+> 
+> > 
+> > Funnily enough, all it takes is to adjust GICC region. You can either:
+> > 
+> > - make it 128kB wide, and the driver will take care of it (details in
+> >    gic_check_eoimode()). On one of my boxes that is similarly
+> >    configured, I get:
+> > 
+> >    [    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+> >    [    0.000000] GIC: Adjusting CPU interface base to 0x00000000780af000
+> >    [    0.000000] Root IRQ handler: gic_handle_irq
+> >    [    0.000000] GIC: Using split EOI/Deactivate mode
+> > 
+> >    See below for what I expect to be the correct fix.
+> >    - make it 8kB wide from offset 0xF000.
+> 
+> I checked both and they work. I will go for the former to show real
+> 8kB size to be exposed in the DT. And there are a few other
+> platforms that use this alias
 
-Then while you're at it, you may want to consider removing the
-"always-on" property in the timer, because I'm pretty sure the
-comparator goes down in low power mode on A53 and A35, and loses its
-value.
+I think 8kB the wrong option. The GIC *is* supposed to be integrated
+over 128kB on arm64 platforms (there was some documentation about that
+back in the days, but it has become impossible to search anything on
+ARM's stupidly broken website.  My recollection is that it was bundled
+with the GICv2m "specification" (only half a page!).
 
-In general, only VMs can make use of this property.
+Furthermore, you are supposed to describe the HW. Not your
+interpretation of it. Correctly written SW targeting arm64 know about
+this anyway.
+
+> > Unless the ST HW folks have been even more creative, none of this
+> > overly complicated stuff should be necessary. Just describe the HW
+> > correctly.
+> 
+> I was unable to find this information in the GIC-400 trm
+> (https://developer.arm.com/documentation/ddi0471/b/programmers-model/gic-400-register-map). Now
+> I also prefer to use GICC alias at
+> offset 0xf000 as suggested rather than the quirk solution
+
+Again, this isn't a quirk. It's the one true way for 64bit platforms
+that can use pages bigger than 4kB. That's the purpose of the 4Kn64K
+parameter in the integration, dropping bits [15:12] from the PA
+presented to the CPU interface.
 
 	M.
 
