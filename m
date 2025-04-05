@@ -2,89 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B70A7C885
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Apr 2025 11:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F9B9A7CC1A
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 00:16:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF9A2C78F89;
-	Sat,  5 Apr 2025 09:27:44 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C701C78F88;
+	Sat,  5 Apr 2025 22:16:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA3FCC78F88
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4234CC78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Apr 2025 09:27:43 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-ac298c8fa50so469624866b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 05 Apr 2025 02:27:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1743845263; x=1744450063;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zZnZ1QBH4c/cR2r7Z2I0IWQDQQpPtp/xF22TjNG8zFs=;
- b=XR1KnvqWLIp8qZ0OJaD8JX827h4/0/ZapSPy45z58VBiBg+FWhaRQJBYZUQ6XOHP9w
- cbTRfSJ86l/BSK9zlUraJNOY+dVhumtJCrg1Acl+k4G//4/DTmq7+bcOXEG5P+NgVapb
- HSkrifCFuO5NBoWLMYXOTy5YG78jnd/iQ0QBBETQymvd+AXtZYuOD5ThFh17s4yYuLrA
- LBB+A+qfxMjBDTpWcGR6qVS34B6+P/FfQkmvWob2qeZo5RE5b6h3AhvepuF4viKl6kp8
- OS5/397+CGsdmIEHW5KJ73wISRvOfJSF13MlF9Cf3o3auF4BmMVz9LIN0jiwFUqAjNje
- zo+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743845263; x=1744450063;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zZnZ1QBH4c/cR2r7Z2I0IWQDQQpPtp/xF22TjNG8zFs=;
- b=O3QvGD/QOCWRRQfm9AZcInjGzRG71n7DIHTfYQOePkRDOKIYi58ryG58jwUkOYRGoT
- IsmM7LnvjVmoQ61kOXCA/DTYaKJ726AYZkdxgHazmF3g9MD4t5k/vLcYAayJ0II5KZjL
- 4bBgaGsbYvx7WCS8uzWdGuZp4swLh5WhbcJ17xsmQSxbNs5h7an/1gpI09uaejPGj/+Z
- yMs4b7Brq9N1b1cJ2denItm/YLvtlxvaOEG6mhYWuNRxuyEQEGIWXIgt1u5zyXl27awb
- 0Iy8M6JrUdSSCfeAT64cvZrIHhqSEY+o1l/VziBrVwEINMrCPs5saIpAjJ0g43NYUfMd
- q95g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoUVUH7K0qE1w+h/0z8sS4EWY0BYsOWjjTok0Wx8d9OCwKz47Wamd/VGjA2FRlGrg/NA9twce9Zc5xsQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzhOPpE6e89dX80MxOO3DR/wgjuEyWgunE7IX62zzAJ1Orv0qjs
- XpRMbOcP0QKCCaiqNh11dOoCqNncxSCFiGDmpRSb3aUuw4Ab/CsJm0ZU2eeoRDc=
-X-Gm-Gg: ASbGncs4jxL2tFsSo/+roPNlvLdnfm9pO2WDVh+OGCKyq6+P8blOUGo2Tq9fAQf3Nk0
- JmAuqdWUyIqmYsNGNW8JFNjmObO9M94iPHcBKDRzPgdc5hlwLFq3PA/SyK9MnZAzd2bJxvP6oH7
- hBhGwyiznYg4Qb3Rk1h44iERPVVgq7DLjCowWB3eVu0ZtjXZvGh2YepUE9apF4HcYShVAw78QVO
- pGf5gvs6r98sa72GGxJ0Ja2KmviUyk1CLW/GiH4OYsvFfqPlcJEB0MkN19c68jilJzaV4grlMzb
- VWie+U0/NysQs6qAydy4s94c8R7SoaBohflGJ0350YQaqcHdJg==
-X-Google-Smtp-Source: AGHT+IGWO7dBoEwfH+vhvetzVchvOebwHG0LSEkTGJ+mVXy0B0Ix45di+z7EJEIkw1x3jHja6bWBjg==
-X-Received: by 2002:a17:907:7f07:b0:ac3:8a3a:e924 with SMTP id
- a640c23a62f3a-ac7d19903fdmr555132166b.39.1743845263101; 
- Sat, 05 Apr 2025 02:27:43 -0700 (PDT)
-Received: from localhost ([2a02:8071:b783:6940:36f3:9aff:fec2:7e46])
- by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac7bfea0eadsm394579766b.67.2025.04.05.02.27.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Apr 2025 02:27:42 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: linux-pwm@vger.kernel.org
-Date: Sat,  5 Apr 2025 11:27:15 +0200
-Message-ID: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <cover.1743844730.git.u.kleine-koenig@baylibre.com>
-References: <cover.1743844730.git.u.kleine-koenig@baylibre.com>
+ Sat,  5 Apr 2025 22:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1743891368; x=1775427368;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=xXUS4GgMNiPbO1jwMYGA+GWr2ekyWvBCCBz0RyIJHDM=;
+ b=IdTUfIDaERIc4PkgcuDYdc5f+y/RkZJQ25fmwxVoeTRgz6KzNZHo+m6T
+ JUUOx0gPWcbp+CiW095TMehRnxLSyaOwxddHqlucsljqXZkCr+Hj5EgGT
+ rZdmuVU0nZfQUa+ZksjaFUSzKyB3jCaOijvxd504xAS0A/68Hstb2yJ+R
+ m2FYcunpiII2LiJsanLOBGHKVSNC/XeA2WYIJTrpRE76iE1d1Uz/IyBYL
+ igS96OmxKwuX+vmWdabXjkodZoXz1fcjNBY6zshE1HlQv3juzYzsZ2PPz
+ 81ssRRb6wZueIzRkUe4R7tyZxU8ojiRvZmQjkPwCSh8kSVpoBOlx+ymor g==;
+X-CSE-ConnectionGUID: UmXclE7uS0ySOi7qfnn9UA==
+X-CSE-MsgGUID: 3H17jUZ4SRORYgrdT02uVQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11395"; a="48018099"
+X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="48018099"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2025 15:16:06 -0700
+X-CSE-ConnectionGUID: g4MEpJ50TTiUgcuNLPmOSw==
+X-CSE-MsgGUID: C0wrrevxTpKJWYkd9AmLDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="128116775"
+Received: from lkp-server01.sh.intel.com (HELO b207828170a5) ([10.239.97.150])
+ by orviesa007.jf.intel.com with ESMTP; 05 Apr 2025 15:16:04 -0700
+Received: from kbuild by b207828170a5 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1u1Bo2-0002Jz-06;
+ Sat, 05 Apr 2025 22:16:02 +0000
+Date: Sun, 6 Apr 2025 06:15:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-pwm@vger.kernel.org
+Message-ID: <202504060517.dHXuUANs-lkp@intel.com>
+References: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1852;
- i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=PeMUN5MaPR/iihGuaAYk1+RqNZDBvhqS1HijQAO+fo4=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBn8Pd6gBS/U7sm8gCc++Qe+H9FPvkAFOyatKX8B
- qZYNTVb/8WJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZ/D3egAKCRCPgPtYfRL+
- TiyKB/0dJZmWMtAaRs0WJ3PXT9d3VqFRF+ApoExKeBVC+2ES9YhZvF7McGhAzK48ik7Ly+LbIdd
- Il/cB2eBN8HrWNjZoHv/RVydoIwXGPyxm+7EVsFLjp6QVEbKfRjnonbncS3QTgmSKMIUL6e6JSC
- Exlph+FquJCDEjgnQZiyDNnKFMpId9mwZfG4STy0nFW4ohy/2CIVisdMr+VJ/Ku9COUq3a/FB+F
- QNpy10ntJAQfeJnxjycByIlnMBpPR+ouavHhm3lAae1baYZOSbounM633kPFBC43UuT9ehZ8ryi
- RmE7IGRwAQ/z49wXa8pqeOAbyygY5+bxUJ0PuQwUNrsaJoRK
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Disposition: inline
+In-Reply-To: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
 Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/6] pwm: stm32: Emit debug output also for
-	corner cases of the rounding callbacks
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/6] pwm: stm32: Emit debug output also
+ for corner cases of the rounding callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,43 +66,108 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-V2hlbiB5b3UncmUgaW50ZXJlc3RlZCBpbiB0aGUgYWN0dWFsIHJlZ2lzdGVyIHNldHRpbmdzIHRo
-ZSBkcml2ZXIKY2hvb3NlcyBvciBpbnRlcnByZXRzIHlvdSB3YW50IHRvIHNlZSB0aGVtIGFsc28g
-Zm9yIGNhbGxzIHRoYXQgaGl0CmNvcm5lciBjYXNlcy4KCk1ha2Ugc3VyZSB0aGF0IGFsbCBjYWxs
-cyB0byBzdG0zMl9wd21fcm91bmRfd2F2ZWZvcm1fdG9odygpIGFuZApzdG0zMl9wd21fcm91bmRf
-d2F2ZWZvcm1fZnJvbWh3KCkgZW1pdCB0aGUgZGVidWcgbWVzc2FnZSBhYm91dCB0aGUKcmVnaXN0
-ZXIgc2V0dGluZ3MuCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUt
-a29lbmlnQGJheWxpYnJlLmNvbT4KLS0tCiBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYyB8IDExICsr
-KysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jIGIvZHJpdmVycy9wd20vcHdt
-LXN0bTMyLmMKaW5kZXggYzY2MjVmNTFhMTk5Li5kY2E1ZDA5ZDgwYjkgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvcHdtL3B3bS1zdG0zMi5jCisrKyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCkBAIC0x
-ODAsMTEgKzE4MCwxMSBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9yb3VuZF93YXZlZm9ybV90b2h3
-KHN0cnVjdCBwd21fY2hpcCAqY2hpcCwKIAogCXdmaHctPmNjciA9IG1pbl90KHU2NCwgY2NyLCB3
-Zmh3LT5hcnIgKyAxKTsKIAorb3V0OgogCWRldl9kYmcoJmNoaXAtPmRldiwgInB3bSMldTogJWxs
-ZC8lbGxkIFsrJWxsZF0gQCVsdSAtPiBDQ0VSOiAlMDh4LCBQU0M6ICUwOHgsIEFSUjogJTA4eCwg
-Q0NSOiAlMDh4XG4iLAogCQlwd20tPmh3cHdtLCB3Zi0+ZHV0eV9sZW5ndGhfbnMsIHdmLT5wZXJp
-b2RfbGVuZ3RoX25zLCB3Zi0+ZHV0eV9vZmZzZXRfbnMsCiAJCXJhdGUsIHdmaHctPmNjZXIsIHdm
-aHctPnBzYywgd2Zody0+YXJyLCB3Zmh3LT5jY3IpOwogCi1vdXQ6CiAJY2xrX2Rpc2FibGUocHJp
-di0+Y2xrKTsKIAogCXJldHVybiByZXQ7CkBAIC0yMzYsMTcgKzIzNiwxNiBAQCBzdGF0aWMgaW50
-IHN0bTMyX3B3bV9yb3VuZF93YXZlZm9ybV9mcm9taHcoc3RydWN0IHB3bV9jaGlwICpjaGlwLAog
-CQkJd2YtPmR1dHlfbGVuZ3RoX25zID0gY2NyX25zOwogCQkJd2YtPmR1dHlfb2Zmc2V0X25zID0g
-MDsKIAkJfQotCi0JCWRldl9kYmcoJmNoaXAtPmRldiwgInB3bSMldTogQ0NFUjogJTA4eCwgUFND
-OiAlMDh4LCBBUlI6ICUwOHgsIENDUjogJTA4eCBAJWx1IC0+ICVsbGQvJWxsZCBbKyVsbGRdXG4i
-LAotCQkJcHdtLT5od3B3bSwgd2Zody0+Y2Nlciwgd2Zody0+cHNjLCB3Zmh3LT5hcnIsIHdmaHct
-PmNjciwgcmF0ZSwKLQkJCXdmLT5kdXR5X2xlbmd0aF9ucywgd2YtPnBlcmlvZF9sZW5ndGhfbnMs
-IHdmLT5kdXR5X29mZnNldF9ucyk7Ci0KIAl9IGVsc2UgewogCQkqd2YgPSAoc3RydWN0IHB3bV93
-YXZlZm9ybSl7CiAJCQkucGVyaW9kX2xlbmd0aF9ucyA9IDAsCiAJCX07CiAJfQogCisJZGV2X2Ri
-ZygmY2hpcC0+ZGV2LCAicHdtIyV1OiBDQ0VSOiAlMDh4LCBQU0M6ICUwOHgsIEFSUjogJTA4eCwg
-Q0NSOiAlMDh4IEAlbHUgLT4gJWxsZC8lbGxkIFsrJWxsZF1cbiIsCisJCXB3bS0+aHdwd20sIHdm
-aHctPmNjZXIsIHdmaHctPnBzYywgd2Zody0+YXJyLCB3Zmh3LT5jY3IsIHJhdGUsCisJCXdmLT5k
-dXR5X2xlbmd0aF9ucywgd2YtPnBlcmlvZF9sZW5ndGhfbnMsIHdmLT5kdXR5X29mZnNldF9ucyk7
-CisKIAlyZXR1cm4gMDsKIH0KIAotLSAKMi40Ny4yCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Uwe,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on e48e99b6edf41c69c5528aa7ffb2daf3c59ee105]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Uwe-Kleine-K-nig/pwm-Let-pwm_set_waveform-succeed-even-if-lowlevel-driver-rounded-up/20250405-173024
+base:   e48e99b6edf41c69c5528aa7ffb2daf3c59ee105
+patch link:    https://lore.kernel.org/r/fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig%40baylibre.com
+patch subject: [PATCH 4/6] pwm: stm32: Emit debug output also for corner cases of the rounding callbacks
+config: arm-randconfig-004-20250406 (https://download.01.org/0day-ci/archive/20250406/202504060517.dHXuUANs-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250406/202504060517.dHXuUANs-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202504060517.dHXuUANs-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/device.h:15,
+                    from include/linux/dmaengine.h:8,
+                    from include/linux/mfd/stm32-timers.h:11,
+                    from drivers/pwm/pwm-stm32.c:12:
+   drivers/pwm/pwm-stm32.c: In function 'stm32_pwm_round_waveform_fromhw':
+>> drivers/pwm/pwm-stm32.c:246:60: error: 'rate' undeclared (first use in this function)
+     246 |   pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
+         |                                                            ^~~~
+   include/linux/dev_printk.h:139:35: note: in definition of macro 'dev_no_printk'
+     139 |    _dev_printk(level, dev, fmt, ##__VA_ARGS__); \
+         |                                   ^~~~~~~~~~~
+   drivers/pwm/pwm-stm32.c:245:2: note: in expansion of macro 'dev_dbg'
+     245 |  dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
+         |  ^~~~~~~
+   drivers/pwm/pwm-stm32.c:246:60: note: each undeclared identifier is reported only once for each function it appears in
+     246 |   pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
+         |                                                            ^~~~
+   include/linux/dev_printk.h:139:35: note: in definition of macro 'dev_no_printk'
+     139 |    _dev_printk(level, dev, fmt, ##__VA_ARGS__); \
+         |                                   ^~~~~~~~~~~
+   drivers/pwm/pwm-stm32.c:245:2: note: in expansion of macro 'dev_dbg'
+     245 |  dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
+         |  ^~~~~~~
+
+
+vim +/rate +246 drivers/pwm/pwm-stm32.c
+
+   208	
+   209	static int stm32_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+   210						   struct pwm_device *pwm,
+   211						   const void *_wfhw,
+   212						   struct pwm_waveform *wf)
+   213	{
+   214		const struct stm32_pwm_waveform *wfhw = _wfhw;
+   215		struct stm32_pwm *priv = to_stm32_pwm_dev(chip);
+   216		unsigned int ch = pwm->hwpwm;
+   217	
+   218		if (wfhw->ccer & TIM_CCER_CCxE(ch + 1)) {
+   219			unsigned long rate = clk_get_rate(priv->clk);
+   220			u64 ccr_ns;
+   221	
+   222			/* The result doesn't overflow for rate >= 15259 */
+   223			wf->period_length_ns = stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * (wfhw->arr + 1),
+   224										     NSEC_PER_SEC, rate);
+   225	
+   226			ccr_ns = stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * wfhw->ccr,
+   227								       NSEC_PER_SEC, rate);
+   228	
+   229			if (wfhw->ccer & TIM_CCER_CCxP(ch + 1)) {
+   230				wf->duty_length_ns =
+   231					stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * (wfhw->arr + 1 - wfhw->ccr),
+   232									      NSEC_PER_SEC, rate);
+   233	
+   234				wf->duty_offset_ns = ccr_ns;
+   235			} else {
+   236				wf->duty_length_ns = ccr_ns;
+   237				wf->duty_offset_ns = 0;
+   238			}
+   239		} else {
+   240			*wf = (struct pwm_waveform){
+   241				.period_length_ns = 0,
+   242			};
+   243		}
+   244	
+   245		dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
+ > 246			pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
+   247			wf->duty_length_ns, wf->period_length_ns, wf->duty_offset_ns);
+   248	
+   249		return 0;
+   250	}
+   251	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
