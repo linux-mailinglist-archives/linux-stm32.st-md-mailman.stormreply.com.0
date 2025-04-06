@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA1FA7D057
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 22:35:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34DCA7D058
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 22:35:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B03E3C78F85;
-	Sun,  6 Apr 2025 20:35:36 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE31CC78F85;
+	Sun,  6 Apr 2025 20:35:39 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42915CFAC4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61B6AC78F85
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Apr 2025 20:35:35 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3912622c9c0so393757f8f.3
+ Sun,  6 Apr 2025 20:35:38 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-3912ebb8e88so337253f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 06 Apr 2025 13:35:35 -0700 (PDT)
+ Sun, 06 Apr 2025 13:35:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1743971734; x=1744576534;
+ d=linaro.org; s=google; t=1743971738; x=1744576538;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vqE+fJoQoP5EIZsKKCKpe2hB/iRkIebJfJA+OiuqQwA=;
- b=HUcewXE5Lq7CBEjMZGmT91VrOxf0ik0BZPRmqcRZ0+/LDg0Tlg/3StI8FYymcT4TZG
- mHMQk3iorjPiZHKzTHx0srxtmMLZ/qhGi4zLGkAr9WsRwSOFMW+0NbayR+AnMJ+CfJY/
- 6bhgRzgTfuwBLr7RKqeTImsHzmSILxonBiaGcePVU7DCma05bPbtaG85ZPSdzuGTQNgP
- f/7sR7wbkjX2vjW0+n9cuU1JHQXQgNrBWoos2YecKbRSJtLsBvccuPok4Uhe/+GUjTEZ
- FwMQhe7AK1UnztsKfSFdMKrBD9BTo1giv7SdidB5MTOEDxbQT2++pj7gZ2Yl+PK9HAii
- V71A==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/Oni6Z/lHvJDm4dC2qfnAqvwTkcCLV7N0fQ4hIhJQyc=;
+ b=gpVPL78JY0tdZly3puRIitbXK8KvW9P2yOHuHiEV2QUsgZQ7dI1kwinWPksBKpZXTm
+ S1SbG/4/cqxEyqpQ1k/AJruGFaPsfdQJbKfmQ4bObDGZQ0NfjlWEUCre34r93sVRsW+j
+ ohDc2pSEkYdTzaOnn/kyecbP3yn2nYnfkwpMPgkyC0XdSbxRd0yvYQJjQy8NzDIlGL2Y
+ s9tMEt3lIq0I5jUCihJryrz9KN2CJ0QDTi3pFCjCj0KL015vo7zI6+dhs5b2TGBZ5KCr
+ Nwum1tpXEUuuPfeu4h5tLfHe6RD6RizK6cAhngTzLzJSaj4Je5baZ1R6116XyiP+j09c
+ 0jtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743971734; x=1744576534;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vqE+fJoQoP5EIZsKKCKpe2hB/iRkIebJfJA+OiuqQwA=;
- b=jk/v8JvarIEKWYKVplYspP/SlVtIY8CEwHPGzInX8NMd9RzROOuAL3yTDuxjYMXdMh
- IxJRL6Sm3dyaq4myt4RaCwncOq+S0cYk9fJMV8Vp5lyqPqReWjg0oPjevA2NemU9Fwvp
- AcTicZ1l/oF27Wr6x/2Fhy17SeNi/y8PGi0xo7zth+vYId4z52o1NBq3m4LHGsmJWSD8
- ZV4b3vObg7nXjK3GZDZPnIdbbU8RZvPzjIsOKWZwTO5ZheygGIPLH153EOjbgYOkEjXh
- 3nlUEsDMsX8HMW122+J4U+Whb/sbblnS9RSJ6EO4VqDi1vze0uy7ndFNegw5YclzdZ9G
- BlxQ==
+ d=1e100.net; s=20230601; t=1743971738; x=1744576538;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/Oni6Z/lHvJDm4dC2qfnAqvwTkcCLV7N0fQ4hIhJQyc=;
+ b=gMAOVmq71nBMtGF3+jomlnGU99xeNKV2eLypjzHlUAHhH7ZCAqpJGxzrEnlTjcf6k4
+ BdNqPhBUtyQLhbQgBUwJs1iRhJCgd5Kwis+7a17wqoENo+5qLvueLbUHP1mAcXHC8lBE
+ tWU/BdGX9TelSMBof68W6JnS6/n+WCl3JDjCnw/AY7LYTYEJtcKAnstebjiMmjBwnFfh
+ uvfK4kqF55bHkwIeOwLVDgw8fZdvVbSWsm0sc6Rk5Zp/FaYKfZdb+Wv6T8bgxgqonU5/
+ REuchsTCjlqKGigq9rn/YoNfxMann6y1q2u48P/GlSJjAcxsGALC6nMlaP5k6J7n0R2F
+ wAEw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXqSCzNCfeq5/q+/bAeMroK9x/jZOmzsujz3RH+mVJ28FKnCNCJYHD6gsijPi1STX6K92eLnfDJKnwuUQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxnrlgOdsm5eepMedz179ARjSLUP/QTOBVHWb8FjhOBiItYw30p
- 5pYGQXqRx10uS46n8gSGGADoZjzTk7GtfcKLsY0F9NK7qIfDZbTYRMT13ZZOR1g=
-X-Gm-Gg: ASbGnctWSjNFSCSGhQaR/27eHC6TU6irpdBBc/USDIlj/0OGwvnUKYrQl5dTJYTHDO8
- 5mNo0W8C+HTtByE/X9bDr4ec1IbcW2VsMtIgLr/3lyzbgoM5CNyvbnwVF9jwlmmLfRyCVLA8m64
- BOhlr5RmPm/lAeqZoeTZkcU7uic/Of8gdyI3owDB+v1gB/C/E3XcD9dxXxS5cRKz7cD8EOI0xll
- vyrO1tJc0epiq/AGpjT2sYCCjUwtlnwrPTV5je14b9hSkx0NF2bykWboI4qTKqZub2rvQGSAPKx
- 7zIQkFCxrKJv/kmNbBWqPd6vRQoYgopSRM/sG9RMRs+tdYF/eG5fDg==
-X-Google-Smtp-Source: AGHT+IGnWAB5N19dqxV+uf9H1b+D2cecFF/JdZzD4NafcpKENqOS32Y9IbVOYHktlCW19MYWLq1llQ==
-X-Received: by 2002:a5d:5983:0:b0:391:277e:c400 with SMTP id
- ffacd0b85a97d-39cba93faf2mr3373054f8f.13.1743971734540; 
- Sun, 06 Apr 2025 13:35:34 -0700 (PDT)
+ AJvYcCXhMBE4tqi/VD77nuP+4kBnUCtKn93/dMsMRL0R7QgLOcCCyRDHwHikpW/Qm/0pcnOAXbxnUF0pc4Xrtw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzpKAF9l6FXFbfcwMrLPBKE2OjXb86XbQ4y4eoUTTVtLZxGktO3
+ KHw/XsZc7cIJe0C8Kad+J552DkfOAPO4RNrEdAlY2YxE/O5D1DJpARnFFfjqsvc=
+X-Gm-Gg: ASbGnctfocmGgEa+/nYSxSuQLjvPLaG1aCcQDIlUf9jkvILAlOJ9tj8XXxBOS/n9PP4
+ Dtbc+Ydf1lbdEv9GTJfgKKJ6W7sXJtTVVucGZOrt7UGZm2R/vSZihE9RUlEcmT/Z8d6WpP2mpyw
+ ChyZz9bWIPYzJwvqIjoyS/E/eBVzFvYVgr2RkJdHFPHjY+/JMIi5tLnJZAhAsEZlpKRCV8U3Pq1
+ v8DtE33rwcxzMC/MYu31DVnKzf+c+Vjcd1QrWE8fpIDnogX1enZZM/2B9hFWLeJpxToPijoILM3
+ ug/NsbTwWvq933oQ4vqSGSI4Orf85oJM0TLagG66f7Br2mB2VIJeKw==
+X-Google-Smtp-Source: AGHT+IFdkV0qo7M6MnBRCoiFVbhYiS1XD9xft1NUY735rauYmXbOkSn8HVSEp3wFfmum1Z3fJ/qIqQ==
+X-Received: by 2002:a5d:59ac:0:b0:391:2a9a:47a6 with SMTP id
+ ffacd0b85a97d-39cb3595265mr3095383f8f.4.1743971737746; 
+ Sun, 06 Apr 2025 13:35:37 -0700 (PDT)
 Received: from shite.. ([178.197.198.86]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d7c6d838bsm38022f8f.69.2025.04.06.13.35.32
+ ffacd0b85a97d-39d7c6d838bsm38022f8f.69.2025.04.06.13.35.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 06 Apr 2025 13:35:33 -0700 (PDT)
+ Sun, 06 Apr 2025 13:35:36 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
  Guenter Roeck <linux@roeck-us.net>,
@@ -67,13 +68,14 @@ To: Wim Van Sebroeck <wim@linux-watchdog.org>,
  linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Sun,  6 Apr 2025 22:35:30 +0200
-Message-ID: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
+Date: Sun,  6 Apr 2025 22:35:31 +0200
+Message-ID: <20250406203531.61322-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
+References: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 1/2] watchdog: stm32: Fix wakeup source leaks
-	on device unbind
+Subject: [Linux-stm32] [PATCH 2/2] watchdog: Correct kerneldoc warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,27 +92,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Device can be unbound or probe can fail, so driver must also release
-memory for the wakeup source.
+Correct kerneldoc syntax or drop kerneldoc entirely for function
+comments not being kerneldoc to fix warnings like:
+
+  pretimeout_noop.c:19: warning: Function parameter or struct member 'wdd' not described in 'pretimeout_noop'
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/watchdog/stm32_iwdg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/watchdog/pcwd_usb.c         | 6 +++---
+ drivers/watchdog/pretimeout_noop.c  | 2 +-
+ drivers/watchdog/pretimeout_panic.c | 2 +-
+ drivers/watchdog/wdt_pci.c          | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index 8ad06b54c5ad..b356a272ff9a 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -291,7 +291,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
- 		return 0;
+diff --git a/drivers/watchdog/pcwd_usb.c b/drivers/watchdog/pcwd_usb.c
+index 132699e2f247..b636650b714b 100644
+--- a/drivers/watchdog/pcwd_usb.c
++++ b/drivers/watchdog/pcwd_usb.c
+@@ -579,7 +579,7 @@ static struct notifier_block usb_pcwd_notifier = {
+ 	.notifier_call =	usb_pcwd_notify_sys,
+ };
  
- 	if (of_property_read_bool(np, "wakeup-source")) {
--		ret = device_init_wakeup(dev, true);
-+		ret = devm_device_init_wakeup(dev);
- 		if (ret)
- 			return ret;
+-/**
++/*
+  *	usb_pcwd_delete
+  */
+ static inline void usb_pcwd_delete(struct usb_pcwd_private *usb_pcwd)
+@@ -590,7 +590,7 @@ static inline void usb_pcwd_delete(struct usb_pcwd_private *usb_pcwd)
+ 	kfree(usb_pcwd);
+ }
  
+-/**
++/*
+  *	usb_pcwd_probe
+  *
+  *	Called by the usb core when a new device is connected that it thinks
+@@ -758,7 +758,7 @@ static int usb_pcwd_probe(struct usb_interface *interface,
+ }
+ 
+ 
+-/**
++/*
+  *	usb_pcwd_disconnect
+  *
+  *	Called by the usb core when the device is removed from the system.
+diff --git a/drivers/watchdog/pretimeout_noop.c b/drivers/watchdog/pretimeout_noop.c
+index 4799551dd784..74ec02b9ffca 100644
+--- a/drivers/watchdog/pretimeout_noop.c
++++ b/drivers/watchdog/pretimeout_noop.c
+@@ -11,7 +11,7 @@
+ 
+ /**
+  * pretimeout_noop - No operation on watchdog pretimeout event
+- * @wdd - watchdog_device
++ * @wdd: watchdog_device
+  *
+  * This function prints a message about pretimeout to kernel log.
+  */
+diff --git a/drivers/watchdog/pretimeout_panic.c b/drivers/watchdog/pretimeout_panic.c
+index 2cc3c41d2be5..8c3ac674dc45 100644
+--- a/drivers/watchdog/pretimeout_panic.c
++++ b/drivers/watchdog/pretimeout_panic.c
+@@ -11,7 +11,7 @@
+ 
+ /**
+  * pretimeout_panic - Panic on watchdog pretimeout event
+- * @wdd - watchdog_device
++ * @wdd: watchdog_device
+  *
+  * Panic, watchdog has not been fed till pretimeout event.
+  */
+diff --git a/drivers/watchdog/wdt_pci.c b/drivers/watchdog/wdt_pci.c
+index dc5f29560e9b..3918a600f2a0 100644
+--- a/drivers/watchdog/wdt_pci.c
++++ b/drivers/watchdog/wdt_pci.c
+@@ -264,7 +264,7 @@ static int wdtpci_get_status(int *status)
+ 	return 0;
+ }
+ 
+-/**
++/*
+  *	wdtpci_get_temperature:
+  *
+  *	Reports the temperature in degrees Fahrenheit. The API is in
 -- 
 2.45.2
 
