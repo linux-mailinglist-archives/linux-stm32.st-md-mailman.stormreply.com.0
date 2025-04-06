@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9B9A7CC1A
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 00:16:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6969A7CCD1
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 06:59:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C701C78F88;
-	Sat,  5 Apr 2025 22:16:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64FDEC78F89;
+	Sun,  6 Apr 2025 04:59:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4234CC78F6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A2C1C78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Apr 2025 22:16:08 +0000 (UTC)
+ Sun,  6 Apr 2025 04:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1743891368; x=1775427368;
+ t=1743915578; x=1775451578;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=xXUS4GgMNiPbO1jwMYGA+GWr2ekyWvBCCBz0RyIJHDM=;
- b=IdTUfIDaERIc4PkgcuDYdc5f+y/RkZJQ25fmwxVoeTRgz6KzNZHo+m6T
- JUUOx0gPWcbp+CiW095TMehRnxLSyaOwxddHqlucsljqXZkCr+Hj5EgGT
- rZdmuVU0nZfQUa+ZksjaFUSzKyB3jCaOijvxd504xAS0A/68Hstb2yJ+R
- m2FYcunpiII2LiJsanLOBGHKVSNC/XeA2WYIJTrpRE76iE1d1Uz/IyBYL
- igS96OmxKwuX+vmWdabXjkodZoXz1fcjNBY6zshE1HlQv3juzYzsZ2PPz
- 81ssRRb6wZueIzRkUe4R7tyZxU8ojiRvZmQjkPwCSh8kSVpoBOlx+ymor g==;
-X-CSE-ConnectionGUID: UmXclE7uS0ySOi7qfnn9UA==
-X-CSE-MsgGUID: 3H17jUZ4SRORYgrdT02uVQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11395"; a="48018099"
-X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="48018099"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2025 15:16:06 -0700
-X-CSE-ConnectionGUID: g4MEpJ50TTiUgcuNLPmOSw==
-X-CSE-MsgGUID: C0wrrevxTpKJWYkd9AmLDg==
+ bh=jZis5iEY4tCqO7K5vNNJgbuHf7Bs+RX9cH+CAloWBw4=;
+ b=J6Yo7pOFYh2fWUv/OM3ecRzWOri2gwVnr5OlhjZEqlgMpIhWz5YVhlsb
+ wmqDmO5H9tYg9k3aoZsGM3xPj9FIxZUFW+519CWpnbqimw3A8MiN97HnU
+ 1QkGFHkPmWGVkWSYWo74aKo759fZVT1oAkP0e7uT1/bSP9Pu+HVbbFLSp
+ fPPcFYcqsC8114Z7XGt5masqOPw7KgyQDn+jp6X1gLUvt7t1x7sb+5Vaw
+ hG6yacbhJjVjmiix5Wp7Lbx/u8i1x+Yu+ipgI0lrofU7dBsn91Q34dGPb
+ 3j3JVfK/QqIE1Ub8fVHdSHkRSBTpfG69fDF3E+9W4GbHQXVArCeK8yknF w==;
+X-CSE-ConnectionGUID: hO0thw0dSci02HWuaD1Paw==
+X-CSE-MsgGUID: iraAlsiAQlihwvAF/bKGPQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11395"; a="32920572"
+X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="32920572"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2025 21:59:36 -0700
+X-CSE-ConnectionGUID: XcWY63J2Sva7cCOgaeGbMg==
+X-CSE-MsgGUID: 6LxQWgP9QB2dhRy8soqyMw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="128116775"
+X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="127630024"
 Received: from lkp-server01.sh.intel.com (HELO b207828170a5) ([10.239.97.150])
- by orviesa007.jf.intel.com with ESMTP; 05 Apr 2025 15:16:04 -0700
+ by fmviesa007.fm.intel.com with ESMTP; 05 Apr 2025 21:59:34 -0700
 Received: from kbuild by b207828170a5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1u1Bo2-0002Jz-06;
- Sat, 05 Apr 2025 22:16:02 +0000
-Date: Sun, 6 Apr 2025 06:15:44 +0800
+ (envelope-from <lkp@intel.com>) id 1u1I6W-0002Rr-06;
+ Sun, 06 Apr 2025 04:59:32 +0000
+Date: Sun, 6 Apr 2025 12:58:43 +0800
 From: kernel test robot <lkp@intel.com>
 To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
  linux-pwm@vger.kernel.org
-Message-ID: <202504060517.dHXuUANs-lkp@intel.com>
+Message-ID: <202504061207.97zbNPvV-lkp@intel.com>
 References: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
-Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 4/6] pwm: stm32: Emit debug output also
  for corner cases of the rounding callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -81,40 +81,21 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Uwe-Kleine-K-nig/pwm-Let-
 base:   e48e99b6edf41c69c5528aa7ffb2daf3c59ee105
 patch link:    https://lore.kernel.org/r/fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig%40baylibre.com
 patch subject: [PATCH 4/6] pwm: stm32: Emit debug output also for corner cases of the rounding callbacks
-config: arm-randconfig-004-20250406 (https://download.01.org/0day-ci/archive/20250406/202504060517.dHXuUANs-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250406/202504060517.dHXuUANs-lkp@intel.com/reproduce)
+config: x86_64-buildonly-randconfig-001-20250406 (https://download.01.org/0day-ci/archive/20250406/202504061207.97zbNPvV-lkp@intel.com/config)
+compiler: clang version 20.1.2 (https://github.com/llvm/llvm-project 58df0ef89dd64126512e4ee27b4ac3fd8ddf6247)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250406/202504061207.97zbNPvV-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202504060517.dHXuUANs-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202504061207.97zbNPvV-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   In file included from include/linux/device.h:15,
-                    from include/linux/dmaengine.h:8,
-                    from include/linux/mfd/stm32-timers.h:11,
-                    from drivers/pwm/pwm-stm32.c:12:
-   drivers/pwm/pwm-stm32.c: In function 'stm32_pwm_round_waveform_fromhw':
->> drivers/pwm/pwm-stm32.c:246:60: error: 'rate' undeclared (first use in this function)
-     246 |   pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
-         |                                                            ^~~~
-   include/linux/dev_printk.h:139:35: note: in definition of macro 'dev_no_printk'
-     139 |    _dev_printk(level, dev, fmt, ##__VA_ARGS__); \
-         |                                   ^~~~~~~~~~~
-   drivers/pwm/pwm-stm32.c:245:2: note: in expansion of macro 'dev_dbg'
-     245 |  dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
-         |  ^~~~~~~
-   drivers/pwm/pwm-stm32.c:246:60: note: each undeclared identifier is reported only once for each function it appears in
-     246 |   pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
-         |                                                            ^~~~
-   include/linux/dev_printk.h:139:35: note: in definition of macro 'dev_no_printk'
-     139 |    _dev_printk(level, dev, fmt, ##__VA_ARGS__); \
-         |                                   ^~~~~~~~~~~
-   drivers/pwm/pwm-stm32.c:245:2: note: in expansion of macro 'dev_dbg'
-     245 |  dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
-         |  ^~~~~~~
+>> drivers/pwm/pwm-stm32.c:246:60: error: use of undeclared identifier 'rate'
+     246 |                 pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
+         |                                                                          ^
+   1 error generated.
 
 
 vim +/rate +246 drivers/pwm/pwm-stm32.c
