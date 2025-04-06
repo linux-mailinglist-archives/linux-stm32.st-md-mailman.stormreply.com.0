@@ -2,81 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5AFAA7D04F
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 22:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA1FA7D057
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 22:35:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64600C78F85;
-	Sun,  6 Apr 2025 20:32:07 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B03E3C78F85;
+	Sun,  6 Apr 2025 20:35:36 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C60C1CFAC4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42915CFAC4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Apr 2025 20:32:05 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-227d6b530d8so29840145ad.3
+ Sun,  6 Apr 2025 20:35:35 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3912622c9c0so393757f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 06 Apr 2025 13:32:05 -0700 (PDT)
+ Sun, 06 Apr 2025 13:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20230601; t=1743971524; x=1744576324;
+ d=linaro.org; s=google; t=1743971734; x=1744576534;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/QKe2abRQc2yYg8840jEvGySXkfzcfSJKHrjRel0tUY=;
- b=RTZPDxBjSUUjSmeb4u/hXAPssGv4YaMxIbhLaN8NfseM0Zh0rOMtzPTbvQNdMavyeK
- Dqu35+11b+Y1MgdwIJGqS2gVQTQHVSuJEHAi86lSmwwAvQ+s75d8hUivUiLSBlP837ax
- dPx2ccKHGACK78/fE4DhsX5WvtS/lUHy4BySnzDfaICMMfea98ZO0Ybi2dQVwkPYuqlf
- I7AgS/v5uU/TABchZjvE/M0/qU+N7UEH7+NG2UK1FD/KjGMYODFTlg5b697/eS3Q029r
- JMUDgaOu4Fz5ZfqWDcu0hVz3S7VE3zaWGSowAahkBJ2WZ7rtZajGYe4kQU6DbgEpvf6U
- yvRw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vqE+fJoQoP5EIZsKKCKpe2hB/iRkIebJfJA+OiuqQwA=;
+ b=HUcewXE5Lq7CBEjMZGmT91VrOxf0ik0BZPRmqcRZ0+/LDg0Tlg/3StI8FYymcT4TZG
+ mHMQk3iorjPiZHKzTHx0srxtmMLZ/qhGi4zLGkAr9WsRwSOFMW+0NbayR+AnMJ+CfJY/
+ 6bhgRzgTfuwBLr7RKqeTImsHzmSILxonBiaGcePVU7DCma05bPbtaG85ZPSdzuGTQNgP
+ f/7sR7wbkjX2vjW0+n9cuU1JHQXQgNrBWoos2YecKbRSJtLsBvccuPok4Uhe/+GUjTEZ
+ FwMQhe7AK1UnztsKfSFdMKrBD9BTo1giv7SdidB5MTOEDxbQT2++pj7gZ2Yl+PK9HAii
+ V71A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743971524; x=1744576324;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/QKe2abRQc2yYg8840jEvGySXkfzcfSJKHrjRel0tUY=;
- b=PnFnu5dF6+BazH5lrbDncAoQ6LjXIvs7LxPZ15HtlksQVRbgbKfcw2D2zrCdETHR2S
- x7AMYSYod/yLkQlh15hTO9svIFnA/IwPRdDvhh1NG9KtuxQeunfF32gsBdqUF9GC2A5v
- o7kCSUTBqXwXQss2to3VLyPLfWfm/YxEFnderLRn3jZOd5H8rZivYbWAH94S2MiWqj7N
- 7iI1gz6LJZayyOYkXVL4n+EnrxIekB3/FE8hyQUoLchUhN9YrJ4szJKkoSzaVCsFxROf
- yQWCoj9xRG6/sB+XdcFUmFpp6ZVk/8W1DyDauJIwwyI0uLSqUxam+93XqSTUI99L6RcS
- tHfQ==
+ d=1e100.net; s=20230601; t=1743971734; x=1744576534;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vqE+fJoQoP5EIZsKKCKpe2hB/iRkIebJfJA+OiuqQwA=;
+ b=jk/v8JvarIEKWYKVplYspP/SlVtIY8CEwHPGzInX8NMd9RzROOuAL3yTDuxjYMXdMh
+ IxJRL6Sm3dyaq4myt4RaCwncOq+S0cYk9fJMV8Vp5lyqPqReWjg0oPjevA2NemU9Fwvp
+ AcTicZ1l/oF27Wr6x/2Fhy17SeNi/y8PGi0xo7zth+vYId4z52o1NBq3m4LHGsmJWSD8
+ ZV4b3vObg7nXjK3GZDZPnIdbbU8RZvPzjIsOKWZwTO5ZheygGIPLH153EOjbgYOkEjXh
+ 3nlUEsDMsX8HMW122+J4U+Whb/sbblnS9RSJ6EO4VqDi1vze0uy7ndFNegw5YclzdZ9G
+ BlxQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWwtiR/Q5JO8IeDauB41bohZ79aL7zhUeVxZyi+YSWy0KNnksUh282Pn4fS+sCtjgncvOdF8Elkjp7BCg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YymVlFsqPOSdxJvRCujGFO3fidaVO7qY+nztQ2oVa6owO/NGaOT
- P+2DH2iHrauz6FIZGdnNccofFJR4VFpAts62B1pZwh+jPIZ+vLNMRVNHT+1qTMdz+Y51M66pHUW
- 6D8MsLaSpVUuEZAaWOf+ZRmsASPo=
-X-Gm-Gg: ASbGncuDHTIOEJD36hJ2bcILCTv+79l8QfOEld1MRETSIw8dh737CTxvOXK8vrCr/x6
- TvuEC+12cCSmnKDwFjCuB58JauZ3KQllyM9Ut01Eq2iZH4Bteakas6PXXj3CQw5kAVvESIEW4nB
- B5UeCEDtdTc09R0tyRpzAfzmd/Vmg3n6y/Qbjn/uS8
-X-Google-Smtp-Source: AGHT+IHT9v90+iSAiZXg5CI9I2oqKoRX4lqsSVS1Jifp+TsFpnk0GJAUF4rHe1Z3iO76l1ihTjaQBPryFYN0akQAcDI=
-X-Received: by 2002:a17:902:e546:b0:216:410d:4c53 with SMTP id
- d9443c01a7336-22a8a0a24f1mr155808815ad.41.1743971524234; Sun, 06 Apr 2025
- 13:32:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
- <20250404-kconfig-defaults-clk-v1-1-4d2df5603332@linaro.org>
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-1-4d2df5603332@linaro.org>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 6 Apr 2025 22:31:53 +0200
-X-Gm-Features: ATxdqUGuzCGyUj4WFxWudQ3GalFFdus2VKUZdP35pUaLUbjhJd9NZclZR-cjauk
-Message-ID: <CAFBinCB00HsScB6d4UboQkp8HPQ3pbDwbbwnzwgqJOvHwBDSdA@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>,
+ AJvYcCXqSCzNCfeq5/q+/bAeMroK9x/jZOmzsujz3RH+mVJ28FKnCNCJYHD6gsijPi1STX6K92eLnfDJKnwuUQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxnrlgOdsm5eepMedz179ARjSLUP/QTOBVHWb8FjhOBiItYw30p
+ 5pYGQXqRx10uS46n8gSGGADoZjzTk7GtfcKLsY0F9NK7qIfDZbTYRMT13ZZOR1g=
+X-Gm-Gg: ASbGnctWSjNFSCSGhQaR/27eHC6TU6irpdBBc/USDIlj/0OGwvnUKYrQl5dTJYTHDO8
+ 5mNo0W8C+HTtByE/X9bDr4ec1IbcW2VsMtIgLr/3lyzbgoM5CNyvbnwVF9jwlmmLfRyCVLA8m64
+ BOhlr5RmPm/lAeqZoeTZkcU7uic/Of8gdyI3owDB+v1gB/C/E3XcD9dxXxS5cRKz7cD8EOI0xll
+ vyrO1tJc0epiq/AGpjT2sYCCjUwtlnwrPTV5je14b9hSkx0NF2bykWboI4qTKqZub2rvQGSAPKx
+ 7zIQkFCxrKJv/kmNbBWqPd6vRQoYgopSRM/sG9RMRs+tdYF/eG5fDg==
+X-Google-Smtp-Source: AGHT+IGnWAB5N19dqxV+uf9H1b+D2cecFF/JdZzD4NafcpKENqOS32Y9IbVOYHktlCW19MYWLq1llQ==
+X-Received: by 2002:a5d:5983:0:b0:391:277e:c400 with SMTP id
+ ffacd0b85a97d-39cba93faf2mr3373054f8f.13.1743971734540; 
+ Sun, 06 Apr 2025 13:35:34 -0700 (PDT)
+Received: from shite.. ([178.197.198.86]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39d7c6d838bsm38022f8f.69.2025.04.06.13.35.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Apr 2025 13:35:33 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCH 1/5] clk: meson: Do not enable by default
-	during compile testing
+ linux-arm-kernel@lists.infradead.org
+Date: Sun,  6 Apr 2025 22:35:30 +0200
+Message-ID: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH 1/2] watchdog: stm32: Fix wakeup source leaks
+	on device unbind
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,17 +85,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBBcHIgNCwgMjAyNSBhdCAxOjU34oCvUE0gS3J6eXN6dG9mIEtvemxvd3NraQo8a3J6
-eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPiB3cm90ZToKPgo+IEVuYWJsaW5nIHRoZSBjb21w
-aWxlIHRlc3Qgc2hvdWxkIG5vdCBjYXVzZSBhdXRvbWF0aWMgZW5hYmxpbmcgb2YgYWxsCj4gZHJp
-dmVycy4KPgo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5r
-b3psb3dza2lAbGluYXJvLm9yZz4KUmV2aWV3ZWQtYnk6IE1hcnRpbiBCbHVtZW5zdGluZ2wgPG1h
-cnRpbi5ibHVtZW5zdGluZ2xAZ29vZ2xlbWFpbC5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Device can be unbound or probe can fail, so driver must also release
+memory for the wakeup source.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ drivers/watchdog/stm32_iwdg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+index 8ad06b54c5ad..b356a272ff9a 100644
+--- a/drivers/watchdog/stm32_iwdg.c
++++ b/drivers/watchdog/stm32_iwdg.c
+@@ -291,7 +291,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
+ 		return 0;
+ 
+ 	if (of_property_read_bool(np, "wakeup-source")) {
+-		ret = device_init_wakeup(dev, true);
++		ret = devm_device_init_wakeup(dev);
+ 		if (ret)
+ 			return ret;
+ 
+-- 
+2.45.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
