@@ -2,59 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6969A7CCD1
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 06:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3324A7CE26
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 15:36:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64FDEC78F89;
-	Sun,  6 Apr 2025 04:59:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66D6DC78F69;
+	Sun,  6 Apr 2025 13:36:07 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A2C1C78F6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E71EC7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Apr 2025 04:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1743915578; x=1775451578;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=jZis5iEY4tCqO7K5vNNJgbuHf7Bs+RX9cH+CAloWBw4=;
- b=J6Yo7pOFYh2fWUv/OM3ecRzWOri2gwVnr5OlhjZEqlgMpIhWz5YVhlsb
- wmqDmO5H9tYg9k3aoZsGM3xPj9FIxZUFW+519CWpnbqimw3A8MiN97HnU
- 1QkGFHkPmWGVkWSYWo74aKo759fZVT1oAkP0e7uT1/bSP9Pu+HVbbFLSp
- fPPcFYcqsC8114Z7XGt5masqOPw7KgyQDn+jp6X1gLUvt7t1x7sb+5Vaw
- hG6yacbhJjVjmiix5Wp7Lbx/u8i1x+Yu+ipgI0lrofU7dBsn91Q34dGPb
- 3j3JVfK/QqIE1Ub8fVHdSHkRSBTpfG69fDF3E+9W4GbHQXVArCeK8yknF w==;
-X-CSE-ConnectionGUID: hO0thw0dSci02HWuaD1Paw==
-X-CSE-MsgGUID: iraAlsiAQlihwvAF/bKGPQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11395"; a="32920572"
-X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="32920572"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2025 21:59:36 -0700
-X-CSE-ConnectionGUID: XcWY63J2Sva7cCOgaeGbMg==
-X-CSE-MsgGUID: 6LxQWgP9QB2dhRy8soqyMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,192,1739865600"; d="scan'208";a="127630024"
-Received: from lkp-server01.sh.intel.com (HELO b207828170a5) ([10.239.97.150])
- by fmviesa007.fm.intel.com with ESMTP; 05 Apr 2025 21:59:34 -0700
-Received: from kbuild by b207828170a5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1u1I6W-0002Rr-06;
- Sun, 06 Apr 2025 04:59:32 +0000
-Date: Sun, 6 Apr 2025 12:58:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- linux-pwm@vger.kernel.org
-Message-ID: <202504061207.97zbNPvV-lkp@intel.com>
-References: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
+ Sun,  6 Apr 2025 13:36:06 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so39060285e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 06 Apr 2025 06:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1743946565; x=1744551365;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RMBZuLcEi1BVATpyEBDSQRvEoX2RBDn8k/CK1srt6Gg=;
+ b=baLdBjUfin7moVXpqfzFNuZQeDJICELfXgoE6Osv7/+hLjeftiWLYZkeJa/+RFqJo0
+ 779IAQRQ+QnoNBUfQgOeXguBQFrIwfzc/JTVRvTunrpYsDJNkX9Yaw7K3jPIoYhqOdYI
+ OO/IpTGzyOcSMTCsgEXUtXm4wayC6mO+VwEyaSR6qBvV6CVgRCAcb4LKKT/QnDZSm3Y5
+ eyGtQawdPHtNOJTwSKT0s7Za39ubZ0soVKkhFEuE+QPBjpBom6hhq3rQzmlAlKgHRIUb
+ 83gifri2FEwe5Knt5B5K3U6xVBLZMB0sh7gYG+TL3igYEEVmkbPvHgIbFqzOxGZFoIDC
+ igOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1743946565; x=1744551365;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RMBZuLcEi1BVATpyEBDSQRvEoX2RBDn8k/CK1srt6Gg=;
+ b=h5iy6NcFaC7PIf7wYf1rgpU4tZj/fzmvWHzTS3a1GtNZYCFXgk5y+hqo42/kaQ3/bs
+ UK7xRjP50AI83ItCA57218ZgS+MsCbeEW0cEaGJ0EuzJBBscyDqSrBPzZt6QdDi95+zv
+ fe34CoA3TIJj1lfUEcq2azdAvTmg6EvvNAJLI0m2obSNF4oFojks7AjDfzf/VaVdMB/f
+ gIiWe6l8EclzVRB0yaPTo2WWano7SxmJaPFFTRoQbSNfWGUvXJRosBZ0f+VclPsHRHn1
+ SUBPGNCoj/2+kbQL3mPFaQq/e4FsYo3//+5ZjSWlakwYHO2JNHi0PqK06pjL+1DEI05w
+ 1Y/Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsrJURtiwQdfd/GFwmpPPh3c9PEoTTLhZ43xG2ILuYJ3fXTE8/2outBPRu+Xz9IVk5odYyk1erOuxQTw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyY48MXc0kLAR2+8x49M4ovc9a5YZ3WuaXccCSZ6nOYzL5vozNM
+ apNxZ/WuwQYyXGuRR2+UnxFYWWJ74eA4CCHeb9UWsMC/4RjtRawh
+X-Gm-Gg: ASbGncuSAoZlVV61nHHJVg7kpPbeToP6nB0bLVPUMD2ejF/G94scl12oMPPLoqUk8Tb
+ TPXdKlur1wKnqo2ymR9l7FN5eiLebln/5t4l+JLCTbhYz2x1U2amUt3DyYZ+NRlaC2yCTHvrL2o
+ SPB+h94hoXVbLT1NvB41NkaR3e2fMkL9NP0EHXY7Kxc4DZEziikCLhjZYG5mS+GnVHZh7r9XCJw
+ sklTsQduBobmh9o2CpsD5vaCOkQrqqb/5nvUbzmQRVApQHlqSFZgsv6v/ssbvH0vGFgCMLOh6D2
+ RYQI8dGx+aa5zahiyPb+XYsng1LPOcbpeFlD2ac+RwMyKQ==
+X-Google-Smtp-Source: AGHT+IGaLSX5abguqVbP+J6yIKq+sGqu7t/mSZeOJdHosj/2KCuKMRBbvEKTP1d8iNP8JedYaFysdA==
+X-Received: by 2002:a05:600c:3d94:b0:43c:fceb:91f with SMTP id
+ 5b1f17b1804b1-43ed0bc8d58mr87064365e9.11.1743946565281; 
+ Sun, 06 Apr 2025 06:36:05 -0700 (PDT)
+Received: from qasdev.Home ([2a02:c7c:6696:8300:e805:af55:cd2d:e06f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ec36699e0sm100652575e9.35.2025.04.06.06.36.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Apr 2025 06:36:04 -0700 (PDT)
+From: Qasim Ijaz <qasdev00@gmail.com>
+To: jikos@kernel.org, bentiss@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+Date: Sun,  6 Apr 2025 14:35:51 +0100
+Message-Id: <20250406133551.4576-1-qasdev00@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig@baylibre.com>
-Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/6] pwm: stm32: Emit debug output also
- for corner cases of the rounding callbacks
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org
+Subject: [Linux-stm32] [PATCH RESEND] HID: thrustmaster: fix memory leak in
+	thrustmaster_interrupts()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,83 +87,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Uwe,
+In thrustmaster_interrupts(), the allocated send_buf is not 
+freed if the usb_check_int_endpoints() check fails, leading 
+to a memory leak. 
 
-kernel test robot noticed the following build errors:
+Fix this by ensuring send_buf is freed before returning in 
+the error path.
 
-[auto build test ERROR on e48e99b6edf41c69c5528aa7ffb2daf3c59ee105]
+Fixes: 50420d7c79c3 ("HID: hid-thrustmaster: Fix warning in thrustmaster_probe by adding endpoint check")
+Signed-off-by: Qasim Ijaz <qasdev00@gmail.com>
+---
+ drivers/hid/hid-thrustmaster.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Uwe-Kleine-K-nig/pwm-Let-pwm_set_waveform-succeed-even-if-lowlevel-driver-rounded-up/20250405-173024
-base:   e48e99b6edf41c69c5528aa7ffb2daf3c59ee105
-patch link:    https://lore.kernel.org/r/fe154e79319da5ff4159cdc71201a9d3b395e491.1743844730.git.u.kleine-koenig%40baylibre.com
-patch subject: [PATCH 4/6] pwm: stm32: Emit debug output also for corner cases of the rounding callbacks
-config: x86_64-buildonly-randconfig-001-20250406 (https://download.01.org/0day-ci/archive/20250406/202504061207.97zbNPvV-lkp@intel.com/config)
-compiler: clang version 20.1.2 (https://github.com/llvm/llvm-project 58df0ef89dd64126512e4ee27b4ac3fd8ddf6247)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250406/202504061207.97zbNPvV-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202504061207.97zbNPvV-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/pwm/pwm-stm32.c:246:60: error: use of undeclared identifier 'rate'
-     246 |                 pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
-         |                                                                          ^
-   1 error generated.
-
-
-vim +/rate +246 drivers/pwm/pwm-stm32.c
-
-   208	
-   209	static int stm32_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-   210						   struct pwm_device *pwm,
-   211						   const void *_wfhw,
-   212						   struct pwm_waveform *wf)
-   213	{
-   214		const struct stm32_pwm_waveform *wfhw = _wfhw;
-   215		struct stm32_pwm *priv = to_stm32_pwm_dev(chip);
-   216		unsigned int ch = pwm->hwpwm;
-   217	
-   218		if (wfhw->ccer & TIM_CCER_CCxE(ch + 1)) {
-   219			unsigned long rate = clk_get_rate(priv->clk);
-   220			u64 ccr_ns;
-   221	
-   222			/* The result doesn't overflow for rate >= 15259 */
-   223			wf->period_length_ns = stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * (wfhw->arr + 1),
-   224										     NSEC_PER_SEC, rate);
-   225	
-   226			ccr_ns = stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * wfhw->ccr,
-   227								       NSEC_PER_SEC, rate);
-   228	
-   229			if (wfhw->ccer & TIM_CCER_CCxP(ch + 1)) {
-   230				wf->duty_length_ns =
-   231					stm32_pwm_mul_u64_u64_div_u64_roundup(((u64)wfhw->psc + 1) * (wfhw->arr + 1 - wfhw->ccr),
-   232									      NSEC_PER_SEC, rate);
-   233	
-   234				wf->duty_offset_ns = ccr_ns;
-   235			} else {
-   236				wf->duty_length_ns = ccr_ns;
-   237				wf->duty_offset_ns = 0;
-   238			}
-   239		} else {
-   240			*wf = (struct pwm_waveform){
-   241				.period_length_ns = 0,
-   242			};
-   243		}
-   244	
-   245		dev_dbg(&chip->dev, "pwm#%u: CCER: %08x, PSC: %08x, ARR: %08x, CCR: %08x @%lu -> %lld/%lld [+%lld]\n",
- > 246			pwm->hwpwm, wfhw->ccer, wfhw->psc, wfhw->arr, wfhw->ccr, rate,
-   247			wf->duty_length_ns, wf->period_length_ns, wf->duty_offset_ns);
-   248	
-   249		return 0;
-   250	}
-   251	
-
+diff --git a/drivers/hid/hid-thrustmaster.c b/drivers/hid/hid-thrustmaster.c
+index 3b81468a1df2..0bf70664c35e 100644
+--- a/drivers/hid/hid-thrustmaster.c
++++ b/drivers/hid/hid-thrustmaster.c
+@@ -174,6 +174,7 @@ static void thrustmaster_interrupts(struct hid_device *hdev)
+ 	u8 ep_addr[2] = {b_ep, 0};
+ 
+ 	if (!usb_check_int_endpoints(usbif, ep_addr)) {
++		kfree(send_buf);
+ 		hid_err(hdev, "Unexpected non-int endpoint\n");
+ 		return;
+ 	}
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.39.5
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
