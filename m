@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 745A9A7D09F
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 23:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90EB2A7D0A3
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Apr 2025 23:17:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10CB7C78F85;
-	Sun,  6 Apr 2025 21:15:09 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49B6EC78F85;
+	Sun,  6 Apr 2025 21:17:14 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAC25CFAC4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01769CFAC4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Apr 2025 21:15:07 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-736c062b1f5so2863745b3a.0
+ Sun,  6 Apr 2025 21:17:12 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-22401f4d35aso37862325ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 06 Apr 2025 14:15:07 -0700 (PDT)
+ Sun, 06 Apr 2025 14:17:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1743974106; x=1744578906;
+ d=gmail.com; s=20230601; t=1743974231; x=1744579031;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=zDleBR0jwFGhTNeC9UeCz4wwAyXYlgAVasnWCtF6ZzQ=;
- b=bTtvLxjB/IqCJ7mOKSkLVGGuz7LJuyLc0xrtktMJ3iAQRxgR8k1vk1ZrzUz4/MoSRo
- nTx9AG50rzfw5jZ6HW20jwLjdujIk0eZJhUrv3h6uMXFojHj6Z1U+9gZUa3VN20uOkes
- YVNtTnseanWBG4/4h0nQfOOhM3pADihxQ04b2yyM3KYLrb1pqIoa2/LeUEJsXuMJ38sM
- DKywIzxlhFYWcjANsECRpusn09X6r01Z6PrW1MwgBHmjxIQ7l/Rsuex7AofCKyrhJhH3
- q0H5WvMFjrRVcD6rIn3VNCMTGq/qIAxrZ9/jEa+p19iTayBSMflN4ySQDzEKvf8K68YS
- x7Lg==
+ bh=+Dh3Q+/ESCOTgc833hn/a+Fb6lN+IAypXdcE5FvZtyA=;
+ b=ho7K5lJ5GUCqgRv5FRXhxZWljZPuYB19ckd6ey60La8PgNQf4DGW28LDHyBxpH2K22
+ lQ8yb4kIBBmT/PkwoSk1pBPXOWEsmJ5z5Qwg6WSw/fVpVy2/4lyA+vfZfDjnBpqDxH2x
+ 6HhNL9uukgxkyfaAL0+jyC9KL7hN7nyNKiEgshDD6awYIlnDDhEwt3/n+1cHuScv2VPT
+ Q3Hao6dmmZJk1SgdIXJooQmveWmVD3RkjmQDM/KIt4/nsybGMNJAc7PIHBwUoazHfx5n
+ DalyGtaaALyIs2ie5+nIwWBXUxUBDDo0j2W8XCpfrgsRDZVGkkV40lh47AwinPAjhVBv
+ 8Big==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743974106; x=1744578906;
+ d=1e100.net; s=20230601; t=1743974231; x=1744579031;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:sender:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zDleBR0jwFGhTNeC9UeCz4wwAyXYlgAVasnWCtF6ZzQ=;
- b=QBA26yQnsKAxoeAgR7nQTI5W2bFK2rYqes4/vDK+HNMlu5aK9GwgFGHIQJwzcjNEd+
- hF6E5o03aUOy+YvufNUhrMInYhgC1IpjQWsghA5o6KUIueYd7QzbIFxC0YUvtE1q8W37
- wa/rt6zhv1Rob6e5eEurm23GbwAeTJdhfXAGOop9CTjCOBrMo01h1Z5MUzXj/QCN914+
- DqbsUQOJuAhI/B3wYFlgHazUaBrTXR9LxA/Zjev19knivB/ERQrJeWVS/Zj7djZsEtBR
- dBTnTXE3INdfVLye2bPo0tPb5ftqbC1IM4NvMrViIWpsCxIJFmu1S9JKi4G3yEcYkNgG
- 09KQ==
+ bh=+Dh3Q+/ESCOTgc833hn/a+Fb6lN+IAypXdcE5FvZtyA=;
+ b=Gxa9kqjW2YqXYiPiZryCLBx7gmHDAdrTeaJxdzO6XvNEBI7pO6ML//4g+IFmhF02TR
+ mWZeJmyDlD8q4dQIZjO8GYQDpECEB1tvcPus7YesXonrGO5uG7ZBQhSBBmr9vmLaXmlm
+ e9l2yiO/tmo2c9ayXIidqYV7ddbNfZJ+Og/HOOJQ+HNmZEXmLpIR2zmkJoJ94HbVTGMm
+ TNhi8cGoR/og5uZmstOcbqPKdOLCENXawJwv+RAjc+NQl/CJmKpgFcKjeKGJ5JLmMkMA
+ 6HQDKnS6+t3roaiYDd8SjfsaEkS/GxJZby1/u7+ZjE+DcRFGu4BT/XZQFDd0PPM4oxKy
+ qm/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVNq2+4pTwQA1ne7AwlRS8mmAkiYfIjL/0HoeJdiQHLbUKWcAFpQrgk9Vd+rk6XhlObzuithcK1LjGgHw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxt8pjP/vOZeX18M4HGkGd59ejkxfc+ppe/IpBGwuUCHU52RGXw
- c1w71u18pQCJcYWZutseuAiU4rG271k3kKkiy/2iNQkKX+2J7ncw
-X-Gm-Gg: ASbGnctM2ZSZZrKX6QyYZBBNaObmQYY6SXz0SNBtjFuwbAaoJ4ww+dg0Ks1c0UreG/2
- p6M2wtjyCmqDKQLjCamuO32x2AVXaUODJOTkZSU7+vpQf9IAub1LNpvsUyl65P89GvbvmaBgWJ2
- tsLAl/fKuXNms6uRje36yAHQXq/1G6FXIRW9qsoIXZsf6BDEqn7goRGh2L8FZT1jc/hoEhMKUYF
- yCnhhhAEvA1lLCmR8JdKyaB9cH5FcWc1KmeGcsaaUn3RVaoDyip8FWFPW6koeEWuq/zXfohIwiH
- nRD57yDnV5xZIzy3PUz25OiIy4coey8p0hvM9gDL9j4bGrmGlB/0GdTYsTPsY3a/Es5NfynrSHM
- 7i0HfQfl5lfc4r1zqGA==
-X-Google-Smtp-Source: AGHT+IFQ8QWvvd1ZviCya2MeIjl1ablt6V+jxnurJmhA/g3jhsv/TE0Na/5We5Jj9KIVyelIFaeiUA==
-X-Received: by 2002:a05:6a21:9211:b0:1f5:7873:3053 with SMTP id
- adf61e73a8af0-20108187d17mr15484006637.29.1743974106291; 
- Sun, 06 Apr 2025 14:15:06 -0700 (PDT)
+ AJvYcCULTG0Xg/nMoO6jsUuZ/06YVHanfDUMPY8xWcsVNr4O5xHktR+V+mrSadQxJmEoB7nC8XOAnDRfAw3KIQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YykptW7COL7dUyadZ5ZjWtoGjAda+UkIztszd5KDUl5FHCp4CDf
+ igMIDxgLlUVEah2L/g4/uj34nIXQ35KAP8Qoptis5+fl59ZLQ2Jf
+X-Gm-Gg: ASbGnctGTftQyE8rSxG4eAbtJzQdhq7mkxA/BnVY2c5II16PhrRBcUteeSKLidFw060
+ 37HWDaJBFaYuebN4MeOlGhP5OUIDCqgnRE1oAW06W8GRwEJGuEMi16uCpxdNePGZGXscEz9btOc
+ pcXjLzXxJ1owqCEXdCzlSEhgQgt6c25oi/w8vTlCpcnr0zez8lvFUKjhrADV2X7Xug4y29kNGsk
+ D36+D1rkJC8Pz8GVtL8Zy7UBsM/gPLje1ChHnMD37fxwx8H2INsjAx8/3ycFphCOhqBRkS6m7jH
+ 0JdQ3Itw+yvchJ4Lr2bwZTFVmBsshtZL8Jpy94hFbVXAj/VT+PVbGuYwEzCzzURnh0aP8o4bLQG
+ r/JfmGZmsSbXA3TYq7Q==
+X-Google-Smtp-Source: AGHT+IFZhV9L9NQnjbxHqzuQWHloSa51wng9XDm1os9z7UwsaUvtPeYzq/GeVYYATAq42YOjNg2ktw==
+X-Received: by 2002:a17:902:d586:b0:224:2524:3047 with SMTP id
+ d9443c01a7336-22a9553aae5mr91276255ad.26.1743974231454; 
+ Sun, 06 Apr 2025 14:17:11 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
  ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-739d9ea080esm7286630b3a.108.2025.04.06.14.15.05
+ d9443c01a7336-2297866e7f5sm67292515ad.206.2025.04.06.14.17.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 06 Apr 2025 14:15:05 -0700 (PDT)
-Message-ID: <c3c22904-d684-4294-99d6-a83f53545934@roeck-us.net>
-Date: Sun, 6 Apr 2025 14:15:04 -0700
+ Sun, 06 Apr 2025 14:17:11 -0700 (PDT)
+Message-ID: <f1dc5228-ac91-47c3-a854-b425cb77bb5f@roeck-us.net>
+Date: Sun, 6 Apr 2025 14:17:09 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
@@ -76,7 +76,6 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
 References: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
- <20250406203531.61322-2-krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -122,8 +121,9 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  WkRwrSuCn7UG+qVWZeKEsFKFOkynOs3pVbcbq1pxbhk3TRWCGRU5JolI4ohy/7JV1TVbjiDI
  HP/aVnm6NC8of26P40Pg8EdAhajZnHHjA7FrJXsy3cyIGqvg9os4rNkUWmrCfLLsZDHD8FnU
  mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
-In-Reply-To: <20250406203531.61322-2-krzysztof.kozlowski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] watchdog: Correct kerneldoc warnings
+In-Reply-To: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] watchdog: stm32: Fix wakeup source
+ leaks on device unbind
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,10 +141,8 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 4/6/25 13:35, Krzysztof Kozlowski wrote:
-> Correct kerneldoc syntax or drop kerneldoc entirely for function
-> comments not being kerneldoc to fix warnings like:
-> 
->    pretimeout_noop.c:19: warning: Function parameter or struct member 'wdd' not described in 'pretimeout_noop'
+> Device can be unbound or probe can fail, so driver must also release
+> memory for the wakeup source.
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
