@@ -2,74 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A71EA7E449
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 17:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0632A7E5B2
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 18:09:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6998C6DD9F;
-	Mon,  7 Apr 2025 15:27:48 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56975C78F97;
+	Mon,  7 Apr 2025 16:09:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37AEBC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07CFDC6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 15:27:48 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 72646431EA;
- Mon,  7 Apr 2025 15:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1744039667;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WgX6S64ngnXsjU0lQPqeLHBfnA+UnbXv6BjQk1oGXZU=;
- b=LBZvLE2G+afaVJ2bwhuBl1x1YRR/aqaZ2Xm5yU+xaLjjIqM+WbNAKPx85Swnqti9EdXmCR
- jxm3gIWcOaG1co2jTwQSHLMwRfa/o37ZW3TL5sERhaicxQw3i4iyp8UcVcTXkH1w4KSGdk
- Y19KevZYjLYHr3HXXP8AducFPd1YdMFTPsJeGctmaMWsKIGeEO+n7SDKrX8kxYN5Z1gWgI
- +UT+rfLgfI9oZV+al0AMr7X1Hj0w9CZsV0S3DJwxwGrF5CvYlrRAnPH725fFHTQ9VF1+RR
- KAa03YipbyuRmYOv8qQstJ9OZTNaCvUkN6DRY2d/JonMQilxNjXgv50w/l7c9A==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon,  7 Apr 2025 17:27:39 +0200
-Message-ID: <20250407-drm-bridge-convert-to-alloc-api-v1-34-42113ff8d9c0@bootlin.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
-References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
+ Mon,  7 Apr 2025 16:09:19 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 537CPnR5010581;
+ Mon, 7 Apr 2025 18:08:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ ABEfNN+1IHR+r4C1nJ+5cHN86lWSmwG/a4wotKyjNpw=; b=QsN4ddLV2BziarOd
+ c+Z3E91XSpJlml/ZpY3aaCJdk29y8ZOUmBoo+JmQ/1EL3RsXbyDsSUP/6JZw+kGF
+ aqYusWJbb9j7I1i8qiakFk7ecsYybMOwi+KMSpan+tKH35sQaWawjOPtwmq+qzKv
+ d9/U+qcAGHUbdNhxZd1Ml6+9/ze6UwnQuWnebHzfBTYrEk2csUGGCtkCYT+CJoQA
+ fdukqoVR0ss8qWqfiO976U8yKTLE6rzlawAbFapualrt/qia/EWSaKsi1nfRbfeR
+ d22Y/YXgQwrG5oEktogDeR6tusG+PrfRwtSpq3MlhURHYPeVfZOJao/aWiDy6YTX
+ GSMeWQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45ue33xg8k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Apr 2025 18:08:54 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D4D7740045;
+ Mon,  7 Apr 2025 18:07:53 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2AE2B897C4D;
+ Mon,  7 Apr 2025 18:07:19 +0200 (CEST)
+Received: from [10.48.87.151] (10.48.87.151) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Apr
+ 2025 18:07:18 +0200
+Message-ID: <6d12b6fe-85fb-4345-bf32-02c0fbb1a27a@foss.st.com>
+Date: Mon, 7 Apr 2025 18:07:17 +0200
 MIME-Version: 1.0
-X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtheegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtoffgsehtkeertdertdejnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepudffiefgvdfftdffkeejjefhffduleejleeuieetieetgeehtefhjedtgeegieegnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihrdhfrhhithiirdgsohigpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedupdhrtghpthhtohepmhgrrghrthgvnhdrlhgrnhhkhhhorhhstheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopehmrhhiphgrrhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhopehtiihimhhmvghrmhgrnhhnsehsuhhsvgdruggvp
- dhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghnughriigvjhdrhhgrjhgurgesihhnthgvlhdrtghomhdprhgtphhtthhopehnvghilhdrrghrmhhsthhrohhngheslhhinhgrrhhordhorhhgpdhrtghpthhtoheprhhfohhssheskhgvrhhnvghlrdhorhhg
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: chrome-platform@lists.linux.dev, imx@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org,
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
- linux-arm-msm@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, asahi@lists.linux.dev,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- freedreno@lists.freedesktop.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 34/34] drm/bridge: panel: convert to
-	devm_drm_bridge_alloc() API
+User-Agent: Mozilla Thunderbird
+To: David Lechner <dlechner@baylibre.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20250403162358.1257370-1-olivier.moysan@foss.st.com>
+ <25b34e60-5392-4bfb-b994-49212dfbdb22@baylibre.com>
+Content-Language: en-US
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <25b34e60-5392-4bfb-b994-49212dfbdb22@baylibre.com>
+X-Originating-IP: [10.48.87.151]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-07_04,2025-04-03_03,2024-11-22_01
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32: add oversampling
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,78 +75,258 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBpcyB0aGUgbmV3IEFQSSBmb3IgYWxsb2NhdGluZyBEUk0gYnJpZGdlcy4KClRoZSBkZXZt
-IGxpZmV0aW1lIG1hbmFnZW1lbnQgb2YgdGhpcyBkcml2ZXIgaXMgcGVjdWxpYXIuIFRoZSB1bmRl
-cmx5aW5nCmRldmljZSBmb3IgdGhlIHBhbmVsX2JyaWRnZSBpcyB0aGUgcGFuZWwsIGFuZCB0aGUg
-ZGV2bSBsaWZldGltZSBpcyB0aWVkIHRoZQpwYW5lbCBkZXZpY2UgKHBhbmVsLT5kZXYpLiBIb3dl
-dmVyIHRoZSBwYW5lbF9icmlkZ2UgYWxsb2NhdGlvbiBpcyBub3QKcGVyZm9ybWVkIGJ5IHRoZSBw
-YW5lbCBkcml2ZXIsIGJ1dCByYXRoZXIgYnkgYSBzZXBhcmF0ZSBlbnRpdHkgKHR5cGljYWxseQp0
-aGUgcHJldmlvdXMgYnJpZGdlIGluIHRoZSBlbmNvZGVyIGNoYWluKS4KClRodXMgd2hlbiB0aGF0
-IHNlcGFyYXRlIGVudG90eSBpcyBkZXN0cm95ZWQsIHRoZSBwYW5lbF9icmlkZ2UgaXMgbm90CnJl
-bW92ZWQgYXV0b21hdGljYWxseSBieSBkZXZtLCBzbyBpdCBpcyByYXRoZXIgZG9uZSBleHBsaWNp
-dGx5IGJ5IGNhbGxpbmcKZHJtX3BhbmVsX2JyaWRnZV9yZW1vdmUoKS4gVGhpcyBpcyB0aGUgZnVu
-Y3Rpb24gdGhhdCBkb2VzIGRldm1fa2ZyZWUoKSB0aGUKcGFuZWxfYnJpZGdlIGluIGN1cnJlbnQg
-Y29kZSwgc28gdXBkYXRlIGl0IGFzIHdlbGwgdG8gcHV0IHRoZSBicmlkZ2UKcmVmZXJlbmNlIGlu
-c3RlYWQuCgpTaWduZWQtb2ZmLWJ5OiBMdWNhIENlcmVzb2xpIDxsdWNhLmNlcmVzb2xpQGJvb3Rs
-aW4uY29tPgotLS0KClRvOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGlu
-dXguaW50ZWwuY29tPgpUbzogTWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3JnPgpUbzog
-VGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+ClRvOiBEYXZpZCBBaXJsaWUg
-PGFpcmxpZWRAZ21haWwuY29tPgpUbzogU2ltb25hIFZldHRlciA8c2ltb25hQGZmd2xsLmNoPgpU
-bzogQW5kcnplaiBIYWpkYSA8YW5kcnplai5oYWpkYUBpbnRlbC5jb20+ClRvOiBOZWlsIEFybXN0
-cm9uZyA8bmVpbC5hcm1zdHJvbmdAbGluYXJvLm9yZz4KVG86IFJvYmVydCBGb3NzIDxyZm9zc0Br
-ZXJuZWwub3JnPgpUbzogTGF1cmVudCBQaW5jaGFydCA8TGF1cmVudC5waW5jaGFydEBpZGVhc29u
-Ym9hcmQuY29tPgpUbzogSm9uYXMgS2FybG1hbiA8am9uYXNAa3dpYm9vLnNlPgpUbzogSmVybmVq
-IFNrcmFiZWMgPGplcm5lai5za3JhYmVjQGdtYWlsLmNvbT4KVG86IEphZ2FuIFRla2kgPGphZ2Fu
-QGFtYXJ1bGFzb2x1dGlvbnMuY29tPgpUbzogU2hhd24gR3VvIDxzaGF3bmd1b0BrZXJuZWwub3Jn
-PgpUbzogU2FzY2hhIEhhdWVyIDxzLmhhdWVyQHBlbmd1dHJvbml4LmRlPgpUbzogUGVuZ3V0cm9u
-aXggS2VybmVsIFRlYW0gPGtlcm5lbEBwZW5ndXRyb25peC5kZT4KVG86IEZhYmlvIEVzdGV2YW0g
-PGZlc3RldmFtQGdtYWlsLmNvbT4KVG86IERvdWdsYXMgQW5kZXJzb24gPGRpYW5kZXJzQGNocm9t
-aXVtLm9yZz4KVG86IENodW4tS3VhbmcgSHUgPGNodW5rdWFuZy5odUBrZXJuZWwub3JnPgpUbzog
-S3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwub3JnPgpUbzogRG1pdHJ5IEJhcnlzaGtv
-diA8ZG1pdHJ5LmJhcnlzaGtvdkBsaW5hcm8ub3JnPgpDYzogQW51c2hhIFNyaXZhdHNhIDxhc3Jp
-dmF0c0ByZWRoYXQuY29tPgpDYzogUGF1bCBLb2NpYWxrb3dza2kgPHBhdWxrQHN5cy1iYXNlLmlv
-PgpDYzogRG1pdHJ5IEJhcnlzaGtvdiA8bHVtYWdAa2VybmVsLm9yZz4KQ2M6IEhlcnbDqSBDb2Rp
-bmEgPGhlcnZlLmNvZGluYUBib290bGluLmNvbT4KQ2M6IEh1aSBQdSA8SHVpLlB1QGdlaGVhbHRo
-Y2FyZS5jb20+CkNjOiBUaG9tYXMgUGV0YXp6b25pIDx0aG9tYXMucGV0YXp6b25pQGJvb3RsaW4u
-Y29tPgpDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogYXNhaGlAbGlzdHMu
-bGludXguZGV2CkNjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCkNjOiBjaHJvbWUtcGxh
-dGZvcm1AbGlzdHMubGludXguZGV2CkNjOiBpbXhAbGlzdHMubGludXguZGV2CkNjOiBsaW51eC1h
-cm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKQ2M6IGxpbnV4LW1lZGlhdGVrQGxpc3RzLmlu
-ZnJhZGVhZC5vcmcKQ2M6IGxpbnV4LWFtbG9naWNAbGlzdHMuaW5mcmFkZWFkLm9yZwpDYzogbGlu
-dXgtcmVuZXNhcy1zb2NAdmdlci5rZXJuZWwub3JnCkNjOiBwbGF0Zm9ybS1kcml2ZXIteDg2QHZn
-ZXIua2VybmVsLm9yZwpDYzogbGludXgtc2Ftc3VuZy1zb2NAdmdlci5rZXJuZWwub3JnCkNjOiBs
-aW51eC1hcm0tbXNtQHZnZXIua2VybmVsLm9yZwpDYzogZnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvcGFuZWwuYyB8IDExICsrKysrLS0tLS0tCiAxIGZpbGUg
-Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9icmlkZ2UvcGFuZWwuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvcGFu
-ZWwuYwppbmRleCA3OWIwMDlhYjkzOTYwNDhlYWM1N2FkNDc2MzFhOTAyZTk0OWQ3N2M2Li5kZGQx
-ZTkxOTcwZDA5YjkzYWE2NGY1MGNkOTE1NTkzOWExMmEyYzZmIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYnJpZGdlL3BhbmVsLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9wYW5l
-bC5jCkBAIC0yODcsMTUgKzI4NywxNCBAQCBzdHJ1Y3QgZHJtX2JyaWRnZSAqZHJtX3BhbmVsX2Jy
-aWRnZV9hZGRfdHlwZWQoc3RydWN0IGRybV9wYW5lbCAqcGFuZWwsCiAJaWYgKCFwYW5lbCkKIAkJ
-cmV0dXJuIEVSUl9QVFIoLUVJTlZBTCk7CiAKLQlwYW5lbF9icmlkZ2UgPSBkZXZtX2t6YWxsb2Mo
-cGFuZWwtPmRldiwgc2l6ZW9mKCpwYW5lbF9icmlkZ2UpLAotCQkJCSAgICBHRlBfS0VSTkVMKTsK
-LQlpZiAoIXBhbmVsX2JyaWRnZSkKLQkJcmV0dXJuIEVSUl9QVFIoLUVOT01FTSk7CisJcGFuZWxf
-YnJpZGdlID0gZGV2bV9kcm1fYnJpZGdlX2FsbG9jKHBhbmVsLT5kZXYsIHN0cnVjdCBwYW5lbF9i
-cmlkZ2UsIGJyaWRnZSwKKwkJCQkJICAgICAmcGFuZWxfYnJpZGdlX2JyaWRnZV9mdW5jcyk7CisJ
-aWYgKElTX0VSUihwYW5lbF9icmlkZ2UpKQorCQlyZXR1cm4gKHZvaWQgKilwYW5lbF9icmlkZ2U7
-CiAKIAlwYW5lbF9icmlkZ2UtPmNvbm5lY3Rvcl90eXBlID0gY29ubmVjdG9yX3R5cGU7CiAJcGFu
-ZWxfYnJpZGdlLT5wYW5lbCA9IHBhbmVsOwogCi0JcGFuZWxfYnJpZGdlLT5icmlkZ2UuZnVuY3Mg
-PSAmcGFuZWxfYnJpZGdlX2JyaWRnZV9mdW5jczsKIAlwYW5lbF9icmlkZ2UtPmJyaWRnZS5vZl9u
-b2RlID0gcGFuZWwtPmRldi0+b2Zfbm9kZTsKIAlwYW5lbF9icmlkZ2UtPmJyaWRnZS5vcHMgPSBE
-Uk1fQlJJREdFX09QX01PREVTOwogCXBhbmVsX2JyaWRnZS0+YnJpZGdlLnR5cGUgPSBjb25uZWN0
-b3JfdHlwZTsKQEAgLTMyNyw3ICszMjYsNyBAQCB2b2lkIGRybV9wYW5lbF9icmlkZ2VfcmVtb3Zl
-KHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2UpCiAJcGFuZWxfYnJpZGdlID0gZHJtX2JyaWRnZV90
-b19wYW5lbF9icmlkZ2UoYnJpZGdlKTsKIAogCWRybV9icmlkZ2VfcmVtb3ZlKGJyaWRnZSk7Ci0J
-ZGV2bV9rZnJlZShwYW5lbF9icmlkZ2UtPnBhbmVsLT5kZXYsIGJyaWRnZSk7CisJZGV2bV9kcm1f
-cHV0X2JyaWRnZShwYW5lbF9icmlkZ2UtPnBhbmVsLT5kZXYsIGJyaWRnZSk7CiB9CiBFWFBPUlRf
-U1lNQk9MKGRybV9wYW5lbF9icmlkZ2VfcmVtb3ZlKTsKIAoKLS0gCjIuNDkuMAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi David,
+
+Thanks for reviewing,
+
+On 4/4/25 18:15, David Lechner wrote:
+> On 4/3/25 11:23 AM, Olivier Moysan wrote:
+>> Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
+>> STM32F4 ADC has no oversampling feature.
+>>
+>> The current support of the oversampling feature aims at increasing
+>> the data SNR, without changing the data resolution.
+>> As the oversampling by itself increases data resolution,
+>> a right shift is applied to keep initial resolution.
+> 
+> Why do we not want the extra bits too? I guess if we wanted the extra bits
+> in the future we could make the in_voltage_scale attribute writable to
+> select the resolution.
+> 
+
+Yes, I agree that the oversampling feature could could be further 
+exploited. It could also be used to increase the data resolution.
+This additional feature can be managed as a separate patch later.
+The main logic here was to keep the resolution aligned with the one 
+requested in the DT, through the "assigned-resolution-bits" property.
+
+>> Only the oversampling ratio corresponding to a power of two are
+>> supported here, to get a direct link between right shift and
+>> oversampling ratio. (2exp(n) ratio <=> n right shift)
+>>
+>> The oversampling ratio is shared by all channels, whatever channel type.
+>> (e.g. single ended or differential).
+>>
+>> Oversampling can be configured using IIO ABI:
+>> - in_voltage_oversampling_ratio_available
+>> - in_voltage_oversampling_ratio
+> 
+> This would require info_mask_shared_by_type but the patch uses
+> info_mask_shared_by_all, so the attributes will be:
+> 
+> - oversampling_ratio
+> - oversampling_ratio_available
+> 
+> I guess currently it doesn't matter which one gets used if there are only
+> voltage channels, but it could make a difference, e.g. if a temperature
+> channel was ever added.
+> 
+> In any case, the description should match what is actually implemented.
+> 
+
+The oversampling configuration is shared by all the channels of a given 
+ADC instance. So, it makes sense to use info_mask_shared_by_all here.
+What is the most relevant is to change the commit message to
+"- oversampling_ratio
+  - oversampling_ratio_available"
+which are the attributes actually exposed.
+
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+>>
+>> ---
+>> Changes in v2:
+>> - Remove useless header files
+>> - Use FIELD_PREP macro
+>> - Reorder stm32_adc_write_raw() function
+> 
+> Link to v1? (for the lazy reviewer :-p)
+> 
+>> ---
+>>   drivers/iio/adc/stm32-adc-core.h |  14 ++++
+>>   drivers/iio/adc/stm32-adc.c      | 137 +++++++++++++++++++++++++++++++
+>>   2 files changed, 151 insertions(+)
+>>
+>> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
+>> index 73b2c2e91c08..bfd42c5456bf 100644
+>> --- a/drivers/iio/adc/stm32-adc-core.h
+>> +++ b/drivers/iio/adc/stm32-adc-core.h
+>> @@ -91,6 +91,7 @@
+>>   #define STM32H7_ADC_IER			0x04
+>>   #define STM32H7_ADC_CR			0x08
+>>   #define STM32H7_ADC_CFGR		0x0C
+>> +#define STM32H7_ADC_CFGR2		0x10
+>>   #define STM32H7_ADC_SMPR1		0x14
+>>   #define STM32H7_ADC_SMPR2		0x18
+>>   #define STM32H7_ADC_PCSEL		0x1C
+>> @@ -160,6 +161,13 @@
+>>   #define STM32H7_DMNGT_SHIFT		0
+>>   #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
+>>   
+>> +/* STM32H7_ADC_CFGR2 bit fields */
+>> +#define STM32H7_OVSR_MASK		GENMASK(25, 16) /* Correspond to OSVR field in datasheet */
+> 
+> nit: Comment seems obvious and can be left out.
+> 
+
+Oversampling bit name is "OSVR" in datasheet H7, while oversampling 
+shift is "OVSS". For naming consistency, I used OVSR instead of OSVR,
+and highlighted it with a comment. As an alternative, STM32H7_OVSR could 
+be renamed, but I would rather keep it unchanged.
+
+>> +#define STM32H7_OVSR(v)			FIELD_PREP(STM32H7_OVSR_MASK, v)
+>> +#define STM32H7_OVSS_MASK		GENMASK(8, 5)
+>> +#define STM32H7_OVSS(v)			FIELD_PREP(STM32H7_OVSS_MASK, v)
+>> +#define STM32H7_ROVSE			BIT(0)
+>> +
+> 
+> ...
+> 
+>> +static const unsigned int stm32h7_adc_oversampling_avail[] = {
+>> +1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
+> 
+> Normal style is to have 1 tab indent here.
+> 
+
+ok
+
+>> +};
+>> +
+>> +static const unsigned int stm32mp13_adc_oversampling_avail[] = {
+>> +1, 2, 4, 8, 16, 32, 64, 128, 256
+> 
+> And here.
+> 
+
+ok
+
+>>   };
+>>   
+> 
+> ...
+> 
+>> @@ -889,6 +912,41 @@ static void stm32mp13_adc_start_conv(struct iio_dev *indio_dev, bool dma)
+>>   	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
+>>   }
+>>   
+>> +static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
+>> +{
+>> +	struct stm32_adc *adc = iio_priv(indio_dev);
+>> +	u32 ovsr_bits, bits, msk;
+>> +
+>> +	msk = STM32H7_ROVSE | STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
+>> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
+>> +
+>> +	if (!ovs_idx)
+>> +		return;
+>> +
+>> +	ovsr_bits = (1 << ovs_idx) - 1;
+>> +	bits = STM32H7_ROVSE | STM32H7_OVSS(ovs_idx) | STM32H7_OVSR(ovsr_bits);
+>> +
+>> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
+>> +}
+>> +
+>> +static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
+>> +{
+>> +	struct stm32_adc *adc = iio_priv(indio_dev);
+>> +	u32 bits, msk;
+>> +
+>> +	msk = STM32H7_ROVSE | STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
+>> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
+>> +
+>> +	if (!ovs_idx)
+>> +		return;
+>> +
+>> +	bits = STM32H7_ROVSE | STM32MP13_OVSS(ovs_idx);
+>> +	if (ovs_idx - 1)
+>> +		bits |= STM32MP13_OVSR(ovs_idx - 1);
+>> +
+>> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
+>> +}
+> 
+> 
+> Some comments in these functions could be useful to avoid needing the
+> datasheet to understand all the different things that are happening here
+> and more importantly, why it was decided to do it this way when there are
+> many other possibilities (i.e. repeat the bit from commit message about
+> always using 12-bit output).
+> 
+
+ok, I will add some comments here.
+
+>> @@ -1461,6 +1519,69 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+>>   	return ret;
+>>   }
+>>   
+>> +static int stm32_adc_write_raw(struct iio_dev *indio_dev,
+>> +			       struct iio_chan_spec const *chan,
+>> +			       int val, int val2, long mask)
+>> +{
+>> +	struct stm32_adc *adc = iio_priv(indio_dev);
+>> +	struct device *dev = indio_dev->dev.parent;
+>> +	int nb = adc->cfg->adc_info->num_ovs;
+>> +	u32 idx;
+>> +	int ret;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+>> +		if (val2)
+>> +			return -EINVAL;
+>> +
+>> +		for (idx = 0; idx < nb; idx++)
+>> +			if (adc->cfg->adc_info->oversampling[idx] == val)
+>> +				break;
+>> +
+>> +		if (idx >= nb)
+>> +			return -EINVAL;
+>> +
+>> +		ret = iio_device_claim_direct_mode(indio_dev);
+>> +		if (ret)
+>> +			return ret;
+> 
+> We've been replacing this everywhere with:
+> 
+> 		if (!iio_device_claim_direct(indio_dev))
+> 			return -EBUSY;
+> 
+> See: https://lore.kernel.org/linux-iio/20250331121317.1694135-1-jic23@kernel.org/
+> 
+
+ok
+
+>> +
+>> +		ret = pm_runtime_resume_and_get(dev);
+>> +		if (ret < 0)
+>> +			goto err;
+>> +
+>> +		adc->cfg->set_ovs(indio_dev, idx);
+>> +
+>> +		pm_runtime_mark_last_busy(dev);
+>> +		pm_runtime_put_autosuspend(dev);
+>> +
+>> +		adc->ovs_idx = idx;
+>> +
+>> +err:
+>> +		iio_device_release_direct_mode(indio_dev);
+> 
+> 		iio_device_release_direct(indio_dev);
+> 
+>> +
+>> +		return ret;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +}
+
+BRs
+Olivier
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
