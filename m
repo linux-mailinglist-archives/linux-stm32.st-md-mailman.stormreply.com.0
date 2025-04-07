@@ -2,36 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77686A7E81F
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 19:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62389A7E895
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 19:40:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C320C7128A;
-	Mon,  7 Apr 2025 17:26:28 +0000 (UTC)
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 478FEC69063
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10DB6C7128A;
+	Mon,  7 Apr 2025 17:40:59 +0000 (UTC)
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
+ [95.215.58.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C3FBC6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 17:26:27 +0000 (UTC)
-Received: from local
- by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.98.2) (envelope-from <daniel@makrotopia.org>)
- id 1u1qEH-000000008Gs-2MWH; Mon, 07 Apr 2025 17:25:49 +0000
-Date: Mon, 7 Apr 2025 18:25:43 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Message-ID: <Z_QKl-4563l05WB3@makrotopia.org>
+ Mon,  7 Apr 2025 17:40:57 +0000 (UTC)
+Message-ID: <ed5990bd-e671-4f96-bec8-543de3b48712@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1744047656;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=++KpZ5uwY1Janf+N2PmBTtktOp7tWbX3i2J7W2ip/E4=;
+ b=DK9a5CGfgWrjLUaQxeq3ptm/moAts7IV3ci0gsTJzHJivLe+sJaFymatq0QIC6jWTCNwMu
+ Q99N888ii24jACU37tbV8TN2AH/EV9OfsoMU0BFj8NRJZh5cUxFBUwwkPmdN5RROHGw35w
+ 0Rl++5YUu0v1A2j5dPo8wVs5LvznUIk=
+Date: Mon, 7 Apr 2025 13:40:45 -0400
+MIME-Version: 1.0
+To: Daniel Golle <daniel@makrotopia.org>,
+ "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
 References: <20250403181907.1947517-1-sean.anderson@linux.dev>
  <20250407182738.498d96b0@kmaincent-XPS-13-7390>
  <720b6db8-49c5-47e7-98da-f044fc38fc1a@linux.dev>
  <CA+_ehUyAo7fMTe_P0ws_9zrcbLEWVwBXDKbezcKVkvDUUNg0rg@mail.gmail.com>
  <1aec6dab-ed03-4ca3-8cd1-9cfbb807be10@linux.dev>
  <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
-Cc: Sean Anderson <sean.anderson@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ <Z_QKl-4563l05WB3@makrotopia.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <Z_QKl-4563l05WB3@makrotopia.org>
+X-Migadu-Flow: FLOW_OUT
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Madalin Bucur <madalin.bucur@nxp.com>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -56,7 +67,7 @@ Cc: Sean Anderson <sean.anderson@linux.dev>,
  Kory Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, imx@lists.linux.dev,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Michael Ellerman <mpe@ellerman.id.au>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
@@ -78,27 +89,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 07, 2025 at 07:21:38PM +0200, Christian Marangi (Ansuel) wrote:
-> Il giorno lun 7 apr 2025 alle ore 19:00 Sean Anderson
-> > I agree that a "cells" approach would require this, but
-> >
-> > - There are no in-tree examples of where this is necessary
-> > - I think this would be easy to add when necessary
-> >
+On 4/7/25 13:25, Daniel Golle wrote:
+> On Mon, Apr 07, 2025 at 07:21:38PM +0200, Christian Marangi (Ansuel) wrote:
+>> Il giorno lun 7 apr 2025 alle ore 19:00 Sean Anderson
+>> > I agree that a "cells" approach would require this, but
+>> >
+>> > - There are no in-tree examples of where this is necessary
+>> > - I think this would be easy to add when necessary
+>> >
+>> 
+>> There are no in-tree cause only now we are starting to support
+>> complex configuration with multiple PCS placed outside the MAC.
+>> 
+>> I feel it's better to define a standard API for them now before
+>> we permit even more MAC driver to implement custom property
+>> and have to address tons of workaround for compatibility.
 > 
-> There are no in-tree cause only now we are starting to support
-> complex configuration with multiple PCS placed outside the MAC.
+> Qualcomm's PCS driver will require offering multiple phylink_pcs by a
+> single device/of_node. So while it's true that there is currently no
+> in-tree user for that, that very user is already knocking on our doors.
 > 
-> I feel it's better to define a standard API for them now before
-> we permit even more MAC driver to implement custom property
-> and have to address tons of workaround for compatibility.
+> See
+> https://patchwork.kernel.org/project/netdevbpf/list/?series=931658&state=*
 
-Qualcomm's PCS driver will require offering multiple phylink_pcs by a
-single device/of_node. So while it's true that there is currently no
-in-tree user for that, that very user is already knocking on our doors.
+OK, but I still think this is quite easy to add.
 
-See
-https://patchwork.kernel.org/project/netdevbpf/list/?series=931658&state=*
+--Sean
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
