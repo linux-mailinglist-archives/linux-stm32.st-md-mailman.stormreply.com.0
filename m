@@ -2,68 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0632A7E5B2
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 18:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3497FA7E69B
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 18:33:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56975C78F97;
-	Mon,  7 Apr 2025 16:09:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD5D3C78F97;
+	Mon,  7 Apr 2025 16:33:40 +0000 (UTC)
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
+ [91.218.175.185])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07CFDC6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1883CC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 16:09:19 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 537CPnR5010581;
- Mon, 7 Apr 2025 18:08:55 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- ABEfNN+1IHR+r4C1nJ+5cHN86lWSmwG/a4wotKyjNpw=; b=QsN4ddLV2BziarOd
- c+Z3E91XSpJlml/ZpY3aaCJdk29y8ZOUmBoo+JmQ/1EL3RsXbyDsSUP/6JZw+kGF
- aqYusWJbb9j7I1i8qiakFk7ecsYybMOwi+KMSpan+tKH35sQaWawjOPtwmq+qzKv
- d9/U+qcAGHUbdNhxZd1Ml6+9/ze6UwnQuWnebHzfBTYrEk2csUGGCtkCYT+CJoQA
- fdukqoVR0ss8qWqfiO976U8yKTLE6rzlawAbFapualrt/qia/EWSaKsi1nfRbfeR
- d22Y/YXgQwrG5oEktogDeR6tusG+PrfRwtSpq3MlhURHYPeVfZOJao/aWiDy6YTX
- GSMeWQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45ue33xg8k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 07 Apr 2025 18:08:54 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D4D7740045;
- Mon,  7 Apr 2025 18:07:53 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2AE2B897C4D;
- Mon,  7 Apr 2025 18:07:19 +0200 (CEST)
-Received: from [10.48.87.151] (10.48.87.151) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Apr
- 2025 18:07:18 +0200
-Message-ID: <6d12b6fe-85fb-4345-bf32-02c0fbb1a27a@foss.st.com>
-Date: Mon, 7 Apr 2025 18:07:17 +0200
+ Mon,  7 Apr 2025 16:33:39 +0000 (UTC)
+Message-ID: <720b6db8-49c5-47e7-98da-f044fc38fc1a@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1744043618;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KFg4OMSXqyZAd4XoQGwUdaygVVdJ30SNWIcU9tJnxO4=;
+ b=UJWGbxFqDDyMWF8b4G2fYOD53tA+BWAfWoGwac3pflGNx/7Q8PgHH198LIFtBZ+wsx8gh/
+ XnnznK1WuR4pSzwX7dn9Bt8JcNWp1s5DrdqgsT/GTNhH4Vgnu+/qhtSKjA+JF6SZ4FceM1
+ MRxTN0uezDbNPzPZHXbHspuUXvMOgC8=
+Date: Mon, 7 Apr 2025 12:33:28 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: David Lechner <dlechner@baylibre.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20250403162358.1257370-1-olivier.moysan@foss.st.com>
- <25b34e60-5392-4bfb-b994-49212dfbdb22@baylibre.com>
+To: Kory Maincent <kory.maincent@bootlin.com>
+References: <20250403181907.1947517-1-sean.anderson@linux.dev>
+ <20250407182738.498d96b0@kmaincent-XPS-13-7390>
 Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <25b34e60-5392-4bfb-b994-49212dfbdb22@baylibre.com>
-X-Originating-IP: [10.48.87.151]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-07_04,2025-04-03_03,2024-11-22_01
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32: add oversampling
-	support
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <20250407182738.498d96b0@kmaincent-XPS-13-7390>
+X-Migadu-Flow: FLOW_OUT
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Eric Dumazet <edumazet@google.com>, "David S . Miller" <davem@davemloft.net>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Li Yang <leoyang.li@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Rob Herring <robh@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Saravana Kannan <saravanak@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Joyce Ooi <joyce.ooi@intel.com>, linux-doc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, UNGLinuxDriver@microchip.com,
+ Clark Wang <xiaoning.wang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Naveen N Rao <naveen@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Robert Hancock <robert.hancock@calian.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ upstream@airoha.com, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [RFC net-next PATCH 00/13] Add PCS core support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,257 +77,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi David,
+On 4/7/25 12:27, Kory Maincent wrote:
+> On Thu,  3 Apr 2025 14:18:54 -0400
+> Sean Anderson <sean.anderson@linux.dev> wrote:
+> 
+>> This series adds support for creating PCSs as devices on a bus with a
+>> driver (patch 3). As initial users,
+>> 
+>> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
+>> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
+>> - The Cadence MACB driver is converted to support external PCSs (namely
+>>   the Xilinx PCS) (patches 9-10).
+>> 
+>> The last few patches add device links for pcs-handle to improve boot times,
+>> and add compatibles for all Lynx PCSs.
+>> 
+>> Care has been taken to ensure backwards-compatibility. The main source
+>> of this is that many PCS devices lack compatibles and get detected as
+>> PHYs. To address this, pcs_get_by_fwnode_compat allows drivers to edit
+>> the devicetree to add appropriate compatibles.
+> 
+> I don't dive into your patch series and I don't know if you have heard about it
+> but Christian Marangi is currently working on fwnode for PCS:
+> https://lore.kernel.org/netdev/20250406221423.9723-1-ansuelsmth@gmail.com
+> 
+> Maybe you should sync with him!
 
-Thanks for reviewing,
+I saw that series and made some comments. He is CC'd on this one.
 
-On 4/4/25 18:15, David Lechner wrote:
-> On 4/3/25 11:23 AM, Olivier Moysan wrote:
->> Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
->> STM32F4 ADC has no oversampling feature.
->>
->> The current support of the oversampling feature aims at increasing
->> the data SNR, without changing the data resolution.
->> As the oversampling by itself increases data resolution,
->> a right shift is applied to keep initial resolution.
-> 
-> Why do we not want the extra bits too? I guess if we wanted the extra bits
-> in the future we could make the in_voltage_scale attribute writable to
-> select the resolution.
-> 
+I think this approach has two advantages:
 
-Yes, I agree that the oversampling feature could could be further 
-exploited. It could also be used to increase the data resolution.
-This additional feature can be managed as a separate patch later.
-The main logic here was to keep the resolution aligned with the one 
-requested in the DT, through the "assigned-resolution-bits" property.
+- It completely solves the problem of the PCS being unregistered while the netdev
+  (or whatever) is up
+- I have designed the interface to make it easy to convert existing
+  drivers that may not be able to use the "standard" probing process
+  (because they have to support other devicetree structures for
+  backwards-compatibility).
 
->> Only the oversampling ratio corresponding to a power of two are
->> supported here, to get a direct link between right shift and
->> oversampling ratio. (2exp(n) ratio <=> n right shift)
->>
->> The oversampling ratio is shared by all channels, whatever channel type.
->> (e.g. single ended or differential).
->>
->> Oversampling can be configured using IIO ABI:
->> - in_voltage_oversampling_ratio_available
->> - in_voltage_oversampling_ratio
-> 
-> This would require info_mask_shared_by_type but the patch uses
-> info_mask_shared_by_all, so the attributes will be:
-> 
-> - oversampling_ratio
-> - oversampling_ratio_available
-> 
-> I guess currently it doesn't matter which one gets used if there are only
-> voltage channels, but it could make a difference, e.g. if a temperature
-> channel was ever added.
-> 
-> In any case, the description should match what is actually implemented.
-> 
-
-The oversampling configuration is shared by all the channels of a given 
-ADC instance. So, it makes sense to use info_mask_shared_by_all here.
-What is the most relevant is to change the commit message to
-"- oversampling_ratio
-  - oversampling_ratio_available"
-which are the attributes actually exposed.
-
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->>
->> ---
->> Changes in v2:
->> - Remove useless header files
->> - Use FIELD_PREP macro
->> - Reorder stm32_adc_write_raw() function
-> 
-> Link to v1? (for the lazy reviewer :-p)
-> 
->> ---
->>   drivers/iio/adc/stm32-adc-core.h |  14 ++++
->>   drivers/iio/adc/stm32-adc.c      | 137 +++++++++++++++++++++++++++++++
->>   2 files changed, 151 insertions(+)
->>
->> diff --git a/drivers/iio/adc/stm32-adc-core.h b/drivers/iio/adc/stm32-adc-core.h
->> index 73b2c2e91c08..bfd42c5456bf 100644
->> --- a/drivers/iio/adc/stm32-adc-core.h
->> +++ b/drivers/iio/adc/stm32-adc-core.h
->> @@ -91,6 +91,7 @@
->>   #define STM32H7_ADC_IER			0x04
->>   #define STM32H7_ADC_CR			0x08
->>   #define STM32H7_ADC_CFGR		0x0C
->> +#define STM32H7_ADC_CFGR2		0x10
->>   #define STM32H7_ADC_SMPR1		0x14
->>   #define STM32H7_ADC_SMPR2		0x18
->>   #define STM32H7_ADC_PCSEL		0x1C
->> @@ -160,6 +161,13 @@
->>   #define STM32H7_DMNGT_SHIFT		0
->>   #define STM32H7_DMNGT_MASK		GENMASK(1, 0)
->>   
->> +/* STM32H7_ADC_CFGR2 bit fields */
->> +#define STM32H7_OVSR_MASK		GENMASK(25, 16) /* Correspond to OSVR field in datasheet */
-> 
-> nit: Comment seems obvious and can be left out.
-> 
-
-Oversampling bit name is "OSVR" in datasheet H7, while oversampling 
-shift is "OVSS". For naming consistency, I used OVSR instead of OSVR,
-and highlighted it with a comment. As an alternative, STM32H7_OVSR could 
-be renamed, but I would rather keep it unchanged.
-
->> +#define STM32H7_OVSR(v)			FIELD_PREP(STM32H7_OVSR_MASK, v)
->> +#define STM32H7_OVSS_MASK		GENMASK(8, 5)
->> +#define STM32H7_OVSS(v)			FIELD_PREP(STM32H7_OVSS_MASK, v)
->> +#define STM32H7_ROVSE			BIT(0)
->> +
-> 
-> ...
-> 
->> +static const unsigned int stm32h7_adc_oversampling_avail[] = {
->> +1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
-> 
-> Normal style is to have 1 tab indent here.
-> 
-
-ok
-
->> +};
->> +
->> +static const unsigned int stm32mp13_adc_oversampling_avail[] = {
->> +1, 2, 4, 8, 16, 32, 64, 128, 256
-> 
-> And here.
-> 
-
-ok
-
->>   };
->>   
-> 
-> ...
-> 
->> @@ -889,6 +912,41 @@ static void stm32mp13_adc_start_conv(struct iio_dev *indio_dev, bool dma)
->>   	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
->>   }
->>   
->> +static void stm32h7_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
->> +{
->> +	struct stm32_adc *adc = iio_priv(indio_dev);
->> +	u32 ovsr_bits, bits, msk;
->> +
->> +	msk = STM32H7_ROVSE | STM32H7_OVSR_MASK | STM32H7_OVSS_MASK;
->> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
->> +
->> +	if (!ovs_idx)
->> +		return;
->> +
->> +	ovsr_bits = (1 << ovs_idx) - 1;
->> +	bits = STM32H7_ROVSE | STM32H7_OVSS(ovs_idx) | STM32H7_OVSR(ovsr_bits);
->> +
->> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
->> +}
->> +
->> +static void stm32mp13_adc_set_ovs(struct iio_dev *indio_dev, u32 ovs_idx)
->> +{
->> +	struct stm32_adc *adc = iio_priv(indio_dev);
->> +	u32 bits, msk;
->> +
->> +	msk = STM32H7_ROVSE | STM32MP13_OVSR_MASK | STM32MP13_OVSS_MASK;
->> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR2, msk);
->> +
->> +	if (!ovs_idx)
->> +		return;
->> +
->> +	bits = STM32H7_ROVSE | STM32MP13_OVSS(ovs_idx);
->> +	if (ovs_idx - 1)
->> +		bits |= STM32MP13_OVSR(ovs_idx - 1);
->> +
->> +	stm32_adc_set_bits(adc, STM32H7_ADC_CFGR2, bits & msk);
->> +}
-> 
-> 
-> Some comments in these functions could be useful to avoid needing the
-> datasheet to understand all the different things that are happening here
-> and more importantly, why it was decided to do it this way when there are
-> many other possibilities (i.e. repeat the bit from commit message about
-> always using 12-bit output).
-> 
-
-ok, I will add some comments here.
-
->> @@ -1461,6 +1519,69 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
->>   	return ret;
->>   }
->>   
->> +static int stm32_adc_write_raw(struct iio_dev *indio_dev,
->> +			       struct iio_chan_spec const *chan,
->> +			       int val, int val2, long mask)
->> +{
->> +	struct stm32_adc *adc = iio_priv(indio_dev);
->> +	struct device *dev = indio_dev->dev.parent;
->> +	int nb = adc->cfg->adc_info->num_ovs;
->> +	u32 idx;
->> +	int ret;
->> +
->> +	switch (mask) {
->> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
->> +		if (val2)
->> +			return -EINVAL;
->> +
->> +		for (idx = 0; idx < nb; idx++)
->> +			if (adc->cfg->adc_info->oversampling[idx] == val)
->> +				break;
->> +
->> +		if (idx >= nb)
->> +			return -EINVAL;
->> +
->> +		ret = iio_device_claim_direct_mode(indio_dev);
->> +		if (ret)
->> +			return ret;
-> 
-> We've been replacing this everywhere with:
-> 
-> 		if (!iio_device_claim_direct(indio_dev))
-> 			return -EBUSY;
-> 
-> See: https://lore.kernel.org/linux-iio/20250331121317.1694135-1-jic23@kernel.org/
-> 
-
-ok
-
->> +
->> +		ret = pm_runtime_resume_and_get(dev);
->> +		if (ret < 0)
->> +			goto err;
->> +
->> +		adc->cfg->set_ovs(indio_dev, idx);
->> +
->> +		pm_runtime_mark_last_busy(dev);
->> +		pm_runtime_put_autosuspend(dev);
->> +
->> +		adc->ovs_idx = idx;
->> +
->> +err:
->> +		iio_device_release_direct_mode(indio_dev);
-> 
-> 		iio_device_release_direct(indio_dev);
-> 
->> +
->> +		return ret;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +}
-
-BRs
-Olivier
+--Sean
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
