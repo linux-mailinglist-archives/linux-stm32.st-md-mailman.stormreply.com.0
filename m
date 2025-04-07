@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 290F6A7DD02
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 14:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31174A7DD03
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 14:03:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D009DC78F9C;
-	Mon,  7 Apr 2025 12:03:27 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4501C78F9E;
+	Mon,  7 Apr 2025 12:03:28 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1208C78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD881C78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 12:03:26 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3913b539aabso2434534f8f.2
+ Mon,  7 Apr 2025 12:03:27 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so3476857f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Apr 2025 05:03:26 -0700 (PDT)
+ Mon, 07 Apr 2025 05:03:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744027406; x=1744632206;
+ d=gmail.com; s=20230601; t=1744027407; x=1744632207;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SXx2rv9zT35RkoqKlgbg0mm3kdEQQG79f5HFBb1nhgc=;
- b=mythzFVvZJNkrRtjIPBvS+pYn/Gjlk43ee9GmlokChUoM13km39KsErw2MBPD8tknG
- gYGaUMD4TNelc3Ck+wkFtqun7pbXewA6BBsKDC+D6rQF3nKgeIlflY4sUS7asjq2dn+z
- x6+cnCzNSw3ir0pB1IcEOFPMuW36bHKoGd+cmzFclqB8gDltThn9cstNV4fNxtDXF6+f
- dPmLc6QlhoCXfJnBMLr3dfk+ihot1wd7BMnkpCfuNXqPKCUJRUrq135++byJc13KpNKx
- YRHn7fMZNAKuGAPJydNVJ9BqXI2usrPrI6Xsc8my5/st8lcKvyY7pN+erwXOwt8Vae1j
- EB0Q==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fG6cklCkHNYJxMIIK0GDMVqFSaYHTVH2UbG4fjsK7gc=;
+ b=cJZWY1mgdu/Yuu5LsQanP+v3cHiA3wzbfmScaJYnggSVLs1sH8BNmb/uEmMd1D+Kur
+ GycoiRf4gPUGIbRmrdbZnHt1u4fWH+jlemjTXxtIM5mRbWSvviOkvNT1+zclgn4z/6tt
+ eAldSUe7tUOFuq5c0Hwgkjv++GHk8J4ZCGpRiP+MXUVbdYPtnBWjfeXAvIczrfZSM9wd
+ YJWI28FUruCgdLz1VT1Ql97sqR31mU6JWReygsgx0zNBBqpmqZC/zyFjzGkgE/s7joMe
+ ANshTxJA4zc4Ay6lcOWWTWmDHLFj1ynCbmw2GrkBhU4DcLVZRS3xVuW2kbG4KmnxexV6
+ OwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744027406; x=1744632206;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SXx2rv9zT35RkoqKlgbg0mm3kdEQQG79f5HFBb1nhgc=;
- b=GwZ7FiiQBEL+i4FnaGMuWcIHOnxGmkOFhjlUMj0tmNqvHyT0X/2JGrnRPUq2C++llf
- NjUx8HC8gShqXn/6BjNBJqEK9odv/VrxW5ydDtfDDnJW4H3cvS6QPnVmQhtnuuSMZn/U
- AzpK/6e0UsiED2zIfnAGtzmknc1Ad9wbHAKwBBnYYKh4d4hzhZp+s/wPSYsC6qF/EAKX
- VnFJ/HGBjFBbrpHdRiZZlD1vWX7/awxwKhc1mt1vzNQwmqAka/y6YASj9iB9azeW3K4z
- m/BFceskjD1iQMmWzPYbM2dbjh1Fsr6zJKFsq4ezLy8E/MefxDorsTkipEcXQhQEHTdh
- Ctug==
+ d=1e100.net; s=20230601; t=1744027407; x=1744632207;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fG6cklCkHNYJxMIIK0GDMVqFSaYHTVH2UbG4fjsK7gc=;
+ b=L0u11O6a4NPOAvbyz/g93C4BQp+cJXi6e06PmAAGonBmJDTgKHFYZ7i9RaZxNKX022
+ OBaFGoApHH5aR6DFPpJmKMijp6u+y+htGE/bcteiUgSnzt7pxSm+7sNyPwWhxoc9era+
+ yaXK0yclK1EFLIg5unWHeo/9dA4q9NCFqusPobtIwHxHvr5XqSPJ9i5660OJ0lMRrC/n
+ UJKgkudOOqOrNQ3dzjg1iEKRac7AkfhP1zjBIvcHS6v3yY2sidswd54vchuxwdRKrGUh
+ QuG2rW+xiOMMHhTLgCGT9ePoh/kp4SP1C8HIGY/2Gwmh6gVKyeR3UwaelUcmMXBTOav9
+ SFTg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUcVszlgvSJps+zm/n6x4OhP25oC5tUiJoLC9Gz+IyA3au3hyFJzk8YduG+rvdjbCTe+vTjMLVdW9Rk+A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzFGm6Ij2TgqJ/cexmNB8NhlijwdmCSKeJbeGkEhEBWEj8jF8Z/
- XDLrewsk8gCQ7G/0q71fwe1knmlbofS8PlJyyxy3YwnZDEukNyy2
-X-Gm-Gg: ASbGncuFQRHNIB1UdmfWuVzmHoIsmD2KJuB8fKQljkRhMpfnscB1lalir8BRiNVV2Gl
- WWqOQS1GdK/X1Cl5uL30xKF6fhyQSTimssC3ffzAynLoap3fHJHSBMWpFF3cNAEiorf2c4QZ/f0
- cB1cGIrBA0iYac0G1cpMW8e3Qwvc7YFwPUs9UPp+0Y2AeHUpN+ZgxVkYmuojALXGajoD6WhZcsM
- 0qLZUpSDh/F5/vbE4y5jPZXQQuZgehif/RATiAv52xrY4l/ktLTrJTXQveepftZAxkNr2HZA7TQ
- pgeF+/BnSCGU/irKgRp+W4fzi6d/XfH6zFPyZw3x0rQtpZBqOUpVFNmgbQ0bzkxqrIrm/R6RT6p
- RN0f5
-X-Google-Smtp-Source: AGHT+IE37bdrVUeb/XqXM/+1lhsEdri9+eE8Oa4q2uNN8bo1IG+kwjQxWy1YJ26YTiId2TriZ2pQ3A==
-X-Received: by 2002:a05:6000:248a:b0:397:3900:ef80 with SMTP id
- ffacd0b85a97d-39cb3597eb7mr10077348f8f.22.1744027405651; 
- Mon, 07 Apr 2025 05:03:25 -0700 (PDT)
+ AJvYcCXfZ7cVsbyL3iBC544ycpR6FFb0skcFhHhP3X6bemPYGwgfGIK8enfKmwMvGRwqgKp5uRKbO8OwGvl/5g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwdE7NFIdx/Ay7kd9nRkRujehZiqmf5A66/ZRnekxRz4Q6vsd+8
+ k//WePgVSWZ+ZtiZsu7/T8TvAOJufqHhmumt4YLnLD5sUpDJGGJv
+X-Gm-Gg: ASbGncvk0HSV2TOmFAom8+OUznlNK8mL2Wz1K6eG5LTBX/nZpprHvytXTzZzv24XzjF
+ BvOUk4JdYcNHiwiPWF4jTzvBOyygZTBwNKqxap4BpBTyy6WnGBHkviHYAkIZLCb1RjTiY9c5B3t
+ PKlj0Vu6lfK/ecvz7kkZEcrK0h7DLo/X5hNT7GkA50nKw3h6wiUVuSS4EaBSMhXBMAJaEX0zh2T
+ WiNm4A8vwg74002hTVdmRJdfsvhOdpfEiJZ0KPn2Ft4XcspKXbEs8wK6wM04U2fhonlrA5xSeDZ
+ ASvfNYgmxuQ9O3uccgZcVoO309SbcJwadWRqF16Mk84wOSsf+CNBJDLXJRY2Rot8VeNMLw==
+X-Google-Smtp-Source: AGHT+IEbZIVKSwKGcZGaZkVGFNqeu45TBBjhVhTZoMPStlgPwCbQmNhtEp6XGXu00ZWclskzPkReog==
+X-Received: by 2002:a05:6000:2407:b0:39c:1efb:ee8a with SMTP id
+ ffacd0b85a97d-39d0de67a97mr9832691f8f.38.1744027406917; 
+ Mon, 07 Apr 2025 05:03:26 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:78b9:80c2:5373:1b49])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c3020d943sm11986976f8f.74.2025.04.07.05.03.24
+ ffacd0b85a97d-39c3020d943sm11986976f8f.74.2025.04.07.05.03.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Apr 2025 05:03:25 -0700 (PDT)
+ Mon, 07 Apr 2025 05:03:26 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -78,9 +78,11 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Mon,  7 Apr 2025 13:03:14 +0100
-Message-ID: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Mon,  7 Apr 2025 13:03:15 +0100
+Message-ID: <20250407120317.127056-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
@@ -88,8 +90,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
  Biju Das <biju.das.jz@bp.renesas.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 0/3] Add GBETH glue layer driver
-	for Renesas RZ/V2H(P) SoC
+Subject: [Linux-stm32] [PATCH net-next v5 1/3] dt-bindings: net: dwmac:
+	Increase 'maxItems' for 'interrupts' and 'interrupt-names'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,51 +110,75 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi All,
+Increase the `maxItems` value for the `interrupts` and `interrupt-names`
+properties to 11 to support additional per-channel Tx/Rx completion
+interrupts on the Renesas RZ/V2H(P) SoC, which features the
+`snps,dwmac-5.20` IP.
 
-This patch series adds support for the GBETH (Gigabit Ethernet) glue layer
-driver for the Renesas RZ/V2H(P) SoC. The GBETH IP is integrated with
-the Synopsys DesignWare MAC (version 5.20). The changes include updating
-the device tree bindings, documenting the GBETH bindings, and adding the
-DWMAC glue layer for the Renesas GBETH.
+Refactor the `interrupt-names` property by replacing repeated `enum`
+entries with a `oneOf` list. Add support for per-channel receive and
+transmit completion interrupts using regex patterns.
 
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
 v4->v5
-- Rebased the changes on net-next
+- No change
 
 v3->v4
 - Fixed maxItems for interrupt-names property
-- Maintained reverse christmas tree order in renesas_gbeth_clks_config
-- Returned err in case of success in renesas_gbeth_probe()
+- Added RB tag from Rob
 
 v2->v3
-- Fixed review comments from Rob and Russell
+- Dropped adding `additionalItems`
+- Moved interrupts description into interrupt-names
+- Replaced enum with a oneOf and added Rx/Tx regex patterns
 
 v1->v2
-- Updated commit description for patch 2/3
-- Updated tx/rx queue completion interrupt names
-- Added clks_config callback
+- No change
+---
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 24 ++++++++++++-------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-v1:
-https://lore.kernel.org/all/20250302181808.728734-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (3):
-  dt-bindings: net: dwmac: Increase 'maxItems' for 'interrupts' and
-    'interrupt-names'
-  dt-bindings: net: Document support for Renesas RZ/V2H(P) GBETH
-  net: stmmac: Add DWMAC glue layer for Renesas GBETH
-
- .../bindings/net/renesas,r9a09g057-gbeth.yaml | 201 ++++++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |  25 ++-
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../stmicro/stmmac/dwmac-renesas-gbeth.c      | 165 ++++++++++++++
- 5 files changed, 394 insertions(+), 9 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/renesas,r9a09g057-gbeth.yaml
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 78b3030dc56d..4d4fcaeca8a8 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -114,19 +114,25 @@ properties:
+ 
+   interrupts:
+     minItems: 1
+-    items:
+-      - description: Combined signal for various interrupt events
+-      - description: The interrupt to manage the remote wake-up packet detection
+-      - description: The interrupt that occurs when Rx exits the LPI state
+-      - description: The interrupt that occurs when HW safety error triggered
++    maxItems: 11
+ 
+   interrupt-names:
+     minItems: 1
++    maxItems: 11
+     items:
+-      - const: macirq
+-      - enum: [eth_wake_irq, eth_lpi, sfty]
+-      - enum: [eth_wake_irq, eth_lpi, sfty]
+-      - enum: [eth_wake_irq, eth_lpi, sfty]
++      oneOf:
++        - description: Combined signal for various interrupt events
++          const: macirq
++        - description: The interrupt to manage the remote wake-up packet detection
++          const: eth_wake_irq
++        - description: The interrupt that occurs when Rx exits the LPI state
++          const: eth_lpi
++        - description: The interrupt that occurs when HW safety error triggered
++          const: sfty
++        - description: Per channel receive completion interrupt
++          pattern: '^rx-queue-[0-3]$'
++        - description: Per channel transmit completion interrupt
++          pattern: '^tx-queue-[0-3]$'
+ 
+   clocks:
+     minItems: 1
 -- 
 2.49.0
 
