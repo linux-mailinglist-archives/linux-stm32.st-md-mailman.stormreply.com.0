@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099C8A7E147
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:25:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13713A7E148
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:25:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF2A9C78F9B;
-	Mon,  7 Apr 2025 14:25:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD9FDC78F9B;
+	Mon,  7 Apr 2025 14:25:21 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99929C78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECC54C78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Apr 2025 14:25:20 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 8251643281;
  Mon,  7 Apr 2025 14:25:17 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 40B91443B4;
- Mon,  7 Apr 2025 14:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1744035917;
+ t=1744035920;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KOcho37MvrVhiA5dQkVJX8FlRBRSDHiJRf+zEmA1rlY=;
- b=D0danf4qUYVlA+OsldSLv5VeHErZ5R+XS/EI8G0W7/pw96QLLVqQb0JXQ0xb1gSBQyZ++6
- Ibam302Oi5QFRZJ8GKfAK4a/hXpaO3kWUZfFeyz/faD1NLQn/HyMK2c/1YR46fNeTYS/Sx
- ACx7UuOmXwY+heqjzhLMeXqVUH7KREOd4z1yxEy+MwZHGaBhFgWLC1dpyBYvZfFV+W5bLY
- 72t0OyQUQm/Yx0iNXUiOulOJnzkhptEL9IlBXtAUKFXlYBT/6mhvXUf8x23h/Rn8bpjSv5
- rMzkF1i0m307tf7x6AFrZMmToPWWGw7WZQOJCriAy8F+dUyhEdF0q65NyPOb3Q==
+ bh=GlbxOSSQor75pYLhcBGMiTmVttlHOD9YuyyYG+JTv+8=;
+ b=iSyoRz2Y2qjob8/NLhf8GqmyoV2qkPrDQz+ge31BPb1Y3wBs+o4tMTIQHhTBr3a4h1EqsV
+ q2mUgk/XKzP7T3x9jPQXMPcHh2R6NKt72XHzWDbmd9QASSW3+jCYhsuTtL16DGk5grxIRW
+ XMjJ6t19DcUSWjEouODKrY/wofGEY1+EF6dtZu45g/+emk5IuXSNXvlIN6FAA3RID4FjPG
+ T8EuoHIDLJNMXONu/unSxKAD0H+2GQHlLip9t66MDoqIIkjHb/QB6zN0uQFLkodazkVbow
+ g7jcqS15T5pV8tUq+Qg68Ay6rshRWXWbSHp2RK+NYXHZEGwBEswXg2jhVYKbJg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 07 Apr 2025 16:23:39 +0200
+Date: Mon, 07 Apr 2025 16:23:40 +0200
 MIME-Version: 1.0
-Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-24-42113ff8d9c0@bootlin.com>
+Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-25-42113ff8d9c0@bootlin.com>
 References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,24 +52,26 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 X-Mailer: b4 0.14.2
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedvudenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegludelvddrudeikedrudejkedrjeehngdpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeegvddprhgtphhtthhopehhvghrvhgvrdgtohguihhnrgessghoohhtlhhinhdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehshhgrfihnghhuoheskhgvr
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedvudenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegludelvddrudeikedrudejkedrjeehngdpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeeggedprhgtphhtthhopehhvghrvhgvrdgtohguihhnrgessghoohhtlhhinhdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehshhgrfihnghhuoheskhgvr
  hhnvghlrdhorhhgpdhrtghpthhtohepjfhuihdrrfhusehgvghhvggrlhhthhgtrghrvgdrtghomhdprhgtphhtthhopehkvghrnhgvlhesphgvnhhguhhtrhhonhhigidruggvpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhm
 X-GND-Sasl: luca.ceresoli@bootlin.com
 Cc: imx@lists.linux.dev,
  =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
  linux-samsung-soc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Hui Pu <Hui.Pu@gehealthcare.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
- freedreno@lists.freedesktop.org
-Subject: [Linux-stm32] [PATCH 24/34] drm/omap: dss: venc: convert to
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ linux-mediatek@lists.infradead.org,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ asahi@lists.linux.dev, freedreno@lists.freedesktop.org
+Subject: [Linux-stm32] [PATCH 25/34] drm/rcar-du: dsi: convert to
  devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -89,94 +91,43 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This is the new API for allocating DRM bridges.
 
-Switching from a non-devm to a devm allocation allows removing the kfree()
-in the remove function and in the probe error management code, and as a
-consequence to simplify the code flow by removing now unnecessary gotos.
-
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- drivers/gpu/drm/omapdrm/dss/venc.c | 23 ++++++++---------------
- 1 file changed, 8 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/venc.c b/drivers/gpu/drm/omapdrm/dss/venc.c
-index 50349518eda1630400529caf27ca4469bb09fc82..9b5d53dc361e654a2e4009c3c81b726f9ef76ced 100644
---- a/drivers/gpu/drm/omapdrm/dss/venc.c
-+++ b/drivers/gpu/drm/omapdrm/dss/venc.c
-@@ -664,7 +664,6 @@ static const struct drm_bridge_funcs venc_bridge_funcs = {
- 
- static void venc_bridge_init(struct venc_device *venc)
- {
--	venc->bridge.funcs = &venc_bridge_funcs;
- 	venc->bridge.of_node = venc->pdev->dev.of_node;
- 	venc->bridge.ops = DRM_BRIDGE_OP_MODES;
- 	venc->bridge.type = DRM_MODE_CONNECTOR_SVIDEO;
-@@ -809,9 +808,9 @@ static int venc_probe(struct platform_device *pdev)
- 	struct venc_device *venc;
- 	int r;
- 
--	venc = kzalloc(sizeof(*venc), GFP_KERNEL);
--	if (!venc)
--		return -ENOMEM;
-+	venc = devm_drm_bridge_alloc(&pdev->dev, struct venc_device, bridge, &venc_bridge_funcs);
-+	if (IS_ERR(venc))
-+		return PTR_ERR(venc);
- 
- 	venc->pdev = pdev;
- 
-@@ -824,26 +823,24 @@ static int venc_probe(struct platform_device *pdev)
- 	venc->config = &venc_config_pal_trm;
- 
- 	venc->base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(venc->base)) {
--		r = PTR_ERR(venc->base);
--		goto err_free;
--	}
-+	if (IS_ERR(venc->base))
-+		return PTR_ERR(venc->base);
- 
- 	venc->vdda_dac_reg = devm_regulator_get(&pdev->dev, "vdda");
- 	if (IS_ERR(venc->vdda_dac_reg)) {
- 		r = PTR_ERR(venc->vdda_dac_reg);
- 		if (r != -EPROBE_DEFER)
- 			DSSERR("can't get VDDA_DAC regulator\n");
--		goto err_free;
-+		return r;
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index 7ab8be46c7f6547f29b4d45af7ac704283da9dcd..1af4c73f7a887712aef8c8176b0d0338d9ca9727 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -918,7 +918,6 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_host *host,
  	}
  
- 	r = venc_get_clocks(venc);
- 	if (r)
--		goto err_free;
-+		return r;
+ 	/* Initialize the DRM bridge. */
+-	dsi->bridge.funcs = &rcar_mipi_dsi_bridge_ops;
+ 	dsi->bridge.of_node = dsi->dev->of_node;
+ 	drm_bridge_add(&dsi->bridge);
  
- 	r = venc_probe_of(venc);
- 	if (r)
--		goto err_free;
-+		return r;
+@@ -1004,9 +1003,10 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+ 	struct rcar_mipi_dsi *dsi;
+ 	int ret;
  
- 	pm_runtime_enable(&pdev->dev);
+-	dsi = devm_kzalloc(&pdev->dev, sizeof(*dsi), GFP_KERNEL);
+-	if (dsi == NULL)
+-		return -ENOMEM;
++	dsi = devm_drm_bridge_alloc(&pdev->dev, struct rcar_mipi_dsi, bridge,
++				    &rcar_mipi_dsi_bridge_ops);
++	if (IS_ERR(dsi))
++		return PTR_ERR(dsi);
  
-@@ -861,8 +858,6 @@ static int venc_probe(struct platform_device *pdev)
- 	venc_uninit_output(venc);
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
--err_free:
--	kfree(venc);
- 	return r;
- }
+ 	platform_set_drvdata(pdev, dsi);
  
-@@ -875,8 +870,6 @@ static void venc_remove(struct platform_device *pdev)
- 	venc_uninit_output(venc);
- 
- 	pm_runtime_disable(&pdev->dev);
--
--	kfree(venc);
- }
- 
- static __maybe_unused int venc_runtime_suspend(struct device *dev)
 
 -- 
 2.49.0
