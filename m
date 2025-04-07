@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46768A7EBBF
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F280A7EBC2
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:59:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A698C7128A;
-	Mon,  7 Apr 2025 18:59:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15399C7128A;
+	Mon,  7 Apr 2025 18:59:45 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38841C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F412EC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 18:59:39 +0000 (UTC)
+ Mon,  7 Apr 2025 18:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xTONaCMGO+N+NO9JMd3j9lruIEiRtelFCdK2KAx5w+M=; b=hidQfRU5Rh4JiHeynMmBEAIf+H
- gzkvRXc9w95+J87NeqpP4x6NPTNpx+Q3uXkguxSQ11KGk5UGbqaoL98obnOMRMutn2185KmavdbPv
- 0YM45uW+cMvN8vfoCoeQWb6hOEEcRD2wL6LO4FvNpGx+OVfYdy20KHXY2LXbVxzane4Q5WZffWTGK
- NKfeCOci9TDgP+7oL8YTmvwSoVSGMzeYDG7+mE16BWaUfLvj8TUH/eg/WdFqUaxp90K/Q1H6PEj/N
- a+hsin3gVpPrUDpbMCc851uNyZ9OWoq58ia+NVZGpTA7wOuRjmPJzHkl916SsTpOHJ0yahzwBPWy7
- 1+BOv8bA==;
+ bh=6OUrCzCldOGuSSzB6HzeF4lCjN38tssC9VPeOMCVpQA=; b=Ox9FUI/idEBlHs9dz8SvPkf/v8
+ sWb/15TPPiO7QJVwSf1HH0lBUGQqA2cgxJVXzwddGI07XLbaQiDnPMgiPliPfmIECeCZBcWPLpkPi
+ 7zZlLxe2l8ag6/r0K6cuU5ElLX76rWN6qmpjpovkpsSiZFJhxXzcDXWbzLn+EpJ8IlNr5aMUL+h5W
+ AF6cnwBKMuXAqd1AqEw02CBU9PBopD5EYgE7biRCdjF5+xEXNgRzk/TwNyjiU3jpOiJV7cc0pk6UB
+ EVCVF7NNuXKXqWMPazYQGPAXrq9+A2LMPywE0EgiG7h9qX2KrRA1bqZ/sicmQqn+pHXJwCA9aadUV
+ mRmZFYhA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44378 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44394 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1u1rgz-00069s-0v;
- Mon, 07 Apr 2025 19:59:33 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1u1rh4-0006AC-1K;
+ Mon, 07 Apr 2025 19:59:38 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1u1rgT-0013gp-97; Mon, 07 Apr 2025 19:59:01 +0100
+ id 1u1rgY-0013gv-CL; Mon, 07 Apr 2025 19:59:06 +0100
 In-Reply-To: <Z_QgOTC1hOSkIdur@shell.armlinux.org.uk>
 References: <Z_QgOTC1hOSkIdur@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1u1rgT-0013gp-97@rmk-PC.armlinux.org.uk>
-Date: Mon, 07 Apr 2025 19:59:01 +0100
+Message-Id: <E1u1rgY-0013gv-CL@rmk-PC.armlinux.org.uk>
+Date: Mon, 07 Apr 2025 19:59:06 +0100
 Cc: Thierry Reding <treding@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>,
  netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
@@ -50,8 +50,8 @@ Cc: Thierry Reding <treding@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/5] net: stmmac: intel-plat: remove
- eee_usecs_rate and hardware write
+Subject: [Linux-stm32] [PATCH net-next 4/5] net: stmmac: remove
+	eee_usecs_rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,49 +68,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove the write to GMAC_1US_TIC_COUNTER for two reasons:
-
-1. during initialisation or reinitialisation of the DWMAC core, the
-   core is reset, which sets this register back to its default value.
-   Writing it prior to stmmac_dvr_probe() has no effect.
-
-2. Since commit 8efbdbfa9938 ("net: stmmac: Initialize
-   MAC_ONEUS_TIC_COUNTER register"), GMAC4/5 core code will set
-   this register based on the rate of plat->stmmac_clk. This clock
-   is fetched by devm_stmmac_probe_config_dt(), and plat->clk_ptp_rate
-   will be set to its rate profided a "ptp_ref" clock is not provided.
-   In any case, Marek's commit will set the effectual value of this
-   register.
-
-Therefore, dwmac-intel-plat.c writing GMAC_1US_TIC_COUNTER serves no
-useful purpose and can be removed.
+plat_dat->eee_users_rate is now unused, so remove this member.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ include/linux/stmmac.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-index 599def7b3a64..4ea7b0a803d7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
-@@ -113,16 +113,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
- 
- 	plat_dat->clk_tx_i = dwmac->tx_clk;
- 	plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
--
- 	plat_dat->bsp_priv = dwmac;
--	plat_dat->eee_usecs_rate = plat_dat->clk_ptp_rate;
--
--	if (plat_dat->eee_usecs_rate > 0) {
--		u32 tx_lpi_usec;
--
--		tx_lpi_usec = (plat_dat->eee_usecs_rate / 1000000) - 1;
--		writel(tx_lpi_usec, stmmac_res.addr + GMAC_1US_TIC_COUNTER);
--	}
- 
- 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- 	if (ret)
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index c4ec8bb8144e..8aed09d65b4a 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -276,7 +276,6 @@ struct plat_stmmacenet_data {
+ 	int mac_port_sel_speed;
+ 	int has_xgmac;
+ 	u8 vlan_fail_q;
+-	unsigned long eee_usecs_rate;
+ 	struct pci_dev *pdev;
+ 	int int_snapshot_num;
+ 	int msi_mac_vec;
 -- 
 2.30.2
 
