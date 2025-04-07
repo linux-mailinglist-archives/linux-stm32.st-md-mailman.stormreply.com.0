@@ -2,77 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F2CDA7DC7C
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 13:39:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290F6A7DD02
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 14:03:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 278E8C78F9B;
-	Mon,  7 Apr 2025 11:39:27 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D009DC78F9C;
+	Mon,  7 Apr 2025 12:03:27 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A601C78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1208C78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 11:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1744025917; x=1744630717; i=markus.elfring@web.de;
- bh=7BpszykP3a8TgXiCiFnrLPKvDXMJeEZXi14t+noJhAg=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=XXwebaJ6g2otca99erTdOKqgrr8wdPMKcSJGjYO8sFXrDVlp6LvYz8uOtAGgrB7L
- 6xs7eBLxbiBp3iJfKQHmktD6Ec4bodRdCV+OIIWc1dE1pCTiG2NBJUqvOWALW0xny
- ooo7c/QlEtNW3LOvX/x6QIqukBofE3BJZZQjiiC+/ROLyyVlEpG6GXolH8a9VfyM9
- +IdofeQb7rkL7wQ4pzx1LVnNWi1RTfoctCpjAWzyXQW5HrWX3B5a9xfsEqrIKXfs9
- orKLC/xoAqcjzwC8cmYGjIRgemtvQIw6+gNywm+F5B3P/TARbSEk8D8fEt/n/BrGi
- 4+CJcXBGskXI2XO4tQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.29] ([94.31.93.4]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MumJF-1tA47z47z1-010NWl; Mon, 07
- Apr 2025 13:38:37 +0200
-Message-ID: <5d8d6101-1a4b-4832-b263-e0f56840fdcd@web.de>
-Date: Mon, 7 Apr 2025 13:38:35 +0200
+ Mon,  7 Apr 2025 12:03:26 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-3913b539aabso2434534f8f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 07 Apr 2025 05:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744027406; x=1744632206;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SXx2rv9zT35RkoqKlgbg0mm3kdEQQG79f5HFBb1nhgc=;
+ b=mythzFVvZJNkrRtjIPBvS+pYn/Gjlk43ee9GmlokChUoM13km39KsErw2MBPD8tknG
+ gYGaUMD4TNelc3Ck+wkFtqun7pbXewA6BBsKDC+D6rQF3nKgeIlflY4sUS7asjq2dn+z
+ x6+cnCzNSw3ir0pB1IcEOFPMuW36bHKoGd+cmzFclqB8gDltThn9cstNV4fNxtDXF6+f
+ dPmLc6QlhoCXfJnBMLr3dfk+ihot1wd7BMnkpCfuNXqPKCUJRUrq135++byJc13KpNKx
+ YRHn7fMZNAKuGAPJydNVJ9BqXI2usrPrI6Xsc8my5/st8lcKvyY7pN+erwXOwt8Vae1j
+ EB0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744027406; x=1744632206;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SXx2rv9zT35RkoqKlgbg0mm3kdEQQG79f5HFBb1nhgc=;
+ b=GwZ7FiiQBEL+i4FnaGMuWcIHOnxGmkOFhjlUMj0tmNqvHyT0X/2JGrnRPUq2C++llf
+ NjUx8HC8gShqXn/6BjNBJqEK9odv/VrxW5ydDtfDDnJW4H3cvS6QPnVmQhtnuuSMZn/U
+ AzpK/6e0UsiED2zIfnAGtzmknc1Ad9wbHAKwBBnYYKh4d4hzhZp+s/wPSYsC6qF/EAKX
+ VnFJ/HGBjFBbrpHdRiZZlD1vWX7/awxwKhc1mt1vzNQwmqAka/y6YASj9iB9azeW3K4z
+ m/BFceskjD1iQMmWzPYbM2dbjh1Fsr6zJKFsq4ezLy8E/MefxDorsTkipEcXQhQEHTdh
+ Ctug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUcVszlgvSJps+zm/n6x4OhP25oC5tUiJoLC9Gz+IyA3au3hyFJzk8YduG+rvdjbCTe+vTjMLVdW9Rk+A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzFGm6Ij2TgqJ/cexmNB8NhlijwdmCSKeJbeGkEhEBWEj8jF8Z/
+ XDLrewsk8gCQ7G/0q71fwe1knmlbofS8PlJyyxy3YwnZDEukNyy2
+X-Gm-Gg: ASbGncuFQRHNIB1UdmfWuVzmHoIsmD2KJuB8fKQljkRhMpfnscB1lalir8BRiNVV2Gl
+ WWqOQS1GdK/X1Cl5uL30xKF6fhyQSTimssC3ffzAynLoap3fHJHSBMWpFF3cNAEiorf2c4QZ/f0
+ cB1cGIrBA0iYac0G1cpMW8e3Qwvc7YFwPUs9UPp+0Y2AeHUpN+ZgxVkYmuojALXGajoD6WhZcsM
+ 0qLZUpSDh/F5/vbE4y5jPZXQQuZgehif/RATiAv52xrY4l/ktLTrJTXQveepftZAxkNr2HZA7TQ
+ pgeF+/BnSCGU/irKgRp+W4fzi6d/XfH6zFPyZw3x0rQtpZBqOUpVFNmgbQ0bzkxqrIrm/R6RT6p
+ RN0f5
+X-Google-Smtp-Source: AGHT+IE37bdrVUeb/XqXM/+1lhsEdri9+eE8Oa4q2uNN8bo1IG+kwjQxWy1YJ26YTiId2TriZ2pQ3A==
+X-Received: by 2002:a05:6000:248a:b0:397:3900:ef80 with SMTP id
+ ffacd0b85a97d-39cb3597eb7mr10077348f8f.22.1744027405651; 
+ Mon, 07 Apr 2025 05:03:25 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:78b9:80c2:5373:1b49])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c3020d943sm11986976f8f.74.2025.04.07.05.03.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Apr 2025 05:03:25 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Mon,  7 Apr 2025 13:03:14 +0100
+Message-ID: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Qasim Ijaz <qasdev00@gmail.com>, linux-input@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20250406133551.4576-1-qasdev00@gmail.com>
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20250406133551.4576-1-qasdev00@gmail.com>
-X-Provags-ID: V03:K1:7yBflSxGGeWdw7bVzYWFg7LDXkghO2FiIafj3/KBPQ0KK3LFSE6
- rUn4X4ZhrwNVxZ6nBDP2tGow1+98ZomcmoJLr5stRtCAVjXWd3LbI7HnZOuS/MUHou5NSje
- Zdle4XiyzsUdu8sgG8VyHHfeq69uRV8tUwRbaJ1TowZACZgZlBSznwewxMA9xbAX/HcWyem
- HDrFii6zNxo/tqIjm+jEQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:gjRTKgY1ReI=;b6/mK2dG3AeTU/SDylEZwv+v2qR
- Sa8UWWlf9Waf1XPKaaoxzSlHAvt5AT6SZAeXHcaqTF1nCFP1Ep3wDnsOn1gTuS9HlSQIuMgs6
- XAn0aNo93EsOvCAapbXP/yg+m9saqNbikQOhA0lB7R2E/8KJ7B8JSCa/+FnDnWbtylrNPyLgl
- Qa/aBH/GMwg0P3E4quhWHUNuICIbPQX23Vi4yDrEmKQj/vLrAD+MmJ+h0X54yBO9T7gvq+Qhn
- TQPTMLeGWoei4vlv7YvHKpUr+RHDq87Q5gdFg+z0ICmayROM/R8HCfCV/pD3OCNGV7qg/x4d0
- /wY8eC6rKlOzqnwoSHKFn7OJ/EucV3+B60oAU3mIVzkbgdkP8Twno8ILkxOHSyvlLuMO/RFWE
- lUUv2n5vw0LXZl3U0BiNuPMRnrc2u/EsdnVfwQFagNo4ZxQVTKUZTO6/XTZoWnwW9MiCcfisg
- GwVYlhbExyMpaQAGHWyJVpLc+R6vZX5qNMnUtzRoywQYdJGCEt8dsjL/AfJW+oezjdcQqemaE
- AC7OkNYESfHANkzbCRP84mHhRL+KOnt3UgO+UIlybXbBxuurXiatis7Oy0xCv15fDTq1WHb8G
- jNvPBLP9g1g4VHs8NaR0JyVSqrffI/p1n2UePSlZbcvAJFkZhSPAQQohah91D5EHHbqeV873c
- GH58MChwSl5cZ7dKSiWwKdIeAxfR2QsQAm8/zNBHuNAwtGbxFH9IAK8gL+Ti46Iar+6pqApcK
- 4BCYYcXoBHBwvWKsPD5597LNc7KKIKEHvvwRsfIwL68cSWzJ2jriL/bEbbAKRFJtQrsvpSLCi
- HvIEUCjmfjxAZsjzPEBlfXH28ChJptlTRXAs3N88jWN6MPkP2Hl6/+Dciugf8b+ueuZmCoqZB
- 9m7L1UuyA8MR8MPICKhkWF1M+jFjr3MWV2uC0w1YvmOxa+9YV6H+C29WCts05nlapo1xPZiyG
- fYGBp2yTgq8CUnLLiEOdzrMu9WOdH2XzfV9egf0G64Nt/AUgqGvxy6iTiHzhhEEI+I1VSpmHq
- wiUnrBYBIfbTfr8KAD1HhtktrZ0H2nn1lY6hK5CtCJCzQYggcCZwtw3FmzHcFVi5kjVKsvnZp
- RTsN3oB18mSMTp979jawGqA9ttK6bOp3XDtSuTPR+p9EbsOU9xjZ1zbhvV++pc3Wdsz4/OZbz
- KiLKa5PnAuNpjailDaz5VrbijUSbWmW6Pq3TOwD+n66+RvHUpq5dDPuxv0dDljWzSup7XkEeK
- 9VAiJfA8/6OqCEHrWXPKZzil0/2ygL8Lx3BmgnSpg1y8DiMwKkzC5d88IuVkX0WfpdZHCIWP4
- f6d0FLPr7JfgME92AnC6emu5mZ0g6Ohv1SVyLfY/ZDDRRhBN4m4jwVkq5FhBAj35BUuqN6PeR
- XmQL3akHCIGqRZ0y/AeaWzTHbTRPVn6RngKyuA6wputxoMyDLLOlmcOfRcWulu/sEYAf0EK6x
- k5Tfq4FjotKRJOhQ3KyLJiO/H3urRstTPz+x0hI098S9fDihRtu6ZXCXUqTeouHSHA2pBSw==
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RESEND] HID: thrustmaster: fix memory leak
- in thrustmaster_interrupts()
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-renesas-soc@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v5 0/3] Add GBETH glue layer driver
+	for Renesas RZ/V2H(P) SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,32 +101,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-PiBJbiB0aHJ1c3RtYXN0ZXJfaW50ZXJydXB0cygpLCB0aGUgYWxsb2NhdGVkIHNlbmRfYnVmIGlz
-IG5vdAo+IGZyZWVkIGlmIHRoZSB1c2JfY2hlY2tfaW50X2VuZHBvaW50cygpIGNoZWNrIGZhaWxz
-LCBsZWFkaW5nCj4gdG8gYSBtZW1vcnkgbGVhay4KCldpbGwgeW91IGdldCBpbnRvIHRoZSBtb29k
-IHRvIG1ha2Ugd29yZCB3cmFwcGluZyBvY2Nhc2lvbmFsbHkgYSBiaXQgbmljZXIKZm9yIHN1Y2gg
-dGV4dCBsaW5lcyAod2hpY2ggbWF5IGJlIGxvbmdlciB0aGFuIDU5IGNoYXJhY3RlcnMpPwoKCuKA
-pgo+ICsrKyBiL2RyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYwo+IEBAIC0xNzQsNiArMTc0
-LDcgQEAgc3RhdGljIHZvaWQgdGhydXN0bWFzdGVyX2ludGVycnVwdHMoc3RydWN0IGhpZF9kZXZp
-Y2UgKmhkZXYpCj4gIAl1OCBlcF9hZGRyWzJdID0ge2JfZXAsIDB9Owo+Cj4gIAlpZiAoIXVzYl9j
-aGVja19pbnRfZW5kcG9pbnRzKHVzYmlmLCBlcF9hZGRyKSkgewo+ICsJCWtmcmVlKHNlbmRfYnVm
-KTsKPiAgCQloaWRfZXJyKGhkZXYsICJVbmV4cGVjdGVkIG5vbi1pbnQgZW5kcG9pbnRcbiIpOwo+
-ICAJCXJldHVybjsKPiAgCX0KCiogWW91IG1heSBhdm9pZCBzdWNoIHJlcGVhdGVkIGZ1bmN0aW9u
-IGNhbGxzIGJ5IHVzaW5nIGFub3RoZXIgbGFiZWwgaW5zdGVhZC4KICBodHRwczovL3dpa2kuc2Vp
-LmNtdS5lZHUvY29uZmx1ZW5jZS9kaXNwbGF5L2MvTUVNMTItQy4rQ29uc2lkZXIrdXNpbmcrYStn
-b3RvK2NoYWluK3doZW4rbGVhdmluZythK2Z1bmN0aW9uK29uK2Vycm9yK3doZW4rdXNpbmcrYW5k
-K3JlbGVhc2luZytyZXNvdXJjZXMjTUVNMTJDLkNvbnNpZGVydXNpbmdhZ290b2NoYWlud2hlbmxl
-YXZpbmdhZnVuY3Rpb25vbmVycm9yd2hlbnVzaW5nYW5kcmVsZWFzaW5ncmVzb3VyY2VzLUNvbXBs
-aWFudFNvbHV0aW9uKGNvcHlfcHJvY2VzcygpZnJvbUxpbnV4a2VybmVsKQoKKiBIb3cgZG8geW91
-IHRoaW5rIGFib3V0IHRvIGJlbmVmaXQgYW55IG1vcmUgZnJvbSB0aGUgYXBwbGljYXRpb24gb2Yg
-dGhlIGF0dHJpYnV0ZSDigJxfX2ZyZWXigJ0/CiAgaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20v
-bGludXgvdjYuMTQtcmM2L3NvdXJjZS9pbmNsdWRlL2xpbnV4L3NsYWIuaCNMNDcyCgoKUmVnYXJk
-cywKTWFya3VzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+Hi All,
+
+This patch series adds support for the GBETH (Gigabit Ethernet) glue layer
+driver for the Renesas RZ/V2H(P) SoC. The GBETH IP is integrated with
+the Synopsys DesignWare MAC (version 5.20). The changes include updating
+the device tree bindings, documenting the GBETH bindings, and adding the
+DWMAC glue layer for the Renesas GBETH.
+
+v4->v5
+- Rebased the changes on net-next
+
+v3->v4
+- Fixed maxItems for interrupt-names property
+- Maintained reverse christmas tree order in renesas_gbeth_clks_config
+- Returned err in case of success in renesas_gbeth_probe()
+
+v2->v3
+- Fixed review comments from Rob and Russell
+
+v1->v2
+- Updated commit description for patch 2/3
+- Updated tx/rx queue completion interrupt names
+- Added clks_config callback
+
+v1:
+https://lore.kernel.org/all/20250302181808.728734-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (3):
+  dt-bindings: net: dwmac: Increase 'maxItems' for 'interrupts' and
+    'interrupt-names'
+  dt-bindings: net: Document support for Renesas RZ/V2H(P) GBETH
+  net: stmmac: Add DWMAC glue layer for Renesas GBETH
+
+ .../bindings/net/renesas,r9a09g057-gbeth.yaml | 201 ++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  25 ++-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      | 165 ++++++++++++++
+ 5 files changed, 394 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/renesas,r9a09g057-gbeth.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+
+-- 
+2.49.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
