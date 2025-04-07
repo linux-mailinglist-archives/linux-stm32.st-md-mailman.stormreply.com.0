@@ -2,66 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DFF2A7E92B
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 19:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC47A7E953
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:06:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2912EC7128A;
-	Mon,  7 Apr 2025 17:58:16 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB4C3C7128A;
+	Mon,  7 Apr 2025 18:06:33 +0000 (UTC)
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
+ [91.218.175.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7CF7C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43EE4C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 17:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FQZF3bHFrRzkhV+LKvF3d5dfM2bWmbi8UIfdjStHGX4=; b=WlGmVHMVJCxY5iiYt0wYPPv9S/
- K+r0x/7QswlLVAvAjukNFL5ndYGtlZ1/u8epQ0A4/lD0fy1PuATaJtDAUOKSTPMVB3m9d8mqIKVjQ
- jKN2HY2tLwGol6pm30f/jJ8D2W2NJXhjUoaM+zpHzzGpGA+RYhI+qVYQCTb85DINqdSiXuOlDyhut
- RWlHSwmJVAo/P+ipwBWUGibW6T4f1tJuG6S02ymjq8HT9Hasq+o7ilZgM8ppJa52emVHbWU7Cp5f2
- uutqqPomR9ipCpMvz5CIlO1TzpnSQ9Wb7PWqVOuqjvJIt5Y+T66c8eqehUGEvO+OrHR6oApwIZXip
- cYrIt12Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56466)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u1qjN-0005nL-0u;
- Mon, 07 Apr 2025 18:57:57 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u1qjG-0000aL-28;
- Mon, 07 Apr 2025 18:57:50 +0100
-Date: Mon, 7 Apr 2025 18:57:50 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Message-ID: <Z_QSHpvSK7I--xPq@shell.armlinux.org.uk>
-References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ Mon,  7 Apr 2025 18:06:32 +0000 (UTC)
+Message-ID: <3203955d-b0fa-4ef6-bcec-6d23a5b6441d@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1744049190;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kFU4PCOFCF2t2dPmfjFQsFfH3+loT9oNKaTNo2jAsrw=;
+ b=kybWyAZ0LNPljlzODiID9MCxmPkOsj3+XZ3NOBA1SJ+GUkEwxi2q4YG6Tqzxu5OztwOoy2
+ 4FWNfu+DxWPsP6v4QiY6skK5eZddzEVCNMMTHOBHgUXOXHrueBs+hUmpIpZBJYNh/tQl0M
+ sPWqXv7raQ0Wc9svTCLcg7RV8xLYw7E=
+Date: Mon, 7 Apr 2025 14:06:21 -0400
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+References: <20250403181907.1947517-1-sean.anderson@linux.dev>
+ <20250407182738.498d96b0@kmaincent-XPS-13-7390>
+ <720b6db8-49c5-47e7-98da-f044fc38fc1a@linux.dev>
+ <CA+_ehUyAo7fMTe_P0ws_9zrcbLEWVwBXDKbezcKVkvDUUNg0rg@mail.gmail.com>
+ <1aec6dab-ed03-4ca3-8cd1-9cfbb807be10@linux.dev>
+ <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
+X-Migadu-Flow: FLOW_OUT
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Eric Dumazet <edumazet@google.com>, "David S . Miller" <davem@davemloft.net>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Li Yang <leoyang.li@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Rob Herring <robh@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Saravana Kannan <saravanak@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Joyce Ooi <joyce.ooi@intel.com>, linux-doc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, UNGLinuxDriver@microchip.com,
+ Clark Wang <xiaoning.wang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Naveen N Rao <naveen@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Robert Hancock <robert.hancock@calian.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add DWMAC
- glue layer for Renesas GBETH
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ upstream@airoha.com, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [RFC net-next PATCH 00/13] Add PCS core support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,51 +87,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 07, 2025 at 01:03:17PM +0100, Prabhakar wrote:
-> +static struct clk *renesas_gbeth_find_clk(struct plat_stmmacenet_data *plat_dat,
-> +					  const char *name)
-> +{
-> +	for (unsigned int i = 0; i < plat_dat->num_clks; i++)
-> +		if (!strcmp(plat_dat->clks[i].id, name))
-> +			return plat_dat->clks[i].clk;
-> +
-> +	return NULL;
-> +}
+On 4/7/25 13:21, Christian Marangi (Ansuel) wrote:
+> Il giorno lun 7 apr 2025 alle ore 19:00 Sean Anderson
+> <sean.anderson@linux.dev> ha scritto:
+>>
+>> On 4/7/25 12:46, Christian Marangi (Ansuel) wrote:
+>> > Il giorno lun 7 apr 2025 alle ore 18:33 Sean Anderson
+>> > <sean.anderson@linux.dev> ha scritto:
+>> >>
+>> >> On 4/7/25 12:27, Kory Maincent wrote:
+>> >> > On Thu,  3 Apr 2025 14:18:54 -0400
+>> >> > Sean Anderson <sean.anderson@linux.dev> wrote:
+>> >> >
+>> >> >> This series adds support for creating PCSs as devices on a bus with a
+>> >> >> driver (patch 3). As initial users,
+>> >> >>
+>> >> >> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
+>> >> >> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
+>> >> >> - The Cadence MACB driver is converted to support external PCSs (namely
+>> >> >>   the Xilinx PCS) (patches 9-10).
+>> >> >>
+>> >> >> The last few patches add device links for pcs-handle to improve boot times,
+>> >> >> and add compatibles for all Lynx PCSs.
+>> >> >>
+>> >> >> Care has been taken to ensure backwards-compatibility. The main source
+>> >> >> of this is that many PCS devices lack compatibles and get detected as
+>> >> >> PHYs. To address this, pcs_get_by_fwnode_compat allows drivers to edit
+>> >> >> the devicetree to add appropriate compatibles.
+>> >> >
+>> >> > I don't dive into your patch series and I don't know if you have heard about it
+>> >> > but Christian Marangi is currently working on fwnode for PCS:
+>> >> > https://lore.kernel.org/netdev/20250406221423.9723-1-ansuelsmth@gmail.com
+>> >> >
+>> >> > Maybe you should sync with him!
+>> >>
+>> >> I saw that series and made some comments. He is CC'd on this one.
+>> >>
+>> >> I think this approach has two advantages:
+>> >>
+>> >> - It completely solves the problem of the PCS being unregistered while the netdev
+>> >>   (or whatever) is up
+>> >> - I have designed the interface to make it easy to convert existing
+>> >>   drivers that may not be able to use the "standard" probing process
+>> >>   (because they have to support other devicetree structures for
+>> >>   backwards-compatibility).
+>> >>
+>> >
+>> > I notice this and it's my fault for taking too long to post v2 of the PCS patch.
+>> > There was also this idea of entering the wrapper hell but I scrapped that early
+>> > as I really feel it's a workaround to the current problem present for
+>> > PCS handling.
+>>
+>> It's no workaround. The fundamental problem is that drivers can become
+>> unbound at any time, and we cannot make consumers drop their references.
+>> Every subsystem must deal with this reality, or suffer from
+>> user-after-free bugs. See [1-3] for discussion of this problem in
+>> relation to PCSs and PHYs, and [4] for more discussion of my approach.
+>>
+>> [1] https://lore.kernel.org/netdev/YV7Kp2k8VvN7J0fY@shell.armlinux.org.uk/
+>> [2] https://lore.kernel.org/netdev/20220816163701.1578850-1-sean.anderson@seco.com/
+>> [3] https://lore.kernel.org/netdev/9747f8ef-66b3-0870-cbc0-c1783896b30d@seco.com/
+>> [3] https://lpc.events/event/17/contributions/1627/
+>>
+>> > And the real problem IMHO is that currently PCS handling is fragile and with too
+>> > many assumptions. With Daniel we also discussed backwards-compatibility.
+>> > (mainly needed for mt7621 and mt7986 (for mediatek side those are the 2
+>> > that slipped in before it was correctly complained that things were
+>> > taking a bad path)
+>> >
+>> > We feel v2 permits correct support of old implementations.
+>> > The ""legacy"" implementation pose the assumption that PCS is never removed
+>> > (unless the MAC driver is removed)
+>> > That fits v2 where a MAC has to initially provide a list of PCS to
+>> > phylink instance.
+>>
+>> And what happens when the driver is unbound from the device and suddenly
+>> a PCS on that list is free'd memory but is in active use by a netdev?
+>>
+> 
+> driver bug for not correctly implementing the removal task.
+> 
+> The approach is remove as provider and call phylink removal phase
+> under rtnl lock.
+> We tested this with unbind, that is actually the main problem we are
+> trying to address
+> and works correctly.
 
-In addition to Jakub's request, I'll ask that you hold off for a week
-because I have the following that I'd like to submit:
+OK, so this is a different approach since your last submission. Please
+CC me on your series.
 
-bbc73b8b6dfd net: stmmac: provide stmmac_pltfr_find_clk()
+- Fundamentally this is going to make backwards compatibility very
+  difficult, since your approach cannot work with mac_select_pcs. How
+  are you going to handle the case of MAC-internal PCSs? Are you going
+  to make them create a swnode and bind to it just to create a PCS for
+  e.g. MMIO registers? And how is the MAC supposed to know how to select
+  the PCS? From what I can tell you don't even notify the MAC about
+  which PCS it's using.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index c73eff6a56b8..43c869f64c39 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -709,6 +709,17 @@ devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- #endif /* CONFIG_OF */
- EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
+  I considered an approach like this, where the phylink would be in the
+  driver's seat (so to speak), but I decided not to persue it due to
+  the problems listed above. A lot of PCSs are tightly-integrated with
+  their MACs, so it does not make sense to introduce this little
+  coupling. I think it is better to let the MAC select the PCS e.g.
+  based on the phy interface. This tends to be a few lines of code for
+  the MAC and saves so much complexity in phylink.
 
-+struct clk *stmmac_pltfr_find_clk(struct plat_stmmacenet_data *plat_dat,
-+                                 const char *name)
-+{
-+       for (int i = 0; i < plat_dat->num_clks; i++)
-+               if (strcmp(plat_dat->clks[i].id, name) == 0)
-+                       return plat_dat->clks[i].clk;
-+
-+       return NULL;
-+}
-+EXPORT_SYMBOL_GPL(stmmac_pltfr_find_clk);
-+
-...
+  I think you should try doing the macb and lynx conversions for your
+  approach. It will make the above problems obvious.
 
-which will avoid glue drivers duplicating this functionality. This will
-be part of the first sets of patches I'm going to be submitting.
+- Your approach is very intrusive. There are lots of changes all over
+  phylink across several patches and it is hard to verify all the
+  assumptions. Whereas a wrapper keeps everything contained to one file,
+  and most of the functions can be evaluated independently.
 
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+--Sean
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
