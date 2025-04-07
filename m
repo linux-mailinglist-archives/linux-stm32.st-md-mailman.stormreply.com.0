@@ -2,77 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB973A7ED5E
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 21:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA4FAA7F0C5
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 01:17:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64274C78F97;
-	Mon,  7 Apr 2025 19:34:20 +0000 (UTC)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FBC5C78F9F;
+	Mon,  7 Apr 2025 23:17:58 +0000 (UTC)
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com
+ [91.218.175.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BC19C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28AA1C78F75
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 19:34:17 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-523edc385caso1931126e0c.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Apr 2025 12:34:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744054457; x=1744659257;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=p9kUupfLeM2bb97UEnJtJkHdlxhJbbR6dWtAC4xPAdw=;
- b=hrh7sMjL/oGkDe/39V9qw1quMAopSxBjoNwFc4ieaRkZRMVk2aVHSb+d65z0CYVAj0
- L9fTx0PgW24PvbqNNBbCQUpWTdp8LWCCqQWvrvBt7RtJbb0sH9gy61wyBae7L1uQ/kCf
- y4MqNY9DLfEefZaQvisZhp6UpJHJ/g0KKgEtMmkDdSztgmeMHQZJrq05JYiElvWFYuZ8
- 1ZJeoktSHVCIQawu2JWa2KXZS6o/hJsUpPJlNhaVVX0TbigYMxilvdDij7TTFyGA9k4T
- VMh5EaDsgN2lkH8eN03/UbNXA9UxJkQmGSUIMkS+w2Q2gfcPG0bqmKcE+abqHRATDnbQ
- S4gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744054457; x=1744659257;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=p9kUupfLeM2bb97UEnJtJkHdlxhJbbR6dWtAC4xPAdw=;
- b=ANGq+PxbOFH0r6OaULMbDSevCPGwQSQAwxr8o/8ih4xE9EiMzwL93VRRoxnRXSIPgA
- yNUitDvnUmfFcqQECEtnGL59jSH5J9XmlAGkd0k7gvQoJk89AZjPuJxscg7bGfoYEc1V
- 4mEurrJSTYHx6ck4WzW4KeB996nLe1Gd4UeToDdPz5+jWSvY9fnMHuq5ofIKbhxoug+0
- 70uBXC07E4XX1mwWH1QvELoLFeH0XmB6MIzudgKdBYrCgFPScyRAIK716pQvTBHDo8OG
- Y9yopUtb4eWTXeZbUtr9QWemnOI6Xq4EDt3yrqQ49T/cU6HV3qWL1YcBbqSdfyi44jGu
- IHUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2X6ZMlIDcFTw0nEY6mYyp4+J/7q3pWv6J6m1Z3neTM1jWxdQPE0BJ6ibse9IHA2rqQaXSJNiKw05hpg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyhv9L5Xqjnu0QpxZJIpgMFCOoCMzq74dk9Yw/m2rq/nqGHuyjq
- 1WhCeoZRvasR46JsNvLW+ljFSUUIdpoNJy36MtG5zRpomfAlsuB13VeuKESnZFlObeiWoYqrWnL
- OamhkbeJrD+1cpBgE8FSYydW8mrY=
-X-Gm-Gg: ASbGnctCjCMjZ1sJjoWL8TuFl7lVFuDWlM+zre+SjPUgKT9qzeyhq49InmgHgZhpJJw
- UW+dE04gfECs6sLIkqHV/TRaGMbdqZyJzt51nDOHpM559Apfja2t8lle8VceGwa7kEznDbyPSMZ
- Ybk5ooOkY2ie+W9LVAFf2DDmcK//O0RagCLl0IE3l9oNwX350FF4kBQZXczNk=
-X-Google-Smtp-Source: AGHT+IEUwdqKil1pOvRnLZ3FdzjENanpIPQHgPq8R+xUeQrCDsCevqcy7D/AW0+zBxjvwQs2SZQhqHplRtvsFcJ07KA=
-X-Received: by 2002:a05:6122:2502:b0:526:483:95fd with SMTP id
- 71dfb90a1353d-527645b6798mr10677466e0c.10.1744054456970; Mon, 07 Apr 2025
- 12:34:16 -0700 (PDT)
+ Mon,  7 Apr 2025 23:17:57 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1744067875;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=cWonVcXX3jqcfNp/b9lgu6z0q2BXOtRBQGBmf1D4SVQ=;
+ b=SgnrJsFAJgNi9WQ+rl1nhgeJ8/jKFu0Z1ceqFZKXJFSOU0aFCGLqqAQNIakS5vh508pWuH
+ ZXTig3Oqa7Hl5tBUgAKuqZbCvXp0LPqoN1GgiGYAELr0mPP34Yh3WnW7wh65Ig2gKNQlrd
+ Omk115Z2psF0DR9mJ9RfqEV0eWNXxQs=
+From: Sean Anderson <sean.anderson@linux.dev>
+To: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>
+Date: Mon,  7 Apr 2025 19:17:31 -0400
+Message-Id: <20250407231746.2316518-1-sean.anderson@linux.dev>
 MIME-Version: 1.0
-References: <Z_Qbw0tZ2ktgBf7c@shell.armlinux.org.uk>
- <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 7 Apr 2025 20:33:50 +0100
-X-Gm-Features: ATxdqUHy--tranG0MT0BFF5juBVy575ZL4jQsNWdM38rbJ8aGrL8W5d1ehNrSPQ
-Message-ID: <CA+V-a8t=V-EB4r_vBBSJfmAx1_tBRsvV-m3wM841fAw75-ueZA@mail.gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Thierry Reding <treding@nvidia.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jon Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwc-qos: use
-	stmmac_pltfr_find_clk()
+X-Migadu-Flow: FLOW_OUT
+Cc: Sean Anderson <sean.anderson@linux.dev>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, UNGLinuxDriver@microchip.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Joyce Ooi <joyce.ooi@intel.com>,
+ linux-doc@vger.kernel.org, Clark Wang <xiaoning.wang@nxp.com>,
+ Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Robert Hancock <robert.hancock@calian.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, imx@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, upstream@airoha.com,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH v2 00/14] Add PCS core support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,48 +67,140 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBBcHIgNywgMjAyNSBhdCA3OjM54oCvUE0gUnVzc2VsbCBLaW5nIChPcmFjbGUpCjxy
-bWsra2VybmVsQGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4KPiBTaWduZWQtb2ZmLWJ5OiBSdXNz
-ZWxsIEtpbmcgKE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPgo+IC0tLQo+ICAu
-Li4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZHdjLXFvcy1ldGguYyAgICB8IDE0ICsr
-LS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEyIGRlbGV0
-aW9ucygtKQo+ClJldmlld2VkLWJ5OiBMYWQgUHJhYmhha2FyIDxwcmFiaGFrYXIubWFoYWRldi1s
-YWQucmpAYnAucmVuZXNhcy5jb20+CgpDaGVlcnMsClByYWJoYWthcgoKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZHdjLXFvcy1ldGguYyBi
-L2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWR3Yy1xb3MtZXRoLmMK
-PiBpbmRleCBjZDQzMWY4NGYzNGYuLmY1YzY4ZTNiNDM1NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1kd2MtcW9zLWV0aC5jCj4gKysrIGIv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZHdjLXFvcy1ldGguYwo+
-IEBAIC0zNCwxNiArMzQsNiBAQCBzdHJ1Y3QgdGVncmFfZXFvcyB7Cj4gICAgICAgICBzdHJ1Y3Qg
-Z3Bpb19kZXNjICpyZXNldDsKPiAgfTsKPgo+IC1zdGF0aWMgc3RydWN0IGNsayAqZHdjX2V0aF9m
-aW5kX2NsayhzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXRfZGF0LAo+IC0gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIgKm5hbWUpCj4gLXsKPiAtICAg
-ICAgIGZvciAoaW50IGkgPSAwOyBpIDwgcGxhdF9kYXQtPm51bV9jbGtzOyBpKyspCj4gLSAgICAg
-ICAgICAgICAgIGlmIChzdHJjbXAocGxhdF9kYXQtPmNsa3NbaV0uaWQsIG5hbWUpID09IDApCj4g
-LSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHBsYXRfZGF0LT5jbGtzW2ldLmNsazsKPiAt
-Cj4gLSAgICAgICByZXR1cm4gTlVMTDsKPiAtfQo+IC0KPiAgc3RhdGljIGludCBkd2NfZXRoX2R3
-bWFjX2NvbmZpZ19kdChzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LAo+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0
-X2RhdCkKPiAgewo+IEBAIC0xMzIsNyArMTIyLDcgQEAgc3RhdGljIGludCBkd2NfcW9zX3Byb2Jl
-KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYsCj4gICAgICAgICAgICAgICAgICAgICAgICAg
-IHN0cnVjdCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxhdF9kYXQsCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgIHN0cnVjdCBzdG1tYWNfcmVzb3VyY2VzICpzdG1tYWNfcmVzKQo+ICB7Cj4gLSAg
-ICAgICBwbGF0X2RhdC0+cGNsayA9IGR3Y19ldGhfZmluZF9jbGsocGxhdF9kYXQsICJwaHlfcmVm
-X2NsayIpOwo+ICsgICAgICAgcGxhdF9kYXQtPnBjbGsgPSBzdG1tYWNfcGx0ZnJfZmluZF9jbGso
-cGxhdF9kYXQsICJwaHlfcmVmX2NsayIpOwo+Cj4gICAgICAgICByZXR1cm4gMDsKPiAgfQo+IEBA
-IC0yNDIsNyArMjMyLDcgQEAgc3RhdGljIGludCB0ZWdyYV9lcW9zX3Byb2JlKHN0cnVjdCBwbGF0
-Zm9ybV9kZXZpY2UgKnBkZXYsCj4gICAgICAgICBpZiAoIWlzX29mX25vZGUoZGV2LT5md25vZGUp
-KQo+ICAgICAgICAgICAgICAgICBnb3RvIGJ5cGFzc19jbGtfcmVzZXRfZ3BpbzsKPgo+IC0gICAg
-ICAgcGxhdF9kYXQtPmNsa190eF9pID0gZHdjX2V0aF9maW5kX2NsayhwbGF0X2RhdCwgInR4Iik7
-Cj4gKyAgICAgICBwbGF0X2RhdC0+Y2xrX3R4X2kgPSBzdG1tYWNfcGx0ZnJfZmluZF9jbGsocGxh
-dF9kYXQsICJ0eCIpOwo+Cj4gICAgICAgICBlcW9zLT5yZXNldCA9IGRldm1fZ3Bpb2RfZ2V0KCZw
-ZGV2LT5kZXYsICJwaHktcmVzZXQiLCBHUElPRF9PVVRfSElHSCk7Cj4gICAgICAgICBpZiAoSVNf
-RVJSKGVxb3MtPnJlc2V0KSkgewo+IC0tCj4gMi4zMC4yCj4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This series adds support for creating PCSs as devices on a bus with a
+driver (patch 3). As initial users,
+
+- The Lynx PCS (and all of its users) is converted to this system (patch 5)
+- The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
+- The Cadence MACB driver is converted to support external PCSs (namely
+  the Xilinx PCS) (patches 9-10).
+
+The last few patches add device links for pcs-handle to improve boot times,
+and add compatibles for all Lynx PCSs.
+
+This series depends on [1,2], and they have been included at the
+beginning so CI will run. However, I expect them to be reviewed/applied
+outside the net-next tree.
+
+Care has been taken to ensure backwards-compatibility. The main source
+of this is that many PCS devices lack compatibles and get detected as
+PHYs. To address this, pcs_get_by_fwnode_compat allows drivers to edit
+the devicetree to add appropriate compatibles.
+
+There is another series [3] with the same goal by Christian Marangi. In
+comparison, I believe this series
+
+- Implements a simpler and more-robust method of PCS access.
+- Provides a more-direct upgrade path for existing MAC and PCS drivers.
+
+Due to popular demand, I have added support for #pcs-cells with this
+revision.
+
+[1] https://lore.kernel.org/all/20250407222134.2280553-1-sean.anderson@linux.dev/
+[2] https://lore.kernel.org/all/20250407223714.2287202-1-sean.anderson@linux.dev/
+[3] https://lore.kernel.org/netdev/20250406221423.9723-1-ansuelsmth@gmail.com/
+
+Changes in v2:
+- Add fallbacks for pcs_get* and pcs_put
+- Add support for #pcs-cells
+- Change base compatible to just xlnx,pcs
+- Change compatible to just xlnx,pcs
+- Defer devicetree updates for another series
+- Drop #clock-cells description
+- Drop PCS_ALTERA_TSE which was accidentally added while rebasing
+- Move #clock-cells after compatible
+- Move update to macb_pcs_get_state to previous patch
+- Remove outdated comment
+- Remove second example
+- Remove unused variable
+- Remove unused variable lynx_properties
+- Rename pcs-modes to xlnx,pcs-modes
+- Reorder pcs_handle to come before suffix props
+- Reword commit message
+- Rework xilinx_pcs_validate to just clear out half-duplex modes instead
+  of constraining modes based on the interface.
+
+Sean Anderson (13):
+  dt-bindings: net: Add Xilinx PCS
+  device property: Add optional nargs_prop for get_reference_args
+  device property: Add fwnode_property_get_reference_optional_args
+  scripts: kernel-doc: fix parsing function-like typedefs (again)
+  net: phylink: Support setting PCS link change callbacks
+  net: pcs: Add subsystem
+  net: pcs: lynx: Convert to an MDIO driver
+  net: phy: Export some functions
+  net: pcs: Add Xilinx PCS driver
+  net: axienet: Convert to use PCS subsystem
+  net: macb: Move most of mac_config to mac_prepare
+  net: macb: Support external PCSs
+  of: property: Add device link support for PCS
+
+Vladimir Oltean (1):
+  net: dsa: ocelot: suppress PHY device scanning on the internal MDIO
+    bus
+
+ .../devicetree/bindings/net/xilinx,pcs.yaml   | 115 +++
+ Documentation/networking/index.rst            |   1 +
+ Documentation/networking/kapi.rst             |   4 +
+ Documentation/networking/pcs.rst              | 107 +++
+ MAINTAINERS                                   |   8 +
+ drivers/base/property.c                       |  50 +-
+ drivers/base/swnode.c                         |  13 +-
+ drivers/net/dsa/ocelot/Kconfig                |   4 +
+ drivers/net/dsa/ocelot/felix_vsc9959.c        |  15 +-
+ drivers/net/dsa/ocelot/seville_vsc9953.c      |  16 +-
+ drivers/net/ethernet/altera/Kconfig           |   2 +
+ drivers/net/ethernet/altera/altera_tse_main.c |   7 +-
+ drivers/net/ethernet/cadence/macb.h           |   1 +
+ drivers/net/ethernet/cadence/macb_main.c      | 229 +++--
+ drivers/net/ethernet/freescale/dpaa/Kconfig   |   2 +-
+ drivers/net/ethernet/freescale/dpaa2/Kconfig  |   3 +
+ .../net/ethernet/freescale/dpaa2/dpaa2-mac.c  |  11 +-
+ drivers/net/ethernet/freescale/enetc/Kconfig  |   2 +
+ .../net/ethernet/freescale/enetc/enetc_pf.c   |   8 +-
+ .../net/ethernet/freescale/enetc/enetc_pf.h   |   1 -
+ .../freescale/enetc/enetc_pf_common.c         |   4 +-
+ drivers/net/ethernet/freescale/fman/Kconfig   |   4 +-
+ .../net/ethernet/freescale/fman/fman_memac.c  |  27 +-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   3 +
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   6 +-
+ drivers/net/ethernet/xilinx/Kconfig           |   1 +
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |   4 +-
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 104 +--
+ drivers/net/pcs/Kconfig                       |  45 +-
+ drivers/net/pcs/Makefile                      |   4 +
+ drivers/net/pcs/core.c                        | 782 ++++++++++++++++++
+ drivers/net/pcs/pcs-lynx.c                    | 110 +--
+ drivers/net/pcs/pcs-xilinx.c                  | 479 +++++++++++
+ drivers/net/phy/mdio_device.c                 |   1 +
+ drivers/net/phy/phy_device.c                  |   3 +-
+ drivers/net/phy/phylink.c                     |  24 +-
+ drivers/of/property.c                         |  12 +-
+ include/linux/fwnode.h                        |   2 +-
+ include/linux/pcs-lynx.h                      |  13 +-
+ include/linux/pcs-xilinx.h                    |  36 +
+ include/linux/pcs.h                           | 195 +++++
+ include/linux/phy.h                           |   1 +
+ include/linux/phylink.h                       |  27 +-
+ include/linux/property.h                      |   4 +
+ scripts/kernel-doc                            |   2 +-
+ 45 files changed, 2181 insertions(+), 311 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/xilinx,pcs.yaml
+ create mode 100644 Documentation/networking/pcs.rst
+ create mode 100644 drivers/net/pcs/core.c
+ create mode 100644 drivers/net/pcs/pcs-xilinx.c
+ create mode 100644 include/linux/pcs-xilinx.h
+ create mode 100644 include/linux/pcs.h
+
+-- 
+2.35.1.1320.gc452695387.dirty
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
