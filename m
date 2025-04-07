@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BAC4A7E137
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:25:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A48B5A7E139
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:25:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F16AC78F9B;
-	Mon,  7 Apr 2025 14:25:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B733C78F9B;
+	Mon,  7 Apr 2025 14:25:03 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 638D4C78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB32AC78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Apr 2025 14:25:01 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 4A9A9442C1;
  Mon,  7 Apr 2025 14:24:58 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E5393442C5;
- Mon,  7 Apr 2025 14:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1744035898;
+ t=1744035901;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7MGAYVLqc2j0NmWCZPylg2j6LPz+kdlLwuJ4SwaUzNQ=;
- b=CwCBPxknCpBx5cIrtpubrSAfK33aBLF2jlMVJ19BjMNJ/tIS/k3u2mRx8PMFpTrkvBWpE3
- Y/CwuCk14R8/BNpiH5tnniyEb1Iw2FXRJod7ZNWyC+8bwhvCEyJXoQx02Yx94E+rDkJHLl
- +l5rNRUycwFcOIEbT4IOorLiOBJSupRgetkTfmaogI9xy3Dd8a3CBA+7++2jyAZcVWkd/u
- 6x4hylqY1nDAr13iFhmgwATQNpXjItIOJvj3hYHhNPtVm8dx3C9tiCOyELO3Drph164jeK
- YbQ3YWF3RBnj+QJQUb19X5sChauuFLRzSnHyiM4j1HxcAjqYokOZmiuwQeotJQ==
+ bh=bLDy713DSCSiEtaJQVHhalrNIkPHI1Ti+irjYvcfZ5Q=;
+ b=Ki2pkgWCVc6Z/XbQYZa/Tlu8C0A6DsGzk2SJxr0tXyXeDpJ53mIkFT8lZET5I+4FZGitbc
+ l1Tb27xzMXQpElxKVZF1ib+foMKPZ3HWxZ79gAd/xW/Mq1gzBkyFwqpOzInd5yJjTEBPdg
+ T+ktL8K8WZ+ByX7ft+FeuFQmNfaZLFqTinMfOTzzw/nCSlREswJ7OjKN54jGyfcHxwsL0h
+ cOq7/LAag/OrQ55gtZU1Bg8fbTTolnjR4xkCWi42+ZPGiso36l1kQdWNOJJzL/mOwq6zHD
+ ljEy95L0134RWjnkT8xJVsoxzoDf4938afXeIDUQhhwmyfvWHx09u3fBDxxWVw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 07 Apr 2025 16:23:33 +0200
+Date: Mon, 07 Apr 2025 16:23:34 +0200
 MIME-Version: 1.0
-Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
+Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-19-42113ff8d9c0@bootlin.com>
 References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,26 +52,26 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 X-Mailer: b4 0.14.2
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedugeenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegludelvddrudeikedrudejkedrjeehngdpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeeghedprhgtphhtthhopehhvghrvhgvrdgtohguihhnrgessghoohhtlhhinhdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehshhgrfihnghhuoheskhgvr
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpeduieenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegludelvddrudeikedrudejkedrjeehngdpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeeghedprhgtphhtthhopehhvghrvhgvrdgtohguihhnrgessghoohhtlhhinhdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehshhgrfihnghhuoheskhgvr
  hhnvghlrdhorhhgpdhrtghpthhtohepjfhuihdrrfhusehgvghhvggrlhhthhgtrghrvgdrtghomhdprhgtphhtthhopehkvghrnhgvlhesphgvnhhguhhtrhhonhhigidruggvpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhm
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev,
+Cc: imx@lists.linux.dev, Anusha Srivatsa <asrivats@redhat.com>,
  =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-mediatek@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Rob Herring \(Arm\)" <robh@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, Paul Kocialkowski <paulk@sys-base.io>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, chrome-platform@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
  Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  asahi@lists.linux.dev, freedreno@lists.freedesktop.org
-Subject: [Linux-stm32] [PATCH 18/34] drm/msm/hdmi: convert to
-	devm_drm_bridge_alloc() API
+Subject: [Linux-stm32] [PATCH 19/34] drm/omap: dss: dpi: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,39 +94,39 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/omapdrm/dss/dpi.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 4a5b5112227f516dfc4279d0f319ec1e5b17f240..7b325ab0bb1f1e9434c3979f34fb0a8f94aad660 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -324,16 +324,15 @@ int msm_hdmi_bridge_init(struct hdmi *hdmi)
- 	struct hdmi_bridge *hdmi_bridge;
- 	int ret;
+diff --git a/drivers/gpu/drm/omapdrm/dss/dpi.c b/drivers/gpu/drm/omapdrm/dss/dpi.c
+index 6eff97a091602f6d137095b3b7bf54fce17e8d3e..9f86db774c395db7e3396cbf2694748fc23c309d 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dpi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dpi.c
+@@ -562,7 +562,6 @@ static const struct drm_bridge_funcs dpi_bridge_funcs = {
  
--	hdmi_bridge = devm_kzalloc(hdmi->dev->dev,
--			sizeof(*hdmi_bridge), GFP_KERNEL);
--	if (!hdmi_bridge)
+ static void dpi_bridge_init(struct dpi_data *dpi)
+ {
+-	dpi->bridge.funcs = &dpi_bridge_funcs;
+ 	dpi->bridge.of_node = dpi->pdev->dev.of_node;
+ 	dpi->bridge.type = DRM_MODE_CONNECTOR_DPI;
+ 
+@@ -707,9 +706,9 @@ int dpi_init_port(struct dss_device *dss, struct platform_device *pdev,
+ 	u32 datalines;
+ 	int r;
+ 
+-	dpi = devm_kzalloc(&pdev->dev, sizeof(*dpi), GFP_KERNEL);
+-	if (!dpi)
 -		return -ENOMEM;
-+	hdmi_bridge = devm_drm_bridge_alloc(hdmi->dev->dev, struct hdmi_bridge, base,
-+					    &msm_hdmi_bridge_funcs);
-+	if (IS_ERR(hdmi_bridge))
-+		return PTR_ERR(hdmi_bridge);
++	dpi = devm_drm_bridge_alloc(&pdev->dev, struct dpi_data, bridge, &dpi_bridge_funcs);
++	if (IS_ERR(dpi))
++		return PTR_ERR(dpi);
  
- 	hdmi_bridge->hdmi = hdmi;
- 	INIT_WORK(&hdmi_bridge->hpd_work, msm_hdmi_hotplug_work);
- 
- 	bridge = &hdmi_bridge->base;
--	bridge->funcs = &msm_hdmi_bridge_funcs;
- 	bridge->ddc = hdmi->i2c;
- 	bridge->type = DRM_MODE_CONNECTOR_HDMIA;
- 	bridge->ops = DRM_BRIDGE_OP_HPD |
+ 	ep = of_graph_get_next_port_endpoint(port, NULL);
+ 	if (!ep)
 
 -- 
 2.49.0
