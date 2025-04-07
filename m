@@ -2,75 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CC47A7E953
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:06:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1530BA7E963
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:08:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB4C3C7128A;
-	Mon,  7 Apr 2025 18:06:33 +0000 (UTC)
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
- [91.218.175.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0418C7128A;
+	Mon,  7 Apr 2025 18:08:17 +0000 (UTC)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com
+ [209.85.221.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43EE4C6DD9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76913C6DD9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 18:06:32 +0000 (UTC)
-Message-ID: <3203955d-b0fa-4ef6-bcec-6d23a5b6441d@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1744049190;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kFU4PCOFCF2t2dPmfjFQsFfH3+loT9oNKaTNo2jAsrw=;
- b=kybWyAZ0LNPljlzODiID9MCxmPkOsj3+XZ3NOBA1SJ+GUkEwxi2q4YG6Tqzxu5OztwOoy2
- 4FWNfu+DxWPsP6v4QiY6skK5eZddzEVCNMMTHOBHgUXOXHrueBs+hUmpIpZBJYNh/tQl0M
- sPWqXv7raQ0Wc9svTCLcg7RV8xLYw7E=
-Date: Mon, 7 Apr 2025 14:06:21 -0400
+ Mon,  7 Apr 2025 18:08:16 +0000 (UTC)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-52617ceae0dso1510381e0c.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 07 Apr 2025 11:08:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744049295; x=1744654095;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jUuYsrCNZuom26Ku72dSBPeeyC8punlJl9ufLVLiqm4=;
+ b=bfpNIuX1JWmXVvGfjnX2VCR2iA6GeQ/8Lu/VEAO3tGvdrU9FdVRiSmCRWZbToZqtIK
+ t4i3ScokEtP6vhmVT0FkjIu0MHIiINaMEk0jTFG8Jfq80faKIs2Z8WjXjGbdojW4xj6T
+ DsAput9lIoDUKsQc2YE3C4VqK7E3h+W7rLgXFMfNok3t/QYDo9cHZQ5cHlTVGUaUC7Sa
+ jhiyNwdeedcJK2fr/Y8tlAsgMrnDB1kXOHerMBW42IZP1Xtza1q6n79wN143gQJK8jO1
+ xap7wPVVClHT56kA9M79u21I71CZHzYrjo/k9E0+pDHzPtYsERbU6r+xHQa8JMjVTD+Q
+ YnQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744049295; x=1744654095;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jUuYsrCNZuom26Ku72dSBPeeyC8punlJl9ufLVLiqm4=;
+ b=mNHu7kQ4Ni3RG9rxntRSjDFiVl4aDaKNDLbzpNwJ5N5W96kqj/WRFo5zvjlCQ9FlTJ
+ wfn4a6NeBqSI9nHfSc3/5jCtLd+sQ/B3UN9nzyehvRK6R0eRL1OYr+cYmiCU7aPAhK33
+ 0yjDCDZEi+G4ECatjF0RzBUcj79ibIyZh93ACWiZjAATm9ekzTg8o1fNxD8p6iAxhj6n
+ yUTtCVoX3ATdBsIFuWAS6b06/qXKfdvSgNKX/tX//KhDTj5/x6+a2yv2Z7b8SyJolRtk
+ oJQmfo01s9uhZE6M3/OUG+/sejVtvsu2YznnS6BL9MF0Bh0Y0KKKp9mIeD/9wLaVQ9U3
+ 8FKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX+Ze5rLVDqGTejNr28Ck9a6Yzn7FX4X8oHXKQCTCTn/oyFUU0umlDhb8aWL+zfrY3dL/L8xVYZkllzLw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwYlrynDezuWSAEHBXLINtfSNkgFA+fb2sUTvh1i+/oC2riIV6R
+ FIRrBgKEiDZ21bKD1F5GdKMFa6/2pwNhC8jz5mHZd2zrpVNqVX/dszgs/qowU9jqq/VdIMw7AdD
+ Jk6rduY/mhgH19eSxCs9bY/T41kk=
+X-Gm-Gg: ASbGncuPmMie94stT2islKm/cHQRq9iEqFamdI4BJerJH/3LnDwG+1XoE3MDXBm63yY
+ onqfKWaRxBKHTu1s3kknYm1ut+QjoqgIZdqDIwPduGrJUHCTFK+fRBgebITs1jAjDUrXPU0p3Nd
+ gzG33OE8rrwOl9jeLZiOV9PaUDtgzU8z+ShQZf9wTWTI95LEKOGhHEkmBYEwY=
+X-Google-Smtp-Source: AGHT+IEN6rDHodvyUoowo8BFuQsI+M3qkHprXMun6ue2nFvUns/xZBc98c1/xylp9Sz4+dM00gUNYRdzmCwmGkE0JHw=
+X-Received: by 2002:a05:6122:16a6:b0:526:1ddd:8953 with SMTP id
+ 71dfb90a1353d-527642e498emr8513099e0c.0.1744049295202; Mon, 07 Apr 2025
+ 11:08:15 -0700 (PDT)
 MIME-Version: 1.0
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-References: <20250403181907.1947517-1-sean.anderson@linux.dev>
- <20250407182738.498d96b0@kmaincent-XPS-13-7390>
- <720b6db8-49c5-47e7-98da-f044fc38fc1a@linux.dev>
- <CA+_ehUyAo7fMTe_P0ws_9zrcbLEWVwBXDKbezcKVkvDUUNg0rg@mail.gmail.com>
- <1aec6dab-ed03-4ca3-8cd1-9cfbb807be10@linux.dev>
- <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sean Anderson <sean.anderson@linux.dev>
-In-Reply-To: <CA+_ehUzeMBFrDEb7Abn3UO3S7VVjMiKc+2o=p5RGjPDkfLPVtQ@mail.gmail.com>
-X-Migadu-Flow: FLOW_OUT
-Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Madalin Bucur <madalin.bucur@nxp.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Eric Dumazet <edumazet@google.com>, "David S . Miller" <davem@davemloft.net>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, Li Yang <leoyang.li@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Rob Herring <robh@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Saravana Kannan <saravanak@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Joyce Ooi <joyce.ooi@intel.com>, linux-doc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>,
- Christophe Leroy <christophe.leroy@csgroup.eu>, UNGLinuxDriver@microchip.com,
- Clark Wang <xiaoning.wang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <Z_QSHpvSK7I--xPq@shell.armlinux.org.uk>
+In-Reply-To: <Z_QSHpvSK7I--xPq@shell.armlinux.org.uk>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 7 Apr 2025 19:07:49 +0100
+X-Gm-Features: ATxdqUGJm_OgZHRFfu9Amyd2UVOtmAsyuknbI3Y7Xd-HEEICL3GbzjhydkDONtY
+Message-ID: <CA+V-a8vgavmN7c9KYjc-3tm-9GC1_aVUkF-dF=Ws9axTBmSa5g@mail.gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Naveen N Rao <naveen@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Robert Hancock <robert.hancock@calian.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
- Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- upstream@airoha.com, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [RFC net-next PATCH 00/13] Add PCS core support
+ Richard Cochran <richardcochran@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add DWMAC
+ glue layer for Renesas GBETH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,126 +95,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/7/25 13:21, Christian Marangi (Ansuel) wrote:
-> Il giorno lun 7 apr 2025 alle ore 19:00 Sean Anderson
-> <sean.anderson@linux.dev> ha scritto:
->>
->> On 4/7/25 12:46, Christian Marangi (Ansuel) wrote:
->> > Il giorno lun 7 apr 2025 alle ore 18:33 Sean Anderson
->> > <sean.anderson@linux.dev> ha scritto:
->> >>
->> >> On 4/7/25 12:27, Kory Maincent wrote:
->> >> > On Thu,  3 Apr 2025 14:18:54 -0400
->> >> > Sean Anderson <sean.anderson@linux.dev> wrote:
->> >> >
->> >> >> This series adds support for creating PCSs as devices on a bus with a
->> >> >> driver (patch 3). As initial users,
->> >> >>
->> >> >> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
->> >> >> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
->> >> >> - The Cadence MACB driver is converted to support external PCSs (namely
->> >> >>   the Xilinx PCS) (patches 9-10).
->> >> >>
->> >> >> The last few patches add device links for pcs-handle to improve boot times,
->> >> >> and add compatibles for all Lynx PCSs.
->> >> >>
->> >> >> Care has been taken to ensure backwards-compatibility. The main source
->> >> >> of this is that many PCS devices lack compatibles and get detected as
->> >> >> PHYs. To address this, pcs_get_by_fwnode_compat allows drivers to edit
->> >> >> the devicetree to add appropriate compatibles.
->> >> >
->> >> > I don't dive into your patch series and I don't know if you have heard about it
->> >> > but Christian Marangi is currently working on fwnode for PCS:
->> >> > https://lore.kernel.org/netdev/20250406221423.9723-1-ansuelsmth@gmail.com
->> >> >
->> >> > Maybe you should sync with him!
->> >>
->> >> I saw that series and made some comments. He is CC'd on this one.
->> >>
->> >> I think this approach has two advantages:
->> >>
->> >> - It completely solves the problem of the PCS being unregistered while the netdev
->> >>   (or whatever) is up
->> >> - I have designed the interface to make it easy to convert existing
->> >>   drivers that may not be able to use the "standard" probing process
->> >>   (because they have to support other devicetree structures for
->> >>   backwards-compatibility).
->> >>
->> >
->> > I notice this and it's my fault for taking too long to post v2 of the PCS patch.
->> > There was also this idea of entering the wrapper hell but I scrapped that early
->> > as I really feel it's a workaround to the current problem present for
->> > PCS handling.
->>
->> It's no workaround. The fundamental problem is that drivers can become
->> unbound at any time, and we cannot make consumers drop their references.
->> Every subsystem must deal with this reality, or suffer from
->> user-after-free bugs. See [1-3] for discussion of this problem in
->> relation to PCSs and PHYs, and [4] for more discussion of my approach.
->>
->> [1] https://lore.kernel.org/netdev/YV7Kp2k8VvN7J0fY@shell.armlinux.org.uk/
->> [2] https://lore.kernel.org/netdev/20220816163701.1578850-1-sean.anderson@seco.com/
->> [3] https://lore.kernel.org/netdev/9747f8ef-66b3-0870-cbc0-c1783896b30d@seco.com/
->> [3] https://lpc.events/event/17/contributions/1627/
->>
->> > And the real problem IMHO is that currently PCS handling is fragile and with too
->> > many assumptions. With Daniel we also discussed backwards-compatibility.
->> > (mainly needed for mt7621 and mt7986 (for mediatek side those are the 2
->> > that slipped in before it was correctly complained that things were
->> > taking a bad path)
->> >
->> > We feel v2 permits correct support of old implementations.
->> > The ""legacy"" implementation pose the assumption that PCS is never removed
->> > (unless the MAC driver is removed)
->> > That fits v2 where a MAC has to initially provide a list of PCS to
->> > phylink instance.
->>
->> And what happens when the driver is unbound from the device and suddenly
->> a PCS on that list is free'd memory but is in active use by a netdev?
->>
-> 
-> driver bug for not correctly implementing the removal task.
-> 
-> The approach is remove as provider and call phylink removal phase
-> under rtnl lock.
-> We tested this with unbind, that is actually the main problem we are
-> trying to address
-> and works correctly.
-
-OK, so this is a different approach since your last submission. Please
-CC me on your series.
-
-- Fundamentally this is going to make backwards compatibility very
-  difficult, since your approach cannot work with mac_select_pcs. How
-  are you going to handle the case of MAC-internal PCSs? Are you going
-  to make them create a swnode and bind to it just to create a PCS for
-  e.g. MMIO registers? And how is the MAC supposed to know how to select
-  the PCS? From what I can tell you don't even notify the MAC about
-  which PCS it's using.
-
-  I considered an approach like this, where the phylink would be in the
-  driver's seat (so to speak), but I decided not to persue it due to
-  the problems listed above. A lot of PCSs are tightly-integrated with
-  their MACs, so it does not make sense to introduce this little
-  coupling. I think it is better to let the MAC select the PCS e.g.
-  based on the phy interface. This tends to be a few lines of code for
-  the MAC and saves so much complexity in phylink.
-
-  I think you should try doing the macb and lynx conversions for your
-  approach. It will make the above problems obvious.
-
-- Your approach is very intrusive. There are lots of changes all over
-  phylink across several patches and it is hard to verify all the
-  assumptions. Whereas a wrapper keeps everything contained to one file,
-  and most of the functions can be evaluated independently.
-
---Sean
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBcHIgNywgMjAyNSBhdCA2OjU44oCvUE0gUnVzc2VsbCBLaW5nIChPcmFjbGUpCjxs
+aW51eEBhcm1saW51eC5vcmcudWs+IHdyb3RlOgo+Cj4gT24gTW9uLCBBcHIgMDcsIDIwMjUgYXQg
+MDE6MDM6MTdQTSArMDEwMCwgUHJhYmhha2FyIHdyb3RlOgo+ID4gK3N0YXRpYyBzdHJ1Y3QgY2xr
+ICpyZW5lc2FzX2diZXRoX2ZpbmRfY2xrKHN0cnVjdCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxh
+dF9kYXQsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qg
+Y2hhciAqbmFtZSkKPiA+ICt7Cj4gPiArICAgICBmb3IgKHVuc2lnbmVkIGludCBpID0gMDsgaSA8
+IHBsYXRfZGF0LT5udW1fY2xrczsgaSsrKQo+ID4gKyAgICAgICAgICAgICBpZiAoIXN0cmNtcChw
+bGF0X2RhdC0+Y2xrc1tpXS5pZCwgbmFtZSkpCj4gPiArICAgICAgICAgICAgICAgICAgICAgcmV0
+dXJuIHBsYXRfZGF0LT5jbGtzW2ldLmNsazsKPiA+ICsKPiA+ICsgICAgIHJldHVybiBOVUxMOwo+
+ID4gK30KPgo+IEluIGFkZGl0aW9uIHRvIEpha3ViJ3MgcmVxdWVzdCwgSSdsbCBhc2sgdGhhdCB5
+b3UgaG9sZCBvZmYgZm9yIGEgd2Vlawo+IGJlY2F1c2UgSSBoYXZlIHRoZSBmb2xsb3dpbmcgdGhh
+dCBJJ2QgbGlrZSB0byBzdWJtaXQ6Cj4KQWNrLCBwbGVhc2UgYWRkIG1lIGluIENjIHdoaWxlIHlv
+dSBwb3N0IHRoaXMgcGF0Y2guCgpDaGVlcnMsClByYWJoYWthcgoKPiBiYmM3M2I4YjZkZmQgbmV0
+OiBzdG1tYWM6IHByb3ZpZGUgc3RtbWFjX3BsdGZyX2ZpbmRfY2xrKCkKPgo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGxhdGZvcm0uYyBi
+L2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19wbGF0Zm9ybS5jCj4g
+aW5kZXggYzczZWZmNmE1NmI4Li40M2M4NjlmNjRjMzkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX3BsYXRmb3JtLmMKPiArKysgYi9kcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfcGxhdGZvcm0uYwo+IEBAIC03
+MDksNiArNzA5LDE3IEBAIGRldm1fc3RtbWFjX3Byb2JlX2NvbmZpZ19kdChzdHJ1Y3QgcGxhdGZv
+cm1fZGV2aWNlICpwZGV2LCB1OCAqbWFjKQo+ICAjZW5kaWYgLyogQ09ORklHX09GICovCj4gIEVY
+UE9SVF9TWU1CT0xfR1BMKGRldm1fc3RtbWFjX3Byb2JlX2NvbmZpZ19kdCk7Cj4KPiArc3RydWN0
+IGNsayAqc3RtbWFjX3BsdGZyX2ZpbmRfY2xrKHN0cnVjdCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAq
+cGxhdF9kYXQsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIg
+Km5hbWUpCj4gK3sKPiArICAgICAgIGZvciAoaW50IGkgPSAwOyBpIDwgcGxhdF9kYXQtPm51bV9j
+bGtzOyBpKyspCj4gKyAgICAgICAgICAgICAgIGlmIChzdHJjbXAocGxhdF9kYXQtPmNsa3NbaV0u
+aWQsIG5hbWUpID09IDApCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHBsYXRfZGF0
+LT5jbGtzW2ldLmNsazsKPiArCj4gKyAgICAgICByZXR1cm4gTlVMTDsKPiArfQo+ICtFWFBPUlRf
+U1lNQk9MX0dQTChzdG1tYWNfcGx0ZnJfZmluZF9jbGspOwo+ICsKPiAuLi4KPgo+IHdoaWNoIHdp
+bGwgYXZvaWQgZ2x1ZSBkcml2ZXJzIGR1cGxpY2F0aW5nIHRoaXMgZnVuY3Rpb25hbGl0eS4gVGhp
+cyB3aWxsCj4gYmUgcGFydCBvZiB0aGUgZmlyc3Qgc2V0cyBvZiBwYXRjaGVzIEknbSBnb2luZyB0
+byBiZSBzdWJtaXR0aW5nLgo+Cj4gVGhhbmtzLgo+Cj4gLS0KPiBSTUsncyBQYXRjaCBzeXN0ZW06
+IGh0dHBzOi8vd3d3LmFybWxpbnV4Lm9yZy51ay9kZXZlbG9wZXIvcGF0Y2hlcy8KPiBGVFRQIGlz
+IGhlcmUhIDgwTWJwcyBkb3duIDEwTWJwcyB1cC4gRGVjZW50IGNvbm5lY3Rpdml0eSBhdCBsYXN0
+IQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
