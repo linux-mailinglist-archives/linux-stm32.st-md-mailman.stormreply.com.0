@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F331DA7E120
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:24:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDAFA7E121
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 16:24:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2C30C78F9B;
-	Mon,  7 Apr 2025 14:24:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1712C78F9B;
+	Mon,  7 Apr 2025 14:24:30 +0000 (UTC)
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [217.70.183.199])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C97DDC78F97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB56BC78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Apr 2025 14:24:29 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B090C43281;
  Mon,  7 Apr 2025 14:24:26 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8129C443B6;
- Mon,  7 Apr 2025 14:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1744035866;
+ t=1744035869;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/O3LOiW6qlWOLvEGw+B4O1JAwtUWMQ+DkwfDtCgM5ok=;
- b=kYdr1YU9TU6r0qqhpOTSiLYEQiQzOa0B4YfKeO85xFe0JOgnNVk8Ngn3pTu1dgAVeZrXbo
- /6pioVVYiLloP6e0nWM8VJhXP1gPNcjvOdjMrnktZc813lllTTTJP/nxBxobk5bdVNnJ8I
- XEgXXC5+VIdLl1JqlLElRdFm2xOKmusuqQcHL4yq8aTK6nuzuj4eJkA3ns6aMHpjWhmWDB
- VCu38WwXYAx7XxEOow3UuKCoTCWbQN5rRnSnqb0l3vOPknGTlV6j8gE4MIurQMR2eDweVk
- hRDNfqZygNY8HpUACvyPjKEry0lF4eH5xYfh5+DvlzeMkHWztJ+hJH7bwEIo3w==
+ bh=Yt1taznpShq1t237z645Qr8mHGKFK9bfr6SZ3mXBRSQ=;
+ b=pNpDQn3gIPKgSludFQWt1himp6r8F0BxLZ+j3n/1y5oOAtgZwAJ07xKYbXCiZ8DLN3RAvJ
+ ZXPeAqFQEETxC+EtesAqlMRth6cKLyGZ9G7Ok40M+78NUU+3RLj4SXntbiFoXEDnZUPhyy
+ E0p03QNMTcv1j2+RyADM5WHylZygWomUMSP1NFsxVWdWFww2mgiIj/X3ZTB/CBENfA6Ah2
+ d1JgQH79Iq2oKDeMi7ttPoKG0ivtL59xLqsHuVSsj4YoPRgU1OrMz0WC6fcpZGarqmR83t
+ QF6/e6/gzwEGcYyj+LmPJEkShdTOnCkjVRU4nW1w47pi2imrgdizruIBCFm6mQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 07 Apr 2025 16:23:23 +0200
+Date: Mon, 07 Apr 2025 16:23:24 +0200
 MIME-Version: 1.0
-Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-8-42113ff8d9c0@bootlin.com>
+Message-Id: <20250407-drm-bridge-convert-to-alloc-api-v1-9-42113ff8d9c0@bootlin.com>
 References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,26 +52,23 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 X-Mailer: b4 0.14.2
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpeegnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghloheplgduledvrdduieekrddujeekrdejhegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgeegpdhrtghpthhtohephhgvrhhvvgdrtghoughinhgrsegsohhothhlihhnrdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirghtvghksehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhrtghpthhtohepshhhrgifnhhguhhosehkvghrn
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtgedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpeeinecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghloheplgduledvrdduieekrddujeekrdejhegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedupdhrtghpthhtohephhgvrhhvvgdrtghoughinhgrsegsohhothhlihhnrdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirghtvghksehlihhsthhsrdhinhhfrhgruggvrggurdhorhhgpdhrtghpthhtohepshhhrgifnhhguhhosehkvghrn
  hgvlhdrohhrghdprhgtphhtthhopefjuhhirdfruhesghgvhhgvrghlthhhtggrrhgvrdgtohhmpdhrtghpthhtohepkhgvrhhnvghlsehpvghnghhuthhrohhnihigrdguvgdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprhhfohhssheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghnughriigvjhdrhhgrjhgurgesihhnthgvlhdrtghomh
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev,
+Cc: chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Martyn Welch <martyn.welch@collabora.co.uk>,
- Peter Senna Tschudin <peter.senna@gmail.com>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org,
+ Dmitry Baryshkov <lumag@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ linux-arm-msm@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, asahi@lists.linux.dev,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
- Ian Ray <ian.ray@ge.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, Hui Pu <Hui.Pu@gehealthcare.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
- freedreno@lists.freedesktop.org
-Subject: [Linux-stm32] [PATCH 08/34] drm/bridge:
- megachips-stdpxxxx-ge-b850v3-fw: convert to devm_drm_bridge_alloc() API
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ freedreno@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [Linux-stm32] [PATCH 09/34] drm/bridge: nxp-ptn3460: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,46 +88,37 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 This is the new API for allocating DRM bridges.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
+ drivers/gpu/drm/bridge/nxp-ptn3460.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Cc: Ian Ray <ian.ray@ge.com>
-Cc: Martyn Welch <martyn.welch@collabora.co.uk>
-Cc: Peter Senna Tschudin <peter.senna@gmail.com>
----
- drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-index 15a5a1f644fc10182c55bc9e489ccb81d4f924f9..81dde9ed7bcf7cacae000d9da31a3a5c347ce037 100644
---- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-+++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-@@ -225,13 +225,11 @@ static int ge_b850v3_lvds_init(struct device *dev)
- 	if (ge_b850v3_lvds_ptr)
- 		goto success;
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index 25d7c415478b14ef634bff4185a8dd8e866be0c6..7acb11f16dc19e87a84cc765b1cebef158662c00 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -261,10 +261,10 @@ static int ptn3460_probe(struct i2c_client *client)
+ 	struct drm_bridge *panel_bridge;
+ 	int ret;
  
--	ge_b850v3_lvds_ptr = devm_kzalloc(dev,
--					  sizeof(*ge_b850v3_lvds_ptr),
--					  GFP_KERNEL);
--
--	if (!ge_b850v3_lvds_ptr) {
-+	ge_b850v3_lvds_ptr = devm_drm_bridge_alloc(dev, struct ge_b850v3_lvds, bridge,
-+						   &ge_b850v3_lvds_funcs);
-+	if (IS_ERR(ge_b850v3_lvds_ptr)) {
- 		mutex_unlock(&ge_b850v3_lvds_dev_mutex);
+-	ptn_bridge = devm_kzalloc(dev, sizeof(*ptn_bridge), GFP_KERNEL);
+-	if (!ptn_bridge) {
 -		return -ENOMEM;
-+		return PTR_ERR(ge_b850v3_lvds_ptr);
+-	}
++	ptn_bridge = devm_drm_bridge_alloc(dev, struct ptn3460_bridge, bridge,
++					   &ptn3460_bridge_funcs);
++	if (IS_ERR(ptn_bridge))
++		return PTR_ERR(ptn_bridge);
+ 
+ 	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+ 	if (IS_ERR(panel_bridge))
+@@ -300,7 +300,6 @@ static int ptn3460_probe(struct i2c_client *client)
+ 		return ret;
  	}
  
- success:
-@@ -264,7 +262,6 @@ static int ge_b850v3_register(void)
- 	struct device *dev = &stdp4028_i2c->dev;
- 
- 	/* drm bridge initialization */
--	ge_b850v3_lvds_ptr->bridge.funcs = &ge_b850v3_lvds_funcs;
- 	ge_b850v3_lvds_ptr->bridge.ops = DRM_BRIDGE_OP_DETECT |
- 					 DRM_BRIDGE_OP_EDID;
- 	ge_b850v3_lvds_ptr->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
+-	ptn_bridge->bridge.funcs = &ptn3460_bridge_funcs;
+ 	ptn_bridge->bridge.ops = DRM_BRIDGE_OP_EDID;
+ 	ptn_bridge->bridge.type = DRM_MODE_CONNECTOR_LVDS;
+ 	ptn_bridge->bridge.of_node = dev->of_node;
 
 -- 
 2.49.0
