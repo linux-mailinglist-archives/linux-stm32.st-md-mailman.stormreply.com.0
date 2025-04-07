@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEC80A7EAB1
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D94DA7EBAA
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Apr 2025 20:58:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89B36C7128A;
-	Mon,  7 Apr 2025 18:39:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6E72C7128A;
+	Mon,  7 Apr 2025 18:58:14 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03C9FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 653A6C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Apr 2025 18:39:13 +0000 (UTC)
+ Mon,  7 Apr 2025 18:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
  Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vgmARS6iCi48GW/CgYcjmbFCRe8AS0AVo3at8RS+ydA=; b=CRVTW/L3XtBMiF8Z11Y9L+CIR6
- R1XFP5YVqcC3nQEgKZltrDV13hDyZQGSCRFh2Gf+AmwoQhRKDw7qwle1EmrzJ0eBMtaoUUVQZGp06
- GefWRU6uKmxH+hzPLypFvZsvuKc9wyy8QpFJPHek1Cc0fNFmc2jOLT8UMkvWaFpeqyzMennAav137
- KdqlJgNtBXAqGuWiS8wHQgIQy2SZnFc2nIlG/DphOOqFdY1NVI/stOXXHhiKR4pZ0ZX9MHRL0lZNT
- 9AQP51iQHm19NNIJxeL2d5eZrXXWkiFqyupZgmjLc1hRp8CSDUXBb7Cm2dTUhvgG2qv93qiqXEqyF
- F29JhbTQ==;
+ bh=UHYHoHYB3kC5RVvuD/SFjezcUsEDtCLBmv9TeE4pFp8=; b=X4ecTE21p9ByMpioxjJEw+5EpZ
+ HXExeUz3BDYo5EPeSvpPo9pYmJ2T3f1nqrA1Jk+T9BTqqqFDL7+bSc5+iiRhYWbew4/M44WuVjiRn
+ GCJnSra3zykY7rZ/14ni1YdmXb4FsOwQCPWTfmQ3j1LRI2MO6XhqicXkqryJKyRg+9Te3bTp3s3Xi
+ WBcXZdMZZkvbS8Rd5/Vn7f74VtctylSz5VGJcU+PB5P7HUJB+Hw7+mbGVsYp7Gfs2WryKuR5/oqCG
+ E76qeYLK2wG22HYfySSqBjKRd5FGmf7DDmqGCj1Rd6jUGnpkMQKpayz31wKF8bxkcXdjtCaD7LzKc
+ vMZkOWlA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58606)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35552)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u1rN9-0005rO-1A;
- Mon, 07 Apr 2025 19:39:03 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1u1rfZ-00064B-0a;
+ Mon, 07 Apr 2025 19:58:05 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u1rN5-0000cC-1Y;
- Mon, 07 Apr 2025 19:38:59 +0100
-Date: Mon, 7 Apr 2025 19:38:59 +0100
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1u1rfV-0000dH-2H;
+ Mon, 07 Apr 2025 19:58:01 +0100
+Date: Mon, 7 Apr 2025 19:58:01 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z_Qbw0tZ2ktgBf7c@shell.armlinux.org.uk>
+Message-ID: <Z_QgOTC1hOSkIdur@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
+Cc: Thierry Reding <treding@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Prabhakar <prabhakar.csengg@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac:
-	stmmac_pltfr_find_clk()
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] =?iso-8859-1?q?=5BPATCH_net-next_0/5=5D_net=3A_stmm?=
+ =?iso-8859-1?q?ac=3A_remove_unnecessary_initialisation_of_1=B5s_TIC_count?=
+ =?iso-8859-1?q?er?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,15 +68,17 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi,
 
-The GBETH glue driver that is being proposed duplicates the clock
-finding from the bulk clock data in the stmmac platform data structure.
-iLet's provide a generic implementation that glue drivers can use, and
-convert dwc-qos-eth to use it.
+In commit 8efbdbfa9938 ("net: stmmac: Initialize MAC_ONEUS_TIC_COUNTER
+register"), code to initialise the LPI 1us counter in dwmac4's
+initialisation was added, making the initialisation in glue drivers
+unnecessary. This series cleans up the now redundant initialisation.
 
- drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 14 ++------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c   | 11 +++++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h   |  3 +++
- 3 files changed, 16 insertions(+), 12 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 24 +---------------------
+ .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c |  9 --------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c  |  8 --------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  1 -
+ include/linux/stmmac.h                             |  1 -
+ 5 files changed, 1 insertion(+), 42 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
