@@ -2,143 +2,136 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3707A83AB9
+	by mail.lfdr.de (Postfix) with ESMTPS id D7B33A83ABB
 	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 09:19:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B8E8C7A831;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CCC0C7A833;
 	Thu, 10 Apr 2025 07:19:30 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8759C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1649BC6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 08:16:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jz/RsX0RAk55dfunrBlkeLbKkLk0erXy0wxd3mM/PBXQh3CvuymiP9v4oUQAmbo2Ha4lnyLdirpH//xTH+fqFoRdRAzj3PoruYSM+28SfJrtPXrP6ohRRXIGs49nA2f0i5y1ykMWWLvvtACUc6smJql64oo5Kq4eLKr/3dvY9UR9ZvoBF7QlCvbt80cju9Tf4Dj+cH7jnjupZnEahBOLc3c2qqLA1USMV89yZVis1+MKVHqOdUMvwgEk7OQrhp5qLaY/u3nEXAfeV0URqwSg3biQPhvFxwlU0gop/g5MeD8RZv/RytMufK/uPXYtdJF0mkMvjSCJ+X08RSZhXbJowA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=byAT1aBxCoYU8l4jOjhOmS1gPbFxDAbVfnOFvMl3LHk=;
- b=h2QaLMym5oGwOb/ZY3NAH8gjf1sSpfqqe+L12+8EY5WHFzC3Icj/lHE2S36sD8Drc+ougcBGD3pwy1oq8NAB1Gob7iGwK+AdDdAiFEgGHeI6GWiMyWMipx/TuTyWGXfvcVJTQ+n4RMiztcC0HaUZF1uXV8vdglPANZvsxtFzsV5lRKbzajXDeJbLcYYY44I6jRLmo2jpseQpYyL4xSL/qJq3kofhGwq66zykmYgRkH1C1lXKkka+NFsY/eGxr76fvHmDenyIhv+Ox990CGJ0EziSz+MRgBLY77+GzytXWpvbFqXcupWyvXGosxNYr7OJQklO/n6iI331B91u5+foWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=byAT1aBxCoYU8l4jOjhOmS1gPbFxDAbVfnOFvMl3LHk=;
- b=U/PaVQruQtFxTwYzoeioDkM1qSSlUGslp4spwI4s2VqcBB7oDB2x1CHyLINBM05/u/FmzZHf/hH2fFXHspBMlalcN6blXHMz9XMHpfAd5Y8kBOrzma0LdUmMUwphCWJdiR0IrbioZAWnrpLAWgZIYZmFjLw+m4svO3TqqGUytTc223QILCkiHJJLRvbe+FrqYGlWie1hwotJGFBoH6d8d45QxTosOymqXxzgMbBjNLtdXlpv2u+eHTamsm5nXy0TFk9wtFfl74gAUKLsblWs+bUbVtWHONA/igqQg204CqRhVBiKGI+rxQPpU1tIGbqm4JLTiYLMaDpVOK8lSlxqbw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com (2603:10b6:408:dc::21)
- by CO1PR03MB5666.namprd03.prod.outlook.com (2603:10b6:303:9c::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.29; Tue, 8 Apr
- 2025 08:16:10 +0000
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a]) by BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a%3]) with mapi id 15.20.8606.033; Tue, 8 Apr 2025
- 08:16:09 +0000
-From: Boon Khai Ng <boon.khai.ng@altera.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Date: Tue,  8 Apr 2025 16:13:54 +0800
-Message-Id: <20250408081354.25881-3-boon.khai.ng@altera.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250408081354.25881-1-boon.khai.ng@altera.com>
-References: <20250408081354.25881-1-boon.khai.ng@altera.com>
-X-ClientProxiedBy: BYAPR07CA0089.namprd07.prod.outlook.com
- (2603:10b6:a03:12b::30) To BN8PR03MB5073.namprd03.prod.outlook.com
- (2603:10b6:408:dc::21)
+ Tue,  8 Apr 2025 11:59:19 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538Axo0h029735
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 8 Apr 2025 11:59:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=SfYGShmqcwDU8m6aPQIeDmLf
+ R7GexvsEqe4YAvcqLMU=; b=Qq0eafblor3qJaHW7n07AL9wxfveW1I8JCHLiC+H
+ V9piv80KGismzTB5g0giCp2vGl5NiuE7MPsCrHob7HF3WBxcbnvH4rsyfI7Yblve
+ d4oodt5CF5fF6IXEi0rv6AqzVcmFMl7ZC1dboI/ZcG+wydrdymBzznPgskQc4DA9
+ ljYD+HmmufXng68S2WBHECRg873kfgxI9H9JUsg+hUbihvlrKD0WuyVt6Hhc6Ri7
+ 1wYLucM3v118dxFdb/2QCDt2lAEYCyF/CfSofY0qFHsugaZE7mRqZyjO8xHL1Adt
+ QF3D+iZw6JMSAiSbMUhcFQk3AO/1eQvB+vYKhBfJfKx4Ew==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45twcrfnv5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Apr 2025 11:59:18 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-6e8ffb630ffso82809626d6.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Apr 2025 04:59:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744113558; x=1744718358;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SfYGShmqcwDU8m6aPQIeDmLfR7GexvsEqe4YAvcqLMU=;
+ b=EMxHVIu5xJR1OwtRCDReI3WhYtgjPrQMrDH/hMFaSs9LxXQcvqz4VdvNaEY+qdXGGb
+ iHz69Bc3JJ9mSi7fhkamUZ1xiRq1q5Ydd5QGlfmbjhNo3kG+W1RwmhlecUvEsyijmm9k
+ SmUia3DNUu4JnV6sHiXjpU6phcscMul4vUvhgzdis3wRa/F0mFENqEpHoJg5tY0sm1wZ
+ DyOkGAfATLI1TOoJ0O05FafoU16eVvK96LQ5BAqpIs7f7w9wAm8CVkY9QwnZ2DJImrkl
+ yyQe3i7UFRiD3k3QhiEWBJ/GwgwjFYPmzygkHAIudhOI33ahCaDQcPlYYJDmAh4vfsZM
+ FLig==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDQ9PemiS2srcbO0OsqnjKwwWtPVKnLCu7Ww4638mPdRfliWOlY/u4iyu3VJkunqoNq2nhorhmcjx3dA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyIRLy/Jw/yVGcKGUcRVwQfCjR2uDAY7aldp0w5vPN23InCf8Jk
+ wTnleTdKB9nNddswXA7Ug6Wv7JQTVKWeJS7mzoZrN4SErkFQe6d7MeZIFns6fY8Il6YJyxbPP2b
+ fuQz6wmOUy3gr9BmEyQKHYKHqfuz66JpB4efVt4a9EMe5Q0MbHL4AcCy0Nnxevh2suC5QeSdCqC
+ aLObc=
+X-Gm-Gg: ASbGnctU56LZdE2ypDoNYMRaHiUK0UrnP2Eu8SNtmqchot9Byyt+tEdVswwVbjauzEW
+ 9H0bnPJM6r98UJHpb+/hep3sJSkKKEsYuVuyVMAA7nvvbwEH1NFOPJySYtrJwAmw+rj4xmnNWmn
+ nZLwFrVCE8eeIOiLiQBsueFK6d1aqd1o+csUal/FDVgGjL9OsgnLPHSQhKxtcsxgOl2T5okGysV
+ FCaUsS1pxYxLPw/CvknApSsjsnJmSlz2LGj49mF+GYRXSdn2gShBlp8g7gAcj0W/ZbgZiyUi65B
+ tuJhVtWuggyB4kKwvVw9qx8vm7mgSR2jSh8JTA7YCUv78GM9YkCtXuf9Ig8PBlxX1iKAdM0sIvW
+ oJf8=
+X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
+ 6a1803df08f44-6f0b7471828mr249820856d6.19.1744113557870; 
+ Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHUpzBYgQ78WcZ+1SeialBgHtwM9sX7c9zUkOnk8QyfR5MRu/+7FIzLJ9zYjIy/Tt3IVQbLfw==
+X-Received: by 2002:a05:6214:20a1:b0:6ea:d629:f48b with SMTP id
+ 6a1803df08f44-6f0b7471828mr249820476d6.19.1744113557475; 
+ Tue, 08 Apr 2025 04:59:17 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54c1e65cc04sm1517615e87.164.2025.04.08.04.59.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Apr 2025 04:59:14 -0700 (PDT)
+Date: Tue, 8 Apr 2025 14:59:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Message-ID: <6aeiyzkrjgq44lhdjsh6o6rzibwmpcgxjwwx4vefoyk5n3p7h6@uipdbbcxwsbn>
+References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
+ <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR03MB5073:EE_|CO1PR03MB5666:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35ee993b-cf90-48ef-28d6-08dd76759e57
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HYgxfCMuiN7GxnfXr7E20vc/LZfvOUwS4+kokQJVITTufC8lQGH721QIIspb?=
- =?us-ascii?Q?tBztVkQ0qaVQwGK8sjNhNt+6CvwOparreLbxrxdcXEidy9VNSYqKGA9gfqb3?=
- =?us-ascii?Q?g+GZHVqfHPSg5SZh5NA6y2rkIJOccL8QaAYSFO9avUI1wZhWZqVzdvUk1jP3?=
- =?us-ascii?Q?Si/k9uxemNh6LgE/sKCFv1cgGiTwdW9WSnAthF/dZYNZ/y4GCmdMYGwjeFpG?=
- =?us-ascii?Q?RLP/cSfZ8oQeif/P1ERAUgG7zzEh8UsoBHxQfEl3OpwzZtvleAYwiUhDgFT9?=
- =?us-ascii?Q?HEtGTl/l8gSIj8PH32uWbwk3fOEK7ZOoG6gATYy7Q/k6PD4zCRQ/1/3NzqFm?=
- =?us-ascii?Q?nBTlCfq2loarhJX0TJ1PYyZKOGdadqketlE7Clr6MZUiRGATQNolCjoT9jCr?=
- =?us-ascii?Q?iQb5fISr0trIYD9QR1+D7RrUOvkXW/UoH9BgfUQvxyRW6pHj1eUTVy2oj1e7?=
- =?us-ascii?Q?ucilA7vvyxqgty8YHlc8FUe8wQniEGTX9Stp7Sht/WInWRs8HbqZ1kt6j64D?=
- =?us-ascii?Q?mmw+zXtAp4O2q/Pzch5NDY1G4lRfg+ypvtqKfbpTgA5IA8Np6a1DP8zjilCn?=
- =?us-ascii?Q?ToVEi73x52DvJh+a7ElreQe1fmf5yDV5xpwUfXb5n6Z1gtGHplKvFxia5RI5?=
- =?us-ascii?Q?2bhx9Hfk0g+GVFKi25uikkR3gC5c0SAMp3Lpum9qybDoX1t+ZV4hqR9peuda?=
- =?us-ascii?Q?R9hBG2JYQ7VEyKEIEF7X0DK5eeXs45l1eiSgPdr2M6KyUWYWMy4orvRTdXMf?=
- =?us-ascii?Q?211M1bXXMuXSPqYytRbsrsPrmg/CgR+4ddomDPaNZZA4+pZJQhhm0jc8piwf?=
- =?us-ascii?Q?Sa13BFdeSSFiQ15/7v+u0mK7bKbMOgf70b2lWbALYxzA2cdEb6cLUAn4A8Qe?=
- =?us-ascii?Q?56zP4TNPz8HLNNrTocrPRgf7jwDXDhRNqXm1YVv2gMBs9Uaw6Ifhx3xDEZZT?=
- =?us-ascii?Q?rARUwItbmjXILiGDBiWsGW86N4xQXuEDbpOCHXPlFKG+62gnTYkixC6QPuqV?=
- =?us-ascii?Q?7WnW5Uk9YJPWyo3739TKS4RmeDBaUokDVbXJCn/bxbpC13KdLiC/Mosw3BBh?=
- =?us-ascii?Q?aXsYLp3IHxr+uFINGc4PKiz+m/BPZBXVMo3/3alcEytP/7x8um7gSE+pPZfj?=
- =?us-ascii?Q?KS7VQTr8H7PvqdOkegnpfhz3iZaHhLE9JgQ/FNIUQbvQtsQvHX7/MViiB89C?=
- =?us-ascii?Q?MlPT4T357d1KXTMbwbrovlP4PYNMdtwZUFol5QDmCsT2YQN+/o3tLHto35du?=
- =?us-ascii?Q?ZAKptLeoEs/stpw1MIiHPR00/TGavupfPHMi7Jyjms3l6TKh4TDQ+MrYSPim?=
- =?us-ascii?Q?Flb05IPmbKafyhA0unO6uGQdWfUEV3xak6oPQFncxaiU4wYoq2eNCr3+RqmK?=
- =?us-ascii?Q?u3A2aWfbmCW7443+iuBOu9Km851v?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR03MB5073.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yEzN/fbh4NnoH8qilKsSWPgohIkBjaEMNQhS2WvwYkYbQb1Xc707lhrlcGY9?=
- =?us-ascii?Q?7u3UlJSETRg19t/KsCecQxkNLr0g6B99QHRGMU1kngeyTCPRhT5gDQHUS85s?=
- =?us-ascii?Q?5CHeAtufdhFCJWyb5jiVqeJn8oAHBK3+mF31lRwMumcxfHFZiS64nc+Egm8X?=
- =?us-ascii?Q?oRwZN22RlKV1WQVqYTYB1LmwpNN+jpc4p6w4/W13sNe9RvMref3stmFWS+Yc?=
- =?us-ascii?Q?oS5XhWL+ijlw6Ri7icF3vTXXoojiUneRLbPPT062j5tXalpKGw57SMdD3CVT?=
- =?us-ascii?Q?OVs5FwLVpSWRn90uNdQJaUIcrU26BE13ECiaC77JrmjMZ9yp4qC+D1pgNo7j?=
- =?us-ascii?Q?zyTZ3ZAdP+Xs9ptZNpvB7V6grhOpVO0WpejYdRl2mnrv4KvpglHwJwHBTI03?=
- =?us-ascii?Q?AjZP4dP8devt8FY5jzaPNRxAz9wKSyjSUBFV3zpL1QQQwap+6Bb4rmDpY0pk?=
- =?us-ascii?Q?e4GBXwexPcnTfveC12wDiTOm2QA8g9+CPKOYEx117soLXyiMq7K5nYw/4Us7?=
- =?us-ascii?Q?m83IjK7E1Okq6EPlpDGldl7WidcVtUV9K/tqqPdI9Fv7aL5OMibXodwPshEs?=
- =?us-ascii?Q?NU2XjJVLsn7DFrr2fl1yePvZ6AjryRzS7EUeCzXCrSgb1jSVa+8IPIcqUD4S?=
- =?us-ascii?Q?3m0aFgLBXJRGA4n6MbQcFal7/FfIhI4fN33U/fYum2y5d0/lMG/3TelC96mU?=
- =?us-ascii?Q?6n2uYuH3N+qrtUHNhHwy0G3vUva8RgbjYfFqIfiwLNVep+VEKh7JGg81RGbk?=
- =?us-ascii?Q?INlsn2aRNCGUvNhDEmMzqGcBLt4O3zJc4fzR1pxgHSunqMVuBAG29V2/8b4P?=
- =?us-ascii?Q?c24mgjK+v0y6QaXUpXd03dF5HkjSLEHiLK5iDVUtjWLgxIXfhvP3Y5v7ce8o?=
- =?us-ascii?Q?akMADjvA7zmrcn/e8OrsiTb3MTmXgPD7WN/GtEi1DlTFRNUhE0u09YVA8pyF?=
- =?us-ascii?Q?9FpelGxZxQgZMKuhfrzeYTui8h+AHyLoanlt1QM9hjtSpUISNk1nMH8Tv29f?=
- =?us-ascii?Q?vDGm7EcD8DLLolIL3AS0yQgIh82dPzgNtx0aP/qxSguRGDjbO7RBJvcjV6rO?=
- =?us-ascii?Q?u7RawwQtem3NJ1zIsHr+GB1C57Uvkt+b1MO2ukgk2al3MuXhyEEkjhn4F0As?=
- =?us-ascii?Q?MK4vHmWHXWlWjC8ALg5UjBIrB0Lz+MRCjwtyRWi7Z1DIAWXnqSQxcb6RfK+p?=
- =?us-ascii?Q?lX8uno0zFZXh+ZNGtMeABDeX5cexdkxq7++V8435NNy0P9j/mV0dqfdKIys+?=
- =?us-ascii?Q?ag5qgo6R2B6diK0FqYIK+CIqZrI/aDg5JLgAybg+HND2yiur8BoqUDlXoo3A?=
- =?us-ascii?Q?JoEVdZIMJ/JIE+X3EEF7ALWArOuPzDkN21W6/sqyFW1BwaEI1vfX9N5Hg2j+?=
- =?us-ascii?Q?OXjHGwzo/xWWIXqBHINhvHTwlKNluUy627TXVkjMbJ6ZpC7SlVE2y5b2JayS?=
- =?us-ascii?Q?m2Okw2ZcEYuhILuUvvlzVHN+JLHp5YuEVYdC6V2b2HuAc9Kq/p5s6SUyZgEJ?=
- =?us-ascii?Q?83Z4V/310jcMEDwY0iZVrdIfTDd+sS23vTe/hbie58DC7fsdEWhg9KMM8M5K?=
- =?us-ascii?Q?0OtGKNr+23fKyIHs2T1LV6/oLDF6bYFak6G4ulUw?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35ee993b-cf90-48ef-28d6-08dd76759e57
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB5073.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 08:16:09.8859 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /hWTmNs+q5trz6GDFqe9Vl+dllUQU/tF8pZaS+r1zCXU/GgOlhuCtVim9CSu8NrUFgqJngndOVHeA9kC/nYJXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5666
+Content-Disposition: inline
+In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-18-42113ff8d9c0@bootlin.com>
+X-Proofpoint-ORIG-GUID: PfinAJs1rYFh6P2p1oR9C0feXMuLAQ4w
+X-Authority-Analysis: v=2.4 cv=QuVe3Uyd c=1 sm=1 tr=0 ts=67f50f96 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=XR8D0OoHHMoA:10 a=P-IC7800AAAA:8 a=COk6AnOGAAAA:8 a=tVI0ZWmoAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=MqdoT2xZwiyagvIbdbwA:9 a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=TjNXssC_j7lpFel5tvFf:22 a=-BPWgnxRz2uhmvdm1NTO:22
+X-Proofpoint-GUID: PfinAJs1rYFh6P2p1oR9C0feXMuLAQ4w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-08_04,2025-04-08_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 adultscore=0
+ spamscore=0 malwarescore=0 mlxlogscore=866 bulkscore=0 priorityscore=1501
+ clxscore=1011 phishscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504080085
 X-Mailman-Approved-At: Thu, 10 Apr 2025 07:19:28 +0000
-Cc: Tien Sung Ang <tien.sung.ang@altera.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- G Thomas Rohan <rohan.g.thomas@altera.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Mun Yew Tham <mun.yew.tham@altera.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v3 2/2] net: stmmac: dwxgmac2: Add
-	support for HW-accelerated VLAN stripping
+Cc: imx@lists.linux.dev, =?utf-8?B?SGVydsOp?= Codina <herve.codina@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Simona Vetter <simona@ffwll.ch>, chrome-platform@lists.linux.dev,
+ Krzysztof Kozlowski <krzk@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ David Airlie <airlied@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Hui Pu <Hui.Pu@gehealthcare.com>,
+ linux-amlogic@lists.infradead.org, platform-driver-x86@vger.kernel.org,
+ Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, asahi@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 18/34] drm/msm/hdmi: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -155,130 +148,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds support for MAC level VLAN tag stripping for the
-dwxgmac2 IP. This feature can be configured through ethtool.
-If the rx-vlan-offload is off, then the VLAN tag will be stripped
-by the driver. If the rx-vlan-offload is on then the VLAN tag
-will be stripped by the MAC.
+On Mon, Apr 07, 2025 at 04:23:33PM +0200, Luca Ceresoli wrote:
+> This is the new API for allocating DRM bridges.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Marijn Suijten <marijn.suijten@somainline.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Sean Paul <sean@poorly.run>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
 
-Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
-Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h | 12 ++++++++++++
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 ++
- .../ethernet/stmicro/stmmac/dwxgmac2_descs.c   | 18 ++++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c  |  2 +-
- 4 files changed, 33 insertions(+), 1 deletion(-)
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 5e369a9a2595..0d408ee17f33 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -464,6 +464,7 @@
- #define XGMAC_RDES3_RSV			BIT(26)
- #define XGMAC_RDES3_L34T		GENMASK(23, 20)
- #define XGMAC_RDES3_L34T_SHIFT		20
-+#define XGMAC_RDES3_ET_LT		GENMASK(19, 16)
- #define XGMAC_L34T_IP4TCP		0x1
- #define XGMAC_L34T_IP4UDP		0x2
- #define XGMAC_L34T_IP6TCP		0x9
-@@ -473,6 +474,17 @@
- #define XGMAC_RDES3_TSD			BIT(6)
- #define XGMAC_RDES3_TSA			BIT(4)
- 
-+/* RDES0 (write back format) */
-+#define XGMAC_RDES0_VLAN_TAG_MASK	GENMASK(15, 0)
-+
-+/* Error Type or L2 Type(ET/LT) Field Number */
-+#define XGMAC_ET_LT_VLAN_STAG		8
-+#define XGMAC_ET_LT_VLAN_CTAG		9
-+#define XGMAC_ET_LT_DVLAN_CTAG_CTAG	10
-+#define XGMAC_ET_LT_DVLAN_STAG_STAG	11
-+#define XGMAC_ET_LT_DVLAN_CTAG_STAG	12
-+#define XGMAC_ET_LT_DVLAN_STAG_CTAG	13
-+
- extern const struct stmmac_ops dwxgmac210_ops;
- extern const struct stmmac_ops dwxlgmac2_ops;
- extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index d9f41c047e5e..6cadf8de4fdf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -10,6 +10,7 @@
- #include "stmmac.h"
- #include "stmmac_fpe.h"
- #include "stmmac_ptp.h"
-+#include "stmmac_vlan.h"
- #include "dwxlgmac2.h"
- #include "dwxgmac2.h"
- 
-@@ -1551,6 +1552,7 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
- 	mac->mii.reg_mask = GENMASK(15, 0);
- 	mac->mii.clk_csr_shift = 19;
- 	mac->mii.clk_csr_mask = GENMASK(21, 19);
-+	mac->num_vlan = stmmac_get_num_vlan(priv->ioaddr);
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-index 389aad7b5c1e..55921c88efd0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-@@ -4,6 +4,7 @@
-  * stmmac XGMAC support.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/stmmac.h>
- #include "common.h"
- #include "dwxgmac2.h"
-@@ -69,6 +70,21 @@ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
- 	return (le32_to_cpu(p->des3) & XGMAC_RDES3_LD) > 0;
- }
- 
-+static u16 dwxgmac2_wrback_get_rx_vlan_tci(struct dma_desc *p)
-+{
-+	return (le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK);
-+}
-+
-+static inline bool dwxgmac2_wrback_get_rx_vlan_valid(struct dma_desc *p)
-+{
-+	u32 et_lt;
-+
-+	et_lt = FIELD_GET(XGMAC_RDES3_ET_LT, le32_to_cpu(p->des3));
-+
-+	return et_lt >= XGMAC_ET_LT_VLAN_STAG &&
-+	       et_lt <= XGMAC_ET_LT_DVLAN_STAG_CTAG;
-+}
-+
- static int dwxgmac2_get_rx_frame_len(struct dma_desc *p, int rx_coe)
- {
- 	return (le32_to_cpu(p->des3) & XGMAC_RDES3_PL);
-@@ -351,6 +367,8 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
- 	.set_tx_owner = dwxgmac2_set_tx_owner,
- 	.set_rx_owner = dwxgmac2_set_rx_owner,
- 	.get_tx_ls = dwxgmac2_get_tx_ls,
-+	.get_rx_vlan_tci = dwxgmac2_wrback_get_rx_vlan_tci,
-+	.get_rx_vlan_valid = dwxgmac2_wrback_get_rx_vlan_valid,
- 	.get_rx_frame_len = dwxgmac2_get_rx_frame_len,
- 	.enable_tx_timestamp = dwxgmac2_enable_tx_timestamp,
- 	.get_tx_timestamp_status = dwxgmac2_get_tx_timestamp_status,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 279532609707..eb03d6950903 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7644,7 +7644,7 @@ int stmmac_dvr_probe(struct device *device,
- #ifdef STMMAC_VLAN_TAG_USED
- 	/* Both mac100 and gmac support receive VLAN tag detection */
- 	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
--	if (priv->plat->has_gmac4) {
-+	if (priv->plat->has_gmac4 || priv->plat->has_xgmac) {
- 		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
- 		priv->hw->hw_vlan_en = true;
- 	}
 -- 
-2.25.1
-
+With best wishes
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
