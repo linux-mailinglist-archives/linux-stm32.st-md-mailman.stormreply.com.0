@@ -2,47 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25A28A81002
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 17:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E2CA81014
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 17:33:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA287C78F75;
-	Tue,  8 Apr 2025 15:30:54 +0000 (UTC)
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07D10C78F75;
+	Tue,  8 Apr 2025 15:33:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B58D4C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F04BC78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 15:30:53 +0000 (UTC)
-Message-ID: <08c0e1eb-2de6-45bf-95a4-e817008209ab@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1744126252;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8BoOWeNe+pe93MVOTNw72S8eDhTJzWNGVCLyplYdrjU=;
- b=xHjiYEdgV7tMnhbjUS9rxzHVYtisqRgofwAbFgKBjHeCW/w+sALVnUMiySoFUarrOrSbJp
- Ecqv/CNdAQM8aUz/+aPqTRou80iDO+z9ZzmUuIVt85PyF9sLMmnGUY26Em+RgqaMhsISwv
- mClV4f4j7VSPhAIpytBuD78aAgb4MhI=
-Date: Tue, 8 Apr 2025 11:30:43 -0400
-MIME-Version: 1.0
-To: Jakub Kicinski <kuba@kernel.org>
+ Tue,  8 Apr 2025 15:33:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DB91E614FE;
+ Tue,  8 Apr 2025 15:33:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF28EC4CEE9;
+ Tue,  8 Apr 2025 15:33:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744126406;
+ bh=jTDbRpm/2plpGWyuZcgnOrksZvCKonLIj49TrwkLGMg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=gIUnuqwmDKh1UdrcyGo5h8XkMiMGPrHjGP2Cmlp/98SG+JZqvfK3OyBJ+YaEE/Dw5
+ H6pY6EMPjEV6BhiE9oYP/y9FYAJYJMr9WztK+fOVQIp5YV7we+jfWPW1khCxcwglQg
+ xakHA48v1mIq6Fp8b1O39NyWxaTPUGkG6DN+U4mttyqTh1f/kLJSXedWGRbJ4/sVpX
+ NVgkHtZMImN2NAh4mD3IfY/HwQwNeu73yMxcVR5K77AWicjVlISZoq3O2gwIAwPC9L
+ KyUa3uiK/aqdj6hw7DeoXSa6j6ktcUkt8aXr4kggFWZjUtLWWN0oUJLCSktQwPDDgn
+ qX2hYtprje98g==
+Date: Tue, 8 Apr 2025 08:33:24 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Sean Anderson <sean.anderson@linux.dev>
+Message-ID: <20250408083324.3996c141@kernel.org>
+In-Reply-To: <08c0e1eb-2de6-45bf-95a4-e817008209ab@linux.dev>
 References: <20250407231746.2316518-1-sean.anderson@linux.dev>
  <20250408075047.69d031a9@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sean Anderson <sean.anderson@linux.dev>
-In-Reply-To: <20250408075047.69d031a9@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+ <08c0e1eb-2de6-45bf-95a4-e817008209ab@linux.dev>
+MIME-Version: 1.0
 Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Madalin Bucur <madalin.bucur@nxp.com>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Eric Dumazet <edumazet@google.com>, "David S . Miller" <davem@davemloft.net>,
- Ioana Ciornei <ioana.ciornei@nxp.com>, UNGLinuxDriver@microchip.com,
- linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, "David S .
+ Miller" <davem@davemloft.net>, Ioana Ciornei <ioana.ciornei@nxp.com>,
+ UNGLinuxDriver@microchip.com, linux-stm32@st-md-mailman.stormreply.com,
  Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
  Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@google.com>,
  Jonathan Corbet <corbet@lwn.net>, Joyce Ooi <joyce.ooi@intel.com>,
@@ -76,26 +77,23 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC84LzI1IDEwOjUwLCBKYWt1YiBLaWNpbnNraSB3cm90ZToKPiBPbiBNb24sICA3IEFwciAy
-MDI1IDE5OjE3OjMxIC0wNDAwIFNlYW4gQW5kZXJzb24gd3JvdGU6Cj4+IFRoaXMgc2VyaWVzIGRl
-cGVuZHMgb24gWzEsMl0sIGFuZCB0aGV5IGhhdmUgYmVlbiBpbmNsdWRlZCBhdCB0aGUKPj4gYmVn
-aW5uaW5nIHNvIENJIHdpbGwgcnVuLiBIb3dldmVyLCBJIGV4cGVjdCB0aGVtIHRvIGJlIHJldmll
-d2VkL2FwcGxpZWQKPj4gb3V0c2lkZSB0aGUgbmV0LW5leHQgdHJlZS4KPiAKPiBUaGVzZSBhcHBl
-YXIgdG8gYnJlYWsgdGhlIGJ1aWxkOgo+IAo+IGRyaXZlcnMvYWNwaS9wcm9wZXJ0eS5jOjE2Njk6
-Mzk6IGVycm9yOiBpbml0aWFsaXphdGlvbiBvZiDigJhpbnQgKCopKGNvbnN0IHN0cnVjdCBmd25v
-ZGVfaGFuZGxlICosIGNvbnN0IGNoYXIgKiwgY29uc3QgY2hhciAqLCBpbnQsICB1bnNpZ25lZCBp
-bnQsICBzdHJ1Y3QgZndub2RlX3JlZmVyZW5jZV9hcmdzICop4oCZIGZyb20gaW5jb21wYXRpYmxl
-IHBvaW50ZXIgdHlwZSDigJhpbnQgKCopKGNvbnN0IHN0cnVjdCBmd25vZGVfaGFuZGxlICosIGNv
-bnN0IGNoYXIgKiwgY29uc3QgY2hhciAqLCB1bnNpZ25lZCBpbnQsICB1bnNpZ25lZCBpbnQsICBz
-dHJ1Y3QgZndub2RlX3JlZmVyZW5jZV9hcmdzICop4oCZIFstV2luY29tcGF0aWJsZS1wb2ludGVy
-LXR5cGVzXQo+ICAxNjY5IHwgICAgICAgICAgICAgICAgIC5nZXRfcmVmZXJlbmNlX2FyZ3MgPSBh
-Y3BpX2Z3bm9kZV9nZXRfcmVmZXJlbmNlX2FyZ3MsICAgXAo+IAo+IENvdWxkIHlvdSBwb3N0IGFz
-IFJGQyB1bnRpbCB3ZSBjYW4gYWN0dWFsbHkgbWVyZ2UgdGhpcz8gSSdtIHdvcnJpZWQgCj4gc29t
-ZSBzbGVlcCBkZXByaXZlZCBtYWludGFpbmVyIG1heSBtaXNzIHRoZSBub3RlIGluIHRoZSBjb3Zl
-ciBsZXR0ZXIKPiBhbmQganVzdCBhcHBseSBpdCBhbGwgdG8gbmV0LW5leHQuLgoKSSB3b3VsZCBy
-ZWFsbHkgbGlrZSB0byBrZWVwIFJGQyBvZmYgdGhlIHRpdGxlcyBzaW5jZSBzb21lIHJldmlld2Vy
-cyBkb24ndApwYXkgYXR0ZW50aW9uIHRvIFJGQyBzZXJpZXMuCgpXb3VsZCBbRE8gTk9UIE1FUkdF
-XSBpbiB0aGUgc3ViamVjdCBiZSBPSz8KCi0tU2VhbgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+T24gVHVlLCA4IEFwciAyMDI1IDExOjMwOjQzIC0wNDAwIFNlYW4gQW5kZXJzb24gd3JvdGU6Cj4g
+PiBUaGVzZSBhcHBlYXIgdG8gYnJlYWsgdGhlIGJ1aWxkOgo+ID4gCj4gPiBkcml2ZXJzL2FjcGkv
+cHJvcGVydHkuYzoxNjY5OjM5OiBlcnJvcjogaW5pdGlhbGl6YXRpb24gb2Yg4oCYaW50ICgqKShj
+b25zdCBzdHJ1Y3QgZndub2RlX2hhbmRsZSAqLCBjb25zdCBjaGFyICosIGNvbnN0IGNoYXIgKiwg
+aW50LCAgdW5zaWduZWQgaW50LCAgc3RydWN0IGZ3bm9kZV9yZWZlcmVuY2VfYXJncyAqKeKAmSBm
+cm9tIGluY29tcGF0aWJsZSBwb2ludGVyIHR5cGUg4oCYaW50ICgqKShjb25zdCBzdHJ1Y3QgZndu
+b2RlX2hhbmRsZSAqLCBjb25zdCBjaGFyICosIGNvbnN0IGNoYXIgKiwgdW5zaWduZWQgaW50LCAg
+dW5zaWduZWQgaW50LCAgc3RydWN0IGZ3bm9kZV9yZWZlcmVuY2VfYXJncyAqKeKAmSBbLVdpbmNv
+bXBhdGlibGUtcG9pbnRlci10eXBlc10KPiA+ICAxNjY5IHwgICAgICAgICAgICAgICAgIC5nZXRf
+cmVmZXJlbmNlX2FyZ3MgPSBhY3BpX2Z3bm9kZV9nZXRfcmVmZXJlbmNlX2FyZ3MsICAgXAo+ID4g
+Cj4gPiBDb3VsZCB5b3UgcG9zdCBhcyBSRkMgdW50aWwgd2UgY2FuIGFjdHVhbGx5IG1lcmdlIHRo
+aXM/IEknbSB3b3JyaWVkIAo+ID4gc29tZSBzbGVlcCBkZXByaXZlZCBtYWludGFpbmVyIG1heSBt
+aXNzIHRoZSBub3RlIGluIHRoZSBjb3ZlciBsZXR0ZXIKPiA+IGFuZCBqdXN0IGFwcGx5IGl0IGFs
+bCB0byBuZXQtbmV4dC4uICAKPiAKPiBJIHdvdWxkIHJlYWxseSBsaWtlIHRvIGtlZXAgUkZDIG9m
+ZiB0aGUgdGl0bGVzIHNpbmNlIHNvbWUgcmV2aWV3ZXJzIGRvbid0Cj4gcGF5IGF0dGVudGlvbiB0
+byBSRkMgc2VyaWVzLgo+IAo+IFdvdWxkIFtETyBOT1QgTUVSR0VdIGluIHRoZSBzdWJqZWN0IGJl
+IE9LPwoKVGhhdCB3b3JrcyB0b28uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
