@@ -2,51 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4ADEA81576
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 21:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801E0A815E4
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 21:38:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58A0DC78F95;
-	Tue,  8 Apr 2025 19:08:59 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A88EC78F95;
+	Tue,  8 Apr 2025 19:38:00 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E3F5C7803B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66AEBC78F75
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 19:08:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=k9yTtoxH/xWKG6IZlbraRRY+Xrel+M2msfAmxrJCSPU=; b=bdzK3TmE0IlSyEQdEgOrUaL7Ys
- n5fZvxOtzOw8wDop7soIXjYwQ+oORRP7cHm8jESLnEEzirqlrUFPsoBWPkkS+PANTlOS9qdA76ARc
- zt7dKCvUF+ttDpIzf2rPQqrHHqOGHTtc5f1mBviCNNTDL56QgrDaCnQgQmtE5YmUywIo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1u2EJc-008ROo-5S; Tue, 08 Apr 2025 21:08:56 +0200
-Date: Tue, 8 Apr 2025 21:08:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Boon Khai Ng <boon.khai.ng@altera.com>
-Message-ID: <c65bfe99-a6e1-4485-90ee-aee0b8e0984d@lunn.ch>
-References: <20250408081354.25881-1-boon.khai.ng@altera.com>
- <20250408081354.25881-3-boon.khai.ng@altera.com>
+ Tue,  8 Apr 2025 19:37:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B0AB0A483E0;
+ Tue,  8 Apr 2025 19:32:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60554C4CEE5;
+ Tue,  8 Apr 2025 19:37:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744141077;
+ bh=85wIl317j4jiqoJgOO4oESIHzu0abN/wXL9l0EY3Ies=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=aVHLsyvOWP+kNWbam7Tzo8XFBXpS13rzOknrm9cfpuvzhC+LIv/jiBJJCBvHhMHJV
+ qkeRQSgZYZIx5ci0Cpz93Qet9TDxTvkxuXp4axZajQeQIsf3skDOvNPpPpZOhOL48I
+ 6BlL/FfpNgXaqM4tRvtCmJf4k7HqKBNM8jnZzNy6Ci4oJkZpH1h0+VFOw6Pp4w53Rm
+ R2yVW4TX03ZXeYfhUcQtuR8TQVpXZxrMC2CkPxiqRPMS+Iiz9wURzXqpB/WtbpLYom
+ ZeBd3NnBzmEsHDOtEYxnoiYUCEPr9bqSpZOgrufWVzE1vUbv4nbtPwW49rZXTmGD6q
+ TY535/rH79KRg==
+Date: Tue, 8 Apr 2025 12:37:55 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250408123755.1077e29b@kernel.org>
+In-Reply-To: <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
+References: <Z_Qbw0tZ2ktgBf7c@shell.armlinux.org.uk>
+ <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250408081354.25881-3-boon.khai.ng@altera.com>
-Cc: Tien Sung Ang <tien.sung.ang@altera.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>,
- linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- Mun Yew Tham <mun.yew.tham@altera.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+Cc: Andrew Lunn <andrew@lunn.ch>, Thierry Reding <treding@nvidia.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jon Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- G Thomas Rohan <rohan.g.thomas@altera.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net: stmmac: dwxgmac2:
- Add support for HW-accelerated VLAN stripping
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Prabhakar <prabhakar.csengg@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwc-qos: use
+ stmmac_pltfr_find_clk()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,16 +62,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +static u16 dwxgmac2_wrback_get_rx_vlan_tci(struct dma_desc *p)
-> +{
-> +	return (le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK);
-> +}
+On Mon, 07 Apr 2025 19:38:49 +0100 Russell King (Oracle) wrote:
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 14 ++------------
+>  1 file changed, 2 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> index cd431f84f34f..f5c68e3b4354 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+> @@ -34,16 +34,6 @@ struct tegra_eqos {
+>  	struct gpio_desc *reset;
+>  };
+>  
+> -static struct clk *dwc_eth_find_clk(struct plat_stmmacenet_data *plat_dat,
+> -				    const char *name)
+> -{
+> -	for (int i = 0; i < plat_dat->num_clks; i++)
+> -		if (strcmp(plat_dat->clks[i].id, name) == 0)
+> -			return plat_dat->clks[i].clk;
+> -
+> -	return NULL;
+> -}
 
-This appears to be identical to dwmac4_wrback_get_rx_vlan_tci() ?
+Missed one user?
 
-Can it be moved into the shared code, or am i missing something?
-
-	Andrew
+drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c:355:25: error: call to undeclared function 'dwc_eth_find_clk'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  355 |         plat_dat->stmmac_clk = dwc_eth_find_clk(plat_dat,
+      |                                ^
+drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c:355:23: error: incompatible integer to pointer conversion assigning to 'struct clk *' from 'int' [-Wint-conversion]
+  355 |         plat_dat->stmmac_clk = dwc_eth_find_clk(plat_dat,
+      |                              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  356 |                                                 data->stmmac_clk_name);
+      |                                                 ~~~~~~~~~~~~~~~~~~~~~~
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
