@@ -2,63 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D2C9A80ED8
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 16:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DD4FA80F3D
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 17:06:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DAEDC78F75;
-	Tue,  8 Apr 2025 14:50:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49BC1C78F75;
+	Tue,  8 Apr 2025 15:06:59 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBEBEC7803B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DA88C7803B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 14:50:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1D1C65C591A;
- Tue,  8 Apr 2025 14:48:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2297AC4CEE5;
- Tue,  8 Apr 2025 14:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744123849;
- bh=iippsYe8qLb/2X9/I9NX6d/fzC9lDY7Hh/+44sczz4g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=NSMi+sI6BfxNdjGVuI7k1YPEEB3cI1ZteuMz/i77RX6ZKVVtc7G5wTT1aSxozuebA
- XMflo8Dg43jH0NMQTNts8wq5qxJk/KX2JwIt/jhxJDVCZ4nfBlEdutImR4Y8TcCGYr
- a/LZp8xVwK5rZ8s5TpytyreXMUjrkSIDT3dfjZA+mKTMjzNxb00w63F9LCi2sDaXhM
- TIDpgJYw9Skn+WXlBrEQ6c6lH13pqYKgkqZjUgH+ju6TbeV8JhlZv2pzeLBH9H8w9a
- hApED5WPIbOVRA8ssP34+b8l6uizHChdo0YvbYvAoSbbprKSYOk6daNln8naVIVuOY
- ngrqmh3HwUXXQ==
-Date: Tue, 8 Apr 2025 07:50:47 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sean Anderson <sean.anderson@linux.dev>
-Message-ID: <20250408075047.69d031a9@kernel.org>
-In-Reply-To: <20250407231746.2316518-1-sean.anderson@linux.dev>
-References: <20250407231746.2316518-1-sean.anderson@linux.dev>
+ Tue,  8 Apr 2025 15:06:58 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538AP600020633;
+ Tue, 8 Apr 2025 17:06:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ ez4gDIlBBH+Xt/jxlym+6D8PrFcPq4pA7m+d0k6jmiY=; b=BjuefYLAsLMzeKdd
+ Y5l/I7U8eNDKmsvtftIAVwH/NUGcuqzYXugQdSUYX14C+PcgJn2PLnVz+9k0G+Q0
+ JqWnYAs+BcOWl0JCm5s89sb9/jg/Br9YFaSQ3+FGUCd9zoIoXF1b+NNAYuOGIhL2
+ YpP/PumnrfpNcAwqrW9wKo7WxzZycYLgTpoURmMicwZmD6AYnEhkrSNukXytOhLo
+ 6KsdMJMIkBvRScSNBbA/Z0x0uUJZOd4AoBjlZFAdrEAKfWiBuRPunMl63PidS68v
+ hVcl684xOiaXg6L07W1w0zZwpl9y+EUAHWXDs91aDdrBEWAKyJuXHM0NrxDdFHME
+ ZC2psA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45uffmk9rg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Apr 2025 17:06:45 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A6BD740046;
+ Tue,  8 Apr 2025 17:05:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 862DD9353D9;
+ Tue,  8 Apr 2025 17:04:46 +0200 (CEST)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
+ 2025 17:04:45 +0200
+Message-ID: <b1398416-3391-474b-9944-1d0995639a0e@foss.st.com>
+Date: Tue, 8 Apr 2025 17:04:45 +0200
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Madalin Bucur <madalin.bucur@nxp.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Eric Dumazet <edumazet@google.com>, "David S .
- Miller" <davem@davemloft.net>, Ioana Ciornei <ioana.ciornei@nxp.com>,
- UNGLinuxDriver@microchip.com, linux-stm32@st-md-mailman.stormreply.com,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@google.com>,
- Jonathan Corbet <corbet@lwn.net>, Joyce Ooi <joyce.ooi@intel.com>,
- linux-doc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Clark Wang <xiaoning.wang@nxp.com>, Paolo Abeni <pabeni@redhat.com>,
- Christian Marangi <ansuelsmth@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Robert Hancock <robert.hancock@calian.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
- Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Kory Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, upstream@airoha.com,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [net-next PATCH v2 00/14] Add PCS core support
+User-Agent: Mozilla Thunderbird
+To: Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+References: <20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com>
+ <20250407-upstream_ospi_v6-v8-3-7b7716c1c1f6@foss.st.com>
+ <710569e305924a0a84e9792bc779d37a24011477.camel@pengutronix.de>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <710569e305924a0a84e9792bc779d37a24011477.camel@pengutronix.de>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-08_06,2025-04-08_03,2024-11-22_01
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 3/7] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,28 +78,97 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAgNyBBcHIgMjAyNSAxOToxNzozMSAtMDQwMCBTZWFuIEFuZGVyc29uIHdyb3RlOgo+
-IFRoaXMgc2VyaWVzIGRlcGVuZHMgb24gWzEsMl0sIGFuZCB0aGV5IGhhdmUgYmVlbiBpbmNsdWRl
-ZCBhdCB0aGUKPiBiZWdpbm5pbmcgc28gQ0kgd2lsbCBydW4uIEhvd2V2ZXIsIEkgZXhwZWN0IHRo
-ZW0gdG8gYmUgcmV2aWV3ZWQvYXBwbGllZAo+IG91dHNpZGUgdGhlIG5ldC1uZXh0IHRyZWUuCgpU
-aGVzZSBhcHBlYXIgdG8gYnJlYWsgdGhlIGJ1aWxkOgoKZHJpdmVycy9hY3BpL3Byb3BlcnR5LmM6
-MTY2OTozOTogZXJyb3I6IGluaXRpYWxpemF0aW9uIG9mIOKAmGludCAoKikoY29uc3Qgc3RydWN0
-IGZ3bm9kZV9oYW5kbGUgKiwgY29uc3QgY2hhciAqLCBjb25zdCBjaGFyICosIGludCwgIHVuc2ln
-bmVkIGludCwgIHN0cnVjdCBmd25vZGVfcmVmZXJlbmNlX2FyZ3MgKinigJkgZnJvbSBpbmNvbXBh
-dGlibGUgcG9pbnRlciB0eXBlIOKAmGludCAoKikoY29uc3Qgc3RydWN0IGZ3bm9kZV9oYW5kbGUg
-KiwgY29uc3QgY2hhciAqLCBjb25zdCBjaGFyICosIHVuc2lnbmVkIGludCwgIHVuc2lnbmVkIGlu
-dCwgIHN0cnVjdCBmd25vZGVfcmVmZXJlbmNlX2FyZ3MgKinigJkgWy1XaW5jb21wYXRpYmxlLXBv
-aW50ZXItdHlwZXNdCiAxNjY5IHwgICAgICAgICAgICAgICAgIC5nZXRfcmVmZXJlbmNlX2FyZ3Mg
-PSBhY3BpX2Z3bm9kZV9nZXRfcmVmZXJlbmNlX2FyZ3MsICAgXAoKQ291bGQgeW91IHBvc3QgYXMg
-UkZDIHVudGlsIHdlIGNhbiBhY3R1YWxseSBtZXJnZSB0aGlzPyBJJ20gd29ycmllZCAKc29tZSBz
-bGVlcCBkZXByaXZlZCBtYWludGFpbmVyIG1heSBtaXNzIHRoZSBub3RlIGluIHRoZSBjb3ZlciBs
-ZXR0ZXIKYW5kIGp1c3QgYXBwbHkgaXQgYWxsIHRvIG5ldC1uZXh0Li4KLS0gCnB3LWJvdDogY3IK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+
+
+On 4/8/25 10:59, Philipp Zabel wrote:
+> On Mo, 2025-04-07 at 15:27 +0200, Patrice Chotard wrote:
+>> Octo Memory Manager driver (OMM) manages:
+>>   - the muxing between 2 OSPI busses and 2 output ports.
+>>     There are 4 possible muxing configurations:
+>>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>>         output is on port 2
+>>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>>         OSPI2 output is on port 1
+>>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>>   - the split of the memory area shared between the 2 OSPI instances.
+>>   - chip select selection override.
+>>   - the time between 2 transactions in multiplexed mode.
+>>   - check firewall access.
+>>
+>> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>> ---
+>>  drivers/memory/Kconfig     |  17 ++
+>>  drivers/memory/Makefile    |   1 +
+>>  drivers/memory/stm32_omm.c | 474 +++++++++++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 492 insertions(+)
+>>
+> [...]
+>> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..db50aeffb0aa32a9d51a205d8ba30ab2299e1c34
+>> --- /dev/null
+>> +++ b/drivers/memory/stm32_omm.c
+>> @@ -0,0 +1,474 @@
+> [...]
+>> +static int stm32_omm_disable_child(struct device *dev)
+>> +{
+>> +	static const char * const resets_name[] = {"ospi1", "ospi2"};
+>> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+>> +	struct reset_control *reset;
+>> +	int ret;
+>> +	u8 i;
+>> +
+>> +	ret = stm32_omm_toggle_child_clock(dev, true);
+>> +	if (!ret)
+>> +		return ret;
+>> +
+>> +	for (i = 0; i < omm->nb_child; i++) {
+>> +		reset = reset_control_get_exclusive(dev, resets_name[i]);
+>> +		if (IS_ERR(reset)) {
+>> +			dev_err(dev, "Can't get %s reset\n", resets_name[i]);
+>> +			return PTR_ERR(reset);
+>> +		};
+>> +
+>> +		/* reset OSPI to ensure CR_EN bit is set to 0 */
+>> +		reset_control_assert(reset);
+>> +		udelay(2);
+>> +		reset_control_deassert(reset);
+>> +
+>> +		reset_control_put(reset);
+> 
+> With this reset_control_put(), you are effectively stating that you
+> don't care about the state of the reset line after this point. To
+> guarantee the reset line stays deasserted, the driver should keep the
+> reset control around.
+> 
+> Are you requesting and dropping the reset controls here so the child
+> drivers can request them at some point? If so, there is an
+> acquire/relase mechanism for this:
+> 
+> https://docs.kernel.org/driver-api/reset.html#c.reset_control_acquire
+
+Hi Philipp,
+
+Yes, that's my point, children will request these resets during their
+initialization.
+I will have a look at reset acquire/release.
+
+Thanks
+Patrice
+
+> 
+> Either way, reset_control_get/put() belong in probe/remove.
+> 
+> regards
+> Philipp
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
