@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D10DA80A58
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 15:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11D2DA80A5E
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 15:04:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8AF8C78F60;
-	Tue,  8 Apr 2025 13:04:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6408C78F60;
+	Tue,  8 Apr 2025 13:04:17 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CD72C7803B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF873C7803B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 13:04:02 +0000 (UTC)
+ Tue,  8 Apr 2025 13:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=RMK/yH8vtY9JB9PL98uNHWoExGdbmiSXaviteRsYr9U=; b=wt9TlUssAAzTom2YI5g4jj6jao
- qvhMKYYF248LEQi6kjkaUHjkNJNsvn4qizo8j+Fz8jgqgblUfnAioPC1DK2I3ACnTnTcnnkZClzo4
- RG5Rm4ARm6CjKlkIvCz+Su6dLDjblITiifbmd9rMgLp3/dhsXI4eAz/b1Z3rDk0uCBUc=;
+ bh=rB/dIvd7bU6zo6n9YdzMajIzzeCmS1EwGXtnalG5tYI=; b=Qdnrm8BEZBNy23lYC19M1XF7Et
+ Kp+5vAHIJY07hxFNlG2cyzxI82LuGlxAdpnBCSX1HCcmFT4O2k4peaJQhTQDULdEaO6iZa8YuYRla
+ OJ/P5KfclV+qVRbN3/GE5+LzbjNWkeAwXt8MPqNdiJPCdno71A5qqo/rDuqQXh6GCksQ=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1u28cK-008OEc-Mr; Tue, 08 Apr 2025 15:03:52 +0200
-Date: Tue, 8 Apr 2025 15:03:52 +0200
+ id 1u28cc-008OFV-52; Tue, 08 Apr 2025 15:04:10 +0200
+Date: Tue, 8 Apr 2025 15:04:10 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <96479c3b-70db-4f6e-bb7c-b1ced14463c3@lunn.ch>
+Message-ID: <0f370f79-6221-48e4-a700-86fc26547f95@lunn.ch>
 References: <Z_Qbw0tZ2ktgBf7c@shell.armlinux.org.uk>
- <E1u1rMq-0013OH-PI@rmk-PC.armlinux.org.uk>
+ <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1u1rMq-0013OH-PI@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1u1rMv-0013ON-TJ@rmk-PC.armlinux.org.uk>
 Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
@@ -40,8 +40,8 @@ Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
  Paolo Abeni <pabeni@redhat.com>, Prabhakar <prabhakar.csengg@gmail.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: provide
-	stmmac_pltfr_find_clk()
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwc-qos: use
+ stmmac_pltfr_find_clk()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,9 +58,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 07, 2025 at 07:38:44PM +0100, Russell King (Oracle) wrote:
-> Provide a generic way to find a clock in the bulk data.
-> 
+On Mon, Apr 07, 2025 at 07:38:49PM +0100, Russell King (Oracle) wrote:
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
