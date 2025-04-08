@@ -2,48 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0D5A7F56B
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 09:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F532A7F8C7
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Apr 2025 11:00:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88338C7A827;
-	Tue,  8 Apr 2025 07:02:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8C25C7803B;
+	Tue,  8 Apr 2025 09:00:24 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D1E5C7A826
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEBBAC7801F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Apr 2025 07:02:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7CBCE4A030;
- Tue,  8 Apr 2025 07:02:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B82C4CEE5;
- Tue,  8 Apr 2025 07:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744095727;
- bh=n5s/LEoEQT9NSU6XeyqlvUReVnAp5oh6ZpPr1vmJWlc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qWK6hpiKl5YRKO1XST0DS4G1798u4QPzV/BYigAc7enKX9RvtfbHVZiIyWLipOFNq
- R/TI9O0yCS5wZAOjM3gUxOGG8kzT8ZfEscsNFE+cdoEabPjcPBX+eqizMRGHd2XQhE
- wMoFS5FBU9Q5I5jPyg01niVBXZsCkXhf5ZUGW7XIHNYkuu0yRx6BMVUkkkCFN9XtC4
- JArmSuarCNVcbj+kNHG8QIz5FV9j+QXgqgAFJrE4C5/3HCklP4QdgsDJBip5WC0TUx
- t/ZQJD52d9OnT3Kgmj9mtlKP7XfL0pXlXKEJp0kwo32dByen14GJSaQHzP24ksgM7H
- //0NShTXgPthQ==
-Date: Tue, 8 Apr 2025 09:02:04 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrice Chotard <patrice.chotard@foss.st.com>
-Message-ID: <20250408-offbeat-esoteric-millipede-ed8a2a@shite>
+ Tue,  8 Apr 2025 09:00:22 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1u24nS-0001k3-Nf; Tue, 08 Apr 2025 10:59:06 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
+ helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1u24nR-003tta-2c;
+ Tue, 08 Apr 2025 10:59:05 +0200
+Received: from pza by lupine with local (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1u24nR-0003e6-2L;
+ Tue, 08 Apr 2025 10:59:05 +0200
+Message-ID: <710569e305924a0a84e9792bc779d37a24011477.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Patrice Chotard <patrice.chotard@foss.st.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Will
+ Deacon <will@kernel.org>
+Date: Tue, 08 Apr 2025 10:59:05 +0200
+In-Reply-To: <20250407-upstream_ospi_v6-v8-3-7b7716c1c1f6@foss.st.com>
 References: <20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com>
- <20250408-opal-pillbug-of-acumen-0fbb68@shite>
+ <20250407-upstream_ospi_v6-v8-3-7b7716c1c1f6@foss.st.com>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250408-opal-pillbug-of-acumen-0fbb68@shite>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v8 0/7] Add STM32MP25 SPI NOR support
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 3/7] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,49 +67,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 08, 2025 at 08:38:08AM GMT, Krzysztof Kozlowski wrote:
-> On Mon, Apr 07, 2025 at 03:27:31PM GMT, Patrice Chotard wrote:
-> > Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> > ---
-> > Patrice Chotard (7):
-> >       MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
-> >       dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
-> >       memory: Add STM32 Octo Memory Manager driver
-> >       arm64: dts: st: Add OMM node on stm32mp251
-> >       arm64: dts: st: Add ospi port1 pinctrl entries in stm32mp25-pinctrl.dtsi
-> >       arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board
-> >       arm64: defconfig: Enable STM32 Octo Memory Manager and OcstoSPI driver
-> > 
-> >  .../memory-controllers/st,stm32mp25-omm.yaml       | 226 ++++++++++
-> >  MAINTAINERS                                        |   6 +
-> >  arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi      |  51 +++
-> >  arch/arm64/boot/dts/st/stm32mp251.dtsi             |  54 +++
-> >  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |  32 ++
-> >  arch/arm64/configs/defconfig                       |   2 +
-> >  drivers/memory/Kconfig                             |  17 +
-> >  drivers/memory/Makefile                            |   1 +
-> >  drivers/memory/stm32_omm.c                         | 474 +++++++++++++++++++++
-> >  9 files changed, 863 insertions(+)
-> > ---
-> > base-commit: 88424abd55ab36c3565898a656589a0a25ecd92f
+On Mo, 2025-04-07 at 15:27 +0200, Patrice Chotard wrote:
+> Octo Memory Manager driver (OMM) manages:
+>   - the muxing between 2 OSPI busses and 2 output ports.
+>     There are 4 possible muxing configurations:
+>       - direct mode (no multiplexing): OSPI1 output is on port 1 and OSPI2
+>         output is on port 2
+>       - OSPI1 and OSPI2 are multiplexed over the same output port 1
+>       - swapped mode (no multiplexing), OSPI1 output is on port 2,
+>         OSPI2 output is on port 1
+>       - OSPI1 and OSPI2 are multiplexed over the same output port 2
+>   - the split of the memory area shared between the 2 OSPI instances.
+>   - chip select selection override.
+>   - the time between 2 transactions in multiplexed mode.
+>   - check firewall access.
 > 
-> That's unknown commit.
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> ---
+>  drivers/memory/Kconfig     |  17 ++
+>  drivers/memory/Makefile    |   1 +
+>  drivers/memory/stm32_omm.c | 474 +++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 492 insertions(+)
 > 
-> b4 diff '20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com'
-> Using cached copy of the lookup
-> ---
-> Analyzing 81 messages in the thread
-> Preparing fake-am for v7: MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
-> ERROR: Could not write fake-am tree
-> ---
-> Could not create fake-am range for lower series v7
+[...]
+> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..db50aeffb0aa32a9d51a205d8ba30ab2299e1c34
+> --- /dev/null
+> +++ b/drivers/memory/stm32_omm.c
+> @@ -0,0 +1,474 @@
+[...]
+> +static int stm32_omm_disable_child(struct device *dev)
+> +{
+> +	static const char * const resets_name[] = {"ospi1", "ospi2"};
+> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+> +	struct reset_control *reset;
+> +	int ret;
+> +	u8 i;
+> +
+> +	ret = stm32_omm_toggle_child_clock(dev, true);
+> +	if (!ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < omm->nb_child; i++) {
+> +		reset = reset_control_get_exclusive(dev, resets_name[i]);
+> +		if (IS_ERR(reset)) {
+> +			dev_err(dev, "Can't get %s reset\n", resets_name[i]);
+> +			return PTR_ERR(reset);
+> +		};
+> +
+> +		/* reset OSPI to ensure CR_EN bit is set to 0 */
+> +		reset_control_assert(reset);
+> +		udelay(2);
+> +		reset_control_deassert(reset);
+> +
+> +		reset_control_put(reset);
 
-Hm, both v7 and v8 apply cleanly on next, so not sure why fake-am
-failed.
+With this reset_control_put(), you are effectively stating that you
+don't care about the state of the reset line after this point. To
+guarantee the reset line stays deasserted, the driver should keep the
+reset control around.
 
-Best regards,
-Krzysztof
+Are you requesting and dropping the reset controls here so the child
+drivers can request them at some point? If so, there is an
+acquire/relase mechanism for this:
 
+https://docs.kernel.org/driver-api/reset.html#c.reset_control_acquire
+
+Either way, reset_control_get/put() belong in probe/remove.
+
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
