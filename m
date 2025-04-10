@@ -2,83 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A654A84618
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 16:20:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8582A84975
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 18:22:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C3CAC78F74;
-	Thu, 10 Apr 2025 14:20:06 +0000 (UTC)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EF3AC78F74;
+	Thu, 10 Apr 2025 16:22:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DD97C7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B45DFC7803C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 14:20:05 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- 006d021491bc7-603ff8e915aso206004eaf.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 07:20:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1744294804; x=1744899604;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cFmetQ0fd8tg9OjN42SYuqaihg5CWxCtulYfskMf/mA=;
- b=npyIZQysmglrh0B3MpKpE8qG2WHjCodfck2ahPnR2wo6bOEzCXO0cOwkwsEEqYS0ZT
- Yw3SR6z+6e3ovnwwpO4SydKKJQGB4VT7h85i3i8jehX/KCwPdqQRWm4eEXVFIqopdBHS
- L7xn5AmeRTz6iZ/EdyYVBiQK8uBDTZjl92JZraepnYULnmcSzYsJORjU6HNc1CAp7J3O
- kZczAyjmAPzOns75VflwFDeYdnaIm1nniCO/KmxrDFVYq7jrdWif6yRJ9Xw+QNyl0f2E
- GZz4maVB6cECkyHAVsredg/ev/QYT2AG7ZnQOncILgoGIlzCvavoMtzpurCI9VkA+ErU
- AN3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744294804; x=1744899604;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cFmetQ0fd8tg9OjN42SYuqaihg5CWxCtulYfskMf/mA=;
- b=D82VjNqfs5okKV6V7ysv5Dg5IVb/ADbDeaIK7BMI49pzCCNGCkl23lAZPRgucrzDKs
- /VoNV3XEziYmUh7R9p32cQ6wKv45e9iWa9ikAUh9mNoyGCX+4aQ9xcp7ZCc/Fl6zw73g
- xWgxs8loVxtqZlRkXv3nvV7WFmfUY+OY23PyqCEwIxVRJRcqrE4Xg99B9E5q/pKx4t/7
- 1h5Rzpks4a37gf3zC423eYTfcVyjnxL8pV+iB9HwlWmg0EScfsBSe0dQurm+xQqi6GWa
- yrDkiVhQD0OmzXfxi/u9XGqKVtGp0ZY1TmUdwAOhL/oJMJB3N1bUUVDon+2JX8LYWwIn
- MFDQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX3L0luhJ8cqSJbM4+JIfKGZHxkeKn4KXxsVvJaRPL3Y1l04L6OqNY3k79VXKtmTbXdZ/Y28dPFiuRE4Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxFz8j3k/cZv6ai3J0c2cw/8POVHpaXkTvLEfeAs2eiH1zLw5FP
- VzOk5ooLnArbEfN0pdR52YF8JA0L3A5g/K1AQwRsAGM6b0EZa3YD1BBfMf5p2sk=
-X-Gm-Gg: ASbGncu76xCIgg7UTZ8V6k45xhgWbEhWJUk8+VYr6897Yzpl4YW+vXRR7bJbBEn0CVy
- daUw4lzUTseeHpPm3/lC1lfcXznDUaThp4TWelMY5eaeqjZxf9tyvFcg+lp87mWR0EODCWPpVsN
- SQKRshf3+FVcqblad33BvwBGr7iP5CMaKBZ4FTSX8H28ZblO6B7rItPwn6nb4yrE21kdl0o2Hcv
- CHRPLrjt8AkjzgyRcc8rGEYZIQyf0Yawp9o5rZQi126JFWDWOTKVRsfq2rvyPhzNTyJs9l4mUYZ
- 0zBP2NVS/oAZgUipeA+k5+YEehpZN5ggi3mj+cKMlY/fzdRH9z9BT56QBWHF9Nw2SYNJ3Zfr9ai
- FUg==
-X-Google-Smtp-Source: AGHT+IHmprFnmE2L9dl6TZiZJCp0rXROk32fEiGq63fS0aW94IToqZ2dIpCTynqnYIATWgqEA0PScQ==
-X-Received: by 2002:a05:6870:158d:b0:2c2:56f3:1c84 with SMTP id
- 586e51a60fabf-2d0b3820255mr1492765fac.25.1744294804016; 
- Thu, 10 Apr 2025 07:20:04 -0700 (PDT)
-Received: from [192.168.0.142] (ip98-183-112-25.ok.ok.cox.net. [98.183.112.25])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-72e73e4db34sm578067a34.49.2025.04.10.07.20.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 07:20:03 -0700 (PDT)
-Message-ID: <22384798-eddc-460b-87d8-8c13beeefbd7@baylibre.com>
-Date: Thu, 10 Apr 2025 09:20:02 -0500
+ Thu, 10 Apr 2025 16:22:24 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53ADlLVw001665;
+ Thu, 10 Apr 2025 18:22:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ HMGtnLk9M2H509FvgAtICrK2wNS2Az56Eo03rGYmFeY=; b=x6CFAcwxG8UnUI2H
+ TuaNAuR8Ypm1IcmTovy8U4tg6zbMQxa5pQB88pyjWWe8xi6hhWf9TWfcRRUawVWw
+ qvKSC7QNQ0Mo5qFoe/ZZubdmOJvopfYSFOvFkqUT7TjJyiDpH2toNEs2TdCKKsV2
+ JT3WaclKNglz0lCh7hCTd3N5+dNhYi35Rlw4/7yaHMTK/MMw7c9GtViQ5BM4mOtm
+ 0JXC8mClI6VEUJ8vjDQdh+DavUzubUvT2kW5cZZBJY5DVUMuRsbmRqTyE3i8+DM4
+ 0CAH2mGMReAyn+hNN+vWMDB6wQsZXYJ0F5GPfyJJw7rGpetot79n69wF2qsslFF0
+ GfjLOw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45tw5ghh7h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Apr 2025 18:22:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C33E440044;
+ Thu, 10 Apr 2025 18:21:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AA72298CE8C;
+ Thu, 10 Apr 2025 18:20:29 +0200 (CEST)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Apr
+ 2025 18:20:28 +0200
+Message-ID: <81d04bf3-8a7e-4287-afd0-d6a0464bb995@foss.st.com>
+Date: Thu, 10 Apr 2025 18:20:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20250410135836.2091238-1-olivier.moysan@foss.st.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com>
+ <20250410-b4-upstream_ospi_reset_update-v1-2-74126a8ceb9c@foss.st.com>
+ <2bb410e34babc4c66895e8e74cf014f89127914d.camel@pengutronix.de>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20250410135836.2091238-1-olivier.moysan@foss.st.com>
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4] iio: adc: stm32: add oversampling
-	support
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <2bb410e34babc4c66895e8e74cf014f89127914d.camel@pengutronix.de>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-10_04,2025-04-10_01,2024-11-22_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] spi: stm32-ospi: Make usage of
+ reset_control_acquire/release() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,31 +80,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/10/25 8:58 AM, Olivier Moysan wrote:
-> Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
-> STM32F4 ADC has no oversampling feature.
-> 
-> The current support of the oversampling feature aims at increasing
-> the data SNR, without changing the data resolution.
-> As the oversampling by itself increases data resolution,
-> a right shift is applied to keep initial resolution.
-> Only the oversampling ratio corresponding to a power of two are
-> supported here, to get a direct link between right shift and
-> oversampling ratio. (2exp(n) ratio <=> n right shift)
-> 
-> The oversampling ratio is shared by all channels, whatever channel type.
-> (e.g. single ended or differential).
-> 
-> Oversampling can be configured using IIO ABI:
-> - oversampling_ratio_available
-> - oversampling_ratio
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> 
-> ---
-Reviewed-by: David Lechner <dlechner@baylibre.com>
 
+
+On 4/10/25 14:48, Philipp Zabel wrote:
+> On Do, 2025-04-10 at 14:23 +0200, Patrice Chotard wrote:
+>> As ospi reset is consumed by both OMM and OSPI drivers, use the reset
+>> acquire/release mechanism which ensure exclusive reset usage.
+>>
+>> This avoid to call reset_control_get/put() in OMM driver each time
+>> we need to reset OSPI children and guarantee the reset line stays
+>> deasserted.
+>>
+>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>> ---
+>>  drivers/spi/spi-stm32-ospi.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+>> index 668022098b1eac3628f0677e6d786e5a267346be..96fa362432f13c19e4dde63d964a0db64c8ade95 100644
+>> --- a/drivers/spi/spi-stm32-ospi.c
+>> +++ b/drivers/spi/spi-stm32-ospi.c
+>> @@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
+>>  		return ret;
+>>  	}
+>>  
+>> -	ospi->rstc = devm_reset_control_array_get_optional_exclusive(dev);
+>> +	ospi->rstc = devm_reset_control_array_get_exclusive_released(dev);
+> 
+> Why does this drop _optional?
+
+Hi Philip
+
+I wrongly based this patchset on the reset/next branch instead of the spi/for-next which include this ospi fix [1].
+which make resets a required property. I will rebased it on last spi/for-next.
+
+> 
+> Also, since _acquire() is right below in the same function, I see no
+> benefit in requesting the reset control in released state.
+
+As explained in commit message, OSPI reset are also used by OMM driver which is parent of OSPI.
+
+If i use devm_reset_control_array_get_exclusive() instead of devm_reset_control_array_get_exclusive_released()
+here, i got the following kernel warning:
+
+[    8.654378] ------------[ cut here ]------------
+[    8.656524] WARNING: CPU: 1 PID: 385 at drivers/reset/core.c:799 __reset_control_get_internal+0x70/0x1d0
+[    8.665999] Modules linked in: spi_stm32_ospi(+) hantro_vpu v4l2_vp9 dwmac_stm32(+) stmmac_platform v4l2_h264 v4l2_jpeg v4l2_mem2mem stmmac videobu6
+emon.
+[    8.691282] CPU: 1 UID: 0 PID: 385 Comm: (udev-worker) Not tainted 6.15.0-rc1-next-20250408-00018-g0f9105d08519 #22 PREEMPT 
+[    8.691301] Hardware name: STMicroelectronics STM32MP257F-EV1 Evaluation Board (DT)
+[    8.691307] pstate: 00000005 (nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    8.691317] pc : __reset_control_get_internal+0x70/0x1d0
+[    8.691336] lr : __of_reset_control_get+0x1a4/0x270
+[    8.691348] sp : ffff80008359b5f0
+[    8.691352] x29: ffff80008359b5f0 x28: 0000000000000000 x27: ffff80007b06c100
+[    8.691371] x26: ffff80007b06c118 x25: 0000000000000001 x24: 0000000000000000
+[    8.691385] x23: 0000000000000004 x22: ffff000082ecc780 x21: 0000000000000005
+[    8.691399] x20: ffff000082ecc7a0 x19: ffff000083898d00 x18: 00000000ffffffff
+[    8.691414] x17: ffff000082ff9a00 x16: ffff0000802d6800 x15: ffff80008359b4c0
+[    8.691429] x14: 0000000000000001 x13: 007473696c5f7974 x12: 0000000000000001
+[    8.691444] x11: 0000000000000003 x10: ffff80008257ec4f x9 : 0000000000000028
+[    8.691459] x8 : 0101010101010101 x7 : 00000000736c6c65 x6 : 000000000080f2e5
+[    8.691473] x5 : ffff80008359b698 x4 : 0000000000000000 x3 : 0000000000000005
+[    8.691487] x2 : 0000000000000004 x1 : 0000000000000005 x0 : 0000000000000005
+[    8.691501] Call trace:
+[    8.691506]  __reset_control_get_internal+0x70/0x1d0 (P)
+[    8.691522]  __of_reset_control_get+0x1a4/0x270
+[    8.691535]  of_reset_control_array_get+0x9c/0x174
+[    8.691549]  devm_reset_control_array_get+0x50/0xb0
+[    8.691563]  stm32_ospi_get_resources+0xd4/0x344 [spi_stm32_ospi]
+[    8.691584]  stm32_ospi_probe+0xf8/0x3d0 [spi_stm32_ospi]
+
+Which means that bool acquired is set.
+
+This is due to usage of devm_reset_control_array_get_exclusive() which sets flags to RESET_CONTROL_EXCLUSIVE
+on an already controlled reset line.
+
+
+> 
+>>  	if (IS_ERR(ospi->rstc))
+>>  		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
+>>  				     "Can't get reset\n");
+>> @@ -937,9 +937,11 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+>>  		goto err_pm_enable;
+>>  
+>>  	if (ospi->rstc) {
+> 
+> This check only makes sense if the reset control (array) is optional,
+> otherwise ospi->rstc can never be NULL.
+
+Right, i will remove this check.
+
+> 
+>> +		reset_control_acquire(ospi->rstc);
+> 
+> This is missing error handling. Alternatively, you could just use the
+> normal request function to get an already-acquired reset control.
+
+Ok, i will add a check.
+
+
+[1] https://patches.linaro.org/project/linux-spi/patch/20250324-upstream_ospi_required_resets-v2-2-85a48afcedec@foss.st.com/
+
+Thanks
+Patrice
+
+> 
+>>  		reset_control_assert(ospi->rstc);
+>>  		udelay(2);
+>>  		reset_control_deassert(ospi->rstc);
+>> +		reset_control_release(ospi->rstc);
+>>  	}
+>>  
+>>  	ret = spi_register_controller(ctrl);
+> 
+> regards
+> Philipp
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
