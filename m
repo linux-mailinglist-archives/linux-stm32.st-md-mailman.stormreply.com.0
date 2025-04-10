@@ -2,68 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8582A84975
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 18:22:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6A9A849A6
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 18:28:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EF3AC78F74;
-	Thu, 10 Apr 2025 16:22:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4696C78F74;
+	Thu, 10 Apr 2025 16:28:58 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B45DFC7803C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B35CC7803C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 16:22:24 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53ADlLVw001665;
- Thu, 10 Apr 2025 18:22:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ Thu, 10 Apr 2025 16:28:57 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53AD2iFM006861
+ for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 10 Apr 2025 16:28:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- HMGtnLk9M2H509FvgAtICrK2wNS2Az56Eo03rGYmFeY=; b=x6CFAcwxG8UnUI2H
- TuaNAuR8Ypm1IcmTovy8U4tg6zbMQxa5pQB88pyjWWe8xi6hhWf9TWfcRRUawVWw
- qvKSC7QNQ0Mo5qFoe/ZZubdmOJvopfYSFOvFkqUT7TjJyiDpH2toNEs2TdCKKsV2
- JT3WaclKNglz0lCh7hCTd3N5+dNhYi35Rlw4/7yaHMTK/MMw7c9GtViQ5BM4mOtm
- 0JXC8mClI6VEUJ8vjDQdh+DavUzubUvT2kW5cZZBJY5DVUMuRsbmRqTyE3i8+DM4
- 0CAH2mGMReAyn+hNN+vWMDB6wQsZXYJ0F5GPfyJJw7rGpetot79n69wF2qsslFF0
- GfjLOw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45tw5ghh7h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Apr 2025 18:22:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C33E440044;
- Thu, 10 Apr 2025 18:21:13 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AA72298CE8C;
- Thu, 10 Apr 2025 18:20:29 +0200 (CEST)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Apr
- 2025 18:20:28 +0200
-Message-ID: <81d04bf3-8a7e-4287-afd0-d6a0464bb995@foss.st.com>
-Date: Thu, 10 Apr 2025 18:20:28 +0200
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 1LYRnKYALBxstxnY8N2VWmQJbh99uAes3RlQszC65LE=; b=I3oNWYh1pmIWvoPZ
+ YNXyQcTQxr0qCuCP3bjsX+gmUikLAOUHnI6M4W+4Z4iCmhJ4jauoG7R79DGyQaLR
+ YRg9knFf18wr6BTpxnRr7MDWGcXkpgDZ6L3jPmbmd+HiMfbN6yDQEicmhQrqIlUX
+ 6tKvOV9Uxt33c/nVKz/ytYL+Cfqev0ynqT33WnoH5sMTx/klmCsJH6nt16qnTTKk
+ FbbNhDcICoxYKKsdCJB0uOG6LJESAY06eXDPKphKszieSBsl+wgoSWCG3sGXfwYr
+ C1KFDE1eKkHJg396QkFwC0ipB7VU3cyb3KnFUyklTldtsojJLNB71CsKoR+exSMO
+ BvPqKw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 45xeh3gkhm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Apr 2025 16:28:56 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6eeeaf707b0so338466d6.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Apr 2025 09:28:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744302535; x=1744907335;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1LYRnKYALBxstxnY8N2VWmQJbh99uAes3RlQszC65LE=;
+ b=Uzm4x1M2f0/StVg9l0hCFz/Kn0pv6Cl2ZtRUlcR/4/Pfn45MxIStTKW9XGnkskrKJr
+ Si188IfoRBvsEQ8NclpkKp+MprKcfteiDt00+uQR6BRNymFgSx4dMYbQVgVs6nK2nqti
+ 1FciTr3gA6x2elBf2sTZFDchjcvBZqHcuzJcKt+FJGqcQ7VdyztfW0QgHGPKqMo71jBR
+ IDkXEOdCvN6Nax01p0qHgpIA11mOGL4ogtLhB4zL5ZgVUSYoiJ4CQDjisVB90w8eCUm+
+ 8pgJmQYoGUgv2/x7X6vPLb+zx6ZYz7KBBSM9zuWBBrh1WPZ5DpbLASnlnEqV6rfQ+3Go
+ MhrA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWLcaQpZ/6dxp5i7AWc7uqM+IZhV6qfe7D9A3oKAe+rRbPhaYcGu+CRKYZPeMRvzm+iwKdFVSkGFUi25A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzue8i/zWq8uwahF1t+6eqhwfXlauRNbXiObG9LBxkqn0JCSSHS
+ tPCxaJQgfE7uZ/I+SdTNHoWiajzrG4EyEcdoIczkRcZDCxdWqN0JYMqoGCVuM7oM+oug0BwNuDi
+ Hg+Vh3kXPgzpKwieeIkpj9xD6eXjfQKHNAWV1gGHOojYKflF5iFzUWmL3VUlo4w7jDGrJbIW/bE
+ uiBKU=
+X-Gm-Gg: ASbGncsSxh357C5bsIY3RgRfyXZTS96fPua13DPx+pT2WexQGcxzIa5d/S1SJF4q7j0
+ 6JNT20t/v/+KTVvI+2pFbR49WALtPwSrmBi7NNpq16b4AMrIAgxUietofz1oONmbiCvCA2WD+qa
+ tm3lfRMF0K5qnOe4IQd897YeLqv6A29Nuu4byAVk0y6pz4Ud+QhRwytryZxiAgQ012i0Rw1+1kb
+ +V/SdqgceqTdnO6blmTpk4+/hZHm0cgMU/W+EWuaB+G2LU6txSXORVyIGQ5iI2KKG2CVlDE5sZr
+ J3yOt+Qedgyk3eGOguGV7GcUao5FVcDrW9rIMbfRnYNBgtUXHGlbURZrS7Kkg9xkbw==
+X-Received: by 2002:ad4:596f:0:b0:6d8:ae2c:5053 with SMTP id
+ 6a1803df08f44-6f0dbc9abbcmr37085916d6.9.1744302535326; 
+ Thu, 10 Apr 2025 09:28:55 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGpQTzqEgSGnRGI9+a1gSJgk7i17w0vzyr4OAfVjD6W7x+6Le37QVc7oS6Fu1U4ISRaqoFqsw==
+X-Received: by 2002:ad4:596f:0:b0:6d8:ae2c:5053 with SMTP id
+ 6a1803df08f44-6f0dbc9abbcmr37085796d6.9.1744302534993; 
+ Thu, 10 Apr 2025 09:28:54 -0700 (PDT)
+Received: from [192.168.65.90] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1cb4300sm305662866b.94.2025.04.10.09.28.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Apr 2025 09:28:54 -0700 (PDT)
+Message-ID: <5cf9c47f-089a-4748-b4b5-21637fb7368c@oss.qualcomm.com>
+Date: Thu, 10 Apr 2025 18:28:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-References: <20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com>
- <20250410-b4-upstream_ospi_reset_update-v1-2-74126a8ceb9c@foss.st.com>
- <2bb410e34babc4c66895e8e74cf014f89127914d.camel@pengutronix.de>
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20250410013330.3609482-1-jie.gan@oss.qualcomm.com>
+ <20250410013330.3609482-6-jie.gan@oss.qualcomm.com>
 Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <2bb410e34babc4c66895e8e74cf014f89127914d.camel@pengutronix.de>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20250410013330.3609482-6-jie.gan@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=VbH3PEp9 c=1 sm=1 tr=0 ts=67f7f1c8 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=XR8D0OoHHMoA:10 a=EUspDBNiAAAA:8 a=jy6vGmKe9HVL-Nowcs4A:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: 1nofTASEe-bKkIWyanIlYEMDJA1l05Fi
+X-Proofpoint-ORIG-GUID: 1nofTASEe-bKkIWyanIlYEMDJA1l05Fi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
  definitions=2025-04-10_04,2025-04-10_01,2024-11-22_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] spi: stm32-ospi: Make usage of
- reset_control_acquire/release() API
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0 mlxscore=0
+ mlxlogscore=631 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504100120
+Cc: devicetree@vger.kernel.org, Jinlong Mao <quic_jinlmao@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 5/5] arm64: dts: qcom: sa8775p: Add
+ interrupts to CTCU device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,123 +129,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 4/10/25 14:48, Philipp Zabel wrote:
-> On Do, 2025-04-10 at 14:23 +0200, Patrice Chotard wrote:
->> As ospi reset is consumed by both OMM and OSPI drivers, use the reset
->> acquire/release mechanism which ensure exclusive reset usage.
->>
->> This avoid to call reset_control_get/put() in OMM driver each time
->> we need to reset OSPI children and guarantee the reset line stays
->> deasserted.
->>
->> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
->> ---
->>  drivers/spi/spi-stm32-ospi.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
->> index 668022098b1eac3628f0677e6d786e5a267346be..96fa362432f13c19e4dde63d964a0db64c8ade95 100644
->> --- a/drivers/spi/spi-stm32-ospi.c
->> +++ b/drivers/spi/spi-stm32-ospi.c
->> @@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
->>  		return ret;
->>  	}
->>  
->> -	ospi->rstc = devm_reset_control_array_get_optional_exclusive(dev);
->> +	ospi->rstc = devm_reset_control_array_get_exclusive_released(dev);
+On 4/10/25 3:33 AM, Jie Gan wrote:
+> Add interrupts to enable byte-cntr function for TMC ETR devices.
 > 
-> Why does this drop _optional?
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
 
-Hi Philip
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I wrongly based this patchset on the reset/next branch instead of the spi/for-next which include this ospi fix [1].
-which make resets a required property. I will rebased it on last spi/for-next.
-
-> 
-> Also, since _acquire() is right below in the same function, I see no
-> benefit in requesting the reset control in released state.
-
-As explained in commit message, OSPI reset are also used by OMM driver which is parent of OSPI.
-
-If i use devm_reset_control_array_get_exclusive() instead of devm_reset_control_array_get_exclusive_released()
-here, i got the following kernel warning:
-
-[    8.654378] ------------[ cut here ]------------
-[    8.656524] WARNING: CPU: 1 PID: 385 at drivers/reset/core.c:799 __reset_control_get_internal+0x70/0x1d0
-[    8.665999] Modules linked in: spi_stm32_ospi(+) hantro_vpu v4l2_vp9 dwmac_stm32(+) stmmac_platform v4l2_h264 v4l2_jpeg v4l2_mem2mem stmmac videobu6
-emon.
-[    8.691282] CPU: 1 UID: 0 PID: 385 Comm: (udev-worker) Not tainted 6.15.0-rc1-next-20250408-00018-g0f9105d08519 #22 PREEMPT 
-[    8.691301] Hardware name: STMicroelectronics STM32MP257F-EV1 Evaluation Board (DT)
-[    8.691307] pstate: 00000005 (nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[    8.691317] pc : __reset_control_get_internal+0x70/0x1d0
-[    8.691336] lr : __of_reset_control_get+0x1a4/0x270
-[    8.691348] sp : ffff80008359b5f0
-[    8.691352] x29: ffff80008359b5f0 x28: 0000000000000000 x27: ffff80007b06c100
-[    8.691371] x26: ffff80007b06c118 x25: 0000000000000001 x24: 0000000000000000
-[    8.691385] x23: 0000000000000004 x22: ffff000082ecc780 x21: 0000000000000005
-[    8.691399] x20: ffff000082ecc7a0 x19: ffff000083898d00 x18: 00000000ffffffff
-[    8.691414] x17: ffff000082ff9a00 x16: ffff0000802d6800 x15: ffff80008359b4c0
-[    8.691429] x14: 0000000000000001 x13: 007473696c5f7974 x12: 0000000000000001
-[    8.691444] x11: 0000000000000003 x10: ffff80008257ec4f x9 : 0000000000000028
-[    8.691459] x8 : 0101010101010101 x7 : 00000000736c6c65 x6 : 000000000080f2e5
-[    8.691473] x5 : ffff80008359b698 x4 : 0000000000000000 x3 : 0000000000000005
-[    8.691487] x2 : 0000000000000004 x1 : 0000000000000005 x0 : 0000000000000005
-[    8.691501] Call trace:
-[    8.691506]  __reset_control_get_internal+0x70/0x1d0 (P)
-[    8.691522]  __of_reset_control_get+0x1a4/0x270
-[    8.691535]  of_reset_control_array_get+0x9c/0x174
-[    8.691549]  devm_reset_control_array_get+0x50/0xb0
-[    8.691563]  stm32_ospi_get_resources+0xd4/0x344 [spi_stm32_ospi]
-[    8.691584]  stm32_ospi_probe+0xf8/0x3d0 [spi_stm32_ospi]
-
-Which means that bool acquired is set.
-
-This is due to usage of devm_reset_control_array_get_exclusive() which sets flags to RESET_CONTROL_EXCLUSIVE
-on an already controlled reset line.
-
-
-> 
->>  	if (IS_ERR(ospi->rstc))
->>  		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
->>  				     "Can't get reset\n");
->> @@ -937,9 +937,11 @@ static int stm32_ospi_probe(struct platform_device *pdev)
->>  		goto err_pm_enable;
->>  
->>  	if (ospi->rstc) {
-> 
-> This check only makes sense if the reset control (array) is optional,
-> otherwise ospi->rstc can never be NULL.
-
-Right, i will remove this check.
-
-> 
->> +		reset_control_acquire(ospi->rstc);
-> 
-> This is missing error handling. Alternatively, you could just use the
-> normal request function to get an already-acquired reset control.
-
-Ok, i will add a check.
-
-
-[1] https://patches.linaro.org/project/linux-spi/patch/20250324-upstream_ospi_required_resets-v2-2-85a48afcedec@foss.st.com/
-
-Thanks
-Patrice
-
-> 
->>  		reset_control_assert(ospi->rstc);
->>  		udelay(2);
->>  		reset_control_deassert(ospi->rstc);
->> +		reset_control_release(ospi->rstc);
->>  	}
->>  
->>  	ret = spi_register_controller(ctrl);
-> 
-> regards
-> Philipp
-> 
+Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
