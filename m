@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A08E5A8401C
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 12:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475E1A84307
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 14:25:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65523C7802F;
-	Thu, 10 Apr 2025 10:09:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF15AC78F74;
+	Thu, 10 Apr 2025 12:25:13 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E9FEC7801E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C061C7803C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 10:09:57 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A9VcmO026175;
- Thu, 10 Apr 2025 12:09:49 +0200
+ Thu, 10 Apr 2025 12:25:12 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A9Vdxr019225;
+ Thu, 10 Apr 2025 14:25:03 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- sMgLHhcvDmNSAlUbxNmHnAElslMGmB4NTmJSnYTseDM=; b=l1NPcm49QgyMDRnD
- Urf7P2fHyxrmcHQIumQVNtRglqRTixeKCgSMJC6RqUIniDx+P3QjniF+8CQ8TBeU
- XwEUlSWDlZ63+XoGvp6vk8pelnY3y8ptnv1fom3GO4GUJz/EijIprveScipabev8
- uW6DIdin/BjGznkxGxpmgJJFl7HUcPKLH7OiSPmyiq6N2fbAynhK+e4wYmx3gVhi
- op05N1zwKTszNx89mNzkFkfbin9Wk52dNVFgnS00ACRNtR5nkU7ZvOKIMhJLTozI
- XUojyzWuiYz0fclNB9/RYl7euETTvUCJFYTo0Ql8KtFaqSjduvMdEn1zqpnaYAv0
- yelNvw==
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=37TpAl9wbgOsV5Z6M//ml7
+ JiFhzHgyko7+RFEp3uV6k=; b=PS9dKJRukFSJlYQ4JNFU7B++TZvDxUXzBPEIr6
+ sJIaEnUVLrlokz5m7NLHV8G860gOG7lFjiMZpVG5mjYvlUMStbk8EISlEHslN+wF
+ pP7dz7JM6mQga4DgvVDDFd1KmY97wYcR++f4ZQWqGLWNdZjpAz7OxR7sIIeY5aKw
+ mr8a2VoY2BvGGDbR2hyH00iaf/2gY+fuywcHyDemjnLutaYr/2Cug56dyk3qIpZl
+ zldbQZYnyd1ly4Ky1KmRwmiJbF3oJth5ztD47WsC/FIuaAKNoSqgbXSGs7oIBkNI
+ fGlOa2oIOsXeY/r/B6wbWgPyKWvq7Oa1r1Izcl8S/YpcAwNA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45tw2h74mr-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45tw6eqmaa-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Apr 2025 12:09:49 +0200 (MEST)
+ Thu, 10 Apr 2025 14:25:03 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9250E40046;
- Thu, 10 Apr 2025 12:08:59 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9E4BE9BCED8;
- Thu, 10 Apr 2025 12:08:21 +0200 (CEST)
-Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 98C4F40045;
+ Thu, 10 Apr 2025 14:23:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A54BC9DA5B3;
+ Thu, 10 Apr 2025 14:23:45 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Apr
- 2025 12:08:21 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
-Date: Thu, 10 Apr 2025 12:07:58 +0200
-Message-ID: <20250410100758.1057170-2-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250410100758.1057170-1-christian.bruel@foss.st.com>
-References: <20250410100758.1057170-1-christian.bruel@foss.st.com>
+ 2025 14:23:45 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 10 Apr 2025 14:23:43 +0200
+Message-ID: <20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+X-B4-Tracking: v=1; b=H4sIAE+492cC/x3MQQqDMBAF0KvIrBtIohbaq5QSUvPTzqIaZqIUx
+ Lsbunybt5NCGEr3bifBxsrL3OAuHU2fOL9hODWTt360g7PmNZi1aBXEb1i0cBAoalhLihUmZ/h
+ rcv1460HtKILMv///eB7HCS2Mgl1vAAAA
+X-Change-ID: 20250410-b4-upstream_ospi_reset_update-ffe26d13593e
+To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-10_01,2025-04-08_04,2024-11-22_01
-Cc: devicetree@vger.kernel.org, maz@kernel.org, linux-kernel@vger.kernel.org,
- Christian Bruel <christian.bruel@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 2/2] arm64: dts: st: Use 128kB size or
-	aliased GIC400 register access
+ definitions=2025-04-10_03,2025-04-08_04,2024-11-22_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/2] reset: Add
+ devm_reset_control_array_get_exclusive_released()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,40 +78,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adjust the size of 8kB GIC regions to 128kB so that each 4kB is mapped 16 times
-over a 64kB region. The offset is then adjusted in the irq-gic driver.
+Add the released variant of devm_reset_control_array_get_exclusive().
+Needed by spi-smt32-ospi driver as same reset line is also used also
+by stm32-omm driver.
 
-see commit 12e14066f4835 ("irqchip/GIC: Add workaround for aliased GIC400")
-
-Fixes: 5d30d03aaf785 ("arm64: dts: st: introduce stm32mp25 SoCs family")
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Acked-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
-v1: Fixed patch comment.
+Patrice Chotard (2):
+      reset: Add devm_reset_control_array_get_exclusive_released()
+      spi: stm32-ospi: Make usage of reset_control_acquire/release() API
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/spi/spi-stm32-ospi.c | 4 +++-
+ include/linux/reset.h        | 6 ++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+---
+base-commit: 4a65326311aba694faafcef9e3c0ef7ae1b722e6
+change-id: 20250410-b4-upstream_ospi_reset_update-ffe26d13593e
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 379e290313dc..87110f91e489 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -119,9 +119,9 @@ intc: interrupt-controller@4ac00000 {
- 		#interrupt-cells = <3>;
- 		interrupt-controller;
- 		reg = <0x0 0x4ac10000 0x0 0x1000>,
--		      <0x0 0x4ac20000 0x0 0x2000>,
--		      <0x0 0x4ac40000 0x0 0x2000>,
--		      <0x0 0x4ac60000 0x0 0x2000>;
-+		      <0x0 0x4ac20000 0x0 0x20000>,
-+		      <0x0 0x4ac40000 0x0 0x20000>,
-+		      <0x0 0x4ac60000 0x0 0x20000>;
- 	};
- 
- 	psci {
+Best regards,
 -- 
-2.34.1
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
