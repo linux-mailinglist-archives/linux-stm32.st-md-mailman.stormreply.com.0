@@ -2,87 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56DAA83C77
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 10:19:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C02DA83EA6
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Apr 2025 11:30:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BB6CC7A82B;
-	Thu, 10 Apr 2025 08:19:27 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA28EC7A82D;
+	Thu, 10 Apr 2025 09:30:00 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 155CAC7A82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7613EC7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 08:19:25 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2254e0b4b79so6900295ad.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Apr 2025 01:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744273164; x=1744877964;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hHyb6lhohF2wzP2TRq2BN9NjbPL3ptwOR5h1WfQqLIY=;
- b=d67+idmrE6/h5aKx9sHC0DDPrzS4eP7EeL1S221LV+ZLTvEu2EZ5enTWdsDFe9lT87
- yPbrFcMumVw/Ir1Y0c6hgM4SSMiSiD3seu9TJDgkBAlMWpOyQxXFGglX9bJTYYu4pEBR
- e6bKG1sd0yDvY5HinU+3DI9jD0cJ1dKFvLFPGmw00aIhWzCVT2SlcaBww7f7lM7sMGrX
- rjgJEl4BIkRX5IS0VAaf0XB11NCBH0JSI3eN7P389/aUwHoKvnChTH5GJvtS1uFW2RqR
- xj3Uz0zhNQVU1a2LFaw9q1pgYrDTUZHdI+byL2WEqH7wW7Eyj/j5itiWD0KxCCIznyUT
- iGaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744273164; x=1744877964;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hHyb6lhohF2wzP2TRq2BN9NjbPL3ptwOR5h1WfQqLIY=;
- b=XCkinGxGUHmL6PwsccMgJDjXFew3gQDjftmV30Qlf3kpOw/6uX8be/GXXDbAKGJ0g1
- CRKrkHvaaz6tI6hHnQ+OdTKtgutwI5AG7M6YD7p70pMF8qRVfLuRBUSvkptUig2AVA2E
- zP3mNkEm3r4mkKPn/PPaLgMbTtfrfYNUNN3kSvVQ3RDd0V0fz+rsxBvjHr/02T7WDIPS
- 5c2ODSZoRc4mAStNVyLRo5R84VmccEZZh+2U+ajwM6RmjP8LZ4Z4WPKUDXUqWP4y0lch
- 8S5/8UEFqQQ9MjXLehwujr5ZXDVD0Wa7jlVrVJ+zkHwSyerJDt/iY1K/5YHBQYvjBjT0
- 1nSA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURgcZ4y8VtNlSMPY8wQH0tT/wc6MrBJf0DhW8rYL9VZ3ZuHv256iqNe3kBXhM+SqHoAruJvAI2reWg1w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwzWlgy0/Qidkz4WMa91DZBeI30hg6Uf+nToZYFwobgs9CKwiGv
- lZci6PVMv58/x8G4ctwE3B2//b/zq8OEIftQ77H1B+icKVG4Uwjt
-X-Gm-Gg: ASbGncs+mjNimX+9EkvOWbfcgtQYDXuZW5spDiqkcyD/P8p8+4WqAoLX/ceAXFgjN9n
- fNR7txZleNo1+6xS8Ga3YovFyqchbK2MURyuejPDod7hCVNoBk5NxINEaELfgru0dzGjkkRUeGX
- DkOhDw9QJacrsCNhBU76nGSNvg4rjVqZvkzKkdHXjy4auyDlZ2u4CD+0PJdR27vZWzNv5HroxZW
- MJIdp9ihProbQ8Pd61/ulmTxDkZEs2KRFymfZAHVRYW2E1d+443z+g3xxFkn71X2dQhW/9C7EgT
- r9s1TWVY3lgaY3RuFy6kNsb0QVmV2/KyGQ==
-X-Google-Smtp-Source: AGHT+IH17ATIoN+yDWaOFwQRSqTSShuXuEFiLJbcGJtyBxMLgeMII6OtBGNiFxLsRBJFPmmRKIiE9A==
-X-Received: by 2002:a17:903:22c5:b0:224:24d5:f20a with SMTP id
- d9443c01a7336-22be03f19cbmr22298095ad.48.1744273164355; 
- Thu, 10 Apr 2025 01:19:24 -0700 (PDT)
-Received: from localhost ([144.24.43.60]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73bb1d2afa9sm2669045b3a.22.2025.04.10.01.19.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Apr 2025 01:19:24 -0700 (PDT)
-Date: Thu, 10 Apr 2025 16:19:12 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Boon Khai Ng <boon.khai.ng@altera.com>
-Message-ID: <20250410161912.0000168a@gmail.com>
-In-Reply-To: <20250408081354.25881-2-boon.khai.ng@altera.com>
-References: <20250408081354.25881-1-boon.khai.ng@altera.com>
- <20250408081354.25881-2-boon.khai.ng@altera.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+ Thu, 10 Apr 2025 09:29:59 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A6Vme3004222;
+ Thu, 10 Apr 2025 11:29:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=kTOG8eGc/UiPuhhDKL6pWb
+ V6teCbGXdd3K40AfCQxYo=; b=27t2+yJM9MrXnqLooQf7kQrcydBnKkFwrpLB2h
+ TlA4eRVx9inmR4S7KZXphfrRwHJG+5/b09rirSzIVKKqVGUxNUEpan9t1DoYxVYh
+ G5k4NfiwkRfQ4/J0a7aV+WcPfCZTFXZ18t9yTZ23ckWdf1WjVBF7YVVLbDIgA+hi
+ vc8FqJLpgL79w2BvvYGZ4IXdL3aA25SeF8os+9rmDvTfzUuky+8ffWy4KEQttV0s
+ JZMe2+x0ZTEV6uirShEshUzttlaIN1V62KRchz+1+N3l8lpjuku1wrI8Nf6vVqpv
+ wGRDzBKcjKZ537GlRnBwQF/10ooDH7LWrIkWGmylvCNe9xuw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45uffmvkas-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Apr 2025 11:29:41 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4AB094004C;
+ Thu, 10 Apr 2025 11:28:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 110429A69EF;
+ Thu, 10 Apr 2025 11:27:49 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Apr
+ 2025 11:27:48 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 10 Apr 2025 11:27:41 +0200
+Message-ID: <20250410-upstream_ospi_v6-v9-0-cf119508848a@foss.st.com>
 MIME-Version: 1.0
-Cc: Tien Sung Ang <tien.sung.ang@altera.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>,
- linux-kernel@vger.kernel.org, "David S .
- Miller" <davem@davemloft.net>, Mun Yew Tham <mun.yew.tham@altera.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- G Thomas Rohan <rohan.g.thomas@altera.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/2] net: stmmac: Refactor
- VLAN implementation
+X-B4-Tracking: v=1; b=H4sIAA6P92cC/23NSwqDMBCA4atI1lXy0CR21XuUIibGmoVGMja0i
+ HdvFEpbFGbzD8w3MwLjrQF0TmbkTbBg3RCjPCVId/VwN6ltYiOKaYEZxeljhMmbuq8cjLYKPG1
+ yRmtJBCW4QPFs9Ka1z4283mJ3FibnX9uHwNftByN7LA5OmVBK1ypnOSsvrQPIYMq069HKBfElc
+ nxEiEhg01JZEGYaSfaE/CXEASEjIZQQhGuiScv/iWVZ3iBq3FI4AQAA
+X-Change-ID: 20250320-upstream_ospi_v6-d432a8172105
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-10_01,2025-04-08_04,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v9 0/3] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,100 +82,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue,  8 Apr 2025 16:13:53 +0800, Boon Khai Ng <boon.khai.ng@altera.com> wrote:
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
 
-> Refactor VLAN implementation by moving common code for DWMAC4 and
-> DWXGMAC IPs into a separate VLAN module. VLAN implementation for
-> DWMAC4 and DWXGMAC differs only for CSR base address, the descriptor
-> for the VLAN ID and VLAN VALID bit field.
-> 
-> Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
-> Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +-
->  drivers/net/ethernet/stmicro/stmmac/common.h  |   1 +
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  40 ---
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 295 +-----------------
->  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  13 -
->  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  87 ------
->  drivers/net/ethernet/stmicro/stmmac/hwif.c    |   8 +
->  drivers/net/ethernet/stmicro/stmmac/hwif.h    |  61 ++--
->  .../net/ethernet/stmicro/stmmac/stmmac_vlan.c | 294 +++++++++++++++++
->  .../net/ethernet/stmicro/stmmac/stmmac_vlan.h |  63 ++++
->  10 files changed, 401 insertions(+), 463 deletions(-)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.h
-> 
-[...]
-> +static void vlan_update_hash(struct mac_device_info *hw, u32 hash,
-> +			     __le16 perfect_match, bool is_double)
-> +{
-> +	void __iomem *ioaddr = hw->pcsr;
-> +	u32 value;
-> +
-> +	writel(hash, ioaddr + VLAN_HASH_TABLE);
-> +
-> +	value = readl(ioaddr + VLAN_TAG);
-> +
-> +	if (hash) {
-> +		value |= VLAN_VTHM | VLAN_ETV;
-> +		if (is_double) {
-> +			value |= VLAN_EDVLP;
-> +			value |= VLAN_ESVL;
-> +			value |= VLAN_DOVLTC;
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint
+between its 2 Octo SPI children.
 
-I can confirm that 802.1ad (QinQ) has been broken on stmmac for years,
-and it will be so nice if this refactoring includes some fixes for QinQ
+Due to these depedencies, this series adds support for:
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
 
-> +		}
-> +
-> +		writel(value, ioaddr + VLAN_TAG);
-> +	} else if (perfect_match) {
-> +		u32 value = VLAN_ETV;
-> +
-> +		if (is_double) {
-> +			value |= VLAN_EDVLP;
-> +			value |= VLAN_ESVL;
-> +			value |= VLAN_DOVLTC;
-> +		}
-> +
-> +		writel(value | perfect_match, ioaddr + VLAN_TAG);
-> +	} else {
-> +		value &= ~(VLAN_VTHM | VLAN_ETV);
-> +		value &= ~(VLAN_EDVLP | VLAN_ESVL);
-> +		value &= ~VLAN_DOVLTC;
-> +		value &= ~VLAN_VID;
-> +
-> +		writel(value, ioaddr + VLAN_TAG);
-> +	}
-> +}
-> +
-> +static void vlan_enable(struct mac_device_info *hw, u32 type)
-> +{
-> +	void __iomem *ioaddr = hw->pcsr;
-> +	u32 value;
-> +
-> +	value = readl(ioaddr + VLAN_INCL);
-> +	value |= VLAN_VLTI;
-> +	value |= VLAN_CSVL; /* Only use SVLAN */
-> +	value &= ~VLAN_VLC;
-> +	value |= (type << VLAN_VLC_SHIFT) & VLAN_VLC;
-> +	writel(value, ioaddr + VLAN_INCL);
-> +}
-> +
-> +static void vlan_rx_hw(struct mac_device_info *hw,
-> +		       struct dma_desc *rx_desc, struct sk_buff *skb)
-> +{
-> +	if (hw->desc->get_rx_vlan_valid(rx_desc)) {
-> +		u16 vid = hw->desc->get_rx_vlan_tci(rx_desc);
-> +
-> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vid);
+The device tree files adds Octo Memory Manager and its 2 associated Octo
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+    
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-So, as the comment above, ETH_P_8021AD or ETH_P_8021Q shall be set selectively
-depend on the frame type.
+Changes in v9:
+  - split patchset by susbsystem, current one include only OMM related
+    patches.
+  - Update SPDX Identifiers to "GPL-2.0-only".
+  - Add of_node_put)() instm32_omm_set_amcr().
+  - Rework error path in stm32_omm_toggle_child_clock().
+  - Make usage of reset_control_acquire/release() in stm32_omm_disable_child()
+    and move reset_control_get in probe().
+  - Rename error label in stm32_omm_configure().
+  - Remove child compatible check in stm32_omm_probe().
+  - Make usage of devm_of_platform_populate().
+  - Link to v8: https://lore.kernel.org/r/20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com
 
-> +	}
-> +}
+Changes in v8:
+  - update OMM's dt-bindings:
+    - Remove minItems for clocks and resets properties.
+    - Fix st,syscfg-amcr items declaration.
+    - move power-domains property before vendor specific properties.
+  - Update compatible check wrongly introduced during internal tests in
+    stm32_omm.c.
+  - Move ommanager's node outside bus@42080000's node in stm32mp251.dtsi.
+  - Link to v7: https://lore.kernel.org/r/20250401-upstream_ospi_v6-v7-0-0ef28513ed81@foss.st.com
+
+Changes in v7:
+  - update OMM's dt-bindings by updating :
+    - clock-names and reset-names properties.
+    - spi unit-address node.
+    - example.
+  - update stm32mp251.dtsi to match with OMM's bindings update.
+  - update stm32mp257f-ev1.dts to match with OMM's bindings update.
+  - Link to v6: https://lore.kernel.org/r/20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com
+
+Changes in v6:
+  - Update MAINTAINERS file.
+  - Remove previous patch 1/8 and 2/8, merged by Mark Brown in spi git tree.
+  - Fix Signed-off-by order for patch 3.
+  - OMM driver:
+    - Add dev_err_probe() in error path.
+    - Rename stm32_omm_enable_child_clock() to stm32_omm_toggle_child_clock().
+    - Reorder initialised/non-initialized variable in stm32_omm_configure()
+          and stm32_omm_probe().
+    - Move pm_runtime_disable() calls from stm32_omm_configure() to
+      stm32_omm_probe().
+    - Update children's clocks and reset management.
+    - Use of_platform_populate() to probe children.
+    - Add missing pm_runtime_disable().
+    - Remove useless stm32_omm_check_access's first parameter.
+  - Update OMM's dt-bindings by adding OSPI's clocks and resets.
+  - Update stm32mp251.dtsi by adding OSPI's clock and reset in OMM's node.
+
+Changes in v5:
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
+
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns,
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between
+Octo Memory Manager and its 2 Octo SPI children.
+
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
+
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+Patrice Chotard (3):
+      dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
+      memory: Add STM32 Octo Memory Manager driver
+      MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
+
+ .../memory-controllers/st,stm32mp25-omm.yaml       | 226 ++++++++++
+ MAINTAINERS                                        |   6 +
+ drivers/memory/Kconfig                             |  17 +
+ drivers/memory/Makefile                            |   1 +
+ drivers/memory/stm32_omm.c                         | 468 +++++++++++++++++++++
+ 5 files changed, 718 insertions(+)
+---
+base-commit: 0af2f6be1b4281385b618cb86ad946eded089ac8
+change-id: 20250320-upstream_ospi_v6-d432a8172105
+
+Best regards,
+-- 
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
