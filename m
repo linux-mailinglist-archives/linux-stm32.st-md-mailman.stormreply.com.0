@@ -2,79 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4FF1A8593E
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Apr 2025 12:16:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A92BA85D71
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Apr 2025 14:44:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67B19C78F8B;
-	Fri, 11 Apr 2025 10:16:51 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18459C78028;
+	Fri, 11 Apr 2025 12:44:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DEEDC78F89
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14DEAC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Apr 2025 10:16:50 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-22403cbb47fso18829175ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Apr 2025 03:16:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1744366608; x=1744971408;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=El+yBbYFfa3m33PcQZ+/sv5AA9CYKsrtHMnxQf73yYk=;
- b=ybttOPOaIqs7PlG41SNjWh/zEPA02Y1gN9Dq2sntFQ8mfh2jk20xr1Z3yWqumEcdqQ
- dmqGw9ISCkFqHUHzfQubBvaNLK2mHvlzeUUnEIN70fMZnmFn1y/6V+h9YMWhnf3abWv8
- guoSoJoA0DAhEzoKLq558Fzx/KJ1O6ZTRQgb+OVPXlL0goz3f41qeU7Pdpa63RMv4HpJ
- IbYr6sko1zylKP1MImJyiwXSugITyiBcw46gl+m7mMScWajyoFtKii0huuJ9PkBQDTpB
- onLUWjIX8beui8RjB8Wa7LYXwcKdv+zmLTxCJz3y8yohZy6Tdq8eHHu1pOZljzOLKs4T
- s55w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744366608; x=1744971408;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=El+yBbYFfa3m33PcQZ+/sv5AA9CYKsrtHMnxQf73yYk=;
- b=pFWdRvVyKh8YJyypwgAznNvc71SovSVT8H5x+IAxAMxdNsznF70DGjXNbVUyjqIRc1
- AZmVMzGUPMSDO0Ab2SAKC9F8QrUuUx4epxuPO1fodcFquavjWaAbfgwUPY9QJjFQ6wL1
- CC9YZdfVaEJcQX4Ork+v1t4NnGiNGcaNkin3cxTeqgWyNcRr+vBtR1QdTmGc0ejK1fOI
- poXhtAopBQ0g5UrfAs4bqLx46v6GpVyf99DxmX4U0oZTRa58mpfduSYyVoR3UOG7dT2w
- 2XeE3yNF4Zae678mjjj2QpaVdn1YhzU/E+4NvetfP70p8QuD92WVwJf/PGz9fAU/XVNP
- FSEg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVjUxCBDauljvFKNRxlnhsXyHRzht4USzJlFG1PWkGu6dMp7emykfKvOtW9gZHHJT0aPTbhKU7lcOBp8g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw2CqGumQhuNWgzYtfWyYaJW68w+8pJFpJZd/iabIWgyLqhZcBE
- yjbPEY4tS+v9LQI9eEzgfm8Ath+jEwyD7Tdp4c0SY1aPMbERsPlee/DZZ0Zt6RKfoo2GWc0TN/m
- OdAohYtGj1AcJNo7/CuMFJLwX6zATo82w2TkbMA==
-X-Gm-Gg: ASbGnctu+YcWFkRW51ScVu5kSr+BmPBg5iOaV2ZA4T+g9n3USJ+SA0K01GljrgEeNkb
- 9jKu7w5o2YGDV8kwzyT8Xn9VkMrUf+AqmeWjmIJCRu+SxEMXDLKkCIZnsflnjE0BLu+Lxi82Spp
- 9aDD/myq7EZn3jsThetFMpuP0=
-X-Google-Smtp-Source: AGHT+IFS/a80yyyuZi5urEnORY3xQw5mQjSwHZr0ekHuMVLTC+K2x+MxrDzUzO/bjiGCm5Susl2ueRJyb258GnM4w9s=
-X-Received: by 2002:a17:902:f705:b0:227:ac2a:1dd6 with SMTP id
- d9443c01a7336-22bea4c6e17mr42758175ad.24.1744366608577; Fri, 11 Apr 2025
- 03:16:48 -0700 (PDT)
+ Fri, 11 Apr 2025 12:44:26 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53B9W3go002131;
+ Fri, 11 Apr 2025 14:43:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=j/lAi5eaVA+wpovEOgd7NZ
+ L+lXloOZBsudzotdqZPWU=; b=UqoyPyu2cZP4mweG/lilyfuugIK7/mbywr3lMd
+ AgfwdAyouFafno9I0oD9rQsb/gIFq3dAYA/YbKGgEKmL8uQbpaZH9N+Qm6MRZkOm
+ KgXO9cd3Xdp8PFwqK30hPEsphF3xBi/9wbNIVUFhaQpbsTLOtf+P4ajc0TyggAfU
+ YQg0k3PsF4dbmlq7lvObAPaQU3p9wfIXgX34pWgQdLmcQQGfCFpzEeiCrLOtD6EK
+ vNRUbvRvd1qWUyeIRrq/m6qtKSTt50cJtupz2GIFDzqJIfyEuEO0Z/oR2OzTIyH1
+ OlCyQnIwKhu8VMS151okJ0buvtJfEQ55rNPOzh7lqORSlEfQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45tw8pwnc4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 11 Apr 2025 14:43:53 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 58FDA400D4;
+ Fri, 11 Apr 2025 14:42:43 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30E629EC282;
+ Fri, 11 Apr 2025 14:41:12 +0200 (CEST)
+Received: from localhost (10.252.25.37) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Apr
+ 2025 14:41:11 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Fri, 11 Apr 2025 14:41:09 +0200
+Message-ID: <20250411-b4-upstream_ospi_reset_update-v2-0-4de7f5dd2a91@foss.st.com>
 MIME-Version: 1.0
-References: <20250410013330.3609482-1-jie.gan@oss.qualcomm.com>
-In-Reply-To: <20250410013330.3609482-1-jie.gan@oss.qualcomm.com>
-From: Mike Leach <mike.leach@linaro.org>
-Date: Fri, 11 Apr 2025 11:16:37 +0100
-X-Gm-Features: ATxdqUEraod8yrwnTn49b9tk1NYUizm-a1oIyjVCeHuX2V2MVcCKfTUobsggqZA
-Message-ID: <CAJ9a7VjzxnOGNbAM974ybRAD4eXxWhr8d+UC1rEG=yMtug2XRQ@mail.gmail.com>
-To: Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jinlong Mao <quic_jinlmao@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, James Clark <james.clark@linaro.org>,
- Tingwei Zhang <quic_tingweiz@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- coresight@lists.linaro.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/5] coresight: ctcu: Enable byte-cntr
-	function for TMC ETR
+X-B4-Tracking: v=1; b=H4sIAOUN+WcC/x3MQQrCMBAF0KuUWRtoQiLoVUTC2Hx1FrZhJi1C6
+ d0NLt/m7WRQgdF12Emxickyd4TTQNOb5xeclG4KY0hj9N49olurNQV/8mJVssLQ8loLN7h0OU8
+ IMXFhT/2oiqd8///tfhw/o5oPsG8AAAA=
+X-Change-ID: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
+To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.252.25.37]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-11_04,2025-04-10_01,2024-11-22_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/2] reset: Add
+ devm_reset_control_array_get_exclusive_released()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,167 +78,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Add the released variant of devm_reset_control_array_get_exclusive().
+Needed by spi-smt32-ospi driver as same reset line is also used also
+by stm32-omm driver.
 
-I can see that this patchset has fixed some of the issues raised from
-v1 - using the existing file handle for read, and stopping the ETR to
-read the RWP.
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-However the fundamental problem that it is still attempting to read
-memory without stopping the ETR has not been addressed.
+Changes in v2:
+  - Rebased on spi/for-next (7a978d8fcf57).
+  - Remove useless check on reset.
+  - Add error handling on reset_control_acquire().
+  - Link to v1: https://lore.kernel.org/all/20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com/
 
-As mentioned in mine and Suzuki's comments for v1, this means:-
+---
+Patrice Chotard (2):
+      reset: Add devm_reset_control_array_get_exclusive_released()
+      spi: stm32-ospi: Make usage of reset_control_acquire/release() API
 
-1) you cannot guarantee that the buffer has not wrapped when reading
-data back, which will corrupt the trace decode process.
-2) The DMA buffers are not being synchronized, so the PE could be
-reading stale data rather than the new data written by the ETR.
+ drivers/spi/spi-stm32-ospi.c | 15 +++++++++------
+ include/linux/reset.h        |  6 ++++++
+ 2 files changed, 15 insertions(+), 6 deletions(-)
+---
+base-commit: 7a978d8fcf57b283cb8c88dd4c9431502bd36ea8
+change-id: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
 
-
-Regards
-
-Mike
-
-On Thu, 10 Apr 2025 at 02:33, Jie Gan <jie.gan@oss.qualcomm.com> wrote:
->
-> The byte-cntr function provided by the CTCU device is used to transfer data
-> from the ETR buffer to the userspace. An interrupt is tiggered if the data
-> size exceeds the threshold set in the BYTECNTRVAL register. The interrupt
-> handler counts the number of triggered interruptions and the read function
-> will read the data from the ETR buffer if the IRQ count is greater than 0.
-> The read work will be conducted ASAP after the byte-cntr is started.
-> Each successful read process will decrement the IRQ count by 1.
->
-> The byte cntr function will start when the device node is opened for reading,
-> and the IRQ count will reset when the byte cntr function has stopped. When
-> the file node is opened, the w_offset of the ETR buffer will be read and
-> stored in byte_cntr_data, serving as the original r_offset (indicating
-> where reading starts) for the byte counter function.
->
-> The work queue for the read operation will wake up once when ETR is stopped,
-> ensuring that the remaining data in the ETR buffer has been flushed based on
-> the w_offset read at the time of stopping.
->
-> The byte-cntr read work has integrated with the file node tmc_etr, e.g.
-> /dev/tmc_etr0
-> /dev/tmc_etr1
->
-> There are two scenarios for the ETR file nodes with byte-cntr function:
-> 1. BYTECNTRVAL register has configured -> byte-cntr read
-> 2. BYTECNTRVAL register is disabled -> original behavior, flush the etr_buf
->
-> We still can flush the etr buffer once after the byte-cntr function has
-> triggered.
-> 1. Enable byte-cntr
-> 2. Byte-cntr read
-> 3. Disable byte-cntr
-> 4. Flush etr buffer
->
-> Since the ETR operates in circular buffer mode, we cannot fully guarantee
-> that no overwrites occur when the byte-cntr read function reads the data.
-> The read function will read the data ASAP when the interrupt is
-> triggered and we should not configure a threshold greater than the
-> buffer size of the ETR buffer.
->
-> The following shell commands write threshold to BYTECNTRVAL registers.
->
-> Only enable byte-cntr for ETR0:
-> echo 0x10000 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
->
-> Enable byte-cntr for both ETR0 and ETR1(support both hex and decimal values):
-> echo 0x10000 4096 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
->
-> Setting the BYTECNTRVAL registers to 0 disables the byte-cntr function.
-> Disable byte-cntr for ETR0:
-> echo 0 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
->
-> Disable byte-cntr for both ETR0 and ETR1:
-> echo 0 0 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
->
-> There is a minimum threshold to prevent generating too many interrupts.
-> The minimum threshold is 4096 bytes. The write process will fail if user try
-> to set the BYTECNTRVAL registers to a value less than 4096 bytes(except
-> for 0).
->
-> Way to enable and start byte-cntr for ETR0:
-> echo 0x10000 > /sys/devices/platform/soc@0/4001000.ctcu/ctcu0/byte_cntr_val
-> echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
-> echo 1 > /sys/bus/coresight/devices/etm0/enable_source
-> cat /dev/tmc_etr0
->
-> Testing case has conducted for the byte-cntr read work:
-> 1. Setting the buffer_size of the ETR as large as possile, here is for ETR0
->    echo 0x1000000 > /sys/bus/coresight/devices/tmc_etr0/buffer_size
-> 2. Setting the threshold for the ETR0 to 0x10000
->    echo 0x10000 > /sys/bus/coresight/devices/ctcu0/byte_cntr_val
-> 3. Enable ETR0
->    echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
-> 4. Enable ETM0 as source and enable byte-cntr to read data
->    echo 1 > /sys/bus/coresight/devices/etm0/enable_source;
->    cat /dev/tmc_etr0 > /tmp/file_byte_cntr.bin &
-> 5. Disable ETM0
->    echo 0 > /sys/bus/coresight/devices/etm0/enable_source
-> 6. Disable byte-cntr and flush the etr buffer
->    echo 0 > /sys/bus/coresight/devices/ctcu0/byte_cntr_val;
->    cat /dev/tmc_etr0 > /tmp/file_etr0.bin
->    ls -l /tmp
->
-> -rw-r--r--    1 root     root      12628960 Apr 28 17:44 file_byte_cntr.bin
-> -rw-r--r--    1 root     root      12669296 Apr 28 17:45 file_etr0.bin
->
-> 7. Deal with the file_etr0.bin with following command:
->    dd if=/tmp/file_etr0.bin of=/tmp/file_etr0_aligned.bin bs=1
-> count=12628960 skip=40336
->    ls -l /tmp
->
-> -rw-r--r--    1 root     root      12628960 Apr 28 17:44 file_byte_cntr.bin
-> -rw-r--r--    1 root     root      12669296 Apr 28 17:45 file_etr0.bin
-> -rw-r--r--    1 root     root      12628960 Apr 28 17:49 file_etr0_aligned.bin
->
-> 8. Compared file_byte_cntr.bin with file_etr0_aligned.bin and identified
-> they are competely same.
->    diff file_byte_cntr.bin file_etr0_aligned.bin
->
-> =======================
-> Changes in V2:
-> 1. Removed the independent file node /dev/byte_cntr.
-> 2. Integrated the byte-cntr's file operations with current ETR file
->    node.
-> 3. Optimized the driver code of the CTCU that associated with byte-cntr.
-> 4. Add kernel document for the export API tmc_etr_get_rwp_offset.
-> 5. Optimized the way to read the rwp_offset according to Mike's
->    suggestion.
-> 6. Removed the dependency of the dts patch.
-> Link to V1 - https://lore.kernel.org/all/20250310090407.2069489-1-quic_jiegan@quicinc.com/
->
-> Jie Gan (5):
->   coresight: tmc: Introduce new APIs to get the RWP offset of ETR buffer
->   dt-bindings: arm: Add an interrupt property for Coresight CTCU
->   coresight: ctcu: Enable byte-cntr for TMC ETR devices
->   coresight: tmc: add functions for byte-cntr operation
->   arm64: dts: qcom: sa8775p: Add interrupts to CTCU device
->
->  .../bindings/arm/qcom,coresight-ctcu.yaml     |  17 ++
->  arch/arm64/boot/dts/qcom/sa8775p.dtsi         |   5 +
->  drivers/hwtracing/coresight/Makefile          |   2 +-
->  .../coresight/coresight-ctcu-byte-cntr.c      | 119 ++++++++++++
->  .../hwtracing/coresight/coresight-ctcu-core.c |  88 ++++++++-
->  drivers/hwtracing/coresight/coresight-ctcu.h  |  49 ++++-
->  .../hwtracing/coresight/coresight-tmc-core.c  |  29 ++-
->  .../hwtracing/coresight/coresight-tmc-etr.c   | 175 ++++++++++++++++++
->  drivers/hwtracing/coresight/coresight-tmc.h   |  10 +-
->  9 files changed, 483 insertions(+), 11 deletions(-)
->  create mode 100644 drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
->
-> --
-> 2.34.1
->
-
-
+Best regards,
 -- 
-Mike Leach
-Principal Engineer, ARM Ltd.
-Manchester Design Centre. UK
+Patrice Chotard <patrice.chotard@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
