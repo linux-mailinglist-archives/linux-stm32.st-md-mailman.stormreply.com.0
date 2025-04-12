@@ -2,54 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFEF2A86C07
-	for <lists+linux-stm32@lfdr.de>; Sat, 12 Apr 2025 11:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 291DAA86D4A
+	for <lists+linux-stm32@lfdr.de>; Sat, 12 Apr 2025 15:26:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B31B6C78F77;
-	Sat, 12 Apr 2025 09:35:35 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98E39C78F77;
+	Sat, 12 Apr 2025 13:26:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F630C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AD33C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 12 Apr 2025 09:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=05ovFAPDkAkxhJKvy8zVgSI4KCeD0hpMqQlpjrI1BSE=; b=T7svPeX6egutgSXZVYVP5HDSuG
- TIB0wQ49OTBC/sgI2Nu2W0g+EElGiyZQLiCiHVFsGcl8FY5l2deibTrDirXqxv9emxKthmgqtCVQN
- e0ELNRniurSMXE2788GDeytvJgtgMLIw+WJ/M/XNGhDgDkcjy7qcFQ8McA+PgJeCxL+FhTBAonhuR
- C7tXxgWL8OyO12vvEz8GRARyhlAIN6ecgVN90rjFiOfVeT2eEW2vb7xichNb/D1dnJW2cxhHIMfCE
- ekG2friBalZCAlnl5tmugX74Vqjuqfm4xnZf7KKDuOefwJTnyeH37nEusseBiMXDEGq1+XN5SehRN
- 6gLX+HMw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:34808 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1u3XGs-0004R6-1F;
- Sat, 12 Apr 2025 10:35:30 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1u3XGH-000EJs-6A; Sat, 12 Apr 2025 10:34:53 +0100
-In-Reply-To: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
-References: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Sat, 12 Apr 2025 13:26:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 398CC43CAB;
+ Sat, 12 Apr 2025 13:26:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9CFC4CEE3;
+ Sat, 12 Apr 2025 13:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744464376;
+ bh=1ALYRoSS13OMdV42CmJZDGrcuxFhf+AdPHTEVZVQj1w=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=UmjGC+SVrPZXCioxg+ooNogCzyH8KJb68+7bvldVTrKNG5l078qhhnOxjNOmVb91k
+ KWC0nvj5d66ngb+smsKNsbLLI6suFk2j17tEw1F+20344M4WMjpos0HBXk5LC8UWq1
+ 6Fa1YvbZnulVM5cbbkwFvIl5q7w3gPuIKvGSUc2qnlmvO8bvUvxcDzmPeEc4xSrHQx
+ hFeB0lzsJZ+YO9vCUOtRGCDK0eowoCxmxE6LXVxWe4TrUsBUMXSKKuikGS59d006mq
+ u9pckEfFMG8Wu36R7kicT+YPq4KKH77QMtc0Z+R7Pg/cq3ZbvbsKi4B17FODJJB8B4
+ KGGJSot5+EMsA==
+Date: Sat, 12 Apr 2025 14:26:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Message-ID: <20250412142606.66673634@jic23-huawei>
+In-Reply-To: <20250410135836.2091238-1-olivier.moysan@foss.st.com>
+References: <20250410135836.2091238-1-olivier.moysan@foss.st.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1u3XGH-000EJs-6A@rmk-PC.armlinux.org.uk>
-Date: Sat, 12 Apr 2025 10:34:53 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: leave enabling _RE
- and _TE to stmmac_mac_link_up()
+Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Lechner <dlechner@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4] iio: adc: stm32: add oversampling
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,40 +59,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We only need to enable the MAC receiver and transmiter only when the
-link has come up.
+On Thu, 10 Apr 2025 15:58:35 +0200
+Olivier Moysan <olivier.moysan@foss.st.com> wrote:
 
-With commit "net: stmmac: move phylink_resume() after resume setup
-is complete" we move the race between stmmac_mac_link_up() and
-stmmac_hw_setup(), ensuring that stmmac_mac_link_up() happens
-afterwards. This patch is a pre-requisit of this change.
+> Add oversampling support for STM32H7, STM32MP15 & STM32MP13.
+> STM32F4 ADC has no oversampling feature.
+> 
+> The current support of the oversampling feature aims at increasing
+> the data SNR, without changing the data resolution.
+> As the oversampling by itself increases data resolution,
+> a right shift is applied to keep initial resolution.
+> Only the oversampling ratio corresponding to a power of two are
+> supported here, to get a direct link between right shift and
+> oversampling ratio. (2exp(n) ratio <=> n right shift)
+I rewrapped this description to 75 chars  (which is roughly the maximum
+we should see in a commit message).
 
-Remove the unnecessary call to stmmac_mac_set(, true) in
-stmmac_hw_setup().
+In general I'd prefer to keep comments in code to 80 char, but in this
+particular case I left the formatting you have alone as it was really fiddly
+to get it looking nice at a shorter length.
 
-Tested-by: Furong Xu <0x1207@gmail.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ---
- 1 file changed, 3 deletions(-)
+I had applied this but then noticed....
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 24eaabd1445e..83f62f50d8c7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3533,9 +3533,6 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
- 		priv->hw->rx_csum = 0;
- 	}
- 
--	/* Enable the MAC Rx/Tx */
--	stmmac_mac_set(priv, priv->ioaddr, true);
--
- 	/* Set the HW DMA mode and the COE */
- 	stmmac_dma_operation_mode(priv);
- 
--- 
-2.30.2
-
+> 
+> The oversampling ratio is shared by all channels, whatever channel type.
+> (e.g. single ended or differential).
+> 
+> Oversampling can be configured using IIO ABI:
+> - oversampling_ratio_available
+> - oversampling_ratio
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+This SoB sequence isn't right.  What was Fabrice's role
+in this patch?   Either I'd expect the from to be set to Fabrice
+(on basis Olivier was posting some work of Fabrice) or
+a Co-developed-by for Fabrice to indicate it was joint work
+and Olivier was the one posting it.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
