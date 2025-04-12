@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33ECA86BFF
-	for <lists+linux-stm32@lfdr.de>; Sat, 12 Apr 2025 11:35:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEF2A86C07
+	for <lists+linux-stm32@lfdr.de>; Sat, 12 Apr 2025 11:35:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87C0EC78F77;
-	Sat, 12 Apr 2025 09:35:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B31B6C78F77;
+	Sat, 12 Apr 2025 09:35:35 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 400C9C78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F630C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 12 Apr 2025 09:35:08 +0000 (UTC)
+ Sat, 12 Apr 2025 09:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=73zpcZNzKe8FYfTe+3EaL4lfP342rNv4xALU1Mdg9ZI=; b=k0KAIMTnhYWnkciA3DJxXWVNqJ
- 8cAMrVPgalWOqaiY5qYM13rKcaMn3IzWJrGZG72VO8QuZL3YZVzjY2h4nTp0diSeYT14aEvWxjdAK
- TaansuIYENUC6QqjdfHH4SAIbndzr1jDW3wtghGXt8bNpZk3zGYt/CG7/fuHgNUryHrk0LM+5Agl5
- /RdGzml4jqvR+tW+xi8qb/HnyGeMdq9tkHgmptIiqynbMJJx0qMphLii7hHpnarZCzpAXMmsyrByR
- 0ghvTQZSlp1QGZozy6iG38tJBEJYFwzTq1H8cUm1TuVK2VzPU4PNRj+pJgpPwni4AJ9S0HMNwQZR6
- cj4Mdd8g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43880)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=05ovFAPDkAkxhJKvy8zVgSI4KCeD0hpMqQlpjrI1BSE=; b=T7svPeX6egutgSXZVYVP5HDSuG
+ TIB0wQ49OTBC/sgI2Nu2W0g+EElGiyZQLiCiHVFsGcl8FY5l2deibTrDirXqxv9emxKthmgqtCVQN
+ e0ELNRniurSMXE2788GDeytvJgtgMLIw+WJ/M/XNGhDgDkcjy7qcFQ8McA+PgJeCxL+FhTBAonhuR
+ C7tXxgWL8OyO12vvEz8GRARyhlAIN6ecgVN90rjFiOfVeT2eEW2vb7xichNb/D1dnJW2cxhHIMfCE
+ ekG2friBalZCAlnl5tmugX74Vqjuqfm4xnZf7KKDuOefwJTnyeH37nEusseBiMXDEGq1+XN5SehRN
+ 6gLX+HMw==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:34808 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u3XGM-0004QK-0B;
- Sat, 12 Apr 2025 10:34:58 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u3XGG-0005Yi-1k;
- Sat, 12 Apr 2025 10:34:52 +0100
-Date: Sat, 12 Apr 2025 10:34:52 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1u3XGs-0004R6-1F;
+ Sat, 12 Apr 2025 10:35:30 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1u3XGH-000EJs-6A; Sat, 12 Apr 2025 10:34:53 +0100
+In-Reply-To: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
+References: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
+Message-Id: <E1u3XGH-000EJs-6A@rmk-PC.armlinux.org.uk>
+Date: Sat, 12 Apr 2025 10:34:53 +0100
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: fix setting RE and
- TE inappropriately
+Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: leave enabling _RE
+ and _TE to stmmac_mac_link_up()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,37 +66,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+We only need to enable the MAC receiver and transmiter only when the
+link has come up.
 
-This series addresses inappropriate setting of the receive and transmit
-enables in the GMAC control register identified back in
-https://lore.kernel.org/r/Z8BboX9RxZBSXRr1@shell.armlinux.org.uk
+With commit "net: stmmac: move phylink_resume() after resume setup
+is complete" we move the race between stmmac_mac_link_up() and
+stmmac_hw_setup(), ensuring that stmmac_mac_link_up() happens
+afterwards. This patch is a pre-requisit of this change.
 
-The databook is clear for the receive enable, that this should not be
-set until the initialisation of the MAC and DMA has been completed.
-The previous RFC patch series ("net: stmmac: fix resume failures due to
-RX clock") which moves phylink_resume() solves that, but we are left
-with these enables being set when the link is down. This is not correct.
+Remove the unnecessary call to stmmac_mac_set(, true) in
+stmmac_hw_setup().
 
-Sadly, when XDP support was added, new calls to netif_carrier_on() and
-netif_carrier_off() were added, which are incorrect in drivers that
-make use of phylink - by doing so, the driver has no guarantee that
-the .mac_link_up() and .mac_link_down() methods will be called in
-sequence anymore. This is fixed in patch 1.
+Tested-by: Furong Xu <0x1207@gmail.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-We remove manipulation of the RE and TE bits from the start_tx(),
-stop_tx(), start_rx() and stop_rx() methods for each core.
-
-Finally, we remove the stmmac_mac_set() call from stmmac_hw_setup().
-
- drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c   |  8 --------
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 12 ------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 17 ++++++-----------
- 3 files changed, 6 insertions(+), 31 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 24eaabd1445e..83f62f50d8c7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3533,9 +3533,6 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
+ 		priv->hw->rx_csum = 0;
+ 	}
+ 
+-	/* Enable the MAC Rx/Tx */
+-	stmmac_mac_set(priv, priv->ioaddr, true);
+-
+ 	/* Set the HW DMA mode and the COE */
+ 	stmmac_dma_operation_mode(priv);
+ 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
