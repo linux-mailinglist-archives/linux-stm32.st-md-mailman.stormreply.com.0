@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E0A4A873ED
-	for <lists+linux-stm32@lfdr.de>; Sun, 13 Apr 2025 23:07:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBB5A873F0
+	for <lists+linux-stm32@lfdr.de>; Sun, 13 Apr 2025 23:07:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32883C78F8C;
-	Sun, 13 Apr 2025 21:07:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47C04C78F8C;
+	Sun, 13 Apr 2025 21:07:55 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 146AEC78F8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3CC2C78F8B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 13 Apr 2025 21:07:07 +0000 (UTC)
+ Sun, 13 Apr 2025 21:07:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=qQG/qStLXCsqU38nmhmmU53qbrVK+NDUOCOBGWWUSOU=; b=ecINfJ5bledrEuMO7ZLWdKoykV
- K7xSkbNQhrQ1U4ODl9FLlrwoqffgV0zEPgePT2Ldaf/jjvFXKo1DwSgVk9et1x54Do7/hMT92Pq/7
- rYMGPJuIbeUaa9LQbmxnwpeAiggv056/QUXbqJyzTQOKLDKy3IL6erZi98dUNYZSP9AY=;
+ bh=fLQJM6ERhkCMHtQZ6mtLOBHjWODKm8YrfDgknSKdTe8=; b=HbxVu7op+iMZef01zHEWtTlLoc
+ vkxskzULTOzdYdM3wl9lP+CARJK2/7DrS5W2i5jrGSIeHjt0Dy3X17vU+yeQB8bfqGtKb1AxVfnlB
+ t4YcYdQaXOyEblnmu19EQSPl3MojSyjBneWn+ujnq3yAnF4N5cCxTQBt/EWfIBrjpbD0=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1u44Xf-0096I6-7R; Sun, 13 Apr 2025 23:07:03 +0200
-Date: Sun, 13 Apr 2025 23:07:03 +0200
+ id 1u44YP-0096JL-9z; Sun, 13 Apr 2025 23:07:49 +0200
+Date: Sun, 13 Apr 2025 23:07:49 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <2474c83c-d12a-4187-a1d2-a56232d1b7c0@lunn.ch>
+Message-ID: <9987dc3b-8ec4-4c13-8054-73b2b52020e5@lunn.ch>
 References: <Z_p0LzY2_HFupWK0@shell.armlinux.org.uk>
- <E1u3bYV-000EcQ-Cv@rmk-PC.armlinux.org.uk>
+ <E1u3bYa-000EcW-H1@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1u3bYV-000EcQ-Cv@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1u3bYa-000EcW-H1@rmk-PC.armlinux.org.uk>
 Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
@@ -40,8 +40,8 @@ Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: qcom-ethqos:
- remove unnecessary setting max_speed
+Subject: Re: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: qcom-ethqos:
+ remove speed_mode_2500() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,11 +58,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Apr 12, 2025 at 03:09:59PM +0100, Russell King (Oracle) wrote:
-> Phylink will already limit the MAC speed according to the interface,
-> so if 2500BASE-X is selected, the maximum speed will be 2.5G. It is,
-> therefore, not necessary to set a speed limit. Remove setting
-> plat_dat->max_speed from this glue driver.
+On Sat, Apr 12, 2025 at 03:10:04PM +0100, Russell King (Oracle) wrote:
+> qcom-ethqos doesn't need to implement the speed_mode_2500() method as
+> it is only setting priv->plat->phy_interface to 2500BASE-X, which is
+> already a pre-condition for assigning speed_mode_2500 in
+> qcom_ethqos_probe(). So, qcom_ethqos_speed_mode_2500() has no effect.
+> Remove it.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
