@@ -2,66 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD072A87ED6
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 13:19:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F33A883A7
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 16:03:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57341C7803B;
-	Mon, 14 Apr 2025 11:19:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D4BEC78028;
+	Mon, 14 Apr 2025 14:03:43 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1BF3C78028
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 246B3C78027
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Apr 2025 11:19:11 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53E8DgFV030537;
- Mon, 14 Apr 2025 13:18:45 +0200
+ Mon, 14 Apr 2025 14:03:41 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53ECsOaa017111;
+ Mon, 14 Apr 2025 16:03:26 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- b64+5Fyc2XBoUKGin9x9phROn71/VpDRGxeTWMDWMDQ=; b=2r7UTh6GWBYWwiT9
- hcaoQA3S3eaZFgcfT4Lr1bqqqeIBB6cnwspB4DKMTz3xB0JnArETHV+YciqnlAnR
- MBQrDZxmIu7tbYJ9F359QeeerglGi4NamuvmQ1AiuLfACtSYb01nNHXVcc95qZ+c
- y7jHdqYOdWDI8SjvBwyqr/FoKdqFpO+ho3DfZglE2PSncQj7R3f2P/mFHSVZEkkS
- XWaTiGK8cwznlxNzII67+wUV5l/ssK7ByJKYMaYp4wbZQvV7P+pDcMQqQzQCFKtr
- 0G2VBeUkdBXQf8zsbrB8y1p2Y1S7QxlYDOeXmIm5FGRniSr/3yVi5YpVLn2nj173
- ejk8hg==
+ AXBT3Gx49OIy8DXLSl7KoI0jOZ+YAa+TLsMsUTA/Dt4=; b=OOObsEyzzjEjvwnu
+ cH7LPVAmKJ3JygUwty9UIFQ/TSuUXnHve4rbZGsgO07BlL7GQ29k/0NFClsHE0Md
+ vJ5vPJ0zeuVHGgmDZL40DY2s/+JFq/U94176Hm1bP8mYaOFml7X5VuOWhfqLRLJk
+ iPBrnq7tIYC3zwDPqJgkrjLaCdpcJSUiyKw4tjUPwEUNlrIu9b0K0W9fln1u+V0q
+ 4z/KsPm57RESOEsPoZaTun0UXAStaG/xkeVSzBlNVE4ObKfaMkSbgoLYNx74nK+o
+ iWJqNQRyEXb9k6G+dEJn4g4ljLAa1rMfwe4gFEX/TZaZVimMs5o99VKJ3uC2Bzc3
+ 3qTJGw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45yda8ynsf-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45yf2gr5j9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Apr 2025 13:18:44 +0200 (MEST)
+ Mon, 14 Apr 2025 16:03:26 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E762C40047;
- Mon, 14 Apr 2025 13:17:46 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A3FE295BA29;
- Mon, 14 Apr 2025 13:17:19 +0200 (CEST)
-Received: from [10.48.86.196] (10.48.86.196) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7752440049;
+ Mon, 14 Apr 2025 16:02:16 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 53C46981A1E;
+ Mon, 14 Apr 2025 15:59:34 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 13:17:19 +0200
-Message-ID: <f7dcc10e-b2c6-4252-9c71-6715cebe49fd@foss.st.com>
-Date: Mon, 14 Apr 2025 13:17:18 +0200
+ 2025 15:59:34 +0200
+Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
+ 2025 15:59:33 +0200
+Message-ID: <be981c5c-5252-4650-a148-c2f51d83a430@foss.st.com>
+Date: Mon, 14 Apr 2025 15:59:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Vinod
- Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20250407-restricted-pointers-dma-v1-1-b617dd0e293a@linutronix.de>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
 Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20250407-restricted-pointers-dma-v1-1-b617dd0e293a@linutronix.de>
-X-Originating-IP: [10.48.86.196]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+Organization: STMicroelectronics
+In-Reply-To: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-14_03,2025-04-10_01,2024-11-22_01
-Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32: Don't use %pK through
-	printk
+ definitions=2025-04-14_04,2025-04-10_01,2024-11-22_01
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v16 0/6] Introduction of a remoteproc tee
+ to load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,131 +80,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA0LzcvMjUgMTA6MjYsIFRob21hcyBXZWnDn3NjaHVoIHdyb3RlOgo+IEluIHRoZSBwYXN0
-ICVwSyB3YXMgcHJlZmVyYWJsZSB0byAlcCBhcyBpdCB3b3VsZCBub3QgbGVhayByYXcgcG9pbnRl
-cgo+IHZhbHVlcyBpbnRvIHRoZSBrZXJuZWwgbG9nLgo+IFNpbmNlIGNvbW1pdCBhZDY3Yjc0ZDI0
-NjkgKCJwcmludGs6IGhhc2ggYWRkcmVzc2VzIHByaW50ZWQgd2l0aCAlcCIpCj4gdGhlIHJlZ3Vs
-YXIgJXAgaGFzIGJlZW4gaW1wcm92ZWQgdG8gYXZvaWQgdGhpcyBpc3N1ZS4KPiBGdXJ0aGVybW9y
-ZSwgcmVzdHJpY3RlZCBwb2ludGVycyAoIiVwSyIpIHdlcmUgbmV2ZXIgbWVhbnQgdG8gYmUgdXNl
-ZAo+IHRocm91Z2ggcHJpbnRrKCkuIFRoZXkgY2FuIHN0aWxsIHVuaW50ZW50aW9uYWxseSBsZWFr
-IHJhdyBwb2ludGVycyBvcgo+IGFjcXVpcmUgc2xlZXBpbmcgbG9va3MgaW4gYXRvbWljIGNvbnRl
-eHRzLgoKSSBmb3Jnb3QgdG8gaGlnaGxpZ2h0IHRoaXMgdHlwbzoKCnMvbG9va3MvbG9ja3MKCj4g
-Cj4gU3dpdGNoIHRvIHRoZSByZWd1bGFyIHBvaW50ZXIgZm9ybWF0dGluZyB3aGljaCBpcyBzYWZl
-ciBhbmQKPiBlYXNpZXIgdG8gcmVhc29uIGFib3V0Lgo+IFRoZXJlIGFyZSBzdGlsbCBhIGZldyB1
-c2VycyBvZiAlcEsgbGVmdCwgYnV0IHRoZXNlIHVzZSBpdCB0aHJvdWdoIHNlcV9maWxlLAo+IGZv
-ciB3aGljaCBpdHMgdXNhZ2UgaXMgc2FmZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgV2Vp
-w59zY2h1aCA8dGhvbWFzLndlaXNzc2NodWhAbGludXRyb25peC5kZT4KPiAtLS0KPiAgIGRyaXZl
-cnMvZG1hL3N0bTMyL3N0bTMyLWRtYS5jICB8IDEwICsrKysrLS0tLS0KPiAgIGRyaXZlcnMvZG1h
-L3N0bTMyL3N0bTMyLWRtYTMuYyB8IDEwICsrKysrLS0tLS0KPiAgIGRyaXZlcnMvZG1hL3N0bTMy
-L3N0bTMyLW1kbWEuYyB8ICA4ICsrKystLS0tCj4gICAzIGZpbGVzIGNoYW5nZWQsIDE0IGluc2Vy
-dGlvbnMoKyksIDE0IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2RtYS9z
-dG0zMi9zdG0zMi1kbWEuYyBiL2RyaXZlcnMvZG1hL3N0bTMyL3N0bTMyLWRtYS5jCj4gaW5kZXgg
-OTE3ZjhlOTIyMzczOWFmODUzZTQ5MmQ5N2NlY2FjMGU5NWUwYWVhMy4uZWU5MjQ2YzY4ODhmZmRl
-MmQ0MTYyNzBmMjU4OTBjMDRjNzJkYWZmNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2RtYS9zdG0z
-Mi9zdG0zMi1kbWEuYwo+ICsrKyBiL2RyaXZlcnMvZG1hL3N0bTMyL3N0bTMyLWRtYS5jCj4gQEAg
-LTYxMyw3ICs2MTMsNyBAQCBzdGF0aWMgdm9pZCBzdG0zMl9kbWFfc3RhcnRfdHJhbnNmZXIoc3Ry
-dWN0IHN0bTMyX2RtYV9jaGFuICpjaGFuKQo+ICAgCXJlZy0+ZG1hX3NjciB8PSBTVE0zMl9ETUFf
-U0NSX0VOOwo+ICAgCXN0bTMyX2RtYV93cml0ZShkbWFkZXYsIFNUTTMyX0RNQV9TQ1IoY2hhbi0+
-aWQpLCByZWctPmRtYV9zY3IpOwo+ICAgCj4gLQlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNo
-YW4gJXBLOiBzdGFydGVkXG4iLCAmY2hhbi0+dmNoYW4pOwo+ICsJZGV2X2RiZyhjaGFuMmRldihj
-aGFuKSwgInZjaGFuICVwOiBzdGFydGVkXG4iLCAmY2hhbi0+dmNoYW4pOwo+ICAgfQo+ICAgCj4g
-ICBzdGF0aWMgdm9pZCBzdG0zMl9kbWFfY29uZmlndXJlX25leHRfc2coc3RydWN0IHN0bTMyX2Rt
-YV9jaGFuICpjaGFuKQo+IEBAIC02NzYsNyArNjc2LDcgQEAgc3RhdGljIHZvaWQgc3RtMzJfZG1h
-X2hhbmRsZV9jaGFuX3BhdXNlZChzdHJ1Y3Qgc3RtMzJfZG1hX2NoYW4gKmNoYW4pCj4gICAKPiAg
-IAljaGFuLT5zdGF0dXMgPSBETUFfUEFVU0VEOwo+ICAgCj4gLQlkZXZfZGJnKGNoYW4yZGV2KGNo
-YW4pLCAidmNoYW4gJXBLOiBwYXVzZWRcbiIsICZjaGFuLT52Y2hhbik7Cj4gKwlkZXZfZGJnKGNo
-YW4yZGV2KGNoYW4pLCAidmNoYW4gJXA6IHBhdXNlZFxuIiwgJmNoYW4tPnZjaGFuKTsKPiAgIH0K
-PiAgIAo+ICAgc3RhdGljIHZvaWQgc3RtMzJfZG1hX3Bvc3RfcmVzdW1lX3JlY29uZmlndXJlKHN0
-cnVjdCBzdG0zMl9kbWFfY2hhbiAqY2hhbikKPiBAQCAtNzI4LDcgKzcyOCw3IEBAIHN0YXRpYyB2
-b2lkIHN0bTMyX2RtYV9wb3N0X3Jlc3VtZV9yZWNvbmZpZ3VyZShzdHJ1Y3Qgc3RtMzJfZG1hX2No
-YW4gKmNoYW4pCj4gICAJZG1hX3NjciB8PSBTVE0zMl9ETUFfU0NSX0VOOwo+ICAgCXN0bTMyX2Rt
-YV93cml0ZShkbWFkZXYsIFNUTTMyX0RNQV9TQ1IoY2hhbi0+aWQpLCBkbWFfc2NyKTsKPiAgIAo+
-IC0JZGV2X2RiZyhjaGFuMmRldihjaGFuKSwgInZjaGFuICVwSzogcmVjb25maWd1cmVkIGFmdGVy
-IHBhdXNlL3Jlc3VtZVxuIiwgJmNoYW4tPnZjaGFuKTsKPiArCWRldl9kYmcoY2hhbjJkZXYoY2hh
-biksICJ2Y2hhbiAlcDogcmVjb25maWd1cmVkIGFmdGVyIHBhdXNlL3Jlc3VtZVxuIiwgJmNoYW4t
-PnZjaGFuKTsKPiAgIH0KPiAgIAo+ICAgc3RhdGljIHZvaWQgc3RtMzJfZG1hX2hhbmRsZV9jaGFu
-X2RvbmUoc3RydWN0IHN0bTMyX2RtYV9jaGFuICpjaGFuLCB1MzIgc2NyKQo+IEBAIC04MjAsNyAr
-ODIwLDcgQEAgc3RhdGljIHZvaWQgc3RtMzJfZG1hX2lzc3VlX3BlbmRpbmcoc3RydWN0IGRtYV9j
-aGFuICpjKQo+ICAgCj4gICAJc3Bpbl9sb2NrX2lycXNhdmUoJmNoYW4tPnZjaGFuLmxvY2ssIGZs
-YWdzKTsKPiAgIAlpZiAodmNoYW5faXNzdWVfcGVuZGluZygmY2hhbi0+dmNoYW4pICYmICFjaGFu
-LT5kZXNjICYmICFjaGFuLT5idXN5KSB7Cj4gLQkJZGV2X2RiZyhjaGFuMmRldihjaGFuKSwgInZj
-aGFuICVwSzogaXNzdWVkXG4iLCAmY2hhbi0+dmNoYW4pOwo+ICsJCWRldl9kYmcoY2hhbjJkZXYo
-Y2hhbiksICJ2Y2hhbiAlcDogaXNzdWVkXG4iLCAmY2hhbi0+dmNoYW4pOwo+ICAgCQlzdG0zMl9k
-bWFfc3RhcnRfdHJhbnNmZXIoY2hhbik7Cj4gICAKPiAgIAl9Cj4gQEAgLTkyMiw3ICs5MjIsNyBA
-QCBzdGF0aWMgaW50IHN0bTMyX2RtYV9yZXN1bWUoc3RydWN0IGRtYV9jaGFuICpjKQo+ICAgCj4g
-ICAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmY2hhbi0+dmNoYW4ubG9jaywgZmxhZ3MpOwo+ICAg
-Cj4gLQlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXBLOiByZXN1bWVkXG4iLCAmY2hh
-bi0+dmNoYW4pOwo+ICsJZGV2X2RiZyhjaGFuMmRldihjaGFuKSwgInZjaGFuICVwOiByZXN1bWVk
-XG4iLCAmY2hhbi0+dmNoYW4pOwo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZG1hL3N0bTMyL3N0bTMyLWRtYTMuYyBiL2RyaXZlcnMvZG1hL3N0bTMyL3N0
-bTMyLWRtYTMuYwo+IGluZGV4IDBjNmM0MjU4YjE5NTYxYzk0ZjFjNjhmMjZhZGUxNmI4MjY2MGVi
-ZTYuLjUwZTcxMDZjNWNiNzMzOTRjMWRlNTJhZDVmNTcxZjZkYjYzNzUwZTYgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItZG1hMy5jCj4gKysrIGIvZHJpdmVycy9kbWEvc3Rt
-MzIvc3RtMzItZG1hMy5jCj4gQEAgLTgwMSw3ICs4MDEsNyBAQCBzdGF0aWMgdm9pZCBzdG0zMl9k
-bWEzX2NoYW5fc3RhcnQoc3RydWN0IHN0bTMyX2RtYTNfY2hhbiAqY2hhbikKPiAgIAo+ICAgCWNo
-YW4tPmRtYV9zdGF0dXMgPSBETUFfSU5fUFJPR1JFU1M7Cj4gICAKPiAtCWRldl9kYmcoY2hhbjJk
-ZXYoY2hhbiksICJ2Y2hhbiAlcEs6IHN0YXJ0ZWRcbiIsICZjaGFuLT52Y2hhbik7Cj4gKwlkZXZf
-ZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXA6IHN0YXJ0ZWRcbiIsICZjaGFuLT52Y2hhbik7
-Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyBpbnQgc3RtMzJfZG1hM19jaGFuX3N1c3BlbmQoc3RydWN0
-IHN0bTMyX2RtYTNfY2hhbiAqY2hhbiwgYm9vbCBzdXNwKQo+IEBAIC0xNDUyLDcgKzE0NTIsNyBA
-QCBzdGF0aWMgaW50IHN0bTMyX2RtYTNfcGF1c2Uoc3RydWN0IGRtYV9jaGFuICpjKQo+ICAgCj4g
-ICAJY2hhbi0+ZG1hX3N0YXR1cyA9IERNQV9QQVVTRUQ7Cj4gICAKPiAtCWRldl9kYmcoY2hhbjJk
-ZXYoY2hhbiksICJ2Y2hhbiAlcEs6IHBhdXNlZFxuIiwgJmNoYW4tPnZjaGFuKTsKPiArCWRldl9k
-YmcoY2hhbjJkZXYoY2hhbiksICJ2Y2hhbiAlcDogcGF1c2VkXG4iLCAmY2hhbi0+dmNoYW4pOwo+
-ICAgCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gQEAgLTE0NjUsNyArMTQ2NSw3IEBAIHN0YXRpYyBp
-bnQgc3RtMzJfZG1hM19yZXN1bWUoc3RydWN0IGRtYV9jaGFuICpjKQo+ICAgCj4gICAJY2hhbi0+
-ZG1hX3N0YXR1cyA9IERNQV9JTl9QUk9HUkVTUzsKPiAgIAo+IC0JZGV2X2RiZyhjaGFuMmRldihj
-aGFuKSwgInZjaGFuICVwSzogcmVzdW1lZFxuIiwgJmNoYW4tPnZjaGFuKTsKPiArCWRldl9kYmco
-Y2hhbjJkZXYoY2hhbiksICJ2Y2hhbiAlcDogcmVzdW1lZFxuIiwgJmNoYW4tPnZjaGFuKTsKPiAg
-IAo+ICAgCXJldHVybiAwOwo+ICAgfQo+IEBAIC0xNDkwLDcgKzE0OTAsNyBAQCBzdGF0aWMgaW50
-IHN0bTMyX2RtYTNfdGVybWluYXRlX2FsbChzdHJ1Y3QgZG1hX2NoYW4gKmMpCj4gICAJc3Bpbl91
-bmxvY2tfaXJxcmVzdG9yZSgmY2hhbi0+dmNoYW4ubG9jaywgZmxhZ3MpOwo+ICAgCXZjaGFuX2Rt
-YV9kZXNjX2ZyZWVfbGlzdCgmY2hhbi0+dmNoYW4sICZoZWFkKTsKPiAgIAo+IC0JZGV2X2RiZyhj
-aGFuMmRldihjaGFuKSwgInZjaGFuICVwSzogdGVybWluYXRlZFxuIiwgJmNoYW4tPnZjaGFuKTsK
-PiArCWRldl9kYmcoY2hhbjJkZXYoY2hhbiksICJ2Y2hhbiAlcDogdGVybWluYXRlZFxuIiwgJmNo
-YW4tPnZjaGFuKTsKPiAgIAo+ICAgCXJldHVybiAwOwo+ICAgfQo+IEBAIC0xNTQzLDcgKzE1NDMs
-NyBAQCBzdGF0aWMgdm9pZCBzdG0zMl9kbWEzX2lzc3VlX3BlbmRpbmcoc3RydWN0IGRtYV9jaGFu
-ICpjKQo+ICAgCXNwaW5fbG9ja19pcnFzYXZlKCZjaGFuLT52Y2hhbi5sb2NrLCBmbGFncyk7Cj4g
-ICAKPiAgIAlpZiAodmNoYW5faXNzdWVfcGVuZGluZygmY2hhbi0+dmNoYW4pICYmICFjaGFuLT5z
-d2Rlc2MpIHsKPiAtCQlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXBLOiBpc3N1ZWRc
-biIsICZjaGFuLT52Y2hhbik7Cj4gKwkJZGV2X2RiZyhjaGFuMmRldihjaGFuKSwgInZjaGFuICVw
-OiBpc3N1ZWRcbiIsICZjaGFuLT52Y2hhbik7Cj4gICAJCXN0bTMyX2RtYTNfY2hhbl9zdGFydChj
-aGFuKTsKPiAgIAl9Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzIt
-bWRtYS5jIGIvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItbWRtYS5jCj4gaW5kZXggZTZkNTI1OTAx
-ZGU3ZWNmODIyZDIxOGI4N2I5NWFiYTZiYmYwYTNlZi4uMDgwYzFjNzI1MjE2Y2I2Mjc2NzVjMzcy
-NTkxYjRjMGMyMjdjM2NlYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2RtYS9zdG0zMi9zdG0zMi1t
-ZG1hLmMKPiArKysgYi9kcml2ZXJzL2RtYS9zdG0zMi9zdG0zMi1tZG1hLmMKPiBAQCAtMTE4Nyw3
-ICsxMTg3LDcgQEAgc3RhdGljIHZvaWQgc3RtMzJfbWRtYV9zdGFydF90cmFuc2ZlcihzdHJ1Y3Qg
-c3RtMzJfbWRtYV9jaGFuICpjaGFuKQo+ICAgCj4gICAJY2hhbi0+YnVzeSA9IHRydWU7Cj4gICAK
-PiAtCWRldl9kYmcoY2hhbjJkZXYoY2hhbiksICJ2Y2hhbiAlcEs6IHN0YXJ0ZWRcbiIsICZjaGFu
-LT52Y2hhbik7Cj4gKwlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXA6IHN0YXJ0ZWRc
-biIsICZjaGFuLT52Y2hhbik7Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyB2b2lkIHN0bTMyX21kbWFf
-aXNzdWVfcGVuZGluZyhzdHJ1Y3QgZG1hX2NoYW4gKmMpCj4gQEAgLTEyMDAsNyArMTIwMCw3IEBA
-IHN0YXRpYyB2b2lkIHN0bTMyX21kbWFfaXNzdWVfcGVuZGluZyhzdHJ1Y3QgZG1hX2NoYW4gKmMp
-Cj4gICAJaWYgKCF2Y2hhbl9pc3N1ZV9wZW5kaW5nKCZjaGFuLT52Y2hhbikpCj4gICAJCWdvdG8g
-ZW5kOwo+ICAgCj4gLQlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXBLOiBpc3N1ZWRc
-biIsICZjaGFuLT52Y2hhbik7Cj4gKwlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAidmNoYW4gJXA6
-IGlzc3VlZFxuIiwgJmNoYW4tPnZjaGFuKTsKPiAgIAo+ICAgCWlmICghY2hhbi0+ZGVzYyAmJiAh
-Y2hhbi0+YnVzeSkKPiAgIAkJc3RtMzJfbWRtYV9zdGFydF90cmFuc2ZlcihjaGFuKTsKPiBAQCAt
-MTIyMCw3ICsxMjIwLDcgQEAgc3RhdGljIGludCBzdG0zMl9tZG1hX3BhdXNlKHN0cnVjdCBkbWFf
-Y2hhbiAqYykKPiAgIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZjaGFuLT52Y2hhbi5sb2NrLCBm
-bGFncyk7Cj4gICAKPiAgIAlpZiAoIXJldCkKPiAtCQlkZXZfZGJnKGNoYW4yZGV2KGNoYW4pLCAi
-dmNoYW4gJXBLOiBwYXVzZVxuIiwgJmNoYW4tPnZjaGFuKTsKPiArCQlkZXZfZGJnKGNoYW4yZGV2
-KGNoYW4pLCAidmNoYW4gJXA6IHBhdXNlXG4iLCAmY2hhbi0+dmNoYW4pOwo+ICAgCj4gICAJcmV0
-dXJuIHJldDsKPiAgIH0KPiBAQCAtMTI2MSw3ICsxMjYxLDcgQEAgc3RhdGljIGludCBzdG0zMl9t
-ZG1hX3Jlc3VtZShzdHJ1Y3QgZG1hX2NoYW4gKmMpCj4gICAKPiAgIAlzcGluX3VubG9ja19pcnFy
-ZXN0b3JlKCZjaGFuLT52Y2hhbi5sb2NrLCBmbGFncyk7Cj4gICAKPiAtCWRldl9kYmcoY2hhbjJk
-ZXYoY2hhbiksICJ2Y2hhbiAlcEs6IHJlc3VtZVxuIiwgJmNoYW4tPnZjaGFuKTsKPiArCWRldl9k
-YmcoY2hhbjJkZXYoY2hhbiksICJ2Y2hhbiAlcDogcmVzdW1lXG4iLCAmY2hhbi0+dmNoYW4pOwo+
-ICAgCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gCj4gLS0tCj4gYmFzZS1jb21taXQ6IGU0OGU5OWI2
-ZWRmNDFjNjljNTUyOGFhN2ZmYjJkYWYzYzU5ZWUxMDUKPiBjaGFuZ2UtaWQ6IDIwMjUwNDA0LXJl
-c3RyaWN0ZWQtcG9pbnRlcnMtZG1hLTI5Y2Y4MzlhMWEwYgo+IAo+IEJlc3QgcmVnYXJkcywKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+Hello Bjorn,
+
+Gentle reminder.
+
+For your information, I proposed to Mathieu that he wait for your first review,
+as this revision is intended to address your comments on revision 15."
+
+Thanks,
+Arnaud
+
+
+On 3/25/25 10:58, Arnaud Pouliquen wrote:
+> Main updates from version V15[1]:
+> - Removed the rproc_ops:load_fw() operation introduced in the previous version.
+> - Returned to managing the remoteproc firmware loading in rproc_tee_parse_fw to
+>   load and authenticate the firmware before getting the resource table.
+> - Added spinlock and dev_link mechanisms in remoteproc TEE to better manage
+>   bind/unbind.
+> 
+> More details are available in each patch commit message.
+> 
+> [1] https://lore.kernel.org/linux-remoteproc/20241128084219.2159197-7-arnaud.pouliquen@foss.st.com/T/
+> 
+> Tested-on: commit 0a0ba9924445 ("Linux 6.14-rc7")
+> 
+> Description of the feature:
+> --------------------------
+> This series proposes the implementation of a remoteproc tee driver to
+> communicate with a TEE trusted application responsible for authenticating
+> and loading the remoteproc firmware image in an Arm secure context.
+> 
+> 1) Principle:
+> 
+> The remoteproc tee driver provides services to communicate with the OP-TEE
+> trusted application running on the Trusted Execution Context (TEE).
+> The trusted application in TEE manages the remote processor lifecycle:
+> 
+> - authenticating and loading firmware images,
+> - isolating and securing the remote processor memories,
+> - supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+> - managing the start and stop of the firmware by the TEE.
+> 
+> 2) Format of the signed image:
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+> 
+> 3) OP-TEE trusted application API:
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+> 
+> 4) OP-TEE signature script
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+> 
+> Example of usage:
+> sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+> 
+> 
+> 5) Impact on User space Application
+> 
+> No sysfs impact. The user only needs to provide the signed firmware image
+> instead of the ELF image.
+> 
+> 
+> For more information about the implementation, a presentation is available here
+> (note that the format of the signed image has evolved between the presentation
+> and the integration in OP-TEE).
+> 
+> https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+> 
+> 
+> 
+> Arnaud Pouliquen (6):
+>   remoteproc: core: Introduce rproc_pa_to_va helper
+>   remoteproc: Add TEE support
+>   remoteproc: Introduce release_fw optional operation
+>   dt-bindings: remoteproc: Add compatibility for TEE support
+>   remoteproc: stm32: Create sub-functions to request shutdown and
+>     release
+>   remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+> 
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+>  drivers/remoteproc/Kconfig                    |  10 +
+>  drivers/remoteproc/Makefile                   |   1 +
+>  drivers/remoteproc/remoteproc_core.c          |  52 ++
+>  drivers/remoteproc/remoteproc_internal.h      |   6 +
+>  drivers/remoteproc/remoteproc_tee.c           | 619 ++++++++++++++++++
+>  drivers/remoteproc/stm32_rproc.c              | 139 +++-
+>  include/linux/remoteproc.h                    |   4 +
+>  include/linux/remoteproc_tee.h                |  90 +++
+>  9 files changed, 935 insertions(+), 44 deletions(-)
+>  create mode 100644 drivers/remoteproc/remoteproc_tee.c
+>  create mode 100644 include/linux/remoteproc_tee.h
+> 
+> 
+> base-commit: 0a0ba99244455fea8706c4a53f5f66a45d87905d
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
