@@ -2,71 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7CF4A88924
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 18:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E661CA88926
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 18:58:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C026C78028;
-	Mon, 14 Apr 2025 16:57:50 +0000 (UTC)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC359C78028;
+	Mon, 14 Apr 2025 16:58:09 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E50FC6DD9A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08B6FC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Apr 2025 16:57:49 +0000 (UTC)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-527b70bd90dso2088408e0c.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Apr 2025 09:57:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744649868; x=1745254668;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=drgJ4kvJBwLENN+wUSBbYOnp85UmFVhKGobYEXfoSwA=;
- b=FutrjF8VTEldvjqnutTwyKMzehCjOy1k2KhVuUgvBMULOEoFQ6iAMxTC//KwvnJx76
- 3AnpZ2hWaPJTBOk8Qoz/SItCm5csrYBl9tLspmFxvtudwG1i8cF2Rv6pyLKCWnNjhYhU
- ScOaMpG1gtdHvID0Cc3yaCBX8LXAp+96Q1gNOZvT2ELq7QHlJVyv28GqqJLwFG2brcBS
- WIkWXB19tvxXhAd7cwVoKSb8vwK8RrX8jfGJyzhSeTrsVbFTfMtzZaFggXGyRfm8Z3iA
- Bsrf3FnT26VQiDzrWwuKeahqUbE+svz4voUFjegcUX83pK2kRvZmy7FqdMV37qWC+YwY
- 17nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744649868; x=1745254668;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=drgJ4kvJBwLENN+wUSBbYOnp85UmFVhKGobYEXfoSwA=;
- b=Ov0oB8DO1kwDkQwvCRc2h7n/9iYyX21KIEdLubghEZnrzbQMUgqGfbUg2HYWWy51lO
- I2tADYLUaNVBndTJUP3sAWgcUdA6TsPrHKMC3myG2Cb7AXqfqKZELTwakiTE8gTjFaNU
- cJKforYyGYEh/WYvrvU34FtIfqaaeZTxeD0LcTFAhV8Xmh68i9lTPT21J8aiUczIJGRy
- COCgxcAQeVFp/SgpVZtMPur4Qcd9RIhEGh6fLOGKyQ6pkX9ch26P63UIwJgE9+80/+mP
- gLWtMccFfrecoQSyZL3deDIQJTMBcZHB/0PVvnl17EZtKrYoJGVWIApMSBa6NdVi4cja
- 20zg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW4XlhVEvK2A9VT+b4BEzHNxy5j4oEvcYyfhPSwODT/N7Ssr8aXg+zpkUjekVTO8dQO7CUEubme2wlKJw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwF67rRovV6E7c4z3gX9dhsxDEe8l1LlXGwlODL7oSLJRSQMa6H
- f+d/jPFpLolGUT+BOWK4vXnbG8yhQEH45RgXfrGHs6yEFWtUr569I8TegtatoZ+3jfYni7kXF7G
- dtxSdWb2PpBPT44aKcIvRDIgDrYA=
-X-Gm-Gg: ASbGncu9p1ZQohqjdmUq8yNEWn+gQpeBxhRLfXfhlmHd4CSPHSjr04/U1ONWJi8TbP/
- Nani37W90YpubQlyWMpY8+GdZTYCbQhTSOIxTv8mLW0RftSn+HZeeis2+7DGQRN4331+NDzMVrx
- a/qh0W49FjgeYRsgFVDehdVPsILggLaWA7x1B37vc178Ws2rzUgZIbuQ==
-X-Google-Smtp-Source: AGHT+IEWyQ+qQ66o7N7+8XGJO5Ll56Mi7mVYoHXkbahGQ2VotD+EVhbg3G8216oUR9181f8bIK1PpfJpHPMEC84oVFU=
-X-Received: by 2002:a05:6122:181d:b0:520:3536:feb5 with SMTP id
- 71dfb90a1353d-527c3615240mr8335250e0c.11.1744649868304; Mon, 14 Apr 2025
- 09:57:48 -0700 (PDT)
-MIME-Version: 1.0
+ Mon, 14 Apr 2025 16:58:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=yZVRVFitHVYKh8lUFpDXz29jMQ4TVL55S2+Fg6L3zdM=; b=OjIeHuD93l2eyXtskX24h8WOtk
+ L0lAdRcCp2gO9pW7MVq+3mm1HqBIp0Qpome2851bjAZ/uO0U4rITvM2C13uYfxaq5jcMJlLhx46gb
+ CFyTcWeFOjvOWJuTu23KNEiGhH/TJiPjV2yV9bOq86Zto0+sQ5ACQ3wFcc0BXltuA+S6veUoXhKOZ
+ 9givV4yMZuESfUKFgiHLB6mudZhFAdWPUxka2yklXXBHXCWKHWA1An3lhBuu1ogx0NNNbjgn0d+se
+ KNKSCbD+JBnwkWd7Lfk9p/Qv8HiRzUoOjhd8wKNXJCvd/DVerSJ2YlJT6Lz/j4YmfUNVhRMBuisF8
+ wlBiGAnw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35404)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1u4N83-0006rx-0D;
+ Mon, 14 Apr 2025 17:57:51 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1u4N7w-0007v6-0o;
+ Mon, 14 Apr 2025 17:57:44 +0100
+Date: Mon, 14 Apr 2025 17:57:44 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Message-ID: <Z_0-iH91A4Sexlzj@shell.armlinux.org.uk>
 References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <Z_QSHpvSK7I--xPq@shell.armlinux.org.uk>
- <CA+V-a8vgavmN7c9KYjc-3tm-9GC1_aVUkF-dF=Ws9axTBmSa5g@mail.gmail.com>
- <Z_0cPmY_LzI_fo4S@shell.armlinux.org.uk>
-In-Reply-To: <Z_0cPmY_LzI_fo4S@shell.armlinux.org.uk>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 14 Apr 2025 17:57:22 +0100
-X-Gm-Features: ATxdqUENKCwc-Lcqt2ec1N-RxZ-ERgWqw8teGlVULD-_8vGOd7AV27blrs1o4yg
-Message-ID: <CA+V-a8t6AWzBBxmGG5J8-N0HCMpxYhUVO9m4FT0STGL9KPShVw@mail.gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
  Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
@@ -97,32 +73,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUnVzc2VsbCwKCk9uIE1vbiwgQXByIDE0LCAyMDI1IGF0IDM6MzHigK9QTSBSdXNzZWxsIEtp
-bmcgKE9yYWNsZSkKPGxpbnV4QGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4KPiBPbiBNb24sIEFw
-ciAwNywgMjAyNSBhdCAwNzowNzo0OVBNICswMTAwLCBMYWQsIFByYWJoYWthciB3cm90ZToKPiA+
-IE9uIE1vbiwgQXByIDcsIDIwMjUgYXQgNjo1OOKAr1BNIFJ1c3NlbGwgS2luZyAoT3JhY2xlKQo+
-ID4gPGxpbnV4QGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIE1vbiwgQXBy
-IDA3LCAyMDI1IGF0IDAxOjAzOjE3UE0gKzAxMDAsIFByYWJoYWthciB3cm90ZToKPiA+ID4gPiAr
-c3RhdGljIHN0cnVjdCBjbGsgKnJlbmVzYXNfZ2JldGhfZmluZF9jbGsoc3RydWN0IHBsYXRfc3Rt
-bWFjZW5ldF9kYXRhICpwbGF0X2RhdCwKPiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgY29uc3QgY2hhciAqbmFtZSkKPiA+ID4gPiArewo+ID4gPiA+ICsgICAg
-IGZvciAodW5zaWduZWQgaW50IGkgPSAwOyBpIDwgcGxhdF9kYXQtPm51bV9jbGtzOyBpKyspCj4g
-PiA+ID4gKyAgICAgICAgICAgICBpZiAoIXN0cmNtcChwbGF0X2RhdC0+Y2xrc1tpXS5pZCwgbmFt
-ZSkpCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJldHVybiBwbGF0X2RhdC0+Y2xrc1tp
-XS5jbGs7Cj4gPiA+ID4gKwo+ID4gPiA+ICsgICAgIHJldHVybiBOVUxMOwo+ID4gPiA+ICt9Cj4g
-PiA+Cj4gPiA+IEluIGFkZGl0aW9uIHRvIEpha3ViJ3MgcmVxdWVzdCwgSSdsbCBhc2sgdGhhdCB5
-b3UgaG9sZCBvZmYgZm9yIGEgd2Vlawo+ID4gPiBiZWNhdXNlIEkgaGF2ZSB0aGUgZm9sbG93aW5n
-IHRoYXQgSSdkIGxpa2UgdG8gc3VibWl0Ogo+ID4gPgo+ID4gQWNrLCBwbGVhc2UgYWRkIG1lIGlu
-IENjIHdoaWxlIHlvdSBwb3N0IHRoaXMgcGF0Y2guCj4KPiBGWUksIHRoZSBwYXRjaCB3YXMgbWVy
-Z2VkIGxhc3QgVGh1cnNkYXksIHNvIHBsZWFzZSB1cGRhdGUgdG8gcmVwbGFjZQo+IHRoZSBhYm92
-ZSB3aXRoIHN0bW1hY19wbHRmcl9maW5kX2NsaygpIHdoaWNoIHdpbGwgZG8gdGhpcyBmb3IgeW91
-Lgo+ClRoYW5rcywgSSdsbCByZWJhc2UgbXkgY2hhbmdlcyBvbiB0b3Agb2YgaXQgYW5kIHNlbmQg
-b3V0IHY2LgoKQ2hlZXJzLApQcmFiaGFrYXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Mon, Apr 07, 2025 at 01:03:17PM +0100, Prabhakar wrote:
+> +	gbeth->rstc = devm_reset_control_get_exclusive(dev, NULL);
+> +	if (IS_ERR(gbeth->rstc))
+> +		return PTR_ERR(gbeth->rstc);
+> +
+> +	gbeth->dev = dev;
+> +	gbeth->regs = stmmac_res.addr;
+> +	gbeth->plat_dat = plat_dat;
+> +	plat_dat->bsp_priv = gbeth;
+> +	plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+> +	plat_dat->clks_config = renesas_gbeth_clks_config;
+> +	plat_dat->flags |= STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY |
+> +			   STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP |
+> +			   STMMAC_FLAG_SPH_DISABLE;
+> +
+> +	err = renesas_gbeth_clks_config(gbeth, true);
+> +	if (err)
+> +		return err;
+> +
+> +	err = stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+> +	if (err)
+> +		renesas_gbeth_clks_config(gbeth, false);
+> +
+> +	return err;
+> +}
+> +
+> +static void renesas_gbeth_remove(struct platform_device *pdev)
+> +{
+> +	stmmac_dvr_remove(&pdev->dev);
+> +
+> +	renesas_gbeth_clks_config(get_stmmac_bsp_priv(&pdev->dev), false);
+> +}
+
+Would calling renesas_gbeth_clks_config() in the suspend/resume paths
+cause problems?
+
+If not, please consider using plat_dat->init() and plat_dat->exit()
+to control these clocks, and then use devm_stmmac_pltfr_probe()
+which will call the ->init and ->exit functions around the probe
+as necessary and at removal time (and you won't need the remove
+method.)
+
+Thanks.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
