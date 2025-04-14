@@ -2,73 +2,163 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F33A883A7
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 16:03:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B2AA884F9
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Apr 2025 16:31:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D4BEC78028;
-	Mon, 14 Apr 2025 14:03:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C15BDC78028;
+	Mon, 14 Apr 2025 14:31:14 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2061.outbound.protection.outlook.com [40.107.21.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 246B3C78027
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F56DC6DD9A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Apr 2025 14:03:41 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53ECsOaa017111;
- Mon, 14 Apr 2025 16:03:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- AXBT3Gx49OIy8DXLSl7KoI0jOZ+YAa+TLsMsUTA/Dt4=; b=OOObsEyzzjEjvwnu
- cH7LPVAmKJ3JygUwty9UIFQ/TSuUXnHve4rbZGsgO07BlL7GQ29k/0NFClsHE0Md
- vJ5vPJ0zeuVHGgmDZL40DY2s/+JFq/U94176Hm1bP8mYaOFml7X5VuOWhfqLRLJk
- iPBrnq7tIYC3zwDPqJgkrjLaCdpcJSUiyKw4tjUPwEUNlrIu9b0K0W9fln1u+V0q
- 4z/KsPm57RESOEsPoZaTun0UXAStaG/xkeVSzBlNVE4ObKfaMkSbgoLYNx74nK+o
- iWJqNQRyEXb9k6G+dEJn4g4ljLAa1rMfwe4gFEX/TZaZVimMs5o99VKJ3uC2Bzc3
- 3qTJGw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 45yf2gr5j9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Apr 2025 16:03:26 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7752440049;
- Mon, 14 Apr 2025 16:02:16 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 53C46981A1E;
- Mon, 14 Apr 2025 15:59:34 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 15:59:34 +0200
-Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 15:59:33 +0200
-Message-ID: <be981c5c-5252-4650-a148-c2f51d83a430@foss.st.com>
-Date: Mon, 14 Apr 2025 15:59:32 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
+ Mon, 14 Apr 2025 14:31:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yg8CzjWCE5IMyC/xj+f9o8TfbMa2XvZofSeNwl639RBHUMRFk06lq9AOayDcKsHs7gfTFDDiBNrFnoVXK5f66H59+72gspFBP+aV0Zk4tLwy66EUAcK0nSVbGVkW2112WGACQw4kOEYFeiScrhHff7LSB4UMdiIgTB7eBbZSFhBAm90C0UXTiLzwmS95ot+I4Ra5w7keg5MijMkU++dz4bimTjz82yWGBKiQb1kJQ5dHynbmi1lqGqpFs53k7fMHXCqp3GUzOwVFFb3ZCPfN3f5VWOd5YnTSp6h1Dh3BB2lSqa2Vi+MTdauRPG6TIrTwesH2lDtwz04MTw7RoaaU3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7BC521sZtFhjJkdqprb/2NfIdK5dbWjZn2/nx0i98o8=;
+ b=F9VNEkX2CfYODBGeHAO5GMu1/Fwff/Y1cw92N8a2KANu9AWKb4slwap9XWQInv5jLXu9pqIyeGqTfRSr2R+JYz4aQJYzrTx5otvFgFP4LXxZFvX/eus8wyylJvMoDTlZJQzOnKNF8fUnWdHhRFdc085eLorIKVcp3U0dfqHP+0k80A7WdSpD8758zIhsVDuRwNIf88w7NeYr3WM7Rlc/F4wYFpdXb/cTgtt8Uguc/jNdVIDRRCcR0WNNwmYcWaSD+SPG6+JDY0NE1cwfomkVO1Y/kVwFYwESrIr4rUC0VMqOSfKesGQTgJTbaXJlNRUIUJu7PymzjO4budIX+KcKxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7BC521sZtFhjJkdqprb/2NfIdK5dbWjZn2/nx0i98o8=;
+ b=rIE6bW7Fd/mQvlzfHrh3RTyzqlp8lNxwoKbW7LczCA0VeH0x6FnUELzmD4xfAE3X4aHYy1CefoDtV43wTil0t7PUk/m1Mc4bX+qOgM+rNHAAxMAhCvQukZlHza2+FsjkR7daP0kXZHnbd08t3Us5Z/Y+WEdL5PZeW4cbrf+AYEI9+9rN2G6RBENYb174zq26/GjtevV/5OvoUTChPFXUCG5qi1KRRJe4zZPioP7kV1nPkXckdhu3enSDUPCgJt16q2AmgNi5QnreU383PfPtFvfA4aSVjwLcHOx0Lh1q57pu1LVLoAP+s7lnnNFjgWiK+89IfTrKLlEppQKFsTtL9g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DU2PR04MB8582.eurprd04.prod.outlook.com (2603:10a6:10:2d9::24)
+ by AS1PR04MB9239.eurprd04.prod.outlook.com (2603:10a6:20b:4c5::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Mon, 14 Apr
+ 2025 14:31:11 +0000
+Received: from DU2PR04MB8582.eurprd04.prod.outlook.com
+ ([fe80::c96e:12f1:67b7:ed74]) by DU2PR04MB8582.eurprd04.prod.outlook.com
+ ([fe80::c96e:12f1:67b7:ed74%2]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
+ 14:31:11 +0000
+Message-ID: <9636d9ac-7329-ead3-4a99-ea662acb6408@oss.nxp.com>
+Date: Mon, 14 Apr 2025 17:31:07 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+To: Daniel Lezcano <daniel.lezcano@linaro.org>, tglx@linutronix.de
+References: <20250402090714.3548055-1-daniel.lezcano@linaro.org>
+ <20250402090714.3548055-2-daniel.lezcano@linaro.org>
+ <2503deb2-b993-7fd1-adf3-cafa1e7bd2f4@oss.nxp.com>
+ <67daf656-0e08-471d-afce-22ba8f2fa1f2@linaro.org>
+ <c14389a1-1904-450f-98c5-a55351518ed7@linaro.org>
 Content-Language: en-US
-Organization: STMicroelectronics
-In-Reply-To: <20250325095833.3059895-1-arnaud.pouliquen@foss.st.com>
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-14_04,2025-04-10_01,2024-11-22_01
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v16 0/6] Introduction of a remoteproc tee
- to load signed firmware
+From: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+In-Reply-To: <c14389a1-1904-450f-98c5-a55351518ed7@linaro.org>
+X-ClientProxiedBy: AM8P189CA0022.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:218::27) To DU2PR04MB8582.eurprd04.prod.outlook.com
+ (2603:10a6:10:2d9::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8582:EE_|AS1PR04MB9239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43fde3af-8551-41c9-b414-08dd7b6100ac
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N1hhblVrWkUxRjNhS1hScXVzSDh1cVkrMlF0MWRIdzM5bjlsRGVlUWVYajN4?=
+ =?utf-8?B?MWRZMmhBdXBNSXU1M2pxcnRvcXBTYUFqSURySldNcDNjVXREZHhuWng4WmJx?=
+ =?utf-8?B?QzdYdE1icCtZL1ZkT0FYblJORE9Zc2VHWVduMWRSKytrMmNKQzd6LzNEa0lv?=
+ =?utf-8?B?TU5HQ1EzTWJxUE1tbStNcm56TVBGOTB4dHI3NXUwVndxLy9veFQ4OWo5eng2?=
+ =?utf-8?B?dGN2bXB2Y1ZYZHU0ejliQytqdUkyc3JvVkNkVEtlaWRBWWh6S2JHYWZRYTRl?=
+ =?utf-8?B?V0RyZmZiUWJCTjdpT2NRTzR3R0ttV3VwUE8reHBWdW8zK1BNK3Q0cWsranFT?=
+ =?utf-8?B?MHk1NVB2c09tQXdwRHd4L1pnUVVab0puRktYd3lDZzhENStBajRFZmF3TEI2?=
+ =?utf-8?B?c3A1ajV0bkd4clVpL3hGeGV1ZzZoK3g5MThOTGpSazMvZi8xWVQzLzhoU3hR?=
+ =?utf-8?B?Vlc3RmhjU2kwL1F0a0JSa1JHNTc5NlUreFF2QXp4c0JQcnZrdWhuQjhCanFi?=
+ =?utf-8?B?WUtRbjY3Sjgvd0ZML05oT0Y5UENJalkxMi8zUit5eVl2VGtFOWxuaTQ2UzEv?=
+ =?utf-8?B?dU0zSkRsY0JHbS9md1cvNWdqcDRpRDlNREQwbHViZ3lxa3NiMDdkaW1TRW4r?=
+ =?utf-8?B?Z3dWNTdFM0RmRzhxR1NsbmNIYVFNVWxCNXF5UUVqTThvTVhybFJzT2ZqUTky?=
+ =?utf-8?B?RjdoOFJtUmExRUhBMThLeUNqMU1BWndYUnJQWDkyOG9PUTd5MkVUNXR6cm5s?=
+ =?utf-8?B?UWFBNm9yWXNCZm5lM3FrR2hINEt1c0Nnd0VJUFRKYy9wWkM3Mzk2VHA3UDEv?=
+ =?utf-8?B?T0tXMW5RcXJRNUZXVytQaDV4c0V3Um1IMHVPNmN2cHo5TWVLMlZUN1lYRUxR?=
+ =?utf-8?B?MlBVUDlLSEtjY2FIL3UyZHZva1FDK2FEaTJPb3ZFS3ZMTHhuNTBsNUk4TFJj?=
+ =?utf-8?B?UCtsbStycFBueE0ydGpjNStxY2JyQjd2WHJoYUNtUXMzaTZhK1drc05UdUFP?=
+ =?utf-8?B?ZnkwMENRaWE2NndjMXhyMGtRV0R0Q0FNVXY2cXU2VzQ5L2t3T1l3Y2FRNFJl?=
+ =?utf-8?B?Y0Y1ekpHS3BUMVR6VUUzeStVOXhNNDA5bEF3YnZ3ZE5kVVB6VDd0Z2p0YTFF?=
+ =?utf-8?B?UDJUakFHR1dZc3EzdkRFWDd6SzNLTytYOXJjZTdzUXlreEJEZFk2ejBMTWg1?=
+ =?utf-8?B?elZTWVBZcStQOElMSWREcFI2KzhKWGdVUHMwTVJlTU9lTk5TWXpLZ0hXWUU4?=
+ =?utf-8?B?YWRoUUg2WkhMUUpMSGVjbjBwSGNFbmw0cDJFR1ZFVHdVK1dnTUVuWmo5ZUZa?=
+ =?utf-8?B?UEcyclduVk1Sb1IwaFdlR2tIM2RXU20weHVZaGdkV29TMWdyVXBxK0ovRnc2?=
+ =?utf-8?B?emR6aVVtR3dqVnZZdVp6SXg3bUp5N05sajhEbGZZcGFEN2h5aDJxOUppM3p2?=
+ =?utf-8?B?VUk2MXF3dFpWcTdvZVQwSnluTktDUWZZcEF0Q1lXbHNxRUVXYWFoenh5M1h4?=
+ =?utf-8?B?ZHJNVkpLRnNQZGQ5K2g2aVJDb2F3R1dQTzlvN3A2U3NDQU5KOTJWUWJFUkQ5?=
+ =?utf-8?B?cmNCWDgxcHFxeHRBeGdhQTVPOThBR2taWUljT1VLSk9GbkJXNHlFOWJTbXV6?=
+ =?utf-8?B?SlhPWk01aVJFMjJaemk4VkNFaHN2VkRZZVpXQ2VRMXJ1VUFvR2grVUYvYnFp?=
+ =?utf-8?B?OVdKV3ZaQWdpalJmSmlSV1pGQi96YjRLMUQzY2hXLyt4R1JMeWpNN3hwSUZX?=
+ =?utf-8?B?RGEzYklOQTgwcitXOTYvU292aGxLVTFNNXJuaGRxbmtvYktUVXNRR0R5OU9S?=
+ =?utf-8?B?UmtEN3JYYlhDa1oyUGJ5aDVISlZJOTF3YmZQMEFQSDlsak5qaHJLeXpHNmEv?=
+ =?utf-8?B?ZUtPM1k0OGRibWpLeVhSc09yVkpxM09wUlFsNjk1U0o2Vmc9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DU2PR04MB8582.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SjNKeVMwWkhWMXAweDBGdXFKakNjdWt6d2RhYXNkcHhaVXRLVnB1bXg5ZlFl?=
+ =?utf-8?B?aUhGMXlsUnJ2TGo3a1lPYXRDeTJFcHhPRVpWdHBTWjVIa2hLYVN3N1I3NDdL?=
+ =?utf-8?B?WEtuMmE5bU8zd2xHeW56T3EyZVZYWTJBV2xhTVlsVEVoRFd0YlpoQ0lSclpO?=
+ =?utf-8?B?NWhsTTdyL0pmM2JCdzBtS1A3TWFSejVXY25sVGYyRUxFUDloOSsyRTRvMVNR?=
+ =?utf-8?B?ZVkyY2RjTk9GTEVldG9xNHFkbVNXbkd6V1Bub2tGV3lNOXFLaHg3cVc5UTFu?=
+ =?utf-8?B?WGtxYzJ1YUE5OFo0amlKL2pYK0ZzcnpjSzJ3RDByV29ucnRTSWw5bDlzb1N4?=
+ =?utf-8?B?d2x2bEVrcXdOTWl5N1NHS2RRWmM3dG4reWtnanpTWlAzZUx3Z09XRWwvYXEy?=
+ =?utf-8?B?eFRDa3JHZkVnczh2N2JrT29wcnptUDE5cFlXeTRkdDNRREdzSXozQkF1amFR?=
+ =?utf-8?B?YnVJWThsWDluUCtIMlBhcXhJRGxSVWpTWmQ4clRKbmc5aGZYTGk2bEx3UGd5?=
+ =?utf-8?B?ajBFV1VFeDBRRFdDRWM2ZVFBdGFVWmJWS3VEcjkzNjZ5ZTkzWTZyalJaZkZw?=
+ =?utf-8?B?VWpVbnNOdHRqbEd0bmZ1NVh6OTlmaWRJQnhHQ2VvR2VsL01OVUNLTHg0N0Uy?=
+ =?utf-8?B?SENvc1VXRHhJQ3BuL0ZOeXg5VXROWEFHa3pjYlJnZTU3RG10VGh2UjVFdkov?=
+ =?utf-8?B?bDlMSnRtM2F4RERCb29pN2NtUDllbStrUllQckRVZmI1dER4dEFkMkpUZUR0?=
+ =?utf-8?B?WCtqR0poS012bGoyN29FOERCVGV4cXZBOFp0czJyZjBMMVhHRVdLYlh2cWZI?=
+ =?utf-8?B?WGNwei9OeHFDdTFLOHkrQ0NpY0F3azhiRHJ4M3daWGhsbURWZXAyUWtWUHJX?=
+ =?utf-8?B?cENwZHdCTVRrSXNzRVZHUUpvWnhjV05UYVhMR040b1FWQnJqTElveTByN2Rl?=
+ =?utf-8?B?MlQ2dmVnd0g1dUczZ0ViYys2VTdpRXl5TnVMcTBORVhrQ0I5Y1V6VWlvN05S?=
+ =?utf-8?B?empWV0gzWDNRNWQ0bXhGRHhLRjh4NjJOcXB5MGoveGdPMnlGSEJqM0lqY3dU?=
+ =?utf-8?B?dGtXcEE5Tmx4Q1hMVGgzYmhXMXgrdjVnWXlrUmRzV1BJZUdmb3NyUkNaSFU5?=
+ =?utf-8?B?M1k0dkE4NEFITVoxVTMxeTcwQ2ordEc1dVFkdk1iYTJFeU0rM2NCMXlvOFEy?=
+ =?utf-8?B?YUxFSXRYZEtWTllJcWkxL09PTVNYdjJRa0JZcU1FRVpLRkZBS2x2b3QremhW?=
+ =?utf-8?B?R3lnZ0N3VFhubkc0c1pyNDYwTW14U3lHRmRNa0dMOWQwZmtwWkUwcE82c0Rq?=
+ =?utf-8?B?SWhlZldaK2xZQ29KUnBYOWR2TG94dUJudW1KaFowc0ZtYVB2aGNvYjlvblRG?=
+ =?utf-8?B?S3BtRC9USS83RHg5dEdIbGdNbnRET29GQ0xoSERGd3h5Z0FiVTZKdmhTM0pn?=
+ =?utf-8?B?ZytvbTlQaDdvZVM0UG1jWHdEbUFTMTVXeVlyS3Q3V3FrM3FyTWNGVG5XVUs4?=
+ =?utf-8?B?TTZFazJ3NGhOUTk1YmZwVzVzclEyUTVkenFLa25LYXZTTmg1SjE1T0VMdDNP?=
+ =?utf-8?B?NDRkb1dqb0xPTUxCaFA4TkRqV0NuS1EzNnovQ3hPaU5FcVlFRFdhdXNzdFl6?=
+ =?utf-8?B?K2ZDZmVrajRlSmx2TFJDNzRneDFPYjAxRUcwbDdKTkF6MnB1VVlQbUY5Z0U0?=
+ =?utf-8?B?Y2F0M04xOUQ4cHoxWjF4R3RHdTdFYWtkbEJHaHZqRndsTlNTRzVzRWJ4YUNo?=
+ =?utf-8?B?aW1JNzBCdnNpa1BmNzFCNVRmYk5McWFPckM2c2llT0QyOC9vU1pGRXpSWnNk?=
+ =?utf-8?B?UXJmblhEczEwUE5Zc3Y2cnBVYTBzMkM5aHNxVGhaMnlaaGdQOXRDZHB4dGlw?=
+ =?utf-8?B?c09DZ0VsSW9iNGsxYmUxcXRxR3ZjRjdJdXM2blkwcjRFcWRzSFlhZXpwRnRN?=
+ =?utf-8?B?TGsvSGUzWG92aFNTZkVHTHI1RnpmOHNSYVpZNzZCUHArY2dyWDZPREkxSVVF?=
+ =?utf-8?B?L2M2MSsxbldmbVh5MnBqamJPc25QK1FmRmltV0JmR0ZrSUpqTUF3WFV0aFIx?=
+ =?utf-8?B?UUlRd0haMy8yTXZ4R0FOZTRocXhvN1RySFhmd0lQOXM3c2t2QmNXcXpIN1hS?=
+ =?utf-8?B?eTUwNzZrZzQycWcxVkpPOWQ0b016amE5NHpwMlNaT1lWcU9XOEVhNFZyRm9Y?=
+ =?utf-8?Q?qIV64qmEH7d/ZNVP+i+wQ+s=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43fde3af-8551-41c9-b414-08dd7b6100ac
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8582.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:31:11.3668 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JHP2ZA+bnNeLo9Gj8euEyL7kY0zx9HO1+TcCvc4AEK4a5ET7LO9u3mFn6PhpMKkONARK6o0u/Qz6K/2u92iNsG4LILbjDIeKIpXyhRtqMSs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9239
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ S32@nxp.com, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Larisa.Grigore@nxp.com,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, thomas.fossati@linaro.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, ghennadi.procopciuc@nxp.com,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: timer: Add NXP System
+	Timer Module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,111 +170,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Bjorn,
-
-Gentle reminder.
-
-For your information, I proposed to Mathieu that he wait for your first review,
-as this revision is intended to address your comments on revision 15."
-
-Thanks,
-Arnaud
-
-
-On 3/25/25 10:58, Arnaud Pouliquen wrote:
-> Main updates from version V15[1]:
-> - Removed the rproc_ops:load_fw() operation introduced in the previous version.
-> - Returned to managing the remoteproc firmware loading in rproc_tee_parse_fw to
->   load and authenticate the firmware before getting the resource table.
-> - Added spinlock and dev_link mechanisms in remoteproc TEE to better manage
->   bind/unbind.
-> 
-> More details are available in each patch commit message.
-> 
-> [1] https://lore.kernel.org/linux-remoteproc/20241128084219.2159197-7-arnaud.pouliquen@foss.st.com/T/
-> 
-> Tested-on: commit 0a0ba9924445 ("Linux 6.14-rc7")
-> 
-> Description of the feature:
-> --------------------------
-> This series proposes the implementation of a remoteproc tee driver to
-> communicate with a TEE trusted application responsible for authenticating
-> and loading the remoteproc firmware image in an Arm secure context.
-> 
-> 1) Principle:
-> 
-> The remoteproc tee driver provides services to communicate with the OP-TEE
-> trusted application running on the Trusted Execution Context (TEE).
-> The trusted application in TEE manages the remote processor lifecycle:
-> 
-> - authenticating and loading firmware images,
-> - isolating and securing the remote processor memories,
-> - supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
-> - managing the start and stop of the firmware by the TEE.
-> 
-> 2) Format of the signed image:
-> 
-> Refer to:
-> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
-> 
-> 3) OP-TEE trusted application API:
-> 
-> Refer to:
-> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
-> 
-> 4) OP-TEE signature script
-> 
-> Refer to:
-> https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
-> 
-> Example of usage:
-> sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
-> 
-> 
-> 5) Impact on User space Application
-> 
-> No sysfs impact. The user only needs to provide the signed firmware image
-> instead of the ELF image.
-> 
-> 
-> For more information about the implementation, a presentation is available here
-> (note that the format of the signed image has evolved between the presentation
-> and the integration in OP-TEE).
-> 
-> https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
-> 
-> 
-> 
-> Arnaud Pouliquen (6):
->   remoteproc: core: Introduce rproc_pa_to_va helper
->   remoteproc: Add TEE support
->   remoteproc: Introduce release_fw optional operation
->   dt-bindings: remoteproc: Add compatibility for TEE support
->   remoteproc: stm32: Create sub-functions to request shutdown and
->     release
->   remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
-> 
->  .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
->  drivers/remoteproc/Kconfig                    |  10 +
->  drivers/remoteproc/Makefile                   |   1 +
->  drivers/remoteproc/remoteproc_core.c          |  52 ++
->  drivers/remoteproc/remoteproc_internal.h      |   6 +
->  drivers/remoteproc/remoteproc_tee.c           | 619 ++++++++++++++++++
->  drivers/remoteproc/stm32_rproc.c              | 139 +++-
->  include/linux/remoteproc.h                    |   4 +
->  include/linux/remoteproc_tee.h                |  90 +++
->  9 files changed, 935 insertions(+), 44 deletions(-)
->  create mode 100644 drivers/remoteproc/remoteproc_tee.c
->  create mode 100644 include/linux/remoteproc_tee.h
-> 
-> 
-> base-commit: 0a0ba99244455fea8706c4a53f5f66a45d87905d
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNC83LzIwMjUgMTA6MzcgQU0sIERhbmllbCBMZXpjYW5vIHdyb3RlOgo+IE9uIDAzLzA0LzIw
+MjUgMTc6MjEsIERhbmllbCBMZXpjYW5vIHdyb3RlOgo+PiBPbiAwMy8wNC8yMDI1IDA4OjMzLCBH
+aGVubmFkaSBQcm9jb3BjaXVjIHdyb3RlOgo+Pj4gT24gNC8yLzIwMjUgMTI6MDcgUE0sIERhbmll
+bCBMZXpjYW5vIHdyb3RlOgo+Pj4gWyAuLi4gXQo+Pj4+ICtleGFtcGxlczoKPj4+PiArwqAgLSB8
+Cj4+Pj4gK8KgwqDCoCAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIv
+YXJtLWdpYy5oPgo+Pj4+ICsKPj4+PiArwqDCoMKgIHRpbWVyQDQwMTFjMDAwIHsKPj4+PiArwqDC
+oMKgwqDCoMKgwqAgY29tcGF0aWJsZSA9ICJueHAsczMyZzItc3RtIjsKPj4+PiArwqDCoMKgwqDC
+oMKgwqAgcmVnID0gPDB4NDAxMWMwMDAgMHgzMDAwPjsKPj4+PiArwqDCoMKgwqDCoMKgwqAgaW50
+ZXJydXB0cyA9IDxHSUNfU1BJIDI0IElSUV9UWVBFX0xFVkVMX0hJR0g+Owo+Pj4+ICvCoMKgwqDC
+oMKgwqDCoCBjbG9ja3MgPSA8JmNsa3MgMHgzYj47Cj4+Pj4gK8KgwqDCoCB9Owo+Pj4KPj4+IFRo
+ZSBTMzJHIHJlZmVyZW5jZSBtYW51YWwgc3BlY2lmaWVzIHR3byBjbG9ja3MgZm9yIHRoZSBTVE0g
+bW9kdWxlOiBvbmUKPj4+IGZvciB0aGUgcmVnaXN0ZXJzIGFuZCBhbm90aGVyIGZvciB0aGUgY291
+bnRlciBpdHNlbGYuIFNob3VsZG4ndCBib3RoCj4+PiBjbG9ja3MgYmUgcmVwcmVzZW50ZWQgaW4g
+dGhlIGJpbmRpbmdzPwo+Pgo+PiBBRkFJQ1MsIHRoZXJlIGFyZSB0d28gY2xvY2tzIGFzIGRlc2Ny
+aWJlZCBpbiB0aGUgZG9jdW1lbnRhdGlvbiBmb3IgdGhlCj4+IHMzMmcyIHBhZ2UgODQzLCBzZWN0
+aW9uIDIzLjcuMyBUaW1lciBtb2R1bGVzLgo+Pgo+PiBUaGUgbW9kdWxlIGFuZCB0aGUgcmVnaXN0
+ZXIgY2xvY2sgYXJlIGZlZCBieSB0aGUgWEJBUl9ESVYzX0NMSyB3aGljaAo+PiBpcyBhbiBzeXN0
+ZW0gY2xvY2sgYWx3YXlzLW9uLgo+Pgo+PiBwYWdlIDE5OTQsIDQwLjUuNCBDbG9ja2luZywgdGhl
+IGRvY3VtZW50YXRpb24gc2F5czogIlRoaXMgbW9kdWxlIGhhcwo+PiBubyBjbG9ja2luZyBjb25z
+aWRlcmF0aW9ucy4iCj4+Cj4+IMKgRnJvbSBteSB1bmRlcnN0YW5kaW5nLCB3ZSBzaG91bGQgbm90
+IGRlc2NyaWJlIHRoZSBYQkFSX0RJVjNfQ0xLIGFzIGl0Cj4+IGlzIGEgc3lzdGVtIGNsb2NrLgo+
+IAo+IENhbiB5b3UgY2xhcmlmeSBmb3IgdGhlIFNUTSBpZiB5b3Ugc3RpbGwgd2FudCB0byBjaGFu
+Z2UgdGhlIGJpbmRpbmcgPwo+IAoKWWVzLCBJIHN0aWxsIGJlbGlldmUgdGhlIHN1Z2dlc3Rpb24g
+aXMgcmVsZXZhbnQuCgotLSAKUmVnYXJkcywKR2hlbm5hZGkKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
