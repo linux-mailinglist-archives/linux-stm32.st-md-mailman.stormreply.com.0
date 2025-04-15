@@ -2,47 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E521A89FAE
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 15:39:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64554A8A016
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 15:52:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43DD5C78023;
-	Tue, 15 Apr 2025 13:39:25 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14C11C78023;
+	Tue, 15 Apr 2025 13:52:56 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66623C78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAF6AC78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 13:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=A+3jtqXU4vmgll+2WkVE5wbB1NFuZVYYqMzchyGrBWo=; b=v1X6VO4iU7zcYdg4rSH2c0sKbK
- QbfCKdEbDRBl9y/S6Y7lrbNLbDy4+WCFufssyXqxyg9+WEVvXKlYhNtjURwLkDoycDOWBXMLNbw5l
- QndoO/EQN425aBitIdAGwoD3FoH3NyurEEXyNkY0HMebSa+GU6eDfQj0ZespMa8DwnSsM0qXkYYpe
- ra0fEpRk8dBNozM/vN/5pNwYzKvz6JzvrwkR3v3B+MQHC9dUQGhW1UGJ8DOYjCC8pKOSpbE1mxlsU
- cDSsEsMnLxsxZ6LZq70ZaxISuMlNI50lSKK+K9AK99vk7u6BASiBiD1L78yVr37NIy8kftKKUL8zb
- mVJ5Tl3w==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37272)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u4gVF-0008G3-0z;
- Tue, 15 Apr 2025 14:39:05 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u4gV9-0000PK-1O;
- Tue, 15 Apr 2025 14:38:59 +0100
-Date: Tue, 15 Apr 2025 14:38:59 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Message-ID: <Z_5hc151mud_UM1C@shell.armlinux.org.uk>
+ Tue, 15 Apr 2025 13:52:54 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-39ac9aea656so5634091f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Apr 2025 06:52:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744725174; x=1745329974;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1TwZ3MTtKiM7l1EeKd00zGsHBWMHnKmuqThclAOg/Kg=;
+ b=Aqmt2SE8Y19nl0Mp4gn/B4braBOV1oQSH6TDlo2wzcklN+NBWO4cy6keR2uFclYjZl
+ QCa95ktHXQZV827j4j8SIIu8wRr3GR8huP1d3FEpjOVsCnYXbE4wb41sjJQy9S2IOfjK
+ 41unuO0jgB6IpCZTjLv/tkg6rzjYyU7eBWQSSjAVoafNTYFLTrqTVfCjZfUglgQlI27u
+ idyJBU6MHshEjyTQrufBvcBKWkfjiIF6Spt00xTAbB65MPzOSP56brx+YpA/MRAz1IA0
+ crliPbPTxwvXwofLHHWGlZ1oZojhmuU8OLmgHFHz/gxz3ztfzgRQfJ725O7yWKdPwtG9
+ Oq0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744725174; x=1745329974;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1TwZ3MTtKiM7l1EeKd00zGsHBWMHnKmuqThclAOg/Kg=;
+ b=Us+dwzjXn1YZmElqRweosz17qrZ4EW1UHxIsJ4PhaIJqx9omiQ/xq5oQlvNI13H2Sd
+ 4cq0IClhWjRgMtHu9C4pTIqW9c6LKdxzqqo4cZ0wmMP63mT/PwIkjqNHokUGsnHYecHS
+ usrLlCPQlHh4hU1wvR0/woUrXJwk5o+v6zyu1fv2E9cg/HqZVkv7jUfk9+mz1ac18MsQ
+ LbgSmHfU1cokCevUgTQitMGhB5fJ9X/SweVSx30oDjwwy7Z2N6gB+8MXJK2C2PKGtgmz
+ uCPknNgJQ0rbgRfevOc+r2RNgfRFP94x6Zj7RSWpSg139sYpC9L8gbEb6wlxZtty0p4J
+ RGuA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVqdlfj4U3CfIjGGVI/4PfqDmxgnNbF6KKdznDsEvGn/PmM4mSsGIr2vb+y5Mm0v9uBpCRFWdtaUshjpA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw3VLKbdF8erftPNgr3W2jUENt5OLFgsn+WcSCRl2ZG0LcOnASx
+ XZMaj8G1CFCMi8fyyChXJLA4Lma+n2J5NYVAWhlrX0Iv8c57xSgffF3W3k6IrBMhrZ8o4acqqLP
+ udFYOBYKs6aB6cDbn7e3FD3YXZN0=
+X-Gm-Gg: ASbGncsQ/iTZyTFcBdn9s6kf0Y46TmjkOvQClqIMO1SzW/ifmTf2Mg9eTUm5JltcCvY
+ Gq6gveln8oufg5AgRRHxGfsSh9EEYCVh9LAHNvFSVkz1B5PRTrgcyvEOTRqYyFb8ZPwHMI25RoF
+ yLZ3BqNfmQJq3EYDPzSGPmb7VMBEjJ3dJoqL4ZS1L11cWvH9lU/xdksrws9ZJIXdeA
+X-Google-Smtp-Source: AGHT+IHK+m8VrLrlFlxV6nZ8ThujVJZ2WLpJFiDSDa8zctkcFlgA9baoyjBybS2403268oDSkrugum4D+6yxW9qAQH4=
+X-Received: by 2002:a05:6000:2905:b0:39c:2688:612b with SMTP id
+ ffacd0b85a97d-39ea51ee489mr13637534f8f.7.1744725174186; Tue, 15 Apr 2025
+ 06:52:54 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250415125642.241427-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <20250415125642.241427-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250415125642.241427-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <Z_5hc151mud_UM1C@shell.armlinux.org.uk>
+In-Reply-To: <Z_5hc151mud_UM1C@shell.armlinux.org.uk>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 15 Apr 2025 14:52:27 +0100
+X-Gm-Features: ATxdqUGwNzRsl8J8RvInaxREfU9EplttUyDfCX4lENAuX3MnWfvUzlpS2hWxJag
+Message-ID: <CA+V-a8sTN_vUDxL7V_64U3hs2-AB2Go66_gELe4Bkx0po2734Q@mail.gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
  Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
@@ -73,37 +95,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 15, 2025 at 01:56:41PM +0100, Prabhakar wrote:
-> Add the DWMAC glue layer for the GBETH IP found in the Renesas RZ/V2H(P)
-> SoC.
-
-I think we're almost there, but now that the trees have parted, we can
-start seeing other bits of wood :)
-
-> +struct renesas_gbeth {
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct reset_control *rstc;
-> +	struct device *dev;
-> +	void __iomem *regs;
-
-This appears to be only written, never read. Do you need it?
-
-I think that's the last thing I can spot in this driver, so with that
-fixed, please add:
-
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-
-Thanks!
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUnVzc2VsbCwKCk9uIFR1ZSwgQXByIDE1LCAyMDI1IGF0IDI6MznigK9QTSBSdXNzZWxsIEtp
+bmcgKE9yYWNsZSkKPGxpbnV4QGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4KPiBPbiBUdWUsIEFw
+ciAxNSwgMjAyNSBhdCAwMTo1Njo0MVBNICswMTAwLCBQcmFiaGFrYXIgd3JvdGU6Cj4gPiBBZGQg
+dGhlIERXTUFDIGdsdWUgbGF5ZXIgZm9yIHRoZSBHQkVUSCBJUCBmb3VuZCBpbiB0aGUgUmVuZXNh
+cyBSWi9WMkgoUCkKPiA+IFNvQy4KPgo+IEkgdGhpbmsgd2UncmUgYWxtb3N0IHRoZXJlLCBidXQg
+bm93IHRoYXQgdGhlIHRyZWVzIGhhdmUgcGFydGVkLCB3ZSBjYW4KPiBzdGFydCBzZWVpbmcgb3Ro
+ZXIgYml0cyBvZiB3b29kIDopCj4KOikKCj4gPiArc3RydWN0IHJlbmVzYXNfZ2JldGggewo+ID4g
+KyAgICAgc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0X2RhdDsKPiA+ICsgICAgIHN0
+cnVjdCByZXNldF9jb250cm9sICpyc3RjOwo+ID4gKyAgICAgc3RydWN0IGRldmljZSAqZGV2Owo+
+ID4gKyAgICAgdm9pZCBfX2lvbWVtICpyZWdzOwo+Cj4gVGhpcyBhcHBlYXJzIHRvIGJlIG9ubHkg
+d3JpdHRlbiwgbmV2ZXIgcmVhZC4gRG8geW91IG5lZWQgaXQ/Cj4KTm8sIEkgY2FuIGdldCByaWQg
+b2YgaXQuCgo+IEkgdGhpbmsgdGhhdCdzIHRoZSBsYXN0IHRoaW5nIEkgY2FuIHNwb3QgaW4gdGhp
+cyBkcml2ZXIsIHNvIHdpdGggdGhhdAo+IGZpeGVkLCBwbGVhc2UgYWRkOgo+ClRoYW5rcywgYWxv
+bmcgd2l0aCB0aGlzIEknbGwgZm9sZCByZW5lc2FzX2diZXRoX2Nsa3NfY29uZmlnKCkgY29udGVu
+dHMKaW50byByZW5lc2FzX2diZXRoX2luaXQvZXhpdCgpIGFzIHN1Z2dlc3RlZCBieSBQaGlsaXBw
+LgoKPiBSZXZpZXdlZC1ieTogUnVzc2VsbCBLaW5nIChPcmFjbGUpIDxybWsra2VybmVsQGFybWxp
+bnV4Lm9yZy51az4KPgpDaGVlcnMsClByYWJoYWthcgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
