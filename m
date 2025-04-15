@@ -2,56 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 871ADA898C4
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 11:54:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE69A89997
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 12:14:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 349F6C78F68;
-	Tue, 15 Apr 2025 09:54:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E91AC78F68;
+	Tue, 15 Apr 2025 10:14:39 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3390CC78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F048C78018
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 09:54:55 +0000 (UTC)
+ Tue, 15 Apr 2025 10:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IFDH9vhWaq+ALllkPSDHzLJE41HD2vsjtjk4qA/e2mQ=; b=fuWdPx6GZN1eNf0cArwoAmpK7d
- AayMLXQzTkfKlcEaqCqvLpA3jxERKs/fV8rnhvBlzf5Hex5N2M46GK4CNyS9N6URjHzNh5jFkkjJf
- 0k4DVFyPXYIvBHzf7mdbkfDqQXO0MY2Ejn/tYnh+JVgpnjeTxjl14JjYRkKDF4vB3kbt7mUPWmxd7
- Dt1s5UC+j+n/vxB/mAjRGu2mBfX4TEf3LRlpvtmR5rVFiRXO0iOQO2/6Z7Kyn88ayyoK9Oxgag4xf
- potupcaQeCqqy/np+DQiz3sOqB7O82bFLup289XuWs9fZo/Fl6aNC4pqTYG+mpkKvgw+49DQ29ReN
- 0Ao8BGPw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58114)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=DE0kZ2PlT28YVD5BgsTUQV/7iIYJrvjrqwOjFbEQYUY=; b=mYr8sPWdJ38nHrmU3YJI+k3oso
+ toLNm2Tm0fHLBOdogwSzcQq9iFiqobLSu/QZ/AdQ9z6+i97dYRJ0ifE4AYmTyCnUkO2ZWwv1TPDcU
+ qB88XoFDKEzdL3refZKO1en4zT0EcDcfo7NfGl4OfaK7sIt3T8I8D+nFqVqC8rZATQsQIF6L5Iv5I
+ 8VYI80C4+DifX/r564Wje2PjPA7lkSJ4Rfb2JOhJ09NaiQ2F7GK7suL0OwLntZgJ3M9EVC/sTv9uY
+ AkXr7Se+mwr8uh1V9HP+fZ9mDLbAnpR5qZub43beHXL7s+3yD+gSidl3fuSnfERrmsQDjM3uYAYRT
+ gujkv0FA==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:36202 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u4d0B-0007sy-2L;
- Tue, 15 Apr 2025 10:54:47 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u4d08-0000GI-1a;
- Tue, 15 Apr 2025 10:54:44 +0100
-Date: Tue, 15 Apr 2025 10:54:44 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <Z_4s5DmCPKB8SUJv@shell.armlinux.org.uk>
-References: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
- <E1u3XG6-000EJg-V8@rmk-PC.armlinux.org.uk>
- <20250414174342.67fe4b1d@kernel.org>
+ (envelope-from <rmk@armlinux.org.uk>) id 1u4dJI-0007vd-2x;
+ Tue, 15 Apr 2025 11:14:33 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1u4dIh-000dT5-Kt; Tue, 15 Apr 2025 11:13:55 +0100
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250414174342.67fe4b1d@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: call
- phylink_start() and phylink_stop() in XDP functions
+Message-Id: <E1u4dIh-000dT5-Kt@rmk-PC.armlinux.org.uk>
+Date: Tue, 15 Apr 2025 11:13:55 +0100
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: intel: remove
+ unnecessary setting max_speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,60 +64,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 14, 2025 at 05:43:42PM -0700, Jakub Kicinski wrote:
-> On Sat, 12 Apr 2025 10:34:42 +0100 Russell King (Oracle) wrote:
-> > Phylink does not permit drivers to mess with the netif carrier, as
-> > this will de-synchronise phylink with the MAC driver. Moreover,
-> > setting and clearing the TE and RE bits via stmmac_mac_set() in this
-> > path is also wrong as the link may not be up.
-> > 
-> > Replace the netif_carrier_on(), netif_carrier_off() and
-> > stmmac_mac_set() calls with the appropriate phylink_start() and
-> > phylink_stop() calls, thereby allowing phylink to manage the netif
-> > carrier and TE/RE bits through the .mac_link_up() and .mac_link_down()
-> > methods.
-> > 
-> > Note that RE should only be set after the DMA is ready to avoid the
-> > receive FIFO between the MAC and DMA blocks overflowing, so
-> > phylink_start() needs to be placed after DMA has been started.
-> 
-> IIUC this will case a link loss when XDP is installed, if not disregard
-> the reset of the email.
+Phylink will already limit the MAC speed according to the interface,
+so if 2500BASE-X is selected, the maximum speed will be 2.5G.
+Similarly, if SGMII is selected, the maximum speed will be 1G.
+It is, therefore, not necessary to set a speed limit. Remove setting
+plat_dat->max_speed from this glue driver.
 
-It will, because the author who added XDP support to stmmac decided it
-was easier to tear everything down and rebuild, which meant (presumably)
-that it was necessary to use netif_carrier_off() to stop the net layer
-queueing packets to the driver. I'm just guessing - I know nothing
-about XDP, and never knowingly used it.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-> Any idea why it's necessary to mess with the link for XDP changes?
-
-Depends what you mean by "link". If you're asking why it messes with
-netif_carrier_foo(), my best guess is as above. However, phylink
-drivers are not allowed to mess with the netif_carrier state (as the
-commit message states.) This is not a new requirement, it's always
-been this way with phylink, and this pre-dates the addition of XDP
-to this driver.
-
-As long as the code requires the netif_carrier to be turned off, the
-only way to guarantee that in a phylink using driver is as per this
-patch.
-
-I'm guessing that the reason it does this is because it completely
-takes down the MAC and tx/rx rings to reprogram everything from
-scratch, and thus any interference from a packet coming in to be
-transmitted is going to cause problems.
-
-> I think we should mention in the commit message that the side effect is
-> link loss on XDP on / off. I don't know of any other driver which would
-> need this, stmmac is a real gift..
-
-I'll add that. However, it would be nice to find a different solution
-for XDP on this driver.
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 54db5b778304..96c893dd262f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -300,11 +300,8 @@ static void intel_speed_mode_2500(struct net_device *ndev, void *intel_data)
+ 	if (((data & SERDES_LINK_MODE_MASK) >> SERDES_LINK_MODE_SHIFT) ==
+ 	    SERDES_LINK_MODE_2G5) {
+ 		dev_info(priv->device, "Link Speed Mode: 2.5Gbps\n");
+-		priv->plat->max_speed = 2500;
+ 		priv->plat->phy_interface = PHY_INTERFACE_MODE_2500BASEX;
+ 		priv->plat->mdio_bus_data->default_an_inband = false;
+-	} else {
+-		priv->plat->max_speed = 1000;
+ 	}
+ }
+ 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
