@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C81A890D2
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 02:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6868A890E0
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 02:50:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B4ACC78F7B;
-	Tue, 15 Apr 2025 00:43:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FC5CC78F7B;
+	Tue, 15 Apr 2025 00:50:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C23BC78F75
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26401C78F75
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 00:43:45 +0000 (UTC)
+ Tue, 15 Apr 2025 00:50:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D7C8961127;
- Tue, 15 Apr 2025 00:43:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51250C4CEE2;
- Tue, 15 Apr 2025 00:43:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8907343B0E;
+ Tue, 15 Apr 2025 00:49:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564C8C4CEE2;
+ Tue, 15 Apr 2025 00:50:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744677823;
- bh=4ae4V/iCsu7Dm/UVFu21GxYfPTorOCXdVBpV9LrqHHk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Yt3PGILq/RNZhYPUlG+8q/pUOPhjI1fV/t/Xmev9/0Pk6iLyytypHcMQmAXS9RkfT
- pqD29Icaa4wo3UDg8Rw3Sl6W9s3tJCv9U51Vv9oLXSm9jfsROpODvS8ywTxbTUswB5
- YrvHrqXg2Rb9ToqcEz5XJ/XwNxTPNBKItGNzAVgDObSVSFKlf0/aAWBatzGrRSbvGY
- Ip9WcR3s72Y0xF4h/xUaVZ4d8Z8QQYphlNqRxPU5bkStf3MUp6ChYJ/vesgIWXuWVb
- /yCW+eerjUeHPHINLfAdHAoCn0zjQLKt0k/JNjR4iUJpDgWXlEOrcw3XQyMUGJHamJ
- bwBb60QHiHlhg==
-Date: Mon, 14 Apr 2025 17:43:42 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20250414174342.67fe4b1d@kernel.org>
-In-Reply-To: <E1u3XG6-000EJg-V8@rmk-PC.armlinux.org.uk>
-References: <Z/ozvMMoWGH9o6on@shell.armlinux.org.uk>
- <E1u3XG6-000EJg-V8@rmk-PC.armlinux.org.uk>
+ s=k20201202; t=1744678200;
+ bh=W6GdVISjXNNNfTPg1VWXU+iBRCd39F1D5CkWm+qTSxg=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=XCIWK2vpFxsGuS6nbZfIV3V5Zki+V3bEKonR5gV06bw4Brn33H/4cM3d4ZHJ+POek
+ l8qS8aLAtwqgL4DBCAVcwGzGCZh/Kx/ZdIGS+pagwNwnM3St0uwGzOBUK5o5f4AwEU
+ Blgm3fghvpvjiWX7bRcjFVQgTqadKlZIHEU0tsFFReZhzstP/cCdZfCrrYODT985kZ
+ +7SSFYs81XyKdRCOKMwVi1VGGk4qBCLg5ZVFkkneBTv5leOPAWNRhYXJu5WlP6H+QL
+ 4bsbIk+gLsr3lP278fIP9yUwQkr2xmss814Mb8b2DjoybfbJzngL5FIa/k+gO6gtbt
+ ejj+GoH6/RW+A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 70C623822D1A; Tue, 15 Apr 2025 00:50:39 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: call
- phylink_start() and phylink_stop() in XDP functions
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174467823825.2089736.3756695494399689904.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Apr 2025 00:50:38 +0000
+References: <Z_p0LzY2_HFupWK0@shell.armlinux.org.uk>
+In-Reply-To: <Z_p0LzY2_HFupWK0@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, vkoul@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/4] net: stmmac: qcom-ethqos:
+	simplifications
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,32 +61,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 12 Apr 2025 10:34:42 +0100 Russell King (Oracle) wrote:
-> Phylink does not permit drivers to mess with the netif carrier, as
-> this will de-synchronise phylink with the MAC driver. Moreover,
-> setting and clearing the TE and RE bits via stmmac_mac_set() in this
-> path is also wrong as the link may not be up.
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sat, 12 Apr 2025 15:09:51 +0100 you wrote:
+> Remove unnecessary code from the qcom-ethqos glue driver.
 > 
-> Replace the netif_carrier_on(), netif_carrier_off() and
-> stmmac_mac_set() calls with the appropriate phylink_start() and
-> phylink_stop() calls, thereby allowing phylink to manage the netif
-> carrier and TE/RE bits through the .mac_link_up() and .mac_link_down()
-> methods.
+> Start by consistently using -> serdes_speed to set the speed of the
+> serdes PHY rather than sometimes using ->serdes_speed and sometimes
+> using ->speed.
 > 
-> Note that RE should only be set after the DMA is ready to avoid the
-> receive FIFO between the MAC and DMA blocks overflowing, so
-> phylink_start() needs to be placed after DMA has been started.
+> This then allows the removal of ->speed in the second patch.
+> 
+> [...]
 
-IIUC this will case a link loss when XDP is installed, if not disregard
-the reset of the email.
+Here is the summary with links:
+  - [net-next,1/4] net: stmmac: qcom-ethqos: set serdes speed using serdes_speed
+    https://git.kernel.org/netdev/net-next/c/b4589810082a
+  - [net-next,2/4] net: stmmac: qcom-ethqos: remove ethqos->speed
+    https://git.kernel.org/netdev/net-next/c/a3d54648ada2
+  - [net-next,3/4] net: stmmac: qcom-ethqos: remove unnecessary setting max_speed
+    https://git.kernel.org/netdev/net-next/c/4c30093f784e
+  - [net-next,4/4] net: stmmac: qcom-ethqos: remove speed_mode_2500() method
+    https://git.kernel.org/netdev/net-next/c/0d1c18a10dd1
 
-Any idea why it's necessary to mess with the link for XDP changes?
-Is there no way to discard all the traffic and let the queues go
-idle without dropping the link?
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-I think we should mention in the commit message that the side effect is
-link loss on XDP on / off. I don't know of any other driver which would
-need this, stmmac is a real gift..
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
