@@ -2,45 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD7ECA89E46
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 14:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7EE7A89E96
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 14:51:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77482C78F68;
-	Tue, 15 Apr 2025 12:36:52 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 975FCC78018;
+	Tue, 15 Apr 2025 12:51:42 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DAD5CFAC47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 242CBCFAC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 12:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=GPNiIlieapZoa46LoynP5gB/dPNgvWO+FuJDZy8OfVk=; b=OXqLhMk89NX7IsWktAk0TKrnlh
- qvejs4yXNbyT0wjzLCVTa7hge8pRXl6btT7di2hXoXnKqLfsVC4Vwlq42AR/ub+NmQnV2O2iWKdRK
- cEilp20/wewe/jCj6gfqhPC3xIiCHx4M+Z2LtaWSiCKWl31HD76xxAdX8hkAi7Z8pk9Q=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1u4fWp-009RBl-RQ; Tue, 15 Apr 2025 14:36:39 +0200
-Date: Tue, 15 Apr 2025 14:36:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <c26c4edc-0b8c-4493-bda6-2d0530929c3d@lunn.ch>
-References: <E1u4dKb-000dV7-3B@rmk-PC.armlinux.org.uk>
+ Tue, 15 Apr 2025 12:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=DJelH3MXeuw+QhgIUBgXCxj63HuDy6jNjoA6xLDiFtY=; b=IpoMe21jYVhJpimOHsXYMa1CF3
+ XHXMrm+vLy33Vb6lHekeOYPP6VH4bJFr6txvj63QglTwI3Ifq8dsNqSRMEGKMJDLa7RbrL4mI3yTA
+ HPACRuylJqGHTUqb8RhlgqFJHdp71mSwAqNAVAJvqgUarnRE8qsqWO3XHGXWpQPUmHpYusLCFt/IF
+ 50BMTwR9Z6cVxXYm+HAKLaXDZchnTG9Rgtr47xJWtFESmQcTDUrIj0ppZd3+L9W3a4zACdP5u6/md
+ 3/Oj+K+j/wmYjZQgytD9qvBISGett6JnZKTTQse9f1tEDeCKv8EM8X+1kKloCGmJ1V4wb59mHgxkC
+ RgkxXHIA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59424)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1u4flE-0008AB-2Y;
+ Tue, 15 Apr 2025 13:51:32 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1u4fl9-0000Nk-1L;
+ Tue, 15 Apr 2025 13:51:27 +0100
+Date: Tue, 15 Apr 2025 13:51:27 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <Z_5WT_jOBgubjWQg@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1u4dKb-000dV7-3B@rmk-PC.armlinux.org.uk>
 Cc: Eric Dumazet <edumazet@google.com>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: sun8i: use
-	stmmac_pltfr_probe()
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: sunxi cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,17 +64,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 15, 2025 at 11:15:53AM +0100, Russell King (Oracle) wrote:
-> Using stmmac_pltfr_probe() simplifies the probe function. This will not
-> only call plat_dat->init (sun8i_dwmac_init), but also plat_dat->exit
-> (sun8i_dwmac_exit) appropriately if stmmac_dvr_probe() fails. This
-> results in an overall simplification of the glue driver.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Hi,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+This series cleans up the sunxi (sun7i) code in two ways:
 
-    Andrew
+1. it converts to use the new set_clk_tx_rate() method, even though
+   we don't use clk_tx_i. In doing so, I reformat the function to
+   read better, but with no changes to the code.
+
+2. convert from stmmac_dvr_probe() to stmmac_pltfr_probe(), and then
+   to its devm variant, which allows code simplification.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c | 58 +++++++++--------------
+ 1 file changed, 22 insertions(+), 36 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
