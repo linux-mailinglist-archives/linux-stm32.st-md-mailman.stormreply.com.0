@@ -2,83 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F16A8A047
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 15:56:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17DA5A8A30A
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 17:40:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8273CC78023;
-	Tue, 15 Apr 2025 13:56:11 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE732C78F68;
+	Tue, 15 Apr 2025 15:40:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F13EC78018
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC5C0C7801E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 13:56:10 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-39149bccb69so5498411f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 06:56:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744725370; x=1745330170;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=f7Ug76I8PBqsVyX7451rWvT3DCckR1pFD90rVI4kapk=;
- b=Ugebg8GZzYZ31U+tX7viJVRvxfLubR3Pzc2TFj1HANJ7qEnk2UW9KEOvjSuJf00f6+
- CAJIuaYn4qNVn4ob1L1qW9mXrhltDbLqknMrXgJekLTTbUa0lhb+eml4mNylO9r8GkQr
- D4bVWLnCsXOaqY6OYpcq/rJ8skVyVerxDEWk9H72h3nrV1yXjViPfMjpCJYF2CM83Lhr
- kSN5ZKAf7ox7mUo+ghc12u41qtb8szeG0vf5ItGqdQjxxoYZhTyFm3H2detNnW/nWXJN
- NsbkLWJ4WXyUrwnt00xb2NxO/aSl9VRjDofjYYdNIUAeXQZq7QFf6poyTS6xTLZVgrau
- +Cqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744725370; x=1745330170;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f7Ug76I8PBqsVyX7451rWvT3DCckR1pFD90rVI4kapk=;
- b=L30XTwH+fwDNTVxPI36Nfkdb+40+DIxaPZvMjt6VQoMRkn3cPfbgAM1CVTU0CtR4d3
- XcOBazabiF5zpFRSGMA8q9E+vP2Vy9yaXBzu+uprVTTsIFIWxAvIhX3zu+iqQHN+Kze2
- 5iZBqhlZwQCGba6IXnhtTarCh3mjN+s+sYzoNVh2tAnl90zMleGbKrF2w1t8rjqaWaYS
- vGbsyF/iVe5PL/0lEo2OcUk5W7/AAJs9RPV2ZblhcCvNIpulA/zU8USmwdHQx/ylRS0+
- i+qLvsJ0j79k4oDiwRKglRvpfUk+G2juMqMQjghzzCAhosO0w/mv5ttrRpVygcvi6fee
- 4NoA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVxCZ58gz98mzJ/Drv5LqqeZaMN6Uk7KU7nA7YpI5zoEo4M59CjN1yfE/qCG3fl9sKwmQZJI/WQXAyxzA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx1APL6J32n94urqBz27pUd9mNYYubR/vTOadWEg9WcfJ/xFUEP
- +O+6VF6upQhAuFcMP54yOXSuua/3tEUTsuWZRyRZ96CQWP+tPyJ2
-X-Gm-Gg: ASbGncuE/oEq5Vdkq8fyZOOQP69q01AF/Sd78lpnv55g3tFnd3KWdBiuKawX3N9BDHp
- +GJW1cCP/m6Ss+RhAfGAK8ufeQWzTVOY4QVmCmHrhr8V+aGeJV6Q/GZ3SSrMC4c2vumlEJqw1U1
- x5OL3+fFM3skdJ7TKZlkN8fIiq01CKHRLBZcpcX5jhUaYStISem/Q5Cnci3BVNP0ALqNJxEpLf4
- BUoMwxxpO5J5yoRF21XWS0Use+h+no69OnKqv2H4hv5DYWdWwfJUxgGiDQhJ5lbzHGwZDS351oh
- gCvsIbXOIw40yvjepb7HqW+hxya93Odah+K3h6t9hw==
-X-Google-Smtp-Source: AGHT+IEUc51u2H2A2sXDUuHdbW0oUHYeFA2HCqNohoAXTGQXycwn5Mca0dijghzNDofByf9HiAEEYQ==
-X-Received: by 2002:a05:6000:381:b0:39a:c80b:8283 with SMTP id
- ffacd0b85a97d-39ea521206bmr13186409f8f.31.1744725369575; 
- Tue, 15 Apr 2025 06:56:09 -0700 (PDT)
-Received: from Red ([2a01:cb1d:898:ab00:4a02:2aff:fe07:1efc])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-39eaf445515sm13993745f8f.89.2025.04.15.06.56.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Apr 2025 06:56:09 -0700 (PDT)
-Date: Tue, 15 Apr 2025 15:56:07 +0200
-From: Corentin Labbe <clabbe.montjoie@gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <Z_5ld6D1Yyo7Ysur@Red>
-References: <E1u4dKb-000dV7-3B@rmk-PC.armlinux.org.uk>
+ Tue, 15 Apr 2025 15:40:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2678C4A2F9;
+ Tue, 15 Apr 2025 15:40:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A2AC4CEEB;
+ Tue, 15 Apr 2025 15:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1744731604;
+ bh=7KBpmcvDBu/KzzwX4IoFm1q8sj2SXnAZYc6au3Szlxo=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=ib/1seQyBnL2lBlJq/wLpmIomb86PnfCSgDHWETSzyCFBuhBsvsETHcz3oOgavwgJ
+ 1lUbsKbj5hipvX5b63bclfP3UcSruBOMiVIANaOcJeQtly43wUYehAWMHcAoFk5oKR
+ 7UweC9mSmF1tp/++Xs+3HZoQPEQVkZwemhAJVAsPSvSfGqCR1OHTrlS+PAeao0+UDo
+ lFgTCdaksFBA2pW5GYxjU4W+pSFvb1I3czQQ9eEsf/I1Tq+0/ZlqEIB+A/S2iEs2ub
+ RFdJubthdtadfLdV4Y0HzX1mA/sGN2RmSFc6l2Pw3plhqteprwvqD+ZZ/HzzNjfver
+ ZW9z9fNT1n24g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33BF53822D55; Tue, 15 Apr 2025 15:40:43 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1u4dKb-000dV7-3B@rmk-PC.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Chen-Yu Tsai <wens@csie.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: sun8i: use
-	stmmac_pltfr_probe()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174473164174.2680773.17904225005838619235.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Apr 2025 15:40:41 +0000
+References: <Z_zP9BvZlqeq3Ssl@shell.armlinux.org.uk>
+In-Reply-To: <Z_zP9BvZlqeq3Ssl@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH v2 net-next 0/4] net: stmmac: anarion:
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,30 +56,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Le Tue, Apr 15, 2025 at 11:15:53AM +0100, Russell King (Oracle) a =E9crit :
-> Using stmmac_pltfr_probe() simplifies the probe function. This will not
-> only call plat_dat->init (sun8i_dwmac_init), but also plat_dat->exit
-> (sun8i_dwmac_exit) appropriately if stmmac_dvr_probe() fails. This
-> results in an overall simplification of the glue driver.
-> =
+Hello:
 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-> =
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 14 Apr 2025 10:05:56 +0100 you wrote:
+> A series of cleanups to the anarion glue driver.
+> 
+> Clean up anarion_config_dt() error handling, printing a human readable
+> error rather than the numeric errno, and use ERR_CAST().
+> 
+> Using a switch statement with incorrect "fallthrough;" for RGMII vs
+> non-RGMII is unnecessary when we have phy_interface_mode_is_rgmii().
+> Convert to use the helper.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v2,1/4] net: stmmac: anarion: clean up anarion_config_dt() error handling
+    https://git.kernel.org/netdev/net-next/c/c30a45a7e072
+  - [net-next,v2,2/4] net: stmmac: anarion: clean up interface parsing
+    https://git.kernel.org/netdev/net-next/c/a55ec9c811aa
+  - [net-next,v2,3/4] net: stmmac: anarion: use stmmac_pltfr_probe()
+    https://git.kernel.org/netdev/net-next/c/5956527e26ff
+  - [net-next,v2,4/4] net: stmmac: anarion: use devm_stmmac_pltfr_probe()
+    https://git.kernel.org/netdev/net-next/c/a1afabef915c
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Tested-by: Corentin Labbe <clabbe.montjoie@gmail.com>
-Tested-on: sun50i-h6-pine-h64
-Tested-on: sun8i-a83t-bananapi-m3
-
-Thanks
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
