@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD35A8A487
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 18:51:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2DA1A8A48C
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 18:52:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EB34C78023;
-	Tue, 15 Apr 2025 16:51:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABD7EC78023;
+	Tue, 15 Apr 2025 16:52:55 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1750CFAC47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FA77CFAC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 16:51:28 +0000 (UTC)
+ Tue, 15 Apr 2025 16:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=XBB1BlM2ZSZNNZTolYC0ypXeC8yVZSlnTfMScG9hK94=; b=1HAhl8l/XHJQy6NLH84HpJMGps
- I1FFBDGGv1jZinKFmrkQ1bORirjMQ0fvzhw6BfKWq5DInpGXQsZCMkB9XA5kFZbTi0xhWycvgrPsE
- jnX6wAkQ1OVEC08NyDD8Rg7YmmiCBu2AelClQ8jYdQYv+2w7zSal25x6nDhHnLeuKK14=;
+ bh=DSL23HcZL6KoCpUIDVQFu+IE7Bha2qwSLBwjMyfH8eY=; b=ClKU8vnTzlxOX7pHD6XKJIbhgf
+ Bh7R1xCKtAzahWbm0vUqK8Y7kAbk4s1/OT1ii4znynJo1CeKJSkVx+8OdGL/Xr3B5ikXUZgsHk6x0
+ XCAPNOkyoPIHTTvpifSVVtxW5U5EsplQ2yVXKY/ve/n+XAHUjRaY3fZfyyB1usdeTR5Y=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1u4jVD-009USO-Cc; Tue, 15 Apr 2025 18:51:15 +0200
-Date: Tue, 15 Apr 2025 18:51:15 +0200
+ id 1u4jWh-009UTx-Pd; Tue, 15 Apr 2025 18:52:47 +0200
+Date: Tue, 15 Apr 2025 18:52:47 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <1a6fa56c-c4f4-4bb2-8715-d9acddc3cef0@lunn.ch>
+Message-ID: <45094035-3d11-4e1b-ae38-5c4f688cb988@lunn.ch>
 References: <Z_6Mfx_SrionoU-e@shell.armlinux.org.uk>
- <E1u4jMd-000rCG-VU@rmk-PC.armlinux.org.uk>
+ <E1u4jMj-000rCM-31@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1u4jMd-000rCG-VU@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1u4jMj-000rCM-31@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: sti: use
- phy_interface_mode_is_rgmii()
+Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: sti: convert to
+ devm_stmmac_pltfr_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,9 +56,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 15, 2025 at 05:42:23PM +0100, Russell King (Oracle) wrote:
-> Replace the custom IS_PHY_IF_MODE_RGMII() macro with our generic
-> phy_interface_mode_is_rgmii() inline function.
+On Tue, Apr 15, 2025 at 05:42:29PM +0100, Russell King (Oracle) wrote:
+> Convert sti to use the generic devm_stmmac_pltfr_probe() which will
+> call plat_dat->init()/plat_dat->exit() as appropriate, thus
+> simplifying the code.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
