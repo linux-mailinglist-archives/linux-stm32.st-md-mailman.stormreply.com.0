@@ -2,95 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB35A8939C
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 08:00:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FBFA897AB
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Apr 2025 11:14:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DB37C78F81;
-	Tue, 15 Apr 2025 06:00:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85563CFAC42
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD154C78F68;
+	Tue, 15 Apr 2025 09:14:53 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A531DCFAC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Apr 2025 06:00:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F13D149E61;
- Tue, 15 Apr 2025 06:00:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0032C4CEDD;
- Tue, 15 Apr 2025 06:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744696821;
- bh=YyxASKKC3r1Z4ow/cLgYW4zg4LmPi857OufnknP3J3k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JquIGz51n1h3ng6uvE+1H9U4b08OKLgsHjUg0cNF2KQLYLrgtx0H7k593ZWL/7jTx
- fuVjsZSB2B3z+eJMqroklgRZ4/Pr/Loss1njGL/wFUL2xQczkffYf1D1pYL1Wly83Y
- dQsLVf9pe5u2YxoeIUzfNkhPh/F9iS0AWBHZngJSfUU5KysZ5zCDSNkM//WKamxk85
- GJ3+nm9ljXzlAmeU9hoZDPjx/X32zlkeYRLgevdbDywpV5pRnRmhnsN/NKlnKjmAMa
- X3ZFgkj8TDGsoRHTCUon5PPjtQAJCmOLHvDCL7cut3Ia3azsjOu8KsTPcweTVLRIIM
- TW1y16DwihVtA==
-Message-ID: <3dd741ef-4589-49cd-967f-8a2d72e75cf4@kernel.org>
-Date: Tue, 15 Apr 2025 08:00:17 +0200
+ Tue, 15 Apr 2025 09:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1744708491;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=0xBj6wYND6XkoPsEsHNHqa6He4rhHss1QsFv4wuPqUQ=;
+ b=b9hH2PkubbKFvEiaoqCSk4hyKnsX1lEvmVzyBmwGB/Xt1EG80je2FgdT1cnfaZlKBLnEK2
+ 85Vd9I3JnCGctCeZVz8nIWCwjObi523m2OfFUa88wuIuSZLtert/1MfyBkgW2wBmRe9vK6
+ CHaB60DjYvFD9ryM414kKd3p2abhZtc=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-BSs3Qn65N0yRbWNY7jdwtw-1; Tue, 15 Apr 2025 05:14:49 -0400
+X-MC-Unique: BSs3Qn65N0yRbWNY7jdwtw-1
+X-Mimecast-MFC-AGG-ID: BSs3Qn65N0yRbWNY7jdwtw_1744708489
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-43eed325461so32277255e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Apr 2025 02:14:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744708489; x=1745313289;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0xBj6wYND6XkoPsEsHNHqa6He4rhHss1QsFv4wuPqUQ=;
+ b=MDHxZuo0GR6YtulDvWSGC2w0VnkosuXrR31QQHn4TEQPH1KBpcS9VqB3AVHOSqjZr7
+ 6Ht6Tdhwg/5j2KEy6GakK8DlkRZr73hvNmVOauzHH4+ASarf3D3FomDHrxokH0ODv4xJ
+ Uu3ws5J70g71Q6fOFZ99TRJwsE7cFuYGlP9hCfQhpBerQEkNpFzWtWeQJb4kggawwHIL
+ 08I5H7vgvloJVrzAJUtWApnti4fCxKArbMe2MJcgS76mF7E5rkzqhGvxeC62dKRCHPtW
+ 9XLcjItJ/hfcA7lZnHKRRRvvnUt3aR2W0+uNVDTt3vb7PycToxIp8fe7NapW3ZmUSFVu
+ H8sQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXekBxEwzFPRYcHe3nRhaZL67/06T7WAt+AXQnOJd0cyxCI/PMkLY2FzGKU3zr7LMIAJDCdooE79OxY6g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzDLLXfDgZgnDQacXojLm3XXjNIrbysGFt0cWQ1l4n97RwoNfB6
+ 5lw393qsAKhkCnsocFS+sBdUe4x0aS1YkqokMfw90Ifbs22XYzMaUJoNBsfE4PmZtLxMvZs678T
+ UEiy85aAvLK04lf09W4LvU+QHsJ0NmsKNkoYGMyoN2LA4uEvWGGTYI89DA/+Djbl5RYnbHT4Jo1
+ ax4A==
+X-Gm-Gg: ASbGnctfHqhFbFHWWgr96+BhdS0enOHappWOQN7isy73PULvnpLv1+AvX/mt9KUn8Rr
+ LrHCpE2AUbYVm9f9AOxGjDzUd88+7zrJGkvznL5HZ1wxF1c1gwDhuA0QleN0TZJGGGtI2Obvwmz
+ Zdhc756ucuIs+S8yTcwVqvYSdCInYIe1a6MbhxjIyNzABvrV+CBhGoSmmWNTSULAApdkk4KL3Cq
+ JnPh6DM5Os1Zj8HQYiTqchrLt6BolUXt5g+MD4DRAo+44xUpj9fTP8lHZuWEtAOkeNmrohBlchL
+ F3E/Bi+rmK8UCErO1NfgUzW5B4i71ax58FList8=
+X-Received: by 2002:a05:600c:4704:b0:43b:d0fe:b8ac with SMTP id
+ 5b1f17b1804b1-43f3a9af837mr161581255e9.30.1744708488745; 
+ Tue, 15 Apr 2025 02:14:48 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHfovw9rzSF7/UhE9C8ntddanjESFbdGIFJq3+2VnKz80vs7HYJjirXobBVEqXPkTQJgbF6JA==
+X-Received: by 2002:a05:600c:4704:b0:43b:d0fe:b8ac with SMTP id
+ 5b1f17b1804b1-43f3a9af837mr161580875e9.30.1744708488359; 
+ Tue, 15 Apr 2025 02:14:48 -0700 (PDT)
+Received: from [192.168.88.253] (146-241-34-52.dyn.eolo.it. [146.241.34.52])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39eae9797aasm13673088f8f.56.2025.04.15.02.14.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Apr 2025 02:14:47 -0700 (PDT)
+Message-ID: <6851d6b8-109c-4de0-89a8-a56659c87cf4@redhat.com>
+Date: Tue, 15 Apr 2025 11:14:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Patrice Chotard <patrice.chotard@foss.st.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+To: Minda Chen <minda.chen@starfivetech.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-References: <20250410-upstream_ospi_v6-v9-0-cf119508848a@foss.st.com>
- <20250410-upstream_ospi_v6-v9-2-cf119508848a@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org
+References: <20250410070453.61178-1-minda.chen@starfivetech.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20250410070453.61178-1-minda.chen@starfivetech.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 5LQk7bvxnPDHkfQKl84KwZvkLbnzA2mhGnCr9qXw2HQ_1744708489
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
- QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
- gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
- /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
- iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
- VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
- 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
- xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
- eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
- AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
- MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
- Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
- ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
- vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
- oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
- lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
- t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
- uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
- 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
- 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20250410-upstream_ospi_v6-v9-2-cf119508848a@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v9 2/3] memory: Add STM32 Octo Memory
-	Manager driver
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [net-next v1] net: stmmac: starfive: Add serdes
+ PHY init/deinit function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,47 +103,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/04/2025 11:27, Patrice Chotard wrote:
-> +	for (i = 0; i < omm->nb_child; i++) {
-> +		idx = of_property_match_string(dev->of_node,
-> +					       "memory-region-names",
-> +					       mm_name[i]);
-> +		if (idx < 0)
-> +			continue;
+On 4/10/25 9:04 AM, Minda Chen wrote:
+> To support SGMII interface, add internal serdes PHY powerup/
+> powerdown function.
+> 
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 33 +++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> index 2013d7477eb7..f5923f847100 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> @@ -9,6 +9,8 @@
+>  
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/phy.h>
+> +#include <linux/phy/phy.h>
+>  #include <linux/property.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/regmap.h>
+> @@ -28,6 +30,7 @@ struct starfive_dwmac_data {
+>  struct starfive_dwmac {
+>  	struct device *dev;
+>  	const struct starfive_dwmac_data *data;
+> +	struct phy *serdes_phy;
+>  };
+>  
+>  static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
+> @@ -80,6 +83,26 @@ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
+>  	return 0;
+>  }
+>  
+> +static int starfive_dwmac_serdes_powerup(struct net_device *ndev, void *priv)
+> +{
+> +	struct starfive_dwmac *dwmac = priv;
+> +	int ret;
 > +
-> +		/* res1 only used on second loop iteration */
-> +		res1.start = res.start;
-> +		res1.end = res.end;
-> +
-> +		node = of_parse_phandle(dev->of_node, "memory-region", idx);
-> +		if (!node)
-> +			continue;
-> +
-> +		ret = of_address_to_resource(node, 0, &res);
-> +		if (ret) {
-> +			of_node_put(node);
-> +			dev_err(dev, "unable to resolve memory region\n");
-> +			return ret;
-> +		}
-> +
-> +		/* check that memory region fits inside OMM memory map area */
-> +		if (!resource_contains(omm->mm_res, &res)) {
-> +			dev_err(dev, "%s doesn't fit inside OMM memory map area\n",
-> +				mm_name[i]);
-> +			dev_err(dev, "%pR doesn't fit inside %pR\n", &res, omm->mm_res);
-> +
+> +	ret = phy_init(dwmac->serdes_phy);
+> +	if (ret)
+> +		return ret;
 
-I don't understand. I already pointed out that you leak OF reference.
-You fixed it in one place, ignoring all the rest. You must fix it
-everywhere.
+This is called also in case of PM suspend/resume. Do you need to keep
+the init here, or should that moved at probe time only? Similar question
+for phy_exit() below.
 
-> +			return -EFAULT;
-> +		}
-> +
+Thanks!
 
+Paolo
 
-Best regards,
-Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
