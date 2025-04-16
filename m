@@ -2,154 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75529A8B70A
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 12:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A541A8B711
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 12:45:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36FEFC78F83;
-	Wed, 16 Apr 2025 10:44:25 +0000 (UTC)
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazon11011000.outbound.protection.outlook.com [40.107.74.0])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CF34C78F81;
+	Wed, 16 Apr 2025 10:45:21 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E065C78F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F3A4CFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Apr 2025 10:44:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WBnRP2k3uSEaRRXxAB7GbqAGlMgCNF4LzrtYsH2wgTc4ed8lXY6WhlnSOZERCFPhw0I4mPJcYbuz1GMBxAvJifP0g67LuRYBbaVqhxH5g24HRBwPs2Tr/ZfmrfOcrDOa3oyIcRGqMSF38vN2zmA7qDgNIYEftY1XZJ+nzYqHslBHLWijhluiRojthdEDdD6gEBHYHNMZO3aWpm2sZGL4Jf1umzvzh9/ajt6aqhhUBCIZ+yl/jceiLRZCx2rnC+/Zy9ccLFo7+98jeUn/TAUnCiZzKngcF1RDGGrPa816sclHrebSOPev7Z0L4jxko8e9qD0V9c2sPUMGBlcyCvCFDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pxGFu46gdHo7Y0ps9pDiysNJuFFTEUBm2iFP7pSkQGQ=;
- b=PR8ZI+4sbdFu/KzTGRSV6AnJ5rbInXvupb+hXgErZbsLHMVEZ90OgHO5S4+daBfKSMhBaONvlSAUYGAymna+TeTrhF/V0BBhTCA/jAhl7Yc6AGEysKZm0M5ERMGlsgagQeo2fo/hMb17DN6gJYaOQjiSjRaEP3pFQWqZLjGhIqi7zOm5b7jCWmUAc727qB4+AWjHaaTGUioJqo946aToqDFyyPMAhT6uuowTtvBZ1pLxpJxOXFjIoU9lnSL+Bk6nieQnf/ukvlGdWwAJ/A/bS3VOucjL2AGWli+6ALjtluivqTx/w/8X7VN84+uyM7HhYIcJVYgZ2iEODg1jZKojpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pxGFu46gdHo7Y0ps9pDiysNJuFFTEUBm2iFP7pSkQGQ=;
- b=BYfbWobJbH+73YIPkl+5KipDTS5A5rTOQC7ccKjEHWqj10gkQIlApX5Gpon7vC66NDXEQVKYh6w7pun7Wlzas6O9HkwzJ9g5E1gmeOXQuxm2PFLdxycGYhtYMEtLnIujgsQp3lDOOPC4htd6ublwiRrBRGEvfo0yVBOW029vNfw=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY4PR01MB14085.jpnprd01.prod.outlook.com (2603:1096:405:20a::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.30; Wed, 16 Apr
- 2025 10:44:15 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1%4]) with mapi id 15.20.8632.030; Wed, 16 Apr 2025
- 10:44:15 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Richard Cochran <richardcochran@gmail.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, "Russell King (Oracle)"
- <rmk+kernel@armlinux.org.uk>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Thread-Topic: [PATCH net-next v7 3/4] net: stmmac: Add DWMAC glue layer for
- Renesas GBETH
-Thread-Index: AQHbrrv7I2E/fII5KEOw4dyRXO9jArOmGtvw
-Date: Wed, 16 Apr 2025 10:44:15 +0000
-Message-ID: <TY3PR01MB11346266349649D5E69923BAC86BD2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ Wed, 16 Apr 2025 10:45:20 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so36218145e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 16 Apr 2025 03:45:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1744800320; x=1745405120;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XQ+hpkAofX+aHeqBJMhX3S0jMco9fodVrcXEVVX60Pw=;
+ b=Aboh4XKOp5yBxUKOhM7a4lLqMDJ3aS/VwKipVCtyhkOd3ijtgbpzkzcos1Oq4CrSz3
+ EQ+u3ZE0BVCpPfG+Exgy9uRyCczRXECPWpMkhrABuYub3/c+PyXASgVGXBtfzenX65mf
+ yKgohUj/Y7nGJy5XqObQ4Z0JaBjOfn8GrSACC/DxPiyWqtAROMYg5DohJ0NPYPwBy+UV
+ JkpmsdhvsyoCRy4zOKRLsdGJrBHGzDjryVHN0yCD+6ejfxKigtv0c/KTbeHa/Itq8iGs
+ S06RpOHTWwLJePgBUab4Kvo2eHNsZ1iv15SnA9ZpSrZR/iuw80L5r+2FCz8cjzwJoqTz
+ 1GEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1744800320; x=1745405120;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XQ+hpkAofX+aHeqBJMhX3S0jMco9fodVrcXEVVX60Pw=;
+ b=Wijdk327bbOW71M2M6BII4gjP0PC2G+HWQxlaKet5mrltXq2qPpvJFed+pd4YACIpE
+ q5LkDwJbGk4E9m1R7xDPsd75OeGEhIfw1iCFehpns107H+KjFdHyrz01VhAvaM/ya+Ry
+ /Xncaj4pAjiBGo85Cw717oFXDK27BufxFQvU3U4/DX+qgCmRQGvLJbTes5Mkfz6m8v1Q
+ LzciAbnUA/f6PNjUlWKGTUI7aqThR8po1wOym4nrmMCzRUIMrT2A1btbQb+yf9PCd5cS
+ XjFOt6u5+bskgOQT10YdvdRl5yG0/k1+U8VQjy75+DDMQfZo1T0eZDkuPvHKSijQnxVP
+ rCEg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvuUk+8Z95UxGRFCUtivsk5Oi7dztYRcjvo7ivH9hAJJwToDRh8UxV0Zj0IdiRWt1wq+vxrL9Liym+TQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzYpi7q8do1vtlU23dQ0zgQbqxeXXZSg/nFeTXaLIN0kuA2YIib
+ oKiPftyxVgwM76YVcJ5PQ1DeY0GG2doaT/P+AfJgU9hbIPXUfSIF0/qxShaAWi10A7nnpycaC3b
+ 1qrnt2t4XZmgXWC6vKGXFdBHD1DU=
+X-Gm-Gg: ASbGnctbBOeUDuvqt9T1nVbE2gPonIFRaOaOEIYWotksBpPFPVhl7DrTqSWhhpkKakl
+ j9sz6BpFn/e3HMa2qCp+K5bt7VS9yYVLLIKNzIXc8J4ccKe6T61nYbjyWU0x3PYCcfhR1uJeSiL
+ GFYbvVJfKw6RNF9IF5d7TMXZE5Cw/NxBgR2tKjyd2xDj4j3V5VzSRTYHs=
+X-Google-Smtp-Source: AGHT+IHceAQPkYgr6gv4d+47dQi2BveM4MNunE8eLD0kPVn7VMp8NlOF14LAKjl5p9eftjHmJMrjHs4kMBezXamCYyU=
+X-Received: by 2002:a05:6000:1863:b0:39a:ca04:3e4d with SMTP id
+ ffacd0b85a97d-39ee5b1123amr1251169f8f.7.1744800319726; Wed, 16 Apr 2025
+ 03:45:19 -0700 (PDT)
+MIME-Version: 1.0
 References: <20250416104015.47788-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <20250416104015.47788-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 In-Reply-To: <20250416104015.47788-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB14085:EE_
-x-ms-office365-filtering-correlation-id: 2e0d90d3-a347-4f86-6e36-08dd7cd3a1ee
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|38070700018|921020; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?3ky/LmWXuqXvHozUS/im3nlaVtkKMYy3a2pCRQicWnR1rOyq7cXCvEoXUWRb?=
- =?us-ascii?Q?1tT/cqTW+hgRggdtTagN/7zVH/iAj0OVdZLVy5xDyxmN/JHDLCs5fR9X2b0O?=
- =?us-ascii?Q?CjgtIqHRNS8mVvNc3fF47mvw/RD3+WzYXG+65PIv+WiBademHNxfx9ODmx+6?=
- =?us-ascii?Q?HrPwQ9T2TFUuRIzvO8gUE0oj9715hcMXzGI8Omd1h7WVxCpUpFFDbGrv60D6?=
- =?us-ascii?Q?uOOjEurJFe+oUckpktfr9d9sX4FZuuvC63JV6QtkvY41/veRHgIUnps9x0vI?=
- =?us-ascii?Q?AKndjtmjmhhUyqTBW0MWWQSpLdCR4Sjrq3yPRDfCK7Hecpf5B/tBYK/X127+?=
- =?us-ascii?Q?4DbzlSaO3xpgqmhCzFNSQZRedDXD155tSDoYWS/bbtwcMzbbDnwkIfwnoklF?=
- =?us-ascii?Q?wjUCpkyr7r9UPt2lKyJbi7aAOfofr/Fee+Er3hmHHuZrVWuz/MQJVWHfiNSi?=
- =?us-ascii?Q?kfTDk/F/qTdq/hXc6dzBYkfNJA8V+meNn8ONWxrh/m/VNqJyGaXxsvdCAvre?=
- =?us-ascii?Q?u5OghrZPvV4Cyu70tRHL00R6vXb5BhR9BGenc4WrmJ5QnHr5k+bLktU8q8ZD?=
- =?us-ascii?Q?wjcjQQUVkhHYb/vLLQuFepJujBR3m4wFfvjj43mAmgTkKDcRA1AGTaBscykU?=
- =?us-ascii?Q?Rmtlv6B0yiuY8f0CQwCGDrRL+m+dp0KZTuNfXlMNeXvOqAeWyW9ZtMmXaVLk?=
- =?us-ascii?Q?0KW1197Xax1pXBjyozK7vPf0b4Rcc5Z9hJ8RAzCDGz1VV1OxzemPGwxZ+zEm?=
- =?us-ascii?Q?zgsBPIMHVvW/s7CyCE83odFgjJ2Vec8xu6Ii7ncDksIr2H2NW/i0vDk7d0uW?=
- =?us-ascii?Q?AcA5h3jMBa0z9y18ni4tfGRKkkdeJoCkPeYMIlWxAjfTLsYTX+B9dn8Ixuwg?=
- =?us-ascii?Q?nCDouK1G9uyHpuWkp9zNH+h1GCKiIWTq7XqwpOMv9OvrX4Bi7GU+h8XdEXWk?=
- =?us-ascii?Q?MESV8jpXba/1Ss+afASVRApybewpsPnqK9Yw4O5Bm69+GGa6rdrxqXqPqj2q?=
- =?us-ascii?Q?H2vT8URIrfEOeXKRI2/tstBLzNFaqFREr+o3jHT28HCrUbb8eXFdbEpKNtOe?=
- =?us-ascii?Q?6ayWN8uH2PrwbeKP3ING7NlZ5bcphChNlmjP7s/8KMo5Cl7mbu1QKpRL1k02?=
- =?us-ascii?Q?lJun5CarX4ArcHBDtwcTNuWdbjYSXkNc5JLrfdJyCVO1SPnxOw52LYz0tkRA?=
- =?us-ascii?Q?t7yCFL4L3Ur7i6WC3hLvN7StR/E8ROqa5aiZSxnbee+vWtzIDnM5xNtyWlEX?=
- =?us-ascii?Q?CpYhXIgEfvPZoDh5jn9rhE09hnolwDC0tfJsZ0HDaU5PkavR2rs43fpq64k5?=
- =?us-ascii?Q?G0QWck7NtvG4CPh4z2N4iAlT0dSsAaJZ7kG6O8rcgDozs84wlL7uBjZHSdaC?=
- =?us-ascii?Q?d+qFD7AZne7si/RpjO3tGPshMWlqLwtowz5uIGE26Z7IEpyz8CcxITYm8tfl?=
- =?us-ascii?Q?uEvEpjkU4b00Rv6NTmNyRqM/fl8v2IHcLrr2RJRuMDFJOYZ3lolSc9uxKxOm?=
- =?us-ascii?Q?pyBWP33XO1TTQ/4=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700018)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+lKkPhY1K1te/ZISlMg5tlAMhfQaFFLbHJ6s+OQMPeQ+EFjg+Mcg5oLwnToE?=
- =?us-ascii?Q?NZ8O9Fvzq+455YCoeccLSeyeUB0pG2ZBtpI/zHN8KDlOAq5Vh9VcjTFqVjfj?=
- =?us-ascii?Q?eO2FmHK3AkB/PPGBGNfNfg00P2nfJSof+XR5BwvQVEb7PDGluwwi+ezIYENM?=
- =?us-ascii?Q?/9ZxB0eUP6VQc7C7wPTZ+Gye7Z3YOcT/T5NCuLM724mfhO5gmlUDG4NaLoSq?=
- =?us-ascii?Q?i+hJH+smBFHM7cq2r5a3MW3lljQZhu0ff8iMxOgeiuHdPYgFcXAu2cP2AfzW?=
- =?us-ascii?Q?0d4hSX34XqJmzWJjcaJI3PPsEPkTCUxn/0BeETaX+HO6Ms0u/gTuALfKbv/G?=
- =?us-ascii?Q?iTqQnMK5Sp1wDHkQSxagyWfFf9zxx8wcNokMALHplURCn0JcIb+ZaZMrlC4b?=
- =?us-ascii?Q?yRy1hFsPRSyfaSc7HOfRLAeT/tS67yJw2mmTcfH6YrqPdjTYnSU/n8KrPVez?=
- =?us-ascii?Q?kqAWeE0jA1zNScDFqiF7FgjXV0RucKaJAuyyrRrjTAmU80NVdL24Ze9GJ1/8?=
- =?us-ascii?Q?pS5B5OQVhthn0mqgIX7B9QnsT9gMoM8f39SpN5e1rex17PtcF2KqxzBOM+GV?=
- =?us-ascii?Q?SoCorbe41ak8ZfpmxgQw9HU8vHUT/mhEGNPjZ5692gwchWpkTn03fw8/eN5q?=
- =?us-ascii?Q?hyC+II4Ot/Ws7z4esQRetfCTmvkUxKGmXtntt/XrI/J8LleSKqW1YyE7DNSK?=
- =?us-ascii?Q?C3lJr/5TqgTv0Wgn8MRwE0tVicAHikMi1vKPa3+RRaQf3ahCPrtuOMSx6dM1?=
- =?us-ascii?Q?RQkph5443y5gFxRbHgXBeXVDjSmQBYP9j1ETZ05eVb1/sXaC+cVFDS+5XFJC?=
- =?us-ascii?Q?NATbA29M2yqxxB3bzVpRRWfJb6dhyP+KQTG52Oj1Iob1ahgW1TKk6Aok4Lgi?=
- =?us-ascii?Q?lkrBiVMd/ZGIBbwz9bSpWeCAgpjrgTMI94G7EPdiCoKQ9CAQwuNe2tsavzZi?=
- =?us-ascii?Q?xcL/St4T22SLqBL3wX9ekYFSuDuiWhpkLxCURBRVLJdVwX1qAydM+eVDS1S+?=
- =?us-ascii?Q?/d9BpcNkKOrO2UNgLF5i3+IcQJocfnMIquVb343h1cgF4r3oRJ8TPq0AGwTd?=
- =?us-ascii?Q?1rctqMMVaeqYMTr4b6t5r+1EiYWpJ4bj4hKOdq/R14UH6NmjOjlc4JnxuAu6?=
- =?us-ascii?Q?s9B152XWYcxnXXN7X5EjRBJvVNXQRCzhVVEaUEsOV9DidSdpQOnRQPJvcOVm?=
- =?us-ascii?Q?uVqvhd+xpg4rFYw1xe6kdgoQ1F8M9BKXnYJ9ZhAFIIsfraRDzue6yW58XBN5?=
- =?us-ascii?Q?w8DFRcDMiNToA/3R8ndKxTqwaNWqd1tRTXcUCe4lOKDVA9ZcYZA2UznjlEmw?=
- =?us-ascii?Q?COU93OsiqxXMFUvn3GcbF8Mjlf1mWxzYqTqsqndxDfY231II3dzVoQ4q7LeR?=
- =?us-ascii?Q?6yqT97KXkotkJw4MQJ+dXZygyg1nWHKVebgGg0nniDDrFAWZZNRNGff2XDDf?=
- =?us-ascii?Q?kf8PZEOguWM0+5oSnb7GITG5beBFLPEaTLB+LOes5O3F2FAAd52Fq8MzY5qF?=
- =?us-ascii?Q?BdB77aW1SQfQFWFiRG4mgi6L8BJ4+1yDR0EmUrjSG1iXzA4xQVdBJ4+I3qPD?=
- =?us-ascii?Q?IQlfQgCU9UHGzPGQ/j/95u3gcVeVt8djU3zMVLWTLxMq1kaqyb/531E8EVBt?=
- =?us-ascii?Q?Vg=3D=3D?=
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e0d90d3-a347-4f86-6e36-08dd7cd3a1ee
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2025 10:44:15.2680 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 42TTSaEimOfGnjsMiWRnmUdX3pgMasDaYZ4sLl8rVPjKwQtGKS1n10a2nDRyJJaeHUiw1tz8mUBbW3SlxUMhVeHKwfwW+4KudGDO9BnLsec=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14085
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 16 Apr 2025 11:44:53 +0100
+X-Gm-Features: ATxdqUFZg4onSRXp1_kJuV7m9X73pVYBtmBk0hrdoERO50FU_acfBNENrSpy6UU
+Message-ID: <CA+V-a8ua8anSCuyEYrdcpcCcdzE4EmQ0SDidYfiwe9zzezccaA@mail.gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Richard Cochran <richardcochran@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net-next v7 3/4] net: stmmac: Add DWMAC
  glue layer for Renesas GBETH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -163,228 +96,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Prabhakar,
-
-Thanks for the patch.
-
-> -----Original Message-----
-> From: Prabhakar <prabhakar.csengg@gmail.com>
-> Sent: 16 April 2025 11:40
-> Subject: [PATCH net-next v7 3/4] net: stmmac: Add DWMAC glue layer for Renesas GBETH
-> 
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Add the DWMAC glue layer for the GBETH IP found in the Renesas RZ/V2H(P) SoC.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
->  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
->  .../stmicro/stmmac/dwmac-renesas-gbeth.c      | 146 ++++++++++++++++++
->  3 files changed, 158 insertions(+)
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index 3c820ef56775..2c99b23f0faa 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -131,6 +131,17 @@ config DWMAC_QCOM_ETHQOS
->  	  This selects the Qualcomm ETHQOS glue layer support for the
->  	  stmmac device driver.
-> 
-> +config DWMAC_RENESAS_GBETH
-> +	tristate "Renesas RZ/V2H(P) GBETH support"
-> +	default ARCH_RENESAS
-> +	depends on OF && (ARCH_RENESAS || COMPILE_TEST)
-> +	help
-> +	  Support for Gigabit Ethernet Interface (GBETH) on Renesas
-> +	  RZ/V2H(P) SoCs.
-> +
-> +	  This selects the Renesas RZ/V2H(P) Soc specific glue layer support
-> +	  for the stmmac device driver.
-> +
->  config DWMAC_ROCKCHIP
->  	tristate "Rockchip dwmac support"
->  	default ARCH_ROCKCHIP
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> index 594883fb4164..91050215511b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-> @@ -20,6 +20,7 @@ obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
->  obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
->  obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
->  obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
-> +obj-$(CONFIG_DWMAC_RENESAS_GBETH) += dwmac-renesas-gbeth.o
->  obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
->  obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
->  obj-$(CONFIG_DWMAC_S32)		+= dwmac-s32.o
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> new file mode 100644
-> index 000000000000..f34bec7794e2
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> @@ -0,0 +1,146 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * dwmac-renesas-gbeth.c - DWMAC Specific Glue layer for Renesas GBETH
-> + *
-> + * The Rx and Tx clocks are supplied as follows for the GBETH IP.
-> + *
-> + *                         Rx / Tx
-> + *   -------+------------- on / off -------
-> + *          |
-> + *          |            Rx-180 / Tx-180
-> + *          +---- not ---- on / off -------
-> + *
-> + * Copyright (C) 2025 Renesas Electronics Corporation  */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +
-> +#include "stmmac_platform.h"
-> +
-> +struct renesas_gbeth {
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct reset_control *rstc;
-> +	struct device *dev;
-> +};
-> +
-> +static const char *const renesas_gbeth_clks[] = {
-> +	"tx", "tx-180", "rx", "rx-180",
-> +};
-> +
-> +static int renesas_gbeth_init(struct platform_device *pdev, void *priv)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct renesas_gbeth *gbeth = priv;
-> +	int ret;
-> +
-> +	plat_dat = gbeth->plat_dat;
-> +
-> +	ret = reset_control_deassert(gbeth->rstc);
-> +	if (ret) {
-> +		dev_err(gbeth->dev, "Reset deassert failed\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_bulk_prepare_enable(plat_dat->num_clks,
-> +				      plat_dat->clks);
-> +	if (ret)
-> +		reset_control_assert(gbeth->rstc);
-> +
-> +	return 0;
-
-	return ret??
-
-Cheers,
-Biju
-
-> +}
-> +
-> +static void renesas_gbeth_exit(struct platform_device *pdev, void
-> +*priv) {
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct renesas_gbeth *gbeth = priv;
-> +	int ret;
-> +
-> +	plat_dat = gbeth->plat_dat;
-> +
-> +	clk_bulk_disable_unprepare(plat_dat->num_clks, plat_dat->clks);
-> +
-> +	ret = reset_control_assert(gbeth->rstc);
-> +	if (ret)
-> +		dev_err(gbeth->dev, "Reset assert failed\n"); }
-> +
-> +static int renesas_gbeth_probe(struct platform_device *pdev) {
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct device *dev = &pdev->dev;
-> +	struct renesas_gbeth *gbeth;
-> +	unsigned int i;
-> +	int err;
-> +
-> +	err = stmmac_get_platform_resources(pdev, &stmmac_res);
-> +	if (err)
-> +		return dev_err_probe(dev, err,
-> +				     "failed to get resources\n");
-> +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return dev_err_probe(dev, PTR_ERR(plat_dat),
-> +				     "dt configuration failed\n");
-> +
-> +	gbeth = devm_kzalloc(dev, sizeof(*gbeth), GFP_KERNEL);
-> +	if (!gbeth)
-> +		return -ENOMEM;
-> +
-> +	plat_dat->num_clks = ARRAY_SIZE(renesas_gbeth_clks);
-> +	plat_dat->clks = devm_kcalloc(dev, plat_dat->num_clks,
-> +				      sizeof(*plat_dat->clks), GFP_KERNEL);
-> +	if (!plat_dat->clks)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < plat_dat->num_clks; i++)
-> +		plat_dat->clks[i].id = renesas_gbeth_clks[i];
-> +
-> +	err = devm_clk_bulk_get(dev, plat_dat->num_clks, plat_dat->clks);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	plat_dat->clk_tx_i = stmmac_pltfr_find_clk(plat_dat, "tx");
-> +	if (!plat_dat->clk_tx_i)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "error finding tx clock\n");
-> +
-> +	gbeth->rstc = devm_reset_control_get_exclusive(dev, NULL);
-> +	if (IS_ERR(gbeth->rstc))
-> +		return PTR_ERR(gbeth->rstc);
-> +
-> +	gbeth->dev = dev;
-> +	gbeth->plat_dat = plat_dat;
-> +	plat_dat->bsp_priv = gbeth;
-> +	plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
-> +	plat_dat->init = renesas_gbeth_init;
-> +	plat_dat->exit = renesas_gbeth_exit;
-> +	plat_dat->flags |= STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY |
-> +			   STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP |
-> +			   STMMAC_FLAG_SPH_DISABLE;
-> +
-> +	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res); }
-> +
-> +static const struct of_device_id renesas_gbeth_match[] = {
-> +	{ .compatible = "renesas,rzv2h-gbeth", },
-> +	{ /* Sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, renesas_gbeth_match);
-> +
-> +static struct platform_driver renesas_gbeth_driver = {
-> +	.probe  = renesas_gbeth_probe,
-> +	.driver = {
-> +		.name		= "renesas-gbeth",
-> +		.of_match_table	= renesas_gbeth_match,
-> +	},
-> +};
-> +module_platform_driver(renesas_gbeth_driver);
-> +
-> +MODULE_AUTHOR("Lad Prabhakar
-> +<prabhakar.mahadev-lad.rj@bp.renesas.com>");
-> +MODULE_DESCRIPTION("Renesas GBETH DWMAC Specific Glue layer");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.49.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQWxsLAoKT24gV2VkLCBBcHIgMTYsIDIwMjUgYXQgMTE6NDDigK9BTSBQcmFiaGFrYXIgPHBy
+YWJoYWthci5jc2VuZ2dAZ21haWwuY29tPiB3cm90ZToKPgo+IEZyb206IExhZCBQcmFiaGFrYXIg
+PHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4KPgo+IEFkZCB0aGUgRFdN
+QUMgZ2x1ZSBsYXllciBmb3IgdGhlIEdCRVRIIElQIGZvdW5kIGluIHRoZSBSZW5lc2FzIFJaL1Yy
+SChQKQo+IFNvQy4KPgo+IFNpZ25lZC1vZmYtYnk6IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5t
+YWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4KPiBSZXZpZXdlZC1ieTogUnVzc2VsbCBLaW5n
+IChPcmFjbGUpIDxybWsra2VybmVsQGFybWxpbnV4Lm9yZy51az4KPiAtLS0KPiAgZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZyAgIHwgIDExICsrCj4gIGRyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlICB8ICAgMSArCj4gIC4uLi9zdG1p
+Y3JvL3N0bW1hYy9kd21hYy1yZW5lc2FzLWdiZXRoLmMgICAgICB8IDE0NiArKysrKysrKysrKysr
+KysrKysKPiAgMyBmaWxlcyBjaGFuZ2VkLCAxNTggaW5zZXJ0aW9ucygrKQo+ICBjcmVhdGUgbW9k
+ZSAxMDA2NDQgZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmVuZXNh
+cy1nYmV0aC5jCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvS2NvbmZpZyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL0tjb25m
+aWcKPiBpbmRleCAzYzgyMGVmNTY3NzUuLjJjOTliMjNmMGZhYSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnCj4gKysrIGIvZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZwo+IEBAIC0xMzEsNiArMTMxLDE3IEBA
+IGNvbmZpZyBEV01BQ19RQ09NX0VUSFFPUwo+ICAgICAgICAgICBUaGlzIHNlbGVjdHMgdGhlIFF1
+YWxjb21tIEVUSFFPUyBnbHVlIGxheWVyIHN1cHBvcnQgZm9yIHRoZQo+ICAgICAgICAgICBzdG1t
+YWMgZGV2aWNlIGRyaXZlci4KPgo+ICtjb25maWcgRFdNQUNfUkVORVNBU19HQkVUSAo+ICsgICAg
+ICAgdHJpc3RhdGUgIlJlbmVzYXMgUlovVjJIKFApIEdCRVRIIHN1cHBvcnQiCj4gKyAgICAgICBk
+ZWZhdWx0IEFSQ0hfUkVORVNBUwo+ICsgICAgICAgZGVwZW5kcyBvbiBPRiAmJiAoQVJDSF9SRU5F
+U0FTIHx8IENPTVBJTEVfVEVTVCkKPiArICAgICAgIGhlbHAKPiArICAgICAgICAgU3VwcG9ydCBm
+b3IgR2lnYWJpdCBFdGhlcm5ldCBJbnRlcmZhY2UgKEdCRVRIKSBvbiBSZW5lc2FzCj4gKyAgICAg
+ICAgIFJaL1YySChQKSBTb0NzLgo+ICsKPiArICAgICAgICAgVGhpcyBzZWxlY3RzIHRoZSBSZW5l
+c2FzIFJaL1YySChQKSBTb2Mgc3BlY2lmaWMgZ2x1ZSBsYXllciBzdXBwb3J0Cj4gKyAgICAgICAg
+IGZvciB0aGUgc3RtbWFjIGRldmljZSBkcml2ZXIuCj4gKwo+ICBjb25maWcgRFdNQUNfUk9DS0NI
+SVAKPiAgICAgICAgIHRyaXN0YXRlICJSb2NrY2hpcCBkd21hYyBzdXBwb3J0Igo+ICAgICAgICAg
+ZGVmYXVsdCBBUkNIX1JPQ0tDSElQCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0
+L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvTWFrZWZpbGUKPiBpbmRleCA1OTQ4ODNmYjQxNjQuLjkxMDUwMjE1NTExYiAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9NYWtlZmlsZQo+ICsr
+KyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlCj4gQEAgLTIw
+LDYgKzIwLDcgQEAgb2JqLSQoQ09ORklHX0RXTUFDX0xQQzE4WFgpICAgKz0gZHdtYWMtbHBjMTh4
+eC5vCj4gIG9iai0kKENPTkZJR19EV01BQ19NRURJQVRFSykgICArPSBkd21hYy1tZWRpYXRlay5v
+Cj4gIG9iai0kKENPTkZJR19EV01BQ19NRVNPTikgICAgICArPSBkd21hYy1tZXNvbi5vIGR3bWFj
+LW1lc29uOGIubwo+ICBvYmotJChDT05GSUdfRFdNQUNfUUNPTV9FVEhRT1MpICAgICAgICArPSBk
+d21hYy1xY29tLWV0aHFvcy5vCj4gK29iai0kKENPTkZJR19EV01BQ19SRU5FU0FTX0dCRVRIKSAr
+PSBkd21hYy1yZW5lc2FzLWdiZXRoLm8KPiAgb2JqLSQoQ09ORklHX0RXTUFDX1JPQ0tDSElQKSAg
+ICs9IGR3bWFjLXJrLm8KPiAgb2JqLSQoQ09ORklHX0RXTUFDX1JaTjEpICAgICAgICs9IGR3bWFj
+LXJ6bjEubwo+ICBvYmotJChDT05GSUdfRFdNQUNfUzMyKSAgICAgICAgICAgICAgICArPSBkd21h
+Yy1zMzIubwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1h
+Yy9kd21hYy1yZW5lc2FzLWdiZXRoLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9kd21hYy1yZW5lc2FzLWdiZXRoLmMKPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+IGluZGV4
+IDAwMDAwMDAwMDAwMC4uZjM0YmVjNzc5NGUyCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJlbmVzYXMtZ2JldGguYwo+IEBA
+IC0wLDAgKzEsMTQ2IEBACj4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wKwo+
+ICsvKgo+ICsgKiBkd21hYy1yZW5lc2FzLWdiZXRoLmMgLSBEV01BQyBTcGVjaWZpYyBHbHVlIGxh
+eWVyIGZvciBSZW5lc2FzIEdCRVRICj4gKyAqCj4gKyAqIFRoZSBSeCBhbmQgVHggY2xvY2tzIGFy
+ZSBzdXBwbGllZCBhcyBmb2xsb3dzIGZvciB0aGUgR0JFVEggSVAuCj4gKyAqCj4gKyAqICAgICAg
+ICAgICAgICAgICAgICAgICAgIFJ4IC8gVHgKPiArICogICAtLS0tLS0tKy0tLS0tLS0tLS0tLS0g
+b24gLyBvZmYgLS0tLS0tLQo+ICsgKiAgICAgICAgICB8Cj4gKyAqICAgICAgICAgIHwgICAgICAg
+ICAgICBSeC0xODAgLyBUeC0xODAKPiArICogICAgICAgICAgKy0tLS0gbm90IC0tLS0gb24gLyBv
+ZmYgLS0tLS0tLQo+ICsgKgo+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjUgUmVuZXNhcyBFbGVjdHJv
+bmljcyBDb3Jwb3JhdGlvbgo+ICsgKi8KPiArCj4gKyNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAr
+I2luY2x1ZGUgPGxpbnV4L2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3Jl
+c2V0Lmg+Cj4gKwo+ICsjaW5jbHVkZSAic3RtbWFjX3BsYXRmb3JtLmgiCj4gKwo+ICtzdHJ1Y3Qg
+cmVuZXNhc19nYmV0aCB7Cj4gKyAgICAgICBzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBs
+YXRfZGF0Owo+ICsgICAgICAgc3RydWN0IHJlc2V0X2NvbnRyb2wgKnJzdGM7Cj4gKyAgICAgICBz
+dHJ1Y3QgZGV2aWNlICpkZXY7Cj4gK307Cj4gKwo+ICtzdGF0aWMgY29uc3QgY2hhciAqY29uc3Qg
+cmVuZXNhc19nYmV0aF9jbGtzW10gPSB7Cj4gKyAgICAgICAidHgiLCAidHgtMTgwIiwgInJ4Iiwg
+InJ4LTE4MCIsCj4gK307Cj4gKwo+ICtzdGF0aWMgaW50IHJlbmVzYXNfZ2JldGhfaW5pdChzdHJ1
+Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LCB2b2lkICpwcml2KQo+ICt7Cj4gKyAgICAgICBzdHJ1
+Y3QgcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXRfZGF0Owo+ICsgICAgICAgc3RydWN0IHJlbmVz
+YXNfZ2JldGggKmdiZXRoID0gcHJpdjsKPiArICAgICAgIGludCByZXQ7Cj4gKwo+ICsgICAgICAg
+cGxhdF9kYXQgPSBnYmV0aC0+cGxhdF9kYXQ7Cj4gKwo+ICsgICAgICAgcmV0ID0gcmVzZXRfY29u
+dHJvbF9kZWFzc2VydChnYmV0aC0+cnN0Yyk7Cj4gKyAgICAgICBpZiAocmV0KSB7Cj4gKyAgICAg
+ICAgICAgICAgIGRldl9lcnIoZ2JldGgtPmRldiwgIlJlc2V0IGRlYXNzZXJ0IGZhaWxlZFxuIik7
+Cj4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAg
+cmV0ID0gY2xrX2J1bGtfcHJlcGFyZV9lbmFibGUocGxhdF9kYXQtPm51bV9jbGtzLAo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhdF9kYXQtPmNsa3MpOwo+ICsgICAg
+ICAgaWYgKHJldCkKPiArICAgICAgICAgICAgICAgcmVzZXRfY29udHJvbF9hc3NlcnQoZ2JldGgt
+PnJzdGMpOwo+ICsKPiArICAgICAgIHJldHVybiAwOwpKdXN0IG5vdGljZWQgdGhpcyBoYXMgdG8g
+YmUgcmV0LCBJJ2xsIHNlbmQgYSBuZXcgdmVyc2lvbiBmaXhpbmcgdGhpcy4KCkNoZWVycywKUHJh
+Ymhha2FyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
