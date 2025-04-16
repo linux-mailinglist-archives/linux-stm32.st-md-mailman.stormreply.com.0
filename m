@@ -2,55 +2,150 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D2F4A95F50
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A5AA95F51
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 09:27:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48838C78F95;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BCD3C78F96;
 	Tue, 22 Apr 2025 07:27:03 +0000 (UTC)
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0501DC6DD9A
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40EE6C78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Apr 2025 13:13:49 +0000 (UTC)
-X-CSE-ConnectionGUID: Q88s0WCoTpy8kQw+Z7mjWQ==
-X-CSE-MsgGUID: BdcF5JAqRmKL37V0LnFwwQ==
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 14 Apr 2025 22:13:47 +0900
-Received: from [10.226.92.218] (unknown [10.226.92.218])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 71E9041C595F;
- Mon, 14 Apr 2025 22:13:39 +0900 (JST)
-Message-ID: <f20e6589-37d9-458b-af82-92fb1ed0db18@bp.renesas.com>
-Date: Mon, 14 Apr 2025 14:13:37 +0100
+ Wed, 16 Apr 2025 09:14:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yvKe6l/p8KKfZJQzu1pyG51fkOWJf+/TfNyeqqWZ53vFkuq4DHTouDvCFpWbPKeWGkM1elpUgKBeyeSttpL/fc+cTFJepuRdDNKP9Gry0JtVh5ug+UCnZdFuvy6KKAmPEEUQWW7jnam5H7MkRNA7fA63X+UL82ZkkYDrA7X+YY80EaaHSFmkBuUjlSpgg+SLtbvdnn5eadwwNbOJ7DoZisgAd02RyBHFw+euaHKG8+t/s9Onw3HA4B2FvjKSOnfAG/du5qyJH+fPgstTAD/th/nLTmSUcYpScWGoREEYILeafuC1TAqVYxUxjpe/HzIzBKPhinnll7PtAwkLuklR9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hk9PGgfOtu94j5OcKo0DWr17MjPll5iaiddo3FnLpWM=;
+ b=JorJMz1SimWApaliqad1SxtvUxiKVkyc2K/7yKCa4Ug5xuFf/Anmhyl573cS5JIfGH6xfagegRPc7AjuNaPIR84+b8Dpzt1MEWc6y+kinmSxFckWAupun/6IWt+fN8yAyDLJ3/HWidypx0wxf9GsG+QCsG79djfcora+hdg0DESiaJjh+oJFO5/bRob/xY2xh22UApr8btewVU7bzbzqEuKhMvDuDksy11QXizeXdKNW8kAfK54VjVuNR82PadFuwnR+GmDvGS/Af0DUZDQYmcoASE0/uLsYEiG7n8SLoy2LWB4u89eMYYzCJze7s3h3BDK4lLecquG5Kfl6sSbv/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hk9PGgfOtu94j5OcKo0DWr17MjPll5iaiddo3FnLpWM=;
+ b=hvZG7Py+H7TdLA5QXBIJPIY4Xnu+L/GZ+8Xj1eUeBtk45LPRSk+uUVLLRMlZzHHnRXBTUdHEYpIpPvkuM/beA3fJaAR4AoW0WM+AWxBc+idtO96/x2XknQaNRV04KPoddyUgB5AH85vqbtL/Kgfulmc+COmOCVSiJGnA8NUUJ+5/HcOldfZ+ZdMvzTDWCHCpXTB7bi92iyOqn38lOYJXyIUVsDjYJ+xcHBwnm2HoTnSFQZ6nwST4DVS/sx44lllSMRVhE/1g0M/BUpizxhU7NwR2xx89lGoz7FMiksfUmF6youusawtLa/jPFRv1KXyYzFJAkHoxKjePplZ09pVEWw==
+Received: from BN9PR03CA0742.namprd03.prod.outlook.com (2603:10b6:408:110::27)
+ by MN0PR12MB5881.namprd12.prod.outlook.com (2603:10b6:208:379::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Wed, 16 Apr
+ 2025 09:14:40 +0000
+Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ (2603:10b6:408:110:cafe::83) by BN9PR03CA0742.outlook.office365.com
+ (2603:10b6:408:110::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Wed,
+ 16 Apr 2025 09:14:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8655.12 via Frontend Transport; Wed, 16 Apr 2025 09:14:40 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Wed, 16 Apr
+ 2025 02:14:21 -0700
+Received: from fedora (10.126.231.35) by rnnvmail201.nvidia.com (10.129.68.8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Wed, 16 Apr
+ 2025 02:14:07 -0700
+References: <20250416010210.work.904-kees@kernel.org>
+User-agent: mu4e 1.8.14; emacs 29.4
+From: Petr Machata <petrm@nvidia.com>
+To: Kees Cook <kees@kernel.org>
+Date: Wed, 16 Apr 2025 11:09:43 +0200
+In-Reply-To: <20250416010210.work.904-kees@kernel.org>
+Message-ID: <87ecxswjs4.fsf@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Prabhakar <prabhakar.csengg@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Language: en-GB
-From: Paul Barker <paul.barker.ct@bp.renesas.com>
-In-Reply-To: <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Originating-IP: [10.126.231.35]
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|MN0PR12MB5881:EE_
+X-MS-Office365-Filtering-Correlation-Id: 300d342e-1bfd-4e03-32c0-08dd7cc71e3d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j7IgJbEdesxIdWEYyXpqUrAtgUraiDFgEetdgiKxehUy2vSABUctMFwNZlf2?=
+ =?us-ascii?Q?gzXdRMTIGveOZ94zE0JH3BO9Vyt6l37NHF9leljHHfURP4y6ydMvmpu5RGeb?=
+ =?us-ascii?Q?6n0hNEV5+oyKqUTW4jWXjBg5bvCWgKaAOX5bIBznE9YN/80R1jVng9mJ2rWp?=
+ =?us-ascii?Q?X3JWKkbaBa3Nl3ggOgIElrrc+gsDmJo+7rjvJlW8Lu83GwJe6QPc06rriS+u?=
+ =?us-ascii?Q?iypv2Xa+dKj0MofYDNOwaO+eAA8+5lGjL/2ulXpi897P6BJMg3PsuyA7OFCP?=
+ =?us-ascii?Q?l6Eg0tTzGKUOe1XXbWA0zJe6qyUB8+GnTlkVW+prUPYw/x33+exPT3fvFxJZ?=
+ =?us-ascii?Q?VvM2Hfsw4MQIP+TBn4ikKmukqf/ANfTJ8Jh1tQRITDU/HSQP1xjte3glnfLg?=
+ =?us-ascii?Q?0oJ2bV/6eUF1SeFa0LWsRGUhAntXWL1t7RyGwqHfiUFnJ/m/XLYqhslZlWhH?=
+ =?us-ascii?Q?FvSe3zunouSc6/PjsnJuiC3Mb40TX3Kq5j9pZ8mTETh/fsw96xCwa1ewjai9?=
+ =?us-ascii?Q?04+irs6FTKd+uU8AFzwwq8N7tMgUE3Es1t7pTHrDaleCKmnaivew9/sCd+Bz?=
+ =?us-ascii?Q?bx+OP5K8KnCA2JGEF8a+vIuAwxxrNWrsIdIRBtg/httCV8qpuLMTCeiMchWX?=
+ =?us-ascii?Q?M4F8cO0DKyobU376zMNa9dzma+CeGOr4jDun2LLEnr2twq52TlsWy313ESIh?=
+ =?us-ascii?Q?b7A+W6OnwDI6D1Cz1jJOVG1XDQ25y2YbMvSQWLpMat3eTkVcMs+hXWTQdaqu?=
+ =?us-ascii?Q?aV8Fl3IEzwV5ISBS4bLDOgovQVCEpWfhSlwEAbTW8oG5PcwoRXSUUqqYxZT4?=
+ =?us-ascii?Q?eRXuvrxF0SKZOQ2fiVtn3tfA5ITt8Wi9sFSLncZ/QsOvX906mT5x4uEzUVHy?=
+ =?us-ascii?Q?1fMF+L6ZpCbtSHNZNsZz8kK6NxQdGdicYDZlpHyKliIwtZD4F8rH9vvn2J70?=
+ =?us-ascii?Q?f+fSFqkiaEotoJoajiAhPCL63aV5JDm1kgnKCFKB8p4sCUtqCxJ+hT1nB9Ga?=
+ =?us-ascii?Q?rawCxiaKwo6TimXmDlg0BDHDD0mW8argYA/ShGGfFJ7sb/awFVCWaGsPqReN?=
+ =?us-ascii?Q?biJpTUrn2Tvvxlrf87aafLRzB29OpVvEooLMXAjoChGLAZy2gssIzBltqAqc?=
+ =?us-ascii?Q?+GRI7hY9exe/VE9QNRYIN6bLtONDvKa/Hpb8OvvtxYCWkobEa5GpO0NfvnvU?=
+ =?us-ascii?Q?vHEMOGXvfGTiyedgVjplY4N8y8myclyeMjCRZZF2lp+LWb/l/JF14EEtj2gZ?=
+ =?us-ascii?Q?/1hJBoNZY93KinjF+Wb2OOzJmWAO0b7Qp7EEOM1+F1iM4UOUzhBYsibTTkzo?=
+ =?us-ascii?Q?umNFcgTzvBRuQLC7G65Bq5zfZQRZbzBz+JJcd++bqORIJXaA8ITDU1bf67lV?=
+ =?us-ascii?Q?j1T6+mGBGtHBZIIvHAViHb5mh4tjQx9qcg5oULOXK/y6FzKIu0NeCBpLGQ5D?=
+ =?us-ascii?Q?7lmwnrcfygX6HlM+0dz7OTXiqMotpkYd+SUJa9LLBj+R2rg4Alq9TYOYwTrc?=
+ =?us-ascii?Q?3Lsinw0Lw4JaMAs9GA7ISsNRP7qHrqM5ezgx?=
+X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 09:14:40.2423 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 300d342e-1bfd-4e03-32c0-08dd7cc71e3d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5881
 X-Mailman-Approved-At: Tue, 22 Apr 2025 07:27:00 +0000
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-renesas-soc@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add DWMAC
- glue layer for Renesas GBETH
+Cc: imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-kernel@vger.kernel.org, Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Eric Dumazet <edumazet@google.com>, linux-hardening@vger.kernel.org,
+ Jisheng Zhang <jszhang@kernel.org>, Ziwei Xiao <ziweixiao@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Joshua
+ Washington <joshwash@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Furong Xu <0x1207@gmail.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, Jacob Keller <jacob.e.keller@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Simon Horman <horms@kernel.org>,
+ Petr Tesarik <petr@tesarici.cz>, Ido Schimmel <idosch@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Shailend Chand <shailend@google.com>,
+ Wei Fang <wei.fang@nxp.com>, Harshitha Ramamurthy <hramamurthy@google.com>,
+ Jeroen de Borst <jeroendb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Petr Machata <petrm@nvidia.com>, Kory Maincent <kory.maincent@bootlin.com>,
+ Willem de Bruijn <willemb@google.com>, Geoff Levand <geoff@infradead.org>,
+ netdev@vger.kernel.org, "Russell
+ King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Alexander Lobakin <aleksander.lobakin@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Praveen Kaligineedi <pkaligineedi@google.com>,
+ "David S. Miller" <davem@davemloft.net>, Shannon
+ Nelson <shannon.nelson@amd.com>
+Subject: Re: [Linux-stm32] [PATCH] net: ethtool: Adjust exactly
+ ETH_GSTRING_LEN-long stats to use memcpy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,201 +157,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7898469147455909844=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============7898469147455909844==
-Content-Language: en-GB
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------5XZcBvmkaTabxuEc9swqfILM"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------5XZcBvmkaTabxuEc9swqfILM
-Content-Type: multipart/mixed; boundary="------------ueneKmR1e1Faq6614lRwIjUE";
- protected-headers="v1"
-From: Paul Barker <paul.barker.ct@bp.renesas.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Message-ID: <f20e6589-37d9-458b-af82-92fb1ed0db18@bp.renesas.com>
-Subject: Re: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for
- Renesas GBETH
-References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Kees Cook <kees@kernel.org> writes:
 
---------------ueneKmR1e1Faq6614lRwIjUE
-Content-Type: multipart/mixed; boundary="------------Zc6ku6fXf3RcrzFBSscMfX9c"
+> Many drivers populate the stats buffer using C-String based APIs (e.g.
+> ethtool_sprintf() and ethtool_puts()), usually when building up the
+> list of stats individually (i.e. with a for() loop). This, however,
+> requires that the source strings be populated in such a way as to have
+> a terminating NUL byte in the source.
+>
+> Other drivers populate the stats buffer directly using one big memcpy()
+> of an entire array of strings. No NUL termination is needed here, as the
+> bytes are being directly passed through. Yet others will build up the
+> stats buffer individually, but also use memcpy(). This, too, does not
+> need NUL termination of the source strings.
+>
+> However, there are cases where the strings that populate the
+> source stats strings are exactly ETH_GSTRING_LEN long, and GCC
+> 15's -Wunterminated-string-initialization option complains that the
+> trailing NUL byte has been truncated. This situation is fine only if the
+> driver is using the memcpy() approach. If the C-String APIs are used,
+> the destination string name will have its final byte truncated by the
+> required trailing NUL byte applied by the C-string API.
+>
+> For drivers that are already using memcpy() but have initializers that
+> truncate the NUL terminator, mark their source strings as __nonstring to
+> silence the GCC warnings.
 
---------------Zc6ku6fXf3RcrzFBSscMfX9c
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+> Specifically the following warnings were investigated and addressed:
+>
+> ../drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c:328:24: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
+>   328 |                 .str = "a_mac_control_frames_transmitted",
+>       |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ../drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c:340:24: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
+>   340 |                 .str = "a_pause_mac_ctrl_frames_received",
+>       |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Hi Prabhakar,
+> diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
+> index 3f64cdbabfa3..0a8fb9c842d3 100644
+> --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
+> +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
+> @@ -262,7 +262,7 @@ static int mlxsw_sp_port_set_pauseparam(struct net_device *dev,
+>  }
+>  
+>  struct mlxsw_sp_port_hw_stats {
+> -	char str[ETH_GSTRING_LEN];
+> +	char str[ETH_GSTRING_LEN] __nonstring;
+>  	u64 (*getter)(const char *payload);
+>  	bool cells_bytes;
+>  };
 
-On 07/04/2025 13:03, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Add the DWMAC glue layer for the GBETH IP found in the Renesas RZ/V2H(P=
-)
-> SoC.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-[snip]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c =
-b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> new file mode 100644
-> index 000000000000..a0f7cacea810
-> --- /dev/null
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
-> @@ -0,0 +1,165 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * dwmac-renesas-gbeth.c - DWMAC Specific Glue layer for Renesas GBETH=
-
-> + *
-> + * The Rx and Tx clocks are supplied as follows for the GBETH IP.
-> + *
-> + *                         Rx / Tx
-> + *   -------+------------- on / off -------
-> + *          |
-> + *          |            Rx-180 / Tx-180
-> + *          +---- not ---- on / off -------
-> + *
-> + * Copyright (C) 2025 Renesas Electronics Corporation
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +
-> +#include "dwmac4.h"
-
-I'm looking at this while working on RZ/T2H Ethernet support, clangd
-says inclusion of dwmac4.h is not needed here and compilation succeeds
-with the include removed.
-
-Thanks,
-
---=20
-Paul Barker
---------------Zc6ku6fXf3RcrzFBSscMfX9c
-Content-Type: application/pgp-keys; name="OpenPGP_0x27F4B3459F002257.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x27F4B3459F002257.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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3D
-=3DsIIN
------END PGP PUBLIC KEY BLOCK-----
-
---------------Zc6ku6fXf3RcrzFBSscMfX9c--
-
---------------ueneKmR1e1Faq6614lRwIjUE--
-
---------------5XZcBvmkaTabxuEc9swqfILM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQSiu8gv1Xr0fIw/aoLbaV4Vf/JGvQUCZ/0KAQUDAAAAAAAKCRDbaV4Vf/JGvVy9
-AQC8bBQR7l5ED4UfiLb0EhysVsbVdBOhfqkFNise9GXRIAD+OwNb0RGxiJZGo/+yeHP1gGhfWVRI
-+rBlwKWwdQaQ6A4=
-=dLCZ
------END PGP SIGNATURE-----
-
---------------5XZcBvmkaTabxuEc9swqfILM--
-
---===============7898469147455909844==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Reviewed-by: Petr Machata <petrm@nvidia.com> # for mlxsw
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7898469147455909844==--
