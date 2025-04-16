@@ -2,92 +2,112 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08933A8B797
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 13:25:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83DCA8B8EB
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 14:26:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9FBEC78F81;
-	Wed, 16 Apr 2025 11:25:16 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 704F4C78F81;
+	Wed, 16 Apr 2025 12:26:24 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA59CCFAC4A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EDA2C78F6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Apr 2025 11:25:15 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-39c0dfad22aso3876580f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Apr 2025 04:25:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1744802715; x=1745407515;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UK1qE9wdXLtXZ7bpXZQ96bl6ineBI8nWFsz8yMF/6bs=;
- b=GVnLhRYhJA9UowAvsMkQ98agzJbIt6fq6V7O7I9HVUrISj+X6qc/dESkJw9MWl4nvT
- v/rY8VBbvloVkMsajiBHdf2ZhUFVsdPi4eciMPS/gZZ9JxVuX+v4y27sH7yYrXsvAh5l
- r1ivFBP7iaiCNkYjdnQi4swCd7T0lzvwe6RAt0xREQOHz/RrJanDIJuVmFJEkLpma9ri
- V9fJlbTbehEOqADEHlsd0sC5WTfiFhRf57QfnoEuVQYPrvbdLhFOcfBVxXvr2+5eZyat
- XKfhpYQib/gHmHKMwlz93svM6WyVwdjuySX/mw6isShdF08l3z3f1qutMalF3W1s9Yk2
- SCig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1744802715; x=1745407515;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UK1qE9wdXLtXZ7bpXZQ96bl6ineBI8nWFsz8yMF/6bs=;
- b=oZ3UAT+DCD/bJHuBKxUUvuW5eKw4eYQD1ORKJrlVsIR5WT3FjJXzxkOjxYtim4T9G/
- 48UBvG6DWathLbbRP2VGnfDd4ehLJq8zyyQ7CEpndmoLgpz72oHAaVrbpmUHL+ojmZ8m
- Ra7vWqLq36p6cSwKGCE3VVnQKA/FUCJ2D646JmJMiozLYScQmtU6/UoAGEl7lfCGBK1m
- so3TfjGM27TxenVdgRPCd3RRTkQ7nQzg5EE6y2jRg5yyY37+dnxN0tqj34KuvBDY6CgN
- cQI3dU3mFUg0NLMOWpgqT8zSaJwwC2zSrbqr8qUHRXSpumqFascJNs+fuQJ1L388zE1t
- rSXQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUYQko4QYQgWn0CPkMV8ECYDk85WNI+QPbtqOlwr3czHS/M5uUZ8PDAUVCPZELoUMxlDy+4AdxeFkwNDA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwgNyM1hzlsPxgbTfmAQ4t/WEfB8ypIvkdUxdFbq+7RvnkyB7EE
- W3HY4K+fA2+o4LeZ4RjJQR6ub3F+oOVwz8VpRaBoraV5LUMi5RGFCugrAy+GqA9syOZ+X+By/Oh
- eCOBXrrLIXttsSjxPS4273U2+9fI=
-X-Gm-Gg: ASbGncvzJU62YjSHeAY2xaM9p8zqPx5fVBR2oQuPy1bzmMSLbMRaLWTJmqrDK5fNSqr
- mTDD1vpaPn3LzmbScjvUdKQFI4Rd40nqUC3BsHWV8Mt1ZLD5ralJnQWJW/8WdNgd+09EivqRxxZ
- k4ZSjxxo5HwzQQ9iUEI9RuFnyFo2yNdYFnH6QvyUwe84q5dq/LBLF3oMc=
-X-Google-Smtp-Source: AGHT+IG20ioUwmVK8jT1auGEvfYmau6FZT4iN5r9cG0sTpD+CwE5vavkmt0SHhCn9DBrwBdOjgbt0xLoMYoKYshrtUA=
-X-Received: by 2002:a05:6000:1867:b0:39e:cbca:922f with SMTP id
- ffacd0b85a97d-39ee5b12f23mr1105841f8f.12.1744802714969; Wed, 16 Apr 2025
- 04:25:14 -0700 (PDT)
+ Wed, 16 Apr 2025 12:26:23 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 18B80446;
+ Wed, 16 Apr 2025 14:24:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1744806259;
+ bh=zZyoUoQs57ugcr6pi7AFEtiMgwqRDtvhMHoc4UZWdWY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JAF4hkeCioakqnxQz9bTUPttghD/RANLFweNIr16lzd8pBObABa768eAO0Ei9TL72
+ 7cO7bfN79c4QAdYcmgkJgHS8kooHXkT81GJvZaMYZgJWIFvPnZjQhsTBa/3cZFLcSN
+ tTqDr7CfXSzOZtaSh9msG9GiqvphRDXZnigsfMjA=
+Message-ID: <f5880400-ab7b-4cae-81e4-893ce34a0460@ideasonboard.com>
+Date: Wed, 16 Apr 2025 15:26:17 +0300
 MIME-Version: 1.0
-References: <20250416104015.47788-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20250416104015.47788-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <TY3PR01MB11346266349649D5E69923BAC86BD2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB11346266349649D5E69923BAC86BD2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 16 Apr 2025 12:24:48 +0100
-X-Gm-Features: ATxdqUHUY3qYyUELPpVyGQloNfVvIlHwW8HOxGgTg9mF-SSWoLexEHk-cqLqtZo
-Message-ID: <CA+V-a8tu-9gu_Rm3TGeGPjO48tpUVYu+PR7K9FyUU6DORQYQYg@mail.gmail.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Eric Dumazet <edumazet@google.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 3/4] net: stmmac: Add DWMAC
- glue layer for Renesas GBETH
+User-Agent: Mozilla Thunderbird
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
+ <20250407-drm-bridge-convert-to-alloc-api-v1-29-42113ff8d9c0@bootlin.com>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <20250407-drm-bridge-convert-to-alloc-api-v1-29-42113ff8d9c0@bootlin.com>
+Cc: imx@lists.linux.dev, "Sagar, Vishal" <vishal.sagar@amd.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Simona Vetter <simona@ffwll.ch>, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org
+Subject: Re: [Linux-stm32] [PATCH 29/34] drm: zynqmp_dp: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,94 +119,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQmlqdSwKClRoYW5rIHlvdSBmb3IgdGhlIHJldmlldy4KCk9uIFdlZCwgQXByIDE2LCAyMDI1
-IGF0IDExOjQ04oCvQU0gQmlqdSBEYXMgPGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPiB3cm90
-ZToKPgo+IEhpIFByYWJoYWthciwKPgo+IFRoYW5rcyBmb3IgdGhlIHBhdGNoLgo+Cj4gPiAtLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+ID4gRnJvbTogUHJhYmhha2FyIDxwcmFiaGFrYXIuY3Nl
-bmdnQGdtYWlsLmNvbT4KPiA+IFNlbnQ6IDE2IEFwcmlsIDIwMjUgMTE6NDAKPiA+IFN1YmplY3Q6
-IFtQQVRDSCBuZXQtbmV4dCB2NyAzLzRdIG5ldDogc3RtbWFjOiBBZGQgRFdNQUMgZ2x1ZSBsYXll
-ciBmb3IgUmVuZXNhcyBHQkVUSAo+ID4KPiA+IEZyb206IExhZCBQcmFiaGFrYXIgPHByYWJoYWth
-ci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4KPiA+Cj4gPiBBZGQgdGhlIERXTUFDIGds
-dWUgbGF5ZXIgZm9yIHRoZSBHQkVUSCBJUCBmb3VuZCBpbiB0aGUgUmVuZXNhcyBSWi9WMkgoUCkg
-U29DLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5tYWhh
-ZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4KPiA+IFJldmlld2VkLWJ5OiBSdXNzZWxsIEtpbmcg
-KE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPgo+ID4gLS0tCj4gPiAgZHJpdmVy
-cy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZyAgIHwgIDExICsrCj4gPiAgZHJp
-dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUgIHwgICAxICsKPiA+ICAu
-Li4vc3RtaWNyby9zdG1tYWMvZHdtYWMtcmVuZXNhcy1nYmV0aC5jICAgICAgfCAxNDYgKysrKysr
-KysrKysrKysrKysrCj4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAxNTggaW5zZXJ0aW9ucygrKQo+ID4g
-IGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9k
-d21hYy1yZW5lc2FzLWdiZXRoLmMKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
-cm8vc3RtbWFjL0tjb25maWcKPiA+IGluZGV4IDNjODIwZWY1Njc3NS4uMmM5OWIyM2YwZmFhIDEw
-MDY0NAo+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZp
-Zwo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZwo+
-ID4gQEAgLTEzMSw2ICsxMzEsMTcgQEAgY29uZmlnIERXTUFDX1FDT01fRVRIUU9TCj4gPiAgICAg
-ICAgIFRoaXMgc2VsZWN0cyB0aGUgUXVhbGNvbW0gRVRIUU9TIGdsdWUgbGF5ZXIgc3VwcG9ydCBm
-b3IgdGhlCj4gPiAgICAgICAgIHN0bW1hYyBkZXZpY2UgZHJpdmVyLgo+ID4KPiA+ICtjb25maWcg
-RFdNQUNfUkVORVNBU19HQkVUSAo+ID4gKyAgICAgdHJpc3RhdGUgIlJlbmVzYXMgUlovVjJIKFAp
-IEdCRVRIIHN1cHBvcnQiCj4gPiArICAgICBkZWZhdWx0IEFSQ0hfUkVORVNBUwo+ID4gKyAgICAg
-ZGVwZW5kcyBvbiBPRiAmJiAoQVJDSF9SRU5FU0FTIHx8IENPTVBJTEVfVEVTVCkKPiA+ICsgICAg
-IGhlbHAKPiA+ICsgICAgICAgU3VwcG9ydCBmb3IgR2lnYWJpdCBFdGhlcm5ldCBJbnRlcmZhY2Ug
-KEdCRVRIKSBvbiBSZW5lc2FzCj4gPiArICAgICAgIFJaL1YySChQKSBTb0NzLgo+ID4gKwo+ID4g
-KyAgICAgICBUaGlzIHNlbGVjdHMgdGhlIFJlbmVzYXMgUlovVjJIKFApIFNvYyBzcGVjaWZpYyBn
-bHVlIGxheWVyIHN1cHBvcnQKPiA+ICsgICAgICAgZm9yIHRoZSBzdG1tYWMgZGV2aWNlIGRyaXZl
-ci4KPiA+ICsKPiA+ICBjb25maWcgRFdNQUNfUk9DS0NISVAKPiA+ICAgICAgIHRyaXN0YXRlICJS
-b2NrY2hpcCBkd21hYyBzdXBwb3J0Igo+ID4gICAgICAgZGVmYXVsdCBBUkNIX1JPQ0tDSElQCj4g
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZp
-bGUKPiA+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUKPiA+
-IGluZGV4IDU5NDg4M2ZiNDE2NC4uOTEwNTAyMTU1MTFiIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
-cy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUKPiA+ICsrKyBiL2RyaXZlcnMv
-bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlCj4gPiBAQCAtMjAsNiArMjAsNyBA
-QCBvYmotJChDT05GSUdfRFdNQUNfTFBDMThYWCkgKz0gZHdtYWMtbHBjMTh4eC5vCj4gPiAgb2Jq
-LSQoQ09ORklHX0RXTUFDX01FRElBVEVLKSArPSBkd21hYy1tZWRpYXRlay5vCj4gPiAgb2JqLSQo
-Q09ORklHX0RXTUFDX01FU09OKSAgICArPSBkd21hYy1tZXNvbi5vIGR3bWFjLW1lc29uOGIubwo+
-ID4gIG9iai0kKENPTkZJR19EV01BQ19RQ09NX0VUSFFPUykgICAgICArPSBkd21hYy1xY29tLWV0
-aHFvcy5vCj4gPiArb2JqLSQoQ09ORklHX0RXTUFDX1JFTkVTQVNfR0JFVEgpICs9IGR3bWFjLXJl
-bmVzYXMtZ2JldGgubwo+ID4gIG9iai0kKENPTkZJR19EV01BQ19ST0NLQ0hJUCkgKz0gZHdtYWMt
-cmsubwo+ID4gIG9iai0kKENPTkZJR19EV01BQ19SWk4xKSAgICAgKz0gZHdtYWMtcnpuMS5vCj4g
-PiAgb2JqLSQoQ09ORklHX0RXTUFDX1MzMikgICAgICAgICAgICAgICs9IGR3bWFjLXMzMi5vCj4g
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMt
-cmVuZXNhcy1nYmV0aC5jCj4gPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L2R3bWFjLXJlbmVzYXMtZ2JldGguYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4
-IDAwMDAwMDAwMDAwMC4uZjM0YmVjNzc5NGUyCj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi9k
-cml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yZW5lc2FzLWdiZXRoLmMK
-PiA+IEBAIC0wLDAgKzEsMTQ2IEBACj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
-TC0yLjArCj4gPiArLyoKPiA+ICsgKiBkd21hYy1yZW5lc2FzLWdiZXRoLmMgLSBEV01BQyBTcGVj
-aWZpYyBHbHVlIGxheWVyIGZvciBSZW5lc2FzIEdCRVRICj4gPiArICoKPiA+ICsgKiBUaGUgUngg
-YW5kIFR4IGNsb2NrcyBhcmUgc3VwcGxpZWQgYXMgZm9sbG93cyBmb3IgdGhlIEdCRVRIIElQLgo+
-ID4gKyAqCj4gPiArICogICAgICAgICAgICAgICAgICAgICAgICAgUnggLyBUeAo+ID4gKyAqICAg
-LS0tLS0tLSstLS0tLS0tLS0tLS0tIG9uIC8gb2ZmIC0tLS0tLS0KPiA+ICsgKiAgICAgICAgICB8
-Cj4gPiArICogICAgICAgICAgfCAgICAgICAgICAgIFJ4LTE4MCAvIFR4LTE4MAo+ID4gKyAqICAg
-ICAgICAgICstLS0tIG5vdCAtLS0tIG9uIC8gb2ZmIC0tLS0tLS0KPiA+ICsgKgo+ID4gKyAqIENv
-cHlyaWdodCAoQykgMjAyNSBSZW5lc2FzIEVsZWN0cm9uaWNzIENvcnBvcmF0aW9uICAqLwo+ID4g
-Kwo+ID4gKyNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvZGV2aWNl
-Lmg+Cj4gPiArI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ID4gKyNpbmNsdWRlIDxsaW51eC9w
-bGF0Zm9ybV9kZXZpY2UuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiA+ICsKPiA+
-ICsjaW5jbHVkZSAic3RtbWFjX3BsYXRmb3JtLmgiCj4gPiArCj4gPiArc3RydWN0IHJlbmVzYXNf
-Z2JldGggewo+ID4gKyAgICAgc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0X2RhdDsK
-PiA+ICsgICAgIHN0cnVjdCByZXNldF9jb250cm9sICpyc3RjOwo+ID4gKyAgICAgc3RydWN0IGRl
-dmljZSAqZGV2Owo+ID4gK307Cj4gPiArCj4gPiArc3RhdGljIGNvbnN0IGNoYXIgKmNvbnN0IHJl
-bmVzYXNfZ2JldGhfY2xrc1tdID0gewo+ID4gKyAgICAgInR4IiwgInR4LTE4MCIsICJyeCIsICJy
-eC0xODAiLAo+ID4gK307Cj4gPiArCj4gPiArc3RhdGljIGludCByZW5lc2FzX2diZXRoX2luaXQo
-c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwgdm9pZCAqcHJpdikKPiA+ICt7Cj4gPiArICAg
-ICBzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXRfZGF0Owo+ID4gKyAgICAgc3RydWN0
-IHJlbmVzYXNfZ2JldGggKmdiZXRoID0gcHJpdjsKPiA+ICsgICAgIGludCByZXQ7Cj4gPiArCj4g
-PiArICAgICBwbGF0X2RhdCA9IGdiZXRoLT5wbGF0X2RhdDsKPiA+ICsKPiA+ICsgICAgIHJldCA9
-IHJlc2V0X2NvbnRyb2xfZGVhc3NlcnQoZ2JldGgtPnJzdGMpOwo+ID4gKyAgICAgaWYgKHJldCkg
-ewo+ID4gKyAgICAgICAgICAgICBkZXZfZXJyKGdiZXRoLT5kZXYsICJSZXNldCBkZWFzc2VydCBm
-YWlsZWRcbiIpOwo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Owo+ID4gKyAgICAgfQo+ID4g
-Kwo+ID4gKyAgICAgcmV0ID0gY2xrX2J1bGtfcHJlcGFyZV9lbmFibGUocGxhdF9kYXQtPm51bV9j
-bGtzLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxhdF9kYXQtPmNs
-a3MpOwo+ID4gKyAgICAgaWYgKHJldCkKPiA+ICsgICAgICAgICAgICAgcmVzZXRfY29udHJvbF9h
-c3NlcnQoZ2JldGgtPnJzdGMpOwo+ID4gKwo+ID4gKyAgICAgcmV0dXJuIDA7Cj4KPiAgICAgICAg
-IHJldHVybiByZXQ/Pwo+CkluZGVlZCBJIG1pc3NlZCBpdC4KCkNoZWVycywKUHJhYmhha2FyCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+Hi,
+
+On 07/04/2025 17:23, Luca Ceresoli wrote:
+> This is the new API for allocating DRM bridges.
+> 
+> This driver has a peculiar structure. zynqmp_dpsub.c is the actual driver,
+> which delegates to a submodule (zynqmp_dp.c) the allocation of a
+> sub-structure embedding the drm_bridge and its initialization, however it
+> does not delegate the drm_bridge_add(). Hence, following carefully the code
+> flow, it is correct to change the allocation function and .funcs assignment
+> in the submodule, while the drm_bridge_add() is not in that submodule.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Michal Simek <michal.simek@amd.com>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>   drivers/gpu/drm/xlnx/zynqmp_dp.c | 7 +++----
+>   1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> index 11d2415fb5a1f7fad03421898331289f2295d68b..de22b6457a78a7a2110f9f308d0b5a8700544010 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> @@ -2439,9 +2439,9 @@ int zynqmp_dp_probe(struct zynqmp_dpsub *dpsub)
+>   	struct zynqmp_dp *dp;
+>   	int ret;
+>   
+> -	dp = kzalloc(sizeof(*dp), GFP_KERNEL);
+> -	if (!dp)
+> -		return -ENOMEM;
+> +	dp = devm_drm_bridge_alloc(&pdev->dev, struct zynqmp_dp, bridge, &zynqmp_dp_bridge_funcs);
+> +	if (IS_ERR(dp))
+> +		return PTR_ERR(dp);
+>   
+>   	dp->dev = &pdev->dev;
+>   	dp->dpsub = dpsub;
+> @@ -2488,7 +2488,6 @@ int zynqmp_dp_probe(struct zynqmp_dpsub *dpsub)
+>   
+>   	/* Initialize the bridge. */
+>   	bridge = &dp->bridge;
+> -	bridge->funcs = &zynqmp_dp_bridge_funcs;
+>   	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID
+>   		    | DRM_BRIDGE_OP_HPD;
+>   	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
+> 
+
+I haven't had time to look at this more, but jfyi: I got this when 
+unloading modules, but it doesn't seem to happen every time:
+
+[  103.010533] ------------[ cut here ]------------
+[  103.015415] refcount_t: underflow; use-after-free.
+[  103.020657] WARNING: CPU: 2 PID: 392 at lib/refcount.c:28 
+refcount_warn_saturate+0xf4/0x148
+[  103.029056] Modules linked in: zynqmp_dpsub(-) display_connector 
+drm_display_helper drm_dma_helper drm_kms_helper drm drm_p
+anel_orientation_quirks
+[  103.042437] CPU: 2 UID: 0 PID: 392 Comm: rmmod Not tainted 
+6.15.0-rc2+ #3 PREEMPT
+[  103.050035] Hardware name: ZynqMP ZCU106 RevA (DT)
+[  103.054836] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[  103.061814] pc : refcount_warn_saturate+0xf4/0x148
+[  103.066632] lr : refcount_warn_saturate+0xf4/0x148
+[  103.071441] sp : ffff800083b5bbb0
+[  103.074766] x29: ffff800083b5bbb0 x28: ffff000806b23780 x27: 
+0000000000000000
+[  103.081953] x26: 0000000000000000 x25: 0000000000000000 x24: 
+ffff000801a68400
+[  103.089141] x23: ffff800081311a20 x22: ffff800083b5bc38 x21: 
+ffff000801a68010
+[  103.096329] x20: ffff0008040676c0 x19: ffff000804067240 x18: 
+0000000000000006
+[  103.103517] x17: 2e30303030303464 x16: 662d7968703a7968 x15: 
+ffff800083b5b5a0
+[  103.110705] x14: 0000000000000000 x13: 00000000000c0000 x12: 
+0000000000000000
+[  103.117892] x11: ffff80008163d6bc x10: 0000000000000028 x9 : 
+ffff800080ead38c
+[  103.125080] x8 : ffff800083b5b908 x7 : 0000000000000000 x6 : 
+ffff800083b5b9c0
+[  103.132268] x5 : ffff800083b5b948 x4 : 0000000000000001 x3 : 
+00000000000000db
+[  103.139455] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 
+ffff000806b23780
+[  103.146644] Call trace:
+[  103.149102]  refcount_warn_saturate+0xf4/0x148 (P)
+[  103.153918]  drm_bridge_put.part.0+0x88/0xa0 [drm]
+[  103.159188]  drm_bridge_put_void+0x1c/0x38 [drm]
+[  103.164231]  devm_action_release+0x1c/0x30
+[  103.168354]  release_nodes+0x68/0xa8
+[  103.171957]  devres_release_all+0x98/0xf0
+[  103.175993]  device_unbind_cleanup+0x20/0x70
+[  103.180291]  device_release_driver_internal+0x208/0x250
+[  103.185542]  driver_detach+0x54/0xa8
+[  103.189145]  bus_remove_driver+0x78/0x108
+[  103.193181]  driver_unregister+0x38/0x70
+[  103.197131]  platform_driver_unregister+0x1c/0x30
+[  103.201862]  zynqmp_dpsub_driver_exit+0x18/0x1100 [zynqmp_dpsub]
+[  103.207931]  __arm64_sys_delete_module+0x1a8/0x2d0
+[  103.212748]  invoke_syscall+0x50/0x120
+[  103.216524]  el0_svc_common.constprop.0+0x48/0xf0
+[  103.221256]  do_el0_svc+0x24/0x38
+[  103.224598]  el0_svc+0x48/0x128
+[  103.227766]  el0t_64_sync_handler+0x10c/0x138
+[  103.232150]  el0t_64_sync+0x1a4/0x1a8
+[  103.235841] irq event stamp: 7936
+[  103.239173] hardirqs last  enabled at (7935): [<ffff8000800aaf78>] 
+finish_task_switch.isra.0+0xb0/0x2a0
+[  103.248600] hardirqs last disabled at (7936): [<ffff800080eaac74>] 
+el1_dbg+0x24/0x90
+[  103.256369] softirqs last  enabled at (7930): [<ffff800080066f98>] 
+handle_softirqs+0x4a0/0x4c0
+[  103.265007] softirqs last disabled at (7905): [<ffff800080010224>] 
+__do_softirq+0x1c/0x28
+[  103.273211] ---[ end trace 0000000000000000 ]---
+
+  Tomi
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
