@@ -2,72 +2,124 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10CA3A8AD35
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 03:02:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD66A8AE5F
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Apr 2025 05:13:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92361C7802F;
-	Wed, 16 Apr 2025 01:02:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82BBBC78F68;
+	Wed, 16 Apr 2025 03:13:26 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2130.outbound.protection.partner.outlook.cn [139.219.17.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DF64C78023
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A56BC78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Apr 2025 01:02:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F380447CA;
- Wed, 16 Apr 2025 01:02:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E76C4CEE7;
- Wed, 16 Apr 2025 01:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744765339;
- bh=pxx/BrdLMS5Mul/HFokaPLtg/6DDJYpnVXSSateVRNs=;
- h=From:To:Cc:Subject:Date:From;
- b=Ls4HvtgK/y+KTLUCOZzykdiJaX8cTl1dQ4ZonA75BNbJjzCHmKVHV+wUH2bR+QVw9
- My8lEaDI8qdNDQaxpFoq/u8x4e5nkqt2ClaWt/DIcnolEblHSKQ+3osoGqwoTqa/+3
- Dm+qqHGJsW+YwVaoL4gWUrTTZBn7zdN/JwcO4/CL8QzG2M7ytRbWf9GPtP3pIQihSz
- yJVsIaqL3csj9ZvXmN972Ikyq346YVGfEx0kY0YP65BfXFB82aXBjYWZQf1r3G/1ik
- KF8Z+vjR8RM41fNhwWOpHZWQuWgo7GWS6gMfNZF7UqMmVXQVxE1fKWRmWRk+PXnigZ
- flOePqbJby6Yw==
-From: Kees Cook <kees@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Date: Tue, 15 Apr 2025 18:02:15 -0700
-Message-Id: <20250416010210.work.904-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
+ Wed, 16 Apr 2025 03:13:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JX3yNq9gySqLiQfruYXoZSz46NpM5DI72xnkTeAkvJ2ApSDihV1w7Cbu3jH3RKqdYUZ35H1yxm4q6scMVAn6xbTrqxag3r/pzq+5AiKUsGKMI4SdemjFyWHRv7HUXdnzZIxiuZh8M816DedRU8MNJJMTIPzrHbB97o/cPm0oX8UKXZKuYai24z0SopU9gAKsck/qDpYCusM//7hfhZhIjnrAO8yOSMzda9D9LyPaaEEroABwMjayXzMtcR1T5g/Afr/SlJ7ESfCEcYVxAyfWnwJ07T22h0e3JexfYYmbzMVpZQJP5Ort189zHB7vwv56ZBImqgRzwln/l4lQS4+S+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m5EJXj5KN6TCXQ6ttTAlBxui7/4xZiYsqc/swLU5ViM=;
+ b=Wa9JYHOC2M2o1LtnkQmSLV4vkv7arbdHZuG3pEmWN9dIccn+2kR1Xx/tM05szWLEn5mK0nwbfcJjoRER9dT54OuL4qNDe0FYABZ52pl8IhA4E8Ys4OAEJah7QWtTcT0v9KfR2n9tfCeK5ML1KHDwy5HFBZ3JiGvcagXmQZlgdjmsF55pjKjNv/ywrsBeu8u/idtPNp0rVe7V6h8tn/mZxUQi4ftloMuBhEasoDvZaGKuvgpk9wb2C5hJp5jsiU+PPhjVj73zW9BoivULeIO/ER79xeOIePzyanXqY+gUvUh3i5LNeRNFATJf2HhxkloQ52SeiegHeLUWQbZGZs4+Bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:18::12) by BJXPR01MB0536.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:15::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.36; Wed, 16 Apr
+ 2025 03:13:08 +0000
+Received: from BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
+ ([fe80::f06:366f:7b4b:4c9]) by BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
+ ([fe80::f06:366f:7b4b:4c9%4]) with mapi id 15.20.8632.036; Wed, 16 Apr 2025
+ 03:13:08 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Paolo Abeni <pabeni@redhat.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>
+Thread-Topic: [net-next v1] net: stmmac: starfive: Add serdes PHY init/deinit
+ function
+Thread-Index: AQHbqebhNuVSIJMgAUGsPuly4THmMLOkedsAgAEtSrA=
+Date: Wed, 16 Apr 2025 03:13:08 +0000
+Message-ID: <BJXPR01MB08551DB3FEDE0899B67B8DB7E6BD2@BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn>
+References: <20250410070453.61178-1-minda.chen@starfivetech.com>
+ <6851d6b8-109c-4de0-89a8-a56659c87cf4@redhat.com>
+In-Reply-To: <6851d6b8-109c-4de0-89a8-a56659c87cf4@redhat.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BJXPR01MB0855:EE_|BJXPR01MB0536:EE_
+x-ms-office365-filtering-correlation-id: 84e0ad0a-9183-4d14-07a6-08dd7c949cee
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|41320700013|366016|1800799024|38070700018; 
+x-microsoft-antispam-message-info: BnLul9cUcAj7GeF7VR9CruS6cWd1dnnVEz4oXq+zCJA7rnN6q3cMU05Dfy3D4dCnJf+GAMr3Q4wHEYH8wEARGVJPb8rVQWuLarGqQYHGOelDKO5AKoDq9wL5AkfhQhxalQ3AVEVMlAk3Y9AMGMBXOcHVqbWzcBN0jMcza4Y4S23aBSdQMcz7yCSlbi59cjC3SEIh2IsY8k3JwMsHlTK0+2qZ0B/LCGtmP7Ace3mfsYm4Qy4k7NutXEHqBBzVEXSm57noTXLyhEFE6J9XBoi+HQCujSa7AS3Eg5KyZfsMzS2QQECWyJ+NGwgv4lELmZ4sgrZkntWZCfcSn7WWZkMwpOEn1zkIWq5bqwBRQwgB+EGme9ykDB+GXlRrNlp6iHI54NhMCg1hVs9/FLgvyoNYI2Qe1AouwfNBTNgtyJi2PtL+vkaVxkHT2Z8OQ6ahzPRs806MjAuMMSBnKMoVsUM/dmAE9ak1P/71XoR+3O34mfKDUBwK8ml+fRpLvH1WlwzdFbfsAOPDCc6LeJDU/ZNIBX+x4msLFewF71rEOKT9WVtxAaZAqizjBfOzpEhDRghn/U+uhfwVgfZsH97gTIuu8bVUiQwiRtc/AQ6drFkz6C4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:zh-cn; SCL:1;
+ SRV:; IPV:NLI; SFV:NSPM; H:BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(7416014)(41320700013)(366016)(1800799024)(38070700018); DIR:OUT;
+ SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RkZTUmxHY2tsc0M0M3UrR1pBckZDTTIwZS9KdXRVTkF3WXdCd0hNLzZDUEJr?=
+ =?utf-8?B?VjhQOVNQVXc3V2QyM0xKcnFPWlJrRnlSN0xZN0JvZ0s3TGJlWWVGL0JiVVVo?=
+ =?utf-8?B?cmZvcVA1TWJaNkN3RjQ2c0JweXMybGFVTVZQcmNNazVsWHpLdUtRdTJHY2Vq?=
+ =?utf-8?B?bEMwT0dUUUhNbitkUjd0a2p3Zml2aGgrRFRoeENWZEJuOUE1aG9WdlVrd2Uv?=
+ =?utf-8?B?QjI1RTRBS282NFJYZG1aMGV6c2M4dGUrV3dHUnZpZVdhZDdxZ1ltbVFySi8z?=
+ =?utf-8?B?N05MWXQ2T0I3bU5IRms4QS9sSnhsaHNoNTRId09Qc3Z4OG11VkhTQW9LdWdu?=
+ =?utf-8?B?dFBrSkNZRm9DOXEwYVkwWFZuUGtqSXJ2amJDTm9MdnRrL1VaQlRPcXVUeTgv?=
+ =?utf-8?B?VVE4NEN6UHlpS1hYWWh6YktpbVBsVHdnbWl3S25jUTJ6b0dBRjdoUUlSWnJh?=
+ =?utf-8?B?dGxWV0pkN2VoVmZ4bFJOSjhPQjdNaEJCQmRnREZTckNMTTA5MTZTeVowa05C?=
+ =?utf-8?B?Mkd4TWFNck5reisycUQyZFk4WEo5azVhaGFyQ2pVYytlcGJqLzJRY1c3Unhj?=
+ =?utf-8?B?SmhpMjNtNG0yOEsveXNVdGdSaW1DY0lvNGxuWnAvTUxSMU5Sa3BpZUJPTk5a?=
+ =?utf-8?B?TVJaeWhONko3ak4vRm1MNXYwSjJCcGczY0ZPRUVGTmtFVUsrYjN2U2FVbDAy?=
+ =?utf-8?B?bDZtaytTYmxOWUl6V21YLzJKNE1PWkJ2aEVja1psTHRxbTlFSnVYZDJpS2lY?=
+ =?utf-8?B?MnIrQXVLSEZkeDJZd0p3cGM1a1FVWkYwclRMY2pFK0M2eTQ1M0hwRHVoN3B4?=
+ =?utf-8?B?Z3ZTb1NaWlpMR2kzYjlHc29SUTlJRFE2R1RmWDVvT3R4K3M3R1RjTWpwdXZt?=
+ =?utf-8?B?VVlNcSt0cHhwamNYMytSNlVyQTFiZWw2R01IL0N4ZTVXTTFrSFV3ZHRXSzJS?=
+ =?utf-8?B?NFhWSWF3RDA3MmJOdWVDZEIrajdKOXlPRDJyRzJjVFNGUUwwMkFGVG04SWVV?=
+ =?utf-8?B?Y0hOYzZMbjdyUnBQdG9SMGJhWkRVSzkyQTJScTBDK2pHOWN2aDNvYWZnOVFi?=
+ =?utf-8?B?ZWxKL0RCYk5JZnRVT2xNRWlFZXV0UFV4TnJ1c3BoSG9ReHdZV3kzcWo3bWs5?=
+ =?utf-8?B?WUdjK0hnQzFzdCt0WEl5V0ZWVU9QaXBYSVFlMmJrcVFYdmZUaGEyNkdvcHUw?=
+ =?utf-8?B?WmxGZEtDNGRxUEQrVFBXL2o3cFpWalZBOXRFUThNcVhMNkRoODIvdkI5TVFJ?=
+ =?utf-8?B?NmpjS0taMDFvZURxS21oQjhMNE1zQmdoUEhURXQrUTlYR1BVajQrYnRRYWdQ?=
+ =?utf-8?B?ekUrdklNV2x2VkhoK1c1N0hlMkJjVmpFTkRVc1hDcUV6bS9HWmFIaXJUeTVE?=
+ =?utf-8?B?OXV4YjUzYi9zd1JuaEs3aXJXUHgrb1psY0VhVXh6M2FWOGhjTlRuODdzUVov?=
+ =?utf-8?B?MjhhVTNlK0JkVVBqQXdvRWRROVZzTVhqY2dseWdWSkloZk5ROXcxVm1TZ3ZS?=
+ =?utf-8?B?L3Fpd2l5cFZxS1ZDcEJCekY5dW9haHNHd3pudGJ5L2EwaTVubnE4bEJtQ1Bw?=
+ =?utf-8?B?T0FybGpVV3diMGhlWFRwNktNS0gxNVpVVXNaNzJhQmhPN1dOaVVCZEpuNElS?=
+ =?utf-8?B?VEJGNHFIcnJUeEpWZ3NOK0c4SjB2REVOM3hMQWZGZHFzMU1UNWVVb3BFcE40?=
+ =?utf-8?B?ZWh2aXlGNnNybGtkOWNDTHZCL1NxYW1MRGtiTFFqTXFic1U5VVMzZGlja0Vy?=
+ =?utf-8?B?NkYrLzByS1FFNkl2K3BwR2VXeCtUdzRqVithbjhyUlY0ZkVzY0JuY3d0MldI?=
+ =?utf-8?B?L1ZTSEM4QndYdWNRU28xRDcvMW1WQ1VaVlpRazJFOEorekdxOFUyTDYreXo3?=
+ =?utf-8?B?c21saERKdktTTFZHNGU2NzBhRS9RV1BWWk1iODRaK2xxWGcrUW8zL1lIY0hU?=
+ =?utf-8?B?YkxQVnlRcFZ1TlpwQ2p1Q2trVFU5Q1g3SitqbVFsZ2JmRXg3d3FjcThJalRO?=
+ =?utf-8?B?dG84eTlKb0JPZHFPeEtvSVJNemtpTWcyVktEaXR3TGlPKytiWDRDWDBDcGpO?=
+ =?utf-8?B?K205V2pNclpwT0dJejlWdmdiWWdJN0hDSmdhOWhrRXpvYjc1RFN2UWs1dWJB?=
+ =?utf-8?B?bHp4Nkp3dFNwb29QZWZiVGJYMDVoZ1EwS0RBbGtkVi9NZkVCVStLSTk0N3pa?=
+ =?utf-8?B?RXc9PQ==?=
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10779; i=kees@kernel.org;
- h=from:subject:message-id; bh=pxx/BrdLMS5Mul/HFokaPLtg/6DDJYpnVXSSateVRNs=;
- b=owGbwMvMwCVmps19z/KJym7G02pJDOn/Gad1NGVU6W/WfyJdUZi984XlOb31Yrwd+hLp+axH9
- u1gm7m7o5SFQYyLQVZMkSXIzj3OxeNte7j7XEWYOaxMIEMYuDgFYCKyuxn+l0wtitpevZL7p9xZ
- h031fhFrzGxyj9pc/ryRMzivRZF7KSPDBwFbj8yl7DXPpy6+d6LaOubjukXbu7+YHxBqkfaXm1X
- PAAA=
-X-Developer-Key: i=kees@kernel.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Cc: imx@lists.linux.dev, Kees Cook <kees@kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Eric Dumazet <edumazet@google.com>, linux-hardening@vger.kernel.org,
- Jisheng Zhang <jszhang@kernel.org>, Ziwei Xiao <ziweixiao@google.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Joshua Washington <joshwash@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Furong Xu <0x1207@gmail.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Clark Wang <xiaoning.wang@nxp.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Simon Horman <horms@kernel.org>, Petr Tesarik <petr@tesarici.cz>,
- Ido Schimmel <idosch@nvidia.com>, Richard Cochran <richardcochran@gmail.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Shailend Chand <shailend@google.com>,
- Wei Fang <wei.fang@nxp.com>, Harshitha Ramamurthy <hramamurthy@google.com>,
- Jeroen de Borst <jeroendb@google.com>, linux-arm-kernel@lists.infradead.org,
- Petr Machata <petrm@nvidia.com>, Kory Maincent <kory.maincent@bootlin.com>,
- Willem de Bruijn <willemb@google.com>, Geoff Levand <geoff@infradead.org>,
- netdev@vger.kernel.org, "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Alexander Lobakin <aleksander.lobakin@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Praveen Kaligineedi <pkaligineedi@google.com>,
- "David S. Miller" <davem@davemloft.net>,
- Shannon Nelson <shannon.nelson@amd.com>
-Subject: [Linux-stm32] [PATCH] net: ethtool: Adjust exactly
-	ETH_GSTRING_LEN-long stats to use memcpy
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84e0ad0a-9183-4d14-07a6-08dd7c949cee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2025 03:13:08.5719 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JChSW1DbqvNDZeKOgzWqlS2pltfZ8/PFtfQIFxLntbYPSNScX3NEopnzrG7Ajh9X6jpgzZ9cZOYWyp+YBKfzNenWZQQGyAm0itpe2GyVtRU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0536
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [net-next v1] net: stmmac: starfive: Add serdes
+ PHY init/deinit function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,211 +136,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Many drivers populate the stats buffer using C-String based APIs (e.g.
-ethtool_sprintf() and ethtool_puts()), usually when building up the
-list of stats individually (i.e. with a for() loop). This, however,
-requires that the source strings be populated in such a way as to have
-a terminating NUL byte in the source.
 
-Other drivers populate the stats buffer directly using one big memcpy()
-of an entire array of strings. No NUL termination is needed here, as the
-bytes are being directly passed through. Yet others will build up the
-stats buffer individually, but also use memcpy(). This, too, does not
-need NUL termination of the source strings.
-
-However, there are cases where the strings that populate the
-source stats strings are exactly ETH_GSTRING_LEN long, and GCC
-15's -Wunterminated-string-initialization option complains that the
-trailing NUL byte has been truncated. This situation is fine only if the
-driver is using the memcpy() approach. If the C-String APIs are used,
-the destination string name will have its final byte truncated by the
-required trailing NUL byte applied by the C-string API.
-
-For drivers that are already using memcpy() but have initializers that
-truncate the NUL terminator, mark their source strings as __nonstring to
-silence the GCC warnings.
-
-For drivers that have initializers that truncate the NUL terminator and
-are using the C-String APIs, switch to memcpy() to avoid destination
-string truncation and mark their source strings as __nonstring to silence
-the GCC warnings. (Also introduce ethtool_cpy() as a helper to make this
-an easy replacement).
-
-Specifically the following warnings were investigated and addressed:
-
-../drivers/net/ethernet/chelsio/cxgb/cxgb2.c:364:9: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  364 |         "TxFramesAbortedDueToXSCollisions",
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/net/ethernet/freescale/enetc/enetc_ethtool.c:165:33: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  165 |         { ENETC_PM_R1523X(0),   "MAC rx 1523 to max-octet packets" },
-      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/net/ethernet/freescale/enetc/enetc_ethtool.c:190:33: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  190 |         { ENETC_PM_T1523X(0),   "MAC tx 1523 to max-octet packets" },
-      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/net/ethernet/google/gve/gve_ethtool.c:76:9: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-   76 |         "adminq_dcfg_device_resources_cnt", "adminq_set_driver_parameter_cnt",
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c:117:53: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  117 |         STMMAC_STAT(ptp_rx_msg_type_pdelay_follow_up),
-      |                                                     ^
-../drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c:46:12: note: in definition of macro 'STMMAC_STAT'
-   46 |         { #m, sizeof_field(struct stmmac_extra_stats, m),       \
-      |            ^
-../drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c:328:24: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  328 |                 .str = "a_mac_control_frames_transmitted",
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c:340:24: warning: initializer-string for array of 'char' truncates NUL terminator but destination lacks 'nonstring' attribute (33 chars into 32 available) [-Wunterminated-string-initialization]
-  340 |                 .str = "a_pause_mac_ctrl_frames_received",
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Signed-off-by: Kees Cook <kees@kernel.org>
----
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Wei Fang <wei.fang@nxp.com>
-Cc: Clark Wang <xiaoning.wang@nxp.com>
-Cc: Jeroen de Borst <jeroendb@google.com>
-Cc: Harshitha Ramamurthy <hramamurthy@google.com>
-Cc: Ido Schimmel <idosch@nvidia.com>
-Cc: Petr Machata <petrm@nvidia.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Geoff Levand <geoff@infradead.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Alexander Lobakin <aleksander.lobakin@intel.com>
-Cc: Praveen Kaligineedi <pkaligineedi@google.com>
-Cc: Willem de Bruijn <willemb@google.com>
-Cc: Joshua Washington <joshwash@google.com>
-Cc: Furong Xu <0x1207@gmail.com>
-Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: Jisheng Zhang <jszhang@kernel.org>
-Cc: Petr Tesarik <petr@tesarici.cz>
-Cc: netdev@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/net/ethernet/chelsio/cxgb/cxgb2.c             |  2 +-
- drivers/net/ethernet/freescale/enetc/enetc_ethtool.c  |  4 ++--
- drivers/net/ethernet/google/gve/gve_ethtool.c         |  4 ++--
- .../net/ethernet/mellanox/mlxsw/spectrum_ethtool.c    |  2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c  |  2 +-
- include/linux/ethtool.h                               | 11 +++++++++++
- 6 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/chelsio/cxgb/cxgb2.c b/drivers/net/ethernet/chelsio/cxgb/cxgb2.c
-index 3b7068832f95..4a0e2d2eb60a 100644
---- a/drivers/net/ethernet/chelsio/cxgb/cxgb2.c
-+++ b/drivers/net/ethernet/chelsio/cxgb/cxgb2.c
-@@ -351,7 +351,7 @@ static void set_msglevel(struct net_device *dev, u32 val)
- 	adapter->msg_enable = val;
- }
- 
--static const char stats_strings[][ETH_GSTRING_LEN] = {
-+static const char stats_strings[][ETH_GSTRING_LEN] __nonstring_array = {
- 	"TxOctetsOK",
- 	"TxOctetsBad",
- 	"TxUnicastFramesOK",
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c b/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c
-index ece3ae28ba82..f47c8b6cc511 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_ethtool.c
-@@ -141,7 +141,7 @@ static const struct {
- 
- static const struct {
- 	int reg;
--	char name[ETH_GSTRING_LEN];
-+	char name[ETH_GSTRING_LEN] __nonstring;
- } enetc_port_counters[] = {
- 	{ ENETC_PM_REOCT(0),	"MAC rx ethernet octets" },
- 	{ ENETC_PM_RALN(0),	"MAC rx alignment errors" },
-@@ -264,7 +264,7 @@ static void enetc_get_strings(struct net_device *ndev, u32 stringset, u8 *data)
- 			break;
- 
- 		for (i = 0; i < ARRAY_SIZE(enetc_port_counters); i++)
--			ethtool_puts(&data, enetc_port_counters[i].name);
-+			ethtool_cpy(&data, enetc_port_counters[i].name);
- 
- 		break;
- 	}
-diff --git a/drivers/net/ethernet/google/gve/gve_ethtool.c b/drivers/net/ethernet/google/gve/gve_ethtool.c
-index eae1a7595a69..3c1da0cf3f61 100644
---- a/drivers/net/ethernet/google/gve/gve_ethtool.c
-+++ b/drivers/net/ethernet/google/gve/gve_ethtool.c
-@@ -67,7 +67,7 @@ static const char gve_gstrings_tx_stats[][ETH_GSTRING_LEN] = {
- 	"tx_xsk_sent[%u]", "tx_xdp_xmit[%u]", "tx_xdp_xmit_errors[%u]"
- };
- 
--static const char gve_gstrings_adminq_stats[][ETH_GSTRING_LEN] = {
-+static const char gve_gstrings_adminq_stats[][ETH_GSTRING_LEN] __nonstring_array = {
- 	"adminq_prod_cnt", "adminq_cmd_fail", "adminq_timeouts",
- 	"adminq_describe_device_cnt", "adminq_cfg_device_resources_cnt",
- 	"adminq_register_page_list_cnt", "adminq_unregister_page_list_cnt",
-@@ -113,7 +113,7 @@ static void gve_get_strings(struct net_device *netdev, u32 stringset, u8 *data)
- 						i);
- 
- 		for (i = 0; i < ARRAY_SIZE(gve_gstrings_adminq_stats); i++)
--			ethtool_puts(&s, gve_gstrings_adminq_stats[i]);
-+			ethtool_cpy(&s, gve_gstrings_adminq_stats[i]);
- 
- 		break;
- 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
-index 3f64cdbabfa3..0a8fb9c842d3 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ethtool.c
-@@ -262,7 +262,7 @@ static int mlxsw_sp_port_set_pauseparam(struct net_device *dev,
- }
- 
- struct mlxsw_sp_port_hw_stats {
--	char str[ETH_GSTRING_LEN];
-+	char str[ETH_GSTRING_LEN] __nonstring;
- 	u64 (*getter)(const char *payload);
- 	bool cells_bytes;
- };
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 918a32f8fda8..844f7d516a40 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -37,7 +37,7 @@
- #define ETHTOOL_DMA_OFFSET	55
- 
- struct stmmac_stats {
--	char stat_string[ETH_GSTRING_LEN];
-+	char stat_string[ETH_GSTRING_LEN] __nonstring;
- 	int sizeof_stat;
- 	int stat_offset;
- };
-diff --git a/include/linux/ethtool.h b/include/linux/ethtool.h
-index 013d25858642..7edb5f5e7134 100644
---- a/include/linux/ethtool.h
-+++ b/include/linux/ethtool.h
-@@ -1330,6 +1330,17 @@ extern __printf(2, 3) void ethtool_sprintf(u8 **data, const char *fmt, ...);
-  */
- extern void ethtool_puts(u8 **data, const char *str);
- 
-+/**
-+ * ethtool_cpy - Write possibly-not-NUL-terminated string to ethtool string data
-+ * @data: Pointer to a pointer to the start of string to write into
-+ * @str: NUL-byte padded char array of size ETH_GSTRING_LEN to copy from
-+ */
-+#define ethtool_cpy(data, str)	do {				\
-+	BUILD_BUG_ON(sizeof(str) != ETH_GSTRING_LEN);		\
-+	memcpy(*(data), str, ETH_GSTRING_LEN);			\
-+	*(data) += ETH_GSTRING_LEN;				\
-+} while (0)
-+
- /* Link mode to forced speed capabilities maps */
- struct ethtool_forced_speed_map {
- 	u32		speed;
--- 
-2.34.1
+> 
+> On 4/10/25 9:04 AM, Minda Chen wrote:
+> > To support SGMII interface, add internal serdes PHY powerup/ powerdown
+> > function.
+> >
+> > Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> > ---
+> >  .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 33
+> > +++++++++++++++++++
+> >  1 file changed, 33 insertions(+)
+> >
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> > index 2013d7477eb7..f5923f847100 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> > @@ -9,6 +9,8 @@
+> >
+> >  #include <linux/mod_devicetable.h>
+> >  #include <linux/platform_device.h>
+> > +#include <linux/phy.h>
+> > +#include <linux/phy/phy.h>
+> >  #include <linux/property.h>
+> >  #include <linux/mfd/syscon.h>
+> >  #include <linux/regmap.h>
+> > @@ -28,6 +30,7 @@ struct starfive_dwmac_data {  struct starfive_dwmac
+> > {
+> >  	struct device *dev;
+> >  	const struct starfive_dwmac_data *data;
+> > +	struct phy *serdes_phy;
+> >  };
+> >
+> >  static int starfive_dwmac_set_mode(struct plat_stmmacenet_data
+> > *plat_dat) @@ -80,6 +83,26 @@ static int starfive_dwmac_set_mode(struct
+> plat_stmmacenet_data *plat_dat)
+> >  	return 0;
+> >  }
+> >
+> > +static int starfive_dwmac_serdes_powerup(struct net_device *ndev,
+> > +void *priv) {
+> > +	struct starfive_dwmac *dwmac = priv;
+> > +	int ret;
+> > +
+> > +	ret = phy_init(dwmac->serdes_phy);
+> > +	if (ret)
+> > +		return ret;
+> 
+> This is called also in case of PM suspend/resume. Do you need to keep the init
+> here, or should that moved at probe time only? Similar question for phy_exit()
+> below.
+> 
+> Thanks!
+> 
+> Paolo
+Yes ,The serdes PHY code is simple.  But I am not test with PHY code
+I will send next version with PHY code.
 
 _______________________________________________
 Linux-stm32 mailing list
