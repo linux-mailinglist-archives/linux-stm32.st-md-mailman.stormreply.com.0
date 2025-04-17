@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECCD2A92378
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Apr 2025 19:08:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48A9FA92398
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Apr 2025 19:13:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 976B2C78F74;
-	Thu, 17 Apr 2025 17:08:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07151C78F74;
+	Thu, 17 Apr 2025 17:13:56 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63C4BC6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B446C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Apr 2025 17:08:40 +0000 (UTC)
+ Thu, 17 Apr 2025 17:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jQ2RDmpRxd/UlVEMitc8xfzDNE1izM57yeWpzmYqHf0=; b=Xx2JT3sPcKmxheT8VmOoRFY0SO
- Z20onmT3xxDpfbYCjpMPkf6I7+S0PwdHWvboVfy+XgngP5vhKa7vq0BSA3ancFH6pWYmdNHP/+4Q9
- eeTrddHNbC3o0eve5YljD8/Bd/ENrap542p4YdFB8OTinui5zGS47GHuPc0NRqmL3WB9z8HAsJ4US
- G2DAoCAtABZ9Bb/7SVqTJIQnpazW64hslK9ng+NRCiosql4AzxfZ9/aStOVvVMgLBVG0+tiZNtT6s
- aitgKGsq1izatjB5N1pLzOpnTYskaA4Wxif8wROjXzB4+YcJJce6XlQckF1TDQaYRv2Hjv1w69duS
- WiL5crxw==;
+ bh=z8hTSVnlcCC2WOnj66TO/Zt9nedPd+37sOl0zL+RseU=; b=k3Va4fCpTrOBQ7/3kVED2u3vGg
+ foS8vDazWhX9tXhBFMBXt1xF79/7lJLt6adn0O2EoZjw6Eqzico3ptoSGSUH+/onSRYcbfVbZb2jS
+ 4AfjNaK8bDSBJIioOhVCvrWn3TppgQK4W4bq7e7Ne0u2ueX0AC4XiROEwfJqSiXJmnkyrJZ/sMQvq
+ CgmonJA/4psjajUWspw3hEQoeLHL4E8FCHAYBAlASgp+DkZFEDdJwqrD6N4kBNfi09voQ1sWZEj7V
+ YuUK39QJTyMtVE+PKGJ+IrjVQDzFA+L23PtjfMy7o7Dxl71oXnGgKmQRYfaSSSq+2qgtOQtngnxwk
+ wrxe3dhA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:52332 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48398 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1u5Sj2-0007fW-1E;
- Thu, 17 Apr 2025 18:08:32 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1u5So9-0007gS-2k;
+ Thu, 17 Apr 2025 18:13:49 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1u5SiQ-001I0B-OQ; Thu, 17 Apr 2025 18:07:54 +0100
+ id 1u5SnY-001IJY-90; Thu, 17 Apr 2025 18:13:12 +0100
+In-Reply-To: <aAE2tKlImhwKySq_@shell.armlinux.org.uk>
+References: <aAE2tKlImhwKySq_@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1u5SiQ-001I0B-OQ@rmk-PC.armlinux.org.uk>
-Date: Thu, 17 Apr 2025 18:07:54 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+Message-Id: <E1u5SnY-001IJY-90@rmk-PC.armlinux.org.uk>
+Date: Thu, 17 Apr 2025 18:13:12 +0100
+Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: visconti: convert to
- set_clk_tx_rate() method
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 1/5] net: stmmac: socfpga: init
+ dwmac->stmmac_rst before registration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,100 +66,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert visconti to use the set_clk_tx_rate() method. By doing so,
-the GMAC control register will already have been updated (unlike with
-the fix_mac_speed() method) so this code can be removed while porting
-to the set_clk_tx_rate() method.
+Initialisation/setup after registration is a bug. This is the first of
+two patches fixing this in socfpga.
 
-There is also no need for the spinlock, and has never been - neither
-fix_mac_speed() nor set_clk_tx_rate() can be called by more than one
-thread at a time, so the lock does nothing useful.
+dwmac->stmmac_rst is initialised from the stmmac plat_dat's stmmac_rst
+member, which is itself initialised by devm_stmmac_probe_config_dt().
+Therefore, this can be initialised before we call stmmac_dvr_probe().
+Move it there.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Acked-by: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
+dwmac->stmmac_rst is used by the set_phy_mode() method.
+
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac-visconti.c  | 25 +++++--------------
- 1 file changed, 6 insertions(+), 19 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-index 33cf99797df5..5e6ac82a89b9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-@@ -51,21 +51,14 @@ struct visconti_eth {
- 	u32 phy_intf_sel;
- 	struct clk *phy_ref_clk;
- 	struct device *dev;
--	spinlock_t lock; /* lock to protect register update */
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 116855658559..bcdb25ee2a33 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -442,8 +442,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 	struct device		*dev = &pdev->dev;
+ 	int			ret;
+ 	struct socfpga_dwmac	*dwmac;
+-	struct net_device	*ndev;
+-	struct stmmac_priv	*stpriv;
+ 	const struct socfpga_dwmac_ops *ops;
  
--static void visconti_eth_fix_mac_speed(void *priv, int speed, unsigned int mode)
-+static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
-+					phy_interface_t interface, int speed)
- {
--	struct visconti_eth *dwmac = priv;
-+	struct visconti_eth *dwmac = bsp_priv;
- 	struct net_device *netdev = dev_get_drvdata(dwmac->dev);
- 	unsigned int val, clk_sel_val = 0;
--	unsigned long flags;
--
--	spin_lock_irqsave(&dwmac->lock, flags);
--
--	/* adjust link */
--	val = readl(dwmac->reg + MAC_CTRL_REG);
--	val &= ~(GMAC_CONFIG_PS | GMAC_CONFIG_FES);
- 
- 	switch (speed) {
- 	case SPEED_1000:
-@@ -77,24 +70,19 @@ static void visconti_eth_fix_mac_speed(void *priv, int speed, unsigned int mode)
- 			clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_25M;
- 		if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RMII)
- 			clk_sel_val = ETHER_CLK_SEL_DIV_SEL_2;
--		val |= GMAC_CONFIG_PS | GMAC_CONFIG_FES;
- 		break;
- 	case SPEED_10:
- 		if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RGMII)
- 			clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_2P5M;
- 		if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RMII)
- 			clk_sel_val = ETHER_CLK_SEL_DIV_SEL_20;
--		val |= GMAC_CONFIG_PS;
- 		break;
- 	default:
- 		/* No bit control */
- 		netdev_err(netdev, "Unsupported speed request (%d)", speed);
--		spin_unlock_irqrestore(&dwmac->lock, flags);
--		return;
-+		return -EINVAL;
+ 	ops = device_get_match_data(&pdev->dev);
+@@ -479,7 +477,13 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 		return ret;
  	}
  
--	writel(val, dwmac->reg + MAC_CTRL_REG);
--
- 	/* Stop internal clock */
- 	val = readl(dwmac->reg + REG_ETHER_CLOCK_SEL);
- 	val &= ~(ETHER_CLK_SEL_RMII_CLK_EN | ETHER_CLK_SEL_RX_TX_CLK_EN);
-@@ -136,7 +124,7 @@ static void visconti_eth_fix_mac_speed(void *priv, int speed, unsigned int mode)
- 		break;
- 	}
- 
--	spin_unlock_irqrestore(&dwmac->lock, flags);
-+	return 0;
- }
- 
- static int visconti_eth_init_hw(struct platform_device *pdev, struct plat_stmmacenet_data *plat_dat)
-@@ -228,11 +216,10 @@ static int visconti_eth_dwmac_probe(struct platform_device *pdev)
- 	if (!dwmac)
- 		return -ENOMEM;
- 
--	spin_lock_init(&dwmac->lock);
- 	dwmac->reg = stmmac_res.addr;
- 	dwmac->dev = &pdev->dev;
++	/* The socfpga driver needs to control the stmmac reset to set the phy
++	 * mode. Create a copy of the core reset handle so it can be used by
++	 * the driver later.
++	 */
++	dwmac->stmmac_rst = plat_dat->stmmac_rst;
+ 	dwmac->ops = ops;
++
  	plat_dat->bsp_priv = dwmac;
--	plat_dat->fix_mac_speed = visconti_eth_fix_mac_speed;
-+	plat_dat->set_clk_tx_rate = visconti_eth_set_clk_tx_rate;
- 
- 	ret = visconti_eth_clock_probe(pdev, plat_dat);
+ 	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
+ 	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
+@@ -493,15 +497,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
  	if (ret)
+ 		return ret;
+ 
+-	ndev = platform_get_drvdata(pdev);
+-	stpriv = netdev_priv(ndev);
+-
+-	/* The socfpga driver needs to control the stmmac reset to set the phy
+-	 * mode. Create a copy of the core reset handle so it can be used by
+-	 * the driver later.
+-	 */
+-	dwmac->stmmac_rst = stpriv->plat->stmmac_rst;
+-
+ 	ret = ops->set_phy_mode(dwmac);
+ 	if (ret)
+ 		goto err_dvr_remove;
 -- 
 2.30.2
 
