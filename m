@@ -2,54 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70968A9239D
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Apr 2025 19:14:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32682A92392
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Apr 2025 19:13:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D2BCC78F8C;
-	Thu, 17 Apr 2025 17:14:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E94D0C78F74;
+	Thu, 17 Apr 2025 17:13:35 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 170F3C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79DFDC6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Apr 2025 17:14:05 +0000 (UTC)
+ Thu, 17 Apr 2025 17:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aTp3apWKdtVXSepo83cIFV0LN+laPuM1G8F4Zxr1ELk=; b=nUZQyTokrg0CL2fzLiTm6Tm+sB
- gGoSVwKKHRQb4N3nJMxV6JCJOzfVMpmOv6dpE2NeI40pUo3QDvfXO+yauheknpVSnKFtkMYwAY9Ao
- 10Zru9d8v2rN7wGXYbPlHhXLVWA4Njn9xEYfLlI2nlE9pd8k0oCiNOd6LccoEGFdxCffNMtfunUDE
- pRD0LwV0GnA9vfaOn4c5VuNa9eRKnUiDNgwahRO0j/C6IXzsKa8DecUjYEsh+AtyDtpgDaI2il8yv
- 8x91NJ/hTF2bkwzE9wuQ4hDN8zxm02Ff38RGBVkvviENKdy8x7oXJDLpToRKFBdmzMx9n5lcF8FLe
- UAVVY/Eg==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53518 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZomCEYUh4rjq0ptDxJtUhMsfqwCF7A2KJ07pH99EdY0=; b=izM0g8vSWwufEyG5SWarbIebxk
+ I/OVmx9UlBhZSqaYFVpr75u5SHUBGxBLliZuDD9PrCmsxFG92vJdIGxm1lAqnGQk17FSvtb9VuZBt
+ bSZgaTA66Zy8ctTAP6x/PJnquXVznkP1t38RN5Uz9HeE/llCGzoPoNU5O7+Ns0ysHJO2Ts/+biYRc
+ C2E9D5w0+SwC507xnfCM77aSmPnDTAZu4ZBWL16XCAfQ2ME1kANgnBr2/ok+BMX8XLA22dzP9rFwy
+ iQiKW8o6MM7Lr+SX0WQ+UVwg+cCn2jV+zNmtvs4JNwkGhTlNRiUQKdm35K7h33Q40xPyEyvK+cW1K
+ K1KabXbw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48948)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1u5SoK-0007gx-0o;
- Thu, 17 Apr 2025 18:14:00 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1u5Sni-001IJk-Gi; Thu, 17 Apr 2025 18:13:22 +0100
-In-Reply-To: <aAE2tKlImhwKySq_@shell.armlinux.org.uk>
-References: <aAE2tKlImhwKySq_@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ (envelope-from <linux@armlinux.org.uk>) id 1u5Sno-0007g2-2q;
+ Thu, 17 Apr 2025 18:13:28 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1u5Snk-0002cd-1C;
+ Thu, 17 Apr 2025 18:13:24 +0100
+Date: Thu, 17 Apr 2025 18:13:24 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aAE2tKlImhwKySq_@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1u5Sni-001IJk-Gi@rmk-PC.armlinux.org.uk>
-Date: Thu, 17 Apr 2025 18:13:22 +0100
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 3/5] net: stmmac: socfpga: convert
- to stmmac_pltfr_pm_ops
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 0/5] net: stmmac: socfpga: fix
+ init ordering and cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,80 +63,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert socfpga to use the generic stmmac_pltfr_pm_ops, which can be
-achieved by adding an appropriate plat_dat->init function to do the
-setup.
+Hi,
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 37 +------------------
- 1 file changed, 2 insertions(+), 35 deletions(-)
+This series fixes the init ordering of the socfpga probe function.
+The standard rule is to do all setup before publishing any device,
+and socfpga violates that. I can see no reason for this, but these
+patches have not been tested on hardware.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index c333ec07d15f..69ffc52c0275 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -493,6 +493,7 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 
- 	plat_dat->bsp_priv = dwmac;
- 	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
-+	plat_dat->init = socfpga_dwmac_init;
- 	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
- 	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
- 	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
-@@ -516,40 +517,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--#ifdef CONFIG_PM_SLEEP
--static int socfpga_dwmac_resume(struct device *dev)
--{
--	struct socfpga_dwmac *dwmac_priv = get_stmmac_bsp_priv(dev);
--
--	socfpga_dwmac_init(to_platform_device(dev), dwmac_priv);
--
--	return stmmac_resume(dev);
--}
--#endif /* CONFIG_PM_SLEEP */
--
--static int __maybe_unused socfpga_dwmac_runtime_suspend(struct device *dev)
--{
--	struct net_device *ndev = dev_get_drvdata(dev);
--	struct stmmac_priv *priv = netdev_priv(ndev);
--
--	stmmac_bus_clks_config(priv, false);
--
--	return 0;
--}
--
--static int __maybe_unused socfpga_dwmac_runtime_resume(struct device *dev)
--{
--	struct net_device *ndev = dev_get_drvdata(dev);
--	struct stmmac_priv *priv = netdev_priv(ndev);
--
--	return stmmac_bus_clks_config(priv, true);
--}
--
--static const struct dev_pm_ops socfpga_dwmac_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(stmmac_suspend, socfpga_dwmac_resume)
--	SET_RUNTIME_PM_OPS(socfpga_dwmac_runtime_suspend, socfpga_dwmac_runtime_resume, NULL)
--};
--
- static const struct socfpga_dwmac_ops socfpga_gen5_ops = {
- 	.set_phy_mode = socfpga_gen5_set_phy_mode,
- };
-@@ -570,7 +537,7 @@ static struct platform_driver socfpga_dwmac_driver = {
- 	.remove = stmmac_pltfr_remove,
- 	.driver = {
- 		.name           = "socfpga-dwmac",
--		.pm		= &socfpga_dwmac_pm_ops,
-+		.pm		= &stmmac_pltfr_pm_ops,
- 		.of_match_table = socfpga_dwmac_match,
- 	},
- };
+Address this by moving the initialisation of dwmac->stmmac_rst
+along with all the other dwmac initialisers - there's no reason
+for this to be late as plat_dat->stmmac_rst has already been
+populated.
+
+Next, replace the call to ops->set_phy_mode() with an init function
+socfpga_dwmac_init() which will then be linked in to plat_dat->init.
+
+Then, add this to plat_dat->init, and switch to stmmac_pltfr_pm_ops
+from the private ops. The runtime suspend/resume socfpga implementations
+are identical to the platform ones, but misses the noirq versions
+which this will add.
+
+Before we swap the order of socfpga_dwmac_init() and
+stmmac_dvr_probe(), we need to change the way the interface is
+obtained, as that uses driver data and the struct net_device which
+haven't been initialised. Save a pointer to plat_dat in the socfpga
+private data, and use that to get the interface mode. We can then swap
+the order of the init and probe functions.
+
+Finally, convert to devm_stmmac_pltfr_probe() by moving the call
+to ops->set_phy_mode() into an init function appropriately populating
+plat_dat->init.
+
+v2: fix oops when calling set_phy_mode() early.
+v3: fix unused variable warnings in patch 2, add Maxime's r-b and t-b
+    to all but patch 2.
+
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 79 +++++-----------------
+ 1 file changed, 16 insertions(+), 63 deletions(-)
+
 -- 
-2.30.2
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
