@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68A0BA92FBE
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 04:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B32A92FC1
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 04:10:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CBF7C78F72;
-	Fri, 18 Apr 2025 02:10:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16C41C78F72;
+	Fri, 18 Apr 2025 02:10:06 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F51CC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 475B1C78F74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 02:10:02 +0000 (UTC)
+ Fri, 18 Apr 2025 02:10:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AE7315C54AC;
- Fri, 18 Apr 2025 02:07:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6481FC4CEE4;
- Fri, 18 Apr 2025 02:10:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 25FE65C5876;
+ Fri, 18 Apr 2025 02:07:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48ABC4CEEA;
+ Fri, 18 Apr 2025 02:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1744942200;
- bh=DojIOl1pVFu1mQqpy1zqyKE8kukp8trKGpMnSq9nMOI=;
+ s=k20201202; t=1744942201;
+ bh=GrNXNsg8thhryFhRIZCHfkYBELHVyUHwQRQ/n00IPGk=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=cdY7ayAd0nLdploAuNKyMPQR1mPvfrv2vaw+zphf9w5KDt4cM8xoDrhYr6N7Ch6QI
- ltqKkEr0FJCfjomWwQyRp629dAyrEq81h2JWM/xiRdTEohZmF9fnB8AYDJr5CUB8mZ
- OdkGLTrgkQW500tyK7uJDdKebeERTpHjRBuRA759cfC5DmNQgelrn66b6oUe9OfG+s
- A1TDjMScB6bQY6Hao9jPN5QTf/bo8KzkZxy6QWwSJdaG/eqq65wSWEVe614NWWcFou
- 4h9Dpg0wLom6ddUUyfLXFLyEixtA0kOE7MLjcXtx7aj+zeeEdMZRhwulA2KRapQ0j+
- pn2PfFIKNJIDw==
+ b=rDLXCb100h//SVUpdcl4UQ585zMo4am7V5N+BpZ74niCtsqXgpOIRdxVwKJ6I7vq0
+ ID1qTakmi412HtyqO4khIdD2v+RDbYJd1HHLHNM4e2P8eTrpyQxtjRmmFQobgclXua
+ Vd3xzZGOURAN2wwZ74EfPc1YfDvROY1EG+VehMMrH/vgKBI0bQnbYVOAbcwujaUn5x
+ XMFw0JNwHZojNHzr1sBN8FGQgnvhH3+mX7GkM1cKUBSEVNAPxqSrcs1KvoZ8gX8qEW
+ pU2WLW0d3ZDSLWX2XPhQkerStPNLe27skPsbEjFzuCwa3KI931dhX3ykfcqsWbhTlz
+ Oc4vnJcWlKMJg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- ADEF0380AAEB; Fri, 18 Apr 2025 02:10:39 +0000 (UTC)
+ 3483A380AAEB; Fri, 18 Apr 2025 02:10:41 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174494223824.79616.1586155052116698470.git-patchwork-notify@kernel.org>
-Date: Fri, 18 Apr 2025 02:10:38 +0000
-References: <E1u4zi1-000xHh-57@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1u4zi1-000xHh-57@rmk-PC.armlinux.org.uk>
+Message-Id: <174494223974.79616.7693576407987445072.git-patchwork-notify@kernel.org>
+Date: Fri, 18 Apr 2025 02:10:39 +0000
+References: <E1u4zyh-000xVE-PG@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1u4zyh-000xVE-PG@rmk-PC.armlinux.org.uk>
 To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, treding@nvidia.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jonathanh@nvidia.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos: use PHY
-	clock-stop capability
+Cc: andrew@lunn.ch, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, linux-mediatek@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com, kuba@kernel.org,
+ hkallweit1@gmail.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: mediatek: stop
+ initialising plat->mac_interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,19 +67,19 @@ Hello:
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 16 Apr 2025 11:09:33 +0100 you wrote:
-> Use the PHY clock-stop capability when programming the MAC LPI mode,
-> which allows the transmit clock to the PHY to be gated. Tested on the
-> Jetson Xavier NX platform.
+On Wed, 16 Apr 2025 11:26:47 +0100 you wrote:
+> Mediatek doesn't make use of mac_interface, and none of the in-tree
+> DT files use the mac-mode property. Therefore, mac_interface already
+> follows phy_interface. Remove this unnecessary assignment.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c | 1 -
+>  1 file changed, 1 deletion(-)
 
 Here is the summary with links:
-  - [net-next] net: stmmac: dwc-qos: use PHY clock-stop capability
-    https://git.kernel.org/netdev/net-next/c/7c6cd70ffd0f
+  - [net-next] net: stmmac: mediatek: stop initialising plat->mac_interface
+    https://git.kernel.org/netdev/net-next/c/01be295b485a
 
 You are awesome, thank you!
 -- 
