@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F9CA93E78
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19E5A93E79
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8A59C78F71;
-	Fri, 18 Apr 2025 19:59:48 +0000 (UTC)
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
- [209.85.160.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4EDAC7802C;
+	Fri, 18 Apr 2025 19:59:50 +0000 (UTC)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3534C7803A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D96F6C78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 19:59:46 +0000 (UTC)
-Received: by mail-oa1-f53.google.com with SMTP id
- 586e51a60fabf-2d4f8c42f49so1137400fac.1
+ Fri, 18 Apr 2025 19:59:49 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-60406de9cbfso751550eaf.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 12:59:46 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006385; x=1745611185;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006388; x=1745611188;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DlDI/QLmlPJuz1yS/XHu6VU6BQuOeAxWmCMkkw2CqXk=;
- b=Oe4Oy9kODJj4koEoSr7QBOiGEKw/hDhPO9aiEyr/QM00A5Kioqm2RswxeeETJ2/3IO
- JSInXbbBwrefbfpp4X7JraYs8UOfVE4rWqGz8ikgfaHW2BkQC9P6lNIYBOXUSS2tAND0
- fK4luyOnElWnjr6PAN6gohOrNLCvG+V6WCkX3+M49wKh9sBXUGo0/skOiSvjyGsu1xmr
- krmfM5hWe+EG/JtoAYcEb4iTk/33jtC1zV2UcyBxaUM07LtN7OofeqO0AFDhoUC/YXC2
- EatLMHguwwu2/z2UG2eFrTitKE4TLjPLps2CHdFsN2VA4mRi0zgSw93+NZoNbO7V3xeC
- jZ7g==
+ :reply-to; bh=ksSqxXQXgKq3MEdL/jjg1tyq7wfP3KlJsiMdvfm/kDA=;
+ b=1CA1x6H7vJJxz3R6NSjVQ+spFwkyEZDhC1ZxBPSGeKhl3nl3ierDAGriKsC56Vkn/D
+ 44X2Jda0qASPOOJHxSOPFZpYcl3a8MB5BXAdGmJB0LmG9c5pDhsKi9GOTvq1UCk2oL6T
+ UWSOm1obPqpBzQShDXbZrAUJfbrUNhGOEC/bfSJSV3VJiKrkQRX7SfarhE7YkqM+y70I
+ FL0vaPTgEF/9jBlXo83U2oIN0aKj9uLCVKbVwrEh9B9ljfdrBin1M3wchGmFZzQhf3bz
+ j+AC+6pE1o33lns8Sj87gxED5QPCNWapPkHKPFXolyK+2bnYa79L4XiMRDHj92Hq6ZDE
+ vOHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745006385; x=1745611185;
+ d=1e100.net; s=20230601; t=1745006388; x=1745611188;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DlDI/QLmlPJuz1yS/XHu6VU6BQuOeAxWmCMkkw2CqXk=;
- b=KgYI0MekzwIvmO2mIiTJoGsVIFfIlbfiLq8vhN+ngzxXbcFRaDh12Cc31ASuyXSYOn
- GsyXLsXICX6Dle88RKJ95P4ET/XsBWNSZupTHNMPHDC/997bqM0a86UeytwR7+1g7FG3
- GilW7AXssZjs9q4Qrpt9TB5nn/RaTfVCu2XtKJrjhV7GPPgfTIMvDTM63bPXszt1xFPA
- JOOAvF66gBeCOvCVCM5eAg0AFt66j9lx1119gUlFZHGAV6lCHDE3b9Y0szglkQkJVaO8
- T2o+QhCpe7iZopV2/Vmd6kbolN8IGOk96nv4LisXDTC3WgGo/Omc3OsVffiKgLAKY7W1
- JIDQ==
+ bh=ksSqxXQXgKq3MEdL/jjg1tyq7wfP3KlJsiMdvfm/kDA=;
+ b=wX5nYVmONiqKmaS+tU1UVEXkHRWLk+vPjgPr8qbf6zTBfW9wJVZl06to+wLsHrAgdQ
+ ukab7kXt2xFnQdIftSlzU2K7TPF/tTWqUFv7HOFWXS7YxO0OnLa3z7ztKz4qaY0dd0nD
+ ENWLRuBQkQ/jh87lJyvCBCLeXsVYtVeAbIN6bqdnFNRciJBoqx1pZrl4kL0f+sM8jxSw
+ j8ai8zJywqr0i1wY2SebQLPBxI3KT8JHx7N9LZNLRCZP9FHlStUj0cOuQ+y5g17agHoZ
+ 87mOTZe1VVu86leXxfa7U2thTjl5L4gMvlsyW/4Lkg36s594vIG3++4ac9Mjl+U2Kx80
+ omMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW2tB4k5+knDfrKKVfPVh7CDr5c+tETSxoy0y0W2ag13ZeGPwEsWaQqeR+DfQtBATHK2c+ntCQI7TYuxQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyaA+gJrBTiJ+4Jm+n+74ozqjuDk5Tf4GMA5Jh5h9PDuMM6a/97
- L0vhEX/KhuOK8GDF6wDVIU1QF1QCtUgHpuQ6Xk+zNOLtoGh20An/iF8T1f1IIrs=
-X-Gm-Gg: ASbGncv1HIa+sOjyNA15zO3VtHMN7fsmOotk3r5XRXmLCzp/vif5Xng2crc0uu7ahi1
- YlgmtFTk4LlmVzTfpIUXrC0k0jeMNWUez1j3vlMCYu4yO+0UJPPRjbhAkHuCIESsDkiAli3vxuD
- BxfJf1P7yygwTeAq9sEfPq2Zq0eZTDr7xsHT8nPjFT9kSG14X0YeUp1iLR7/kbeQ+WpN9lVyQNT
- 2ri86GzwbvVwD4e6hrfpT/FvJ/MleFrgdKHd1Bw87keH1QfFB0Z6qluxbN6ENCTM1IitcyvSZ1Q
- Eeb8OmEjpxUYPPE6UHJpkKcfWBhpNK0BZWqho+uiTrPZoDk=
-X-Google-Smtp-Source: AGHT+IEZLt8vJ+Vea+VdNW6U5TrIwsCbEZj5notcgMOj7WZyAPb2+50/gNm/PtPTqMubaQMXt78WIA==
-X-Received: by 2002:a05:6871:2208:b0:2d4:e101:13f1 with SMTP id
- 586e51a60fabf-2d528764a94mr2112473fac.13.1745006385694; 
- Fri, 18 Apr 2025 12:59:45 -0700 (PDT)
+ AJvYcCWP0JvCCBvnkatL9EuB/+gGRILL5FFUcHHJtTWBwuUBDAQQo77yk4IUCSfgxlxI/73x5cOUFbXhzeYhpQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzz6ngAoDfmMM0pZ29UqcwBQcjW/WbfjbxHBO/5oHyJqhkTYnPV
+ XXN6/+XvRUlaGooLOmngRTucWNhHIbApFCnMFDWB+euDP6egWBxzncKMoyBORRo=
+X-Gm-Gg: ASbGncvzZYJy1oHI6xYBHFe31VCujp3IwNU+FHZYGUo6MqsOmfBgXR3cSyh0pF3N8iH
+ yM3Mpyjkp4jvs8te9Vn4jVQoAIjoRIH9gc3Jqd+SqDDyQavEaD/evkldW/iMhXERwcN8i3/7BuQ
+ +EJrVmFA4Fk2F5mgqbSCX6XAxQlhXGcRH1NPOr2hJZDfbTDY09eBoV3VPc/B6ByGe859Gjvv4es
+ huLzVZM5XwbCHN89pM3eA0SGPgmdYnCmXXMNqbCIVPxbSHkyHB2ybDBGmhEMnXTcJMYKE5cAJbx
+ O0BtjTB0JKjC03culO9t2kXao8cz+9RNikUQibdYh0WSjco=
+X-Google-Smtp-Source: AGHT+IFj8rQZMZvtPmVYvlswaBgMb9r1fm1cQCciAYKz5X9YEKQwhLXdNPStKbPWJNkdDXJj7/qY+g==
+X-Received: by 2002:a05:6870:9e0d:b0:29e:671b:6003 with SMTP id
+ 586e51a60fabf-2d526e0b311mr3083100fac.32.1745006388641; 
+ Fri, 18 Apr 2025 12:59:48 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:dcdf:46e0:18e5:c279])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.43
+ 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 12:59:44 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:47 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Fri, 18 Apr 2025 14:58:20 -0500
+Date: Fri, 18 Apr 2025 14:58:21 -0500
 MIME-Version: 1.0
-Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-1-4c6080710516@baylibre.com>
+Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-2-4c6080710516@baylibre.com>
 References: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 In-Reply-To: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -79,23 +79,23 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2299; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2897; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=atzk3KgpYuN7DI/cmia/uI2CCnJShxRg4I1+4wGuxyE=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq7pqs36/Uewg4GkPF0PtQe0BngPZ5CQYydvA
- pwIa4qdyciJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKu6QAKCRDCzCAB/wGP
- wHfFB/9GtQnD4PldNnD2VgoEGzk7DgDePLxDOrYU32KN2nhp0QWkAaDNoNEYBhYQt2fv5gWVB9Z
- Xl15hL/X0IiIWQRQz0YQHmodc+DHZYkKl1DEl0fSOPzAHfvCGvbpGgRG+4Oi/RcZfLmeN1kcldK
- n12hAhtHqetBeEWIcKRs0mmQ/CiOAiWdd0XKJcRXQqdrIl578xkTzRhW8ZfgcDRJhO5REY+r49u
- G03D66fWWIAFlreYa769SW1MC9WJgtmcWExTXic/L5+NbF5GDRVAxt6cFwEUAnayJNtp/F1N/Z1
- EH5T41MtVfiXCOUB9ErI3MJ7H+yNku6IF9i6ZOXG3mKna/oO
+ bh=uGEGli6agFbSIEZPgrYVG1FE8mDYaDMCfJyp/lazgiE=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq7vX8GGgAAxPwrJ/N9bdFji+tUrDObD7oWs0
+ DvLOxngo0WJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKu7wAKCRDCzCAB/wGP
+ wPcDB/9Rn9JB9hcWF+vXoNFbgTyeYaeIohNCTpSNvM8pHIkYDyV+bTUeYPRDtYP+ubhiUNbAVy3
+ 3VZ841HJG9nqewSUOCOlBAE5AkziGAUm5bSrkL5ifXr3DSLzxkPnrQ3Ao3AiutbhF1sclOUJ3ye
+ nheGCoAyzEluF3FJD2g70v8IDaD6bh6vaEe2yMQL8BSBuuaP5NZQw8HIM6Ek1xhsC1GWZ86urbo
+ 8Xxzad8bX2Qv8/zWuuH7qTCszseLNJdsXQXnyGDF5WJ/xCTvHU0VOpfaB/PB1RPj58Y97aA9QDD
+ PTkAvQX6xnNlTfsPVMqA6uDJtbSh6vQzTQnrXLTEGHqPBUM2
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/10] iio: accel: sca3300: use struct with
- aligned_s64 timestamp
+Subject: [Linux-stm32] [PATCH 02/10] iio: adc: at91-sama5d2_adc: use struct
+ with aligned_s64 timestamp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,68 +112,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use a struct with aligned_s64 timestamp instead of a padded array for
+Use a struct with aligned s64 timestamp_instead of a padded array for
 the buffer used for iio_push_to_buffers_with_ts(). This makes it easier
 to see the correctness of the size and alignment of the buffer.
 
-Changing the array part to s16 insted of u8 also lets us drop the cast
-when it is used.
-
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/accel/sca3300.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ drivers/iio/adc/at91-sama5d2_adc.c | 25 ++++++++++---------------
+ 1 file changed, 10 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/iio/accel/sca3300.c b/drivers/iio/accel/sca3300.c
-index 1132bbaba75bcca525fac2f3e19f63546380fd4f..f04ad523f48abd598b1b2df37c51da894c0ce796 100644
---- a/drivers/iio/accel/sca3300.c
-+++ b/drivers/iio/accel/sca3300.c
-@@ -58,15 +58,6 @@ enum sca3300_scan_indexes {
- 	SCA3300_SCAN_MAX
+diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
+index 414610afcb2c4128a63cf76767803c32cb01ac5e..07ced924f7a6ae36fe538021a45adbf7d76c2e69 100644
+--- a/drivers/iio/adc/at91-sama5d2_adc.c
++++ b/drivers/iio/adc/at91-sama5d2_adc.c
+@@ -21,6 +21,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/sched.h>
++#include <linux/types.h>
+ #include <linux/units.h>
+ #include <linux/wait.h>
+ #include <linux/iio/iio.h>
+@@ -586,15 +587,6 @@ struct at91_adc_temp {
+ 	u16				saved_oversampling;
  };
  
 -/*
-- * Buffer size max case:
-- * Three accel channels, two bytes per channel.
-- * Temperature channel, two bytes.
-- * Three incli channels, two bytes per channel.
-- * Timestamp channel, eight bytes.
+- * Buffer size requirements:
+- * No channels * bytes_per_channel(2) + timestamp bytes (8)
+- * Divided by 2 because we need half words.
+- * We assume 32 channels for now, has to be increased if needed.
+- * Nobody minds a buffer being too big.
 - */
--#define SCA3300_MAX_BUFFER_SIZE (ALIGN(sizeof(s16) * SCA3300_SCAN_MAX, sizeof(s64)) + sizeof(s64))
+-#define AT91_BUFFER_MAX_HWORDS ((32 * 2 + 8) / 2)
 -
- #define SCA3300_ACCEL_CHANNEL(index, reg, axis) {			\
- 	.type = IIO_ACCEL,						\
- 	.address = reg,							\
-@@ -203,7 +194,10 @@ struct sca3300_data {
- 	struct spi_device *spi;
- 	struct mutex lock;
- 	const struct sca3300_chip_info *chip;
--	u8 buffer[SCA3300_MAX_BUFFER_SIZE] __aligned(sizeof(s64));
+ struct at91_adc_state {
+ 	void __iomem			*base;
+ 	int				irq;
+@@ -617,7 +609,10 @@ struct at91_adc_state {
+ 	struct iio_dev			*indio_dev;
+ 	struct device			*dev;
+ 	/* Ensure naturally aligned timestamp */
+-	u16				buffer[AT91_BUFFER_MAX_HWORDS] __aligned(8);
 +	struct {
-+		s16 channels[SCA3300_SCAN_MAX];
++		u16 data[32];
 +		aligned_s64 timestamp;
 +	} buffer;
- 	u8 txbuf[4] __aligned(IIO_DMA_MINALIGN);
- 	u8 rxbuf[4];
- };
-@@ -492,7 +486,7 @@ static irqreturn_t sca3300_trigger_handler(int irq, void *p)
- 	struct iio_dev *indio_dev = pf->indio_dev;
- 	struct sca3300_data *data = iio_priv(indio_dev);
- 	int bit, ret, val, i = 0;
--	s16 *channels = (s16 *)data->buffer;
-+	s16 *channels = data->buffer.channels;
- 
- 	iio_for_each_active_channel(indio_dev, bit) {
- 		ret = sca3300_read_reg(data, indio_dev->channels[bit].address, &val);
-@@ -505,7 +499,7 @@ static irqreturn_t sca3300_trigger_handler(int irq, void *p)
- 		channels[i++] = val;
+ 	/*
+ 	 * lock to prevent concurrent 'single conversion' requests through
+ 	 * sysfs.
+@@ -1481,14 +1476,14 @@ static void at91_adc_trigger_handler_nodma(struct iio_dev *indio_dev,
+ 		if (chan->type == IIO_VOLTAGE) {
+ 			val = at91_adc_read_chan(st, chan->address);
+ 			at91_adc_adjust_val_osr(st, &val);
+-			st->buffer[i] = val;
++			st->buffer.data[i] = val;
+ 		} else {
+-			st->buffer[i] = 0;
++			st->buffer.data[i] = 0;
+ 			WARN(true, "This trigger cannot handle this type of channel");
+ 		}
+ 		i++;
  	}
+-	iio_push_to_buffers_with_timestamp(indio_dev, st->buffer,
++	iio_push_to_buffers_with_timestamp(indio_dev, &st->buffer,
+ 					   pf->timestamp);
+ }
  
--	iio_push_to_buffers_with_ts(indio_dev, data->buffer,
-+	iio_push_to_buffers_with_ts(indio_dev, &data->buffer,
- 				    sizeof(data->buffer),
- 				    iio_get_time_ns(indio_dev));
- out:
+@@ -1643,7 +1638,7 @@ static void at91_adc_touch_data_handler(struct iio_dev *indio_dev)
+ 			at91_adc_read_pressure(st, chan->channel, &val);
+ 		else
+ 			continue;
+-		st->buffer[i] = val;
++		st->buffer.data[i] = val;
+ 		i++;
+ 	}
+ 	/*
+@@ -1691,7 +1686,7 @@ static void at91_adc_workq_handler(struct work_struct *workq)
+ 					struct at91_adc_state, touch_st);
+ 	struct iio_dev *indio_dev = st->indio_dev;
+ 
+-	iio_push_to_buffers(indio_dev, st->buffer);
++	iio_push_to_buffers(indio_dev, st->buffer.data);
+ }
+ 
+ static irqreturn_t at91_adc_interrupt(int irq, void *private)
 
 -- 
 2.43.0
