@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F16E6A93AFB
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 18:38:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A92DA93AFD
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 18:38:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9A20C78F8C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D012DC78F98;
 	Fri, 18 Apr 2025 16:38:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21FE8C78F94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E515C78F97
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 16:38:37 +0000 (UTC)
+ Fri, 18 Apr 2025 16:38:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1744994318; x=1776530318;
+ t=1744994319; x=1776530319;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w1lZ8NjXiVLeMB0f1yexhP99lIzwVyzHZVmh6wVRC7c=;
- b=hBQmvtI+a8Pji5xQVClOrM7Fx3HQ2mDAngEEtzr0PLeu+vREB7pOZWzn
- pLf73gG4Dy2uAxyZ4XDKZ8I7v9zVoHqQrYUjig83g+3DV1zZrInznLv3G
- BPNuXDXh+zJ4fnPpSS5SpRBNy5BXjOx+IulQdFi8fWFXmX1qSOwg0lmA3
- tS3UMThf0+J3sa0JoHdFc4XE0gRQeDO8+Ps4q8b+x7FZk000weeBOjZo3
- I98njU77t546ccwQQn6rAcreFKE7nuCa3i6UQFnY2AUNbuee8r0fJUsot
- MiWy6XRHnUyE9734Fb9s3tARuVZbt1Q2fpnjkevpa0gVURE7hofCC82cm A==;
-X-CSE-ConnectionGUID: d677brzpQpKG9CTyRoXGQA==
-X-CSE-MsgGUID: CfpoEJaUQV2PYEc7seUJLQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11407"; a="50454349"
-X-IronPort-AV: E=Sophos;i="6.15,222,1739865600"; d="scan'208";a="50454349"
+ bh=QL8UnrxzhOjr9Cxq9AJgHKXXFDVi01UtywCQhOOKU4s=;
+ b=gHjRjKgi12jCIHMezRtNYpY36kbeVQUM9J5UOcKh/NLDOP8zHGwX39CP
+ 4NkWJcJD5r+MezXeZBi/fQdX6z5ca47+YnvEpJE+1kxAgvzmikTqwxGa4
+ 1+kjEXnbRTtA0U/IM/sgd4BoMEYHUWsM2bUUY+bK00yg5WlOIw5wHd3Ka
+ W/PFac6E92MJVlDV7XjRReaUFN0gxl/VIJB0IIatPuA8qqObn4+0fgOgv
+ Dbfj3CVNttg/cMgSSU9gtmKD1oSkou+M4BHWNJ+uXg7z+8x8Kbg72YL8E
+ xcbhm/IzsprSKguzUlm8q6RWw+50TaiDANmEAfS/kD31FweobxsoCYO6F Q==;
+X-CSE-ConnectionGUID: eMQmTo/xRzWTTrBruJSjOw==
+X-CSE-MsgGUID: HiFrHL57QpSEKlv5mfcyZw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11407"; a="50454371"
+X-IronPort-AV: E=Sophos;i="6.15,222,1739865600"; d="scan'208";a="50454371"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Apr 2025 09:38:35 -0700
-X-CSE-ConnectionGUID: j9uqrscbShKBot36iOJ1Jg==
-X-CSE-MsgGUID: /z0yVbq2SN2RsTKvU2gJkQ==
+X-CSE-ConnectionGUID: ewWXYFpNT8a5NZBC4ftn7Q==
+X-CSE-MsgGUID: cyKMxUMgTzSlCh/Mk596Xw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,222,1739865600"; d="scan'208";a="130892252"
+X-IronPort-AV: E=Sophos;i="6.15,222,1739865600"; d="scan'208";a="130892259"
 Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
  by orviesa009.jf.intel.com with ESMTP; 18 Apr 2025 09:38:34 -0700
 From: Tony Nguyen <anthony.l.nguyen@intel.com>
 To: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
  edumazet@google.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org
-Date: Fri, 18 Apr 2025 09:38:11 -0700
-Message-ID: <20250418163822.3519810-6-anthony.l.nguyen@intel.com>
+Date: Fri, 18 Apr 2025 09:38:12 -0700
+Message-ID: <20250418163822.3519810-7-anthony.l.nguyen@intel.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250418163822.3519810-1-anthony.l.nguyen@intel.com>
 References: <20250418163822.3519810-1-anthony.l.nguyen@intel.com>
@@ -60,8 +60,8 @@ Cc: quic_jsuraj@quicinc.com, hayashi.kunihiko@socionext.com,
  xiaolei.wang@windriver.com, fancer.lancer@gmail.com, hkelam@marvell.com,
  mcoquelin.stm32@gmail.com, vitaly.lifshits@intel.com, bpf@vger.kernel.org,
  dima.ruinskiy@intel.com
-Subject: [Linux-stm32] [PATCH net-next 05/14] igc: rename
-	I225_RXPBSIZE_DEFAULT and I225_TXPBSIZE_DEFAULT
+Subject: [Linux-stm32] [PATCH net-next 06/14] igc: use FIELD_PREP and
+	GENMASK for existing TX packet buffer size
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,76 +80,61 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
 
-Rename RX and TX packet buffer size macros in preparation for an
-upcoming patch that will refactor buffer size handling using FIELD_PREP
-and GENMASK.
+In preparation for an upcoming patch that will modify the TX buffer size
+in  TSN mode, replace IGC_TXPBSIZE_TSN and IGC_TXPBSIZE_DEFAULT
+implementation with new macros that utilizes FIELD_PREP and GENMASK for
+clarity.
 
-Changes:
-- Rename I225_RXPBSIZE_DEFAULT to IGC_RXPBSIZE_EXP_BMC_DEFAULT.
-  The EXP_BMC suffix explicitly indicates Express and BMC buffer
-  default values, improving readability and reusability for the
-  upcoming changes, while also better reflecting the current buffer
-  allocations.
-- Rename I225_TXPBSIZE_DEFAULT to IGC_TXPBSIZE_DEFAULT.
+The newly introduced macros follow the naming from the i226 SW User Manual
+for easy reference.
 
-These registers apply to both i225 and i226, so using the IGC prefix
-aligns with existing macro naming conventions.
+I've tested IGC_TXPBSIZE_TSN and IGC_TXPBSIZE_DEFAULT before and after the
+refactoring, and their values remain unchanged.
 
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 Signed-off-by: Faizal Rahim <faizal.abdul.rahim@linux.intel.com>
 Tested-by: Mor Bar-Gabay <morx.bar.gabay@intel.com>
 Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- drivers/net/ethernet/intel/igc/igc_defines.h | 7 ++++---
- drivers/net/ethernet/intel/igc/igc_main.c    | 4 ++--
- drivers/net/ethernet/intel/igc/igc_tsn.c     | 2 +-
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/intel/igc/igc_defines.h | 23 ++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/igc/igc_defines.h b/drivers/net/ethernet/intel/igc/igc_defines.h
-index d19325b0e6e0..34b3b1a7610e 100644
+index 34b3b1a7610e..ec8f926362eb 100644
 --- a/drivers/net/ethernet/intel/igc/igc_defines.h
 +++ b/drivers/net/ethernet/intel/igc/igc_defines.h
-@@ -396,9 +396,10 @@
- #define IGC_RCTL_PMCF		0x00800000 /* pass MAC control frames */
- #define IGC_RCTL_SECRC		0x04000000 /* Strip Ethernet CRC */
+@@ -398,10 +398,29 @@
  
--#define I225_RXPBSIZE_DEFAULT	0x000000A2 /* RXPBSIZE default */
--#define I225_TXPBSIZE_DEFAULT	0x04000014 /* TXPBSIZE default */
--#define IGC_RXPBS_CFG_TS_EN	0x80000000 /* Timestamp in Rx buffer */
-+/* RXPBSIZE default value for Express and BMC buffer */
-+#define IGC_RXPBSIZE_EXP_BMC_DEFAULT	0x000000A2
-+#define IGC_TXPBSIZE_DEFAULT		0x04000014 /* TXPBSIZE default */
-+#define IGC_RXPBS_CFG_TS_EN		0x80000000 /* Timestamp in Rx buffer */
+ /* RXPBSIZE default value for Express and BMC buffer */
+ #define IGC_RXPBSIZE_EXP_BMC_DEFAULT	0x000000A2
+-#define IGC_TXPBSIZE_DEFAULT		0x04000014 /* TXPBSIZE default */
+ #define IGC_RXPBS_CFG_TS_EN		0x80000000 /* Timestamp in Rx buffer */
  
- #define IGC_TXPBSIZE_TSN	0x04145145 /* 5k bytes buffer for each queue */
+-#define IGC_TXPBSIZE_TSN	0x04145145 /* 5k bytes buffer for each queue */
++/* Mask for TX packet buffer size */
++#define IGC_TXPB0SIZE_MASK		GENMASK(5, 0)
++#define IGC_TXPB1SIZE_MASK		GENMASK(11, 6)
++#define IGC_TXPB2SIZE_MASK		GENMASK(17, 12)
++#define IGC_TXPB3SIZE_MASK		GENMASK(23, 18)
++/* Mask for OS to BMC packet buffer size */
++#define IGC_OS2BMCPBSIZE_MASK		GENMASK(29, 24)
++/* TX Packet buffer size in KB */
++#define IGC_TXPB0SIZE(x)		FIELD_PREP(IGC_TXPB0SIZE_MASK, (x))
++#define IGC_TXPB1SIZE(x)		FIELD_PREP(IGC_TXPB1SIZE_MASK, (x))
++#define IGC_TXPB2SIZE(x)		FIELD_PREP(IGC_TXPB2SIZE_MASK, (x))
++#define IGC_TXPB3SIZE(x)		FIELD_PREP(IGC_TXPB3SIZE_MASK, (x))
++/* OS to BMC packet buffer size in KB */
++#define IGC_OS2BMCPBSIZE(x)		FIELD_PREP(IGC_OS2BMCPBSIZE_MASK, (x))
++/* Default value following I225/I226 SW User Manual Section 8.3.2 */
++#define IGC_TXPBSIZE_DEFAULT ( \
++	IGC_TXPB0SIZE(20) | IGC_TXPB1SIZE(0) | IGC_TXPB2SIZE(0) | \
++	IGC_TXPB3SIZE(0) | IGC_OS2BMCPBSIZE(4))
++#define IGC_TXPBSIZE_TSN ( \
++	IGC_TXPB0SIZE(5) | IGC_TXPB1SIZE(5) | IGC_TXPB2SIZE(5) | \
++	IGC_TXPB3SIZE(5) | IGC_OS2BMCPBSIZE(4))
  
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-index 27771c6ab6d7..9d9661632ae7 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -7159,8 +7159,8 @@ static int igc_probe(struct pci_dev *pdev,
- 	}
- 
- 	/* configure RXPBSIZE and TXPBSIZE */
--	wr32(IGC_RXPBS, I225_RXPBSIZE_DEFAULT);
--	wr32(IGC_TXPBS, I225_TXPBSIZE_DEFAULT);
-+	wr32(IGC_RXPBS, IGC_RXPBSIZE_EXP_BMC_DEFAULT);
-+	wr32(IGC_TXPBS, IGC_TXPBSIZE_DEFAULT);
- 
- 	timer_setup(&adapter->watchdog_timer, igc_watchdog, 0);
- 	timer_setup(&adapter->phy_info_timer, igc_update_phy_info, 0);
-diff --git a/drivers/net/ethernet/intel/igc/igc_tsn.c b/drivers/net/ethernet/intel/igc/igc_tsn.c
-index 1e44374ca1ff..498741d83ca6 100644
---- a/drivers/net/ethernet/intel/igc/igc_tsn.c
-+++ b/drivers/net/ethernet/intel/igc/igc_tsn.c
-@@ -136,7 +136,7 @@ static int igc_tsn_disable_offload(struct igc_adapter *adapter)
- 	int i;
- 
- 	wr32(IGC_GTXOFFSET, 0);
--	wr32(IGC_TXPBS, I225_TXPBSIZE_DEFAULT);
-+	wr32(IGC_TXPBS, IGC_TXPBSIZE_DEFAULT);
- 	wr32(IGC_DTXMXPKTSZ, IGC_DTXMXPKTSZ_DEFAULT);
- 
- 	if (igc_is_device_id_i226(hw))
+ #define IGC_DTXMXPKTSZ_TSN	0x19 /* 1600 bytes of max TX DMA packet size */
+ #define IGC_DTXMXPKTSZ_DEFAULT	0x98 /* 9728-byte Jumbo frames */
 -- 
 2.47.1
 
