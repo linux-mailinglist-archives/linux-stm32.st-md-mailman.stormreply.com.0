@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9B4A93E7E
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4805CA93E80
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 22:00:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9871C7803A;
-	Fri, 18 Apr 2025 19:59:56 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BA80C7802C;
+	Fri, 18 Apr 2025 20:00:00 +0000 (UTC)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B8EEC78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91E55C78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 19:59:55 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-72ecc0eeb8bso481428a34.0
+ Fri, 18 Apr 2025 19:59:58 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-2cc82edcf49so551638fac.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 12:59:55 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006394; x=1745611194;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006397; x=1745611197;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=fzSqK4qY9zcb2u1Jy55Elop5xlKMZ/WslrYn6ETdgHk=;
- b=x7CZx1uaNsI45Q7+GHWiJlxd9Fa457wrlAudJUTT5jPuDFJDayxjikT0thi7YjDZSd
- zaof9zWoUY0r1xsrlIIrMSKdHUaP4OzqdfjF1A6XUA70q0HOH88nURJsVwuZmFlZaqqo
- o3Inxdkv+1So1WmkRQJ5TK1T+PqGD7hcWLuIsQ1vlv++D6sMFvhhvZppIbGpz77XQajn
- UsZpAzJcqXmar1OhEtAwMD4sA+c9nJS0/Oe/Qw0HrsIzk016mvUMAQCRCsJxIzA7r8+u
- 1LNKWZpHFdijuEWyI9BiIMd1RQET9ga5/frUf1TAbBdm86mfpT0c7bv/j9/GzKKd4l+J
- vEWw==
+ :reply-to; bh=MggEbc3/wN2+Q2lPVGSfBi5tCxmBAoGp/YWYe65Ys5s=;
+ b=rJus99qVpoVuvrW5cIUqqfuD8crxum9TSfZ3r7IIz39Doaj+OZY9l1Bq0FMtTVMQ+p
+ gsQtCV2Av6S8tZP1bB2GLwgASQ+cUDSwYw7Dr2Y4J0E44JKrg+CANS6N8YBPGDmvL57d
+ IcZ8DrZxoSvyebv+3AuREnTUSxFSdhdBolxGlxxku17FYqC5lAEKsh1s6KOQJteh2y2d
+ MAUp70JrkIPofsc1PHkr4z024we766I0GlXYnp0ZIGNiyHFAaDiOTGJiutxaPk+9ieq/
+ cl94UwHkLqutgqgIkkIyd/t9IS73JZmUU+51/lzvuYr/JyFHSykcdx765wdOwzDeD1zg
+ FA+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745006394; x=1745611194;
+ d=1e100.net; s=20230601; t=1745006397; x=1745611197;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fzSqK4qY9zcb2u1Jy55Elop5xlKMZ/WslrYn6ETdgHk=;
- b=r6CSrMEUybrmAd0LCc9wIbRKw6mmYr6CSnUTGWxeFuaZQW7Uu7Ke2uOzbMJv5Ki7bh
- hw8z83YX19UgHL8a5u2nyV9/QJuHW1JTRppMRR58SJeAtBwzHU9LTee+bi9IAqurmjtG
- P4sbthF28bt0m8AwIHmMHgAQ7VOekevxUuqJOjcpH+LP4dgknYQLZuuMO3mDPYuNFRV9
- +LJFJMHiaAgFEr0R/5sHt4rWqTmtjW1yrZFn8aslaBRnFsRbQjWTzOajU3q1HcfAbWNB
- TVjA2CC0kxQPu75FZcOQLdMVVdXVJwXmFFuxuPx077Osr/93qUuTc4Mueir5GRaladvJ
- mGFw==
+ bh=MggEbc3/wN2+Q2lPVGSfBi5tCxmBAoGp/YWYe65Ys5s=;
+ b=UwrfxGpNnir4OKuTa1v+7PpKez85eflWGC6UkNt7ZtPiRwhYDV9XtmcJh/+uNN5Fs3
+ 8ORDMj+oyz1AKU+ID0shIVJSh996/v2QM37MSyYaOM8yuUv9HAmICR5bqdRS0X9k42SX
+ S5OpO6Y8vbgrY2nLUXFJzjpVMDAxydY384/wRTPuoRCGSktPnRzJ0IOZ31vV8ZddY6fy
+ 4kCK5W57vRZYSC/O8XLToupEJDqhu9cGpEq40TtMyqSzbGjewMSWMEwd9UB0Bz3skRbe
+ lg0YG8fmKK83icWQ+o8aRfnObnxZuJglFLsEZUnxo+tUgpbNV0gEPqT/GEI008SK11xp
+ /2Zw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVovWHXIasNBRCVldpkPYOSmF58c3WWij+zoyUeOduBghW5ylvc3Qyj7s7nFz2/VY5VnFd4mb3EXuW40w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxxYN6n6IVnSNqm7+Y77m+Aym8O/zi9W+KYJyC1JWpqKp8+8ix3
- 9Iimd2KYsSCgM57127MzHT1TU2Lt1YJtJ1/DP8EHgk8wClLHOpFxkpHSyALXtYA=
-X-Gm-Gg: ASbGncvD2Fnc+M11AjkQWRz7P88Vo9wvJTsmi9kUEbrRfWJ+wfAGjlf3gvwb0ifk4bp
- +FZmql2xgHm36PKWYUdnaoknnT4UM0EhWceB3Vwx3/g8Qdey7f2iV1jyTmuPBK+cjCM/GdjQkjG
- ZzuSYQKNIn3zsFeV4q8hYkaNU/5768j5as5grxKoVA+P8pW5uTy1snHc0Z66GXSZA7Ok7i7dLhv
- wYiexBsWkQUsmrjEb5zjc4o1nAK8I9EE+FwdE8lmrMs9g/5aXTR/ufNlBISNBdnH1j2YhMKT4Wd
- CmDChb58O8HO95uNWmBdCBq9zwPax4DmYY+dLKY2yv8zX/s=
-X-Google-Smtp-Source: AGHT+IHI4O5x+wPPGV+94eQGC4Hk/EXR2vmceT21i5pvhTSn8o+7MxvxGNT6vfB1NACqkNwl8RvUag==
-X-Received: by 2002:a05:6871:7286:b0:2c1:4146:c556 with SMTP id
- 586e51a60fabf-2d526d6841amr2433872fac.31.1745006394498; 
- Fri, 18 Apr 2025 12:59:54 -0700 (PDT)
+ AJvYcCXAGESfYuQGUTF3vaa03+dObHyYtNPO8FSfyw+wdKSlNgQqq5G4fB0pcsq6CCBRlgriw32uv1/mz3v+5w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzdMHqYCUSV596zLM+1bTUEIufxJKwH23cuUAxkYyWOA5DWAgnW
+ YR9bK9SwLqLz8sanvAeM2eTKUlFNRtw890CZs0jte0BgnCjBPOECxhSMpFtc/+0=
+X-Gm-Gg: ASbGnctZQ7SM6GXEp33T/nHF6ma0OIba/Zaul1n5MjGK+m78hxZK42WvTVjujMyrrjr
+ j7YES9EFkgoZyBm6jwVk0j7RfROfMWOS8jQoDxdK2gSlN9M72bArzXrO8Zh/tugWRDxdPHadVPI
+ FH9ujVHAu+wCaAVFXOKRaw7YBALTqtn3CCjL8qrxS8LxSVNf7VxxIzgv/G9W+m4ngSRFb8m4r63
+ 9UTtN1Qxv9sYiHhz7v/QzRvTuJJte+jFrFeJeqRDG4S2rAIfW+sWk5q/gcYEEl/APSEJl1DLCk7
+ aQMg0rjpLp14L+/iwluoRFXIgfnSNVvMXg+HOcuHeoSKw+Ma51wibY/LAA==
+X-Google-Smtp-Source: AGHT+IG+gejGjhaQSsLs7N1sUMk8COxBQa4oufobNgGcbDF7GP8s42nvoeAVo7lIwRuf8OSEn7c6ww==
+X-Received: by 2002:a05:6870:ae84:b0:29e:503a:7ea3 with SMTP id
+ 586e51a60fabf-2d526f226b0mr2234380fac.36.1745006397466; 
+ Fri, 18 Apr 2025 12:59:57 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:dcdf:46e0:18e5:c279])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.51
+ 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 12:59:53 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:56 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Fri, 18 Apr 2025 14:58:24 -0500
+Date: Fri, 18 Apr 2025 14:58:25 -0500
 MIME-Version: 1.0
-Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-5-4c6080710516@baylibre.com>
+Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-6-4c6080710516@baylibre.com>
 References: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 In-Reply-To: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -79,22 +79,22 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2137; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1725; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=lY3P/BHYMrMzt2KYi0LGUhjMzgl6dv5K0V1qFBaK3Yg=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq8EXey7ghkTICKkPtv4/67AoklbnfdqMoKh7
- TTWqGpmphSJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKvBAAKCRDCzCAB/wGP
- wHs6B/4sTJvHSSz6HmN4Jpf1hTnTzsCIHEnlOXlpjG7Pghs62u4n3Ku3uOCaSRMJmW8aPzERMxP
- EjQlPRX6KJhN02AzJJoLomnrGGAlKj7GTMshKYPld4I1xWH/wO+bvbTFWweAMtCYcz4wQfNoFMg
- cwyrNg/zAqQRG3mlYiQnk4s2TJ5+eite0qbnYZPq7xEU7Ky8GDlFTjYDwSgQ10AeOc0vqOIzsB8
- kR71fIXS76ZP1eN+CPrzVIJrpUKXC8rZ7myCL61/wGjr6qdg4OINWKinpTupJdCvUVcKhD3/6GE
- fMhBvDLohiP4ePwyNH53ZIr20gZKjtDb0cKa93njGvhC4hl0
+ bh=k5yhrc00lCr8GGuZ0R5nv3Gzs90XuAA6/+QofhTasXU=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq8L4xpevGeyh+Cbk2mjcqGgi7fDAYg/NhVII
+ IL10PDy+pGJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKvCwAKCRDCzCAB/wGP
+ wOHsB/4y5HpYvODEZLE67Y714oZoOOB72/gk72fvqGQ9uGCnlTWkSz7wnEGxYKbmMkLsb+moj/F
+ NBujkX9MGrrHtpAp8TLZsFx98Hcb7jzknjKtpB2htjv9TdDIv9CqKX1yOBA8EVZXwi8XHCeYB93
+ 3BtqQ9OWhxpnqUwAM6qebZ+ptcjHPFtorYG4nsZpXR6JFv4oH39UENA2/CYzJ9EA1q31gj/VbIt
+ LBL0I6QcLgYVzgzg8aDfKEbAB8tuNXT7KJdCRbPUBCzRQkNQITxQ7cbaRf6lJIfRc8O/Xp5MnxT
+ rnK9CSmF3wjWUJALvkW2wA+G9QPBXPEI0MzWeOle7GfS6WLA
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 05/10] iio: adc: stm32-adc: use struct with
+Subject: [Linux-stm32] [PATCH 06/10] iio: adc: ti-adc0832: use struct with
  aligned_s64 timestamp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -118,60 +118,51 @@ to see the correctness of the size and alignment of the buffer.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/stm32-adc.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/iio/adc/ti-adc0832.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 5159908a2a6100b62e5e64b2b469378ad778c35d..81df0d45784553c87c92995934884138939ac899 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -27,6 +27,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/property.h>
+diff --git a/drivers/iio/adc/ti-adc0832.c b/drivers/iio/adc/ti-adc0832.c
+index cfcdafbe284b103a069857028886411bc72dea4f..f508f7113faa2610a2889f3c36c5a679fa72264d 100644
+--- a/drivers/iio/adc/ti-adc0832.c
++++ b/drivers/iio/adc/ti-adc0832.c
+@@ -10,6 +10,7 @@
+ #include <linux/module.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/spi/spi.h>
 +#include <linux/types.h>
- 
- #include "stm32-adc-core.h"
- 
-@@ -261,7 +262,10 @@ struct stm32_adc {
- 	u32			offset;
- 	const struct stm32_adc_cfg	*cfg;
- 	struct completion	completion;
--	u16			buffer[STM32_ADC_MAX_SQ + 4] __aligned(8);
+ #include <linux/iio/iio.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/iio/buffer.h>
+@@ -29,12 +30,10 @@ struct adc0832 {
+ 	struct regulator *reg;
+ 	struct mutex lock;
+ 	u8 mux_bits;
+-	/*
+-	 * Max size needed: 16x 1 byte ADC data + 8 bytes timestamp
+-	 * May be shorter if not all channels are enabled subject
+-	 * to the timestamp remaining 8 byte aligned.
+-	 */
+-	u8 data[24] __aligned(8);
 +	struct {
-+		u16 data[STM32_ADC_MAX_SQ];
++		u8 data[16];
 +		aligned_s64 timestamp;
 +	} buffer;
- 	struct clk		*clk;
- 	int			irq;
- 	spinlock_t		lock;		/* interrupt lock */
-@@ -1447,7 +1451,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
- 	} else if (time_left < 0) {
- 		ret = time_left;
- 	} else {
--		*res = adc->buffer[0];
-+		*res = adc->buffer.data[0];
- 		ret = IIO_VAL_INT;
+ 
+ 	u8 tx_buf[2] __aligned(IIO_DMA_MINALIGN);
+ 	u8 rx_buf[2];
+@@ -222,10 +221,10 @@ static irqreturn_t adc0832_trigger_handler(int irq, void *p)
+ 			goto out;
+ 		}
+ 
+-		adc->data[i] = ret;
++		adc->buffer.data[i] = ret;
+ 		i++;
  	}
- 
-@@ -1559,7 +1563,7 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
- 
- 	if (status & regs->isr_eoc.mask) {
- 		/* Reading DR also clears EOC status flag */
--		adc->buffer[adc->bufi] = stm32_adc_readw(adc, regs->dr);
-+		adc->buffer.data[adc->bufi] = stm32_adc_readw(adc, regs->dr);
- 		if (iio_buffer_enabled(indio_dev)) {
- 			adc->bufi++;
- 			if (adc->bufi >= adc->num_conv) {
-@@ -1858,7 +1862,7 @@ static irqreturn_t stm32_adc_trigger_handler(int irq, void *p)
- 
- 	/* reset buffer index */
- 	adc->bufi = 0;
--	iio_push_to_buffers_with_ts(indio_dev, adc->buffer, sizeof(adc->buffer),
+-	iio_push_to_buffers_with_ts(indio_dev, adc->data, sizeof(adc->data),
 +	iio_push_to_buffers_with_ts(indio_dev, &adc->buffer, sizeof(adc->buffer),
- 				    pf->timestamp);
- 	iio_trigger_notify_done(indio_dev->trig);
- 
+ 				    iio_get_time_ns(indio_dev));
+ out:
+ 	mutex_unlock(&adc->lock);
 
 -- 
 2.43.0
