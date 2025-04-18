@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096AEA93E7B
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15945A93E7D
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C32EEC78F71;
-	Fri, 18 Apr 2025 19:59:51 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF47AC7802C;
+	Fri, 18 Apr 2025 19:59:53 +0000 (UTC)
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3274C78F60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5133C78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 19:59:50 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-2d0e86cd5b1so1186359fac.3
+ Fri, 18 Apr 2025 19:59:52 +0000 (UTC)
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-2d4e91512b4so1165960fac.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 12:59:50 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006389; x=1745611189;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006391; x=1745611191;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rwf2pqYvTfZAKWRzV4AAx6ws0t+3hl5RqCYYJcwd3fg=;
- b=lKD+BhiS5hXObstGRiiJnXDs6bowAT+OPvZT7uRzKqx1AXDy5vfJ6iYTwGDOAjWtxd
- 2n9Q8dY1Avi0Fa9a9wuhkoOUCcPzk4QZZfIEaDV5tmgmyCFgVlOXtDLkRCt2ppKvMvtO
- 43v7X4AmJVzyKVEvHqYF2H7eMHuQWPvEYSYR3PXeT3m1wl990SJ54WNwnHOIGxLp1Ucx
- 9RCzdlpqxp/+GfufaJOkY0Ij5jocuZVQhFwhZYZELzMArAD1jAIU7B7/SZH/r07LKV6R
- nJZ96i2RMxEHPmS6Jda6XXwuiMWYQyQxEopXkaH8xum3CltTUXy+1PhhNQIAa4vJO+f0
- XWUA==
+ :reply-to; bh=WsIMZendqa8DaCGwLwJ/VzIDH8OWSK+LqGllC/PCXxs=;
+ b=z9kZ8IR83sJumbyJuxENSt8xDDWQsYuIKnx6ZfbWyM2Icw9AO0WC3TDhX9f5ItPCDI
+ N2+oeKk0Ui7xFfFyzPtIxnR0BkoII7kZm1UsHK3ReG8AOBpN0m7dFakkkjDR5X2hSa/n
+ qqGonXyna8VMIjSfo0XzjVQGxNYsw2j39LcbjteKX+7rE1l8NOTcqo1AyyPXwTtIu2UZ
+ hvOrFUq0A247lUw9MrtIGf00Bk1B9CbaMS4bOwUhFSgcA1rt6YalUos3a/4G0PFF9mOm
+ Yzzk0VO455+u9pM1BO+MG3v9VWAqoxfF2YVpJseAKbxaxlwV2U4RpKPpVx4rTcbgldjd
+ 0nbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745006389; x=1745611189;
+ d=1e100.net; s=20230601; t=1745006391; x=1745611191;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rwf2pqYvTfZAKWRzV4AAx6ws0t+3hl5RqCYYJcwd3fg=;
- b=fNYmlHf2w9a0W8TDVAaTb/AlG6cufWd7Mi9GYbVKTyDKBOSAsmNizzuL82QwdY2mku
- EHI5903eW5SONu84Pfyvf9u0RE0xGezdUiywyd8cfet/os/6+TnKuPQ/R52R34bYwDLG
- PV6ndZg+IpgQBo/rNZwtifdu978TrT0T5tvC9fL8iuoPyssdRLO9LWAox7qh1eqbfQDN
- Id+ztXcfLmU4eN/pXSrqqtqBPTv0U+qLIALxzj6EzmHlVJul/XXNnR0vQWeOGZpQTo7f
- G5j+pHspqF2pnAPIBVFsbdFJZfMiTPR8+EVyiXKHCdUGY12OljYmpqdMg6KdXOegTHDT
- 2spA==
+ bh=WsIMZendqa8DaCGwLwJ/VzIDH8OWSK+LqGllC/PCXxs=;
+ b=Y67xlAgPsZMoIG7y15ug7lOY4ehzx+QYGXZ619l7Iv6rxnc2R9MHn118B9BcgLPE6k
+ JKRUMjBFZxE9t7KjPww+RbxVcHRVb1BgmlEkoL8ymse+USOk8vPy5fHnq58kbTW8NdYQ
+ F9WawwhQill1oJIfJkeZ6Ki8O1S1f3jeeXz2wevEoPG7uKTBlDSp4dC5FchkqcSDjXpQ
+ IPLpd2x5JgtdY2jkOt5o5Xl/dv2yuOMM8rOfoB8g4gNLDICxgOk0jBZgWDVpf8u6v/aW
+ T6iRO3s8VQxnwzrXhSjr+UbbEIt3dUBS67ittMx+kL4OErS0uab8mua8dF3aTxmreYSy
+ 7EjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUBY90R9eviAsCxM7kknRp7XvUGa0WDF7CwoTuhFn1ThIDMZwLjPR6V2qIu31pwOpOy4BKH4Cthibz7aw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxQZguEV8fs0AwX680UHQfxn/CrSxlN1oQBPXZy0xzUTBy3hZVa
- WuhvGkvBU6Y33uvXgpoEzZJ9QWr4lfML5TMbtME2ypY00Ypzz8lPPd8L42MlMlg=
-X-Gm-Gg: ASbGnctn7YfPQ2MMrNKMuH68wRAZ2FmOvyYVeJZVnC9HM5i1nSKm4uO896itHOcng7q
- qqFCKNIt8ESBfJ9EV/1S+v4BA9ilM5CCigZzcWCbh9950nJioM+jDvwIbkpITVz2Tcs54pb2blQ
- aOrGlPATyHOPUVW/oIx/rjrQDCidYSv41BgoJrMiQrJfsZeCatiIoi5KeE64CIhBIMF9Tj+BEll
- etxNePg5LtQl+I8eq80xSA7Gl8V2XQ7N7FDFavnxPqhXRPONUYznef0iYOLcqJ1SpPmejrWPzOs
- J3DhUHaIaiQ7X/RaBW4KDb5601CBiMNXTpW9uAytJ8zbXuKDmGMCUhVgRA==
-X-Google-Smtp-Source: AGHT+IFwZ3EWj8a1332iU/6yoy+sVrn6yZp+kcyFC3R5X2BbUGWBQCdaSARBWT9nwdH3ywi0Y6UEcg==
-X-Received: by 2002:a05:6870:1b11:b0:2d0:4a2c:7c22 with SMTP id
- 586e51a60fabf-2d526ae9243mr2222694fac.18.1745006389633; 
- Fri, 18 Apr 2025 12:59:49 -0700 (PDT)
+ AJvYcCVeSequjvhxokSVtnxjKXukLEpV1drsGYawSTXsFmlZm7um0sSNze633AtroU3O8qFVgV3DpMHMnFJjqA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx4MDgk/hogiZmXEDWwhJ5F0s+ZHd3zjhDwcZ0bPpZfdrQTh7Yv
+ 9cjIN8AE1P1bWjFhUbBZY9re5pmqHKbBqYvhFl5ffwcS0icgyFbsIpwdYnS38Zw=
+X-Gm-Gg: ASbGncvXFsEqKtorf/8l0AkI7MYOZgxUSDciy6MBmHLORRFjbOIpVNcHsRRaDvYC4lP
+ nHHWKq2Yu9V544vovN0VnEB59ymHYPc4bXIyiwzREN0X/9U67yT+63iN1uEjO2k7iNE3mlJWNhL
+ W1IrPowLuG7YEHVp8Hn8fSNoI6SqU8gsHkVJaLa1M3WsxpYL+8lH3yrlHQl4nZl9O9jcY/9sJ9X
+ u8TLar+w8B2duNRqd7dVqiHsN20v/H9LciY7uZ6y4UjT6kE7PAcEniTSvgBvNQaNdammDIZqruN
+ pnqZ76No6LfQL3Uqpl+fYLW3Czh8K+c2lrbBDkYD7TWmMr0=
+X-Google-Smtp-Source: AGHT+IGTd+UcoiQqg98qqmDzGZdASpO+rjK08cJZPLUbdLs/qVHjgA1d1/DCHAAtJdt7FeGJ2N7IOw==
+X-Received: by 2002:a05:6871:20c3:b0:2d4:ea06:b11 with SMTP id
+ 586e51a60fabf-2d526974c88mr2268314fac.7.1745006391551; 
+ Fri, 18 Apr 2025 12:59:51 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:dcdf:46e0:18e5:c279])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.48
+ 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 12:59:49 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:51 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Fri, 18 Apr 2025 14:58:22 -0500
+Date: Fri, 18 Apr 2025 14:58:23 -0500
 MIME-Version: 1.0
-Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-3-4c6080710516@baylibre.com>
+Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-4-4c6080710516@baylibre.com>
 References: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 In-Reply-To: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -79,23 +79,23 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1648; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1703; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=lGbQ3dZga8UFYhE2RmKRRSTA6YHIjjV8TI3JBRQo+eI=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq736zDtgasDsEkD9rWkk6FaF1wjLFLYYEylg
- PumkP1NSyGJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKu9wAKCRDCzCAB/wGP
- wGuVCACVD/U6ho5K+XhYyv2ZNkNciwcFJPn/JPwQupiAbpUPj2JNFkyuR6gPyuLTUVWvVmzG4s9
- FeA62PoeKoiQkB2DMCf/dAnzaaifeKAjLoJ0IrqCYNoyxwMa5JNelAZOuNDyAilVXoH8vdGWVjy
- qpMHWiMGa8zdWFx5cTHLVkqj+fvO4I6AtQvTm4/k2nejdcLCE6Lm/6NF5HnwgrBgP9IZ2jOcMx4
- 0RxycD8GgRzI6AiAJv+nN7K1NWEz8zjk/ja29Z347y8KgnYnl5dckBrqu858JTt1s8lEvLS1jml
- BgZmOJfTqI6VwbEvW3F38Hc51xsFx9QMlH2Dhe9oF5v8D+xK
+ bh=iRPzfo7zOSrCZBlrpd/I0/sbvP0TP23KOBXM/qSN7Jw=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq79D0iiaEJ7LNLOItStpJpxJqxn63IdcoEt/
+ O8MZKI+HdOJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKu/QAKCRDCzCAB/wGP
+ wFryCACU4cYnN65V5Ne/n/6z/OCfHfoj4mdaoDqdml74vivWqgwTQqSV08oOzwAmNdPjVpxHSXD
+ 0nV50P/Y20VUEYVHpoJpuUArnFK3lj7jB0SBcX1rOuNCiqtNyuYHA1oH7V+l8/ctZyprtDBzN+k
+ gK/IXGShh2E9A4LnYDTDmcfYOS8PHX4JG2NLolVn1LtspWso3m0L/YQH3GfD4+YmyH04/gl4e90
+ s36RYJHqALm6OosMFi88MgyyV+9swKXmDAnPnEwmPidTyoIw8bCSdq43K+35GA+BJhDJof0YEmY
+ 2jSaIuf0L/a+vzPf70hFBbjXqtsIsUHiJSzg6uij9QXSqVg3
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/10] iio: adc: hx711: use struct with
- aligned_s64 timestamp
+Subject: [Linux-stm32] [PATCH 04/10] iio: adc: mxs-lradc-adc: use struct
+ with aligned_s64 timestamp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,44 +118,44 @@ to see the correctness of the size and alignment of the buffer.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/hx711.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/iio/adc/mxs-lradc-adc.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-index 8da0419ecfa3575aa54a93707c681ec8ced28be8..7235fa9e13d57c693751757c5d40e8a799622f17 100644
---- a/drivers/iio/adc/hx711.c
-+++ b/drivers/iio/adc/hx711.c
-@@ -87,7 +87,10 @@ struct hx711_data {
- 	 * triggered buffer
- 	 * 2x32-bit channel + 64-bit naturally aligned timestamp
- 	 */
--	u32			buffer[4] __aligned(8);
+diff --git a/drivers/iio/adc/mxs-lradc-adc.c b/drivers/iio/adc/mxs-lradc-adc.c
+index 92baf3f5f5601b863c694eb03b6d8f287e4fe6ab..73e42f0ebcaeaaa437ba5c64ecdd7759a1191e6c 100644
+--- a/drivers/iio/adc/mxs-lradc-adc.c
++++ b/drivers/iio/adc/mxs-lradc-adc.c
+@@ -116,7 +116,10 @@ struct mxs_lradc_adc {
+ 
+ 	void __iomem		*base;
+ 	/* Maximum of 8 channels + 8 byte ts */
+-	u32			buffer[10] __aligned(8);
 +	struct {
-+		u32 channel[2];
-+		aligned_s64 timestamp;
++		u32 data[8];
++		aligned_u64 ts;
 +	} buffer;
- 	/*
- 	 * delay after a rising edge on SCK until the data is ready DOUT
- 	 * this is dependent on the hx711 where the datasheet tells a
-@@ -361,15 +364,15 @@ static irqreturn_t hx711_trigger(int irq, void *p)
+ 	struct iio_trigger	*trig;
+ 	struct completion	completion;
+ 	spinlock_t		lock;
+@@ -418,14 +421,14 @@ static irqreturn_t mxs_lradc_adc_trigger_handler(int irq, void *p)
+ 	unsigned int i, j = 0;
  
- 	mutex_lock(&hx711_data->lock);
- 
--	memset(hx711_data->buffer, 0, sizeof(hx711_data->buffer));
-+	memset(&hx711_data->buffer, 0, sizeof(hx711_data->buffer));
- 
- 	iio_for_each_active_channel(indio_dev, i) {
--		hx711_data->buffer[j] = hx711_reset_read(hx711_data,
-+		hx711_data->buffer.channel[j] = hx711_reset_read(hx711_data,
- 					indio_dev->channels[i].channel);
+ 	for_each_set_bit(i, iio->active_scan_mask, LRADC_MAX_TOTAL_CHANS) {
+-		adc->buffer[j] = readl(adc->base + LRADC_CH(j));
++		adc->buffer.data[j] = readl(adc->base + LRADC_CH(j));
+ 		writel(chan_value, adc->base + LRADC_CH(j));
+-		adc->buffer[j] &= LRADC_CH_VALUE_MASK;
+-		adc->buffer[j] /= LRADC_DELAY_TIMER_LOOP;
++		adc->buffer.data[j] &= LRADC_CH_VALUE_MASK;
++		adc->buffer.data[j] /= LRADC_DELAY_TIMER_LOOP;
  		j++;
  	}
  
--	iio_push_to_buffers_with_timestamp(indio_dev, hx711_data->buffer,
-+	iio_push_to_buffers_with_timestamp(indio_dev, &hx711_data->buffer,
- 							pf->timestamp);
+-	iio_push_to_buffers_with_ts(iio, adc->buffer, sizeof(adc->buffer),
++	iio_push_to_buffers_with_ts(iio, &adc->buffer, sizeof(adc->buffer),
+ 				    pf->timestamp);
  
- 	mutex_unlock(&hx711_data->lock);
+ 	iio_trigger_notify_done(iio->trig);
 
 -- 
 2.43.0
