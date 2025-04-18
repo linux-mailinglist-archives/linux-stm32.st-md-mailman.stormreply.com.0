@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15945A93E7D
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D9B4A93E7E
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Apr 2025 21:59:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF47AC7802C;
-	Fri, 18 Apr 2025 19:59:53 +0000 (UTC)
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9871C7803A;
+	Fri, 18 Apr 2025 19:59:56 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5133C78024
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B8EEC78024
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 19:59:52 +0000 (UTC)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-2d4e91512b4so1165960fac.1
+ Fri, 18 Apr 2025 19:59:55 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ 46e09a7af769-72ecc0eeb8bso481428a34.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Apr 2025 12:59:52 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006391; x=1745611191;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1745006394; x=1745611194;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=WsIMZendqa8DaCGwLwJ/VzIDH8OWSK+LqGllC/PCXxs=;
- b=z9kZ8IR83sJumbyJuxENSt8xDDWQsYuIKnx6ZfbWyM2Icw9AO0WC3TDhX9f5ItPCDI
- N2+oeKk0Ui7xFfFyzPtIxnR0BkoII7kZm1UsHK3ReG8AOBpN0m7dFakkkjDR5X2hSa/n
- qqGonXyna8VMIjSfo0XzjVQGxNYsw2j39LcbjteKX+7rE1l8NOTcqo1AyyPXwTtIu2UZ
- hvOrFUq0A247lUw9MrtIGf00Bk1B9CbaMS4bOwUhFSgcA1rt6YalUos3a/4G0PFF9mOm
- Yzzk0VO455+u9pM1BO+MG3v9VWAqoxfF2YVpJseAKbxaxlwV2U4RpKPpVx4rTcbgldjd
- 0nbg==
+ :reply-to; bh=fzSqK4qY9zcb2u1Jy55Elop5xlKMZ/WslrYn6ETdgHk=;
+ b=x7CZx1uaNsI45Q7+GHWiJlxd9Fa457wrlAudJUTT5jPuDFJDayxjikT0thi7YjDZSd
+ zaof9zWoUY0r1xsrlIIrMSKdHUaP4OzqdfjF1A6XUA70q0HOH88nURJsVwuZmFlZaqqo
+ o3Inxdkv+1So1WmkRQJ5TK1T+PqGD7hcWLuIsQ1vlv++D6sMFvhhvZppIbGpz77XQajn
+ UsZpAzJcqXmar1OhEtAwMD4sA+c9nJS0/Oe/Qw0HrsIzk016mvUMAQCRCsJxIzA7r8+u
+ 1LNKWZpHFdijuEWyI9BiIMd1RQET9ga5/frUf1TAbBdm86mfpT0c7bv/j9/GzKKd4l+J
+ vEWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745006391; x=1745611191;
+ d=1e100.net; s=20230601; t=1745006394; x=1745611194;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WsIMZendqa8DaCGwLwJ/VzIDH8OWSK+LqGllC/PCXxs=;
- b=Y67xlAgPsZMoIG7y15ug7lOY4ehzx+QYGXZ619l7Iv6rxnc2R9MHn118B9BcgLPE6k
- JKRUMjBFZxE9t7KjPww+RbxVcHRVb1BgmlEkoL8ymse+USOk8vPy5fHnq58kbTW8NdYQ
- F9WawwhQill1oJIfJkeZ6Ki8O1S1f3jeeXz2wevEoPG7uKTBlDSp4dC5FchkqcSDjXpQ
- IPLpd2x5JgtdY2jkOt5o5Xl/dv2yuOMM8rOfoB8g4gNLDICxgOk0jBZgWDVpf8u6v/aW
- T6iRO3s8VQxnwzrXhSjr+UbbEIt3dUBS67ittMx+kL4OErS0uab8mua8dF3aTxmreYSy
- 7EjA==
+ bh=fzSqK4qY9zcb2u1Jy55Elop5xlKMZ/WslrYn6ETdgHk=;
+ b=r6CSrMEUybrmAd0LCc9wIbRKw6mmYr6CSnUTGWxeFuaZQW7Uu7Ke2uOzbMJv5Ki7bh
+ hw8z83YX19UgHL8a5u2nyV9/QJuHW1JTRppMRR58SJeAtBwzHU9LTee+bi9IAqurmjtG
+ P4sbthF28bt0m8AwIHmMHgAQ7VOekevxUuqJOjcpH+LP4dgknYQLZuuMO3mDPYuNFRV9
+ +LJFJMHiaAgFEr0R/5sHt4rWqTmtjW1yrZFn8aslaBRnFsRbQjWTzOajU3q1HcfAbWNB
+ TVjA2CC0kxQPu75FZcOQLdMVVdXVJwXmFFuxuPx077Osr/93qUuTc4Mueir5GRaladvJ
+ mGFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVeSequjvhxokSVtnxjKXukLEpV1drsGYawSTXsFmlZm7um0sSNze633AtroU3O8qFVgV3DpMHMnFJjqA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx4MDgk/hogiZmXEDWwhJ5F0s+ZHd3zjhDwcZ0bPpZfdrQTh7Yv
- 9cjIN8AE1P1bWjFhUbBZY9re5pmqHKbBqYvhFl5ffwcS0icgyFbsIpwdYnS38Zw=
-X-Gm-Gg: ASbGncvXFsEqKtorf/8l0AkI7MYOZgxUSDciy6MBmHLORRFjbOIpVNcHsRRaDvYC4lP
- nHHWKq2Yu9V544vovN0VnEB59ymHYPc4bXIyiwzREN0X/9U67yT+63iN1uEjO2k7iNE3mlJWNhL
- W1IrPowLuG7YEHVp8Hn8fSNoI6SqU8gsHkVJaLa1M3WsxpYL+8lH3yrlHQl4nZl9O9jcY/9sJ9X
- u8TLar+w8B2duNRqd7dVqiHsN20v/H9LciY7uZ6y4UjT6kE7PAcEniTSvgBvNQaNdammDIZqruN
- pnqZ76No6LfQL3Uqpl+fYLW3Czh8K+c2lrbBDkYD7TWmMr0=
-X-Google-Smtp-Source: AGHT+IGTd+UcoiQqg98qqmDzGZdASpO+rjK08cJZPLUbdLs/qVHjgA1d1/DCHAAtJdt7FeGJ2N7IOw==
-X-Received: by 2002:a05:6871:20c3:b0:2d4:ea06:b11 with SMTP id
- 586e51a60fabf-2d526974c88mr2268314fac.7.1745006391551; 
- Fri, 18 Apr 2025 12:59:51 -0700 (PDT)
+ AJvYcCVovWHXIasNBRCVldpkPYOSmF58c3WWij+zoyUeOduBghW5ylvc3Qyj7s7nFz2/VY5VnFd4mb3EXuW40w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxxYN6n6IVnSNqm7+Y77m+Aym8O/zi9W+KYJyC1JWpqKp8+8ix3
+ 9Iimd2KYsSCgM57127MzHT1TU2Lt1YJtJ1/DP8EHgk8wClLHOpFxkpHSyALXtYA=
+X-Gm-Gg: ASbGncvD2Fnc+M11AjkQWRz7P88Vo9wvJTsmi9kUEbrRfWJ+wfAGjlf3gvwb0ifk4bp
+ +FZmql2xgHm36PKWYUdnaoknnT4UM0EhWceB3Vwx3/g8Qdey7f2iV1jyTmuPBK+cjCM/GdjQkjG
+ ZzuSYQKNIn3zsFeV4q8hYkaNU/5768j5as5grxKoVA+P8pW5uTy1snHc0Z66GXSZA7Ok7i7dLhv
+ wYiexBsWkQUsmrjEb5zjc4o1nAK8I9EE+FwdE8lmrMs9g/5aXTR/ufNlBISNBdnH1j2YhMKT4Wd
+ CmDChb58O8HO95uNWmBdCBq9zwPax4DmYY+dLKY2yv8zX/s=
+X-Google-Smtp-Source: AGHT+IHI4O5x+wPPGV+94eQGC4Hk/EXR2vmceT21i5pvhTSn8o+7MxvxGNT6vfB1NACqkNwl8RvUag==
+X-Received: by 2002:a05:6871:7286:b0:2c1:4146:c556 with SMTP id
+ 586e51a60fabf-2d526d6841amr2433872fac.31.1745006394498; 
+ Fri, 18 Apr 2025 12:59:54 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:dcdf:46e0:18e5:c279])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.49
+ 586e51a60fabf-2d5213f8e4asm606941fac.23.2025.04.18.12.59.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 12:59:51 -0700 (PDT)
+ Fri, 18 Apr 2025 12:59:53 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Fri, 18 Apr 2025 14:58:23 -0500
+Date: Fri, 18 Apr 2025 14:58:24 -0500
 MIME-Version: 1.0
-Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-4-4c6080710516@baylibre.com>
+Message-Id: <20250418-iio-prefer-aligned_s64-timestamp-v1-5-4c6080710516@baylibre.com>
 References: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 In-Reply-To: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -79,23 +79,23 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1703; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2137; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=iRPzfo7zOSrCZBlrpd/I0/sbvP0TP23KOBXM/qSN7Jw=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq79D0iiaEJ7LNLOItStpJpxJqxn63IdcoEt/
- O8MZKI+HdOJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKu/QAKCRDCzCAB/wGP
- wFryCACU4cYnN65V5Ne/n/6z/OCfHfoj4mdaoDqdml74vivWqgwTQqSV08oOzwAmNdPjVpxHSXD
- 0nV50P/Y20VUEYVHpoJpuUArnFK3lj7jB0SBcX1rOuNCiqtNyuYHA1oH7V+l8/ctZyprtDBzN+k
- gK/IXGShh2E9A4LnYDTDmcfYOS8PHX4JG2NLolVn1LtspWso3m0L/YQH3GfD4+YmyH04/gl4e90
- s36RYJHqALm6OosMFi88MgyyV+9swKXmDAnPnEwmPidTyoIw8bCSdq43K+35GA+BJhDJof0YEmY
- 2jSaIuf0L/a+vzPf70hFBbjXqtsIsUHiJSzg6uij9QXSqVg3
+ bh=lY3P/BHYMrMzt2KYi0LGUhjMzgl6dv5K0V1qFBaK3Yg=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoAq8EXey7ghkTICKkPtv4/67AoklbnfdqMoKh7
+ TTWqGpmphSJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaAKvBAAKCRDCzCAB/wGP
+ wHs6B/4sTJvHSSz6HmN4Jpf1hTnTzsCIHEnlOXlpjG7Pghs62u4n3Ku3uOCaSRMJmW8aPzERMxP
+ EjQlPRX6KJhN02AzJJoLomnrGGAlKj7GTMshKYPld4I1xWH/wO+bvbTFWweAMtCYcz4wQfNoFMg
+ cwyrNg/zAqQRG3mlYiQnk4s2TJ5+eite0qbnYZPq7xEU7Ky8GDlFTjYDwSgQ10AeOc0vqOIzsB8
+ kR71fIXS76ZP1eN+CPrzVIJrpUKXC8rZ7myCL61/wGjr6qdg4OINWKinpTupJdCvUVcKhD3/6GE
+ fMhBvDLohiP4ePwyNH53ZIr20gZKjtDb0cKa93njGvhC4hl0
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 04/10] iio: adc: mxs-lradc-adc: use struct
- with aligned_s64 timestamp
+Subject: [Linux-stm32] [PATCH 05/10] iio: adc: stm32-adc: use struct with
+ aligned_s64 timestamp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,44 +118,60 @@ to see the correctness of the size and alignment of the buffer.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/mxs-lradc-adc.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/iio/adc/stm32-adc.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/adc/mxs-lradc-adc.c b/drivers/iio/adc/mxs-lradc-adc.c
-index 92baf3f5f5601b863c694eb03b6d8f287e4fe6ab..73e42f0ebcaeaaa437ba5c64ecdd7759a1191e6c 100644
---- a/drivers/iio/adc/mxs-lradc-adc.c
-+++ b/drivers/iio/adc/mxs-lradc-adc.c
-@@ -116,7 +116,10 @@ struct mxs_lradc_adc {
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 5159908a2a6100b62e5e64b2b469378ad778c35d..81df0d45784553c87c92995934884138939ac899 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -27,6 +27,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/property.h>
++#include <linux/types.h>
  
- 	void __iomem		*base;
- 	/* Maximum of 8 channels + 8 byte ts */
--	u32			buffer[10] __aligned(8);
-+	struct {
-+		u32 data[8];
-+		aligned_u64 ts;
-+	} buffer;
- 	struct iio_trigger	*trig;
+ #include "stm32-adc-core.h"
+ 
+@@ -261,7 +262,10 @@ struct stm32_adc {
+ 	u32			offset;
+ 	const struct stm32_adc_cfg	*cfg;
  	struct completion	completion;
- 	spinlock_t		lock;
-@@ -418,14 +421,14 @@ static irqreturn_t mxs_lradc_adc_trigger_handler(int irq, void *p)
- 	unsigned int i, j = 0;
- 
- 	for_each_set_bit(i, iio->active_scan_mask, LRADC_MAX_TOTAL_CHANS) {
--		adc->buffer[j] = readl(adc->base + LRADC_CH(j));
-+		adc->buffer.data[j] = readl(adc->base + LRADC_CH(j));
- 		writel(chan_value, adc->base + LRADC_CH(j));
--		adc->buffer[j] &= LRADC_CH_VALUE_MASK;
--		adc->buffer[j] /= LRADC_DELAY_TIMER_LOOP;
-+		adc->buffer.data[j] &= LRADC_CH_VALUE_MASK;
-+		adc->buffer.data[j] /= LRADC_DELAY_TIMER_LOOP;
- 		j++;
+-	u16			buffer[STM32_ADC_MAX_SQ + 4] __aligned(8);
++	struct {
++		u16 data[STM32_ADC_MAX_SQ];
++		aligned_s64 timestamp;
++	} buffer;
+ 	struct clk		*clk;
+ 	int			irq;
+ 	spinlock_t		lock;		/* interrupt lock */
+@@ -1447,7 +1451,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
+ 	} else if (time_left < 0) {
+ 		ret = time_left;
+ 	} else {
+-		*res = adc->buffer[0];
++		*res = adc->buffer.data[0];
+ 		ret = IIO_VAL_INT;
  	}
  
--	iio_push_to_buffers_with_ts(iio, adc->buffer, sizeof(adc->buffer),
-+	iio_push_to_buffers_with_ts(iio, &adc->buffer, sizeof(adc->buffer),
- 				    pf->timestamp);
+@@ -1559,7 +1563,7 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
  
- 	iio_trigger_notify_done(iio->trig);
+ 	if (status & regs->isr_eoc.mask) {
+ 		/* Reading DR also clears EOC status flag */
+-		adc->buffer[adc->bufi] = stm32_adc_readw(adc, regs->dr);
++		adc->buffer.data[adc->bufi] = stm32_adc_readw(adc, regs->dr);
+ 		if (iio_buffer_enabled(indio_dev)) {
+ 			adc->bufi++;
+ 			if (adc->bufi >= adc->num_conv) {
+@@ -1858,7 +1862,7 @@ static irqreturn_t stm32_adc_trigger_handler(int irq, void *p)
+ 
+ 	/* reset buffer index */
+ 	adc->bufi = 0;
+-	iio_push_to_buffers_with_ts(indio_dev, adc->buffer, sizeof(adc->buffer),
++	iio_push_to_buffers_with_ts(indio_dev, &adc->buffer, sizeof(adc->buffer),
+ 				    pf->timestamp);
+ 	iio_trigger_notify_done(indio_dev->trig);
+ 
 
 -- 
 2.43.0
