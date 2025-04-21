@@ -2,49 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3445A95304
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Apr 2025 16:49:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33BACA9536B
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Apr 2025 17:11:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EBB3C7802F;
-	Mon, 21 Apr 2025 14:49:18 +0000 (UTC)
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010019.outbound.protection.outlook.com [52.101.229.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C54A1C7802F;
+	Mon, 21 Apr 2025 15:11:52 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 132B6CFAC45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5E21CFAC45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Apr 2025 14:49:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zoc3n+zYtkP673Bi8Ukp033jAz/6rV95sVTbBATSZbEqwoG0bmnvufQgYW5FMqAMj6MhiuvvVfpKXriVZCpqC7i1/WRC6Ze7bu6XHT2Ox5pc6REhijuXLwJEdjaznm3BNDx07/ovUWGEBfHG+BDR4kyQZyj4Z49EggL07KX0myGRfjZzfoBv9zhNk0UGr0TyBEaLRAO2e8o+XpzLpXS80CQ/DvconJbMnKZGzdDPEOKDstCtgh0HjsL22O6pE9bA5SlkACPItnqEF4h8/k69qvrAcgWiPA/ciMKcN31vHAErJhtTTlPbVRnFQnPTS9NLfEagmTXETiXCi+1IK7zz3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+bvsynq4FBD8uRxE93WsyVhicjxaeBnekpatyqxZXw8=;
- b=KWgXsBB9z5MjHPm8OAgKcWB8DYeK2CFEimoIab5vIEODbR0lfgGpPWWq665d0V3SV9X1aPFLhmACZhQZAPSyrwGU4aw91ji5PjaPQJahx9WHgOKiv4inzreCk90RHuvQDwBA2c/3iFGeX4otdioPmtzjevNMdO/01Zk0xf8sQJVQViBaunHX/foObSmB+RJVegXKqeXHbMUSwFTwo3weccG7JCb4KHrLZg8LcEWwwtj9a5V+eEBumc30VQIAUVA+MhVDRoP88VCNROv3YARTHaZSHBf7iwyIkaPIVlVKETH0e9QxPg6mJ/PWkSO0qOJlHYO2Sv4baVwKFI07kT1mIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bvsynq4FBD8uRxE93WsyVhicjxaeBnekpatyqxZXw8=;
- b=Yh3mHjhcgxY6lTxYJAeIVL4Hnk/Iwh7lyp0Icp+U6TF0nDvIWAMgWoSQEeHpPJ1SKEK0py8HbVrsJ/pKUTPNW8Woum2jhHThv0EXn6cNJkdPF3jMwc09DSxPvrW5qhRPlN9kqYNx+fc8lQk/o50jPkJCwrjyccNWERHwPilP17Y=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB15188.jpnprd01.prod.outlook.com (2603:1096:405:27c::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.22; Mon, 21 Apr
- 2025 14:49:09 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::86ef:ca98:234d:60e1%4]) with mapi id 15.20.8655.031; Mon, 21 Apr 2025
- 14:49:09 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for
- Renesas GBETH
-Thread-Index: AQHbp7UXRdTsn2oCYUWD5qYhUQGHu7OjbUQAgAAVgQCAATLSgIAJgP8QgAAGBICAAAvXcA==
-Date: Mon, 21 Apr 2025 14:49:09 +0000
-Message-ID: <TY3PR01MB1134679B1CB5780C3D1AB648786B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ Mon, 21 Apr 2025 15:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=Jt6Utj2gPnUwIkyT9SlweszWJ+twHHILTLiotcUmrKM=; b=qHCaqiwuxSKszljmJWaE601OSF
+ YcOiLderKUsaC/XvaDrl21q7KCeSeexFrd0XJHP50GNrUZnL3VFH5WP47EhlISWxHK5OShI+41Gi6
+ xBhFwLfVeGe0ZbQkjp2E45upG1z/sinn3vcJmgISRApho8l1bwPCK88tw5AkoSKu9vGs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1u6so1-00A6Bo-Ac; Mon, 21 Apr 2025 17:11:33 +0200
+Date: Mon, 21 Apr 2025 17:11:33 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Message-ID: <c27a2359-ee55-4d20-907d-314eee30ed4f@lunn.ch>
 References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <Z_0-iH91A4Sexlzj@shell.armlinux.org.uk>
@@ -52,90 +35,10 @@ References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <CA+V-a8tbW2Zs6op20yRTcihSm1bcMC2dYnRXVCKRf=q4fymZyg@mail.gmail.com>
  <TY3PR01MB1134633A8CB82788BB98C6E6286B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
  <f27b0531-11dd-4074-9c79-172953d28292@lunn.ch>
-In-Reply-To: <f27b0531-11dd-4074-9c79-172953d28292@lunn.ch>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB15188:EE_
-x-ms-office365-filtering-correlation-id: 956d2d31-0986-4dc9-8750-08dd80e3ac39
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|366016|1800799024|376014|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?5z4z8Uer3oGDIbM1+X2c/4cTvBA/CZo3fS0qLutxOTkrxQDEUB8EbelOsjac?=
- =?us-ascii?Q?WKoDA68CyB9FmY2EnT9MwKfa6n0ohd79RO5SX9f4ZgjnjTe15l0WFFORRxhT?=
- =?us-ascii?Q?IewEX1XQMk3S8vdmwOGqWZVD74JSXfPoqDi1ML2STQ+nWlc6P0b91sp7N+8r?=
- =?us-ascii?Q?joaU1GwnN47JWjVJ1N5HDX+u5XyiVo3IwS/+Cn0dLOOL+HHHKDXm+4ZzLmx8?=
- =?us-ascii?Q?RPjvOzusdhRSKxmRpq5IiycDbMy8pnuRZ1tdwJkXA6nEax/gGMmds2px5xki?=
- =?us-ascii?Q?RCpBR2r4IFGNRHlqbqrecoUYj3ZANf4sDc+J3lLbv5cFBP3nPCxr46DPjdQW?=
- =?us-ascii?Q?pcK7WvGaEKLLagJ8z+JVev67GzYrCCVv75Hmxjv8Mf4o8Z5pry0ol5LKLApX?=
- =?us-ascii?Q?FLT7evFxfPRSID7E9RILXihi9y9mt9GSuRuS3OmKprel1U4XouGekwIIMjFB?=
- =?us-ascii?Q?vTdUXDrKOPdG7uyNmKSZy2MNDKCUqqbVUQ8XRaJgoSrxj6XQ8Lq2EokNsQLb?=
- =?us-ascii?Q?3NdlqZIs5Eqdu7Pq8CoPlOoy9sa1VmLok6fpC0J4/RP4c9mHc3cBqfRIFtqn?=
- =?us-ascii?Q?3pCsL4ifVoaCo999xJsNhpZ04ZgTd6e+Cd/beCBuMNClrcQWmLmfv/aat2zg?=
- =?us-ascii?Q?JMCxaPBkPVyg8ukGdxs8nyur1m7FoA6hv8sfBf4REZD94ehPoMHw0tXa5mLg?=
- =?us-ascii?Q?s2MD6ict7oq/5U0wUMsR6wr6oqVwEOjW5herQhlWF1GNuBjtcQBTHqw777+0?=
- =?us-ascii?Q?XbrIJobCEVWSiPxR8ooyo/wTdH9ap9f7KKUI10mPwLMhzpRHhLUfV+2pGGkq?=
- =?us-ascii?Q?E+m9M+CYt+owv8iJxUb1YDa2LE3tltYUPY/ZtokHH72iy6YvKdM7VniJV4wu?=
- =?us-ascii?Q?8CteCueear+v2/pWdVgZ9bs1SfgrcYTovSsrD3caC6JfNhFc3UKLCu4SRif5?=
- =?us-ascii?Q?qgnPEao/jkVD+cLJIeKv0S9i42rjAE+AMCkZvKjIPZ2/UQfruU1NEHzxTTQf?=
- =?us-ascii?Q?/kr37nXWsDGdiClNEP031BO2Rjl6XAEzCjwSjBLdjQolzwsUvJiEqKy6hcAL?=
- =?us-ascii?Q?wNXmrekW7c+x7hCmoaJclS3424pJ7NiT9EWKXGfzQGEREIKP5NJTNFjBl9Uz?=
- =?us-ascii?Q?uHd3znflPbr7NdJBboWy+OQJ3rgNdOz00VuPglQIZlcHkuLSOKfQ27XvgK+p?=
- =?us-ascii?Q?DnHN83zcfbHGhuRABrl1eHEZRMRe6ZWhIhGrHiRTXm1BB1kgOgatGJHlTVOW?=
- =?us-ascii?Q?35YqW/d8vFyz272FPvlRlxsNxuX1dp5CzxJFZ4qJ9LuEx0ljIHl9/Lbbu5Zr?=
- =?us-ascii?Q?izTFZXPWVuMb9zWyCi9LOaZxmbZUVPsKouAhJKVoN4hRmqFXjabaHy5vxFru?=
- =?us-ascii?Q?hJFh9/MEnMQhOBbCpWEHcQ0ZKBW4cp48scUFgAsZVME5YMPltb+wk0YLbnnn?=
- =?us-ascii?Q?tCp8KY0F0cgVDpLv52Yb3vIwQZvly6AEpwIHw5VSsv2pKM9W2NXWRgoIa3bZ?=
- =?us-ascii?Q?4kRF0iJPQc0MGX8=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(1800799024)(376014)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hobzI7qxxGqqTgwdkh7NhI4sU9chJYsy4aO5tEjXFkHXJiDZ9blR1appf4Op?=
- =?us-ascii?Q?whVeJ1V61fX3gjBiMI8MoBdulPBHPiaEzcNKkmleefvlMfOqbJYbzbV3amKo?=
- =?us-ascii?Q?uB4pafe6PNtP7xhgeWzXCnCbkp6/JaNJzLQ7yb1SePAqOaGnrEPhU3oOrCLT?=
- =?us-ascii?Q?2fiDlx8MQTk2ZquQRUk37UdscYK4LPATIZ3/lpht/vVfZtstv8b42PHRqwHU?=
- =?us-ascii?Q?GD5M9ekS0pu8M+ibhiOefdfto5wQTO9uM4dfJP5Vu5WEwChvN3qkRo0aGqIz?=
- =?us-ascii?Q?Hp2heETprQVn9X7DyFVpBPpTZgwdbF7SDtFLuzgLsO2JGmpQAaH9jwB7lyrp?=
- =?us-ascii?Q?rG1R92d7w7+k+Wd1OsJhjqnlK1N82Y99UpnuS9i9WYcbxPN/j3FlOYJdtxjJ?=
- =?us-ascii?Q?tKM6qjDEYtR4IyjQLOIh8QjSs6tLmNubI7PFwct9HcMOGoJvbrNLfuIxOo0T?=
- =?us-ascii?Q?H+P5wbDb7b+SHYBx4VNJCvO1skYOIzSSZ91kH5qp9/wTLlmCK1SD+URoymNB?=
- =?us-ascii?Q?C+I6RlIKgFeuVUh4S2OJp1mqGgukqNj+kZEcwWAw8oXicKExhob3pwiC8Qmc?=
- =?us-ascii?Q?0oFJ3uMbxg+Tc2LYVDNoGD2IN9K+TPbm85HGTHF8wQshGviUM4CnNtgKlcqZ?=
- =?us-ascii?Q?p/xhYyeMRWgMA+idGlS3BV7CMR17HFL7nE62Rqm4ay9m98DYFp7rxlKtp9sG?=
- =?us-ascii?Q?HsLnlrLlVzzy74L0MSqNHYUc19V2MrmDa94/3oPzgNEA3FdxtJMlD3HpTin5?=
- =?us-ascii?Q?z7ShEfRP9Im3g9lh0Ngsz5lIBbtWc0zCOValH0MqXGc4udd3yNmxI5LffQ3y?=
- =?us-ascii?Q?adWsGDN05/ggCYAXRcZzwKdd+bo15PpukRK99sdpjT9ujaQ2v2PkuEasX+3b?=
- =?us-ascii?Q?fz2KxwZyzJQiAURc2sw+OvCQGZsYAZtpPQHleg8jXQW36cL4O7RCK36OE8lu?=
- =?us-ascii?Q?tdjbqGUVRLBsK30RKDaTJpZdv5xsc59TXM7e1JrKBkR+QNeGmUPmzQBql91w?=
- =?us-ascii?Q?sEovLB+r471XtG5eTmo5Fntni28Q+kIKG+o8rhu7uRC8i0UM+JSBucdpsanZ?=
- =?us-ascii?Q?WvGA4KcijT5cxlBYifweN0IojqRvvQy4gOt2P3OvfgNQPQttPcLLlFj4LR7C?=
- =?us-ascii?Q?tA3UOFUelxd7OetY3imvVJsmls75GiNTDiRnFLaCQ6rt814xCk9et6fZFOTO?=
- =?us-ascii?Q?H7F01eEtsHbA6e8RLX3oMWXHJFsm3Bqd2O5MZim0FQMbiWPxAEAUXFiCiaga?=
- =?us-ascii?Q?TK+eFY5rmvo6ZIKANiPunitpBaLvqxXtr7WhRou5mEoeUO6+LqXyWuUbZhNW?=
- =?us-ascii?Q?rpIQIaHezI+eiFbJGCuK9SGw+9tGExmz28HPuqTTbbxXANOo8L/dGGftgfwK?=
- =?us-ascii?Q?eZhNeDLofpOpL3ElyD/85N6x+ufCfDR+3y7Bpox40Ys2qrSHow3hTMwOCQH/?=
- =?us-ascii?Q?FBeLz43cREMNZB59G6LFvlBiZAWFvVwTeQWg8t94I07V5r/RKtLnqaNjjEek?=
- =?us-ascii?Q?m4fGBNvmXQJxxWzdYy+gDZ6nLzM2/gzazfWXAiATmzJPbEOEoU1713ZlVaao?=
- =?us-ascii?Q?bY136A7Cyx3H/SpduK+k7s/FGI1Je9cAIMT1Jfv7mIcrw3GO/ag5JEj6g/8n?=
- =?us-ascii?Q?tw=3D=3D?=
+ <TY3PR01MB11346FA4767B74B2CBB2CAFB786B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 956d2d31-0986-4dc9-8750-08dd80e3ac39
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2025 14:49:09.1636 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Jih3wWAi6mPgRKy6VAbPjzr7WSvzRhxz5N0hp2SIFW/qUxWk1gs0jQxec9qQxkE71UMkuAXxOL51GfnKIKOtVtqOVI6MFz6IAFKqgqpjs88=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB15188
+Content-Disposition: inline
+In-Reply-To: <TY3PR01MB11346FA4767B74B2CBB2CAFB786B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Eric Dumazet <edumazet@google.com>,
@@ -157,8 +60,8 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar" <prabhakar.csengg@gmail.com>,
  "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "David S.
- Miller" <davem@davemloft.net>
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
 Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add DWMAC
  glue layer for Renesas GBETH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -177,87 +80,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew,
-
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: 21 April 2025 15:02
-> Subject: Re: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for Renesas GBETH
+On Mon, Apr 21, 2025 at 02:22:01PM +0000, Biju Das wrote:
+> Hi Andrew,
 > 
-> > > On the RZ/G3E, the upstream support for testing S2R is not yet in a
-> > > usable state. So for now, I'll switch to using init/exit callbacks and drop the PM callback.
-> >
-> > FYI, On RZ/G3E, for STR to work with mainline, we need to reinitialize the PHY.
-> > I have done below changes on top of [1] to make STR working.
+> > -----Original Message-----
+> > From: Andrew Lunn <andrew@lunn.ch>
+> > Sent: 21 April 2025 15:02
+> > Subject: Re: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for Renesas GBETH
+> > 
+> > > > On the RZ/G3E, the upstream support for testing S2R is not yet in a
+> > > > usable state. So for now, I'll switch to using init/exit callbacks and drop the PM callback.
+> > >
+> > > FYI, On RZ/G3E, for STR to work with mainline, we need to reinitialize the PHY.
+> > > I have done below changes on top of [1] to make STR working.
+> > 
+> > Can you explain why you need to reinitialise the PHY? The MAC driver should not need to do this, so
+> > something is wrong somewhere. If we understand the 'Why?' we can probably tell you a better way to do
+> > this.
 > 
-> Can you explain why you need to reinitialise the PHY? The MAC driver should not need to do this, so
-> something is wrong somewhere. If we understand the 'Why?' we can probably tell you a better way to do
-> this.
+> Without this change bind/unbind works. But for the STR case, without reinitializing the PHY, even though
+> the IP link is UP, I am not able to talk the NFS server or ping the host properly.
+> 
+> I checked clock/reset before and after reset everything set as expected.
+> 
+> Only change during STR is, on wakeup we need to restore direction (MII/RGMII) of IO block 
+> for ET0/1_TXC_TXCLK (IO attribute) in the pin control driver. After that looks like PHY init
+> is required to talk to server. 
 
-You are right, reinitialization of PHY is not required.
+When talking about suspend/resume, is this with or without WoL?
 
-I can confirm STR works only by adding just [1] + Restoring the direction (MII/RGMII) of IO block for
-ET0/1_TXC_TXCLK (IO attribute) in the pinctrl driver.
+If WoL is enabled for the PHY, the PHY is left running while the
+system is suspended, and so all its clocks and reset lines also need
+to be left enabled etc. On resume, there should not be any need to
+touch the PHY.
 
-[1]:
-+		.pm		= &stmmac_pltfr_pm_ops,
+If WoL is not enabled in the PHY, it should get powered off. On
+resume, phylib should be reinitializing the PHY.
 
+Which of these two cases need the reinitialisation?
 
-Logs:
-  34.081297] PM: suspend entry (deep)
-[   34.086010] Filesystems sync: 0.000 seconds
-[   34.094746] Freezing user space processes
-[   34.101104] Freezing user space processes completed (elapsed 0.002 seconds)
-[   34.108164] OOM killer disabled.
-[   34.111468] Freezing remaining freezable tasks
-[   34.117478] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-[   34.124888] printk: Suspending console(s) (use no_console_suspend to debug)
-NOTICE:  BL2: v2.10.5(release):9aa8ec5-dirty
-NOTICE:  BL2: Built : 14:47:04, Feb  7 2025
-NOTICE:  BL2: SYS_LSI_MODE: 0x13e06
-NOTICE:  BL2: SYS_LSI_DEVID: 0x8679447
-NOTICE:  BL2: SYS_LSI_PRR: 0x0
-NOTICE:  BL2: Booting BL31
-[   34.202183] renesas-gbeth 15c30000.ethernet eth0: Link is Down
-[   34.328938] Disabling non-boot CPUs ...
-[   34.338285] psci: CPU3 killed (polled 4 ms)
-[   34.352108] psci: CPU2 killed (polled 0 ms)
-[   34.368492] psci: CPU1 killed (polled 0 ms)
-[   34.378137] Enabling non-boot CPUs ...
-[   34.378137] Detected VIPT I-cache on CPU1
-[   34.378137] GICv3: CPU1: found redistributor 100 region 0:0x0000000014960000
-[   34.378137] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
-[   34.378137] CPU1 is up
-[   34.378137] Detected VIPT I-cache on CPU2
-[   34.378137] GICv3: CPU2: found redistributor 200 region 0:0x0000000014980000
-[   34.378137] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
-[   34.378137] CPU2 is up
-[   34.378137] Detected VIPT I-cache on CPU3
-[   34.378137] GICv3: CPU3: found redistributor 300 region 0:0x00000000149a0000
-[   34.378137] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
-[   34.378137] CPU3 is up
-[   34.378137] dwmac4: Master AXI performs fixed burst length
-[   34.378137] renesas-gbeth 15c30000.ethernet eth0: No Safety Features support found
-[   34.378137] renesas-gbeth 15c30000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
-[   34.378137] renesas-gbeth 15c30000.ethernet eth0: configuring for phy/rgmii-id link mode
-[   34.378137] OOM killer enabled.
-[   34.378137] Restarting tasks ... done.
-[   34.378137] random: crng reseeded on system resumption
-[   34.378137] PM: suspend exit
+The reasons i can think of for the PHY needing a reinitialization are:
 
-root@smarc-rzg3e:~# ping[   34.378137] renesas-gbeth 15c30000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
- [   34.378137] mmc2: Skipping voltage switch
+1) It lost power when it did not expect to loose power
+2) Got reset when it did not expect to be reset
+3) Clock not ticking when it should of been ticking.
 
-root@smarc-rzg3e:~# ping 192.168.10.1
-PING 192.168.10.1 (192.168.10.1) 56(84) bytes of data.
-64 bytes from 192.168.10.1: icmp_seq=1 ttl=64 time=0.751 ms
-64 bytes from 192.168.10.1: icmp_seq=2 ttl=64 time=0.858 ms
-^C
---- 192.168.10.1 ping statistics ---
-2 packets transmitted, 2 received, 0% packet loss,
+So you cannot just check clock/reset before and after, you need to
+look at the order of events. The loss of power, or a reset after
+phylib resumed the PHY would not be good. Similarly, if the needed
+clocks are not ticking while phylib resumes it would also not be good.
 
-Cheers,
-Biju
+I would also suggest you check the datasheet for the PHY, and does it
+document anything about the clock input TXC_TXCLK is connected to?
+Does it need to be ticking while configuring the PHY? Any action which
+needs to be taken after this starts ticking? Is the pinctrl resume
+being called before the PHY resume?
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
