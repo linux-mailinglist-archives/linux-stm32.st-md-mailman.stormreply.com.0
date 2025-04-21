@@ -2,67 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC32A94841
-	for <lists+linux-stm32@lfdr.de>; Sun, 20 Apr 2025 18:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB3FA94FDD
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Apr 2025 13:10:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A840CC78018;
-	Sun, 20 Apr 2025 16:02:47 +0000 (UTC)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A567C7802E;
+	Mon, 21 Apr 2025 11:10:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 676B0C78002
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28917CFAC45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Apr 2025 16:02:46 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 32A874395F;
- Sun, 20 Apr 2025 16:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745164965;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=u/70UOSCWyv3wSRrnsWxaHKu2UYedV9SAR2KFYDLoLE=;
- b=HXBdcwxedYm/XKxEcj0DuL/5+TCm68ve5D/oVE6pwjOqxK40e8lNcQ7eNSvbKqpVb3VAzd
- 24HDvQz6xW+VHvn5FmW4KuvleT41VPH2YHkaEpu24C1c0JbkJeeGivNGnkHNzStBwVIY43
- sC34A0QgJPQMlNiNBIBdx5q+22/YJHQMvt4IrJefm0aJZ2bg+1jooAlkI3EzMapTvDIwGx
- 8rPuX1x4w438R8M9+FjumkIuS7PTC5ZfWBonqAelTEWd78ZZYPzc3Yu7qycOlmrvO52h8k
- Jdzvgj4xaIwHxvxL4xGi1DgprftAxSw0D1b10tOynMyeOi3ArZir2Vose5pLAw==
-Date: Sun, 20 Apr 2025 18:02:42 +0200
-Message-Id: <D9BLCJSCHE9A.1IKHK3XBPF8MU@bootlin.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: "Xu Kuohai" <xukuohai@huaweicloud.com>, "Andrii Nakryiko"
- <andrii.nakryiko@gmail.com>
-Mime-Version: 1.0
-X-Mailer: aerc 0.20.1-0-g2ecb8770224a
-References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
- <20250411-many_args_arm64-v1-1-0a32fe72339e@bootlin.com>
- <CAEf4Bzbn6BdXTOb0dTcsQmOMZpp5=DzGS2hHHQ3+dwcja=gv+w@mail.gmail.com>
- <D98Q8BRNUVS9.11J60C67L1ALR@bootlin.com>
- <9da88811-cce0-41df-8069-2e8b67541c39@huaweicloud.com>
-In-Reply-To: <9da88811-cce0-41df-8069-2e8b67541c39@huaweicloud.com>
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvfeekfeehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpegtfffkvefuhffvgfggofhfjgesthhqredtredtjeenucfhrhhomheptehlvgigihhsucfnohhthhhorhoruceorghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiffegveeihfelgfelveeihfetueeuueekieetheeftefhjeelveehffdvgeevudenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeekgedvkeemfhelgegtmegvtddtmeemfhekheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemkeegvdekmehfleegtgemvgdttdemmehfkeehpdhhvghloheplhhotggrlhhhohhsthdpmhgrihhlfhhrohhmpegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfedtpdhrtghpthhtohepgihukhhuohhhrghisehhuhgrfigvihgtlhhouhgurdgtohhmpdhrtghpthhtoheprghnughrihhirdhnrghkrhihihhkohesghhmrghilhdrtghomhdprhgtphhtthhopegrshhtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegurghnihgvlhesihhoghgvr
- ghrsghogidrnhgvthdprhgtphhtthhopehjohhhnhdrfhgrshhtrggsvghnugesghhmrghilhdrtghomhdprhgtphhtthhopegrnhgurhhiiheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhgrrhhtihhnrdhlrghusehlihhnuhigrdguvghvpdhrtghpthhtohepvgguugihiiekjeesghhmrghilhdrtghomh
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Will
- Deacon <will@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Florent Revest <revest@chromium.org>, Puranjay Mohan <puranjay@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
- Alexei Starovoitov <ast@kernel.org>, KP Singh <kpsingh@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Hao Luo <haoluo@google.com>,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
- bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: Re: [Linux-stm32] [PATCH RFC bpf-next 1/4] bpf: add struct largest
- member size in func model
+ Mon, 21 Apr 2025 11:10:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 332A444D6D;
+ Mon, 21 Apr 2025 11:10:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE7AC4CEE4;
+ Mon, 21 Apr 2025 11:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745233828;
+ bh=qBNeYTCCeJLPNODBt8loEIk8Uz5A8LZFmdC8vvl9rQM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=i0/qTr8hB4VUINlgBBJ+1dH9hr0Bfy6rW8xEjEnkBFICRaT5N5K3To9a48uuNl602
+ 9Fg7MzxfZyF9nlnJMdZ+rsTUzGYm6wEv0IKfKKgciN9GGdr35379JMNRQ/ps9pA73J
+ Jt9qKTv953bM922uwYv6HBi5yEsY3i6zMBGkWkYz9/cKegiPxelGIfbRutEu58cwuP
+ qUhnf2uytx6KmLFQd+aVD+zLKJKamHqrcxpr5cQq9S3KtbuWB0z26VFUaKHhkiV+UO
+ OTmJr9/4U3csWp5ky5iPWBko0Fc/TOCWtynTBcyHLa+Dy3k62Fhca/Q5Aa5x9V9BT6
+ 3kDgzPC0jJrgQ==
+Date: Mon, 21 Apr 2025 12:10:18 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Message-ID: <20250421121018.5b09ea21@jic23-huawei>
+In-Reply-To: <20250418-iio-prefer-aligned_s64-timestamp-v1-2-4c6080710516@baylibre.com>
+References: <20250418-iio-prefer-aligned_s64-timestamp-v1-0-4c6080710516@baylibre.com>
+ <20250418-iio-prefer-aligned_s64-timestamp-v1-2-4c6080710516@baylibre.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Cc: Andy Shevchenko <andy@kernel.org>, imx@lists.linux.dev,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
+ Eugen Hristev <eugen.hristev@linaro.org>, Andreas Klinger <ak@it-klinger.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Shawn Guo <shawnguo@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 02/10] iio: adc: at91-sama5d2_adc: use
+ struct with aligned_s64 timestamp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,74 +61,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgWHUsCgpPbiBUaHUgQXByIDE3LCAyMDI1IGF0IDQ6MTAgUE0gQ0VTVCwgWHUgS3VvaGFpIHdy
-b3RlOgo+IE9uIDQvMTcvMjAyNSAzOjE0IFBNLCBBbGV4aXMgTG90aG9yw6kgd3JvdGU6Cj4+IEhp
-IEFuZHJpaSwKPj4gCj4+IE9uIFdlZCBBcHIgMTYsIDIwMjUgYXQgMTE6MjQgUE0gQ0VTVCwgQW5k
-cmlpIE5ha3J5aWtvIHdyb3RlOgo+Pj4gT24gRnJpLCBBcHIgMTEsIDIwMjUgYXQgMTozMuKAr1BN
-IEFsZXhpcyBMb3Rob3LDqSAoZUJQRiBGb3VuZGF0aW9uKQo+Pj4gPGFsZXhpcy5sb3Rob3JlQGJv
-b3RsaW4uY29tPiB3cm90ZToKClsuLi5dCgo+Pj4gSSBtaWdodCBiZSBtaXNzaW5nIHNvbWV0aGlu
-ZywgYnV0IGhvdyBjYW4gdGhlICpzaXplKiBvZiB0aGUgZmllbGQgYmUKPj4+IHVzZWQgdG8gY2Fs
-Y3VsYXRlIHRoYXQgYXJndW1lbnQncyAqYWxpZ25tZW50Kj8gaS5lLiwgSSBkb24ndAo+Pj4gdW5k
-ZXJzdGFuZCB3aHkgYXJnX2xhcmdlc3RfbWVtYmVyX3NpemUgbmVlZHMgdG8gYmUgY2FsY3VsYXRl
-ZCBpbnN0ZWFkCj4+PiBvZiBhcmdfbGFyZ2VzdF9tZW1iZXJfYWxpZ25tZW50Li4uCj4+IAo+PiBJ
-bmRlZWQgSSBpbml0aWFsbHkgY2hlY2tlZCB3aGV0aGVyIEkgY291bGQgcmV0dXJuIGRpcmVjdGx5
-IHNvbWUgYWxpZ25tZW50Cj4+IGluZm8gZnJvbSBidGYsIGJ1dCBpdCB0aGVuIGludm9sdmVzIHRo
-ZSBhbGlnbm1lbnQgY29tcHV0YXRpb24gaW4gdGhlIGJ0Zgo+PiBtb2R1bGUuIFNpbmNlIHRoZXJl
-IGNvdWxkIGJlIG1pbm9yIGRpZmZlcmVuY2VzIGJldHdlZW4gYXJjaGl0ZWN0dXJlcyBhYm91dAo+
-PiBhbGlnbm1lbnQgcmVxdWlyZW1lbnRzLCBJIHRob3VnaCBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8g
-aW4gZmFjdCBrZWVwIGFsaWdubWVudAo+PiBjb21wdXRhdGlvbiBvdXQgb2YgdGhlIGJ0ZiBtb2R1
-bGUuIEZvciBleGFtcGxlLCBJIHNlZSB0aGF0IDEyOCBiaXRzIHZhbHVlcwo+PiBhcmUgYWxpZ25l
-ZCBvbiAxNiBieXRlcyBvbiBBUk02NCwgd2hpbGUgYmVpbmcgYWxpZ25lZCBvbiA4IGJ5dGVzIG9u
-IFMzOTAuCj4+IAo+PiBBbmQgc2luY2UgZm9yIEFSTTY0LCBhbGwgbmVlZGVkIGFsaWdubWVudHMg
-YXJlIHNvbWVob3cgZGVyaXZlZCBmcm9tIHNpemUKPj4gKGl0IGlzIGVpdGhlciBkaXJlY3RseSBz
-aXplIGZvciBmdW5kYW1lbnRhbCB0eXBlcywgb3IgYWxpZ25tZW50IG9mIHRoZQo+PiBsYXJnZXN0
-IG1lbWJlciBmb3Igc3RydWN0cywgd2hpY2ggaXMgdGhlbiBzaXplIG9mIGxhcmdlc3QgbWVtYmVy
-KSwKPj4gcmV0dXJuaW5nIHRoZSBzaXplIHNlZW1zIHRvIGJlIGVub3VnaCB0byBhbGxvdyB0aGUg
-SklUIHNpZGUgdG8gY29tcHV0ZQo+PiBhbGlnbm1lbnRzLgo+Pgo+Cj4gTm90IGV4YWN0bHkuIFRo
-ZSBjb21waWxlcidzICJwYWNrZWQiIGFuZCAiYWxpZ25tZW50IiBhdHRyaWJ1dGVzIGNhdXNlIGEK
-PiBzdHJ1Y3R1cmUgdG8gYmUgYWxpZ25lZCBkaWZmZXJlbnRseSBmcm9tIGl0cyBuYXR1cmFsIGFs
-aWdubWVudC4KPgo+IEZvciBleGFtcGxlLCB3aXRoIHRoZSBmb2xsb3dpbmcgdGhyZWUgc3RydWN0
-dXJlczoKPgo+IHN0cnVjdCBzMCB7Cj4gICAgICBfX2ludDEyOCB4Owo+IH07Cj4KPiBzdHJ1Y3Qg
-czEgewo+ICAgICAgX19pbnQxMjggeDsKPiB9IF9fYXR0cmlidXRlX18oKHBhY2tlZCkpOwo+Cj4g
-c3RydWN0IHMyIHsKPiAgICAgIF9faW50MTI4IHg7Cj4gfSBfX2F0dHJpYnV0ZV9fKChhbGlnbmVk
-KDY0KSkpOwo+Cj4gRXZlbiB0aG91Z2ggdGhlIGxhcmdlc3QgbWVtYmVyIHNpemUgaXMgdGhlIHNh
-bWUsIHMwIHdpbGwgYmUgYWxpZ25lZCB0byAxNgo+IGJ5dGVzLCBzMSBhbmQgczIgYXJlIG5vdCBh
-bGlnbmVkIHRoZSBzYW1lIHdheS4gczEgaGFzIG5vIGFsaWdubWVudCBkdWUgdG8KPiB0aGUgInBh
-Y2tlZCIgYXR0cmlidXRlLCB3aGlsZSBzMiB3aWxsIGJlIGFsaWduZWQgdG8gNjQgYnl0ZXMuCj4K
-PiBXaGVuIHRoZXNlIHRocmVlIHN0cnVjdHVyZXMgYXJlIHBhc3NlZCBhcyBmdW5jdGlvbiBhcmd1
-bWVudHMsIHRoZXkgd2lsbCBiZQo+IGxvY2F0ZWQgb24gZGlmZmVyZW50IHBvc2l0aW9ucyBvbiB0
-aGUgc3RhY2suCj4KPiBGb3IgdGhlIGZvbGxvd2luZyB0aHJlZSBmdW5jdGlvbnM6Cj4KPiBpbnQg
-ZjAoX19pbnQxMjggYSwgX19pbnQxMjggYiwgX19pbnQxMjggYywgaW50NjRfdCBkLCBfX2ludDEy
-OCBlLCBpbnQ2NF90IGYsIHN0cnVjdCBzMCBnKTsKPiBpbnQgZjEoX19pbnQxMjggYSwgX19pbnQx
-MjggYiwgX19pbnQxMjggYywgaW50NjRfdCBkLCBfX2ludDEyOCBlLCBpbnQ2NF90IGYsIHN0cnVj
-dCBzMSBnKTsKPiBpbnQgZjIoX19pbnQxMjggYSwgX19pbnQxMjggYiwgX19pbnQxMjggYywgaW50
-NjRfdCBkLCBfX2ludDEyOCBlLCBpbnQ2NF90IGYsIHN0cnVjdCBzMiBnKTsKPgo+IGcgd2lsbCBi
-ZSBsb2NhdGVkIGF0IHNwKzMyIGluIGYwLCBzcCArIDI0IGluIGYxLCBhbmQgc29tZSA2NC1ieXRl
-IGFsaWduZWQKPiBzdGFjayBhZGRyZXNzIGluIGYyLgoKQWgsIHRoYW5rcyBmb3IgdGhvc2UgY2xl
-YXIgZXhhbXBsZXMsIEkgY29tcGxldGVseSBvdmVybG9va2VkIHRoaXMKcG9zc2liaWxpdHkuIEFu
-ZCBub3cgdGhhdCB5b3UgbWVudGlvbiBpdCwgSSBmZWVsIGEgYml0IGR1bWIgYmVjYXVzZSBJIG5v
-dwpyZW1lbWJlciB0aGF0IHlvdSBtZW50aW9uZWQgdGhpcyBpbiBQdXJhbmpheSdzIHNlcmllcy4u
-LgoKSSB0b29rIGEgcXVpY2sgbG9vayBhdCB0aGUgeDg2IEpJVCBjb21waWxlciBmb3IgcmVmZXJl
-bmNlLCBhbmQgc2F3IG5vIGNvZGUKcmVsYXRlZCB0byB0aGlzIHNwZWNpZmljIGNhc2UgbmVpdGhl
-ci4gU28gSSBzZWFyY2hlZCBpbiB0aGUga2VybmVsIGZvcgphY3R1YWwgZnVuY3Rpb25zIHRha2lu
-ZyBzdHJ1Y3QgYXJndW1lbnRzIGJ5IHZhbHVlIEFORCBiZWluZyBkZWNsYXJlZCB3aXRoIHNvbWUK
-cGFja2VkIG9yIGFsaWduZWQgYXR0cmlidXRlLiBJIG9ubHkgZm91bmQgYSBoYW5kZnVsIG9mIHRo
-b3NlLCBhbmQgbm9uZQpzZWVtcyB0byB0YWtlIGVub3VnaCBhcmd1bWVudHMgdG8gaGF2ZSB0aGUg
-Y29ycmVzcG9uZGluZyBzdHJ1Y3QgcGFzc2VkIG9uIHRoZQpzdGFjay4gU28gcmF0aGVyIHRoYW4g
-c3VwcG9ydGluZyB0aGlzIHZlcnkgc3BlY2lmaWMgY2FzZSwgSSBhbSB0ZW1wdGVkCnRvIGp1c3Qg
-cmV0dXJuIGFuIGVycm9yIGZvciBub3cgZHVyaW5nIHRyYW1wb2xpbmUgY3JlYXRpb24gaWYgd2Ug
-ZGV0ZWN0IHN1Y2gKc3RydWN0dXJlIChhbmQgdGhlbiB0aGUgSklUIGNvbXBpbGVyIGNhbiBrZWVw
-IHVzaW5nIGRhdGEgc2l6ZSB0byBjb21wdXRlCmFsaWdubWVudCwgbm93IHRoYXQgaXQgaXMgc3Vy
-ZSBub3QgdG8gcmVjZWl2ZSBjdXN0b20gYWxpZ25tZW50cykuIE9yIGFtIEkKbWlzc2luZyBzb21l
-IGFjdHVhbCBjYXNlcyBpbnZvbHZpbmcgdGhvc2UgdmVyeSBzcGVjaWZpYyBhbGlnbm1lbnRzID8K
-ClRoYW5rcywKCkFsZXhpcwoKLS0gCkFsZXhpcyBMb3Rob3LDqSwgQm9vdGxpbgpFbWJlZGRlZCBM
-aW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCmh0dHBzOi8vYm9vdGxpbi5jb20KCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+On Fri, 18 Apr 2025 14:58:21 -0500
+David Lechner <dlechner@baylibre.com> wrote:
+
+> Use a struct with aligned s64 timestamp_instead of a padded array for
+> the buffer used for iio_push_to_buffers_with_ts(). This makes it easier
+> to see the correctness of the size and alignment of the buffer.
+> 
+> Signed-off-by: David Lechner <dlechner@baylibre.com>
+> ---
+>  drivers/iio/adc/at91-sama5d2_adc.c | 25 ++++++++++---------------
+>  1 file changed, 10 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sama5d2_adc.c
+> index 414610afcb2c4128a63cf76767803c32cb01ac5e..07ced924f7a6ae36fe538021a45adbf7d76c2e69 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
+> @@ -21,6 +21,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/property.h>
+>  #include <linux/sched.h>
+> +#include <linux/types.h>
+>  #include <linux/units.h>
+>  #include <linux/wait.h>
+>  #include <linux/iio/iio.h>
+> @@ -586,15 +587,6 @@ struct at91_adc_temp {
+>  	u16				saved_oversampling;
+>  };
+>  
+> -/*
+> - * Buffer size requirements:
+> - * No channels * bytes_per_channel(2) + timestamp bytes (8)
+> - * Divided by 2 because we need half words.
+> - * We assume 32 channels for now, has to be increased if needed.
+> - * Nobody minds a buffer being too big.
+> - */
+> -#define AT91_BUFFER_MAX_HWORDS ((32 * 2 + 8) / 2)
+> -
+>  struct at91_adc_state {
+>  	void __iomem			*base;
+>  	int				irq;
+> @@ -617,7 +609,10 @@ struct at91_adc_state {
+>  	struct iio_dev			*indio_dev;
+>  	struct device			*dev;
+>  	/* Ensure naturally aligned timestamp */
+> -	u16				buffer[AT91_BUFFER_MAX_HWORDS] __aligned(8);
+> +	struct {
+> +		u16 data[32];
+
+When you rework this into the large buffer scheme, can you add a define
+or some other means to establish where that 32 comes from!
+We've lost the comment as a result of this refactor so need to put that
+info back somehow.
+
+
+> +		aligned_s64 timestamp;
+> +	} buffer;
+>  	/*
+>  	 * lock to prevent concurrent 'single conversion' requests through
+>  	 * sysfs.
+> @@ -1481,14 +1476,14 @@ static void at91_adc_trigger_handler_nodma(struct iio_dev *indio_dev,
+>  		if (chan->type == IIO_VOLTAGE) {
+>  			val = at91_adc_read_chan(st, chan->address);
+>  			at91_adc_adjust_val_osr(st, &val);
+> -			st->buffer[i] = val;
+> +			st->buffer.data[i] = val;
+>  		} else {
+> -			st->buffer[i] = 0;
+> +			st->buffer.data[i] = 0;
+>  			WARN(true, "This trigger cannot handle this type of channel");
+>  		}
+>  		i++;
+>  	}
+> -	iio_push_to_buffers_with_timestamp(indio_dev, st->buffer,
+> +	iio_push_to_buffers_with_timestamp(indio_dev, &st->buffer,
+>  					   pf->timestamp);
+>  }
+>  
+> @@ -1643,7 +1638,7 @@ static void at91_adc_touch_data_handler(struct iio_dev *indio_dev)
+>  			at91_adc_read_pressure(st, chan->channel, &val);
+>  		else
+>  			continue;
+> -		st->buffer[i] = val;
+> +		st->buffer.data[i] = val;
+>  		i++;
+>  	}
+>  	/*
+> @@ -1691,7 +1686,7 @@ static void at91_adc_workq_handler(struct work_struct *workq)
+>  					struct at91_adc_state, touch_st);
+>  	struct iio_dev *indio_dev = st->indio_dev;
+>  
+> -	iio_push_to_buffers(indio_dev, st->buffer);
+> +	iio_push_to_buffers(indio_dev, st->buffer.data);
+>  }
+>  
+>  static irqreturn_t at91_adc_interrupt(int irq, void *private)
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
