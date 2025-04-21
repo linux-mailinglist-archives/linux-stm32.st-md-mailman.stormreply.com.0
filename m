@@ -2,154 +2,166 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F99A954F1
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Apr 2025 18:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E136A95534
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Apr 2025 19:25:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FB55C7802F;
-	Mon, 21 Apr 2025 16:52:19 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11011061.outbound.protection.outlook.com
- [40.93.194.61])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ED16C78025;
+	Mon, 21 Apr 2025 17:25:46 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010054.outbound.protection.outlook.com [52.101.229.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F891CFAC45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 299C1CFAC45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Apr 2025 16:52:17 +0000 (UTC)
+ Mon, 21 Apr 2025 17:25:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ny5RsBKyy6wKr/DltF3KZKPHs8KDYv6zSLw97G2giioCQy4RxLSfP1yThHh+jS9Ukf30dJmuFfAJ++qB24LExy6UfOPorO+rQ31bQgKh9uFi5vJDEo7uYiRhn70hwnMBxjH3zx6rxHdVKuQOYbSt2+AJIZAq5EZbBcU6kS7ZW4OPLt6jW9eiu+MQyNEz0XZl4eZ2+9MVBF3FahiP33rBI9DNGl9qWbrjKbo+zo5uRQvVzs2Kg4oeDW5oSKWChns8MV3LquFB41aqgF8I4wW/oR/9lcCcBjWBSYpV62TGtdSxPAmL2uDulkG69w9fTGYMyBwjLPgf9bT2eZbIrz0pUg==
+ b=FQKiBUDBfPkHamJOrJyueCwAl9KS/fhcSoDvkWEXL3kUDUC2oilUb2ViA+8NA9hZci1K5kDiGb0IktjEPlPkpKf7XNu8DSCgSC/2oSwoDioauWtmBTpL3rI5NxyNHNkbv/m0VzYNFSbwnBRxIopm0WoIrjp5egwvrVf5bWiZu3DhHRDIl4Nf4+7wzwUgP7jC9s/dZdEeCNHDdTmvcl5akMHRrPJcHfNIyQsxPdUjaSm1tnmAdxfe+2mI6rQkoiy7NI/m1Tsxq/vYqGeXgf3SJ+Zm9iRFDJbb7YNEYbcAOgobzul1E/T7I3Hr0jUDFbrc80bCIm7bCVE4OyGcqBn4Bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zfz2/veScDfDLBwUqQ1JWWS3to4F5DXP7VMv9td8joQ=;
- b=yaVTJT4wF3w7yQfK53BiW86Y0CHptxxM/12doruvG18GdumJkKIjGvIuqpNUwsp/HkRtZy88Mym3yRCfh0gITi6IkOcuVb42dfyCuTjuz61lbP2hXrbNgAEo8PU7NLzvzF8mVdsj14z9jfQL72psvY3vizmq00cB9kj+ympHk8u5AjmcyoWZ3UsqO6mIM/OoAW9eGUSb7KiLt28h8cpzcZekygfBQdsSm+2gxamOSAAubych1MXqkyr81sqz/BIECEt3TeZycxrhT2PEO33/DJGma9OG1a8LoATY7dZAUDY9z+ToQlvh4ubwbHDxNsWTm+5nd/OrW4J2/1J8Ie+Ypw==
+ bh=Uzrb9i7RK4Sr17dpHhrGinhNaQuFVFmQ+LE76Cpcyt8=;
+ b=CGcr+DvEJ3e0u9FW/udjrYNWEERdNLVehDL6I/hiYxd0EeMneYH69W5UlU01XY+CgPN88mA9WsfbvHeiTygVRNXFfeAl4T/SfnOpJzahfp8/uyGL50tgW6GoBBEWquUoIh/vDS9lVH7Hbyt6dylxP7f0TlMHAEUMcF3gdECU3NXELcn2XXoBGkAveHqkRJgMhxv/i8NmKG/eg6+H+Pgo84ZkBN+SOdCmS1w2uGIfbzqj3SyG6XJfMDTsNyL6LyxBn2A/ysJkrUTp3KY5A2v4yuRsCxN2/OtQ+YNUlGaOCXxAhYqq1xhUAlazeYACblaPH7kcgbKuTK+EXCHMC4eqsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zfz2/veScDfDLBwUqQ1JWWS3to4F5DXP7VMv9td8joQ=;
- b=EwqSq4hpBMHc8NbC5EwvtoAL+c1aSVJoRgfh112h1fd2U/BL1LZkpQX/ReDoQ8ru/UzNa2SIk23JDagnpxI8nE+ZQBygFHzqUsATjl53JIy8h/8L18Aqx5GU9TrYwKE355r+7S2O1HcacZrrM1NhqOs1i/57nTZQZqzhE95y3shK/wXyYUx8iS+w+JzfYKR7PzRlQEnTwA2XT6k85r2BrWes3fko84WpGiDmOl/mOgCrzyaZbvaqEXOeNqFRZHLEb821QyGhltUc6KONlwYO+iOCZXxxIS36eZeeyMi/+8t8DjC/V6tNjTUf9IG3cfI9EZvgYnp0vJhEYZPvi9tVfw==
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com (2603:10b6:408:dc::21)
- by CO1PR03MB7818.namprd03.prod.outlook.com (2603:10b6:303:274::6)
+ bh=Uzrb9i7RK4Sr17dpHhrGinhNaQuFVFmQ+LE76Cpcyt8=;
+ b=NvJmY15yp/wRl8ZdwqHHnoqUg3rq8oR/93Eb4KkKsEElMchdLS5B1+EJEUBmlm/Yy7IJA1w9guaeA7/K1RN1EUs9B0J9G3SebnuwN9l51BC/bDzc/ePbEBSsumbFfO70mJxFJqXC2fbpG2IWHuDEFwFMmY79kkaxzbBxPL60Bm0=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSZPR01MB6695.jpnprd01.prod.outlook.com (2603:1096:604:111::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.33; Mon, 21 Apr
- 2025 16:52:13 +0000
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a]) by BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a%3]) with mapi id 15.20.8655.033; Mon, 21 Apr 2025
- 16:52:12 +0000
-From: "Ng, Boon Khai" <boon.khai.ng@altera.com>
-To: Simon Horman <horms@kernel.org>, Furong Xu <0x1207@gmail.com>
-Thread-Topic: [PATCH net-next v3 1/2] net: stmmac: Refactor VLAN implementation
-Thread-Index: AQHbqF534FzGLRNwp0yA1XNTHIr18LOckb0AgAIaqQCAD7zwIA==
-Date: Mon, 21 Apr 2025 16:52:12 +0000
-Message-ID: <BN8PR03MB5073FDF1D834404244D50790B4B82@BN8PR03MB5073.namprd03.prod.outlook.com>
-References: <20250408081354.25881-1-boon.khai.ng@altera.com>
- <20250408081354.25881-2-boon.khai.ng@altera.com>
- <20250410161912.0000168a@gmail.com>
- <20250411162708.GL395307@horms.kernel.org>
-In-Reply-To: <20250411162708.GL395307@horms.kernel.org>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.30; Mon, 21 Apr
+ 2025 17:25:37 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::86ef:ca98:234d:60e1]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::86ef:ca98:234d:60e1%4]) with mapi id 15.20.8655.031; Mon, 21 Apr 2025
+ 17:25:37 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Thread-Topic: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for
+ Renesas GBETH
+Thread-Index: AQHbp7UXRdTsn2oCYUWD5qYhUQGHu7OjbUQAgAAVgQCAATLSgIAJgP8QgAAGBICAAAEN4IAAEkSAgAAhbNA=
+Date: Mon, 21 Apr 2025 17:25:36 +0000
+Message-ID: <TY3PR01MB1134652607E0CB04ED520EDFF86B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20250407120317.127056-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20250407120317.127056-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <Z_0-iH91A4Sexlzj@shell.armlinux.org.uk>
+ <CA+V-a8sS0TtS-TEdkQ8MB5F4JtzV9358Y9fmKe5MggGU+wP=4Q@mail.gmail.com>
+ <CA+V-a8tbW2Zs6op20yRTcihSm1bcMC2dYnRXVCKRf=q4fymZyg@mail.gmail.com>
+ <TY3PR01MB1134633A8CB82788BB98C6E6286B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <f27b0531-11dd-4074-9c79-172953d28292@lunn.ch>
+ <TY3PR01MB11346FA4767B74B2CBB2CAFB786B82@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <c27a2359-ee55-4d20-907d-314eee30ed4f@lunn.ch>
+In-Reply-To: <c27a2359-ee55-4d20-907d-314eee30ed4f@lunn.ch>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN8PR03MB5073:EE_|CO1PR03MB7818:EE_
-x-ms-office365-filtering-correlation-id: 5a4952ac-61ea-485a-35c3-08dd80f4dd4b
-x-ms-exchange-atpmessageproperties: SA
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSZPR01MB6695:EE_
+x-ms-office365-filtering-correlation-id: 0bcb956e-ca8d-42b5-bd4d-08dd80f987ca
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?w6kug9EK2InvDx21TiOrzFX208cvblQrN4SEVxK7eVRY0xKdzrI/9EweBiMp?=
- =?us-ascii?Q?J0avKnDLUePpJ3a0uOj0OXUAn+tMPgQWvPYYahybMcHDmFhR1BUWR0gWhU/S?=
- =?us-ascii?Q?5hT07CYhy7WT2KaCcWYx1UbQt9Y2uMEzJ9symawZ0SCwQAEvxYiWmNVKbWje?=
- =?us-ascii?Q?yrQ3dz/g7Cf2Y4kLmSKdrJydB7voSE3JJtuKFkWikxQr8WuHus/JMVIhvNO1?=
- =?us-ascii?Q?gDrlD/fDbDgmWDuStMKpOVuPYCloGYxRbbXzjk2oZzFEm9IHOqAoRV2fcFF5?=
- =?us-ascii?Q?MPX+KLjbpFu45ru300+duwmxRsA0Sm4BOaLUrRB6A2LoP7iqXF10GzZimcoX?=
- =?us-ascii?Q?nnQruemkq2a8xnlJXHgSYkhV9dHjLbZzhmvP4fi+xy4HUZeqqAf2FgI0ZusY?=
- =?us-ascii?Q?b0LJsTgn0+eflzKD0efmtOqXylYHLn3DQbpXfDNkTsLIFcDOY3MlArnjwp1n?=
- =?us-ascii?Q?eluBj3Hbgc+cw4qhAHpUso7j7STsKp68zlqI3Wrbc28YjZTZle45+YFPmRLg?=
- =?us-ascii?Q?C6ppnPYqmOWp/BReV/+aBei/8eKtj5oHRGurex/FFFw0CuW+f2QaTNcpRP9U?=
- =?us-ascii?Q?TjffMq0I/t1OMMArFT1gPPeFUUGFEdWUAGxVwtRqHq9e/C5V67proy/iOg9z?=
- =?us-ascii?Q?ixVzLL3Vd2qns2DlXN8hWmaF2S2a/O6PVA1NvPyPgTePuc0qlfI6Cz3jmIN0?=
- =?us-ascii?Q?ougPdj8fCSaGpxQ8uOJUHQ6NRyDUy6QQm5WroTcFKLm2KuRxHl4bXfpez/Nf?=
- =?us-ascii?Q?/tyc3yq7dVo3qDKr+VGE2VnJl9cH//HE5Dm/QKj3OETxZxkok5caYq00yXY3?=
- =?us-ascii?Q?Fu0EJGNthiiJ7Y15FWTEjPu71PsfbijdWdEFIr+DxEHZnblimNnf7B6l0Fxx?=
- =?us-ascii?Q?I5Dhw7ryCejpReHzNJzIfrqQycqRri94CR4b3IaqA7nznCY3vmTcWL04fD7W?=
- =?us-ascii?Q?6Vtti96Krv15Iv6gT5pmObULZKsg4N4SdK1hQlsob5r3wW6mwvdtIPQVW5g3?=
- =?us-ascii?Q?2f0DzLdaJmFdAOHW+lLj6yB4vtNbhYDxr2LFF4iA49UMrQGrfifRsrhXyUrc?=
- =?us-ascii?Q?gqcm2YMKWsnBSwdMKdnnFZDaG4VsY4k2rKmJvAtXhSm7bkqKJ9J0xDcLuecE?=
- =?us-ascii?Q?NyPInWh/ep56FtuY535dIYZjMhLfAASK5Oka4WkiVyptW+KgN7izE1/BFS0y?=
- =?us-ascii?Q?QDwj6hcihPj/Brb/uHfmj+sM7xnF8EoIg19BQ6aVbToSa+W6GG28H29lMMfS?=
- =?us-ascii?Q?0E7atrJpX69eDfyhJyDEGDr3srJuwM7b0YDVXJ2cJUYlCD+YC/Natia5B/Wn?=
- =?us-ascii?Q?2P+tnVjpusIgRgr3+a5hFPMu/T56FPdGyz1Cscd8qfcrIZXYN8VHoaNKUSkk?=
- =?us-ascii?Q?mosOMHj5BaCgA0wj4HNi12Vu/5dhc2wFHUCvtwkVCzsnnfHEahDXDdWHoSNW?=
- =?us-ascii?Q?i8961BBSKbJvQ4XC+NWUYa2XxPICWc6rECN1cVmHQPFtEkgNvK9Atg=3D=3D?=
+ ARA:13230040|376014|366016|7416014|1800799024|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?ddSAQuFKbjVaC7xbRXm7UGeLEEs+egin6qQqt4sapxqb0UwRAJX+mBxC9J/U?=
+ =?us-ascii?Q?Z4LKSYo+5i1SEaHf0hnu8JkmZo8bHT8m8P5+q0mghZFhmOxmBiUdKDq/88Hv?=
+ =?us-ascii?Q?K4fBTADFx43FKs87g8Xlo2uliKCA/EB4Xf8PXvU+ryPaIxuMAkCu2b5j5p1k?=
+ =?us-ascii?Q?3uCk5+vYGC7a27JYpyK3gm0fGnYHCB59jHjFP3aOBxlB9GrP78Jbk3QrrzKM?=
+ =?us-ascii?Q?X180mm2LIjMv/ZmlIMz3Qe8M1GlYSS64yqSIHEnII7W2bJOzEU3hSrxOQigr?=
+ =?us-ascii?Q?3EfN0s9CTPxr2Ru9gcGVC+pUJ1+h28cG/z20wMcC3YHj/aSU6Rkk1I68J+l+?=
+ =?us-ascii?Q?5+P2uyfNfcgK2b0wC+Lz3hdYGWLoV4Bep5cy5hjpgS9snbyZZFVFR4N4hi42?=
+ =?us-ascii?Q?7vU25cE9MCVW+xyJsbJDW3AJgdkKPk4sLU4eOdQkkay9FbWSFZXwevl9W9r0?=
+ =?us-ascii?Q?v3e2OtNL0vXsMMqC3XmCd/2LahGCEE0BTGRfyodzU1M+J/1YH6IdKrg4q+Uw?=
+ =?us-ascii?Q?irWq0Mo05FikvBmFk1qQ/GCIdvGVhiTVhB6ta73auLfP/e0BsJOr+CSyJSXq?=
+ =?us-ascii?Q?+qMueS6MV/SibgDXAaGN0yiAPtQxesKu5zZhm6Ca/jdsIb9EsRL9MYyFvMi9?=
+ =?us-ascii?Q?Q0dQLqVlJM09Ojn33vDnloz6gCP5RDSP+VMTMkXd8sXBYDypByiz589YAAOj?=
+ =?us-ascii?Q?lddIiqtJOYccCn4+xRhhIqbNu3Y82k7ugnE+h7dREvC7A8YdTClMobUbhh5q?=
+ =?us-ascii?Q?0jOAP9fHqoVP5KDfr1qbfdNHn1+T+ueQ3FdlI0y90t08tq49Bh2brK8luSYw?=
+ =?us-ascii?Q?vv9R634iT6xn9MT5LWjRzrkUzrSvOr8ZcEuIkJcBX2LlOTcbc3fn8zic/FXA?=
+ =?us-ascii?Q?SrYqfNhlyXtWvbN8JQL4vuJkM/eDFqMG5T59g/KU1MxXmT3V8BXXQoQJKKnF?=
+ =?us-ascii?Q?tL9GnoFWlu2YC1pxnBQIpgRuKX9ztE3ZucYVlEf9QsXttetZraJMkYNH18qm?=
+ =?us-ascii?Q?NeqV4jdv9Bk5rCX3pNyoyT2g9SsXnwFzH/e+n0JruNNDs+Iq4T9rqmWx846L?=
+ =?us-ascii?Q?Om+Nhmx/63UG5OthBVWAoiDXo8IXt1+NgH0898jZvQE9dkwUtgjDQkkXrHAr?=
+ =?us-ascii?Q?CzDncVtALRu1Bc88rGriN2kajINuoTrnAfZRhIUihHmEhpm9NnPlyFnE0oV3?=
+ =?us-ascii?Q?eOMxpCZTHeXP48bQ7sbyY4tDs/wG7Y88hKyGeS9h7+jvTdM4QiEMDrRslf9E?=
+ =?us-ascii?Q?625j+N92xSfUNir9PDxaSey8USANCudgoXZzj0QfALaFtQ7RfsuW7DQFaxOJ?=
+ =?us-ascii?Q?IJ2MoaHS04dODeAuRz8Ug5uRXG8Cu+QgvfiBc4UX8vrcl2VfSMVXdv7pkbvn?=
+ =?us-ascii?Q?ZixnF1V5hJ1mmzehhL4O8k1/p3djnESeYj+i8apKDupK0lNC/nVoreXaWQBa?=
+ =?us-ascii?Q?JC83L3Ki2zEjqma1V4DRbHXMb9v6YCzx/UM6/y5bwk9KBchLznV6vA=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR03MB5073.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(38070700018); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(38070700018); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4Kj8ETH7qqNi1+Bq8EzONfIDwVzMrwTf1UMQrorHUoem0LvSc6CtExcuWVds?=
- =?us-ascii?Q?65XcQGbGQDVsl/KdLxf+i7wKCCnzbA++B0EVqh5xjUewBUyjPSAl47VB+ah8?=
- =?us-ascii?Q?VW/ci0Z97BMHfD7l1c1UZREWh2OhoO25fWRoPOPUfGaVpRnSHOlQECZFzQM8?=
- =?us-ascii?Q?NH7fgoM54h5vrLRM8eqE2UiDE9RtFVSSWyEzVsO98cGnzv0+0N+dDC4XEKW0?=
- =?us-ascii?Q?Igdu6OK1LEhyVeAh26h1488r65FlLunTxAx9u+r3R26i5MFgC7IeZ6BY66Wc?=
- =?us-ascii?Q?pkdIJ8Bn30/Yx2PneolOwbiyWmNQuAdYqnPeP3UCshoIqyJWggb28RlnAxM7?=
- =?us-ascii?Q?+/2HbgxZWOTsKBitATElu6jNPhcRk0oVxukUSHH6MA03qPhGkIRgu+ZAZ36P?=
- =?us-ascii?Q?HeGhxWFjOR3CW0dD92ynpqm252oN4mHkJ7JSmTpM5Sqy+Wh0n4EoHLVKP/ci?=
- =?us-ascii?Q?zaPQUS+Q/jgqfPENXZiQ5xvT1n/KIRu+jEjwDDej3BTpmc9t2vtoqdljYAro?=
- =?us-ascii?Q?VONt4oFdy8AFU7wetf2qujDfIgt6AG9OIDAo6iqvqMIrttRMou/yd0a0UYZ+?=
- =?us-ascii?Q?Zm1dSp5TdMs6B6eojeT98NTN1GUEFTrSvtzMmlh4yp52cfjBjLfNYYCvhBPo?=
- =?us-ascii?Q?0L55cI5aZKQ6o4HU6pUvBlL7iPyT83D/ADQK9uNpoOI7Gj/f3MI+bFEY1HwU?=
- =?us-ascii?Q?2k6kETGvA/imWOJke7Fi+bjsoXgTo91x5+4Lpo3DyD8A8qVhPqKIDnHly6f1?=
- =?us-ascii?Q?HP0Y1OHJG08EKb8lY31znhrjcjB4kZGvq2p1RUpLD5Gvqw/yvFweRaPhVGob?=
- =?us-ascii?Q?p+sKUniyNZRR+tj0x1Z7HkJjtHevyYyQMnlpZer2mF4hxee4mKbngn9F6zpU?=
- =?us-ascii?Q?g3iwWpLYANdXym/zmNKXOmOZYmynQuL7NOd6KHCvMg/OQE6p72gCDyTQTFTo?=
- =?us-ascii?Q?9rRMfzX5SuMR7QfiBXFagxYhM71S6KzFB0Rln2b7a9eOq0YAZtRi0HqIC4IU?=
- =?us-ascii?Q?oaJ02azuMjQ5TMO9CBzdGLX0DQ/82Jhg6c2J49p52wD7gwiqeeBcHq6UD2Ax?=
- =?us-ascii?Q?km+nH7p36Kkh5kOrXiMcV1yQsR5i/XJRfLGn4XThBd2PyKmslOwBNzjGaMD7?=
- =?us-ascii?Q?ssI1tjQYYChV1e/ty60nA2klHZE82qbMTVDobxAq0ES0XRKMzqKANe8v8QFq?=
- =?us-ascii?Q?4FrcVbNRu6+UkOOpnLKU7L9JIb5LpCvFvofNEpk+FEikoYUY3wS50675DQsD?=
- =?us-ascii?Q?L1RAmG+HH7AHub0AddoFxQcmyHr42ch+oAutCS5FoIANRbl+FvrBvWQOgRvR?=
- =?us-ascii?Q?aUzJXLQEAcHP5a+p+qRprrasdUIZB+ONCNEjQ8TOO+/r27881JprDyj1DYFY?=
- =?us-ascii?Q?vyHIM7dOtzfY7N62CFH38CUR/a54F053e33xs9LkHr3SGQoGl0RdIpS1pSY8?=
- =?us-ascii?Q?h1oNOL+uLtVvUM85lZQYFO0wmFt8Q73KjGRUyoXE1SHc22FiZ+aJoWIec5NL?=
- =?us-ascii?Q?P4YaGrrXQMHm8PjDqw6vT4mGpH7TnYVpI7bVJRvA0YHOMIhMX61nJZgFb3ov?=
- =?us-ascii?Q?ek8j4LEmOQiRNQ+3DBPKvq6wjn6OucJXVY6iVpUJ?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?84zeO2PgUSGzwsQAaZdyZz+o1ZXgN2C91zFm6q6a18juhNmcBV3X3+lpuDcD?=
+ =?us-ascii?Q?lIJMVtfvg9n3fdW+/f8rtvURf05GkZxkV2v1izz0Jl5w2WeaoW8bn9iLMhhF?=
+ =?us-ascii?Q?kwPAx67/yQx4LmHUSWsxuznRWyHW97aGkkY7FCWCHm00jzPdSxsKZsAftg1Y?=
+ =?us-ascii?Q?YpDYhHH+TswaEnbWiLV00M9fa6qq3gj/jk7dRdldViWGElrA2EGlfuIHztHp?=
+ =?us-ascii?Q?tWGT+cd6UvBh8ZIry4KTaO35a07TWqBzZNCtjv7WOSdC1+NsNnS2B5EEusoj?=
+ =?us-ascii?Q?uhbsehsLlaqUPRxysAfxS8wyZO5KMAOc8sRynL8o30U7Tnd8NB86tuJV/NGy?=
+ =?us-ascii?Q?hmLctJIHe73HlvvWwxiBSya3lmIWOJPQErsqX5knPJGaJ0BvbzUW9b6K7K7i?=
+ =?us-ascii?Q?wIoge0MYpcFe5MJSXLltkWFIYr2DiMeAPga0o+mXmFRT8eSB1niWCmKnIfvu?=
+ =?us-ascii?Q?/KCsGlW8jSY6EnkHZZuN7zKw84zDt8t1CMso/2MOX9mo1W0GJhHpAhAmKXbo?=
+ =?us-ascii?Q?zJYu+1y3JehJyktQOR4YezyJpvLUJblNerSDcuy9jFF9hbkuXgB6kUboObu2?=
+ =?us-ascii?Q?EO2HzTVnjm7ZWox5wFBsZGFxymDtiBHFNSKEgw2veTSlYCK6kMrbq3uP3V6W?=
+ =?us-ascii?Q?W29RLYURzMwKqg41sIezV3sLFNS+zuE3O6F02CKOCsfu2JuXBpCmd+6bPngI?=
+ =?us-ascii?Q?Anv/37L26JOGDBwayNpxW/QAjXyg9aPR7HSlnBtW6kbVYhYeuYsSBBmQiz2F?=
+ =?us-ascii?Q?QivYhCzFI3ejgXMxJEYzw19mHYWvgF5VtQX5JAzrbw+Ou3OxDrSwPk2NNCLj?=
+ =?us-ascii?Q?KzE9TY7a87OuUT0jPajKis2vZABwA4wCKLYbm/43e6SmmEG0cuuul/Ehtj71?=
+ =?us-ascii?Q?l4cLFaj/UWSQforzwXqJ6YJbcWggRQo2jr4nbAcCpmd/ETpAqmi7JDEPVlF6?=
+ =?us-ascii?Q?TBEBX1Nrd2gopAzpVkaFJ8Uc6C5bsLuX1eOxtuYSaJf/KtfH8I9DPD2UXv4N?=
+ =?us-ascii?Q?veCuBN1ZJk7qQTlNG13DFop+6hWFyPJSEemgJ5k4sNjxADgRj9Q1vaxjUnR8?=
+ =?us-ascii?Q?9lrmxCoojHaR/T8iaLXFBu7DQiJ3WsUjbtwjSNsH8FIewjWWnEfr1LFmJ+l6?=
+ =?us-ascii?Q?GbB1XAOHQM5tRHQCmYdnRPQT2a3/uUVdqYiriF2V1xCb4ZHfUu7PTAeoTgTJ?=
+ =?us-ascii?Q?7yRKiynVDR/C/I+aMx0BgupGzyt2fnyj450JKsR1wNlrVPJV8QjAcnx/G1kQ?=
+ =?us-ascii?Q?2O0iqsIov5KfOD1wS4vr/ccRKdMAqEV9v75vHkD0l22wBiN7N6BwuOZVdx9V?=
+ =?us-ascii?Q?MQhyccQXZPLIzONPzqpyphickQOP+ED+DSXRywQNgti1RgtnOneOogspYnYS?=
+ =?us-ascii?Q?+qIXD23CHRWI1sXFJYQFFK0BkT4sutY4qIjzfyEG9OdbGWHH6zUoQLY3Dcbu?=
+ =?us-ascii?Q?fsh094A1bVoyHe9w1DHzyT6BhLmLslsu5WEDIuFW05fCEkRhRExh2Zjv6Xqn?=
+ =?us-ascii?Q?BDq/0vWHtOUn10QkFSHHnm2qiw5U7D7kKQTpL2vYTazaexqK5YBQfXeOVOD6?=
+ =?us-ascii?Q?+kiUvAhwp1/8GPUoATkGOE6XW8bsj8l/7AR5Q7CPTwVecLlCrdyEk9xdDRfO?=
+ =?us-ascii?Q?QA=3D=3D?=
 MIME-Version: 1.0
-X-OriginatorOrg: altera.com
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB5073.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a4952ac-61ea-485a-35c3-08dd80f4dd4b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2025 16:52:12.9400 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bcb956e-ca8d-42b5-bd4d-08dd80f987ca
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2025 17:25:36.9877 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KuyAkAz1EkrvPl5oM/EHg0or3q1EAR3nkRC0obZWw611NCfTf6wOSEpnNDMLbTcnBAu2w1M8lt86DR0akfWEQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB7818
-Cc: "Ang, Tien Sung" <tien.sung.ang@altera.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Russell King <linux@armlinux.org.uk>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
+X-MS-Exchange-CrossTenant-userprincipalname: kLBVhw1yMEdpZy+Bz9Q7B9xvU4lU8BFwwoy83dXH3ziqZoVbOPyT1fwVmXPv65+XUuICQX3Cjgw5OibqVuxQ5/T/OeTe4aTpnRedWJOBacE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB6695
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S . Miller" <davem@davemloft.net>, "Tham,
- Mun Yew" <mun.yew.tham@altera.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Gerlach, Matthew" <matthew.gerlach@altera.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>, Rob Herring <robh@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/2] net: stmmac: Refactor
-	VLAN implementation
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, "David S.
+ Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: Add DWMAC
+ glue layer for Renesas GBETH
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,24 +178,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > I can confirm that 802.1ad (QinQ) has been broken on stmmac for years,
-> > and it will be so nice if this refactoring includes some fixes for
-> > QinQ
+Hi Andrew,
+
+> -----Original Message-----
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: 21 April 2025 16:12
+> Subject: Re: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue layer for Renesas GBETH
 > 
-> FWIIW, please be sure that fixes are separate patches from refactoring.
+> On Mon, Apr 21, 2025 at 02:22:01PM +0000, Biju Das wrote:
+> > Hi Andrew,
+> >
+> > > -----Original Message-----
+> > > From: Andrew Lunn <andrew@lunn.ch>
+> > > Sent: 21 April 2025 15:02
+> > > Subject: Re: [PATCH net-next v5 3/3] net: stmmac: Add DWMAC glue
+> > > layer for Renesas GBETH
+> > >
+> > > > > On the RZ/G3E, the upstream support for testing S2R is not yet
+> > > > > in a usable state. So for now, I'll switch to using init/exit callbacks and drop the PM
+> callback.
+> > > >
+> > > > FYI, On RZ/G3E, for STR to work with mainline, we need to reinitialize the PHY.
+> > > > I have done below changes on top of [1] to make STR working.
+> > >
+> > > Can you explain why you need to reinitialise the PHY? The MAC driver
+> > > should not need to do this, so something is wrong somewhere. If we
+> > > understand the 'Why?' we can probably tell you a better way to do this.
+> >
+> > Without this change bind/unbind works. But for the STR case, without
+> > reinitializing the PHY, even though the IP link is UP, I am not able to talk the NFS server or ping
+> the host properly.
+> >
+> > I checked clock/reset before and after reset everything set as expected.
+> >
+> > Only change during STR is, on wakeup we need to restore direction
+> > (MII/RGMII) of IO block for ET0/1_TXC_TXCLK (IO attribute) in the pin
+> > control driver. After that looks like PHY init is required to talk to server.
+> 
+> When talking about suspend/resume, is this with or without WoL?
 
-Hi Furong, Simon,
+Without WoL.
 
-This refactor is intended to combine the VLAN driver for dwmac4 and 
-dwxgmac2. From our perspective, on our board, we do not actually
-use the QinQ feature of the xgmac2 IP.
+> 
+> If WoL is enabled for the PHY, the PHY is left running while the system is suspended, and so all its
+> clocks and reset lines also need to be left enabled etc. On resume, there should not be any need to
+> touch the PHY.
 
-However, I agree with Simon that the fixes should be separate from
-the refactoring process
+OK.
 
-Regards,
-Boon Khai.
+> 
+> If WoL is not enabled in the PHY, it should get powered off. On resume, phylib should be
+> reinitializing the PHY.
 
+OK.
+
+> 
+> Which of these two cases need the reinitialisation?
+> 
+> The reasons i can think of for the PHY needing a reinitialization are:
+> 
+> 1) It lost power when it did not expect to loose power
+> 2) Got reset when it did not expect to be reset
+> 3) Clock not ticking when it should of been ticking.
+
+OK.
+
+> 
+> So you cannot just check clock/reset before and after, you need to look at the order of events. The
+> loss of power, or a reset after phylib resumed the PHY would not be good. Similarly, if the needed
+> clocks are not ticking while phylib resumes it would also not be good.
+> 
+> I would also suggest you check the datasheet for the PHY, and does it document anything about the
+> clock input TXC_TXCLK is connected to?
+
+It is connected to TX_CTL on micrel phy.
+
+> Does it need to be ticking while configuring the PHY? Any action which needs to be taken after this
+> starts ticking? Is the pinctrl resume being called before the PHY resume?
+
+Pinctrl resume is called before PHY resume
+
+Previously STR did not work, because of not restoring direction (MII/RGMII) of IO block for ET0/1_TXC_TXCLK (IO attribute)
+.Because of this, the direction of IO block is set to IN (input) MII mode instead of OUT(output) RGMII mode.
+
+Now everything works. Thanks for your detailed pointers.
+
+Cheers,
+Biju
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
