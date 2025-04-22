@@ -2,31 +2,31 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013BDA96908
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 14:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FCACA9696A
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 14:29:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0764C78F63;
-	Tue, 22 Apr 2025 12:24:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A986C78F63;
+	Tue, 22 Apr 2025 12:29:51 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9B6DC78F61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34008C78F61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Apr 2025 12:24:20 +0000 (UTC)
+ Tue, 22 Apr 2025 12:29:50 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91281152B;
- Tue, 22 Apr 2025 05:24:15 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0AA8E152B;
+ Tue, 22 Apr 2025 05:29:45 -0700 (PDT)
 Received: from localhost (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 747503F66E;
- Tue, 22 Apr 2025 05:24:19 -0700 (PDT)
-Date: Tue, 22 Apr 2025 13:24:14 +0100
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CAB443F66E;
+ Tue, 22 Apr 2025 05:29:48 -0700 (PDT)
+Date: Tue, 22 Apr 2025 13:29:46 +0100
 From: Leo Yan <leo.yan@arm.com>
 To: Anshuman Khandual <anshuman.khandual@arm.com>
-Message-ID: <20250422122414.GE28953@e132581.arm.com>
+Message-ID: <20250422122946.GF28953@e132581.arm.com>
 References: <20250327113803.1452108-1-leo.yan@arm.com>
- <20250327113803.1452108-6-leo.yan@arm.com>
- <5a8aaa17-cc36-4e03-95b3-24c3a16dd987@arm.com>
+ <20250327113803.1452108-7-leo.yan@arm.com>
+ <89aa249c-ac1d-40e3-8518-1b5a545b28c7@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5a8aaa17-cc36-4e03-95b3-24c3a16dd987@arm.com>
+In-Reply-To: <89aa249c-ac1d-40e3-8518-1b5a545b28c7@arm.com>
 Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -34,8 +34,8 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
  Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v1 5/9] coresight: Avoid enable
- programming clock duplicately
+Subject: Re: [Linux-stm32] [PATCH v1 6/9] coresight: Disable trace bus clock
+	properly
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,72 +52,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Apr 03, 2025 at 12:18:56PM +0530, Anshuman Khandual wrote:
-> On 3/27/25 17:07, Leo Yan wrote:
-> > The programming clock is enabled by AMBA bus driver before a dynamic
-> > probe.  As a result, a CoreSight driver may redundantly enable the same
-> > clock.
+On Thu, Apr 03, 2025 at 12:55:46PM +0530, Anshuman Khandual wrote:
+> 
+> On 3/27/25 17:08, Leo Yan wrote:
+> > Some CoreSight components have trace bus clocks 'atclk' and are enabled
+> > using clk_prepare_enable().  These clocks are not disabled when modules
+> > exit.
 > > 
-> > To avoid this, add a check for device type and skip enabling the
-> > programming clock for AMBA devices.  The returned NULL pointer will be
-> > tolerated by the drivers.
+> > As atclk is optional, use devm_clk_get_optional_enabled() to manage it.
+> > The benefit is the driver model layer can automatically disable and
+> > release clocks.
 > > 
-> > Fixes: 73d779a03a76 ("coresight: etm4x: Change etm4_platform_driver driver for MMIO devices")
+> > Check the returned value with IS_ERR() to detect errors but leave the
+> > NULL pointer case if the clock is not found.  And remove the error
+> > handling codes which are no longer needed.
+> > 
+> > Fixes: d1839e687773 ("coresight: etm: retrieve and handle atclk")
 > > Signed-off-by: Leo Yan <leo.yan@arm.com>
-> > ---
-> >  include/linux/coresight.h | 11 +++++++----
-> >  1 file changed, 7 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-> > index b888f6ed59b2..26eb4a61b992 100644
-> > --- a/include/linux/coresight.h
-> > +++ b/include/linux/coresight.h
-> > @@ -476,15 +476,18 @@ static inline bool is_coresight_device(void __iomem *base)
-> >   * Returns:
-> >   *
-> >   * clk   - Clock is found and enabled
-> > + * NULL  - Clock is not needed as it is managed by the AMBA bus driver
-> >   * ERROR - Clock is found but failed to enable
-> >   */
-> >  static inline struct clk *coresight_get_enable_apb_pclk(struct device *dev)
-> >  {
-> > -	struct clk *pclk;
-> > +	struct clk *pclk = NULL;
-> >  
-> > -	pclk = devm_clk_get_enabled(dev, "apb_pclk");
-> > -	if (IS_ERR(pclk))
-> > -		pclk = devm_clk_get_enabled(dev, "apb");
-> > +	if (!dev_is_amba(dev)) {
-> > +		pclk = devm_clk_get_enabled(dev, "apb_pclk");
-> > +		if (IS_ERR(pclk))
-> > +			pclk = devm_clk_get_enabled(dev, "apb");
-> > +	}
-> >  
-> >  	return pclk;
-> >  }
 > 
-> coresight_get_enable_apb_pclk() mostly gets called in the platform driver
-> probe paths but they are also present in some AMBA probe paths. Hence why
-> cannot the callers in AMBA probe paths get fixed instead ?
+> This patch probably should be positioned right after [PATCH 4/9] which
+> replaces pclk clock init with devm_clk_get_enabled().
 
-With this approach, clocking operations are different in static probe
-and dynamic probe.  This causes complexity for CoreSight drivers.
-
-After consideration, we decided to use a central place for clock
-initialization.  Patch 09 follows the idea to encapsulate pclk and atclk
-operations in the coresight_get_enable_clocks() function.
-
-> Besides return
-> value never gets checked for NULL, which would have to be changed as well
-> if coresight_get_enable_apb_pclk() starts returning NULL values for AMBA
-> devices.
-> 
-> 	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
-> 	if (IS_ERR(drvdata->pclk))
-> 		return -ENODEV;
-
-I confirmed CoreSight drivers have used this condition, so it is safe
-to return NULL pointer from coresight_get_enable_apb_pclk().
+Sure.  Will reorder patches for this.
 
 Thanks,
 Leo
