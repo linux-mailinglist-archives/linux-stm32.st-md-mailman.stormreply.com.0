@@ -2,52 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660BFA96E52
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 16:25:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6A1A96F23
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 16:42:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10018C78F61;
-	Tue, 22 Apr 2025 14:25:44 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FDEFC78F61;
+	Tue, 22 Apr 2025 14:42:35 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 505E5C78034
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3646C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Apr 2025 14:25:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UGzgge4Cct38yOd3/tCKvJ3b1vaJwT3ZIRj1lNpp1cE=; b=Pz1Pef2mUjNlncbUlh4coJX08W
- syEuOi4qCz9N+6w/3/C0Q2wH1XYMGHiKOgUslqVcaq68uujJmdmybQThAOKqPHirQ5k2XNBTDf5Qj
- ST7xWSIleEJX8ROMiyV3e+BAoLmG45LBY4qZkAUNOk+hcUSdlOSmy5Q/EJWvpemv7fjn4MpBnlK59
- LCcIlymVpdDXLyASzJW1jDCff4YLc/8SKSVU37eOB3DeIWvghUj7ybqvuSutMLvMYfKvszKm75jEb
- kjG7SjdMNfQEi92KAB1taIsfMsel4aqkxaRpDzX0YSqjseFXjICIALzo3IHU6J5iCOJrELUycaLAi
- XB00jkNw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53204 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1u7EZ3-0004WB-04;
- Tue, 22 Apr 2025 15:25:33 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1u7EYR-001ZAS-Cr; Tue, 22 Apr 2025 15:24:55 +0100
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Tue, 22 Apr 2025 14:42:33 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id AE75A41CFD;
+ Tue, 22 Apr 2025 14:42:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1745332953;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jt9Mkr75c4uKAU1hZ+a3wXo6IhuSBSJ1I5FWD7KkaKo=;
+ b=mQbOxbPVkr5b4cEsk2QiCO7WlOWZoOOT2oQwWVn4K5DxpU27RzMBPjwNtHVpQXZ6MRWV37
+ 7r/QCuZm1iooze+gyHGRrPPHg3qH9N9eM/QHV8BT3oorCPuUv7hAXz7mSa/cIfzJbcQV3Q
+ 5nvO6MfJBWe8Nm7WbilLrZfs/JspuxXqYB9SgtcbKkuMZhmnvntW9cULdVIRydNZF8/y7N
+ AqO+Cxa6Ik5c1YyfNby9a13BHYfA5rO0cGviemIoPAVKy2wQeSiLfS3bpicrVK2Z8J61Ej
+ ZX15rnnmRt1SH65uFg6azI3W9YYkAD+AW9QIWjgtPa1xREx7kpYWJ6Mt3xc/lQ==
+Date: Tue, 22 Apr 2025 16:42:30 +0200
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250422164230.5ffb90d3@fedora.home>
+In-Reply-To: <E1u7EYR-001ZAS-Cr@rmk-PC.armlinux.org.uk>
+References: <E1u7EYR-001ZAS-Cr@rmk-PC.armlinux.org.uk>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1u7EYR-001ZAS-Cr@rmk-PC.armlinux.org.uk>
-Date: Tue, 22 Apr 2025 15:24:55 +0100
-Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegtddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpeforgigihhmvgcuvehhvghvrghllhhivghruceomhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeevledtvdevueehhfevhfelhfekveeftdfgiedufeffieeltddtgfefuefhueeknecukfhppedvrgdtudemtggsudelmeekugegheemgeeltddtmeeiheeikeemvdelsgdumeelvghfheemvgektgejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddumegtsgduleemkegugeehmeegledttdemieehieekmedvlegsudemlegvfhehmegvkegtjedphhgvlhhopehfvgguohhrrgdrhhhomhgvpdhmrghilhhfrhhomhepmhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudehpdhrtghpthhtoheprhhmkhdokhgvrhhnvghlsegrrhhmlhhinhhugidrohhrghdruhhkpdhrtghpthhtoheprghnughrvgifsehluhhnnhdrtghhpdhrtghpthhtohephhhkrghllhifvghithdusehgmhgrihhlrdgto
+ hhmpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhsshdrshhtrdgtohhmpdhrtghpthhtoheprghnughrvgifodhnvghtuggvvheslhhunhhnrdgthhdprhgtphhtthhopegurghvvghmsegurghvvghmlhhofhhtrdhnvghtpdhrtghpthhtohepvgguuhhmrgiivghtsehgohhoghhlvgdrtghomhdprhgtphhtthhopehkuhgsrgeskhgvrhhnvghlrdhorhhg
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Thierry Reding <treding@nvidia.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jon Hunter <jonathanh@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos: calibrate
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos: calibrate
  tegra with mdio bus idle
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -65,60 +67,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Thierry states that there are prerequists for Tegra's calibration
-that should be met before starting calibration - both the RGMII and
-MDIO interfaces should be idle.
+Hello Russell,
 
-This commit adds the necessary MII bus locking to ensure that the MDIO
-interface is idle during calibration.
+On Tue, 22 Apr 2025 15:24:55 +0100
+"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk> wrote:
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c  | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+> Thierry states that there are prerequists for Tegra's calibration
+> that should be met before starting calibration - both the RGMII and
+> MDIO interfaces should be idle.
+> 
+> This commit adds the necessary MII bus locking to ensure that the MDIO
+> interface is idle during calibration.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-index fa900b4991d0..09ae16e026eb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-@@ -136,10 +136,11 @@ static int dwc_qos_probe(struct platform_device *pdev,
- #define AUTO_CAL_STATUS 0x880c
- #define  AUTO_CAL_STATUS_ACTIVE BIT(31)
- 
--static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
-+static void tegra_eqos_fix_speed(void *bsp_priv, int speed, unsigned int mode)
- {
--	struct tegra_eqos *eqos = priv;
-+	struct tegra_eqos *eqos = bsp_priv;
- 	bool needs_calibration = false;
-+	struct stmmac_priv *priv;
- 	u32 value;
- 	int err;
- 
-@@ -158,6 +159,11 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
- 	}
- 
- 	if (needs_calibration) {
-+		priv = netdev_priv(dev_get_drvdata(eqos->dev));
-+
-+		/* Calibration should be done with the MDIO bus idle */
-+		mutex_lock(&priv->mii->mdio_lock);
-+
- 		/* calibrate */
- 		value = readl(eqos->regs + SDMEMCOMPPADCTRL);
- 		value |= SDMEMCOMPPADCTRL_PAD_E_INPUT_OR_E_PWRD;
-@@ -191,6 +197,8 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
- 		value = readl(eqos->regs + SDMEMCOMPPADCTRL);
- 		value &= ~SDMEMCOMPPADCTRL_PAD_E_INPUT_OR_E_PWRD;
- 		writel(value, eqos->regs + SDMEMCOMPPADCTRL);
-+
-+		mutex_unlock(&priv->mii->mdio_lock);
- 	} else {
- 		value = readl(eqos->regs + AUTO_CAL_CONFIG);
- 		value &= ~AUTO_CAL_CONFIG_ENABLE;
--- 
-2.30.2
+[...]
+	
+> -static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+> +static void tegra_eqos_fix_speed(void *bsp_priv, int speed, unsigned int mode)
+>  {
+> -	struct tegra_eqos *eqos = priv;
+> +	struct tegra_eqos *eqos = bsp_priv;
+>  	bool needs_calibration = false;
+> +	struct stmmac_priv *priv;
+>  	u32 value;
+>  	int err;
+>  
+> @@ -158,6 +159,11 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+>  	}
+>  
+>  	if (needs_calibration) {
+> +		priv = netdev_priv(dev_get_drvdata(eqos->dev));
+> +
+> +		/* Calibration should be done with the MDIO bus idle */
+> +		mutex_lock(&priv->mii->mdio_lock);
 
+Can't priv->mii be NULL, if the PHY for that MAC is connected to
+another MDIO bus for instance ?
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
