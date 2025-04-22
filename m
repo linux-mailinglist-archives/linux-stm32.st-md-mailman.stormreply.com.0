@@ -2,40 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FCACA9696A
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 14:29:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660BFA96E52
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 16:25:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A986C78F63;
-	Tue, 22 Apr 2025 12:29:51 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34008C78F61
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10018C78F61;
+	Tue, 22 Apr 2025 14:25:44 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 505E5C78034
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Apr 2025 12:29:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0AA8E152B;
- Tue, 22 Apr 2025 05:29:45 -0700 (PDT)
-Received: from localhost (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CAB443F66E;
- Tue, 22 Apr 2025 05:29:48 -0700 (PDT)
-Date: Tue, 22 Apr 2025 13:29:46 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-Message-ID: <20250422122946.GF28953@e132581.arm.com>
-References: <20250327113803.1452108-1-leo.yan@arm.com>
- <20250327113803.1452108-7-leo.yan@arm.com>
- <89aa249c-ac1d-40e3-8518-1b5a545b28c7@arm.com>
+ Tue, 22 Apr 2025 14:25:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=UGzgge4Cct38yOd3/tCKvJ3b1vaJwT3ZIRj1lNpp1cE=; b=Pz1Pef2mUjNlncbUlh4coJX08W
+ syEuOi4qCz9N+6w/3/C0Q2wH1XYMGHiKOgUslqVcaq68uujJmdmybQThAOKqPHirQ5k2XNBTDf5Qj
+ ST7xWSIleEJX8ROMiyV3e+BAoLmG45LBY4qZkAUNOk+hcUSdlOSmy5Q/EJWvpemv7fjn4MpBnlK59
+ LCcIlymVpdDXLyASzJW1jDCff4YLc/8SKSVU37eOB3DeIWvghUj7ybqvuSutMLvMYfKvszKm75jEb
+ kjG7SjdMNfQEi92KAB1taIsfMsel4aqkxaRpDzX0YSqjseFXjICIALzo3IHU6J5iCOJrELUycaLAi
+ XB00jkNw==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53204 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <rmk@armlinux.org.uk>) id 1u7EZ3-0004WB-04;
+ Tue, 22 Apr 2025 15:25:33 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1u7EYR-001ZAS-Cr; Tue, 22 Apr 2025 15:24:55 +0100
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <89aa249c-ac1d-40e3-8518-1b5a545b28c7@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- James Clark <james.clark@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v1 6/9] coresight: Disable trace bus clock
-	properly
+Message-Id: <E1u7EYR-001ZAS-Cr@rmk-PC.armlinux.org.uk>
+Date: Tue, 22 Apr 2025 15:24:55 +0100
+Cc: Thierry Reding <treding@nvidia.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jon Hunter <jonathanh@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos: calibrate
+ tegra with mdio bus idle
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,31 +65,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Apr 03, 2025 at 12:55:46PM +0530, Anshuman Khandual wrote:
-> 
-> On 3/27/25 17:08, Leo Yan wrote:
-> > Some CoreSight components have trace bus clocks 'atclk' and are enabled
-> > using clk_prepare_enable().  These clocks are not disabled when modules
-> > exit.
-> > 
-> > As atclk is optional, use devm_clk_get_optional_enabled() to manage it.
-> > The benefit is the driver model layer can automatically disable and
-> > release clocks.
-> > 
-> > Check the returned value with IS_ERR() to detect errors but leave the
-> > NULL pointer case if the clock is not found.  And remove the error
-> > handling codes which are no longer needed.
-> > 
-> > Fixes: d1839e687773 ("coresight: etm: retrieve and handle atclk")
-> > Signed-off-by: Leo Yan <leo.yan@arm.com>
-> 
-> This patch probably should be positioned right after [PATCH 4/9] which
-> replaces pclk clock init with devm_clk_get_enabled().
+Thierry states that there are prerequists for Tegra's calibration
+that should be met before starting calibration - both the RGMII and
+MDIO interfaces should be idle.
 
-Sure.  Will reorder patches for this.
+This commit adds the necessary MII bus locking to ensure that the MDIO
+interface is idle during calibration.
 
-Thanks,
-Leo
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c  | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index fa900b4991d0..09ae16e026eb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -136,10 +136,11 @@ static int dwc_qos_probe(struct platform_device *pdev,
+ #define AUTO_CAL_STATUS 0x880c
+ #define  AUTO_CAL_STATUS_ACTIVE BIT(31)
+ 
+-static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
++static void tegra_eqos_fix_speed(void *bsp_priv, int speed, unsigned int mode)
+ {
+-	struct tegra_eqos *eqos = priv;
++	struct tegra_eqos *eqos = bsp_priv;
+ 	bool needs_calibration = false;
++	struct stmmac_priv *priv;
+ 	u32 value;
+ 	int err;
+ 
+@@ -158,6 +159,11 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+ 	}
+ 
+ 	if (needs_calibration) {
++		priv = netdev_priv(dev_get_drvdata(eqos->dev));
++
++		/* Calibration should be done with the MDIO bus idle */
++		mutex_lock(&priv->mii->mdio_lock);
++
+ 		/* calibrate */
+ 		value = readl(eqos->regs + SDMEMCOMPPADCTRL);
+ 		value |= SDMEMCOMPPADCTRL_PAD_E_INPUT_OR_E_PWRD;
+@@ -191,6 +197,8 @@ static void tegra_eqos_fix_speed(void *priv, int speed, unsigned int mode)
+ 		value = readl(eqos->regs + SDMEMCOMPPADCTRL);
+ 		value &= ~SDMEMCOMPPADCTRL_PAD_E_INPUT_OR_E_PWRD;
+ 		writel(value, eqos->regs + SDMEMCOMPPADCTRL);
++
++		mutex_unlock(&priv->mii->mdio_lock);
+ 	} else {
+ 		value = readl(eqos->regs + AUTO_CAL_CONFIG);
+ 		value &= ~AUTO_CAL_CONFIG_ENABLE;
+-- 
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
