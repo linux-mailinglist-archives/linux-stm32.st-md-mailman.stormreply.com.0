@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5191DA998CB
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 21:42:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DAAA998CD
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 21:42:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 112EEC7802F;
-	Wed, 23 Apr 2025 19:42:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D8CDC7802F;
+	Wed, 23 Apr 2025 19:42:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9F34C78032
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B21DCC78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Apr 2025 19:42:46 +0000 (UTC)
+ Wed, 23 Apr 2025 19:42:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F2F716113B;
- Wed, 23 Apr 2025 19:42:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FD4C4CEE8;
- Wed, 23 Apr 2025 19:42:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0272244E7B;
+ Wed, 23 Apr 2025 19:42:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400B0C4CEE8;
+ Wed, 23 Apr 2025 19:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745437365;
- bh=unEvAgjEXaifATfQLY+rUlEDDFjsnO4G5ZkCTJbRQE0=;
+ s=k20201202; t=1745437367;
+ bh=F3azllxUB00Zjj+oyESkLHmmdJpPPIUF3Md9fl4CSXY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=VIjZU/QpUi50/IPulSmOpn4kWiFWTDG3gcinh++VKxhR0g3SnwhE5VxJ/GFzGnHHe
- chTGuKVY/RVqQ2+ptgJuzbncEHvSYeh5XibbcYG5uqp5eDcvD9FFN41cCbDVEY/gyH
- hrG1wheiB6Z/TJIlLaj6REEInD8RiRVU7LObwgdTi3G16jRgbdW+mYVT+GMGO4i3EU
- zJ8hxmKd15iZmkvAASb5LMaMvheK9A9GT4iNst9LrPx7w0+hsnxtf82eK+jQIYfRLL
- y9phE2/T5rX6btTzGxZNWwl54yPEsJeiUp3NPnoz0qUTNNE1U5Unz+xJO5YnupYsOD
- UQECtDvjOsWwg==
+ b=qyjGsfeKW2GqcFpbWB3Kb7mvyy2Xoq+aQoDh1c/CoCcOoFyHg28t1qqkV0fIPJCkH
+ 4OUZ6PRJoqEgjXGexarz0xJp7gH73jzW4MhyuWTN89MBqcBul7aqBEa3pSsZwfBGIM
+ +HcPAhQVvU3iYoVDTo4bVvwNjY9dsBEcSppmkUBTA/zD48tTfHCjdOxDh3faN8Pu+H
+ 7SZ8MFljQ0ztYHcPBYFW5zKWJ5rhQh5b5aSyGJAPacb1vt0bbfu9VUWeaVn9ENoE25
+ ZoZUWC5DLuCnZ49Vi9akP16BmfWUWfTqrfZPBUSr8cvm5n2x1C7QSTmTZTWlQbcQfs
+ RlVvMmkZSPanw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 23 Apr 2025 14:42:14 -0500
+Date: Wed, 23 Apr 2025 14:42:15 -0500
 MIME-Version: 1.0
-Message-Id: <20250423-dt-memory-region-v2-v2-2-2fbd6ebd3c88@kernel.org>
+Message-Id: <20250423-dt-memory-region-v2-v2-3-2fbd6ebd3c88@kernel.org>
 References: <20250423-dt-memory-region-v2-v2-0-2fbd6ebd3c88@kernel.org>
 In-Reply-To: <20250423-dt-memory-region-v2-v2-0-2fbd6ebd3c88@kernel.org>
 To: Saravana Kannan <saravanak@google.com>, 
@@ -51,8 +51,8 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/4] of: Simplify
- of_dma_set_restricted_buffer() to use of_for_each_phandle()
+Subject: [Linux-stm32] [PATCH v2 3/4] devres: Export
+	devm_ioremap_resource_wc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,78 +69,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Simplify of_dma_set_restricted_buffer() by using of_property_present()
-and of_for_each_phandle() iterator.
+devm_ioremap_resource_wc() is not exported, so add one.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v2:
- - Maintain prior behavior only warning if
-   of_reserved_mem_device_init_by_idx() fails
+ - New patch
 ---
- drivers/of/device.c | 31 +++++++++++--------------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+ lib/devres.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/of/device.c b/drivers/of/device.c
-index 5053e5d532cc..c80426510ec2 100644
---- a/drivers/of/device.c
-+++ b/drivers/of/device.c
-@@ -35,44 +35,35 @@ EXPORT_SYMBOL(of_match_device);
- static void
- of_dma_set_restricted_buffer(struct device *dev, struct device_node *np)
+diff --git a/lib/devres.c b/lib/devres.c
+index 73901160197e..378b07730420 100644
+--- a/lib/devres.c
++++ b/lib/devres.c
+@@ -206,6 +206,7 @@ void __iomem *devm_ioremap_resource_wc(struct device *dev,
  {
--	struct device_node *node, *of_node = dev->of_node;
--	int count, i;
-+	struct device_node *of_node = dev->of_node;
-+	struct of_phandle_iterator it;
-+	int rc, i = 0;
- 
- 	if (!IS_ENABLED(CONFIG_DMA_RESTRICTED_POOL))
- 		return;
- 
--	count = of_property_count_elems_of_size(of_node, "memory-region",
--						sizeof(u32));
- 	/*
- 	 * If dev->of_node doesn't exist or doesn't contain memory-region, try
- 	 * the OF node having DMA configuration.
- 	 */
--	if (count <= 0) {
-+	if (!of_property_present(of_node, "memory-region"))
- 		of_node = np;
--		count = of_property_count_elems_of_size(
--			of_node, "memory-region", sizeof(u32));
--	}
- 
--	for (i = 0; i < count; i++) {
--		node = of_parse_phandle(of_node, "memory-region", i);
-+	of_for_each_phandle(&it, rc, of_node, "memory-region", NULL, 0) {
- 		/*
- 		 * There might be multiple memory regions, but only one
- 		 * restricted-dma-pool region is allowed.
- 		 */
--		if (of_device_is_compatible(node, "restricted-dma-pool") &&
--		    of_device_is_available(node)) {
--			of_node_put(node);
-+		if (of_device_is_compatible(it.node, "restricted-dma-pool") &&
-+		    of_device_is_available(it.node)) {
-+			if (of_reserved_mem_device_init_by_idx(dev, of_node, i))
-+				dev_warn(dev, "failed to initialise \"restricted-dma-pool\" memory node\n");
-+			of_node_put(it.node);
- 			break;
- 		}
--		of_node_put(node);
-+		i++;
- 	}
- 
--	/*
--	 * Attempt to initialize a restricted-dma-pool region if one was found.
--	 * Note that count can hold a negative error code.
--	 */
--	if (i < count && of_reserved_mem_device_init_by_idx(dev, of_node, i))
--		dev_warn(dev, "failed to initialise \"restricted-dma-pool\" memory node\n");
+ 	return __devm_ioremap_resource(dev, res, DEVM_IOREMAP_WC);
  }
++EXPORT_SYMBOL(devm_ioremap_resource_wc);
  
- /**
+ /*
+  * devm_of_iomap - Requests a resource and maps the memory mapped IO
 
 -- 
 2.47.2
