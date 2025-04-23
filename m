@@ -2,89 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBDEA97667
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Apr 2025 22:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61824A97C53
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 03:48:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E11B7C78F61;
-	Tue, 22 Apr 2025 20:02:35 +0000 (UTC)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC54BC6B47E;
+	Wed, 23 Apr 2025 01:48:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7F29C78034
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF09ECFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Apr 2025 20:02:34 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-7c58974ed57so534230585a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Apr 2025 13:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ndufresne-ca.20230601.gappssmtp.com; s=20230601; t=1745352153; x=1745956953;
- darn=st-md-mailman.stormreply.com; 
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=s9u1inJLOLfQh6u+GzwXvGD1x0ZTwyyXPt4wVXYzgNE=;
- b=hNoMUXQJI0/XD5ZT04nq9dEsmEar7NU7MVp1splUgOVaVicb1q7A8WN2IxjfUuVLZM
- /X2yt9bC7OsQMDCxTtnUb8rYZNvOeXBEYLvSnMomyKes/+XEEFYYWjTP6NCAlRdyi85X
- aMGGTfv8Y/ZYFVEDUdYTX5/W1QWn17ewh8lbTdVAwYvO8T8+hpkXRxrOXxzu7sdDCkKk
- hfgST0gIVd9K7S0wnmtB9BxnzfuU/mRb4l/mqj2E/fnBIQIYlLfVFZWNQzIAcToy3dXn
- +DUXSiTyQsgboRwbCSNJAYa6L9w6kud5KW3bjjpMdDIXxiBO53vKiFaM5SIxTGWXn/lF
- VXXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745352153; x=1745956953;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=s9u1inJLOLfQh6u+GzwXvGD1x0ZTwyyXPt4wVXYzgNE=;
- b=RjdLRmoc2WJg0X3wWOs4mFtD5YrsMu1uHk0BogQ2N1zpUPzNuPjRp9gjfMjX9BWpEl
- bqyOhcdP9qjgQNRnTMvrVzPap7lL8OZ+xT382NOm1gwoiaUz1PWlwyR2iZAukUQHgcqH
- V42qqmRaB+N/SlY0wS4GIrT8bSd8BObOFlKSZu7SMut6tPmRXLCB2knWJk68ypZhDlNY
- IWVFmRqmAo/M6VHB5RaxWreyl/DPhOVy3/AchJa2R6q0bZwyySabw43ZfPIQswC9UgYb
- HBK+6fGsx8Nfs2l9kScWoLoxKgYDPdzeK65qk/1QATBQ8uBehEg5JOe8c65tw/k+uwt3
- SJww==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW2o68UdMAAasx5tzHuTNqr8m/zhxxHl7xtPBzga2kzK6mQHzIKw7lz1BUshtMLibJqa5cfK3s5REmAUA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyI3C1tSzmparhY3egY5AkX9RRPWI5gQoNFPe8KYbaBxDbtB5fh
- rNgbdJAttnq44UyeWVIWVAQk6WW23iMFaAUdMWHAW4bN5tE0xfn5uGLwLdfbacA=
-X-Gm-Gg: ASbGncviQQSR16x0CDMjkzdE975RjWe7QUK7uSrHSQeUVLsuPNiSRDXyTF/5u0ml809
- 4Uxecv9gSPlxx8jjdvlpc2C04nVtPdWc2oPFUcDoA2tORypKKOlsY/wFoYxTDkGqqgMpkZ4/1Dx
- vNwX2nkFb7d2lOftjgu1iFWeEzQn8wZj0wmg21T4egQhQmUXtx50p/3B5DagLfJxbAqc/xMtNpK
- OSBw5xj9YKxt9HAd8NwPqmtU+bqzsVAnL8jAjgco3oHPfCVQIh+a25S+eZYASmghMdjqPkGcp+0
- Xz5TPH8X7RAdiisXd0WZDVyb8GBRwBcDxmSkn/KE4WW/Ig==
-X-Google-Smtp-Source: AGHT+IEyfUity8IZHL89fVip+YlKPkQeYXQ/cc/i4hOtn80oieQH71fbgk3bqPItSdc1oVh2sxqqRw==
-X-Received: by 2002:a05:620a:45a6:b0:7c5:5d4b:e62a with SMTP id
- af79cd13be357-7c92805f2f4mr3022695985a.54.1745352153635; 
- Tue, 22 Apr 2025 13:02:33 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:9913::5ac? ([2606:6d00:15:9913::5ac])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c925a8f3c5sm593665885a.37.2025.04.22.13.02.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Apr 2025 13:02:32 -0700 (PDT)
-Message-ID: <5f215b62927438061eb004694847705406a6814c.camel@ndufresne.ca>
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Sebastian Fricke	
- <sebastian.fricke@collabora.com>, Ricardo Ribalda <ribalda@chromium.org>, 
- Erling Ljunggren <hljunggr@cisco.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- Laurent Pinchart	 <laurent.pinchart@ideasonboard.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>,  Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>, Jean-Michel Hautbois
- <jeanmichel.hautbois@ideasonboard.com>,  Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org
-Date: Tue, 22 Apr 2025 16:02:31 -0400
-In-Reply-To: <20241121131904.261230-3-hugues.fruchet@foss.st.com>
-References: <20241121131904.261230-1-hugues.fruchet@foss.st.com>
- <20241121131904.261230-3-hugues.fruchet@foss.st.com>
-User-Agent: Evolution 3.56.0 (3.56.0-1.fc42) 
+ Wed, 23 Apr 2025 01:48:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 74E67614BA;
+ Wed, 23 Apr 2025 01:47:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6879DC4CEE9;
+ Wed, 23 Apr 2025 01:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745372895;
+ bh=b2Ty2Y4IHTlG+wCuGIQJJ+LjqBQxitk5tYKjHEox70M=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Gw2Xi4CODtGpUsSD2n7vzegKZNAZrX7v7cP5MoWILH/deNzm1Mc6zYYPZyjAgzEUP
+ b5RHT7XkZw9rcxU1kAdZouBfsUPF/Ea6MAS1C68foXvQn9KlVl1IUKD/p+MG0GKTiM
+ e7OhHfTpWbI2gj2556A0HiCdv0k1eWyDTlWcfRaeLCq1PCYJo5Qt8Npe4cXlvMXjQI
+ VGQ2xKKQRHKx628jjrIuDHLjjb4OtLDEEonf3W43a6W0ZNI6itZhkhcbkxzEAMvFtR
+ +xBrfrLCLoDih5+yyQ3T9OaZ0DOQcb76WYojV5Dr/7OoVmG/CXNhQCNblxrZvQCD9f
+ syV4wS6dwAtzw==
+Date: Tue, 22 Apr 2025 18:48:13 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Message-ID: <20250422184813.02b21095@kernel.org>
+In-Reply-To: <20250417084015.74154-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20250417084015.74154-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20250417084015.74154-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-Subject: Re: [Linux-stm32] [PATCH v3 2/3] media: verisilicon: add WebP
-	decoding support
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, "Russell
+ King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v8 4/4] MAINTAINERS: Add entry
+ for Renesas RZ/V2H(P) DWMAC GBETH glue layer driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,105 +66,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpMZSBqZXVkaSAyMSBub3ZlbWJyZSAyMDI0IMOgIDE0OjE5ICswMTAwLCBIdWd1ZXMgRnJ1
-Y2hldCBhIMOpY3JpdMKgOgo+IEFkZCBXZWJQIHBpY3R1cmUgZGVjb2Rpbmcgc3VwcG9ydCB0byBW
-UDggc3RhdGVsZXNzIGRlY29kZXIuCgpUaGlzIGlzIGEgYml0IHNob3J0LiBJIGJlbGlldmUgSSd2
-ZSBhc2tlZCB0byBleHBsYWluIHdoeSBpdHMgZmluZSB0bwpidW1wIHRoZSBOVjEyIG1heCB3aWR0
-aC9oZWlnaHQgdG8gNEsgaGVyZSBvciBpbiB0aGUgY29kZS4gQWxzbywgd2lsbApuZWVkIGEgc2lt
-cGxlIHBvcnQgb25jZSB0aGUgUElYX0ZNVCBpcyBjaGFuZ2VkLgoKTmljb2xhcwoKPiAKPiBTaWdu
-ZWQtb2ZmLWJ5OiBIdWd1ZXMgRnJ1Y2hldCA8aHVndWVzLmZydWNoZXRAZm9zcy5zdC5jb20+Cj4g
-LS0tCj4gwqAuLi4vbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaCB8
-wqAgMSArCj4gwqAuLi4vcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuY8Kg
-wqDCoCB8IDE0ICsrKysrKysrKysrKysrCj4gwqAuLi4vbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGlj
-b24vaGFudHJvX3Y0bDIuY8KgwqDCoCB8wqAgMiArKwo+IMKgLi4uL3BsYXRmb3JtL3ZlcmlzaWxp
-Y29uL3N0bTMybXAyNV92cHVfaHcuY8KgwqDCoMKgIHwgMTcKPiArKysrKysrKysrKysrKystLQo+
-IMKgNCBmaWxlcyBjaGFuZ2VkLCAzMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+IAo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19n
-MV9yZWdzLmgKPiBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cx
-X3JlZ3MuaAo+IGluZGV4IGM2MjNiM2IwYmUxOC4uZTdkNGRiNzg4ZTU3IDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaAo+ICsr
-KyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3JlZ3MuaAo+
-IEBAIC0yMzIsNiArMjMyLDcgQEAKPiDCoCNkZWZpbmXCoMKgwqDCoCBHMV9SRUdfREVDX0NUUkw3
-X0RDVDdfU1RBUlRfQklUKHgpCQkoKCh4KSAmCj4gMHgzZikgPDwgMCkKPiDCoCNkZWZpbmUKPiBH
-MV9SRUdfQUREUl9TVFIJCQkJCTB4MDMwCj4gwqAjZGVmaW5lCj4gRzFfUkVHX0FERFJfRFNUCQkJ
-CQkweDAzNAo+ICsjZGVmaW5lIEcxX1JFR19BRERSX0RTVF9DSFJPTUEJCQkJMHgwMzgKPiDCoCNk
-ZWZpbmUgRzFfUkVHX0FERFJfUkVGKGkpCQkJCSgweDAzOCArCj4gKChpKSAqIDB4NCkpCj4gwqAj
-ZGVmaW5lwqDCoMKgwqAgRzFfUkVHX0FERFJfUkVGX0ZJRUxEX0UJCQlCSVQoMSkKPiDCoCNkZWZp
-bmXCoMKgwqDCoCBHMV9SRUdfQUREUl9SRUZfVE9QQ19FCQkJQklUKDApCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2cxX3ZwOF9kZWMuYwo+
-IGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfdnA4X2RlYy5j
-Cj4gaW5kZXggODUxZWI2N2YxOWY1Li5jODNlZTZmNWVkYzggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfdnA4X2RlYy5jCj4gKysrIGIv
-ZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZzFfdnA4X2RlYy5jCj4g
-QEAgLTMwNyw2ICszMDcsMTIgQEAgc3RhdGljIHZvaWQgY2ZnX3BhcnRzKHN0cnVjdCBoYW50cm9f
-Y3R4ICpjdHgsCj4gwqAJCQnCoMKgCj4gRzFfUkVHX0RFQ19DVFJMM19TVFJFQU1fTEVOKGRjdF9w
-YXJ0X3RvdGFsX2xlbiksCj4gwqAJCQnCoMKgIEcxX1JFR19ERUNfQ1RSTDMpOwo+IMKgCj4gKwlp
-ZiAoY3R4LT52cHVfc3JjX2ZtdC0+Zm91cmNjID09IFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FKQo+
-ICsJCXZkcHVfd3JpdGVfcmVsYXhlZCh2cHUsCj4gKwkJCQnCoMKgIEcxX1JFR19ERUNfQ1RSTDNf
-U1RSRUFNX0xFTl9FWFQKPiArCQkJCQkoZGN0X3BhcnRfdG90YWxfbGVuID4+IDI0KSwKPiArCQkJ
-CcKgwqAgRzFfUkVHX0RFQ19DVFJMMyk7Cj4gKwo+IMKgCS8qIERDVCBwYXJ0aXRpb25zIGJhc2Ug
-YWRkcmVzcyAqLwo+IMKgCWZvciAoaSA9IDA7IGkgPCBoZHItPm51bV9kY3RfcGFydHM7IGkrKykg
-ewo+IMKgCQl1MzIgYnl0ZV9vZmZzZXQgPSBkY3RfcGFydF9vZmZzZXQgKwo+IGRjdF9zaXplX3Bh
-cnRfc2l6ZSArIGNvdW50Owo+IEBAIC00MjcsNiArNDMzLDEyIEBAIHN0YXRpYyB2b2lkIGNmZ19i
-dWZmZXJzKHN0cnVjdCBoYW50cm9fY3R4ICpjdHgsCj4gwqAKPiDCoAlkc3RfZG1hID0gaGFudHJv
-X2dldF9kZWNfYnVmX2FkZHIoY3R4LCAmdmIyX2RzdC0+dmIyX2J1Zik7Cj4gwqAJdmRwdV93cml0
-ZV9yZWxheGVkKHZwdSwgZHN0X2RtYSwgRzFfUkVHX0FERFJfRFNUKTsKPiArCj4gKwlpZiAoY3R4
-LT52cHVfc3JjX2ZtdC0+Zm91cmNjID09IFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FKQo+ICsJCXZk
-cHVfd3JpdGVfcmVsYXhlZCh2cHUsIGRzdF9kbWEgKwo+ICsJCQkJwqDCoCBjdHgtCj4gPmRzdF9m
-bXQucGxhbmVfZm10WzBdLmJ5dGVzcGVybGluZSAqCj4gKwkJCQnCoMKgIGN0eC0+ZHN0X2ZtdC5o
-ZWlnaHQsCj4gKwkJCQnCoMKgIEcxX1JFR19BRERSX0RTVF9DSFJPTUEpOwo+IMKgfQo+IMKgCj4g
-wqBpbnQgaGFudHJvX2cxX3ZwOF9kZWNfcnVuKHN0cnVjdCBoYW50cm9fY3R4ICpjdHgpCj4gQEAg
-LTQ3MSw2ICs0ODMsOCBAQCBpbnQgaGFudHJvX2cxX3ZwOF9kZWNfcnVuKHN0cnVjdCBoYW50cm9f
-Y3R4ICpjdHgpCj4gwqAJCXJlZyB8PSBHMV9SRUdfREVDX0NUUkwwX1NLSVBfTU9ERTsKPiDCoAlp
-ZiAoaGRyLT5sZi5sZXZlbCA9PSAwKQo+IMKgCQlyZWcgfD0gRzFfUkVHX0RFQ19DVFJMMF9GSUxU
-RVJJTkdfRElTOwo+ICsJaWYgKGN0eC0+dnB1X3NyY19mbXQtPmZvdXJjYyA9PSBWNEwyX1BJWF9G
-TVRfV0VCUF9GUkFNRSkKPiArCQlyZWcgfD0gRzFfUkVHX0RFQ19DVFJMMF9XRUJQX0U7Cj4gwqAJ
-dmRwdV93cml0ZV9yZWxheGVkKHZwdSwgcmVnLCBHMV9SRUdfREVDX0NUUkwwKTsKPiDCoAo+IMKg
-CS8qIEZyYW1lIGRpbWVuc2lvbnMgKi8KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0
-Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fdjRsMi5jCj4gYi9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
-L3ZlcmlzaWxpY29uL2hhbnRyb192NGwyLmMKPiBpbmRleCAyNTEzYWRmYmQ4MjUuLjcwNzViMmJh
-MWVjMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hh
-bnRyb192NGwyLmMKPiArKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hh
-bnRyb192NGwyLmMKPiBAQCAtNDcwLDYgKzQ3MCw3IEBAIGhhbnRyb191cGRhdGVfcmVxdWlyZXNf
-cmVxdWVzdChzdHJ1Y3QgaGFudHJvX2N0eAo+ICpjdHgsIHUzMiBmb3VyY2MpCj4gwqAJCWJyZWFr
-Owo+IMKgCWNhc2UgVjRMMl9QSVhfRk1UX01QRUcyX1NMSUNFOgo+IMKgCWNhc2UgVjRMMl9QSVhf
-Rk1UX1ZQOF9GUkFNRToKPiArCWNhc2UgVjRMMl9QSVhfRk1UX1dFQlBfRlJBTUU6Cj4gwqAJY2Fz
-ZSBWNEwyX1BJWF9GTVRfSDI2NF9TTElDRToKPiDCoAljYXNlIFY0TDJfUElYX0ZNVF9IRVZDX1NM
-SUNFOgo+IMKgCWNhc2UgVjRMMl9QSVhfRk1UX1ZQOV9GUkFNRToKPiBAQCAtNDkyLDYgKzQ5Myw3
-IEBAIGhhbnRyb191cGRhdGVfcmVxdWlyZXNfaG9sZF9jYXB0dXJlX2J1ZihzdHJ1Y3QKPiBoYW50
-cm9fY3R4ICpjdHgsIHUzMiBmb3VyY2MpCj4gwqAJY2FzZSBWNEwyX1BJWF9GTVRfSlBFRzoKPiDC
-oAljYXNlIFY0TDJfUElYX0ZNVF9NUEVHMl9TTElDRToKPiDCoAljYXNlIFY0TDJfUElYX0ZNVF9W
-UDhfRlJBTUU6Cj4gKwljYXNlIFY0TDJfUElYX0ZNVF9XRUJQX0ZSQU1FOgo+IMKgCWNhc2UgVjRM
-Ml9QSVhfRk1UX0hFVkNfU0xJQ0U6Cj4gwqAJY2FzZSBWNEwyX1BJWF9GTVRfVlA5X0ZSQU1FOgo+
-IMKgCQl2cS0+c3Vic3lzdGVtX2ZsYWdzICY9Cj4gfihWQjJfVjRMMl9GTF9TVVBQT1JUU19NMk1f
-SE9MRF9DQVBUVVJFX0JVRik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
-dmVyaXNpbGljb24vc3RtMzJtcDI1X3ZwdV9ody5jCj4gYi9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
-L3ZlcmlzaWxpY29uL3N0bTMybXAyNV92cHVfaHcuYwo+IGluZGV4IDgzMzgyMTEyMGIyMC4uYzI5
-MWIxNTYwZTIwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGlj
-b24vc3RtMzJtcDI1X3ZwdV9ody5jCj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJp
-c2lsaWNvbi9zdG0zMm1wMjVfdnB1X2h3LmMKPiBAQCAtMjIsMTAgKzIyLDEwIEBAIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgaGFudHJvX2ZtdAo+IHN0bTMybXAyNV92ZGVjX2ZtdHNbXSA9IHsKPiDCoAkJ
-LmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAo+IMKgCQkuZnJtc2l6ZSA9IHsKPiDCoAkJ
-CS5taW5fd2lkdGggPSBGTVRfTUlOX1dJRFRILAo+IC0JCQkubWF4X3dpZHRoID0gRk1UX0ZIRF9X
-SURUSCwKPiArCQkJLm1heF93aWR0aCA9IEZNVF80S19XSURUSCwKPiDCoAkJCS5zdGVwX3dpZHRo
-ID0gTUJfRElNLAo+IMKgCQkJLm1pbl9oZWlnaHQgPSBGTVRfTUlOX0hFSUdIVCwKPiAtCQkJLm1h
-eF9oZWlnaHQgPSBGTVRfRkhEX0hFSUdIVCwKPiArCQkJLm1heF9oZWlnaHQgPSBGTVRfNEtfSEVJ
-R0hULAo+IMKgCQkJLnN0ZXBfaGVpZ2h0ID0gTUJfRElNLAo+IMKgCQl9LAo+IMKgCX0sCj4gQEAg
-LTQyLDYgKzQyLDE5IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGFudHJvX2ZtdAo+IHN0bTMybXAy
-NV92ZGVjX2ZtdHNbXSA9IHsKPiDCoAkJCS5zdGVwX2hlaWdodCA9IE1CX0RJTSwKPiDCoAkJfSwK
-PiDCoAl9LAo+ICsJewo+ICsJCS5mb3VyY2MgPSBWNEwyX1BJWF9GTVRfV0VCUF9GUkFNRSwKPiAr
-CQkuY29kZWNfbW9kZSA9IEhBTlRST19NT0RFX1ZQOF9ERUMsCj4gKwkJLm1heF9kZXB0aCA9IDIs
-Cj4gKwkJLmZybXNpemUgPSB7Cj4gKwkJCS5taW5fd2lkdGggPSBGTVRfTUlOX1dJRFRILAo+ICsJ
-CQkubWF4X3dpZHRoID0gRk1UXzRLX1dJRFRILAo+ICsJCQkuc3RlcF93aWR0aCA9IE1CX0RJTSwK
-PiArCQkJLm1pbl9oZWlnaHQgPSBGTVRfTUlOX0hFSUdIVCwKPiArCQkJLm1heF9oZWlnaHQgPSBG
-TVRfNEtfSEVJR0hULAo+ICsJCQkuc3RlcF9oZWlnaHQgPSBNQl9ESU0sCj4gKwkJfSwKPiArCX0s
-Cj4gwqAJewo+IMKgCQkuZm91cmNjID0gVjRMMl9QSVhfRk1UX0gyNjRfU0xJQ0UsCj4gwqAJCS5j
-b2RlY19tb2RlID0gSEFOVFJPX01PREVfSDI2NF9ERUMsCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Thu, 17 Apr 2025 09:40:15 +0100 Prabhakar wrote:
+> +RENESAS RZ/V2H(P) DWMAC GBETH GLUE LAYER DRIVER
+> +M:	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> +L:	netdev@vger.kernel.org
+> +L:	linux-renesas-soc@vger.kernel.org
+> +S:	Supported
+
+I'm going to make this Maintained when applying, please see:
+https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#supported-status-for-drivers
+
+> +F:	Documentation/devicetree/bindings/net/renesas,r9a09g057-gbeth.yaml
+> +F:	drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
