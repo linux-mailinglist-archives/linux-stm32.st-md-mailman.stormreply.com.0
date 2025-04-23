@@ -2,56 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99FBFA97C9D
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 04:10:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47796A97CBD
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 04:19:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D268C78F63;
-	Wed, 23 Apr 2025 02:10:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3597C78F63;
+	Wed, 23 Apr 2025 02:19:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36C80C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEEE9C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Apr 2025 02:10:04 +0000 (UTC)
+ Wed, 23 Apr 2025 02:19:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 57EFF43EBE;
- Wed, 23 Apr 2025 02:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF178C4CEE9;
- Wed, 23 Apr 2025 02:10:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 67853614B8;
+ Wed, 23 Apr 2025 02:19:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7268BC4CEE9;
+ Wed, 23 Apr 2025 02:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745374202;
- bh=mfA8LCGyK1ft3dVgLyO0no1zPL7rJ2QqTHlgV6oRXU8=;
+ s=k20201202; t=1745374789;
+ bh=PmqJ5fbv0Mb9f8TlIqRagmhuSF46zrJ7usQ1IDVuaXQ=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=LJRyZofHrIWVdj2cNJN1mYZWKFIhGf3r1M1ry/4o1nWCmhs6Zhjnd4sNg4r2Qn6pn
- IiaA8KEJLeT75wSHPxOS/ngZtJ8B6oySkr+bMelzKJCEbnS8N99qWBk26xWHVMJvE4
- hHFYXcL9kzdxCvp0Sk5FCAmq51rj8Ffg3J078GTPz9CMJkwvHYjj2c67Hm2o9xpyUG
- r1FPDhMgJ6j/wWvOKcux+suI2FeimfPxnFs/toD0xcZjZW+mGU84VF1HWkayF0fQ5P
- 0UgtHgkgjwU4W+K/7astVsKcHZcP9Qa9m99UIoplFVZoMI2QVcunOBAtjz7843j8ZI
- XXHK9hx/qKcyg==
+ b=nfcvWSodfR9C9TKP3Gi15gNNyd4MIUK7B2Qgrdtr4CpFYjzCYQ4dispyNAct3JVnb
+ POFVgOA6ZBsQ+tKt9hFpfCStJ5CIx8m4hzGp8+0C0kwB1tV7MsEZYLg/luOUrYBTpL
+ QPosVAOjBf37Oyco78m4AD8++24zmFkRTZGJ7L3w2QYNerdHHif1x9OXxR1yMfc+81
+ nHN2SM4gDqpigTm/TP1UcYnGZ40C8Z+FCPFVoIUpU4GZWHXdjsfE4TVlbQYQuVTch3
+ XsLTTIdWXqwBv/+6n0AVJJb7mkAdc3HzrP2UB3UggSZACiHBB3M//OL3TKq6DObdQl
+ tg+1dA4c7xIUg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70C7A380CEF4; Wed, 23 Apr 2025 02:10:42 +0000 (UTC)
+ 33D86380CEF4; Wed, 23 Apr 2025 02:20:29 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174537424123.2115098.14548979135070706572.git-patchwork-notify@kernel.org>
-Date: Wed, 23 Apr 2025 02:10:41 +0000
-References: <20250417084015.74154-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20250417084015.74154-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Lad@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
- Prabhakar <prabhakar.csengg@gmail.com>
-Cc: geert+renesas@glider.be, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- magnus.damm@gmail.com, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, fabrizio.castro.jz@renesas.com,
- rmk+kernel@armlinux.org.uk, biju.das.jz@bp.renesas.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- andrew+netdev@lunn.ch, p.zabel@pengutronix.de, krzk+dt@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v8 0/4] Add GBETH glue layer
- driver for Renesas RZ/V2H(P) SoC
+Message-Id: <174537482800.2117251.2809618036505175108.git-patchwork-notify@kernel.org>
+Date: Wed, 23 Apr 2025 02:20:28 +0000
+References: <E1u5SiQ-001I0B-OQ@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1u5SiQ-001I0B-OQ@rmk-PC.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ nobuhiro1.iwamatsu@toshiba.co.jp, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: stmmac: visconti:
+ convert to set_clk_tx_rate() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,31 +63,24 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 17 Apr 2025 09:40:11 +0100 you wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, 17 Apr 2025 18:07:54 +0100 you wrote:
+> Convert visconti to use the set_clk_tx_rate() method. By doing so,
+> the GMAC control register will already have been updated (unlike with
+> the fix_mac_speed() method) so this code can be removed while porting
+> to the set_clk_tx_rate() method.
 > 
-> Hi All,
-> 
-> This patch series adds support for the GBETH (Gigabit Ethernet) glue layer
-> driver for the Renesas RZ/V2H(P) SoC. The GBETH IP is integrated with
-> the Synopsys DesignWare MAC (version 5.20). The changes include updating
-> the device tree bindings, documenting the GBETH bindings, and adding the
-> DWMAC glue layer for the Renesas GBETH.
+> There is also no need for the spinlock, and has never been - neither
+> fix_mac_speed() nor set_clk_tx_rate() can be called by more than one
+> thread at a time, so the lock does nothing useful.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v8,1/4] dt-bindings: net: dwmac: Increase 'maxItems' for 'interrupts' and 'interrupt-names'
-    https://git.kernel.org/netdev/net-next/c/8c989368c04c
-  - [net-next,v8,2/4] dt-bindings: net: Document support for Renesas RZ/V2H(P) GBETH
-    https://git.kernel.org/netdev/net-next/c/8fff7ae84d18
-  - [net-next,v8,3/4] net: stmmac: Add DWMAC glue layer for Renesas GBETH
-    https://git.kernel.org/netdev/net-next/c/461f6529e594
-  - [net-next,v8,4/4] MAINTAINERS: Add entry for Renesas RZ/V2H(P) DWMAC GBETH glue layer driver
-    (no matching commit)
+  - [net-next,v3] net: stmmac: visconti: convert to set_clk_tx_rate() method
+    https://git.kernel.org/netdev/net-next/c/21b01cb8e88e
 
 You are awesome, thank you!
 -- 
