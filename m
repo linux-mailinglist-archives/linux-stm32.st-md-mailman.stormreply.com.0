@@ -2,21 +2,21 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC485A9902C
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 17:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3DA9A9902F
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 17:17:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 806C6C71287;
-	Wed, 23 Apr 2025 15:17:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AFC3C71287;
+	Wed, 23 Apr 2025 15:17:49 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44032C7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DA5BC7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Apr 2025 15:17:46 +0000 (UTC)
+ Wed, 23 Apr 2025 15:17:48 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6242106F;
- Wed, 23 Apr 2025 08:17:40 -0700 (PDT)
-Received: from e132581.cambridge.arm.com (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B7A863F66E;
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 193C41063;
  Wed, 23 Apr 2025 08:17:43 -0700 (PDT)
+Received: from e132581.cambridge.arm.com (e132581.arm.com [10.1.196.87])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DF6BA3F66E;
+ Wed, 23 Apr 2025 08:17:45 -0700 (PDT)
 From: Leo Yan <leo.yan@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
@@ -27,14 +27,14 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 23 Apr 2025 16:17:18 +0100
-Message-Id: <20250423151726.372561-2-leo.yan@arm.com>
+Date: Wed, 23 Apr 2025 16:17:19 +0100
+Message-Id: <20250423151726.372561-3-leo.yan@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250423151726.372561-1-leo.yan@arm.com>
 References: <20250423151726.372561-1-leo.yan@arm.com>
 MIME-Version: 1.0
 Cc: Leo Yan <leo.yan@arm.com>
-Subject: [Linux-stm32] [PATCH v2 1/9] coresight: tmc: Support atclk
+Subject: [Linux-stm32] [PATCH v2 2/9] coresight: catu: Support atclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,71 +46,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIGF0Y2xrIGlzIGFuIG9wdGlvbmFsIGNsb2NrIGZvciB0aGUgQ29yZVNpZ2h0IFRNQywgYnV0
-IHRoZSBkcml2ZXIKbWlzc2VzIHRvIGluaXRpYWxpemUgaXQuICBJbiBtb3N0IGNhc2VzLCBUTUMg
-c2hhcmVzIHRoZSBhdGNsayBjbG9jayB3aXRoCm90aGVyIENvcmVTaWdodCBjb21wb25lbnRzLiAg
-U2luY2UgdGhlc2UgY29tcG9uZW50cyBlbmFibGUgdGhlIGNsb2NrCmJlZm9yZSB0aGUgVE1DIGRl
-dmljZSBpcyBpbml0aWFsaXplZCwgdGhlIFRNQyBjb250aW51ZXMgcHJvcGVybHksCndoaWNoIGlz
-IHdoeSB3ZSBkb27igJl0IG9ic2VydmUgYW55IGxvY2t1cCBpc3N1ZXMuCgpUaGlzIGNoYW5nZSBl
-bmFibGVzIGF0Y2xrIGluIHByb2JlIG9mIHRoZSBUTUMgZHJpdmVyLiAgR2l2ZW4gdGhlIGNsb2Nr
-CmlzIG9wdGlvbmFsLCBpdCBpcyBwb3NzaWJsZSB0byByZXR1cm4gTlVMTCBpZiB0aGUgY2xvY2sg
-ZG9lcyBub3QgZXhpc3QuCklTX0VSUigpIGlzIHRvbGVyYW50IGZvciB0aGlzIGNhc2UuCgpEeW5h
-bWljYWxseSBkaXNhYmxlIGFuZCBlbmFibGUgYXRjbGsgZHVyaW5nIHN1c3BlbmQgYW5kIHJlc3Vt
-ZS4gIFRoZQpjbG9jayBwb2ludGVycyB3aWxsIG5ldmVyIGJlIGVycm9yIHZhbHVlcyBpZiB0aGUg
-ZHJpdmVyIGhhcyBzdWNjZXNzZnVsbHkKcHJvYmVkLCBhbmQgdGhlIGNhc2Ugb2YgYSBOVUxMIHBv
-aW50ZXIgY2FzZSB3aWxsIGJlIGhhbmRsZWQgYnkgdGhlIGNsb2NrCmNvcmUgbGF5ZXIuICBUaGUg
-ZHJpdmVyIGRhdGEgaXMgYWx3YXlzIHZhbGlkIGFmdGVyIHByb2JlLiBUaGVyZWZvcmUsCnJlbW92
-ZSB0aGUgcmVsYXRlZCBjaGVja3MuICBBbHNvIGluIHRoZSByZXN1bWUgZmxvdyBhZGRzIGVycm9y
-IGhhbmRsaW5nLgoKRml4ZXM6IGJjNGJmN2ZlOThkYSAoImNvcmVzaWdodC10bWM6IGFkZCBDb3Jl
-U2lnaHQgVE1DIGRyaXZlciIpClNpZ25lZC1vZmYtYnk6IExlbyBZYW4gPGxlby55YW5AYXJtLmNv
-bT4KUmV2aWV3ZWQtYnk6IEFuc2h1bWFuIEtoYW5kdWFsIDxhbnNodW1hbi5raGFuZHVhbEBhcm0u
-Y29tPgotLS0KIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLWNvcmUu
-YyB8IDIyICsrKysrKysrKysrKysrKysrLS0tLS0KIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdo
-dC9jb3Jlc2lnaHQtdG1jLmggICAgICB8ICAyICsrCiAyIGZpbGVzIGNoYW5nZWQsIDE5IGluc2Vy
-dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcv
-Y29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNp
-Z2h0L2NvcmVzaWdodC10bWMtY29yZS5jCmluZGV4IGE3ODE0ZThlNjU3Yi4uZGRjYTVkZGY0ZWQy
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1j
-b3JlLmMKKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29y
-ZS5jCkBAIC03ODksNiArNzg5LDEwIEBAIHN0YXRpYyBpbnQgX190bWNfcHJvYmUoc3RydWN0IGRl
-dmljZSAqZGV2LCBzdHJ1Y3QgcmVzb3VyY2UgKnJlcykKIAlzdHJ1Y3QgY29yZXNpZ2h0X2Rlc2Mg
-ZGVzYyA9IHsgMCB9OwogCXN0cnVjdCBjb3Jlc2lnaHRfZGV2X2xpc3QgKmRldl9saXN0ID0gTlVM
-TDsKIAorCWRydmRhdGEtPmF0Y2xrID0gZGV2bV9jbGtfZ2V0X29wdGlvbmFsX2VuYWJsZWQoZGV2
-LCAiYXRjbGsiKTsKKwlpZiAoSVNfRVJSKGRydmRhdGEtPmF0Y2xrKSkKKwkJcmV0dXJuIFBUUl9F
-UlIoZHJ2ZGF0YS0+YXRjbGspOworCiAJcmV0ID0gLUVOT01FTTsKIAogCS8qIFZhbGlkaXR5IGZv
-ciB0aGUgcmVzb3VyY2UgaXMgYWxyZWFkeSBjaGVja2VkIGJ5IHRoZSBBTUJBIGNvcmUgKi8KQEAg
-LTEwMTksMTggKzEwMjMsMjYgQEAgc3RhdGljIGludCB0bWNfcnVudGltZV9zdXNwZW5kKHN0cnVj
-dCBkZXZpY2UgKmRldikKIHsKIAlzdHJ1Y3QgdG1jX2RydmRhdGEgKmRydmRhdGEgPSBkZXZfZ2V0
-X2RydmRhdGEoZGV2KTsKIAotCWlmIChkcnZkYXRhICYmICFJU19FUlJfT1JfTlVMTChkcnZkYXRh
-LT5wY2xrKSkKLQkJY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRydmRhdGEtPnBjbGspOworCWNsa19k
-aXNhYmxlX3VucHJlcGFyZShkcnZkYXRhLT5hdGNsayk7CisJY2xrX2Rpc2FibGVfdW5wcmVwYXJl
-KGRydmRhdGEtPnBjbGspOworCiAJcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgdG1jX3J1bnRp
-bWVfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRldikKIHsKIAlzdHJ1Y3QgdG1jX2RydmRhdGEgKmRy
-dmRhdGEgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKKwlpbnQgcmV0OwogCi0JaWYgKGRydmRhdGEg
-JiYgIUlTX0VSUl9PUl9OVUxMKGRydmRhdGEtPnBjbGspKQotCQljbGtfcHJlcGFyZV9lbmFibGUo
-ZHJ2ZGF0YS0+cGNsayk7Ci0JcmV0dXJuIDA7CisJcmV0ID0gY2xrX3ByZXBhcmVfZW5hYmxlKGRy
-dmRhdGEtPnBjbGspOworCWlmIChyZXQpCisJCXJldHVybiByZXQ7CisKKwlyZXQgPSBjbGtfcHJl
-cGFyZV9lbmFibGUoZHJ2ZGF0YS0+YXRjbGspOworCWlmIChyZXQpCisJCWNsa19kaXNhYmxlX3Vu
-cHJlcGFyZShkcnZkYXRhLT5wY2xrKTsKKworCXJldHVybiByZXQ7CiB9CiAjZW5kaWYKIApkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMuaCBiL2Ry
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLmgKaW5kZXggNjU0MWEyN2Ew
-MThlLi5jYmI0YmE0MzkxNTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdo
-dC9jb3Jlc2lnaHQtdG1jLmgKKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVz
-aWdodC10bWMuaApAQCAtMjEwLDYgKzIxMCw3IEBAIHN0cnVjdCB0bWNfcmVzcnZfYnVmIHsKIAog
-LyoqCiAgKiBzdHJ1Y3QgdG1jX2RydmRhdGEgLSBzcGVjaWZpY3MgYXNzb2NpYXRlZCB0byBhbiBU
-TUMgY29tcG9uZW50CisgKiBAYXRjbGs6CW9wdGlvbmFsIGNsb2NrIGZvciB0aGUgY29yZSBwYXJ0
-cyBvZiB0aGUgVE1DLgogICogQHBjbGs6CUFQQiBjbG9jayBpZiBwcmVzZW50LCBvdGhlcndpc2Ug
-TlVMTAogICogQGJhc2U6CW1lbW9yeSBtYXBwZWQgYmFzZSBhZGRyZXNzIGZvciB0aGlzIGNvbXBv
-bmVudC4KICAqIEBjc2RldjoJY29tcG9uZW50IHZpdGFscyBuZWVkZWQgYnkgdGhlIGZyYW1ld29y
-ay4KQEAgLTI0NCw2ICsyNDUsNyBAQCBzdHJ1Y3QgdG1jX3Jlc3J2X2J1ZiB7CiAgKgkJIFVzZWQg
-YnkgRVRSL0VURi4KICAqLwogc3RydWN0IHRtY19kcnZkYXRhIHsKKwlzdHJ1Y3QgY2xrCQkqYXRj
-bGs7CiAJc3RydWN0IGNsawkJKnBjbGs7CiAJdm9pZCBfX2lvbWVtCQkqYmFzZTsKIAlzdHJ1Y3Qg
-Y29yZXNpZ2h0X2RldmljZQkqY3NkZXY7Ci0tIAoyLjM0LjEKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The atclk is an optional clock for the CoreSight CATU, but the driver
+misses to initialize it.
+
+This change enables atclk in probe of the CATU driver, and dynamically
+control the clock during suspend and resume.
+
+The checks for driver data and clocks in suspend and resume are not
+needed, remove them.  Add error handling in the resume function.
+
+Fixes: fcacb5c154ba ("coresight: Introduce support for Coresight Address Translation Unit")
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+---
+ drivers/hwtracing/coresight/coresight-catu.c | 22 +++++++++++++++++-----
+ drivers/hwtracing/coresight/coresight-catu.h |  1 +
+ 2 files changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
+index fa170c966bc3..9fcda5e49253 100644
+--- a/drivers/hwtracing/coresight/coresight-catu.c
++++ b/drivers/hwtracing/coresight/coresight-catu.c
+@@ -513,6 +513,10 @@ static int __catu_probe(struct device *dev, struct resource *res)
+ 	struct coresight_platform_data *pdata = NULL;
+ 	void __iomem *base;
+ 
++	drvdata->atclk = devm_clk_get_optional_enabled(dev, "atclk");
++	if (IS_ERR(drvdata->atclk))
++		return PTR_ERR(drvdata->atclk);
++
+ 	catu_desc.name = coresight_alloc_device_name(&catu_devs, dev);
+ 	if (!catu_desc.name)
+ 		return -ENOMEM;
+@@ -659,18 +663,26 @@ static int catu_runtime_suspend(struct device *dev)
+ {
+ 	struct catu_drvdata *drvdata = dev_get_drvdata(dev);
+ 
+-	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
+-		clk_disable_unprepare(drvdata->pclk);
++	clk_disable_unprepare(drvdata->atclk);
++	clk_disable_unprepare(drvdata->pclk);
++
+ 	return 0;
+ }
+ 
+ static int catu_runtime_resume(struct device *dev)
+ {
+ 	struct catu_drvdata *drvdata = dev_get_drvdata(dev);
++	int ret;
+ 
+-	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
+-		clk_prepare_enable(drvdata->pclk);
+-	return 0;
++	ret = clk_prepare_enable(drvdata->pclk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(drvdata->atclk);
++	if (ret)
++		clk_disable_unprepare(drvdata->pclk);
++
++	return ret;
+ }
+ #endif
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-catu.h b/drivers/hwtracing/coresight/coresight-catu.h
+index 141feac1c14b..2fe31fed6cf1 100644
+--- a/drivers/hwtracing/coresight/coresight-catu.h
++++ b/drivers/hwtracing/coresight/coresight-catu.h
+@@ -62,6 +62,7 @@
+ 
+ struct catu_drvdata {
+ 	struct clk *pclk;
++	struct clk *atclk;
+ 	void __iomem *base;
+ 	struct coresight_device *csdev;
+ 	int irq;
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
