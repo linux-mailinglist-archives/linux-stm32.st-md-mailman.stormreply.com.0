@@ -2,39 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F3EFA9903B
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 17:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A8EA991FD
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Apr 2025 17:38:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1444BC78F70;
-	Wed, 23 Apr 2025 15:18:05 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98AF1C78F74
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B5FCC71287;
+	Wed, 23 Apr 2025 15:38:16 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A60BDC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Apr 2025 15:18:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 59CB21063;
- Wed, 23 Apr 2025 08:17:58 -0700 (PDT)
-Received: from e132581.cambridge.arm.com (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2D0553F66E;
- Wed, 23 Apr 2025 08:18:01 -0700 (PDT)
-From: Leo Yan <leo.yan@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 23 Apr 2025 16:17:26 +0100
-Message-Id: <20250423151726.372561-10-leo.yan@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250423151726.372561-1-leo.yan@arm.com>
-References: <20250423151726.372561-1-leo.yan@arm.com>
-MIME-Version: 1.0
-Cc: Leo Yan <leo.yan@arm.com>
-Subject: [Linux-stm32] [PATCH v2 9/9] coresight: Refactor runtime PM
+ Wed, 23 Apr 2025 15:38:14 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 1449D43201;
+ Wed, 23 Apr 2025 15:38:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1745422694;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Abk3WUggpCh+pV9/jGehaWPhGHzsr5iDxN7IoX5cqEk=;
+ b=RI7Tw1As9wOTHmRLRlOtw+97DusGjkgz5iMRLKZN4zcskq36CRb9ussT2NX7gXEdh90q7r
+ POeVrueShYUjYRyn65z8VBjfO7iTqa/ZspwQMggtDMw3E7uMMC48R6WZou47bJ0oCgze/d
+ xb5vD9tIm0T9icAfYRLJuQE1aslLweYHBA0hMYlsY/FV97+ZuevI1AS2ZMiBYPewPNmzHP
+ vroE13/rb7Gl2LXV09Id2Du0mc/S0jjLsyK+HNJgSCKUPB9FLTgL3SLZiwDSQ71MgYofaA
+ OsbniHoJmQ711I/9rNmlgjJpQ10ueCniBFkZSq8VBczxUgBqcTzGumXVtj+Zww==
+Mime-Version: 1.0
+Date: Wed, 23 Apr 2025 17:38:09 +0200
+Message-Id: <D9E4PE3RTE37.2LU30RI1ZS6XL@bootlin.com>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Xu Kuohai" <xukuohai@huaweicloud.com>, "Andrii Nakryiko"
+ <andrii.nakryiko@gmail.com>
+X-Mailer: aerc 0.20.1-0-g2ecb8770224a
+References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
+ <20250411-many_args_arm64-v1-1-0a32fe72339e@bootlin.com>
+ <CAEf4Bzbn6BdXTOb0dTcsQmOMZpp5=DzGS2hHHQ3+dwcja=gv+w@mail.gmail.com>
+ <D98Q8BRNUVS9.11J60C67L1ALR@bootlin.com>
+ <9da88811-cce0-41df-8069-2e8b67541c39@huaweicloud.com>
+ <D9BLCJSCHE9A.1IKHK3XBPF8MU@bootlin.com>
+ <8b800c09-eade-4dcf-90f6-2f5a78170bc4@huaweicloud.com>
+In-Reply-To: <8b800c09-eade-4dcf-90f6-2f5a78170bc4@huaweicloud.com>
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeeileejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpegggfgtfffkvefuhffvofhfjgesthhqredtredtjeenucfhrhhomheptehlvgigihhsucfnohhthhhorhoruceorghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeelkeehiefhfeehvefhtdegueelkeehffffffeuvdekkeekuddvueeguefgieeukeenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplhhotggrlhhhohhsthdpmhgrihhlfhhrohhmpegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfedtpdhrtghpthhtohepgihukhhuohhhrghisehhuhgrfigvihgtlhhouhgurdgtohhmpdhrtghpthhtoheprghnughrihhirdhnrghkrhihihhkohesghhmrghilhdrtghomhdprhgtphhtthhopegrshhtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegurghnihgvlhesihhoghgvrghrsghogidrnhgvthdprhgtphhtthhopehjohhhn
+ hdrfhgrshhtrggsvghnugesghhmrghilhdrtghomhdprhgtphhtthhopegrnhgurhhiiheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhgrrhhtihhnrdhlrghusehlihhnuhigrdguvghvpdhrtghpthhtohepvgguugihiiekjeesghhmrghilhdrtghomh
+X-GND-Sasl: alexis.lothore@bootlin.com
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Will
+ Deacon <will@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
+ Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Florent Revest <revest@chromium.org>, Puranjay Mohan <puranjay@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
+ Alexei Starovoitov <ast@kernel.org>, KP Singh <kpsingh@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Hao Luo <haoluo@google.com>,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
+ bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [PATCH RFC bpf-next 1/4] bpf: add struct largest
+ member size in func model
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,302 +76,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The validation for driver data pointers and clock pointers are redundant
-in the runtime PM callbacks.  After a driver's probing, its driver data
-and clocks have been initialized successfully, this ensures it is safe
-to access driver data and clocks in the runtime PM callbacks.  A corner
-case is a clock pointer is NULL, in this case, the clock core layer can
-handle it properly.  So remove these redundant checking.
-
-In runtime resume, respect values returned from clock function and add
-error handling.
-
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- drivers/hwtracing/coresight/coresight-cpu-debug.c  |  8 +++-----
- drivers/hwtracing/coresight/coresight-ctcu-core.c  |  8 ++------
- drivers/hwtracing/coresight/coresight-etb10.c      |  8 ++------
- drivers/hwtracing/coresight/coresight-etm3x-core.c |  8 ++------
- drivers/hwtracing/coresight/coresight-funnel.c     | 21 +++++++++++----------
- drivers/hwtracing/coresight/coresight-replicator.c | 20 +++++++++++---------
- drivers/hwtracing/coresight/coresight-stm.c        | 20 +++++++++++---------
- drivers/hwtracing/coresight/coresight-tpiu.c       | 20 +++++++++++---------
- 8 files changed, 53 insertions(+), 60 deletions(-)
-
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 481ffcbed534..dff663ac7805 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -731,8 +731,8 @@ static int debug_runtime_suspend(struct device *dev)
- {
- 	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_disable_unprepare(drvdata->pclk);
-+	clk_disable_unprepare(drvdata->pclk);
-+
- 	return 0;
- }
- 
-@@ -740,9 +740,7 @@ static int debug_runtime_resume(struct device *dev)
- {
- 	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_prepare_enable(drvdata->pclk);
--	return 0;
-+	return clk_prepare_enable(drvdata->pclk);
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-index 75b5114ef652..c586495e9a08 100644
---- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-+++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-@@ -278,8 +278,7 @@ static int ctcu_runtime_suspend(struct device *dev)
- {
- 	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
--		clk_disable_unprepare(drvdata->apb_clk);
-+	clk_disable_unprepare(drvdata->apb_clk);
- 
- 	return 0;
- }
-@@ -288,10 +287,7 @@ static int ctcu_runtime_resume(struct device *dev)
- {
- 	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
--		clk_prepare_enable(drvdata->apb_clk);
--
--	return 0;
-+	return clk_prepare_enable(drvdata->apb_clk);
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-index 45c2f8f50a3f..3f3b0eb48fdb 100644
---- a/drivers/hwtracing/coresight/coresight-etb10.c
-+++ b/drivers/hwtracing/coresight/coresight-etb10.c
-@@ -807,8 +807,7 @@ static int etb_runtime_suspend(struct device *dev)
- {
- 	struct etb_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->atclk);
- 
- 	return 0;
- }
-@@ -817,10 +816,7 @@ static int etb_runtime_resume(struct device *dev)
- {
- 	struct etb_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--
--	return 0;
-+	return clk_prepare_enable(drvdata->atclk);
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-index adbb134f80e6..615ff743eef0 100644
---- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-@@ -925,8 +925,7 @@ static int etm_runtime_suspend(struct device *dev)
- {
- 	struct etm_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->atclk);
- 
- 	return 0;
- }
-@@ -935,10 +934,7 @@ static int etm_runtime_resume(struct device *dev)
- {
- 	struct etm_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--
--	return 0;
-+	return clk_prepare_enable(drvdata->atclk);
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-index 62e5125c37ad..6494a3b5d18e 100644
---- a/drivers/hwtracing/coresight/coresight-funnel.c
-+++ b/drivers/hwtracing/coresight/coresight-funnel.c
-@@ -283,11 +283,8 @@ static int funnel_runtime_suspend(struct device *dev)
- {
- 	struct funnel_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
--
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_disable_unprepare(drvdata->pclk);
-+	clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->pclk);
- 
- 	return 0;
- }
-@@ -295,13 +292,17 @@ static int funnel_runtime_suspend(struct device *dev)
- static int funnel_runtime_resume(struct device *dev)
- {
- 	struct funnel_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(drvdata->pclk);
-+	if (ret)
-+		return ret;
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_prepare_enable(drvdata->pclk);
-+	ret = clk_prepare_enable(drvdata->atclk);
-+	if (ret)
-+		clk_disable_unprepare(drvdata->pclk);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--	return 0;
-+	return ret;
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-index 56b03e6d8336..8595dc104795 100644
---- a/drivers/hwtracing/coresight/coresight-replicator.c
-+++ b/drivers/hwtracing/coresight/coresight-replicator.c
-@@ -322,24 +322,26 @@ static int replicator_runtime_suspend(struct device *dev)
- {
- 	struct replicator_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->pclk);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_disable_unprepare(drvdata->pclk);
- 	return 0;
- }
- 
- static int replicator_runtime_resume(struct device *dev)
- {
- 	struct replicator_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_prepare_enable(drvdata->pclk);
-+	ret = clk_prepare_enable(drvdata->pclk);
-+	if (ret)
-+		return ret;
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--	return 0;
-+	ret = clk_prepare_enable(drvdata->atclk);
-+	if (ret)
-+		clk_disable_unprepare(drvdata->pclk);
-+
-+	return ret;
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index f17986edac00..f859ab932d22 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -957,24 +957,26 @@ static int stm_runtime_suspend(struct device *dev)
- {
- 	struct stm_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->pclk);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_disable_unprepare(drvdata->pclk);
- 	return 0;
- }
- 
- static int stm_runtime_resume(struct device *dev)
- {
- 	struct stm_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_prepare_enable(drvdata->pclk);
-+	ret = clk_prepare_enable(drvdata->pclk);
-+	if (ret)
-+		return ret;
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--	return 0;
-+	ret = clk_prepare_enable(drvdata->atclk);
-+	if (ret)
-+		clk_disable_unprepare(drvdata->pclk);
-+
-+	return ret;
- }
- #endif
- 
-diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-index 4701b34778bd..a68ed6b97bf7 100644
---- a/drivers/hwtracing/coresight/coresight-tpiu.c
-+++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-@@ -206,24 +206,26 @@ static int tpiu_runtime_suspend(struct device *dev)
- {
- 	struct tpiu_drvdata *drvdata = dev_get_drvdata(dev);
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->atclk);
-+	clk_disable_unprepare(drvdata->pclk);
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_disable_unprepare(drvdata->pclk);
- 	return 0;
- }
- 
- static int tpiu_runtime_resume(struct device *dev)
- {
- 	struct tpiu_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
- 
--	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
--		clk_prepare_enable(drvdata->pclk);
-+	ret = clk_prepare_enable(drvdata->pclk);
-+	if (ret)
-+		return ret;
- 
--	if (drvdata && !IS_ERR(drvdata->atclk))
--		clk_prepare_enable(drvdata->atclk);
--	return 0;
-+	ret = clk_prepare_enable(drvdata->atclk);
-+	if (ret)
-+		clk_disable_unprepare(drvdata->pclk);
-+
-+	return ret;
- }
- #endif
- 
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uIEFwciAyMSwgMjAyNSBhdCA0OjE0IEFNIENFU1QsIFh1IEt1b2hhaSB3cm90ZToKPiBP
+biA0LzIxLzIwMjUgMTI6MDIgQU0sIEFsZXhpcyBMb3Rob3LDqSB3cm90ZToKPj4gSGkgWHUsCj4+
+IAo+PiBPbiBUaHUgQXByIDE3LCAyMDI1IGF0IDQ6MTAgUE0gQ0VTVCwgWHUgS3VvaGFpIHdyb3Rl
+Ogo+Pj4gT24gNC8xNy8yMDI1IDM6MTQgUE0sIEFsZXhpcyBMb3Rob3LDqSB3cm90ZToKPj4+PiBI
+aSBBbmRyaWksCj4+Pj4KPj4+PiBPbiBXZWQgQXByIDE2LCAyMDI1IGF0IDExOjI0IFBNIENFU1Qs
+IEFuZHJpaSBOYWtyeWlrbyB3cm90ZToKPj4+Pj4gT24gRnJpLCBBcHIgMTEsIDIwMjUgYXQgMToz
+MuKAr1BNIEFsZXhpcyBMb3Rob3LDqSAoZUJQRiBGb3VuZGF0aW9uKQo+Pj4+PiA8YWxleGlzLmxv
+dGhvcmVAYm9vdGxpbi5jb20+IHdyb3RlOgoKWy4uLl0KCj4+IEFoLCB0aGFua3MgZm9yIHRob3Nl
+IGNsZWFyIGV4YW1wbGVzLCBJIGNvbXBsZXRlbHkgb3Zlcmxvb2tlZCB0aGlzCj4+IHBvc3NpYmls
+aXR5LiBBbmQgbm93IHRoYXQgeW91IG1lbnRpb24gaXQsIEkgZmVlbCBhIGJpdCBkdW1iIGJlY2F1
+c2UgSSBub3cKPj4gcmVtZW1iZXIgdGhhdCB5b3UgbWVudGlvbmVkIHRoaXMgaW4gUHVyYW5qYXkn
+cyBzZXJpZXMuLi4KPj4gCj4+IEkgdG9vayBhIHF1aWNrIGxvb2sgYXQgdGhlIHg4NiBKSVQgY29t
+cGlsZXIgZm9yIHJlZmVyZW5jZSwgYW5kIHNhdyBubyBjb2RlCj4+IHJlbGF0ZWQgdG8gdGhpcyBz
+cGVjaWZpYyBjYXNlIG5laXRoZXIuIFNvIEkgc2VhcmNoZWQgaW4gdGhlIGtlcm5lbCBmb3IKPj4g
+YWN0dWFsIGZ1bmN0aW9ucyB0YWtpbmcgc3RydWN0IGFyZ3VtZW50cyBieSB2YWx1ZSBBTkQgYmVp
+bmcgZGVjbGFyZWQgd2l0aCBzb21lCj4+IHBhY2tlZCBvciBhbGlnbmVkIGF0dHJpYnV0ZS4gSSBv
+bmx5IGZvdW5kIGEgaGFuZGZ1bCBvZiB0aG9zZSwgYW5kIG5vbmUKPj4gc2VlbXMgdG8gdGFrZSBl
+bm91Z2ggYXJndW1lbnRzIHRvIGhhdmUgdGhlIGNvcnJlc3BvbmRpbmcgc3RydWN0IHBhc3NlZCBv
+biB0aGUKPj4gc3RhY2suIFNvIHJhdGhlciB0aGFuIHN1cHBvcnRpbmcgdGhpcyB2ZXJ5IHNwZWNp
+ZmljIGNhc2UsIEkgYW0gdGVtcHRlZAo+PiB0byBqdXN0IHJldHVybiBhbiBlcnJvciBmb3Igbm93
+IGR1cmluZyB0cmFtcG9saW5lIGNyZWF0aW9uIGlmIHdlIGRldGVjdCBzdWNoCj4+IHN0cnVjdHVy
+ZSAoYW5kIHRoZW4gdGhlIEpJVCBjb21waWxlciBjYW4ga2VlcCB1c2luZyBkYXRhIHNpemUgdG8g
+Y29tcHV0ZQo+PiBhbGlnbm1lbnQsIG5vdyB0aGF0IGl0IGlzIHN1cmUgbm90IHRvIHJlY2VpdmUg
+Y3VzdG9tIGFsaWdubWVudHMpLiBPciBhbSBJCj4+IG1pc3Npbmcgc29tZSBhY3R1YWwgY2FzZXMg
+aW52b2x2aW5nIHRob3NlIHZlcnkgc3BlY2lmaWMgYWxpZ25tZW50cyA/Cj4+IAo+Cj4gSG93IGNh
+biB3ZSByZWxpYWJseSAnZGV0ZWN0JyB0aGUgY2FzZT8gSWYgYSBmdW5jdGlvbiBoYXMgc3VjaCBh
+IHBhcmFtZXRlcgo+IGJ1dCB3ZSBmYWlsIHRvIGRldGVjdCBpdCwgdGhlIEJQRiB0cmFtcG9saW5l
+IHdpbGwgcGFzcyBhbiBpbmNvcnJlY3QgdmFsdWUKPiB0byB0aGUgZnVuY3Rpb24sIHdoaWNoIGlz
+IGFsc28gdW5hY2NlcHRhYmxlLgoKVGhhdCdzIGEgcXVlc3Rpb24gSSBzdGlsbCBoYXZlIHRvIGFu
+c3dlciA6KSBJIGltYWdpbmVkIGJlaW5nIGFibGUgdG8gZGV0ZWN0Cml0IHRoYW5rcyB0byBzb21l
+IGluZm8gc29tZXdoZXJlIGluIEJURiwgYnV0IEkgaGF2ZSB0byBkaWcgZnVydGhlciB0byBmaW5k
+Cmhvdy4KCgpBbGV4aXMKCi0tIApBbGV4aXMgTG90aG9yw6ksIEJvb3RsaW4KRW1iZWRkZWQgTGlu
+dXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
