@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3C11A9A602
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 10:35:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52BDA9A603
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 10:35:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 690A8C78F70;
-	Thu, 24 Apr 2025 08:35:48 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77B99C7803A;
+	Thu, 24 Apr 2025 08:35:49 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA298C78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 145E9C78F68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 08:35:46 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-39129fc51f8so557328f8f.0
+ Thu, 24 Apr 2025 08:35:48 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-39ee682e0ddso423878f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 01:35:46 -0700 (PDT)
+ Thu, 24 Apr 2025 01:35:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1745483746; x=1746088546;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1745483747; x=1746088547;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=n7xB0NSx1H7vCCe+l6ESBPVP9pl7qaey136eLZ31dwo=;
- b=BGBg0m+PzNUi+0s+bWqqeewFx+Sk+H0Baod2dVGHmRJ9g3gn1G89Cf8VR2uHFCB20F
- unmNH93BN7TBcwl7FYCi6O0GVzibbnZhcg9mTNT1AtepTMHaKCr7fbEU9rGFwB3aM/NF
- s6Vpg83Bx5131buhjG6Pu82NeI787t3OjDlUPsMHkVrxR65rNKnRXyQWmtVyjPeBGTVr
- mO86eA4y9sf/hPmkgrZJViEfMZRKh3a5amPLkLMAwkCGzTvmf3f9PPHy/864M5cN+Isl
- r3u2IwdFGIbAC7cGTZqpBYucpA7QZYt0mdF2VORpEjuMqGm2UC+EVdd3VKJa14VIttlo
- FYzA==
+ :reply-to; bh=5mBwNaS+N09jQ7vb9rTgiq0CfSJO3DJXgU4YGfNreNo=;
+ b=IPR5BAHaNRTbjmYS9MoFVrkuTuqwiMgaGRoR8xn4CP3gm5CndBIB8EGOAISwhBPHf1
+ OqHoyDUQJQKRLF92NTxMaihufJr6cU3nIyTLxL8odlqbLUm21VQkFZbP2+lwAVqSUXeQ
+ puQxj4taycKQvuM/IrdY6isyasJJHmIPjNirxydMF7zJOhVEDXzJiSpyA6uRIIN2zRxR
+ vy2nYcmPY8m0K+4lLn6o9AS+r12WFxnjgD4vQV2+h6uZ66MsBUVof/PQWFhlEIKBu34j
+ z0WGSiHqZUCMGTTp4QjZ4O6JAOWZMBWIeIyO3ejXBZ5TxaLM4UHGL2manVr5Rm4Mzp+I
+ dc6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745483746; x=1746088546;
+ d=1e100.net; s=20230601; t=1745483747; x=1746088547;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=n7xB0NSx1H7vCCe+l6ESBPVP9pl7qaey136eLZ31dwo=;
- b=m1dEVU/HY57Bk2Qhi/hiF8b/AsYhlSzfkTYbx0BDHWxFPUMB7DUU5YaLUoOXzN8Kkd
- ZHKaTv3Zu4yrLrguEBV/QcxWq3Oqf635Mn/Ym2VT1QnjiElIg8yTiPfwY545nHoPLkjV
- tNDf/m3+cqNMH2aKC6wvdIVZLETGnZzeWieFXgdbJrpnjGJx0vdklm9QJowASyUrItWE
- UJ8pn3H0y4bFk+ajHlDtiqq/RmzGJlrkAcstUJPbOERHRNqrmiKbecf4VNBlVjJ2AN28
- FcgvdoF9dmKOT8/kSVtH169g2/A/EEc3S4Sl3DBsXF0MOLh+V8AYaX3IWl6RBsm+VXGd
- d9yw==
+ bh=5mBwNaS+N09jQ7vb9rTgiq0CfSJO3DJXgU4YGfNreNo=;
+ b=BWX9vS6EyEa+AdUCMgF4KodQ2b4so9JNpkBQXqEba0meCkonr/iL5IFLmQDDYR259m
+ Dy2mQb6ld3MDpHdrNGmvL4DPpRord9dKMqs8AmTRNxuw/VBpVGOI4QtZfXzBUvSQEL3G
+ IY34BurZp/EOYL4zmIJd8eMoEao/Q8K491QAF+M/MzybWLfCQ6K/nC6Jhu3+Jb1adR5j
+ OPRlpxtVw3hEyB4K8/OMEN/A2W009JHPzhGNnXvpfV5j3vorW+8rU1+zwlkW+8EtR/4n
+ fHilEmOyqPSv/BsyLv1aIDWNH+LqQQ6PnleHCiqUV8os06xVEHVbFt/8pAnHzLNLzDPo
+ 34BA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoxHunsW8tlDjjVOMUTGnzgtFHXesISd8bBmTs0nmkkYih3xwzZWQd0C8rWvY3Y9LT5RS7uFcKwtcroQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx38WWi/HycEFBwgu4En8+Nmw8CVK7H+qQ+GkqDw5e3X4AvqXFa
- /yLLU5aEr1z1tGtSJbJbhmu9DS6RDyDHouIlhaAKiEu0m6TzRA9/l3GCyCUNDio=
-X-Gm-Gg: ASbGncu476Cox444o2GQREAu18w5azi1CZANOE7Nf5BpufwyAtLab2/pakFVbmzogRe
- cnodYXfUHUjG7Ncfxwb3IyXWBVoeXva/925lzjAA2ePKNOqookKV0DlMCCxsp+SsynwNQzkLjse
- KuITSSHbb/knz9YC3Tb+AOO+ph3gBTH0iuTYaT+FqNEa4UGEZLOrmp0GCQr62WovloEmCkUPMvL
- nbB2HAg2cp+RVWIk1Ip7t1u76g9aQX50kv+iapQvepwus20ezZ/t6XQ3zgRDKyHB4mhvUvy4vB2
- Or/cRvn99+G4R4KQNu1L8kFfnM/DnmyYC0Sn0y3jqSig
-X-Google-Smtp-Source: AGHT+IFSD6M5XIauG5i+d/G86hFhT7OFRGq6PzYxSsoMAu4S54uAZ/T5Wwmoogoet09ubvq4IMvYRA==
-X-Received: by 2002:a05:6000:40d9:b0:39c:1257:ccb0 with SMTP id
- ffacd0b85a97d-3a06cfc5660mr1453719f8f.59.1745483746115; 
- Thu, 24 Apr 2025 01:35:46 -0700 (PDT)
+ AJvYcCWfQ8w6qWtri4WLImybA/d+00FiLtpWfrjNa52oy958BrZB5lF8cTiEbH15rDYvhGtC4mFdqRtlvNgMKg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy/tdBtNTaX6nh4csyWJdNfOYkvIt21gn/hiIa9wYytN1Sq6Kft
+ 7I6bWqmtRYXp/6mJrKyyW97Kel/V5Esd/3x71uh9oaHeBc336bLYyKfmubJabpc=
+X-Gm-Gg: ASbGncsj626ADOHyFVs0svdWbFzST0W9hlUmv1rl8b0g/wGhLDvE+uW1M867cA5RrmQ
+ aKF92UqGw9OT1jd7zLRrO8Jt3PBFyHUe0hZru2GYiGChpraUCNGJZD1TEca8L8z2ojZvOv63pV2
+ Q2M/Mx/REqPAUOA+p8BV/1W8PwsivtesXC4HYupBKoJbprbb9orUL7au5MPKt+k33CvPNz4gp4F
+ 7ND3dNMv2GXorUuS8QvWdsqqSG0Vfi4w6ieSyMGZyvHyA+RSHv+SGpslHeEt1EhbeNoLe4WVnpQ
+ 234N0vqIztoA/OKdHqggVbkOxDVqc4TF2A==
+X-Google-Smtp-Source: AGHT+IFa84choTa1mcCVuQGvjjgEmdRH9HlvyIG+7lrhNevStMTJlm/OytKRYpi+e4zX9vxoz/GHOQ==
+X-Received: by 2002:a05:6000:40de:b0:391:9b2:f48d with SMTP id
+ ffacd0b85a97d-3a06cf62a28mr1355792f8f.33.1745483747375; 
+ Thu, 24 Apr 2025 01:35:47 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:6266:7750:57ce:7cb4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d54ee11sm1295376f8f.97.2025.04.24.01.35.44
+ ffacd0b85a97d-3a06d54ee11sm1295376f8f.97.2025.04.24.01.35.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Apr 2025 01:35:45 -0700 (PDT)
+ Thu, 24 Apr 2025 01:35:47 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Thu, 24 Apr 2025 10:35:25 +0200
+Date: Thu, 24 Apr 2025 10:35:26 +0200
 MIME-Version: 1.0
-Message-Id: <20250424-gpiochip-set-rv-pinctrl-part2-v1-2-504f91120b99@linaro.org>
+Message-Id: <20250424-gpiochip-set-rv-pinctrl-part2-v1-3-504f91120b99@linaro.org>
 References: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
 In-Reply-To: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
 To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
@@ -87,21 +87,21 @@ To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>, 
  Alim Akhtar <alim.akhtar@samsung.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2498;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2157;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=MgZVjd8Gr19iJhQk6NvM15O47jgqGqaBw/RcQkb1G5I=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoCffbYYgK3T3LpUSxYaTlg1RQUUtOaeq8+GZ/u
- B4TY1aYiK6JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaAn32wAKCRARpy6gFHHX
- cvwwD/40PM8MvPIIjKYdoBuWnigqXm5J9mOEAwo0IpSBLk+1NrZtxCDfCUtfG8qnkKxEdr1VqG4
- 6mrNRSEHCZifkUpZsd9j1/qqvkSUckanWm+w39DVs4zsSka65n9Bs7dnA1+SGrLrp+/n9+P9MtA
- lM34+iNO1T+9KusL6PqVvKAu6DGfaqw0bjecp2sfpta2zPtHwxq5lXFxGkHaVkPW3j242bQVJMo
- OxU8NDepqb+WL0fZbMQ5rqRKhws/pmHzh0pc5fdiELlPOWlqNBOETuyxmgi82zYE16/chG6xgPg
- 216JJsncREoy4zCWFVBbrBbv9L02v3bDLnPh1zhIKESQaoINtG8bkwtev6qRPVd+uStU/2JCH1h
- f/3D4RxLWdmhByFfRbHoUjmxn3VBuJUSKbeUzyaGHvZVssXog9TpvfZNQRiD8Nkuywe92KjurAL
- x4uNTJbbQg2fqiGNI/E4uyxLmL6I36TMhM4sdLblDwJOg+3+tre10Bw+4Q4tLTdpFA8bKBEGGIy
- Dt7XbALdrhuOWIk+0uCG26vCYBKMQ1+0mx1U0lFdEYq41NBloLCpS8vfdFqZJHUAvS1fmmQxdhM
- YEp5REgnyY8mU7MnN+hxKUIp8gS/se+notLxKNO4OGMY/MQYx0CS6yrgP/3P85WACR2SXZyoMLs
- 4yNJiAOsNG12c6A==
+ bh=goHZgmT9yJTYnSgX1qwQQpFML/4BhFXlFKBeDD9aKZQ=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoCffbdnAxPhaJKaJSps/EzFiEC45gufsQ1Alt4
+ qq09XNXIk+JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaAn32wAKCRARpy6gFHHX
+ cpC1EACk2t+HP6KYD9aJArx7fiGflDxgI1WbKJ6Fu14huQEvp7PuA5rPYehuFCH1Gk1QDZiNYCb
+ hIqrsmivpsIMWt+466di/ih3PbJOoGk4rjDVWe2Qf0sqY2SSyk0oYMixfztP1SI70MxCaZAZCLG
+ n7XU0j057krrx++3YTvqGY/wnGgasSZa+2xJrVPjtXCUskF7RzNG9UwabQwmLqR8bDl5s4OhV3F
+ 3tRo+1yN0XGFQ8j6AaSdu6FNQb6oINHNc51H1E7lINc6F8spGhgrPT5nm19hEt9+dv1AbIdyz30
+ ttnBRghwa8jedtnbv7JtAgxm+xLqAUP1sRY9LmzRwIyiLPRA4stunNuD6uwOACJ+/vpVNT+h4C9
+ kyZR3CgLau/uY40HKqBG8k83ViWJUOjusAidOeRoRBpxFSIXmMS9lP5jvdCW4mAmJoriymxiqrw
+ a2APMc8TgoRAfpGJrXESk3Aj7DtBi2C0zeGD3qy9AVg65EJGerWP4D3+k37dDmU0qg/mw/ko3hh
+ UTJ5C5+MiWj3lpqSlJrjKy2i+M0aq/dhVoeVdOG14BHS5bxsGyvl4D9LXYKos209SoLTEAWYVNR
+ uYrXEShrPRGrtwapj/uZelp+xH24b9FTbitop+uLfFc4Si5GX8BfmJMnx7Wa24U0daHwd82lz8D
+ KvP3120WxRcM19A==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: linux-samsung-soc@vger.kernel.org,
@@ -109,8 +109,8 @@ Cc: linux-samsung-soc@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-mips@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 02/12] pinctrl: axp209: use new GPIO line
- value setter callbacks
+Subject: [Linux-stm32] [PATCH 03/12] pinctrl: stmfx: use new GPIO line value
+ setter callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,69 +135,53 @@ them.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/pinctrl/pinctrl-axp209.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+ drivers/pinctrl/pinctrl-stmfx.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-axp209.c b/drivers/pinctrl/pinctrl-axp209.c
-index 2b4805e74eed..28ff846d263a 100644
---- a/drivers/pinctrl/pinctrl-axp209.c
-+++ b/drivers/pinctrl/pinctrl-axp209.c
-@@ -192,34 +192,31 @@ static int axp20x_gpio_get_direction(struct gpio_chip *chip,
- static int axp20x_gpio_output(struct gpio_chip *chip, unsigned int offset,
- 			      int value)
- {
--	chip->set(chip, offset, value);
--
--	return 0;
-+	return chip->set_rv(chip, offset, value);
+diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+index aae01120dc52..f4fdcaa043e6 100644
+--- a/drivers/pinctrl/pinctrl-stmfx.c
++++ b/drivers/pinctrl/pinctrl-stmfx.c
+@@ -115,14 +115,14 @@ static int stmfx_gpio_get(struct gpio_chip *gc, unsigned int offset)
+ 	return ret ? ret : !!(value & mask);
  }
  
--static void axp20x_gpio_set(struct gpio_chip *chip, unsigned int offset,
--			    int value)
-+static int axp20x_gpio_set(struct gpio_chip *chip, unsigned int offset,
-+			   int value)
+-static void stmfx_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
++static int stmfx_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
  {
- 	struct axp20x_pctl *pctl = gpiochip_get_data(chip);
- 	int reg;
+ 	struct stmfx_pinctrl *pctl = gpiochip_get_data(gc);
+ 	u32 reg = value ? STMFX_REG_GPO_SET : STMFX_REG_GPO_CLR;
+ 	u32 mask = get_mask(offset);
  
- 	/* AXP209 has GPIO3 status sharing the settings register */
- 	if (offset == 3) {
--		regmap_update_bits(pctl->regmap, AXP20X_GPIO3_CTRL,
--				   AXP20X_GPIO3_FUNCTIONS,
--				   value ? AXP20X_GPIO3_FUNCTION_OUT_HIGH :
--				   AXP20X_GPIO3_FUNCTION_OUT_LOW);
--		return;
-+		return regmap_update_bits(pctl->regmap, AXP20X_GPIO3_CTRL,
-+					  AXP20X_GPIO3_FUNCTIONS,
-+					  value ?
-+						AXP20X_GPIO3_FUNCTION_OUT_HIGH :
-+						AXP20X_GPIO3_FUNCTION_OUT_LOW);
- 	}
- 
- 	reg = axp20x_gpio_get_reg(offset);
- 	if (reg < 0)
--		return;
-+		return reg;
- 
--	regmap_update_bits(pctl->regmap, reg,
--			   AXP20X_GPIO_FUNCTIONS,
--			   value ? AXP20X_GPIO_FUNCTION_OUT_HIGH :
--			   AXP20X_GPIO_FUNCTION_OUT_LOW);
-+	return regmap_update_bits(pctl->regmap, reg, AXP20X_GPIO_FUNCTIONS,
-+				  value ? AXP20X_GPIO_FUNCTION_OUT_HIGH :
-+					  AXP20X_GPIO_FUNCTION_OUT_LOW);
+-	regmap_write_bits(pctl->stmfx->map, reg + get_reg(offset),
+-			  mask, mask);
++	return regmap_write_bits(pctl->stmfx->map, reg + get_reg(offset),
++				 mask, mask);
  }
  
- static int axp20x_pmx_set(struct pinctrl_dev *pctldev, unsigned int offset,
-@@ -468,7 +465,7 @@ static int axp20x_pctl_probe(struct platform_device *pdev)
- 	pctl->chip.owner		= THIS_MODULE;
- 	pctl->chip.get			= axp20x_gpio_get;
- 	pctl->chip.get_direction	= axp20x_gpio_get_direction;
--	pctl->chip.set			= axp20x_gpio_set;
-+	pctl->chip.set_rv		= axp20x_gpio_set;
- 	pctl->chip.direction_input	= pinctrl_gpio_direction_input;
- 	pctl->chip.direction_output	= axp20x_gpio_output;
+ static int stmfx_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
+@@ -161,8 +161,11 @@ static int stmfx_gpio_direction_output(struct gpio_chip *gc,
+ 	struct stmfx_pinctrl *pctl = gpiochip_get_data(gc);
+ 	u32 reg = STMFX_REG_GPIO_DIR + get_reg(offset);
+ 	u32 mask = get_mask(offset);
++	int ret;
  
+-	stmfx_gpio_set(gc, offset, value);
++	ret = stmfx_gpio_set(gc, offset, value);
++	if (ret)
++		return ret;
+ 
+ 	return regmap_write_bits(pctl->stmfx->map, reg, mask, mask);
+ }
+@@ -694,7 +697,7 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
+ 	pctl->gpio_chip.direction_input = stmfx_gpio_direction_input;
+ 	pctl->gpio_chip.direction_output = stmfx_gpio_direction_output;
+ 	pctl->gpio_chip.get = stmfx_gpio_get;
+-	pctl->gpio_chip.set = stmfx_gpio_set;
++	pctl->gpio_chip.set_rv = stmfx_gpio_set;
+ 	pctl->gpio_chip.set_config = gpiochip_generic_config;
+ 	pctl->gpio_chip.base = -1;
+ 	pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
 
 -- 
 2.45.2
