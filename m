@@ -2,79 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D4BA9B058
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 16:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB31A9B19F
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 17:05:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFD05C78F68;
-	Thu, 24 Apr 2025 14:14:34 +0000 (UTC)
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D10E0C78F68;
+	Thu, 24 Apr 2025 15:05:04 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51A15C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94279C7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 14:14:33 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-310447fe59aso13668261fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 07:14:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1745504072; x=1746108872;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=DIIOezRQ1iEeyh6wP7pxRulzkeF5lSrui5rZPEB2VUc=;
- b=aA76nb/OsJ75eD/DGMqir2sPslNfBeQBdx0jbUsq9x8Y6UoSYCbZDcwSM2uSxd4TGG
- NxXX+FVUuiET20iiI+ANzFa12lOs0mR5i4YuNGBLFHij4MNVcZWMoA3MRdomnuvP8Vu4
- yxkCocSYlD3AfMwYakiEoHBZQKKRtFt4D5cuakusuRo6J6ktcfsy3UCbvuT54l5+P63z
- Pf18dZKu/JFxOtVYVeuhOFCdShh699aFDHWRVPq51zfX7GF7NkHzRjdVBsh6n4ZoANDm
- W5CYXoTuRie5Kz8x/1SKjxbejnGnkhfOG3DHWP6uNEzdu0qNt3UPRDXXGFVc33FaMa2t
- I4Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745504072; x=1746108872;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DIIOezRQ1iEeyh6wP7pxRulzkeF5lSrui5rZPEB2VUc=;
- b=f1cVAc9tVUjHy3H+CRYgC3aZod2FvAYYhx1KF2zQ48ceoInSDJ1t7iRBDVrdU+bf0N
- x/aKfxPsvaxTqenmRKXgEDUnI9aHH2TYS1Ie5HmUcEbTY383lPZxfGgpW//TKpJQyUc1
- kYN1b+b2VmVDLyVH7nUa08751ubv3hrMsX2iX9ZkTGuRli0xgLo+93gvWB5ToXhn9UHy
- bowZbhbjXKRowrP8rOu7WQPRdKeYvtEZ2+aGLmc9TjGVhjexSjmZ/ozCD3oNnYv2IqCx
- UCGHRB8/91Px68RENAACudbbydTLmOppygrHodQcgIfwMuGvlbavFusbN3Y/Kt/iPeZB
- 9C3g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX+ZiSJ7Ku/39znTznRblbyRfzjt9EMSuxLC+az1IZyR9pUK/1dhcqwSMtpmeW6FghuCCWdexW2sT2Dpg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwPdu9WJCqz6/kLXoxaX27BBqRdwCMA034EJNqj7n2jtJd0t83d
- 1O5ivigs5N2eWKKJPki1QEaG45qMF4sV7NzRa5lVrh6V0gm4Cs60VyrsHV+j/3iilQcK4bP/oPp
- zSfxDDIIn4l0b7wWb3r+Im1duWdzEhfeW6HuxQQ==
-X-Gm-Gg: ASbGnctNsM548uaH2MAHwJnTakVlJoIRLHIrYP3g0ulrq8LPljztv+R0aGKDOJ9Txcv
- 47SEw7S0KvBe6qTEV3p2HWS2RC3zvkvbkcdsslBY8n9HCi+LCFOzrVlahIyTLLgU6uAbeuh4yAl
- /wWN7ugeeEqiCiGdoSqYQKG7RprRyXOSA3KCrW/5AXqWOi0CAwCKNw1vLe
-X-Google-Smtp-Source: AGHT+IGTSgfmE4C9KUY01cBQCa6U+zujjBr3JQn5JFHu87otSRTtbM+9TibC6Ub/YfaplbG5HQdBpJHJtYPG69/HM40=
-X-Received: by 2002:a05:651c:885:b0:30d:e104:cd56 with SMTP id
- 38308e7fff4ca-3179ffc1202mr10727731fa.39.1745504072212; Thu, 24 Apr 2025
- 07:14:32 -0700 (PDT)
+ Thu, 24 Apr 2025 15:05:03 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53OBPMk1019163;
+ Thu, 24 Apr 2025 17:04:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ EbzdNbMuPcQgyg/32v679V2kcITSnqgFdSJKF+onCu4=; b=bGNZrkbgM7hP0A4d
+ 0huWCtfENxlTtZ2hD9QWgmb98DIFXK5fBmBupMzY6axYs0FrA/0LWmfz0WhsStka
+ AUXFj0pYsKuCM2wNw3Noz8aYCKXGStw8mUCIHn1PU8SS3MuLYegugGWwOdnCglQS
+ so57zD+/Q1kPH+lUcNiN2fR6/+s7xU5O1AjiWYlDUID34TOZerwOJJCOsxm/73wD
+ AKWfN54uWLHEgaWECt+7UHmgOfzc5a9lH3nXnAz3hT37RZh9W27f0QUDHzBg/F3h
+ 2H+eskpgY2tz9SOoLS7XLLDm437GAqrqDrmqZ4wiJvlEm8NsT0+VsUGPYke1l5R3
+ kW1R0Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 466jjvg1q7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Apr 2025 17:04:21 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7BB1040046;
+ Thu, 24 Apr 2025 17:01:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A4E6D9C40B5;
+ Thu, 24 Apr 2025 16:59:49 +0200 (CEST)
+Received: from [10.48.86.196] (10.48.86.196) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Apr
+ 2025 16:59:48 +0200
+Message-ID: <fe3323d0-161c-498d-92e8-7a723f8d9780@foss.st.com>
+Date: Thu, 24 Apr 2025 16:59:47 +0200
 MIME-Version: 1.0
-References: <20250423-dt-memory-region-v2-v2-0-2fbd6ebd3c88@kernel.org>
-In-Reply-To: <20250423-dt-memory-region-v2-v2-0-2fbd6ebd3c88@kernel.org>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Thu, 24 Apr 2025 08:14:20 -0600
-X-Gm-Features: ATxdqUEG7UgU0b-fYJDsj-X6YeibPATP71Sc8xsrfndaXkHmANCAN6IFo1WtuOI
-Message-ID: <CANLsYkxKHhCHYrbAGzQ48QGpL_DbuLnX3=ppmpyu0vjuuvvODg@mail.gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Daniel Baluta <daniel.baluta@nxp.com>, Iuliana Prodan <iuliana.prodan@nxp.com>,
- "Andrew F. Davis" <afd@ti.com>, "Shah, Tanmay" <tanmay.shah@amd.com>
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Saravana Kannan <saravanak@google.com>, imx@lists.linux.dev,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Chen-Yu Tsai <wens@kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/4] of: Common "memory-region" parsing
+User-Agent: Mozilla Thunderbird
+To: Bartosz Golaszewski <brgl@bgdev.pl>, Basavaraj Natikar
+ <Basavaraj.Natikar@amd.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, =?UTF-8?Q?Andreas_F=C3=A4rber?=
+ <afaerber@suse.de>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>, Steen Hegelund
+ <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ <UNGLinuxDriver@microchip.com>, Ludovic Desroches
+ <ludovic.desroches@microchip.com>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Alim Akhtar
+ <alim.akhtar@samsung.com>
+References: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
+ <20250424-gpiochip-set-rv-pinctrl-part2-v1-3-504f91120b99@linaro.org>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <20250424-gpiochip-set-rv-pinctrl-part2-v1-3-504f91120b99@linaro.org>
+X-Originating-IP: [10.48.86.196]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-24_06,2025-04-24_01,2025-02-21_01
+Cc: linux-samsung-soc@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 03/12] pinctrl: stmfx: use new GPIO line
+ value setter callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,77 +94,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Arnaud, Daniel, Iuliana, Andrew and Tanmay - please test this patchset
-on the platforms you are working on.
 
-Thanks,
-Mathieu
 
-On Wed, 23 Apr 2025 at 13:42, Rob Herring (Arm) <robh@kernel.org> wrote:
->
-> While there's a common function to parse "memory-region" properties for
-> DMA pool regions, there's not anything for driver private regions. As a
-> result, drivers have resorted to parsing "memory-region" properties
-> themselves repeating the same pattern over and over. To fix this, this
-> series adds 2 functions to handle those cases:
-> of_reserved_mem_region_to_resource() and of_reserved_mem_region_count().
->
-> I've converted the whole tree, but just including remoteproc here as
-> it has the most cases. I intend to apply the first 3 patches for 6.16
-> so the driver conversions can be applied for 6.17.
->
-> A git tree with all the drivers converted is here[1].
->
-> v2:
-> - Fix of_dma_set_restricted_buffer() to maintain behavior on warning msg
-> - Export devm_ioremap_resource_wc()
-> - Rework handling of resource name to drop unit-address from name as it
->   was before.
-> - Link to v1:
->   https://lore.kernel.org/all/20250317232426.952188-1-robh@kernel.org
->
-> [1] git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git dt/memory-region
->
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+On 4/24/25 10:35, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> struct gpio_chip now has callbacks for setting line values that return
+> an integer, allowing to indicate failures. Convert the driver to using
+> them.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+
 > ---
-> Rob Herring (Arm) (4):
->       of: reserved_mem: Add functions to parse "memory-region"
->       of: Simplify of_dma_set_restricted_buffer() to use of_for_each_phandle()
->       devres: Export devm_ioremap_resource_wc()
->       remoteproc: Use of_reserved_mem_region_* functions for "memory-region"
->
->  drivers/of/device.c                       | 31 +++++-------
->  drivers/of/of_reserved_mem.c              | 80 +++++++++++++++++++++++++++++++
->  drivers/remoteproc/imx_dsp_rproc.c        | 45 +++++++----------
->  drivers/remoteproc/imx_rproc.c            | 68 +++++++++++---------------
->  drivers/remoteproc/qcom_q6v5_adsp.c       | 24 ++++------
->  drivers/remoteproc/qcom_q6v5_mss.c        | 60 ++++++++---------------
->  drivers/remoteproc/qcom_q6v5_pas.c        | 69 ++++++++++----------------
->  drivers/remoteproc/qcom_q6v5_wcss.c       | 25 ++++------
->  drivers/remoteproc/qcom_wcnss.c           | 23 ++++-----
->  drivers/remoteproc/rcar_rproc.c           | 36 ++++++--------
->  drivers/remoteproc/st_remoteproc.c        | 41 ++++++++--------
->  drivers/remoteproc/stm32_rproc.c          | 44 ++++++++---------
->  drivers/remoteproc/ti_k3_dsp_remoteproc.c | 28 +++++------
->  drivers/remoteproc/ti_k3_m4_remoteproc.c  | 28 +++++------
->  drivers/remoteproc/ti_k3_r5_remoteproc.c  | 28 +++++------
->  drivers/remoteproc/xlnx_r5_remoteproc.c   | 51 ++++++++------------
->  include/linux/of_reserved_mem.h           | 26 ++++++++++
->  lib/devres.c                              |  1 +
->  18 files changed, 339 insertions(+), 369 deletions(-)
-> ---
-> base-commit: 0af2f6be1b4281385b618cb86ad946eded089ac8
-> change-id: 20250423-dt-memory-region-v2-a2b15caacc63
->
-> Best regards,
-> --
-> Rob Herring (Arm) <robh@kernel.org>
->
+>   drivers/pinctrl/pinctrl-stmfx.c | 13 ++++++++-----
+>   1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+> index aae01120dc52..f4fdcaa043e6 100644
+> --- a/drivers/pinctrl/pinctrl-stmfx.c
+> +++ b/drivers/pinctrl/pinctrl-stmfx.c
+> @@ -115,14 +115,14 @@ static int stmfx_gpio_get(struct gpio_chip *gc, unsigned int offset)
+>   	return ret ? ret : !!(value & mask);
+>   }
+>   
+> -static void stmfx_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
+> +static int stmfx_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
+>   {
+>   	struct stmfx_pinctrl *pctl = gpiochip_get_data(gc);
+>   	u32 reg = value ? STMFX_REG_GPO_SET : STMFX_REG_GPO_CLR;
+>   	u32 mask = get_mask(offset);
+>   
+> -	regmap_write_bits(pctl->stmfx->map, reg + get_reg(offset),
+> -			  mask, mask);
+> +	return regmap_write_bits(pctl->stmfx->map, reg + get_reg(offset),
+> +				 mask, mask);
+>   }
+>   
+>   static int stmfx_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
+> @@ -161,8 +161,11 @@ static int stmfx_gpio_direction_output(struct gpio_chip *gc,
+>   	struct stmfx_pinctrl *pctl = gpiochip_get_data(gc);
+>   	u32 reg = STMFX_REG_GPIO_DIR + get_reg(offset);
+>   	u32 mask = get_mask(offset);
+> +	int ret;
+>   
+> -	stmfx_gpio_set(gc, offset, value);
+> +	ret = stmfx_gpio_set(gc, offset, value);
+> +	if (ret)
+> +		return ret;
+>   
+>   	return regmap_write_bits(pctl->stmfx->map, reg, mask, mask);
+>   }
+> @@ -694,7 +697,7 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
+>   	pctl->gpio_chip.direction_input = stmfx_gpio_direction_input;
+>   	pctl->gpio_chip.direction_output = stmfx_gpio_direction_output;
+>   	pctl->gpio_chip.get = stmfx_gpio_get;
+> -	pctl->gpio_chip.set = stmfx_gpio_set;
+> +	pctl->gpio_chip.set_rv = stmfx_gpio_set;
+>   	pctl->gpio_chip.set_config = gpiochip_generic_config;
+>   	pctl->gpio_chip.base = -1;
+>   	pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
