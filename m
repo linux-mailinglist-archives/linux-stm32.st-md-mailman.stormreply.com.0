@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ED8AA9B732
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 21:00:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D585A9B735
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 21:00:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 279AFC78F70;
-	Thu, 24 Apr 2025 19:00:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33D1DC78F70;
+	Thu, 24 Apr 2025 19:00:38 +0000 (UTC)
 Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
  [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72F42C78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94284C78F68
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Apr 2025 19:00:36 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5EA074439D;
  Thu, 24 Apr 2025 19:00:33 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id F1CFB43B6C;
- Thu, 24 Apr 2025 19:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745521233;
+ t=1745521236;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bLDy713DSCSiEtaJQVHhalrNIkPHI1Ti+irjYvcfZ5Q=;
- b=LmOiK4ZQlvdmbILtNnF2ogxqdhXzJw2Watm4lizMc+BuUWbX0/3OBvj8ekiYDftpcJCpHw
- GVR9yRhrSaftSWBuTDQwZbucV4Oy7OaTAcbT7GF+8WVtduuy+gnJMn8z36P8fZQyW02Oc/
- rqS9ZuWwhh27IVcuyBchfAsNJI1Ff4zo+jVPC2V7jkNDcT2+cADtC6O/j68JrFdQztugUo
- WzGTRvdMx2vyCUG6gpoAjKzQT3d3f8F+0SNhhfS7JQcHOf0LykOuIwEzhCbw8tdZw/Png4
- itre8LrsVpvGm2mpMIJCEMMdSf98DOahvlxZfmnbZTh1dFaNySMibh9CeE+hdQ==
+ bh=4BQLiRh/RZfWcS10lQgNxsXJ+tOrm6WIeF/3AUc4G/c=;
+ b=agC3fZ8uSSGeDqMAmhZmRsbd7oBzZI0fV9O3uaZaPNcGaNpWMjLCwZK2s+c3DtPCfu6GLr
+ z1sT+5+8LbXH/gob7nO6IwF+nWgNM77NZfrzU8Agg8YHfcfRhKVr92ZpB0DhpUg0hdOqJC
+ EcQFTHUSxDSKk6MjbOPUzwy/M4kp7t/fLy/SOyJCF7FZrNdDoZPcz28ihrsfCFAfs03Lci
+ EpxHWgTDu0cU6X3wE3CE1/MrWPkLCVub2kWgIcPjxh/dmRzoUYT4avMqmFB52/kH2YNotG
+ EJvNQbWuA5Tn/kx4ZCHXCl8wmg9RTjz91K+0GVJfKb5OBuKmTKRqXRGc8ftRFQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 24 Apr 2025 20:59:26 +0200
+Date: Thu, 24 Apr 2025 20:59:27 +0200
 MIME-Version: 1.0
-Message-Id: <20250424-drm-bridge-convert-to-alloc-api-v2-19-8f91a404d86b@bootlin.com>
+Message-Id: <20250424-drm-bridge-convert-to-alloc-api-v2-20-8f91a404d86b@bootlin.com>
 References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
 In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,24 +51,22 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 X-Mailer: b4 0.14.2
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegrgeeivdemudgsuggumeeluddtudemvdelgehfnecuvehluhhsthgvrhfuihiivgepudeinecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemrgegiedvmedusgguugemledutddumedvleegfhdphhgvlhhopegludelvddrudeikedrudejkedruddukegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgeefpdhrtghpthhtohepkhhriihksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhgrghgrnhesrghmrghruhhlrghsohhluhhtihhonhhsrdgtohhmpdhrt
- ghpthhtohepihhmgieslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehrohgshheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhgrrghrthgvnhdrlhgrnhhkhhhorhhstheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopefnrghurhgvnhhtrdhpihhntghhrghrthesihguvggrshhonhgsohgrrhgurdgtohhmpdhrtghpthhtoheplhhinhhugidqmhgvughirghtvghksehlihhsthhsrdhinhhfrhgruggvrggurdhorhhg
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegrgeeivdemudgsuggumeeluddtudemvdelgehfnecuvehluhhsthgvrhfuihiivgepudeinecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemrgegiedvmedusgguugemledutddumedvleegfhdphhgvlhhopegludelvddrudeikedrudejkedruddukegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedtpdhrtghpthhtohepkhhriihksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhgrghgrnhesrghmrghruhhlrghsohhluhhtihhonhhsrdgtohhmpdhrt
+ ghpthhtohepihhmgieslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepnfgruhhrvghnthdrphhinhgthhgrrhhtsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehfrhgvvggurhgvnhhosehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev, Anusha Srivatsa <asrivats@redhat.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
+Cc: chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ Dmitry Baryshkov <lumag@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ linux-arm-msm@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, asahi@lists.linux.dev,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Rob Herring \(Arm\)" <robh@kernel.org>, linux-samsung-soc@vger.kernel.org,
- Helge Deller <deller@gmx.de>, Paul Kocialkowski <paulk@sys-base.io>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, chrome-platform@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- asahi@lists.linux.dev, freedreno@lists.freedesktop.org
-Subject: [Linux-stm32] [PATCH v2 19/34] drm/omap: dss: dpi: convert to
+ freedreno@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [Linux-stm32] [PATCH v2 20/34] drm/omap: dss: dsi: convert to
  devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -92,39 +90,36 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Cc: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/omapdrm/dss/dpi.c | 7 +++----
+ drivers/gpu/drm/omapdrm/dss/dsi.c | 7 +++----
  1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/dpi.c b/drivers/gpu/drm/omapdrm/dss/dpi.c
-index 6eff97a091602f6d137095b3b7bf54fce17e8d3e..9f86db774c395db7e3396cbf2694748fc23c309d 100644
---- a/drivers/gpu/drm/omapdrm/dss/dpi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dpi.c
-@@ -562,7 +562,6 @@ static const struct drm_bridge_funcs dpi_bridge_funcs = {
+diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+index 91ee63bfe0bc73e28877d0383812225867e167a4..b129e5a8d791507098c7b8d1bc54f54c4b453954 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dsi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+@@ -4701,7 +4701,6 @@ static const struct drm_bridge_funcs dsi_bridge_funcs = {
  
- static void dpi_bridge_init(struct dpi_data *dpi)
+ static void dsi_bridge_init(struct dsi_data *dsi)
  {
--	dpi->bridge.funcs = &dpi_bridge_funcs;
- 	dpi->bridge.of_node = dpi->pdev->dev.of_node;
- 	dpi->bridge.type = DRM_MODE_CONNECTOR_DPI;
+-	dsi->bridge.funcs = &dsi_bridge_funcs;
+ 	dsi->bridge.of_node = dsi->host.dev->of_node;
+ 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
  
-@@ -707,9 +706,9 @@ int dpi_init_port(struct dss_device *dss, struct platform_device *pdev,
- 	u32 datalines;
+@@ -4894,9 +4893,9 @@ static int dsi_probe(struct platform_device *pdev)
+ 	unsigned int i;
  	int r;
  
--	dpi = devm_kzalloc(&pdev->dev, sizeof(*dpi), GFP_KERNEL);
--	if (!dpi)
+-	dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
+-	if (!dsi)
 -		return -ENOMEM;
-+	dpi = devm_drm_bridge_alloc(&pdev->dev, struct dpi_data, bridge, &dpi_bridge_funcs);
-+	if (IS_ERR(dpi))
-+		return PTR_ERR(dpi);
++	dsi = devm_drm_bridge_alloc(dev, struct dsi_data, bridge, &dsi_bridge_funcs);
++	if (IS_ERR(dsi))
++		return PTR_ERR(dsi);
  
- 	ep = of_graph_get_next_port_endpoint(port, NULL);
- 	if (!ep)
+ 	dsi->dev = dev;
+ 	dev_set_drvdata(dev, dsi);
 
 -- 
 2.49.0
