@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A2C0A9A611
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 10:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84769A9A612
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 10:36:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23424C78F72;
-	Thu, 24 Apr 2025 08:36:01 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 469BDC78F7B;
+	Thu, 24 Apr 2025 08:36:02 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A963C78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBE37C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 08:35:59 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-39c1efc457bso475473f8f.2
+ Thu, 24 Apr 2025 08:36:00 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so6378965e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 01:35:59 -0700 (PDT)
+ Thu, 24 Apr 2025 01:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1745483759; x=1746088559;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1745483760; x=1746088560;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=U3C7VrvxYzsauY2O9fqA6TSLZH9busDLcB5oYAodWvc=;
- b=DUTqkdpg9mkZxhQMnP9+tQbgRnfhdyA12Uoau0kz7j9i1/H49rJAoRla+xiwgywGKA
- P6c+ueA14sTtkg1F8T5vUH57c2yJ8YDIYiibojIPe968wzqtfeEhUKURys92zhJ6n06t
- OPRXpqpiYza2imIw93pJbAW98CFFuOsYxtmzQg9JN5e+J804+AeryF0bKWztedlEifbK
- DvEXuElkaMraIvwoAEgnDISEWMp2Y4YHzuf81XxGfSx/THItJQHCM1BLjCTGz17fSAsS
- 31eI+ac6znkz/pT5VFX7hm78kLNHrA00BiQOGEmPkVkUUZBvmvdOq48lSdRq1Hheon35
- oF9g==
+ :reply-to; bh=wyD1ibYwZZNQjABTauO+kWeZmIcgNLsOAbjC6l1tSrA=;
+ b=T4mfvo4NAIMg9cp5lEPG17kDDQJxNTjIv8yMklaSxYoOGPjwpXLUmB3+x6/jkLXj/C
+ PUJZ4evx9ujWBkgZnASk/aOMI5vp4jXPAtkFmJ4CkH85RlTMbomW8imVAAaXhpQaxSG/
+ vc2i/7Lrhi0HvvSowJA7A/dg2LKon4kCAgEdiC0rXy3GSlxbdqXQBm74CriQp9RRqIMr
+ Au4BReiHjiBk3HqcY4yaomvtt93F22NNCDs30WdMZ//Or0y5yatAeEXtHr0nFuy6FrtV
+ L+7ILkm/PVoVwQe2kTQ9b7pwH053rV5zkhUl4QBShgzuKs38IVhZ54T240u39HROqfr2
+ lpGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745483759; x=1746088559;
+ d=1e100.net; s=20230601; t=1745483760; x=1746088560;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=U3C7VrvxYzsauY2O9fqA6TSLZH9busDLcB5oYAodWvc=;
- b=J104BYjATCEKPJ4XArmiAtLbwFqxOO5x2EpeYQcYaR4AZSdmTh4w0fnpIfQayEORbn
- a228hXLrWqEnOMg85y2qnaJ+/0IHqrxyjhM+4V06312GEpexwKTf99umlIW602dNStQh
- hZqoFIpx6Ej3gugXWoMYrOSvvQTefh2jpSxMnxuzkGhmNYuDa6sKnef75tOTEWJuntCB
- byjINrgw76/wX3wqUPetHT9jZDYZzytS9ngwqibWlfA1SNMqp7UhMJSIGAZB2NKqyxeM
- tnHZWo+eoL3yXx9xx2zNBTeDabtgOJVFpyr+5YYb47pPRmIAojO4yd/sGRG3/vxub7tb
- Vs7A==
+ bh=wyD1ibYwZZNQjABTauO+kWeZmIcgNLsOAbjC6l1tSrA=;
+ b=uq97UPWDub8tTIIrM+LyCm9LkfQ8yfVWosvOW8sWM55ZE5qA4k1wkWYMtfqPxdOfaW
+ O9oSSUtvxyGugFbwjOlLss6fB6Q5G2x+7DBuwhyu70N+njE8vSO3ppu3YF4aIwKpj3ec
+ kr5dyFaOP0XwAmm9zOKOGxF/rNQSPTnfFXAxNWcVFG9ZbmLQkgn2Mezel5rq2Zx5gwdR
+ sJMB+Tz7w/avVQsMOd0r+KuUbLz/aVGXu6HyTjnZXgyYIGtlwhWNzCg9r316k/H/DSdr
+ NKhDn0ZUo8aDWipNWUYnfSaa7zjWi3jwe4j4EYcR0YL1wF9HE9BgU7Iqr0ZH0qraMn58
+ lecg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUJxzywOdXOz5QJEGgl1ld5RPjcaBIdvK/PMnve6j4nfMrehZeJGuGElgsh5vz6klB2nKGIDnoIOeDlQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz69pJUrE9jVnk/OJUcl/82pcJekjVOAXioK3A3lxUtiXnQlmZJ
- +6O5oYGw3HL1RCUvrcE2YTDv3MO1BEVobjKfzVR3H8bwVPIyjiTmyCu7XLEaK5w=
-X-Gm-Gg: ASbGncvk2qar2uy5N+VWnhyZipyCzWkWqY+Vfh9GwOvUVVgxjkwEGoxAEWM+gCxwVc8
- EYlf0fbk7gU85UpaWx1u+yFmnSQLO61ChdwxelUogLkE8QSCa2hgaQThVrouRRQZ/cxPr65Zkrj
- RtbJxgrYwzhKWueI8Mu0fkrhIIUdfcXjXk++XA7ut0rV8Nku9gKoPxVTRAecKMV6udYci2EKQ4G
- NAYMlS9ipkj1P5RnXG1NtB/C/h7ImqK5XB5Xo7i/LFJXQLYn4kfwkPIXfeMCsqJv6AShjcZLyiY
- 4tbjRDOGbHnhUGELyGKU1IWTn5ekypxCVA==
-X-Google-Smtp-Source: AGHT+IEnnIBOjrZ99O5uQPy0Nc6YKo1kNCkEEx0ebNFaJGjHPfyJDtyy3I1rgWZXM1I3Le9gFxfXaA==
-X-Received: by 2002:a5d:59ae:0:b0:39b:ede7:8906 with SMTP id
- ffacd0b85a97d-3a06cf54e7bmr1122286f8f.19.1745483758888; 
- Thu, 24 Apr 2025 01:35:58 -0700 (PDT)
+ AJvYcCWbOzj89zwb4wABzpKypBYeonPPKNNv4hFswede8oCaDrf4GZS+xihGM7xvCZxiDmMaDws2REHqd+oi/Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxQsLLP10c+bDVLm+pYQaR6UyZ0n9DI0r0V0jbtVoK73D6HqJps
+ 6B7/rWVpdnMwW9jtpCLWtu2+nvwM3pGE9fJ68UNlcNvgSkjLhPQOa22PK63/oxU=
+X-Gm-Gg: ASbGncvKdGcMBlVCFbZ+EgJcp74v6SxMb0s3897qUQ6NbZ3EelaNb36GBxNVbnjjMVM
+ MP5GB46dzLxHuHBcl1JLHa058IPMxWfewbgv6QH/++hV2fB99DIwDccqisENUuqJueRFDXx5upx
+ g4Y4fuD13GO3stTHWe3a0pk3+tCesh6MVK2MCK2EkqaRLeT9ZLhQJlH+9tTnEmE97nHp5eJzKku
+ IPIPALxicbyuxvGP4sPqNDEuv1is47TWXYFGV1pCZu2IMUr81LiV3ePdOC2/6JGwe3aaClC0QnC
+ gwmm/oljtWM+Fk/xwiL95EDbdLHgyh8ruRu1IU4cVT5s
+X-Google-Smtp-Source: AGHT+IH6QOMYk+VJrhRN0zGGVgIfy1D2k+1MN8UGZUw2MzoHJ3Lm78KvUsSoh9H7JaBXZAa1kpHpxw==
+X-Received: by 2002:a05:600c:1d02:b0:43c:fbbf:7bf1 with SMTP id
+ 5b1f17b1804b1-4409bdb032cmr18240795e9.30.1745483760212; 
+ Thu, 24 Apr 2025 01:36:00 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:6266:7750:57ce:7cb4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d54ee11sm1295376f8f.97.2025.04.24.01.35.57
+ ffacd0b85a97d-3a06d54ee11sm1295376f8f.97.2025.04.24.01.35.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Apr 2025 01:35:58 -0700 (PDT)
+ Thu, 24 Apr 2025 01:35:59 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Thu, 24 Apr 2025 10:35:34 +0200
+Date: Thu, 24 Apr 2025 10:35:35 +0200
 MIME-Version: 1.0
-Message-Id: <20250424-gpiochip-set-rv-pinctrl-part2-v1-11-504f91120b99@linaro.org>
+Message-Id: <20250424-gpiochip-set-rv-pinctrl-part2-v1-12-504f91120b99@linaro.org>
 References: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
 In-Reply-To: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
 To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
@@ -87,21 +87,21 @@ To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>, 
  Alim Akhtar <alim.akhtar@samsung.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1513;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1963;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=/7hnqabmKbj9zc0e1PTeiq5UZq78y4tKE7Nf1Bs7XAU=;
- b=owEBbAKT/ZANAwAKARGnLqAUcddyAcsmYgBoCffdEPoUC5vhPYaWj6u0rywJUatNB6kvhR99k
- aCkmHZ28xGJAjIEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaAn33QAKCRARpy6gFHHX
- csr2D/iydanG4wHydJL1ZFZQ+tndFEOwZ6yd6A+ss+6d7RDHHcSVTn0kZW2keFJAbpl36Zn65RZ
- hnsLpH6KbrmYpJRjL/LHcH/7NbHdwMYuVrZ5UoSGGFXD8Z774KxtDYhszhTtIPa50J+L9zJR8x5
- ar4cVfcl/WBSjqaJMBSkhChbwVJX7m/QYAnSa2Fgq3UzHXvWQrmH8YUrcnShqCqKxohVhrCyJaY
- 8i+qQ3jFFfITwn5dO+lIDMRRSLpoSUvhLA1PnI8JDwRTqurh6h4B9n3YuVxjHSL2kH7HEqVxX4E
- v22xIaAACCrutV1aCSxkP4YZeKsycSdiLdlqsh/tzA+2Ksbf/jILWTgafuZlhOtG48dr0Q/tyG9
- eJ4q20yXNigAl5+nHVnCDoqiZddjxg5Ab6nev7k2iN10EbC2iw05dPmmkIqGfGD8KL+ynn92Rnk
- rz0YmhHxmeEDJnGSnV/FYYSSx+5e9VoVdHw3wmJD0kHAiKeDp2nJaCcbipsdEqgN1C5Bdf4B4JT
- t0XXOiT46X02l1L3OVAp5FKWB+rZDJPmYZeT2P17R13iyZoavCXR4INacZ+6v8l7ijAg4YoX4Rv
- 47sjTr6naGAOt0WWJUf5tdguvd8w8oeFAM4/VScXq3yIge14kHXoBfwJfJl9r6/XPuZIeR2g++w
- SBm4jRS72OnZx
+ bh=eG2KW5x0cqyXDN96Y9D3KPo3rE0JJ5CGRPpl+iXxy5M=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoCffdVG5Ygxdkgp3G4S/J2z4z5Tlan+vD7V30h
+ TZ7h0V/5sqJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaAn33QAKCRARpy6gFHHX
+ cjrUD/4wlY3EyRbxHX7pcMIAP/3DRyfsZNReCKH3ZrZK01gpg0foFUc8R9H0I7tpjEjSAcAY76v
+ HT6Cav5kSBB36HXaJHFnbS5jDeLX1My/AARxYsg4hUeZMPsEdhdyug5NLPV4v9U5qGYyscWQJyQ
+ IwWtL5S1/tZAIxzE73GS7fBnvaLvxdKHbO+ihsBKDN+CICZsABKHeqmX8HC/mpf/Pn3VZDLdxw/
+ v370ttF11vBuDqxQFqucfxlUgG44NsRTH7slXcpLFqsmYFiyQ+60Kr8qtR4uG0wjgcD84YTAWTA
+ jnMOBMJyWoX60aJoqOu+7ntHGuUA7AfUId1TflJw4qGZZhayvH7YZWSFpZChBh+R4GzP2lrJnH1
+ /l3WSICXjyuCbO00KEg0M/ETEdHzDfqcXsC++m0uUp+XVVbx+NvevmZ076l6BhVpake9w8udGP+
+ Y6lwhiWZ8sd+/nec1W16T+R/feEwjS3Uv+zzSP+uImKmEA6Rt/EFeZ0kppvf1XgXTXagAHYRfnq
+ AX4Z1SXHpFfCHXYrPNMxv8w2uM1/eIljOwRAW3Xye5WYWe5bWWR/tmOB8O64R331D1+UTdeTv/x
+ ZuaGKlVB7ySPckXnPWzWBP1UHZQiR7DAHXC2juTTX1w+v4NAGx137CcqLE/rrfEgbdhjBoA9iFy
+ +HWM7daAr7IScLg==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: linux-samsung-soc@vger.kernel.org,
@@ -109,7 +109,7 @@ Cc: linux-samsung-soc@vger.kernel.org,
  linux-actions@lists.infradead.org, linux-mips@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 11/12] pinctrl: pistachio: use new GPIO line
+Subject: [Linux-stm32] [PATCH 12/12] pinctrl: samsung: use new GPIO line
  value setter callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -135,39 +135,53 @@ them.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/pinctrl/pinctrl-pistachio.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/pinctrl/samsung/pinctrl-samsung.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-pistachio.c b/drivers/pinctrl/pinctrl-pistachio.c
-index 8c50e0091b32..e7bf60960961 100644
---- a/drivers/pinctrl/pinctrl-pistachio.c
-+++ b/drivers/pinctrl/pinctrl-pistachio.c
-@@ -1186,12 +1186,14 @@ static int pistachio_gpio_get(struct gpio_chip *chip, unsigned offset)
- 	return !!(gpio_readl(bank, reg) & BIT(offset));
+diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
+index ef557217e173..fe1ac82b9d79 100644
+--- a/drivers/pinctrl/samsung/pinctrl-samsung.c
++++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
+@@ -570,15 +570,18 @@ static void samsung_gpio_set_value(struct gpio_chip *gc,
  }
  
--static void pistachio_gpio_set(struct gpio_chip *chip, unsigned offset,
--			       int value)
-+static int pistachio_gpio_set(struct gpio_chip *chip, unsigned int offset,
-+			      int value)
+ /* gpiolib gpio_set callback function */
+-static void samsung_gpio_set(struct gpio_chip *gc, unsigned offset, int value)
++static int samsung_gpio_set(struct gpio_chip *gc, unsigned int offset,
++			    int value)
  {
- 	struct pistachio_gpio_bank *bank = gpiochip_get_data(chip);
+ 	struct samsung_pin_bank *bank = gpiochip_get_data(gc);
+ 	struct samsung_pinctrl_drv_data *drvdata = bank->drvdata;
+ 	unsigned long flags;
++	int ret;
  
- 	gpio_mask_writel(bank, GPIO_OUTPUT, offset, !!value);
+-	if (clk_enable(drvdata->pclk)) {
++	ret = clk_enable(drvdata->pclk);
++	if (ret) {
+ 		dev_err(drvdata->dev, "failed to enable clock\n");
+-		return;
++		return ret;
+ 	}
+ 
+ 	raw_spin_lock_irqsave(&bank->slock, flags);
+@@ -586,6 +589,8 @@ static void samsung_gpio_set(struct gpio_chip *gc, unsigned offset, int value)
+ 	raw_spin_unlock_irqrestore(&bank->slock, flags);
+ 
+ 	clk_disable(drvdata->pclk);
 +
 +	return 0;
  }
  
- static int pistachio_gpio_direction_input(struct gpio_chip *chip,
-@@ -1326,7 +1328,7 @@ static void pistachio_gpio_irq_handler(struct irq_desc *desc)
- 			.direction_input = pistachio_gpio_direction_input, \
- 			.direction_output = pistachio_gpio_direction_output, \
- 			.get = pistachio_gpio_get,			\
--			.set = pistachio_gpio_set,			\
-+			.set_rv = pistachio_gpio_set,			\
- 			.base = _pin_base,				\
- 			.ngpio = _npins,				\
- 		},							\
+ /* gpiolib gpio_get callback function */
+@@ -1062,7 +1067,7 @@ static int samsung_gpio_set_config(struct gpio_chip *gc, unsigned int offset,
+ static const struct gpio_chip samsung_gpiolib_chip = {
+ 	.request = gpiochip_generic_request,
+ 	.free = gpiochip_generic_free,
+-	.set = samsung_gpio_set,
++	.set_rv = samsung_gpio_set,
+ 	.get = samsung_gpio_get,
+ 	.direction_input = samsung_gpio_direction_input,
+ 	.direction_output = samsung_gpio_direction_output,
 
 -- 
 2.45.2
