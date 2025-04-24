@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BB14A9AD04
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 14:16:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13B31A9AD12
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 14:17:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2DAAC7802F;
-	Thu, 24 Apr 2025 12:16:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1F60C7802F;
+	Thu, 24 Apr 2025 12:17:30 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48287C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1A89C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 12:16:13 +0000 (UTC)
+ Thu, 24 Apr 2025 12:17:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9C3E85C6394;
- Thu, 24 Apr 2025 12:13:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC87C4CEE3;
- Thu, 24 Apr 2025 12:16:06 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 70AB15C639B;
+ Thu, 24 Apr 2025 12:15:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E330AC4CEE3;
+ Thu, 24 Apr 2025 12:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745496971;
- bh=Sf0ybRK9DYsCxZ5Je/2MG9IakhbW6jd2lRTZlZQzniw=;
+ s=k20201202; t=1745497048;
+ bh=Fa0JMJmKW07jw7qoCo4mzqLiB0/HwjaZUJP82v+kjAQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Oe51ROCqK35W//I58nfZjw9T19a9u3WVnBJB0SkIp3x39DQ7ql8iB0byUcTix9qCE
- kZcy0a7XB+8uEXdqyJEA5ZXVFElPivKUlHovhEnK6Xrq4cXaAY0AQg5s4mQoaYJlDK
- Pz8JmgYFrFGRSuf04xqzh3mZr2pcmqaNxzxK/Thnrcf3UQ4v8XT/0JUcy+C3UBTUzS
- sfZTv9+jSh9WJTAKEVMPUsKU8AvLRMaAdxVo3n8DxEduUqvdHw6Z3G2zHhUK0UHqCh
- OBrRynyn5GyXNZbV/uEfFTIvdekG9eVkwHEIW7xSRx0WchZ089/QSS/LQuqiDYN23P
- zjAwyzQoD4VYA==
-Date: Thu, 24 Apr 2025 13:16:04 +0100
+ b=Sjii1C9YSuUdt8xaFxLkC9UA/BiBmfYthu1hg340GoNrnIBIyilWZYrgmN4uYkjSD
+ R5DImLgX4b0nhROVBdLpK/T+AU1fijmW/phyzmqkq9VskN7jHVkFLGwbZHiMTj8jnk
+ UXtFuZz9UlnRzCGuRBVk1YMPQTCMWrpr/1OvvqxiFiNRb6aczVLAzTFY4zZ/jhD2vG
+ ntPPuctiWswMRDm10D8v5tFfM6OuD+mUQpIaRMCFfmxcMtyG+qClKm51w6hqngPTKd
+ 54IJ6YVrG7tMCyt6bQu0q/o9xZiSC0gjINFn9AVM0Idr1Tjna99tAB8s7trQWQsC/3
+ XTVvWZfl9+uxA==
+Date: Thu, 24 Apr 2025 13:17:21 +0100
 From: Simon Horman <horms@kernel.org>
 To: Boon Khai Ng <boon.khai.ng@altera.com>
-Message-ID: <20250424121604.GE3042781@horms.kernel.org>
+Message-ID: <20250424121721.GF3042781@horms.kernel.org>
 References: <20250421162930.10237-1-boon.khai.ng@altera.com>
- <20250421162930.10237-2-boon.khai.ng@altera.com>
+ <20250421162930.10237-3-boon.khai.ng@altera.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250421162930.10237-2-boon.khai.ng@altera.com>
+In-Reply-To: <20250421162930.10237-3-boon.khai.ng@altera.com>
 Cc: Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
  Daniel Borkmann <daniel@iogearbox.net>,
@@ -51,8 +51,8 @@ Cc: Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
  Tien Sung Ang <tien.sung.ang@altera.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/2] net: stmmac: Refactor
-	VLAN implementation
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/2] net: stmmac: dwxgmac2:
+ Add support for HW-accelerated VLAN stripping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,181 +69,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 22, 2025 at 12:29:29AM +0800, Boon Khai Ng wrote:
-> Refactor VLAN implementation by moving common code for DWMAC4 and
-> DWXGMAC IPs into a separate VLAN module. VLAN implementation for
-> DWMAC4 and DWXGMAC differs only for CSR base address, the descriptor
-> for the VLAN ID and VLAN VALID bit field.
-> 
-> The descriptor format for VLAN is not moved to the common code due
-> to hardware-specific differences between DWMAC4 and DWXGMAC.
-> 
-> For the DWMAC4 IP, the Receive Normal Descriptor 0 (RDES0) is
-> formatted as follows:
->     31                                                0
->       ------------------------ -----------------------
-> RDES0| Inner VLAN TAG [31:16] | Outer VLAN TAG [15:0] |
->       ------------------------ -----------------------
-> 
-> For the DWXGMAC IP, the RDES0 format varies based on the
-> Tunneled Frame bit (TNP):
-> 
-> a) For Non-Tunneled Frame (TNP=0)
-> 
->     31                                                0
->       ------------------------ -----------------------
-> RDES0| Inner VLAN TAG [31:16] | Outer VLAN TAG [15:0] |
->       ------------------------ -----------------------
-> 
-> b) For Tunneled Frame (TNP=1)
-> 
->      31                   8 7                3 2      0
->       --------------------- ------------------ -------
-> RDES0| VNID/VSID           | Reserved         | OL2L3 |
->       --------------------- ------------------ ------
-> 
-> The logic for handling tunneled frames is not yet implemented
-> in the dwxgmac2_wrback_get_rx_vlan_tci() function. Therefore,
-> it is prudent to maintain separate functions within their
-> respective descriptor driver files
-> (dwxgmac2_descs.c and dwmac4_descs.c).
+On Tue, Apr 22, 2025 at 12:29:30AM +0800, Boon Khai Ng wrote:
+> This patch adds support for MAC level VLAN tag stripping for the
+> dwxgmac2 IP. This feature can be configured through ethtool.
+> If the rx-vlan-offload is off, then the VLAN tag will be stripped
+> by the driver. If the rx-vlan-offload is on then the VLAN tag
+> will be stripped by the MAC.
 > 
 > Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
 > Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 
 ...
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> index a6d395c6bacd..d9f41c047e5e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> @@ -614,76 +614,6 @@ static int dwxgmac2_rss_configure(struct mac_device_info *hw,
->  	return 0;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+
+...
+
+> @@ -69,6 +70,21 @@ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
+>  	return (le32_to_cpu(p->des3) & XGMAC_RDES3_LD) > 0;
 >  }
 >  
-> -static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
-> -				      u16 perfect_match, bool is_double)
-> -{
-> -	void __iomem *ioaddr = hw->pcsr;
-> -
-> -	writel(hash, ioaddr + XGMAC_VLAN_HASH_TABLE);
-> -
-> -	if (hash) {
-> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
-> -
-> -		value |= XGMAC_FILTER_VTFE;
-> -
-> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
-
-Here the XGMAC_FILTER_VTFE bit of XGMAC_PACKET_FILTER is set.
-However, this logic does not appear in vlan_update_hash()
-
-> -
-> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
-> -
-> -		value |= XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV;
-> -		if (is_double) {
-> -			value |= XGMAC_VLAN_EDVLP;
-> -			value |= XGMAC_VLAN_ESVL;
-> -			value |= XGMAC_VLAN_DOVLTC;
-> -		} else {
-> -			value &= ~XGMAC_VLAN_EDVLP;
-> -			value &= ~XGMAC_VLAN_ESVL;
-> -			value &= ~XGMAC_VLAN_DOVLTC;
-> -		}
-
-And likewise, here value is based on reading from XGMAC_VLAN_TAG.
-Whereas in vlan_update_hash is constructed without reading from
-XGMAC_VLAN_TAG.
-
-Can I clarify that this is intentional and that vlan_update_hash(),
-which is based on the DWMAC4 implementation, will also work for DWXGMAC IP?
-
-> -
-> -		value &= ~XGMAC_VLAN_VID;
-> -		writel(value, ioaddr + XGMAC_VLAN_TAG);
-> -	} else if (perfect_match) {
-> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
-> -
-> -		value |= XGMAC_FILTER_VTFE;
-> -
-> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
-> -
-> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
-> -
-> -		value &= ~XGMAC_VLAN_VTHM;
-> -		value |= XGMAC_VLAN_ETV;
-> -		if (is_double) {
-> -			value |= XGMAC_VLAN_EDVLP;
-> -			value |= XGMAC_VLAN_ESVL;
-> -			value |= XGMAC_VLAN_DOVLTC;
-> -		} else {
-> -			value &= ~XGMAC_VLAN_EDVLP;
-> -			value &= ~XGMAC_VLAN_ESVL;
-> -			value &= ~XGMAC_VLAN_DOVLTC;
-> -		}
-> -
-> -		value &= ~XGMAC_VLAN_VID;
-> -		writel(value | perfect_match, ioaddr + XGMAC_VLAN_TAG);
-> -	} else {
-> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
-> -
-> -		value &= ~XGMAC_FILTER_VTFE;
-> -
-> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
-> -
-> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
-> -
-> -		value &= ~(XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV);
-> -		value &= ~(XGMAC_VLAN_EDVLP | XGMAC_VLAN_ESVL);
-> -		value &= ~XGMAC_VLAN_DOVLTC;
-> -		value &= ~XGMAC_VLAN_VID;
-> -
-> -		writel(value, ioaddr + XGMAC_VLAN_TAG);
-> -	}
-> -}
-
-...
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-
-...
-
-> +static int vlan_write_filter(struct net_device *dev,
-> +			     struct mac_device_info *hw,
-> +			     u8 index, u32 data)
+> +static u16 dwxgmac2_wrback_get_rx_vlan_tci(struct dma_desc *p)
 > +{
-> +	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
-> +	int i, timeout = 10;
-> +	u32 val;
-> +
-> +	if (index >= hw->num_vlan)
-> +		return -EINVAL;
-> +
-> +	writel(data, ioaddr + VLAN_TAG_DATA);
-> +
-> +	val = readl(ioaddr + VLAN_TAG);
-> +	val &= ~(VLAN_TAG_CTRL_OFS_MASK |
-> +		VLAN_TAG_CTRL_CT |
-> +		VLAN_TAG_CTRL_OB);
-> +	val |= (index << VLAN_TAG_CTRL_OFS_SHIFT) | VLAN_TAG_CTRL_OB;
-> +
-> +	writel(val, ioaddr + VLAN_TAG);
-> +
-> +	for (i = 0; i < timeout; i++) {
-> +		val = readl(ioaddr + VLAN_TAG);
-> +		if (!(val & VLAN_TAG_CTRL_OB))
-> +			return 0;
-> +		udelay(1);
-> +	}
+> +	return (le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK);
 
-I am curious to know why readl_poll_timeout() isn't used here
-as was the case in dwmac4_write_vlan_filter().
+nit: The outer parentheses are not needed on the line above.
 
-> +
-> +	netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
-> +
-> +	return -EBUSY;
+	return le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK;
+
+
 > +}
 
 ...
