@@ -2,95 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF50A9ACC8
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 14:04:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB14A9AD04
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 14:16:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05EB6C7802F;
-	Thu, 24 Apr 2025 12:04:17 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F124BC71289
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2DAAC7802F;
+	Thu, 24 Apr 2025 12:16:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48287C71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 12:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1745496254;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bh3s53lxnJJO2dUSgO66le/Ri+7+LskKQ0VlwKBl9JU=;
- b=hUWJkPQlxl1a5FPHlLKfiI7BAdPB0vZi9x7rVztM90JiRyWgzEDgNXLVe9s/Xx1AtE4iJU
- by2u2gcDNvThVfnPpA09vRwg30q1hlzqyOX+qnzOAc0cBw8pIGjJdbVDvSkW5c3JTMOEeE
- 8JLeA+VoGi3pwBhrPnnhl7de1DEoKAM=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-7uBXP1p9MAuS68iVkwy3IA-1; Thu, 24 Apr 2025 08:04:13 -0400
-X-MC-Unique: 7uBXP1p9MAuS68iVkwy3IA-1
-X-Mimecast-MFC-AGG-ID: 7uBXP1p9MAuS68iVkwy3IA_1745496252
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-39134c762ebso322219f8f.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 05:04:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745496252; x=1746101052;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bh3s53lxnJJO2dUSgO66le/Ri+7+LskKQ0VlwKBl9JU=;
- b=IPOtIYbJ+W/coLlAV9x/CDScDhX8Sq3vc8Dxr+yuqhPEMlfO00wEN4bZoporQS8u5F
- SJ8MQDrnqW4DOvc1T1vMMq0vCS5KKReE6l6RLII2zvjY1iBapok2GcFT65wA/38evnXs
- 835l95QJx6L/89PPrmUfVpeT5kPKImgkTmDjpEHTivvffsPQ0Vxy0KqOLmQ/06fjh8rZ
- VgmWwYbdRmgBae1qJTna657E8pNnaLa06LRfXSsuCNPLTi4rZGK/gn+L9MUyhj75v/E0
- yrBV1cA8WFosgAkbZfbBfGKRFQ8iRhkhQdttWIKxUAd1mwvONpNVY69Q78AakSbW8kJ6
- oh+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUl8trbdPsK1DRYrFKKxGdG6lnviQv5uPputiG0+kd5Bszw4cn+UnC5FvkT18y8/Tqr+catdfv5TdtdSA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxsYyGFqJWCEQFIE8eZpYeU/hCNeTywm4/Di3oSotPkWL5ufK5d
- xGybe6oonOdKGEw+9yQl7eI4949aM0p0INSTtXycPtqLAa7ptSzh4giRKbT98wme+l3mV5hBbXO
- oi11l0IxkukgJNoHkuIEJcIbpCiH+QxfdAGBB3WFF1NyK2Q7vnUUseVoRjWl18pa02ufKPtoACN
- 8cRQ==
-X-Gm-Gg: ASbGncv0KP/J1SeW9J23Ge9lweLcb1nsb5ahuCQk3Z1JLx6aPlxWa5waPjFxIikgE5/
- nE+kL2gT0VXRDfbbewM+FSNDLV8nCuEimeqmowetT0cN986I064WQheGX98hUPKiOB4ZRKXz94E
- 2Tr9XFW9Ih4EKN3/v5JHAl9ndLMjtNqUpP8yrP25Oqex+tQdgKpKbw1cfeVKVQYWHBwGt4iGzIx
- 5IM6AtN2oBL5xm4VHljpV2nG8CNhJAT5Kr6CTYFexkC3cuBBj1eTW6E9t/ovEcI0FHcEWAKo6Rq
- 0KWnh7ImGAyk+rvp+BwfcpYUmx5jwJTbEt9A2VA=
-X-Received: by 2002:a05:6000:178d:b0:39c:266c:423 with SMTP id
- ffacd0b85a97d-3a06cecb362mr1842806f8f.0.1745496251978; 
- Thu, 24 Apr 2025 05:04:11 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGRZkkYGPeYcct/UGZCOBgEUQnsD5s94C5Hyp3c2PijFG72me2Lm433rHFIjvW+57vf1ZeXEA==
-X-Received: by 2002:a05:6000:178d:b0:39c:266c:423 with SMTP id
- ffacd0b85a97d-3a06cecb362mr1842753f8f.0.1745496251410; 
- Thu, 24 Apr 2025 05:04:11 -0700 (PDT)
-Received: from [192.168.88.253] (146-241-7-183.dyn.eolo.it. [146.241.7.183])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d4a8150sm1852436f8f.7.2025.04.24.05.04.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Apr 2025 05:04:10 -0700 (PDT)
-Message-ID: <43ef6713-9ae1-468c-bc43-2c7e463e04f4@redhat.com>
-Date: Thu, 24 Apr 2025 14:04:04 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Boon Khai Ng <boon.khai.ng@altera.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
+ Thu, 24 Apr 2025 12:16:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9C3E85C6394;
+ Thu, 24 Apr 2025 12:13:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC87C4CEE3;
+ Thu, 24 Apr 2025 12:16:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745496971;
+ bh=Sf0ybRK9DYsCxZ5Je/2MG9IakhbW6jd2lRTZlZQzniw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Oe51ROCqK35W//I58nfZjw9T19a9u3WVnBJB0SkIp3x39DQ7ql8iB0byUcTix9qCE
+ kZcy0a7XB+8uEXdqyJEA5ZXVFElPivKUlHovhEnK6Xrq4cXaAY0AQg5s4mQoaYJlDK
+ Pz8JmgYFrFGRSuf04xqzh3mZr2pcmqaNxzxK/Thnrcf3UQ4v8XT/0JUcy+C3UBTUzS
+ sfZTv9+jSh9WJTAKEVMPUsKU8AvLRMaAdxVo3n8DxEduUqvdHw6Z3G2zHhUK0UHqCh
+ OBrRynyn5GyXNZbV/uEfFTIvdekG9eVkwHEIW7xSRx0WchZ089/QSS/LQuqiDYN23P
+ zjAwyzQoD4VYA==
+Date: Thu, 24 Apr 2025 13:16:04 +0100
+From: Simon Horman <horms@kernel.org>
+To: Boon Khai Ng <boon.khai.ng@altera.com>
+Message-ID: <20250424121604.GE3042781@horms.kernel.org>
 References: <20250421162930.10237-1-boon.khai.ng@altera.com>
  <20250421162930.10237-2-boon.khai.ng@altera.com>
-From: Paolo Abeni <pabeni@redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20250421162930.10237-2-boon.khai.ng@altera.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: aLkuX20HjoMMUglsf3pvtUyNN2V6uE6FyDwBJd5jdQk_1745496252
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: Furong Xu <0x1207@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
+Cc: Alexei Starovoitov <ast@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
  Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
  G Thomas Rohan <rohan.g.thomas@altera.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Mun Yew Tham <mun.yew.tham@altera.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mun Yew Tham <mun.yew.tham@altera.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, bpf@vger.kernel.org,
  Tien Sung Ang <tien.sung.ang@altera.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S . Miller" <davem@davemloft.net>
@@ -112,7 +69,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/21/25 6:29 PM, Boon Khai Ng wrote:
+On Tue, Apr 22, 2025 at 12:29:29AM +0800, Boon Khai Ng wrote:
 > Refactor VLAN implementation by moving common code for DWMAC4 and
 > DWXGMAC IPs into a separate VLAN module. VLAN implementation for
 > DWMAC4 and DWXGMAC differs only for CSR base address, the descriptor
@@ -154,35 +111,142 @@ On 4/21/25 6:29 PM, Boon Khai Ng wrote:
 > Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
 > Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 
-This patch does IMHO too many things together, and should be split in
-several ones, i.e.:
-- just moving the code in a separate file
-- rename functions and simbols.
-- other random changes...
+...
 
-> -	ret = readl_poll_timeout(ioaddr + GMAC_VLAN_TAG, val,
-> -				 !(val & GMAC_VLAN_TAG_CTRL_OB),
-> -				 1000, 500000);
-> -	if (ret) {
-> -		netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
-> -		return -EBUSY;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index a6d395c6bacd..d9f41c047e5e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -614,76 +614,6 @@ static int dwxgmac2_rss_configure(struct mac_device_info *hw,
+>  	return 0;
+>  }
+>  
+> -static void dwxgmac2_update_vlan_hash(struct mac_device_info *hw, u32 hash,
+> -				      u16 perfect_match, bool is_double)
+> -{
+> -	void __iomem *ioaddr = hw->pcsr;
+> -
+> -	writel(hash, ioaddr + XGMAC_VLAN_HASH_TABLE);
+> -
+> -	if (hash) {
+> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+> -
+> -		value |= XGMAC_FILTER_VTFE;
+> -
+> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
+
+Here the XGMAC_FILTER_VTFE bit of XGMAC_PACKET_FILTER is set.
+However, this logic does not appear in vlan_update_hash()
+
+> -
+> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
+> -
+> -		value |= XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV;
+> -		if (is_double) {
+> -			value |= XGMAC_VLAN_EDVLP;
+> -			value |= XGMAC_VLAN_ESVL;
+> -			value |= XGMAC_VLAN_DOVLTC;
+> -		} else {
+> -			value &= ~XGMAC_VLAN_EDVLP;
+> -			value &= ~XGMAC_VLAN_ESVL;
+> -			value &= ~XGMAC_VLAN_DOVLTC;
+> -		}
+
+And likewise, here value is based on reading from XGMAC_VLAN_TAG.
+Whereas in vlan_update_hash is constructed without reading from
+XGMAC_VLAN_TAG.
+
+Can I clarify that this is intentional and that vlan_update_hash(),
+which is based on the DWMAC4 implementation, will also work for DWXGMAC IP?
+
+> -
+> -		value &= ~XGMAC_VLAN_VID;
+> -		writel(value, ioaddr + XGMAC_VLAN_TAG);
+> -	} else if (perfect_match) {
+> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+> -
+> -		value |= XGMAC_FILTER_VTFE;
+> -
+> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
+> -
+> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
+> -
+> -		value &= ~XGMAC_VLAN_VTHM;
+> -		value |= XGMAC_VLAN_ETV;
+> -		if (is_double) {
+> -			value |= XGMAC_VLAN_EDVLP;
+> -			value |= XGMAC_VLAN_ESVL;
+> -			value |= XGMAC_VLAN_DOVLTC;
+> -		} else {
+> -			value &= ~XGMAC_VLAN_EDVLP;
+> -			value &= ~XGMAC_VLAN_ESVL;
+> -			value &= ~XGMAC_VLAN_DOVLTC;
+> -		}
+> -
+> -		value &= ~XGMAC_VLAN_VID;
+> -		writel(value | perfect_match, ioaddr + XGMAC_VLAN_TAG);
+> -	} else {
+> -		u32 value = readl(ioaddr + XGMAC_PACKET_FILTER);
+> -
+> -		value &= ~XGMAC_FILTER_VTFE;
+> -
+> -		writel(value, ioaddr + XGMAC_PACKET_FILTER);
+> -
+> -		value = readl(ioaddr + XGMAC_VLAN_TAG);
+> -
+> -		value &= ~(XGMAC_VLAN_VTHM | XGMAC_VLAN_ETV);
+> -		value &= ~(XGMAC_VLAN_EDVLP | XGMAC_VLAN_ESVL);
+> -		value &= ~XGMAC_VLAN_DOVLTC;
+> -		value &= ~XGMAC_VLAN_VID;
+> -
+> -		writel(value, ioaddr + XGMAC_VLAN_TAG);
 > -	}
+> -}
 
+...
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
+
+...
+
+> +static int vlan_write_filter(struct net_device *dev,
+> +			     struct mac_device_info *hw,
+> +			     u8 index, u32 data)
+> +{
+> +	void __iomem *ioaddr = (void __iomem *)dev->base_addr;
+> +	int i, timeout = 10;
+> +	u32 val;
+> +
+> +	if (index >= hw->num_vlan)
+> +		return -EINVAL;
+> +
+> +	writel(data, ioaddr + VLAN_TAG_DATA);
+> +
+> +	val = readl(ioaddr + VLAN_TAG);
+> +	val &= ~(VLAN_TAG_CTRL_OFS_MASK |
+> +		VLAN_TAG_CTRL_CT |
+> +		VLAN_TAG_CTRL_OB);
+> +	val |= (index << VLAN_TAG_CTRL_OFS_SHIFT) | VLAN_TAG_CTRL_OB;
+> +
+> +	writel(val, ioaddr + VLAN_TAG);
+> +
 > +	for (i = 0; i < timeout; i++) {
 > +		val = readl(ioaddr + VLAN_TAG);
 > +		if (!(val & VLAN_TAG_CTRL_OB))
 > +			return 0;
 > +		udelay(1);
 > +	}
+
+I am curious to know why readl_poll_timeout() isn't used here
+as was the case in dwmac4_write_vlan_filter().
+
 > +
 > +	netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
 > +
 > +	return -EBUSY;
+> +}
 
-... like the above on (which looks unnecessary?!?)
-
-/P
-
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
