@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3550A9B749
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 21:01:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F734A9B74F
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 21:01:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77F0DC78F70;
-	Thu, 24 Apr 2025 19:01:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE3A4C78F70;
+	Thu, 24 Apr 2025 19:01:14 +0000 (UTC)
 Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
  [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3FADC78F68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C968C78F68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 19:01:03 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7A1BE43B79;
- Thu, 24 Apr 2025 19:00:49 +0000 (UTC)
+ Thu, 24 Apr 2025 19:01:13 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6B69743B6C;
+ Thu, 24 Apr 2025 19:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745521263;
+ t=1745521272;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KOcho37MvrVhiA5dQkVJX8FlRBRSDHiJRf+zEmA1rlY=;
- b=g1r8+lR75BILuX/h2jyNQ8ZdU7XNQTBhAGYf7L/DICym+nMkLhdqblJBO1iyhrCl1ztRvS
- KBJnU8b5He5cXQruyxT/422xyr4fP/+DNv/W169SHYgBCX0daOZTFcLE6CoSpIa2ODu234
- +IBUyQ86avR/i1e8HAO4aqh1uMhGvyGl48Xj69C7vAqJyq7bmFcmk3HRcJ6ff9swuRD5Nl
- DrSKZFaK9XgbC/EiGQmkhWmwY1W+hK4eXE++3IK/fw76a9JLFJh/6oZeVASdnMYFK9lrkA
- st+miVeJoDdqcJlJNkly+tbRknfhXPkegVSt8xT0UuaP78ConW/b1y8byun+dw==
+ bh=GlbxOSSQor75pYLhcBGMiTmVttlHOD9YuyyYG+JTv+8=;
+ b=UqSvFZaSpq6rqNZdzw0CiBBGu6qWm7bbYEuZiUb9/G3CJlMX5ZBL5bCOp02VBzOzhSwu5w
+ rhaIPwJrHzCRYNpLKVAYWRSY0MrswIBDArDlvd/Z8poc+xBCVIcNCXEbc2XlTyOELWMvlR
+ IAXg6lhQCcusFDnoanliiCtY91+5w7uS3BQc0mr00bkl5h0IV/wXhTg5kyMrMxTNJIkMNC
+ BFlsrOw/1n1iv483A8xAUZCj6IPsmBSBtKEZ7jQNUz5kWVu+/bE1FgDbUWrvczzSG6iVv8
+ 7O8qmG/Pye5ol9R8pIPrlg/HOjKMI2S3Ht9Ngsdf/eW6O/KzEl9w363gUPPjOQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 24 Apr 2025 20:59:31 +0200
+Date: Thu, 24 Apr 2025 20:59:32 +0200
 MIME-Version: 1.0
-Message-Id: <20250424-drm-bridge-convert-to-alloc-api-v2-24-8f91a404d86b@bootlin.com>
+Message-Id: <20250424-drm-bridge-convert-to-alloc-api-v2-25-8f91a404d86b@bootlin.com>
 References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
 In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,22 +51,25 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 X-Mailer: b4 0.14.2
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegrgeeivdemudgsuggumeeluddtudemvdelgehfnecuvehluhhsthgvrhfuihiivgepvddunecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemrgegiedvmedusgguugemledutddumedvleegfhdphhgvlhhopegludelvddrudeikedrudejkedruddukegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedtpdhrtghpthhtohepkhhriihksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhgrghgrnhesrghmrghruhhlrghsohhluhhtihhonhhsrdgtohhmpdhrt
- ghpthhtohepihhmgieslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepnfgruhhrvghnthdrphhinhgthhgrrhhtsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehlihhnuhigqdhmvgguihgrthgvkheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopehfrhgvvggurhgvnhhosehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhfffugggtgffkfhgjvfevofesthejredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieeuvdfftefgueduleehueetgffgjeeitedtteetkeeuueeuueekveevvdeuveenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegrgeeivdemudgsuggumeeluddtudemvdelgehfnecuvehluhhsthgvrhfuihiivgepvddvnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemrgegiedvmedusgguugemledutddumedvleegfhdphhgvlhhopegludelvddrudeikedrudejkedruddukegnpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedvpdhrtghpthhtohepkhhriihksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhgrghgrnhesrghmrghruhhlrghsohhluhhtihhonhhsrdgtohhmpdhrt
+ ghpthhtohepthhomhhirdhvrghlkhgvihhnvghnodhrvghnvghsrghssehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehimhigsehlihhsthhsrdhlihhnuhigrdguvghvpdhrtghpthhtoheplhgruhhrvghnthdrphhinhgthhgrrhhtodhrvghnvghsrghssehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepnfgruhhrvghnthdrphhinhgthhgrrhhtsehiuggvrghsohhnsghorghrugdrtghomh
 X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- Dmitry Baryshkov <lumag@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
- linux-arm-msm@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, asahi@lists.linux.dev,
+Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, Anusha Srivatsa <asrivats@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ linux-mediatek@lists.infradead.org,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
  Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- freedreno@lists.freedesktop.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [Linux-stm32] [PATCH v2 24/34] drm/omap: dss: venc: convert to
+ linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ asahi@lists.linux.dev, freedreno@lists.freedesktop.org
+Subject: [Linux-stm32] [PATCH v2 25/34] drm/rcar-du: dsi: convert to
  devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -86,94 +89,43 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This is the new API for allocating DRM bridges.
 
-Switching from a non-devm to a devm allocation allows removing the kfree()
-in the remove function and in the probe error management code, and as a
-consequence to simplify the code flow by removing now unnecessary gotos.
-
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- drivers/gpu/drm/omapdrm/dss/venc.c | 23 ++++++++---------------
- 1 file changed, 8 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/venc.c b/drivers/gpu/drm/omapdrm/dss/venc.c
-index 50349518eda1630400529caf27ca4469bb09fc82..9b5d53dc361e654a2e4009c3c81b726f9ef76ced 100644
---- a/drivers/gpu/drm/omapdrm/dss/venc.c
-+++ b/drivers/gpu/drm/omapdrm/dss/venc.c
-@@ -664,7 +664,6 @@ static const struct drm_bridge_funcs venc_bridge_funcs = {
- 
- static void venc_bridge_init(struct venc_device *venc)
- {
--	venc->bridge.funcs = &venc_bridge_funcs;
- 	venc->bridge.of_node = venc->pdev->dev.of_node;
- 	venc->bridge.ops = DRM_BRIDGE_OP_MODES;
- 	venc->bridge.type = DRM_MODE_CONNECTOR_SVIDEO;
-@@ -809,9 +808,9 @@ static int venc_probe(struct platform_device *pdev)
- 	struct venc_device *venc;
- 	int r;
- 
--	venc = kzalloc(sizeof(*venc), GFP_KERNEL);
--	if (!venc)
--		return -ENOMEM;
-+	venc = devm_drm_bridge_alloc(&pdev->dev, struct venc_device, bridge, &venc_bridge_funcs);
-+	if (IS_ERR(venc))
-+		return PTR_ERR(venc);
- 
- 	venc->pdev = pdev;
- 
-@@ -824,26 +823,24 @@ static int venc_probe(struct platform_device *pdev)
- 	venc->config = &venc_config_pal_trm;
- 
- 	venc->base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(venc->base)) {
--		r = PTR_ERR(venc->base);
--		goto err_free;
--	}
-+	if (IS_ERR(venc->base))
-+		return PTR_ERR(venc->base);
- 
- 	venc->vdda_dac_reg = devm_regulator_get(&pdev->dev, "vdda");
- 	if (IS_ERR(venc->vdda_dac_reg)) {
- 		r = PTR_ERR(venc->vdda_dac_reg);
- 		if (r != -EPROBE_DEFER)
- 			DSSERR("can't get VDDA_DAC regulator\n");
--		goto err_free;
-+		return r;
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index 7ab8be46c7f6547f29b4d45af7ac704283da9dcd..1af4c73f7a887712aef8c8176b0d0338d9ca9727 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -918,7 +918,6 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_host *host,
  	}
  
- 	r = venc_get_clocks(venc);
- 	if (r)
--		goto err_free;
-+		return r;
+ 	/* Initialize the DRM bridge. */
+-	dsi->bridge.funcs = &rcar_mipi_dsi_bridge_ops;
+ 	dsi->bridge.of_node = dsi->dev->of_node;
+ 	drm_bridge_add(&dsi->bridge);
  
- 	r = venc_probe_of(venc);
- 	if (r)
--		goto err_free;
-+		return r;
+@@ -1004,9 +1003,10 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+ 	struct rcar_mipi_dsi *dsi;
+ 	int ret;
  
- 	pm_runtime_enable(&pdev->dev);
+-	dsi = devm_kzalloc(&pdev->dev, sizeof(*dsi), GFP_KERNEL);
+-	if (dsi == NULL)
+-		return -ENOMEM;
++	dsi = devm_drm_bridge_alloc(&pdev->dev, struct rcar_mipi_dsi, bridge,
++				    &rcar_mipi_dsi_bridge_ops);
++	if (IS_ERR(dsi))
++		return PTR_ERR(dsi);
  
-@@ -861,8 +858,6 @@ static int venc_probe(struct platform_device *pdev)
- 	venc_uninit_output(venc);
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
--err_free:
--	kfree(venc);
- 	return r;
- }
+ 	platform_set_drvdata(pdev, dsi);
  
-@@ -875,8 +870,6 @@ static void venc_remove(struct platform_device *pdev)
- 	venc_uninit_output(venc);
- 
- 	pm_runtime_disable(&pdev->dev);
--
--	kfree(venc);
- }
- 
- static __maybe_unused int venc_runtime_suspend(struct device *dev)
 
 -- 
 2.49.0
