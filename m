@@ -2,77 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1916A9ABB4
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 13:28:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 819E4A9AC81
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 13:53:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AED2C78F68;
-	Thu, 24 Apr 2025 11:28:12 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BED7C7803A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33347C78F68;
+	Thu, 24 Apr 2025 11:53:46 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65995C7802F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 11:28:11 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3AD1F43A07;
- Thu, 24 Apr 2025 11:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745494091;
+ Thu, 24 Apr 2025 11:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1745495624;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Bz9b9HTv2sWKqYaZLjCkIaHyjCRTMEZ4N5CM7lBAIjs=;
- b=WTO+fOKy08+k3R6VOo4FgIrrMPsiB/nAVAOfJMQAdVSxjWQogtIY5cFgPAk1SOOSNg84v5
- YAycUQfirISNqB46b6Rq2Kb0/kVJ/dVEDf6CJhl7XDUG4q1uUDmCk208gBMtVQ1QLCcowA
- g+fPgfDstAalRZjliFX6HSgfLCdZRZcUtPau+3ZpOneb+uQBqfC5TO3g1NgDEjHo5A2vBl
- J+gh7wITo8g5J8vLAI13NXWX+GLjyMQP1oVXIARzj/ipCf1WquNYUKY8S/ZYFKBK0oZlOQ
- bt2f1BodPSa+XQVEebdOJs0qRrfqWeThlK3iYiydfl+WN4DaUXnuKi9a5EyTRA==
-Date: Thu, 24 Apr 2025 13:28:04 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Message-ID: <20250424132804.30bcc49a@booty>
-In-Reply-To: <6b699329-8ed4-4be6-81bb-17b4bf800d34@ideasonboard.com>
-References: <20250407-drm-bridge-convert-to-alloc-api-v1-0-42113ff8d9c0@bootlin.com>
- <20250407-drm-bridge-convert-to-alloc-api-v1-29-42113ff8d9c0@bootlin.com>
- <6b699329-8ed4-4be6-81bb-17b4bf800d34@ideasonboard.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+ bh=7O71wS6omUP4Za+qu8KkJ9Z+HYsi5jrXQRVuEjbLS/Y=;
+ b=U0x6VSFZpsG194wzvpvDS5puCDW1O4c6T2wxbF4VaeOkTqTz8aUnoZ8dIdiCV/bFQlsJSZ
+ B23RuiJbzuIAYP2Xey7gg9+hQdr3WC79uHcoQquf/Fi6bzAfYF2wBwlEraZgplsbU8nYh0
+ NP2+iAKn90MetYoSuwWcWga6M4nmHfA=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-Fi8A5k5COpSPNI9eg7jG9w-1; Thu, 24 Apr 2025 07:53:43 -0400
+X-MC-Unique: Fi8A5k5COpSPNI9eg7jG9w-1
+X-Mimecast-MFC-AGG-ID: Fi8A5k5COpSPNI9eg7jG9w_1745495622
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-43d4d15058dso6459665e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Apr 2025 04:53:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745495622; x=1746100422;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7O71wS6omUP4Za+qu8KkJ9Z+HYsi5jrXQRVuEjbLS/Y=;
+ b=PfQeco8JMLX3UmaXIclhqJMRML2lBThc6qpcEIH02y+4fK/rA01hNEiJPj7jPu18y7
+ tm5mIyqTVTkRFek8CJXUQH2xf5v1jfBZiuT+MycavwkDcq7DyFANjWTD43bHBVS9iL6s
+ AVfoj6fjgxm9k+UziBkyfluUXSom+ThIE7TIMZdThvkOR314ALc0TOJvgAdNeshltvXk
+ L7UTtJzTxBteQDEQ6sl7yRpMtqRTHp5D8qb7S4IjLP+Dxy1dveQhIVtzoji3TYGf8ekQ
+ 6gvJrDPSpzh/NaQwvv14GbOXc1kJhyM8yUxEoqZVcgqnZMPDpwLuW+ui4utaAdTVk7gn
+ Vjlg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXtdq67lCbgrcZAQ09qYtZkv+FP+tKheM6zGR0kmka5JonaSCtqZGWh9k7qZCbQ1B8Xa8VVHOoF4HuWdQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yytu4siH/FEPUo2YnQzf3byhMHxd1JXDhGrQz8imd9Y3+WbudcK
+ boLjWyFyPH01YBJY0u1G6ghJL07JFSbYWT0Vgl51P/NgV/Ku0Ywz4XD7WxYIzH1enTCjTXVobg5
+ kHuYe7kKsmxUdGIvxK2nt98WMxVLkNvPWYi5Sovudfcfmfi6Z/Kg50WbKZ/UkBcgHA6v1V8r3+y
+ IzOg==
+X-Gm-Gg: ASbGncsjODOOZqNVapiYgXYS1jcicL7SyflOC658g+EYXqQSnm0/YKB5M6VHkcndJRi
+ n44d6CIGy6pdHtsasULwoTDGQlsj7RYkR8yA5YHLOL9ZBUD8zdO5fxggP+L29UAOAw1DzzKNt+X
+ ctUVB3YaqmnQc8aWxizZ27+4EG/W/Ks4gnRXGubM/cWp4AGKawsQMDDrd8NliYPOvxTokFZBWp3
+ 9DHPRrMREZEcSJjb4m/ftXHr29fmmObLmzMyhV6Z3XkSKJ//28EZgy9mChS/G9mRDSgMzz3gG+q
+ dZASA10AFjpy1yPDdromwloYAH5d6dQDvbNhTOw=
+X-Received: by 2002:a05:600c:4e0a:b0:43c:f513:9585 with SMTP id
+ 5b1f17b1804b1-4409bd210eemr25352695e9.13.1745495621868; 
+ Thu, 24 Apr 2025 04:53:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEUAI2NQUKhz4qnOoSRg3Qvi8tq8xdza5SLA8RiijZXZRu9gfA8tceguZucQbwMmFsJdyoLyg==
+X-Received: by 2002:a05:600c:4e0a:b0:43c:f513:9585 with SMTP id
+ 5b1f17b1804b1-4409bd210eemr25352255e9.13.1745495621516; 
+ Thu, 24 Apr 2025 04:53:41 -0700 (PDT)
+Received: from [192.168.88.253] (146-241-7-183.dyn.eolo.it. [146.241.7.183])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a06d54c246sm1831740f8f.86.2025.04.24.04.53.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Apr 2025 04:53:40 -0700 (PDT)
+Message-ID: <edfa1585-c10c-4211-a985-ebfcb8e671d5@redhat.com>
+Date: Thu, 24 Apr 2025 13:53:39 +0200
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeelfeehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeelffefgfehhfdtvdefueefieevkefggfelkeeiudetkeektedvhedukefgvddvnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepgedvpdhrtghpthhtohepthhomhhirdhvrghlkhgvihhnvghnsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopegrshhrihhvrghtshesrhgvughhrghtrdgtohhmpdhrtghpthhtohepphgruhhlkhesshihshdqs
- ggrshgvrdhiohdprhgtphhtthhopehluhhmrghgsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehhvghrvhgvrdgtohguihhnrgessghoohhtlhhinhdrtghomhdprhgtphhtthhopefjuhhirdfruhesghgvhhgvrghlthhhtggrrhgvrdgtohhmpdhrtghpthhtohepthhhohhmrghsrdhpvghtrgiiiihonhhisegsohhothhlihhnrdgtohhmpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
- =?UTF-8?B?SGVy?= =?UTF-8?B?dsOp?= Codina <herve.codina@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Simona Vetter <simona@ffwll.ch>, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, asahi@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH 29/34] drm: zynqmp_dp: convert to
- devm_drm_bridge_alloc() API
+User-Agent: Mozilla Thunderbird
+To: Boon Khai Ng <boon.khai.ng@altera.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org
+References: <20250421162930.10237-1-boon.khai.ng@altera.com>
+ <20250421162930.10237-3-boon.khai.ng@altera.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20250421162930.10237-3-boon.khai.ng@altera.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: mLhtE2r_X-ysNJV18iFNspguAm5xBNUY0M2HPZp2C0M_1745495622
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: Furong Xu <0x1207@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ G Thomas Rohan <rohan.g.thomas@altera.com>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Mun Yew Tham <mun.yew.tham@altera.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Tien Sung Ang <tien.sung.ang@altera.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/2] net: stmmac: dwxgmac2:
+ Add support for HW-accelerated VLAN stripping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,41 +112,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Tomi,
+On 4/21/25 6:29 PM, Boon Khai Ng wrote:
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index 389aad7b5c1e..55921c88efd0 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -4,6 +4,7 @@
+>   * stmmac XGMAC support.
+>   */
+>  
+> +#include <linux/bitfield.h>
+>  #include <linux/stmmac.h>
+>  #include "common.h"
+>  #include "dwxgmac2.h"
+> @@ -69,6 +70,21 @@ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
+>  	return (le32_to_cpu(p->des3) & XGMAC_RDES3_LD) > 0;
+>  }
+>  
+> +static u16 dwxgmac2_wrback_get_rx_vlan_tci(struct dma_desc *p)
+> +{
+> +	return (le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK);
+> +}
+> +
+> +static inline bool dwxgmac2_wrback_get_rx_vlan_valid(struct dma_desc *p)
 
-On Wed, 16 Apr 2025 15:31:41 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+Please, avoid 'inline' function in .c files, especially for functions
+that will land into function pointer like this one.
 
-> Hi,
-> 
-> On 07/04/2025 17:23, Luca Ceresoli wrote:
-> > This is the new API for allocating DRM bridges.
-> > 
-> > This driver has a peculiar structure. zynqmp_dpsub.c is the actual driver,
-> > which delegates to a submodule (zynqmp_dp.c) the allocation of a
-> > sub-structure embedding the drm_bridge and its initialization, however it
-> > does not delegate the drm_bridge_add(). Hence, following carefully the code
-> > flow, it is correct to change the allocation function and .funcs assignment
-> > in the submodule, while the drm_bridge_add() is not in that submodule.
-> > 
-> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Thanks,
 
-[...]
+Paolo
 
-> To add to my last mail, this clearly cannot be right, as it changes 
-> kzalloc call to devm_* call, without removing the kfree()s...
-
-Thank you very much for having tested this patch and found the mistake!
-I have checked all other patches in the series and found no other
-instance of this specific flaw, but a couple flaws of a different
-nature. I'm now fixing all of them and will send v2 later today.
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
