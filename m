@@ -2,62 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A64A9AD7D
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 14:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0508CA9AE2C
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Apr 2025 15:01:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0ADBC7803A;
-	Thu, 24 Apr 2025 12:32:25 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA37EC78F68;
+	Thu, 24 Apr 2025 13:01:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 896FCC7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4EA9CC7803A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Apr 2025 12:32:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=R7E0igRN0goWZT53emNsgMknLEdpCU0Z3PHf0cpn4M4=; b=M34qZugqYq7x6S26YtmcPCqPio
- KuZCRgcANW1O/zmu9txnWc/YLvQN/nqtoLgXeJd4f+LegtaBStGFX/csqPrJVBh12ei7nywbk6UXg
- fbRBYUKIqedh4axwO40A94m7GYV3fU2H/6tBF+D80hFG4I9Q8n8zHX2y/jEdmztulzaEfyWhugqsL
- AX6GZ23Abwl1o+To2QruXtMYavNx3xHhZZ1beN/SoG+ZMHy3u/s1BPzmihD+53DIi4zdAdYmdAhbZ
- 2M6mCZFbF6TRkS0KhJBMX+7RS+V1AwRdvz8SyRqRjfsUjw4Hy3DUFc9f0zabaLP5+gHC3aRRGiKIQ
- n+OGfgyg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39516)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1u7vkY-0007Mr-0A;
- Thu, 24 Apr 2025 13:32:18 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1u7vkU-00015d-0J;
- Thu, 24 Apr 2025 13:32:14 +0100
-Date: Thu, 24 Apr 2025 13:32:13 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Paolo Abeni <pabeni@redhat.com>
-Message-ID: <aAovTY6Q-4S__0Mh@shell.armlinux.org.uk>
-References: <20250421162930.10237-1-boon.khai.ng@altera.com>
- <20250421162930.10237-2-boon.khai.ng@altera.com>
- <43ef6713-9ae1-468c-bc43-2c7e463e04f4@redhat.com>
+ Thu, 24 Apr 2025 13:01:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C42905C63C0;
+ Thu, 24 Apr 2025 12:59:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE734C4CEE8;
+ Thu, 24 Apr 2025 13:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745499679;
+ bh=w4ERmlgT37R8fqbbx4uVzFLB0bFMUP+qmxc5xgde/7k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=pxm6+iDHVTleShgiF8bFeJvckCUPbkg57ANzPMtBwns7jfQzzmQz0EFJ05T112lwB
+ WMYmpudJjzcHgAOUsrdINVZwv2/j3JmqCXznxVSHQq2h8faiVnOKb2RPegnUC/8c7p
+ CHaM/QMNsb9S3xfYYv2Uod/Thx792cyS2aY6xTHFYMs9lM9RC3snvzyGXMCbGnsq0q
+ S9nGIj8WSYURRlSOIHYy78OF6pj5n9fb8Tqqt9Sn/E9qC4HqxLGOVqzFxJrudWvFAS
+ cqzpZUf5gYP+kfQp7RKfjlVq62KmV3pjTBFhnjHgok0FqDpTUNUI3do98G9jOCTAvJ
+ KbiBb+ril+iaQ==
+Date: Thu, 24 Apr 2025 14:01:12 +0100
+From: Lee Jones <lee@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20250424130112.GD8734@google.com>
+References: <20250314171451.3497789-1-fabrice.gasnier@foss.st.com>
+ <20250314171451.3497789-3-fabrice.gasnier@foss.st.com>
+ <20250404144006.GB372032@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <43ef6713-9ae1-468c-bc43-2c7e463e04f4@redhat.com>
-Cc: Furong Xu <0x1207@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- John Fastabend <john.fastabend@gmail.com>, linux-kernel@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Mun Yew Tham <mun.yew.tham@altera.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Tien Sung Ang <tien.sung.ang@altera.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- G Thomas Rohan <rohan.g.thomas@altera.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/2] net: stmmac: Refactor
-	VLAN implementation
+In-Reply-To: <20250404144006.GB372032@google.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ daniel.lezcano@linaro.org, linux-pwm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, ukleinek@kernel.org,
+ linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
+ tglx@linutronix.de, jic23@kernel.org, wbg@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 2/8] mfd: stm32-lptimer: add support
+	for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,88 +57,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Apr 24, 2025 at 02:04:04PM +0200, Paolo Abeni wrote:
-> On 4/21/25 6:29 PM, Boon Khai Ng wrote:
-> > Refactor VLAN implementation by moving common code for DWMAC4 and
-> > DWXGMAC IPs into a separate VLAN module. VLAN implementation for
-> > DWMAC4 and DWXGMAC differs only for CSR base address, the descriptor
-> > for the VLAN ID and VLAN VALID bit field.
-> > 
-> > The descriptor format for VLAN is not moved to the common code due
-> > to hardware-specific differences between DWMAC4 and DWXGMAC.
-> > 
-> > For the DWMAC4 IP, the Receive Normal Descriptor 0 (RDES0) is
-> > formatted as follows:
-> >     31                                                0
-> >       ------------------------ -----------------------
-> > RDES0| Inner VLAN TAG [31:16] | Outer VLAN TAG [15:0] |
-> >       ------------------------ -----------------------
-> > 
-> > For the DWXGMAC IP, the RDES0 format varies based on the
-> > Tunneled Frame bit (TNP):
-> > 
-> > a) For Non-Tunneled Frame (TNP=0)
-> > 
-> >     31                                                0
-> >       ------------------------ -----------------------
-> > RDES0| Inner VLAN TAG [31:16] | Outer VLAN TAG [15:0] |
-> >       ------------------------ -----------------------
-> > 
-> > b) For Tunneled Frame (TNP=1)
-> > 
-> >      31                   8 7                3 2      0
-> >       --------------------- ------------------ -------
-> > RDES0| VNID/VSID           | Reserved         | OL2L3 |
-> >       --------------------- ------------------ ------
-> > 
-> > The logic for handling tunneled frames is not yet implemented
-> > in the dwxgmac2_wrback_get_rx_vlan_tci() function. Therefore,
-> > it is prudent to maintain separate functions within their
-> > respective descriptor driver files
-> > (dwxgmac2_descs.c and dwmac4_descs.c).
-> > 
-> > Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
-> > Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
-> 
-> This patch does IMHO too many things together, and should be split in
-> several ones, i.e.:
-> - just moving the code in a separate file
-> - rename functions and simbols.
-> - other random changes...
-> 
-> > -	ret = readl_poll_timeout(ioaddr + GMAC_VLAN_TAG, val,
-> > -				 !(val & GMAC_VLAN_TAG_CTRL_OB),
-> > -				 1000, 500000);
-> > -	if (ret) {
-> > -		netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
-> > -		return -EBUSY;
-> > -	}
-> 
-> > +	for (i = 0; i < timeout; i++) {
-> > +		val = readl(ioaddr + VLAN_TAG);
-> > +		if (!(val & VLAN_TAG_CTRL_OB))
-> > +			return 0;
-> > +		udelay(1);
-> > +	}
-> > +
-> > +	netdev_err(dev, "Timeout accessing MAC_VLAN_Tag_Filter\n");
-> > +
-> > +	return -EBUSY;
-> 
-> ... like the above on (which looks unnecessary?!?)
-
-Also looks like a backward step, because we ask people to use the helper
-macros where possible.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAwNCBBcHIgMjAyNSwgTGVlIEpvbmVzIHdyb3RlOgoKPiBPbiBGcmksIDE0IE1hciAy
+MDI1LCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4gCj4gPiBBZGQgc3VwcG9ydCBmb3IgU1RNMzJN
+UDI1IFNvQy4KPiA+IEEgbmV3IGhhcmR3YXJlIGNvbmZpZ3VyYXRpb24gcmVnaXN0ZXIgKEhXQ0ZH
+UjIpIGhhcyBiZWVuIGFkZGVkLCB0byBnYXRoZXIKPiA+IG51bWJlciBvZiBjYXB0dXJlL2NvbXBh
+cmUgY2hhbm5lbHMsIGF1dG9ub21vdXMgbW9kZSBhbmQgaW5wdXQgY2FwdHVyZQo+ID4gY2FwYWJp
+bGl0eS4gVGhlIGZ1bGwgZmVhdHVyZSBzZXQgaXMgaW1wbGVtZW50ZWQgaW4gTFBUSU0xLzIvMy80
+LiBMUFRJTTUKPiA+IHN1cHBvcnRzIGEgc21hbGxlciBzZXQgb2YgZmVhdHVyZXMuIFRoaXMgY2Fu
+IG5vdyBiZSByZWFkIGZyb20gSFdDRkdSCj4gPiByZWdpc3RlcnMuCj4gPiAKPiA+IEFkZCBuZXcg
+cmVnaXN0ZXJzIHRvIHRoZSBzdG0zMi1scHRpbWVyLmg6IENDTVIxLCBDQ1IyLCBIV0NGR1IxLzIg
+YW5kIFZFUlIuCj4gPiBVcGRhdGUgdGhlIHN0bTMyX2xwdGltZXIgZGF0YSBzdHJ1Y3Qgc28gc2ln
+bmFsIHRoZSBudW1iZXIgb2YKPiA+IGNhcHR1cmUvY29tcGFyZSBjaGFubmVscyB0byB0aGUgY2hp
+bGQgZGV2aWNlcy4KPiA+IEFsc28gUmVtb3ZlIHNvbWUgdW51c2VkIGJpdCBtYXNrcyAoQ01QT0tf
+QVJST0sgLyBDTVBPS0NGX0FSUk9LQ0YpLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBGYWJyaWNl
+IEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBmb3NzLnN0LmNvbT4KPiA+IC0tLQo+ID4gQ2hhbmdl
+cyBpbiBWNDoKPiA+IC0gQWRkIERJRVJPSywgQVJST0sgc3RhdHVzIGZsYWdzLCBhbmQgdGhlaXIg
+Y2xlYXIgZmxhZ3MuCj4gPiBDaGFuZ2VzIGluIFYyOgo+ID4gLSByZWx5IG9uIGZhbGxiYWNrIGNv
+bXBhdGlibGUgYXMgbm8gc3BlY2lmaWMgLmRhdGEgaXMgYXNzb2NpYXRlZCB0byB0aGUKPiA+ICAg
+ZHJpdmVyLiBDb21wYXRpYmlsaXR5IGlzIGFkZGVkIGJ5IHJlYWRpbmcgaGFyZHdhcmUgY29uZmln
+dXJhdGlvbgo+ID4gICByZWdpc3RlcnMuCj4gPiAtIHJlYWQgdmVyc2lvbiByZWdpc3RlciwgdG8g
+YmUgdXNlZCBieSBjbG9ja2V2ZW50IGNoaWxkIGRyaXZlcgo+ID4gLSByZW5hbWUgcmVnaXN0ZXIv
+Yml0cyBkZWZpbml0aW9ucwo+ID4gLS0tCj4gPiAgZHJpdmVycy9tZmQvc3RtMzItbHB0aW1lci5j
+ICAgICAgIHwgMzMgKysrKysrKysrKysrKysrKysrKysrKysrKystCj4gPiAgaW5jbHVkZS9saW51
+eC9tZmQvc3RtMzItbHB0aW1lci5oIHwgMzcgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
+LQo+IAo+IEF0IGxlYXN0IHRoZSBDbG9ja3NvdXJjZSBkcml2ZXIgZGVwZW5kcyBvbiB0aGlzLgo+
+IAo+IEkgbmVlZCBBY2tzIGZyb20gdGhlIG90aGVyIE1haW50YWluZXJzIGJlZm9yZSBJIGNhbiBt
+ZXJnZSB0aGlzLgoKU3VnZ2VzdCB5b3UgcmVzdWJtaXQgdGhlIHNldCBhcyBhIFtSRVNFTkRdIHRv
+IHJlLWdhaW4gdHJhY3Rpb24uCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
