@@ -2,81 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064A5A9C343
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Apr 2025 11:23:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C05A9C93D
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Apr 2025 14:50:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90D88C78F88;
-	Fri, 25 Apr 2025 09:23:35 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEE93C78F8B;
+	Fri, 25 Apr 2025 12:50:09 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EEE0C78F87
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 921FEC78F88
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Apr 2025 09:23:34 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.216])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4ZkS7F5z0Kz4f3lWD
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Apr 2025 17:23:05 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
- by mail.maildlp.com (Postfix) with ESMTP id 55F581A1BE7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Apr 2025 17:23:31 +0800 (CST)
-Received: from [10.67.111.192] (unknown [10.67.111.192])
- by APP1 (Coremail) with SMTP id cCh0CgAHanqRVAtoENpoKQ--.39960S2;
- Fri, 25 Apr 2025 17:23:30 +0800 (CST)
-Message-ID: <2f13f928-9148-44e0-a44c-872a3779b0ef@huaweicloud.com>
-Date: Fri, 25 Apr 2025 17:23:29 +0800
+ Fri, 25 Apr 2025 12:50:08 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53P86wNj019049;
+ Fri, 25 Apr 2025 14:49:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=JSsdkFg45Ll2VJgZTBAf+T
+ nuU5fz9vAYn+9hEOgOa/I=; b=DsFgEjvjWBi4nX+dONp8msrJbrtUXS0NJVrB0k
+ Zs1HIVJ6dWVsElHxXTKh8rHaGmcK6zO+dHJaxxbi90Q0PESwJ7ZiSVt9KuNxBjji
+ LFhMxnwoOlpx183ZDf7X2dBof6+pfdt4KAQzAEmA1zE5VkmpnxeS+c4nXHNtR4m4
+ sPiam2vjAeqfq/RXqz2ix00HmZLG+xS10aAxcwlZx2l7L1GyXeE7+N/KoOICBmid
+ ZGtTmdgnopxUjDflDw7GHI1k6/p2rZ07VLdEM6SiEIzR1xt/kBFIx3XJlj6pPQ8r
+ zC2YGik/IxUk5pNyBaBmcACmnJzbAA+/fqOAoPqXv/JvF2Hw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 466jjvm6st-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Apr 2025 14:49:46 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AA8D64004B;
+ Fri, 25 Apr 2025 14:48:45 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E20CFA09560;
+ Fri, 25 Apr 2025 14:48:04 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
+ 2025 14:48:04 +0200
+Received: from localhost (10.252.15.6) by SAFDAG1NODE1.st.com (10.75.90.17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
+ 2025 14:48:04 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <lee@kernel.org>, <alexandre.torgue@foss.st.com>,
+ <daniel.lezcano@linaro.org>, <tglx@linutronix.de>
+Date: Fri, 25 Apr 2025 14:47:48 +0200
+Message-ID: <20250425124755.166193-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Andrii Nakryiko <andrii.nakryiko@gmail.com>
-References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
- <20250411-many_args_arm64-v1-1-0a32fe72339e@bootlin.com>
- <CAEf4Bzbn6BdXTOb0dTcsQmOMZpp5=DzGS2hHHQ3+dwcja=gv+w@mail.gmail.com>
- <D98Q8BRNUVS9.11J60C67L1ALR@bootlin.com>
- <CAEf4BzZHMYyGDZ4c4eNXG7Fm=ecxCCbKhKbQTbCjvWmKtdwvBw@mail.gmail.com>
- <D9E9IQQ3QKXM.3UJ17G9CBS1FH@bootlin.com>
- <6b6472c3-0718-4e60-9972-c166d51962a3@huaweicloud.com>
- <D9EWSDXHDGFJ.FIDSHIR1OP80@bootlin.com>
-From: Xu Kuohai <xukuohai@huaweicloud.com>
-In-Reply-To: <D9EWSDXHDGFJ.FIDSHIR1OP80@bootlin.com>
-X-CM-TRANSID: cCh0CgAHanqRVAtoENpoKQ--.39960S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw4DtFW8Gry3urWkury7trb_yoW5Ar48pF
- WftFyktrs7GF1xZF1qqw4IvFWDtwsxKr18W3yDtr18Aws0q3saqr1jkF1Y9FWxKw1kWw47
- XayY9ayxCFy5ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
- 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
- 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
- Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
- 14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
- 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
- XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
- 0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
- 4xRDUUUUU==
-X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Will Deacon <will@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Florent Revest <revest@chromium.org>, Puranjay Mohan <puranjay@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
- Alexei Starovoitov <ast@kernel.org>, KP Singh <kpsingh@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Hao Luo <haoluo@google.com>,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
- bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: Re: [Linux-stm32] [PATCH RFC bpf-next 1/4] bpf: add struct largest
- member size in func model
+X-Originating-IP: [10.252.15.6]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-25_03,2025-04-24_02,2025-02-21_01
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, ukleinek@kernel.org,
+ linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
+Subject: [Linux-stm32] [PATCH v5 0/7] Add STM32MP25 LPTIM support: MFD, PWM,
+	IIO, counter, clocksource
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,65 +75,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8yNC8yMDI1IDk6MzggUE0sIEFsZXhpcyBMb3Rob3LDqSB3cm90ZToKPiBIaSBYdSwKPiAK
-PiBPbiBUaHUgQXByIDI0LCAyMDI1IGF0IDI6MDAgUE0gQ0VTVCwgWHUgS3VvaGFpIHdyb3RlOgo+
-PiBPbiA0LzI0LzIwMjUgMzoyNCBBTSwgQWxleGlzIExvdGhvcsOpIHdyb3RlOgo+Pj4gSGkgQW5k
-cmlpLAo+Pj4KPj4+IE9uIFdlZCBBcHIgMjMsIDIwMjUgYXQgNzoxNSBQTSBDRVNULCBBbmRyaWkg
-TmFrcnlpa28gd3JvdGU6Cj4+Pj4gT24gVGh1LCBBcHIgMTcsIDIwMjUgYXQgMTI6MTTigK9BTSBB
-bGV4aXMgTG90aG9yw6kKPj4+PiA8YWxleGlzLmxvdGhvcmVAYm9vdGxpbi5jb20+IHdyb3RlOgo+
-Pj4+Pgo+Pj4+PiBIaSBBbmRyaWksCj4+Pj4+Cj4+Pj4+IE9uIFdlZCBBcHIgMTYsIDIwMjUgYXQg
-MTE6MjQgUE0gQ0VTVCwgQW5kcmlpIE5ha3J5aWtvIHdyb3RlOgo+Pj4+Pj4gT24gRnJpLCBBcHIg
-MTEsIDIwMjUgYXQgMTozMuKAr1BNIEFsZXhpcyBMb3Rob3LDqSAoZUJQRiBGb3VuZGF0aW9uKQo+
-Pj4+Pj4gPGFsZXhpcy5sb3Rob3JlQGJvb3RsaW4uY29tPiB3cm90ZToKPiAKPiBbLi4uXQo+IAo+
-Pj4gVGhhbmtzIGZvciB0aGUgcG9pbnRlciwgSSdsbCB0YWtlIGEgbG9vayBhdCBpdC4gVGhlIG1v
-cmUgd2UgZGlzY3VzcyB0aGlzCj4+PiBzZXJpZXMsIHRoZSBsZXNzIG1lbWJlciBzaXplIHNvdW5k
-cyByZWxldmFudCBmb3Igd2hhdCBJJ20gdHJ5aW5nIHRvIGFjaGlldmUKPj4+IGhlcmUuCj4+Pgo+
-Pj4gRm9sbG93aW5nIFh1J3MgY29tbWVudHMsIEkgaGF2ZSBiZWVuIHRoaW5raW5nIGFib3V0IGhv
-dyBJIGNvdWxkIGRldGVjdCB0aGUKPj4+IGN1c3RvbSBhbGlnbm1lbnRzIGFuZCBwYWNraW5nIG9u
-IHN0cnVjdHVyZXMsIGFuZCBJIHdhcyB3b25kZXJpbmcgaWYgSSBjb3VsZAo+Pj4gc29tZWhvdyBi
-ZW5lZml0IGZyb20gX19hdHRyaWJ1dGVfXyBlbmNvZGluZyBpbiBCVEYgaW5mbyAoWzFdKS4gQnV0
-Cj4+PiBmb2xsb3dpbmcgeW91ciBoaW50LCBJIGFsc28gc2VlIHNvbWUgYnRmX2lzX3N0cnVjdF9w
-YWNrZWQoKSBpbgo+Pj4gdG9vbHMvbGliL2JwZi9idGZfZHVtcC5jIHRoYXQgY291bGQgaGVscC4g
-SSdsbCBkaWcgdGhpcyBmdXJ0aGVyIGFuZCBzZWUgaWYKPj4+IEkgY2FuIG1hbmFnZSB0byBtYWtl
-IHNvbWV0aGluZyB3b3JrIHdpdGggYWxsIG9mIHRoaXMuCj4+Pgo+Pgo+PiBXaXRoIERXQVJGIGlu
-Zm8sIHdlIG1pZ2h0IG5vdCBuZWVkIHRvIGRldGVjdCB0aGUgc3RydWN0dXJlIGFsaWdubWVudCBh
-bnltb3JlLAo+PiBzaW5jZSB0aGUgRFdfQVRfbG9jYXRpb24gYXR0cmlidXRlIHRlbGxzIHVzIHdo
-ZXJlIHRoZSBzdHJ1Y3R1cmUgcGFyYW1ldGVyIGlzCj4+IGxvY2F0ZWQgb24gdGhlIHN0YWNrLCBh
-bmQgRFdfQVRfYnl0ZV9zaXplIGdpdmVzIHVzIHRoZSBzaXplIG9mIHRoZSBzdHJ1Y3R1cmUuCj4g
-Cj4gSSBhbSBub3Qgc3VyZSB0byBmb2xsb3cgeW91IGhlcmUsIGJlY2F1c2UgRFdBUkYgaW5mbyBp
-cyBub3QgYWNjZXNzaWJsZQo+IGZyb20ga2VybmVsIGF0IHJ1bnRpbWUsIHJpZ2h0ID8gT3IgYXJl
-IHlvdSBtZWFuaW5nIHRoYXQgd2UgY291bGQsIGF0IGJ1aWxkCj4gdGltZSwgZW5yaWNoIHRoZSBC
-VEYgaW5mbyBlbWJlZGRlZCBpbiB0aGUga2VybmVsIHRoYW5rcyB0byBEV0FSRiBpbmZvID8KPgoK
-U29ycnkgZm9yIHRoZSBjb25mdXNpb24uCgpXaGF0IEkgbWVhbnQgaXMgdGhhdCB0aGVyZSBhcmUg
-dHdvIERXQVJGIGF0dHJpYnV0ZXMsIERXX0FUX2xvY2F0aW9uIGFuZApEV19BVF9ieXRlX3NpemUs
-IHdoaWNoIHRlbGwgdXMgdGhlIHBvc2l0aW9uIGFuZCBzaXplIG9mIGZ1bmN0aW9uIHBhcmFtZXRl
-cnMuCgpGb3IgdGhlIGV4YW1wbGUgZWFybGllcjoKCnN0cnVjdCBzMiB7CiAgICAgICBfX2ludDEy
-OCB4Owp9IF9fYXR0cmlidXRlX18oKGFsaWduZWQoNjQpKSk7CgppbnQgZjIoX19pbnQxMjggYSwg
-X19pbnQxMjggYiwgX19pbnQxMjggYywgaW50NjRfdCBkLCBfX2ludDEyOCBlLCBpbnQ2NF90IGYs
-IHN0cnVjdCBzMiBnKQp7CiAgICAgcmV0dXJuIDA7Cn0KCk9uIG15IGJ1aWxkIGhvc3QsIHRoZSBE
-V19BVF9sb2NhdGlvbiBhdHRyaWJ1dGVzIGZvciAiZSIsICJmIiwgYW5kICJnIiBhcmU6Cgo8Mj48
-ZWU+OiBBYmJyZXYgTnVtYmVyOiAyIChEV19UQUdfZm9ybWFsX3BhcmFtZXRlcikKICAgICA8ZWY+
-ICAgRFdfQVRfbmFtZSAgICAgICAgOiBlCiAgICAgLi4uCiAgICAgPGY2PiAgIERXX0FUX2xvY2F0
-aW9uICAgIDogMiBieXRlIGJsb2NrOiA5MSAwICAgICAgIChEV19PUF9mYnJlZzogMCkKCjwyPjxm
-OT46IEFiYnJldiBOdW1iZXI6IDIgKERXX1RBR19mb3JtYWxfcGFyYW1ldGVyKQogICAgIDxmYT4g
-ICBEV19BVF9uYW1lICAgICAgICA6IGYKICAgICAgLi4uCiAgICAgPDEwMT4gICBEV19BVF9sb2Nh
-dGlvbiAgICA6IDIgYnl0ZSBibG9jazogOTEgMTAgICAgIChEV19PUF9mYnJlZzogMTYpCgo8Mj48
-MTA0PjogQWJicmV2IE51bWJlcjogMiAoRFdfVEFHX2Zvcm1hbF9wYXJhbWV0ZXIpCiAgICAgPDEw
-NT4gICBEV19BVF9uYW1lICAgICAgICA6IGcKICAgICAgLi4uCiAgICAgPDEwYz4gICBEV19BVF9s
-b2NhdGlvbiAgICA6IDIgYnl0ZSBibG9jazogODMgMCAgICAgIChEV19PUF9icmVnMTkgKHgxOSk6
-IDApCgpXZSBjYW4gc2VlICJlIiBhbmQgImYiIGFyZSBhdCBmcCswIGFuZCBmcCsxNiwgYnV0ICJn
-IiBpcyBpbiB4MTkrMC4gRGlzYXNzZW1ibHkgc2hvd3MgeDE5CmhvbGRzIGEgNjQtYnl0ZSBhbGln
-bmVkIHN0YWNrIGFkZHJlc3MuCgpGb3IgdGhlIHR3byBxdWVzdGlvbnMgeW91IG1lbnRpb25lZCwg
-SeKAmW0gbm90IHN1cmUgaWYgd2UgY2FuIGFjY2VzcyBEV0FSRiBhdHRyaWJ1dGVzCmF0IHJ1bnRp
-bWUuIEFzIGZvciBhZGRpbmcgcGFyYW1ldGVyIGxvY2F0aW9ucyB0byBCVEYgYXQgYnVpbGRpbmcg
-dGltZSwgSSB0aGluayBpdAptZWFucyB3ZSB3b3VsZCBuZWVkIHRvIHJlY29yZCBDUFUtcmVsYXRl
-ZCByZWdpc3RlciBpbmZvIGluIEJURiwgd2hpY2ggSSBkb27igJl0IHRoaW5rCmlzIGEgZ29vZCBp
-ZGVhLgoKPiBUaGFua3MsCj4gCj4gQWxleGlzCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+This series adds support for STM32MP25 to MFD PWM, IIO, counter and
+clocksource low-power timer (LPTIM) drivers.
+This new variant is managed by using a new DT compatible string, hardware
+configuration and version registers.
+It comes with a slightly updated register set, some new features and new
+interconnect signals inside the SoC.
+Same feature list as on STM32MP1x is supported currently.
+The device tree files add all instances in stm32mp251 dtsi file.
+
+Changes in V5
+---
+- Add a necessary delay in clocksource driver, when enabling the timer.
+- Add collected Acks
+- Dropped IIO trigger patch as applied by Jonathan [1] (no dependency)
+  [1] https://lore.kernel.org/all/20250331110435.26157ebe@jic23-huawei/
+
+Changes in V4
+---
+- Simplify IIO trigger driver as per Jonathan's comments.
+- Rework clocksource driver: encapsulate mp25 changes in separate function
+  after Daniel's suggestion.
+- Add some definitions to MFD header.
+
+Changes in V3
+---
+- Yaml indentation issue fixed, reported by Rob's bot
+
+Changes in V2
+---
+- Review comments from Krzysztof
+  - Adopt compatible fallback in dt-bindings and driver
+  - drivers: drop "st,stm32mp25-..." compatibles when unused (e.g. no .data)
+  - counter driver: no update (patch dropped)
+  - defconfig: only enable the necessary config for upstream board
+  - add lptimer DT node in stm32mp257f-ev1 board
+- Add missing management of IER access for stm32mp25
+
+Fabrice Gasnier (7):
+  dt-bindings: mfd: stm32-lptimer: add support for stm32mp25
+  mfd: stm32-lptimer: add support for stm32mp25
+  clocksource: stm32-lptimer: add support for stm32mp25
+  pwm: stm32-lp: add support for stm32mp25
+  arm64: defconfig: enable STM32 LP timer clockevent driver
+  arm64: dts: st: add low-power timer nodes on stm32mp251
+  arm64: dts: st: use lptimer3 as tick broadcast source on
+    stm32mp257f-ev1
+
+ .../bindings/mfd/st,stm32-lptimer.yaml        |  40 +++-
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        | 177 ++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |   8 +
+ arch/arm64/configs/defconfig                  |   2 +
+ drivers/clocksource/timer-stm32-lp.c          |  60 ++++-
+ drivers/mfd/stm32-lptimer.c                   |  33 ++-
+ drivers/pwm/pwm-stm32-lp.c                    | 219 +++++++++++++++---
+ include/linux/mfd/stm32-lptimer.h             |  37 ++-
+ 8 files changed, 536 insertions(+), 40 deletions(-)
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
