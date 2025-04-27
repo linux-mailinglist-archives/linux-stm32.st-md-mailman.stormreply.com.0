@@ -2,84 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61268A9E083
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Apr 2025 09:44:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E99A9E45C
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Apr 2025 21:17:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A6D3C78F94;
-	Sun, 27 Apr 2025 07:44:21 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C4A2C01E99;
+	Sun, 27 Apr 2025 19:17:52 +0000 (UTC)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50F54C78F90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40984CFAC42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Apr 2025 07:44:20 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-43cfa7e7f54so24287475e9.1
+ Sun, 27 Apr 2025 19:17:51 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-5e8484bb895so1083041a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Apr 2025 00:44:20 -0700 (PDT)
+ Sun, 27 Apr 2025 12:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1745739860; x=1746344660;
+ d=linaro.org; s=google; t=1745781470; x=1746386270;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pL4EuVBd+kCprRkzB/cjMf7Bv+31ykO+OuQZllzhxds=;
- b=nAACX7BP9doRiWfHnUDQfVXk3SvAC5hz/bI2kfKUBZAnZkRlLPs5ZxH0ggsM38rs9U
- En4QrE1SH8btyIG5ezcyNcuaucbZkD6InWStRYnj0Ovm8SF33NO9cOK/ihfySaGweUKs
- YeTh2eHBxdA4OzKzF6fAEo/dk4gn2wYdD1jdw=
+ bh=oiImoVKJXxF5Kkx3zdXXXFlWOb+F7YBai/OtGKstv94=;
+ b=brtJyuZzkSr1rEhJzpR65fl9tVSLn7rUHOO9bx3DS6/5MX8HQQ4ZwPXytdV/aRHWrW
+ lDcaeRrbyse4gvbITJtwymJwotvjtVSeInqZcFo/0aWbbMWNhrd0ko1l4INHwscnD0Ls
+ hAZ6tSL0UhDGUVxpl74dQcZq5yX9P/KCsEMx5Ve6dzp4Do+nX5/r8iBXY1lwAhES7XZ+
+ 6CKsF/55WgIKS5pKRLJy8CXFQyg3ZvHkP+XfwkDlvx8vyZsT11KtrJ2yYf43b+c+Jc6k
+ Wm+utIcvN2/uZQzDvx66UunBlP87lDoclSCuFQeDvCKfzkb6zYYx33TlX2mX5RrAxWae
+ JfJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745739860; x=1746344660;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1745781470; x=1746386270;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pL4EuVBd+kCprRkzB/cjMf7Bv+31ykO+OuQZllzhxds=;
- b=M5GEcfBfLLOBzULUISz0oKbn9Nff6tpcQ5uq8jIiVVREOdcTBkmzv/Aa0wC12TlsDy
- b4iMxvmmxZ+B3xpDzNZZdqY6gGmoLW2KLjhEwzk51uw301/kOpN6p4edQowvtrZVEmdY
- A43V/2svFU7OXhrvlmMsvxChAL3wOjrmWj2hHzdz2D1vgHWMsgOExax8fkKpTxwUSqAQ
- gxSDj2sNJdkoxQVqRSt2zCCR5m58HnzD3yN82hoeUiNYzu+zwuwNn8dQMTF4ol8/21Ys
- NrjgS3q/Bw4vb2KauQpLSDp44fajnmirGolwjPxoGKQkHU7YhMzlBUJpbTy/ZNo5u+DL
- 7Gyg==
+ bh=oiImoVKJXxF5Kkx3zdXXXFlWOb+F7YBai/OtGKstv94=;
+ b=ZyZQgSwfIDBmNONs5g4/KvYQsxTeTO/BoQzIj8ziXaIZUpTlfW/nNlb7CbBi+IkWD+
+ OdgjF+Q8VReLD5MrkRiCigmMqPQpkRIWl1M/Re3RspYkNhxEon0paZSde2wzQnFbzD73
+ AkF2qsHDvz4xqC/GY8wOPVmvBUNMW+x6nCgObMVHlAUEue1go0srPiyhZ7S64EpsPd+K
+ CCFQocmyOwLDoaJp4uA5kz27j6AkFwQ9n9OI93SqO7q/ORxehWlTAD/kditepV+HcwlQ
+ sQh4UPib3oN3mByJDWCODK+MkwdS1vvzVkC9LgEgVEseK3eblPJetSKl1ZUGEwoO2uT4
+ iqYQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWzlGMZiL7WGQv7FIbS8IxeqckqSf9gu76nCjKGHd8MT0dI8zjSaDwe0Hptlv8xfl7+5Gv4gFdTLV/3IQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwgFYlClUWMi3tG71w2qMqZgQh3R07p3nsMRBy3vHxpAiC/2Z+9
- MyuQku2DWEgJfRT12yNPECEcMd/IyIsUmDftF0n/vhhdKcSH7HI6ldYmavo33ME=
-X-Gm-Gg: ASbGncsNpk/qawgavMKxIaY3+l9aWCNP//aCfn7Gv5jYBn7iXPA2K3mNA+B2rY+ftew
- 2LV3bvKbxaQ94nDg7FeZ33WaaP0SZ7U0dcKUvB2rdYm7NGR4/mV9bQZGT59qDhL7S6smHRI0IU2
- yc7dfLk1QKGQ+8mj+o7BIZBpKxo2IHPOerRzko2FvaxicUCqn991zC0ADb49NSqxGe9mwUPTJ2d
- f2VALOkBoIwmhdCVvkg4LBBU88xda2Ys/suvGxpeqViKHztF6L153kXK0v9PQFGL9N64D42svE/
- dkOxJVj7hrJWG9zjpiALg+jjgHUy/tcmiMKWMgPN8p85sEJgF5LNqQnAqB9zeRJpmdYGgzHtI3R
- YQfjiDQ==
-X-Google-Smtp-Source: AGHT+IEL/lT85jIG57Q0JOnH775/lJ5IzNoIu0Chk+nAgHGI/dfLdbqsRa7ZO7X6xN8mOHy3m7EIgA==
-X-Received: by 2002:a05:600c:58d7:b0:43d:fa5f:7d04 with SMTP id
- 5b1f17b1804b1-4409c52a44dmr92109645e9.16.1745739859798; 
- Sun, 27 Apr 2025 00:44:19 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.. ([2.196.40.180])
+ AJvYcCVEMZSers0une6WzyhWi+BaDISAdUPn7VytrINK+TF2v2vm74zwX3v9WmiMgK5Vo/paQerqoJPHs6wlGA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwbVb36dn/Xal6KHfYcNdjVE5uDlXUXcTNWlrLcs3uJmdx+NkyL
+ EFAN94Y0d8oYtsnlFgcOwLzdfZtdtznCKMG6RiCTOTZMY6s8J4zcGWsq65w10Q0=
+X-Gm-Gg: ASbGncu8Y8dx9dLdKh/y6BSU6SRAcjv5cqNHapCaN3hFYhcuEzvvSAEUpmHReQki5p8
+ fQZwyySDjf8qDR3FCBGSqukWsRWuU7t3KHTYwoXaXg8YHcsGA2hp2LekeMF2zN5zex6Uny0Pe00
+ 7LjEZKRStV8kXtcXeg4fIIEweN26zcdJuQcpxb9k4uM+lPm2fPDIsmkuuxxOb5P+47DHjQc0nTZ
+ 5518IeWrxRMxYnzhidRtPWU/rFgeDOKoEsllzx1wNkQNeF0SwoLisBeY5KPBDk+lVnXCyvqFaNf
+ fBXW6Fb0LTKPZnekl0l9+HliKoqzhQ5wYXvNHiVBuKGpVtCEUk6hgqU1Knk=
+X-Google-Smtp-Source: AGHT+IGubP2iCTuCyZ6yE7PZ7fqh1WFD1EalA/6wRofWBfLKR0gPhAxQUDuoA/JPJLBw75qeR6aCjg==
+X-Received: by 2002:a05:6402:1d49:b0:5f4:cb60:b1bf with SMTP id
+ 4fb4d7f45d1cf-5f72297d704mr2493639a12.5.1745781470559; 
+ Sun, 27 Apr 2025 12:17:50 -0700 (PDT)
+Received: from [192.168.1.28] ([178.197.207.88])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-440a52f8915sm87682015e9.7.2025.04.27.00.44.18
+ 4fb4d7f45d1cf-5f70110791bsm4547238a12.13.2025.04.27.12.17.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Apr 2025 00:44:19 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Sun, 27 Apr 2025 09:43:27 +0200
-Message-ID: <20250427074404.3278732-9-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250427074404.3278732-1-dario.binacchi@amarulasolutions.com>
-References: <20250427074404.3278732-1-dario.binacchi@amarulasolutions.com>
+ Sun, 27 Apr 2025 12:17:49 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, Chen-Yu Tsai <wens@csie.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ Steen Hegelund <Steen.Hegelund@microchip.com>, 
+ Daniel Machon <daniel.machon@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Ludovic Desroches <ludovic.desroches@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Bartosz Golaszewski <brgl@bgdev.pl>
+In-Reply-To: <20250424-gpiochip-set-rv-pinctrl-part2-v1-12-504f91120b99@linaro.org>
+References: <20250424-gpiochip-set-rv-pinctrl-part2-v1-0-504f91120b99@linaro.org>
+ <20250424-gpiochip-set-rv-pinctrl-part2-v1-12-504f91120b99@linaro.org>
+Message-Id: <174578146801.16256.5835084697538702793.b4-ty@linaro.org>
+Date: Sun, 27 Apr 2025 21:17:48 +0200
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- devicetree@vger.kernel.org, Roan van Dijk <roan@protonic.nl>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 8/8] ARM: dts: stm32: support STM32h747i-disco
-	board
+X-Mailer: b4 0.14.2
+Cc: linux-samsung-soc@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-actions@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH 12/12] pinctrl: samsung: use new
+ GPIO line value setter callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,184 +111,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The board includes an STM32H747XI SoC with the following resources:
- - 2 Mbytes Flash
- - 1 Mbyte SRAM
- - LCD-TFT controller
- - MIPI-DSI interface
- - FD-CAN
- - USB 2.0 high-speed/full-speed
- - Ethernet MAC
- - camera interface
 
-Detailed information can be found at:
-https://www.st.com/en/evaluation-tools/stm32h747i-disco.html
+On Thu, 24 Apr 2025 10:35:35 +0200, Bartosz Golaszewski wrote:
+> struct gpio_chip now has callbacks for setting line values that return
+> an integer, allowing to indicate failures. Convert the driver to using
+> them.
+> 
+> 
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Applied, thanks!
 
----
+[12/12] pinctrl: samsung: use new GPIO line value setter callbacks
+        https://git.kernel.org/pinctrl/samsung/c/0a5b9be31f78898c7d6e7778377e8ab6ab0399d2
 
- arch/arm/boot/dts/st/Makefile             |   1 +
- arch/arm/boot/dts/st/stm32h747i-disco.dts | 136 ++++++++++++++++++++++
- 2 files changed, 137 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32h747i-disco.dts
-
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index 60d55516f723..c66959edac12 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -28,6 +28,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
- 	stm32h743i-disco.dtb \
-+	stm32h747i-disco.dtb \
- 	stm32h750i-art-pi.dtb \
- 	stm32mp133c-prihmb.dtb \
- 	stm32mp135f-dhcor-dhsbc.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32h747i-disco.dts b/arch/arm/boot/dts/st/stm32h747i-disco.dts
-new file mode 100644
-index 000000000000..99f0255dae8e
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32h747i-disco.dts
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
-+
-+/dts-v1/;
-+#include "stm32h743.dtsi"
-+#include "stm32h7-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
-+/ {
-+	model = "STMicroelectronics STM32H747i-Discovery board";
-+	compatible = "st,stm32h747i-disco", "st,stm32h747";
-+
-+	chosen {
-+		bootargs = "root=/dev/ram";
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@d0000000 {
-+		device_type = "memory";
-+		reg = <0xd0000000 0x2000000>;
-+	};
-+
-+	aliases {
-+		serial0 = &usart1;
-+		serial1 = &uart8;
-+	};
-+
-+	v3v3: regulator-v3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "v3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		led-green {
-+			gpios = <&gpioi 12 GPIO_ACTIVE_LOW>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+		led-orange {
-+			gpios = <&gpioi 13 GPIO_ACTIVE_LOW>;
-+		};
-+		led-red {
-+			gpios = <&gpioi 14 GPIO_ACTIVE_LOW>;
-+		};
-+		led-blue {
-+			gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		autorepeat;
-+		button-0 {
-+			label = "User";
-+			linux,code = <KEY_WAKEUP>;
-+			gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
-+		};
-+		button-1 {
-+			label = "JoySel";
-+			linux,code = <KEY_ENTER>;
-+			gpios = <&gpiok 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+		};
-+		button-2 {
-+			label = "JoyDown";
-+			linux,code = <KEY_DOWN>;
-+			gpios = <&gpiok 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+		};
-+		button-3 {
-+			label = "JoyUp";
-+			linux,code = <KEY_UP>;
-+			gpios = <&gpiok 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+		};
-+		button-4 {
-+			label = "JoyLeft";
-+			linux,code = <KEY_LEFT>;
-+			gpios = <&gpiok 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+		};
-+		button-5 {
-+			label = "JoyRight";
-+			linux,code = <KEY_RIGHT>;
-+			gpios = <&gpiok 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+		};
-+	};
-+};
-+
-+&clk_hse {
-+	clock-frequency = <25000000>;
-+};
-+
-+&mac {
-+	status = "disabled";
-+	pinctrl-0 = <&ethernet_rmii>;
-+	pinctrl-names = "default";
-+	phy-mode = "rmii";
-+	phy-handle = <&phy0>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+};
-+
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	cd-gpios = <&gpioi 8 GPIO_ACTIVE_LOW>;
-+	broken-cd;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&usart1 {
-+	pinctrl-0 = <&usart1_pins_b>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&uart8 {
-+	pinctrl-0 = <&uart8_pins_a>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
+Best regards,
 -- 
-2.43.0
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 _______________________________________________
 Linux-stm32 mailing list
