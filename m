@@ -2,48 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8802A9DF57
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Apr 2025 08:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C27E9A9E078
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Apr 2025 09:44:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D9B2C7802E;
-	Sun, 27 Apr 2025 06:22:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D568C7802E;
+	Sun, 27 Apr 2025 07:44:10 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C6F4CFAC4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE403C78006
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Apr 2025 06:22:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5B6785C53A1;
- Sun, 27 Apr 2025 06:20:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF02C4CEE3;
- Sun, 27 Apr 2025 06:22:31 +0000 (UTC)
-Received: from wens.tw (localhost [127.0.0.1])
- by wens.tw (Postfix) with ESMTP id B822D5F71D;
- Sun, 27 Apr 2025 14:22:28 +0800 (CST)
-From: Chen-Yu Tsai <wens@csie.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- =?utf-8?q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-Message-Id: <174573494872.940990.8317443409308272836.b4-ty@csie.org>
-Date: Sun, 27 Apr 2025 14:22:28 +0800
+ Sun, 27 Apr 2025 07:44:08 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-43d0c18e84eso17154695e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 27 Apr 2025 00:44:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1745739848; x=1746344648;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oinzcqCiVbGgyb0iiuzscDKJeJyyI76yLcJfoJ0sjS8=;
+ b=ICECR0lehPsf9bZ0UoipdfzEYfDqr/Jem8cPsoBmyLadX/gIhKasrH687j5zpBvUVU
+ 8P7GBuU/I2dgKf7T3Ovs+5q3b3fga665uXCHFngtCTfVvyZ9pQXd2P//PUqo9dET+0Vr
+ dtMOPRuXb3l2soSgBYm83ouTwgCcbMqYOK/SU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1745739848; x=1746344648;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oinzcqCiVbGgyb0iiuzscDKJeJyyI76yLcJfoJ0sjS8=;
+ b=ftffG1DRlWeOL24Q3PQilfur7wwnPJWZbe6u1txWxJ9EWhUYGaWJU5e1Pt98Tystzd
+ bevYqYg/Y/mm15vuX1G2eDI9lFuJumgu7QYKVKP/MrWJqkBLac1S65iLhvlKzzpSFrvM
+ B2MGvsX65kNMQ2MDgzRb2UH3L3PQ4S/r+ExJWO6FpHZMNtr4MmLxNkOa3WO04Yofph22
+ zHo8j9iU6Mz+cEE1Wg2wVl8zl6kPVEvcOttR7l7LaaPDHCb637B2AGPun/5w+gMSaeMG
+ ANj/392kfvgUDVGJlrD750+3evxPJFBq4aJmSA3mb/jRRPlnSALO/ONxOVucUUnOqYsn
+ JQoA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWUShGIU5RKKrAGqxz3xqNSPQntp37Da85CjsIwxoMwIp5XqqQKfYppLHhVRWn/fQLYasd89DmMozirtw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxMTHCGN/yxb6JUDGSff5Hk38XfX9oE949UrTi6QZgBG9JqzPvx
+ Wtd7P70PD/JpMx1oRcqqb11fmd6H/nS9wSZ0q/884jy97/cUk//RkJRCclVmAVw=
+X-Gm-Gg: ASbGncuS7iVJ0AtLwJopM3LHP5EUa5bYY5brSvhYbPxhvncCae6d4ZcP0xBvKwc8u3r
+ o+AghkVbekQgz8hbKiqWfIaJRAhtaWZV9lAUTNqFR26W6iJPY7cuXt2K+/kmfemuypJNVA45viy
+ RZvKI0R8L2PCpIPShLbXGuiBl3WE92g8seR29xrmgCE7OFgIaOAUSYDGOD+Ra7WTKsu+E4gf0VG
+ yEu+T/bdMij++dYDo10yj6q9fTEsFpDV2fDcWm+M7ZFSow157HlVrejS9WzbJnxVSHp7j/Comej
+ kMMtS8RIfzzN3NZZgGfmyEjqqyYG8oBd5ZltZO4+lQtk5EAPjbc/imknZuBTeAwW2jbLh24mlJt
+ /c7tCww==
+X-Google-Smtp-Source: AGHT+IG55beBCMeEpoU+v9sBHrbcIgFnVINAwcpqdyMq90VQ1/y+K+5G8xBe1CVGW38gxB0HOPdp+A==
+X-Received: by 2002:a05:600c:3148:b0:43c:f44c:72b7 with SMTP id
+ 5b1f17b1804b1-440a65dd132mr80678905e9.14.1745739848202; 
+ Sun, 27 Apr 2025 00:44:08 -0700 (PDT)
+Received: from dario-ThinkPad-T14s-Gen-2i.. ([2.196.40.180])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-440a52f8915sm87682015e9.7.2025.04.27.00.44.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 27 Apr 2025 00:44:07 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Sun, 27 Apr 2025 09:43:19 +0200
+Message-ID: <20250427074404.3278732-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-Mailer: b4 0.14.2
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/5] clk: Do not enable by
- default during compile testing
+Cc: Marek Vasut <marex@denx.de>, Roan van Dijk <roan@protonic.nl>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, devicetree@vger.kernel.org,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/8] Support STM32h747i-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,27 +94,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 04 Apr 2025 13:56:56 +0200, Krzysztof Kozlowski wrote:
-> Enabling the compile test should not cause automatic enabling of all
-> drivers.
-> 
-> No dependencies, can be picked by individual maintainers.
-> 
-> Best regards,
-> Krzysztof
-> 
-> [...]
+The series adds support for STM32h747i-disco board
 
-Applied to clk-for-6.16 in git@github.com:linux-sunxi/linux-sunxi.git, thanks!
+The board includes an STM32H747XI SoC with the following resources:
+ - 2 Mbytes Flash
+ - 1 Mbyte SRAM
+ - LCD-TFT controller
+ - MIPI-DSI interface
+ - FD-CAN
+ - USB 2.0 high-speed/full-speed
+ - Ethernet MAC
+ - camera interface
 
-[4/5] clk: sunxi-ng: Do not enable by default during compile testing
-      commit: 115bd1f1ec2b6b7f925752a85dd43e9909757f9a
-[5/5] clk: sunxi: Do not enable by default during compile testing
-      commit: f06a610cb17468a3098be1e401c4b29623b99d0a
+Detailed information can be found at:
+https://www.st.com/en/evaluation-tools/stm32h747i-disco.html
 
-Best regards,
+
+Dario Binacchi (8):
+  ARM: dts: stm32h7-pinctrl: add _a suffix to u[s]art_pins phandles
+  dt-bindings: arm: stm32: add compatible for stm32h747i-disco board
+  ARM: stm32: add a new SoC - STM32H747
+  clk: stm32h7: rename USART{7,8}_CK to UART{7,8}_CK
+  ARM: dts: stm32: add uart8 node for stm32h743 MCU
+  ARM: dts: stm32: add pin map for UART8 controller on stm32h743
+  ARM: dts: stm32: add an extra pin map for USART1 on stm32h743
+  ARM: dts: stm32: support STM32h747i-disco board
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   4 +
+ arch/arm/boot/dts/st/Makefile                 |   1 +
+ arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi     |  34 ++++-
+ arch/arm/boot/dts/st/stm32h743.dtsi           |   8 ++
+ arch/arm/boot/dts/st/stm32h743i-disco.dts     |   2 +-
+ arch/arm/boot/dts/st/stm32h743i-eval.dts      |   2 +-
+ arch/arm/boot/dts/st/stm32h747i-disco.dts     | 136 ++++++++++++++++++
+ arch/arm/boot/dts/st/stm32h750i-art-pi.dts    |   6 +-
+ arch/arm/mach-stm32/board-dt.c                |   1 +
+ include/dt-bindings/clock/stm32h7-clks.h      |   4 +-
+ 10 files changed, 187 insertions(+), 11 deletions(-)
+ create mode 100644 arch/arm/boot/dts/st/stm32h747i-disco.dts
+
 -- 
-Chen-Yu Tsai <wens@csie.org>
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
