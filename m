@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7D0FA9ED96
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Apr 2025 12:08:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D006CA9EF65
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Apr 2025 13:39:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54975C78011;
-	Mon, 28 Apr 2025 10:08:38 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CDB4C78011;
+	Mon, 28 Apr 2025 11:39:29 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09915CFAC47
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27971CFAC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Apr 2025 10:08:36 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0378941E0D;
- Mon, 28 Apr 2025 10:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1745834916;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EyLLSu+6S+6dxer7LO6vuNlydixelSCtlsd/r01CLYw=;
- b=n0pN73mOyqcHetOyty577p3pErAzkt7nOjTmTs7YgE7Q0kFnEUjpP51kQxEZbEasxxXrt7
- JLvkjuOt0AXoXFzIgQigzMagk7hFGPyQUdle3Zb9jKfyz12z4ip3NeyasSIldXmsRciGHI
- DAPPFmRMZw65TNO0ONyFX1B9VOWdBPbWVfFQRxq7GDgZTyiOu6KiIQmtgUPrBgjq25ltX4
- fXs7Qr6/wadKGI1e/wzLtxDQu6R/a1PPKI1hnCq8qK3a+JQ9bdUmnQfv6UUGKYpoRgrzG2
- 3kbgk9SijtBUMuGij0XV/jKboUCdiajElMI6QPih9raiz1GLhgDuUXF1++0s5Q==
-Mime-Version: 1.0
-Date: Mon, 28 Apr 2025 12:08:32 +0200
-Message-Id: <D9I6TQN2I6B1.QC4FFHEWAURZ@bootlin.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: "Eduard Zingerman" <eddyz87@gmail.com>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "John
- Fastabend" <john.fastabend@gmail.com>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "KP Singh"
- <kpsingh@kernel.org>, "Stanislav Fomichev" <sdf@fomichev.me>, "Hao Luo"
- <haoluo@google.com>, "Jiri Olsa" <jolsa@kernel.org>, "Puranjay Mohan"
- <puranjay@kernel.org>, "Xu Kuohai" <xukuohai@huaweicloud.com>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- "Mykola Lysenko" <mykolal@fb.com>, "Shuah Khan" <shuah@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Florent Revest" <revest@chromium.org>
-X-Mailer: aerc 0.20.1-0-g2ecb8770224a
-References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
- <20250411-many_args_arm64-v1-3-0a32fe72339e@bootlin.com>
- <3a16fae0346d4f733fb1a67ae6420d8bf935dbd8.camel@gmail.com>
-In-Reply-To: <3a16fae0346d4f733fb1a67ae6420d8bf935dbd8.camel@gmail.com>
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddviedtieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpegggfgtfffkvefuhffvofhfjgesthhqredtredtjeenucfhrhhomheptehlvgigihhsucfnohhthhhorhoruceorghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeelkeehiefhfeehvefhtdegueelkeehffffffeuvdekkeekuddvueeguefgieeukeenucffohhmrghinhepsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplhhotggrlhhhohhsthdpmhgrihhlfhhrohhmpegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepvdelpdhrtghpthhtohepvgguugihiiekjeesghhmrghilhdrtghomhdprhgtphhtthhopegrshhtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegurghnihgvlhesihhoghgvrghrsghogidrnhgvthdprhgtphhtthhopehjohhhnhdrfhgrshhtrggsvghnugesghhmrghilhdrtghomhdprhgtphhtthhopegrnhgurhhiiheskhgvrhhnv
- ghlrdhorhhgpdhrtghpthhtohepmhgrrhhtihhnrdhlrghusehlihhnuhigrdguvghvpdhrtghpthhtohepshhonhhgsehkvghrnhgvlhdrohhrghdprhgtphhtthhopeihohhnghhhohhnghdrshhonhhgsehlihhnuhigrdguvghv
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: linux-kselftest@vger.kernel.org,
- Bastien Curutchet <bastien.curutchet@bootlin.com>, ebpf@linuxfoundation.org,
- linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC bpf-next 3/4] bpf/selftests: add tests
- to validate proper arguments alignment on ARM64
+ Mon, 28 Apr 2025 11:39:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6268F5C6341;
+ Mon, 28 Apr 2025 11:37:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08E5C4CEE4;
+ Mon, 28 Apr 2025 11:39:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1745840366;
+ bh=Ej44d3HYVlonJrSjsWIukJSaPhl3M6jkQ+SB3SSTJ0k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Kv5vEYW72D5xWIDAHxidcS9oCPJI44A8/ATQTf4ndN6qOsRqnp47tGXt9HvXJ/fQX
+ 3iRGABjyVGdhzFevrJ/SKs1Tn/HzL+ntZXhZ5I1oZh84TTNujKuXIYiSDMBZKDmg+y
+ AZfXDlw/mqs0mSwnN/keOFUJawtzrADt0D2HQYrOGgjrUXRSD84c7R7w7ycC/jTcSm
+ x5DFNVaWHIOalypJx7V9K0lMtgehomF12uxSSBqBSLV7GPuCCodkBNURuekRYK6SrF
+ nsCQ8roU5zy+dQ7EL1D9afZHfQm0EFsh/r0zRlmzrK5FfE/2zo1iP9Ttr0hP07NjcV
+ 75neqPgVXdgzA==
+Date: Mon, 28 Apr 2025 13:39:23 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Message-ID: <20250428-wild-condor-of-defiance-cadf60@houat>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-34-8f91a404d86b@bootlin.com>
+MIME-Version: 1.0
+In-Reply-To: <20250424-drm-bridge-convert-to-alloc-api-v2-34-8f91a404d86b@bootlin.com>
+Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-samsung-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Hui Pu <Hui.Pu@gehealthcare.com>,
+ linux-amlogic@lists.infradead.org, platform-driver-x86@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 34/34] drm/bridge: panel: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,124 +73,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3095329512793210519=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gRWR1YXJkLAoKT24gTW9uIEFwciAyOCwgMjAyNSBhdCA5OjAxIEFNIENFU1QsIEVkdWFy
-ZCBaaW5nZXJtYW4gd3JvdGU6Cj4gT24gRnJpLCAyMDI1LTA0LTExIGF0IDIyOjMyICswMjAwLCBB
-bGV4aXMgTG90aG9yw6kgKGVCUEYgRm91bmRhdGlvbikgd3JvdGU6Cj4+IFdoZW4gZGVhbGluZyB3
-aXRoIGxhcmdlIHR5cGVzICg+OCBieXRlcyksIEFSTTY0IHRyYW1wb2xpbmVzIG5lZWQgdG8gdGFr
-ZQo+PiBleHRyYSBjYXJlIGFib3V0IHRoZSBhcmd1bWVudHMgYWxpZ25tZW50IHRvIHJlc3BlY3Qg
-dGhlIGNhbGxpbmcKPj4gY29udmVudGlvbiBzZXQgYnkgQUFQQ1M2NC4KPj4gCj4+IEFkZCB0d28g
-dGVzdHMgZW5zdXJpbmcgdGhhdCB0aGUgQlBGIHRyYW1wb2xpbmUgYXJyYW5nZXMgYXJndW1lbnRz
-IHdpdGgKPj4gdGhlIHJlbGV2YW50IGxheW91dC4gVGhlIHR3byBuZXcgdGVzdHMgaW52b2x2ZSBh
-bG1vc3QgdGhlIHNhbWUKPj4gYXJndW1lbnRzLCBleGNlcHQgdGhhdCB0aGUgc2Vjb25kIG9uZSBy
-ZXF1aXJlcyBhIG1vcmUgc3BlY2lmaWMgYWxpZ25tZW50Cj4+IHRvIGJlIHNldCBieSB0aGUgdHJh
-bXBvbGluZSB3aGVuIHByZXBhcmluZyBhcmd1bWVudHMgYmVmb3JlIGNhbGxpbmcgdGhlCj4+IHRo
-ZSB0YXJnZXQgZnVuY3Rpb24uCj4+IAo+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4aXMgTG90aG9yw6kg
-KGVCUEYgRm91bmRhdGlvbikgPGFsZXhpcy5sb3Rob3JlQGJvb3RsaW4uY29tPgo+PiAtLS0KPgo+
-IFsuLi5dCj4KPj4gK1NFQygiZmVudHJ5L2JwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ18xMSIp
-Cj4+ICtpbnQgQlBGX1BST0cyKHRlc3Rfc3RydWN0X21hbnlfYXJnc185LCBzdHJ1Y3QgYnBmX3Rl
-c3Rtb2Rfc3RydWN0X2FyZ181LCBhLAo+PiArCSAgICAgIHN0cnVjdCBicGZfdGVzdG1vZF9zdHJ1
-Y3RfYXJnXzUsIGIsCj4+ICsJICAgICAgc3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNSwg
-YywKPj4gKwkgICAgICBzdHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3RydWN0X2FyZ181LCBkLCBpbnQsIGUs
-Cj4+ICsJICAgICAgc3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNSwgZikKPgo+IEhlbGxv
-IEFsZXhpcywKPgo+IEknbSB0cnlpbmcgdG8gZG91YmxlIGNoZWNrIHRoZSBlcnJvciB5b3UndmUg
-c2VlbiBmb3IgeDg2LgoKVGhhbmtzIGZvciB0YWtpbmcgYSBsb29rIGF0IHRoaXMuCgo+IEkgc2Vl
-IHRoYXQgdHJhY2luZ19zdHJ1Y3Qvc3RydWN0X21hbnlfYXJncyBmYWlscyB3aXRoIGFzc2VydGlv
-bjoKPiAidGVzdF9zdHJ1Y3RfbWFueV9hcmdzOkZBSUw6dDExOmYgdW5leHBlY3RlZCB0MTE6Zjog
-YWN0dWFsIDM1ICE9IGV4cGVjdGVkIDQzIi4KPiBDb3VsZCB5b3UgcGxlYXNlIGhlbHAgbWUgdW5k
-ZXJzdGFuZCB0aGlzIHRlc3Q/CgpTdXJlLiBXaGVuIHdlIGF0dGFjaCBmZW50cnkvZmV4aXQgcHJv
-Z3JhbXMgdG8gYSBrZXJuZWwgZnVuY3Rpb24sICBhIHNtYWxsCnRyYW1wb2xpbmUgaXMgZ2VuZXJh
-dGVkIHRvIGhhbmRsZSB0aGUgYXR0YWNoZWQgcHJvZ3JhbXMgZXhlY3V0aW9uLiBUaGlzCnRyYW1w
-b2xpbmUgaGFzIHRvOgoxLiBwcm9wZXJseSByZWFkIGFuZCBhZ2dyZWdhdGUgdGhlIGZ1bmN0aW9u
-cyBhcmd1bWVudHMgaW50byBhIGJwZiB0cmFjaW5nCmNvbnRleHQuIFRob3NlIGFyZ3VtZW50cyBj
-b21lcyBmcm9tIHJlZ2lzdGVycywgYW5kIHBvc3NpYmx5IGZyb20gdGhlIHN0YWNrCmlmIG5vdCBh
-bGwgZnVuY3Rpb24gYXJndW1lbnRzIGZpdCBpbiByZWdpc3RlcnMKMi4gaWYgdGhlIHRyYW1wb2xp
-bmUgaXMgaW4gY2hhcmdlIG9mIGNhbGxpbmcgdGhlIHRhcmdldCBmdW5jdGlvbiAodGhhdCdzCnRo
-ZSBjYXNlIGZvciBleGFtcGxlIHdoZW4gd2UgaGF2ZSBib3RoIGEgZmVudHJ5IGFuZCBhIGZleGl0
-IHByb2dyYW1zCmF0dGFjaGVkKSwgaXQgbXVzdCBwcmVwYXJlIHRoZSBhcmd1bWVudHMgZm9yIHRo
-ZSB0YXJnZXQgZnVuY3Rpb24sIGJ5CmZpbGxpbmcgYWdhaW4gdGhlIHJlZ2lzdGVycywgYW5kIHBv
-c3NpYmx5IHB1c2hpbmcgdGhlIGFkZGl0aW9uYWwgYXJndW1lbnRzCm9uIHRoZSBzdGFjayBhdCB0
-aGUgcmVsZXZhbnQgb2Zmc2V0LgoKVGhpcyB0ZXN0IGlzIGFib3V0IHZhbGlkYXRpbmcgdGhlIGZp
-cnN0IHBvaW50OiBlbnN1cmluZyB0aGF0IHRoZSB0cmFtcG9saW5lCmhhcyBjb3JyZWN0bHkgcmVh
-ZCB0aGUgaW5pdGlhbCBhcmd1bWVudHMgZnJvbSB0aGUgdGFyZ2V0IGZ1bmN0aW9uIGFuZApmb3J3
-YXJkZWQgdGhlbSB0byB0aGUgZmVudHJ5IHByb2dyYW0uIFNvIHRoZSBhY3R1YWwgdGVzdCB0cmln
-Z2VycyB0aGUKdGFyZ2V0ZWQgZnVuY3Rpb24sIGl0IHRyaWdnZXJzIHRoZSBhdHRhY2hlZCBmZW50
-cnkgcHJvZ3JhbSB3aGljaCByZWNvcmQgdGhlCnZhbHVlcyBwYXNzZWQgYnkgdGhlIHRyYW1wb2xp
-bmUgaW4gdDExX2EsIHQxMV9iLCBldGMsIGFuZCB0aGVuIHRoZQp0ZXN0IGNoZWNrcyBiYWNrIHRo
-YXQgdGhvc2UgInNwaWVkIiB2YWx1ZXMgYXJlIHRoZSBvbmUgdGhhdCBpdCBoYXMgYWN0dWFsbHkK
-cGFzc2VkIHdoZW4gZXhlY3V0aW5nIHRoZSB0YXJnZXQgZnVuY3Rpb24uCgo+IFRoZSBmdW5jdGlv
-biBsaXN0ZW5lZCB0byBpcyBkZWZpbmVkIGFzIGFjY2VwdGluZyAnc3RydWN0IGJwZl90ZXN0bW9k
-X3N0cnVjdF9hcmdfNycsCj4gYXQgdGhlIHNhbWUgdGltZSB0aGlzIGZ1bmN0aW9uIHVzZXMgJ3N0
-cnVjdCBicGZfdGVzdG1vZF9zdHJ1Y3RfYXJnXzUnLgoKVGhhdCdzIG5vdCBhbiBhY2NpZGVudGFs
-IG1pc3Rha2UsIHRob3NlIGFyZSBpbiBmYWN0IHRoZSBzYW1lIGRlZmluaXRpb24uCmJwZl90ZXN0
-bW9kX3N0cnVjdF9hcmdfNyBpcyB0aGUga2VybmVsIHNpZGUgZGVmaW5pdGlvbiBpbiBicGZfdGVz
-dG1vZC5jOgoKc3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNyB7CglfX2ludDEyOCBhOwp9
-OwoKYW5kIHN0cnVjdCBicGZfdGVzdG1vZGVfc3RydWN0X2FyZ181IGlzIHRoZSBvbmUgZGVmaW5l
-ZCBpbiB0aGUgYnBmIHRlc3QKcHJvZ3JhbToKCnN0cnVjdCBicGZfdGVzdG1vZF9zdHJ1Y3RfYXJn
-XzUgewoJX19pbnQxMjggYTsKfTsKCkkgYWdyZWUgd2hpbGUgYmVpbmcgY29ycmVjdCwgdGhpcyBp
-cyBjb25mdXNpbmcgOi8gSSBoYXZlIGtpbmQgb2YgYmxpbmRseQphcHBsaWVkIHRoZSBsb2dpYyBJ
-IGhhdmUgb2JzZXJ2ZWQgaW4gaGVyZSBmb3IgZGVjbGFyaW5nIHRlc3Qgc3RydWN0cywgYW5kCnNv
-IGRlY2xhcmVkIGl0IHR3aWNlIChpbiBrZXJuZWwgcGFydCBhbmQgaW4gYnBmIHBhcnQpLCBqdXN0
-IGluY3JlbWVudGluZwp0aGUgaW5kZXggb2YgdGhlIGxhc3QgZGVmaW5lZCBzdHJ1Y3R1cmUuIEJ1
-dCBJIGd1ZXNzIGl0IGNvdWxkIGJlbmVmaXQgZnJvbQpzb21lIGluZGV4IHN5bmNpbmcsIG9yIGJl
-dHRlciwgc29tZSByZWZhY3RvcmluZyB0byBwcm9wZXJseSBzaGFyZSB0aG9zZQpkZWNsYXJhdGlv
-bnMuIEknbGwgdGhpbmsgYWJvdXQgaXQgZm9yIGEgbmV3IHJldi4KCj4gTmV2ZXJ0aGVsZXNzLCB0
-aGUgYXNzZXJ0aW9uIHBlcnNpc3RzIGV2ZW4gd2l0aCBjb3JyZWN0IHR5cGVzLgoKU28gSSBkaWdn
-ZWQgYSBiaXQgZnVydGhlciB0byBiZXR0ZXIgc2hhcmUgbXkgb2JzZXJ2YXRpb25zIGhlcmUuIFRo
-aXMgaXMgdGhlCmZ1bmN0aW9uIHN0YWNrIHdoZW4gZW50ZXJpbmcgdGhlIHRyYW1wb2xpbmUgYWZ0
-ZXIgaGF2aW5nIHRyaWdnZXJlZCB0aGUKdGFyZ2V0IGZ1bmN0aW9uIGV4ZWN1dGlvbjoKCihnZGIp
-IHgvNjRiICRyYnArMHgxOAoweGZmZmZjOTAwMDAxNWZkNjA6ICAgICA0MSAgICAgIDAgICAgICAg
-MCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAKMHhmZmZmYzkwMDAwMTVm
-ZDY4OiAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAg
-MCAgICAgICAwCjB4ZmZmZmM5MDAwMDE1ZmQ3MDogICAgIDQyICAgICAgMCAgICAgICAwICAgICAg
-IDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMAoweGZmZmZjOTAwMDAxNWZkNzg6ICAg
-ICAzNSAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAg
-IDAKMHhmZmZmYzkwMDAwMTVmZDgwOiAgICAgNDMgICAgICAwICAgICAgIDAgICAgICAgMCAgICAg
-ICAwICAgICAgIDAgICAgICAgMCAgICAgICAwCjB4ZmZmZmM5MDAwMDE1ZmQ4ODogICAgIDAgICAg
-ICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMAoKV2Ug
-c2VlIHRoZSBhcmd1bWVudHMgdGhhdCBkaWQgbm90IGZpdCBpbiByZWdpc3RlcnMsIHNvIGQsIGUg
-YW5kIGYuCgpUaGlzIGlzIHRoZSBlYnBmIGNvbnRleHQgZ2VuZXJhdGVkIGJ5IHRoZSB0cmFtcG9s
-aW5lIGZvciB0aGUgZmVudHJ5CnByb2dyYW0sIGZyb20gdGhlIGNvbnRlbnQgb2YgdGhlIHN0YWNr
-IGFib3ZlICsgdGhlIHJlZ2lzdGVyczoKCihnZGIpIHgvMTI4YiAkcmJwLTYwCjB4ZmZmZmM5MDAw
-MDE1ZmNlODogICAgIDM4ICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAg
-ICAgIDAgICAgICAgMAoweGZmZmZjOTAwMDAxNWZjZjA6ICAgICAwICAgICAgIDAgICAgICAgMCAg
-ICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAKMHhmZmZmYzkwMDAwMTVmY2Y4
-OiAgICAgMzkgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAg
-ICAgICAwCjB4ZmZmZmM5MDAwMDE1ZmQwMDogICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAg
-ICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMAoweGZmZmZjOTAwMDAxNWZkMDg6ICAgICA0
-MCAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAK
-MHhmZmZmYzkwMDAwMTVmZDEwOiAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAw
-ICAgICAgIDAgICAgICAgMCAgICAgICAwCjB4ZmZmZmM5MDAwMDE1ZmQxODogICAgIDQxICAgICAg
-MCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMAoweGZmZmZj
-OTAwMDAxNWZkMjA6ICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAg
-MCAgICAgICAwICAgICAgIDAKMHhmZmZmYzkwMDAwMTVmZDI4OiAgICAgNDIgICAgICAwICAgICAg
-IDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwCjB4ZmZmZmM5MDAwMDE1
-ZmQzMDogICAgIDM1ICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAg
-IDAgICAgICAgMAoweGZmZmZjOTAwMDAxNWZkMzg6ICAgICA0MyAgICAgIDAgICAgICAgMCAgICAg
-ICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAKMHhmZmZmYzkwMDAwMTVmZDQwOiAg
-ICAgMzcgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAg
-ICAwCgpTbyBJSVVDLCB0aGlzIGlzIHdyb25nIGJlY2F1c2UgdGhlICJlIiB2YXJpYWJsZSBpbiB0
-aGUgYnBmIHByb2dyYW0gYmVpbmcKYW4gaW50IChhbmQgYWJvdXQgdG8gcmVjZWl2ZSB2YWx1ZSA0
-MiksIGl0IG9jY3VwaWVzIG9ubHkgMSAidHJhY2luZyBjb250ZXh0CjgtYnl0ZSBzbG90Iiwgc28g
-dGhlIHZhbHVlIDQzIChyZXByZXNlbnRpbmcgdGhlIGNvbnRlbnQgZm9yIHZhcmlhYmxlIGYpLApz
-aG91bGQgYmUgcmlnaHQgYWZ0ZXIgaXQsIGF0IDB4ZmZmZmM5MDAwMDE1ZmQzMC4gV2hhdCB3ZSBo
-YXZlIGluc3RlYWQgaXMgYQpob2xlLCB2ZXJ5IGxpa2VseSBiZWNhdXNlIHdlIGNvcGllZCBzaWxl
-bnRseSB0aGUgYWxpZ25tZW50IGZyb20gdGhlCm9yaWdpbmFsIGZ1bmN0aW9uIGNhbGwgKGFuZCBJ
-IGd1ZXNzIHRoaXMgMzUgdmFsdWUgaXMgYSByZW1uYW50IGZyb20gdGhlCnByZXZpb3VzIHRlc3Qs
-IHdoaWNoIHVzZXMgdmFsdWVzIGZyb20gMjcgdG8gMzcpCgpSZWdhcmRsZXNzIG9mIHRoaXMgaXNz
-dWUsIGJhc2VkIG9uIGRpc2N1c3Npb24gZnJvbSBsYXN0IHdlZWssIEkgdGhpbmsgSSdsbApnbyBm
-b3IgdGhlIGltcGxlbWVudGF0aW9uIHN1Z2dlc3RlZCBieSBBbGV4ZWk6IGhhbmRsaW5nIHRoZSBu
-b21pbmFsIGNhc2VzLAphbmQgZGV0ZWN0aW5nIGFuZCBibG9ja2luZyB0aGUgbm9uIHRyaXZpYWwg
-Y2FzZXMgKGVnOiBzdHJ1Y3RzIHBhc3NlZCBvbgpzdGFjaykuIEl0IHNvdW5kcyByZWFzb25hYmxl
-IGFzIHRoZXJlIHNlZW1zIHRvIGJlIG5vIGV4aXNpdGluZyBrZXJuZWwKZnVuY3Rpb24gY3VycmVu
-dGx5IGFibGUgdG8gdHJpZ2dlciB0aG9zZSB2ZXJ5IHNwZWNpZmljIGNhc2VzLCBzbyBpdCBjb3Vs
-ZApiZSBhZGRlZCBsYXRlciBpZiB0aGlzIGNoYW5nZXMuCgpBbGV4aXMKLS0gCkFsZXhpcyBMb3Ro
-b3LDqSwgQm9vdGxpbgpFbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCmh0dHBz
-Oi8vYm9vdGxpbi5jb20KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============3095329512793210519==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="xfc7ogpscqj7tsh5"
+Content-Disposition: inline
+
+
+--xfc7ogpscqj7tsh5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 34/34] drm/bridge: panel: convert to
+ devm_drm_bridge_alloc() API
+MIME-Version: 1.0
+
+On Thu, Apr 24, 2025 at 10:05:49PM +0200, Luca Ceresoli wrote:
+> This is the new API for allocating DRM bridges.
+>=20
+> The devm lifetime management of this driver is peculiar. The underlying
+> device for the panel_bridge is the panel, and the devm lifetime is tied t=
+he
+> panel device (panel->dev). However the panel_bridge allocation is not
+> performed by the panel driver, but rather by a separate entity (typically
+> the previous bridge in the encoder chain).
+>=20
+> Thus when that separate entoty is destroyed, the panel_bridge is not
+> removed automatically by devm, so it is rather done explicitly by calling
+> drm_panel_bridge_remove(). This is the function that does devm_kfree() the
+> panel_bridge in current code, so update it as well to put the bridge
+> reference instead.
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+This looks fine, but we need a TODO entry to clean this up later on, and
+a comment on devm_drm_put_bridge that this is inherently unsafe and
+must not be used.
+
+Maxime
+
+--xfc7ogpscqj7tsh5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaA9o4wAKCRAnX84Zoj2+
+dte3AX9ZTgylvSMOA8QF8MhOvEEJnfPIVewZiCH2yJknukV+y7S53MU2E4s0YFaN
+fsm4AaQBgIRYfqhWPjcnqXHC20V8llKYAK0QvK8ijj3k2G8LjbRoIfmGL11UOfGM
+QmUfHGyQeA==
+=AGTY
+-----END PGP SIGNATURE-----
+
+--xfc7ogpscqj7tsh5--
+
+--===============3095329512793210519==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3095329512793210519==--
