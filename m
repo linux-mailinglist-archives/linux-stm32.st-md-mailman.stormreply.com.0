@@ -2,49 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AE1A9F259
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Apr 2025 15:29:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1BBA9F3F7
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Apr 2025 17:00:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3A8EC78F67;
-	Mon, 28 Apr 2025 13:29:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0B9FC78011;
+	Mon, 28 Apr 2025 15:00:57 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD09EC78F63
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B38AECFAC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Apr 2025 13:29:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 72F3749CDF;
- Mon, 28 Apr 2025 13:29:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0EBC4CEE4;
- Mon, 28 Apr 2025 13:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745846993;
- bh=elk4Zqa+3hCtmUiNsAt9MfBksCuGpsquiK6zsRxydTQ=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=TD7QBfDg6kXdOzjRs6gtAIizZopWFFNqcvzVQOUhE4adYd3tKK9ZWRiOnvUE6xSVd
- jqwrYMQ8+CvdekMObGo0NgaCNDmpuD0w0cXxKLSIz47iIeS/A+QYeABeLViatbJfgl
- WYuFL3DJJsVzqm0ssKDEWQxyOqyy4bbuIUxmpfwxhdut/618sWFo6Maqz94oacg6/C
- PFGArhwz0OFSGUVyUCsQRZIPi4wGKLvIrlI/LJUOfHZ/1qnX4nKj5+7grom/3aVSVM
- 0hcg7j0y6Ieg1gwWvMRkF6+1AoV5y9QGkFI2DE13pzJZ78Bj3EwkJ7EatPc+D16aoT
- QizlVzaNHtOoQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70BF93822D43; Mon, 28 Apr 2025 13:30:33 +0000 (UTC)
+ Mon, 28 Apr 2025 15:00:56 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 4F84F4397F;
+ Mon, 28 Apr 2025 15:00:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1745852455;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=l/KM50XoeWonitoxoMaOHFeoOtZjamWkVO4Sfztxz2s=;
+ b=cTAHqyDfWqZQRajnA0jCJJTRWgntMZ9qCGKU473NOxESwutCLvKkGP9L3GMlUIUf1TVfoJ
+ rSml0e13bS9W5xL7vpWnRG/Gf8DwWyNIkXZ07glmnEui2hZC2Xoq/8/xjrvJp5r3ePSFuU
+ njtoTq8LUpcrENa9NLXi3tWAr4COusan12TyNUvMZQZfaHrdfuVf/DcDoxsqC3HUZd6Oxa
+ xFrGUT/PhDw09LZJgn+fTcnrJMlbI4kHX39u8mbqL16gwmh6HE2DuFmuNLvVbhBpuVI1WK
+ hOs5l7kG8ZpIdaFhDwnEIRvdHjqsZaRpzN9lTpgipOlJKjv7cuiqF1qRk9Zf2g==
+Date: Mon, 28 Apr 2025 17:00:45 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: "Andy Yan" <andyshrk@163.com>
+Message-ID: <20250428170045.5ca315ce@booty>
+In-Reply-To: <656e493e.a551.1967c6d0c53.Coremail.andyshrk@163.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-1-8f91a404d86b@bootlin.com>
+ <656e493e.a551.1967c6d0c53.Coremail.andyshrk@163.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174584703225.917720.8866587140005702000.git-patchwork-notify@kernel.org>
-Date: Mon, 28 Apr 2025 13:30:32 +0000
-References: <20250424071223.221239-1-maxime.chevallier@bootlin.com>
-In-Reply-To: <20250424071223.221239-1-maxime.chevallier@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: andrew@lunn.ch, horms@kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- linux-kernel@vger.kernel.org, edumazet@google.com, alexis.lothore@bootlin.com,
- thomas.petazzoni@bootlin.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] net: stmmac: socfpga:
- 1000BaseX support and cleanups
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvieduvdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeelffefgfehhfdtvdefueefieevkefggfelkeeiudetkeektedvhedukefgvddvnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepieelpdhrtghpthhtoheprghnugihshhhrhhkseduieefrdgtohhmpdhrtghpthhtohepmhgrrghrthgvnhdrlhgrnhhkhhhorhhstheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopehmrhhiphgrrhgusehkvghrn
+ hgvlhdrohhrghdprhgtphhtthhopehtiihimhhmvghrmhgrnhhnsehsuhhsvgdruggvpdhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghnughriigvjhdrhhgrjhgurgesihhnthgvlhdrtghomhdprhgtphhtthhopehnvghilhdrrghrmhhsthhrohhngheslhhinhgrrhhordhorhhg
+X-GND-Sasl: luca.ceresoli@bootlin.com
+Cc: imx@lists.linux.dev, Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Sasha Finkelstein <fnkl.kernel@gmail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Vitalii Mordan <mordan@ispras.ru>, Sui Jingfeng <sui.jingfeng@linux.dev>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Biju Das <biju.das.jz@bp.renesas.com>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Benson Leung <bleung@chromium.org>,
+ Guenter Roeck <groeck@chromium.org>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Heiko
+ Stuebner <heiko@sntech.de>, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>, Anusha
+ Srivatsa <asrivats@redhat.com>, Detlev Casanova <detlev.casanova@collabora.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sugar
+ Zhang <sugar.zhang@rock-chips.com>, Janne
+ Grunau <j@jannau.net>, Dharma Balasubiramani <dharma.b@microchip.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jagan
+ Teki <jagan@amarulasolutions.com>, Phong
+ LE <ple@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, Jani Nikula <jani.nikula@intel.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Jesse Van
+ Gavere <jesseevg@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ freedreno@lists.freedesktop.org, Douglas
+ Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org, Christoph
+ Fritz <chf.fritz@googlemail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Andy
+ Yan <andy.yan@rock-chips.com>, Liu Ying <victor.liu@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Aleksandr Mishin <amishin@t-argos.ru>
+Subject: Re: [Linux-stm32] [PATCH v2 01/34] drm: convert many bridge drivers
+ from devm_kzalloc() to devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,35 +108,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hallo Andy,
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+On Mon, 28 Apr 2025 20:44:03 +0800 (CST)
+"Andy Yan" <andyshrk@163.com> wrote:
 
-On Thu, 24 Apr 2025 09:12:19 +0200 you wrote:
-> Hi everyone,
+> Hi ,
 > 
-> This V3 is simply a re-send of V2, targeting net-next instead of net as
-> the V2 did by mistake.
-> 
-> No other changes besides a rebase on net-next were made.
-> 
-> [...]
+> At 2025-04-25 02:59:08, "Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
+> >devm_drm_bridge_alloc() is the new API to be used for allocating (and
+> >partially initializing) a private driver struct embedding a struct
+> >drm_bridge.
+> >
+> >For many drivers having a simple code flow in the probe function, this
+> >commit does a mass conversion automatically with the following semantic
+> >patch. The changes have been reviewed manually for correctness as well as
+> >to find any false positives.
+> >
+> >  @@
+> >  type T;
+> >  identifier C;
+> >  identifier BR;
+> >  expression DEV;
+> >  expression FUNCS;
+> >  @@
+> >  -T *C;
+> >  +T *C;
+> >   ...
+> >  (
+> >  -C = devm_kzalloc(DEV, ...);
+> >  -if (!C)
+> >  -    return -ENOMEM;
+> >  +C = devm_drm_bridge_alloc(DEV, T, BR, FUNCS);
+> >  +if (IS_ERR(C))
+> >  +     return PTR_ERR(C);
+> >  |
+> >  -C = devm_kzalloc(DEV, ...);
+> >  -if (!C)
+> >  -    return ERR_PTR(-ENOMEM);
+> >  +C = devm_drm_bridge_alloc(DEV, T, BR, FUNCS);
+> >  +if (IS_ERR(C))
+> >  +     return PTR_ERR(C);
+> >  )
+> >   ...
+> >  -C->BR.funcs = FUNCS;
+> >
+> >Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Here is the summary with links:
-  - [net-next,v3,1/3] net: stmmac: socfpga: Enable internal GMII when using 1000BaseX
-    https://git.kernel.org/netdev/net-next/c/6fba40e7f610
-  - [net-next,v3,2/3] net: stmmac: socfpga: Don't check for phy to enable the SGMII adapter
-    https://git.kernel.org/netdev/net-next/c/3bf19459da62
-  - [net-next,v3,3/3] net: stmmac: socfpga: Remove unused pcs-mdiodev field
-    https://git.kernel.org/netdev/net-next/c/8fb33581bb8a
+[...]
 
-You are awesome, thank you!
+> >diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> >index 5e5f8c2f95be1f5c4633f1093b17a00f9425bb37..9b1dfdb5e7ee528c876c01916c9821d550cad679 100644
+> >--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> >+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> >@@ -1045,9 +1045,10 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+> > 		return ERR_PTR(-ENODEV);
+> > 	}
+> > 
+> >-	hdmi = devm_kzalloc(dev, sizeof(*hdmi), GFP_KERNEL);
+> >-	if (!hdmi)
+> >-		return ERR_PTR(-ENOMEM);
+> >+	hdmi = devm_drm_bridge_alloc(dev, struct dw_hdmi_qp, bridge,
+> >+				     &dw_hdmi_qp_bridge_funcs);
+> >+	if (IS_ERR(hdmi))
+> >+		return PTR_ERR(hdmi);  
+> 
+>            This should return hdmi or ERR_CAST(hdmi);
+
+Indeed, thanks!
+
+My coccinelle patch is clearly not clever enough. I'll see whether I
+can fix it, otherwise I'll handle these 3 special cases manually, along
+with another similar one (imx/imx-legacy-bridge.c) I just spotted after
+your report.
+
+Luca
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
