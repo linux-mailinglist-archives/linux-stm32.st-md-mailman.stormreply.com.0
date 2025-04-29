@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66B79AA0C41
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Apr 2025 14:54:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0811AAA0C37
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Apr 2025 14:54:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 256C6C78F90;
-	Tue, 29 Apr 2025 12:54:58 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF681C78F63;
+	Tue, 29 Apr 2025 12:54:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22932C78F67
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B93AFC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Apr 2025 12:54:57 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TBEmsK010884;
- Tue, 29 Apr 2025 14:54:48 +0200
+ Tue, 29 Apr 2025 12:54:30 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TBj1WX006373;
+ Tue, 29 Apr 2025 14:54:21 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Bf4Jif3iTwu6xhT/icuxJcCkmXcEX9OzuYCH60IJsfg=; b=klSOr//ak+Jo4+Wc
- HpAbR5TH3+oTliLKBCO0UFpYd0Cv/lsNabdrgGOJy4EYAkR7mOxtzJuPP3anp+C8
- N/h98ogWlOeyt5gzJMIe+x/i2oqJZgQIB6ba/SaxfUhSJFL0JRUGc6fb9+XJ9+Eb
- ElVW4AF6erQiJZHYK3j5EsPY5cB8NtQwfwDrkKTQvrvAmfzcCBbsgCXWO2UVWXJ0
- UbKkcKKVLPEGIFsJN5dd99Q8+mjeSeSnEg2czpRvzuG4kpWrrtGpdZPLt2LpJUvb
- 91h2WftSmZxP3gU3kgPDiBxFFTBcMtbVfimBmNXaPQRTzWNCrksN2l+4+ZfyYyEz
- rvRCoA==
+ 2wY6Dic8hzBm+S2wld/DgwBFhKKy9RZVyTbW8u8LUKQ=; b=RRTSZ+m0h8YkGL8v
+ os5svgrTXqb/b6jOKAJXFJcc0ndC/2bD41BRTmk76SSQrG3uUr2XK0/3Fjn3oUf1
+ Gx+a9mGbDo5wyT/GRN8Gc50QfXSHg3ixNz2JNXUVskCEzdSa/kzq6sWui454u7eP
+ e7jVmtND91Fb3uqYM2l8SZgZPPK2zEuzBhc9ZxMSl0WKvclM2t9PhnSHpHmLRuwJ
+ kPF3P7mlRafYzIbrL9cflnEX0cekS4SxiCMtI/IM/dysEeMKkdWzR+r7kVI/HytA
+ PONgiG7X66x0VVjAs0Je4HCY2753o5Z41Ff1TxCOnmeLfQHeKJ4Xu2EG/x/TtA3o
+ MNZ0Dw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 469aengsj6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 468pu7kd01-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Apr 2025 14:54:48 +0200 (MEST)
+ Tue, 29 Apr 2025 14:54:21 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 28D3A40081;
- Tue, 29 Apr 2025 14:53:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1D61FA7FB54;
- Tue, 29 Apr 2025 14:51:51 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E29D04009C;
+ Tue, 29 Apr 2025 14:53:15 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0173FA904B7;
+ Tue, 29 Apr 2025 14:51:52 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Apr
- 2025 14:51:50 +0200
+ 2025 14:51:51 +0200
 Received: from localhost (10.252.5.160) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Apr
- 2025 14:51:50 +0200
+ 2025 14:51:51 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <daniel.lezcano@linaro.org>, <lee@kernel.org>,
  <alexandre.torgue@foss.st.com>, <tglx@linutronix.de>
-Date: Tue, 29 Apr 2025 14:51:32 +0200
-Message-ID: <20250429125133.1574167-7-fabrice.gasnier@foss.st.com>
+Date: Tue, 29 Apr 2025 14:51:33 +0200
+Message-ID: <20250429125133.1574167-8-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250429125133.1574167-1-fabrice.gasnier@foss.st.com>
 References: <20250429125133.1574167-1-fabrice.gasnier@foss.st.com>
@@ -65,8 +65,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, ukleinek@kernel.org,
  linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: [Linux-stm32] [PATCH v6 6/7] arm64: dts: st: add low-power timer
-	nodes on stm32mp251
+Subject: [Linux-stm32] [PATCH v6 7/7] arm64: dts: st: use lptimer3 as tick
+	broadcast source on stm32mp257f-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,215 +83,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add low-power timer (LPTimer) support on STM32MP25 SoC.
-The full feature set is implemented in LPTIM1/2/3/4. LPTIM5 supports a
-smaller set of features (no capture/compare) channel. Still, LPTIM5 can
-be used as single PWM, counter, trigger or timer.
+During the low power modes the generic ARM timer is deactivated, so the
+the tick broadcast is used, based on LPTIMER3 which is clocked by LSE on
+STMicroelectronics boards.
 
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
-Changes in V2:
-- Adopt two compatibles: newly introduced "st,stm32mp25-..." compatible,
-  and fallback "st,stm32-...".
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 177 +++++++++++++++++++++++++
- 1 file changed, 177 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index f3c6cdfd7008..505176276e72 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -238,6 +238,78 @@ rifsc: bus@42080000 {
- 			#access-controller-cells = <1>;
- 			ranges;
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 1b88485a62a1..242115863ab4 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -190,6 +190,14 @@ &i2c8 {
+ 	status = "disabled";
+ };
  
-+			lptimer1: timer@40090000 {
-+				compatible = "st,stm32mp25-lptimer", "st,stm32-lptimer";
-+				reg = <0x40090000 0x400>;
-+				interrupts-extended = <&exti1 47 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LPTIM1>;
-+				clock-names = "mux";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				access-controllers = <&rifsc 17>;
-+				power-domains = <&RET_PD>;
-+				wakeup-source;
-+				status = "disabled";
++/* use LPTIMER with tick broadcast for suspend mode */
++&lptimer3 {
++	status = "okay";
++	timer {
++		status = "okay";
++	};
++};
 +
-+				counter {
-+					compatible = "st,stm32mp25-lptimer-counter", "st,stm32-lptimer-counter";
-+					status = "disabled";
-+				};
-+
-+				pwm {
-+					compatible = "st,stm32mp25-pwm-lp", "st,stm32-pwm-lp";
-+					#pwm-cells = <3>;
-+					status = "disabled";
-+				};
-+
-+				timer {
-+					compatible = "st,stm32mp25-lptimer-timer", "st,stm32-lptimer-timer";
-+					status = "disabled";
-+				};
-+
-+				trigger@0 {
-+					compatible = "st,stm32mp25-lptimer-trigger", "st,stm32-lptimer-trigger";
-+					reg = <0>;
-+					status = "disabled";
-+				};
-+			};
-+
-+			lptimer2: timer@400a0000 {
-+				compatible = "st,stm32mp25-lptimer", "st,stm32-lptimer";
-+				reg = <0x400a0000 0x400>;
-+				interrupts-extended = <&exti1 48 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LPTIM2>;
-+				clock-names = "mux";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				access-controllers = <&rifsc 18>;
-+				power-domains = <&RET_PD>;
-+				wakeup-source;
-+				status = "disabled";
-+
-+				counter {
-+					compatible = "st,stm32mp25-lptimer-counter", "st,stm32-lptimer-counter";
-+					status = "disabled";
-+				};
-+
-+				pwm {
-+					compatible = "st,stm32mp25-pwm-lp", "st,stm32-pwm-lp";
-+					#pwm-cells = <3>;
-+					status = "disabled";
-+				};
-+
-+				timer {
-+					compatible = "st,stm32mp25-lptimer-timer", "st,stm32-lptimer-timer";
-+					status = "disabled";
-+				};
-+
-+				trigger@1 {
-+					compatible = "st,stm32mp25-lptimer-trigger", "st,stm32-lptimer-trigger";
-+					reg = <1>;
-+					status = "disabled";
-+				};
-+			};
-+
- 			i2s2: audio-controller@400b0000 {
- 				compatible = "st,stm32mp25-i2s";
- 				reg = <0x400b0000 0x400>;
-@@ -799,6 +871,111 @@ i2c8: i2c@46040000 {
- 				status = "disabled";
- 			};
- 
-+			lptimer3: timer@46050000 {
-+				compatible = "st,stm32mp25-lptimer", "st,stm32-lptimer";
-+				reg = <0x46050000 0x400>;
-+				interrupts-extended = <&exti2 29 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LPTIM3>;
-+				clock-names = "mux";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				access-controllers = <&rifsc 19>;
-+				wakeup-source;
-+				status = "disabled";
-+
-+				counter {
-+					compatible = "st,stm32mp25-lptimer-counter", "st,stm32-lptimer-counter";
-+					status = "disabled";
-+				};
-+
-+				pwm {
-+					compatible = "st,stm32mp25-pwm-lp", "st,stm32-pwm-lp";
-+					#pwm-cells = <3>;
-+					status = "disabled";
-+				};
-+
-+				timer {
-+					compatible = "st,stm32mp25-lptimer-timer", "st,stm32-lptimer-timer";
-+					status = "disabled";
-+				};
-+
-+				trigger@2 {
-+					compatible = "st,stm32mp25-lptimer-trigger", "st,stm32-lptimer-trigger";
-+					reg = <2>;
-+					status = "disabled";
-+				};
-+			};
-+
-+			lptimer4: timer@46060000 {
-+				compatible = "st,stm32mp25-lptimer", "st,stm32-lptimer";
-+				reg = <0x46060000 0x400>;
-+				interrupts-extended = <&exti2 30 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LPTIM4>;
-+				clock-names = "mux";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				access-controllers = <&rifsc 20>;
-+				wakeup-source;
-+				status = "disabled";
-+
-+				counter {
-+					compatible = "st,stm32mp25-lptimer-counter", "st,stm32-lptimer-counter";
-+					status = "disabled";
-+				};
-+
-+				pwm {
-+					compatible = "st,stm32mp25-pwm-lp", "st,stm32-pwm-lp";
-+					#pwm-cells = <3>;
-+					status = "disabled";
-+				};
-+
-+				timer {
-+					compatible = "st,stm32mp25-lptimer-timer", "st,stm32-lptimer-timer";
-+					status = "disabled";
-+				};
-+
-+				trigger@3 {
-+					compatible = "st,stm32mp25-lptimer-trigger", "st,stm32-lptimer-trigger";
-+					reg = <3>;
-+					status = "disabled";
-+				};
-+			};
-+
-+			lptimer5: timer@46070000 {
-+				compatible = "st,stm32mp25-lptimer", "st,stm32-lptimer";
-+				reg = <0x46070000 0x400>;
-+				interrupts-extended = <&exti2 31 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LPTIM5>;
-+				clock-names = "mux";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				access-controllers = <&rifsc 21>;
-+				wakeup-source;
-+				status = "disabled";
-+
-+				counter {
-+					compatible = "st,stm32mp25-lptimer-counter", "st,stm32-lptimer-counter";
-+					status = "disabled";
-+				};
-+
-+				pwm {
-+					compatible = "st,stm32mp25-pwm-lp", "st,stm32-pwm-lp";
-+					#pwm-cells = <3>;
-+					status = "disabled";
-+				};
-+
-+				timer {
-+					compatible = "st,stm32mp25-lptimer-timer", "st,stm32-lptimer-timer";
-+					status = "disabled";
-+				};
-+
-+				trigger@4 {
-+					compatible = "st,stm32mp25-lptimer-trigger", "st,stm32-lptimer-trigger";
-+					reg = <4>;
-+					status = "disabled";
-+				};
-+			};
-+
- 			csi: csi@48020000 {
- 				compatible = "st,stm32mp25-csi";
- 				reg = <0x48020000 0x2000>;
+ &rtc {
+ 	status = "okay";
+ };
 -- 
 2.25.1
 
