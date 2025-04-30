@@ -2,82 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190B1AA445A
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Apr 2025 09:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D26AA44DB
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Apr 2025 10:08:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7ECCC78F98;
-	Wed, 30 Apr 2025 07:50:19 +0000 (UTC)
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
- [209.85.215.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 170D2C78F98;
+	Wed, 30 Apr 2025 08:08:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8264AC78F72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84B1CC78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Apr 2025 07:50:18 +0000 (UTC)
-Received: by mail-pg1-f172.google.com with SMTP id
- 41be03b00d2f7-b1396171fb1so4484773a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Apr 2025 00:50:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1745999417; x=1746604217;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=9yxKFbS7FJYlVTaW80XPyRVVbRWztaV2reVeiBVpKKQ=;
- b=nS7i5twm2Sjl4+dsuOYmJZmkw5VGMb4mu3QyEDAaAo5Zg+YPLxg1DoKx2J2AxSIqke
- G6Z0wVpaCh2i8uNZhNkEU06EflxT5qbig34HfK5b5qpTEFsjc4cRlPzfxMpWsetfHOiM
- x/NXa5VgSno44++xoX8bCzxmY3634WS5+glgpBsXQHJ0W9lVBiQHdD7YA2pICTGLxTDA
- gXvitPFE7fHqnt3ZlJM8LWxmYPQe315w0oUr3MQEnZwNJ2Avv5OigB0vsicvQTNX38Mq
- RCJVEaC32kDCLQgBxawNT8T6/vt0THU4Gc4MW7y9lhbvBHUfGOkft5yDXSy1CLH0FMOV
- DmDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1745999417; x=1746604217;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9yxKFbS7FJYlVTaW80XPyRVVbRWztaV2reVeiBVpKKQ=;
- b=d9qxaVxo/2Qg6hspXKkVBw+ct0thbURKNzMdY19bZS6PtBzOob/UHcZ+mDpm2eoq3N
- uYU7WSku7vKO/HJ0nQoBE8JeDzbdMHAmgOaTt+HqB6vH6aiD+LFT+aw8JWN0m8u5TY26
- VIKgn7To1h+9VgYWzgMCp/tTiYYuV9wDQPTzYdMnwqxeJdR1MLD3KXrY/tU2AsanR7Uy
- 6uswuyfR80pldDMqkUdrsnBYvQK8kX/XtdE739iumMda1+1VPnWcYnFwcigQkeaTAvWk
- 0n8z+SXW9ULSSUiC+UNl7MJidLGGnXF/Q7nIikHNeQ6aUO56KUnX3832awUpxiZsqGSt
- swKA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWcQla0aq8j5Raw1dhc5rnKrOlgRpgHVgCV/dyaCLo2UXsKtz5NoJ5KClyYV0NRGE0s0pDMSkn2E0JLlA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw4LSMtoP7/opcnbXtLZYZU9B8oVd88szal5SgMohvA3DZdFH6l
- RzXOPe2ZE5D9hlNdbpqcz4cdRUpvaibBLfaUpMwDYCo07fiLVnL9RDhQy+8tuw==
-X-Gm-Gg: ASbGncu5rKusvpWXaSndWVM1FIZ6GYxJDuhzxI+3q4xoeFAbZ0REKkuwpn8voc9kzN3
- lHa6qx6fb6l0+5uhD+XG1pU2izVkkEIetJvzA2LiCJm1s5m6OkaYtKmpMWa75g32cnnJC1HMPhf
- b60v1C1Q/ETSUi7dDyNWcp28Vg+EP0jyVUMr7CkyF9JI14ztnqRPhIc9ZSgcZJVOczyV2P2+xgK
- 0zhNlX3ZodcL9Juk7zW4+cK1gQCoSMOGM9BABCqDujqt5MMnTTCslQwMMeY05jG7jAB1lULuT5V
- u6mDo7fzprVp9GCZxy//ST2BFEZhvnthX7ocA9xWyA7Ep6SctR9r
-X-Google-Smtp-Source: AGHT+IFvx4UAfDgrq2sMjoLi6VEnM3rJ09t7/z8JxBTCQ55y5uUYEKoDCPk40jK6HkYjUv4z1LuM8A==
-X-Received: by 2002:a17:90b:56c3:b0:2ff:502e:62d4 with SMTP id
- 98e67ed59e1d1-30a3336472dmr2604246a91.32.1745999416760; 
- Wed, 30 Apr 2025 00:50:16 -0700 (PDT)
-Received: from thinkpad ([120.56.197.193]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-30a349e4586sm909365a91.8.2025.04.30.00.50.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Apr 2025 00:50:16 -0700 (PDT)
-Date: Wed, 30 Apr 2025 13:20:06 +0530
-From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <tdgyva6qyn6qwzvft4f7r3tgp5qswuv4q5swoaeomnnbxtmz5j@zo3gvevx2skp>
-References: <20250423090119.4003700-1-christian.bruel@foss.st.com>
- <20250423090119.4003700-5-christian.bruel@foss.st.com>
+ Wed, 30 Apr 2025 08:08:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D82F543930;
+ Wed, 30 Apr 2025 08:08:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C6EC4CEE9;
+ Wed, 30 Apr 2025 08:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1746000498;
+ bh=pCUgXguQq1vRA4bGkjweAQOtL40q6Ryp+ab88vmfA3g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PEhvhvQHG4rVvDgSY5YEAlvFdlFIjPoEwklqHK2oVDFFscI9oOnH22AFxtXXETEug
+ iHnVYvMe+t+mjmLvvnbJk0leb+R0US2frAqv3Vo0Rnx1IyUcFzc8Xz+JP/Vc4AgrWv
+ c48oqzjYkbO2MbC5RCNzUEKgl16x3n093ezpE/HgkfVb2/a5ZQ/gaNtVmMRl6YrsgT
+ Ek//OIPQJU/El1by4jlyMox7RQIViSupPPfGsNTCUePuh0N0KYiCkq3fsOplC3fn9+
+ O9mkEGg517iIKGWX+UDcBJI+SdNy3IDIcjLt6YoA/frBd8zWVSzwqyzDqDrFOqkQvK
+ BJdFA6k3dyQZw==
+Date: Wed, 30 Apr 2025 10:08:14 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Inki Dae <inki.dae@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>
+Message-ID: <20250430-arrogant-marmoset-of-justice-92ced3@houat>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <174591887152.961603.7706063017853945511.b4-ty@bootlin.com>
+ <832a9db0-cf8a-4d35-8a98-08053fbd6723@bootlin.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250423090119.4003700-5-christian.bruel@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, thippeswamy.havalige@amd.com,
- linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
- quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
- shradha.t@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- johan+linaro@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v8 4/9] PCI: stm32: Add PCIe Endpoint
- support for STM32MP25
+In-Reply-To: <832a9db0-cf8a-4d35-8a98-08053fbd6723@bootlin.com>
+Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
+ Hsin-Te Yuan <yuanhsinte@chromium.org>, Heiko Stuebner <heiko@sntech.de>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Alim Akhtar <alim.akhtar@samsung.com>, Herve Codina <herve.codina@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Adam Ford <aford173@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Jani Nikula <jani.nikula@intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Pin-yen Lin <treapking@chromium.org>,
+ Sean Paul <sean@poorly.run>, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-kernel@vger.kernel.org, Phong LE <ple@baylibre.com>,
+ Christoph Fritz <chf.fritz@googlemail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ freedreno@lists.freedesktop.org,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Martyn Welch <martyn.welch@collabora.co.uk>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Guenter Roeck <groeck@chromium.org>, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Aradhya Bhatia <a-bhatia1@ti.com>, Fabio Estevam <festevam@gmail.com>,
+ Helge Deller <deller@gmx.de>, Sugar Zhang <sugar.zhang@rock-chips.com>,
+ Ian Ray <ian.ray@ge.com>, Dharma Balasubiramani <dharma.b@microchip.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, Jesse Van Gavere <jesseevg@gmail.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-amlogic@lists.infradead.org, Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ imx@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sasha Finkelstein <fnkl.kernel@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Peter Senna Tschudin <peter.senna@gmail.com>,
+ platform-driver-x86@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Vitalii Mordan <mordan@ispras.ru>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Benson Leung <bleung@chromium.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ asahi@lists.linux.dev, Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Aleksandr Mishin <amishin@t-argos.ru>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ David Airlie <airlied@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Janne Grunau <j@jannau.net>, Russell King <linux@armlinux.org.uk>,
+ "Rob Herring \(Arm\)" <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
+ Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Xin Ji <xji@analogixsemi.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Rob Clark <robdclark@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 00/34] drm: convert all
+ bridges to devm_drm_bridge_alloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,105 +123,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2278888394306404030=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBBcHIgMjMsIDIwMjUgYXQgMTE6MDE6MTRBTSArMDIwMCwgQ2hyaXN0aWFuIEJydWVs
-IHdyb3RlOgo+IEFkZCBkcml2ZXIgdG8gY29uZmlndXJlIHRoZSBTVE0zMk1QMjUgU29DIFBDSWUg
-R2VuMSAyLjVHVC9zIG9yIEdlbjIgNUdUL3MKPiBjb250cm9sbGVyIGJhc2VkIG9uIHRoZSBEZXNp
-Z25XYXJlIFBDSWUgY29yZSBpbiBlbmRwb2ludCBtb2RlLgo+IAo+IFVzZXMgdGhlIGNvbW1vbiBy
-ZWZlcmVuY2UgY2xvY2sgcHJvdmlkZWQgYnkgdGhlIGhvc3QuCj4gCj4gVGhlIFBDSWUgY29yZV9j
-bGsgcmVjZWl2ZXMgdGhlIHBpcGUwX2NsayBmcm9tIHRoZSBDb21ib1BIWSBhcyBpbnB1dCwKPiBh
-bmQgdGhlIENvbWJvUEhZIFBMTCBtdXN0IGJlIGxvY2tlZCBmb3IgcGlwZTBfY2xrIHRvIGJlIHJl
-YWR5Lgo+IENvbnNlcXVlbnRseSwgUENJZSBjb3JlIHJlZ2lzdGVycyBjYW5ub3QgYmUgYWNjZXNz
-ZWQgdW50aWwgdGhlIENvbWJvUEhZIGlzCj4gZnVsbHkgaW5pdGlhbGlzZWQgYW5kIHJlZmNsayBp
-cyBlbmFibGVkIGFuZCByZWFkeS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gQnJ1ZWwg
-PGNocmlzdGlhbi5icnVlbEBmb3NzLnN0LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9wY2kvY29udHJv
-bGxlci9kd2MvS2NvbmZpZyAgICAgICAgIHwgIDEyICsKPiAgZHJpdmVycy9wY2kvY29udHJvbGxl
-ci9kd2MvTWFrZWZpbGUgICAgICAgIHwgICAxICsKPiAgZHJpdmVycy9wY2kvY29udHJvbGxlci9k
-d2MvcGNpZS1zdG0zMi1lcC5jIHwgNDE0ICsrKysrKysrKysrKysrKysrKysrKwo+ICBkcml2ZXJz
-L3BjaS9jb250cm9sbGVyL2R3Yy9wY2llLXN0bTMyLmggICAgfCAgIDEgKwo+ICA0IGZpbGVzIGNo
-YW5nZWQsIDQyOCBpbnNlcnRpb25zKCspCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL3Bj
-aS9jb250cm9sbGVyL2R3Yy9wY2llLXN0bTMyLWVwLmMKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9wY2kvY29udHJvbGxlci9kd2MvS2NvbmZpZyBiL2RyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdj
-L0tjb25maWcKPiBpbmRleCAyYWVjNWQyZjlhNDYuLmFjZWZmN2QxZWYzMyAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL3BjaS9jb250cm9sbGVyL2R3Yy9LY29uZmlnCj4gKysrIGIvZHJpdmVycy9wY2kv
-Y29udHJvbGxlci9kd2MvS2NvbmZpZwo+IEBAIC00MjIsNiArNDIyLDE4IEBAIGNvbmZpZyBQQ0lF
-X1NUTTMyX0hPU1QKPiAgCSAgVGhpcyBkcml2ZXIgY2FuIGFsc28gYmUgYnVpbHQgYXMgYSBtb2R1
-bGUuIElmIHNvLCB0aGUgbW9kdWxlCj4gIAkgIHdpbGwgYmUgY2FsbGVkIHBjaWUtc3RtMzIuCj4g
-IAo+ICtjb25maWcgUENJRV9TVE0zMl9FUAo+ICsJdHJpc3RhdGUgIlNUTWljcm9lbGVjdHJvbmlj
-cyBTVE0zMk1QMjUgUENJZSBDb250cm9sbGVyIChlbmRwb2ludCBtb2RlKSIKPiArCWRlcGVuZHMg
-b24gQVJDSF9TVE0zMiB8fCBDT01QSUxFX1RFU1QKPiArCWRlcGVuZHMgb24gUENJX0VORFBPSU5U
-Cj4gKwlzZWxlY3QgUENJRV9EV19FUAo+ICsJaGVscAo+ICsJICBFbmFibGVzIGVuZHBvaW50IHN1
-cHBvcnQgZm9yIERlc2lnbldhcmUgY29yZSBiYXNlZCBQQ0llIGNvbnRyb2xsZXIKPiArCSAgZm91
-bmQgaW4gU1RNMzJNUDI1IFNvQy4KCkNhbiB5b3UgcGxlYXNlIHVzZSBzaW1pbGFyIGRlc2NyaXB0
-aW9uIGZvciB0aGUgUkMgZHJpdmVyIGFsc28/CgoiRW5hYmxlcyBSb290IENvbXBsZXggKFJDKSBz
-dXBwb3J0IGZvciB0aGUgRGVzaWduV2FyZSBjb3JlIGJhc2VkIFBDSWUgaG9zdApjb250cm9sbGVy
-IGZvdW5kIGluIFNUTTMyTVAyNSBTb0MuIgoKPiArCj4gKwkgIFRoaXMgZHJpdmVyIGNhbiBhbHNv
-IGJlIGJ1aWx0IGFzIGEgbW9kdWxlLiBJZiBzbywgdGhlIG1vZHVsZQo+ICsJICB3aWxsIGJlIGNh
-bGxlZCBwY2llLXN0bTMyLWVwLgo+ICsKPiAgY29uZmlnIFBDSV9EUkE3WFgKPiAgCXRyaXN0YXRl
-Cj4gIAoKWy4uLl0KCj4gK3N0YXRpYyBpbnQgc3RtMzJfYWRkX3BjaWVfZXAoc3RydWN0IHN0bTMy
-X3BjaWUgKnN0bTMyX3BjaWUsCj4gKwkJCSAgICAgc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
-dikKPiArewo+ICsJc3RydWN0IGR3X3BjaWVfZXAgKmVwID0gJnN0bTMyX3BjaWUtPnBjaS5lcDsK
-PiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gKwlpbnQgcmV0Owo+ICsKPiAr
-CXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoZGV2KTsKClRoaXMgbmVlZHMgdG8gYmUg
-Y2FsbGVkIGJlZm9yZSBkZXZtX3BtX3J1bnRpbWVfZW5hYmxlKCkuCgo+ICsJaWYgKHJldCA8IDAp
-IHsKPiArCQlkZXZfZXJyKGRldiwgInBtIHJ1bnRpbWUgcmVzdW1lIGZhaWxlZDogJWRcbiIsIHJl
-dCk7Cj4gKwkJcmV0dXJuIHJldDsKPiArCX0KPiArCj4gKwlyZXQgPSByZWdtYXBfdXBkYXRlX2Jp
-dHMoc3RtMzJfcGNpZS0+cmVnbWFwLCBTWVNDRkdfUENJRUNSLAo+ICsJCQkJIFNUTTMyTVAyNV9Q
-Q0lFQ1JfVFlQRV9NQVNLLAo+ICsJCQkJIFNUTTMyTVAyNV9QQ0lFQ1JfRVApOwo+ICsJaWYgKHJl
-dCkgewo+ICsJCWdvdG8gZXJyX3BtX3B1dF9zeW5jOwo+ICsJCXJldHVybiByZXQ7Cj4gKwl9Cj4g
-Kwo+ICsJcmVzZXRfY29udHJvbF9hc3NlcnQoc3RtMzJfcGNpZS0+cnN0KTsKPiArCXJlc2V0X2Nv
-bnRyb2xfZGVhc3NlcnQoc3RtMzJfcGNpZS0+cnN0KTsKPiArCj4gKwllcC0+b3BzID0gJnN0bTMy
-X3BjaWVfZXBfb3BzOwo+ICsKPiArCXJldCA9IGR3X3BjaWVfZXBfaW5pdChlcCk7Cj4gKwlpZiAo
-cmV0KSB7Cj4gKwkJZGV2X2VycihkZXYsICJmYWlsZWQgdG8gaW5pdGlhbGl6ZSBlcDogJWRcbiIs
-IHJldCk7Cj4gKwkJZ290byBlcnJfcG1fcHV0X3N5bmM7Cj4gKwl9Cj4gKwo+ICsJcmV0ID0gc3Rt
-MzJfcGNpZV9lbmFibGVfcmVzb3VyY2VzKHN0bTMyX3BjaWUpOwo+ICsJaWYgKHJldCkgewo+ICsJ
-CWRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGVuYWJsZSByZXNvdXJjZXM6ICVkXG4iLCByZXQpOwo+
-ICsJCWdvdG8gZXJyX2VwX2RlaW5pdDsKPiArCX0KPiArCj4gKwlyZXQgPSBkd19wY2llX2VwX2lu
-aXRfcmVnaXN0ZXJzKGVwKTsKPiArCWlmIChyZXQpIHsKPiArCQlkZXZfZXJyKGRldiwgIkZhaWxl
-ZCB0byBpbml0aWFsaXplIERXQyBlbmRwb2ludCByZWdpc3RlcnNcbiIpOwo+ICsJCWdvdG8gZXJy
-X2Rpc2FibGVfcmVzb3VyY2VzOwo+ICsJfQo+ICsKPiArCXBjaV9lcGNfaW5pdF9ub3RpZnkoZXAt
-PmVwYyk7Cj4gKwoKSG1tLCBsb29rcyBsaWtlIHlvdSBuZWVkIHRvIGR1cGxpY2F0ZSBkd19wY2ll
-X2VwX2luaXRfcmVnaXN0ZXJzKCkgYW5kCnBjaV9lcGNfaW5pdF9ub3RpZnkoKSBpbiBzdG0zMl9w
-Y2llX3BlcnN0X2RlYXNzZXJ0KCkgZm9yIGh3IHNwZWNpZmljIHJlYXNvbnMuClNvIGNhbiB5b3Ug
-ZHJvcCB0aGVzZSBmcm9tIHRoZXJlPwoKPiArCXJldHVybiAwOwo+ICsKPiArZXJyX2Rpc2FibGVf
-cmVzb3VyY2VzOgo+ICsJc3RtMzJfcGNpZV9kaXNhYmxlX3Jlc291cmNlcyhzdG0zMl9wY2llKTsK
-PiArCj4gK2Vycl9lcF9kZWluaXQ6Cj4gKwlkd19wY2llX2VwX2RlaW5pdChlcCk7Cj4gKwo+ICtl
-cnJfcG1fcHV0X3N5bmM6Cj4gKwlwbV9ydW50aW1lX3B1dF9zeW5jKGRldik7Cj4gKwlyZXR1cm4g
-cmV0Owo+ICt9Cj4gKwo+ICtzdGF0aWMgaW50IHN0bTMyX3BjaWVfcHJvYmUoc3RydWN0IHBsYXRm
-b3JtX2RldmljZSAqcGRldikKPiArewo+ICsJc3RydWN0IHN0bTMyX3BjaWUgKnN0bTMyX3BjaWU7
-Cj4gKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2Owo+ICsJaW50IHJldDsKPiArCj4g
-KwlzdG0zMl9wY2llID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCpzdG0zMl9wY2llKSwgR0ZQ
-X0tFUk5FTCk7Cj4gKwlpZiAoIXN0bTMyX3BjaWUpCj4gKwkJcmV0dXJuIC1FTk9NRU07Cj4gKwo+
-ICsJc3RtMzJfcGNpZS0+cGNpLmRldiA9IGRldjsKPiArCXN0bTMyX3BjaWUtPnBjaS5vcHMgPSAm
-ZHdfcGNpZV9vcHM7Cj4gKwo+ICsJc3RtMzJfcGNpZS0+cmVnbWFwID0gc3lzY29uX3JlZ21hcF9s
-b29rdXBfYnlfY29tcGF0aWJsZSgic3Qsc3RtMzJtcDI1LXN5c2NmZyIpOwo+ICsJaWYgKElTX0VS
-UihzdG0zMl9wY2llLT5yZWdtYXApKQo+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRS
-X0VSUihzdG0zMl9wY2llLT5yZWdtYXApLAo+ICsJCQkJICAgICAiTm8gc3lzY2ZnIHNwZWNpZmll
-ZFxuIik7Cj4gKwo+ICsJc3RtMzJfcGNpZS0+cGh5ID0gZGV2bV9waHlfZ2V0KGRldiwgTlVMTCk7
-Cj4gKwlpZiAoSVNfRVJSKHN0bTMyX3BjaWUtPnBoeSkpCj4gKwkJcmV0dXJuIGRldl9lcnJfcHJv
-YmUoZGV2LCBQVFJfRVJSKHN0bTMyX3BjaWUtPnBoeSksCj4gKwkJCQkgICAgICJmYWlsZWQgdG8g
-Z2V0IHBjaWUtcGh5XG4iKTsKPiArCj4gKwlzdG0zMl9wY2llLT5jbGsgPSBkZXZtX2Nsa19nZXQo
-ZGV2LCBOVUxMKTsKPiArCWlmIChJU19FUlIoc3RtMzJfcGNpZS0+Y2xrKSkKPiArCQlyZXR1cm4g
-ZGV2X2Vycl9wcm9iZShkZXYsIFBUUl9FUlIoc3RtMzJfcGNpZS0+Y2xrKSwKPiArCQkJCSAgICAg
-IkZhaWxlZCB0byBnZXQgUENJZSBjbG9jayBzb3VyY2VcbiIpOwo+ICsKPiArCXN0bTMyX3BjaWUt
-PnJzdCA9IGRldm1fcmVzZXRfY29udHJvbF9nZXRfZXhjbHVzaXZlKGRldiwgTlVMTCk7Cj4gKwlp
-ZiAoSVNfRVJSKHN0bTMyX3BjaWUtPnJzdCkpCj4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2
-LCBQVFJfRVJSKHN0bTMyX3BjaWUtPnJzdCksCj4gKwkJCQkgICAgICJGYWlsZWQgdG8gZ2V0IFBD
-SWUgcmVzZXRcbiIpOwo+ICsKPiArCXN0bTMyX3BjaWUtPnBlcnN0X2dwaW8gPSBkZXZtX2dwaW9k
-X2dldChkZXYsICJyZXNldCIsIEdQSU9EX0lOKTsKPiArCWlmIChJU19FUlIoc3RtMzJfcGNpZS0+
-cGVyc3RfZ3BpbykpCj4gKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKHN0bTMy
-X3BjaWUtPnBlcnN0X2dwaW8pLAo+ICsJCQkJICAgICAiRmFpbGVkIHRvIGdldCByZXNldCBHUElP
-XG4iKTsKPiArCj4gKwlyZXQgPSBwaHlfc2V0X21vZGUoc3RtMzJfcGNpZS0+cGh5LCBQSFlfTU9E
-RV9QQ0lFKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKPiArCj4gKwlwbGF0Zm9ybV9z
-ZXRfZHJ2ZGF0YShwZGV2LCBzdG0zMl9wY2llKTsKPiArCj4gKwlyZXQgPSBkZXZtX3BtX3J1bnRp
-bWVfZW5hYmxlKGRldik7Cj4gKwlpZiAocmV0IDwgMCkgewo+ICsJCWRldl9lcnIoZGV2LCAiRmFp
-bGVkIHRvIGVuYWJsZSBwbSBydW50aW1lICVkXG4iLCByZXQpOwoKVXNlIGRldl9lcnJfcHJvYmUo
-KSBwbGVhc2UgZm9yIGNvbnNpc3RlbmN5LgoKLSBNYW5pCgotLSAK4K6u4K6j4K6/4K614K6j4K+N
-4K6j4K6p4K+NIOCumuCupOCuvuCumuCuv+CuteCuruCvjQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============2278888394306404030==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="o2svn3fbdbsdr4ij"
+Content-Disposition: inline
+
+
+--o2svn3fbdbsdr4ij
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: (subset) [PATCH v2 00/34] drm: convert all bridges to
+ devm_drm_bridge_alloc()
+MIME-Version: 1.0
+
+On Tue, Apr 29, 2025 at 02:41:42PM +0200, Louis Chauvet wrote:
+> Le 29/04/2025 =E0 11:27, Louis Chauvet a =E9crit=A0:
+> >=20
+> > On Thu, 24 Apr 2025 20:59:07 +0200, Luca Ceresoli wrote:
+> > > devm_drm_bridge_alloc() [0] is the new API to allocate and initialize=
+ a DRM
+> > > bridge, and the only one supported from now on. It is also necessary =
+for
+> > > implementing reference counting and thus needed to support removal of
+> > > bridges from a still existing DRM pipeline without use-after-free.
+> > >=20
+> > > This series converts all DRM bridges to the new API.
+> > >=20
+> > > [...]
+> >=20
+> > Applied, thanks!
+> >=20
+> > [02/34] platform: arm64: acer-aspire1-ec: convert to devm_drm_bridge_al=
+loc() API
+> >          commit: 411465d35bc56877c33e2498ac697acfcf484e6b
+> > [03/34] drm/bridge: analogix-anx6345: convert to devm_drm_bridge_alloc(=
+) API
+> >          commit: 53ddeb25159781b029fda404226af600e76f975f
+> > [06/34] drm/bridge: display-connector: convert to devm_drm_bridge_alloc=
+() API
+> >          commit: 4e90a3d96a6185e143041273f9867a1092dd4a71
+> > [07/34] drm/bridge: lt9611uxc: convert to devm_drm_bridge_alloc() API
+> >          commit: 6287ffd9eff6eea65865e64b9d4c45e115fa5ecf
+> > [11/34] drm/bridge: dw-hdmi: convert to devm_drm_bridge_alloc() API
+> >          commit: ed6987b674185873ebed7a619a646da6dd1a78fa
+> > [12/34] drm/bridge: tda998x: convert to devm_drm_bridge_alloc() API
+> >          commit: 7fe58bf1a9a24b533875c262a3222581a3f759e4
+> > [13/34] drm/bridge: ti-sn65dsi86: convert to devm_drm_bridge_alloc() API
+> >          commit: a4754ae9cfa76fbce79f023c268a5bac56f36321
+> > [14/34] drm/exynos: mic: convert to devm_drm_bridge_alloc() API
+> >          commit: 91c5c7b5bb2dd09b43b025bce6d790d3c79f4518
+>=20
+> Hello all,
+>=20
+> I made a mistake while applying those patches. Instead of taking
+> 2-3,11-13,15-18,27,31, I took 2-3,11-18,27,31, which includes the patch 1=
+4.
+>=20
+> This patch is not R-by/A-by/SoB by non-Bootlin people. For me, the patch =
+is
+> correct, it does not break the build nor generate warnings.
+>=20
+> What should I do? Is my SoB sufficient, or should I revert the patch and
+> wait for R/A-by before taking it again?
+
+It's worse: just like msm, it was never supposed to be applied in
+drm-misc, exynos has its own git tree.
+
+Inki, Kyungmin, Seung-Woo, sorry for the mishap. Do you agree with the
+following patch, and it going through drm-misc?
+
+https://lore.kernel.org/dri-devel/20250424-drm-bridge-convert-to-alloc-api-=
+v2-14-8f91a404d86b@bootlin.com/
+
+If not, we'll revert.
+
+Maxime
+
+--o2svn3fbdbsdr4ij
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaBHaaAAKCRAnX84Zoj2+
+dnenAYDBZr6cr88AokBU5IxJIO545Bob3jJW0+AX0AYDOu8icKftnZn/muxH1K/2
+mlgois4Bf2nfOosRvUT+FqHEb3CHJCluDubGG9J2EVzCRjRyMKIJ+yKyJ5VGB4cE
+N6ZGUBWZvg==
+=3YXQ
+-----END PGP SIGNATURE-----
+
+--o2svn3fbdbsdr4ij--
+
+--===============2278888394306404030==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2278888394306404030==--
