@@ -2,45 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9DB8AA0F52
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Apr 2025 16:44:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1320EAA431A
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Apr 2025 08:29:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FE98C78F67;
-	Tue, 29 Apr 2025 14:44:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A203AC78F74;
+	Wed, 30 Apr 2025 06:29:56 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3802CC78F63
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6A20C78F72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Apr 2025 14:44:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 42BEE615CC;
- Tue, 29 Apr 2025 14:43:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14C7C4CEE3;
- Tue, 29 Apr 2025 14:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1745937860;
- bh=4rr0S3mSjoui4D8DbAX2wTbORXf1cAmtg5M9HmjHuhU=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=d3YUk0Ov4iLTp8IvzNdV/ZNp8XRfU0tpb5oO11Ch7TeqYX980y0eKGMK/tSkiZdHG
- vKKfoEdkR1s+NYjN7a+AJ5LIM2s8BnXPc1k9zkOx3UAgsn7GdLXMskG8pcyMg6PZjr
- hnW+l0awaOZdLhL+FF6sOcWJBst8YDQPRSyQW//eEcvnLFRkEHcFbRJrI4NtMZ4/5s
- 9oXWECSmFA4F6IcyherLCLXt/f8gFvTWDlZX+lIkLCg2rPK6y/rBhahA2HfK5II7y2
- TITnqai63Vv44JqE0pz38xD3AqDqqBaPCzJM4ILcDM3e08c2AK0fAgXs+F+HIJjvhE
- S2Zreml59gaJw==
-Date: Tue, 29 Apr 2025 09:44:18 -0500
+ Wed, 30 Apr 2025 06:29:55 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53TLZhZ4026649;
+ Wed, 30 Apr 2025 08:29:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ DKGs8pWqRz5fgySPRSKxsWNGQtApl7x88mhEfyirBMg=; b=R/ezM1GKkmn93rcW
+ MUTPTqXaoWuIQ+tKQkB+bLfr314SkR3E5wJWFGIdOwexGCo0QYXvJaj/087D8ix1
+ MdcW6985sCHesT8DrQdltTR08K4AEvw0A8wxrKKQutvt6p62Up+6Jr1RZ+W6zlQB
+ yqXbdNraO9Z6TkEupEHC/ypr+W7dQqkZSECPXhvjc5A66JbgoNzXYY8hL4VjLYUi
+ Okdn6fwB31sYFa8uQD2N3kyPOutDmdzLtw/81xWLLmM4VtC+4ztS6/ub2GLAPdY+
+ ffJaL3XPMWU7RLfWh8y0dYSAwTlmGgOhctuqUH53Dp0F3d5VvR45cdmb4mWgQdNp
+ Z1GJBg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46b6tmscqc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Apr 2025 08:29:43 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 191C640044;
+ Wed, 30 Apr 2025 08:28:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 315E2A398DD;
+ Wed, 30 Apr 2025 08:28:20 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Apr
+ 2025 08:28:19 +0200
+Message-ID: <9d95a3eb-f656-4037-8412-1967660b6430@foss.st.com>
+Date: Wed, 30 Apr 2025 08:28:19 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Patrice Chotard <patrice.chotard@foss.st.com>
-In-Reply-To: <20250428-upstream_omm_ospi_dts-v9-0-62522b1b0922@foss.st.com>
-References: <20250428-upstream_omm_ospi_dts-v9-0-62522b1b0922@foss.st.com>
-Message-Id: <174593770361.4057747.4332961101566967821.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 0/3] arm64: dts: st: Add SPI NOR
- support for stm32mp257f-ev1
+User-Agent: Mozilla Thunderbird
+To: Olivier Moysan <olivier.moysan@foss.st.com>, <fabrice.gasnier@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>
+References: <20250403115954.1061528-1-olivier.moysan@foss.st.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20250403115954.1061528-1-olivier.moysan@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-30_01,2025-04-24_02,2025-02-21_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: add vrefint
+	calibration on stm32mp13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,89 +74,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Olivier
 
-On Mon, 28 Apr 2025 10:40:20 +0200, Patrice Chotard wrote:
-> Add SPI NOR support for stm32mp257f-ev1 board by adding:
->   _ Octo memory Manager node in stm32mp251.dtsi
->   _ OSPI port1 pinctrl entries in stm32mp25-pinctrl.dtsi
->   _ Add SPI NOR support for stm32mp257f-ev1.dts
+On 4/3/25 13:59, Olivier Moysan wrote:
+> Add vrefint calibration data in STM32MP13 device tree to support
+> STM32 ADC internal channel VREFINT.
 > 
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Olivier Moysan (2):
+>    ARM: dts: stm32: add vrefint calibration on stm32mp13
+>    ARM: dts: stm32: add vrefint support to adc on stm32mp13
 > 
-> Changes in v9:
->   - split patchset by susbsystem, current one include only DTS related
->     patches.
->   - Link to v8: https://lore.kernel.org/r/20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com
+>   arch/arm/boot/dts/st/stm32mp131.dtsi | 5 +++++
+>   arch/arm/boot/dts/st/stm32mp133.dtsi | 2 ++
+>   2 files changed, 7 insertions(+)
 > 
-> ---
-> Patrice Chotard (3):
->       arm64: dts: st: Add OMM node on stm32mp251
->       arm64: dts: st: Add ospi port1 pinctrl entries in stm32mp25-pinctrl.dtsi
->       arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board
 > 
->  arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 51 +++++++++++++++++++++++++
->  arch/arm64/boot/dts/st/stm32mp251.dtsi        | 54 +++++++++++++++++++++++++++
->  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 32 ++++++++++++++++
->  3 files changed, 137 insertions(+)
-> ---
 > base-commit: 65954899a157832f68536b488194cf698248a26e
-> change-id: 20250410-upstream_omm_ospi_dts-04b97cc02e52
-> 
-> Best regards,
-> --
-> Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> 
-> 
 
+Series applied on stm32-next.
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
-
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-This patch series was applied (using b4) to base:
- Base: using specified base-commit 65954899a157832f68536b488194cf698248a26e
-
-If this is not the correct base, please add 'base-commit' tag
-(or use b4 which does this automatically)
-
-New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/st/' for 20250428-upstream_omm_ospi_dts-v9-0-62522b1b0922@foss.st.com:
-
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: /soc@0/ommanager@40500000: failed to match any schema with compatible: ['st,stm32mp25-omm']
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: /soc@0/ommanager@40500000: failed to match any schema with compatible: ['st,stm32mp25-omm']
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: /soc@0/ommanager@40500000/spi@0: failed to match any schema with compatible: ['st,stm32mp25-ospi']
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: /soc@0/ommanager@40500000/spi@0: failed to match any schema with compatible: ['st,stm32mp25-ospi']
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: /soc@0/ommanager@40500000/spi@1: failed to match any schema with compatible: ['st,stm32mp25-ospi']
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: /soc@0/ommanager@40500000/spi@1: failed to match any schema with compatible: ['st,stm32mp25-ospi']
-
-
-
-
-
+thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
