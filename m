@@ -2,64 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7447EAA5E78
+	by mail.lfdr.de (Postfix) with ESMTPS id 798F0AA5E79
 	for <lists+linux-stm32@lfdr.de>; Thu,  1 May 2025 14:37:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15142C78F87;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24859C78F98;
 	Thu,  1 May 2025 12:37:19 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B7F9C78032
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B837FC78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 May 2025 12:37:17 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so8089805e9.3
+ Thu,  1 May 2025 12:37:18 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-43cf628cb14so14277395e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 May 2025 05:37:17 -0700 (PDT)
+ Thu, 01 May 2025 05:37:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746103037; x=1746707837;
+ d=gmail.com; s=20230601; t=1746103038; x=1746707838;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QarYVaH0v20mTotvxQdSp+TNmjgBdUC/EhjLO8cfUNQ=;
- b=QxOdjjfX6Q6aVfk7XfoQvPTC7tQGhlEa5cfEJuUQtnXmqG3nMpsSJgEzxBVflfy3ei
- lz0T/zgapThka3gxt+C0Gw+0Crwl/zEpGT1kS66v59yvCoPgwljPIroT4AI5I/bCSziS
- SyDUOs24LWOeEOg4917QUgl41OlnPsIyXabiNhxz+vNRN4PR+wMO51SrU9ICWw4TkGPB
- Fz7UsiRPYH1HCrRSnG22UDNNc0vVKvtjqhBHpcTEoUCgjuQlNUxkj1blHcWCTewj2APf
- AovfkNvlyrFWrd6ZSJ8BTZNMXoJQe0yYnkGNoNZkzUoklCImq1VxX3lYkXB4R0DI+Zya
- p5CQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fnvyeixn+1Lgru4M/HCqjV6TyqEDVE1iM8aBdkxEhXY=;
+ b=ZFlSSyytQExmF54AG888doG1SvoCMe95FGz1wJaDTP6UNkPoY25onjR+HSRW9BbCqP
+ ttkc82AY5YWspCgAUrd3088HHNoY7fC7R+eIrA6yEu4qxhBE3aHcFXWcNwSdxa5PFXXJ
+ XtD+SvRZGZi6wGMQ+tgGnzE4Gf7LNLqgqEkqew55Wq5DiNW1DDKQGXQXt55blTwlFizs
+ GlgwFKJ7cxwW/Ib7QBm0BCAr3bXIcpnFQj7kcVSnvAEclvxRxmgD6P5w0qYVm57rbnfM
+ 09HvZ/tfZ2as73rBThvzlAuwVqCN4C3dgP27rOULrvBq4845hvhzYIfosP0Bp5jdf7uj
+ PKQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746103037; x=1746707837;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QarYVaH0v20mTotvxQdSp+TNmjgBdUC/EhjLO8cfUNQ=;
- b=To11gsTPN/T/w0rUjOZHcgEk30PN6xTY7x6rFqR4cVuoM3kusOU40I1OdtB1/J8M3V
- +TChYHGHzaLf89msVYzySfDmW2X3Lq5tzrpDz1Nr6MgKCuTjgMOQUgVd4K9hBxAGsVK3
- sGQ4B8EvkflhF3376L0tIr3IsYx9dU8mQn4Y9Rx6TBEWDCE1Kso8lfoKWM9kNIcDHMR1
- /6foF2Tv+/a5hODRnoT5zgwS2N6sCyJUTWew1/KOGOPW69iLWRigZLIb9nNqwlZoaat3
- FyO3gGsLe0fW1nJDS34HIXS73n5NCRTiHDc2Ms/X/X3h0gYgBCMhFNdpOntWAgUiJ1sy
- +ISg==
+ d=1e100.net; s=20230601; t=1746103038; x=1746707838;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fnvyeixn+1Lgru4M/HCqjV6TyqEDVE1iM8aBdkxEhXY=;
+ b=KySzUOWNY3+HtW+Zpx/hNexhogDvzhpBRhw+WMUwlXmkXa+QS7dHNbBajR9KmcjEBp
+ 8rS4W2oBe5Il4ei2UpR/kRJW51cgeupDf4DUbcXhOnRb2+Ua5IM70JE2arOe+JG8WSi3
+ 5AUaAt/OOZYEPCM7nvfxk2ZD33bLpXEwEGjX0LDXVCnjyiaII0yPkN6N9pSUrO31EaGF
+ qIPp5rLmVmfdMOlNOaXYJfPVuyeHe81ws4h91S6B91AvJNFM1XvMNyV/4C+78v3+Qhtn
+ EcRk+ZsnoDRZXqki6hvj0B+K76FVD7ZoTwfidIMkB+gRSgxn1/J6olwfniW7vwRDaVOq
+ UxfQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXV3KQXDsqMxCXm2+ea9hsZZ+hPUPy4A/waCU4UPrWPbm8poSX5V4wvB523MgEDyx+TJG8oLikeJR/A2A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwW5rNyeQGy6Vivwerw1OCcp7gbtCgzYpTRcYGYRkxPP7sVH+Be
- Gi10bEW1ztim+cUyipd4zsaCBcUM8yt/5YQ0BZH1/UHmn/WHrxxM
-X-Gm-Gg: ASbGncsLSXXj/iViHV2n4dS5sZ1Sxkqj4wkbzqBX03e5brxqNZwNzCoXASF84RdULnA
- I/FVpbCqAwe3qSglq4N3jemJjl2P8TkYoWT34/nH2gBVo61irH7KVtwOyIvsvpBsKKLqoXhbVVq
- L+ItsdocPGiPS9WA+AoNf6ebkf8vAMQh+mVmrTWpqZOCUY4DCS54h7VMzYApa54VXSdv1ww3LbZ
- Vip65NWetZgwSGTK598wObYqkmHM+czBMoeFIYlFT/OJbarSu7AEv3maTcGUWwQKjaNINuoPlmD
- N70qymKIUpEi4KMq0zCZoLipClk/UJ7doPgTIpkUecXEXS+dbZKnC9sns1dtZUNS
-X-Google-Smtp-Source: AGHT+IG8jggn8A7KlYdw5KvTYjXV5NzOswZFTlK/eHsc27wVMfwBj6SLLMeFwc//UR9osY5bfEFJpQ==
-X-Received: by 2002:a05:600c:3b0c:b0:43d:745a:5a50 with SMTP id
- 5b1f17b1804b1-441b1f388famr64205075e9.19.1746103037104; 
+ AJvYcCXejNXqPcZrZcnML3ygUAiB3F9+iYZtvV9anSLoInoAsTfq6DJ66XllWMyXh49N2vm7fRpRpB4gDQSjvQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywgike6SeJo8BFU77QSKU8iHhqe2P4wRxcLtx22fp2kfiDD/wy0
+ 6D0SIZ37q08wSs5Eqil/JaAIZ0VB/swAnqMEYa8F6/jGeDiXGCN9
+X-Gm-Gg: ASbGncusWc7Ckfe9B82iDxn49S1VtFu7IZjybEGyOl18lVPdCalUNQeD50HlX834tqT
+ CaI1rfmnzqRBC3jHqnKBCorbepdFRZJCSPpGzAYBi18aCw57z5zjwEkOqzRxb89ZQyjKteAgp5G
+ tUdwsfF+o/jc+HCDr8y+nHO7aXG7pT//IxH6hpmoFXNXqN7oBCDKDPRzXPduYPRjesfCbQHEIjf
+ 71cwVmRKR3ChazLm5msYyd+ATFD3GoXg8regd3nF56BQopCAEmAegmYdj6Q6EwitgD5f/fKuXh1
+ JdShYrryy3JPGqDTmqTxfIR3iNdY9XqqsbZ09kgumf4n+oObsH04+IVxxuQqAYsy
+X-Google-Smtp-Source: AGHT+IH6jzylsn0GgewBtvvu8wy8bqEIx48tCATSZ1CDXZXmV5fbpP4GZv7mMB68aJ7aMPXOZZnKJA==
+X-Received: by 2002:a05:600c:4206:b0:43c:ec72:3daf with SMTP id
+ 5b1f17b1804b1-441b72ece6cmr13060585e9.14.1746103037909; 
  Thu, 01 May 2025 05:37:17 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:f0e:4490:d947:2c92])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-441b89cc469sm11144765e9.6.2025.05.01.05.37.16
+ 5b1f17b1804b1-441b89cc469sm11144765e9.6.2025.05.01.05.37.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 May 2025 05:37:16 -0700 (PDT)
+ Thu, 01 May 2025 05:37:17 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>,
@@ -71,9 +72,11 @@ To: Daniel Lezcano <daniel.lezcano@linaro.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Magnus Damm <magnus.damm@gmail.com>,
  Chris Brandt <chris.brandt@renesas.com>
-Date: Thu,  1 May 2025 13:37:07 +0100
-Message-ID: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Thu,  1 May 2025 13:37:08 +0100
+Message-ID: <20250501123709.56513-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
@@ -81,7 +84,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
  Biju Das <biju.das.jz@bp.renesas.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/2] Add support for Renesas OSTM on RZ/V2N SoC
+Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: timer: renesas,
+	ostm: Document RZ/V2N (R9A09G056) support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,23 +104,39 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Document support for the Renesas OS Timer (OSTM) found on the Renesas
+RZ/V2N (R9A09G056) SoC. The OSTM IP on RZ/V2N is identical to that on
+other RZ families, so no driver changes are required as `renesas,ostm`
+will be used as fallback compatible.
 
-This patch series adds support for the Renesas OS Timer (OSTM) found on
-the Renesas RZ/V2N (R9A09G056) SoC. The OSTM IP on RZ/V2N is identical to
-that on other RZ families.
+Also include RZ/V2N in the list of compatibles for which the `resets`
+property is required.
 
-Cheers,
-Prabhakar
-
-Lad Prabhakar (2):
-  dt-bindings: timer: renesas,ostm: Document RZ/V2N (R9A09G056) support
-  clocksource/drivers/renesas-ostm: Enable OSTM reprobe for RZ/V2N SoC
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
  Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 ++
- drivers/clocksource/renesas-ostm.c                        | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ 1 file changed, 2 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+index 9ba858f094ab..bc421882cbc2 100644
+--- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
++++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+@@ -26,6 +26,7 @@ properties:
+           - renesas,r9a07g043-ostm # RZ/G2UL and RZ/Five
+           - renesas,r9a07g044-ostm # RZ/G2{L,LC}
+           - renesas,r9a07g054-ostm # RZ/V2L
++          - renesas,r9a09g056-ostm # RZ/V2N
+           - renesas,r9a09g057-ostm # RZ/V2H(P)
+       - const: renesas,ostm        # Generic
+ 
+@@ -59,6 +60,7 @@ if:
+           - renesas,r9a07g043-ostm
+           - renesas,r9a07g044-ostm
+           - renesas,r9a07g054-ostm
++          - renesas,r9a09g056-ostm
+           - renesas,r9a09g057-ostm
+ then:
+   required:
 -- 
 2.49.0
 
