@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 798F0AA5E79
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 May 2025 14:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ADB2AA5E7A
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 May 2025 14:37:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24859C78F98;
-	Thu,  1 May 2025 12:37:19 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F224C78F88;
+	Thu,  1 May 2025 12:37:21 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B837FC78032
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBB99C78F99
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 May 2025 12:37:18 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so14277395e9.1
+ Thu,  1 May 2025 12:37:19 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-43cfe574976so5311965e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 May 2025 05:37:18 -0700 (PDT)
+ Thu, 01 May 2025 05:37:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746103038; x=1746707838;
+ d=gmail.com; s=20230601; t=1746103039; x=1746707839;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fnvyeixn+1Lgru4M/HCqjV6TyqEDVE1iM8aBdkxEhXY=;
- b=ZFlSSyytQExmF54AG888doG1SvoCMe95FGz1wJaDTP6UNkPoY25onjR+HSRW9BbCqP
- ttkc82AY5YWspCgAUrd3088HHNoY7fC7R+eIrA6yEu4qxhBE3aHcFXWcNwSdxa5PFXXJ
- XtD+SvRZGZi6wGMQ+tgGnzE4Gf7LNLqgqEkqew55Wq5DiNW1DDKQGXQXt55blTwlFizs
- GlgwFKJ7cxwW/Ib7QBm0BCAr3bXIcpnFQj7kcVSnvAEclvxRxmgD6P5w0qYVm57rbnfM
- 09HvZ/tfZ2as73rBThvzlAuwVqCN4C3dgP27rOULrvBq4845hvhzYIfosP0Bp5jdf7uj
- PKQg==
+ bh=TgNFNroZGE50So2AWpgZdGIy0x5cNaOcuHUkn58CMQw=;
+ b=c2bWIErwvYXNLwkvCR9Slq6Q7MFeJlEjDwapyoGK1pWNT40Ep4qzQMKuXXtrtvESFm
+ gAkMV3xPqR7Omvxp3u++91LoZ7TYoyDvNto4AFvHXby2y5whHiZ2t7q/Fw7I3ME8l/hH
+ 7mng8tJh4+yDY15HfQ7Pi0AHuVz9GUXUaYGNSQdYqXZCVnNT8kO3k09DE1hXXrkl9IK5
+ dSI+4ggMq2szYJ61HI3t+d4O7RZVSAmSiI7LYjnkVjO8khgofOcyess/67AnhGOLhIBw
+ ymqhJPR3GZC4DMMA5mVOxowjiJA+PRFwkLTF6WlfdI2xnpJH5V3OylWw0ELk47Ee/cPi
+ hzjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746103038; x=1746707838;
+ d=1e100.net; s=20230601; t=1746103039; x=1746707839;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fnvyeixn+1Lgru4M/HCqjV6TyqEDVE1iM8aBdkxEhXY=;
- b=KySzUOWNY3+HtW+Zpx/hNexhogDvzhpBRhw+WMUwlXmkXa+QS7dHNbBajR9KmcjEBp
- 8rS4W2oBe5Il4ei2UpR/kRJW51cgeupDf4DUbcXhOnRb2+Ua5IM70JE2arOe+JG8WSi3
- 5AUaAt/OOZYEPCM7nvfxk2ZD33bLpXEwEGjX0LDXVCnjyiaII0yPkN6N9pSUrO31EaGF
- qIPp5rLmVmfdMOlNOaXYJfPVuyeHe81ws4h91S6B91AvJNFM1XvMNyV/4C+78v3+Qhtn
- EcRk+ZsnoDRZXqki6hvj0B+K76FVD7ZoTwfidIMkB+gRSgxn1/J6olwfniW7vwRDaVOq
- UxfQ==
+ bh=TgNFNroZGE50So2AWpgZdGIy0x5cNaOcuHUkn58CMQw=;
+ b=L0GEybXxknRRgvw5pk/aIjPYsTwwhmcIoPfAxiVlgmke/2fPOOjHe118nfcYqsQsiu
+ RvOH40foinUp+s9DsoI7XNrbpx0M73sSRVRlbsppPui5tuCN/zMAzihG06XznLOhl+ne
+ AJcyi8AOykGAUO+rKd3tHz/CBh0mxuFkZIogzosXfVhlrQhFCGpY5aLjpT+fFpqA2PR6
+ qWzRya5tKLc+6drsa3BCp3PrKh/6/PLKWwXeQdAbefQJjRsLxoRzz4Zre4iP+QKEzoUv
+ e6iZdJVlywmfY7kTMyLa/8WnkO6YL48ACIPlPrmgWUkOvrWnFoVcn6RMppxxHpZQ8RG3
+ g9tQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXejNXqPcZrZcnML3ygUAiB3F9+iYZtvV9anSLoInoAsTfq6DJ66XllWMyXh49N2vm7fRpRpB4gDQSjvQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywgike6SeJo8BFU77QSKU8iHhqe2P4wRxcLtx22fp2kfiDD/wy0
- 6D0SIZ37q08wSs5Eqil/JaAIZ0VB/swAnqMEYa8F6/jGeDiXGCN9
-X-Gm-Gg: ASbGncusWc7Ckfe9B82iDxn49S1VtFu7IZjybEGyOl18lVPdCalUNQeD50HlX834tqT
- CaI1rfmnzqRBC3jHqnKBCorbepdFRZJCSPpGzAYBi18aCw57z5zjwEkOqzRxb89ZQyjKteAgp5G
- tUdwsfF+o/jc+HCDr8y+nHO7aXG7pT//IxH6hpmoFXNXqN7oBCDKDPRzXPduYPRjesfCbQHEIjf
- 71cwVmRKR3ChazLm5msYyd+ATFD3GoXg8regd3nF56BQopCAEmAegmYdj6Q6EwitgD5f/fKuXh1
- JdShYrryy3JPGqDTmqTxfIR3iNdY9XqqsbZ09kgumf4n+oObsH04+IVxxuQqAYsy
-X-Google-Smtp-Source: AGHT+IH6jzylsn0GgewBtvvu8wy8bqEIx48tCATSZ1CDXZXmV5fbpP4GZv7mMB68aJ7aMPXOZZnKJA==
-X-Received: by 2002:a05:600c:4206:b0:43c:ec72:3daf with SMTP id
- 5b1f17b1804b1-441b72ece6cmr13060585e9.14.1746103037909; 
- Thu, 01 May 2025 05:37:17 -0700 (PDT)
+ AJvYcCVq1PMxJPuJwUCxVtanQmwRFTantmCYUyGAFPgVT6MrAA7ocKcFXwPtSOUGOKXa42kRJnNf60TiU1BI7Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywy5kOoQo0xKhbSuoIWhnsqsdQITLWuHOIMmmsPNqK4EQj3emLQ
+ +IR2mrXNQm5ey7Jeuj2CJRjk/vS54BwpoB6M5qdugI5JMRiKkKEw
+X-Gm-Gg: ASbGncv2YEKnEtEFXZpRiDjTm+BWw80zUaeti8ejz595ZO66++EJTO1zAXo8yqPDylo
+ rRzTO1AUYdtRGiA9VGnHaA3BwHUYeXIGSPCQuUWUoQIWdxSWu52N43wHSpXlDApQmCfUguS23xK
+ kSNKEiESpx03yliQF8ijStSaXUydBsnrwBwyfs0NkssEGljVeCa9p2z+VuBT8Lt7h70K6AV6Lwa
+ +6j8ku2rW3tfJsZoFUxGYxpmHlLNtg+SXHPFHFwXCbiK0wo7KU6b1yZpNibetioc06V0koPaVvv
+ tk9TemwW7yVvqx9TQXsMzD6pnUSxzHU8aqlMoafOPrl8BOGkt11OXEcGx0qn0lOvde4WUNwMeJQ
+ =
+X-Google-Smtp-Source: AGHT+IGZmSJD1oy0UDx7tiBsVyBgeklEmdSHp8LD1zMwNv+uQkPtE63Em2e0OxJJDKeaXfUi9AR2yw==
+X-Received: by 2002:a05:600c:5128:b0:43c:e6d1:efe7 with SMTP id
+ 5b1f17b1804b1-441b705a882mr13841645e9.26.1746103039065; 
+ Thu, 01 May 2025 05:37:19 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:f0e:4490:d947:2c92])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-441b89cc469sm11144765e9.6.2025.05.01.05.37.17
+ 5b1f17b1804b1-441b89cc469sm11144765e9.6.2025.05.01.05.37.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 May 2025 05:37:17 -0700 (PDT)
+ Thu, 01 May 2025 05:37:18 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>,
@@ -72,8 +73,8 @@ To: Daniel Lezcano <daniel.lezcano@linaro.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Magnus Damm <magnus.damm@gmail.com>,
  Chris Brandt <chris.brandt@renesas.com>
-Date: Thu,  1 May 2025 13:37:08 +0100
-Message-ID: <20250501123709.56513-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Thu,  1 May 2025 13:37:09 +0100
+Message-ID: <20250501123709.56513-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -84,8 +85,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
  Biju Das <biju.das.jz@bp.renesas.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: timer: renesas,
-	ostm: Document RZ/V2N (R9A09G056) support
+Subject: [Linux-stm32] [PATCH 2/2] clocksource/drivers/renesas-ostm: Enable
+	OSTM reprobe for RZ/V2N SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,39 +105,31 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Document support for the Renesas OS Timer (OSTM) found on the Renesas
-RZ/V2N (R9A09G056) SoC. The OSTM IP on RZ/V2N is identical to that on
-other RZ families, so no driver changes are required as `renesas,ostm`
-will be used as fallback compatible.
-
-Also include RZ/V2N in the list of compatibles for which the `resets`
-property is required.
+Add CONFIG_ARCH_R9A09G056 to the probe condition in renesas-ostm.c so that
+the OSTM platform driver can reprobe for the RZ/V2N (R9A09G056) SoC. Like
+RZ/G2L and RZ/V2H(P), the RZ/V2N contains the Generic Timer Module (OSTM)
+which requires its reset to be deasserted before any register access.
+Enabling the platform_device probe path ensures the driver defers until
+resets are available.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/clocksource/renesas-ostm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-index 9ba858f094ab..bc421882cbc2 100644
---- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-+++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-@@ -26,6 +26,7 @@ properties:
-           - renesas,r9a07g043-ostm # RZ/G2UL and RZ/Five
-           - renesas,r9a07g044-ostm # RZ/G2{L,LC}
-           - renesas,r9a07g054-ostm # RZ/V2L
-+          - renesas,r9a09g056-ostm # RZ/V2N
-           - renesas,r9a09g057-ostm # RZ/V2H(P)
-       - const: renesas,ostm        # Generic
+diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
+index 3fcbd02b2483..c9919811542e 100644
+--- a/drivers/clocksource/renesas-ostm.c
++++ b/drivers/clocksource/renesas-ostm.c
+@@ -225,7 +225,7 @@ static int __init ostm_init(struct device_node *np)
  
-@@ -59,6 +60,7 @@ if:
-           - renesas,r9a07g043-ostm
-           - renesas,r9a07g044-ostm
-           - renesas,r9a07g054-ostm
-+          - renesas,r9a09g056-ostm
-           - renesas,r9a09g057-ostm
- then:
-   required:
+ TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
+ 
+-#if defined(CONFIG_ARCH_RZG2L) || defined(CONFIG_ARCH_R9A09G057)
++#if defined(CONFIG_ARCH_RZG2L) || defined(CONFIG_ARCH_R9A09G057) || defined(CONFIG_ARCH_R9A09G056)
+ static int __init ostm_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
 -- 
 2.49.0
 
