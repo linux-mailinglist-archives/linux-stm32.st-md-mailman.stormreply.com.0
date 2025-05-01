@@ -2,47 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D568BAA5874
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 May 2025 01:06:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0720EAA5B1E
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 May 2025 08:38:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C5EEC78032;
-	Wed, 30 Apr 2025 23:06:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB211C78F61;
+	Thu,  1 May 2025 06:38:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28DCDC640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22027C78032
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Apr 2025 23:06:56 +0000 (UTC)
+ Thu,  1 May 2025 06:38:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 78C655C3EED;
- Wed, 30 Apr 2025 23:04:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6411C4CEE7;
- Wed, 30 Apr 2025 23:06:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 75E134405D;
+ Thu,  1 May 2025 06:38:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE5AC4CEE3;
+ Thu,  1 May 2025 06:38:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746054415;
- bh=DVe4AB4EflgrauQLf6RgNDVBTkAUO5bOQliQvYixnW8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=i6vCwD5Ku8V7NhwVQCWwREJPG9bpxTlnAjBWAPC7OHfxwEj5pw6WIXihyOM0y07Np
- oGmUoxS7a2mBs6MUYDOWJANfPTAeQlHn9gqi2vcfINyLnEW81ZfPWC6QWthwuCtwxe
- uoLvX5SGnjAG+PStaYDsa20ZdplK/V0lQK4PCJqUSbfhXhxpHZL6q0gCQafGRJ8FUK
- hqDUKKJknEElV5O81sILkYadirfxvvyLluuq2YvGg858QohSN+Ed8uOWekovraA+6T
- zR9PoOP6dKH91v49Su5iWlZzX6BSNRYJKxcj8ve7M8lRI8lYzvXNJ8d0sATFVxd9vn
- HbtwgGZde6m2A==
-Date: Thu, 1 May 2025 08:06:51 +0900
+ s=k20201202; t=1746081486;
+ bh=UAP2AV+qSbFSO/2/N++l3ypruXuDaFFIRSPyTIofkqg=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=nTK9N3wFBMkhJe08xeOfs0C9EN4ztFCTh7V3x7cbBbR0jT5Wd68xB2EcCgKupe7vj
+ DMnGWRYowzYv7KdRIGvxdPra3V571FpD5SgH8wudI2jmNigkHtleguUE+3hymi62DU
+ ZcE9DY186mYo9CyQGHEOOzs3DiVTx/VTfjCiBQzDjJVPbqICnlWzA+J37d/A9NYhHT
+ lkBQwunLyYBoI+uT+Ge9aPReAx+9quY0zhLB/ZaJCj9Vy1rvPPrsnLU6ZHGuAYNfq0
+ KVL3zmVq2VcijwmMSIIYIOnxBMZOUydXa6wZbr/pHZi9T5mp0RB25OswPcvHuiLF9k
+ I5+ojStYAwv+g==
 From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <aBKtC6ltm4hyQ3yW@finisterre.sirena.org.uk>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>
+In-Reply-To: <20250430165210.321273-1-olivier.moysan@foss.st.com>
 References: <20250430165210.321273-1-olivier.moysan@foss.st.com>
- <20250430165210.321273-2-olivier.moysan@foss.st.com>
+Message-Id: <174608148419.4032397.674149169345577452.b4-ty@kernel.org>
+Date: Thu, 01 May 2025 15:38:04 +0900
 MIME-Version: 1.0
-In-Reply-To: <20250430165210.321273-2-olivier.moysan@foss.st.com>
-X-Cookie: Well begun is half done.
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] ASoC: stm32: sai: skip useless
- iterations on kernel rate loop
+X-Mailer: b4 0.15-dev-c25d1
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/2] ASoC: stm32: sai: fix kernel rate
+	configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,53 +56,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6907488325256514954=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, 30 Apr 2025 18:52:07 +0200, Olivier Moysan wrote:
+> This patchset adds some checks on kernel minimum rate requirements.
+> This avoids potential clock rate misconfiguration, when setting the
+> kernel frequency on STM32MP2 SoCs.
+> 
+> Olivier Moysan (2):
+>   ASoC: stm32: sai: skip useless iterations on kernel rate loop
+>   ASoC: stm32: sai: add a check on minimal kernel frequency
+> 
+> [...]
 
---===============6907488325256514954==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bPEVIUKDWml5O3Hc"
-Content-Disposition: inline
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
---bPEVIUKDWml5O3Hc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks!
 
-On Wed, Apr 30, 2025 at 06:52:08PM +0200, Olivier Moysan wrote:
+[1/2] ASoC: stm32: sai: skip useless iterations on kernel rate loop
+      commit: edea92770a3b6454dc796fc5436a3315bb402181
+[2/2] ASoC: stm32: sai: add a check on minimal kernel frequency
+      commit: cce34d113e2a592806abcdc02c7f8513775d8b20
 
-> Fixes: b1d2e4067dc6 ("ASoC: stm32: sai: add stm32mp25 support")
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-This commit isn't in mainline, I think you meant 2cfe1ff22555.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---bPEVIUKDWml5O3Hc
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmgSrQoACgkQJNaLcl1U
-h9Ce4Qf+Kx6UyqHkHSI1stvCklQt/+Z4iVfBjGo3/P0vWUe9GgKN+LB/DPfzc/Ww
-FwQqXWsx0/xp/XQcgCpQFBEzci6nEGWjdJ240fLzpSphVX/TX/sFNiiuqXCWAffR
-jqABT5SrIZx+Oy0KfdzcfNbpaNdd4yRbjDWYi3TMH0DgmxLprzu+iy/65u+sZRtb
-mQQ++AZCcMQ+E/a70aYRbffxxRZtrdMpfzQIyl+EU9I3cjCCxMwt+Bt14NZd0VWO
-3j2T8f9vxbKM1etsdlP5X9THWTYcSjFZdi1lRGCtM4idZxRaKhYfHlAn+zx4ESdk
-OeJLoGUFNDp0qhHDbI93je5/cCKcHw==
-=jH7g
------END PGP SIGNATURE-----
-
---bPEVIUKDWml5O3Hc--
-
---===============6907488325256514954==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6907488325256514954==--
