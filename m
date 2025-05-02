@@ -2,60 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E81AA78E2
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 May 2025 19:55:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53977AA7AE0
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 May 2025 22:33:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 455D4C78F7D;
-	Fri,  2 May 2025 17:55:10 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 091D8C78F7D;
+	Fri,  2 May 2025 20:33:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A83EC7128F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9914C71292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 May 2025 17:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gXNNDPdZb2Mvvv9l4U0qnaw+JsmJmG680iJnfO61RQ0=; b=drWIecNg8gz9iVU7R4SbsnNC4G
- OT+gaz2JAollchQiDnxPvMENCLtRfCnY/KiSO97PdVcgLiMk7OCUoMLZbwQairLtNUWRytnnYcFrd
- 9/v7gYhCHD/48M8bSMa275bj70kY+oJe5NLjmfS1yrf9YAroP0dm7wuZa6zJLyJX2bX5TJFiYjYxQ
- rm95uOLHeXAc7+LDiUYhyo8m1BWM53IZ5flM/iAtkFVBo6zEpNcvn5C/08Q+cMfcuvVVSFfTly0AZ
- HvmokMsKGp0KPgpwV6MoB6FY+sewh4jj8ga1Y4dn8f+jDdulRkjDj1b7R0ZIpOinKe5dHIn/tWTGD
- qOdbDESA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43400)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1uAub8-0001h2-1h;
- Fri, 02 May 2025 18:54:54 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1uAub4-0000s1-0M;
- Fri, 02 May 2025 18:54:50 +0100
-Date: Fri, 2 May 2025 18:54:49 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aBUG6Z_Crs31W45x@shell.armlinux.org.uk>
-References: <aBTKOBKnhoz3rrlQ@shell.armlinux.org.uk>
- <E1uAqYC-002D3p-UO@rmk-PC.armlinux.org.uk>
- <ed54d4e5-ecc3-4327-8739-3d41ca41211e@lunn.ch>
+ Fri,  2 May 2025 20:33:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 22B235C5630
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  2 May 2025 20:31:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C658C4AF0B
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  2 May 2025 20:33:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1746218005;
+ bh=8cRp8SM0LX/HE5Z3KnJSbT0t2IN1vaMmNamccM78RCU=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=VmZ+vHtBaP8SSohqqvMbuo/9dCNweJUIT1eTA8IbZzfbagwotj1lRz3ma4h4LYlc/
+ q5Z65x7TjCE5xFP00y4yDAEFn2clHK+U7B0mCpeXgauBWtaKsZNh54N3Muk290/ffY
+ q8LRgtoYCCBdXhGPcTQ4ewx8tCECuchfEETsDJoDqWM4Nk9xIYBAlp1D5IwxtP9tdL
+ 9YxCmJhxfm2gQ5ASaCUihgOry/tQI4win9t5vyfsK5WqpPzw2Cl8i/qZq1IiUmdCBv
+ DWFp6bFBEYsM1EESOO41nOBOwlYINsr9OWIfH4theOH2OXkX41RMIR0l9ecPM/feGB
+ dy0cyd6c9JMQg==
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5f63ac6ef0fso1419848a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 May 2025 13:33:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWINJjGIRilxuWPygNXfkj97d4E3la/QgGQas3u0GR/L5DeRjbJGWuVfPIUMWs32cVAJ7cpMT5Hug4Ifg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwMQa/Ymu+L6036fY31iUnYmONjhk1JP/QH2MkqZr/fnrLoIpHb
+ b273PZXjAvtEARYF39lT4C4lp7hsPocZz55PS9/V8Vom9vq5shAX+h+YRKBdJsipYf3orA6HNc2
+ b44PlvnIWcqxAYJqokEE97ffvVg==
+X-Google-Smtp-Source: AGHT+IFJAjhO8qP9BM2k4YXGFjxF2DDTVd060jMohyR4Ip3XSKyXWvnjjpfR8v4ueb8Q+ILn2MtJ1K5BoJWlIuzn/k0=
+X-Received: by 2002:a05:6402:354a:b0:5e5:ba77:6f42 with SMTP id
+ 4fb4d7f45d1cf-5f919836e4cmr7202023a12.4.1746218003663; Fri, 02 May 2025
+ 13:33:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ed54d4e5-ecc3-4327-8739-3d41ca41211e@lunn.ch>
-Cc: Thierry Reding <treding@nvidia.com>, Paolo Abeni <pabeni@redhat.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Jon Hunter <jonathanh@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: call
- phylink_carrier_*() in XDP functions
+References: <20250423-dt-memory-region-v2-v2-0-2fbd6ebd3c88@kernel.org>
+ <20250423-dt-memory-region-v2-v2-4-2fbd6ebd3c88@kernel.org>
+ <938c4876-d284-4f11-a4ac-9f3831d3c14d@amd.com>
+In-Reply-To: <938c4876-d284-4f11-a4ac-9f3831d3c14d@amd.com>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 2 May 2025 15:33:12 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKhjE-67k2jN3x5qjRYbT4100fDCfkpt7TjESgOi_f8sA@mail.gmail.com>
+X-Gm-Features: ATxdqUGr4Vb6qq9G8I43FJO0ja1hmdvZAb79PHSBzn0-jffEIRPNg2KLlUCVYFA
+Message-ID: <CAL_JsqKhjE-67k2jN3x5qjRYbT4100fDCfkpt7TjESgOi_f8sA@mail.gmail.com>
+To: tanmay.shah@amd.com
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, imx@lists.linux.dev,
+ Chen-Yu Tsai <wens@kernel.org>, Saravana Kannan <saravanak@google.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] remoteproc: Use
+ of_reserved_mem_region_* functions for "memory-region"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,152 +76,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 02, 2025 at 05:29:21PM +0200, Andrew Lunn wrote:
-> On Fri, May 02, 2025 at 02:35:36PM +0100, Russell King (Oracle) wrote:
-> > Phylink does not permit drivers to mess with the netif carrier, as
-> > this will de-synchronise phylink with the MAC driver. Moreover,
-> > setting and clearing the TE and RE bits via stmmac_mac_set() in this
-> > path is also wrong as the link may not be up.
-> > 
-> > Replace the netif_carrier_on(), netif_carrier_off() and
-> > stmmac_mac_set() calls with the appropriate phylink_carrier_block() and
-> > phylink_carrier_unblock() calls, thereby allowing phylink to manage the
-> > netif carrier and TE/RE bits through the .mac_link_up() and
-> > .mac_link_down() methods.
-> > 
-> > This change will have the side effect of printing link messages to
-> > the kernel log, even though the physical link hasn't changed state.
-> > This matches the carrier state that userspace sees, which has always
-> > "bounced".
-> > 
-> > Note that RE should only be set after the DMA is ready to avoid the
-> > receive FIFO between the MAC and DMA blocks overflowing, so
-> > phylink_start() needs to be placed after DMA has been started.
-> > 
-> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 +++++++++++--------
-> >  1 file changed, 12 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index f59a2363f150..ac27ea679b23 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -6922,6 +6922,11 @@ void stmmac_xdp_release(struct net_device *dev)
-> >  	/* Ensure tx function is not running */
-> >  	netif_tx_disable(dev);
-> >  
-> > +	/* Take down the software link. stmmac_xdp_open() must be called after
-> > +	 * this function to release this block.
-> > +	 */
-> > +	phylink_carrier_block(priv->phylink);
-> > +
-> >  	/* Disable NAPI process */
-> >  	stmmac_disable_all_queues(priv);
-> >  
-> > @@ -6937,14 +6942,10 @@ void stmmac_xdp_release(struct net_device *dev)
-> >  	/* Release and free the Rx/Tx resources */
-> >  	free_dma_desc_resources(priv, &priv->dma_conf);
-> >  
-> > -	/* Disable the MAC Rx/Tx */
-> > -	stmmac_mac_set(priv, priv->ioaddr, false);
-> > -
-> >  	/* set trans_start so we don't get spurious
-> >  	 * watchdogs during reset
-> >  	 */
-> >  	netif_trans_update(dev);
-> > -	netif_carrier_off(dev);
-> >  }
-> >  
-> 
-> >  int stmmac_xdp_open(struct net_device *dev)
-> > @@ -7026,25 +7027,28 @@ int stmmac_xdp_open(struct net_device *dev)
-> >  		hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-> >  	}
-> >  
-> > -	/* Enable the MAC Rx/Tx */
-> > -	stmmac_mac_set(priv, priv->ioaddr, true);
-> > -
-> >  	/* Start Rx & Tx DMA Channels */
-> >  	stmmac_start_all_dma(priv);
-> >  
-> > +	/* Allow phylink to bring the software link back up.
-> > +	 * stmmac_xdp_release() must have been called prior to this.
-> > +	 */
-> 
-> This is counter intuitive. Why is release called before open?
-
-Indeed - and that should've been caught in the review where XDP was
-being added.
-
-> Looking into stmmac_xdp_set_prog() i think i get it. Even if there is
-> not a running XDP prog, stmmac_xdp_release() is called, and then
-> stmmac_xdp_open().
-
-If there is a change of "do we have an XDP prog" state, then
-stmmac_xdp_release() is called to free all the current contexts to
-do with queue/descriptor management, and then stmmac_xdp_open() is
-called thereafter. These are doing a subset of .ndo_open/.ndo_release
-and I think that's where they're getting their naming from.
-
-The only possible sequence is:
-
-	stmmac_open()
-then, on each XDP prog addition or removal, but not replacement:
-		stmmac_xdp_release()
-		stmmac_xdp_open()
-finally,
-	stmmac_release()
-
-> Maybe these two functions need better names? prepare and commit?
-
-Yes, it's all counter intuitive, and there are various things about the
-XDP code that make it hard to follow.
-
-For example, stmmac_xdp_set_prog() leads you to think, because of the
-way the need_update variable is set, that looking for references to
-xdp_prog would show one where all the dependents are, but no, there's
-stmmac_xdp_is_enabled(), which is nice and readable, but could've
-been used in stmmac_xdp_set_prog() to make it more obvious what to
-grep for.
-
-Incidentally, if stmmac_xdp_open() fails to re-grab the interrupts,
-then it calls phylink_stop(), stmmac_hw_teardown(), and
-free_dma_desc_resources().
-
-If one then set the interface administratively down, stmmac_release()
-gets called, which again calls phylink_stop(), free_dma_desc_resources()
-and stmmac_release_ptp().
-
-stmmac_release_ptp() disables/unprepares clk_ptp_ref, and unregisters
-the PTP stuff. stmmac_hw_teardown() also disables/unprepares
-clk_ptp_ref, so we probably unbalance the clk API in this case...
-and probably much other stuff.
-
-Calling free_dma_desc_resources() twice calls functios such as 
-free_dma_tx_desc_resources() twice, and it looks like that's not going
-to be healthy, calling dma_free_coherent() with the same arguments,
-double-releasing memory. Same for kfree(). Probably same for the RX
-stuff.
-
-Basically, if one messes with XDP in this driver, expect things to go
-bang and kill the kernel if something goes wrong with the whole
-xdp_release+xdp_open dance.
-
-Honestly, this needs a rewrite, but I currently know nowt about XDP.
-
-So, I'd suggest that the names of these functions is the least of the
-problems here.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBNYXkgMiwgMjAyNSBhdCAxMDo0MOKAr0FNIFRhbm1heSBTaGFoIDx0YW5tYXkuc2hh
+aEBhbWQuY29tPiB3cm90ZToKPgo+Cj4gSGVsbG8gUm9iLAo+Cj4gVGhhbmtzIGZvciB0aGUgcGF0
+Y2guIFBsZWFzZSBmaW5kIG15IGNvbW1lbnRzIGJlbG93Lgo+Cj4KPiBPbiA0LzIzLzI1IDI6NDIg
+UE0sIFJvYiBIZXJyaW5nIChBcm0pIHdyb3RlOgo+ID4gVXNlIHRoZSBuZXdseSBhZGRlZCBvZl9y
+ZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlKCkgYW5kCj4gPiBvZl9yZXNlcnZlZF9tZW1f
+cmVnaW9uX2NvdW50KCkgZnVuY3Rpb25zIHRvIGhhbmRsZSAibWVtb3J5LXJlZ2lvbiIKPiA+IHBy
+b3BlcnRpZXMuCj4gPgo+ID4gVGhlIGVycm9yIGhhbmRsaW5nIGlzIGEgYml0IGRpZmZlcmVudCBp
+biBzb21lIGNhc2VzLiBPZnRlbgo+ID4gIm1lbW9yeS1yZWdpb24iIGlzIG9wdGlvbmFsLCBzbyBm
+YWlsZWQgbG9va3VwIGlzIG5vdCBhbiBlcnJvci4gQnV0IHRoZW4KPiA+IGFuIGVycm9yIGluIG9m
+X3Jlc2VydmVkX21lbV9sb29rdXAoKSBpcyB0cmVhdGVkIGFzIGFuIGVycm9yLiBIb3dldmVyLAo+
+ID4gdGhhdCBkaXN0aW5jdGlvbiBpcyBub3QgcmVhbGx5IGltcG9ydGFudC4gRWl0aGVyIHRoZSBy
+ZWdpb24gaXMgYXZhaWxhYmxlCj4gPiBhbmQgdXNhYmxlIG9yIGl0IGlzIG5vdC4gU28gbm93LCBp
+dCBpcyBqdXN0Cj4gPiBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlKCkgd2hpY2gg
+aXMgY2hlY2tlZCBmb3IgYW4gZXJyb3IuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogUm9iIEhlcnJp
+bmcgKEFybSkgPHJvYmhAa2VybmVsLm9yZz4KPiA+IC0tLQo+ID4gdjI6Cj4gPiAgIC0gVXNlIHN0
+cnN0YXJ0cyBpbnN0ZWFkIG9mIHN0cmNtcCBmb3IgcmVzb3VyY2UgbmFtZXMgYXMgdGhleSBpbmNs
+dWRlCj4gPiAgICAgdGhlIHVuaXQtYWRkcmVzcy4KPiA+ICAgLSBEcm9wIHRoZSB1bml0LWFkZHJl
+c3MgZnJvbSByZXNvdXJjZSBuYW1lIGZvciBpbXggYW5kIHN0IGRyaXZlcnMKPiA+IC0tLQo+ID4g
+ICBkcml2ZXJzL3JlbW90ZXByb2MvaW14X2RzcF9ycHJvYy5jICAgICAgICB8IDQ1ICsrKysrKysr
+LS0tLS0tLS0tLS0tCj4gPiAgIGRyaXZlcnMvcmVtb3RlcHJvYy9pbXhfcnByb2MuYyAgICAgICAg
+ICAgIHwgNjggKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiAgIGRyaXZlcnMvcmVt
+b3RlcHJvYy9xY29tX3E2djVfYWRzcC5jICAgICAgIHwgMjQgKysrKy0tLS0tLS0KPiA+ICAgZHJp
+dmVycy9yZW1vdGVwcm9jL3Fjb21fcTZ2NV9tc3MuYyAgICAgICAgfCA2MCArKysrKysrKystLS0t
+LS0tLS0tLS0tLS0tLS0KPiA+ICAgZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fcTZ2NV9wYXMuYyAg
+ICAgICAgfCA2OSArKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiAgIGRyaXZlcnMv
+cmVtb3RlcHJvYy9xY29tX3E2djVfd2Nzcy5jICAgICAgIHwgMjUgKysrKystLS0tLS0KPiA+ICAg
+ZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fd2Nuc3MuYyAgICAgICAgICAgfCAyMyArKysrLS0tLS0t
+LQo+ID4gICBkcml2ZXJzL3JlbW90ZXByb2MvcmNhcl9ycHJvYy5jICAgICAgICAgICB8IDM2ICsr
+KysrKystLS0tLS0tLS0KPiA+ICAgZHJpdmVycy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYyAg
+ICAgICAgfCA0MSArKysrKysrKystLS0tLS0tLS0KPiA+ICAgZHJpdmVycy9yZW1vdGVwcm9jL3N0
+bTMyX3Jwcm9jLmMgICAgICAgICAgfCA0NCArKysrKysrKystLS0tLS0tLS0tLQo+ID4gICBkcml2
+ZXJzL3JlbW90ZXByb2MvdGlfazNfZHNwX3JlbW90ZXByb2MuYyB8IDI4ICsrKysrLS0tLS0tLS0K
+PiA+ICAgZHJpdmVycy9yZW1vdGVwcm9jL3RpX2szX200X3JlbW90ZXByb2MuYyAgfCAyOCArKysr
+Ky0tLS0tLS0tCj4gPiAgIGRyaXZlcnMvcmVtb3RlcHJvYy90aV9rM19yNV9yZW1vdGVwcm9jLmMg
+IHwgMjggKysrKystLS0tLS0tLQo+ID4gICBkcml2ZXJzL3JlbW90ZXByb2MveGxueF9yNV9yZW1v
+dGVwcm9jLmMgICB8IDUxICsrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4gPiAgIDE0IGZpbGVzIGNo
+YW5nZWQsIDIyMSBpbnNlcnRpb25zKCspLCAzNDkgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9pbXhfZHNwX3Jwcm9jLmMgYi9kcml2ZXJzL3JlbW90
+ZXByb2MvaW14X2RzcF9ycHJvYy5jCj4gPiBpbmRleCA5MGNiMWZjMTNlNzEuLmZmZmFlNmZmNGE1
+YyAxMDA2NDQKPgo+IFsgLi4uIF0KPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJv
+Yy94bG54X3I1X3JlbW90ZXByb2MuYyBiL2RyaXZlcnMvcmVtb3RlcHJvYy94bG54X3I1X3JlbW90
+ZXByb2MuYwo+ID4gaW5kZXggNWFlZWRlYWYzYzQxLi5iNzNlOTcwNzRjMDEgMTAwNjQ0Cj4gPiAt
+LS0gYS9kcml2ZXJzL3JlbW90ZXByb2MveGxueF9yNV9yZW1vdGVwcm9jLmMKPiA+ICsrKyBiL2Ry
+aXZlcnMvcmVtb3RlcHJvYy94bG54X3I1X3JlbW90ZXByb2MuYwo+ID4gQEAgLTQ2MCw0OSArNDYw
+LDQ0IEBAIHN0YXRpYyBpbnQgYWRkX21lbV9yZWdpb25zX2NhcnZlb3V0KHN0cnVjdCBycHJvYyAq
+cnByb2MpCj4gPiAgIHsKPiA+ICAgICAgIHN0cnVjdCBycHJvY19tZW1fZW50cnkgKnJwcm9jX21l
+bTsKPiA+ICAgICAgIHN0cnVjdCB6eW5xbXBfcjVfY29yZSAqcjVfY29yZTsKPiA+IC0gICAgIHN0
+cnVjdCBvZl9waGFuZGxlX2l0ZXJhdG9yIGl0Owo+ID4gLSAgICAgc3RydWN0IHJlc2VydmVkX21l
+bSAqcm1lbTsKPiA+ICAgICAgIGludCBpID0gMDsKPiA+Cj4gPiAgICAgICByNV9jb3JlID0gcnBy
+b2MtPnByaXY7Cj4gPgo+ID4gICAgICAgLyogUmVnaXN0ZXIgYXNzb2NpYXRlZCByZXNlcnZlZCBt
+ZW1vcnkgcmVnaW9ucyAqLwo+ID4gLSAgICAgb2ZfcGhhbmRsZV9pdGVyYXRvcl9pbml0KCZpdCwg
+cjVfY29yZS0+bnAsICJtZW1vcnktcmVnaW9uIiwgTlVMTCwgMCk7Cj4gPiArICAgICB3aGlsZSAo
+MSkgewo+ID4gKyAgICAgICAgICAgICBpbnQgZXJyOwo+ID4gKyAgICAgICAgICAgICBzdHJ1Y3Qg
+cmVzb3VyY2UgcmVzOwo+ID4KPiA+IC0gICAgIHdoaWxlIChvZl9waGFuZGxlX2l0ZXJhdG9yX25l
+eHQoJml0KSA9PSAwKSB7Cj4gPiAtICAgICAgICAgICAgIHJtZW0gPSBvZl9yZXNlcnZlZF9tZW1f
+bG9va3VwKGl0Lm5vZGUpOwo+ID4gLSAgICAgICAgICAgICBpZiAoIXJtZW0pIHsKPiA+IC0gICAg
+ICAgICAgICAgICAgICAgICBvZl9ub2RlX3B1dChpdC5ub2RlKTsKPiA+IC0gICAgICAgICAgICAg
+ICAgICAgICBkZXZfZXJyKCZycHJvYy0+ZGV2LCAidW5hYmxlIHRvIGFjcXVpcmUgbWVtb3J5LXJl
+Z2lvblxuIik7Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPiAt
+ICAgICAgICAgICAgIH0KPiA+ICsgICAgICAgICAgICAgZXJyID0gb2ZfcmVzZXJ2ZWRfbWVtX3Jl
+Z2lvbl90b19yZXNvdXJjZShyNV9jb3JlLT5ucCwgaSsrLCAmcmVzKTsKPgo+IEhlcmUgaSsrIGlz
+IG5vdCBuZWVkZWQgYXMgaXQncyBkb25lIGF0IHRoZSBlbmQgb2YgdGhlIGxvb3AuCj4gVGhpcyBi
+dWcgYnJlYWtzIFJQTXNnIGNvbW11bmljYXRpb24gb24genlucW1wIHBsYXRmb3JtLgoKVGhhbmtz
+IGZvciBkZWJ1Z2dpbmcgaXQuIEknbGwgZml4IHRoYXQgdXAuCgpSb2IKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
