@@ -2,39 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96089AA6CC6
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 May 2025 10:45:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7922AA70EF
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 May 2025 13:53:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35079C78F74;
-	Fri,  2 May 2025 08:45:59 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CCC0C78018
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B640C78025;
+	Fri,  2 May 2025 11:53:21 +0000 (UTC)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com
+ [209.85.222.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C01A8C7128F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 May 2025 08:45:58 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 854211688;
- Fri,  2 May 2025 01:45:49 -0700 (PDT)
-Received: from [10.163.80.122] (unknown [10.163.80.122])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 093013F66E;
- Fri,  2 May 2025 01:45:52 -0700 (PDT)
-Message-ID: <0ebbc509-9e17-4b93-9a72-b9e7cc03637e@arm.com>
-Date: Fri, 2 May 2025 14:15:49 +0530
+ Fri,  2 May 2025 11:53:20 +0000 (UTC)
+Received: by mail-ua1-f44.google.com with SMTP id
+ a1e0cc1a2514c-86fbb48fc7fso450266241.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 May 2025 04:53:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746186798; x=1746791598;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Dvv3aZc6ysvtM6PaScZm0AZ9BZs2r0w8R3h6Sq84JNU=;
+ b=Rx2X/NME0u3nnIq5pY1a/dB/qVimbaPXhZMc3oHm06yndCrp1DgbL0xsjwc6+DHGRe
+ WZMtMV6CGQhHfE+jipfpKzT+YYn7//+pZ5dC4KvWQjmJim9v2wSQtEPA3p86CmP0mNdx
+ aBIjD+e+AG+nVYYoyQGwHBUEe3OrKD7clCeWw6933zNpZGs0uYMIDl+BCFVtGOMreiaU
+ sO6H27tQmI1+SZTfNoSAHfYBj4gYoKgOGbyo7KiF9hUFfdkiR2BG0ESZYrXMUw/YhlLV
+ YpP55iWpPf2XUn7mnrZ8SD2K8Y3Zl+K8ALzOlRNeoDUYS3LfKgo1VsV0xiadf/eyv24S
+ RQyQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWXzvJSb3xj5yXiE6vzQakLPelxi90+54Vo8O0xdLBEXop0WroGuli2ExD+96KJlvH1G7G8/YMXlOAGlg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy7hdYgS4ZcOXNhL1CIPs58L93wqad9kBrtvpQwgOUPHeiNXriC
+ h/g9tH6DvAWm4fNWDMn/zP91fdwIPhV+BuOg2x/IZ+TKbaaXM33G+woL0YeM
+X-Gm-Gg: ASbGncvaQiqpayBrHNhCGRzDaks3stji5DRl9CGX2vG4phXTfgUVXSXuPQuLC5k8xyV
+ FDaK0cdE1G5TulAd6xeDWl3+KKmtucfRHDZOetdfQVs4GMbUZdvajnxEYvyAX5Lr0vgYP14Q/8/
+ Pdr3SFR9W6CI1pKJuiGVZAnjC8e6rZVQoz1B3RrmtCNiIt1cWMaHZOGp23E1+IlgIQBMMjd39DW
+ g1D68vw2vJKLU35H+J6WGhhb6zl+gka3hNR90TKpaoTAS2QQOr5SrKKMUqcwBEkg47ZtYTu2eeN
+ qnxmbBEchh1wuoaDk6fZcdA04YaT3YV69f5AE92di6U7JpVbiXa8pjLVxRWJ3Rj4qWoUhuVMsre
+ PVlQcxzvlKPqJNA==
+X-Google-Smtp-Source: AGHT+IEiqgIB0LdVVGwVzA6G6kO4NLB4tc5wl0Sht6+8yEGk75oxGECx/gRUCWbZBr4VxUCNqqDOBw==
+X-Received: by 2002:a05:6102:4b1b:b0:4c1:9738:820d with SMTP id
+ ada2fe7eead31-4dafb4f7276mr1460658137.6.1746186798340; 
+ Fri, 02 May 2025 04:53:18 -0700 (PDT)
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com.
+ [209.85.222.42]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-4daf2675785sm397401137.30.2025.05.02.04.53.17
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 May 2025 04:53:17 -0700 (PDT)
+Received: by mail-ua1-f42.google.com with SMTP id
+ a1e0cc1a2514c-86f9c719d63so498696241.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 May 2025 04:53:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVkQXoLFczXVP2s0WhAcJ1xDBjW25gEUX2MPwFcmUT2WDlkyNQU7MT0gKYjkeripIUcMcCW4DOXkINi+g==@st-md-mailman.stormreply.com
+X-Received: by 2002:a05:6102:5045:b0:4c2:ffc8:93d9 with SMTP id
+ ada2fe7eead31-4dafb50dd11mr1438920137.9.1746186797387; Fri, 02 May 2025
+ 04:53:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+References: <20250501123709.56513-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20250501123709.56513-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20250501123709.56513-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 2 May 2025 13:53:05 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVjCE5-X3AmDy1=UHGPb7kmi_kpBX79s1t0g76-__sc6Q@mail.gmail.com>
+X-Gm-Features: ATxdqUHd8V0pQvGYSlvvIMPnGrAT00VG3I_OsFOHO0G8lVIaFANIhY-BWLZCXg0
+Message-ID: <CAMuHMdVjCE5-X3AmDy1=UHGPb7kmi_kpBX79s1t0g76-__sc6Q@mail.gmail.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Chris Brandt <chris.brandt@renesas.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20250423151726.372561-1-leo.yan@arm.com>
- <20250423151726.372561-10-leo.yan@arm.com>
-Content-Language: en-US
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <20250423151726.372561-10-leo.yan@arm.com>
-Subject: Re: [Linux-stm32] [PATCH v2 9/9] coresight: Refactor runtime PM
+ Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: timer: renesas,
+ ostm: Document RZ/V2N (R9A09G056) support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,301 +97,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, 1 May 2025 at 14:37, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Document support for the Renesas OS Timer (OSTM) found on the Renesas
+> RZ/V2N (R9A09G056) SoC. The OSTM IP on RZ/V2N is identical to that on
+> other RZ families, so no driver changes are required as `renesas,ostm`
+> will be used as fallback compatible.
+>
+> Also include RZ/V2N in the list of compatibles for which the `resets`
+> property is required.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-On 4/23/25 20:47, Leo Yan wrote:
-> The validation for driver data pointers and clock pointers are redundant
-> in the runtime PM callbacks.  After a driver's probing, its driver data
-> and clocks have been initialized successfully, this ensures it is safe
-> to access driver data and clocks in the runtime PM callbacks.  A corner
-> case is a clock pointer is NULL, in this case, the clock core layer can
-> handle it properly.  So remove these redundant checking.
-> 
-> In runtime resume, respect values returned from clock function and add
-> error handling.
+> --- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+> +++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - renesas,r9a07g043-ostm # RZ/G2UL and RZ/Five
+>            - renesas,r9a07g044-ostm # RZ/G2{L,LC}
+>            - renesas,r9a07g054-ostm # RZ/V2L
+> +          - renesas,r9a09g056-ostm # RZ/V2N
+>            - renesas,r9a09g057-ostm # RZ/V2H(P)
+>        - const: renesas,ostm        # Generic
+>
+> @@ -59,6 +60,7 @@ if:
+>            - renesas,r9a07g043-ostm
+>            - renesas,r9a07g044-ostm
+>            - renesas,r9a07g054-ostm
+> +          - renesas,r9a09g056-ostm
+>            - renesas,r9a09g057-ostm
 
-Although not checking drvdata and drvdata->apb_clk does make sense, but
-why change the semantics on the resume paths as well, which now returns
-stored error value from clk_prepare_enable().
+Looks like we have reached critical mass to invert the logic?
 
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->  drivers/hwtracing/coresight/coresight-cpu-debug.c  |  8 +++-----
->  drivers/hwtracing/coresight/coresight-ctcu-core.c  |  8 ++------
->  drivers/hwtracing/coresight/coresight-etb10.c      |  8 ++------
->  drivers/hwtracing/coresight/coresight-etm3x-core.c |  8 ++------
->  drivers/hwtracing/coresight/coresight-funnel.c     | 21 +++++++++++----------
->  drivers/hwtracing/coresight/coresight-replicator.c | 20 +++++++++++---------
->  drivers/hwtracing/coresight/coresight-stm.c        | 20 +++++++++++---------
->  drivers/hwtracing/coresight/coresight-tpiu.c       | 20 +++++++++++---------
->  8 files changed, 53 insertions(+), 60 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> index 481ffcbed534..dff663ac7805 100644
-> --- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> +++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> @@ -731,8 +731,8 @@ static int debug_runtime_suspend(struct device *dev)
->  {
->  	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
-> +	clk_disable_unprepare(drvdata->pclk);
-> +
->  	return 0;
->  }
->  
-> @@ -740,9 +740,7 @@ static int debug_runtime_resume(struct device *dev)
->  {
->  	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> -	return 0;
-> +	return clk_prepare_enable(drvdata->pclk);
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-> index 75b5114ef652..c586495e9a08 100644
-> --- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-> @@ -278,8 +278,7 @@ static int ctcu_runtime_suspend(struct device *dev)
->  {
->  	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
-> -		clk_disable_unprepare(drvdata->apb_clk);
-> +	clk_disable_unprepare(drvdata->apb_clk);
->  
->  	return 0;
->  }
-> @@ -288,10 +287,7 @@ static int ctcu_runtime_resume(struct device *dev)
->  {
->  	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->apb_clk))
-> -		clk_prepare_enable(drvdata->apb_clk);
-> -
-> -	return 0;
-> +	return clk_prepare_enable(drvdata->apb_clk);
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
-> index 45c2f8f50a3f..3f3b0eb48fdb 100644
-> --- a/drivers/hwtracing/coresight/coresight-etb10.c
-> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
-> @@ -807,8 +807,7 @@ static int etb_runtime_suspend(struct device *dev)
->  {
->  	struct etb_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->atclk);
->  
->  	return 0;
->  }
-> @@ -817,10 +816,7 @@ static int etb_runtime_resume(struct device *dev)
->  {
->  	struct etb_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -
-> -	return 0;
-> +	return clk_prepare_enable(drvdata->atclk);
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> index adbb134f80e6..615ff743eef0 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> @@ -925,8 +925,7 @@ static int etm_runtime_suspend(struct device *dev)
->  {
->  	struct etm_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->atclk);
->  
->  	return 0;
->  }
-> @@ -935,10 +934,7 @@ static int etm_runtime_resume(struct device *dev)
->  {
->  	struct etm_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -
-> -	return 0;
-> +	return clk_prepare_enable(drvdata->atclk);
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-> index 62e5125c37ad..6494a3b5d18e 100644
-> --- a/drivers/hwtracing/coresight/coresight-funnel.c
-> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
-> @@ -283,11 +283,8 @@ static int funnel_runtime_suspend(struct device *dev)
->  {
->  	struct funnel_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> -
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
-> +	clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->pclk);
->  
->  	return 0;
->  }
-> @@ -295,13 +292,17 @@ static int funnel_runtime_suspend(struct device *dev)
->  static int funnel_runtime_resume(struct device *dev)
->  {
->  	struct funnel_drvdata *drvdata = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(drvdata->pclk);
-> +	if (ret)
-> +		return ret;
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> +	ret = clk_prepare_enable(drvdata->atclk);
-> +	if (ret)
-> +		clk_disable_unprepare(drvdata->pclk);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -	return 0;
-> +	return ret;
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-> index 56b03e6d8336..8595dc104795 100644
-> --- a/drivers/hwtracing/coresight/coresight-replicator.c
-> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
-> @@ -322,24 +322,26 @@ static int replicator_runtime_suspend(struct device *dev)
->  {
->  	struct replicator_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->pclk);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
->  	return 0;
->  }
->  
->  static int replicator_runtime_resume(struct device *dev)
->  {
->  	struct replicator_drvdata *drvdata = dev_get_drvdata(dev);
-> +	int ret;
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> +	ret = clk_prepare_enable(drvdata->pclk);
-> +	if (ret)
-> +		return ret;
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -	return 0;
-> +	ret = clk_prepare_enable(drvdata->atclk);
-> +	if (ret)
-> +		clk_disable_unprepare(drvdata->pclk);
-> +
-> +	return ret;
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index f17986edac00..f859ab932d22 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -957,24 +957,26 @@ static int stm_runtime_suspend(struct device *dev)
->  {
->  	struct stm_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->pclk);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
->  	return 0;
->  }
->  
->  static int stm_runtime_resume(struct device *dev)
->  {
->  	struct stm_drvdata *drvdata = dev_get_drvdata(dev);
-> +	int ret;
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> +	ret = clk_prepare_enable(drvdata->pclk);
-> +	if (ret)
-> +		return ret;
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -	return 0;
-> +	ret = clk_prepare_enable(drvdata->atclk);
-> +	if (ret)
-> +		clk_disable_unprepare(drvdata->pclk);
-> +
-> +	return ret;
->  }
->  #endif
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-> index 4701b34778bd..a68ed6b97bf7 100644
-> --- a/drivers/hwtracing/coresight/coresight-tpiu.c
-> +++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-> @@ -206,24 +206,26 @@ static int tpiu_runtime_suspend(struct device *dev)
->  {
->  	struct tpiu_drvdata *drvdata = dev_get_drvdata(dev);
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->atclk);
-> +	clk_disable_unprepare(drvdata->pclk);
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_disable_unprepare(drvdata->pclk);
->  	return 0;
->  }
->  
->  static int tpiu_runtime_resume(struct device *dev)
->  {
->  	struct tpiu_drvdata *drvdata = dev_get_drvdata(dev);
-> +	int ret;
->  
-> -	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-> -		clk_prepare_enable(drvdata->pclk);
-> +	ret = clk_prepare_enable(drvdata->pclk);
-> +	if (ret)
-> +		return ret;
->  
-> -	if (drvdata && !IS_ERR(drvdata->atclk))
-> -		clk_prepare_enable(drvdata->atclk);
-> -	return 0;
-> +	ret = clk_prepare_enable(drvdata->atclk);
-> +	if (ret)
-> +		clk_disable_unprepare(drvdata->pclk);
-> +
-> +	return ret;
->  }
->  #endif
->  
+    not:
+      contains:
+        - renesas,r7s72100-ostm
+        - renesas,r7s9210-ostm
+
+?
+
+>  then:
+>    required:
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
