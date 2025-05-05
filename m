@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D02CAAA00E
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 May 2025 00:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B0CAAA01F
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 May 2025 00:32:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39DC9C78F6C;
-	Mon,  5 May 2025 22:31:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FEE3C78039;
+	Mon,  5 May 2025 22:32:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6BDFC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B4BDC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 May 2025 22:31:20 +0000 (UTC)
+ Mon,  5 May 2025 22:32:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 40059629C2;
- Mon,  5 May 2025 22:30:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ECAEC4CEEE;
- Mon,  5 May 2025 22:31:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 057D35C551E;
+ Mon,  5 May 2025 22:29:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8971DC4CEEE;
+ Mon,  5 May 2025 22:32:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746484279;
- bh=v/ju6zynRUJtqKH6u2Ic/XOrJDA6okuwg9/FkbE2tGk=;
+ s=k20201202; t=1746484328;
+ bh=mma8tzwZ/NqwWnsXqPq43wQ4tvCGsiw9PyvHomQ17l4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=A+9TDjsH975qB90gOtGzj6E8AYAO6D6H6gh72hzEOFkisAEf5JYKmoWKPAeZxcdY/
- AjlMjaSZ2a4nx1t7J/oNri/SagdMybVPD5L9ot6Vl9CzwLHqBUXAeajdjVjTzzrxm0
- cmu8xP+oTskjPSYxivCQaPu3PVq7iHtJ+V0eyu9HlWvBHHVAQ35gH8XMi2oi4z0xvf
- 0lAznC+zZ7JD9W7Za+OYgO4MdN9WbroaDzZeA1qdmZYWo3iIqNm3dtOAATpT7y4mVm
- DyaMOKAGiLSQ6wlYp9XGagytxZWxlrYJ6uCKmFXeOOEzDo6TRyMZTXolysCoq3o+CH
- h7wNrylfx7iIQ==
+ b=JYG4CV8yg2byv9RZHH6b9s4ar4Ogju745AHK4JvJHnvNFOwOCSJxmagvkPL0BeKJd
+ IphkUa/J1A+Jjrj6blAZCghi8d1BPhHBLdXh7jU5j5PbPn0PsSjmbMjPdF9BtU1bi7
+ 89pSU+V3JSszCQwQOSGFGo3pBJjKpvX4kpaYIC+UX6UXbdOlvEvMYK/hinNcXKztrI
+ V/NhgexE7xL4sYGGNzp2ap/Uo2xF2Wt6lFaDPJHVt10GwqL43lbAxCsuzq56nfG+tq
+ h/XZH9FA7PrVGNcK+R7fMCcep+w07PA5+RqpsbsOnFFGCmVxyjyDDzq1NEZIjgKbdE
+ F4lv0J+Fn0olA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  5 May 2025 18:10:47 -0400
-Message-Id: <20250505221419.2672473-431-sashal@kernel.org>
+Date: Mon,  5 May 2025 18:11:12 -0400
+Message-Id: <20250505221419.2672473-456-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250505221419.2672473-1-sashal@kernel.org>
 References: <20250505221419.2672473-1-sashal@kernel.org>
@@ -40,13 +40,16 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.14.5
-Cc: Sasha Levin <sashal@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@xs4all.nl>,
- mcoquelin.stm32@gmail.com, mchehab@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.14 431/642] media: stm32: csi: add
-	missing pm_runtime_put on error
+Cc: Chong Qiao <qiaochong@loongson.cn>, Sasha Levin <sashal@kernel.org>,
+ chenfeiyang@loongson.cn, chenhuacai@kernel.org, mcoquelin.stm32@gmail.com,
+ phasta@kernel.org, netdev@vger.kernel.org, Yanteng Si <si.yanteng@linux.dev>,
+ fancer.lancer@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, zhaoqunqin@loongson.cn,
+ Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, Huacai Chen <chenhuacai@loongson.cn>
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.14 456/642] net: stmmac:
+	dwmac-loongson: Set correct {tx, rx}_fifo_size
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,66 +66,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Alain Volmat <alain.volmat@foss.st.com>
+From: Huacai Chen <chenhuacai@loongson.cn>
 
-[ Upstream commit f7cd9c94959e7a5b8c4eca33e20bd6ba1b048a64 ]
+[ Upstream commit 8dbf0c7556454b52af91bae305ca71500c31495c ]
 
-Within the stm32_csi_start function, pm_runtime_put should
-be called upon error following pm_runtime_get_sync.
-Rework the function error handling by putting a label in
-order to have common error handling for all calls requiring
-pm_runtime_put.
+Now for dwmac-loongson {tx,rx}_fifo_size are uninitialised, which means
+zero. This means dwmac-loongson doesn't support changing MTU because in
+stmmac_change_mtu() it requires the fifo size be no less than MTU. Thus,
+set the correct tx_fifo_size and rx_fifo_size for it (16KB multiplied by
+queue counts).
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Hans Verkuil <hverkuil@xs4all.nl>
+Here {tx,rx}_fifo_size is initialised with the initial value (also the
+maximum value) of {tx,rx}_queues_to_use. So it will keep as 16KB if we
+don't change the queue count, and will be larger than 16KB if we change
+(decrease) the queue count. However stmmac_change_mtu() still work well
+with current logic (MTU cannot be larger than 16KB for stmmac).
+
+Note: the Fixes tag picked here is the oldest commit and key commit of
+the dwmac-loongson series "stmmac: Add Loongson platform support".
+
+Acked-by: Yanteng Si <si.yanteng@linux.dev>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Signed-off-by: Chong Qiao <qiaochong@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Link: https://patch.msgid.link/20250210134328.2755328-1-chenhuacai@loongson.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/st/stm32/stm32-csi.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-index a4f8db608cedd..0c776e4a7ce83 100644
---- a/drivers/media/platform/st/stm32/stm32-csi.c
-+++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -499,21 +499,19 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index ab7c2750c1042..702ea5a00b56d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -590,6 +590,9 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ 	if (ret)
+ 		goto err_disable_device;
  
- 	ret = pm_runtime_get_sync(csidev->dev);
- 	if (ret < 0)
--		return ret;
-+		goto error_put;
- 
- 	/* Retrieve CSI2PHY clock rate to compute CCFR value */
- 	phy_clk_frate = clk_get_rate(csidev->clks[STM32_CSI_CLK_CSI2PHY].clk);
- 	if (!phy_clk_frate) {
--		pm_runtime_put(csidev->dev);
- 		dev_err(csidev->dev, "CSI2PHY clock rate invalid (0)\n");
--		return ret;
-+		ret = -EINVAL;
-+		goto error_put;
- 	}
- 
- 	ret = stm32_csi_setup_lane_merger(csidev);
--	if (ret) {
--		pm_runtime_put(csidev->dev);
--		return ret;
--	}
-+	if (ret)
-+		goto error_put;
- 
- 	/* Enable the CSI */
- 	writel_relaxed(STM32_CSI_CR_CSIEN, csidev->base + STM32_CSI_CR);
-@@ -569,6 +567,10 @@ static int stm32_csi_start(struct stm32_csi_dev *csidev,
- 	writel_relaxed(0, csidev->base + STM32_CSI_PMCR);
- 
- 	return ret;
++	plat->tx_fifo_size = SZ_16K * plat->tx_queues_to_use;
++	plat->rx_fifo_size = SZ_16K * plat->rx_queues_to_use;
 +
-+error_put:
-+	pm_runtime_put(csidev->dev);
-+	return ret;
- }
- 
- static void stm32_csi_stop(struct stm32_csi_dev *csidev)
+ 	if (dev_of_node(&pdev->dev))
+ 		ret = loongson_dwmac_dt_config(pdev, plat, &res);
+ 	else
 -- 
 2.39.5
 
