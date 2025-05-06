@@ -2,176 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C3BAAACCD
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 May 2025 04:23:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A547DAABC0F
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 May 2025 09:54:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70404C78F6F;
-	Tue,  6 May 2025 02:23:26 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013041.outbound.protection.outlook.com [40.107.159.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E5BDC78F8C;
+	Tue,  6 May 2025 07:54:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5801C78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2319FC78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 May 2025 02:23:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XDaoqgEWgjyfSw/rB7H7hI7OvHydC/4EzkKF+wodstKmfWkTXWG6Vm5kSflbV9g17T0trNip9XJWcBmIbeGM2upOrwcsE3atnjWzzjbCPstL22XrhOViWRRaF6S/LoqUEIcZVUsWT3K/2uqiVssvdPODLAjG8jhVTDhlG0xZQKumLDg+5NBXpqIphe5dkeebgXYWTOe2p0ZjVJ9Kbd3SIUhV4FGb+7ZeiwK7kN4wQvjLYicUzagfUFy60OOgzaHEThG7U3T3GZ9/rLMvjL1nvEwKLr1ChJXRjs2Vbf5VrvBTSfFqcXTq5oHhWXMUFkb8wdr9A+bHBHGAlzZffX0DiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=63b9Aunr8opOU4+8ybjrFTZV2qklprm0iPPtYTehS40=;
- b=lK9mxmjFxUQplUjrg/1aTVxY8IlFdBP8CIQm3UExl8sXUT8Y4q2psH2NqdpDhIKHBXMiH226lkIbN/A8rI+q7ee89K1kT9P7dwfpYBirtdpLamYidpZVFxwswtXOiw3o9G89+1D9M7SnTHfv9Fnnct2nwTQ1YaKx0hJ1MuVxQsr4SjphQdD5I3u6HVmBThUaM19GzxgOAaDN8LbZX4N9U2nBAzbUvkzJlMTHFj4muMkmOUQV5DQgvXQqQTx0Yo1mdVRYkYmyUf69J8Ihww1qXdX2KqywaL+IFTUAmWbPRFHQ7y3Hq1BaHOODAK3PawE2FjrM6Ae8E2ooR+BeCSZjQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=63b9Aunr8opOU4+8ybjrFTZV2qklprm0iPPtYTehS40=;
- b=MGa1Acnpxa1YUxn0JeMOGaDDNSDAP0j9d80xA4kNPGtDKAIU3mwDAK0TEvjnJeVxdmuwFX/xXotQtQnPdbG/tC84vgou4D4tNReLww8slsnl+trg0U0ESgZxdOCd8fPlgaz1AjLRw2k2GLIZXEuYpCPuRkO2kJhZzrysDmLpRUtjUewIATn8EyT3LT3ncy49HBkSSizfjyM0qD/3TgHrTpKZYloWzGPcb+KdaVMs4Ek00EYgs3JM/NoLS13wk0rtcHNaryO3h213MkEmk9EMU9/g+CllnrPdvg8ncBu7B7UHspr1Jczqp8WlTYDnKJ8u4yS+3coViT/qId847oywRw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by PA4PR04MB9223.eurprd04.prod.outlook.com (2603:10a6:102:2a2::15)
+ Tue,  6 May 2025 07:54:25 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5467UdTc030433;
+ Tue, 6 May 2025 09:54:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=D2Ps8m9XD1pgnyEns3PeQp
+ b6ZO/4KeE1fT6Gh8ShKSk=; b=dTufQmhXPlnEfXKKRPoLmJcAXNql4plfZnxsm0
+ gJH1mXDIjj7lEo1WXzU7tF+pOcWazjYIweAmlR8Eou3KS+hBU7kFZRfOE1rtyNVR
+ DTuVAgoGTmTHaeQei/pPEkWM4KJoP69bZ+EKyTKvh2/Nn4hQRI7cQN2SW84p2vIJ
+ SlTiVDNaQvelNfW34MktQvNGImd7aZI3qrEkBZtu4bpF4+LkHu8M9hy5Z3mWMBep
+ Ji6T4sTYrCaywwqJnEeEsfMHm5eMy/pIy5qKjNoZybtI1+MJOGbG/JvkBJmbjQaz
+ JIZrtD00m7uJWmIsdGR2GyvyaKID35Whf+jJ/+gsCTaI5QpQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46dbf39w10-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 06 May 2025 09:54:04 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CFE7640052;
+ Tue,  6 May 2025 09:52:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A857DA798A3;
+ Tue,  6 May 2025 09:52:02 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Tue, 6 May
- 2025 02:23:23 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::d1ce:ea15:6648:6f90%4]) with mapi id 15.20.8699.026; Tue, 6 May 2025
- 02:23:22 +0000
-Message-ID: <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
-Date: Tue, 6 May 2025 10:24:18 +0800
-User-Agent: Mozilla Thunderbird
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
- <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
- <20250430112944.1b39caab@booty>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20250430112944.1b39caab@booty>
-X-ClientProxiedBy: SI2PR06CA0003.apcprd06.prod.outlook.com
- (2603:1096:4:186::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 6 May
+ 2025 09:52:02 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Tue, 6 May 2025 09:51:59 +0200
+Message-ID: <20250506-upstream_ospi_v6-v12-0-e3bb5a0d78fb@foss.st.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA4PR04MB9223:EE_
-X-MS-Office365-Filtering-Correlation-Id: e11c5380-bd1a-484a-07d4-08dd8c44f8eb
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?di9meTl0cmhuNno2azdPN2k0YkZ5STNyMk94OTRTT2grWTJWQjRGazEreG5x?=
- =?utf-8?B?aWx1RWVaUTU4Q2t5M0JpeXZGVVd1MTc3N2JuVkZlanByQ3RxRFZhWFdqQXBI?=
- =?utf-8?B?NmdQTy9hL0NRNmJPWEc3TDhSS2FHc0p2WFdJc3R4bURwTVZxV1VhVzhPUmFI?=
- =?utf-8?B?elBHTGJQaHVEVTBSdG1XMkVFSlhYYzlpU1V5UHAzWDBDM1VpbjlhQjdBK2ov?=
- =?utf-8?B?TmlRSkgvU0RaQWJMSktKV3JoaUsvSFQ1SDVpV0IyeW4yd3ErZmk1cWhyanlB?=
- =?utf-8?B?d1pEcE9SV0RNYm5vUEdYSXA4d0JDTzMrV1crelhSWi9ETnNERVpkWGN2ekk2?=
- =?utf-8?B?QlhpZ1NsUElDVlZLdGFLd3NMcVMwOXh1VWtPMk1mTkdHbnp6cmFFQ2xhVzFY?=
- =?utf-8?B?aFdrUjlEUzVCVG5oUU5UcWpPWU1YNHl5SWxBSjRZVkx2YzdEYmI2dWVaMGNj?=
- =?utf-8?B?b0I1VlRMWWMzWGFmV1h3OXNVYzMwQmZBL2FMS2Jtc0dUdVdaeEtxcS9aZWU4?=
- =?utf-8?B?N0FNUjVoSURzMFBjMG9reHE3bTFoZHBuclB5bVpZVGhHMG9CNFJWUGlNTE1T?=
- =?utf-8?B?aldDbWRPV0x2Vm8zOVh2R3F6TjR5bHB2VVJVZ3pWUFpVdXR4UVRlV0Fwb0p2?=
- =?utf-8?B?clRjYlplQVBMWktjdXFKUGZtSThZZFAwK0d3S0kwM20veTVkaFNXWElCdUNu?=
- =?utf-8?B?ZjIzbWNIWmY3eVVlRm1EajlWenNYVlFiTGkyQmw0bXJTc1BWZDFFN0hZWERy?=
- =?utf-8?B?bVNrWlI3Zk5NcVdKVEdqVDZPek8rTG5FSnE1NWdPWXdxRlJrVjA1WWRKQXlz?=
- =?utf-8?B?UmREaW5YSkFQaVU3bzc4dUt2YkhiVzZzT0Q0dEgydWhINjBYNXBtYXhFdHVF?=
- =?utf-8?B?RThRViswcHAxdDdvR3J5cVltNWdjS3FKL3pzYjRrOHBjNjZpVVlUaFVIYWVT?=
- =?utf-8?B?cElyb1hGR1ZMRGVZOElJOGd0eGw0QkYxU2pBT21IUDAyQ0J4STRDbFNxb3R0?=
- =?utf-8?B?VEVtWkM0ekYvNGtJbmpNWGt1OHNtSTQ1VGE3c1hWcnkycWJkVjI3TEVNYmcy?=
- =?utf-8?B?ejZJWWphR2pmUlZ0dFFUaTJ1NEUrbFE5WmlKQ0xqOG4yRS9hZW1yMDByZ0RG?=
- =?utf-8?B?cyt4eFA2a1BrbEkyc3VNSmFZUTFzMlBaamFwRnMzNFVKSVRhV3lLQlk2QUVL?=
- =?utf-8?B?MXVjZm92NDVYRnlCV1FtaFg3Zi93NHp0akZEL1oraUpCc3dtY200WGRsTGdM?=
- =?utf-8?B?cGxWQXgrKzl1MzNJVUVDYWlQMWFUOE9nZ29jcTVBVHI5cWdZOVQwT3lndE5Y?=
- =?utf-8?B?NUJabnFKUEFZRnJvOEdabCtxR0I4MWJwU0EyekZ0b25sSzFBVGNDUkZmTGRr?=
- =?utf-8?B?a292azYwQUgrUWRqZWloU1hNY0tIcjBTQzFLY0daR0w3T1poYktYQkJvZXNY?=
- =?utf-8?B?YkpIYjlSUEJObkNOYm5hVWYxSzZOTEtzWkdPTjliOEhXYlVIMHN3ZzhNeDNU?=
- =?utf-8?B?MFZ0b25mUTloV1VtUXA0ODZZOTZaZVA0U01xdytiYkNuNy9ZUTV2a3c1U2hy?=
- =?utf-8?B?RWRXTmhYTlpuVGdGT0lOZHMrMmFIbWluQ0hEWWx1ZUhjWVFrQmpRbVI2TFo0?=
- =?utf-8?B?U1dNVlJzUWNKYWJkN203M3dlYWNWMDUyOG40RGJHZGY0WDhSWUxvTHNoNUVP?=
- =?utf-8?B?Z0MybTBJTXNNOWh1YjAya3hWb0xDNUcvU2xjTVhYWHY2bUlWM1RqeXhka0ww?=
- =?utf-8?B?c3BORGw0VURXZ2IxMmtOajA4NGJGVDdwTndTSDV3VVdwOGNmRTBIeUp1Ny9N?=
- =?utf-8?B?eE9ZcEdjYmxXTjZYRGw4R3RhNVBuNndqeko1ajROWmVZOEdPbzdEN3ZvSzhF?=
- =?utf-8?B?eHFCeHBxOUFCb25qS2ZrcTZsRE5ndks0QWhCYkMraXoxeWRzN3BXUUg0WUJG?=
- =?utf-8?Q?6kyeynkRelI=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkdjUzBrYm4xZThrUXpMNk93WjJTTDFUUko3Si9rd1RMeXlNREFrdjJ6TXJp?=
- =?utf-8?B?U1hBL3lyZ1prNlh5M3pwd2l2SUVXVGplWmdDRnZhYWMySjBVeGxkOXNGOUJC?=
- =?utf-8?B?ckc5TjNpMzQ0Yi83MGNaeTFGZXlnR1cyLzM4K2dIZ3FRMkpTSk9BUjRXR2lQ?=
- =?utf-8?B?eElMdTIwRWpqcnpuNUdwci84L0w0OUhxNUJweWJxMDBrbEltcGt3U0FKUC9Y?=
- =?utf-8?B?ZlVzSU1uQm83RzBOeWFhUGZzR2V0QXZqQVBRVlJjMnFBalBWK21EWVA3STAy?=
- =?utf-8?B?UFcxZmpUeEt3cFhUNUd6QXFOZEVKZTE0bWl2QW5IR2kzOFMvcEowd1pRVDR6?=
- =?utf-8?B?NFhQdW1VZXoxV0VIdWRHaERDdjFMNEd3UjlrQ21BODNWbnJWTW04Z2pBajRY?=
- =?utf-8?B?Njk0QWRCd1RQZmoycHZDOUZiYzY2eWEraVpmanBXSjdEa21zempFVElmS2sr?=
- =?utf-8?B?K1N6QTlRcVgrR1Brc2VzRSt6MTNBWGRMamRKT0R4b0NIUlRhQi9ubVlBSjR4?=
- =?utf-8?B?Y29yaXY3cGV4VXQvcldqcy9ZT29BVDZIeXhmYWFVdy9WVXdqVXBzdXptNVBQ?=
- =?utf-8?B?RnRJaGdwc2tRRkhnSWtRTDlHSFk1WGVCN094WVY0TVA3cEFGWGg1VE9ZckEw?=
- =?utf-8?B?djhHeVo1eEE3Nk1aaHc4cWw0dDUzWExkbWtpclZMYmQxRG03YVVtVHJLN0pH?=
- =?utf-8?B?M0Q1N1NXeWFscmg5M3lqaENUWmVyalZEYUdyL2ZMMUxvWlNNaFJJRUw4Tjlk?=
- =?utf-8?B?S1FoSTdsOE80ZCtmb25kYm5JVHJiN1NDUm1WTFZoclpUTkh5Rk1zS21paXlP?=
- =?utf-8?B?cU1FUC9uMmFtNG9tVzFuOVRtaDR2cmpCL3pqclVQSW51S1JORHJrVjJCV2NU?=
- =?utf-8?B?Ung5RHZMU1ArbWR3K09yUWdDQTR0RFJpVTU3M3daM1BxVjBvaWlWMjRPYmpk?=
- =?utf-8?B?RHdnUE9DT25GUEFXNlEra3FSSnB3RHQvU3ZyL0gvZDV2ZVBLUmozMEtLQncy?=
- =?utf-8?B?ZDlPS2ZNOFZ3LysvSmU1VkwzcVV2MFhTNDV2am94eUN3WnVqRU53R01rbUtZ?=
- =?utf-8?B?amVxM2gvRzZPOVV1UGtrdXRDL3BTcUdrVlBRL0NnVWFVUXRxWWJ6YnFvQ3d1?=
- =?utf-8?B?bmtaWTUyU1FnbVpncVgxYWNRU2pib1JQc0thQkxFNGpWak9QdW9UdlgrTS84?=
- =?utf-8?B?T1Bsckd5T3lLN0lkWmsydVJ2blJCWS93bi9YSVU1WjdTMGxyeDVmQU94SjZV?=
- =?utf-8?B?bkxDMTN6cWlsMmVrc2VkejlZejZHZTRVV2tpVHJ6Mm5YR2Q1ejkzT3ZtR1pZ?=
- =?utf-8?B?M09OWmlzSWtUMWdPOTFoT1FTS2VENHd5TGlpcnF2OG5QZ2ErUk52TGsvT3F2?=
- =?utf-8?B?YWt5Y3luQmhqdWJ1WkxLZXZZVGRXdDJkOXArL1NsV29ENFJHWm14TkpqVHE5?=
- =?utf-8?B?YS90aTlyelloNFZmSHFEV3IvWVJVNThlTTZlRkZGOVRnWUtjOTZhRVZvbmVQ?=
- =?utf-8?B?cmNJWnp1VndUaGhqNTZEZUthRk9LdHBJYWFtd2RQL0V3TGN1MUNYY1NUSFhZ?=
- =?utf-8?B?cmdpZmxsN0Ywc2NjcXphZmd5cWg3SHpRL2h4dyt0LzRhcWxhOFFaNFIvbnQ5?=
- =?utf-8?B?V3lsc0NSYWpHRndWTWZiSXRCdmV0OUY0NWEvcTAyYjRlQXppNUhmdnFKQTNz?=
- =?utf-8?B?NU5IK25RbzRKNVZQVkQ1V2hzdzdUUlNHTU12dDZ1MERaY1RXNUFmVFA4a1No?=
- =?utf-8?B?aGdoOGd6STRkL2ZGYWVFWXJibzhNc2Y1WGNDRWFxcWh0QVBuK2lETmgvWmJ3?=
- =?utf-8?B?WjBjNGVxWWlwWVo0cDVQSThtM1kyR2dpd0xvMU14RlVzRElyVTN5WVBsSVVo?=
- =?utf-8?B?V2RqTDZJaWU4ZWgwNjY4YWF2cW02ZlpYYU1mYXBoQS9TbXNPdURma01FRmtP?=
- =?utf-8?B?anpncDNFVTE4dS8zOVVoOVBtQ0xraHVwWS9SWDZPZ1U5TEIvRWtoaHA1cWJE?=
- =?utf-8?B?aWdGaVFzall5bWJ4WDVWZ3dxUiszanltS29UL1lSMUNmNUtNeVc2MEVlL2hI?=
- =?utf-8?B?bGlKd0VFOThGUk9LT08xY2pJRTlscWp0a0twbHAwTTc4dHo2dXJKc05LQTZo?=
- =?utf-8?Q?TXPOCszcRt+Zb5Jz8Y/x0VPyS?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11c5380-bd1a-484a-07d4-08dd8c44f8eb
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2025 02:23:21.9794 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uUp1VcJJNpJskboapS7NuaShR20VTVbnHdxV7uJ7Q1ku2ku9Jw63SRw3TL7rd6/mvfxcqQQBrbKtozT5Kmfabg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9223
-Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
- chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Anusha Srivatsa <asrivats@redhat.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
- asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
- imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
+X-B4-Tracking: v=1; b=H4sIAJ+/GWgC/23QTWrDMBAF4KsEreswM/rPqvcoJciy1GiRyFiua
+ Qm+e5VAqYsFs3kP5huYOythSqGw0+HOprCkkvKtBqSXA/MXd/sIXRpqwQhIAifoPscyT8Fdz7m
+ M6byobhCcnEFNCJLVtXEKMX09zbf3mi+pzHn6fp5Y1KP9xXCP1YGO6773rhdccPsacynHMh99v
+ rIHt+g/QkCL0JWAEMlI5GEwuCfMltANwlRC91qj8ugxqj1hNwQ2vrLYSviIaCUYI4zbEwgbg6h
+ hVBg6FYUV5EAEhAaCW8S0EKwISmE0V3GwA/1H1nX9ATOZmTAGAgAA
+X-Change-ID: 20250320-upstream_ospi_v6-d432a8172105
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-06_03,2025-05-05_01,2025-02-21_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v12 0/3] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -188,147 +83,146 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04/30/2025, Luca Ceresoli wrote:
-> Hello Liu,
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
 
-Hi Luca,
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint
+between its 2 Octo SPI children.
 
-> 
-> On Tue, 29 Apr 2025 10:10:55 +0800
-> Liu Ying <victor.liu@nxp.com> wrote:
-> 
->> Hi,
->>
->> On 04/25/2025, Luca Ceresoli wrote:
->>> This is the new API for allocating DRM bridges.
->>>
->>> This driver embeds an array of channels in the main struct, and each
->>> channel embeds a drm_bridge. This prevents dynamic, refcount-based
->>> deallocation of the bridges.
->>>
->>> To make the new, dynamic bridge allocation possible:
->>>
->>>  * change the array of channels into an array of channel pointers
->>>  * allocate each channel using devm_drm_bridge_alloc()
->>>  * adapt the code wherever using the channels
->>>
->>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> 
-> [...]
-> 
->>> @@ -345,8 +351,8 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
->>>  free_child:
->>>  	of_node_put(child);
->>>  
->>> -	if (i == 1 && pc->ch[0].next_bridge)
->>> -		drm_bridge_remove(&pc->ch[0].bridge);
->>> +	if (i == 1 && pc->ch[0]->next_bridge)  
->>
->> Since this patch makes pc->ch[0] and pc->ch[1] be allocated separately,
->> pc->ch[0] could be NULL if channel0 is not available, hence a NULL pointer
->> dereference here...
-> 
-> See below for this.
-> 
->>> +		drm_bridge_remove(&pc->ch[0]->bridge);
->>>  
->>>  	pm_runtime_disable(dev);
->>>  	return ret;
->>> @@ -359,7 +365,7 @@ static void imx8qxp_pc_bridge_remove(struct platform_device *pdev)
->>>  	int i;
->>>  
->>>  	for (i = 0; i < 2; i++) {
->>> -		ch = &pc->ch[i];
->>> +		ch = pc->ch[i];
->>>  
->>>  		if (!ch->is_available)  
->>
->> ...and here too.
-> 
-> This is indeed a bug, I should have checked the pointer for being
-> non-NULL.
-> 
-> Looking at that more closely, I think the is_available flag can be
-> entirely removed now. The allocation itself (ch != NULL) now is
-> equivalent. Do you think my reasoning is correct?
-> 
-> Ouch! After writing the previous paragraph I realized you proposed this
-> a few lines below! OK, removing is_available. :)
-> 
-> [...]
-> 
->> On top of this patch series, this issue doesn't happen if I apply the below
->> change:
-> 
-> [...]
-> 
->> @@ -351,7 +349,7 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
->>  free_child:
->>         of_node_put(child);
->>  
->> -       if (i == 1 && pc->ch[0]->next_bridge)
->> +       if (i == 1 && pc->ch[0])
->>                 drm_bridge_remove(&pc->ch[0]->bridge);
-> 
-> Unrelated to this patch, but as I looked at it more in depth now, I'm
-> not sure this whole logic is robust, even in the original code.
-> 
-> The 'i == 1' check here seems to mean "if some error happened when
-> handling channel@1, that means channel@0 was successfully initialized,
-> so let's clean up channel 0".
-> 
-> However my understanding of the bindings is that device tree is allowed
-> to have the channel@1 node before the channel@0 node (or even channel@1
-> without channel@0, but that's less problematic here).
-> 
-> In such case (channel@1 before channel@0), this would happen:
-> 
->  1. alloc and init ch[1], all OK
->  2. alloc and init ch[0], an error happens
->     (e.g. of_graph_get_remote_node() fails)
-> 
-> So we'd reach the free_child: label, and we should call
-> drm_bridge_remove() for ch[1]->bridge, but there's no code to do that.
-> 
-> To be robust in such a case, I think both channels need to be checked
-> independently, as the status of one does not imply the status of the
-> other. E.g.:
-> 
->   for (i = 0; i < 2; i++)
->       if (pc->ch[i] && pc->ch[i]->next_bridge)
->           drm_bridge_remove(&pc->ch[i]->bridge);
-> 
-> (which is similar to what .remove() does after the changes discussed in
-> this thread, and which I have queued for v3)
-> 
-> What's your opinion? Do you think I missed anything?
+Due to these depedencies, this series adds support for:
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
 
-The pixel combiner DT node would be added in imx8-ss-dc{0,1}.dtsi, please
-see the case for imx8-ss-dc0.dtsi introduced by an in-flight patch[1].  As
-channel@{0,1} child nodes always exist(DT overlay cannot effectively delete
-any of them) and channel@0 always comes first, there is no problematic case.
+The device tree files adds Octo Memory Manager and its 2 associated Octo
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+    
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-> 
-> Thanks for taking the time to dig into this!
+Changes in v12:
+- Update Kconfig dependencies.
+- Link to v11: https://lore.kernel.org/r/20250428-upstream_ospi_v6-v11-0-1548736fd9d2@foss.st.com
 
-After looking into this patch and patch 31(though I've already provided my A-b)
-more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
-should have the same life time with the embedded DRM bridges, because for
-example the clk_apb clock in struct imx8qxp_pc would be accessed by the
-imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
-the life time for the embedded channel/bridge structures only, but not for the
-main structures.  What do you think ?
+Changes in v11:
+  - Add stm32_omm_toggle_child_clock(dev, false) in stm32_omm_disable_child() in case of error.
+  - Check MUXEN bit in stm32_omm_probe() to check if child clock must be disabled.
+  - Add dev_err_probe() in stm32_omm_probe().
+  - Link to v10: https://lore.kernel.org/r/20250422-upstream_ospi_v6-v10-0-6f4942a04e10@foss.st.com
 
-> 
-> Best regards,
-> Luca
-> 
+Changes in v10:
+  - Add of_node_put() in stm32_omm_set_amcr().
+  - Link to v9: https://lore.kernel.org/r/20250410-upstream_ospi_v6-v9-0-cf119508848a@foss.st.com
 
-[1] https://lore.kernel.org/dri-devel/20250414035028.1561475-17-victor.liu@nxp.com/
+Changes in v9:
+  - split patchset by susbsystem, current one include only OMM related
+    patches.
+  - Update SPDX Identifiers to "GPL-2.0-only".
+  - Add of_node_put)() instm32_omm_set_amcr().
+  - Rework error path in stm32_omm_toggle_child_clock().
+  - Make usage of reset_control_acquire/release() in stm32_omm_disable_child()
+    and move reset_control_get in probe().
+  - Rename error label in stm32_omm_configure().
+  - Remove child compatible check in stm32_omm_probe().
+  - Make usage of devm_of_platform_populate().
+  - Link to v8: https://lore.kernel.org/r/20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com
 
+Changes in v8:
+  - update OMM's dt-bindings:
+    - Remove minItems for clocks and resets properties.
+    - Fix st,syscfg-amcr items declaration.
+    - move power-domains property before vendor specific properties.
+  - Update compatible check wrongly introduced during internal tests in
+    stm32_omm.c.
+  - Move ommanager's node outside bus@42080000's node in stm32mp251.dtsi.
+  - Link to v7: https://lore.kernel.org/r/20250401-upstream_ospi_v6-v7-0-0ef28513ed81@foss.st.com
+
+Changes in v7:
+  - update OMM's dt-bindings by updating :
+    - clock-names and reset-names properties.
+    - spi unit-address node.
+    - example.
+  - update stm32mp251.dtsi to match with OMM's bindings update.
+  - update stm32mp257f-ev1.dts to match with OMM's bindings update.
+  - Link to v6: https://lore.kernel.org/r/20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com
+
+Changes in v6:
+  - Update MAINTAINERS file.
+  - Remove previous patch 1/8 and 2/8, merged by Mark Brown in spi git tree.
+  - Fix Signed-off-by order for patch 3.
+  - OMM driver:
+    - Add dev_err_probe() in error path.
+    - Rename stm32_omm_enable_child_clock() to stm32_omm_toggle_child_clock().
+    - Reorder initialised/non-initialized variable in stm32_omm_configure()
+          and stm32_omm_probe().
+    - Move pm_runtime_disable() calls from stm32_omm_configure() to
+      stm32_omm_probe().
+    - Update children's clocks and reset management.
+    - Use of_platform_populate() to probe children.
+    - Add missing pm_runtime_disable().
+    - Remove useless stm32_omm_check_access's first parameter.
+  - Update OMM's dt-bindings by adding OSPI's clocks and resets.
+  - Update stm32mp251.dtsi by adding OSPI's clock and reset in OMM's node.
+
+Changes in v5:
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
+
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns,
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between
+Octo Memory Manager and its 2 Octo SPI children.
+
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
+
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
+
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+Patrice Chotard (3):
+      dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
+      memory: Add STM32 Octo Memory Manager driver
+      MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
+
+ .../memory-controllers/st,stm32mp25-omm.yaml       | 226 ++++++++++
+ MAINTAINERS                                        |   6 +
+ drivers/memory/Kconfig                             |  18 +
+ drivers/memory/Makefile                            |   1 +
+ drivers/memory/stm32_omm.c                         | 476 +++++++++++++++++++++
+ 5 files changed, 727 insertions(+)
+---
+base-commit: 0af2f6be1b4281385b618cb86ad946eded089ac8
+change-id: 20250320-upstream_ospi_v6-d432a8172105
+
+Best regards,
 -- 
-Regards,
-Liu Ying
+Patrice Chotard <patrice.chotard@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
