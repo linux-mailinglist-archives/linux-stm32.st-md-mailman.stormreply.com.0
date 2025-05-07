@@ -2,144 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CBFDAAD642
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 08:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E815AAD6ED
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 09:12:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA56C78F95;
-	Wed,  7 May 2025 06:39:11 +0000 (UTC)
-Received: from SJ2PR03CU002.outbound.protection.outlook.com
- (mail-westusazon11013060.outbound.protection.outlook.com [52.101.44.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EA6DC78F9F;
+	Wed,  7 May 2025 07:12:54 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 829A5CFAC45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9E9AC78F9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 May 2025 06:39:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=je7DKDeKNdx1JQ5m60hUqRCx5rOSs1SQmz4yv7AdlLjG/gSwLsKxi73LSlVp4AWlTqdl/eHcANBtBhjv0rG4tspC2d1+8gfAp0iaOz1WtfSt2zyPKRkouExH//IP8WgSXohHl+peEvkHLW6A4CHrUXX2g3/CwXHOAKG3hN1edXCd40jLDbxtG6IT6gf6uWfvrUwhdDwRm85/Jop/6HXH86/Vsl0u7sFTlG/DIeH77XfoLbzGS45JvQ+eSe/dSKU/ylygpGOKJ9We4Je5uJtXPo5K7GPAUIPnTSGJeHdf5B+hlWuBkHh+QlDCG8qvZfxZwty/gEBG+0NU/qW17tXUJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jbRijd2ZEhTPLvlFVoH9cvOYmwB5ZbM/7EKgZQp3u1A=;
- b=qX2BlARLIWarwzlb9ZOgvUYolgWpMpP3B9ApAIj4Nj/BMpF6uAAxc99gdPiL93U2oJm/i3RZGT5amM5AO2OScxCpgJROu9nSowX67N1cY7pV6WAEFk8U4iAYYsg/AFKBrwZy64rihNP8ugpPbCTSSaKlipBBa/DP2OjiQauH7bGh352TbizMMRYSRVqmq8fpWNdWSPRiuxCh3Tcj20qe2+X8eMMKqLEr2mkEIAwaWP+aHu118MLFKopWGWuSHLXRKUF1sGygKTMGN4IvN+lF2f2u0rl8SrqqVQcBB0S7tEikFUPGIvz9X4T2sAg74SZ5jb4k9g5T3B0RfwHdDThw8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jbRijd2ZEhTPLvlFVoH9cvOYmwB5ZbM/7EKgZQp3u1A=;
- b=OuZ5yaxHwcPQMEycbeFVYmY7yQUkW8t05nbsuUL3VU8XLsEoMRXqLLfqhj2VDSvl8zNk98CI+5gmvWRPdKnMhADzwVjNpJH4vvmnplyO2RtfHoiahGMnqna2TzgCIv1MfXTzyzk7N5dcPC9U/H7mRdFUCZqb6xgN1VfkHPJuU+yXb5n23G217T9JGqgHVsdVDNWl+qhNxnAd2EcOpSF/nz7AO856oBuQZWynmCP4k57o7K/v7B7Az9FFkVz1p4dcCU+Pa5kQ3KdQcOKSaVH6Cs9sqfhqJDXj3EjDxwkjpR4zAerVk0qtc5cvGzWf9VVt42TO54RKoIqG1SubQyOWOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com (2603:10b6:408:dc::21)
- by SA1PR03MB6595.namprd03.prod.outlook.com (2603:10b6:806:1ca::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Wed, 7 May
- 2025 06:39:01 +0000
-Received: from BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a]) by BN8PR03MB5073.namprd03.prod.outlook.com
- ([fe80::7483:7886:9e3d:f62a%5]) with mapi id 15.20.8699.022; Wed, 7 May 2025
- 06:39:01 +0000
-From: Boon Khai Ng <boon.khai.ng@altera.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Date: Wed,  7 May 2025 14:38:12 +0800
-Message-Id: <20250507063812.34000-4-boon.khai.ng@altera.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250507063812.34000-1-boon.khai.ng@altera.com>
-References: <20250507063812.34000-1-boon.khai.ng@altera.com>
-X-ClientProxiedBy: BY3PR05CA0012.namprd05.prod.outlook.com
- (2603:10b6:a03:254::17) To BN8PR03MB5073.namprd03.prod.outlook.com
- (2603:10b6:408:dc::21)
+ Wed,  7 May 2025 07:12:51 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 0550B438F2;
+ Wed,  7 May 2025 07:12:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1746601970;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XYAyvJHL12oT6BGBWrmzXRLHiSyv5UkdfdbxyEq+wzE=;
+ b=fAKAXuZnSS3eGpzPhDcjGsacbbVKiGgoN1+hKvLf8W9LVvJ4q/yN8mvMPuPltCTDbXMASe
+ lHtfyjGut/XmC/xrpKXVchctm+xWS0nliJAHS7g61Md9sxN7YRtopQtlivvhd8mGnFfnK1
+ zLHPF0YGiRFpUlXubh1ep5E4ewLXUZtHVVNtabxb5GJkslE1cAx6oSWctsvQExum3J+p+E
+ G4ikcxIyCXqyCiM2jQxJjrh9Kx946k992iKwtXwwTIyGamjbbizyN66uuoDV6SDsxQtsCc
+ zjoWTyHHf75l2ZvLTS0zTK/WEP7psTFLBKbj64q26m1zvV+GCXrw3FgTUMGpzQ==
+Date: Wed, 7 May 2025 09:12:44 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Liu Ying <victor.liu@nxp.com>
+Message-ID: <20250507091244.32865a71@booty>
+In-Reply-To: <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+ <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR03MB5073:EE_|SA1PR03MB6595:EE_
-X-MS-Office365-Filtering-Correlation-Id: a47150cf-bcc1-4c66-7277-08dd8d31da87
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?r3kYBY4quu9rZVpFx2si5NC97ItV8z94/fyfpoWtbvu7KHckB3PDkj8lBJ+p?=
- =?us-ascii?Q?VatugdALRu7sCTtlV7E2Ps1K31Yjre8stl2aaZIGmgZIxSCkgNCjmF+VC2IE?=
- =?us-ascii?Q?R1Q3n5XtuE/bDlDS4YwhmE3qJ4blJQu02YgTQIH9pODLeiLIwm+jhc8tAYbH?=
- =?us-ascii?Q?LXkgLkgqDe9hUViF+l4mWhK/JmICtMEhZRKdbVB1jU/kJRro/4erI2OZpL+m?=
- =?us-ascii?Q?+9vJxEce+nCTABe05lcOd4PknX59ZZgfkYf0bQFuHjNIK02JezlCOpcfqzV4?=
- =?us-ascii?Q?jK2XLROgKbxO9oadOtSEh1NyM3PocOa60CFx5/0wbiWtk44B2EXKD7MIXqNA?=
- =?us-ascii?Q?qZVel1sR7rmcazF2CG/3NdZGmTmqHOgJXAWgcAtSFdcat9n0Cglpsb1r2WZK?=
- =?us-ascii?Q?iL3uRX+Nnihz/w9zRAyN5KMPw5Aly2fOzIjc/ogspf3ALTU6Q3MaWvYjW9Et?=
- =?us-ascii?Q?Vh28s8fgnEcrt7mCbM2gkcJmIsFZ/3GxO8ClqIvinE3txCad8r8xxoi52eIG?=
- =?us-ascii?Q?NV3oB+NiBEpv3eUbHmebb6bpWD0357DNW3Ea48hOpXXlqVnAnrAu4JzyO/4C?=
- =?us-ascii?Q?86EZq02DmlSQLY55B4LKSlnn6K/7WyHVMAgC7ZYeN8Ig82lo5Ysbg1Z2Fyll?=
- =?us-ascii?Q?d8hBtOTaZ6FTtPnQL9OD5ZYjk+hzlAQ1UKLjeWVJJvo6MLcIMpDkKY8+qYSd?=
- =?us-ascii?Q?es9JVZwu0w2RDwiUJGKCFN8bTAyZ02UQpnByTpyB+HwygxenvNHK5VKSFUw3?=
- =?us-ascii?Q?R1YHLvVGMR60B3f1XA/Qjq2PF4GlAcam2PSEKNBmSwOlIe3ombcWCKyLuF7F?=
- =?us-ascii?Q?/vRKLzLdzWtV46JaUfryV/l3wTQzmTFwaX6UdGh0uRf/RBC8O3vcTcP2Cwo/?=
- =?us-ascii?Q?cr+kmFae10I1oAY311CbjLF4d37GOtJ7FDb5k76YIHtYc4KGq4OnNghi5BCE?=
- =?us-ascii?Q?ZVO487DAvoaEJZreZy57qCqdCJxKwFp5CFBVOSHyvBNL6VHcw/X/PNOypkDp?=
- =?us-ascii?Q?vpKuzkeFtYrPIWSDY5ENbTMBh1/p6zdv31eCeuYV2lFVWd6bzfQEXNFpLX5A?=
- =?us-ascii?Q?TA7C2mm1vx38d9Byy6GslRKOZoge54ASDxO7eva8fAnLsg4AyZJGY9nbNh4o?=
- =?us-ascii?Q?IjoIBppjlPLmZR2ObeHZCQwnN5JVEbMaAyq2UisN0CSFohEGf8KHpczDznTR?=
- =?us-ascii?Q?+8BimkydDw0Bthrh3GCG9RhomtKyb17h9dl9JHDJhqvPCVbnx6PLq+fCgE0T?=
- =?us-ascii?Q?dGubYTjBwg6OjPZZTrAYqE78kLBDgOIzMomUdCS0DaKxteoX5n6PWHhW5lPo?=
- =?us-ascii?Q?oOcnyd2bywCD/bFkcg3HqUU9LjlDWLLf4oe2P2aPqzu8863F75bfDN+ZtZEO?=
- =?us-ascii?Q?sEB33nuumgQfxjYUMX++6IDIiLhq81xGPJ1KcQf+IH0in9x1n8zE1mMrlphQ?=
- =?us-ascii?Q?c2rSoEq+9EQ=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR03MB5073.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rwz4Zo9Y1mYDDZZXw9hGI3NZexCYsuaPB+Kvl8f1HLb+aNqPKQc8gRCtv0Ts?=
- =?us-ascii?Q?YdPdhGD1VgLo4dP3YuHKD/v3MygDOpqqVX/2aNariebSddmPHv30Ci7LRazv?=
- =?us-ascii?Q?FewBfyHuphZ7es9YlGYVG2QO2/UTAI5RS5FEY9I6L+hFMQV0sSGPTnhlyH4Q?=
- =?us-ascii?Q?ik3dt3/nir6/i1EUXqFVvFjslGiylwl7amF1SV/Hpt3weuWJsxKB8r/DLMUo?=
- =?us-ascii?Q?vUxwqolnpzEziw7vrQnfhhYg4jFxVqea1czd1/q9jkBaxUPrGHpXlzMv8k9d?=
- =?us-ascii?Q?uNoZp5TODvB6adOfXGl2+yOel2y2r7HGuaCwDv/TEp1oqTwaw4G0+Kf8aD8F?=
- =?us-ascii?Q?PxQFxfS4ej96ZsJBp03S9JPrwv/CuYXW38DG+qTEtjUL55gra80Q6MF93yFr?=
- =?us-ascii?Q?9S5CKDusYawD0mYURLyg/O/zo1Yn8kWeF0mRTW+L1GE7//yMPxWGP4sKtkE4?=
- =?us-ascii?Q?Sc6fxcHnyLVFBlgYU4xEcumgv2yW9X4K/EcPpIZB8ziL/2m3fA7B15zcUcKu?=
- =?us-ascii?Q?6GdJMXRCuqbfxdkcyEnYDCsfE43ZvofYmoE7MdP+dJsCtPaDj53PfaCYuVRC?=
- =?us-ascii?Q?RK9kMTSbNTkvRVDqQrRHVRsYs7qbgv4IqsBeQyshzfa01DHXsNWFlElPoYJN?=
- =?us-ascii?Q?51Du/kUZcra2ZCaRNhnh5CIAT24hVsn7xlBALnjuuc88rHWvSmcqZhcnw7gh?=
- =?us-ascii?Q?DJPis1avaaFpn/ujPHyoq8dXbGL5HwVuZaNcXwqTRRNl1rCx6G4EQ/GtPSq6?=
- =?us-ascii?Q?PgBbp/JBo4h7r5r2bNpXV5cWKfjRaoBMVN2eHtiQ5OhTlFn899wiKjHttU8O?=
- =?us-ascii?Q?bbCKYh1TWw9vM3V4lSSEGBR8YTyuOmFYvDTvF92grQkCWdzf/03qENFkX4kU?=
- =?us-ascii?Q?AfstwQJC87AWLCmg5ZbcJ6Uqv0baMRK9/fx3HjUa7pH1PjdPDUX0yIBs39AO?=
- =?us-ascii?Q?JczPZQzzPBzY46NpI0n8FOHVikWxqTx1LMDPxJLIAtKsxhcsorF8aA4BeLxu?=
- =?us-ascii?Q?GkSzdMBYpnbldUn23Vn2nn9E9bjH7t/LlvAYoK3VEq8wrkpY+wkhXWp9+Q+a?=
- =?us-ascii?Q?ECaMsKbSIUelpUdMOcWPvXcIz6GZFWhHqZNEfTxowqBthXlL7woAcznVVvS/?=
- =?us-ascii?Q?SdhMuQVSrY1q50tN7ysZKbBIO+PgftDnJukXJ7qq4loX2PCyZzjolx8fSQ0D?=
- =?us-ascii?Q?6wRErzwfTkXIF/yeq5bEtUcZ6RWTgpSt5NM4JPTNiAZknzE+3qUSeWxF2c6v?=
- =?us-ascii?Q?AlXhfQRtBi+mkC0baR+VRQsQKzlmtBH2O0i+T24keQzuNX64YSlkz1iI++7f?=
- =?us-ascii?Q?uKhdwP1YE8R9V9KeHKs0X69O53HyxwgWAWR+ZFqsaWbwzh0IZ8wEpQ7s37/0?=
- =?us-ascii?Q?YYyK9UByxA4I7alaJy4xM2rCHTGOX5UqsySCEOABxRygffJvgc7uijuGs6uc?=
- =?us-ascii?Q?OirllSlGqpb5Y2Zk0J+FL8GcIil0Mp6Vcuk5Jg9TAfLMsMRGSqL/ki0y7Pgk?=
- =?us-ascii?Q?OrVClUmoB4cAlGt6XhCSHZZZzjMlVcMwtBQo9uFKO0+wGyAFoXbvstm0OJ6m?=
- =?us-ascii?Q?rt++fnQ0CaagT7xtDnf1PIQKivsQW2Og/JqXv8KmMrnffhuZnoyrEs8bxwqE?=
- =?us-ascii?Q?cQ=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a47150cf-bcc1-4c66-7277-08dd8d31da87
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB5073.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 06:39:01.8481 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SNxJl0RpMnif4sfM9Npy1IM2foAOkmQ0AzIGAnr1rlkWgPa184l88dnox+MkMpztXvwHox/plZq2Cr8vfyjLTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6595
-Cc: Furong Xu <0x1207@gmail.com>, Tien Sung Ang <tien.sung.ang@altera.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- G Thomas Rohan <rohan.g.thomas@altera.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Mun Yew Tham <mun.yew.tham@altera.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v5 3/3] net: stmmac: dwxgmac2: Add
-	support for HW-accelerated VLAN stripping
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeeivdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnheptdeljeejuddvudetffdtudelfedugfduledtueffuedufefgudegkeegtdeihedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefledprhgtphhtthhopehvihgtthhorhdrlhhiuhesnhigphdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
+ hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrgh
+X-GND-Sasl: luca.ceresoli@bootlin.com
+Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
+ imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,147 +90,270 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds support for MAC level VLAN tag stripping for the
-dwxgmac2 IP. This feature can be configured through ethtool.
-If the rx-vlan-offload is off, then the VLAN tag will be stripped
-by the driver. If the rx-vlan-offload is on then the VLAN tag
-will be stripped by the MAC.
+Hello Liu,
 
-Signed-off-by: Boon Khai Ng <boon.khai.ng@altera.com>
-Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h | 12 ++++++++++++
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 ++
- .../ethernet/stmicro/stmmac/dwxgmac2_descs.c   | 18 ++++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c  |  2 +-
- .../net/ethernet/stmicro/stmmac/stmmac_vlan.c  |  5 +++++
- 5 files changed, 38 insertions(+), 1 deletion(-)
+On Wed, 7 May 2025 10:10:53 +0800
+Liu Ying <victor.liu@nxp.com> wrote:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 5e369a9a2595..0d408ee17f33 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -464,6 +464,7 @@
- #define XGMAC_RDES3_RSV			BIT(26)
- #define XGMAC_RDES3_L34T		GENMASK(23, 20)
- #define XGMAC_RDES3_L34T_SHIFT		20
-+#define XGMAC_RDES3_ET_LT		GENMASK(19, 16)
- #define XGMAC_L34T_IP4TCP		0x1
- #define XGMAC_L34T_IP4UDP		0x2
- #define XGMAC_L34T_IP6TCP		0x9
-@@ -473,6 +474,17 @@
- #define XGMAC_RDES3_TSD			BIT(6)
- #define XGMAC_RDES3_TSA			BIT(4)
- 
-+/* RDES0 (write back format) */
-+#define XGMAC_RDES0_VLAN_TAG_MASK	GENMASK(15, 0)
-+
-+/* Error Type or L2 Type(ET/LT) Field Number */
-+#define XGMAC_ET_LT_VLAN_STAG		8
-+#define XGMAC_ET_LT_VLAN_CTAG		9
-+#define XGMAC_ET_LT_DVLAN_CTAG_CTAG	10
-+#define XGMAC_ET_LT_DVLAN_STAG_STAG	11
-+#define XGMAC_ET_LT_DVLAN_CTAG_STAG	12
-+#define XGMAC_ET_LT_DVLAN_STAG_CTAG	13
-+
- extern const struct stmmac_ops dwxgmac210_ops;
- extern const struct stmmac_ops dwxlgmac2_ops;
- extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index d9f41c047e5e..6cadf8de4fdf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -10,6 +10,7 @@
- #include "stmmac.h"
- #include "stmmac_fpe.h"
- #include "stmmac_ptp.h"
-+#include "stmmac_vlan.h"
- #include "dwxlgmac2.h"
- #include "dwxgmac2.h"
- 
-@@ -1551,6 +1552,7 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
- 	mac->mii.reg_mask = GENMASK(15, 0);
- 	mac->mii.clk_csr_shift = 19;
- 	mac->mii.clk_csr_mask = GENMASK(21, 19);
-+	mac->num_vlan = stmmac_get_num_vlan(priv->ioaddr);
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-index 389aad7b5c1e..a2980482fcce 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-@@ -4,6 +4,7 @@
-  * stmmac XGMAC support.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/stmmac.h>
- #include "common.h"
- #include "dwxgmac2.h"
-@@ -69,6 +70,21 @@ static int dwxgmac2_get_tx_ls(struct dma_desc *p)
- 	return (le32_to_cpu(p->des3) & XGMAC_RDES3_LD) > 0;
- }
- 
-+static u16 dwxgmac2_wrback_get_rx_vlan_tci(struct dma_desc *p)
-+{
-+	return le32_to_cpu(p->des0) & XGMAC_RDES0_VLAN_TAG_MASK;
-+}
-+
-+static bool dwxgmac2_wrback_get_rx_vlan_valid(struct dma_desc *p)
-+{
-+	u32 et_lt;
-+
-+	et_lt = FIELD_GET(XGMAC_RDES3_ET_LT, le32_to_cpu(p->des3));
-+
-+	return et_lt >= XGMAC_ET_LT_VLAN_STAG &&
-+	       et_lt <= XGMAC_ET_LT_DVLAN_STAG_CTAG;
-+}
-+
- static int dwxgmac2_get_rx_frame_len(struct dma_desc *p, int rx_coe)
- {
- 	return (le32_to_cpu(p->des3) & XGMAC_RDES3_PL);
-@@ -351,6 +367,8 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
- 	.set_tx_owner = dwxgmac2_set_tx_owner,
- 	.set_rx_owner = dwxgmac2_set_rx_owner,
- 	.get_tx_ls = dwxgmac2_get_tx_ls,
-+	.get_rx_vlan_tci = dwxgmac2_wrback_get_rx_vlan_tci,
-+	.get_rx_vlan_valid = dwxgmac2_wrback_get_rx_vlan_valid,
- 	.get_rx_frame_len = dwxgmac2_get_rx_frame_len,
- 	.enable_tx_timestamp = dwxgmac2_enable_tx_timestamp,
- 	.get_tx_timestamp_status = dwxgmac2_get_tx_timestamp_status,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 28b62bd73e23..a19b6f940bf3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7653,7 +7653,7 @@ int stmmac_dvr_probe(struct device *device,
- #ifdef STMMAC_VLAN_TAG_USED
- 	/* Both mac100 and gmac support receive VLAN tag detection */
- 	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
--	if (priv->plat->has_gmac4) {
-+	if (priv->plat->has_gmac4 || priv->plat->has_xgmac) {
- 		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
- 		priv->hw->hw_vlan_en = true;
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-index c66233f2c697..0b6f6228ae35 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-@@ -335,6 +335,11 @@ const struct stmmac_vlan_ops dwxlgmac2_vlan_ops = {
- const struct stmmac_vlan_ops dwxgmac210_vlan_ops = {
- 	.update_vlan_hash = dwxgmac2_update_vlan_hash,
- 	.enable_vlan = vlan_enable,
-+	.add_hw_vlan_rx_fltr = vlan_add_hw_rx_fltr,
-+	.del_hw_vlan_rx_fltr = vlan_del_hw_rx_fltr,
-+	.restore_hw_vlan_rx_fltr = vlan_restore_hw_rx_fltr,
-+	.rx_hw_vlan = vlan_rx_hw,
-+	.set_hw_vlan_mode = vlan_set_hw_mode,
- };
- 
- u32 stmmac_get_num_vlan(void __iomem *ioaddr)
+> On 05/07/2025, Luca Ceresoli wrote:
+> > Hello Liu,  
+> 
+> Hi Luca,
+> 
+> > 
+> > thanks for your further feedback.
+> > 
+> > On Tue, 6 May 2025 10:24:18 +0800
+> > Liu Ying <victor.liu@nxp.com> wrote:
+> >   
+> >> On 04/30/2025, Luca Ceresoli wrote:  
+> >>> Hello Liu,    
+> >>
+> >> Hi Luca,
+> >>  
+> >>>
+> >>> On Tue, 29 Apr 2025 10:10:55 +0800
+> >>> Liu Ying <victor.liu@nxp.com> wrote:
+> >>>     
+> >>>> Hi,
+> >>>>
+> >>>> On 04/25/2025, Luca Ceresoli wrote:    
+> >>>>> This is the new API for allocating DRM bridges.
+> >>>>>
+> >>>>> This driver embeds an array of channels in the main struct, and each
+> >>>>> channel embeds a drm_bridge. This prevents dynamic, refcount-based
+> >>>>> deallocation of the bridges.
+> >>>>>
+> >>>>> To make the new, dynamic bridge allocation possible:
+> >>>>>
+> >>>>>  * change the array of channels into an array of channel pointers
+> >>>>>  * allocate each channel using devm_drm_bridge_alloc()
+> >>>>>  * adapt the code wherever using the channels
+> >>>>>
+> >>>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>    
+> >>>
+> >>> [...]
+> >>>     
+> >>>>> @@ -345,8 +351,8 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
+> >>>>>  free_child:
+> >>>>>  	of_node_put(child);
+> >>>>>  
+> >>>>> -	if (i == 1 && pc->ch[0].next_bridge)
+> >>>>> -		drm_bridge_remove(&pc->ch[0].bridge);
+> >>>>> +	if (i == 1 && pc->ch[0]->next_bridge)      
+> >>>>
+> >>>> Since this patch makes pc->ch[0] and pc->ch[1] be allocated separately,
+> >>>> pc->ch[0] could be NULL if channel0 is not available, hence a NULL pointer
+> >>>> dereference here...    
+> >>>
+> >>> See below for this.
+> >>>     
+> >>>>> +		drm_bridge_remove(&pc->ch[0]->bridge);
+> >>>>>  
+> >>>>>  	pm_runtime_disable(dev);
+> >>>>>  	return ret;
+> >>>>> @@ -359,7 +365,7 @@ static void imx8qxp_pc_bridge_remove(struct platform_device *pdev)
+> >>>>>  	int i;
+> >>>>>  
+> >>>>>  	for (i = 0; i < 2; i++) {
+> >>>>> -		ch = &pc->ch[i];
+> >>>>> +		ch = pc->ch[i];
+> >>>>>  
+> >>>>>  		if (!ch->is_available)      
+> >>>>
+> >>>> ...and here too.    
+> >>>
+> >>> This is indeed a bug, I should have checked the pointer for being
+> >>> non-NULL.
+> >>>
+> >>> Looking at that more closely, I think the is_available flag can be
+> >>> entirely removed now. The allocation itself (ch != NULL) now is
+> >>> equivalent. Do you think my reasoning is correct?
+> >>>
+> >>> Ouch! After writing the previous paragraph I realized you proposed this
+> >>> a few lines below! OK, removing is_available. :)
+> >>>
+> >>> [...]
+> >>>     
+> >>>> On top of this patch series, this issue doesn't happen if I apply the below
+> >>>> change:    
+> >>>
+> >>> [...]
+> >>>     
+> >>>> @@ -351,7 +349,7 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
+> >>>>  free_child:
+> >>>>         of_node_put(child);
+> >>>>  
+> >>>> -       if (i == 1 && pc->ch[0]->next_bridge)
+> >>>> +       if (i == 1 && pc->ch[0])
+> >>>>                 drm_bridge_remove(&pc->ch[0]->bridge);    
+> >>>
+> >>> Unrelated to this patch, but as I looked at it more in depth now, I'm
+> >>> not sure this whole logic is robust, even in the original code.
+> >>>
+> >>> The 'i == 1' check here seems to mean "if some error happened when
+> >>> handling channel@1, that means channel@0 was successfully initialized,
+> >>> so let's clean up channel 0".
+> >>>
+> >>> However my understanding of the bindings is that device tree is allowed
+> >>> to have the channel@1 node before the channel@0 node (or even channel@1
+> >>> without channel@0, but that's less problematic here).
+> >>>
+> >>> In such case (channel@1 before channel@0), this would happen:
+> >>>
+> >>>  1. alloc and init ch[1], all OK
+> >>>  2. alloc and init ch[0], an error happens
+> >>>     (e.g. of_graph_get_remote_node() fails)
+> >>>
+> >>> So we'd reach the free_child: label, and we should call
+> >>> drm_bridge_remove() for ch[1]->bridge, but there's no code to do that.
+> >>>
+> >>> To be robust in such a case, I think both channels need to be checked
+> >>> independently, as the status of one does not imply the status of the
+> >>> other. E.g.:
+> >>>
+> >>>   for (i = 0; i < 2; i++)
+> >>>       if (pc->ch[i] && pc->ch[i]->next_bridge)
+> >>>           drm_bridge_remove(&pc->ch[i]->bridge);
+> >>>
+> >>> (which is similar to what .remove() does after the changes discussed in
+> >>> this thread, and which I have queued for v3)
+> >>>
+> >>> What's your opinion? Do you think I missed anything?    
+> >>
+> >> The pixel combiner DT node would be added in imx8-ss-dc{0,1}.dtsi, please
+> >> see the case for imx8-ss-dc0.dtsi introduced by an in-flight patch[1].  As
+> >> channel@{0,1} child nodes always exist(DT overlay cannot effectively delete
+> >> any of them) and channel@0 always comes first, there is no problematic case.  
+> > 
+> > I'm not questioning what existing and future dts files (will) contain,
+> > and surely I don't see a good reason someone would write channel@1
+> > before channel@0.
+> > 
+> > My point is:
+> > 
+> >  - the bindings _allow_ channel1 before channel@0
+> >  - the error management code after the free_child label won't work
+> >    correctly if channel1 is before channel@0 in the device tree
+> > 
+> > IOW the driver is not robust against all legal device tree descriptions,
+> > and it could be easily made robust using the example code in my
+> > previous e-mail (quoted a few lines above).
+> > 
+> > If you agree about this I'll be happy to send a patch doing that change.
+> > If you think I'm wrong, I won't fight a battle. This topic is
+> > orthogonal to the change I'm introducing in this patch, and I can
+> > continue the conversion independently from this discussion.  
+> 
+> I don't think it is necessary to do that change for now.  When someone
+> really comes across this issue, we may make the error management code
+> robust.
+> 
+> >   
+> >>> Thanks for taking the time to dig into this!    
+> >>
+> >> After looking into this patch and patch 31(though I've already provided my A-b)
+> >> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+> >> should have the same life time with the embedded DRM bridges, because for
+> >> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+> >> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+> >> the life time for the embedded channel/bridge structures only, but not for the
+> >> main structures.  What do you think ?  
+> > 
+> > I see you concern, but I'm sure the change I'm introducing is not
+> > creating the problem you are concerned about.
+> > 
+> > The key aspect is that my patch is merely changing the lifetime of the
+> > _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+> > the bridge is removed from its encoder chain and it is completely not
+> > reachable, both before and after my patch. With my patch it is not
+> > freed immediately, but it's just a piece of "wasted" memory that is
+> > still allocated until elsewhere in the kernel there are pointers to it,
+> > to avoid use-after-free.
+> > 
+> > With this explanation, do you think my patch is correct (after fixing
+> > the bug we already discussed of course)?  
+> 
+> I tend to say your patch is not correct because we'll eventually make sure
+> that removing a bridge module is safe when doing atomic commit,
+
+I think your sentence can be rephrased as "your patch is correct with
+the current code base where bridges are not (yet) removable, but there
+will be a problem when they start to actually be removable".
+
+Is my understanding correct? If it is, I agree on that sentence.
+
+The work to have removable bridges is massive and non-trivial, so it
+will need to be tackled in steps. The grand plan [0] is:
+
+ 1. add refcounting to DRM bridges (struct drm_bridge)
+ 2. handle gracefully atomic updates during bridge removal
+ 3. avoid DSI host drivers to have dangling pointers to DSI devices 
+ 4. finish the hotplug bridge work, removing the "always-disconnected"
+    connector, moving code to the core and potentially removing the
+    hotplug-bridge itself (this needs to be clarified as points 1-3 are
+    developed)
+
+I am at step 1 right now. Removal during atomic updates is step 2,
+ideas about how to implement that are already being discussed [1],
+there's a practical plan proposed by Maxime with the goal of reaching
+removable bridges without breaking things along the path.
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
+[1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
+
+> which means
+> the main structures should have the same life time with the DRM bridges.
+
+The word "lifetime" mean two things for bridges:
+
+ * the time span during which memory is allocated for a struct
+   drm_bridge (along with the embedding struct)
+ * the time span during which a DRM bridge is active/used/usable as
+   part of a card
+   - i.e. when it is part of an encoder chain
+   - i.e. when drm_bridge_funcs callbacks can be called
+   - i.e. from drm_bridge_add() to drm_bridge_remove()
+
+These two lifetimes used to be nearly the same. Now the "memory
+allocation lifetime" is extended, but the "bridge existence" is
+unchanged: drm_bridge_add() to drm_bridge_remove() are called in the
+same place and do the same things, so the bridge will stop being in any
+encoder chain at the exact same time. now we are just keeping a piece of
+memory allocated for a longer time.
+
+Seen in another way, the events used to be:
+
+ * probe:
+   - allocate bridge
+   - drm_bridge_add()
+
+ * remove
+   - drm_bridge_remove()
+   - now the bridge is not used, it's just some dead memory [*]
+   - kfree bridge (either in .remove() or just after by devm)
+
+Now it becomes:
+
+ * probe:
+   - allocate bridge
+   - drm_bridge_add()
+
+ * remove
+   - drm_bridge_remove()
+   - now the bridge is not used, it's just some dead memory [*]
+   - maybe some more time, possibly long, until the last put [*]
+   - kfree bridge (by devm)
+
+The duration of the [*] steps changes, but it's harmless because the
+bridge is not used at all. No change except for memory allocation.
+
+Luca
+
 -- 
-2.25.1
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
