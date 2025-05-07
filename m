@@ -2,152 +2,179 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E360CAAD2E9
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 03:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2880AAAD30E
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 04:09:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89CABC78F8C;
-	Wed,  7 May 2025 01:47:46 +0000 (UTC)
-Received: from MA0PR01CU012.outbound.protection.outlook.com
- (mail-southindiaazolkn19011031.outbound.protection.outlook.com
- [52.103.67.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE4EDC78F8C;
+	Wed,  7 May 2025 02:09:28 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013028.outbound.protection.outlook.com
+ [40.107.162.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FE73C78F8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B5CBC78F8B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 May 2025 01:47:45 +0000 (UTC)
+ Wed,  7 May 2025 02:09:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MvaiCCo8HbUN53t+VvouEBufyxIUnxRleF6xmTtRGB4K5IGIgx+EQqCSErNZmTI04lS14suEg5Ya9qiqiTdFnTRphslcAvaGOzO8hgMqkSL6fbRD9q2GCVMdyEqFBdW52ruqqicFwnUH+bZnZz3ZA4PhBtNRPdPV+rykDt5euo3o/tc9YG73YQhGzRCG3obtpZYNZvAc5rUun6EKH0wye9JW3v3wNg2d9RmjrrzN8NL0PQD+wOQTQEbwrxhcKlqZqMx8wVxZWK4YeW5H3NAHiwx3GdtG4IUmvu5+1rtM8cK1q/C2FmrlCt4jRDEN71nFt0KU3RTsIvkDV8R3mZDJ8A==
+ b=qvpct39xItn2Fl0mg069IL9drsU0KnozqaudfpQaWfA7BQSYKCBNUJq/F7qODfxKe8IBTj94c7K7UtJpSqiWXLNZHU0/7wx6OiiEb0psYPvuVkLmeeUYnmUue0IChc1jMxHdAeLolIGWtWfzNTP6tiSrgWXx66HtpJ5YkVnK/9IX3LdIk0IJ2h30MZMzVxAuKFKQVH5gH0xBwFhVtMgV2llvbFHEzHp6OI5if83hbfkRHaYTipbCdUPiWGDzoIee9BNk+76gKuDZmYET05Kwbv4fpGDTeXRtomVpONHELKlkD63SSrkVrvFker/nrNwa5AVXVOowEhmXMUBtDjNMVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xcq2YGLzZXPvlBASLds0hbyqqs9kKFdeu4Zng9IEtMI=;
- b=ZgNkEbtvX4b5G5cbINMoSe5Txm6vF55pTJ/Af96Rw6x+8xe1/g2JFTTfNuA0zmIC2a7XzLHzBUNRrQrGIJ0GowWW6ML+4M7WE6r2C51+MsQT96+NHEoXBIhMD9N9BlNXJoNnDEAA5la+9c0DNy5WJo3JlR0cc8KadX69/2ztCfKuj+MplYQgz2YiF3NknX0aHPHcOAUzY0g5Oy74vnceWAP7XMRjtXclJVpNLQdT25Ek+xNbDuQCkcKDZVeg48VN22C/pjHB2TchQSRO4qTbFozXxhmjXLJKsjIkas7kQq4ngxqc5bIDuhXVUftn/McCMmTC2USpU8AghSWimdbl5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=2oPZDP7TEfq1v3QC18bv8n5+lCOSiLnfRAk3Eyz89Ps=;
+ b=s66lJlCAxAujtbMgPXhTET960mXnJe+jXPzWx1VkSNc8yNlVFDDSO3kdCBXUX4hzv9pBCef5OLY74dRs9uXfgNGdD7XGQYwQ7RbSA30zx+2OpNCBdp6r0Us3UjdWPvV7qghdQHq9lBWXkSZFc75RmBZeE3c8kAGPvx+tvH1YNIjVDEWDjL5shB71qI+ImAjCTjQAVAyQpqARb0XHokwthfxQzMiW5eXSbUbOlEQJyJMYG2qU2gk3lpopvzD37m4vqV2lgGk4hgaoZ3w3Edd7kWqdaXRFcqBZ5e9mGhNLCfp5HsI5l07YThHDU1Qxi/bRWwg7suVJvQMMkW60/kgVsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xcq2YGLzZXPvlBASLds0hbyqqs9kKFdeu4Zng9IEtMI=;
- b=PPIboIYk7qqn5rzydsWwoszOX3wjwCADZJ5z1vTAG0S7kokY/c0Rcvm2m0Zhpr4+nZ2yHeg3xjoV1OFyPZsmVm65lytoQKB4dNF3Xj+DIc2FRWQY2SdmOUdvgAFsk3jdW3EHhAE6bTR1/wKPgefK7Qv+/0N8j9BWlo6PzgLRUVWPCjLzIkrANvmztbhNWz6FJgvOET5YC0tiwOG2OeENNmLB0gpL8qzbhEt8b1IKdarllZaGIQLINMDaoZlaARWht4P/u1y0LX8QaeCEDlEkrgi7dXkEiCpAq5vTJds6we8Yk+4MVBN27Qv0f1GBrZorE326UQ7hFuh1EdJItQZvbw==
-Received: from MA0P287MB2262.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:100::6)
- by PNXP287MB4098.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:28c::10) with
+ bh=2oPZDP7TEfq1v3QC18bv8n5+lCOSiLnfRAk3Eyz89Ps=;
+ b=ezU5YX80JIBw+rxgN/zmmd5LD2B03AE1+/oNXNgWO96I8Vre/dqNkQQnpm9N/aVcQ++14iwO0FePlxhOO1uMq3ZbsWbatjUYIs5zepRbmX5l2a1joEvJ7TaIx6EneCoSNsBfTm+wy6nRaayr4t+2NfePiHAfpmLGBkMbEIJttAusj9KGx4UWw8G9en/vJ0186FKlE4OW8EewFQ5rijpWAqhO9eGEx/E4ictfW6g5tuIiCTLsDCdBCKycRVO8EB9IITi//EPqE06e6hYyvZUbwOWUT5q2lgg8GNjwiLsdC3A7EnTpUPy0FEui8KCaEgcJzUisUyrYk1/QgSL9MYTe0A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by DUZPR04MB9871.eurprd04.prod.outlook.com (2603:10a6:10:4b1::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.19; Wed, 7 May
- 2025 01:47:33 +0000
-Received: from MA0P287MB2262.INDP287.PROD.OUTLOOK.COM
- ([fe80::ca81:3600:b1e4:fcf4]) by MA0P287MB2262.INDP287.PROD.OUTLOOK.COM
- ([fe80::ca81:3600:b1e4:fcf4%5]) with mapi id 15.20.8722.018; Wed, 7 May 2025
- 01:47:33 +0000
-Message-ID: <MA0P287MB2262AE2E8C2765AFBE6D41DAFE88A@MA0P287MB2262.INDP287.PROD.OUTLOOK.COM>
-Date: Wed, 7 May 2025 09:47:24 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Wed, 7 May
+ 2025 02:09:26 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::d1ce:ea15:6648:6f90%4]) with mapi id 15.20.8699.026; Wed, 7 May 2025
+ 02:09:26 +0000
+Message-ID: <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
+Date: Wed, 7 May 2025 10:10:53 +0800
 User-Agent: Mozilla Thunderbird
-To: Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Guo Ren <guoren@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Lothar Rubusch
- <l.rubusch@gmail.com>, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-References: <20250506093256.1107770-1-inochiama@gmail.com>
- <20250506093256.1107770-5-inochiama@gmail.com>
-From: Chen Wang <unicorn_wang@outlook.com>
-In-Reply-To: <20250506093256.1107770-5-inochiama@gmail.com>
-X-ClientProxiedBy: TY4P301CA0023.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2b1::15) To MA0P287MB2262.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:100::6)
-X-Microsoft-Original-Message-ID: <5f5663b7-ba40-4bf6-90d4-949532dcd7e0@outlook.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <20250506224720.5cbcf3e1@booty>
+X-ClientProxiedBy: SI2PR02CA0003.apcprd02.prod.outlook.com
+ (2603:1096:4:194::13) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MA0P287MB2262:EE_|PNXP287MB4098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5abd396b-2817-42b1-f374-08dd8d092289
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|DUZPR04MB9871:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7d10060-12c8-4876-c928-08dd8d0c311f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:14566002|6090799003|461199028|41001999006|5072599009|19110799006|7092599006|8060799009|15080799009|440099028|3412199025;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TXkvMTJqdG9tWkxpcExuR3RSUkJ3T2lkM2x3a09tbmdEWWgrcy9Sb1NYV01I?=
- =?utf-8?B?U0EzVFkycFJDUlBrcHJSc2xhd2gvN3VhUk8xQ1R2bVBYeElDcWprTE9CWGlV?=
- =?utf-8?B?UWQwVTZGN0ZlZ1JMVlFmTHIrTmRIbndPcFpaeHp6RjVreUkwdzhiWGJiOVNP?=
- =?utf-8?B?ZnFTNTI1OVJ3bkxseE1zZWJXY3pNelFOUVdPK0k2NjY5eHc5R1dUMHBIbzNi?=
- =?utf-8?B?MHlLRWpLK2xzazlHaUk2ZnY2ZXBxRlNRWElaemJlMU95VGpRSTZLeTk3T0dr?=
- =?utf-8?B?OVBzV2sxMEtPYmRIaUExeHhlTGNLcTdZc0tLd1p3UlN0SkpXN1VWSGtreE94?=
- =?utf-8?B?NEQ0Y3I3MEVHeEl5MTl6bTZzWmV2WlRtUFlIaXM2VHpzQnZ6cXpxdEpJQWJo?=
- =?utf-8?B?dzVWSU9OM2FoS0w3Z0ZMZnowQ3hIbTU4RGRNSjQ3a3pFLzJ2OVROZC8rQ01Y?=
- =?utf-8?B?WlpXRFEwOFFOTjVFMEtkWWdRdGIrVzA4Z1NKYWtFRlVxZlU5MkhFaDloZ25S?=
- =?utf-8?B?RGFCY2c3bGdJMWRObEJlUUhjMi9ueHFpS3hjSnJCQ0E2aEVqZmVOMFphR1FH?=
- =?utf-8?B?T3B1d2xPVmtZV3k5aDRJVEtzdUFEVi93Smx2Q01oOURyemxPdGdNSCtnL1ds?=
- =?utf-8?B?UG5GVlg3UE15cDhuWHRSaFlJb1l0UklPTVJycDk4b3JleGdTcCs2RHB6a1NX?=
- =?utf-8?B?UFF3SldZMU1FOWlaUk5OTW9vUHJTNW1ROGtyQzRiVk5BNVQ1TnlCWEYyK1JS?=
- =?utf-8?B?TGVlbEZ6Ti91ekgydHFaQXBjMXBTQnE2K2JwbURidU03UVNJaDVJTUhsQzRB?=
- =?utf-8?B?TE5PYW5LelF4b1k5V21YYSt0Q3FFTk5rYnNZWVJIVzFJNjFuVFVBeHhYRjhY?=
- =?utf-8?B?SjZoN2l6SnA5Um1vaWRFeHdZQXhHb1YzdjF6alVuU2hiY1lFakRYVGk5bjZO?=
- =?utf-8?B?M2RNOTZnRC9wMmc1cW9aaE9vaUdtTi9iU0s5MCtQdFBBVE1MZzBybDJiamFj?=
- =?utf-8?B?TlNUVXdBbDRQZDNxK3VaZUp5bjhwR3VDbjE5VTlpVERkUlJtVmRDMU51RS9T?=
- =?utf-8?B?ZktLaEhDcFBFNDk2ank5Yk5CdEowWWhsRGl2N2xyUUdEYUtjWnRMQnltRkRy?=
- =?utf-8?B?VE9lSENwRW1CNisvaFNHRUZkb0dqcHU0eWQyeDdtYmtaRDdoQ1k2NWhQaEt3?=
- =?utf-8?B?dmFwMXRMMFp3aG9UMFZwWVYvRFNHL2N2T3BJQWd2SGwyTzBzRDk5U0s1YXha?=
- =?utf-8?B?N2xqbXBzaXNTMmoyRGl4Y2tUT2Y1b2JNVlJsM216UUVnVWtZQXVjMEdBRzZm?=
- =?utf-8?B?bk1jdDZwSGZiU2JGYTRIY0xCbVdEaUhkY0dpME9UU044Z2JzNmRuNk1nbUJm?=
- =?utf-8?B?QWFvaklwQ2VEM0FmcUFtblBGRGJhY1pJQmJEdk9rRjgxbVl3Q01ETGZlb2ds?=
- =?utf-8?B?SU9DRUhwK3NwdlhubmVEdUU1L0RKMVhTYmdTRktNSmVSTDFidTZ1MTd0YUFh?=
- =?utf-8?B?a1J5RUlBcVlDMTVWaGpDNXluVnVvSmxRN3BzY3NjLzdrZ1BXdzdLTHhvRDZn?=
- =?utf-8?Q?8lqU0kvQFoYfcXu6yIQsrPsaI=3D?=
+ ARA:13230040|366016|376014|7416014|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OURvVytqemkvWkZ3dlVuYUFCeDM1bDliSFlqR1dvekM3bXZwNG4wanhjQXBY?=
+ =?utf-8?B?UTBQeVAwWWMzb1c5ZHJnWUgwWndJaDJPQXNqVHA0YzFRNi9ydEg4UUU5bWV2?=
+ =?utf-8?B?R0lWNFdtWjIrMlh3TTNqM0RpUEl1UC9IdDkxMXJrWnMwNmwwRzB3ZzdNOGQy?=
+ =?utf-8?B?OVg5bThQcktqSW1EbDNsVWdRdm1FenhuM2E1bTQ3MXZzaTBnZXlub0FvK0tN?=
+ =?utf-8?B?MXBFOXJPcy8rZjhRU09paHJURzlZQVQ4aVo1dFl2cXpGZ2grdk1PUmVmZlRP?=
+ =?utf-8?B?YzVpVlBhcHJwQUhvU3puT3VKMFQ4ZEdHTzVMZ0ZzQlFxV01tTXdaVkZxeE9D?=
+ =?utf-8?B?QnMxTnI4QXJuOVFidXl2T3RPcHRsQ2hob2oxRTJycHJXT2t2emZ6eHdYWWdO?=
+ =?utf-8?B?Y3JnTCtrWVZwRGhlTVJjVFdGTEJXeUwvY3ZQek5XTEExUmwxM1loVk9jMXB6?=
+ =?utf-8?B?dDhTc2I4QUVKbjFoM3ZwcDkzWThhN2lmNmZhNm1HbngzUzZlMnF4Z290M3F5?=
+ =?utf-8?B?K3hzZjQxMDV5S0R2Q2ExaHd2SUJNT3JJeHFtRVd5ZUhaS2RVRXRkRnhYeVE5?=
+ =?utf-8?B?VGZ1cm1aTHpUdFFVekIwL2xuT0hwbmEzUUlzVHlvK1NXLzdScyt1NnpvSi90?=
+ =?utf-8?B?eVBCQmpDeEt4VEVGOGlZcFlyWFF6SGgxWkk0dklPYkp6MC9veERnalk0OTdi?=
+ =?utf-8?B?OW9PM1NBWUFoS3lEVCt2d3dMekYrekV0S2grazdLS0pBYVFGWERxM2lLU2V6?=
+ =?utf-8?B?RTR2K2RLazN3d1VmR1FYWGZ3VUs5L0NsZkRzRHp2MmNzaUpycVRnaFpMY3Ji?=
+ =?utf-8?B?SUVMMkgwUkV4V3lMVDduOVI5UWZydWRUWHNPOEQ3RkdUOWNla3J1WDNUVXI2?=
+ =?utf-8?B?bjUwVVJRMk8zdDNTcndYUzdOVlRIaHpCSS9uYmMxd1d6c1ZDY1pwVFlXR3pS?=
+ =?utf-8?B?UERmeEVQOVJyQlBvaGNwckdhTk5IS0hqMXlaOXhRSnZ6ZzZ3TmtZWVZiN09E?=
+ =?utf-8?B?SHhxSFRoRExUOHgvbWN6YW90aDhZWHZpdThQNjNZT3lsQ2lYaUFpVFdsMTYx?=
+ =?utf-8?B?cWgwNVo3Mk55djEzZVVJVmxqVEdGMTNlR3MyQmJ5dEdOMjlsUmRuVDcrdGdP?=
+ =?utf-8?B?OU9sZml0REhmdTU3ancxL3NoYTF6a0RJa0YxUm8yN0RDTVE5MEZlZ3FZOGlP?=
+ =?utf-8?B?VG90ZUg3M3BScGRaWTltckNBYTlNUmRXYUIxOWdwRVdWM2UybmNkOGlWVWZl?=
+ =?utf-8?B?UUNlaVFMcUFIdDF2M1A0NnduS2wvMkptMDU0QVVjelZqaHBTZTRORHdhWlFm?=
+ =?utf-8?B?OWsvQm1QU2NEeHpWby9NbVk5dTRGYm5aS1RhdVk1cDczVDRNYVMxdW9aN1Bi?=
+ =?utf-8?B?R0VUZ0tYdzRMVE1zcmhZZ3RPUURqdWZDQm9XVHF3c1lwbGRUMjRUaHlJM21I?=
+ =?utf-8?B?YTc1bTJ5aFREMFRsK0xUTHJmRFZCMUpsc21BMjhGbzFDeEtWZ0JQTFhPTDV4?=
+ =?utf-8?B?aFZEdEZTbHRqbG1ycnEvNTEzbklDTVZyaEhSVHNDVjZEWGptL3hRM2pyL2xr?=
+ =?utf-8?B?WGlReSt4NW9IbnJjTnZPVFMrNk1Camt3VjdSMnQ0RldzZmQwQ2FGL0pHcnlw?=
+ =?utf-8?B?NHFnMnV1Q1lLVlZvdVFrSEJOWXNQMlBxN3hGOWU1ZUR3d3NNVjNtRmlOVll2?=
+ =?utf-8?B?M1hWbXQ5c0ViU3VEUXMwRHZwWWhpQVE1SndCVjFRTmpVdGEwY3U2aHhBeUxs?=
+ =?utf-8?B?VGZHcXAwbzV4Z0RCYWwrdVBwRXVtV0huektMQVBnYmp3Y1VRNCsyWmhvMFNh?=
+ =?utf-8?B?M3hnWWJrSlM0QTgxRGp0cUlFdUJZWi9lL0xCaHVXNGFwOXZtUUhPZVZIbWRQ?=
+ =?utf-8?B?OXpySmd2dk1xTURmbTBEb0Fwem1FSHh2OFpwRW1mUFZFb1RmTUhiQWptdUxS?=
+ =?utf-8?Q?zEHK4LgEj8I=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEhXNVlnN216K2hJdWVySTVkMG84U28xNmV0Ry84QkcxUmVLN0dlSk15QWRG?=
- =?utf-8?B?VVlBcjNyR2VyVDRGdU9MMmVwVlpWWEFPNG5GaTZDWGNuYnFPRDdWU25NWnBi?=
- =?utf-8?B?SjhtV3pMNFN4UFZvdndibVFqa2hUYjNmSlBONmwrOGdaN0F1Q0FqNXhFUGhE?=
- =?utf-8?B?Z0o3REdYWUNzdGU2STlZYXJCMDFrVFBmMXJHK202MDk1VVdSVDBYZkhCMUli?=
- =?utf-8?B?RkNockRHckVoU2NUTVdldStoT0JRWVhVY1Z6Z2F6eXlLWXJiUzVMc2lES3kv?=
- =?utf-8?B?djRsOXJqQk9Ga2poRUZrbEJ3TUowYS9UWVE2S0ZYOFhETFA2S1h2dXB3RTdC?=
- =?utf-8?B?SnIrU0JCS0NDQkhnRXhvRHdSZUF6dEFJUlcxaSt4QnpBY0hRV25BeFhCWlp4?=
- =?utf-8?B?Qkh4VnNaZ1B1dFg1WFBHQ2VWTFVEMDlEOXlselBRMHp5eGxSRjlpSEFTY2Nu?=
- =?utf-8?B?VGNSZ2V1bTRhYVhlYlZvNS84cW8wQ0ViTHJvb3dzWDNyMUk4Rk1SckNDUDJa?=
- =?utf-8?B?R2s4QVUvME1xd1RXN240d09uOFROOGh6a1V2aFpCcTVNd1VCK09OZ1dKOXBm?=
- =?utf-8?B?a2JqMkwwNGhjaEltNnoraTYycUg2RUk2U2pFQUhxMVo2Qy8wUXBhZ3VMUHcr?=
- =?utf-8?B?Y2luN25lbVNRN1M2WFlmSXdseUp3V2ZOTjBORkZQTlZlY1Jka25pcjZhaHJW?=
- =?utf-8?B?KzMwQUpoYUZUeVlpVUszQTFxcHZIVVFvcVArTUxNM0U1N0xwNjBlWUpMY0N6?=
- =?utf-8?B?OVJDUFA2bG94cUdydjRKaldnRzRIbS92NU0zSHJGNVR1bi9vc2FrbUpDME9i?=
- =?utf-8?B?OFZ3dC9uVEtzRTA2cXMxRERONTdtM2NFeUZaNnlla3FJSm5EMUJKcWxKK3k4?=
- =?utf-8?B?SVI1TzZncWtEcmQ2K2ZwcThVdVVJMXNlelNYY05oR0QwYmVNdmdVU29TSnJy?=
- =?utf-8?B?ME85LzNhekNXS2J6R0tDWHova2NlQ3JuVHJCNlY5YUhjWWtKYy80Y29wWFBv?=
- =?utf-8?B?THptOXphMXJiOHQwNTBDeWQvdFJIbjcvZ2RvMWdEbzNQMGRjb3c3cnM2c09W?=
- =?utf-8?B?RG1mb3hpRzNoWlZtSEduUUx4TXNuamxNL0F5Ukg5Z3VqZHByMDNiQUNtbVhu?=
- =?utf-8?B?YTdTNEpzejlya2xBbUhkQkFkUmhSRnlqaTI4RmtRUTJyYnRJdHNta21GR2ky?=
- =?utf-8?B?UmwzcEFIalV3NHBpdzc0NDc2MEVBeEFKYU1VS1FoSWxMK0NYOXc3K1ZuVjhX?=
- =?utf-8?B?ZTdqUGNocVA4K1NhUmhvbzJDNUYycHlRTm01bGFjTnkwV21tMnlvOGRsN3M2?=
- =?utf-8?B?Q1hCSFM5cFcyR3BZVEt2eU0wbUdiNU5DYjg5MGxRTWVtNGRiUDM0VTV4bHln?=
- =?utf-8?B?OFlzNFhsNi83MW81L0E4ZXN1Sis4aXBKOHMyVUhFOFdJOEpWM1ZEOXFJNStJ?=
- =?utf-8?B?cmg4Y281U1hKa0lHWDZQcDBOZSsxY0Fub0s3cWhidGw0UURBekx4aWNYaGtE?=
- =?utf-8?B?WktuMGhWSFFoamxoMEZQU3czeFR4R2lrSlZ4Z05FODhrRjIrNFBjU1FrS1l1?=
- =?utf-8?B?cWh1ZCtPYVNqdGVLaTQ5TjBxVnI0dkNTUGdOdG5Ib2cwemp2SkVOelkwcDdj?=
- =?utf-8?B?bGdZNFNZMGtBUDNWNlZnVzhLU3JVMUs0cjVTKzVxV0l2R21SZXhvYVhzMlR0?=
- =?utf-8?B?a0Y5UzBPQ2xhd2FuSk1KcTJtcitMbUVzcUpWZFgycmFOcDQyaElibWhPT1BR?=
- =?utf-8?Q?JujeHV2lWdKHabNqj3yFMsEsayX/j6PbzF7Y5eo?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5abd396b-2817-42b1-f374-08dd8d092289
-X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2262.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2NqZmozMjdtVnBvZVBFQlAyeTVOUFJZemlndHc0MlcydDg2VmthOTBiYlAv?=
+ =?utf-8?B?SFpwdjRNMld6eXhOUk5MODhrSnRYd1Ewc1Q2dnR2dUxiSUFSamJha3U5Zy9u?=
+ =?utf-8?B?UHB2K01jYUR4S3AzOFJ5MDFwMVhDbWthQ1ZjdE8yd21LYzhod2NCYnd4dHpU?=
+ =?utf-8?B?ZUtBN0VwU0l5WWZFTUJHc0Z1UDB4YzNmNStuL0hkdFlXam1VMkNFaDBsSEJu?=
+ =?utf-8?B?aTFYNG5UUWN1NWptRUY1NjQvdlRaL2xML0I1ZklqUmpEMWkrNzBjRDArbzlo?=
+ =?utf-8?B?Q09JbnZ1cWN4R2NBREFJU1hCY0dJeFU0b2pyZC8xVTNwTnljYUlQZFliWk9I?=
+ =?utf-8?B?OXlpYUJNaUw4Uk5TbXpMWG0yb09LSktWa0s4clFDT3d1TVBEdDRLWTZ1SzBD?=
+ =?utf-8?B?ZjNUY0tNdEFsTE1XL2FUemV5YWswbVpsK0daaytpZFdpQlNYVHJiWVE3ZTZl?=
+ =?utf-8?B?SkJIenV1UjdxV2lVdGo3UmhkaWhYekMvcjFRaDNidFpMQ0gyUWRzTTN3YTZj?=
+ =?utf-8?B?RlJMUnBQMzA1T2JNaVNmVXhGT21WL3FUM0NRbldwNkNPNzdPd1VBaE1GQU11?=
+ =?utf-8?B?c0NtQSsxZDYwclYvUWg0a09SZHJlQnNXWlZ3RjZ5ZmsyUVdxVmtOanFJUE1S?=
+ =?utf-8?B?YlFPdVcrcVZ3clFrT2p5NUR1Q0c3VnRzODFOTGgrczZ6UzZ2NXIwbS82cmdJ?=
+ =?utf-8?B?TnlraFBjc3NmckVlVmVkaEhBODYrcjBIaTJqSEcrYXUyQVN1QmhqdndEbWFZ?=
+ =?utf-8?B?ZE9YUmVZWFFMaFI4cUozK3B4Ym5hcm5pcFRMVGZoQ0gxRXhsR1dHSFF4UWRo?=
+ =?utf-8?B?VmhnUnQ1cnNMb2JPVm41S3lzRFp1R1RDcXNINWFSSTdmdDlDVVM1Q2lXeVhO?=
+ =?utf-8?B?WjFScjlTVUhsOStpOTY1UjNoSi9xMFFHSEs3RUpoSFRNdGxoRjZuNG9FM1Na?=
+ =?utf-8?B?bUVtSnJtbG40NE5HSEx2WTdmWkhJck93TDFFNytXcmNjcTlPa041ZEtXbXYw?=
+ =?utf-8?B?TlREQi92Sys1a2g3MVF0SExteGNrZDJPVS9sb2tsQWsyWFJOTVhDeThlVkpl?=
+ =?utf-8?B?QU9TOVFqYkhTekE2STZsUkJIeEJqWVM3aWVOOWNudENXU1R1VUxzU2R3NmR2?=
+ =?utf-8?B?dFBnT1dXUWlqVHVkNXg2VmZWS2hkbzhRdlpuMlU0b09PV1lZNll5V2FhSFdz?=
+ =?utf-8?B?RUg4Ukh1WG5JSXdjMlZ1SE5aVllzdzljazRNRnFOS2RuaGJuR3MzWExIWitT?=
+ =?utf-8?B?bm1iOUtuTnRmbkxYUlIxV1BzMVBYOU1uVnRIUUdkbGRNR0NTOWl2R0xvMWZV?=
+ =?utf-8?B?dW5LZGJEOTJybG5QSEo4KzFEcVBNV2N0aWdVRHloUkU5R0xPM1h1ZjJxckYv?=
+ =?utf-8?B?R1NNUDRKTTdLZ1NpeTUxZDdZQTBYRzVmeUp3V2JyUUxmNmN5YlUxVUhGcnRZ?=
+ =?utf-8?B?NTRMUlJlcmxJNzVLaXdKWmhPZVFqOXpqVEJKeHhmRWd3b25SeDd1TzBxN3p3?=
+ =?utf-8?B?aTY1d0RBTDdtL1dtNWlXOUt1V2ZOZjJUczB6STN6cUdwUXhVMlRNaXB3cEll?=
+ =?utf-8?B?T2x1aXVxY09wT3l1RTJ2cUw4Yk1OOUxaamkwcm9sd3pqL1RrRlpEQmV1TmxR?=
+ =?utf-8?B?bGxsaEs3TE1iNEdtc0NvRlhTZ1JESlArcmpIMHJ2QnBILzA1dkhpdWZ3U1pJ?=
+ =?utf-8?B?VFhMeU0yK1BmWEhIRDF3SXh3cXFKTlUvcmMwaUJyc3AvMVBtQjBzZnlkNkNi?=
+ =?utf-8?B?VlBRSkN1Q0Vrdm9STzdXc21SMXN5VkRLb0JPNDd5M1V4N2N5TU4yb2dPRW5F?=
+ =?utf-8?B?Zzl6VjRRdWJJZlJLMjRVbWZzcmZXWDJ5aWFFclpLRElHK01OaFo2c2FJSjBM?=
+ =?utf-8?B?OHZjU1RKUHIrZ1p5ZTM2MndJT2pFTHFTM2VlK0N0NVpqWXlrVXNWclBidU5y?=
+ =?utf-8?B?UGRodnRtaGVBSHBjdFF1amhGZlN0dkpMYjI2a3lselFWZHpMWWMxOXVIRlVo?=
+ =?utf-8?B?eW1CYmhxaklucFdlbVljLzJOaHU1dHRIS3hRK1pJRENPVGlkNmFROGU4UDBE?=
+ =?utf-8?B?L05TZjZFZ2IrNFFHcjREK1VYalFkNkc3MTVkcHgrNDRXTHFuZ0lBVFF0MlpT?=
+ =?utf-8?Q?xWijsSiQRplhPTw3v4LGwYjwb?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7d10060-12c8-4876-c928-08dd8d0c311f
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 01:47:33.3176 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 02:09:26.1872 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNXP287MB4098
-Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Longbin Li <looong.bin@gmail.com>, sophgo@lists.linux.dev,
- Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 4/4] riscv: dts: sophgo: add
- ethernet GMAC device for sg2042
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jW1yPPGdkKuB0qZoM53x1eWti5AAqMOfcwX+wpUSHs6taltSTO8DoNMC4HDEaWXVAR8uRUY8pB7XoSoK0QD+zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9871
+Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
+ imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,103 +186,202 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 05/07/2025, Luca Ceresoli wrote:
+> Hello Liu,
 
-On 2025/5/6 17:32, Inochi Amaoto wrote:
-> Add ethernet GMAC device node for the sg2042.
->
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> Tested-by: Han Gao <rabenda.cn@gmail.com>
-> ---
->   arch/riscv/boot/dts/sophgo/sg2042.dtsi | 62 ++++++++++++++++++++++++++
->   1 file changed, 62 insertions(+)
->
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2042.dtsi b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> index f61de4788475..886c13cef6ba 100644
-> --- a/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> +++ b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> @@ -543,6 +543,68 @@ uart0: serial@7040000000 {
->   			status = "disabled";
->   		};
->   
-> +		gmac0: ethernet@7040026000 {
-> +			compatible = "sophgo,sg2042-dwmac", "snps,dwmac-5.00a";
-> +			reg = <0x70 0x40026000 0x0 0x4000>;
-> +			clocks = <&clkgen GATE_CLK_AXI_ETH0>,
-> +				 <&clkgen GATE_CLK_PTP_REF_I_ETH0>,
-> +				 <&clkgen GATE_CLK_TX_ETH0>;
-> +			clock-names = "stmmaceth", "ptp_ref", "tx";
-> +			dma-noncoherent;
-> +			interrupt-parent = <&intc>;
-> +			interrupts = <132 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			resets = <&rstgen RST_ETH0>;
-> +			reset-names = "stmmaceth";
-> +			snps,multicast-filter-bins = <0>;
-> +			snps,perfect-filter-entries = <1>;
-> +			snps,aal;
-> +			snps,tso;
-> +			snps,txpbl = <32>;
-> +			snps,rxpbl = <32>;
-> +			snps,mtl-rx-config = <&gmac0_mtl_rx_setup>;
-> +			snps,mtl-tx-config = <&gmac0_mtl_tx_setup>;
-> +			snps,axi-config = <&gmac0_stmmac_axi_setup>;
-> +			status = "disabled";
-> +
-> +			mdio {
-> +				compatible = "snps,dwmac-mdio";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +			};
-> +
-> +			gmac0_mtl_rx_setup: rx-queues-config {
-> +				snps,rx-queues-to-use = <8>;
-> +				snps,rx-sched-wsp;
-> +				queue0 {};
-> +				queue1 {};
-> +				queue2 {};
-> +				queue3 {};
-> +				queue4 {};
-> +				queue5 {};
-> +				queue6 {};
-> +				queue7 {};
-> +			};
-> +
-> +			gmac0_mtl_tx_setup: tx-queues-config {
-> +				snps,tx-queues-to-use = <8>;
-> +				queue0 {};
-> +				queue1 {};
-> +				queue2 {};
-> +				queue3 {};
-> +				queue4 {};
-> +				queue5 {};
-> +				queue6 {};
-> +				queue7 {};
-> +			};
-> +
-> +			gmac0_stmmac_axi_setup: stmmac-axi-config {
-> +				snps,blen = <16 8 4 0 0 0 0>;
-> +				snps,wr_osr_lmt = <1>;
-> +				snps,rd_osr_lmt = <2>;
-> +			};
-> +		};
-> +
+Hi Luca,
 
-LGTM.
+> 
+> thanks for your further feedback.
+> 
+> On Tue, 6 May 2025 10:24:18 +0800
+> Liu Ying <victor.liu@nxp.com> wrote:
+> 
+>> On 04/30/2025, Luca Ceresoli wrote:
+>>> Hello Liu,  
+>>
+>> Hi Luca,
+>>
+>>>
+>>> On Tue, 29 Apr 2025 10:10:55 +0800
+>>> Liu Ying <victor.liu@nxp.com> wrote:
+>>>   
+>>>> Hi,
+>>>>
+>>>> On 04/25/2025, Luca Ceresoli wrote:  
+>>>>> This is the new API for allocating DRM bridges.
+>>>>>
+>>>>> This driver embeds an array of channels in the main struct, and each
+>>>>> channel embeds a drm_bridge. This prevents dynamic, refcount-based
+>>>>> deallocation of the bridges.
+>>>>>
+>>>>> To make the new, dynamic bridge allocation possible:
+>>>>>
+>>>>>  * change the array of channels into an array of channel pointers
+>>>>>  * allocate each channel using devm_drm_bridge_alloc()
+>>>>>  * adapt the code wherever using the channels
+>>>>>
+>>>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>  
+>>>
+>>> [...]
+>>>   
+>>>>> @@ -345,8 +351,8 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
+>>>>>  free_child:
+>>>>>  	of_node_put(child);
+>>>>>  
+>>>>> -	if (i == 1 && pc->ch[0].next_bridge)
+>>>>> -		drm_bridge_remove(&pc->ch[0].bridge);
+>>>>> +	if (i == 1 && pc->ch[0]->next_bridge)    
+>>>>
+>>>> Since this patch makes pc->ch[0] and pc->ch[1] be allocated separately,
+>>>> pc->ch[0] could be NULL if channel0 is not available, hence a NULL pointer
+>>>> dereference here...  
+>>>
+>>> See below for this.
+>>>   
+>>>>> +		drm_bridge_remove(&pc->ch[0]->bridge);
+>>>>>  
+>>>>>  	pm_runtime_disable(dev);
+>>>>>  	return ret;
+>>>>> @@ -359,7 +365,7 @@ static void imx8qxp_pc_bridge_remove(struct platform_device *pdev)
+>>>>>  	int i;
+>>>>>  
+>>>>>  	for (i = 0; i < 2; i++) {
+>>>>> -		ch = &pc->ch[i];
+>>>>> +		ch = pc->ch[i];
+>>>>>  
+>>>>>  		if (!ch->is_available)    
+>>>>
+>>>> ...and here too.  
+>>>
+>>> This is indeed a bug, I should have checked the pointer for being
+>>> non-NULL.
+>>>
+>>> Looking at that more closely, I think the is_available flag can be
+>>> entirely removed now. The allocation itself (ch != NULL) now is
+>>> equivalent. Do you think my reasoning is correct?
+>>>
+>>> Ouch! After writing the previous paragraph I realized you proposed this
+>>> a few lines below! OK, removing is_available. :)
+>>>
+>>> [...]
+>>>   
+>>>> On top of this patch series, this issue doesn't happen if I apply the below
+>>>> change:  
+>>>
+>>> [...]
+>>>   
+>>>> @@ -351,7 +349,7 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
+>>>>  free_child:
+>>>>         of_node_put(child);
+>>>>  
+>>>> -       if (i == 1 && pc->ch[0]->next_bridge)
+>>>> +       if (i == 1 && pc->ch[0])
+>>>>                 drm_bridge_remove(&pc->ch[0]->bridge);  
+>>>
+>>> Unrelated to this patch, but as I looked at it more in depth now, I'm
+>>> not sure this whole logic is robust, even in the original code.
+>>>
+>>> The 'i == 1' check here seems to mean "if some error happened when
+>>> handling channel@1, that means channel@0 was successfully initialized,
+>>> so let's clean up channel 0".
+>>>
+>>> However my understanding of the bindings is that device tree is allowed
+>>> to have the channel@1 node before the channel@0 node (or even channel@1
+>>> without channel@0, but that's less problematic here).
+>>>
+>>> In such case (channel@1 before channel@0), this would happen:
+>>>
+>>>  1. alloc and init ch[1], all OK
+>>>  2. alloc and init ch[0], an error happens
+>>>     (e.g. of_graph_get_remote_node() fails)
+>>>
+>>> So we'd reach the free_child: label, and we should call
+>>> drm_bridge_remove() for ch[1]->bridge, but there's no code to do that.
+>>>
+>>> To be robust in such a case, I think both channels need to be checked
+>>> independently, as the status of one does not imply the status of the
+>>> other. E.g.:
+>>>
+>>>   for (i = 0; i < 2; i++)
+>>>       if (pc->ch[i] && pc->ch[i]->next_bridge)
+>>>           drm_bridge_remove(&pc->ch[i]->bridge);
+>>>
+>>> (which is similar to what .remove() does after the changes discussed in
+>>> this thread, and which I have queued for v3)
+>>>
+>>> What's your opinion? Do you think I missed anything?  
+>>
+>> The pixel combiner DT node would be added in imx8-ss-dc{0,1}.dtsi, please
+>> see the case for imx8-ss-dc0.dtsi introduced by an in-flight patch[1].  As
+>> channel@{0,1} child nodes always exist(DT overlay cannot effectively delete
+>> any of them) and channel@0 always comes first, there is no problematic case.
+> 
+> I'm not questioning what existing and future dts files (will) contain,
+> and surely I don't see a good reason someone would write channel@1
+> before channel@0.
+> 
+> My point is:
+> 
+>  - the bindings _allow_ channel1 before channel@0
+>  - the error management code after the free_child label won't work
+>    correctly if channel1 is before channel@0 in the device tree
+> 
+> IOW the driver is not robust against all legal device tree descriptions,
+> and it could be easily made robust using the example code in my
+> previous e-mail (quoted a few lines above).
+> 
+> If you agree about this I'll be happy to send a patch doing that change.
+> If you think I'm wrong, I won't fight a battle. This topic is
+> orthogonal to the change I'm introducing in this patch, and I can
+> continue the conversion independently from this discussion.
 
-Reviewed-by: Chen Wang <unicorn_wang@outlook.com>
+I don't think it is necessary to do that change for now.  When someone
+really comes across this issue, we may make the error management code
+robust.
 
-Thanks,
+> 
+>>> Thanks for taking the time to dig into this!  
+>>
+>> After looking into this patch and patch 31(though I've already provided my A-b)
+>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+>> should have the same life time with the embedded DRM bridges, because for
+>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+>> the life time for the embedded channel/bridge structures only, but not for the
+>> main structures.  What do you think ?
+> 
+> I see you concern, but I'm sure the change I'm introducing is not
+> creating the problem you are concerned about.
+> 
+> The key aspect is that my patch is merely changing the lifetime of the
+> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+> the bridge is removed from its encoder chain and it is completely not
+> reachable, both before and after my patch. With my patch it is not
+> freed immediately, but it's just a piece of "wasted" memory that is
+> still allocated until elsewhere in the kernel there are pointers to it,
+> to avoid use-after-free.
+> 
+> With this explanation, do you think my patch is correct (after fixing
+> the bug we already discussed of course)?
 
-Chen
+I tend to say your patch is not correct because we'll eventually make sure
+that removing a bridge module is safe when doing atomic commit, which means
+the main structures should have the same life time with the DRM bridges.
 
->   		emmc: mmc@704002a000 {
->   			compatible = "sophgo,sg2042-dwcmshc";
->   			reg = <0x70 0x4002a000 0x0 0x1000>;
+> 
+> Best regards,
+> Luca
+> 
+
+-- 
+Regards,
+Liu Ying
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
