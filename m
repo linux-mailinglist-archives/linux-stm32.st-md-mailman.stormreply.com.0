@@ -2,153 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29F84AAE1CD
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 16:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6DF9AAE22B
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 16:13:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1F49C7A820;
-	Wed,  7 May 2025 14:02:51 +0000 (UTC)
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on2067.outbound.protection.outlook.com [40.107.249.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84B71C7A820;
+	Wed,  7 May 2025 14:13:19 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBDB9C78F9F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54ED5C78F9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 May 2025 14:02:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ytad8sBmdvkdPBVS6kgPVf/XvNc4Qb/WpdyehydT1iFdPeOJjpO45GfTVsLGu1d1vdFZTtUX14g+WgtCtagYy7JjOnz5gcAorWu2e+CgmUZmXUoQvNur6Ntvg6jLNlCIa7YglpvKKAy6kNka+TY8trfMOL1ESzSzgLLCRLF+GrhDy1DXjiiotr/pXts3uIZHYPGTVKAjg6dX9kTpLwpaYhzaidx2WVxMhQGJSX2jFGxmd/+ea8Zb1s1O9WevB0r6piCYxalg1o6abOTttR4ditADX1f+ACQm8mgmoSet15sn0QN6eyyrJpb9p/qR+s7zbZZaYbkIda4zV9ug3RNKfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VEp+l/tL8z6SD/EZBIOk+uQr3CQV3XVZ1kFq1GAI6Dw=;
- b=r8hJz7XZYiCnZc4hQqiI2Zi1Ts2H/eK53++5/yCxmCyqAjUwV4qNrmzM+lAq10PoCuMUpcXadGa1hkuJkRJyqynVHIwIGGFjWDqONOLU3izIrlTXUdmImunKWPwmK0i7lMsZ39PaSIviIwKbd8dak9lW87+5M6A3blwmYJBejnL1zSVu9XGSfDQ0qmKwzFkoWG1qYOAuID5RHKxNGYUFE5kaJ+1znoggRcIkvdvesUAF1R4Ftv2QzeKmJv3zJ/WVubiOmalF4yEKI9FjEwSSnClV6opmlqg7lbM0ZVibV5w5X2KZKbgSnQ4zJcIzllhXbU+jYxjZh5irkanzlLaAeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VEp+l/tL8z6SD/EZBIOk+uQr3CQV3XVZ1kFq1GAI6Dw=;
- b=K5HNH+DQcWXsHGihwU8gV+964fmcVB46oCNQl7dKv2+wVtWAesunvsxQxb+Ma02MSY4CuKAKRxgfeEebGLDGl6es+h1DPkDLHPphxOnwUTDtc/xrJS4WF8OU6khAxsrJJeGfIflobEBD/tEdzbq70FToo0oQ18CL3g2z+jTXqteR6XPwlK2fnt88kaTUUpPAPKU7xneAbIDFmDikVngwIo723nw7/hNxBTVZvSFUNBRFdtZUOxbacFfA6cAzDzEQUgs5c3wqQOkN3XEmLLl1/MAwHZV5GZ7QwrSI2PPER7ThVyO7eKJ0heGyxtfaxwMWrUpVupWtLvi6tG0tsxuEsw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB7790.eurprd04.prod.outlook.com (2603:10a6:102:cc::8)
- by DU0PR04MB9347.eurprd04.prod.outlook.com (2603:10a6:10:357::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.20; Wed, 7 May
- 2025 14:02:47 +0000
-Received: from PA4PR04MB7790.eurprd04.prod.outlook.com
- ([fe80::6861:40f7:98b3:c2bc]) by PA4PR04MB7790.eurprd04.prod.outlook.com
- ([fe80::6861:40f7:98b3:c2bc%4]) with mapi id 15.20.8699.026; Wed, 7 May 2025
- 14:02:47 +0000
-Date: Wed, 7 May 2025 17:02:44 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Daniel Golle <daniel@makrotopia.org>
-Message-ID: <20250507140244.f5a7jfv3ruwxmuxx@skbuf>
-References: <20250506215841.54rnxy3wqtlywxgb@skbuf>
- <20250415193323.2794214-1-sean.anderson@linux.dev>
- <20250415193323.2794214-1-sean.anderson@linux.dev>
- <20250415193323.2794214-6-sean.anderson@linux.dev>
- <20250415193323.2794214-6-sean.anderson@linux.dev>
- <20250506215841.54rnxy3wqtlywxgb@skbuf>
- <50e809ea-62a4-413d-af63-7900929c3247@linux.dev>
- <50e809ea-62a4-413d-af63-7900929c3247@linux.dev>
- <20250506221834.uw5ijjeyinehdm3x@skbuf>
- <aBqhtl3m03J6pw3V@makrotopia.org>
-Content-Disposition: inline
-In-Reply-To: <aBqhtl3m03J6pw3V@makrotopia.org>
-X-ClientProxiedBy: VI1PR03CA0069.eurprd03.prod.outlook.com
- (2603:10a6:803:50::40) To PA4PR04MB7790.eurprd04.prod.outlook.com
- (2603:10a6:102:cc::8)
+ Wed,  7 May 2025 14:13:18 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A7A8943A17;
+ Wed,  7 May 2025 14:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1746627197;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZUkZFmqLpaya2SvixZMFXiK5vMoC/WgZVFpr9qlTBnY=;
+ b=adYesO7D1P7ynosW29lwbsjTgJFaCmVyHEon+flnFOa0BvpYbgiRnF+Xmpud0uAtagWCKR
+ 3oskQarIGt0LOBcEzJnasoloDFldQLXTPGfiIhzFPFxQ44Bv9OhNB8OfgtRyxM7+9P43cR
+ EkU5M3wIV4eMfygkH8Z49lCMg02BGC3HtUgDaN8q7xI8pIpFMVELZovDj9NLGU/agK2QHw
+ g3CUt2Har990IGmx7V543phmv8Wv4XvzKKsAS8THOhfgcNBUADs19379Lxd8e7/I43vGMD
+ r3WqKePwg6IikvuHOAtVe8FiAWFIlf69nPFcMS8m4pDVEx1m0DuHF1UEztkH0g==
+Date: Wed, 7 May 2025 16:13:11 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Liu Ying <victor.liu@nxp.com>
+Message-ID: <20250507161311.6e434f2f@booty>
+In-Reply-To: <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+ <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
+ <20250507091244.32865a71@booty>
+ <430d497d-45a1-436d-91fd-635854f80c9f@nxp.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB7790:EE_|DU0PR04MB9347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18225034-d44b-4a3d-a34e-08dd8d6fd8b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?P5fZwb9MigCv//VuBWZv23hygrruqWzVnsp0kQXwyQYOe/jjD0sd39q0Jc4k?=
- =?us-ascii?Q?9mAYObrkMLEqO0KN34h9KuijkXg88krwxuY2trGTf2ITOEqixMVQU4kdEJUf?=
- =?us-ascii?Q?gIbRCE2cDcM2wMec+ZVBjke6y1nyzLrZfH3ZEPZ0T6A+5wMhbvMWhNaWjXQ9?=
- =?us-ascii?Q?pZNUmxhPs4i/H6iBEINh3prk2HjxCm8FWr6w2sDp28Gk/7WBMEO6wrn+d1MF?=
- =?us-ascii?Q?RTdTmuBnd057FUplIJmlGtoJD7KSXsgKZSCthZbyPVWOZGpk9lVsXXTK3vhY?=
- =?us-ascii?Q?I0erm+NL89VQ8g8HYejgXqNczm+1m2I/jUuNJNZ55qMDyccdh98XCWIc5An5?=
- =?us-ascii?Q?ZZqXletI2gKqHiR8F3V2Jecs//MWgCrsAb87v3ocFOZugT41aQ/i6HoQTpUx?=
- =?us-ascii?Q?y9yuUCEQfZWRzKBN/9ttwtngHiN7vCfIivzEigJlc4uY7VL+NpynbywOMJYU?=
- =?us-ascii?Q?dzk8mf6peYrSDXsFabIpJMXiWXEiroumNrj3/oFH7AS8h19KDHc21A8QI+1O?=
- =?us-ascii?Q?LaWwSae/MnzHfcjbY9eHuPVONHj68TOjWTE0bv4EYmohBx5x91WwEhDxJpki?=
- =?us-ascii?Q?7rgQuMgZZzWLd2pee0LnQ1D8bS+OCW2qdOQLocozPHb+BkFW+62O6CsetUNO?=
- =?us-ascii?Q?Eq0tMVmp76ENPzvX9ax+GqPerWN2ABPMDNeuw0EOBL8JaN9MuSnJbNSsbTiW?=
- =?us-ascii?Q?V09m80cpjxMziJ63QmBUL+ivwDtMPqqJPs20gV2kqVH3gtweGAHC7DgoAUTu?=
- =?us-ascii?Q?9h7ZQwdhzuxi361JTMt1s450+nbWxZ8xVFaGr/qeJrzySVCW+p+DzdvR7swk?=
- =?us-ascii?Q?HXQG1ecXiw7gaGOKeFDbE3FjP5yYU2FcItgNIFc31c4Hk7ns0TddiPUvmHvO?=
- =?us-ascii?Q?rTPAZ3XWTxzFnucjWxRMb99yK0TtK3zUqgQjQjVMeUh0pM6ByEItkXzho7yF?=
- =?us-ascii?Q?6b0CZZb+W+5qHiGxH9QagxMuAbX0wdOmQANP4F9gAylllYM1h9U0vTH0JHqP?=
- =?us-ascii?Q?tYc4l0QaY1gDLVuRjVWAh2xbEwasMhH0PPUB1w4OGOtAbgkaAZDyp7lrMoZZ?=
- =?us-ascii?Q?TCalemhKHpvwKkvuByaDKOialTvBTgKcxVSn+3aHMMD3pyNRgzkpuBFfGc8Q?=
- =?us-ascii?Q?WBt0fHb5LD6QXhrHWav4540uQPWiSKIuSaN7zDjq+M/DGPcKgWTu/N5BcPdU?=
- =?us-ascii?Q?s75T2jyqLbW6rnmYT7Y0MJQnZD6EzWuPe2Su/MfOi0Pr55Gzg/L2YYfNjK2j?=
- =?us-ascii?Q?yarwYcjxcB/4tgoT1D/g0hlQe/Aymkn/GmBPzz8kXUHceDFojA+rZ0tezWkS?=
- =?us-ascii?Q?8tKbMPXXJtIFcHQJBLSFb+ZvuNlXel3rlyNLlg8Bc1WgsQhsswtylxyVEGrd?=
- =?us-ascii?Q?U1CdQBSt0uon0XXDtq94x4egpvwb4oxxP5qvpu92LyvcTh+3LStDVlADpCM7?=
- =?us-ascii?Q?PwlTOlei42o=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA4PR04MB7790.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1y0NzkNkvfJ8FYw0BhVfBQUgZjjxCc+u36nfIFUWPFi15X4kPMy6KByKKivz?=
- =?us-ascii?Q?g54VEEpENCMAuDni6xysunuZ/W44R8PLw2ko3BxwjQnLD0YoEyyj427ZlsR7?=
- =?us-ascii?Q?VlTO1N8hnRi9/RtNssY/gK5BvZJxQPDDPesK/au065kA+f3LQeV2+rK16eae?=
- =?us-ascii?Q?bl/qNV9cfA9I/hTwroBEmWWPEN95g2LzCuOCtPB+fmoC1BzxsdvjHvY1UaDV?=
- =?us-ascii?Q?98l6WHWaOw1ag8x/8tWTrSlAVFmH34j3fZH9RW53AMZB8skH6Bf3qTqZDcnp?=
- =?us-ascii?Q?LJ9U8riQ4p+I+UBVgc9j4HhaRMmoHT30bZVqiO7jt45C2JkAzyT9Bi8N21sM?=
- =?us-ascii?Q?ZoFFyVOou7gGQQHoCiXGzpFJYtbhEO00K8hI/Z57Z/P50LRSpWrXxZd8HuK8?=
- =?us-ascii?Q?/nQVGSuRaevSdyebzUND99Jc9vwBZExqpjBcpVYxDLXdgnPz/n0i7Y2eDOud?=
- =?us-ascii?Q?uSVVMGRL/QXyyKlYXjnZUTPzh0nfjdgIXz61BXOGIu2PaZnZsxw+SaxSfQDP?=
- =?us-ascii?Q?EZ7kq25/HNFlenARutQfcKNJHtgPuUDS0g5Im0mfvOTnpTPW/6JG0Sa7eIDq?=
- =?us-ascii?Q?ij4K4cWjNGWNOcgaMIziZFIN5mMhER7O5GSEjWLPgp0YvA8JJZOolUlVcagi?=
- =?us-ascii?Q?Eejf66M93jVUryj1BWsW0f04IP030LxLeDVhExAQmsc58N7xbJ5BapKV0zwL?=
- =?us-ascii?Q?KsgyUvaxmwqtE+8Qkw6Q4jmEo85HKDTHV4fVnttWNr2HN9/T3arsBatkMiUR?=
- =?us-ascii?Q?ZzB8OB0Nn8RZDkvAiOrI+MdB7RLR0JkU76q2qvM0S0eM0G23ZGIXo5tHYZow?=
- =?us-ascii?Q?k1h7RndrSi79Os4bZIu7NO5habLD8mzUspS6fctkwu0Iv5+W216xgfQS3HFt?=
- =?us-ascii?Q?eZZx/nMQR9m6B5NZQ+jLTkCsTXyIyqVeai/nyD5tctmhAL9cyUj4q5QuYrVu?=
- =?us-ascii?Q?GGkqS2grfzCqYyDEc6FJNlIkczbaNXbxEEfqtCmj5IPyqDvVJj2EBLx1Vj4b?=
- =?us-ascii?Q?0L079GVv1kowLZAsEwJvxpUOYHAfkGWOqt3OXjRcb8cc156u7ADdND3ypJcn?=
- =?us-ascii?Q?Rf+H8Gw6Gyk7c+thC/c/ISrsgjc/RM72AmyEvBaII2QWkJSsXg95/YytoHpD?=
- =?us-ascii?Q?+0Ct/9WeEm3kHbA1kLILl0tIhLbsbyhvHDWzIzaw/Iv46tH0nMlT7qphI4zr?=
- =?us-ascii?Q?b9oRbR/ZICHTOvi+1/XKijfoj4oClldqVtqxTzNnIUdt13kAgndM930AHgZo?=
- =?us-ascii?Q?FiCVQoiCrEVsWitsFN5XyRxt9HsAfhjlcGr7hEzXyhXOvNeGlTA+s0+10SBd?=
- =?us-ascii?Q?bRzT95LsLwmx9byuL+DAPSumE49XraIU5GvIzQjHTMJjP9lSiShTL06paOzc?=
- =?us-ascii?Q?L6EKVp7gDLDWgaZ1EKkXFfrupf+/SVra3CCHBNp9oE/O92ARVFCkbguxx6FN?=
- =?us-ascii?Q?KQYhfqzi6twocsPIp7ShyYbdCsDSo9RCh4Awn7RPugwhpes4LeqAOnzNJpm+?=
- =?us-ascii?Q?j71yp1SNMWjqPGYs9InoL2oS5Fi4NGoK/xKjGoh8WnfQvCrKloUcFKEXBjKd?=
- =?us-ascii?Q?VBMnMotRTBzVW2SnpWvYsx4gdmQWA7ommcsEyh8R+h8oJDf+afPZ//n6T9kF?=
- =?us-ascii?Q?rg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18225034-d44b-4a3d-a34e-08dd8d6fd8b3
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 14:02:47.5016 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f7nYuBkc4eGuzmV+gVSzhT7f88hwFVc4yMH3pHElqxl/XerypK1FeADyB6XWvAccskPXXapy1YlCqomltxCiQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9347
-Cc: Sean Anderson <sean.anderson@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Madalin Bucur <madalin.bucur@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "David S . Miller" <davem@davemloft.net>, Joyce Ooi <joyce.ooi@intel.com>,
- Russell King <linux@armlinux.org.uk>, Clark Wang <xiaoning.wang@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Wei Fang <wei.fang@nxp.com>,
- imx@lists.linux.dev, Kory Maincent <kory.maincent@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, upstream@airoha.com,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [net-next PATCH v3 05/11] net: pcs: lynx: Convert
- to an MDIO driver
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeejtdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnheptdeljeejuddvudetffdtudelfedugfduledtueffuedufefgudegkeegtdeihedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefledprhgtphhtthhopehvihgtthhorhdrlhhiuhesnhigphdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
+ hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrgh
+X-GND-Sasl: luca.ceresoli@bootlin.com
+Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
+ imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,59 +92,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Daniel,
+Hello Liu,
 
-On Wed, May 07, 2025 at 12:56:38AM +0100, Daniel Golle wrote:
-> On Wed, May 07, 2025 at 01:18:34AM +0300, Vladimir Oltean wrote:
-> > On Tue, May 06, 2025 at 06:03:35PM -0400, Sean Anderson wrote:
-> > > On 5/6/25 17:58, Vladimir Oltean wrote:
-> > > > Hello Sean,
-> > > > 
-> > > > On Tue, Apr 15, 2025 at 03:33:17PM -0400, Sean Anderson wrote:
-> > > >> diff --git a/drivers/net/pcs/pcs-lynx.c b/drivers/net/pcs/pcs-lynx.c
-> > > >> index 23b40e9eacbb..bacba1dd52e2 100644
-> > > >> --- a/drivers/net/pcs/pcs-lynx.c
-> > > >> +++ b/drivers/net/pcs/pcs-lynx.c
-> > > >> @@ -1,11 +1,15 @@
-> > > >> -// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> > > >> -/* Copyright 2020 NXP
-> > > >> +// SPDX-License-Identifier: GPL-2.0+
-> > > >> +/* Copyright (C) 2022 Sean Anderson <seanga2@gmail.com>
-> > > >> + * Copyright 2020 NXP
-> > > >>   * Lynx PCS MDIO helpers
-> > > >>   */
-> > > >>  
-> > > >> -MODULE_DESCRIPTION("NXP Lynx PCS phylink library");
-> > > >> -MODULE_LICENSE("Dual BSD/GPL");
-> > > >> +MODULE_DESCRIPTION("NXP Lynx PCS phylink driver");
-> > > >> +MODULE_LICENSE("GPL");
-> > > > 
-> > > > What's the idea with the license change for this code?
-> > > 
-> > > I would like to license my contributions under the GPL in order to
-> > > ensure that they remain free software.
-> > > 
-> > > --Sean
-> > 
-> > But in the process, you are relicensing code which is not yours.
-> > Do you have agreement from the copyright owners of this file that the
-> > license can be changed?
-> > 
-> 
-> I think there is a misunderstanding here.
-> 
-> Of course the licence for the file remains dual BSD-3-Clause and GPL-2.0+ up
-> to the change Sean wants to contribute. However, as he only permits GPL-2.0+
-> the file after applying the change would then only be covered by GPL-2.0+ and
-> no longer by BSD-3-Clause. Legally speaking there is no need to ask any of the
-> previous authors for permission because they already agreed on having the
-> code under GPL-2.0+ **OR** BSD-3-Clause, which means that everyone is free
-> to distribute it under GPL-2.0+ (which is already the case when distributing
-> it along with the Linux Kernel, obviously). Only netdev maintainers need to
-> agree to drop the BSD-3-Clause licence **from future versions including his
-> changes**, and there are obviously reasons for and against that.
+On Wed, 7 May 2025 18:16:28 +0800
+Liu Ying <victor.liu@nxp.com> wrote:
 
-Thanks for the clarification on the legal aspect, all clear.
+[...]
+
+> >>>> After looking into this patch and patch 31(though I've already provided my A-b)
+> >>>> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
+> >>>> should have the same life time with the embedded DRM bridges, because for
+> >>>> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
+> >>>> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
+> >>>> the life time for the embedded channel/bridge structures only, but not for the
+> >>>> main structures.  What do you think ?    
+> >>>
+> >>> I see you concern, but I'm sure the change I'm introducing is not
+> >>> creating the problem you are concerned about.
+> >>>
+> >>> The key aspect is that my patch is merely changing the lifetime of the
+> >>> _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
+> >>> the bridge is removed from its encoder chain and it is completely not
+> >>> reachable, both before and after my patch. With my patch it is not
+> >>> freed immediately, but it's just a piece of "wasted" memory that is
+> >>> still allocated until elsewhere in the kernel there are pointers to it,
+> >>> to avoid use-after-free.
+> >>>
+> >>> With this explanation, do you think my patch is correct (after fixing
+> >>> the bug we already discussed of course)?    
+> >>
+> >> I tend to say your patch is not correct because we'll eventually make sure
+> >> that removing a bridge module is safe when doing atomic commit,  
+> > 
+> > I think your sentence can be rephrased as "your patch is correct with
+> > the current code base where bridges are not (yet) removable, but there
+> > will be a problem when they start to actually be removable".
+> > 
+> > Is my understanding correct? If it is, I agree on that sentence.  
+> 
+> Nope, I meant your patch should align the life times of the main structures
+> and the DRM bridges, for the sake of the kinda long term goal - remove bridge
+> driver module safely when doing atomic commit.
+
+Again, I don't think there is any bug introduced by this patch (once
+the NULL ptr deref bug we already discussed is fixed). No bridge can be
+removed as of now, with or without this patch.
+
+You concern that this patch would make things more complex in the
+future, when bridges will actually become removable and they could be
+during atomic updates. But about this...
+
+> > The work to have removable bridges is massive and non-trivial, so it
+> > will need to be tackled in steps. The grand plan [0] is:
+> > 
+> >  1. add refcounting to DRM bridges (struct drm_bridge)
+> >  2. handle gracefully atomic updates during bridge removal
+> >  3. avoid DSI host drivers to have dangling pointers to DSI devices 
+> >  4. finish the hotplug bridge work, removing the "always-disconnected"
+> >     connector, moving code to the core and potentially removing the
+> >     hotplug-bridge itself (this needs to be clarified as points 1-3 are
+> >     developed)  
+> 
+> I'm busy with internal things these days and cannot look into the grand
+> plan and steps closely, sorry about that.
+
+...I'll wait until you have time to look into that more closely. There
+is just no way to understand this whole topic without some dedicated
+attention, which takes time unavoidably.
+
+In the meanwhile I am going to send v3 soon with the known bug fixed,
+so the best version is available to continue this discussion.
+
+> > I am at step 1 right now. Removal during atomic updates is step 2,
+> > ideas about how to implement that are already being discussed [1],
+> > there's a practical plan proposed by Maxime with the goal of reaching
+> > removable bridges without breaking things along the path.
+> > 
+> > [0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
+> > [1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
+> >   
+> >> which means
+> >> the main structures should have the same life time with the DRM bridges.  
+> > 
+> > The word "lifetime" mean two things for bridges:
+> > 
+> >  * the time span during which memory is allocated for a struct
+> >    drm_bridge (along with the embedding struct)  
+> 
+> Note that with your patch set the imx8*-ldb drivers and this bridge driver
+> won't allocate the DRM bridge along with the embedding struct.
+
+By "embedding struct" I mean the struct imx8qxp_pc_channel that embeds
+the struct drm_bridge. Sorry, I realize my wording was ambiguous.
+
+> This makes
+> me worry, because maybe these drivers are the only "special" ones in this
+> patch set and I don't want them to be "special" after your patch set is
+> applied.
+
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
