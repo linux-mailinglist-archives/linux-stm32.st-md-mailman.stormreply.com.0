@@ -2,78 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E815AAD6ED
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 09:12:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9405EAAD7F1
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 09:28:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EA6DC78F9F;
-	Wed,  7 May 2025 07:12:54 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38ECFC7A823;
+	Wed,  7 May 2025 07:28:01 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9E9AC78F9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E5A2C78F9E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 May 2025 07:12:51 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0550B438F2;
- Wed,  7 May 2025 07:12:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1746601970;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XYAyvJHL12oT6BGBWrmzXRLHiSyv5UkdfdbxyEq+wzE=;
- b=fAKAXuZnSS3eGpzPhDcjGsacbbVKiGgoN1+hKvLf8W9LVvJ4q/yN8mvMPuPltCTDbXMASe
- lHtfyjGut/XmC/xrpKXVchctm+xWS0nliJAHS7g61Md9sxN7YRtopQtlivvhd8mGnFfnK1
- zLHPF0YGiRFpUlXubh1ep5E4ewLXUZtHVVNtabxb5GJkslE1cAx6oSWctsvQExum3J+p+E
- G4ikcxIyCXqyCiM2jQxJjrh9Kx946k992iKwtXwwTIyGamjbbizyN66uuoDV6SDsxQtsCc
- zjoWTyHHf75l2ZvLTS0zTK/WEP7psTFLBKbj64q26m1zvV+GCXrw3FgTUMGpzQ==
-Date: Wed, 7 May 2025 09:12:44 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Liu Ying <victor.liu@nxp.com>
-Message-ID: <20250507091244.32865a71@booty>
-In-Reply-To: <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
-References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
- <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
- <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
- <20250430112944.1b39caab@booty>
- <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
- <20250506224720.5cbcf3e1@booty>
- <a1abf31a-7a4a-4f8d-bf48-6b826aa01197@nxp.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+ Wed,  7 May 2025 07:28:00 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54779UN1021799;
+ Wed, 7 May 2025 09:27:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=iQxRiNu03TITYfxYaE1KEL
+ g0ZyDlorP8jtI9q1o4F6c=; b=e/my3sV93bdOMqA87zdXgDZozgW27q51n3s91T
+ PyFonW6LZchI4REOiGzdUslND+smkmX+NTuAeZMTcCDZ3oqUZsC/qwaclxOyNaEx
+ lQNFTq9BbmDv7gKgwNuOSHGPuYGG2duTt3jGUZySYiMDjV49/7ebwevEOgLSWe3E
+ e8IIP0D9FGiM+cxY1vjG1M5gwunPTFyK9N1mPoGdT5zgRq9VBZ6NoruYDaR90xhT
+ GwRc3l1rGtA/83hV8AqEWCI8STYimMCTpuf6coxmSs/QRo/viy92cf+IKzDwB/ly
+ Dwgrf9OD+6zA9ddLQ2n6hyapdTnJY0fWeJTWbG4gzGFSPSXQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46dx3mct86-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 May 2025 09:27:47 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2EC284005C;
+ Wed,  7 May 2025 09:26:49 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 56C46ACB658;
+ Wed,  7 May 2025 09:25:16 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 May
+ 2025 09:25:16 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Wed, 7 May 2025 09:25:13 +0200
+Message-ID: <20250507-upstream_ospi_v6-v13-0-32290b21419a@foss.st.com>
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeeivdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnheptdeljeejuddvudetffdtudelfedugfduledtueffuedufefgudegkeegtdeihedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefledprhgtphhtthhopehvihgtthhorhdrlhhiuhesnhigphdrtghomhdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhto
- hepmhhrihhprghrugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrgh
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
- chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Anusha Srivatsa <asrivats@redhat.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
- asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
- imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
+X-B4-Tracking: v=1; b=H4sIANoKG2gC/23Qy2rDQAwF0F8Js66DpHm6q/5HKWGezSwSG49rW
+ oL/vZNAiYsHtLkXdAS6sRKnHAt7PdzYFJdc8nCtAfnLgfmzvX7GLodaMAKSwAm6r7HMU7SX01D
+ GfFpUFwQna1ATgmR1bZxiyt8P8/2j5nMu8zD9PE4s6t7+YbjH6kDHtXPeOsEF79/SUMqxzEc/X
+ NidW/STENAidCUgJjISeQwG94TZErpBmEpopzUqjx6T2hP9hsDGV5a+Ej4h9hKMEcbuCYSNQdQ
+ wKgydSqIXZEFEhAaCW8S0EKwISmE0Vyn0gRoIPREJqoVQRSJ3TloI2iT3H1nX9RcEAV7wSwIAA
+ A==
+X-Change-ID: 20250320-upstream_ospi_v6-d432a8172105
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-07_02,2025-05-06_01,2025-02-21_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v13 0/4] Add STM32MP25 SPI NOR support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,270 +86,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Liu,
+This series adds SPI NOR support for STM32MP25 SoCs from STMicroelectronics.
 
-On Wed, 7 May 2025 10:10:53 +0800
-Liu Ying <victor.liu@nxp.com> wrote:
+On STM32MP25 SoCs family, an Octo Memory Manager block manages the muxing,
+the memory area split, the chip select override and the time constraint
+between its 2 Octo SPI children.
 
-> On 05/07/2025, Luca Ceresoli wrote:
-> > Hello Liu,  
-> 
-> Hi Luca,
-> 
-> > 
-> > thanks for your further feedback.
-> > 
-> > On Tue, 6 May 2025 10:24:18 +0800
-> > Liu Ying <victor.liu@nxp.com> wrote:
-> >   
-> >> On 04/30/2025, Luca Ceresoli wrote:  
-> >>> Hello Liu,    
-> >>
-> >> Hi Luca,
-> >>  
-> >>>
-> >>> On Tue, 29 Apr 2025 10:10:55 +0800
-> >>> Liu Ying <victor.liu@nxp.com> wrote:
-> >>>     
-> >>>> Hi,
-> >>>>
-> >>>> On 04/25/2025, Luca Ceresoli wrote:    
-> >>>>> This is the new API for allocating DRM bridges.
-> >>>>>
-> >>>>> This driver embeds an array of channels in the main struct, and each
-> >>>>> channel embeds a drm_bridge. This prevents dynamic, refcount-based
-> >>>>> deallocation of the bridges.
-> >>>>>
-> >>>>> To make the new, dynamic bridge allocation possible:
-> >>>>>
-> >>>>>  * change the array of channels into an array of channel pointers
-> >>>>>  * allocate each channel using devm_drm_bridge_alloc()
-> >>>>>  * adapt the code wherever using the channels
-> >>>>>
-> >>>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>    
-> >>>
-> >>> [...]
-> >>>     
-> >>>>> @@ -345,8 +351,8 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
-> >>>>>  free_child:
-> >>>>>  	of_node_put(child);
-> >>>>>  
-> >>>>> -	if (i == 1 && pc->ch[0].next_bridge)
-> >>>>> -		drm_bridge_remove(&pc->ch[0].bridge);
-> >>>>> +	if (i == 1 && pc->ch[0]->next_bridge)      
-> >>>>
-> >>>> Since this patch makes pc->ch[0] and pc->ch[1] be allocated separately,
-> >>>> pc->ch[0] could be NULL if channel0 is not available, hence a NULL pointer
-> >>>> dereference here...    
-> >>>
-> >>> See below for this.
-> >>>     
-> >>>>> +		drm_bridge_remove(&pc->ch[0]->bridge);
-> >>>>>  
-> >>>>>  	pm_runtime_disable(dev);
-> >>>>>  	return ret;
-> >>>>> @@ -359,7 +365,7 @@ static void imx8qxp_pc_bridge_remove(struct platform_device *pdev)
-> >>>>>  	int i;
-> >>>>>  
-> >>>>>  	for (i = 0; i < 2; i++) {
-> >>>>> -		ch = &pc->ch[i];
-> >>>>> +		ch = pc->ch[i];
-> >>>>>  
-> >>>>>  		if (!ch->is_available)      
-> >>>>
-> >>>> ...and here too.    
-> >>>
-> >>> This is indeed a bug, I should have checked the pointer for being
-> >>> non-NULL.
-> >>>
-> >>> Looking at that more closely, I think the is_available flag can be
-> >>> entirely removed now. The allocation itself (ch != NULL) now is
-> >>> equivalent. Do you think my reasoning is correct?
-> >>>
-> >>> Ouch! After writing the previous paragraph I realized you proposed this
-> >>> a few lines below! OK, removing is_available. :)
-> >>>
-> >>> [...]
-> >>>     
-> >>>> On top of this patch series, this issue doesn't happen if I apply the below
-> >>>> change:    
-> >>>
-> >>> [...]
-> >>>     
-> >>>> @@ -351,7 +349,7 @@ static int imx8qxp_pc_bridge_probe(struct platform_device *pdev)
-> >>>>  free_child:
-> >>>>         of_node_put(child);
-> >>>>  
-> >>>> -       if (i == 1 && pc->ch[0]->next_bridge)
-> >>>> +       if (i == 1 && pc->ch[0])
-> >>>>                 drm_bridge_remove(&pc->ch[0]->bridge);    
-> >>>
-> >>> Unrelated to this patch, but as I looked at it more in depth now, I'm
-> >>> not sure this whole logic is robust, even in the original code.
-> >>>
-> >>> The 'i == 1' check here seems to mean "if some error happened when
-> >>> handling channel@1, that means channel@0 was successfully initialized,
-> >>> so let's clean up channel 0".
-> >>>
-> >>> However my understanding of the bindings is that device tree is allowed
-> >>> to have the channel@1 node before the channel@0 node (or even channel@1
-> >>> without channel@0, but that's less problematic here).
-> >>>
-> >>> In such case (channel@1 before channel@0), this would happen:
-> >>>
-> >>>  1. alloc and init ch[1], all OK
-> >>>  2. alloc and init ch[0], an error happens
-> >>>     (e.g. of_graph_get_remote_node() fails)
-> >>>
-> >>> So we'd reach the free_child: label, and we should call
-> >>> drm_bridge_remove() for ch[1]->bridge, but there's no code to do that.
-> >>>
-> >>> To be robust in such a case, I think both channels need to be checked
-> >>> independently, as the status of one does not imply the status of the
-> >>> other. E.g.:
-> >>>
-> >>>   for (i = 0; i < 2; i++)
-> >>>       if (pc->ch[i] && pc->ch[i]->next_bridge)
-> >>>           drm_bridge_remove(&pc->ch[i]->bridge);
-> >>>
-> >>> (which is similar to what .remove() does after the changes discussed in
-> >>> this thread, and which I have queued for v3)
-> >>>
-> >>> What's your opinion? Do you think I missed anything?    
-> >>
-> >> The pixel combiner DT node would be added in imx8-ss-dc{0,1}.dtsi, please
-> >> see the case for imx8-ss-dc0.dtsi introduced by an in-flight patch[1].  As
-> >> channel@{0,1} child nodes always exist(DT overlay cannot effectively delete
-> >> any of them) and channel@0 always comes first, there is no problematic case.  
-> > 
-> > I'm not questioning what existing and future dts files (will) contain,
-> > and surely I don't see a good reason someone would write channel@1
-> > before channel@0.
-> > 
-> > My point is:
-> > 
-> >  - the bindings _allow_ channel1 before channel@0
-> >  - the error management code after the free_child label won't work
-> >    correctly if channel1 is before channel@0 in the device tree
-> > 
-> > IOW the driver is not robust against all legal device tree descriptions,
-> > and it could be easily made robust using the example code in my
-> > previous e-mail (quoted a few lines above).
-> > 
-> > If you agree about this I'll be happy to send a patch doing that change.
-> > If you think I'm wrong, I won't fight a battle. This topic is
-> > orthogonal to the change I'm introducing in this patch, and I can
-> > continue the conversion independently from this discussion.  
-> 
-> I don't think it is necessary to do that change for now.  When someone
-> really comes across this issue, we may make the error management code
-> robust.
-> 
-> >   
-> >>> Thanks for taking the time to dig into this!    
-> >>
-> >> After looking into this patch and patch 31(though I've already provided my A-b)
-> >> more closely, I think the imx8qxp_pc and imx8{qm,qxp}_ldb main structures
-> >> should have the same life time with the embedded DRM bridges, because for
-> >> example the clk_apb clock in struct imx8qxp_pc would be accessed by the
-> >> imx8qxp_pc_bridge_mode_set DRM bridge callback.  But, IIUC, your patches extend
-> >> the life time for the embedded channel/bridge structures only, but not for the
-> >> main structures.  What do you think ?  
-> > 
-> > I see you concern, but I'm sure the change I'm introducing is not
-> > creating the problem you are concerned about.
-> > 
-> > The key aspect is that my patch is merely changing the lifetime of the
-> > _allocation_ of the drm_bridge, not its usage. On drm_bridge_remove()
-> > the bridge is removed from its encoder chain and it is completely not
-> > reachable, both before and after my patch. With my patch it is not
-> > freed immediately, but it's just a piece of "wasted" memory that is
-> > still allocated until elsewhere in the kernel there are pointers to it,
-> > to avoid use-after-free.
-> > 
-> > With this explanation, do you think my patch is correct (after fixing
-> > the bug we already discussed of course)?  
-> 
-> I tend to say your patch is not correct because we'll eventually make sure
-> that removing a bridge module is safe when doing atomic commit,
+Due to these depedencies, this series adds support for:
+  - Octo Memory Manager driver.
+  - Octo SPI driver.
+  - yaml schema for Octo Memory Manager and Octo SPI drivers.
 
-I think your sentence can be rephrased as "your patch is correct with
-the current code base where bridges are not (yet) removable, but there
-will be a problem when they start to actually be removable".
+The device tree files adds Octo Memory Manager and its 2 associated Octo
+SPI chidren in stm32mp251.dtsi and adds SPI NOR support in stm32mp257f-ev1
+board.
+    
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Is my understanding correct? If it is, I agree on that sentence.
+Changes in v13:
+- Make firewall prototypes always exposed.
+- Restore STM32_OMM Kconfig dependency from v11.
+- Link to v12: https://lore.kernel.org/r/20250506-upstream_ospi_v6-v12-0-e3bb5a0d78fb@foss.st.com
 
-The work to have removable bridges is massive and non-trivial, so it
-will need to be tackled in steps. The grand plan [0] is:
+Changes in v12:
+- Update Kconfig dependencies.
+- Link to v11: https://lore.kernel.org/r/20250428-upstream_ospi_v6-v11-0-1548736fd9d2@foss.st.com
 
- 1. add refcounting to DRM bridges (struct drm_bridge)
- 2. handle gracefully atomic updates during bridge removal
- 3. avoid DSI host drivers to have dangling pointers to DSI devices 
- 4. finish the hotplug bridge work, removing the "always-disconnected"
-    connector, moving code to the core and potentially removing the
-    hotplug-bridge itself (this needs to be clarified as points 1-3 are
-    developed)
+Changes in v11:
+  - Add stm32_omm_toggle_child_clock(dev, false) in stm32_omm_disable_child() in case of error.
+  - Check MUXEN bit in stm32_omm_probe() to check if child clock must be disabled.
+  - Add dev_err_probe() in stm32_omm_probe().
+  - Link to v10: https://lore.kernel.org/r/20250422-upstream_ospi_v6-v10-0-6f4942a04e10@foss.st.com
 
-I am at step 1 right now. Removal during atomic updates is step 2,
-ideas about how to implement that are already being discussed [1],
-there's a practical plan proposed by Maxime with the goal of reaching
-removable bridges without breaking things along the path.
+Changes in v10:
+  - Add of_node_put() in stm32_omm_set_amcr().
+  - Link to v9: https://lore.kernel.org/r/20250410-upstream_ospi_v6-v9-0-cf119508848a@foss.st.com
 
-[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/
-[1] https://lore.kernel.org/all/20250106-vigorous-talented-viper-fa49d9@houat/
+Changes in v9:
+  - split patchset by susbsystem, current one include only OMM related
+    patches.
+  - Update SPDX Identifiers to "GPL-2.0-only".
+  - Add of_node_put)() instm32_omm_set_amcr().
+  - Rework error path in stm32_omm_toggle_child_clock().
+  - Make usage of reset_control_acquire/release() in stm32_omm_disable_child()
+    and move reset_control_get in probe().
+  - Rename error label in stm32_omm_configure().
+  - Remove child compatible check in stm32_omm_probe().
+  - Make usage of devm_of_platform_populate().
+  - Link to v8: https://lore.kernel.org/r/20250407-upstream_ospi_v6-v8-0-7b7716c1c1f6@foss.st.com
 
-> which means
-> the main structures should have the same life time with the DRM bridges.
+Changes in v8:
+  - update OMM's dt-bindings:
+    - Remove minItems for clocks and resets properties.
+    - Fix st,syscfg-amcr items declaration.
+    - move power-domains property before vendor specific properties.
+  - Update compatible check wrongly introduced during internal tests in
+    stm32_omm.c.
+  - Move ommanager's node outside bus@42080000's node in stm32mp251.dtsi.
+  - Link to v7: https://lore.kernel.org/r/20250401-upstream_ospi_v6-v7-0-0ef28513ed81@foss.st.com
 
-The word "lifetime" mean two things for bridges:
+Changes in v7:
+  - update OMM's dt-bindings by updating :
+    - clock-names and reset-names properties.
+    - spi unit-address node.
+    - example.
+  - update stm32mp251.dtsi to match with OMM's bindings update.
+  - update stm32mp257f-ev1.dts to match with OMM's bindings update.
+  - Link to v6: https://lore.kernel.org/r/20250321-upstream_ospi_v6-v6-0-37bbcab43439@foss.st.com
 
- * the time span during which memory is allocated for a struct
-   drm_bridge (along with the embedding struct)
- * the time span during which a DRM bridge is active/used/usable as
-   part of a card
-   - i.e. when it is part of an encoder chain
-   - i.e. when drm_bridge_funcs callbacks can be called
-   - i.e. from drm_bridge_add() to drm_bridge_remove()
+Changes in v6:
+  - Update MAINTAINERS file.
+  - Remove previous patch 1/8 and 2/8, merged by Mark Brown in spi git tree.
+  - Fix Signed-off-by order for patch 3.
+  - OMM driver:
+    - Add dev_err_probe() in error path.
+    - Rename stm32_omm_enable_child_clock() to stm32_omm_toggle_child_clock().
+    - Reorder initialised/non-initialized variable in stm32_omm_configure()
+          and stm32_omm_probe().
+    - Move pm_runtime_disable() calls from stm32_omm_configure() to
+      stm32_omm_probe().
+    - Update children's clocks and reset management.
+    - Use of_platform_populate() to probe children.
+    - Add missing pm_runtime_disable().
+    - Remove useless stm32_omm_check_access's first parameter.
+  - Update OMM's dt-bindings by adding OSPI's clocks and resets.
+  - Update stm32mp251.dtsi by adding OSPI's clock and reset in OMM's node.
 
-These two lifetimes used to be nearly the same. Now the "memory
-allocation lifetime" is extended, but the "bridge existence" is
-unchanged: drm_bridge_add() to drm_bridge_remove() are called in the
-same place and do the same things, so the bridge will stop being in any
-encoder chain at the exact same time. now we are just keeping a piece of
-memory allocated for a longer time.
+Changes in v5:
+  - Add Reviewed-by Krzysztof Kozlowski for patch 1 and 3.
 
-Seen in another way, the events used to be:
+Changes in v4:
+  - Add default value requested by Krzysztof for st,omm-req2ack-ns,
+    st,omm-cssel-ovr and st,omm-mux properties in st,stm32mp25-omm.yaml
+  - Remove constraint in free form test for st,omm-mux property.
+  - Fix drivers/memory/Kconfig by replacing TEST_COMPILE_ by COMPILE_TEST.
+  - Fix SPDX-License-Identifier for stm32-omm.c.
+  - Fix Kernel test robot by fixing dev_err() format in stm32-omm.c.
+  - Add missing pm_runtime_disable() in the error handling path in
+    stm32-omm.c.
+  - Replace an int by an unsigned int in stm32-omm.c
+  - Remove uneeded "," after terminator in stm32-omm.c.
+  - Update cover letter description to explain dependecies between
+Octo Memory Manager and its 2 Octo SPI children.
 
- * probe:
-   - allocate bridge
-   - drm_bridge_add()
+Changes in v3:
+  - Squash defconfig patches 8 and 9.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Rename st,stm32-omm.yaml to st,stm32mp25-omm.yaml.
+  - Update STM32 OSPI controller bindings.
+  - Reorder DT properties in .dtsi and .dts files.
+  - Replace devm_reset_control_get_optional() by
+    devm_reset_control_get_optional_exclusive() in stm32_omm.c.
+  - Reintroduce region-memory-names management in stm32_omm.c.
+  - Rename stm32_ospi_tx_poll() and stm32_ospi_tx() to respectively to
+    stm32_ospi_poll() and stm32_ospi_xfer() in spi-stm32-ospi.c.
+  - Set SPI_CONTROLLER_HALF_DUPLEX in controller flags in spi-stm32-ospi.c.
 
- * remove
-   - drm_bridge_remove()
-   - now the bridge is not used, it's just some dead memory [*]
-   - kfree bridge (either in .remove() or just after by devm)
+Changes in v2:
+  - Move STM32 Octo Memory Manager controller driver and bindings from
+    misc to memory-controllers.
+  - Update STM32 OSPI controller bindings.
+  - Update STM32 Octo Memory Manager controller bindings.
+  - Update STM32 Octo Memory Manager driver to match bindings update.
+  - Update DT to match bindings update.
 
-Now it becomes:
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+Patrice Chotard (4):
+      firewall: Always expose firewall prototype
+      dt-bindings: memory-controllers: Add STM32 Octo Memory Manager controller
+      memory: Add STM32 Octo Memory Manager driver
+      MAINTAINERS: add entry for STM32 OCTO MEMORY MANAGER driver
 
- * probe:
-   - allocate bridge
-   - drm_bridge_add()
+ .../memory-controllers/st,stm32mp25-omm.yaml       | 226 ++++++++++
+ MAINTAINERS                                        |   6 +
+ drivers/memory/Kconfig                             |  17 +
+ drivers/memory/Makefile                            |   1 +
+ drivers/memory/stm32_omm.c                         | 476 +++++++++++++++++++++
+ include/linux/bus/stm32_firewall_device.h          |  10 +-
+ 6 files changed, 735 insertions(+), 1 deletion(-)
+---
+base-commit: 0af2f6be1b4281385b618cb86ad946eded089ac8
+change-id: 20250320-upstream_ospi_v6-d432a8172105
 
- * remove
-   - drm_bridge_remove()
-   - now the bridge is not used, it's just some dead memory [*]
-   - maybe some more time, possibly long, until the last put [*]
-   - kfree bridge (by devm)
-
-The duration of the [*] steps changes, but it's harmless because the
-bridge is not used at all. No change except for memory allocation.
-
-Luca
-
+Best regards,
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Patrice Chotard <patrice.chotard@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
