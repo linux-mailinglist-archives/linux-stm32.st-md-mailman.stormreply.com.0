@@ -2,84 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0911FAADCEC
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 13:06:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24299AADDF5
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 May 2025 14:02:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3B24C78F9F;
-	Wed,  7 May 2025 11:06:49 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C027AC7A820;
+	Wed,  7 May 2025 12:02:13 +0000 (UTC)
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDA6BC78F9E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFAF2C78F9F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 May 2025 11:06:47 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5f624291db6so10242777a12.3
+ Wed,  7 May 2025 12:02:11 +0000 (UTC)
+Received: by mail-qv1-f52.google.com with SMTP id
+ 6a1803df08f44-6f545ae3c59so5007346d6.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 May 2025 04:06:47 -0700 (PDT)
+ Wed, 07 May 2025 05:02:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746616007; x=1747220807;
+ d=gmail.com; s=20230601; t=1746619330; x=1747224130;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=duDxhGSUaa+DKP3WsDW9rwdEeqUl14A6M/ImrV8wnQY=;
- b=JkUIhXMYuqA0nrd2GlHFgSPjmnNsIMmK00a8xlx+zlAJx1+TGmrhwafX7FnKbUs1Ny
- JsM0R76UV1QrM9fYenNy9yoxnFCPN8JzQm5MRERoVIu7MXScWWY7mZkChmaOoVIeM0R6
- GwRhqzZ24+SyYr8aseBsz+wsFzss3Iw8X0dRi/0YhmeutwWg54FnAMb48nJVb0D9ac/Z
- GNsn1b5LwnR4DR7fzjYdvey87hcgx3fseG2VtG2K+yYIHk5vmi+Z9bh9jPZhzN4fgLRZ
- YhyjAVbZcHkZ1ZjJyZpng1Eq6rDmYsNN5VA1s6eCFCrwJvbLqw5nKe5UNSkkeIiq1mfJ
- eJiQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=cB9Vli3Xxo4KwEG4QM0VC4PHMgHe2AYxc+yOmxy2QWQ=;
+ b=AzvX+m41CnqqY03KjsoZrLJ3r3ka7w2cPLfm/XYiW2Ez5Wzml1Se6+sN/FDWIy8mNY
+ TVx78ESzqu1Wkznyfecd/7Jqq8X7LagQs8xa2fkaQe53PEdxUAV/uBSFVlaAxAEqyFqT
+ WbPh7NfohhuC0pan+CP7oHCLvoLxAtQCX3P0mzyBkqOkFYIbIH6j11eD7VXJkmAN1zZS
+ MhjyOLMO4svsDz0hDgr7PRRmUKDgUREkkrQmiWSrn5DM+KrOV1JisFhKAX8c9PK4LQM7
+ lIjAyfjAF8nL/ELiv8MvK90zegBTjTM6MCVwFPcXEv2Nv9vrUkY42QYaMaOG+RJj4J6q
+ SVRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746616007; x=1747220807;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=duDxhGSUaa+DKP3WsDW9rwdEeqUl14A6M/ImrV8wnQY=;
- b=GORkbfbZyxFoO+4JGDjb+yLFMOHWDvvdx73X3FwcDlvHTUvxpZLQacALTWYxTwg7NV
- +NxdWCM0pj2bY4cytqg/N++W5TGAywAxw+8ONLVsD9LyGRxhBzAuc3lRdL4+LXwFlgrD
- 64phGYN/ZIO73koafcYca2GUTFukhnEDbD7IGYlTfMPHWaPHLQZ7ZNEVfX22SnUxoYVh
- t294WH3KqyjzI28x6rGQwgxNAzBhQfz3WTZfVigTMh7w/hNhskJh1fZpX7H6+ooSWfTn
- jPrezFTllC5kM9/D7XNx2vpqQZ2y1YTz66+/+WSQ1n+2q1atVzajW9UDfAkA7LPDbHTG
- 86PA==
+ d=1e100.net; s=20230601; t=1746619330; x=1747224130;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cB9Vli3Xxo4KwEG4QM0VC4PHMgHe2AYxc+yOmxy2QWQ=;
+ b=pcstTInyeKOztWzBnnF1GdJBSK+P2Yl0I6kOOQ0b2uOK8xV6qCutR8J81bGOYA3UKW
+ kgrbz8mGLSa+jA7QdyZ3LeN8eNp+ESz/TRlXemC/T8kU+EPm8EhJVoPU/rf4CwmeCPLp
+ pZcs+7UuX1t2hKvY3cN+ye/Z9FBbx5LsJURyhdYmv12LgNBhsgs1eX06jRTAmaRVFAKP
+ tyEeIJoQVT/TFxTSoyneTQ+LNnxViMMTCYsmvjeBxIOjcuhG0njFfzPKAQfRcigAXU0j
+ gT+FODphHmYpdOlkFyQLLaT32hDZCAm7D83fPKcSaZbOxPtyZfNEQUL+DM5jNAqwyPjO
+ Ujnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnLfdQMykiPXC/W4ZTwagZWcIv/MOCbuG0Yxs5ctZtrSiYqVe2yHdTZNxliroBJRxzShht7AzoAWjMyQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw1Mfd7LhB1XOhTZcyhlZSaohnoanyTOOAVU2yLcQ9dw49P6O40
- HcPa43i8gLYOEPJzrfgd7sABSroM4YBRwAjFjP7wobzt0kenitbU
-X-Gm-Gg: ASbGncuJHB2lE63pZ6RlBrwyRLUrYqbWaOaUofGVPRRJ5tWlN5rTFc+IKAG03hK080C
- kXB0hzHkirDL8KsGeHFD6mlJ62b2A7eF14Qn3GZw0HytPoQUUmxbk6JAduxOvBsHtUE1hZyjS2r
- O4LmaMEzJ0YTjGtP2LBxmrD6uuV2FBdmpEHm7QwEL8i4AUQgHbDzW9MFQCqWGUknclJWfJsjX9N
- tPR4hfKZL+THLPLxcF3hcfyzn8zEiXlFFeT+dE2/5ftXUgk+lCcwHL4D53Pz1r/EtGv2nF75CRX
- +HU7UGfcuifemkOJChy2BP4miD/bpQmXA8gjI0WrJrG+P11qew==
-X-Google-Smtp-Source: AGHT+IHUTGuZKxGzeUHzGfykWA8vb3hzItLyZnesCtBXdESu0mFRGfHYDE/15YKTQH60qIZWWmK6oA==
-X-Received: by 2002:a17:907:c388:b0:ace:d3f0:e51d with SMTP id
- a640c23a62f3a-ad1e8d89b0cmr288549566b.54.1746616006898; 
- Wed, 07 May 2025 04:06:46 -0700 (PDT)
-Received: from [192.168.1.130] ([188.193.103.108])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad18914d067sm888907766b.3.2025.05.07.04.06.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 May 2025 04:06:46 -0700 (PDT)
-Message-ID: <63665c17-da37-4b5b-9c2d-28d5a669680f@gmail.com>
-Date: Wed, 7 May 2025 13:06:44 +0200
+ AJvYcCUThAtHBZBwm9yHClZGoTY4KSL8NaDX1+qBszteU8+2utZOqV2DpXThbrTNjvHZPNuIp5mm/yDu4LqFlw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YydVuMt9P6VCb24fjq6Xu2ymBaFm4sZHbC3++TZkhDtFMbxiwq3
+ RB44v2JTfyPdJZKgPLfLMAdGIqXhOVtI07pKzr6J44P38c7Crh21OovRRQ==
+X-Gm-Gg: ASbGnctWQHuERDtniHFTEEnFRNFcWvjgXPUBC4ol579ktCvYk5Xq49hTLpkt//yVIAS
+ P3neYSobcOyjufc5F8zO6eV9iEUoGtdJbyLGKmcjHT46Nw/XH/xwv5f2y9TQwNk0JKtnFv13QnZ
+ ynR4C+QHAsnCWtdkvmDHHf/s6p47VAdY9unS5+O4nV+c++TYiBrUOAWtV38Ppkkvzfyqd43Vt6D
+ d/BZQFCuL1JWk04K0iLbqMb1NRvgDPwGYOUAK5N3A0AIKrWB24Kxigv6oHJapI7EcgMrMiHUa0a
+ EVZehwFCUr06yUmP
+X-Google-Smtp-Source: AGHT+IGRl9BUi1WrHprzmvGHRtZmly2KUBbHCnPcITRG9+w3NMHRJoWIA8I9LxLmf29VDGt76SQFqg==
+X-Received: by 2002:ad4:5dc3:0:b0:6e8:ede1:237 with SMTP id
+ 6a1803df08f44-6f542b31434mr45097126d6.43.1746619317492; 
+ Wed, 07 May 2025 05:01:57 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 6a1803df08f44-6f542647e03sm13464756d6.29.2025.05.07.05.01.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 May 2025 05:01:56 -0700 (PDT)
+Date: Wed, 7 May 2025 20:01:29 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>, Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <2tu2mvwsnqdezjei5h43ko24vfave4c3ek2fjoatwsg72p6lpz@3vbtpmm7l73z>
+References: <20250506093256.1107770-1-inochiama@gmail.com>
+ <c7a8185e-07b7-4a62-b39b-7d1e6eec64d6@lunn.ch>
+ <fgao5qnim6o3gvixzl7lnftgsish6uajlia5okylxskn3nrexe@gyvgrp72jvj6>
+ <ffa044e2-ee9e-4a34-af6a-2e45294144f7@lunn.ch>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20250505115827.29593-1-goran.radni@gmail.com>
- <20250505115827.29593-5-goran.radni@gmail.com>
- <2d0ff289-06f6-4bde-a238-097d22573d4e@lunn.ch>
-Content-Language: en-US
-From: Goran Radenovic <goran.radni@gmail.com>
-In-Reply-To: <2d0ff289-06f6-4bde-a238-097d22573d4e@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <ffa044e2-ee9e-4a34-af6a-2e45294144f7@lunn.ch>
+Cc: Longbin Li <looong.bin@gmail.com>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Chen Wang <unicorn_wang@outlook.com>, Jose Abreu <joabreu@synopsys.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ sophgo@lists.linux.dev, Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- =?UTF-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <boerge.struempfel@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 4/4] ARM: dts: stm32: add initial
- support for stm32mp157-ultra-fly-sbc board
+ Lothar Rubusch <l.rubusch@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/4] riscv: sophgo: Add ethernet
+ support for SG2042
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,59 +105,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew,
-
-thank You very much for Your comments.
-
-Andrew Lunn wrote:
->> +&ethernet0 {
->> +	status = "okay";
->> +	pinctrl-0 = <&ethernet0_ux_rgmii_pins_a>;
->> +	pinctrl-1 = <&ethernet0_ux_rgmii_pins_sleep_a>;
->> +	pinctrl-names = "default", "sleep";
->> +	phy-mode = "rgmii-id";
->> +	max-speed = <1000>;
+On Wed, May 07, 2025 at 02:10:48AM +0200, Andrew Lunn wrote:
+> On Wed, May 07, 2025 at 06:24:29AM +0800, Inochi Amaoto wrote:
+> > On Tue, May 06, 2025 at 02:03:18PM +0200, Andrew Lunn wrote:
+> > > On Tue, May 06, 2025 at 05:32:50PM +0800, Inochi Amaoto wrote:
+> > > > The ethernet controller of SG2042 is Synopsys DesignWare IP with
+> > > > tx clock. Add device id for it.
+> > > > 
+> > > > This patch can only be tested on a SG2042 x4 evb board, as pioneer
+> > > > does not expose this device.
+> > > 
+> > > Do you have a patch for this EVB board? Ideally there should be a user
+> > > added at the same time as support for a device.
+> > > 
+> > > 	Andrew
+> > 
+> > Yes, I have one for this device. And Han Gao told me that he will send
+> > the board patch for the evb board. So I only send the driver.
+> > And the fragment for the evb board is likes below, I think it is kind
+> > of trivial:
+> > 
+> > &gmac0 {
+> > 	phy-handle = <&phy0>;
+> > 	phy-mode = "rgmii-txid";
 > 
-> max-speed is probably pointless, rgmii cannot do more than 1G.
-
-Agreed. I'll drop the `max-speed` property in the next revision.
-
-
->> +	phy-handle = <&phy1>;
->> +
->> +	mdio {
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +		compatible = "snps,dwmac-mdio";
->> +		phy1: ethernet-phy@1 {
->> +			reg = <1>;
->> +			interrupt-parent = <&gpiod>;
->> +			interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
+> And this is why i ask, because this is broken. For more information,
+> please see:
 > 
-> PHY interrupts are 99% time level, not edge.
-
-That is correct, but I am facing strange behavior, when I set 
-IRQ_TYPE_LEVEL_LOW.
-My board stops booting at:
-
-[    2.343233] Waiting for root device /dev/mmcblk0p4...
-[   12.638818] platform 5a006000.usbphyc: deferred probe pending
-[   12.643192] platform 49000000.usb-otg: deferred probe pending
-[   12.649029] platform 48003000.adc: deferred probe pending
-[   12.654277] platform 5800d000.usb: deferred probe pending
-[   12.659744] platform 5800c000.usb: deferred probe pending
-[   12.665089] amba 58005000.mmc: deferred probe pending
-[   12.670239] amba 58007000.mmc: deferred probe pending
-[   12.675185] platform 50025000.vrefbuf: deferred probe pending
-
-I must investigate this. If You have any idea, You are welcome to share it.
-
+> https://patchwork.kernel.org/project/netdevbpf/patch/20250430-v6-15-rc3-net-rgmii-delays-v2-1-099ae651d5e5@lunn.ch/
+> 
 > 	Andrew
+
+You are right, the right phy-mode is "rgmii-id", the delay is not
+added by the PCB. It seems to be better to ask for the vendor about
+the hardware design before copying params for vendor dts. Anyway,
+thanks for reviewing this.
+
+Regards,
+Inochi
 
 _______________________________________________
 Linux-stm32 mailing list
