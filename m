@@ -2,62 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA04AAF6F9
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 May 2025 11:44:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FBF5AAFA3A
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 May 2025 14:40:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCF6FC7A821;
-	Thu,  8 May 2025 09:44:04 +0000 (UTC)
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35839C7A822;
+	Thu,  8 May 2025 12:40:54 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36E01C78F62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A087FC78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 May 2025 09:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1746697442; x=1778233442;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=nPT/F3W9N+by11bdaqC4yK2ZudPzdLXlWraniupgjJw=;
- b=EXOlYIAkmLHT4WwkvDHp4zet0dXH0CnSYxrO5y9i6rM+tCX77uI/pIIs
- 722ty82Hxz17KfEdvUbSXUwUxjPGyhPZ4AK161IwH0aiShRlHdB97S1Ux
- VcuG4ahiBIw9AzVZKkt4OL5yQE7Tr8yApvqvY+KDgMaro2Y5z993VYmuX
- kFF1lOCAAXlO54ix48UZy43qrJHGvAvOv/tzJW13BZi4Cm7gSChVM2NW4
- 2nnFqnnyBK7g9uqrQLbJb7EOgLG7G23oasloMcXxAMahxRY1aw6IJ/9HQ
- x4AfYIhG1o2agc68RCl42Gu6vtmvG+hiF2NNiJa1HFUrO/4zXKkUOBX19 A==;
-X-CSE-ConnectionGUID: dgXtX5N7RouoR3jSWbnLcw==
-X-CSE-MsgGUID: 6CsaHletTeu58H0FkJHF0g==
-X-IronPort-AV: E=Sophos;i="6.15,271,1739862000"; d="scan'208";a="208871395"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 08 May 2025 02:44:00 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Thu, 8 May 2025 02:43:19 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.44 via Frontend
- Transport; Thu, 8 May 2025 02:43:19 -0700
-Date: Thu, 8 May 2025 11:41:56 +0200
-From: Horatiu Vultur <horatiu.vultur@microchip.com>
+ Thu,  8 May 2025 12:40:52 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5fc9106466fso47451a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 08 May 2025 05:40:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1746708052; x=1747312852;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FfaMOjFCxtcOF8MhEpb1KgHLIQZnLvXhrX8KE+Reg/I=;
+ b=JrJwr//1Yu7RQCtaiyQYjPUcVtUVeRmeuY590STWCsOkvryHWpzMfJiH8r1LkVZtIT
+ 7R9eBZnAEytUbY6adSfJUqT46OJ6T6r4rQxgJ9+Zky8/EsLU8T85SX44mVpC1l8hT6yt
+ KzcjogTLSBJ3F1kAazBaL4gbMDsAAKDbkREuR6tDfTgKyW48twx8nAYhZ7hLLzxudreW
+ IZUMHCerCbdw51ZvHlAcp3sbTqj7OlTQ7wgrm8czv1o3rZmojucQtlrh2n4VGzyEFT6i
+ /XkZOZQksPmayWqlQfDD4WtF2Ag9D4Gnycbv9lTVKK+Yv8hCLqp78YYHObBhMUVNbpYU
+ yyFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1746708052; x=1747312852;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FfaMOjFCxtcOF8MhEpb1KgHLIQZnLvXhrX8KE+Reg/I=;
+ b=Aj0Yo+KAq2eOn1ulz3G9ES2eMM/dioI15DHu1PP3mQKQF5VJ0/jMAQpPwlKLWZOHAf
+ T3/LI2WgFpBVJqc1AjtyPVRZeAIGCWCEaeJ2oPox7QatdVBFvV0FJa5a9p06KEHefNOf
+ 2f9Nt2/UoZKkY1EhCy1yK4stgcFmjNP3WgwHeaYkMpktHParS2vFgMD8XWfQ/MvaSSaj
+ ye1tzLJhv3mfnEiWheHyoiYZaeD3KnSLLnopZak3kIS6wuCuAlBtyXylec9xycGf0RtR
+ IZ2S1/29F/KZG4ULerYV7T0WlCvIX0ZY7kLlc3fOk7UOmDrcUZVMecS6GpqUHaAm4hhe
+ 5nCg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWdd0R32xd5HhjTzk8yWssJu/ZOFNTm7kMJjw2IBFxzpjeid3+mgR3EUVgpzIHu4gM+enyg8WU/I1+eCQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yyamt0uBU6pErA7cSE3D7oDUTXyr3TOFEO12RVis/7pNcGS2/2x
+ e03gS+RmvLGE6Jw4wZZ+MzpRVIT734i1znyp0ttaytsOJCzqdwpX
+X-Gm-Gg: ASbGncuUzom7Ss/6je1PwdvIe4MtAoSWOJQWqxoCsjJ0OSRllRA3+utXbRrj1RLd+JQ
+ oVI9cbRY85Nb85+zC4UoC7VjZPxUH6g3o/cax1I/Q8MyjR6uKw2iPrG8U/jqNfDRz1NOyfsBV/u
+ OLtahPhhSli8/+5Yzur312d0jdY1R3XV+2B64rX7OCzoGFEMg8pytCwwuS8i+b3lcMtxKFlCm2n
+ dOF3HizsEncrmjXPY330hixIRmGKOnZ4muP+OqlJ8RS9GEwsnAC7Wqd+bm8/ndN72yoEbe/wtsU
+ CoZXJcGMDLnLRERqiasWjJGBM/J7
+X-Google-Smtp-Source: AGHT+IFmPs/2aiiB0+rhM6F30MuvsarGsibw9G89lQ2xc3LVHmTRux9M5oIqfkwsO5WMCG0k9AZPCw==
+X-Received: by 2002:a05:6402:278d:b0:5f9:2a29:543b with SMTP id
+ 4fb4d7f45d1cf-5fbe9e329e6mr2233823a12.5.1746708051532; 
+ Thu, 08 May 2025 05:40:51 -0700 (PDT)
+Received: from skbuf ([188.25.50.178]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5fa777c8b70sm11517512a12.29.2025.05.08.05.40.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 May 2025 05:40:50 -0700 (PDT)
+Date: Thu, 8 May 2025 15:40:47 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
 To: Jason Xing <kerneljasonxing@gmail.com>
-Message-ID: <20250508094156.kbegdd5vianotsrr@DEN-DL-M31836.microchip.com>
+Message-ID: <20250508124047.xyhrabkxsbhceujv@skbuf>
 References: <20250508033328.12507-1-kerneljasonxing@gmail.com>
  <20250508033328.12507-5-kerneljasonxing@gmail.com>
  <20250508070700.m3bufh2q4v4llbfx@DEN-DL-M31836.microchip.com>
  <CAL+tcoCuvxfQUbzjSfk+7vPWLEqQgVK8muqkOQe+N6jQQwXfUw@mail.gmail.com>
+ <20250508094156.kbegdd5vianotsrr@DEN-DL-M31836.microchip.com>
+ <CAL+tcoBrB05QSTQjcCS7=W3GRTC5MeGoKv=inxtQHPvmYcmVyA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAL+tcoCuvxfQUbzjSfk+7vPWLEqQgVK8muqkOQe+N6jQQwXfUw@mail.gmail.com>
+In-Reply-To: <CAL+tcoBrB05QSTQjcCS7=W3GRTC5MeGoKv=inxtQHPvmYcmVyA@mail.gmail.com>
 Cc: willemb@google.com, horms@kernel.org, irusskikh@marvell.com,
- netdev@vger.kernel.org, bharat@chelsio.com,
+ davem@davemloft.net, netdev@vger.kernel.org, bharat@chelsio.com,
  linux-stm32@st-md-mailman.stormreply.com, UNGLinuxDriver@microchip.com,
  andrew+netdev@lunn.ch, edumazet@google.com,
  linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
  ayush.sawal@chelsio.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, sgoutham@marvell.com, Jason Xing <kernelxing@tencent.com>
+ Horatiu Vultur <horatiu.vultur@microchip.com>, sgoutham@marvell.com,
+ Jason Xing <kernelxing@tencent.com>
 Subject: Re: [Linux-stm32] [PATCH net-next v1 4/4] net: lan966x: generate
  software timestamp just before the doorbell
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -71,58 +93,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIDA1LzA4LzIwMjUgMTY6NDAsIEphc29uIFhpbmcgd3JvdGU6Cj4gSGkgSG9yYXRpdSwKCkhp
-IEphc29uLAoKPiAKPiBPbiBUaHUsIE1heSA4LCAyMDI1IGF0IDM6MDjigK9QTSBIb3JhdGl1IFZ1
-bHR1cgo+IDxob3JhdGl1LnZ1bHR1ckBtaWNyb2NoaXAuY29tPiB3cm90ZToKPiA+Cj4gPiBUaGUg
-MDUvMDgvMjAyNSAxMTozMywgSmFzb24gWGluZyB3cm90ZToKPiA+ID4KPiA+ID4gRnJvbTogSmFz
-b24gWGluZyA8a2VybmVseGluZ0B0ZW5jZW50LmNvbT4KPiA+ID4KPiA+ID4gTWFrZSBzdXJlIHRo
-ZSBjYWxsIG9mIHNrYl90eF90aW1lc3RhbXAgYXMgY2xvc2UgdG8gdGhlIGRvb3JiZWxsLgo+ID4g
-Pgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBKYXNvbiBYaW5nIDxrZXJuZWx4aW5nQHRlbmNlbnQuY29t
-Pgo+ID4gPiAtLS0KPiA+ID4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L21pY3JvY2hpcC9sYW45NjZ4
-L2xhbjk2NnhfZmRtYS5jIHwgMiArLQo+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspLCAxIGRlbGV0aW9uKC0pCj4gPiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9l
-dGhlcm5ldC9taWNyb2NoaXAvbGFuOTY2eC9sYW45NjZ4X2ZkbWEuYyBiL2RyaXZlcnMvbmV0L2V0
-aGVybmV0L21pY3JvY2hpcC9sYW45NjZ4L2xhbjk2NnhfZmRtYS5jCj4gPiA+IGluZGV4IDUwMjY3
-MDcxODEwNC4uZTAzMGYyM2U1MTQ1IDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhl
-cm5ldC9taWNyb2NoaXAvbGFuOTY2eC9sYW45NjZ4X2ZkbWEuYwo+ID4gPiArKysgYi9kcml2ZXJz
-L25ldC9ldGhlcm5ldC9taWNyb2NoaXAvbGFuOTY2eC9sYW45NjZ4X2ZkbWEuYwo+ID4gPiBAQCAt
-NzMwLDcgKzczMCw2IEBAIGludCBsYW45NjZ4X2ZkbWFfeG1pdChzdHJ1Y3Qgc2tfYnVmZiAqc2ti
-LCBfX2JlMzIgKmlmaCwgc3RydWN0IG5ldF9kZXZpY2UgKmRldikKPiA+ID4gICAgICAgICAgICAg
-ICAgIH0KPiA+ID4gICAgICAgICB9Cj4gPiA+Cj4gPiA+IC0gICAgICAgc2tiX3R4X3RpbWVzdGFt
-cChza2IpOwo+ID4KPiA+IENoYW5naW5nIHRoaXMgd2lsbCBicmVhayB0aGUgUEhZIHRpbWVzdGFt
-cGluZyBiZWNhdXNlIHRoZSBmcmFtZSBnZXRzCj4gPiBtb2RpZmllZCBpbiB0aGUgbmV4dCBsaW5l
-LCBtZWFuaW5nIHRoYXQgdGhlIGNsYXNzaWZ5IGZ1bmN0aW9uIHdpbGwKPiA+IGFsd2F5cyByZXR1
-cm4gUFRQX0NMQVNTX05PTkUuCj4gCj4gU29ycnkgdGhhdCBJJ20gbm90IHRoYXQgZmFtaWxpYXIg
-d2l0aCB0aGUgZGV0YWlscy4gSSB3aWxsIHJlbW92ZSBpdAo+IGZyb20gdGhpcyBzZXJpZXMsIGJ1
-dCBzdGlsbCB0cnlpbmcgdG8gZmlndXJlIG91dCB3aGF0IGNhc2VzIGNvdWxkIGJlLgo+IAo+IERv
-IHlvdSBtZWFuIGl0IGNhbiBicmVhayB3aGVuIGJwZiBwcm9nIGlzIGxvYWRlZCBiZWNhdXNlCj4g
-J3NrYl9wdXNoKHNrYiwgSUZIX0xFTl9CWVRFUyk7JyBleHBhbmRzIHRoZSBza2ItPmRhdGEgYXJl
-YT8KCldlbGwsIHRoZSBicGYgcHJvZ3JhbSB3aWxsIGNoZWNrIGlmIGl0IGlzIGEgUFRQIGZyYW1l
-IHRoYXQgbmVlZHMgdG8gYmUKdGltZXN0YW1wIHdoZW4gaXQgcnVucyBwdHBfY2xhc3NpZnlfcmF3
-LCBhbmQgYXMgd2UgcHVzaCBzb21lIGRhdGEgaW4KZnJvbnQgb2YgdGhlIGZyYW1lLCB0aGUgYnBm
-IHdpbGwgcnVuIGZyb20gdGhhdCBwb2ludCBtZWFuaW5nIHRoYXQgaXQKd291bGQgZmFpbGVkIHRv
-IGRldGVjdCB0aGUgUFRQIGZyYW1lcy4KCj4gTWF5IEkgYXNrCj4gaG93IHRoZSBtb2RpZmllZCBk
-YXRhIG9mIHNrYiBicmVha3MgdGhlIFBIWSB0aW1lc3RhbXBpbmcgZmVhdHVyZT8KCklmIGl0IGZh
-aWxzIHRvIGRldGVjdCB0aGF0IGl0IGlzIGEgUFRQIGZyYW1lLCB0aGVuIHRoZSBmcmFtZSB3aWxs
-IG5vdCBiZQpwYXNzZWQgdG8gdGhlIFBIWSB1c2luZyB0aGUgY2FsbGJhY2sgdHh0c3RhbXAuIFNv
-IHRoZSBQSFkgd2lsbCB0aW1lc3RhbXAgdGhlCmZyYW1lIGJ1dCBpdCBkb2Vzbid0IGhhdmUgdGhl
-IGZyYW1lIHRvIGF0dGFjaCB0aGUgdGltZXN0YW1wLgoKPiAKPiBUaGFua3MsCj4gSmFzb24KPiAK
-PiA+Cj4gPiBOYWNrZWQtYnk6IEhvcmF0aXUgVnVsdHVyIDxob3JhdGl1LnZ1bHR1ckBtaWNyb2No
-aXAuY29tPgo+ID4KPiA+ID4gICAgICAgICBza2JfcHVzaChza2IsIElGSF9MRU5fQllURVMpOwo+
-ID4gPiAgICAgICAgIG1lbWNweShza2ItPmRhdGEsIGlmaCwgSUZIX0xFTl9CWVRFUyk7Cj4gPiA+
-ICAgICAgICAgc2tiX3B1dChza2IsIDQpOwo+ID4gPiBAQCAtNzY4LDYgKzc2Nyw3IEBAIGludCBs
-YW45NjZ4X2ZkbWFfeG1pdChzdHJ1Y3Qgc2tfYnVmZiAqc2tiLCBfX2JlMzIgKmlmaCwgc3RydWN0
-IG5ldF9kZXZpY2UgKmRldikKPiA+ID4gICAgICAgICAgICAgICAgIG5leHRfZGNiX2J1Zi0+cHRw
-ID0gdHJ1ZTsKPiA+ID4KPiA+ID4gICAgICAgICAvKiBTdGFydCB0aGUgdHJhbnNtaXNzaW9uICov
-Cj4gPiA+ICsgICAgICAgc2tiX3R4X3RpbWVzdGFtcChza2IpOwo+ID4gPiAgICAgICAgIGxhbjk2
-NnhfZmRtYV90eF9zdGFydCh0eCk7Cj4gPiA+Cj4gPiA+ICAgICAgICAgcmV0dXJuIE5FVERFVl9U
-WF9PSzsKPiA+ID4gLS0KPiA+ID4gMi40My41Cj4gPiA+Cj4gPgo+ID4gLS0KPiA+IC9Ib3JhdGl1
-CgotLSAKL0hvcmF0aXUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
-YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, May 08, 2025 at 08:22:39PM +0800, Jason Xing wrote:
+> Thanks for the kind reply.
+> 
+> It looks like how to detect depends on how the bpf prog is written?
+> Mostly depends on how the writer handles this data part. Even though
+> we don't guarantee on how to ask users/admins to write/adjust their
+> bpf codes, it's not that convenient for them if this patch is applied,
+> to be frank. I'm not pushing you to accept this patch, just curious on
+> "how and why". Now I can guess why you're opposed to it....
+
+The BPF program is not user-generated, it is run in the context of the
+function you're moving.
+
+skb_tx_timestamp()
+-> skb_clone_tx_timestamp()
+   -> classify()
+      -> ptp_classify_raw()
+         -> bpf_prog_run(ptp_insns, skb)
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
