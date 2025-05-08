@@ -2,62 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF609AAF447
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 May 2025 09:08:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F0AAAF687
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 May 2025 11:16:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E5A8C7A821;
-	Thu,  8 May 2025 07:08:49 +0000 (UTC)
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 278D0C7A822;
+	Thu,  8 May 2025 09:16:14 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E85FC01E99
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 902A2C7A821
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 May 2025 07:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1746688129; x=1778224129;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ro+fNqHlMjS5LfEr2nfJj/uKzW54Yi1ADwyqobeaERo=;
- b=DWZvPQotILnTYPmc2wG6v9dWYHdgYXdBWXhOCYbcnbEmXLgK0pf7uX6f
- 5tGznxtvbaIeNkteK66ZcZuWD/shyBIvKMZilXk8Et4L7NvzD2lPJWh59
- fKruLPf66qcibcFiVuoNi0twLvkQwWH3ikf66y4vKWfgbErpQ1nAo3Mlk
- 7WtXwTnpc+NzpvaRv7WJTNXFvagHZ/6H44dMJLcRoo6bJ3kxEe57Z06HO
- C652rUILkGlJewEG3LXlI+dRUvJ9eC6Mc9XaSr5qhOYY7pWJvhe44NeFF
- yQQI8T1hC9UkRlIL5uesvLtgj9OfNeHQ6nIzw/iB8hFWlrGmjM2bDy5mR A==;
-X-CSE-ConnectionGUID: Lkz06igDQsq9icAK8YbzRw==
-X-CSE-MsgGUID: r697ijZUQQ20/Ff89o04IQ==
-X-IronPort-AV: E=Sophos;i="6.15,271,1739862000"; d="scan'208";a="272726326"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 08 May 2025 00:08:46 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.44; Thu, 8 May 2025 00:08:23 -0700
-Received: from localhost (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.44 via Frontend
- Transport; Thu, 8 May 2025 00:08:22 -0700
-Date: Thu, 8 May 2025 09:07:00 +0200
-From: Horatiu Vultur <horatiu.vultur@microchip.com>
-To: Jason Xing <kerneljasonxing@gmail.com>
-Message-ID: <20250508070700.m3bufh2q4v4llbfx@DEN-DL-M31836.microchip.com>
-References: <20250508033328.12507-1-kerneljasonxing@gmail.com>
- <20250508033328.12507-5-kerneljasonxing@gmail.com>
+ Thu,  8 May 2025 09:16:13 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1uCxMN-0002ns-0K; Thu, 08 May 2025 11:16:07 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
+ helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1uCxMM-001hZc-0Y;
+ Thu, 08 May 2025 11:16:06 +0200
+Received: from pza by lupine with local (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1uCxMM-00042G-0L;
+ Thu, 08 May 2025 11:16:06 +0200
+Message-ID: <ee4e3e521434a0dadce058e7e5f3bbd77f598f90.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Patrice Chotard <patrice.chotard@foss.st.com>, Mark Brown
+ <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 08 May 2025 11:16:06 +0200
+In-Reply-To: <20250507-b4-upstream_ospi_reset_update-v3-1-7e46a8797572@foss.st.com>
+References: <20250507-b4-upstream_ospi_reset_update-v3-1-7e46a8797572@foss.st.com>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250508033328.12507-5-kerneljasonxing@gmail.com>
-Cc: willemb@google.com, horms@kernel.org, irusskikh@marvell.com,
- netdev@vger.kernel.org, bharat@chelsio.com,
- linux-stm32@st-md-mailman.stormreply.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, edumazet@google.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- ayush.sawal@chelsio.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, sgoutham@marvell.com, Jason Xing <kernelxing@tencent.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v1 4/4] net: lan966x: generate
- software timestamp just before the doorbell
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3] spi: stm32-ospi: Make usage of
+ reset_control_acquire/release() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,50 +63,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The 05/08/2025 11:33, Jason Xing wrote:
+Hi Patrice,
+
+On Mi, 2025-05-07 at 18:04 +0200, Patrice Chotard wrote:
+> As ospi reset is consumed by both OMM and OSPI drivers, use the reset
+> acquire/release mechanism which ensure exclusive reset usage.
 > 
-> From: Jason Xing <kernelxing@tencent.com>
+> This avoid to call reset_control_get/put() in OMM driver each time
+> we need to reset OSPI children and guarantee the reset line stays
+> deasserted.
 > 
-> Make sure the call of skb_tx_timestamp as close to the doorbell.
-> 
-> Signed-off-by: Jason Xing <kernelxing@tencent.com>
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 > ---
->  drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Changes in v3:
+>   - Remove previous patch 1/2 as already merged.
+>   - Keep the reset control acquired from probe() to remove().
+>   - Link to v2: https://lore.kernel.org/r/20250411-b4-upstream_ospi_reset_update-v2-0-4de7f5dd2a91@foss.st.com
 > 
-> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> index 502670718104..e030f23e5145 100644
-> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> @@ -730,7 +730,6 @@ int lan966x_fdma_xmit(struct sk_buff *skb, __be32 *ifh, struct net_device *dev)
->                 }
->         }
+> Changes in v2:
+>   - Rebased on spi/for-next (7a978d8fcf57).
+>   - Remove useless check on reset.
+>   - Add error handling on reset_control_acquire().
+>   - Link to v1: https://lore.kernel.org/all/20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com/
+> ---
+>  drivers/spi/spi-stm32-ospi.c | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
 > 
-> -       skb_tx_timestamp(skb);
+> diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+> index 668022098b1eac3628f0677e6d786e5a267346be..b2597b52beb1133155e0d6f601b0632ad4b8e8f5 100644
+> --- a/drivers/spi/spi-stm32-ospi.c
+> +++ b/drivers/spi/spi-stm32-ospi.c
+> @@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> -	ospi->rstc = devm_reset_control_array_get_optional_exclusive(dev);
+> +	ospi->rstc = devm_reset_control_array_get_exclusive_released(dev);
+>  	if (IS_ERR(ospi->rstc))
+>  		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
+>  				     "Can't get reset\n");
+> @@ -936,11 +936,13 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+>  	if (ret < 0)
+>  		goto err_pm_enable;
+>  
+> -	if (ospi->rstc) {
+> -		reset_control_assert(ospi->rstc);
+> -		udelay(2);
+> -		reset_control_deassert(ospi->rstc);
+> -	}
+> +	ret = reset_control_acquire(ospi->rstc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Can not acquire reset %d\n", ret);
+> +
+> +	reset_control_assert(ospi->rstc);
+> +	udelay(2);
+> +	reset_control_deassert(ospi->rstc);
+>  
+>  	ret = spi_register_controller(ctrl);
+>  	if (ret) {
+> @@ -983,6 +985,8 @@ static void stm32_ospi_remove(struct platform_device *pdev)
+>  	if (ospi->dma_chrx)
+>  		dma_release_channel(ospi->dma_chrx);
+>  
+> +	reset_control_release(ospi->rstc);
+> +
+>  	pm_runtime_put_sync_suspend(ospi->dev);
+>  	pm_runtime_force_suspend(ospi->dev);
+>  }
+> @@ -993,6 +997,8 @@ static int __maybe_unused stm32_ospi_suspend(struct device *dev)
+>  
+>  	pinctrl_pm_select_sleep_state(dev);
+>  
+> +	reset_control_release(ospi->rstc);
 
-Changing this will break the PHY timestamping because the frame gets
-modified in the next line, meaning that the classify function will
-always return PTP_CLASS_NONE.
+It would be nice to point out in a comment that OMM will temporarily
+take over control during resume. But either way,
 
-Nacked-by: Horatiu Vultur <horatiu.vultur@microchip.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
->         skb_push(skb, IFH_LEN_BYTES);
->         memcpy(skb->data, ifh, IFH_LEN_BYTES);
->         skb_put(skb, 4);
-> @@ -768,6 +767,7 @@ int lan966x_fdma_xmit(struct sk_buff *skb, __be32 *ifh, struct net_device *dev)
->                 next_dcb_buf->ptp = true;
-> 
->         /* Start the transmission */
-> +       skb_tx_timestamp(skb);
->         lan966x_fdma_tx_start(tx);
-> 
->         return NETDEV_TX_OK;
-> --
-> 2.43.5
-> 
-
--- 
-/Horatiu
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
