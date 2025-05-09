@@ -2,77 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84EB6AB10F8
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 May 2025 12:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBF5AB1170
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 May 2025 13:04:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32D5AC78F94;
-	Fri,  9 May 2025 10:45:12 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F473C78F96;
+	Fri,  9 May 2025 11:04:26 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7DA3C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C486DC78F94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 May 2025 10:45:11 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-5efe8d9ebdfso3584064a12.3
+ Fri,  9 May 2025 11:04:25 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-43cf628cb14so21663085e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 May 2025 03:45:11 -0700 (PDT)
+ Fri, 09 May 2025 04:04:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1746787511; x=1747392311;
+ d=linaro.org; s=google; t=1746788665; x=1747393465;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CxPInF1T9LVjEkvLtOyhGto+ZvX/qrXq2sR90esUvWw=;
- b=R+F4PC/k+ngqiaUenzljNJTDUvpbB55n7A44rzmcvEyP/qxqW/ClCMvVBVqCAxz5+w
- Zx75Ou+Vatf6CWR1PmUhYuNR2zVqgrjHYIR9npSfvzGOaCvfSpdt80H0eOUZj/c8uV+f
- tXpoCUFD9UL+PlklQ9RwHAvtADBA+m26SsYa3bP7mmZuAK5dGtDdl40kNJq5ATi1pc2D
- lV0UWsrXewqiWOM6LoXBuDVkybA549xSz2xh7w+DsM987MFPrXfD7XzQo06Gb1GSciPb
- QDQVR6r/MwySN3+j0DDAb8P67Lcd24tvwPebAuzaOSIt1DtZTsB+BsPmozVxQ13fQAny
- J+YQ==
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=3yJCNV9ygDRNtqgzkE30hTda74O4Y8KfcrRRQ3zGk4A=;
+ b=GaAnYzJhTSHFdsghbpX7w5tonIDAKlTvQnVYDtjF5R3JQikslV8wlKPv51LhcE2LEx
+ b96mpRFOsHBdtx0tRVv4mkaD6YRrCRGeRvC6/Auw+SmrXjqyF3U+7+8gzR4GpN6MWLhK
+ LK5lBmJD0vACOw+JCfF1vcvpOaXgVIjmv4QqfpY16TJAOf2t3FK0sIWZMn8XSUoxbF1n
+ Ze1/7kGYV7zG5p+zWYucnufIH9ND6cKqTRi37K9UgPiDfoOTvgNs0M9555YWU/mh3aek
+ X0s3IIEHGfIn64rhlriGSVhPLG0zjPhR4uTvOKl96zxDP6bZKvmAbBq6QDMXM+JA7koQ
+ KURg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746787511; x=1747392311;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CxPInF1T9LVjEkvLtOyhGto+ZvX/qrXq2sR90esUvWw=;
- b=gsI22gUqvWWaTlehdLyvE1I68B5rvIb+xd3bmi8qDrNTjBxX4b2o5C9jROtAOkuxGf
- MBbuXnmchvo1BZ6YWut69MvfVuTviH4P1dBeuhtJy8s8GtZlTwqeLh8tJobzoU0+0XkC
- He5J2SPiAIU7HtRh2dkQHKxVJc52qPUXTlPS1fTWKljwRI7cay0o3xFV5UhoIiMbHGkw
- iijVSE+4VuTd/+UB16jztZva4Ymj1MUAMpuHgyd5TGAUX63YQ8m0CSR6bdQJMvWR/ZLO
- RHmmv8YXEOuAMJGk1HE5Qrm9FhN3YlCfLvl5Y7RxuwxER+Tuc6AcGf+2Iy+8sQmKzavq
- F0kw==
+ d=1e100.net; s=20230601; t=1746788665; x=1747393465;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3yJCNV9ygDRNtqgzkE30hTda74O4Y8KfcrRRQ3zGk4A=;
+ b=Kh4HzTGT0/SSPmBuZlzP8LPdM8ZxlHQbOzp63r1V+DHBie/WeJR7VRsAGWMoI/J3r2
+ x2idP4R/9iEbQjAcuEUBrjyN8eJhQUpYpClipdG6GDoGjap8/zK2enkNXvq8QiDtUE/5
+ nxFyePKRsneMml266WGVxp2UB9lNqEUiXti/BzaZ17l6THQ3lJ6abd7YQnK4TtNsL60M
+ 9OTTasEUGFTTkG99vgxz5XLKIHEzPhBjovElTr3QEFs66xew+DgAnfoWIh37lEYMso/x
+ E7C/aHV5rs0z4QCAIuixNigG0GNtau7iJK6vwOY8eo6CC7LEnrzL0kQATnoQB8z/ErXM
+ ZEJg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdeAfXPx3olgTfh/IlmExm4Vs2KGwNNuJ/Fo2KwyzZ9HOmTpyPoXUteDjCNvzBG4LiALsyKui/qLdWCg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwARrIwNioeKWPZTmLlz7bi2aWVnM+qazinmfI9D7+7MhGro3Xp
- aHbEdaKwnis+syL4+zJpFxZL7N1OzstLvAhmAHkHCNk7k5k9QE3T
-X-Gm-Gg: ASbGnctZI/rePqVHhghQ69WlqE5TL2mSiu44nT5XrYLOLmLry9y9zBOl9Xh4e4BixBN
- RC8LDeSPNqDs7sbNcDbwbCcKhl9mQOkceEr9GnLkaQyyjhgT8BROsgxq6ORGU9CMOfMbovnMn7d
- SyKURVxxjmOpBWDQszX2KFKs8hLyL4Af/mCvVkuPm9zeg/gbLK8ddaNtacNFxXmUfETmmtuo/+T
- vmr3I4FhmDmi8X32gjcQZ9enIVkJxcSCSUXnH0IoMvUgaHrPTQxQPlRIUQIi683Xazwftr+nvp5
- i7o1dcFQn0+4M9TiesBq4fZZYSFtbjozTa85KjE=
-X-Google-Smtp-Source: AGHT+IGGLGNvENgsehRHPyd78blj4yJFAdejnjHHmOciST0qvwqR/4gxuUrwFEkkZ1cDCGVf1I/sgg==
-X-Received: by 2002:a17:906:99c2:b0:acb:34b2:851 with SMTP id
- a640c23a62f3a-ad219170650mr281983666b.44.1746787510903; 
- Fri, 09 May 2025 03:45:10 -0700 (PDT)
-Received: from localhost ([87.254.1.131]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ad219853421sm129131466b.165.2025.05.09.03.45.10
+ AJvYcCUfaN73y+UNxEDwXGgHz5RymuEFyB+6uressnAHBTrKStbFn+eB6u2DnxRppgSnpaNQO67JeoIW9gHtlA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwR2Pw27KoZGn7yc5bzjSv2fcRC3fmX3kzgXzLdM+Y7XQky8unm
+ otwrMM6NMGmkxcE6CMDMWp6FhfzJO9JU6vDvdvkzaUsAxCjCr1DPpLT+QMLYztc=
+X-Gm-Gg: ASbGncsd4nDT2u3t6hWk06fJ62M6YjXEfTUsRLITXyo5a1VcTMSCDUD9we793POAadY
+ dVLEYvlixcU68fecJAtKJ5tV3Yklr7X6z0WXj0PuxHbE1BOM4xgbCuAQ1THEWjgJE2ehOLZC8h5
+ 4zuMkJFFdFXAAsEF6SR0HHUGqOI7QaCUs0g33heCpPXbPZvvtwta/NCf5kyA0BwC+ryu6j2ljDW
+ nC17zw3ViIr82/PLDvuxz798Qfa6Y4E+7xHnrZji37z9ztvbU91zYzvd4AxE23j+WNijIYJFvTH
+ eNBz9AjJx4ZIBQZY9o2njC0vE8Bx6jUga3S6salgL4UHPA==
+X-Google-Smtp-Source: AGHT+IFw8W+AkGKpeFKjDzyDOm27ntxoNpUsFE65aEkWAInoVy+JgWVEmUmGVOr2GtLsFyJO7gfMIQ==
+X-Received: by 2002:a05:600c:8205:b0:43b:c857:e9d7 with SMTP id
+ 5b1f17b1804b1-442d6d98a88mr23417245e9.5.1746788663606; 
+ Fri, 09 May 2025 04:04:23 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-442d68585d1sm25970195e9.31.2025.05.09.04.04.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 May 2025 03:45:10 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Patrice Chotard <patrice.chotard@foss.st.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri,  9 May 2025 11:44:58 +0100
-Message-ID: <20250509104459.28167-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.49.0
+ Fri, 09 May 2025 04:04:23 -0700 (PDT)
+Date: Fri, 9 May 2025 14:04:19 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+Message-ID: <cover.1746781081.git.dan.carpenter@linaro.org>
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH][next] memory: stm32: Fix spelling mistake
-	"resset" -> "reset"
+Content-Disposition: inline
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] memory: stm32_omm: Fix error handling bugs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,28 +86,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is a spelling mistake in a dev_err message. Fix it.
+These are a couple bugs which were detected using the Smatch static
+checker.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/memory/stm32_omm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Dan Carpenter (2):
+  memory: stm32_omm: Fix error handling in stm32_omm_configure()
+  memory: stm32_omm: Fix NULL vs IS_ERR() check in probe()
 
-diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-index 166baed0738a..bef7cf4391d6 100644
---- a/drivers/memory/stm32_omm.c
-+++ b/drivers/memory/stm32_omm.c
-@@ -173,7 +173,7 @@ static int stm32_omm_disable_child(struct device *dev)
- 		ret = reset_control_acquire(reset);
- 		if (ret) {
- 			stm32_omm_toggle_child_clock(dev, false);
--			dev_err(dev, "Can not acquire resset %d\n", ret);
-+			dev_err(dev, "Can not acquire reset %d\n", ret);
- 			return ret;
- 		}
- 
+ drivers/memory/stm32_omm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
 -- 
-2.49.0
+2.47.2
 
 _______________________________________________
 Linux-stm32 mailing list
