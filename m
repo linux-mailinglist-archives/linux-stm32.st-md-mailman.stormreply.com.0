@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F160FAB224F
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 May 2025 10:52:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070FBAB2256
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 May 2025 10:53:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B13C4C7A82A;
-	Sat, 10 May 2025 08:52:37 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C12DEC7A82A;
+	Sat, 10 May 2025 08:52:59 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7460FC7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8142DC7802F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 May 2025 08:52:36 +0000 (UTC)
+ Sat, 10 May 2025 08:52:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6BCBE5C499A;
- Sat, 10 May 2025 08:50:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE61AC4CEE2;
- Sat, 10 May 2025 08:52:33 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C2519A4044B;
+ Sat, 10 May 2025 08:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99200C4CEE2;
+ Sat, 10 May 2025 08:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1746867154;
- bh=xxc2ym26er/oaaE1G9pmTnLUli4Nl+UeevCR9pjUqNY=;
+ s=k20201202; t=1746867177;
+ bh=1SkPWM5n3FYLcdavTA4KJyrAtCp2bvh3apwyFhEtzEE=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
- b=u6POvg0RoFpuchX+JOAMvMYPUDTwiBIHjt/qHcI/IRKDnfC1fSSp8+LYTudVdhtM2
- DGa1dlRsKF2q4WyKo4zK3QyVCou9Qd/SNLp9N66niyHUn7SkQkhJb8K9sGZVAkTi1A
- XaEKhgNhhsa6D6a1pd4kbzLucG9XwFGnp3UrH1WNNBtBsDK7Yro2GTRaJ1RzCvX/Z3
- Lu/ZVHWj+p87BElKR38XoGrcbMRaFc3cePAYB91awhQfijgxw8j7LMtXireDjlCkwB
- ZPJu51LjtqjP3331sjBmcRRdodGPtKsejzuUntd/H1o/JJTQf/6SUqTYesuOTGMaja
- 3FComrE5QG1eQ==
-Message-ID: <9c4cd5dbff541b2af45a7c093e619666@kernel.org>
-Date: Sat, 10 May 2025 08:52:30 +0000
+ b=aQOMxzs/fHdiIt9+goUYVhcMTPzIbYlRGbAcR+ZSU46xDAXlKvwZhIQ15EuUc4ztO
+ GwNuPspx/1O/WRyesHh+PYce1pOak4mH8LWUZRNbMPioHqJ1nDNtrZhqHDannUWPgL
+ eOxa/7DcUC4m6pF37VFbpaDrXcVT7ASqATt3/ylHCgo+Slpw+xG+mGaGMOTxtfZ8XX
+ IqhVy09w0A+hIZjo55RQIhy1SHUiHUMIGG85tSpLfilRz/KacrS16cyd6vzAScXgUy
+ jfFKsYkA4I2ELZ9ZPNqZPUMa+5128uRndGPlOez8VnTzzPKbFJkEUgs/kxpJsasgT8
+ RnMWXs9ETXCow==
+Message-ID: <0306d6e01554bd7f41d962848306ef9e@kernel.org>
+Date: Sat, 10 May 2025 08:52:53 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-6-b8bc1f16d7aa@bootlin.com>
-References: <20250509-drm-bridge-convert-to-alloc-api-v3-6-b8bc1f16d7aa@bootlin.com>
+In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-7-b8bc1f16d7aa@bootlin.com>
+References: <20250509-drm-bridge-convert-to-alloc-api-v3-7-b8bc1f16d7aa@bootlin.com>
 Cc: imx@lists.linux.dev, Thomas
  Petazzoni <thomas.petazzoni@bootlin.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
@@ -59,8 +59,8 @@ Cc: imx@lists.linux.dev, Thomas
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  freedreno@lists.freedesktop.org, Laurent
  Pinchart <Laurent.pinchart@ideasonboard.com>
-Subject: Re: [Linux-stm32] [PATCH v3 06/22] drm/bridge: nxp-ptn3460: convert
- to devm_drm_bridge_alloc() API
+Subject: Re: [Linux-stm32] [PATCH v3 07/22] drm/bridge: sii902x: convert to
+ devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,7 +78,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 9 May 2025 15:53:32 +0200, Luca Ceresoli wrote:
+On Fri, 9 May 2025 15:53:33 +0200, Luca Ceresoli wrote:
 > This is the new API for allocating DRM bridges.
 > 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
