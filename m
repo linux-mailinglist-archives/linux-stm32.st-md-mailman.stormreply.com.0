@@ -2,29 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC240AB3EB6
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 May 2025 19:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A98AB3EC5
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 May 2025 19:16:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89F0FC7A82D;
-	Mon, 12 May 2025 17:11:59 +0000 (UTC)
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E990C7A82A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D11D7C7A82D;
+	Mon, 12 May 2025 17:16:03 +0000 (UTC)
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
+ [95.215.58.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63CE7C7A82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 May 2025 17:11:58 +0000 (UTC)
-Received: from local
- by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.98.2) (envelope-from <daniel@makrotopia.org>)
- id 1uEWau-000000006LH-25Hs; Mon, 12 May 2025 17:11:32 +0000
-Date: Mon, 12 May 2025 18:11:25 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Sean Anderson <sean.anderson@linux.dev>
-Message-ID: <aCIrvTAGP5ukmwnb@makrotopia.org>
-References: <20250512161013.731955-1-sean.anderson@linux.dev>
+ Mon, 12 May 2025 17:16:03 +0000 (UTC)
+Message-ID: <5f99168b-c309-4c60-9313-d6687bb1998c@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1747070162;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=K8N6GKlbK16hAp/92AuGA8T5bSLcIE21CMka1AVFczE=;
+ b=aCzoCDXjrbj/khZWc3y7z15EqUNWmg1j25agjJ4p6xbwu55Ty1xS9zdRCHBWMpvgl1XE2d
+ T2RIo99ThvKuKH578Qs7qFHYNP552cmLjy0rOJ10TA1ra3CePl0qIM8khepBF06SERJT8P
+ FxLOwkO9bIqHawSbMjbhAcMiFx+rLCE=
+Date: Mon, 12 May 2025 13:15:53 -0400
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250512161013.731955-1-sean.anderson@linux.dev>
+To: Daniel Golle <daniel@makrotopia.org>
+References: <20250512161013.731955-1-sean.anderson@linux.dev>
+ <aCIrvTAGP5ukmwnb@makrotopia.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sean Anderson <sean.anderson@linux.dev>
+In-Reply-To: <aCIrvTAGP5ukmwnb@makrotopia.org>
+X-Migadu-Flow: FLOW_OUT
 Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Madalin Bucur <madalin.bucur@nxp.com>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
@@ -66,16 +77,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 12, 2025 at 12:10:02PM -0400, Sean Anderson wrote:
-> This series adds support for creating PCSs as devices on a bus with a
-> driver (patch 3). As initial users,
+On 5/12/25 13:11, Daniel Golle wrote:
+> On Mon, May 12, 2025 at 12:10:02PM -0400, Sean Anderson wrote:
+>> This series adds support for creating PCSs as devices on a bus with a
+>> driver (patch 3). As initial users,
+>> 
+>> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
+>> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
+>> - The Cadence MACB driver is converted to support external PCSs (namely
+>>   the Xilinx PCS) (patches 9-10).
 > 
-> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
-> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
-> - The Cadence MACB driver is converted to support external PCSs (namely
->   the Xilinx PCS) (patches 9-10).
+> Are those changes tested on real hardware?
 
-Are those changes tested on real hardware?
+Yes. I have tested the Xilinx changes on a custom board which uses both
+macb and axi ethernet MACs with the Xilinx PCS. I also tested the Lynx
+PCS changes on an LS1046ARDB. As noted in the AXI Ethernet commit, it
+has also been tested by Suraj Gupta, although I am not sure what
+hardware he used.
+
+--Sean
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
