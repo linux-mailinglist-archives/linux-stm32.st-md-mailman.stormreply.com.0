@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E0F9AB3D99
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 May 2025 18:32:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC240AB3EB6
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 May 2025 19:11:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDDB5C7A82D;
-	Mon, 12 May 2025 16:32:05 +0000 (UTC)
-Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com
- [91.218.175.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7EBBC7A82A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89F0FC7A82D;
+	Mon, 12 May 2025 17:11:59 +0000 (UTC)
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E990C7A82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 May 2025 16:32:04 +0000 (UTC)
-Message-ID: <76961134-0676-4ec5-b5e1-5a9693bff268@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1747067523;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JmNM1qr8paaatXiculJ5HFFWSqjMdY6Pe+6AalpRTVI=;
- b=wA4CXoJ3Ta2nrePmKsSMlFl45w4ah+sYkf90mdblqcv0w7R7YfJTu4FFoj6O+va9Nbua8V
- zJxlAWuM58jZjnzKgoGyEB8k0EzZ+hhfJ36dqnkC00BVGWfxGzckTK+coS29mkNyVtkbD/
- 8yCOMdAmcCPjUDvV1EJyctB+tXS/UFI=
-Date: Mon, 12 May 2025 17:31:57 +0100
+ Mon, 12 May 2025 17:11:58 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.98.2) (envelope-from <daniel@makrotopia.org>)
+ id 1uEWau-000000006LH-25Hs; Mon, 12 May 2025 17:11:32 +0000
+Date: Mon, 12 May 2025 18:11:25 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Sean Anderson <sean.anderson@linux.dev>
+Message-ID: <aCIrvTAGP5ukmwnb@makrotopia.org>
+References: <20250512161013.731955-1-sean.anderson@linux.dev>
 MIME-Version: 1.0
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-References: <20250512143607.595490-1-vladimir.oltean@nxp.com>
- <2ca5f592-74d3-41ff-8282-4359cb5ec171@linux.dev>
- <20250512155846.vbmc3wrvpidbzxqc@skbuf>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20250512155846.vbmc3wrvpidbzxqc@skbuf>
-X-Migadu-Flow: FLOW_OUT
-Cc: Furong Xu <0x1207@gmail.com>, Simon Horman <horms@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: convert to
- ndo_hwtstamp_get() and ndo_hwtstamp_set()
+Content-Disposition: inline
+In-Reply-To: <20250512161013.731955-1-sean.anderson@linux.dev>
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Eric Dumazet <edumazet@google.com>, "David S . Miller" <davem@davemloft.net>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>, UNGLinuxDriver@microchip.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Joyce Ooi <joyce.ooi@intel.com>,
+ linux-doc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Clark Wang <xiaoning.wang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Robert Hancock <robert.hancock@calian.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Wei Fang <wei.fang@nxp.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, upstream@airoha.com,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [net-next PATCH v4 00/11] Add PCS core support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,31 +61,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/05/2025 16:58, Vladimir Oltean wrote:
-> On Mon, May 12, 2025 at 04:50:35PM +0100, Vadim Fedorenko wrote:
->> On 12/05/2025 15:36, Vladimir Oltean wrote:
->>> New timestamping API was introduced in commit 66f7223039c0 ("net: add
->>> NDOs for configuring hardware timestamping") from kernel v6.6. It is
->>> time to convert the stmmac driver to the new API, so that the
->>> ndo_eth_ioctl() path can be removed completely.
->>
->> The conversion to the new API looks good, but stmmac_ioctl() isn't
->> removed keeping ndo_eth_ioctl() path in place. Did I miss something in
->> the patch?
+On Mon, May 12, 2025 at 12:10:02PM -0400, Sean Anderson wrote:
+> This series adds support for creating PCSs as devices on a bus with a
+> driver (patch 3). As initial users,
 > 
-> I was never intending with this work to remove ndo_eth_ioctl()
-> completely, but instead to completely remove the timestamping
-> configuration path that goes through ndo_eth_ioctl(). I apologize for
-> any false marketing and I will be more explicit about this in further
-> patches.
+> - The Lynx PCS (and all of its users) is converted to this system (patch 5)
+> - The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-8)
+> - The Cadence MACB driver is converted to support external PCSs (namely
+>   the Xilinx PCS) (patches 9-10).
 
-Got it. The patch itself looks good:
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Are those changes tested on real hardware?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
