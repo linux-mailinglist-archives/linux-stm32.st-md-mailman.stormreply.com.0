@@ -2,49 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E4DAB51A2
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 May 2025 12:17:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDEFAB5873
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 May 2025 17:24:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4E4EC7A835;
-	Tue, 13 May 2025 10:17:28 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D81D2C7A837;
+	Tue, 13 May 2025 15:24:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9438FC7A833
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AFABC78F62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 May 2025 10:17:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 873B1A4D488;
- Tue, 13 May 2025 10:17:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A91CC4CEED;
- Tue, 13 May 2025 10:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747131446;
- bh=1gM1XLcPgvrG+ys+qc6lxYqS0BilUpTT/Xx1KYUfe40=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WGeVCKf5BhAzUcwQrQNKICGlkgCNdN3dH/UoO/2nAPKY9brPthNPn8gUGIf70g9YL
- TMf8n+iVRsClxw1Va7+bTGdReYr/vKD3+z2XaEWycSj0tjnfF6K4StAwWXmIEGGM2t
- CVdPEf7vLcUe9uiUFWZc0RtAZw6TRwAtwYOoPByVro1hqMizQnD0Ffzm5/oIR7K3EF
- iAtCQrA0g6iL9FD+8KfsGzSIzrcuK6tU2Q4LczOxUzE7GFd2fCdi51Xx+JUlRDQIB/
- yfgUiX7a4O2nR/rDMwFZ5vVlaRR8NV/dAjfW9/SNuHaOJiVEaxK9i6DkmBFFSnQfWq
- EoKuvHVSEYLkw==
-Date: Tue, 13 May 2025 11:17:20 +0100
-From: Lee Jones <lee@kernel.org>
-To: daniel.lezcano@linaro.org, alexandre.torgue@foss.st.com,
- tglx@linutronix.de, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20250513101720.GH2936510@google.com>
-References: <20250429125133.1574167-1-fabrice.gasnier@foss.st.com>
- <174713127684.4157861.15977616973399970511.b4-ty@kernel.org>
+ Tue, 13 May 2025 15:24:46 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54DDxVGf019621;
+ Tue, 13 May 2025 17:24:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ e4Aq7HPeyHmZNMONnd/Qv8JQOHr8stkcWD0o0/Qj+zY=; b=6WjYTtlFh2jVpF6c
+ sAiuYst1VrwSG4Uu1J3k6lhmhRQFOjgBZAjZsSpgkJauvx9f1zwfbvNspQ7atVbd
+ iKp5tMvKZ6JFMQLPXPzQALgN9KBKwa/8OCI/Xwv6xwUYVFig7OsacuQ9vCBMgJKX
+ wGpe/oJTOWyIvZnUs83Fx9VAdQt4gETCdSELW9yHlAHIbRLFnucKgKj1VcGcxMC9
+ uMFD7keTcqOFIceCsICL89TuHQHFjgXzT0iitYSh9R3XX71dhpJ8+3LQj5Hc4fQ6
+ esm1fowNraTMATZLvrA94zjT9UakGtQJhX5aBsYUHY5rC3sEYOLwBs977cDbhAME
+ tN5OfA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46hx51cvaf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 May 2025 17:24:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2EEF74004A;
+ Tue, 13 May 2025 17:22:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B4592B1D1AF;
+ Tue, 13 May 2025 17:22:02 +0200 (CEST)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 May
+ 2025 17:22:01 +0200
+Message-ID: <33c35580-e6d6-4c66-80b4-2f5769ce4e67@foss.st.com>
+Date: Tue, 13 May 2025 17:22:01 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <174713127684.4157861.15977616973399970511.b4-ty@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, ukleinek@kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] (subset) [PATCH v6 0/7] Add STM32MP25 LPTIM
- support: MFD, PWM, IIO, counter, clocksource
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, Dan Carpenter
+ <dan.carpenter@linaro.org>
+References: <20250428-upstream_ospi_v6-v11-0-1548736fd9d2@foss.st.com>
+ <20250428-upstream_ospi_v6-v11-2-1548736fd9d2@foss.st.com>
+ <aB29hOrv0nU73RCn@stanley.mountain>
+ <cff1ddb5-b438-4287-80cf-3969f7b7b767@kernel.org>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <cff1ddb5-b438-4287-80cf-3969f7b7b767@kernel.org>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-13_03,2025-05-09_01,2025-02-21_01
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>, linux-kernel@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v11 2/3] memory: Add STM32 Octo Memory
+	Manager driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,38 +79,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxMyBNYXkgMjAyNSwgTGVlIEpvbmVzIHdyb3RlOgoKPiBPbiBUdWUsIDI5IEFwciAy
-MDI1IDE0OjUxOjI2ICswMjAwLCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6Cj4gPiBUaGlzIHNlcmll
-cyBhZGRzIHN1cHBvcnQgZm9yIFNUTTMyTVAyNSB0byBNRkQgUFdNLCBJSU8sIGNvdW50ZXIgYW5k
-Cj4gPiBjbG9ja3NvdXJjZSBsb3ctcG93ZXIgdGltZXIgKExQVElNKSBkcml2ZXJzLgo+ID4gVGhp
-cyBuZXcgdmFyaWFudCBpcyBtYW5hZ2VkIGJ5IHVzaW5nIGEgbmV3IERUIGNvbXBhdGlibGUgc3Ry
-aW5nLCBoYXJkd2FyZQo+ID4gY29uZmlndXJhdGlvbiBhbmQgdmVyc2lvbiByZWdpc3RlcnMuCj4g
-PiBJdCBjb21lcyB3aXRoIGEgc2xpZ2h0bHkgdXBkYXRlZCByZWdpc3RlciBzZXQsIHNvbWUgbmV3
-IGZlYXR1cmVzIGFuZCBuZXcKPiA+IGludGVyY29ubmVjdCBzaWduYWxzIGluc2lkZSB0aGUgU29D
-Lgo+ID4gU2FtZSBmZWF0dXJlIGxpc3QgYXMgb24gU1RNMzJNUDF4IGlzIHN1cHBvcnRlZCBjdXJy
-ZW50bHkuCj4gPiBUaGUgZGV2aWNlIHRyZWUgZmlsZXMgYWRkIGFsbCBpbnN0YW5jZXMgaW4gc3Rt
-MzJtcDI1MSBkdHNpIGZpbGUuCj4gPiAKPiA+IFsuLi5dCj4gCj4gQXBwbGllZCwgdGhhbmtzIQo+
-IAo+IFsxLzddIGR0LWJpbmRpbmdzOiBtZmQ6IHN0bTMyLWxwdGltZXI6IGFkZCBzdXBwb3J0IGZv
-ciBzdG0zMm1wMjUKPiAgICAgICBjb21taXQ6IDNmOWNlOWQwNzYwYWQ2OGE5YzIwMTY3NjY0ZDAy
-NmQ5MWRhNjY4NzkKPiBbMi83XSBtZmQ6IHN0bTMyLWxwdGltZXI6IGFkZCBzdXBwb3J0IGZvciBz
-dG0zMm1wMjUKPiAgICAgICBjb21taXQ6IDRmOGNlYjAzMDJiMzZjNWY3OGJjYzhkMGU3Y2ZhMjM3
-MmZiYTEzNGMKPiBbMy83XSBjbG9ja3NvdXJjZTogc3RtMzItbHB0aW1lcjogYWRkIHN1cHBvcnQg
-Zm9yIHN0bTMybXAyNQo+ICAgICAgIGNvbW1pdDogNTQxNGJjOGM1N2M0MTAzOGIxOTk0Y2QyMWEy
-Y2MwYjg0MTVjMTU0NAo+IFs0LzddIHB3bTogc3RtMzItbHA6IGFkZCBzdXBwb3J0IGZvciBzdG0z
-Mm1wMjUKPiAgICAgICBjb21taXQ6IDNmNTFiMjMyYzFkYThlNTllYjU2MmYxZDgxNTMzMzM0ODI3
-YTQ3OTkKCkluIGZ1dHVyZSwgcGxlYXNlIG1hdGNoIHRoZSBzdWJqZWN0IGZvcm1hdCB3aXRoIHRo
-YXQgZXhwZWN0ZWQgYnkgdGhlCnN1YnN5c3RlbS4gIEZvciB0aGlzLCBgZ2l0IGxvZyAtLW9uZWxp
-bmUgLS0gPHN1YnN5c3RlbT5gIGlzIHlvdXIgZnJpZW5kLgoKSSBjaGFuZ2VkIHRoZW0gYWxsIGZv
-ciB5b3UgdGhpcyB0aW1lLgoKVGhlIGFib3ZlIHBhdGNoZXMgaGF2ZSBiZWVuIGFwcGxpZWQgYW5k
-IHN1Ym1pdHRlZCBmb3IgYnVpbGQgdGVzdGluZy4KT25jZSBjb21wbGV0ZSwgSSdsbCBmb2xsb3ct
-dXAgd2l0aCBhbiBQUiBmb3IgdGhlIG90aGVyIG1haW50YWluZXJzIHRvCnB1bGwgZnJvbS4KCk5v
-dGUgdG8gc2VsZjogaWItbWZkLWNsb2Nrc291cmNlLXB3bS02LjE2CgotLSAKTGVlIEpvbmVzIFvm
-nY7nkLzmlq9dCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+
+On 5/13/25 09:54, Krzysztof Kozlowski wrote:
+> On 09/05/2025 10:32, Dan Carpenter wrote:
+>> On Mon, Apr 28, 2025 at 10:58:31AM +0200, Patrice Chotard wrote:
+>>> +static int stm32_omm_toggle_child_clock(struct device *dev, bool enable)
+>>> +{
+>>> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+>>> +	int i, ret;
+>>> +
+>>> +	for (i = 0; i < omm->nb_child; i++) {
+>>> +		if (enable) {
+>>> +			ret = clk_prepare_enable(omm->clk_bulk[i + 1].clk);
+>>> +			if (ret) {
+>>> +				dev_err(dev, "Can not enable clock\n");
+>>> +				goto clk_error;
+>>> +			}
+>>> +		} else {
+>>> +			clk_disable_unprepare(omm->clk_bulk[i + 1].clk);
+>>> +		}
+>>> +	}
+>>> +
+>>> +	return 0;
+>>> +
+>>> +clk_error:
+>>> +	while (i--)
+>>> +		clk_disable_unprepare(omm->clk_bulk[i + 1].clk);
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>> +static int stm32_omm_disable_child(struct device *dev)
+>>> +{
+>>> +	struct stm32_omm *omm = dev_get_drvdata(dev);
+>>> +	struct reset_control *reset;
+>>> +	int ret;
+>>> +	u8 i;
+>>> +
+>>> +	ret = stm32_omm_toggle_child_clock(dev, true);
+>>> +	if (!ret)
+>>             ^^^^
+>> I'm pretty sure this was intended to be if (ret) and the ! is a typo.
+
+Hi Dan
+
+You are right, it's a typo. 
+
+Thanks
+Patrice
+
+>>
+>>> +		return ret;
+>>
+>> If it's not a typo please write this as:
+>>
+>> 	if (!ret)
+>> 		return 0;
+> 
+> For the record I consider this a bug report which still needs addressing
+> by the authors.
+> 
+> Best regards,
+> Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
