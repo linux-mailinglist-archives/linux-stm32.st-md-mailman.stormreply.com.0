@@ -2,70 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDEECAB6E63
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 16:48:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F060CAB7642
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 21:59:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 842ABC7A844;
-	Wed, 14 May 2025 14:48:42 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F4EC78F99;
+	Wed, 14 May 2025 19:59:41 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58CDAC7A842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76B0CCFAC44
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 May 2025 14:48:41 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54EESnpw010572;
- Wed, 14 May 2025 16:48:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 99SNtvnMFqK7qNsbPspBqDAiBIpPQhzr7yAu4VDBnp8=; b=2pd54ElrRpWUSQGZ
- tcTe4LggCDgWs6jOzcMN0Joj+Aai7iIAKlHfIQkiCnHC9z1TDpKSixbEiMkWORfz
- nwwyFyp6pJAR9rYc9uIg1iRfTLCW6OZ52g1l34O/E/9VWfS/ZiCBEAUDHXLfUP9e
- nXG8rAk0MP6+iOSaMQalb+5wvrPCvBhA2X8f+bhXwO93JZSD/M67hALk8Fpy4F5D
- LjioRgH2H59EtxXgjsi/BwLkwdHbS5hi0HhBakbNEhFKHxOL1C1ymh5QGuXqW+g3
- wwW9CQX1aHWnQYJTlq9Q5qiCpAApL4Djk9tNutG+GsoS02G/b2r3x3oN9MkRkWY8
- RaJGbg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdw4bak-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 May 2025 16:48:15 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 35A1C4005A;
- Wed, 14 May 2025 16:46:55 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2228FB10BA9;
- Wed, 14 May 2025 16:45:38 +0200 (CEST)
-Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 May
- 2025 16:45:37 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
- <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
- <bhelgaas@google.com>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <p.zabel@pengutronix.de>, <thippeswamy.havalige@amd.com>,
- <shradha.t@samsung.com>, <quic_schintav@quicinc.com>,
- <cassel@kernel.org>, <johan+linaro@kernel.org>
-Date: Wed, 14 May 2025 16:44:28 +0200
-Message-ID: <20250514144428.3340709-10-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250514144428.3340709-1-christian.bruel@foss.st.com>
+ Wed, 14 May 2025 19:59:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8305B5C48B8;
+ Wed, 14 May 2025 19:57:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F253CC4CEED;
+ Wed, 14 May 2025 19:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747252778;
+ bh=qW5rFOZIUMIBxccZW3o6GhkmgWY42f309svVpKLhFmo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=dJ5EplJJPn6Tz9O3+AZuZXh4X+8zgKjmalug+lEd66Vad5lxOacniJp6hmODD01TM
+ Osq9ifdXaEYW+x4jYXSK338ObxTf7SQMmlhEySuRcaByx88caBfm02Z7GGHw6pHpPR
+ gqfL5mOlMSKJoMuya+QV0YRpEuc3jQxhN6IY9HIRNkvGB2DqM2J7eSTU4SpKu0rUnQ
+ FXpNuqO/4i6ZlU/2vhh/bBiKwhYPSz+HSjrXeZSnDETm7cEmqlW9FDsPabO2+K45Rw
+ SmZ4+HfqrDDrRT1Np7xc7Z9EMX63iFm4MmJEm+CCTvPHaDaLflRgkqG34Q7SOtRl5h
+ P8J5MNzz9FIPw==
+Date: Wed, 14 May 2025 14:59:36 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <174725276905.2927216.8851775897003421959.robh@kernel.org>
 References: <20250514144428.3340709-1-christian.bruel@foss.st.com>
+ <20250514144428.3340709-4-christian.bruel@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-14_04,2025-05-14_03,2025-02-21_01
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v10 9/9] arm64: dts: st: Enable PCIe on the
-	stm32mp257f-ev1 board
+Content-Disposition: inline
+In-Reply-To: <20250514144428.3340709-4-christian.bruel@foss.st.com>
+Cc: kw@linux.com, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ thippeswamy.havalige@amd.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
+ linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
+ quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
+ p.zabel@pengutronix.de, manivannan.sadhasivam@linaro.org, bhelgaas@google.com,
+ krzk+dt@kernel.org, shradha.t@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, johan+linaro@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v10 3/9] dt-bindings: PCI: Add STM32MP25
+ PCIe Endpoint bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,48 +62,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add PCIe RC and EP support on stm32mp257f-ev1 board.
-Default to RC mode.
 
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+On Wed, 14 May 2025 16:44:22 +0200, Christian Bruel wrote:
+> STM32MP25 PCIe Controller is based on the DesignWare core configured as
+> end point mode from the SYSCFG register.
+> 
+> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> ---
+>  .../bindings/pci/st,stm32-pcie-ep.yaml        | 73 +++++++++++++++++++
+>  1 file changed, 73 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
+> 
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 9d1a1155e36c..85f99a1ca154 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -257,6 +257,27 @@ scmi_vdd_sdcard: regulator@23 {
- 	};
- };
- 
-+&pcie_ep {
-+	pinctrl-names = "default", "init";
-+	pinctrl-0 = <&pcie_pins_a>;
-+	pinctrl-1 = <&pcie_init_pins_a>;
-+	reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-+	status = "disabled";
-+};
-+
-+&pcie_rc {
-+	pinctrl-names = "default", "init", "sleep";
-+	pinctrl-0 = <&pcie_pins_a>;
-+	pinctrl-1 = <&pcie_init_pins_a>;
-+	pinctrl-2 = <&pcie_sleep_pins_a>;
-+	status = "okay";
-+
-+	pcie@0,0 {
-+		 reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-+		 wake-gpios = <&gpioh 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	};
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
--- 
-2.34.1
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
