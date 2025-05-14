@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E84ACAB6732
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 11:20:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F34AAB673F
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 11:21:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A470AC7A842;
-	Wed, 14 May 2025 09:20:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09359C7A843;
+	Wed, 14 May 2025 09:21:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C13FC7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F14B2C7A842
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 May 2025 09:20:41 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54E7vs27023018;
- Wed, 14 May 2025 11:20:14 +0200
+ Wed, 14 May 2025 09:21:32 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54E7w8pW023322;
+ Wed, 14 May 2025 11:21:09 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- CSDRpy0g7FYUyuE/pI0gvgKtAjh6WX9J/qcJX4BpsAA=; b=W+t02VRKZpQEW2t9
- CnXlp5v+jwzUXexUp26zFdfW1UDKXxr6h0GLAJXRNMinE/oCgIy9JJXnj7T5bc59
- PPyvEPOdtbzbefmJ6+Vn6L1sc4tz9FL3MnNvn2V16ywYkb7abNAaphHb2tLsTs9C
- M4xJgijMTi3EDyHhb2Eo923372o3DJqYN7eWm/Z7WhUqoWDPuuq0YYzojBEwzIdL
- WgQGfW9Gci+FUrHW1DK+oZEatLufkDq6+FtHLJszuD3FJxlJ4y+QSNV3KLAjw8Sg
- Y8y5OV7GRXWQvKSVhmt/fkwE7iyxlFGiP1HjtwQAsQQN7H/5R+ygB+lQXxBxujZS
- 14RPAw==
+ 99SNtvnMFqK7qNsbPspBqDAiBIpPQhzr7yAu4VDBnp8=; b=BlZjdebhX5jqrVHb
+ VNH2gIrtZp6/CWej+WSDKFR8rDQ/+uw/hmRiSrnBfECN+47hpxo4YaaS5t/TnK7O
+ 0dWSgI+8FYvFnupDGloJSq9XFifgbfTc1R3iId7GlPX08pjIs9Au7DOr0DVKrttF
+ xsV0jYCm+GQ9sHA+2pabxuu7h4hMnNhtA8zjyEnwBF9bSilF8nX++g1lxbb1wx57
+ gyDf2C5wUy5T1CCaL4A3VV+0tuOtgRhCcAh+9btinErWgKzZtI6HFlYSM56AEf7B
+ /GtE4k2R+qki+BrZZa74TluH+KWSxSXo3eigYMx/9jujnpDHOUQXM3l9LjLhg2Pn
+ Rz99MA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdxtudt-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbds2s3n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 May 2025 11:20:14 +0200 (MEST)
+ Wed, 14 May 2025 11:21:09 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A0CB34004A;
- Wed, 14 May 2025 11:18:39 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7B8AE40047;
+ Wed, 14 May 2025 11:19:37 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 54010B48757;
- Wed, 14 May 2025 11:18:15 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0F5A0B48E9E;
+ Wed, 14 May 2025 11:18:20 +0200 (CEST)
 Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 May
- 2025 11:18:15 +0200
+ 2025 11:18:19 +0200
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
  <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
@@ -49,8 +49,8 @@ To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
  <p.zabel@pengutronix.de>, <thippeswamy.havalige@amd.com>,
  <shradha.t@samsung.com>, <quic_schintav@quicinc.com>,
  <cassel@kernel.org>, <johan+linaro@kernel.org>
-Date: Wed, 14 May 2025 11:15:29 +0200
-Message-ID: <20250514091530.3249364-9-christian.bruel@foss.st.com>
+Date: Wed, 14 May 2025 11:15:30 +0200
+Message-ID: <20250514091530.3249364-10-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250514091530.3249364-1-christian.bruel@foss.st.com>
 References: <20250514091530.3249364-1-christian.bruel@foss.st.com>
@@ -64,8 +64,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v9 8/9] arm64: dts: st: Add PCIe Endpoint mode
-	on stm32mp251
+Subject: [Linux-stm32] [PATCH v9 9/9] arm64: dts: st: Enable PCIe on the
+	stm32mp257f-ev1 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,40 +82,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pcie_ep node to support STM32 MP25 PCIe driver based on the
-DesignWare PCIe core configured as Endpoint mode
+Add PCIe RC and EP support on stm32mp257f-ev1 board.
+Default to RC mode.
 
 Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 7978fd640e1e..6d54ed9a1052 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -963,6 +963,21 @@ stmmac_axi_config_1: stmmac-axi-config {
- 				};
- 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 9d1a1155e36c..85f99a1ca154 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -257,6 +257,27 @@ scmi_vdd_sdcard: regulator@23 {
+ 	};
+ };
  
-+			pcie_ep: pcie-ep@48400000 {
-+				compatible = "st,stm32mp25-pcie-ep";
-+				reg = <0x48400000 0x100000>,
-+				      <0x48500000 0x100000>,
-+				      <0x48700000 0x80000>,
-+				      <0x10000000 0x8000000>;
-+				reg-names = "dbi", "dbi2", "atu", "addr_space";
-+				clocks = <&rcc CK_BUS_PCIE>;
-+				resets = <&rcc PCIE_R>;
-+				phys = <&combophy PHY_TYPE_PCIE>;
-+				access-controllers = <&rifsc 68>;
-+				power-domains = <&CLUSTER_PD>;
-+				status = "disabled";
-+			};
++&pcie_ep {
++	pinctrl-names = "default", "init";
++	pinctrl-0 = <&pcie_pins_a>;
++	pinctrl-1 = <&pcie_init_pins_a>;
++	reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
++	status = "disabled";
++};
 +
- 			pcie_rc: pcie@48400000 {
- 				compatible = "st,stm32mp25-pcie-rc";
- 				device_type = "pci";
++&pcie_rc {
++	pinctrl-names = "default", "init", "sleep";
++	pinctrl-0 = <&pcie_pins_a>;
++	pinctrl-1 = <&pcie_init_pins_a>;
++	pinctrl-2 = <&pcie_sleep_pins_a>;
++	status = "okay";
++
++	pcie@0,0 {
++		 reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
++		 wake-gpios = <&gpioh 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
++	};
++};
++
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
 -- 
 2.34.1
 
