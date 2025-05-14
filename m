@@ -2,47 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE8DAB6C42
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 15:11:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 882E7AB6D87
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 15:57:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 735A1C7A842;
-	Wed, 14 May 2025 13:11:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17B08C7A843;
+	Wed, 14 May 2025 13:57:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7EECC7801E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF730C78F94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 May 2025 13:11:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B5D8F61126;
- Wed, 14 May 2025 13:11:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32AC4C4CEE9;
- Wed, 14 May 2025 13:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747228268;
- bh=LWbOw2PG6oxFMTHL9AQ6/3txcao1bW3c/BXDFtK7IE0=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=rFTFJRO3fWWuWxA5WVG/97kGL1saLiNpHlW3krWanaIdC7Wm+zSQjzmmKA7ofntoD
- RSsTDlu1n2KshD9skw3CJOiatl8GTaeGL7pNTWGIlwLbf98TKB8Ilu5BNAxz3jaLNr
- o24zUi/QDJEo28ULPGbTOxNSRluGpfi69eq6Qt2f2T7D46JJqXaO9h+lFM0bpX1B1+
- ulRBprSO1iTvrOHy5wCnvWbAI3or235r+MNiz7fJIXGlhj56QwXaiAS0kqv6iwGcjW
- CKBNcRY5zJii+fO2lwFeVvkvS++UZoG38o/EcMRpdiLDm1EX0X41BGGEp0nv+BQJVk
- CB6JhEFzsaqRQ==
-Date: Wed, 14 May 2025 08:11:06 -0500
+ Wed, 14 May 2025 13:57:50 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54EDDN8p014107;
+ Wed, 14 May 2025 15:57:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=8D/8IcKWoCb70xhhkBaIqG
+ mFt/1iue7zeTvtoB41pQw=; b=bzRwqKcPHFxAmBHoGfLz/4E0HEXA/zZAfiC9d/
+ nFprCDpBUGjBCWJ4hOPLRr67wFWY3zoRAvORrmG1E/C4xWA3olRUvQ4L537eK6Iv
+ 1PKST+LxMeVVrn+czNZkuNudXmkmzs7gTJHvvesWi9MO2ogsxw5AHjppGhvgzLsC
+ KKit4zflVoNLj3+wQYNzdrY94NZZwZwcBHRH8Zx22sNWLA/D0Y2HyDvbFhkLcxUJ
+ gJTUmKQc6c5L63N+X6xhvC29Ot+mB8S69zpcT5R6eRQpADJtvIdBiWdI+swC08tP
+ /Kh/BNk0x+UQ7P7HFJ2I95OrUTmXdgW6YCKLGLcfSFimQHsQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbds42uv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 14 May 2025 15:57:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 064F140053;
+ Wed, 14 May 2025 15:56:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D9417AF5651;
+ Wed, 14 May 2025 15:56:03 +0200 (CEST)
+Received: from localhost (10.252.7.3) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 May
+ 2025 15:56:03 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Wed, 14 May 2025 15:56:01 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20250514091530.3249364-1-christian.bruel@foss.st.com>
-References: <20250514091530.3249364-1-christian.bruel@foss.st.com>
-Message-Id: <174722778588.1826217.8453984370826167855.robh@kernel.org>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- thippeswamy.havalige@amd.com, linux-kernel@vger.kernel.org, cassel@kernel.org,
- quic_schintav@quicinc.com, johan+linaro@kernel.org, mcoquelin.stm32@gmail.com,
- manivannan.sadhasivam@linaro.org, bhelgaas@google.com, krzk+dt@kernel.org,
- shradha.t@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 0/9] Add STM32MP25 PCIe drivers
+Message-ID: <20250514-b4-upstream_ospi_reset_update-v5-1-7b5de0552c8c@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAPCgJGgC/43NsQ7CIBSF4VcxzNKUWyitk+9hTIPlogxKw6WNx
+ vTdxS5qHHT8z/CdOyOMHoltVncWcfLkwyWHWq9YfzKXI3JvczMoQZVSCH6QfBwoRTTnLtDgu4i
+ EqRsHaxJy1dY9glTGGsGyMUR0/rr4u33uk6cU4m25m+C5/itPwEsuLWqnrAXTiq0LRAWlog9n9
+ rSn6uWpUv/yKi64RlmbRrdaafj25Jsn4Jcns9c20NdON02N7tOb5/kBIVZXJ2wBAAA=
+X-Change-ID: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
+To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.252.7.3]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-14_04,2025-05-14_03,2025-02-21_01
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v5] spi: stm32-ospi: Make usage of
+ reset_control_acquire/release() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,149 +79,116 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+As ospi reset is consumed by both OMM and OSPI drivers, use the reset
+acquire/release mechanism which ensure exclusive reset usage.
 
-On Wed, 14 May 2025 11:15:21 +0200, Christian Bruel wrote:
-> Changes in v9:
->    - Describe atu and dbi2 shadowed registers in pcie_ep node
->    Address RC and EP drivers comments from Manivanna:
->    - Use dev_error_probe() for pm_runtime_enable() calls
->    - Reword Kconfig help message
->    - Move pm_runtime_get_noresume() before devm_pm_runtime_enable()
-> 
-> Changes in v8:
->    - Whitespace in comment
-> 
-> Changes in v7:
->    - Use device_init_wakeup to enable wakeup
->    - Fix comments (Bjorn)
-> 
-> Changes in v6:
->    - Call device_wakeup_enable() to fix WAKE# wakeup.
->    Address comments from Manivanna:
->    - Fix/Add Comments
->    - Fix DT indents
->    - Remove dw_pcie_ep_linkup() in EP start link
->    - Add PCIE_T_PVPERL_MS delay in RC PERST# deassert
-> 
-> Changes in v5:
->    Address driver comments from Manivanna:
->    - Use dw_pcie_{suspend/resume}_noirq instead of private ones.
->    - Move dw_pcie_host_init() to probe
->    - Add stm32_remove_pcie_port cleanup function
->    - Use of_node_put in stm32_pcie_parse_port
->    - Remove wakeup-source property
->    - Use generic dev_pm_set_dedicated_wake_irq to support wake# irq
-> 
-> Changes in v4:
->    Address bindings comments Rob Herring
->    - Remove phy property form common yaml
->    - Remove phy-name property
->    - Move wake_gpio and reset_gpio to the host root port
-> 
-> Changes in v3:
->    Address comments from Manivanna, Rob and Bjorn:
->    - Move host wakeup helper to dwc core (Mani)
->    - Drop num-lanes=<1> from bindings (Rob)
->    - Fix PCI address of I/O region (Mani)
->    - Moved PHY to a RC rootport subsection (Bjorn, Mani)
->    - Replaced dma-limit quirk by dma-ranges property (Bjorn)
->    - Moved out perst assert/deassert from start/stop link (Mani)
->    - Drop link_up test optim (Mani)
->    - DT and comments rephrasing (Bjorn)
->    - Add dts entries now that the combophy entries has landed
->    - Drop delaying Configuration Requests
-> 
-> Changes in v2:
->    - Fix st,stm32-pcie-common.yaml dt_binding_check
-> 
-> Changes in v1:
->    Address comments from Rob Herring and Bjorn Helgaas:
->    - Drop st,limit-mrrs and st,max-payload-size from this patchset
->    - Remove single reset and clocks binding names and misc yaml cleanups
->    - Split RC/EP common bindings to a separate schema file
->    - Use correct PCIE_T_PERST_CLK_US and PCIE_T_RRS_READY_MS defines
->    - Use .remove instead of .remove_new
->    - Fix bar reset sequence in EP driver
->    - Use cleanup blocks for error handling
->    - Cosmetic fixes
-> 
-> Christian Bruel (9):
->   dt-bindings: PCI: Add STM32MP25 PCIe Root Complex bindings
->   PCI: stm32: Add PCIe host support for STM32MP25
->   dt-bindings: PCI: Add STM32MP25 PCIe Endpoint bindings
->   PCI: stm32: Add PCIe Endpoint support for STM32MP25
->   MAINTAINERS: add entry for ST STM32MP25 PCIe drivers
->   arm64: dts: st: add PCIe pinctrl entries in stm32mp25-pinctrl.dtsi
->   arm64: dts: st: Add PCIe Root Complex mode on stm32mp251
->   arm64: dts: st: Add PCIe Endpoint mode on stm32mp251
->   arm64: dts: st: Enable PCIe on the stm32mp257f-ev1 board
-> 
->  .../bindings/pci/st,stm32-pcie-common.yaml    |  33 ++
->  .../bindings/pci/st,stm32-pcie-ep.yaml        |  67 +++
->  .../bindings/pci/st,stm32-pcie-host.yaml      | 112 +++++
->  MAINTAINERS                                   |   7 +
->  arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  20 +
->  arch/arm64/boot/dts/st/stm32mp251.dtsi        |  57 +++
->  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  21 +
->  drivers/pci/controller/dwc/Kconfig            |  24 +
->  drivers/pci/controller/dwc/Makefile           |   2 +
->  drivers/pci/controller/dwc/pcie-stm32-ep.c    | 411 ++++++++++++++++++
->  drivers/pci/controller/dwc/pcie-stm32.c       | 364 ++++++++++++++++
->  drivers/pci/controller/dwc/pcie-stm32.h       |  16 +
->  12 files changed, 1134 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-common.yaml
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-ep.yaml
->  create mode 100644 Documentation/devicetree/bindings/pci/st,stm32-pcie-host.yaml
->  create mode 100644 drivers/pci/controller/dwc/pcie-stm32-ep.c
->  create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
->  create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
-> 
-> --
-> 2.34.1
-> 
-> 
-> 
+This avoid to call reset_control_get/put() in OMM driver each time
+we need to reset OSPI children and guarantee the reset line stays
+deasserted.
 
+During resume, OMM driver takes temporarily control of reset.
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
+This patch is dependent on commit 6b3754009f87
+("reset: Add devm_reset_control_array_get_exclusive_released()")
+available on tag reset-for-v6.16.
 
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+Changes in v5:
+  - Add dependency with commit 6b3754009f87 ("reset: Add devm_reset_control_array_get_exclusive_released()")
+    in commit message.
+  - Link to v4: https://lore.kernel.org/r/20250512-b4-upstream_ospi_reset_update-v4-1-982c6f7886ef@foss.st.com
 
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
+Changes in v4:
+  - Add a comment about reset sharing between OSPI and OMM drivers durig resume.
+  - Link to v3: https://lore.kernel.org/r/20250507-b4-upstream_ospi_reset_update-v3-1-7e46a8797572@foss.st.com
 
-  pip3 install dtschema --upgrade
+Changes in v3:
+  - Remove previous patch 1/2 as already merged.
+  - Keep the reset control acquired from probe() to remove().
+  - Link to v2: https://lore.kernel.org/r/20250411-b4-upstream_ospi_reset_update-v2-0-4de7f5dd2a91@foss.st.com
 
+Changes in v2:
+  - Rebased on spi/for-next (7a978d8fcf57).
+  - Remove useless check on reset.
+  - Add error handling on reset_control_acquire().
+  - Link to v1: https://lore.kernel.org/all/20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com/
+---
+ drivers/spi/spi-stm32-ospi.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-This patch series was applied (using b4) to base:
- Base: attempting to guess base-commit...
- Base: tags/next-20250514 (best guess, 5/6 blobs matched)
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index 668022098b1eac3628f0677e6d786e5a267346be..b2597b52beb1133155e0d6f601b0632ad4b8e8f5 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ospi->rstc = devm_reset_control_array_get_optional_exclusive(dev);
++	ospi->rstc = devm_reset_control_array_get_exclusive_released(dev);
+ 	if (IS_ERR(ospi->rstc))
+ 		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
+ 				     "Can't get reset\n");
+@@ -936,11 +936,13 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto err_pm_enable;
+ 
+-	if (ospi->rstc) {
+-		reset_control_assert(ospi->rstc);
+-		udelay(2);
+-		reset_control_deassert(ospi->rstc);
+-	}
++	ret = reset_control_acquire(ospi->rstc);
++	if (ret)
++		return dev_err_probe(dev, ret, "Can not acquire reset %d\n", ret);
++
++	reset_control_assert(ospi->rstc);
++	udelay(2);
++	reset_control_deassert(ospi->rstc);
+ 
+ 	ret = spi_register_controller(ctrl);
+ 	if (ret) {
+@@ -983,6 +985,8 @@ static void stm32_ospi_remove(struct platform_device *pdev)
+ 	if (ospi->dma_chrx)
+ 		dma_release_channel(ospi->dma_chrx);
+ 
++	reset_control_release(ospi->rstc);
++
+ 	pm_runtime_put_sync_suspend(ospi->dev);
+ 	pm_runtime_force_suspend(ospi->dev);
+ }
+@@ -993,6 +997,8 @@ static int __maybe_unused stm32_ospi_suspend(struct device *dev)
+ 
+ 	pinctrl_pm_select_sleep_state(dev);
+ 
++	reset_control_release(ospi->rstc);
++
+ 	return pm_runtime_force_suspend(ospi->dev);
+ }
+ 
+@@ -1012,6 +1018,12 @@ static int __maybe_unused stm32_ospi_resume(struct device *dev)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = reset_control_acquire(ospi->rstc);
++	if (ret) {
++		dev_err(dev, "Can not acquire reset\n");
++		return ret;
++	}
++
+ 	writel_relaxed(ospi->cr_reg, regs_base + OSPI_CR);
+ 	writel_relaxed(ospi->dcr_reg, regs_base + OSPI_DCR1);
+ 	pm_runtime_mark_last_busy(ospi->dev);
 
-If this is not the correct base, please add 'base-commit' tag
-(or use b4 which does this automatically)
+---
+base-commit: 1c64de886b8893c0158097edd6ba08d527a2c97a
+change-id: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
 
-New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/st/' for 20250514091530.3249364-1-christian.bruel@foss.st.com:
-
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg: [[1212153856, 1048576], [1213202432, 1048576], [1215299584, 524288], [268435456, 134217728]] is too long
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg-names:1: 'addr_space' was expected
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-arch/arm64/boot/dts/st/stm32mp257f-dk.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg-names: ['dbi', 'dbi2', 'atu', 'addr_space'] is too long
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg: [[1212153856, 1048576], [1213202432, 1048576], [1215299584, 524288], [268435456, 134217728]] is too long
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg-names:1: 'addr_space' was expected
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-arch/arm64/boot/dts/st/stm32mp257f-ev1.dtb: pcie-ep@48400000 (st,stm32mp25-pcie-ep): reg-names: ['dbi', 'dbi2', 'atu', 'addr_space'] is too long
-	from schema $id: http://devicetree.org/schemas/pci/st,stm32-pcie-ep.yaml#
-
-
-
-
+Best regards,
+-- 
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
