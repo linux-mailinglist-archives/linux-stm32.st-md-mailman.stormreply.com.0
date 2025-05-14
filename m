@@ -2,61 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C4CAB674D
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 11:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4AB9AB678C
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 11:32:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBE79C7A842;
-	Wed, 14 May 2025 09:22:33 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94436C7A842;
+	Wed, 14 May 2025 09:32:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BBADC78F90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33B3AC6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 May 2025 09:22:32 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54E7vsGI012183;
- Wed, 14 May 2025 11:22:26 +0200
+ Wed, 14 May 2025 09:32:53 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54E7vt3p023085;
+ Wed, 14 May 2025 11:32:42 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=lQB0X+FYDQ0v+rbqk+Ve5A
- iVWv/hgl/qmWvvPvfsaEM=; b=1yaSuGdsEL+WpzOg8CEqkNEqmIBSlKnN6amN6i
- h20kr3Ddf4IT3p6AmlL8fN4P7gz5UjL+LYqfiCgREs3ojCN5ocfXKce1NtZsVVL/
- B5qTkcZzAwIc+YJV65KJMKDOLEvyOcAXeA4FFMOVU9XwJbcJSZoC3JNjcvLKB1J/
- fPIfdm8kcfEFRQUh9ZSiJBJk3XhdqFtv17OOHZPl1bujbVdvCRrqFllBSGtanJ4g
- K5owwsznHvpDvKd8xNPhyFzHnBw8tzh2678NX8qw7NrlVb5JnvpGykxxegWP0vbr
- xU+9IZTcNNREOaf1dt8w5p+3FNNOVufCOm13+cQQpbPQh/nw==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ apPuGix0U1l8NbuF2RfEV7srsEyy+YpkXLnEoKgNuME=; b=REUcSlsDCyI8Hyf1
+ Dx5Y5boK9tw1Of6eJxcNtODLpy/xFNDPh/YLxIBUnW7KGAKOruHD7IUgQSjI4S7i
+ CBVc0zCDej1aWz31I9mo/NeQ3/eVjsNJnJ1iIdKHCnSfvbxIOxrPrvIzfrYt/P2e
+ nrrwse+lwg2bwLxhLn4qU7Z0sWttRjd/lJ671EWcDAWey286hEKr27RTU384YVMo
+ UIt+RNh+MkahVlKYt0jc4HsIZo+pHIJ/JalIXzCu1wfGqvKSgPFFsaGTFY6qpuyU
+ Fd3/Ro2LO3nrED4ScbRf0eonPqPp5JZH4xxm0YkeMbEH5nS9yulK0pv3kI7MDrJs
+ WrLA3w==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdw2sdu-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdxtwvq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 May 2025 11:22:26 +0200 (MEST)
+ Wed, 14 May 2025 11:32:41 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id EA80F40087;
- Wed, 14 May 2025 11:21:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 81678B35FDB;
- Wed, 14 May 2025 11:21:08 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A901540054;
+ Wed, 14 May 2025 11:31:44 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC64DB4C73F;
+ Wed, 14 May 2025 11:30:15 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
+ (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 May
- 2025 11:21:08 +0200
-Message-ID: <2f101efb-6d58-48d8-983a-57e30a34827c@foss.st.com>
-Date: Wed, 14 May 2025 11:21:08 +0200
+ 2025 11:30:15 +0200
+Received: from [10.48.86.222] (10.48.86.222) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 May
+ 2025 11:30:14 +0200
+Message-ID: <5268ec60-ae2e-425e-a4af-a55cb0c3a1f9@foss.st.com>
+Date: Wed, 14 May 2025 11:30:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: <jic23@kernel.org>, <wbg@kernel.org>
+References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
+ <20250110091922.980627-4-fabrice.gasnier@foss.st.com>
 Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Kevin Hilman <khilman@baylibre.com>,
- <arm@kernel.org>, <soc@kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20250110091922.980627-4-fabrice.gasnier@foss.st.com>
+X-Originating-IP: [10.48.86.222]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-05-14_03,2025-05-14_02,2025-02-21_01
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.16#1
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, ukleinek@kernel.org,
+ krzk+dt@kernel.org, will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 3/8] counter: stm32-timer-cnt: add
+ support for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,107 +79,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQVJNIFNvQyBtYWludGFpbmVycywKClBsZWFzZSBjb25zaWRlciB0aGlzIGZpcnN0IHJvdW5k
-IG9mIFNUTTMyIERUIGNoYW5nZXMgZm9yIHY2LjE2IGN5Y2xlLgpJIGFkZGVkIGEgY29uZmlnIHBh
-dGNoIGluc2lkZS4gTGV0IG1lIGtub3cgaWYgeW91IHByZWZlciBhIHNlcGFyYXRlIHBhdGNoLgoK
-VGhhbmtzCkFsZXgKClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgMGFmMmY2YmUx
-YjQyODEzODViNjE4Y2I4NmFkOTQ2ZWRlZDA4OWFjODoKCiAgIExpbnV4IDYuMTUtcmMxICgyMDI1
-LTA0LTA2IDEzOjExOjMzIC0wNzAwKQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgR2l0IHJlcG9zaXRv
-cnkgYXQ6CgogICBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQv
-YXRvcmd1ZS9zdG0zMi5naXQgCnRhZ3Mvc3RtMzItZHQtZm9yLXY2LjE2LTEKCmZvciB5b3UgdG8g
-ZmV0Y2ggY2hhbmdlcyB1cCB0byA1MThlOGZmYTAwYzg3NDRiZWY1ODYwNzliNzNlMjJmYjc5ZDkz
-YjNjOgoKICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgaW5pdGlhbCBzdXBwb3J0IGZvciBzdG0zMm1w
-MTU3LXVsdHJhLWZseS1zYmMgCmJvYXJkICgyMDI1LTA1LTE0IDEwOjM2OjE2ICswMjAwKQoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpTVE0zMiBEVCBmb3IgdjYuMTYsIHJvdW5kIDEKCkhpZ2hsaWdodHM6Ci0tLS0tLS0tLS0K
-Ci0gTUNVOgogICAtIEFkZCBsb3cgcG93ZXIgdGltZXIgb24gU1RNMzJGNzQ2CiAgIC0gQWRkIFNU
-TTMySDc0NyBIaWdoIGVuZCBNQ1Ugc3VwcG9ydC4gSXQgZW1iZWRzOgogICAgIC0gZHVhbC1jb3Jl
-IChDb3J0ZXgtTTcgKyBDb3J0ZXgtTTQpCiAgICAgLSB1cCB0byAyIE1ieXRlcyBmbGFzaAogICAg
-IC0gMSBNYnl0ZSBvZiBpbnRlcm5hbCBSQU0KICAgLSBBZGQgU1RNMzJINzQ3aS1kaXNjbyBib2Fy
-ZCBzdXBwb3J0LiBEZXRhaWxlZCBpbmZvcm1hdGlvbiBjYW4gYmUKICAgICBmb3VuZCBhdDoKICAg
-ICBodHRwczovL3d3dy5zdC5jb20vZW4vZXZhbHVhdGlvbi10b29scy9zdG0zMmg3NDdpLWRpc2Nv
-Lmh0bWwKCi0gTVBVOgogICAtIFNUTTMyTVAxMzoKICAgICAtIEFkZCBWUkVGSU5UIGNhbGlicmF0
-aW9uIHN1cHBvcnQgYmFzZWQgb24gQURDLgoKICAgLSBTVE1QMzJNUDE1OgogICAgIC0gQWRkIG5l
-dyBVbHRyYXRyb25payBGbHkgYm9hcmQgc3VwcG9ydDoKICAgICAgIC0gYmFzZWQgb24gU1RNMzJN
-UDE1N0MgU29DCiAgICAgICAtIDFHQiBvZiBERFIzCiAgICAgICAtIFNldmVyYWwgY29ubmVjdGlv
-bnMgYXJlIGF2YWlsYWJsZSBvbiB0aGlzIGJvYXJkczoKICAgICAgICAgMipVU0IyLjAsIDEqVVNC
-Mi4wIE1pbmlVU0IsIERlYnVnIFVBUlQsIDEqVUFSVCwgMSpVU0FSVCwKCVNEY2FyZCwgUko0NSwg
-Li4uCgogICAtIFNUTTMyTVAyNToKICAgICAtIEFkZCBPQ1RPU1BJIHN1cHBvcnQgb24gU1RNMzJN
-UDI1IFNvQ3MKICAgICAtIEFkZCBTUEkgTk9SIGZsYXNoIHN1cHBvcnQgb24gU1RNMzJNUDI1N0Yt
-RVYxIGNvbm5lY3RlZCB0byBPU1BJMQogICAgIC0gQWRkIExvdyBwb3dlciB0aW1lciBUSU1FUiAo
-TFBUSU0pIG9uIFNUTTMyTVAyNSBTb0NzIGFuZCB1c2UKICAgICAgIExQVElNMyBhcyBsb3cgcG93
-ZXIgYnJvYWRjYXN0IHRpbWVyIG9uIFNUTTMyTVAyNTdGLUVWMS4KCi0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQmVuIFdvbHNp
-ZWZmZXIgKDEpOgogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgbG93IHBvd2VyIHRpbWVyIG9u
-IFNUTTMyRjc0NgoKRGFyaW8gQmluYWNjaGkgKDgpOgogICAgICAgQVJNOiBkdHM6IHN0bTMyaDct
-cGluY3RybDogYWRkIF9hIHN1ZmZpeCB0byB1W3NdYXJ0X3BpbnMgcGhhbmRsZXMKICAgICAgIGR0
-LWJpbmRpbmdzOiBhcm06IHN0bTMyOiBhZGQgY29tcGF0aWJsZSBmb3Igc3RtMzJoNzQ3aS1kaXNj
-byBib2FyZAogICAgICAgQVJNOiBzdG0zMjogYWRkIGEgbmV3IFNvQyAtIFNUTTMySDc0NwogICAg
-ICAgZHQtYmluZGluZ3M6IGNsb2NrOiBzdG0zMmg3OiByZW5hbWUgVVNBUlR7Nyw4fV9DSyB0byBV
-QVJUezcsOH1fQ0sKICAgICAgIEFSTTogZHRzOiBzdG0zMjogYWRkIHVhcnQ4IG5vZGUgZm9yIHN0
-bTMyaDc0MyBNQ1UKICAgICAgIEFSTTogZHRzOiBzdG0zMjogYWRkIHBpbiBtYXAgZm9yIFVBUlQ4
-IGNvbnRyb2xsZXIgb24gc3RtMzJoNzQzCiAgICAgICBBUk06IGR0czogc3RtMzI6IGFkZCBhbiBl
-eHRyYSBwaW4gbWFwIGZvciBVU0FSVDEgb24gc3RtMzJoNzQzCiAgICAgICBBUk06IGR0czogc3Rt
-MzI6IHN1cHBvcnQgU1RNMzJoNzQ3aS1kaXNjbyBib2FyZAoKRmFicmljZSBHYXNuaWVyICgzKToK
-ICAgICAgIGFybTY0OiBkZWZjb25maWc6IGVuYWJsZSBTVE0zMiBMUCB0aW1lciBjbG9ja2V2ZW50
-IGRyaXZlcgogICAgICAgYXJtNjQ6IGR0czogc3Q6IGFkZCBsb3ctcG93ZXIgdGltZXIgbm9kZXMg
-b24gc3RtMzJtcDI1MQogICAgICAgYXJtNjQ6IGR0czogc3Q6IHVzZSBscHRpbWVyMyBhcyB0aWNr
-IGJyb2FkY2FzdCBzb3VyY2Ugb24gCnN0bTMybXAyNTdmLWV2MQoKR29yYW4gUmHEkWVub3ZpxIcg
-KDQpOgogICAgICAgZHQtYmluZGluZ3M6IHZlbmRvci1wcmVmaXhlczogQWRkIFVsdHJhdHJvbmlr
-CiAgICAgICBkdC1iaW5kaW5nczogYXJtOiBzdG0zMjogRG9jdW1lbnQgVWx0cmF0cm9uaWsncyBG
-bHkgYm9hcmQgRFQgYmluZGluZwogICAgICAgTUFJTlRBSU5FUlM6IEFkZCBlbnRyeSBmb3IgVUxU
-UkFUUk9OSUsgQk9BUkQgU1VQUE9SVAogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgaW5pdGlh
-bCBzdXBwb3J0IGZvciBzdG0zMm1wMTU3LXVsdHJhLWZseS1zYmMgCmJvYXJkCgpLcnp5c3p0b2Yg
-S296bG93c2tpICgxKToKICAgICAgIEFSTTogZHRzOiBzdDogc3RtMzI6IEFsaWduIHdpZmkgbm9k
-ZSBuYW1lIHdpdGggYmluZGluZ3MKCk9saXZpZXIgTW95c2FuICgyKToKICAgICAgIEFSTTogZHRz
-OiBzdG0zMjogYWRkIHZyZWZpbnQgY2FsaWJyYXRpb24gb24gc3RtMzJtcDEzCiAgICAgICBBUk06
-IGR0czogc3RtMzI6IGFkZCB2cmVmaW50IHN1cHBvcnQgdG8gYWRjIG9uIHN0bTMybXAxMwoKUGF0
-cmljZSBDaG90YXJkICgzKToKICAgICAgIGFybTY0OiBkdHM6IHN0OiBBZGQgT01NIG5vZGUgb24g
-c3RtMzJtcDI1MQogICAgICAgYXJtNjQ6IGR0czogc3Q6IEFkZCBvc3BpIHBvcnQxIHBpbmN0cmwg
-ZW50cmllcyBpbiAKc3RtMzJtcDI1LXBpbmN0cmwuZHRzaQogICAgICAgYXJtNjQ6IGR0czogc3Q6
-IEFkZCBTUEkgTk9SIGZsYXNoIHN1cHBvcnQgb24gc3RtMzJtcDI1N2YtZXYxIGJvYXJkCgogIERv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vc3RtMzIvc3RtMzIueWFtbCB8ICAg
-IDkgKysKICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVz
-LnlhbWwgfCAgICAyICsKICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfCAgICA2ICsKICBhcmNoL2FybS9ib290L2R0cy9zdC9NYWtlZmlsZSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA0ICstCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qv
-c3RtMzJmNzQ2LmR0c2kgICAgICAgICAgICAgICAgICAgIHwgICAzNCArKysrKwogIGFyY2gvYXJt
-L2Jvb3QvZHRzL3N0L3N0bTMyaDctcGluY3RybC5kdHNpICAgICAgICAgICAgICB8ICAgMzQgKysr
-Ky0KICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmg3NDMuZHRzaSAgICAgICAgICAgICAgICAg
-ICAgfCAgICA4ICsrCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJoNzQzaS1kaXNjby5kdHMg
-ICAgICAgICAgICAgIHwgICAgMiArLQogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyaDc0M2kt
-ZXZhbC5kdHMgICAgICAgICAgICAgICB8ICAgIDIgKy0KICBhcmNoL2FybS9ib290L2R0cy9zdC9z
-dG0zMmg3NDdpLWRpc2NvLmR0cyAgICAgICAgICAgICAgfCAgMTM2IAorKysrKysrKysrKysrKysr
-KysKICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmg3NTBpLWFydC1waS5kdHMgICAgICAgICAg
-ICAgfCAgICA4ICstCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzMS5kdHNpICAgICAg
-ICAgICAgICAgICAgIHwgICAgNSArCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDEzMy5k
-dHNpICAgICAgICAgICAgICAgICAgIHwgICAgMiArCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3Rt
-MzJtcDEzNWYtZGsuZHRzICAgICAgICAgICAgICAgIHwgICAgMiArLQogIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0L3N0bTMybXAxM3h4LWRoY29yLXNvbS5kdHNpICAgICAgICB8ICAgIDIgKy0KICBhcmNo
-L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3YS1pb3QtYm94LmR0cyAgICAgICAgICAgfCAgICAy
-ICstCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2MtZGsyLmR0cyAgICAgICAgICAg
-ICAgIHwgICAgMiArLQogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTdjLXVsdHJhLWZs
-eS1zYmMuZHRzICAgICB8IDExNTIgCisrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwog
-IGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNXh4LWRoY29yLWF2ZW5nZXI5Ni5kdHNpICB8
-ICAgIDIgKy0KICBhcmNoL2FybS9tYWNoLXN0bTMyL2JvYXJkLWR0LmMgICAgICAgICAgICAgICAg
-ICAgICAgICAgfCAgICAxICsKICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNS1waW5j
-dHJsLmR0c2kgICAgICAgICAgfCAgIDUxICsrKysrKysKICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0
-L3N0bTMybXAyNTEuZHRzaSAgICAgICAgICAgICAgICAgfCAgMjMxIAorKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysKICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTdmLWV2MS5k
-dHMgICAgICAgICAgICAgfCAgIDQwICsrKysrKwogIGFyY2gvYXJtNjQvY29uZmlncy9kZWZjb25m
-aWcgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIgKwogIGluY2x1ZGUvZHQtYmluZGlu
-Z3MvY2xvY2svc3RtMzJoNy1jbGtzLmggICAgICAgICAgICAgICB8ICAgIDQgKy0KICAyNSBmaWxl
-cyBjaGFuZ2VkLCAxNzI1IGluc2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygtKQogIGNyZWF0ZSBt
-b2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmg3NDdpLWRpc2NvLmR0cwogIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy11bHRyYS1m
-bHktc2JjLmR0cwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+On 1/10/25 10:19, Fabrice Gasnier wrote:
+> Add support for STM32MP25 SoC. There are new counter modes that may be
+> implemented in later. Still, use newly introduced compatible to handle
+> this new HW variant and avoid being blocked with existing compatible
+> in SoC dtsi file. Modes supported currently still remains compatible.
+> New timer 20 has encoder capability, add it to the list.
+> 
+> Acked-by: William Breathitt Gray <wbg@kernel.org>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  drivers/counter/stm32-timer-cnt.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+
+Hi,
+
+The first patches of this series have been merged.
+
+I'm not sure who shall pick this one ? (I think there's no dependency).
+Or do I need to resend it separately ?
+
+Please advise,
+BR,
+Fabrice
+
+> 
+> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+> index e75b69476a00..3d3384cbea87 100644
+> --- a/drivers/counter/stm32-timer-cnt.c
+> +++ b/drivers/counter/stm32-timer-cnt.c
+> @@ -669,12 +669,14 @@ static void stm32_timer_cnt_detect_channels(struct device *dev,
+>  	dev_dbg(dev, "has %d cc channels\n", priv->nchannels);
+>  }
+>  
+> -/* encoder supported on TIM1 TIM2 TIM3 TIM4 TIM5 TIM8 */
+> -#define STM32_TIM_ENCODER_SUPPORTED	(BIT(0) | BIT(1) | BIT(2) | BIT(3) | BIT(4) | BIT(7))
+> +/* encoder supported on TIM1 TIM2 TIM3 TIM4 TIM5 TIM8 TIM20 */
+> +#define STM32_TIM_ENCODER_SUPPORTED	(BIT(0) | BIT(1) | BIT(2) | BIT(3) | BIT(4) | BIT(7) | \
+> +					 BIT(19))
+>  
+>  static const char * const stm32_timer_trigger_compat[] = {
+>  	"st,stm32-timer-trigger",
+>  	"st,stm32h7-timer-trigger",
+> +	"st,stm32mp25-timer-trigger",
+>  };
+>  
+>  static int stm32_timer_cnt_probe_encoder(struct device *dev,
+> @@ -846,6 +848,7 @@ static SIMPLE_DEV_PM_OPS(stm32_timer_cnt_pm_ops, stm32_timer_cnt_suspend,
+>  
+>  static const struct of_device_id stm32_timer_cnt_of_match[] = {
+>  	{ .compatible = "st,stm32-timer-counter", },
+> +	{ .compatible = "st,stm32mp25-timer-counter", },
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, stm32_timer_cnt_of_match);
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
