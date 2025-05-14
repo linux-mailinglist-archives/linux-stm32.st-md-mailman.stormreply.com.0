@@ -2,89 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AC66AB64E8
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 09:54:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8F00AB64EF
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 May 2025 09:56:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E160C7128A;
-	Wed, 14 May 2025 07:54:10 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C032C7128A;
+	Wed, 14 May 2025 07:56:33 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ADF8C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96734C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 May 2025 07:54:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 0933AA40576;
- Wed, 14 May 2025 07:54:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B620EC4CEE9;
- Wed, 14 May 2025 07:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747209247;
- bh=f0SmfOrgAK7b1qc4qpgTY4qvsC6LjJMZJfgGNUJT+Mg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=qif7zy8gPlqHy4wGwXwNrpkOF2kkxZAnpAGCXXAAoS4Jhm2JVWxqhk1mFsPFRtCC4
- cvf1T2ZbxcZXW1Bb8r4bJo9hUl3XTbHNzcCYzvLBaLNZurU0D0xvcvmM4E0QO+3Ahs
- eQxh7aK/lASHm6LmP3Voy963DLjc5oCcxJ3uFdvwMFbqlq6Yzp7EQE/SbgAjGhdncI
- LN5eA5GXK0VUVEKZRwUw5ipoC5heU0a+TuGsHkvainyR5qAQ5gRxhtY4OQ8Af2pIxj
- IXBO7ftcQehqsFrXR+NlqOPP71LS10NYtNMzl9PbiYk0U1ECIyF8/3EVYBmtj5l6ua
- 3NEFBzJLMSfUQ==
-Message-ID: <3b5806d4-bb65-4cc3-b5c9-3c6aa8eefdc4@kernel.org>
-Date: Wed, 14 May 2025 09:54:04 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Patrice Chotard <patrice.chotard@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Kerello <christophe.kerello@foss.st.com>
-References: <20250513-stm32_omm_fix_typo-v1-1-5b90ec8b52e7@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+ Wed, 14 May 2025 07:56:32 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-3a0b28d9251so963692f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 May 2025 00:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1747209392; x=1747814192;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kzdTMooCqa1ypmINEmlgL2G2QWjmPcr5NoyztBa2Ur4=;
+ b=SpNVEZhrFdwQsxONULg7572Ef3ijSoecDWRCiyD0HSCSsZzsyMghXRO8O1/07WSv5Q
+ x8ngtM5pH5MZW5uZoZWdWEkhCTb9CTllgFkFdRy4WHtkX8eyTlzTxgfoJsfL4pdxR8FB
+ /jp4F3pN65C9elbfcFPgYgRO8y2fEZ4my5sCl7cCCtqAqBJST7+KNI4Z3NEhfIEgZdJ0
+ VFcxM3ZhUpH73fFnAF3QDbgjhqaJSvEE4qB8djv7yCmLpEgFXehuUS431+XTWcBXdxyo
+ 6+EOLaYelc0WsF7om3TZQVM4BjheG9MoemNCtWoNMe+2/yKnfyzn80SfRoT+R7KlT89P
+ pdmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747209392; x=1747814192;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kzdTMooCqa1ypmINEmlgL2G2QWjmPcr5NoyztBa2Ur4=;
+ b=Dm4Hcc2R2fXLi4R6+Nfl9BggWhzXQFCutO6oF7TYtIP+Xd8jqLyrne6GXhOvQtBZMN
+ qpXj1gvAGmoBVGFJvtqHtZce12wvOBnjZAypWSdvTx8/OjlB1Y0vi/6qvlI7lKtuEPw7
+ 79cid1Ns+ZvcHwup74W43c6EKoX3oi9X8+HS+MfeTFlsd0KelA+emdaWe9N9aV6y7HY+
+ rTbAgfcQZpacYYYeUQOgr5XJnQwOyTcYmsz7Z8QZGkzhlfxm1muG2LijlunBHVAzUTIo
+ wcmMaGd5JVcEdnB0kunZrG9gK0IAqvpGGX+7jYuc7m21l9SI5ZLcCc/j/LI/0Q+ER9K+
+ o2kQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWWWB2zbIc0+w9eJ/RQSgkmKILfAvKo2W2MojZNSnQ2VE5ClyL/b7a0XpksUqq1jy9ac6p9t7NiVJeBmA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx1PZ/c+16IO3hBxp2DdHZEMcZobn78+B4MRtLlSrGEGZXhyPDB
+ QrTb9W9rxoC6a0dGivR3vLcubFuMNeNkeEV8ZdLLejfbO8NdDKawcGEtbeg7Uls=
+X-Gm-Gg: ASbGncs0IlC9bb/EE69cdSb6RbBxxY3XK2SqcPzj5dWpTNLG9g/e9dI8OGy0KhjDVCY
+ DriXynfYfUfcZpU9MbIwJ1cl5LvSj1qQ6GG8rtZcmGG7rmKRkQiQ8N5FHcAv70G9P1UJFPfWeSe
+ BQXvrq7lcdYBVbrmCwjo1K+JMphk4fYfEnmICkLPrO/ECQWt2/mKyxd7z314t06vHydqAsW90Y9
+ Ndqp8112f6HHCST6W6PeAfI5Mk4LdxtQ4pjehhTsCmKjYTKyNxanL9RMgKXUnLpvoF8C/uxC+YR
+ eGOWt/n1uolp9yJ3lN7mL/ybeDAGOwLOUk9o+Ml8EuZU6x6gHo9UjIuKtU8wv9zCp5Y3/y90LvQ
+ b4Rj65+xHDXYx6S9Dmw==
+X-Google-Smtp-Source: AGHT+IHHtmTfTDqpI8/MhLKS2/FzVY2p3LpVRtEE1jaQ17ol8rPj7ZAtenjeKA2K6/4xZEMzO4yRQg==
+X-Received: by 2002:a05:6000:4007:b0:3a0:75ff:2d94 with SMTP id
+ ffacd0b85a97d-3a349699c5bmr668843f8f.1.1747209391885; 
+ Wed, 14 May 2025 00:56:31 -0700 (PDT)
+Received: from [10.61.0.48] (110.8.30.213.rev.vodafone.pt. [213.30.8.110])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a1f58ebd75sm19067112f8f.34.2025.05.14.00.56.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 May 2025 00:56:31 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christophe Kerello <christophe.kerello@foss.st.com>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>
 In-Reply-To: <20250513-stm32_omm_fix_typo-v1-1-5b90ec8b52e7@foss.st.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+References: <20250513-stm32_omm_fix_typo-v1-1-5b90ec8b52e7@foss.st.com>
+Message-Id: <174720939065.5575.14505161452787178403.b4-ty@linaro.org>
+Date: Wed, 14 May 2025 09:56:30 +0200
+MIME-Version: 1.0
+X-Mailer: b4 0.14.2
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] memory: stm32_omm: Fix error handling in
  stm32_omm_disable_child()
@@ -104,16 +94,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 13/05/2025 17:34, Patrice Chotard wrote:
+
+On Tue, 13 May 2025 17:34:31 +0200, Patrice Chotard wrote:
 > Fix stm32_omm_toggle_child_clock() return value test, we should exit
 > only on non zero value.
 > 
-> Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
+> 
 
-Please always give credits to people.
+Applied, thanks!
+
+[1/1] memory: stm32_omm: Fix error handling in stm32_omm_disable_child()
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/388d0cc33cc6fc876e053644d6af694b9d5c639f
 
 Best regards,
-Krzysztof
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
