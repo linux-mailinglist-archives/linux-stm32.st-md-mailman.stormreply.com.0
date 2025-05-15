@@ -2,48 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD71CAB8272
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 11:24:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87E7FAB83BE
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 12:26:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93EA6C7A844;
-	Thu, 15 May 2025 09:24:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34993C7A845;
+	Thu, 15 May 2025 10:26:58 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCA60C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0821DC7A844
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 May 2025 09:24:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 52EE35C10B1;
- Thu, 15 May 2025 09:22:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28A3C4CEE7;
- Thu, 15 May 2025 09:24:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747301096;
- bh=JZp32cGnARt5v5SngWT8bwZW1Jh8iJC7PUvH3dlXTsI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A7mU282LSWsGdpwJ5DOiLTIAyqVyxqrlhiVc/v/e9xV8IF8oplET2K7F1vaW9ndS9
- Tlas2OXmX6IsN+pRPlTSwvSVtCP/Cw8hsCLXnTBqvAPakVN7aP6hBug3Z5jAfSXubn
- ZZrk7AA4uR2EeRexTRs3IkByDiF4sfYVO8tBjoHvFYBpCuapOsYHAbkzEnbptayKPG
- MaoK0JqisvSZA0NJiNex8WCJ8Q3RnsW2nI/+VLG9cLM4obd3XEaUHaDi8QTplnEc1M
- 321EnbfQT9BLZhjy61zQ22mIKJpakf9bnmHCgr0tDdiOLD7gc8Vv4jdSy+oggRK3O8
- BkvdzdvjkhAOg==
-Date: Thu, 15 May 2025 11:24:53 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <5ui74qlssllgn4h34by5jcpi5g6rknziclcsh4w27tjvznynsv@lcjtjxn6rovl>
-References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
- <20250110091922.980627-5-fabrice.gasnier@foss.st.com>
- <4b641513-ff2e-43ab-8074-ba6b521875e2@foss.st.com>
+ Thu, 15 May 2025 10:26:56 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb46so6077545e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 May 2025 03:26:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747304816; x=1747909616;
+ darn=st-md-mailman.stormreply.com; 
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=gk0+gInQFLq5TPyTiE4dxKzocRffo/w6/nhsIkH+AfE=;
+ b=UHtI3ZIewYm34fMZFTT0dOh1ulZi2W6vEwlbO7jYR7O3UhHx5RmUKZe9hDuAlqQXuH
+ oKYEyLtBsBavZjbxXl52/QLWQ3citzrSqCsF7yCcqtkDF8RqI4cxHhB8iTHeEOA4177S
+ 8GO+Whv4i7pT4ktVI3qSRi2NroL9L1v3O8iM2j/veO7f9dx31vx9zBEXz4nCUVNuMhun
+ wGoDcVgCPsHbZ/mD2O5rbbW0IKHrCtU4jQ4dxHqy2MW+efOPqo3WZ/wgXvQ/HD5VRkte
+ yrYMtFwCWvv0R0uGlz7QIoYWjK6obZmtoyGO898km58h6T/+Lhg4EKXYCZfiBzAtYsx8
+ 4DXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747304816; x=1747909616;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gk0+gInQFLq5TPyTiE4dxKzocRffo/w6/nhsIkH+AfE=;
+ b=wxxQ9uqQxV9+yYOmjYqGYwvfe9HThnbD0kGtNfIzYrOlOs19L2wRujLzWalQFF5Y0h
+ MNax2Rdr0ENzGPR03j5OYoqSyckIM5uR4jwUEVV/LhDSDkbb+JTGiu/wrDubG48x2HYo
+ rQ/0CI11yjP2eIvQS8FUBzjAUnWtkO+ipKFwlpOZ8BqQqweAZFxz0oZ0UBtP5jDJeP7A
+ ys7PGE42t7siElE7Efz1c+zFqeJEkPwD93MDa+MWC73xInf6Kvi06at/bEwwOeFxh499
+ c0aZ0wced64v/esCRyUh7XccXFvCtF2K1Hm+KKuuIxGTQmWyj/sZNQH84uDkbBU/30xx
+ yTaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUisiDVaxkMpvgsOPSrixhOAatxLzvbgsO5UG4eFTqLWIwGUiVxIWZ1CaXMVGFwLb5aC/LasXHaI9jxsA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxBpemywSbqXFvv6o2GCAWyq8WG6ufrHRSZ5oZ++FHrY+isWumz
+ 3rWNOnvoIUJN4jW9bzi7+ydBJMM/0YcNfz/tsJx3cccmlWGFtgac
+X-Gm-Gg: ASbGncs4lEm+BMF5Yd1F5D53lxXTadSqS4HitE6JQcPJhCzWCDCd4FLB3h2PYVxfK5z
+ yDx/kWa2GpchJV3DUVtRcD9mWhDeQYdkNJz1CMEVGZuI2RFWkS8DPMlp4VFOGw/EW9z8bffXvX7
+ 5peGb2HZ1RQNtOWEkRQ8z39Tpk+lEfnSaAU8KoO4m1Bhl50zB+FXlvQIFNaxwmqaIO3R0m4Ex3M
+ u2MVkn7anIFYoT21mCOhCDxycOT7St8Tj6rP7/CHjjRJpk1zaQGYMkvYya8aWUpYw2EGYKU9Wop
+ pNYCe5zXQiHug3YoOT4N2Z/Wa6bA9D/Grs/hmt84ynSQjvrV5+YZ1CkUcRTY
+X-Google-Smtp-Source: AGHT+IFVgomBW1IBuXpOUR8LYcnGSxhFAoIygDxxwvgbwklcoUaA6rWn38wHMH/dhn9JUS9lxDBang==
+X-Received: by 2002:a05:600c:154a:b0:440:54ef:dfdc with SMTP id
+ 5b1f17b1804b1-442f96e671dmr15113075e9.8.1747304815938; 
+ Thu, 15 May 2025 03:26:55 -0700 (PDT)
+Received: from [10.5.0.2] ([45.94.208.98]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442f39ef400sm60703995e9.33.2025.05.15.03.26.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 May 2025 03:26:55 -0700 (PDT)
+Message-ID: <229cf78caaa7e9f2bb4cfa62c019acd51a1cd684.camel@gmail.com>
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Chen Ni <nichen@iscas.ac.cn>, jic23@kernel.org, dlechner@baylibre.com, 
+ nuno.sa@analog.com, andy@kernel.org, mcoquelin.stm32@gmail.com, 
+ alexandre.torgue@foss.st.com, u.kleine-koenig@baylibre.com,
+ tglx@linutronix.de, 	robh@kernel.org, jirislaby@kernel.org,
+ fabrice.gasnier@foss.st.com
+Date: Thu, 15 May 2025 11:26:56 +0100
+In-Reply-To: <20250515083101.3811350-1-nichen@iscas.ac.cn>
+References: <20250515083101.3811350-1-nichen@iscas.ac.cn>
+User-Agent: Evolution 3.56.1 
 MIME-Version: 1.0
-In-Reply-To: <4b641513-ff2e-43ab-8074-ba6b521875e2@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/8] pwm: stm32: add support for
-	stm32mp25
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: Fix race in
+ installing chained IRQ handler
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,84 +87,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4812244379265439488=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4812244379265439488==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dxezo4t7v65ydh54"
-Content-Disposition: inline
-
-
---dxezo4t7v65ydh54
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 4/8] pwm: stm32: add support for stm32mp25
-MIME-Version: 1.0
-
-Hello Fabrice,
-
-On Wed, May 14, 2025 at 11:30:26AM +0200, Fabrice Gasnier wrote:
-> On 1/10/25 10:19, Fabrice Gasnier wrote:
-> > Add support for STM32MP25 SoC. Use newly introduced compatible to handle
-> > new features along with registers and bits diversity.
-> > The MFD part of the driver fills in ipidr, so it is used to check the
-> > hardware configuration register, when available to gather the number
-> > of PWM channels and complementary outputs.
-> >=20
-> > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> > ---
-> > Changes in v2:
-> > Address Uwe review comments:
-> > - Make MAX_PWM_OUTPUT definition less generic: STM32_PWM_MAX_OUTPUT
-> > - No need to initialize 'npwm'
-> > - refactor code, for *num_enabled to use same code path
-> > ---
-> >  drivers/pwm/pwm-stm32.c | 42 ++++++++++++++++++++++++++++++++++-------
-> >  1 file changed, 35 insertions(+), 7 deletions(-)
->=20
-> Hi Uwe,
->=20
-> I think this patch still miss some reviews.
-> The first patches of this series have been merged.
->=20
-> Is it ok for you to merge, or shall I resend separately ?
-
-I have it still on my radar, no need to resend. I just have to find the
-time to look into it in more detail.
-
-Best regards
-Uwe
-
---dxezo4t7v65ydh54
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmglstgACgkQj4D7WH0S
-/k7tvQgAr0tuQYW7a8kZHG4D+r8Ju5Etk+73ekoD+5NJcmpwe6C8Nye8E3mKfgS6
-bWCXuQS9aBsBvnmwFzIV9jkcwJrdeejQfv46EJ0IOZZFloj7b/vB3K/L/dzS3Ray
-XkPiy+M1R1rGt5B5X1U2gyUK6QRCE4KOMquhXMRCQxO7zqXlozUOk2rcmcAzgGMV
-tpQY/lDPoA9V6k4R6WL4yGAzwybvl+ASbzdrDmsjuIcW9On5Y5xDzkeVH9RSU5P0
-apvIu6hfS3bj3LvTF8QiT9emDOMQJAMU0J5t2YOeazfw/A7rFfqFQl7FA4Z2nDGZ
-wxTfL+UCcOGnVPHKb0fByZ5OKLMqrA==
-=ZB/v
------END PGP SIGNATURE-----
-
---dxezo4t7v65ydh54--
-
---===============4812244379265439488==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4812244379265439488==--
+T24gVGh1LCAyMDI1LTA1LTE1IGF0IDE2OjMxICswODAwLCBDaGVuIE5pIHdyb3RlOgo+IEZpeCBh
+IHJhY2Ugd2hlcmUgYSBwZW5kaW5nIGludGVycnVwdCBjb3VsZCBiZSByZWNlaXZlZCBhbmQgdGhl
+IGhhbmRsZXIKPiBjYWxsZWQgYmVmb3JlIHRoZSBoYW5kbGVyJ3MgZGF0YSBoYXMgYmVlbiBzZXR1
+cCwgYnkgY29udmVydGluZyB0bwo+IGlycV9zZXRfY2hhaW5lZF9oYW5kbGVyX2FuZF9kYXRhKCku
+Cj4gCj4gRml4ZXM6IGQ1OGM2N2QxZDg1MSAoImlpbzogYWRjOiBzdG0zMi1hZGM6IGFkZCBzdXBw
+b3J0IGZvciBTVE0zMk1QMSIpCj4gU2lnbmVkLW9mZi1ieTogQ2hlbiBOaSA8bmljaGVuQGlzY2Fz
+LmFjLmNuPgo+IC0tLQoKUmV2aWV3ZWQtYnk6IE51bm8gU8OhIDxudW5vLnNhQGFuYWxvZy5jb20+
+Cgo+IENoYW5nZWxvZzoKPiAKPiB2MSAtPiB2MjoKPiAKPiAxLiBBZGQgRml4ZXMgdGFnLgo+IC0t
+LQo+IMKgZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy1jb3JlLmMgfCA3ICsrKy0tLS0KPiDCoDEg
+ZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMtY29yZS5jIGIvZHJpdmVycy9paW8vYWRj
+L3N0bTMyLWFkYy0KPiBjb3JlLmMKPiBpbmRleCBiZDM0NTg5NjViZmYuLjIxYzA0YTk4YjNiNiAx
+MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLWNvcmUuYwo+ICsrKyBiL2Ry
+aXZlcnMvaWlvL2FkYy9zdG0zMi1hZGMtY29yZS5jCj4gQEAgLTQzMCwxMCArNDMwLDkgQEAgc3Rh
+dGljIGludCBzdG0zMl9hZGNfaXJxX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UKPiAqcGRl
+diwKPiDCoAkJcmV0dXJuIC1FTk9NRU07Cj4gwqAJfQo+IMKgCj4gLQlmb3IgKGkgPSAwOyBpIDwg
+cHJpdi0+Y2ZnLT5udW1faXJxczsgaSsrKSB7Cj4gLQkJaXJxX3NldF9jaGFpbmVkX2hhbmRsZXIo
+cHJpdi0+aXJxW2ldLCBzdG0zMl9hZGNfaXJxX2hhbmRsZXIpOwo+IC0JCWlycV9zZXRfaGFuZGxl
+cl9kYXRhKHByaXYtPmlycVtpXSwgcHJpdik7Cj4gLQl9Cj4gKwlmb3IgKGkgPSAwOyBpIDwgcHJp
+di0+Y2ZnLT5udW1faXJxczsgaSsrKQo+ICsJCWlycV9zZXRfY2hhaW5lZF9oYW5kbGVyX2FuZF9k
+YXRhKHByaXYtPmlycVtpXSwKPiArCQkJCQkJIHN0bTMyX2FkY19pcnFfaGFuZGxlciwKPiBwcml2
+KTsKPiDCoAo+IMKgCXJldHVybiAwOwo+IMKgfQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
