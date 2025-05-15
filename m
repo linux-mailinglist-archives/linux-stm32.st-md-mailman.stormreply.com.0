@@ -2,87 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9F6AB8728
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 14:59:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EA8AB8797
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 15:14:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C32FC7A845;
-	Thu, 15 May 2025 12:59:16 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 762E4C7A848;
+	Thu, 15 May 2025 13:14:28 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9092EC71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DF9FC7A845
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 May 2025 12:59:14 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-43cf06eabdaso8563595e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 May 2025 05:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1747313954; x=1747918754;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8Qawhlvmv36yrM5PLXHrynEKEEyc5YE0PdfccMvrE2Y=;
- b=QcDR9IzuDDN6Rkldx0ez3VcHTvxKQ1MBppsb0NxXPbZXyFtENSTIwf83AqMC3PFmkU
- /bQ/yke9Lh0bqQ4cX6BwYtdKMYHr+aD+Smj7Ojfiu9af6BuYlEz0VYguZupa6r1bg8Y4
- V+DajvZjw6EMoQULngiOibC+hsERa7unTS9R72/SC65em2OLLmfpymGdlYEROKJ+dPSq
- BinA6KswXjbPF+RJWo/bK8xS4s2TML3SOalfso+AoADxLyCxnbEnG7FC5U5tLfFzDe1n
- T5wd2k29tYRkpTNnaupyvEjP3i10ahLV+w4oDYTiY9rceZjKS/NjEIU/aaNK6PVzbHeR
- r+vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747313954; x=1747918754;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8Qawhlvmv36yrM5PLXHrynEKEEyc5YE0PdfccMvrE2Y=;
- b=TGYITbApY44iwY47C5TfWdM4yce3Yt6KYIGTxCqS7OQe6UBrKhv/JC7oOFdc9hyvHq
- Kb0nvShJGueZ2VQWnqxCUmVR1/b3P5hTuiDPOT4Ghxvw7eDG5pe6B/qFaZ6G9NmPctC1
- heAm6cP+6CNDAxsrzLlSwIl03/KXGsZyNiisCCQBX3WL2FGVCfP5aZRMrm08sPbGtoip
- O6GjpMrQTo72fCi5Xp3bayjDJcq8cE1693NEZj2HtUjz2igaxd3d5eajCTHYVGJcHu5F
- uaqo+y5vvCaF3RwHKcjx9JT/XW/+WVMbiXeeKio2unaidOFYSx6Nyn/Uhw4PQYi6LgAW
- d4xQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWnLjyJNOsRiX85DjmW0dQRvmflclQEi5CZJ6Uup5ynLtvNXx5W/keZSvC2VDttyFlqFYVqJ/ZE7FSxRQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz42erMcFHcXQQSEB1c7NAkZn8+dNIetW56+5GYaugNPLdwAxy7
- ci3Xd3Gigz1xr4Sb4gYgJmkjoKqCpQICs1iXIbAQBZ6vDBYpGYXwJ3dLj5CdiF8=
-X-Gm-Gg: ASbGncvnE9gpdb2/OJ6QQ/9YFnZbAeafLgJF443ndMpCdMHU/afScHtX/6i+u5sQrHs
- Jh/+xRytJT2hpLkHh2cp/scCtH57bMjXqkZfqCuPSqJFpnuV+erlNBpTvRiuOLGImlY2EpYmu0B
- 1xuFVAOMkvcbaCcdTg+khAW71a6e0c3Hm1Eti254Rtcntv0nYUESmHbkxJ7uYcaIEKx0/44zSNj
- w7VQWKs60H+sa+A+Zx7r/OEd0Vbq1ZvWVuY8p0tP5gzy6iT0nla+wIpv/CucFvNexi5sbrSWKDK
- xZsD4NIV8ZF532OnTcjYmumIm+V9hPIp6ECDYAio3cILmVjtBGy/dc7/FHhxKb2w7g==
-X-Google-Smtp-Source: AGHT+IFyeqD0A0IScg3QZihC1XrEVTucJipRcuMxEvf1pQxV8DR8pNFyFAx+gn85sF514EVzZ/V3/Q==
-X-Received: by 2002:a05:600c:3554:b0:442:e109:3032 with SMTP id
- 5b1f17b1804b1-442f970a9bfmr25956895e9.24.1747313953125; 
- Thu, 15 May 2025 05:59:13 -0700 (PDT)
-Received: from toaster.baylibre.com ([2a01:e0a:3c5:5fb1:82b8:c32f:4d8c:199e])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-442f39e8578sm71180475e9.29.2025.05.15.05.59.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 05:59:12 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- =?utf-8?q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
-Message-Id: <174731395227.3761659.8617180462546520115.b4-ty@baylibre.com>
-Date: Thu, 15 May 2025 14:59:12 +0200
+ Thu, 15 May 2025 13:14:27 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54FD6Ohv014139;
+ Thu, 15 May 2025 15:14:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=pLQZAQx7JWYvk7JPinwxnP
+ wYo7F6pB4GfYvlOtuM8X8=; b=8JIIaksp9OUdgBZRqHR9/yAioPTzkUg2dWGRQW
+ rNFzMWqAeUiwD7CojkXQlE+rENf1XgdOnQLh5P3d3kHsODrk+cTcgXUZEe2DhFEC
+ qIPqqPHVT671YsEifYI8wuCVg2hUtGFVmwK/0hWCtFPF46lJ3k/ASRG8ij0wTfyj
+ +Cm8q5JD3g9tKQfKoQ4MWidpCr2chf58qzGfN02fd9vtTVVzvdoeYLst1UM/z1RM
+ u1/FHQVXDM/RW5KqNyBC6jmnz1bezydXg3UdjIfyUq+JkoSra73TCpI5xHYObnnh
+ vo/lVEusH9XnWB8mhG9JMWGSFjSu0Xzw8zM4xfMdtJ8/1nHw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdw8t72-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 15 May 2025 15:14:15 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2018B4005D;
+ Thu, 15 May 2025 15:13:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3D28BB3B14D;
+ Thu, 15 May 2025 15:12:43 +0200 (CEST)
+Received: from localhost (10.48.86.182) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 May
+ 2025 15:12:42 +0200
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Thu, 15 May 2025 15:12:39 +0200
+Message-ID: <20250515151238.1.I85271ddb811a7cf73532fec90de7281cb24ce260@changeid>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailer: b4 0.14.2
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/5] clk: Do not enable by
- default during compile testing
+X-Originating-IP: [10.48.86.182]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-15_05,2025-05-14_03,2025-03-28_01
+Cc: devicetree@vger.kernel.org, Marc Zyngier <marc.zyngier@arm.com>,
+ linux-kernel@vger.kernel.org, Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/2] arm64: dts: st: fix timer used for ticks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,14 +74,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Applied to clk-meson (clk-meson-next), thanks!
+Remove always-on on generic ARM timer as the clock source provided by
+STGEN is deactivated in low power mode, STOP1 by example.
 
-[1/5] clk: meson: Do not enable by default during compile testing
-      https://github.com/BayLibre/clk-meson/commit/0afce85ed26c
+Fixes: 5d30d03aaf78 ("arm64: dts: st: introduce stm32mp25 SoCs family")
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+---
 
-Best regards,
---
-Jerome
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 8d87865850a7..74c5f85b800f 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -150,7 +150,7 @@ timer {
+ 			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+ 			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+ 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+-		always-on;
++		arm,no-tick-in-suspend;
+ 	};
+ 
+ 	soc@0 {
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
