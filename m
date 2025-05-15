@@ -2,66 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDA2AB8796
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 15:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A333AB8837
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 May 2025 15:39:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 688E0C7A845;
-	Thu, 15 May 2025 13:14:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4076C7A845;
+	Thu, 15 May 2025 13:39:07 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C340C71289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7CA9C7A844
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 May 2025 13:14:27 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54FBPdNk029562;
- Thu, 15 May 2025 15:14:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- NAS7AYYGOitchQOYiqBu5iY1SE87tPP2eKQTXou91Jg=; b=59ashyF+2iD+hePr
- R3yKnaygAXOQpabwxtAhNakxQ1T8vgAQHfDhS3vE9Fn7VFsMB4ktna8VU5+YQM6E
- jrYf7U9hlb1+EcKNnJ48P0XtcNBBTO2YWwzEMNh/p7ryz9Gc2SfrsFCuCyXt5lsH
- hiGW67INgmCe4ouNmluz9gDwwP7Akb8LlvQOtW/MXOo6xYgV20cjhTZPrGZ9rPrw
- JRfmd0dISjUUcwuFFQFLq2FWAUoHr+I17cohh5DoAetJ3sBVA6mz0VVK2pGerlrB
- MyDEf15mMPHZuHqmrHf7caBY7uxPFMT/BTFBCivAHX0kA1faFaPd4UXkBpxS4W0Y
- IfNpRA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdx8spt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 May 2025 15:14:15 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4239240057;
- Thu, 15 May 2025 15:13:17 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7DDC9B3D254;
- Thu, 15 May 2025 15:12:44 +0200 (CEST)
-Received: from localhost (10.48.86.182) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 15 May
- 2025 15:12:44 +0200
-From: Patrick Delaunay <patrick.delaunay@foss.st.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 15 May 2025 15:12:40 +0200
-Message-ID: <20250515151238.2.Ia426b4ef1d1200247a950ef9abd54a94dc520acb@changeid>
-X-Mailer: git-send-email 2.25.1
+ Thu, 15 May 2025 13:39:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id EC5E4A4CA91;
+ Thu, 15 May 2025 13:39:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89132C4CEE7;
+ Thu, 15 May 2025 13:39:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747316344;
+ bh=EIOxUVksE3XuviiCBzP8CgS3FaS5wIMBO/GIYyKSBRM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=cCQWAQk+En/dVTAmz1kHXi3efxDXiX0oYSk119kSLhSXMbi7EM2Yzfi+I68/MURXQ
+ ogf7lbj82DSlyiU/3c7lDwd8w1ecpqs5UNmPUNbyRYDN61HCKcpIcgMmi4NgFxPR/k
+ w1wUzWwjW7SpaQ2/81gElCZTq56OuK5znPQp1WT+wt4l4VV4pyO5D6B32Q/iIOHR5F
+ aABqsVuKPMK5lVmR4KNbzeWobzPTAGNiS53YtEr/Md0zfR3n98kU6JoyWI3bLZHB/O
+ 9ieZQ8jLfqNI2o9p3Lrgv+m1YsrdDsIyPDL8fS6LHOotdvxoQKqcwlupbPssFOn973
+ jqnP09prJgDdg==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=goblin-girl.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1uFYne-00FFHo-Eg;
+ Thu, 15 May 2025 14:39:02 +0100
+Date: Thu, 15 May 2025 14:39:01 +0100
+Message-ID: <86ikm2f0y2.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Patrick Delaunay <patrick.delaunay@foss.st.com>
 In-Reply-To: <20250515151238.1.I85271ddb811a7cf73532fec90de7281cb24ce260@changeid>
 References: <20250515151238.1.I85271ddb811a7cf73532fec90de7281cb24ce260@changeid>
-MIME-Version: 1.0
-X-Originating-IP: [10.48.86.182]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-15_05,2025-05-14_03,2025-03-28_01
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: patrick.delaunay@foss.st.com, alexandre.torgue@foss.st.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] arm64: dts: st: remove empty line in
-	stm32mp251.dtsi
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] arm64: dts: st: fix timer used for
+	ticks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,29 +76,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove unnecessary empty line in stm32mp251.dtsi
+On Thu, 15 May 2025 14:12:39 +0100,
+Patrick Delaunay <patrick.delaunay@foss.st.com> wrote:
+> 
+> Remove always-on on generic ARM timer as the clock source provided by
+> STGEN is deactivated in low power mode, STOP1 by example.
+> 
+> Fixes: 5d30d03aaf78 ("arm64: dts: st: introduce stm32mp25 SoCs family")
+> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+> ---
+> 
+>  arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index 8d87865850a7..74c5f85b800f 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -150,7 +150,7 @@ timer {
+>  			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+>  			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>,
+>  			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+> -		always-on;
+> +		arm,no-tick-in-suspend;
 
-Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
----
+That's amusing, because these two properties literally describe
+opposite behaviours (from an optimisation to a HW bug).
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+I'm also pretty sure 99% of the DTs in the tree that have the
+always-on property are wrong.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 74c5f85b800f..5d54be027254 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1495,7 +1495,6 @@ gpioz: gpio@46200000 {
- 				st,bank-ioport = <11>;
- 				status = "disabled";
- 			};
--
- 		};
- 
- 		exti2: interrupt-controller@46230000 {
+>  	};
+>  
+>  	soc@0 {
+
+I don't want to sound rude or anything, but the guy you Cc'd on an
+@arm.com will not reply (and hasn't been replying for almost 6 years).
+
+Thanks,
+
+	M.
+
 -- 
-2.25.1
-
+Without deviation from the norm, progress is not possible.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
