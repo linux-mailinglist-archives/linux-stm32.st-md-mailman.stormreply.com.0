@@ -2,60 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6DE6AB9B4B
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 13:42:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCAD5AB9BA8
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 14:10:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AD01C7A844;
-	Fri, 16 May 2025 11:42:42 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [52.175.55.52])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAA07C78F6A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 726D2C7A840;
+	Fri, 16 May 2025 12:10:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12FADC7A83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 May 2025 01:11:58 +0000 (UTC)
-Received: from E0005182DT.eswin.cn (unknown [10.12.97.162])
- by app2 (Coremail) with SMTP id TQJkCgAnxpTHkCZo8Jh8AA--.60891S2;
- Fri, 16 May 2025 09:11:39 +0800 (CST)
-From: weishangjuan@eswincomputing.com
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, richardcochran@gmail.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- p.zabel@pengutronix.de, yong.liang.choong@linux.intel.com,
- rmk+kernel@armlinux.org.uk, jszhang@kernel.org, inochiama@gmail.com,
- jan.petrous@oss.nxp.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri, 16 May 2025 09:11:28 +0800
-Message-ID: <20250516011130.818-1-weishangjuan@eswincomputing.com>
-X-Mailer: git-send-email 2.49.0.windows.1
-In-Reply-To: <20250516010849.784-1-weishangjuan@eswincomputing.com>
-References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
+ Fri, 16 May 2025 12:10:48 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54GASX3V020923;
+ Fri, 16 May 2025 14:10:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ AUqkuqqNfwv9TzLB2auox1AYvgBbMC8kgRWp43OMpKQ=; b=hsvr53u5RVEmNowt
+ Rj+biihArb/195vChHxDvhEpOBIoMMTXCtF01uaVBzpqgo1hCNVhe1I8d1chqsa2
+ O3HelKcdTOZyGYRROcVj4hhXHZKLFMDfIkMdT3+DDfVM5JIXDO27Xtgm7xF5nGEG
+ CKNCX5FhT4OeSalAHEPKYUHhDoPKSmNd9W1Yow/Pthc2IAberfC4/wp+szFsd0Bz
+ Ce/B10EC8mQvsZR2i2eUnN7UINS10/WlUfygaKCSJi3KFcCY94umVA+1LDBl955y
+ VAV9uIQAvm8bsaF0k349u6llinJJL0U9CAe94lBgsdHN5hu/TDE25PXM5bnxw2pQ
+ a+iqSg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdrp3m8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 16 May 2025 14:10:18 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A064840046;
+ Fri, 16 May 2025 14:08:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 58425B6B7AB;
+ Fri, 16 May 2025 14:07:24 +0200 (CEST)
+Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 May
+ 2025 14:07:23 +0200
+Message-ID: <b3bff3aa-cd99-4c9e-851a-950a4877e664@foss.st.com>
+Date: Fri, 16 May 2025 14:07:22 +0200
 MIME-Version: 1.0
-X-CM-TRANSID: TQJkCgAnxpTHkCZo8Jh8AA--.60891S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3tF48tF1rXr48Xw18WFW5GFg_yoW8Cr18Ko
- Z3GFnxXw1rtF4UC3Z5tF1xGF9Iqa1kAws7CrW3Zr4UuFW3Z3W0qrZ0g343Xa1S9r4rtFyf
- Zr4kJr13XF47trZ5n29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
- AaLaJ3UjIYCTnIWjp_UUUOc7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
- j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
- x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8
- Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxV
- W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
- 7VC0I7IYx2IY67AKxVWUAVWUtwAv7VCY1x0262k0Y48FwI0_Jr0_Gr1lYx0Ex4A2jsIE14
- v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E
- 6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4
- kS14v26r4a6rW5MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
- kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
- 6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
- IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2
- KfnxnUUI43ZEXa7sRExR65UUUUU==
-X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
-X-Mailman-Approved-At: Fri, 16 May 2025 11:42:40 +0000
-Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
- Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
-Subject: [Linux-stm32] [PATCH v1 2/2] ethernet: eswin: Add eic7700 ethernet
-	driver
+User-Agent: Mozilla Thunderbird
+To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+References: <20250423090119.4003700-1-christian.bruel@foss.st.com>
+ <20250423090119.4003700-5-christian.bruel@foss.st.com>
+ <tdgyva6qyn6qwzvft4f7r3tgp5qswuv4q5swoaeomnnbxtmz5j@zo3gvevx2skp>
+ <619756c5-1a61-4aa9-b7fb-6be65175ded2@foss.st.com>
+ <b5x4fayqm242xqm3rgwvrz3jywlixedhhxwo7lft2y3tnuszxr@3oy2kzj2of5l>
+From: Christian Bruel <christian.bruel@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <b5x4fayqm242xqm3rgwvrz3jywlixedhhxwo7lft2y3tnuszxr@3oy2kzj2of5l>
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-16_05,2025-05-16_02,2025-03-28_01
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, thippeswamy.havalige@amd.com,
+ linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
+ quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
+ shradha.t@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
+ johan+linaro@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v8 4/9] PCI: stm32: Add PCIe Endpoint
+ support for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,590 +80,158 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+(Sorry I missed the last point before my reply with a new v9/v10 series)
 
-Add Ethernet controller support for Eswin's eic7700 SoC. The driver
-provides management and control of Ethernet signals for the eiC7700
-series chips.
+On 5/15/25 13:26, Manivannan Sadhasivam wrote:
+> On Mon, May 12, 2025 at 06:06:16PM +0200, Christian Bruel wrote:
+>> Hello Manivannan,
+>>
+>> On 4/30/25 09:50, Manivannan Sadhasivam wrote:
+>>> On Wed, Apr 23, 2025 at 11:01:14AM +0200, Christian Bruel wrote:
+>>>> Add driver to configure the STM32MP25 SoC PCIe Gen1 2.5GT/s or Gen2 5GT/s
+>>>> controller based on the DesignWare PCIe core in endpoint mode.
+>>>>
+>>>> Uses the common reference clock provided by the host.
+>>>>
+>>>> The PCIe core_clk receives the pipe0_clk from the ComboPHY as input,
+>>>> and the ComboPHY PLL must be locked for pipe0_clk to be ready.
+>>>> Consequently, PCIe core registers cannot be accessed until the ComboPHY is
+>>>> fully initialised and refclk is enabled and ready.
+>>>>
+>>>> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+>>>> ---
+>>>>    drivers/pci/controller/dwc/Kconfig         |  12 +
+>>>>    drivers/pci/controller/dwc/Makefile        |   1 +
+>>>>    drivers/pci/controller/dwc/pcie-stm32-ep.c | 414 +++++++++++++++++++++
+>>>>    drivers/pci/controller/dwc/pcie-stm32.h    |   1 +
+>>>>    4 files changed, 428 insertions(+)
+>>>>    create mode 100644 drivers/pci/controller/dwc/pcie-stm32-ep.c
+>>>>
+>>>> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+>>>> index 2aec5d2f9a46..aceff7d1ef33 100644
+>>>> --- a/drivers/pci/controller/dwc/Kconfig
+>>>> +++ b/drivers/pci/controller/dwc/Kconfig
+>>>> @@ -422,6 +422,18 @@ config PCIE_STM32_HOST
+>>>>    	  This driver can also be built as a module. If so, the module
+>>>>    	  will be called pcie-stm32.
+>>>> +config PCIE_STM32_EP
+>>>> +	tristate "STMicroelectronics STM32MP25 PCIe Controller (endpoint mode)"
+>>>> +	depends on ARCH_STM32 || COMPILE_TEST
+>>>> +	depends on PCI_ENDPOINT
+>>>> +	select PCIE_DW_EP
+>>>> +	help
+>>>> +	  Enables endpoint support for DesignWare core based PCIe controller
+>>>> +	  found in STM32MP25 SoC.
+>>>
+>>> Can you please use similar description for the RC driver also?
+>>>
+>>> "Enables Root Complex (RC) support for the DesignWare core based PCIe host
+>>> controller found in STM32MP25 SoC."
+>>
+>> Yes, will align the messages
+>>
+>>>> +
+>>>> +	  This driver can also be built as a module. If so, the module
+>>>> +	  will be called pcie-stm32-ep.
+>>>> +
+>>>>    config PCI_DRA7XX
+>>>>    	tristate
+>>>
+>>> [...]
+>>>
+>>>> +static int stm32_add_pcie_ep(struct stm32_pcie *stm32_pcie,
+>>>> +			     struct platform_device *pdev)
+>>>> +{
+>>>> +	struct dw_pcie_ep *ep = &stm32_pcie->pci.ep;
+>>>> +	struct device *dev = &pdev->dev;
+>>>> +	int ret;
+>>>> +
+>>>> +	ret = pm_runtime_resume_and_get(dev);
+>>>
+>>> This needs to be called before devm_pm_runtime_enable().
+>>
+>> OK. Also and we must use pm_runtime_get_noresume() here.
+>>
+> 
+> Yes!
+> 
+>>>
+>>>> +	if (ret < 0) {
+>>>> +		dev_err(dev, "pm runtime resume failed: %d\n", ret);
+>>>> +		return ret;
+>>>> +	}
+>>>> +
+>>>> +	ret = regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
+>>>> +				 STM32MP25_PCIECR_TYPE_MASK,
+>>>> +				 STM32MP25_PCIECR_EP);
+>>>> +	if (ret) {
+>>>> +		goto err_pm_put_sync;
+>>>> +		return ret;
+>>>> +	}
+>>>> +
+>>>> +	reset_control_assert(stm32_pcie->rst);
+>>>> +	reset_control_deassert(stm32_pcie->rst);
+>>>> +
+>>>> +	ep->ops = &stm32_pcie_ep_ops;
+>>>> +
+>>>> +	ret = dw_pcie_ep_init(ep);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "failed to initialize ep: %d\n", ret);
+>>>> +		goto err_pm_put_sync;
+>>>> +	}
+>>>> +
+>>>> +	ret = stm32_pcie_enable_resources(stm32_pcie);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "failed to enable resources: %d\n", ret);
+>>>> +		goto err_ep_deinit;
+>>>> +	}
+>>>> +
+>>>> +	ret = dw_pcie_ep_init_registers(ep);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "Failed to initialize DWC endpoint registers\n");
+>>>> +		goto err_disable_resources;
+>>>> +	}
+>>>> +
+>>>> +	pci_epc_init_notify(ep->epc);
+>>>> +
+>>>
+>>> Hmm, looks like you need to duplicate dw_pcie_ep_init_registers() and
+>>> pci_epc_init_notify() in stm32_pcie_perst_deassert() for hw specific reasons.
+>>> So can you drop these from there?
+>>
+>> We cannot remove dw_pcie_ep_init_registers() and dw_pcie_ep_init_registers()
+>> here because the PCIe registers need to be ready at the end of
+>> pcie_stm32_probe, as the host might already be running. In that case the
+>> host enumerates with /sys/bus/pci/rescan rather than asserting/deasserting
+>> PERST#.
+>> Therefore, we do not need to reboot the host after initializing the EP."
+>>
+> 
+> Since PERST# is level triggered, the endpoint should still receive the PERST#
+> deassert interrupt if the host was already booted. In that case, these will be
+> called by the stm32_pcie_perst_deassert() function.
 
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 521 ++++++++++++++++++
- 3 files changed, 533 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+GPIO level interrupts are simulated on STM32 (*), so I didn't consider 
+using them here
+However, using the same sequence as in pcie-qcom-ep.c works fine with 
+the gpio hack, avoiding the call the dw_pcie_ep_init_registers() here.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 3c820ef56775..6a3970c92db7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -66,6 +66,17 @@ config DWMAC_ANARION
- 
- 	  This selects the Anarion SoC glue layer support for the stmmac driver.
- 
-+config DWMAC_EIC7700
-+	tristate "Support for Eswin eic7700 ethernet driver"
-+	select CRC32
-+	select MII
-+	depends on OF && HAS_DMA && ARCH_ESWIN || COMPILE_TEST
-+	help
-+	  This driver supports the Eswin EIC7700 Ethernet controller,
-+	  which integrates Synopsys DesignWare QoS features. It enables
-+	  high-speed networking with DMA acceleration and is optimized
-+	  for embedded systems.
-+
- config DWMAC_INGENIC
- 	tristate "Ingenic MAC support"
- 	default MACH_INGENIC
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index 594883fb4164..c9279bafdbb1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -14,6 +14,7 @@ stmmac-$(CONFIG_STMMAC_SELFTESTS) += stmmac_selftests.o
- # Ordering matters. Generic driver must be last.
- obj-$(CONFIG_STMMAC_PLATFORM)	+= stmmac-platform.o
- obj-$(CONFIG_DWMAC_ANARION)	+= dwmac-anarion.o
-+obj-$(CONFIG_DWMAC_EIC7700)	+= dwmac-eic7700.o
- obj-$(CONFIG_DWMAC_INGENIC)	+= dwmac-ingenic.o
- obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
- obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-new file mode 100644
-index 000000000000..3483827e5652
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-@@ -0,0 +1,521 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Eswin DWC Ethernet linux driver
-+ *
-+ * Authors: Shuang Liang <liangshuang@eswincomputing.com>
-+ * Shangjuan Wei <weishangjuan@eswincomputing.com>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/ethtool.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/ioport.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/of_net.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+#include <linux/stmmac.h>
-+#include "stmmac_platform.h"
-+#include "dwmac4.h"
-+#include <linux/mfd/syscon.h>
-+#include <linux/bitfield.h>
-+#include <linux/regmap.h>
-+#include <linux/gpio/consumer.h>
-+
-+/* eth_phy_ctrl_offset eth0:0x100; eth1:0x200 */
-+#define ETH_TX_CLK_SEL			BIT(16)
-+#define ETH_PHY_INTF_SELI		BIT(0)
-+
-+/* eth_axi_lp_ctrl_offset eth0:0x108; eth1:0x208 */
-+#define ETH_CSYSREQ_VAL			BIT(0)
-+
-+/* hsp_aclk_ctrl_offset (0x148) */
-+#define HSP_ACLK_CLKEN				BIT(31)
-+#define HSP_ACLK_DIVSOR				(0x2 << 4)
-+
-+/* hsp_cfg_ctrl_offset (0x14c) */
-+#define HSP_CFG_CLKEN			BIT(31)
-+#define SCU_HSP_PCLK_EN			BIT(30)
-+#define HSP_CFG_CTRL_REGSET		(HSP_CFG_CLKEN | SCU_HSP_PCLK_EN)
-+
-+/* RTL8211F PHY Configurations for LEDs */
-+#define PHY_ADDR				0
-+#define PHY_PAGE_SWITCH_REG		31
-+#define PHY_LED_CFG_REG			16
-+#define PHY_LED_PAGE_CFG		0xd04
-+
-+struct dwc_qos_priv {
-+	struct device *dev;
-+	int dev_id;
-+	struct regmap *crg_regmap;
-+	struct regmap *hsp_regmap;
-+	struct reset_control *rst;
-+	struct clk *clk_app;
-+	struct clk *clk_tx;
-+	struct gpio_desc *phy_reset;
-+	struct stmmac_priv *stmpriv;
-+	int phyled_cfgs[3];
-+	int phyaddr;
-+	unsigned int dly_hsp_reg[3];
-+	unsigned int dly_param_1000m[3];
-+	unsigned int dly_param_100m[3];
-+	unsigned int dly_param_10m[3];
-+};
-+
-+static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
-+				   struct plat_stmmacenet_data *plat_dat)
-+{
-+	struct device *dev = &pdev->dev;
-+	u32 burst_map = 0;
-+	u32 bit_index = 0;
-+	u32 a_index = 0;
-+
-+	if (!plat_dat->axi) {
-+		plat_dat->axi = kzalloc(sizeof(*plat_dat->axi), GFP_KERNEL);
-+
-+		if (!plat_dat->axi)
-+			return -ENOMEM;
-+	}
-+
-+	plat_dat->axi->axi_lpi_en = device_property_read_bool(dev,
-+							      "snps,en-lpi");
-+	if (device_property_read_u32(dev, "snps,write-requests",
-+				     &plat_dat->axi->axi_wr_osr_lmt)) {
-+		/**
-+		 * Since the register has a reset value of 1, if property
-+		 * is missing, default to 1.
-+		 */
-+		plat_dat->axi->axi_wr_osr_lmt = 1;
-+	} else {
-+		/**
-+		 * If property exists, to keep the behavior from dwc_eth_qos,
-+		 * subtract one after parsing.
-+		 */
-+		plat_dat->axi->axi_wr_osr_lmt--;
-+	}
-+
-+	if (device_property_read_u32(dev, "snps,read-requests",
-+				     &plat_dat->axi->axi_rd_osr_lmt)) {
-+		/**
-+		 * Since the register has a reset value of 1, if property
-+		 * is missing, default to 1.
-+		 */
-+		plat_dat->axi->axi_rd_osr_lmt = 1;
-+	} else {
-+		/**
-+		 * If property exists, to keep the behavior from dwc_eth_qos,
-+		 * subtract one after parsing.
-+		 */
-+		plat_dat->axi->axi_rd_osr_lmt--;
-+	}
-+	device_property_read_u32(dev, "snps,burst-map", &burst_map);
-+
-+	/* converts burst-map bitmask to burst array */
-+	for (bit_index = 0; bit_index < 7; bit_index++) {
-+		if (burst_map & (1 << bit_index)) {
-+			switch (bit_index) {
-+			case 0:
-+			plat_dat->axi->axi_blen[a_index] = 4; break;
-+			case 1:
-+			plat_dat->axi->axi_blen[a_index] = 8; break;
-+			case 2:
-+			plat_dat->axi->axi_blen[a_index] = 16; break;
-+			case 3:
-+			plat_dat->axi->axi_blen[a_index] = 32; break;
-+			case 4:
-+			plat_dat->axi->axi_blen[a_index] = 64; break;
-+			case 5:
-+			plat_dat->axi->axi_blen[a_index] = 128; break;
-+			case 6:
-+			plat_dat->axi->axi_blen[a_index] = 256; break;
-+			default:
-+			break;
-+			}
-+			a_index++;
-+		}
-+	}
-+
-+	/* dwc-qos needs GMAC4, AAL, TSO and PMT */
-+	plat_dat->has_gmac4 = 1;
-+	plat_dat->dma_cfg->aal = 1;
-+	plat_dat->flags |= STMMAC_FLAG_TSO_EN;
-+	plat_dat->pmt = 1;
-+
-+	return 0;
-+}
-+
-+static void dwc_qos_fix_speed(void *priv, int speed, unsigned int mode)
-+{
-+	unsigned long rate = 125000000;
-+	int i, err, data = 0;
-+	struct dwc_qos_priv *dwc_priv = (struct dwc_qos_priv *)priv;
-+
-+	switch (speed) {
-+	case SPEED_1000:
-+		rate = 125000000;
-+
-+		for (i = 0; i < 3; i++)
-+			regmap_write(dwc_priv->hsp_regmap,
-+				     dwc_priv->dly_hsp_reg[i],
-+				     dwc_priv->dly_param_1000m[i]);
-+
-+		if (dwc_priv->stmpriv) {
-+			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-+					    PHY_PAGE_SWITCH_REG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[0]);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, data);
-+		}
-+
-+		break;
-+	case SPEED_100:
-+		rate = 25000000;
-+
-+		for (i = 0; i < 3; i++) {
-+			regmap_write(dwc_priv->hsp_regmap,
-+				     dwc_priv->dly_hsp_reg[i],
-+				     dwc_priv->dly_param_100m[i]);
-+		}
-+
-+		if (dwc_priv->stmpriv) {
-+			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-+					    PHY_PAGE_SWITCH_REG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[1]);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, data);
-+		}
-+
-+		break;
-+	case SPEED_10:
-+		rate = 2500000;
-+
-+		for (i = 0; i < 3; i++) {
-+			regmap_write(dwc_priv->hsp_regmap,
-+				     dwc_priv->dly_hsp_reg[i],
-+				     dwc_priv->dly_param_10m[i]);
-+		}
-+
-+		if (dwc_priv->stmpriv) {
-+			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-+					    PHY_PAGE_SWITCH_REG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[2]);
-+			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-+				      PHY_PAGE_SWITCH_REG, data);
-+		}
-+
-+		break;
-+	default:
-+		dev_err(dwc_priv->dev, "invalid speed %u\n", speed);
-+		break;
-+	}
-+
-+	err = clk_set_rate(dwc_priv->clk_tx, rate);
-+	if (err < 0)
-+		dev_err(dwc_priv->dev, "failed to set TX rate: %d\n", err);
-+}
-+
-+static int dwc_qos_probe(struct platform_device *pdev,
-+			 struct plat_stmmacenet_data *plat_dat,
-+			 struct stmmac_resources *stmmac_res)
-+{
-+	struct dwc_qos_priv *dwc_priv;
-+	int ret;
-+	int err;
-+	u32 hsp_aclk_ctrl_offset;
-+	u32 hsp_aclk_ctrl_regset;
-+	u32 hsp_cfg_ctrl_offset;
-+	u32 eth_axi_lp_ctrl_offset;
-+	u32 eth_phy_ctrl_offset;
-+	u32 eth_phy_ctrl_regset;
-+
-+	dwc_priv = devm_kzalloc(&pdev->dev, sizeof(*dwc_priv), GFP_KERNEL);
-+	if (!dwc_priv)
-+		return -ENOMEM;
-+
-+	if (device_property_read_u32(&pdev->dev, "id", &dwc_priv->dev_id)) {
-+		dev_err(&pdev->dev, "Can not read device id!\n");
-+		return -EINVAL;
-+	}
-+
-+	dwc_priv->dev = &pdev->dev;
-+	dwc_priv->phy_reset = devm_gpiod_get(&pdev->dev, "rst", GPIOD_OUT_LOW);
-+	if (IS_ERR(dwc_priv->phy_reset)) {
-+		dev_err(&pdev->dev, "Reset gpio not specified\n");
-+		return -EINVAL;
-+	}
-+
-+	gpiod_set_value(dwc_priv->phy_reset, 0);
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,led-cfgs", 0,
-+					 &dwc_priv->phyled_cfgs[0]);
-+	if (ret)
-+		dev_warn(&pdev->dev, "can't get phyaddr (%d)\n", ret);
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,led-cfgs", 0,
-+					 &dwc_priv->phyled_cfgs[0]);
-+	if (ret)
-+		dev_warn(&pdev->dev, "can't get led cfgs for 1Gbps mode (%d)\n", ret);
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,led-cfgs", 1,
-+					 &dwc_priv->phyled_cfgs[1]);
-+	if (ret)
-+		dev_warn(&pdev->dev, "can't get led cfgs for 100Mbps mode (%d)\n", ret);
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,led-cfgs", 2,
-+					 &dwc_priv->phyled_cfgs[2]);
-+	if (ret)
-+		dev_warn(&pdev->dev, "can't get led cfgs for 10Mbps mode (%d)\n", ret);
-+
-+	ret = of_property_read_variable_u32_array(pdev->dev.of_node, "eswin,dly_hsp_reg",
-+						  &dwc_priv->dly_hsp_reg[0], 3, 0);
-+	if (ret != 3) {
-+		dev_err(&pdev->dev, "can't get delay hsp reg.ret(%d)\n", ret);
-+		return ret;
-+	}
-+
-+	ret = of_property_read_variable_u32_array(pdev->dev.of_node, "dly-param-1000m",
-+						  &dwc_priv->dly_param_1000m[0], 3, 0);
-+	if (ret != 3) {
-+		dev_err(&pdev->dev, "can't get delay param for 1Gbps mode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	ret = of_property_read_variable_u32_array(pdev->dev.of_node, "dly-param-100m",
-+						  &dwc_priv->dly_param_100m[0], 3, 0);
-+	if (ret != 3) {
-+		dev_err(&pdev->dev, "can't get delay param for 100Mbps mode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	ret = of_property_read_variable_u32_array(pdev->dev.of_node, "dly-param-10m",
-+						  &dwc_priv->dly_param_10m[0], 3, 0);
-+	if (ret != 3) {
-+		dev_err(&pdev->dev, "can't get delay param for 10Mbps mode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	dwc_priv->crg_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+							       "eswin,syscrg_csr");
-+	if (IS_ERR(dwc_priv->crg_regmap)) {
-+		dev_dbg(&pdev->dev, "No syscrg_csr phandle specified\n");
-+		return 0;
-+	}
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,syscrg_csr", 1,
-+					 &hsp_aclk_ctrl_offset);
-+	if (ret) {
-+		dev_err(&pdev->dev, "can't get hsp_aclk_ctrl_offset (%d)\n", ret);
-+		return ret;
-+	}
-+	regmap_read(dwc_priv->crg_regmap, hsp_aclk_ctrl_offset, &hsp_aclk_ctrl_regset);
-+	hsp_aclk_ctrl_regset |= (HSP_ACLK_CLKEN | HSP_ACLK_DIVSOR);
-+	regmap_write(dwc_priv->crg_regmap, hsp_aclk_ctrl_offset, hsp_aclk_ctrl_regset);
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,syscrg_csr", 2,
-+					 &hsp_cfg_ctrl_offset);
-+	if (ret) {
-+		dev_err(&pdev->dev, "can't get hsp_cfg_ctrl_offset (%d)\n", ret);
-+		return ret;
-+	}
-+	regmap_write(dwc_priv->crg_regmap, hsp_cfg_ctrl_offset, HSP_CFG_CTRL_REGSET);
-+
-+	dwc_priv->hsp_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+							       "eswin,hsp_sp_csr");
-+	if (IS_ERR(dwc_priv->hsp_regmap)) {
-+		dev_dbg(&pdev->dev, "No hsp_sp_csr phandle specified\n");
-+		return 0;
-+	}
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,hsp_sp_csr", 2,
-+					 &eth_phy_ctrl_offset);
-+	if (ret) {
-+		dev_err(&pdev->dev, "can't get eth_phy_ctrl_offset (%d)\n", ret);
-+		return ret;
-+	}
-+	regmap_read(dwc_priv->hsp_regmap, eth_phy_ctrl_offset, &eth_phy_ctrl_regset);
-+	eth_phy_ctrl_regset |= (ETH_TX_CLK_SEL | ETH_PHY_INTF_SELI);
-+	regmap_write(dwc_priv->hsp_regmap, eth_phy_ctrl_offset, eth_phy_ctrl_regset);
-+
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,hsp_sp_csr", 3,
-+					 &eth_axi_lp_ctrl_offset);
-+	if (ret) {
-+		dev_err(&pdev->dev, "can't get eth_axi_lp_ctrl_offset (%d)\n", ret);
-+		return ret;
-+	}
-+	regmap_write(dwc_priv->hsp_regmap, eth_axi_lp_ctrl_offset, ETH_CSYSREQ_VAL);
-+
-+	dwc_priv->clk_app = devm_clk_get(&pdev->dev, "app");
-+	if (IS_ERR(dwc_priv->clk_app)) {
-+		dev_err(&pdev->dev, "app clock not found.\n");
-+		return PTR_ERR(dwc_priv->clk_app);
-+	}
-+
-+	err = clk_prepare_enable(dwc_priv->clk_app);
-+	if (err < 0) {
-+		dev_err(&pdev->dev, "failed to enable app clock: %d\n",
-+			err);
-+		return err;
-+	}
-+
-+	dwc_priv->clk_tx = devm_clk_get(&pdev->dev, "tx");
-+	if (IS_ERR(plat_dat->pclk)) {
-+		dev_err(&pdev->dev, "tx clock not found.\n");
-+		return PTR_ERR(dwc_priv->clk_tx);
-+	}
-+
-+	err = clk_prepare_enable(dwc_priv->clk_tx);
-+	if (err < 0) {
-+		dev_err(&pdev->dev, "failed to enable tx clock: %d\n", err);
-+		return err;
-+	}
-+	dwc_priv->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, "ethrst");
-+	if (IS_ERR(dwc_priv->rst))
-+		return PTR_ERR(dwc_priv->rst);
-+
-+	ret = reset_control_assert(dwc_priv->rst);
-+	WARN_ON(ret != 0);
-+	ret = reset_control_deassert(dwc_priv->rst);
-+	WARN_ON(ret != 0);
-+
-+	plat_dat->fix_mac_speed = dwc_qos_fix_speed;
-+	plat_dat->bsp_priv = dwc_priv;
-+	plat_dat->phy_addr = PHY_ADDR;
-+
-+	return 0;
-+}
-+
-+static int dwc_qos_remove(struct platform_device *pdev)
-+{
-+	struct dwc_qos_priv *dwc_priv = get_stmmac_bsp_priv(&pdev->dev);
-+
-+	reset_control_assert(dwc_priv->rst);
-+	clk_disable_unprepare(dwc_priv->clk_tx);
-+	clk_disable_unprepare(dwc_priv->clk_app);
-+
-+	devm_gpiod_put(&pdev->dev, dwc_priv->phy_reset);
-+
-+	return 0;
-+}
-+
-+struct dwc_eth_dwmac_data {
-+	int (*probe)(struct platform_device *pdev,
-+		     struct plat_stmmacenet_data *data,
-+		     struct stmmac_resources *res);
-+	int (*remove)(struct platform_device *pdev);
-+};
-+
-+static const struct dwc_eth_dwmac_data dwc_qos_data = {
-+	.probe = dwc_qos_probe,
-+	.remove = dwc_qos_remove,
-+};
-+
-+static int dwc_eth_dwmac_probe(struct platform_device *pdev)
-+{
-+	const struct dwc_eth_dwmac_data *data;
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	struct net_device *ndev = NULL;
-+	struct stmmac_priv *stmpriv = NULL;
-+	struct dwc_qos_priv *dwc_priv = NULL;
-+	int ret;
-+
-+	data = device_get_match_data(&pdev->dev);
-+
-+	memset(&stmmac_res, 0, sizeof(struct stmmac_resources));
-+
-+	/**
-+	 * Since stmmac_platform supports name IRQ only, basic platform
-+	 * resource initialization is done in the glue logic.
-+	 */
-+	stmmac_res.irq = platform_get_irq(pdev, 0);
-+	if (stmmac_res.irq < 0)
-+		return stmmac_res.irq;
-+	stmmac_res.wol_irq = stmmac_res.irq;
-+	stmmac_res.addr = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(stmmac_res.addr))
-+		return PTR_ERR(stmmac_res.addr);
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return PTR_ERR(plat_dat);
-+
-+	ret = data->probe(pdev, plat_dat, &stmmac_res);
-+	if (ret < 0) {
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "failed to probe subdriver: %d\n",
-+				ret);
-+
-+		return ret;
-+	}
-+
-+	ret = dwc_eth_dwmac_config_dt(pdev, plat_dat);
-+	if (ret)
-+		goto remove;
-+
-+	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-+	if (ret)
-+		goto remove;
-+
-+	ndev = dev_get_drvdata(&pdev->dev);
-+	stmpriv = netdev_priv(ndev);
-+	dwc_priv = (struct dwc_qos_priv *)plat_dat->bsp_priv;
-+	dwc_priv->stmpriv = stmpriv;
-+
-+	return ret;
-+
-+remove:
-+	data->remove(pdev);
-+
-+	return ret;
-+}
-+
-+static void dwc_eth_dwmac_remove(struct platform_device *pdev)
-+{
-+	const struct dwc_eth_dwmac_data *data;
-+	int err;
-+
-+	data = device_get_match_data(&pdev->dev);
-+
-+	stmmac_dvr_remove(&pdev->dev);
-+
-+	err = data->remove(pdev);
-+	if (err < 0)
-+		dev_err(&pdev->dev, "failed to remove subdriver: %d\n", err);
-+}
-+
-+static const struct of_device_id dwc_eth_dwmac_match[] = {
-+	{ .compatible = "eswin,eic7700-qos-eth", .data = &dwc_qos_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, dwc_eth_dwmac_match);
-+
-+static struct platform_driver eic7700_eth_dwmac_driver = {
-+	.probe  = dwc_eth_dwmac_probe,
-+	.remove = dwc_eth_dwmac_remove,
-+	.driver = {
-+		.name           = "eic7700-eth-dwmac",
-+		.pm             = &stmmac_pltfr_pm_ops,
-+		.of_match_table = dwc_eth_dwmac_match,
-+	},
-+};
-+module_platform_driver(eic7700_eth_dwmac_driver);
-+
-+MODULE_AUTHOR("Eswin");
-+MODULE_AUTHOR("Shuang Liang <liangshuang@eswincomputing.com>");
-+MODULE_AUTHOR("Shangjuan Wei <weishangjuan@eswincomputing.com>");
-+MODULE_DESCRIPTION("Eswin eic7700 qos ethernet driver");
-+MODULE_LICENSE("GPL");
--- 
-2.17.1
+I will switch to this scheme. Thank you
 
+Christian
+
+(*) 47beed513a85b3561e74cbb4dd7af848716fa4e0 ("pinctrl: stm32: Add level 
+interrupt support to gpio irq chip")
+
+
+> 
+> - Mani
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
