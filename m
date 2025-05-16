@@ -2,19 +2,19 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2DBAB9B47
+	by mail.lfdr.de (Postfix) with ESMTPS id 85917AB9B48
 	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 13:42:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B4D2C7A836;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31304C7A83A;
 	Fri, 16 May 2025 11:42:42 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [52.175.55.52])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42402C78037
+Received: from zg8tmty1ljiyny4xntuumtyw.icoremail.net
+ (zg8tmty1ljiyny4xntuumtyw.icoremail.net [165.227.155.160])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 362C3C78037
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 May 2025 00:35:33 +0000 (UTC)
+ Fri, 16 May 2025 01:09:21 +0000 (UTC)
 Received: from E0005182DT.eswin.cn (unknown [10.12.97.162])
- by app2 (Coremail) with SMTP id TQJkCgAHp5UziCZokJV8AA--.28341S2;
- Fri, 16 May 2025 08:35:03 +0800 (CST)
+ by app2 (Coremail) with SMTP id TQJkCgDXaJImkCZoiJh8AA--.40410S2;
+ Fri, 16 May 2025 09:08:58 +0800 (CST)
 From: weishangjuan@eswincomputing.com
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -26,31 +26,32 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  jan.petrous@oss.nxp.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 16 May 2025 08:34:49 +0800
-Message-ID: <20250516003451.682-1-weishangjuan@eswincomputing.com>
+Date: Fri, 16 May 2025 09:08:48 +0800
+Message-ID: <20250516010849.784-1-weishangjuan@eswincomputing.com>
 X-Mailer: git-send-email 2.49.0.windows.1
 MIME-Version: 1.0
-X-CM-TRANSID: TQJkCgAHp5UziCZokJV8AA--.28341S2
+X-CM-TRANSID: TQJkCgDXaJImkCZoiJh8AA--.40410S2
 X-Coremail-Antispam: 1UD129KBjvdXoWrur1rAr1kXr1kKw4DXw1fWFg_yoWkGwb_Cr
- n7Zr95Ja1UXF4jvayjkrs7ur909F4DJryfCFs8AFWav3sFq3yDGF95A34kZF18Gr4rJF9x
- Wryft34Iyw12gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbhxFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw2
- 8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
- x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrw
- CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
- 42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
- 80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
+ 1xZr95Ja1UXF4jvayjkrs7uryq9F4DJrySkFZ8AFWYv3sFqrWDGF95ArykZF1UGr4rJF9x
+ Wryft34Iyw12gjkaLaAFLSUrUUUU1b8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbHkYjsxI4VWkCwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAa
+ Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ec7
+ CjxVAajcxG14v26r1j6r4UMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_
+ Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8c
+ xan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWrXVW3AwCY02Avz4vE-syl42xK
+ 82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
+ C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48J
+ MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
+ IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+ 87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj4Rz6wtUUUUU
 X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
 X-Mailman-Approved-At: Fri, 16 May 2025 11:42:40 +0000
 Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
- weishangjuan <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
+ Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
 Subject: [Linux-stm32] [PATCH v1 0/2] Add driver support for Eswin eic7700
 	SoC ethernet controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -69,7 +70,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: weishangjuan <weishangjuan@eswincomputing.com>
+From: Shangjuan Wei <weishangjuan@eswincomputing.com>
 
   Introduce a driver for the Eswin eic7700 series SoC ethernet controller,
   adding support for the ethernet functionality in the Linux kernel. The
@@ -83,7 +84,7 @@ From: weishangjuan <weishangjuan@eswincomputing.com>
     I tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700 SoC),
     including system boot and ethernet.
 
-weishangjuan (2):
+Shangjuan Wei (2):
   ethernet: eswin: Document for eic7700 SoC
   ethernet: eswin: Add eic7700 ethernet driver
 
