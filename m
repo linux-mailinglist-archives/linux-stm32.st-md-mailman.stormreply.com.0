@@ -2,66 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4752AB9CC8
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 14:58:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106D4AB9D1C
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 15:20:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C144C7A840;
-	Fri, 16 May 2025 12:58:27 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8C15C7A840;
+	Fri, 16 May 2025 13:20:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 814B0C7A829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15DDEC7A829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 May 2025 12:58:26 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54GB2cC6002118;
- Fri, 16 May 2025 14:58:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 3vjseJYbJT5ETJFPoncHRVVX4/JCv6agmUw3wmhKosc=; b=h6kvDvfd3E/ew6uD
- kIA4mZS2tnjaseju95OgnOlcaevnuXwOZJvA36MXrggZ/Hr7PdgvofDVTarF8Ygx
- KFMVVv8lABPdDH6QhBWt1yNLdOHWgCjglzDTT6MURdczeInpIVdBFl1U6j2eriHK
- ga0oVq4B+n0RWP2EFXFlCK3S/xisYYw8Z9soT15E74cr1eRFcDn6onQcZqPOqaNO
- i9mY5whVoiTkjperNXUXlhd8t1trzhw3qYmuAK3KX22+sCEJOu9DDTeAmUAO9XAj
- A3A4/C457uS9c3CjHYHd1EtwweqJdhzUQ41LXkiZ8iXL51uhSuD++EGj2trv82u/
- bWkdYA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46mbdwe848-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 May 2025 14:58:08 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id F01D740063;
- Fri, 16 May 2025 14:57:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C4D70B44890;
- Fri, 16 May 2025 14:56:23 +0200 (CEST)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 May
- 2025 14:56:23 +0200
-Message-ID: <ae7b8134-923c-4967-b25c-fc1411fd0602@foss.st.com>
-Date: Fri, 16 May 2025 14:56:22 +0200
+ Fri, 16 May 2025 13:20:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E6068629F9;
+ Fri, 16 May 2025 13:19:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCCC7C4CEED;
+ Fri, 16 May 2025 13:19:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1747401599;
+ bh=Zxq4lQIG5sIEJG3iSRSF3Y91Onwf6xfW2l+nu/OgvR4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=f7KYZOkiciLVxL06Wz9xBn/s0o2ikDE83HLLpIFwkA3pI/YvVIC+hVNbD1Q0ZqvCe
+ 4YVwXxDzjCXKAZG6feMNdvJHw2lKynyuY0sZg79cYbCbdQ6JOMuNhsZRoPNOLmn25Y
+ 4PiM0cBxMLklZc7JjFsRkl4tL5Y3c3R27pyAdVHKghxQQfnkYoxSZjvnAT3ZZegrdt
+ NyYl1p79htzJiUzSNhe+t2bfIiOpQ5ODH6N2z+pMysiij/t+E5vew9oVGJRSzxTGsM
+ D4ntUuDXGqBPOUKYxhxsg2XTDC4HSIDhaipH94NDDk8U4tCoyGDafps7q23FlPNEh+
+ iRbN9zb42gamQ==
+Message-ID: <01f97fcc-1b6a-41f3-8a62-67fac9f5bae0@kernel.org>
+Date: Fri, 16 May 2025 15:19:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Mark Brown <broonie@kernel.org>
-References: <20250514-b4-upstream_ospi_reset_update-v5-1-7b5de0552c8c@foss.st.com>
- <aCWxusdUYgeGRaqk@finisterre.sirena.org.uk>
+To: weishangjuan@eswincomputing.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ p.zabel@pengutronix.de, yong.liang.choong@linux.intel.com,
+ rmk+kernel@armlinux.org.uk, jszhang@kernel.org, inochiama@gmail.com,
+ jan.petrous@oss.nxp.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
+ <20250516011040.801-1-weishangjuan@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <aCWxusdUYgeGRaqk@finisterre.sirena.org.uk>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-16_05,2025-05-16_02,2025-03-28_01
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5] spi: stm32-ospi: Make usage of
- reset_control_acquire/release() API
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250516011040.801-1-weishangjuan@eswincomputing.com>
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ linmin@eswincomputing.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] ethernet: eswin: Document for
+	eic7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,34 +111,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 5/15/25 11:19, Mark Brown wrote:
-> On Wed, May 14, 2025 at 03:56:01PM +0200, Patrice Chotard wrote:
+On 16/05/2025 03:10, weishangjuan@eswincomputing.com wrote:
+> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
 > 
->> This patch is dependent on commit 6b3754009f87
->> ("reset: Add devm_reset_control_array_get_exclusive_released()")
->> available on tag reset-for-v6.16.
+> Add ESWIN EIC7700 Ethernet controller, supporting
+> multi-rate (10M/100M/1G) auto-negotiation, PHY LED configuration,
+> clock/reset control, and AXI bus parameter optimization.
 > 
-> When telling people about dependencies like this the standard thing is
-> to also specify the repostiory, or link to a pull request.  The git
-> repository is needed to actually pull the tag.  This appears to be the
-> PR at:
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching. For bindings, the preferred subjects are
+explained here:
+https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+
+
+> ---
+>  .../bindings/net/eswin,eic7700-eth.yaml       | 142 ++++++++++++++++++
+>  1 file changed, 142 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
 > 
->    https://lore.kernel.org/all/20250513092516.3331585-1-p.zabel@pengutronix.de/
-> 
-> which is the full reset pull request for v6.16.  The commit you
-> referenced isn't the tagged commit, it's further back in the history
-> but still has a whole new reset driver backed up behind it.  I'd have
-> expected that if this was expected to be pulled into other subsystems
-> it'd be on a topic branch and directly tagged?
+> diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> new file mode 100644
+> index 000000000000..6cb9c109c036
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> @@ -0,0 +1,142 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Eswin EIC7700 SOC Eth Controller
+> +
+> +maintainers:
+> +  - Shuang Liang <liangshuang@eswincomputing.com>
+> +  - Zhi Li <lizhi2@eswincomputing.com>
+> +  - Shangjuan Wei <weishangjuan@eswincomputing.com>
+> +
+> +description: |
 
-Hi Mark
+Same comments apply as for all of your patches.
 
-Sorry for that, how do you want me to proceed ?
+> +  The eth controller registers are part of the syscrg block on
+> +  the EIC7700 SoC.
+> +
+> +properties:
+> +  compatible:
+> +    const: eswin,eic7700-qos-eth
+> +
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: Base address and size
+> +      - description: Extension region (optional)
 
-Thanks
-Patrice
+How it can be optional? This is SoC. It is strictly defined, isn't it?
+
+> +
+> +  interrupt-names:
+> +    const: macirq
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  phy-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [mii, gmii, rgmii, rmii, sgmii]
+> +
+> +  id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Controller instance ID
+
+No, drop. IDs are not allowed.
+
+> +
+> +  clocks:
+> +    minItems: 3
+> +    maxItems: 7
+
+No.
+
+I am supposed to repeat the same comments... So no.
+
+All my comments apply to all eswin patches. For driver, bindings,
+everything. I suggest to slow down and learn from one review.
+
+I finish review here.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
