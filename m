@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E6DAB9EF3
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 May 2025 16:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BA9ABAA9A
+	for <lists+linux-stm32@lfdr.de>; Sat, 17 May 2025 16:12:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C807EC7A840;
-	Fri, 16 May 2025 14:52:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C01FC78F72;
+	Sat, 17 May 2025 14:12:08 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF8A5C7A829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06A06C78F69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 May 2025 14:52:09 +0000 (UTC)
+ Sat, 17 May 2025 14:12:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A1914629FE;
- Fri, 16 May 2025 14:52:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFADC4CEE4;
- Fri, 16 May 2025 14:52:03 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id D843BA4E77B;
+ Sat, 17 May 2025 14:12:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279B6C4CEE3;
+ Sat, 17 May 2025 14:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747407128;
- bh=55iUVdRf8GgLkjcVLgOYJa2jXmc6dM9rV3Kcs4cqta0=;
+ s=k20201202; t=1747491125;
+ bh=qYndr5U3m8H68PIKip0s+OciLB7QEEHXQa1hgFbB3f8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HdOgFTIoB2YAg3QDa42y1s9/xyLo7YNoh8rLX5uw582mSABYqxhBr6+Zpb5THkkFi
- VSs1IxMhG/NKoySBwekPY04K56bhuE6SCdnDH3ZBvTzHWBnXDqgINiph9AzungJIlm
- yHgq67x+VMNcpdhiKCFmlCXGxay3ghGgdD2yY7Fp/MR41wiPy6nTgrM+bwcuWwgCB5
- ddA8dgaI22VapYj8rVuETSHnz0OExHAbZ1z2cjaU/s33JKW28bERAw2dZEDJGo1wlI
- XNLN2Hd0LlGPbn8wy9aHefiWRL9UlXlhZUDO5zKr1cGCo9Ik56jMOAm+UGEHWKYVU9
- 7iDg7XC+RQpHQ==
-Date: Fri, 16 May 2025 15:52:00 +0100
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <q4rbaadr7amsrtwaeickdjmcst77onuopir5rzpvixa7ow7udk@txwsmidjs3im>
-References: <20250423090119.4003700-1-christian.bruel@foss.st.com>
- <20250423090119.4003700-3-christian.bruel@foss.st.com>
- <gzw3rcuwuu7yswljzde2zszqlzkfsilozdfv2ebrcxjpvngpkk@hvzqb5wbjalb>
- <c01d0d72-e43c-4e10-b298-c8ed4f5d1942@foss.st.com>
- <ec33uuugief45swij7eu3mbx7htfxov6qa5miucqsrdp36z7qe@svpbhliveks4>
- <7df0c1e5-f53b-4a44-920a-c2dfe8842481@foss.st.com>
+ b=D7Uh3zpSCHsenVsHNiSV5Jucv4/7unZy8SKwhaKVrZKoffbk8Y3yTF1SJ8A6mPvyh
+ uEuUmEjdiJSCLhGcCDSpZfsD600CLfa4CU7oneSZAzr9xTCmeThjAPBcd5ESTVOHMo
+ zi1O/w/CaYNH5CQ7L/P24taEW4ijVM4hebdxwyOi+Y+4a9T4zrbHh2k2rHsBv3x+qs
+ BEip2sxJo/nW96JOp74w2Wf3Cf3uxIfrlW/swAUqChxpNW+0/W8Zbf0uID0dhKVp9f
+ Fka3UCzXNiugNTRsfXFVSa+8gAevU6BbxuZvr+ebgC9raPhugCsYraSfYbkgq0O34l
+ q6wdp/RHezr3A==
+Date: Sat, 17 May 2025 15:11:57 +0100
+From: Simon Horman <horms@kernel.org>
+To: weishangjuan@eswincomputing.com
+Message-ID: <20250517141157.GM3339421@horms.kernel.org>
+References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
+ <20250516011130.818-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <7df0c1e5-f53b-4a44-920a-c2dfe8842481@foss.st.com>
-Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, thippeswamy.havalige@amd.com,
- linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
- quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, bhelgaas@google.com,
- krzk+dt@kernel.org, shradha.t@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, johan+linaro@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v8 2/9] PCI: stm32: Add PCIe host support
-	for STM32MP25
+In-Reply-To: <20250516011130.818-1-weishangjuan@eswincomputing.com>
+Cc: edumazet@google.com, jszhang@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ ningyu@eswincomputing.com, 0x1207@gmail.com, lizhi2@eswincomputing.com,
+ kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ jan.petrous@oss.nxp.com, rmk+kernel@armlinux.org.uk,
+ yong.liang.choong@linux.intel.com, dfustini@tenstorrent.com,
+ linux-arm-kernel@lists.infradead.org, linmin@eswincomputing.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ p.zabel@pengutronix.de, inochiama@gmail.com, krzk+dt@kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v1 2/2] ethernet: eswin: Add eic7700
+	ethernet driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,111 +61,433 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXkgMTYsIDIwMjUgYXQgMTA6Mzc6MTZBTSArMDIwMCwgQ2hyaXN0aWFuIEJydWVs
-IHdyb3RlOgo+IAo+IAo+IE9uIDUvMTUvMjUgMTM6MjksIE1hbml2YW5uYW4gU2FkaGFzaXZhbSB3
-cm90ZToKPiA+IE9uIE1vbiwgTWF5IDEyLCAyMDI1IGF0IDA1OjA4OjEzUE0gKzAyMDAsIENocmlz
-dGlhbiBCcnVlbCB3cm90ZToKPiA+ID4gSGkgTWFuaXZhbm5hbiwKPiA+ID4gCj4gPiA+IE9uIDQv
-MzAvMjUgMDk6MzAsIE1hbml2YW5uYW4gU2FkaGFzaXZhbSB3cm90ZToKPiA+ID4gPiBPbiBXZWQs
-IEFwciAyMywgMjAyNSBhdCAxMTowMToxMkFNICswMjAwLCBDaHJpc3RpYW4gQnJ1ZWwgd3JvdGU6
-Cj4gPiA+ID4gPiBBZGQgZHJpdmVyIGZvciB0aGUgU1RNMzJNUDI1IFNvQyBQQ0llIEdlbjEgMi41
-IEdUL3MgYW5kIEdlbjIgNUdUL3MKPiA+ID4gPiA+IGNvbnRyb2xsZXIgYmFzZWQgb24gdGhlIERl
-c2lnbldhcmUgUENJZSBjb3JlLgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBTdXBwb3J0cyBNU0kgdmlh
-IEdJQ3YybSwgU2luZ2xlIFZpcnR1YWwgQ2hhbm5lbCwgU2luZ2xlIEZ1bmN0aW9uCj4gPiA+ID4g
-PiAKPiA+ID4gPiA+IFN1cHBvcnRzIFdBS0UjIEdQSU8uCj4gPiA+ID4gPiAKPiA+ID4gPiAKPiA+
-ID4gPiBNb3N0bHkgbG9va3MgZ29vZC4gSnVzdCBhIGNvdXBsZSBvZiBjb21tZW50cyBiZWxvdy4K
-PiA+ID4gPiAKPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBCcnVlbCA8Y2hyaXN0
-aWFuLmJydWVsQGZvc3Muc3QuY29tPgo+ID4gPiA+ID4gLS0tCj4gPiA+ID4gPiAgICBkcml2ZXJz
-L3BjaS9jb250cm9sbGVyL2R3Yy9LY29uZmlnICAgICAgfCAgMTIgKwo+ID4gPiA+ID4gICAgZHJp
-dmVycy9wY2kvY29udHJvbGxlci9kd2MvTWFrZWZpbGUgICAgIHwgICAxICsKPiA+ID4gPiA+ICAg
-IGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYyB8IDM2OCArKysrKysrKysr
-KysrKysrKysrKysrKysKPiA+ID4gPiA+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3Bj
-aWUtc3RtMzIuaCB8ICAxNSArCj4gPiA+ID4gPiAgICA0IGZpbGVzIGNoYW5nZWQsIDM5NiBpbnNl
-cnRpb25zKCspCj4gPiA+ID4gPiAgICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9wY2kvY29u
-dHJvbGxlci9kd2MvcGNpZS1zdG0zMi5jCj4gPiA+ID4gPiAgICBjcmVhdGUgbW9kZSAxMDA2NDQg
-ZHJpdmVycy9wY2kvY29udHJvbGxlci9kd2MvcGNpZS1zdG0zMi5oCj4gPiA+ID4gPiAKPiA+ID4g
-PiAKPiA+ID4gPiBbLi4uXQo+ID4gPiA+IAo+ID4gPiA+ID4gK3N0YXRpYyBpbnQgc3RtMzJfcGNp
-ZV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gPiA+ID4gK3sKPiA+ID4g
-PiA+ICsJc3RydWN0IHN0bTMyX3BjaWUgKnN0bTMyX3BjaWU7Cj4gPiA+ID4gPiArCXN0cnVjdCBk
-ZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4gPiA+ID4gPiArCWludCByZXQ7Cj4gPiA+ID4gPiAr
-Cj4gPiA+ID4gPiArCXN0bTMyX3BjaWUgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXplb2YoKnN0bTMy
-X3BjaWUpLCBHRlBfS0VSTkVMKTsKPiA+ID4gPiA+ICsJaWYgKCFzdG0zMl9wY2llKQo+ID4gPiA+
-ID4gKwkJcmV0dXJuIC1FTk9NRU07Cj4gPiA+ID4gPiArCj4gPiA+ID4gPiArCXN0bTMyX3BjaWUt
-PnBjaS5kZXYgPSBkZXY7Cj4gPiA+ID4gPiArCXN0bTMyX3BjaWUtPnBjaS5vcHMgPSAmZHdfcGNp
-ZV9vcHM7Cj4gPiA+ID4gPiArCXN0bTMyX3BjaWUtPnBjaS5wcC5vcHMgPSAmc3RtMzJfcGNpZV9o
-b3N0X29wczsKPiA+ID4gPiA+ICsKPiA+ID4gPiA+ICsJc3RtMzJfcGNpZS0+cmVnbWFwID0gc3lz
-Y29uX3JlZ21hcF9sb29rdXBfYnlfY29tcGF0aWJsZSgic3Qsc3RtMzJtcDI1LXN5c2NmZyIpOwo+
-ID4gPiA+ID4gKwlpZiAoSVNfRVJSKHN0bTMyX3BjaWUtPnJlZ21hcCkpCj4gPiA+ID4gPiArCQly
-ZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIFBUUl9FUlIoc3RtMzJfcGNpZS0+cmVnbWFwKSwKPiA+
-ID4gPiA+ICsJCQkJICAgICAiTm8gc3lzY2ZnIHNwZWNpZmllZFxuIik7Cj4gPiA+ID4gPiArCj4g
-PiA+ID4gPiArCXN0bTMyX3BjaWUtPmNsayA9IGRldm1fY2xrX2dldChkZXYsIE5VTEwpOwo+ID4g
-PiA+ID4gKwlpZiAoSVNfRVJSKHN0bTMyX3BjaWUtPmNsaykpCj4gPiA+ID4gPiArCQlyZXR1cm4g
-ZGV2X2Vycl9wcm9iZShkZXYsIFBUUl9FUlIoc3RtMzJfcGNpZS0+Y2xrKSwKPiA+ID4gPiA+ICsJ
-CQkJICAgICAiRmFpbGVkIHRvIGdldCBQQ0llIGNsb2NrIHNvdXJjZVxuIik7Cj4gPiA+ID4gPiAr
-Cj4gPiA+ID4gPiArCXN0bTMyX3BjaWUtPnJzdCA9IGRldm1fcmVzZXRfY29udHJvbF9nZXRfZXhj
-bHVzaXZlKGRldiwgTlVMTCk7Cj4gPiA+ID4gPiArCWlmIChJU19FUlIoc3RtMzJfcGNpZS0+cnN0
-KSkKPiA+ID4gPiA+ICsJCXJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgUFRSX0VSUihzdG0zMl9w
-Y2llLT5yc3QpLAo+ID4gPiA+ID4gKwkJCQkgICAgICJGYWlsZWQgdG8gZ2V0IFBDSWUgcmVzZXRc
-biIpOwo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlyZXQgPSBzdG0zMl9wY2llX3BhcnNlX3BvcnQo
-c3RtMzJfcGNpZSk7Cj4gPiA+ID4gPiArCWlmIChyZXQpCj4gPiA+ID4gPiArCQlyZXR1cm4gcmV0
-Owo+ID4gPiA+ID4gKwo+ID4gPiA+ID4gKwlwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBzdG0z
-Ml9wY2llKTsKPiA+ID4gPiA+ICsKPiA+ID4gPiA+ICsJcmV0ID0gcG1fcnVudGltZV9zZXRfYWN0
-aXZlKGRldik7Cj4gPiA+ID4gPiArCWlmIChyZXQgPCAwKSB7Cj4gPiA+ID4gPiArCQlkZXZfZXJy
-KGRldiwgIkZhaWxlZCB0byBhY3RpdmF0ZSBydW50aW1lIFBNICVkXG4iLCByZXQpOwo+ID4gPiA+
-IAo+ID4gPiA+IFBsZWFzZSB1c2UgZGV2X2Vycl9wcm9iZSgpIGhlcmUgYW5kIGJlbG93Lgo+ID4g
-PiAKPiA+ID4gT0ssIHdpbGwgcmVwb3J0IHRoaXMgaW4gdGhlIEVQIGRyaXZlciBhbHNvLgo+ID4g
-PiAKPiA+ID4gPiAKPiA+ID4gPiA+ICsJCXJldHVybiByZXQ7Cj4gPiA+ID4gPiArCX0KPiA+ID4g
-PiA+ICsKPiA+ID4gPiA+ICsJcmV0ID0gZGV2bV9wbV9ydW50aW1lX2VuYWJsZShkZXYpOwo+ID4g
-PiA+ID4gKwlpZiAocmV0IDwgMCkgewo+ID4gPiA+ID4gKwkJZGV2X2VycihkZXYsICJGYWlsZWQg
-dG8gZW5hYmxlIHJ1bnRpbWUgUE0gJWRcbiIsIHJldCk7Cj4gPiA+ID4gPiArCQlyZXR1cm4gcmV0
-Owo+ID4gPiA+ID4gKwl9Cj4gPiA+ID4gPiArCj4gPiA+ID4gPiArCXBtX3J1bnRpbWVfZ2V0X25v
-cmVzdW1lKGRldik7Cj4gPiA+ID4gPiArCj4gPiA+ID4gCj4gPiA+ID4gSSBrbm93IHRoYXQgYSBs
-b3Qgb2YgdGhlIGNvbnRyb2xsZXIgZHJpdmVycyBkbyB0aGlzIGZvciBubyBvYnZpb3VzIHJlYXNv
-bi4gQnV0Cj4gPiA+ID4gaW4gdGhpcyBjYXNlLCBJIGJlbGlldmUgeW91IHdhbnQgdG8gZW5hYmxl
-IHBvd2VyIGRvbWFpbiBvciBnZW5wZCBiZWZvcmUKPiA+ID4gPiByZWdpc3RlcmluZyB0aGUgaG9z
-dCBicmlkZ2UuIElzIHRoYXQgcmlnaHQ/Cj4gPiA+IAo+ID4gPiBXZSBjYWxsIHBtX3J1bnRpbWVf
-ZW5hYmxlKCkgYmVmb3JlIHN0bTMyX2FkZF9wY2llX3BvcnQoKSBhbmQKPiA+ID4gZHdfcGNpZV9o
-b3N0X2luaXQoKS4gVGhpcyBlbnN1cmVzIHRoYXQgUENJZSBpcyBhY3RpdmUgZHVyaW5nIHRoZSBQ
-RVJTVCMKPiA+ID4gc2VxdWVuY2UgYW5kIGJlZm9yZSBhY2Nlc3NpbmcgdGhlIERXQyByZWdpc3Rl
-cnMuCj4gPiA+IAo+ID4gCj4gPiBXaGF0IGRvIHlvdSBtZWFuIGJ5ICdQQ0llIGlzIGFjdGl2ZSc/
-IFdobyBpcyBhY3RpdmF0aW5nIGl0IG90aGVyIHRoYW4gdGhpcwo+ID4gZHJpdmVyPwo+IAo+ICJQ
-Q0llIGlzIGFjdGl2ZSIgaW4gdGhlIHNlbnNlIG9mIHBtX3J1bnRpbWVfYWN0aXZlKCkgYW5kIFBN
-IHJ1bnRpbWVfZW5hYmxlZC4KPiAKPiBBIGJldHRlciBjYWxsIHBvaW50IHdvdWxkIGJlIGp1c3Qg
-YmVmb3JlIGR3X2hvc3RfaW5pdCgpLCBhZnRlciB0aGUgUENJZQo+IGNvbnRyb2xsZXIgaXMgcmVz
-ZXQgOgo+IAo+IHN0bTMyX2FkZF9wY2llX3BvcnQoKQo+IGNsa19wcmVwYXJlX2VuYWJsZSgpCgph
-bHNvLi4uCgpwbV9ydW50aW1lX3NldF9hY3RpdmUoKQpwbV9ydW50aW1lX25vX2NhbGxiYWNrcygp
-Cgo+IGRldm1fcG1fcnVudGltZV9lbmFibGUoKQo+IGR3X3BjaWVfaG9zdF9pbml0KCkKPiAKPiB3
-aXRoIHRoaXMgc2VxdWVuY2UsIHRoZSBzdG0zMl9wY2llX3N1c3BlbmRfbm9pcnEoKSBpcyB3ZWxs
-IGJhbGFuY2VkLiBkb2VzCj4gdGhhdCBzb3VuZCBiZXR0ZXIgPwo+IAoKWWVhaC4KCj4gPiAKPiA+
-ID4gPiBBbmQgdGhlIGZhY3QgdGhhdCB5b3UgYXJlIG5vdAo+ID4gPiA+IGRlY3JlbWVudGluZyB0
-aGUgcnVudGltZSB1c2FnZSBjb3VudCBtZWFucywgeW91IHdhbnQgdG8ga2VlcCBpdCBPTiBhbGwg
-dGhlIHRpbWU/Cj4gPiA+ID4gQmV3YXJlIHRoYXQgeW91ciBzeXN0ZW0gc3VzcGVuZC9yZXN1bWUg
-Y2FsbHMgd291bGQgbmV2ZXIgZ2V0IGV4ZWN1dGVkLgo+ID4gPiAKPiA+ID4gV2UgZG8gbm90IHN1
-cHBvcnQgUE0gcnVudGltZSBhdXRvc3VzcGVuZCwgc28gd2UgbXVzdCBub3RpZnkgUE0gcnVudGlt
-ZSB0aGF0Cj4gPiA+IFBDSWUgaXMgYWx3YXlzIGFjdGl2ZS4gV2l0aG91dCBpbnZva2luZyBwbV9y
-dW50aW1lX2dldF9ub3Jlc3VtZSgpLCBQQ0llCj4gPiA+IHdvdWxkIG1pc3Rha2VubHkgYmUgbWFy
-a2VkIGFzIHN1c3BlbmRlZC4KPiA+IAo+ID4gVGhpcyBjYW5ub3QgaGFwcGVuIHVubGVzcyB0aGUg
-Y2hpbGQgZGV2aWNlcyBhcmUgYWxzbyBzdXNwZW5kZWQ/IE9yIGlmIHRoZXJlIGFyZQo+ID4gbm8g
-Y2hpbGQgZGV2aWNlcyBjb25uZWN0ZWQuCj4gCj4gSWYgbm8gZGV2aWNlIGlzIGNvbm5lY3RlZCBv
-ciBpZiBvbmUgaXMgYWN0aXZlLCB3aXRob3V0Cj4gcG1fcnVudGltZV9nZXRfbm9yZXN1bWUoKSwg
-cG1fZ2VucGRfc3VtbWFyeSBzYXlzICJQQ0llIHN1c3BlbmRlZCIgZGVzcGl0ZQo+IGJlaW5nIGNs
-b2NrZWQgYW5kIGhhdmluZyBhY2Nlc3NpYmxlIGNvbmZpZ3VyYXRpb24gc3BhY2UKPiAKClRoaXMg
-bW9zdGx5IG1lYW5zIHRoZSBoaWVyYXJjaHkgaXMgbm90IHByb3Blcmx5IG1vZGVsbGVkLiBTbyB0
-aGUgUE0gY29yZSBkb2Vzbid0Cmtub3cgdGhhdCB0aGUgY2hpbGQgZGV2aWNlcyBhcmUgYWN0aXZl
-LiBZb3UgbmVlZCB0byBjaGVjayB0aGUgZ2VucGQgc3VtbWFyeSBmb3IKUENJIGJyaWRnZSBhbmQg
-ZW5kcG9pbnQgZGV2aWNlcy4KCklmIHRoZXJlIGFyZSBubyBkZXZpY2VzLCB0aGVuIGl0IGlzIE9L
-IHRvIGJlIG1hcmtlZCBhcyBzdXNwZW5kZWQuIEJ1dCBJIHdvdWxkCmFzc3VtZSB0aGF0IGV2ZW4g
-aWYgYW4gdXNlciBob3RwbHVncyBhbiBlbmRwb2ludCwgaXQgd291bGQganVzdCB3b3JrIHNpbmNl
-IHRoZXJlCmFyZSBubyBydW50aW1lIFBNIGNhbGxiYWNrcyBwb3B1bGF0ZWQuIE9ubHkgdGhpbmcg
-dG8gd29ycnkgaXMgdGhhdCwgdGhlIGdlbnBkCmNvcmUgbWF5IHR1cm4gb2ZmIHRoZSBwb3dlciBk
-b21haW4gaWYgYWxsIHRoZSBkZXZpY2VzIGluIHRoZSBoaWVyYXJjaHkgYXJlCnN1c3BlbmRlZC4g
-QnV0IHdlIGRvIGhhdmUgc29tZSB3b3JrYXJvdW5kcyBmb3IgdGhhdCwgaWYgcG93ZXIgZG9tYWlu
-cyBuZWVkIHRvIGJlCmtlcHQgb24uIFNvIGxldCBtZSBrbm93LgoKLSBNYW5pCgotLSAK4K6u4K6j
-4K6/4K614K6j4K+N4K6j4K6p4K+NIOCumuCupOCuvuCumuCuv+CuteCuruCvjQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
-IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Fri, May 16, 2025 at 09:11:28AM +0800, weishangjuan@eswincomputing.com wrote:
+> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+> 
+> Add Ethernet controller support for Eswin's eic7700 SoC. The driver
+> provides management and control of Ethernet signals for the eiC7700
+> series chips.
+> 
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+...
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+
+...
+d
+> +static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
+> +				   struct plat_stmmacenet_data *plat_dat)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	u32 burst_map = 0;
+> +	u32 bit_index = 0;
+> +	u32 a_index = 0;
+> +
+> +	if (!plat_dat->axi) {
+> +		plat_dat->axi = kzalloc(sizeof(*plat_dat->axi), GFP_KERNEL);
+
+It is unclear to me where this memory is freed, both on error and removal.
+For consistency perhaps it is appropriate to use devm_kzalloc().
+
+> +
+> +		if (!plat_dat->axi)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	plat_dat->axi->axi_lpi_en = device_property_read_bool(dev,
+> +							      "snps,en-lpi");
+> +	if (device_property_read_u32(dev, "snps,write-requests",
+> +				     &plat_dat->axi->axi_wr_osr_lmt)) {
+> +		/**
+> +		 * Since the register has a reset value of 1, if property
+> +		 * is missing, default to 1.
+> +		 */
+> +		plat_dat->axi->axi_wr_osr_lmt = 1;
+> +	} else {
+> +		/**
+> +		 * If property exists, to keep the behavior from dwc_eth_qos,
+> +		 * subtract one after parsing.
+> +		 */
+> +		plat_dat->axi->axi_wr_osr_lmt--;
+> +	}
+> +
+> +	if (device_property_read_u32(dev, "snps,read-requests",
+> +				     &plat_dat->axi->axi_rd_osr_lmt)) {
+> +		/**
+> +		 * Since the register has a reset value of 1, if property
+> +		 * is missing, default to 1.
+> +		 */
+> +		plat_dat->axi->axi_rd_osr_lmt = 1;
+> +	} else {
+> +		/**
+> +		 * If property exists, to keep the behavior from dwc_eth_qos,
+> +		 * subtract one after parsing.
+> +		 */
+> +		plat_dat->axi->axi_rd_osr_lmt--;
+> +	}
+> +	device_property_read_u32(dev, "snps,burst-map", &burst_map);
+> +
+> +	/* converts burst-map bitmask to burst array */
+> +	for (bit_index = 0; bit_index < 7; bit_index++) {
+> +		if (burst_map & (1 << bit_index)) {
+> +			switch (bit_index) {
+> +			case 0:
+> +			plat_dat->axi->axi_blen[a_index] = 4; break;
+> +			case 1:
+> +			plat_dat->axi->axi_blen[a_index] = 8; break;
+> +			case 2:
+> +			plat_dat->axi->axi_blen[a_index] = 16; break;
+> +			case 3:
+> +			plat_dat->axi->axi_blen[a_index] = 32; break;
+> +			case 4:
+> +			plat_dat->axi->axi_blen[a_index] = 64; break;
+> +			case 5:
+> +			plat_dat->axi->axi_blen[a_index] = 128; break;
+> +			case 6:
+> +			plat_dat->axi->axi_blen[a_index] = 256; break;
+> +			default:
+> +			break;
+
+I think the preferred coding style for the above would be:
+
+			switch(...) {
+			case 0:
+				...
+				break;
+			...
+			default:
+				...
+			}
+> +			}
+> +			a_index++;
+> +		}
+
+But I also think the code above can be more succinctly expressed something
+like this:
+
+	for (bit_index = 0; bit_index < 7; bit_index++)
+		if (burst_map & (1 << bit_index)
+			plat_dat->axi->axi_blen[a_index++] = 1 << i + 2;
+
+
+> +	}
+> +
+> +	/* dwc-qos needs GMAC4, AAL, TSO and PMT */
+> +	plat_dat->has_gmac4 = 1;
+> +	plat_dat->dma_cfg->aal = 1;
+> +	plat_dat->flags |= STMMAC_FLAG_TSO_EN;
+> +	plat_dat->pmt = 1;
+> +
+> +	return 0;
+> +}
+> +
+> +static void dwc_qos_fix_speed(void *priv, int speed, unsigned int mode)
+> +{
+> +	unsigned long rate = 125000000;
+> +	int i, err, data = 0;
+> +	struct dwc_qos_priv *dwc_priv = (struct dwc_qos_priv *)priv;
+
+Please arrange local variables in networking code in reverse xmas tree
+order - longest line to shortest.
+
+To this end, this tool can be useful.
+https://github.com/ecree-solarflare/xmastree
+
+Also priv is void *. And there is usually no need to explicitly cast
+to or from a void *.
+
+So, something like this (completely intested!)
+
+	struct dwc_qos_priv *dwc_priv = priv;
+	unsigned long rate = 125000000;
+	int i, err, data = 0;
+
+
+> +
+> +	switch (speed) {
+> +	case SPEED_1000:
+> +		rate = 125000000;
+> +
+> +		for (i = 0; i < 3; i++)
+> +			regmap_write(dwc_priv->hsp_regmap,
+> +				     dwc_priv->dly_hsp_reg[i],
+> +				     dwc_priv->dly_param_1000m[i]);
+> +
+> +		if (dwc_priv->stmpriv) {
+> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +					    PHY_PAGE_SWITCH_REG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[0]);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, data);
+> +		}
+> +
+> +		break;
+> +	case SPEED_100:
+> +		rate = 25000000;
+> +
+> +		for (i = 0; i < 3; i++) {
+> +			regmap_write(dwc_priv->hsp_regmap,
+> +				     dwc_priv->dly_hsp_reg[i],
+> +				     dwc_priv->dly_param_100m[i]);
+> +		}
+> +
+> +		if (dwc_priv->stmpriv) {
+> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +					    PHY_PAGE_SWITCH_REG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[1]);
+
+For Networking code please limit lines to 80 columns wide or less in
+Networking code where it can be done without reducing readability (which is
+the case here).
+
+checkpatch.pl --max-line-length=80 is your friend.
+
+
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, data);
+> +		}
+> +
+> +		break;
+> +	case SPEED_10:
+> +		rate = 2500000;
+> +
+> +		for (i = 0; i < 3; i++) {
+> +			regmap_write(dwc_priv->hsp_regmap,
+> +				     dwc_priv->dly_hsp_reg[i],
+> +				     dwc_priv->dly_param_10m[i]);
+> +		}
+> +
+> +		if (dwc_priv->stmpriv) {
+> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +					    PHY_PAGE_SWITCH_REG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[2]);
+> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
+> +				      PHY_PAGE_SWITCH_REG, data);
+> +		}
+> +
+> +		break;
+> +	default:
+
+Maybe set rate here rather than along with it's declaration, and provide
+a comment regarding a default value being used in the case of an
+invalid speed.
+
+> +		dev_err(dwc_priv->dev, "invalid speed %u\n", speed);
+> +		break;
+> +	}
+> +
+> +	err = clk_set_rate(dwc_priv->clk_tx, rate);
+> +	if (err < 0)
+> +		dev_err(dwc_priv->dev, "failed to set TX rate: %d\n", err);
+> +}
+> +
+> +static int dwc_qos_probe(struct platform_device *pdev,
+> +			 struct plat_stmmacenet_data *plat_dat,
+> +			 struct stmmac_resources *stmmac_res)
+> +{
+> +	struct dwc_qos_priv *dwc_priv;
+> +	int ret;
+> +	int err;
+> +	u32 hsp_aclk_ctrl_offset;
+> +	u32 hsp_aclk_ctrl_regset;
+> +	u32 hsp_cfg_ctrl_offset;
+> +	u32 eth_axi_lp_ctrl_offset;
+> +	u32 eth_phy_ctrl_offset;
+> +	u32 eth_phy_ctrl_regset;
+> +
+> +	dwc_priv = devm_kzalloc(&pdev->dev, sizeof(*dwc_priv), GFP_KERNEL);
+> +	if (!dwc_priv)
+> +		return -ENOMEM;
+> +
+> +	if (device_property_read_u32(&pdev->dev, "id", &dwc_priv->dev_id)) {
+> +		dev_err(&pdev->dev, "Can not read device id!\n");
+> +		return -EINVAL;
+
+This and other error paths below look like candidates for:
+
+		return dev_err_probe(...)
+
+> +	}
+> +
+> +	dwc_priv->dev = &pdev->dev;
+> +	dwc_priv->phy_reset = devm_gpiod_get(&pdev->dev, "rst", GPIOD_OUT_LOW);
+> +	if (IS_ERR(dwc_priv->phy_reset)) {
+> +		dev_err(&pdev->dev, "Reset gpio not specified\n");
+> +		return -EINVAL;
+> +	}
+
+...
+
+> +	err = clk_prepare_enable(dwc_priv->clk_app);
+> +	if (err < 0) {
+> +		dev_err(&pdev->dev, "failed to enable app clock: %d\n",
+> +			err);
+> +		return err;
+> +	}
+
+Can devm_clk_get_enabled() be used in place of devm_clk_get() +
+clk_prepare_enable(). It seems odd to me to let devm handle part of
+the setup but not all of it.
+
+If not, I think you need to make sure clk_disable_unprepare() is
+called in the error paths below.
+
+Flagged by Smatch.
+
+> +
+> +	dwc_priv->clk_tx = devm_clk_get(&pdev->dev, "tx");
+> +	if (IS_ERR(plat_dat->pclk)) {
+> +		dev_err(&pdev->dev, "tx clock not found.\n");
+> +		return PTR_ERR(dwc_priv->clk_tx);
+> +	}
+> +
+> +	err = clk_prepare_enable(dwc_priv->clk_tx);
+> +	if (err < 0) {
+> +		dev_err(&pdev->dev, "failed to enable tx clock: %d\n", err);
+> +		return err;
+> +	}
+
+Likewise here.
+
+> +	dwc_priv->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, "ethrst");
+> +	if (IS_ERR(dwc_priv->rst))
+> +		return PTR_ERR(dwc_priv->rst);
+> +
+> +	ret = reset_control_assert(dwc_priv->rst);
+> +	WARN_ON(ret != 0);
+> +	ret = reset_control_deassert(dwc_priv->rst);
+> +	WARN_ON(ret != 0);
+> +
+> +	plat_dat->fix_mac_speed = dwc_qos_fix_speed;
+> +	plat_dat->bsp_priv = dwc_priv;
+> +	plat_dat->phy_addr = PHY_ADDR;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+> +{
+> +	const struct dwc_eth_dwmac_data *data;
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct stmmac_resources stmmac_res;
+> +	struct net_device *ndev = NULL;
+> +	struct stmmac_priv *stmpriv = NULL;
+> +	struct dwc_qos_priv *dwc_priv = NULL;
+> +	int ret;
+> +
+> +	data = device_get_match_data(&pdev->dev);
+> +
+> +	memset(&stmmac_res, 0, sizeof(struct stmmac_resources));
+> +
+> +	/**
+> +	 * Since stmmac_platform supports name IRQ only, basic platform
+> +	 * resource initialization is done in the glue logic.
+> +	 */
+> +	stmmac_res.irq = platform_get_irq(pdev, 0);
+> +	if (stmmac_res.irq < 0)
+> +		return stmmac_res.irq;
+> +	stmmac_res.wol_irq = stmmac_res.irq;
+> +	stmmac_res.addr = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(stmmac_res.addr))
+> +		return PTR_ERR(stmmac_res.addr);
+> +
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return PTR_ERR(plat_dat);
+> +
+> +	ret = data->probe(pdev, plat_dat, &stmmac_res);
+> +	if (ret < 0) {
+
+This also looks like a candidate for dev_err_probe().
+
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_err(&pdev->dev, "failed to probe subdriver: %d\n",
+> +				ret);
+> +
+> +		return ret;
+> +	}
+> +
+> +	ret = dwc_eth_dwmac_config_dt(pdev, plat_dat);
+> +	if (ret)
+> +		goto remove;
+> +
+> +	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+> +	if (ret)
+> +		goto remove;
+> +
+> +	ndev = dev_get_drvdata(&pdev->dev);
+> +	stmpriv = netdev_priv(ndev);
+> +	dwc_priv = (struct dwc_qos_priv *)plat_dat->bsp_priv;
+> +	dwc_priv->stmpriv = stmpriv;
+> +
+> +	return ret;
+> +
+> +remove:
+> +	data->remove(pdev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void dwc_eth_dwmac_remove(struct platform_device *pdev)
+> +{
+> +	const struct dwc_eth_dwmac_data *data;
+> +	int err;
+> +
+> +	data = device_get_match_data(&pdev->dev);
+> +
+> +	stmmac_dvr_remove(&pdev->dev);
+> +
+> +	err = data->remove(pdev);
+> +	if (err < 0)
+> +		dev_err(&pdev->dev, "failed to remove subdriver: %d\n", err);
+> +}
+> +
+> +static const struct of_device_id dwc_eth_dwmac_match[] = {
+> +	{ .compatible = "eswin,eic7700-qos-eth", .data = &dwc_qos_data },
+
+Checkpatch warns that:
+
+.../dwmac-eic7700.c:501: WARNING: DT compatible string vendor "eswin" appears un-documented -- check ./Documentation/devicetree/bindings/vendor-prefixes.yaml
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, dwc_eth_dwmac_match);
+> +
+> +static struct platform_driver eic7700_eth_dwmac_driver = {
+> +	.probe  = dwc_eth_dwmac_probe,
+> +	.remove = dwc_eth_dwmac_remove,
+> +	.driver = {
+> +		.name           = "eic7700-eth-dwmac",
+> +		.pm             = &stmmac_pltfr_pm_ops,
+> +		.of_match_table = dwc_eth_dwmac_match,
+> +	},
+> +};
+> +module_platform_driver(eic7700_eth_dwmac_driver);
+> +
+> +MODULE_AUTHOR("Eswin");
+> +MODULE_AUTHOR("Shuang Liang <liangshuang@eswincomputing.com>");
+> +MODULE_AUTHOR("Shangjuan Wei <weishangjuan@eswincomputing.com>");
+> +MODULE_DESCRIPTION("Eswin eic7700 qos ethernet driver");
+> +MODULE_LICENSE("GPL");
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
