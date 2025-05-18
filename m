@@ -2,54 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5BA9ABAA9A
-	for <lists+linux-stm32@lfdr.de>; Sat, 17 May 2025 16:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B05AABACF2
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 May 2025 03:08:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C01FC78F72;
-	Sat, 17 May 2025 14:12:08 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10360C7128F;
+	Sun, 18 May 2025 01:08:33 +0000 (UTC)
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
+ [209.85.219.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06A06C78F69
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B04DCFAC4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 May 2025 14:12:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D843BA4E77B;
- Sat, 17 May 2025 14:12:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279B6C4CEE3;
- Sat, 17 May 2025 14:12:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1747491125;
- bh=qYndr5U3m8H68PIKip0s+OciLB7QEEHXQa1hgFbB3f8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D7Uh3zpSCHsenVsHNiSV5Jucv4/7unZy8SKwhaKVrZKoffbk8Y3yTF1SJ8A6mPvyh
- uEuUmEjdiJSCLhGcCDSpZfsD600CLfa4CU7oneSZAzr9xTCmeThjAPBcd5ESTVOHMo
- zi1O/w/CaYNH5CQ7L/P24taEW4ijVM4hebdxwyOi+Y+4a9T4zrbHh2k2rHsBv3x+qs
- BEip2sxJo/nW96JOp74w2Wf3Cf3uxIfrlW/swAUqChxpNW+0/W8Zbf0uID0dhKVp9f
- Fka3UCzXNiugNTRsfXFVSa+8gAevU6BbxuZvr+ebgC9raPhugCsYraSfYbkgq0O34l
- q6wdp/RHezr3A==
-Date: Sat, 17 May 2025 15:11:57 +0100
-From: Simon Horman <horms@kernel.org>
-To: weishangjuan@eswincomputing.com
-Message-ID: <20250517141157.GM3339421@horms.kernel.org>
+ Sun, 18 May 2025 01:08:32 +0000 (UTC)
+Received: by mail-qv1-f49.google.com with SMTP id
+ 6a1803df08f44-6f8aa9e6ffdso32215756d6.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 17 May 2025 18:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1747530511; x=1748135311;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=uBoiEuNQUK+MG2DD2nIykSgb4W6tOdrktJLNBGrAb/Y=;
+ b=COdCiEHHS/1gIXFmSIs4GgzLt9V8pULaZ8q5OcYZso1M90m+7KlAzmhZyovtIgSVQ1
+ i3hJjaqTZAMzNE8PaUpBbQiWSO0N8bpFU+tJ9OwPxBUc83e65kY1iqTt8IbXdYxBPDnp
+ jvZefTI8egDFuwFwGCLZrNeGU6g+N9whTg+ALaDOeUviqdHqBOSvC5/EaAaVCGYFb4Vf
+ nXsNGx6Kck4SHQ6EtWYcvDeaK8lq89jT4eWsggZjBkqy3YZS+nKHRiy5SpDQL9OosSy1
+ ooCGMdbGNOmMkC7GkX5UqO3IFtI9E25xoZIbbsKSmowHXgnoBopaNnbrpyKOav3DhOU2
+ 09kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747530511; x=1748135311;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uBoiEuNQUK+MG2DD2nIykSgb4W6tOdrktJLNBGrAb/Y=;
+ b=tM/QNl2KAPR0fLMuOw6Vf5LoZQegarbMGyqWTd/fzKK16wA7TZG17HcX+5hwU3OsIh
+ bxX1x7YgCZLDRwu9M0zf+yiZbIKh85ENNWKFMndN1/Ut49vAhdOgroH/kZS61dXhf3k+
+ UbVcPjWiHLaHdGUn6NmLns6CFJuRRGs09PnKMQkz8ZkD2aj51KGa0xlt1T+AqqSTFw5K
+ qHDctwzm+gIpPQuqpzHE1R6ajaRt4w5MrHKb8fa2mwkvQhHbS06nTKVCBwfNJcWCp9Kf
+ a74FB71FOc+6ir3CBqOyVCrVHTiNY6FWwK5rAUrW3LgrkTMCGVeiiIypHIPmxfk6Bc/+
+ itEQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWjtx7bLHUXN0DLE+e20EeaiVKlT/TT+7PaQwivSvX55ELl9bGUlS4o63SpLW6O76ogVqGgDgzzrQ/zPQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLhvb2PiiO/XJoz+Ulqpt01hwo/49Up7xju/r5oC+8DCJusDn+
+ QFl0U+n/dznu6k3K/58fjNPMuZJahJDgwD9PfI3Ex9OHwsvNN7mzYyRB
+X-Gm-Gg: ASbGncu+g32XryVEeudUlyP9ViN25snusfUhDrG9mGIdtvXQnuf9JlBAVdrgfX+NM2Z
+ xn1GCLdgpgpTDhWl9WX+qa8xxDmw8RVCH7DDd1LyV3e7w6y21WY9uQWHJK1TY0msuVkbBEam8We
+ Q3/C3yP0ACzUPoc6iorpBKELHbe9t+2eYuCVa+VzVh31S7KM1xUCRkUA09vZdKKe2qnKmzFPVmQ
+ uKuJvhuBKuqtI1IZxXQFlgbgccPTUv2oe6+Gd77QvSjkh4iG1ENw4KOFywp7u8Z+pMfe3cFVKVN
+ WQh5Umhy+REj8bK1tycDXsprPHU=
+X-Google-Smtp-Source: AGHT+IGWyPrDcYHqjCN3qtoNsW5iOSUZa13NaKXNbx7t9skbjcJsYPif4vqMZCd2++JUXSgynnt8yg==
+X-Received: by 2002:a0c:f113:0:b0:6f8:b4aa:2a4c with SMTP id
+ 6a1803df08f44-6f8b4aa47f5mr74616576d6.14.1747530511141; 
+ Sat, 17 May 2025 18:08:31 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+ by smtp.gmail.com with UTF8SMTPSA id
+ af79cd13be357-7cd468b6a53sm335710785a.67.2025.05.17.18.08.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 May 2025 18:08:30 -0700 (PDT)
+Date: Sun, 18 May 2025 09:07:55 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: weishangjuan@eswincomputing.com, andrew+netdev@lunn.ch, 
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ richardcochran@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, 
+ p.zabel@pengutronix.de, yong.liang.choong@linux.intel.com,
+ rmk+kernel@armlinux.org.uk, 
+ jszhang@kernel.org, inochiama@gmail.com, jan.petrous@oss.nxp.com, 
+ dfustini@tenstorrent.com, 0x1207@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <mqf33f6bd6w7ozklh7igpa7ybgzuicqfxrbokvdcvcofwayffx@i6g5mqebahif>
 References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
- <20250516011130.818-1-weishangjuan@eswincomputing.com>
+ <20250516011040.801-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250516011130.818-1-weishangjuan@eswincomputing.com>
-Cc: edumazet@google.com, jszhang@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- ningyu@eswincomputing.com, 0x1207@gmail.com, lizhi2@eswincomputing.com,
- kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- jan.petrous@oss.nxp.com, rmk+kernel@armlinux.org.uk,
- yong.liang.choong@linux.intel.com, dfustini@tenstorrent.com,
- linux-arm-kernel@lists.infradead.org, linmin@eswincomputing.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- p.zabel@pengutronix.de, inochiama@gmail.com, krzk+dt@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] ethernet: eswin: Add eic7700
-	ethernet driver
+In-Reply-To: <20250516011040.801-1-weishangjuan@eswincomputing.com>
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ linmin@eswincomputing.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] ethernet: eswin: Document for
+	eic7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,427 +100,180 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, May 16, 2025 at 09:11:28AM +0800, weishangjuan@eswincomputing.com wrote:
+On Fri, May 16, 2025 at 09:10:38AM +0800, weishangjuan@eswincomputing.com wrote:
 > From: Shangjuan Wei <weishangjuan@eswincomputing.com>
 > 
-> Add Ethernet controller support for Eswin's eic7700 SoC. The driver
-> provides management and control of Ethernet signals for the eiC7700
-> series chips.
+> Add ESWIN EIC7700 Ethernet controller, supporting
+> multi-rate (10M/100M/1G) auto-negotiation, PHY LED configuration,
+> clock/reset control, and AXI bus parameter optimization.
 > 
 > Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
 > Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
-
-...
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-
-...
-d
-> +static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
-> +				   struct plat_stmmacenet_data *plat_dat)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	u32 burst_map = 0;
-> +	u32 bit_index = 0;
-> +	u32 a_index = 0;
+> ---
+>  .../bindings/net/eswin,eic7700-eth.yaml       | 142 ++++++++++++++++++
+>  1 file changed, 142 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> new file mode 100644
+> index 000000000000..6cb9c109c036
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+> @@ -0,0 +1,142 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	if (!plat_dat->axi) {
-> +		plat_dat->axi = kzalloc(sizeof(*plat_dat->axi), GFP_KERNEL);
-
-It is unclear to me where this memory is freed, both on error and removal.
-For consistency perhaps it is appropriate to use devm_kzalloc().
-
+> +title: Eswin EIC7700 SOC Eth Controller
 > +
-> +		if (!plat_dat->axi)
-> +			return -ENOMEM;
-> +	}
+> +maintainers:
+> +  - Shuang Liang <liangshuang@eswincomputing.com>
+> +  - Zhi Li <lizhi2@eswincomputing.com>
+> +  - Shangjuan Wei <weishangjuan@eswincomputing.com>
 > +
-> +	plat_dat->axi->axi_lpi_en = device_property_read_bool(dev,
-> +							      "snps,en-lpi");
-> +	if (device_property_read_u32(dev, "snps,write-requests",
-> +				     &plat_dat->axi->axi_wr_osr_lmt)) {
-> +		/**
-> +		 * Since the register has a reset value of 1, if property
-> +		 * is missing, default to 1.
-> +		 */
-> +		plat_dat->axi->axi_wr_osr_lmt = 1;
-> +	} else {
-> +		/**
-> +		 * If property exists, to keep the behavior from dwc_eth_qos,
-> +		 * subtract one after parsing.
-> +		 */
-> +		plat_dat->axi->axi_wr_osr_lmt--;
-> +	}
+> +description: |
+> +  The eth controller registers are part of the syscrg block on
+> +  the EIC7700 SoC.
 > +
-> +	if (device_property_read_u32(dev, "snps,read-requests",
-> +				     &plat_dat->axi->axi_rd_osr_lmt)) {
-> +		/**
-> +		 * Since the register has a reset value of 1, if property
-> +		 * is missing, default to 1.
-> +		 */
-> +		plat_dat->axi->axi_rd_osr_lmt = 1;
-> +	} else {
-> +		/**
-> +		 * If property exists, to keep the behavior from dwc_eth_qos,
-> +		 * subtract one after parsing.
-> +		 */
-> +		plat_dat->axi->axi_rd_osr_lmt--;
-> +	}
-> +	device_property_read_u32(dev, "snps,burst-map", &burst_map);
-> +
-> +	/* converts burst-map bitmask to burst array */
-> +	for (bit_index = 0; bit_index < 7; bit_index++) {
-> +		if (burst_map & (1 << bit_index)) {
-> +			switch (bit_index) {
-> +			case 0:
-> +			plat_dat->axi->axi_blen[a_index] = 4; break;
-> +			case 1:
-> +			plat_dat->axi->axi_blen[a_index] = 8; break;
-> +			case 2:
-> +			plat_dat->axi->axi_blen[a_index] = 16; break;
-> +			case 3:
-> +			plat_dat->axi->axi_blen[a_index] = 32; break;
-> +			case 4:
-> +			plat_dat->axi->axi_blen[a_index] = 64; break;
-> +			case 5:
-> +			plat_dat->axi->axi_blen[a_index] = 128; break;
-> +			case 6:
-> +			plat_dat->axi->axi_blen[a_index] = 256; break;
-> +			default:
-> +			break;
+> +properties:
+> +  compatible:
+> +    const: eswin,eic7700-qos-eth
 
-I think the preferred coding style for the above would be:
-
-			switch(...) {
-			case 0:
-				...
-				break;
-			...
-			default:
-				...
-			}
-> +			}
-> +			a_index++;
-> +		}
-
-But I also think the code above can be more succinctly expressed something
-like this:
-
-	for (bit_index = 0; bit_index < 7; bit_index++)
-		if (burst_map & (1 << bit_index)
-			plat_dat->axi->axi_blen[a_index++] = 1 << i + 2;
-
-
-> +	}
-> +
-> +	/* dwc-qos needs GMAC4, AAL, TSO and PMT */
-> +	plat_dat->has_gmac4 = 1;
-> +	plat_dat->dma_cfg->aal = 1;
-> +	plat_dat->flags |= STMMAC_FLAG_TSO_EN;
-> +	plat_dat->pmt = 1;
-> +
-> +	return 0;
-> +}
-> +
-> +static void dwc_qos_fix_speed(void *priv, int speed, unsigned int mode)
-> +{
-> +	unsigned long rate = 125000000;
-> +	int i, err, data = 0;
-> +	struct dwc_qos_priv *dwc_priv = (struct dwc_qos_priv *)priv;
-
-Please arrange local variables in networking code in reverse xmas tree
-order - longest line to shortest.
-
-To this end, this tool can be useful.
-https://github.com/ecree-solarflare/xmastree
-
-Also priv is void *. And there is usually no need to explicitly cast
-to or from a void *.
-
-So, something like this (completely intested!)
-
-	struct dwc_qos_priv *dwc_priv = priv;
-	unsigned long rate = 125000000;
-	int i, err, data = 0;
-
+Please set the related dwmac version as basic compatible,
+it should be something like snps,dwmac-xxx.
 
 > +
-> +	switch (speed) {
-> +	case SPEED_1000:
-> +		rate = 125000000;
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: Base address and size
+> +      - description: Extension region (optional)
 > +
-> +		for (i = 0; i < 3; i++)
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_1000m[i]);
+> +  interrupt-names:
+> +    const: macirq
 > +
-> +		if (dwc_priv->stmpriv) {
-> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +					    PHY_PAGE_SWITCH_REG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[0]);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, data);
-> +		}
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +		break;
-> +	case SPEED_100:
-> +		rate = 25000000;
+> +  phy-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [mii, gmii, rgmii, rmii, sgmii]
 > +
-> +		for (i = 0; i < 3; i++) {
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_100m[i]);
-> +		}
+> +  id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Controller instance ID
 > +
-> +		if (dwc_priv->stmpriv) {
-> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +					    PHY_PAGE_SWITCH_REG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[1]);
 
-For Networking code please limit lines to 80 columns wide or less in
-Networking code where it can be done without reducing readability (which is
-the case here).
-
-checkpatch.pl --max-line-length=80 is your friend.
-
-
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, data);
-> +		}
+> +  clocks:
+> +    minItems: 3
+> +    maxItems: 7
 > +
-> +		break;
-> +	case SPEED_10:
-> +		rate = 2500000;
+> +  clock-names:
+> +    minItems: 3
+> +    items:
+> +      - const: app
+> +      - const: stmmaceth
+> +      - const: tx
+> +      - const: slave_bus
+> +      - const: master_bus
+> +      - const: ptp_ref
+> +      - const: phy_ref_clk
 > +
-> +		for (i = 0; i < 3; i++) {
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_10m[i]);
-> +		}
+> +  resets:
+> +    maxItems: 1
 > +
-> +		if (dwc_priv->stmpriv) {
-> +			data = mdiobus_read(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +					    PHY_PAGE_SWITCH_REG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, PHY_LED_PAGE_CFG);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_LED_CFG_REG, dwc_priv->phyled_cfgs[2]);
-> +			mdiobus_write(dwc_priv->stmpriv->mii, PHY_ADDR,
-> +				      PHY_PAGE_SWITCH_REG, data);
-> +		}
-> +
-> +		break;
-> +	default:
+> +  reset-names:
+> +    items:
+> +      - const: ethrst
 
-Maybe set rate here rather than along with it's declaration, and provide
-a comment regarding a default value being used in the case of an
-invalid speed.
-
-> +		dev_err(dwc_priv->dev, "invalid speed %u\n", speed);
-> +		break;
-> +	}
-> +
-> +	err = clk_set_rate(dwc_priv->clk_tx, rate);
-> +	if (err < 0)
-> +		dev_err(dwc_priv->dev, "failed to set TX rate: %d\n", err);
-> +}
-> +
-> +static int dwc_qos_probe(struct platform_device *pdev,
-> +			 struct plat_stmmacenet_data *plat_dat,
-> +			 struct stmmac_resources *stmmac_res)
-> +{
-> +	struct dwc_qos_priv *dwc_priv;
-> +	int ret;
-> +	int err;
-> +	u32 hsp_aclk_ctrl_offset;
-> +	u32 hsp_aclk_ctrl_regset;
-> +	u32 hsp_cfg_ctrl_offset;
-> +	u32 eth_axi_lp_ctrl_offset;
-> +	u32 eth_phy_ctrl_offset;
-> +	u32 eth_phy_ctrl_regset;
-> +
-> +	dwc_priv = devm_kzalloc(&pdev->dev, sizeof(*dwc_priv), GFP_KERNEL);
-> +	if (!dwc_priv)
-> +		return -ENOMEM;
-> +
-> +	if (device_property_read_u32(&pdev->dev, "id", &dwc_priv->dev_id)) {
-> +		dev_err(&pdev->dev, "Can not read device id!\n");
-> +		return -EINVAL;
-
-This and other error paths below look like candidates for:
-
-		return dev_err_probe(...)
-
-> +	}
-> +
-> +	dwc_priv->dev = &pdev->dev;
-> +	dwc_priv->phy_reset = devm_gpiod_get(&pdev->dev, "rst", GPIOD_OUT_LOW);
-> +	if (IS_ERR(dwc_priv->phy_reset)) {
-> +		dev_err(&pdev->dev, "Reset gpio not specified\n");
-> +		return -EINVAL;
-> +	}
-
-...
-
-> +	err = clk_prepare_enable(dwc_priv->clk_app);
-> +	if (err < 0) {
-> +		dev_err(&pdev->dev, "failed to enable app clock: %d\n",
-> +			err);
-> +		return err;
-> +	}
-
-Can devm_clk_get_enabled() be used in place of devm_clk_get() +
-clk_prepare_enable(). It seems odd to me to let devm handle part of
-the setup but not all of it.
-
-If not, I think you need to make sure clk_disable_unprepare() is
-called in the error paths below.
-
-Flagged by Smatch.
+Please refer to snps,dwmac.yaml and set a matching name.
+This applies to all properties with snp prefix.
 
 > +
-> +	dwc_priv->clk_tx = devm_clk_get(&pdev->dev, "tx");
-> +	if (IS_ERR(plat_dat->pclk)) {
-> +		dev_err(&pdev->dev, "tx clock not found.\n");
-> +		return PTR_ERR(dwc_priv->clk_tx);
-> +	}
+> +  dma-noncoherent: true
 > +
-> +	err = clk_prepare_enable(dwc_priv->clk_tx);
-> +	if (err < 0) {
-> +		dev_err(&pdev->dev, "failed to enable tx clock: %d\n", err);
-> +		return err;
-> +	}
-
-Likewise here.
-
-> +	dwc_priv->rst = devm_reset_control_get_optional_exclusive(&pdev->dev, "ethrst");
-> +	if (IS_ERR(dwc_priv->rst))
-> +		return PTR_ERR(dwc_priv->rst);
+> +  # Custom properties
+> +  eswin,hsp_sp_csr:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description: HSP SP control registers
 > +
-> +	ret = reset_control_assert(dwc_priv->rst);
-> +	WARN_ON(ret != 0);
-> +	ret = reset_control_deassert(dwc_priv->rst);
-> +	WARN_ON(ret != 0);
+> +  eswin,syscrg_csr:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description: System clock registers
 > +
-> +	plat_dat->fix_mac_speed = dwc_qos_fix_speed;
-> +	plat_dat->bsp_priv = dwc_priv;
-> +	plat_dat->phy_addr = PHY_ADDR;
+> +  eswin,dly_hsp_reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: HSP delay control registers
 > +
-> +	return 0;
-> +}
-
-...
-
-> +static int dwc_eth_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	const struct dwc_eth_dwmac_data *data;
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct net_device *ndev = NULL;
-> +	struct stmmac_priv *stmpriv = NULL;
-> +	struct dwc_qos_priv *dwc_priv = NULL;
-> +	int ret;
+> +  snps,axi-config:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: AXI bus configuration
 > +
-> +	data = device_get_match_data(&pdev->dev);
+> +  stmmac-axi-config:
+> +    type: object
+> +    unevaluatedProperties: false
+> +    properties:
+> +      snps,lpi_en:
+> +        type: boolean
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description: Low Power Interface enable flag (true/false)
 > +
-> +	memset(&stmmac_res, 0, sizeof(struct stmmac_resources));
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-names
+> +  - interrupts
+> +  - phy-mode
+> +  - id
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - eswin,hsp_sp_csr
+> +  - eswin,syscrg_csr
+> +  - eswin,dly_hsp_reg
+> +  - snps,axi-config
+> +  - snps,blen
+> +  - snps,rd_osr_lmt
+> +  - snps,wr_osr_lmt
+> +  - snps,lpi_en
 > +
-> +	/**
-> +	 * Since stmmac_platform supports name IRQ only, basic platform
-> +	 * resource initialization is done in the glue logic.
-> +	 */
-> +	stmmac_res.irq = platform_get_irq(pdev, 0);
-> +	if (stmmac_res.irq < 0)
-> +		return stmmac_res.irq;
-> +	stmmac_res.wol_irq = stmmac_res.irq;
-> +	stmmac_res.addr = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(stmmac_res.addr))
-> +		return PTR_ERR(stmmac_res.addr);
+> +additionalProperties: false
 > +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return PTR_ERR(plat_dat);
-> +
-> +	ret = data->probe(pdev, plat_dat, &stmmac_res);
-> +	if (ret < 0) {
-
-This also looks like a candidate for dev_err_probe().
-
-> +		if (ret != -EPROBE_DEFER)
-> +			dev_err(&pdev->dev, "failed to probe subdriver: %d\n",
-> +				ret);
-> +
-> +		return ret;
-> +	}
-> +
-> +	ret = dwc_eth_dwmac_config_dt(pdev, plat_dat);
-> +	if (ret)
-> +		goto remove;
-> +
-> +	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-> +	if (ret)
-> +		goto remove;
-> +
-> +	ndev = dev_get_drvdata(&pdev->dev);
-> +	stmpriv = netdev_priv(ndev);
-> +	dwc_priv = (struct dwc_qos_priv *)plat_dat->bsp_priv;
-> +	dwc_priv->stmpriv = stmpriv;
-> +
-> +	return ret;
-> +
-> +remove:
-> +	data->remove(pdev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void dwc_eth_dwmac_remove(struct platform_device *pdev)
-> +{
-> +	const struct dwc_eth_dwmac_data *data;
-> +	int err;
-> +
-> +	data = device_get_match_data(&pdev->dev);
-> +
-> +	stmmac_dvr_remove(&pdev->dev);
-> +
-> +	err = data->remove(pdev);
-> +	if (err < 0)
-> +		dev_err(&pdev->dev, "failed to remove subdriver: %d\n", err);
-> +}
-> +
-> +static const struct of_device_id dwc_eth_dwmac_match[] = {
-> +	{ .compatible = "eswin,eic7700-qos-eth", .data = &dwc_qos_data },
-
-Checkpatch warns that:
-
-.../dwmac-eic7700.c:501: WARNING: DT compatible string vendor "eswin" appears un-documented -- check ./Documentation/devicetree/bindings/vendor-prefixes.yaml
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dwc_eth_dwmac_match);
-> +
-> +static struct platform_driver eic7700_eth_dwmac_driver = {
-> +	.probe  = dwc_eth_dwmac_probe,
-> +	.remove = dwc_eth_dwmac_remove,
-> +	.driver = {
-> +		.name           = "eic7700-eth-dwmac",
-> +		.pm             = &stmmac_pltfr_pm_ops,
-> +		.of_match_table = dwc_eth_dwmac_match,
-> +	},
-> +};
-> +module_platform_driver(eic7700_eth_dwmac_driver);
-> +
-> +MODULE_AUTHOR("Eswin");
-> +MODULE_AUTHOR("Shuang Liang <liangshuang@eswincomputing.com>");
-> +MODULE_AUTHOR("Shangjuan Wei <weishangjuan@eswincomputing.com>");
-> +MODULE_DESCRIPTION("Eswin eic7700 qos ethernet driver");
-> +MODULE_LICENSE("GPL");
+> +examples:
+> +  - |
+> +    gmac0: ethernet@50400000 {
+> +        compatible = "eswin,eic7700-qos-eth";
+> +        reg = <0x0 0x50400000 0x0 0x10000>;
+> +        interrupt-parent = <&plic>;
+> +        interrupt-names = "macirq";
+> +        interrupts = <61>;
+> +        phy-mode = "rgmii";
+> +        id = <0>;
+> +        status = "disabled";
+> +        clocks = <&clock 550>,
+> +                 <&clock 551>,
+> +                 <&clock 552>;
+> +        clock-names = "app", "stmmaceth", "tx";
+> +        resets = <&reset 0x07 (1 << 26)>;
+> +        reset-names = "ethrst";
+> +        dma-noncoherent;
+> +        eswin,hsp_sp_csr = <&hsp_sp_csr 0x1030 0x100 0x108>;
+> +        eswin,syscrg_csr = <&sys_crg 0x148 0x14c>;
+> +        eswin,dly_hsp_reg = <0x114 0x118 0x11c>;
+> +        snps,axi-config = <&stmmac_axi_setup>;
+> +        stmmac_axi_setup: stmmac-axi-config {
+> +            snps,blen = <0 0 0 0 16 8 4>;
+> +            snps,rd_osr_lmt = <2>;
+> +            snps,wr_osr_lmt = <2>;
+> +            snps,lpi_en;
+> +        };
+> +    };
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
