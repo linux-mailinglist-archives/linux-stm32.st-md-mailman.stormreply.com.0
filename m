@@ -2,68 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD0AAC0F8F
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 17:12:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63DC7AC1076
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 17:56:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AA81C7A826;
-	Thu, 22 May 2025 15:12:05 +0000 (UTC)
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
- [209.85.219.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A4C3C7A827;
+	Thu, 22 May 2025 15:56:39 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71009C7802C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5CA6C7802C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 15:12:03 +0000 (UTC)
-Received: by mail-qv1-f51.google.com with SMTP id
- 6a1803df08f44-6f8b47c5482so99783946d6.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 08:12:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1747926722; x=1748531522;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zBpkT+X12qTj4ZXFWwDHYvuVR5JkpgqcjljjqtTRTxw=;
- b=C8KcUO8APr5AicIQo3zBHlqutYr0r4TwqYOzzDAwy5bVGaZ5sQOO/mpE7wUGDtzXOH
- xYDQxbF/Uk+YIY8hJrsloh8E1qRcMlLM+CQ/l7AAmlUCWtxHp7vvyyCF+nbxcKTaKAkm
- uIGHv7vFnTzkSjc/IGwc5YcIm1dm08JkHYEqjU8tHtCkwNrL4pqZJVndZp3uqyQKDRB/
- y5ZEgNySvXAXK4wROG8U1/cJa/rez4g7W1vSUZvSwQDKOIMZXJw/35FlelfAEjLBMx+u
- ItlIfQKvAhpN/iQYhepA9s7z7UWYtRAiEpvpUBUypr9ruct6T/RDpSxeteVEuRzOZ0Q4
- n8uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747926722; x=1748531522;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zBpkT+X12qTj4ZXFWwDHYvuVR5JkpgqcjljjqtTRTxw=;
- b=TK7cHd/MCz7+GbtJCiTEgEkK5wuCOW9kQ1CFn+hiexEylEf2/dcuuKKEMrD1fviDKi
- Cc9sOUD9TLxSlbIrSCJk0O2xVnWtLEOQgM0TbaJ001S5mcZqF76PmJQM/RVqFbD1MBia
- IEtr9NljlySLr+cRBctM7dy/7N1qwF25HFyjQO1aS4JXRURfrHY7KGVACg8lqnE4SdIv
- ZuWVHOTmp4/jA2KbzmJr2T0EcZffGVEBKkbkdDTIcm66EyB6rpOHWzfwCWb3m/qB5Td2
- k9N6INBdTcWi8JJ/9kWu/TwyO7YFPiNZppL7hp4tJvyCrjv2BNTO/sMQHfLqTcXyxYju
- e9MA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXAGhv+aDZ5RjWE9gfFr/+NAOCTqUzg0BBsvseo/ISjfiWOzbI+FNBCDbuCwDMpCcyC9n0hI7gYmfMm1Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxHS6iCcXt4sgnveCvCpk/Jh5yRwFmtx0X3K6+Ek6ZZ+O92vZ4m
- LhIx1+QSsn/aFnIxG/3O7PBnzoQ1v8JzQZlvkztFJEo6piJGVDEJk6igp5oMYW/8f0DKOwzCwOT
- Q97suZI9MJzcw4IOkL8Bjl9Ki6S9LBCI=
-X-Gm-Gg: ASbGncsHI4X7rW5SE5ovHHGHz1geWtIdXlkSZ8dl7zEZjEe6RxObrwlL/ez/rbjLGwc
- A2J2fikHZCnc9Z1NJWiNg4Ihm5l9yEnIbQCufYaSXFbsRmjwdnRFmqnmF7MGkXTVeccDMaQ2+0M
- 6o0Zx0shyBirWOJ4X8msG3hff2xKuDVDA=
-X-Google-Smtp-Source: AGHT+IFlBlVnRPEejI7uEQI0m4iJ7XD5elQtat++i3WnHxfOw553GLb37rOpDc90WmrXZut9Lu8B9Qiwq9FX49Bc1Ek=
-X-Received: by 2002:a05:6214:f0c:b0:6eb:28e4:8519 with SMTP id
- 6a1803df08f44-6f8b2c7b1d5mr412061496d6.21.1747926722029; Thu, 22 May 2025
- 08:12:02 -0700 (PDT)
-MIME-Version: 1.0
+ Thu, 22 May 2025 15:56:37 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 62288439A5;
+ Thu, 22 May 2025 15:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1747929396;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hDrRfxUh05bF14pzZXQ+mC3f/tIJuaPORyh0q5iuGpM=;
+ b=LrOFkxjDWfPYlaJ27v0bKylFL4XWO+4kvvgStRLZlUDRYZHdyChNIb2pfDuGENtsuftdv/
+ wGbOCWfZtxzREyaEFwnH82wXULSKdAdYw/PBXzq/zAP46MQh+2qKay6Pd/jwy3zwxJN8dw
+ rgJTGQYyYqHyrBnB5+bbAyyUPyuK4SQmrz1l5b6bKlFTJX3baN6Ej14byKnrUchMCQnb3+
+ vJDkRIAED2cQX+6NzREg8KVZNhwI6WQ0582mb8M9FYZVQz3yCa/TIqtPexDE/d9Fb/Krsm
+ aRFHR6fwOi/MpKAjV481sgJjj5EABYXpHVIjb+acU9Q+t95PRAEbZnkSC880OA==
+Date: Thu, 22 May 2025 17:56:23 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>
+Message-ID: <20250522175623.1a6d9b14@booty>
+In-Reply-To: <20250522-amphibian-shiny-chachalaca-cf05ba@houat>
 References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
  <20250521162216.79dd3290@booty>
-In-Reply-To: <20250521162216.79dd3290@booty>
-From: Inki Dae <daeinki@gmail.com>
-Date: Fri, 23 May 2025 00:11:24 +0900
-X-Gm-Features: AX0GCFtvRxj4ujyC4Z2jHUwkVIe890MFPlPN-fSj8wgEwb2IYi_zfj6mGd98q30
-Message-ID: <CAAQKjZPX3iQgNhEydDZXMyC9BRuep7kL-XYEsjnkCxSt_1UsQg@mail.gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+ <20250522-amphibian-shiny-chachalaca-cf05ba@houat>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdeifeejucdltddurdegfedvrddttddmucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgfejhffgjeelkeeftdekfefgteekgefhleelueeijeffieekieeigefhledtffetnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpfhhrvggvuggvshhkthhophdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeelhedprhgtphhtthhopehmrhhiphgrrhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhho
+ hhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrghdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrgh
+X-GND-Sasl: luca.ceresoli@bootlin.com
 Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
  Hsin-Te Yuan <yuanhsinte@chromium.org>, Heiko Stuebner <heiko@sntech.de>,
  dri-devel@lists.freedesktop.org, Alim Akhtar <alim.akhtar@samsung.com>,
@@ -71,10 +51,10 @@ Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
  linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
  Adam Ford <aford173@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
  Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pin-yen Lin <treapking@chromium.org>, Ian Ray <ian.ray@gehealthcare.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Phong LE <ple@baylibre.com>,
- Christoph Fritz <chf.fritz@googlemail.com>,
+ Inki Dae <inki.dae@samsung.com>, Pin-yen Lin <treapking@chromium.org>,
+ Ian Ray <ian.ray@gehealthcare.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
+ Phong LE <ple@baylibre.com>, Christoph Fritz <chf.fritz@googlemail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  freedreno@lists.freedesktop.org, Martyn Welch <martyn.welch@collabora.co.uk>,
  linux-doc@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
@@ -86,9 +66,8 @@ Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
  Jagan Teki <jagan@amarulasolutions.com>, Jesse Van Gavere <jesseevg@gmail.com>,
  Paul Kocialkowski <paulk@sys-base.io>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-amlogic@lists.infradead.org, Raphael Gallais-Pou <rgallaispou@gmail.com>,
  Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
@@ -125,7 +104,7 @@ Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
  Yannick Fertre <yannick.fertre@foss.st.com>,
  Philipp Zabel <p.zabel@pengutronix.de>
 Subject: Re: [Linux-stm32] [PATCH v3 00/22] drm: convert all bridges to
-	devm_drm_bridge_alloc()
+ devm_drm_bridge_alloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,90 +116,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gTHVjYSBDZXJlc29saSwKCjIwMjXrhYQgNeyblCAyMeydvCAo7IiYKSDsmKTtm4QgMTE6
-MjMsIEx1Y2EgQ2VyZXNvbGkgPGx1Y2EuY2VyZXNvbGlAYm9vdGxpbi5jb20+64uY7J20IOyekeyE
-sToKPgo+IEhlbGxvIE1heGltZSwgU2hhd24sIExpdSwgYWxsLAo+Cj4gT24gRnJpLCAwOSBNYXkg
-MjAyNSAxNTo1MzoyNiArMDIwMAo+IEx1Y2EgQ2VyZXNvbGkgPGx1Y2EuY2VyZXNvbGlAYm9vdGxp
-bi5jb20+IHdyb3RlOgo+Cj4gPiBkZXZtX2RybV9icmlkZ2VfYWxsb2MoKSBbMF0gaXMgdGhlIG5l
-dyBBUEkgdG8gYWxsb2NhdGUgYW5kIGluaXRpYWxpemUgYSBEUk0KPiA+IGJyaWRnZSwgYW5kIHRo
-ZSBvbmx5IG9uZSBzdXBwb3J0ZWQgZnJvbSBub3cgb24uIEl0IGlzIHRoZSBmaXJzdCBtaWxlc3Rv
-bmUKPiA+IHRvd2FyZHMgcmVtb3ZhbCBvZiBicmlkZ2VzIGZyb20gYSBzdGlsbCBleGlzdGluZyBE
-Uk0gcGlwZWxpbmUgd2l0aG91dAo+ID4gdXNlLWFmdGVyLWZyZWUuCj4KPiBJIGFwcGxpZWQgb24g
-ZHJtLW1pc2MtbmV4dCBwYXRjaGVzIDMtMTcsMjAtMjEgYXMgdGhleSBtYXRjaCBhbGwgdGhlCj4g
-Y3JpdGVyaWE6Cj4gIC0gQXQgbGVhc3QgYSBBY2tlZC1ieSAob3IgUi1ieSBtYWludGFpbmVycykK
-PiAgLSBwYXRjaCBpcyBmb3IgZHJtLW1pc2MKPgo+IEJlaW5nIG15IHZlcnkgZmlyc3QgY29tbWl0
-cyB0byBkcm0tbWlzYywgSSB0cmllZCB0byBiZSBjYXJlZnVsLCBhbmQKPiBkb3VibGUgY2hlY2tl
-ZCBhbGwgdGhlIHBhdGNoZXMgd2l0aCBMb3VpcyAodGhhbmtzISkuCj4KPiBIZXJlIGFyZSB0aGUg
-cGVuZGluZyBxdWVzdGlvbnMgYW5kIHBsYW4gZm9yIHRoZSByZW1haW5pbmcgcGF0Y2hlcy4KPgo+
-ID4gICAgICAgUmV2ZXJ0ICJkcm0vZXh5bm9zOiBtaWM6IGNvbnZlcnQgdG8gZGV2bV9kcm1fYnJp
-ZGdlX2FsbG9jKCkgQVBJIgo+Cj4gVGhpcyByZXZlcnRzIHRoZSBjb21taXQgYXBwbGllZCBteSBt
-aXN0YWtlOgo+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vbWlzYy9rZXJuZWwv
-LS9jb21taXQvOTFjNWM3YjViYjJkZDA5YjQzYjAyNWJjZTZkNzkwZDNjNzlmNDUxOAo+Cj4gTmVp
-dGhlciB0aGUgIG9yaWdpbmFsIHBhdGNoIG5vciB0aGUgcmV2ZXJ0IGhhcyBiZWVuIHJldmlld2Vk
-L2Fja2VkLgo+Cj4gQXMgdGhlIGNvbW1pdCB3YXMgYSBtaXN0YWtlLCBJJ20gYXBwbHlpbmcgdGhl
-IHJldmVydCBieSB0aGUgZW5kIG9mIHRoaXMKPiB3ZWVrIChpLmUuIG9uIEZyaWRheSkgdW5sZXNz
-IHRoZXJlIGFyZSBiZXR0ZXIgaW5zdHJ1Y3Rpb25zLgoKUmVhbGx5IHNvcnJ5IGZvciBsYXRlLiBJ
-IHdhcyBtYWRlIGF3YXJlIG9mIGl0IGxhdGVyIHRocm91Z2ggYQpjb2xsZWFndWUncyByZW1hcmsu
-IFRoZXJlIGlzIG5vIG5lZWQgdG8gcHJvY2VlZCB3aXRoIHRoZSByZXZlcnQuCkFja2VkLWJ5IDog
-SW5raSBEYWUgPGlua2kuZGFlQHNhbXN1bmcuY29tPgoKVGhhbmtzLApJbmtpIERhZQoKCj4KPiA+
-ICAgICAgIGRybTogY29udmVydCBtYW55IGJyaWRnZSBkcml2ZXJzIGZyb20gZGV2bV9remFsbG9j
-KCkgdG8gZGV2bV9kcm1fYnJpZGdlX2FsbG9jKCkgQVBJCj4KPiBUaGlzIHBhdGNoIGFmZmVjdHMg
-bXVsdGlwbGUgZHJpdmVycy4gUnVubmluZyBnZXRfbWFpbnRhaW5lcnMucGwKPiBwb2ludHMgYXQg
-U2hhd24gR3VvJ3MgcmVwb3NpdG9yeS4gQWZ0ZXIgcmV2aWV3aW5nIHRoZSBNQUlOVEFJTkVSUyBm
-aWxlLAo+IHRoaXMgbG9va3MgbGlrZSBkdWUgdG8gdGhlICdOOicgbGluZSBpbjoKPgo+IEFSTS9G
-UkVFU0NBTEUgSU1YIC8gTVhDIEFSTSBBUkNISVRFQ1RVUkUKPiBNOiAgICAgIFNoYXduIEd1byA8
-c2hhd25ndW9Aa2VybmVsLm9yZz4KPiBNOiAgICAgIFNhc2NoYSBIYXVlciA8cy5oYXVlckBwZW5n
-dXRyb25peC5kZT4KPiBSOiAgICAgIFBlbmd1dHJvbml4IEtlcm5lbCBUZWFtIDxrZXJuZWxAcGVu
-Z3V0cm9uaXguZGU+Cj4gLi4uCj4gVDogICAgICBnaXQgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHVi
-L3NjbS9saW51eC9rZXJuZWwvZ2l0L3NoYXduZ3VvL2xpbnV4LmdpdAo+IE46ICAgICAgaW14Cj4g
-Li4uCj4KPiAoaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9taXNjL2tlcm5lbC8t
-L2Jsb2IvZHJtLW1pc2MtbmV4dC9NQUlOVEFJTkVSUz9yZWZfdHlwZT1oZWFkcyNMMjUxMS0yNTI4
-KQo+Cj4gSGVyZSAnaW14JyBtYXRjaGVzIHRoZSAnZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9pbXgv
-aW14LWxlZ2FjeS1icmlkZ2UuYycKPiBmaWxlIHRoYXQgaXMgdG91Y2hlZCBieSB0aGUgcGF0Y2gu
-IFRoYXQgcmVnZXhwIGFwcGVhcnMgb3Zlcmx5IGdlbmVyaWMgdG8gbWUuCj4KPiBTaGF3biwgY2Fu
-IGl0IGJlIGZpeGVkIGJ5IG1ha2luZyBpdCBsZXNzIGdlbmVyaWM/Cj4KPiBJZiBub3QsIGNhbiB3
-ZSBhdCBsZWFzdCBhZGQgYSBiYW5kLWFpZCAnWDonIGVudHJ5IGZvcgo+IGRyaXZlcnMvZ3B1L2Ry
-bS9icmlkZ2UvaW14Pwo+Cj4gSSB0aGluayB0aGUgb3RoZXIgbWF0Y2hpbmcgZW50cnkgaXMgdGhl
-IG9uZSB0byBjb25zaWRlcjoKPgo+IERSTSBEUklWRVJTIEZPUiBGUkVFU0NBTEUgSU1YIEJSSURH
-RQo+IE06ICAgICAgTGl1IFlpbmcgPHZpY3Rvci5saXVAbnhwLmNvbT4KPiBMOiAgICAgIGRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTOiAgICAgIE1haW50YWluZWQKPiBGOiAgICAg
-IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L2JyaWRnZS9mc2wsaW14
-OHF4cC1sZGIueWFtbAo+IEY6ICAgICAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L2Rpc3BsYXkvYnJpZGdlL2ZzbCxpbXg4cXhwLXBpeGVsLWNvbWJpbmVyLnlhbWwKPiBGOiAgICAg
-IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L2JyaWRnZS9mc2wsaW14
-OHF4cC1waXhlbC1saW5rLnlhbWwKPiBGOiAgICAgIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9kaXNwbGF5L2JyaWRnZS9mc2wsaW14OHF4cC1weGwyZHBpLnlhbWwKPiBGOiAgICAg
-IGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvaW14Lwo+Cj4gKGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
-dG9wLm9yZy9kcm0vbWlzYy9rZXJuZWwvLS9ibG9iL2RybS1taXNjLW5leHQvTUFJTlRBSU5FUlM/
-cmVmX3R5cGU9aGVhZHMjTDc5NDAtNzk0OCkKPgo+IEhvd2V2ZXIgaXQgZG9lcyBub3QgbGlzdCBh
-bnkgdHJlZXMuIEkgX2d1ZXNzXyBkcm0tbWlzYyBhcHBsaWVzIGhlcmUgYXMKPiBhIGZhbGxiYWNr
-IGFzIHdlbGwgYXMgY29tbW9uIHNlbnNlLgo+Cj4gTGl1LCBzaG91bGQgdGhpcyBlbnRyeSBoYXZl
-IGEgJ1Q6JyBsaW5lIGZvciBkcm0vbWlzYz8KPgo+ID4gICAgICAgZHJtL2JyaWRnZTogaW14OHF4
-cC1waXhlbC1jb21iaW5lcjogY29udmVydCB0byBkZXZtX2RybV9icmlkZ2VfYWxsb2MoKSBBUEkK
-Pgo+IE5vdCBhY2tlZC9yZXZpZXdlZCwgc29tZSBkaXNjdXNzaW9uIGhhcHBlbmVkLiBJIGFtIHJl
-c2VuZGluZyBpdCBpbiB2NCwKPiBwb3NzaWJseSB3aXRoIHVwZGF0ZXMgYmFzZWQgb24gdGhlIGRp
-c2N1c3Npb24uCj4KPiBCdXQgaXQgaGFzIHRoZSBzYW1lIGlzc3VlIGRpc2N1c3NlZCBhYm92ZSwg
-d2l0aCBnZXRfbWFpbnRpbmVycy5wbAo+IHBvaW50aW5nIGF0IFNoYXduIEd1bydzIHRyZWUsIHNv
-IGluIHRoZSBmdXR1cmUgSSdtIGFzc3VtaW5nIHRoaXMgZ29lcwo+IHRvIGRybS1taXNjIHVubGVz
-cyB0aGVyZSBhcmUgbmV3cyBhYm91dCB0aGF0Lgo+Cj4gPiAgICAgICBkcm0vYnJpZGdlOiB0YzM1
-ODc2NzogY29udmVydCB0byBkZXZtX2RybV9icmlkZ2VfYWxsb2MoKSBBUEkKPgo+IE5vIGZlZWRi
-YWNrLCByZXNlbmRpbmcgaW4gdjQuCj4KPiA+ICAgICAgIGRybS90b2RvOiBhZGQgZW50cnkgdG8g
-cmVtb3ZlIGRldm1fZHJtX3B1dF9icmlkZ2UoKQo+Cj4gVGhpcyBpbnZvbHZlcyBkb2N1bWVudGF0
-aW9uIG1haW50YWluZWQgb24gYW5vdGhlciB0cmVlLiBXaGVyZSBzaG91bGQgaXQKPiBiZSBhcHBs
-aWVkPyBUaGVyZSBhcmUgdHdvIG1hdGNoaW5nIGVudHJpZXMgaW4gTUFJTlRBSU5FUlM6Cj4KPiAg
-KiBEUk0gRFJJVkVSUyAtPiB0aGUgZHJtIHRyZWUKPiAgKiBEUk0gRFJJVkVSUyBBTkQgTUlTQyBH
-UFUgUEFUQ0hFUyAtPiB0aGUgZHJtLW1pc2MgdHJlZQo+Cj4gVG8gbWUgaXQgbG9va3MgbGlrZSB0
-aGUgc2Vjb25kIGlzIG9idmlvdXNseSB0aGUgY2xvc2VzdCBtYXRjaCBhcyB3ZSBhcmUKPiBkZWFs
-aW5nIHdpdGggRFJNIGJyaWRnZXMsIHNvIEknbSBhcHBseWluZyB0aGlzIGFzIHdlbGwgb24gRnJp
-ZGF5IHVubGVzcwo+IHRoZXJlIGFyZSBiZXR0ZXIgaW5zdHJ1Y3Rpb25zLgo+Cj4gQmVzdCByZWdh
-cmRzLAo+IEx1Y2EKPgo+IC0tCj4gTHVjYSBDZXJlc29saSwgQm9vdGxpbgo+IEVtYmVkZGVkIExp
-bnV4IGFuZCBLZXJuZWwgZW5naW5lZXJpbmcKPiBodHRwczovL2Jvb3RsaW4uY29tCj4KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+Hi Maxime,
+
+On Thu, 22 May 2025 16:57:30 +0200
+Maxime Ripard <mripard@kernel.org> wrote:
+
+[...]
+
+> > As the commit was a mistake, I'm applying the revert by the end of this
+> > week (i.e. on Friday) unless there are better instructions.  
+> 
+> Given the lack of answers, and that it looks correct to me, just leave
+> it there. We can always revert later on if things turned out to be
+> broken.
+
+OK, I'll leave the commit and drop the revert in v4.
+
+> > >       drm: convert many bridge drivers from devm_kzalloc() to devm_drm_bridge_alloc() API  
+> > 
+> > This patch affects multiple drivers. Running get_maintainers.pl
+> > points at Shawn Guo's repository. After reviewing the MAINTAINERS file,
+> > this looks like due to the 'N:' line in:
+> > 
+> > ARM/FREESCALE IMX / MXC ARM ARCHITECTURE
+> > M:	Shawn Guo <shawnguo@kernel.org>
+> > M:	Sascha Hauer <s.hauer@pengutronix.de>
+> > R:	Pengutronix Kernel Team <kernel@pengutronix.de>
+> > ...
+> > T:	git git://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git
+> > N:	imx
+> > ...
+> > 
+> > (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L2511-2528)
+> > 
+> > Here 'imx' matches the 'drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c'
+> > file that is touched by the patch. That regexp appears overly generic to me.  
+> 
+> I agree, or at least, we shouldn't wait for Shawn or Sasha...
+> 
+> > Shawn, can it be fixed by making it less generic?
+> > 
+> > If not, can we at least add a band-aid 'X:' entry for
+> > drivers/gpu/drm/bridge/imx?
+> > 
+> > I think the other matching entry is the one to consider:
+> > 
+> > DRM DRIVERS FOR FREESCALE IMX BRIDGE
+> > M:	Liu Ying <victor.liu@nxp.com>
+> > L:	dri-devel@lists.freedesktop.org
+> > S:	Maintained
+> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-ldb.yaml
+> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-combiner.yaml
+> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-link.yaml
+> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pxl2dpi.yaml
+> > F:	drivers/gpu/drm/bridge/imx/
+> > 
+> > (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L7940-7948)  
+> 
+> ... As long as Ying is fine with it, because it does look like they are
+> the actual maintainer.
+
+Ack, thanks for confirming this.
+
+Bottom line, given that large patch has your Acked-by, and given the
+shawnguo repo was ruled out, the conclusion is it can apply it to
+drm-misc-next.
+
+Having that large patch applied will be relieving me a lot! I think
+next time I'm going to split any imilar change in per-driver patches,
+even if it is spatch-automated.
+
+> > >       drm/todo: add entry to remove devm_drm_put_bridge()  
+> > 
+> > This involves documentation maintained on another tree. Where should it
+> > be applied? There are two matching entries in MAINTAINERS:
+> > 
+> >  * DRM DRIVERS -> the drm tree
+> >  * DRM DRIVERS AND MISC GPU PATCHES -> the drm-misc tree
+> > 
+> > To me it looks like the second is obviously the closest match as we are
+> > dealing with DRM bridges, so I'm applying this as well on Friday unless
+> > there are better instructions.  
+> 
+> Yes, they should be applied to drm-misc.
+
+OK, will do soon.
+
+> That being said, putting a two days timeout on *any* email is really
+> over-the-top. I doubt you reply to any of your mail in such a short
+> timeframe. We have rules for a reason, I'd expect you to follow them, no
+> matter how frustrating the lack of answers can be.
+
+Apologies if that was too much.
+
+I was indeed nervous about the revert. A patch got applied by mistake
+and I believe it should have been reverted very quickly, if need be.
+Both Louis and I didn't want to break the process again. So we asked,
+but not having answer after 2+ weeks I must admit I got a bit nervous
+about it.
+
+Sorry about that and thanks for the feedback about my questions.
+
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
