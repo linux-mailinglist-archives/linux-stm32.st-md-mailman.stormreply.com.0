@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8A5AC135F
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 20:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30036AC1362
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 20:32:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD606C7A82A;
-	Thu, 22 May 2025 18:32:18 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7D8CC7A82A;
+	Thu, 22 May 2025 18:32:52 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD8C6C7A827
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7651C7A827
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 18:32:16 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-3a374754e03so333713f8f.1
+ Thu, 22 May 2025 18:32:51 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-3a35ae46214so820931f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 11:32:16 -0700 (PDT)
+ Thu, 22 May 2025 11:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747938736; x=1748543536;
+ d=linaro.org; s=google; t=1747938771; x=1748543571;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=rOYkb8ARNGoWzGK6NIRQbMqEIL4sIWgyEMwNFCwUiPs=;
- b=G5WRhh9dZSSQWVBch2yONtNKR6cqO0cD3R3JzIN4m9LkyfL57NAT4M1uO9yuDGDtUw
- +MZOBi2HYYciLhjA+cwQTqSFlhw9+OQSYRRhm3YSnFmtFI+ybZcaht5SiLJzRvXyTKba
- jHugbSMlT4fjzTrdXQS8+522z0mFITzkc8q0Kedv8xS2TIgyhs8vNVVy4dBXvY5ujDZd
- k29ibwQxxDcX9KtYcTvXA0cbMdu3XBNlmUzHkI7LGqsAEVS1D8tQSPzFC+sRR7ZhaT3C
- 4drUuFKkux2z43lXYQDnd0qZmM/taZnTW80865ds/3RSyVLFTAjT1n0yooTr6SHqQxpa
- m7Lg==
+ bh=cJY9vehP2g7EGxYhkgZzcqCJWvR4zDkNLhtdKYt0bgU=;
+ b=bgPXud0pZ/iH5UEiWOizWq1tkNsHKYS4kAexxQP+tZAHUxcy7dIpa7OBYPfsd+hWSz
+ FG8jOUTSnaDtqAlXZlqZ92zNZXwyYO3R1pywnQch6pSakS1aJJG5jbd0/gniTkFxA200
+ e1F4FE17uUeXOVkFeaAPGJFBTpBPUIPWRjv2qU1BwBrhfLxw6USrMVLivxRuSXH3GFSJ
+ owFWBrG2oFuCHXA3OxT3GAT1tjNAEC+gjMivLnEZ2WPsUu4Y3Gn+zi3jYb+BnEntMTwM
+ thJBZVIaS5I0AJArIxA4eoJy6aAJsKEUVQ6NPaypdECxHXzokemoRgASRRO8MAJj+eRW
+ UICA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747938736; x=1748543536;
+ d=1e100.net; s=20230601; t=1747938771; x=1748543571;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
  :from:references:cc:to:subject:user-agent:mime-version:date
  :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=rOYkb8ARNGoWzGK6NIRQbMqEIL4sIWgyEMwNFCwUiPs=;
- b=N9ai784J+7PadpdVqlRJVqlU+EpAl3OXMw03adOqy9OF0SfjRiHKQUh8QIhYvA3MzN
- 3PPMeduPEADRUZmk/fZqaPaafj6yPloLvXEyQ8knvLT7lRgHAXogZGvzLiS2s3ENceWL
- XfernsxPWUvQYJr8kRHHSktUE/QTre1oifVCAsR/LASewmpzq6ELjZBGw2YCUyZxw/pH
- nWmyNi25t31FBtnHsffZRcPAkDjNy9RKgo3/8VN0S3BCUyk38+EzGIyAdI7km0G3MK1v
- 4pOub2kPhxd2bHOHefoAcrLFYdiURUShfk08l7/A7KMBG+lvSw+DqK2Fbc4JwMCXZEJh
- hmWw==
+ bh=cJY9vehP2g7EGxYhkgZzcqCJWvR4zDkNLhtdKYt0bgU=;
+ b=o+B1dKKdL/6OA11gNOyp8bvv6d1c1UopdsH8/awlCh4YD5enUBS/6KOJhNACaa21NO
+ ewZoOujomg3haG2uS710dD+tPQxl+4fp5d9B2IbkCQM6tSrxz/xw8TNTz5YiJqFmoIde
+ I77YqUsKrqvdUkXmidzUzq+R8XzOYWe/WvSgxfzgohkU/H/Ip5jOuclyiusnrzF8v4Yu
+ fhs+3c9ubTU0WlEritZqWBmtX/U+G/ijmUir58OYRw6ZEF/NqF87fnrvRvEs4jk9AbTs
+ EkeqLSCl8lfBFvg46WFtqPSi4dZBNuWxEwu08NQlvtyaFmlX734RnxI6CKOk1x/2A3Zb
+ c+dw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCgbYivCkrTdod/3NzmLTZJzBttgr7k8501vQmM1sSPt7B3R/c4x7XeEMUTLQwWcwckkrvdxghD/fTag==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwiaiNwCEFSVok+NO9AIjF4ZWlNS6aEQ0gEYhrNjMVIaUdLzOYq
- AXX4nmyeG+WKBVkEni2ZG5bMWOxxMbzhP0Q8PTnarE+l32TswsVitLqshvoswhNR2eU=
-X-Gm-Gg: ASbGnctUOO/n0NGhWRBqFQkbx4E61tqy/OX6LRVAo6Fmbqqe7FgST+F2o5VNYYrU+UR
- tobIZUqQrAofUq1Mn+Jy0TpwhL0GhlOk+0C65tvrAE5SVWAB5b1msCmP+zQjzdmFONzBWVO0mzt
- 1q9EfU2AJ+gs7oGeZLDEBFDnGONvZsjs/95MP8b6sJ1YTKJCIWJNaVH5MVgLhNG69pFlac0G3py
- Tqwsa7fa0Puc7tdb7Psti//peh+PpGzqcSrU8orU2Wom806w8NOWOxmVB+vfzRjXrafm/QH9Zdy
- USundzq0Zlf0atD/C+cl66eHQYFRcTn6khfB5xvQVKz17uU6c0nD5zOnGBvVsy9Hiov9HuJPY/n
- NbkMXtg==
-X-Google-Smtp-Source: AGHT+IElOSB5BApnFcPON4k3G6fN+T3e6tCMODFfwlTj5KlbfM3fgpMePZRiUwP9/6DJMNlIdFOSPQ==
-X-Received: by 2002:a5d:404a:0:b0:3a3:62e1:a7dc with SMTP id
- ffacd0b85a97d-3a362e1ab39mr6921412f8f.1.1747938736169; 
- Thu, 22 May 2025 11:32:16 -0700 (PDT)
+ AJvYcCXfVh/sTl3YbGGKjnxRSQq6iIP4oW4bgJWdjHk2vLgyDcWeaZLW12TZwuxpIRQ2L6QKBHbEOnKl8A4I7g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzZCPAzGG7vjiEwd7QjkmxBoyzzW9ndErgsdWQXhvKOZnBQBg+Y
+ 6bNxTD4x8uafebzYCcNCZyYBVYflAns2FBk1PGrThfVQ0TabG5ccYccP8A2miv/mVsw=
+X-Gm-Gg: ASbGncttzCS2nXaXk7i14KiqC7/TGfZfkHNn2KLd78g4zFCxkgtxObJ9EMP47ElFxBB
+ QD0qjFjh1oIW164Bh3wqWXfoy9lFr2dvnBOc+oq8WqRUDaBsUBKSPQabB1354zemEbmm/ofpR05
+ lcwCt1zeMK/dUY2A2YjfughFqetKRqAN6nAIit69SYxhCdfREVerQIqlkhgluERXI9MwuDEX3YL
+ BvgepFwu3mbMRsUEdYWNB7g2jVZ3QMFi3wnI2UJsygyPemRDVDR/LcAXMOGy3jRFaASsHHV7U+j
+ BVRfdhlgPB6/D3KkiDL7wEEQNTUSh2mjFdOHYwNZJCW4NH5+AyGGaPw5RRMrIwPn1H0kpEM=
+X-Google-Smtp-Source: AGHT+IGLyHoeTc4HSvaXyg3+PQJQKiImY3KCxwct5wGRCFTjBfvCwUsuGdayZtCuy6sdlhDOtQDFIQ==
+X-Received: by 2002:a05:600c:3587:b0:439:9a1f:d73d with SMTP id
+ 5b1f17b1804b1-442fd68257fmr90763505e9.8.1747938771266; 
+ Thu, 22 May 2025 11:32:51 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a3ca066eb7sm5955103f8f.2.2025.05.22.11.32.14
+ 5b1f17b1804b1-447f3ce483bsm113545715e9.33.2025.05.22.11.32.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 11:32:15 -0700 (PDT)
-Message-ID: <24905725-21ca-4408-9822-285f0a96b4da@linaro.org>
-Date: Thu, 22 May 2025 20:32:13 +0200
+ Thu, 22 May 2025 11:32:50 -0700 (PDT)
+Message-ID: <f3f2b57c-d745-40b4-8317-5f123e2ab018@linaro.org>
+Date: Thu, 22 May 2025 20:32:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -78,7 +77,7 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Samuel Holland <samuel@sholland.org>, =?UTF-8?Q?Emilio_L=C3=B3pez?=
  <emilio@elopez.com.ar>
 References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
- <20250404-kconfig-defaults-clk-v1-2-4d2df5603332@linaro.org>
+ <20250404-kconfig-defaults-clk-v1-3-4d2df5603332@linaro.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -125,12 +124,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  h0At/TN/618e/QVlZPbMeNSp3S3ieMP9Q6y4gw5CfgiDRJ2K9g99m6Rvlx1qwom6QbU06ltb
  vJE2K9oKd9nPp1NrBfBdEhX8oOwdCLJXEq83vdtOEqE42RxfYta4P3by0BHpcwzYbmi/Et7T
  2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-2-4d2df5603332@linaro.org>
+In-Reply-To: <20250404-kconfig-defaults-clk-v1-3-4d2df5603332@linaro.org>
 Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/5] clk: nuvoton: Do not enable by
- default during compile testing
+Subject: Re: [Linux-stm32] [PATCH 3/5] clk: stm32: Do not enable by default
+ during compile testing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,11 +155,11 @@ On 04/04/2025 13:56, Krzysztof Kozlowski wrote:
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > ---
->  drivers/clk/nuvoton/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+>  drivers/clk/stm32/Kconfig | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-Ping. Any Nuvoton maintainers are going to pick this up?
+Ping. Any feedback from maintainers? Stephen, are you picking up this
+directly?
 
 Best regards,
 Krzysztof
