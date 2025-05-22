@@ -2,82 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30036AC1362
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 20:32:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B05AC1372
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 20:36:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7D8CC7A82A;
-	Thu, 22 May 2025 18:32:52 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F1AFC7A82A;
+	Thu, 22 May 2025 18:36:51 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7651C7A827
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F68CC7A827
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 18:32:51 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-3a35ae46214so820931f8f.2
+ Thu, 22 May 2025 18:36:50 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-3a36561d25cso836506f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 11:32:51 -0700 (PDT)
+ Thu, 22 May 2025 11:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1747938771; x=1748543571;
+ d=linaro.org; s=google; t=1747939009; x=1748543809;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=cJY9vehP2g7EGxYhkgZzcqCJWvR4zDkNLhtdKYt0bgU=;
- b=bgPXud0pZ/iH5UEiWOizWq1tkNsHKYS4kAexxQP+tZAHUxcy7dIpa7OBYPfsd+hWSz
- FG8jOUTSnaDtqAlXZlqZ92zNZXwyYO3R1pywnQch6pSakS1aJJG5jbd0/gniTkFxA200
- e1F4FE17uUeXOVkFeaAPGJFBTpBPUIPWRjv2qU1BwBrhfLxw6USrMVLivxRuSXH3GFSJ
- owFWBrG2oFuCHXA3OxT3GAT1tjNAEC+gjMivLnEZ2WPsUu4Y3Gn+zi3jYb+BnEntMTwM
- thJBZVIaS5I0AJArIxA4eoJy6aAJsKEUVQ6NPaypdECxHXzokemoRgASRRO8MAJj+eRW
- UICA==
+ :from:references:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RJGS5GdAP2jwMN2asFwop/bmwWDSIqO/lnl06Fno7WE=;
+ b=zE2MBmxXmeiNvLL+WejayI6FQfS0f7g4WXh29UN++me4v7lUhJ2MJ/0eEWAI+hFJIn
+ VmTuwnWVgq1SvrTPfcpnWSW/Yy4ZHKPlNHbAxIecrNTh38cVpW9ZAdpJsOdjQbWjXqRW
+ OS1nmZDOaBGvu9ga04UNzRsI9EA9KQl2RLCMvIH0VpmrlkVojA7SD+TQd8sY4/VjKh4k
+ e6uDNvLSr443iTB+oF5AHlA0hkoaIbPwMO0GddB28KiJ1Pk8bEnerD8/BZ+3krwEG3JB
+ 88WFGbHdIv83MD58v3OmyayMCOi9cmaqCDTAfzJGLWuPq/+ncK3niYCvDCS/MSA7tPaY
+ l5NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747938771; x=1748543571;
+ d=1e100.net; s=20230601; t=1747939009; x=1748543809;
  h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cJY9vehP2g7EGxYhkgZzcqCJWvR4zDkNLhtdKYt0bgU=;
- b=o+B1dKKdL/6OA11gNOyp8bvv6d1c1UopdsH8/awlCh4YD5enUBS/6KOJhNACaa21NO
- ewZoOujomg3haG2uS710dD+tPQxl+4fp5d9B2IbkCQM6tSrxz/xw8TNTz5YiJqFmoIde
- I77YqUsKrqvdUkXmidzUzq+R8XzOYWe/WvSgxfzgohkU/H/Ip5jOuclyiusnrzF8v4Yu
- fhs+3c9ubTU0WlEritZqWBmtX/U+G/ijmUir58OYRw6ZEF/NqF87fnrvRvEs4jk9AbTs
- EkeqLSCl8lfBFvg46WFtqPSi4dZBNuWxEwu08NQlvtyaFmlX734RnxI6CKOk1x/2A3Zb
- c+dw==
+ :from:references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RJGS5GdAP2jwMN2asFwop/bmwWDSIqO/lnl06Fno7WE=;
+ b=ZdjML26gbawEFHrvuEzNPW95IyCojNcyaZACmw5Utb0+fAc3CNPOjuYV8uDFMjWNXu
+ PNTPsee4dUku0qUiLkYU6mQspR7yaiO5uGeKDYKweS4qDDJz9L3+ArubTDprMaDKNPoO
+ Fid6rN88pwaQn51ekVPk0sVV+MFCwKuOHCcwY7br9FIvfK/afi2ZWjQcjC5APJD0h4ib
+ qkgx90aAiGv7FKi9LaI2paNC5+I0vvEGvqoHjlsDkrRL88CZsO1LxuYluWLafXHBzCEX
+ PTi7DXj7d7ZOVlaTnIerLQGFmiZwEogLXq9mmLbVNpKQNZ/x4e54p4WazPY3Cg9bqtKr
+ jXmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfVh/sTl3YbGGKjnxRSQq6iIP4oW4bgJWdjHk2vLgyDcWeaZLW12TZwuxpIRQ2L6QKBHbEOnKl8A4I7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzZCPAzGG7vjiEwd7QjkmxBoyzzW9ndErgsdWQXhvKOZnBQBg+Y
- 6bNxTD4x8uafebzYCcNCZyYBVYflAns2FBk1PGrThfVQ0TabG5ccYccP8A2miv/mVsw=
-X-Gm-Gg: ASbGncttzCS2nXaXk7i14KiqC7/TGfZfkHNn2KLd78g4zFCxkgtxObJ9EMP47ElFxBB
- QD0qjFjh1oIW164Bh3wqWXfoy9lFr2dvnBOc+oq8WqRUDaBsUBKSPQabB1354zemEbmm/ofpR05
- lcwCt1zeMK/dUY2A2YjfughFqetKRqAN6nAIit69SYxhCdfREVerQIqlkhgluERXI9MwuDEX3YL
- BvgepFwu3mbMRsUEdYWNB7g2jVZ3QMFi3wnI2UJsygyPemRDVDR/LcAXMOGy3jRFaASsHHV7U+j
- BVRfdhlgPB6/D3KkiDL7wEEQNTUSh2mjFdOHYwNZJCW4NH5+AyGGaPw5RRMrIwPn1H0kpEM=
-X-Google-Smtp-Source: AGHT+IGLyHoeTc4HSvaXyg3+PQJQKiImY3KCxwct5wGRCFTjBfvCwUsuGdayZtCuy6sdlhDOtQDFIQ==
-X-Received: by 2002:a05:600c:3587:b0:439:9a1f:d73d with SMTP id
- 5b1f17b1804b1-442fd68257fmr90763505e9.8.1747938771266; 
- Thu, 22 May 2025 11:32:51 -0700 (PDT)
+ AJvYcCUlIo8CDM/iLQPRZHjjoQgWQxIK0xvfN1j5FMHdsDxB0iOBbAx0vScAq/aD/W5GVJVJVefByImYCRjWCQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxYa9evnsdAwhReOiSXQiEp+g5a0bIP03V0sRx0OxugjQyIzsVX
+ 07OYYzRxlDDXbcRb7Xb7l66/ji94jo1jHnNhunf6MiaGkUv7wlrzANaNwN7hL38kNAA=
+X-Gm-Gg: ASbGncs45Wp6myFIXlYlIXLUAnWbjgdi1mDRa0oCiTEfzsZeFmnGVtF2kBHVhZ09Lhn
+ K3UMVfSrE+/EbsdfXCrYFGZLg8M0mRRV63rFSIpD9NYY0RUaC5Xs+8xRYMPAkN71xcoYVH01J7s
+ F9Oe1eRs8tz1Pjt7MTd9k4In8GRL/oKp7RKYQJqJ2DI/yUSFJvCYEAGEzzuYRxpBoeNvmhqfzr5
+ Yefz4B09bOgJIzhmnDdo/H/s+/Br1qGvCpAlUM9JNJ2YvMEBQ9fy0ae4iTxXioj16UyqVcTtgYn
+ 7aYbiyTaWVv6V166X11muo6rv7AREB4C4cVsE9KakbN27dDrIUFgdWYTlEtiE0mUw3ZQ3MA=
+X-Google-Smtp-Source: AGHT+IHR+WLXCmN0YpGsXVAMyTrf5qwUXOqpxWzDyNHvcgpM8sHVsTuYa3Mt6GIgso9ohbfhoLilLw==
+X-Received: by 2002:a5d:5f47:0:b0:3a3:6a3d:163a with SMTP id
+ ffacd0b85a97d-3a36a3d18b3mr7521239f8f.12.1747939009584; 
+ Thu, 22 May 2025 11:36:49 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f3ce483bsm113545715e9.33.2025.05.22.11.32.49
+ 5b1f17b1804b1-447f6b295fdsm120822505e9.5.2025.05.22.11.36.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 11:32:50 -0700 (PDT)
-Message-ID: <f3f2b57c-d745-40b4-8317-5f123e2ab018@linaro.org>
-Date: Thu, 22 May 2025 20:32:49 +0200
+ Thu, 22 May 2025 11:36:48 -0700 (PDT)
+Message-ID: <3cf3f029-f56c-4ea7-a10d-ece09fdbb2b0@linaro.org>
+Date: Thu, 22 May 2025 20:36:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+To: Guenter Roeck <linux@roeck-us.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, =?UTF-8?Q?Emilio_L=C3=B3pez?=
- <emilio@elopez.com.ar>
-References: <20250404-kconfig-defaults-clk-v1-0-4d2df5603332@linaro.org>
- <20250404-kconfig-defaults-clk-v1-3-4d2df5603332@linaro.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20250406203531.61322-1-krzysztof.kozlowski@linaro.org>
+ <f1dc5228-ac91-47c3-a854-b425cb77bb5f@roeck-us.net>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -124,12 +120,9 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  h0At/TN/618e/QVlZPbMeNSp3S3ieMP9Q6y4gw5CfgiDRJ2K9g99m6Rvlx1qwom6QbU06ltb
  vJE2K9oKd9nPp1NrBfBdEhX8oOwdCLJXEq83vdtOEqE42RxfYta4P3by0BHpcwzYbmi/Et7T
  2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <20250404-kconfig-defaults-clk-v1-3-4d2df5603332@linaro.org>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] clk: stm32: Do not enable by default
- during compile testing
+In-Reply-To: <f1dc5228-ac91-47c3-a854-b425cb77bb5f@roeck-us.net>
+Subject: Re: [Linux-stm32] [PATCH 1/2] watchdog: stm32: Fix wakeup source
+ leaks on device unbind
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,20 +139,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 04/04/2025 13:56, Krzysztof Kozlowski wrote:
-> Enabling the compile test should not cause automatic enabling of all
-> drivers.  Restrict the default to ARCH also for individual driver, even
-> though its choice is not visible without selecting parent Kconfig
-> symbol, because otherwise selecting parent would select the child during
-> compile testing.
+On 06/04/2025 23:17, Guenter Roeck wrote:
+> On 4/6/25 13:35, Krzysztof Kozlowski wrote:
+>> Device can be unbound or probe can fail, so driver must also release
+>> memory for the wakeup source.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/clk/stm32/Kconfig | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> 
 
-Ping. Any feedback from maintainers? Stephen, are you picking up this
-directly?
+
+This was almost two months ago, got review but still did not reach
+linux-next. What is needed for this patchset?
 
 Best regards,
 Krzysztof
