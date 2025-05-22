@@ -2,109 +2,212 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63DC7AC1076
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 17:56:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD815AC10EB
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 May 2025 18:22:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A4C3C7A827;
-	Thu, 22 May 2025 15:56:39 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92418C7A827;
+	Thu, 22 May 2025 16:22:20 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5CA6C7802C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE746C7802C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 May 2025 15:56:37 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 62288439A5;
- Thu, 22 May 2025 15:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1747929396;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hDrRfxUh05bF14pzZXQ+mC3f/tIJuaPORyh0q5iuGpM=;
- b=LrOFkxjDWfPYlaJ27v0bKylFL4XWO+4kvvgStRLZlUDRYZHdyChNIb2pfDuGENtsuftdv/
- wGbOCWfZtxzREyaEFwnH82wXULSKdAdYw/PBXzq/zAP46MQh+2qKay6Pd/jwy3zwxJN8dw
- rgJTGQYyYqHyrBnB5+bbAyyUPyuK4SQmrz1l5b6bKlFTJX3baN6Ej14byKnrUchMCQnb3+
- vJDkRIAED2cQX+6NzREg8KVZNhwI6WQ0582mb8M9FYZVQz3yCa/TIqtPexDE/d9Fb/Krsm
- aRFHR6fwOi/MpKAjV481sgJjj5EABYXpHVIjb+acU9Q+t95PRAEbZnkSC880OA==
-Date: Thu, 22 May 2025 17:56:23 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Message-ID: <20250522175623.1a6d9b14@booty>
-In-Reply-To: <20250522-amphibian-shiny-chachalaca-cf05ba@houat>
-References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
- <20250521162216.79dd3290@booty>
- <20250522-amphibian-shiny-chachalaca-cf05ba@houat>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdeifeejucdltddurdegfedvrddttddmucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeertdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgfejhffgjeelkeeftdekfefgteekgefhleelueeijeffieekieeigefhledtffetnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpfhhrvggvuggvshhkthhophdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvpdhhvghlohepsghoohhthidpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeelhedprhgtphhtthhopehmrhhiphgrrhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkhhho
- hhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhushgvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthhtohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegrnhgurhiivghjrdhhrghjuggrsehinhhtvghlrdgtohhmpdhrtghpthhtohepnhgvihhlrdgrrhhmshhtrhhonhhgsehlihhnrghrohdrohhrghdprhgtphhtthhopehrfhhoshhssehkvghrnhgvlhdrohhrgh
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: Sui Jingfeng <sui.jingfeng@linux.dev>,
- Hsin-Te Yuan <yuanhsinte@chromium.org>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, Alim Akhtar <alim.akhtar@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
- Adam Ford <aford173@gmail.com>, Anusha Srivatsa <asrivats@redhat.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Inki Dae <inki.dae@samsung.com>, Pin-yen Lin <treapking@chromium.org>,
- Ian Ray <ian.ray@gehealthcare.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Phong LE <ple@baylibre.com>, Christoph Fritz <chf.fritz@googlemail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- freedreno@lists.freedesktop.org, Martyn Welch <martyn.welch@collabora.co.uk>,
- linux-doc@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Guenter Roeck <groeck@chromium.org>, Simona Vetter <simona@ffwll.ch>,
- chrome-platform@lists.linux.dev, Aradhya Bhatia <a-bhatia1@ti.com>,
- Fabio Estevam <festevam@gmail.com>, Helge Deller <deller@gmx.de>,
- Sugar Zhang <sugar.zhang@rock-chips.com>, Liu Ying <victor.liu@nxp.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Jagan Teki <jagan@amarulasolutions.com>, Jesse Van Gavere <jesseevg@gmail.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- linux-amlogic@lists.infradead.org, Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Andy Yan <andy.yan@rock-chips.com>,
- imx@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sasha Finkelstein <fnkl.kernel@gmail.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Peter Senna Tschudin <peter.senna@gmail.com>,
- platform-driver-x86@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Vitalii Mordan <mordan@ispras.ru>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>, Krzysztof Kozlowski <krzk@kernel.org>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Benson Leung <bleung@chromium.org>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- asahi@lists.linux.dev, Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Shawn Guo <shawnguo@kernel.org>, Aleksandr Mishin <amishin@t-argos.ru>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- David Airlie <airlied@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Janne Grunau <j@jannau.net>, "Rob Herring \(Arm\)" <robh@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Xin Ji <xji@analogixsemi.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
+ Thu, 22 May 2025 16:22:18 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54MFtltR020537;
+ Thu, 22 May 2025 16:22:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ corp-2025-04-25; bh=LyTE0hEwbpujIxUHyoy8Twx+36dCsD9HlDvhoJI0PV0=; b=
+ CNKp3NOIWANzCCuH8zn74wWEp3l9gVP0kTcLczrxcf3LxqeLf8S+YcTMQ5jMbjA7
+ XDZeXizzlEWE3YuXWs2g63w50r2d8cvV6eTYEw/EEnj7RRfHOiOSUO29ob4e+WE1
+ 9S4a88sQvGx49exED/2gnWXKncvCh9qUzT6Y0FJnlOcLXXkDkpvRREGldnNEvm5/
+ c+jqhid4THEcMLWY2v5HvA8vZLJidOclJV07AcEq1hH7if2/4lXcwx3QB+dyM46X
+ uFrlhelJQfIJtBL8RnjxUOVjyO0dtB+mlEWiSBfD1xHnc+WaHgXZXWsRqrCty4FV
+ /4s/pWybW/pf1YVEviJ6Rg==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46t5ws8ch3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 22 May 2025 16:22:03 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 54MFd7Qa001799; Thu, 22 May 2025 16:22:01 GMT
+Received: from bl2pr02cu003.outbound.protection.outlook.com
+ (mail-eastusazon11010002.outbound.protection.outlook.com [52.101.51.2])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 46rwetvwfb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 22 May 2025 16:22:01 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cnnRHMiBYiN4LMyGC5dPyhJ/QUmgqLKNkT3DiYnh2DgLsaYObLTpeqb8/3LwJUWe3bnXil2fu4CHCd7uqNpZUGeRDkbj0weJbp1gW9ng/QrZek/+IWYZLyaHYFboAgAShh5HV0rEE1kka9FgPfp8O3veyI6h26mTzD6cG2UN8v/sNahPdNHfYJhhYrwCKGwwh8Razx1+U7M2YFMBCiK95IAetCOzGDrS3d16EA6/M3c9dXOWzgypmLwSQxX7irWVnev2f8B67KxeHAv8Tz4E+P2lcmZLeE8yyX+uK+8RUmIQxyvG8SuUaaALsKpPZ8jdpS0Ido4sFzIgGhOj42YJxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LyTE0hEwbpujIxUHyoy8Twx+36dCsD9HlDvhoJI0PV0=;
+ b=BuPYUEQGp9skgvFNQ15hcXBrMHkaHIhsykbWurPwE41mX6vKHYxewz1VE2lO9h/1JAebSl3pqjqqKIc4IVE6fKz7qYHzIOGAkhkeTvVBsL2TvpWdifQT64ar4aL1rkfyqR8uLIFGhwcSNkoVY3/Zt9QWi1hps1ke74eCx83ZxqkPRY0i96CMAjDsGPUvyQ9v5w/B+1rnZu4KoF7LLXvGlX+rgSkx18Q8N0UsNXyptu+NZEv+/V22CU9yVw1vM3FcvvbVh3i+xxPjXHgJfK4g/FWreznk2Sqr+Ys6sCQLoanNmFJI2hwCXsRKbSeVX9F1tEyhtytPbZhulABXZA1fGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LyTE0hEwbpujIxUHyoy8Twx+36dCsD9HlDvhoJI0PV0=;
+ b=FBBtjC4uni3GndcrECK6l3+MAAk3TjTJd6Qzw24qhuZBZALE0iVr1D+JWhW/oLyCxa3nCF/3qtDODK7LHN7R141isd2HcJgwvh3Qe2FXgW5HqY9P9zy6R4Lc1rofooJrzKXeSOkjCXmFti5/QCQuwiBkBSQJ4HqoFmf+h+ZhYaU=
+Received: from DS7PR10MB5328.namprd10.prod.outlook.com (2603:10b6:5:3a6::12)
+ by BLAPR10MB5202.namprd10.prod.outlook.com (2603:10b6:208:306::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Thu, 22 May
+ 2025 16:21:54 +0000
+Received: from DS7PR10MB5328.namprd10.prod.outlook.com
+ ([fe80::ea13:c6c1:9956:b29c]) by DS7PR10MB5328.namprd10.prod.outlook.com
+ ([fe80::ea13:c6c1:9956:b29c%2]) with mapi id 15.20.8746.030; Thu, 22 May 2025
+ 16:21:54 +0000
+Message-ID: <3edbda17-cff1-4e8c-bac7-5cfed472fc66@oracle.com>
+Date: Thu, 22 May 2025 21:51:45 +0530
+User-Agent: Mozilla Thunderbird
+To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v3 00/22] drm: convert all bridges to
- devm_drm_bridge_alloc()
+References: <20250521-upstream_rcc_mp21-v3-0-cac9d8f63d20@foss.st.com>
+ <20250521-upstream_rcc_mp21-v3-2-cac9d8f63d20@foss.st.com>
+Content-Language: en-US
+From: ALOK TIWARI <alok.a.tiwari@oracle.com>
+In-Reply-To: <20250521-upstream_rcc_mp21-v3-2-cac9d8f63d20@foss.st.com>
+X-ClientProxiedBy: SI2PR02CA0010.apcprd02.prod.outlook.com
+ (2603:1096:4:194::15) To DS7PR10MB5328.namprd10.prod.outlook.com
+ (2603:10b6:5:3a6::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR10MB5328:EE_|BLAPR10MB5202:EE_
+X-MS-Office365-Filtering-Correlation-Id: f006b654-daf8-44fa-03f2-08dd994cc3fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QlIzSFo1ZzBXTzNORmNxZTNNVTNBZzdjT2M1dlJCZ2R2K3hiLy9JTE8yOWJ4?=
+ =?utf-8?B?NzFUZHY3dGJPWWExTnNYdzZlNUEzMW9ac3I5c1Nod0lTY3p2THZUZnZjZXJz?=
+ =?utf-8?B?YnBSQmhHUGJnREU2Z3pzdkExRUtRLzlOZHRTMW5jR2VMV2IwMmc4SXduR3lV?=
+ =?utf-8?B?UnJtRmlsUVlvTXdRZXVUVGZBOFNkVFJZT29wODl1ZEtQcVRXaklyWXBwRUtW?=
+ =?utf-8?B?WTRYUFlQTWlKaGxUL2N4UGw5RUhTempyUFNiT2xub2NtMy9ESFVGR0JSbUFU?=
+ =?utf-8?B?OEY4cmZSRzdhL1NGRlg2TWptZHhrWElJVlFGY2dDZnJjZUZkVThJZDFHWjJn?=
+ =?utf-8?B?bG9SWi9uZUpaaHducU0waERiODFtUzRDek02ZGFhVy96M3ZtUWg2RE02NjY4?=
+ =?utf-8?B?cFpJQVNYQUN3dE5qVk1MVjR0RXJrVkpBZTE2YW5jUnhIY2dKN2N5QVpkcUta?=
+ =?utf-8?B?empUYjhDSUN2YWVzZm9hRDJHV0pWYjJ2bEV2UktBaWlvYjN2OGlhWGg3ZVZl?=
+ =?utf-8?B?TmNrNk0vbVY2WGxBZU54MmVTYnJiV0hpK0FiZWQwS0w5RVREMnFTdjF4Ynkx?=
+ =?utf-8?B?U3hNR21lQzN2RG83VmFmaVRTeE15ZWRKaU1hcldDa1VmcmZvOGlBSGRwallZ?=
+ =?utf-8?B?RDdUcEdtQWU0bXhzK1NtRnJ3MkIxYStpd2lLQmJIV1F2bFlhUXloL3IvMjFa?=
+ =?utf-8?B?UW55K3N5OFg2V2Q3NHBXOHdlaUd5ZzJidE9VakVoNXdkT1lOTVFCOUVUd3BY?=
+ =?utf-8?B?SlBIY0U2Q3NqMGNjUERLdTk4SEVVbm9wZ0wxUGxlSUJJMmViVnVqZTAzdTFk?=
+ =?utf-8?B?ak9TdmFwS04wam1KZ1FEUDBtWXBLc01zVDhQU201aVVoMWxQL2FQZ1pVaW9v?=
+ =?utf-8?B?bm9vYUZZU0FuRWo0eTh2NWRGMVpIWWhRZEpSR0Nudm1PUjdxSTVHYlI3cGVM?=
+ =?utf-8?B?cUhsOHJTK21TV0Jub216WGE4QklJdENTSlhzVCtURk1ZMEc5MW0yeVMvKzdy?=
+ =?utf-8?B?dzU0SXpOd3VjQnJUOWxubFhWL1FQaVZVWTNkMHhDWHU4aUM0bHNZYk84cE9H?=
+ =?utf-8?B?S3lZL1ZHZjBlUTB1Wk05OVBiTEpSaE01Sy95Vk1UUXpqcHBkMFMrcFBpL2Rm?=
+ =?utf-8?B?RkFpckFxRkdGcUxkeXg3eWdKMGkvRG1EOWtNOG9SOWxsS0w3bzBHOGRJWTNU?=
+ =?utf-8?B?dzlIOTltZW1saFp6TlNPWnZ2NnJWMXVoSmY5ZjBEalVPV3lNVzZzY1dWSUtr?=
+ =?utf-8?B?WFZudFM1b0J3NDVTaUNUWTF0cy9paFZubEk3dVpEbDd4NDlSODU4THRTYXUr?=
+ =?utf-8?B?Mk1RQTAwbkdLSm9QcnlsV3RpNUpkSHpuNDRNUzlIR1BsbFZZNmhuTGE4THMw?=
+ =?utf-8?B?T291Q2VQQzdEdlNYSEExaE4zc0NCWUdnRXM3Z0VBQkVrT3JWMTRNbDE1REhX?=
+ =?utf-8?B?NHhTUENvbW9nRjZQUUFKekFHM0hoZmI4ZURRKzVvNUlBcVkzN3pQYWMzRWFI?=
+ =?utf-8?B?dnBRTmF6dDFxbW1MU0VBZGUyZ0prKzZEUG5TeTRldUowRHdRVTZJM2pPUE91?=
+ =?utf-8?B?ZVQ1UCs4UHRlWEFjNnVvRGtBN2U3cGVjaWNQRzNLNmNJSGdrV05WREFLSEZY?=
+ =?utf-8?B?eWJBSjlWL0x1VWptZWNGMGhFR3JmRlgyVUhLMDJJakpTZy9mNjl2Rkh6TlNm?=
+ =?utf-8?B?VVRTZy9rb2hicTVoYVFDQ3ZJY1A1cjA5b0c5ZExxMXBGWDFMeHFweFBGS1pj?=
+ =?utf-8?B?S09wMm9xeUNWdm5DWWt5cWNOT0pRQ1VlZVdxSFdPdXBFOUh3R2I0Z2VRRGM3?=
+ =?utf-8?B?QXBRUklydlBHWStpcHpBemVENWsvZU9xNDhPK0tUdFRMSnpUK3M2Ny9McVdy?=
+ =?utf-8?B?MHVCRW1NRkliR3E1cGZrMGNnWDdQSklCK0ZiMlo1bzZqajhFeStmTFNlcDht?=
+ =?utf-8?Q?9hXeHaa2/gA=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR10MB5328.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm9DT2FoWjNiYVJkM3ZTdzNmVmJ2ZXVWSGtEaDFDK1d4a2VWL1VGcktpSVN5?=
+ =?utf-8?B?dE1ibnRmcFllMXZXeHgzeUFwamZGb05KMkIvM0dLS3BucVBsWTArWFdRdDRX?=
+ =?utf-8?B?Nk9MQkw1T2ZSRytSNk1kaEdWTElKYnQ1MlZwQlhFVytlSGtkRHZEblJNaWFv?=
+ =?utf-8?B?UnJuUTJhZlpNdGhYcVU2bm9UQVBpUHB3OXJEQThxK0djQjluM3Q0dkduY21N?=
+ =?utf-8?B?NzUwVWVmbllmSGRJekxLdEJDelFDTzZYZzNsZWVITXFYK01QV0NYMzhUTEJB?=
+ =?utf-8?B?cWRDSXBwNVd2TytlMVNxWFNLU3UrSzlWNE9QZjYrenNQT0xwc21jbUtLdDB3?=
+ =?utf-8?B?VEpjeFVmdHY4bGZ2NTFTTk4xeDlRNFgzQnMzU3pvd2k4R2pqYlFuQWlDRmdt?=
+ =?utf-8?B?OENUZkkxNUxXcGVkY2pKRmZRbHQvYmIrYVBzNjI2SnlaR3dBME0zaUZ3TGdP?=
+ =?utf-8?B?WUEwL3NIc3dYNWY4a3NrTnlhdTFnYjRyN1hpaFFtUnVUT01zSFZqSEdGUUFz?=
+ =?utf-8?B?b0dYZHBTbWR0VUkzcUFMRXVKN0E4bFFwTEQzMk9Bc0V6b2tFMkhMdUcyYzJD?=
+ =?utf-8?B?SFpqVmEyenZoK1FiMFFPeXpxVjNBSmFSVmZRbVpKQjRzTE9yN0tkWG1KZWxU?=
+ =?utf-8?B?bDlFS0lhWlNuT2NzdXNuNGtla3BKdG1FZFJtOS9nR3JEWnViNnpBaHZxc0pW?=
+ =?utf-8?B?TklQTWQyR1pnYTBjbENzKzlQVFF3UjlaeithbWF4d01KbXluNE1TTnE1RWtW?=
+ =?utf-8?B?ckNkaFFXN1RuRis4czVyYzVDVmIvekF4L1BZaCtjYlRTYnovK3lMZDl3cS9G?=
+ =?utf-8?B?dUl4bEpXSS93cldpajgveHNYalI5NElxWDlpeU9iOE4xeHZkREdRRHRYcHFE?=
+ =?utf-8?B?UnpTNVhJc3VYa045WWhmMHdsaFdkL2J4NVRocDc5M2xSZUd5SWdhcUV1ZUhC?=
+ =?utf-8?B?cmxiK3dMaGJxSEFzSmsvSWp1VytjUVQwOFVoak8yYUVKeTVPMmxjeE1zbktU?=
+ =?utf-8?B?dkdIbVJjWnRFNFQveStGY25VcHd3ODM2WDRNWW9kUTI2WmtBNWN0cWlVb2d6?=
+ =?utf-8?B?endsWGNzbUFwbDNETkhJNnBObDRPWHhEVGFXWkQvaVc3U3lSbDlybm9qS0d0?=
+ =?utf-8?B?eFZpZkNMc1ZwNmNQUDA5bk5ZckJrUGUwMlZsczdjRXhQSU90bEhCR20rL1hY?=
+ =?utf-8?B?cEhsUHZ2RnErNHhpTFNsQnpwN1FUdU94MTdnZU5ZZjVzQU1kZHVLRGcwNGZ4?=
+ =?utf-8?B?V2hWRFFjMi8yWGpRRHFkdTA3dldNbGkxZXo3TE1uOUlpTUhHNDFhZFZhVGhv?=
+ =?utf-8?B?dXE5RDVrL3A5KzY1K0k5UlpVSXhmdmVkRTBOYk5NSDFZcThqemU0TzhHMUo5?=
+ =?utf-8?B?b3k0V01rK1dhV1Q0VjlPUG1Zb1E1QUJMN2NnanhGZVJoVnMwMDV3eWo3aXdj?=
+ =?utf-8?B?VjgvMjNUVVlhbU1nMnV6cWdOaGZNKzlINkthdS93V3I0RWZpRldWUHFBNFhF?=
+ =?utf-8?B?UU9mcThLb0RLR2J2bXdTS2QwNlEwWUJIRkZtMHN4L3hDbmw4K3UwMjkwazhY?=
+ =?utf-8?B?a1VtYjRUSWxFRWpjN0Q4azdMQXJmOGw4RDh4OTE2eGhaWUZENGc2V2gxMnFt?=
+ =?utf-8?B?dW9wT0RXRVo1bnZiem9FNGVHbW9JaUd6TzlUbTd4NmZ0WWx0Z3dXTmJxQWtJ?=
+ =?utf-8?B?NFZUUHFnOWlaQ2EyN2JMMWNiaHFaNzVYck43WDNpV2EzV2ZpUU1DKysrY2Zm?=
+ =?utf-8?B?dlE3S1J2WjJnT0FRS2lqWjZxbklJdDJ1TytlaFhVT1NXRnhjK3ZGY0dYdVpr?=
+ =?utf-8?B?d1BVdjVGNHZ1Wlh3RjlkQU5nMWp3YjdaNjJPV1UzZFJQQ0xXSGJjVEQwaUIv?=
+ =?utf-8?B?Z3dYNjcreVlGcElsU1ZYVVMxdE9XZmxPdHZCUmZnSUMxS0ZDRWlkUGloTW1P?=
+ =?utf-8?B?UENkakd4QVJBdno2MzhHWmdqcUU3YkVGdXB3UnA4cjBzRDBOZ1VsbWdWL043?=
+ =?utf-8?B?ODNaUFJHMGZadm4vQkpvZkVxS29WMjBqVEE1OWNRTUtYenFSZnMvcUM1cWZi?=
+ =?utf-8?B?UXpCcklEbkdQOFZSU2NROVQ0Ymk4TThsVENSZXlHL0Qyem5PVmM5dmYrZ2pV?=
+ =?utf-8?B?ZVg1YzNRRnpmOGVTUmZOY05xbkVNZm05bmQ4TFh2TTF3NzFTRTZqMGtSNmhN?=
+ =?utf-8?B?OVE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 1ePzypyzGOIXLjHxNCbUo9/2TksoWKDsCHJH4Q4N98yoHuOPlAFSmCv8FPDPaEJ2SU7TGR+z56T/KUlwPqNyecBMySaSMNBxIF4DcZk5TVS+rBHxdiAIAtXguHJlt0L/MSmfpHb1jYxat55qcFX1n628lCm6jKAvMAj9GirfPdEqtDTpjDkxM9Ng5y9X/aQtshLi9nuWKnQXGBreD4+U1DdbUIUapReLBHbC0fWf05cLfQ7GT6f2eylQSkikAoxgV0b+4P2P7DOrMsSk6OP7oYJypjdr4IK+TUMHROqClfFcnTSxOIdy0b7uzkNJy2kmVXOfOGUvFHe/38Vuj3+LKZlhNg9hv/JbwbYk3gI5iWml+eBs2kmq9DNXsmcKYB4+ob7JFHA9DSYg1CeuTmGxbuXhAvpMBr8nCYuHzJ5VTqC2t/3kv/eNyuYJUAKqUoghj4uoV07rNPhY9dP+7VR83sH9LPHf2MRDj/on4cj9jVxa4iBUNhfzj1QGQhDESCJlgyQv98sd1BmDumHwFUjOaf3vTSxbVx1LjwdpBQHb1li9vFR31ZJNbKsU5ou+hSN8A9rDhRIA8PqWTQhOiONc1b9nbVS6qmHvrjPoycpbGOQ=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f006b654-daf8-44fa-03f2-08dd994cc3fa
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB5328.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 16:21:54.4438 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VOISriJrLuai23q/DO04Vr+cvzNpbMrHboazjVdawVOnSgl89KOJMzF5cnusOF+9Jlkt5n7ksoFrPpy6OFZVbDEF3tpUgpzRGJzaqq9AP2Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5202
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-22_08,2025-05-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ mlxlogscore=999
+ spamscore=0 bulkscore=0 adultscore=0 mlxscore=0 suspectscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2505160000 definitions=main-2505220166
+X-Authority-Analysis: v=2.4 cv=M99NKzws c=1 sm=1 tr=0 ts=682f4f2b cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10
+ a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=GoEa3M9JfhUA:10 a=8b9GpE9nAAAA:8
+ a=yPCof4ZbAAAA:8 a=VaK7QfrqWub99CTn_GQA:9 a=QEXdDO2ut3YA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: B1ZXuAgC167W0gWwqzqLZPaD-DJmn_uL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIyMDE2NyBTYWx0ZWRfXz0Cql8d5TUd9
+ 37+XYHqzqeO8TM7DzdBLGE/EdLvGYsdAhA0PbL5xo7TycSgGFO4Qp2/Ge13F9GIQK6auPmfNOi2
+ EICuQg89l5TGN59avdtpkOH1kOtVQW3gkr5nVgARt4AjkCz5mJTVzUkWVIak6zr4myulCB8cGJz
+ UbOwF4W/AdFyov0x2vGaP/u2jZM3nh0tO3YsZXLcNk1WeE1RYvAHc78J2ynP+2EuD9HgLnwnIFd
+ c+pNB4JQwVMKGFliNj+hv7/OVBChUsDfI4y6ZS8Zo3GZvpCVpd+EyyS6A/LuTxFj+FnodkYoots
+ c4jeD4pDrsLbVcAn9rGTm7yQ1WZ+sldNJmLYLr2GklufFhdiLiaNZC8E8y300O85EkVPEJKxpA9
+ XlvyWi5e7bpqDgsi4Nb1Il3remqLGYVZ5aLPx1zoXRGwyRM0Bp9OIjV1q1gpj1bCFDlq8HLK
+X-Proofpoint-GUID: B1ZXuAgC167W0gWwqzqLZPaD-DJmn_uL
+Cc: Nicolas Le Bayon <nicolas.le.bayon@foss.st.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 2/3] clk: stm32: introduce clocks for
+ STM32MP21 platform
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,118 +219,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
 
-On Thu, 22 May 2025 16:57:30 +0200
-Maxime Ripard <mripard@kernel.org> wrote:
 
-[...]
-
-> > As the commit was a mistake, I'm applying the revert by the end of this
-> > week (i.e. on Friday) unless there are better instructions.  
+On 21-05-2025 18:08, Gabriel Fernandez wrote:
+> This driver is intended for the STM32MP21 clock family.
 > 
-> Given the lack of answers, and that it looks correct to me, just leave
-> it there. We can always revert later on if things turned out to be
-> broken.
+> Signed-off-by: Nicolas Le Bayon<nicolas.le.bayon@foss.st.com>
+> Signed-off-by: Gabriel Fernandez<gabriel.fernandez@foss.st.com>
+> ---
+>   drivers/clk/stm32/Kconfig         |    7 +
+>   drivers/clk/stm32/Makefile        |    1 +
+>   drivers/clk/stm32/clk-stm32mp21.c | 1586 +++++++++++++++++++++++++++++++++++++
+>   drivers/clk/stm32/stm32mp21_rcc.h |  651 +++++++++++++++
+>   4 files changed, 2245 insertions(+)
 
-OK, I'll leave the commit and drop the revert in v4.
 
-> > >       drm: convert many bridge drivers from devm_kzalloc() to devm_drm_bridge_alloc() API  
-> > 
-> > This patch affects multiple drivers. Running get_maintainers.pl
-> > points at Shawn Guo's repository. After reviewing the MAINTAINERS file,
-> > this looks like due to the 'N:' line in:
-> > 
-> > ARM/FREESCALE IMX / MXC ARM ARCHITECTURE
-> > M:	Shawn Guo <shawnguo@kernel.org>
-> > M:	Sascha Hauer <s.hauer@pengutronix.de>
-> > R:	Pengutronix Kernel Team <kernel@pengutronix.de>
-> > ...
-> > T:	git git://git.kernel.org/pub/scm/linux/kernel/git/shawnguo/linux.git
-> > N:	imx
-> > ...
-> > 
-> > (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L2511-2528)
-> > 
-> > Here 'imx' matches the 'drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c'
-> > file that is touched by the patch. That regexp appears overly generic to me.  
-> 
-> I agree, or at least, we shouldn't wait for Shawn or Sasha...
-> 
-> > Shawn, can it be fixed by making it less generic?
-> > 
-> > If not, can we at least add a band-aid 'X:' entry for
-> > drivers/gpu/drm/bridge/imx?
-> > 
-> > I think the other matching entry is the one to consider:
-> > 
-> > DRM DRIVERS FOR FREESCALE IMX BRIDGE
-> > M:	Liu Ying <victor.liu@nxp.com>
-> > L:	dri-devel@lists.freedesktop.org
-> > S:	Maintained
-> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-ldb.yaml
-> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-combiner.yaml
-> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pixel-link.yaml
-> > F:	Documentation/devicetree/bindings/display/bridge/fsl,imx8qxp-pxl2dpi.yaml
-> > F:	drivers/gpu/drm/bridge/imx/
-> > 
-> > (https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/MAINTAINERS?ref_type=heads#L7940-7948)  
-> 
-> ... As long as Ying is fine with it, because it does look like they are
-> the actual maintainer.
+Reviewed-by: Alok Tiwari <alok.a.tiwari@oracle.com>
 
-Ack, thanks for confirming this.
-
-Bottom line, given that large patch has your Acked-by, and given the
-shawnguo repo was ruled out, the conclusion is it can apply it to
-drm-misc-next.
-
-Having that large patch applied will be relieving me a lot! I think
-next time I'm going to split any imilar change in per-driver patches,
-even if it is spatch-automated.
-
-> > >       drm/todo: add entry to remove devm_drm_put_bridge()  
-> > 
-> > This involves documentation maintained on another tree. Where should it
-> > be applied? There are two matching entries in MAINTAINERS:
-> > 
-> >  * DRM DRIVERS -> the drm tree
-> >  * DRM DRIVERS AND MISC GPU PATCHES -> the drm-misc tree
-> > 
-> > To me it looks like the second is obviously the closest match as we are
-> > dealing with DRM bridges, so I'm applying this as well on Friday unless
-> > there are better instructions.  
-> 
-> Yes, they should be applied to drm-misc.
-
-OK, will do soon.
-
-> That being said, putting a two days timeout on *any* email is really
-> over-the-top. I doubt you reply to any of your mail in such a short
-> timeframe. We have rules for a reason, I'd expect you to follow them, no
-> matter how frustrating the lack of answers can be.
-
-Apologies if that was too much.
-
-I was indeed nervous about the revert. A patch got applied by mistake
-and I believe it should have been reverted very quickly, if need be.
-Both Louis and I didn't want to break the process again. So we asked,
-but not having answer after 2+ weeks I must admit I got a bit nervous
-about it.
-
-Sorry about that and thanks for the feedback about my questions.
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks,
+Alok
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
