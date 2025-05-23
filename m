@@ -2,45 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599A5AC2773
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 May 2025 18:20:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE77AC2AEA
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 May 2025 22:34:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F06B6C7A82E;
-	Fri, 23 May 2025 16:20:37 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57E6CC78F7F;
+	Fri, 23 May 2025 20:34:27 +0000 (UTC)
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
+ [91.218.175.188])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAF39CFAC42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F0D8C78F6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 May 2025 16:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=FKSYcBDrAVeosFiXivZE6eLg3M7cJpM8m8qO+mm0CJw=; b=rR
- twtHAXcENvE9yW6v25dXUilX104IemQqVM7uHNhpLnfEdMBnz+GV0+AaooNJhCNj9WkBK/30N89v/
- zfdNuPB+qxeGf9ymvJWF5UGU9erpoRCQB+bxaE7CHJCeRq/EyzIArpOxfR7bdcI9JJtbTCTyQiqeW
- ekCkuM3pfbt1Liw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uIV81-00Dd47-36; Fri, 23 May 2025 18:20:13 +0200
-Date: Fri, 23 May 2025 18:20:13 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5p2O5ZOy?= <sensor1010@163.com>
-Message-ID: <d5325aba-507e-47b6-83fb-b9156c1f351e@lunn.ch>
-References: <20250523151521.3503-1-sensor1010@163.com>
+ Fri, 23 May 2025 20:34:26 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1748032465;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Gkv6Aih8tfghpst1uOH/eaz1x5tS9HCDhXSpL/WAh5g=;
+ b=HY9t8SWXCaYWANdK08qiXmlWPmaGNC2TNu0c9PqGHlgs7qquMJYGR4f26C5TJ49QNTrPaN
+ NNi6GEc/DC11QFbl6ZQPIq1VHdUAKM3QT4V3ImX9e9aAS60+xhwMoFCg5uor09ghFB/5EI
+ LkCDX/i3P4ksKXfWXFLLC7+cP8YIA0M=
+From: Sean Anderson <sean.anderson@linux.dev>
+To: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>
+Date: Fri, 23 May 2025 16:33:29 -0400
+Message-Id: <20250523203339.1993685-1-sean.anderson@linux.dev>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250523151521.3503-1-sensor1010@163.com>
-Cc: linux-kernel@vger.kernel.org, jonas@kwiboo.se, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, wens@csie.org, andrew+netdev@lunn.ch,
- edumazet@google.com, an.petrous@oss.nxp.com, u.kleine-koenig@baylibre.com,
- mcoquelin.stm32@gmail.com, david.wu@rock-chips.com, kuba@kernel.org,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: dwmac-rk: MAC clock should be truned
-	off
+X-Migadu-Flow: FLOW_OUT
+Cc: Sean Anderson <sean.anderson@linux.dev>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, imx@lists.linux.dev,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ Lei Wei <quic_leiwei@quicinc.com>, Christian Marangi <ansuelsmth@gmail.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Robert Hancock <robert.hancock@calian.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Daniel Golle <daniel@makrotopia.org>, UNGLinuxDriver@microchip.com,
+ Simon Horman <horms@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [net-next PATCH v5 00/10] Add PCS core support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,33 +66,153 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBNYXkgMjMsIDIwMjUgYXQgMDg6MTU6MjFBTSAtMDcwMCwg5p2O5ZOyIHdyb3RlOgo+
-IGlmIFBIWSBwb3dlci1vbiBmYWlscywgY2xvY2thc3NvY2lhdGVkIHRoZSBNQUMgc2hvdWxkCj4g
-YmUgZGlzYWJsZWQgZHVyaW5nIHRoZSBNQUMgaW5pdGlhbGl6YXRpb24gcHJvY2VzcwoKVGhlIFN1
-YmplY3Q6IGxpbmUgaGFzIGEgdHlwby4KCj4gU2lnbmVkLW9mZi1ieTog5p2O5ZOyIDxzZW5zb3Ix
-MDEwQDE2My5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L2R3bWFjLXJrLmMgfCA0ICsrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
-aWNyby9zdG1tYWMvZHdtYWMtcmsuYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
-bWFjL2R3bWFjLXJrLmMKPiBpbmRleCA3MDA4NThmZjZmN2MuLjAzNmU0NWJlNTgyOCAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jCj4g
-KysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYwo+IEBA
-IC0xNjQ4LDcgKzE2NDgsNyBAQCBzdGF0aWMgaW50IGdtYWNfY2xrX2VuYWJsZShzdHJ1Y3Qgcmtf
-cHJpdl9kYXRhICpic3BfcHJpdiwgYm9vbCBlbmFibGUpCj4gIHN0YXRpYyBpbnQgcGh5X3Bvd2Vy
-X29uKHN0cnVjdCBya19wcml2X2RhdGEgKmJzcF9wcml2LCBib29sIGVuYWJsZSkKPiAgewo+ICAJ
-c3RydWN0IHJlZ3VsYXRvciAqbGRvID0gYnNwX3ByaXYtPnJlZ3VsYXRvcjsKPiAtCWludCByZXQ7
-Cj4gKwlpbnQgcmV0ID0gMDsKPiAgCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZic3BfcHJpdi0+cGRl
-di0+ZGV2Owo+ICAKPiAgCWlmIChlbmFibGUpIHsKPiBAQCAtMTY2MSw3ICsxNjYxLDcgQEAgc3Rh
-dGljIGludCBwaHlfcG93ZXJfb24oc3RydWN0IHJrX3ByaXZfZGF0YSAqYnNwX3ByaXYsIGJvb2wg
-ZW5hYmxlKQo+ICAJCQlkZXZfZXJyKGRldiwgImZhaWwgdG8gZGlzYWJsZSBwaHktc3VwcGx5XG4i
-KTsKPiAgCX0KPiAgCj4gLQlyZXR1cm4gMDsKPiArCXJldHVybiByZXQ7CgpUaGlzIGRvZXMgbm90
-IG1ha2UgbXVjaCBzZW5zZSB0byBtZS4gSG93IGRvIHlvdSBnZXQgaGVyZSB3aXRoIHJldCBub3QK
-YmVpbmcgMD8KCiAgICBBbmRyZXcKCi0tLQpwdy1ib3Q6IGNyCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+This series adds support for creating PCSs as devices on a bus with a
+driver (patch 3). As initial users,
+
+- The Lynx PCS (and all of its users) is converted to this system
+  (patches 4-5)
+- The Xilinx PCS is broken out from the AXI Ethernet driver (patches 6-7)
+- The Cadence MACB driver is converted to support external PCSs (namely
+  the Xilinx PCS) (patches 8-9).
+
+Care has been taken to ensure backwards-compatibility. The main source
+of this is that many PCS devices lack compatibles and get detected as
+PHYs. To address this, pcs_get_by_fwnode_compat allows drivers to edit
+the devicetree to add appropriate compatibles.
+
+There is another series [1] with the same goal by Christian Marangi. In
+comparison, I believe this series
+
+- Implements a simpler and more-robust method of PCS access.
+- Provides a more-direct upgrade path for existing MAC and PCS drivers.
+
+Sending v5 to run CI after rebasing; there are no other major changes.
+
+[1] https://lore.kernel.org/netdev/20250511201250.3789083-1-ansuelsmth@gmail.com/
+
+Changes in v5:
+- Export get_phy_c22_id when it is used
+- Expose bind attributes, since there is no issue in doing so
+- Rebase onto net-next
+- Use MDIO_BUS instead of MDIO_DEVICE
+
+Changes in v4:
+- Add a note about the license
+- Adjust variable ordering in pcs_find_fwnode
+- Annotate pcs_wrapper.wrapped with __rcu
+- Fix PCS lookup functions missing ERR_PTR casts
+- Fix documentation for devm_pcs_register_full
+- Fix incorrect condition in pcs_post_config
+- Fix linking when PCS && !OF_DYNAMIC
+- Fix linking when PCS && OF_DYNAMIC && PHYLIB=m
+- Re-add documentation for axienet_xilinx_pcs_get that was accidentally
+  removed
+- Reduce line lengths to under 80 characters
+- Remove unused dev parameter to pcs_put
+- Use a spinlock instead of a mutex to protect pcs_wrappers
+
+Changes in v3:
+- Add '>' modifier for paragraph to description
+- Adjust axienet_xilinx_pcs_get for changes to pcs_find_fwnode API
+- Drop patches destined for other trees, as they have either already
+  been applied or are no longer necessary.
+- Edit description to reference clocks instead of resets
+- Remove support for #pcs-cells. Upon further investigation, the
+  requested functionality can be accomplished by specifying the PCS's
+  fwnode manually.
+- Select PCS_XILINX unconditionally
+
+Changes in v2:
+- Add fallbacks for pcs_get* and pcs_put
+- Add support for #pcs-cells
+- Change base compatible to just xlnx,pcs
+- Change compatible to just xlnx,pcs
+- Defer devicetree updates for another series
+- Drop #clock-cells description
+- Drop PCS_ALTERA_TSE which was accidentally added while rebasing
+- Move #clock-cells after compatible
+- Move update to macb_pcs_get_state to previous patch
+- Remove outdated comment
+- Remove second example
+- Remove unused variable
+- Remove unused variable lynx_properties
+- Rename pcs-modes to xlnx,pcs-modes
+- Reorder pcs_handle to come before suffix props
+- Reword commit message
+- Rework xilinx_pcs_validate to just clear out half-duplex modes instead
+  of constraining modes based on the interface.
+
+Sean Anderson (9):
+  dt-bindings: net: Add Xilinx PCS
+  net: phylink: Support setting PCS link change callbacks
+  net: pcs: Add subsystem
+  net: pcs: lynx: Convert to an MDIO driver
+  net: pcs: Add Xilinx PCS driver
+  net: axienet: Convert to use PCS subsystem
+  net: macb: Move most of mac_config to mac_prepare
+  net: macb: Support external PCSs
+  of: property: Add device link support for PCS
+
+Vladimir Oltean (1):
+  net: dsa: ocelot: suppress PHY device scanning on the internal MDIO
+    bus
+
+ .../devicetree/bindings/net/xilinx,pcs.yaml   | 114 +++
+ Documentation/networking/index.rst            |   1 +
+ Documentation/networking/kapi.rst             |   4 +
+ Documentation/networking/pcs.rst              | 102 +++
+ MAINTAINERS                                   |   8 +
+ drivers/net/dsa/ocelot/Kconfig                |   4 +
+ drivers/net/dsa/ocelot/felix_vsc9959.c        |  15 +-
+ drivers/net/dsa/ocelot/seville_vsc9953.c      |  16 +-
+ drivers/net/ethernet/altera/Kconfig           |   2 +
+ drivers/net/ethernet/altera/altera_tse_main.c |   7 +-
+ drivers/net/ethernet/cadence/macb.h           |   1 +
+ drivers/net/ethernet/cadence/macb_main.c      | 229 ++++--
+ drivers/net/ethernet/freescale/dpaa/Kconfig   |   2 +-
+ drivers/net/ethernet/freescale/dpaa2/Kconfig  |   3 +
+ .../net/ethernet/freescale/dpaa2/dpaa2-mac.c  |  11 +-
+ drivers/net/ethernet/freescale/enetc/Kconfig  |   2 +
+ .../net/ethernet/freescale/enetc/enetc_pf.c   |   8 +-
+ .../net/ethernet/freescale/enetc/enetc_pf.h   |   1 -
+ .../freescale/enetc/enetc_pf_common.c         |   4 +-
+ drivers/net/ethernet/freescale/fman/Kconfig   |   4 +-
+ .../net/ethernet/freescale/fman/fman_memac.c  |  25 +-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   3 +
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   6 +-
+ drivers/net/ethernet/xilinx/Kconfig           |   7 +
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |   4 +-
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 104 +--
+ drivers/net/pcs/Kconfig                       |  45 +-
+ drivers/net/pcs/Makefile                      |   4 +
+ drivers/net/pcs/core.c                        | 686 ++++++++++++++++++
+ drivers/net/pcs/pcs-lynx.c                    | 110 +--
+ drivers/net/pcs/pcs-xilinx.c                  | 484 ++++++++++++
+ drivers/net/phy/phy_device.c                  |   3 +-
+ drivers/net/phy/phylink.c                     |  24 +-
+ drivers/of/property.c                         |   2 +
+ include/linux/pcs-lynx.h                      |  13 +-
+ include/linux/pcs-xilinx.h                    |  15 +
+ include/linux/pcs.h                           | 205 ++++++
+ include/linux/phy.h                           |   1 +
+ include/linux/phylink.h                       |  27 +-
+ 39 files changed, 2010 insertions(+), 296 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/xilinx,pcs.yaml
+ create mode 100644 Documentation/networking/pcs.rst
+ create mode 100644 drivers/net/pcs/core.c
+ create mode 100644 drivers/net/pcs/pcs-xilinx.c
+ create mode 100644 include/linux/pcs-xilinx.h
+ create mode 100644 include/linux/pcs.h
+
+-- 
+2.35.1.1320.gc452695387.dirty
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
