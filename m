@@ -2,62 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD63AC3B17
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 10:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 504EEAC3FA6
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 14:54:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 082C3C36B0C;
-	Mon, 26 May 2025 08:05:34 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F10B0C36B10;
+	Mon, 26 May 2025 12:54:07 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8C02C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30986C78013
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 08:05:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bbADdHqSyemEAUvSgp0Vxsp615wRz96ttPoTQeE5LAo=; b=ahmp7gVKJThDo8tM/ki0syfuDO
- JQtPY1b6f/MhHhhkDOr6epdnAs23WIReEi4cS/jX2seK6jRV8D64egdPDbzu0ATYjmqV3uvgtyRuM
- L28cPXQKHj4swBTuaFPS4vj1udkP0rrgNjalXHH8NVUfvoMPGGM4HxxAGptJvPlWeZJjCRu+CyH86
- EGQDPvyoL7F1xXhi7G5cjdYnVCEex3JGS43fnm0UThcxWdZIqHy41Ry7ItnoTGLzrL621TA2cFa/4
- wtDHSNK4r/xGSPQRieqC6Kranr7QD6YD0UPQjI9sjJWWQazCRZJjGd21XRaeXvljqFD+emrVJbpwY
- 0tGoJdlQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50816)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1uJSpH-0006VC-1T;
- Mon, 26 May 2025 09:04:51 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1uJSp6-0000Fz-1l;
- Mon, 26 May 2025 09:04:40 +0100
-Date: Mon, 26 May 2025 09:04:40 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: James Hilliard <james.hilliard1@gmail.com>
-Message-ID: <aDQgmJMIkkQ922Bd@shell.armlinux.org.uk>
-References: <20250526002924.2567843-1-james.hilliard1@gmail.com>
- <20250526002924.2567843-2-james.hilliard1@gmail.com>
+ Fri, 23 May 2025 22:19:46 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-739ab4447c7so64242b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 May 2025 15:19:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sima.ai; s=google; t=1748038785; x=1748643585;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/JnkXPK73+jyylcV6ryL6CGzS49ASbFWgmp+uGzB8Mk=;
+ b=Em/TEu8oc/QHcDgTPqm1X0vdlKeBSJs0YO5ZUKkYCaHoRH6VPOlDn1RkWizTcqepD/
+ Wj6ebija6gHRIOUhJh0X2TXyrKR3m/fx/at5TwFXeGFtXfnIIGGBdMvOAfJxOiR6n3hq
+ JMYgjDOpUG41NLwVU5ijI7TEWoDizej3n4GPp4Z7z9+rd0vAMxlTU+f+o0pREKi2JngZ
+ Ia50gO/wclfXER5YbYqEaBi6u2LnYSCZ3gnyGCi3lttdrdpnJE9pAg2L5L2eAc8WxlVf
+ ghgxzE99EZlajrI6d7lMfjtcykOhpPkTtI2Q6tc0gVOcFYwHz574K86nltEUOZzLtHEc
+ YTDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748038785; x=1748643585;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/JnkXPK73+jyylcV6ryL6CGzS49ASbFWgmp+uGzB8Mk=;
+ b=BqVTlyaKnT7h7UUdf9aTuTYsH/ocwPXBJHPacpN9UzfybUha8kWZiYgYAd/piv7Jor
+ qJA3sujWXAFtr3iTAKU7gURDjGy+JDxRRi42U0kPiLxTCbGvns5QLT4hKeHtE2SimVNJ
+ X0u+h19dNw+GV+5/Ps/Zjnz24t001wtg635bGFr3vg1Z0eMAh+eJVIfk/4VFOFxh6ocq
+ H6PDkwQyL6fMwClDoUMHaI2QdqxYs+P87w0DXXH6v5MZWCCiIRK4R98mnm9W4BYSn+x2
+ z5f4WOFFWcSXk+dyjwPq4f5K/WaByV5wrYnHJ0jknztIxrf6TzSIPLNHdAlnOqfBnxi9
+ aJyA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUkv35SzW5ZiwYEAf87HYW/vEMbniDY/2uHmPDfYz5b50SWiYPCHwj0N2O8I1K2/RTLXeFd+xBbNIVkfQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YysLVFW1tsDX+xoGeGSqJ5DBtf5LWRWdwiDpjadIc/YALeCK1Fk
+ RVNaR8SJTnIi758hCyXKWyZXvJGHVtoxFr4Tif3yfPrO/6b6Z9Vqjcsx+Pk4nV8xqO4=
+X-Gm-Gg: ASbGncvmH+3rbLxxrnqOp8DmhZXK6YhfYvEkpmKJFu1BxB3tgYbXrAOVvmrg736fJK6
+ 3yoFrCq9RQEFKEQu6Fj4QZ0LpeBmu5X0bj+jgjrNG9WR/a5Owq7zhKcP6/EShtkfve9Ys14uPNU
+ 86RKu/+iBYmUZjWa+p1WBQtMyfetTbN6HFhitZ97XgDZfYC5HoKJWjnu1XC55138+6t8xRtzxr1
+ l8k470o0Da/PnOIY0EfyRGZUVvR+390sz+aqruDd+pmnYKvOLOqq5WP04eX9IRaFWO5qHRnarw/
+ LblI5Vw1l6GKP84iLdvkxdscVk4ObsX95c5JS0J51T6a65fuH+6uUPNnW2/Kre+9/jFT1Q==
+X-Google-Smtp-Source: AGHT+IH4iorXbLRI5th5BQNEszM355fKXRMdiHktjuRWLWFcJzliHo+SpZz99EM6pMvifOreU1FWMQ==
+X-Received: by 2002:a05:6a00:8083:b0:730:915c:b77 with SMTP id
+ d2e1a72fcca58-745fde77910mr655216b3a.1.1748038784743; 
+ Fri, 23 May 2025 15:19:44 -0700 (PDT)
+Received: from nikunj-kela-u22.eng.sima.ai ([205.234.21.7])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-742a96dfa2fsm13309759b3a.2.2025.05.23.15.19.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 May 2025 15:19:44 -0700 (PDT)
+From: Nikunj Kela <nikunj.kela@sima.ai>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+Date: Fri, 23 May 2025 15:19:38 -0700
+Message-Id: <20250523221938.2980773-1-nikunj.kela@sima.ai>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250526002924.2567843-2-james.hilliard1@gmail.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
- Jinjie Ruan <ruanjinjie@huawei.com>, Yanteng Si <si.yanteng@linux.dev>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, Paul Kocialkowski <paulk@sys-base.io>,
- Yinggang Gu <guyinggang@loongson.cn>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- linux-arm-kernel@lists.infradead.org, Feiyang Chen <chenfeiyang@loongson.cn>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [RFC PATCH 2/2] net: stmmac: dwmac-sun8i: Allow
- runtime AC200/AC300 phy selection
+X-Mailman-Approved-At: Mon, 26 May 2025 12:54:05 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 0x1207@gmail.com,
+ rmk+kernel@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Nikunj Kela <nikunj.kela@sima.ai>
+Subject: [Linux-stm32] [PATCH] net: stmmac: set multicast filter to zero if
+	feature is unsupported
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,31 +90,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, May 25, 2025 at 06:29:22PM -0600, James Hilliard wrote:
-> +	if (!nvmem_cell_read_u16(dev, "ac300", &val)) {
-> +		const char *phy_name = (val & AC300_KEY) ? "ac300" : "ac200";
-> +		int index = of_property_match_string(dev->of_node, "phy-names", phy_name);
-> +		if (index < 0) {
-> +			dev_err(dev, "PHY name not found in device tree\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		plat_dat->phy_node = of_parse_phandle(dev->of_node, "phys", index);
-> +		if (!plat_dat->phy_node) {
-> +			dev_err(dev, "Failed to get PHY node from phys property\n");
-> +			return -EINVAL;
-> +		}
-> +	}
+Hash based multicast filtering is an optional feature. Currently,
+driver overrides the value of multicast_filter_bins based on the hash
+table size. If the feature is not supported, hash table size reads 0
+however the value of multicast_filter_bins remains set to default
+HASH_TABLE_SIZE which is incorrect. Let's override it to 0 if the
+feature is unsupported.
 
-1. You are re-using the drivers/phy binding for ethernet PHYs driven by
-   phylib here.
-2. You need to update
-   Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
-   in a separate patch.
+Signed-off-by: Nikunj Kela <nikunj.kela@sima.ai>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 085c09039af4..ccea9f811a05 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7241,6 +7241,9 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 					(BIT(priv->dma_cap.hash_tb_sz) << 5);
+ 			priv->hw->mcast_bits_log2 =
+ 					ilog2(priv->hw->multicast_filter_bins);
++		} else {
++			priv->hw->multicast_filter_bins = 0;
++			priv->hw->mcast_bits_log2 = 0;
+ 		}
+ 
+ 		/* TXCOE doesn't work in thresh DMA mode */
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
