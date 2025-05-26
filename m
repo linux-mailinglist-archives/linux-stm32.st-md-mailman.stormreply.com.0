@@ -2,66 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0807CAC3A14
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 08:43:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234C4AC3A81
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 09:20:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1025C78F60;
-	Mon, 26 May 2025 06:43:32 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7090C36B0C;
+	Mon, 26 May 2025 07:20:32 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DAF3C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F2AFC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 06:43:31 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54Q6SNec021065;
- Mon, 26 May 2025 08:43:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- OS8PvSfwRlhjZGN6jsgBRmNG5LhO25xsjz5q3ncqIDU=; b=NkJRz0lf3bhigiZE
- eaVdiOwH0if/ejdiiR5pcQ7fSr7JwOushQIUk00jA3tcubbaQGZDwj8Tq4epNT1d
- 3YrhJ2BQLBBNSymYHLhaZB/T/sg7D8KoY0lhcwWDujtb8W/+74wyotC7eflbuqkD
- 3cVO1Ra83+u//xwjbLRAZGCxjeBsH2sA2zZGt60FOO2qyvCa91I2oqWrU+E82Z/D
- T8dxWsF4qJC7AgZLSXxV/wbuOkIBNzdjYD+mXbJY3ODl+YBrwPlqOBs6Xr1LJDxD
- N022icQCA/bO9rgSkVE/6OD25sP3b9zESQt41nfytHGvKaJ+fvVide+buAXh2GWs
- x8GhFw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46uqp4bbub-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 May 2025 08:43:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C73B440044;
- Mon, 26 May 2025 08:42:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1FEEB1D8AA;
- Mon, 26 May 2025 08:41:55 +0200 (CEST)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 26 May
- 2025 08:41:55 +0200
-Message-ID: <8f948025-a40e-417c-bbc1-a43356118ce4@foss.st.com>
-Date: Mon, 26 May 2025 08:41:54 +0200
+ Mon, 26 May 2025 07:20:31 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 16875442B5;
+ Mon, 26 May 2025 07:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1748244030;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QLkd7DkuwItmUeCsro4GRU7KY1n+af+fkKCtRJvc72M=;
+ b=ERsZFnNGGx1taTjFML/F7g48As15TWrVqpm7AQM6ITdhjMQXPkfTl1YTY624dt2A61ojKn
+ C4GrIy3LvMnZuQ3f48MHbrAItO9yt2FMHAqBFQBNWnAd4H+GlbFkLp+0Q5jpHR5ME8BtSC
+ rLb2TykZsJeBxh/2UPnUC+byagvOBWEHs+mzz5buaw+VAmwRzWbNg55alaA49c/WX7dEK/
+ fsh2zNr1ZhqaGyMrCEJNSdr/QBQDpvqqwK5PYQ+P4KU7TlWYdbGXAPWQsVfUnDZH7GHJxL
+ bRcPS+1N1hdPuMOBL2LrEIz8HJMPOUVPD7+c3bsfVFBouRX3auSsw6Kbri6nhA==
+Date: Mon, 26 May 2025 09:20:24 +0200
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Liu Ying <victor.liu@nxp.com>
+Message-ID: <20250526092024.48cae4ae@booty>
+In-Reply-To: <67252c36-8b31-4c40-9d89-4f502da4a087@nxp.com>
+References: <20250424-drm-bridge-convert-to-alloc-api-v2-0-8f91a404d86b@bootlin.com>
+ <20250424-drm-bridge-convert-to-alloc-api-v2-30-8f91a404d86b@bootlin.com>
+ <553d62ed-976a-4e17-9678-cdc3d40ce4a7@nxp.com>
+ <20250430112944.1b39caab@booty>
+ <f71d18d2-4271-4bb9-b54f-0e5a585778f3@nxp.com>
+ <20250506224720.5cbcf3e1@booty>
+ <67252c36-8b31-4c40-9d89-4f502da4a087@nxp.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Krzysztof Kozlowski
- <krzk@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, <linux-kernel@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20250525191300.50873-2-krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20250525191300.50873-2-krzysztof.kozlowski@linaro.org>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-26_03,2025-05-22_01,2025-03-28_01
-Subject: Re: [Linux-stm32] [PATCH] memory: stm32_omm: Use
- syscon_regmap_lookup_by_phandle_args
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdduieeltdculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkjghfohfogggtgfesthhqredtredtjeenucfhrhhomhepnfhutggrucevvghrvghsohhlihcuoehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpefgfeetieeutdeifefggfegheelgeefiefgffeifeeujeehkeffgeehhfevfefhjeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhfrhgvvgguvghskhhtohhprdhorhhgpdgsohhothhlihhnrdgtohhmnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepfeelpdhrtghpthhtohepvhhitghtohhrrdhlihhusehngihprdgtohhmpdhrtghpthhtohepmhgrrghrthgvnhdrlhgrnhhkh
+ hhorhhstheslhhinhhugidrihhnthgvlhdrtghomhdprhgtphhtthhopehmrhhiphgrrhgusehkvghrnhgvlhdrohhrghdprhgtphhtthhopehtiihimhhmvghrmhgrnhhnsehsuhhsvgdruggvpdhrtghpthhtoheprghirhhlihgvugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghnughriigvjhdrhhgrjhgurgesihhnthgvlhdrtghomhdprhgtphhtthhopehnvghilhdrrghrmhhsthhrohhngheslhhinhgrrhhordhorhhg
+X-GND-Sasl: luca.ceresoli@bootlin.com
+Cc: imx@lists.linux.dev, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-kernel@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Simona Vetter <simona@ffwll.ch>,
+ chrome-platform@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Anusha Srivatsa <asrivats@redhat.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, freedreno@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-renesas-soc@vger.kernel.org,
+ asahi@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 30/34] drm/bridge:
+ imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,82 +85,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 5/25/25 21:13, Krzysztof Kozlowski wrote:
-> Use syscon_regmap_lookup_by_phandle_args() which is a wrapper over
-> syscon_regmap_lookup_by_phandle() combined with getting the syscon
-> argument.  Except simpler code this annotates within one line that given
-> phandle has arguments, so grepping for code would be easier.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Not tested on hardware.
-> ---
->  drivers/memory/stm32_omm.c | 21 ++++++---------------
->  1 file changed, 6 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-> index 79ceb1635698..bee2ecc8c2b9 100644
-> --- a/drivers/memory/stm32_omm.c
-> +++ b/drivers/memory/stm32_omm.c
-> @@ -46,7 +46,7 @@ static int stm32_omm_set_amcr(struct device *dev, bool set)
->  	struct regmap *syscfg_regmap;
->  	struct device_node *node;
->  	struct resource res, res1;
-> -	u32 amcr_base, amcr_mask;
-> +	unsigned int syscon_args[2];
->  	int ret, idx;
->  	unsigned int i, amcr, read_amcr;
->  
-> @@ -98,29 +98,20 @@ static int stm32_omm_set_amcr(struct device *dev, bool set)
->  		of_node_put(node);
->  	}
->  
-> -	syscfg_regmap = syscon_regmap_lookup_by_phandle(dev->of_node, "st,syscfg-amcr");
-> +	syscfg_regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg-amcr",
-> +							     2, syscon_args);
->  	if (IS_ERR(syscfg_regmap))
->  		return dev_err_probe(dev, PTR_ERR(syscfg_regmap),
->  				     "Failed to get st,syscfg-amcr property\n");
->  
-> -	ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 1,
-> -					 &amcr_base);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = of_property_read_u32_index(dev->of_node, "st,syscfg-amcr", 2,
-> -					 &amcr_mask);
-> -	if (ret)
-> -		return ret;
-> -
->  	amcr = mm_ospi2_size / SZ_64M;
->  
->  	if (set)
-> -		regmap_update_bits(syscfg_regmap, amcr_base, amcr_mask, amcr);
-> +		regmap_update_bits(syscfg_regmap, syscon_args[0], syscon_args[1], amcr);
->  
->  	/* read AMCR and check coherency with memory-map areas defined in DT */
-> -	regmap_read(syscfg_regmap, amcr_base, &read_amcr);
-> -	read_amcr = read_amcr >> (ffs(amcr_mask) - 1);
-> +	regmap_read(syscfg_regmap, syscon_args[0], &read_amcr);
-> +	read_amcr = read_amcr >> (ffs(syscon_args[1]) - 1);
->  
->  	if (amcr != read_amcr) {
->  		dev_err(dev, "AMCR value not coherent with DT memory-map areas\n");
-
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
-
-Thanks
-Patrice
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gTGl1LAoKT24gVGh1LCAyMiBNYXkgMjAyNSAxMTowMToxMyArMDgwMApMaXUgWWluZyA8
+dmljdG9yLmxpdUBueHAuY29tPiB3cm90ZToKCj4gT24gMDUvMDcvMjAyNSwgTHVjYSBDZXJlc29s
+aSB3cm90ZToKPiAKPiBbLi4uXQo+IAo+ID4+IEFmdGVyIGxvb2tpbmcgaW50byB0aGlzIHBhdGNo
+IGFuZCBwYXRjaCAzMSh0aG91Z2ggSSd2ZSBhbHJlYWR5IHByb3ZpZGVkIG15IEEtYikKPiA+PiBt
+b3JlIGNsb3NlbHksIEkgdGhpbmsgdGhlIGlteDhxeHBfcGMgYW5kIGlteDh7cW0scXhwfV9sZGIg
+bWFpbiBzdHJ1Y3R1cmVzCj4gPj4gc2hvdWxkIGhhdmUgdGhlIHNhbWUgbGlmZSB0aW1lIHdpdGgg
+dGhlIGVtYmVkZGVkIERSTSBicmlkZ2VzLCBiZWNhdXNlIGZvcgo+ID4+IGV4YW1wbGUgdGhlIGNs
+a19hcGIgY2xvY2sgaW4gc3RydWN0IGlteDhxeHBfcGMgd291bGQgYmUgYWNjZXNzZWQgYnkgdGhl
+Cj4gPj4gaW14OHF4cF9wY19icmlkZ2VfbW9kZV9zZXQgRFJNIGJyaWRnZSBjYWxsYmFjay4gIEJ1
+dCwgSUlVQywgeW91ciBwYXRjaGVzIGV4dGVuZAo+ID4+IHRoZSBsaWZlIHRpbWUgZm9yIHRoZSBl
+bWJlZGRlZCBjaGFubmVsL2JyaWRnZSBzdHJ1Y3R1cmVzIG9ubHksIGJ1dCBub3QgZm9yIHRoZQo+
+ID4+IG1haW4gc3RydWN0dXJlcy4gIFdoYXQgZG8geW91IHRoaW5rID8gIAo+ID4gCj4gPiBJIHNl
+ZSB5b3UgY29uY2VybiwgYnV0IEknbSBzdXJlIHRoZSBjaGFuZ2UgSSdtIGludHJvZHVjaW5nIGlz
+IG5vdAo+ID4gY3JlYXRpbmcgdGhlIHByb2JsZW0geW91IGFyZSBjb25jZXJuZWQgYWJvdXQuCj4g
+PiAKPiA+IFRoZSBrZXkgYXNwZWN0IGlzIHRoYXQgbXkgcGF0Y2ggaXMgbWVyZWx5IGNoYW5naW5n
+IHRoZSBsaWZldGltZSBvZiB0aGUKPiA+IF9hbGxvY2F0aW9uXyBvZiB0aGUgZHJtX2JyaWRnZSwg
+bm90IGl0cyB1c2FnZS4gT24gZHJtX2JyaWRnZV9yZW1vdmUoKQo+ID4gdGhlIGJyaWRnZSBpcyBy
+ZW1vdmVkIGZyb20gaXRzIGVuY29kZXIgY2hhaW4gYW5kIGl0IGlzIGNvbXBsZXRlbHkgbm90Cj4g
+PiByZWFjaGFibGUsIGJvdGggYmVmb3JlIGFuZCBhZnRlciBteSBwYXRjaC4gV2l0aCBteSBwYXRj
+aCBpdCBpcyBub3QgIAo+IAo+IGRybV9icmlkZ2VfcmVtb3ZlKCkgb25seSByZW1vdmVzIGEgYnJp
+ZGdlIGZyb20gdGhlIGdsb2JhbCBicmlkZ2VfbGlzdCBkZWZpbmVkCj4gaW4gZHJtX2JyaWRnZS5j
+LiAgZHJtX2JyaWRnZV9kZXRhY2goKSBpcyB0aGUgb25lIHdoaWNoIHJlbW92ZXMgYSBicmlkZ2Ug
+ZnJvbQo+IGl0J3MgZW5jb2RlciBjaGFpbi4gIEl0IGxvb2tzIGxpa2UgeW91IHdyb25nbHkgdGhv
+dWdodCBkcm1fYnJpZGdlX3JlbW92ZSgpCj4gaXMgZHJtX2JyaWRnZV9kZXRhY2goKS4KCkluZGVl
+ZCBteSBzZW50ZW5jZSB3YXMgaW5hY2N1cmF0ZSwgc29ycnkgYWJvdXQgdGhhdC4KCj4gU28sIGV2
+ZW4gaWYgZHJtX2JyaWRnZV9yZW1vdmUoKSBpcyBjYWxsZWQsIHRoZSByZW1vdmVkCj4gYnJpZGdl
+IGNvdWxkIHN0aWxsIGJlIGluIGl0J3MgZW5jb2RlciBjaGFpbiwgaGVuY2UgYW4gYXRvbWljIGNv
+bW1pdCBjb3VsZCBzdGlsbAo+IGFjY2VzcyB0aGUgYWxsb2NhdGVkIGJyaWRnZSh3aXRoIGxpZmV0
+aW1lIGV4dGVuZGVkKSBhbmQgdGhlIGNsb2NrX2FwYiBjbG9jawo+IGZvciBleGFtcGxlIGluIHN0
+cnVjdCBpbXg4cXhwX3BjIGNvdWxkIGFsc28gYmUgYWNjZXNzZWQuICBUaGF0J3Mgd2h5IEkgdGhp
+bmsKPiB0aGUgbWFpbiBzdHJ1Y3R1cmVzIHNob3VsZCBoYXZlIHRoZSBzYW1lIGxpZmV0aW1lIHdp
+dGggdGhlIGFsbG9jYXRlZCBicmlkZ2UuCgpBcyB0aGUgbG9uZy10ZXJtIGdvYWwgaXMgdG8gYWxs
+b3cgYnJpZGdlcyB0byBiZSBob3QtcmVtb3ZhYmxlLApkZWNvdXBsaW5nIHRoZSBsaWZldGltZSBv
+ZiB0aGUgdmFyaW91cyBjb21wb25lbnRzIGlzIGEgbmVjZXNzYXJ5IHN0ZXAuCkRlZmluaXRlbHkg
+aXQgd2lsbCBvcGVuIG90aGVyIGlzc3VlcywgYW5kIGVzcGVjaWFsbHkgdGhlIHJlbW92YWwgZHVy
+aW5nCmF0b21pYyB1cGRhdGVzLiBUaGlzIGhhcyBiZWVuIGRpc2N1c3NlZCBhbHJlYWR5LCBhbmQg
+dGhlcmUgaXMgYQpwcm9wb3NlZCBwbGFuIHRvIGhhbmRsZSBpdC4KCkZpcnN0LCBoZXJlIGlzIHRo
+ZSBncmFuZCBwbGFuIChtZW50aW9uZWQgaW4gdGhlIHYzIGNvdmVyIGxldHRlcik6CgogMS4g4p6c
+IGFkZCByZWZjb3VudGluZyB0byBEUk0gYnJpZGdlcyAoc3RydWN0IGRybV9icmlkZ2UpCiAyLiBo
+YW5kbGUgZ3JhY2VmdWxseSBhdG9taWMgdXBkYXRlcyBkdXJpbmcgYnJpZGdlIHJlbW92YWwKIDMu
+IGF2b2lkIERTSSBob3N0IGRyaXZlcnMgdG8gaGF2ZSBkYW5nbGluZyBwb2ludGVycyB0byBEU0kg
+ZGV2aWNlcwogNC4gZmluYWxseSwgbGV0IGJyaWRnZXMgYmUgcmVtb3ZhYmxlIChkZXBlbmRzIG9u
+IDErMiszKQoKV2UgYXJlIG5vdyBhdCBzdGVwIDEuIFlvdXIgY29uY2VybiwgYXMgSSB1bmRlcnN0
+YW5kIGl0LCB3aWxsIGJlCmFkZHJlc3NlZCBhdCBzdGVwIDIuIEJyaWRnZXMgd29uJ3QgYmUgcmVt
+b3ZhYmxlIHVudGlsIHN0ZXAgNCwgc28gdGhlCmN1cnJlbnQgY2hhbmdlcyBhcmUgbm90IGludHJv
+ZHVjaW5nIGEgbWlzYmVoYXZpb3IgYnV0IHJhdGhlciBwcmVwYXJpbmcKdGhlIGdyb3VuZCB3aXRo
+IGFsbCB0aGUgbmVjZXNzYXJ5IGluZnJhc3RydWN0dXJlIGNoYW5nZXMuCgpTdGVwIDIgd2FzIGRp
+c2N1c3NlZCBpbiB0aGUgcGFzdCBbMF0sIGFuZCB0aGUgaWRlYSBwcm9wb3NlZCBieSBNYXhpbWUK
+aXMgdG8gaW50cm9kdWNlIGEgImdvbmUiIG9yICJ1bnBsdWdnZWQiIGZsYWcgYW5kIGRybV9icmlk
+Z2VfZW50ZXIoKSAvCmRybV9icmlkZ2VfZXhpdCgpIGZ1bmN0aW9ucy4gVGhlIHByaW5jaXBsZSBp
+cyB0aGUgc2FtZSBhcyBzdHJ1Y3QKZHJtX2RldmljZS51bnBsdWdnZWQgYW5kIGRybV9kZXZfZW50
+ZXIvZXhpdCgpLgoKSW4gYSBudXRzaGVsbCB0aGUgaWRlYSBpczoKCiAtIGRybV9icmlkZ2UudW5w
+bHVnZ2VkIGlzIGluaXRpYWxpemVkIHRvIGZhbHNlCiAtIGRybV9icmlkZ2VfZW50ZXIoKSByZXR1
+cm5zIGZhbHNlIGlmIGRybV9icmlkZ2UudW5wbHVnZ2VkID09IHRydWUKIC0gYW55IGNvZGUgaG9s
+ZGluZyBhIHBvaW50ZXIgdG8gdGhlIGJyaWRnZSAoaW5jbHVkaW5nIHRoZSBicmlkZ2UgZHJpdmVy
+CiAgIGl0c2VsZikgYW5kIG9wZXJhdGluZyBvbiB0aGUgYnJpZGdlIChpbmNsdWRpbmcgcmVtb3Zh
+bCkgbmVlZHMgdG8gZG86CiAgICAgaWYgKGRybV9icmlkZ2VfZW50ZXIoKSkgewogICAgICAgICBk
+byBzb21ldGhpbmc7CiAgICAgICAgIGRybV9icmlkZ2VfZXhpdCgpOwogICAgIH0KIC0gd2hlbiB0
+aGUgYnJpZGdlIGlzIHJlbW92ZWQsIHRoZSBkcml2ZXIgcmVtb3ZhbCBmdW5jdGlvbiBzZXRzCiAg
+IGRldl9icmlkZ2UudW5wbHVnZ2VkID0gdHJ1ZQoKVGhlICJkbyBzb21ldGhpbmciIGFib3ZlIGlu
+Y2x1ZGVzIGFueSBhY2Nlc3MgdG8gZGV2aWNlIHJlc291cmNlcywKaW5jbHVkaW5nIGNsb2NrcyAo
+YW5kIGNsa19hcGIpLgoKSW4gb3RoZXIgd29yZHMsIHR3byBwaWVjZXMgb2YgY29kZSBjYW4gbm90
+IGFjY2VzcyB0aGUgYnJpZGdlIHN0cnVjdHVyZQphdCB0aGUgc2FtZSB0aW1lLiBUaGlzIGluY2x1
+ZGVzIGJyaWRnZSByZW1vdmFsIFZTIGFueSBhdG9taWMgb3BlcmF0aW9ucy4KCkRvIHlvdSB0aGlu
+ayB0aGlzIGFkZHJlc3NlcyB5b3VyIGNvbmNlcm4/CgoKRm9yIHlvdSB0byBoYXZlIGEgYmV0dGVy
+IHBpY3R1cmUgb2YgdGhlIHBhdGgsIGhlcmUncyBhbiBhZGRpdGlvbmFsCmNsYXJpZmljYXRpb24g
+YWJvdXQgZHJtX2JyaWRnZV9hdHRhY2gvZGV0YWNoKCkgYW5kCmRybV9icmlkZ2VfYWRkL3JlbW92
+ZSgpLiBBcyBwYXJ0IG9mIHN0ZXAgMSBvZiB0aGUgZ3JhbmQgcGxhbiwgYm90aCBvZgp0aGVtIHdp
+bGwgZHJtX2JyaWRnZV9nZXQvcHV0KCkgdGhlIGJyaWRnZSwgc28gdGhhdCBubyBicmlkZ2UgaXMg
+ZnJlZWQKaWYgaXQgaXMgZWl0aGVyIGluIHRoZSBnbG9iYWwgYnJpZGdlX2xpc3Qgb3IgaW4gYW55
+IGVuY29kZXIgY2hhaW4uCgpQYXRjaGVzIGZvciB0aGlzIGFyZSBhbHJlYWR5IGFwcHJvdmVkIGJ5
+IE1heGltZSBbMV1bMl0uIFRoZXkgY2Fubm90IGJlCmFwcGxpZWQgdW50aWwgYWxsIGJyaWRnZSBk
+cml2ZXJzIGhhdmUgYmVlbiBjb252ZXJ0ZWQgdG8gdGhlIG5ldwpkZXZtX2RybV9icmlkZ2VfYWxs
+b2MoKSBBUEksIHNvIHRoZXkgZGVwZW5kIG9uIHRoaXMgc2VyaWVzIHRvIGJlCmNvbXBsZXRlbHkg
+YXBwbGllZC4gV2UgYXJlIGdldHRpbmcgcHJldHR5IGNsb3NlOiBhcyBvZiBub3cgdGhlIGVudGly
+ZQpzZXJpZXMgaGFzIGJlZW4gYXBwbGllZCBleGNlcHQgZm9yIHRoaXMgYW5kIGFub3RoZXIgZHJp
+dmVyLgoKWzBdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDEyOTEyNTE1My4zNWQw
+NDg3YUBib290eS90LyN1ClsxXSBodHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5vcmcvcGF0
+Y2gvNjQzMDk1LwpbMl0gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzY0
+MzA5Ni8KCkJlc3QgcmVnYXJkcywKTHVjYQoKLS0gCkx1Y2EgQ2VyZXNvbGksIEJvb3RsaW4KRW1i
+ZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
