@@ -2,91 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B557DAC3FAD
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 14:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A58BAC411E
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 16:14:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 748A2C36B2C;
-	Mon, 26 May 2025 12:54:08 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21B15C36B0E;
+	Mon, 26 May 2025 14:14:47 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 206B4C7802F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2828BC36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 05:39:23 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-23446bb8785so10523525ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 May 2025 22:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748237962; x=1748842762;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dLp6cnqyCbjFDWsg2nybeJcpM5tSNUhvPi8JJGmzqF0=;
- b=EvHmwIhi4Tt8pIEoa2ifOd+YD6nL5SbIA3TxYIaRsbZdUy/IHjDCSH97iaWkJOgQth
- 572HZ0fo6CgkBE+N3AAZSUpPh0kokES//TfOdOZaDZqIfcQDZt00ZXU0cbdUxDKL4MJr
- 4lv0+3bBp61OYte71D8dJAmxyz3PkKrtloCygQthLnaZkmnoHbM7gkBPpc4agmDgdycJ
- 0eWXRh5K+tSQc9ltZm/kW3a9SU13sbCODuGU5KY1nrNJCf4Jq5/dB/wNm8MVL9m1kxUY
- 5pa3Cu6WpyO8rlLtxxS2XH+126oEtABHifsadFEXfk/vS4s8/fCeFmyHJzcbfjWQA9K7
- Uh3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748237962; x=1748842762;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dLp6cnqyCbjFDWsg2nybeJcpM5tSNUhvPi8JJGmzqF0=;
- b=V+8rtjzdkDEioen3bDmjuKRZbvnnlCSsmbsjHgKmj26cDlyALuYp+YY3l3bFmeUPFb
- dA0GKvGTa1+u1Rr6zP3q2abp7IAMMViTs3cDrqluWuJlsOrDusCOVEzmUqkufi3eeUZT
- +DqSaNO8UNwzEVQgU4AHw3+pbjt1J3Cs1oRCrU2CWjKQa8629qaGQIrOzH9U1S9oSzpA
- hDPlU2TKst65/WA1YeGpCQ344mEI5gPtcPPw5TmIZ0OLnBofEnxlIdNJG+H+Kx1rkuBb
- m3YgDb4jetj6WsrNDWm/dYyexNYwH+fkqgovIgTXmxnmWX+dsiDU+eXgZzXxi08cY+OU
- 8wSg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU4WD5lEuoDA7itasR1QL+FhwEzcTbMwJSumxNN33lsIamPt6VTuCJ0ynqO5L7vCswrhppeC+xRVm/VMw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzN6b68/i1yIakyJ5raz6PZiPd+P+h2cwWsZX0O2qIVqbWbYXfu
- IqVb/LsYo6gyW+G+6F3dJRxtnWwo42y5R792pzTBheCsyzLaTgrB5hip
-X-Gm-Gg: ASbGncsVZxyIcMlqS3naVFVQPPytCJrZtp4CMaGKOhJU1NFuQcGBta0JCM32iE9avwo
- shJyZYDg9xl/0Y7Vs7L/Vl2ERLqurCYkACGZLMfZRbSJ9yIF3Oomf9nYYq7mXpMIP2IukbQjVWb
- 1uZXVQvCnS+f4OfQEwfXQhLT/mhyiVltxI7sUiVBvPuuYnmyn7vZ5AYtAm4uvOjrWlNnKH6O3jQ
- SuFXC8pevrD5owfI8kZ79QMkCBUh7xN5ZHoD709QCA1/Vz7hYq+meuY7lcVWN8FeDSdAVQULMTW
- sbIfDShxBSKM+YvL2WVkQCR2iflcp8o+GL57xTe8HjgRDE47PiTTvqWCUTnV0ufzVVDVExEyWK0
- 38fkBuPBXJ2J45RhyQaHkhWl2+4dk
-X-Google-Smtp-Source: AGHT+IG7xgzxnz1Grj9UzPDie6FzHib+saLpOZH8onxhz75DWnCGce9JBep2Vj0Bc2x5YD1GmylXew==
-X-Received: by 2002:a17:902:eccb:b0:22e:3f1e:b8c8 with SMTP id
- d9443c01a7336-23414f5cceamr132744715ad.15.1748237962243; 
- Sun, 25 May 2025 22:39:22 -0700 (PDT)
-Received: from [0.0.0.0] (ec2-54-193-105-225.us-west-1.compute.amazonaws.com.
- [54.193.105.225]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2343635891bsm22297405ad.130.2025.05.25.22.39.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 25 May 2025 22:39:21 -0700 (PDT)
-Message-ID: <705d99b3-9803-4f5f-a807-607b49349b68@gmail.com>
-Date: Sun, 25 May 2025 22:41:52 -0700
+ Mon, 26 May 2025 14:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=gTUQIv6xtVQdEIhWmKs1GCL0HyslUp2+oj7lqnt+NHQ=; b=Ci1RKDb6871pfBSzyscgJXu0GQ
+ rqWL6a6oZXu1JWVoZrzBArnlLSOMg0jGzEsX9C+54h22e0E79PbXd5vCv/kb/scMxfqVR+0Sy5rkj
+ FTHPaIn1AIf27eudzyyjNlNPfgrVDJ8XFac94nsGGF8cxeHADlC+aoh5itlnIaFaCM44=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1uJYad-00E0Oq-Sg; Mon, 26 May 2025 16:14:07 +0200
+Date: Mon, 26 May 2025 16:14:07 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <4a2c60a2-03a7-43b8-9f40-ea2b0a3c4154@lunn.ch>
+References: <20250526002924.2567843-1-james.hilliard1@gmail.com>
+ <20250526002924.2567843-2-james.hilliard1@gmail.com>
+ <aDQgmJMIkkQ922Bd@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: weishangjuan@eswincomputing.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- p.zabel@pengutronix.de, yong.liang.choong@linux.intel.com,
- rmk+kernel@armlinux.org.uk, jszhang@kernel.org, inochiama@gmail.com,
- jan.petrous@oss.nxp.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
- <20250516011040.801-1-weishangjuan@eswincomputing.com>
-Content-Language: en-US
-From: Bo Gan <ganboing@gmail.com>
-In-Reply-To: <20250516011040.801-1-weishangjuan@eswincomputing.com>
-X-Mailman-Approved-At: Mon, 26 May 2025 12:54:05 +0000
-Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
- linmin@eswincomputing.com
-Subject: Re: [Linux-stm32] [PATCH v1 1/2] ethernet: eswin: Document for
-	eic7700 SoC
+Content-Disposition: inline
+In-Reply-To: <aDQgmJMIkkQ922Bd@shell.armlinux.org.uk>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
+ Jinjie Ruan <ruanjinjie@huawei.com>, Yanteng Si <si.yanteng@linux.dev>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev, Paul Kocialkowski <paulk@sys-base.io>,
+ Yinggang Gu <guyinggang@loongson.cn>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-arm-kernel@lists.infradead.org, Feiyang Chen <chenfeiyang@loongson.cn>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ James Hilliard <james.hilliard1@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [RFC PATCH 2/2] net: stmmac: dwmac-sun8i: Allow
+ runtime AC200/AC300 phy selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,68 +61,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/15/25 18:10, weishangjuan@eswincomputing.com wrote:> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+On Mon, May 26, 2025 at 09:04:40AM +0100, Russell King (Oracle) wrote:
+> On Sun, May 25, 2025 at 06:29:22PM -0600, James Hilliard wrote:
+> > +	if (!nvmem_cell_read_u16(dev, "ac300", &val)) {
+> > +		const char *phy_name = (val & AC300_KEY) ? "ac300" : "ac200";
+> > +		int index = of_property_match_string(dev->of_node, "phy-names", phy_name);
+> > +		if (index < 0) {
+> > +			dev_err(dev, "PHY name not found in device tree\n");
+> > +			return -EINVAL;
+> > +		}
+> > +
+> > +		plat_dat->phy_node = of_parse_phandle(dev->of_node, "phys", index);
+> > +		if (!plat_dat->phy_node) {
+> > +			dev_err(dev, "Failed to get PHY node from phys property\n");
+> > +			return -EINVAL;
+> > +		}
+> > +	}
 > 
-> Add ESWIN EIC7700 Ethernet controller, supporting
-> multi-rate (10M/100M/1G) auto-negotiation, PHY LED configuration,
-> clock/reset control, and AXI bus parameter optimization.
-> 
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
-> ---...> +  # Custom properties
-> +  eswin,hsp_sp_csr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description: HSP SP control register> +...> +additionalProperties: false
-> +
-> +  eswin,syscrg_csr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description: System clock registers
-> +
-> +  eswin,dly_hsp_reg:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: HSP delay control registers
-...
-> +examples:
-> +  - |
-> +    gmac0: ethernet@50400000 {...> +        dma-noncoherent;
-> +        eswin,hsp_sp_csr = <&hsp_sp_csr 0x1030 0x100 0x108>;
-> +        eswin,syscrg_csr = <&sys_crg 0x148 0x14c>;
-> +        eswin,dly_hsp_reg = <0x114 0x118 0x11c>;
+> 1. You are re-using the drivers/phy binding for ethernet PHYs driven by
+>    phylib here.
+> 2. You need to update
+>    Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml
+>    in a separate patch.
 
-Please help explain the meaning of eswin,<reg> array, and also the expected
-number of elements in it, like what starfive did to their JH71x0 device-
-tree bindings. E.g., this is what net/starfive,jh7110-dwmac.yaml looks like:
+A real user, i.e. a patch to a .dts file, would also be good.
 
-...
-   starfive,syscon:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     items:
-       - items:
-           - description: phandle to syscon that configures phy mode
-           - description: Offset of phy mode selection
-           - description: Shift of phy mode selection
-     description:
-       A phandle to syscon with two arguments that configure phy mode.
-       The argument one is the offset of phy mode selection, the
-       argument two is the shift of phy mode selection.
-...
-
-Otherwise, there's no way for people to reason about the driver code.
-The same should apply for your sdhci/usb/pcie/... patchsets as well.
-Also there's no reference to the first element of the hsp_sp_csr array.
- From the vendor code, I'm reading that you are using the first element
-as the register to set the stream ID of the device to tag the memory
-transactions for SMMU, but in the patch, there's no mentioning of it.
-I'm guessing you are planning to upstream that part later. If so, I
-think it's better to put that register index at the end of the array,
-and make it optional. It should then be properly documented as well.
-
-Bo
+  Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
