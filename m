@@ -2,91 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7C4FAC3FAB
+	by mail.lfdr.de (Postfix) with ESMTPS id B557DAC3FAD
 	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 14:54:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55654C36B2B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 748A2C36B2C;
 	Mon, 26 May 2025 12:54:08 +0000 (UTC)
-Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
- [209.85.166.173])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2A67C78F71
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 206B4C7802F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 00:30:29 +0000 (UTC)
-Received: by mail-il1-f173.google.com with SMTP id
- e9e14a558f8ab-3dc6dbb3d58so14845405ab.3
+ Mon, 26 May 2025 05:39:23 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-23446bb8785so10523525ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 May 2025 17:30:29 -0700 (PDT)
+ Sun, 25 May 2025 22:39:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748219429; x=1748824229;
+ d=gmail.com; s=20230601; t=1748237962; x=1748842762;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hE9h/M7uKcWqMcsxjrPkg3JJriS4MccIRahSsbbNqE8=;
- b=i5vj3lNDX+4TNn70dVVtuLx57T7SmTO4KmHg6azIny+N4orhm6/cn0g7xHwUKb7U+P
- pF0TSvuuf3TKp+ukW9asqpO3URBOUeSWA98jQoug0EtsuJzSP7+CTjfq3iBaRelFXX6N
- wswvbrBlZMjh2UPDVjA6tgxYmwX5lWf2/1EjFpmUF1cT/MonZ2TkvX6YMHKwGx4uI6Pr
- 8eMBOaTMBA+5yICe8OSE3SxgoEtfbQtAXwh0BZKr14sRve+6BFXdn4Ze21mxG/VVVYV1
- fypc0CHC47HQuvV23rLrrO63deKe3bGCkWc4kgkDNMF5erIgPwtQG0+W0rhZKnNWqGot
- 4Hbw==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dLp6cnqyCbjFDWsg2nybeJcpM5tSNUhvPi8JJGmzqF0=;
+ b=EvHmwIhi4Tt8pIEoa2ifOd+YD6nL5SbIA3TxYIaRsbZdUy/IHjDCSH97iaWkJOgQth
+ 572HZ0fo6CgkBE+N3AAZSUpPh0kokES//TfOdOZaDZqIfcQDZt00ZXU0cbdUxDKL4MJr
+ 4lv0+3bBp61OYte71D8dJAmxyz3PkKrtloCygQthLnaZkmnoHbM7gkBPpc4agmDgdycJ
+ 0eWXRh5K+tSQc9ltZm/kW3a9SU13sbCODuGU5KY1nrNJCf4Jq5/dB/wNm8MVL9m1kxUY
+ 5pa3Cu6WpyO8rlLtxxS2XH+126oEtABHifsadFEXfk/vS4s8/fCeFmyHJzcbfjWQA9K7
+ Uh3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748219429; x=1748824229;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hE9h/M7uKcWqMcsxjrPkg3JJriS4MccIRahSsbbNqE8=;
- b=wlewPzgHwY6t/BrLtINa4jdS6FQpZpFCO2FUVa5XMlQttlRwYiDEcLOtmjlIL9ChlT
- Nr654ba/wttfj/tMYiUMG9TEvfCfNdZD6te3hI8fUoFy4K+weMi+Zh+F8fphhhY9fk2W
- eZmKm50A7yDqvsJdkR3CEoYH4L94WiWDhKZ9G3aI/+VzhhxosLuDzIunXkANs8WwGxWQ
- kPnicFBIbhYPk7MzJwqI3Eww6UQazGM4EibyWA6qLxFp1tuTMwyTCc9Wi5IDZzHiqqf4
- vcgnVMNskmRSWq+RGN1MledHTSptoHz1Bod0dT2uo0EGbKcI/ykqyTq9meeRgUn1/ItI
- bONA==
+ d=1e100.net; s=20230601; t=1748237962; x=1748842762;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dLp6cnqyCbjFDWsg2nybeJcpM5tSNUhvPi8JJGmzqF0=;
+ b=V+8rtjzdkDEioen3bDmjuKRZbvnnlCSsmbsjHgKmj26cDlyALuYp+YY3l3bFmeUPFb
+ dA0GKvGTa1+u1Rr6zP3q2abp7IAMMViTs3cDrqluWuJlsOrDusCOVEzmUqkufi3eeUZT
+ +DqSaNO8UNwzEVQgU4AHw3+pbjt1J3Cs1oRCrU2CWjKQa8629qaGQIrOzH9U1S9oSzpA
+ hDPlU2TKst65/WA1YeGpCQ344mEI5gPtcPPw5TmIZ0OLnBofEnxlIdNJG+H+Kx1rkuBb
+ m3YgDb4jetj6WsrNDWm/dYyexNYwH+fkqgovIgTXmxnmWX+dsiDU+eXgZzXxi08cY+OU
+ 8wSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXdoCn0wE4JLVjpjp5g1RalMqWSTepfZqBX8bmvly4UbQU1ktDqRhDasZvs86FMeDfrwDQFQ8/O3cnfYg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyp04dTarCA8n/yIC1PKAr7nzjbc3fcK49EyTW+S0bJ+eJ10+lq
- t+wNoO2AHmzRUjlTqzonAeMCqZ4EuNjy7h9yz8fpH9xYvI0yZwB5R9/BF13K/B/PhYM=
-X-Gm-Gg: ASbGncuemFn7yiAXF5UYWHMfUi0r2+zwR3vfZJnHP5SyB0nIUg65phL0Lw4WktYLlpF
- lkQroFDH/z9ERzfLj8UdCLmCD+3pavweRT12B4tYuvm2bWm3mciv2dXCyt/xqOYLqyQaqhJn3RY
- J4fynOpuwg4kMKyq3TmTOvTCXfR4zgWqkuFvXaYn9qzO8plFRLjHPovXrzQB4PmcXR1GKXxUvUH
- qi1QzJtr1cnBYQFpwAXgxYO3G2MVOv4A6fxm+NiIei9Y5GK3F6C18j2ETMZi2c2ShFzkl6FSgZV
- d4hYHE3ju3vN/PtvKkp5bboGy2ENgCC/I2WvGkoaqrcAOBYWcnNWqHcfnRzPCBvdAu/GbGOJefl
- 5f8MtoOqprfrMApLrQZgSbdFlQUuOVw==
-X-Google-Smtp-Source: AGHT+IHeprWN0OT6Xq1C608Ko9smpP11pwLwlFe3T1+FZlCl5LSrUPerfPVKNYI6owNKSrybdMvlyA==
-X-Received: by 2002:a05:6e02:2193:b0:3dc:8b57:b759 with SMTP id
- e9e14a558f8ab-3dc9b7517a5mr74670715ab.21.1748219428699; 
- Sun, 25 May 2025 17:30:28 -0700 (PDT)
-Received: from james-x399.localdomain (97-118-146-220.hlrn.qwest.net.
- [97.118.146.220]) by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-3dc85ef07dcsm25532785ab.36.2025.05.25.17.30.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 May 2025 17:30:28 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-To: netdev@vger.kernel.org
-Date: Sun, 25 May 2025 18:29:22 -0600
-Message-Id: <20250526002924.2567843-2-james.hilliard1@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250526002924.2567843-1-james.hilliard1@gmail.com>
-References: <20250526002924.2567843-1-james.hilliard1@gmail.com>
+ AJvYcCU4WD5lEuoDA7itasR1QL+FhwEzcTbMwJSumxNN33lsIamPt6VTuCJ0ynqO5L7vCswrhppeC+xRVm/VMw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzN6b68/i1yIakyJ5raz6PZiPd+P+h2cwWsZX0O2qIVqbWbYXfu
+ IqVb/LsYo6gyW+G+6F3dJRxtnWwo42y5R792pzTBheCsyzLaTgrB5hip
+X-Gm-Gg: ASbGncsVZxyIcMlqS3naVFVQPPytCJrZtp4CMaGKOhJU1NFuQcGBta0JCM32iE9avwo
+ shJyZYDg9xl/0Y7Vs7L/Vl2ERLqurCYkACGZLMfZRbSJ9yIF3Oomf9nYYq7mXpMIP2IukbQjVWb
+ 1uZXVQvCnS+f4OfQEwfXQhLT/mhyiVltxI7sUiVBvPuuYnmyn7vZ5AYtAm4uvOjrWlNnKH6O3jQ
+ SuFXC8pevrD5owfI8kZ79QMkCBUh7xN5ZHoD709QCA1/Vz7hYq+meuY7lcVWN8FeDSdAVQULMTW
+ sbIfDShxBSKM+YvL2WVkQCR2iflcp8o+GL57xTe8HjgRDE47PiTTvqWCUTnV0ufzVVDVExEyWK0
+ 38fkBuPBXJ2J45RhyQaHkhWl2+4dk
+X-Google-Smtp-Source: AGHT+IG7xgzxnz1Grj9UzPDie6FzHib+saLpOZH8onxhz75DWnCGce9JBep2Vj0Bc2x5YD1GmylXew==
+X-Received: by 2002:a17:902:eccb:b0:22e:3f1e:b8c8 with SMTP id
+ d9443c01a7336-23414f5cceamr132744715ad.15.1748237962243; 
+ Sun, 25 May 2025 22:39:22 -0700 (PDT)
+Received: from [0.0.0.0] (ec2-54-193-105-225.us-west-1.compute.amazonaws.com.
+ [54.193.105.225]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2343635891bsm22297405ad.130.2025.05.25.22.39.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 25 May 2025 22:39:21 -0700 (PDT)
+Message-ID: <705d99b3-9803-4f5f-a807-607b49349b68@gmail.com>
+Date: Sun, 25 May 2025 22:41:52 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: weishangjuan@eswincomputing.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ p.zabel@pengutronix.de, yong.liang.choong@linux.intel.com,
+ rmk+kernel@armlinux.org.uk, jszhang@kernel.org, inochiama@gmail.com,
+ jan.petrous@oss.nxp.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20250516010849.784-1-weishangjuan@eswincomputing.com>
+ <20250516011040.801-1-weishangjuan@eswincomputing.com>
+Content-Language: en-US
+From: Bo Gan <ganboing@gmail.com>
+In-Reply-To: <20250516011040.801-1-weishangjuan@eswincomputing.com>
 X-Mailman-Approved-At: Mon, 26 May 2025 12:54:05 +0000
-Cc: Huacai Chen <chenhuacai@kernel.org>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
- Jinjie Ruan <ruanjinjie@huawei.com>, Yanteng Si <si.yanteng@linux.dev>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, Paul Kocialkowski <paulk@sys-base.io>,
- Yinggang Gu <guyinggang@loongson.cn>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- linux-arm-kernel@lists.infradead.org, Feiyang Chen <chenfeiyang@loongson.cn>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- James Hilliard <james.hilliard1@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [RFC PATCH 2/2] net: stmmac: dwmac-sun8i: Allow
-	runtime AC200/AC300 phy selection
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ linmin@eswincomputing.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] ethernet: eswin: Document for
+	eic7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,82 +98,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Allwinner H616 ships with two different on-die phy variants, in
-order to determine the phy being used we need to read an efuse and
-then select the appropriate PHY based on the AC300 bit.
+On 5/15/25 18:10, weishangjuan@eswincomputing.com wrote:> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+> 
+> Add ESWIN EIC7700 Ethernet controller, supporting
+> multi-rate (10M/100M/1G) auto-negotiation, PHY LED configuration,
+> clock/reset control, and AXI bus parameter optimization.
+> 
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+> ---...> +  # Custom properties
+> +  eswin,hsp_sp_csr:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description: HSP SP control register> +...> +additionalProperties: false
+> +
+> +  eswin,syscrg_csr:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description: System clock registers
+> +
+> +  eswin,dly_hsp_reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: HSP delay control registers
+...
+> +examples:
+> +  - |
+> +    gmac0: ethernet@50400000 {...> +        dma-noncoherent;
+> +        eswin,hsp_sp_csr = <&hsp_sp_csr 0x1030 0x100 0x108>;
+> +        eswin,syscrg_csr = <&sys_crg 0x148 0x14c>;
+> +        eswin,dly_hsp_reg = <0x114 0x118 0x11c>;
 
-By defining an emac node without a phy-handle we can override the
-default PHY selection logic in stmmac by passing a specific phy_node
-selected based on the ac200 and ac300 names in a phys list.
+Please help explain the meaning of eswin,<reg> array, and also the expected
+number of elements in it, like what starfive did to their JH71x0 device-
+tree bindings. E.g., this is what net/starfive,jh7110-dwmac.yaml looks like:
 
-This allows us to have a device tree that defines both PHY variants
-even though only one will actually end up being used at runtime
-based on the ac300 nvmem efuse bit.
+...
+   starfive,syscon:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+       - items:
+           - description: phandle to syscon that configures phy mode
+           - description: Offset of phy mode selection
+           - description: Shift of phy mode selection
+     description:
+       A phandle to syscon with two arguments that configure phy mode.
+       The argument one is the offset of phy mode selection, the
+       argument two is the shift of phy mode selection.
+...
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Otherwise, there's no way for people to reason about the driver code.
+The same should apply for your sdhci/usb/pcie/... patchsets as well.
+Also there's no reference to the first element of the hsp_sp_csr array.
+ From the vendor code, I'm reading that you are using the first element
+as the register to set the stream ID of the device to tag the memory
+transactions for SMMU, but in the patch, there's no mentioning of it.
+I'm guessing you are planning to upstream that part later. If so, I
+think it's better to put that register index at the end of the array,
+and make it optional. It should then be properly documented as well.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 6c7e8655a7eb..e275f4caa684 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -11,6 +11,7 @@
- #include <linux/mdio-mux.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-+#include <linux/nvmem-consumer.h>
- #include <linux/of.h>
- #include <linux/of_mdio.h>
- #include <linux/of_net.h>
-@@ -280,6 +281,8 @@ static const struct emac_variant emac_variant_h6 = {
- #define SYSCON_ETCS_EXT_GMII	0x1
- #define SYSCON_ETCS_INT_GMII	0x2
- 
-+#define AC300_KEY		BIT(8)
-+
- /* sun8i_dwmac_dma_reset() - reset the EMAC
-  * Called from stmmac via stmmac_dma_ops->reset
-  */
-@@ -1159,6 +1162,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	struct net_device *ndev;
- 	struct regmap *regmap;
- 	int ret;
-+	u16 val;
- 
- 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
- 	if (ret)
-@@ -1222,6 +1226,21 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	if (IS_ERR(plat_dat))
- 		return PTR_ERR(plat_dat);
- 
-+	if (!nvmem_cell_read_u16(dev, "ac300", &val)) {
-+		const char *phy_name = (val & AC300_KEY) ? "ac300" : "ac200";
-+		int index = of_property_match_string(dev->of_node, "phy-names", phy_name);
-+		if (index < 0) {
-+			dev_err(dev, "PHY name not found in device tree\n");
-+			return -EINVAL;
-+		}
-+
-+		plat_dat->phy_node = of_parse_phandle(dev->of_node, "phys", index);
-+		if (!plat_dat->phy_node) {
-+			dev_err(dev, "Failed to get PHY node from phys property\n");
-+			return -EINVAL;
-+		}
-+	}
-+
- 	/* platform data specifying hardware features and callbacks.
- 	 * hardware features were copied from Allwinner drivers.
- 	 */
--- 
-2.34.1
-
+Bo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
