@@ -2,140 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82FD8AC3FA9
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7BAAC3FAC
 	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 14:54:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29416C36B24;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C45CC36B2A;
 	Mon, 26 May 2025 12:54:08 +0000 (UTC)
-Received: from PNYPR01CU001.outbound.protection.outlook.com
- (mail-centralindiaazon11020133.outbound.protection.outlook.com
- [52.101.225.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA099C78F7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2341EC78F60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 May 2025 10:03:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ED9HOmMhjcdAel20Xr1IZrzbPxYltR8GqnTAZCmjhHWcpc7ikOFHgWn3bQchR0ZSf+fS7GgyuX2zi2Tpe1wzZdxG9xK5s3B25GRuJvxJzmSTLzzQqdc0my63xpeBY7BHWttEzS3LbSK15YnEW/3kzgfSG+4rZEUqlF2jg4hXle/P2plmkdLmac1/DKb8JXYxnUyjVUDOJ6AJ+66g2QeWyVcmE5D7RH5aHuWkn573BxvGngGMRulfNmC4N+9/7YXL+XJHauEumnrIM7666v9m1ZLXfzgweiQ9CvsfKn6lMaOODA4gRISQg+wlz3L+7pH0nBB4JAEG11D79BNz7FtRwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kKVZTTx8YLa+0rRMzU4hC94paqHxW0dXlB5wiFzFf0c=;
- b=ZJr4stvlPzmj1nD2wIqvxhownpPcgPYrsV9FHLkaFxnjhNA9J58ki05Cu0y7p1UJEKKNrwvjmzt/Af+jOKrni1uPYHcWBop2UXbY83ttYVr/YrA0tuCJo4FQn+lTQYIO7RJ9dnU3qJtPEsS9qtfCl3zuyKTV/roVhQgRz1sDxOX9P1DS1l0AZRF1DGmLmTW+W4FBJLbNW4f+Yc8fQSlo15GLW4xiI+JQJMLa57z4yRAUycLT80OAI9+MG7bjd+JDCW/31Ib3GbtRub1XhcvVQOOkvcjR3tJGTibZSZcV0bo8TyGrsQU+RH/xcecqLy7dfmJcrmBDnx0qCzjKF2ldlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by PN5P287MB4228.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2bf::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.20; Sat, 24 May
- 2025 10:03:55 +0000
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ac6c:f2c2:8013:8d0f]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ac6c:f2c2:8013:8d0f%7]) with mapi id 15.20.8769.022; Sat, 24 May 2025
- 10:03:55 +0000
-From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
-To: alexandre.torgue@foss.st.com,
-	amelie.delaunay@foss.st.com
-Date: Sat, 24 May 2025 15:33:14 +0530
-Message-Id: <20250524100319.22521-3-himanshu.bhavani@siliconsignals.io>
+ Mon, 26 May 2025 00:30:27 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-86135af1045so163671739f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 25 May 2025 17:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748219426; x=1748824226;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=XLb6Gi7hMcgUOOPrQ8xsToZhymm4v4EXSePI92mrypwYBIcujXZC9p6EEGCT0YkLSf
+ m8rIc5MDsyOPUG2Q3O7Toqhgcq6mzUJB++jUtWO8bQDMxRyqgUfuVlTgAv9Bg4UMFlbY
+ 1GDGynAihuLYKL5UGX2aYEXtUq+HorM0+VLq/n9wGTw7vqUe/9AhHP/4LSkq94+56/e3
+ N4J83V7aB0c2iiMm9b8tlBbnYTFjXLP0JjeWlllwnrYysf/KrlBcFLHJ1bQXv1G30y1R
+ xa8XtnQjrADIXXAY1hwZqYCx2lEN6sQihcP/0anZrI0vPxqp1MEhO81VMGQwhNAAdf8a
+ uIyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748219426; x=1748824226;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=Yam5NGi3FoeE8U62nJewP5GTmkWtaB4TCsZFXsBt6nDXEo4o+U6XDVg+d/zxVVBBGi
+ NLE3hs/4T44eZcOfnSn1QFQsfLgxOi+NlPOjefZyAf60MQIhYaLZ683Iwy9qWc4G3wdV
+ yLAVpmyagnpvvSVOJHM9Y3zwEeL70oW9dP2qKAA8TuwY7sC3u1wcBzzV+hcepVrQXqPk
+ P+mXcz2ECe/R2pS0IjG8+WJ7y4Enses+llkY1/GwiUp8+uD/PWGg0jxhKvZABMSa4V4l
+ vSvwtQGSCyap84IrjWsWj32QludNkPjAlfjEyFUafytqeQwSCTUyV/Aml6lgbePAXlh9
+ Ls1A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8ZHaIxyPwzSyEm4vC1vGASSAr7+eTgjcJbZaE67O/mBIRLSnKOZIyZrDTUjk8JCTs9kayCNS43rI6+Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwGoqCbnEp8xWZm17fWoKeOWz2kGRH6u7H3WxoVLV751FzPWEhK
+ utstXikY3CCnxJmKNpqku7Yv/aP6TYWaCf0/NbTrPPvSxY680Sv1LzKp
+X-Gm-Gg: ASbGncseotEJdcfW4FsdIx+zo/Ls3MyDDO3LP6e1upbXFJwyUGn0dZITmZK3BPCmPJK
+ PwKgNYxTP8TuvJNLWDQKqJasX0wN932fdGCAsnFLR47ZcYEhzSmVgr2c00+O/F1eebybMaQ2iXZ
+ vdBoOw63ZM4MeqZhntzPQGWybacR1wQq8w6Jjzw4gcJfYk2cf7AvwtfX+VeRcnCvGuJyqA3l8KU
+ 42sTavppSEwh39mVqKuN14nCJ4s5fJ4GGUfMQlToGrURSwJP4rlCN5BWwnkSE+JzYLqomBW5rb4
+ 3jnatopZ70VJOZ8YZXbyxf+XG1aDg79y+/zPXrLoty148WcQXWDuC605uvfYQItfeDZG34kvzf5
+ 3Y8XUnLss+dGoLly2iM3VPlI6XorBAQ==
+X-Google-Smtp-Source: AGHT+IEUiP1VLM7hATU3uX+Sltx9XV9gv6KswEzefF313KmIFDOZCAlrrtUCSCIruHAM39yxFL/YfA==
+X-Received: by 2002:a05:6e02:1988:b0:3dc:8c77:4d28 with SMTP id
+ e9e14a558f8ab-3dc9b6aa09bmr58114665ab.1.1748219425742; 
+ Sun, 25 May 2025 17:30:25 -0700 (PDT)
+Received: from james-x399.localdomain (97-118-146-220.hlrn.qwest.net.
+ [97.118.146.220]) by smtp.gmail.com with ESMTPSA id
+ e9e14a558f8ab-3dc85ef07dcsm25532785ab.36.2025.05.25.17.30.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 May 2025 17:30:25 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+To: netdev@vger.kernel.org
+Date: Sun, 25 May 2025 18:29:21 -0600
+Message-Id: <20250526002924.2567843-1-james.hilliard1@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250524100319.22521-1-himanshu.bhavani@siliconsignals.io>
-References: <20250524100319.22521-1-himanshu.bhavani@siliconsignals.io>
-X-ClientProxiedBy: PN4PR01CA0001.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:272::7) To PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:1b8::9)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|PN5P287MB4228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cd7ae06-e9d7-47c3-9a47-08dd9aaa4b29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|52116014|376014|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6nfZkpHPM0R/sWYVCW2jobxn9cNZMR14OBjqAkES1YxeJ+UbqqzYfjGGDT2J?=
- =?us-ascii?Q?YJwVwrcAJjTFS8Si99Sj/OTJ1lOGexK8yAYUV6NqPl9TCEs9o9Rg5sGo+DgU?=
- =?us-ascii?Q?heY0QOzKa4TyfKeTuYLo7OdQuL53uZkNZNk6vK6EHsmCIKAZKn9aEQbUCvMf?=
- =?us-ascii?Q?NklzST+S28sdrgUYHxZjuGuznAeq1Icr+MDfSIQStcQRXwbZHnMxQMSaFZn6?=
- =?us-ascii?Q?F8dgPNUkV/UL9xswvD4XyTCyTc0yMDGBpxSDL3OomM3TvrXdWjO8GYpmb4aS?=
- =?us-ascii?Q?p8HSrPJmRPiB06JLPRh7Mql/TfS+0mj66Ey3hYzaBfHjerbYzWy9zUUGYfaW?=
- =?us-ascii?Q?2j860Xk7ms81hTXNv49D0rGS1mJlsD2YGQCrtoM66wXjTxlW7EYw2FmqMI50?=
- =?us-ascii?Q?Qo9MWEwPrvwCocJ1UHcMpvb1VoLg7NBgN292pKKCO+fU3c0kUqasmFoBucqC?=
- =?us-ascii?Q?PjCNiv8z92j2a7C4DFLhUnltq2leJg5Bgc4620GW3+bi+PFO4E/LLyKSaFip?=
- =?us-ascii?Q?nUPY94l7GBZ1zDfVFaEiBzgZB2YfliB0VtpywnREvYBUeOezE9xqvg4VNoWp?=
- =?us-ascii?Q?Zm303UhZ6ZF2cFhZayehl0pzpWC6VaZBGlVPhikrF4vsaEQhYaXwtVk6mfz4?=
- =?us-ascii?Q?cL6mwyuK1uLni11+Xl40zIrwol/slavS5QajM8IeeEgrP+CHQAOXdx0gCLKb?=
- =?us-ascii?Q?felXrwDefPMl4FOTWgSoTyqs8dt6aWulB4GZAfwO8V6v0JLfL16yTkcSQkC6?=
- =?us-ascii?Q?wHrfJswPtNfehX/bm+2PqtWVCkGBWlMorg/Dd1SWelO+g2P9YaVcYv0MiIqx?=
- =?us-ascii?Q?/OJOpEaPqysJXnnsNeUlGh5OHndQFOGELIgH0HdRE7FerfMfSfJEAswqK/e0?=
- =?us-ascii?Q?bjKbrTxtH4446NmYD42dEfQDO2UzqyccR1ahsncI3Q04WsiBbDmfGiHBtzOS?=
- =?us-ascii?Q?7qMgp+nq5NlKTASQwmjOcJitu33Lt8I9ONReeKOU2IZjbN+FLRjGLUgUG6hW?=
- =?us-ascii?Q?4GYd5oRzoWF1WrdFM41TZhaFADjqGwDdmh0BuXl6lX+x5WUlXJr6c7Q7/0YN?=
- =?us-ascii?Q?eTYMcoJ1RazNXiDiV9HXwWgFy+7npHynbt/eK4YOkaocxUFyhwpr/g5hMbbr?=
- =?us-ascii?Q?VgxJkrxvBnVjqkVmBwjM0WHJ1+fW2h/yDYOoIOGZL12sWNCJ91dupWSu1ZyN?=
- =?us-ascii?Q?NXrN88SMFIrdq6lJuFaSoXHMDMc1IkUdTD4kXhQYdAdj8M1IBfwkHOB5vTEZ?=
- =?us-ascii?Q?Jyx8AeNhTnNLHtS4OmHIB4Ryq9to+fYj0RzIauQf7XMNnsrVAcYSAPM6dU9X?=
- =?us-ascii?Q?IA1Z42RNlAgdfjXbZXPubv7sAz5v1cOHS9JZ+nmCAeDxlp6rzZco2K6W1+MF?=
- =?us-ascii?Q?yKpt5UjouyyKGXOhggTXcn1t/fDmsBWxkZ4i0skgpN+crSZ7Hb21X0sh9jIg?=
- =?us-ascii?Q?VrzJr0kK0lj6mcaP6RLAN2gNFF3xAiD9OBTfv4A6OrtuMJ4pFYsQ2Q=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(52116014)(376014)(38350700014);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Kbb4rzRl5FcGlkeg/6RmxgQC9Beko6S+fqNf81/LWBAtG7GmirSKLTR7cjUC?=
- =?us-ascii?Q?VFZc7VffWj+C06cuDbytn1YcFFaoSjqFb1vypPaLYMoBbvxRJg9RraQcLOy0?=
- =?us-ascii?Q?zlA5+7KBnMOk9jA+Of37UWaOrMYdSF+ANW18n1dITzsOAfRZtS9CUMWo+/wP?=
- =?us-ascii?Q?PFAoTsDFOP20tHj12WT5IYRCNY2jlmDHOQT2XhlQZ09ZPNtYYiZ8EkWCXFcZ?=
- =?us-ascii?Q?tsJ5XiSQngyQ6kreUIUpOs4MIf9wqHp1fsa8pLAS7lbbfbcRNdFz/dictY+6?=
- =?us-ascii?Q?cPScv9X56wh6PgJwdmYB3dUlbpopt3lqZTwadW5BDh1YdTzAaiT3z222Dvs1?=
- =?us-ascii?Q?xHLcD9ZSnouQ8/y7m1OR8PDTBqTcgMuASrL5H39pqY7Av0UZ1lOvTxfxqYtT?=
- =?us-ascii?Q?xUJSQDyBFuAHw0mC1SzqJjPWgdnlvzRIj0gO9lWdTjZHGoPG+juEQNBxgidi?=
- =?us-ascii?Q?SUWlPGTeqVfLYO+BTrOCMpEPJs1eORFFCan5vH/n6tTN6RrZdxR/RohrJSWE?=
- =?us-ascii?Q?PPaji7kt3hjs3boT7zIYpRnmDYCtKhJOD7NjlXfufB2/AYPbWihEF5scpkDr?=
- =?us-ascii?Q?/YywcH7oZEBOKURUxsP/KmxNeF8/LnzmT6tIm0A/uwVosB3UxDiEylQT3igQ?=
- =?us-ascii?Q?gxXpIjPV+lokYTPxmchxmwoW2OycfkNY6XGGEVPp3y3D4pem6Z8YJdCXznKW?=
- =?us-ascii?Q?mODSqE0CqJduMLFtAd0toakarA3KUdEukVRMRqDSnTvSTKVkVgDEaynkbkLW?=
- =?us-ascii?Q?l82emP3lMBPwYQF0AFw6UUgxa3EmewBccber8LRIdE6CchEIwMn0tbo+yFX9?=
- =?us-ascii?Q?c0rTDRll+JU0oVF4F7ABNc9b7xI2FDwaHcxRjBHVktdppOCcx28MKlw78xRJ?=
- =?us-ascii?Q?3PiZU3qA2SRvG7MyRhlYhY8dDfg8g9X7d5NRYEzBJ1vCUK52MNV6d5f622Qx?=
- =?us-ascii?Q?6BxEByNAK1Q5VmZqG4Z7oqZoM47RIxvXfyISOKINeeR0yE1kwkytgfumIVd0?=
- =?us-ascii?Q?GA1tVICPcK2T3AVEIkjKsiw/ZN3DGPwnNAsg64h8of0KVLWlMpT+eL2uIQcv?=
- =?us-ascii?Q?XC4Ix6+g+UzzjVro9Nk/aeBfMt/Gk5ZU1eT/5kodxvc6IVc/wOBkBpxUvZgK?=
- =?us-ascii?Q?mgdZbpDqspA3t4qmkkf7c7bUvaibFyIOJwsacX6e2Mj6fEUIpJaQ35V+Nu0u?=
- =?us-ascii?Q?3Vk4vYlgSsMNRR7AGaDCgskcL7J5y5i7a3PlYsJaWxkO2UyiasTe3XMj9IZw?=
- =?us-ascii?Q?TjbNSza0R4IptVE/o260FMeEHKv+0aluccFwj9/qh3q7FmoTLfbJB4A6hC0u?=
- =?us-ascii?Q?5ufN+ptQaCNI0lRdbHZyWNb500HeCem6mrZRBvHTSZGJO6W+P/2k7WdQgZza?=
- =?us-ascii?Q?PItpsjfedTxCiJKNgTCRb8mXdq+L4IbMSaJKLAt1/ht7ViClY6XT0ajtzmwl?=
- =?us-ascii?Q?ShFcUC5OZ5Rsf/ofY/jfOLj8ZJrTh3Enomjp8s1eg97tJRWX5LGXazMKCZG1?=
- =?us-ascii?Q?L0Jxlye+VDt0e4hTAMg/HeoECnzOeTOMEG6bzwVvKzOabQbbCm+KGiNUyWP4?=
- =?us-ascii?Q?C9bcs+EIJDA2CAhgrZ13GWTj93JIWT7IX4kUCgg8HZIbDqKvWZYcxpPXxzW7?=
- =?us-ascii?Q?U50XBJlRpmixQAcNk76E/3U=3D?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cd7ae06-e9d7-47c3-9a47-08dd9aaa4b29
-X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2025 10:03:55.3992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vgp1ukOUuLTfxARpCOULDczJFjDAmTKyxY9ouY7ivCxxyKPEzFQZeSyybMmSlZK6I1rgydEq5cnYXVTCDDZMeY11JC5RLCIzuapnrN9tM9GjLgTac95xg1gJ2Mrwy7Zb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN5P287MB4228
 X-Mailman-Approved-At: Mon, 26 May 2025 12:54:05 +0000
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Roan van Dijk <roan@protonic.nl>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 2/2] dt-bindings: arm: stm32: add
-	STM32MP157F-DK2 board compatible
+Cc: Furong Xu <0x1207@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ James Hilliard <james.hilliard1@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-sunxi@lists.linux.dev, Russell King <linux@armlinux.org.uk>
+Subject: [Linux-stm32] [RFC PATCH 1/2] net: stmmac: allow drivers to
+	explicitly select PHY device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,26 +97,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the "st,stm32mp157f-dk2" compatible string to the STM32 SoC
-bindings. The MP157F is functionally similar to the MP157C.
+Some devices like the Allwinner H616 need the ability to select a phy
+in cases where multiple PHY's may be present in a device tree due to
+needing the ability to support multiple SoC variants with runtime
+PHY selection.
 
-Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index 5fee2f38ff25..ddc9310e7d26 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -117,6 +117,7 @@ properties:
-               - st,stm32mp157a-dk1-scmi
-               - st,stm32mp157c-dk2
-               - st,stm32mp157c-dk2-scmi
-+              - st,stm32mp157f-dk2
-           - const: st,stm32mp157
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 59d07d0d3369..949c4a8a1456 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1210,17 +1210,25 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	 */
+ 	if (!phy_fwnode || IS_ERR(phy_fwnode)) {
+ 		int addr = priv->plat->phy_addr;
+-		struct phy_device *phydev;
++		struct phy_device *phydev = NULL;
  
-       - items:
+-		if (addr < 0) {
+-			netdev_err(priv->dev, "no phy found\n");
+-			return -ENODEV;
++		if (priv->plat->phy_node) {
++			phy_fwnode = of_fwnode_handle(priv->plat->phy_node);
++			phydev = fwnode_phy_find_device(phy_fwnode);
++			fwnode_handle_put(phy_fwnode);
+ 		}
+ 
+-		phydev = mdiobus_get_phy(priv->mii, addr);
+ 		if (!phydev) {
+-			netdev_err(priv->dev, "no phy at addr %d\n", addr);
+-			return -ENODEV;
++			if (addr < 0) {
++				netdev_err(priv->dev, "no phy found\n");
++				return -ENODEV;
++			}
++
++			phydev = mdiobus_get_phy(priv->mii, addr);
++			if (!phydev) {
++				netdev_err(priv->dev, "no phy at addr %d\n", addr);
++				return -ENODEV;
++			}
+ 		}
+ 
+ 		ret = phylink_connect_phy(priv->phylink, phydev);
 -- 
 2.34.1
 
