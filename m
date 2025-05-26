@@ -2,93 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5C37AC446D
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 22:26:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D365AC4495
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 23:00:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F30A5C36B11;
-	Mon, 26 May 2025 20:26:55 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB059C36B10
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E49A8C36B11;
+	Mon, 26 May 2025 21:00:13 +0000 (UTC)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 504A6C36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 20:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1748291213;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HyWXqN+5wHGnA02x8VIFqjuokIUgrwEnON4MEoIF74U=;
- b=jJdjlQOrZMc6VIvq3OVLaypup/+U4vY4/Tu9aattgruQyCYTM0vrgKC27u0HrUjQuxzvTd
- NCXVhXUjV7B+hsRxBxIi5layaWBS4ttkHE84yazvfpSP+POc0HwnWGHlVBMff06KZeXx1v
- OxBYi3/D/OlGIhSEVzw2PVMN+iNZ4w0=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-440-kxoxOLdGPKW5882mfvMCBg-1; Mon, 26 May 2025 16:26:52 -0400
-X-MC-Unique: kxoxOLdGPKW5882mfvMCBg-1
-X-Mimecast-MFC-AGG-ID: kxoxOLdGPKW5882mfvMCBg_1748291211
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-43eed325461so17026275e9.3
+ Mon, 26 May 2025 21:00:12 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-52617ceae0dso879413e0c.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 13:26:52 -0700 (PDT)
+ Mon, 26 May 2025 14:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748293211; x=1748898011;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=N/VsZ6IE0jdOkCcZ5aD8yrns3Cyc4PjTDiK26k40UxU=;
+ b=jPhPU6KP20QCc4Cfu9DoMtruaMAWH4xTiCIvBc8lipULRQE1R/f9jF4uUanI8zra7d
+ muXH+tbDMY1Zx4rrWfS5C5pZiExZsyqsK/gPvQKrZa9cF64Cki/bla6R7qxbeftnN8Uh
+ O57TsjlXVwNJ0X2G0pm6+cjuLxwoNZQYPogecEoGqvutkO4G0w1ulefrteXTLhkt0EKZ
+ c16kS4cCHY1vzzO/oENQRY7bWTaKH2ys5RsBo2YrRz+ecx4WN01bdZebdYkGedHjl6J0
+ wtcIVuPsjA9kcnHw1PqpLoeKAUXx703CEegN58F8cppKvW4rrxh0uK73pjb0Ca7oRBAe
+ 5aCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748291211; x=1748896011;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HyWXqN+5wHGnA02x8VIFqjuokIUgrwEnON4MEoIF74U=;
- b=elyL2Ykf7kzO8O7WMNzx4TIvakd5sxxk9KQ37vkc18AX33OmMVn+zWakqh2wfAlPQ2
- atdeq3u6Bnuy415NeMeiev0jsokZOFUb2oiTF6IyNgFuQslL0Dk0UX3Oe3kBWYK/B4qt
- UB7JZrUVb+flqa/3htMMCBe3/r3igVf8qqmWROh4hYU0XiROLeVkDKYsnlvc2QfoBoiP
- TeMfkz7YZZ+zihzYMXKkDknV+K6Xu7jZaCZv8GGXUl41uVVz7OwLvSzoTIuVLdlei+tt
- MXhcHppG/Vvp5zb8oyRWtMDOzxpAefqOVOp9fl6f2EW1hTsGmrSs8D4hineHwypw4yZ/
- bm6A==
+ d=1e100.net; s=20230601; t=1748293211; x=1748898011;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=N/VsZ6IE0jdOkCcZ5aD8yrns3Cyc4PjTDiK26k40UxU=;
+ b=V4jF17LBKsYDi7VwXC50yKiS/bL3X+/r6KnU+E7KSlRs+ipPTebZeHIrG3HMtRt7aV
+ NArt4VmH09KwKsQukMui2YAeWA6bOq2vkleJL+jzFSd/JJNMdynsKam6tcM7kWJsI/0q
+ quvhyUQZzE9y+Y31lR6gn4OuFEiJs/3Zqd1IF/dSzM1Med3RhmJZJhhKLcqpSUUIGUUe
+ NvXfztoQxzQctZCqleSBt1b3NeTCNQg83GInZtGA5xyEHhGCm6oG6CE5GHl9itRP2Amq
+ 2iSVoyBVB48SAKlBeB9reinpv696/fzq35IoNbAju7BkPYXz9XSLUpB+2jqWcCRasnvO
+ l/bg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUUpvP/NOu081rqcikDh6t59GyE2dZ0WUXWcYwNGsApwV1+JcykPJPGawhu5rrSu9KfB3yrPyCvNb3nQw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxhVMTvCrYAS5Oo+I10LdvHKfmQ+JwyxFEc7tZletPuCf5w/Pu5
- 8snfl3UPBqmGui0RHG5C0ua2n3ruujiZpHx9BLOFC8kc2ExOGQKXE4kUQlEHyJHwzmQfx0VnJxI
- MqKTQfGqDDnniA2E0V/rOGQBgNmwYPVVkKluD+wpfwm8/ua9JoJdKA3FuqnLW307bBGPaL8cqcj
- kjdljPDg==
-X-Gm-Gg: ASbGncuQy6kU1WYNxZzNPx14zDnCxsTTEZJPtr/VJBpZu3RjQbWZew7rfwBkSrRfaxi
- 4avpmmFSWVbTu//Z/QX9WpcqWaDorxQDuS1+v0WqJ/hdBlFu6PnM6MwQSZwwRGm7Cdw3LZsjWzy
- 7LQAr4ehHgsaXR42Zj74iCSyJ0PgcXmWZd2z9Tfto/9XgfdzGDtywIwS/1uJHspzRGOIsGFuau/
- 7ktpfOonw69OK55Q/IHYt+qsPRAQVW71ir/OhmnXTDW9RLFSd6BC0Rfoh42XHftQDujLkhVM213
- r0ljFvgMU6bsTi/uBD4oYwggTpUebizU2HIkw37T
-X-Received: by 2002:a05:600c:5126:b0:43d:a90:9f1 with SMTP id
- 5b1f17b1804b1-44c93016686mr92837625e9.6.1748291211242; 
- Mon, 26 May 2025 13:26:51 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHSrD54L0gvE46Mtr1bEDCW7JZuh1RueZXOjVf2VgxDZDxuwPNbxQGifhSFMWHJcVtKTkfH2g==
-X-Received: by 2002:a05:600c:5126:b0:43d:a90:9f1 with SMTP id
- 5b1f17b1804b1-44c93016686mr92837385e9.6.1748291210810; 
- Mon, 26 May 2025 13:26:50 -0700 (PDT)
-Received: from [192.168.0.115] (146-241-32-247.dyn.eolo.it. [146.241.32.247])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4cfcece9dsm7354854f8f.5.2025.05.26.13.26.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 May 2025 13:26:50 -0700 (PDT)
-Message-ID: <b3e3293a-3220-4540-9c8b-9aa9a2ef6427@redhat.com>
-Date: Mon, 26 May 2025 22:26:47 +0200
+ AJvYcCVU9bP5sI1vbPF74TIQFoTvXUBbAy2Os8dH9Z6ISMHUSqbF413sneKpUrurMh5WVdfh4QIVHX+WEaQCyg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxoRMBr9PyS+7FCzGX/vPVRim3VuOXJJVsJxIikytNnzZ19kFbb
+ 7e+3X9CRHnP7YxxeRSCDZpdBhi9Eg+cUb4614OQNFDbXKx2f/Ml8fvLO2RZ7aVbSiHHr2ghEPqk
+ nU+OjSPFipKJq/KdBYWF1OndiJM+S6jc=
+X-Gm-Gg: ASbGnctAYNC8AGkDEtJHWl0isIT51qPlSoq0o3y9mPEms7kU40to4vLbc76lln35e6P
+ gQfRzBrwqJjojOdb8Vv2Ubvh2Zpck6Pba67pfnK7YeowFs+JuHez2SGWLPFjhSEiAVGJArrtg2W
+ AVUNkuEOq3bpxUQx9vOp0Jk2cXjDzCeAUUrA==
+X-Google-Smtp-Source: AGHT+IH1F819UdbqKdjXVnrU+7ibb4kb7PWACyBEmwPcni1wlQBFRsB0+/IWFIf8hbs072AoO3ylAlqbgpDxsk8Lh1Y=
+X-Received: by 2002:a05:6122:82a5:b0:50a:c70b:9453 with SMTP id
+ 71dfb90a1353d-52f2c5bf4admr7622487e0c.10.1748293211020; Mon, 26 May 2025
+ 14:00:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Quentin Schulz <foss+kernel@0leil.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20250521-stmmac-mdio-bus_id-v1-1-918a3c11bf2c@cherry.de>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20250521-stmmac-mdio-bus_id-v1-1-918a3c11bf2c@cherry.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3-NkfgL1MeN3T-SCnjswSCvSKo8UZCEmHIpRjfhjQ2E_1748291211
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: platform: guarantee
-	uniqueness of bus_id
+References: <20250526002924.2567843-1-james.hilliard1@gmail.com>
+ <20250526002924.2567843-2-james.hilliard1@gmail.com>
+ <aDQgmJMIkkQ922Bd@shell.armlinux.org.uk>
+ <4a2c60a2-03a7-43b8-9f40-ea2b0a3c4154@lunn.ch>
+ <CADvTj4qvu+FCP1AzMx6xFsFXVuo=6s0UBCLSt7_ok3War09BNA@mail.gmail.com>
+ <a2538232-be98-42ed-ae82-45e2fcff3368@lunn.ch>
+In-Reply-To: <a2538232-be98-42ed-ae82-45e2fcff3368@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 26 May 2025 14:59:59 -0600
+X-Gm-Features: AX0GCFtdyKxOISq6OJd3jmhemPTpifVHzFplXIgoyjcfXkmvrrAzTnbwIsfNJc4
+Message-ID: <CADvTj4pCo=d8ehkz6JoPNYEGtUWsgmGCqT7vFEyHTtD7yF5ZAA@mail.gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
+ Jinjie Ruan <ruanjinjie@huawei.com>, Yanteng Si <si.yanteng@linux.dev>,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev, Paul Kocialkowski <paulk@sys-base.io>,
+ Yinggang Gu <guyinggang@loongson.cn>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-arm-kernel@lists.infradead.org, Feiyang Chen <chenfeiyang@loongson.cn>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [RFC PATCH 2/2] net: stmmac: dwmac-sun8i: Allow
+ runtime AC200/AC300 phy selection
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,39 +95,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/21/25 5:21 PM, Quentin Schulz wrote:
-> From: Quentin Schulz <quentin.schulz@cherry.de>
-> 
-> bus_id is currently derived from the ethernetX alias. If one is missing
-> for the device, 0 is used. If ethernet0 points to another stmmac device
-> or if there are 2+ stmmac devices without an ethernet alias, then bus_id
-> will be 0 for all of those.
-> 
-> This is an issue because the bus_id is used to generate the mdio bus id
-> (new_bus->id in drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> stmmac_mdio_register) and this needs to be unique.
-> 
-> This allows to avoid needing to define ethernet aliases for devices with
-> multiple stmmac controllers (such as the Rockchip RK3588) for multiple
-> stmmac devices to probe properly.
-> 
-> Obviously, the bus_id isn't guaranteed to be stable across reboots if no
-> alias is set for the device but that is easily fixed by simply adding an
-> alias if this is desired.
-> 
-> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
-
-I think no need to CC stable here, but you need to provide a suitable
-fixes tag, thanks!
-
-Paolo
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBNYXkgMjYsIDIwMjUgYXQgMTo1OOKAr1BNIEFuZHJldyBMdW5uIDxhbmRyZXdAbHVu
+bi5jaD4gd3JvdGU6Cj4KPiA+IEknbSBjdXJyZW50bHkgZG9pbmcgbW9zdCBvZiB0aGUgUEhZIGlu
+aXRpYWxpemF0aW9uIGluIHUtYm9vdCB0byBzaW1wbGlmeSB0ZXN0aW5nCj4gPiBvZiB0aGUgZWZ1
+c2UgYmFzZWQgUEhZIHNlbGVjdGlvbiBsb2dpYyBpbiB0aGUga2VybmVsLiBJJ20gc2VuZGluZyB0
+aGlzCj4gPiBzZXBhcmF0ZWx5IGFzIGEgbnVtYmVyIG9mIHN1YnNlcXVlbnQgZHJpdmVycyBmb3Ig
+a2VybmVsIHNpZGUgUEhZCj4gPiBpbml0aWFsaXphdGlvbiB3aWxsIGJlIGRlcGVuZGVudCB1cG9u
+IHNwZWNpZmljIFBIWSdzIGJlaW5nIGRpc2NvdmVyZWQgYXQKPiA+IHJ1bnRpbWUgdmlhIHRoZSBh
+YzMwMCBlZnVzZSBiaXQuCj4KPiBEbyB0aGUgZGlmZmVyZW50IFBIWXMgaGF2ZSBkaWZmZXJlbnQg
+SUQgdmFsdWVzIGluIHJlZ2lzdGVyIDIgYW5kIDM/CgpXZWxsLi4uZm9yIHRoZSBwcmltYXJ5IHBo
+eSBhZGRyZXNzIGluIHRoZSBkZXZpY2UgdHJlZSwgbm86CkFDMzAwKGRvZXMgbm90IGFwcGVhciB0
+byBzdXBwb3J0IGFkZHJlc3MgMSB1bmxpa2UgQUMyMDApOgpQSFkgYXQgYWRkcmVzcyAwOgowIC0g
+MHgzMTAwCjEgLSAweDc5ZWQKMiAtIDB4NDQKMyAtIDB4MTQwMAoKQUMzMDAgYWRkcmVzcyB1c2Vk
+IGZvciBQSFkgaW5pdGlhbGl6YXRpb24gc2VxdWVuY2Ugb24gYWRkcmVzcyAxNigweDEwKSwKYXBw
+ZWFycyB0byBiZSB1c2VkIGFzIHJlcGxhY2VtZW50IGZvciBpMmMgaW5pdCBzZXF1ZW5jZSBvbiBB
+QzIwMDoKUEhZIGF0IGFkZHJlc3MgMTA6CjAgLSAweDFmODAKMSAtIDB4MTA4NAoyIC0gMHhjMDAw
+CjMgLSAweDAKCkFDMjAwOgpQSFkgYXQgYWRkcmVzcyAwOgowIC0gMHgzMDAwCjEgLSAweDc5ZWQK
+MiAtIDB4NDQKMyAtIDB4MTQwMAoKQUMyMDA6ClBIWSBhdCBhZGRyZXNzIDE6CjAgLSAweDMwMDAK
+MSAtIDB4NzllZAoyIC0gMHg0NAozIC0gMHgxNDAwCgpBQzIwMCBhcHBlYXJzIHRvIHN1cHBvcnQg
+ZWl0aGVyIGFkZHJlc3MgMCBvciBhZGRyZXNzIDEuCgo+Cj4gICAgICAgICBBbmRyZXcKPgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
