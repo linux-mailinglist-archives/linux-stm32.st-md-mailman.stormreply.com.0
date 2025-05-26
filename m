@@ -2,45 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7873FAC433A
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 19:05:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FCDBAC43B6
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 May 2025 20:30:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 255A5C36B0F;
-	Mon, 26 May 2025 17:05:35 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 098E8C36B0F;
+	Mon, 26 May 2025 18:30:14 +0000 (UTC)
+Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
+ [209.85.166.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A74A5C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6BA6C36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 May 2025 17:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=ioFZifM8dRn5AWzFoATN3MruIDugkGoasnnViHSdO4U=; b=Xo
- UVqXbDL5alO3ZRLdDwEsTqGkuUqfngzF3nvIPtjcGk64MlCq1PrAgzorqFFgRmkQiKcYOWOq+F9v+
- ciFpZNU1tQJNrb87mAtHPoAgDUVNViOZiyJsZ1wzXvyKB5jZ9Gn4mOqigWuKnuzzpyxAfQtT7WzQM
- tjqlmt2Gnp+lw+0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uJbG8-00E117-QC; Mon, 26 May 2025 19:05:08 +0200
-Date: Mon, 26 May 2025 19:05:08 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5p2O5ZOy?= <sensor1010@163.com>
-Message-ID: <e178677c-c8aa-462b-8d12-e0b4b8b6c7b7@lunn.ch>
-References: <20250526161621.3549-1-sensor1010@163.com>
+ Mon, 26 May 2025 18:30:12 +0000 (UTC)
+Received: by mail-io1-f42.google.com with SMTP id
+ ca18e2360f4ac-861d7a09c88so43712639f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 26 May 2025 11:30:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748284211; x=1748889011;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=WAogWVieMJyxo/dFCGJtS0J4GR4vYTtMIdHClB0Uwn/IXAhyfGMhH4kYy4yWF4k5q9
+ 4wvwt54HJgbccZkOyYlZ1RdLieJ45vxDTW0bV1ndPLKtW/LKqfABHfmvmWxDistipKWE
+ UOAh6pIFGNrp24aR3Max0kgas0ceO0HthxF7h6FdwlW9iZDWdZ3W8zDjrhK+x8wqP6zg
+ K8M7psCMRIrJWqPG0LtmITiwaR4IczpqSDB+Lw5x6yNl8hjKhYowH1gOv+T2oS3SGqN3
+ HWpPJcIoq+LGGVVbBUyp+uYwFdH8tqnduQHLNawFvu6iYP4YrywowpcNwA4TxOlsU+k3
+ zxLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748284211; x=1748889011;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=Yq1NwiGZo1X1GJ1i1L53qHqL+hyJc0+FxiLPGCtBTmcRbsrkW+6xPan8pCeoQ1Trvp
+ 66w77FkzAD//PaUEjkYvlDUJWVM+L9PB/L4hCp6geIeXRdI8a3uBCTwELarm8q2DXhXs
+ TFwa+3qpyUlLN0Zzli8BNi6RrGo4bu0rLPqaoS3cSIaUQA1Dvo/P528DHOR4v8wGVM5u
+ TwlxkYQWtXWXt+t2jQaGkhZA+K3mIx7UNoSdelnEgOQZ0eQLqsJim1TVdwqFeWyUs2t1
+ rFmQR6RcMq+KGYueQDmcw2wVNZfu6AM8vLaGL9GW+9uJtRm27JPAgEFI+YWf0S2XCvOM
+ uTJg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgajHdmwRkBbkgFyvgwmt/v2m3YM+GtGb/1MbnDURzHTjYZiVet0SYbMrUHiFpVFjveyWkFKB6OQEMWQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yyq+sI2ekD9oTYHNSGFQfH1tYvyz1QvMaNBn7OW8zWCLVaIsmPj
+ LGLjhjnEJy7LKBMI5vSP1RiigJXTQ8/qs2DRaJUqXi1oBdhPg/LIsO2y
+X-Gm-Gg: ASbGncs3gAr+UGXm+9r234RuZis4o6OKVaEdwSNtAVs8T5Yzb9pDANNLIeYGzS7hxRn
+ cH4IpTbZkLhcoI6k1COGUlze2Ug0uv9WnJR6qXTVI33Yw1HbzT4BWPQbaXefuRGOV65dqYN4+Td
+ yzXRT9ylZGq1r28DgUk5BI7OqqU8V5v/SkFLo0GPJjUDeFW/HTuoGRu5RyWGzRRsLw6dcQnWLTO
+ xMQZKcPVQKXUpyZ+sp13lbeczEkR55oZi7efSM/B2LOthoovV4qCcdhq/z5Nr3hZWcDWS9w3h1O
+ I2/yTdMCkE5Lz1ZY4/jC9bOjgKzqbcrZRxTID0feIVStzd8ZRaxh9cczOXNNR6/QwRpd9iX/ZEE
+ np0FWMQmKgJpfJxZwZCJKnl3hpa1pVA==
+X-Google-Smtp-Source: AGHT+IF1vt1ugwCJCcgD8FLb9pLv6neLoJcOaXY12NIdGkKI+c6RUDeQIjiCz+L7fEf4ThkwNMlUxA==
+X-Received: by 2002:a05:6602:474b:b0:864:48ec:c312 with SMTP id
+ ca18e2360f4ac-86cbb7b86c3mr1087224339f.3.1748284211399; 
+ Mon, 26 May 2025 11:30:11 -0700 (PDT)
+Received: from james-x399.localdomain (97-118-146-220.hlrn.qwest.net.
+ [97.118.146.220]) by smtp.gmail.com with ESMTPSA id
+ ca18e2360f4ac-86a235bff69sm477028639f.8.2025.05.26.11.30.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 May 2025 11:30:10 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+To: netdev@vger.kernel.org
+Date: Mon, 26 May 2025 12:29:34 -0600
+Message-Id: <20250526182939.2593553-1-james.hilliard1@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250526161621.3549-1-sensor1010@163.com>
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- jonas@kwiboo.se, netdev@vger.kernel.org, jan.petrous@oss.nxp.com,
- wens@csie.org, andrew+netdev@lunn.ch, edumazet@google.com,
- mcoquelin.stm32@gmail.com, david.wu@rock-chips.com, kuba@kernel.org,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: dwmac-rk: No need to check the
- return value of the phy_power_on()
+Cc: Furong Xu <0x1207@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ James Hilliard <james.hilliard1@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-sunxi@lists.linux.dev, Russell King <linux@armlinux.org.uk>
+Subject: [Linux-stm32] [PATCH v1 1/3] net: stmmac: allow drivers to
+	explicitly select PHY device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,30 +91,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBNYXkgMjYsIDIwMjUgYXQgMDk6MTY6MjFBTSAtMDcwMCwg5p2O5ZOyIHdyb3RlOgo+
-IHNpbmNlIHRoZSByZXR1cm4gdmFsdWUgb2YgdGhlIHBoeV9wb3dlcl9vbigpIGZ1bmN0aW9uIGlz
-IGFsd2F5cyAwLAo+IGNoZWNraW5nIGl0cyByZXR1cm4gdmFsdWUgaXMgcmVkdW5kYW50Lgo+IAo+
-IFNpZ25lZC1vZmYtYnk6IOadjuWTsiA8c2Vuc29yMTAxMEAxNjMuY29tPgo+IC0tLQo+ICBkcml2
-ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIHwgNiArLS0tLS0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIGIv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYwo+IGluZGV4IDcw
-MDg1OGZmNmY3Yy4uNmU4YjEwZmRhMjRkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jCj4gQEAgLTE4MzksMTEgKzE4MzksNyBAQCBzdGF0
-aWMgaW50IHJrX2dtYWNfcG93ZXJ1cChzdHJ1Y3QgcmtfcHJpdl9kYXRhICpic3BfcHJpdikKPiAg
-CQlkZXZfZXJyKGRldiwgIk5PIGludGVyZmFjZSBkZWZpbmVkIVxuIik7Cj4gIAl9Cj4gIAo+IC0J
-cmV0ID0gcGh5X3Bvd2VyX29uKGJzcF9wcml2LCB0cnVlKTsKPiAtCWlmIChyZXQpIHsKPiAtCQln
-bWFjX2Nsa19lbmFibGUoYnNwX3ByaXYsIGZhbHNlKTsKPiAtCQlyZXR1cm4gcmV0Owo+IC0JfQo+
-ICsJcGh5X3Bvd2VyX29uKGJzcF9wcml2LCB0cnVlKTsKCkkgc3VnZ2VzdCB5b3UgZ28gb25lIHN0
-ZXAgZnVydGhlciBhbmQgdHVybiBwaHlfcG93ZXJfb24oKSBpbnRvIGEgdm9pZApmdW5jdGlvbi4K
-Cm5ldC1uZXh0IGlzIGNsb3NlZCBmb3IgdGhlIG5leHQgdHdvIHdlZWsgZHVlIHRvIHRoZSBtZXJn
-ZSB3aW5kb3cuCgoJQW5kcmV3Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Some devices like the Allwinner H616 need the ability to select a phy
+in cases where multiple PHY's may be present in a device tree due to
+needing the ability to support multiple SoC variants with runtime
+PHY selection.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 59d07d0d3369..949c4a8a1456 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1210,17 +1210,25 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	 */
+ 	if (!phy_fwnode || IS_ERR(phy_fwnode)) {
+ 		int addr = priv->plat->phy_addr;
+-		struct phy_device *phydev;
++		struct phy_device *phydev = NULL;
+ 
+-		if (addr < 0) {
+-			netdev_err(priv->dev, "no phy found\n");
+-			return -ENODEV;
++		if (priv->plat->phy_node) {
++			phy_fwnode = of_fwnode_handle(priv->plat->phy_node);
++			phydev = fwnode_phy_find_device(phy_fwnode);
++			fwnode_handle_put(phy_fwnode);
+ 		}
+ 
+-		phydev = mdiobus_get_phy(priv->mii, addr);
+ 		if (!phydev) {
+-			netdev_err(priv->dev, "no phy at addr %d\n", addr);
+-			return -ENODEV;
++			if (addr < 0) {
++				netdev_err(priv->dev, "no phy found\n");
++				return -ENODEV;
++			}
++
++			phydev = mdiobus_get_phy(priv->mii, addr);
++			if (!phydev) {
++				netdev_err(priv->dev, "no phy at addr %d\n", addr);
++				return -ENODEV;
++			}
+ 		}
+ 
+ 		ret = phylink_connect_phy(priv->phylink, phydev);
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
