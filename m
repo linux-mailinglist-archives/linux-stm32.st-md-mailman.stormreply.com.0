@@ -2,67 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87B59AC4F39
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 15:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 020F1AC4F59
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 15:09:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CE7DC36B1E;
-	Tue, 27 May 2025 13:05:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8538C36B1E;
+	Tue, 27 May 2025 13:09:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F24DC36B19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73830C36B19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 13:05:47 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54RA7oYm032253;
- Tue, 27 May 2025 15:05:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- dlyX6SX6KMKhkZJ9DrcXWl6eODnOb3MaM+058SXyIEU=; b=dQMGJQCYqELORIFt
- gxrl3p4jrVANjQU9REsx3HKm/0Zs9BzVMuwVfSy67KyJTeI9UZXGbYgkDiD8JB7z
- PEMFWAwzy+WX31sTk9iYtgpl1oslhddOqked08pOHGXTCBdSGBf15jOntgPhTFmY
- mqlrc8Wxak0mYzo9+k2vM4KIn80+TUp9+3OICpAx0oF9MjFcuNP//p+0j5sTFP9a
- Z4nKRMivJN143X0ogrPpCVlU9ei0bx1RsgD4QpVUOIfktyalyiMPj10fRFuaE4UB
- VU2kQKc1Yl6aGJZn9HuBSRXDBvIWblTwPd2azULoV9QlbV+zyhiYdInmRCgk/EMW
- rTVDQw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46uqp4j1n4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 27 May 2025 15:05:38 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3E89040051;
- Tue, 27 May 2025 15:04:32 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 64843AE080F;
- Tue, 27 May 2025 15:03:50 +0200 (CEST)
-Received: from localhost (10.48.86.139) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 15:03:50 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 27 May 2025 15:03:21 +0200
+ Tue, 27 May 2025 13:09:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7A90061137;
+ Tue, 27 May 2025 13:09:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EAEC4CEE9;
+ Tue, 27 May 2025 13:09:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1748351364;
+ bh=/1X8b2Yqe7zoD0J2HHL7aZvUuRibP3oiKjaMMMz21ZY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GIUfW36JSn0HfPXog+nk1fPTmjpozOgLdwQ48eezCzo36dcbP2B/9O/2wQR5yDjAH
+ 3ZffdSF8o9Z+AgDWAa/DuV91Zz8W1mEAsgdWrK/Q0gFxdBDZC3od+SI7hfiGp0uBoO
+ NwZPRLT88oTCdWKVIa696KGGh1TQIRFkJIJ4ZBg3TI51yDnAEbjyJb2xQs8cxF7jRR
+ 1H7L1s1jhqsyqxyTmJPceqoKiT73d9YdmKFSe5MTGmZ0RcN8FRsQU/nlzDwnm7Udw3
+ 9yoZnvXfCcN74efrLAgojvsmmGRPncPh31mSbtXG1tQv87IzV3MxRo6B6CXcpy1/bE
+ 7TgHSM1hMt7nQ==
+Message-ID: <79fac1e2-c90f-49b0-9f9c-357c994b27ad@kernel.org>
+Date: Tue, 27 May 2025 15:09:19 +0200
 MIME-Version: 1.0
-Message-ID: <20250527-stm32mp157f-dk2-v1-5-8aef885a4928@foss.st.com>
-References: <20250527-stm32mp157f-dk2-v1-0-8aef885a4928@foss.st.com>
-In-Reply-To: <20250527-stm32mp157f-dk2-v1-0-8aef885a4928@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
+User-Agent: Mozilla Thunderbird
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.86.139]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-27_06,2025-05-27_01,2025-03-28_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: add stm32mp157f-dk2
-	board support
+References: <20250527-stm32mp157f-dk2-v1-0-8aef885a4928@foss.st.com>
+ <20250527-stm32mp157f-dk2-v1-4-8aef885a4928@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250527-stm32mp157f-dk2-v1-4-8aef885a4928@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/5] dt-bindings: arm: stm32: add
+ STM32MP157F-DK2 board compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,481 +108,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32MP157F-DK2 board embeds a STM32MP157F SoC. This SoC contains the same
-level of feature than a STM32MP157C SOC but A7 clock frequency can reach
-800MHz, hence the inclusion of the newly introduced stm32mp15xf.dtsi.
+On 27/05/2025 15:03, Amelie Delaunay wrote:
+> From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> 
+> Add the "st,stm32mp157f-dk2" compatible string to the STM32 SoC
+> bindings. The MP157F is functionally similar to the MP157C.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-As for other latest STM32 MPU families, STM32MP157F-DK2 relies on OP-TEE
-SCMI services for SoC clock and reset controllers resources, and for PMIC,
-now under OP-TEE control. That's why stm32mp157x-dk2-scmi.dtsi is
-introduced, to move all clocks, resets and regulators to SCMI-based ones.
+How did you get Ack on something which is v1? Cover letter does not
+explain any history here.
 
-To "disable" SCMI, just need to comment stm32mp157x-dk2-scmi.dtsi inclusion
-and to replace &scmi_v3v3 with &v3v3, then to enable i2c4 and its subnodes
-for PMIC support by Linux. Reconfigure usbotg for dual role with type-C
-support if needed.
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm/boot/dts/st/Makefile                  |   1 +
- arch/arm/boot/dts/st/stm32mp157f-dk2.dts       | 174 +++++++++++++++++
- arch/arm/boot/dts/st/stm32mp157x-dk2-scmi.dtsi | 252 +++++++++++++++++++++++++
- 3 files changed, 427 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index cc9948b9870f7f73629573149bfd342af75b07da..8e17a4a847a385b677df6f3a34e943ae4368a068 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -61,6 +61,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157c-dhcom-picoitx.dtb \
- 	stm32mp157c-dk2.dtb \
- 	stm32mp157c-dk2-scmi.dtb \
-+	stm32mp157f-dk2.dtb \
- 	stm32mp157c-ed1.dtb \
- 	stm32mp157c-ed1-scmi.dtb \
- 	stm32mp157c-emsbc-argon.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2.dts b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..c40e22a6737df075563c93b0b460a00d5ede376c
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
-@@ -0,0 +1,174 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-+ * Author: Amelie Delaunay <amelie.delaunay@foss.st.com> for STMicroelectronics.
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xf.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp15xx-dkx.dtsi"
-+#include "stm32mp157x-dk2-scmi.dtsi"
-+
-+/ {
-+	model = "STMicroelectronics STM32MP157F-DK2 Discovery Board";
-+	compatible = "st,stm32mp157f-dk2", "st,stm32mp157";
-+
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		serial3 = &usart2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&gpioh 4 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&cryp1 {
-+	status = "okay";
-+};
-+
-+&dsi {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "orisetech,otm8009a";
-+		reg = <0>;
-+		reset-gpios = <&gpioe 4 GPIO_ACTIVE_LOW>;
-+		power-supply = <&scmi_v3v3>;
-+		status = "okay";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&dsi_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi_in {
-+	remote-endpoint = <&ltdc_ep1_out>;
-+};
-+
-+&dsi_out {
-+	remote-endpoint = <&panel_in>;
-+};
-+
-+&i2c1 {
-+	touchscreen@38 {
-+		compatible = "focaltech,ft6236";
-+		reg = <0x38>;
-+		interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-parent = <&gpiof>;
-+		touchscreen-size-x = <480>;
-+		touchscreen-size-y = <800>;
-+		status = "okay";
-+	};
-+};
-+
-+/* I2C4 is managed by OP-TEE */
-+&i2c4 {
-+	status = "disabled";
-+
-+	/* i2c4 subnodes, which won't be managed by Linux */
-+	typec@28 {
-+		status = "disabled";
-+		connector {
-+			status = "disabled";
-+		};
-+	};
-+
-+	stpmic@33 {
-+		status = "disabled";
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ltdc_ep1_out: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
-+
-+&rtc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rtc_rsvd_pins_a>;
-+
-+	rtc_lsco_pins_a: rtc-lsco-0 {
-+		pins = "out2_rmp";
-+		function = "lsco";
-+	};
-+};
-+
-+/* Wifi */
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a>;
-+	non-removable;
-+	cap-sdio-irq;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&scmi_v3v3>;
-+	mmc-pwrseq = <&wifi_pwrseq>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	brcmf: wifi@1 {
-+		reg = <1>;
-+		compatible = "brcm,bcm4329-fmac";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_lsco_pins_a>;
-+	};
-+};
-+
-+/* Bluetooth */
-+&usart2 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&usart2_pins_c>;
-+	pinctrl-1 = <&usart2_sleep_pins_c>;
-+	pinctrl-2 = <&usart2_idle_pins_c>;
-+	uart-has-rtscts;
-+	status = "okay";
-+
-+	bluetooth {
-+		shutdown-gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
-+		compatible = "brcm,bcm43438-bt";
-+		max-speed = <3000000>;
-+		vbat-supply = <&scmi_v3v3>;
-+		vddio-supply = <&scmi_v3v3>;
-+	};
-+};
-+
-+/* Since I2C4 is disabled, STUSB1600 is also disabled so there is no Type-C support */
-+&usbotg_hs {
-+	dr_mode = "peripheral";
-+	role-switch-default-mode = "peripheral";
-+	/*
-+	 * Forcing dr_mode = "peripheral"/"role-switch-default-mode = "peripheral";
-+	 * will cause the pull-up on D+/D- to be raised as soon as the OTG is configured at runtime,
-+	 * regardless of the presence of VBUS. Notice that on self-powered devices like
-+	 * stm32mp157f-dk2, this isn't compliant with the USB standard. That's why usbotg_hs is kept
-+	 * disabled here.
-+	 */
-+	status = "disabled";
-+};
-diff --git a/arch/arm/boot/dts/st/stm32mp157x-dk2-scmi.dtsi b/arch/arm/boot/dts/st/stm32mp157x-dk2-scmi.dtsi
-new file mode 100644
-index 0000000000000000000000000000000000000000..0c55203ae1520029abcda3bb47513815d0c4bfc1
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32mp157x-dk2-scmi.dtsi
-@@ -0,0 +1,252 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-+ * Author: Amelie Delaunay <amelie.delaunay@foss.st.com> for STMicroelectronics.
-+ */
-+
-+#include <dt-bindings/regulator/st,stm32mp15-regulator.h>
-+#include "stm32mp15-scmi.dtsi"
-+
-+/ {
-+	reserved-memory {
-+		optee@de000000 {
-+			reg = <0xde000000 0x2000000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&adc {
-+	vdd-supply = <&scmi_vdd>;
-+	vdda-supply = <&scmi_vdd>;
-+};
-+
-+&cpu0 {
-+	clocks = <&scmi_clk CK_SCMI_MPU>;
-+};
-+
-+&cpu1 {
-+	clocks = <&scmi_clk CK_SCMI_MPU>;
-+};
-+
-+&cryp1 {
-+	clocks = <&scmi_clk CK_SCMI_CRYP1>;
-+	resets = <&scmi_reset RST_SCMI_CRYP1>;
-+};
-+
-+&cs42l51 {
-+	VL-supply = <&scmi_v3v3>;
-+	VD-supply = <&scmi_v1v8_audio>;
-+	VA-supply = <&scmi_v1v8_audio>;
-+	VAHP-supply = <&scmi_v1v8_audio>;
-+};
-+
-+&dsi {
-+	phy-dsi-supply = <&scmi_reg18>;
-+	clocks = <&rcc DSI>, <&scmi_clk CK_SCMI_HSE>, <&rcc DSI_PX>;
-+};
-+
-+&gpioz {
-+	clocks = <&scmi_clk CK_SCMI_GPIOZ>;
-+};
-+
-+&hash1 {
-+	clocks = <&scmi_clk CK_SCMI_HASH1>;
-+	resets = <&scmi_reset RST_SCMI_HASH1>;
-+};
-+
-+&i2c1 {
-+	hdmi-transmitter@39 {
-+		iovcc-supply = <&scmi_v3v3_hdmi>;
-+		cvcc12-supply = <&scmi_v1v2_hdmi>;
-+	};
-+};
-+
-+&iwdg2 {
-+	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
-+};
-+
-+&m4_rproc {
-+	/delete-property/ st,syscfg-holdboot;
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names = "mcu_rst", "hold_boot";
-+};
-+
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
-+&optee {
-+	interrupt-parent = <&intc>;
-+	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+};
-+
-+&pwr_regulators {
-+	vdd-supply = <&scmi_vdd>;
-+	vdd_3v3_usbfs-supply = <&scmi_vdd_usb>;
-+	status = "disabled";
-+};
-+
-+&rcc {
-+	compatible = "st,stm32mp1-rcc-secure", "syscon";
-+	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-+	clocks = <&scmi_clk CK_SCMI_HSE>,
-+		 <&scmi_clk CK_SCMI_HSI>,
-+		 <&scmi_clk CK_SCMI_CSI>,
-+		 <&scmi_clk CK_SCMI_LSE>,
-+		 <&scmi_clk CK_SCMI_LSI>;
-+};
-+
-+&rng1 {
-+	clocks = <&scmi_clk CK_SCMI_RNG1>;
-+	resets = <&scmi_reset RST_SCMI_RNG1>;
-+};
-+
-+&rtc {
-+	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
-+};
-+
-+&scmi_reguls {
-+	scmi_vddcore: regulator@3 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK1>;
-+		regulator-name = "vddcore";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1350000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * regulator-over-current-protection;
-+		 * regulator-initial-mode = <0>;
-+		 */
-+	};
-+
-+	scmi_vdd: regulator@5 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK3>;
-+		regulator-name = "vdd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * regulator-over-current-protection;
-+		 * regulator-initial-mode = <0>;
-+		 * st,mask-reset;
-+		 */
-+	};
-+
-+	scmi_v3v3: regulator@6 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK4>;
-+		regulator-name = "v3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * regulator-over-current-protection;
-+		 * regulator-initial-mode = <0>;
-+		 */
-+	};
-+
-+	scmi_v1v8_audio: regulator@7 {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
-+		regulator-name = "v1v8_audio";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_CURLIM_LDO1 0>;
-+		 */
-+	};
-+
-+	scmi_v3v3_hdmi: regulator@8 {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO2>;
-+		regulator-name = "v3v3_hdmi";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_CURLIM_LDO2 0>;
-+		 */
-+	};
-+
-+	scmi_vdd_usb: regulator@a {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO4>;
-+		regulator-name = "vdd_usb";
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_CURLIM_LDO4 0>;
-+		 */
-+	};
-+
-+	scmi_vdda: regulator@b {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO5>;
-+		regulator-name = "vdda";
-+		regulator-min-microvolt = <2900000>;
-+		regulator-max-microvolt = <2900000>;
-+		regulator-boot-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_CURLIM_LDO5 0>;
-+		 */
-+	};
-+
-+	scmi_v1v2_hdmi: regulator@c {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO6>;
-+		regulator-name = "v1v2_hdmi";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		regulator-always-on;
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_CURLIM_LDO6 0>;
-+		 */
-+	};
-+
-+	scmi_vbus_otg: regulator@f {
-+		reg = <VOLTD_SCMI_STPMIC1_PWR_SW1>;
-+		regulator-name = "vbus_otg";
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_OCP_OTG 0>;
-+		 */
-+	 };
-+
-+	 scmi_vbus_sw: regulator@10 {
-+		reg = <VOLTD_SCMI_STPMIC1_PWR_SW2>;
-+		regulator-name = "vbus_sw";
-+		/*
-+		 * Not supported by SCMI regu, handled in SCMI server
-+		 * interrupts = <IT_OCP_SWOUT 0>;
-+		 * regulator-active-discharge = <1>;
-+		 */
-+	 };
-+};
-+
-+&sdmmc1 {
-+	vmmc-supply = <&scmi_v3v3>;
-+};
-+
-+&sdmmc3 {
-+	vmmc-supply = <&scmi_v3v3>;
-+};
-+
-+&usbh_ehci {
-+	hub@1 {
-+		vdd-supply = <&scmi_v3v3>;
-+	};
-+};
-+
-+&usbphyc_port0 {
-+	phy-supply = <&scmi_vdd_usb>;
-+};
-+
-+&usbphyc_port1 {
-+	phy-supply = <&scmi_vdd_usb>;
-+};
-+
-+&vrefbuf {
-+	vdda-supply = <&scmi_vdd>;
-+};
-
--- 
-2.25.1
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
