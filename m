@@ -2,59 +2,152 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2046AC4871
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 08:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8EA5AC4879
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 08:36:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 540FAC36B16;
-	Tue, 27 May 2025 06:33:55 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82903C36B16;
+	Tue, 27 May 2025 06:36:13 +0000 (UTC)
+Received: from PNZPR01CU001.outbound.protection.outlook.com
+ (mail-centralindiaazon11021079.outbound.protection.outlook.com
+ [40.107.51.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CF91C36B15
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 039E1C36B15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 06:33:53 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C8FF0439C2;
- Tue, 27 May 2025 06:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1748327632;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SFColjhD+ZIQe8shEgoNm7cyd5RsBR22PLT/iSw2KnI=;
- b=iTT/ha7JeUVtvvaV4TC0Yo2Iun82pKT2PWEea29/lNy8pcP+X/gsT258u8YZurLw9vXbwe
- ZxRJuBpfJ4MGd6c/dakV2MjDrfSi+2h24j+PLtkCqdB4ypuoBe52ryvYoK4qhsKaLa8Djn
- fhh7q8NLLpcMb9c5Jp4Vqx6418Ro9wZhFFe3pcP5NngrDg8UIewPys25oVfqWpD8us0Erg
- FdPZvXa5ogYrFzIXoEBQNlB5NIEW7xVZWc/vzpRF8dKWIMysZLAqYECEbp1gHTWktF/UZu
- BBstWqjtJawASZAU0RcV4+sN6oZstRMO8ikf2whqRrnQOvY5yuLRurA+pYbNdQ==
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-Date: Tue, 27 May 2025 08:33:44 +0200
+ Tue, 27 May 2025 06:36:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lehCx5WDnj2l0/Y40tWj/1QJL492QNVW5mYVVzThXYG+JOmNrTiCWh0tu/JwXhmKGz+SeeMEsG6ayOX6nqpGu+0o6Mbkl1nvQ2gm5+7pbF1kHYfRpBfe3QZgFzS1bxD0MbPGqHC1IRs+pWsw2LFZf7pDDPKzAlDBwA/dAHFmrmyVgmGOg2FDH0Dbgnzcbjcp1hWacBJZhFW7XGfmvnAakTS2tFzbecoNdsYRRqqQGwc4CS9qpvk3nsv6AgtQkE5zUKy/655QfCkgbJ5Pm6ALJJ5gbNgTNSA3JWMws5czfb386J19w2wYYB0vv5Hnm5RZyE8hvW38w4PWFVqFGNawPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6dkQ4aDU9QaAq24RGtpzZ3mtQtThWv4tMocT0H28prU=;
+ b=eVkfuyJyLV5025ax8vEOUojHJsu2rw369KCwegYIi+Vvex4ksHjfPCNggpRf5Pct0TIm4iEyjJZtYixV24uD8oYQZFYUUuNmYoc0MVQxvX+IQaRRWlTB4+4jwGUNeAPvrjBcUQmJ2jNHgTEgUuzVp3jxIvj7NNLWq5EKxVhJq2sDPEQEw2fLmRracyLlZCfhm/WhrFlO79aFOMxR8vZZE5Yybc/SWe06FoIangUirIHw4Qrk5dI5uiSrazi3CTddP2HfWGHpCqI/O2sYCuYGVsujI9I3ahYdWiT9LojzpJi0ygeOV183gvmpSDCeERFR8q3XJ0rB/dg71+/bp6Mb2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
+ by PN2P287MB1803.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1a7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Tue, 27 May
+ 2025 06:36:07 +0000
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ac6c:f2c2:8013:8d0f]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ac6c:f2c2:8013:8d0f%7]) with mapi id 15.20.8769.022; Tue, 27 May 2025
+ 06:36:07 +0000
+From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ "amelie.delaunay@foss.st.com" <amelie.delaunay@foss.st.com>
+Thread-Topic: [PATCH v1 1/2] ARM: dts: stm32: add support of stm32mp157f-dk2
+ board
+Thread-Index: AQHbzJMjbulgi+Htd0yqItM+OiWvU7PkhgQAgAF9m6A=
+Date: Tue, 27 May 2025 06:36:07 +0000
+Message-ID: <PN0P287MB201936022C3BF4389C7BF8B79A64A@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+References: <20250524100319.22521-1-himanshu.bhavani@siliconsignals.io>
+ <20250524100319.22521-2-himanshu.bhavani@siliconsignals.io>
+ <9d3df716-343f-4c32-9e2e-2058bc1a9b6f@foss.st.com>
+In-Reply-To: <9d3df716-343f-4c32-9e2e-2058bc1a9b6f@foss.st.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN0P287MB2019:EE_|PN2P287MB1803:EE_
+x-ms-office365-filtering-correlation-id: cedc6b0c-0c41-40cf-4fc1-08dd9ce8c2f7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|38070700018; 
+x-microsoft-antispam-message-info: =?Windows-1252?Q?G5tC6A7eB24ISfGzSZrw/I0L/wjpiU2U2RDyqYLtFssQkKOFCgePiITR?=
+ =?Windows-1252?Q?0qFxxz0oUuOZ1zcV68i8X9MRVu1I4mugmnJA2/YaZcio8xKscJVJlP7r?=
+ =?Windows-1252?Q?8/WNktbRBuQSH9t1nr/W5MA9rbR3lI8ZGEPTXa98N8rAwdA7mWcfMFUW?=
+ =?Windows-1252?Q?4kM52slLEfX+JiF7zThRTUot0ciBUnnfI83FdSxMkCKFtShfKipvCm1v?=
+ =?Windows-1252?Q?u/RGJV/TihUmS3KgVZMyOBAm/pRlpfdEnOJkEq8JiACY5LfFtiCIrchr?=
+ =?Windows-1252?Q?gSPzt5g5I7p74kiYNLPRdNrVJpnQLOMNo5pBFuwrrR4jcU9qDac5h7Tf?=
+ =?Windows-1252?Q?fw1eV/ugE54mTnIOnJF+7yvGqJKYCIjyqcw9XLgWsNki1oGfX/YY14u7?=
+ =?Windows-1252?Q?e1xkRWQ6faVysg6fyHg3utSkZyBYEcb8YkwqEuB9CNBwUEmZTRktR2na?=
+ =?Windows-1252?Q?4OmSt6tP/bG7y4dAC0IJUqSXKW2jsoCk0G8ZS9uqEFv4Tr8E9IdS6VQa?=
+ =?Windows-1252?Q?d3rTw9+94FuTd66y4kb14SadXZyliIheMhSqnWnLstQxG+7eVIIp6DNy?=
+ =?Windows-1252?Q?qKNqCfuI6sRHYMRGFkzpTGbsTIi1cq5kRCxs8Ru5MxeWqC+MXs96kbmT?=
+ =?Windows-1252?Q?4OZhHWfAFn7mYJSN1i00pYmhsJee05mcS4Zlj4QJNrwW6Lpf1fWPjlcF?=
+ =?Windows-1252?Q?2YmZ3Ew/Ee9a97roTcem2Ia86x8LuG5lNrh8delHvCEC7JYdpAv9chs/?=
+ =?Windows-1252?Q?pKrcEPit3fORAqspsx41IjQdH7ZWxYB1UNgIgxVeKCXg1tJ1ceinzUx8?=
+ =?Windows-1252?Q?V82AU3QzmnRoTBmqBbs1Zz67+dI0e1enBRWK9aSX8kK6Hxqc80fp7f29?=
+ =?Windows-1252?Q?s4WcDSCWuKPXbPsX5934wp37ILbQAIgCzfy61E/YmWlRWXd98yzotm4p?=
+ =?Windows-1252?Q?X75JJz1yIimK5nlnBjdcowedZQ3M7ATaM29RqYWFAQvOhkFFxTqgM1xm?=
+ =?Windows-1252?Q?hmn6xb5zTOOYjLZ5msVW6utiFNEIRoh09FtOCvUbvFQuSPX/LYnkcmZU?=
+ =?Windows-1252?Q?7gOmhfappp2ok2UiGK+CSLFWhrz/V1mI3htR4Xdzgy+F/j3oyixi8Ej+?=
+ =?Windows-1252?Q?LkQeF+cMcjIydQMrrKXkh2RxNaJn1ILacSxIOySuascSWHtr7H5OcWUD?=
+ =?Windows-1252?Q?/UiihnA7F0QnbKKuQoCdMRFxskJGrcMCVvErRTKSla4KFVpHWavJVLoz?=
+ =?Windows-1252?Q?+s9hztWbmVwIIidnq+gNERVXzBR7w4/gWtdLDXPZHEBnnJUBvZYiwZ3z?=
+ =?Windows-1252?Q?8jxoz0Ho1XHkY2UKvu55tbf5kd2lbo2P1OFW4vO9yGEMHgomQP+AuhqK?=
+ =?Windows-1252?Q?VRtyDyX7m6Q5Xa9SKLMYQeK82WmBdvaK4GpOp7zX5aYzlV7zg6rs7vEV?=
+ =?Windows-1252?Q?fXYcieI8gFQNbJR66r4ltragW9F7POQjYrnHS5fcrjYfcmCUkSMM5bic?=
+ =?Windows-1252?Q?+F6a6P2H+nuxo0hKj6LKXdWTTJlFADoscAb4SeJf96lHJpq+y4JgLc6n?=
+ =?Windows-1252?Q?ixxvFgaymg0VbHBSCHgNTHM+sYpJIRbFLgFaEmfn9c7q/X4V0YeRXmQ4?=
+ =?Windows-1252?Q?Hlc=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700018); DIR:OUT;
+ SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?p/7DzPGNgNaQACtCP/TJM6CbOB+/5IRGhnHClAOf69/Zx176cdQZn+TP?=
+ =?Windows-1252?Q?WklgzT1v2CESAtW6FlsM7kIH5gvkcif7VshefWXlkcHoxaGqaMKy0O1g?=
+ =?Windows-1252?Q?UF27H7W3Lc7bKwc5zipAaaukLpsnf3cYnGWoGR4YoeToJvCuG/c/60rS?=
+ =?Windows-1252?Q?4aTJ+jdm3cfFhbga1xaNkJ0i2Fl3uPW4Fps83JrA1nWUJOoMxsAXH79c?=
+ =?Windows-1252?Q?qLJJDswfSMVMZtT+xHtZ11VRREDqCpXz2Ic+Hcd2lSua7uYMBkafeD5m?=
+ =?Windows-1252?Q?NzNREFNiCbQiXxj96XkX5hk5PYcmzXeDOU2sxMlQQP6gQYUrdZJ/AklN?=
+ =?Windows-1252?Q?r0/Y8YADRMHUDJEQeXGoDElC+B786/UR6+i7QK4X4NcY1xvM8wZN+y87?=
+ =?Windows-1252?Q?wjFTY2k5kEQPnpZ29zkVqX+qGgYT4si4CGpG5GGMFTsVtLkVoRmAVTt8?=
+ =?Windows-1252?Q?2tE2QxfBn+jewMcoLq1yP0XW+KCnjC9P4wVcEydhsfnQatE5i2jcTxGb?=
+ =?Windows-1252?Q?z5HcaGTZmtOk0TtDIWM2MpnRREaszAtUJFPn/bmeFdaeVvleGlA2moBc?=
+ =?Windows-1252?Q?6zQJzFq2U0mU9uNUag3L6fnqER7AbWqjrJhXaMwQZKjsp/YqJt6L0ndh?=
+ =?Windows-1252?Q?/lCCUlJo+PeJ/NBt8uQdepWRdX8xYBkFg+XFJgAUC1Hni8qNG21QgIBx?=
+ =?Windows-1252?Q?kHycMDwfXMKzzAbq6T66Yf+/1kXd3X7b7eJSoaOnYBGA/gMsVjVIAa2L?=
+ =?Windows-1252?Q?sXaJaYatcn9hUBY7HgT501KFsIZi8v/K35INa/MgR7OrDRv67AH1N+Sb?=
+ =?Windows-1252?Q?v49E4pjCY9eb7kfjJsyI1/xb9EpSxUHnHRHRDS6iAnzA9nQAEG8g8TcQ?=
+ =?Windows-1252?Q?3AIvwYwvC89qRIDM472qL5BWVtjAbpLk9+1j3tDBXXB+nAR78ZAj1wL6?=
+ =?Windows-1252?Q?m4Zx+fjYHUW6ztgm6fJUYhKr/li4W+cT4WC5ql/AFl4xIPDAESKSSIes?=
+ =?Windows-1252?Q?iA3i6VepJ8Pc446ay2P6TWlfRcGNmsjzIOusNq9ZcYkzRextbACkKzF+?=
+ =?Windows-1252?Q?Wj19LexFqrPpNVPTMyiPuPCOFFl0DUT/0MLAcCs8BkPrViKPx8CNY0b4?=
+ =?Windows-1252?Q?94OzxcbppB7j7NJPMNb/9IrXVcmUQOxOah3xuduprbNBDo04rZnzoTK5?=
+ =?Windows-1252?Q?O2n2TXZudEMIBkePzU/KOEJk2fWEDxs6PVwIoK+YZtftnHms/Q5UIX/F?=
+ =?Windows-1252?Q?qvCifyNAsJeUod5UNlz1pdo4flQ9I8dq9st7hPCdx8amp477ARJZ4r9A?=
+ =?Windows-1252?Q?Ow8PDPIHBcfAyryy6dy2T+ITiO28+v6T+tqwe8v25D2/cDoiWRVjlmv+?=
+ =?Windows-1252?Q?tEbtq6SFdZElz96NAoeHr6LFBQdGYy1cktJ5nwyIC1KM1YwqONg9Qa0P?=
+ =?Windows-1252?Q?yvk7TlM1MRyZD7wgMx+6YA1+ag2y6E6yQNmWJwvNGPPmsMaYOFSQvGkN?=
+ =?Windows-1252?Q?CWDyJvBDwa01MLTDRRW+2OrcMZjETT/kIKBa4hCvQi1SLk+gzoUA2lL6?=
+ =?Windows-1252?Q?vhJw0CxrHBViwmFttTZd1Vk5vPT1bFKSGLAwzCc8SZnGIHmYvO4Nzm/x?=
+ =?Windows-1252?Q?+/uprEcUU5wxGgihTtmok670lCgYpsn8cxPvj9q+6IY6Iv5qTuKT5pJ1?=
+ =?Windows-1252?Q?p4C6rDQX69J2gQGbNDBLLnGKHSwxhkFcAA6eL8Koft39hlBMnG99og?=
+ =?Windows-1252?Q?=3D=3D?=
 MIME-Version: 1.0
-Message-Id: <20250527-stmmac_tstamp_div-v2-1-663251b3b542@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAMdcNWgC/22NQQrCMBBFryKzNpJMjVVX3kNKmaapHTBNSUJQS
- u9uLLhz+R789xeINrCNcN0tEGzmyH4qgPsdmJGmhxXcFwaUqKVGFDE5R6ZNMZGb256zGLRWCgd
- 5kniBspuDHfi1Ne9N4ZFj8uG9XWT1tb9a9aeWlVCiM3QmTRUd6/rWeZ+ePB2Md9Cs6/oB1TS4B
- 7QAAAA=
-X-Change-ID: 20250522-stmmac_tstamp_div-f55112f06029
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Phil Reid <preid@electromag.com.au>
-X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdduleeikeculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephfffufggtgfgkffvvefosehtkeertdertdejnecuhfhrohhmpeetlhgvgihishcunfhothhhohhrrocuoegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepudekveeftdeifedvfefgvdfgjeduieevudeltdeulefhhefgiedvhfethffgffegnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepvdgrtddvmeekgedvkeemfhelgegtmegvtddtmeemugeiheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtvdemkeegvdekmehfleegtgemvgdttdemmeguieehpdhhvghloheplgduledvrdduieekrddurddvtdekngdpmhgrihhlfhhrohhmpegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudejpdhrtghpthhtohepmhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomhdprhgtphhtthhopehthhhomhgrshdrphgvthgriiiiohhnihessghoohhtlhhinhdrtghomhdprhgtphhtthhop
- egvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtohepuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphhtthhopegrlhgvgigrnhgurhgvrdhtohhrghhuvgesfhhoshhsrdhsthdrtghomhdprhgtphhtthhopegrnhgurhgvfidonhgvthguvghvsehluhhnnhdrtghhpdhrtghpthhtohepjhhorggsrhgvuhesshihnhhophhshihsrdgtohhmpdhrtghpthhtohepphhrvghiugesvghlvggtthhrohhmrghgrdgtohhmrdgruh
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] net: stmmac: add explicit check and error
- on invalid PTP clock rate
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: cedc6b0c-0c41-40cf-4fc1-08dd9ce8c2f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2025 06:36:07.3739 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xZWdBMn/hkNNTZmeqtzTcmrL32meL8Fc4VdPiypj0yzu3zakeFEIR5ImmZjiPOXxvgpPhSpBrk3qErwnwhPDxAWeee6TWb67Ksz5D/KisUpmaCcOCdFl99cHe7Il0OU9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1803
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Roan van Dijk <roan@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ =?Windows-1252?Q?Leonard_G=F6hrs?= <l.goehrs@pengutronix.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] ARM: dts: stm32: add support of
+ stm32mp157f-dk2 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,60 +159,108 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIHN0bW1hYyBwbGF0Zm9ybSBkcml2ZXJzIHRoYXQgZG8gbm90IG9wZW4tY29kZSB0aGUgY2xr
-X3B0cF9yYXRlIHZhbHVlCmFmdGVyIGhhdmluZyByZXRyaWV2ZWQgdGhlIGRlZmF1bHQgb25lIGZy
-b20gdGhlIGRldmljZS10cmVlIGNhbiBlbmQgdXAKd2l0aCAwIGluIGNsa19wdHBfcmF0ZSAoYXMg
-Y2xrX2dldF9yYXRlIGNhbiByZXR1cm4gMCkuIEl0IHdpbGwKZXZlbnR1YWxseSBwcm9wYWdhdGUg
-dXAgdG8gUFRQIGluaXRpYWxpemF0aW9uIHdoZW4gYnJpbmdpbmcgdXAgdGhlCmludGVyZmFjZSwg
-bGVhZGluZyB0byBhIGRpdmlkZSBieSAwOgoKIERpdmlzaW9uIGJ5IHplcm8gaW4ga2VybmVsLgog
-Q1BVOiAxIFVJRDogMCBQSUQ6IDEgQ29tbTogc3dhcHBlci8wIE5vdCB0YWludGVkIDYuMTIuMzAt
-MDAwMDEtZzQ4MzEzYmQ1NzY4YSAjMjIKIEhhcmR3YXJlIG5hbWU6IFNUTTMyIChEZXZpY2UgVHJl
-ZSBTdXBwb3J0KQogQ2FsbCB0cmFjZToKICB1bndpbmRfYmFja3RyYWNlIGZyb20gc2hvd19zdGFj
-aysweDE4LzB4MWMKICBzaG93X3N0YWNrIGZyb20gZHVtcF9zdGFja19sdmwrMHg2Yy8weDhjCiAg
-ZHVtcF9zdGFja19sdmwgZnJvbSBMZGl2MF82NCsweDgvMHgxOAogIExkaXYwXzY0IGZyb20gc3Rt
-bWFjX2luaXRfdHN0YW1wX2NvdW50ZXIrMHgxOTAvMHgxYTQKICBzdG1tYWNfaW5pdF90c3RhbXBf
-Y291bnRlciBmcm9tIHN0bW1hY19od19zZXR1cCsweGMxYy8weDExMWMKICBzdG1tYWNfaHdfc2V0
-dXAgZnJvbSBfX3N0bW1hY19vcGVuKzB4MThjLzB4NDM0CiAgX19zdG1tYWNfb3BlbiBmcm9tIHN0
-bW1hY19vcGVuKzB4M2MvMHhiYwogIHN0bW1hY19vcGVuIGZyb20gX19kZXZfb3BlbisweGY0LzB4
-MWFjCiAgX19kZXZfb3BlbiBmcm9tIF9fZGV2X2NoYW5nZV9mbGFncysweDFjYy8weDIyNAogIF9f
-ZGV2X2NoYW5nZV9mbGFncyBmcm9tIGRldl9jaGFuZ2VfZmxhZ3MrMHgyNC8weDYwCiAgZGV2X2No
-YW5nZV9mbGFncyBmcm9tIGlwX2F1dG9fY29uZmlnKzB4MmU4LzB4MTFhMAogIGlwX2F1dG9fY29u
-ZmlnIGZyb20gZG9fb25lX2luaXRjYWxsKzB4ODQvMHgzM2MKICBkb19vbmVfaW5pdGNhbGwgZnJv
-bSBrZXJuZWxfaW5pdF9mcmVlYWJsZSsweDFiOC8weDIxNAogIGtlcm5lbF9pbml0X2ZyZWVhYmxl
-IGZyb20ga2VybmVsX2luaXQrMHgyNC8weDE0MAogIGtlcm5lbF9pbml0IGZyb20gcmV0X2Zyb21f
-Zm9yaysweDE0LzB4MjgKIEV4Y2VwdGlvbiBzdGFjaygweGUwODE1ZmIwIHRvIDB4ZTA4MTVmZjgp
-CgpQcmV2ZW50IHRoaXMgZGl2aXNpb24gYnkgMCBieSBhZGRpbmcgYW4gZXhwbGljaXQgY2hlY2sg
-YW5kIGVycm9yIGxvZwphYm91dCB0aGUgYWN0dWFsIGlzc3VlLgoKRml4ZXM6IDE5ZDg1N2M5MDM4
-ZSAoInN0bW1hYzogRml4IGNhbGN1bGF0aW9ucyBmb3IgcHRwIGNvdW50ZXJzIHdoZW4gY2xvY2sg
-aW5wdXQgPSA1ME1oei4iKQpTaWduZWQtb2ZmLWJ5OiBBbGV4aXMgTG90aG9yw6kgPGFsZXhpcy5s
-b3Rob3JlQGJvb3RsaW4uY29tPgotLS0KQ2hhbmdlcyBpbiB2MjoKLSBBZGQgRml4ZXMgdGFnCi0g
-UmV3b3JkIGNvbW1pdCBtZXNzYWdlIHRvIGNsYXJpZnkgdGhlIHRyaWdnZXJpbmcgY2F1c2Ugb2Yg
-dGhlIGlzc3VlCi0gTGluayB0byB2MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI1MDUy
-My1zdG1tYWNfdHN0YW1wX2Rpdi12MS0xLWJjYThhNWEzYTQ3N0Bib290bGluLmNvbQotLS0KIGRy
-aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCA1ICsrKysr
-CiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9u
-ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0
-aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKaW5kZXggOTE4ZDdmMmU4YmE5OTIy
-MDhkN2Q2NTIxYTFlOWRiYTAxMDg2MDU4Zi4uZjY4ZTNlY2U5MTljYzg4ZDBiZjE5OWEzOTRiYzdl
-NDRiNWRlZTA5NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
-YWMvc3RtbWFjX21haW4uYworKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1h
-Yy9zdG1tYWNfbWFpbi5jCkBAIC04MzUsNiArODM1LDExIEBAIGludCBzdG1tYWNfaW5pdF90c3Rh
-bXBfY291bnRlcihzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYsIHUzMiBzeXN0aW1lX2ZsYWdzKQog
-CWlmICghKHByaXYtPmRtYV9jYXAudGltZV9zdGFtcCB8fCBwcml2LT5kbWFfY2FwLmF0aW1lX3N0
-YW1wKSkKIAkJcmV0dXJuIC1FT1BOT1RTVVBQOwogCisJaWYgKCFwcml2LT5wbGF0LT5jbGtfcHRw
-X3JhdGUpIHsKKwkJbmV0ZGV2X2Vycihwcml2LT5kZXYsICJJbnZhbGlkIFBUUCBjbG9jayByYXRl
-Iik7CisJCXJldHVybiAtRUlOVkFMOworCX0KKwogCXN0bW1hY19jb25maWdfaHdfdHN0YW1waW5n
-KHByaXYsIHByaXYtPnB0cGFkZHIsIHN5c3RpbWVfZmxhZ3MpOwogCXByaXYtPnN5c3RpbWVfZmxh
-Z3MgPSBzeXN0aW1lX2ZsYWdzOwogCgotLS0KYmFzZS1jb21taXQ6IGUwZTJmNzgyNDMzODVlNzE4
-OGE1N2ZjZmNlYjZhMTlmNzIzZjFkZmYKY2hhbmdlLWlkOiAyMDI1MDUyMi1zdG1tYWNfdHN0YW1w
-X2Rpdi1mNTUxMTJmMDYwMjkKCkJlc3QgcmVnYXJkcywKLS0gCkFsZXhpcyBMb3Rob3LDqSwgQm9v
-dGxpbgpFbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCmh0dHBzOi8vYm9vdGxp
-bi5jb20KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+Hi Alexandre,
+
+> Hi Himanshu
+> =
+
+> On 5/24/25 12:03, Himanshu Bhavani wrote:
+> > STM32MP157F is similar to the STM32MP157C, so reuse the existing
+> > stm32mp157c-dk2.dts as a base for the STM32MP157F-DK2 board.
+> >
+> > Datasheet: https://www.st.com/resource/en/data_brief/stm32mp157f-dk2.pdf
+> > Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> > ---
+> >=A0=A0 arch/arm/boot/dts/st/Makefile=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=
+=A0 3 ++-
+> >=A0=A0 arch/arm/boot/dts/st/stm32mp157f-dk2.dts | 15 +++++++++++++++
+> >=A0=A0 2 files changed, 17 insertions(+), 1 deletion(-)
+> >=A0=A0 create mode 100644 arch/arm/boot/dts/st/stm32mp157f-dk2.dts
+> >
+> > diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makef=
+ile
+> > index 60d55516f723..38179638e5eb 100644
+> > --- a/arch/arm/boot/dts/st/Makefile
+> > +++ b/arch/arm/boot/dts/st/Makefile
+> > @@ -70,7 +70,8 @@ dtb-$(CONFIG_ARCH_STM32) +=3D \
+> >=A0=A0=A0=A0=A0=A0 stm32mp157c-lxa-tac-gen2.dtb \
+> >=A0=A0=A0=A0=A0=A0 stm32mp157c-odyssey.dtb \
+> >=A0=A0=A0=A0=A0=A0 stm32mp157c-osd32mp1-red.dtb \
+> > -=A0=A0=A0=A0 stm32mp157c-phycore-stm32mp1-3.dtb
+> > +=A0=A0=A0=A0 stm32mp157c-phycore-stm32mp1-3.dtb \
+> > +=A0=A0=A0=A0 stm32mp157f-dk2.dtb
+> >=A0=A0 dtb-$(CONFIG_ARCH_U8500) +=3D \
+> >=A0=A0=A0=A0=A0=A0 ste-snowball.dtb \
+> >=A0=A0=A0=A0=A0=A0 ste-hrefprev60-stuib.dtb \
+> > diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2.dts b/arch/arm/boot/d=
+ts/st/stm32mp157f-dk2.dts
+> > new file mode 100644
+> > index 000000000000..ab406b2c44c1
+> > --- /dev/null
+> > +++ b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
+> > @@ -0,0 +1,15 @@
+> > +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> > +/*
+> > + * Copyright (C) 2025 Silicon Signals Pvt. Ltd.
+> > + *
+> > + * Author: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> > + */
+> > +
+> > +/dts-v1/;
+> > +
+> > +#include "stm32mp157c-dk2.dts"
+> =
+
+> In this case what is the aim of this series if you just use stm32mp157C
+> devicetree ?
+
+This patch series aims to add support for the STM32MP157F board device =
+
+tree. The primary motivation is to ensure that users working with the =
+
+STM32MP157F variant have a reference DTS available. Currently, no such =
+
+device tree exists, even though the STM32MP157F and STM32MP157C are =
+
+largely similar.
+
+> ST people (mainly Am=E9lie) are preparing a full support of
+> STM32MP157F-DK2 leveraging the F variant compare to the C variant.
+> Series will be sent this week.
+
+If ST is working on a dedicated DTS for the F variant, it's likely they are=
+ starting =
+
+from the C variant as a base, this is exactly the approach I=92ve taken her=
+e. At this =
+
+stage, I have not included an SCMI-based version of the board since it hasn=
+'t =
+
+been tested yet.
+
+Please let me know if you have any further suggestions.
+
+
+Best Regards,
+Himanshu
+
+> Regards
+> Alex
+> =
+
+> > +
+> > +/ {
+> > +=A0=A0=A0=A0 model =3D "STMicroelectronics STM32MP157F-DK2 Discovery B=
+oard";
+> > +=A0=A0=A0=A0 compatible =3D "st,stm32mp157f-dk2", "st,stm32mp157";
+> > +};
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
