@@ -2,56 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E65AC4EF8
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 14:57:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC0BEAC4F43
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 15:06:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9246DC36B1E;
-	Tue, 27 May 2025 12:57:03 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82262C36B20;
+	Tue, 27 May 2025 13:06:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71EA6C36B19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A817C36B1E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 12:57:02 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 6397F43A20;
- Tue, 27 May 2025 12:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1748350622;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pvZ9huD4LI30UeuMWHiYyzRnbuqvMT4vG4k0kQwsXFI=;
- b=ULy72exI63Ba8S3IBJFigMySEMXjDhoJa+JGvaoBwixoogOybnutxBk7+8Ir8p1I6jCmAx
- FxsRP/8Uqr/Z/hjjZVQhPOQql9Jm8nmAmpE+thknL9UO7AFiQRMr27rElXR/3RLkEoGsEN
- EOkz/6+XDsaCtBBqTLJtL1pcuVr3de3J1guRgB1H9njfx2JMi4NYzN3MYmdvGpuRydKpsk
- l/lMXKaFUeXKIj3808pLVWRm/VB2RtIfVsWrMZpWvLZkHdXhVYS6zWqGz4nmpE665y5Ruz
- Q5o2VhIHbOeM0TEfJsi9lKL1zGropxcmMXaWO9XL+beEI0e/EErh3sYX+TdO3g==
-Date: Tue, 27 May 2025 14:56:59 +0200
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Quentin Schulz <foss+kernel@0leil.net>
-Message-ID: <20250527145659.00bd10ae@device-24.home>
-In-Reply-To: <20250527-stmmac-mdio-bus_id-v2-1-a5ca78454e3c@cherry.de>
-References: <20250527-stmmac-mdio-bus_id-v2-1-a5ca78454e3c@cherry.de>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+ Tue, 27 May 2025 13:06:18 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54RAUYAu012749;
+ Tue, 27 May 2025 15:06:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=ZyUHCE5D6jcUxtjUukL1pd
+ 72/M6NGBITAWNwlrkvHyk=; b=P/Sh8j3fjKcMfz+7vdIvt8wiKxAwLYXJ120DEW
+ HbZR1X9Q83e3Ofc4BnNS7eo11Ca0qUWPVwRdvgBxUovTsPwF6Tp5dBLLSUoY7hBM
+ gI8yvawBvhLpNlJgzUllJKPCqc4o2g2um8MdFBzOBII5AJJYsgZYOOCTNktDx1UW
+ rkD5XGlBUvc+TVpEqF0TinfO242qD2mHbkxey0FcZ24sBYVBGp04ZEAHhs/re30B
+ wI9n6iHbPV5ZhQ9HNCXv88Y0UYG336/ft6qdEb8gsEG78veHBTCMUix/7QfJW+2S
+ jqXgPrzFRmv2D1VNQJkWgw47LKHGLorv0Zs7GJutYKCCTkZg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 46uqp4j1qk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 May 2025 15:06:04 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E707040046;
+ Tue, 27 May 2025 15:04:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DCB7DAE0792;
+ Tue, 27 May 2025 15:03:46 +0200 (CEST)
+Received: from localhost (10.48.86.139) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
+ 2025 15:03:46 +0200
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Date: Tue, 27 May 2025 15:03:16 +0200
+Message-ID: <20250527-stm32mp157f-dk2-v1-0-8aef885a4928@foss.st.com>
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvtdeggeculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkjghfohfogggtgfesthejredtredtvdenucfhrhhomhepofgrgihimhgvucevhhgvvhgrlhhlihgvrhcuoehmrgigihhmvgdrtghhvghvrghllhhivghrsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeegveeltddvveeuhefhvefhlefhkeevfedtgfeiudefffeiledttdfgfeeuhfeukeenucfkphepvdgrtddumegtsgduleemkegugeehmeegledttdemhedvrgefmeejsgeludemudehtgelmegtledtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtudemtggsudelmeekugegheemgeeltddtmeehvdgrfeemjegsledumeduhegtleemtgeltdeipdhhvghlohepuggvvhhitggvqddvgedrhhhomhgvpdhmrghilhhfrhhomhepmhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudehpdhrtghpthhtohepfhhoshhsodhkvghrnhgvlhestdhlvghilhdrnhgvthdprhgtphhtthhopegrnhgurhgvfidonhgvthguvghvsehluhhnnhdrtghhpdhrtghpthhtohepuggrv
- hgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphhtthhopegvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtohepkhhusggrsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehprggsvghnihesrhgvughhrghtrdgtohhmpdhrtghpthhtohepmhgtohhquhgvlhhinhdrshhtmhefvdesghhmrghilhdrtghomhdprhgtphhtthhopegrlhgvgigrnhgurhgvrdhtohhrghhuvgesfhhoshhsrdhsthdrtghomh
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Cc: linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
- Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Quentin Schulz <quentin.schulz@cherry.de>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: platform: guarantee
- uniqueness of bus_id
+X-B4-Tracking: v=1; b=H4sIABS4NWgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDUyNz3eKSXGOj3AJDU/M03ZRsI12jRBMLk0QDQ0tz40QloK6CotS0zAq
+ widGxtbUAHz6zzmEAAAA=
+X-Change-ID: 20250527-stm32mp157f-dk2-2a484a01973a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.86.139]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-27_06,2025-05-27_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/5] Introduce STM32MP157F-DK2 board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,38 +81,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Quentin,
+The main hardware difference with STM32MP157C-DK2 board is the SoC: 'F'
+variant embeds a STM32MP157F SoC, which has the same level of features
+than a STM32MP157C SoC but A7 clock frequency can reach 800Mhz (instead
+of fixed 650Mhz for 'C' variant). That's why
+stm32mp15xa/stm32mp15xd/stm32mp15xd dtsi are introduced, pending cpufreq
+support.
+stm32mp157f-dk2 device tree reuses the existing sketeton for STM32MP15
+DKx boards, but it is SCMI-based with I2C4 & PMIC managed by OP-TEE,
+like other STM32 MPU boards (STM32MP135F-DK, STM32MP257F-DK/EV1, ...).
 
-On Tue, 27 May 2025 13:56:23 +0200
-Quentin Schulz <foss+kernel@0leil.net> wrote:
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+Alexandre Torgue (1):
+      ARM: dts: stm32: fullfill diversity with OPP for STM32M15x SOCs
 
-> From: Quentin Schulz <quentin.schulz@cherry.de>
-> 
-> bus_id is currently derived from the ethernetX alias. If one is missing
-> for the device, 0 is used. If ethernet0 points to another stmmac device
-> or if there are 2+ stmmac devices without an ethernet alias, then bus_id
-> will be 0 for all of those.
-> 
-> This is an issue because the bus_id is used to generate the mdio bus id
-> (new_bus->id in drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> stmmac_mdio_register) and this needs to be unique.
-> 
-> This allows to avoid needing to define ethernet aliases for devices with
-> multiple stmmac controllers (such as the Rockchip RK3588) for multiple
-> stmmac devices to probe properly.
-> 
-> Obviously, the bus_id isn't guaranteed to be stable across reboots if no
-> alias is set for the device but that is easily fixed by simply adding an
-> alias if this is desired.
-> 
-> Fixes: 25c83b5c2e82 ("dt:net:stmmac: Add support to dwmac version 3.610 and 3.710")
-> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Amelie Delaunay (2):
+      ARM: dts: stm32: use 'typec' generic name for stusb1600 on stm32mp15xx-dkx
+      ARM: dts: stm32: add stm32mp157f-dk2 board support
 
-This looks correct, thanks !
+Etienne Carriere (1):
+      dt-bindings: regulator: Add STM32MP15 SCMI regulator identifiers
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Himanshu Bhavani (1):
+      dt-bindings: arm: stm32: add STM32MP157F-DK2 board compatible
 
-Maxime
+ .../devicetree/bindings/arm/stm32/stm32.yaml       |   1 +
+ arch/arm/boot/dts/st/Makefile                      |   1 +
+ arch/arm/boot/dts/st/stm32mp157f-dk2.dts           | 174 ++++++++++++++
+ arch/arm/boot/dts/st/stm32mp157x-dk2-scmi.dtsi     | 252 +++++++++++++++++++++
+ arch/arm/boot/dts/st/stm32mp15xa.dtsi              |   5 +
+ arch/arm/boot/dts/st/stm32mp15xc.dtsi              |   4 +-
+ arch/arm/boot/dts/st/stm32mp15xd.dtsi              |   5 +
+ arch/arm/boot/dts/st/stm32mp15xf.dtsi              |  20 ++
+ arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi          |   2 +-
+ .../dt-bindings/regulator/st,stm32mp15-regulator.h |  32 +++
+ 10 files changed, 494 insertions(+), 2 deletions(-)
+---
+base-commit: dc392342b7bb14b12f2de96201937cb02be7802f
+change-id: 20250527-stm32mp157f-dk2-2a484a01973a
+
+Best regards,
+-- 
+Amelie Delaunay <amelie.delaunay@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
