@@ -2,111 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98668AC4C27
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 12:21:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D096AC4DF0
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 13:56:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43A2AC36B19;
-	Tue, 27 May 2025 10:21:35 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC3C4C36B1E;
+	Tue, 27 May 2025 11:56:48 +0000 (UTC)
+Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch
+ [185.125.25.12])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C561DC36B18
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28AD6C36B19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 10:21:33 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 098A44397B;
- Tue, 27 May 2025 10:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1748341293;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1qHxaZtwrlMsrfQyNNpJZT0YvaiMdkMix0Za1kMxuSc=;
- b=n2jg6VMFAaZOLH1adDk8AISvMQoA1XxSYX/4BTsyXVWGiEdZ0Onwde8/STdc3dkaj5nX/G
- LhU27t8OlPilol5tILhUUDlfhVs5JQaS9lakiZbjrbpMAtSJWARzt2LllxRCGOrxsW8Q2O
- qD/LiFH11SzCCj0trEoye4sZGP/wVuqf3pcg6QjQtEc3qAPZGTlMbLDxSf3lnk6TMPjAtp
- tvXs5xnUv9FnZbNU1i+P5KdioUp2EKUDMejDyuGKqW2G3o0TkWa0oVUwBwWO8h82FWyXNW
- GmAzGHyxZPHpy7lk2hcVGNJABETorhbkBjr3gmqycG1aXN4tLJHKvhHS6d5Eeg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-In-Reply-To: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
-References: <20250509-drm-bridge-convert-to-alloc-api-v3-0-b8bc1f16d7aa@bootlin.com>
-Message-Id: <174834128290.138143.12049855352148769197.b4-ty@bootlin.com>
-Date: Tue, 27 May 2025 12:21:22 +0200
+ Tue, 27 May 2025 11:56:47 +0000 (UTC)
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch
+ [10.4.36.107])
+ by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4b6B1p536tzjYD;
+ Tue, 27 May 2025 13:56:46 +0200 (CEST)
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4b6B1m5HnLzfFg; Tue, 27 May 2025 13:56:44 +0200 (CEST)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Tue, 27 May 2025 13:56:23 +0200
 MIME-Version: 1.0
+Message-Id: <20250527-stmmac-mdio-bus_id-v2-1-a5ca78454e3c@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAGaoNWgC/32NQQ6CMBBFr0Jm7RimlSCuvIchprSDnUXBtJVIC
+ He34QAu3//572+QOAonuFUbRF4kyTwVUKcKrDfTi1FcYVC1aupGEaYcgrEYnMw4fNJTHGrSQ3u
+ xbdtpDWX4jjzK95A+YOIMfQm9pDzH9Tha6Kj+ORdCwo6uRluiYVT2bj3HuJ4dQ7/v+w+TF1Rru
+ QAAAA==
+X-Change-ID: 20250521-stmmac-mdio-bus_id-313b74c77933
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvtddufeculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvegjfhfukfffgggtgffosehtjeertdertdejnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepieefvdehvedvgeeftedugeetudevuedvffekhedvfeetkeduleelgeevudffieeinecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegludelvddrudeikedrudejkedrjeehngdpmhgrihhlfhhrohhmpehluhgtrgdrtggvrhgvshholhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeeljedprhgtphhtthhopehmrghrthhinhdrsghluhhmvghnshhtihhnghhlsehgohhoghhlvghmrghilhdrtghomhdprhgtphhtthhopegrshgrhhhisehlihhsthhsrdhlihhnuhigrdguvghvpdhrtghpthhtoheplhhumhgrg
- heskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghfohhrugdujeefsehgmhgrihhlrdgtohhmpdhrtghpthhtoheplhgruhhrvghnthdrphhinhgthhgrrhhtsehiuggvrghsohhnsghorghrugdrtghomhdprhgtphhtthhopegrughrihgvnhdrghhrrghsshgvihhnsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhsshdrshhtrdgtohhmpdhrtghpthhtoheprghnghgvlhhoghhiohgrtggthhhinhhordguvghlrhgvghhnohestgholhhlrggsohhrrgdrtghomh
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: imx@lists.linux.dev, Sui Jingfeng <sui.jingfeng@linux.dev>,
- Hsin-Te Yuan <yuanhsinte@chromium.org>,
- Sasha Finkelstein <fnkl.kernel@gmail.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-doc@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Vitalii Mordan <mordan@ispras.ru>,
- Peter Senna Tschudin <peter.senna@gmail.com>, dri-devel@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org,
- Martyn Welch <martyn.welch@collabora.co.uk>,
- Biju Das <biju.das.jz@bp.renesas.com>, Aleksandr Mishin <amishin@t-argos.ru>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Guenter Roeck <groeck@chromium.org>, Michal Simek <michal.simek@amd.com>,
- Janne Grunau <j@jannau.net>, linux-stm32@st-md-mailman.stormreply.com,
- Heiko Stuebner <heiko@sntech.de>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- Aradhya Bhatia <a-bhatia1@ti.com>, Jonathan Corbet <corbet@lwn.net>,
- Benson Leung <bleung@chromium.org>, Helge Deller <deller@gmx.de>,
- Anusha Srivatsa <asrivats@redhat.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Sugar Zhang <sugar.zhang@rock-chips.com>, Liu Ying <victor.liu@nxp.com>,
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>, Phong LE <ple@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- "Rob Herring \(Arm\)" <robh@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>,
- Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
- Inki Dae <inki.dae@samsung.com>, Pin-yen Lin <treapking@chromium.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- linux-mediatek@lists.infradead.org, Ian Ray <ian.ray@gehealthcare.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, linux-amlogic@lists.infradead.org,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, Adam Ford <aford173@gmail.com>,
- Xin Ji <xji@analogixsemi.com>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Christoph Fritz <chf.fritz@googlemail.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- asahi@lists.linux.dev, Jesse Van Gavere <jesseevg@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Andy Yan <andy.yan@rock-chips.com>, freedreno@lists.freedesktop.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH v3 00/22] drm: convert all
- bridges to devm_drm_bridge_alloc()
+X-Infomaniak-Routing: alpha
+Cc: Heiko Stuebner <heiko@sntech.de>,
+ Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v2] net: stmmac: platform: guarantee
+ uniqueness of bus_id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,25 +58,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-On Fri, 09 May 2025 15:53:26 +0200, Luca Ceresoli wrote:
-> devm_drm_bridge_alloc() [0] is the new API to allocate and initialize a DRM
-> bridge, and the only one supported from now on. It is the first milestone
-> towards removal of bridges from a still existing DRM pipeline without
-> use-after-free.
-> 
-> The steps in the grand plan [1] are:
-> 
-> [...]
+bus_id is currently derived from the ethernetX alias. If one is missing
+for the device, 0 is used. If ethernet0 points to another stmmac device
+or if there are 2+ stmmac devices without an ethernet alias, then bus_id
+will be 0 for all of those.
 
-Applied, thanks!
+This is an issue because the bus_id is used to generate the mdio bus id
+(new_bus->id in drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+stmmac_mdio_register) and this needs to be unique.
 
-[18/22] drm/bridge: imx8qxp-pixel-combiner: convert to devm_drm_bridge_alloc() API
-        commit: 99764593528f9e0ee9509f9e4a4eb21db99d0681
+This allows to avoid needing to define ethernet aliases for devices with
+multiple stmmac controllers (such as the Rockchip RK3588) for multiple
+stmmac devices to probe properly.
+
+Obviously, the bus_id isn't guaranteed to be stable across reboots if no
+alias is set for the device but that is easily fixed by simply adding an
+alias if this is desired.
+
+Fixes: 25c83b5c2e82 ("dt:net:stmmac: Add support to dwmac version 3.610 and 3.710")
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+Unsure if I should cc stable since people who encountered that issue for
+sure had to add an ethernet alias to make things work with their DT so
+shouldn't be too much of an actual issue?
+
+Based on Paolo's feedback, have a Fixes tag regardless of the answer to
+the above question.
+---
+Changes in v2:
+- added Fixes tag,
+- Link to v1: https://lore.kernel.org/r/20250521-stmmac-mdio-bus_id-v1-1-918a3c11bf2c@cherry.de
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index c73eff6a56b87a3783c91b2ffbf5807a27df303f..15205a47cafc276442c3759a36d115d8da1fe51d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -430,6 +430,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct plat_stmmacenet_data *plat;
+ 	struct stmmac_dma_cfg *dma_cfg;
++	static int bus_id = -ENODEV;
+ 	int phy_mode;
+ 	void *ret;
+ 	int rc;
+@@ -465,8 +466,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	of_property_read_u32(np, "max-speed", &plat->max_speed);
+ 
+ 	plat->bus_id = of_alias_get_id(np, "ethernet");
+-	if (plat->bus_id < 0)
+-		plat->bus_id = 0;
++	if (plat->bus_id < 0) {
++		if (bus_id < 0)
++			bus_id = of_alias_get_highest_id("ethernet");
++		/* No ethernet alias found, init at -1 so first bus_id is 0 */
++		if (bus_id < 0)
++			bus_id = -1;
++		plat->bus_id = ++bus_id;
++	}
+ 
+ 	/* Default to phy auto-detection */
+ 	plat->phy_addr = -1;
+
+---
+base-commit: 4a95bc121ccdaee04c4d72f84dbfa6b880a514b6
+change-id: 20250521-stmmac-mdio-bus_id-313b74c77933
 
 Best regards,
 -- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+Quentin Schulz <quentin.schulz@cherry.de>
 
 _______________________________________________
 Linux-stm32 mailing list
