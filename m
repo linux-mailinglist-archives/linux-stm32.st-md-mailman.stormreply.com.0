@@ -2,56 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9FECAC530A
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 18:31:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7B9AC596C
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 19:56:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B8B5C36B19;
-	Tue, 27 May 2025 16:31:10 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88F92C36B19;
+	Tue, 27 May 2025 17:56:33 +0000 (UTC)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60BF3C36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE3ADC36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 16:31:09 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 538A81FCF2;
- Tue, 27 May 2025 16:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1748363469;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UZYLROFC13QWr0WtIHITpKv2k/IYMUKl/Ik95XSzStc=;
- b=IhRDeJrS9jEMuIKBecnBJriiCigzhovdLdAo8PcxOnxSCbLHAg2pE5zE5zYVmw1R4+039U
- CK8W6lC0U0n5puU297QfUE5VkxhETbk9T+KybDCrRlalPEUgCI6a0740UOxd5Sbwd3cSL2
- mYH8HJ8au6B/lR5hCQcIYrJhJye69OOHxk3cD3dKL0RXz7SNYbNHAEaaoAxe5DOl+XHiNp
- hu2gde3xzMIE+FeM8/T8HK4PBLAbR+2FWXws0XHzYk8mKOP1L7b/Qv0aa9Dm4dU5Z6Me3B
- 0gtdejge1087acIokX/hgKqRFBJKeJRrdTYh4v+2O5SPx6Mj07/+3K8M5YqlMg==
-Date: Tue, 27 May 2025 18:31:05 +0200
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>
-Message-ID: <20250527183105.7c4bad49@device-24.home>
-In-Reply-To: <20250527-stmmac_tstamp_div-v2-1-663251b3b542@bootlin.com>
-References: <20250527-stmmac_tstamp_div-v2-1-663251b3b542@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+ Tue, 27 May 2025 17:56:31 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-7c58974ed57so344065285a.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 May 2025 10:56:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748368590; x=1748973390;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=IPUtRZCUnFZ7fKGOw1Jpk2HWn1qQCq7jH3D4oTNvVwdo3VBn0PP0b9C1K8oVGSMS7L
+ gHcL8mjbnO6CbKOk4QGGg0SwH0At9HTDvCF35tT23oM9/Lq3qV9FY9/flTdNWbMkjxEv
+ YfAekRt2mt9dHpx4yXHgGzGflogLlbbt30YVsPFQR5HnJZmGPL7Y48RJGrZPq7l7pl/z
+ RhBGIHlkhWe4prPqPu+ZlN95uHPKyx4Jg4rhfsJsP/4sDtFd+c7AAJ2bjHAysCWqjh/l
+ TM/Vjyfr+MTkE0nl0jfxesqVhYXce87WxZd7FykMrg8nIM8oAoZphsPxcsWRFsAUufYM
+ enJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748368590; x=1748973390;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QlxuW8EiAaobylr07WlFl9Wc9Vavh5mNNDPDEO1zHCA=;
+ b=ECQGHfK6jNrxCOqfMl/Zdu+xhjCCF3is5sMoT470g/Sq1lCK6bd9Rd3yTH3BX+6STK
+ pJ2JWbIDrmqtypeKlvnE3VL5AI/N92DNO2bwM5+9OZjD3yrY//ff8nk7bc9BxuP5F9k6
+ Lt6uGsZTp6yLMsJfCpWC/RzHDGh/cqdzvm9iSrmncoHXQyNjG+gr2dkDsUOaDt6AIPvT
+ bwYlUVFEa5vnZanjckMx2AVN8rd+wlnGW7PmbJKgcpGCM1Gz8UG67PkB/Drt1l53RDJk
+ PIM2dTCCoB1a5Iesn48Ytw3tR2mDv54gywVI5fJuKmTTspMcY0TfXOUZaj+HbG4Fh2So
+ QUnA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUDvy3MfZeuzDfUVn335vI132t72bbMk759o0hachhkGoxYn1DlBCL9XRJvCc4halljRbBu+TyhBXDMg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxE88e0iWGTbNyVnG4sp3pePLXia4MU9AUqf7u6c2HQQZYuBVyG
+ 7FQ9n/4jZFV7uQuMwlez3DGrejx6YBAPTSIgaxvZi2Sx3fDMKs8CkeCk37om+Hi9T1A=
+X-Gm-Gg: ASbGncu5inAg/4FkTuaMuMef66/gmSCpw6pBTD45arOR9xVwCS6uAvpl1Hk7CgoZCya
+ fqkD6d7j/vYyIIgnwjZeU0JLgXjKA4+wY0kMvOn3dGCm1nlfzi8BZjE2Wi64962W4wP28ophLoj
+ 6kRbiA8Cy7Z642E4gJRfZMNAei4Etj397syfmGhT7CqBbk1u6Zpe1FsmBJN6i9QpnWaWtpBVlnC
+ x1XaPJu+TnVQjT+0r6/dMRTHM3CK2+Gg09MP4SF20RTFP5mUATv6d4smm2ta3oP+vQYiGfXpDC1
+ hg6d3O6gzN18gjrI2oZOX7KzpM+IQCkaf60uo/f4FNfcpFleRkOdnozT/rR427mBA8Uv2sQpCHI
+ 3LvQM3TzQmwU6o+cdXF6CTIjHyCSmxA==
+X-Google-Smtp-Source: AGHT+IFLIO0D64jUevJ/lz7zQvSZw2ntrY7H7wTTGXZU+ByFDYJ39AXVKInapU4LgwZEqDykU4orhg==
+X-Received: by 2002:a05:6e02:154e:b0:3dc:87c7:a5b5 with SMTP id
+ e9e14a558f8ab-3dc9b67fdd9mr138337085ab.3.1748368579606; 
+ Tue, 27 May 2025 10:56:19 -0700 (PDT)
+Received: from james-x399.localdomain (97-118-146-220.hlrn.qwest.net.
+ [97.118.146.220]) by smtp.gmail.com with ESMTPSA id
+ e9e14a558f8ab-3dc82e014f4sm38082275ab.40.2025.05.27.10.56.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 May 2025 10:56:19 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+To: netdev@vger.kernel.org
+Date: Tue, 27 May 2025 11:55:54 -0600
+Message-Id: <20250527175558.2738342-1-james.hilliard1@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvtdekieculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkjghfohfogggtgfesthhqredtredtjeenucfhrhhomhepofgrgihimhgvucevhhgvvhgrlhhlihgvrhcuoehmrgigihhmvgdrtghhvghvrghllhhivghrsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeekheegieejkeetfffhleehteffgefhfffhueefieefffejfeethfevudetudeuueenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecukfhppeeltddrjeeirdeivddrudejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrjeeirdeivddrudejuddphhgvlhhopeguvghvihgtvgdqvdegrdhhohhmvgdpmhgrihhlfhhrohhmpehmrgigihhmvgdrtghhvghvrghllhhivghrsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeduiedprhgtphhtthhopegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdprhgtphhtthhopegrlhgvgigrnhgurhgvrdhtohhrghhuvgesfhhoshhsrdhsthdrtghomhdprhgtphhtthhopehjohgrsghrvghusehshihnohhpshihshdrtghomhdprhgtphhtt
- hhopegrnhgurhgvfidonhgvthguvghvsehluhhnnhdrtghhpdhrtghpthhtohepuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphhtthhopegvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtohepkhhusggrsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehprggsvghnihesrhgvughhrghtrdgtohhm
-X-GND-Sasl: maxime.chevallier@bootlin.com
-Cc: Phil Reid <preid@electromag.com.au>, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+Cc: Furong Xu <0x1207@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ James Hilliard <james.hilliard1@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: add explicit check and
- error on invalid PTP clock rate
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-sunxi@lists.linux.dev, Russell King <linux@armlinux.org.uk>
+Subject: [Linux-stm32] [PATCH v2 1/3] net: stmmac: allow drivers to
+	explicitly select PHY device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,78 +91,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQWxleGlzLAoKT24gVHVlLCAyNyBNYXkgMjAyNSAwODozMzo0NCArMDIwMApBbGV4aXMgTG90
-aG9yw6kgPGFsZXhpcy5sb3Rob3JlQGJvb3RsaW4uY29tPiB3cm90ZToKCj4gVGhlIHN0bW1hYyBw
-bGF0Zm9ybSBkcml2ZXJzIHRoYXQgZG8gbm90IG9wZW4tY29kZSB0aGUgY2xrX3B0cF9yYXRlIHZh
-bHVlCj4gYWZ0ZXIgaGF2aW5nIHJldHJpZXZlZCB0aGUgZGVmYXVsdCBvbmUgZnJvbSB0aGUgZGV2
-aWNlLXRyZWUgY2FuIGVuZCB1cAo+IHdpdGggMCBpbiBjbGtfcHRwX3JhdGUgKGFzIGNsa19nZXRf
-cmF0ZSBjYW4gcmV0dXJuIDApLiBJdCB3aWxsCj4gZXZlbnR1YWxseSBwcm9wYWdhdGUgdXAgdG8g
-UFRQIGluaXRpYWxpemF0aW9uIHdoZW4gYnJpbmdpbmcgdXAgdGhlCj4gaW50ZXJmYWNlLCBsZWFk
-aW5nIHRvIGEgZGl2aWRlIGJ5IDA6Cj4gCj4gIERpdmlzaW9uIGJ5IHplcm8gaW4ga2VybmVsLgo+
-ICBDUFU6IDEgVUlEOiAwIFBJRDogMSBDb21tOiBzd2FwcGVyLzAgTm90IHRhaW50ZWQgNi4xMi4z
-MC0wMDAwMS1nNDgzMTNiZDU3NjhhICMyMgo+ICBIYXJkd2FyZSBuYW1lOiBTVE0zMiAoRGV2aWNl
-IFRyZWUgU3VwcG9ydCkKPiAgQ2FsbCB0cmFjZToKPiAgIHVud2luZF9iYWNrdHJhY2UgZnJvbSBz
-aG93X3N0YWNrKzB4MTgvMHgxYwo+ICAgc2hvd19zdGFjayBmcm9tIGR1bXBfc3RhY2tfbHZsKzB4
-NmMvMHg4Ywo+ICAgZHVtcF9zdGFja19sdmwgZnJvbSBMZGl2MF82NCsweDgvMHgxOAo+ICAgTGRp
-djBfNjQgZnJvbSBzdG1tYWNfaW5pdF90c3RhbXBfY291bnRlcisweDE5MC8weDFhNAo+ICAgc3Rt
-bWFjX2luaXRfdHN0YW1wX2NvdW50ZXIgZnJvbSBzdG1tYWNfaHdfc2V0dXArMHhjMWMvMHgxMTFj
-Cj4gICBzdG1tYWNfaHdfc2V0dXAgZnJvbSBfX3N0bW1hY19vcGVuKzB4MThjLzB4NDM0Cj4gICBf
-X3N0bW1hY19vcGVuIGZyb20gc3RtbWFjX29wZW4rMHgzYy8weGJjCj4gICBzdG1tYWNfb3BlbiBm
-cm9tIF9fZGV2X29wZW4rMHhmNC8weDFhYwo+ICAgX19kZXZfb3BlbiBmcm9tIF9fZGV2X2NoYW5n
-ZV9mbGFncysweDFjYy8weDIyNAo+ICAgX19kZXZfY2hhbmdlX2ZsYWdzIGZyb20gZGV2X2NoYW5n
-ZV9mbGFncysweDI0LzB4NjAKPiAgIGRldl9jaGFuZ2VfZmxhZ3MgZnJvbSBpcF9hdXRvX2NvbmZp
-ZysweDJlOC8weDExYTAKPiAgIGlwX2F1dG9fY29uZmlnIGZyb20gZG9fb25lX2luaXRjYWxsKzB4
-ODQvMHgzM2MKPiAgIGRvX29uZV9pbml0Y2FsbCBmcm9tIGtlcm5lbF9pbml0X2ZyZWVhYmxlKzB4
-MWI4LzB4MjE0Cj4gICBrZXJuZWxfaW5pdF9mcmVlYWJsZSBmcm9tIGtlcm5lbF9pbml0KzB4MjQv
-MHgxNDAKPiAgIGtlcm5lbF9pbml0IGZyb20gcmV0X2Zyb21fZm9yaysweDE0LzB4MjgKPiAgRXhj
-ZXB0aW9uIHN0YWNrKDB4ZTA4MTVmYjAgdG8gMHhlMDgxNWZmOCkKPiAKPiBQcmV2ZW50IHRoaXMg
-ZGl2aXNpb24gYnkgMCBieSBhZGRpbmcgYW4gZXhwbGljaXQgY2hlY2sgYW5kIGVycm9yIGxvZwo+
-IGFib3V0IHRoZSBhY3R1YWwgaXNzdWUuCj4gCj4gRml4ZXM6IDE5ZDg1N2M5MDM4ZSAoInN0bW1h
-YzogRml4IGNhbGN1bGF0aW9ucyBmb3IgcHRwIGNvdW50ZXJzIHdoZW4gY2xvY2sgaW5wdXQgPSA1
-ME1oei4iKQo+IFNpZ25lZC1vZmYtYnk6IEFsZXhpcyBMb3Rob3LDqSA8YWxleGlzLmxvdGhvcmVA
-Ym9vdGxpbi5jb20+Cj4gLS0tCj4gQ2hhbmdlcyBpbiB2MjoKPiAtIEFkZCBGaXhlcyB0YWcKPiAt
-IFJld29yZCBjb21taXQgbWVzc2FnZSB0byBjbGFyaWZ5IHRoZSB0cmlnZ2VyaW5nIGNhdXNlIG9m
-IHRoZSBpc3N1ZQo+IC0gTGluayB0byB2MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI1
-MDUyMy1zdG1tYWNfdHN0YW1wX2Rpdi12MS0xLWJjYThhNWEzYTQ3N0Bib290bGluLmNvbQo+IC0t
-LQo+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIHwg
-NSArKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgYi9k
-cml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCj4gaW5kZXgg
-OTE4ZDdmMmU4YmE5OTIyMDhkN2Q2NTIxYTFlOWRiYTAxMDg2MDU4Zi4uZjY4ZTNlY2U5MTljYzg4
-ZDBiZjE5OWEzOTRiYzdlNDRiNWRlZTA5NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhl
-cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCj4gKysrIGIvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwo+IEBAIC04MzUsNiArODM1LDExIEBA
-IGludCBzdG1tYWNfaW5pdF90c3RhbXBfY291bnRlcihzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYs
-IHUzMiBzeXN0aW1lX2ZsYWdzKQo+ICAJaWYgKCEocHJpdi0+ZG1hX2NhcC50aW1lX3N0YW1wIHx8
-IHByaXYtPmRtYV9jYXAuYXRpbWVfc3RhbXApKQo+ICAJCXJldHVybiAtRU9QTk9UU1VQUDsKPiAg
-Cj4gKwlpZiAoIXByaXYtPnBsYXQtPmNsa19wdHBfcmF0ZSkgewo+ICsJCW5ldGRldl9lcnIocHJp
-di0+ZGV2LCAiSW52YWxpZCBQVFAgY2xvY2sgcmF0ZSIpOwo+ICsJCXJldHVybiAtRUlOVkFMOwo+
-ICsJfQo+ICsKPiAgCXN0bW1hY19jb25maWdfaHdfdHN0YW1waW5nKHByaXYsIHByaXYtPnB0cGFk
-ZHIsIHN5c3RpbWVfZmxhZ3MpOwo+ICAJcHJpdi0+c3lzdGltZV9mbGFncyA9IHN5c3RpbWVfZmxh
-Z3M7CgpUaGlzIG1heSBiZSBzb21lIG5pdHBpY2sgdGhhdCBjYW4gYmUgYWRkcmVzc2VkIGF0IGEg
-bGF0ZXIgcG9pbnQsIGJ1dCB3ZQpub3cgaGF2ZSBhIGd1YXJhbnRlZSB0aGF0IHdoZW4gc3RtbWFj
-X3B0cF9yZWdpc3RlcigpIGdldHMgY2FsbGVkLApwcml2LT5wdHBfY2xrX3JhdGUgaXMgbm9uLXpl
-cm8sIHJpZ2h0ID8gSWYgc28sIHdlIGNhbiBkcm9wIHRoZSB0ZXN0IGluCnNhaWQgZnVuY3Rpb24g
-OgoKCWlmIChwcml2LT5wbGF0LT5oYXNfZ21hYzQgJiYgcHJpdi0+cGxhdC0+Y2xrX3B0cF9yYXRl
-KQoJCXByaXYtPnBsYXQtPmNkY19lcnJvcl9hZGogPSAoMiAqIE5TRUNfUEVSX1NFQykgLyBwcml2
-LT5wbGF0LT5jbGtfcHRwX3JhdGU7CgpUaGVyZSBpcyBhbm90aGVyIHNwb3QgaW4gdGhlIGNvZGUs
-IGxpa2UgaW4gdGhlIEVTVCBoYW5kbGluZywgd2hlcmUgd2UKZGl2aWRlIGJ5IHByaXYtPnBsYXQt
-PnB0cF9jbGtfcmF0ZSA6CgpzdG1tYWNfYWRqdXN0X3RpbWUoLi4uKQoJc3RtbWFjX2VzdF9jb25m
-aWd1cmUocHJpdiwgcHJpdiwgcHJpdi0+ZXN0LAoJCQkgICAgIHByaXYtPnBsYXQtPmNsa19wdHBf
-cmF0ZSkKCQkuZXN0X2NvbmZpZ3VyZSgpCgkJCWN0cmwgfD0gKChOU0VDX1BFUl9TRUMgLyBwdHBf
-cmF0ZSkgWy4uLl0KCk1heWJlIHdlIHNob3VsZCBmYWlsIEVTVCBjb25maWd1cmF0aW9uIGFzIHdl
-bGwgaWYgcHRwX2Nsa19yYXRlIGlzIDAKKHByb2JhYmx5IGluIHN0bW1hY190Yy5jJ3MgdGNfdGFw
-cmlvX2NvbmZpZ3VyZSBvciBpbiB0aGUKLmVzdF9jb25maWd1cmUpLiBUaGF0IGNhbiBiZSBhIHN0
-ZXAgZm9yIGxhdGVyIGFzIHdlbGwsIGFzIEkgZG9uJ3Qga25vdwppZiB0aGUgc2V0dXAgeW91IGZv
-dW5kIHRoaXMgYnVnIG9uIGV2ZW4gc3VwcG9ydHMgdGFwcmlvL0VTVCwgYW5kIHNldHVwcwp0aGF0
-IGRvIGRpZG4ndCBzZWVtIHRvIGVuY291bnRlciB0aGUgYnVnIHlldC4KCkJlc2lkZXMgYWxsIHRo
-YXQsCgpSZXZpZXdlZC1ieTogTWF4aW1lIENoZXZhbGxpZXIgPG1heGltZS5jaGV2YWxsaWVyQGJv
-b3RsaW4uY29tPgoKVGhhbmtzLAoKTWF4aW1lCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Some devices like the Allwinner H616 need the ability to select a phy
+in cases where multiple PHY's may be present in a device tree due to
+needing the ability to support multiple SoC variants with runtime
+PHY selection.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 59d07d0d3369..949c4a8a1456 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1210,17 +1210,25 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	 */
+ 	if (!phy_fwnode || IS_ERR(phy_fwnode)) {
+ 		int addr = priv->plat->phy_addr;
+-		struct phy_device *phydev;
++		struct phy_device *phydev = NULL;
+ 
+-		if (addr < 0) {
+-			netdev_err(priv->dev, "no phy found\n");
+-			return -ENODEV;
++		if (priv->plat->phy_node) {
++			phy_fwnode = of_fwnode_handle(priv->plat->phy_node);
++			phydev = fwnode_phy_find_device(phy_fwnode);
++			fwnode_handle_put(phy_fwnode);
+ 		}
+ 
+-		phydev = mdiobus_get_phy(priv->mii, addr);
+ 		if (!phydev) {
+-			netdev_err(priv->dev, "no phy at addr %d\n", addr);
+-			return -ENODEV;
++			if (addr < 0) {
++				netdev_err(priv->dev, "no phy found\n");
++				return -ENODEV;
++			}
++
++			phydev = mdiobus_get_phy(priv->mii, addr);
++			if (!phydev) {
++				netdev_err(priv->dev, "no phy at addr %d\n", addr);
++				return -ENODEV;
++			}
+ 		}
+ 
+ 		ret = phylink_connect_phy(priv->phylink, phydev);
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
