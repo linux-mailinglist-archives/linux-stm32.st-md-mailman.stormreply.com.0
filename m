@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 020F1AC4F59
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 15:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E90AC4F63
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 May 2025 15:13:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8538C36B1E;
-	Tue, 27 May 2025 13:09:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06B06C36B1E;
+	Tue, 27 May 2025 13:13:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73830C36B19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02E5EC36B19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 May 2025 13:09:25 +0000 (UTC)
+ Tue, 27 May 2025 13:13:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A90061137;
- Tue, 27 May 2025 13:09:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03EAEC4CEE9;
- Tue, 27 May 2025 13:09:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 82EBA5C55D1;
+ Tue, 27 May 2025 13:10:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A14DC4CEE9;
+ Tue, 27 May 2025 13:12:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748351364;
- bh=/1X8b2Yqe7zoD0J2HHL7aZvUuRibP3oiKjaMMMz21ZY=;
+ s=k20201202; t=1748351579;
+ bh=dzGbsJp//zG7Ib4jWbLdhkmBxjqHy4GxwjXSB0ekCFg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GIUfW36JSn0HfPXog+nk1fPTmjpozOgLdwQ48eezCzo36dcbP2B/9O/2wQR5yDjAH
- 3ZffdSF8o9Z+AgDWAa/DuV91Zz8W1mEAsgdWrK/Q0gFxdBDZC3od+SI7hfiGp0uBoO
- NwZPRLT88oTCdWKVIa696KGGh1TQIRFkJIJ4ZBg3TI51yDnAEbjyJb2xQs8cxF7jRR
- 1H7L1s1jhqsyqxyTmJPceqoKiT73d9YdmKFSe5MTGmZ0RcN8FRsQU/nlzDwnm7Udw3
- 9yoZnvXfCcN74efrLAgojvsmmGRPncPh31mSbtXG1tQv87IzV3MxRo6B6CXcpy1/bE
- 7TgHSM1hMt7nQ==
-Message-ID: <79fac1e2-c90f-49b0-9f9c-357c994b27ad@kernel.org>
-Date: Tue, 27 May 2025 15:09:19 +0200
+ b=qOzwl26JN6O+y041qoX9r0mMR044QBRYuwDcw0qzQmN1G3G38vHvbkM1xjuuIZQke
+ ExKpA99O4IBzVhvQF0VMFkqNgxtTOJNzHYyi95jv81cTKAHBqpdikYp7OqyzpZ5IMQ
+ 2nKBrcz11JWiGg+Hfkf212qytSXEZwK6jfKoKitW0DQ/rQMdyHpdygpKCiZdxST6ss
+ Wr77GYqoxufgtwQEhXUCopGDbk6CwVf5o+EHDKMbYvgLsJLFUbcRhk+MmdPMYksEuT
+ Xa7YPqgr2d7qUwFlD7YFI2d/Z6ykzyqQNkH3L7PmzOi49BAbpYlOV5ZjW38scOi0t9
+ 9aZYbxzzuWO0Q==
+Message-ID: <eec2a1db-717e-46f2-a988-6beefab7b699@kernel.org>
+Date: Tue, 27 May 2025 15:12:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Amelie Delaunay <amelie.delaunay@foss.st.com>,
@@ -39,7 +39,7 @@ To: Amelie Delaunay <amelie.delaunay@foss.st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 References: <20250527-stm32mp157f-dk2-v1-0-8aef885a4928@foss.st.com>
- <20250527-stm32mp157f-dk2-v1-4-8aef885a4928@foss.st.com>
+ <20250527-stm32mp157f-dk2-v1-1-8aef885a4928@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -85,13 +85,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250527-stm32mp157f-dk2-v1-4-8aef885a4928@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/5] dt-bindings: arm: stm32: add
- STM32MP157F-DK2 board compatible
+In-Reply-To: <20250527-stm32mp157f-dk2-v1-1-8aef885a4928@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/5] ARM: dts: stm32: fullfill diversity
+ with OPP for STM32M15x SOCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,15 +107,107 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 27/05/2025 15:03, Amelie Delaunay wrote:
-> From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 > 
-> Add the "st,stm32mp157f-dk2" compatible string to the STM32 SoC
-> bindings. The MP157F is functionally similar to the MP157C.
+> This commit creates new files to manage security features and supported OPP
+> on STM32MP15x SOCs. On STM32MP15xY, "Y" gives information:
+>  -Y = A means no cryp IP and no secure boot + A7-CPU@650MHz.
+>  -Y = C means cryp IP + optee + secure boot + A7-CPU@650MHz.
+>  -Y = D means no cryp IP and no secure boot + A7-CPU@800MHz.
+>  -Y = F means cryp IP + optee + secure boot + A7-CPU@800MHz.
 > 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> It fullfills the initial STM32MP15x SoC diversity introduced by
+> commit 0eda69b6c5f9 ("ARM: dts: stm32: Manage security diversity
+> for STM32M15x SOCs").
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+>  arch/arm/boot/dts/st/stm32mp15xa.dtsi |  5 +++++
+>  arch/arm/boot/dts/st/stm32mp15xc.dtsi |  4 +++-
+>  arch/arm/boot/dts/st/stm32mp15xd.dtsi |  5 +++++
+>  arch/arm/boot/dts/st/stm32mp15xf.dtsi | 20 ++++++++++++++++++++
+>  4 files changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32mp15xa.dtsi b/arch/arm/boot/dts/st/stm32mp15xa.dtsi
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..cb55f5966f74011d12d7a5c6ad047569d25d4e98
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/st/stm32mp15xa.dtsi
+> @@ -0,0 +1,5 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
 
-How did you get Ack on something which is v1? Cover letter does not
-explain any history here.
+You create entirely empty, unused file. There is literally no benefit of
+this file, no impact, just more files to handle.
+
+> + */
+> diff --git a/arch/arm/boot/dts/st/stm32mp15xc.dtsi b/arch/arm/boot/dts/st/stm32mp15xc.dtsi
+> index 97465717f932fc223647af76e88a6182cf3c870f..4d30a2a537f15c1e145635b090de0f0222526579 100644
+> --- a/arch/arm/boot/dts/st/stm32mp15xc.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp15xc.dtsi
+> @@ -1,9 +1,11 @@
+> -// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+
+License change is not explained in commit msg and anyway should be
+separate commit with acks/sobs from all copyright holders. You also need
+to CC them (Cc e.g. Gatien).
+
+>  /*
+>   * Copyright (C) STMicroelectronics 2019 - All Rights Reserved
+>   * Author: Alexandre Torgue <alexandre.torgue@st.com> for STMicroelectronics.
+>   */
+>  
+> +#include "stm32mp15xa.dtsi"
+> +
+>  &etzpc {
+>  	cryp1: cryp@54001000 {
+>  		compatible = "st,stm32mp1-cryp";
+> diff --git a/arch/arm/boot/dts/st/stm32mp15xd.dtsi b/arch/arm/boot/dts/st/stm32mp15xd.dtsi
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..cb55f5966f74011d12d7a5c6ad047569d25d4e98
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/st/stm32mp15xd.dtsi
+> @@ -0,0 +1,5 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+> + */
+
+Same problems.
+
+> diff --git a/arch/arm/boot/dts/st/stm32mp15xf.dtsi b/arch/arm/boot/dts/st/stm32mp15xf.dtsi
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..5f6a2952125d00d468e2e4012024f02380cfaa49
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/st/stm32mp15xf.dtsi
+> @@ -0,0 +1,20 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+> + */
+> +
+> +#include "stm32mp15xd.dtsi"
+> +
+> +/ {
+> +	soc {
+> +		cryp1: cryp@54001000 {
+> +			compatible = "st,stm32mp1-cryp";
+> +			reg = <0x54001000 0x400>;
+> +			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&rcc CRYP1>;
+> +			resets = <&rcc CRYP1_R>;
+> +			status = "disabled";
+> +		};
+> +	};
+> +};
+> 
+
 
 Best regards,
 Krzysztof
