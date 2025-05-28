@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AC4AC6E4D
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 18:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0205CAC6E53
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 18:46:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A697FC36B38;
-	Wed, 28 May 2025 16:46:38 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9D6CC36B38;
+	Wed, 28 May 2025 16:46:57 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D06C1C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32FB2C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 16:46:37 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-22c33677183so922215ad.2
+ Wed, 28 May 2025 16:46:56 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-b2c41acd479so61899a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 09:46:37 -0700 (PDT)
+ Wed, 28 May 2025 09:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1748450796; x=1749055596;
+ d=broadcom.com; s=google; t=1748450815; x=1749055615;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
  bh=bTrLQar6gjTjFnrAkyn0kezzixoXN+IjT1tsTT4veX4=;
- b=gEq0znIVTZE+WsfhsAIKJGQ+Jumf/uV8kcIFWLBARMH+1UpCIvI/ryNxIBwj2+NZSr
- ucco2pJffx8UJMg+ut3cS4us34G49yzV6qmw9jAw97uEaH6oHAt+6lQ8fE07TuKeYs5p
- RqHcoqt+Vwc60DV+dVVE0cuXRSkyfZZQ0wr/M=
+ b=iOgRVA0ubcztjRpy2PAcHNWq/WcTNa6U57qZx3lt8aRm4VVXfK22iizuF2Tqx9qCW9
+ 4JiA6FPm1dG/8I0j8YXk3BFZ/nn3NHoXmr+cj7H6Crm0iYTj01y7sRqu+MDX9RvBheEQ
+ Ti6e5ZKhMjN6PkjMUOv4Ee7wMZ7Vj4rGK7ZnQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748450796; x=1749055596;
+ d=1e100.net; s=20230601; t=1748450815; x=1749055615;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
  bh=bTrLQar6gjTjFnrAkyn0kezzixoXN+IjT1tsTT4veX4=;
- b=XoqF411esSfF2VE4U8oADCNTwrDl1u/MKZX5/VcJQyuYyxQnxFIPNNX+UqhwOOtmKh
- /mqe5Myo+aa5eLwN/n70M8u7iT8DFy/LzocSBd1iJrJCKCN8W1KfCEjlglK+upCPBlxW
- OQsBEL/QD+6bv0PO48CU5GYdJgA9tG4H2zlrfxnukNeDLZlEFM5hys22MrUuYG7V0AwD
- 5TUIpFw+17fo0TRa/Vu6D8x80vZN2Y3cIFVSkH9kn3RDBLpKnzhSQwT5/doyG5xrdTfS
- JQECUsWHMskv91GRWqhiarUfNGzUAPo3gmhGrfclHp6P2hIKahWaZaPnSjLCmnQUYebE
- Pokw==
+ b=t66FyTqqjJi66+gMwAXoBVsHh9zkTqH11KcUYrfTiAUFVhuD885qKVRuPVtWBnDP3/
+ dIl/ZInduXCYPAGVjx87wvnSztUZLYHJPZa6UR2h0lhVcJIPVz+X8qBy0xCFjV5ZG/yg
+ +B6vmtS3v3L133aDQvo4S1hmghvc7LY4pG3gvqEah/qpfXdtXH4098UwrHcuMQkMbVhM
+ jFj5K4aE3CwUPY/F1de+dG/rRVsIl1zSmXYI58rHQW9WXoBC+VlFsWe3X/xMRHNiPb1w
+ T+DWeGKD23LkSFx04qYiLAeFrwWXcRGbQ8AiNOAY6f4SHdl0LqpnV3Rz7rbJbDFtPPMk
+ PazA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV3UjeLxIZsfFhS2FUARnwDgJbLPQI8MbOZYzuku/TlD0U+Y3HfCHmKx30zWZRuW8iVx0VQNU2nvOq8Vg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzVmrctZItKiCi4iT9NEqDgCoLKDjof7nG74LIqT94P97Aw/5p+
- U0HIRmywOCOqSYmh2a7bNAv1X2BLAKTJzqiXHZ+7UdBXYIdORcfMQQSdp/dK2pRhEQ==
-X-Gm-Gg: ASbGncuKCFVeshPPxYZ7AyH5vTE33O+b83J1MPXzHDu+FETkls0w0FS79SGqHKa2DJi
- Y2pVELCY0PVHkIUGpJlXuyG+8Q9K6C2AiXFwgwK953KAH6cmFTT+ZRSAxKnQqORaDXHNSXMDwEe
- f5vCbI0AFeXBBzDrs5qISFT0a2lumDH8XGGnqt0RdV5kX8PLtzwDtMQtx3pwRMjOnNwB8nJsOMP
- 0lLQg8CUPVsmy9/iIfyYG+R0kiBKkAFScb2O06Qk+k8aCbXxocMsu5+PxzOHoi7nDETQroKtHtB
- jQ0hhoWsi37KdtsNB0gb99UULdtIN7frIS81e3judAKydbc7E6cg4zHIrDwoCjvVpiN75ls35UG
- wox6G+l8UMU5e8R4=
-X-Google-Smtp-Source: AGHT+IFZp5UK5jGx1R+UdIJR5to06T9Np6rNPVYDOR8PPYv1Mujf2unJbIiknwRlJEbu8Z7S2Ap77w==
-X-Received: by 2002:a17:902:e848:b0:234:8ac5:754 with SMTP id
- d9443c01a7336-2348ac50844mr145646295ad.4.1748450796372; 
- Wed, 28 May 2025 09:46:36 -0700 (PDT)
+ AJvYcCXJU4lasKshGxySJq+9IJMnPoSiPNqoZtVvZvGOJ4IkSwQXTACPnUwO326RkoZ2HB7ykoTFXKDnNGQOkg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxzviOvwg8JQipBNeDRH5YBY6/Wkkv2MWUqcDGcdlGlg991L+HB
+ lUIzHKW6GHgytDb9rKERrzpLCfa267mcmfdS9t3WqDnlzkiSedFSlMqRPGbQgtpbAA==
+X-Gm-Gg: ASbGncttSihV+a6bkFTdEmbwHlT9wKaVziIH0Q9adoeT9gBfwTTq7fGRdbUR5mAcZ1t
+ pA8YsKDRQe43Z8ItUAgrpugzsMoe7MpmcreK63OW6EtW06ydRhO32vXgbF3cBpul3jQ/WNRFs5j
+ 3Q5wogP9Ne6dkc9iKfcD6sYqg6MRr4nogHLiBz972QXlIVGlc4cjrk2Ng6XPtN4xVPo2thrqFOo
+ 37hn34OMxtJM+oRDZOOwc7c6/mboWS6Jm2d7ooY+E2+wLR7q6TRTQRQ14ukZnG72Fa8qMOs4LkJ
+ 9x6SQUz4Xd4W4YsgqW7/o4UbL4E1nZ67SXjGWE9jfLxXL3A+7lyjXAWkPCjJ9nrQPQHXIcfPX3N
+ 7/HeFxSqBDP8wKZa3RHSrGxaG/Q==
+X-Google-Smtp-Source: AGHT+IFT6XAEwnqmUoOcI07id6ao8WU4RQsHRUiSo14S7rt6kSg/zNuxIRvCOFRwlU7jbF8bN29PMQ==
+X-Received: by 2002:a17:90b:3e83:b0:311:be51:bde8 with SMTP id
+ 98e67ed59e1d1-311be51c258mr7978889a91.20.1748450814600; 
+ Wed, 28 May 2025 09:46:54 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-234d2fe1854sm14097295ad.66.2025.05.28.09.46.27
+ 98e67ed59e1d1-311e46ce2b1sm1520552a91.36.2025.05.28.09.46.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 May 2025 09:46:35 -0700 (PDT)
-Message-ID: <0df6f879-f819-492b-b9c5-f91d544203ad@broadcom.com>
-Date: Wed, 28 May 2025 09:46:26 -0700
+ Wed, 28 May 2025 09:46:53 -0700 (PDT)
+Message-ID: <caa88dcb-148b-485d-ac77-b1ec9ca94f13@broadcom.com>
+Date: Wed, 28 May 2025 09:46:44 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
@@ -95,7 +95,7 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
- <20250528-pinctrl-const-desc-v1-8-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-9-76fe97899945@linaro.org>
 Content-Language: en-US
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -130,7 +130,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20250528-pinctrl-const-desc-v1-8-76fe97899945@linaro.org>
+In-Reply-To: <20250528-pinctrl-const-desc-v1-9-76fe97899945@linaro.org>
 Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  patches@opensource.cirrus.com, openbmc@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
@@ -138,7 +138,7 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 08/17] pinctrl: bcm: cygnus-mux: Move
+Subject: Re: [Linux-stm32] [PATCH 09/17] pinctrl: bcm: cygnus-ns2: Move
  fixed assignments to 'pinctrl_desc' definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
