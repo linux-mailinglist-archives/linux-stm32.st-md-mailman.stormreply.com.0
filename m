@@ -2,43 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF73AACA044
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Jun 2025 21:36:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49512ACA923
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Jun 2025 07:56:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64325C3F93A;
-	Sun,  1 Jun 2025 19:36:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C584DC36B1E;
+	Mon,  2 Jun 2025 05:56:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AF96C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81E59C36B31
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Jun 2025 19:36:11 +0000 (UTC)
+ Wed, 28 May 2025 12:51:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DF6D60EDF;
- Sun,  1 Jun 2025 19:36:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D10C4CEE7;
- Sun,  1 Jun 2025 19:36:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 501C14A698;
+ Wed, 28 May 2025 12:51:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A382FC4CEE7;
+ Wed, 28 May 2025 12:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748806570;
- bh=MDN4vCHcaS5qEapoDPYHjR52t6QOBz252cVmdE136Q0=;
- h=From:To:Cc:Subject:Date:From;
- b=AANVZ8LVd2mW+KLD0V1VwxbZq8PYlfWidE3DSQxO8oQz7bzAvW32hu/ztX55L8EMy
- Mqv4ObQTpjXt0ARqP7/dkIWfVvS+niJTVPPmuV+0irhgvPgrwviKR0ap3aTKcqmFYA
- xJ5gQSDwJ5jRKuHyXdzRCq8GbWDpjS5tOK0zn+xcXDV8lcRYGFNh0Ky8MDtoVAQAPO
- Xk5Xfwtt2m9jZcb5Bc7pHskd917C0cjJzsLuyoCseGpG8NJ1Dom2F+f1v5sBRfvADB
- i4mYg/UDgBp9UL1RXN8NPWb6JMTOaLEFYonHSF2BRq7BSV1fDuAAJoT2xTYpMk3s81
- s0wvQYpQp9GLQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-kernel@vger.kernel.org
-Date: Sun,  1 Jun 2025 12:34:41 -0700
-Message-ID: <20250601193441.6913-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.49.0
+ s=k20201202; t=1748436714;
+ bh=SnUlBhjo9u7u7RSQrf1KxHe5OU8VLd3rhNPNiG04UYs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aEt+GYsqzE/+UQ/K7Hk/i0gSau9lkAT3hL2R69tTRbqACtYt9VtHrhU5qY0ibd3Xj
+ EJQ3E8/eVuQ9CMfiomfFvchMrdqbskU2hRlkRmAtm4ZIk8qi0YifCqF9f6QQA6JgtE
+ p9De0b1FMSRDj/IMgpOUzmtgoo7e4OSxEvq6HLAAHH/hJqFzgGBn4DqT7Lqat/SLZg
+ i0LTZOqnq5R4P1I+l0r6kgNzamQPvGQG6wa2Lk1zJDGxHNf7he3hgN4ROBnp87OAo+
+ yqhhzH8qztpN1ghO3+normZFf8fTYF/IPwFkOX9NyZx1nJKPkCY5jmDg9H6VKHkSff
+ XClTH+H/YL33g==
+Date: Wed, 28 May 2025 14:51:51 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <aDcG58lXUgtW7pRZ@lore-desk>
+References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
 MIME-Version: 1.0
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-stm32@st-md-mailman.stormreply.com,
- Fabien Dessenne <fabien.dessenne@foss.st.com>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>
-Subject: [Linux-stm32] [PATCH v2] crypto: stm32 - remove crc32 and crc32c
-	support
+In-Reply-To: <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
+X-Mailman-Approved-At: Mon, 02 Jun 2025 05:56:51 +0000
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Tomer Maimon <tmaimon77@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-aspeed@lists.ozlabs.org, Emil Renner Berthing <kernel@esmil.dk>,
+ linux-rtc@vger.kernel.org, Jesper Nilsson <jesper.nilsson@axis.com>,
+ Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@axis.com, Hal Feng <hal.feng@starfivetech.com>,
+ Nancy Yuen <yuenn@google.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Ray Jui <rjui@broadcom.com>,
+ Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ linux-sound@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
+ Lars Persson <lars.persson@axis.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Scott Branden <sbranden@broadcom.com>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, Sean Wang <sean.wang@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com
+Subject: Re: [Linux-stm32] [PATCH 16/17] pinctrl: Constify static
+	'pinctrl_desc'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,586 +81,244 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6269252260810087709=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Eric Biggers <ebiggers@google.com>
 
-Remove the crc32 and crc32c support from the stm32 driver.  Since it's
-not wired up to the CRC library, almost no CRC user in the kernel can
-actually be taking advantage of it, so it's effectively dead code.
+--===============6269252260810087709==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/Ro94xiBz0rUYauQ"
+Content-Disposition: inline
 
-Support for this hardware could be migrated to the CRC library, but
-there doesn't seem to be much point.  This CRC engine is present only on
-a couple older SoCs that lacked CRC instructions.
 
-Even on those SoCs, it's probably not worthwhile.  This driver has to
-deal with things like locking and runtime power management that do not
-exist in software CRC code and are a source of bugs (as is clear from
-the commit log) and add significant overhead to the processing of short
-messages, which are common.  The patch that originally added this driver
-seemed to justify it based purely on a microbenchmark on Cortex-M7 on
-long messages, not a real use case.  These days, if this driver were to
-be used at all it would likely be on Cortex-A7 instead.  This CRC engine
-is also not supported by QEMU, making the driver not easily testable.
+--/Ro94xiBz0rUYauQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>
-Cc: Lionel Debieve <lionel.debieve@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Signed-off-by: Eric Biggers <ebiggers@google.com>
----
+> The local static 'struct pinctrl_desc' is not modified, so can be made
+> const for code safety.
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-v2: reworked commit message and added Acked-by
+For airoha bits:
 
- arch/arm/configs/multi_v7_defconfig |   1 -
- drivers/crypto/stm32/Kconfig        |   9 -
- drivers/crypto/stm32/Makefile       |   1 -
- drivers/crypto/stm32/stm32-crc32.c  | 480 ----------------------------
- 4 files changed, 491 deletions(-)
- delete mode 100644 drivers/crypto/stm32/stm32-crc32.c
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index aca01ad6aafc5..8e1c13188f3eb 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -1296,11 +1296,10 @@ CONFIG_CRYPTO_DEV_ATMEL_TDES=m
- CONFIG_CRYPTO_DEV_ATMEL_SHA=m
- CONFIG_CRYPTO_DEV_MARVELL_CESA=m
- CONFIG_CRYPTO_DEV_QCE=m
- CONFIG_CRYPTO_DEV_QCOM_RNG=m
- CONFIG_CRYPTO_DEV_ROCKCHIP=m
--CONFIG_CRYPTO_DEV_STM32_CRC=m
- CONFIG_CRYPTO_DEV_STM32_HASH=m
- CONFIG_CRYPTO_DEV_STM32_CRYP=m
- CONFIG_CMA_SIZE_MBYTES=64
- CONFIG_PRINTK_TIME=y
- CONFIG_DEBUG_KERNEL=y
-diff --git a/drivers/crypto/stm32/Kconfig b/drivers/crypto/stm32/Kconfig
-index 49dfd161e9b9e..d6dc848c82eee 100644
---- a/drivers/crypto/stm32/Kconfig
-+++ b/drivers/crypto/stm32/Kconfig
-@@ -1,15 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--config CRYPTO_DEV_STM32_CRC
--	tristate "Support for STM32 crc accelerators"
--	depends on ARCH_STM32
--	select CRYPTO_HASH
--	select CRC32
--	help
--	  This enables support for the CRC32 hw accelerator which can be found
--	  on STMicroelectronics STM32 SOC.
--
- config CRYPTO_DEV_STM32_HASH
- 	tristate "Support for STM32 hash accelerators"
- 	depends on ARCH_STM32 || ARCH_U8500
- 	depends on HAS_DMA
- 	select CRYPTO_HASH
-diff --git a/drivers/crypto/stm32/Makefile b/drivers/crypto/stm32/Makefile
-index 518e0e0b11a9e..c63004026afb8 100644
---- a/drivers/crypto/stm32/Makefile
-+++ b/drivers/crypto/stm32/Makefile
-@@ -1,4 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_CRYPTO_DEV_STM32_CRC) += stm32-crc32.o
- obj-$(CONFIG_CRYPTO_DEV_STM32_HASH) += stm32-hash.o
- obj-$(CONFIG_CRYPTO_DEV_STM32_CRYP) += stm32-cryp.o
-diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
-deleted file mode 100644
-index fd29785a3ecf3..0000000000000
---- a/drivers/crypto/stm32/stm32-crc32.c
-+++ /dev/null
-@@ -1,480 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (C) STMicroelectronics SA 2017
-- * Author: Fabien Dessenne <fabien.dessenne@st.com>
-- */
--
--#include <linux/bitrev.h>
--#include <linux/clk.h>
--#include <linux/crc32.h>
--#include <linux/crc32poly.h>
--#include <linux/io.h>
--#include <linux/kernel.h>
--#include <linux/module.h>
--#include <linux/mod_devicetable.h>
--#include <linux/platform_device.h>
--#include <linux/pm_runtime.h>
--
--#include <crypto/internal/hash.h>
--
--#include <linux/unaligned.h>
--
--#define DRIVER_NAME             "stm32-crc32"
--#define CHKSUM_DIGEST_SIZE      4
--#define CHKSUM_BLOCK_SIZE       1
--
--/* Registers */
--#define CRC_DR                  0x00000000
--#define CRC_CR                  0x00000008
--#define CRC_INIT                0x00000010
--#define CRC_POL                 0x00000014
--
--/* Registers values */
--#define CRC_CR_RESET            BIT(0)
--#define CRC_CR_REV_IN_WORD      (BIT(6) | BIT(5))
--#define CRC_CR_REV_IN_BYTE      BIT(5)
--#define CRC_CR_REV_OUT          BIT(7)
--#define CRC32C_INIT_DEFAULT     0xFFFFFFFF
--
--#define CRC_AUTOSUSPEND_DELAY	50
--
--static unsigned int burst_size;
--module_param(burst_size, uint, 0644);
--MODULE_PARM_DESC(burst_size, "Select burst byte size (0 unlimited)");
--
--struct stm32_crc {
--	struct list_head list;
--	struct device    *dev;
--	void __iomem     *regs;
--	struct clk       *clk;
--	spinlock_t       lock;
--};
--
--struct stm32_crc_list {
--	struct list_head dev_list;
--	spinlock_t       lock; /* protect dev_list */
--};
--
--static struct stm32_crc_list crc_list = {
--	.dev_list = LIST_HEAD_INIT(crc_list.dev_list),
--	.lock     = __SPIN_LOCK_UNLOCKED(crc_list.lock),
--};
--
--struct stm32_crc_ctx {
--	u32 key;
--	u32 poly;
--};
--
--struct stm32_crc_desc_ctx {
--	u32    partial; /* crc32c: partial in first 4 bytes of that struct */
--};
--
--static int stm32_crc32_cra_init(struct crypto_tfm *tfm)
--{
--	struct stm32_crc_ctx *mctx = crypto_tfm_ctx(tfm);
--
--	mctx->key = 0;
--	mctx->poly = CRC32_POLY_LE;
--	return 0;
--}
--
--static int stm32_crc32c_cra_init(struct crypto_tfm *tfm)
--{
--	struct stm32_crc_ctx *mctx = crypto_tfm_ctx(tfm);
--
--	mctx->key = CRC32C_INIT_DEFAULT;
--	mctx->poly = CRC32C_POLY_LE;
--	return 0;
--}
--
--static int stm32_crc_setkey(struct crypto_shash *tfm, const u8 *key,
--			    unsigned int keylen)
--{
--	struct stm32_crc_ctx *mctx = crypto_shash_ctx(tfm);
--
--	if (keylen != sizeof(u32))
--		return -EINVAL;
--
--	mctx->key = get_unaligned_le32(key);
--	return 0;
--}
--
--static struct stm32_crc *stm32_crc_get_next_crc(void)
--{
--	struct stm32_crc *crc;
--
--	spin_lock_bh(&crc_list.lock);
--	crc = list_first_entry_or_null(&crc_list.dev_list, struct stm32_crc, list);
--	if (crc)
--		list_move_tail(&crc->list, &crc_list.dev_list);
--	spin_unlock_bh(&crc_list.lock);
--
--	return crc;
--}
--
--static int stm32_crc_init(struct shash_desc *desc)
--{
--	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
--	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
--	struct stm32_crc *crc;
--	unsigned long flags;
--
--	crc = stm32_crc_get_next_crc();
--	if (!crc)
--		return -ENODEV;
--
--	pm_runtime_get_sync(crc->dev);
--
--	spin_lock_irqsave(&crc->lock, flags);
--
--	/* Reset, set key, poly and configure in bit reverse mode */
--	writel_relaxed(bitrev32(mctx->key), crc->regs + CRC_INIT);
--	writel_relaxed(bitrev32(mctx->poly), crc->regs + CRC_POL);
--	writel_relaxed(CRC_CR_RESET | CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
--		       crc->regs + CRC_CR);
--
--	/* Store partial result */
--	ctx->partial = readl_relaxed(crc->regs + CRC_DR);
--
--	spin_unlock_irqrestore(&crc->lock, flags);
--
--	pm_runtime_mark_last_busy(crc->dev);
--	pm_runtime_put_autosuspend(crc->dev);
--
--	return 0;
--}
--
--static int burst_update(struct shash_desc *desc, const u8 *d8,
--			size_t length)
--{
--	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
--	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
--	struct stm32_crc *crc;
--
--	crc = stm32_crc_get_next_crc();
--	if (!crc)
--		return -ENODEV;
--
--	pm_runtime_get_sync(crc->dev);
--
--	if (!spin_trylock(&crc->lock)) {
--		/* Hardware is busy, calculate crc32 by software */
--		if (mctx->poly == CRC32_POLY_LE)
--			ctx->partial = crc32_le(ctx->partial, d8, length);
--		else
--			ctx->partial = crc32c(ctx->partial, d8, length);
--
--		goto pm_out;
--	}
--
--	/*
--	 * Restore previously calculated CRC for this context as init value
--	 * Restore polynomial configuration
--	 * Configure in register for word input data,
--	 * Configure out register in reversed bit mode data.
--	 */
--	writel_relaxed(bitrev32(ctx->partial), crc->regs + CRC_INIT);
--	writel_relaxed(bitrev32(mctx->poly), crc->regs + CRC_POL);
--	writel_relaxed(CRC_CR_RESET | CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
--		       crc->regs + CRC_CR);
--
--	if (d8 != PTR_ALIGN(d8, sizeof(u32))) {
--		/* Configure for byte data */
--		writel_relaxed(CRC_CR_REV_IN_BYTE | CRC_CR_REV_OUT,
--			       crc->regs + CRC_CR);
--		while (d8 != PTR_ALIGN(d8, sizeof(u32)) && length) {
--			writeb_relaxed(*d8++, crc->regs + CRC_DR);
--			length--;
--		}
--		/* Configure for word data */
--		writel_relaxed(CRC_CR_REV_IN_WORD | CRC_CR_REV_OUT,
--			       crc->regs + CRC_CR);
--	}
--
--	for (; length >= sizeof(u32); d8 += sizeof(u32), length -= sizeof(u32))
--		writel_relaxed(*((u32 *)d8), crc->regs + CRC_DR);
--
--	if (length) {
--		/* Configure for byte data */
--		writel_relaxed(CRC_CR_REV_IN_BYTE | CRC_CR_REV_OUT,
--			       crc->regs + CRC_CR);
--		while (length--)
--			writeb_relaxed(*d8++, crc->regs + CRC_DR);
--	}
--
--	/* Store partial result */
--	ctx->partial = readl_relaxed(crc->regs + CRC_DR);
--
--	spin_unlock(&crc->lock);
--
--pm_out:
--	pm_runtime_mark_last_busy(crc->dev);
--	pm_runtime_put_autosuspend(crc->dev);
--
--	return 0;
--}
--
--static int stm32_crc_update(struct shash_desc *desc, const u8 *d8,
--			    unsigned int length)
--{
--	const unsigned int burst_sz = burst_size;
--	unsigned int rem_sz;
--	const u8 *cur;
--	size_t size;
--	int ret;
--
--	if (!burst_sz)
--		return burst_update(desc, d8, length);
--
--	/* Digest first bytes not 32bit aligned at first pass in the loop */
--	size = min_t(size_t, length, burst_sz + (size_t)d8 -
--				     ALIGN_DOWN((size_t)d8, sizeof(u32)));
--	for (rem_sz = length, cur = d8; rem_sz;
--	     rem_sz -= size, cur += size, size = min(rem_sz, burst_sz)) {
--		ret = burst_update(desc, cur, size);
--		if (ret)
--			return ret;
--	}
--
--	return 0;
--}
--
--static int stm32_crc_final(struct shash_desc *desc, u8 *out)
--{
--	struct stm32_crc_desc_ctx *ctx = shash_desc_ctx(desc);
--	struct stm32_crc_ctx *mctx = crypto_shash_ctx(desc->tfm);
--
--	/* Send computed CRC */
--	put_unaligned_le32(mctx->poly == CRC32C_POLY_LE ?
--			   ~ctx->partial : ctx->partial, out);
--
--	return 0;
--}
--
--static int stm32_crc_finup(struct shash_desc *desc, const u8 *data,
--			   unsigned int length, u8 *out)
--{
--	return stm32_crc_update(desc, data, length) ?:
--	       stm32_crc_final(desc, out);
--}
--
--static int stm32_crc_digest(struct shash_desc *desc, const u8 *data,
--			    unsigned int length, u8 *out)
--{
--	return stm32_crc_init(desc) ?: stm32_crc_finup(desc, data, length, out);
--}
--
--static unsigned int refcnt;
--static DEFINE_MUTEX(refcnt_lock);
--static struct shash_alg algs[] = {
--	/* CRC-32 */
--	{
--		.setkey         = stm32_crc_setkey,
--		.init           = stm32_crc_init,
--		.update         = stm32_crc_update,
--		.final          = stm32_crc_final,
--		.finup          = stm32_crc_finup,
--		.digest         = stm32_crc_digest,
--		.descsize       = sizeof(struct stm32_crc_desc_ctx),
--		.digestsize     = CHKSUM_DIGEST_SIZE,
--		.base           = {
--			.cra_name               = "crc32",
--			.cra_driver_name        = "stm32-crc32-crc32",
--			.cra_priority           = 200,
--			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
--			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
--			.cra_ctxsize            = sizeof(struct stm32_crc_ctx),
--			.cra_module             = THIS_MODULE,
--			.cra_init               = stm32_crc32_cra_init,
--		}
--	},
--	/* CRC-32Castagnoli */
--	{
--		.setkey         = stm32_crc_setkey,
--		.init           = stm32_crc_init,
--		.update         = stm32_crc_update,
--		.final          = stm32_crc_final,
--		.finup          = stm32_crc_finup,
--		.digest         = stm32_crc_digest,
--		.descsize       = sizeof(struct stm32_crc_desc_ctx),
--		.digestsize     = CHKSUM_DIGEST_SIZE,
--		.base           = {
--			.cra_name               = "crc32c",
--			.cra_driver_name        = "stm32-crc32-crc32c",
--			.cra_priority           = 200,
--			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
--			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
--			.cra_ctxsize            = sizeof(struct stm32_crc_ctx),
--			.cra_module             = THIS_MODULE,
--			.cra_init               = stm32_crc32c_cra_init,
--		}
--	}
--};
--
--static int stm32_crc_probe(struct platform_device *pdev)
--{
--	struct device *dev = &pdev->dev;
--	struct stm32_crc *crc;
--	int ret;
--
--	crc = devm_kzalloc(dev, sizeof(*crc), GFP_KERNEL);
--	if (!crc)
--		return -ENOMEM;
--
--	crc->dev = dev;
--
--	crc->regs = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(crc->regs)) {
--		dev_err(dev, "Cannot map CRC IO\n");
--		return PTR_ERR(crc->regs);
--	}
--
--	crc->clk = devm_clk_get(dev, NULL);
--	if (IS_ERR(crc->clk)) {
--		dev_err(dev, "Could not get clock\n");
--		return PTR_ERR(crc->clk);
--	}
--
--	ret = clk_prepare_enable(crc->clk);
--	if (ret) {
--		dev_err(crc->dev, "Failed to enable clock\n");
--		return ret;
--	}
--
--	pm_runtime_set_autosuspend_delay(dev, CRC_AUTOSUSPEND_DELAY);
--	pm_runtime_use_autosuspend(dev);
--
--	pm_runtime_get_noresume(dev);
--	pm_runtime_set_active(dev);
--	pm_runtime_irq_safe(dev);
--	pm_runtime_enable(dev);
--
--	spin_lock_init(&crc->lock);
--
--	platform_set_drvdata(pdev, crc);
--
--	spin_lock(&crc_list.lock);
--	list_add(&crc->list, &crc_list.dev_list);
--	spin_unlock(&crc_list.lock);
--
--	mutex_lock(&refcnt_lock);
--	if (!refcnt) {
--		ret = crypto_register_shashes(algs, ARRAY_SIZE(algs));
--		if (ret) {
--			mutex_unlock(&refcnt_lock);
--			dev_err(dev, "Failed to register\n");
--			clk_disable_unprepare(crc->clk);
--			return ret;
--		}
--	}
--	refcnt++;
--	mutex_unlock(&refcnt_lock);
--
--	dev_info(dev, "Initialized\n");
--
--	pm_runtime_put_sync(dev);
--
--	return 0;
--}
--
--static void stm32_crc_remove(struct platform_device *pdev)
--{
--	struct stm32_crc *crc = platform_get_drvdata(pdev);
--	int ret = pm_runtime_get_sync(crc->dev);
--
--	spin_lock(&crc_list.lock);
--	list_del(&crc->list);
--	spin_unlock(&crc_list.lock);
--
--	mutex_lock(&refcnt_lock);
--	if (!--refcnt)
--		crypto_unregister_shashes(algs, ARRAY_SIZE(algs));
--	mutex_unlock(&refcnt_lock);
--
--	pm_runtime_disable(crc->dev);
--	pm_runtime_put_noidle(crc->dev);
--
--	if (ret >= 0)
--		clk_disable(crc->clk);
--	clk_unprepare(crc->clk);
--}
--
--static int __maybe_unused stm32_crc_suspend(struct device *dev)
--{
--	struct stm32_crc *crc = dev_get_drvdata(dev);
--	int ret;
--
--	ret = pm_runtime_force_suspend(dev);
--	if (ret)
--		return ret;
--
--	clk_unprepare(crc->clk);
--
--	return 0;
--}
--
--static int __maybe_unused stm32_crc_resume(struct device *dev)
--{
--	struct stm32_crc *crc = dev_get_drvdata(dev);
--	int ret;
--
--	ret = clk_prepare(crc->clk);
--	if (ret) {
--		dev_err(crc->dev, "Failed to prepare clock\n");
--		return ret;
--	}
--
--	return pm_runtime_force_resume(dev);
--}
--
--static int __maybe_unused stm32_crc_runtime_suspend(struct device *dev)
--{
--	struct stm32_crc *crc = dev_get_drvdata(dev);
--
--	clk_disable(crc->clk);
--
--	return 0;
--}
--
--static int __maybe_unused stm32_crc_runtime_resume(struct device *dev)
--{
--	struct stm32_crc *crc = dev_get_drvdata(dev);
--	int ret;
--
--	ret = clk_enable(crc->clk);
--	if (ret) {
--		dev_err(crc->dev, "Failed to enable clock\n");
--		return ret;
--	}
--
--	return 0;
--}
--
--static const struct dev_pm_ops stm32_crc_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(stm32_crc_suspend,
--				stm32_crc_resume)
--	SET_RUNTIME_PM_OPS(stm32_crc_runtime_suspend,
--			   stm32_crc_runtime_resume, NULL)
--};
--
--static const struct of_device_id stm32_dt_ids[] = {
--	{ .compatible = "st,stm32f7-crc", },
--	{},
--};
--MODULE_DEVICE_TABLE(of, stm32_dt_ids);
--
--static struct platform_driver stm32_crc_driver = {
--	.probe  = stm32_crc_probe,
--	.remove = stm32_crc_remove,
--	.driver = {
--		.name           = DRIVER_NAME,
--		.pm		= &stm32_crc_pm_ops,
--		.of_match_table = stm32_dt_ids,
--	},
--};
--
--module_platform_driver(stm32_crc_driver);
--
--MODULE_AUTHOR("Fabien Dessenne <fabien.dessenne@st.com>");
--MODULE_DESCRIPTION("STMicrolectronics STM32 CRC32 hardware driver");
--MODULE_LICENSE("GPL");
+> ---
+>  drivers/pinctrl/berlin/berlin.c                    | 2 +-
+>  drivers/pinctrl/cirrus/pinctrl-cs42l43.c           | 2 +-
+>  drivers/pinctrl/mediatek/pinctrl-airoha.c          | 2 +-
+>  drivers/pinctrl/pinctrl-artpec6.c                  | 2 +-
+>  drivers/pinctrl/pinctrl-bm1880.c                   | 2 +-
+>  drivers/pinctrl/pinctrl-k210.c                     | 2 +-
+>  drivers/pinctrl/pinctrl-lpc18xx.c                  | 2 +-
+>  drivers/pinctrl/pinctrl-mlxbf3.c                   | 2 +-
+>  drivers/pinctrl/pinctrl-tb10x.c                    | 2 +-
+>  drivers/pinctrl/pinctrl-zynq.c                     | 2 +-
+>  drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c | 2 +-
+>  11 files changed, 11 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/berlin/berlin.c b/drivers/pinctrl/berlin/ber=
+lin.c
+> index c372a2a24be4bb80b1f2475ef8512171c8e1326f..e5a35b803ce66d247c5e5ad78=
+e6677570a1add60 100644
+> --- a/drivers/pinctrl/berlin/berlin.c
+> +++ b/drivers/pinctrl/berlin/berlin.c
+> @@ -283,7 +283,7 @@ static int berlin_pinctrl_build_state(struct platform=
+_device *pdev)
+>  	return 0;
+>  }
+> =20
+> -static struct pinctrl_desc berlin_pctrl_desc =3D {
+> +static const struct pinctrl_desc berlin_pctrl_desc =3D {
+>  	.name		=3D "berlin-pinctrl",
+>  	.pctlops	=3D &berlin_pinctrl_ops,
+>  	.pmxops		=3D &berlin_pinmux_ops,
+> diff --git a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c b/drivers/pinctrl/c=
+irrus/pinctrl-cs42l43.c
+> index 628b60ccc2b07dc77e36da8919436fa348749e0c..a90beb986f5bb707c54552e13=
+33802943a4b04bc 100644
+> --- a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+> +++ b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+> @@ -448,7 +448,7 @@ static const struct pinconf_ops cs42l43_pin_conf_ops =
+=3D {
+>  	.pin_config_group_set	=3D cs42l43_pin_config_group_set,
+>  };
+> =20
+> -static struct pinctrl_desc cs42l43_pin_desc =3D {
+> +static const struct pinctrl_desc cs42l43_pin_desc =3D {
+>  	.name		=3D "cs42l43-pinctrl",
+>  	.owner		=3D THIS_MODULE,
+> =20
+> diff --git a/drivers/pinctrl/mediatek/pinctrl-airoha.c b/drivers/pinctrl/=
+mediatek/pinctrl-airoha.c
+> index b97b28ebb37a6ec092360f8ea404dd67e6c43eac..ccd2b512e8365b3a5af0bb223=
+329f39119bc7078 100644
+> --- a/drivers/pinctrl/mediatek/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/mediatek/pinctrl-airoha.c
+> @@ -2852,7 +2852,7 @@ static const struct pinctrl_ops airoha_pctlops =3D {
+>  	.dt_free_map =3D pinconf_generic_dt_free_map,
+>  };
+> =20
+> -static struct pinctrl_desc airoha_pinctrl_desc =3D {
+> +static const struct pinctrl_desc airoha_pinctrl_desc =3D {
+>  	.name =3D KBUILD_MODNAME,
+>  	.owner =3D THIS_MODULE,
+>  	.pctlops =3D &airoha_pctlops,
+> diff --git a/drivers/pinctrl/pinctrl-artpec6.c b/drivers/pinctrl/pinctrl-=
+artpec6.c
+> index 717f9592b28b51737e67aafc93664b1345511908..af67057128ff1e9e766b958fe=
+ce9c71518c89081 100644
+> --- a/drivers/pinctrl/pinctrl-artpec6.c
+> +++ b/drivers/pinctrl/pinctrl-artpec6.c
+> @@ -907,7 +907,7 @@ static const struct pinconf_ops artpec6_pconf_ops =3D=
+ {
+>  	.pin_config_group_set	=3D artpec6_pconf_group_set,
+>  };
+> =20
+> -static struct pinctrl_desc artpec6_desc =3D {
+> +static const struct pinctrl_desc artpec6_desc =3D {
+>  	.name	 =3D "artpec6-pinctrl",
+>  	.owner	 =3D THIS_MODULE,
+>  	.pins	 =3D artpec6_pins,
+> diff --git a/drivers/pinctrl/pinctrl-bm1880.c b/drivers/pinctrl/pinctrl-b=
+m1880.c
+> index b0000fe5b31dfbcd6af6eaf0c01029f00cbd205b..387798fb09be51cabd5cb76e0=
+d90a28b1d363050 100644
+> --- a/drivers/pinctrl/pinctrl-bm1880.c
+> +++ b/drivers/pinctrl/pinctrl-bm1880.c
+> @@ -1298,7 +1298,7 @@ static const struct pinmux_ops bm1880_pinmux_ops =
+=3D {
+>  	.set_mux =3D bm1880_pinmux_set_mux,
+>  };
+> =20
+> -static struct pinctrl_desc bm1880_desc =3D {
+> +static const struct pinctrl_desc bm1880_desc =3D {
+>  	.name =3D "bm1880_pinctrl",
+>  	.pins =3D bm1880_pins,
+>  	.npins =3D ARRAY_SIZE(bm1880_pins),
+> diff --git a/drivers/pinctrl/pinctrl-k210.c b/drivers/pinctrl/pinctrl-k21=
+0.c
+> index eddb01796a83eb86c8c5bcf6788c999e8bf2926a..66c04120c29deccf53b21cbf8=
+705f1d10c74ace5 100644
+> --- a/drivers/pinctrl/pinctrl-k210.c
+> +++ b/drivers/pinctrl/pinctrl-k210.c
+> @@ -879,7 +879,7 @@ static const struct pinctrl_ops k210_pinctrl_ops =3D {
+>  	.dt_free_map =3D pinconf_generic_dt_free_map,
+>  };
+> =20
+> -static struct pinctrl_desc k210_pinctrl_desc =3D {
+> +static const struct pinctrl_desc k210_pinctrl_desc =3D {
+>  	.name =3D "k210-pinctrl",
+>  	.pins =3D k210_pins,
+>  	.npins =3D K210_NPINS,
+> diff --git a/drivers/pinctrl/pinctrl-lpc18xx.c b/drivers/pinctrl/pinctrl-=
+lpc18xx.c
+> index 0f5a7bed2f81b731714e3b65908df23f2ffdfd63..5e0201768323521754e7ecd27=
+e878a81925c18a6 100644
+> --- a/drivers/pinctrl/pinctrl-lpc18xx.c
+> +++ b/drivers/pinctrl/pinctrl-lpc18xx.c
+> @@ -1257,7 +1257,7 @@ static const struct pinctrl_ops lpc18xx_pctl_ops =
+=3D {
+>  	.dt_free_map		=3D pinctrl_utils_free_map,
+>  };
+> =20
+> -static struct pinctrl_desc lpc18xx_scu_desc =3D {
+> +static const struct pinctrl_desc lpc18xx_scu_desc =3D {
+>  	.name =3D "lpc18xx/43xx-scu",
+>  	.pins =3D lpc18xx_pins,
+>  	.npins =3D ARRAY_SIZE(lpc18xx_pins),
+> diff --git a/drivers/pinctrl/pinctrl-mlxbf3.c b/drivers/pinctrl/pinctrl-m=
+lxbf3.c
+> index ffb5dda364dc81808cfd5a168ce3f1e9f119357d..fcd9d46de89fb3e5215784109=
+ba31b171fd15448 100644
+> --- a/drivers/pinctrl/pinctrl-mlxbf3.c
+> +++ b/drivers/pinctrl/pinctrl-mlxbf3.c
+> @@ -231,7 +231,7 @@ static const struct pinmux_ops mlxbf3_pmx_ops =3D {
+>  	.gpio_request_enable =3D mlxbf3_gpio_request_enable,
+>  };
+> =20
+> -static struct pinctrl_desc mlxbf3_pin_desc =3D {
+> +static const struct pinctrl_desc mlxbf3_pin_desc =3D {
+>  	.name =3D "pinctrl-mlxbf3",
+>  	.pins =3D mlxbf3_pins,
+>  	.npins =3D ARRAY_SIZE(mlxbf3_pins),
+> diff --git a/drivers/pinctrl/pinctrl-tb10x.c b/drivers/pinctrl/pinctrl-tb=
+10x.c
+> index d6bb8f58978df1577db24f96c2174f47962b5520..2d2e9f697ff99b4209dda8d55=
+11f478a18b26a21 100644
+> --- a/drivers/pinctrl/pinctrl-tb10x.c
+> +++ b/drivers/pinctrl/pinctrl-tb10x.c
+> @@ -735,7 +735,7 @@ static const struct pinmux_ops tb10x_pinmux_ops =3D {
+>  	.set_mux =3D tb10x_pctl_set_mux,
+>  };
+> =20
+> -static struct pinctrl_desc tb10x_pindesc =3D {
+> +static const struct pinctrl_desc tb10x_pindesc =3D {
+>  	.name =3D "TB10x",
+>  	.pins =3D tb10x_pins,
+>  	.npins =3D ARRAY_SIZE(tb10x_pins),
+> diff --git a/drivers/pinctrl/pinctrl-zynq.c b/drivers/pinctrl/pinctrl-zyn=
+q.c
+> index caa8a2ca3e681718fe213921deca8d130371b122..dcde86fed10db3e2dfebc19cb=
+841ea7f63e74989 100644
+> --- a/drivers/pinctrl/pinctrl-zynq.c
+> +++ b/drivers/pinctrl/pinctrl-zynq.c
+> @@ -1143,7 +1143,7 @@ static const struct pinconf_ops zynq_pinconf_ops =
+=3D {
+>  	.pin_config_group_set =3D zynq_pinconf_group_set,
+>  };
+> =20
+> -static struct pinctrl_desc zynq_desc =3D {
+> +static const struct pinctrl_desc zynq_desc =3D {
+>  	.name =3D "zynq_pinctrl",
+>  	.pins =3D zynq_pins,
+>  	.npins =3D ARRAY_SIZE(zynq_pins),
+> diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c b/drivers=
+/pinctrl/starfive/pinctrl-starfive-jh7100.c
+> index 27f99183d994dccb92aac81ca42228bdb9225e87..aeaa0ded7c1e5ee7f9c5e4113=
+bfd208fb844ba7d 100644
+> --- a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
+> +++ b/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
+> @@ -898,7 +898,7 @@ static const struct pinconf_ops starfive_pinconf_ops =
+=3D {
+>  	.is_generic =3D true,
+>  };
+> =20
+> -static struct pinctrl_desc starfive_desc =3D {
+> +static const struct pinctrl_desc starfive_desc =3D {
+>  	.name =3D DRIVER_NAME,
+>  	.pins =3D starfive_pins,
+>  	.npins =3D ARRAY_SIZE(starfive_pins),
+>=20
+> --=20
+> 2.45.2
+>=20
 
-base-commit: bb1556ec94647060c6b52bf434b9fd824724a6f4
--- 
-2.49.0
+--/Ro94xiBz0rUYauQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaDcG5wAKCRA6cBh0uS2t
+rABgAQDChqlOupLj8dMgBJtw+ZYSz23faF0MajHN6Bznec2ZxQD/b4iuNIDVxDRu
+w5SyOOU+1pIOKkH9BqiTR31e740csQc=
+=S7ff
+-----END PGP SIGNATURE-----
+
+--/Ro94xiBz0rUYauQ--
+
+--===============6269252260810087709==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6269252260810087709==--
