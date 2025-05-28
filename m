@@ -2,101 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3CE8AC5DFD
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 02:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B1DAC6092
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 06:15:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C426C36B1E;
-	Wed, 28 May 2025 00:05:43 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7689FC36B19
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1025CC36B29;
+	Wed, 28 May 2025 04:15:42 +0000 (UTC)
+Received: from sgoci-sdnproxy-4.icoremail.net (sgoci-sdnproxy-4.icoremail.net
+ [129.150.39.64])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0405C36B20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 00:05:41 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54RHTw0m029872;
- Wed, 28 May 2025 00:04:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- aDUNQStuy0jRMfLgtZNwbSDgWxeyT3CWPdpJ9IflsOA=; b=KPa9xkJnirrwzekO
- bDz3gfL44EL6qyKyMqf8l+ZazG8GyQ+Pp+Q2VEW9BJK+Hrk++Vnco1Ch3P2Hr6aj
- y2+1FGK/8JQE4sOUa6aIl6dR9BS14FycJvUHzIdKiuiEu/YMnJ/6gVoj8dyIxNud
- PYmG99yMkuEOC4P5YhenxRTbg9f+g/1xMcxnKgdP8pqwpyWCROVfg3cvS6lmNWyu
- aRsgre5v8zia5HJlWjSrPuBgQ+32tmg2ZTiKhniIdKp8mCAKdezQVe3lPMEVo29/
- YcsC2kt0lYQFYlgVT5A5/oBiI8U8KSWMIuuAXsXOdYdlOY0+/PgK+rdGNxne2Ulg
- yPZZuA==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46whuf0v68-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 May 2025 00:04:59 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54S04wpi029950
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 May 2025 00:04:58 GMT
-Received: from [10.46.19.239] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 27 May
- 2025 17:04:58 -0700
-Message-ID: <7ac5c034-9e6d-45c4-b20a-2a386b4d9117@quicinc.com>
-Date: Tue, 27 May 2025 17:04:52 -0700
+ Wed, 28 May 2025 04:15:40 +0000 (UTC)
+Received: from E0005182DT.eswin.cn (unknown [10.12.97.162])
+ by app1 (Coremail) with SMTP id TAJkCgD3DQ_DjTZoOQuVAA--.6922S2;
+ Wed, 28 May 2025 12:15:04 +0800 (CST)
+From: weishangjuan@eswincomputing.com
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, vladimir.oltean@nxp.com,
+ rmk+kernel@armlinux.org.uk, yong.liang.choong@linux.intel.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
+ jan.petrous@oss.nxp.com, jszhang@kernel.org, p.zabel@pengutronix.de,
+ 0x1207@gmail.com, boon.khai.ng@altera.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Wed, 28 May 2025 12:14:42 +0800
+Message-ID: <20250528041455.878-1-weishangjuan@eswincomputing.com>
+X-Mailer: git-send-email 2.49.0.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>, Andrew Lunn
- <andrew@lunn.ch>, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-References: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
- <CAMdnO-+FjsRX4fjbCE_RVNY4pEoArD68dAWoEM+oaEZNJiuA3g@mail.gmail.com>
- <67919001-1cb7-4e9b-9992-5b3dd9b03406@quicinc.com>
- <CAMdnO-+HwXf7c=igt2j6VHcki3cYanXpFApZDcEe7DibDz810g@mail.gmail.com>
-Content-Language: en-US
-From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-In-Reply-To: <CAMdnO-+HwXf7c=igt2j6VHcki3cYanXpFApZDcEe7DibDz810g@mail.gmail.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=OslPyz/t c=1 sm=1 tr=0 ts=6836532b cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=COk6AnOGAAAA:8
- a=Q-fNiiVtAAAA:8 a=GcoI09lhNaN5Dz-92OEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: zpgw-8AFVHvXHtIYfQ8he9X3VaAn-d9R
-X-Proofpoint-GUID: zpgw-8AFVHvXHtIYfQ8he9X3VaAn-d9R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI3MDIwNSBTYWx0ZWRfX8H1fR9ASfCTa
- ZlnZzyxxTeEKKwpoBS+icLkuaoKXs4Azv6NRGJGyRSh+Ov1Dgd8gUpITWQcc8f917X6MsQWXJq8
- DNiWojEgXqeKeMQ4jEMgKanGjYrxyECFJlj77JL2zanB+lj6nZJBW95l4BphnN2vvIlMiVmgwiG
- AqJX7RuCgI6rc+kZzA731mkW4JFsWNk7eazg4sZGM9zNctL3mnh3Es4qQD9rOEXN+PfGop+t8YK
- 4PQvT7toq/X8Cuj+P45Z4i+lAXRLvdR/ZQJvDfl3uAXazTazV/Z/vG6s6ytO7h6LH0anFkC4EMp
- 0bzre8YvTRSTEe/CQ5IcStqOjxZeBE6zyiQnvZzPxlrc58QS/arf2cuUmTGcfBvpuN5lQDEPlRC
- FRBsxV9WT+kO5VYpNEo/kls+YIB6bYXc3PQOoGZWTk6jxeRYgVk8T+OpApL1UpiHg9e822RW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-27_11,2025-05-27_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 mlxlogscore=999 adultscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 clxscore=1011 mlxscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
- definitions=main-2505270205
-Cc: andrew@lunn.ch, Jianheng.Zhang@synopsys.com, edumazet@google.com,
- Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org,
- rohan.g.thomas@intel.com, pabeni@redhat.com, ahalaney@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, ast@kernel.org,
- rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
- xiaolei.wang@windriver.com, florian.fainelli@broadcom.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, fancer.lancer@gmail.com,
- horms@kernel.org, mcoquelin.stm32@gmail.com, bpf@vger.kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v6 0/5] net: stmmac: Add PCI
- driver support for BCM8958x
+X-CM-TRANSID: TAJkCgD3DQ_DjTZoOQuVAA--.6922S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4UZFy3KFy5ZFykGF4DArb_yoW8tr1kpa
+ yDGFy5trn5Jr1xXws3Aa18KF95Xa97Kr43KFyfJwn3Xan8A34ktwn8KFyY9F97Cr48X3Wa
+ qF1Yk343CFyqy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw2
+ 8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+ x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrw
+ CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
+ 42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+ 80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
+X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
+Subject: [Linux-stm32] [PATCH v2 0/2] Add driver support for Eswin eic7700
+	SoC ethernet controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,31 +69,45 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyLzcvMjAyNSAzOjE4IFBNLCBKaXRlbmRyYSBWZWdpcmFqdSB3cm90ZToKPiBIaSBBYmhp
-c2hlaywKPiAKPiBPbiBGcmksIEZlYiA3LCAyMDI1IGF0IDEwOjIx4oCvQU0gQWJoaXNoZWsgQ2hh
-dWhhbiAoQUJDKSA8Cj4gcXVpY19hYmNoYXVoYUBxdWljaW5jLmNvbT4gd3JvdGU6Cj4gCj4+Cj4+
-Cj4+IE9uIDExLzUvMjAyNCA4OjEyIEFNLCBKaXRlbmRyYSBWZWdpcmFqdSB3cm90ZToKPj4+IEhp
-IG5ldGRldiB0ZWFtLAo+Pj4KPj4+IE9uIEZyaSwgT2N0IDE4LCAyMDI0IGF0IDE6NTPigK9QTSA8
-aml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tPiB3cm90ZToKPj4+Pgo+Pj4+IEZyb206IEpp
-dGVuZHJhIFZlZ2lyYWp1IDxqaXRlbmRyYS52ZWdpcmFqdUBicm9hZGNvbS5jb20+Cj4+Pj4KPj4+
-PiBUaGlzIHBhdGNoc2V0IGFkZHMgYmFzaWMgUENJIGV0aGVybmV0IGRldmljZSBkcml2ZXIgc3Vw
-cG9ydCBmb3IgQnJvYWRjb20KPj4+PiBCQ004OTU4eCBBdXRvbW90aXZlIEV0aGVybmV0IHN3aXRj
-aCBTb0MgZGV2aWNlcy4KPj4+Pgo+Pj4KPj4+IEkgd291bGQgbGlrZSB0byBzZWVrIHlvdXIgZ3Vp
-ZGFuY2Ugb24gaG93IHRvIHRha2UgdGhpcyBwYXRjaCBzZXJpZXMKPj4gZm9yd2FyZC4KPj4+IFRo
-YW5rcyB0byB5b3VyIGZlZWRiYWNrIGFuZCBTZXJnZSdzIHN1Z2dlc3Rpb25zLCB3ZSBtYWRlIHNv
-bWUgZm9yd2FyZAo+Pj4gcHJvZ3Jlc3Mgb24gdGhpcyBwYXRjaCBzZXJpZXMuCj4+PiBQbGVhc2Ug
-bWFrZSBhbnkgc3VnZ2VzdGlvbnMgdG8gZW5hYmxlIHVzIHRvIHVwc3RyZWFtIGRyaXZlciBzdXBw
-b3J0Cj4+PiBmb3IgQkNNODk1OHguCj4+Cj4+IEppdGVuZHJhLAo+PiAgICAgICAgICBIYXZlIHdl
-IHJlc2VudCB0aGlzIHBhdGNoIG9yIGdvdCBpdCBhcHByb3ZlZCA/IEkgZG9udCBzZWUgYW55Cj4+
-IHVwZGF0ZXMgYWZ0ZXIgdGhpcyBwYXRjaC4KPj4KPj4KPiBUaGFuayB5b3UgZm9yIGlucXVpcmlu
-ZyBhYm91dCB0aGUgc3RhdHVzIG9mIHRoaXMgcGF0Y2guCj4gQXMgc3RtbWFjIGRyaXZlciBpcyBn
-b2luZyB0aHJvdWdoIGEgbWFpbnRhaW5lciB0cmFuc2l0aW9uLCB3ZSB3YW50ZWQgdG8KPiB3YWl0
-IHVudGlsIGEgbmV3IG1haW50YWluZXIgaXMgaWRlbnRpZmllZC4KPiBXZSB3b3VsZCBsaWtlIHRv
-IHNlbmQgdGhlIHVwZGF0ZWQgcGF0Y2ggYXMgc29vbiBhcyBwb3NzaWJsZS4KPiBUaGFua3MsCj4g
-Sml0ZW5kcmEKVGhhbmtzIEppdGVuZHJhLCBJIGFtIHNvcnJ5IGJ1dCBqdXN0IGEgZm9sbG93IHVw
-LiAKCkRvIHdlIGtub3cgaWYgc3RtbWFjIG1haW50YWluZXIgYXJlIGlkZW50aWZpZWQgbm93ID8K
-CkFuZHJldy9SdXNzZWxsIC0gQ2FuIHlvdSBwbGVhc2UgaGVscCB1cyA/IAoKQmVzdCByZWdhcmRz
-CkFCQwoKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+RnJvbTogU2hhbmdqdWFuIFdlaSA8d2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbT4KClVw
+ZGF0ZXM6CgogIGR0LWJpbmRpbmdzOiBldGhlcm5ldDogZXN3aW46IERvY3VtZW50IGZvciBFSUM3
+NzAwIFNvQwogIHYxIC0+IHYyOgogICAgMS4gUmVtb3ZlIHRoZSBjb2RlIHJlbGF0ZWQgdG8gUEhZ
+IExFRCBjb25maWd1cmF0aW9uIGZyb20gdGhlIE1BQyBkcml2ZXIuCiAgICAyLiBVc2UgcGh5bGli
+IGluc3RlYWQgb2YgdGhlIEdQSU8gQVBJIGluIHRoZSBkcml2ZXIgdG8gaW1wbGVtZW50IHRoZSBQ
+SFkgcmVzZXQgZnVuY3Rpb24uCiAgICAzLiBBbGlnbiB3aXRoIHRoZSBsYXRlc3Qgc3RtbWFjIEFQ
+SSwgdXNlIHRoZSBBUEkgcHJvdmlkZWQgYnkgc3RtbWFjIGhlbHBlciB0byByZWZhY3RvciB0aGUg
+ZHJpdmVyLAogICAgICAgYW5kIHJlcGxhY2Ugb3IgcmVtb3ZlIGR1cGxpY2F0ZSBjb2RlLgogICAg
+NC4gQWRqdXN0IHRoZSBjb2RlIGZvcm1hdCBhbmQgZHJpdmVyIGludGVyZmFjZXMsIHN1Y2ggYXMg
+cmVwbGFjaW5nIGt6YWxsb2Mgd2l0aCBkZXZtX2t6YWxsb2MsIGV0Yy4KCiAgZXRoZXJuZXQ6wqBl
+c3dpbjrCoEFkZMKgZWljNzcwMMKgZXRoZXJuZXTCoGRyaXZlcgogIHYxIC0+IHYyOgogICAgMS4g
+U2lnbmlmaWNhbnQgZXJyb3JzIGhhdmUgYmVlbiBjb3JyZWN0ZWQgaW4gdGhlIGVtYWlsIHJlcGx5
+IGZvciB2ZXJzaW9uIHYxLgogICAgMi4gQWRkIHNucHMsZHdtYWMuCiAgICAzLiBDaGFuZyB0aGUg
+bmFtZXMgb2YgcmVzZXQtbmFtZXMgYW5kIHBoeS1tb2RlLgogICAgNC4gQWRkIGRlc2NyaXB0aW9u
+cyBvZiBlc3dpbiwgaHNwX3NwX2NzciwgZXN3aW4sIHN5c2NyZy5jc3IsIGVzd2luLCBkbHlfaHNw
+LnJlZy4KCiAgUmVnYXJkaW5nIHRoZSBxdWVzdGlvbiBhYm91dCBkZWxheSBwYXJhbWV0ZXJzIGlu
+IHRoZSBwcmV2aW91cyBlbWFpbCByZXBseSwgdGhlIGV4cGxhbmF0aW9uIGlzIGFzIGZvbGxvd3M6
+CiAgICBEbHlfaHNwX3JlZzogQ29uZmlndXJlIHRoZSBkZWxheSBjb21wZW5zYXRpb24gcmVnaXN0
+ZXIgYmV0d2VlbiBNQUMvUEhZOwogICAgRGx5X3BhcmFtXyAqOiBUaGUgdmFsdWUgd3JpdHRlbiB0
+byB0aGUgZGx5X2hzcF9yZWcgcmVnaXN0ZXIgYXQgYSByYXRlIG9mIDEwMDAvMTAwLzEwLCB3aGlj
+aCB2YXJpZXMgZHVlIAogICAgICAgICAgICAgICAgICB0byB0aGUgcm91dGluZyBvZiB0aGUgYm9h
+cmQ7CgogIEluIGFkZGl0aW9uLCB5b3VyIGJvdCBmb3VuZCBlcnJvcnMgcnVubmluZyAnbWFrZSBk
+dF9iaW5kaW5nX2NoZWNrJyBvbiBvdXIgcGF0Y2ggYWJvdXQgeWFtbGxpbnQgd2FybmluZ3MvZXJy
+b3JzLAogIGl0IGxvb2tzIGxpa2UgdGhlIHZhbGlkYXRpb24gZmFpbHVyZSBpcyBiZWNhdXNlIG1p
+c3NpbmcgZXN3aW4gZW50cnkgaW4gdmVuZG9yLXByZWZpeGVzLnlhbWwuIAogIFdoZW4gd2UgcnVu
+ICJtYWtlIGR0X2JpbmRpbmdfY2hlY2siLCB3ZSBnZXQgdGhlIHNhbWUgZXJyb3IuIFdlIGhhdmUg
+YWxyZWFkeSBhZGRlZCAnZXN3aW4nIGluIHRoZSB2ZW5kb3ItcHJlZml4ZXMueWFtbCAKICBmaWxl
+IGJlZm9yZSwgYW5kIHRoZSBjb2RlIGhhcyBtZW50aW9uZWQgdGhlIGNvbW11bml0eSwgYnV0IHlv
+dSBoYXZlIG5vdCB5ZXQgaW50ZWdyYXRlZCBpdC4KClNoYW5nanVhbiBXZWkgKDIpOgogIGR0LWJp
+bmRpbmdzOiBldGhlcm5ldDogZXN3aW46IERvY3VtZW50IGZvciBFSUM3NzAwIFNvQwogIGV0aGVy
+bmV0OsKgZXN3aW46wqBBZGTCoGVpYzc3MDDCoGV0aGVybmV0wqBkcml2ZXIKCiAuLi4vYmluZGlu
+Z3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwgICAgICAgfCAyMDAgKysrKysrKysrCiBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnICAgfCAgMTEgKwogZHJpdmVy
+cy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUgIHwgICAxICsKIC4uLi9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAwLmMgICB8IDQxMCArKysrKysrKysrKysr
+KysrKysKIDQgZmlsZXMgY2hhbmdlZCwgNjIyIGluc2VydGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEw
+MDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2Vzd2luLGVpYzc3MDAt
+ZXRoLnlhbWwKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
+L3N0bW1hYy9kd21hYy1laWM3NzAwLmMKCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
