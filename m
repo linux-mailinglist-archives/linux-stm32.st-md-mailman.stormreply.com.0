@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0177AC672A
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 12:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 047EAAC672D
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 May 2025 12:41:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5BBDC36B30;
-	Wed, 28 May 2025 10:41:36 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4BF3C36B30;
+	Wed, 28 May 2025 10:41:40 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 961DAC36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3F2CC36B2F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 10:41:35 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-3a4ebbfb18fso52983f8f.3
+ Wed, 28 May 2025 10:41:38 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-442cd12d28cso4688045e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 03:41:35 -0700 (PDT)
+ Wed, 28 May 2025 03:41:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1748428895; x=1749033695;
+ d=linaro.org; s=google; t=1748428898; x=1749033698;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=7p6g8nrYLu2YSRDRFX7+ayHvEGE7eEHjSKPeWK9MLgc=;
- b=OxzNplnt/0vARpjQHV/dyJL+N7uHJUAL5GN2vVcsnlp5t2WW79rLYOAHQSbriB9lIF
- lb1Y5sDXfYDAtEEzPmTs9bjd/sWIVaX7NdVfnB9DbinTKawdSLv24NZdsljowm8DPmsn
- 2o2YVoyPHNuniRD5BCpUTPMsDyJsQuU694Ta5S8Fin/vHJGnKRc2HHBLNS8xfbm1v0oO
- gR+wWZ2q6YomNg9+3/Cpzu49p70F3FeX7MKaYcXKe9tYM8PXRLkcb3KI1ONC9c0Igimg
- a4Xmr91bgXhPJC27tswEfVYM6h8fF1zAeS9eSpH/egc/uBkuTgG3iftyY2nam21gkFer
- 33rQ==
+ :reply-to; bh=5o7kHuq5fh1nhgrBmbItAcmZQfVjyPSWaEBF50baGeo=;
+ b=EyrY1Ko0S+nodpnuuiH4CRkH3TBsjNpoE2Q7KDoa0FIQFXEDkQg9gQYJDZLliLFXKL
+ S5ZC8+y2r4i1Fo1PIkWdP24l52ZNHYwi7GEgOtB9wM0lHmT7QYgWzymb4Lk7Ljgu3EVu
+ stE4Dw73mwvPelKrlIvK4qyYcbGe4eHpS20Wjvm9NYT+hMAtH44WF2inIqCwQe+q/PNC
+ 9thC+3SyslE5QhfGvaxqYhRBa2kGfxqzynQp/cRlN0oqj1c9SUGxqpYyE+avEhe8tw2X
+ Qth5MUEmHfusiLe2kHpN9U7a9DODagKFjCAiRvemkhz0MVtACgdcYo/IS8XqHR/pzMWO
+ vuFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748428895; x=1749033695;
+ d=1e100.net; s=20230601; t=1748428898; x=1749033698;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7p6g8nrYLu2YSRDRFX7+ayHvEGE7eEHjSKPeWK9MLgc=;
- b=dN9YCYPag6eSYblWNR3IFNwXt+UFiliXeJphW3eBzhZeJEAdVFpyZx09Y6A9u1mFuN
- xkVboPaTXj7PtMwMxPwbG3eU/tiiicllF/TgaQK2kOsIuTai1Kf6sAIqdXZGqsjY49zV
- w8v96uiuy5oQSlTBB0Ryh03t89BYtLKMZB+w3eCvgGUuKGQcT7uQNJDdBWMWaxJtDzkP
- aGFcSFofpNSdpxOE1z0OQvuOsaWpzNZzuzO6KzODchN3Yp9xu/CSs1wSL54vPoAWrkVZ
- J1RL/Y9cBZkmKgvLFvJl/yY13Ev6Rv5T1AYsXmh9in+rRidCzwH61N/cMElRWIH+hdxI
- rCgg==
+ bh=5o7kHuq5fh1nhgrBmbItAcmZQfVjyPSWaEBF50baGeo=;
+ b=wWUT6GFzrxiZgqC7/qVjdueryFSFI4/OydmQSYC/mqYzrt8R9xSOED5AO2S54Jiun3
+ KomrWjGB8Lquq92TIC/at6QhamnJY3eQLglLG3EtAGS7+oo2naN2KTAmg5/HXSFM7u3B
+ G4i6ullYXRguxEfdeF/yBQePZuKpdAXM4AUGd6WKj/Juj9Ep0y4LiclHkzuohwFM2D8g
+ Qen+FVK9RMBA1JKMAVvFsrFBb5nuUuqxOAP7MjSVCq2Yya6OPdL2dw80/BQT3PpbGWCS
+ INqTwHuFSq0cZy6miXYjEqpl38VX5mDhEID8uOfHlYN3VbbqSoSlOQqiy4rBvOZ5HkPr
+ UHSQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZuSvfXVSG+bB9oD+nHQkss7D+k+TBXN9kGbzyP0mQSMbD/bWkQE9pkl9ik9W+07vnzFxeeXlA1T2dSg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz0DvCdJq1UsWYHgcGI4Q1hH8xpBsNnbLoxEheg+f3gVeNwGPIm
- xol5M1h3dVxGUDK6q7NQUWHor07CdpJj4QCs4JFKOyygli2bDxg1UlgXBOdEEb/pY+c=
-X-Gm-Gg: ASbGncvjOSdAOh5jCJ8+wNl1RIWwbhkP3GpkStH5tfFuNrRtTsn7p4YiasRDmOvlFpM
- WzeiW5iyxQdj1ajQMdc+NDPFKcM9/wY1fPLVb4WpoFCA2UrpweWscduSaaWFJ2eQjx/8vtAYC21
- 53Ue2BB96BZ0S3PhPCVMWAU3+uWl9RvxP6JBKcE00sU6xnqP62UFiMVYkDBUkzA+cXqgTK8WYi6
- LwDjAbdgeVh4oZ3ruub0HnrXXupI6cs9yYIgm72zosVQk3QdWOYCVz2SdM0H45XM5NcqxFF9jWZ
- t9dBQvO+dw3r3qlKAfaQVA7uUDGrn9ipVWL0KLXTg+OReGNRhhjwg8avV6/XicWz8hAID+rTrrC
- O27IyVQ==
-X-Google-Smtp-Source: AGHT+IF4XXp1aLCWKB2Y2JNdxIiZKbtNgU9ZnNFVay8r7bVjoBOcuQslbgG6XG2skmv22UHi94V+gA==
-X-Received: by 2002:a05:6000:1885:b0:3a4:e672:df0c with SMTP id
- ffacd0b85a97d-3a4e672e083mr1108871f8f.13.1748428894969; 
- Wed, 28 May 2025 03:41:34 -0700 (PDT)
+ AJvYcCXaOMtfrWgDFA5i4ko/CJUS6kMDrsjPIjVuVHpMruQ214TyKF7YyZIGu9jRXp5W613fFamTsrp5I4bCsg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxRrkSH93viAubQkbLLU12yYcWnGGU1lKqB0Pzz7uwapQwWWoJj
+ 7LImlRXejTAlzK0xFuSFzB+HwWsCUtgV+TFC/AUw0Wb3UTf4Q7QsrbNhHs2EcAUNKDg=
+X-Gm-Gg: ASbGncv1U9kRQf1Chz38FZEcpsj84ADoaNBcHCqiPdM+b9hkcUKYNJpFBT3ZOipjLRx
+ 3ygAFNEKOl9/QYsCsB2XzawfKSKbPSWL/kskQGM7pr5H3WadwLb++CDh+U/ICE2v33KFz42LG4Q
+ NIxN+pBzfxXe8U9iuAeup0HRfaBFa7IEFEHBThn2GvsPO8nRsn5P68/Rr848qr4h+w23cHeoYqh
+ XaI7XlPZMSK06QJDQG/pHLQzjKrv1JgbXrzJr238xX/nWrhpCujT7vkkQmdFPsU4BX8A8aEXZxf
+ n7VBttdWgQyvnpwOdABOvBDI0fs5h8G4insL0VarN7CnPIV5eozOE6/nfEXfTk0sKSFGVi0=
+X-Google-Smtp-Source: AGHT+IEqdF3+R9PvjaaVFg6PDyOWyRZc3HR0H7gqLL2irDsUydaByqxkZ9IUn5cux0xSEgLuwczlgg==
+X-Received: by 2002:a05:600c:45ce:b0:43b:c938:1d0e with SMTP id
+ 5b1f17b1804b1-44fcb9e409dmr26120075e9.2.1748428898180; 
+ Wed, 28 May 2025 03:41:38 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450064add8bsm17331595e9.17.2025.05.28.03.41.32
+ 5b1f17b1804b1-450064add8bsm17331595e9.17.2025.05.28.03.41.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 May 2025 03:41:34 -0700 (PDT)
+ Wed, 28 May 2025 03:41:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 28 May 2025 12:40:57 +0200
+Date: Wed, 28 May 2025 12:40:58 +0200
 MIME-Version: 1.0
-Message-Id: <20250528-pinctrl-const-desc-v1-1-76fe97899945@linaro.org>
+Message-Id: <20250528-pinctrl-const-desc-v1-2-76fe97899945@linaro.org>
 References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
 In-Reply-To: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
 To: Linus Walleij <linus.walleij@linaro.org>, 
@@ -96,21 +95,21 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=941;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1365;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=zrI5XszXIHo55XzuEzxs+Nt+l2DX90UOcjrVjPXljcM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoNuhJ4yZZSqj6dEPnXTgLNjKYLUIHgwgauUARk
- H8eJl7B4ryJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaDboSQAKCRDBN2bmhouD
- 1+ivEACCJDREpm7C+JuFF39/eQGACEJKolMKPZ3B1qh8VZPQQTidC/Sc4YJsNMf2ALyneQVNJRr
- ee0rzIGyB1dV+BdbrAAaU1luTOQfqd28ZU+hkN12kluq5TtfVYsfjC3qY+xT+s57CmqWJrS8suf
- tF84DJ05p8vijBMGOe4xzZO7or5BqM1JK32hTFyoZh7kOPiI174p0w91Flem3uX1rLg8f2iRGf5
- nPHw4aLV+fgDVeF1lulUpeOAfqHnt0lqKBhpWkowevGEp1PvCHxN9C+zZxjzyVFbhW7DQ7Vtb2q
- ekSrBr/nfXxV1LWbppOeZjsUoqbUYpEBFiNSjCW5tB6Rc2K4ez83OLBVRPG6U/mKcdlG/sz8MYf
- kxnETUB/7A5YgTrEHNeATC8iZ+qcu0dlniWB178PRj/Ohb5p/++wVINLNbOzxqKur1h03+i74ZQ
- lU+QrFHay3EclA4eZmLOSb5rWnnCam0dbD7OAwUxuYLUeB1dFqcULcpDozUjb0t6M4vPm2Opadi
- Y+Kcj/2g3qAtprbL+7BXQPANgJ7TNXpvHXfiUyPvyMmZPuCNkI2SsPmCPNPVAMn0fgSqkoz6iC1
- UKVdN+23XFZMk5MbzTHm838PZoLCCpE96EW79bgbL2OEPv4hPAfZ9GTjdJjAGafoQ+3/4WhNNSh
- y+XmeSNsjaGGtHQ==
+ bh=ctLoeYbHiiEBT9tiXppJUMjUFh7QHQFzP0xX2rdTSyo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoNuhKnpMXQJB0a7WYDcwZWwHu8C1P+bTuhMNNC
+ +EXWDs6a8+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaDboSgAKCRDBN2bmhouD
+ 11VaD/9bw31tjR68bxVpvaTyp/6cSym928yjCV9vR7oyl3BoFzh4W/a+7D30PLrsKSbtBC0J/LD
+ ZSkuCuQRCTdT/n3XZG0T+ABgncoGE8an/aWUK1QeNySdpFSaEb5IitD03FUnLNTrxbziwX2OSOt
+ 6Z8A1nYodGD43IqazDQ2Xa7koDf9waLjKZ4MmbB8/+UkbSkzvm0UwGsFauOIvDrdj5PPraBwoo0
+ W1X4sxPqQbmIu/4DVRh6oGcHsCwbTyAArmCXRUGcCavGlYBMYD0sfBZ14yAoyXbd+TywqhMmceW
+ Tgtkyg/cXJ8JinZQIyzaHGnbQKLMukCGj+sTXlEyYG54GXhLmH3szir1Zsww23gOCwDK/qdnObe
+ c/31A7IEOIftcgkxejUbOr2hcAttBy7peOBZmeIe2iHS2xV/0B3z4DN69SNuH7YSD06YPSnBrgv
+ BPRrGVkzC6QpojpzpZYG1rdP1Mov2N6Xb6lFueCWghnaWhmNte0hYDoOi3sHyHcLTY1RBqCyKVb
+ ghPKA7ZSaMhuw3XFjrTUOHMhvO/Qxo44gHjL9XbyoHVDmw2vtEczKKN6madwPnMdoxroiO8Szan
+ PthWKLwLidRlevSuV3zpMfPWxCO8gOal4o4jOif7BkNZmL0L1ELFxabGoZqrimpzXrW9si4MeWO
+ jCjZimWjAIxLjVg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
@@ -121,8 +120,8 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/17] pinctrl: starfive: Allow compile
- testing on other platforms
+Subject: [Linux-stm32] [PATCH 02/17] pinctrl: Allow compile testing for K210,
+ TB10X and ZYNQ
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,29 +138,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Always descent to drivers/pinctrl/starfive/ because limiting it with
-SOC_STARFIVE is redundant since all of its Kconfig entries are already
-have "depends on SOC_STARFIVE".  This allows compile testing on other
-architectures with allyesconfig.
+Pinctrl drivers for K210, TB10X and ZYNQ do not reference any machine
+headers, thus can be compile tested for increased build coverage.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/pinctrl/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/Kconfig | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-index ac27e88677d14f1c697e0d0be9f295c746556f4d..dcede70b25660833a158c298d1269d6ecea9dd8b 100644
---- a/drivers/pinctrl/Makefile
-+++ b/drivers/pinctrl/Makefile
-@@ -82,7 +82,7 @@ obj-y				+= sophgo/
- obj-y				+= spacemit/
- obj-$(CONFIG_PINCTRL_SPEAR)	+= spear/
- obj-y				+= sprd/
--obj-$(CONFIG_SOC_STARFIVE)	+= starfive/
-+obj-y				+= starfive/
- obj-$(CONFIG_PINCTRL_STM32)	+= stm32/
- obj-y				+= sunplus/
- obj-$(CONFIG_PINCTRL_SUNXI)	+= sunxi/
+diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
+index 33db9104df178e5a3148b60c3c6bd153113385d3..77a5d13e899f8c5251987c2c74df1d05dbd59128 100644
+--- a/drivers/pinctrl/Kconfig
++++ b/drivers/pinctrl/Kconfig
+@@ -269,7 +269,7 @@ config PINCTRL_INGENIC
+ 
+ config PINCTRL_K210
+ 	bool "Pinctrl driver for the Canaan Kendryte K210 SoC"
+-	depends on RISCV && SOC_CANAAN_K210 && OF
++	depends on RISCV && SOC_CANAAN_K210 && OF || COMPILE_TEST
+ 	select GENERIC_PINMUX_FUNCTIONS
+ 	select GENERIC_PINCONF
+ 	select GPIOLIB
+@@ -554,8 +554,8 @@ config PINCTRL_SX150X
+ 	  - 16 bits: sx1509q, sx1506q
+ 
+ config PINCTRL_TB10X
+-	bool
+-	depends on OF && ARC_PLAT_TB10X
++	bool "Pinctrl for TB10X" if COMPILE_TEST
++	depends on OF && ARC_PLAT_TB10X || COMPILE_TEST
+ 	select GPIOLIB
+ 
+ config PINCTRL_TPS6594
+@@ -590,7 +590,7 @@ config PINCTRL_TH1520
+ 
+ config PINCTRL_ZYNQ
+ 	bool "Pinctrl driver for Xilinx Zynq"
+-	depends on ARCH_ZYNQ
++	depends on ARCH_ZYNQ || COMPILE_TEST
+ 	select PINMUX
+ 	select GENERIC_PINCONF
+ 	help
 
 -- 
 2.45.2
