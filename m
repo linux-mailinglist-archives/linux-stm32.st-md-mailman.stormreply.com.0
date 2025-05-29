@@ -2,88 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A82B3AC7515
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 02:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E240AC751F
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 02:39:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39B60C35E3F;
-	Thu, 29 May 2025 00:31:17 +0000 (UTC)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
- [209.85.217.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABF6AC35E3F;
+	Thu, 29 May 2025 00:39:19 +0000 (UTC)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22584C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6188AC35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 May 2025 00:31:16 +0000 (UTC)
-Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-4e5a0ec639dso201300137.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 17:31:15 -0700 (PDT)
+ Thu, 29 May 2025 00:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1748478675; x=1749083475;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q44z5Bd9/8IILONn0/cL0CaXO9i2aVCCm5R3K/3l5Mo=;
- b=Z8poh+HroE6FVRvBypqMIIYYPa0aP2/2dM94/9rxbCp6eSnqOZjCqRHNzebYR7Gp4/
- 0M06fps0ilF/5IEuBsI8qsDcGeM9+0UZ458HdpbDPomQwuDr5k+SNE5+BN8GcVjYusZd
- mdHJC/KTxux7f+kjGqO9Ltmbbapm3HfSoWDbcmr4/hYyAULSCvPquNIO7cqck5RZmq2h
- C/cSOKFuN562rcEjdC1h5P2o2noNxpdCjcXM6uifmt43sW4f3Oa4bXBRVe+yXVWvUcmZ
- TT0QkvAGxrrK872vBYrD9dBV+3EshtBA/fVN2ZEsWX43gcE0mIYiVj+2Xl7ziFbeU6fN
- 2pMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748478675; x=1749083475;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=q44z5Bd9/8IILONn0/cL0CaXO9i2aVCCm5R3K/3l5Mo=;
- b=SeUOLxoqEic5f/0ov+Iey+kAtermKiVetqubaLeBCaB2GQ8RBAI/U9ev3SEzSKqGc+
- wfoJnA9sFBmaz+HEhK5GbVM3ul3sQmD+zEN5l+jePGoZ24X4YkmLA5ZXjjBQnxFrwuc1
- wnQUcOK+0fhivmLe3DmQOVsuMG/Lc8F8LY7zSh7bybZYuxcbip82uXYQgMGmFsuiHUDs
- bPTR3qIE8IgUxe8WGekSywIb4/Fh/ys4TRwDZxAfCmhMmHM6Fc2RRDlbTxAHdESnfpdu
- T/kJMmcYWBCoHM9JxPaSObZtpZqR0gow26JIEAXH17fuu/d1B1JKy7E1PNLPOIWKFqQV
- q90g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVH8Tyl8lO0jHI618M2hTveNbLKwCRU5JDN2JRuTwuPJCUCZI+tO/t47HsclFrM9VoOS4GLKKlu+6jpqQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxMTD+NpPPlHS/4Q4rQYNx4RL6UUyJo9pNGzwFbq85QkjXxw8vL
- Ha1BbS9AHZpSc0XuueZwdEuElDyW55G3YLE25lLsUbpSI/lq3Aw0uIexRgzllzEGk/0TDMvWQpB
- sTXt54MzLnuCEYDMk9YBdhMWMYL2F7Eg=
-X-Gm-Gg: ASbGncv7Qh7PmRzOiTqJsqKgPC2oJaey5m5FVVt/Caj8xav1iOhk3k+NV++0/GWTJHw
- M/Iz+8vg35mwKS26IuJoHzvbRx83CtUstGN+IWTxfbBZuEdTcUpqnNSri6gzokDPaVAMca0LzsA
- l4iCFJjb+Oax53mOflRlUNHnLCthdvF9pPQw==
-X-Google-Smtp-Source: AGHT+IFG095fC3FxIkcr8wXE/8rgaYSmXktT8c+7Ug5Ck8RJXbeQXCBHRZraCpMc7Swq4SZENwhJZHvYWPtIc5+DC5Q=
-X-Received: by 2002:a05:6102:a51:b0:4db:e01:f2db with SMTP id
- ada2fe7eead31-4e67dd1919bmr264553137.0.1748478674832; Wed, 28 May 2025
- 17:31:14 -0700 (PDT)
+ d=codeconstruct.com.au; s=2022a; t=1748479155;
+ bh=ny8UrZV+yDW12ChrpSJinfCzQgq9Rotc7NxMtarbZ9w=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=lhVxSlw1XDyalKK+FYY9gimu5uKVHJnqaeDIt0HjfhB9x7uQWy4SQI/TGIY1Wadbb
+ OBr8B5u5921nStK7WPkz8zc4MGzv2ocjjcgGlJ5cdSLqKRB3yuwNNZFghEaoqXOuCU
+ XGaz4hQH9WJDhXlF8jAqHQVlbLn9J2xItnpaLWAaOSf8uRWGcOYpJzwJ/z8Yza+HV2
+ WSRl6+BECuvxv7ZqlPnd0zrRetMjz80rmuwva0+xhB1ZJ6+J3uQ3VeB2RJYY7yrZD8
+ LjDNdWRt2mnVqiGXOpycjhV17I3sk9KD2OTyKXx3l5mPgsYmNZWnz+Ux5vXkgut4Mj
+ cMaTpUDMxrqLQ==
+Received: from [192.168.68.112] (unknown [180.150.112.166])
+ by mail.codeconstruct.com.au (Postfix) with ESMTPSA id DE6426449F;
+ Thu, 29 May 2025 08:39:07 +0800 (AWST)
+Message-ID: <af3edc0a454eecbe52608e0bc16d82b99be6bad7.camel@codeconstruct.com.au>
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Joel Stanley <joel@jms.id.au>,
+ Avi Fishman <avifishman70@gmail.com>,  Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Jonathan =?ISO-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,  Broadcom internal
+ kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, David Rhodes
+ <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Lorenzo Bianconi
+ <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>, Jesper Nilsson
+ <jesper.nilsson@axis.com>, Lars Persson <lars.persson@axis.com>, Manivannan
+ Sadhasivam <manivannan.sadhasivam@linaro.org>, Damien Le Moal
+ <dlemoal@kernel.org>,  Vladimir Zapolskiy <vz@mleia.com>, Michal Simek
+ <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>, Jianlong
+ Huang <jianlong.huang@starfivetech.com>, Hal Feng
+ <hal.feng@starfivetech.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 29 May 2025 10:09:06 +0930
+In-Reply-To: <20250528-pinctrl-const-desc-v1-5-76fe97899945@linaro.org>
+References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-5-76fe97899945@linaro.org>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-References: <CAGb2v66PEA4OJxs2rHrYFAxx8bw4zab7TUXQr+DM-+ERBO-UyQ@mail.gmail.com>
- <CADvTj4qyRRCSnvvYHLvTq73P0YOjqZ=Z7kyjPMm206ezMePTpQ@mail.gmail.com>
- <aDdXRPD2NpiZMsfZ@shell.armlinux.org.uk>
- <CADvTj4pKsAYsm6pm0sgZgQ+AxriXH5_DLmF30g8rFd0FewGG6w@mail.gmail.com>
- <8306dac8-3a0e-4e79-938a-10e9ee38e325@lunn.ch>
- <CADvTj4rWvEaFyOm2HdNonASE4y1qoPoNgP_9n_ZbLCqAo1gGYw@mail.gmail.com>
- <1e6e4a44-9d2b-4af4-8635-150ccc410c22@lunn.ch>
- <CADvTj4r1VvjiK4tj3tiHYVJtLDWtMSJ3GFQgYyteTnLGsQQ2Eg@mail.gmail.com>
- <0bf48878-a3d0-455c-9110-5c67d29073c9@lunn.ch>
- <CADvTj4qab272xTpZGRoPnCstufK_3e9CY99Og+2mey2co6u5dg@mail.gmail.com>
- <0c7a1602-61d3-4840-83f2-72a74ffd52b8@lunn.ch>
-In-Reply-To: <0c7a1602-61d3-4840-83f2-72a74ffd52b8@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 28 May 2025 18:31:03 -0600
-X-Gm-Features: AX0GCFvqUXpScx-Ym-AQvb--BAqo5_tl8KEywhB2ivVxb9ECD-mfCTp-d4WPAIs
-Message-ID: <CADvTj4q96aGsPi6wfMaxTnC-52-Svu_K6raj=LWyOJd+DniEUQ@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Furong Xu <0x1207@gmail.com>, linux-kernel@vger.kernel.org,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>, linux-sunxi@lists.linux.dev,
- Andrew Lunn <andrew+netdev@lunn.ch>, wens@csie.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ patches@opensource.cirrus.com, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] net: stmmac: allow drivers to
- explicitly select PHY device
+Subject: Re: [Linux-stm32] [PATCH 05/17] pinctrl: aspeed: Constify static
+	'pinctrl_desc'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,93 +77,19 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBNYXkgMjgsIDIwMjUgYXQgNTo0N+KAr1BNIEFuZHJldyBMdW5uIDxhbmRyZXdAbHVu
-bi5jaD4gd3JvdGU6Cj4KPiA+ID4gT3IsIGFzIFJ1c3NlbGwgc3VnZ2VzdGVkLCB5b3UgZ2l2ZSB0
-aGUgYm9vdGxvYWRlciBib3RoIC5kdGIgYmxvYnMsIGFuZAo+ID4gPiBpdCBjYW4gcGljayB0aGUg
-Y29ycmVjdCBvbmUgdG8gcGFzcyB0byB0aGUga2VybmVsLiBPciB0aGUgYm9vdGxvYWRlcgo+ID4g
-PiBjYW4gcGF0Y2ggdGhlIC5kdGIgYmxvYiB0byBtYWtlIGl0IGZpdCB0aGUgaGFyZHdhcmUuCj4g
-Pgo+ID4gVGhpcyBpcyB3aGF0IEknbSByZWFsbHkgdHJ5aW5nIHRvIGF2b2lkIHNpbmNlIGl0IHJl
-cXVpcmVzIHNwZWNpYWwKPiA+IGhhbmRsaW5nIGluIHRoZSBib290bG9hZGVyIGFuZCB0aGVyZWZv
-cmUgd2lsbCByZXN1bHQgaW4gYSBsb3Qgb2YgYnJva2VuCj4gPiBzeXN0ZW1zIHNpbmNlIG1vc3Qg
-cGVvcGxlIGRvaW5nIHBvcnRzIHRvIEg2MTYgYmFzZWQgYm9hcmRzIHdpbGwgb25seQo+ID4gZXZl
-ciB0ZXN0IGFnYWluc3Qgb25lIFBIWSB2YXJpYW50Lgo+Cj4gV2hpY2ggaW4gc29tZSB3YXlzIGlz
-IGdvb2QuIFRoZXkgd2lsbCB0aGVuIGlzc3VlIGZvdXIgbGV0dGVyIHdvcmRzIGF0Cj4gQWxsd2lu
-bmVyLCBhbmQgZ28gZmluZCBhIGJldHRlciBTb0MgdmVuZG9yLgoKTm8sIHRoZXkgd29uJ3QsIGJl
-Y2F1c2UgdGhlIHZlbmRvciB0aGF0IGFjdHVhbGx5IGJ1eXMgZnJvbSBBbGx3aW5uZXIKYWxzbyB1
-c2VzIHRoZSBCU1AgYW5kIGRvZXNuJ3QgY2FyZSBhcyBsb25nIGFzIHRoZSBCU1Agd29ya3MuCgo+
-Cj4gPiA+ID4gPiBEbyB5b3UgaGF2ZSBleGFtcGxlcyBvZiBib2FyZHMgd2hlcmUgdGhlIFNvQyB2
-YXJpYW50IGNoYW5nZWQgZHVyaW5nCj4gPiA+ID4gPiB0aGUgYm9hcmRzIHByb2R1Y3Rpb24gbGlm
-ZT8KPiA+ID4gPgo+ID4gPiA+IFllcywgdGhlIGJvYXJkcyBJJ20gd29ya2luZyBmb3IgZXhhbXBs
-ZSwgYnV0IHRoaXMgaXMgbGlrZWx5IGFuIGlzc3VlIGZvcgo+ID4gPiA+IG90aGVyIGJvYXJkcyBh
-cyB3ZWxsKHZlbmRvciBCU1AgYXV0byBkZXRlY3RzIFBIWSB2YXJpYW50cyk6Cj4gPiA+ID4gaHR0
-cHM6Ly93d3cuemV1c2J0Yy5jb20vQVNJQy1NaW5lci1SZXBhaXIvUGFydHMtVG9vbHMtRGV0YWls
-cy5hc3A/SUQ9MTEzOQo+ID4gPgo+ID4gPiBNYWlubGluZSBnZW5lcmFsbHkgZG9lcyBub3QgY2Fy
-ZSB3aGF0IHZlbmRvcnMgZG8sIGJlY2F1c2UgdGhleSBvZnRlbgo+ID4gPiBkbyBob3JyaWJsZSB0
-aGluZ3MuIFdoaWNoIGlzIE8uSywgaXQgaXMgb3BlbiBzb3VyY2UsIHRoZXkgY2FuIGRvIHdoYXQK
-PiA+ID4gdGhleSB3YW50IGluIHRoZWlyIGZvcmsgb2YgdGhlIGtlcm5lbC4KPiA+Cj4gPiBUaGF0
-J3Mgbm90IHJlYWxseSB0cnVlIElNTywgbWFpbmxpbmUgaW1wbGVtZW50cyBhbGwgc29ydHMgb2Yg
-d29ya2Fyb3VuZHMKPiA+IGZvciB2YXJpb3VzIHZlbmRvciBoYXJkd2FyZSBxdWlja3Mvd2VpcmRu
-ZXNzLgo+ID4KPiA+ID4gQnV0IGZvciBNYWlubGluZSwgd2UgZXhwZWN0IGEgaGlnaCBsZXZlbCBv
-ZiBxdWFsaXR5LCBhbmQgYSB1bmlmb3JtIHdheQo+ID4gPiBvZiBkb2luZyB0aGluZ3MuCj4gPgo+
-ID4gU3VyZSwgYW5kIEknbSB0cnlpbmcgdG8gZG8gdGhhdCBoZXJlIHJhdGhlciB0aGFuIGRvIHNv
-bWUgc3VwZXIgaGFja3kKPiA+IHVubWFpbnRhaW5hYmxlIGJvb3Rsb2FkZXIgYmFzZWQgZGV2aWNl
-IHRyZWUgc2VsZWN0b3IuCj4gPgo+ID4gPiBUaGlzIGNhbiBhbHNvIGFjdCBhcyBwdXNoIGJhY2sg
-b24gU29DIHZlbmRvcnMsIGZvciBkb2luZyBzaWxseSB0aGluZ3MKPiA+ID4gbGlrZSBjaGFuZ2lu
-ZyB0aGUgUEhZIHdpdGhpbiBhIFNvQyB3aXRob3V0IGNoYW5naW5nIGl0cyBuYW1lL251bWJlci4K
-PiA+Cj4gPiBJdCB3b24ndCBoZXJlLCBiZWNhdXNlIEFsbHdpbm5lciBkb2Vzbid0IGNhcmUgYWJv
-dXQgbm9uLUJTUCBrZXJuZWxzLgo+Cj4gSXQgY2FuIGJlIGluZGlyZWN0IHByZXNzdXJlLiBUaGVy
-ZSBhcmUgc29tZSBPRU1zIHdoaWNoIGNhcmUgYWJvdXQKPiBNYWlubGluZS4gVGhleSB3aWxsIGRv
-IHRoZWlyIGR1ZSBkaWxpZ2VuY2UsIGZpbmQgdGhhdCB1c2VyIHJlcG9ydAo+IE1haW5saW5lIGlm
-IGZsYWt5IG9uIHRoZXNlIGRldmljZXMsIGFuZCBnbyBmaW5kIGEgZGlmZmVyZW50Cj4gdmVuZG9y
-LgoKVGhlcmUgYXJlIHplcm8gT0VNcyBpbiBteSBpbmR1c3RyeSB0aGF0IHByb3ZpZGUgaGFyZHdh
-cmUgd2l0aAphbnkgbWFpbmxpbmUgc3VwcG9ydCBhdCBhbGwuIFRoZSB2ZW5kb3JzIGFyZSBvdXRy
-aWdodCBob3N0aWxlIHRvIDNyZApwYXJ0eSBmaXJtd2FyZSBhbmQgcHV0IHNpZ25pZmljYW50IGVm
-Zm9ydCBpbnRvIHByZXZlbnRpbmcgM3JkIHBhcnR5CmZpcm13YXJlLiBUaGUgT0VNcyB3aWxsIHZp
-ZXcgdGhlIGxhY2sgb2YgbWFpbmxpbmUgc3VwcG9ydCBhcyBhIGJvbnVzCnVuZm9ydHVuYXRlbHkg
-YXMgdGhleSBsaWtlIGV2ZXJ5dGhpbmcgbG9ja2VkIGRvd24uCgo+IFRoZXJlIHdpbGwgYmUgc29t
-ZSBPRU0gd2hpY2ggZ2V0IGJ1cm50IGJ5IHRoaXMgbWVzcywgYW5kIHdoZW4KPiB0aGV5IGNvbWUg
-dG8gdGhlaXIgc2Vjb25kIGdlbmVyYXRpb24gZGV2aWNlLCB0aGV5IHdpbGwgc3dpdGNoIHZlbmRv
-cgo+IGFuZCB0ZWxsIHRoZSBvbGQgdmVuZG9yIHdoeS4gSXQgY291bGQgd2VsbCBiZSBBbGx3aW5u
-ZXIgY2FuIHN1cHBvcnQKPiB0aGVpciBib3R0b20gbGluZSB3aXRob3V0IGNhcmluZyBhYm91dCBN
-YWlubGluZSwgc28gcmVhbGx5IGRvbid0Cj4gY2FyZS4gQnV0IE1haW5saW5lIGNhbiBoZWxwIHBv
-aW50IE9FTXMgYXdheSBmcm9tIHRoZW0gdG8gdGhvc2Ugd2hpY2gKPiBhcmUgbW9yZSBNYWlubGlu
-ZSBmcmllbmRseS4KClRoZSBPRU1zIGluIG15IGluZHVzdHJ5IHdpbGwgbm90IGNoYW5nZSBkdWUg
-dG8gYSBsYWNrIG9mIG1haW5saW5lCnN1cHBvcnQsIHRoZXkgaGF2ZSBubyBpbnRlcmVzdCBpbiBt
-YWlubGluZSBzdXBwb3J0LCB0aGV5IG9ubHkgY2FyZQp0aGF0IHRoZWlyIHByb2R1Y3RzIHdvcmsg
-d2VsbCBlbm91Z2ggdG8gc2VsbCwgYW5kIHNpbmNlIHRoZXJlIGlzCmxpdHRsZSBjb21wZXRpdGlv
-bgoKPiBXZSBhbHNvIG5lZWQgdG8gdGhpbmsgYWJvdXQgdGhpcyBhcyBhIHR3byB3YXkgc3RyZWV0
-LiBXaGF0IGRvZXMgdGhpcwo+IFNvQyBicmluZyB0byBNYWlubGluZT8gV2h5IHNob3VsZCBNYWlu
-bGluZSBjYXJlIGFib3V0IGl0PwoKVGhlIEg2MTYgaXMgdXNlZCBpbiBhIG51bWJlciBvZiBkZXZl
-bG9wbWVudCBib2FyZHMob3JhbmdlcGkgYW5kCnN1Y2gpIGFuZCBUViBib3hlcywgaGF2aW5nIGRl
-Y2VudCBtYWlubGluZSBzdXBwb3J0IGF0IGxlYXN0IGFsbG93cwpkb3duc3RyZWFtIGludGVncmF0
-b3JzIHRvIGhhdmUgYSBjaGFuY2UgYXQgaW1wcm92aW5nIHRoZSBzaXR1YXRpb24KcmVnYXJkbGVz
-cyBvZiB2ZW5kb3IgY29vcGVyYXRpb24sIG1heWJlIHRoZSBTb0MgdmVuZG9yIHdpbGwKZXZlbnR1
-YWxseSBjYXJlIGlmIHBlb3BsZSBhcmUgYWN0dWFsbHkgdXNpbmcgbWFpbmxpbmUga2VybmVscyBt
-b3JlLgoKPiBJdCBoYXMgc29tZQo+IG1ham9yIGRlc2lnbiBpc3N1ZXMsIGRvIHdlIHdhbnQgdG8g
-c2F5IHRoYXQgaXMgTy5LPyBEbyB3ZSB3YW50IG90aGVyCj4gdmVuZG9ycyB0byB0aGluayB3ZSBh
-cmUgTy5LLiB3aXRoIGJhZCBkZXNpZ25zPwoKSSBtZWFuLCBpdCdzIGEgc2Vjb25kIHNvdXJjZSBp
-c3N1ZSBmb3IgdGhlIFBIWSwgbGVzcyBvZiBhbiBvdXRyaWdodApkZXNpZ24gaXNzdWUgYW5kIG1v
-cmUgbGlrZWx5IHdhcyBqdXN0IHNvbWUgY29zdCBvcHRpbWl6YXRpb24uCgpJZiB3ZSBleGNsdWRl
-ZCBhbGwgdmVuZG9ycyB3aXRoIGJhZCBkZXNpZ25zIHRoZW4gTGludXggd291bGQgaGF2ZQpmYXIg
-bGVzcyBoYXJkd2FyZSBzdXBwb3J0LgoKPiBXb3JzZSBzdGlsbCwgdGhpcyBpcwo+IHN0bW1hYywg
-d2hpY2ggbG90cyBvZiB2ZW5kb3JzIGFscmVhZHkgYWJ1c2UgaW4gbG90cyBvZiBkaWZmZXJlbnQK
-PiB3YXlzLiBSdXNzZWxsIGhhcyBwdXQgaW4gYSBsb3Qgb2YgZWZmb3J0IHJlY2VudGx5IHRvIGNs
-ZWFuIHVwIHNvbWUgb2YKPiB0aGF0IGFidXNlLCBhbmQgd2UgYXJlIHB1c2hpbmcgYmFjayBoYXJk
-IG9uIG5ldyBhYnVzZXJzLgo+Cj4gSWYgeW91IGNhbiBoaWRlIHRoaXMgbWVzcyBhd2F5IGluIHRo
-ZSBib290bG9hZGVyLCBpdCBqdXN0IGxvb2tzIGxpa2UgYQo+IHJlZ3VsYXIgZGV2aWNlLCB3ZSBh
-cmUgbGlrZWx5IHRvIGFjY2VwdCBpdC4gSWYgeW91IHRyeSB0byBkbyBzb21ldGhpbmcKPiBkaWZm
-ZXJlbnQgdG8gdGhlIG5vcm1hbCBmb3IgUEhZcywgd2UgYXJlIHZlcnkgbGlrZWx5IHRvIHJlamVj
-dCBpdC4KCkknbSBjb25mdXNlZCwgdGhlIGtlcm5lbCBpc24ndCB0aGUgYm9vdGxvYWRlciBzbyBo
-b3cgY2FuIGl0IGJlIGFjY2VwdGVkCmJ5IHRoZSBrZXJuZWwgaWYgdGhlIGltcGxlbWVudGF0aW9u
-IGlzIG5vdCBpbiB0aGUga2VybmVsPyBMaW51eCBzdXBwb3J0cwpwbGVudHkgb2Ygd2VpcmQgaGFy
-ZHdhcmUgc28gSSByZWFsbHkgZG9uJ3Qgc2VlIHdoeSBoYXZpbmcgYSBxdWlyayBmb3IKdGhpcyBz
-cGVjaWZpYyBib2FyZCBpcyBzdWNoIGEgcHJvYmxlbSBhcyBsb25nIGFzIHRoZSBxdWlyayBkb2Vz
-bid0CmludHJvZHVjZSBtYWludGFpbmFiaWxpdHkgaXNzdWVzLgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Wed, 2025-05-28 at 12:41 +0200, Krzysztof Kozlowski wrote:
+> The local static 'struct pinctrl_desc' is not modified, so can be made
+> const for code safety.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
