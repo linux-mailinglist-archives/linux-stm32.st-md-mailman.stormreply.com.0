@@ -2,48 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F668AC75C2
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 04:16:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22A58AC75F7
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 04:57:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 537EFC35E3F;
-	Thu, 29 May 2025 02:16:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC01CC349C0;
+	Thu, 29 May 2025 02:57:00 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFAAEC35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A2F4C35E3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 May 2025 02:16:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 98AC1614AC;
- Thu, 29 May 2025 02:16:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39DDC4CEE3;
- Thu, 29 May 2025 02:16:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748484967;
- bh=VP/IQdT2nGS/s+RGboroFvF7fX6MZ+U9ZwH4o4Nlc4Y=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=iUJX5dXw3a9NowbtG9QFD71irkXCZh7CBN6jIJVPGflF05BtdPBfQWEAZFhl6G7Kh
- DwjF6+Lyuc+vXaa6Y3SJ33rGHopC6CArMOeXebJjHE4mZpqLYZ0iOwxebMp8Cb/xGV
- wmAUy1QJ0HnWG3CNveRLvaMCdP/LaBI1IKkdWo9LbTM1W3YiDS5MmZVBWkeuHl/HX5
- 6zJ0W5VPWgkj9M5Vi8tYn4gpUKGFHmeUJNV/ZMkWM0jQuDw0SzSBjCvmAVAGmIQOMH
- 66Yj8lsujPYS6EdiAY3NuVUkRsszgOlp4Tz90XeEIkgPPyrl83LcjrEhIkI+JaDBja
- ltk+hdZUgSvsg==
-Date: Wed, 28 May 2025 19:16:06 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>
-Message-ID: <20250528191606.66034ab3@kernel.org>
-In-Reply-To: <20250528-stmmac_tstamp_div-v3-0-b525ecdfd84c@bootlin.com>
-References: <20250528-stmmac_tstamp_div-v3-0-b525ecdfd84c@bootlin.com>
+ Thu, 29 May 2025 02:56:59 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-b0b2d0b2843so425952a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 May 2025 19:56:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1748487418; x=1749092218;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=igalGTx7HktZiJXWlGXR/nTMgCr7zRzPdt9kXDFT4jI=;
+ b=Tf4plCMZs5PXqR2T5FWxjYNlg6Ar6mwvm//IVDazJ+Mpky9dtMf6xK83KnboHQso/I
+ gIQNQDlXlWfUBz+4AQRhVJc8MqVwMtJWZIhGdBrN+a4XXZexpiz+V3q5/WJY5b7/j2hN
+ shV5RRSKR17Yh67W42IsGVta5l1NUnAlnGtvE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748487418; x=1749092218;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=igalGTx7HktZiJXWlGXR/nTMgCr7zRzPdt9kXDFT4jI=;
+ b=EShz2+/+G4Fnc3ybg4p3pNbTVPDjUHDwR6LD5Vbu6VHcbtoSleTDQLlG6xUjqOyE5r
+ /xzKuxzeOhNxT1V39Vhz6Ju0eGsk9IqgMzDdE6MeXLmjCBOkmYmvWCCeBKHOLblpDNc6
+ m5byZai9JcUDiOqz2f1VcxntmOCFiy5PCQCwwgsSY1nevl6eQ2K9Rdh2gL6Znje2EOGK
+ 7SIT2pP0XwqZufCeVG/XLKoDc434ue6F8qZ9rqP/v4QtT6bQBxBvXm/quUVJq79kArRN
+ /fe2R1SI2ZcnquD1SknzyLJkQbIf7TeHhFIS1aVN3AjRrBm2L1t7wdpgrqQzxSljQV8N
+ n70w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWNN6aLcJ7outXIPLqNBSaA3fNvwxr1t9LummoSE8evf0fPvF6AKOUNR2TawYEQwYeh5ukj/IPjI9yGHQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywv9XPfy0MuZWs6fuhwBs0ocuyHWTeRxjYC9hNSBpnTDkDzFZ01
+ oj5Q9uYB2etQyRUmhXv2kqziFkP+NFuPuutY0XrOUOKSQLRwNGb8DC29Pijh7HkAh7UOZ0dthsf
+ TUQI2hkwSxhBXTpKN1uvV/Bdvo9gjZG/tfnAfXlBx
+X-Gm-Gg: ASbGncsij70ZFLs+cZ60htwviyJwWPY2hlPqdUw23hTjwleVW++8P4NfEdKi+by5Ve3
+ AtWQ5xodLmR1yRgJbO06h9RZ9wPhpTpLf3ODas6N9+WxtEaEdDZhm68Zhsb9DTPBjPF96cbaWk4
+ Ey6kYi0fJZ6BUcuVPyf/LKZv85KjFOF8wUEg==
+X-Google-Smtp-Source: AGHT+IFuGPXAClT9ED5vKwdCpxiy4g+H/pyfvH9nuikO/EisHRGYk+JJweLUS9BYUjAslq3NHNzA9gx5OAhyDWW3Lj4=
+X-Received: by 2002:a17:90b:3e81:b0:30e:9349:2da2 with SMTP id
+ 98e67ed59e1d1-311e73db541mr7138078a91.4.1748487417932; Wed, 28 May 2025
+ 19:56:57 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Phil Reid <preid@electromag.com.au>,
- linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S.
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/2] net: stmmac: prevent div by 0
+References: <20241018205332.525595-1-jitendra.vegiraju@broadcom.com>
+ <CAMdnO-+FjsRX4fjbCE_RVNY4pEoArD68dAWoEM+oaEZNJiuA3g@mail.gmail.com>
+ <67919001-1cb7-4e9b-9992-5b3dd9b03406@quicinc.com>
+ <CAMdnO-+HwXf7c=igt2j6VHcki3cYanXpFApZDcEe7DibDz810g@mail.gmail.com>
+ <7ac5c034-9e6d-45c4-b20a-2a386b4d9117@quicinc.com>
+ <51768fa6-007e-4f30-ac1f-eed01ae1a3c5@linux.dev>
+In-Reply-To: <51768fa6-007e-4f30-ac1f-eed01ae1a3c5@linux.dev>
+From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Date: Wed, 28 May 2025 19:56:44 -0700
+X-Gm-Features: AX0GCFs7nO7Ek5qGHccnCOiDAB6gA5K5glWzqriW3_xcRyt9xcpYHgFycts9UYs
+Message-ID: <CAMdnO-KNfH79PG1=21Dbyaart2JN_e1XcF+tTG93BG5BobX+Gg@mail.gmail.com>
+To: Yanteng Si <si.yanteng@linux.dev>
+Cc: Andrew Lunn <andrew@lunn.ch>, Jianheng.Zhang@synopsys.com,
+ edumazet@google.com, Sagar Cheluvegowda <quic_scheluve@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ "Abhishek Chauhan \(ABC\)" <quic_abchauha@quicinc.com>,
+ bcm-kernel-feedback-list@broadcom.com, rohan.g.thomas@intel.com,
+ pabeni@redhat.com, ahalaney@redhat.com, hawk@kernel.org,
+ richardcochran@gmail.com, ast@kernel.org,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, kuba@kernel.org,
+ linux-arm-kernel@lists.infradead.org, xiaolei.wang@windriver.com,
+ florian.fainelli@broadcom.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, fancer.lancer@gmail.com, horms@kernel.org,
+ mcoquelin.stm32@gmail.com, bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v6 0/5] net: stmmac: Add PCI
+	driver support for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,18 +90,207 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1471246693824317512=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyOCBNYXkgMjAyNSAxMDoyOTo0OSArMDIwMCBBbGV4aXMgTG90aG9yw6kgd3JvdGU6
-Cj4gSGVsbG8sCj4gdGhpcyBzbWFsbCBzZXJpZXMgYWltcyB0byBmaXggYSBzbWFsbCBzcGxhdCBJ
-IGFtIG9ic2VydmluZyBvbiBhIFNUTTMyTVAxNTcKPiBwbGF0Zm9ybSBhdCBib290IChzZWUgY29t
-bWl0IDEpIGR1ZSB0byBhIGRpdmlzaW9uIGJ5IDAuIFRoaXMgbmV3Cj4gcmV2aXNpb24gYWRkIHRo
-ZSBzYW1lIGNoZWNrIGluIGFub3RoZXIgY29kZSBwYXRoIHBvc3NpYmx5IGFmZmVjdGVkIGJ5Cj4g
-dGhlIHNhbWUgaXNzdWUsIGFzIGRpc2N1c3NlZCBpbiB2Mi4KCnYzIGRvZXNudCBhcHBseSBjbGVh
-bmx5LiBDb3VsZCB5b3UgcmViYXNlIG9uIGxhdGVzdCBuZXQgYW5kIHJlcG9zdD8KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+--===============1471246693824317512==
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000075fc7206363d732d"
+
+--00000000000075fc7206363d732d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Yanteng,
+
+On Wed, May 28, 2025 at 6:36=E2=80=AFPM Yanteng Si <si.yanteng@linux.dev> w=
+rote:
+>
+> =E5=9C=A8 5/28/25 8:04 AM, Abhishek Chauhan (ABC) =E5=86=99=E9=81=93:
+> >
+> >
+> > On 2/7/2025 3:18 PM, Jitendra Vegiraju wrote:
+> >> Hi Abhishek,
+> >>
+> >> On Fri, Feb 7, 2025 at 10:21=E2=80=AFAM Abhishek Chauhan (ABC) <
+> >> quic_abchauha@quicinc.com> wrote:
+> >>
+> >>>
+> >>>
+> >>> On 11/5/2024 8:12 AM, Jitendra Vegiraju wrote:
+> >>>> Hi netdev team,
+> >>>>
+> >>>> On Fri, Oct 18, 2024 at 1:53=E2=80=AFPM <jitendra.vegiraju@broadcom.=
+com> wrote:
+> >>>>>
+> >>>>> From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+> >>>>>
+> >>>>> This patchset adds basic PCI ethernet device driver support for Bro=
+adcom
+> >>>>> BCM8958x Automotive Ethernet switch SoC devices.
+> >>>>>
+> >>>>
+> >>>> I would like to seek your guidance on how to take this patch series
+> >>> forward.
+> >>>> Thanks to your feedback and Serge's suggestions, we made some forwar=
+d
+> >>>> progress on this patch series.
+> >>>> Please make any suggestions to enable us to upstream driver support
+> >>>> for BCM8958x.
+> >>>
+> >>> Jitendra,
+> >>>           Have we resent this patch or got it approved ? I dont see a=
+ny
+> >>> updates after this patch.
+> >>>
+> >>>
+> >> Thank you for inquiring about the status of this patch.
+> >> As stmmac driver is going through a maintainer transition, we wanted t=
+o
+> >> wait until a new maintainer is identified.
+> >> We would like to send the updated patch as soon as possible.
+> >> Thanks,
+> >> Jitendra
+> > Thanks Jitendra, I am sorry but just a follow up.
+> >
+> > Do we know if stmmac maintainer are identified now ?
+>
+> I'm curious why such a precondition is added=EF=BC=9F
+>
+It's not a precondition. Let me give some context.
+This patch series adds support for a new Hyper DMA(HDMA) MAC from Synopsis.
+Many of the netdev community members reviewed the patches at that time.
+Being the module maintainer at that time, Serge took the initiative to
+guide us through integrating the new MAC into the stmmac driver.
+We addressed all the review comments and submitted the last patch series.
+Without an official maintainer, we didn't get feedback on the last patch se=
+ries.
+Because of this, we wanted to wait until a new maintainer is assigned
+to this module.
+As Abhishek expressed in his email, it appears the HDMA MAC is
+becoming more mainstream.
+We are hoping to rebase the patch series and resubmit for review if
+netdev team members show interest.
+Thanks,
+Jitendra
+>
+> Thanks,
+> Yanteng
+
+--00000000000075fc7206363d732d
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGbTCCBFWg
+AwIBAgIMGHX6KxYK3WW2YyprMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MDkyNTEzNTAzMVoXDTI2MDkyNjEzNTAzMVowgbMxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjEaMBgGA1UEAxMRSml0ZW5kcmEgVmVnaXJhanUx
+LTArBgkqhkiG9w0BCQEWHmppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbTCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAKWV+9PYvG4njqRsbQas79f8Q46VL7b1ZxvWT6ik6VMbdRZx
+tfpfZalVXksqcb02/N1H7UA9V04cV2q97FkSr/KxeFLMetPb3cVJZICg23IRO2NTPdmgPFzwkPTo
+35h9h/OYLgh3/9a1nTsC2xqJa8GtohD5+42rsskGcI57U4n1r1L4R5IL9ypSqDxX/xVEAdGI5FTj
+VgvoZC6iuEbnez+yO8TT3wun9b/PQowOB5P0CwIFv7ERW0S1s6B8yrbsoaTrz0vQaEA786k1pZkg
+ykC1+zXq/iTyZuPP4B4RkzFd43Pw+GAH0Tt2nx5V4rNisJHeAVNU92Gj01cEg0I+FnsCAwEAAaOC
+Ad8wggHbMA4GA1UdDwEB/wQEAwIFoDCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0
+dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQw
+OQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAy
+MzBlBgNVHSAEXjBcMAkGB2eBDAEFAwEwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggr
+BgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wCQYDVR0TBAIw
+ADBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWlt
+ZWNhMjAyMy5jcmwwKQYDVR0RBCIwIIEeaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tMBMG
+A1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1Ud
+DgQWBBRq5Jlxz3MqC+zEgUxK566xEc2g3DANBgkqhkiG9w0BAQsFAAOCAgEARXrmeeWA31pp9Tr0
+M6mOlMv+Pr2raES4GzPSyftvxf6tBQCBNaqi6LSbyusDYOj3mG9bp6VeVn+68OxNY9iNAk+ujtId
+f3+30BlZOQ1v8z9u2peUOUtWI60y2MxhdH0X0n2H+BCGvUOFqs5z440jqqy1HsscZTXHB7FEZmVP
+fyD+0Z6cxyh7WNC6+BgLiFwf8iqmAbu7Yb1sGTUGyS5gfYEjJbF2PJfwNUcJDd7eS4w5Ju5mK5y7
+spgjH2/JmDgbkpSk9JyuWfjGZIg4ah/q2nb6UMd1XJb6gLQZuzPOI3SgXPvd8MHGjKZrX2BHOBSC
+bJJ8rp4w4a9QMS6dde2MFObusxkZAft4tUnwo+ProchHs7iA85sL7sWEZhAmjmKKCpECpEfZm0+/
+hpvKQV3AZp5vBstb4IVL8QmLj8beDVHYnNhEicsSiG1wW7zSYyBnmGbFRrFQIJnJDWPjTZOlVEyp
+T1ShrXRCtqJpOt6rgg+rFEY3D8j6/bAkJXnmKnE2LZ0YyrrKk7eC6UfNNimx38w3NWchtcGY8zJn
+Y/1/C9Jv/mWm/2lK8nvusOFxhKmbG83Hx8toQdZ5F1kYk6zAWjfB7lwXr/En9mCmLieJ18hen9EK
+qbYyUkmCmuoLi5GXFMJy+iQv6DgMVQ7CACagybU6FUrmL9lVa+A6caBEEh4xggJXMIICUwIBATBi
+MFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9i
+YWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwYdforFgrdZbZjKmswDQYJYIZIAWUDBAIBBQCg
+gccwLwYJKoZIhvcNAQkEMSIEIJJrBufWxV0R5MKdjS9jr6tsiQnUVV3R8QR2g1VJDeHEMBgGCSqG
+SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDUyOTAyNTY1OFowXAYJKoZI
+hvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG
+9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAAJ/e0uKX167
+Lh7qfbb/jrbXZ9YVUefyEoOhgnSSHxT+DukeUlQMd87hARBnskep0C/AFnI098yqX5IH1Quqv91v
+bGt756coz020oV19OCFtRBb5SAVPGptH4OorY4BJoLc/h7u2f/3jpZVjnkXNAjXUmLymLa+4SfPW
+Okn+t+uGoxF41yHNAVSzRNjSnqadTZya6FrZWoW3LxBdjhv4Eq/ijnCOquwG55DxqLyXqzAJmmqj
+xpIZASNxb5GqZxQ/1NfOmKqWhnBQa6FrSWANF2DVPI6ZEBYor5jo1ueZxqdEX5qReRzG0NPIy5Ro
+bmvTAMp6U2bE8F3h/txFAa148oc=
+--00000000000075fc7206363d732d--
+
+--===============1471246693824317512==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1471246693824317512==--
