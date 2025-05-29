@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16E69AC7A8A
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 11:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A451AC7A8E
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 11:01:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2522C349C6;
-	Thu, 29 May 2025 09:01:35 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6C32C349C7;
+	Thu, 29 May 2025 09:01:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05A00C349C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61A82C349C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 May 2025 09:01:33 +0000 (UTC)
+ Thu, 29 May 2025 09:01:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D73EAA4E1A2;
- Thu, 29 May 2025 09:01:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ABC2C4CEE7;
- Thu, 29 May 2025 09:01:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2040A4A8DB;
+ Thu, 29 May 2025 09:01:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276A3C4CEE7;
+ Thu, 29 May 2025 09:01:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748509292;
- bh=/F6/DXzn9Rhch+OmnF6nx0kwrtWRRAJCYSnxlsc0kYE=;
+ s=k20201202; t=1748509308;
+ bh=cmvLbyKtwXSsyts5o0RR2FI3M0/ZIWZMEocPoXjVbQw=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ISYwJir1bMRAPsuMiZOBJHVVkxaZF85KGfFJsJsp49oT+xk6HqQaqBs3Pi7zqRMA5
- jcu1X7IijkpyDWLOTnSAaux41T0/n7WH2MF7JSiBuJqv4CZgWCS/nbxVliZlcsbYs5
- GIgrWYAImzqd5lVN44E8pwXiRTZUgH5z9TVmKqTgr1soXWIeEyNGOKbiFi3vkhy1Lf
- 8b+kgjJCjn1DnbD/KP96B7gHj+zypMqndAHMg4aNay296uIcL6ukFurz/njylxbQoo
- MQQTEttQGfqcd/8sltBHVGCzcSUWP2RtP7H+HKsXpIA/+UqKverteDBCzaExQG2Jqh
- f+/+qRWY3Bhsg==
-Message-ID: <3ba588ed-1614-4877-b6fc-b5aa853b8c2e@kernel.org>
-Date: Thu, 29 May 2025 11:01:27 +0200
+ b=drZETqKXlgA/V3CUDK3etEu0hiRuzGsOsb69fY9pCdojKyxdY4SzBfIGsPTEdq7w8
+ ZZgXKvWzVSVechyEQYLirh6AXqAPzbf2lqt84vlYeZv+LeJ4gMwJAtktl78Eu0jw/K
+ 7lg31kdgAOOZVrK4plJ0ZugV9vIRtlcf0Wi3yYRKQ/CQqScIhgVNkeScYcWEboKNtQ
+ 1MKhUOu+FJTjflZ/azgOJiAGDsL2dynDfPdUJ7AKzMGRr/WCvVSaKA1o/zM5Nk+wO5
+ P5R7hoFbYkHV6SnrF53f7wWjMofhG8EruQC05958yP9PuLILuklYW8vbDRsjCX6DCo
+ ykOW4ORBQuwGg==
+Message-ID: <ebf1eded-aa78-4d50-8aa3-b1b7004c10f8@kernel.org>
+Date: Thu, 29 May 2025 11:01:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
@@ -39,9 +39,9 @@ To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Bartosz Golaszewski <brgl@bgdev.pl>
 References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
- <20250523-hdp-upstream-v3-5-bd6ca199466a@foss.st.com>
- <5b7a2102-ff68-4aab-a88d-0c4f9195ef95@kernel.org>
- <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
+ <20250523-hdp-upstream-v3-6-bd6ca199466a@foss.st.com>
+ <1c21f915-e067-4801-925a-3d4882f358f2@kernel.org>
+ <ef481451-b7d2-4f9a-a3d0-c67e8f5061dd@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,12 +87,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
+In-Reply-To: <ef481451-b7d2-4f9a-a3d0-c67e8f5061dd@foss.st.com>
 Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
- debug port (HDP) on stm32mp13
+Subject: Re: [Linux-stm32] [PATCH v3 6/9] ARM: dts: stm32: add Hardware
+ debug port (HDP) on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,31 +104,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/05/2025 14:14, Clement LE GOFFIC wrote:
->>
->>> +		};
->>> +
->>> +		hdp: pinctrl@5002a000 {
->>> +			compatible = "st,stm32mp131-hdp";
->>> +			reg = <0x5002a000 0x400>;
->>> +			clocks = <&rcc HDP>;
->>>   			status = "disabled";
->>
->> Why are you disabling it? What is missing?
-> 
-> Nothing is missing just disabled by default.
-> The node is then enabled when needed in board's dts file.
-Nodes should not be disabled by default if they are complete. That's why
-I asked what is missing. Drop.
-
-Best regards,
-Krzysztof
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjgvMDUvMjAyNSAxNDoxNSwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4gT24gNS8yOC8y
+NSAxMTowMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMjMvMDUvMjAyNSAxNDoz
+OCwgQ2zDqW1lbnQgTGUgR29mZmljIHdyb3RlOgo+Pj4gQWRkIHRoZSBoZHAgZGV2aWNldHJlZSBu
+b2RlIGZvciBzdG0zMm1wMTUgU29DIGZhbWlseQo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IENsw6lt
+ZW50IExlIEdvZmZpYyA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4KPj4+IC0tLQo+Pj4g
+ICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTUxLmR0c2kgfCA3ICsrKysrKysKPj4+ICAg
+MSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9hcmNo
+L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTUxLmR0c2kgYi9hcmNoL2FybS9ib290L2R0cy9zdC9z
+dG0zMm1wMTUxLmR0c2kKPj4+IGluZGV4IDBkYWE4ZmZlMmZmNS4uYjFiNTY4ZGZkMTI2IDEwMDY0
+NAo+Pj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1MS5kdHNpCj4+PiArKysg
+Yi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTUxLmR0c2kKPj4+IEBAIC0yNzAsNiArMjcw
+LDEzIEBAIGR0czogdGhlcm1hbEA1MDAyODAwMCB7Cj4+PiAgIAkJCXN0YXR1cyA9ICJkaXNhYmxl
+ZCI7Cj4+PiAgIAkJfTsKPj4+ICAgCj4+PiArCQloZHA6IHBpbmN0cmxANTAwMmEwMDAgewo+Pj4g
+KwkJCWNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDE1MS1oZHAiOwo+Pj4gKwkJCXJlZyA9IDwweDUw
+MDJhMDAwIDB4NDAwPjsKPj4+ICsJCQljbG9ja3MgPSA8JnJjYyBIRFA+Owo+Pj4gKwkJCXN0YXR1
+cyA9ICJkaXNhYmxlZCI7Cj4+Cj4+IFNhbWUgcXVlc3Rpb25zIGhlcmUgYW5kIGluIGZ1cnRoZXIg
+cGF0Y2hlcy4KPiAKPiBTYW1lLCBkaXNhYmxlZCBieSBkZWZhdWx0IGFuZCBlbmFibGUgaW4gYm9h
+cmQncyBkdHMgZmlsZQoKClNvIHRoZSBzYW1lIGFuc3dlciwgbm9kZSBpcyBjb21wbGV0ZSBzbyBz
+aG91bGQgaXQgYmUgZW5hYmxlZC4KCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
