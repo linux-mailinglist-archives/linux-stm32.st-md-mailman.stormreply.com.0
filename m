@@ -2,58 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B1BAC7AB1
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 11:07:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A14AC7ABC
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 11:10:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EF5BC32E92;
-	Thu, 29 May 2025 09:07:37 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93A4BC349C6;
+	Thu, 29 May 2025 09:10:06 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 641A3C32E8E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EDC2C349C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 May 2025 09:07:35 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E708A43302;
- Thu, 29 May 2025 09:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1748509654;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vP+cBqQl4oU5V6STKgR9qkSDk+GPXxR/Qkbrnuthsrw=;
- b=PZJP+2eq8AeMj9IpLi1meIJZZuysN3MuFx2xm06qM+HGf2PTvo6TxHv/bDeAj9wfwkrT+4
- qOeKetKK88G6R7XEcZ4+H75HCJNDD5oyiOkntMNUAo7taylJN5voJdDlIA9SXKx5rwEctb
- vEqeQxdyePpEXp9h3AcnbZpHfxosPP3PmI3qhz4FJ2Vq5mI0Y2lCrmgt9Sp8Ptp95QIK6A
- S6yDLki2Y+ole9CwHpj6YLcWDUc9i9Mrfgxhxaw5BhULSTTObgVM0EA2InCtlgZkcK6rgB
- 1r3yHRVkd7Mg/wZsxYsSsGFSgwAQxwIgxo382G4YHjE6DptAmUr9z9ztWhfPbQ==
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-Date: Thu, 29 May 2025 11:07:24 +0200
+ Thu, 29 May 2025 09:10:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 89FA6A4F500;
+ Thu, 29 May 2025 09:10:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F9AC4CEEF;
+ Thu, 29 May 2025 09:10:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1748509804;
+ bh=Yb2uSf81m/g9NlDY7wmvxatJgdvhAEkJ2SZriq2WmG8=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=cpuc0gljbw7Wel8lndc9mBJ6wKLR2x1eW0jJMO9g8nZ6QrREy5jr9bWDS2rnNd3Kt
+ 3828I2yiiEBHzYBGtEjCUyeVP8fzrFgNXi16tghzh2vxXuK/bMWwX5Idrh+rtK5Z1n
+ 5nlbEHz3Hj7+Shfs/mHCQefQK+L1buCyoz30c3Rk0n8B5sgpUV819bID9G8gY3B8T7
+ bQQ34g5U9bfVDRUeYFlM3VC9HmFyYP9TSVof/Ij53VfJzkAci/d5G92IV0Igodh+b3
+ Od5wZ/LIOitZJInY3nhFQK/WajIY83+/LsVv7rPR9HpBZeCetNdNa6dZGnnsTrHQdV
+ MysXznv41IAfw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33F2939F1DEE; Thu, 29 May 2025 09:10:39 +0000 (UTC)
 MIME-Version: 1.0
-Message-Id: <20250529-stmmac_tstamp_div-v4-2-d73340a794d5@bootlin.com>
-References: <20250529-stmmac_tstamp_div-v4-0-d73340a794d5@bootlin.com>
-In-Reply-To: <20250529-stmmac_tstamp_div-v4-0-d73340a794d5@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Phil Reid <preid@electromag.com.au>
-X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvheejfeculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephfffufggtgfgkfhfjgfvvefosehtkeertdertdejnecuhfhrohhmpeetlhgvgihishcunfhothhhohhrrocuoegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeevgefhteffuefhheekkeelffffvdeugffgveejffdtvdffudehtedtieevteetnecukfhppedvrgdtvdemkeegvdekmehfleegtgemvgdttdemmehfkeehnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehinhgvthepvdgrtddvmeekgedvkeemfhelgegtmegvtddtmeemfhekhedphhgvlhhopegludelvddrudeikedruddrvddtkegnpdhmrghilhhfrhhomheprghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeduledprhgtphhtthhopehrihgthhgrrhgutghotghhrhgrnhesghhmrghilhdrtghomhdprhgtphhtthhopehmtghoqhhuvghlihhnrdhsthhmfedvsehgmhgrihhlrdgtohhmpdhrtghpthhtohepmhgrgihimhgvrdgthhgvvhgrlhhlihgvrhessghoohhtlhhinhdrtghomhdprhgtphhtthhop
- ehkuhgsrgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplfhoshgvrdetsghrvghusehshihnohhpshihshdrtghomhdprhgtphhtthhopehprggsvghnihesrhgvughhrghtrdgtohhmpdhrtghpthhtohepjhhorggsrhgvuhesshihnhhophhshihsrdgtohhmpdhrtghpthhtohepnhgvthguvghvsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
- Yanteng Si <si.yanteng@linux.dev>, linux-kernel@vger.kernel.org,
- =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 2/2] net: stmmac: make sure that ptp_rate
- is not 0 before configuring EST
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <174850983774.3198213.12132601744057177877.git-patchwork-notify@kernel.org>
+Date: Thu, 29 May 2025 09:10:37 +0000
+References: <20250527-stmmac-mdio-bus_id-v2-1-a5ca78454e3c@cherry.de>
+In-Reply-To: <20250527-stmmac-mdio-bus_id-v2-1-a5ca78454e3c@cherry.de>
+To: Quentin Schulz <foss+kernel@0leil.net>
+Cc: linux-kernel@vger.kernel.org, heiko@sntech.de,
+ jakob.unterwurzacher@cherry.de, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, quentin.schulz@cherry.de,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: platform: guarantee
+ uniqueness of bus_id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,35 +57,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SWYgdGhlIHB0cF9yYXRlIHJlY29yZGVkIGVhcmxpZXIgaW4gdGhlIGRyaXZlciBoYXBwZW5zIHRv
-IGJlIDAsIHRoaXMKYm9ndXMgdmFsdWUgd2lsbCBwcm9wYWdhdGUgdXAgdG8gRVNUIGNvbmZpZ3Vy
-YXRpb24sIHdoZXJlIGl0IHdpbGwKdHJpZ2dlciBhIGRpdmlzaW9uIGJ5IDAuCgpQcmV2ZW50IHRo
-aXMgZGl2aXNpb24gYnkgMCBieSBhZGRpbmcgdGhlIGNvcnJlc3BvbmRpbmcgY2hlY2sgYW5kIGVy
-cm9yCmNvZGUuCgpTdWdnZXN0ZWQtYnk6IE1heGltZSBDaGV2YWxsaWVyIDxtYXhpbWUuY2hldmFs
-bGllckBib290bGluLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleGlzIExvdGhvcsOpIDxhbGV4aXMu
-bG90aG9yZUBib290bGluLmNvbT4KRml4ZXM6IDg1NzJhZWMzZDBkYyAoIm5ldDogc3RtbWFjOiBB
-ZGQgYmFzaWMgRVNUIHN1cHBvcnQgZm9yIFhHTUFDIikKLS0tCkNoYW5nZXMgaW4gdjQ6Ci0gcmVi
-YXNlZCBvbiBuZXQvbWFpbgpDaGFuZ2VzIGluIHYzOgotIG5ldyBwYXRjaAotLS0KIGRyaXZlcnMv
-bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19lc3QuYyB8IDUgKysrKysKIDEgZmls
-ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhl
-cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfZXN0LmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9z
-dG1pY3JvL3N0bW1hYy9zdG1tYWNfZXN0LmMKaW5kZXggYzk2OTNmNzdlMWY2MWZlNWM5MmY5NWY1
-ZTU0NDM3MTQ0NTYyNmM0ZC4uYWM2ZjJlM2EzZmNkMmY5YWUyMTkxMzg0NTI4MmZmMDE1Y2QyZjdl
-YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFj
-X2VzdC5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19l
-c3QuYwpAQCAtMzIsNiArMzIsMTEgQEAgc3RhdGljIGludCBlc3RfY29uZmlndXJlKHN0cnVjdCBz
-dG1tYWNfcHJpdiAqcHJpdiwgc3RydWN0IHN0bW1hY19lc3QgKmNmZywKIAlpbnQgaSwgcmV0ID0g
-MDsKIAl1MzIgY3RybDsKIAorCWlmICghcHRwX3JhdGUpIHsKKwkJbmV0ZGV2X3dhcm4ocHJpdi0+
-ZGV2LCAiSW52YWxpZCBQVFAgcmF0ZSIpOworCQlyZXR1cm4gLUVJTlZBTDsKKwl9CisKIAlyZXQg
-fD0gZXN0X3dyaXRlKGVzdF9hZGRyLCBFU1RfQlRSX0xPVywgY2ZnLT5idHJbMF0sIGZhbHNlKTsK
-IAlyZXQgfD0gZXN0X3dyaXRlKGVzdF9hZGRyLCBFU1RfQlRSX0hJR0gsIGNmZy0+YnRyWzFdLCBm
-YWxzZSk7CiAJcmV0IHw9IGVzdF93cml0ZShlc3RfYWRkciwgRVNUX1RFUiwgY2ZnLT50ZXIsIGZh
-bHNlKTsKCi0tIAoyLjQ5LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Tue, 27 May 2025 13:56:23 +0200 you wrote:
+> From: Quentin Schulz <quentin.schulz@cherry.de>
+> 
+> bus_id is currently derived from the ethernetX alias. If one is missing
+> for the device, 0 is used. If ethernet0 points to another stmmac device
+> or if there are 2+ stmmac devices without an ethernet alias, then bus_id
+> will be 0 for all of those.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2] net: stmmac: platform: guarantee uniqueness of bus_id
+    https://git.kernel.org/netdev/net/c/eb7fd7aa35bf
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
