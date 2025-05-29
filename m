@@ -2,32 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9126AC7494
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 01:47:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82B3AC7515
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 02:31:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64585C35E2E;
-	Wed, 28 May 2025 23:47:30 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39B60C35E3F;
+	Thu, 29 May 2025 00:31:17 +0000 (UTC)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D9C9C35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22584C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 May 2025 23:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=9A6NOAoXkPb4medfypRE/loheYUcbcMxOqq+Oi8Kdr0=; b=o6hlCw7mvqwNkor+nhEqb5a8iW
- WGypf7rK2YXmDxrWO2N/pFUYHNgiw9AFnEJnMusiQo7Y+NUbi612SxuzM4kgkjdlEXrw2JL0odRHk
- ivMxyEAm0Ujad0H5cs0aX/A4wL6xceHx0gEfSi1J7N2tYdsvl3lmwpRLhqIwaLr38SAE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uKQUF-00EDZZ-M2; Thu, 29 May 2025 01:47:07 +0200
-Date: Thu, 29 May 2025 01:47:07 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Message-ID: <0c7a1602-61d3-4840-83f2-72a74ffd52b8@lunn.ch>
+ Thu, 29 May 2025 00:31:16 +0000 (UTC)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-4e5a0ec639dso201300137.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 May 2025 17:31:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1748478675; x=1749083475;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q44z5Bd9/8IILONn0/cL0CaXO9i2aVCCm5R3K/3l5Mo=;
+ b=Z8poh+HroE6FVRvBypqMIIYYPa0aP2/2dM94/9rxbCp6eSnqOZjCqRHNzebYR7Gp4/
+ 0M06fps0ilF/5IEuBsI8qsDcGeM9+0UZ458HdpbDPomQwuDr5k+SNE5+BN8GcVjYusZd
+ mdHJC/KTxux7f+kjGqO9Ltmbbapm3HfSoWDbcmr4/hYyAULSCvPquNIO7cqck5RZmq2h
+ C/cSOKFuN562rcEjdC1h5P2o2noNxpdCjcXM6uifmt43sW4f3Oa4bXBRVe+yXVWvUcmZ
+ TT0QkvAGxrrK872vBYrD9dBV+3EshtBA/fVN2ZEsWX43gcE0mIYiVj+2Xl7ziFbeU6fN
+ 2pMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1748478675; x=1749083475;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=q44z5Bd9/8IILONn0/cL0CaXO9i2aVCCm5R3K/3l5Mo=;
+ b=SeUOLxoqEic5f/0ov+Iey+kAtermKiVetqubaLeBCaB2GQ8RBAI/U9ev3SEzSKqGc+
+ wfoJnA9sFBmaz+HEhK5GbVM3ul3sQmD+zEN5l+jePGoZ24X4YkmLA5ZXjjBQnxFrwuc1
+ wnQUcOK+0fhivmLe3DmQOVsuMG/Lc8F8LY7zSh7bybZYuxcbip82uXYQgMGmFsuiHUDs
+ bPTR3qIE8IgUxe8WGekSywIb4/Fh/ys4TRwDZxAfCmhMmHM6Fc2RRDlbTxAHdESnfpdu
+ T/kJMmcYWBCoHM9JxPaSObZtpZqR0gow26JIEAXH17fuu/d1B1JKy7E1PNLPOIWKFqQV
+ q90g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVH8Tyl8lO0jHI618M2hTveNbLKwCRU5JDN2JRuTwuPJCUCZI+tO/t47HsclFrM9VoOS4GLKKlu+6jpqQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxMTD+NpPPlHS/4Q4rQYNx4RL6UUyJo9pNGzwFbq85QkjXxw8vL
+ Ha1BbS9AHZpSc0XuueZwdEuElDyW55G3YLE25lLsUbpSI/lq3Aw0uIexRgzllzEGk/0TDMvWQpB
+ sTXt54MzLnuCEYDMk9YBdhMWMYL2F7Eg=
+X-Gm-Gg: ASbGncv7Qh7PmRzOiTqJsqKgPC2oJaey5m5FVVt/Caj8xav1iOhk3k+NV++0/GWTJHw
+ M/Iz+8vg35mwKS26IuJoHzvbRx83CtUstGN+IWTxfbBZuEdTcUpqnNSri6gzokDPaVAMca0LzsA
+ l4iCFJjb+Oax53mOflRlUNHnLCthdvF9pPQw==
+X-Google-Smtp-Source: AGHT+IFG095fC3FxIkcr8wXE/8rgaYSmXktT8c+7Ug5Ck8RJXbeQXCBHRZraCpMc7Swq4SZENwhJZHvYWPtIc5+DC5Q=
+X-Received: by 2002:a05:6102:a51:b0:4db:e01:f2db with SMTP id
+ ada2fe7eead31-4e67dd1919bmr264553137.0.1748478674832; Wed, 28 May 2025
+ 17:31:14 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAGb2v66PEA4OJxs2rHrYFAxx8bw4zab7TUXQr+DM-+ERBO-UyQ@mail.gmail.com>
  <CADvTj4qyRRCSnvvYHLvTq73P0YOjqZ=Z7kyjPMm206ezMePTpQ@mail.gmail.com>
  <aDdXRPD2NpiZMsfZ@shell.armlinux.org.uk>
@@ -38,9 +66,13 @@ References: <CAGb2v66PEA4OJxs2rHrYFAxx8bw4zab7TUXQr+DM-+ERBO-UyQ@mail.gmail.com>
  <CADvTj4r1VvjiK4tj3tiHYVJtLDWtMSJ3GFQgYyteTnLGsQQ2Eg@mail.gmail.com>
  <0bf48878-a3d0-455c-9110-5c67d29073c9@lunn.ch>
  <CADvTj4qab272xTpZGRoPnCstufK_3e9CY99Og+2mey2co6u5dg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CADvTj4qab272xTpZGRoPnCstufK_3e9CY99Og+2mey2co6u5dg@mail.gmail.com>
+ <0c7a1602-61d3-4840-83f2-72a74ffd52b8@lunn.ch>
+In-Reply-To: <0c7a1602-61d3-4840-83f2-72a74ffd52b8@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 28 May 2025 18:31:03 -0600
+X-Gm-Features: AX0GCFvqUXpScx-Ym-AQvb--BAqo5_tl8KEywhB2ivVxb9ECD-mfCTp-d4WPAIs
+Message-ID: <CADvTj4q96aGsPi6wfMaxTnC-52-Svu_K6raj=LWyOJd+DniEUQ@mail.gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
 Cc: Furong Xu <0x1207@gmail.com>, linux-kernel@vger.kernel.org,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
@@ -63,72 +95,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > Or, as Russell suggested, you give the bootloader both .dtb blobs, and
-> > it can pick the correct one to pass to the kernel. Or the bootloader
-> > can patch the .dtb blob to make it fit the hardware.
-> 
-> This is what I'm really trying to avoid since it requires special
-> handling in the bootloader and therefore will result in a lot of broken
-> systems since most people doing ports to H616 based boards will only
-> ever test against one PHY variant.
-
-Which in some ways is good. They will then issue four letter words at
-Allwinner, and go find a better SoC vendor.
-
-> > > > Do you have examples of boards where the SoC variant changed during
-> > > > the boards production life?
-> > >
-> > > Yes, the boards I'm working for example, but this is likely an issue for
-> > > other boards as well(vendor BSP auto detects PHY variants):
-> > > https://www.zeusbtc.com/ASIC-Miner-Repair/Parts-Tools-Details.asp?ID=1139
-> >
-> > Mainline generally does not care what vendors do, because they often
-> > do horrible things. Which is O.K, it is open source, they can do what
-> > they want in their fork of the kernel.
-> 
-> That's not really true IMO, mainline implements all sorts of workarounds
-> for various vendor hardware quicks/weirdness.
-> 
-> > But for Mainline, we expect a high level of quality, and a uniform way
-> > of doing things.
-> 
-> Sure, and I'm trying to do that here rather than do some super hacky
-> unmaintainable bootloader based device tree selector.
-> 
-> > This can also act as push back on SoC vendors, for doing silly things
-> > like changing the PHY within a SoC without changing its name/number.
-> 
-> It won't here, because Allwinner doesn't care about non-BSP kernels.
-
-It can be indirect pressure. There are some OEMs which care about
-Mainline. They will do their due diligence, find that user report
-Mainline if flaky on these devices, and go find a different
-vendor. There will be some OEM which get burnt by this mess, and when
-they come to their second generation device, they will switch vendor
-and tell the old vendor why. It could well be Allwinner can support
-their bottom line without caring about Mainline, so really don't
-care. But Mainline can help point OEMs away from them to those which
-are more Mainline friendly.
-
-We also need to think about this as a two way street. What does this
-SoC bring to Mainline? Why should Mainline care about it? It has some
-major design issues, do we want to say that is O.K? Do we want other
-vendors to think we are O.K. with bad designs? Worse still, this is
-stmmac, which lots of vendors already abuse in lots of different
-ways. Russell has put in a lot of effort recently to clean up some of
-that abuse, and we are pushing back hard on new abusers.
-
-If you can hide this mess away in the bootloader, it just looks like a
-regular device, we are likely to accept it. If you try to do something
-different to the normal for PHYs, we are very likely to reject it.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBNYXkgMjgsIDIwMjUgYXQgNTo0N+KAr1BNIEFuZHJldyBMdW5uIDxhbmRyZXdAbHVu
+bi5jaD4gd3JvdGU6Cj4KPiA+ID4gT3IsIGFzIFJ1c3NlbGwgc3VnZ2VzdGVkLCB5b3UgZ2l2ZSB0
+aGUgYm9vdGxvYWRlciBib3RoIC5kdGIgYmxvYnMsIGFuZAo+ID4gPiBpdCBjYW4gcGljayB0aGUg
+Y29ycmVjdCBvbmUgdG8gcGFzcyB0byB0aGUga2VybmVsLiBPciB0aGUgYm9vdGxvYWRlcgo+ID4g
+PiBjYW4gcGF0Y2ggdGhlIC5kdGIgYmxvYiB0byBtYWtlIGl0IGZpdCB0aGUgaGFyZHdhcmUuCj4g
+Pgo+ID4gVGhpcyBpcyB3aGF0IEknbSByZWFsbHkgdHJ5aW5nIHRvIGF2b2lkIHNpbmNlIGl0IHJl
+cXVpcmVzIHNwZWNpYWwKPiA+IGhhbmRsaW5nIGluIHRoZSBib290bG9hZGVyIGFuZCB0aGVyZWZv
+cmUgd2lsbCByZXN1bHQgaW4gYSBsb3Qgb2YgYnJva2VuCj4gPiBzeXN0ZW1zIHNpbmNlIG1vc3Qg
+cGVvcGxlIGRvaW5nIHBvcnRzIHRvIEg2MTYgYmFzZWQgYm9hcmRzIHdpbGwgb25seQo+ID4gZXZl
+ciB0ZXN0IGFnYWluc3Qgb25lIFBIWSB2YXJpYW50Lgo+Cj4gV2hpY2ggaW4gc29tZSB3YXlzIGlz
+IGdvb2QuIFRoZXkgd2lsbCB0aGVuIGlzc3VlIGZvdXIgbGV0dGVyIHdvcmRzIGF0Cj4gQWxsd2lu
+bmVyLCBhbmQgZ28gZmluZCBhIGJldHRlciBTb0MgdmVuZG9yLgoKTm8sIHRoZXkgd29uJ3QsIGJl
+Y2F1c2UgdGhlIHZlbmRvciB0aGF0IGFjdHVhbGx5IGJ1eXMgZnJvbSBBbGx3aW5uZXIKYWxzbyB1
+c2VzIHRoZSBCU1AgYW5kIGRvZXNuJ3QgY2FyZSBhcyBsb25nIGFzIHRoZSBCU1Agd29ya3MuCgo+
+Cj4gPiA+ID4gPiBEbyB5b3UgaGF2ZSBleGFtcGxlcyBvZiBib2FyZHMgd2hlcmUgdGhlIFNvQyB2
+YXJpYW50IGNoYW5nZWQgZHVyaW5nCj4gPiA+ID4gPiB0aGUgYm9hcmRzIHByb2R1Y3Rpb24gbGlm
+ZT8KPiA+ID4gPgo+ID4gPiA+IFllcywgdGhlIGJvYXJkcyBJJ20gd29ya2luZyBmb3IgZXhhbXBs
+ZSwgYnV0IHRoaXMgaXMgbGlrZWx5IGFuIGlzc3VlIGZvcgo+ID4gPiA+IG90aGVyIGJvYXJkcyBh
+cyB3ZWxsKHZlbmRvciBCU1AgYXV0byBkZXRlY3RzIFBIWSB2YXJpYW50cyk6Cj4gPiA+ID4gaHR0
+cHM6Ly93d3cuemV1c2J0Yy5jb20vQVNJQy1NaW5lci1SZXBhaXIvUGFydHMtVG9vbHMtRGV0YWls
+cy5hc3A/SUQ9MTEzOQo+ID4gPgo+ID4gPiBNYWlubGluZSBnZW5lcmFsbHkgZG9lcyBub3QgY2Fy
+ZSB3aGF0IHZlbmRvcnMgZG8sIGJlY2F1c2UgdGhleSBvZnRlbgo+ID4gPiBkbyBob3JyaWJsZSB0
+aGluZ3MuIFdoaWNoIGlzIE8uSywgaXQgaXMgb3BlbiBzb3VyY2UsIHRoZXkgY2FuIGRvIHdoYXQK
+PiA+ID4gdGhleSB3YW50IGluIHRoZWlyIGZvcmsgb2YgdGhlIGtlcm5lbC4KPiA+Cj4gPiBUaGF0
+J3Mgbm90IHJlYWxseSB0cnVlIElNTywgbWFpbmxpbmUgaW1wbGVtZW50cyBhbGwgc29ydHMgb2Yg
+d29ya2Fyb3VuZHMKPiA+IGZvciB2YXJpb3VzIHZlbmRvciBoYXJkd2FyZSBxdWlja3Mvd2VpcmRu
+ZXNzLgo+ID4KPiA+ID4gQnV0IGZvciBNYWlubGluZSwgd2UgZXhwZWN0IGEgaGlnaCBsZXZlbCBv
+ZiBxdWFsaXR5LCBhbmQgYSB1bmlmb3JtIHdheQo+ID4gPiBvZiBkb2luZyB0aGluZ3MuCj4gPgo+
+ID4gU3VyZSwgYW5kIEknbSB0cnlpbmcgdG8gZG8gdGhhdCBoZXJlIHJhdGhlciB0aGFuIGRvIHNv
+bWUgc3VwZXIgaGFja3kKPiA+IHVubWFpbnRhaW5hYmxlIGJvb3Rsb2FkZXIgYmFzZWQgZGV2aWNl
+IHRyZWUgc2VsZWN0b3IuCj4gPgo+ID4gPiBUaGlzIGNhbiBhbHNvIGFjdCBhcyBwdXNoIGJhY2sg
+b24gU29DIHZlbmRvcnMsIGZvciBkb2luZyBzaWxseSB0aGluZ3MKPiA+ID4gbGlrZSBjaGFuZ2lu
+ZyB0aGUgUEhZIHdpdGhpbiBhIFNvQyB3aXRob3V0IGNoYW5naW5nIGl0cyBuYW1lL251bWJlci4K
+PiA+Cj4gPiBJdCB3b24ndCBoZXJlLCBiZWNhdXNlIEFsbHdpbm5lciBkb2Vzbid0IGNhcmUgYWJv
+dXQgbm9uLUJTUCBrZXJuZWxzLgo+Cj4gSXQgY2FuIGJlIGluZGlyZWN0IHByZXNzdXJlLiBUaGVy
+ZSBhcmUgc29tZSBPRU1zIHdoaWNoIGNhcmUgYWJvdXQKPiBNYWlubGluZS4gVGhleSB3aWxsIGRv
+IHRoZWlyIGR1ZSBkaWxpZ2VuY2UsIGZpbmQgdGhhdCB1c2VyIHJlcG9ydAo+IE1haW5saW5lIGlm
+IGZsYWt5IG9uIHRoZXNlIGRldmljZXMsIGFuZCBnbyBmaW5kIGEgZGlmZmVyZW50Cj4gdmVuZG9y
+LgoKVGhlcmUgYXJlIHplcm8gT0VNcyBpbiBteSBpbmR1c3RyeSB0aGF0IHByb3ZpZGUgaGFyZHdh
+cmUgd2l0aAphbnkgbWFpbmxpbmUgc3VwcG9ydCBhdCBhbGwuIFRoZSB2ZW5kb3JzIGFyZSBvdXRy
+aWdodCBob3N0aWxlIHRvIDNyZApwYXJ0eSBmaXJtd2FyZSBhbmQgcHV0IHNpZ25pZmljYW50IGVm
+Zm9ydCBpbnRvIHByZXZlbnRpbmcgM3JkIHBhcnR5CmZpcm13YXJlLiBUaGUgT0VNcyB3aWxsIHZp
+ZXcgdGhlIGxhY2sgb2YgbWFpbmxpbmUgc3VwcG9ydCBhcyBhIGJvbnVzCnVuZm9ydHVuYXRlbHkg
+YXMgdGhleSBsaWtlIGV2ZXJ5dGhpbmcgbG9ja2VkIGRvd24uCgo+IFRoZXJlIHdpbGwgYmUgc29t
+ZSBPRU0gd2hpY2ggZ2V0IGJ1cm50IGJ5IHRoaXMgbWVzcywgYW5kIHdoZW4KPiB0aGV5IGNvbWUg
+dG8gdGhlaXIgc2Vjb25kIGdlbmVyYXRpb24gZGV2aWNlLCB0aGV5IHdpbGwgc3dpdGNoIHZlbmRv
+cgo+IGFuZCB0ZWxsIHRoZSBvbGQgdmVuZG9yIHdoeS4gSXQgY291bGQgd2VsbCBiZSBBbGx3aW5u
+ZXIgY2FuIHN1cHBvcnQKPiB0aGVpciBib3R0b20gbGluZSB3aXRob3V0IGNhcmluZyBhYm91dCBN
+YWlubGluZSwgc28gcmVhbGx5IGRvbid0Cj4gY2FyZS4gQnV0IE1haW5saW5lIGNhbiBoZWxwIHBv
+aW50IE9FTXMgYXdheSBmcm9tIHRoZW0gdG8gdGhvc2Ugd2hpY2gKPiBhcmUgbW9yZSBNYWlubGlu
+ZSBmcmllbmRseS4KClRoZSBPRU1zIGluIG15IGluZHVzdHJ5IHdpbGwgbm90IGNoYW5nZSBkdWUg
+dG8gYSBsYWNrIG9mIG1haW5saW5lCnN1cHBvcnQsIHRoZXkgaGF2ZSBubyBpbnRlcmVzdCBpbiBt
+YWlubGluZSBzdXBwb3J0LCB0aGV5IG9ubHkgY2FyZQp0aGF0IHRoZWlyIHByb2R1Y3RzIHdvcmsg
+d2VsbCBlbm91Z2ggdG8gc2VsbCwgYW5kIHNpbmNlIHRoZXJlIGlzCmxpdHRsZSBjb21wZXRpdGlv
+bgoKPiBXZSBhbHNvIG5lZWQgdG8gdGhpbmsgYWJvdXQgdGhpcyBhcyBhIHR3byB3YXkgc3RyZWV0
+LiBXaGF0IGRvZXMgdGhpcwo+IFNvQyBicmluZyB0byBNYWlubGluZT8gV2h5IHNob3VsZCBNYWlu
+bGluZSBjYXJlIGFib3V0IGl0PwoKVGhlIEg2MTYgaXMgdXNlZCBpbiBhIG51bWJlciBvZiBkZXZl
+bG9wbWVudCBib2FyZHMob3JhbmdlcGkgYW5kCnN1Y2gpIGFuZCBUViBib3hlcywgaGF2aW5nIGRl
+Y2VudCBtYWlubGluZSBzdXBwb3J0IGF0IGxlYXN0IGFsbG93cwpkb3duc3RyZWFtIGludGVncmF0
+b3JzIHRvIGhhdmUgYSBjaGFuY2UgYXQgaW1wcm92aW5nIHRoZSBzaXR1YXRpb24KcmVnYXJkbGVz
+cyBvZiB2ZW5kb3IgY29vcGVyYXRpb24sIG1heWJlIHRoZSBTb0MgdmVuZG9yIHdpbGwKZXZlbnR1
+YWxseSBjYXJlIGlmIHBlb3BsZSBhcmUgYWN0dWFsbHkgdXNpbmcgbWFpbmxpbmUga2VybmVscyBt
+b3JlLgoKPiBJdCBoYXMgc29tZQo+IG1ham9yIGRlc2lnbiBpc3N1ZXMsIGRvIHdlIHdhbnQgdG8g
+c2F5IHRoYXQgaXMgTy5LPyBEbyB3ZSB3YW50IG90aGVyCj4gdmVuZG9ycyB0byB0aGluayB3ZSBh
+cmUgTy5LLiB3aXRoIGJhZCBkZXNpZ25zPwoKSSBtZWFuLCBpdCdzIGEgc2Vjb25kIHNvdXJjZSBp
+c3N1ZSBmb3IgdGhlIFBIWSwgbGVzcyBvZiBhbiBvdXRyaWdodApkZXNpZ24gaXNzdWUgYW5kIG1v
+cmUgbGlrZWx5IHdhcyBqdXN0IHNvbWUgY29zdCBvcHRpbWl6YXRpb24uCgpJZiB3ZSBleGNsdWRl
+ZCBhbGwgdmVuZG9ycyB3aXRoIGJhZCBkZXNpZ25zIHRoZW4gTGludXggd291bGQgaGF2ZQpmYXIg
+bGVzcyBoYXJkd2FyZSBzdXBwb3J0LgoKPiBXb3JzZSBzdGlsbCwgdGhpcyBpcwo+IHN0bW1hYywg
+d2hpY2ggbG90cyBvZiB2ZW5kb3JzIGFscmVhZHkgYWJ1c2UgaW4gbG90cyBvZiBkaWZmZXJlbnQK
+PiB3YXlzLiBSdXNzZWxsIGhhcyBwdXQgaW4gYSBsb3Qgb2YgZWZmb3J0IHJlY2VudGx5IHRvIGNs
+ZWFuIHVwIHNvbWUgb2YKPiB0aGF0IGFidXNlLCBhbmQgd2UgYXJlIHB1c2hpbmcgYmFjayBoYXJk
+IG9uIG5ldyBhYnVzZXJzLgo+Cj4gSWYgeW91IGNhbiBoaWRlIHRoaXMgbWVzcyBhd2F5IGluIHRo
+ZSBib290bG9hZGVyLCBpdCBqdXN0IGxvb2tzIGxpa2UgYQo+IHJlZ3VsYXIgZGV2aWNlLCB3ZSBh
+cmUgbGlrZWx5IHRvIGFjY2VwdCBpdC4gSWYgeW91IHRyeSB0byBkbyBzb21ldGhpbmcKPiBkaWZm
+ZXJlbnQgdG8gdGhlIG5vcm1hbCBmb3IgUEhZcywgd2UgYXJlIHZlcnkgbGlrZWx5IHRvIHJlamVj
+dCBpdC4KCkknbSBjb25mdXNlZCwgdGhlIGtlcm5lbCBpc24ndCB0aGUgYm9vdGxvYWRlciBzbyBo
+b3cgY2FuIGl0IGJlIGFjY2VwdGVkCmJ5IHRoZSBrZXJuZWwgaWYgdGhlIGltcGxlbWVudGF0aW9u
+IGlzIG5vdCBpbiB0aGUga2VybmVsPyBMaW51eCBzdXBwb3J0cwpwbGVudHkgb2Ygd2VpcmQgaGFy
+ZHdhcmUgc28gSSByZWFsbHkgZG9uJ3Qgc2VlIHdoeSBoYXZpbmcgYSBxdWlyayBmb3IKdGhpcyBz
+cGVjaWZpYyBib2FyZCBpcyBzdWNoIGEgcHJvYmxlbSBhcyBsb25nIGFzIHRoZSBxdWlyayBkb2Vz
+bid0CmludHJvZHVjZSBtYWludGFpbmFiaWxpdHkgaXNzdWVzLgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
