@@ -2,97 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88821AC7AD4
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 May 2025 11:15:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E1DDAC83F6
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 May 2025 00:17:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49895C349C6;
-	Thu, 29 May 2025 09:15:51 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB76FC32EA8;
+	Thu, 29 May 2025 22:17:24 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78CC3C349C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5732FC32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 May 2025 09:15:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5CC075C629C;
- Thu, 29 May 2025 09:13:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3BEC4CEE7;
- Thu, 29 May 2025 09:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748510148;
- bh=inZFYIcTejA8G1GdPwrsuH7UVnHj585geeq4wpJCGK8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BOqWRz9xNUz7eIjJjJoG61gmIicXT8zH523w8z+2LYGsKJmQCldQD8O9qN7yR6MAC
- IOSBhPFU0a7SK/FkXZODZqJe6d/sa/cOTPuXpfE6Y4UDbNnlqt4WiYe9uBIX90I0FM
- OtYb1j/qlN2Uz2VGBej6N210H1r9B2kAIhrmXRT4y9WUYx3hhXFBPhVl6Nh6hmqaIL
- otMmRcV+MyUDIM567rD5vBM0fMfV+56/NBwjrD/0wF9Q2cnh+NSsRpEitrKvFynefP
- OKfobDq6zpykLp7U/WB8WAKL9Vxqk5jYj9osfd8gxQaAtri9B5BZSC9h9Gu+0N0+9H
- xwDJN7jZi0jMg==
-Message-ID: <673768c4-e727-4e5e-82e9-e69ef05e3975@kernel.org>
-Date: Thu, 29 May 2025 11:15:43 +0200
+ Thu, 29 May 2025 22:17:23 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54TC1OZc008024;
+ Thu, 29 May 2025 22:16:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ RJKYMfEYo39cQ3cuix/WIloDpQr/TS3nEp+iZYVSY6Y=; b=f7IeD/da0mGGcCho
+ 3u8f7QYMyt6vzYB9xiLpMztMJTeHHn8p82byWpVvlYQ+dlnU93FqKanlRG+0OgOF
+ v/5uXlAVdtR4ZVgrNfoHfWZ2yBIzSP05hJ4ggA55X37p9Uym3syX473AlXbk/kSs
+ xH1+9rgQ6oviFMXBeWgfhe2kARliN2iZane+9hk6ZFATJrT10EplY1QNA8P7m7jF
+ fG0TYhkGoYNDdFusrUpP5Ebzj+oCOw4gTlTrZsHbre6bndwr04n7Eb+ybssBZ2UA
+ 0l5MVn/XwcG1US6eGWdJwmYl7WfHHPAUMJ98WNj6uUXgRMUmESQEdpntmbp22Mk+
+ VWk0Og==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46whuf7f91-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 May 2025 22:16:55 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 54TMGsIR005982
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 May 2025 22:16:55 GMT
+Received: from [10.110.61.81] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 29 May
+ 2025 15:16:54 -0700
+Message-ID: <090efb05-eb2b-4412-aa85-16df05ac9fb5@quicinc.com>
+Date: Thu, 29 May 2025 15:16:51 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
- <20250523-hdp-upstream-v3-5-bd6ca199466a@foss.st.com>
- <5b7a2102-ff68-4aab-a88d-0c4f9195ef95@kernel.org>
- <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>, Quentin Schulz <foss+kernel@0leil.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20250521-stmmac-mdio-bus_id-v1-1-918a3c11bf2c@cherry.de>
+ <b3e3293a-3220-4540-9c8b-9aa9a2ef6427@redhat.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
- debug port (HDP) on stm32mp13
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <b3e3293a-3220-4540-9c8b-9aa9a2ef6427@redhat.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Authority-Analysis: v=2.4 cv=OslPyz/t c=1 sm=1 tr=0 ts=6838dcd7 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=VwQbUJbxAAAA:8
+ a=8b9GpE9nAAAA:8 a=BsutULhaAlByaH852usA:9 a=QEXdDO2ut3YA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: FqXj9uShaarui7_r20XQ1taVyCNbjujz
+X-Proofpoint-GUID: FqXj9uShaarui7_r20XQ1taVyCNbjujz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTI5MDIxNyBTYWx0ZWRfXxQnPZ4KrEtMi
+ 76F7Sye4rfTbUzYzlmMcrx5NFjMyGgl+4zUIl6J3ExIeoP1EdZDIfYkuBzGb/AUIfAqn6s21Zjo
+ N3rQn0f+KbaEjzBV9paCw7neiRe3Y4ngAemXFP7L0AcZ0VhXxSyc6omd6Qkr8CYXI35MUmzjRwh
+ VgiE3aIvoBdKQBXupHH1ybtJqigHrds/hytCA8ZTCmDpLm0dqFlTbdGzQ6BpSThnAe0cYRea1hI
+ fsuiWSdO9j9uhfx+8KEHqlp9KF3E1SAWZi3LP8rP19Ing9hOYkNmaoi+v9ZMPCIWJhKP2uWZg4x
+ RZBInWDOqtwReudghgt8YugHkhfQrSyuz5skcFI2TbEyCyMmsus8E8Ic4aBjkAfvpHSeyv3hCrh
+ sdNfCEGkf9wNrt8wGpcKIkDCwza6Pl5L8AQnBrfFSywCeGZRy3X9l5p7Pzov4nGD50rai/aN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-29_10,2025-05-29_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 mlxlogscore=969 adultscore=0 malwarescore=0
+ bulkscore=0 priorityscore=1501 clxscore=1011 mlxscore=0 lowpriorityscore=0
+ spamscore=0 suspectscore=0 classifier=spam authscore=0 authtc=n/a authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505160000
+ definitions=main-2505290217
+Cc: Heiko Stuebner <heiko@sntech.de>,
+ Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: platform: guarantee
+	uniqueness of bus_id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,27 +107,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/05/2025 14:14, Clement LE GOFFIC wrote:
->>
->>> +		};
->>> +
->>> +		hdp: pinctrl@5002a000 {
->>> +			compatible = "st,stm32mp131-hdp";
->>> +			reg = <0x5002a000 0x400>;
->>> +			clocks = <&rcc HDP>;
->>>   			status = "disabled";
->>
->> Why are you disabling it? What is missing?
-> 
-> Nothing is missing just disabled by default.
-> The node is then enabled when needed in board's dts file.
-> 
-How much time did you give me to respond to this feedback? 1 hour 15
-minutes. That's too short. We have also other work except constantly
-checking inbox.
 
-Best regards,
-Krzysztof
+
+On 5/26/2025 1:26 PM, Paolo Abeni wrote:
+> On 5/21/25 5:21 PM, Quentin Schulz wrote:
+>> From: Quentin Schulz <quentin.schulz@cherry.de>
+>>
+>> bus_id is currently derived from the ethernetX alias. If one is missing
+>> for the device, 0 is used. If ethernet0 points to another stmmac device
+>> or if there are 2+ stmmac devices without an ethernet alias, then bus_id
+>> will be 0 for all of those.
+>>
+>> This is an issue because the bus_id is used to generate the mdio bus id
+>> (new_bus->id in drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+>> stmmac_mdio_register) and this needs to be unique.
+>>
+>> This allows to avoid needing to define ethernet aliases for devices with
+>> multiple stmmac controllers (such as the Rockchip RK3588) for multiple
+>> stmmac devices to probe properly.
+>>
+>> Obviously, the bus_id isn't guaranteed to be stable across reboots if no
+>> alias is set for the device but that is easily fixed by simply adding an
+>> alias if this is desired.
+>>
+>> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+> 
+> I think no need to CC stable here, but you need to provide a suitable
+> fixes tag, thanks!
+> 
+Quentin to make your life easy. 
+It fixes this patch 
+https://lore.kernel.org/lkml/1372930541-19409-1-git-send-email-srinivas.kandagatla@st.com/
+dt:net:stmmac: Add support to dwmac version 3.610 and 3.710
+It goes back in time to 2013 when this bus_id was introduced through dts
+
+> Paolo
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
