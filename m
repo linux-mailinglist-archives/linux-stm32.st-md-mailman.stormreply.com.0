@@ -2,110 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1A3AC89D3
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 May 2025 10:14:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D87AC9370
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 May 2025 18:22:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E50B5C3089E;
-	Fri, 30 May 2025 08:14:36 +0000 (UTC)
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 641D1C3089D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F7A9C35E3F;
+	Fri, 30 May 2025 16:22:33 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94730C36B38
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 May 2025 08:14:35 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-4064ec636a4so1000362b6e.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 May 2025 01:14:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748592874; x=1749197674;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UODADZBFNNuhdOjNi7w1d1lWaPaCSwIUX58mKie6mVI=;
- b=Wxp78LOt3qelr9J1fY+HcJQvYSyovJsdTAoUWVvLdyJxcngtacrwKRd51W//GiQyxp
- kUCTos6dWRVOjGdhn6uc2h1lGCGDRxPM0zV1Q/8/alvsASU9Kk7bY//aClUt+K8mV78M
- dcWAsXiKnkt1Z14VzXtstNUIxIy/TPP4nGRh8uFUBD9FG7TfnmNnwUSHrD2AO8fBIv14
- HeDgiaFz6DbdnWVtIO2Mol9a5dNZL5U2DOgBatri3EItbMXWoeEgVH6CIHsEQGRknMOS
- Fw0eSeRNzoqT2V/SfhWVzL0aVXX3Ah3eg8Xshdl6EmVUqEaVNsnB007J7ENQZDgfIkJv
- x1Ag==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUp/QpYPiOgoJt+9KFenl+1HUBhPc4gy3wo4WzMVLsaMuXUw1IOF3S3K+A3hOq+8RzMzsuj7LCrTTnaSQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzQr1ClEu2hddKDRzsf2mZGwQWn4KlErVE58g1Y0wIyEHsVhgts
- HriqYsQHaYfRwY8b9BcBydh8SWL1mQRxo0+WXJeBaOAoULhFzqHd3AkjOFF71SFY
-X-Gm-Gg: ASbGnctSoJGAdADA2fBNYDAmaMc1E9fS+3ZDcrSRn8L66OYQlFlHTP6Aq9rSVkvwOPF
- 3eooc9o4AKjpdg9coY49Scp6xE79Un+5zUWAhCYxKV0PVlyloDaYdhbsNzUpaEukrXRhuxyzYL/
- VtyFSUD/CgX1ZJ/C/i+6k02QmdguJuXxtMpyhJKQGjb8989uY3BnWkPJZwHb3+Z3YOCJMO8HKt+
- EN9QFWDTYN6QE0Vo9nOqJxmjMjA0VtYQd3+ht0a9AP+FxwOydaTZ2VTnSu8gN0VQu5S/cbTgpxo
- pM7vP6isfZdMHtpMiwDM6EJg8hAy/DJODrmqXUJ3uT4UgLvOS0G3pUIpKSFQ69xJy2zMEeIs6HC
- Ba3kIr0eRZZhdFA==
-X-Google-Smtp-Source: AGHT+IEJNDeVyecpeTlooKj3vsnx7dv4WMxJXJOugnroxpipvUyWjw8FNkova614Spi7l5IJrYaVIg==
-X-Received: by 2002:a05:6808:6b8c:b0:406:67b7:8b62 with SMTP id
- 5614622812f47-40679778baemr1422624b6e.38.1748592873737; 
- Fri, 30 May 2025 01:14:33 -0700 (PDT)
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com.
- [209.85.160.42]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40678bf36e7sm322792b6e.1.2025.05.30.01.14.33
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 May 2025 01:14:33 -0700 (PDT)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-2db2f23f174so922149fac.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 May 2025 01:14:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUCZHUnJBNrJw1A6NN+yU69DCWshDCzES5zzV2F5VtmplYaI72dr4+KYlkBtCAwoykxtselvbr4u6uGUw==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6122:17aa:b0:530:677b:1e93 with SMTP id
- 71dfb90a1353d-53080df1088mr2012964e0c.0.1748592388616; Fri, 30 May 2025
- 01:06:28 -0700 (PDT)
+ Fri, 30 May 2025 16:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+ Content-Type; bh=jCdzSFwYnDZECKuJL2W/gBgula6jQ6d53Xso4SG8qwc=;
+ b=bgOHFXZ6AOcPgSn6ym7msrP48dbWljzcAVEwnjzBO7/oXxAHAUULqJD6I27cdv
+ h+u3PCaPWVgo99D0n4WzIDBoN/1HO8nONEPPv8U6LLdUdo510JQnPBbYoAPTlnF+
+ DdEOs9elr2f1D+e77+cMf8c5O3YO7kQv3r+rMGeFbQ+18=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
+ _____wCXjDDH2jlouf2RFA--.37484S2; 
+ Sat, 31 May 2025 00:20:31 +0800 (CST)
+From: =?UTF-8?q?=E6=9D=8E=E5=93=B2?= <sensor1010@163.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, jonas@kwiboo.se, rmk+kernel@armlinux.org.uk,
+ david.wu@rock-chips.com, jan.petrous@oss.nxp.com,
+ detlev.casanova@collabora.com
+Date: Fri, 30 May 2025 09:20:17 -0700
+Message-Id: <20250530162017.3661-1-sensor1010@163.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
- <20250528-pinctrl-const-desc-v1-14-76fe97899945@linaro.org>
- <CAMuHMdUGDf5n_Fg7pwiPumm95nPUXyH15geAy2ULwY3U+OtZJA@mail.gmail.com>
- <b6b7fb61-878e-4407-b964-564efb3524b1@linaro.org>
-In-Reply-To: <b6b7fb61-878e-4407-b964-564efb3524b1@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 30 May 2025 10:06:16 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUHyLYk0oSN8XDNCXUvLQLe2u0k0noVJLbR+pYWDTB4+w@mail.gmail.com>
-X-Gm-Features: AX0GCFuCNZIpijI8V-LFtD11RdEuCtx09JrM6Rph_c1WT65W3SrLJtlImd30cUI
-Message-ID: <CAMuHMdUHyLYk0oSN8XDNCXUvLQLe2u0k0noVJLbR+pYWDTB4+w@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-aspeed@lists.ozlabs.org, Emil Renner Berthing <kernel@esmil.dk>,
- linux-rtc@vger.kernel.org, Jesper Nilsson <jesper.nilsson@axis.com>,
- Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
- linux-arm-kernel@axis.com, Hal Feng <hal.feng@starfivetech.com>,
- Nancy Yuen <yuenn@google.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Ray Jui <rjui@broadcom.com>,
- =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- linux-sound@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
- linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
- Lars Persson <lars.persson@axis.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Scott Branden <sbranden@broadcom.com>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, Sean Wang <sean.wang@kernel.org>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Jianlong Huang <jianlong.huang@starfivetech.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com
-Subject: Re: [Linux-stm32] [PATCH 14/17] pinctrl: renesas: Move fixed
- assignments to 'pinctrl_desc' definition
+X-CM-TRANSID: _____wCXjDDH2jlouf2RFA--.37484S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4xKw1fAF1rZF13ArWDArb_yoW8Ww47p3
+ 9xCF92yr1kXryxGa17trsrZa45uayxtFy0qF1xt3yfu3WfCF1Dtry8tr4FvF109rykXF1a
+ yr4UAF1fCFn8Wr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziFfO5UUUUU=
+X-Originating-IP: [112.23.163.108]
+X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/xtbBMQldq2g502LCbgAAsC
+Cc: netdev@vger.kernel.org, =?UTF-8?q?=E6=9D=8E=E5=93=B2?= <sensor1010@163.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] net: dwmac-rk: No need to check the return
+	value of the phy_power_on()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,64 +54,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof,
-
-CC wsa
-
-On Wed, 28 May 2025 at 19:55, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
-> On 28/05/2025 14:54, Geert Uytterhoeven wrote:
-> >>         .pmxops = &rzn1_pmx_ops,
-> >>         .confops = &rzn1_pinconf_ops,
-> >>         .owner = THIS_MODULE,
-> >> +       .pins = rzn1_pins,
-> >> +       .npins = ARRAY_SIZE(rzn1_pins),
-> >>  };
-> >>
-> >>  static int rzn1_pinctrl_parse_groups(struct device_node *np,
-> >> @@ -878,8 +880,6 @@ static int rzn1_pinctrl_probe(struct platform_device *pdev)
-> >>
-> >>         ipctl->dev = &pdev->dev;
-> >>         rzn1_pinctrl_desc.name = dev_name(&pdev->dev);
-> >
-> > ... if you would replace this assignment by a hardcoded name
-> > like "pinctrl-rzn1".
->
-> I saw it, but this would not be equivalent. dev_name includes platform
-> bus id, e.g. pinctrl-rzn1.0 which might matter here - conflict of names.
-> Are you sure this would work fine?
-
-There can be only one anyway.
-Most drivers used a fixed name:
-
-drivers/pinctrl/renesas/pinctrl-rza1.c: rza1_pctl->desc.name = DRIVER_NAME;
-drivers/pinctrl/renesas/pinctrl-rza2.c: priv->desc.name = DRIVER_NAME;
-drivers/pinctrl/renesas/pinctrl-rzg2l.c: pctrl->desc.name = DRV_NAME;
-drivers/pinctrl/renesas/pinctrl-rzn1.c: rzn1_pinctrl_desc.name =
-dev_name(&pdev->dev);
-drivers/pinctrl/renesas/pinctrl-rzt2h.c: desc->name = DRV_NAME;
-drivers/pinctrl/renesas/pinctrl-rzv2m.c: pctrl->desc.name = DRV_NAME;
-drivers/pinctrl/renesas/pinctrl.c: pmx->pctl_desc.name = DRV_NAME;
-
-It might change the path in debugfs (/sys/kernel/debug/pinctrl/) though.
-Wolfram?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+cGh5X3Bvd2VyX29uKCkgaXMgYSBsb2NhbCBzY29wZSBvbmUgd2l0aGluIHRoZSBkcml2ZXIsIHNp
+bmNlIHRoZSByZXR1cm4KdmFsdWUgb2YgdGhlIHBoeV9wb3dlcl9vbigpIGZ1bmN0aW9uIGlzIGFs
+d2F5cyAwLCBjaGVja2luZyBpdHMgcmV0dXJuCnZhbHVlIGlzIHJlZHVuZGFudC4KClNpZ25lZC1v
+ZmYtYnk6IOadjuWTsiA8c2Vuc29yMTAxMEAxNjMuY29tPgotLS0KIGRyaXZlcnMvbmV0L2V0aGVy
+bmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMgfCAxNyArKysrLS0tLS0tLS0tLS0tLQogMSBm
+aWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYyBiL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKaW5kZXggNzAwODU4ZmY2
+ZjdjLi5mN2MzMjkzNGY4YTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
+cm8vc3RtbWFjL2R3bWFjLXJrLmMKKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvZHdtYWMtcmsuYwpAQCAtMTY0NSwyMyArMTY0NSwxOCBAQCBzdGF0aWMgaW50IGdtYWNf
+Y2xrX2VuYWJsZShzdHJ1Y3QgcmtfcHJpdl9kYXRhICpic3BfcHJpdiwgYm9vbCBlbmFibGUpCiAJ
+cmV0dXJuIDA7CiB9CiAKLXN0YXRpYyBpbnQgcGh5X3Bvd2VyX29uKHN0cnVjdCBya19wcml2X2Rh
+dGEgKmJzcF9wcml2LCBib29sIGVuYWJsZSkKK3N0YXRpYyB2b2lkIHBoeV9wb3dlcl9vbihzdHJ1
+Y3QgcmtfcHJpdl9kYXRhICpic3BfcHJpdiwgYm9vbCBlbmFibGUpCiB7CiAJc3RydWN0IHJlZ3Vs
+YXRvciAqbGRvID0gYnNwX3ByaXYtPnJlZ3VsYXRvcjsKLQlpbnQgcmV0OwogCXN0cnVjdCBkZXZp
+Y2UgKmRldiA9ICZic3BfcHJpdi0+cGRldi0+ZGV2OwogCiAJaWYgKGVuYWJsZSkgewotCQlyZXQg
+PSByZWd1bGF0b3JfZW5hYmxlKGxkbyk7Ci0JCWlmIChyZXQpCisJCWlmIChyZWd1bGF0b3JfZW5h
+YmxlKGxkbykpCiAJCQlkZXZfZXJyKGRldiwgImZhaWwgdG8gZW5hYmxlIHBoeS1zdXBwbHlcbiIp
+OwogCX0gZWxzZSB7Ci0JCXJldCA9IHJlZ3VsYXRvcl9kaXNhYmxlKGxkbyk7Ci0JCWlmIChyZXQp
+CisJCWlmIChyZWd1bGF0b3JfZGlzYWJsZShsZG8pKQogCQkJZGV2X2VycihkZXYsICJmYWlsIHRv
+IGRpc2FibGUgcGh5LXN1cHBseVxuIik7CiAJfQotCi0JcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBz
+dHJ1Y3QgcmtfcHJpdl9kYXRhICpya19nbWFjX3NldHVwKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
+KnBkZXYsCkBAIC0xODM5LDExICsxODM0LDcgQEAgc3RhdGljIGludCBya19nbWFjX3Bvd2VydXAo
+c3RydWN0IHJrX3ByaXZfZGF0YSAqYnNwX3ByaXYpCiAJCWRldl9lcnIoZGV2LCAiTk8gaW50ZXJm
+YWNlIGRlZmluZWQhXG4iKTsKIAl9CiAKLQlyZXQgPSBwaHlfcG93ZXJfb24oYnNwX3ByaXYsIHRy
+dWUpOwotCWlmIChyZXQpIHsKLQkJZ21hY19jbGtfZW5hYmxlKGJzcF9wcml2LCBmYWxzZSk7Ci0J
+CXJldHVybiByZXQ7Ci0JfQorCXBoeV9wb3dlcl9vbihic3BfcHJpdiwgdHJ1ZSk7CiAKIAlwbV9y
+dW50aW1lX2dldF9zeW5jKGRldik7CiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
