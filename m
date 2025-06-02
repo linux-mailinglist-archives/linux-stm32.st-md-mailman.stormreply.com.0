@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8E04ACB692
+	by mail.lfdr.de (Postfix) with ESMTPS id D2C7AACB693
 	for <lists+linux-stm32@lfdr.de>; Mon,  2 Jun 2025 17:19:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 900C2C3F94D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BD0EC3F957;
 	Mon,  2 Jun 2025 15:19:02 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93C30C3F956
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC82DC3F94D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Jun 2025 15:19:00 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so49224205e9.3
+ Mon,  2 Jun 2025 15:19:01 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-450ce671a08so28506595e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Jun 2025 08:19:00 -0700 (PDT)
+ Mon, 02 Jun 2025 08:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1748877540; x=1749482340;
+ d=linaro.org; s=google; t=1748877541; x=1749482341;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4yhV1VS1sZnr/B/j9eDazI/vJTndFmPooDhpyVC7xA4=;
- b=K59GBZLy/ugAK16n8fS3YPh+g0H1EDgibqrZbs8DSP5/jToE0FYykzwHh0HEBgKZnR
- 1sKm/l0kOUt23emuezHYpR2YHWJEcVbHc2sFcoPjRRlWFF1djQPidrAybAMEtslEGN3k
- FErTv5z1fpMnhnvPgsy68U2w/DOmb+s8LTxJvPaLtZ549jx7puEQSN/KwKlfDpAPpIpk
- w0txkhA5dikNAUMXy0J1OWEoRFudrrx6rQL/NkB9k55i34uc7uGqKM2ijFRUrkshuhpJ
- NItoGnIfGy3fqYWhEQeXyySYeqTwc/4PlEp/V21ZWxnsZVMfOVm6stFuNEYDHrkqCkWB
- 8TQw==
+ bh=j2bXZElBrRwneMKewEI3S9wHUbgph+s2MD8uEMc202U=;
+ b=JO5mRpwLD4Cc1f4b5rYd5bel4v9dkHsakFDFLi9Jm+wgf9Q7L4bXpR1dMVQWMOsAis
+ mGHI3iW0o4yoIjbST3rn31MmBCoJitospL5b7wMW97Rog7JUK8YZx3hN8pkwUEwnCO39
+ NzLYDYMqnldt/YrD1+NYLjMLNHlhzGyd1+XTnXdflSPKQIckl00+zO5XFdg/ZZn6Q8jo
+ NoVLQ/p1pWe3E4rxItpnnkRYSdFr4HaqP0OjXUkumrelSg76qVKMN4V3nD4bAyybNVsS
+ TFaQUP0x8PJJ66qFG4KUnewkgb4skhhn7VNbAxAof+9BNFKsOer1ViTtQDaooDtIt6m5
+ oxuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748877540; x=1749482340;
+ d=1e100.net; s=20230601; t=1748877541; x=1749482341;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4yhV1VS1sZnr/B/j9eDazI/vJTndFmPooDhpyVC7xA4=;
- b=aw6LoHIyuxzjOdkvbUkL9TdUvrCO7VjX37SNmUMVWdJFx4uWG+coblgl7ICUpd31pY
- MBL7AdXoLgYOpS+DcZnaSmQfPAstXCAxgxz60Et3yHUbir5ss8ix3GzJpgOHpt+g2wK2
- /GZxHW1/ICaqNYYhNXTYPUInYnY71iEUnMS5Z7JNAP04tl4gbuK2+rxCE6r4wQ3/XYaq
- RMuQKI+3B/1oXjNFxqFPGi0HVuXs0Qfg2o8/1TmRwDgT5+MNrRxWEW5w3Jal7SpP9+yu
- r6gBMrVSx7RrsIRLQK+00RWzZ3I8fXJe4/oN8VyMX3kGWTvtvFGkcGo6kMN3dezgp+ZE
- DIvw==
+ bh=j2bXZElBrRwneMKewEI3S9wHUbgph+s2MD8uEMc202U=;
+ b=Otzw27/FQIAPtzZ3ju+ZiDKhI35gZy5uxjv618MM6ZcM3VCmK6jjvxcwMnjiLbVnGG
+ 7RWKZQoW5a5HJoSJ90V78jDqfyWK0RFID9lAMzQAp1757lDUSx3wjaKPnzZwFbfF1Zo4
+ tSJDJB/RsAdpunZwxfaVoynzyBWeJIy1sMr+LjTSbog6bqwII+0ToYOl/Lf1TlUw90uO
+ fAsR4O4jawjrP28HyeJb+jSLudI1lvJmA73m44DrBSyXIDzZ4JrMNBxDYpFTv30WyARw
+ E/kwhnqrsAlKIaSFj5eU2aqhMoe70eO951azdMcVPkz0O8ISdV29M5ed+aah0meQalr4
+ niAA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVdTmIQNQVjcfGL2lqNhS0hE0JVgxQrg8q9CcYtohIzqujtGONFCFiQV0M83deCRIFf/7NhFJSmlqkTYw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yybb6tw+fm80nOvBi7u7fAcwOgqoSrGrYakuh44oKBrzrKr5PbD
- xGJaGqaLIKNhA2xnV5RPMbgfN4+Wdfrfn3tCLEJ3JoaufRK3NXA1rsN8F793K7tH9NM=
-X-Gm-Gg: ASbGnctJw4Ymp35PmiSXwE6xL3NqsPpNkR/QU8SAVTRvXQoTiEWUVBFa+p8G+Dxm6qr
- xihmkrFXmTkPJD5rFktr/Vz9VkMeIZYLpaxdhHmEdW7/0D9R00LYa26dTDKSQkCYeGzgCKRa1i6
- 5vI0jHnypJYAcgBjAk1BsnKOyYScfaPJ4egglr9E95nU0o5aGUJjtMTOLcFhBmdj86zQEDjMcYD
- j2mwEs0Ilt784MdBKQ2l591rQIMzUz+ZD4fVb060zcqwQXla0G5FfqdGUQuOjf6Jw1AstxWMH4X
- NKV4/FaYzlZmEg51n3DQxpkdyX8St4rASDoPy7QDfUk7WzHVTfk1d4M4uLAdTWKAZFwsVG0PZ1w
- FAjkbP5H0QymW
-X-Google-Smtp-Source: AGHT+IFyISAqwMHhCGLRj9aCfOACSARamwm5CChRIpOs6jPFxpI1R1pUgcUMERHo5kjL0SIXDlP4UA==
-X-Received: by 2002:a05:6000:18ab:b0:3a4:fb33:85ce with SMTP id
- ffacd0b85a97d-3a4fb3388bbmr9485326f8f.46.1748877540038; 
- Mon, 02 Jun 2025 08:19:00 -0700 (PDT)
+ AJvYcCUFNIjVKy7ETBryXfcua/3dsw42e4JD2JUPaK8xuLKg0gChH+JZR8TXw4IlKpK+LVrRJ32FJBJKt2mxBA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyAl43IJZ/KkQKGU+whTXhmhEbDxrPg3+TOaDTrDoyq0N+cJEAn
+ EnHenjNXLK9jA0+sL78tYxDPTyM+6gtWGnKRpQp0EkSwnXx9+7XRBZ1P1+jgK0enNFU=
+X-Gm-Gg: ASbGncvfi1AkKE2/fNkOu613gju9MUuzXEdC/Vb0E+TaO5hU57eECsntB5mMsEiOgNz
+ 3578Hh/R43QTG93/baOMby24s7675oQ6pz1R+lGxi40myKxxDYFtjF3xBaQGfQi7/F51mbWjKO8
+ jRHwk+6Dj6bPO1BclwWNdp0koBJliorlkIURdqmePqv+I6g7SU56ynpXnYgPCuDR3vxay6q+6WU
+ KchvVrpKQbVKZbk8VHZLQG2TdwZLh6P75hLw1XlxextjfDlQuwQ3KWCwJpUAAIcu+DCpssqS/2H
+ Mr/U1SHtVa9/7b3w2AMg8F+ySqS601pZrkpEOMZVJ83FnR5M5zEA73FSmJV132GvCxGEBsu6JxJ
+ hXzOqq5djlZdB
+X-Google-Smtp-Source: AGHT+IGm8o6nqRRjiZlM8OEtcH7Giz5iqVqvOKIqNhMfKW6+DVKKTld7vkKIltD7iNqNITzYzwGGxA==
+X-Received: by 2002:a5d:5c84:0:b0:3a3:7ba5:960e with SMTP id
+ ffacd0b85a97d-3a4fe3a8214mr6931603f8f.59.1748877541180; 
+ Mon, 02 Jun 2025 08:19:01 -0700 (PDT)
 Received: from mai.. (146725694.box.freepro.com. [130.180.211.218])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe74111sm15619844f8f.56.2025.06.02.08.18.59
+ ffacd0b85a97d-3a4efe74111sm15619844f8f.56.2025.06.02.08.19.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Jun 2025 08:18:59 -0700 (PDT)
+ Mon, 02 Jun 2025 08:19:00 -0700 (PDT)
 From: Daniel Lezcano <daniel.lezcano@linaro.org>
 To: daniel.lezcano@linaro.org,
 	tglx@linutronix.de
-Date: Mon,  2 Jun 2025 17:18:46 +0200
-Message-ID: <20250602151853.1942521-3-daniel.lezcano@linaro.org>
+Date: Mon,  2 Jun 2025 17:18:47 +0200
+Message-ID: <20250602151853.1942521-4-daniel.lezcano@linaro.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250602151853.1942521-1-daniel.lezcano@linaro.org>
 References: <20250602151853.1942521-1-daniel.lezcano@linaro.org>
@@ -82,8 +82,8 @@ Cc: Nam Cao <namcao@linutronix.de>, Marco Elver <elver@google.com>,
  John Stulz <jstultz@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 2/7] clocksource/drivers/stm32-lp: Add
-	module owner
+Subject: [Linux-stm32] [PATCH v1 3/7] clocksource/drivers/sun5i: Add module
+	owner
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,21 +114,29 @@ module.
 
 Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
 ---
- drivers/clocksource/timer-stm32-lp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clocksource/timer-sun5i.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clocksource/timer-stm32-lp.c b/drivers/clocksource/timer-stm32-lp.c
-index 928da2f6de69..cf1423ca00d0 100644
---- a/drivers/clocksource/timer-stm32-lp.c
-+++ b/drivers/clocksource/timer-stm32-lp.c
-@@ -159,6 +159,7 @@ static void stm32_clkevent_lp_init(struct stm32_lp_private *priv,
- 	priv->clkevt.rating = STM32_LP_RATING;
- 	priv->clkevt.suspend = stm32_clkevent_lp_suspend;
- 	priv->clkevt.resume = stm32_clkevent_lp_resume;
-+	priv->clkevt.owner = THIS_MODULE;
+diff --git a/drivers/clocksource/timer-sun5i.c b/drivers/clocksource/timer-sun5i.c
+index 6b48a9006444..f827d3f98f60 100644
+--- a/drivers/clocksource/timer-sun5i.c
++++ b/drivers/clocksource/timer-sun5i.c
+@@ -185,6 +185,7 @@ static int sun5i_setup_clocksource(struct platform_device *pdev,
+ 	cs->clksrc.read = sun5i_clksrc_read;
+ 	cs->clksrc.mask = CLOCKSOURCE_MASK(32);
+ 	cs->clksrc.flags = CLOCK_SOURCE_IS_CONTINUOUS;
++	cs->clksrc.owner = THIS_MODULE;
  
- 	clockevents_config_and_register(&priv->clkevt, rate, 0x1,
- 					STM32_LPTIM_MAX_ARR);
+ 	ret = clocksource_register_hz(&cs->clksrc, rate);
+ 	if (ret) {
+@@ -214,6 +215,7 @@ static int sun5i_setup_clockevent(struct platform_device *pdev,
+ 	ce->clkevt.rating = 340;
+ 	ce->clkevt.irq = irq;
+ 	ce->clkevt.cpumask = cpu_possible_mask;
++	ce->clkevt.owner = THIS_MODULE;
+ 
+ 	/* Enable timer0 interrupt */
+ 	val = readl(base + TIMER_IRQ_EN_REG);
 -- 
 2.43.0
 
