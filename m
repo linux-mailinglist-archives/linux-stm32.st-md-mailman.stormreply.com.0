@@ -2,86 +2,161 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE12BACBF44
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jun 2025 06:41:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C36ACC247
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jun 2025 10:39:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B906C3F957;
-	Tue,  3 Jun 2025 04:41:51 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E213C349C2;
+	Tue,  3 Jun 2025 08:39:10 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2043.outbound.protection.outlook.com [40.107.21.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45256C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D45CC36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Jun 2025 04:41:50 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-54e7967cf67so6052288e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Jun 2025 21:41:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748925706; x=1749530506;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BED0WVH0ui801+fOhuTnComAdNPJBDfJ7ZYmPTvoYyA=;
- b=ltZlB0LB72LBG4Z1U6ar9IddDNBgmrlql9TbiISikE3Uz+kOccnVwISn5gHouaCJHF
- E12YkoAPLy7IeP/MQ06CMIjaOd8B6hevcnZUjbuY14Y1hE1czMcPeyLOYg1r7uAI5eRl
- JlfzmBymjOS3nKoAqKyi31neZxhY2O2floR+rnXKsEwuTUxzwa+VfCLJTPHYC5sK3How
- YgMRQswt4NWYZAJn/oQ22Sx6TTh008BpyHUmLWiJ5EVDTN5aza83fqBrulNzWbkNzk8w
- c20+XhMRaStGKN6aho2mKzx0DbRUNppalYGfmrrttCjUtQu+n57bcsZnO03AC2Kmq3Qx
- 25KQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxWjGt6O0AdOxi0+IC6iJY/6uZc6VHU8yST4yRKgPrVvIiwaquK59qmAnI2Z1IILJJsJ3ijfs9qlPJAw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxtXNoQtKnVjjqvDVQe7LP2jAJS2mOh3y0ZsFzeEB+2f9aJeoDP
- hzd+YA8PTmb35u+SePM3xuNXMG/KMkYjrwd2IU4N7N71EKgZZxVn0sjvuIcC6CNCspc=
-X-Gm-Gg: ASbGncsbQ17GL27FuyLOsH9LlswrkxYjQ7faxH6tWGY/gNdnQpN/ixApM/xK0BmEdIO
- CQZ7VZFMlM1cl6z+R3pa5NW3Ce+6L/SzviTG8F/bzzluwsTI/ASYDWsGt8MlBaX2s2I0UdIrMTx
- 3PWcCiKXm5qyAczS5/LwQI9GzJUbKHW0II99A35OjJQW+plSQ01yoLdOiL5v+kLitLQumYjPY2y
- KDFK9X1OfFb0AQHBhu9su5tGTJvEgaRC9PejNFJJS+LXq0RbCso2TFP1GW/ijY8HrV2oc7m73zG
- AQIY5xL38xYFAnVbCYinS2LRsAd31HKqvMZQhlni4S6Pkqy6k279rppnT0VeY0hPVfoeExGgqj1
- LiULA
-X-Google-Smtp-Source: AGHT+IGat9exi3yttHP30mO50tRZYn6870gp5zwZ5XWCkUUgBP25PXwe3Kg7d1f9MNqU06/ptqwuKw==
-X-Received: by 2002:a05:6512:ba1:b0:54d:69a3:6109 with SMTP id
- 2adb3069b0e04-55342f54722mr2860653e87.8.1748925705801; 
- Mon, 02 Jun 2025 21:41:45 -0700 (PDT)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com.
- [209.85.167.53]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5533787d3desm1799253e87.35.2025.06.02.21.41.43
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 21:41:44 -0700 (PDT)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-54e7967cf67so6052214e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Jun 2025 21:41:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXgcZh9DnYcdPR6unNsX5qY/Zeo9leegDRHCuJDXcNMieLDmsyvsieGp+kUoQku/jaFKOgE1WQBlUEyYQ==@st-md-mailman.stormreply.com
-X-Received: by 2002:a2e:bea5:0:b0:32a:8c7a:8350 with SMTP id
- 38308e7fff4ca-32a9ea675f3mr36137841fa.30.1748925703708; Mon, 02 Jun 2025
- 21:41:43 -0700 (PDT)
+ Mon,  2 Jun 2025 09:38:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DlrncO+H5DALZ0sN8MEIQYKAviZk+fDieoBL3v518y/NadT0tmXgqJFFttrPBgqqOtr2/S/tqZkbyOVT12Ju9Y4g7+7G4v+44CSt660LVFvpqkZung9edBJsy3bYNe55D9fZwqsQH6HQx7DBs/J0M6SJrGm6krraU6qf4ybDxrITuLccxZMvduqimS9zGRX6knTfcMj/J+xhcqH171oh97agzRVxKNLAozMd6qWWhbFYg96j/Kzn9s3zqBnZ3GHvb48DyQ+SPAmquRGzXMloZn6SrRik711FwOwVE916WPntr09VE+BCgyGNLVDvCosl9hPLPeKWPf3bQLE1SbY5Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vmFAq+QSJoP3+fnGu8m1hDfaAXpwtms89R4Mc7eBlR4=;
+ b=jzNLPSaWVV8ood8CB70ahf4YQdpao4e1RNv3te0CZIQk1F6WldZ0SWSWo97gKEAU9qFzjsrgL+pfI1l09SxDLpjg91ydIYpovtJUXCfVPgAr5BRaUixUF1kzMVHM3bAYYAcOAeGBXDKR9PT7i5Z9hR9fbqWlHmaymXkErPNyWrEwxURB8Iqy+QYmC2sQOVEpUFi6WhIVxF5JEOc470UtbFrcHtZLaNj6JBdHhG+J5WvmapowAsEMTUls/HHoSsDAx3Vf2br5G5BLjiO0fX3ERgi9G/KGOMhXSiU/yGjGHAM+tcvO4b4CHW+/Oi6tdLg7119cqFWOcuqDBR1SmuCV1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
+ dkim=pass header.d=cherry.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vmFAq+QSJoP3+fnGu8m1hDfaAXpwtms89R4Mc7eBlR4=;
+ b=KnMXc7X4VwqZhVOPe7RfoeP0NNFoOSVyj1f+DBJ9FFcBKwCftrCn8mVvPPSF+r/FeSJKtkbqzzm1yJ4WEpj+thg+atQ+N7QTdggXy/YQHDwgEfaBsDsQ4HEDEzc9xQI7y5EsItv68nGusVV70At9yZAukTyKfa1BdMpKJpGsmpo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cherry.de;
+Received: from AS8PR04MB8897.eurprd04.prod.outlook.com (2603:10a6:20b:42c::20)
+ by AM8PR04MB8001.eurprd04.prod.outlook.com (2603:10a6:20b:24f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.32; Mon, 2 Jun
+ 2025 09:38:32 +0000
+Received: from AS8PR04MB8897.eurprd04.prod.outlook.com
+ ([fe80::35f6:bc7d:633:369a]) by AS8PR04MB8897.eurprd04.prod.outlook.com
+ ([fe80::35f6:bc7d:633:369a%4]) with mapi id 15.20.8769.037; Mon, 2 Jun 2025
+ 09:38:31 +0000
+Message-ID: <e912504e-651b-4992-953e-1a239cbf2550@cherry.de>
+Date: Mon, 2 Jun 2025 11:38:30 +0200
+User-Agent: Mozilla Thunderbird
+To: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>,
+ Paolo Abeni <pabeni@redhat.com>, Quentin Schulz <foss+kernel@0leil.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20250521-stmmac-mdio-bus_id-v1-1-918a3c11bf2c@cherry.de>
+ <b3e3293a-3220-4540-9c8b-9aa9a2ef6427@redhat.com>
+ <090efb05-eb2b-4412-aa85-16df05ac9fb5@quicinc.com>
+Content-Language: en-US
+From: Quentin Schulz <quentin.schulz@cherry.de>
+In-Reply-To: <090efb05-eb2b-4412-aa85-16df05ac9fb5@quicinc.com>
+X-ClientProxiedBy: CWLP265CA0456.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1b7::13) To AS8PR04MB8897.eurprd04.prod.outlook.com
+ (2603:10a6:20b:42c::20)
 MIME-Version: 1.0
-References: <20250602151853.1942521-1-daniel.lezcano@linaro.org>
- <20250602151853.1942521-4-daniel.lezcano@linaro.org>
-In-Reply-To: <20250602151853.1942521-4-daniel.lezcano@linaro.org>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Tue, 3 Jun 2025 12:41:31 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67qHKVGdNDmg_mbT-bkhAmn=NxQBsRZMtGgpdOGh6Z37w@mail.gmail.com>
-X-Gm-Features: AX0GCFsButCX6XOPdUHg9gMIjlAItX_YWWR5mtXZWLyYajpbu0GEJNOaxHVxyxs
-Message-ID: <CAGb2v67qHKVGdNDmg_mbT-bkhAmn=NxQBsRZMtGgpdOGh6Z37w@mail.gmail.com>
-To: Daniel Lezcano <daniel.lezcano@linaro.org>
-Cc: Nam Cao <namcao@linutronix.de>, Marco Elver <elver@google.com>,
- Will McVicker <willmcvicker@google.com>, Saravan Kanna <saravanak@google.com>,
- Samuel Holland <samuel@sholland.org>, Jim Cromie <jim.cromie@gmail.com>,
- linux-kernel@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
- Thierry Reding <thierry.reding@gmail.com>, John Stulz <jstultz@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
- tglx@linutronix.de, linux-sunxi@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 3/7] clocksource/drivers/sun5i: Add
-	module owner
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB8897:EE_|AM8PR04MB8001:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72cfda0b-217a-428a-2d41-08dda1b93cc4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bUlQczBLQUZCRGFZODR3MmZZS1VGZnYzQk1BSkVNbTcrWXk3TnFUd3Y1dk1s?=
+ =?utf-8?B?am96R05GZDVDR2JzN0laSjlnVkFRejJtYjE1WUtiS3F5U0NlbXNDeVArVWtV?=
+ =?utf-8?B?OUpuSXk0emRSUVh0YncwVnE3a0t0NG9GYzNreXV0eDg4SHVnZmhZUVpEQ1F0?=
+ =?utf-8?B?MUg3OFpqZ0NLZjRjendJcG5FOHMvS21LYUh2ZHk5eEVOR0xDb2Q3VllYUWZ0?=
+ =?utf-8?B?UUlGN2dkbkwwTUZ3enBwSXRYOHl1QW1jenVaOEVjS21DSXpWd2oxMW50bnFz?=
+ =?utf-8?B?blkvekk1RWN1ZUdxelM1M3J3Ly9SNkRoSFRkU3RGU3o1eW04YWhObkRjOWpj?=
+ =?utf-8?B?T01xZ2FLS2ltV2V6SEpaMkdsMWNGYUVSYWlaL1R3cU1kWEdEUnNINDFtOVdq?=
+ =?utf-8?B?WnRrZ2x3cnNxdG5CT0ZOUnVlMkdwSWorVmczcWNpNERtK1ZQODYzOGkvbFhE?=
+ =?utf-8?B?QW1IYlY3NXlMRHRwbG4ySzJvcGh2NEpCcjVWVlRJUlREV00yc1MxVFR2S0Zm?=
+ =?utf-8?B?NHdNTXhjY1YyWUJ0bCtUTnQyampMeUtpc3ZpLzk0aWFrc2Y0L0VrdEVxR1Ur?=
+ =?utf-8?B?ZWZ2UGN1THY3eDh4ZHdlNkRmUmdhZE9VMnkzY28xdkk2dkE5a0ZkM0lQbEIx?=
+ =?utf-8?B?VzQzM2tkSnhqSzNJcjhLVTZvV2lldUlEaXRxYmgzWlJ0ZDZBZk1WektYUkly?=
+ =?utf-8?B?dVAwdmtRa1VYUGVpOTlMZmJBd3FoS0U2QktlQit5MXhaU3d5OEpMRmxVeWxu?=
+ =?utf-8?B?L2Z2T1A4c3BlT1pwRUFkZVNFSE1BTURBYm9KSFVGdWs4MllTSU1kRkJ4dkM4?=
+ =?utf-8?B?YWxSbVZHN3BSWTdJSFpjbjNHRUxJZVZpVGVBaERQS0YvckpnSEI1d1ByT0x2?=
+ =?utf-8?B?NUxvMGw3Z21oUUk4dkdQNTNhajdJTUU3L2NMcjB2dkpRVEZLWXdxODFJWFN4?=
+ =?utf-8?B?blZyNnFVcytuOEZqMmVIVzROVmsvTmFaTklaaEYyZjhrRWlHS0FMREt5elFo?=
+ =?utf-8?B?TFQxY0J0US9wSXNuVUV0ZnpzWWlWRUlFdEtWTUdxbmtYR0FWOVA2L2hjVGxq?=
+ =?utf-8?B?di9JdEY5N2FRcDlNOEl2NWlwbW52TEFWNTFnYWZ2anFLVE5GMDJoNGJtMFFT?=
+ =?utf-8?B?RG91WVo3cVZvWGJBbEZmZ0s1T1NlWFpNR0IwSGJ1K0ptS0xSajJyZGdCSWNT?=
+ =?utf-8?B?QVcxbTVTMWIyMHRKUERxcnNOc256TU8rY3JlNVc4QkJweWRXZmFKL0t6OVJl?=
+ =?utf-8?B?dkI2WDZoeklCTC9HdThJZ1ZodCtlU2ZBRFdHdFgrazJJaUtjcXpEaGp4K3VS?=
+ =?utf-8?B?ZnVSbTE5T1dyMS9uTXMzZWxPdDkvRnRSUE9SYW80UFBLdHgwY2xud21INHFl?=
+ =?utf-8?B?dHVyblJtS252M005MTFoTDBnYVFhSUNqWEI0WFFxZEVOMUtmRHE0bHBsQ0p2?=
+ =?utf-8?B?UC81aE9obWRXSEswdjkwVjFZeGM0S3NJMnU5MDd6bHhGMW04TUJCbnMzdnhh?=
+ =?utf-8?B?N243YzV5Ti9YcmlGak1RNjdNU0o0SGw2Nk02UWFIU3NvTDNwbmlMUzRLejFz?=
+ =?utf-8?B?c3czbXQzaVAxaUJBQWtEckJ6aXVUbjVyNHcreHFMdFZybm9YSFpEc0NEZFV6?=
+ =?utf-8?B?Tm91MDUvMy8rdFRqUFFXbEY0Y081enVTbmIvVXhDMUh3VFAwQWR2ZGdlci9R?=
+ =?utf-8?B?cmJ1UXpxVnppMk1ycWVWVGw3ajZpTytCL29KTmxUVTJhM3Awcjg4aWpTWkxh?=
+ =?utf-8?B?cmZYQkZqeWE0YzFFSFVMK2JET2RmQUZRblpLb3lkcUdGQVQ4dlF0N0R2YjVY?=
+ =?utf-8?B?S0tpdUxWcjlyRXhzMkZBZ3VkdmFlVDVTRGNCa1MveURKRGYwTWZxWGhFbWxE?=
+ =?utf-8?B?TFg5Zis1NFkzai9iYWlVa2lEM0h3eDY2aFFZUVFxVnYwejlHRUsyNzUwL2RM?=
+ =?utf-8?Q?1zNNeZUabsY=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS8PR04MB8897.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWVOL01xRHVMNCs4dEpTczloZHB4VDQrb2lCOGNHc2RVSDhYM3M0MXc1MUJR?=
+ =?utf-8?B?bUNqMWx4Wk5zcDVpSGt1TXRSamhDZXQxdTBjbldMV0MvUE42eVUwRndxaGRQ?=
+ =?utf-8?B?ZHZTRjlldnowR3MrTlZXZ3ZUT2huemZqQmdVL3ZkU3VEWE5DaWRmUFhFK21E?=
+ =?utf-8?B?SG5jWDFZLzhRcWQ5eUVaVU83RnFRa2RkTlpBeC9ITUJjR3FzVngxZlY4UzAy?=
+ =?utf-8?B?ZVRyYmJadVJnVy9reXVudTRFaDVpR01UUTh2MWZFMFJjOTFBa00vODNtVHR3?=
+ =?utf-8?B?Z1Ard2JGMTJQYTVsS3RNa01QUG5QaEFtdW9Yd2FIcmwwZy9oVnUrR1VnRUc4?=
+ =?utf-8?B?RnRtcFJDOXJUZE42VXlxbmt1TVByeGNESTFRMmgvR255Ly9RQ0pqR2VFTm9t?=
+ =?utf-8?B?blBOamxhbG5OZTVWcWZET2VkdUFqaHNKUVFrUmdDL2pkT0Q5NnEzeTBOazhP?=
+ =?utf-8?B?aG1jWGNiVVBycm1mb3RWanNpa2p0aEJKNXpMQkI3aUxMOFBxMXlUM3NCRlg3?=
+ =?utf-8?B?eWxEcDd6YjdSclY3eE1HY1VaUDNFc0ZrcXhlaDd6WnpubE95VlpNdEdZUDNw?=
+ =?utf-8?B?eFRzZkpLWER4ZENpRHJCNC9lb0psa0xlZEo1U215QkxWTC93TlBuVVhnSW00?=
+ =?utf-8?B?dDNpeDZaT0hjdWovanlNbjBmVGpPVE4xR2plZ2I4VURnVGhDVVZIeGhJUmN6?=
+ =?utf-8?B?YURwTGtJZis3c2h1OE9ReVpBN3ByMUVDSWJJWTEyZGJBa3QzMVZrR0JsRy9i?=
+ =?utf-8?B?S2djZldYb2NQR3RTRkh5VFM1Zy9wekM4ZFJhK3FDTkYrOXQyd1NTVk9ZbkRs?=
+ =?utf-8?B?RSt6UEN6Y2RoWmgvUW5TdkM2cWY0MXBIOVBOdGt4V1Z2NVV3cXFucEp0QjMv?=
+ =?utf-8?B?T0MrdmpGYmJzQzFCelVBMHZpWnlTUC9INjRYVVZqeG1oRzRpMHBuQjBUN1pW?=
+ =?utf-8?B?ZEE5RVd1T1BucG9xRVpwOVBuVDNSMUtaN2xFU2Q2TnY4QVFtaCtTd1RMS08w?=
+ =?utf-8?B?OGNzcXJTaVUrRWd2RzB6cVdyRW0vZ2tpb2pqeS9TVC9IRjJNVGRDOUZMSDdj?=
+ =?utf-8?B?enZtVVpNQTJFajVMaTRHUmsyV3E1VjdQK1FFYXlFbkE4SDZmaGpqTkUvaGNP?=
+ =?utf-8?B?LzRUS25kYnpSaU4yYXFzNEZtV3VNVHk0QldjeVJ5VUh3a1Rkeko0ZlUrRmhs?=
+ =?utf-8?B?NDRjeitueUpiaEdacFFIVWtkQXcrUjRjb0pHNjJMdWxseG1SY01wTlhzd2Fo?=
+ =?utf-8?B?UFNjQXlSS1ZYblhzRHFtU0dCN2d0MXJwWGI4dDFTQndoMlgzNmlrc3JUMFFs?=
+ =?utf-8?B?UnFUZ0xtODNOREEzSis0ZEt0ejhNNHF4VGx5OXJseTgwZlBvMThZOWI3MXpo?=
+ =?utf-8?B?TzJ2RFB0YVEzYzAvSEpobDZ5WXltVDYwM3JydjhHekZoK21Hbnd0b1BvQ0JU?=
+ =?utf-8?B?SkowMzN4SXhtOVhGNkcxc1lQbTJKeFpZZWJqL0NyMHNyejFOOGtRMFBsY0JP?=
+ =?utf-8?B?emp5Nm1tQzhRcXJwUm1hTXg4TDZtbkFsaldxNStWSWRwN0tET3NBTzFHaFRY?=
+ =?utf-8?B?QkhIdUxVU21oa1lhWWVVVmo3SSsrQWtCYTZ6U1dSZ25WQXpEdnFDVmt0Zno5?=
+ =?utf-8?B?aGxOemNONlFXb3BpalpYenpFaWZ1aGpJKzVjMXNyOU80cEEyNkVSZ05xQytM?=
+ =?utf-8?B?ck9wR1crS2huMlpxZHpBdG5hcEJCdHl4akFyRGlUYVBpU2lhcHhMY3l4RmEx?=
+ =?utf-8?B?dFVJR3RwTldwOU51WHVFUnNhdCtsVktpSUNYc09Ic081a1ZxZFlUY3RvUGE1?=
+ =?utf-8?B?cURkVWtZdDRrTEVmM3B4WkJpNVRzY1JEajBtZEREWTdNeHFGVUYrUnJySWNZ?=
+ =?utf-8?B?WlhLRzVVL2EyeDdQT2tHcExWTEFOKzZqdkZyRm5PL0FZcFZIOTRUaFZQdENh?=
+ =?utf-8?B?WSsrdVV0S1Y5dzEwOXRCM1AvMzBTTjR2eU01dUsvaVdzOWhDS3ZlWitFdS9i?=
+ =?utf-8?B?SS9KeS93c0FwTEVUREo5MWU2RG9XQ1FSY0dETno1OG03SnU3L3JOSEtkdHBJ?=
+ =?utf-8?B?MDA0Q3lNcExudUJ5NmJtajhLUC9jMXFoYlYzOU01dFdZRGh2bE0rWmsyTEVH?=
+ =?utf-8?B?MzRGODJrWlgwdG9PSytPYXM4QXl5T0Rtenh2ZERhTzB5TmVmV2I0L0JaRktM?=
+ =?utf-8?B?NlE9PQ==?=
+X-OriginatorOrg: cherry.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72cfda0b-217a-428a-2d41-08dda1b93cc4
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8897.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2025 09:38:31.8294 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DjZrxOL5mfUs5+xKRzYBhjz1Nv3YmgKqIQUy+1nYYxeva4uizdABuwk2MUC2ZwacuF8el5Spqv6YXLUSt9+vortLtnwniTQqQzLoBZej9AM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB8001
+X-Mailman-Approved-At: Tue, 03 Jun 2025 08:39:09 +0000
+Cc: Heiko Stuebner <heiko@sntech.de>,
+ Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: platform: guarantee
+	uniqueness of bus_id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,25 +168,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: wens@csie.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBKdW4gMiwgMjAyNSBhdCAxMToxOeKAr1BNIERhbmllbCBMZXpjYW5vCjxkYW5pZWwu
-bGV6Y2Fub0BsaW5hcm8ub3JnPiB3cm90ZToKPgo+IFRoZSBjb252ZXJzaW9uIHRvIG1vZHVsZXMg
-cmVxdWlyZXMgYSBjb3JyZWN0IGhhbmRsaW5nIG9mIHRoZSBtb2R1bGUKPiByZWZjb3VudCBpbiBv
-cmRlciB0byBwcmV2ZW50IHRvIHVubG9hZCBpdCBpZiBpdCBpcyBpbiB1c2UuIFRoYXQgaXMKPiBl
-c3BlY2lhbGx5IHRydWUgd2l0aCB0aGUgY2xvY2tldmVudHMgd2hlcmUgdGhlcmUgaXMgbm8gZnVu
-Y3Rpb24gdG8KPiB1bnJlZ2lzdGVyIHRoZW0uCj4KPiBUaGUgY29yZSB0aW1lIGZyYW1ld29yayBj
-b3JyZWN0bHkgaGFuZGxlcyB0aGUgbW9kdWxlIHJlZmNvdW50IHdpdGggdGhlCj4gZGlmZmVyZW50
-IGNsb2Nrc291cmNlIGFuZCBjbG9ja2V2ZW50cyBpZiB0aGUgbW9kdWxlIG93bmVyIGlzIHNldC4K
-Pgo+IEFkZCB0aGUgbW9kdWxlIG93bmVyIHRvIG1ha2Ugc3VyZSB0aGUgY29yZSBmcmFtZXdvcmsg
-d2lsbCBwcmV2ZW50Cj4gc3R1cGlkIHRoaW5ncyBoYXBwZW5pbmcgd2hlbiB0aGUgZHJpdmVyIHdp
-bGwgYmUgY29udmVydGVkIGludG8gYQo+IG1vZHVsZS4KPgo+IFNpZ25lZC1vZmYtYnk6IERhbmll
-bCBMZXpjYW5vIDxkYW5pZWwubGV6Y2Fub0BsaW5hcm8ub3JnPgoKQWNrZWQtYnk6IENoZW4tWXUg
-VHNhaSA8d2Vuc0Bjc2llLm9yZz4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Abhishek,
+
+On 5/30/25 12:16 AM, Abhishek Chauhan (ABC) wrote:
+> [Some people who received this message don't often get email from quic_abchauha@quicinc.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> On 5/26/2025 1:26 PM, Paolo Abeni wrote:
+>> On 5/21/25 5:21 PM, Quentin Schulz wrote:
+>>> From: Quentin Schulz <quentin.schulz@cherry.de>
+>>>
+>>> bus_id is currently derived from the ethernetX alias. If one is missing
+>>> for the device, 0 is used. If ethernet0 points to another stmmac device
+>>> or if there are 2+ stmmac devices without an ethernet alias, then bus_id
+>>> will be 0 for all of those.
+>>>
+>>> This is an issue because the bus_id is used to generate the mdio bus id
+>>> (new_bus->id in drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+>>> stmmac_mdio_register) and this needs to be unique.
+>>>
+>>> This allows to avoid needing to define ethernet aliases for devices with
+>>> multiple stmmac controllers (such as the Rockchip RK3588) for multiple
+>>> stmmac devices to probe properly.
+>>>
+>>> Obviously, the bus_id isn't guaranteed to be stable across reboots if no
+>>> alias is set for the device but that is easily fixed by simply adding an
+>>> alias if this is desired.
+>>>
+>>> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+>>
+>> I think no need to CC stable here, but you need to provide a suitable
+>> fixes tag, thanks!
+>>
+> Quentin to make your life easy.
+> It fixes this patch
+> https://lore.kernel.org/lkml/1372930541-19409-1-git-send-email-srinivas.kandagatla@st.com/
+> dt:net:stmmac: Add support to dwmac version 3.610 and 3.710
+> It goes back in time to 2013 when this bus_id was introduced through dts
+> 
+
+Fortunately, we ended up finding the same "culprit" (see v2 of my patch 
+that got merged[1] :) )
+
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=eb7fd7aa35bfcc1e1fda4ecc42ccfcb526cdc780
+
+Thanks!
+Quentin
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
