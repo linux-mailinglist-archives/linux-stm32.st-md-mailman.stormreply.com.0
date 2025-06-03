@@ -2,68 +2,161 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E23D4ACC28D
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jun 2025 11:04:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C81ACC34D
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Jun 2025 11:41:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9708AC3F957;
-	Tue,  3 Jun 2025 09:04:37 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DB87C349C1;
+	Tue,  3 Jun 2025 09:41:07 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011043.outbound.protection.outlook.com [52.101.70.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 246A9C349C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E361C349C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Jun 2025 09:04:36 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5538ZlQ8006601;
- Tue, 3 Jun 2025 11:04:25 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- YfJMaO0eYguXaUJRaguoa/RcLyZPTE29pUZJ917p4ro=; b=rkPh9i2GqDNCK3sZ
- ZTRkUM0vNz0f8uRzgJjNKJty0KSaz9muvAeIJW+7DuKuYwQFUO8Py+yMCPXQM0lg
- Xw1hku1g8GFF4c9X0wgl2udN31KgXcK7+73jyHfWS4mV+fRM9RkYHnI/z54fx7EW
- qBOCoBHcDVWjuDis14AW2gY98bogSa4r3iQTz1qujOqFLzBDY+cxEfZmvmOXU+Be
- U4m8GZW9LzAgYmgrYuirxYAHMOX9HsY8YGBcQIcf7kT6wwhTGR0AqhfB6luYWhz4
- +eUI5zZwOnkBH6WvlFdQH5ucJNRKWVgDWLHsqi4QF0aDUc0hEEWRa04h/dnIu1ZM
- GWXBFw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 471g8stuv6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Jun 2025 11:04:25 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4E73640058;
- Tue,  3 Jun 2025 11:03:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 996476CF2C8;
- Tue,  3 Jun 2025 11:02:36 +0200 (CEST)
-Received: from localhost (10.48.87.237) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 3 Jun
- 2025 11:02:36 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 3 Jun 2025 11:02:13 +0200
+ Tue,  3 Jun 2025 09:41:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UNoSY5yRtfDl8CpT8qVsGCx0Z8QRS7q6/T/e6bCGsxmBB1P9Sc5nv2hKk5lcXYh8mgRaHAwepXdBsq6LFjKfTByV16p63t1Fb+lQCnNkxl9sql5n/PWkDxul78u8bV6MwWE47v0PITwxOdj1GHRhevoE28xMI9V4JlluNvPidIWtNeN8gv8imJFqamyJ6NfSk1IE2ICmw1WbUvzrcjrbkT87fmNutgrIY50tNLaEf+2Fz8zGsPmYE6PgiHB4EmcfUfX/wLQEXlupUeUSYBd3FQtxRQwzbqts2Uv99ertCPmha0PtXk2hgTLiRkoeNyafn7kvCNvJLrI2ocSnOelk0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+6m543ia5fr8oJocIBbCjFksGHXNBZLjfQLcdlYZZBw=;
+ b=Um4dWEvy1XnqSvBae6mmdAJeHNzIAnNS/5j4qeBwZLSdy2kJHSYWuu2l3ymdp0Ba6sNOcZTLbeuLdFLswGEmXEKTBtY0O11YTHXVUfB4FOwQpA7Sj3SNYAKDLOOFR/NEuQHdt3ODCkc24aZmsmweSwT5HH0tNdjuTKbFHygG6e1bg5fnmIgZ9CmIrA5b5SmP3gbrR3yszMYhW41ggtI9Mrv+fVrivx5txL6RPSoyWCvxfl/sQ0vzuFymbBHhQNyMwLWGnE8F+zSq3NcX8J6IzDd3BOL7VDnPCegHIXVAEqQMvT2Fnoq+BTvQNi2aHu7Jwtzs1XzkDUDMPN2h0cSOiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=amd.com smtp.mailfrom=axis.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=axis.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+6m543ia5fr8oJocIBbCjFksGHXNBZLjfQLcdlYZZBw=;
+ b=cQbuwTpm9QWtwgvur8WTcs1U/yyW1zreOuuohmt6HFCFMLVbn9QDAzPJe4mWammjNn41XV7ksMJriC+uxFsAEK0fG34EHa29vpnxHC7nT74gw32rFIX6eD7sgdRn0FV1Z4TXco/LejJ1vN+6ybGjqDQ7IKw4CHV6d7ET6UT20cg=
+Received: from DUZPR01CA0259.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::7) by GV1PR02MB8514.eurprd02.prod.outlook.com
+ (2603:10a6:150:9a::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.23; Tue, 3 Jun
+ 2025 09:41:01 +0000
+Received: from DU6PEPF0000B620.eurprd02.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::d9) by DUZPR01CA0259.outlook.office365.com
+ (2603:10a6:10:4b9::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.24 via Frontend Transport; Tue,
+ 3 Jun 2025 09:40:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DU6PEPF0000B620.mail.protection.outlook.com (10.167.8.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Tue, 3 Jun 2025 09:41:00 +0000
+Received: from SE-MAIL21W.axis.com (10.20.40.16) by se-mail01w.axis.com
+ (10.20.40.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Tue, 3 Jun
+ 2025 11:40:59 +0200
+Received: from se-mail02w.axis.com (10.20.40.8) by SE-MAIL21W.axis.com
+ (10.20.40.16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.44; Tue, 3 Jun
+ 2025 11:40:59 +0200
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail02w.axis.com
+ (10.20.40.8) with Microsoft SMTP Server id 15.1.2507.44 via Frontend
+ Transport; Tue, 3 Jun 2025 11:40:59 +0200
+Received: from pc36611-1939.se.axis.com (pc36611-1939.se.axis.com
+ [10.88.125.175])
+ by se-intmail02x.se.axis.com (Postfix) with ESMTP id 17C26F86;
+ Tue,  3 Jun 2025 11:40:59 +0200 (CEST)
+Received: by pc36611-1939.se.axis.com (Postfix, from userid 363)
+ id 13AE262A92; Tue,  3 Jun 2025 11:40:59 +0200 (CEST)
+Date: Tue, 3 Jun 2025 11:40:59 +0200
+From: Jesper Nilsson <jesper.nilsson@axis.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <aD7DK5V7WV5YOfX2@axis.com>
+References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
 MIME-Version: 1.0
-Message-ID: <20250603-stm32mp157f-dk2-v2-7-5be0854a9299@foss.st.com>
-References: <20250603-stm32mp157f-dk2-v2-0-5be0854a9299@foss.st.com>
-In-Reply-To: <20250603-stm32mp157f-dk2-v2-0-5be0854a9299@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.87.237]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-03_01,2025-06-02_01,2025-03-28_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 7/7] ARM: dts: stm32: add stm32mp157f-dk2
-	board support
+Content-Disposition: inline
+In-Reply-To: <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B620:EE_|GV1PR02MB8514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2428eb23-537a-4ff3-456d-08dda282c026
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014|7416014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nnYMCJxzoDCQcS6nCpvjhaZmrnjP64M0FLb9LGa6l8VXtWEfUAelIF7sch0V?=
+ =?us-ascii?Q?ZljCL2dH6Fwx9pWx6Z3wnuMYNuMdP1TlppVaBqqf7Is/41DySTXszX6AKHZ6?=
+ =?us-ascii?Q?ubU0JWs4nxClsUj8DtmI6c3+hmvaNkY1WXZfTJaBSTOAIESUj6NBWQSiQKP5?=
+ =?us-ascii?Q?jwbbHklkxE7vNKBuFmYi/XW6izqvIvs4j9S313Bu0+BD+iBbm6XW6lFqeALP?=
+ =?us-ascii?Q?xPyQqNeoF4+oS9zZwgPF7KV+ahVMVul0kHH+1QmvXHYXBLfFnPxlGQ8dootF?=
+ =?us-ascii?Q?VQMx7Xu0xkUPRBnf9IUwECb6e4rhXM6Ru8nBVqFgx4sXiARvBkHKJD6EBKuE?=
+ =?us-ascii?Q?mu4q0j0n6extG5ohXi6bu8WkgFls2r03lqgThEbHMN58FrWz0G0mG/bJxBhO?=
+ =?us-ascii?Q?Y63hLXdKSZynXvu1eFoGjF9dsdy6epYhcXN2EevK3KSkY7kn2FvOl+0pMyP+?=
+ =?us-ascii?Q?IJphA69w3x0GiSChmMfzWCCPxqqPQKY4bizYfqjQgVR0sNxpO3WIPUwWnVbz?=
+ =?us-ascii?Q?dEYge8fLpjoe4/C+DQm+GzbIa5KWvk6aMSdQ0Sz2389mWqLljesi7HAJx1ce?=
+ =?us-ascii?Q?xSViNzMuodIb9bLDfolfLlek20MflM02Fam2yFkY38qvi+eM1l+xvDvF9NOu?=
+ =?us-ascii?Q?kAYQXbxeiiuJs1bfFUmv4XUDWbQJ2edyfgw/28za+2ONxC99fDAWcDID91iD?=
+ =?us-ascii?Q?bgdAjX1DwEYoxZM1fPC725KrdxrnZ9oNyFYddu1Z+0beVjurQBOdXCFCw28m?=
+ =?us-ascii?Q?B5H36TMELodh6+DAcNt4PHaeMuX769uVxJCFAdgWX4j+fe/DH23GRQKl5M/8?=
+ =?us-ascii?Q?PmcGT+DS3+IneNXP5ym9m02QKU9iO4MoEOToKw0YpwfLKFekEHsDV9MRv2JB?=
+ =?us-ascii?Q?0T5C3kMH4uo421aqn44uhBUFyozzcYElZC9KigFrP3W+QT2EhdCjtDV6La/n?=
+ =?us-ascii?Q?qjlbCnEpe6TYROMyCU4tiUA5vZioZAsJb277tM12AooMqtrx356HxauHcdp7?=
+ =?us-ascii?Q?8nQXIPDsotnr/j2TfKy8HVncvghlUC2imZ9tUXesdIVmyMsUBhfKZJYoqKKQ?=
+ =?us-ascii?Q?sPfldn+9LartxNqPZj2gUUBLYqYB1GimurkZHTmL+8Y4tWT4QyGH7IkMEajs?=
+ =?us-ascii?Q?6pt56NKm58cXuVGR4jKCJPGrvsxfyufSJEEG94lL+QjKwOh9kzkT/1WCatHa?=
+ =?us-ascii?Q?lHUglkqjJWtSVE4EWeKghjpXY0SPE33LNhDeGsPhoBoBZRwQgqpPYVR+5LvE?=
+ =?us-ascii?Q?7Km/3miVXFI0tvHnE7qO24+A9gR+L5cZaIaj7o//mvemWICRYHRxYFuilC/a?=
+ =?us-ascii?Q?QBEeGCztj4pbiKcFWP2TOa4qrcLdGpgprFZdwZVjmc4RrKb+6XxXzJKokhCr?=
+ =?us-ascii?Q?8kbpbwQvTGKbCznmsQ0kytXCheXr4f164MEKW/2BZ4ya89kXrqURU7hoVY4p?=
+ =?us-ascii?Q?DEJk/fd0prvVAGPR7eAzUFCnL25HQStkqUht4PlNPqt+uRTWDILXetPWygl0?=
+ =?us-ascii?Q?6u+pbgOxRfrT2lstBKblz/qOs4tfeOprl1Mw?=
+X-Forefront-Antispam-Report: CIP:195.60.68.100; CTRY:SE; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.axis.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2025 09:41:00.9134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2428eb23-537a-4ff3-456d-08dda282c026
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af; Ip=[195.60.68.100];
+ Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000B620.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR02MB8514
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-aspeed@lists.ozlabs.org, Emil Renner Berthing <kernel@esmil.dk>,
+ linux-rtc@vger.kernel.org, Jesper Nilsson <jesper.nilsson@axis.com>,
+ Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@axis.com, Hal Feng <hal.feng@starfivetech.com>,
+ Nancy Yuen <yuenn@google.com>, Broadcom internal
+ kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Lorenzo Bianconi <lorenzo@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Ray Jui <rjui@broadcom.com>,
+ Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ linux-sound@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
+ Lars Persson <lars.persson@axis.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Scott Branden <sbranden@broadcom.com>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, Sean Wang <sean.wang@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, Jianlong
+ Huang <jianlong.huang@starfivetech.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com
+Subject: Re: [Linux-stm32] [PATCH 16/17] pinctrl: Constify static
+	'pinctrl_desc'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,440 +173,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32MP157F-DK2 board embeds a STM32MP157F SoC. This SoC contains the same
-level of feature than a STM32MP157C SOC but A7 clock frequency can reach
-800MHz, hence the inclusion of the newly introduced stm32mp15xf.dtsi.
+On Wed, May 28, 2025 at 12:41:12PM +0200, Krzysztof Kozlowski wrote
+> The local static 'struct pinctrl_desc' is not modified, so can be made
+> const for code safety.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-As for other latest STM32 MPU families, STM32MP157F-DK2 relies on OP-TEE
-SCMI services for SoC clock and reset controllers resources, and for PMIC,
-now under OP-TEE control. That's why stm32mp157f-dk2-scmi.dtsi is
-introduced, to move all clocks, resets and regulators to SCMI-based ones.
+For artpec6:
 
-To "disable" SCMI, just need to comment stm32mp157f-dk2-scmi.dtsi inclusion
-and to replace &scmi_v3v3 with &v3v3, then to disable arm_wdt and to enable
-i2c4 and its subnodes for PMIC support by Linux. Reconfigure usbotg for
-dual role with type-C support if needed.
+Acked-by: Jesper Nilsson <jesper.nilsson@axis.com>
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-
----
-Changes in v2:
-- rename stm32mp157x-dk2-scmi.dtsi into stm32mp157f-dk2-scmi.dtsi
-- cleanup stm32mp157f-dk2-scmi.dtsi (remove comments and useless properties)
-- disable iwdg2 and add arm,smc-wdt watchdog in stm32mp157f-dk2-scmi.dtsi
-- set 32s timeout and enable arm_wdt
-- move (sort) stm32mp157f-dk2.dtb in Makefile
----
- arch/arm/boot/dts/st/Makefile                  |   3 +-
- arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi | 196 +++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp157f-dk2.dts       | 179 ++++++++++++++++++++++
- 3 files changed, 377 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index cc9948b9870f7f73629573149bfd342af75b07da..66d4f96da5ddbba337c2f290512a74b85e5c568e 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -72,7 +72,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157c-odyssey.dtb \
- 	stm32mp157c-osd32mp1-red.dtb \
- 	stm32mp157c-phycore-stm32mp1-3.dtb \
--	stm32mp157c-ultra-fly-sbc.dtb
-+	stm32mp157c-ultra-fly-sbc.dtb \
-+	stm32mp157f-dk2.dtb
- dtb-$(CONFIG_ARCH_U8500) += \
- 	ste-snowball.dtb \
- 	ste-hrefprev60-stuib.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
-new file mode 100644
-index 0000000000000000000000000000000000000000..89de85a2eff327f20336552692c833f5627cb6f7
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
-@@ -0,0 +1,196 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-+ * Author: Amelie Delaunay <amelie.delaunay@foss.st.com> for STMicroelectronics.
-+ */
-+
-+#include "stm32mp15-scmi.dtsi"
-+
-+/ {
-+	reserved-memory {
-+		optee@de000000 {
-+			reg = <0xde000000 0x2000000>;
-+			no-map;
-+		};
-+	};
-+
-+	arm_wdt: watchdog {
-+		compatible = "arm,smc-wdt";
-+		arm,smc-id = <0xbc000000>;
-+		status = "disabled";
-+	};
-+
-+};
-+
-+&adc {
-+	vdd-supply = <&scmi_vdd>;
-+	vdda-supply = <&scmi_vdd>;
-+};
-+
-+&cpu0 {
-+	clocks = <&scmi_clk CK_SCMI_MPU>;
-+};
-+
-+&cpu1 {
-+	clocks = <&scmi_clk CK_SCMI_MPU>;
-+};
-+
-+&cryp1 {
-+	clocks = <&scmi_clk CK_SCMI_CRYP1>;
-+	resets = <&scmi_reset RST_SCMI_CRYP1>;
-+};
-+
-+&cs42l51 {
-+	VL-supply = <&scmi_v3v3>;
-+	VD-supply = <&scmi_v1v8_audio>;
-+	VA-supply = <&scmi_v1v8_audio>;
-+	VAHP-supply = <&scmi_v1v8_audio>;
-+};
-+
-+&dsi {
-+	phy-dsi-supply = <&scmi_reg18>;
-+	clocks = <&rcc DSI>, <&scmi_clk CK_SCMI_HSE>, <&rcc DSI_PX>;
-+};
-+
-+&gpioz {
-+	clocks = <&scmi_clk CK_SCMI_GPIOZ>;
-+};
-+
-+&hash1 {
-+	clocks = <&scmi_clk CK_SCMI_HASH1>;
-+	resets = <&scmi_reset RST_SCMI_HASH1>;
-+};
-+
-+&i2c1 {
-+	hdmi-transmitter@39 {
-+		iovcc-supply = <&scmi_v3v3_hdmi>;
-+		cvcc12-supply = <&scmi_v1v2_hdmi>;
-+	};
-+};
-+
-+&iwdg2 {
-+	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
-+	status = "disabled";
-+};
-+
-+&m4_rproc {
-+	/delete-property/ st,syscfg-holdboot;
-+	resets = <&scmi_reset RST_SCMI_MCU>,
-+		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
-+	reset-names = "mcu_rst", "hold_boot";
-+};
-+
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
-+&optee {
-+	interrupt-parent = <&intc>;
-+	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+};
-+
-+&pwr_regulators {
-+	vdd-supply = <&scmi_vdd>;
-+	vdd_3v3_usbfs-supply = <&scmi_vdd_usb>;
-+	status = "disabled";
-+};
-+
-+&rcc {
-+	compatible = "st,stm32mp1-rcc-secure", "syscon";
-+	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-+	clocks = <&scmi_clk CK_SCMI_HSE>,
-+		 <&scmi_clk CK_SCMI_HSI>,
-+		 <&scmi_clk CK_SCMI_CSI>,
-+		 <&scmi_clk CK_SCMI_LSE>,
-+		 <&scmi_clk CK_SCMI_LSI>;
-+};
-+
-+&rng1 {
-+	clocks = <&scmi_clk CK_SCMI_RNG1>;
-+	resets = <&scmi_reset RST_SCMI_RNG1>;
-+};
-+
-+&rtc {
-+	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
-+};
-+
-+&scmi_reguls {
-+	scmi_vddcore: regulator@3 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK1>;
-+		regulator-name = "vddcore";
-+	};
-+
-+	scmi_vdd: regulator@5 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK3>;
-+		regulator-name = "vdd";
-+	};
-+
-+	scmi_v3v3: regulator@6 {
-+		reg = <VOLTD_SCMI_STPMIC1_BUCK4>;
-+		regulator-name = "v3v3";
-+	};
-+
-+	scmi_v1v8_audio: regulator@7 {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
-+		regulator-name = "v1v8_audio";
-+	};
-+
-+	scmi_v3v3_hdmi: regulator@8 {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO2>;
-+		regulator-name = "v3v3_hdmi";
-+	};
-+
-+	scmi_vdd_usb: regulator@a {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO4>;
-+		regulator-name = "vdd_usb";
-+	};
-+
-+	scmi_vdda: regulator@b {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO5>;
-+		regulator-name = "vdda";
-+	};
-+
-+	scmi_v1v2_hdmi: regulator@c {
-+		reg = <VOLTD_SCMI_STPMIC1_LDO6>;
-+		regulator-name = "v1v2_hdmi";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		regulator-always-on;
-+	};
-+
-+	scmi_vbus_otg: regulator@f {
-+		reg = <VOLTD_SCMI_STPMIC1_PWR_SW1>;
-+		regulator-name = "vbus_otg";
-+	 };
-+
-+	 scmi_vbus_sw: regulator@10 {
-+		reg = <VOLTD_SCMI_STPMIC1_PWR_SW2>;
-+		regulator-name = "vbus_sw";
-+	 };
-+};
-+
-+&sdmmc1 {
-+	vmmc-supply = <&scmi_v3v3>;
-+};
-+
-+&sdmmc3 {
-+	vmmc-supply = <&scmi_v3v3>;
-+};
-+
-+&usbh_ehci {
-+	hub@1 {
-+		vdd-supply = <&scmi_v3v3>;
-+	};
-+};
-+
-+&usbphyc_port0 {
-+	phy-supply = <&scmi_vdd_usb>;
-+};
-+
-+&usbphyc_port1 {
-+	phy-supply = <&scmi_vdd_usb>;
-+};
-+
-+&vrefbuf {
-+	vdda-supply = <&scmi_vdd>;
-+};
-diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2.dts b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..43375c4d62a3cd07609a99b91be42f87f3f4ed96
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
-@@ -0,0 +1,179 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
-+ * Author: Amelie Delaunay <amelie.delaunay@foss.st.com> for STMicroelectronics.
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xf.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+#include "stm32mp15xx-dkx.dtsi"
-+#include "stm32mp157f-dk2-scmi.dtsi"
-+
-+/ {
-+	model = "STMicroelectronics STM32MP157F-DK2 Discovery Board";
-+	compatible = "st,stm32mp157f-dk2", "st,stm32mp157";
-+
-+	aliases {
-+		ethernet0 = &ethernet0;
-+		serial3 = &usart2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&gpioh 4 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&cryp1 {
-+	status = "okay";
-+};
-+
-+&dsi {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	panel@0 {
-+		compatible = "orisetech,otm8009a";
-+		reg = <0>;
-+		reset-gpios = <&gpioe 4 GPIO_ACTIVE_LOW>;
-+		power-supply = <&scmi_v3v3>;
-+		status = "okay";
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&dsi_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi_in {
-+	remote-endpoint = <&ltdc_ep1_out>;
-+};
-+
-+&dsi_out {
-+	remote-endpoint = <&panel_in>;
-+};
-+
-+&i2c1 {
-+	touchscreen@38 {
-+		compatible = "focaltech,ft6236";
-+		reg = <0x38>;
-+		interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-parent = <&gpiof>;
-+		touchscreen-size-x = <480>;
-+		touchscreen-size-y = <800>;
-+		status = "okay";
-+	};
-+};
-+
-+/* I2C4 is managed by OP-TEE */
-+&i2c4 {
-+	status = "disabled";
-+
-+	/* i2c4 subnodes, which won't be managed by Linux */
-+	typec@28 {
-+		status = "disabled";
-+		connector {
-+			status = "disabled";
-+		};
-+	};
-+
-+	stpmic@33 {
-+		status = "disabled";
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ltdc_ep1_out: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
-+
-+&rtc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rtc_rsvd_pins_a>;
-+
-+	rtc_lsco_pins_a: rtc-lsco-0 {
-+		pins = "out2_rmp";
-+		function = "lsco";
-+	};
-+};
-+
-+/* Wifi */
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a>;
-+	non-removable;
-+	cap-sdio-irq;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&scmi_v3v3>;
-+	mmc-pwrseq = <&wifi_pwrseq>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	brcmf: wifi@1 {
-+		reg = <1>;
-+		compatible = "brcm,bcm4329-fmac";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_lsco_pins_a>;
-+	};
-+};
-+
-+/* Bluetooth */
-+&usart2 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&usart2_pins_c>;
-+	pinctrl-1 = <&usart2_sleep_pins_c>;
-+	pinctrl-2 = <&usart2_idle_pins_c>;
-+	uart-has-rtscts;
-+	status = "okay";
-+
-+	bluetooth {
-+		shutdown-gpios = <&gpioz 6 GPIO_ACTIVE_HIGH>;
-+		compatible = "brcm,bcm43438-bt";
-+		max-speed = <3000000>;
-+		vbat-supply = <&scmi_v3v3>;
-+		vddio-supply = <&scmi_v3v3>;
-+	};
-+};
-+
-+/* Since I2C4 is disabled, STUSB1600 is also disabled so there is no Type-C support */
-+&usbotg_hs {
-+	dr_mode = "peripheral";
-+	role-switch-default-mode = "peripheral";
-+	/*
-+	 * Forcing dr_mode = "peripheral"/"role-switch-default-mode = "peripheral";
-+	 * will cause the pull-up on D+/D- to be raised as soon as the OTG is configured at runtime,
-+	 * regardless of the presence of VBUS. Notice that on self-powered devices like
-+	 * stm32mp157f-dk2, this isn't compliant with the USB standard. That's why usbotg_hs is kept
-+	 * disabled here.
-+	 */
-+	status = "disabled";
-+};
-
+/^JN - Jesper Nilsson
 -- 
-2.25.1
-
+               Jesper Nilsson -- jesper.nilsson@axis.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
