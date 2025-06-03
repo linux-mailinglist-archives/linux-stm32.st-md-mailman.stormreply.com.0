@@ -2,75 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C85E9ACEBFC
+	by mail.lfdr.de (Postfix) with ESMTPS id D0846ACEC00
 	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 10:33:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29E91C3F92E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B178C3F930;
 	Thu,  5 Jun 2025 08:33:03 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D331AC349C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1182FC349C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Jun 2025 18:00:43 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-73972a54919so5262701b3a.3
+ Tue,  3 Jun 2025 18:01:32 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-311e46d38ddso4730598a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Jun 2025 11:00:43 -0700 (PDT)
+ Tue, 03 Jun 2025 11:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1748973642; x=1749578442;
+ d=google.com; s=20230601; t=1748973691; x=1749578491;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=G6fuPGgjUjgpvLiVwa9uHLktuxrC3x8lruIV/MEvnmQ=;
- b=CSekFxLYmLFN18cJpsqY3nKePxnGprbuyX5Ded/oDhWvM2ZkqarDShWpPVuHkTyHYa
- w3KxA5u1EC7Swq2x1L7VJlRZ7p7JQlWhKA1VVTh8ed6p03hxG+2IYj1g5SxoTZ53cz37
- tXp9sRNPEhmOlPnGOSYFvkmiP4Gybl+x/QjODUS5dX4x9wTfdwVf3di3G5YNoom/kltd
- xtIVM9SSrH5jXzsNH+abn+VU/852cvWqCYkVoWldzNvlP6m+qiq5/drQn2eQpYxKXktQ
- 3w7EV/zBG33aECd6t5qPZXGwth6fYqiy5fzdyZjWeea3unAyJdSZKlXTdSzSOESvXTPt
- ZR3g==
+ bh=Oio5+oLisctncuh+HzW9YUjFC1egO1KiH1XNbWO+K7k=;
+ b=3u1j+z7UgVVrjxhTvKCeJxv1bckZR1cFGKnJ2PB+ZB2Ea2LsCfmDl3DGVrYQjgRNsc
+ KWl6+PtJqoGAGG52K8S6PhfyxoqYvc0oZSEgiSiZuWdxs3NwmvTUgkcgHsHD8ZHUoW4j
+ WQegOQVSHdlpt51U8pQeGxzvI4FFoXMA1Extjc2LhubKm6DXFxFLI01JruH/D+CwHcqc
+ TORq7Sh/5J1dHVwWu6v46O3Fmg4zjp2BSA8gECqZCcEegSBgIMEOMRn9mDA0ncX0y/fh
+ nUZA8pgXebyM0xo2ZwPWoz4a4botl8f7BVR7RJl0qy2DnRzoSrsRT7UUBfMkDIhBAGe0
+ OnuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1748973642; x=1749578442;
+ d=1e100.net; s=20230601; t=1748973691; x=1749578491;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=G6fuPGgjUjgpvLiVwa9uHLktuxrC3x8lruIV/MEvnmQ=;
- b=khMwc59PAoyaxGZvf6Pbs3xWpUgfyJH1EIXPhYqrpd/HEfQlfIyZl4E95p9LuE7lJM
- jWvPFELVAK+ly1cqmwYekXGuE6BYN8tY3BVv9OuCCe0S95C7qxkb9V0sS1GroxxFVvm+
- mIXwgNltf5tN4/JxsYS/gZ+SL+0JuE/tGjZwfgHW0Y0xqrjKBHN6Y/RfUswg7ilWF7zY
- 0AFgQqnXGyLhxRaFgHJcNyPe3G69Sbvyr3knKnDs1qeZJfQGuYSVr9J90eIPiIOFMgzJ
- b77nwTsondTOeX52CbrOJK3KpypfgwQKoFy8zV53vvTNMqSf2SkEdeND5akO5eNUSXHs
- qj2w==
+ bh=Oio5+oLisctncuh+HzW9YUjFC1egO1KiH1XNbWO+K7k=;
+ b=jOb30DIUJNI0BfYMEtiAAeHfSzQrPH1xwuixsAZXq8+BkkwLaOs5kYiAEEf8Ip6r4C
+ w/Y7vM03KRNbS0Qdj/V5AIMFKaqosulSLNeZirBpyvfUahauFoXU1kiM5WnjjinEo2p1
+ mDEQJYD3uyKXXhJU1vyfZp02T3toBQ/Y22BV1GacabQ4D1iH1omIUm7uxsAqqVLoSTsq
+ gtH0EvSETvtl5+97yRP8KbEPMcack0EoaHsWDiWgCQ8OyAZ6OgwpWA32SdIXV2lRf4kj
+ LCW/GCXbN9NL2SNI7O+nQxrW7wGWmCQmuRDvoPngoHHN3zGqx9Sr9GtxfQ25RevVSP2h
+ Cb1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTD++7ngIET48rcelrIacCT5RGTJP5iLsVeIAINjz+UfWuZ50SmNnG4GfI5MMKEif2QXqC1l7VxeVA/w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxuTbM74dBbXaYjdSxNVJaElyBOPXKcoSEL76E5lLgnJH5gPyLU
- WZ0ozGHRPpNKLc3MIGujvqhTfsedfbpCL0btyEGLbWgukVJ+QJEMLzwkgt6P3adXWTvfhwXgtMJ
- W8+iC3Q==
-X-Gm-Gg: ASbGncvzio7MuFQMod/meAr5GOaCuQ3tQe90LSBw7GlWNf2Zy2e3FWPmUHa+O7+f5z2
- F7JlwWWGClLEtmh2AFSAJr9iTWcg2Fup6Hg9w+wr+uaowfiXr06nMnvpDW2doYdc3zOb8TEP/wS
- aAySoTGiRk4r/dslnFJNT/a7iWW5XMWZRj7PjaaxtCcnF4jtTI31lr4bm/2NyJx9JJvcXWrIFmA
- VIaQxBkHjPLze7d52fUZYbAP6ZBBzreH/N/LPNGXpdcBRvbDktalR9Agpv66uitVKXC8r5lQDPl
- v7/HBBWij0RtbDKAG41X+FTgY1GKWgAnlDF//nt7Jr9Ai01jBkz3o57zQYgD5LqlHFX0lDqwDMI
- po3bZRC65deeKVL0F8dOuetqCDU4=
-X-Google-Smtp-Source: AGHT+IEodTIVtAPtf3Z5cQ4Uq1uQBXjGOn+G7Y9GhI4s+r7QBMKm7jSlhasASzLhvPxxrzys9RVm6Q==
-X-Received: by 2002:a05:6a00:1a8d:b0:742:a77b:8c4 with SMTP id
- d2e1a72fcca58-7480b1f6371mr74882b3a.3.1748973641368; 
- Tue, 03 Jun 2025 11:00:41 -0700 (PDT)
+ AJvYcCWWxkP1hIJKbcKRjajMTjU2/YNyIFTiz8gTDXQmWOxfA8czFidH6JQbnxrbTTfw1gYAAPvEL4tMPSWtRg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzhZlVr5eF5DxLW9LSK2EZ/Ry7PK13wqrd1lb9lNaICVHEabjcG
+ nIVSgcslFUQwd+uOOR2M20tkbC4tskhwsIBVgpbaERdk66JWx3W4cqjSChVNoSWAYw==
+X-Gm-Gg: ASbGnctZnFgApfajrxZwVRluiPSfkCnZsXje9DLnYTlRzLjmh2CDfqTLFR9V2KBUq68
+ mrOl79l76qzaekGcc1ZnDDzmpwwluviHr8JDRpxbgF2UotHFObhwRoWzfTHFXiHsqjQg6Tonp3j
+ pEnNsjZCIicgyH04sCUCiAviGhKeos5gokbdez61ZkYh3csETIARaQpGt6P43/b0zp+kL7GwPxb
+ s28LfnZ2hIsjpz8LF2eCqu6H7mBqcitD9A3nzjzB8lQUy3ADzcPGmSSrQiro8JrnzckkVP3g1Jc
+ +q5gRk5hUAGsk5B6E+VGkErG9SRNfpzwJ1tfhdO2P25ovHd6FdjozQZFmsMt7ekRINnorV6hiVz
+ SMyHk4iWJs+5AnXLmxSHhQ2G4hgA=
+X-Google-Smtp-Source: AGHT+IGJVe96mQDhzEhZqYJnC27O9vMFUAoTp1xS/H2NANso8WpCr6YJ9fd9Q8qaZg1NI2W+7g1xJw==
+X-Received: by 2002:a17:90b:3f10:b0:312:f263:954a with SMTP id
+ 98e67ed59e1d1-3130ccaa125mr73097a91.5.1748973691331; 
+ Tue, 03 Jun 2025 11:01:31 -0700 (PDT)
 Received: from google.com (128.65.83.34.bc.googleusercontent.com.
  [34.83.65.128]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b2ecebb4834sm6427681a12.74.2025.06.03.11.00.40
+ 98e67ed59e1d1-3124e29f899sm7572695a91.6.2025.06.03.11.01.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 11:00:40 -0700 (PDT)
-Date: Tue, 3 Jun 2025 11:00:37 -0700
+ Tue, 03 Jun 2025 11:01:30 -0700 (PDT)
+Date: Tue, 3 Jun 2025 11:01:27 -0700
 From: William McVicker <willmcvicker@google.com>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>
-Message-ID: <aD84RUX4Tt4jg62m@google.com>
+Message-ID: <aD84d4WArf_terBP@google.com>
 References: <20250602151853.1942521-1-daniel.lezcano@linaro.org>
- <20250602151853.1942521-7-daniel.lezcano@linaro.org>
+ <20250602151853.1942521-8-daniel.lezcano@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250602151853.1942521-7-daniel.lezcano@linaro.org>
+In-Reply-To: <20250602151853.1942521-8-daniel.lezcano@linaro.org>
 X-Mailman-Approved-At: Thu, 05 Jun 2025 08:33:01 +0000
 Cc: Nam Cao <namcao@linutronix.de>, Marco Elver <elver@google.com>,
  Saravan Kanna <saravanak@google.com>, Samuel Holland <samuel@sholland.org>,
@@ -83,8 +82,8 @@ Cc: Nam Cao <namcao@linutronix.de>, Marco Elver <elver@google.com>,
  John Stulz <jstultz@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-tegra@vger.kernel.org, tglx@linutronix.de, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 6/7] clocksource/drivers/cs5535: Add
-	module owner
+Subject: Re: [Linux-stm32] [PATCH v1 7/7] time: Export symbol for
+ sched_clock register function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,17 +101,13 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 06/02/2025, Daniel Lezcano wrote:
-> The conversion to modules requires a correct handling of the module
-> refcount in order to prevent to unload it if it is in use. That is
-> especially true with the clockevents where there is no function to
-> unregister them.
+> The timer drivers could be converted into modules. The different
+> functions to register the clocksource or the clockevent are already
+> exporting their symbols for modules but the sched_clock_register()
+> function is missing.
 > 
-> The core time framework correctly handles the module refcount with the
-> different clocksource and clockevents if the module owner is set.
-> 
-> Add the module owner to make sure the core framework will prevent
-> stupid things happening when the driver will be converted into a
-> module.
+> Export the symbols so the drivers using this function can be converted
+> into modules.
 > 
 > Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
 
@@ -122,21 +117,31 @@ Thanks,
 Will
 
 > ---
->  drivers/clocksource/timer-cs5535.c | 1 +
->  1 file changed, 1 insertion(+)
+>  kernel/time/sched_clock.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/clocksource/timer-cs5535.c b/drivers/clocksource/timer-cs5535.c
-> index d47acfe848ae..8af666c39890 100644
-> --- a/drivers/clocksource/timer-cs5535.c
-> +++ b/drivers/clocksource/timer-cs5535.c
-> @@ -101,6 +101,7 @@ static struct clock_event_device cs5535_clockevent = {
->  	.tick_resume = mfgpt_shutdown,
->  	.set_next_event = mfgpt_next_event,
->  	.rating = 250,
-> +	.owner = THIS_MODULE,
->  };
+> diff --git a/kernel/time/sched_clock.c b/kernel/time/sched_clock.c
+> index cc15fe293719..cc1afec306b3 100644
+> --- a/kernel/time/sched_clock.c
+> +++ b/kernel/time/sched_clock.c
+> @@ -174,8 +174,7 @@ static enum hrtimer_restart sched_clock_poll(struct hrtimer *hrt)
+>  	return HRTIMER_RESTART;
+>  }
 >  
->  static irqreturn_t mfgpt_tick(int irq, void *dev_id)
+> -void __init
+> -sched_clock_register(u64 (*read)(void), int bits, unsigned long rate)
+> +void sched_clock_register(u64 (*read)(void), int bits, unsigned long rate)
+>  {
+>  	u64 res, wrap, new_mask, new_epoch, cyc, ns;
+>  	u32 new_mult, new_shift;
+> @@ -247,6 +246,7 @@ sched_clock_register(u64 (*read)(void), int bits, unsigned long rate)
+>  
+>  	pr_debug("Registered %pS as sched_clock source\n", read);
+>  }
+> +EXPORT_SYMBOL_GPL(sched_clock_register);
+>  
+>  void __init generic_sched_clock_init(void)
+>  {
 > -- 
 > 2.43.0
 > 
