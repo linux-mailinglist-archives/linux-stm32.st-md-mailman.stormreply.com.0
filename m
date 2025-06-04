@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446C7ACDCDE
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 13:49:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E12ACDCE7
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 13:49:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD25DC32EA8;
-	Wed,  4 Jun 2025 11:49:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAEC5C32EB0;
+	Wed,  4 Jun 2025 11:49:52 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFAC7C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06B2CC32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jun 2025 11:49:35 +0000 (UTC)
+ Wed,  4 Jun 2025 11:49:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 968F4A50460;
- Wed,  4 Jun 2025 11:49:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1699FC4CEE7;
- Wed,  4 Jun 2025 11:49:33 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 4C1A6A504C2;
+ Wed,  4 Jun 2025 11:49:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF65C4CEE7;
+ Wed,  4 Jun 2025 11:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749037774;
+ s=k20201202; t=1749037790;
  bh=4YpqR/oThvhMVs76qJVATQq41r8mEVz6PYiOWFGh/YM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ipDwMw2KIHeut7SfDYdFnV7kuraDOosTSSqj7googBlS16KunQrGqQcTKOW7wOn1X
- q4FSZkIO+7lXbOblr0hHvlVRk7tXmmeMTg8/0YmAY35ErAIz32TA6jUzwNmDTxtq0w
- jOu03DRMysDHYYd6YdTsdqaTkuWZzfdC+ngoKFLa2YWsEQ41WuTDDk0ebVoi8UrjI8
- Y1PXEr1x3n/pQQIbCLiBdkiz2iPKet8WxDeibHQo8shBYeaVMXHHgBs+uhlPTrOwHi
- DObHV0hnZB2BocEtDeDcQnNiCxfJsJZYZIyUlVjaopu2b/mvcFePF/RszTgZkHv6ET
- GTSM5OfO0N9Xw==
+ b=OKmA8j3aqZqMYW/5etm/6Hiz6awLlctbEnfKCJCTDzZeqyZPzXLSy2T4SQDxa9tPE
+ iLmNZdWyH6x8TMX8uy4SNSuS6yzo88UX14S/Jb3NBnzVDN+ELVxmlAF2M6K3pfKdmc
+ NtgdF0vCrmPJEpIgHxk/OGvcVplASDKXXt0Hk5PQ4XgQmH+IsZCvAtEdi7beoVrHoW
+ kXNfUOsUHqQNvZ5Ypv3sPs0M5TRhGnqc9kYV0/d1LKLxREoMuJSCaNXQcLL1jyUUNC
+ xhiLytOqFE5rKQdkjTbqnP9ZuCXELq7nHVCJCS+pFQAsbeM7e0aK+DbwDEVr7P50WI
+ MagB1am6SDJ4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Date: Wed,  4 Jun 2025 07:49:17 -0400
-Message-Id: <20250604114923.208380-4-sashal@kernel.org>
+Date: Wed,  4 Jun 2025 07:49:38 -0400
+Message-Id: <20250604114944.208828-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250604114923.208380-1-sashal@kernel.org>
-References: <20250604114923.208380-1-sashal@kernel.org>
+In-Reply-To: <20250604114944.208828-1-sashal@kernel.org>
+References: <20250604114944.208828-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.15
+X-stable-base: Linux 6.14.9
 Cc: Sasha Levin <sashal@kernel.org>, linux-watchdog@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
  Wim Van Sebroeck <wim@linux-watchdog.org>,
  linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.15 4/9] watchdog: stm32: Fix wakeup
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.14 3/8] watchdog: stm32: Fix wakeup
 	source leaks on device unbind
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
