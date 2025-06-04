@@ -2,51 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32E12ACDCE7
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 13:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B033AACE254
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 18:40:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAEC5C32EB0;
-	Wed,  4 Jun 2025 11:49:52 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62440C36B18;
+	Wed,  4 Jun 2025 16:40:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06B2CC32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25733C36B15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jun 2025 11:49:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4C1A6A504C2;
- Wed,  4 Jun 2025 11:49:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF65C4CEE7;
- Wed,  4 Jun 2025 11:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749037790;
- bh=4YpqR/oThvhMVs76qJVATQq41r8mEVz6PYiOWFGh/YM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OKmA8j3aqZqMYW/5etm/6Hiz6awLlctbEnfKCJCTDzZeqyZPzXLSy2T4SQDxa9tPE
- iLmNZdWyH6x8TMX8uy4SNSuS6yzo88UX14S/Jb3NBnzVDN+ELVxmlAF2M6K3pfKdmc
- NtgdF0vCrmPJEpIgHxk/OGvcVplASDKXXt0Hk5PQ4XgQmH+IsZCvAtEdi7beoVrHoW
- kXNfUOsUHqQNvZ5Ypv3sPs0M5TRhGnqc9kYV0/d1LKLxREoMuJSCaNXQcLL1jyUUNC
- xhiLytOqFE5rKQdkjTbqnP9ZuCXELq7nHVCJCS+pFQAsbeM7e0aK+DbwDEVr7P50WI
- MagB1am6SDJ4Q==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Date: Wed,  4 Jun 2025 07:49:38 -0400
-Message-Id: <20250604114944.208828-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250604114944.208828-1-sashal@kernel.org>
-References: <20250604114944.208828-1-sashal@kernel.org>
+ Wed,  4 Jun 2025 16:39:59 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 554F7slN011211;
+ Wed, 4 Jun 2025 18:39:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 0BbnVS9D20ezMI4EQTDWMDtbyTWlsW9ZoYQZlC7MMog=; b=mSugKeI2mDPxVCh1
+ HeGvrpJFummrgU1JBzlCbO6Inv6ABcTf1xTboAGXebQ4Va750dqiRf4t7gDXvgcp
+ WylEgtUpxhieyEkf9TNCZeZoPe6Oc0DQBD9JmAUCQhNLPztUPazCLOGgUSCwHoFx
+ 2DEIoVPRSjgIfJOTjizbCsMG3KTVl44wQGE/Czla21dwM++eZZ3DCb6d+lJIvmbe
+ 7mk7Y+PWPbC9AyIhOGtgRr6A9yIhAfXzbVA3BODhITE/zm00qhRKH0LI8SVW+PEU
+ arW8pHI5Jvm538mPnHgbSljWUwKisScM0COJ7pIgjE2Zslf6i4LMPz9yNWd4H4ug
+ qgA7Lg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 471g8vanv1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Jun 2025 18:39:21 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B11B840049;
+ Wed,  4 Jun 2025 18:37:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 45605B4A8DE;
+ Wed,  4 Jun 2025 18:35:51 +0200 (CEST)
+Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
+ 2025 18:35:50 +0200
+Message-ID: <3c7da784-e58e-4acd-a37f-93020796c0e7@foss.st.com>
+Date: Wed, 4 Jun 2025 18:35:49 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.14.9
-Cc: Sasha Levin <sashal@kernel.org>, linux-watchdog@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-stm32@st-md-mailman.stormreply.com, Guenter Roeck <linux@roeck-us.net>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.14 3/8] watchdog: stm32: Fix wakeup
-	source leaks on device unbind
+User-Agent: Mozilla Thunderbird
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+References: <20250423090119.4003700-1-christian.bruel@foss.st.com>
+ <20250423090119.4003700-3-christian.bruel@foss.st.com>
+ <gzw3rcuwuu7yswljzde2zszqlzkfsilozdfv2ebrcxjpvngpkk@hvzqb5wbjalb>
+ <c01d0d72-e43c-4e10-b298-c8ed4f5d1942@foss.st.com>
+ <ec33uuugief45swij7eu3mbx7htfxov6qa5miucqsrdp36z7qe@svpbhliveks4>
+ <7df0c1e5-f53b-4a44-920a-c2dfe8842481@foss.st.com>
+ <q4rbaadr7amsrtwaeickdjmcst77onuopir5rzpvixa7ow7udk@txwsmidjs3im>
+Content-Language: en-US
+In-Reply-To: <q4rbaadr7amsrtwaeickdjmcst77onuopir5rzpvixa7ow7udk@txwsmidjs3im>
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-04_03,2025-06-03_02,2025-03-28_01
+Cc: kw@linux.com, conor+dt@kernel.org, p.zabel@pengutronix.de, robh@kernel.org,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, thippeswamy.havalige@amd.com,
+ linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
+ quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, bhelgaas@google.com,
+ krzk+dt@kernel.org, shradha.t@samsung.com,
+ linux-stm32@st-md-mailman.stormreply.com, johan+linaro@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v8 2/9] PCI: stm32: Add PCIe host support
+	for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,88 +83,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-[ Upstream commit b6f8a417e17f1929bb8e7e6ba9f4677f1f3ce364 ]
 
-Device can be unbound or probe can fail, so driver must also release
-memory for the wakeup source.
+>>>>>> +
+>>>>>> +	ret = devm_pm_runtime_enable(dev);
+>>>>>> +	if (ret < 0) {
+>>>>>> +		dev_err(dev, "Failed to enable runtime PM %d\n", ret);
+>>>>>> +		return ret;
+>>>>>> +	}
+>>>>>> +
+>>>>>> +	pm_runtime_get_noresume(dev);
+>>>>>> +
+>>>>>
+>>>>> I know that a lot of the controller drivers do this for no obvious reason. But
+>>>>> in this case, I believe you want to enable power domain or genpd before
+>>>>> registering the host bridge. Is that right?
+>>>>
+...
+Runtime PM was broken in version 6.6 without pm_runtime_get_noresume()
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://lore.kernel.org/r/20250406203531.61322-1-krzysztof.kozlowski@linaro.org
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+On the 6.15 baseline, without this call, pm_genpd_summary reports the 
+correct information: active when a device is plugged, and suspended when not
 
-**YES** Based on my comprehensive analysis of the commit and examination
-of the Linux kernel repository, this commit should be backported to
-stable kernel trees. ## Analysis of the Commit ### Nature of the Bug Fix
-This commit addresses a **memory leak** in the STM32 watchdog driver's
-wakeup source handling. The change is minimal but important: ```c //
-Before: ret = device_init_wakeup(dev, true); // After: ret =
-devm_device_init_wakeup(dev); ``` The original code creates a wakeup
-source using `device_init_wakeup()` but never properly releases it when
-the device is unbound or the driver is removed. The fix uses
-`devm_device_init_wakeup()`, which automatically handles cleanup through
-the device-managed resource framework. ### Strong Alignment with Similar
-Backported Commits This commit follows **exactly the same pattern** as
-the similar commits #1 and #2 that were marked as **"Backport Status:
-YES"**: - **GPIO mpc8xxx commit**: Also changed `device_init_wakeup(dev,
-true)` to `devm_device_init_wakeup(dev)` and was explicitly marked for
-stable with `Cc: stable@vger.kernel.org` - **GPIO zynq commit**: Added
-proper cleanup with `device_init_wakeup(&pdev->dev, 0)` in the remove
-function, also marked for stable ### Key Factors Supporting Backporting
-1. **Clear Bug Fix**: Fixes a definitive memory leak - each time the
-device is unbound, wakeup source memory (struct wakeup_source, device
-name strings, sysfs entries) is not freed 2. **Minimal Risk**: The
-change is extremely low-risk: - `devm_device_init_wakeup()` is just a
-wrapper that provides automatic cleanup - No functional behavior changes
-during normal operation - Only adds proper resource management on device
-removal 3. **Small and Contained**: Single line change with no
-architectural implications 4. **Part of Systematic Cleanup**: My
-analysis of the kernel repository revealed this is part of a larger
-cleanup effort with 10+ similar fixes across different subsystems in
-2024-2025 5. **Real Impact**: While not critical, the leak affects: -
-Embedded systems with limited memory - Development environments with
-frequent driver loading/unloading - Systems that dynamically bind/unbind
-devices 6. **Stable Tree Criteria Compliance**: - Fixes an actual bug
-affecting users - Extremely minimal regression risk - Confined to a
-single driver - No new features or architectural changes ### Risk
-Assessment The technical risk is **extremely low**. The
-`devm_device_init_wakeup()` function is a simple wrapper around
-`device_init_wakeup(dev, true)` that adds automatic cleanup via
-`devm_add_action_or_reset()`. There are no functional changes to the
-watchdog or power management behavior - only proper resource cleanup is
-added. This commit exemplifies an ideal stable backport candidate: it
-fixes a real bug with minimal code change and virtually no risk of
-introducing regressions.
+So, I can proceed without pm_runtime_get_noresume(), as you mentioned in 
+your review.
+I suspect the other platforms might have this call for the same 
+historical reasons.
 
- drivers/watchdog/stm32_iwdg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+thank you,
 
-diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-index 8ad06b54c5adc..b356a272ff9a0 100644
---- a/drivers/watchdog/stm32_iwdg.c
-+++ b/drivers/watchdog/stm32_iwdg.c
-@@ -291,7 +291,7 @@ static int stm32_iwdg_irq_init(struct platform_device *pdev,
- 		return 0;
- 
- 	if (of_property_read_bool(np, "wakeup-source")) {
--		ret = device_init_wakeup(dev, true);
-+		ret = devm_device_init_wakeup(dev);
- 		if (ret)
- 			return ret;
- 
--- 
-2.39.5
-
+Christian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
