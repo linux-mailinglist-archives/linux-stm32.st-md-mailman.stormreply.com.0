@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F39ACD179
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 02:57:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE2AACD1D7
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 03:00:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83E2AC32E8E;
-	Wed,  4 Jun 2025 00:57:03 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3CDBC32E8D;
+	Wed,  4 Jun 2025 01:00:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB0EEC32E8D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17687C349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jun 2025 00:57:01 +0000 (UTC)
+ Wed,  4 Jun 2025 01:00:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B2F94A4A030;
- Wed,  4 Jun 2025 00:57:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94134C4CEED;
- Wed,  4 Jun 2025 00:56:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B61360008;
+ Wed,  4 Jun 2025 01:00:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21FB8C4CEED;
+ Wed,  4 Jun 2025 01:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1748998620;
- bh=5HHzxHlOtdigTRbWNMJ820asAI9DSoEhEolWq/OvGfI=;
+ s=k20201202; t=1748998836;
+ bh=RMWBtrC+6P3W9zFRzooGIKHvj21tM/zjHS3N8L6X4Us=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=muAS8jp6U6b53kEhYcYAKx7kLHiEoQpEBIgXomWENyZojfNPBaXue+u1aoSZ7vqGv
- i0vVI3pzRj4K8KIx2cI/Y6sXGpZmey/+BJzTtEKLEIxlgGO3OnHDOW2683xiHMRvIV
- B+oqNbrECu4PdJ4F96aJ9PPy+AXywJ44MkXPb34jBp3TCxv+UIgr74LZNIoXBvHkGe
- SRIsQkE7sq5np1gQWxqMnCcSmc2GWNERmRugPndzTHgp/mTNKOWyIoC3guq3C8CQT9
- uypwUvVvIqJyG7OGtYoiGyRKsKC0LW+q7h8NXdgXvqhg6tJ8UgFm7bhZYd6GDjurm+
- oowP4kxdslcDg==
+ b=ktdy5qRAEtwZuXQhC/7jjSxUSdekCsE/FzFjQkGgQb7tMzilWXtUdkrH8KJlLArrw
+ qmrD20KRjShVJ8K6SgiNwuivi8k7p4Gw3p6qjVrfvcVxExAPnXrP9ykH3CSy1c/k7s
+ FOgSBhCaZvLReqMy/ndt9VlqciZ6zte8qWMiA8z1V+ZT59NoYNT5VFRizbS5Lsleir
+ xt5O9T2mrLUMaG1g3MA3khdry9kcoKB19T16bUslKDSf26I0M7K9OEngh3Da4ab+mM
+ XnXMz7GrvGnIW8Uw5yPbZPCtki/IH7DE3BvqZmYWR3Kah2u62ywir79gRfvisGrWlc
+ 0m4DHlKiyQQLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Date: Tue,  3 Jun 2025 20:54:28 -0400
-Message-Id: <20250604005531.4178547-45-sashal@kernel.org>
+Date: Tue,  3 Jun 2025 20:58:27 -0400
+Message-Id: <20250604005919.4191884-41-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250604005531.4178547-1-sashal@kernel.org>
-References: <20250604005531.4178547-1-sashal@kernel.org>
+In-Reply-To: <20250604005919.4191884-1-sashal@kernel.org>
+References: <20250604005919.4191884-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.14.9
+X-stable-base: Linux 6.12.31
 Cc: Sasha Levin <sashal@kernel.org>, andrew@lunn.ch,
  hayashi.kunihiko@socionext.com, vladimir.oltean@nxp.com, 0x1207@gmail.com,
  rmk+kernel@armlinux.org.uk, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Jason Xing <kernelxing@tencent.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.14 045/108] net: stmmac: generate
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.12 41/93] net: stmmac: generate
 	software timestamp just before the doorbell
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -127,10 +127,10 @@ for stable backporting in other drivers.
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b9340f8bd1828..d7cf65cdcff35 100644
+index 918d7f2e8ba99..62d8d4a0361f7 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4457,8 +4457,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4419,8 +4419,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
  	if (priv->sarc_type)
  		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
  
@@ -139,7 +139,7 @@ index b9340f8bd1828..d7cf65cdcff35 100644
  	if (unlikely((skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) &&
  		     priv->hwts_tx_en)) {
  		/* declare that device is doing timestamping */
-@@ -4491,6 +4489,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4455,6 +4453,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
  	}
  
  	netdev_tx_sent_queue(netdev_get_tx_queue(dev, queue), skb->len);
@@ -147,7 +147,7 @@ index b9340f8bd1828..d7cf65cdcff35 100644
  
  	stmmac_flush_tx_descriptors(priv, queue);
  	stmmac_tx_timer_arm(priv, queue);
-@@ -4734,8 +4733,6 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4698,8 +4697,6 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
  	if (priv->sarc_type)
  		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
  
@@ -156,7 +156,7 @@ index b9340f8bd1828..d7cf65cdcff35 100644
  	/* Ready to fill the first descriptor and set the OWN bit w/o any
  	 * problems because all the descriptors are actually ready to be
  	 * passed to the DMA engine.
-@@ -4782,7 +4779,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+@@ -4746,7 +4743,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
  	netdev_tx_sent_queue(netdev_get_tx_queue(dev, queue), skb->len);
  
  	stmmac_enable_dma_transmission(priv, priv->ioaddr, queue);
