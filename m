@@ -2,74 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE46BACD795
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 07:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0A5ACD9FE
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 10:39:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B2CEC32E92;
-	Wed,  4 Jun 2025 05:53:54 +0000 (UTC)
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com
- [162.62.57.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4299BC32E92;
+	Wed,  4 Jun 2025 08:39:00 +0000 (UTC)
+Received: from fhigh-b5-smtp.messagingengine.com
+ (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10B83C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5978BC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jun 2025 05:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1749016414;
- bh=dxK57rrh1jvoo1g24molYIQ1YbfbH2OZpE0y+PyiV/c=;
- h=From:To:Cc:Subject:Date;
- b=j8EUBg02aEnilOpHZCWkZ0BRObtR1z8LLex8B0Nmvp5bywuBr0tqIFXqpgqtUN+Ek
- DWPPmbKeK4FnK0LlnspTPyYrY9B0PEtfBFOqyuVCiSacdCNh6hpkMGmiTvADD9h8hR
- R5EBvV1PNxaxflrmWghZzuC5hKu64CLZQWydpB9o=
-Received: from NUC10.. ([39.156.73.10])
- by newxmesmtplogicsvrszgpua8-0.qq.com (NewEsmtp) with SMTP
- id D5E8A2A8; Wed, 04 Jun 2025 13:53:30 +0800
-X-QQ-mid: xmsmtpt1749016410tl4fl36g6
-Message-ID: <tencent_A6502A28AF21A3CA88B106F3421159869708@qq.com>
-X-QQ-XMAILINFO: NQzH8pzEc5hGPs3uj3kHrPeahZXak4dASrsyrlzi8+3SJ7ZOTDpWGr79QAvJA0
- fhuR2sbv+Msr+YEK+VIb74pqi2uxdzWNu1OdHXfeB+gQ03Su/LZcBfmkwasrzX9FYuUnQXit9C+8
- 0IGhc4QLAqbKjZD2amrQ9T+2pXDPAHE6zE9GoK//b4lUK7qCg59+iZvbfFjqbiBHo2ENmXdEPY9o
- zCcyfK05WmOKNR16Gm10Z71NYlowvtf8olaxSsExCHxDWghK7mKS53Z0w1Zlidk+iXMa/C4XQCiy
- 3PtbVLIPiynLUyTUW/WJrl/7CuVbUIpWgTYSdKL2pqwNrw/tDpSXOQ1hw8QsaEC9qQxeM4siDjic
- xO5BKctg33BahoFO/o11+aebzWKaRomZaU9YeqRZILrG8rtEGKIjvpnFbIUvnHFq5qKCaV/1g9CE
- b+Tvda3WblLyGp5R4B1ybfjTRi7bzLIhcObdUeogv0Ovz6nBlKdAlkhDlk/7TzI+JgLq0urLwHZn
- Bd9mfje5NdZvG0aBDfd3HsARwebUUxi79N7F1hd+64PcRbaGV3qtIpaCdA6jwIHWOSb/VvXsf3Xq
- 2IIeq/+33mu/I7IkCFknTgMP3obpfF8b6sR+EIZJfYDoRArzXNZcHoZUv/2RgZ4mWUUvtu4yLLBQ
- AML7h0BY4RTkSoFxrTSd5U0M4q0xWbywZiDdrTcKkLGDH4a8DZ0kJlCf2dljGbY0+QrBDnGbLd7U
- YrdmJeSInyQ/AiQwoj5qfElxvyst5HOcko0dhXHeacRUWEDDbeEXzm5w5+s7gzq8AkXqMZqt1nKK
- gawqU30CpqXDpEHnLpgGZ+tmOIklp4yY8TCXhdfQ9i1gjILJFTDL4EQZoLUrF26XXA8SGgzGoY9G
- 5SIOqn0KAkov8Plr9prRgfZzXXi4meZrkw/iUdPHs+vY5gdNQTZiakfZPdradkPBZ75gVmMfQ+fG
- mzxismGJH8a23K/56wMcUloUA3OxUmqFqRJc0tai9nrTW5oqwHvx/QQNkfGv28p3VR+OPlF3U=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ycC2BItcBVIA=
-From: Rong Tao <rtoax@foxmail.com>
-To: andrii@kernel.org,
-	eddyz87@gmail.com
-Date: Wed,  4 Jun 2025 13:53:22 +0800
-X-OQ-MSGID: <20250604055324.222850-1-rtoax@foxmail.com>
-X-Mailer: git-send-email 2.49.0
+ Wed,  4 Jun 2025 08:38:59 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 9EEC72540126;
+ Wed,  4 Jun 2025 04:38:57 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+ by phl-compute-05.internal (MEProxy); Wed, 04 Jun 2025 04:38:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1749026337;
+ x=1749112737; bh=n5JAJEL2oW4vd7E9p4FbaR7i6iB6+wvOYm4qzAl4WN8=; b=
+ VE9R3vhuln2wknGNiHJ+5Og/KQglay9qXjlo9mwy2+4TWSB0bm8mW1rabJHuTs6r
+ T8z3kodpBmioUO8PtBK0Aa531IYURE5OxzmCADegNFKhJOYPMk7r/an6tGiszHus
+ 4JfnwEotoZYPIxbQzgJSdJuagErNLwlhTmCf9mxj7gapMPeaHeeKdSZI1SGxfnko
+ XoGnLiUk98ADqRtR7KI+REnj/FHXbWIYEgndOWWl84OIivSc0BsZPbFdqqpuzOhZ
+ wgHV9hSwq7WAlbZwfKEDrV/BWGaIlofUmd7cW7TU6k+XMyG65pIVX3VSs+7tYOV9
+ rwsR5i6Whrf/frs6V6ye9g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1749026337; x=
+ 1749112737; bh=n5JAJEL2oW4vd7E9p4FbaR7i6iB6+wvOYm4qzAl4WN8=; b=Q
+ ce+ATV8TSeTSqeXU0Ek+s1CyaB6I3j8F2GhjsH2DF16QTeI092GbCVYsoiMtiQ8n
+ IES4GJwj11VODQMt3m3/+GpN5ntGCVwasWHo33kIM04GGA16mSKYgnPkVh/HNJCv
+ XOnksuvNIE1kHL6tSuEiAidWxU3yF6N43/gOFJenC3aZlAyDMpxeJxwbFjv8Kv8L
+ 0ABuY6mS3AOAYs/zV9+CPTh0DFGUR3bPnw7V9j9pCr5FHp5FpYra2OUk1LX+E+mI
+ VGtS5D3o38+2Wczq/6fH54xPChtXcHP+uKrDk38Vm4Rw0d8oyb8dRLjpK1NYGQ3j
+ 6cmOYRgAsX6NfWT++d7DA==
+X-ME-Sender: <xms:IAZAaKC_iQ8roRrkXmBaA-PFQS92Ny4zk77d95ZVBOMieWyJTaFb0g>
+ <xme:IAZAaEhzRg8F0huJYZhmtjImx3YaAAyV8QmOTApRH8Fp3jvoefn3KLnwqC-lj_tT8
+ aNbaE_UdTw3SLhsVtw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddukeegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+ rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+ htshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddt
+ necuhfhrohhmpedftehrnhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrd
+ guvgeqnecuggftrfgrthhtvghrnhephfdthfdvtdefhedukeetgefggffhjeeggeetfefg
+ gfevudegudevledvkefhvdeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+ hmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvgdpnhgspghrtghpthhtohepledp
+ mhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguh
+ gvsehfohhsshdrshhtrdgtohhmpdhrtghpthhtohepfhgrsghivghnrdguvghsshgvnhhn
+ vgesfhhoshhsrdhsthdrtghomhdprhgtphhtthhopehlihhonhgvlhdruggvsghivghvvg
+ esfhhoshhsrdhsthdrtghomhdprhgtphhtthhopehmtghoqhhuvghlihhnrdhsthhmfedv
+ sehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghruggssehkvghrnhgvlhdrohhrghdprh
+ gtphhtthhopegvsghighhgvghrsheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhi
+ nhhugidqshhtmhefvdesshhtqdhmugdqmhgrihhlmhgrnhdrshhtohhrmhhrvghplhihrd
+ gtohhmpdhrtghpthhtoheplhhinhhugidqtghrhihpthhosehvghgvrhdrkhgvrhhnvghl
+ rdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvg
+ hlrdhorhhg
+X-ME-Proxy: <xmx:IAZAaNkdUnrakb0WjI41MEgPWwJtVzJpg9ci5ztvzeQrQ0Vpoi4dfw>
+ <xmx:IAZAaIwXt9JaRH5T3EEvl6WkhdKTI52SnWWA_fTECz8OYol20reEZQ>
+ <xmx:IAZAaPSScJAgL3xtSkiM7_z8yD_57gmOzgKxp1QGf7IYQVzLlRqF1A>
+ <xmx:IAZAaDZmzDXZVLBTDtmuUfGp29jMLCxGFfI-Yv9HGdHTGQqCcL1J3Q>
+ <xmx:IQZAaOkxTPu1ZofEuTyzRW42FoeBsuNZw-A10CpHyzd3vLOrgZJpNb8h>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id BF76C700061; Wed,  4 Jun 2025 04:38:56 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Cc: Yonghong Song <yonghong.song@linux.dev>,
- Peter Zijlstra <peterz@infradead.org>,
- open list <linux-kernel@vger.kernel.org>, Song Liu <song@kernel.org>,
- rongtao@cestc.cn,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- rtoax@foxmail.com, Shuah Khan <shuah@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Juntong Deng <juntong.deng@outlook.com>, Mykola Lysenko <mykolal@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Amery Hung <ameryhung@gmail.com>,
- KP Singh <kpsingh@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, Oleg Nesterov <oleg@redhat.com>,
- Jiri Olsa <jolsa@kernel.org>,
- "open list:BPF \[SELFTESTS\] Test Runners & Infrastructure"
- <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: [Linux-stm32] [PATCH bpf-next] selftests/bpf: Fix compile error of
-	bin_attribute::read/write()
+X-ThreadId: Tbb2e10097ecee1e7
+Date: Wed, 04 Jun 2025 10:38:20 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Eric Biggers" <ebiggers@kernel.org>, linux-kernel@vger.kernel.org
+Message-Id: <0c760b4f-4f52-4384-b663-3b08e4f92448@app.fastmail.com>
+In-Reply-To: <20250601193441.6913-1-ebiggers@kernel.org>
+References: <20250601193441.6913-1-ebiggers@kernel.org>
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2] crypto: stm32 - remove crc32 and
+	crc32c support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,51 +103,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rong Tao <rongtao@cestc.cn>
+On Sun, Jun 1, 2025, at 21:34, Eric Biggers wrote:
+> From: Eric Biggers <ebiggers@google.com>
+>
+> Remove the crc32 and crc32c support from the stm32 driver.  Since it's
+> not wired up to the CRC library, almost no CRC user in the kernel can
+> actually be taking advantage of it, so it's effectively dead code.
+>
+> Support for this hardware could be migrated to the CRC library, but
+> there doesn't seem to be much point.  This CRC engine is present only on
+> a couple older SoCs that lacked CRC instructions.
+>
+> Even on those SoCs, it's probably not worthwhile.  This driver has to
+> deal with things like locking and runtime power management that do not
+> exist in software CRC code and are a source of bugs (as is clear from
+> the commit log) and add significant overhead to the processing of short
+> messages, which are common.  The patch that originally added this driver
+> seemed to justify it based purely on a microbenchmark on Cortex-M7 on
+> long messages, not a real use case.  These days, if this driver were to
+> be used at all it would likely be on Cortex-A7 instead.  This CRC engine
+> is also not supported by QEMU, making the driver not easily testable.
+>
+> Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-Since commit 97d06802d10a ("sysfs: constify bin_attribute argument of
-bin_attribute::read/write()"), make bin_attribute parameter of
-bin_attribute::read/write() const.
+Acked-by: Arnd Bergmann <arnd@arndb.de>
 
-Signed-off-by: Rong Tao <rongtao@cestc.cn>
----
- tools/testing/selftests/bpf/test_kmods/bpf_testmod.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+As far as I can tell, the CRC unit was present on the original
+24 MHz STM32F1 (Cortex-M3), where it probably had some merit, and
+later chips including the STM32MP1 (Cortex-A7) just incorporated
+the block for compatibility.
 
-diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-index e6c248e3ae54..e9e918cdf31f 100644
---- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-+++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-@@ -385,7 +385,7 @@ int bpf_testmod_fentry_ok;
- 
- noinline ssize_t
- bpf_testmod_test_read(struct file *file, struct kobject *kobj,
--		      struct bin_attribute *bin_attr,
-+		      const struct bin_attribute *bin_attr,
- 		      char *buf, loff_t off, size_t len)
- {
- 	struct bpf_testmod_test_read_ctx ctx = {
-@@ -465,7 +465,7 @@ ALLOW_ERROR_INJECTION(bpf_testmod_test_read, ERRNO);
- 
- noinline ssize_t
- bpf_testmod_test_write(struct file *file, struct kobject *kobj,
--		      struct bin_attribute *bin_attr,
-+		      const struct bin_attribute *bin_attr,
- 		      char *buf, loff_t off, size_t len)
- {
- 	struct bpf_testmod_test_write_ctx ctx = {
-@@ -567,7 +567,7 @@ static void testmod_unregister_uprobe(void)
- 
- static ssize_t
- bpf_testmod_uprobe_write(struct file *file, struct kobject *kobj,
--			 struct bin_attribute *bin_attr,
-+			 const struct bin_attribute *bin_attr,
- 			 char *buf, loff_t off, size_t len)
- {
- 	unsigned long offset = 0;
--- 
-2.49.0
-
+      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
