@@ -2,68 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6E2ACDA74
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 11:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DCFACDA9F
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Jun 2025 11:12:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1A12C32E92;
-	Wed,  4 Jun 2025 09:02:50 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F1A9C32E92;
+	Wed,  4 Jun 2025 09:12:27 +0000 (UTC)
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com
+ [203.205.221.191])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79EC6C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9147EC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Jun 2025 09:02:49 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 83E82432FC;
- Wed,  4 Jun 2025 09:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1749027769;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2Nmq+6v2A71B0bX8QqGblVfzuVcGFArdbHQL7ep/nDU=;
- b=n6lAo/+16LWdc57oz+Z5OQbqq5O62F1rsRLiGS2p6TFSfAjyskbkQtbhDEsZm1KdNCoX0S
- ng17QFnHMgV0DQUmociuS/rHsZLZsGJetjsJ6NFsM1vOioue2IrKX/PXoaZz2QKGB1L3X2
- ecnLSxmzffTC0quPLldjqPasHXpNPmMoqpi/x8t91vxrWfji/OeEnsihZ6dC99WzDo+J3s
- WnZ0TzE5fZD9tN/wijK3T18zor9d7kBJHiFcGPpI+eDK3izPQiW/6fGSkhPIXiyNPhEX04
- pQuHsQO6MB+4XF3FEo9sUOjA23gLZWYAiIHE+0QGRs6OChIvpQttLy7ANz/GfQ==
-Mime-Version: 1.0
-Date: Wed, 04 Jun 2025 11:02:44 +0200
-Message-Id: <DADMLIVHMSSO.3AXSI5216WCT6@bootlin.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>, "Andrii
- Nakryiko" <andrii.nakryiko@gmail.com>
-X-Mailer: aerc 0.20.1-0-g2ecb8770224a
-References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
- <20250411-many_args_arm64-v1-1-0a32fe72339e@bootlin.com>
- <CAEf4Bzbn6BdXTOb0dTcsQmOMZpp5=DzGS2hHHQ3+dwcja=gv+w@mail.gmail.com>
- <D98Q8BRNUVS9.11J60C67L1ALR@bootlin.com>
- <CAEf4BzZHMYyGDZ4c4eNXG7Fm=ecxCCbKhKbQTbCjvWmKtdwvBw@mail.gmail.com>
- <D9E9IQQ3QKXM.3UJ17G9CBS1FH@bootlin.com>
-In-Reply-To: <D9E9IQQ3QKXM.3UJ17G9CBS1FH@bootlin.com>
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddukeejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpegggfgtfffkuffhvfevofhfjgesthhqredtredtjeenucfhrhhomheptehlvgigihhsucfnohhthhhorhoruceorghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeetueeljeefkeejheduudfgffdvhfegffdvleeggeefvdeikefhleeuhefgtefgudenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdgsohhothhlihhnrdgtohhmnecukfhppedvuddvrddutdehrdduhedtrddvhedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdduvddruddthedrudehtddrvdehvddphhgvlhhopehlohgtrghlhhhoshhtpdhmrghilhhfrhhomheprghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeefvddprhgtphhtthhopegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomhdprhgtphhtthhopegrnhgurhhiihdrnhgrkhhrhihikhhosehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghstheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepuggrnhhivghlsehiohhgvggrrhgsohigr
- dhnvghtpdhrtghpthhtohepjhhohhhnrdhfrghsthgrsggvnhgusehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghnughrihhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehmrghrthhinhdrlhgruheslhhinhhugidruggvvhdprhgtphhtthhopegvugguhiiikeejsehgmhgrihhlrdgtohhm
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Catalin
- Marinas <catalin.marinas@arm.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Will Deacon <will@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Florent Revest <revest@chromium.org>, Puranjay Mohan <puranjay@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
- Xu Kuohai <xukuohai@huaweicloud.com>, Alexei Starovoitov <ast@kernel.org>,
- KP Singh <kpsingh@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Hao Luo <haoluo@google.com>, linux-kselftest@vger.kernel.org,
- dwarves@vger.kernel.org, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
- bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: [Linux-stm32] [Question] attributes encoding in BTF
+ Wed,  4 Jun 2025 09:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1749028327;
+ bh=RIYky3gjpTsCWWoJfEf+lc/dCW5mVapm/m/j24bH0IQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=RvfJeaOjVTb7Of+8+ew2DkSYNg+7b58Vk8r8FKbC4BXsnQArGCmWRipHe7pGwqHno
+ lT3sv9Qj1BF4uH+DCmxF2iGQPr1DxyQldOAGHj1GcoFxKaJ6ag0OAcqSC3MWW4I76E
+ CQn6KrV2Ph1d4Ljzeqwrpn3RIW5YL2CxtoZaaK94=
+Received: from [10.56.52.9] ([39.156.73.10])
+ by newxmesmtplogicsvrszc16-0.qq.com (NewEsmtp) with SMTP
+ id 30098838; Wed, 04 Jun 2025 17:12:00 +0800
+X-QQ-mid: xmsmtpt1749028320tno68hupx
+Message-ID: <tencent_CC0310590D7085E8B3EC2E1955E45E4B4709@qq.com>
+X-QQ-XMAILINFO: NvKPbWBbh1DVYUNrtUaO4h9Jj+nOhO0LDaL7Td6QvGV4lWUff2j/vEKUwNnLFs
+ OLHiU8HjtO7X0BTo/mZpmoEGAb9JuMxziyE13yu5EmANI/1w0vmju9epZ/bZzbSXA1flXKOlJCZZ
+ 0xdvAOAB8VyNKr2QluATxTOYVEe1IAEr29eygOc9y2gqvHEs7zbaNV8svwb2YcQomlJh10O1DWLo
+ PXJrtg35/w2KjVub9G4hXlaaODVaIv5HxLJLIeGw8haZVbKol3pxT1UVrVP9PIE6iW6oGW1DASKk
+ JglRxN8iFlXFrH408POil0NYTrv4Qls947B0al8UFnJ6xeYWFPfvmK+l6mw3Cl/4BLpWgDOMRt+k
+ UrYDh0qAZTVf2FDZg6dIj2VABZbbalypmmpKQdY8zk4jeja07vCJfEocQCBNTybGixtgoKvRvcd0
+ dSUcqfu9AgFxz8oM4ks2OZfJVc/+1YSKiZdZ5oWg4JzNvrD9IgDKripzGOCf2gfOXHhj67JKwtdc
+ Xvt5qdrp6RIu3qv8q79nDMT9pBldnw+GpvGZd/GLfkykzwt4ZRmcEt2ADl0Bj/tfDN1XajAgi+NF
+ AsgwcY3cJtX3K3Gh0WXK45o4Zof4kxKsygFeKzZU7NXl28+E4sH5vCLV4aIsOknG4m5D4CDUYdkm
+ ac+ZcB+WCWf2D8wX5w4fMtWUtYNjW7X5EOQolpYsuNItcckXyWQP4hfCMgfdHYjzdbYS0UlIiByU
+ buyWQSQCSzDpvNini1IwsOxoHQ0QcHWYCf9zveyqN85O1YLWoGw3uO39Vd/oSSS+IDCnTmE0vPoY
+ owrNAXU/M0Msa9kRe2HGy9sJT5ME7CAy1QM/JX+1nQtOq0ShztSqPRXhjEkQ1Q9NeYf8YE416HyZ
+ z06m9cTiKe6VUYzTY0knFb75smemeGwBRoXSxAC2fADTT93GciJy/QFtVo0WJYjvAQga58hOqboM
+ 8qdx5zDNtzNRgK0zCw8mhNrpqwX8kASut9RkRk/ypcFd0xG05u1ALrQq/VzpXCpTMwV84eDOcSsO
+ PVaspGNOPthDgcgF8X
+X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
+X-OQ-MSGID: <365843f4-d33d-490d-b567-fe9250577725@foxmail.com>
+Date: Wed, 4 Jun 2025 17:12:00 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Jiri Olsa <olsajiri@gmail.com>
+References: <tencent_A6502A28AF21A3CA88B106F3421159869708@qq.com>
+ <aEAJbBH00yL2iTgn@krava>
+Content-Language: en-US
+From: Rong Tao <rtoax@foxmail.com>
+In-Reply-To: <aEAJbBH00yL2iTgn@krava>
+Cc: Yonghong Song <yonghong.song@linux.dev>,
+ Peter Zijlstra <peterz@infradead.org>,
+ open list <linux-kernel@vger.kernel.org>, Song Liu <song@kernel.org>,
+ rongtao@cestc.cn,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ Shuah Khan <shuah@kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Juntong Deng <juntong.deng@outlook.com>, Mykola Lysenko <mykolal@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, andrii@kernel.org,
+ Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
+ Amery Hung <ameryhung@gmail.com>, KP Singh <kpsingh@kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>, Oleg Nesterov <oleg@redhat.com>,
+ eddyz87@gmail.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "open list:BPF \[SELFTESTS\] \(Test Runners & Infrastructure\)"
+ <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [PATCH bpf-next] selftests/bpf: Fix compile error
+ of bin_attribute::read/write()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,88 +82,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgYWxsLAphIHNpbXBsZXIgdmVyc2lvbiBvZiB0aGlzIHNlcmllcyBoYXMgYmVlbiBtZXJnZWQs
-IGFuZCBzbyBJIGFtIG5vdyB0YWtpbmcgYQpsb29rIGF0IHRoZSBpc3N1ZSBJIGhhdmUgcHV0IGFz
-aWRlIGluIHRoZSBtZXJnZWQgdmVyc2lvbjogZGVhbGluZyB3aXRoIG1vcmUKc3BlY2lmaWMgZGF0
-YSBsYXlvdXQgZm9yIGFyZ3VtZW50cyBwYXNzZWQgb24gc3RhY2suIEZvciBleGFtcGxlLCBhIGZ1
-bmN0aW9uCmNhbiBwYXNzIHNtYWxsIHN0cnVjdHMgb24gc3RhY2ssIGJ1dCB0aGlzIG5lZWQgc3Bl
-Y2lhbCBjYXJlIHdoZW4gZ2VuZXJhdGluZwp0aGUgY29ycmVzcG9uZGluZyBicGYgdHJhbXBvbGlu
-ZXMuIFRob3NlIHN0cnVjdHMgaGF2ZSBzcGVjaWZpYyBhbGlnbm1lbnQKc3BlY2lmaWVkIGJ5IHRo
-ZSB0YXJnZXQgQUJJLCBidXQgaXQgY2FuIGFsc28gYmUgYWx0ZXJlZCB3aXRoIGF0dHJpYnV0ZXMK
-cGFja2luZyB0aGUgc3RydWN0dXJlIG9yIG1vZGlmeWluZyB0aGUgYWxpZ25tZW50LgoKU29tZSBw
-bGF0Zm9ybXMgYWxyZWFkeSBzdXBwb3J0IHN0cnVjdHMgb24gc3RhY2sgKHNlZQp0cmFjaW5nX3N0
-cnVjdF9tYW55X2FyZ3MgdGVzdCksIGJ1dCBhcyBkaXNjdXNzZWQgZWFybGllciwgdGhvc2UgbWF5
-IHN1ZmZlcgpmcm9tIHRoZSBzYW1lIGtpbmQgb2YgaXNzdWUgbWVudGlvbmVkIGFib3ZlLgoKT24g
-V2VkIEFwciAyMywgMjAyNSBhdCA5OjI0IFBNIENFU1QsIEFsZXhpcyBMb3Rob3LDqSB3cm90ZToK
-PiBIaSBBbmRyaWksCj4KPiBPbiBXZWQgQXByIDIzLCAyMDI1IGF0IDc6MTUgUE0gQ0VTVCwgQW5k
-cmlpIE5ha3J5aWtvIHdyb3RlOgo+PiBPbiBUaHUsIEFwciAxNywgMjAyNSBhdCAxMjoxNOKAr0FN
-IEFsZXhpcyBMb3Rob3LDqQo+PiA8YWxleGlzLmxvdGhvcmVAYm9vdGxpbi5jb20+IHdyb3RlOgo+
-Pj4KPj4+IEhpIEFuZHJpaSwKPj4+Cj4+PiBPbiBXZWQgQXByIDE2LCAyMDI1IGF0IDExOjI0IFBN
-IENFU1QsIEFuZHJpaSBOYWtyeWlrbyB3cm90ZToKClsuLi5dCgo+PiBJJ2Qgc3VnZ2VzdCBsb29r
-aW5nIGF0IGJ0Zl9fYWxpZ25fb2YoKSBpbiBsaWJicGYgKHRvb2xzL2xpYi9icGYvYnRmLmMpCj4+
-IHRvIHNlZSBob3cgd2UgY2FsY3VsYXRlIGFsaWdubWVudCB0aGVyZS4gSXQgc2VlbXMgdG8gd29y
-ayBkZWNlbnRseQo+PiBlbm91Z2guIEl0IHdvbid0IGNvdmVyIGFueSBhcmNoLXNwZWNpZmljIGV4
-dHJhIHJ1bGVzIGxpa2UgZG91YmxlCj4+IG5lZWRpbmcgMTYtYnl0ZSBhbGlnbm1lbnQgKEkgdmFn
-dWVseSByZW1lbWJlciBzb21ldGhpbmcgbGlrZSB0aGF0IGZvcgo+PiBzb21lIGFyY2hpdGVjdHVy
-ZXMsIGJ1dCBJIG1pZ2h0IGJlIG1pc3JlbWVtYmVyaW5nKSwgb3IgYW55dGhpbmcKPj4gc2ltaWxh
-ci4gSXQgYWxzbyB3b24ndCBkZXRlY3QgKEkgZG9uJ3QgdGhpbmsgaXQncyBwb3NzaWJsZSB3aXRo
-b3V0Cj4+IERXQVJGKSBhcnRpZmljaWFsbHkgaW5jcmVhc2VkIGFsaWdubWVudCB3aXRoIGF0dHJp
-YnV0ZSgoYWxpZ25lZChOKSkpLgo+Cj4gVGhhbmtzIGZvciB0aGUgcG9pbnRlciwgSSdsbCB0YWtl
-IGEgbG9vayBhdCBpdC4gVGhlIG1vcmUgd2UgZGlzY3VzcyB0aGlzCj4gc2VyaWVzLCB0aGUgbGVz
-cyBtZW1iZXIgc2l6ZSBzb3VuZHMgcmVsZXZhbnQgZm9yIHdoYXQgSSdtIHRyeWluZyB0byBhY2hp
-ZXZlCj4gaGVyZS4KPgo+IEZvbGxvd2luZyBYdSdzIGNvbW1lbnRzLCBJIGhhdmUgYmVlbiB0aGlu
-a2luZyBhYm91dCBob3cgSSBjb3VsZCBkZXRlY3QgdGhlCj4gY3VzdG9tIGFsaWdubWVudHMgYW5k
-IHBhY2tpbmcgb24gc3RydWN0dXJlcywgYW5kIEkgd2FzIHdvbmRlcmluZyBpZiBJIGNvdWxkCj4g
-c29tZWhvdyBiZW5lZml0IGZyb20gX19hdHRyaWJ1dGVfXyBlbmNvZGluZyBpbiBCVEYgaW5mbyAo
-WzFdKS4gQnV0Cj4gZm9sbG93aW5nIHlvdXIgaGludCwgSSBhbHNvIHNlZSBzb21lIGJ0Zl9pc19z
-dHJ1Y3RfcGFja2VkKCkgaW4KPiB0b29scy9saWIvYnBmL2J0Zl9kdW1wLmMgdGhhdCBjb3VsZCBo
-ZWxwLiBJJ2xsIGRpZyB0aGlzIGZ1cnRoZXIgYW5kIHNlZSBpZgo+IEkgY2FuIG1hbmFnZSB0byBt
-YWtlIHNvbWV0aGluZyB3b3JrIHdpdGggYWxsIG9mIHRoaXMuCgpBbmRyaWkncyBjb21tZW50IGFi
-b3ZlIGlsbHVzdHJhdGVzIHdlbGwgbXkgY3VycmVudCBpc3N1ZTogd2hlbiBmdW5jdGlvbnMKcGFz
-cyBhcmd1bWVudHMgb24gc3RhY2ssIHdlIGFyZSBtaXNzaW5nIGluZm8gZm9yIHNvbWUgb2YgdGhl
-bSB0byBjb3JyZWN0bHkKYnVpbGQgdHJhbXBvbGluZXMsIGVzcGVjaWFsbHkgZm9yIHN0cnVjdCwg
-d2hpY2ggY2FuIGhhdmUgYXR0cmlidXRlcyBsaWtlCl9fYXR0cmlidXRlX18oKHBhY2tlZCkpIG9y
-IF9fYXR0cmlidXRlX18oKGFsaWduKHgpKSkuIFsxXSBzZWVtcyB0byBiZSBhCnJlY2VudCBzb2x1
-dGlvbiBpbXBsZW1lbnRlZCBmb3IgQlRGIHRvIGNvdmVyIHRoaXMgbmVlZC4gSUlVQyBpdCBlbmNv
-ZGVzIGFueQphcmJpdHJhdHJ5IGF0dHJpYnV0ZSBhZmZlY3RpbmcgYSBkYXRhIHR5cGUgb3IgZnVu
-Y3Rpb24sIHNvIGlmIEkgaGF2ZSBzb21lCnN0cnVjdCBsaWtlIHRoaXMgb25lIGluIG15IGtlcm5l
-bCBvciBhIG1vZHVsZToKCnN0cnVjdCBmb28gewogICAgc2hvcnQgYgogICAgaW50IGE7Cn0gX19w
-YWNrZWQ7CgpJIHdvdWxkIGV4cGVjdCB0aGUgY29ycmVzcG9uZGluZyBCVEYgZGF0YSB0byBoYXZl
-IHNvbWUgQlRGX0tJTkRfREVDTF9UQUcKZGVzY3JpYmluZyB0aGUgInBhY2tlZCIgYXR0cmlidXRl
-IGZvciB0aGUgY29ycmVzcG9uZGluZyBzdHJ1Y3R1cmUsIGJ1dCBJCmZhaWwgdG8gZmluZCBhbnkg
-b2YgdGhvc2Ugd2hlbiBydW5uaW5nOgoKJCBicGZ0b29sIGJ0ZiBkdW1wIGZpbGUgdm1saW51eCBm
-b3JtYXQgcmF3CgpJbiB0aGVyZSBJIHNlZSBzb21lIERFQ0xfVEFHIGJ1dCB0aG9zZSBhcmUgbW9z
-dGx5ICdicGZfa2Z1bmMnLCBJIHNlZSBub3QKYXJiaXRyYXJ5IGF0dHJpYnV0ZSBsaWtlICdwYWNr
-ZWQnIG9yICdhbGlnbmVkKHgpJy4KCldoYXQgSSByZWFsbHkgbmVlZCB0byBkbyBpbiB0aGUgZW5k
-IGlzIHRvIGJlIGFibGUgdG8gcGFyc2UgdGhvc2UgYWxpZ25tZW50cwphdHRyaWJ1dGVzIGluZm8g
-aW4gdGhlIGtlcm5lbCBhdCBydW50aW1lIHdoZW4gZ2VuZXJhdGluZyB0cmFtcG9saW5lcywgYnV0
-IEkKaG9wZWQgdG8gYmUgYWJsZSB0byBzZWUgdGhlbSB3aXRoIGJwZnRvb2wgZmlyc3QgdG8gdmFs
-aWRhdGUgdGhlIGNvbmNlcHQuCgpJIHN0YXJ0ZWQgdGFraW5nIGEgbG9vayBmdXJ0aGVyIGF0IHRo
-aXMgYW5kIHN0dW1ibGVkIHVwb24gWzJdIGluIHdoaWNoIEFsYW4KZ2l2ZXMgbWFueSBtb3JlIGRl
-dGFpbHMgYWJvdXQgdGhlIGZlYXR1cmUsIHNvIEkgZGlkIHRoZSBmb2xsb3dpbmcgY2hlY2tzOgot
-IGtlcm5lbCB2ZXJzaW9uIDYuMTUuMC1yYzQgZnJvbSBicGYtbmV4dF9iYXNlOiBpdCBjb250YWlu
-cyB0aGUgdXBkYXRlZAogIE1ha2VmaWxlLmJ0ZiBjYWxsaW5nIHBhaG9sZSB3aXRoIGAtLWJ0Zl9m
-ZWF0dXJlcz1hdHRyaWJ1dGVzYAotIHBhaG9sZSB2MS4zMAogICQgcGFob2xlIC0tc3VwcG9ydGVk
-X2J0Zl9mZWF0dXJlcwogIGVuY29kZV9mb3JjZSx2YXIsZmxvYXQsZGVjbF90YWcsdHlwZV90YWcs
-ZW51bTY0LG9wdGltaXplZF9mdW5jLGNvbnNpc3RlbnRfZnVuYyxkZWNsX3RhZ19rZnVuY3MscmVw
-cm9kdWNpYmxlX2J1aWxkLGRpc3RpbGxlZF9iYXNlLGdsb2JhbF92YXIsYXR0cmlidXRlcwogIFRo
-aXMgcGFob2xlIGNvbWVzIGZyb20gbXkgZGlzdHJvIHBrZyBtYW5hZ2VyLCBidXQgSSBoYXZlIGFs
-c28gZG9uZSB0aGUKICBzYW1lIHRlc3Qgd2l0aCBhIGZyZXNobHkgYnVpbHQgcGFob2xlLCB3aGls
-ZSB0YWtpbmcgY2FyZSBvZiBwdWxsaW5nIHRoZQogIGxpYmJwZiBzdWJtb2R1bGUuCi0gYnBmdG9v
-bCB2Ny42LjAKICAgIGJwZnRvb2wgdjcuNi4wCiAgICB1c2luZyBsaWJicGYgdjEuNgogICAgZmVh
-dHVyZXM6IGxsdm0sIHNrZWxldG9ucwoKQ291bGQgSSBiZSBtaXNzaW5nIHNvbWV0aGluZyBvYnZp
-b3VzID8gT3IgZGlkIEkgbWlzdW5kZXJzdGFuZCB0aGUgYWN0dWFsCmF0dHJpYnV0ZSBlbmNvZGlu
-ZyBmZWF0dXJlID8KClRoYW5rcywKCkFsZXhpcwoKWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
-L2JwZi8yMDI1MDEzMDIwMTIzOS4xNDI5NjQ4LTEtaWhvci5zb2xvZHJhaUBsaW51eC5kZXYvClsy
-XSBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvQ0EraWNaVVczMXZwUz1SM3pNNkc0Rk1renVp
-UW92cXRkK2UtOGlod3NLX0EtUXRTU1lnQG1haWwuZ21haWwuY29tLwoKLS0gCkFsZXhpcyBMb3Ro
-b3LDqSwgQm9vdGxpbgpFbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5nCmh0dHBz
-Oi8vYm9vdGxpbi5jb20KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+On 6/4/25 16:53, Jiri Olsa wrote:
+> On Wed, Jun 04, 2025 at 01:53:22PM +0800, Rong Tao wrote:
+>> From: Rong Tao <rongtao@cestc.cn>
+>>
+>> Since commit 97d06802d10a ("sysfs: constify bin_attribute argument of
+>> bin_attribute::read/write()"), make bin_attribute parameter of
+>> bin_attribute::read/write() const.
+> hi,
+> there's already fix for this in bpf/master
+>
+> thanks,
+> jirka
+I am confused, when should I use bpf/master[2] and when should I use
+bpf-next/master[1]? thank you :)
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
