@@ -2,65 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEA68ACF37B
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 17:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79BF8ACF3C4
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 18:10:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78DD7C30883;
-	Thu,  5 Jun 2025 15:55:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 901ACC30883;
+	Thu,  5 Jun 2025 16:10:06 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BCB7C3087B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 778AEC3087B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Jun 2025 15:55:16 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 555CUO6U017916;
- Thu, 5 Jun 2025 17:54:57 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=7GIhYXvKL3wJRk1dIpzuKA
- KsrZ2kloHNxniKoQVFP+w=; b=x5nIktGHB6dK7/e+5b1KmApj/ISN8oC8EBNx+s
- z3mdkw0inMfwOVzA8Anab5m1fToIfyw6mDrms8Es8FMQXnJGeCMYa1rql7wYQFl/
- hZHUBltTcubsMP5tGGi2amiyRhley1GvLu9RAlRih2X6KGFagtwJHWI1ATkIjTdY
- B0DWi2jEMxIWuDujRhw7VHbYClJsCndIq/IvVLDj4v2TWYPouzqntnaeV+Ze5MQv
- GqunbPTuErrMaCtO+jyDYZHbOKOBQiK5U3GuLycGnnlOz+IJ/XiaRAO66/KAV8Lb
- SV8WxTfRltHIatB0cHnomljiUxhpi+nOHnC8B46IKGu9Sn8w==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 471g90qrah-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Jun 2025 17:54:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 285E540051;
- Thu,  5 Jun 2025 17:54:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CB7ED22AEA;
- Thu,  5 Jun 2025 17:53:41 +0200 (CEST)
-Received: from localhost (10.48.87.237) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 17:53:40 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Thu, 5 Jun 2025 17:53:30 +0200
+ Thu,  5 Jun 2025 16:10:05 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso772463f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Jun 2025 09:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1749139805; x=1749744605;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YnIQvPD9lJYDOlBpOrCy1ioFdRL5RyD0q+hZaolXlzo=;
+ b=gMcGGxvW050qCpV6lH3ywfO44T2D97DS0xNtsBIKl9cjE3vlPyl2dTpFedKsIf5kOX
+ IzkvKnhx+BG3KmmkYXhCWhinLtRjdGtUUX41KB7Ruuxc8euj/eUxDI/lI2gAWwDt7/lH
+ 9mqywDXBgJVFBk/Us0hOcf1kZTD44pC+1a6aZ1xBOz1MIaiR1MulY3OlaUMKJs2z6h1w
+ RR9rY6Sc4qXB5+KEishUxMuAMVEmGzfZSUEZIkEfy2N2vfQDYGsu3Ni7cTTIj95sgruW
+ zjBW0q2hy9TCJx5Jkf0T1GAg/U/3pyoHQdZ1aDGykDh/8/YwQnPhycoKu+YMCZeSR0N9
+ CraQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749139805; x=1749744605;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YnIQvPD9lJYDOlBpOrCy1ioFdRL5RyD0q+hZaolXlzo=;
+ b=VnCq+ZFofW93EPwu5jb3Q0bG29yV8QL246ftJRlV68CN0BjJIs0YDXu0ey8cH+zt/w
+ bUbntNC+ATexGyCX/Uj4sUSpDxmWk1Wo4pzk/W/CsMsvOK7YIMvTl3rAXMCjoYiyfL/2
+ uJEhx0Cu7JdsJt2OIhf3///To+fFqvp/2UjBCYj2DeKbsWyktoObaIsx1bZZ9z8cViLr
+ RrsyPjdPyF/sF5amkumeaaaUnvooODqZKExxzjJ69X64fAtB6tjCC/isHGAkdnxDvY0x
+ TAl/4C00tj4WYPlD2Ed+flFlKzKNBbOQpR39rRJ6Re/OQkwgQV885XYgn/kUt8CHTyBg
+ ekUQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUMonzFIgNMnKfELX5kWIh8kuAoj/Azg6b1hDULn0yVdnpo6VIhbKVVZBdylOEhQ1ql4EVkOUzTB7lJnA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YygavxWLrOvF6MXhBMY60WQ5P1IYdGKTlvwpUu2E0YBP/lQT5gC
+ wUg4G3/GdaDpHSIXv0Q6UiovzZ3Ruec5y7lDLgJ9i15VGcptCEJnmhDX/fOrBGAlVEIrscbLywp
+ 5CgUF2Xca96jXi96vr1+dqjFyV+nXGSg=
+X-Gm-Gg: ASbGncvQZmDmvRkwbw4aPY2Ttn6I3mjdtPmlmFJaFd9TNGYr/nbjgfb9D6wKOkShkiN
+ 1W8+YJsC+qefNRoO/v2IvVpBFPp+0Knv6wJYdz9pmLr3c9oGBTBPXfyUMoJawigAl8vymn+4Xcn
+ il9BLoDDTxXpJoDohR3iXguOrd7lZWcM0uT0NoQV6cjl3jiCcGzd0IKL6sChK0SwBm3KJlpQ==
+X-Google-Smtp-Source: AGHT+IF4/r/MeCk1ofRbXjeQgnJMl2fjGGz6lBVtftByV5fvMH1+Rl6IDv+s6YX9w9uN5TsW5ALs3oMs2ojfpEr5ugw=
+X-Received: by 2002:a5d:4291:0:b0:3a5:2875:f986 with SMTP id
+ ffacd0b85a97d-3a52875fc63mr2749955f8f.44.1749139804629; Thu, 05 Jun 2025
+ 09:10:04 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <20250605-stm32_dma_dbm_fix-v1-1-44657463d7d6@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAHm9QWgC/x2MQQqAIBAAvxJ7TjDNir4SIdVutQctNCII/550n
- IGZFyIFpgh98UKgmyMfPkNVFrDsk99IMGYGJZWRjTQiXk4ri26yODu78iP03DWqrdDUWEPuzkB
- Z/89hTOkDoElwwGMAAAA=
-X-Change-ID: 20250605-stm32_dma_dbm_fix-3b86271d54d4
-To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.87.237]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-05_04,2025-06-05_01,2025-03-28_01
-Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-dma: configure next sg only
- if there are more than 2 sgs
+References: <20250411-many_args_arm64-v1-0-0a32fe72339e@bootlin.com>
+ <20250411-many_args_arm64-v1-1-0a32fe72339e@bootlin.com>
+ <CAEf4Bzbn6BdXTOb0dTcsQmOMZpp5=DzGS2hHHQ3+dwcja=gv+w@mail.gmail.com>
+ <D98Q8BRNUVS9.11J60C67L1ALR@bootlin.com>
+ <CAEf4BzZHMYyGDZ4c4eNXG7Fm=ecxCCbKhKbQTbCjvWmKtdwvBw@mail.gmail.com>
+ <D9E9IQQ3QKXM.3UJ17G9CBS1FH@bootlin.com>
+ <DADMLIVHMSSO.3AXSI5216WCT6@bootlin.com>
+ <9a2ba0ad-b34d-42f8-89a6-d9a44f007bdc@linux.dev>
+ <DAEFD2WH7HRV.2SOG9Q00QSEXH@bootlin.com>
+In-Reply-To: <DAEFD2WH7HRV.2SOG9Q00QSEXH@bootlin.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Thu, 5 Jun 2025 09:09:53 -0700
+X-Gm-Features: AX0GCFt6yH5UVLu_OY8YyoKeWCoB2_l0Zw4RyPbCo3gsHpLrUJ01bzW8146d9WY
+Message-ID: <CAADnVQ+T_s6dAwJ5JKqNqA8tq1P+MdfPvPw0EoY5yOf8PnGT4g@mail.gmail.com>
+To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Will Deacon <will@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Florent Revest <revest@chromium.org>, Puranjay Mohan <puranjay@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
+ Xu Kuohai <xukuohai@huaweicloud.com>, Alexei Starovoitov <ast@kernel.org>,
+ KP Singh <kpsingh@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ dwarves@vger.kernel.org, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Jiri Olsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
+ Andrii Nakryiko <andrii.nakryiko@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [Question] attributes encoding in BTF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,52 +103,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DMA operates in Double Buffer Mode (DBM) when the transfer is cyclic and
-there are at least two periods.
-When DBM is enabled, the DMA toggles between two memory targets (SxM0AR and
-SxM1AR), indicated by the SxSCR.CT bit (Current Target).
-There is no need to update the next memory address if two periods are
-configured, as SxM0AR and SxM1AR are already properly set up before the
-transfer begins in the stm32_dma_start_transfer() function.
-This avoids unnecessary updates to SxM0AR/SxM1AR, thereby preventing
-potential Transfer Errors. Specifically, when the channel is enabled,
-SxM0AR and SxM1AR can only be written if SxSCR.CT=1 and SxSCR.CT=0,
-respectively. Otherwise, a Transfer Error interrupt is triggered, and the
-stream is automatically disabled.
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/dma/stm32/stm32-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32-dma.c
-index 917f8e9223739af853e492d97cecac0e95e0aea3..0e39f99bce8be8c38fe33dd0246012910243d831 100644
---- a/drivers/dma/stm32/stm32-dma.c
-+++ b/drivers/dma/stm32/stm32-dma.c
-@@ -744,7 +744,7 @@ static void stm32_dma_handle_chan_done(struct stm32_dma_chan *chan, u32 scr)
- 		/* cyclic while CIRC/DBM disable => post resume reconfiguration needed */
- 		if (!(scr & (STM32_DMA_SCR_CIRC | STM32_DMA_SCR_DBM)))
- 			stm32_dma_post_resume_reconfigure(chan);
--		else if (scr & STM32_DMA_SCR_DBM)
-+		else if (scr & STM32_DMA_SCR_DBM && chan->desc->num_sgs > 2)
- 			stm32_dma_configure_next_sg(chan);
- 	} else {
- 		chan->busy = false;
-
----
-base-commit: 3c018bf5a0ee3abe8d579d6a0dda616c3858d7b2
-change-id: 20250605-stm32_dma_dbm_fix-3b86271d54d4
-
-Best regards,
--- 
-Amelie Delaunay <amelie.delaunay@foss.st.com>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBKdW4gNSwgMjAyNSBhdCAxMjozNeKAr0FNIEFsZXhpcyBMb3Rob3LDqQo8YWxleGlz
+LmxvdGhvcmVAYm9vdGxpbi5jb20+IHdyb3RlOgo+Cj4gSGkgSWhvciwKPgo+IE9uIFdlZCBKdW4g
+NCwgMjAyNSBhdCA3OjMxIFBNIENFU1QsIElob3IgU29sb2RyYWkgd3JvdGU6Cj4gPiBPbiA2LzQv
+MjUgMjowMiBBTSwgQWxleGlzIExvdGhvcsODwqkgd3JvdGU6Cj4KPiBbLi4uXQo+Cj4gPj4gQ291
+bGQgSSBiZSBtaXNzaW5nIHNvbWV0aGluZyBvYnZpb3VzID8gT3IgZGlkIEkgbWlzdW5kZXJzdGFu
+ZCB0aGUgYWN0dWFsCj4gPj4gYXR0cmlidXRlIGVuY29kaW5nIGZlYXR1cmUgPwo+ID4KPiA+IEhp
+IEFsZXhpcy4KPiA+Cj4gPiBUaGUgY2hhbmdlcyByZWNlbnRseSBsYW5kZWQgaW4gcGFob2xlIGFu
+ZCBsaWJicGYgcmUgYXR0cmlidXRlcyBoYWQgYQo+ID4gdmVyeSBuYXJyb3cgZ29hbDogcGFzc2lu
+ZyB0aHJvdWdoIHBhcnRpY3VsYXIgYXR0cmlidXRlcyBmb3Igc29tZSBCUEYKPiA+IGtmdW5jcyBm
+cm9tIHRoZSBrZXJuZWwgc291cmNlIHRvIHZtbGludXguaAo+ID4KPiA+IEJURiBub3cgaGFzIGEg
+d2F5IG9mIGVuY29kaW5nIGFueSBhdHRyaWJ1dGUgKGFzIG9wcG9zZWQgdG8gb25seSBicGYKPiA+
+IHR5cGUvZGVjbCB0YWdzKSBieSBzZXR0aW5nIHR5cGUvZGVjbCB0YWcga2luZCBmbGFnIFsxXS4g
+U28gaXQgaXMKPiA+IHBvc3NpYmxlIHRvIHJlcHJlc2VudCBhdHRyaWJ1dGVzIGxpa2UgcGFja2Vk
+IGFuZCBhbGlnbmVkIGluIEJURi4KPiA+Cj4gPiBIb3dldmVyLCB0aGUgQlRGIHRhZ3MgbmVlZCB0
+byBiZSBnZW5lcmF0ZWQgYnkgc29tZXRoaW5nLCBpbiBjYXNlIG9mCj4gPiB2bWxpbnV4IGJ5IHBh
+aG9sZS4gUGFob2xlIGdlbmVyYXRlcyBCVEYgYnkgcGFyc2luZyBEV0FSRi4gQW5kLCBhcyBmYXIg
+YXMKPiA+IEkgdW5kZXJzdGFuZCwgYXR0cmlidXRlcyBhcmUgbm90IChjYW4gbm90IGJlPykgcmVw
+cmVzZW50ZWQgaW4gRFdBUkYgaW4gYQo+ID4gZ2VuZXJpYyB3YXksIGl0IHJlYWxseSBkZXBlbmRz
+IG9uIHNwZWNpZmljcyBvZiB0aGUgYXR0cmlidXRlLgo+ID4KPiA+IEluIG9yZGVyIHRvIHN1cHBv
+cnQgcGFja2VkL2FsaWduZWQsIHBhaG9sZSBuZWVkcyB0byBrbm93IGhvdyB0byBmaWd1cmUKPiA+
+IHRoZW0gb3V0IGZyb20gRFdBUkYgaW5wdXQgYW5kIGFkZCB0aGUgdGFncyB0byBCVEYuIEFuZCB0
+aGlzIGRvZXMgbm90Cj4gPiBoYXBwZW4gcmlnaHQgbm93LCB3aGljaCBpcyB3aHkgeW91IGRvbid0
+IHNlZSBhbnl0aGluZyBpbiBicGZ0b29sIG91dHB1dC4KPiA+Cj4gPiBbMV0KPiA+IGh0dHBzOi8v
+bG9yZS5rZXJuZWwub3JnL2JwZi8yMDI1MDEzMDIwMTIzOS4xNDI5NjQ4LTEtaWhvci5zb2xvZHJh
+aUBsaW51eC5kZXYvCj4KPiBUaGFua3MgZm9yIHRoZSBkZXRhaWxzICEgSSBoYXZlIG1pc3NlZCB0
+aGlzIHBvc3NpYmlsaXR5LCBhcyBJIGhhdmUgYmVlbgo+IGFzc3VtaW5nIHRoYXQgRFdBUkYgaW5m
+byB3YXMgZXhwb3NpbmcgdGhlIG5lZWRlZCBpbmZvLiBJJ2xsIHRha2UgYSBsb29rIGF0Cj4gaXQs
+IGJ1dCBpZiB0aG9zZSBhdHRyaWJ1dGVzIGNhbiBub3QgYmUgcmVwcmVzZW50ZWQgYnkgRFdBUkYs
+IEknbGwgaGF2ZSB0bwo+IGZpbmQgYW5vdGhlciB3YXkgb2YgZ2V0dGluZyB0aG9zZSBwYWNraW5n
+L2FsaWdubWVudCBtb2RpZmljYXRpb25zIG9uIGRhdGEKPiB0eXBlIChlZzogcmUtdXNlL3NoYXJl
+IGJ0Zl9fYWxpZ25fb2YgZnJvbSBsaWJicGYsIGFzIHN1Z2dlc3RlZCBieSBBbmRyaWksCj4gYnV0
+IGl0IG1heSBub3QgYWJsZSB0byBjb3ZlciBhbGwgY2FzZXMpLgoKTm90IHN1cmUgYWxsIHRoZSB0
+cm91YmxlIGlzIHdvcnRoIGl0LgpJIGZlZWwgaXQncyBhIGNvcm5lciBjYXNlLiBTb21ldGhpbmcg
+d2UgZG9uJ3QgbmVlZCB0byBmaXguCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
