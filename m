@@ -2,53 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF346ACF4D6
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 18:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81E8ACFD88
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Jun 2025 09:33:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52540C30883;
-	Thu,  5 Jun 2025 16:57:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AFE2C3F931;
+	Fri,  6 Jun 2025 07:33:34 +0000 (UTC)
+Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7856C3087B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99513C36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Jun 2025 16:57:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0A0FB440F3;
- Thu,  5 Jun 2025 16:57:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99E9C4CEE7;
- Thu,  5 Jun 2025 16:57:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749142674;
- bh=pjV3bNzBf1YJf1rM+e/SvZsaxG6fHSEEd/WI3ExKBGY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=rrONN9qW1aHmF5/UQgqLlnYMX7Q4VsokJ4R22HjDxXA934YUU0zNzq6yjAiwujQMa
- KT2BDFGdKRzP/RiPPMOj3guszhi3/xzuwAkbC8zf2uYgpL1CGRX07vzgnZ+LbK+xoO
- S2POrMn3TLOiLPh2aqFY3eGuyCbLN4ntVHjMM3uDVAdrSljSC7F2eLY7W2WdHOS1SE
- cy2QFsEcSrC8D7r4pgLvv2jWy1wy9HjfqVoMuyJZ3jhsnzspvg/5ibV+eTyT0dIGxA
- rMpal3yosEluCov6TPplKm4A0gxOA4DKDDgyiLlBBzwaH/JJD+eU+Jm3ASXDOvhYFq
- Mtl+lu6HSwUZw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EB1FD39D60B4; Thu,  5 Jun 2025 16:58:27 +0000 (UTC)
+ Thu,  5 Jun 2025 20:03:48 +0000 (UTC)
+Received: from mail.nppct.ru (localhost [127.0.0.1])
+ by mail.nppct.ru (Postfix) with ESMTP id C56F91C1200
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  5 Jun 2025 23:03:45 +0300 (MSK)
+Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
+ reason="pass (just generated,
+ assumed good)" header.d=nppct.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
+ content-transfer-encoding:mime-version:x-mailer:message-id:date
+ :date:subject:subject:to:from:from; s=dkim; t=1749153825; x=
+ 1750017826; bh=o1vWj2peYFzT+9B8W1tqxLwFgYA9lzDCmka4MeMf2gg=; b=K
+ I9nhAcIiu7lrXTn3NaSpYUL8bNKN3JuEZPUAtssONVOxwA0OfQrmMVRtqDrTfQST
+ kfd5pvsOhmYcS89KLUgIxIfiT1B07gzs9+gNkR1YbWtLTB6hmsD1SiWoIZQ8MmcF
+ WObORsAQhNJAosjXCOvEpGDGM+Y6fvXsMWBkPfkouw=
+X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+Received: from mail.nppct.ru ([127.0.0.1])
+ by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id aSl2b87QzhuO
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  5 Jun 2025 23:03:45 +0300 (MSK)
+Received: from localhost.localdomain (unknown [87.249.24.51])
+ by mail.nppct.ru (Postfix) with ESMTPSA id 786081C0D75;
+ Thu,  5 Jun 2025 23:03:40 +0300 (MSK)
+From: Alexey Nepomnyashih <sdl@nppct.ru>
+To: 
+Date: Thu,  5 Jun 2025 20:03:23 +0000
+Message-ID: <20250605200332.336245-1-sdl@nppct.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <174914270651.3142609.5571647506914286281.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Jun 2025 16:58:26 +0000
-References: <tencent_A6502A28AF21A3CA88B106F3421159869708@qq.com>
-In-Reply-To: <tencent_A6502A28AF21A3CA88B106F3421159869708@qq.com>
-To: Rong Tao <rtoax@foxmail.com>
-Cc: linux-kselftest@vger.kernel.org, peterz@infradead.org,
- linux-kernel@vger.kernel.org, song@kernel.org, rongtao@cestc.cn,
- yonghong.song@linux.dev, shuah@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, juntong.deng@outlook.com,
- mykolal@fb.com, daniel@iogearbox.net, john.fastabend@gmail.com,
- andrii@kernel.org, sdf@fomichev.me, mcoquelin.stm32@gmail.com, ast@kernel.org,
- ameryhung@gmail.com, kpsingh@kernel.org, linux-arm-kernel@lists.infradead.org,
- haoluo@google.com, oleg@redhat.com, eddyz87@gmail.com, jolsa@kernel.org,
- bpf@vger.kernel.org, martin.lau@linux.dev
-Subject: Re: [Linux-stm32] [PATCH bpf-next] selftests/bpf: Fix compile error
- of bin_attribute::read/write()
+X-Mailman-Approved-At: Fri, 06 Jun 2025 07:33:32 +0000
+Cc: Simona Vetter <simona@ffwll.ch>, Alexey Nepomnyashih <sdl@nppct.ru>,
+ lvc-project@linuxtesting.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/2] drm/nouveau/instmem/gk20a: fix overflow
+	in IOVA calculation for iommu_map/unmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,31 +67,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Fix possible overflow in the address expression used as the second
+argument to iommu_map() and iommu_unmap(). Without an explicit cast,
+this expression may overflow when 'r->offset' or 'i' are large. Cast
+the result to unsigned long before shifting to ensure correct IOVA
+computation and prevent unintended wraparound.
 
-This patch was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-On Wed,  4 Jun 2025 13:53:22 +0800 you wrote:
-> From: Rong Tao <rongtao@cestc.cn>
-> 
-> Since commit 97d06802d10a ("sysfs: constify bin_attribute argument of
-> bin_attribute::read/write()"), make bin_attribute parameter of
-> bin_attribute::read/write() const.
-> 
-> Signed-off-by: Rong Tao <rongtao@cestc.cn>
-> 
-> [...]
+Cc: stable@vger.kernel.org # v4.4+
+Signed-off-by: Alexey Nepomnyashih <sdl@nppct.ru>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Here is the summary with links:
-  - [bpf-next] selftests/bpf: Fix compile error of bin_attribute::read/write()
-    https://git.kernel.org/bpf/bpf-next/c/4b65d5ae9714
-
-You are awesome, thank you!
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+index 201022ae9214..17a0e1a46211 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+@@ -334,7 +334,7 @@ gk20a_instobj_dtor_iommu(struct nvkm_memory *memory)
+ 	/* Unmap pages from GPU address space and free them */
+ 	for (i = 0; i < node->base.mn->length; i++) {
+ 		iommu_unmap(imem->domain,
+-			    (r->offset + i) << imem->iommu_pgshift, PAGE_SIZE);
++			    ((unsigned long)r->offset + i) << imem->iommu_pgshift, PAGE_SIZE);
+ 		dma_unmap_page(dev, node->dma_addrs[i], PAGE_SIZE,
+ 			       DMA_BIDIRECTIONAL);
+ 		__free_page(node->pages[i]);
+@@ -472,7 +472,7 @@ gk20a_instobj_ctor_iommu(struct gk20a_instmem *imem, u32 npages, u32 align,
+ 
+ 	/* Map into GPU address space */
+ 	for (i = 0; i < npages; i++) {
+-		u32 offset = (r->offset + i) << imem->iommu_pgshift;
++		unsigned long offset = ((unsigned long)r->offset + i) << imem->iommu_pgshift;
+ 
+ 		ret = iommu_map(imem->domain, offset, node->dma_addrs[i],
+ 				PAGE_SIZE, IOMMU_READ | IOMMU_WRITE,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
