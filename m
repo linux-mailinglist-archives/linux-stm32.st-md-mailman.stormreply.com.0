@@ -2,77 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F42ACF018
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 15:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEA68ACF37B
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Jun 2025 17:55:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A8CBC32EB5;
-	Thu,  5 Jun 2025 13:16:48 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78DD7C30883;
+	Thu,  5 Jun 2025 15:55:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8169C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BCB7C3087B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Jun 2025 13:16:46 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-54d98aa5981so1278761e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Jun 2025 06:16:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1749129406; x=1749734206;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LxXez72tmox59Cq75Oo66zXwfJ67mOMcPg20hwp9f4M=;
- b=qI1b19BqQYnTp30pCjEAuuzFDShqSP9y1kUOYj3+LZWYmwQbMJAg8pWU0o8CtmmJ8N
- xchTJ+K7g5GumAUYeFsaYwSIETSLAKPiOg2yJlbkAmjYhQp7Sdq4sVrgprXnv90kxTwr
- GK+SlISdIsl4UbyqMOVexydW+tEio3nbIoCb1CI+tKvts4dD0+8SLuin+LibvqUEK+BH
- XCdfJ8cWSAIFWtjMrgiN48H4/rVCB6M1J/eYgSd3Luglx5U9nRK9aEsXy7L8Ni0epPMm
- lWFE3PpPbRfQCpn5DCJiXqEQDsaBYlkTCbl2wGPfS1awtr0MOHwEUdsR0o3KgBu1jmKa
- Dw4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749129406; x=1749734206;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LxXez72tmox59Cq75Oo66zXwfJ67mOMcPg20hwp9f4M=;
- b=gfnK0/Es9hrsgWOeXUQuW/9modLRlOfABH6sUsWmeEo2FMGa//sW9S0Y4HD5AqgFpc
- Fz/pGxUer9pL++7SOydJZhpO6pSyWVGdR4byIZENH7BPG1iixNERltOKrGtRQtTo/rgu
- HT6vXv0omA59WxiGxlH8UW5tYilcEbbg6raghMlcZsnA6qA52p6g1Rnd3clVCR2njX9s
- m+mZkKhFBj5HWeiVIatO1WEHiOoVmWeMwyHZxgOPCOGtopZDBrxc80crnck+3d0B5mzk
- xlsUm2wOoRSJs/tj/XV6Mn8NyW31EJJ+NyoSd9lXiQafkyeq5txIBwNbz7mOrI5rEiFm
- vQmQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWiIrrniGOi14djwzzqtLiNGYusBTBeE1J20PVfPkul0pNDYMkChQ9FzrH0mW/sB9Ip2uZN7rQt5sozCA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzVptu9ifdhfCZK2k1z2Vmqbrub+RwDcHIgg40VBCR9VD3DUoMs
- MUlYtBrH4vTTlyBZ4iN98E1TWsnfFBaTaWqmXg/k/QLKmiL8hjY6GEKUJzgw9xYEufkc6K2mw+D
- R0ngwZm7gklKNKk7d2Hh4wYjJQz9f3fvb7FIgaXmXWQ==
-X-Gm-Gg: ASbGncsu/0XzuY/bxuPhKSKLSzcbymwQcI1y65mbmMv4po1lFqXLTl1VLujSNXTw5jr
- mlg9lhXXKipzKjjKCc1HnjILSoB3ntLvQGuj/MIlI9VB5uL+0gheqkLNhCPV5Uj8GslM4OxbH9s
- mLiEO0cgMbkhHXcJ3pIKV1VrWSwrqRyFqEuw8T9ZfPwMj4htATB1p1l1BAz4VZmB8=
-X-Google-Smtp-Source: AGHT+IG1FLIfsa6ezMp3MccDVHC5XAJOHj0QyInfJVqCTEun1SDxwdcWFvKFJCuA2PNkGlpvqJmb88wRcDaLGqLLsh0=
-X-Received: by 2002:a05:6512:10ce:b0:553:37e7:867c with SMTP id
- 2adb3069b0e04-55356df2a9emr2071437e87.50.1749129405586; Thu, 05 Jun 2025
- 06:16:45 -0700 (PDT)
+ Thu,  5 Jun 2025 15:55:16 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 555CUO6U017916;
+ Thu, 5 Jun 2025 17:54:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=7GIhYXvKL3wJRk1dIpzuKA
+ KsrZ2kloHNxniKoQVFP+w=; b=x5nIktGHB6dK7/e+5b1KmApj/ISN8oC8EBNx+s
+ z3mdkw0inMfwOVzA8Anab5m1fToIfyw6mDrms8Es8FMQXnJGeCMYa1rql7wYQFl/
+ hZHUBltTcubsMP5tGGi2amiyRhley1GvLu9RAlRih2X6KGFagtwJHWI1ATkIjTdY
+ B0DWi2jEMxIWuDujRhw7VHbYClJsCndIq/IvVLDj4v2TWYPouzqntnaeV+Ze5MQv
+ GqunbPTuErrMaCtO+jyDYZHbOKOBQiK5U3GuLycGnnlOz+IJ/XiaRAO66/KAV8Lb
+ SV8WxTfRltHIatB0cHnomljiUxhpi+nOHnC8B46IKGu9Sn8w==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 471g90qrah-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Jun 2025 17:54:57 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 285E540051;
+ Thu,  5 Jun 2025 17:54:04 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CB7ED22AEA;
+ Thu,  5 Jun 2025 17:53:41 +0200 (CEST)
+Received: from localhost (10.48.87.237) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
+ 2025 17:53:40 +0200
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Date: Thu, 5 Jun 2025 17:53:30 +0200
 MIME-Version: 1.0
-References: <20250528-hdp-upstream-v4-0-7e9b3ad2036d@foss.st.com>
- <CACRpkdZ2NUfcn7O7tKSFDyAr8Hni3pvpTN6QpOz7N3J+EsFdLg@mail.gmail.com>
-In-Reply-To: <CACRpkdZ2NUfcn7O7tKSFDyAr8Hni3pvpTN6QpOz7N3J+EsFdLg@mail.gmail.com>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Thu, 5 Jun 2025 15:16:34 +0200
-X-Gm-Features: AX0GCFt62eNdDo8nSZ5fnuh_lgkPFAVa1oZqnviWb6rgA9ggBUhsLTEWXYkHUBU
-Message-ID: <CAMRc=Mddp=rmogziQ2XrzsO-TiRh9A5U3v8UxJqz_so1otPMLw@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/9] Introduce HDP support for STM32MP
-	platforms
+Message-ID: <20250605-stm32_dma_dbm_fix-v1-1-44657463d7d6@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAHm9QWgC/x2MQQqAIBAAvxJ7TjDNir4SIdVutQctNCII/550n
+ IGZFyIFpgh98UKgmyMfPkNVFrDsk99IMGYGJZWRjTQiXk4ri26yODu78iP03DWqrdDUWEPuzkB
+ Z/89hTOkDoElwwGMAAAA=
+X-Change-ID: 20250605-stm32_dma_dbm_fix-3b86271d54d4
+To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.237]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-05_04,2025-06-05_01,2025-03-28_01
+Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dmaengine: stm32-dma: configure next sg only
+ if there are more than 2 sgs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,32 +72,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBKdW4gNSwgMjAyNSBhdCAzOjA04oCvUE0gTGludXMgV2FsbGVpaiA8bGludXMud2Fs
-bGVpakBsaW5hcm8ub3JnPiB3cm90ZToKPgo+IE9uIFdlZCwgTWF5IDI4LCAyMDI1IGF0IDM6MzPi
-gK9QTSBDbMOpbWVudCBMZSBHb2ZmaWMKPiA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4g
-d3JvdGU6Cj4KPiA+IENsw6ltZW50IExlIEdvZmZpYyAoOSk6Cj4gPiAgICAgICBncGlvOiBtbWlv
-OiBhZGQgQkdQSU9GX05PX0lOUFVUIGZsYWcgZm9yIEdQTyBncGlvY2hpcAo+ID4gICAgICAgZHQt
-YmluZGluZ3M6IHBpbmN0cmw6IHN0bTMyOiBJbnRyb2R1Y2UgSERQCj4gPiAgICAgICBwaW5jdHJs
-OiBzdG0zMjogSW50cm9kdWNlIEhEUCBkcml2ZXIKPiA+ICAgICAgIE1BSU5UQUlORVJTOiBhZGQg
-Q2zDqW1lbnQgTGUgR29mZmljIGFzIFNUTTMyIEhEUCBtYWludGFpbmVyCj4KPiBDYW4gSSBhcHBs
-eSB0aGUgZHJpdmVyIGFuZCBiaW5kaW5ncyBwYXRjaGVzIDEtNCBzZXBhcmF0ZWx5Cj4gZnJvbSB0
-aGUgcmVzdCBvZiB0aGUgc2VyaWVzPwo+Cj4gPiAgICAgICBBUk06IGR0czogc3RtMzI6IGFkZCBI
-YXJkd2FyZSBkZWJ1ZyBwb3J0IChIRFApIG9uIHN0bTMybXAxMwo+ID4gICAgICAgQVJNOiBkdHM6
-IHN0bTMyOiBhZGQgSGFyZHdhcmUgZGVidWcgcG9ydCAoSERQKSBvbiBzdG0zMm1wMTUKPiA+ICAg
-ICAgIEFSTTogZHRzOiBzdG0zMjogYWRkIEhhcmR3YXJlIGRlYnVnIHBvcnQgKEhEUCkgb24gc3Rt
-MzJtcDI1Cj4gPiAgICAgICBBUk06IGR0czogc3RtMzI6IGFkZCBhbHRlcm5hdGUgcGlubXV4IGZv
-ciBIRFAgcGluIGFuZCBhZGQgSERQIHBpbmN0cmwgbm9kZQo+ID4gICAgICAgQVJNOiBkdHM6IHN0
-bTMyOiBhZGQgSGFyZHdhcmUgZGVidWcgcG9ydCAoSERQKSBvbiBzdG0zMm1wMTU3Yy1kazIgYm9h
-cmQKPgo+IE9yIGRvZXMgaXQgbmVlZCB0byBiZSBtZXJnZWQgYWxvbmcgd2l0aCB0aGVzZT8KPgoK
-V291bGQgeW91IG1pbmQgbWUgdGFraW5nIHBhdGNoIDEvOSB0aHJvdWdoIHRoZSBHUElPIHRyZWUg
-YXMgSSdsbCBoYXZlCnNvbWUgZ3Bpby1tbWlvIHJld29yayBnb2luZyBvbiBuZXh0IGN5Y2xlPyBJ
-IHdpbGwgdGhlbiBzZW5kIHlvdSBhbgppbW11dGFibGUgdGFnIHRvIHB1bGwuCgpCYXJ0b3N6Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+DMA operates in Double Buffer Mode (DBM) when the transfer is cyclic and
+there are at least two periods.
+When DBM is enabled, the DMA toggles between two memory targets (SxM0AR and
+SxM1AR), indicated by the SxSCR.CT bit (Current Target).
+There is no need to update the next memory address if two periods are
+configured, as SxM0AR and SxM1AR are already properly set up before the
+transfer begins in the stm32_dma_start_transfer() function.
+This avoids unnecessary updates to SxM0AR/SxM1AR, thereby preventing
+potential Transfer Errors. Specifically, when the channel is enabled,
+SxM0AR and SxM1AR can only be written if SxSCR.CT=1 and SxSCR.CT=0,
+respectively. Otherwise, a Transfer Error interrupt is triggered, and the
+stream is automatically disabled.
+
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+ drivers/dma/stm32/stm32-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32-dma.c
+index 917f8e9223739af853e492d97cecac0e95e0aea3..0e39f99bce8be8c38fe33dd0246012910243d831 100644
+--- a/drivers/dma/stm32/stm32-dma.c
++++ b/drivers/dma/stm32/stm32-dma.c
+@@ -744,7 +744,7 @@ static void stm32_dma_handle_chan_done(struct stm32_dma_chan *chan, u32 scr)
+ 		/* cyclic while CIRC/DBM disable => post resume reconfiguration needed */
+ 		if (!(scr & (STM32_DMA_SCR_CIRC | STM32_DMA_SCR_DBM)))
+ 			stm32_dma_post_resume_reconfigure(chan);
+-		else if (scr & STM32_DMA_SCR_DBM)
++		else if (scr & STM32_DMA_SCR_DBM && chan->desc->num_sgs > 2)
+ 			stm32_dma_configure_next_sg(chan);
+ 	} else {
+ 		chan->busy = false;
+
+---
+base-commit: 3c018bf5a0ee3abe8d579d6a0dda616c3858d7b2
+change-id: 20250605-stm32_dma_dbm_fix-3b86271d54d4
+
+Best regards,
+-- 
+Amelie Delaunay <amelie.delaunay@foss.st.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
