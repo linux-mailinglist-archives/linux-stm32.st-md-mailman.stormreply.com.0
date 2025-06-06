@@ -2,71 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B58FAD01C4
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Jun 2025 14:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B27AD0389
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Jun 2025 15:55:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DEC6C3F938;
-	Fri,  6 Jun 2025 12:07:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEACAC3F930;
+	Fri,  6 Jun 2025 13:55:44 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6235C3F931
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FC39C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Jun 2025 12:07:57 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 556BcvJc008218;
- Fri, 6 Jun 2025 14:07:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- gq6NiYoztE5n+qnbOG6J5+Yuv0005vgbJ4zJGtQw7Ug=; b=rJxLUK8FvA1TErY3
- DLk98QrMDNTkYFElI9B4n1C7OyDmdmteVpn7WecBRjuQHqZcUagExffAZDhsq3fV
- LdLFxpOyp5ZE+hh707HqQUGIzW2qutx2DT3JmFSpAzSU9aH3UFkOzYSUJ+PB1WKi
- ZiMh3D2asltkdobendJUOQhD4/zTEdRLppRZMkuMHibdHvINyt/+w8JPyHM/+mQl
- f3YBkYvOQx9vOoz3YfCmSgCJcJAGs4KZIxRt3cV0dM3MUeikctYsauX9yFKxblyT
- vPyrc1FO9lcbgWMYKyJbYWdhw5VHcy+6IZHLXGgjF7ShLl9OMZJ6tncXREd4ZYDf
- wS1vXw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 471g8vkmmv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Jun 2025 14:07:29 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8A05640051;
- Fri,  6 Jun 2025 14:06:16 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC863B05FC7;
- Fri,  6 Jun 2025 14:06:11 +0200 (CEST)
-Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Jun
- 2025 14:06:11 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <christian.bruel@foss.st.com>, <bhelgaas@google.com>,
- <lpieralisi@kernel.org>, <kwilczynski@kernel.org>,
- <manivannan.sadhasivam@linaro.org>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <p.zabel@pengutronix.de>, <quic_schintav@quicinc.com>,
- <shradha.t@samsung.com>, <cassel@kernel.org>,
- <thippeswamy.havalige@amd.com>
-Date: Fri, 6 Jun 2025 14:04:03 +0200
-Message-ID: <20250606120403.2964857-10-christian.bruel@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250606120403.2964857-1-christian.bruel@foss.st.com>
-References: <20250606120403.2964857-1-christian.bruel@foss.st.com>
+ Fri,  6 Jun 2025 13:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=6dFmZYMvFnPKz7ElX5mkKo2Zv+TMRgVK23txlUfoVfY=; b=T5NhYSjd2nnhmPpsffbFUfP6uC
+ eAPdvN5/SN0+W8vn/INqTew/+ATLDf1rR3/RBPDbaRm6mjXIyOyP8HLGEvFR+3FQV+Vo9iFNGWN/h
+ QJmBgqQOEOoBeJ+/6okvzyJNd9Gu+bHs4IM1KDGCQ0ncCsGduFLMHl54xvqJ7OEgqzrM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1uNXXZ-00EuDg-89; Fri, 06 Jun 2025 15:55:25 +0200
+Date: Fri, 6 Jun 2025 15:55:25 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Bartlomiej Dziag <bartlomiejdziag@gmail.com>
+Message-ID: <9f5f87d6-c7c2-4288-8c02-e57b0d943881@lunn.ch>
+References: <20250606102100.12576-1-bartlomiejdziag@gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-06_04,2025-06-05_01,2025-03-28_01
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v11 9/9] arm64: dts: st: Enable PCIe on the
-	stm32mp257f-ev1 board
+Content-Disposition: inline
+In-Reply-To: <20250606102100.12576-1-bartlomiejdziag@gmail.com>
+Cc: Wojciech Drewek <wojciech.drewek@intel.com>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Change the busy-wait loops
+	timing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,49 +59,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add PCIe RC and EP support on stm32mp257f-ev1 board.
-Default to RC mode.
+On Fri, Jun 06, 2025 at 12:19:49PM +0200, Bartlomiej Dziag wrote:
+> After writing a new value to the PTP_TAR or PTP_STSUR registers,
+> the driver waits for the addend/adjust operations to complete.
+> Sometimes, the first check operation fails, resulting in
+> a 10 milliseconds busy-loop before performing the next check.
+> Since updating the registers takes much less than 10 milliseconds,
+> the kernel gets stuck unnecessarily. This may increase the CPU usage.
+> Fix that with changing the busy-loop interval to 5 microseconds.
+> The registers will be checked more often.
+> 
+> Signed-off-by: Bartlomiej Dziag <bartlomiejdziag@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> index e2840fa241f2..f8e1278a1837 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> @@ -144,11 +144,11 @@ static int config_addend(void __iomem *ioaddr, u32 addend)
+>  	writel(value, ioaddr + PTP_TCR);
+>  
+>  	/* wait for present addend update to complete */
+> -	limit = 10;
+> +	limit = 10000;
+>  	while (limit--) {
+>  		if (!(readl(ioaddr + PTP_TCR) & PTP_TCR_TSADDREG))
+>  			break;
+> -		mdelay(10);
+> +		udelay(5);
 
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+I would actually suggest rewriting this using the macros from iopoll.h.
+
+    Andrew
+
 ---
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 2f561ad40665..f97581aa0841 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -265,6 +265,27 @@ scmi_vdd_sdcard: regulator@23 {
- 	};
- };
- 
-+&pcie_ep {
-+	pinctrl-names = "default", "init";
-+	pinctrl-0 = <&pcie_pins_a>;
-+	pinctrl-1 = <&pcie_init_pins_a>;
-+	reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-+	status = "disabled";
-+};
-+
-+&pcie_rc {
-+	pinctrl-names = "default", "init", "sleep";
-+	pinctrl-0 = <&pcie_pins_a>;
-+	pinctrl-1 = <&pcie_init_pins_a>;
-+	pinctrl-2 = <&pcie_sleep_pins_a>;
-+	status = "okay";
-+
-+	pcie@0,0 {
-+		 reset-gpios = <&gpioj 8 GPIO_ACTIVE_LOW>;
-+		 wake-gpios = <&gpioh 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	};
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
--- 
-2.34.1
-
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
