@@ -2,69 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 979ECAD21DA
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Jun 2025 17:08:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E631AD224D
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Jun 2025 17:23:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47E2CC32E92;
-	Mon,  9 Jun 2025 15:08:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23023C32E8F;
+	Mon,  9 Jun 2025 15:23:15 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7487CC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A768C349C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Jun 2025 15:08:28 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 559Dtxkd009830;
- Mon, 9 Jun 2025 17:08:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=RHEwRJAXNMJDW0r76HBXTU
- vBrd9il/gic2C2Cm/Al7k=; b=zbUEhb1wGJdOJ/EdOcGNg/EOItH3HgAucyc4iH
- H/6bHmOMVjo3nWzrkxzox/38KHwSZ+84vdNY809jnf2dK4lDD3UzxWuzjbAyJrcR
- jQHGkOKT6wRfkj3EDEwcYq97C7wgngpdL+FMcHE2fjRmSW/DOqghihikjknX6e6o
- jYOEiH7+sQRRK4TDHyZO7gBXxCHRfbclXgOhcr1ENV+uC+pCEqTNkh/M1RDCWUwt
- hkuPcQsuw3iJwYRhV4yTFELIrzn+Xy90Gw5J2J4q5rPRr0R0wrgtjHn38FS8VL/R
- ZnObw8yfEN8Q6S8TJlcuQeL7jEEEc62pS/qwG2aEYPIsZeGg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474cs2g878-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Jun 2025 17:08:12 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 01A8B4004B;
- Mon,  9 Jun 2025 17:06:53 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 18427BCE4C4;
- Mon,  9 Jun 2025 17:05:05 +0200 (CEST)
-Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 9 Jun
- 2025 17:05:04 +0200
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Mon, 9 Jun 2025 17:05:04 +0200
+ Mon,  9 Jun 2025 15:23:13 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-73bf5aa95e7so3284825b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 Jun 2025 08:23:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1749482592; x=1750087392;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4+Mg6PW+/K0QnsP+hIHi7hEEWjzJrekcG6Ta5Fzf3T0=;
+ b=lbaytEs9DRzMGVNvndvvNDf14jX1bfgP8km49aKiVbxCzLxzIrxjI8zZbXnPDm7kvi
+ WLJvwzOXTOW4wVKSo+LE2D1KRVOOzvA9fBzaId1XB9OYxlxgwlS8Mrj1yR50cNl/0iUF
+ GSbjfwiUk/szbLrL31Jpx+JsEiG6Lh6JIc1mpwVHDwItPEDhnJzAwmLZhMGxI4EwgFw5
+ z2FKpzf3PUICpRFJuIm1vb0IuXBqmoDuzMhwr9ikYyAgCTBzdjqkNlJgW26oakOcSasV
+ OMFWQr52YlepJ46mMZk1c9+qENNOTpr1D4HGw6TAUaAaKs4Utf29jUhqioD/HAYIaTK8
+ w6nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749482592; x=1750087392;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4+Mg6PW+/K0QnsP+hIHi7hEEWjzJrekcG6Ta5Fzf3T0=;
+ b=jzPg/MoExUacDZj7x2gIJT46N/MnUGe3KXuwahsN5sAPxV3aNeQg81e4z1aZWgryIw
+ vZKX5NWqsObKOiP8BbpQjjFrrS5eKovgg/EVwxAjF++SSOgtqR3APCTsnZ/7xR1+jg6K
+ 2RIznAXtwF4IUldjMnhh6vUWCJNdxdY/FlcIrFrdl3ZpQ+UjEuoOWT+jUQSPT0Op4f9s
+ hjP1oPjvkr3Sjv25d3D//N2jJ4hxm2pxRWomCfU13sAKRhWeP/l4JyoC42ppnFCiqxhv
+ bwgEDPccZozZ2jMpo9yibt/y+DbQWi1bSGg0yIJxc7tjKBr2sW+Txqu4dmzM/1AH3j6R
+ KQ+w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUn6PNBIv0LsDGhRDCp3TmNHSbeslYd5Ui9kkVFy43tEogReIepxZUklID7QDObNOhqzKz7zTmA35J+qg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwfN7h27d1xY59l0jnIiRBXcc+UtlEIz8p0N7L9W3jymHcuz5Gm
+ ZPMTgxJkvoKYLSlAmI8oFlIU4LTNreTFmH2wPcKLjLji/Lv5423jQ0H7BAbhT2mExOA=
+X-Gm-Gg: ASbGncuvbj+baunR70Q1IWcETQLucSv+SiSnODFtV+KsQ/rx3oDtZQNg/8agXDvmCaN
+ Vkbun/AO0HQH9EhWJI4cQbnf4gfbD3AddCQDua/awIG3ZAyLjJCO3k65mMKtptowux7Q4QcPAMF
+ Xs36VRz+Pe/QsJn0LNaG5e8Ztg2QBfBZkdG/Fq2F2PK9dpohSbLDOUflSTkkQqLXHp3N8Uf7TWm
+ Ns/L6B9mSp2Syc4c4W45wYMcjO0l4AsPcKC42d00hSmLnCb0zDsmk/wpGrz7MXGN80ppMv1W3+y
+ Bt+Fp8PwtsqHPDYBwK4AsPQtueLQH7WX85Phssq+mmhv/+ETBMitoX2dNxv5F1xiCbLCPHQFwt1
+ z
+X-Google-Smtp-Source: AGHT+IEHQs24xS7vzskFJPPr8eh6p9W8ZrujNawhU2iz0AreagkiHluW65S1z22AdhoPCthNzNJd4g==
+X-Received: by 2002:a17:90b:3891:b0:312:26d9:d5b4 with SMTP id
+ 98e67ed59e1d1-3134740b55cmr21132387a91.17.1749482592330; 
+ Mon, 09 Jun 2025 08:23:12 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:1329:68ff:ffeb:cd9c])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31349fc374asm5791390a91.29.2025.06.09.08.23.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Jun 2025 08:23:11 -0700 (PDT)
+Date: Mon, 9 Jun 2025 09:23:09 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <aEb8XbhY5dR__GM-@p14s>
+References: <20250603100808.1074812-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-Message-ID: <20250609-b4-upstream_ospi_reset_update-v6-1-5b602b567e8a@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAB/4RmgC/43OsW7DIBDG8VeJmEsEhAPcqe9RVRaBo2FIsDhit
- Yr87sVZmiqDO/5v+H13Y4Q1I7HX3Y1VnDPlculhXnYsnPzlE3mOvZkSCoSWkh81v07UKvrzWGj
- KY0XCNl6n6BtyGExApcFHL1k3poopf93994/ep0yt1O/73KzW63/lWXHBdUSbIEblB/mWCtGe2
- j6UM1vt+fDrgbBb3oFLblEb7+xgwapnTz94Um15unuDU8Ek65zB9OzBo6e3PFj/O0JEAaCCC3+
- 9ZVl+AH+8dva8AQAA
-X-Change-ID: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
-To: Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-09_05,2025-06-09_01,2025-03-28_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v6] spi: stm32-ospi: Make usage of
- reset_control_acquire/release() API
+Content-Disposition: inline
+In-Reply-To: <20250603100808.1074812-1-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RESEND PATCH v16 0/6] Introduction of a
+ remoteproc tee to load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,119 +94,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As ospi reset is consumed by both OMM and OSPI drivers, use the reset
-acquire/release mechanism which ensure exclusive reset usage.
+On Tue, Jun 03, 2025 at 12:08:02PM +0200, Arnaud Pouliquen wrote:
+> Hello Bjorn and Mathieu,
+> 
+> I am resending this series after waiting for over two months for Bjorn's
+> feedback, despite a prior reminder.
+> 
+> Please could you coordinate between yourselves to determine who will continue
+> reviewing this series? It would be greatly appreciated if the review could
+> proceed within a more reasonable timeframe.
+> 
+> Thanks in advance and best regards,
+> Arnaud
+> 
+> 
+> Main updates from version V15[1]:
+> - Removed the rproc_ops:load_fw() operation introduced in the previous version.
+> - Returned to managing the remoteproc firmware loading in rproc_tee_parse_fw to
+>   load and authenticate the firmware before getting the resource table.
+> - Added spinlock and dev_link mechanisms in remoteproc TEE to better manage
+>   bind/unbind.
+>
 
-This avoid to call reset_control_get/put() in OMM driver each time
-we need to reset OSPI children and guarantee the reset line stays
-deasserted.
-
-During resume, OMM driver takes temporarily control of reset.
-
-Fixes: 79b8a705e26c ("spi: stm32: Add OSPI driver")
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
----
-Changes in v6:
-- Add Fixes tag.
-- Rebase on top of v6.16-rc1
-- Link to v5: https://lore.kernel.org/r/20250514-b4-upstream_ospi_reset_update-v5-1-7b5de0552c8c@foss.st.com
-
-Changes in v5:
-  - Add dependency with commit 6b3754009f87 ("reset: Add devm_reset_control_array_get_exclusive_released()")
-    in commit message.
-  - Link to v4: https://lore.kernel.org/r/20250512-b4-upstream_ospi_reset_update-v4-1-982c6f7886ef@foss.st.com
-
-Changes in v4:
-  - Add a comment about reset sharing between OSPI and OMM drivers durig resume.
-  - Link to v3: https://lore.kernel.org/r/20250507-b4-upstream_ospi_reset_update-v3-1-7e46a8797572@foss.st.com
-
-Changes in v3:
-  - Remove previous patch 1/2 as already merged.
-  - Keep the reset control acquired from probe() to remove().
-  - Link to v2: https://lore.kernel.org/r/20250411-b4-upstream_ospi_reset_update-v2-0-4de7f5dd2a91@foss.st.com
-
-Changes in v2:
-  - Rebased on spi/for-next (7a978d8fcf57).
-  - Remove useless check on reset.
-  - Add error handling on reset_control_acquire().
-  - Link to v1: https://lore.kernel.org/all/20250410-b4-upstream_ospi_reset_update-v1-0-74126a8ceb9c@foss.st.com/
----
- drivers/spi/spi-stm32-ospi.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 7c1fa55fbc4726d2f3c5516245ccd81f59c3c44d..db6b1cfc970f6c80515a39073e2389311796da8f 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -804,7 +804,7 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
- 		return ret;
- 	}
+Have all pending issues been resolved or is there still questions about some
+aspects of the design?
  
--	ospi->rstc = devm_reset_control_array_get_exclusive(dev);
-+	ospi->rstc = devm_reset_control_array_get_exclusive_released(dev);
- 	if (IS_ERR(ospi->rstc))
- 		return dev_err_probe(dev, PTR_ERR(ospi->rstc),
- 				     "Can't get reset\n");
-@@ -936,11 +936,13 @@ static int stm32_ospi_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		goto err_pm_enable;
- 
--	if (ospi->rstc) {
--		reset_control_assert(ospi->rstc);
--		udelay(2);
--		reset_control_deassert(ospi->rstc);
--	}
-+	ret = reset_control_acquire(ospi->rstc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Can not acquire reset %d\n", ret);
-+
-+	reset_control_assert(ospi->rstc);
-+	udelay(2);
-+	reset_control_deassert(ospi->rstc);
- 
- 	ret = spi_register_controller(ctrl);
- 	if (ret) {
-@@ -987,6 +989,8 @@ static void stm32_ospi_remove(struct platform_device *pdev)
- 	if (ospi->dma_chrx)
- 		dma_release_channel(ospi->dma_chrx);
- 
-+	reset_control_release(ospi->rstc);
-+
- 	pm_runtime_put_sync_suspend(ospi->dev);
- 	pm_runtime_force_suspend(ospi->dev);
- }
-@@ -997,6 +1001,8 @@ static int __maybe_unused stm32_ospi_suspend(struct device *dev)
- 
- 	pinctrl_pm_select_sleep_state(dev);
- 
-+	reset_control_release(ospi->rstc);
-+
- 	return pm_runtime_force_suspend(ospi->dev);
- }
- 
-@@ -1016,6 +1022,12 @@ static int __maybe_unused stm32_ospi_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = reset_control_acquire(ospi->rstc);
-+	if (ret) {
-+		dev_err(dev, "Can not acquire reset\n");
-+		return ret;
-+	}
-+
- 	writel_relaxed(ospi->cr_reg, regs_base + OSPI_CR);
- 	writel_relaxed(ospi->dcr_reg, regs_base + OSPI_DCR1);
- 	pm_runtime_mark_last_busy(ospi->dev);
-
----
-base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
-change-id: 20250411-b4-upstream_ospi_reset_update-596ce245ada1
-
-Best regards,
--- 
-Patrice Chotard <patrice.chotard@foss.st.com>
-
+> More details are available in each patch commit message.
+> 
+> [1] https://lore.kernel.org/linux-remoteproc/20241128084219.2159197-7-arnaud.pouliquen@foss.st.com/T/
+> 
+> Tested-on: commit 0ff41df1cb26 ("Linux 6.15")
+> 
+> Description of the feature:
+> --------------------------
+> This series proposes the implementation of a remoteproc tee driver to
+> communicate with a TEE trusted application responsible for authenticating
+> and loading the remoteproc firmware image in an Arm secure context.
+> 
+> 1) Principle:
+> 
+> The remoteproc tee driver provides services to communicate with the OP-TEE
+> trusted application running on the Trusted Execution Context (TEE).
+> The trusted application in TEE manages the remote processor lifecycle:
+> 
+> - authenticating and loading firmware images,
+> - isolating and securing the remote processor memories,
+> - supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+> - managing the start and stop of the firmware by the TEE.
+> 
+> 2) Format of the signed image:
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+> 
+> 3) OP-TEE trusted application API:
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+> 
+> 4) OP-TEE signature script
+> 
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+> 
+> Example of usage:
+> sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+> 
+> 
+> 5) Impact on User space Application
+> 
+> No sysfs impact. The user only needs to provide the signed firmware image
+> instead of the ELF image.
+> 
+> 
+> For more information about the implementation, a presentation is available here
+> (note that the format of the signed image has evolved between the presentation
+> and the integration in OP-TEE).
+> 
+> https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+> 
+> Arnaud Pouliquen (6):
+>   remoteproc: core: Introduce rproc_pa_to_va helper
+>   remoteproc: Add TEE support
+>   remoteproc: Introduce release_fw optional operation
+>   dt-bindings: remoteproc: Add compatibility for TEE support
+>   remoteproc: stm32: Create sub-functions to request shutdown and
+>     release
+>   remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+> 
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+>  drivers/remoteproc/Kconfig                    |  10 +
+>  drivers/remoteproc/Makefile                   |   1 +
+>  drivers/remoteproc/remoteproc_core.c          |  52 ++
+>  drivers/remoteproc/remoteproc_internal.h      |   6 +
+>  drivers/remoteproc/remoteproc_tee.c           | 619 ++++++++++++++++++
+>  drivers/remoteproc/stm32_rproc.c              | 139 +++-
+>  include/linux/remoteproc.h                    |   4 +
+>  include/linux/remoteproc_tee.h                |  90 +++
+>  9 files changed, 935 insertions(+), 44 deletions(-)
+>  create mode 100644 drivers/remoteproc/remoteproc_tee.c
+>  create mode 100644 include/linux/remoteproc_tee.h
+> 
+> 
+> base-commit: 0ff41df1cb268fc69e703a08a57ee14ae967d0ca
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
