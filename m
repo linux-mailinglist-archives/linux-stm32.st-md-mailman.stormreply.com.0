@@ -2,47 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47EF4AD26CD
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Jun 2025 21:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FACAD2FFA
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 10:23:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CD11C3F93B;
-	Mon,  9 Jun 2025 19:33:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F619C36B38;
+	Tue, 10 Jun 2025 08:23:31 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55A06C3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42335C36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Jun 2025 19:33:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D97F629E5;
- Mon,  9 Jun 2025 19:33:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C951EC4CEF2;
- Mon,  9 Jun 2025 19:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749497632;
- bh=TP4hyTs8h8YAb40w69Vr1lWI5iqkgDHn/WQE3QL865I=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=On4WlChjQCtAwoelwqwcdRxT8v1VCfv9hDzz+aUVbE0NAnnPCdMwnRJZrHJAAsA87
- 9eICV9OPwQfMAKTi4FOITRspcsHnxzgdF/G4ysHnizfG59bTOcRM2to7g9eSP72FpM
- 0HoZwUL1uSkO4UUO2Nj+yqyp5Lz/irfY/Fyed2DioexiTtcS2R2q/4Lyet4ACuM2hv
- C6Hx3fENqlFhOFbTX13N9nn/n3wbfWavsssxaitxiIZ40NRQY6UQG+dTlKUy7piqil
- 72Mv/sNZS2ylZ2657IXoYVXYrFs+1gduKYkaC7EBnuW1bQK4AnMx62fIg2uBma+8E5
- PXUpxiUAgpwfg==
-From: Mark Brown <broonie@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Tue, 10 Jun 2025 08:23:31 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-450d0526132so2289955e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 10 Jun 2025 01:23:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1749543810; x=1750148610;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=CbFRS50PxBtzhNgDQ/26OkD0E53SIgINiCNYBdMhaMs=;
+ b=PMu6gwjcqpKMFY1VKb0dqtWSTFfRaNbdi5xkyo5lNAyRGuawdo+RbZ/5bGbRX/qa44
+ dv41DqXs1TSTraNe1VwqGEIvdYEW35KtCSPCUcB5lA2pZsOI4t9AzVDvITh2j8R4UeZJ
+ GU1/pwOlX/bCHZkP0eF2sw9RG9dxsBlfMlppxFbSCVKoPN21OLkhxt/UbS94jv1iTVn9
+ cfj8p8oE/2sYpaa1Ysj23C561Ok8MQQe85ohwAj0w155MGSn813GZG8QH5aKrSsbFhdo
+ w0OB6Uw0kyNG2rPu5xuPiePqzMFafch0smKt9BHojxafIFeIUoxxpJ231S33LFMu9LHp
+ ErtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749543810; x=1750148610;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CbFRS50PxBtzhNgDQ/26OkD0E53SIgINiCNYBdMhaMs=;
+ b=ch0AI5nX8RmZFxzE9hJRAR/WOPMnKogtmzEgLyFGltcCb8+KQLQK01FhmF/WE4cvrv
+ g8ovX3hkh5yPNL4y43n+5yKw/n4KqAkWLkEIFO+bLdKLJvbNT74XlNHP+UmUSnZiac4x
+ 3ax7vGBL85dZZ0XtWqS9s21izJDN3zAD2K93xYxc4vunMUEWXl2LGXAOQGlSIlbeKQtQ
+ TZTABLD3wA6Eo5GPjKWFtiLxoZK9YX/HAFWAHkwZEgquvFqDInwGfZMK8tl4oJb31x0f
+ Ov41TGjGSFSlBc2CrW1S+0aKeKzDuoq3kKgTKeuV07PZ8J+iJkfKY/Le4rBB3knwg6Tl
+ Fxfw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXWhUi7iXuBuHos0eh/eu00qU5TAL9wLm8zrhyProIVw/kjbq/8Bh82lIHMZzq375zaVX1c4PED/XJjSg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YysbS8wbbcwazge+tuO62bt8zL48sESJhGc5O9GR7Tp8VHGXBNw
+ OBC5Z4pXu/P6kidicacqzz6oQNNqKV3f2uzKM9p1xzhRoZRFRA4UPmH4YFvUn1Q6eTY=
+X-Gm-Gg: ASbGncvpJzfnpgw3Pc9EoO4jtEd29/CX32mUtF6lUV1Xvb4k97aTcwAqJJWiIQ7Y+Do
+ 3CaZzdcrcCznNw22vUNFDraK0OrJ5B2sOTxcirjTQgrn8qqMiSDfkMzkLev2PxYjkKPYBf0sKnd
+ TkhKcZxtD3umLTP5cddP0NrpdS/PK4RGcQwCb1jPmD49L/JQxTtGR/yq+sF4saYVpsPNiaufUbz
+ mc9S3Ltq7YFgSpFVeQfOGKI7/w7sDN/DCmDfiIQjH2ZXqLxnbuuhgSTnzMKGno+BTcwxMThx1Xu
+ Dj4tq1bG6aQG/hMqnrJ4Ogata7DqxrMQTEMe2iipZQaOnXwdPbhcEWNfLNfLI9GHLomGX1ZQu77
+ oF/vu/g==
+X-Google-Smtp-Source: AGHT+IGuYXZh60MnbA75lkN4+EYNXF7PNeMVfx0sLkMy+S89GOUa8ZzBhu0Y6PM8zBmmRjjQtSKupg==
+X-Received: by 2002:a05:600c:c491:b0:439:8c80:6aee with SMTP id
+ 5b1f17b1804b1-452014b3fdfmr47660345e9.4.1749543810522; 
+ Tue, 10 Jun 2025 01:23:30 -0700 (PDT)
+Received: from [192.168.1.28] ([178.197.223.125])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4526e155ce7sm131726125e9.10.2025.06.10.01.23.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jun 2025 01:23:30 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>
-In-Reply-To: <20250609-b4-upstream_ospi_reset_update-v6-1-5b602b567e8a@foss.st.com>
-References: <20250609-b4-upstream_ospi_reset_update-v6-1-5b602b567e8a@foss.st.com>
-Message-Id: <174949763058.256775.10348789503749491026.b4-ty@kernel.org>
-Date: Mon, 09 Jun 2025 20:33:50 +0100
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20250525191300.50873-2-krzysztof.kozlowski@linaro.org>
+References: <20250525191300.50873-2-krzysztof.kozlowski@linaro.org>
+Message-Id: <174954380836.117761.16870623685676642048.b4-ty@linaro.org>
+Date: Tue, 10 Jun 2025 10:23:28 +0200
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-c25d1
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v6] spi: stm32-ospi: Make usage of
- reset_control_acquire/release() API
+X-Mailer: b4 0.14.2
+Subject: Re: [Linux-stm32] [PATCH] memory: stm32_omm: Use
+ syscon_regmap_lookup_by_phandle_args
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,43 +93,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 09 Jun 2025 17:05:04 +0200, Patrice Chotard wrote:
-> As ospi reset is consumed by both OMM and OSPI drivers, use the reset
-> acquire/release mechanism which ensure exclusive reset usage.
+
+On Sun, 25 May 2025 21:13:00 +0200, Krzysztof Kozlowski wrote:
+> Use syscon_regmap_lookup_by_phandle_args() which is a wrapper over
+> syscon_regmap_lookup_by_phandle() combined with getting the syscon
+> argument.  Except simpler code this annotates within one line that given
+> phandle has arguments, so grepping for code would be easier.
 > 
-> This avoid to call reset_control_get/put() in OMM driver each time
-> we need to reset OSPI children and guarantee the reset line stays
-> deasserted.
 > 
-> [...]
 
-Applied to
+Applied, thanks!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+[1/1] memory: stm32_omm: Use syscon_regmap_lookup_by_phandle_args
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/6d8b18ae647bb456d2a2dac9771d007f243537cf
 
-Thanks!
-
-[1/1] spi: stm32-ospi: Make usage of reset_control_acquire/release() API
-      commit: cf2c3eceb757e3f28e6f1034f9bc178e1535f5cc
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 _______________________________________________
 Linux-stm32 mailing list
