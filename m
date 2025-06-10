@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BABC8AD3CA7
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 17:20:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C91AD3CAA
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 17:20:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 855E5C36B38;
-	Tue, 10 Jun 2025 15:20:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95360C36B38;
+	Tue, 10 Jun 2025 15:20:54 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 764B8C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD31FC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jun 2025 15:20:40 +0000 (UTC)
+ Tue, 10 Jun 2025 15:20:53 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55ACLFR2012963;
- Tue, 10 Jun 2025 17:20:31 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55ACLDXT012933;
+ Tue, 10 Jun 2025 17:20:44 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- 6jFgEWw4ARwHHobxDSziy501YUd5MUew54ky5yZYuxs=; b=jMYwmn77htE4V8UU
- nGcXIOFkhTV+h1/yqiL4oZLxA77cuFLysjb22jU/rNnlO/RkibPrzctkoycqG1bp
- IUqtBMskQasxkXL5DHdx1lcdCbysClRitthSf7DpsYGEFTfqmkSyqisBysQDcAML
- 0A6Xv/8L2GDXZloRzQZzfDKSlko3+jcLENKDwRRON8TW6bsH7Jw568diqVcE3TZL
- 6yAu5t63wA689VY2dnHSZvMxQrHryXhA03qjabdfZcj8I1dsOT798doV7ySDL5SZ
- C3mB1ZKJQgIpj5cQAPRONseR3KhR95cmXFMg7jVmIyUYJMOp2S0D1JySbZh/G56B
- 7EACpg==
+ iRwS5y+6+ListVV+cfmEY7D708flMTRs7UfPH9JgUtw=; b=eKXRLLuGCrKmGZba
+ f3drpZSQ8KTejJTI2ufpHGpLXRJvFdVGLQH7A7h7glW3ReNXfiRkt943FaD5v+Ym
+ 686+XG5YoPs/hIyM9OOt9KuSA5qjMjIPfPnJ136WYhP6KiXOAfzksczto2yukHtq
+ pgT6Z9stXRKsxaTHHJO96/es/1ApxoNaKzby0aUP2PaJELFhLvtdj7kSdmqvkex3
+ fXJuPVPwPM8hXMpSTZXkE8NFrODJxAcTU367iFX0+87C5/pvA0SrT/MEhSimdHW5
+ yhfXe76a114n+iXP0qyROXNR8J3d/Z8SoUhUvK7l7lxCBUMDR2Bg1DCrss7SIg/g
+ cc+YlQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474aume532-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474aume54a-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Jun 2025 17:20:30 +0200 (MEST)
+ Tue, 10 Jun 2025 17:20:44 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E8F8B4004D;
- Tue, 10 Jun 2025 17:19:25 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 84A894004F;
+ Tue, 10 Jun 2025 17:19:26 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3F39EB74DC0;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBE9EB74DC7;
  Tue, 10 Jun 2025 17:18:44 +0200 (CEST)
 Received: from localhost (10.48.86.132) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Jun
- 2025 17:18:43 +0200
+ 2025 17:18:44 +0200
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -48,8 +48,8 @@ To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  <linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
  <linux-kernel@vger.kernel.org>
-Date: Tue, 10 Jun 2025 17:18:36 +0200
-Message-ID: <20250610151837.299244-5-antonio.borneo@foss.st.com>
+Date: Tue, 10 Jun 2025 17:18:37 +0200
+Message-ID: <20250610151837.299244-6-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250610151837.299244-1-antonio.borneo@foss.st.com>
 References: <20250610151837.299244-1-antonio.borneo@foss.st.com>
@@ -64,8 +64,8 @@ Cc: linux-arm-kernel@lists.infradead.org,
  Fabien Dessenne <fabien.dessenne@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: [Linux-stm32] [PATCH v2 4/5] ARM: dts: stm32: Add leds for CM4 on
-	stm32mp15xx-ed1 and stm32mp15xx-dkx
+Subject: [Linux-stm32] [PATCH v2 5/5] dt-bindings: pinctrl: stm32: Add
+	missing blank lines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,43 +82,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add to the node m4_rproc the pinctrl property corresponding to the
-orange LED.
-The GPIO is reserved for the coprocessor Cortex-M4 and will be
-ignored by Linux.
+Separate the properties through a blank line.
 
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- arch/arm/boot/dts/st/stm32mp157c-ed1.dts  | 2 ++
- arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi | 2 ++
- 2 files changed, 4 insertions(+)
+ .../bindings/pinctrl/st,stm32-pinctrl.yaml      | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-index 9cf5ed111b52e..f6c478dbd0418 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-@@ -328,6 +328,8 @@ &m4_rproc {
- 			<&vdev0vring1>, <&vdev0buffer>;
- 	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
- 	mbox-names = "vq0", "vq1", "shutdown", "detach";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&m4_leds_orange_pins_b>;
- 	interrupt-parent = <&exti>;
- 	interrupts = <68 1>;
- 	status = "okay";
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-index a5511b1f0ce30..26f36a232d42d 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
-@@ -479,6 +479,8 @@ &m4_rproc {
- 			<&vdev0vring1>, <&vdev0buffer>;
- 	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
- 	mbox-names = "vq0", "vq1", "shutdown", "detach";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&m4_leds_orange_pins_a>;
- 	interrupt-parent = <&exti>;
- 	interrupts = <68 1>;
- 	status = "okay";
+diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+index 5d17d6487ae9c..961161c2ab62b 100644
+--- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+@@ -32,13 +32,16 @@ properties:
+ 
+   '#address-cells':
+     const: 1
++
+   '#size-cells':
+     const: 1
+ 
+   ranges: true
++
+   pins-are-numbered:
+     $ref: /schemas/types.yaml#/definitions/flag
+     deprecated: true
++
+   hwlocks: true
+ 
+   interrupts:
+@@ -67,22 +70,29 @@ patternProperties:
+     additionalProperties: false
+     properties:
+       gpio-controller: true
++
+       '#gpio-cells':
+         const: 2
++
+       interrupt-controller: true
+       '#interrupt-cells':
+         const: 2
+ 
+       reg:
+         maxItems: 1
++
+       clocks:
+         maxItems: 1
++
+       resets:
+         maxItems: 1
++
+       gpio-line-names: true
++
+       gpio-ranges:
+         minItems: 1
+         maxItems: 16
++
+       ngpios:
+         description:
+           Number of available gpios in a bank.
+@@ -187,18 +197,25 @@ patternProperties:
+ 
+           bias-disable:
+             type: boolean
++
+           bias-pull-down:
+             type: boolean
++
+           bias-pull-up:
+             type: boolean
++
+           drive-push-pull:
+             type: boolean
++
+           drive-open-drain:
+             type: boolean
++
+           output-low:
+             type: boolean
++
+           output-high:
+             type: boolean
++
+           slew-rate:
+             description: |
+               0: Low speed
 -- 
 2.34.1
 
