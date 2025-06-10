@@ -2,41 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950E5AD3693
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 14:37:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2BBAD36A4
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 14:39:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D703C32EA8;
-	Tue, 10 Jun 2025 12:37:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68179C32EA8;
+	Tue, 10 Jun 2025 12:39:05 +0000 (UTC)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92251C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF2A2C32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jun 2025 12:37:52 +0000 (UTC)
+ Tue, 10 Jun 2025 12:39:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A0E16A51244;
- Tue, 10 Jun 2025 12:37:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FF07C2BCF5;
- Tue, 10 Jun 2025 12:37:47 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 01BDEA510A8;
+ Tue, 10 Jun 2025 12:39:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4359C4CEED;
+ Tue, 10 Jun 2025 12:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749559071;
- bh=ArW2/cfjiYvgjVqObVhL4JL7syCfeOsoHCZCVAJhKW0=;
+ s=k20201202; t=1749559142;
+ bh=fWHTM0XLFokZBXTTjppSI7itXW3nmi75qDHSGly0j1k=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=FZxoyScq8bX45QEcKl3p5GJFAdqQW+EH8RJ5OaXuUPgCeqcLK5ohNb/mUF30klThu
- 6Xwb9AvTawJdL5IBbNoEwX8f9CE5qH8Z940URNj7Ov+swW8fgi59W55pFLycjDxDuX
- Wwu+GY+oyIkEgAsnEBCNmDBDl0p3rQMFHIgMtkk6qXxv3P2uyF2DQelPai06zdTTm5
- 7eUZaoAEa2oNTPsVeusnYif289ARMpx29C8OtOwtehv+1R7nsBZc3gY05/3Ixj69tr
- 3xeZjOM/c40VkH6g5+drH98IgCUJD+bRTCQa6cLa7Z5oKLsc7fr6+3fnZATTOyi7Qg
- FthpJB/nf/fQA==
-Message-ID: <01b5a85d-05f5-4f39-9581-c6fed7123a31@kernel.org>
-Date: Tue, 10 Jun 2025 14:37:46 +0200
+ b=nG6WjNtGrTe9PTc88OsPzK4SaVzs+PEPzODSC2F0yc6UrXCYTi6UcxiDCbengYWp4
+ qbPO1up3qkZlyp7NB2bNr961qNV4aIPpprpS6TRsVBtxNFpLyr/+EN05OGcACt8JhP
+ mBfXiACtHhH1hVFm9uwYKix0Y0DLy4vYdTDNzns+TjRP4JrSk8MJDqnQrxdueTLPtD
+ /9QTLmS8/ZFOHpKfzHYBBSujMk1ScfiU5cs7eBAJ1rEFIgEV7QWbVDY4eq7npxcKjE
+ 9A9Zz4h+zJwJxNpNtqxwmC2+SDqi+nPFQ3dynGqkkBMv/p5lfh3zoJNuw5YQbWdw9R
+ wjzN5FzJFB/9w==
+Message-ID: <7000f63e-5e68-465d-9d7f-1a6ca0524222@kernel.org>
+Date: Tue, 10 Jun 2025 14:38:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>
-References: <20250528-hdp-upstream-v4-0-7e9b3ad2036d@foss.st.com>
- <CACRpkdZ2NUfcn7O7tKSFDyAr8Hni3pvpTN6QpOz7N3J+EsFdLg@mail.gmail.com>
- <3a9e5a1b-41fd-4ddf-938a-bed98551a024@foss.st.com>
+ Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
+ <20250523-hdp-upstream-v3-5-bd6ca199466a@foss.st.com>
+ <5b7a2102-ff68-4aab-a88d-0c4f9195ef95@kernel.org>
+ <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
+ <3ba588ed-1614-4877-b6fc-b5aa853b8c2e@kernel.org>
+ <714ad17d-53f1-4703-8e13-61c290a8da89@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,16 +89,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <3a9e5a1b-41fd-4ddf-938a-bed98551a024@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/9] Introduce HDP support for STM32MP
-	platforms
+In-Reply-To: <714ad17d-53f1-4703-8e13-61c290a8da89@foss.st.com>
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
+ debug port (HDP) on stm32mp13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,28 +106,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTAvMDYvMjAyNSAxNDoyMCwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4gT24gNi81LzI1
-IDE1OjAzLCBMaW51cyBXYWxsZWlqIHdyb3RlOgo+PiBPbiBXZWQsIE1heSAyOCwgMjAyNSBhdCAz
-OjMz4oCvUE0gQ2zDqW1lbnQgTGUgR29mZmljCj4+IDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3Qu
-Y29tPiB3cm90ZToKPj4KPj4+IENsw6ltZW50IExlIEdvZmZpYyAoOSk6Cj4+PiAgICAgICAgZ3Bp
-bzogbW1pbzogYWRkIEJHUElPRl9OT19JTlBVVCBmbGFnIGZvciBHUE8gZ3Bpb2NoaXAKPj4+ICAg
-ICAgICBkdC1iaW5kaW5nczogcGluY3RybDogc3RtMzI6IEludHJvZHVjZSBIRFAKPj4+ICAgICAg
-ICBwaW5jdHJsOiBzdG0zMjogSW50cm9kdWNlIEhEUCBkcml2ZXIKPj4+ICAgICAgICBNQUlOVEFJ
-TkVSUzogYWRkIENsw6ltZW50IExlIEdvZmZpYyBhcyBTVE0zMiBIRFAgbWFpbnRhaW5lcgo+Pgo+
-PiBDYW4gSSBhcHBseSB0aGUgZHJpdmVyIGFuZCBiaW5kaW5ncyBwYXRjaGVzIDEtNCBzZXBhcmF0
-ZWx5Cj4+IGZyb20gdGhlIHJlc3Qgb2YgdGhlIHNlcmllcz8KPiAKPiBUaGUgTUFJTlRBSU5FUlMg
-ZmlsZSB3aWxsIG5lZWQgYSBmaXggaW4gdGhlIGZ1dHVyZSByZXZpc2lvbi4KPiBJJ2xsIHdhaXQg
-S3J6eXN6dG9mIGFuc3dlcnMgYmVmb3JlIHN1Ym1pdHRpbmcgYSBWNSB3aXRoIHRoZSBmaXguCj4g
-Cj4gT3RoZXJ3aXNlIHBhdGNoIDEtMyBjYW4gYmUgbWVyZ2VkLCBidXQgSSB0aGluayB5b3UgbWF5
-IG5lZWQgdGhlIAoKTm8sIHRoZXkgY2Fubm90IGJlIG1lcmdlZC4gVGhleSB3ZXJlIHVucmV2aWV3
-ZWQgYmVjYXVzZSB0aGV5IHdlcmUgbmV2ZXIKdGVzdGVkIGJ5IHRoZSBhdXRob3IgYW5kIHdpbGwg
-b2J2aW91c2x5IGJyZWFrIHRoZSBuZXh0LgoKRG9uJ3QgYXBwbHkuCgpCZXN0IHJlZ2FyZHMsCkty
-enlzenRvZgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On 10/06/2025 14:02, Clement LE GOFFIC wrote:
+> On 5/29/25 11:01, Krzysztof Kozlowski wrote:
+>> On 28/05/2025 14:14, Clement LE GOFFIC wrote:
+>>>>
+>>>>> +		};
+>>>>> +
+>>>>> +		hdp: pinctrl@5002a000 {
+>>>>> +			compatible = "st,stm32mp131-hdp";
+>>>>> +			reg = <0x5002a000 0x400>;
+>>>>> +			clocks = <&rcc HDP>;
+>>>>>    			status = "disabled";
+>>>>
+>>>> Why are you disabling it? What is missing?
+>>>
+>>> Nothing is missing just disabled by default.
+>>> The node is then enabled when needed in board's dts file.
+>> Nodes should not be disabled by default if they are complete. That's why
+>> I asked what is missing. Drop.
+> 
+> Hi Krzysztof, OK I better understand now.
+> So yes the 'pinctrl-*' properties which are board dependent are lacking.
+
+These are not properties of this node.
+
+> 
+> In the last patch of my serie I add them (only for stm32mp157f-dk2) but 
+> keep it disabled because the pin is on an external connector (the 
+> Arduino connector of the board).
+> This prevent any issue with a possible connected module.
+
+Not relevant. Pin control for connector are board specific, but pinctrl
+SoC part is SoC.
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
