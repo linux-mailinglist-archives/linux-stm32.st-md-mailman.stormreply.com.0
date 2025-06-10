@@ -2,99 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2BBAD36A4
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 14:39:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834E1AD3740
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Jun 2025 14:50:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68179C32EA8;
-	Tue, 10 Jun 2025 12:39:05 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 244D1C32E93;
+	Tue, 10 Jun 2025 12:50:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF2A2C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4CAAC35E2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jun 2025 12:39:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 01BDEA510A8;
- Tue, 10 Jun 2025 12:39:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4359C4CEED;
- Tue, 10 Jun 2025 12:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749559142;
- bh=fWHTM0XLFokZBXTTjppSI7itXW3nmi75qDHSGly0j1k=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nG6WjNtGrTe9PTc88OsPzK4SaVzs+PEPzODSC2F0yc6UrXCYTi6UcxiDCbengYWp4
- qbPO1up3qkZlyp7NB2bNr961qNV4aIPpprpS6TRsVBtxNFpLyr/+EN05OGcACt8JhP
- mBfXiACtHhH1hVFm9uwYKix0Y0DLy4vYdTDNzns+TjRP4JrSk8MJDqnQrxdueTLPtD
- /9QTLmS8/ZFOHpKfzHYBBSujMk1ScfiU5cs7eBAJ1rEFIgEV7QWbVDY4eq7npxcKjE
- 9A9Zz4h+zJwJxNpNtqxwmC2+SDqi+nPFQ3dynGqkkBMv/p5lfh3zoJNuw5YQbWdw9R
- wjzN5FzJFB/9w==
-Message-ID: <7000f63e-5e68-465d-9d7f-1a6ca0524222@kernel.org>
-Date: Tue, 10 Jun 2025 14:38:57 +0200
+ Tue, 10 Jun 2025 12:50:57 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55ACLDZr012939;
+ Tue, 10 Jun 2025 14:50:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=pJAee28q72qTBjZcGP6IMl
+ +e1YIXch0GS+MmyHTBJTg=; b=CNz98/qQnnuBxhV5Kdj2cMdL+uycW/qV2Hms1h
+ eorEmBev9WP7jPcbcFDXsPIYPve9s14fQhgGE/jHulo6KeZxnr6fVArNtcNxetxQ
+ 9AqGhP+WUFAn6ut7ZvoxaHSufPT/Sf9ENU7o8m6yw7YXG++o8QnAzGcGxCTX/jLq
+ 69n74N/QxcBN0R7YZzEsd7n6duxGw42+4U7pQ5+KdsCYXn+HLVMTN52NJMa+kf+c
+ xT6fUGTqb5ZV8VIvZ+3KVDA66d6Iww+iJjyEEVrnrzZUXM4YiWLZ6gy2IRD2C6/O
+ PA/EPcnZTOqzJw+iNFpDu5Bo/TDkZzB0TenMNeaT9cNbDkpQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474aumd9u5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Jun 2025 14:50:43 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 64BEB40044;
+ Tue, 10 Jun 2025 14:49:39 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7854AB35DBD;
+ Tue, 10 Jun 2025 14:48:59 +0200 (CEST)
+Received: from localhost (10.48.86.132) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Jun
+ 2025 14:48:59 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, Gatien Chevallier
+ <gatien.chevallier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, Lee
+ Jones <lee@kernel.org>, <linux-iio@vger.kernel.org>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>
+Date: Tue, 10 Jun 2025 14:48:50 +0200
+Message-ID: <20250610124855.269158-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
- <20250523-hdp-upstream-v3-5-bd6ca199466a@foss.st.com>
- <5b7a2102-ff68-4aab-a88d-0c4f9195ef95@kernel.org>
- <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
- <3ba588ed-1614-4877-b6fc-b5aa853b8c2e@kernel.org>
- <714ad17d-53f1-4703-8e13-61c290a8da89@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <714ad17d-53f1-4703-8e13-61c290a8da89@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
- debug port (HDP) on stm32mp13
+X-Originating-IP: [10.48.86.132]
+X-ClientProxiedBy: SAFCAS1NODE2.st.com (10.75.90.13) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-10_05,2025-06-10_01,2025-03-28_01
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/5] STM32: Fix build warnings about export.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,41 +77,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/06/2025 14:02, Clement LE GOFFIC wrote:
-> On 5/29/25 11:01, Krzysztof Kozlowski wrote:
->> On 28/05/2025 14:14, Clement LE GOFFIC wrote:
->>>>
->>>>> +		};
->>>>> +
->>>>> +		hdp: pinctrl@5002a000 {
->>>>> +			compatible = "st,stm32mp131-hdp";
->>>>> +			reg = <0x5002a000 0x400>;
->>>>> +			clocks = <&rcc HDP>;
->>>>>    			status = "disabled";
->>>>
->>>> Why are you disabling it? What is missing?
->>>
->>> Nothing is missing just disabled by default.
->>> The node is then enabled when needed in board's dts file.
->> Nodes should not be disabled by default if they are complete. That's why
->> I asked what is missing. Drop.
-> 
-> Hi Krzysztof, OK I better understand now.
-> So yes the 'pinctrl-*' properties which are board dependent are lacking.
+This series fixes, for the SoC's STM32, the new warnings that
+appear from v6.16-rc1 about mismatch between the include of
+linux/export.h and the use of EXPORT_SYMBOL().
 
-These are not properties of this node.
+Antonio Borneo (5):
+  bus: stm32_firewall: Fix build warnings about export.h
+  iio: adc: stm32-dfsdm: Fix build warnings about export.h
+  iio: trigger: stm32-timer: Fix build warnings about export.h
+  iio: trigger: stm32-lptimer: Fix build warnings about export.h
+  mfd: stm32-timers: Fix build warnings about export.h
 
-> 
-> In the last patch of my serie I add them (only for stm32mp157f-dk2) but 
-> keep it disabled because the pin is on an external connector (the 
-> Arduino connector of the board).
-> This prevent any issue with a possible connected module.
+ drivers/bus/stm32_firewall.c                | 1 +
+ drivers/iio/adc/stm32-dfsdm-adc.c           | 1 +
+ drivers/iio/adc/stm32-dfsdm-core.c          | 1 +
+ drivers/iio/trigger/stm32-lptimer-trigger.c | 1 +
+ drivers/iio/trigger/stm32-timer-trigger.c   | 1 +
+ drivers/mfd/stm32-timers.c                  | 1 +
+ 6 files changed, 6 insertions(+)
 
-Not relevant. Pin control for connector are board specific, but pinctrl
-SoC part is SoC.
 
-Best regards,
-Krzysztof
+base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
