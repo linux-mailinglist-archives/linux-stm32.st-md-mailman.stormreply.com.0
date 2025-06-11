@@ -2,78 +2,155 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465ACAD4CFA
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 09:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88213AD4EBA
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 10:46:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3489C32E8E;
-	Wed, 11 Jun 2025 07:35:28 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08140C36B11;
+	Wed, 11 Jun 2025 08:46:34 +0000 (UTC)
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
+ (mail-sh0chn02on2129.outbound.protection.partner.outlook.cn
+ [139.219.146.129])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9DABC36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C384C36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 07:35:27 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E7773443D3;
- Wed, 11 Jun 2025 07:35:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1749627326;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KiyDyclqecsk9BIhJPotcA86DvJLdYwDNphU2h/Syvs=;
- b=ExHWWoEY7rGIzBH2hTP41+dRx7QD45h9+GCRlhMqsGjxIUva5rl/uu6M7C0UepYUk7Y9I4
- y0QCs58j7ZYuyIoZCiOsT7vAdRmdkfa4EtnvTsBT1pAMdwtmXmYU7NRLjlgz/AogBmT9gq
- 2US+W4HBVTtpEw73AVkrR8bxCiZTAOQiYLy4Yt0KuNdklqu4q7Okv0y1OK+A26vcxX6zqf
- 6wsxpsI6vtrPBsIEOGd0J/N5QdPcZ5QjoQqEX5Kxy9Ra7Jwt2ZmzTwU5dJMbq7HNgHQQcr
- ISRQwIoW5kmXWeccGDoDXEyzEJpJB9DPCj8MHSy8O/THILFtsRDHsDLiDWTTvg==
-Date: Wed, 11 Jun 2025 09:35:21 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <20250611073521eaf70434@mail.local>
+ Wed, 11 Jun 2025 07:49:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OYAMovKxu8zR8PumZ52GrMkFPsb6fnczPrY2ztRezkUevqxyNrrGJjgXNq5eIUxBjUhpVdqIs5w3mMxm17bDF3k7Jdy9JRM90qWcc0tyRmrT6o9VKvKmpn6R8XA8BefRvxJAfSGHejfkGsbRyCPsiGoFDId346xF/Eb3pphDP9OyWQhkBt6cqeZholxuxS0vaHHSLq4Kun506yd197ZpHx7dSojrHXA3JVLAH/ewlPFKO3lMbh4snOOu7N1LKi/shy5Vxp98QPdFTOtZulN+q7gDJ2wITBUTqmnzcsZx9FwXQY3so9JXVhrU/AL9HEM9Z2zRzPyUCYRUMauMUQCj5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FTKpDYpGsK3lbDagPVf7Yx7Rcr3T6Eo8k+Zi9vqiQG0=;
+ b=im+NBteedQnQi1hOuZVHeXWo4A807NaVex2NcpN3eXuc9+fnJemNBUCNsyaa8jwbWw+OAQlspVm5/Qzs30GuCN0Hb7IpnGvGmjb7SuYW23/LAky65Mo8tlsbn1LaThoAtfnJi3L2lKqGquo/PFhJaDQ2V0ZqTPV0F6C+TM78JqFoz/Qy/7nzjm5VmgdrOczUVpiJ1L/V3WXcTwPHLT8q7FFbt+xqNlCPq39AMKME3Z4j3dU68okgKNawHSSv/AmV9HjgZ7GwOOmFT3qvwRfZcDFGk4IDGnMnlgcaIngDhCn16/2l2L0csSn0OYpiFRjkm5mfIt8+kSuG2FO1WECyxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::5) by NT0PR01MB1135.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:2::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.43; Wed, 11 Jun
+ 2025 07:49:00 +0000
+Received: from ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn
+ ([fe80::3651:ecde:eeff:e364]) by ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn
+ ([fe80::3651:ecde:eeff:e364%3]) with mapi id 15.20.8792.042; Wed, 11 Jun 2025
+ 07:49:00 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Andrew Jeffery
+ <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, Avi Fishman
+ <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, Tali Perry
+ <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, Nancy Yuen
+ <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ =?utf-8?B?Sm9uYXRoYW4gTmV1c2Now6RmZXI=?= <j.neuschaefer@gmx.net>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, Broadcom internal kernel
+ review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, David Rhodes
+ <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Lorenzo Bianconi
+ <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>, Jesper Nilsson
+ <jesper.nilsson@axis.com>, Lars Persson <lars.persson@axis.com>, Damien Le
+ Moal <dlemoal@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>, Michal Simek
+ <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>, Jianlong
+ Huang <jianlong.huang@starfivetech.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Manivannan Sadhasivam
+ <mani@kernel.org>
+Thread-Topic: [PATCH v2 01/17] pinctrl: starfive: Allow compile testing on
+ other platforms
+Thread-Index: AQHb2pgQVbcG7PNgJEGvLmECbqcfNbP9lBfQ
+Date: Wed, 11 Jun 2025 07:49:00 +0000
+Message-ID: <ZQ4SPRMB00018B4570A6C7FC24EBFB85E6752@ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn>
 References: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
- <20250611-pinctrl-const-desc-v2-17-b11c1d650384@linaro.org>
+ <20250611-pinctrl-const-desc-v2-1-b11c1d650384@linaro.org>
+In-Reply-To: <20250611-pinctrl-const-desc-v2-1-b11c1d650384@linaro.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4SPRMB0001:EE_|NT0PR01MB1135:EE_
+x-ms-office365-filtering-correlation-id: a1c42e17-8e41-4cca-8c21-08dda8bc6d96
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|41320700013|7416014|921020|38070700018; 
+x-microsoft-antispam-message-info: 3kvtqbtf/Oxid2MMCXR3wRUn08BKaBEeMF8iTN8aO6JohyMlBFuY8p1AV7Tl+cAQlGpjGbHoZMBOKJh5i2pvNrifD5VA7VgWd6lq4rjExaOgonsx9IZzw8wbkKBPSi8f/mPSDefnnyi+NuImMfwFk3cqroeczSDEsBspl/uN4kBdL1jJrs4owRjcEU+TzjkU9moN9oaiw4rBq41xLejS8c09GBxXyylh5Wo+74pmdX51BU5pv53/0VIBXr3/dcb03C3qgfxczxl/SDKtmCDyfc6YGphUTn8R7c+JQXJxHMWZpoqXqg0CkqvfDRBf83+va2MFx5ln4Ti1mzFJejJO9fKzpAK3eyxuJjjmj9xCpdyQGrfdDX3xRVUFZBpk7KF5NUv8dhxusWh4uQCOb3CWKHhsNj3HHuFIncXEF7qBRxJMNGPpig7+BX5N3+UVxOQ8QofBc9bqgZJlFfD96EdqJ74k3sd1WcNwrMQOSYqRoQaAx4b0dYCtEJxRyhfUHA7hdMfjiSYnIyP4SaR5sqUg36Q3/IWYi0KM/LVG9wIknaBXYkn1NjLTu6IsZdNUx2A6otakXDDZ2dnHMqfTJrFvG/oQWDkk17Q0FRzx+znbZz8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(41320700013)(7416014)(921020)(38070700018);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YXBQcUVlMmZoV2owTEJsZ1N5enVhbWp4R3N6TFdzMERWQmJqenJhaDd2YkhB?=
+ =?utf-8?B?VnZBYVNwR0xpVzcwYWVHRjgzTDFQY0E1ZDNVbEdrZGdVaDRFV2NMcVBTK2Ru?=
+ =?utf-8?B?dWN6SkMrVk8yRk1jdi9ONDhScXRnbWdPYld0VFg3YkJ0eHJLbjluWDA1aWxi?=
+ =?utf-8?B?VVQzRXBFYmxBeFczRmpDb2JlN2h2VHdLVmZ1QWhPZVRwTGFTY0F3T2lKdTc5?=
+ =?utf-8?B?YXdtdHdVNXFkN2pXWFIxUWlrenFXVVBDOWtLNGpPSGNma3MxNzRSblFDZk5W?=
+ =?utf-8?B?b0pqUGhOZy9uRURzU3psZGRIell3aFBXMmtCdlZXZ2ZURGZjVmlTazR2ZElI?=
+ =?utf-8?B?RjFSY1ZrTXlFVEpLSmxWZ3F2Zi9kMndkSWx5TnBUUVl3akxENkZQT2VGbCtC?=
+ =?utf-8?B?bW9WZG14QnVZa0g4VTVSOWtlblVVa1hmcGozNGRmazJNbnk2TmltbEtWb0pn?=
+ =?utf-8?B?b1lBcE5KSFNwNmExTUxQcE9Ha1B4T0VIdm9RNURNdTZhYmFFekp5SDNWUXI4?=
+ =?utf-8?B?Y3ZnUytURDlFQ3k0TzV1M1NIcVpwRWZseTBhVTdIK1hZY3Zvc0I1bUdWSGcy?=
+ =?utf-8?B?aEJsczI1OFFyelY4VnVmc3J4TlF6eTNDeUlMQ1Q1MEllRUVxS3AzWVRRcFE1?=
+ =?utf-8?B?N0JRVVd6aXpzQm1pS2dHblZ1UGhZL0JYNGUzWmZub255MUdOd3h3SlFpRmc2?=
+ =?utf-8?B?aWtwUkZheUZFbnBpMUtqRVV0NUhrU2pqODVPaGRxVHZEWmxpdVRvZ3A1U2pH?=
+ =?utf-8?B?Z2hHUUEyYTFRWUV3aHlLZTZsbGFOYVlIeTEvZ3VOdmlOdFVGNTNERHBLQ2JB?=
+ =?utf-8?B?dmZXOTQxc0JkZjdxOWpuUFhVRFl3WDRleWM1bTFmdjV6Rlo4bGo1R2o4MXo4?=
+ =?utf-8?B?OC8wVVNvK3UzQmZYZFM1U3RoSTNEaUt0OHVCTUljYmRPeFVWNUs3cUxrRm4x?=
+ =?utf-8?B?QmM1aGNqNDY3V2lyMmdnS3d1T0ZSb0ZFSmQxb1haaW9kY2R4aUpnMTZjYlhO?=
+ =?utf-8?B?aFlGRzhoczlVOHVwUm5uaUtHZGxwRi9uUzVaMU5kV2t4bnRnYXpNa3YvWFFI?=
+ =?utf-8?B?disxd2ZEY1dEUnhHWS90YXlpZXFMUnFFSm55QTJ5NDJzV2pkczMzdWlsNlRz?=
+ =?utf-8?B?MlBiRGJtN1cxRXE3T1BSZlZUaG84WWpocmJGT2pkYmxOWUhTVXJwTkQvZnpn?=
+ =?utf-8?B?UXhzWEtXNlNmOVBubjZLaDFxNjJNQVlpV0Z5blkzOHB2R0pLRXhhNU9HNGND?=
+ =?utf-8?B?azdwQk1FVzFBS0F2M0l2V2pSbFl1RjJLU2xqS0xJNEc3ZWZrOFZmdlExTFFQ?=
+ =?utf-8?B?NEVLRmkwV0dsYmQ0V0JXUmwzOFpraVRPRUV1MDgrZmIxd1ZRRDlaSHIwSHhH?=
+ =?utf-8?B?M21MNzNpRDhXeTZQMXJKWTRVMmxmYkliYU44U3J5dCsxeWZVeFU2RUJXUGpo?=
+ =?utf-8?B?dGk5akhYMUpCUWUvQXYrd3VLMEhROGZ0dHd1R2g2MitNNjVScFVUNHR4RzYv?=
+ =?utf-8?B?Umt4djRNai95TVE1R3hVbWZmZHZWL0pkcDVyL0Q1MEFRL3hGWnlsQTY3a1hF?=
+ =?utf-8?B?NUJRQXBWMS9vM2NMRmZ1SmY3L2hXVE1ZdnhkRVVvZFMvcG9QSkpqYzVIeGJE?=
+ =?utf-8?B?QThPOVhkT2NpckJqUkM3ZnpiNWREZ0ZtSGtDZzJNWWFxVnE5VU1DVHhpOWNW?=
+ =?utf-8?B?bWNSNVRlTUhOY0N3cXluY0tWd1hlQTErb250TXBrb0ZEbXNRRGJQa2g2OUIz?=
+ =?utf-8?B?OWpNRGVnNU44aEZHeWtUeHpPdU9zejEzc1V1TnFpVFp2OGdURUhVSlg2NktU?=
+ =?utf-8?B?eWNPcW5RekEvZG11QzZPb2R3TStFYmhCZ2d5SC9jWnNMSHNJOVQvSjExUmlm?=
+ =?utf-8?B?b29PZG02dWYxd3dwQ2J0ak1mdG95MkN1bnZrdyt2RUVhWXcyUkEzVUEyU3Zy?=
+ =?utf-8?B?ci9qd0dPcUYvME5leCtzeUdUOGVEcTA0NDV2eHB3SHdsNC9seUxpVUV4N1Fp?=
+ =?utf-8?B?Q3JBOHlzSkJma1BGbkhmcjlMb2hRQlliRzlQdW5KUUJ5VzZQQnlxUTYyUjFa?=
+ =?utf-8?B?bjY3aG5pS1d5eUozYnc2bFI1YzVEblREaEkzcnR3Ym8xaGw3eTVPN1ZnalVT?=
+ =?utf-8?B?WmRFbjZQUm43K0Yrb09Fd1N5VTVaWnV4cUFtSnJIRForS25iUlBFenBLc0l4?=
+ =?utf-8?B?R0E9PQ==?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250611-pinctrl-const-desc-v2-17-b11c1d650384@linaro.org>
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugdduudeklecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomheptehlvgigrghnughrvgcuuegvlhhlohhnihcuoegrlhgvgigrnhgurhgvrdgsvghllhhonhhisegsohhothhlihhnrdgtohhmqeenucggtffrrghtthgvrhhnpeeiieevfeekgeevgfegudeuuedtfffgiefffedtudeftdehkeelieettdffhffftdenucfkphepvdgrtddumegtsgdugeemheehieemjegrtddtmedvugdutdemkeejugehmedvsgguieemvdehjeejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddumegtsgdugeemheehieemjegrtddtmedvugdutdemkeejugehmedvsgguieemvdehjeejpdhhvghloheplhhotggrlhhhohhsthdpmhgrihhlfhhrohhmpegrlhgvgigrnhgurhgvrdgsvghllhhonhhisegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeegledprhgtphhtthhopehkrhiihihsiihtohhfrdhkohiilhhofihskhhisehlihhnrghrohdrohhrghdprhgtphhtthhopehlihhnuhhsrdifrghllhgvihhjsehlihhnrghrohdrohhrghdprhgtphhtthhopeeurghsrghvrghrrghjrdfpr
- ghtihhkrghrsegrmhgurdgtohhmpdhrtghpthhtohepufhhhigrmhdqshhunhgurghrrdfuqdhksegrmhgurdgtohhmpdhrtghpthhtoheprghnughrvgifsegtohguvggtohhnshhtrhhutghtrdgtohhmrdgruhdprhgtphhtthhopehjohgvlhesjhhmshdrihgurdgruhdprhgtphhtthhopegrvhhifhhishhhmhgrnhejtdesghhmrghilhdrtghomhdprhgtphhtthhopehtmhgrihhmohhnjeejsehgmhgrihhlrdgtohhm
-X-GND-Sasl: alexandre.belloni@bootlin.com
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- Linus Walleij <linus.walleij@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-aspeed@lists.ozlabs.org, Emil Renner Berthing <kernel@esmil.dk>,
- linux-rtc@vger.kernel.org, Jesper Nilsson <jesper.nilsson@axis.com>,
- Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
- linux-arm-kernel@axis.com, Hal Feng <hal.feng@starfivetech.com>,
- Nancy Yuen <yuenn@google.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
- linux-sound@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
- linux-gpio@vger.kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
- Lars Persson <lars.persson@axis.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Scott Branden <sbranden@broadcom.com>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, Sean Wang <sean.wang@kernel.org>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Jianlong Huang <jianlong.huang@starfivetech.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com
-Subject: Re: [Linux-stm32] [PATCH v2 17/17] rtc: stm32: Constify static
-	'pinctrl_desc'
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4SPRMB0001.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1c42e17-8e41-4cca-8c21-08dda8bc6d96
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jun 2025 07:49:00.2130 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yk/eSAAKlMEL6D8tj50NlZFC2wJQ5YzVFAidD7WbDURu7KJqDL6rknmBDccrQ56RtyvP651FAGii23jofqT+9eU4y2ZPaV/z/gn8jMVxpXw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1135
+X-Mailman-Approved-At: Wed, 11 Jun 2025 08:46:33 +0000
+Cc: "linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "linux-arm-kernel@axis.com" <linux-arm-kernel@axis.com>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 01/17] pinctrl: starfive: Allow compile
+ testing on other platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,40 +167,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/06/2025 08:13:49+0200, Krzysztof Kozlowski wrote:
-> The local static 'struct pinctrl_desc' is not modified, so can be made
-> const for code safety.
+> On 11.06.25 14:14, Krzysztof Kozlowski wrote:
+> Always descent to drivers/pinctrl/starfive/ because limiting it with
+> SOC_STARFIVE is redundant since its Makefile doesn't build anything if no
+> Starfive-specific pin control Kconfig options are enabled.  This allows compile
+> testing on other architectures with allyesconfig.
 > 
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Acked-by: Hal Feng <hal.feng@starfivetech.com>
 
-> 
+Best regards,
+Hal
+
 > ---
-> 
-> Patch depends on this series - const in pinctrl core. Please ack and
-> this should go via pinctrl tree.
-> ---
->  drivers/rtc/rtc-stm32.c | 2 +-
+>  drivers/pinctrl/Makefile | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-> index ef8fb88aab48a0edad19ae5872421815aa04fe46..d4ebf3eb54aa9e91c8e9f8254f571c53794192fd 100644
-> --- a/drivers/rtc/rtc-stm32.c
-> +++ b/drivers/rtc/rtc-stm32.c
-> @@ -393,7 +393,7 @@ static const struct pinmux_ops stm32_rtc_pinmux_ops = {
->  	.strict			= true,
->  };
->  
-> -static struct pinctrl_desc stm32_rtc_pdesc = {
-> +static const struct pinctrl_desc stm32_rtc_pdesc = {
->  	.name = DRIVER_NAME,
->  	.pins = stm32_rtc_pinctrl_pins,
->  	.npins = ARRAY_SIZE(stm32_rtc_pinctrl_pins),
+> diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile index
+> 65dac8e387985ac7f865d13325eb903f64645a2a..de80f3ee52c40f3a817f2
+> 29a751909c590161594 100644
+> --- a/drivers/pinctrl/Makefile
+> +++ b/drivers/pinctrl/Makefile
+> @@ -83,7 +83,7 @@ obj-y				+= sophgo/
+>  obj-y				+= spacemit/
+>  obj-$(CONFIG_PINCTRL_SPEAR)	+= spear/
+>  obj-y				+= sprd/
+> -obj-$(CONFIG_SOC_STARFIVE)	+= starfive/
+> +obj-y				+= starfive/
+>  obj-$(CONFIG_PINCTRL_STM32)	+= stm32/
+>  obj-y				+= sunplus/
+>  obj-$(CONFIG_PINCTRL_SUNXI)	+= sunxi/
 > 
-> -- 
+> --
 > 2.45.2
-> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
