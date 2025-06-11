@@ -2,71 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF41AD57A5
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 15:54:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE6E3AD57B7
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 15:57:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F9E5C32E8E;
-	Wed, 11 Jun 2025 13:54:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D57FC32E8E;
+	Wed, 11 Jun 2025 13:57:36 +0000 (UTC)
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D178C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A224C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 13:54:58 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55BCFOAP014824;
- Wed, 11 Jun 2025 15:54:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- SVo3B24OwlGB4MegvwJiCx+gPz1XAKK8W690GqvITAQ=; b=a3CiH6h0cxGgTkgA
- Aqee/5M/6dNuYYLxJdIVA+T0Im2/E65K7ptBXpADH0V+zNyZa3b8Qpv3rxV67eGR
- mCO87tx4+jGIAHUiwJAeThs04F7Rk8GF35De9xoq1+ECrpydeANzzpD4pbY2b0IN
- mjcwVS6eDOPTQTwd/DPfLJjwkRQHtWepwPiX3iEUt+aWUcTdrDO/ePYyEHnHwtwi
- SIGHKSiRI8e2KB+VUWXYJhr67wWD47NYR7Nvd3a++wt9u0odcRes/VkTwpaU09ms
- H+YeJmq+CCRjU53+AKY4FQYwNQYjiCBDMMi4DCSWkNqSa0VLl8dETa6DU7j8Nkqj
- u3NJbA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474ajaa6d5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Jun 2025 15:54:28 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CE8EE40048;
- Wed, 11 Jun 2025 15:52:56 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 00A94B12446;
- Wed, 11 Jun 2025 15:51:46 +0200 (CEST)
-Received: from [192.168.8.15] (10.252.18.240) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
- 2025 15:51:44 +0200
-Message-ID: <a5e25ab7c595936f93198c9ac0b2e048a83f5b57.camel@foss.st.com>
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 11 Jun 2025 15:51:42 +0200
-In-Reply-To: <20250611104348.192092-10-jirislaby@kernel.org>
-References: <20250611104348.192092-1-jirislaby@kernel.org>
- <20250611104348.192092-10-jirislaby@kernel.org>
-User-Agent: Evolution 3.48.4 
+ Wed, 11 Jun 2025 13:57:34 +0000 (UTC)
+Received: by mail-oi1-f172.google.com with SMTP id
+ 5614622812f47-408e0986303so4693123b6e.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 11 Jun 2025 06:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749650254; x=1750255054;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Onw+F7Njzqx9qJlT9wI5+vJ8uzypmHxvVhvYZXMTUQc=;
+ b=dq5xDzhCi9C5FtZW/lF8hhYC9UllQ+h4zBec45EVsj4QgChN7/W5h5J0wic7NppiVl
+ AwNPwzmAU6bX5HEe3G2T54Zl76c9l+SQFYbO6PeSSQ5onfqUt+flun8rPpJpstoCzOPC
+ k1+1Y3xW/26XRFBkppVmWJu5t7S9UHH78U0kz2WVhBEyITyk+V+8wmrd3XyFSArYR+A0
+ la5754aqRzXrfVdk7OVoEe/jvgTbJ6H2c7XMXa4Le+8llc0Ovtm2dS5wVAdt3SlXUxVg
+ PKNNpQPTZsU1Q9sga4619TmJGAal4Ph72XUiCykcuSX0WImgx7ld8YN8+0GQ1XM1VM3R
+ nlHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749650254; x=1750255054;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Onw+F7Njzqx9qJlT9wI5+vJ8uzypmHxvVhvYZXMTUQc=;
+ b=AmKvVM0BwjK85akQMg32416smajXfwS1tE6AnDzAGJ0alhEjrk0iXJGiO/7FIaEI0t
+ Nfp7Qw3hSbzq+480GOPv+NZz+ys0M756xGBC/epKqzV2B3YBZf26nYTjoFonFczgf4Vh
+ mU07oIj9anedAXR+pB3pJos2MoyU7WncUwMY2UVqZdlWrpXX2EeM34tiV3iLOY9ArE6t
+ 8yZB6NgVdUIN49849CLEc2MbcfORVTdSF/6KhW+Par0RoPUFFCbbtLLcefeZcJwKSdvy
+ +8rlb3je627Ik9JSfc/dYOaV9NphxFeVXwb1WCsOm0c1M7sgEcl9obTxilUip1lu+Mcw
+ qoCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUinkOUlI65FTUFYr0GacgRzEyqtbsGWw0lEiXoIVeYwkEJV4Ha5IQBTwzYbmAMEKODCCqoFexld+alIQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyY+PkDS7CHkNj38J1qXVxXpVUxhcTWAMJ3JPt53bcIfxbA0Edq
+ Qc5vVMzJeRvcnckFR/sC5uHMLvMmSLdwJ/e7cqAuuSI7C0H3fLo5g+gCKjIZU9uI2jE=
+X-Gm-Gg: ASbGnct1Kzs+/27/oQHG8qczSTGp3MNOOW6TO/kmBL5Dfb7TIQz08AfAxnJ4r57/f25
+ rFZfyvIRsUQDXH5+AdJjXHFHbA2971JM3kTiUEyerpXDKL1dfb7wK6whf1TgybUpNipAcrsMTaN
+ QxgfngQcwyIfm/ErYrM8JvJOf94hJWX8xFl6BwEvKUtU64R8sIF7Kjpez9EvaXPb8+I8pwLK1S7
+ JFnV4odmqfaa1G9gkRgabuL1V2w+oRqHcnzZjTxilQMtjcQFsBPKPlOLYrx+bE6VO/fKi/v082+
+ vB1FtM0O9lPSwDPIeFgPiasdz4LDa5RpSqfv6Oprg6jGLKKBMDx41Hwq8NiMOjAmNn3Ve5j5AFW
+ +WkunNkHaKZGr8J3B2GuunAmJUtWiDsH26ro2
+X-Google-Smtp-Source: AGHT+IHHOJ7UPUjqfa7Ax2DODQaNiUV5DY9O1oiua1yOw8frXqBPksX3fFK+2Qk20HoobYMoNjVxXw==
+X-Received: by 2002:a05:6808:21a4:b0:3f8:3eeb:11a3 with SMTP id
+ 5614622812f47-40a5e0a6824mr1694522b6e.11.1749650253782; 
+ Wed, 11 Jun 2025 06:57:33 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:1d00:eb6c:30d1:632b:494?
+ ([2600:8803:e7e4:1d00:eb6c:30d1:632b:494])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-40a5d941cbesm333645b6e.24.2025.06.11.06.57.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jun 2025 06:57:32 -0700 (PDT)
+Message-ID: <0ec0fd5e-8fbe-43c4-8aad-f36d2872f280@baylibre.com>
+Date: Wed, 11 Jun 2025 08:57:30 -0500
 MIME-Version: 1.0
-X-Originating-IP: [10.252.18.240]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-11_05,2025-06-10_01,2025-03-28_01
-Cc: Nishanth Menon <nm@ti.com>, Andrew Lunn <andrew@lunn.ch>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Tero Kristo <kristo@kernel.org>, imx@lists.linux.dev,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Santosh Shilimkar <ssantosh@kernel.org>,
- tglx@linutronix.de, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] irqchip: Use dev_fwnode()
+User-Agent: Mozilla Thunderbird
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, linux-kernel@vger.kernel.org
+References: <20250611104348.192092-1-jirislaby@kernel.org>
+ <20250611104348.192092-9-jirislaby@kernel.org>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20250611104348.192092-9-jirislaby@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, tglx@linutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] iio: Use dev_fwnode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,44 +90,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyMDI1LTA2LTExIGF0IDEyOjQzICswMjAwLCBKaXJpIFNsYWJ5IChTVVNFKSB3cm90
-ZToKPiBpcnFfZG9tYWluX2NyZWF0ZV9zaW1wbGUoKSB0YWtlcyBmd25vZGUgYXMgdGhlIGZpcnN0
-IGFyZ3VtZW50LiBJdCBjYW4gYmUKPiBleHRyYWN0ZWQgZnJvbSB0aGUgc3RydWN0IGRldmljZSB1
-c2luZyBkZXZfZndub2RlKCkgaGVscGVyIGluc3RlYWQgb2YKPiB1c2luZyBvZl9ub2RlIHdpdGgg
-b2ZfZndub2RlX2hhbmRsZSgpLgo+IAo+IFNvIHVzZSB0aGUgZGV2X2Z3bm9kZSgpIGhlbHBlci4K
-PiAKPiBTaWduZWQtb2ZmLWJ5OiBKaXJpIFNsYWJ5IChTVVNFKSA8amlyaXNsYWJ5QGtlcm5lbC5v
-cmc+Cj4gQ2M6IFRob21hcyBHbGVpeG5lciA8dGdseEBsaW51dHJvbml4LmRlPgo+IAo+IC0tLQo+
-IENjOiBTaGF3biBHdW8gPHNoYXduZ3VvQGtlcm5lbC5vcmc+Cj4gQ2M6IFNhc2NoYSBIYXVlciA8
-cy5oYXVlckBwZW5ndXRyb25peC5kZT4KPiBDYzogUGVuZ3V0cm9uaXggS2VybmVsIFRlYW0gPGtl
-cm5lbEBwZW5ndXRyb25peC5kZT4KPiBDYzogRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1AZ21haWwu
-Y29tPgo+IENjOiBBbmRyZXcgTHVubiA8YW5kcmV3QGx1bm4uY2g+Cj4gQ2M6IEdyZWdvcnkgQ2xl
-bWVudCA8Z3JlZ29yeS5jbGVtZW50QGJvb3RsaW4uY29tPgo+IENjOiBTZWJhc3RpYW4gSGVzc2Vs
-YmFydGggPHNlYmFzdGlhbi5oZXNzZWxiYXJ0aEBnbWFpbC5jb20+Cj4gQ2M6IE1heGltZSBDb3F1
-ZWxpbiA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4KPiBDYzogQWxleGFuZHJlIFRvcmd1ZSA8
-YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KPiBDYzogTmlzaGFudGggTWVub24gPG5tQHRp
-LmNvbT4KPiBDYzogVGVybyBLcmlzdG8gPGtyaXN0b0BrZXJuZWwub3JnPgo+IENjOiBTYW50b3No
-IFNoaWxpbWthciA8c3NhbnRvc2hAa2VybmVsLm9yZz4KPiBDYzogaW14QGxpc3RzLmxpbnV4LmRl
-dgo+IENjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzogbGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+IC0tLQo+IMKgZHJpdmVycy9pcnFj
-aGlwL2lycS1pbWdwZGMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJp
-dmVycy9pcnFjaGlwL2lycS1pbXgtaXJxc3RlZXIuY8KgwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKg
-ZHJpdmVycy9pcnFjaGlwL2lycS1rZXlzdG9uZS5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDQg
-KystLQo+IMKgZHJpdmVycy9pcnFjaGlwL2lycS1tdmVidS1waWMuY8KgwqDCoMKgwqDCoMKgwqDC
-oMKgIHwgMiArLQo+IMKgZHJpdmVycy9pcnFjaGlwL2lycS1wcnVzcy1pbnRjLmPCoMKgwqDCoMKg
-wqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2lycWNoaXAvaXJxLXJlbmVzYXMtaW50Yy1pcnFw
-aW4uYyB8IDYgKystLS0tCj4gwqBkcml2ZXJzL2lycWNoaXAvaXJxLXJlbmVzYXMtaXJxYy5jwqDC
-oMKgwqDCoMKgwqAgfCAyICstCj4gwqBkcml2ZXJzL2lycWNoaXAvaXJxLXJlbmVzYXMtcnphMS5j
-wqDCoMKgwqDCoMKgwqAgfCA1ICsrLS0tCj4gwqBkcml2ZXJzL2lycWNoaXAvaXJxLXJlbmVzYXMt
-cnpnMmwuY8KgwqDCoMKgwqDCoCB8IDUgKystLS0KPiDCoGRyaXZlcnMvaXJxY2hpcC9pcnEtcmVu
-ZXNhcy1yenYyaC5jwqDCoMKgwqDCoMKgIHwgMiArLQo+IMKgZHJpdmVycy9pcnFjaGlwL2lycS1z
-dG0zMm1wLWV4dGkuY8KgwqDCoMKgwqDCoMKgIHwgNCArLS0tCgpGb3IgZHJpdmVycy9pcnFjaGlw
-L2lycS1zdG0zMm1wLWV4dGkuYwpSZXZpZXdlZC1ieTogQW50b25pbyBCb3JuZW8gPGFudG9uaW8u
-Ym9ybmVvQGZvc3Muc3QuY29tPgoKVGhhbmtzCkFudG9uaW8KCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Subject should be "iio: adc: stm32-adc: Use dev_fwnode()"
+
+On 6/11/25 5:43 AM, Jiri Slaby (SUSE) wrote:
+> irq_domain_create_simple() takes fwnode as the first argument. It can be
+> extracted from the struct device using dev_fwnode() helper instead of
+> using of_node with of_fwnode_handle().
+> 
+> So use the dev_fwnode() helper.
+> 
+
+...
+
+> @@ -421,10 +420,8 @@ static int stm32_adc_irq_probe(struct platform_device *pdev,
+>  			return priv->irq[i];
+>  	}
+>  
+> -	priv->domain = irq_domain_create_simple(of_fwnode_handle(np),
+> -						STM32_ADC_MAX_ADCS, 0,
+> -						&stm32_adc_domain_ops,
+> -						priv);
+> +	priv->domain = irq_domain_create_simple(dev_fwnode(&pdev->dev), STM32_ADC_MAX_ADCS, 0,
+> +						&stm32_adc_domain_ops, priv);
+
+In the IIO subsystem, we still usually wrap at 80 characters so
+wouldn't want to unwrap the lines here.
+
+>  	if (!priv->domain) {
+>  		dev_err(&pdev->dev, "Failed to add irq domain\n");
+>  		return -ENOMEM;
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
