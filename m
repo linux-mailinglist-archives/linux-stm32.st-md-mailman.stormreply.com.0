@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8113AAD62A9
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E403AD62AB
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB05EC36B24;
-	Wed, 11 Jun 2025 22:42:41 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8B1DC36B16;
+	Wed, 11 Jun 2025 22:42:44 +0000 (UTC)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 897C6C36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF970C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 22:42:40 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-40a4de175a3so219807b6e.0
+ Wed, 11 Jun 2025 22:42:42 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-407a3c0654aso185458b6e.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 15:42:40 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681759; x=1750286559;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681762; x=1750286562;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=6sYRnmDUxprHg+LgR2XosmphvKPLQ0+i+LbqXhoNfpA=;
- b=wDkLbH03jJHpgZtioGtU8tzQrSaznugvdqk6yoWpFMI+lc2aIvSZW8+0bjk2OTRH3F
- eGvrUkrO/Wecg9AbkirW0Rmlfi2dQ+ExUSczL3/DsMQpSbQhGihwRc6KDmPdtYdddFRz
- DZJsvzOd4EyOrnpnVxzBTXftddYIOP6ruB+YIf3e1GGPxJcR/eel9yFlWm8LCpxSLDRs
- wNOp70gsKBzd5IHkejJgbEsdfv8O5glppPTQ3H9alSADYdU27cHAZU+QeUPhwIcAIpCs
- wSSLWc6A3GodkUcxy2XXTpzWb2EvSH96FY0RTv7xA+dOAmSWQx1FV7oNVH3P1nhXjQ1j
- 6vDQ==
+ :reply-to; bh=1+AXM43LJmcTiZ4+XLqifo1WeAnz6FejMu0e+/VkXQ4=;
+ b=bob60hdaaKNDfPa3bbga7aWf+aPGW0yKM5WejlDEa69TkRBMMAsaHrJuvbVaCoAKZ9
+ 45EYvUaukB4T+RbfVSHSVFdN1qhACxgaltEjqfIVPdS+2eSFsuyWC5vN7Cv7jpOIBCvn
+ KDpWKR0gb/zpBVgCurEWf7ufnM8gERPCl8mhwvwNQqpZr6z4dEqT4ohZussuQVOBEZqq
+ okHP0TN+pxR7VA8tI2h7PG//cbTYTeyG9xXPzUFAvf2ghZjiXf3umCUzv6Ko7+47koUu
+ rbHpl0qEC8wWCLX/X/035O1X08nGgdv4ZO+3wZbXfCACxEe5vq7pRgWFuQKQ6QGLmj9y
+ VymA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749681759; x=1750286559;
+ d=1e100.net; s=20230601; t=1749681762; x=1750286562;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6sYRnmDUxprHg+LgR2XosmphvKPLQ0+i+LbqXhoNfpA=;
- b=lSIDGXbhvc8fC0QBbVegDmhi1R8Pa34gjsl+6kIIZ+rttFk2NChii1dKd/2Fkn+czI
- m5Nh5Myplo9REEvM+CoddD+jLw6OJxtSu/wAREsCqvSHdZZJnDt0akVloBhxbICjz/pD
- 7F5YdXz+ORhXOUf2WQAvf08nLgsG7rX4bJez2tgqpFY0Y0LfntegR9xhSiQWNiaztKFy
- iskjl+hOg6PEyWSmaASa6SQF2gc+TY0Fh8uNS4TyBBetmTll5wESz+ynT+vi/Rt2XQHi
- t2VXdIFJIx2zte/Jd7EQwSD4ydEelKc4RtISCReZJcgqQF1tNHEtJa/mW0RSAHPMqXrx
- pZug==
+ bh=1+AXM43LJmcTiZ4+XLqifo1WeAnz6FejMu0e+/VkXQ4=;
+ b=WbFEezBlI2OuUxOH8/TFoqzU6Q4eBIv7xtrSrCjgPXfWk8DtKN6mLYl072G2KtMkzg
+ v/OX34OQ6O97TeCVothkohGYG7zVXKAzHIaQyX2wowTojyyJKja6dIaMU2ANqpn4+odj
+ mC/HzaaF0OnrIanV9kH6J+sMAnpgYN0fqCzxxs25MACqoDT8gG1nj9CqXVouzMs5Hmwl
+ 7VZZYSQGV1b/pCJQ/4XOgS20NBQbrfzyj6tiEQ6dbxUCNZ4rXffgBI8uqmSpNn8opf6E
+ 34EbtdLIBa5eA0YmYqM9kQDt6EoOUTiX2GN/hHDj2c44TbiUq4QVuWntIVrnCGfaBjyE
+ 5sjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXr0BKK8wKBQNNv0GLK9yHCD9uHUcL6ftgU0nltzb0TBrpv3o8CLGXzeUootZrhNKgpLlTEe7gN1hasmA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyYxFeiE+ozT+GwJS498fkwN9GV5rErFPZWacLmsyLU4eax8E7h
- rxZu/HTIZxVqOtzhh3CojUBWcoPF1dvrnmNZjwolCiy03yb/vIXahhDk4iWRPL2o3zU=
-X-Gm-Gg: ASbGnctthJocXGXShduRH8fA7JOnP2tipSPVjYuF5ju+Qx9yMCU76U70SzibugsAQxT
- rmDIwaJB+6EI3JN8yXP/ZCaeycDwwczA0RXGzlePS4StttwR5i2xd/jZFVGwMG59mhHwO4FS8jq
- DuRHl65T5jsbvo/uTpJ7IFzYmibjjXem1FpX1ta4+d3+KdTk2BHhCzmxleIWZyycGDnZ5tgxJ7E
- MsOhEsHXUIxdCZDQNxy6You8k8vRMdT5j63O79g5FlRUGLehBzJoMWiIaUo5m0P/SVibPdr+puh
- fs6yepQ4DK9AyxvQmcNhtQakE45cvdWTYUQLX7/1jFkuYK6/Id0OK9wsv71yP7r0F3ScWiaPHQ2
- iYC4=
-X-Google-Smtp-Source: AGHT+IErlYL4bsSFy9ngVg9McugAmwec16wRc+73AVkKa1/aJVelh+e5fLLya/tzgRaNA/PwviOmtQ==
-X-Received: by 2002:a05:6808:2213:b0:406:6dd2:5eb9 with SMTP id
- 5614622812f47-40a6609c56cmr824967b6e.26.1749681759456; 
- Wed, 11 Jun 2025 15:42:39 -0700 (PDT)
+ AJvYcCUt8g0MYf7VBu7DXhXk0bsUgNOOFX/Y7xca/7ICZnnMGJp6lcAA2rS2LYJLwBEhY6GD97x8u1IUN+q7wQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxMEsiSWEWxc4skrv+IDKHKTMikE5OqI1rnIKumdFncQ4efO28Z
+ bO2AKgbFwdhvlbETCv8QAgB3VneaMC22V6p6LtdZqdsdrLidnNpbttM695HuR5nF/pc=
+X-Gm-Gg: ASbGncted2tZD1dhfg+cATcC3p5KNIKZ6OHr87Jzg8MXHioLwLN+eD7JrShaFboQjol
+ OZd5PQMgNWyGqPbsN7AYGDtZeaTQKvCVLIqbQmkstb+2PIr48p1AUK8bmBbWUFs2gCIOafyclkN
+ pqlk3WpBbL7KOvoiRn8pSTsXm37DiCl02xjqpyMaP/DyL4HPhgXl+7cTagrX9yyFMe4/XI0K6Me
+ lTZnUWDLH3EsH6llmBAR9jsXDCne8ZOdTxys6nfgWzhtEInmdJgWLqNON9UOBAT2+IBCjrHKESs
+ NrolAALv0jL4X2LqALXdiFHGE0LmipJg7ccA6hV0yhVHEIts+DnHjJTqdGWAvC5ix6wZ
+X-Google-Smtp-Source: AGHT+IFMMzvtGjq/XF9sKG5BGljgdifNq6jOybNnZI2VIWkdnxiv1hDecZPrcYLXm/jeBNerhjgiZw==
+X-Received: by 2002:a05:6808:144f:b0:406:39b4:2232 with SMTP id
+ 5614622812f47-40a5d053e13mr3229763b6e.3.1749681761758; 
+ Wed, 11 Jun 2025 15:42:41 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:4753:719f:673f:547c])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.37
+ 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jun 2025 15:42:38 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:40 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Wed, 11 Jun 2025 17:39:03 -0500
+Date: Wed, 11 Jun 2025 17:39:04 -0500
 MIME-Version: 1.0
-Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-11-ebb2d0a24302@baylibre.com>
+Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-12-ebb2d0a24302@baylibre.com>
 References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 To: Michael Hennerich <michael.hennerich@analog.com>, 
@@ -90,23 +89,23 @@ To: Michael Hennerich <michael.hennerich@analog.com>,
  Andreas Klinger <ak@it-klinger.de>, 
  Petre Rodan <petre.rodan@subdimension.ro>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1172; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=810; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=yBs3XS+1GgmnqB6Z/LBOG9076RbaTKgSQXFeV9Rx9Tg=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgXMR0GMvFJcokv5VGg+Ekcm/aUw3x65eQXt5
- Qau3vKbyEKJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoFzAAKCRDCzCAB/wGP
- wEqYB/0aWaPu55zIJCA1+8Yh+2nKwvk/9shr5lt8X2HMjBVuKIJBARV1Ihwlk9gBU3FIMvsGMgJ
- W4gNnxW2ahFYBRU9X6NIB7qIDdnlu9FLgIBs+7HvG5ZrFCdOT1vleHncGAZvz81Lg/RtNlspo6w
- s1e4DQd9TKIrPHH4VDXiTl3tRfJ9p25SdmwrE3UDuHM6w2LPmkgKoeJBV8Q9r3QX0867CsQZJaL
- 9H8G6DUTaF7neBW/gG1OOaACNgb6ckSo1vV7pvEjTzFp78nLZuf8MaSYHl/PCQHCKhEakB8WqjH
- 9f3O2YBAUgw4FjBIASvaE7wTglESbk23by+IQjvgTwOJGF9M
+ bh=w6sewnHJwVlZtUZ1XCEB4lsBcr4uySr0t3enC0nXMgo=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgXTO0fwqvdhMYlsTHXtIYGob2RsszuHsUyLs
+ SfL1LagKj+JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoF0wAKCRDCzCAB/wGP
+ wPZeCACIJ32MRJGFXAWVkUo7XJ8IPrL0OrDOVi8YV9Bz71zO9E1Xbt2tdxaHIRCxRXTjHv0+zxe
+ w/o0PiRItwBJgVkYx0LCNcV0wRJiX/3SOXvkNIYHEjW/6bG5mIuft2mWy9pOWtFB1hHlRO5OHW0
+ HRZV2jH97fcqcIdH9wSd/O5uzb2vY2Mv537m9vzG3NCE1EZ6ni5m4frRR2Ju3EquwZ5eFRMUZDk
+ 6TffT8htFYg5wCw+GGZ+kUM+ESDQvMFNiOZTKVDPOJtDl6Lepqk3gBrXVA5n8ijfXQPulfkc44L
+ Ad5/aXu1TD4BBvsWqxbL+8KuoPFw5kwu1Q/N4uflwEd9cOV+
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 11/28] iio: adc: ti-tsc2046: use = { } instead
+Subject: [Linux-stm32] [PATCH 12/28] iio: chemical: scd4x: use = { } instead
 	of memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -129,30 +128,25 @@ the code.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/ti-tsc2046.c | 3 +--
+ drivers/iio/chemical/scd4x.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-tsc2046.c b/drivers/iio/adc/ti-tsc2046.c
-index c2d2aada6772aae6fc8d01c3878d6e869d413bc7..74471f08662e0291b097fcb277b8ad9cb6df200c 100644
---- a/drivers/iio/adc/ti-tsc2046.c
-+++ b/drivers/iio/adc/ti-tsc2046.c
-@@ -276,7 +276,7 @@ static int tsc2046_adc_read_one(struct tsc2046_adc_priv *priv, int ch_idx,
- 	struct tsc2046_adc_ch_cfg *ch = &priv->ch_cfg[ch_idx];
- 	unsigned int val, val_normalized = 0;
- 	int ret, i, count_skip = 0, max_count;
--	struct spi_transfer xfer;
-+	struct spi_transfer xfer = { };
- 	struct spi_message msg;
- 	u8 cmd;
+diff --git a/drivers/iio/chemical/scd4x.c b/drivers/iio/chemical/scd4x.c
+index 2463149519b6d82caede9c9b253942fa421fdd3c..8859f89fb2a942d940b1ba7adf202977df7b4ad6 100644
+--- a/drivers/iio/chemical/scd4x.c
++++ b/drivers/iio/chemical/scd4x.c
+@@ -665,10 +665,9 @@ static irqreturn_t scd4x_trigger_handler(int irq, void *p)
+ 	struct {
+ 		uint16_t data[3];
+ 		aligned_s64 ts;
+-	} scan;
++	} scan = { };
+ 	int ret;
  
-@@ -314,7 +314,6 @@ static int tsc2046_adc_read_one(struct tsc2046_adc_priv *priv, int ch_idx,
- 	/* automatically power down on last sample */
- 	tx_buf[i].cmd = tsc2046_adc_get_cmd(priv, ch_idx, false);
- 
--	memset(&xfer, 0, sizeof(xfer));
- 	xfer.tx_buf = tx_buf;
- 	xfer.rx_buf = rx_buf;
- 	xfer.len = sizeof(*tx_buf) * max_count;
+-	memset(&scan, 0, sizeof(scan));
+ 	mutex_lock(&state->lock);
+ 	ret = scd4x_read_poll(state, scan.data);
+ 	mutex_unlock(&state->lock);
 
 -- 
 2.43.0
