@@ -2,103 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB5CAD5B00
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 17:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5AFAD5C40
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 18:34:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09855C32E8E;
-	Wed, 11 Jun 2025 15:48:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A949BC32E8E;
+	Wed, 11 Jun 2025 16:34:45 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 376C2C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07BCAC36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 15:48:26 +0000 (UTC)
+ Wed, 11 Jun 2025 16:34:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2512C6000A;
- Wed, 11 Jun 2025 15:48:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE600C4CEE3;
- Wed, 11 Jun 2025 15:48:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F3ED46154F;
+ Wed, 11 Jun 2025 16:34:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C8C1C4CEEA;
+ Wed, 11 Jun 2025 16:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749656904;
- bh=LNb7YbVus4nbWzU8eQUbtfq2tisE72p1WUOPyk88UIk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eZvumMgGK6SbKsBcFzKeJeRL43GMbesaZDPm1UXUDNwThKkF01+7651Besemd7NH2
- 34NbeyYs5sWouLFZhNHPlI5XpHwcTBwxHUpHhYBMjpjedaD1ebRHaJi2pey9UAPTyR
- Ngi7JRognCRZZlA0LQ+z1b2lox/5DpFv/NL0rJTQZ30SAk0HZjKuBrY03kfJFmLABa
- 8DV62B14yT1S+bH3EwHdijXQWb7ssNnzBqIkGD1/whEbYQQn0pjemfMbtjsL2qnyQD
- Hg9tfh9Ti5kYg0KYU0XuLZY2LSjCzS1v7jb41B5+N13etyPHnXU22FpVen9/iJKTbc
- OLVwzEraB/MzA==
-Message-ID: <f1a63830-0533-4f1c-9116-32e8c1e61a8b@kernel.org>
-Date: Wed, 11 Jun 2025 17:48:20 +0200
+ s=k20201202; t=1749659682;
+ bh=WBdEf0/HZqkhDmCcxbwgGvvd9cOJk0qwHZjEEgt/ZCg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=R9CJ9dpp9w5VDPPesK/5/rpC4lTAgov0Lz0m5tWPIwOM1a8pucz2AQJ+RuXpVd+8e
+ eZ6LuqHLGtrCoDUyNmTpcDWZ5ccxi8xLL2VyhxtUaQaxz9ZL95NpwedI9bbEVyBaH3
+ lI/i8QKLVE+L9hwXgUMLBUC589xACUwMBSGRO+c5vZdvnHOg2Pa/GijMw2RgcTYDy+
+ 0p8ZFhYrPxPQ6E9FaFC2nnBS5/+Y0G/qGfWs4MmauaK5rrGxb6tSaknwNxLXdUmb1o
+ +xgBPkQci1eGdMYHTMdfX3VQce/ZOi5dvkf2zOu44OuvtgHnnGpw+2Axs5DpJFhsKS
+ eqxai+HX0/7Qg==
+Date: Wed, 11 Jun 2025 17:34:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20250611173433.430c8eb4@jic23-huawei>
+In-Reply-To: <7600b151-0487-4cb9-ab6e-3cc9c6012bdf@foss.st.com>
+References: <20250610124855.269158-1-antonio.borneo@foss.st.com>
+ <20250610124855.269158-3-antonio.borneo@foss.st.com>
+ <7600b151-0487-4cb9-ab6e-3cc9c6012bdf@foss.st.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
- <20250523-hdp-upstream-v3-5-bd6ca199466a@foss.st.com>
- <5b7a2102-ff68-4aab-a88d-0c4f9195ef95@kernel.org>
- <3c868c4b-8a0e-44b5-9d6e-3a0526d9deeb@foss.st.com>
- <3ba588ed-1614-4877-b6fc-b5aa853b8c2e@kernel.org>
- <714ad17d-53f1-4703-8e13-61c290a8da89@foss.st.com>
- <7000f63e-5e68-465d-9d7f-1a6ca0524222@kernel.org>
- <a49d0af2-07b7-4f51-941b-fa25b2879720@foss.st.com>
- <42a0b7ab-d85d-4d52-a263-4a4648c7ff05@kernel.org>
- <2865ab3a-1c20-4951-8132-4be98d73d70e@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <2865ab3a-1c20-4951-8132-4be98d73d70e@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
- debug port (HDP) on stm32mp13
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/5] iio: adc: stm32-dfsdm: Fix build
+ warnings about export.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,71 +62,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/06/2025 16:08, Clement LE GOFFIC wrote:
-> On 6/11/25 08:35, Krzysztof Kozlowski wrote:
->> On 10/06/2025 15:33, Clement LE GOFFIC wrote:
->>> On 6/10/25 14:38, Krzysztof Kozlowski wrote:
->>>> On 10/06/2025 14:02, Clement LE GOFFIC wrote:
->>>>> On 5/29/25 11:01, Krzysztof Kozlowski wrote:
->>>>>> On 28/05/2025 14:14, Clement LE GOFFIC wrote:
->>>>>>>>
->>>>>>>>> +		};
->>>>>>>>> +
->>>>>>>>> +		hdp: pinctrl@5002a000 {
->>>>>>>>> +			compatible = "st,stm32mp131-hdp";
->>>>>>>>> +			reg = <0x5002a000 0x400>;
->>>>>>>>> +			clocks = <&rcc HDP>;
->>>>>>>>>      			status = "disabled";
->>>>>>>>
->>>>>>>> Why are you disabling it? What is missing?
->>>>>>>
->>>>>>> Nothing is missing just disabled by default.
->>>>>>> The node is then enabled when needed in board's dts file.
->>>>>> Nodes should not be disabled by default if they are complete. That's why
->>>>>> I asked what is missing. Drop.
->>>>>
->>>>> Hi Krzysztof, OK I better understand now.
->>>>> So yes the 'pinctrl-*' properties which are board dependent are lacking.
->>>>
->>>> These are not properties of this node.
->>>
->>> Does this mean I should add 'pinctrl-*' properties in bindings yaml file ?
->>> I don't get it..
->>
->> These properties have no meaning here, so the hardware description is
->> complete. You claim that you miss them thus device is incomplete is just
->> not correct: these properties do not belong here! They belong to the
->> board but even there they are totally optional. Why would they be a
->> required resource?
->>
->> To remind: we talk here ONLY about required resources.
+On Tue, 10 Jun 2025 15:05:16 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+
+> On 6/10/25 14:48, Antonio Borneo wrote:
+> > After commit a934a57a42f6 ("scripts/misc-check: check missing #include
+> > <linux/export.h> when W=1") and commit 7d95680d64ac ("scripts/misc-check:
+> > check unnecessary #include <linux/export.h> when W=1") we get the build
+> > warnings with W=1:
+> > 
+> > drivers/iio/adc/stm32-dfsdm-adc.c: warning: EXPORT_SYMBOL() is used, but #include <linux/export.h> is missing
+> > drivers/iio/adc/stm32-dfsdm-core.c: warning: EXPORT_SYMBOL() is used, but #include <linux/export.h> is missing
+> > 
+> > Fix them.
+> > 
+> > Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>  
 > 
-> Yes, 'pinctrl-*' properties belongs to the board and are not required.
-> So nothing is missing.
+> Hi Antonio,
 > 
-> This hdp node in the SoC dtsi file can be enabled by default.
-> But the hdp driver will probe and do nothing because without the 
-> 'pinctrl-*' properties from the board files it would not be able to 
-> access to any pin.
+> You can add my:
+> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Applied to the togreg branch of iio.git.
 
+Ta.
 
-Pinctrl has other features in general, including interfaces to userspace
-(as pretty often combined with gpio, although not sure if relevant here).
+> 
+> Thanks,
+> Fabrice
+> > ---
+> >  drivers/iio/adc/stm32-dfsdm-adc.c  | 1 +
+> >  drivers/iio/adc/stm32-dfsdm-core.c | 1 +
+> >  2 files changed, 2 insertions(+)
+> > 
+> > diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+> > index f583924eb16bb..c2d21eecafe79 100644
+> > --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+> > +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+> > @@ -8,6 +8,7 @@
+> >  
+> >  #include <linux/dmaengine.h>
+> >  #include <linux/dma-mapping.h>
+> > +#include <linux/export.h>
+> >  #include <linux/iio/adc/stm32-dfsdm-adc.h>
+> >  #include <linux/iio/backend.h>
+> >  #include <linux/iio/buffer.h>
+> > diff --git a/drivers/iio/adc/stm32-dfsdm-core.c b/drivers/iio/adc/stm32-dfsdm-core.c
+> > index 041dc9ebc0482..47e2d1338e9e6 100644
+> > --- a/drivers/iio/adc/stm32-dfsdm-core.c
+> > +++ b/drivers/iio/adc/stm32-dfsdm-core.c
+> > @@ -8,6 +8,7 @@
+> >  
+> >  #include <linux/bitfield.h>
+> >  #include <linux/clk.h>
+> > +#include <linux/export.h>
+> >  #include <linux/iio/iio.h>
+> >  #include <linux/iio/sysfs.h>
+> >  #include <linux/interrupt.h>  
 
-> I consider enabling this driver by default in SoC dtsi file as just 
-> increasing the boot time on "every" board.
-> It's the board dts that requires the hdp and provides the 'pinctrl-*' 
-> properties to connect the hdp to some SoC pin and then to some signal on 
-> the board. For me it's natural to have the status okay only in the board 
-> dts file.
-
-The DTS is not the way to optimize boot processes. It is OS-independent
-hardware description. My BSD system for example uses smart driver which
-avoids probing, but also my user-space needs this device to talk over
-exposed interface, so why choice of Linux probing should affect others?
-
-Best regards,
-Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
