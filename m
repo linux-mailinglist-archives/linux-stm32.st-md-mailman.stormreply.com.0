@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FEC7AD62B6
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 852B9AD62B7
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4361FC36B27;
-	Wed, 11 Jun 2025 22:42:57 +0000 (UTC)
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50916C36B16;
+	Wed, 11 Jun 2025 22:42:59 +0000 (UTC)
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31FCDC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E2D7C32E8E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 22:42:55 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-40905ae04e4so126636b6e.0
+ Wed, 11 Jun 2025 22:42:57 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-408e0986303so224405b6e.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 15:42:55 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681774; x=1750286574;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681776; x=1750286576;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=0GqXAUC5ztniIogZLpwpNEvpFvqt5l5bmngIYMTHsoc=;
- b=loAXT7kaPUPSfW1b4PNNNvrMmBBe34cNRBMTFeU8b1G9LBqF9CuLQJVOqNlICZiXkf
- rUQvbOgw6O3Z46O2dJPN/sG/fVwSYyJYquP9h/WoBbsB+2kK5FTn2XS30Mu+ZYdPc48G
- Kwi4WMDCb0TfHpponjFoTdSTjd20o6nh3fB17NZSh2ZmzT06q2ybPxMlC/BbwK2g8GX0
- zk8o7CU1NwwRmqBzxZwPma79CiljgqLfTygLr4hWkcqr65ZwiFPCbhDC2/8tdZmQvoPI
- gCovXyemVoCULsamMyEeZmUpXO/3jS5fiJdKYM8JJT3D6gCEq4ONs5yI/83hg3DLbcFQ
- kIdQ==
+ :reply-to; bh=O49HniDCuoXMC9eMwPqBiAeGw4w5v2Vl7zSDG8FL1hA=;
+ b=TzJB92vjKaDDwCpMjZPVr+eJLjeDXhIDhn2VAfKu/MiAtj/tVXqM2vUcVKZ0JZS9ZZ
+ zE8fWoaiO3+c+GxxQoPltfDCu19q+98s1Bwqw1yivvrE/Lcd2NfpVcRhfZhGC+L/zPSS
+ brVHOm7P+1rf0dBul44K4q+QK/E1rOoSrm5WOuR5JpN7pO4b0N8mT4tTbGKdf6N4cXJ2
+ V5yYkg3Xib27a15Fk1vg8iilKN7tBhW2e39MIfj7/L15tmNt861kHOlNdGI9qzHf8chg
+ f6v2fulXLWlzOLQHg4D/1tjPqijsdXepmAVBOG4vYWnO0ainIRfPb8utLPJKh1Ro7pw1
+ 9rHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749681774; x=1750286574;
+ d=1e100.net; s=20230601; t=1749681776; x=1750286576;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0GqXAUC5ztniIogZLpwpNEvpFvqt5l5bmngIYMTHsoc=;
- b=hEVvMS4IH6nyZfEa5uQDX8cszvPVAq9lwkSHePV/+0nkYqSXQAiSbWlKNnabcVgJ8u
- Ie6dDT5HNCH1RSY55uFwuyriJNVw3jWp4+w8j/L2cjZmZN82TzQNqn6/XPpgwTAxoumv
- sMrwdUOAyHVRHyZ5Y484o6dQ5K1jsk5KOE38b8d9QZe5hr7fOl8nTaVlqjRaRyubyVfu
- 3CDuo2Z0tqTt2IlxVCKT9RtDsylr7aTkiOEgq8mtGQdR5g+cBS1gf1WsHVB8MKn24cUR
- 0J/Tchvh5ShQ+b62UVw3cnq3KjbVFqSUDd0yrCU5h91VQBlwNJrHNjMlcD/eu491lDRM
- pDvQ==
+ bh=O49HniDCuoXMC9eMwPqBiAeGw4w5v2Vl7zSDG8FL1hA=;
+ b=YusNnkyyZlG3Dyh7lqk1BAT1mmGaRA/acVRHyk8qc5qqMdcpmIcIH/edp4i63hwKFt
+ zq+AsasI8sRARYhqF6ljy2aDRvjVXlnnmQgfU+A2eVb9mMRGqdTS41PaGEgYm8GP3M1K
+ PNdaOoQuFlYuED+nup8iJohpV+NjFle04ExpYf6Y3w4dVtldErHf/hj1dpdA69Sfe/q2
+ L0WkfyidlXijc+JzxPV2agxV01v08rntiE3YWSKOqv61LoMtHZIcDqHTA55on8uKu+Xp
+ 95uFOBegTEObEj1SFG/nfvdSos/YKIynuo+YYFOcsD+O/IHdL6ps+/15zm4kZCQcqA+Y
+ CxLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW5S7gYlm7OOP8FCI2JErCj7JGTZhbZiz4LNulplys5kSlAbnHVStqeeR/ZhfbTgLKn8AjfBeeK6lzvwA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx3WR8pnwzyre7BZm0JrZTZKWFGmMPGZK3VF6VK+GPHWwRm+V0a
- uY/o4GoOvowYdrkKf80thkVx/+9KT6catNMD7DrkKoc6Zg+y+q+da6VjB/TzIDMdBGQ=
-X-Gm-Gg: ASbGncsmJev5x3Wle4oVxkHPAZBftth1P3qWofVYZrfUihWyx93f6CmmBjciq8AWRXy
- ndNI7LtihdTxx1tJvHzoGFIy2RgKkDBNuM57V/jNjXdu5ChPl30e54n7+COhkP2BS0cqcqx2rTM
- n5sMbUwzQUX08eRzy974+TAlhRDzHUhufNGs2ymHdfwd6jgS3bG/K8Thi0zq7u/u2VSAu2sQIau
- h9PoCJ88LPhTL/J/hYUT4iExFqoZcL8Nbk8hh9K5kR3VkVgNG+7TzDfefAjlK5cwFm8Ft3rH+V0
- Q2/74ndSHNCpCIh3GPhdW9waY2NZe8o5HBMGOvDthgl+VsDWzaB6thjH0eWkYZIRnA9V
-X-Google-Smtp-Source: AGHT+IEno7iivJ7V9DJ4jS9BfN9qMtC3Kbpn1hoqPd/0X7I8V1hxaDUFP1SUYvG7cJTjWfN6V3+JZg==
-X-Received: by 2002:a05:6808:1a10:b0:406:6fd3:ff13 with SMTP id
- 5614622812f47-40a5d127d4amr3587773b6e.25.1749681774060; 
- Wed, 11 Jun 2025 15:42:54 -0700 (PDT)
+ AJvYcCXh2PjzWrDW+6b+EOXfapCjE/IgP2lRnq2WiHTfJrbS18izpXIwcFZ81cakuO8stCS57Ecu7rHR+u5HwQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzs1Q8Yi8ol3KJ5CEbaFm3EJuuRNzn/vn2DnJ4DRmKXs7WAOaA9
+ yoaAKozOqze9bdDn+t4y0lRNhr7n1SH/sNx+RPT7WyfUO0LAcOINTa3G1LHstaE4ekM=
+X-Gm-Gg: ASbGncuRx/Ubh6+WRaZCpb/V5ZrEZZqNjfy5WGI8RKi1c40Pid+nMW4+zpF0lr7uG6t
+ b8vv+rVoaXj0Y3k05UqzA4tU/ZvbzglZYpynNYTPd6o6jKY1XOD9P31mqUWRmaEHzp7Vb5yJOhw
+ yj3bwFkpV9jxtfKds+EU2qrqkRPg1KMS+rzatZUmUIRp0WXJhFEJdFp+3P9ZhkOV89bJ9G+4eB/
+ 5Yb44adTTHeX4BPGCRMcod6n1+e0ycWbsjoaEIn53VKzk9nBSHSHFPHMvTvWsn56G2a8zaVo15T
+ 74E9QrfvoOfcHGJksHP9kgI9Vhl96HDt8QQO9mfmVpGWNaNPPLVkDmWXeff2Mu6iTp3u
+X-Google-Smtp-Source: AGHT+IEdXlTs5BQlKqDRA2XR9le0U//SvE0Qifl3mfGztXMmWUlblRQ96qzrlkvIsB1m096LadrsCQ==
+X-Received: by 2002:a05:6808:180c:b0:409:f8e:7282 with SMTP id
+ 5614622812f47-40a65f87782mr956229b6e.5.1749681776215; 
+ Wed, 11 Jun 2025 15:42:56 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:4753:719f:673f:547c])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.53
+ 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jun 2025 15:42:53 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:55 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Wed, 11 Jun 2025 17:39:11 -0500
+Date: Wed, 11 Jun 2025 17:39:12 -0500
 MIME-Version: 1.0
-Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-19-ebb2d0a24302@baylibre.com>
+Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-20-ebb2d0a24302@baylibre.com>
 References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 To: Michael Hennerich <michael.hennerich@analog.com>, 
@@ -89,23 +89,23 @@ To: Michael Hennerich <michael.hennerich@analog.com>,
  Andreas Klinger <ak@it-klinger.de>, 
  Petre Rodan <petre.rodan@subdimension.ro>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=912; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1055; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=gCWBhc3n+k0rOzdOzNEkxMDkk/9qdZ4NyBLN5i838X4=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgYBVhD9q4Dm7oGQ6HylErBkZw8NPS9LtGnpg
- QcqtFQcxeCJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoGAQAKCRDCzCAB/wGP
- wNsdCACOa3y5zsZO5jRJ6TXkHQFX74S3Nr/9bVgpmLdGxld4Z+7+JIvhiis7hU/SPgSfaXy1HEh
- ktDMqm+R/k9m6uW1HuOC7FUOZJLVTDEKAKUxRNRhp4bfH2LUFh/G/3GgfwO9f8PoXq/NmULXpda
- 7A1aG/YSYU2eMZZHKx2FjIlroUI+Q0DIRxoJJRuaC+0ZUZnQcDdRFGU+SUR6ZUAwal16z0jOcSF
- j9VebgtqFrmJs6emiKebaukDj4wXBej4ZpE+d+H8FqpWL6gldFBpIJFLejRYOTZaFfnP4LO0Eri
- JrZp1IDGBtR97RjR801xEzHW4QUVCM5l/UjRUFcCLscdfHuy
+ bh=u68bZZMO/JKUz2mz6KZxBlhHkEylsEbUz83VhCyRYl4=; 
+ b=owGbwMvMwMV46IwC43/G/gOMp9WSGDK82DgYtDNtb2gx3z7l0jyT+eHvDe25Ny/eC02uWrn1Y
+ Ct3oj9PJ6MxCwMjF4OsmCLLG4mb85L4mq/NuZExA2YQKxPYFC5OAZjIHWH2f3bdcxonrJAMav7A
+ XffFu02lOFatYYFB7CF7t92HHtwV1csJuGihoZXQqzjn9qFVwQ9lw6WjTz/KejJDP9U9zPVrSVd
+ FI6OcwCrLffXZi7bwHns3aafaxnuO18SbZz42r7q3SNX/4t5VaVwdlmdCG1e/YlOZNq/SJHTm1b
+ 6D+oXG06fdm+A7z+KTCU+oXc0f3u8ab+avuiHZGW8WcF/yQc2Kvd6bNgqbneTXPqugcUbhajePp
+ EmfdwGzmsgpxSwm/ZdqT8JD1yvJaf4XW2u/8qFBW/Mx9Tn3HWZaHeLU2JRZ4bDydVbTlvcc7xlc
+ pgl9PKq54uvTWCH/WaeKFt2rffq43yDVPalMb2os24pjAA==
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 19/28] iio: light: ltr501: use = { } instead
+Subject: [Linux-stm32] [PATCH 20/28] iio: light: opt4060: use = { } instead
 	of memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -128,29 +128,31 @@ the code.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/light/ltr501.c | 4 +---
+ drivers/iio/light/opt4060.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index db0cc3642bd8010358de8515c24337d7385bce38..c14767472fbe8620ad59c8417d2ceff14f9485a6 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -1279,14 +1279,12 @@ static irqreturn_t ltr501_trigger_handler(int irq, void *p)
- 	struct {
- 		u16 channels[3];
+diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
+index f4085020e03ebadb2b91db3212449db82d738ebd..3c927149bd256b392ed8d1bfa9847788981ef2f0 100644
+--- a/drivers/iio/light/opt4060.c
++++ b/drivers/iio/light/opt4060.c
+@@ -1083,7 +1083,7 @@ static irqreturn_t opt4060_trigger_handler(int irq, void *p)
+ 	struct  {
+ 		u32 chan[OPT4060_NUM_CHANS];
  		aligned_s64 ts;
--	} scan;
-+	} scan = { };
- 	__le16 als_buf[2];
- 	u8 mask = 0;
- 	int j = 0;
- 	int ret, psdata;
+-	} raw;
++	} raw = { };
+ 	int i = 0;
+ 	int chan, ret;
  
--	memset(&scan, 0, sizeof(scan));
+@@ -1091,8 +1091,6 @@ static irqreturn_t opt4060_trigger_handler(int irq, void *p)
+ 	if (iio_trigger_validate_own_device(idev->trig, idev))
+ 		opt4060_trigger_new_samples(idev);
+ 
+-	memset(&raw, 0, sizeof(raw));
 -
- 	/* figure out which data needs to be ready */
- 	if (test_bit(0, indio_dev->active_scan_mask) ||
- 	    test_bit(1, indio_dev->active_scan_mask))
+ 	iio_for_each_active_channel(idev, chan) {
+ 		if (chan == OPT4060_ILLUM)
+ 			ret = opt4060_calc_illuminance(chip, &raw.chan[i++]);
 
 -- 
 2.43.0
