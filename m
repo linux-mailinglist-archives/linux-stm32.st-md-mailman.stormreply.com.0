@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96292AD4B04
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 08:15:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 863DBAD4B08
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 08:15:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDF22C32E8F;
-	Wed, 11 Jun 2025 06:15:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAA8DC32EA8;
+	Wed, 11 Jun 2025 06:15:05 +0000 (UTC)
 Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
  [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AE0BC3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8CC5C32E8E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 06:15:00 +0000 (UTC)
+ Wed, 11 Jun 2025 06:15:03 +0000 (UTC)
 Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3a4e57d018cso28439f8f.1
+ ffacd0b85a97d-3a4ef05f631so25062f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jun 2025 23:15:00 -0700 (PDT)
+ Tue, 10 Jun 2025 23:15:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749622500; x=1750227300;
+ d=linaro.org; s=google; t=1749622503; x=1750227303;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3dpZC43mjqQSL2n4C7kbwZXGNoboHrOdh0nn9Na/CTw=;
- b=yc3sz/y2e/jnZRhZfW68DI6eE5KdyuBkevU9pz8UhRXyhs0iNkmLuglTgAIbeZaXuB
- fcVw1j95Kftj0qktX22w+gWoqjVzudDvo7FakDcegVjfHB59raNr/6fdQWJYoxfor3Ba
- lNlJZwhgm2G/5InSi3xdDFKp7JJyyR7mAlVMYAQwno2221L7AuBxnRMzhh5G6pV9dO0R
- V8gs15i22rBCSCFY3Td5O+oUEWyCOmeUpkYS0k+CAySAUjKSAFWlo7YRrLLnK3fFVJrR
- Hbwbtn3EMSJtBJU4diRbXo3MxAgGsJojTW05Iow9B/Iefk265aolvX+VsOQ+CZYvQVfc
- GH1Q==
+ :reply-to; bh=k3Ze+vADApZQcXHHJvnQw5idboAhTO4ZZm7oXpqIyA0=;
+ b=WPocEHh3rbUminWGWCLioR4ftMLhoU9/cmb/umTlezXD3H8JXJhQ2sk9ORxknEVOvd
+ Em0vw7cWQ+FJPDSArk3EjrK+lJ/SDW3VKWA6NZxhTaatKH6m2Ym5lT18pFzOIWQwSES5
+ ZvBOfI90o+d+r3wzppXKAxRhlGebT56MLnB2ZaHYHdggPSCNQJAPSrLypNqDRb5ikxdK
+ oS6DNDu3tujs04pDW5Nfwb8lcfr1EGbq0mGJ9OBSLQJL8UcqiWjGgcLVU9kMElQgE2/5
+ XoodFLI3TbY8oFX0g8plJu75bilu13SRgttds2kjAuU4txP9WBZs/jUecix+M8NbO/EP
+ baeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749622500; x=1750227300;
+ d=1e100.net; s=20230601; t=1749622503; x=1750227303;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3dpZC43mjqQSL2n4C7kbwZXGNoboHrOdh0nn9Na/CTw=;
- b=qXisTNBD/Tv3q3f9yigOFSneXs4qj9VDpYiPdmdOjbNK91UQop3eTlUL1HdI3QDgxO
- SN9hfPmuhFajmiL9/0fLV8ahBd80O08ZMav5Xc62A+zlfiJmukWMKwoN8gb4ePty6Hu0
- APje9olajS0lQZVzpQuMpyM9Ct9fjdi8YierKAk0lNt0nWP1DLEzQZrp7ab/4kmbKvLE
- wMMUX2gbFahu0NDsI0ZyOaBjeg51MM5CEB0QWwapR25+mX8lzBHayM8YqUDSbmTrhoro
- 1kyrUirAAt6lQN22DDlHzstl31GN7Z9E42LzfIYJUtNtYrydS/G43IX0m/SbOThMt/Ev
- MaVg==
+ bh=k3Ze+vADApZQcXHHJvnQw5idboAhTO4ZZm7oXpqIyA0=;
+ b=VF08sjSwHh/+ms9BIzgfCLe84SrBtjy2wPtFAoCCGuNMjxEUrZpBXaZUel58Yz3cQY
+ GcIpsAAF4tu0uRGmbIX9atQbN4iAQjK5kTS/7rTcCwMCR7aE6t1VwEX/JmhMcHj64byi
+ WjWT7N2Q44b4zPBk43h00OSQKFkohqFr3E+g6Pmd/6+jfLTBugCHbMvYo1lfCHo93uAE
+ 1OrG4Q4cAuWWrKvtUsAtv9z0Dvhb42b6fUUqBPc4KjiiGX+KPnw/+d7xBorqDMKmmlx8
+ wIkGQ6Fv+jLNtBqbrOzp/kqKzjN5JEX5M53wLWUKnfGkrFGFLZBnZCJ5U21aSi4MWXqB
+ 3+YA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUa2b2gg37HYaHT/bxzGEWf18hmfl7Qn866AKqsCC6JyjN8C24MS5uMNGrD8hYbAy+PRiSYYGM+i5NdOw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YymI5rxBa8IzSN5gchbi6+J8dEWZnuckS8AdGq7AygzAFaV0L20
- N3/oCDySOZQm6uMReuUgrsRlTX/jFiE/DTtLoWDZUDSw83pVXaeKHP1VQgWOyJimXj8=
-X-Gm-Gg: ASbGncvSmR0e5H4EgCqsVjJlGEH6LlxcLwae5CM/unwN/zkjjFTNjOMt1jw9GJSnoYv
- 7giekcOkkLEbF/+Ecpl9yauncnSr94WhgwNy+iRBahJUt0QNC/9N/4WYOAhccVbNU+zOcTOQhgB
- c025Mdiq1ts9r/Z8IqVfM115FNWHvhvUG2eHQl4KE8NPRN25Oy+bIZ7945B1ZA4T84yiiAUh72A
- 4a30DeqpirnMGgFelK8qwXoxl6EA5RdcSwwPqnYBwEP5AbUI6fAf0TrzzTMJ/2vts94jLP0C2f4
- VwtmrUbt0KYNx+kR6F2QbCYjSnn+F/K/XqCtjoGuZ8YSJDJWhlBp+DclJEQZPUAjWzlRzQkvFI0
- Yhqqunqw=
-X-Google-Smtp-Source: AGHT+IF+8CuDuQ4kf6mSJfvCZWVF2nwaA+1YTCjzunNZUTEkAuuOsBPS39QliHzSk5Dki6Jz/oOC5g==
-X-Received: by 2002:a05:6000:2303:b0:3a3:61ab:86c2 with SMTP id
- ffacd0b85a97d-3a5586cba07mr495450f8f.7.1749622499974; 
- Tue, 10 Jun 2025 23:14:59 -0700 (PDT)
+ AJvYcCVFiE8k2hX5x97vsQU1r8syuwVMAd6NhvgvMv7dEUaddD1JOXZYsDt517co8XWJJqVA6pvSFqLLDY6Aeg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwPLbUvZP3ZUrdYrKorytTUF8vB0wjoV14hpj5BJejyPTUKHNjL
+ pHFhfTGjgZYh5jCvVJ7+MzJbwemGqDQkcQqt7JpqRslYaxlhktK3mbycLXbfcZw58WE=
+X-Gm-Gg: ASbGnct526MmGUL3A6GxU7kjQVMaFpF8vM6qMT7WutLs9tDzV/mhRy7VY2HT2c7JwQo
+ e5y15JtPpNpOYZ0s5Bay6UGzxdsbD5lJWUw0CKw4YpOJE4wrSRfJL8PfnhShX6/LMCyDoIDU6Kh
+ RTxaroyzcVltC6tnzhyoUcgCY5sY4poFyLPz8SMu1ML+sGBKy4nitGCF26Mfc43rU6AdDTvl5OH
+ vVGEacz05rlDJIWIlQyigvcmtRrMb6lwU6P+arAYbIzr+HdXJ/+UcynwLvRWOkAcPXJMZzrtfd8
+ KLO1dwbcWlPFl3EKODjDtZiJyZxKscv0GIEDIm11x60mrYYbZzyGuPZPlzy51AuK2dQIy+leIDz
+ Yj8rOQUQ=
+X-Google-Smtp-Source: AGHT+IFam/Q8ke2FDO4E1F/HTitp0FP+gKJ3/gukW0/Bc+eEcP61V5NJDu4WYFt0kcJQLnkHsxn5Qw==
+X-Received: by 2002:a05:6000:290f:b0:3a4:dbdf:7152 with SMTP id
+ ffacd0b85a97d-3a558827131mr510215f8f.14.1749622503270; 
+ Tue, 10 Jun 2025 23:15:03 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244f516sm14142791f8f.74.2025.06.10.23.14.57
+ ffacd0b85a97d-3a53244f516sm14142791f8f.74.2025.06.10.23.15.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 23:14:59 -0700 (PDT)
+ Tue, 10 Jun 2025 23:15:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 11 Jun 2025 08:13:46 +0200
+Date: Wed, 11 Jun 2025 08:13:47 +0200
 MIME-Version: 1.0
-Message-Id: <20250611-pinctrl-const-desc-v2-14-b11c1d650384@linaro.org>
+Message-Id: <20250611-pinctrl-const-desc-v2-15-b11c1d650384@linaro.org>
 References: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
 In-Reply-To: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
 To: Linus Walleij <linus.walleij@linaro.org>, 
@@ -96,21 +96,21 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Manivannan Sadhasivam <mani@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1336;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1566;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=+flFdO+wB1jUsuwdikr4oTVuYRRszXJESkvc2OSpc4Q=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSR6rDKvTnvN7uWrkaR38SoKZ0JyrYcQvhwNCm
- /Q2Dq83gq6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEkeqwAKCRDBN2bmhouD
- 14FeD/4ieFxDBp2aYLDtBNbnYfL2Cs+jpT6Ln8r5h8k7iHk7UFGxh34/qOVxHUd1z1j+6DSnp0k
- Ke/5Mro6a+xzalY4l7ACNl9imdQ2c1Gzag+tWv72+5bvxiGqP8bZqL0Jw0w0zL6sWtytvSfKqWO
- BGkf3r1wHCuVlIPAta/4/+GAbC20Gbc2yR+46ZTzVjBSbDxXW/1q9H0GZebt08ZazmjdzHE/iwQ
- yOIIz88jzvOLYWHjKSWOL9LVDAK3GfiN7ClK0jGoNFuFmO2a1M4sBDhcX1nN4xbAmki3aupM8VD
- Tbp64fJQ896BpCzX2DnW2WqwdYVIVxtQhOvao+W/kMTC/vQc7fZdCPminzsgcFpdUsZcDW2G926
- JLDEoqmjl02ySwXcMvRRMfWxQMIzssWYFwDj6Nh2J6pmtzUPPdgn9YfXzP3DVD+YWq0Pm/AM4yP
- dlmgwSbCV3chOEk9k2nb8UY+TUCRLUDb7xXTAxI+ozgWRWv1brSG/BEZtSHbO2rZA7payHinZB5
- KN6dtKpxFObljSM+pANXsnq2vMRtRUfm/WYw/vNvczM7tfhsCOgw9BUrYElrlhYMcw9LcmSOP7j
- iaQdnaIObg7tji/TYEvlN7XdOkUPn6SjarApXOtiu6bjHdimu695XgL8gl39wSEZZH7kmPQj7NA
- W7xp+qiZCZd9aTA==
+ bh=UtgeU3dDjW57LMOT846YXV02Tw4GcYGErdMblZiJj2Y=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSR6rl3kHrTfHT+G/WppDKwo9ZAF99RmPNy2e5
+ FK25/IXhjOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEkeqwAKCRDBN2bmhouD
+ 11zjD/44mTi6E0UEUF+WOA5PYfQSA3YrJhhb1gdB9LJEaYmqZ5heGdhEkd11b9u21M9uM04L2ZM
+ omR6mvdKQb/PUr5s6pB4c+fvGy+edBch7wENWeAZTNkmTv3ucsbHEXczrgo33adLBv5AsrWXetE
+ 4z0tcvt9p0PZIwyoJuxHwgjWE3/oYJIHyfJmzOYXZdd9kRuIIYlBE1K97q/hOmQ0VG5MfdaawBc
+ /Ld6CQJ8SRFCASzKJe+9jRrxsHoSLW/JCnoA0ZQFUq+Yf670EaZbzi3k4udIwkie9Hv1PUhPzQL
+ loPBNXTxubGL5cnqEnKpoMKPSeage04tUhOnjnUQfZX+m1dUP2EK30OskgV/e+PJGji5xsLvoEE
+ AzTFaWnBiwlGVii8+4/o6VagcwsLWxudJ/khpn3Bp9gnvjFXoYjtATT6dIL3qzKWKZIqaFO0ZNl
+ 898lFaYQS0Zi13pQngS2Vv880F3sQ36GsZjqEpZUXgHMDR2vprhGNNcHLTPoEkv3tOUFo7davtm
+ vdJl53vfkJM26COh8m75lKvxQnXcCBYW8zSUYw23DN4X/qtIPpGhEyuNQlUDiE14kSOsydQ8l1V
+ 72P5Y2/V87/GZfYMvLdj5X6bDG43/wT//B8GiRvoSxrL/0k6zXQudwTV79njlMNb5+Yxi83QZqi
+ f/UtiAkNVB3+pSg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
@@ -121,8 +121,8 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 14/17] pinctrl: renesas: Move fixed
- assignments to 'pinctrl_desc' definition
+Subject: [Linux-stm32] [PATCH v2 15/17] pinctrl: pistachio: Constify static
+ 'pinctrl_desc'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,38 +139,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Assign 'struct pinctrl_desc' .pins and .npins members in definition to
-make clear that number of pins is fixed and have less code in the probe.
+The local static 'struct pinctrl_desc' is not modified, so can be made
+const for code safety after moving .pins and .npins assignment to
+definition.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/pinctrl/renesas/pinctrl-rzn1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/pinctrl/pinctrl-pistachio.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzn1.c b/drivers/pinctrl/renesas/pinctrl-rzn1.c
-index d442d4f9981c908389407275522b936dbce294d3..fb874867dbfb9877b012988543ecbfd1bfb11270 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzn1.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzn1.c
-@@ -680,6 +680,8 @@ static struct pinctrl_desc rzn1_pinctrl_desc = {
- 	.pmxops = &rzn1_pmx_ops,
- 	.confops = &rzn1_pinconf_ops,
- 	.owner = THIS_MODULE,
-+	.pins = rzn1_pins,
-+	.npins = ARRAY_SIZE(rzn1_pins),
+diff --git a/drivers/pinctrl/pinctrl-pistachio.c b/drivers/pinctrl/pinctrl-pistachio.c
+index e7bf609609617d6af2f10a3df56c62e3bfe2dcd3..7f8b562c81c9cfd1ac3a0bd50018857450bdf609 100644
+--- a/drivers/pinctrl/pinctrl-pistachio.c
++++ b/drivers/pinctrl/pinctrl-pistachio.c
+@@ -1156,11 +1156,14 @@ static const struct pinconf_ops pistachio_pinconf_ops = {
+ 	.is_generic = true,
  };
  
- static int rzn1_pinctrl_parse_groups(struct device_node *np,
-@@ -878,8 +880,6 @@ static int rzn1_pinctrl_probe(struct platform_device *pdev)
+-static struct pinctrl_desc pistachio_pinctrl_desc = {
++static const struct pinctrl_desc pistachio_pinctrl_desc = {
+ 	.name = "pistachio-pinctrl",
+ 	.pctlops = &pistachio_pinctrl_ops,
+ 	.pmxops = &pistachio_pinmux_ops,
+ 	.confops = &pistachio_pinconf_ops,
++	.pins = pistachio_pins,
++	.npins = ARRAY_SIZE(pistachio_pins),
++
+ };
  
- 	ipctl->dev = &pdev->dev;
- 	rzn1_pinctrl_desc.name = dev_name(&pdev->dev);
--	rzn1_pinctrl_desc.pins = rzn1_pins;
--	rzn1_pinctrl_desc.npins = ARRAY_SIZE(rzn1_pins);
+ static int pistachio_gpio_get_direction(struct gpio_chip *chip, unsigned offset)
+@@ -1474,9 +1477,6 @@ static int pistachio_pinctrl_probe(struct platform_device *pdev)
+ 	pctl->gpio_banks = pistachio_gpio_banks;
+ 	pctl->nbanks = ARRAY_SIZE(pistachio_gpio_banks);
  
- 	ret = rzn1_pinctrl_probe_dt(pdev, ipctl);
- 	if (ret) {
+-	pistachio_pinctrl_desc.pins = pctl->pins;
+-	pistachio_pinctrl_desc.npins = pctl->npins;
+-
+ 	pctl->pctldev = devm_pinctrl_register(&pdev->dev, &pistachio_pinctrl_desc,
+ 					      pctl);
+ 	if (IS_ERR(pctl->pctldev)) {
 
 -- 
 2.45.2
