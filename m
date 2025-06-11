@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E00AD62A2
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D57DAD62A3
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E200C36B16;
-	Wed, 11 Jun 2025 22:42:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A565C36B16;
+	Wed, 11 Jun 2025 22:42:30 +0000 (UTC)
 Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
  [209.85.167.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65EB2C36B27
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EDF9C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 22:42:27 +0000 (UTC)
+ Wed, 11 Jun 2025 22:42:28 +0000 (UTC)
 Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-40a4bf1eb0dso173267b6e.3
+ 5614622812f47-40905ae04e4so126525b6e.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 15:42:27 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681746; x=1750286546;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681747; x=1750286547;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3nA/Lk9tPGfFaI22ceEDpAoxrxXFiJ/9IsqCSjqV/LI=;
- b=l7WPUXhBkV6AFfOreWiK7azLrkFoPS0srCAPIsMArx8CEb7Def1qx9WwBZQMZs4u6T
- Q9+69LgASK3VhAJuc6ezJ0GbNfd3TM0mO/NMcaGxx7msNeoIz+oWblGRuAlTwMcXV4jF
- QzZwK1fzAn1jYJqh6j/ECsvCyVB/aS4Pfx/IWJYqZTnvmE90Tf2GijQS4D3DF0HXYywi
- N7Xc36stvItTmNRAcfzHk6Rmo+wkamKhHW3/E3KUKVPltgfvOUEcXGae55BgRJE7yF41
- kvjAXTLA79WIfc315S2R4+MtAVqt6lzl9OZp4P3eqaleWru8w7O9xsxw4kK/zsePcPIY
- LsQQ==
+ :reply-to; bh=Dxd93MXVamZ7ztUFC194OTJH1bC4/5rgbs/4bZ7YxEg=;
+ b=I2tMqPIXOaVrs7irxzcOpxGxvxrXk1BSKfbKi9kZGDbdUQ/1i2UMJCyVL2JUd2d8ub
+ CNQn9OfFUyfaxnFtDSxSg1D1FDs5jNnJMMjlIeFS6Dv1PqZ7oyYOb/iS+wBcRaq2By2D
+ 4yMWBN56gqcGj6goWw46sZBg4tBGXve54BQkTi45/tpoidgSXwgf6QtE4gGqahUEJx5H
+ 6S2IZ4lJsoaISqPPycnzSoGWyHEd01hxjK3WL5ttjQVPJOPPhrwXn0Lf1KoSMh53hdAh
+ MOfkmWTJU57OczT7EkINHcNX4ZdivWSdn3lGfcyuOugm+h8Sd/ofK0vRaC7I1CnkZH2e
+ uAKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749681746; x=1750286546;
+ d=1e100.net; s=20230601; t=1749681747; x=1750286547;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3nA/Lk9tPGfFaI22ceEDpAoxrxXFiJ/9IsqCSjqV/LI=;
- b=ncoPveAW4LaxD/XauzulwukeaT61WY1JJLNymtdWB7feZtiGYOYlY62WMz9TUgyRfu
- lNOn++M85CQEGfCjQGdXCBmv+toLxiDmEYl4a/uxsN7nAFnzS0sDScUAKHL5wFyKXR4V
- CljVUJrpM235NgkzJ6Oe83+doxZsS1PAnmudTm4vpMQmH+FJGXPg8C9SwUHKKzFMlZUV
- ddHsXkGhlCHwiqwLjDU7b6oEgBER2I9JpeOM+mdS24LK+2/mbUbUxYn/GjTP3s8SejRw
- B7I8YIgXQCTDHOxY6Ny4/cNiBKbv+2JEJfmMli7xEOxKiIdClvory0UjRQZeH4ii58iH
- ry0w==
+ bh=Dxd93MXVamZ7ztUFC194OTJH1bC4/5rgbs/4bZ7YxEg=;
+ b=JrHDTMSeC5eFLOyQR/vFhmSQ0/C/ntU5uKHRxxwABzEa93s/TwSijHZxEpNOxpE9ER
+ Ns/QDy5/vBnQjR8S1L+Xv7Iqf8A4Sp7kTb3eUxtH7aZPLCzIzkwN4hKEsSiEgMjZdGCj
+ 6KXaU99IaPFuABNeCGV0on1HWjiPOsZqihbljmupxhMIyrj+Ehxnz2peX+EpEzpKn9o0
+ s2RWPWAoo1Tfct1exLfIPrn08z8THG6RQ6ujr4TCycSs6yhup7XiH6pG4g93ZI5B+T24
+ 4B9Nr0glPd99wHZjnd6OE7gpyUgirb9Enn4COt+xrPkj9bTGWzAr6vLYCIT+d/lsI1JC
+ e3xg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXIhcE6RWG8eW3wMq93uqfQzJ7O5cHiKbVqXol4WPRI80OUgOgiMXQ/x1cybUxK5/HCA4f4rrW+7clx6w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yycp70lyPYimO1ay1ZHCRgemM/TMjR4s8f2okYZs0R+KYGaRaSM
- xBmcCjOI3L2cxm1oDnkFHv3NWNMIZAuy+ZtkLMY8JR8FBJYxV4Edy9uDthFphBKbQ7M=
-X-Gm-Gg: ASbGnctjeCQ9rFrSu6GEzX5IUS5MKFZoy2cVUe6+GWBwAVVukaP+/qWWpzaXUQnaSev
- yYvryyLu8cCeJaT52Wspxz2zsT5oVPMH56Nbu6l6HvDENvR36w95ZKqjH6hHxtdiVigv/awsaC4
- czKQIRRkO9MUHmu5tfXwz6MPFJ1i74Ouwb9NDdxTErlhXYSNGOPcfGhYr0GjCzS/Yns4vEZVxTD
- G3BEZ90lfx3/ZeTRbF+s9zBP3NqVeTUOOZe3sJBlelb10AttFuhZsieSuy49F5VnsqBuW5nDQfV
- qTO3nuo5q9iTkgbExcnhh+p8iLTrAHpClOwaro4DxOiRJSjBNBrm14up31Ohyc9jgFfy
-X-Google-Smtp-Source: AGHT+IG0W8cN0RBqzvza6bDhDRqg08z0+EUeK0uOjK7EVtYqqJLeVsRO4zcpkxGJblg1Kp+3B4rIBQ==
-X-Received: by 2002:a05:6808:2186:b0:403:3c95:3684 with SMTP id
- 5614622812f47-40a66a419c9mr505006b6e.1.1749681746196; 
- Wed, 11 Jun 2025 15:42:26 -0700 (PDT)
+ AJvYcCWH8N68KvDNDWrS3QUiOm+VhFrP7aaYEb1VmcaillfDouuACz3qNkvub19hHMnpbFROzKFd3Mj50duT1A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yyez8Kzg7BPK3s0hIKCm+7Y379aa8dFidjaqlWYmX8axoYMSGux
+ OEChF3bAWKMYW3iwagbSF7ou2BQnHsv5zxoDh9mGA0cqFTrD5AWDRXRy5u5gWr+p6OE=
+X-Gm-Gg: ASbGncs8lfwUYSCbWHoRvvhLUq/SiPRgk8FrzaCGWWtDj8VdvX0ux0xAG5D3lMK6z1j
+ ijjB6aBu/i70lqO+6n9WIDM+yNHMdMacYIGi4lshiHR9djRDsJrVjCUoaQDbTbGOsITYWxhW7Lv
+ sHUF6r+kowfq16I5DMpVehQhkagYXciFCcJJDuCz31PrW0w6Avbu/Jc/FsCGh/ZxENjcjynpERX
+ /xLqb1R3X2V5OluL+w6dek430nX2LV9XRoPXPeQq+2D+hryuS6aWGsWZkJ/yY+qR5IyrogXJQPA
+ HLCQObzS3t4JSEmSMcwSvalN1UDZOQsUW7R4UPoutjPftKr22RUfIoMmkhlCYF50uaJyRQaUhxK
+ kRfg=
+X-Google-Smtp-Source: AGHT+IFQBThN9gqVMuv0yZV4fKxfsQN3C7pn2YLNqV1M+RISkP7nir8q7A3hG/2ChnbAzLdY1TtRyw==
+X-Received: by 2002:a05:6808:6349:b0:402:1016:e9cf with SMTP id
+ 5614622812f47-40a5d1640c9mr2811691b6e.34.1749681747387; 
+ Wed, 11 Jun 2025 15:42:27 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:4753:719f:673f:547c])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.24
+ 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jun 2025 15:42:25 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:27 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Wed, 11 Jun 2025 17:38:57 -0500
+Date: Wed, 11 Jun 2025 17:38:58 -0500
 MIME-Version: 1.0
-Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-5-ebb2d0a24302@baylibre.com>
+Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-6-ebb2d0a24302@baylibre.com>
 References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 To: Michael Hennerich <michael.hennerich@analog.com>, 
@@ -89,24 +90,24 @@ To: Michael Hennerich <michael.hennerich@analog.com>,
  Andreas Klinger <ak@it-klinger.de>, 
  Petre Rodan <petre.rodan@subdimension.ro>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=859; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=839; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=5Dt8chRh9Q9zFfR+o0HlVC5RLtjfsBgIEofeyEgWWKs=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgWkPxj+ITtdzYFOhYRqZrV7rzI2N1a8bxnjv
- BHEMh8oTqiJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoFpAAKCRDCzCAB/wGP
- wPI1B/9lozodgbkP5rQVG6ALBHKR3d7hz5SMy/uywa3QBiiLmgj5QX1cAyGMFHI7hO3uO3aQSl/
- mDQT4eItTwkjzu/N/k2p6HIl0UyXa2lwFwPguAh6Fco94W+bqLyMiXXgd04TmGW4jedL9LbPCgY
- 07pa9FRxuw8J6Kg4xZzUitsXeewyNtdFUuzGLvmvEY9oqh7A/1iuMLVZyNULwWAqpBbAvI4BDWY
- mrWqXne1TqcmnTZJBaLxnti67Z2+Kmlj8oL+TyU8uXKtKa9kYw2cN9r+8cjaEZt5I4qaauKXSq4
- I+XFZqyqUd67pwca8QgxuwJVoQn6LMRTdn54nn8A0dcTI+q1
+ bh=J89vMIrnHas95b9IQRpMB3abmxVy58q4+X2PR5Kxrzs=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgWrluEPstsE3vfOa2602G4vDUiURfJwcuPmj
+ Ecdin91id+JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoFqwAKCRDCzCAB/wGP
+ wPDzB/0ezOPNIM1GcdwSJUtoBdBzF+of4mq74dFA0f4iCvbOvAC9fCmCzg5hxL69oaeNJIKLKNN
+ hwYn4bwrsFDn7hpTk4oxy+0yhbNBF3FS9rqxNmkw5sq+imc+Bge3o9MlimTvdYjRFeWz1olLBsK
+ RujuQh/8d+BqbeBkJy6HGkvMCcyYr4HMiR32pZxq3ktZX1yG2QbvAfaGvOtFKtCjsFCh+x/0Tk1
+ JzzUKytVoQDoqN/jeT+fEIYsymB+ELqIGIQ5jEtG2AOnEQdDR4Q/i73QIQnRhDjaJw/RzxhYyeY
+ LG1BSqJLLtf/Qqw+97BIE+EwDDmTTolk2qkEpoqaZjPnMzDK
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 05/28] iio: adc: rockchip_saradc: use = { }
- instead of memset()
+Subject: [Linux-stm32] [PATCH 06/28] iio: adc: rtq6056: use = { } instead of
+	memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,27 +129,27 @@ the code.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/rockchip_saradc.c | 4 +---
+ drivers/iio/adc/rtq6056.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/iio/adc/rockchip_saradc.c b/drivers/iio/adc/rockchip_saradc.c
-index 325e3747a1345c84cddcfe9a455da6ccf655447b..bd62daea0a3e5b879a8a970d107e3342fda7b8c0 100644
---- a/drivers/iio/adc/rockchip_saradc.c
-+++ b/drivers/iio/adc/rockchip_saradc.c
-@@ -404,12 +404,10 @@ static irqreturn_t rockchip_saradc_trigger_handler(int irq, void *p)
+diff --git a/drivers/iio/adc/rtq6056.c b/drivers/iio/adc/rtq6056.c
+index 6ff47415a2221436b1fd548aa0bc070ba5fbb774..ad9738228b7f2db3f3b6cfc01fd97e43b579b687 100644
+--- a/drivers/iio/adc/rtq6056.c
++++ b/drivers/iio/adc/rtq6056.c
+@@ -645,12 +645,10 @@ static irqreturn_t rtq6056_buffer_trigger_handler(int irq, void *p)
  	struct {
- 		u16 values[SARADC_MAX_CHANNELS];
+ 		u16 vals[RTQ6056_MAX_CHANNEL];
  		aligned_s64 timestamp;
 -	} data;
 +	} data = { };
- 	int ret;
- 	int i, j = 0;
+ 	unsigned int raw;
+ 	int i = 0, bit, ret;
  
 -	memset(&data, 0, sizeof(data));
 -
- 	mutex_lock(&info->lock);
+ 	pm_runtime_get_sync(dev);
  
- 	iio_for_each_active_channel(i_dev, i) {
+ 	iio_for_each_active_channel(indio_dev, bit) {
 
 -- 
 2.43.0
