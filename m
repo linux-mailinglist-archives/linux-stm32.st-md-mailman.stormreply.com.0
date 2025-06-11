@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ACCEAD62AE
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C77F0AD62B0
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 00:42:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F185DC36B16;
-	Wed, 11 Jun 2025 22:42:47 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CA96C36B24;
+	Wed, 11 Jun 2025 22:42:49 +0000 (UTC)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BD67C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D12C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 22:42:46 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id
- 5614622812f47-404a5f4cdedso100856b6e.0
+ Wed, 11 Jun 2025 22:42:47 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-7304efb4b3bso237721a34.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 15:42:46 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681765; x=1750286565;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749681766; x=1750286566;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=l2UNg6SvTUsLvS4xPi0bVdlEHCiUbwbx1DnGSz9PULU=;
- b=o6a7kBDDKrY8EE9IvIcny0EKHjt66Gqt+ax2qg+CLr+c8H0kjUa3W9pHfzBfBc963k
- yx8o6Fq8OZfUkfi64ySIDPN765bkXyxIUyamabF0Kq7kmBS+b5JEVna3o0chUEFEj/dU
- k4+RriU+eV7oXCp18F1Nuu1UIoM3+t7rj4gampy+UR0zbht78bMYUf+9ZPoai+JIuae+
- DYRupf6TqTsKMkPqY9BZoRvQQlIb/uaGLfSOe9rGWnm8iALRZ4ZhdI+BSIBuLYsW9klB
- PuhL1UVVHrjjsyFK2Ra8oNXqWWeggH9RYmqloHVp9IoBekU1BVbR0tDq6Eit9giIcfJO
- 73Sg==
+ :reply-to; bh=LiF2DulFgRfRNMjiDxreAgm5rKmLlr34bZCxk6U0CK4=;
+ b=kGBgEO2sWtu9KdKtn3FAxmZQxVb7BBM5PmdOXEFFscb1zu7x4eZvLZo9H1QsqHyjsU
+ 55ZH/XjvqjuhKDjnkAd2+hIHqKA+MINR3T+gmOOGsLeUVea+KjDFQh64XpSA3QIt0F/e
+ 9Av6GbtrY557Hl2EbFHRz+041Cn+/9LLu5c2240CboSiGtcMiVBl8M+lZfy3bLriCToK
+ Qtd5hgdlbwYvtrUOrBQfc4/z+VKtHTk8sOkZ2jCbtSs945W8BSV+mjvp5Pd8V8+GrTL3
+ nTiTmyosr/4uIpDFjtWsd2VYcKgLbuvJrj1GjhLelXcHzk/9LDE+tktJGt3FHLJjVgRV
+ 9TbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749681765; x=1750286565;
+ d=1e100.net; s=20230601; t=1749681766; x=1750286566;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=l2UNg6SvTUsLvS4xPi0bVdlEHCiUbwbx1DnGSz9PULU=;
- b=YgvjOnX3QpTeaO8JcXixzOcGqQzqK/xEMFmuqOo19PrMB42Q+IWzmlr5o8Z0kiAXve
- w8eCn7BAXj7zRp4DGLRJ6lW2ENe678gvDD9CXwVb65WQuwKaUXjV0f9kWsp7D2ha4+zx
- nAdOL3TmH8oJF4miGYtaud1wYKutNNonvr+64/vrjII1/xr89MMKJicD9W2P3bLlPTJu
- 8iMWh2k4t72RX6CNprP+UyhDwRD+UsPWq8LelnmcNbMcDF+S2FbWKrA5HAXSUsvA8Ekf
- fwjfDlEzeG04M8IVjoJ+7Nk4FhZF5F/EO8g1wsZXzBhfQZLhAiiXWLfYQRlaMPGd8SNn
- 6kpQ==
+ bh=LiF2DulFgRfRNMjiDxreAgm5rKmLlr34bZCxk6U0CK4=;
+ b=bBR13ilXlxGUB81ETxgk5ThtablkYnNZLyujeac9HfxAJCXAjzmVMh2Zd7VbpNlQ7G
+ zqzr82/Lh9E2ZOwuZA7Xx1uOkNyH5q8tX+8PmosHFrxycz1/V3LbuV2RkRdlPN2p44Bj
+ oZfedDvSa+xb0YtlvL3Q2tnBbR/XyxSGZohfw5Z7OMpkiD6wgj4fjEZitAqcU0zjbsav
+ V3JQ6VVC+hqM9Iz+zGYhn5ej/dxpsAsTfi2xWfAPJY9VQpqpl+NnQ0jyJjHgBM5GnrPE
+ a05mrfNCD2keF5CL0mRAY1nLPud9d+Vut1negspM5D7D1Y2GzH67TP3u2tgMThls4Aqz
+ EvRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVJdd8r9QbaHldE/Qa+kPuUzX994EQS0ifJXxwhGqV3DKktNOrAEPng8iS0kqvxwDCIhjcdTvUiq/aNIg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzSy3nTCBeidpYBb5DnnTeigipSVTXCbc2yTjxWJ0sYYWgdNu2M
- nPaTlfie9rwBiYhbLgpCx+1fSIdeFOkaCZwSsaxWwL6MxD1bPrkWcjOFhc3WCbJaMv8=
-X-Gm-Gg: ASbGncsAWeFIjfKtQjknq0T4+XzOdRLptyqj16ujzIMDtzSsQWKVojSsc5xnJl52L5z
- ij2MTliGWsTI86midkbYRHhZlHgi15kJAkK70WRQLeooJ4YYB0FsKugRamhrymS/0rQbjdgeDmf
- Jazym7d6kq+X8bz5L+DTt1DupoPvufNb7eGzGKXAfCbZr9TkQFHFEA0CTbo6SkOUvErO+Dltj1v
- 9DCk+9ptQ/fVKmo8rXkRz0kte60UAKPUHmVZ9x3o7d8fuLIpXCTFk7n4jdA+1fCPgdGJXnHNPbQ
- 8oyBlZATycY5CLr7Zl5Psr4AkbqVwsPEbHEI4lynmv6N1H4Y52HMpX2JayG0lQ7PS8nT
-X-Google-Smtp-Source: AGHT+IFtdjG7FJlzUxyoQdzNSopQXJAu7gY8CXP2Gzp1csbup6tf9jsf+umiF0SzQmKRhZKr02rKRw==
-X-Received: by 2002:a05:6808:23c2:b0:407:a47e:6e43 with SMTP id
- 5614622812f47-40a65f9214fmr957924b6e.1.1749681765005; 
- Wed, 11 Jun 2025 15:42:45 -0700 (PDT)
+ AJvYcCW4ESihAOGSXz69kYldtRvuW/9UkJroRio9NQ+7p5KUz2ezydzOeUR9S57iRqmzDzpPhg8Qu8kigIyIoQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwhObLI4S+cQA4EjY976H0Z3eVEtfdVjSiJ6Lgjs0QmbCTmAoj+
+ INpUS4MeCcKHBcHc2XkFOf8GmZR7LPiDwZlucbWRTNLKD8+7/sZwIuakV5YmCbWgfyI=
+X-Gm-Gg: ASbGncvhxZWSL4UGaedoUypokOJbx0R4S5zMhSlQnze6owfeOYO4rsSexYUbyVK7NnK
+ QanDRCywoViqC+ylM2iMdL9VPvk/n0Q7mhsnOWi/xszB3u9lVp6amGuNjChEyM2HmOqYyUG+K1C
+ MdDcYCl1RJ4NRFZ/lP1hk5hPhLIYe5U0ZLdK3XRYut91LuGAL2ROCqHRAi8XdzwocwFOZAe5bkd
+ M9WZNYtp83/8U1X08WGT+zuVzns2HYyMApGL1ehxBd3nwYSZWxLCg0VWfJ/H8BTOreuGFtnx42n
+ U55XcKp52S0tM3Hmm3vpZmBSKox77PWnTpSI+lUGGJuxiv+RxvRquc/JXURdcCfcnLhcIIoY/3a
+ Rj+Y=
+X-Google-Smtp-Source: AGHT+IGZSFpZmGlN0w2Un5vLT2W24kqk9q0DeivfstNV8sNtHQdO7UhGZijU6igQSf2A4dpARH8gnw==
+X-Received: by 2002:a05:6808:3086:b0:403:3814:b2b1 with SMTP id
+ 5614622812f47-40a5d081c0emr3858130b6e.10.1749681766169; 
+ Wed, 11 Jun 2025 15:42:46 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:1d00:4753:719f:673f:547c])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.43
+ 5614622812f47-40a682fbf05sm24684b6e.32.2025.06.11.15.42.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jun 2025 15:42:44 -0700 (PDT)
+ Wed, 11 Jun 2025 15:42:45 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Wed, 11 Jun 2025 17:39:06 -0500
+Date: Wed, 11 Jun 2025 17:39:07 -0500
 MIME-Version: 1.0
-Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-14-ebb2d0a24302@baylibre.com>
+Message-Id: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-15-ebb2d0a24302@baylibre.com>
 References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 To: Michael Hennerich <michael.hennerich@analog.com>, 
@@ -89,24 +90,24 @@ To: Michael Hennerich <michael.hennerich@analog.com>,
  Andreas Klinger <ak@it-klinger.de>, 
  Petre Rodan <petre.rodan@subdimension.ro>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1423; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=915; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=/BUF3sI3UgUZuWXo/TdJaTMxjYqN2OTvccYkHdo0CWU=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgXgx0zbHn3Oo3OHG9JE4qdzOSIeNJ0xKf9sX
- wnfAW8aNIqJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoF4AAKCRDCzCAB/wGP
- wKEOB/4rZj/0DQjmcBcARn4a2juCsZtjNAGxZS6Gnnpvb9lBcZ/M7WLd2TJ1FU4tng8kNtGsdpl
- xxpYcw9zUa03RA+T15dk478hNrBOrf2769q/x+Z1ASRK6yXK3oE8+pjK5cy1Um2YQXRWQEm59/3
- /79KeHDmQDe11sPIhDQI+6E6v3n71Dc3Iy4yldkp7noMM0+e6hb79BqwrA5FGzOlOZWqtZlPc2T
- +cXsU8GS8cJdJPtJ2N+qcs/bXCjapsQgI4a2JVuet7WD3ZhgXF0vk5hcotnb2Rx0o1conJ7TdH3
- UiMPLiwJFamoQtn4+HaIKDh9EXnxtMphf1igA9vqBfUQt1tI
+ bh=UJXbN0f/Sc264QMDW6dBftvYOYfvz10QBoW4bFVFUX4=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBoSgXmmJnXqBUX52BnBQ8vdrjyxdthhoLPWdbRL
+ R+WVVgUfXeJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaEoF5gAKCRDCzCAB/wGP
+ wAHpB/9uvsuwsxPRCNHjRwNuY0qyeu9AO2EJoyNvSVzZWpvJJXh6el4lDtmSOYf7BNiSzxoL7GH
+ ZA9fAXagxB/cnJd0lWxqHu6IllSBT9tS7KDugmBh+2loJ450FcplnrPuRlzFJx5QRs7XWieNUFB
+ MXxCk/XXt6zIf+oAV23jZWywwUtyAzZ6IAh9PIHNdcMrm/xyZ/gKGv3UMTkLdL5rp5SJBwxh4cc
+ 00NEmMDVhDI8758T0v6AVJa5hRW1epfYSYXca9HF6od0VNpE0B2edgAefLgFuwdtJeZH/7Ms8qJ
+ Qcdf79QFtQZEJjej/ETfZd9QxjJxo8qX5fR8v+r3taHVCkrk
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
  David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 14/28] iio: chemical: sunrise_co2: use = { }
- instead of memset()
+Subject: [Linux-stm32] [PATCH 15/28] iio: dac: ad3552r: use = { } instead of
+	memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,44 +129,25 @@ the code.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/chemical/sunrise_co2.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/iio/dac/ad3552r.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/iio/chemical/sunrise_co2.c b/drivers/iio/chemical/sunrise_co2.c
-index af79efde37e89170128ef9351bf1ad8b993d4a2d..158be9d798d26199cfb40ef0d294f967ba8a737f 100644
---- a/drivers/iio/chemical/sunrise_co2.c
-+++ b/drivers/iio/chemical/sunrise_co2.c
-@@ -51,13 +51,12 @@ static int sunrise_regmap_read(void *context, const void *reg_buf,
- {
- 	struct i2c_client *client = context;
- 	struct sunrise_dev *sunrise = i2c_get_clientdata(client);
--	union i2c_smbus_data data;
-+	union i2c_smbus_data data = { };
- 	int ret;
+diff --git a/drivers/iio/dac/ad3552r.c b/drivers/iio/dac/ad3552r.c
+index a44b163f318315cec179aa2ac9d66883a327ebb9..93c33bc3e1be438c2e10c1ca990d8046ba87c9d0 100644
+--- a/drivers/iio/dac/ad3552r.c
++++ b/drivers/iio/dac/ad3552r.c
+@@ -293,10 +293,9 @@ static irqreturn_t ad3552r_trigger_handler(int irq, void *p)
+ 	struct iio_buffer *buf = indio_dev->buffer;
+ 	struct ad3552r_desc *dac = iio_priv(indio_dev);
+ 	/* Maximum size of a scan */
+-	u8 buff[AD3552R_MAX_CH * AD3552R_MAX_REG_SIZE];
++	u8 buff[AD3552R_MAX_CH * AD3552R_MAX_REG_SIZE] = { };
+ 	int err;
  
- 	if (reg_size != 1 || !val_size)
- 		return -EINVAL;
- 
--	memset(&data, 0, sizeof(data));
- 	data.block[0] = val_size;
- 
- 	/*
-@@ -88,14 +87,13 @@ static int sunrise_regmap_write(void *context, const void *val_buf, size_t count
- {
- 	struct i2c_client *client = context;
- 	struct sunrise_dev *sunrise = i2c_get_clientdata(client);
--	union i2c_smbus_data data;
-+	union i2c_smbus_data data = { };
- 
- 	/* Discard reg address from values count. */
- 	if (!count)
- 		return -EINVAL;
- 	count--;
- 
--	memset(&data, 0, sizeof(data));
- 	data.block[0] = count;
- 	memcpy(&data.block[1], (u8 *)val_buf + 1, count);
- 
+-	memset(buff, 0, sizeof(buff));
+ 	err = iio_pop_from_buffer(buf, buff);
+ 	if (err)
+ 		goto end;
 
 -- 
 2.43.0
