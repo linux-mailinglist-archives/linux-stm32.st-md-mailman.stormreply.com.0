@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 699CEAD4AE0
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 08:14:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2425AD4AE6
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 08:14:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBFDFC32EB0;
-	Wed, 11 Jun 2025 06:14:17 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05B70C32EA8;
+	Wed, 11 Jun 2025 06:14:22 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB4C4C32EB5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DC5EC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 06:14:16 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3a528e301b0so26321f8f.1
+ Wed, 11 Jun 2025 06:14:20 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-45306433f71so247045e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Jun 2025 23:14:16 -0700 (PDT)
+ Tue, 10 Jun 2025 23:14:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1749622456; x=1750227256;
+ d=linaro.org; s=google; t=1749622459; x=1750227259;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LmGTr9Avtp+9E1jrxJpsP4+QY45B/matmjkDOASukCY=;
- b=tvv5XLJbgtGXXHDy2fY3+WNS6pSn4E0aoyBbHCKEkai0lwxv9bm8rvcEknlTlR7p/Z
- KwSvLhMqkjryTQZEMKwkLixCLovfby1a8HsAJXkuacbUzOMonqQG2qFzef8KzL1jLtQu
- yCb2DkH/XZQeUUsOKN5HwpXTfAbLUt9hn0/53dJ1CBM9cZXHlVWC6bsGGWBH2aynZGHk
- x2Scp9NjhcrSXwxVNrLbBoqOPmRg63FprOi6rvbn/AWPeWe67fB9uJBCV1FfV0k4LPQh
- yhCflgZ1XmJLG1Exyds8fJ80B0QyIQINKBTd4+pir7NCbL/bhFQE3jaxhz71NqJi8Rlh
- LdXQ==
+ :reply-to; bh=q86QDWzbyqUrHwy10F9ZLVZs4bIWtafdYZALzNzfzYA=;
+ b=tXOQJGGI6YxhNNtVgtJNmU4rBiHhrfdGxaBndG7/SUM/l0UauhgukKfByzEmUIxNrl
+ vZZAqAzG4y+sfFympriTLIgyXU3DorSVsMh0hVPq0pXzz+hYeG6ZF+JCnjKrtsr4uOgH
+ KePFtn3EFyFRUzCvemewHg5uUtiIOvxqd5VijRBX7He/gw9+hKLdQdRsUu6FyYBxnkXo
+ nu6oHKgwiQrjMdBqPjW9KKAkYzoGEXn7NUxspqnyh0euUDdhfME+MZhMSxcPfsJPXdym
+ PnyNQ0P3QAAlRvD0Mjux8T/YRPHhviAn0GHM+dv4qnNncYs7DT19VAas0nlM96KhOzgl
+ KTkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1749622456; x=1750227256;
+ d=1e100.net; s=20230601; t=1749622459; x=1750227259;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LmGTr9Avtp+9E1jrxJpsP4+QY45B/matmjkDOASukCY=;
- b=hcOEM+r59rBa2XB4LCyLdEzTfrXFJ26/FCa2gcAiclPRc8QxYMNunde39pOP5P9L2M
- WdCQkm8klXsicu4N9w9ITW6k+QHxwo+8flRsGULtRGJHhwq7qNvitt5c8z1fPckCaYYR
- PCL3f/GB7dp8T5OnKaSsrTcJEao2qN/fQX3tc//q1Xi+InoJLBVfKDrWcXff1XH7QiKw
- e/vUZUCb1x6YqTVSjgZrszDhNB+2XRcf/5rdNxlyfbJeTJW7d30QS76bXaHiRNwZ9FmK
- E+E1gH3vogbo+cnEvH3dlRt5/RCgRU9ImhpLNiQmBbO6+lo0N0mIQQ7yqB9wO00NjxiF
- XCHg==
+ bh=q86QDWzbyqUrHwy10F9ZLVZs4bIWtafdYZALzNzfzYA=;
+ b=IgLaBwV2z8YWa6frwRR6rFPtEr+zBF2JmfCxxKT3NTvZOV8E5yJe4zYILZ3YH/7gSq
+ BPuBzAWsM5XGBnIOz+oZiKzFSCkjDDLiehzPgSX4CwESelcXVi2o+iIoo8neU25CT+JY
+ VCZLhJzM0M1laysIJDrIIUmDgnH5WED0bTZ/yfKKjdUY6dNJkOW6zXHYvXnH39g+xDvs
+ N5PKssYodrDDmxgCVZgY5HcP2+4JpUsFLRut853Ruj+zPh3Og/xsm60UDZF/KvKtTQD2
+ GttmRVdzezjNMyLETT/ryKk6Cq5pFgAgGIA66wu9J37wJAijOmZg4cBOvOYhr9wXh/vr
+ iKvg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWY3Da8txjLwJsXqoEP55DNEXXTaR4wH28/XU/wGdq5QBbt4U1misLc6qOEWiaXVyEkYVDkHiNU9CfTQQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YztZRKet6hS85cbRmoEq0+UhHLgXQDxIpcs245snQVWgEjtLzsc
- n5esDiqbB5MBYmpchKGq7/zPGqySSRok7xKiQdUIwEEcw5wPkvvQJqMnlCdi31yzk5E=
-X-Gm-Gg: ASbGncs+RGJV9NLW2te1vseYnHLeWAuLYWSbs5GReZlIsdWVY4gwFt5V2gnzcr8sXYX
- GiiR4Wmbdzzfc0TlOoLY3GVZPL3GfzW2bV1A18EV3TfsvDFALFCZGnyCvSwD9EIl6rSLBGhH9B4
- Ajaaewx54TPjLKAeqBIxRkunwwdcemKZqWKJYpYGIaM5dotrJ387c5mUcv3+P0KrHpnL5RIUFol
- inG6rrbphjkbL5vmkENJJU9rKURYm04ubKoyXb3AaRKHs9Y6XI6NZpcHH6r5Lv54NA+oywD9To5
- Z/5gDZDxlWr+h/WJXq2b9XDFhJIehTD2SJP+7RzosI+6Q8VNhxuCsK5bSQ04511loNu5WGRFqGx
- hcatNB5A=
-X-Google-Smtp-Source: AGHT+IGuARTYLyF3UiF9reCUirhd/Exv3gey0a/FHP4hXPUPwwAH7XeVaLmvzmzisoq7vXGGNYY6fw==
-X-Received: by 2002:a05:6000:4205:b0:3a3:7be3:d0f3 with SMTP id
- ffacd0b85a97d-3a558820e34mr451650f8f.14.1749622456103; 
- Tue, 10 Jun 2025 23:14:16 -0700 (PDT)
+ AJvYcCV47RnJ9IvUtccA0Y2amYM75fTV3l+Ba0IKCeAToYxtjmSvSAa/npbfcVbE6UhiTwbFlNH+35zXBimF3w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwFch233U1wmdWLENEllK4aaU/dVsRu4tmiwDNx3S2LMyxYOK/w
+ UfaC6uSiN4j4iIhFiPCGtBhRhOK6FTG24WT5e3qg3BZW3dSdOl2u9M4Bdoi93QzALC0=
+X-Gm-Gg: ASbGncv1+yzs4Q9aowk73SyNJHkoF/k/7o+ka75jcE/Ue8PruZV0U2GFmyz16SduuyE
+ YRZdP7A8JTWHBJ00mbazMs2fj4GVEtYkOpg7eEIe/O5TPoYrfK6DUpqqmwk01VXJrkVa7CHhyAQ
+ n5a9gZJQLTf818ng0t2pV289Ky9I/MscBD3lpDQosXbEDk0PrDGqY2pW8IhPgzz4SjfP1a1GwC6
+ +XM5o2NNRpRXOLHapPqTQvz7eEGe3b0o8D2/84Y3ZyNHh+7dL74zSGbaHi2UuX2B+E4TVfQxs24
+ Zg9ostBoLG65kiNFPEoaik+dYfDht7P8p68VYkqp/J1sWzhF6kSa6K8lXtMdaEZXYQPh5IWv9/B
+ JQ2t+HoY=
+X-Google-Smtp-Source: AGHT+IG0MrurMqwANRNDslKVkh3dKprU9y6IrTQpViebfAkp6mB1Umn/L5OKQlg735b88DTWJ/T9nQ==
+X-Received: by 2002:a05:6000:288e:b0:3a5:2dae:970f with SMTP id
+ ffacd0b85a97d-3a558821396mr547873f8f.13.1749622459437; 
+ Tue, 10 Jun 2025 23:14:19 -0700 (PDT)
 Received: from [192.168.1.29] ([178.197.223.125])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244f516sm14142791f8f.74.2025.06.10.23.14.13
+ ffacd0b85a97d-3a53244f516sm14142791f8f.74.2025.06.10.23.14.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 23:14:15 -0700 (PDT)
+ Tue, 10 Jun 2025 23:14:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 11 Jun 2025 08:13:34 +0200
+Date: Wed, 11 Jun 2025 08:13:35 +0200
 MIME-Version: 1.0
-Message-Id: <20250611-pinctrl-const-desc-v2-2-b11c1d650384@linaro.org>
+Message-Id: <20250611-pinctrl-const-desc-v2-3-b11c1d650384@linaro.org>
 References: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
 In-Reply-To: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
 To: Linus Walleij <linus.walleij@linaro.org>, 
@@ -96,21 +96,21 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Manivannan Sadhasivam <mani@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1377;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2097;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=uGHDfIA31YKh5ahk8efaA6IVYuJLI6m+zDCouPPq644=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSR6g8xxyHU0HpiCDaPmzEcUGbG3i/Yo/YG0Wn
- 7rcaYbUuOCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEkeoAAKCRDBN2bmhouD
- 15vZEACL9S/hnI46RCXgnSdsn6o+epweo7vg2Ve0a0tgPgDpJPr9sxin7UVOYpBd9VSMJJQoLLF
- aeqFMhIemW0RcumAWboyA4gfV7dVt4MPt/v++UUEhPUE9TwivxEkN5kMfkB1dRF4+MjSjHDuvGC
- ZPBUhFjQCXOgwCVHKydx8vmuJV0CXug08L0YllTPL8pXovkyewDPdTKqQaFhukVSfPcO9IOAgtx
- M5yXLQe29xMW0Qyyul/SVfUXoGYtMZqzVJ6W6dzSnw0YNlMlEQg2zyirVpJ5F+/OHhCzmyC/8hL
- vY3Rtcjw+MHY8cI42dcQDzeoAKALlg2/hy1crOMdKh8wSr6O6LFk7rAOTcWChL14XAoUvJpX+zd
- r0YhSuMLTab6mVHTRRgnXKL1v2XuGeY/7QwPQxo0jcTZpaoreoReVm+cJ1biQiLJhRB30IaCe1g
- tpwj/e5Occ6qRtXtGh73XlrINYyxw5OzGdzDUiTSx1Bd8fBfKqn1ojFrBZU6c0EfEOEodfM1L3V
- sIrLevCzW4HtOtGrGg1HFUXnHrJ5DdHAsk/NQrAi6Yy0jFf+hLnI1SRhJfuSoGrStvp5Z4M4RDJ
- lCsyjBjzLRgK6m8GXnTUqaoCeXd9zcxJxwOmrrtEsnEGDuREqGFpURGacr7KDtTH88JLMKCC9g1
- C5kgftvilxEQjiA==
+ bh=NNpY2A6LBp263syvyG1Ecsfx8CioM309dnOrlcmWHKA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoSR6hdhqC2eDe217cvGUZMEh1W/4vld1oNnYW+
+ YkZbRVX0u6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaEkeoQAKCRDBN2bmhouD
+ 15CoD/4hfYjkCZdVyazNq2ibT7AGxKu+nI1YPoMthyyZMz5plU+l+nNgmymy2NyhFPLVlkvCK4A
+ 4FsvS1iJn3Dkr+y2bC4QBIUT6dXj23C/I9Y+3v2Xg6Hx56dWfC6oNqEvF+rYuLqoJpq7A4T3RPj
+ 11snIaP0e4JrVwiKZh0u+TcJM7WOVXMiQmX60PHyUR1rnzJ8HXuhCqTtE+RTBK6gIjHFzZGp5L9
+ q8UgvNJTUf5z2aiIeb1m20vw8f+zaUsHEVTBA5pQfrzaP3VRCuXmtWb9nRDuE1Q5btLjbaAmtiG
+ 9eaROFIx5bFOf+Sg9Ok9Gj2Q10AZYnHmnkoy4IqVI6kGx30tO/SVz/T3rgjNol+hXAQHI1hLcmk
+ XVGVC16NfQipwhxK+aPcl2ywGautuFcWgIHKgPcVZZENQIcSUvtYzB18VACNwO+5ipDcASefqro
+ QFP3fiWL3DaMswdeQCBUr36ds+srNu1ED0hRChkBFVsv/mKeJCXpoy9aEwWCSVtFi89Zld0QFFX
+ MVKlitmuZXfSPnxmXiQaGaYXstF+0Fj4VHKYg2U27Irx1aunnaZdNwgPgX5pSPhe9Y4xoUm0xrm
+ 2HtZbv19j2BQ7vx/8hkKMv2025M8QDoGlqAB55eUy1ppAZx8gZ1ZQyAOOBIcShwwTyUgeLGvELM
+ hElg3VcQFmHOyDg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
@@ -121,8 +121,8 @@ Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
  linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 02/17] pinctrl: Allow compile testing for
- K210, TB10X and ZYNQ
+Subject: [Linux-stm32] [PATCH v2 03/17] pinctrl: amd: Constify pointers to
+	'pinctrl_desc'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,48 +139,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Pinctrl drivers for K210, TB10X and ZYNQ do not reference any machine
-headers, thus can be compile tested for increased build coverage.
+Internal functions obtaining pointers to 'struct pinctrl_desc' do not
+modify the contents so they can be made pointers to const.  This makes
+code safer, explicit and later allows constifying 'pinctrl_desc' in
+pinctrl core code.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/pinctrl/Kconfig | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/pinctrl/pinctrl-amd.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index eb1b37af81fb81175d22018cf4856bfafaea75db..9b93a11c5755d5e1b239b34d5d66d5717b281265 100644
---- a/drivers/pinctrl/Kconfig
-+++ b/drivers/pinctrl/Kconfig
-@@ -269,7 +269,8 @@ config PINCTRL_INGENIC
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 5cf3db6d78b79af9ac5e7226de239a0d2f9aaacc..85617cfed2299e131c110e9d4084370790106404 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -872,7 +872,7 @@ static const struct pinconf_ops amd_pinconf_ops = {
  
- config PINCTRL_K210
- 	bool "Pinctrl driver for the Canaan Kendryte K210 SoC"
--	depends on RISCV && SOC_CANAAN_K210 && OF
-+	depends on RISCV && SOC_CANAAN_K210 || COMPILE_TEST
-+	depends on OF
- 	select GENERIC_PINMUX_FUNCTIONS
- 	select GENERIC_PINCONF
- 	select GPIOLIB
-@@ -554,8 +555,8 @@ config PINCTRL_SX150X
- 	  - 16 bits: sx1509q, sx1506q
+ static void amd_gpio_irq_init(struct amd_gpio *gpio_dev)
+ {
+-	struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
++	const struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
+ 	unsigned long flags;
+ 	u32 pin_reg, mask;
+ 	int i;
+@@ -901,7 +901,7 @@ static void amd_gpio_irq_init(struct amd_gpio *gpio_dev)
+ static void amd_gpio_check_pending(void)
+ {
+ 	struct amd_gpio *gpio_dev = pinctrl_dev;
+-	struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
++	const struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
+ 	int i;
  
- config PINCTRL_TB10X
--	bool
--	depends on OF && ARC_PLAT_TB10X
-+	bool "Pinctrl for TB10X" if COMPILE_TEST
-+	depends on OF && ARC_PLAT_TB10X || COMPILE_TEST
- 	select GPIOLIB
+ 	if (!pm_debug_messages_on)
+@@ -957,7 +957,7 @@ static bool amd_gpio_should_save(struct amd_gpio *gpio_dev, unsigned int pin)
+ static int amd_gpio_suspend_hibernate_common(struct device *dev, bool is_suspend)
+ {
+ 	struct amd_gpio *gpio_dev = dev_get_drvdata(dev);
+-	struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
++	const struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
+ 	unsigned long flags;
+ 	int i;
+ 	u32 wake_mask = is_suspend ? WAKE_SOURCE_SUSPEND : WAKE_SOURCE_HIBERNATE;
+@@ -1001,7 +1001,7 @@ static int amd_gpio_hibernate(struct device *dev)
+ static int amd_gpio_resume(struct device *dev)
+ {
+ 	struct amd_gpio *gpio_dev = dev_get_drvdata(dev);
+-	struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
++	const struct pinctrl_desc *desc = gpio_dev->pctrl->desc;
+ 	unsigned long flags;
+ 	int i;
  
- config PINCTRL_TPS6594
-@@ -590,7 +591,7 @@ config PINCTRL_TH1520
- 
- config PINCTRL_ZYNQ
- 	bool "Pinctrl driver for Xilinx Zynq"
--	depends on ARCH_ZYNQ
-+	depends on ARCH_ZYNQ || COMPILE_TEST
- 	select PINMUX
- 	select GENERIC_PINCONF
- 	help
 
 -- 
 2.45.2
