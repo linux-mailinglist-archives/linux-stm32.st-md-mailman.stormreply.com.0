@@ -2,89 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B27DDAD509E
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 11:54:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6ED3AD525A
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Jun 2025 12:44:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 080EDC36B12;
-	Wed, 11 Jun 2025 09:54:28 +0000 (UTC)
-Received: from mail.mleia.com (mleia.com [178.79.152.223])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5AD7C36B1F;
+	Wed, 11 Jun 2025 10:44:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 634FBC36B11
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D334EC36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Jun 2025 09:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
- t=1749635665; bh=ZELWje44IQXg+aqRqhMjZlzmAPP8bdbQVZYOFJq3M9g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Jxt6xsAgMAOUb4jl76i3Cw/ob+3g27CDrEJ11UaNWweARmh3pASKr9vGVkS92IFac
- YPXA6hqSgGV5dnyifiEPzFxSuWmHwqtnnBorcndP4VXu30erdJBfP8YrJ46WtqkT2C
- ZB5SXynEGjYF90uyMsBkLTP7/K9tKTjfvpNQc65M4ZFGcmOJyetoZJbQyfgMTcccnC
- ovv/hF2800vFjHZenrXZ9Ib3Cs3634CyeipOu5H15sVoNWHX/j8qicu106Z5ZeHvjj
- l5CXC3vkbBXv/RUgPw6tOFDOWz5MZGDnaCREKgxUUUqRvZgLkdcVlwdN1MIjOJGq3p
- fGRPXfFbZHprg==
-Received: from mail.mleia.com (localhost [127.0.0.1])
- by mail.mleia.com (Postfix) with ESMTP id 964313C153A;
- Wed, 11 Jun 2025 09:54:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
- t=1749635665; bh=ZELWje44IQXg+aqRqhMjZlzmAPP8bdbQVZYOFJq3M9g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Jxt6xsAgMAOUb4jl76i3Cw/ob+3g27CDrEJ11UaNWweARmh3pASKr9vGVkS92IFac
- YPXA6hqSgGV5dnyifiEPzFxSuWmHwqtnnBorcndP4VXu30erdJBfP8YrJ46WtqkT2C
- ZB5SXynEGjYF90uyMsBkLTP7/K9tKTjfvpNQc65M4ZFGcmOJyetoZJbQyfgMTcccnC
- ovv/hF2800vFjHZenrXZ9Ib3Cs3634CyeipOu5H15sVoNWHX/j8qicu106Z5ZeHvjj
- l5CXC3vkbBXv/RUgPw6tOFDOWz5MZGDnaCREKgxUUUqRvZgLkdcVlwdN1MIjOJGq3p
- fGRPXfFbZHprg==
-Message-ID: <2ae6aa29-ea42-4fdf-a0ae-8cd088c88786@mleia.com>
-Date: Wed, 11 Jun 2025 12:54:21 +0300
+ Wed, 11 Jun 2025 10:44:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9535F4A60C;
+ Wed, 11 Jun 2025 10:44:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E828CC4CEF1;
+ Wed, 11 Jun 2025 10:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1749638652;
+ bh=XY1bFw2WKrjGrjUMr6K7T7hPamKz4LzK9z8ZINQUPZA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uYa7JADiz4vkuaVd9vaqDCAVjdCcDvLZc9z811fTBpqSRN9W4IorsCBqtY95TTXrA
+ t6e5T/AAoGoIjasNBY+R6YtdQGNIOFqzemBuzp8FxLGYcsnlU0qo1iUp5KuyWWlILl
+ 0C3kpXeBUP1d7hrW8olblffTXajjEBvINLpAs5Y6N1FC7dNPmy4xJA0PFPUHwjpUxW
+ 4QfTSK4r8/kCqB7LGQyCNugNqAhetxWdxOoXiQJsh8KJQZ7gEX3t4N42Kypvndi8MO
+ VsJ4FbtBLIxmzpCu4EmOEJsj4oaZhjW/BJso/ykP+zBMlbewthc3wVTmEd3rdXG67X
+ Ircrxk63TlvYA==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: linux-kernel@vger.kernel.org
+Date: Wed, 11 Jun 2025 12:43:37 +0200
+Message-ID: <20250611104348.192092-9-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250611104348.192092-1-jirislaby@kernel.org>
+References: <20250611104348.192092-1-jirislaby@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: ru-RU
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Lars Persson <lars.persson@axis.com>, Damien Le Moal <dlemoal@kernel.org>,
- Michal Simek <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>,
- Jianlong Huang <jianlong.huang@starfivetech.com>,
- Hal Feng <hal.feng@starfivetech.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Manivannan Sadhasivam <mani@kernel.org>
-References: <20250611-pinctrl-const-desc-v2-0-b11c1d650384@linaro.org>
- <20250611-pinctrl-const-desc-v2-16-b11c1d650384@linaro.org>
-From: Vladimir Zapolskiy <vz@mleia.com>
-In-Reply-To: <20250611-pinctrl-const-desc-v2-16-b11c1d650384@linaro.org>
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
-X-CRM114-CacheID: sfid-20250611_095425_660571_DE75DF41 
-X-CRM114-Status: UNSURE (   7.40  )
-X-CRM114-Notice: Please train this message. 
-Cc: linux-rtc@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- patches@opensource.cirrus.com, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 16/17] pinctrl: Constify static
-	'pinctrl_desc'
+Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, tglx@linutronix.de,
+ David Lechner <dlechner@baylibre.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: [Linux-stm32] [PATCH] iio: Use dev_fwnode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,41 +55,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/11/25 09:13, Krzysztof Kozlowski wrote:
-> The local static 'struct pinctrl_desc' is not modified, so can be made
-> const for code safety.
-> 
-> Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> Acked-by: Jesper Nilsson <jesper.nilsson@axis.com>
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   drivers/pinctrl/berlin/berlin.c                    | 2 +-
->   drivers/pinctrl/cirrus/pinctrl-cs42l43.c           | 2 +-
->   drivers/pinctrl/mediatek/pinctrl-airoha.c          | 2 +-
->   drivers/pinctrl/pinctrl-artpec6.c                  | 2 +-
->   drivers/pinctrl/pinctrl-bm1880.c                   | 2 +-
->   drivers/pinctrl/pinctrl-k210.c                     | 2 +-
->   drivers/pinctrl/pinctrl-lpc18xx.c                  | 2 +-
-
-Acked-by: Vladimir Zapolskiy <vz@mleia.com>
-
->   drivers/pinctrl/pinctrl-mlxbf3.c                   | 2 +-
->   drivers/pinctrl/pinctrl-tb10x.c                    | 2 +-
->   drivers/pinctrl/pinctrl-zynq.c                     | 2 +-
->   drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c | 2 +-
->   11 files changed, 11 insertions(+), 11 deletions(-)
-> 
-
---
-Best wishes,
-Vladimir
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+aXJxX2RvbWFpbl9jcmVhdGVfc2ltcGxlKCkgdGFrZXMgZndub2RlIGFzIHRoZSBmaXJzdCBhcmd1
+bWVudC4gSXQgY2FuIGJlCmV4dHJhY3RlZCBmcm9tIHRoZSBzdHJ1Y3QgZGV2aWNlIHVzaW5nIGRl
+dl9md25vZGUoKSBoZWxwZXIgaW5zdGVhZCBvZgp1c2luZyBvZl9ub2RlIHdpdGggb2ZfZndub2Rl
+X2hhbmRsZSgpLgoKU28gdXNlIHRoZSBkZXZfZndub2RlKCkgaGVscGVyLgoKU2lnbmVkLW9mZi1i
+eTogSmlyaSBTbGFieSAoU1VTRSkgPGppcmlzbGFieUBrZXJuZWwub3JnPgpDYzogSm9uYXRoYW4g
+Q2FtZXJvbiA8amljMjNAa2VybmVsLm9yZz4KQ2M6IERhdmlkIExlY2huZXIgPGRsZWNobmVyQGJh
+eWxpYnJlLmNvbT4KQ2M6ICJOdW5vIFPDoSIgPG51bm8uc2FAYW5hbG9nLmNvbT4KQ2M6IEFuZHkg
+U2hldmNoZW5rbyA8YW5keUBrZXJuZWwub3JnPgpDYzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVs
+aW4uc3RtMzJAZ21haWwuY29tPgpDYzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1
+ZUBmb3NzLnN0LmNvbT4KQ2M6IGxpbnV4LWlpb0B2Z2VyLmtlcm5lbC5vcmcKCi0tLQpDYzogbGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpDYzogbGludXgtYXJtLWtlcm5l
+bEBsaXN0cy5pbmZyYWRlYWQub3JnCi0tLQogZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy1jb3Jl
+LmMgfCA3ICsrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDUgZGVsZXRp
+b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy1jb3JlLmMgYi9k
+cml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLWNvcmUuYwppbmRleCBiZDM0NTg5NjViZmYuLjU4YjU4
+MzgyMjdhYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy1jb3JlLmMKKysr
+IGIvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy1jb3JlLmMKQEAgLTQwNyw3ICs0MDcsNiBAQCBz
+dGF0aWMgY29uc3Qgc3RydWN0IGlycV9kb21haW5fb3BzIHN0bTMyX2FkY19kb21haW5fb3BzID0g
+ewogc3RhdGljIGludCBzdG0zMl9hZGNfaXJxX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
+KnBkZXYsCiAJCQkgICAgICAgc3RydWN0IHN0bTMyX2FkY19wcml2ICpwcml2KQogewotCXN0cnVj
+dCBkZXZpY2Vfbm9kZSAqbnAgPSBwZGV2LT5kZXYub2Zfbm9kZTsKIAl1bnNpZ25lZCBpbnQgaTsK
+IAogCS8qCkBAIC00MjEsMTAgKzQyMCw4IEBAIHN0YXRpYyBpbnQgc3RtMzJfYWRjX2lycV9wcm9i
+ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LAogCQkJcmV0dXJuIHByaXYtPmlycVtpXTsK
+IAl9CiAKLQlwcml2LT5kb21haW4gPSBpcnFfZG9tYWluX2NyZWF0ZV9zaW1wbGUob2ZfZndub2Rl
+X2hhbmRsZShucCksCi0JCQkJCQlTVE0zMl9BRENfTUFYX0FEQ1MsIDAsCi0JCQkJCQkmc3RtMzJf
+YWRjX2RvbWFpbl9vcHMsCi0JCQkJCQlwcml2KTsKKwlwcml2LT5kb21haW4gPSBpcnFfZG9tYWlu
+X2NyZWF0ZV9zaW1wbGUoZGV2X2Z3bm9kZSgmcGRldi0+ZGV2KSwgU1RNMzJfQURDX01BWF9BRENT
+LCAwLAorCQkJCQkJJnN0bTMyX2FkY19kb21haW5fb3BzLCBwcml2KTsKIAlpZiAoIXByaXYtPmRv
+bWFpbikgewogCQlkZXZfZXJyKCZwZGV2LT5kZXYsICJGYWlsZWQgdG8gYWRkIGlycSBkb21haW5c
+biIpOwogCQlyZXR1cm4gLUVOT01FTTsKLS0gCjIuNDkuMAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
