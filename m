@@ -2,48 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E11DAAD70AC
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 14:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EBF7AD70CB
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 14:51:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93088C32E8E;
-	Thu, 12 Jun 2025 12:45:26 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 128F0C32E8E;
+	Thu, 12 Jun 2025 12:51:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5835C36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06552C36B20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 12:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=23ZG+xJSw4YpAjmPdytqobZOImtcUHEUQlR+e/rQiqI=; b=NTn8e+6gKdA3pIbp0py+2v72Mi
- jTjyRpKf6fLT7hpmfyodEh7uknxaaSBFccw61FIxbUPhz5+05UVGkAbKoa1uQSYbW6UgkBo85/L0G
- /9F7l5826yfE8XQr3N0hpst+Fk8xhcwYnifPsU5AelPsi2sImXP76Bh/wrAOgikqSthw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uPhIv-00FXUq-UD; Thu, 12 Jun 2025 14:45:13 +0200
-Date: Thu, 12 Jun 2025 14:45:13 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <353f4fd1-5081-48f4-84fd-ff58f2ba1698@lunn.ch>
-References: <20250612062032.293275-1-jonathanh@nvidia.com>
- <aEqyrWDPykceDM2x@a5393a930297>
- <85e27a26-b115-49aa-8e23-963bff11f3f6@lunn.ch>
- <e720596d-6fbb-40a4-9567-e8d05755cf6f@nvidia.com>
+ Thu, 12 Jun 2025 12:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749732683; x=1781268683;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Bql/TNuo24JhgENmtOEIa3XVAhbnXtyYW3C4rsZ9KFs=;
+ b=EGwrJIx+eh0qBbRcea1QjOYX1R/PNSCFt/id9lSJiavelosU9hXpXsAB
+ +b332KBBl9os9cGmSiRehkpc9Ed0fCQT9Ts1qllOL/VqfXeFVrWCq0KD4
+ rzMPIWz954CFKDd7KRhzh9XBjlGOnmDg0qFItmWX+sjit6wZzldP/uvuB
+ GH8O7Gez64He5/E/3fcd8H/F5njUq3Jw/pXkUStMKrvhmDC9d0IFODDmE
+ mhN69llIotBRSX0uJxFFosNQYwFOjaCqm7bDvXxkJQpDDDm8sQfb70Qv4
+ GOTvip6Il9E0OLqxZdBb8teAC3FHnO+/8g2H2R3AogWfHCGgMfwgqGmfg g==;
+X-CSE-ConnectionGUID: Y/X5IcHiRSmJnFYYdBOcuQ==
+X-CSE-MsgGUID: RepADE9YTeapoen2Ys8npQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="69478292"
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="69478292"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 05:51:20 -0700
+X-CSE-ConnectionGUID: mofzayPbSfemxo/78nvEhA==
+X-CSE-MsgGUID: 65CP34ARQ+yNMlLSnRyUqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,230,1744095600"; d="scan'208";a="152795140"
+Received: from smile.fi.intel.com ([10.237.72.52])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 05:51:14 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1uPhOg-00000005x89-01m7; Thu, 12 Jun 2025 15:51:10 +0300
+Date: Thu, 12 Jun 2025 15:51:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Message-ID: <aErNPaZzvgAps_-b@smile.fi.intel.com>
+References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <e720596d-6fbb-40a4-9567-e8d05755cf6f@nvidia.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Alexis Lothorrr <alexis.lothore@bootlin.com>,
- Subbaraya Sundeep <sbhatta@marvell.com>, linux-tegra@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix PTP ref clock for
-	Tegra234
+In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
+ Petre Rodan <petre.rodan@subdimension.ro>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Francesco Dolcini <francesco@dolcini.it>, linux-rockchip@lists.infradead.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Jacopo Mondi <jacopo@jmondi.org>, kernel@pengutronix.de,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
+ Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Leonard =?iso-8859-1?Q?G=F6hrs?= <l.goehrs@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
+ Roan van Dijk <roan@protonic.nl>,
+ =?iso-8859-1?Q?Jo=E3o_Paulo_Gon=E7alves?= <jpaulo.silvagoncalves@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/28] iio: zero init stack with { }
+	instead of memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,61 +92,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 12, 2025 at 01:26:55PM +0100, Jon Hunter wrote:
-> 
-> On 12/06/2025 13:10, Andrew Lunn wrote:
-> > On Thu, Jun 12, 2025 at 10:57:49AM +0000, Subbaraya Sundeep wrote:
-> > > Hi,
-> > > 
-> > > On 2025-06-12 at 06:20:32, Jon Hunter (jonathanh@nvidia.com) wrote:
-> > > > Since commit 030ce919e114 ("net: stmmac: make sure that ptp_rate is not
-> > > > 0 before configuring timestamping") was added the following error is
-> > > > observed on Tegra234:
-> > > > 
-> > > >   ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
-> > > >   WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
-> > > > 
-> > > > It turns out that the Tegra234 device-tree binding defines the PTP ref
-> > > > clock name as 'ptp-ref' and not 'ptp_ref' and the above commit now
-> > > > exposes this and that the PTP clock is not configured correctly.
-> > > > 
-> > > > Ideally, we would rename the PTP ref clock for Tegra234 to fix this but
-> > > > this will break backward compatibility with existing device-tree blobs.
-> > > > Therefore, fix this by using the name 'ptp-ref' for devices that are
-> > > > compatible with 'nvidia,tegra234-mgbe'.
-> > 
-> > > AFAIU for Tegra234 device from the beginning, entry in dts is ptp-ref.
-> > > Since driver is looking for ptp_ref it is getting 0 hence the crash
-> > > and after the commit 030ce919e114 result is Invalid error instead of crash.
-> > > For me PTP is not working for Tegra234 from day 1 so why to bother about
-> > > backward compatibility and instead fix dts.
-> > > Please help me understand it has been years I worked on dts.
-> > 
-> > Please could you expand on that, because when i look at the code....
-> > 
-> > 
-> >    	/* Fall-back to main clock in case of no PTP ref is passed */
-> >   	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
-> >    	if (IS_ERR(plat->clk_ptp_ref)) {
-> >    		plat->clk_ptp_rate = clk_get_rate(plat->stmmac_clk);
-> >    		plat->clk_ptp_ref = NULL;
-> > 
-> > if the ptp_ref does not exist, it falls back to stmmac_clk. Why would
-> > that cause a crash?
-> >  > While i agree if this never worked, we can ignore backwards
-> > compatibility and just fix the DT, but i would like a fuller
-> > explanation why the fallback is not sufficient to prevent a crash.
-> 
-> The problem is that in the 'ptp-ref' clock name is also defined in the
-> 'mgbe_clks' array in dwmac-tegra.c driver. All of these clocks are requested
-> and enabled using the clk_bulk_xxx APIs and so I don't see how we can simply
-> fix this now without breaking support for older device-trees.
+On Wed, Jun 11, 2025 at 05:38:52PM -0500, David Lechner wrote:
+> Jonathan mentioned recently that he would like to get away from using
+> memset() to zero-initialize stack memory in the IIO subsystem. And we
+> have it on good authority that initializing a struct or array with = { }
+> is the preferred way to do this in the kernel [1]. So here is a series
+> to take care of that.
 
-So you can definitively say, PTP does actually work? You have ptp4l
-running with older kernels and DT blob, and it has sync to a grand
-master?
+I believe we may do that independently of the compilers that can leave garbage
+in the padding. In case it happens, it will be good adventure to fix the bugs
+in the code, that for some reason take padding(s) into account for the real
+values.
 
-	Andrew
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
