@@ -2,47 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1352BAD7B74
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 21:51:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 671F6AD7E23
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 00:01:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B6CBC32E8E;
-	Thu, 12 Jun 2025 19:51:28 +0000 (UTC)
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16B58C36B2A;
+	Thu, 12 Jun 2025 22:01:36 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 995EFC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B159C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 19:51:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1749757825; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=niCZ7gfbCTphUt9F4A6BqJhyAWLYx6ZFwS619hLJe6PBl39fzz0Cx8vMltl3JFnMTsylPx4rmHxzSjlI6+i7JxXqUGT3s6Es/ezleTw1LiVQjojUFV2MChvno5MY8Cvp/2xtoIVUvXIUkrk6ZQaLkHxbgid9Eb84F9rtiiep3/w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1749757825;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mU+CcqNywPoimgVbJRvOWx8a/xllDqeUM7RTijoC4cY=; 
- b=QslLP2IFvCv129jJG9S1czdWGSll5oQcKPTGbu69twy2y6tft074Tj9gl4VSLqgkHbZePSQXCS47CfPxgVRXhkhNwNcM8sjdLMyylkaGbgAbNTkJteWsZT0or3z04oq3pKdilJf94Uubjr2Ok5GHz0dv8po0Wsr3HlZiPRC3pWc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749757824; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=mU+CcqNywPoimgVbJRvOWx8a/xllDqeUM7RTijoC4cY=;
- b=dgrFviZisw0pqrB+YqDeMyESyiRkmHgCVyEhMK+qA9s5JJEM1kHaX6FSiVjc6CAL
- ESUjzFUcC4kIRX5GaLHv+75hTR9fo3lR/+rESxFHOrnAIQiuvgMjh0P0wu1u/jZe70V
- f2+QqcSa+85I9n/Kg//f8lLHO3nJsdYBvCrZC82w=
-Received: by mx.zohomail.com with SMTPS id 1749757823600263.75629300643163;
- Thu, 12 Jun 2025 12:50:23 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Date: Thu, 12 Jun 2025 21:50:12 +0200
-Message-ID: <22744779.EfDdHjke4D@workhorse>
-In-Reply-To: <20250612124415.3399e26b@kernel.org>
+ Thu, 12 Jun 2025 22:01:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2D614A52192;
+ Thu, 12 Jun 2025 22:01:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E14DC4CEEA;
+ Thu, 12 Jun 2025 22:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1749765693;
+ bh=4c23EVlBRbC0Sh2HVGAeTrWF8ckuRzyb3wIApq3EJ0Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=pyPMHD+jhG+UTqABmIsWKlZaWpYwYT8yRbeTaj6af6mv0CScs81OZC14hEgpOQpqo
+ RxUjx7u0c04zWdOWA3HP8r3YCxfTUGgt7/6IXy+olWrZBlDDPCnHfJ2v85tlNdrCRD
+ UXqXIBSfdaqN7b2Zw9ekGq/d+2TWFahI8NypgSV/iEUgbik9cuIv4+7KQ4X2/YGiui
+ ToRHQcO0nLaHP41ty5z3+YlPdDtFsHUjqfXoXCbBt0r8dFq6GTqY/uU3iMpROb1OVO
+ RPp4P9+AYRiUOFuciFsilpSUhTCO/Q80c3PWR/d5rsYLxFbYNnCdfYj4zHkbScfKyp
+ +9szYBH1OtjOA==
+Date: Thu, 12 Jun 2025 15:01:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Yury Norov <yury.norov@gmail.com>
+Message-ID: <20250612150130.36b01844@kernel.org>
+In-Reply-To: <aEs0PVkwFN9uRgU0@yury>
 References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
  <20250612-byeword-update-v1-1-f4afb8f6313f@collabora.com>
  <20250612124415.3399e26b@kernel.org>
+ <22744779.EfDdHjke4D@workhorse> <aEs0PVkwFN9uRgU0@yury>
 MIME-Version: 1.0
 Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
  Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -63,8 +57,8 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
  MyungJoo Ham <myungjoo.ham@samsung.com>, Paolo Abeni <pabeni@redhat.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-media@vger.kernel.org,
  Kishon Vijay Abraham I <kishon@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Yury Norov <yury.norov@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
@@ -72,11 +66,11 @@ Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
  linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
  Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
  linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
  Shreeya Patel <shreeya.patel@collabora.com>,
- "David S. Miller" <davem@davemloft.net>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Subject: Re: [Linux-stm32] [PATCH 01/20] bitfield: introduce HWORD_UPDATE
 	bitfield macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -95,29 +89,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thursday, 12 June 2025 21:44:15 Central European Summer Time Jakub Kicinski wrote:
-> On Thu, 12 Jun 2025 20:56:03 +0200 Nicolas Frattaroli wrote:
-> > Hardware of various vendors, but very notably Rockchip, often uses
-> > 32-bit registers where the upper 16-bit half of the register is a
-> > write-enable mask for the lower half.
-> 
-> Please limit the spread of this weirdness to a rockchip or "hiword"
-> specific header. To a normal reader of bitfield.h these macros will
-> be equally confusing and useless.
-> 
+On Thu, 12 Jun 2025 16:10:37 -0400 Yury Norov wrote:
+> I don't think that that having HWORD_UPDATE() in bitfield.h is a wrong
+> thing. Jakub, if you do, we can just create a new header for it.
 
-That is how this change started out, and then a different maintainer told
-me that this is a commonly used thing (see: the sunplus patch), and
-Rockchip just happens to have a lot of these with consistent naming.
-
-I believe normal readers of bitfield.h will be much more confused by the
-undocumented concatenating macro soup at the end, but maybe that's just
-me.
-
-Best regards,
-Nicolas Frattaroli
-
-
+Yes, I'd prefer to contain it. This looks very much like a CSR tooling
+convention of Rockchip's ASIC developers. IOW this is really about how
+CSRs are access for a specific vendor, not a generic bitfield operator.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
