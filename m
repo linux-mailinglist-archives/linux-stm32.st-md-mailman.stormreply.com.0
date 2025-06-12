@@ -2,72 +2,155 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ACE0AD7103
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 15:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B56E5AD704E
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 14:27:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C769FC32EA8;
-	Thu, 12 Jun 2025 13:02:27 +0000 (UTC)
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F900C32E8E;
+	Thu, 12 Jun 2025 12:27:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4921EC36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F10FC36B20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 12:12:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1749730279; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=gLVUSH8whkjznJ84HhEKxxnjU2XuDwX04WtVl7Ke0k/VtxuyHepvYyZFEsDsuRxdsOR+mZGQaf6prN0Jl3RFazK5tsm20vUPJNrfC7uMH7EkaAb8x+J6/uAl/jUVupirBlfKqcEg9lOnbR3b7+HuupT2MjpmNEg4RkgTVsrnDEU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1749730279;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=anKlnwbFl0i8atiPf5c4Ks2L7I/qYyoFEOqCpl8Xjz4=; 
- b=NnYk+ho5QsNnUw/GyWrBWAlNSFdprVwt/SMpMEjygvo543BdEKRBHtfoDB0IlobqSRFj3aQKnfuW61HRwi3mlbyo7MjKlqvXIxcbmt1jg1nM3R/1ZxeziAGckm4SGc4esonsJ/LIuXqmUTX6AGNZ7pwSisvbKzWfbHfGMTWV5H8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749730279; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=anKlnwbFl0i8atiPf5c4Ks2L7I/qYyoFEOqCpl8Xjz4=;
- b=SK7OXUzcTO6J2OvgkAoNUrfYDQNfzeYE74UjS+nOX7vgUkpRNbgyTF8jQkg2hh0D
- dUAV/oN8qsLxpnK+Y+fEssRjHR7B+gVr7b2h2PGccmdr2X9JotCuSJJ08Fv1WSCt0fN
- YQykWtOBwsZmWFYSR+CE0ujPPquYI14ZwNERJFwc=
-Received: by mx.zohomail.com with SMTPS id 1749730276781981.6042234328434;
- Thu, 12 Jun 2025 05:11:16 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: David Lechner <dlechner@baylibre.com>, linux-rockchip@lists.infradead.org
-Date: Thu, 12 Jun 2025 14:11:08 +0200
-Message-ID: <2243943.irdbgypaU6@workhorse>
-In-Reply-To: <aEqbQPvz0FsLXt0Z@duo.ucw.cz>
-References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
- <aEqbQPvz0FsLXt0Z@duo.ucw.cz>
+ Thu, 12 Jun 2025 12:27:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IvBypL6B0SBn9S2Xx82bk+DJJDxbXLfQDKTxIw4JNnFdFO2Ov0BOxbc7TCv7qP+N2N+GfaqrhM8n0oQDeKQih2rDRVmqWIlGN8EcvcSs+x8z+VkY++KPeTc4yraYHlOV1nII7eC++6HC27zldrvCN4euo2RlUWR472QStQ0c6CxqQb1iagvzQInq7Ky18uHGl5z4egt4PcwJXy1pywbkguIugihXOEqkFXFMmU5puopoEwGfrv1103rqwnUK/CeP7WOVqqRC7Hm9st3N4XWFSadN00mRpizX/CSo/xthqtEao+LXPUlpAOcqg36j0J+19vph4EHOdoqZCTFU7JxLog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nVsKJxaKwe0EJ6fh5GLbw3N02smVQd6gfcpxOalilSI=;
+ b=HYyY8uZy3PNiWtckWBoiNSLhoTq8/MZ35o5l90GkvLtB9uCN/fWkN3ZnhaBWpMuIwZDY/fViCtsSaJLz0sRp6vaR7NeQjrXIS8FmTc/tYo+/9X2LEXuIIYDDgJYuz5+Ut2mUKkSE0uZABwYUcEBFDH8rdADjIbbvhnNkoUDc/rXfU+UkqGLEMSikN2tB0qd6pioS1HLN3C6uSb9baTJV704UImOMFtWOnYZFMAD2reZY4AboK+jWKGRIdTSdfIjjpJg9GJroh/4Dzk5PJnIFS+qdZdtYU/nlYjqAG4HogxSrmw5/Nb8fhuTxqt9sXi88kUSerCtgOJ9BJbO/5CCGug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nVsKJxaKwe0EJ6fh5GLbw3N02smVQd6gfcpxOalilSI=;
+ b=HMVXmVzHNL6vrCfRMPr/Jnxu1XVniz35qbDCJqerP5+RgPRi5ICKZifKZZRNCcyQR4EEGPEX3fnW9J9SL5oyLJ+pUI1L50ch1xV5XuZLscivQzfovPDtlrvtP9wDF5DWOk1KlCiXyio9j34AcDJbCX5mJV3Vb3mlGen+LTVzzpFDhUm2oJLfCwkyUfASIlXHRnn/dGS06XI6zFi95+WyiEyAZVo1qJlqI+VcLtHN9N04xUess+CMO8zQ5+R+/1nAKbNpG765BncY56z46PfbPwbPmd4ORTNf4KebL/AV++gxKY8BBdtE+TOYFrjoV4CdEqakLcNDhSoHAdkDQ8Ijeg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11)
+ by PH7PR12MB6978.namprd12.prod.outlook.com (2603:10b6:510:1b8::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.24; Thu, 12 Jun
+ 2025 12:27:02 +0000
+Received: from SJ2PR12MB8784.namprd12.prod.outlook.com
+ ([fe80::1660:3173:eef6:6cd9]) by SJ2PR12MB8784.namprd12.prod.outlook.com
+ ([fe80::1660:3173:eef6:6cd9%5]) with mapi id 15.20.8835.018; Thu, 12 Jun 2025
+ 12:27:02 +0000
+Message-ID: <e720596d-6fbb-40a4-9567-e8d05755cf6f@nvidia.com>
+Date: Thu, 12 Jun 2025 13:26:55 +0100
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>, Subbaraya Sundeep <sbhatta@marvell.com>
+References: <20250612062032.293275-1-jonathanh@nvidia.com>
+ <aEqyrWDPykceDM2x@a5393a930297>
+ <85e27a26-b115-49aa-8e23-963bff11f3f6@lunn.ch>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <85e27a26-b115-49aa-8e23-963bff11f3f6@lunn.ch>
+X-ClientProxiedBy: LO2P123CA0093.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:139::8) To SJ2PR12MB8784.namprd12.prod.outlook.com
+ (2603:10b6:a03:4d0::11)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 12 Jun 2025 13:02:26 +0000
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
- Petre Rodan <petre.rodan@subdimension.ro>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Francesco Dolcini <francesco@dolcini.it>, linux-rockchip@lists.infradead.org,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- =?UTF-8?B?T25kxZllag==?= Jirman <megi@xff.cz>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Jacopo Mondi <jacopo@jmondi.org>, kernel@pengutronix.de,
- Michael Hennerich <michael.hennerich@analog.com>, Pavel Machek <pavel@ucw.cz>,
- Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
- Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- Leonard =?UTF-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
- Roan van Dijk <roan@protonic.nl>,
- =?UTF-8?B?Sm/Do28gUGF1bG8gR29uw6dhbHZlcw==?= <jpaulo.silvagoncalves@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/28] iio: zero init stack with { }
-	instead of memset()
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8784:EE_|PH7PR12MB6978:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e6d85f9-a66e-4d40-e1c4-08dda9ac6f0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QnVWV0k0dE5JZVBHNHlOUjRuN3cwUmErRU1MWUp4Z0libzlVdnNjZm1yZG9U?=
+ =?utf-8?B?bGliYUt1Y0w5Zjh5ek12ZFZQTlNKWGxkVVZSSXFtYzFHOVdCamNReDU3Mjcx?=
+ =?utf-8?B?MVFyai9OQmxUM245S3VBakc2bGRwMzdWQ2FmL3BDU01kNXl0NXBZdDdYejl1?=
+ =?utf-8?B?K2VmaDNMQy9xaVhGSEdJNk9ZclNLMythZU0zTDJiOCtmWFJCS3dpSkRJTEUw?=
+ =?utf-8?B?QitYYlQ2OW05VHlBNHNGbkJyN2pPTTVsNUp3TUttYXBHdFA1U2pudzNReGN6?=
+ =?utf-8?B?S2Q4U1FvL1pTVllYZEs2bGI3MG9GU1Fia2RLUXdFZHE4MnQrckVQVE04Rldu?=
+ =?utf-8?B?VXFPTWVWMjN4aDkvTVprYWIxSzhNdUpBSVFkK2xmdlg0Y0JEaHhnanI5VjFr?=
+ =?utf-8?B?dW55U1U1dCtwd3I5YXNJV3V1UHdKVFUyLytlendQeFIrZXd2WE5xWmIvTlky?=
+ =?utf-8?B?OTFuUlU0RDUxOVN4WXZZL1NyV29VcHFaSTJoOUdockJHS25KMFlGVE45RG03?=
+ =?utf-8?B?SldKVHVrY1FER2NxVEF3RHBSOWtEZkV3Nk9CNk1GRDJaa2ZpV1Exd1hlazdO?=
+ =?utf-8?B?SmZMVHVUaHJFN0VpR09wZEZhSTRKS2VLZWYreEtDaFNHQjY4YVZHMkFGSEww?=
+ =?utf-8?B?QVRqVllKUDkwRXJXdjBKUlkvMHU2RlhGclJtbUpDTXlmL2psUjFUd1JCUk5u?=
+ =?utf-8?B?VDVqdjRKbVdBTnJUOTNRM2F5MmxuRTZ4RUxpQWtCdUIxTUhOYWxXMGR5VG8y?=
+ =?utf-8?B?QVBaRFBJRW1IT05TalVFbW5hSHYyUmx6dFBrbVJRYkJvM1VTVStQWGE3djZ2?=
+ =?utf-8?B?c0J1bFdKc2N4c3RSUXBsVUdkMExaTVFXclF3Z0c4VFVXUjVYaWh0Mi9NQU1x?=
+ =?utf-8?B?WUVwKzRVM3ZIdHVabUltK1VVMUpmd2g4bUhIVGR5L1FkQWJMTi94a1A2bGhh?=
+ =?utf-8?B?WWdnNlh4QnlDY1FycnRydkZKanRJMENTckw3THBheHU0L3FDWGNXVmxxY2Mx?=
+ =?utf-8?B?bmpPOVhwVWhGOUxlNFJhZzNLTDlqeWtzQmZCREVnZ3QwS2lmY0dYU2I3WTBE?=
+ =?utf-8?B?M3IyazVyVFNKcFpuZzAwRVhvNXpCRWIycXB6L2I0dU9nY09sVE14U04wMjNH?=
+ =?utf-8?B?VlllN2NheDljTFhuYTN5Yzl0R2dPeXFrdVhRMGtlb2pVL2YzZkFKeThmUXgx?=
+ =?utf-8?B?b1FLMGxWdmd1RkYzUTFhV2ZSV3BEUnJCYmdxcWVhWnZ2ZTdRRTVvTFdEVmhT?=
+ =?utf-8?B?bjA4Z29YOFpvS01IWkhGR1ZtdHRzK0p2TXNFcFdkalVjS0UxL2JRQytBSE55?=
+ =?utf-8?B?bmlyQ2tmcEp1MG83b0pVbnQyKzh5dTRmd2dhVUJNVE1kQXoxTGRXbUd3cWpW?=
+ =?utf-8?B?YU5nZ1EwaHB1ZnpsaWREeXFSc1BOVlVHUkUzT3FxR0E4STYxeTZyb3V5ei80?=
+ =?utf-8?B?N0tkWFk0Q3d2Nld3ZzI0YU0xMTljeHZ6MzFjNU9KaXhhaUtkQWh1eTVNU0o0?=
+ =?utf-8?B?dnpQeTZTb09lVzdoYkJieDQ0SHJ4ck12emlqVEpBWG9YandWVERVeHcxOFZO?=
+ =?utf-8?B?NE44S05yU25adVN3bitiTVM2Sms4NHJZYUtIL3ROa2dBeGpISU5XZXlDRHZx?=
+ =?utf-8?B?clkyS0dFTWYvYjByUnBld0dmVFI0MWNhMGQ0dFBLTGp4bVB4S28zVDQwUkRH?=
+ =?utf-8?B?R1VtdFlPVTB4VDhvYThxemcwaW5oUmRhNHJlU292SUlzaTNQcFFMTVlYdHZv?=
+ =?utf-8?B?UW56ZDNzanVFQ2twQ2R2ZzRCcGRGMDFXdGdCaXhJYlIxenNtcDFKbUdwVEZ2?=
+ =?utf-8?B?aTJvRlNNb0ZEZGZ1YXVOQWk3NEErNE1jWkdSbDl5QWFWSHNmQjNSV3VGL1g4?=
+ =?utf-8?B?RmQ4WHZhYUw4bXpSZmFoZEgvYk41YVhxaVlpY0ZFUncwemhubFVwb0NEMWNh?=
+ =?utf-8?Q?i9NYlLm4LUc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB8784.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzRiYzV6SUpJdXppUDkxSFZLSm9TQTkzejJaVC9IRWFpRmFpUjY0dXB3eXpV?=
+ =?utf-8?B?cEs3YzRaOEJGZWxzZm8rRUQvaFgzQmE1UXZOdU9hRTdhN3o0dmNyNmFob2dh?=
+ =?utf-8?B?OHJORXZGTW1xTFVmRWJkYzNrWGZVZ1pFMUV2cEx6OHhsSmRjcFIxQUMrc2ND?=
+ =?utf-8?B?eVdrYit6S3g0dEg5Z2d6cXkyNWdhbDVoOE12bmxHdTVUV2lJSTl4dUdnTGU4?=
+ =?utf-8?B?NVBLZkV4bU83UzdQSU52SjBNd3F0UldKbE1yS2RJTVJzZ1Jrc0F3dmlWL3Bi?=
+ =?utf-8?B?MDJWNEhzUVNJcjNjUmxRR3RJQlZPSkp6UVl0VmFhWWgrYlVvcEM3SjQ0Mkp4?=
+ =?utf-8?B?K2NodlpGbU5SZGNobVhsQ29WbllIQ0N2YXM5QUxNbjJ5R3NGYzI4bGhqUWJW?=
+ =?utf-8?B?TTRJZVh2NnVSTjE0ZlhZQ2RtY1RBODdZQXFONnRZeWU2OUhKeG81NHY3RzVT?=
+ =?utf-8?B?S1NxQVJ6azBXOHEyYkp1NlgzeXhySGduaUkrODR0eFZnR1JCaGF1dzlMeGFK?=
+ =?utf-8?B?QUdDRDNwWFZLclRMWTJ6ZlM4UXdPY0pVZGltOVZoUVRjbVl0dlBzY2NmTGVO?=
+ =?utf-8?B?Z09Fc2xhNnVINGZMeXJUckIrL1E0c2JlSG1OSzJjSERLYURiUlJ1WVFHcDlt?=
+ =?utf-8?B?Z1BHbkZlbVNDbTJ0OFpnU3ZKOVJCRlpSUzRzeG03cDF0cllRY2xxY0pxSFVu?=
+ =?utf-8?B?dkRuU1gvS0V0dUtKL0R3L1pvbytpemJ4Y1BESXBWeDErdnpkaFdvOVgwWmt3?=
+ =?utf-8?B?NlVPeGd3aHNmWlVKVUNSSHkxWlNxNWJweC9EVkg0UE9DSGVDcFlTdDRBOG9D?=
+ =?utf-8?B?WVJQSkFkRzltQkwrdGhFNEE5dnhpWkFZbXNxQUdxTGZkZW15NzEwc3pNd3Ay?=
+ =?utf-8?B?ZEc4RGRnd0RHb3BYcXVkbkVlR21Pc2x1QWpYaFBrcDhLSFZBemdmdS95NGlI?=
+ =?utf-8?B?WVRaeFJNL3loT2EvU0hVekhpcEdYRnBNNkpzSDFOSVhYL3d2WWJxZlRkOUNO?=
+ =?utf-8?B?d3YzOXpsVkJaTitxbGdFcjlEQzB6VW9QcGJqaHlvTVBWdGF1YndpOW5sdG1O?=
+ =?utf-8?B?OUdUR05qT3hPVHYzQS9TQXArWkhmUWFuTFJtNXNrVFNhNjNML3FPbC9xNUtM?=
+ =?utf-8?B?UFczaFVQR0hNeEd1TEw5WkhFcjRxeGVBT1N5NngzdE1tMVMzN1liN1hTVExa?=
+ =?utf-8?B?MnJwK25kY1lJWE1UTGF5MzVKNStrMlVtYWcrWHZBZmowTGZSK0FBc1FWeG1G?=
+ =?utf-8?B?c1R2TkVzT1IvVEVaQzFpdFkzQ2tGdTBqcUtpaUovQy9SK0JYYmhGRFM0UjRW?=
+ =?utf-8?B?UmlGY1U4dHRhTlpVMGhwT1VzWllFSk1yS0djWVB0M1Z6cXJMUHgwTC84N280?=
+ =?utf-8?B?SjJaem1neEphRnUweEovdURyaFZqZmpYTVBWMmFFa3JsVlIrVDFmcUp2akpE?=
+ =?utf-8?B?cW1WS0lFQ1c5eStCRVd4MHYzeXE2Z05xaFdJajlKS01Ya1FHemlDRHlsTTQ5?=
+ =?utf-8?B?S2xKa3I5N2pVeXNjSlVVZy94UGEvVjNRc1NscGNleWRkVzdmMlI3UVM4QkNL?=
+ =?utf-8?B?Z2V1TWtxZnM4N1pBNnVuYnFad21teFNYNWNteTBwVTVUN2JxZXE3ay9NUlMx?=
+ =?utf-8?B?RVBaUjVZSE9RUFlvZmdMUEU4MFBTL0FjL29abEpxeWR4SzhXUklzODAxSUw5?=
+ =?utf-8?B?SHFjRWNnN3duRVN6OXA1YzBRQ0VPOTYwTkxzL2ZYU1NYRnNlZktwVDZiS3Yy?=
+ =?utf-8?B?elhJdmRGL3YwUzR4ZVhjYmIrZmg5a04vZ0JDU0syUWlSOG8rMFY2eCt2Q3Fu?=
+ =?utf-8?B?bU40dXNTQldaNk5GM1A4NW5QVlB0VzI4d2ZRMmdEQWtqaXQ0TGQyUllRQlNW?=
+ =?utf-8?B?REMzNnZVdVhCZUsrRnpWelM3dUVLeU81UFZIK2cvTEV4cnA5eExQbUlySkxT?=
+ =?utf-8?B?SU54RFhoZlBpQjVQNUNvQ3NSM0hKTTdtS21EOVVCY3hBS3FjYkhrcWI1UmQz?=
+ =?utf-8?B?T1pUWndWUk4xN1Q1YnpwSlVEb0l6TG1yczZZUUVWYWtWTi8xZ1ZoS3JvaDY0?=
+ =?utf-8?B?Z0hjeUtEbWVaWWNEaFduNVRJQU1kS0ZhaXlLZjZ6ZjJmNEFOSDhlTzJEbWJv?=
+ =?utf-8?Q?CEDncWwgVdDivH5ENmFELJmE4?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e6d85f9-a66e-4d40-e1c4-08dda9ac6f0b
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8784.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 12:27:02.1348 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2aOPZjcGbvIxVmL6kxTJa40KgRQ11k9uTsjUcPxmOVhSYu4c414HCzH9ZfCEOhYM8/OmPOWrSJ9cMSOAmGeFIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6978
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Alexis Lothorrr <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-tegra@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix PTP ref clock for
+	Tegra234
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,141 +162,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
 
-I thought I'd chime in as someone uninvolved because this seemed
-interesting.
-
-On Thursday, 12 June 2025 11:17:52 Central European Summer Time Pavel Machek wrote:
-> Hi!
+On 12/06/2025 13:10, Andrew Lunn wrote:
+> On Thu, Jun 12, 2025 at 10:57:49AM +0000, Subbaraya Sundeep wrote:
+>> Hi,
+>>
+>> On 2025-06-12 at 06:20:32, Jon Hunter (jonathanh@nvidia.com) wrote:
+>>> Since commit 030ce919e114 ("net: stmmac: make sure that ptp_rate is not
+>>> 0 before configuring timestamping") was added the following error is
+>>> observed on Tegra234:
+>>>
+>>>   ERR KERN tegra-mgbe 6800000.ethernet eth0: Invalid PTP clock rate
+>>>   WARNING KERN tegra-mgbe 6800000.ethernet eth0: PTP init failed
+>>>
+>>> It turns out that the Tegra234 device-tree binding defines the PTP ref
+>>> clock name as 'ptp-ref' and not 'ptp_ref' and the above commit now
+>>> exposes this and that the PTP clock is not configured correctly.
+>>>
+>>> Ideally, we would rename the PTP ref clock for Tegra234 to fix this but
+>>> this will break backward compatibility with existing device-tree blobs.
+>>> Therefore, fix this by using the name 'ptp-ref' for devices that are
+>>> compatible with 'nvidia,tegra234-mgbe'.
 > 
-> > Jonathan mentioned recently that he would like to get away from using
-> > memset() to zero-initialize stack memory in the IIO subsystem. And we
-> > have it on good authority that initializing a struct or array with = { }
-> > is the preferred way to do this in the kernel [1]. So here is a series
-> > to take care of that.
+>> AFAIU for Tegra234 device from the beginning, entry in dts is ptp-ref.
+>> Since driver is looking for ptp_ref it is getting 0 hence the crash
+>> and after the commit 030ce919e114 result is Invalid error instead of crash.
+>> For me PTP is not working for Tegra234 from day 1 so why to bother about
+>> backward compatibility and instead fix dts.
+>> Please help me understand it has been years I worked on dts.
 > 
-> 1) Is it worth the churn?
-> 
-> 2) Will this fail to initialize padding with some obscure compiler?
-
-as of right now, the only two C compilers that are supported are
-GCC >= 8.1, and Clang >= 13.0.1. If anyone even manages to get the kernel
-to finish a build with something else, I think the compiler not
-implementing the C standard correctly is the least of their worries.
-
-My bigger worry is that = { } is only guaranteed to be as correct as
-memset on C23, and the kernel's standard right now is C11. For that
-reason alone, I don't think memset should be moved away from for now,
-unless someone can verify that every GCC release >= 8.1 and every
-Clang release >= 13.0.1 does the right thing here regardless.
-
-> 
-> 3) Why do you believe that {} is the preffered way? All we have is
-> Kees' email that explains that = {} maybe works in configs he tested.
-
-= { } is guaranteed to work in C23, as per the standard, but again we're
-not on C23.
-
-The reason to prefer this is likely that it's easier for static analysis
-to see the struct as initialised, but that's me making assumptions here.
-
-A more human-centric argument is that once we're on a C standards version
-where = { } is guaranteed to be correct, then = { } is much more obviously
-correct to a reader than a memset with a value and a size somewhere later
-in the code. This argument is evident from the number of patches in this
-series where the memset and the declaration are not in the same hunk.
-That's the kind of stuff that keeps me awake at night, sweating profusely.
-
-Kind regards,
-Nicolas Frattaroli
-
-> 
-> BR,
-> 								Pavel
-> 
-> > [1]:
-> > https://lore.kernel.org/linux-iio/202505090942.48EBF01B@keescook/
+> Please could you expand on that, because when i look at the code....
 > 
 > 
+>    	/* Fall-back to main clock in case of no PTP ref is passed */
+>   	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
+>    	if (IS_ERR(plat->clk_ptp_ref)) {
+>    		plat->clk_ptp_rate = clk_get_rate(plat->stmmac_clk);
+>    		plat->clk_ptp_ref = NULL;
 > 
-> > ---
-> > David Lechner (28):
-> >       iio: accel: adxl372: use = { } instead of memset()
-> >       iio: accel: msa311: use = { } instead of memset()
-> >       iio: adc: dln2-adc: use = { } instead of memset()
-> >       iio: adc: mt6360-adc: use = { } instead of memset()
-> >       iio: adc: rockchip_saradc: use = { } instead of memset()
-> >       iio: adc: rtq6056: use = { } instead of memset()
-> >       iio: adc: stm32-adc: use = { } instead of memset()
-> >       iio: adc: ti-ads1015: use = { } instead of memset()
-> >       iio: adc: ti-ads1119: use = { } instead of memset()
-> >       iio: adc: ti-lmp92064: use = { } instead of memset()
-> >       iio: adc: ti-tsc2046: use = { } instead of memset()
-> >       iio: chemical: scd4x: use = { } instead of memset()
-> >       iio: chemical: scd30: use = { } instead of memset()
-> >       iio: chemical: sunrise_co2: use = { } instead of memset()
-> >       iio: dac: ad3552r: use = { } instead of memset()
-> >       iio: imu: inv_icm42600: use = { } instead of memset()
-> >       iio: imu: inv_mpu6050: use = { } instead of memset()
-> >       iio: light: bh1745: use = { } instead of memset()
-> >       iio: light: ltr501: use = { } instead of memset()
-> >       iio: light: opt4060: use = { } instead of memset()
-> >       iio: light: veml6030: use = { } instead of memset()
-> >       iio: magnetometer: af8133j: use = { } instead of memset()
-> >       iio: pressure: bmp280: use = { } instead of memset()
-> >       iio: pressure: mpl3115: use = { } instead of memset()
-> >       iio: pressure: mprls0025pa: use = { } instead of memset()
-> >       iio: pressure: zpa2326: use = { } instead of memset()
-> >       iio: proximity: irsd200: use = { } instead of memset()
-> >       iio: temperature: tmp006: use = { } instead of memset()
-> > 
-> >  drivers/iio/accel/adxl372.c                       | 3 +--
-> >  drivers/iio/accel/msa311.c                        | 4 +---
-> >  drivers/iio/adc/dln2-adc.c                        | 4 +---
-> >  drivers/iio/adc/mt6360-adc.c                      | 3 +--
-> >  drivers/iio/adc/rockchip_saradc.c                 | 4 +---
-> >  drivers/iio/adc/rtq6056.c                         | 4 +---
-> >  drivers/iio/adc/stm32-adc.c                       | 3 +--
-> >  drivers/iio/adc/ti-ads1015.c                      | 4 +---
-> >  drivers/iio/adc/ti-ads1119.c                      | 4 +---
-> >  drivers/iio/adc/ti-lmp92064.c                     | 4 +---
-> >  drivers/iio/adc/ti-tsc2046.c                      | 3 +--
-> >  drivers/iio/chemical/scd30_core.c                 | 3 +--
-> >  drivers/iio/chemical/scd4x.c                      | 3 +--
-> >  drivers/iio/chemical/sunrise_co2.c                | 6 ++----
-> >  drivers/iio/dac/ad3552r.c                         | 3 +--
-> >  drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c | 5 ++---
-> >  drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c  | 5 ++---
-> >  drivers/iio/imu/inv_mpu6050/inv_mpu_acpi.c        | 4 +---
-> >  drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c        | 6 ++----
-> >  drivers/iio/light/bh1745.c                        | 4 +---
-> >  drivers/iio/light/ltr501.c                        | 4 +---
-> >  drivers/iio/light/opt4060.c                       | 4 +---
-> >  drivers/iio/light/veml6030.c                      | 4 +---
-> >  drivers/iio/magnetometer/af8133j.c                | 4 +---
-> >  drivers/iio/pressure/bmp280-core.c                | 5 +----
-> >  drivers/iio/pressure/mpl3115.c                    | 3 +--
-> >  drivers/iio/pressure/mprls0025pa_i2c.c            | 5 +----
-> >  drivers/iio/pressure/zpa2326.c                    | 4 +---
-> >  drivers/iio/proximity/irsd200.c                   | 3 +--
-> >  drivers/iio/temperature/tmp006.c                  | 4 +---
-> >  30 files changed, 34 insertions(+), 85 deletions(-)
-> > ---
-> > base-commit: 4c6073fec2fee4827fa0dd8a4ab4e6f7bbc05ee6
-> > change-id: 20250611-iio-zero-init-stack-with-instead-of-memset-0d12d41a7ecb
-> > 
-> > Best regards,
-> 
-> 
+> if the ptp_ref does not exist, it falls back to stmmac_clk. Why would
+> that cause a crash?
+ >  > While i agree if this never worked, we can ignore backwards
+> compatibility and just fix the DT, but i would like a fuller
+> explanation why the fallback is not sufficient to prevent a crash.
 
+The problem is that in the 'ptp-ref' clock name is also defined in the 
+'mgbe_clks' array in dwmac-tegra.c driver. All of these clocks are 
+requested and enabled using the clk_bulk_xxx APIs and so I don't see how 
+we can simply fix this now without breaking support for older device-trees.
 
+Jon
 
+-- 
+nvpublic
 
 _______________________________________________
 Linux-stm32 mailing list
