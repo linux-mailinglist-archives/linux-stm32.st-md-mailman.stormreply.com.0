@@ -2,73 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A2AAD66C3
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 06:30:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A616DAD676E
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 07:42:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F03B9C36B24;
-	Thu, 12 Jun 2025 04:30:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 515A1C36B24;
+	Thu, 12 Jun 2025 05:42:11 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DED4AC36B16
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BF06C36B16
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 04:30:40 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1uPZZr-0007m0-Ti; Thu, 12 Jun 2025 06:30:11 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1uPZZo-0033qj-0b;
- Thu, 12 Jun 2025 06:30:08 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1uPZZo-008lSG-02;
- Thu, 12 Jun 2025 06:30:08 +0200
-Date: Thu, 12 Jun 2025 06:30:07 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: David Lechner <dlechner@baylibre.com>
-Message-ID: <aEpXz8sx6wwAE7it@pengutronix.de>
-References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
- <20250611-iio-zero-init-stack-with-instead-of-memset-v1-11-ebb2d0a24302@baylibre.com>
+ Thu, 12 Jun 2025 05:42:10 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1])
+ by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <l.goehrs@pengutronix.de>)
+ id 1uPah2-0000LG-81; Thu, 12 Jun 2025 07:41:40 +0200
+Message-ID: <4562e9ad-50ea-4523-b619-8018ad71b8fa@pengutronix.de>
+Date: Thu, 12 Jun 2025 07:41:37 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-11-ebb2d0a24302@baylibre.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
+User-Agent: Mozilla Thunderbird
+To: David Lechner <dlechner@baylibre.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Jonathan Cameron <jic23@kernel.org>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Francesco Dolcini <francesco@dolcini.it>,
+ =?UTF-8?Q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?=
+ <jpaulo.silvagoncalves@gmail.com>, kernel@pengutronix.de,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Roan van Dijk <roan@protonic.nl>,
+ Jacopo Mondi <jacopo@jmondi.org>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Mudit Sharma <muditsharma.info@gmail.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, =?UTF-8?Q?Ond=C5=99ej_Jir?=
+ =?UTF-8?Q?man?= <megi@xff.cz>, Andreas Klinger <ak@it-klinger.de>,
+ Petre Rodan <petre.rodan@subdimension.ro>
+References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
+ <20250611-iio-zero-init-stack-with-instead-of-memset-v1-10-ebb2d0a24302@baylibre.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>
+In-Reply-To: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-10-ebb2d0a24302@baylibre.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.goehrs@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
- Petre Rodan <petre.rodan@subdimension.ro>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Francesco Dolcini <francesco@dolcini.it>,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- linux-rockchip@lists.infradead.org,
- =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Jacopo Mondi <jacopo@jmondi.org>, kernel@pengutronix.de,
- Michael Hennerich <michael.hennerich@analog.com>,
- Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
- Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- Leonard =?utf-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
- Roan van Dijk <roan@protonic.nl>,
- =?utf-8?Q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?= <jpaulo.silvagoncalves@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 11/28] iio: adc: ti-tsc2046: use = { }
-	instead of memset()
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 10/28] iio: adc: ti-lmp92064: use = { }
+ instead of memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,26 +68,16 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 11, 2025 at 05:39:03PM -0500, David Lechner wrote:
-> Use { } instead of memset() to zero-initialize stack memory to simplify
-> the code.
-> 
-> Signed-off-by: David Lechner <dlechner@baylibre.com>
-
-Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-
-Thank you!
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpBbSAxMi4wNi4yNSB1bSAwMDozOSBzY2hyaWViIERhdmlkIExlY2huZXI6Cj4gVXNlIHsgfSBp
+bnN0ZWFkIG9mIG1lbXNldCgpIHRvIHplcm8taW5pdGlhbGl6ZSBzdGFjayBtZW1vcnkgdG8gc2lt
+cGxpZnkKPiB0aGUgY29kZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBEYXZpZCBMZWNobmVyIDxkbGVj
+aG5lckBiYXlsaWJyZS5jb20+ClJldmlld2VkLWJ5OiBMZW9uYXJkIEfDtmhycyA8bC5nb2VocnNA
+cGVuZ3V0cm9uaXguZGU+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
