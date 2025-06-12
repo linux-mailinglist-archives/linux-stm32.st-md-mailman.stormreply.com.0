@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09C2AD7A59
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 21:00:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD7B0AD7A5A
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 21:00:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 734F0C32E8E;
-	Thu, 12 Jun 2025 19:00:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8492DC32E8E;
+	Thu, 12 Jun 2025 19:00:36 +0000 (UTC)
 Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
  [136.143.188.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E3BAC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69972C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 19:00:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1749754770; cv=none; 
+ Thu, 12 Jun 2025 19:00:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1749754782; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Z0DXjCfd3efZliCDFcqsVoAS+gJAU+g2CRWUu+35nhjhZxo3v1SYly5p5A1apRfDbaejdHE3h5fZFZLWPf9LXi/dA0QORUF3xyCl9dAnNwWx8qC/zSlatzzQM5fYFt3HledlkE5Res8Cm48bGGIOgOhHpLgOaenxv7CWnq3Hx0o=
+ b=LY2gOReHJeUsgEIhNZvz6CydVgFoOGSGwaO3l0ZuE3mp/sZrxu2OlhGrcKw37Wy6BjH/Vz0Xx2Cx4LqVx3qH95vQVxpj44T8IwywaRqUT5D2e2jY4zTaz45iv96yr0RqawLUCWvBE192yfZ/SADPo5KJ/wGK1tPQMz3sje6Zbhw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1749754770;
+ s=zohoarc; t=1749754782;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=BKmiKHxsyC9s74dEZUCVhW0dLCt+4VJJ4UwOh+/H/sE=; 
- b=SHqOdpFeVaOAQpBfB094uwG8oa8J3ZlKNBUp46pmqNmLrDjud7P6HSAvrpr9xOph36QDBQZ3EUzhar8GLUOVBD1KsBqPLJg5DT64iNMzCl442h4cZCA7Dt3lquUFdSlQc36HTD4JFOFCcy38eo10BQevwoFf+hzp46nthQKyXDI=
+ bh=LZnMh9VL4aVe9Urf5rkcaSHCLrN/faLOWNkCrDUkPYY=; 
+ b=SLgwS9XUP4ok8yl+FESpXJh/OgRlMDd0MpMUdvCG9/xARXYUCNypI158XB/w2K6sb/tvs3Cif53eFlMlRzvVsYksqu/4bStT3g2U6aEdfXbQO0gw3C5xH9czfEZBZtqT02XVLk+IRhSWA2Dp4R+ftZRbPM+41gfvW8yqeNZO7FQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749754770; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749754782; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=BKmiKHxsyC9s74dEZUCVhW0dLCt+4VJJ4UwOh+/H/sE=;
- b=eao41fQdWmTPedrJvNMP+rvhBs+KDltNtF8BUjnvDWykLdBvTbFfCb3yGSAa/Q8X
- UbtJhJBjfHcgjdbtAXNxdBYaLShBTwJa3qlh/+K6Yn9oE1+gNXop57MXrRiYLAO2i2X
- Bp6MxMDYM08zRCNAbyFAXCSI+vMdL8hM76dxkVH0=
-Received: by mx.zohomail.com with SMTPS id 1749754768033111.35290409790514;
- Thu, 12 Jun 2025 11:59:28 -0700 (PDT)
+ bh=LZnMh9VL4aVe9Urf5rkcaSHCLrN/faLOWNkCrDUkPYY=;
+ b=iVhHk5MwRVtbtvjqdW6+zcRb66lb63uysOR33hf8Sm+i4XHzOKH0BTORJ99toSze
+ 5xqvj4XIAUguOAT/+O8bHz3qKxPohh5eGjWxLpFOHYE/TjpEwWOJ/0Q2EZM/HxqhCid
+ FptUsuYAnrnu9fBNyreU1j4d+LtsQGPUqWaee9X4=
+Received: by mx.zohomail.com with SMTPS id 1749754780873810.5793291533364;
+ Thu, 12 Jun 2025 11:59:40 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 12 Jun 2025 20:56:16 +0200
+Date: Thu, 12 Jun 2025 20:56:17 +0200
 MIME-Version: 1.0
-Message-Id: <20250612-byeword-update-v1-14-f4afb8f6313f@collabora.com>
+Message-Id: <20250612-byeword-update-v1-15-f4afb8f6313f@collabora.com>
 References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
 In-Reply-To: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
 To: Yury Norov <yury.norov@gmail.com>, 
@@ -80,8 +80,8 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, kernel@collabora.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 14/20] ASoC: rockchip: i2s-tdm: switch to
- HWORD_UPDATE_CONST macro
+Subject: [Linux-stm32] [PATCH 15/20] net: stmmac: dwmac-rk: switch to
+	HWORD_UPDATE macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,40 +101,44 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 The era of hand-rolled HIWORD_UPDATE macros is over, at least for those
 drivers that use constant masks.
 
-Replace the implementation of this driver's HIWORD_UPDATE macro with an
-instance of HWORD_UPDATE_CONST. The const variant is chosen here because
-some of the header defines are then used in initializers.
+Like many other Rockchip drivers, dwmac-rk has its own HIWORD_UPDATE
+macro. Its semantics allow us to redefine it as a wrapper to the shared
+bitfield.h HWORD_UPDATE macros though.
 
-This gives us some compile-time error checking, while keeping the diff
-very small and easy to review.
+Replace the implementation of this driver's very own HIWORD_UPDATE macro
+with an instance of HWORD_UPDATE from bitfield.h. This keeps the diff
+easily reviewable, while giving us more compile-time error checking.
+
+The related GRF_BIT macro is left alone for now; any attempt to rework
+the code to not use its own solution here would likely end up harder to
+review and less pretty for the time being.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- sound/soc/rockchip/rockchip_i2s_tdm.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s_tdm.h b/sound/soc/rockchip/rockchip_i2s_tdm.h
-index 0aa1c6da1e2c0ebb70473b1bcd1f6e0c1fb90df3..6efb76fbff9c158b79a87cdea02ef9db335cf700 100644
---- a/sound/soc/rockchip/rockchip_i2s_tdm.h
-+++ b/sound/soc/rockchip/rockchip_i2s_tdm.h
-@@ -10,6 +10,8 @@
- #ifndef _ROCKCHIP_I2S_TDM_H
- #define _ROCKCHIP_I2S_TDM_H
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 700858ff6f7c33fdca08100dd7406aedeff0fc41..38a15aaf7846dc16e5e3f2ff91be0b5e81d29dba 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -8,6 +8,7 @@
+  */
  
+ #include <linux/stmmac.h>
 +#include <linux/bitfield.h>
-+
- /*
-  * TXCR
-  * transmit operation control register
-@@ -285,7 +287,7 @@ enum {
- #define I2S_TDM_RXCR	(0x0034)
- #define I2S_CLKDIV	(0x0038)
+ #include <linux/bitops.h>
+ #include <linux/clk.h>
+ #include <linux/phy.h>
+@@ -84,7 +85,7 @@ struct rk_priv_data {
+ };
  
--#define HIWORD_UPDATE(v, h, l)	(((v) << (l)) | (GENMASK((h), (l)) << 16))
-+#define HIWORD_UPDATE(v, h, l)	(HWORD_UPDATE_CONST(GENMASK((h), (l)), (v)))
+ #define HIWORD_UPDATE(val, mask, shift) \
+-		((val) << (shift) | (mask) << ((shift) + 16))
++		(HWORD_UPDATE((mask) << (shift), (val)))
  
- /* PX30 GRF CONFIGS */
- #define PX30_I2S0_CLK_IN_SRC_FROM_TX		HIWORD_UPDATE(1, 13, 12)
+ #define GRF_BIT(nr)	(BIT(nr) | BIT(nr+16))
+ #define GRF_CLR_BIT(nr)	(BIT(nr+16))
 
 -- 
 2.49.0
