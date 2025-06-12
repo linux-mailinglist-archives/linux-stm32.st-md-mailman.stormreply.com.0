@@ -2,84 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D06ADAD7AEA
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 21:10:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71EB0AD7AF7
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 21:17:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94F23C32E8E;
-	Thu, 12 Jun 2025 19:10:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19E35C32E8E;
+	Thu, 12 Jun 2025 19:17:28 +0000 (UTC)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67A1CC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EC3BC36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 19:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749755424; x=1781291424;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=BQ0TV5Stz/vWyyu62ZhSbJbmlu58TvJYqNpEEOYBVC0=;
- b=A11BJwqdZ4Fm92Uxq9hhLgys0AE1aHoSClDjtZvmZx2+z4zG7QKGyCkr
- zQIvDXwhdZZkcMJBq+ed04fh5ADUTQWoxBEgUOmPVdskZYs1VGbYzSOhp
- d6r2mZ6caMM6EOBAJE60SxKp2k5TI6owqh7yNrzcH/XD+yyP5TruccVuj
- 1MiBmCZqq5MfUCXIvBGYNq0arrxOvYAvd3Zwr/3Pjk9TMIrsCXX03ESX1
- CE2qTGftQTkzntngO6wfemvSxgbbMH4qBBTxGKPyx3leeBG4ZDMLSEnN5
- IPyNH75AqwKHF8sqZU/Bq1pFUl2wcxCQNQ+cnJoTGOPgoPc21K0/0/9ML A==;
-X-CSE-ConnectionGUID: RcfH1qPFRkGwLWMLMkyDdQ==
-X-CSE-MsgGUID: O/aPDB9tSuauVeI2sLMM7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="52093204"
-X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="52093204"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 12:10:21 -0700
-X-CSE-ConnectionGUID: e9iD3O3SS36bVUZFVNkguw==
-X-CSE-MsgGUID: lSBa5jyTT9mJ70WAU7t4XQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="184852801"
-Received: from smile.fi.intel.com ([10.237.72.52])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 12:10:13 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1uPnJQ-000000061me-0q0g; Thu, 12 Jun 2025 22:10:08 +0300
-Date: Thu, 12 Jun 2025 22:10:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <aEsmDyc44P8amm5p@smile.fi.intel.com>
-References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
- <aEqbQPvz0FsLXt0Z@duo.ucw.cz> <2243943.irdbgypaU6@workhorse>
- <aEsiTy++yKGe1p9W@duo.ucw.cz>
+ Thu, 12 Jun 2025 19:17:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1749755784; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=EFH1gBrXRxnEbdwN8NuKJttxVfo8otLAVWOqMjccSlAJPieQGoreQOALJFOFSNWr7sTm1nnCQDuu/HsQkPOtQ/3OSYvQ4RyjyXBtSHjqSQpOvG+rol3y4CMkvAvX4S8y9ER4JY1+I1De1RTZCspz3nMo9hgIs9GEa29Bt5D3wzA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1749755784;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=sAz8u8Of8VgXN3BQQ00U/F57NlhrS7p1nuOTfYJkSLY=; 
+ b=gx56POiNw+tPyzwOMUrXJdu8LXA3Wx0Fc7fpLgAxdL2NAvF06jUmFzQXXgdclEPvSot/sq5wjbKw4wosmJTvqvr3D2Ol7BcVPeIHRceQLb93o93NE842mu2MIU+ewqzhHXcOyn6sA+I1W7R4ndFqRO48pbEglbjFxLxjTpMHRfE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749755783; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=sAz8u8Of8VgXN3BQQ00U/F57NlhrS7p1nuOTfYJkSLY=;
+ b=jdBSKwBQJwbK7Wgb1BeOkKDHoXCKiMSRe7vNwtqecSYRDrLuqn7O5OZawJAn+DCb
+ 1ShpLyDr//VBXzQCMKFW7XHKGS1I5U54aXGur+fPFzehkfen3wY4iloFKJZGU5HBeiY
+ CPvZ+rLtAcn7WQvK9zh7a9yesjqizAMrfxYGbQiQ=
+Received: by mx.zohomail.com with SMTPS id 1749755781436118.00228707547853;
+ Thu, 12 Jun 2025 12:16:21 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Thu, 12 Jun 2025 21:16:09 +0200
+Message-ID: <10689894.nUPlyArG6x@workhorse>
+In-Reply-To: <5947475f-ef38-44cb-857e-0c7378023ccd@lunn.ch>
+References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
+ <20250612-byeword-update-v1-15-f4afb8f6313f@collabora.com>
+ <5947475f-ef38-44cb-857e-0c7378023ccd@lunn.ch>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aEsiTy++yKGe1p9W@duo.ucw.cz>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
- Petre Rodan <petre.rodan@subdimension.ro>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Francesco Dolcini <francesco@dolcini.it>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- linux-rockchip@lists.infradead.org,
- =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>,
- David Lechner <dlechner@baylibre.com>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Jacopo Mondi <jacopo@jmondi.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
- Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- Leonard =?iso-8859-1?Q?G=F6hrs?= <l.goehrs@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
- Roan van Dijk <roan@protonic.nl>,
- =?iso-8859-1?Q?Jo=E3o_Paulo_Gon=E7alves?= <jpaulo.silvagoncalves@gmail.com>,
- kernel@pengutronix.de, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/28] iio: zero init stack with { }
-	instead of memset()
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-pci@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
+ llvm@lists.linux.dev, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ Eric Dumazet <edumazet@google.com>, Bill Wendling <morbo@google.com>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ linux-phy@lists.infradead.org, kernel@collabora.com,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Jaehoon Chung <jh80.chung@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rockchip@lists.infradead.org,
+ linux-pm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ linux-clk@vger.kernel.org, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-media@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Yury Norov <yury.norov@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
+ linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 15/20] net: stmmac: dwmac-rk: switch to
+	HWORD_UPDATE macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,35 +95,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 12, 2025 at 08:54:07PM +0200, Pavel Machek wrote:
-> > On Thursday, 12 June 2025 11:17:52 Central European Summer Time Pavel Machek wrote:
-> > > 
-> > > > Jonathan mentioned recently that he would like to get away from using
-> > > > memset() to zero-initialize stack memory in the IIO subsystem. And we
-> > > > have it on good authority that initializing a struct or array with = { }
-> > > > is the preferred way to do this in the kernel [1]. So here is a series
-> > > > to take care of that.
-> > > 
-> > > 1) Is it worth the churn?
-> > > 
-> > > 2) Will this fail to initialize padding with some obscure compiler?
+On Thursday, 12 June 2025 21:08:20 Central European Summer Time Andrew Lunn wrote:
+> On Thu, Jun 12, 2025 at 08:56:17PM +0200, Nicolas Frattaroli wrote:
+> > The era of hand-rolled HIWORD_UPDATE macros is over, at least for those
+> > drivers that use constant masks.
 > > 
-> > as of right now, the only two C compilers that are supported are
-> > GCC >= 8.1, and Clang >= 13.0.1. If anyone even manages to get the
-> > kernel
+> > Like many other Rockchip drivers, dwmac-rk has its own HIWORD_UPDATE
+> > macro. Its semantics allow us to redefine it as a wrapper to the shared
+> > bitfield.h HWORD_UPDATE macros though.
+> > 
+> > Replace the implementation of this driver's very own HIWORD_UPDATE macro
+> > with an instance of HWORD_UPDATE from bitfield.h. This keeps the diff
+> > easily reviewable, while giving us more compile-time error checking.
+> > 
+> > The related GRF_BIT macro is left alone for now; any attempt to rework
+> > the code to not use its own solution here would likely end up harder to
+> > review and less pretty for the time being.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > 
-> Well... I'm pretty sure parts of this would make it into -stable as a
-> dependency, or because AUTOSEL decides it is a bugfix. So..
+> Please split this out into a patch for net-next.
+
+I would be surprised if it didn't apply to net-next.
+
+> Also, Russell King has just posted a number of patches for this driver,
+> so you will probably want to wait for them to be merged, so you post
+> something which will merged without any fuzz.
+
+I would be surprised if an automatic merge did not produce correct code
+here, as I specifically replaced the implementation of the macro with
+an instance of the new macro and adjusted semantics on purpose. If it
+compiles, it's correct.
+
+Would you still prefer for me to re-send this patch based against
+net-next once the new macro is merged and within net-next?
+
 > 
-> GNU C                  4.9              gcc --version
-> Clang/LLVM (optional)  10.0.1           clang --version
+> 	Andrew
+> 
 
-Even though, what the kernel versions are you referring to? I am sure there
-plenty of cases with {} there.
+Best regards,
+Nicolas Frattaroli
 
--- 
-With Best Regards,
-Andy Shevchenko
 
 
 _______________________________________________
