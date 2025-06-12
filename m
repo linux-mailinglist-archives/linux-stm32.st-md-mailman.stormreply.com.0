@@ -2,187 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E2EAD790C
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 19:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31B14AD7A05
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 20:54:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58DF2C32E8E;
-	Thu, 12 Jun 2025 17:35:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA077C32E8E;
+	Thu, 12 Jun 2025 18:54:09 +0000 (UTC)
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FF05C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C61B2C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 17:35:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749749723; x=1781285723;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=vpMCHXkqzh6sV4DrhHnSnIoCurWOvoHk9GqrS9RqJl4=;
- b=XWVpBvUKYW9Ljp5Z0qranNU4AviD7wnkQk4Qbnqx7hmjXrP09xrpoGyj
- l+cg6yVnAja0VOtnf7wLqFIB7aT/yJjSHPDeBtYgJnTkCI8bxxs4o6LyD
- gNNCOCURbUZRLn1+k1XgQtpvwrCPHKFmEpSlXNHjlKDNJdLZP9t4MsRjH
- Pweh9F3sq8tlIeUrwGztjkMk5V0Pf5dd4FblycHeMaV8bWKKsumhpKXmf
- V1WljxX9SMxAR5bIkRH1WJwjwBeCV6IDwMBV9gVic1xIA32D+RNpMQxZK
- SgvlbFD1WVo6OaoXro5mge7zi8z9N3jI84JsXcq6ZUE69F1kRwL6lbUgK w==;
-X-CSE-ConnectionGUID: GUtYpdD/Rz6kkJWS8mXoyA==
-X-CSE-MsgGUID: fXTh+rfGR0K7oewq85xDfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="39556239"
-X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="39556239"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 10:35:20 -0700
-X-CSE-ConnectionGUID: j/QzrOLTSzeLa0PZwbrIRw==
-X-CSE-MsgGUID: Q0TSMsfEQc24umE9kjfm7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="178552430"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2025 10:35:19 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 12 Jun 2025 10:35:15 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25 via Frontend Transport; Thu, 12 Jun 2025 10:35:15 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (40.107.244.49)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 12 Jun 2025 10:34:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZxT9t46D2n/JzNuAUHMYD+WbjLQY5pp1tp/cqCJaY6Rexup9RQek2+IRb4s5PpftEOyL4ltUJLzNzc73pZtUl5GDpeQ3MVYMBzy8cnBRwOcwoSA5lL/MQV+0jWT2Nkm3U392m6hMZJ4ZyJ0MGRFFdRDzuhXLqEzyqKXnuDM3jxljAybDq3DnPnAxGj1wDgXPe5GrPTfeDHZmbFFrY0MRhC8ny3T8YDO2hiQTMOFrTc3owJg7pWHXMhgqq/kOginNJR5DyZ3TvRLrOd7zHV+cEOWekw6RtpSbR52U5cjrhsAUTZ/zE4jMlbJLDDs73xE4TYkw8zQW+LQB7z7wxJiJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9pLvlIBkv8+4JMqSJUiSprXjutGitm7jd9JqgnhFeos=;
- b=rhuxC+Uf6xOx8j2m0dqCQgYzlqWqDesXWaDKuSDkaX75VsKMyC9YsH7hZsH4lXac0ndvwRW9a3OUSYu20miDwZxyYZgiyrFSgLMy65FI1EAA1Z5Ge8/knomKAZN1iZyRFFW5F3UeZBoYYGb73Zl+VD7QLa+e27ZpR5qSwDM8LRVHGkxymbe2dmOXuZcyVU3Z/zsNCzhpbtckkU7gibSTi6Mqj7xQKllmP6uTHXGcA0b/norY9Zj2y7nGB8hflCWmh+cNvqtAZzb4lvBYSqTfAI10gpoFUWAGwiMmRSMXMkHdlxWmTYBUhfdDXGyxUI6+2ZsQG2ZIARw70TkPwKXkMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB5095.namprd11.prod.outlook.com (2603:10b6:510:3b::14)
- by CO1PR11MB5105.namprd11.prod.outlook.com (2603:10b6:303:9f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.23; Thu, 12 Jun
- 2025 17:34:38 +0000
-Received: from PH0PR11MB5095.namprd11.prod.outlook.com
- ([fe80::215b:e85e:1973:8189]) by PH0PR11MB5095.namprd11.prod.outlook.com
- ([fe80::215b:e85e:1973:8189%6]) with mapi id 15.20.8835.018; Thu, 12 Jun 2025
- 17:34:38 +0000
-Message-ID: <32bf62cf-ce05-4e8f-8e3a-85b24b931fb9@intel.com>
-Date: Thu, 12 Jun 2025 10:34:36 -0700
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Andrew Lunn
- <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <E1uPjjx-0049r5-NN@rmk-PC.armlinux.org.uk>
-Content-Language: en-US
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <E1uPjjx-0049r5-NN@rmk-PC.armlinux.org.uk>
-X-ClientProxiedBy: MW4PR03CA0341.namprd03.prod.outlook.com
- (2603:10b6:303:dc::16) To PH0PR11MB5095.namprd11.prod.outlook.com
- (2603:10b6:510:3b::14)
+ Thu, 12 Jun 2025 18:54:08 +0000 (UTC)
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 0D12D1C00B7; Thu, 12 Jun 2025 20:54:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
+ t=1749754448;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ES0AMk0wkXmaqMy9pIGghKd77rIPki0K7cABoa+Z/Lw=;
+ b=bEFAWNrqxiDB3hTLYkNNin93KGymmobI30NxboUjySkMZZbQ1tDkw60ZqsrwZWSPzNXRLT
+ 19enMfhHWWz0Q5ewQBDGlyH0l4C9Yl59JXD+rK7DCySYJz3mn+lT8d5y3fwG56k5w4oziS
+ 988hpv7ySCcn9jbXEUW0jKpc8UQ+ntg=
+Date: Thu, 12 Jun 2025 20:54:07 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Message-ID: <aEsiTy++yKGe1p9W@duo.ucw.cz>
+References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
+ <aEqbQPvz0FsLXt0Z@duo.ucw.cz> <2243943.irdbgypaU6@workhorse>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB5095:EE_|CO1PR11MB5105:EE_
-X-MS-Office365-Filtering-Correlation-Id: 166ec6b5-694c-4409-9e82-08dda9d7680c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7416014|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NFk4bVpGVlJtQk9VMFJOMWNXRXdOcWtyVkFhR01nUVhidlJJRVROUTRpUFho?=
- =?utf-8?B?eC9aQkpnK2swTzl2amRrS0F6WkZDbkFyTHB2OUFyQkl4V3dHeDVHb053YmQ2?=
- =?utf-8?B?akVVYTBjQ3lWM3lsSDFFOUhDZzZtTGhnMGU0TjIxOWpFdk9ESWdTWm92b0Zp?=
- =?utf-8?B?V3lmQndNVFB3OWJmRzZORFFKMyttZVdLdWRhVXorN2tENzA3dVYrV0VmdWVh?=
- =?utf-8?B?QXpBRld6YnRWQ0tKOVdtemt2TDRRR2hJUjlhL0dSbEVOeUtpaFVWaEFzV2lm?=
- =?utf-8?B?R2ZTL0NYK01KMGdLN3E3dnVKM2FhTWE5ZVZza3oxZzVBNzJvcmt4QnBRWlNu?=
- =?utf-8?B?YmNlV1hiQVFNZXJrU3h1TGErQ3ZNU0xwSlZDMW5kZkhVbWVHazg5cmtNVktJ?=
- =?utf-8?B?L0VmSXhROEVBZWFhL2hjam85YUtjYkxVZVcyVTYvb1JocXI3NVd3elBPbmNX?=
- =?utf-8?B?eEVKbXMvZnE2WnZJb0p3OHdFTHVKOUdDcHZaRWMzaGRObzhWTXVvSmExR3dX?=
- =?utf-8?B?VGhLdTRlTnEvQ0pxL21iczBYNWRkTW1VVE5uTkwvdWdaQmtYOE1DM2w2R0lj?=
- =?utf-8?B?eGFKbms0eC9kcm1zTllMZ2U2WlVibFQ5Zm8wWHYvVzFhQlNiOHRTcDJRR2g4?=
- =?utf-8?B?d3I3OW0va2VpYitERUduTmZFNWdSUVRPbnRieGFnRlRzaHBSZEpvejBEOW5Q?=
- =?utf-8?B?Q0ttREowTXJvN01BWFdQZWhxMGVUR01rVjQyZVAyRVJGZnE3eTFuRDNMZDBm?=
- =?utf-8?B?dklwT0JuNTYvZE9jM2UxS2E2NDZhQTBuNUo3TDkvTkFTWWt2eVBtbUdwdnRY?=
- =?utf-8?B?QU1DSDVFQ3EzM3lwVU1rTS8zZ3VOYjFNR0U0SExROCtwQS9tcTdlWTBpMlRP?=
- =?utf-8?B?d0VxUG04ZW14R0h5V2RILzhpNkFqNVZuSkgxaWZ0UjFOWjVESHBqYmFZMm4x?=
- =?utf-8?B?M3hWdEp5QTZXYThpbVlJT2pHcFZDOWlidnhlUnRIYkxmRTliNEN0a2h3a09I?=
- =?utf-8?B?Q0RaaGRmZUg4dURJNHQxTll6KzV1L2FtVWwxTzZicjB6cFdTSFkvSVBoQmRm?=
- =?utf-8?B?YSs4NGJBUll5bHFkaUlIUW9FSUZKVEJLTDQ1dElHRnFCbFA2ejE1Uk92bXZi?=
- =?utf-8?B?L2tQUEg5NnZzc1dBekIvbmdVdytMb2lmMkdVN2Fyb2RPb2JmSzEwaWgzTWRY?=
- =?utf-8?B?N0NrOGFHQVFyb3VINU5LVnFudmZsY2JpS29wU3p0a05PVUxpN3htUlZNalBP?=
- =?utf-8?B?WEEwY3I5SW5SZ1ltd3g2SHg0c0R3TE0xdXNWNDE0ZTYzOHFoeFNQc1ZPeVFu?=
- =?utf-8?B?N21OWlgzL0hOeFRjSzdlYWFZbVFXYkhUaEFRMjZoZ3NkUUw5R0xNOFI5aWd4?=
- =?utf-8?B?d2FrT3lyM2YxMUxZZWRsbzVDbTBEblhGWWtUYzJseExqcW9IYU5VMmFRUUw1?=
- =?utf-8?B?MVF0dHJUWGtVVGl5RlNkZWVNRnNKMDhQcVhQYUE1T1R1TGhTQnp1MzhnTkY2?=
- =?utf-8?B?NGRld3ExamxvK3M3RmxENld3RjhNamY3cml3RHFTR2c3cko3eHgrcWlVd0l5?=
- =?utf-8?B?UUkxUlY1b251WmduSzJNL2xhRnMxSDA1RldtUDdPV0dTVFFlT0JleUovSERq?=
- =?utf-8?B?dUxKZkZLbExxRko5bytvbzNEZThtTkN4amo2dEZoRzNpRUdaSk8vUHA5dTEx?=
- =?utf-8?B?Wm1TbnVCcERsY2FQbWFEaVp6aHQ4a3Z0eVJTL3Q3VE4rNmttdkthUE16ckJI?=
- =?utf-8?B?NXgxb0drRnlibmEvZHlaODBoUVRrUURuOENWbVErY3ZLdktvTG1LOXJWVmJw?=
- =?utf-8?B?dEtmb0FjMXJZdHQ1UWlINXI0V0Z1QkE2dEN6N2kvRjU2K1ZiZnBqd3UzWTFz?=
- =?utf-8?B?azU1WWtoZlFUSFlmQVFpR09ncFpRY1Z0c1NMc0F5ZVVDTXc9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5095.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7416014)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dE5MajJJeEFodWhsaisvN0hLV3dDK0hYd283ZzhpUFhYZmlEQ1RJUldQYjdj?=
- =?utf-8?B?ZUdQUkxESDUwOVA0OWFUYzRjV0h6MnRSUjVBdjhVV1dmVFdjT3JvZENDdG54?=
- =?utf-8?B?SXRGN0RoUlc3clNLR2ZqNFFWRWZYTGY1QUJMVkdaVWd6UVE4UnQ4ajZzWnpp?=
- =?utf-8?B?THZMRm1uVi9NanVVazNNbk43MEtyOTZVbVUra3RLRlBscnlCajQwVUZWR09W?=
- =?utf-8?B?WjZxcU5mMlN1cWdnUk9laXdRb1Fpd2pySkNPcDVYRXgvYXYyaDFsaTJBVmxi?=
- =?utf-8?B?SnVtZWdLbmNTUHpPMWNBdmxkSkwxNmZPQWhXVmVTRXBtZHZkL3R4OUJ4SWpK?=
- =?utf-8?B?cG4zOFV2K01DTTVJMkNHVHUzNjUzelZSS2QvSUJVV1JZWE54VmVoU0dYQWVu?=
- =?utf-8?B?TjNaUzEvZUlHSEhjekcwclJZUFNwUTgyYysvbjJmak9xalFGcGFMOWRjeTJC?=
- =?utf-8?B?RERvdVI4M0U0R2ZJSldBUG9KSVdtaWJocHhmT2xHcnhkWWplNEtOUkVQd0RR?=
- =?utf-8?B?UldxYkJzRFdOWGh0djYwRmRDWTBMQWpNRG15WFUyVFNBRGJjUTdBdERxZ05K?=
- =?utf-8?B?ODR4SDBzcUVKRnkzU3pQYUhJc2ZuTTJZR2VESzNpdzg2aFg3T20xZ0pMdUcv?=
- =?utf-8?B?a0NyQVd5THhzYldlck1MWTErbVoyRHVKb2pUQnJzaU9oWVQ3Szk3NmVmeHJI?=
- =?utf-8?B?azRQNGg3N21JbGhGNHhWTDlFOEhNa21SQ0ovNkwxNXdESmFPY3NORnpkVDRr?=
- =?utf-8?B?RmRHTWtXdlFCTEZITHcxQld2QWRaczhWbkIvUDVtaUN4STJXYVRaaDZ1WG1Y?=
- =?utf-8?B?cWV1dWxVMDBIVUdXM3BWc1Q3M1BXaTFqRWN3b3hIQXVmRi9JNkhsUGh0S0Z3?=
- =?utf-8?B?OG1ianJKclhVZUd1MEk0Q25GOWo0Rk1aSTVoZXhja3dWYy81cUhleXVIMzNP?=
- =?utf-8?B?ME56V25YUllaV0x2NVgvK01pdVVBVWhkVGxQNmVKL3lVUzdwZ29ZcHpoMEFa?=
- =?utf-8?B?cFJWZDdiR01td1Y2RDZxK1hTTGwxYzRxWWxQSTRiU1hMYVdDS3hMdGRBYU9H?=
- =?utf-8?B?dmhtNUtqVWFLbXd6b29YWmlldDNXZ3hoN2tjUWlWVEcxU1NWbGszM3p5UzlN?=
- =?utf-8?B?Qm4yV282QVFiWUpQbEVZZU84RGJhcEt2d0N4Zkp0SWtXZFVPOXVqbE9CZlZT?=
- =?utf-8?B?VHRxYXJ4NnFyelFER0ZvemhxUzRpb0R4a3JZVUJwTnN2T0x3dnVDTlRiQUVK?=
- =?utf-8?B?a2VkT0lQbjhhOEJ3SjJ5UWlEMkFCTUFmNkZ0a0hYV1JWb3puWnB5c25XdkZp?=
- =?utf-8?B?NHVyU05HS1NKOUZXWkxVcTdPbnNCMFNJcG4rN3RqYVNVSE1BMDdBU1lXbDE0?=
- =?utf-8?B?S1RYaHBRMStreVVUMW5nSWsraEFPZVFpZXMzcmwxWUdOYXI1QkxrSFRkUVBY?=
- =?utf-8?B?Nm9KYU5MSm8zYTI3a3RPa0VhZzFLSGRwVlRhZ3JpcDN4WktFenhEemJ6TnNi?=
- =?utf-8?B?Kzh4OUtqaWJQeXEwSE03eHV6YjBtbnRPRUZNWis4NUR6bkxZWTk3RCtDaitN?=
- =?utf-8?B?Mm5ORjZ2VDBmblZkcit2N3pFYUFweWVoY0VES0pUWnNvRngvY04wMmluY0w5?=
- =?utf-8?B?L2RYUDhGdmoyVXIwN0JoMkVaQzE3WVpuNnpkb0hWeXJoS3JuN1I3Y0Nvei8z?=
- =?utf-8?B?cHF4ZU83TnV2OVdiRWFCakNUcXFMcFJNWEpXRmpDOUU5dG5ZZHFqVkNhZ3ps?=
- =?utf-8?B?RGhyQldER2NvbzEwMlJGS2pidlBaTkJ6ZDlNeEtRVzFCSTFhMExSK3N3VFNx?=
- =?utf-8?B?azgrVE03bzRBRmpUOXg0bmpSRzI4a1llVzdML0NHOFAxdFpKcnU5cjNqTEcw?=
- =?utf-8?B?bmNUY2k5aGE4ZENCVVhQK3dEWkd1Q0ZxY2pKSW5HSS93VUQ1YjNIYTZJRWNQ?=
- =?utf-8?B?REhjb3NIQWsxeUUzMC92dURZY1lWVzhsU1pTdUpDK0dycGNWbFlZc2JOZGV1?=
- =?utf-8?B?Z1NsL3d0QjdMK0MzNHJFQko0TGsveGtZdWxScUlJQmhTdFN2K2kyYUxDZmZU?=
- =?utf-8?B?YytXaGFWb1lPRUNvTlR1VDZRWldPdnNCVHRzdjIydDJnZnNZM1o4cUhVUGls?=
- =?utf-8?B?SE9XQVRzVDB6UXV5OHVLNTlwWXhEa05Ed2xmTUVhb3IzY2EySHppcFVpRnJK?=
- =?utf-8?B?dkE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 166ec6b5-694c-4409-9e82-08dda9d7680c
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5095.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 17:34:38.7213 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JMW/rL6AtOAzjxw4A5+Z04+9r3atV80WYLunJG2SkGY30ASB94MTQ8YDcjAhcbieET53SzUKauKl/Ol9u9XaLqEwEF1UxANPV8kQucyofFw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5105
-X-OriginatorOrg: intel.com
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric
- Dumazet <edumazet@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: improve
- .set_clk_tx_rate() method error message
+In-Reply-To: <2243943.irdbgypaU6@workhorse>
+Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
+ Petre Rodan <petre.rodan@subdimension.ro>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Tomasz Duszynski <tomasz.duszynski@octakon.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Francesco Dolcini <francesco@dolcini.it>, linux-rockchip@lists.infradead.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>,
+ David Lechner <dlechner@baylibre.com>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Jacopo Mondi <jacopo@jmondi.org>, kernel@pengutronix.de,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
+ Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Leonard =?iso-8859-1?Q?G=F6hrs?= <l.goehrs@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
+ Roan van Dijk <roan@protonic.nl>,
+ =?iso-8859-1?Q?Jo=E3o_Paulo_Gon=E7alves?= <jpaulo.silvagoncalves@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/28] iio: zero init stack with { }
+	instead of memset()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -194,41 +68,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2875977889778057064=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
+--===============2875977889778057064==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="qHcR0wTfGJLS0CPf"
+Content-Disposition: inline
 
-On 6/12/2025 8:21 AM, Russell King (Oracle) wrote:
-> Improve the .set_clk_tx_rate() method error message to include the
-> PHY interface mode along with the speed, which will be helpful to
-> the RK implementations.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1369fa70bc58..24a4b82e934b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1062,8 +1062,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
->  						interface, speed);
->  		if (ret < 0)
->  			netdev_err(priv->dev,
-> -				   "failed to configure transmit clock for %dMbps: %pe\n",
-> -				   speed, ERR_PTR(ret));
-> +				   "failed to configure %s transmit clock for %dMbps: %pe\n",
-> +				   phy_modes(interface), speed, ERR_PTR(ret));
->  	}
->  
->  	stmmac_mac_set(priv, priv->ioaddr, true);
 
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+--qHcR0wTfGJLS0CPf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi1
+
+> I thought I'd chime in as someone uninvolved because this seemed
+> interesting.
+>=20
+> On Thursday, 12 June 2025 11:17:52 Central European Summer Time Pavel Mac=
+hek wrote:
+> > Hi!
+> >=20
+> > > Jonathan mentioned recently that he would like to get away from using
+> > > memset() to zero-initialize stack memory in the IIO subsystem. And we
+> > > have it on good authority that initializing a struct or array with =
+=3D { }
+> > > is the preferred way to do this in the kernel [1]. So here is a series
+> > > to take care of that.
+> >=20
+> > 1) Is it worth the churn?
+> >=20
+> > 2) Will this fail to initialize padding with some obscure compiler?
+>=20
+> as of right now, the only two C compilers that are supported are
+> GCC >=3D 8.1, and Clang >=3D 13.0.1. If anyone even manages to get the
+> kernel
+
+Well... I'm pretty sure parts of this would make it into -stable as a
+dependency, or because AUTOSEL decides it is a bugfix. So..
+
+GNU C                  4.9              gcc --version
+Clang/LLVM (optional)  10.0.1           clang --version
+
+:-).
+
+Best regards,
+									Pavel
+--=20
+I don't work for Nazis and criminals, and neither should you.
+Boycott Putin, Trump, and Musk!
+
+--qHcR0wTfGJLS0CPf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaEsiTwAKCRAw5/Bqldv6
+8rWCAJ9iuK1SPCz8Iqmtg2YYJA3QcN1ZcQCcCDOYZeP9LCuc6TXu3fDJPaQEqxk=
+=IRlm
+-----END PGP SIGNATURE-----
+
+--qHcR0wTfGJLS0CPf--
+
+--===============2875977889778057064==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2875977889778057064==--
