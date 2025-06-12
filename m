@@ -2,52 +2,187 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9C2AD77DA
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 18:17:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97623AD78C6
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 19:16:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8B4FC32EA8;
-	Thu, 12 Jun 2025 16:17:21 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 416D8C32E8E;
+	Thu, 12 Jun 2025 17:16:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23C50C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7457DC36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 16:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Xa9ldOdTR15G6fLzz6FMCCQoVl/XbCjTH6vEU5SJCOk=; b=CdNoi5TPJJrLH10Sw2eRffsdzb
- 9VEhwCn95AoKUxX8/rrEow1A1c93zES5VglqCfbaN7Cdh9ItU+kizCgF6hicI7KBnCnspvwP4Zfdl
- flWKI87Z3Qfs6Ls/AF8y5d8xj4k8Ux52/8mcMwXWocL2Jfrg9TPGKLknE/Yk5YytZjrSnrqhQdoAG
- dy5PRrylmyfPZIH1teBk3/ihn8qVRuwFczIch/8+6Mt5GCkCP2dXONgK1XyD05yPiF2mR+ot4eCUN
- Zfye27SbI4ldpj2XLSpouy8/bmYvkrnfJTdYmqR6E+SYXLj56MnOtvj9Y0OoGqauVHQrzcRgn2nQX
- AiB8IW6w==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50116 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1uPkc7-00087v-3D;
- Thu, 12 Jun 2025 17:17:16 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1uPkbT-004EyG-OQ; Thu, 12 Jun 2025 17:16:35 +0100
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Thu, 12 Jun 2025 17:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749748616; x=1781284616;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=jSO47aWG4zPjRLPXyy2z/Gwop0515yapDEivDzyu8QU=;
+ b=DsViqGAK9rgvaiB2EDJdZRhUzQ5eEbbv2JN8SDwzuR+D5lPWKPOWEZ1u
+ EKXYLfZAw2JCIpaWtA8Hyfjxa8jR23Wo9A94ZGp76KDyuCpco3PW75Ih6
+ AaqLC6Vgo8vsAZX4xYkmwSnViB+5Dgaag6RYJFBhvIWJje9LA7eilftos
+ d3Xt5FblxSprIYvs+1oF3+5+g779SNvwNGmO5EvKBArL6PyGud5hERJ+m
+ llGZnF89B7xM/doBOiK3cuzJwfku21k6L/r9upUms7K15I0MoZ7FDLC/W
+ 4bHcLAWdpEiT+Eot5P/7otvNdEotQ/worfN50Blo4ZVRMiS1nYeNIuERy w==;
+X-CSE-ConnectionGUID: zxPkuCofQ8eFSXXEhIkvbA==
+X-CSE-MsgGUID: DAngW3woSIqLfBzhxytxrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="51929403"
+X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="51929403"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 10:16:54 -0700
+X-CSE-ConnectionGUID: eIuNhwGkTKSgGn6Nk+Av5A==
+X-CSE-MsgGUID: eI+1gr9fQ5qILqa6sWQHCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,231,1744095600"; d="scan'208";a="147472928"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2025 10:16:53 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 12 Jun 2025 10:16:52 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25 via Frontend Transport; Thu, 12 Jun 2025 10:16:52 -0700
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (40.107.93.53) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 12 Jun 2025 10:16:51 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tPBaQMRJXvW8UkZZGxf5t81LnLN/fVA/c8JhqVfwe2S/iTsPeDRbDzZghVtZDVvYRHi1p1j2siKzD2XreG0w4S6pAbe1DILRZiTPW+FpAjLsxQzzU40uCztrgxubzJYCe2lXKav5T8OmyYWMNrT4tazl2sYN6KhOXd1aFKIYkeia1E5KnnTcVnuEWc9GaGFCEeVT47NNxk9XuijjHsz04/QwfvbNoYknZbc30ylcdmaHzWI1BtOaeSFaKTJhVygstUQtQcGQVpSeoiWiHvssb1Wj3jWLHk3+OdLLQqEvYrgI60a16yvZAbwZECF+8J20nYfUant5Ov9kPT5CBxsotQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cbtCCYqY6nCabSLdVwHFc5Kb1/C9edTa+18krewunoE=;
+ b=PwYxoaQUARypwIbex1ShEictB8Vkn0FKglaFq0Z/yk5eTOF+tz0xks+CNJkNXbtpGwS/nJIQ+imn+bSz7KcZeaY4BII3ZIu+mV0+GCTOe9pBJm8AO7EpaLojlgnYe+XkVmaKGLKMMKoetBWaulFKMM9bPBAMCCDdH/99z4DioKFSLh7pcQo8yjZpaCgmt99kMYZMbUGJyVXBsFkT6OwpmwjChU7MPr9doS6G5GGGMc/D1+DwNUrEpswp1QavQaDfbyypm/rAcKAChmvKQWv8EfqZkje3rYVXF2Iv6HvSAcfGBmIA4LhtZlw8J0+uIIaDcGUcaKyHBx62gwC56/gg/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB5095.namprd11.prod.outlook.com (2603:10b6:510:3b::14)
+ by MN2PR11MB4646.namprd11.prod.outlook.com (2603:10b6:208:264::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Thu, 12 Jun
+ 2025 17:16:22 +0000
+Received: from PH0PR11MB5095.namprd11.prod.outlook.com
+ ([fe80::215b:e85e:1973:8189]) by PH0PR11MB5095.namprd11.prod.outlook.com
+ ([fe80::215b:e85e:1973:8189%6]) with mapi id 15.20.8835.018; Thu, 12 Jun 2025
+ 17:16:21 +0000
+Message-ID: <a949b277-cc53-4709-8de7-38e3db3d9c9b@intel.com>
+Date: Thu, 12 Jun 2025 10:16:17 -0700
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Andrew Lunn
+ <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+References: <E1uPkbT-004EyG-OQ@rmk-PC.armlinux.org.uk>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <E1uPkbT-004EyG-OQ@rmk-PC.armlinux.org.uk>
+X-ClientProxiedBy: MW4PR04CA0162.namprd04.prod.outlook.com
+ (2603:10b6:303:85::17) To PH0PR11MB5095.namprd11.prod.outlook.com
+ (2603:10b6:510:3b::14)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1uPkbT-004EyG-OQ@rmk-PC.armlinux.org.uk>
-Date: Thu, 12 Jun 2025 17:16:35 +0100
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB5095:EE_|MN2PR11MB4646:EE_
+X-MS-Office365-Filtering-Correlation-Id: a66adc63-edbb-43d1-9813-08dda9d4d96c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZElDbzVURTZvYlFCWHBVT1hlQ243alZNZ1hnQXYvZXVNRFVzbC9QaXVRaEVu?=
+ =?utf-8?B?b0lqU2NKZkR2Uzl4dUtFNXdtb3EzeWxyeEdzZTdLcSs3UzZPa1RxOGxOTWVS?=
+ =?utf-8?B?cEpDZWRGaUZmNlhTeG5iNVJmS0NwMUlEb1E0WlFLVlFTRzNtb0lQOGhhcDk1?=
+ =?utf-8?B?RWR3bVVPNGFsMHhFQzN2dmdnWjlVRXkyT24rWXd1WWhvM1hpdHEvY1c5Q1hZ?=
+ =?utf-8?B?OTAwUjJQRXRvK3c4YndMKzFRaXM2b1pLVk8vNUw3OWxpUDBiNldZcC9Kb2k0?=
+ =?utf-8?B?ZERzTUNEM25scDNOQ0UyY2ZFaXUxQmo5S3VMYlpBUG9LVzJDdDZKNTRoU0Vl?=
+ =?utf-8?B?T0dOV2lGeW9iZWhuSCtuK0lURFEwSGV0N0JOTTVpbWo1cWhJdFNGb21VVExv?=
+ =?utf-8?B?Y1VGQXBQaGRqbjNkTEdrWXpNSWlqMWhUSk9ZV09kcVd0cHdKQ2J0RTlXeXZD?=
+ =?utf-8?B?ZnBtTENWVVcrY2lKU3NNbytXb1RNR2NmTmM0TG1VeDI3cC9Ca1M1RnJ6TG5u?=
+ =?utf-8?B?elhLMm93ZTgxZjdNakZwMWxQSlBsOVBLTHBXMXVwV3h5VW9hNnF6bnV1Ly95?=
+ =?utf-8?B?elJoTFBSZ0FuNml4Y3N5R3VKY1AxK2lzNWVnUGw0bmZvcVd3a0FuVUQvSmhm?=
+ =?utf-8?B?NjJaTFdwZENyM3JiQTlQT3VzUWpnMEhXRHV2Q1BIVkR6K1laYkZvb2JJN0R3?=
+ =?utf-8?B?LzVmU2xtakEwODNFa2lMdVJETzN4NzZaOWJzcXJVMG5MM1UyelR0bGliZXds?=
+ =?utf-8?B?R0NjK3d3MXR6dUUzc0JOWWpId2tseWNWL0lpZklHN1JnMXJmeHUrRDFRSlg1?=
+ =?utf-8?B?Q0dtNGZXR09GaE0wU0lwazhHNDdtTzVxRUwvbTRIUjVsYTRBemkydVRPcHdx?=
+ =?utf-8?B?dG80d2E0QzBsSk0xWS9yZ2RROTNCM01jOGZpNWlBUDJpTWlaREpDVzJJbmFZ?=
+ =?utf-8?B?eEtzWXcyeFMrV3F6R25sM3djekh2QkVDZFR5cWQzQlFVaUN2K294azZ5MGEx?=
+ =?utf-8?B?TUtSRzI3YXFGVFdSSThDUlJaNVJFd2ZtMEVQbGpWSUpLcHo0NjU5RGpVUU5C?=
+ =?utf-8?B?R0xZYlV5ZjA0K3FEbndMcXNCMjBsNTRUV0oxZ2VxaWU0bndEaFV3WTVRaGUw?=
+ =?utf-8?B?QW5tdGRJMXF0c3J0Y3c0TkU5RjRKT1pqVUQvd3NScnVRWG00ai9tUVFMZERT?=
+ =?utf-8?B?d0g2RHc1U1B4LzZXdk1ncEQ4ZVZkWnlFWDhpeHlvL29uZG42ZHFyRTdVVHVi?=
+ =?utf-8?B?ZHFPOXFZckdTMjVmVlpZYzVGekxEUmxvY1A3UHMybXQyQ2Z2N3kwSU5iZnFZ?=
+ =?utf-8?B?c1hCckdyTitwK0M0aEI3QkN1ZTIxNUEzamYvc2xaMThSMlZEcjJJZkluVzQ0?=
+ =?utf-8?B?SmdFRUVzZVhYVkNPSzMvc3hCbnovVjVQNmpEOW5qa1d0dUk1WFgxVy9KQU1k?=
+ =?utf-8?B?SDI2T2M3NFh2ditoaGc3b0wyRUFUQ09BNE1naWthY21acUF4WWM5WHl3bGx6?=
+ =?utf-8?B?RU1QeWtzZzRuMkhLNlBPN2FlNm9qV2tOODV2SkZ2aEUrS3ZBUDNDRXhldXAx?=
+ =?utf-8?B?akdTV01CZmE1aHYzMU5BN1F1NUVrd1p1NjlQa1dqU1h3dEhvTGExUzBqZTd2?=
+ =?utf-8?B?UnVDVDdib3E5aGRqdGtIRkRBdEFGdHJ3U3V2QWk4ZmZmNjVqOWNhTkJDNXJI?=
+ =?utf-8?B?NGdDbDJLS3BhYWNTeEg1OEEzVllCM29FeXFDcmdhOXQzQTFzNEF4UmRqNVgy?=
+ =?utf-8?B?VnFhOHRiUXJwdVNWK01pa290d1AwMDd6Wkl4cWxUcHRUejdHRjdOZU8xM1JM?=
+ =?utf-8?B?ajRRV2NvUCtWdkdQMnJQMDVDQmJuWXpZOGlPbDJ3djRLSXBZSUsza0F1UUNu?=
+ =?utf-8?B?MURVdzF1WVkrQnZtWWcrM2NQVFJ5cjJvRlVRa1RaUXJ1Vnc9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB5095.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0tjOCtTaS9HMzZvc3hSQ1ZXS0o5dkhDRzVWNVYwZFRoaGcwbUdvcDQyZE5w?=
+ =?utf-8?B?TEI3MnJxcTRkeXEzREpWV0lBd3JTUmtlNFkzQ1FPZmRmYUtHVlZQcHJnRzJp?=
+ =?utf-8?B?aXpsNndBU2tzcUVjRlgvZUd4WW1HQmNVeEp3ZytQQW1sR0tsRmZ3TTJobVFT?=
+ =?utf-8?B?VHUyanFzTkRGYXc5ZWk4V3JvMmgwWUVvU2JuRk5QQkVvY1NlYjlKc1I4QmQ3?=
+ =?utf-8?B?VFJ5ZFpFMytRNjU1Mk9DTjJKTEVTOHFlMHZJdVhNdnFycCtpVHhXSmNac1R1?=
+ =?utf-8?B?SHZtNm1xdzdkZWRXYVBlZ3dGL0hVa3NzZkVlcHVZS2psZ0o5QXJwa3V5WmlV?=
+ =?utf-8?B?NTVaRVhwU2s2akd0RWdhZXFtQi90Y2xnOUZnRzg3MmpRd1NPYTc2KzNtVDYz?=
+ =?utf-8?B?bTk3R2xxeGwyRXAwZkExbHVCY0s2WGYwcG8vTW5LaTZEckxka09XNFh6M3F0?=
+ =?utf-8?B?WVQxbmU4bWVYdzVncEZqUmJtQjRWczBJRlpnSXd4VlhoNUF1Zm1OU3prY29F?=
+ =?utf-8?B?bUltM2FpSUZXcDUzbGRxU2c2WnkxV3pURDUrQmhlODJmVkFNYVV0VWZKeDNG?=
+ =?utf-8?B?UU9WanliaDZPd1YzZzFiWmN2b3d4QkZsS0lMcFBQUFNPS2ZkNjQ5SlFVQnhE?=
+ =?utf-8?B?T1NuT095ekU1RGEyZ2Uwa1NTRmNaK3F5Vnh1bFliRER4eUNTMTEvK05aSUFO?=
+ =?utf-8?B?aW1pOFZGczk4SFFlelNTVmdMR2Q1NXJveHZJL0NFdkt1WGwyQXBGY0h3N0RV?=
+ =?utf-8?B?aVppeFJvNnVqWUVIak0zS0lYY3RHUG1DRTF5UkpFSXlUdkt5OTZVWllhYmg4?=
+ =?utf-8?B?REljaVNuQkRmZjZxVWFsdCtGR2tXQ1FrcTZOeXlWZ2tmaW5sTHNXcGpObW03?=
+ =?utf-8?B?Q1J4blVZTFJUbjB3VlZYY0lUaTZ5c2h5QWpiNG9ZSVVScXppOXp2a0VqVVNh?=
+ =?utf-8?B?dDVSZmd3SUZHMFNHWlJZTmg4d1hsbTNlZ3NoZGpXNnNKZWVrRk9nYmpOU0lk?=
+ =?utf-8?B?dHEyd0h2eUF1WGpteityRHhrRGc2MDB4bFY3ZWdnU29GeU9IZzRtdktEMEc4?=
+ =?utf-8?B?dUFnUThEcll0K0swVjBERFFiNCsrYTRVdk8vQVVzSkI3MmFmS0JLeWpqcEU0?=
+ =?utf-8?B?NmNBd1pDNVFERUZKNGthQmo3NUQ4bTZSQ09hTEExSFhTbUVvVm82NGwvM1Br?=
+ =?utf-8?B?Q1JrOE5EcTc4ZDdPYW5JeVRxUTczYnRDZ2EyeEYzREZPcGtqZFZNTElsQVIv?=
+ =?utf-8?B?bE1yZG96dXgrelVTbklNY2haSU5XbEhWaHVRWWdGN2tEZE1XMDNhclFvVjE1?=
+ =?utf-8?B?WHFGczVzNWtlbkNUbDh1REJKNFRYRERiRDRyNFFla2UvYVF0Wm1aMVVtY1Jz?=
+ =?utf-8?B?enJ3YkJQem1YdmdhaVlIRnlZRUZMWi9XR2RYdDhzMXpFL1ZUYU5LeFd6ZFBY?=
+ =?utf-8?B?bGN4WG1MY2VaYWRYbEI2WlFHUUg4TkExcGI0OXJyQitocmlscWhUWFBIYVVT?=
+ =?utf-8?B?VzdVb2pHVWZXVkhlTGJmZUI5YlE2YThROGxJODZFNzI2c0E4ZlJnaU56V1do?=
+ =?utf-8?B?bjhZMVkwZExyTFFnT1lYV0VCVGtIeWxvNGJZVzJIR0lzTlV2L256ZThvV2N0?=
+ =?utf-8?B?S25DdmFQWE5aQ3NGRURrZmdxRkN1UmRSbEZraXF6NmRDU0liemlQcjRPY2dk?=
+ =?utf-8?B?RVBUTFRCaGF4V3ZVT1ZzbkEwTnFYR1c0aHdmQjJzZGlNT0dUNXQ1b0lrZ2lM?=
+ =?utf-8?B?U29wc2s1SnBjUGNHTE1TdjU1elFWUzk3blNBektIRDNrSzR1WW82TlpXUUFk?=
+ =?utf-8?B?cTZUaEZDVUpIRkpMVW9qZU92QnYzallLb1NwRjA5WGFGQnE5cENyZGx0Q1o0?=
+ =?utf-8?B?Q3lCMWtDSWFkL3J6bnVTTUR3emM2K3E4YldZVjlCdmxVeWpnRmYzTUs3MFNV?=
+ =?utf-8?B?b1RRaWtCTFVkS1h2bkljMFhBN1hpbE42YjE4S0MvbkM5Y0tXNTJ6L0t4RmxL?=
+ =?utf-8?B?N2JZMGNRS0hhTlpJRS9FNmtvU3NRVUpwWllHaWtGbWw4N1FhYU5JMWlHcG1E?=
+ =?utf-8?B?UW9GL3JZVkZSZkJ1YVZSN204SjlKY2FXbENsZXFrZVN6ZWJRYW9wQzViWC83?=
+ =?utf-8?B?YVZSWWZoL3l6RkhJV2ZGbmRFM0c3aCs5d3BKNlNxY1J6QUNtYUJibi9WRjIr?=
+ =?utf-8?B?VWc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a66adc63-edbb-43d1-9813-08dda9d4d96c
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5095.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 17:16:21.8436 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Frwb+07B3oxhHcECjoGIIlxH7jrxtG3RpVcNFJ8pKtIB6RlMtZEbhrHXSJCNbZrJXvcmOAAYSMQJqGQjAeDRNEZv3txjL1vB4GXTAr4W8Ak=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4646
+X-OriginatorOrg: intel.com
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: remove pcs_get_adv_lp()
-	support
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric
+ Dumazet <edumazet@google.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: remove
+	pcs_get_adv_lp() support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,286 +199,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It appears that the GMAC_ANE_ADV and GMAC_ANE_LPA registers are only
-available for TBI and RTBI PHY interfaces. In commit 482b3c3ba757
-("net: stmmac: Drop TBI/RTBI PCS flags") support for these was dropped,
-and thus it no longer makes sense to access these registers.
 
-Remove the *_get_adv_lp() functions, and the now redundant struct
-rgmii_adv and STMMAC_PCS_* definitions.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  | 11 -----
- .../ethernet/stmicro/stmmac/dwmac1000_core.c  |  6 ---
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  8 ----
- drivers/net/ethernet/stmicro/stmmac/hwif.h    |  4 --
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 47 +------------------
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  | 32 +------------
- 6 files changed, 4 insertions(+), 104 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index ea5da5793362..cbffccb3b9af 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -396,17 +396,6 @@ enum request_irq_err {
- 
- #define CORE_IRQ_MTL_RX_OVERFLOW	BIT(8)
- 
--/* Physical Coding Sublayer */
--struct rgmii_adv {
--	unsigned int pause;
--	unsigned int duplex;
--	unsigned int lp_pause;
--	unsigned int lp_duplex;
--};
--
--#define STMMAC_PCS_PAUSE	1
--#define STMMAC_PCS_ASYM_PAUSE	2
--
- /* DMA HW capabilities */
- struct dma_features {
- 	unsigned int mbps_10_100;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 56b76aaa58f0..38875c832bb8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -399,11 +399,6 @@ static void dwmac1000_ctrl_ane(void __iomem *ioaddr, bool ane, bool srgmi_ral,
- 	dwmac_ctrl_ane(ioaddr, GMAC_PCS_BASE, ane, srgmi_ral, loopback);
- }
- 
--static void dwmac1000_get_adv_lp(void __iomem *ioaddr, struct rgmii_adv *adv)
--{
--	dwmac_get_adv_lp(ioaddr, GMAC_PCS_BASE, adv);
--}
--
- static void dwmac1000_debug(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			    struct stmmac_extra_stats *x,
- 			    u32 rx_queues, u32 tx_queues)
-@@ -508,7 +503,6 @@ const struct stmmac_ops dwmac1000_ops = {
- 	.set_eee_pls = dwmac1000_set_eee_pls,
- 	.debug = dwmac1000_debug,
- 	.pcs_ctrl_ane = dwmac1000_ctrl_ane,
--	.pcs_get_adv_lp = dwmac1000_get_adv_lp,
- 	.set_mac_loopback = dwmac1000_set_mac_loopback,
- };
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 9c2549d4100f..bc06b24fc611 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -589,11 +589,6 @@ static void dwmac4_ctrl_ane(void __iomem *ioaddr, bool ane, bool srgmi_ral,
- 	dwmac_ctrl_ane(ioaddr, GMAC_PCS_BASE, ane, srgmi_ral, loopback);
- }
- 
--static void dwmac4_get_adv_lp(void __iomem *ioaddr, struct rgmii_adv *adv)
--{
--	dwmac_get_adv_lp(ioaddr, GMAC_PCS_BASE, adv);
--}
--
- /* RGMII or SMII interface */
- static void dwmac4_phystatus(void __iomem *ioaddr, struct stmmac_extra_stats *x)
- {
-@@ -958,7 +953,6 @@ const struct stmmac_ops dwmac4_ops = {
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
--	.pcs_get_adv_lp = dwmac4_get_adv_lp,
- 	.debug = dwmac4_debug,
- 	.set_filter = dwmac4_set_filter,
- 	.set_mac_loopback = dwmac4_set_mac_loopback,
-@@ -993,7 +987,6 @@ const struct stmmac_ops dwmac410_ops = {
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
--	.pcs_get_adv_lp = dwmac4_get_adv_lp,
- 	.debug = dwmac4_debug,
- 	.set_filter = dwmac4_set_filter,
- 	.flex_pps_config = dwmac5_flex_pps_config,
-@@ -1030,7 +1023,6 @@ const struct stmmac_ops dwmac510_ops = {
- 	.set_eee_timer = dwmac4_set_eee_timer,
- 	.set_eee_pls = dwmac4_set_eee_pls,
- 	.pcs_ctrl_ane = dwmac4_ctrl_ane,
--	.pcs_get_adv_lp = dwmac4_get_adv_lp,
- 	.debug = dwmac4_debug,
- 	.set_filter = dwmac4_set_filter,
- 	.safety_feat_config = dwmac5_safety_feat_config,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index ae4efffb785f..e1ac9a245bfe 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -300,7 +300,6 @@ struct stmmac_dma_ops {
- 
- struct mac_device_info;
- struct net_device;
--struct rgmii_adv;
- struct stmmac_tc_entry;
- struct stmmac_pps_cfg;
- struct stmmac_rss;
-@@ -377,7 +376,6 @@ struct stmmac_ops {
- 	/* PCS calls */
- 	void (*pcs_ctrl_ane)(void __iomem *ioaddr, bool ane, bool srgmi_ral,
- 			     bool loopback);
--	void (*pcs_get_adv_lp)(void __iomem *ioaddr, struct rgmii_adv *adv);
- 	/* Safety Features */
- 	int (*safety_feat_config)(void __iomem *ioaddr, unsigned int asp,
- 				  struct stmmac_safety_feature_cfg *safety_cfg);
-@@ -467,8 +465,6 @@ struct stmmac_ops {
- 	stmmac_do_void_callback(__priv, mac, debug, __priv, __args)
- #define stmmac_pcs_ctrl_ane(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, pcs_ctrl_ane, __args)
--#define stmmac_pcs_get_adv_lp(__priv, __args...) \
--	stmmac_do_void_callback(__priv, mac, pcs_get_adv_lp, __args)
- #define stmmac_safety_feat_config(__priv, __args...) \
- 	stmmac_do_callback(__priv, mac, safety_feat_config, __args)
- #define stmmac_safety_feat_irq_status(__priv, __args...) \
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index f702f7b7bf9f..72f1724af037 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -325,7 +325,6 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
- 	if (!(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS) &&
- 	    (priv->hw->pcs & STMMAC_PCS_RGMII ||
- 	     priv->hw->pcs & STMMAC_PCS_SGMII)) {
--		struct rgmii_adv adv;
- 		u32 supported, advertising, lp_advertising;
- 
- 		if (!priv->xstats.pcs_link) {
-@@ -337,10 +336,6 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
- 
- 		cmd->base.speed = priv->xstats.pcs_speed;
- 
--		/* Get and convert ADV/LP_ADV from the HW AN registers */
--		if (stmmac_pcs_get_adv_lp(priv, priv->ioaddr, &adv))
--			return -EOPNOTSUPP;	/* should never happen indeed */
--
- 		/* Encoding of PSE bits is defined in 802.3z, 37.2.1.4 */
- 
- 		ethtool_convert_link_mode_to_legacy_u32(
-@@ -350,44 +345,12 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
- 		ethtool_convert_link_mode_to_legacy_u32(
- 			&lp_advertising, cmd->link_modes.lp_advertising);
- 
--		if (adv.pause & STMMAC_PCS_PAUSE)
--			advertising |= ADVERTISED_Pause;
--		if (adv.pause & STMMAC_PCS_ASYM_PAUSE)
--			advertising |= ADVERTISED_Asym_Pause;
--		if (adv.lp_pause & STMMAC_PCS_PAUSE)
--			lp_advertising |= ADVERTISED_Pause;
--		if (adv.lp_pause & STMMAC_PCS_ASYM_PAUSE)
--			lp_advertising |= ADVERTISED_Asym_Pause;
--
- 		/* Reg49[3] always set because ANE is always supported */
- 		cmd->base.autoneg = ADVERTISED_Autoneg;
- 		supported |= SUPPORTED_Autoneg;
- 		advertising |= ADVERTISED_Autoneg;
- 		lp_advertising |= ADVERTISED_Autoneg;
- 
--		if (adv.duplex) {
--			supported |= (SUPPORTED_1000baseT_Full |
--				      SUPPORTED_100baseT_Full |
--				      SUPPORTED_10baseT_Full);
--			advertising |= (ADVERTISED_1000baseT_Full |
--					ADVERTISED_100baseT_Full |
--					ADVERTISED_10baseT_Full);
--		} else {
--			supported |= (SUPPORTED_1000baseT_Half |
--				      SUPPORTED_100baseT_Half |
--				      SUPPORTED_10baseT_Half);
--			advertising |= (ADVERTISED_1000baseT_Half |
--					ADVERTISED_100baseT_Half |
--					ADVERTISED_10baseT_Half);
--		}
--		if (adv.lp_duplex)
--			lp_advertising |= (ADVERTISED_1000baseT_Full |
--					   ADVERTISED_100baseT_Full |
--					   ADVERTISED_10baseT_Full);
--		else
--			lp_advertising |= (ADVERTISED_1000baseT_Half |
--					   ADVERTISED_100baseT_Half |
--					   ADVERTISED_10baseT_Half);
- 		cmd->base.port = PORT_OTHER;
- 
- 		ethtool_convert_legacy_u32_to_link_mode(
-@@ -515,12 +478,9 @@ stmmac_get_pauseparam(struct net_device *netdev,
- 		      struct ethtool_pauseparam *pause)
- {
- 	struct stmmac_priv *priv = netdev_priv(netdev);
--	struct rgmii_adv adv_lp;
- 
--	if (priv->hw->pcs && !stmmac_pcs_get_adv_lp(priv, priv->ioaddr, &adv_lp)) {
-+	if (priv->hw->pcs) {
- 		pause->autoneg = 1;
--		if (!adv_lp.pause)
--			return;
- 	} else {
- 		phylink_ethtool_get_pauseparam(priv->phylink, pause);
- 	}
-@@ -531,12 +491,9 @@ stmmac_set_pauseparam(struct net_device *netdev,
- 		      struct ethtool_pauseparam *pause)
- {
- 	struct stmmac_priv *priv = netdev_priv(netdev);
--	struct rgmii_adv adv_lp;
- 
--	if (priv->hw->pcs && !stmmac_pcs_get_adv_lp(priv, priv->ioaddr, &adv_lp)) {
-+	if (priv->hw->pcs) {
- 		pause->autoneg = 1;
--		if (!adv_lp.pause)
--			return -EOPNOTSUPP;
- 		return 0;
- 	} else {
- 		return phylink_ethtool_set_pauseparam(priv->phylink, pause);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-index 1bdf87b237c4..4a684c97dfae 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-@@ -16,6 +16,8 @@
- /* PCS registers (AN/TBI/SGMII/RGMII) offsets */
- #define GMAC_AN_CTRL(x)		(x)		/* AN control */
- #define GMAC_AN_STATUS(x)	(x + 0x4)	/* AN status */
-+
-+/* ADV, LPA and EXP are only available for the TBI and RTBI interfaces */
- #define GMAC_ANE_ADV(x)		(x + 0x8)	/* ANE Advertisement */
- #define GMAC_ANE_LPA(x)		(x + 0xc)	/* ANE link partener ability */
- #define GMAC_ANE_EXP(x)		(x + 0x10)	/* ANE expansion */
-@@ -107,34 +109,4 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
- 
- 	writel(value, ioaddr + GMAC_AN_CTRL(reg));
- }
--
--/**
-- * dwmac_get_adv_lp - Get ADV and LP cap
-- * @ioaddr: IO registers pointer
-- * @reg: Base address of the AN Control Register.
-- * @adv_lp: structure to store the adv,lp status
-- * Description: this is to expose the ANE advertisement and Link partner ability
-- * status to ethtool support.
-- */
--static inline void dwmac_get_adv_lp(void __iomem *ioaddr, u32 reg,
--				    struct rgmii_adv *adv_lp)
--{
--	u32 value = readl(ioaddr + GMAC_ANE_ADV(reg));
--
--	if (value & GMAC_ANE_FD)
--		adv_lp->duplex = DUPLEX_FULL;
--	if (value & GMAC_ANE_HD)
--		adv_lp->duplex |= DUPLEX_HALF;
--
--	adv_lp->pause = (value & GMAC_ANE_PSE) >> GMAC_ANE_PSE_SHIFT;
--
--	value = readl(ioaddr + GMAC_ANE_LPA(reg));
--
--	if (value & GMAC_ANE_FD)
--		adv_lp->lp_duplex = DUPLEX_FULL;
--	if (value & GMAC_ANE_HD)
--		adv_lp->lp_duplex = DUPLEX_HALF;
--
--	adv_lp->lp_pause = (value & GMAC_ANE_PSE) >> GMAC_ANE_PSE_SHIFT;
--}
- #endif /* __STMMAC_PCS_H__ */
--- 
-2.30.2
-
+On 6/12/2025 9:16 AM, Russell King (Oracle) wrote:
+> It appears that the GMAC_ANE_ADV and GMAC_ANE_LPA registers are only
+> available for TBI and RTBI PHY interfaces. In commit 482b3c3ba757
+> ("net: stmmac: Drop TBI/RTBI PCS flags") support for these was dropped,
+> and thus it no longer makes sense to access these registers.
+> 
+> Remove the *_get_adv_lp() functions, and the now redundant struct
+> rgmii_adv and STMMAC_PCS_* definitions.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
