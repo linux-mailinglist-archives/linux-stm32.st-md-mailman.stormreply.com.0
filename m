@@ -2,44 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61505AD7704
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 17:53:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2CFAD77D9
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 18:17:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2825CC32E8E;
-	Thu, 12 Jun 2025 15:53:30 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2CFEC32E8E;
+	Thu, 12 Jun 2025 16:17:21 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 283E3C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28A7BC32E8E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 15:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=tmhS5q7Q2QFYu1FyChk3Bwu8/VP2DbtV3PA++BzP3I4=; b=xo4iP4o3N6RVnhnvSvbtonYi7l
- aY9nUo1fpB9Dag+WbMG+hJjUn8SuAFv0RKy1Nokmp66ac7FrWsP8frWtqn+N7oTI0N6Fz7HZbwQLt
- HhbCs0CeOFpE9TE0A6lx0aRU59UVxUnbxFgmrm7CYGRARBJLeGwCe5jzonHK758Mocr0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uPkF1-00FZHK-9n; Thu, 12 Jun 2025 17:53:23 +0200
-Date: Thu, 12 Jun 2025 17:53:23 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <32ddc0ac-ca68-4926-b815-51183912c83a@lunn.ch>
-References: <aEr1BhIoC6-UM2XV@shell.armlinux.org.uk>
- <E1uPk3O-004CFx-Ir@rmk-PC.armlinux.org.uk>
+ Thu, 12 Jun 2025 16:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=EYKiBuFao5mfyYNJMFE6ZokBPPPu5Li/J3RPkWqd5aU=; b=iK7FDVDSQsII92H9niZNTahz5D
+ J3sSuDfZ2KBsjWkcZ6QXZOI5vP7qRvkn7mJfYC8lEbAPLBwmwzJ2rHHpDN6P7PFHFurtriSyKq+fS
+ vFkm35ZljRyaA8MPULLFxn2X6w/RdxS6dFO919eVisvOiJECFyqPcUC71TLaUpsT3vWeKlsU3cHfn
+ UrordgKKumyy2ScUghiiQbKfGMmWUzHjNh8K75BMAjSIwA7bI1RXHlNDv+UoihLh8SmlQfd8whkJx
+ u5gxzpU/fMqHnw40iFF5xxzRv7kSt4HYfzgTTz+hfjskPGv7GAcD/PE44U1ngkFUlZn2GgMGNsh/z
+ 1Vpb4tCg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42838 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <rmk@armlinux.org.uk>) id 1uPkc2-00087m-2K;
+ Thu, 12 Jun 2025 17:17:10 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1uPkbO-004EyA-EU; Thu, 12 Jun 2025 17:16:30 +0100
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1uPk3O-004CFx-Ir@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 9/9] net: stmmac: rk: remove
- obsolete .set_*_speed() methods
+Message-Id: <E1uPkbO-004EyA-EU@rmk-PC.armlinux.org.uk>
+Date: Thu, 12 Jun 2025 17:16:30 +0100
+Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: add
+ ethqos_pcs_set_inband()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,17 +65,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jun 12, 2025 at 04:41:22PM +0100, Russell King (Oracle) wrote:
-> Now that no SoC implements the .set_*_speed() methods, we can get rid
-> of these methods and the now unused code in rk_set_clk_tx_rate().
-> Arrange for the function to return an error when the .set_speed()
-> method is not implemented.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Add ethqos_pcs_set_inband() to improve readability, and to allow future
+changes when phylink PCS support is properly merged.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org> # sa8775p-ride-r3
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-    Andrew
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index e30bdf72331a..2e398574c7a7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -622,6 +622,11 @@ static void ethqos_set_serdes_speed(struct qcom_ethqos *ethqos, int speed)
+ 	}
+ }
+ 
++static void ethqos_pcs_set_inband(struct stmmac_priv *priv, bool enable)
++{
++	stmmac_pcs_ctrl_ane(priv, priv->ioaddr, enable, 0, 0);
++}
++
+ /* On interface toggle MAC registers gets reset.
+  * Configure MAC block for SGMII on ethernet phy link up
+  */
+@@ -640,7 +645,7 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos, int speed)
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
+ 		ethqos_set_serdes_speed(ethqos, SPEED_2500);
+-		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
++		ethqos_pcs_set_inband(priv, false);
+ 		break;
+ 	case SPEED_1000:
+ 		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+@@ -648,12 +653,12 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos, int speed)
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
+ 		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
++		ethqos_pcs_set_inband(priv, true);
+ 		break;
+ 	case SPEED_100:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
+ 		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
++		ethqos_pcs_set_inband(priv, true);
+ 		break;
+ 	case SPEED_10:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+@@ -663,7 +668,7 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos, int speed)
+ 					 SGMII_10M_RX_CLK_DVDR),
+ 			      RGMII_IO_MACRO_CONFIG);
+ 		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
++		ethqos_pcs_set_inband(priv, true);
+ 		break;
+ 	}
+ 
+-- 
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
