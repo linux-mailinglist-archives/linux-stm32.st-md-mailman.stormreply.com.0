@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF32AD71AE
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 15:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E95AD71F8
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Jun 2025 15:31:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4423AC32E8E;
-	Thu, 12 Jun 2025 13:23:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB04AC32E8E;
+	Thu, 12 Jun 2025 13:31:06 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 586EBC36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 880A6C36B20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Jun 2025 13:23:50 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55CDDwF7016289;
- Thu, 12 Jun 2025 15:23:38 +0200
+ Thu, 12 Jun 2025 13:31:04 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55CCgPWj025965;
+ Thu, 12 Jun 2025 15:30:51 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- /s+c05XapIIjOVl+x1SSWFS08/sFZmEJD1dfE0OiG48=; b=XwySzSf7vwO2P0p2
- vm2H5MB9V4+yrLkmjAnpj1548o8qvKx+tEsePRnYdkDESf5nKtghaTjoTN5yCIc2
- RiZPqhi+UXjWtGVH5qfTC7tKymH34oIqTPvzLDCBzT5By7htHST9yT0KKaWzI8fW
- Zpz8Qev6wtXnQE5P/ZGxglBxzs43kk4WBNTYO7k3Y2TIdN4FZ+Zrx4S+juKv/Mv9
- Yd7617eWJhu8HkkRVpqSy4xvAaZo56hTzPYJOdP5+xp/94tsHQPG1rez+jDDSPPO
- XsJJteSRjX3U7PODiRYJuwGTiNvvaFb+WO7De25n4xm/bqYP7whYcNZqljkEScUu
- ichOIw==
+ ERviKJzJWlZq/zWcOwo++EjzTpgeVRiokZ0eXobkweM=; b=CEkICjMoTQD0BpEW
+ suZqI97L6bGTXYEmI0lLhmS2Ix8pEnmIJHj/w4j00yCvyX9kVbX2PNQv2Lmi3QFv
+ HDEskOLiZ8Py1q+A4WKKv9CMH7uTzGKdJIeu80R6cRHVMtTnVQIxzwgDPB7xnuRR
+ ijfoEtAvYSluQMpp1+1c2fnyWw3yTPp3qkti4j/vZQcMOvp7y0BN0ay9XHXS8ARo
+ q9LRzEgc8F3S2ZV+80Xd2hmJ7VEtFHixDtvZUlg8aguRUhAMuUQeLCASt6l3l7lK
+ Mf7xPzOdZCA+HPxzb4mh8aoz4cZGpEf67SDE5YKcLNl2vlNA0BeXuZPgTh9HddHa
+ 7vdsrQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474cs30nga-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474aums1xg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 12 Jun 2025 15:23:37 +0200 (MEST)
+ Thu, 12 Jun 2025 15:30:51 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 76E2C40078;
- Thu, 12 Jun 2025 15:22:29 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 53BB940046;
+ Thu, 12 Jun 2025 15:29:42 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A1CA4AFD842;
- Thu, 12 Jun 2025 15:21:24 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8557AB9C2B7;
+ Thu, 12 Jun 2025 15:28:53 +0200 (CEST)
 Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
  (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 12 Jun
- 2025 15:21:23 +0200
-Message-ID: <49e5b9ca-6860-4ebe-9856-ae550e1aff42@foss.st.com>
-Date: Thu, 12 Jun 2025 15:21:22 +0200
+ 2025 15:28:52 +0200
+Message-ID: <341950d6-1a2c-4191-948a-6e572fa74cc0@foss.st.com>
+Date: Thu, 12 Jun 2025 15:28:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>, Linus Walleij
  <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
  Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
@@ -65,18 +66,18 @@ References: <20250523-hdp-upstream-v3-0-bd6ca199466a@foss.st.com>
  <4f31f016-d250-41ea-b613-b074b8ea00d1@kernel.org>
  <782763e2-99d6-4533-b0db-79b618577586@foss.st.com>
  <30f8e319-4103-44ba-8f98-c01e7b0ba76c@kernel.org>
+ <49e5b9ca-6860-4ebe-9856-ae550e1aff42@foss.st.com>
 Content-Language: en-US
-From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-In-Reply-To: <30f8e319-4103-44ba-8f98-c01e7b0ba76c@kernel.org>
+In-Reply-To: <49e5b9ca-6860-4ebe-9856-ae550e1aff42@foss.st.com>
 X-Originating-IP: [10.48.86.185]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-12_08,2025-06-12_02,2025-03-28_01
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH v3 5/9] ARM: dts: stm32: add Hardware
  debug port (HDP) on stm32mp13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -90,112 +91,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/12/25 15:09, Krzysztof Kozlowski wrote:
-> On 12/06/2025 15:02, Clement LE GOFFIC wrote:
->> On 6/12/25 13:05, Krzysztof Kozlowski wrote:
->>> On 12/06/2025 11:31, Clement LE GOFFIC wrote:
->>>> On 6/11/25 17:48, Krzysztof Kozlowski wrote:
->>>>> On 11/06/2025 16:08, Clement LE GOFFIC wrote:
->>>>>> On 6/11/25 08:35, Krzysztof Kozlowski wrote:
->>>>>>> On 10/06/2025 15:33, Clement LE GOFFIC wrote:
->>>>>>>> On 6/10/25 14:38, Krzysztof Kozlowski wrote:
->>>>>>>>> On 10/06/2025 14:02, Clement LE GOFFIC wrote:
->>>>>>>>>> On 5/29/25 11:01, Krzysztof Kozlowski wrote:
->>>>>>>>>>> On 28/05/2025 14:14, Clement LE GOFFIC wrote:
->>>>>>>>>>>>>
->>>>>>>>>>>>>> +		};
->>>>>>>>>>>>>> +
->>>>>>>>>>>>>> +		hdp: pinctrl@5002a000 {
->>>>>>>>>>>>>> +			compatible = "st,stm32mp131-hdp";
->>>>>>>>>>>>>> +			reg = <0x5002a000 0x400>;
->>>>>>>>>>>>>> +			clocks = <&rcc HDP>;
->>>>>>>>>>>>>>         			status = "disabled";
->>>>>>>>>>>>>
->>>>>>>>>>>>> Why are you disabling it? What is missing?
->>>>>>>>>>>>
->>>>>>>>>>>> Nothing is missing just disabled by default.
->>>>>>>>>>>> The node is then enabled when needed in board's dts file.
->>>>>>>>>>> Nodes should not be disabled by default if they are complete. That's why
->>>>>>>>>>> I asked what is missing. Drop.
->>>>>>>>>>
->>>>>>>>>> Hi Krzysztof, OK I better understand now.
->>>>>>>>>> So yes the 'pinctrl-*' properties which are board dependent are lacking.
->>>>>>>>>
->>>>>>>>> These are not properties of this node.
->>>>>>>>
->>>>>>>> Does this mean I should add 'pinctrl-*' properties in bindings yaml file ?
->>>>>>>> I don't get it..
->>>>>>>
->>>>>>> These properties have no meaning here, so the hardware description is
->>>>>>> complete. You claim that you miss them thus device is incomplete is just
->>>>>>> not correct: these properties do not belong here! They belong to the
->>>>>>> board but even there they are totally optional. Why would they be a
->>>>>>> required resource?
->>>>>>>
->>>>>>> To remind: we talk here ONLY about required resources.
->>>>>>
->>>>>> Yes, 'pinctrl-*' properties belongs to the board and are not required.
->>>>>> So nothing is missing.
->>>>>>
->>>>>> This hdp node in the SoC dtsi file can be enabled by default.
->>>>>> But the hdp driver will probe and do nothing because without the
->>>>>> 'pinctrl-*' properties from the board files it would not be able to
->>>>>> access to any pin.
->>>>>
->>>>>
->>>>> Pinctrl has other features in general, including interfaces to userspace
->>>>> (as pretty often combined with gpio, although not sure if relevant here).
->>>>
->>>> You're right. Also HDP pinctrl has a GPO feature accessible from userspace.
->>>> But by default the HDP is not connected to any pad; it needs the board
->>>
->>> OK, then that was the answer to my first question - what is missing.
->>> However aren't these pads connected internally also to other parts of
->>> the SoC (like in most other vendors)?
->>
->> No, HDP "output pads" are only connected to SoC pinctrl to route outside
->> the internal SoC signals for debug purpose.
->>
->>>> 'pinctrl-*' properties to configure the SoC pinctrl and expose HDP on
->>>> the SoC pads.
->>>>
->>>> That's why for me the enabling of the driver should be in the board file
->>>> together with the SoC pinctrl configuration.
->>>
->>> And what are the default pad settings configured by HPD driver in
->>> bootloader (and by bootloader I mean one of few bootloaders this is
->>> going to be used on like U-Boot)
->>
->> The default is to use the GPIO of the SoC pinctrl. The HDP is not routed
->> outside.
->>    >>
->>>> The userland cannot change the pinctrl alternate function mux, this is
->>>> statically defined by the devicetree.
->>>
->>> If you expose GPIO then userland needs this regardless of alternate mux.
->>> IOW, board level could not configure mux because it should be always
->>> configured to safe GPIO input.
->>
->> For userland sight view, SoC GPIO are preferred instead of HDP.
->> HDP is only GPO not GPIO. 'pinctrl-*' properties configure at the same
->> time the SoC pinctrl mux to HDP and the HDP pinctrl mux to one of the
->> HDP functions (e.g. GPO).
-> Thanks, that's explains, fine to keep it disabled. Unless it is obvious
-> for everyone, it would be nice to put it in commit msg.
-
-You're welcome, so I'll provide the V6 with more information in the 
-commit message of patch [5-7] among other needed fixes.
-
-> 
-> Best regards,
-> Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNi8xMi8yNSAxNToyMSwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4gT24gNi8xMi8yNSAx
+NTowOSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4gT24gMTIvMDYvMjAyNSAxNTowMiwg
+Q2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4+PiBPbiA2LzEyLzI1IDEzOjA1LCBLcnp5c3p0b2Yg
+S296bG93c2tpIHdyb3RlOgo+Pj4+IE9uIDEyLzA2LzIwMjUgMTE6MzEsIENsZW1lbnQgTEUgR09G
+RklDIHdyb3RlOgo+Pj4+PiBPbiA2LzExLzI1IDE3OjQ4LCBLcnp5c3p0b2YgS296bG93c2tpIHdy
+b3RlOgo+Pj4+Pj4gT24gMTEvMDYvMjAyNSAxNjowOCwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6
+Cj4+Pj4+Pj4gT24gNi8xMS8yNSAwODozNSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPj4+
+Pj4+Pj4gT24gMTAvMDYvMjAyNSAxNTozMywgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4+Pj4+
+Pj4+PiBPbiA2LzEwLzI1IDE0OjM4LCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOgo+Pj4+Pj4+
+Pj4+IE9uIDEwLzA2LzIwMjUgMTQ6MDIsIENsZW1lbnQgTEUgR09GRklDIHdyb3RlOgo+Pj4+Pj4+
+Pj4+PiBPbiA1LzI5LzI1IDExOjAxLCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOgo+Pj4+Pj4+
+Pj4+Pj4gT24gMjgvMDUvMjAyNSAxNDoxNCwgQ2xlbWVudCBMRSBHT0ZGSUMgd3JvdGU6Cj4+Pj4+
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgfTsKPj4+Pj4+Pj4+Pj4+
+Pj4+ICsKPj4+Pj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBoZHA6IHBpbmN0cmxANTAwMmEw
+MDAgewo+Pj4+Pj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29tcGF0aWJsZSA9
+ICJzdCxzdG0zMm1wMTMxLWhkcCI7Cj4+Pj4+Pj4+Pj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByZWcgPSA8MHg1MDAyYTAwMCAweDQwMD47Cj4+Pj4+Pj4+Pj4+Pj4+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjbG9ja3MgPSA8JnJjYyBIRFA+Owo+Pj4+Pj4+Pj4+Pj4+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RhdHVzID0gImRpc2FibGVkIjsKPj4+
+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4gV2h5IGFyZSB5b3UgZGlzYWJsaW5nIGl0PyBXaGF0
+IGlzIG1pc3Npbmc/Cj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+PiBOb3RoaW5nIGlzIG1pc3Np
+bmcganVzdCBkaXNhYmxlZCBieSBkZWZhdWx0Lgo+Pj4+Pj4+Pj4+Pj4+IFRoZSBub2RlIGlzIHRo
+ZW4gZW5hYmxlZCB3aGVuIG5lZWRlZCBpbiBib2FyZCdzIGR0cyBmaWxlLgo+Pj4+Pj4+Pj4+Pj4g
+Tm9kZXMgc2hvdWxkIG5vdCBiZSBkaXNhYmxlZCBieSBkZWZhdWx0IGlmIHRoZXkgYXJlIAo+Pj4+
+Pj4+Pj4+Pj4gY29tcGxldGUuIFRoYXQncyB3aHkKPj4+Pj4+Pj4+Pj4+IEkgYXNrZWQgd2hhdCBp
+cyBtaXNzaW5nLiBEcm9wLgo+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+PiBIaSBLcnp5c3p0b2YsIE9L
+IEkgYmV0dGVyIHVuZGVyc3RhbmQgbm93Lgo+Pj4+Pj4+Pj4+PiBTbyB5ZXMgdGhlICdwaW5jdHJs
+LSonIHByb3BlcnRpZXMgd2hpY2ggYXJlIGJvYXJkIGRlcGVuZGVudCAKPj4+Pj4+Pj4+Pj4gYXJl
+IGxhY2tpbmcuCj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+PiBUaGVzZSBhcmUgbm90IHByb3BlcnRpZXMg
+b2YgdGhpcyBub2RlLgo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+IERvZXMgdGhpcyBtZWFuIEkgc2hvdWxk
+IGFkZCAncGluY3RybC0qJyBwcm9wZXJ0aWVzIGluIGJpbmRpbmdzIAo+Pj4+Pj4+Pj4geWFtbCBm
+aWxlID8KPj4+Pj4+Pj4+IEkgZG9uJ3QgZ2V0IGl0Li4KPj4+Pj4+Pj4KPj4+Pj4+Pj4gVGhlc2Ug
+cHJvcGVydGllcyBoYXZlIG5vIG1lYW5pbmcgaGVyZSwgc28gdGhlIGhhcmR3YXJlIAo+Pj4+Pj4+
+PiBkZXNjcmlwdGlvbiBpcwo+Pj4+Pj4+PiBjb21wbGV0ZS4gWW91IGNsYWltIHRoYXQgeW91IG1p
+c3MgdGhlbSB0aHVzIGRldmljZSBpcyBpbmNvbXBsZXRlIAo+Pj4+Pj4+PiBpcyBqdXN0Cj4+Pj4+
+Pj4+IG5vdCBjb3JyZWN0OiB0aGVzZSBwcm9wZXJ0aWVzIGRvIG5vdCBiZWxvbmcgaGVyZSEgVGhl
+eSBiZWxvbmcgdG8gCj4+Pj4+Pj4+IHRoZQo+Pj4+Pj4+PiBib2FyZCBidXQgZXZlbiB0aGVyZSB0
+aGV5IGFyZSB0b3RhbGx5IG9wdGlvbmFsLiBXaHkgd291bGQgdGhleSBiZSBhCj4+Pj4+Pj4+IHJl
+cXVpcmVkIHJlc291cmNlPwo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBUbyByZW1pbmQ6IHdlIHRhbGsgaGVy
+ZSBPTkxZIGFib3V0IHJlcXVpcmVkIHJlc291cmNlcy4KPj4+Pj4+Pgo+Pj4+Pj4+IFllcywgJ3Bp
+bmN0cmwtKicgcHJvcGVydGllcyBiZWxvbmdzIHRvIHRoZSBib2FyZCBhbmQgYXJlIG5vdCAKPj4+
+Pj4+PiByZXF1aXJlZC4KPj4+Pj4+PiBTbyBub3RoaW5nIGlzIG1pc3NpbmcuCj4+Pj4+Pj4KPj4+
+Pj4+PiBUaGlzIGhkcCBub2RlIGluIHRoZSBTb0MgZHRzaSBmaWxlIGNhbiBiZSBlbmFibGVkIGJ5
+IGRlZmF1bHQuCj4+Pj4+Pj4gQnV0IHRoZSBoZHAgZHJpdmVyIHdpbGwgcHJvYmUgYW5kIGRvIG5v
+dGhpbmcgYmVjYXVzZSB3aXRob3V0IHRoZQo+Pj4+Pj4+ICdwaW5jdHJsLSonIHByb3BlcnRpZXMg
+ZnJvbSB0aGUgYm9hcmQgZmlsZXMgaXQgd291bGQgbm90IGJlIGFibGUgdG8KPj4+Pj4+PiBhY2Nl
+c3MgdG8gYW55IHBpbi4KPj4+Pj4+Cj4+Pj4+Pgo+Pj4+Pj4gUGluY3RybCBoYXMgb3RoZXIgZmVh
+dHVyZXMgaW4gZ2VuZXJhbCwgaW5jbHVkaW5nIGludGVyZmFjZXMgdG8gCj4+Pj4+PiB1c2Vyc3Bh
+Y2UKPj4+Pj4+IChhcyBwcmV0dHkgb2Z0ZW4gY29tYmluZWQgd2l0aCBncGlvLCBhbHRob3VnaCBu
+b3Qgc3VyZSBpZiByZWxldmFudCAKPj4+Pj4+IGhlcmUpLgo+Pj4+Pgo+Pj4+PiBZb3UncmUgcmln
+aHQuIEFsc28gSERQIHBpbmN0cmwgaGFzIGEgR1BPIGZlYXR1cmUgYWNjZXNzaWJsZSBmcm9tIAo+
+Pj4+PiB1c2Vyc3BhY2UuCj4+Pj4+IEJ1dCBieSBkZWZhdWx0IHRoZSBIRFAgaXMgbm90IGNvbm5l
+Y3RlZCB0byBhbnkgcGFkOyBpdCBuZWVkcyB0aGUgYm9hcmQKPj4+Pgo+Pj4+IE9LLCB0aGVuIHRo
+YXQgd2FzIHRoZSBhbnN3ZXIgdG8gbXkgZmlyc3QgcXVlc3Rpb24gLSB3aGF0IGlzIG1pc3Npbmcu
+Cj4+Pj4gSG93ZXZlciBhcmVuJ3QgdGhlc2UgcGFkcyBjb25uZWN0ZWQgaW50ZXJuYWxseSBhbHNv
+IHRvIG90aGVyIHBhcnRzIG9mCj4+Pj4gdGhlIFNvQyAobGlrZSBpbiBtb3N0IG90aGVyIHZlbmRv
+cnMpPwo+Pj4KPj4+IE5vLCBIRFAgIm91dHB1dCBwYWRzIiBhcmUgb25seSBjb25uZWN0ZWQgdG8g
+U29DIHBpbmN0cmwgdG8gcm91dGUgb3V0c2lkZQo+Pj4gdGhlIGludGVybmFsIFNvQyBzaWduYWxz
+IGZvciBkZWJ1ZyBwdXJwb3NlLgo+Pj4KPj4+Pj4gJ3BpbmN0cmwtKicgcHJvcGVydGllcyB0byBj
+b25maWd1cmUgdGhlIFNvQyBwaW5jdHJsIGFuZCBleHBvc2UgSERQIG9uCj4+Pj4+IHRoZSBTb0Mg
+cGFkcy4KPj4+Pj4KPj4+Pj4gVGhhdCdzIHdoeSBmb3IgbWUgdGhlIGVuYWJsaW5nIG9mIHRoZSBk
+cml2ZXIgc2hvdWxkIGJlIGluIHRoZSBib2FyZCAKPj4+Pj4gZmlsZQo+Pj4+PiB0b2dldGhlciB3
+aXRoIHRoZSBTb0MgcGluY3RybCBjb25maWd1cmF0aW9uLgo+Pj4+Cj4+Pj4gQW5kIHdoYXQgYXJl
+IHRoZSBkZWZhdWx0IHBhZCBzZXR0aW5ncyBjb25maWd1cmVkIGJ5IEhQRCBkcml2ZXIgaW4KPj4+
+PiBib290bG9hZGVyIChhbmQgYnkgYm9vdGxvYWRlciBJIG1lYW4gb25lIG9mIGZldyBib290bG9h
+ZGVycyB0aGlzIGlzCj4+Pj4gZ29pbmcgdG8gYmUgdXNlZCBvbiBsaWtlIFUtQm9vdCkKPj4+Cj4+
+PiBUaGUgZGVmYXVsdCBpcyB0byB1c2UgdGhlIEdQSU8gb2YgdGhlIFNvQyBwaW5jdHJsLiBUaGUg
+SERQIGlzIG5vdCByb3V0ZWQKPj4+IG91dHNpZGUuCj4+PiDCoMKgID4+Cj4+Pj4+IFRoZSB1c2Vy
+bGFuZCBjYW5ub3QgY2hhbmdlIHRoZSBwaW5jdHJsIGFsdGVybmF0ZSBmdW5jdGlvbiBtdXgsIHRo
+aXMgaXMKPj4+Pj4gc3RhdGljYWxseSBkZWZpbmVkIGJ5IHRoZSBkZXZpY2V0cmVlLgo+Pj4+Cj4+
+Pj4gSWYgeW91IGV4cG9zZSBHUElPIHRoZW4gdXNlcmxhbmQgbmVlZHMgdGhpcyByZWdhcmRsZXNz
+IG9mIGFsdGVybmF0ZSAKPj4+PiBtdXguCj4+Pj4gSU9XLCBib2FyZCBsZXZlbCBjb3VsZCBub3Qg
+Y29uZmlndXJlIG11eCBiZWNhdXNlIGl0IHNob3VsZCBiZSBhbHdheXMKPj4+PiBjb25maWd1cmVk
+IHRvIHNhZmUgR1BJTyBpbnB1dC4KPj4+Cj4+PiBGb3IgdXNlcmxhbmQgc2lnaHQgdmlldywgU29D
+IEdQSU8gYXJlIHByZWZlcnJlZCBpbnN0ZWFkIG9mIEhEUC4KPj4+IEhEUCBpcyBvbmx5IEdQTyBu
+b3QgR1BJTy4gJ3BpbmN0cmwtKicgcHJvcGVydGllcyBjb25maWd1cmUgYXQgdGhlIHNhbWUKPj4+
+IHRpbWUgdGhlIFNvQyBwaW5jdHJsIG11eCB0byBIRFAgYW5kIHRoZSBIRFAgcGluY3RybCBtdXgg
+dG8gb25lIG9mIHRoZQo+Pj4gSERQIGZ1bmN0aW9ucyAoZS5nLiBHUE8pLgo+PiBUaGFua3MsIHRo
+YXQncyBleHBsYWlucywgZmluZSB0byBrZWVwIGl0IGRpc2FibGVkLiBVbmxlc3MgaXQgaXMgb2J2
+aW91cwo+PiBmb3IgZXZlcnlvbmUsIGl0IHdvdWxkIGJlIG5pY2UgdG8gcHV0IGl0IGluIGNvbW1p
+dCBtc2cuCj4gCj4gWW91J3JlIHdlbGNvbWUsIHNvIEknbGwgcHJvdmlkZSB0aGUgVjYgd2l0aCBt
+b3JlIGluZm9ybWF0aW9uIGluIHRoZQo+IGNvbW1pdCBtZXNzYWdlIG9mIHBhdGNoIFs1LTddIGFt
+b25nIG90aGVyIG5lZWRlZCBmaXhlcy4KClY1KgoKPj4KPj4gQmVzdCByZWdhcmRzLAo+PiBLcnp5
+c3p0b2YKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xwo+IExpbnV4LXN0bTMyIG1haWxpbmcgbGlzdAo+IExpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KPiBodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
