@@ -2,79 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA67AD9065
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 16:59:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EADAD9354
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 19:00:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCA86C36B19;
-	Fri, 13 Jun 2025 14:59:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AE32C36B19;
+	Fri, 13 Jun 2025 17:00:14 +0000 (UTC)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FB39C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20F06C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 14:59:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C201F62A03;
- Fri, 13 Jun 2025 14:59:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B5AC4CEE3;
- Fri, 13 Jun 2025 14:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749826758;
- bh=Wi+mKmakmDEwMoqmItZexeO6A0PyjaxcjaKR+n0fu14=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jjgtPYEw+i0FlOE979WCYV8vcgpJYvTigzyODqm9N9rVd6tiEbmCZhta15yZ/LFTR
- Tiew59WLUQlbwv+Tv0cb0bBSKpTQS4ui3rvnk1Zo/ic9w1Ncre7NZWLnTXKWYp9ZpC
- nZ4pMbNAw213uGy+U23KSpNj8D9Zyg+/N8nHmk+2Sc5vcDOjwasOyp9bEFQ1bwF2oV
- akxrQZmEEq3jmbATpowqgpBjP+0xuK+zfS++q4uBMcjIqYUEboLmRdEVetQDDrTE7l
- OxBXQ3C5alTjHsSffqsPeu1Ni7G3j7gUgmCREAWl2K/drbRh0bOKnGlsK37Vm431fW
- JdEoJas+Vh+0w==
-Date: Fri, 13 Jun 2025 07:59:15 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Yury Norov <yury.norov@gmail.com>
-Message-ID: <20250613075915.302ba742@kernel.org>
-In-Reply-To: <aEwZcM_leVvB0Cju@yury>
-References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
- <20250612-byeword-update-v1-1-f4afb8f6313f@collabora.com>
- <5493fd6017de3f393f632125fad95945d1c4294c@intel.com>
- <3683577.irdbgypaU6@workhorse> <aEwZcM_leVvB0Cju@yury>
+ Fri, 13 Jun 2025 17:00:13 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-72ecc0eeb8bso1023121a34.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 13 Jun 2025 10:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1749834012; x=1750438812;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=W4PmbLTdx7bKxmJ58LSBL+52b6YKUjWHxLD3jkqTwUs=;
+ b=kWh20rpNa5rSqIAr9B6sjgxacme865dfn0ucVAcosJ1fp47wuQVU872/x+BVpS4LOp
+ tVjED2TbaKzoTzNDCYahVCxpLWTkgQXboo8hWBLG0NXS4hFoyTpGLdB6f7Q9Umk2gO7H
+ aJAompg0ny7nSEnnNcEZQt6F7jPVIiofBszvO1vF82ZfitHMAtv81SLaOtvB0NWY/U4Q
+ YALpXMYskEc/T3X1arA1MQZExXi+Jye9GMqFicT71fX6MHSug6A0ftWgnH5ntaAfXtRn
+ 0lrTl7mYYQABpVYwXbBJo+7aYdYQDwbjrEoNneHbVwGJ1ZjZMu8mCCopaQ23wBDaPklf
+ nOBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1749834012; x=1750438812;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=W4PmbLTdx7bKxmJ58LSBL+52b6YKUjWHxLD3jkqTwUs=;
+ b=MgjGq5f7V5zTVzVzZElkCAkcYqHJlW1oZSZRkfm7NbSfq8gFXYH7sqA4ctxEV4Uti3
+ /TnE6bbOTodbmpWySy1ZKR3iX5Rp52SD+C8jwNisZqDDKURGjD1JrU062/9PuRgWjCak
+ QLT8aYed1hqura556358OJPgM98vbDOhAE9sozGY6lLng2c+fSx23if6+Ue1dLmzIUfa
+ oVcL07O1/2kf81bT5x8P25wD4UOJAzzDRxlZZuo9Q8IJASVEGHyynI/7l95/9Jwjmyyn
+ 0qz20uIf8s4eYK6YxkREFGABpTsKke7VmpNqmUlb292ZFkRaAmhJGqeIHIphNsjT02/D
+ DIxw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWngiBFLgZZeP4fCaeY5H4uzgrziO6kBsIo/Y1pUPIjyUj0AEtE66M/DndikU/LK9OYwc6EHBlZHuPTWQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz3+79wCBhv5OMZIMrwspqP7TrqmTK2yFprgxMx0oNsKUGE47zg
+ Dlfme2Mu2gDPsF9V4fjFgKS787EZ4tO1zkBPXvy6u3qKnSHU0Oty5GmZ8lMwwKKk6X8=
+X-Gm-Gg: ASbGncvLEa84oBscHHeX+uQosJ3zANJ5fgXYs3hSuf0zxVjOOAuEp2BUumTxQCMGK06
+ 7dxP1rxhc/9PggV0rgth9ttA2uxeCTjz4VNhYzVtP5XKJEyu9xUFMi7TOxs84SARucIve9ce8OW
+ //j8f5XWXEfILCFueUrvI0mUf3tBdhe9wdls0Gqe1dH6ca2PO86GUvnlP27wXw+WwnTmQdWnL4y
+ TpHGlWglG3MxUzafgw9vXzC2B9Plb5IgEVMASiHiwNvyM8yx6KPF+fUMqIEq1DN5LdRVqpYthT+
+ oTTg3fUdT/EzDn+2FbtC3+wiFfDlKZWTRb6XdU+mFn3mKyhLKy1Hcbno50RklHqmk0Qwg0Ut8az
+ 2t6luf4tZZ1T65Gm9eT4sakSE3o6PFrrRi0Ez
+X-Google-Smtp-Source: AGHT+IE7h+SZVToKJUAin3fOr868BbMSOLFocQ+et42SsT9JMuC0JS5qAKXXAH1oH1f2QX3S8vjHvg==
+X-Received: by 2002:a05:6830:210b:b0:72b:94a4:9143 with SMTP id
+ 46e09a7af769-73a3626644bmr315551a34.2.1749834011794; 
+ Fri, 13 Jun 2025 10:00:11 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:1d00:4647:c57:a73c:39d8?
+ ([2600:8803:e7e4:1d00:4647:c57:a73c:39d8])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-73a284ff5f4sm258694a34.43.2025.06.13.10.00.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jun 2025 10:00:11 -0700 (PDT)
+Message-ID: <46208c8d-8370-4b9e-bca1-7ede7ee9b078@baylibre.com>
+Date: Fri, 13 Jun 2025 12:00:10 -0500
 MIME-Version: 1.0
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Tvrtko Ursulin <tursulin@igalia.com>,
- Rob Herring <robh@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-pci@vger.kernel.org,
- Shawn Lin <shawn.lin@rock-chips.com>, llvm@lists.linux.dev,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>, Eric Dumazet <edumazet@google.com>,
- Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- linux-phy@lists.infradead.org, linux-sound@vger.kernel.org,
- kernel@collabora.com, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Jaehoon Chung <jh80.chung@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rockchip@lists.infradead.org,
- linux-pm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
- linux-clk@vger.kernel.org, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Paolo Abeni <pabeni@redhat.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-media@vger.kernel.org,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Mark Brown <broonie@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 01/20] bitfield: introduce HWORD_UPDATE
-	bitfield macros
+User-Agent: Mozilla Thunderbird
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, jic23@kernel.org
+References: <0ec0fd5e-8fbe-43c4-8aad-f36d2872f280@baylibre.com>
+ <20250612084627.217341-1-jirislaby@kernel.org>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20250612084627.217341-1-jirislaby@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ tglx@linutronix.de, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: Use dev_fwnode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,28 +89,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 13 Jun 2025 08:28:40 -0400 Yury Norov wrote:
-> > > And perhaps that (and more potential users) could persuade Jakub that
-> > > this is not that weird after all?  
-> > 
-> > I will operate under the assumption that Jakub's opinion will not change
-> > as he ignored the commit message that talks about multiple vendors,
-> > ignored the cover letter that talks about multiple vendors, and ignored
-> > my e-mail where I once again made it clear to him that it's multiple
-> > vendors, and still claims it's a Rockchip specific convention.  
-> 
-> As far as I understood, he concerns not about number of drivers that
-> opencode HIWORD_UPDATE(), but that this macro is not generic enough
-> to live in bitfield.h. And it's a valid concern - I doubt it will
-> be helpful somewhere in core and arch files.
-
-Exactly.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNi8xMi8yNSAzOjQ2IEFNLCBKaXJpIFNsYWJ5IChTVVNFKSB3cm90ZToKPiBpcnFfZG9tYWlu
+X2NyZWF0ZV9zaW1wbGUoKSB0YWtlcyBmd25vZGUgYXMgdGhlIGZpcnN0IGFyZ3VtZW50LiBJdCBj
+YW4gYmUKPiBleHRyYWN0ZWQgZnJvbSB0aGUgc3RydWN0IGRldmljZSB1c2luZyBkZXZfZndub2Rl
+KCkgaGVscGVyIGluc3RlYWQgb2YKPiB1c2luZyBvZl9ub2RlIHdpdGggb2ZfZndub2RlX2hhbmRs
+ZSgpLgo+IAo+IFNvIHVzZSB0aGUgZGV2X2Z3bm9kZSgpIGhlbHBlci4KPiAKPiBTaWduZWQtb2Zm
+LWJ5OiBKaXJpIFNsYWJ5IChTVVNFKSA8amlyaXNsYWJ5QGtlcm5lbC5vcmc+Cj4gQ2M6IEpvbmF0
+aGFuIENhbWVyb24gPGppYzIzQGtlcm5lbC5vcmc+Cj4gQ2M6IERhdmlkIExlY2huZXIgPGRsZWNo
+bmVyQGJheWxpYnJlLmNvbT4KPiBDYzogIk51bm8gU8OhIiA8bnVuby5zYUBhbmFsb2cuY29tPgo+
+IENjOiBBbmR5IFNoZXZjaGVua28gPGFuZHlAa2VybmVsLm9yZz4KPiBDYzogTWF4aW1lIENvcXVl
+bGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxh
+bGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+IENjOiBsaW51eC1paW9Admdlci5rZXJuZWwu
+b3JnCj4gCj4gLS0tClJldmlld2VkLWJ5OiBEYXZpZCBMZWNobmVyIDxkbGVjaG5lckBiYXlsaWJy
+ZS5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
