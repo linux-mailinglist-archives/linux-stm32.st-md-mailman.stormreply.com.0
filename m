@@ -2,73 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 712DFAD8A54
+	by mail.lfdr.de (Postfix) with ESMTPS id 77ED7AD8A55
 	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 13:23:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10654C36B36;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26B8AC36B3D;
 	Fri, 13 Jun 2025 11:23:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DD68C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AEF4C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 09:19:39 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55D8wHNm020220;
- Fri, 13 Jun 2025 11:19:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- Qukd4stYOCYEBe2KGcf2tpYpRWJZmwskg2vfqUfUsKY=; b=xmCVzlKQCtuGgHtz
- pUXCmVGQ3ONSiquNM8AvJbe2b/bd2r1R7FQVmDfjwI6Ztf/N52gp85Y3iOSOAnYc
- t+4L78ug3jzrEG0441Cs8UX4zGFErHHGupHayHwXXjmacQCRLOzX0OYroE6ImLUv
- WOdeCRhWKnajWFJasN7CCOYOu4nLybchNgNt8DnWqPWWxspQ61ErvQ4/j8V/7Gcr
- c7eZEkL7meNLk1I7QE7nGYAsdhpig1zoHCZiJJDfWzdy516k/04MfKmGcIcMs+Nv
- bQgcwFa1QXBntuBa+UI484nKk78R/Kd+yCqish+Gu/u8sBLN4xWYnQXsVoLqCvK0
- uLj8lg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474ajakwn4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Jun 2025 11:19:27 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 38AE340056;
- Fri, 13 Jun 2025 11:18:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7B050BAD4D4;
- Fri, 13 Jun 2025 11:17:19 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 11:17:19 +0200
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 11:17:19 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Date: Fri, 13 Jun 2025 11:16:45 +0200
-Message-ID: <20250613091650.2337411-2-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250613091650.2337411-1-arnaud.pouliquen@foss.st.com>
-References: <20250613091650.2337411-1-arnaud.pouliquen@foss.st.com>
+ Fri, 13 Jun 2025 09:45:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9FE655C5D0C;
+ Fri, 13 Jun 2025 09:43:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7727C4CEEB;
+ Fri, 13 Jun 2025 09:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1749807936;
+ bh=KZ0BWcWO/Nnu1q5NglmWAod4+nGJ2WWcd5CNjfdsUO4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aCQ+ArOMfZ8sj9/trk2RN4zzQmNDRm57UcCwHqzSNmBb3apdfrSNyzaknWyYLRPjh
+ 6E3L22twogCDgusyUyZzDGlDING27CHkfgVwL7Qfe5BDfSkbBp55e6vFTCsUCYhfWa
+ iFB8yIknypSzugsOXAz7FH6q/xY/0xFIUp7GlroH+Qbv1fuibs4wDOAL+dnSd7SmBh
+ PUekiEcVEkwP6WVmzgXHMenCSFCR5E17+KZjgA7/phOXpz9JEn4cTHyKgpHeTYwm+V
+ Fhc+PM/4QdvEhSmY2I4S88xQ+fYARMAcOlJnmoU94LA5kiKThUq2MTXDYd0v0NZdZI
+ bcsXM5H49D58w==
+Date: Fri, 13 Jun 2025 11:45:22 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Message-ID: <aEvzMnxgsjfryCOo@ryzen>
+References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
+ <20250612-byeword-update-v1-17-f4afb8f6313f@collabora.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-06-12_10,2025-06-12_02,2025-03-28_01
+Content-Disposition: inline
+In-Reply-To: <20250612-byeword-update-v1-17-f4afb8f6313f@collabora.com>
 X-Mailman-Approved-At: Fri, 13 Jun 2025 11:23:12 +0000
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v17 1/6] remoteproc: core: Introduce
-	rproc_pa_to_va helper
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-pci@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
+ llvm@lists.linux.dev, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ Eric Dumazet <edumazet@google.com>, Bill Wendling <morbo@google.com>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ linux-phy@lists.infradead.org, kernel@collabora.com,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Jaehoon Chung <jh80.chung@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rockchip@lists.infradead.org,
+ linux-pm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ linux-clk@vger.kernel.org, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-media@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Yury Norov <yury.norov@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
+ linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 17/20] PCI: dw-rockchip: switch to
+	HWORD_UPDATE macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,90 +89,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When a resource table is loaded by an external entity such as U-boot or
-OP-TEE, we do not necessarily get the device address(da) but the physical
-address(pa).
-This helper performs similar translation than the rproc_da_to_va()
-but based on a physical address.
+Hello Nicolas,
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/remoteproc_core.c | 46 ++++++++++++++++++++++++++++
- include/linux/remoteproc.h           |  1 +
- 2 files changed, 47 insertions(+)
+On Thu, Jun 12, 2025 at 08:56:19PM +0200, Nicolas Frattaroli wrote:
+> 
+> PCIE_CLIENT_RC_MODE/PCIE_CLIENT_EP_MODE was another field that wasn't
+> super clear on what the bit field modification actually is. As far as I
+> can tell, switching to RC mode doesn't actually write the correct value
+> to the field if any of its bits have been set previously, as it only
+> updates one bit of a 4 bit field.
+> 
+> Replace it by actually writing the full values to the field, using the
+> new HWORD_UPDATE macro, which grants us the benefit of better
+> compile-time error checking.
 
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 81b2ccf988e8..d06eef1fa424 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -230,6 +230,52 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
- }
- EXPORT_SYMBOL(rproc_da_to_va);
- 
-+/**
-+ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
-+ * memory
-+ *
-+ * @rproc: handle of a remote processor
-+ * @pa: remoteproc physical address
-+ * @len: length of the memory region @pa is pointing to
-+ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
-+ *
-+ * This function is a helper function similar to rproc_da_to_va() but it deals with physical
-+ * addresses instead of device addresses.
-+ *
-+ * Return: a valid kernel address on success or NULL on failure
-+ */
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
-+{
-+	struct rproc_mem_entry *carveout;
-+	void *ptr = NULL;
-+
-+	list_for_each_entry(carveout, &rproc->carveouts, node) {
-+		int offset = pa - carveout->dma;
-+
-+		/*  Verify that carveout is allocated */
-+		if (!carveout->va)
-+			continue;
-+
-+		/* try next carveout if da is too small */
-+		if (offset < 0)
-+			continue;
-+
-+		/* try next carveout if da is too large */
-+		if (offset + len > carveout->len)
-+			continue;
-+
-+		ptr = carveout->va + offset;
-+
-+		if (is_iomem)
-+			*is_iomem = carveout->is_iomem;
-+
-+		break;
-+	}
-+
-+	return ptr;
-+}
-+EXPORT_SYMBOL(rproc_pa_to_va);
-+
- /**
-  * rproc_find_carveout_by_name() - lookup the carveout region by a name
-  * @rproc: handle of a remote processor
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index b4795698d8c2..8fd0d7f63c8e 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -690,6 +690,7 @@ int rproc_detach(struct rproc *rproc);
- int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
- void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
- void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
- 
- /* from remoteproc_coredump.c */
- void rproc_coredump_cleanup(struct rproc *rproc);
--- 
-2.25.1
+The current code looks like this:
+#define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE_BIT(0x40)
+#define  PCIE_CLIENT_EP_MODE            HIWORD_UPDATE(0xf0, 0x0)
 
+The device_type field is defined like this:
+4'h0: PCI Express endpoint
+4'h1: Legacy PCI Express endpoint
+4'h4: Root port of PCI Express root complex
+
+The reset value of the device_type field is 0x0 (EP mode).
+
+So switching between RC mode / EP mode should be fine.
+
+But I agree, theoretically there could be a bug if e.g. bootloader
+has set the device_type to 0x1 (Legacy EP).
+
+So if you want, you could send a patch:
+-#define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE_BIT(0x40)
++#define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE(0xf0, 0x40)
+
+With:
+Fixes: 0e898eb8df4e ("PCI: rockchip-dwc: Add Rockchip RK356X host controller driver")
+
+But I also think that your current patch is fine as-is.
+
+I do however think that you can drop this line:
++#define  PCIE_CLIENT_MODE_LEGACY       0x1U
+
+Since the define is never used.
+
+
+Also, is there any point in adding the U suffix?
+
+Usually you see UL or ULL suffix, when that is needed, but there actually
+seems to be extremely few hits of simply U suffix:
+$ git grep 0x1U | grep -v UL
+
+
+Kind regards,
+Niklas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
