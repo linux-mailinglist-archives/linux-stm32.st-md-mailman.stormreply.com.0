@@ -2,79 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EBBAD85B2
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 10:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2138AAD8603
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 10:51:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9549FC36B31;
-	Fri, 13 Jun 2025 08:32:41 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAF87C36B31;
+	Fri, 13 Jun 2025 08:51:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 996E9C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7458C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 08:32:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=ceyQVU1s/TeC1A0uuWSXGNuCFCVzbMABPNZsJKr21a4=; b=ZRWi8pCIRln6gDBwDpL5TpDfHk
- niUGHnvaDU0AKjQp3zTX54Kw4vhPB112ARtEB3A3tsfHGDPm6te2aBSu7kQtFjcx3+kRZgROg+c7W
- kS7pt8ASyk3TCFFxhiEm6kPTIZMPPiU8dnfjrPAPRbBVgSDRNGvQTO0GcSsXKkLM7uvdZc9X4Otcr
- A50grAGUwhRNlVjkB6SSJaMvazcQwGoFc0/VziikYdX2zpo1f5E8Gom7g2W12Se9sFjjSftOPGhfM
- tDyo0kZ13bbnUwgZboISoP0egP9ZHd1TSEPBzLl/kwGBrm/dWyTWo/out4wopH6YyoR9cHDgoastf
- /btuiUCQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uPzpy-00000002viF-2jCO; Fri, 13 Jun 2025 08:32:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 94D9E300969; Fri, 13 Jun 2025 10:32:32 +0200 (CEST)
-Date: Fri, 13 Jun 2025 10:32:32 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>
-Message-ID: <20250613083232.GL2273038@noisy.programming.kicks-ass.net>
-References: <20250613-deny_trampoline_structs_on_stack-v1-0-5be9211768c3@bootlin.com>
- <20250613-deny_trampoline_structs_on_stack-v1-2-5be9211768c3@bootlin.com>
- <20250613081150.GJ2273038@noisy.programming.kicks-ass.net>
- <DAL9GRMH74F4.2IV0HN0NGU65X@bootlin.com>
+ Fri, 13 Jun 2025 08:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749804700; x=1781340700;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=4dvU2gjTBAobluxvnHDFcItktqR+5ChasN0aGjgKaKI=;
+ b=JDwmCjL7h765qAo1Y/8XgZFufTHuz6y4SJwNaIjvxyMelImqJY9a2vVR
+ IkjM3rz/YOI2ygi6Kbk9q3wzbbTU9ilGFFdu6IeTrSQX0Wmkuah7WamNO
+ QmtZ/LRlzuLbpywXYtphkUCsV3eUXospWGmR6qhhNXLmPjwVG9Aq8j2fC
+ 3rvmPIJuUu+IbeL6BGS8sEYuZdkBI/t4BmRY59z6KDqzeRDDtumNKat1z
+ pYWpGeDxEJXOQlxwmV7zX0OtCdKACIjA2DFV4m1v/2YREkCwIbss2NWw/
+ vrJSyCPke5F9Cqd7f2P+uTTUsMMJoD+eEKBeEvxa2j0Hdt+EP0fIoQ66f A==;
+X-CSE-ConnectionGUID: 4cMubWzHRN6Zc6juHTQPKw==
+X-CSE-MsgGUID: Wl/FgllZQqqWdOUDTxTI8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="74547600"
+X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="74547600"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2025 01:51:37 -0700
+X-CSE-ConnectionGUID: agVmFPqcQfiQWHXPtV8Rmw==
+X-CSE-MsgGUID: gWFTP0HTRC2RODcDIuxKFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="147619241"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.26])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2025 01:51:19 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Yury Norov
+ <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jaehoon Chung <jh80.chung@samsung.com>, Ulf Hansson
+ <ulf.hansson@linaro.org>, Heiko Stuebner <heiko@sntech.de>, Shreeya Patel
+ <shreeya.patel@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, Nicolas
+ Frattaroli <frattaroli.nicolas@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Shawn Lin
+ <shawn.lin@rock-chips.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan
+ Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, Qin
+ Jian <qinjian@cqplus1.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+In-Reply-To: <20250612-byeword-update-v1-1-f4afb8f6313f@collabora.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
+ <20250612-byeword-update-v1-1-f4afb8f6313f@collabora.com>
+Date: Fri, 13 Jun 2025 11:51:15 +0300
+Message-ID: <5493fd6017de3f393f632125fad95945d1c4294c@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <DAL9GRMH74F4.2IV0HN0NGU65X@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
- "H. Peter Anvin" <hpa@zytor.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Shuah Khan <shuah@kernel.org>, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, Menglong Dong <imagedong@tencent.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- linux-stm32@st-md-mailman.stormreply.com, Ingo Molnar <mingo@redhat.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
- linux-arm-kernel@lists.infradead.org,
- Bastien Curutchet <bastien.curutchet@bootlin.com>,
- Mykola Lysenko <mykolal@fb.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, ebpf@linuxfoundation.org,
- Albert Ou <aou@eecs.berkeley.edu>, Puranjay Mohan <puranjay@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Naveen N Rao <naveen@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>, KP Singh <kpsingh@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Pu Lehui <pulehui@huawei.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Thomas Gleixner <tglx@linutronix.de>,
- Hari Bathini <hbathini@linux.ibm.com>, Hao Luo <haoluo@google.com>,
- linux-kselftest@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>,
- Stanislav Fomichev <sdf@fomichev.me>, David Ahern <dsahern@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Sven Schnelle <svens@linux.ibm.com>,
- Jiri Olsa <jolsa@kernel.org>, netdev@vger.kernel.org, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH bpf 2/7] bpf/x86: prevent trampoline
- attachment when args location on stack is uncertain
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, linux-pm@vger.kernel.org,
+ netdev@vger.kernel.org, llvm@lists.linux.dev, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-sound@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-phy@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 01/20] bitfield: introduce HWORD_UPDATE
+	bitfield macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,46 +96,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 13, 2025 at 10:26:37AM +0200, Alexis Lothor=E9 wrote:
-> Hi Peter,
-> =
+On Thu, 12 Jun 2025, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+> Hardware of various vendors, but very notably Rockchip, often uses
+> 32-bit registers where the upper 16-bit half of the register is a
+> write-enable mask for the lower half.
+>
+> This type of hardware setup allows for more granular concurrent register
+> write access.
+>
+> Over the years, many drivers have hand-rolled their own version of this
+> macro, usually without any checks, often called something like
+> HIWORD_UPDATE or FIELD_PREP_HIWORD, commonly with slightly different
+> semantics between them.
+>
+> Clearly there is a demand for such a macro, and thus the demand should
+> be satisfied in a common header file.
+>
+> Add two macros: HWORD_UPDATE, and HWORD_UPDATE_CONST. The latter is a
+> version that can be used in initializers, like FIELD_PREP_CONST. The
+> macro names are chosen to not clash with any potential other macros that
+> drivers may already have implemented themselves, while retaining a
+> familiar name.
+>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  include/linux/bitfield.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+>
+> diff --git a/include/linux/bitfield.h b/include/linux/bitfield.h
+> index 6d9a53db54b66c0833973c880444bd289d9667b1..b90d88db7405f95b78cdd6f3426263086bab5aa6 100644
+> --- a/include/linux/bitfield.h
+> +++ b/include/linux/bitfield.h
+> @@ -8,6 +8,7 @@
+>  #define _LINUX_BITFIELD_H
+>  
+>  #include <linux/build_bug.h>
+> +#include <linux/limits.h>
+>  #include <linux/typecheck.h>
+>  #include <asm/byteorder.h>
+>  
+> @@ -142,6 +143,52 @@
+>  		(((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask))	\
+>  	)
+>  
+> +/**
+> + * HWORD_UPDATE() - prepare a bitfield element with a mask in the upper half
+> + * @_mask: shifted mask defining the field's length and position
+> + * @_val:  value to put in the field
+> + *
+> + * HWORD_UPDATE() masks and shifts up the value, as well as bitwise ORs the
+> + * result with the mask shifted up by 16.
+> + *
+> + * This is useful for a common design of hardware registers where the upper
+> + * 16-bit half of a 32-bit register is used as a write-enable mask. In such a
+> + * register, a bit in the lower half is only updated if the corresponding bit
+> + * in the upper half is high.
+> + */
+> +#define HWORD_UPDATE(_mask, _val)					 \
+> +	({								 \
+> +		__BF_FIELD_CHECK(_mask, ((u16) 0U), _val,		 \
+> +				 "HWORD_UPDATE: ");			 \
+> +		(((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask)) | \
+> +		((_mask) << 16);					 \
+> +	})
 
-> On Fri Jun 13, 2025 at 10:11 AM CEST, Peter Zijlstra wrote:
-> > On Fri, Jun 13, 2025 at 09:37:11AM +0200, Alexis Lothor=E9 (eBPF Founda=
-tion) wrote:
-> >> When the target function receives more arguments than available
-> >> registers, the additional arguments are passed on stack, and so the
-> >> generated trampoline needs to read those to prepare the bpf context,
-> >> but also to prepare the target function stack when it is in charge of
-> >> calling it. This works well for scalar types, but if the value is a
-> >> struct, we can not know for sure the exact struct location, as it may
-> >> have been packed or manually aligned to a greater value.
-> >
-> > https://refspecs.linuxbase.org/elf/x86_64-abi-0.99.pdf
-> >
-> > Has fairly clear rules on how arguments are encoded. Broadly speaking
-> > for the kernel, if the structure exceeds 2 registers in size, it is
-> > passed as a reference, otherwise it is passed as two registers.
-> =
+i915 uses something like this for a few registers too, with the name
+_MASKED_FIELD(). I think we could use it.
 
-> Maybe my commit wording is not precise enough, but indeed, there's not
-> doubt about whether the struct value is passed on the stack or through a
-> register/a pair of registers. The doubt is rather about the struct locati=
-on
-> when it is passed _by value_ and _on the stack_: the ABI indeed clearly
-> states that "Structures and unions assume the alignment of their most
-> strictly aligned component" (p.13), but this rule is "silently broken" wh=
-en
-> a struct has an __attribute__((packed)) or and __attribute__((aligned(X))=
-),
-> and AFAICT this case can not be detected at runtime with current BTF info.
+I do think this is clearly an extension of FIELD_PREP(), though, and
+should be be named similarly, instead of the completely deviating
+HWORD_UPDATE().
 
-Ah, okay. So it is a failure of BTF. That was indeed not clear.
+Also, we recently got GENMASK() versions with sizes, GENMASK_U16()
+etc. so I find it inconsistent to denote size here with HWORD.
+
+FIELD_PREP_MASKED_U16? MASKED_FIELD_PREP_U16? Something along those
+lines?
+
+And perhaps that (and more potential users) could persuade Jakub that
+this is not that weird after all?
+
+
+BR,
+Jani.
+
+
+
+
+> +
+> +/**
+> + * HWORD_UPDATE_CONST() - prepare a constant bitfield element with a mask in
+> + *                        the upper half
+> + * @_mask: shifted mask defining the field's length and position
+> + * @_val:  value to put in the field
+> + *
+> + * HWORD_UPDATE_CONST() masks and shifts up the value, as well as bitwise ORs
+> + * the result with the mask shifted up by 16.
+> + *
+> + * This is useful for a common design of hardware registers where the upper
+> + * 16-bit half of a 32-bit register is used as a write-enable mask. In such a
+> + * register, a bit in the lower half is only updated if the corresponding bit
+> + * in the upper half is high.
+> + *
+> + * Unlike HWORD_UPDATE(), this is a constant expression and can therefore
+> + * be used in initializers. Error checking is less comfortable for this
+> + * version.
+> + */
+> +#define HWORD_UPDATE_CONST(_mask, _val)					  \
+> +	(								  \
+> +		FIELD_PREP_CONST(_mask, _val) |				  \
+> +		(BUILD_BUG_ON_ZERO(const_true((u64) (_mask) > U16_MAX)) + \
+> +		 ((_mask) << 16))					  \
+> +	)
+> +
+>  /**
+>   * FIELD_GET() - extract a bitfield element
+>   * @_mask: shifted mask defining the field's length and position
+
+-- 
+Jani Nikula, Intel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
