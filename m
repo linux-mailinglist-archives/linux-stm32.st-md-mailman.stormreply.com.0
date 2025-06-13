@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB5DDAD89BE
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 12:43:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0700AD89C3
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 12:44:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CE77C36B36;
-	Fri, 13 Jun 2025 10:43:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F426C36B36;
+	Fri, 13 Jun 2025 10:44:02 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59877C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2697C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 10:43:11 +0000 (UTC)
+ Fri, 13 Jun 2025 10:44:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3ACE86113B;
- Fri, 13 Jun 2025 10:43:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A5EC4CEE3;
- Fri, 13 Jun 2025 10:43:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D1E78629D7;
+ Fri, 13 Jun 2025 10:43:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD306C4CEE3;
+ Fri, 13 Jun 2025 10:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749811389;
- bh=/zrNVWf19++HbCOvvQMGtxoTbY0fGBVHE21wqPK+M9U=;
+ s=k20201202; t=1749811439;
+ bh=mnbw6A0mNVYyInMDA9EbKUPtqVXfTwi9C7mfH7beIQQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VwkZ/jImyiCbXlhI5zVfS5NyLAB3WFxnWi1k2T9Gy/quOFc5HdAQ7Uycs4in5YnzZ
- rTdPV5c5AZCxitVr1WO8tUsiP3xf2zY/Moh9Mh7bw99DqGklOzfKY/R89/HnIReUT6
- Baue7SqdmtS9BNuQPjvSMI0aU62vSf8omtnNIT39aMolwGur4cQWGZMIgZ2Bdrwa1g
- l25xK0YiG+MNwHTyfrV8jVCxvIFduiS7IYpllsSh+ww9C9PgNNtFxvTUkyjgrPiTFU
- k5LptLX+uGruLrq/fP3OUs7T+oHcSpg7DfxBJYd1ITqWLPw81jFzU5EprYWe9DqIrJ
- oOga3A+EHjquQ==
-Message-ID: <4e8f2426-92a1-4c7e-b860-0e10e8dd886c@kernel.org>
-Date: Fri, 13 Jun 2025 12:43:01 +0200
+ b=gU0uRFkVCP3yxRwUtFbnMhRQdsKCOZoM/nzYLTQN7tkZlScexuLQ0L+q7JGcJeK2A
+ 3VAsyyRyInGzeylTmqtJGqIjxLJuv/ts3Afu7vNPiZxyvvOIasA/KAk2onqqtLPNjz
+ 0e6GuEIj2vcTxBqEYHokMug56dvF8YaRCEvSLY2BZBxpFAwnT4ckrG3Dc/Fsg4MJGQ
+ KxDM+ttltbj3Y/X+EShpvMXDylbvNfZPow47cooj4pnKkoEjzJoOeCiyj0NckKtzEz
+ RDBfKa4YSGSE6Vz5KyjwR2FDZ5unY3yXTXx5tOOm/7iERiXMlR8X7e1eq+vTooBai8
+ ZJ8zd7ghroI9w==
+Message-ID: <27ca7dfa-9dee-43f5-9e97-78de5e964f6e@kernel.org>
+Date: Fri, 13 Jun 2025 12:43:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Joy Zou <joy.zou@nxp.com>, robh@kernel.org, krzk+dt@kernel.org,
@@ -40,7 +40,7 @@ To: Joy Zou <joy.zou@nxp.com>, robh@kernel.org, krzk+dt@kernel.org,
  ulf.hansson@linaro.org, richardcochran@gmail.com, kernel@pengutronix.de,
  festevam@gmail.com
 References: <20250613100255.2131800-1-joy.zou@nxp.com>
- <20250613100255.2131800-4-joy.zou@nxp.com>
+ <20250613100255.2131800-5-joy.zou@nxp.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -86,14 +86,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250613100255.2131800-4-joy.zou@nxp.com>
+In-Reply-To: <20250613100255.2131800-5-joy.zou@nxp.com>
 Cc: aisheng.dong@nxp.com, devicetree@vger.kernel.org, peng.fan@nxp.com,
  ye.li@nxp.com, ping.bai@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
  linux-pm@vger.kernel.org, frank.li@nxp.com, linux-kernel@vger.kernel.org,
  xiaoning.wang@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 3/9] arm64: dts: freescale: rename
- imx93.dtsi to imx91_93_common.dtsi
+Subject: Re: [Linux-stm32] [PATCH v5 4/9] arm64: dts: imx93: move i.MX93
+ specific part from imx91_93_common.dtsi to imx93.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,99 +111,28 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 13/06/2025 12:02, Joy Zou wrote:
-> Rename imx93.dtsi to imx91_93_common.dtsi for adding imx91.dtsi.
+> Move i.MX93 specific part from imx91_93_common.dtsi to imx93.dtsi.
 
-Why?
+You just moved them to the common file. Why are you moving the same line
+again?
 
-Your commit msg MUST explain that. That's the more important part.
-
-> There is no code change.
-> 
-> Add imx93.dtsi, which include imx91_93_common.dtsi.
 > 
 > Signed-off-by: Joy Zou <joy.zou@nxp.com>
 > ---
->  .../boot/dts/freescale/imx91_93_common.dtsi   | 1351 +++++++++++++++++
->  arch/arm64/boot/dts/freescale/imx93.dtsi      | 1349 +---------------
-
-Generate patches with proper -M/-B/-C flags so it will be possible to
-actually review this.
-
-
->  2 files changed, 1353 insertions(+), 1347 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> 
+>  .../boot/dts/freescale/imx91_93_common.dtsi   | 140 +---------------
+>  arch/arm64/boot/dts/freescale/imx93.dtsi      | 155 ++++++++++++++++++
+>  2 files changed, 157 insertions(+), 138 deletions(-)>
 > diff --git a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> new file mode 100644
-> index 000000000000..64cd0776b43d
-> --- /dev/null
+> index 64cd0776b43d..da4c1c0699b3 100644
+> --- a/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
 > +++ b/arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> @@ -0,0 +1,1351 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright 2022 NXP
-> + */
-> +
-> +#include <dt-bindings/clock/imx93-clock.h>
-> +#include <dt-bindings/dma/fsl-edma.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/power/fsl,imx93-power.h>
-> +#include <dt-bindings/thermal/thermal.h>
-> +
-> +#include "imx93-pinfunc.h"
-> +
-> +/ {
-> +	interrupt-parent = <&gic>;
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +
-> +	aliases {
-> +		gpio0 = &gpio1;
-> +		gpio1 = &gpio2;
-> +		gpio2 = &gpio3;
-> +		gpio3 = &gpio4;
-> +		i2c0 = &lpi2c1;
-> +		i2c1 = &lpi2c2;
-> +		i2c2 = &lpi2c3;
-> +		i2c3 = &lpi2c4;
-> +		i2c4 = &lpi2c5;
-> +		i2c5 = &lpi2c6;
-> +		i2c6 = &lpi2c7;
-> +		i2c7 = &lpi2c8;
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>  /*
+> - * Copyright 2022 NXP
+> + * Copyright 2025 NXP
 
-Not common aliases. Drop.
-
-
-> +		mmc0 = &usdhc1;
-> +		mmc1 = &usdhc2;
-> +		mmc2 = &usdhc3;
-
-Not common aliases. Drop.
-
-
-> +		serial0 = &lpuart1;
-> +		serial1 = &lpuart2;
-> +		serial2 = &lpuart3;
-> +		serial3 = &lpuart4;
-> +		serial4 = &lpuart5;
-> +		serial5 = &lpuart6;
-> +		serial6 = &lpuart7;
-> +		serial7 = &lpuart8;
-
-Not common aliases. Drop.
-
-> +		spi0 = &lpspi1;
-> +		spi1 = &lpspi2;
-> +		spi2 = &lpspi3;
-> +		spi3 = &lpspi4;
-> +		spi4 = &lpspi5;
-> +		spi5 = &lpspi6;
-> +		spi6 = &lpspi7;
-> +		spi7 = &lpspi8;
-
-Not common aliases. Drop.
+Why?
 
 
 Best regards,
