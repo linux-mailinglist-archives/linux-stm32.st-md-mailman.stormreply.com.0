@@ -2,84 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84EF2AD844C
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 09:37:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA3FEAD8545
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 10:11:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47CECC36B31;
-	Fri, 13 Jun 2025 07:37:51 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A621C36B31;
+	Fri, 13 Jun 2025 08:11:59 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3040FC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4C6AC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 07:37:50 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D4598444FF;
- Fri, 13 Jun 2025 07:37:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1749800269;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=iCXQsbKGx+Ub2FZUU4QMyCt/kow3TrN3wSQz5BFCUkM=;
- b=DF3THJ1s5ZoAGCH1tZpg/RgBTuqlcD8+Gdp1vl6l3EZKPdA2tmFvAy1qMrIUlDHacBw4me
- MFS+0Sj5NOI/giQFNCWdzjxRiAp4lUkXcxkcSwknp830UZbsZnCfr+63KS5svSG/F5+h0x
- Xe5wnzxSG36kWva694mtZMJYDhN2O8YZ+YXrJGUBk2ss876kL+FBbj0adn2daygE8jAO8P
- H+0jdrFMZscJazoKecvPWyiAYqc3a/B78GATwVOa9kkr33jFZTIMZlD3JELF5jRjxklPRm
- 9bQZmKQvEyDNn6uS2dJ9g/6g/dFX2YDKHhe3YqOf6hSrWJxpe6km0MRjuTq7Vg==
-From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
+ Fri, 13 Jun 2025 08:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+ Sender:Reply-To:Content-ID:Content-Description;
+ bh=m4XILQdlyhOEuGIrG8GkhmJQpyqVphUns6R2oeWJu9E=; b=if3J+62JkNzeEHqPi1mxH/620g
+ qbcmwRd9/sN2gu7fYdEieQ472dRs1NUjlLOrPe+LrNMaNOybKB9RJ5nrnr7JUciLzvr8yWDn5WPhd
+ rjx68mKpzXFARN/1pSa0P3Hjh/ruZo3UBs7yEl6mKcKGqmuiQwA+oehZrJYblS8IHty47WnzTfpUQ
+ aK6G7NQv89PMHFtnryrKWiKXkm0miAEO4njn+KucKk4gQdMqrpJ2Pgx/b6N0NaugMg1RZpmwXvhR3
+ WKMgULs4MBp5Rbde8GCQaNGQJSHdTMEtTXgvNN8I6oW0AsGX1eM4FtI1HAHXX1V39luP1oOz+HxZO
+ dQwXzi/g==;
+Received: from
+ 2001-1c00-8d82-d000-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
+ ([2001:1c00:8d82:d000:266e:96ff:fe07:7dcc]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1uPzVw-00000002v6a-2GjE; Fri, 13 Jun 2025 08:11:52 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id DDD5E30BC59; Fri, 13 Jun 2025 10:11:50 +0200 (CEST)
+Date: Fri, 13 Jun 2025 10:11:50 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Alexis =?iso-8859-1?Q?Lothor=E9_=28eBPF_Foundation=29?=
  <alexis.lothore@bootlin.com>
-Date: Fri, 13 Jun 2025 09:37:16 +0200
-MIME-Version: 1.0
-Message-Id: <20250613-deny_trampoline_structs_on_stack-v1-7-5be9211768c3@bootlin.com>
+Message-ID: <20250613081150.GJ2273038@noisy.programming.kicks-ass.net>
 References: <20250613-deny_trampoline_structs_on_stack-v1-0-5be9211768c3@bootlin.com>
-In-Reply-To: <20250613-deny_trampoline_structs_on_stack-v1-0-5be9211768c3@bootlin.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>, 
- Stanislav Fomichev <sdf@fomichev.me>, Hao Luo <haoluo@google.com>, 
- Jiri Olsa <jolsa@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Menglong Dong <imagedong@tencent.com>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
- Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Ilya Leoshkevich <iii@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Hari Bathini <hbathini@linux.ibm.com>, 
- Christophe Leroy <christophe.leroy@csgroup.eu>, 
- Naveen N Rao <naveen@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Mykola Lysenko <mykolal@fb.com>, Shuah Khan <shuah@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.2
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddujeefjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephfffufggtgfgkfhfjgfvvefosehtkeertdertdejnecuhfhrohhmpeetlhgvgihishcunfhothhhohhrroculdgvuefrhfcuhfhouhhnuggrthhiohhnmdcuoegrlhgvgihishdrlhhothhhohhrvgessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepleejkeetffefveelgeeklefhtefhgfeigeduveffjeehleeifeefjedtudejgeeunecukfhppedvrgdtvdemkeegvdekmehfleegtgemvgdttdemmehfkeehnecuvehluhhsthgvrhfuihiivgepheenucfrrghrrghmpehinhgvthepvdgrtddvmeekgedvkeemfhelgegtmegvtddtmeemfhekhedphhgvlhhopegludelvddrudeikedruddrudeljegnpdhmrghilhhfrhhomheprghlvgigihhsrdhlohhthhhorhgvsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeehkedprhgtphhtthhopehsohhngheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghgohhruggvvghvsehlihhnuhigrdhisghmrdgtohhmpdhrtghpthhtoheplhhinhhugihpphgtqdguvghvsehlihhsthhsrdhoiihlrggsshdrohhrghdprhgtphhtthhopehlihhnuhigq
- dhkshgvlhhfthgvshhtsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqshhtmhefvdesshhtqdhmugdqmhgrihhlmhgrnhdrshhtohhrmhhrvghplhihrdgtohhmpdhrtghpthhtoheprghlvgigrghnughrvgdrthhorhhguhgvsehfohhsshdrshhtrdgtohhmpdhrtghpthhtohepmhihkhholhgrlhesfhgsrdgtohhmpdhrtghpthhtohepshhvvghnsheslhhinhhugidrihgsmhdrtghomh
-X-GND-Sasl: alexis.lothore@bootlin.com
-Cc: linux-s390@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- ebpf@linuxfoundation.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org,
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>,
- =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
- <alexis.lothore@bootlin.com>,
- Bastien Curutchet <bastien.curutchet@bootlin.com>, bpf@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH bpf 7/7] selftests/bpf: ensure that functions
- passing structs on stack can not be hooked
+ <20250613-deny_trampoline_structs_on_stack-v1-2-5be9211768c3@bootlin.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250613-deny_trampoline_structs_on_stack-v1-2-5be9211768c3@bootlin.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
+ Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Shuah Khan <shuah@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, Menglong Dong <imagedong@tencent.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Michael Ellerman <mpe@ellerman.id.au>, x86@kernel.org,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ linux-stm32@st-md-mailman.stormreply.com, Ingo Molnar <mingo@redhat.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Mykola Lysenko <mykolal@fb.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, ebpf@linuxfoundation.org,
+ Albert Ou <aou@eecs.berkeley.edu>, Puranjay Mohan <puranjay@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Naveen N Rao <naveen@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>, KP Singh <kpsingh@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Pu Lehui <pulehui@huawei.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Hari Bathini <hbathini@linux.ibm.com>, Hao Luo <haoluo@google.com>,
+ linux-kselftest@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>,
+ Stanislav Fomichev <sdf@fomichev.me>, David Ahern <dsahern@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Sven Schnelle <svens@linux.ibm.com>,
+ Jiri Olsa <jolsa@kernel.org>, netdev@vger.kernel.org, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH bpf 2/7] bpf/x86: prevent trampoline
+ attachment when args location on stack is uncertain
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,160 +87,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-V2hlbiBhdHRhY2hpbmcgZWJwZiBwcm9ncmFtcyB0byBmdW5jdGlvbnMgdGhyb3VnaCBmZW50cnkv
-ZmV4aXQsIHRoZQpnZW5lcmF0ZWQgdHJhbXBvbGluZXMgY2FuIG5vdCByZWFsbHkgbWFrZSBzdXJl
-IGFib3V0IHRoZSBhcmd1bWVudHMgZXhhY3QKbG9jYXRpb24gb24gdGhlIHN0YWNrIGlmIHRob3Nl
-IGFyZSBzdHJ1Y3R1cmVzOiB0aG9zZSBzdHJ1Y3R1cmVzIGNhbiBiZQphbHRlcmVkIHdpdGggYXR0
-cmlidXRlcyBzdWNoIGFzIHBhY2tlZCBvciBhbGlnbmVkKHgpLCBidXQgdGhpcwppbmZvcm1hdGlv
-biBpcyBub3QgZW5jb2RlZCBpbiBCVEYuCgpVcGRhdGUgdHJhY2luZ19zdHJ1Y3RfbWFueV9hcmdz
-IHRlc3QgdG8gY2hlY2sgdGhhdCBwcm9ncmFtcyBjYW4gbm90IGJlCmF0dGFjaGVkIG9uIHRob3Nl
-IHNwZWNpZmljIGZ1bmN0aW9ucy4gTm90IGFsbCBhcmNoaXRlY3R1cmVzIGNhbiB1c2UgdGhlCnNh
-bWUgbnVtYmVyIG9mIHJlZ2lzdGVycyB0byBwYXNzIGFyZ3VtZW50cywgc28gZGVmaW5lIGEgdGVz
-dGluZyBmdW5jdGlvbgp0aGF0IG1ha2VzIGFsbCBjdXJyZW50bHkgc3VwcG9ydGVkIGFyY2hpdGVj
-dHVyZXMgc3RhcnQgcGFzc2luZyBhcmd1bWVudHMKb24gc3RhY2sgKC0+IG1vcmUgdGhhbiA4IGFy
-Z3MpCgpTaWduZWQtb2ZmLWJ5OiBBbGV4aXMgTG90aG9yw6kgKGVCUEYgRm91bmRhdGlvbikgPGFs
-ZXhpcy5sb3Rob3JlQGJvb3RsaW4uY29tPgotLS0KIC4uLi9zZWxmdGVzdHMvYnBmL3Byb2dfdGVz
-dHMvdHJhY2luZ19zdHJ1Y3QuYyAgICAgIHwgMzcgKy0tLS0tLS0tLS0tCiAuLi4vc2VsZnRlc3Rz
-L2JwZi9wcm9ncy90cmFjaW5nX3N0cnVjdF9tYW55X2FyZ3MuYyB8IDcwIC0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0KIC4uLi90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9rbW9kcy9icGZfdGVzdG1v
-ZC5jIHwgNDMgKystLS0tLS0tLS0tLQogMyBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyks
-IDE0NCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9i
-cGYvcHJvZ190ZXN0cy90cmFjaW5nX3N0cnVjdC5jIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMv
-YnBmL3Byb2dfdGVzdHMvdHJhY2luZ19zdHJ1Y3QuYwppbmRleCAxOWU2OGQ0YjM1MzI3OGJmOGUy
-OTE3ZTYyZjYyYzg5ZDE0ZDdmZTgwLi5hMDg0ZjZlNWVjYTRlOTdiNDYzOTUwZmViYTIxNDJhNjI4
-ZTllYzcyIDEwMDY0NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvcHJvZ190ZXN0
-cy90cmFjaW5nX3N0cnVjdC5jCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi9wcm9n
-X3Rlc3RzL3RyYWNpbmdfc3RydWN0LmMKQEAgLTcwLDQ0ICs3MCw5IEBAIHN0YXRpYyB2b2lkIHRl
-c3Rfc3RydWN0X21hbnlfYXJncyh2b2lkKQogCQlyZXR1cm47CiAKIAllcnIgPSB0cmFjaW5nX3N0
-cnVjdF9tYW55X2FyZ3NfX2F0dGFjaChza2VsKTsKLQlpZiAoIUFTU0VSVF9PSyhlcnIsICJ0cmFj
-aW5nX3N0cnVjdF9tYW55X2FyZ3NfX2F0dGFjaCIpKQorCWlmICghQVNTRVJUX0VRKGVyciwgLUVO
-T1RTVVBQLCAidHJhY2luZ19zdHJ1Y3RfbWFueV9hcmdzX19hdHRhY2giKSkKIAkJZ290byBkZXN0
-cm95X3NrZWw7CiAKLQlBU1NFUlRfT0sodHJpZ2dlcl9tb2R1bGVfdGVzdF9yZWFkKDI1NiksICJ0
-cmlnZ2VyX3JlYWQiKTsKLQotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ3X2EsIDE2LCAidDc6YSIp
-OwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ3X2IsIDE3LCAidDc6YiIpOwotCUFTU0VSVF9FUShz
-a2VsLT5ic3MtPnQ3X2MsIDE4LCAidDc6YyIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ3X2Qs
-IDE5LCAidDc6ZCIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ3X2UsIDIwLCAidDc6ZSIpOwot
-CUFTU0VSVF9FUShza2VsLT5ic3MtPnQ3X2ZfYSwgMjEsICJ0NzpmLmEiKTsKLQlBU1NFUlRfRVEo
-c2tlbC0+YnNzLT50N19mX2IsIDIyLCAidDc6Zi5iIik7Ci0JQVNTRVJUX0VRKHNrZWwtPmJzcy0+
-dDdfcmV0LCAxMzMsICJ0NyByZXQiKTsKLQotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ4X2EsIDE2
-LCAidDg6YSIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ4X2IsIDE3LCAidDg6YiIpOwotCUFT
-U0VSVF9FUShza2VsLT5ic3MtPnQ4X2MsIDE4LCAidDg6YyIpOwotCUFTU0VSVF9FUShza2VsLT5i
-c3MtPnQ4X2QsIDE5LCAidDg6ZCIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ4X2UsIDIwLCAi
-dDg6ZSIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ4X2ZfYSwgMjEsICJ0ODpmLmEiKTsKLQlB
-U1NFUlRfRVEoc2tlbC0+YnNzLT50OF9mX2IsIDIyLCAidDg6Zi5iIik7Ci0JQVNTRVJUX0VRKHNr
-ZWwtPmJzcy0+dDhfZywgMjMsICJ0ODpnIik7Ci0JQVNTRVJUX0VRKHNrZWwtPmJzcy0+dDhfcmV0
-LCAxNTYsICJ0OCByZXQiKTsKLQotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5X2EsIDE2LCAidDk6
-YSIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5X2IsIDE3LCAidDk6YiIpOwotCUFTU0VSVF9F
-UShza2VsLT5ic3MtPnQ5X2MsIDE4LCAidDk6YyIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5
-X2QsIDE5LCAidDk6ZCIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5X2UsIDIwLCAidDk6ZSIp
-OwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5X2YsIDIxLCAidDk6ZiIpOwotCUFTU0VSVF9FUShz
-a2VsLT5ic3MtPnQ5X2csIDIyLCAidDk6ZiIpOwotCUFTU0VSVF9FUShza2VsLT5ic3MtPnQ5X2hf
-YSwgMjMsICJ0OTpoLmEiKTsKLQlBU1NFUlRfRVEoc2tlbC0+YnNzLT50OV9oX2IsIDI0LCAidDk6
-aC5iIik7Ci0JQVNTRVJUX0VRKHNrZWwtPmJzcy0+dDlfaF9jLCAyNSwgInQ5OmguYyIpOwotCUFT
-U0VSVF9FUShza2VsLT5ic3MtPnQ5X2hfZCwgMjYsICJ0OTpoLmQiKTsKLQlBU1NFUlRfRVEoc2tl
-bC0+YnNzLT50OV9pLCAyNywgInQ5OmkiKTsKLQlBU1NFUlRfRVEoc2tlbC0+YnNzLT50OV9yZXQs
-IDI1OCwgInQ5IHJldCIpOwotCiBkZXN0cm95X3NrZWw6CiAJdHJhY2luZ19zdHJ1Y3RfbWFueV9h
-cmdzX19kZXN0cm95KHNrZWwpOwogfQpkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVz
-dHMvYnBmL3Byb2dzL3RyYWNpbmdfc3RydWN0X21hbnlfYXJncy5jIGIvdG9vbHMvdGVzdGluZy9z
-ZWxmdGVzdHMvYnBmL3Byb2dzL3RyYWNpbmdfc3RydWN0X21hbnlfYXJncy5jCmluZGV4IDQ3NDIw
-MTJhY2UwNmFmOTQ5ZDdmMTVhMjExMzFhYWVmN2FiMDA2ZTQuLjFjYmVkY2RjMWM0MmUxZmUyZjEx
-OGZkYmQxYTRhYjdmZTQ4YjUyZmIgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3Rz
-L2JwZi9wcm9ncy90cmFjaW5nX3N0cnVjdF9tYW55X2FyZ3MuYworKysgYi90b29scy90ZXN0aW5n
-L3NlbGZ0ZXN0cy9icGYvcHJvZ3MvdHJhY2luZ19zdHJ1Y3RfbWFueV9hcmdzLmMKQEAgLTgsMjgg
-KzgsMTEgQEAgc3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNCB7CiAJaW50IGI7CiB9Owog
-Ci1zdHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3RydWN0X2FyZ181IHsKLQljaGFyIGE7Ci0Jc2hvcnQgYjsK
-LQlpbnQgYzsKLQlsb25nIGQ7Ci19OwotCi1sb25nIHQ3X2EsIHQ3X2IsIHQ3X2MsIHQ3X2QsIHQ3
-X2UsIHQ3X2ZfYSwgdDdfZl9iLCB0N19yZXQ7Ci1sb25nIHQ4X2EsIHQ4X2IsIHQ4X2MsIHQ4X2Qs
-IHQ4X2UsIHQ4X2ZfYSwgdDhfZl9iLCB0OF9nLCB0OF9yZXQ7Ci1sb25nIHQ5X2EsIHQ5X2IsIHQ5
-X2MsIHQ5X2QsIHQ5X2UsIHQ5X2YsIHQ5X2csIHQ5X2hfYSwgdDlfaF9iLCB0OV9oX2MsIHQ5X2hf
-ZCwgdDlfaSwgdDlfcmV0OwogCiBTRUMoImZlbnRyeS9icGZfdGVzdG1vZF90ZXN0X3N0cnVjdF9h
-cmdfNyIpCiBpbnQgQlBGX1BST0cyKHRlc3Rfc3RydWN0X21hbnlfYXJnc18xLCBfX3U2NCwgYSwg
-dm9pZCAqLCBiLCBzaG9ydCwgYywgaW50LCBkLAogCSAgICAgIHZvaWQgKiwgZSwgc3RydWN0IGJw
-Zl90ZXN0bW9kX3N0cnVjdF9hcmdfNCwgZikKIHsKLQl0N19hID0gYTsKLQl0N19iID0gKGxvbmcp
-YjsKLQl0N19jID0gYzsKLQl0N19kID0gZDsKLQl0N19lID0gKGxvbmcpZTsKLQl0N19mX2EgPSBm
-LmE7Ci0JdDdfZl9iID0gZi5iOwogCXJldHVybiAwOwogfQogCkBAIC0zNyw1OSArMjAsNiBAQCBT
-RUMoImZleGl0L2JwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ183IikKIGludCBCUEZfUFJPRzIo
-dGVzdF9zdHJ1Y3RfbWFueV9hcmdzXzIsIF9fdTY0LCBhLCB2b2lkICosIGIsIHNob3J0LCBjLCBp
-bnQsIGQsCiAJICAgICAgdm9pZCAqLCBlLCBzdHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3RydWN0X2FyZ180
-LCBmLCBpbnQsIHJldCkKIHsKLQl0N19yZXQgPSByZXQ7Ci0JcmV0dXJuIDA7Ci19Ci0KLVNFQygi
-ZmVudHJ5L2JwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ184IikKLWludCBCUEZfUFJPRzIodGVz
-dF9zdHJ1Y3RfbWFueV9hcmdzXzMsIF9fdTY0LCBhLCB2b2lkICosIGIsIHNob3J0LCBjLCBpbnQs
-IGQsCi0JICAgICAgdm9pZCAqLCBlLCBzdHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3RydWN0X2FyZ180LCBm
-LCBpbnQsIGcpCi17Ci0JdDhfYSA9IGE7Ci0JdDhfYiA9IChsb25nKWI7Ci0JdDhfYyA9IGM7Ci0J
-dDhfZCA9IGQ7Ci0JdDhfZSA9IChsb25nKWU7Ci0JdDhfZl9hID0gZi5hOwotCXQ4X2ZfYiA9IGYu
-YjsKLQl0OF9nID0gZzsKLQlyZXR1cm4gMDsKLX0KLQotU0VDKCJmZXhpdC9icGZfdGVzdG1vZF90
-ZXN0X3N0cnVjdF9hcmdfOCIpCi1pbnQgQlBGX1BST0cyKHRlc3Rfc3RydWN0X21hbnlfYXJnc180
-LCBfX3U2NCwgYSwgdm9pZCAqLCBiLCBzaG9ydCwgYywgaW50LCBkLAotCSAgICAgIHZvaWQgKiwg
-ZSwgc3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNCwgZiwgaW50LCBnLAotCSAgICAgIGlu
-dCwgcmV0KQotewotCXQ4X3JldCA9IHJldDsKIAlyZXR1cm4gMDsKIH0KLQotU0VDKCJmZW50cnkv
-YnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzkiKQotaW50IEJQRl9QUk9HMih0ZXN0X3N0cnVj
-dF9tYW55X2FyZ3NfNSwgX191NjQsIGEsIHZvaWQgKiwgYiwgc2hvcnQsIGMsIGludCwgZCwgdm9p
-ZCAqLCBlLAotCSAgICAgIGNoYXIsIGYsIHNob3J0LCBnLCBzdHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3Ry
-dWN0X2FyZ181LCBoLCBsb25nLCBpKQotewotCXQ5X2EgPSBhOwotCXQ5X2IgPSAobG9uZyliOwot
-CXQ5X2MgPSBjOwotCXQ5X2QgPSBkOwotCXQ5X2UgPSAobG9uZyllOwotCXQ5X2YgPSBmOwotCXQ5
-X2cgPSBnOwotCXQ5X2hfYSA9IGguYTsKLQl0OV9oX2IgPSBoLmI7Ci0JdDlfaF9jID0gaC5jOwot
-CXQ5X2hfZCA9IGguZDsKLQl0OV9pID0gaTsKLQlyZXR1cm4gMDsKLX0KLQotU0VDKCJmZXhpdC9i
-cGZfdGVzdG1vZF90ZXN0X3N0cnVjdF9hcmdfOSIpCi1pbnQgQlBGX1BST0cyKHRlc3Rfc3RydWN0
-X21hbnlfYXJnc182LCBfX3U2NCwgYSwgdm9pZCAqLCBiLCBzaG9ydCwgYywgaW50LCBkLCB2b2lk
-ICosIGUsCi0JICAgICAgY2hhciwgZiwgc2hvcnQsIGcsIHN0cnVjdCBicGZfdGVzdG1vZF9zdHJ1
-Y3RfYXJnXzUsIGgsIGxvbmcsIGksIGludCwgcmV0KQotewotCXQ5X3JldCA9IHJldDsKLQlyZXR1
-cm4gMDsKLX0KLQogY2hhciBfbGljZW5zZVtdIFNFQygibGljZW5zZSIpID0gIkdQTCI7CmRpZmYg
-LS1naXQgYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9rbW9kcy9icGZfdGVzdG1v
-ZC5jIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Rlc3Rfa21vZHMvYnBmX3Rlc3Rtb2Qu
-YwppbmRleCBlOWU5MThjZGYzMWZmMmIxNWJmNDEzMDJhZDQyOWU4NjgzYjgzNGQ2Li5mZjZhNGEw
-ZmI3MzY3OWM2YzQ4MzFhZTA2NjJiY2UyMDgwZTUzYzIzIDEwMDY0NAotLS0gYS90b29scy90ZXN0
-aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9rbW9kcy9icGZfdGVzdG1vZC5jCisrKyBiL3Rvb2xzL3Rl
-c3Rpbmcvc2VsZnRlc3RzL2JwZi90ZXN0X2ttb2RzL2JwZl90ZXN0bW9kLmMKQEAgLTU1LDEzICs1
-NSw2IEBAIHN0cnVjdCBicGZfdGVzdG1vZF9zdHJ1Y3RfYXJnXzQgewogCWludCBiOwogfTsKIAot
-c3RydWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNSB7Ci0JY2hhciBhOwotCXNob3J0IGI7Ci0J
-aW50IGM7Ci0JbG9uZyBkOwotfTsKLQogX19icGZfaG9va19zdGFydCgpOwogCiBub2lubGluZSBp
-bnQKQEAgLTEwMSwzMCArOTQsMTAgQEAgYnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzYoc3Ry
-dWN0IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfMyAqYSkgewogCXJldHVybiBicGZfdGVzdG1vZF90
-ZXN0X3N0cnVjdF9hcmdfcmVzdWx0OwogfQogCi1ub2lubGluZSBpbnQKLWJwZl90ZXN0bW9kX3Rl
-c3Rfc3RydWN0X2FyZ183KHU2NCBhLCB2b2lkICpiLCBzaG9ydCBjLCBpbnQgZCwgdm9pZCAqZSwK
-LQkJCSAgICAgIHN0cnVjdCBicGZfdGVzdG1vZF9zdHJ1Y3RfYXJnXzQgZikKLXsKLQlicGZfdGVz
-dG1vZF90ZXN0X3N0cnVjdF9hcmdfcmVzdWx0ID0gYSArIChsb25nKWIgKyBjICsgZCArCi0JCShs
-b25nKWUgKyBmLmEgKyBmLmI7Ci0JcmV0dXJuIGJwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ19y
-ZXN1bHQ7Ci19Ci0KLW5vaW5saW5lIGludAotYnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzgo
-dTY0IGEsIHZvaWQgKmIsIHNob3J0IGMsIGludCBkLCB2b2lkICplLAotCQkJICAgICAgc3RydWN0
-IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNCBmLCBpbnQgZykKK25vaW5saW5lIGludCBicGZfdGVz
-dG1vZF90ZXN0X3N0cnVjdF9hcmdfNyh1NjQgYSwgdm9pZCAqYiwgc2hvcnQgYywgaW50IGQsCisJ
-CQkJCSAgIHZvaWQgKmUsIHU2NCBmLCB1NjQgZywgdTY0IGgsCisJCQkJCSAgIHN0cnVjdCBicGZf
-dGVzdG1vZF9zdHJ1Y3RfYXJnXzQgaSkKIHsKLQlicGZfdGVzdG1vZF90ZXN0X3N0cnVjdF9hcmdf
-cmVzdWx0ID0gYSArIChsb25nKWIgKyBjICsgZCArCi0JCShsb25nKWUgKyBmLmEgKyBmLmIgKyBn
-OwotCXJldHVybiBicGZfdGVzdG1vZF90ZXN0X3N0cnVjdF9hcmdfcmVzdWx0OwotfQotCi1ub2lu
-bGluZSBpbnQKLWJwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ185KHU2NCBhLCB2b2lkICpiLCBz
-aG9ydCBjLCBpbnQgZCwgdm9pZCAqZSwgY2hhciBmLAotCQkJICAgICAgc2hvcnQgZywgc3RydWN0
-IGJwZl90ZXN0bW9kX3N0cnVjdF9hcmdfNSBoLCBsb25nIGkpCi17Ci0JYnBmX3Rlc3Rtb2RfdGVz
-dF9zdHJ1Y3RfYXJnX3Jlc3VsdCA9IGEgKyAobG9uZyliICsgYyArIGQgKyAobG9uZyllICsKLQkJ
-ZiArIGcgKyBoLmEgKyBoLmIgKyBoLmMgKyBoLmQgKyBpOwogCXJldHVybiBicGZfdGVzdG1vZF90
-ZXN0X3N0cnVjdF9hcmdfcmVzdWx0OwogfQogCkBAIC0zOTcsNyArMzcwLDYgQEAgYnBmX3Rlc3Rt
-b2RfdGVzdF9yZWFkKHN0cnVjdCBmaWxlICpmaWxlLCBzdHJ1Y3Qga29iamVjdCAqa29iaiwKIAlz
-dHJ1Y3QgYnBmX3Rlc3Rtb2Rfc3RydWN0X2FyZ18yIHN0cnVjdF9hcmcyID0gezIsIDN9OwogCXN0
-cnVjdCBicGZfdGVzdG1vZF9zdHJ1Y3RfYXJnXzMgKnN0cnVjdF9hcmczOwogCXN0cnVjdCBicGZf
-dGVzdG1vZF9zdHJ1Y3RfYXJnXzQgc3RydWN0X2FyZzQgPSB7MjEsIDIyfTsKLQlzdHJ1Y3QgYnBm
-X3Rlc3Rtb2Rfc3RydWN0X2FyZ181IHN0cnVjdF9hcmc1ID0gezIzLCAyNCwgMjUsIDI2fTsKIAlp
-bnQgaSA9IDE7CiAKIAl3aGlsZSAoYnBmX3Rlc3Rtb2RfcmV0dXJuX3B0cihpKSkKQEAgLTQwOCwx
-MyArMzgwLDggQEAgYnBmX3Rlc3Rtb2RfdGVzdF9yZWFkKHN0cnVjdCBmaWxlICpmaWxlLCBzdHJ1
-Y3Qga29iamVjdCAqa29iaiwKIAkodm9pZClicGZfdGVzdG1vZF90ZXN0X3N0cnVjdF9hcmdfMygx
-LCA0LCBzdHJ1Y3RfYXJnMik7CiAJKHZvaWQpYnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzQo
-c3RydWN0X2FyZzEsIDEsIDIsIDMsIHN0cnVjdF9hcmcyKTsKIAkodm9pZClicGZfdGVzdG1vZF90
-ZXN0X3N0cnVjdF9hcmdfNSgpOwotCSh2b2lkKWJwZl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ183
-KDE2LCAodm9pZCAqKTE3LCAxOCwgMTksCi0JCQkJCSAgICAodm9pZCAqKTIwLCBzdHJ1Y3RfYXJn
-NCk7Ci0JKHZvaWQpYnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzgoMTYsICh2b2lkICopMTcs
-IDE4LCAxOSwKLQkJCQkJICAgICh2b2lkICopMjAsIHN0cnVjdF9hcmc0LCAyMyk7Ci0JKHZvaWQp
-YnBmX3Rlc3Rtb2RfdGVzdF9zdHJ1Y3RfYXJnXzkoMTYsICh2b2lkICopMTcsIDE4LCAxOSwgKHZv
-aWQgKikyMCwKLQkJCQkJICAgIDIxLCAyMiwgc3RydWN0X2FyZzUsIDI3KTsKLQorCSh2b2lkKWJw
-Zl90ZXN0bW9kX3Rlc3Rfc3RydWN0X2FyZ183KDE2LCAodm9pZCAqKTE3LCAxOCwgMTksICh2b2lk
-ICopMjAsCisJCQkJCSAgICAyMSwgMjIsIDIzLCBzdHJ1Y3RfYXJnNCk7CiAJKHZvaWQpYnBmX3Rl
-c3Rtb2RfdGVzdF9hcmdfcHRyX3RvX3N0cnVjdCgmc3RydWN0X2FyZzFfMik7CiAKIAkodm9pZCl0
-cmFjZV9icGZfdGVzdG1vZF90ZXN0X3Jhd190cF9udWxsX3RwKE5VTEwpOwoKLS0gCjIuNDkuMAoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+On Fri, Jun 13, 2025 at 09:37:11AM +0200, Alexis Lothor=E9 (eBPF Foundation=
+) wrote:
+> When the target function receives more arguments than available
+> registers, the additional arguments are passed on stack, and so the
+> generated trampoline needs to read those to prepare the bpf context,
+> but also to prepare the target function stack when it is in charge of
+> calling it. This works well for scalar types, but if the value is a
+> struct, we can not know for sure the exact struct location, as it may
+> have been packed or manually aligned to a greater value.
+
+https://refspecs.linuxbase.org/elf/x86_64-abi-0.99.pdf
+
+Has fairly clear rules on how arguments are encoded. Broadly speaking
+for the kernel, if the structure exceeds 2 registers in size, it is
+passed as a reference, otherwise it is passed as two registers.
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
