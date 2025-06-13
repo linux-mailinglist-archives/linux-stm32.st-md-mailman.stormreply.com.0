@@ -2,70 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D4BAD8A6F
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 13:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16740AD8B68
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 13:57:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF0C1C36B36;
-	Fri, 13 Jun 2025 11:28:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1EF6C36B3C;
+	Fri, 13 Jun 2025 11:57:03 +0000 (UTC)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10BC2C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 208B7C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 11:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1749814119; x=1781350119;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2t2S6tvF/xUOL2GECElMuB0CWljksOt/fSHi+W0ZL0Q=;
- b=iD4M5pWuDWiYnwvEmVfbDpkQT61TGdJRe8TWLhijoveweodeZoNf2ZsP
- +tmMEjeNNBySJJRhcy2mBjjuZFJESEyN9niWwdlTb4wyKupSz7L+dtKu9
- +1PNTOVrQcsqUluH5a8z9biLji+ln3THLd55Xd4Jvop663eEEiG1tQBZC
- 2rJiUTvmJ4ENfcZfHVLFL7seaerGXCnvUAZ53IzfPj9vZFwQIh2jdRe6U
- 7BO/wEOSH5Qomf3HEIKiv0tDAHD5RqQjXeEyrQ8OGAGQ48pXN2hUUvXX3
- VwBgJkDwEPMQIYU2gw3b71hT3dApBf8SfrAaLc+OGcWvAUdkbEzQuj1Rq g==;
-X-CSE-ConnectionGUID: zD3qPXTPTa+MO/kacoeBhw==
-X-CSE-MsgGUID: bT8CdpP+QB2k7DJvqMV5bA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11462"; a="39637038"
-X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="39637038"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2025 04:28:28 -0700
-X-CSE-ConnectionGUID: Dh5BDUCwQoySXBEVLy2I/A==
-X-CSE-MsgGUID: klS17deCSPic8RUjdG0OyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="152769468"
-Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 13 Jun 2025 04:28:22 -0700
-Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uQ2a3-000CWY-16;
- Fri, 13 Jun 2025 11:28:19 +0000
-Date: Fri, 13 Jun 2025 19:27:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sean Anderson <sean.anderson@linux.dev>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>
-Message-ID: <202506131905.gKLnNnsQ-lkp@intel.com>
-References: <20250610233134.3588011-6-sean.anderson@linux.dev>
+ Fri, 13 Jun 2025 11:57:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1749815771; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Qv1KDSKHQdZ6+3yO0tCwx580stgqRhgdR1eWghXJTDZtyiGx7RQHmg1L90+x7dHKNUwKDNqx+eFdgx6RYh/AYMp9Hd6/27pdWg7IqAuYs0lzyer337Y71hFqHuHVoFnlqP34W+pf1C9z0iI+k+cvv6NHKnyWGS0qSKZPhBQZw+0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1749815771;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=VUFg/+2IDq4vwt7epwImt1imkzKgQYu7+Au2agn49Og=; 
+ b=eh3ccSCAwV97vjQ2Wejl6j0pAhdgnsSOVWSzjjy8ZrEXHKeNc2M5mwWWm9BIkwTb5cz/Oi6q9Pt2S/anS803yiwhmEvgBmc77wb+1bjaXFq9+vjYPiEdzk0l/AXNschpDBX4uZS71aQEx2bv7U3DuiycX8ICe4WjcYYKdPlDekg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749815771; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=VUFg/+2IDq4vwt7epwImt1imkzKgQYu7+Au2agn49Og=;
+ b=aH4jxm+h9P4jRdgkpNEEWbu91bORykVFmBm30jloQNEwnbBe+tfx0YNts1xmU4nB
+ yyLgKbYaNvsMh1bnLG0PRSriWUHXbglLceLmIP0DzHvvGJol854KtjsGEMC/EmaeY+t
+ zTbOAUKSO1OhthZ6RZXzgJskty9CPr9w578WrOX8=
+Received: by mx.zohomail.com with SMTPS id 17498157689161004.7727496495353;
+ Fri, 13 Jun 2025 04:56:08 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Jaehoon Chung <jh80.chung@samsung.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Shawn Lin <shawn.lin@rock-chips.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Qin Jian <qinjian@cqplus1.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Date: Fri, 13 Jun 2025 13:55:54 +0200
+Message-ID: <3683577.irdbgypaU6@workhorse>
+In-Reply-To: <5493fd6017de3f393f632125fad95945d1c4294c@intel.com>
+References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
+ <20250612-byeword-update-v1-1-f4afb8f6313f@collabora.com>
+ <5493fd6017de3f393f632125fad95945d1c4294c@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250610233134.3588011-6-sean.anderson@linux.dev>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
- Sean Anderson <sean.anderson@linux.dev>,
- Vineeth Karumanchi <vineeth.karumanchi@amd.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Ioana Ciornei <ioana.ciornei@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Daniel Golle <daniel@makrotopia.org>, Simon Horman <horms@kernel.org>,
- oe-kbuild-all@lists.linux.dev, imx@lists.linux.dev,
- Christian Marangi <ansuelsmth@gmail.com>, Lei Wei <quic_leiwei@quicinc.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [net-next PATCH v6 05/10] net: pcs: lynx: Convert
- to an MDIO driver
+Cc: Tvrtko Ursulin <tursulin@igalia.com>, linux-pm@vger.kernel.org,
+ netdev@vger.kernel.org, llvm@lists.linux.dev, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-sound@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-phy@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 01/20] bitfield: introduce HWORD_UPDATE
+	bitfield macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,436 +99,149 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sean,
+Hello,
 
-kernel test robot noticed the following build errors:
+On Friday, 13 June 2025 10:51:15 Central European Summer Time Jani Nikula wrote:
+> On Thu, 12 Jun 2025, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+> > Hardware of various vendors, but very notably Rockchip, often uses
+> > 32-bit registers where the upper 16-bit half of the register is a
+> > write-enable mask for the lower half.
+> >
+> > This type of hardware setup allows for more granular concurrent register
+> > write access.
+> >
+> > Over the years, many drivers have hand-rolled their own version of this
+> > macro, usually without any checks, often called something like
+> > HIWORD_UPDATE or FIELD_PREP_HIWORD, commonly with slightly different
+> > semantics between them.
+> >
+> > Clearly there is a demand for such a macro, and thus the demand should
+> > be satisfied in a common header file.
+> >
+> > Add two macros: HWORD_UPDATE, and HWORD_UPDATE_CONST. The latter is a
+> > version that can be used in initializers, like FIELD_PREP_CONST. The
+> > macro names are chosen to not clash with any potential other macros that
+> > drivers may already have implemented themselves, while retaining a
+> > familiar name.
+> >
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  include/linux/bitfield.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 47 insertions(+)
+> >
+> > diff --git a/include/linux/bitfield.h b/include/linux/bitfield.h
+> > index 6d9a53db54b66c0833973c880444bd289d9667b1..b90d88db7405f95b78cdd6f3426263086bab5aa6 100644
+> > --- a/include/linux/bitfield.h
+> > +++ b/include/linux/bitfield.h
+> > @@ -8,6 +8,7 @@
+> >  #define _LINUX_BITFIELD_H
+> >  
+> >  #include <linux/build_bug.h>
+> > +#include <linux/limits.h>
+> >  #include <linux/typecheck.h>
+> >  #include <asm/byteorder.h>
+> >  
+> > @@ -142,6 +143,52 @@
+> >  		(((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask))	\
+> >  	)
+> >  
+> > +/**
+> > + * HWORD_UPDATE() - prepare a bitfield element with a mask in the upper half
+> > + * @_mask: shifted mask defining the field's length and position
+> > + * @_val:  value to put in the field
+> > + *
+> > + * HWORD_UPDATE() masks and shifts up the value, as well as bitwise ORs the
+> > + * result with the mask shifted up by 16.
+> > + *
+> > + * This is useful for a common design of hardware registers where the upper
+> > + * 16-bit half of a 32-bit register is used as a write-enable mask. In such a
+> > + * register, a bit in the lower half is only updated if the corresponding bit
+> > + * in the upper half is high.
+> > + */
+> > +#define HWORD_UPDATE(_mask, _val)					 \
+> > +	({								 \
+> > +		__BF_FIELD_CHECK(_mask, ((u16) 0U), _val,		 \
+> > +				 "HWORD_UPDATE: ");			 \
+> > +		(((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask)) | \
+> > +		((_mask) << 16);					 \
+> > +	})
+> 
+> i915 uses something like this for a few registers too, with the name
+> _MASKED_FIELD(). I think we could use it.
+> 
+> I do think this is clearly an extension of FIELD_PREP(), though, and
+> should be be named similarly, instead of the completely deviating
+> HWORD_UPDATE().
+> 
+> Also, we recently got GENMASK() versions with sizes, GENMASK_U16()
+> etc. so I find it inconsistent to denote size here with HWORD.
+> 
+> FIELD_PREP_MASKED_U16? MASKED_FIELD_PREP_U16? Something along those
+> lines?
 
-[auto build test ERROR on net-next/main]
+Yeah, I agree the name could be better. I used HWORD_UPDATE as Yury and
+I couldn't come up with a name we liked either, and Yury suggested not
+breaking from what's already there too much. I do think making the name
+more field-adjacent would be good though, as well as somehow indicating
+that it is 16 bits of data.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sean-Anderson/dt-bindings-net-Add-Xilinx-PCS/20250611-143544
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20250610233134.3588011-6-sean.anderson%40linux.dev
-patch subject: [net-next PATCH v6 05/10] net: pcs: lynx: Convert to an MDIO driver
-config: parisc-randconfig-002-20250613 (https://download.01.org/0day-ci/archive/20250613/202506131905.gKLnNnsQ-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250613/202506131905.gKLnNnsQ-lkp@intel.com/reproduce)
+> 
+> And perhaps that (and more potential users) could persuade Jakub that
+> this is not that weird after all?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202506131905.gKLnNnsQ-lkp@intel.com/
+I will operate under the assumption that Jakub's opinion will not change
+as he ignored the commit message that talks about multiple vendors,
+ignored the cover letter that talks about multiple vendors, and ignored
+my e-mail where I once again made it clear to him that it's multiple
+vendors, and still claims it's a Rockchip specific convention.
 
-All error/warnings (new ones prefixed by >>):
+> 
+> 
+> BR,
+> Jani.
+> 
 
-   In file included from drivers/regulator/mt6358-regulator.c:8:
-   include/linux/of.h: In function 'of_changeset_attach_node':
->> include/linux/of.h:1616:41: error: 'OF_RECONFIG_ATTACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1616 |         return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h:1616:41: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/of.h: In function 'of_changeset_detach_node':
->> include/linux/of.h:1622:41: error: 'OF_RECONFIG_DETACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1622 |         return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h: In function 'of_changeset_add_property':
->> include/linux/of.h:1628:41: error: 'OF_RECONFIG_ADD_PROPERTY' undeclared (first use in this function)
-    1628 |         return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_remove_property':
->> include/linux/of.h:1634:41: error: 'OF_RECONFIG_REMOVE_PROPERTY' undeclared (first use in this function)
-    1634 |         return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_update_property':
->> include/linux/of.h:1640:41: error: 'OF_RECONFIG_UPDATE_PROPERTY' undeclared (first use in this function)
-    1640 |         return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
---
-   In file included from drivers/regulator/pbias-regulator.c:27:
-   include/linux/of.h: In function 'of_changeset_attach_node':
->> include/linux/of.h:1616:41: error: 'OF_RECONFIG_ATTACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1616 |         return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h:1616:41: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/of.h: In function 'of_changeset_detach_node':
->> include/linux/of.h:1622:41: error: 'OF_RECONFIG_DETACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1622 |         return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h: In function 'of_changeset_add_property':
->> include/linux/of.h:1628:41: error: 'OF_RECONFIG_ADD_PROPERTY' undeclared (first use in this function)
-    1628 |         return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_remove_property':
->> include/linux/of.h:1634:41: error: 'OF_RECONFIG_REMOVE_PROPERTY' undeclared (first use in this function)
-    1634 |         return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_update_property':
->> include/linux/of.h:1640:41: error: 'OF_RECONFIG_UPDATE_PROPERTY' undeclared (first use in this function)
-    1640 |         return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/regulator/pbias-regulator.c: At top level:
-   drivers/regulator/pbias-regulator.c:136:34: warning: 'pbias_of_match' defined but not used [-Wunused-const-variable=]
-     136 | static const struct of_device_id pbias_of_match[] = {
-         |                                  ^~~~~~~~~~~~~~
---
-   In file included from drivers/regulator/twl-regulator.c:14:
-   include/linux/of.h: In function 'of_changeset_attach_node':
->> include/linux/of.h:1616:41: error: 'OF_RECONFIG_ATTACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1616 |         return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h:1616:41: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/of.h: In function 'of_changeset_detach_node':
->> include/linux/of.h:1622:41: error: 'OF_RECONFIG_DETACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1622 |         return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h: In function 'of_changeset_add_property':
->> include/linux/of.h:1628:41: error: 'OF_RECONFIG_ADD_PROPERTY' undeclared (first use in this function)
-    1628 |         return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_remove_property':
->> include/linux/of.h:1634:41: error: 'OF_RECONFIG_REMOVE_PROPERTY' undeclared (first use in this function)
-    1634 |         return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_update_property':
->> include/linux/of.h:1640:41: error: 'OF_RECONFIG_UPDATE_PROPERTY' undeclared (first use in this function)
-    1640 |         return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/regulator/twl-regulator.c: At top level:
-   drivers/regulator/twl-regulator.c:552:34: warning: 'twl_of_match' defined but not used [-Wunused-const-variable=]
-     552 | static const struct of_device_id twl_of_match[] = {
-         |                                  ^~~~~~~~~~~~
---
-   In file included from drivers/regulator/twl6030-regulator.c:15:
-   include/linux/of.h: In function 'of_changeset_attach_node':
->> include/linux/of.h:1616:41: error: 'OF_RECONFIG_ATTACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1616 |         return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h:1616:41: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/of.h: In function 'of_changeset_detach_node':
->> include/linux/of.h:1622:41: error: 'OF_RECONFIG_DETACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1622 |         return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h: In function 'of_changeset_add_property':
->> include/linux/of.h:1628:41: error: 'OF_RECONFIG_ADD_PROPERTY' undeclared (first use in this function)
-    1628 |         return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_remove_property':
->> include/linux/of.h:1634:41: error: 'OF_RECONFIG_REMOVE_PROPERTY' undeclared (first use in this function)
-    1634 |         return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_update_property':
->> include/linux/of.h:1640:41: error: 'OF_RECONFIG_UPDATE_PROPERTY' undeclared (first use in this function)
-    1640 |         return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/regulator/twl6030-regulator.c: At top level:
-   drivers/regulator/twl6030-regulator.c:645:34: warning: 'twl_of_match' defined but not used [-Wunused-const-variable=]
-     645 | static const struct of_device_id twl_of_match[] = {
-         |                                  ^~~~~~~~~~~~
---
-   In file included from include/linux/irqdomain.h:14,
-                    from include/linux/i2c.h:21,
-                    from drivers/i2c/i2c-core-of-prober.c:14:
-   include/linux/of.h: In function 'of_changeset_attach_node':
->> include/linux/of.h:1616:41: error: 'OF_RECONFIG_ATTACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1616 |         return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h:1616:41: note: each undeclared identifier is reported only once for each function it appears in
-   include/linux/of.h: In function 'of_changeset_detach_node':
->> include/linux/of.h:1622:41: error: 'OF_RECONFIG_DETACH_NODE' undeclared (first use in this function); did you mean 'OF_RECONFIG_NO_CHANGE'?
-    1622 |         return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                         OF_RECONFIG_NO_CHANGE
-   include/linux/of.h: In function 'of_changeset_add_property':
->> include/linux/of.h:1628:41: error: 'OF_RECONFIG_ADD_PROPERTY' undeclared (first use in this function)
-    1628 |         return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_remove_property':
->> include/linux/of.h:1634:41: error: 'OF_RECONFIG_REMOVE_PROPERTY' undeclared (first use in this function)
-    1634 |         return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/of.h: In function 'of_changeset_update_property':
->> include/linux/of.h:1640:41: error: 'OF_RECONFIG_UPDATE_PROPERTY' undeclared (first use in this function)
-    1640 |         return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/i2c/i2c-core-of-prober.c: In function 'i2c_of_probe_component':
->> include/linux/of.h:1478:14: error: implicit declaration of function 'of_get_next_child_with_prefix' [-Werror=implicit-function-declaration]
-    1478 |              of_get_next_child_with_prefix(parent, NULL, prefix);       \
-         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/i2c/i2c-core-of-prober.c:146:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     146 |         for_each_child_of_node_with_prefix(i2c_node, node, type)
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1478:14: warning: initialization of 'struct device_node *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-    1478 |              of_get_next_child_with_prefix(parent, NULL, prefix);       \
-         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/i2c/i2c-core-of-prober.c:146:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     146 |         for_each_child_of_node_with_prefix(i2c_node, node, type)
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1477:9: error: declaration of non-variable 'of_get_next_child_with_prefix' in 'for' loop initial declaration
-    1477 |         for (struct device_node *child __free(device_node) =            \
-         |         ^~~
-   drivers/i2c/i2c-core-of-prober.c:146:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     146 |         for_each_child_of_node_with_prefix(i2c_node, node, type)
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1480:20: warning: assignment to 'struct device_node *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-    1480 |              child = of_get_next_child_with_prefix(parent, child, prefix))
-         |                    ^
-   drivers/i2c/i2c-core-of-prober.c:146:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     146 |         for_each_child_of_node_with_prefix(i2c_node, node, type)
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1478:14: warning: initialization of 'struct device_node *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-    1478 |              of_get_next_child_with_prefix(parent, NULL, prefix);       \
-         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/i2c/i2c-core-of-prober.c:161:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     161 |         for_each_child_of_node_with_prefix(i2c_node, node, type) {
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1477:9: error: declaration of non-variable 'of_get_next_child_with_prefix' in 'for' loop initial declaration
-    1477 |         for (struct device_node *child __free(device_node) =            \
-         |         ^~~
-   drivers/i2c/i2c-core-of-prober.c:161:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     161 |         for_each_child_of_node_with_prefix(i2c_node, node, type) {
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> include/linux/of.h:1480:20: warning: assignment to 'struct device_node *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-    1480 |              child = of_get_next_child_with_prefix(parent, child, prefix))
-         |                    ^
-   drivers/i2c/i2c-core-of-prober.c:161:9: note: in expansion of macro 'for_each_child_of_node_with_prefix'
-     161 |         for_each_child_of_node_with_prefix(i2c_node, node, type) {
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+Best Regards,
+Nicolas Frattaroli
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for OF_DYNAMIC
-   Depends on [n]: OF [=n]
-   Selected by [y]:
-   - FSL_FMAN [=y] && NETDEVICES [=y] && ETHERNET [=y] && NET_VENDOR_FREESCALE [=y] && (FSL_SOC || ARCH_LAYERSCAPE || COMPILE_TEST [=y])
+> 
+> 
+> 
+> > +
+> > +/**
+> > + * HWORD_UPDATE_CONST() - prepare a constant bitfield element with a mask in
+> > + *                        the upper half
+> > + * @_mask: shifted mask defining the field's length and position
+> > + * @_val:  value to put in the field
+> > + *
+> > + * HWORD_UPDATE_CONST() masks and shifts up the value, as well as bitwise ORs
+> > + * the result with the mask shifted up by 16.
+> > + *
+> > + * This is useful for a common design of hardware registers where the upper
+> > + * 16-bit half of a 32-bit register is used as a write-enable mask. In such a
+> > + * register, a bit in the lower half is only updated if the corresponding bit
+> > + * in the upper half is high.
+> > + *
+> > + * Unlike HWORD_UPDATE(), this is a constant expression and can therefore
+> > + * be used in initializers. Error checking is less comfortable for this
+> > + * version.
+> > + */
+> > +#define HWORD_UPDATE_CONST(_mask, _val)					  \
+> > +	(								  \
+> > +		FIELD_PREP_CONST(_mask, _val) |				  \
+> > +		(BUILD_BUG_ON_ZERO(const_true((u64) (_mask) > U16_MAX)) + \
+> > +		 ((_mask) << 16))					  \
+> > +	)
+> > +
+> >  /**
+> >   * FIELD_GET() - extract a bitfield element
+> >   * @_mask: shifted mask defining the field's length and position
+> 
+> 
 
 
-vim +1616 include/linux/of.h
 
-e7a00e4210e4cc Sebastian Reichel         2014-04-06  1430  
-f623ce95a51bae Joerg Roedel              2016-04-04  1431  #define of_for_each_phandle(it, err, np, ln, cn, cc)			\
-f623ce95a51bae Joerg Roedel              2016-04-04  1432  	for (of_phandle_iterator_init((it), (np), (ln), (cn), (cc)),	\
-f623ce95a51bae Joerg Roedel              2016-04-04  1433  	     err = of_phandle_iterator_next(it);			\
-f623ce95a51bae Joerg Roedel              2016-04-04  1434  	     err == 0;							\
-f623ce95a51bae Joerg Roedel              2016-04-04  1435  	     err = of_phandle_iterator_next(it))
-f623ce95a51bae Joerg Roedel              2016-04-04  1436  
-9722c3b66e21ff Luca Ceresoli             2024-07-24  1437  #define of_property_for_each_u32(np, propname, u)			\
-9c63fea9acd077 Rob Herring (Arm          2024-10-10  1438) 	for (struct {const struct property *prop; const __be32 *item; } _it =	\
-9722c3b66e21ff Luca Ceresoli             2024-07-24  1439  		{of_find_property(np, propname, NULL),			\
-9722c3b66e21ff Luca Ceresoli             2024-07-24  1440  		 of_prop_next_u32(_it.prop, NULL, &u)};			\
-9722c3b66e21ff Luca Ceresoli             2024-07-24  1441  	     _it.item;							\
-9722c3b66e21ff Luca Ceresoli             2024-07-24  1442  	     _it.item = of_prop_next_u32(_it.prop, _it.item, &u))
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1443  
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1444  #define of_property_for_each_string(np, propname, prop, s)	\
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1445  	for (prop = of_find_property(np, propname, NULL),	\
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1446  		s = of_prop_next_string(prop, NULL);		\
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1447  		s;						\
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1448  		s = of_prop_next_string(prop, s))
-2adfffa223500b Sebastian Andrzej Siewior 2013-06-17  1449  
-662372e42e46d9 Rob Herring               2014-02-03  1450  #define for_each_node_by_name(dn, name) \
-662372e42e46d9 Rob Herring               2014-02-03  1451  	for (dn = of_find_node_by_name(NULL, name); dn; \
-662372e42e46d9 Rob Herring               2014-02-03  1452  	     dn = of_find_node_by_name(dn, name))
-662372e42e46d9 Rob Herring               2014-02-03  1453  #define for_each_node_by_type(dn, type) \
-662372e42e46d9 Rob Herring               2014-02-03  1454  	for (dn = of_find_node_by_type(NULL, type); dn; \
-662372e42e46d9 Rob Herring               2014-02-03  1455  	     dn = of_find_node_by_type(dn, type))
-662372e42e46d9 Rob Herring               2014-02-03  1456  #define for_each_compatible_node(dn, type, compatible) \
-662372e42e46d9 Rob Herring               2014-02-03  1457  	for (dn = of_find_compatible_node(NULL, type, compatible); dn; \
-662372e42e46d9 Rob Herring               2014-02-03  1458  	     dn = of_find_compatible_node(dn, type, compatible))
-662372e42e46d9 Rob Herring               2014-02-03  1459  #define for_each_matching_node(dn, matches) \
-662372e42e46d9 Rob Herring               2014-02-03  1460  	for (dn = of_find_matching_node(NULL, matches); dn; \
-662372e42e46d9 Rob Herring               2014-02-03  1461  	     dn = of_find_matching_node(dn, matches))
-662372e42e46d9 Rob Herring               2014-02-03  1462  #define for_each_matching_node_and_match(dn, matches, match) \
-662372e42e46d9 Rob Herring               2014-02-03  1463  	for (dn = of_find_matching_node_and_match(NULL, matches, match); \
-662372e42e46d9 Rob Herring               2014-02-03  1464  	     dn; dn = of_find_matching_node_and_match(dn, matches, match))
-662372e42e46d9 Rob Herring               2014-02-03  1465  
-662372e42e46d9 Rob Herring               2014-02-03  1466  #define for_each_child_of_node(parent, child) \
-662372e42e46d9 Rob Herring               2014-02-03  1467  	for (child = of_get_next_child(parent, NULL); child != NULL; \
-662372e42e46d9 Rob Herring               2014-02-03  1468  	     child = of_get_next_child(parent, child))
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1469  
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1470  #define for_each_child_of_node_scoped(parent, child) \
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1471  	for (struct device_node *child __free(device_node) =		\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1472  	     of_get_next_child(parent, NULL);				\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1473  	     child != NULL;						\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1474  	     child = of_get_next_child(parent, child))
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1475  
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06  1476  #define for_each_child_of_node_with_prefix(parent, child, prefix)	\
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06 @1477  	for (struct device_node *child __free(device_node) =		\
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06 @1478  	     of_get_next_child_with_prefix(parent, NULL, prefix);	\
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06  1479  	     child != NULL;						\
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06 @1480  	     child = of_get_next_child_with_prefix(parent, child, prefix))
-1fcc67e3a35486 Chen-Yu Tsai              2024-11-06  1481  
-662372e42e46d9 Rob Herring               2014-02-03  1482  #define for_each_available_child_of_node(parent, child) \
-662372e42e46d9 Rob Herring               2014-02-03  1483  	for (child = of_get_next_available_child(parent, NULL); child != NULL; \
-662372e42e46d9 Rob Herring               2014-02-03  1484  	     child = of_get_next_available_child(parent, child))
-28c5d4e40752fc Kuninori Morimoto         2024-01-10  1485  #define for_each_reserved_child_of_node(parent, child)			\
-28c5d4e40752fc Kuninori Morimoto         2024-01-10  1486  	for (child = of_get_next_reserved_child(parent, NULL); child != NULL; \
-28c5d4e40752fc Kuninori Morimoto         2024-01-10  1487  	     child = of_get_next_reserved_child(parent, child))
-662372e42e46d9 Rob Herring               2014-02-03  1488  
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1489  #define for_each_available_child_of_node_scoped(parent, child) \
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1490  	for (struct device_node *child __free(device_node) =		\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1491  	     of_get_next_available_child(parent, NULL);			\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1492  	     child != NULL;						\
-34af4554fb0ce1 Jonathan Cameron          2024-02-25  1493  	     child = of_get_next_available_child(parent, child))
-662372e42e46d9 Rob Herring               2014-02-03  1494  
-f1f207e43b8a49 Rob Herring               2018-08-22  1495  #define for_each_of_cpu_node(cpu) \
-f1f207e43b8a49 Rob Herring               2018-08-22  1496  	for (cpu = of_get_next_cpu_node(NULL); cpu != NULL; \
-f1f207e43b8a49 Rob Herring               2018-08-22  1497  	     cpu = of_get_next_cpu_node(cpu))
-f1f207e43b8a49 Rob Herring               2018-08-22  1498  
-662372e42e46d9 Rob Herring               2014-02-03  1499  #define for_each_node_with_property(dn, prop_name) \
-662372e42e46d9 Rob Herring               2014-02-03  1500  	for (dn = of_find_node_with_property(NULL, prop_name); dn; \
-662372e42e46d9 Rob Herring               2014-02-03  1501  	     dn = of_find_node_with_property(dn, prop_name))
-662372e42e46d9 Rob Herring               2014-02-03  1502  
-662372e42e46d9 Rob Herring               2014-02-03  1503  static inline int of_get_child_count(const struct device_node *np)
-662372e42e46d9 Rob Herring               2014-02-03  1504  {
-662372e42e46d9 Rob Herring               2014-02-03  1505  	struct device_node *child;
-662372e42e46d9 Rob Herring               2014-02-03  1506  	int num = 0;
-662372e42e46d9 Rob Herring               2014-02-03  1507  
-662372e42e46d9 Rob Herring               2014-02-03  1508  	for_each_child_of_node(np, child)
-662372e42e46d9 Rob Herring               2014-02-03  1509  		num++;
-662372e42e46d9 Rob Herring               2014-02-03  1510  
-662372e42e46d9 Rob Herring               2014-02-03  1511  	return num;
-662372e42e46d9 Rob Herring               2014-02-03  1512  }
-662372e42e46d9 Rob Herring               2014-02-03  1513  
-662372e42e46d9 Rob Herring               2014-02-03  1514  static inline int of_get_available_child_count(const struct device_node *np)
-662372e42e46d9 Rob Herring               2014-02-03  1515  {
-662372e42e46d9 Rob Herring               2014-02-03  1516  	struct device_node *child;
-662372e42e46d9 Rob Herring               2014-02-03  1517  	int num = 0;
-662372e42e46d9 Rob Herring               2014-02-03  1518  
-662372e42e46d9 Rob Herring               2014-02-03  1519  	for_each_available_child_of_node(np, child)
-662372e42e46d9 Rob Herring               2014-02-03  1520  		num++;
-662372e42e46d9 Rob Herring               2014-02-03  1521  
-662372e42e46d9 Rob Herring               2014-02-03  1522  	return num;
-662372e42e46d9 Rob Herring               2014-02-03  1523  }
-662372e42e46d9 Rob Herring               2014-02-03  1524  
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1525  #define _OF_DECLARE_STUB(table, name, compat, fn, fn_type)		\
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1526  	static const struct of_device_id __of_table_##name		\
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1527  		__attribute__((unused))					\
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1528  		 = { .compatible = compat,				\
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1529  		     .data = (fn == (fn_type)NULL) ? fn : fn }
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1530  
-71f50c6d9a2276 Masahiro Yamada           2016-01-22  1531  #if defined(CONFIG_OF) && !defined(MODULE)
-54196ccbe0ba1f Rob Herring               2014-05-08  1532  #define _OF_DECLARE(table, name, compat, fn, fn_type)			\
-54196ccbe0ba1f Rob Herring               2014-05-08  1533  	static const struct of_device_id __of_table_##name		\
-33def8498fdde1 Joe Perches               2020-10-21  1534  		__used __section("__" #table "_of_table")		\
-5812b32e01c6d8 Johan Hovold              2020-11-23  1535  		__aligned(__alignof__(struct of_device_id))		\
-54196ccbe0ba1f Rob Herring               2014-05-08  1536  		 = { .compatible = compat,				\
-54196ccbe0ba1f Rob Herring               2014-05-08  1537  		     .data = (fn == (fn_type)NULL) ? fn : fn  }
-54196ccbe0ba1f Rob Herring               2014-05-08  1538  #else
-54196ccbe0ba1f Rob Herring               2014-05-08  1539  #define _OF_DECLARE(table, name, compat, fn, fn_type)			\
-67a066b35765d1 Dmitry Osipenko           2021-06-10  1540  	_OF_DECLARE_STUB(table, name, compat, fn, fn_type)
-54196ccbe0ba1f Rob Herring               2014-05-08  1541  #endif
-54196ccbe0ba1f Rob Herring               2014-05-08  1542  
-54196ccbe0ba1f Rob Herring               2014-05-08  1543  typedef int (*of_init_fn_2)(struct device_node *, struct device_node *);
-c35d9292fee047 Daniel Lezcano            2016-04-18  1544  typedef int (*of_init_fn_1_ret)(struct device_node *);
-54196ccbe0ba1f Rob Herring               2014-05-08  1545  typedef void (*of_init_fn_1)(struct device_node *);
-54196ccbe0ba1f Rob Herring               2014-05-08  1546  
-54196ccbe0ba1f Rob Herring               2014-05-08  1547  #define OF_DECLARE_1(table, name, compat, fn) \
-54196ccbe0ba1f Rob Herring               2014-05-08  1548  		_OF_DECLARE(table, name, compat, fn, of_init_fn_1)
-c35d9292fee047 Daniel Lezcano            2016-04-18  1549  #define OF_DECLARE_1_RET(table, name, compat, fn) \
-c35d9292fee047 Daniel Lezcano            2016-04-18  1550  		_OF_DECLARE(table, name, compat, fn, of_init_fn_1_ret)
-54196ccbe0ba1f Rob Herring               2014-05-08  1551  #define OF_DECLARE_2(table, name, compat, fn) \
-54196ccbe0ba1f Rob Herring               2014-05-08  1552  		_OF_DECLARE(table, name, compat, fn, of_init_fn_2)
-54196ccbe0ba1f Rob Herring               2014-05-08  1553  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1554  /**
-201c910bd6898d Pantelis Antoniou         2014-07-04  1555   * struct of_changeset_entry	- Holds a changeset entry
-201c910bd6898d Pantelis Antoniou         2014-07-04  1556   *
-201c910bd6898d Pantelis Antoniou         2014-07-04  1557   * @node:	list_head for the log list
-201c910bd6898d Pantelis Antoniou         2014-07-04  1558   * @action:	notifier action
-201c910bd6898d Pantelis Antoniou         2014-07-04  1559   * @np:		pointer to the device node affected
-201c910bd6898d Pantelis Antoniou         2014-07-04  1560   * @prop:	pointer to the property affected
-201c910bd6898d Pantelis Antoniou         2014-07-04  1561   * @old_prop:	hold a pointer to the original property
-201c910bd6898d Pantelis Antoniou         2014-07-04  1562   *
-201c910bd6898d Pantelis Antoniou         2014-07-04  1563   * Every modification of the device tree during a changeset
-201c910bd6898d Pantelis Antoniou         2014-07-04  1564   * is held in a list of of_changeset_entry structures.
-201c910bd6898d Pantelis Antoniou         2014-07-04  1565   * That way we can recover from a partial application, or we can
-201c910bd6898d Pantelis Antoniou         2014-07-04  1566   * revert the changeset
-201c910bd6898d Pantelis Antoniou         2014-07-04  1567   */
-201c910bd6898d Pantelis Antoniou         2014-07-04  1568  struct of_changeset_entry {
-201c910bd6898d Pantelis Antoniou         2014-07-04  1569  	struct list_head node;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1570  	unsigned long action;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1571  	struct device_node *np;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1572  	struct property *prop;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1573  	struct property *old_prop;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1574  };
-201c910bd6898d Pantelis Antoniou         2014-07-04  1575  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1576  /**
-201c910bd6898d Pantelis Antoniou         2014-07-04  1577   * struct of_changeset - changeset tracker structure
-201c910bd6898d Pantelis Antoniou         2014-07-04  1578   *
-201c910bd6898d Pantelis Antoniou         2014-07-04  1579   * @entries:	list_head for the changeset entries
-201c910bd6898d Pantelis Antoniou         2014-07-04  1580   *
-201c910bd6898d Pantelis Antoniou         2014-07-04  1581   * changesets are a convenient way to apply bulk changes to the
-201c910bd6898d Pantelis Antoniou         2014-07-04  1582   * live tree. In case of an error, changes are rolled-back.
-201c910bd6898d Pantelis Antoniou         2014-07-04  1583   * changesets live on after initial application, and if not
-201c910bd6898d Pantelis Antoniou         2014-07-04  1584   * destroyed after use, they can be reverted in one single call.
-201c910bd6898d Pantelis Antoniou         2014-07-04  1585   */
-201c910bd6898d Pantelis Antoniou         2014-07-04  1586  struct of_changeset {
-201c910bd6898d Pantelis Antoniou         2014-07-04  1587  	struct list_head entries;
-201c910bd6898d Pantelis Antoniou         2014-07-04  1588  };
-201c910bd6898d Pantelis Antoniou         2014-07-04  1589  
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1590  enum of_reconfig_change {
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1591  	OF_RECONFIG_NO_CHANGE = 0,
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1592  	OF_RECONFIG_CHANGE_ADD,
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1593  	OF_RECONFIG_CHANGE_REMOVE,
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1594  };
-b53a2340d0d304 Pantelis Antoniou         2014-10-28  1595  
-2e8fff668dc14e Rob Herring               2023-03-29  1596  struct notifier_block;
-2e8fff668dc14e Rob Herring               2023-03-29  1597  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1598  #ifdef CONFIG_OF_DYNAMIC
-f6892d193fb9d6 Grant Likely              2014-11-21  1599  extern int of_reconfig_notifier_register(struct notifier_block *);
-f6892d193fb9d6 Grant Likely              2014-11-21  1600  extern int of_reconfig_notifier_unregister(struct notifier_block *);
-f5242e5a883bf1 Grant Likely              2014-11-24  1601  extern int of_reconfig_notify(unsigned long, struct of_reconfig_data *rd);
-f5242e5a883bf1 Grant Likely              2014-11-24  1602  extern int of_reconfig_get_state_change(unsigned long action,
-f5242e5a883bf1 Grant Likely              2014-11-24  1603  					struct of_reconfig_data *arg);
-f6892d193fb9d6 Grant Likely              2014-11-21  1604  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1605  extern void of_changeset_init(struct of_changeset *ocs);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1606  extern void of_changeset_destroy(struct of_changeset *ocs);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1607  extern int of_changeset_apply(struct of_changeset *ocs);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1608  extern int of_changeset_revert(struct of_changeset *ocs);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1609  extern int of_changeset_action(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1610  		unsigned long action, struct device_node *np,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1611  		struct property *prop);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1612  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1613  static inline int of_changeset_attach_node(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1614  		struct device_node *np)
-201c910bd6898d Pantelis Antoniou         2014-07-04  1615  {
-201c910bd6898d Pantelis Antoniou         2014-07-04 @1616  	return of_changeset_action(ocs, OF_RECONFIG_ATTACH_NODE, np, NULL);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1617  }
-201c910bd6898d Pantelis Antoniou         2014-07-04  1618  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1619  static inline int of_changeset_detach_node(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1620  		struct device_node *np)
-201c910bd6898d Pantelis Antoniou         2014-07-04  1621  {
-201c910bd6898d Pantelis Antoniou         2014-07-04 @1622  	return of_changeset_action(ocs, OF_RECONFIG_DETACH_NODE, np, NULL);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1623  }
-201c910bd6898d Pantelis Antoniou         2014-07-04  1624  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1625  static inline int of_changeset_add_property(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1626  		struct device_node *np, struct property *prop)
-201c910bd6898d Pantelis Antoniou         2014-07-04  1627  {
-201c910bd6898d Pantelis Antoniou         2014-07-04 @1628  	return of_changeset_action(ocs, OF_RECONFIG_ADD_PROPERTY, np, prop);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1629  }
-201c910bd6898d Pantelis Antoniou         2014-07-04  1630  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1631  static inline int of_changeset_remove_property(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1632  		struct device_node *np, struct property *prop)
-201c910bd6898d Pantelis Antoniou         2014-07-04  1633  {
-201c910bd6898d Pantelis Antoniou         2014-07-04 @1634  	return of_changeset_action(ocs, OF_RECONFIG_REMOVE_PROPERTY, np, prop);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1635  }
-201c910bd6898d Pantelis Antoniou         2014-07-04  1636  
-201c910bd6898d Pantelis Antoniou         2014-07-04  1637  static inline int of_changeset_update_property(struct of_changeset *ocs,
-201c910bd6898d Pantelis Antoniou         2014-07-04  1638  		struct device_node *np, struct property *prop)
-201c910bd6898d Pantelis Antoniou         2014-07-04  1639  {
-201c910bd6898d Pantelis Antoniou         2014-07-04 @1640  	return of_changeset_action(ocs, OF_RECONFIG_UPDATE_PROPERTY, np, prop);
-201c910bd6898d Pantelis Antoniou         2014-07-04  1641  }
-b544fc2b8606d7 Lizhi Hou                 2023-08-15  1642  
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
