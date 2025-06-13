@@ -2,83 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF47AAD8BB0
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 14:09:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E98AD8BD2
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 14:12:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7DDAC36B3C;
-	Fri, 13 Jun 2025 12:09:24 +0000 (UTC)
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3D71C36B3C;
+	Fri, 13 Jun 2025 12:12:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F7A5C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 210CEC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 12:09:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1749816504; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=HxsUUIkbJLHor7xQVOxFnKjQL2tcvAU/8U7uOGAT8YJ5SzkaPujbsMSqqr80mMJL7/C6qPJ5R72AJZZz4V+WGvRuhbDD8RcEdYVp0T3jFCWzPUWFNNQ68W3mkdPx/uRz9Q8CO9KUVnMiuh0wlCTVhHSoXI4LkoQwVLhFcDXTcHE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1749816504;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=oC6j4XXPtFnpNI59vFPxucp8Atnh3iWQ7iCtDWJTvGo=; 
- b=A1ATiiZZKeXR51mKcGYEcu+ievsJrJBhXTLF5fKN6m6uGlmf+gN+qSW/4BgN2DXa3+ihmm5IDJ0LMQYccMcRuItr2vNHq1tFXK2h6DApxhwbIV2hxsLhxWB7MZeQnM9wPRrdMCbbUDX2/hY046rowLcFe6wBngVN1Vd+mah2Cyc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1749816504; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=oC6j4XXPtFnpNI59vFPxucp8Atnh3iWQ7iCtDWJTvGo=;
- b=iYPe6hd7lzD5NmEuVNlPJNUR1sBcQMTEzgFULW5ZE1tzhGuUUZmsrhquSUKDA+Cs
- I90mwM0EoNm4PSiTntzA6phjzUyTdMpluFlcfHK8TNliE3+1AYflsiylQRbXHpwn2NL
- nJ0riWRwAIxWd/I6yzJxEXtQHSBfMYaBpXVI3PVg=
-Received: by mx.zohomail.com with SMTPS id 1749816501559794.9356716993168;
- Fri, 13 Jun 2025 05:08:21 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Niklas Cassel <cassel@kernel.org>
-Date: Fri, 13 Jun 2025 14:08:08 +0200
-Message-ID: <12129790.nUPlyArG6x@workhorse>
-In-Reply-To: <aEvzMnxgsjfryCOo@ryzen>
-References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
- <20250612-byeword-update-v1-17-f4afb8f6313f@collabora.com>
- <aEvzMnxgsjfryCOo@ryzen>
+ Fri, 13 Jun 2025 12:12:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1749816758; x=1781352758;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Q8gbfUYNETamHMlqMO9QOqlu77JO0RYCF9BXmbQkWK8=;
+ b=T9TNu/WlFcpRob/qkn/u2TzcmduPEvQDPXxXmmTOxPySVoKVX53/bOyB
+ 3lUqkEnFmpx96B3JTE4suuVuj4s6CtEnZES4SBoN64mAehjWpwx45fh2R
+ yqxIL38KLQoP0Kvb3cvvcAw6WJjtVV6AzIv58Slp30jzedBAJOijh1sQU
+ JpsLRBfkR7OAh11KwgZD41YuTipT7M787uifkBSZFLPKcpeJDMCb9ceRD
+ eieTgHBm7i/IJ2kO5jC0djnepWINVua/kqXtBdWh0tb3cOV++TlJKGS17
+ mmTGWXhGkyh95qbb4kj7QqhaV2Injvns0L5diiq5vl2KI6OFzAqE7HDhG g==;
+X-CSE-ConnectionGUID: 7wIdhXEURTm0xpH99u97DA==
+X-CSE-MsgGUID: HXSzBUu4SfGLDvlZLnCpZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11463"; a="52012645"
+X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="52012645"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2025 05:12:36 -0700
+X-CSE-ConnectionGUID: Kd6ix5V9Q0OrAW95lrLS1w==
+X-CSE-MsgGUID: OJffvJHpS2u3WKMrqEw+4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,233,1744095600"; d="scan'208";a="185055534"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 13 Jun 2025 05:12:32 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uQ3Gm-000CZu-2y;
+ Fri, 13 Jun 2025 12:12:28 +0000
+Date: Fri, 13 Jun 2025 20:11:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matthew Gerlach <matthew.gerlach@altera.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ richardcochran@gmail.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <202506131908.dH1ks6AW-lkp@intel.com>
+References: <20250612221630.45198-1-matthew.gerlach@altera.com>
 MIME-Version: 1.0
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-pci@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
- llvm@lists.linux.dev, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
- Eric Dumazet <edumazet@google.com>, Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- linux-phy@lists.infradead.org, kernel@collabora.com,
- David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Jaehoon Chung <jh80.chung@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rockchip@lists.infradead.org,
- linux-pm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
- linux-clk@vger.kernel.org, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-media@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Yury Norov <yury.norov@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 17/20] PCI: dw-rockchip: switch to
-	HWORD_UPDATE macro
+Content-Disposition: inline
+In-Reply-To: <20250612221630.45198-1-matthew.gerlach@altera.com>
+Cc: Mun Yew Tham <mun.yew.tham@altera.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>, oe-kbuild-all@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH v5] dt-bindings: net: Convert
+ socfpga-dwmac bindings to yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,85 +77,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+Hi Matthew,
 
-On Friday, 13 June 2025 11:45:22 Central European Summer Time Niklas Cassel wrote:
-> Hello Nicolas,
-> 
-> On Thu, Jun 12, 2025 at 08:56:19PM +0200, Nicolas Frattaroli wrote:
-> > 
-> > PCIE_CLIENT_RC_MODE/PCIE_CLIENT_EP_MODE was another field that wasn't
-> > super clear on what the bit field modification actually is. As far as I
-> > can tell, switching to RC mode doesn't actually write the correct value
-> > to the field if any of its bits have been set previously, as it only
-> > updates one bit of a 4 bit field.
-> > 
-> > Replace it by actually writing the full values to the field, using the
-> > new HWORD_UPDATE macro, which grants us the benefit of better
-> > compile-time error checking.
-> 
-> The current code looks like this:
-> #define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE_BIT(0x40)
-> #define  PCIE_CLIENT_EP_MODE            HIWORD_UPDATE(0xf0, 0x0)
-> 
-> The device_type field is defined like this:
-> 4'h0: PCI Express endpoint
-> 4'h1: Legacy PCI Express endpoint
-> 4'h4: Root port of PCI Express root complex
-> 
-> The reset value of the device_type field is 0x0 (EP mode).
-> 
-> So switching between RC mode / EP mode should be fine.
-> 
-> But I agree, theoretically there could be a bug if e.g. bootloader
-> has set the device_type to 0x1 (Legacy EP).
-> 
-> So if you want, you could send a patch:
-> -#define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE_BIT(0x40)
-> +#define  PCIE_CLIENT_RC_MODE            HIWORD_UPDATE(0xf0, 0x40)
-> 
-> With:
-> Fixes: 0e898eb8df4e ("PCI: rockchip-dwc: Add Rockchip RK356X host controller driver")
-> 
-> But I also think that your current patch is fine as-is.
-> 
-> I do however think that you can drop this line:
-> +#define  PCIE_CLIENT_MODE_LEGACY       0x1U
-> 
-> Since the define is never used.
+kernel test robot noticed the following build warnings:
 
-Will do
+[auto build test WARNING on robh/for-next]
+[also build test WARNING on net-next/main net/main linus/master v6.16-rc1 next-20250613]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> 
-> 
-> Also, is there any point in adding the U suffix?
-> 
-> Usually you see UL or ULL suffix, when that is needed, but there actually
-> seems to be extremely few hits of simply U suffix:
-> $ git grep 0x1U | grep -v UL
+url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Gerlach/dt-bindings-net-Convert-socfpga-dwmac-bindings-to-yaml/20250613-062051
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20250612221630.45198-1-matthew.gerlach%40altera.com
+patch subject: [PATCH v5] dt-bindings: net: Convert socfpga-dwmac bindings to yaml
+reproduce: (https://download.01.org/0day-ci/archive/20250613/202506131908.dH1ks6AW-lkp@intel.com/reproduce)
 
-Sort of. Literals without the U suffix are considered signed iirc, and
-operating with them and then left-shifting the result can run into issues
-if you shift their bits into the sign bit. In the patch at [1] I needed to
-quell a compiler warning about signed long overflows with a U suffix. This
-should only ever really be a problem for anything that gets shifted up to
-bit index 31 I believe, and maybe there's a better way to handle this in
-the macro itself with an explicit cast to unsigned, but explicit casts
-give me the ick. I'm also open to changing it to an UL, which will have
-the same effect, and has more precedent.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506131908.dH1ks6AW-lkp@intel.com/
 
-> 
-> 
-> Kind regards,
-> Niklas
-> 
+All warnings (new ones prefixed by >>):
 
-Best Regards,
-Nicolas Frattaroli
+   Warning: Documentation/translations/zh_CN/admin-guide/README.rst references a file that doesn't exist: Documentation/dev-tools/kgdb.rst
+   Warning: Documentation/translations/zh_CN/dev-tools/gdb-kernel-debugging.rst references a file that doesn't exist: Documentation/dev-tools/gdb-kernel-debugging.rst
+   Warning: Documentation/translations/zh_CN/how-to.rst references a file that doesn't exist: Documentation/xxx/xxx.rst
+   Warning: Documentation/translations/zh_TW/admin-guide/README.rst references a file that doesn't exist: Documentation/dev-tools/kgdb.rst
+   Warning: Documentation/translations/zh_TW/dev-tools/gdb-kernel-debugging.rst references a file that doesn't exist: Documentation/dev-tools/gdb-kernel-debugging.rst
+>> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/net/altr,gmii-to-sgmii.yaml
+   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/firmware/intel,stratix10-svc.txt
+   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/leds/ti,tps6131x.yaml
+   Warning: arch/riscv/kernel/kexec_image.c references a file that doesn't exist: Documentation/riscv/boot-image-header.rst
+   Warning: drivers/clocksource/timer-armada-370-xp.c references a file that doesn't exist: Documentation/devicetree/bindings/timer/marvell,armada-370-xp-timer.txt
+   Using alabaster theme
 
-Link: https://lore.kernel.org/all/20250612-byeword-update-v1-7-f4afb8f6313f@collabora.com/ [1]
-
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
