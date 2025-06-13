@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2095DAD8792
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 11:19:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2307AD878E
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Jun 2025 11:19:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0C3CC32E8E;
-	Fri, 13 Jun 2025 09:19:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72401C36B35;
+	Fri, 13 Jun 2025 09:19:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E2C9C36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F94FC36B31
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Jun 2025 09:19:42 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55D79Zkr011404;
- Fri, 13 Jun 2025 11:19:28 +0200
+ Fri, 13 Jun 2025 09:19:39 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55D7AgiR006683;
+ Fri, 13 Jun 2025 11:19:25 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- Jeq5JI4lCT6ZEy/eg01EjyjLaJrHnzpFREfAtoOf8ec=; b=InpGAun1/3FEVxij
- UgijLP+auJcxIB3JafyMUbNdKMjCy5VSPCLUyCey/don0kTPOzZB8bcjhLwIJ4FY
- sR9G7qEWC9Dho1hPhlBfw/7l3gHcLvZQSWXEGIRNDteWV3L0Ud3gLVpczYZU9Tq3
- ZT6rxfn1W1HzieTpm+IEUlDdqqKXK75MjEaMhLyz9yS3rlWVR7ZTgzx1pWGu0EIm
- VMPxvgCIMYytk8ifKgFr9G6qo9WemNmtKTXdOMBtgWIDu07x3F3KanZ0Znc76VCb
- SvFu+o4pEI1A9htOtdHwREWrBgH7iZTdOxmxfXCDm+Du6RxOBwjpcw94I+DRwJ96
- iCa3sg==
+ oRoK+To3ECSWyMsKvQou69OpviNdWWWWDeXdSq5d7yw=; b=pr4mpQIeSXtd+rbr
+ jUatBWMeCdQYqJVXl+Npik+SHcZKuDxc9MPWOeVXc1RZUd9Y7r4q0OwOBD2lYb95
+ ZY7gSjYR7W+HaxC+z2RUsUXJ/8DaSOslpAuT96eUI4oPwgYtvtGQCfhWoAav82eN
+ YiM35Afbvc+MwSnluJfAo5dSTe8pYAI0T0mJumox/dW0dq7q1GnsUOh6RwOO17C5
+ j8Ed68/4g2rnfXTj6Vy9nKS2nuX5sDS31GqzSWeeIMdVzsFUsPK5oyBvLbIW7zpZ
+ KiDC9AScJemIUPWLZ42EPupxAFIMT2k3qExsN4gXCDwRJuskkDcMMBQAaIjJoj1S
+ no/NMA==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474ajakwn3-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 474y05jd4r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 Jun 2025 11:19:28 +0200 (MEST)
+ Fri, 13 Jun 2025 11:19:25 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1A3DD40059;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C95D34005B;
  Fri, 13 Jun 2025 11:18:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AFD46BAC2F0;
- Fri, 13 Jun 2025 11:17:21 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 63A06BAD714;
+ Fri, 13 Jun 2025 11:17:22 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 11:17:21 +0200
+ 2025 11:17:22 +0200
 Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
@@ -51,8 +51,8 @@ To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
  "Rob Herring" <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  "Conor Dooley" <conor+dt@kernel.org>
-Date: Fri, 13 Jun 2025 11:16:48 +0200
-Message-ID: <20250613091650.2337411-5-arnaud.pouliquen@foss.st.com>
+Date: Fri, 13 Jun 2025 11:16:49 +0200
+Message-ID: <20250613091650.2337411-6-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250613091650.2337411-1-arnaud.pouliquen@foss.st.com>
 References: <20250613091650.2337411-1-arnaud.pouliquen@foss.st.com>
@@ -66,8 +66,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v17 4/6] dt-bindings: remoteproc: Add
-	compatibility for TEE support
+Subject: [Linux-stm32] [PATCH v17 5/6] remoteproc: stm32: Create
+	sub-functions to request shutdown and release
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,132 +84,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The "st,stm32mp1-m4-tee" compatible is utilized in a system configuration
-where the Cortex-M4 firmware is loaded by the Trusted Execution Environment
-(TEE).
-
-For instance, this compatible is used in both the Linux and OP-TEE device
-trees:
-- In OP-TEE, a node is defined in the device tree with the
-  "st,stm32mp1-m4-tee" compatible to support signed remoteproc firmware.
-  Based on DT properties, the OP-TEE remoteproc framework is initiated to
-  expose a trusted application service to authenticate and load the remote
-  processor firmware provided by the Linux remoteproc framework, as well
-  as to start and stop the remote processor.
-- In Linux, when the compatibility is set, the Cortex-M resets should not
-  be declared in the device tree. In such a configuration, the reset is
-  managed by the OP-TEE remoteproc driver and is no longer accessible from
-  the Linux kernel.
-
-Associated with this new compatible, add the "st,proc-id" property to
-identify the remote processor. This ID is used to define a unique ID,
-common between Linux, U-Boot, and OP-TEE, to identify a coprocessor.
-This ID will be used in requests to the OP-TEE remoteproc Trusted
-Application to specify the remote processor.
+To prepare for the support of TEE remoteproc, create sub-functions
+that can be used in both cases, with and without remoteproc TEE support.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/remoteproc/st,stm32-rproc.yaml   | 58 ++++++++++++++++---
- 1 file changed, 50 insertions(+), 8 deletions(-)
+ drivers/remoteproc/stm32_rproc.c | 82 +++++++++++++++++++-------------
+ 1 file changed, 49 insertions(+), 33 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-index 843679c557e7..58da07e536fc 100644
---- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
-@@ -16,7 +16,12 @@ maintainers:
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index 431648607d53..db82d4308376 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -209,6 +209,52 @@ static int stm32_rproc_mbox_idx(struct rproc *rproc, const unsigned char *name)
+ 	return -EINVAL;
+ }
  
- properties:
-   compatible:
--    const: st,stm32mp1-m4
-+    enum:
-+      - st,stm32mp1-m4
-+      - st,stm32mp1-m4-tee
-+    description:
-+      Use "st,stm32mp1-m4" for the Cortex-M4 coprocessor management by non-secure context
-+      Use "st,stm32mp1-m4-tee" for the Cortex-M4 coprocessor management by secure context
- 
-   reg:
-     description:
-@@ -43,6 +48,10 @@ properties:
-           - description: The offset of the hold boot setting register
-           - description: The field mask of the hold boot
- 
-+  st,proc-id:
-+    description: remote processor identifier
-+    $ref: /schemas/types.yaml#/definitions/uint32
++static void stm32_rproc_request_shutdown(struct rproc *rproc)
++{
++	struct stm32_rproc *ddata = rproc->priv;
++	int err, idx;
 +
-   st,syscfg-tz:
-     deprecated: true
-     description:
-@@ -146,21 +155,43 @@ properties:
- required:
-   - compatible
-   - reg
--  - resets
- 
- allOf:
-   - if:
-       properties:
--        reset-names:
--          not:
--            contains:
--              const: hold_boot
-+        compatible:
-+          contains:
-+            const: st,stm32mp1-m4
-     then:
-+      if:
-+        properties:
-+          reset-names:
-+            not:
-+              contains:
-+                const: hold_boot
-+      then:
-+        required:
-+          - st,syscfg-holdboot
-+      else:
-+        properties:
-+          st,syscfg-holdboot: false
-+        required:
-+          - reset-names
-       required:
--        - st,syscfg-holdboot
--    else:
-+        - resets
++	/* Request shutdown of the remote processor */
++	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
++		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
++		if (idx >= 0 && ddata->mb[idx].chan) {
++			err = mbox_send_message(ddata->mb[idx].chan, "detach");
++			if (err < 0)
++				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
++		}
++	}
++}
 +
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32mp1-m4-tee
-+    then:
-       properties:
-         st,syscfg-holdboot: false
-+        reset-names: false
-+        resets: false
-+      required:
-+        - st,proc-id
++static int stm32_rproc_release(struct rproc *rproc)
++{
++	struct stm32_rproc *ddata = rproc->priv;
++	unsigned int err = 0;
++
++	/* To allow platform Standby power mode, set remote proc Deep Sleep */
++	if (ddata->pdds.map) {
++		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
++					 ddata->pdds.mask, 1);
++		if (err) {
++			dev_err(&rproc->dev, "failed to set pdds\n");
++			return err;
++		}
++	}
++
++	/* Update coprocessor state to OFF if available */
++	if (ddata->m4_state.map) {
++		err = regmap_update_bits(ddata->m4_state.map,
++					 ddata->m4_state.reg,
++					 ddata->m4_state.mask,
++					 M4_STATE_OFF);
++		if (err) {
++			dev_err(&rproc->dev, "failed to set copro state\n");
++			return err;
++		}
++	}
++
++	return 0;
++}
++
+ static int stm32_rproc_prepare(struct rproc *rproc)
+ {
+ 	struct device *dev = rproc->dev.parent;
+@@ -519,17 +565,9 @@ static int stm32_rproc_detach(struct rproc *rproc)
+ static int stm32_rproc_stop(struct rproc *rproc)
+ {
+ 	struct stm32_rproc *ddata = rproc->priv;
+-	int err, idx;
++	int err;
  
- additionalProperties: false
+-	/* request shutdown of the remote processor */
+-	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
+-		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
+-		if (idx >= 0 && ddata->mb[idx].chan) {
+-			err = mbox_send_message(ddata->mb[idx].chan, "detach");
+-			if (err < 0)
+-				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
+-		}
+-	}
++	stm32_rproc_request_shutdown(rproc);
  
-@@ -192,5 +223,16 @@ examples:
-       st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
-       st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
-     };
-+  - |
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    m4@10000000 {
-+      compatible = "st,stm32mp1-m4-tee";
-+      reg = <0x10000000 0x40000>,
-+            <0x30000000 0x40000>,
-+            <0x38000000 0x10000>;
-+      st,proc-id = <0>;
-+      st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
-+      st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
-+    };
+ 	err = stm32_rproc_set_hold_boot(rproc, true);
+ 	if (err)
+@@ -541,29 +579,7 @@ static int stm32_rproc_stop(struct rproc *rproc)
+ 		return err;
+ 	}
  
- ...
+-	/* to allow platform Standby power mode, set remote proc Deep Sleep */
+-	if (ddata->pdds.map) {
+-		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
+-					 ddata->pdds.mask, 1);
+-		if (err) {
+-			dev_err(&rproc->dev, "failed to set pdds\n");
+-			return err;
+-		}
+-	}
+-
+-	/* update coprocessor state to OFF if available */
+-	if (ddata->m4_state.map) {
+-		err = regmap_update_bits(ddata->m4_state.map,
+-					 ddata->m4_state.reg,
+-					 ddata->m4_state.mask,
+-					 M4_STATE_OFF);
+-		if (err) {
+-			dev_err(&rproc->dev, "failed to set copro state\n");
+-			return err;
+-		}
+-	}
+-
+-	return 0;
++	return stm32_rproc_release(rproc);
+ }
+ 
+ static void stm32_rproc_kick(struct rproc *rproc, int vqid)
 -- 
 2.25.1
 
