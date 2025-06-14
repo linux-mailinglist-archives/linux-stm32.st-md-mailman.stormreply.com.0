@@ -2,54 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5C7AD9E6A
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jun 2025 19:16:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0345AD9EF5
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jun 2025 20:22:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7376FC36B3D;
-	Sat, 14 Jun 2025 17:16:53 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57FFCC36B3D;
+	Sat, 14 Jun 2025 18:22:23 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BF24C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E837BC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Jun 2025 17:16:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 1CCCDA4F308;
- Sat, 14 Jun 2025 17:16:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA60C4CEEB;
- Sat, 14 Jun 2025 17:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749921410;
- bh=SyhuSHTiP7kYh6dQdHpRWX3b0foHA/A5vUWOW9/wys4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ju9KVuUtGxQXCAjdaMZnZyfnQ7oL9HN0ghc7Crpm6kBXNpPwCv6vUHTg81o8eQtHn
- 7N/vjHsfsXTGqG5TEg+tfGzsKAMV2QMQ5SOmAfhVkKxN2/xjOOQj3g5YCBIw3EDqp/
- /0ObAIAI2A2ImOL6KOHef1moBxj1Z28yzGSVTPURTkbHslRidL0NBQOsky9Pj2v0iX
- j45c5+u3wZCb9dgin1Ll+yTXMkq7gdr2ySd6x+V5gHLalOb65MnULoXDA3aCpMB+C1
- cNOkCekXOmUPb8vJ6ttwcI2vcj75E5ECH3sAUH3UHaTCiScHKRWN6OHUeZktGsaue2
- bC0pOIKwGCPog==
-Date: Sat, 14 Jun 2025 18:16:42 +0100
-From: Simon Horman <horms@kernel.org>
-To: Joy Zou <joy.zou@nxp.com>
-Message-ID: <20250614171642.GU414686@horms.kernel.org>
-References: <20250613100255.2131800-1-joy.zou@nxp.com>
- <20250613100255.2131800-2-joy.zou@nxp.com>
+ Sat, 14 Jun 2025 18:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LWVGJpxfZxK5NWqKsMehk6v+OXAVVCcYoYUm9xSLX/c=; b=AFnGMw0U82bkfJeUm1qa6MToAQ
+ 4DNM7+9jW6wRrHGrILCc1akHMwLWpcAODcTO4kRMTR8zKDpDDaMZACfuNkd8LMyjCxKq1f7SREwEg
+ +59raP3R8l8vsFX4S0BUsQR9lpfnZgJ0EgZX+jCpxIzPe8vdoex1+W2CxPlyxTvU/1Sp2hYBbm00p
+ hO6lLM/+m0qcJk1Irc5h5sXSvF3V33IotOT/w33bOwIRfEb+JmW00/eC6+48RLFHz3Wjl1aQkz9HY
+ Sbp3rzOaw1HwVyg10QT6TpP/81H8WWkoVYRumO9m3jiyBFhQ2t6Gywb2pPDmUlAwjdtoeFgu1eBfB
+ Drupz9fw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43052)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1uQVW4-00027I-1a;
+ Sat, 14 Jun 2025 19:22:08 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1uQVW0-00031F-1O;
+ Sat, 14 Jun 2025 19:22:04 +0100
+Date: Sat, 14 Jun 2025 19:22:04 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Simon Horman <horms@kernel.org>
+Message-ID: <aE29zFKp5PLAM5pP@shell.armlinux.org.uk>
+References: <E1uPkbO-004EyA-EU@rmk-PC.armlinux.org.uk>
+ <20250614153512.GQ414686@horms.kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250613100255.2131800-2-joy.zou@nxp.com>
-Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
- catalin.marinas@arm.com, frank.li@nxp.com, edumazet@google.com,
- peng.fan@nxp.com, festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, will@kernel.org, xiaoning.wang@nxp.com, kuba@kernel.org,
- pabeni@redhat.com, s.hauer@pengutronix.de, devicetree@vger.kernel.org,
- conor+dt@kernel.org, ye.li@nxp.com, mcoquelin.stm32@gmail.com,
- linux-pm@vger.kernel.org, richardcochran@gmail.com,
- linux-arm-kernel@lists.infradead.org, aisheng.dong@nxp.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v5 1/9] dt-bindings: arm: fsl: add i.MX91
-	11x11 evk board
+In-Reply-To: <20250614153512.GQ414686@horms.kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: add
+ ethqos_pcs_set_inband()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,19 +68,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 13, 2025 at 06:02:47PM +0800, Joy Zou wrote:
-> From: Pengfei Li <pengfei.li_1@nxp.com>
+On Sat, Jun 14, 2025 at 04:35:12PM +0100, Simon Horman wrote:
+> On Thu, Jun 12, 2025 at 05:16:30PM +0100, Russell King (Oracle) wrote:
+> > Add ethqos_pcs_set_inband() to improve readability, and to allow future
+> > changes when phylink PCS support is properly merged.
+> > 
+> > Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+> > Tested-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org> # sa8775p-ride-r3
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > 
-> Add the board imx91-11x11-evk in the binding docuemnt.
-
-nit: document
-
+> Thanks Russell,
 > 
-> Signed-off-by: Pengfei Li <pengfei.li_1@nxp.com>
-> Signed-off-by: Joy Zou <joy.zou@nxp.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> The nit below notwithstanding this looks good to me.
+> 
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> 
+> > ---
+> >  .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 13 +++++++++----
+> >  1 file changed, 9 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > index e30bdf72331a..2e398574c7a7 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> > @@ -622,6 +622,11 @@ static void ethqos_set_serdes_speed(struct qcom_ethqos *ethqos, int speed)
+> >  	}
+> >  }
+> >  
+> > +static void ethqos_pcs_set_inband(struct stmmac_priv *priv, bool enable)
+> > +{
+> > +	stmmac_pcs_ctrl_ane(priv, priv->ioaddr, enable, 0, 0);
+> 
+> FWIIW, I would have gone for the following, as all the type of
+> three of the trailing parameters is bool.
+> 
+> 	stmmac_pcs_ctrl_ane(priv, priv->ioaddr, enable, false, false);
 
-...
+So the original code:
+
+            stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
+            stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+            stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+            stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+
+While one could convert the last two arguments to true/false, I'd prefer
+leaving them as is, as less change means less chance to introduce a bug.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
