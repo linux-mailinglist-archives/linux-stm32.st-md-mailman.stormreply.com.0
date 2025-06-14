@@ -2,71 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9F6AD9D6D
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jun 2025 16:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3045AD9E17
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Jun 2025 17:35:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BF13C36B3D;
-	Sat, 14 Jun 2025 14:19:00 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C60FC36B3D;
+	Sat, 14 Jun 2025 15:35:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0445C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F165C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Jun 2025 14:18:58 +0000 (UTC)
+ Sat, 14 Jun 2025 15:35:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id AC98EA50B0B;
- Sat, 14 Jun 2025 14:18:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDCEC4CEEB;
- Sat, 14 Jun 2025 14:18:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A50861126;
+ Sat, 14 Jun 2025 15:35:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FDEC4CEEB;
+ Sat, 14 Jun 2025 15:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1749910737;
- bh=TAefawj8sFz6PzX77ED0UDRrtR9qcAx7l29OSrOfCJ0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Ta9SO3rEXMSLA10FI7fBR3F6/8k5nRYF+su0+OPjS5hW+vMPqYqkjwkBqhYYBZJzi
- WkxbcgQaolfGAHRjZceYZBqeLjg3nxqewEpEhi/mc3fXRRgOVjQmxu7ghIAZztiJWi
- rcXaFy9n2AswtVLbxFPrJHJQ5k7DbNhVzkcrWFm8KVbZvInGvZmzv0P2o5TRxwzScJ
- EXpRqYx7xKx2ZA5uXP8ZlvfB0XTbU8PVP30WMoANTItUUqs4EdtCQcckRCKr/THZHj
- QqEd2x3S4DlvrLbcIOo7MzysAEzgrI8Z9I2cHL8+5MkDlEBeHuyeU6NRmGWVCBNvn6
- 0y8FcKrLKOhAw==
-Date: Sat, 14 Jun 2025 15:18:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20250614151844.50524610@jic23-huawei>
-In-Reply-To: <20250614131844.7fdc10b8@jic23-huawei>
-References: <20250611-iio-zero-init-stack-with-instead-of-memset-v1-0-ebb2d0a24302@baylibre.com>
- <aEqbQPvz0FsLXt0Z@duo.ucw.cz> <2243943.irdbgypaU6@workhorse>
- <aEsiTy++yKGe1p9W@duo.ucw.cz> <aEsmDyc44P8amm5p@smile.fi.intel.com>
- <aE0a/Y9qVByfA2vI@duo.ucw.cz>
- <20250614131844.7fdc10b8@jic23-huawei>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
+ s=k20201202; t=1749915317;
+ bh=d/EY3r7M0Oqj/yKEoNpBZWTyk+esJAhtZ5aqvrMM2to=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TBrYjt+TsccDL8IyUV+0MyZuV+x2m0KQPMmUzqif+KvB70rMn7led0twGlZSOv+t0
+ wqPvrCyT+uA9Z5XOlOIdI5pcbu5oVCQgUJvstu7ldKG+0EPa0GDztZqOzyorcowOzw
+ 4EBw4ObYoPcpy1d2xDYeU7Pz3mRHeHV+//E0H3qunHYBQ0UEorJrMi9euNHELcqIze
+ eBLmuhZ4cmO+hJHlfjLgsN+nBTr783gvtcdcrg6DfSc9sgF8dL8wyoqJdlweEZA1MQ
+ WIpCt2olStUt4E/jeV80IUcYJLSSgGemvn2xJ95HMx53m0jOpHWiESG443k3f+VgZ+
+ KRQOty20KW+zg==
+Date: Sat, 14 Jun 2025 16:35:12 +0100
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250614153512.GQ414686@horms.kernel.org>
+References: <E1uPkbO-004EyA-EU@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-iio@vger.kernel.org,
- Petre Rodan <petre.rodan@subdimension.ro>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Tomasz Duszynski <tomasz.duszynski@octakon.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Francesco Dolcini <francesco@dolcini.it>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>,
- linux-rockchip@lists.infradead.org,
- =?UTF-8?B?T25kxZllag==?= Jirman <megi@xff.cz>,
- David Lechner <dlechner@baylibre.com>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- Jacopo Mondi <jacopo@jmondi.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Mudit Sharma <muditsharma.info@gmail.com>, linux-mediatek@lists.infradead.org,
- Andreas Klinger <ak@it-klinger.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- Leonard =?UTF-8?B?R8O2aHJz?= <l.goehrs@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org,
- Roan van Dijk <roan@protonic.nl>,
- =?UTF-8?B?Sm/Do28=?= Paulo =?UTF-8?B?R29uw6dhbHZl?= =?UTF-8?B?cw==?=
- <jpaulo.silvagoncalves@gmail.com>, kernel@pengutronix.de,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 00/28] iio: zero init stack with { }
-	instead of memset()
+Content-Disposition: inline
+In-Reply-To: <E1uPkbO-004EyA-EU@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: add
+ ethqos_pcs_set_inband()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,70 +61,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 14 Jun 2025 13:18:44 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Thu, Jun 12, 2025 at 05:16:30PM +0100, Russell King (Oracle) wrote:
+> Add ethqos_pcs_set_inband() to improve readability, and to allow future
+> changes when phylink PCS support is properly merged.
+> 
+> Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org> # sa8775p-ride-r3
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-> On Sat, 14 Jun 2025 08:47:25 +0200
-> Pavel Machek <pavel@ucw.cz> wrote:
-> 
-> > On Thu 2025-06-12 22:10:07, Andy Shevchenko wrote:  
-> > > On Thu, Jun 12, 2025 at 08:54:07PM +0200, Pavel Machek wrote:    
-> > > > > On Thursday, 12 June 2025 11:17:52 Central European Summer Time Pavel Machek wrote:    
-> > > > > >     
-> > > > > > > Jonathan mentioned recently that he would like to get away from using
-> > > > > > > memset() to zero-initialize stack memory in the IIO subsystem. And we
-> > > > > > > have it on good authority that initializing a struct or array with = { }
-> > > > > > > is the preferred way to do this in the kernel [1]. So here is a series
-> > > > > > > to take care of that.    
-> > > > > > 
-> > > > > > 1) Is it worth the churn?
-> > > > > > 
-> > > > > > 2) Will this fail to initialize padding with some obscure compiler?    
-> > > > > 
-> > > > > as of right now, the only two C compilers that are supported are
-> > > > > GCC >= 8.1, and Clang >= 13.0.1. If anyone even manages to get the
-> > > > > kernel    
-> > > > 
-> > > > Well... I'm pretty sure parts of this would make it into -stable as a
-> > > > dependency, or because AUTOSEL decides it is a bugfix. So..
-> > > > 
-> > > > GNU C                  4.9              gcc --version
-> > > > Clang/LLVM (optional)  10.0.1           clang --version    
-> > > 
-> > > Even though, what the kernel versions are you referring to? I am sure there
-> > > plenty of cases with {} there.    
-> > 
-> > 5.10, for example. I'm sure they are, uninitialized padding is a
-> > security hole, but rather hard to detect if they are not specifically
-> > looking.  
-> 
-> The stack kunit test is there back to 5.0-rc4 
-> 50ceaa95ea09 ("lib: Introduce test_stackinit module")
-> 
-> So I think we should be pretty well defended against issues.
-> 
-> Hence I plan to pick this up curently.
-> 
-> Thanks all for inputs on this.
-> 
-> Fun corners of the C spec vs implementations!
-> 
-> Jonathan
-> 
-I want to give this some testing exposure from 0-day etc in case
-we missed any build related issues so I've queued it up on my testing branch.
-I can still pick up tags / rebase etc for now.
+Thanks Russell,
 
-Thanks,
+The nit below notwithstanding this looks good to me.
 
-Jonathan
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-> > 
-> > BR,
-> > 								Pavel  
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
 > 
-> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index e30bdf72331a..2e398574c7a7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -622,6 +622,11 @@ static void ethqos_set_serdes_speed(struct qcom_ethqos *ethqos, int speed)
+>  	}
+>  }
+>  
+> +static void ethqos_pcs_set_inband(struct stmmac_priv *priv, bool enable)
+> +{
+> +	stmmac_pcs_ctrl_ane(priv, priv->ioaddr, enable, 0, 0);
 
+FWIIW, I would have gone for the following, as all the type of
+three of the trailing parameters is bool.
+
+	stmmac_pcs_ctrl_ane(priv, priv->ioaddr, enable, false, false);
+
+> +}
+> +
+>  /* On interface toggle MAC registers gets reset.
+>   * Configure MAC block for SGMII on ethernet phy link up
+>   */
+
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
