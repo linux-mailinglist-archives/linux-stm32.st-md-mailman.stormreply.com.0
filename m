@@ -2,47 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAD7CADB5B6
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 17:44:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F58ADB74B
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 18:48:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 796F2C35E00;
-	Mon, 16 Jun 2025 15:44:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11FB3C35E00;
+	Mon, 16 Jun 2025 16:48:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11E40C36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 172D6C35E00
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 15:44:24 +0000 (UTC)
+ Mon, 16 Jun 2025 16:48:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A33DF43BFF;
- Mon, 16 Jun 2025 15:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1237C4CEEA;
- Mon, 16 Jun 2025 15:44:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D9824615F2;
+ Mon, 16 Jun 2025 16:48:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51EAC4CEEA;
+ Mon, 16 Jun 2025 16:47:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750088663;
- bh=zMy+y5c/8mfi8FAA89LQATnBS6oZZIjVu32K5ipEiDQ=;
+ s=k20201202; t=1750092485;
+ bh=vhZVzII3CTfFCsNaHspYbWSGDD/REfUZxPruFgTiNbk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pNxQ978VmTyHAQQ9sM1UZUhVQbkOiaADT141E3DfFXEwOcwu4qEMxMTh1IVstEQGt
- 3PAOJqTKVY8HfvN8cTN+fK2oxDoJ5AkhIlaCRGObXvujSzMrFcaJcYwLfG+Trvg6w4
- j921Hfcu+9Nad7s08+IUQFyT3vv1PWMl9FhwEnuqJUBBkMYATf9ppHtqBITbPsM6GW
- GeYE5rVpfhm4iainanvkEnHIJwvNF5wE41xpDPrJNfogRb8E6LNirFmNMK9YjpYFnn
- p4RkLzn4dxmNQis5Lpyt2r5WaU8IX0y2FEu0CFHx0mShhxY9FLCXOesN5eMnYGP5KQ
- EpOZ60DvuS6BQ==
-Date: Mon, 16 Jun 2025 17:44:20 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <hsmkc6ydsyjgyq7dkhvcytqrn6uu7ezngknetshkf4kj4mjt3i@3hgg42aq3sd5>
-References: <20250110091922.980627-1-fabrice.gasnier@foss.st.com>
- <20250110091922.980627-5-fabrice.gasnier@foss.st.com>
+ b=MrLy4Y78WdF45DgIA04d6GzEjtLBdJOuzQzc8TS3cPBYJrqvdD4dQFjmAu31g9sjj
+ LElKFh4qj5gs6zQLqeNtg/LZNM8xpZZMDosfM3a/0yzIL+oPRsoyhb51Jn/kFadBXX
+ Bebo2KAm91G1jlgy63aDMYFC8qn4J4+lj8Rw/0rr4SZqB1mLQOI/Cjvg57bIK0ElAz
+ utaZ2+o6sCFUK+2HW2G7xhAxJ9FTDFKl/7sYwyO/Z/6YYo4+Mab1V7tfmjwSIoRHh8
+ XfinTPBQZknPAJK0LIOHLuUnwUWEku8xay8HtSK4Je5aDfJXhT5Twr+elRYzkKM8lL
+ bkKOrjBzNPQxg==
+Date: Mon, 16 Jun 2025 17:47:57 +0100
+From: Simon Horman <horms@kernel.org>
+To: Joy Zou <joy.zou@nxp.com>
+Message-ID: <20250616164757.GC4794@horms.kernel.org>
+References: <20250613100255.2131800-1-joy.zou@nxp.com>
+ <20250613100255.2131800-2-joy.zou@nxp.com>
+ <20250614171642.GU414686@horms.kernel.org>
+ <AS4PR04MB93869345F739436917920F59E170A@AS4PR04MB9386.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20250110091922.980627-5-fabrice.gasnier@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, lee@kernel.org,
- linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org, wbg@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/8] pwm: stm32: add support for
-	stm32mp25
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB93869345F739436917920F59E170A@AS4PR04MB9386.eurprd04.prod.outlook.com>
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "ulf.hansson@linaro.org" <ulf.hansson@linaro.org>,
+ Jacky Bai <ping.bai@nxp.com>,
+ "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
+ Frank Li <frank.li@nxp.com>, "edumazet@google.com" <edumazet@google.com>,
+ Peng Fan <peng.fan@nxp.com>, "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "robh@kernel.org" <robh@kernel.org>, "will@kernel.org" <will@kernel.org>,
+ Clark Wang <xiaoning.wang@nxp.com>, "kuba@kernel.org" <kuba@kernel.org>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>, Ye Li <ye.li@nxp.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "richardcochran@gmail.com" <richardcochran@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Aisheng Dong <aisheng.dong@nxp.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v5 1/9] dt-bindings: arm: fsl: add i.MX91
+ 11x11 evk board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,69 +78,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1403156720302347042=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1403156720302347042==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ezyzxvlev7k4prvr"
-Content-Disposition: inline
-
-
---ezyzxvlev7k4prvr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 4/8] pwm: stm32: add support for stm32mp25
-MIME-Version: 1.0
-
-Hello Fabrice,
-
-On Fri, Jan 10, 2025 at 10:19:18AM +0100, Fabrice Gasnier wrote:
-> Add support for STM32MP25 SoC. Use newly introduced compatible to handle
-> new features along with registers and bits diversity.
-> The MFD part of the driver fills in ipidr, so it is used to check the
-> hardware configuration register, when available to gather the number
-> of PWM channels and complementary outputs.
->=20
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-Applied to
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-next
-=2E
-
-Thanks for your patience
-Uwe
-
---ezyzxvlev7k4prvr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmhQO9IACgkQj4D7WH0S
-/k5Gygf9Gy+dDmATpLY1NSgEaVsqseEX8U1OK8Qr0hXVS6DWdx1yiKu/usPB/Ns8
-KlFNa+c0Yd/lDEYjkvaLr0FmmGazj3yReZB7iuTBjo42rR4ZMg70Ch92UmhZL4JQ
-jWYv+ZLzvdDvyEN1mtPizoYrwazqtK+9ajkbSgIWORogLWD2ieG12tfwpE0FjPjB
-IkdnMX9NbFB777pXHx8JZTux0YzwmZ9Y6grswoV2Rdlor2xxm/atUWqAE0g8qRzM
-QFCOVen4t50xS6ptchwAsDwMRIrDfmVaiMg3T8tC55Fpix5GOkkzFfunE33BqDhi
-kt5RKeBIclzLIGFvx72daCwUDZqidg==
-=4Cak
------END PGP SIGNATURE-----
-
---ezyzxvlev7k4prvr--
-
---===============1403156720302347042==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1403156720302347042==--
+T24gTW9uLCBKdW4gMTYsIDIwMjUgYXQgMDc6NDI6MzlBTSArMDAwMCwgSm95IFpvdSB3cm90ZToK
+PiAKPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiBGcm9tOiBTaW1vbiBIb3JtYW4g
+PGhvcm1zQGtlcm5lbC5vcmc+Cj4gPiBTZW50OiAyMDI15bm0NuaciDE15pelIDE6MTcKPiA+IFRv
+OiBKb3kgWm91IDxqb3kuem91QG54cC5jb20+Cj4gPiBDYzogcm9iaEBrZXJuZWwub3JnOyBrcnpr
+K2R0QGtlcm5lbC5vcmc7IGNvbm9yK2R0QGtlcm5lbC5vcmc7Cj4gPiBzaGF3bmd1b0BrZXJuZWwu
+b3JnOyBzLmhhdWVyQHBlbmd1dHJvbml4LmRlOyBjYXRhbGluLm1hcmluYXNAYXJtLmNvbTsKPiA+
+IHdpbGxAa2VybmVsLm9yZzsgYW5kcmV3K25ldGRldkBsdW5uLmNoOyBkYXZlbUBkYXZlbWxvZnQu
+bmV0Owo+ID4gZWR1bWF6ZXRAZ29vZ2xlLmNvbTsga3ViYUBrZXJuZWwub3JnOyBwYWJlbmlAcmVk
+aGF0LmNvbTsKPiA+IG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb207IGFsZXhhbmRyZS50b3JndWVA
+Zm9zcy5zdC5jb207Cj4gPiB1bGYuaGFuc3NvbkBsaW5hcm8ub3JnOyByaWNoYXJkY29jaHJhbkBn
+bWFpbC5jb207IGtlcm5lbEBwZW5ndXRyb25peC5kZTsKPiA+IGZlc3RldmFtQGdtYWlsLmNvbTsg
+ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc7Cj4gPiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwu
+b3JnOyBpbXhAbGlzdHMubGludXguZGV2Owo+ID4gbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZy
+YWRlYWQub3JnOyBuZXRkZXZAdmdlci5rZXJuZWwub3JnOwo+ID4gbGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbTsgbGludXgtcG1Admdlci5rZXJuZWwub3JnOwo+ID4gRnJh
+bmsgTGkgPGZyYW5rLmxpQG54cC5jb20+OyBZZSBMaSA8eWUubGlAbnhwLmNvbT47IEphY2t5IEJh
+aQo+ID4gPHBpbmcuYmFpQG54cC5jb20+OyBQZW5nIEZhbiA8cGVuZy5mYW5AbnhwLmNvbT47IEFp
+c2hlbmcgRG9uZwo+ID4gPGFpc2hlbmcuZG9uZ0BueHAuY29tPjsgQ2xhcmsgV2FuZyA8eGlhb25p
+bmcud2FuZ0BueHAuY29tPgo+ID4gU3ViamVjdDogUmU6IFtQQVRDSCB2NSAxLzldIGR0LWJpbmRp
+bmdzOiBhcm06IGZzbDogYWRkIGkuTVg5MSAxMXgxMSBldmsKPiA+IGJvYXJkCj4gPiAKPiA+IE9u
+IEZyaSwgSnVuIDEzLCAyMDI1IGF0IDA2OjAyOjQ3UE0gKzA4MDAsIEpveSBab3Ugd3JvdGU6Cj4g
+PiA+IEZyb206IFBlbmdmZWkgTGkgPHBlbmdmZWkubGlfMUBueHAuY29tPgo+ID4gPgo+ID4gPiBB
+ZGQgdGhlIGJvYXJkIGlteDkxLTExeDExLWV2ayBpbiB0aGUgYmluZGluZyBkb2N1ZW1udC4KPiA+
+IAo+ID4gbml0OiBkb2N1bWVudAo+IFRoYW5rcyBmb3IgeW91ciBjb21tZW50cyEKPiBXaWxsIGNv
+cnJlY3QgaXQhCj4gV2lsbCB1c2UgY29kZXNwZWxsIGNoZWNrIHRoZSBwYXRjaHNldC4KCkdvb2Qg
+cGxhbi4gVGhlIC0tY29kZXNwZWxsIG9wdGlvbiB0byBjaGVja3BhdGNoIHNob3VsZCB3b3JrIHdl
+bGwgaGVyZS4KCi4uLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
