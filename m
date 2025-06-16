@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2ED9ADAD26
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 12:16:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04138ADAD28
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 12:16:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6123C36B17;
-	Mon, 16 Jun 2025 10:16:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1E66C36B17;
+	Mon, 16 Jun 2025 10:16:42 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFBCFC36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1F71C36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 10:16:34 +0000 (UTC)
+ Mon, 16 Jun 2025 10:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sBrVJ1k5VPvOvKcaq/E5y2Tzud4Q8rsO6WAeUhiA9B0=; b=AKc6cc55yswjjryG8G4MMvK34b
- eWl0lmldUhPFHjvMHkyUeUpxV1owbxZMPEC6pMJB7zCK0NMN4IHkrg5rWgAAtiAsP/i+onAsGcDkN
- k4wvlGSK8XdsMWHPz8JgpokwtotT+msJohfhaNGsyL4Jq7o7vk8Cu6ZdDSCzo53rfC4O1zulylu/2
- HIqCIjXUSdIfYJMvE5iI6Vgl5nAg4K8k/Ym1MLLUdorg18CCO1S8GHzBp7Qkoa5a9gFPT9OY6uNdL
- 4ndFwOxvIn9lqSbRx5zg2eiK5KA5DjL9FdPfTuy1asKiNV0xayi4tgPkCtWT8B1vs/hqbkJxJZdKK
- DAcgQuJQ==;
+ bh=MpJ8ObVv/RACQZyToryrE4J8IiEvS1R3HdcT2AEL8uE=; b=fllwzxba+JH15SSlAVUaCvg/CT
+ kATe/ukLMkMJAgEy7tcakxpuS7/03SM6ZLAmOeoCq+Fbbp9shFxhRnHYpYtI7wOF3dlgbZ+wpgXZr
+ cn47N43pHszFFl6d+eqDQyOCgpPf+8m0JIldFsWQ/474NjQ2dmytrvqsmWBOj6TjHkMNXwjrYvmw9
+ KiivsZvmhuhSu21BABxoERi3Oe6ttgAiHBJDdyIvzzR/VVQXJwdJbehGm/rV5dmdKWh4q+ad+BG33
+ okm1mqmOngsZNZjkfiM1n4OSTtlKdrWnvCChJFZZQ/c1Nk+ffJZ1+BjP1s35Iq3GqP+T8pgXWWXtp
+ EBoZfIIA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:52678 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:52686 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1uR6tD-0003aS-21;
- Mon, 16 Jun 2025 11:16:31 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1uR6tI-0003ah-2w;
+ Mon, 16 Jun 2025 11:16:36 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1uR6sZ-004Ktt-9y; Mon, 16 Jun 2025 11:15:51 +0100
+ id 1uR6se-004Ktz-Dx; Mon, 16 Jun 2025 11:15:56 +0100
 In-Reply-To: <aE_u8mCkUXEWTzJe@shell.armlinux.org.uk>
 References: <aE_u8mCkUXEWTzJe@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,15 +41,15 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1uR6sZ-004Ktt-9y@rmk-PC.armlinux.org.uk>
-Date: Mon, 16 Jun 2025 11:15:51 +0100
+Message-Id: <E1uR6se-004Ktz-Dx@rmk-PC.armlinux.org.uk>
+Date: Mon, 16 Jun 2025 11:15:56 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: rk: fix code
-	formmating issue
+Subject: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: rk: use device
+ rather than platform device in rk_priv_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,27 +66,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix a code formatting issue introduced in the previous series, no
-space after , before "int".
+All the code in dwmac-rk uses &bsp_priv->pdev->dev, nothing uses
+bsp_priv->pdev directly. Store the struct device rather than the
+struct platform_device in struct rk_priv_data, and simplifying the
+code.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 18ae12df4a85..5865a17d5fe8 100644
+index 5865a17d5fe8..7ee101a6cfcf 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -904,7 +904,7 @@ static const struct rk_reg_speed_data rk3528_gmac1_reg_speed_data = {
+@@ -67,7 +67,7 @@ enum rk_clocks_index {
  };
  
- static int rk3528_set_speed(struct rk_priv_data *bsp_priv,
--			    phy_interface_t interface,int speed)
-+			    phy_interface_t interface, int speed)
+ struct rk_priv_data {
+-	struct platform_device *pdev;
++	struct device *dev;
+ 	phy_interface_t phy_iface;
+ 	int id;
+ 	struct regulator *regulator;
+@@ -248,7 +248,7 @@ static int px30_set_speed(struct rk_priv_data *bsp_priv,
+ 			  phy_interface_t interface, int speed)
  {
- 	const struct rk_reg_speed_data *rsd;
- 	unsigned int reg;
+ 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
+-	struct device *dev = &bsp_priv->pdev->dev;
++	struct device *dev = bsp_priv->dev;
+ 	unsigned int con1;
+ 	long rate;
+ 
+@@ -1380,8 +1380,8 @@ static const struct rk_gmac_ops rv1126_ops = {
+ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
+ {
+ 	struct rk_priv_data *bsp_priv = plat->bsp_priv;
+-	struct device *dev = &bsp_priv->pdev->dev;
+ 	int phy_iface = bsp_priv->phy_iface;
++	struct device *dev = bsp_priv->dev;
+ 	int i, j, ret;
+ 
+ 	bsp_priv->clk_enabled = false;
+@@ -1473,8 +1473,8 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
+ static int phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
+ {
+ 	struct regulator *ldo = bsp_priv->regulator;
++	struct device *dev = bsp_priv->dev;
+ 	int ret;
+-	struct device *dev = &bsp_priv->pdev->dev;
+ 
+ 	if (enable) {
+ 		ret = regulator_enable(ldo);
+@@ -1598,7 +1598,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 	dev_info(dev, "integrated PHY? (%s).\n",
+ 		 bsp_priv->integrated_phy ? "yes" : "no");
+ 
+-	bsp_priv->pdev = pdev;
++	bsp_priv->dev = dev;
+ 
+ 	return bsp_priv;
+ }
+@@ -1618,7 +1618,7 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
+ 			return -EINVAL;
+ 		break;
+ 	default:
+-		dev_err(&bsp_priv->pdev->dev,
++		dev_err(bsp_priv->dev,
+ 			"unsupported interface %d", bsp_priv->phy_iface);
+ 	}
+ 	return 0;
+@@ -1626,8 +1626,8 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
+ 
+ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ {
++	struct device *dev = bsp_priv->dev;
+ 	int ret;
+-	struct device *dev = &bsp_priv->pdev->dev;
+ 
+ 	ret = rk_gmac_check_ops(bsp_priv);
+ 	if (ret)
+@@ -1683,7 +1683,7 @@ static void rk_gmac_powerdown(struct rk_priv_data *gmac)
+ 	if (gmac->integrated_phy && gmac->ops->integrated_phy_powerdown)
+ 		gmac->ops->integrated_phy_powerdown(gmac);
+ 
+-	pm_runtime_put_sync(&gmac->pdev->dev);
++	pm_runtime_put_sync(gmac->dev);
+ 
+ 	phy_power_on(gmac, false);
+ 	gmac_clk_enable(gmac, false);
 -- 
 2.30.2
 
