@@ -2,81 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDBC3ADAD98
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 12:42:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6533CADB02D
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 14:29:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62B58C36B2C;
-	Mon, 16 Jun 2025 10:42:33 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DC62C36B3E;
+	Mon, 16 Jun 2025 12:29:05 +0000 (UTC)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E4EAC36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4BE7C36B38
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 10:42:32 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3134c67a173so4945323a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 03:42:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1750070551; x=1750675351;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WTabLOpgCLwYv8rCyGl7CwHdWBc3RbnKBwJmaj/inH4=;
- b=TJAL0kltZUKB4XP/5W0osKtEjc4uRYPFLHla/bzbo/GjysEPvu//QJQYD7N9B9xgFN
- urJj4vNENeiOabM0R+qP8vaGlEg3Abnr8qo2YBjeHoDgBSoK67O6CxaZVCTpUULvtvGx
- Uv2+kY77CYdBQNpFLPFXPtXQhTBO38UckhD4QSmZrtctn3dKa0ZLTP6Q1Ehu8VfgD0sn
- uVOU/fBMMs3Fpx1HnMKlZe30R2z7Yh+UVtkK6Sgz8Mnd9iQS/9Qip5P+49i4GXM6NoDX
- ExBl+0lHNbm7PmreDwwAJ0LNkF86y+zgGHWpL8qpdbI00DLtJXHaAZaAMeZSjgTAXfF+
- 5sbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750070551; x=1750675351;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WTabLOpgCLwYv8rCyGl7CwHdWBc3RbnKBwJmaj/inH4=;
- b=aCHR2ena39lZhp2h+vvAITD/YZGbSIqkeTGUu7MVqUcAzbSFVxwpp9+IIGNfhbiSHc
- bWP9UKR30tg9sCP4gRxSy42DznqZQHzMjr+aRg7v383vHfLqiQg4UC77PVktpRGQeKtt
- KeRMTpU3nAnOK7lEbbvIajbK2lwML7/qi0iTxvJMyES+Ouar8fCDny2/etQU5rftV9if
- cFy5bSRXB7soEMMlS4brvqJRsft8R5RT2H/Fr6Vk/ItfVXk0AKX/xPM4KXYLS1R86pDc
- gsyrp6Jvvh3zMA7K+4n710fZ8Y0rfx+fJ6+O4fFE1xTrFd4aEFxSw81SZeWI2VVOIVtn
- Cr9w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWDu8hWE0t/VjrlsDQ1OIIJ8wKVugwjh1qx2na+lxpZgtW78S5DgycLDPch5oAkXKecvKOFk/U1y269Lw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxsO/uXPaytgNqTJvMoUc/uIHjvSMoIbiBznRFOtjAr8IWfSgRg
- 9WC+K112fJMXN5vC4XmqoSyApeUQ7fYAuVwny4/8DyHXqtdGunx4v58JN8jxKBPRadzH2kcHfaL
- IozHUp0sfswLYUPlruWcUdmWiiha7ENs=
-X-Gm-Gg: ASbGncs74ylirXtw66oh14BALx4rcWaCfXkJgBIJ6zEgm56sHQNI2X0F2maX7Ky832b
- HMyruMF5F6nICyRVSoXCquVLUqwkADYIjtFys+VvvKzytqTKqDL83o2SIn3sxJ0bN3CQmiDwlaj
- nAbeVZQHpcqtMIqJnwurKV5foAUiQvbuHz56lWkrWJ
-X-Google-Smtp-Source: AGHT+IGdvq4Jz7wCl7O5nLF8AdUqsnNZK/jUgiSEfeGbfX1YCA4ekJ6+LuyEXZu02NW4N5RvWGmagNrrauMC8JexM5M=
-X-Received: by 2002:a17:90b:274d:b0:311:9e59:7aba with SMTP id
- 98e67ed59e1d1-313f1be899bmr14937709a91.2.1750070550782; Mon, 16 Jun 2025
- 03:42:30 -0700 (PDT)
+ Mon, 16 Jun 2025 12:29:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1750076894; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Kn8MGUt3qBaOkBsleWMs/iI7evtX+3Ii+lWmXB8xOO8yonT/tDL4OfelfnPrGyP69Xa6GXt64PMxsM5vBn5YsaN0I5GeJUR7YvPCpzogaDpzyN7GW1fehBmHRRYpAHqyTyzXBh1S8/TsCf+p6V2AaB6zIxcJ7XJ+dTVZeTb4YRc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1750076894;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=lS5jmrsM1AStlE4Oaeas/EKugjJN944zsH8rQcQ3FAk=; 
+ b=gZpW6CMh7kONQtxIuB9S8BJSCJKsvjeGsHGDKmIuXDXZlzskn5bJwbdnpsUcmAghdjwm7D9LGAU4Rel8QeQKW1q+5kRysuw841yRbvXfifnWduhN2bYLxbuLNXEh2MTtxoVgPSUuojnwR8DpXHHIQwqbIosI/MoGhZqfAJbm5mE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1750076894; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=lS5jmrsM1AStlE4Oaeas/EKugjJN944zsH8rQcQ3FAk=;
+ b=VTK5V0/Vh8vG0ADUhZJqoWC8GNkp9+Edtt7f54cvlzORP0TBC3O3iXDcIRVP1bPg
+ diBzmzi3jUJX7MfK81EwTr1m9SPAyKZNsnywz/gVppbbf7/4KM7BIphS3UCg/GYBOZD
+ MzraVGJabGmAR/4cao207oI0XAYOJPvc3s7lJ85s=
+Received: by mx.zohomail.com with SMTPS id 1750076891122319.76650013837536;
+ Mon, 16 Jun 2025 05:28:11 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Robin Murphy <robin.murphy@arm.com>, Yury Norov <yury.norov@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>
+Date: Mon, 16 Jun 2025 14:27:55 +0200
+Message-ID: <3361713.44csPzL39Z@workhorse>
+In-Reply-To: <aEw7LBpmkfOqZgf1@yury>
+References: <20250612-byeword-update-v1-0-f4afb8f6313f@collabora.com>
+ <1437fe89-341b-4b57-b1fa-a0395081e941@arm.com> <aEw7LBpmkfOqZgf1@yury>
 MIME-Version: 1.0
-References: <20250613100255.2131800-1-joy.zou@nxp.com>
- <20250613100255.2131800-5-joy.zou@nxp.com>
-In-Reply-To: <20250613100255.2131800-5-joy.zou@nxp.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 16 Jun 2025 13:44:31 +0300
-X-Gm-Features: AX0GCFu6L7Akim9BySCPjWCa7aS9JinLbW1qVZSuSXFVwqMzcBMNsyM6unHsnmE
-Message-ID: <CAEnQRZAp8TX84AygSjWGx-cNiLyZXZwUx5C-DLDuyB6hO3gXMw@mail.gmail.com>
-To: Joy Zou <joy.zou@nxp.com>
-Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
- catalin.marinas@arm.com, frank.li@nxp.com, edumazet@google.com,
- peng.fan@nxp.com, festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, will@kernel.org, xiaoning.wang@nxp.com, kuba@kernel.org,
- pabeni@redhat.com, s.hauer@pengutronix.de, devicetree@vger.kernel.org,
- conor+dt@kernel.org, ye.li@nxp.com, mcoquelin.stm32@gmail.com,
- linux-pm@vger.kernel.org, richardcochran@gmail.com,
- linux-arm-kernel@lists.infradead.org, aisheng.dong@nxp.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v5 4/9] arm64: dts: imx93: move i.MX93
- specific part from imx91_93_common.dtsi to imx93.dtsi
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-pci@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>,
+ llvm@lists.linux.dev, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, Sandy Huang <hjc@rock-chips.com>,
+ Eric Dumazet <edumazet@google.com>, Bill Wendling <morbo@google.com>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ linux-phy@lists.infradead.org, kernel@collabora.com,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Jaehoon Chung <jh80.chung@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-rockchip@lists.infradead.org,
+ linux-pm@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-media@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
+ linux-arm-kernel@lists.infradead.org, Qin Jian <qinjian@cqplus1.com>,
+ Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Justin Stitt <justinstitt@google.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 01/20] bitfield: introduce HWORD_UPDATE
+	bitfield macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,28 +91,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdW4gMTMsIDIwMjUgYXQgMTowOOKAr1BNIEpveSBab3UgPGpveS56b3VAbnhwLmNv
-bT4gd3JvdGU6Cj4KPiBNb3ZlIGkuTVg5MyBzcGVjaWZpYyBwYXJ0IGZyb20gaW14OTFfOTNfY29t
-bW9uLmR0c2kgdG8gaW14OTMuZHRzaS4KPgo+IFNpZ25lZC1vZmYtYnk6IEpveSBab3UgPGpveS56
-b3VAbnhwLmNvbT4KPiAtLS0KPiAgLi4uL2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg5MV85M19jb21t
-b24uZHRzaSAgIHwgMTQwICstLS0tLS0tLS0tLS0tLS0KPiAgYXJjaC9hcm02NC9ib290L2R0cy9m
-cmVlc2NhbGUvaW14OTMuZHRzaSAgICAgIHwgMTU1ICsrKysrKysrKysrKysrKysrKwo+ICAyIGZp
-bGVzIGNoYW5nZWQsIDE1NyBpbnNlcnRpb25zKCspLCAxMzggZGVsZXRpb25zKC0pCj4KPiBkaWZm
-IC0tZ2l0IGEvYXJjaC9hcm02NC9ib290L2R0cy9mcmVlc2NhbGUvaW14OTFfOTNfY29tbW9uLmR0
-c2kgYi9hcmNoL2FybTY0L2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg5MV85M19jb21tb24uZHRzaQo+
-IGluZGV4IDY0Y2QwNzc2YjQzZC4uZGE0YzFjMDY5OWIzIDEwMDY0NAo+IC0tLSBhL2FyY2gvYXJt
-NjQvYm9vdC9kdHMvZnJlZXNjYWxlL2lteDkxXzkzX2NvbW1vbi5kdHNpCj4gKysrIGIvYXJjaC9h
-cm02NC9ib290L2R0cy9mcmVlc2NhbGUvaW14OTFfOTNfY29tbW9uLmR0c2kKPiBAQCAtMSw2ICsx
-LDYgQEAKPiAgLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wKyBPUiBNSVQpCj4g
-IC8qCj4gLSAqIENvcHlyaWdodCAyMDIyIE5YUAo+ICsgKiBDb3B5cmlnaHQgMjAyNSBOWFAKClRo
-aXMgc2hvdWxkICBiZSBDb3B5cmlnaHQgMjAyMiwyMDI1IE5YUCwgIGFzIHBlciBOWFAgaW50ZXJu
-YWwgZ3VpZGVsaW5lcy4KCkFtIEkgbWlzc2luZyBzb21ldGhpbmc/Cgp0aGFua3MsCkRhbmllbC4K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+Hello,
+
+On Friday, 13 June 2025 16:52:28 Central European Summer Time Yury Norov wrote:
+> On Fri, Jun 13, 2025 at 02:54:50PM +0100, Robin Murphy wrote:
+> > On 2025-06-12 7:56 pm, Nicolas Frattaroli wrote:
+> > > Hardware of various vendors, but very notably Rockchip, often uses
+> > > 32-bit registers where the upper 16-bit half of the register is a
+> > > write-enable mask for the lower half.
+> > > 
+> > > This type of hardware setup allows for more granular concurrent register
+> > > write access.
+> > > 
+> > > Over the years, many drivers have hand-rolled their own version of this
+> > > macro, usually without any checks, often called something like
+> > > HIWORD_UPDATE or FIELD_PREP_HIWORD, commonly with slightly different
+> > > semantics between them.
+> > > 
+> > > Clearly there is a demand for such a macro, and thus the demand should
+> > > be satisfied in a common header file.
+> > > 
+> > > Add two macros: HWORD_UPDATE, and HWORD_UPDATE_CONST. The latter is a
+> > > version that can be used in initializers, like FIELD_PREP_CONST. The
+> > > macro names are chosen to not clash with any potential other macros that
+> > > drivers may already have implemented themselves, while retaining a
+> > > familiar name.
+> > 
+> > Nit: while from one angle it indeed looks similar, from another it's even
+> > more opaque and less meaningful than what we have already. Personally I
+> > cannot help but see "hword" as "halfword", so logically if we want 32+32-bit
+> > or 8+8-bit variants in future those would be WORD_UPDATE() and
+> > BYTE_UPDATE(), right? ;)
+> > 
+> > It's also confounded by "update" not actually having any obvious meaning at
+> > this level without all the implicit usage context. FWIW my suggestion would
+> > be FIELD_PREP_WM_U16, such that the reader instantly sees "FIELD_PREP with
+> > some additional semantics", even if they then need to glance at the
+> > kerneldoc for clarification that WM stands for writemask (or maybe WE for
+> > write-enable if people prefer). Plus it then leaves room to easily support
+> > different sizes (and potentially even bonkers upside-down Ux_WM variants?!)
+> > without any bother if we need to.
+> 
+> I like the idea. Maybe even shorter: FIELD_PREP_WM16()?
+> 
+
+I do think FIELD_PREP_WM16() is a good name. If everyone is okay with this
+as a name, I will use it in v2 of the series. And by "everyone" I really
+mean everyone should get their hot takes in before the end of the week,
+as I intend to send out a v2 on either Friday or the start of next week
+to keep the ball rolling, but I don't want to reroll a 20 patch series
+with a trillion recipients more than is absolutely necessary.
+
+To that end, I'd also like to get some other naming choices clarified.
+
+As I gathered, these two macros should best be placed in its own header.
+Is include/linux/hw_bitfield.h a cromulent choice, or should we go with
+include/linux/hw_bits.h?
+
+Furthermore, should it be FIELD_PREP_WM16_CONST or FIELD_PREP_CONST_WM16?
+I'm personally partial to the former.
+
+And finally, is it okay if I leave out refactoring Intel's
+_MASKED_FIELD() or should I see if I can at least replace its
+implementation while I'm at it?
+
+For less opinionated changes, I'll also change all the `U` literal
+suffixes to `UL` wherever I've added them. As I understand it, it doesn't
+really make a difference in these instances, but `UL` is more prevalent
+in the kernel.
+
+Kind regards,
+Nicolas Frattaroli
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
