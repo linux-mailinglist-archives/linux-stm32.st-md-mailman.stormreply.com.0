@@ -2,49 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891E9ADBC9F
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jun 2025 00:10:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB14ADBDA7
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jun 2025 01:29:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39A26C32E8D;
-	Mon, 16 Jun 2025 22:10:12 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABD3AC32E8E;
+	Mon, 16 Jun 2025 23:29:48 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E543AC349C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFCB5C32E8D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 22:10:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C71C0A51F54;
- Mon, 16 Jun 2025 22:10:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BD9C4CEEE;
- Mon, 16 Jun 2025 22:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750111809;
- bh=BMyJEqIXakUu8Q/coxq6kmO0L2hveQX8mNILFSh4PbA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=jbgP+hzOemklZH/U/OZ92sg+8eipjkq6+P+29+RCAk8JWiX9BkK75uXwPSY7uj4wm
- FzuRjW85xJhtppKC7oGCqEkh0nPq8bNX86HjvnZVxRZU+gaQGx3JEcfZSvxmLDS/Qt
- Q7Jtt0jD9aPsKR6NGRee0/kwUhuokf6NYT6gcD8u4QZoZfV29/4n+W3N5tJzu4Lz4v
- xvF9RlyTRdIuRGBNWOheZ3UAw/FGvvOUgv99QCxxBioU+GiBXun02mO1L+z9kp1M3f
- gHzUnN2lEq06LnJKAPbENWAqM7U579ZRG5QFaBcmQEo0rI+fbU7HOLta5x836fXUWf
- RFx5fHfEOBeYw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70D6A38111D8; Mon, 16 Jun 2025 22:10:39 +0000 (UTC)
+ Mon, 16 Jun 2025 23:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=FVcbYWYXxlHhyK0doa6PNKnr9E0V20/rYQFMEivhkRc=; b=HkhcwlJ2fE8wFtSTewIMv8l+sT
+ JrYCdX4nE3BcpgLXAWZH7wvFic9KEPF+jcyr5Kk8huRJphEoqoctTHEMMeREoYFrA6R1FjdQISldY
+ hy4MMkgHX2eOJEzHVPoMkZCTrkURHHAueSF3R/NtPcfNsQiKc8bzM+OYUbuLuLBzTMdc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1uRJGb-00G6QV-Jt; Tue, 17 Jun 2025 01:29:29 +0200
+Date: Tue, 17 Jun 2025 01:29:29 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <75bde139-9232-4fd2-9d64-92f8d65f5f1d@lunn.ch>
+References: <aFCHJWXSLbUoogi6@shell.armlinux.org.uk>
+ <E1uRH21-004UyG-50@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175011183824.2530350.4880030632930663714.git-patchwork-notify@kernel.org>
-Date: Mon, 16 Jun 2025 22:10:38 +0000
-References: <E1uPkbT-004EyG-OQ@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1uPkbT-004EyG-OQ@rmk-PC.armlinux.org.uk>
-To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: remove
-	pcs_get_adv_lp() support
+Content-Disposition: inline
+In-Reply-To: <E1uRH21-004UyG-50@rmk-PC.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: stmmac: visconti:
+ re-arrange speed decode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,32 +57,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 12 Jun 2025 17:16:35 +0100 you wrote:
-> It appears that the GMAC_ANE_ADV and GMAC_ANE_LPA registers are only
-> available for TBI and RTBI PHY interfaces. In commit 482b3c3ba757
-> ("net: stmmac: Drop TBI/RTBI PCS flags") support for these was dropped,
-> and thus it no longer makes sense to access these registers.
+On Mon, Jun 16, 2025 at 10:06:17PM +0100, Russell King (Oracle) wrote:
+> Re-arrange the speed decode in visconti_eth_set_clk_tx_rate() to be
+> more readable by first checking to see if we're using RGMII or RMII
+> and then decoding the speed, rather than decoding the speed and then
+> testing the interface mode.
 > 
-> Remove the *_get_adv_lp() functions, and the now redundant struct
-> rgmii_adv and STMMAC_PCS_* definitions.
-> 
-> [...]
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Here is the summary with links:
-  - [net-next] net: stmmac: remove pcs_get_adv_lp() support
-    https://git.kernel.org/netdev/net-next/c/883af78926c1
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
