@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937FCADB2AE
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 15:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9993ADB2B6
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 15:58:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4FBC35E00;
-	Mon, 16 Jun 2025 13:57:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ED6DC35E00;
+	Mon, 16 Jun 2025 13:58:13 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BC86C36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F3F6C36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 13:57:38 +0000 (UTC)
+ Mon, 16 Jun 2025 13:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=pkPX3SdfRcKBJtj9YBuTt4Bunu0ITK5f/bnT+P8APAU=; b=SmyhHYgFjbsyLdEkjvpqxcIaq3
- Bv9GKc8m+pG4+wcZIXD9TADXOEznHTSJuE3WZJYYSwpyJUK7yoMdRJf1NxIKDlWOoRAOC78N6hYpd
- 3t/BmdJYqTYERaqG6bqbaORsXB+aQSmMK4BqzpFBUF8NilyI/LKBlpFbS2yY1XBi5raY=;
+ bh=Kg6c7DN2SkuP8SyVzQMU1kpx6c5rN2uQONdKzQO88P8=; b=Bc7MEjpxSz2rtE+MQ5cF1Xf0Aq
+ FWU4V7snbXOIFZBpyiDqsh5XKtYsgp/FyzzBUJHx3reL6TwmBpeC0W+2tv0/Jn5mF5oe3UuwzIv1d
+ U/htPOQ4CCEpITmr4A1dwqow/7BZqcRdXb52GivUpqzVS0YpnZxyjHAmxLBNccmUDHyM=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1uRAL5-00G38x-I0; Mon, 16 Jun 2025 15:57:31 +0200
-Date: Mon, 16 Jun 2025 15:57:31 +0200
+ id 1uRALd-00G3AG-9h; Mon, 16 Jun 2025 15:58:05 +0200
+Date: Mon, 16 Jun 2025 15:58:05 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <fa271d3d-60db-42b0-bf41-f1fe75e18b9b@lunn.ch>
+Message-ID: <66519abb-cf5a-4534-9e54-82850e11c15a@lunn.ch>
 References: <aE_u8mCkUXEWTzJe@shell.armlinux.org.uk>
- <E1uR6se-004Ktz-Dx@rmk-PC.armlinux.org.uk>
+ <E1uR6sj-004Ku5-HR@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1uR6se-004Ktz-Dx@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1uR6sj-004Ku5-HR@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: rk: use device
- rather than platform device in rk_priv_data
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: rk: remove
+	unnecessary clk_mac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,11 +56,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 16, 2025 at 11:15:56AM +0100, Russell King (Oracle) wrote:
-> All the code in dwmac-rk uses &bsp_priv->pdev->dev, nothing uses
-> bsp_priv->pdev directly. Store the struct device rather than the
-> struct platform_device in struct rk_priv_data, and simplifying the
-> code.
+On Mon, Jun 16, 2025 at 11:16:01AM +0100, Russell King (Oracle) wrote:
+> The stmmac platform code already gets the "stmmaceth" clock, so there
+> is no need for drivers to get it. Use the stored pointer in struct
+> plat_stmmacenet_data instead of getting and storing our own pointer.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
