@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 803ECADBBB1
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 23:07:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81E47ADBBB3
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 23:07:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B811C32E8E;
-	Mon, 16 Jun 2025 21:07:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46782C32E8E;
+	Mon, 16 Jun 2025 21:07:19 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75383C32E8D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48C08C32E8D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 21:07:13 +0000 (UTC)
+ Mon, 16 Jun 2025 21:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=usS8eSGq09XLP07GR4QpRxtU219wXTyDk0hJf9XtFIU=; b=o3vcwMCFnedGLDnmq/PMDZqR4t
- wT43Kc8QNUlkXwWVzuDyEujY3e801pdzB1IMFEdRKEfuDSaMd6WU1MzOs3Dj/+LkduSCMoJhvJdJS
- xNExyNFtuQYG07YC5LZp88lMCHvM63/cg5d2+iop4uvNpZUS8/p27Ym/LPqcY2H33fXg0fGQgMYlc
- yRaZnRaIPmg9kLWVoW9qpOaWeT8Lcm7NX8/LgRQQdlVLWtmQWN79TCOa5KuWv6oWk4FiAIKBRUeUh
- rusmTPONu9x+a2p1hAbZPB/629eJmdsTcC9qQGncItb9dYEt+FNRqHDmKW/WBobypQbMjsEONaIRd
- yBOYttFg==;
+ bh=wIfUnzGMGVGq2OxybQ2u1EyFAhDicZ6TudUKzWins8I=; b=hGhzisxYWTAl91Jqr9NH5Ll0e9
+ rEdqL5qB40/F91i37xa6mnpYxu+yHvAg6mdvYIX+VJ7GrH26A878/GNhRAbDCZubx/K2P/7L3l5sT
+ mc2s6QxT0TjgM4kkXx2L1urXBWQOICtMgMFicDYqDCT/N37uX7AJ1MnwmlRGYaH2MlxULZ+kbMb8T
+ 6a1DMrntDv8oat6aBNS4ESZC2gBmCcvaD1mvNbUS09qsV5veAV2xV9MpedvOqc0THbXZApVmnTnWu
+ 9BgdU/3b8Q5wOqiKDJoPsM0bIOp55yAXNPySP92D9DbD6qTkCckqSD5RShpOuaKsj10pGdEb09Lej
+ SMF1V24A==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41072 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:36656 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1uRH2q-0004H6-0U;
- Mon, 16 Jun 2025 22:07:08 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1uRH2u-0004HM-3B;
+ Mon, 16 Jun 2025 22:07:13 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1uRH2B-004UyS-Ch; Mon, 16 Jun 2025 22:06:27 +0100
+ id 1uRH2G-004UyY-GD; Mon, 16 Jun 2025 22:06:32 +0100
 In-Reply-To: <aFCHJWXSLbUoogi6@shell.armlinux.org.uk>
 References: <aFCHJWXSLbUoogi6@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,16 +41,16 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1uRH2B-004UyS-Ch@rmk-PC.armlinux.org.uk>
-Date: Mon, 16 Jun 2025 22:06:27 +0100
+Message-Id: <E1uRH2G-004UyY-GD@rmk-PC.armlinux.org.uk>
+Date: Mon, 16 Jun 2025 22:06:32 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: visconti: clean up
-	code formatting
+Subject: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: visconti: make
+	phy_intf_sel local
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,113 +67,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ensure that code is wrapped prior to column 80, and shorten the
-needlessly long "clk_sel_val" to just "clk_sel".
+There is little need to have phy_intf_sel as a member of struct
+visconti_eth when we have the PHY interface mode available from
+phylink in visconti_eth_set_clk_tx_rate(). Without multiple
+interface support, phylink is fixed to supporting only
+plat->phy_interface, so we can be sure that "interface" passed
+into this function is the same as plat->phy_interface.
+
+Make phy_intf_sel local to visconti_eth_init_hw() and clean up.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac-visconti.c  | 35 +++++++++++--------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-visconti.c  | 23 +++++++++----------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-index c2aaac4a5ac1..db82b522c248 100644
+index db82b522c248..bd65d4239054 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-@@ -57,20 +57,20 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
+@@ -48,7 +48,6 @@
+ 
+ struct visconti_eth {
+ 	void __iomem *reg;
+-	u32 phy_intf_sel;
+ 	struct clk *phy_ref_clk;
+ 	struct device *dev;
+ };
+@@ -57,9 +56,9 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
  					phy_interface_t interface, int speed)
  {
  	struct visconti_eth *dwmac = bsp_priv;
--	unsigned int val, clk_sel_val = 0;
-+	unsigned int val, clk_sel = 0;
+-	unsigned int val, clk_sel = 0;
++	unsigned long clk_sel, val;
  
- 	if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RGMII) {
+-	if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RGMII) {
++	if (phy_interface_mode_is_rgmii(interface)) {
  		switch (speed) {
  		case SPEED_1000:
--			clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_125M;
-+			clk_sel = ETHER_CLK_SEL_FREQ_SEL_125M;
- 			break;
+ 			clk_sel = ETHER_CLK_SEL_FREQ_SEL_125M;
+@@ -93,7 +92,7 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
  
- 		case SPEED_100:
--			clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_25M;
-+			clk_sel = ETHER_CLK_SEL_FREQ_SEL_25M;
- 			break;
- 
- 		case SPEED_10:
--			clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_2P5M;
-+			clk_sel = ETHER_CLK_SEL_FREQ_SEL_2P5M;
- 			break;
- 
- 		default:
-@@ -79,12 +79,13 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
- 
- 		/* Stop internal clock */
- 		val = readl(dwmac->reg + REG_ETHER_CLOCK_SEL);
--		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN | ETHER_CLK_SEL_RX_TX_CLK_EN);
-+		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN |
-+			 ETHER_CLK_SEL_RX_TX_CLK_EN);
- 		val |= ETHER_CLK_SEL_TX_O_E_N_IN;
+ 		val &= ~ETHER_CLK_SEL_TX_O_E_N_IN;
  		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
- 
- 		/* Set Clock-Mux, Start clock, Set TX_O direction */
--		val = clk_sel_val | ETHER_CLK_SEL_RX_CLK_EXT_SEL_RXC;
-+		val = clk_sel | ETHER_CLK_SEL_RX_CLK_EXT_SEL_RXC;
- 		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
- 
- 		val |= ETHER_CLK_SEL_RX_TX_CLK_EN;
-@@ -95,11 +96,11 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
- 	} else if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RMII) {
+-	} else if (dwmac->phy_intf_sel == ETHER_CONFIG_INTF_RMII) {
++	} else if (interface == PHY_INTERFACE_MODE_RMII) {
  		switch (speed) {
  		case SPEED_100:
--			clk_sel_val = ETHER_CLK_SEL_DIV_SEL_2;
-+			clk_sel = ETHER_CLK_SEL_DIV_SEL_2;
- 			break;
+ 			clk_sel = ETHER_CLK_SEL_DIV_SEL_2;
+@@ -150,28 +149,28 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
+ static int visconti_eth_init_hw(struct platform_device *pdev, struct plat_stmmacenet_data *plat_dat)
+ {
+ 	struct visconti_eth *dwmac = plat_dat->bsp_priv;
+-	unsigned int reg_val, clk_sel_val;
++	unsigned int clk_sel_val;
++	u32 phy_intf_sel;
  
- 		case SPEED_10:
--			clk_sel_val = ETHER_CLK_SEL_DIV_SEL_20;
-+			clk_sel = ETHER_CLK_SEL_DIV_SEL_20;
- 			break;
+ 	switch (plat_dat->phy_interface) {
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+-		dwmac->phy_intf_sel = ETHER_CONFIG_INTF_RGMII;
++		phy_intf_sel = ETHER_CONFIG_INTF_RGMII;
+ 		break;
+ 	case PHY_INTERFACE_MODE_MII:
+-		dwmac->phy_intf_sel = ETHER_CONFIG_INTF_MII;
++		phy_intf_sel = ETHER_CONFIG_INTF_MII;
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+-		dwmac->phy_intf_sel = ETHER_CONFIG_INTF_RMII;
++		phy_intf_sel = ETHER_CONFIG_INTF_RMII;
+ 		break;
+ 	default:
+ 		dev_err(&pdev->dev, "Unsupported phy-mode (%d)\n", plat_dat->phy_interface);
+ 		return -EOPNOTSUPP;
+ 	}
  
- 		default:
-@@ -108,14 +109,16 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
+-	reg_val = dwmac->phy_intf_sel;
+-	writel(reg_val, dwmac->reg + REG_ETHER_CONTROL);
++	writel(phy_intf_sel, dwmac->reg + REG_ETHER_CONTROL);
  
- 		/* Stop internal clock */
- 		val = readl(dwmac->reg + REG_ETHER_CLOCK_SEL);
--		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN | ETHER_CLK_SEL_RX_TX_CLK_EN);
-+		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN |
-+			 ETHER_CLK_SEL_RX_TX_CLK_EN);
- 		val |= ETHER_CLK_SEL_TX_O_E_N_IN;
- 		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
+ 	/* Enable TX/RX clock */
+ 	clk_sel_val = ETHER_CLK_SEL_FREQ_SEL_125M;
+@@ -181,8 +180,8 @@ static int visconti_eth_init_hw(struct platform_device *pdev, struct plat_stmmac
+ 	       dwmac->reg + REG_ETHER_CLOCK_SEL);
  
- 		/* Set Clock-Mux, Start clock, Set TX_O direction */
--		val = clk_sel_val | ETHER_CLK_SEL_RX_CLK_EXT_SEL_DIV |
--			ETHER_CLK_SEL_TX_CLK_EXT_SEL_DIV | ETHER_CLK_SEL_TX_O_E_N_IN |
--			ETHER_CLK_SEL_RMII_CLK_SEL_RX_C;
-+		val = clk_sel | ETHER_CLK_SEL_RX_CLK_EXT_SEL_DIV |
-+		      ETHER_CLK_SEL_TX_CLK_EXT_SEL_DIV |
-+		      ETHER_CLK_SEL_TX_O_E_N_IN |
-+		      ETHER_CLK_SEL_RMII_CLK_SEL_RX_C;
- 		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
+ 	/* release internal-reset */
+-	reg_val |= ETHER_ETH_CONTROL_RESET;
+-	writel(reg_val, dwmac->reg + REG_ETHER_CONTROL);
++	phy_intf_sel |= ETHER_ETH_CONTROL_RESET;
++	writel(phy_intf_sel, dwmac->reg + REG_ETHER_CONTROL);
  
- 		val |= ETHER_CLK_SEL_RMII_CLK_RST;
-@@ -126,13 +129,15 @@ static int visconti_eth_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
- 	} else {
- 		/* Stop internal clock */
- 		val = readl(dwmac->reg + REG_ETHER_CLOCK_SEL);
--		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN | ETHER_CLK_SEL_RX_TX_CLK_EN);
-+		val &= ~(ETHER_CLK_SEL_RMII_CLK_EN |
-+			 ETHER_CLK_SEL_RX_TX_CLK_EN);
- 		val |= ETHER_CLK_SEL_TX_O_E_N_IN;
- 		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
- 
- 		/* Set Clock-Mux, Start clock, Set TX_O direction */
--		val = clk_sel_val | ETHER_CLK_SEL_RX_CLK_EXT_SEL_RXC |
--			ETHER_CLK_SEL_TX_CLK_EXT_SEL_TXC | ETHER_CLK_SEL_TX_O_E_N_IN;
-+		val = ETHER_CLK_SEL_RX_CLK_EXT_SEL_RXC |
-+		      ETHER_CLK_SEL_TX_CLK_EXT_SEL_TXC |
-+		      ETHER_CLK_SEL_TX_O_E_N_IN;
- 		writel(val, dwmac->reg + REG_ETHER_CLOCK_SEL);
- 
- 		val |= ETHER_CLK_SEL_RX_TX_CLK_EN;
+ 	return 0;
+ }
 -- 
 2.30.2
 
