@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70ACAADAAF8
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 10:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8C2ADAB3E
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Jun 2025 10:57:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CEE6C36B17;
-	Mon, 16 Jun 2025 08:40:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 436C9C36B17;
+	Mon, 16 Jun 2025 08:57:54 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D96BC36B2C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01A7BC36B14
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Jun 2025 07:58:34 +0000 (UTC)
+ Mon, 16 Jun 2025 08:57:52 +0000 (UTC)
 Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55G3RlrK001745;
- Mon, 16 Jun 2025 09:58:17 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55G8nbMS018924;
+ Mon, 16 Jun 2025 10:57:30 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- Qukd4stYOCYEBe2KGcf2tpYpRWJZmwskg2vfqUfUsKY=; b=qcNBDwSCZyTIGiuz
- 9lawJymhFNS80QgpYOdmnVRptUI+anTbvbIUSzrujY0OhOswOz0lgbul6MJOMhj8
- P+Qwo3+frh2swX2f2xjuHmG4CDuUbbebpGIsbpFo59aS9iD5uTI5DNq40xqWBZqE
- xaMlunIJ8DqMGbyFX0ffKJMdvTkgaKJnVfZJBO3oW1d5cElIRt7Wuvy7169ljX5e
- TrGC5bb/CD1n7P2VydM9E1RN88uJu3eo1CD5gFRACZQyOk2U/Xojfgs4Ax/Y1a4s
- q5TmSBxplOayoc1wxc/8mWn2RSqI4YeotXzAxXXxXPNWN6jvSbhXv7L+l2mAH5Af
- jicFpA==
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=hZLfO/aZyhMByPrSvo6tyt
+ gTdrnVnO5xyKlmjUCAvKw=; b=RMUr56cGnt2/RKuJ4spaAqR0emvF93V4UccXgy
+ LMZbSVE+1tjfHj1tM/nNO0xtDGv8ZNjsp5EWl/h7LRsAaEU+dQU7iGVWopOKSTTx
+ SmMxOcsDq5+kooCeQHsQGojp3Ea2kzjQKhVnA+5rvfQ+j9qocvU2AcXgW5uJLqQJ
+ ftcScyP45zUgIiwv3ZyFa+YreFS93Rbd8Af6sguAbUFc0A4765p1UKOM/z6KwyKq
+ WUkjBpIvNRIpAjIrGZRlzYY4ilz+qNGXPX6OFYBBlKD3RNn+s3rM5g2GKUn1srO6
+ C7DbbaN/1GPmPG33jvn4XYGy6AyXTbqXovPbFKJ4tgWp3G/Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4790e1yc76-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4790e1yqwy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 16 Jun 2025 09:58:17 +0200 (MEST)
+ Mon, 16 Jun 2025 10:57:30 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9DE8F4006F;
- Mon, 16 Jun 2025 09:57:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E43F4CB02D;
- Mon, 16 Jun 2025 09:56:20 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Jun
- 2025 09:56:20 +0200
-Received: from localhost (10.48.86.121) by SAFDAG1NODE1.st.com (10.75.90.17)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 01A4740074;
+ Mon, 16 Jun 2025 10:56:06 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 29F025D40BC;
+ Mon, 16 Jun 2025 10:54:42 +0200 (CEST)
+Received: from localhost (10.252.14.42) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Jun
- 2025 09:56:19 +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Date: Mon, 16 Jun 2025 09:55:25 +0200
-Message-ID: <20250616075530.4106090-2-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250616075530.4106090-1-arnaud.pouliquen@foss.st.com>
-References: <20250616075530.4106090-1-arnaud.pouliquen@foss.st.com>
+ 2025 10:54:41 +0200
+From: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>
+Date: Mon, 16 Jun 2025 10:53:53 +0200
+Message-ID: <20250616-i2c-upstream-v1-0-42d3d5374e65@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.48.86.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
+X-B4-Tracking: v=1; b=H4sIAKLbT2gC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDUyNz3UyjZN3SguKSotTEXN1U0yQzS1MDQ2NTy0QloJaCotS0zAqwcdG
+ xtbUABnEo6l4AAAA=
+X-Change-ID: 20250527-i2c-upstream-e5b69501359a
+To: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>, Alain Volmat
+ <alain.volmat@foss.st.com>, Andi Shyti <andi.shyti@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "M'boumba Cedric Madianga" <cedric.madianga@gmail.com>,
+ Wolfram Sang <wsa@kernel.org>
+X-Mailer: b4 0.15-dev-c25d1
+X-Originating-IP: [10.252.14.42]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
  definitions=2025-06-16_03,2025-06-13_01,2025-03-28_01
-X-Mailman-Approved-At: Mon, 16 Jun 2025 08:40:52 +0000
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v18 1/6] remoteproc: core: Introduce
-	rproc_pa_to_va helper
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+ linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/3] Fix STM32 I2C dma operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,96 +79,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When a resource table is loaded by an external entity such as U-boot or
-OP-TEE, we do not necessarily get the device address(da) but the physical
-address(pa).
-This helper performs similar translation than the rproc_da_to_va()
-but based on a physical address.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/remoteproc_core.c | 46 ++++++++++++++++++++++++++++
- include/linux/remoteproc.h           |  1 +
- 2 files changed, 47 insertions(+)
-
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 81b2ccf988e8..d06eef1fa424 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -230,6 +230,52 @@ void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem)
- }
- EXPORT_SYMBOL(rproc_da_to_va);
- 
-+/**
-+ * rproc_pa_to_va() - lookup the kernel virtual address for a physical address of a remoteproc
-+ * memory
-+ *
-+ * @rproc: handle of a remote processor
-+ * @pa: remoteproc physical address
-+ * @len: length of the memory region @pa is pointing to
-+ * @is_iomem: optional pointer filled in to indicate if @da is iomapped memory
-+ *
-+ * This function is a helper function similar to rproc_da_to_va() but it deals with physical
-+ * addresses instead of device addresses.
-+ *
-+ * Return: a valid kernel address on success or NULL on failure
-+ */
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem)
-+{
-+	struct rproc_mem_entry *carveout;
-+	void *ptr = NULL;
-+
-+	list_for_each_entry(carveout, &rproc->carveouts, node) {
-+		int offset = pa - carveout->dma;
-+
-+		/*  Verify that carveout is allocated */
-+		if (!carveout->va)
-+			continue;
-+
-+		/* try next carveout if da is too small */
-+		if (offset < 0)
-+			continue;
-+
-+		/* try next carveout if da is too large */
-+		if (offset + len > carveout->len)
-+			continue;
-+
-+		ptr = carveout->va + offset;
-+
-+		if (is_iomem)
-+			*is_iomem = carveout->is_iomem;
-+
-+		break;
-+	}
-+
-+	return ptr;
-+}
-+EXPORT_SYMBOL(rproc_pa_to_va);
-+
- /**
-  * rproc_find_carveout_by_name() - lookup the carveout region by a name
-  * @rproc: handle of a remote processor
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index b4795698d8c2..8fd0d7f63c8e 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -690,6 +690,7 @@ int rproc_detach(struct rproc *rproc);
- int rproc_set_firmware(struct rproc *rproc, const char *fw_name);
- void rproc_report_crash(struct rproc *rproc, enum rproc_crash_type type);
- void *rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *is_iomem);
-+void *rproc_pa_to_va(struct rproc *rproc, phys_addr_t pa, size_t len, bool *is_iomem);
- 
- /* from remoteproc_coredump.c */
- void rproc_coredump_cleanup(struct rproc *rproc);
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBwYXRjaCBzZXJpZXMgYWltcyB0byBmaXggc29tZSBpc3N1ZXMgaW5zaWRlIHRoZSBkcml2
+ZXIncyBETUEKaGFuZGxpbmcuCkl0IGFsc28gdXNlcyBuZXdlciBJMkMgRE1BIEFQSS4KClNpZ25l
+ZC1vZmYtYnk6IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNv
+bT4KLS0tCkNsw6ltZW50IExlIEdvZmZpYyAoMyk6CiAgICAgIGkyYzogc3RtMzI6IGZpeCB0aGUg
+ZGV2aWNlIHVzZWQgZm9yIHRoZSBETUEgbWFwCiAgICAgIGkyYzogc3RtMzJmNzogdW5tYXAgRE1B
+IG1hcHBlZCBidWZmZXIKICAgICAgaTJjOiBzdG0zMmY3OiBzdXBwb3J0IGkyY18qX2RtYV9zYWZl
+X21zZ19idWYgQVBJcwoKIGRyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtc3RtMzIuYyAgIHwgIDIgKy0K
+IGRyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtc3RtMzJmNy5jIHwgNDAgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKystLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCsp
+LCAxMiBkZWxldGlvbnMoLSkKLS0tCmJhc2UtY29tbWl0OiBlMDRjNzhkODZhOTY5OWQxMzY5MTBj
+ZmMwYmRjZjAxMDg3ZTMyNjdlCmNoYW5nZS1pZDogMjAyNTA1MjctaTJjLXVwc3RyZWFtLWU1YjY5
+NTAxMzU5YQoKQmVzdCByZWdhcmRzLAotLSAKQ2zDqW1lbnQgTGUgR29mZmljIDxjbGVtZW50Lmxl
+Z29mZmljQGZvc3Muc3QuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
