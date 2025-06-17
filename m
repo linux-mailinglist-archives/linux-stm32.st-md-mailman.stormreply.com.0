@@ -2,158 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138ACADCF6C
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jun 2025 16:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E4BADDAC9
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Jun 2025 19:40:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A227FC36B27;
-	Tue, 17 Jun 2025 14:21:08 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012043.outbound.protection.outlook.com [52.101.66.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1820C32EA8;
+	Tue, 17 Jun 2025 17:40:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D352C36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59270C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Jun 2025 14:21:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JdPRxCBsB/KVX9UrHNos1pYOPXzNVBKYnXu+UV+C58mu1de0SBURl+KqAZaLGZHPbIqRfZ0usjxbkvnyQ7ui8Q1fCltI7rHVFuUbNUvz59Op/FsJDc4mgwwlReuIjK0662ZvW1u3D+9QjlKHScxAcEAh5aDEPT6VxY83GOeUDcVXNTuLE/cU+rsh4dRCVc/fkqtRxHQRDPUGpkmwbjZvXzbikKNrnOHnLKiRZOkJniSeg9fUH+ZRJMeUOwkgHDkHZSj9QRMqFjpBhF7R3w78+6daUSJotcQ+SXWHoiXZLNBd01yPMn68OsvH/7LjZwdRiA02EPqspNp+4yoPeE7GJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XNs4I4/wL0TWpvycFJzPSA4oWM5wL3MOv7AT2fPdcnM=;
- b=I1x4IG4ya4McuKGyA92CXHsPYqkFgGGBbUM58kzo1Uyr64VFsE41PHyYdqEuk0gUU9dYieXP65C0q45wr2b/sww/6tdn0E15jeO6VylZrB0NV5ImvW77TgN+/YuHBIK/mdLD1qLiyEGNCqJpqBDANQmNopZsN+rY7hwuw3d7BHuxApTJDlCmupJ8czlBdNZVlM2c5WxAAnjbrUz1CEvFKnZ3k+KDF6ZELvy3ZwP12xJXDNM/404saKeYiLFdnD3bVEPbW0K9OFt1DwEXt2Ee5KV1xvYO8VPeKmzloHZwt3EKJM7Ok0tRzLRWIeHBzAOd6CC1LGkxQYNsBjq6C8+Wog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XNs4I4/wL0TWpvycFJzPSA4oWM5wL3MOv7AT2fPdcnM=;
- b=GWDS9YSJ/vp9HTA4DAlPRtxSAUnLT1YuIqQqCa65Ju+E2naSQPm3UiU6Zes/PDglB2UulvBaItpWC05D8Z096PQnds1MwLLyaHIR5ZPp/qbBBC9Gdt1aNxXNrqBjYYZx0rai7279go3DVY2zo1SLKexSL/i9pJJiSLceXoq2z+zbIIT9MecsFH3I87t75XO+VR/rbPMRtYuNElXrMXT3zI2wKIlhJuGvCEFRKeW2K7Zxbp4rZusv4MRCtf6/VZhG4LbgnikWtaQ+Ttwaxvj7V58nJOZQpllF6YEguzdbBAuJWGF+4SB0cmALw6o4/TtL3R+m7KhHW4jsIIu0yYuD1w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PAXPR04MB9642.eurprd04.prod.outlook.com (2603:10a6:102:240::14)
- by AM9PR04MB8400.eurprd04.prod.outlook.com (2603:10a6:20b:3e9::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Tue, 17 Jun
- 2025 14:21:01 +0000
-Received: from PAXPR04MB9642.eurprd04.prod.outlook.com
- ([fe80::9126:a61e:341d:4b06]) by PAXPR04MB9642.eurprd04.prod.outlook.com
- ([fe80::9126:a61e:341d:4b06%7]) with mapi id 15.20.8835.026; Tue, 17 Jun 2025
- 14:21:01 +0000
-Date: Tue, 17 Jun 2025 10:20:48 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Joy Zou <joy.zou@nxp.com>
-Message-ID: <aFF5wNjLq0frZwsl@lizhi-Precision-Tower-5810>
-References: <20250613100255.2131800-1-joy.zou@nxp.com>
- <175011005057.2433615.9910599057752637741.robh@kernel.org>
- <AS4PR04MB93863494863F595F74B12129E173A@AS4PR04MB9386.eurprd04.prod.outlook.com>
-Content-Disposition: inline
-In-Reply-To: <AS4PR04MB93863494863F595F74B12129E173A@AS4PR04MB9386.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: BY3PR05CA0026.namprd05.prod.outlook.com
- (2603:10b6:a03:254::31) To PAXPR04MB9642.eurprd04.prod.outlook.com
- (2603:10a6:102:240::14)
+ Tue, 17 Jun 2025 17:40:40 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55HFaTiR013203;
+ Tue, 17 Jun 2025 19:40:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ BCDEKH89I2K3oqjv3tljOt2+d5QzCMjlDICRktrlLTw=; b=IKCyTGnPnox4Lq0F
+ vOPeRvGck68q98cBsI1r908q9qQaq0urFuUVIibrgqbHbAF8QnrTAh1syjaauuJI
+ Z9fbs2dQMkOJe1WcvbSnPzbQmmMNKhCEGWyV2mx7qoqnIN07dFr7JvdJlSbDV9Zq
+ TjRmnsKJc8xXpZRgal2yWz9OHRKVNjr2aYyucZPU7LyStZkEV0PfMCh5kDPsCW0I
+ yH3k3rNOtGLEqnfB17zBUwYSnS54AhP49bBzuyxg5/FObZaIvK7EKxEvvt98FKqA
+ WMGjPD39u4D2/xnXa0995jsQF7bsnjaBK0utur3Zss/fYyrf6wHQTCVLjRigP0C2
+ CqQZdQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4790e27jt9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 17 Jun 2025 19:40:16 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D153640045;
+ Tue, 17 Jun 2025 19:39:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C2540B88169;
+ Tue, 17 Jun 2025 19:38:20 +0200 (CEST)
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Jun
+ 2025 19:38:20 +0200
+Received: from [10.48.86.121] (10.48.86.121) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Jun
+ 2025 19:38:19 +0200
+Message-ID: <cda96440-5c53-4b7a-8b51-51506f5e7cc3@foss.st.com>
+Date: Tue, 17 Jun 2025 19:38:19 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9642:EE_|AM9PR04MB8400:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb21c2fb-0b5a-4789-10a2-08ddadaa2fc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|52116014|376014|1800799024|366016|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/yDYXhU0OA6yYFqgNJZ7joz2dWArVmA6EFy3CR1/g4qDfupMmDlOPljpqw+q?=
- =?us-ascii?Q?njsOn8NhsjP0a897vZYu4Ug6YG1eXqLMy6TI4wUl4/6RC3EV1deUCUk6YMgP?=
- =?us-ascii?Q?YINGMmBiDuMGlCBeVkKc/E1oedmY0eYBYcVZ1gAq3Sllzb4/w5rX8A9N+2EZ?=
- =?us-ascii?Q?3MfPafVl6/lMVVOwoiIHGUiQczNYBAqUWnCLn22zeL15PyXa9lmn30E6vChN?=
- =?us-ascii?Q?fsTV7vPxGatlJl3pzB+qfUKMdZC+EgHkHY9Ge2TL6tEUx5xMSc97djd9+Ruu?=
- =?us-ascii?Q?pZGYUWHry+9VV3Tg+uTHzC9vRV8qnse7AXZZpJ1+r6kIyEsmzM6ygqZO+5KX?=
- =?us-ascii?Q?GtAUHU3P4aNjXEJaqeVtxXiA1s2hn5uYLS9hf6B1Qa67WdYUBzhLISpdtLEZ?=
- =?us-ascii?Q?i4RN1OtOT4lrCU0DPzYVtpeV0W/VxJcW4otnNxthSfzZ+mQMZVnl+8CtjYtv?=
- =?us-ascii?Q?awLn2YVWpCRB8DBx5WKGzOMRiHJ97GIY1BOBJ+4aG4Ebnx/RNM5vCVoXHXZf?=
- =?us-ascii?Q?jCLWRDJyfFrC69M8k6pq+RcDxDT5V/IULubXn2y1cRm6AChprLOqGe6vgeOH?=
- =?us-ascii?Q?zSOlegFastrV+YpKfW98AN5GURwcrWbtE+f/Tgx8t7ySlTxrtDdDvFUFGnoB?=
- =?us-ascii?Q?y2pGl/NRClfjWkw7SpcgIjtFqW0m5dbV4E7GTEcnqeYptxtG8hINM05MtV8b?=
- =?us-ascii?Q?ZsUJlymgb8Spo74WML2N+Spi5r522Th3jYZjUYcriUYiPZcqPZKhhPhE4YkE?=
- =?us-ascii?Q?bXv9VDe/LBu/686tdhI91mU2W0ploxIo1Apy6eU8OmwxJVECPA5ziE6NrDek?=
- =?us-ascii?Q?9zIgZMoNP+zLTWfkOK86xTeFRvfSvML9WCiY5uWCKhDS62B+RX5BwC61CC9D?=
- =?us-ascii?Q?0qUSq8ZyGy1xGOZBrdcxdwig4dz9ZB/CX02PKADpRPRa0mdEaXfMr9VxJKp8?=
- =?us-ascii?Q?JX768rXkunNa6oDcRD9DQhsR3SWSb/tUmnrCgQQlrc7R4BibNeD1ghZfvtu1?=
- =?us-ascii?Q?q7R4SV8Q9zTfx8uarDMvMP8zJndyxgZDV8UVf9Zet1On8ErSu0PI/BQfax3z?=
- =?us-ascii?Q?hBInDMgqHX9szCslkjegvqE4+frv8P0/vaxcGUt5pNAOaXTbMzW1fIWbvKMb?=
- =?us-ascii?Q?mNGTi4OEG48aT/xVYEJGkCOBPX6mrq3EA1lXDDAlx65lvVMObo1V6zAxy7Au?=
- =?us-ascii?Q?tSnH20INUqXvzdNw+yBBX0TFa3HWXKIY0sy1ESij/OVyw5gOynGPkxjlznw4?=
- =?us-ascii?Q?9nTLujZ2PyyH9MtrF67fYwwrTos9Ce3qNXg1qyxttS/B65jbuCxT3eYzbjHK?=
- =?us-ascii?Q?pxxqrVyp7daAzO5y/EGLRFMHHSfRrAe00SyVrGzgn44I+i/E/8w20ualgtnJ?=
- =?us-ascii?Q?O6Mr++WuqTCQnKHTDC04+ZfBdTNaR+OB1rIv7isFlsXqtVx1svkc+s2/kHI7?=
- =?us-ascii?Q?DdE3/sWdSQ6XQAvy4U/YnZWKQURSeRn/orMoDsc2eVQd5EfeQuJA4hls726e?=
- =?us-ascii?Q?YLI1R9kEIwTTDF0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9642.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eB6/O/tOyDM+gUhLlF1K8Y85FgXyHb/TT0sGO9jXT2LlPvL1ElSgmWCB5DHp?=
- =?us-ascii?Q?fxUIVb4kbxLTCvIg3Cbnu2cBrJFQqFsFohFSAqSwndovLugC7x+ePOnDbUTL?=
- =?us-ascii?Q?32pZf90qzT0OEsYir7lenQIGu0rljYhU6HfR2ERGeHWeM/jTMI8M4lRJ3Ude?=
- =?us-ascii?Q?rblfAmmAn4KH+kXrlJ3BsThHLdqKBizxMZNQb2hEOXvC4BTq2ncMBVL07EPh?=
- =?us-ascii?Q?OqnkLQ22qWRn/uiarBJtGnk9qrm7H94R+5W0EUUXUZGTMQPQpsiaoO2jHkmE?=
- =?us-ascii?Q?8PYoEUFmRM16VGuCf8ezpzQnO8NhZpPzY2VYpphCxOTNdNv5zRMM+diTrteS?=
- =?us-ascii?Q?i+u0RNCUg3rpRnXbnFPcCwS0PKSU5+pKXvfvf+OVl+iPl5NVsjE3TBJtG2jL?=
- =?us-ascii?Q?Zg0aHMgxgLoDpGCgtq9oxofrnJbmpdp3Le9HhYUvvYXT0vFNU+hApu6ZWlfR?=
- =?us-ascii?Q?lunlRboKlK0bUmpCPKaVaSnn6qJKQ0AdXbYtq3j3vmAZ+1DN4RJ6869P28kw?=
- =?us-ascii?Q?YbRu7mSfsHVTbL2JVGxM0ZHHckBvGWSjQgd2QHzAl3gwYdzC614UcbnDZdkz?=
- =?us-ascii?Q?6YNcNpe0kaheL0Xvvai3YKpvA6gePkj2DcsNkFNJLnqNr6uIjXA4kT+nIcFO?=
- =?us-ascii?Q?snVMnv7vDpBL9fZete6B23ULlfk/B/R7FWgByRhsd1whTRllWkCJqmn8cGau?=
- =?us-ascii?Q?wL47IzFuoCmMOszSzu7BpT62RMKgvSqWXZ5FhYLG6X3MukUCDmZ4qauF57Zp?=
- =?us-ascii?Q?aEiDXAzd3BtjkGk7BdVAuAM6bD5WYPFd/oppZRXpViHqgL4jc2bCMG7cNs4a?=
- =?us-ascii?Q?FTQJnPnuqQft/6DX2oL4iQDI5rfg/muPm3Odwl5QFyJbf4lnFbmPVjVoQzGy?=
- =?us-ascii?Q?FhuYonf2JTBKSsbuJY1NwNwMIoGOtQUgQsmo2PhviCxW3GnBf7PQ//LPlK2L?=
- =?us-ascii?Q?nOj8YXKt8K52w8Yhhno5JTlAydSjiTJqRNZPqajSqHoV3jVlSt2Eg/nUNRX2?=
- =?us-ascii?Q?o+4V2OUlHSSRnLsFM+MnENuqGaCLPbEoD+h6Pzgg4xdwik0v3Xxl/QVzat3D?=
- =?us-ascii?Q?YOfPkc3T+jSaMDwX3cJFX05ouPyp2srksxabJL/L0gl49yWryRSieOvnhz7b?=
- =?us-ascii?Q?q0Q9rSasRO4gwI0UnFR6yvMqczK6TXwDoGLxC4qBU6W+R9b+0UnOl4j0uufJ?=
- =?us-ascii?Q?ge0DPcAKlXrXl0Bb0+QYfZorIIsWCfSE1Cl46fRyzfsPwfT9mmLXUBYgdmzD?=
- =?us-ascii?Q?TxFXRWwzkOA/RZdVGXQmxqY/eEuqIV0DSji9ocgwwajxPUqmMaom8G4Wsh0j?=
- =?us-ascii?Q?fKNdDzBpIMplUERACZRSkwFtr5ncVAFSxdd9XBRIk4bKuNlzYdTlKiikJRqQ?=
- =?us-ascii?Q?qWrMqqTztlNMQx7ub5DBsrCPSikhrQ4IYJvolS8ZcUbS0t4iE9hCAZOe3bXc?=
- =?us-ascii?Q?aUNMTQxKEVoZXrxOMdXhoYRJQzI1jofj/fF9W4B5BleXOitOkzRjBf+J786S?=
- =?us-ascii?Q?j3Ybb8jEW714IuVzQxVsiz3e2WA6JAD3lCYMPA6dPtTBkazg4QGeodFu3Lhg?=
- =?us-ascii?Q?ghAmDsHByu4dd7BACNE=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb21c2fb-0b5a-4789-10a2-08ddadaa2fc3
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9642.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2025 14:21:01.5629 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZufGAYez/jELTP06m+vy3Mp6pLj4ZNTiL3GzdPOJu3ZkXtk2kj0IBwel5tByvdNkWc1kvzH2E28QMQY09NyBeQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8400
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>, Peng Fan <peng.fan@nxp.com>,
- Jacky Bai <ping.bai@nxp.com>,
- "catalin.marinas@arm.com" <catalin.marinas@arm.com>,
- "edumazet@google.com" <edumazet@google.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "Rob Herring \(Arm\)" <robh@kernel.org>, "will@kernel.org" <will@kernel.org>,
- Clark Wang <xiaoning.wang@nxp.com>, "kuba@kernel.org" <kuba@kernel.org>,
- "ulf.hansson@linaro.org" <ulf.hansson@linaro.org>,
- "pabeni@redhat.com" <pabeni@redhat.com>,
- "richardcochran@gmail.com" <richardcochran@gmail.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, Ye Li <ye.li@nxp.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Aisheng Dong <aisheng.dong@nxp.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v5 0/9] Add i.MX91 platform support
+User-Agent: Mozilla Thunderbird
+To: Bjorn Andersson <andersson@kernel.org>
+References: <20250616075530.4106090-1-arnaud.pouliquen@foss.st.com>
+ <20250616075530.4106090-4-arnaud.pouliquen@foss.st.com>
+ <6ekro2uytz7kguphtub54wivmclpnfkjobduhsom4kvxlmov2l@hgcjoposj3md>
+Content-Language: en-US
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Organization: STMicroelectronics
+In-Reply-To: <6ekro2uytz7kguphtub54wivmclpnfkjobduhsom4kvxlmov2l@hgcjoposj3md>
+X-Originating-IP: [10.48.86.121]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-17_08,2025-06-13_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v18 3/6] remoteproc: Introduce release_fw
+ optional operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -170,101 +88,155 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 17, 2025 at 08:09:10AM +0000, Joy Zou wrote:
->
-> > -----Original Message-----
-> >
-> > On Fri, 13 Jun 2025 18:02:46 +0800, Joy Zou wrote:
-> > > The design of i.MX91 platform is very similar to i.MX93.
-> > > Extracts the common parts in order to reuse code.
-> > >
-> > > The mainly difference between i.MX91 and i.MX93 is as follows:
-> > > - i.MX91 removed some clocks and modified the names of some clocks.
-> > > - i.MX91 only has one A core.
-> > > - i.MX91 has different pinmux.
-> > > - i.MX91 has updated to new temperature sensor same with i.MX95.
-> > >
-> > > Joy Zou (8):
-> > >   dt-bindings: soc: imx-blk-ctrl: add i.MX91 blk-ctrl compatible
-> > >   arm64: dts: freescale: rename imx93.dtsi to imx91_93_common.dtsi
-> > >   arm64: dts: imx93: move i.MX93 specific part from
-> > imx91_93_common.dtsi
-> > >     to imx93.dtsi
-> > >   arm64: dts: imx91: add i.MX91 dtsi support
-> > >   arm64: dts: freescale: add i.MX91 11x11 EVK basic support
-> > >   arm64: defconfig: enable i.MX91 pinctrl
-> > >   pmdomain: imx93-blk-ctrl: mask DSI and PXP PD domain register on
-> > >     i.MX91
-> > >   net: stmmac: imx: add i.MX91 support
-> > >
-> > > Pengfei Li (1):
-> > >   dt-bindings: arm: fsl: add i.MX91 11x11 evk board
-> > >
-> > >  .../devicetree/bindings/arm/fsl.yaml          |    6 +
-> > >  .../soc/imx/fsl,imx93-media-blk-ctrl.yaml     |   55 +-
-> > >  arch/arm64/boot/dts/freescale/Makefile        |    1 +
-> > >  .../boot/dts/freescale/imx91-11x11-evk.dts    |  878 ++++++++++
-> > >  arch/arm64/boot/dts/freescale/imx91-pinfunc.h |  770 +++++++++
-> > >  arch/arm64/boot/dts/freescale/imx91.dtsi      |  124 ++
-> > >  .../boot/dts/freescale/imx91_93_common.dtsi   | 1215 ++++++++++++++
-> > >  arch/arm64/boot/dts/freescale/imx93.dtsi      | 1412 ++---------------
-> > >  arch/arm64/configs/defconfig                  |    1 +
-> > >  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |    2 +
-> > >  drivers/pmdomain/imx/imx93-blk-ctrl.c         |   15 +
-> > >  11 files changed, 3166 insertions(+), 1313 deletions(-)  create mode
-> > > 100644 arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-> > >  create mode 100644 arch/arm64/boot/dts/freescale/imx91-pinfunc.h
-> > >  create mode 100644 arch/arm64/boot/dts/freescale/imx91.dtsi
-> > >  create mode 100644
-> > arch/arm64/boot/dts/freescale/imx91_93_common.dtsi
-> > >
-> > > --
-> > > 2.37.1
-> > >
-> > My bot found new DTB warnings on the .dts files added or changed in this
-> > series.
-> Thanks for your reminder!
-> Have run DT checks and found this warning. The temperature bindings and driver patch v6 is reviewing.
-> So add note to the " [PATCH v5 5/9] arm64: dts: imx91: add i.MX91 dtsi support" patch.
-> Refer to the link: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20250407-imx91tmu-v6-0-e48c2aa3ae44@nxp.com/
-> BR
+Hello Bjorn,
 
-tmu is not critial part, we can add after 91tmu binding merged.
+On 6/17/25 06:44, Bjorn Andersson wrote:
+> On Mon, Jun 16, 2025 at 09:55:27AM +0200, Arnaud Pouliquen wrote:
+>> The release_fw operation is the inverse operation of the load, responsible
+>> for releasing the remote processor resources configured from the loading
+>> of the remoteproc firmware (e.g., memories).
+>>
+> 
+> I was under the impression that we agreed that this would unroll
+> rproc_parse_fw() not the "load" in general.
 
-Frank
+Not Krystal clear to me what you are expecting here.
+Is it just on the description or on the design?
 
-> Joy Zou
-> >
-> > Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings are
-> > fixed by another series. Ultimately, it is up to the platform maintainer whether
-> > these warnings are acceptable or not. No need to reply unless the platform
-> > maintainer has comments.
-> >
-> > If you already ran DT checks and didn't see these error(s), then make sure
-> > dt-schema is up to date:
-> >
-> >   pip3 install dtschema --upgrade
-> >
-> >
-> > This patch series was applied (using b4) to base:
-> >  Base: attempting to guess base-commit...
-> >  Base: tags/v6.16-rc1-6-g8a22d9e79cf0 (best guess, 6/7 blobs matched)
-> >
-> > If this is not the correct base, please add 'base-commit' tag (or use b4 which
-> > does this automatically)
-> >
-> > New warnings running 'make CHECK_DTBS=y for
-> > arch/arm64/boot/dts/freescale/' for
-> > 20250613100255.2131800-1-joy.zou@nxp.com:
-> >
-> > arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb:
-> > /soc@0/bus@44000000/thermal-sensor@44482000: failed to match any
-> > schema with compatible: ['fsl,imx91-tmu']
-> >
-> >
-> >
-> >
->
+Unroll only the rproc_parse_fw is not sufficient. The need here is also
+to go back from a LOAD state of the TEE. So in such case the role of
+release_fw() would be to unroll the load + the parse of the resource.
+Is it your expectation?
+
+> 
+>> The operation is called in the following cases:
+>>  - An error occurs on boot of the remote processor.
+>>  - An error occurs on recovery start of the remote processor.
+>>  - After stopping the remote processor.
+>>
+>> This operation is needed for the remoteproc_tee implementation after stop
+>> and on error.
+> 
+> And if it's defined to unroll rproc_parse_fw() it can be used for other
+> things where some resources was allocated to set up the resource table.
+
+True
+
+> 
+>> Indeed, as the remoteproc image is loaded when we parse the resource
+>> table, there are many situations where something can go wrong before
+>> the start of the remote processor(resource handling, carveout allocation,
+>> ...).
+> 
+> Unbalanced parenthesis? I think you can write this in less
+> conversational style.
+> 
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/remoteproc/remoteproc_core.c     | 6 ++++++
+>>  drivers/remoteproc/remoteproc_internal.h | 6 ++++++
+>>  include/linux/remoteproc.h               | 3 +++
+>>  3 files changed, 15 insertions(+)
+>>
+>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+>> index d06eef1fa424..4c1a4bc9e7b7 100644
+>> --- a/drivers/remoteproc/remoteproc_core.c
+>> +++ b/drivers/remoteproc/remoteproc_core.c
+>> @@ -1857,6 +1857,8 @@ static int rproc_boot_recovery(struct rproc *rproc)
+>>  
+>>  	/* boot the remote processor up again */
+>>  	ret = rproc_start(rproc, firmware_p);
+>> +	if (ret)
+>> +		rproc_release_fw(rproc);
+>>  
+>>  	release_firmware(firmware_p);
+>>  
+>> @@ -1998,6 +2000,8 @@ int rproc_boot(struct rproc *rproc)
+>>  		}
+>>  
+>>  		ret = rproc_fw_boot(rproc, firmware_p);
+>> +		if (ret)
+>> +			rproc_release_fw(rproc);
+>>  
+>>  		release_firmware(firmware_p);
+>>  	}
+>> @@ -2067,6 +2071,8 @@ int rproc_shutdown(struct rproc *rproc)
+>>  
+>>  	rproc_disable_iommu(rproc);
+>>  
+>> +	rproc_release_fw(rproc);
+>> +
+>>  	/* Free the copy of the resource table */
+>>  	kfree(rproc->cached_table);
+>>  	rproc->cached_table = NULL;
+> 
+> These are allocated in rproc_parse_fw(), would it not make sense to
+> clean them up in your newly introduced function?
+
+It seems possible as proposed in v11 3/7[1], but this needs an exception
+for rproc_detach().
+[1]
+https://patchew.org/linux/20241009080108.4170320-1-arnaud.pouliquen@foss.st.com/20241009080108.4170320-4-arnaud.pouliquen@foss.st.com/
+
+> 
+>> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+>> index 0cd09e67ac14..c7fb908f8652 100644
+>> --- a/drivers/remoteproc/remoteproc_internal.h
+>> +++ b/drivers/remoteproc/remoteproc_internal.h
+>> @@ -221,4 +221,10 @@ bool rproc_u64_fit_in_size_t(u64 val)
+>>  	return (val <= (size_t) -1);
+>>  }
+>>  
+>> +static inline void rproc_release_fw(struct rproc *rproc)
+>> +{
+>> +	if (rproc->ops->release_fw)
+>> +		rproc->ops->release_fw(rproc);
+>> +}
+>> +
+>>  #endif /* REMOTEPROC_INTERNAL_H */
+>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+>> index 8fd0d7f63c8e..80128461972b 100644
+>> --- a/include/linux/remoteproc.h
+>> +++ b/include/linux/remoteproc.h
+>> @@ -381,6 +381,8 @@ enum rsc_handling_status {
+>>   * @panic:	optional callback to react to system panic, core will delay
+>>   *		panic at least the returned number of milliseconds
+>>   * @coredump:	  collect firmware dump after the subsystem is shutdown
+>> + * @release_fw:	optional function to release the loaded firmware, called after
+>> + *              stopping the remote processor or in case of error
+> 
+> The struct firmware is released at the end of startup and the typical
+> carveout memory where the firmware is loaded into is released at
+> rproc_shutdown().
+> 
+> As such, this won't help anyone understand the purpose of the ops unless
+> they know your system design (and know you added it).
+
+Could you detail which improvement you are expecting here?
+Name of the ops, associated comment? both?
+
+Thanks,
+Arnaud
+
+> 
+> Regards,
+> Bjorn
+> 
+>>   */
+>>  struct rproc_ops {
+>>  	int (*prepare)(struct rproc *rproc);
+>> @@ -403,6 +405,7 @@ struct rproc_ops {
+>>  	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
+>>  	unsigned long (*panic)(struct rproc *rproc);
+>>  	void (*coredump)(struct rproc *rproc);
+>> +	void (*release_fw)(struct rproc *rproc);
+>>  };
+>>  
+>>  /**
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
