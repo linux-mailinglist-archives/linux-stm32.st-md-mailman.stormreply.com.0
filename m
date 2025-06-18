@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4ED2ADF5F7
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jun 2025 20:33:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C21D9ADF621
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Jun 2025 20:44:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF384C36B30;
-	Wed, 18 Jun 2025 18:33:58 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76E84C36B31;
+	Wed, 18 Jun 2025 18:44:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D4EEC36B0F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F45AC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Jun 2025 18:33:57 +0000 (UTC)
+ Wed, 18 Jun 2025 18:44:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 93B7E61F1F;
- Wed, 18 Jun 2025 18:33:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C8EC4CEE7;
- Wed, 18 Jun 2025 18:33:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AB0F74AAF6;
+ Wed, 18 Jun 2025 18:44:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14C3C4CEE7;
+ Wed, 18 Jun 2025 18:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750271636;
- bh=kpSEGRfAU9fOVbtCMrVZ+rQ1aeDB+P7Ft42jygFEEhI=;
+ s=k20201202; t=1750272284;
+ bh=FlkPWKCF+vrWk0zCgUpHWTZNjZJiKx1wM3zXfGDaXsg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A3Ej2aul6fOJdod+0Bbxj0EYeWA1n+Nq1rRrj2roqfVx8U5wc9HLvaFtQ/Gl+sX87
- DVlw0BCrspfewDTpmNpbKVx5NKWLTN6j3JaLhozqVKHvBJRbJrAeiHFjzJANJcHvru
- ady7/4IUV0NdKjQIe1n6y1eQPhCTWlo3fImZ/x7KWqP4G7Pi7Voyo3jMtMZaU7TS1g
- 2Z8fBPysGH7TIfjr3E84ZogDi7vPuFu4iBSlaUrSlAiuJTiQMrAe29qWgU6+tzKTRt
- Da8MhNQmLQ0fOi+ywjmv1dXi7e4bx7W2YI+ojHWczLCnBetGloAn07w6VGIrBPt1LS
- EN19s6tQH1ViA==
-Date: Wed, 18 Jun 2025 19:33:51 +0100
+ b=bg30LeSSE32MgC797Sw+q+dZZ+xVcEMIkll39N7Di6bIuOWcH/OEsrGIEPkWohOVE
+ eJ6ZnbdFdUmq3qlYI/4ZN24ym1SJTUOwr+qlvlstkyFErb8ljRHqmcqFGGb+MxAIk1
+ Wf1XvjEY2MdbpC8TQD5dCvisfYk00Ar8EwU3dEn6KwrkheyvOLf+9fyfPEfykRs4U7
+ SAi5V7OQkA+c7TuhaDViLEu199e05SWJzcqKruIfs1R7s55HuVzR/0UFkYH5ghKYrX
+ UQ18Biekpca6VwEXWP/nGleW/7yKzowRnrmgJ9+ZfeHewU58FV71DQ0Alx6278u06b
+ X/OHw5Il3vtTQ==
+Date: Wed, 18 Jun 2025 19:44:39 +0100
 From: Simon Horman <horms@kernel.org>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20250618183351.GX1699@horms.kernel.org>
-References: <aFKXzlno7HkG-cNh@shell.armlinux.org.uk>
- <E1uRqEE-004c7M-Go@rmk-PC.armlinux.org.uk>
+Message-ID: <20250618184439.GY1699@horms.kernel.org>
+References: <E1uRqbQ-004djP-1l@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1uRqEE-004c7M-Go@rmk-PC.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+In-Reply-To: <E1uRqbQ-004djP-1l@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: loongson1: get
- ls1b resource only once
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: replace ioaddr with
+ stmmac_priv for pcs_set_ane() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,13 +61,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 18, 2025 at 11:41:14AM +0100, Russell King (Oracle) wrote:
-> ls1b_dwmac_syscon_init() was getting the stmmac iomem resource to detect
-> which GMAC block is being used. Move this to a separate setup() function
-> that only runs at probe time, so it can sensibly behave with an
-> unrecognised resource adress. Use this to set a MAC index (id) which is
-> then used in place of testing the base address.
+On Wed, Jun 18, 2025 at 12:05:12PM +0100, Russell King (Oracle) wrote:
+> Pass the stmmac_priv structure into the pcs_set_ane() MAC method rather
+> than having callers dereferencing this structure for the IO address.
 > 
+> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org> # sa8775p-ride-r3
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
 Reviewed-by: Simon Horman <horms@kernel.org>
