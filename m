@@ -2,41 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78BCBAE5DA9
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jun 2025 09:28:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A46AE5DB2
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jun 2025 09:29:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C973C36B29;
-	Tue, 24 Jun 2025 07:28:49 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 415C5C36B29;
+	Tue, 24 Jun 2025 07:29:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9073BC36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66DDEC36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jun 2025 07:28:47 +0000 (UTC)
+ Tue, 24 Jun 2025 07:29:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5A23CA4F508;
- Tue, 24 Jun 2025 07:28:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532B9C4CEE3;
- Tue, 24 Jun 2025 07:28:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 268A749BCC;
+ Tue, 24 Jun 2025 07:29:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D785C4CEEF;
+ Tue, 24 Jun 2025 07:29:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750750126;
- bh=g0pXc/fIN30kvH2Virs4nkVnamuyy0huOlw1+j0TCiE=;
+ s=k20201202; t=1750750163;
+ bh=O27h05PvealtzA1SswhnPXVG+5x+RcHWMCkh/jC3fzg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gukn8GYs+wpCJs8dwZyrg7QtHcLeHxgvHUf5Q6yYFg2C9BOEmDGLZizI6sGEa26dd
- AXs2VFgQ42jn313Jggk4V0ILiINJVwDGLMci1cSQWA/Wnat7vTWZPJqUqLwIF40C2w
- DB5SetH/wVRGB4WLiqemm7k1keA5ZvZmhtE6Frd6ifdr8+9XFWkT36y+r7uY0iPWVK
- 7wqVd1s0PcAv5xA2AqsBduQdkOjE/CGEwb+m9pvBvE3rpcfh+prPNg4r7+X/NZWbZj
- vz5KuBRA5M7nLhYwD3ZCbZbORFWCzuMpELU5hnh9Hkq8OxdNOzUNWWy2+/pxZnl9TL
- tv2j3pfN4Gt8w==
-Date: Tue, 24 Jun 2025 09:28:43 +0200
+ b=qPEmQW1inTq4Rpz5TUtePLSc6M6wPN0iX9FAI+ANN3bNbUoGhlMxDrBNp4HIv9N8O
+ IfZFoam4LndvThNLZjiuuozIkQldFXvt6eumbSasbO4ll51KjH0wpn7w+p2gDtX4le
+ SNr5kv6XvlY85pE7L3jZNdA1+qRcUn8eegbfyVTvFCFubK7H1VfA6H140rF76hBRAN
+ k5AMMfiXVOBLFR6KPhbmH55pm91lEbGhYT4zMSW/D6IO1TbA4sM566MkDttt0VMA+m
+ 697fFdIMkAx7lPtBbZ/GqzgVUgykeoUilBk51aczraYcbmI58+/DmBDu8uGqPobKaX
+ TjlOImCORjQLQ==
+Date: Tue, 24 Jun 2025 09:29:20 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Joy Zou <joy.zou@nxp.com>
-Message-ID: <urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26>
+Message-ID: <t5lg2iw2ha3xpqnce64k4xgaim3f2shfe4ccgnqggtouzy2lc3@se4e6ldggjtx>
 References: <20250623095732.2139853-1-joy.zou@nxp.com>
- <20250623095732.2139853-3-joy.zou@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250623095732.2139853-3-joy.zou@nxp.com>
+In-Reply-To: <20250623095732.2139853-1-joy.zou@nxp.com>
 Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
  catalin.marinas@arm.com, frank.li@nxp.com, edumazet@google.com,
  festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
@@ -47,8 +46,7 @@ Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
  kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
  davem@davemloft.net, linux-pm@vger.kernel.or
-Subject: Re: [Linux-stm32] [PATCH v6 2/9] dt-bindings: soc: imx-blk-ctrl:
- add i.MX91 blk-ctrl compatible
+Subject: Re: [Linux-stm32] [PATCH v6 0/9] Add i.MX91 platform support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,115 +63,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 23, 2025 at 05:57:25PM +0800, Joy Zou wrote:
-> Add new compatible string "fsl,imx91-media-blk-ctrl" for i.MX91,
-> which has different input clocks compared to i.MX93. Update the
-> clock-names list and handle it in the if-else branch accordingly.
+On Mon, Jun 23, 2025 at 05:57:23PM +0800, Joy Zou wrote:
+> The design of i.MX91 platform is very similar to i.MX93.
+> Extracts the common parts in order to reuse code.
 > 
-> Keep the same restriction for the existed compatible strings.
+> The mainly difference between i.MX91 and i.MX93 is as follows:
+> - i.MX91 removed some clocks and modified the names of some clocks.
+> - i.MX91 only has one A core.
+> - i.MX91 has different pinmux.
+> - i.MX91 has updated to new temperature sensor same with i.MX95.
 > 
-> Signed-off-by: Joy Zou <joy.zou@nxp.com>
 > ---
-> Changes for v5:
-> 1. modify the imx93-blk-ctrl binding for imx91 support.
+> Changes for v6:
+> - add changelog in per patch.
+> - correct commit message spell for patch #1.
+> - merge rename imx93.dtsi to imx91_93_common.dtsi and move i.MX93
+>   specific part from imx91_93_common.dtsi to imx93.dtsi for patch #3.
+> - modify the commit message for patch #3.
+> - restore copyright time and add modification time for common dtsi for patch #3.
+> - remove unused map0 label in imx91_93_common.dtsi for patch #3.
+> - remove tmu related node for patch #4.
+> - remove unused regulators and pinctrl settings for patch #5.
+> - add new modification for aliases change patch #6.
 
-This is just vague. Anything can be "modify". Why are you doing this?
-What are you doing here?
 
-> ---
->  .../soc/imx/fsl,imx93-media-blk-ctrl.yaml     | 55 +++++++++++++++----
->  1 file changed, 43 insertions(+), 12 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> index b3554e7f9e76..db5ee65f8eb8 100644
-> --- a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> +++ b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> @@ -18,7 +18,9 @@ description:
->  properties:
->    compatible:
->      items:
-> -      - const: fsl,imx93-media-blk-ctrl
-> +      - enum:
-> +          - fsl,imx91-media-blk-ctrl
-> +          - fsl,imx93-media-blk-ctrl
->        - const: syscon
->  
->    reg:
-> @@ -31,21 +33,50 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> +    minItems: 8
->      maxItems: 10
->  
->    clock-names:
-> -    items:
-> -      - const: apb
-> -      - const: axi
-> -      - const: nic
-> -      - const: disp
-> -      - const: cam
-> -      - const: pxp
-> -      - const: lcdif
-> -      - const: isi
-> -      - const: csi
-> -      - const: dsi
-> +    minItems: 8
-> +    maxItems: 10
->  
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx93-media-blk-ctrl
-> +    then:
-> +      properties:
-
-Missing constraints for clocks
-
-> +        clock-names:
-> +          items:
-> +            - const: apb
-> +            - const: axi
-> +            - const: nic
-> +            - const: disp
-> +            - const: cam
-> +            - const: pxp
-> +            - const: lcdif
-> +            - const: isi
-> +            - const: csi
-> +            - const: dsi
-
-Keep list in comon part.
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx91-media-blk-ctrl
-
-This should be before if: for imx93. 91 < 93
-
-> +    then:
-> +      properties:
-
-Why imx91 now has 10 clocks?
-
-v6 and this has basic issues. The quality of NXP patches decreases :/
-
-> +        clock-names:
-> +          items:
-> +            - const: apb
-> +            - const: axi
-> +            - const: nic
-> +            - const: disp
-> +            - const: cam
-> +            - const: lcdif
-> +            - const: isi
-> +            - const: csi
-
-No, look at other bindings how they share clock lists.
+Where are the links to the previous versions? Why are you not using b4?
 
 Best regards,
 Krzysztof
