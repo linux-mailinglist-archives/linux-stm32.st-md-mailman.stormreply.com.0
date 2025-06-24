@@ -2,69 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04639AE4E42
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Jun 2025 22:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78BCBAE5DA9
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jun 2025 09:28:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A110BC36B13;
-	Mon, 23 Jun 2025 20:43:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C973C36B29;
+	Tue, 24 Jun 2025 07:28:49 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A1B6C36B0F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9073BC36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Jun 2025 20:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750711403; x=1782247403;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ZF8iOADmf8w+7qUTaik1sR5sLxxucpt9xz9r6IIBx8E=;
- b=m2Gx2QLTZX6LD6wfW9YGJYjKfWRA80CSfKOfJnB52pSiGwkz9RVWJ6e7
- huf0zrvy9qARIg/+r5ADLgbO88F21X6fDnc+OqFwnDSUhKdWrAdKYAwOY
- Sza5OOpRcNmnctxER1H3Gw8nccRvcgUx/JPTfhPjsgWi4g/UlvHR2Vm3q
- ctyeVMMd8SawFwqb3VFbW07X7tbFmCcF6/TBYcscpgRoe5df9G7sPAzfl
- MMdhk86qoW9YeqHcZlGM5zUGdgjTlLxZLxIoPRCb3RCny2BjrkKCKb8Dw
- U770yz+Rake+Aah2ckDj4N7rCutamWbAR9Oz3HBvTfAZI3TKoYKI2kfXn Q==;
-X-CSE-ConnectionGUID: mVMLLG/wQLGmKCsdEeQkww==
-X-CSE-MsgGUID: tfm9cIXaR1W9SemjoZZF8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11473"; a="40547181"
-X-IronPort-AV: E=Sophos;i="6.16,259,1744095600"; d="scan'208";a="40547181"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2025 13:43:21 -0700
-X-CSE-ConnectionGUID: vhpMNoOJRVyHoigd9p+7Iw==
-X-CSE-MsgGUID: sLayHnBySu6O9o+QgzInsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,259,1744095600"; d="scan'208";a="151185395"
-Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
- by orviesa006.jf.intel.com with ESMTP; 23 Jun 2025 13:43:15 -0700
-Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uTo0W-000PJq-2Z;
- Mon, 23 Jun 2025 20:43:12 +0000
-Date: Tue, 24 Jun 2025 04:43:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
- Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Message-ID: <202506240401.zlRG1qiO-lkp@intel.com>
-References: <20250623-ddrperfm-upstream-v1-6-7dffff168090@foss.st.com>
+ Tue, 24 Jun 2025 07:28:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 5A23CA4F508;
+ Tue, 24 Jun 2025 07:28:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532B9C4CEE3;
+ Tue, 24 Jun 2025 07:28:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750750126;
+ bh=g0pXc/fIN30kvH2Virs4nkVnamuyy0huOlw1+j0TCiE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gukn8GYs+wpCJs8dwZyrg7QtHcLeHxgvHUf5Q6yYFg2C9BOEmDGLZizI6sGEa26dd
+ AXs2VFgQ42jn313Jggk4V0ILiINJVwDGLMci1cSQWA/Wnat7vTWZPJqUqLwIF40C2w
+ DB5SetH/wVRGB4WLiqemm7k1keA5ZvZmhtE6Frd6ifdr8+9XFWkT36y+r7uY0iPWVK
+ 7wqVd1s0PcAv5xA2AqsBduQdkOjE/CGEwb+m9pvBvE3rpcfh+prPNg4r7+X/NZWbZj
+ vz5KuBRA5M7nLhYwD3ZCbZbORFWCzuMpELU5hnh9Hkq8OxdNOzUNWWy2+/pxZnl9TL
+ tv2j3pfN4Gt8w==
+Date: Tue, 24 Jun 2025 09:28:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joy Zou <joy.zou@nxp.com>
+Message-ID: <urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26>
+References: <20250623095732.2139853-1-joy.zou@nxp.com>
+ <20250623095732.2139853-3-joy.zou@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250623-ddrperfm-upstream-v1-6-7dffff168090@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-perf-users@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 06/13] perf: stm32: introduce DDRPERFM
-	driver
+In-Reply-To: <20250623095732.2139853-3-joy.zou@nxp.com>
+Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
+ catalin.marinas@arm.com, frank.li@nxp.com, edumazet@google.com,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ will@kernel.org, kuba@kernel.org, pabeni@redhat.com, s.hauer@pengutronix.de,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, ye.li@nxp.com,
+ mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ linux-arm-kernel@lists.infradead.org, aisheng.dong@nxp.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
+ davem@davemloft.net, linux-pm@vger.kernel.or
+Subject: Re: [Linux-stm32] [PATCH v6 2/9] dt-bindings: soc: imx-blk-ctrl:
+ add i.MX91 blk-ctrl compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,121 +60,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Cl=E9ment,
+On Mon, Jun 23, 2025 at 05:57:25PM +0800, Joy Zou wrote:
+> Add new compatible string "fsl,imx91-media-blk-ctrl" for i.MX91,
+> which has different input clocks compared to i.MX93. Update the
+> clock-names list and handle it in the if-else branch accordingly.
+> 
+> Keep the same restriction for the existed compatible strings.
+> 
+> Signed-off-by: Joy Zou <joy.zou@nxp.com>
+> ---
+> Changes for v5:
+> 1. modify the imx93-blk-ctrl binding for imx91 support.
 
-kernel test robot noticed the following build errors:
+This is just vague. Anything can be "modify". Why are you doing this?
+What are you doing here?
 
-[auto build test ERROR on 86731a2a651e58953fc949573895f2fa6d456841]
+> ---
+>  .../soc/imx/fsl,imx93-media-blk-ctrl.yaml     | 55 +++++++++++++++----
+>  1 file changed, 43 insertions(+), 12 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
+> index b3554e7f9e76..db5ee65f8eb8 100644
+> --- a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
+> +++ b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
+> @@ -18,7 +18,9 @@ description:
+>  properties:
+>    compatible:
+>      items:
+> -      - const: fsl,imx93-media-blk-ctrl
+> +      - enum:
+> +          - fsl,imx91-media-blk-ctrl
+> +          - fsl,imx93-media-blk-ctrl
+>        - const: syscon
+>  
+>    reg:
+> @@ -31,21 +33,50 @@ properties:
+>      maxItems: 1
+>  
+>    clocks:
+> +    minItems: 8
+>      maxItems: 10
+>  
+>    clock-names:
+> -    items:
+> -      - const: apb
+> -      - const: axi
+> -      - const: nic
+> -      - const: disp
+> -      - const: cam
+> -      - const: pxp
+> -      - const: lcdif
+> -      - const: isi
+> -      - const: csi
+> -      - const: dsi
+> +    minItems: 8
+> +    maxItems: 10
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: fsl,imx93-media-blk-ctrl
+> +    then:
+> +      properties:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Cl-ment-Le-Goffic/bu=
-s-firewall-move-stm32_firewall-header-file-in-include-folder/20250623-173554
-base:   86731a2a651e58953fc949573895f2fa6d456841
-patch link:    https://lore.kernel.org/r/20250623-ddrperfm-upstream-v1-6-7d=
-ffff168090%40foss.st.com
-patch subject: [PATCH 06/13] perf: stm32: introduce DDRPERFM driver
-config: i386-buildonly-randconfig-002-20250624 (https://download.01.org/0da=
-y-ci/archive/20250624/202506240401.zlRG1qiO-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
-/20250624/202506240401.zlRG1qiO-lkp@intel.com/reproduce)
+Missing constraints for clocks
 
-If you fix the issue in a separate patch/commit (i.e. not just a new versio=
-n of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202506240401.zlRG1qiO-lkp@i=
-ntel.com/
+> +        clock-names:
+> +          items:
+> +            - const: apb
+> +            - const: axi
+> +            - const: nic
+> +            - const: disp
+> +            - const: cam
+> +            - const: pxp
+> +            - const: lcdif
+> +            - const: isi
+> +            - const: csi
+> +            - const: dsi
 
-All errors (new ones prefixed by >>):
+Keep list in comon part.
 
-   drivers/perf/stm32_ddr_pmu.c: In function 'stm32_ddr_start_counters':
->> drivers/perf/stm32_ddr_pmu.c:205:9: error: implicit declaration of funct=
-ion 'writel_relaxed' [-Werror=3Dimplicit-function-declaration]
-     205 |         writel_relaxed(r->start.mask, pmu->membase + r->start.re=
-g);
-         |         ^~~~~~~~~~~~~~
-   drivers/perf/stm32_ddr_pmu.c: In function 'stm32_ddr_clear_counter':
->> drivers/perf/stm32_ddr_pmu.c:232:22: error: implicit declaration of func=
-tion 'readl_relaxed' [-Werror=3Dimplicit-function-declaration]
-     232 |         u32 status =3D readl_relaxed(pmu->membase + r->status.re=
-g);
-         |                      ^~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: fsl,imx91-media-blk-ctrl
 
+This should be before if: for imx93. 91 < 93
 
-vim +/writel_relaxed +205 drivers/perf/stm32_ddr_pmu.c
+> +    then:
+> +      properties:
 
-   200	=
+Why imx91 now has 10 clocks?
 
-   201	static void stm32_ddr_start_counters(struct stm32_ddr_pmu *pmu)
-   202	{
-   203		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
-   204	=
+v6 and this has basic issues. The quality of NXP patches decreases :/
 
- > 205		writel_relaxed(r->start.mask, pmu->membase + r->start.reg);
-   206	}
-   207	=
+> +        clock-names:
+> +          items:
+> +            - const: apb
+> +            - const: axi
+> +            - const: nic
+> +            - const: disp
+> +            - const: cam
+> +            - const: lcdif
+> +            - const: isi
+> +            - const: csi
 
-   208	static void stm32_ddr_stop_counters(struct stm32_ddr_pmu *pmu)
-   209	{
-   210		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
-   211	=
+No, look at other bindings how they share clock lists.
 
-   212		writel_relaxed(r->stop.mask, pmu->membase + r->stop.reg);
-   213	}
-   214	=
+Best regards,
+Krzysztof
 
-   215	static void stm32_ddr_clear_time_counter(struct stm32_ddr_pmu *pmu)
-   216	{
-   217		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
-   218	=
-
-   219		writel_relaxed(r->clear_time.mask, pmu->membase + r->clear_time.reg=
-);
-   220	}
-   221	=
-
-   222	static void stm32_ddr_clear_event_counter(struct stm32_ddr_pmu *pmu,=
- struct stm32_ddr_cnt *counter)
-   223	{
-   224		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
-   225	=
-
-   226		writel_relaxed(r->clear_cnt.mask & BIT(counter->idx), pmu->membase =
-+ r->clear_cnt.reg);
-   227	}
-   228	=
-
-   229	static void stm32_ddr_clear_counter(struct stm32_ddr_pmu *pmu, struc=
-t stm32_ddr_cnt *counter)
-   230	{
-   231		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
- > 232		u32 status =3D readl_relaxed(pmu->membase + r->status.reg);
-   233	=
-
-   234		if (counter->idx =3D=3D pmu->cfg->time_cnt_idx)
-   235			stm32_ddr_clear_time_counter(pmu);
-   236		else
-   237			stm32_ddr_clear_event_counter(pmu, counter);
-   238	=
-
-   239		if (status & r->status.mask)
-   240			dev_err(pmu->dev, "Failed to clear counter %i because the PMU is b=
-usy\n",
-   241				counter->idx);
-   242	}
-   243	=
-
-
--- =
-
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
