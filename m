@@ -2,93 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE8AAE62AD
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jun 2025 12:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD1EAE62C5
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Jun 2025 12:46:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99EA6C36B31;
-	Tue, 24 Jun 2025 10:40:08 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B9D5C36B31;
+	Tue, 24 Jun 2025 10:46:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7356C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D885C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Jun 2025 10:40:06 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1750761604;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PmKtYLO9DDYaj9Me5RnB2od40m2nfSC9/3iVyLRTgPc=;
- b=v1IFWcFrbObYtAZ/RT0Kppv2+R1ysQJUiAOhyBDBdBD7GRafKVhWIJlEp4M1/MAbW7r3Ca
- o8ExT+FJNwE1MLi5ZHj7mixRk7DPF7y0JESsK+b/BXPx0H36L3GknAlPGKQ80sDZSd8kX8
- c7tk3xzYOhkh9+PB8l0sOAqBJbObspXXOYombtNTWorYQc/dnlFuIdXCWjoZNydWHsEEfw
- BxAB1cxurgSdDrVSKVwi91WSkw72/7/zhYIxKx2zfbMR8WyyBWVel7X/khQj5qlBzANr+W
- waHxljQ3WDmwbOBvDQ6fj/PD/LbBRXtKBrQTzgU9iEnxcn0NlO2wYO/ak4OZtw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1750761604;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PmKtYLO9DDYaj9Me5RnB2od40m2nfSC9/3iVyLRTgPc=;
- b=3q5D0uT4oSfP2VhfCp/l4dQktoBuSpc64H38sBuCNB8bE8D63GfRugryCyLDa3R+2guT87
- o5CUyJOaQUdlplCw==
-To: Pan Chuang <panchuang@vivo.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui
- <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Markus Mayer <mmayer@broadcom.com>, Broadcom
- internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- zhanghongchen <zhanghongchen@loongson.cn>, Yinbo Zhu
- <zhuyinbo@loongson.cn>, Amit Kucheria <amitk@kernel.org>, Thara Gopinath
- <thara.gopinath@gmail.com>, Niklas =?utf-8?Q?S=C3=B6derlund?=
- <niklas.soderlund@ragnatech.se>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Heiko
- Stuebner <heiko@sntech.de>, Bartlomiej Zolnierkiewicz
- <bzolnier@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Vasily Khoruzhick
- <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>, Jonathan
- Hunter <jonathanh@nvidia.com>, Kunihiko Hayashi
- <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, Greg KH
- <gregkh@linuxfoundation.org>, Peter Zijlstra <peterz@infradead.org>,
- =?utf-8?Q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
- Conor Dooley
- <conor.dooley@microchip.com>, Julien Panis <jpanis@baylibre.com>, Arnd
- Bergmann <arnd@arndb.de>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>,
- Colin Ian King <colin.i.king@gmail.com>, Raphael Gallais-Pou
- <rgallaispou@gmail.com>, Patrice Chotard <patrice.chotard@foss.st.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, "Jiri Slaby (SUSE)"
- <jirislaby@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>, Costa Shulyupin
- <costa.shul@redhat.com>, Yury Norov <yury.norov@gmail.com>, Cheng-Yang
- Chou <yphbchou0911@gmail.com>, Caleb Sander Mateos
- <csander@purestorage.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20250623123054.472216-2-panchuang@vivo.com>
-References: <20250623123054.472216-1-panchuang@vivo.com>
- <20250623123054.472216-2-panchuang@vivo.com>
-Date: Tue, 24 Jun 2025 10:13:10 +0200
-Message-ID: <87h605o8vd.ffs@tglx>
+ Tue, 24 Jun 2025 10:46:12 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55O89PlW018562;
+ Tue, 24 Jun 2025 12:45:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ LowxC1XeO1Q3ptnV100NCfbZE/+FCacaRTlFDEZ7nw4=; b=NW+9A/iYDBIYOudx
+ bupDVw7fFsOUiF1POCQhkWRdtrMnA2SQEgn3ffTStQz7psNYYvO1bykZpdgutoWy
+ 1WzDPo1HfRDTujMzGceUmoFF9dI3csRqk+OrSjX2U1Q82AHPZk0yuR9GirUQWEuY
+ 0uTXBDmqmhreOATOMkPOrAg+HFRtqZZO74LR/Kz8sUH5woYThZWMJktOCzrRuZP5
+ jloxRIqQkKw51725g6fIFcIyiDtijqkG3NSDKgTMgLLmmSM6OD0+OHlCDgC/T3aL
+ OBE2cZ+Obv2dvhAJpM9vhApHeFKzbOlpzSn/muvTc+F8R53Tnl46alaOILvOrx/r
+ WA2Mzw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47dkmjm6bk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Jun 2025 12:45:45 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5B79640046;
+ Tue, 24 Jun 2025 12:44:24 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 974C5B51BAB;
+ Tue, 24 Jun 2025 12:43:10 +0200 (CEST)
+Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Jun
+ 2025 12:43:09 +0200
+Message-ID: <5044c733-8836-43bd-85d7-0f552b000fb1@foss.st.com>
+Date: Tue, 24 Jun 2025 12:43:08 +0200
 MIME-Version: 1.0
-Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Pan Chuang <panchuang@vivo.com>,
- Jonathan Cameron <Jonathan.Cameron@Huawei.com>, Yangtao Li <frank.li@vivo.com>
-Subject: Re: [Linux-stm32] [PATCH v6 01/24] genirq/devres: Add
- devm_request_threaded_irq_probe() and devm_request_irq_probe()
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>, Mark
+ Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Gatien Chevallier
+ <gatien.chevallier@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Gabriel Fernandez
+ <gabriel.fernandez@foss.st.com>
+References: <20250623-ddrperfm-upstream-v1-0-7dffff168090@foss.st.com>
+ <20250623-ddrperfm-upstream-v1-6-7dffff168090@foss.st.com>
+ <9cb1575e-ae27-4a78-adb7-8a9e7072375e@kernel.org>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <9cb1575e-ae27-4a78-adb7-8a9e7072375e@kernel.org>
+X-Originating-IP: [10.48.86.185]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-06-24_04,2025-06-23_07,2025-03-28_01
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 06/13] perf: stm32: introduce DDRPERFM
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,126 +84,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 23 2025 at 20:30, Pan Chuang wrote:
-> +/**
-> + * devm_request_threaded_irq_probe - request irq for a managed device with error msg (recommended in probe)
-> + * @dev:	Device to request interrupt for
-> + * @irq:	Interrupt line to allocate
-> + * @handler:	Function to be called when the IRQ occurs
-> + * @thread_fn:	Function to be called in a threaded interrupt context. NULL
-> + *		for devices which handle everything in @handler
-> + * @irqflags:	Interrupt type flags
-> + * @devname:	An ascii name for the claiming device, dev_name(dev) if NULL
-> + * @dev_id:	A cookie passed back to the handler function
-> + * @info:	Optional additional error log
-> + *
-> + * This is a variant of the devm_request_threaded_irq function.
-> + * It will print an error message by default when the request fails,
-> + * and the consumer can add a special error msg.
-> + *
-> + * Except for the extra @info argument, this function takes the
-> + * same arguments and performs the same function as
-> + * devm_request_threaded_irq(). IRQs requested with this function will be
-> + * automatically freed on driver detach.
-
-I really have to ask why you need the extra info argument. It's not
-providing any really value.
-
-What's important when the interrupt request fails?
-
-    1) The device, which is identifiable by @devname and/or dev_name(@dev)
-
-    2) The interrupt number
-
-    3) The error code
-
-If you want to be more expressive then you can also print out the
-handler function symbols, which makes it even more useful to map back
-into the affected driver.
-
-As you cited correctly I said back then:
-
-  "So there is certainly an argument to be made that this particular
-   function should print a well formatted and informative error
-   message."
-
-This particular function is: devm_request_threaded_irq().
-
-IOW, I did not ask you should go an create a new one, right?
-
-The extra @info argument is just proliferating the nonsensical
-information which driver developers put into the output. I just looked
-through a couple of your thermal patches (hint, I had to chase them
-manually because you failed to thread them properly). While most of them
-provide NULL, the two adding 'alarm' are really not providing any useful
-information.
-
-The point is, that the information is aimed at developers and not to be
-helpful for Joe User to identify/fix a problem. If the driver
-developer/maintainer is not able to track back the information (name,
-number, error code) to the driver in question, then the added "foo" info
-is not going to make him any smarter.
-
-If that happens, then being able to map it back to the driver is only 1%
-of the problem analysis, simply because you need to decode the
-underlying problem (DT, vector exhaustion, memory exhaustion ....) to be
-able to address it.
-
-So just make devm_request.*irq() emit a uniform and informative message
-on fail and you can go and remove all the homebrewn useless error prints
-from the drivers.
-
-It does not matter at all if there are duplicated error messages for a
-release or two until all drivers have been cleaned up. This is not the
-common case and only rarely triggered. So what?
-
-> +int devm_request_threaded_irq_probe(struct device *dev, unsigned int irq,
-> +				    irq_handler_t handler, irq_handler_t thread_fn,
-> +				    unsigned long irqflags, const char *devname,
-> +				    void *dev_id, const char *info)
-> +{
-> +	int rc;
-> +
-> +	rc = devm_request_threaded_irq(dev, irq, handler, NULL, irqflags, devname, dev_id);
-
-This is just wrong as you fail to hand in thread_fn.
-
-Q: How was this code ever tested?
-A: Not at all.
-
-> Could you please consider merging the entire series into your branch? 
-
-You're seriously asking that for something which is so obviously broken?
-
-> +	if (rc) {
-> +		return dev_err_probe(dev, rc, "Failed to request %sinterrupt %u %s %s\n",
-> +				     thread_fn ? "threaded " : "", irq, devname ? : dev_name(dev),
-> +				     info ? : "");
-
-This is wrong too because devm_request_threaded_irq() allows you to hand
-in both a hard interrupt and a threaded handler and either one of them
-can be NULL.
-
-So what you want to add in devm_request_threaded_irq() is something like
-this:
-
-	if (rc < 0) {
-		return dev_err_probe(dev, rc, "request_irq(%u) %pS %pS %s\n",
-                        	     handler, thread_fn, devname ? : "");
-        }
-
-dev_err_probe() already prefixes the caller string with 'error ', so
-there is no need for a lenghty 'failed to request ....' novel.
-
-Thanks,
-
-        tglx
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNi8yMy8yNSAxMTo0NSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKWy4uLl0KCkhpIEty
+enlzenRvZiwKClNvcnJ5IEkgZm9yZ290IHRvIGFkZHJlc3MgY29tbWVudHMgYmVsb3cuCgo+PiAr
+Cj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHN0bTMyX2Rkcl9wbXVfY2ZnIHN0bTMyX2Rkcl9wbXVf
+Y2ZnX21wMSA9IHsKPj4gKwkucmVncyA9ICZzdG0zMl9kZHJfcG11X3JlZ3NwZWNfbXAxLAo+PiAr
+CS5hdHRyaWJ1dGUgPSBzdG0zMl9kZHJfcG11X2F0dHJfZ3JvdXBzX21wMSwKPj4gKwkuY291bnRl
+cnNfbmIgPSBNUDFfQ05UX05CLAo+PiArCS5ldnRfY291bnRlcnNfbmIgPSBNUDFfQ05UX05CIC0g
+MSwgLyogVGltZSBjb3VudGVyIGlzIG5vdCBhbiBldmVudCBjb3VudGVyICovCj4+ICsJLnRpbWVf
+Y250X2lkeCA9IE1QMV9USU1FX0NOVF9JRFgsCj4+ICsJLmdldF9jb3VudGVyID0gc3RtMzJfZGRy
+X3BtdV9nZXRfZXZlbnRfY291bnRlcl9tcDEsCj4+ICt9Owo+PiArCj4+ICtzdGF0aWMgY29uc3Qg
+c3RydWN0IHN0bTMyX2Rkcl9wbXVfY2ZnIHN0bTMyX2Rkcl9wbXVfY2ZnX21wMiA9IHsKPj4gKwku
+cmVncyA9ICZzdG0zMl9kZHJfcG11X3JlZ3NwZWNfbXAyLAo+PiArCS5hdHRyaWJ1dGUgPSBzdG0z
+Ml9kZHJfcG11X2F0dHJfZ3JvdXBzX21wMiwKPj4gKwkuY291bnRlcnNfbmIgPSBNUDJfQ05UX05C
+LAo+PiArCS5ldnRfY291bnRlcnNfbmIgPSBNUDJfQ05UX05CIC0gMSwgLyogVGltZSBjb3VudGVy
+IGlzIGFuIGV2ZW50IGNvdW50ZXIgKi8KPj4gKwkudGltZV9jbnRfaWR4ID0gTVAyX1RJTUVfQ05U
+X0lEWCwKPj4gKwkuZ2V0X2NvdW50ZXIgPSBzdG0zMl9kZHJfcG11X2dldF9ldmVudF9jb3VudGVy
+X21wMiwKPj4gK307Cj4+ICsKPj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBzdG0z
+Ml9kZHJfcG11X3BtX29wcyA9IHsKPj4gKwlTRVRfU1lTVEVNX1NMRUVQX1BNX09QUyhOVUxMLCBz
+dG0zMl9kZHJfcG11X2RldmljZV9yZXN1bWUpCj4+ICt9Owo+PiArCj4+ICtzdGF0aWMgY29uc3Qg
+c3RydWN0IG9mX2RldmljZV9pZCBzdG0zMl9kZHJfcG11X29mX21hdGNoW10gPSB7Cj4+ICsJewo+
+PiArCQkuY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMTMxLWRkci1wbXUiLAo+PiArCQkuZGF0YSA9
+ICZzdG0zMl9kZHJfcG11X2NmZ19tcDEKPj4gKwl9LAo+PiArCXsKPj4gKwkJLmNvbXBhdGlibGUg
+PSAic3Qsc3RtMzJtcDE1MS1kZHItcG11IiwKPj4gKwkJLmRhdGEgPSAmc3RtMzJfZGRyX3BtdV9j
+ZmdfbXAxCj4gCj4gU28gZGV2aWNlcyBhcmUgY29tcGF0aWJsZSwgdGh1cyBleHByZXNzIGl0IGNv
+cnJlY3RseSBhbmQgZHJvcCB0aGlzLgoKT2sgc28gSSBhc3N1bWUgdGhpcyBjb21lcyB3aXRoIHlv
+dXIgY29tbWVudCBpbiB0aGUgYmluZGluZ3MgYW5kIApiYXNpY2FsbHkgZG9uJ3QgZ2V0IHlvdSBw
+b2ludCBoZXJlLgpDYW4geW91IHBsZWFzZSBiZSBtb3JlIHByZWNpc2UgPwoKPiAKPj4gKwl9LAo+
+PiArCXsKPj4gKwkJLmNvbXBhdGlibGUgPSAic3Qsc3RtMzJtcDI1MS1kZHItcG11IiwKPj4gKwkJ
+LmRhdGEgPSAmc3RtMzJfZGRyX3BtdV9jZmdfbXAyCj4+ICsJfSwKPj4gKwl7IH0sCj4+ICt9Owo+
+PiArTU9EVUxFX0RFVklDRV9UQUJMRShvZiwgc3RtMzJfZGRyX3BtdV9vZl9tYXRjaCk7Cj4+ICsK
+Pj4gK3N0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVyIHN0bTMyX2Rkcl9wbXVfZHJpdmVyID0g
+ewo+PiArCS5kcml2ZXIgPSB7Cj4+ICsJCS5uYW1lID0gRFJJVkVSX05BTUUsCj4+ICsJCS5wbSA9
+ICZzdG0zMl9kZHJfcG11X3BtX29wcywKPj4gKwkJLm9mX21hdGNoX3RhYmxlID0gb2ZfbWF0Y2hf
+cHRyKHN0bTMyX2Rkcl9wbXVfb2ZfbWF0Y2gpLAo+IAo+IERyb3Agb2ZfbWF0Y2hfcHRyLCB5b3Ug
+aGF2ZSBoZXJlIHdhcm5pbmdzLgoKWWVzIEluZGVlZC4KSSdsbCBhbHNvIGZpeCB0aGUgcG0gcG9p
+bnRlciBieSB1c2luZyAicG1fc2xlZXBfcHRyIi4KCkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKCj4g
+Cj4gCj4gCj4gQmVzdCByZWdhcmRzLAo+IEtyenlzenRvZgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
