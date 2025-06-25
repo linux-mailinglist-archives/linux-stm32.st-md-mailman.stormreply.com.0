@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F29FBAE7F6F
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:33:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E854AE7F70
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:33:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97209C3087B;
-	Wed, 25 Jun 2025 10:33:45 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEE4FC3089F;
+	Wed, 25 Jun 2025 10:33:46 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB7C3C30883
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E61C7C30883
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 10:33:43 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-451dbe494d6so72349185e9.1
+ Wed, 25 Jun 2025 10:33:45 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-45377776935so30192905e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 03:33:43 -0700 (PDT)
+ Wed, 25 Jun 2025 03:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750847623; x=1751452423;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750847625; x=1751452425;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=tU449U3rD07cot6WAW8djohd5BFLFtc92RhNFArY8gQ=;
- b=gN4Rnvi1usboWdDdxj5jdhYO57f0lNPrhNW6Wi3+oz33xFxw1MbV0ZK9XJ/Av/7JtH
- 3kyaSzOYdKAZPAiekynLoFGOhVW0xDaLwSLZ8/D+CbZxb1hQNnjH1zO0fr56wogpHd0O
- hHw8+GlGv5SG4XG/Auf0RHxEN89K/OV11dRlQ/luSd8Div8nsC/gSnipkO8IBVfK398a
- +o4KRo08G3R3h/zEYllZgYUmEbfH6xUSVhoX+XwPowcuDhcwwxaC+KNGHSfolxGfQZDG
- r30tguU+JU0E8KqQ10n6QQqoPJBrT5djjGTeOdSL3WL0UTJEctdkvEEUk1Qf4v/cZ5OE
- 0d1A==
+ :reply-to; bh=8zb19l62LN7ssNNUqMMp02ypDTWsuR6UE9OCfe02DEw=;
+ b=Sr6T3Ak+ni3/N/dvM4yJxH7/lHgl2BNb3DVvsQzoth+YTJpIYO/nUmX6fXidRIY6rF
+ tk2/aD33B5U5ua6uKWMFagnNUxXlFYBTMGyIRUmt3HMIhrztHql9R98IKaZiQMKsIbj4
+ Frx5j7LXtuq+dllxW0yAsv5eXl4dfJgovrUVx9VPtY+cWA1mVYYVqoMAicGJufFol0Ua
+ Yqx/QQzru7BvFhLK23S6X6bD8QlOa/An2nPeKY7/Vu40zwOk4bgqOLjKXFknWZGJBzeD
+ OFCWVTgX8DNQ7ZlR5Hb8h6tvduiPrnIMq+Kt3ylJMTDD0OEPIhxKTVK2gtgA+4TiERQR
+ S3pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750847623; x=1751452423;
+ d=1e100.net; s=20230601; t=1750847625; x=1751452425;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tU449U3rD07cot6WAW8djohd5BFLFtc92RhNFArY8gQ=;
- b=E4qReeK35WcZhRKlGxtExYrWsLLLXg3GV6fG0SppJYivg2xZH147P76KWFA1So7XY5
- lCKYc/RvKEGJBUNgQrCoKAFx5WeMi3x0P9RfOtDZg3p6lMhp/j48Cy+lDvGI8bAcpxHn
- WFujT6nGntyCkb+DXrKsovYzOegH48TF0gruP0fzX1cCMunxpqnCnjkzqYlG8xNQe5wn
- Q2au64ZiDyJUwMADUV9hqnibP1PbB1qNthQOSZFBuzNUmi0QfZdBEI9wNs90g4E9ZK0C
- gvEWfw4KVx5Rdb84z1B3rJzBfGMJy4i/eQovUGvaJ7GoDHhZGelTrMERTRb68eQ30cpq
- X9VQ==
+ bh=8zb19l62LN7ssNNUqMMp02ypDTWsuR6UE9OCfe02DEw=;
+ b=nS8xGPmh1Ubqt9i6CFT5dhXJXHtFQ2SLqDLqxZDVJfKvQwpuboUApwiDtUlxla3+o/
+ jyYe/aj+eDkGeKWyi7WWDnXdHDuPXDN+W0hqem5vs7NuGCNjDCZgUTCNKcybaZVBUgcI
+ +sL5YdlezpYilzxUJIIO+j76hqxozNXA5U2c051lzBUbAP39sn6L7L6DJxq41N4NpTvs
+ syfaB7OH2lB8Td/tr3JPPh8YpfkB5knhPRTBNwebazfAIo36rwOzV/sm23ZjTLRaT8bu
+ aDt+195fbu1yuXsejNBSWat5oKD7qhERZ8Gt/ucdG91DkINhjUXoYS4gKKO1OdTNS1R2
+ hZbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCVpXsKKaBkvqD9aj+DZDwxNVp5npUC6yGH+Gm5XRQAV0AMmxdMUDDEmKTdqjjJ548c9SpFehcRZER+g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyoyjZ10Ob/ayaP85PYJm2r/ibXVa+om7N1pPxwLOoGlNjkxtsQ
- CzjLXK1WuLg2kmeiGVJ+r8zl9xopUwY5/bV0oTXAwqjkPOhB1VC1CteLuZIDlZHHv2SzLO5c03O
- r02xNyK4=
-X-Gm-Gg: ASbGncthfvND2Ej4oA3MJtdDA/GVXMvpAPQ/0DlZwXxuZuVPQJnq56BYNc+8eMxlx7X
- ilFmZrxu97HXcqjwAFjW5oa/sVgPeMaLi+vMgUP95dn3c3U4cpzqekO1HvA3ADHL60jKnNvqYA5
- DOSuN86qiHNp7CgPTjq/1+M+716YpGqDTWkzUD6hnkSf/HipYX+3cYn+V9d9vjggBRkEVV7GUqH
- w/Q9RluOwcG7rAxQbBkd7MN26AF0ubnYprZqgr8wJVw43P639GHScRoBufYU4QWyZjgr8PwOuqb
- kG12m8iNQopjlFQGXdFCSpWFqlfef4sZQ2pHVRsTPTcozfaWrbmInPrX
-X-Google-Smtp-Source: AGHT+IExdKWHy0zZaVYCrqx+BP7uJ368HB9lkEt9PPvj6/TYCB40ZTHcV1Ct7Y5lmkJLBkvOCbR3KA==
-X-Received: by 2002:a05:600c:4689:b0:450:30e4:bdf6 with SMTP id
- 5b1f17b1804b1-453837b27admr15033695e9.19.1750847623364; 
- Wed, 25 Jun 2025 03:33:43 -0700 (PDT)
+ AJvYcCXzKgq/wmbA3Ag0z/VgI6eF+1/bdqGqmTRoofx7mZyvaElfessCmScTg5J1k9IQndOFaRFZe9eoBme/AQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyDoJAbNbjwo7d3mFjr3MA0vG3pCmi1b8dBYFyF8lOiWJ0yQ702
+ zJle+UbhXbbmDUS0tMoIzbaZMKAblf706JmQ+Pzin0N5zuBFWGZdXEwcG+fEkvmC7d4=
+X-Gm-Gg: ASbGncvNhdUUfBjORB1nu4DaKQtvp7iSjuGgZlE2JitRGeBRv4kvM3+2OxqQ/k5c7zH
+ 2GhW3yuuwVQwaHRJ7DP8JwLhKKzuyQIzXrixvQbS6QHwvdOrSz/3UmRVy5ZqhwmrfSZ4F3WLtcd
+ eAfg0NTTtR6HH2wV8vUgYbQxAwZWdhDL/LM4iu5laBT3JtiRZsWzgvdexZZ42F0XEbNFT3RvEOS
+ zI+RXDXH+buAqlLCDcCURymOlZRXghVPo8nXCusBOdZXDiA8YoYHxFwvh4IsvT2BimTAdEOA7SB
+ zfNwlPhXPANrEPfJZOp68iHiW6dYTZiWGBmeEBi2taaH130iFU3gMEci
+X-Google-Smtp-Source: AGHT+IGE1iP8Q+/UBvqDvrwiy35DOn+9cFNtjYDncbc3WiyZ+/TZLkMjhHK06lIMfzCnTiYjrVT4RA==
+X-Received: by 2002:a05:600c:37ca:b0:450:cf42:7565 with SMTP id
+ 5b1f17b1804b1-45381ae5157mr21000645e9.23.1750847625330; 
+ Wed, 25 Jun 2025 03:33:45 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:d216:42f3:1e7e:472e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45382373c86sm16133195e9.33.2025.06.25.03.33.42
+ 5b1f17b1804b1-45382373c86sm16133195e9.33.2025.06.25.03.33.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 03:33:42 -0700 (PDT)
+ Wed, 25 Jun 2025 03:33:43 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 25 Jun 2025 12:33:27 +0200
+Date: Wed, 25 Jun 2025 12:33:28 +0200
 MIME-Version: 1.0
-Message-Id: <20250625-gpiochip-set-rv-gpio-round2-v1-4-bc110a3b52ff@linaro.org>
+Message-Id: <20250625-gpiochip-set-rv-gpio-round2-v1-5-bc110a3b52ff@linaro.org>
 References: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
 In-Reply-To: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
 To: Ludovic Desroches <ludovic.desroches@microchip.com>, 
@@ -78,29 +77,29 @@ To: Ludovic Desroches <ludovic.desroches@microchip.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1858;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1789;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=bJcwe6Hr5XvIVx8G6ghZMJiYUF0XZL199iB3coJfAfk=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoW9B+PQpCwI9SoOycpwUWmzmglijqLdeB/U5Eg
- kE1VEMdyMKJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaFvQfgAKCRARpy6gFHHX
- cuFFEADfNeOln1AAQDWFM9wsl7uEhDwfsbG71W4/R7OgBczrNFkK+UtKviXp2HJ9O01kv/hOWs7
- 6EHhIBxDrY3pFDdCE+Wy+NSeUrjAmu+c6e318/1GLlFKuByq4RPXekslFzg6vFxqLpDcBZj90CU
- c1wUFWCZZtASvlEycZTrptz7iDoRsiWrrPfWbca1szxTMpwerPyUpMF0VrP36xurC6WQxW/1h4V
- Cq8YmYy3rwSH1f4uuM/kkAJe3bLS34cD0HuZjVpU5B/y4k5lwv57dve6LYSEU4Fy4eXI41eQwW2
- +Gpch2bEFZmJlkUth7pHVoLmFsvZQPMhWgw0A6jegQII82k8eM45CJRXZArNUsMPuJDlXur4HF+
- rBIwKFgRSKQzG7HhSE+xwKGkmdqCXc1C1Wn83SO0y+V3uvW91HAwGZZQOnG8CjBVdxdOcsh2pAx
- bealDn8ZLONkKw/5Z8zYQEtxUIP1bWTLUPoftc6X7gWjyZG8OX4vs8KCXh1isM5o+f7usuQNiYa
- vO4UW8hil77mCfWWx4yzX6r87ZS36V6WZqYWVgLkaCiN8/d4JG21eaKqPcLxX3E/veTMsMy/RTy
- 4ZXlQq5YztpHNAInC0FbcAuM54PMNKASc4AGGwTpKZaAiFtsMzwBpcZ+uKxpP0+H7/IBsqKPnbb
- bsgrz1crt8iUXww==
+ bh=CY82p8ULaZbPaJLzsSE1jBEx4Q22047mL4oX3JNu98M=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoW9B/VUUd0S0rRYJZkJ/S3qmK/y9uGk/fty3n2
+ /3rwZgRjn+JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaFvQfwAKCRARpy6gFHHX
+ ckPIEACZJ7YNhLX9LjsVao2rzFSTptRFTG8o45nfPlE3dmbbY3xiZpnoKARBKsndI3htD18t+Su
+ fFS5ueGlSpJvuexYxJjGZPb8EyjUMiMd1ilvCVmZPqFkQS/BllugnD6vUj/l+iTO4mFIGg+Rl2e
+ GFNV9Mhjupn4r+u9nSPYCjv8WfgeHF2mRHMeqM6mACuMrNoK4XShviCejqKJtIHbtXJpmd/kWw4
+ CyWp++UesKsLwMU4t4a8OU5Lg0uDOUNdfpx3rfp6I0dXwrHYRI1LvvHJfxxTZDaQVvptd+5Zj1x
+ DIy+KmElvIDe8VbtEUqbf2Am9xBq0IMpV7YhioCvnedxP2WRq2uD3OTDtBEPz81V4iq0GroVTN4
+ /8jPC1gWkufJEJV1fgYHfU/9P7Q9P916XEXQfqN5Kw45PZUy5lQ0mtGXRy45+/eGiq3949p9zSo
+ BFFLAV6nYTA04ChIoJEgBLJtSOIrOz5ffGpNb4RUkW6EfPxKTHYXxCyvsqIItmGrryUpDZXbmYH
+ vvKA1o39bf4Gl6fZK5G7ffc+Fy4l8MFNoKtb5qJK7KcTMxAsuOIa9MrYYE01osnahxcGJ4znoBx
+ CTyeRANlafMQ2TmkDUni5eowtmFeaXK2AZ+O4ZoWgoZ4kUifnBvUg9X2dUs+vzHHawl6x9psUt4
+ Ky1BQHapjjvhdHA==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: linux-gpio@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 04/12] gpio: siox: use new GPIO line value
-	setter callbacks
+Subject: [Linux-stm32] [PATCH 05/12] gpio: spear-spics: remove unneeded
+	callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,58 +118,54 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-struct gpio_chip now has callbacks for setting line values that return
-an integer, allowing to indicate failures. Convert the driver to using
-them.
+GPIO core can handle output-only chips that don't implement the get()
+and direction_input() callbacks. There's no need to provide dummy
+implementations in the driver so drop them.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/gpio/gpio-siox.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpio/gpio-spear-spics.c | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpio/gpio-siox.c b/drivers/gpio/gpio-siox.c
-index 051bc99bdfb2aa3c8a382f773c5892fed6e0a8b3..95355dda621b40124f4702432565b7381c4e6686 100644
---- a/drivers/gpio/gpio-siox.c
-+++ b/drivers/gpio/gpio-siox.c
-@@ -160,8 +160,8 @@ static int gpio_siox_get(struct gpio_chip *chip, unsigned int offset)
- 	return ret;
- }
+diff --git a/drivers/gpio/gpio-spear-spics.c b/drivers/gpio/gpio-spear-spics.c
+index 51539185400d329c5a065d7a51c27b2ae24f672c..964b7dcb30b7a5bccda964a637f7fec97fe02aa4 100644
+--- a/drivers/gpio/gpio-spear-spics.c
++++ b/drivers/gpio/gpio-spear-spics.c
+@@ -51,12 +51,6 @@ struct spear_spics {
+ 	struct gpio_chip	chip;
+ };
  
--static void gpio_siox_set(struct gpio_chip *chip,
--			  unsigned int offset, int value)
-+static int gpio_siox_set(struct gpio_chip *chip,
-+			 unsigned int offset, int value)
+-/* gpio framework specific routines */
+-static int spics_get_value(struct gpio_chip *chip, unsigned offset)
+-{
+-	return -ENXIO;
+-}
+-
+ static void spics_set_value(struct gpio_chip *chip, unsigned offset, int value)
  {
- 	struct gpio_siox_ddata *ddata = gpiochip_get_data(chip);
- 	u8 mask = 1 << (19 - offset);
-@@ -174,6 +174,8 @@ static void gpio_siox_set(struct gpio_chip *chip,
- 		ddata->setdata[0] &= ~mask;
- 
- 	mutex_unlock(&ddata->lock);
-+
-+	return 0;
+ 	struct spear_spics *spics = gpiochip_get_data(chip);
+@@ -76,11 +70,6 @@ static void spics_set_value(struct gpio_chip *chip, unsigned offset, int value)
+ 	writel_relaxed(tmp, spics->base + spics->perip_cfg);
  }
  
- static int gpio_siox_direction_input(struct gpio_chip *chip,
-@@ -191,8 +193,7 @@ static int gpio_siox_direction_output(struct gpio_chip *chip,
- 	if (offset < 12)
- 		return -EINVAL;
- 
--	gpio_siox_set(chip, offset, value);
--	return 0;
-+	return gpio_siox_set(chip, offset, value);
- }
- 
- static int gpio_siox_get_direction(struct gpio_chip *chip, unsigned int offset)
-@@ -236,7 +237,7 @@ static int gpio_siox_probe(struct siox_device *sdevice)
- 	gc->parent = dev;
- 	gc->owner = THIS_MODULE;
- 	gc->get = gpio_siox_get;
--	gc->set = gpio_siox_set;
-+	gc->set_rv = gpio_siox_set;
- 	gc->direction_input = gpio_siox_direction_input;
- 	gc->direction_output = gpio_siox_direction_output;
- 	gc->get_direction = gpio_siox_get_direction;
+-static int spics_direction_input(struct gpio_chip *chip, unsigned offset)
+-{
+-	return -ENXIO;
+-}
+-
+ static int spics_direction_output(struct gpio_chip *chip, unsigned offset,
+ 		int value)
+ {
+@@ -148,9 +137,7 @@ static int spics_gpio_probe(struct platform_device *pdev)
+ 	spics->chip.base = -1;
+ 	spics->chip.request = spics_request;
+ 	spics->chip.free = spics_free;
+-	spics->chip.direction_input = spics_direction_input;
+ 	spics->chip.direction_output = spics_direction_output;
+-	spics->chip.get = spics_get_value;
+ 	spics->chip.set = spics_set_value;
+ 	spics->chip.label = dev_name(&pdev->dev);
+ 	spics->chip.parent = &pdev->dev;
 
 -- 
 2.48.1
