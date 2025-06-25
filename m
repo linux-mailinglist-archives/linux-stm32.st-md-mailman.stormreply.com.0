@@ -2,43 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6E97AE76C3
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 08:10:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE1CAE772B
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 08:35:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EB8DC32E92;
-	Wed, 25 Jun 2025 06:10:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B29FC32EA8;
+	Wed, 25 Jun 2025 06:35:15 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CDDFC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0068C32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 06:10:14 +0000 (UTC)
+ Wed, 25 Jun 2025 06:35:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 666BA615F1;
- Wed, 25 Jun 2025 06:10:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889EAC4CEEA;
- Wed, 25 Jun 2025 06:10:06 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7E303A50D4A;
+ Wed, 25 Jun 2025 06:35:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 995E0C4CEEA;
+ Wed, 25 Jun 2025 06:35:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750831813;
- bh=TEf+0zBo4DYSNOvhVuH60cDQ+vbZMzygF71dL+Jh798=;
+ s=k20201202; t=1750833313;
+ bh=vwTWK+tYNZHhkq/xqWMABVn6M86lPQdnixn3JPY3DUU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YHt7DH9HLA5kBMzdtXsLfXrnOhUdtHDP4wZC/HNvVcwcIAn+kqlRrPXMZk/Trh2QJ
- oQ/YvsxqF8mGocksilcrPtZgaEmeXWDo7lrvXCG1dJ9OjyOo1BgEhZ9gIt3E5y7ZP1
- YI8Z+06o7onSqrN9VUIuQ1PAR1HdvZU/I4LLULSx991gQ8ZlSNfxMJCUBueVY+v+4m
- ldMMqaTZnEKxw8T0pQllV7ZrLNEoPfWHWlMINdGN2lUe7qUMn/qFkZ1zVKmVT7bLVh
- lsJOmzEFc2CGOSO8AjAiduJRTDDwuUOSMPiUm6aAH2PNjwaheLw/d7xxLlZDJu1/4o
- 3lPOZV/1BQYEA==
-Message-ID: <22d911a2-3bf1-45ee-9037-c6d8cbd686fa@kernel.org>
-Date: Wed, 25 Jun 2025 08:10:04 +0200
+ b=Z7iEtdGkFUpmfIgo90PZe5ORPYF+PkxouXBYkAbbKpm+ZQWRXxtG80XjdafjOE5mE
+ T/zr6BG6oFquAkxgjG/g82i9KZmat5lBibXx2XExAahgl55aKYsaA7FTmgsozS/i3Q
+ TJjYP4QctNSMyJeqikUXcrt6o/aJsspw1QVmqLbnK3lORVujH37OTxsC1w8NW1QSfd
+ 54O5eEqv6A9rGD4fNjqHr+l0EFR8hDGa6rTcdS7bgZMhggQ3FffGu2Lg2lHU4IB7Th
+ DSDSrceO9+KQN5L4ekA6/hGyFaTrpcTIM86oG6JS+VUxqXK+Zh+iHG8f8nDuUgLGAT
+ xL+QTeq7yM7cg==
+Message-ID: <49483568-b287-45ca-a66c-1e0ad0490225@kernel.org>
+Date: Wed, 25 Jun 2025 08:35:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Frank Li <Frank.li@nxp.com>
-References: <20250623095732.2139853-1-joy.zou@nxp.com>
- <20250623095732.2139853-3-joy.zou@nxp.com>
- <urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26>
- <aFq7WJ3Fqe9p0EhA@lizhi-Precision-Tower-5810>
- <e32c3a47-e32e-4f93-becb-ebad31065b73@kernel.org>
- <aFr3yExb6vObn5W4@lizhi-Precision-Tower-5810>
+To: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+References: <20250623-ddrperfm-upstream-v1-0-7dffff168090@foss.st.com>
+ <20250623-ddrperfm-upstream-v1-6-7dffff168090@foss.st.com>
+ <9cb1575e-ae27-4a78-adb7-8a9e7072375e@kernel.org>
+ <5044c733-8836-43bd-85d7-0f552b000fb1@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -84,19 +91,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <aFr3yExb6vObn5W4@lizhi-Precision-Tower-5810>
-Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
- catalin.marinas@arm.com, edumazet@google.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, will@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, s.hauer@pengutronix.de,
- Joy Zou <joy.zou@nxp.com>, devicetree@vger.kernel.org, conor+dt@kernel.org,
- ye.li@nxp.com, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- linux-arm-kernel@lists.infradead.org, aisheng.dong@nxp.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
- davem@davemloft.net, linux-pm@vger.kernel.or
-Subject: Re: [Linux-stm32] [PATCH v6 2/9] dt-bindings: soc: imx-blk-ctrl:
- add i.MX91 blk-ctrl compatible
+In-Reply-To: <5044c733-8836-43bd-85d7-0f552b000fb1@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 06/13] perf: stm32: introduce DDRPERFM
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,30 +114,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/06/2025 21:08, Frank Li wrote:
->>>>> +        clock-names:
->>>>> +          items:
->>>>> +            - const: apb
->>>>> +            - const: axi
->>>>> +            - const: nic
->>>>> +            - const: disp
->>>>> +            - const: cam
->>>>> +            - const: lcdif
->>>>> +            - const: isi
->>>>> +            - const: csi
->>>>
->>>> No, look at other bindings how they share clock lists.
->>>
->>> Sorry, this method is what I suggested. becuase there are pxp between cam
->>> and lcdif, can't use simple minItems/maxItems to limit list.
->>
->> The point is to put new items, so pxp, at the end.
+On 24/06/2025 12:43, Clement LE GOFFIC wrote:
+> On 6/23/25 11:45, Krzysztof Kozlowski wrote:
+> [...]
 > 
-> There are already a list for imx93. If change list order, it will break
-> ABI. This was rejected at other binding doc review.
-I see, I mixed the SoCs. It is a pity you upstream that way and do not
-try to make the list common. Anyway names indeed need to be constrained
-per variant, but the rest of the comments stay.
+> Hi Krzysztof,
+> 
+> Sorry I forgot to address comments below.
+> 
+>>> +
+>>> +static const struct stm32_ddr_pmu_cfg stm32_ddr_pmu_cfg_mp1 = {
+>>> +	.regs = &stm32_ddr_pmu_regspec_mp1,
+>>> +	.attribute = stm32_ddr_pmu_attr_groups_mp1,
+>>> +	.counters_nb = MP1_CNT_NB,
+>>> +	.evt_counters_nb = MP1_CNT_NB - 1, /* Time counter is not an event counter */
+>>> +	.time_cnt_idx = MP1_TIME_CNT_IDX,
+>>> +	.get_counter = stm32_ddr_pmu_get_event_counter_mp1,
+>>> +};
+>>> +
+>>> +static const struct stm32_ddr_pmu_cfg stm32_ddr_pmu_cfg_mp2 = {
+>>> +	.regs = &stm32_ddr_pmu_regspec_mp2,
+>>> +	.attribute = stm32_ddr_pmu_attr_groups_mp2,
+>>> +	.counters_nb = MP2_CNT_NB,
+>>> +	.evt_counters_nb = MP2_CNT_NB - 1, /* Time counter is an event counter */
+>>> +	.time_cnt_idx = MP2_TIME_CNT_IDX,
+>>> +	.get_counter = stm32_ddr_pmu_get_event_counter_mp2,
+>>> +};
+>>> +
+>>> +static const struct dev_pm_ops stm32_ddr_pmu_pm_ops = {
+>>> +	SET_SYSTEM_SLEEP_PM_OPS(NULL, stm32_ddr_pmu_device_resume)
+>>> +};
+>>> +
+>>> +static const struct of_device_id stm32_ddr_pmu_of_match[] = {
+>>> +	{
+>>> +		.compatible = "st,stm32mp131-ddr-pmu",
+>>> +		.data = &stm32_ddr_pmu_cfg_mp1
+>>> +	},
+>>> +	{
+>>> +		.compatible = "st,stm32mp151-ddr-pmu",
+>>> +		.data = &stm32_ddr_pmu_cfg_mp1
+>>
+>> So devices are compatible, thus express it correctly and drop this.
+> 
+> Ok so I assume this comes with your comment in the bindings and 
+> basically don't get you point here.
+> Can you please be more precise ?
+
+Express compatibility in the bindings, like 90% of SoCs are doing, so
+with proper fallback and drop this entry in the table. My comment was
+pretty precise, because this is completely standard pattern, also used
+already in stm32.
 
 Best regards,
 Krzysztof
