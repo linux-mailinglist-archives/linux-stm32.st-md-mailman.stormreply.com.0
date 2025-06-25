@@ -2,51 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16452AE8CAD
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 20:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECEE0AE8E29
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 21:12:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BC47C32EB5;
-	Wed, 25 Jun 2025 18:39:52 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 491D3C30883;
+	Wed, 25 Jun 2025 19:12:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4D54C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7ED3FC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 18:39:50 +0000 (UTC)
+ Wed, 25 Jun 2025 19:12:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 943A3A52B38;
- Wed, 25 Jun 2025 18:39:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D290C4CEEA;
- Wed, 25 Jun 2025 18:39:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EFDBE4B26A;
+ Wed, 25 Jun 2025 19:12:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC099C4CEEE;
+ Wed, 25 Jun 2025 19:12:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750876789;
- bh=Ne3gQDGNR+fc9eT5DJJdL5V8H/ySv24dUclSgAsgI3I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=G8RXNkr5OwQEpMXK4RtS9V68i1Qvq4HEAJav6fuIAKALQUxJMU6tKWh8NO6ushrn5
- zCRTdqWH7DdODZySzkau7PCNaDBXcOw9jmstHn4bOYi5csSpCSFM4zvV+iOBhFjTI7
- iMocPlkq/T3MltzRWEZw4xMK9+ux8p79GjOx0pjCXPFruteFC7LB3WkubdO19Wvcy7
- deizZzbng8niI2ibvLX4zNp4sY3BOftfvri48XQNigiT5B5Q6xmer8ILjjschjt08f
- hxvb5jJlH6iJGfUuCIqFXOG8f1LMqC/ntianHDZzsH+pIK3Ea7XfCx/NA7a5G4oyRL
- /P0ol9R0EwZJw==
-Date: Wed, 25 Jun 2025 13:39:48 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <175087678758.1997493.17415728035364820579.robh@kernel.org>
-References: <20250603-stm32mp157f-dk2-v2-0-5be0854a9299@foss.st.com>
- <20250603-stm32mp157f-dk2-v2-3-5be0854a9299@foss.st.com>
+ s=k20201202; t=1750878747;
+ bh=+qriwj9qU4FY/kuIp4wDLlM/t8OqijQo1R2YW3zdLuU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=jQXCQmT8D2h0EMiy0LeKaMVgq4MMLwiB5Ojl9jxZUv3lfWTMXOdg/Ik0UrDQyUSjL
+ 4MyfWPrrhsFgzVudtvHgpM62ZTCCpPxy35fmIvUUFQNGqTyaa+MlvHiuIsfLG1LPq7
+ DqO/X6euoQBAnIVWUFCtnMvL/ngetC26Gn7NfJVTg6zqih6MrgmXqtLPNUAMhF8Dyl
+ MqUCjuQmArTDzS7IxOthC7s73wiH1W/851Whej89BlsJAhXIvMsYOcLLDNVEoVpD4k
+ IO0k5pr5rxMRmHCfbJBy4JwocPtv2E4fPF/CDD2INuRNUBPSpXrHi/aKwXrLqj48Gf
+ MZhLmOg8QqPSA==
+From: Mark Brown <broonie@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Valentin Caron <valentin.caron@foss.st.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Erwan Leray <erwan.leray@foss.st.com>, 
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>
+In-Reply-To: <20250616-spi-upstream-v1-0-7e8593f3f75d@foss.st.com>
+References: <20250616-spi-upstream-v1-0-7e8593f3f75d@foss.st.com>
+Message-Id: <175087874236.261602.8727707950137724434.b4-ty@kernel.org>
+Date: Wed, 25 Jun 2025 20:12:22 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250603-stm32mp157f-dk2-v2-3-5be0854a9299@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Pascal Paillet <p.paillet@foss.st.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 3/7] dt-bindings: regulator: Add
- STM32MP15 SCMI regulator identifiers
+X-Mailer: b4 0.15-dev-08c49
+Cc: devicetree@vger.kernel.org, kernel test robot <lkp@intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/6] Add few updates to the STM32 SPI
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,32 +63,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Tue, 03 Jun 2025 11:02:09 +0200, Amelie Delaunay wrote:
-> From: Etienne Carriere <etienne.carriere@foss.st.com>
-> 
-> These bindings will be used for the SCMI voltage domain.
-> 
-> Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
-> Signed-off-by: Pascal Paillet <p.paillet@foss.st.com>
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> 
-> ---
-> Changes in v2:
-> - Add external regulators and Pascal's SoB
-> ---
->  .../dt-bindings/regulator/st,stm32mp15-regulator.h | 40 ++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
-> 
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAxNiBKdW4gMjAyNSAxMToyMTowMSArMDIwMCwgQ2zDqW1lbnQgTGUgR29mZmljIHdy
+b3RlOgo+IFRoaXMgc2VyaWVzIGFpbXMgdG8gaW1wcm92ZSB0aGUgU1RNMzIgU1BJIGRyaXZlciBp
+biBkaWZmZXJlbnQgYXJlYXMuCj4gSXQgYWRkcyBTUElfUkVBRFkgbW9kZSwgZml4ZXMgYW4gaXNz
+dWUgcmFpc2VkIGJ5IGEga2VybmVsIGJvdCwKPiBhZGQgdGhlIGFiaWxpdHkgdG8gdXNlIERNQS1N
+RE1BIGNoYWluaW5nIGZvciBSWCBhbmQgZGVwcmVjYXRlIGFuIFNUIGJpbmRpbmdzCj4gdmVuZG9y
+IHByb3BlcnR5Lgo+IAo+IAoKQXBwbGllZCB0bwoKICAgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9w
+dWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9zcGkuZ2l0IGZvci1uZXh0CgpUaGFua3Mh
+CgpbMS82XSBzcGk6IHN0bTMyOiBBZGQgU1BJX1JFQURZIG1vZGUgdG8gc3BpIGNvbnRyb2xsZXIK
+ICAgICAgY29tbWl0OiBlNGZlZWZhNWM3MTkxMmViZmNiOTdhM2RiZTJiMDIxZmQxY2VhOWQxClsy
+LzZdIHNwaTogc3RtMzI6IENoZWNrIGZvciBjZmcgYXZhaWxhYmlsaXR5IGluIHN0bTMyX3NwaV9w
+cm9iZQogICAgICBjb21taXQ6IDIxZjFjODAwZjY2MjBlNDNmMzFkZmQ3NjcwOWRiYWM4ZWJhYTVh
+MTYKWzMvNl0gZHQtYmluZGluZ3M6IHNwaTogc3RtMzI6IHVwZGF0ZSBiaW5kaW5ncyB3aXRoIFNQ
+SSBSeCBETUEtTURNQSBjaGFpbmluZwogICAgICBjb21taXQ6IGJkNjBmOTRhM2ViNGY4MGNiNjZj
+OTY4N2Q2NDA1NTRmZDBjNTc5ZDAKWzQvNl0gc3BpOiBzdG0zMjogdXNlIFNUTTMyIERNQSB3aXRo
+IFNUTTMyIE1ETUEgdG8gZW5oYW5jZSBERFIgdXNlCiAgICAgIGNvbW1pdDogZDE3ZGQyZjFkOGEx
+ZDkxOWUzOWM2MzAyYjAyNGYxMzVhMmY5MDc3MwpbNS82XSBzcGk6IHN0bTMyOiBkZXByZWNhdGUg
+YHN0LHNwaS1taWRpLW5zYCBwcm9wZXJ0eQogICAgICBjb21taXQ6IDQ5NTZiZjQ0NTI0Mzk0MjEx
+Y2E4MGFhMDRkMGM5ZTFlOWJiMDIxOWQKWzYvNl0gZHQtYmluZGluZ3M6IHNwaTogc3RtMzI6IGRl
+cHJlY2F0ZSBgc3Qsc3BpLW1pZGktbnNgIHByb3BlcnR5CiAgICAgIGNvbW1pdDogOWE5NDQ0OTRj
+Mjk5ZmFiZjNjYzc4MTc5OGViN2MwMmEwYmVjZTM2NAoKQWxsIGJlaW5nIHdlbGwgdGhpcyBtZWFu
+cyB0aGF0IGl0IHdpbGwgYmUgaW50ZWdyYXRlZCBpbnRvIHRoZSBsaW51eC1uZXh0CnRyZWUgKHVz
+dWFsbHkgc29tZXRpbWUgaW4gdGhlIG5leHQgMjQgaG91cnMpIGFuZCBzZW50IHRvIExpbnVzIGR1
+cmluZwp0aGUgbmV4dCBtZXJnZSB3aW5kb3cgKG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgp
+LCBob3dldmVyIGlmCnByb2JsZW1zIGFyZSBkaXNjb3ZlcmVkIHRoZW4gdGhlIHBhdGNoIG1heSBi
+ZSBkcm9wcGVkIG9yIHJldmVydGVkLgoKWW91IG1heSBnZXQgZnVydGhlciBlLW1haWxzIHJlc3Vs
+dGluZyBmcm9tIGF1dG9tYXRlZCBvciBtYW51YWwgdGVzdGluZwphbmQgcmV2aWV3IG9mIHRoZSB0
+cmVlLCBwbGVhc2UgZW5nYWdlIHdpdGggcGVvcGxlIHJlcG9ydGluZyBwcm9ibGVtcyBhbmQKc2Vu
+ZCBmb2xsb3d1cCBwYXRjaGVzIGFkZHJlc3NpbmcgYW55IGlzc3VlcyB0aGF0IGFyZSByZXBvcnRl
+ZCBpZiBuZWVkZWQuCgpJZiBhbnkgdXBkYXRlcyBhcmUgcmVxdWlyZWQgb3IgeW91IGFyZSBzdWJt
+aXR0aW5nIGZ1cnRoZXIgY2hhbmdlcyB0aGV5CnNob3VsZCBiZSBzZW50IGFzIGluY3JlbWVudGFs
+IHVwZGF0ZXMgYWdhaW5zdCBjdXJyZW50IGdpdCwgZXhpc3RpbmcKcGF0Y2hlcyB3aWxsIG5vdCBi
+ZSByZXBsYWNlZC4KClBsZWFzZSBhZGQgYW55IHJlbGV2YW50IGxpc3RzIGFuZCBtYWludGFpbmVy
+cyB0byB0aGUgQ0NzIHdoZW4gcmVwbHlpbmcKdG8gdGhpcyBtYWlsLgoKVGhhbmtzLApNYXJrCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
