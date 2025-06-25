@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904D5AE830E
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 14:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA4F0AE83C8
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 15:09:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09E46C32EB0;
-	Wed, 25 Jun 2025 12:46:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D4D5C32EB0;
+	Wed, 25 Jun 2025 13:09:56 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32918C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8A38C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 12:46:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1750855567; x=1782391567;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=H2Q5pv8/n1x+u1urkiz+OyiZd1H1/C8DF5+taITB/dQ=;
- b=XBJY4DfjPQLrhFU0kMDYZx+QdrsLXo0oHfjudhyhSSK4gQmrjxTreqrD
- RijNDLsnzB3klymwPSJJkKuxhZtFWyjgXKZhhDiw2jGDp3IdpR7IHRrC0
- 8Q7vNshBH/pfbH9t4HKnDE7Dca0hEd7MKfyTGzrIzJJR7lPsEFkqwuNA/
- 5j6agvksKcxodT593zrZFp4a+BJ5JuIv3fwRpkB9YQJqgL+HOqFmgVKGH
- fx2jGDn4qiytFBsIqDbP7iMrIQGBVNbSGeuH3myZqIWg/644+VetHWEMM
- UiWPDJySxjGultny6hjBtiMXLlwVIH2ZuFM3+OU7C9VvjO/L3jGFO6Per Q==;
-X-CSE-ConnectionGUID: wnHfUTS8TYGAySex0ahMVw==
-X-CSE-MsgGUID: 6vIw7zBaQd2/PpYSEYrq1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11474"; a="64183625"
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600"; d="scan'208";a="64183625"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2025 05:46:04 -0700
-X-CSE-ConnectionGUID: BJ7SMdQuSVmu4Q7VYDrZEw==
-X-CSE-MsgGUID: OM33N+tETeSr9vYH4S1pZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600"; d="scan'208";a="151629821"
-Received: from smile.fi.intel.com ([10.237.72.52])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2025 05:46:01 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1uUPVl-00000009lm4-01Fh; Wed, 25 Jun 2025 15:45:57 +0300
-Date: Wed, 25 Jun 2025 15:45:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <aFvvhAo9BRFpy7Uy@smile.fi.intel.com>
-References: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
- <20250625-gpiochip-set-rv-gpio-round2-v1-11-bc110a3b52ff@linaro.org>
+ Wed, 25 Jun 2025 13:09:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 9E141A5255C;
+ Wed, 25 Jun 2025 13:09:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2ABCC4CEEE;
+ Wed, 25 Jun 2025 13:09:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750856993;
+ bh=T9ZXwJirupaKaXo4ecAOelspdWpyR5VZVpCl4hYbx3c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BP67WiGnasC0Vt6bloul/aKmhoNifBCSM8pWwrvq07m5W/NrxA5Is8Jk0xU5rXvl3
+ k34sCBKYmNhH+BKq3Dz7jz1NZIamMubN/ojAwL9j+ZwqdhT6smK7YfV9ublG/xcH7M
+ 1xTG8MEYfG9mkNkmI3eXi6cl2FAof5xOgH4pfI8/5GUf/MmsQOb1NRRA53pv1HRgqN
+ wjA2aK1lttJMfmW5TW4UNQMTbgU9wt7zIf468QG7yNcHvEIVDK5sBhX0xoyAqH91p6
+ 4F/Wo8ARnZk18CcjSNRM+bdo9oOmiIH0HiVSWvPk4uRDAoAGKtmu/FzeFGzzaABapE
+ GaIq3TrPVpOXw==
+Date: Wed, 25 Jun 2025 07:09:49 -0600
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <bybl3ss5z6jgbhjqny5qwh25a5khhcvixoknrzqsnmennzcfdv@46j4grd35mx5>
+References: <175068078778.15794.15418191733712827693.b4-ty@kernel.org>
+ <20250624222206.GA1537968@bhelgaas>
+ <3bmw76gzqjq2nmjvj7tb6gi5x233zzfrhv44uyjopl2lxyzbkh@zg5skeu62nbh>
+ <01dbb6cf-3ab4-4922-b301-661464c9e56d@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250625-gpiochip-set-rv-gpio-round2-v1-11-bc110a3b52ff@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Andy Shevchenko <andy@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Thorsten Scherer <t.scherer@eckelmann.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 11/12] gpio: tangier: use new GPIO line
- value setter callbacks
+In-Reply-To: <01dbb6cf-3ab4-4922-b301-661464c9e56d@foss.st.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ p.zabel@pengutronix.de, shradha.t@samsung.com, linux-pci@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, thippeswamy.havalige@amd.com,
+ linux-stm32@st-md-mailman.stormreply.com, cassel@kernel.org,
+ devicetree@vger.kernel.org, quic_schintav@quicinc.com,
+ Bjorn Helgaas <helgaas@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
+ lpieralisi@kernel.org, johan+linaro@kernel.org, kwilczynski@kernel.org
+Subject: Re: [Linux-stm32] (subset) [PATCH v12 0/9] Add STM32MP25 PCIe
+	drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,26 +60,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 25, 2025 at 12:33:34PM +0200, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> struct gpio_chip now has callbacks for setting line values that return
-> an integer, allowing to indicate failures. Convert the driver to using
-> them.
-
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdW4gMjUsIDIwMjUgYXQgMTI6MTg6MTZQTSArMDIwMCwgQ2hyaXN0aWFuIEJydWVs
+IHdyb3RlOgo+IAo+IAo+IE9uIDYvMjUvMjUgMDY6MDAsIE1hbml2YW5uYW4gU2FkaGFzaXZhbSB3
+cm90ZToKPiA+IE9uIFR1ZSwgSnVuIDI0LCAyMDI1IGF0IDA1OjIyOjA2UE0gLTA1MDAsIEJqb3Ju
+IEhlbGdhYXMgd3JvdGU6Cj4gPiA+IE9uIE1vbiwgSnVuIDIzLCAyMDI1IGF0IDA2OjEzOjA3QU0g
+LTA2MDAsIE1hbml2YW5uYW4gU2FkaGFzaXZhbSB3cm90ZToKPiA+ID4gPiBPbiBUdWUsIDEwIEp1
+biAyMDI1IDExOjA3OjA1ICswMjAwLCBDaHJpc3RpYW4gQnJ1ZWwgd3JvdGU6Cj4gPiA+ID4gPiBD
+aGFuZ2VzIGluIHYxMjsKPiA+ID4gPiA+ICAgICBGaXggd2FybmluZyByZXBvcnRlZCBieSBrZXJu
+ZWwgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gQ2hhbmdl
+cyBpbiB2MTE7Cj4gPiA+ID4gPiAgICAgQWRkcmVzcyBjb21tZW50cyBmcm9tIE1hbml2YW5uYToK
+PiA+ID4gPiA+ICAgICAtIFJDIGRyaXZlcjogRG8gbm90IGNhbGwgcG1fcnVudGltZV9nZXRfbm9y
+ZXN1bWUgaW4gcHJvYmUKPiA+ID4gPiA+ICAgICAgICAgICAgICAgICAgTW9yZSB1c2VzIG9mIGRl
+dl9lcnJfcHJvYmUKPiA+ID4gPiA+ICAgICAtIEVQIGRyaXZlcjogVXNlIGxldmVsIHRyaWdnZXJl
+ZCBQRVJTVCMgaXJxCj4gPiA+ID4gPiAKPiA+ID4gPiA+IFsuLi5dCj4gPiA+ID4gCj4gPiA+ID4g
+QXBwbGllZCwgdGhhbmtzIQo+ID4gPiA+IAo+ID4gPiA+IFsxLzldIGR0LWJpbmRpbmdzOiBQQ0k6
+IEFkZCBTVE0zMk1QMjUgUENJZSBSb290IENvbXBsZXggYmluZGluZ3MKPiA+ID4gPiAgICAgICAg
+Y29tbWl0OiA0MWQ1Y2ZiZGRhN2E2MWM1ZDY0NmE1NDAzNWI2OTcyMDVjZmYxY2YwCj4gPiA+ID4g
+WzIvOV0gUENJOiBzdG0zMjogQWRkIFBDSWUgaG9zdCBzdXBwb3J0IGZvciBTVE0zMk1QMjUKPiA+
+ID4gPiAgICAgICAgY29tbWl0OiBmNjExMWJjMmQ4ZmU2ZmZjNzQxNjYxMTI2YTIxNzQ1MjMxMjRk
+YzExCj4gPiA+ID4gWzMvOV0gZHQtYmluZGluZ3M6IFBDSTogQWRkIFNUTTMyTVAyNSBQQ0llIEVu
+ZHBvaW50IGJpbmRpbmdzCj4gPiA+ID4gICAgICAgIGNvbW1pdDogMjAzY2ZjNGEyMzUwNmZmYjlj
+NDhkMTMwMDM0OGMyOTBkYmY5MzY4ZQo+ID4gPiA+IFs0LzldIFBDSTogc3RtMzI6IEFkZCBQQ0ll
+IEVuZHBvaW50IHN1cHBvcnQgZm9yIFNUTTMyTVAyNQo+ID4gPiA+ICAgICAgICBjb21taXQ6IDg4
+NjlmYjM2YTEwN2E5ZmYxOGRhYjhjMjI0ZGU2YWZmZjFlODFkZWMKPiA+ID4gPiBbNS85XSBNQUlO
+VEFJTkVSUzogYWRkIGVudHJ5IGZvciBTVCBTVE0zMk1QMjUgUENJZSBkcml2ZXJzCj4gPiA+ID4g
+ICAgICAgIGNvbW1pdDogMDAzOTAyZWQ3Nzc4ZDYyMDgzMTIwMjUzY2QyODJhOTExMjY3NDk4Ngo+
+ID4gPiAKPiA+ID4gVGhpcyBkb2Vzbid0IGJ1aWxkIGZvciBtZSB3aXRoIHRoZSBhdHRhY2hlZCBj
+b25maWc6Cj4gPiA+IAo+ID4gPiAgICAkIG1ha2UgZHJpdmVycy9wY2kvY29udHJvbGxlci9kd2Mv
+cGNpZS1zdG0zMi5vCj4gPiA+ICAgICAgQ0FMTCAgICBzY3JpcHRzL2NoZWNrc3lzY2FsbHMuc2gK
+PiA+ID4gICAgICBERVNDRU5EIG9ianRvb2wKPiA+ID4gICAgICBJTlNUQUxMIGxpYnN1YmNtZF9o
+ZWFkZXJzCj4gPiA+ICAgICAgQ0MgICAgICBkcml2ZXJzL3BjaS9jb250cm9sbGVyL2R3Yy9wY2ll
+LXN0bTMyLm8KPiA+ID4gICAgZHJpdmVycy9wY2kvY29udHJvbGxlci9kd2MvcGNpZS1zdG0zMi5j
+OiBJbiBmdW5jdGlvbiDigJhzdG0zMl9wY2llX3N1c3BlbmRfbm9pcnHigJk6Cj4gPiA+ICAgIGRy
+aXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzo4MzoxNjogZXJyb3I6IGltcGxp
+Y2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKAmHBpbmN0cmxfcG1fc2VsZWN0X3NsZWVwX3N0
+YXRl4oCZIFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+ID4gPiAgICAg
+ICA4MyB8ICAgICAgICAgcmV0dXJuIHBpbmN0cmxfcG1fc2VsZWN0X3NsZWVwX3N0YXRlKGRldik7
+Cj4gPiA+IAl8ICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4g
+PiA+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzogSW4gZnVuY3Rp
+b24g4oCYc3RtMzJfcGNpZV9yZXN1bWVfbm9pcnHigJk6Cj4gPiA+ICAgIGRyaXZlcnMvcGNpL2Nv
+bnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzo5NjoyNDogZXJyb3I6IOKAmHN0cnVjdGRldmljZeKA
+mSBoYXMgbm8gbWVtYmVyIG5hbWVkIOKAmHBpbnPigJkKPiA+ID4gICAgICAgOTYgfCAgICAgICAg
+IGlmICghSVNfRVJSKGRldi0+cGlucy0+aW5pdF9zdGF0ZSkpCj4gPiA+IAl8ICAgICAgICAgICAg
+ICAgICAgICAgICAgXn4KPiA+ID4gICAgZHJpdmVycy9wY2kvY29udHJvbGxlci9kd2MvcGNpZS1z
+dG0zMi5jOjk3OjIzOiBlcnJvcjogaW1wbGljaXQgZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24g4oCY
+cGluY3RybF9zZWxlY3Rfc3RhdGXigJkgWy1XZXJyb3I9aW1wbGljaXQtZnVuY3Rpb24tZGVjbGFy
+YXRpb25dCj4gPiA+ICAgICAgIDk3IHwgICAgICAgICAgICAgICAgIHJldCA9IHBpbmN0cmxfc2Vs
+ZWN0X3N0YXRlKGRldi0+cGlucy0+cCwgZGV2LT5waW5zLT5pbml0X3N0YXRlKTsKPiA+ID4gCXwg
+ICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+Cj4gPiA+ICAgIGRyaXZl
+cnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzo5Nzo0NzogZXJyb3I6IOKAmHN0cnVj
+dGRldmljZeKAmSBoYXMgbm8gbWVtYmVyIG5hbWVkIOKAmHBpbnPigJkKPiA+ID4gICAgICAgOTcg
+fCAgICAgICAgICAgICAgICAgcmV0ID0gcGluY3RybF9zZWxlY3Rfc3RhdGUoZGV2LT5waW5zLT5w
+LCBkZXYtPnBpbnMtPmluaXRfc3RhdGUpOwo+ID4gPiAJfCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXn4KPiA+ID4gICAgZHJpdmVycy9wY2kvY29udHJvbGxl
+ci9kd2MvcGNpZS1zdG0zMi5jOjk3OjYxOiBlcnJvcjog4oCYc3RydWN0ZGV2aWNl4oCZIGhhcyBu
+byBtZW1iZXIgbmFtZWQg4oCYcGluc+KAmQo+ID4gPiAgICAgICA5NyB8ICAgICAgICAgICAgICAg
+ICByZXQgPSBwaW5jdHJsX3NlbGVjdF9zdGF0ZShkZXYtPnBpbnMtPnAsIGRldi0+cGlucy0+aW5p
+dF9zdGF0ZSk7Cj4gPiA+IAl8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIF5+Cj4gPiA+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIv
+ZHdjL3BjaWUtc3RtMzIuYzo5OToyMzogZXJyb3I6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1
+bmN0aW9uIOKAmHBpbmN0cmxfcG1fc2VsZWN0X2RlZmF1bHRfc3RhdGXigJkgWy1XZXJyb3I9aW1w
+bGljaXQtZnVuY3Rpb24tZGVjbGFyYXRpb25dCj4gPiA+ICAgICAgIDk5IHwgICAgICAgICAgICAg
+ICAgIHJldCA9IHBpbmN0cmxfcG1fc2VsZWN0X2RlZmF1bHRfc3RhdGUoZGV2KTsKPiA+ID4gCXwg
+ICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KPiA+
+ID4gCj4gPiAKPiA+IEhtbS4uLiBJIHNlZSB0d28gaXNzdWVzIGhlcmUuIEZpcnN0IGlzLCB3cm9u
+ZyBwaW5jdHJsIGhlYWRlciB1c2VkLiBUaGUgY29ycmVjdAo+ID4gb25lIGlzOgo+ID4gCj4gPiAj
+aW5jbHVkZSA8bGludXgvcGluY3RybC9jb25zdW1lci5oPgo+IAo+IGFoIHllcywgdGhlIG1pc3Np
+bmcgcGluY3RybF9wbV9zZWxlY3RfZGVmYXVsdF9zdGF0ZSgpIHNob3VsZCBpbmRlZWQgYmUgZml4
+ZWQKPiBieSB1c2luZyB0aGUgY29ycmVjdCBoZWFkZXIuCj4gCgpJJ3ZlIGZpeGVkIGl0IGluIHRo
+ZSBicmFuY2guCgo+ID4gCj4gPiBTZWNvbmQgaXNzdWUgaXMgdGhlIGRyaXZlciBhY2Nlc3Npbmcg
+InN0cnVjdCBkZXZpY2U6OnBpbnMiIGRpcmVjdGx5LiBUaGUgInBpbnMiCj4gPiBtZW1iZXIgd29u
+J3QgYmUgYXZhaWxhYmxlIGlmIENPTkZJR19QSU5DVFJMIGlzIG5vdCBzZXQgKHdoaWNoIGlzIHdo
+YXQgeW91cgo+ID4gLmNvbmZpZyBoYXMpLiBTbyBlaXRoZXIgdGhlIG1lbWJlciBzaG91bGQgbm90
+IGJlIGFjY2Vzc2VkIGRpcmVjdGx5IG9yIHRoZQo+ID4gZHJpdmVyIGhhcyB0byBkZXBlbmQgb24g
+Q09ORklHX1BJTkNUUkwuIFRoZSBsYXR0ZXIgb25lIGlzIG5vdCBhY2NlcHRhYmxlLkl0Cj4gPiBh
+bHNvIGxvb2tzIHdlaXJkIHRoYXQgb25seSB0aGlzIGRyaXZlciBpcyBhY2Nlc3NpbmcgdGhlICJw
+aW5zIiBtZW1iZXIgZGlyZWN0bHkKPiA+IGFwYXJ0IGZyb20gdGhlIHBpbmN0cmwgY29yZS4gU28g
+SSB0aGluayB0aGlzIHBhcnQgbmVlZHMgYSByZXZpc2l0Lgo+ID4gCj4gPiBDaHJpc3RpYW4/Cj4g
+VGhlIHBpbmN0cmwgImluaXQiIGFuZCAiZGVmYXVsdCIgY29uZmlndXJhdGlvbnMgYXJlIG1hbmFn
+ZWQgZWZmZWN0aXZlbHkgYnkKPiB0aGUgcHJvYmluZyBjb2RlLiBUaGUgc2FtZSBhcHByb2FjaCBp
+cyByZXF1aXJlZCBpbgo+IHN0bTMyX3BjaWVfcmVzdW1lX25vaXJxKCkuCj4gCj4gSW4gdGhpcyBj
+YXNlLCB3b3VsZCBpbnRyb2R1Y2luZyBhIG5ldyBoZWxwZXIgZnVuY3Rpb24sCj4gcGluY3RybF9w
+bV9zZWxlY3RfaW5pdF9zdGF0ZSgpLCBiZSBwcmVmZXJhYmxlLCBldmVuIGlmIHdlIGFyZSB0aGUg
+b25seQo+IGNvbnN1bWVyPwo+IAoKU291bmRzIHJlYXNvbmFibGUuIElmIHlvdSBlbmQgdXAgY3Jl
+YXRpbmcgYW4gQVBJLCBnZXQgaXQgYWNrZWQgYnkgdGhlIHBpbmN0cmwKbWFpbnRhaW5lciBzbyB0
+aGF0IEkgY2FuIG1lcmdlIGl0IChhbmQgdGhlIHVzZSBvZiBpdCBpbiB0aGlzIGRyaXZlcikgdGhy
+b3VnaAp0aGUgUENJIHRyZWUgdG8gYXZvaWQgY3Jvc3MgdHJlZSBkZXBlbmRlbmN5LgoKLSBNYW5p
+CgotLSAK4K6u4K6j4K6/4K614K6j4K+N4K6j4K6p4K+NIOCumuCupOCuvuCumuCuv+CuteCuruCv
+jQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
