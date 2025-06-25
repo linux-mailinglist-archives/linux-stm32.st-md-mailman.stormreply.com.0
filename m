@@ -2,73 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 132C8AE7EFD
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:21:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6225AE7F6A
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:33:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E795C32EB0;
-	Wed, 25 Jun 2025 10:21:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 505D0C32EB0;
+	Wed, 25 Jun 2025 10:33:40 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58759C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C62A6C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 10:21:35 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55P62V3v021991;
- Wed, 25 Jun 2025 12:21:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- C4yzJ1noedDWVQEaOZSM94W1Wxwn8zZ9kpiO6XR9LxU=; b=tzkHB94wRKqAwx4c
- 0lvTUd/MYGBUx70suX7tiBjmz0UtKwRUjtVPIihur62TbMpXnmXpdcWmAcdp5xpW
- pJhiDVqchowhT7pV99S6j6SU6rDAOWYXhkkVwFxxMyC4wjjDYTsf0eHmDBFfiURV
- rU9kKk2Ce52GLRFVg3ZaOeyIaes040BDjPmJk81aWNwBTwCNso39GT/ejla9qTYW
- PqSVpiw4Ed0mzE2VIisvjpYOTdwxw3RJNg0AR5LWINIBu6zV9J+fp3aNyf5Y4M+D
- HRRQsYRdb9v8xpc3neYRQgJVZHr4su1XCjrpysVrcRguZdv2L4yM2cGfSe5ewNjS
- 3LpBlw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47dkmjryqn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Jun 2025 12:21:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 04F1A40046;
- Wed, 25 Jun 2025 12:19:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 12132AE5D21;
- Wed, 25 Jun 2025 12:18:21 +0200 (CEST)
-Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Jun
- 2025 12:18:20 +0200
-Message-ID: <01dbb6cf-3ab4-4922-b301-661464c9e56d@foss.st.com>
-Date: Wed, 25 Jun 2025 12:18:16 +0200
+ Wed, 25 Jun 2025 10:33:38 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-450cfb790f7so10393515e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 25 Jun 2025 03:33:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750847618; x=1751452418;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=VWUiJJjRPw6HGWUg/XBl52lGHpdjt2Da3mfoNUZtank=;
+ b=ZpQF7bybhwemdSdYQRqzY5/JyME0RpcX0EN2bhKYpkxmBix9c2QzP2aMRUBAkkjnU/
+ A8YC4++TZbf76kgmXclvwS4flztweZCKktWs1sewZOQ/SwXnJczWhPXTLaoEKzplM6Cu
+ 5y8Z+jcJZGIufSOQP9db5PmSvMEghlfasRO+XECLtnDqpp2LWTN/SYHI+ugjvr7z6hae
+ xezET66ZNpx82WoXoGhVNuc5y4kdWSdEQ5lMkr8RCNBSTszSir/GJSLg9aPGFgOWeEcy
+ eTI8429QKZCT2bk9scN3WKT5x1UNxDJU+8tJM0ILqFeKJbsBM95UIqX4uLN+NbLTkrxm
+ oNLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1750847618; x=1751452418;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VWUiJJjRPw6HGWUg/XBl52lGHpdjt2Da3mfoNUZtank=;
+ b=e0hOB3XC3yTRCFn7JNbkn71GmeQKNOLPErJYpMDxYd3kesMRwslVvSiPqAsDRk3l5D
+ EYaK/OSKkvoKzLBlwp2ilHbRoB+o+ELldlp2KVYQFEXcfL5zHXzc486iEPQmzY+kGZwu
+ R49fUIlj2ngWUP3gHNmBDO81kI2Vwb5qpMRS6sf9e2XofhOnoduPTFJeAWtvBN1OXu/Z
+ RysQTylXpvkCN+vYdIq40Qpb0aZz2Or9y0ApgWHG3tEWVqhDhLXRQZyd2EyFi0OXdPNK
+ 0L1PboERhslzneJxkr5Xrkb2mAR7su2brI6pXHf7EK2bh6RyUF1MrVBDnp/asTLDhA5y
+ ywBA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVa4RI6gDD0XpKxcNZTXP/qmRbJIb0tviXu6avsaiyGOHdLGa3898XDddiCS0wNnCDhINJkD+gn2ARjtA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxzVqrnZaPnPhewiz8b2Tby8UyidODnW1U0u6du1KmO/VcZW260
+ HTD3abR44E8IyNB2Nu7+xd2ilVMId0AUwPp6gWWttvebK737O0yEz6lHfoKSY8RaRQA=
+X-Gm-Gg: ASbGncsEloeWKLUEcwQ2OKGLjKCENOG42Y4VIm4VBgCWOOZjOBMVeX0FM87TK9hzcob
+ Y1ApqT5wnyOVoBYMnI2XAcf80V8NMhi0dv6R0p0JkhRwHRV9L8EmizZViS42y+GYQfs+yCI64WO
+ 8rdl0UT9y6vMHDP9Uqw2477k3o6Gte9qoTpEmGGwrDjBzRD7tFizLPhITRj4ehogqgdG16Q/Dfo
+ T3EnlxbuChl3R+/moKxZEo/3qv21yZobrtR+1am3ZbovMgkctVlKjaryEB4aaIbbLqh8s0I3K1k
+ 50TUtUmV1p1Mx/29c40GW+SIuLFcCFtrWoIB3xNj4yN4Yb1xEB5ZDV8/FBrvAW9V2vY=
+X-Google-Smtp-Source: AGHT+IFotUTj5zcp7ShZ6IoB9WHymxHO7Rq5Lsk8ESCqSS7UfKL93wxzqyd9QmnDn3AYs6nJhvFulA==
+X-Received: by 2002:a05:600c:a45:b0:450:cff7:62f9 with SMTP id
+ 5b1f17b1804b1-45381b0f48dmr20255625e9.22.1750847617865; 
+ Wed, 25 Jun 2025 03:33:37 -0700 (PDT)
+Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:d216:42f3:1e7e:472e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45382373c86sm16133195e9.33.2025.06.25.03.33.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Jun 2025 03:33:37 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Wed, 25 Jun 2025 12:33:23 +0200
+Message-Id: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
- <helgaas@kernel.org>, Linus Walleij <linus.walleij@linaro.org>
-References: <175068078778.15794.15418191733712827693.b4-ty@kernel.org>
- <20250624222206.GA1537968@bhelgaas>
- <3bmw76gzqjq2nmjvj7tb6gi5x233zzfrhv44uyjopl2lxyzbkh@zg5skeu62nbh>
-Content-Language: en-US
-In-Reply-To: <3bmw76gzqjq2nmjvj7tb6gi5x233zzfrhv44uyjopl2lxyzbkh@zg5skeu62nbh>
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-06-25_02,2025-06-23_07,2025-03-28_01
-Cc: robh@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
- shradha.t@samsung.com, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- thippeswamy.havalige@amd.com, linux-kernel@vger.kernel.org, cassel@kernel.org,
- devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- bhelgaas@google.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, johan+linaro@kernel.org,
- kwilczynski@kernel.org
-Subject: Re: [Linux-stm32] (subset) [PATCH v12 0/9] Add STM32MP25 PCIe
-	drivers
+X-B4-Tracking: v=1; b=H4sIAHPQW2gC/x3MMQqAMAwAwK9IZgM1aBW/Ig5io2ZpS6oiFP9uc
+ bzlMiRW4QRjlUH5liTBFzR1Beux+J1RXDGQoc5Y6nCPEtZDIiY+Ue/fqOHyjtAMgyV21LdND2W
+ Iyps8/z7N7/sBvsgfCm0AAAA=
+X-Change-ID: 20250625-gpiochip-set-rv-gpio-round2-08862ed27417
+To: Ludovic Desroches <ludovic.desroches@microchip.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>, 
+ Thorsten Scherer <t.scherer@eckelmann.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2037;
+ i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
+ bh=42Gx7MVqg9RLVZZL0nQGlW/DfixSJ60vSIokymr97mo=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoW9B6XbDc1lIy1VT9BCDCPgIvuXS+r0NgLXwjx
+ 3/PIGOmGaKJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaFvQegAKCRARpy6gFHHX
+ cgTSEACFaucbwtdUwbgQWlc6On2PxsVQjx1y4B4b4AdaA4k1pQv3Mnkwj5zwmymAtY7xsbo1u5E
+ 7IExozMIQbhO3mBHTgvqM2xttAWFJoNEe38l/HvCFGOWAokGWyEnJl2XrzrsqKzTtxvd6oOEn8H
+ wOhHqs6ZcnnWZiR8YV2uofWZbqn7Hkt/eZPRBzIlz4pwUbP2o2J+dhh5s6glon2J7+CYt+unvFL
+ gORIlOItofYQPbdl2rFqKKeTLjyfKeLSIMAUAdXGcUuduoypT2gnYxru40kJEDN4vW+8rFhKFcE
+ f0UYhwxnFqaDCdy2RTTB77JOdYKXSSTEYtFaYZj8xQSTTw/ciMwRiiucffXqNk71ASkMiC6cZUy
+ cowudu4dzmh3ntG3AoC4HtYdmZ+mJFJRQLdA9O2k8PCh1djKhGJlUr85g3OMkJLe6OjCtOgQejm
+ SDZcQ/8bTpwNkDz9w2//nWDSJ9GEdpxjv6xDe6JmFkFgw0xdlFFzw18MXwPIU/aKYWVDTvNoCqv
+ uKbFZJUbUX7WrvVFGm5OVRPj1scmPBIJ+BwTdbu9ANkqYCb0T4usSWzvUPNaWH5UhrLlYBv3t9I
+ Y8xJBm0XUvvEmU/RxOdrHzvSL0shP9QjkOVLCU/ozuc7IMBna+xP/0StXa4JPC4s9eQ+RlX/9/1
+ 5yU3ObdZpXw9csA==
+X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+Cc: linux-gpio@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 00/12] gpio: use new GPIO line value setter
+	callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,88 +113,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA2LzI1LzI1IDA2OjAwLCBNYW5pdmFubmFuIFNhZGhhc2l2YW0gd3JvdGU6Cj4gT24gVHVl
-LCBKdW4gMjQsIDIwMjUgYXQgMDU6MjI6MDZQTSAtMDUwMCwgQmpvcm4gSGVsZ2FhcyB3cm90ZToK
-Pj4gT24gTW9uLCBKdW4gMjMsIDIwMjUgYXQgMDY6MTM6MDdBTSAtMDYwMCwgTWFuaXZhbm5hbiBT
-YWRoYXNpdmFtIHdyb3RlOgo+Pj4gT24gVHVlLCAxMCBKdW4gMjAyNSAxMTowNzowNSArMDIwMCwg
-Q2hyaXN0aWFuIEJydWVsIHdyb3RlOgo+Pj4+IENoYW5nZXMgaW4gdjEyOwo+Pj4+ICAgICBGaXgg
-d2FybmluZyByZXBvcnRlZCBieSBrZXJuZWwgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPj4+
-Pgo+Pj4+IENoYW5nZXMgaW4gdjExOwo+Pj4+ICAgICBBZGRyZXNzIGNvbW1lbnRzIGZyb20gTWFu
-aXZhbm5hOgo+Pj4+ICAgICAtIFJDIGRyaXZlcjogRG8gbm90IGNhbGwgcG1fcnVudGltZV9nZXRf
-bm9yZXN1bWUgaW4gcHJvYmUKPj4+PiAgICAgICAgICAgICAgICAgIE1vcmUgdXNlcyBvZiBkZXZf
-ZXJyX3Byb2JlCj4+Pj4gICAgIC0gRVAgZHJpdmVyOiBVc2UgbGV2ZWwgdHJpZ2dlcmVkIFBFUlNU
-IyBpcnEKPj4+Pgo+Pj4+IFsuLi5dCj4+Pgo+Pj4gQXBwbGllZCwgdGhhbmtzIQo+Pj4KPj4+IFsx
-LzldIGR0LWJpbmRpbmdzOiBQQ0k6IEFkZCBTVE0zMk1QMjUgUENJZSBSb290IENvbXBsZXggYmlu
-ZGluZ3MKPj4+ICAgICAgICBjb21taXQ6IDQxZDVjZmJkZGE3YTYxYzVkNjQ2YTU0MDM1YjY5NzIw
-NWNmZjFjZjAKPj4+IFsyLzldIFBDSTogc3RtMzI6IEFkZCBQQ0llIGhvc3Qgc3VwcG9ydCBmb3Ig
-U1RNMzJNUDI1Cj4+PiAgICAgICAgY29tbWl0OiBmNjExMWJjMmQ4ZmU2ZmZjNzQxNjYxMTI2YTIx
-NzQ1MjMxMjRkYzExCj4+PiBbMy85XSBkdC1iaW5kaW5nczogUENJOiBBZGQgU1RNMzJNUDI1IFBD
-SWUgRW5kcG9pbnQgYmluZGluZ3MKPj4+ICAgICAgICBjb21taXQ6IDIwM2NmYzRhMjM1MDZmZmI5
-YzQ4ZDEzMDAzNDhjMjkwZGJmOTM2OGUKPj4+IFs0LzldIFBDSTogc3RtMzI6IEFkZCBQQ0llIEVu
-ZHBvaW50IHN1cHBvcnQgZm9yIFNUTTMyTVAyNQo+Pj4gICAgICAgIGNvbW1pdDogODg2OWZiMzZh
-MTA3YTlmZjE4ZGFiOGMyMjRkZTZhZmZmMWU4MWRlYwo+Pj4gWzUvOV0gTUFJTlRBSU5FUlM6IGFk
-ZCBlbnRyeSBmb3IgU1QgU1RNMzJNUDI1IFBDSWUgZHJpdmVycwo+Pj4gICAgICAgIGNvbW1pdDog
-MDAzOTAyZWQ3Nzc4ZDYyMDgzMTIwMjUzY2QyODJhOTExMjY3NDk4Ngo+Pgo+PiBUaGlzIGRvZXNu
-J3QgYnVpbGQgZm9yIG1lIHdpdGggdGhlIGF0dGFjaGVkIGNvbmZpZzoKPj4KPj4gICAgJCBtYWtl
-IGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIubwo+PiAgICAgIENBTEwgICAg
-c2NyaXB0cy9jaGVja3N5c2NhbGxzLnNoCj4+ICAgICAgREVTQ0VORCBvYmp0b29sCj4+ICAgICAg
-SU5TVEFMTCBsaWJzdWJjbWRfaGVhZGVycwo+PiAgICAgIENDICAgICAgZHJpdmVycy9wY2kvY29u
-dHJvbGxlci9kd2MvcGNpZS1zdG0zMi5vCj4+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdj
-L3BjaWUtc3RtMzIuYzogSW4gZnVuY3Rpb24g4oCYc3RtMzJfcGNpZV9zdXNwZW5kX25vaXJx4oCZ
-Ogo+PiAgICBkcml2ZXJzL3BjaS9jb250cm9sbGVyL2R3Yy9wY2llLXN0bTMyLmM6ODM6MTY6IGVy
-cm9yOiBpbXBsaWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhwaW5jdHJsX3BtX3NlbGVj
-dF9zbGVlcF9zdGF0ZeKAmSBbLVdlcnJvcj1pbXBsaWNpdC1mdW5jdGlvbi1kZWNsYXJhdGlvbl0K
-Pj4gICAgICAgODMgfCAgICAgICAgIHJldHVybiBwaW5jdHJsX3BtX3NlbGVjdF9zbGVlcF9zdGF0
-ZShkZXYpOwo+PiAJfCAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fgo+PiAgICBkcml2ZXJzL3BjaS9jb250cm9sbGVyL2R3Yy9wY2llLXN0bTMyLmM6IEluIGZ1bmN0
-aW9uIOKAmHN0bTMyX3BjaWVfcmVzdW1lX25vaXJx4oCZOgo+PiAgICBkcml2ZXJzL3BjaS9jb250
-cm9sbGVyL2R3Yy9wY2llLXN0bTMyLmM6OTY6MjQ6IGVycm9yOiDigJhzdHJ1Y3RkZXZpY2XigJkg
-aGFzIG5vIG1lbWJlciBuYW1lZCDigJhwaW5z4oCZCj4+ICAgICAgIDk2IHwgICAgICAgICBpZiAo
-IUlTX0VSUihkZXYtPnBpbnMtPmluaXRfc3RhdGUpKQo+PiAJfCAgICAgICAgICAgICAgICAgICAg
-ICAgIF5+Cj4+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzo5Nzoy
-MzogZXJyb3I6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKAmHBpbmN0cmxfc2Vs
-ZWN0X3N0YXRl4oCZIFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+PiAg
-ICAgICA5NyB8ICAgICAgICAgICAgICAgICByZXQgPSBwaW5jdHJsX3NlbGVjdF9zdGF0ZShkZXYt
-PnBpbnMtPnAsIGRldi0+cGlucy0+aW5pdF9zdGF0ZSk7Cj4+IAl8ICAgICAgICAgICAgICAgICAg
-ICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fgo+PiAgICBkcml2ZXJzL3BjaS9jb250cm9sbGVyL2R3
-Yy9wY2llLXN0bTMyLmM6OTc6NDc6IGVycm9yOiDigJhzdHJ1Y3RkZXZpY2XigJkgaGFzIG5vIG1l
-bWJlciBuYW1lZCDigJhwaW5z4oCZCj4+ICAgICAgIDk3IHwgICAgICAgICAgICAgICAgIHJldCA9
-IHBpbmN0cmxfc2VsZWN0X3N0YXRlKGRldi0+cGlucy0+cCwgZGV2LT5waW5zLT5pbml0X3N0YXRl
-KTsKPj4gCXwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+
-Cj4+ICAgIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvZHdjL3BjaWUtc3RtMzIuYzo5Nzo2MTogZXJy
-b3I6IOKAmHN0cnVjdGRldmljZeKAmSBoYXMgbm8gbWVtYmVyIG5hbWVkIOKAmHBpbnPigJkKPj4g
-ICAgICAgOTcgfCAgICAgICAgICAgICAgICAgcmV0ID0gcGluY3RybF9zZWxlY3Rfc3RhdGUoZGV2
-LT5waW5zLT5wLCBkZXYtPnBpbnMtPmluaXRfc3RhdGUpOwo+PiAJfCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefgo+PiAgICBkcml2
-ZXJzL3BjaS9jb250cm9sbGVyL2R3Yy9wY2llLXN0bTMyLmM6OTk6MjM6IGVycm9yOiBpbXBsaWNp
-dCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhwaW5jdHJsX3BtX3NlbGVjdF9kZWZhdWx0X3N0
-YXRl4oCZIFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+PiAgICAgICA5
-OSB8ICAgICAgICAgICAgICAgICByZXQgPSBwaW5jdHJsX3BtX3NlbGVjdF9kZWZhdWx0X3N0YXRl
-KGRldik7Cj4+IAl8ICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+fn5+Cj4+Cj4gCj4gSG1tLi4uIEkgc2VlIHR3byBpc3N1ZXMgaGVyZS4gRmlyc3QgaXMs
-IHdyb25nIHBpbmN0cmwgaGVhZGVyIHVzZWQuIFRoZSBjb3JyZWN0Cj4gb25lIGlzOgo+IAo+ICNp
-bmNsdWRlIDxsaW51eC9waW5jdHJsL2NvbnN1bWVyLmg+CgphaCB5ZXMsIHRoZSBtaXNzaW5nIHBp
-bmN0cmxfcG1fc2VsZWN0X2RlZmF1bHRfc3RhdGUoKSBzaG91bGQgaW5kZWVkIGJlIApmaXhlZCBi
-eSB1c2luZyB0aGUgY29ycmVjdCBoZWFkZXIuCgo+IAo+IFNlY29uZCBpc3N1ZSBpcyB0aGUgZHJp
-dmVyIGFjY2Vzc2luZyAic3RydWN0IGRldmljZTo6cGlucyIgZGlyZWN0bHkuIFRoZSAicGlucyIK
-PiBtZW1iZXIgd29uJ3QgYmUgYXZhaWxhYmxlIGlmIENPTkZJR19QSU5DVFJMIGlzIG5vdCBzZXQg
-KHdoaWNoIGlzIHdoYXQgeW91cgo+IC5jb25maWcgaGFzKS4gU28gZWl0aGVyIHRoZSBtZW1iZXIg
-c2hvdWxkIG5vdCBiZSBhY2Nlc3NlZCBkaXJlY3RseSBvciB0aGUKPiBkcml2ZXIgaGFzIHRvIGRl
-cGVuZCBvbiBDT05GSUdfUElOQ1RSTC4gVGhlIGxhdHRlciBvbmUgaXMgbm90IGFjY2VwdGFibGUu
-SXQKPiBhbHNvIGxvb2tzIHdlaXJkIHRoYXQgb25seSB0aGlzIGRyaXZlciBpcyBhY2Nlc3Npbmcg
-dGhlICJwaW5zIiBtZW1iZXIgZGlyZWN0bHkKPiBhcGFydCBmcm9tIHRoZSBwaW5jdHJsIGNvcmUu
-IFNvIEkgdGhpbmsgdGhpcyBwYXJ0IG5lZWRzIGEgcmV2aXNpdC4KPiAKPiBDaHJpc3RpYW4/ClRo
-ZSBwaW5jdHJsICJpbml0IiBhbmQgImRlZmF1bHQiIGNvbmZpZ3VyYXRpb25zIGFyZSBtYW5hZ2Vk
-IGVmZmVjdGl2ZWx5IApieSB0aGUgcHJvYmluZyBjb2RlLiBUaGUgc2FtZSBhcHByb2FjaCBpcyBy
-ZXF1aXJlZCBpbiAKc3RtMzJfcGNpZV9yZXN1bWVfbm9pcnEoKS4KCkluIHRoaXMgY2FzZSwgd291
-bGQgaW50cm9kdWNpbmcgYSBuZXcgaGVscGVyIGZ1bmN0aW9uLCAKcGluY3RybF9wbV9zZWxlY3Rf
-aW5pdF9zdGF0ZSgpLCBiZSBwcmVmZXJhYmxlLCBldmVuIGlmIHdlIGFyZSB0aGUgb25seSAKY29u
-c3VtZXI/CgpUaGFuayB5b3UKCgo+IAo+IC0gTWFuaQo+IApfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Commit 98ce1eb1fd87e ("gpiolib: introduce gpio_chip setters that return
+values") added new line setter callbacks to struct gpio_chip. They allow
+to indicate failures to callers. We're in the process of converting all
+GPIO controllers to using them before removing the old ones. This series
+converts another round of GPIO drivers.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+---
+Bartosz Golaszewski (12):
+      gpio: sama5d2-piobu: use new GPIO line value setter callbacks
+      gpio: sch311x: use new GPIO line value setter callbacks
+      gpio: sch: use new GPIO line value setter callbacks
+      gpio: siox: use new GPIO line value setter callbacks
+      gpio: spear-spics: remove unneeded callbacks
+      gpio: spear-spics: use new GPIO line value setter callbacks
+      gpio: sprd: use new GPIO line value setter callbacks
+      gpio: stmpe: use new GPIO line value setter callbacks
+      gpio: stp-xway: use new GPIO line value setter callbacks
+      gpio: syscon: use new GPIO line value setter callbacks
+      gpio: tangier: use new GPIO line value setter callbacks
+      gpio: tc3589x: use new GPIO line value setter callbacks
+
+ drivers/gpio/gpio-sama5d2-piobu.c |  8 ++++----
+ drivers/gpio/gpio-sch.c           |  9 +++++----
+ drivers/gpio/gpio-sch311x.c       |  8 +++++---
+ drivers/gpio/gpio-siox.c          | 11 ++++++-----
+ drivers/gpio/gpio-spear-spics.c   | 21 +++++----------------
+ drivers/gpio/gpio-sprd.c          |  8 +++++---
+ drivers/gpio/gpio-stmpe.c         | 15 +++++++++------
+ drivers/gpio/gpio-stp-xway.c      | 10 +++++-----
+ drivers/gpio/gpio-syscon.c        | 33 ++++++++++++++++++---------------
+ drivers/gpio/gpio-tangier.c       |  6 ++++--
+ drivers/gpio/gpio-tc3589x.c       | 11 +++++++----
+ 11 files changed, 73 insertions(+), 67 deletions(-)
+---
+base-commit: 1b152eeca84a02bdb648f16b82ef3394007a9dcf
+change-id: 20250625-gpiochip-set-rv-gpio-round2-08862ed27417
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
