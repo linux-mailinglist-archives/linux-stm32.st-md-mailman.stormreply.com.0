@@ -2,40 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916FAAE773F
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 08:39:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6E97AE76C3
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 08:10:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05996C32EB5;
-	Wed, 25 Jun 2025 06:39:35 +0000 (UTC)
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com
- [207.226.244.123])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9690C32E8E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EB8DC32E92;
+	Wed, 25 Jun 2025 06:10:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CDDFC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 02:51:43 +0000 (UTC)
-X-CSE-ConnectionGUID: RQz7XIEZRfSD6zQw4klrkw==
-X-CSE-MsgGUID: W3l9fVWGSZu3x6laMDNs5w==
-X-IronPort-AV: E=Sophos;i="6.16,263,1744041600"; d="scan'208";a="144173493"
-From: EricChan <chenchuangyu@xiaomi.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
- Torgue" <alexandre.torgue@foss.st.com>
-Date: Wed, 25 Jun 2025 10:51:34 +0800
-Message-ID: <20250625025134.97056-1-chenchuangyu@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 25 Jun 2025 06:10:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 666BA615F1;
+ Wed, 25 Jun 2025 06:10:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889EAC4CEEA;
+ Wed, 25 Jun 2025 06:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1750831813;
+ bh=TEf+0zBo4DYSNOvhVuH60cDQ+vbZMzygF71dL+Jh798=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=YHt7DH9HLA5kBMzdtXsLfXrnOhUdtHDP4wZC/HNvVcwcIAn+kqlRrPXMZk/Trh2QJ
+ oQ/YvsxqF8mGocksilcrPtZgaEmeXWDo7lrvXCG1dJ9OjyOo1BgEhZ9gIt3E5y7ZP1
+ YI8Z+06o7onSqrN9VUIuQ1PAR1HdvZU/I4LLULSx991gQ8ZlSNfxMJCUBueVY+v+4m
+ ldMMqaTZnEKxw8T0pQllV7ZrLNEoPfWHWlMINdGN2lUe7qUMn/qFkZ1zVKmVT7bLVh
+ lsJOmzEFc2CGOSO8AjAiduJRTDDwuUOSMPiUm6aAH2PNjwaheLw/d7xxLlZDJu1/4o
+ 3lPOZV/1BQYEA==
+Message-ID: <22d911a2-3bf1-45ee-9037-c6d8cbd686fa@kernel.org>
+Date: Wed, 25 Jun 2025 08:10:04 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.237.8.166]
-X-ClientProxiedBy: BJ-MBX08.mioffice.cn (10.237.8.128) To BJ-MBX15.mioffice.cn
- (10.237.8.135)
-X-Mailman-Approved-At: Wed, 25 Jun 2025 06:39:34 +0000
-Cc: Feiyang Chen <chenfeiyang@loongson.cn>, Yanteng Si <si.yanteng@linux.dev>,
- xiaojianfeng <xiaojianfeng1@xiaomi.com>, netdev@vger.kernel.org,
- Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Serge Semin <fancer.lancer@gmail.com>, EricChan <chenchuangyu@xiaomi.com>,
- xiongliang <xiongliang@xiaomi.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: Fix interrupt handling for
-	level-triggered mode in DWC_XGMAC2
+User-Agent: Mozilla Thunderbird
+To: Frank Li <Frank.li@nxp.com>
+References: <20250623095732.2139853-1-joy.zou@nxp.com>
+ <20250623095732.2139853-3-joy.zou@nxp.com>
+ <urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26>
+ <aFq7WJ3Fqe9p0EhA@lizhi-Precision-Tower-5810>
+ <e32c3a47-e32e-4f93-becb-ebad31065b73@kernel.org>
+ <aFr3yExb6vObn5W4@lizhi-Precision-Tower-5810>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <aFr3yExb6vObn5W4@lizhi-Precision-Tower-5810>
+Cc: imx@lists.linux.dev, ulf.hansson@linaro.org, ping.bai@nxp.com,
+ catalin.marinas@arm.com, edumazet@google.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, will@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, s.hauer@pengutronix.de,
+ Joy Zou <joy.zou@nxp.com>, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ ye.li@nxp.com, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ linux-arm-kernel@lists.infradead.org, aisheng.dong@nxp.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ kernel@pengutronix.de, krzk+dt@kernel.org, shawnguo@kernel.org,
+ davem@davemloft.net, linux-pm@vger.kernel.or
+Subject: Re: [Linux-stm32] [PATCH v6 2/9] dt-bindings: soc: imx-blk-ctrl:
+ add i.MX91 blk-ctrl compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,66 +113,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-According to the Synopsys Controller IP XGMAC-10G Ethernet MAC Databook
-v3.30a (section 2.7.2), when the INTM bit in the DMA_Mode register is set
-to 2, the sbd_perch_tx_intr_o[] and sbd_perch_rx_intr_o[] signals operate
-in level-triggered mode. However, in this configuration, the DMA does not
-assert the XGMAC_NIS status bit for Rx or Tx interrupt events.
+On 24/06/2025 21:08, Frank Li wrote:
+>>>>> +        clock-names:
+>>>>> +          items:
+>>>>> +            - const: apb
+>>>>> +            - const: axi
+>>>>> +            - const: nic
+>>>>> +            - const: disp
+>>>>> +            - const: cam
+>>>>> +            - const: lcdif
+>>>>> +            - const: isi
+>>>>> +            - const: csi
+>>>>
+>>>> No, look at other bindings how they share clock lists.
+>>>
+>>> Sorry, this method is what I suggested. becuase there are pxp between cam
+>>> and lcdif, can't use simple minItems/maxItems to limit list.
+>>
+>> The point is to put new items, so pxp, at the end.
+> 
+> There are already a list for imx93. If change list order, it will break
+> ABI. This was rejected at other binding doc review.
+I see, I mixed the SoCs. It is a pity you upstream that way and do not
+try to make the list common. Anyway names indeed need to be constrained
+per variant, but the rest of the comments stay.
 
-This creates a functional regression where the condition
-if (likely(intr_status & XGMAC_NIS)) in dwxgmac2_dma_interrupt() will
-never evaluate to true, preventing proper interrupt handling for
-level-triggered mode. The hardware specification explicitly states that
-"The DMA does not assert the NIS status bit for the Rx or Tx interrupt
-events" (Synopsys DWC_XGMAC2 Databook v3.30a, sec. 2.7.2).
-
-The fix ensures correct handling of both edge and level-triggered
-interrupts while maintaining backward compatibility with existing
-configurations.
-
-Signed-off-by: EricChan <chenchuangyu@xiaomi.com>
----
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 24 +++++++++----------
- 1 file changed, 11 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 7840bc403788..5dcc95bc0ad2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -364,19 +364,17 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
- 	}
- 
- 	/* TX/RX NORMAL interrupts */
--	if (likely(intr_status & XGMAC_NIS)) {
--		if (likely(intr_status & XGMAC_RI)) {
--			u64_stats_update_begin(&stats->syncp);
--			u64_stats_inc(&stats->rx_normal_irq_n[chan]);
--			u64_stats_update_end(&stats->syncp);
--			ret |= handle_rx;
--		}
--		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
--			u64_stats_update_begin(&stats->syncp);
--			u64_stats_inc(&stats->tx_normal_irq_n[chan]);
--			u64_stats_update_end(&stats->syncp);
--			ret |= handle_tx;
--		}
-+	if (likely(intr_status & XGMAC_RI)) {
-+		u64_stats_update_begin(&stats->syncp);
-+		u64_stats_inc(&stats->rx_normal_irq_n[chan]);
-+		u64_stats_update_end(&stats->syncp);
-+		ret |= handle_rx;
-+	}
-+	if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
-+		u64_stats_update_begin(&stats->syncp);
-+		u64_stats_inc(&stats->tx_normal_irq_n[chan]);
-+		u64_stats_update_end(&stats->syncp);
-+		ret |= handle_tx;
- 	}
- 
- 	/* Clear interrupts */
--- 
-2.34.1
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
