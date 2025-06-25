@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA15AE7F78
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:33:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77396AE7F79
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Jun 2025 12:33:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA230C3F93D;
-	Wed, 25 Jun 2025 10:33:50 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02D39C3F92F;
+	Wed, 25 Jun 2025 10:33:52 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66E79C3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CC71C3F92D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 10:33:50 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so432257f8f.1
+ Wed, 25 Jun 2025 10:33:51 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-3a54700a463so488005f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Jun 2025 03:33:50 -0700 (PDT)
+ Wed, 25 Jun 2025 03:33:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750847630; x=1751452430;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1750847631; x=1751452431;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=xw3Cm0AyZRtYp2u4Mlp87QA0PGaxAk/S4JFRRmCDuKI=;
- b=pXbeujwWbpRHQDWls7xFNfTEyq7qgAyjQ2nzVMfy7hNyjuBGrmzdKIknHa0nA/Hn2Y
- jNNVi2EvN9+APvbxJNR9dw/VTwS2DyvVoRuEzx50+Abbxme7RESr9kUg6wzVfRVaYP1V
- I4H0wppjePM+oTx3oO2XuE3drmfMjrIy2wTPH2akW/rsfgAzQTrY09w2H1mD7JL+PPsL
- H0Q0eEdilZqcfOQ7Sgl1GajJmEFCG7/ujs4IVml0tlQnzM7D9tPTeVS7phQ+k+oJRyss
- YgX7PR7ltjn0hdqNLxj+TSGaJyRioGya5i6eS+RIQEMzjZ8u7aXfWF2mi5yOcNzdxrKP
- mvWA==
+ :reply-to; bh=JJHIuMYrWN8IdFB2bnihanEiItYdX6hdAm3LOb4QX6U=;
+ b=QH/8JgDphWwHPXdLH6EIcG6XVBZSsQEMltTUx/o1rhlGpBjBLzRaayuF8ycllrFBti
+ ZGFWu6YGCE8yMquKrKt2yfk8uygZGV6ynRFUT57nIi5i0y7L/KYQxwyQwXOa9PLAvTeq
+ 6n0L8Uou5b6KhHud0UUYpP10bPAR1BbjMxib893Zp9quVlq2ElPuFGPAfHFFpvPPut46
+ sXUe8yThVETzKxZeH7FRR0xafTgtnKLxNX9M8e3xkAjNEvt9wEYl/f5stm2r+y+RnPF4
+ nmgpGs/bkbIau1G6pfsa03chMau/kKsRZLSNYW12kuz5cmmWK9f1YIhTte5QpfVh0nej
+ uy7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1750847630; x=1751452430;
+ d=1e100.net; s=20230601; t=1750847631; x=1751452431;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xw3Cm0AyZRtYp2u4Mlp87QA0PGaxAk/S4JFRRmCDuKI=;
- b=PRBy6xlQ+JvwGloyX2UQePFr0ZxBlN+QgjYp8VObjUplhSgh6AIUkPIupfWOXTnExK
- v/yib3xIweENp7Dg3XihVEYtswNe0mxDuF/HrZhovy0lZptfoZ8WoTO9bXtcnIIp7KPD
- C6dGbmOmy8jkFbQwtGCmKMzs3HOnxWMatC4fpxayKy3y9BcAHHcqAPunolYAZnaz4WJy
- IM8zAyVO9JwcfghZe/E9qhEHelDf72MObOFgPtYVoo3+OPs28vS5uNyyHa4H7ZrQqw67
- 1Y9SmIS/trSqpW41weOfGiT8GAP9aFp+MY9mHRRuImhMgFJlxz1GzX9/6muEYlFcDTCF
- 8dEQ==
+ bh=JJHIuMYrWN8IdFB2bnihanEiItYdX6hdAm3LOb4QX6U=;
+ b=s3dpozJ8P+6aGyXy9R+VBzGB76xTEP/+6wIXHhOLxja5YsiKjnrZSFUbZri7KAR0/q
+ PE7gtR5Frl/OAEm1KZyQaQPHCdfjTrSduIWhtTCM0TJLOmziP7yUwHiRDbppL2zUTT0a
+ 5MazeqcAmC7kS90PD+4jFUbveeQ3JVYNp4KwZ2D1+dBcDBR/sm1Sv9MyYFpoj2XN18g2
+ lVbhHVekuCv90IKSEofXKaN2v1XEB1p04IJq+Dm9xu0JpEPWG5Q1gzvyyBJi1qIBW8Eg
+ k/ZKtYb+Pu9kr5UHRI2w/hKcnSGxB4zA+X8Sk1/NzzVahvVPS9XuzePbFLii5sJdsQIk
+ lBuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/Sd3YYLQXDsFO5Bw45wa3Fkrwi5Ke3ItnSkjN1Hho4g0vLcbMkBANhwCLYzPE7QubOm4MCa3Ylrm1+A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwkixL1Xlgros7tdzFleXlZWnzaQmvrB4bHpEQWgXgwt9tpQtvZ
- 0rY1bSyB4MhpfCKKe3PHj0VblOmUZK56wEDoo4O1NuW0hMJ3bXuP+rnPy7VapM8babs=
-X-Gm-Gg: ASbGncuVqQwFawyTcW9D6TSD1BD7NBKjNwbiCbyPxQSz/YY6+cXdzrc+Y3sgG88zW4l
- ylVspsLrOowce/kfIrT+wzgH3h8Zdg6tZ3CKuEXmeUqoIhE2yVsDkxoZ7iyLF8qpBQoCLw0oxIF
- /QduKGwEl12yRQQ7iHl/CAkoG9iEft0bKKsLYXIK2pPjFTcjsxbK9PL7ZOmdZfF+dKZ/6P5EzyE
- VlTzpOXk4w+0IDDfY3sSa6eNcE+pSea1aITawXN9gYgJYiKL5rox4IKNbb/eN9Jb86iDudFA703
- 2qxCPH+afRNlfzVPF+sN5EvKUZqDIvgXUziQnVOVjdj8kDK3irVMh4h1
-X-Google-Smtp-Source: AGHT+IEwM2t1XefxZU8DghVTXKK8wSS63f829kSWALD3RIefh4AeNCC3TbqP+9rqackkafREvW4tyw==
-X-Received: by 2002:a05:6000:4024:b0:3a6:d7e6:f281 with SMTP id
- ffacd0b85a97d-3a6e7206d4fmr6033940f8f.22.1750847629787; 
- Wed, 25 Jun 2025 03:33:49 -0700 (PDT)
+ AJvYcCV/zmHKhQrEINZiY+Ha9IrEIB3zuokhrDujM2i/G9glBcg+PDSMXwf/Zi6ppJjsBFJCkAAZg/C6M0DyLQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxN+t8F2YhUtKKLC/AfZPLGw3eXSK/pD+8i52XUDt6XULSBEJII
+ lkFYAHtoXJF/8AnrtTRcC3vUg0/y5BVzpIalyFtRFRu2YJlEzrFvvUsw6t1QTsNRNbM=
+X-Gm-Gg: ASbGncvm933pVgMHnQAPhPorlB584o2e097L4VPn06N6ik56EU9Ru1cdp0Z8lYwOd5d
+ 1hQ9wF1qsGtPQxv97b4uDsxjSbnewlfAlkaNCKGaJ5LeImMGPsXMQSbqbyz64oPPp3Xvq8NIufh
+ BgPpmKiog5Z6kgwHq0zQQoY2Tzp92IAU7eI5xBtj2y8+WSD0fcDpDLQTb80Cq1uP6xA9zf7JMKh
+ rjlZEuMBV5q/aMg8FNiuP0ATOyyFCPHIpB0BiKoDNNCsEchD5GoY830BK0xKdKHyJmXziNa/O/Q
+ PGl22jH6u+niPy8wVXsW5zOr/KFIX/BwR9fh/0ByiAP2rTz8/oHic7+R
+X-Google-Smtp-Source: AGHT+IHVlfqB4inzXZzLgekCnTIjuihgVCYxGd7tprEn7YokvX3NE5HXPw4UxnDwuCjQPML6+E/5Fg==
+X-Received: by 2002:a5d:5f92:0:b0:3a5:25e2:6129 with SMTP id
+ ffacd0b85a97d-3a6e7206741mr6336631f8f.21.1750847630882; 
+ Wed, 25 Jun 2025 03:33:50 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:d216:42f3:1e7e:472e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45382373c86sm16133195e9.33.2025.06.25.03.33.48
+ 5b1f17b1804b1-45382373c86sm16133195e9.33.2025.06.25.03.33.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 03:33:49 -0700 (PDT)
+ Wed, 25 Jun 2025 03:33:50 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 25 Jun 2025 12:33:32 +0200
+Date: Wed, 25 Jun 2025 12:33:33 +0200
 MIME-Version: 1.0
-Message-Id: <20250625-gpiochip-set-rv-gpio-round2-v1-9-bc110a3b52ff@linaro.org>
+Message-Id: <20250625-gpiochip-set-rv-gpio-round2-v1-10-bc110a3b52ff@linaro.org>
 References: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
 In-Reply-To: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
 To: Ludovic Desroches <ludovic.desroches@microchip.com>, 
@@ -77,28 +77,28 @@ To: Ludovic Desroches <ludovic.desroches@microchip.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1842;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4222;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=iM77eXflH98tEqykW1k+5Ww0CPuJn4LOyCx2J1hnDc4=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoW9CAekDrQa+N2Lkq1WXdL06pphPPFEQKtl/A0
- icei1YT42+JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaFvQgAAKCRARpy6gFHHX
- ckF3D/94LKQv+DwKv8kgiajCz0+LVB02vWQFLuawtrrCD3lT3mQR99okl12W8v4bFRqrQgkZbh6
- Mwxo9HqCfHrH9G1wPF88tIC0mVzVRDUcaMkkI/b4FaH2V+0uGdss9BLmJOKb1w4yxHpo1s6ud4Y
- nFa0ZFobojyWKWFqWgnrLBkO6Ee/kCKcHLOWs07yKRQSDbkiyhWoVo25QrzuqAUbBe5SZitOElx
- RP9QH+MV5jiCBF1T5PELubMo9gHJaztZHMs3/J/Cv2sgOu6GNRiU5PknjkdXY9Yr3ViaiGNVoq7
- KzUxVZLCCPxGNwMAtpYoCs8OazkrmTFJgeDdd8FaN+AUMRpzElDe5gMLKbxG4ywUxzqBDToLP9y
- ZBvBSYsWfXt7NVRv8ar/BcFa5+wl2NZu6mFOiME3DM19NoL++9oa2pQAWqa2l1pADddWStrecGL
- fjYRJasuaMjmEYDKKb9nnY7P+EqE9fMlUtwzCvldqXYcMGu6vfuiePHGLGUhvB76UPmHagMWnzu
- gdyb6iE/IAa2qwFBcjxH2dgglrcOhusiGNqea293LnB6a4b2QeAT87hOs9fiH7zhoAByf0Vuly5
- yFmAioTpLemDCiO4jMgJuQy02PedULImyNIjLmPw8V7RS2UW42vPkdfq9THCKWegBxq+langWnB
- lWhe1Qpcgf94OAQ==
+ bh=sjfHOc+5FIElw6Tn67jgDQmefJjmNImROrNF3EFqBFg=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBoW9CA83SVJti9vEV1Z0Jj0mn5RsqIkTfAL4+Q6
+ qHpliBjLBKJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaFvQgAAKCRARpy6gFHHX
+ cmakD/0bM1j6L2o30Tp+dbPHedW5MlBncI7X9OnpYlO059zCAtX6weW1EA7auFfb0pdgDrfc8ju
+ 9P5nzipoqm1g9uh5EW5ZdT7ZJoaL0KAOfmZNC9NMTIotgDYZkC/9K7W7ZJtXNYQiofJYV47yCOZ
+ kL4vOnVBZPiaEyKO0xFm5x7OUnV3dVCovfICjZ96PuxIInIlToYVDkR0g30XRN2sigYYgNdtCIE
+ kerUi0WQNQt5yS4+00WCichtEFr2W/q6AlgHPAoQ/WLm2q1Fs+eUj6D2HCIVFCfNXrMepgTYmHZ
+ FdAGaF9VjhyPnlgQ0zSGcbmIXVlYkf6+/iicvTtJDzo69K4mh1b17ZLpIqg5UMIqOx7LjhijbfO
+ JyQfwsyWY2rZafQjfgE5FrfPlKPGbzs+EiYzCdlYrO0mlbq4/UByZXeNRZ3LOOWOcou8CZQ74kd
+ XPDPaP07F2vdEPMHkbRs2gfZ9dfQdnayC0IIQnzR13Sh5nrdUW2YtalxOl12QBXSWNfkCsDRNfW
+ +F2WqxK7s67FsSnl+Id/m4j6wu+PqYDnwxHKdTXsaXCw6dCmHAF8J2qY3udEZcemFhsuR3Kwc/g
+ 2RQ1p2buy65m4uB9eJE9W4PHCBI/Z8niJDMCY/e9NZMH9aqqOAj44pwau4RDrH9m96Q+0L7S2pJ
+ vIUv+bZN/Ve660A==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: linux-gpio@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 09/12] gpio: stp-xway: use new GPIO line value
+Subject: [Linux-stm32] [PATCH 10/12] gpio: syscon: use new GPIO line value
  setter callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -124,51 +124,115 @@ them.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/gpio/gpio-stp-xway.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpio/gpio-syscon.c | 33 ++++++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpio/gpio-stp-xway.c b/drivers/gpio/gpio-stp-xway.c
-index 5a6406d1f03aa75e82423f7c5740fdb3df42dd4b..fdda8de6ca366662aec1fccb475f0698fb478ef5 100644
---- a/drivers/gpio/gpio-stp-xway.c
-+++ b/drivers/gpio/gpio-stp-xway.c
-@@ -113,7 +113,7 @@ static int xway_stp_get(struct gpio_chip *gc, unsigned int gpio)
-  *
-  * Set the shadow value and call ltq_ebu_apply.
-  */
--static void xway_stp_set(struct gpio_chip *gc, unsigned gpio, int val)
-+static int xway_stp_set(struct gpio_chip *gc, unsigned int gpio, int val)
- {
- 	struct xway_stp *chip = gpiochip_get_data(gc);
+diff --git a/drivers/gpio/gpio-syscon.c b/drivers/gpio/gpio-syscon.c
+index 5ab394ec81e69beae2080a3ca7ecf35868e79abf..f86f78655c2420ef91f1248653b4943b5d8ed1c0 100644
+--- a/drivers/gpio/gpio-syscon.c
++++ b/drivers/gpio/gpio-syscon.c
+@@ -40,8 +40,8 @@ struct syscon_gpio_data {
+ 	unsigned int	bit_count;
+ 	unsigned int	dat_bit_offset;
+ 	unsigned int	dir_bit_offset;
+-	void		(*set)(struct gpio_chip *chip,
+-			       unsigned offset, int value);
++	int		(*set)(struct gpio_chip *chip, unsigned int offset,
++			       int value);
+ };
  
-@@ -124,6 +124,8 @@ static void xway_stp_set(struct gpio_chip *gc, unsigned gpio, int val)
- 	xway_stp_w32(chip->virt, chip->shadow, XWAY_STP_CPU0);
- 	if (!chip->reserved)
- 		xway_stp_w32_mask(chip->virt, 0, XWAY_STP_CON_SWU, XWAY_STP_CON0);
-+
-+	return 0;
+ struct syscon_gpio_priv {
+@@ -68,17 +68,17 @@ static int syscon_gpio_get(struct gpio_chip *chip, unsigned offset)
+ 	return !!(val & BIT(offs % SYSCON_REG_BITS));
  }
  
- /**
-@@ -136,9 +138,7 @@ static void xway_stp_set(struct gpio_chip *gc, unsigned gpio, int val)
-  */
- static int xway_stp_dir_out(struct gpio_chip *gc, unsigned gpio, int val)
+-static void syscon_gpio_set(struct gpio_chip *chip, unsigned offset, int val)
++static int syscon_gpio_set(struct gpio_chip *chip, unsigned int offset, int val)
  {
--	xway_stp_set(gc, gpio, val);
+ 	struct syscon_gpio_priv *priv = gpiochip_get_data(chip);
+ 	unsigned int offs;
+ 
+ 	offs = priv->dreg_offset + priv->data->dat_bit_offset + offset;
+ 
+-	regmap_update_bits(priv->syscon,
+-			   (offs / SYSCON_REG_BITS) * SYSCON_REG_SIZE,
+-			   BIT(offs % SYSCON_REG_BITS),
+-			   val ? BIT(offs % SYSCON_REG_BITS) : 0);
++	return regmap_update_bits(priv->syscon,
++				  (offs / SYSCON_REG_BITS) * SYSCON_REG_SIZE,
++				  BIT(offs % SYSCON_REG_BITS),
++				  val ? BIT(offs % SYSCON_REG_BITS) : 0);
+ }
+ 
+ static int syscon_gpio_dir_in(struct gpio_chip *chip, unsigned offset)
+@@ -115,9 +115,7 @@ static int syscon_gpio_dir_out(struct gpio_chip *chip, unsigned offset, int val)
+ 				   BIT(offs % SYSCON_REG_BITS));
+ 	}
+ 
+-	chip->set(chip, offset, val);
 -
 -	return 0;
-+	return xway_stp_set(gc, gpio, val);
++	return chip->set_rv(chip, offset, val);
  }
  
- /**
-@@ -249,7 +249,7 @@ static int xway_stp_probe(struct platform_device *pdev)
- 	chip->gc.label = "stp-xway";
- 	chip->gc.direction_output = xway_stp_dir_out;
- 	chip->gc.get = xway_stp_get;
--	chip->gc.set = xway_stp_set;
-+	chip->gc.set_rv = xway_stp_set;
- 	chip->gc.request = xway_stp_request;
- 	chip->gc.base = -1;
- 	chip->gc.owner = THIS_MODULE;
+ static const struct syscon_gpio_data clps711x_mctrl_gpio = {
+@@ -127,8 +125,8 @@ static const struct syscon_gpio_data clps711x_mctrl_gpio = {
+ 	.dat_bit_offset	= 0x40 * 8 + 8,
+ };
+ 
+-static void rockchip_gpio_set(struct gpio_chip *chip, unsigned int offset,
+-			      int val)
++static int rockchip_gpio_set(struct gpio_chip *chip, unsigned int offset,
++			     int val)
+ {
+ 	struct syscon_gpio_priv *priv = gpiochip_get_data(chip);
+ 	unsigned int offs;
+@@ -144,6 +142,8 @@ static void rockchip_gpio_set(struct gpio_chip *chip, unsigned int offset,
+ 			   data);
+ 	if (ret < 0)
+ 		dev_err(chip->parent, "gpio write failed ret(%d)\n", ret);
++
++	return ret;
+ }
+ 
+ static const struct syscon_gpio_data rockchip_rk3328_gpio_mute = {
+@@ -156,7 +156,8 @@ static const struct syscon_gpio_data rockchip_rk3328_gpio_mute = {
+ 
+ #define KEYSTONE_LOCK_BIT BIT(0)
+ 
+-static void keystone_gpio_set(struct gpio_chip *chip, unsigned offset, int val)
++static int keystone_gpio_set(struct gpio_chip *chip, unsigned int offset,
++			     int val)
+ {
+ 	struct syscon_gpio_priv *priv = gpiochip_get_data(chip);
+ 	unsigned int offs;
+@@ -165,7 +166,7 @@ static void keystone_gpio_set(struct gpio_chip *chip, unsigned offset, int val)
+ 	offs = priv->dreg_offset + priv->data->dat_bit_offset + offset;
+ 
+ 	if (!val)
+-		return;
++		return 0;
+ 
+ 	ret = regmap_update_bits(
+ 			priv->syscon,
+@@ -174,6 +175,8 @@ static void keystone_gpio_set(struct gpio_chip *chip, unsigned offset, int val)
+ 			BIT(offs % SYSCON_REG_BITS) | KEYSTONE_LOCK_BIT);
+ 	if (ret < 0)
+ 		dev_err(chip->parent, "gpio write failed ret(%d)\n", ret);
++
++	return ret;
+ }
+ 
+ static const struct syscon_gpio_data keystone_dsp_gpio = {
+@@ -248,7 +251,7 @@ static int syscon_gpio_probe(struct platform_device *pdev)
+ 	if (priv->data->flags & GPIO_SYSCON_FEAT_IN)
+ 		priv->chip.direction_input = syscon_gpio_dir_in;
+ 	if (priv->data->flags & GPIO_SYSCON_FEAT_OUT) {
+-		priv->chip.set = priv->data->set ? : syscon_gpio_set;
++		priv->chip.set_rv = priv->data->set ? : syscon_gpio_set;
+ 		priv->chip.direction_output = syscon_gpio_dir_out;
+ 	}
+ 
 
 -- 
 2.48.1
