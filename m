@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D0DAEA9F1
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D04AEA9F2
 	for <lists+linux-stm32@lfdr.de>; Fri, 27 Jun 2025 00:48:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC599C36B2C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7F48C30883;
 	Thu, 26 Jun 2025 22:48:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00906C36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60143C36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Jun 2025 22:48:10 +0000 (UTC)
+ Thu, 26 Jun 2025 22:48:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 106646000A;
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7D3E8A5202C;
  Thu, 26 Jun 2025 22:48:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DACEC4CEEF;
- Thu, 26 Jun 2025 22:48:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8ECC4CEF3;
+ Thu, 26 Jun 2025 22:48:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1750978089;
- bh=fCvhvhbFhOlfeOSp3pz3JSwPF/zNpq8GnnnbKYprUD0=;
+ s=k20201202; t=1750978090;
+ bh=nUQQ+LnpVtcSiEKYNyLJQYQ3qpwW8j9at1ttj37bRoE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=p8ro6kuHVP4rjmVN4MF+SX3pruihvHxk7qjD4XJHiiggv6p482O/uBd3JSRvtfTWx
- 5oFtEgl9QnCM+fCcxIJgeVuQcMNF0Etva2SaPsL51fGw9dGqI8ueYPuuI4j+DUOVQD
- Plx45huqWvqeo2rp1+runItb0a5oUJFRk7pUTCufsNkIriFZ3pYpz2vgpO/uaRtIu4
- qrKW4LlNTM0xlldnf74et4wYXoIZYWBU+Xv+5Am5+B0CDG6HhtmOlXlHUZ5Y+l2CSe
- xoeOabeVqwCJ1ROiSvuE87brMa+aG24IYJ2oElOJ7UPEQI/5CggGyXp/qHoqI/yKLl
- 0KNSAmkOvAhQw==
+ b=AZrsg3vdrJ0h/iRGea67V1Kjd16l35Zwmo76Qa+vj2q6zwKi6v1Ah9wl5WBNB2lWA
+ 462gKoTgs4izGfLnhp01Ost894ecgtMAompg3rOGHh9oemcMIwy0PMbxuwbusSQVKY
+ fw6S23NxOWG9YyYiQzNL+cZtIgSPGh1ng98fu7XWyg8Lv2s/5/8WvWaCQsFMyrs57q
+ u4h98kx8k8VqrMM4LWU1NznJl/nfN3t9HfmaPB7MUNbSpaSI78hvBQHfpx4j1oqp17
+ Q1mIL9Fqi48UYRj4WZN9oDtSMDX/U6NaI3pfNJqSRaB2pESV6QiMM6OYGOb3NP/7/E
+ oSYMevKyeDRGQ==
 From: Vinod Koul <vkoul@kernel.org>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+To: =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20250624-stm32_dma_dbm_fix-v1-1-337c40d6c93e@foss.st.com>
-References: <20250624-stm32_dma_dbm_fix-v1-1-337c40d6c93e@foss.st.com>
-Message-Id: <175097808959.79884.12989914478900786264.b4-ty@kernel.org>
-Date: Thu, 26 Jun 2025 15:48:09 -0700
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+In-Reply-To: <20250618-restricted-pointers-dma-v2-1-bc39dafc201d@linutronix.de>
+References: <20250618-restricted-pointers-dma-v2-1-bc39dafc201d@linutronix.de>
+Message-Id: <175097809000.79884.3200943794194377896.b4-ty@kernel.org>
+Date: Thu, 26 Jun 2025 15:48:10 -0700
 MIME-Version: 1.0
 X-Mailer: b4 0.13.0
 Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH RESEND] dmaengine: stm32-dma: configure
- next sg only if there are more than 2 sgs
+Subject: Re: [Linux-stm32] [PATCH v2] dmaengine: stm32: Don't use %pK
+	through printk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,39 +54,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Tue, 24 Jun 2025 09:31:37 +0200, Amelie Delaunay wrote:
-> DMA operates in Double Buffer Mode (DBM) when the transfer is cyclic and
-> there are at least two periods.
-> When DBM is enabled, the DMA toggles between two memory targets (SxM0AR and
-> SxM1AR), indicated by the SxSCR.CT bit (Current Target).
-> There is no need to update the next memory address if two periods are
-> configured, as SxM0AR and SxM1AR are already properly set up before the
-> transfer begins in the stm32_dma_start_transfer() function.
-> This avoids unnecessary updates to SxM0AR/SxM1AR, thereby preventing
-> potential Transfer Errors. Specifically, when the channel is enabled,
-> SxM0AR and SxM1AR can only be written if SxSCR.CT=1 and SxSCR.CT=0,
-> respectively. Otherwise, a Transfer Error interrupt is triggered, and the
-> stream is automatically disabled.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] dmaengine: stm32-dma: configure next sg only if there are more than 2 sgs
-      commit: e19bdbaa31082b43dab1d936e20efcebc30aa73d
-
-Best regards,
--- 
-~Vinod
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIFdlZCwgMTggSnVuIDIwMjUgMDk6NDM6MzQgKzAyMDAsIFRob21hcyBXZWnDn3NjaHVoIHdy
+b3RlOgo+IEluIHRoZSBwYXN0ICVwSyB3YXMgcHJlZmVyYWJsZSB0byAlcCBhcyBpdCB3b3VsZCBu
+b3QgbGVhayByYXcgcG9pbnRlcgo+IHZhbHVlcyBpbnRvIHRoZSBrZXJuZWwgbG9nLgo+IFNpbmNl
+IGNvbW1pdCBhZDY3Yjc0ZDI0NjkgKCJwcmludGs6IGhhc2ggYWRkcmVzc2VzIHByaW50ZWQgd2l0
+aCAlcCIpCj4gdGhlIHJlZ3VsYXIgJXAgaGFzIGJlZW4gaW1wcm92ZWQgdG8gYXZvaWQgdGhpcyBp
+c3N1ZS4KPiBGdXJ0aGVybW9yZSwgcmVzdHJpY3RlZCBwb2ludGVycyAoIiVwSyIpIHdlcmUgbmV2
+ZXIgbWVhbnQgdG8gYmUgdXNlZAo+IHRocm91Z2ggcHJpbnRrKCkuIFRoZXkgY2FuIHN0aWxsIHVu
+aW50ZW50aW9uYWxseSBsZWFrIHJhdyBwb2ludGVycyBvcgo+IGFjcXVpcmUgc2xlZXBpbmcgbG9j
+a3MgaW4gYXRvbWljIGNvbnRleHRzLgo+IAo+IFsuLi5dCgpBcHBsaWVkLCB0aGFua3MhCgpbMS8x
+XSBkbWFlbmdpbmU6IHN0bTMyOiBEb24ndCB1c2UgJXBLIHRocm91Z2ggcHJpbnRrCiAgICAgIGNv
+bW1pdDogNmU2ZDNjNmYwZWYyMzVhOTVjMjUzODViMmRhZDk4ZThhZDYyMjNlYgoKQmVzdCByZWdh
+cmRzLAotLSAKflZpbm9kCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
