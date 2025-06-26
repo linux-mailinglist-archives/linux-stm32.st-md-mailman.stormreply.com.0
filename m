@@ -2,52 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5EF0AEAFE0
+	by mail.lfdr.de (Postfix) with ESMTPS id A9AFEAEAFE1
 	for <lists+linux-stm32@lfdr.de>; Fri, 27 Jun 2025 09:13:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D40CC30883;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F36CC35E00;
 	Fri, 27 Jun 2025 07:13:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25EECC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71A95C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Jun 2025 18:19:34 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55QG6Ak2025531;
- Thu, 26 Jun 2025 20:19:24 +0200
+ Thu, 26 Jun 2025 18:19:26 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 55QFGTks002802;
+ Thu, 26 Jun 2025 20:19:06 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=v4xN43MYu3e3S0oexgiTVn
- 3iIbbwbmNw+3LdQPITQ9s=; b=UfkC2P/IykYF5tUIvNYKlakfc/jQsk7sbMry14
- CpFISpfAe/7UADp8LrZfoJo4JDLQF7Iwxw8VE0I8YZu78MPG9s9x5MNCffwVkJKV
- Opzevu9WwtdPeoGVtJkiglWOvYxwJ/diU22cSbgLyyxhorRIbA6UdduPqjlw1qA6
- BLHpPVwotIrJaGfWrw6px1xeAxLYC3ozWYZEy8kTQhrTPWbAqEFWSUR1JfCqHZ54
- 6q2bbYW8FkSv4oEM9crQzD9Ta85vltZjcRsGzwWlj72zVLi+IIfGwIIlBVsJSrhk
- 3CA3VsmVWsl2sovE0OUZVKJjiNufHxH3xa8yDzEDkQtDOWDg==
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ iwWYLVWIQhsieK1q3dXMnApygXnCasOaR3eXeKwwLbg=; b=EFxqX0paIInigNMC
+ Lult3CNQIgGNpz/CMYXvaf4nWki/zJeuf09OhvRyA7NgA6dfMGw/MCjzEBzNyZNd
+ K34MexBZqrODKVW8MyLhwqPRdz4zhf+nFqBsfQmBAjq3XdjoeBvCKScPsJNDw1MN
+ 6Qj1wycRm2Yk7HchrzyVH5tmQ/j82bgILGKpYssIHRsS7FPOmz3Cb9/rm6fing8H
+ 1MBgkbEalSNy5CR3eFUFZDEQWCNKwNkivxMFD7tf9/Zb4QB4kuB5cY1bJyv8OA3v
+ rxL7v21giBEqNuhFMmsWewZw04JqJo3a+LEOqNaOi2dskq9/gjgsPf7joT5Efy6V
+ L+BRsg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47dhvbysfc-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47e7ppn922-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 26 Jun 2025 20:19:24 +0200 (MEST)
+ Thu, 26 Jun 2025 20:19:05 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DF59540055;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id F24B640059;
  Thu, 26 Jun 2025 20:18:02 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2FC45BAE253;
- Thu, 26 Jun 2025 20:15:41 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A408BAE270;
+ Thu, 26 Jun 2025 20:15:43 +0200 (CEST)
 Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 26 Jun
- 2025 20:15:40 +0200
+ 2025 20:15:42 +0200
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>,
  <kwilczynski@kernel.org>, <mani@kernel.org>, <robh@kernel.org>,
  <bhelgaas@google.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>, <linus.walleij@linaro.org>
-Date: Thu, 26 Jun 2025 20:15:35 +0200
-Message-ID: <20250626181537.1872159-1-christian.bruel@foss.st.com>
+Date: Thu, 26 Jun 2025 20:15:36 +0200
+Message-ID: <20250626181537.1872159-2-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250626181537.1872159-1-christian.bruel@foss.st.com>
+References: <20250626181537.1872159-1-christian.bruel@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.130.77.120]
 X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
@@ -59,8 +62,8 @@ X-Mailman-Approved-At: Fri, 27 Jun 2025 07:13:12 +0000
 Cc: linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 0/2] Add pinctrl_pm_select_init_state helper
-	function
+Subject: [Linux-stm32] [PATCH 1/2] pinctrl: Add pinctrl_pm_select_init_state
+	helper function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,26 +80,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Some platforms need to set the pinctrl to an initial state during
-pm_resume, just like in probe. To achieve this, the function
-pinctrl_pm_select_init_state is added.
+If a platform requires an initial state during probing, this helper function
+provides the client with access to the same initial state used to balance
+from a pinctrl_pm_select_sleep_state .
+eg:
 
-This allows a driver to balance pinctrl_pm_select_sleep_state()
-with pinctrl_pm_select_default_state() and
-pinctrl_pm_select_init_state() in pm_runtime_suspend and pm_runtime_resume.
+ xxx_suspend_noirq
+    pinctrl_pm_select_sleep_state
 
-Christian Bruel (2):
-  pinctrl: Add pinctrl_pm_select_init_state helper function
-  PCI: stm32: use pinctrl_pm_select_init_state() in
-    stm32_pcie_resume_noirq()
+ xxx resume_noirq
+    pinctrl_pm_select_init_state
+    ...
+    pinctrl_pm_select_default_state
 
- drivers/pci/controller/dwc/pcie-stm32.c | 10 +++++++---
- drivers/pinctrl/core.c                  | 13 +++++++++++++
- include/linux/pinctrl/consumer.h        | 10 ++++++++++
- 3 files changed, 30 insertions(+), 3 deletions(-)
+Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+---
+ drivers/pinctrl/core.c           | 13 +++++++++++++
+ include/linux/pinctrl/consumer.h | 10 ++++++++++
+ 2 files changed, 23 insertions(+)
 
-
-base-commit: 5a972a01e24b278f7302a834c6eaee5bdac12843
+diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
+index 9046292d1360..80cf9f20f626 100644
+--- a/drivers/pinctrl/core.c
++++ b/drivers/pinctrl/core.c
+@@ -1655,6 +1655,19 @@ int pinctrl_pm_select_default_state(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(pinctrl_pm_select_default_state);
+ 
++/**
++ * pinctrl_pm_select_init_state() - select init pinctrl state for PM
++ * @dev: device to select init state for
++ */
++int pinctrl_pm_select_init_state(struct device *dev)
++{
++	if (!dev->pins)
++		return 0;
++
++	return pinctrl_select_bound_state(dev, dev->pins->init_state);
++}
++EXPORT_SYMBOL_GPL(pinctrl_pm_select_init_state);
++
+ /**
+  * pinctrl_pm_select_sleep_state() - select sleep pinctrl state for PM
+  * @dev: device to select sleep state for
+diff --git a/include/linux/pinctrl/consumer.h b/include/linux/pinctrl/consumer.h
+index 73de70362b98..63ce16191eb9 100644
+--- a/include/linux/pinctrl/consumer.h
++++ b/include/linux/pinctrl/consumer.h
+@@ -48,6 +48,7 @@ int pinctrl_select_default_state(struct device *dev);
+ 
+ #ifdef CONFIG_PM
+ int pinctrl_pm_select_default_state(struct device *dev);
++int pinctrl_pm_select_init_state(struct device *dev);
+ int pinctrl_pm_select_sleep_state(struct device *dev);
+ int pinctrl_pm_select_idle_state(struct device *dev);
+ #else
+@@ -55,6 +56,10 @@ static inline int pinctrl_pm_select_default_state(struct device *dev)
+ {
+ 	return 0;
+ }
++static inline int pinctrl_pm_select_init_state(struct device *dev)
++{
++	return 0;
++}
+ static inline int pinctrl_pm_select_sleep_state(struct device *dev)
+ {
+ 	return 0;
+@@ -143,6 +148,11 @@ static inline int pinctrl_pm_select_default_state(struct device *dev)
+ 	return 0;
+ }
+ 
++static inline int pinctrl_pm_select_init_state(struct device *dev)
++{
++	return 0;
++}
++
+ static inline int pinctrl_pm_select_sleep_state(struct device *dev)
+ {
+ 	return 0;
 -- 
 2.34.1
 
