@@ -2,52 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4172CAEE3ED
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jun 2025 18:14:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 149DAAEE790
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jun 2025 21:35:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4BCAC3089F;
-	Mon, 30 Jun 2025 16:14:54 +0000 (UTC)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2006CC32E8F;
+	Mon, 30 Jun 2025 19:35:30 +0000 (UTC)
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
+ [209.85.160.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7288FC32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F40FC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Jun 2025 13:27:35 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4bW6Nr3lz4z29dyB;
- Mon, 30 Jun 2025 21:25:48 +0800 (CST)
-Received: from kwepemh100007.china.huawei.com (unknown [7.202.181.92])
- by mail.maildlp.com (Postfix) with ESMTPS id 1E36F1401E9;
- Mon, 30 Jun 2025 21:27:33 +0800 (CST)
-Received: from huawei.com (10.67.174.33) by kwepemh100007.china.huawei.com
- (7.202.181.92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 30 Jun
- 2025 21:27:32 +0800
-From: Gu Bowen <gubowen5@huawei.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, David Howells
- <dhowells@redhat.com>, David Woodhouse <dwmw2@infradead.org>, Lukas Wunner
- <lukas@wunner.de>, Ignat Korchagin <ignat@cloudflare.com>, "David S . Miller"
- <davem@davemloft.net>, Jarkko Sakkinen <jarkko@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Eric Biggers <ebiggers@kernel.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
- Ard Biesheuvel <ardb@kernel.org>, Tianjia Zhang
- <tianjia.zhang@linux.alibaba.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Date: Mon, 30 Jun 2025 21:39:34 +0800
-Message-ID: <20250630133934.766646-5-gubowen5@huawei.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250630133934.766646-1-gubowen5@huawei.com>
-References: <20250630133934.766646-1-gubowen5@huawei.com>
+ Mon, 30 Jun 2025 19:35:28 +0000 (UTC)
+Received: by mail-oa1-f45.google.com with SMTP id
+ 586e51a60fabf-2efa219b5bbso743287fac.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 30 Jun 2025 12:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1751312127; x=1751916927;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=uSnBBrW7DyQ9uDD3D8W9h8fjOrHlTZaIJ8+vrX+84dc=;
+ b=T75TP4E5+0UXIyIVDQuF82vzMMsA3utQvpI0j5d+po//f5lnqa0t51NXNJP5YAYT72
+ vS2Au5ZO0f/9D0sByIJcSUt1/vlJVS7JRhPiERHjGJLTfvPt9vGyUWLTjw9vjmBL4MF4
+ PilObW22e6mxwqJRyj3ntB0mejNbciwLDxacxO8ftj2QqFd23/IK/6lNkKXUEorHBJId
+ 7K4ephAxYse4O5Fum5usPP6B18bTPp4TSsysuFi+RoptlJs4fY17Fm5M2fms0fiMCUul
+ ugwc68clbPi9VFxf9+2tjDzRt8CyK9y+v1u+klvg1kSp4ZtH+XnGXGDRJDnqkcjmaVm9
+ 43SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751312127; x=1751916927;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uSnBBrW7DyQ9uDD3D8W9h8fjOrHlTZaIJ8+vrX+84dc=;
+ b=j2+DkODRs6pbx+xhLJHhwr7T9Vo5dA/zf5vzcMXbrERZjTb50e4x7iaLpiPktPxiBC
+ jCFn4uG4gh6rkjx/UI7g4jGRyykPEOWsMjeO8dlHvpjuumbPq9d8wBQbMITRRnX7c95x
+ swlnGWxCksIfHVHEwqenV2jeis9UHRyuo31ZipsaWrUsYbhfoA+bmUC+sCrwVX9KGdcn
+ oR/dzVz/xYpvkFx5LE6wIqW9gzPnw3r04zU0XPxMBfzbSdOovCF4xr9350XyIX6d1s+Y
+ czDrmbj9VyCnj2tisxM24TH/DlzgklbEzf6VNHtdeUgJ8LR/3faX3Wx390+SxImX5ysW
+ WJcw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUr/fVr1IiPf+uBCdJmbYQIw7EK0KpIbzX5nTsd7L2/sUvuq/nmPwdwJy6dC3y3E3aZbhLhCoD3IGR7Lg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwKud9l2tS95BfAVm2+fzZ3GK+yWXm/tcNMwJ13J+x7xGbPOhSm
+ 9LKDCs6Z4Y/llRFuK3JSX55ClmDdmale2GMWZ4AnvMBwgRQgeeDmzYoKZWELI3xV/6o=
+X-Gm-Gg: ASbGncvcNN5KWHvXPRnBp8wQWPNJYLAlt2mXypmnzvkFb8h7yd4V9GM2CtSAjk1UQlb
+ gnV0soGVRyAJe6lGio3bokHYwsCPaVJ5LJ25qD80Xt+1CmCaGsPpoNDNgTklcUl0cacoizpIAc4
+ NbH7+vtLz4Vc69BJb9pp1ewrniaWj98lccrSTdhbteDTy4tBbmRR44crGhF3i8hQj7cr58ymtx8
+ 8nB4VQOLNQ7eNdjCKlEWPDLEp9vVikAKMBuZaB0zAJN1jyqKbywwxehsLShDvpAveUyrcLHdWHT
+ 18Hh3dRGjSyCm2uBis3+/B47A0CCBYhDp5ob1JGUwkDKAoZr05bAs3DevnCUneTtvzZT+vooThm
+ 4238=
+X-Google-Smtp-Source: AGHT+IFjeReXBA3k7+eClk/ifIE93Uzbc7oaZBkcYmdYTh/N0ppG05eqByPpmkkuYUzt5s/KtcZ0Xw==
+X-Received: by 2002:a05:6870:783:b0:2eb:adf2:eb2 with SMTP id
+ 586e51a60fabf-2efed7a2a73mr9014336fac.36.1751312126689; 
+ Mon, 30 Jun 2025 12:35:26 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:49cc:1768:3819:b67])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 586e51a60fabf-2efd50f7f6asm2908403fac.36.2025.06.30.12.35.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Jun 2025 12:35:26 -0700 (PDT)
+Date: Mon, 30 Jun 2025 14:35:25 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
+Message-ID: <2033b9fa-7b0f-4617-b94e-7b0a51c5c4b1@sabinyo.mountain>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.33]
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemh100007.china.huawei.com (7.202.181.92)
-X-Mailman-Approved-At: Mon, 30 Jun 2025 16:14:53 +0000
-Cc: linux-kernel@vger.kernel.org, Lu Jialin <lujialin4@huawei.com>,
- Gu Bowen <gubowen5@huawei.com>, keyrings@vger.kernel.org,
- linux-crypto@vger.kernel.org, GONG Ruiqi <gongruiqi1@huawei.com>,
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC 4/4] crypto/sm2: support SM2-with-SM3
-	verification of X.509 certificates
+Subject: [Linux-stm32] [PATCH] spi: stm32: delete stray tabs in
+	stm32h7_spi_data_idleness()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,151 +89,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The digest is calculated during certificate parsing, but the public key of
-the signing certificate need to be obtained before calculating the digest
-to correctly calculate the Z value.
+These lines were indented one tab more than they should be.  Delete
+the stray tabs.
 
-By attempting to obtain the public key before computing the digest, the
-feasibility of doing so was tested and verified.
-
-Signed-off-by: Gu Bowen <gubowen5@huawei.com>
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 ---
- certs/system_keyring.c                   |  8 +++++++
- crypto/asymmetric_keys/public_key.c      |  7 ++++++
- crypto/asymmetric_keys/x509_public_key.c | 27 +++++++++++++++++++++++-
- include/keys/system_keyring.h            | 13 ++++++++++++
- 4 files changed, 54 insertions(+), 1 deletion(-)
+ drivers/spi/spi-stm32.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/certs/system_keyring.c b/certs/system_keyring.c
-index 9de610bf1f4b..adceb3f0928c 100644
---- a/certs/system_keyring.c
-+++ b/certs/system_keyring.c
-@@ -32,6 +32,14 @@ extern __initconst const u8 system_certificate_list[];
- extern __initconst const unsigned long system_certificate_list_size;
- extern __initconst const unsigned long module_cert_size;
- 
-+struct key *find_asymmetric_pub_key(const struct asymmetric_key_id *id_0,
-+				    const struct asymmetric_key_id *id_1,
-+				    const struct asymmetric_key_id *id_2)
-+{
-+	return find_asymmetric_key(builtin_trusted_keys, id_0,
-+				   id_1, id_2, false);
-+}
-+
- /**
-  * restrict_link_by_builtin_trusted - Restrict keyring addition by built-in CA
-  * @dest_keyring: Keyring being linked to.
-diff --git a/crypto/asymmetric_keys/public_key.c b/crypto/asymmetric_keys/public_key.c
-index e5b177c8e842..ca0bb32e093a 100644
---- a/crypto/asymmetric_keys/public_key.c
-+++ b/crypto/asymmetric_keys/public_key.c
-@@ -134,6 +134,13 @@ software_key_determine_akcipher(const struct public_key *pkey,
- 		n = snprintf(alg_name, CRYPTO_MAX_ALG_NAME, "%s(%s)",
- 			     encoding, pkey->pkey_algo);
- 		return n >= CRYPTO_MAX_ALG_NAME ? -EINVAL : 0;
-+	} else if (strcmp(pkey->pkey_algo, "sm2") == 0) {
-+		if (strcmp(encoding, "raw") != 0)
-+			return -EINVAL;
-+		if (!hash_algo)
-+			return -EINVAL;
-+		if (strcmp(hash_algo, "sm3") != 0)
-+			return -EINVAL;
- 	} else if (strcmp(pkey->pkey_algo, "ecrdsa") == 0) {
- 		if (strcmp(encoding, "raw") != 0)
- 			return -EINVAL;
-diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric_keys/x509_public_key.c
-index 8409d7d36cb4..62bbc423d632 100644
---- a/crypto/asymmetric_keys/x509_public_key.c
-+++ b/crypto/asymmetric_keys/x509_public_key.c
-@@ -7,6 +7,7 @@
- 
- #define pr_fmt(fmt) "X.509: "fmt
- #include <crypto/hash.h>
-+#include <crypto/sm2.h>
- #include <keys/asymmetric-parser.h>
- #include <keys/asymmetric-subtype.h>
- #include <keys/system_keyring.h>
-@@ -28,6 +29,8 @@ int x509_get_sig_params(struct x509_certificate *cert)
- 	struct shash_desc *desc;
- 	size_t desc_size;
- 	int ret;
-+	struct key *key;
-+	struct public_key *pkey;
- 
- 	pr_devel("==>%s()\n", __func__);
- 
-@@ -63,8 +66,30 @@ int x509_get_sig_params(struct x509_certificate *cert)
- 
- 	desc->tfm = tfm;
- 
--	ret = crypto_shash_digest(desc, cert->tbs, cert->tbs_size,
-+	if (strcmp(cert->pub->pkey_algo, "sm2") == 0) {
-+		if (!sig->auth_ids[0] && !sig->auth_ids[1] && !sig->auth_ids[2])
-+			return -ENOKEY;
-+
-+		key = find_asymmetric_pub_key(sig->auth_ids[0], sig->auth_ids[1],
-+					      sig->auth_ids[2]);
-+		if (IS_ERR(key))
-+			pkey = cert->pub;
-+		else
-+			pkey = key->payload.data[asym_crypto];
-+
-+		ret = strcmp(sig->hash_algo, "sm3") != 0 ? -EINVAL :
-+			crypto_shash_init(desc) ?:
-+			sm2_compute_z_digest(desc, pkey->key,
-+					     pkey->keylen, sig->digest) ?:
-+			crypto_shash_init(desc) ?:
-+			crypto_shash_update(desc, sig->digest,
-+					    sig->digest_size) ?:
-+			crypto_shash_finup(desc, cert->tbs, cert->tbs_size,
-+					   sig->digest);
-+	} else {
-+		ret = crypto_shash_digest(desc, cert->tbs, cert->tbs_size,
- 				  sig->digest);
-+	}
- 
- 	if (ret < 0)
- 		goto error_2;
-diff --git a/include/keys/system_keyring.h b/include/keys/system_keyring.h
-index a6c2897bcc63..21b466e5d2f3 100644
---- a/include/keys/system_keyring.h
-+++ b/include/keys/system_keyring.h
-@@ -10,6 +10,8 @@
- 
- #include <linux/key.h>
- 
-+struct asymmetric_key_id;
-+
- enum blacklist_hash_type {
- 	/* TBSCertificate hash */
- 	BLACKLIST_HASH_X509_TBS = 1,
-@@ -19,6 +21,10 @@ enum blacklist_hash_type {
- 
- #ifdef CONFIG_SYSTEM_TRUSTED_KEYRING
- 
-+extern struct key *find_asymmetric_pub_key(const struct asymmetric_key_id *id_0,
-+					   const struct asymmetric_key_id *id_1,
-+					   const struct asymmetric_key_id *id_2);
-+
- extern int restrict_link_by_builtin_trusted(struct key *keyring,
- 					    const struct key_type *type,
- 					    const union key_payload *payload,
-@@ -30,6 +36,13 @@ int restrict_link_by_digsig_builtin(struct key *dest_keyring,
- extern __init int load_module_cert(struct key *keyring);
- 
- #else
-+static inline struct key *find_asymmetric_pub_key(const struct asymmetric_key_id *id_0,
-+						  const struct asymmetric_key_id *id_1,
-+						  const struct asymmetric_key_id *id_2)
-+{
-+	return NULL;
-+}
-+
- #define restrict_link_by_builtin_trusted restrict_link_reject
- #define restrict_link_by_digsig_builtin restrict_link_reject
- 
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 3d20f09f1ae7..afb54198bde7 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -1895,8 +1895,8 @@ static void stm32h7_spi_data_idleness(struct stm32_spi *spi, struct spi_transfer
+ 		if (spi_delay_ns) {
+ 			dev_warn(spi->dev, "Overriding st,spi-midi-ns with word_delay_ns %d\n",
+ 				 spi_delay_ns);
+-				spi->cur_midi = spi_delay_ns;
+-			}
++			spi->cur_midi = spi_delay_ns;
++		}
+ 	} else {
+ 		spi->cur_midi = spi_delay_ns;
+ 	}
 -- 
-2.25.1
+2.47.2
 
 _______________________________________________
 Linux-stm32 mailing list
