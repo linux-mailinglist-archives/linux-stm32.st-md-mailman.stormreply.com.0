@@ -2,77 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 149DAAEE790
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jun 2025 21:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AFBFAEE7AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jun 2025 21:41:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2006CC32E8F;
-	Mon, 30 Jun 2025 19:35:30 +0000 (UTC)
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com
- [209.85.160.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACDB3C32E92;
+	Mon, 30 Jun 2025 19:41:12 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F40FC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32A6CC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Jun 2025 19:35:28 +0000 (UTC)
-Received: by mail-oa1-f45.google.com with SMTP id
- 586e51a60fabf-2efa219b5bbso743287fac.0
+ Mon, 30 Jun 2025 19:41:10 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-73a5c41a71aso2611075a34.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Jun 2025 12:35:28 -0700 (PDT)
+ Mon, 30 Jun 2025 12:41:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1751312127; x=1751916927;
+ d=linaro.org; s=google; t=1751312469; x=1751917269;
  darn=st-md-mailman.stormreply.com; 
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uSnBBrW7DyQ9uDD3D8W9h8fjOrHlTZaIJ8+vrX+84dc=;
- b=T75TP4E5+0UXIyIVDQuF82vzMMsA3utQvpI0j5d+po//f5lnqa0t51NXNJP5YAYT72
- vS2Au5ZO0f/9D0sByIJcSUt1/vlJVS7JRhPiERHjGJLTfvPt9vGyUWLTjw9vjmBL4MF4
- PilObW22e6mxwqJRyj3ntB0mejNbciwLDxacxO8ftj2QqFd23/IK/6lNkKXUEorHBJId
- 7K4ephAxYse4O5Fum5usPP6B18bTPp4TSsysuFi+RoptlJs4fY17Fm5M2fms0fiMCUul
- ugwc68clbPi9VFxf9+2tjDzRt8CyK9y+v1u+klvg1kSp4ZtH+XnGXGDRJDnqkcjmaVm9
- 43SA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=YmZU1CwxbYdxvjVqnDRbR2hmU1JLOG0dDJmR8AN044k=;
+ b=ZOEUWE20OwODLMFs6/CCXN4AKlOMuu3iVrOpVBsOa82ouEFx6yFAxt8uLvinivMK9P
+ tfJm1XjbVz65YuWqnhdXpLdBd43ELk3BUjBcvbrVP0onaFdLUflgO2NtCPPkvLPcYHre
+ OzUJ6FtfU5SR7y6IbeXK5lfJBHprb8G/KfLH0c35aQPiS6zmlL/Rks/XEwEyO1lUm2NF
+ yGLGAzwKs0bVEhJKtA8R62wQEMhy6jP/T0CK4ucfxERO8zN5bhDTymTA1KeVH6MUGq+g
+ CPt4dgzhOnQ9HMOqTl0AfhsTOQBc8VQSTFDqxB4BRQCUV5KYEoBxKDdi2FhxR/BPup9i
+ 2dQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751312127; x=1751916927;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uSnBBrW7DyQ9uDD3D8W9h8fjOrHlTZaIJ8+vrX+84dc=;
- b=j2+DkODRs6pbx+xhLJHhwr7T9Vo5dA/zf5vzcMXbrERZjTb50e4x7iaLpiPktPxiBC
- jCFn4uG4gh6rkjx/UI7g4jGRyykPEOWsMjeO8dlHvpjuumbPq9d8wBQbMITRRnX7c95x
- swlnGWxCksIfHVHEwqenV2jeis9UHRyuo31ZipsaWrUsYbhfoA+bmUC+sCrwVX9KGdcn
- oR/dzVz/xYpvkFx5LE6wIqW9gzPnw3r04zU0XPxMBfzbSdOovCF4xr9350XyIX6d1s+Y
- czDrmbj9VyCnj2tisxM24TH/DlzgklbEzf6VNHtdeUgJ8LR/3faX3Wx390+SxImX5ysW
- WJcw==
+ d=1e100.net; s=20230601; t=1751312469; x=1751917269;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YmZU1CwxbYdxvjVqnDRbR2hmU1JLOG0dDJmR8AN044k=;
+ b=Zhv1ma9njO4CO9efrElWIDmbgMmu2RXHfOvq9EdLor807IZDMHu+3wmvg8qSfeCl1F
+ n0KMbzzZl74bGvQSQlVRh0arIfm11B5ni4QtMgFa1GUsViKVaNvQUoSg9WbEPcap28/m
+ MRWfa642MN/Jbvun78QTkSFvlpgh3pGdFIo7liZ8eAJIQQAtwKkudP19GHkxw2GPf6Jx
+ CcVTiCQL2HaVDOf8NEGFU6S5nDtRyulwp2RYWD4lN0oRbG0Q0FZ2wsyJY8VQ9FaDJIyV
+ OIV2bt+pdjMdYxbinfsLxIO5/g+m4nSKSewyisZzBjvjWA0Gpaz3L3ICyKACFQhAFokJ
+ Ml0g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUr/fVr1IiPf+uBCdJmbYQIw7EK0KpIbzX5nTsd7L2/sUvuq/nmPwdwJy6dC3y3E3aZbhLhCoD3IGR7Lg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwKud9l2tS95BfAVm2+fzZ3GK+yWXm/tcNMwJ13J+x7xGbPOhSm
- 9LKDCs6Z4Y/llRFuK3JSX55ClmDdmale2GMWZ4AnvMBwgRQgeeDmzYoKZWELI3xV/6o=
-X-Gm-Gg: ASbGncvcNN5KWHvXPRnBp8wQWPNJYLAlt2mXypmnzvkFb8h7yd4V9GM2CtSAjk1UQlb
- gnV0soGVRyAJe6lGio3bokHYwsCPaVJ5LJ25qD80Xt+1CmCaGsPpoNDNgTklcUl0cacoizpIAc4
- NbH7+vtLz4Vc69BJb9pp1ewrniaWj98lccrSTdhbteDTy4tBbmRR44crGhF3i8hQj7cr58ymtx8
- 8nB4VQOLNQ7eNdjCKlEWPDLEp9vVikAKMBuZaB0zAJN1jyqKbywwxehsLShDvpAveUyrcLHdWHT
- 18Hh3dRGjSyCm2uBis3+/B47A0CCBYhDp5ob1JGUwkDKAoZr05bAs3DevnCUneTtvzZT+vooThm
- 4238=
-X-Google-Smtp-Source: AGHT+IFjeReXBA3k7+eClk/ifIE93Uzbc7oaZBkcYmdYTh/N0ppG05eqByPpmkkuYUzt5s/KtcZ0Xw==
-X-Received: by 2002:a05:6870:783:b0:2eb:adf2:eb2 with SMTP id
- 586e51a60fabf-2efed7a2a73mr9014336fac.36.1751312126689; 
- Mon, 30 Jun 2025 12:35:26 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:49cc:1768:3819:b67])
- by smtp.gmail.com with UTF8SMTPSA id
- 586e51a60fabf-2efd50f7f6asm2908403fac.36.2025.06.30.12.35.26
+ AJvYcCVZhsf8mx21xJxmFxYm2JawCx2ZBlymbjAc1SMFNq7IlTnvE0fuJKye0L86/rLyv48WWxWfVLw1Sqgc3g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzuFKB0+zhbWTKQIZQ2NItEbrIwc9LndNFuip6zycYFQCGqF9zY
+ 77Hlctt1wbzml8/C20uiu3Mmr1ZqSikCoUyBsbWVM6jWQRqLStrI1ubbGeDhXT84gZI=
+X-Gm-Gg: ASbGncshUV91HeauhMiiHcn5a00GAN914ejNnMmMkS78fK1D7y/+EvATEsL2pjvdDgd
+ H37sZM06u+yH8arD/oguzhjHz2FOv63CQhuWugUJisowQS4lgOi9ROiJLdxxFTstNDKm6b0gx84
+ 51LmSZHQrJD8b0DY+FXeE52AvHr0EIfirDlKRh8q0vH+tzuNJKf2PQaYxdG3/Hvp1J4lxPBOusQ
+ qw8t2vXu94A9tYt2kO5T6Ja0/ditXTfU79eD5g+pPhlh1AGdHb2AjGCAg98lBQ3xcZd2H8FDVIi
+ 1KisFbjnQlLm7HsPA1i4JEL3rHbpr845RtURlSkQ0YJwtMp9AtNKyBSJ+S+bRX00Oa99
+X-Google-Smtp-Source: AGHT+IFCr/h/Pq7YioC0C96yZfnS46Emb0XznV8LFfoTN6Hof+uG2lgGCVIDP4UToYNd7qu111FhBg==
+X-Received: by 2002:a05:6830:2901:b0:72a:ec6:7fc1 with SMTP id
+ 46e09a7af769-73afc6507b1mr8500368a34.14.1751312469502; 
+ Mon, 30 Jun 2025 12:41:09 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:fb67:363d:328:e253])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-73afaff249bsm1798804a34.6.2025.06.30.12.41.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Jun 2025 12:35:26 -0700 (PDT)
-Date: Mon, 30 Jun 2025 14:35:25 -0500
+ Mon, 30 Jun 2025 12:41:08 -0700 (PDT)
+Date: Mon, 30 Jun 2025 22:41:07 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
-Message-ID: <2033b9fa-7b0f-4617-b94e-7b0a51c5c4b1@sabinyo.mountain>
+To: Gu Bowen <gubowen5@huawei.com>
+Message-ID: <0bf20f7e-117c-4495-9805-baade7f466ba@suswa.mountain>
+References: <20250630133934.766646-1-gubowen5@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] spi: stm32: delete stray tabs in
-	stm32h7_spi_data_idleness()
+In-Reply-To: <20250630133934.766646-1-gubowen5@huawei.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Tianjia Zhang <tianjia.zhang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ GONG Ruiqi <gongruiqi1@huawei.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Lu Jialin <lujialin4@huawei.com>, Ard Biesheuvel <ardb@kernel.org>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Lukas Wunner <lukas@wunner.de>, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ignat Korchagin <ignat@cloudflare.com>, David Woodhouse <dwmw2@infradead.org>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC 0/4] Reintroduce the sm2 algorithm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,31 +95,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-These lines were indented one tab more than they should be.  Delete
-the stray tabs.
+On Mon, Jun 30, 2025 at 09:39:30PM +0800, Gu Bowen wrote:
+> To reintroduce the sm2 algorithm, the patch set did the following:
+>  - Reintroduce the mpi library based on libgcrypt.
+>  - Reintroduce ec implementation to MPI library.
+>  - Rework sm2 algorithm.
+>  - Support verification of X.509 certificates.
 
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/spi/spi-stm32.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Remind me, why did we remove these?
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 3d20f09f1ae7..afb54198bde7 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -1895,8 +1895,8 @@ static void stm32h7_spi_data_idleness(struct stm32_spi *spi, struct spi_transfer
- 		if (spi_delay_ns) {
- 			dev_warn(spi->dev, "Overriding st,spi-midi-ns with word_delay_ns %d\n",
- 				 spi_delay_ns);
--				spi->cur_midi = spi_delay_ns;
--			}
-+			spi->cur_midi = spi_delay_ns;
-+		}
- 	} else {
- 		spi->cur_midi = spi_delay_ns;
- 	}
--- 
-2.47.2
+regards,
+dan carpenter
 
 _______________________________________________
 Linux-stm32 mailing list
