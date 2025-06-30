@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49092AEE3EF
+	by mail.lfdr.de (Postfix) with ESMTPS id 64984AEE3F1
 	for <lists+linux-stm32@lfdr.de>; Mon, 30 Jun 2025 18:14:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B367C32E93;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFE16C3089D;
 	Mon, 30 Jun 2025 16:14:54 +0000 (UTC)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59125C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A09C8C32E92
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 30 Jun 2025 13:27:33 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.162.112])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4bW6Np1142z29dy6;
- Mon, 30 Jun 2025 21:25:46 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.162.254])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4bW6LC3MVTzdbkp;
+ Mon, 30 Jun 2025 21:23:31 +0800 (CST)
 Received: from kwepemh100007.china.huawei.com (unknown [7.202.181.92])
- by mail.maildlp.com (Postfix) with ESMTPS id AF20514027A;
- Mon, 30 Jun 2025 21:27:30 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 82825180493;
+ Mon, 30 Jun 2025 21:27:31 +0800 (CST)
 Received: from huawei.com (10.67.174.33) by kwepemh100007.china.huawei.com
  (7.202.181.92) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 30 Jun
- 2025 21:27:29 +0800
+ 2025 21:27:30 +0800
 From: Gu Bowen <gubowen5@huawei.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>, David Howells
  <dhowells@redhat.com>, David Woodhouse <dwmw2@infradead.org>, Lukas Wunner
@@ -32,8 +32,8 @@ To: Herbert Xu <herbert@gondor.apana.org.au>, David Howells
  Eric Biggers <ebiggers@kernel.org>, "Jason A . Donenfeld" <Jason@zx2c4.com>,
  Ard Biesheuvel <ardb@kernel.org>, Tianjia Zhang
  <tianjia.zhang@linux.alibaba.com>, Dan Carpenter <dan.carpenter@linaro.org>
-Date: Mon, 30 Jun 2025 21:39:31 +0800
-Message-ID: <20250630133934.766646-2-gubowen5@huawei.com>
+Date: Mon, 30 Jun 2025 21:39:32 +0800
+Message-ID: <20250630133934.766646-3-gubowen5@huawei.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250630133934.766646-1-gubowen5@huawei.com>
 References: <20250630133934.766646-1-gubowen5@huawei.com>
@@ -46,8 +46,8 @@ Cc: linux-kernel@vger.kernel.org, Lu Jialin <lujialin4@huawei.com>,
  Gu Bowen <gubowen5@huawei.com>, keyrings@vger.kernel.org,
  linux-crypto@vger.kernel.org, GONG Ruiqi <gongruiqi1@huawei.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC 1/4] Revert "Revert "lib/mpi: Extend the
-	MPI library""
+Subject: [Linux-stm32] [PATCH RFC 2/4] Revert "Revert "lib/mpi: Introduce ec
+	implementation to MPI library""
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,1445 +59,755 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This reverts commit fca5cb4dd2b4a9423cb6d112cc71c33899955a1f.
-
-Reintroduce the mpi library based on libgcrypt to support sm2.
-
-Signed-off-by: Gu Bowen <gubowen5@huawei.com>
----
- include/linux/mpi.h           |  65 +++++++
- lib/crypto/mpi/Makefile       |   1 +
- lib/crypto/mpi/mpi-add.c      |  50 +++++
- lib/crypto/mpi/mpi-bit.c      | 143 +++++++++++++++
- lib/crypto/mpi/mpi-cmp.c      |  46 ++++-
- lib/crypto/mpi/mpi-div.c      |  29 +++
- lib/crypto/mpi/mpi-internal.h |  10 +
- lib/crypto/mpi/mpi-inv.c      | 143 +++++++++++++++
- lib/crypto/mpi/mpi-mod.c      | 144 +++++++++++++++
- lib/crypto/mpi/mpicoder.c     | 336 ++++++++++++++++++++++++++++++++++
- lib/crypto/mpi/mpih-mul.c     |  25 +++
- lib/crypto/mpi/mpiutil.c      | 182 ++++++++++++++++++
- 12 files changed, 1164 insertions(+), 10 deletions(-)
- create mode 100644 lib/crypto/mpi/mpi-inv.c
-
-diff --git a/include/linux/mpi.h b/include/linux/mpi.h
-index 47be46f36435..9ad7e7231ee9 100644
---- a/include/linux/mpi.h
-+++ b/include/linux/mpi.h
-@@ -40,33 +40,87 @@ struct gcry_mpi {
- typedef struct gcry_mpi *MPI;
- 
- #define mpi_get_nlimbs(a)     ((a)->nlimbs)
-+#define mpi_has_sign(a)       ((a)->sign)
- 
- /*-- mpiutil.c --*/
- MPI mpi_alloc(unsigned nlimbs);
-+void mpi_clear(MPI a);
- void mpi_free(MPI a);
- int mpi_resize(MPI a, unsigned nlimbs);
- 
-+static inline MPI mpi_new(unsigned int nbits)
-+{
-+	return mpi_alloc((nbits + BITS_PER_MPI_LIMB - 1) / BITS_PER_MPI_LIMB);
-+}
-+
- MPI mpi_copy(MPI a);
-+MPI mpi_alloc_like(MPI a);
-+void mpi_snatch(MPI w, MPI u);
-+MPI mpi_set(MPI w, MPI u);
-+MPI mpi_set_ui(MPI w, unsigned long u);
-+MPI mpi_alloc_set_ui(unsigned long u);
-+void mpi_swap_cond(MPI a, MPI b, unsigned long swap);
-+
-+/* Constants used to return constant MPIs.  See mpi_init if you
-+ * want to add more constants.
-+ */
-+#define MPI_NUMBER_OF_CONSTANTS 6
-+enum gcry_mpi_constants {
-+	MPI_C_ZERO,
-+	MPI_C_ONE,
-+	MPI_C_TWO,
-+	MPI_C_THREE,
-+	MPI_C_FOUR,
-+	MPI_C_EIGHT
-+};
-+
-+MPI mpi_const(enum gcry_mpi_constants no);
- 
- /*-- mpicoder.c --*/
-+
-+/* Different formats of external big integer representation. */
-+enum gcry_mpi_format {
-+	GCRYMPI_FMT_NONE = 0,
-+	GCRYMPI_FMT_STD = 1,    /* Twos complement stored without length. */
-+	GCRYMPI_FMT_PGP = 2,    /* As used by OpenPGP (unsigned only). */
-+	GCRYMPI_FMT_SSH = 3,    /* As used by SSH (like STD but with length). */
-+	GCRYMPI_FMT_HEX = 4,    /* Hex format. */
-+	GCRYMPI_FMT_USG = 5,    /* Like STD but unsigned. */
-+	GCRYMPI_FMT_OPAQUE = 8  /* Opaque format (some functions only). */
-+};
-+
- MPI mpi_read_raw_data(const void *xbuffer, size_t nbytes);
- MPI mpi_read_from_buffer(const void *buffer, unsigned *ret_nread);
-+int mpi_fromstr(MPI val, const char *str);
-+MPI mpi_scanval(const char *string);
- MPI mpi_read_raw_from_sgl(struct scatterlist *sgl, unsigned int len);
- void *mpi_get_buffer(MPI a, unsigned *nbytes, int *sign);
- int mpi_read_buffer(MPI a, uint8_t *buf, unsigned buf_len, unsigned *nbytes,
- 		    int *sign);
- int mpi_write_to_sgl(MPI a, struct scatterlist *sg, unsigned nbytes,
- 		     int *sign);
-+int mpi_print(enum gcry_mpi_format format, unsigned char *buffer,
-+			size_t buflen, size_t *nwritten, MPI a);
- 
- /*-- mpi-mod.c --*/
- int mpi_mod(MPI rem, MPI dividend, MPI divisor);
- 
-+/* Context used with Barrett reduction.  */
-+struct barrett_ctx_s;
-+typedef struct barrett_ctx_s *mpi_barrett_t;
-+
-+mpi_barrett_t mpi_barrett_init(MPI m, int copy);
-+void mpi_barrett_free(mpi_barrett_t ctx);
-+void mpi_mod_barrett(MPI r, MPI x, mpi_barrett_t ctx);
-+void mpi_mul_barrett(MPI w, MPI u, MPI v, mpi_barrett_t ctx);
-+
- /*-- mpi-pow.c --*/
- int mpi_powm(MPI res, MPI base, MPI exp, MPI mod);
- 
- /*-- mpi-cmp.c --*/
- int mpi_cmp_ui(MPI u, ulong v);
- int mpi_cmp(MPI u, MPI v);
-+int mpi_cmpabs(MPI u, MPI v);
- 
- /*-- mpi-sub-ui.c --*/
- int mpi_sub_ui(MPI w, MPI u, unsigned long vval);
-@@ -76,9 +130,16 @@ void mpi_normalize(MPI a);
- unsigned mpi_get_nbits(MPI a);
- int mpi_test_bit(MPI a, unsigned int n);
- int mpi_set_bit(MPI a, unsigned int n);
-+void mpi_set_highbit(MPI a, unsigned int n);
-+void mpi_clear_highbit(MPI a, unsigned int n);
-+void mpi_clear_bit(MPI a, unsigned int n);
-+void mpi_rshift_limbs(MPI a, unsigned int count);
- int mpi_rshift(MPI x, MPI a, unsigned int n);
-+void mpi_lshift_limbs(MPI a, unsigned int count);
-+void mpi_lshift(MPI x, MPI a, unsigned int n);
- 
- /*-- mpi-add.c --*/
-+void mpi_add_ui(MPI w, MPI u, unsigned long v);
- int mpi_add(MPI w, MPI u, MPI v);
- int mpi_sub(MPI w, MPI u, MPI v);
- int mpi_addm(MPI w, MPI u, MPI v, MPI m);
-@@ -91,6 +152,10 @@ int mpi_mulm(MPI w, MPI u, MPI v, MPI m);
- /*-- mpi-div.c --*/
- int mpi_tdiv_r(MPI rem, MPI num, MPI den);
- int mpi_fdiv_r(MPI rem, MPI dividend, MPI divisor);
-+void mpi_fdiv_q(MPI quot, MPI dividend, MPI divisor);
-+
-+/*-- mpi-inv.c --*/
-+int mpi_invm(MPI x, MPI a, MPI n);
- 
- /* inline functions */
- 
-diff --git a/lib/crypto/mpi/Makefile b/lib/crypto/mpi/Makefile
-index 9ad84079025a..477debd7ed50 100644
---- a/lib/crypto/mpi/Makefile
-+++ b/lib/crypto/mpi/Makefile
-@@ -19,6 +19,7 @@ mpi-y = \
- 	mpi-cmp.o			\
- 	mpi-sub-ui.o			\
- 	mpi-div.o			\
-+	mpi-inv.o			\
- 	mpi-mod.o			\
- 	mpi-mul.o			\
- 	mpih-cmp.o			\
-diff --git a/lib/crypto/mpi/mpi-add.c b/lib/crypto/mpi/mpi-add.c
-index 3015140d4860..020371891991 100644
---- a/lib/crypto/mpi/mpi-add.c
-+++ b/lib/crypto/mpi/mpi-add.c
-@@ -13,6 +13,56 @@
- 
- #include "mpi-internal.h"
- 
-+/****************
-+ * Add the unsigned integer V to the mpi-integer U and store the
-+ * result in W. U and V may be the same.
-+ */
-+void mpi_add_ui(MPI w, MPI u, unsigned long v)
-+{
-+	mpi_ptr_t wp, up;
-+	mpi_size_t usize, wsize;
-+	int usign, wsign;
-+
-+	usize = u->nlimbs;
-+	usign = u->sign;
-+	wsign = 0;
-+
-+	/* If not space for W (and possible carry), increase space.  */
-+	wsize = usize + 1;
-+	if (w->alloced < wsize)
-+		mpi_resize(w, wsize);
-+
-+	/* These must be after realloc (U may be the same as W).  */
-+	up = u->d;
-+	wp = w->d;
-+
-+	if (!usize) {  /* simple */
-+		wp[0] = v;
-+		wsize = v ? 1:0;
-+	} else if (!usign) {  /* mpi is not negative */
-+		mpi_limb_t cy;
-+		cy = mpihelp_add_1(wp, up, usize, v);
-+		wp[usize] = cy;
-+		wsize = usize + cy;
-+	} else {
-+		/* The signs are different.  Need exact comparison to determine
-+		 * which operand to subtract from which.
-+		 */
-+		if (usize == 1 && up[0] < v) {
-+			wp[0] = v - up[0];
-+			wsize = 1;
-+		} else {
-+			mpihelp_sub_1(wp, up, usize, v);
-+			/* Size can decrease with at most one limb. */
-+			wsize = usize - (wp[usize-1] == 0);
-+			wsign = 1;
-+		}
-+	}
-+
-+	w->nlimbs = wsize;
-+	w->sign   = wsign;
-+}
-+
- int mpi_add(MPI w, MPI u, MPI v)
- {
- 	mpi_ptr_t wp, up, vp;
-diff --git a/lib/crypto/mpi/mpi-bit.c b/lib/crypto/mpi/mpi-bit.c
-index 934d81311360..4790d5b8a216 100644
---- a/lib/crypto/mpi/mpi-bit.c
-+++ b/lib/crypto/mpi/mpi-bit.c
-@@ -32,6 +32,7 @@ void mpi_normalize(MPI a)
- 	for (; a->nlimbs && !a->d[a->nlimbs - 1]; a->nlimbs--)
- 		;
- }
-+EXPORT_SYMBOL_GPL(mpi_normalize);
- 
- /****************
-  * Return the number of bits in A.
-@@ -97,6 +98,85 @@ int mpi_set_bit(MPI a, unsigned int n)
- }
- EXPORT_SYMBOL_GPL(mpi_set_bit);
- 
-+/****************
-+ * Set bit N of A. and clear all bits above
-+ */
-+void mpi_set_highbit(MPI a, unsigned int n)
-+{
-+	unsigned int i, limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs) {
-+		for (i = a->nlimbs; i < a->alloced; i++)
-+			a->d[i] = 0;
-+		mpi_resize(a, limbno+1);
-+		a->nlimbs = limbno+1;
-+	}
-+	a->d[limbno] |= (A_LIMB_1<<bitno);
-+	for (bitno++; bitno < BITS_PER_MPI_LIMB; bitno++)
-+		a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+	a->nlimbs = limbno+1;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set_highbit);
-+
-+/****************
-+ * clear bit N of A and all bits above
-+ */
-+void mpi_clear_highbit(MPI a, unsigned int n)
-+{
-+	unsigned int limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs)
-+		return; /* not allocated, therefore no need to clear bits :-) */
-+
-+	for ( ; bitno < BITS_PER_MPI_LIMB; bitno++)
-+		a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+	a->nlimbs = limbno+1;
-+}
-+
-+/****************
-+ * Clear bit N of A.
-+ */
-+void mpi_clear_bit(MPI a, unsigned int n)
-+{
-+	unsigned int limbno, bitno;
-+
-+	limbno = n / BITS_PER_MPI_LIMB;
-+	bitno  = n % BITS_PER_MPI_LIMB;
-+
-+	if (limbno >= a->nlimbs)
-+		return; /* Don't need to clear this bit, it's far too left.  */
-+	a->d[limbno] &= ~(A_LIMB_1 << bitno);
-+}
-+EXPORT_SYMBOL_GPL(mpi_clear_bit);
-+
-+
-+/****************
-+ * Shift A by COUNT limbs to the right
-+ * This is used only within the MPI library
-+ */
-+void mpi_rshift_limbs(MPI a, unsigned int count)
-+{
-+	mpi_ptr_t ap = a->d;
-+	mpi_size_t n = a->nlimbs;
-+	unsigned int i;
-+
-+	if (count >= n) {
-+		a->nlimbs = 0;
-+		return;
-+	}
-+
-+	for (i = 0; i < n - count; i++)
-+		ap[i] = ap[i+count];
-+	ap[i] = 0;
-+	a->nlimbs -= count;
-+}
-+
- /*
-  * Shift A by N bits to the right.
-  */
-@@ -173,3 +253,66 @@ int mpi_rshift(MPI x, MPI a, unsigned int n)
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(mpi_rshift);
-+
-+/****************
-+ * Shift A by COUNT limbs to the left
-+ * This is used only within the MPI library
-+ */
-+void mpi_lshift_limbs(MPI a, unsigned int count)
-+{
-+	mpi_ptr_t ap;
-+	int n = a->nlimbs;
-+	int i;
-+
-+	if (!count || !n)
-+		return;
-+
-+	RESIZE_IF_NEEDED(a, n+count);
-+
-+	ap = a->d;
-+	for (i = n-1; i >= 0; i--)
-+		ap[i+count] = ap[i];
-+	for (i = 0; i < count; i++)
-+		ap[i] = 0;
-+	a->nlimbs += count;
-+}
-+
-+/*
-+ * Shift A by N bits to the left.
-+ */
-+void mpi_lshift(MPI x, MPI a, unsigned int n)
-+{
-+	unsigned int nlimbs = (n/BITS_PER_MPI_LIMB);
-+	unsigned int nbits = (n%BITS_PER_MPI_LIMB);
-+
-+	if (x == a && !n)
-+		return;  /* In-place shift with an amount of zero.  */
-+
-+	if (x != a) {
-+		/* Copy A to X.  */
-+		unsigned int alimbs = a->nlimbs;
-+		int asign = a->sign;
-+		mpi_ptr_t xp, ap;
-+
-+		RESIZE_IF_NEEDED(x, alimbs+nlimbs+1);
-+		xp = x->d;
-+		ap = a->d;
-+		MPN_COPY(xp, ap, alimbs);
-+		x->nlimbs = alimbs;
-+		x->flags = a->flags;
-+		x->sign = asign;
-+	}
-+
-+	if (nlimbs && !nbits) {
-+		/* Shift a full number of limbs.  */
-+		mpi_lshift_limbs(x, nlimbs);
-+	} else if (n) {
-+		/* We use a very dump approach: Shift left by the number of
-+		 * limbs plus one and than fix it up by an rshift.
-+		 */
-+		mpi_lshift_limbs(x, nlimbs+1);
-+		mpi_rshift(x, x, BITS_PER_MPI_LIMB - nbits);
-+	}
-+
-+	MPN_NORMALIZE(x->d, x->nlimbs);
-+}
-diff --git a/lib/crypto/mpi/mpi-cmp.c b/lib/crypto/mpi/mpi-cmp.c
-index ceaebe181cd7..0835b6213235 100644
---- a/lib/crypto/mpi/mpi-cmp.c
-+++ b/lib/crypto/mpi/mpi-cmp.c
-@@ -45,28 +45,54 @@ int mpi_cmp_ui(MPI u, unsigned long v)
- }
- EXPORT_SYMBOL_GPL(mpi_cmp_ui);
- 
--int mpi_cmp(MPI u, MPI v)
-+static int do_mpi_cmp(MPI u, MPI v, int absmode)
- {
--	mpi_size_t usize, vsize;
-+	mpi_size_t usize;
-+	mpi_size_t vsize;
-+	int usign;
-+	int vsign;
- 	int cmp;
- 
- 	mpi_normalize(u);
- 	mpi_normalize(v);
-+
- 	usize = u->nlimbs;
- 	vsize = v->nlimbs;
--	if (!u->sign && v->sign)
-+	usign = absmode ? 0 : u->sign;
-+	vsign = absmode ? 0 : v->sign;
-+
-+	/* Compare sign bits.  */
-+
-+	if (!usign && vsign)
- 		return 1;
--	if (u->sign && !v->sign)
-+	if (usign && !vsign)
- 		return -1;
--	if (usize != vsize && !u->sign && !v->sign)
-+
-+	/* U and V are either both positive or both negative.  */
-+
-+	if (usize != vsize && !usign && !vsign)
- 		return usize - vsize;
--	if (usize != vsize && u->sign && v->sign)
--		return vsize - usize;
-+	if (usize != vsize && usign && vsign)
-+		return vsize + usize;
- 	if (!usize)
- 		return 0;
- 	cmp = mpihelp_cmp(u->d, v->d, usize);
--	if (u->sign)
--		return -cmp;
--	return cmp;
-+	if (!cmp)
-+		return 0;
-+	if ((cmp < 0?1:0) == (usign?1:0))
-+		return 1;
-+
-+	return -1;
-+}
-+
-+int mpi_cmp(MPI u, MPI v)
-+{
-+	return do_mpi_cmp(u, v, 0);
- }
- EXPORT_SYMBOL_GPL(mpi_cmp);
-+
-+int mpi_cmpabs(MPI u, MPI v)
-+{
-+	return do_mpi_cmp(u, v, 1);
-+}
-+EXPORT_SYMBOL_GPL(mpi_cmpabs);
-diff --git a/lib/crypto/mpi/mpi-div.c b/lib/crypto/mpi/mpi-div.c
-index 6e5044e72595..05a67d43ebc2 100644
---- a/lib/crypto/mpi/mpi-div.c
-+++ b/lib/crypto/mpi/mpi-div.c
-@@ -15,6 +15,7 @@
- #include "longlong.h"
- 
- int mpi_tdiv_qr(MPI quot, MPI rem, MPI num, MPI den);
-+void mpi_fdiv_qr(MPI quot, MPI rem, MPI dividend, MPI divisor);
- 
- int mpi_fdiv_r(MPI rem, MPI dividend, MPI divisor)
- {
-@@ -46,6 +47,34 @@ int mpi_fdiv_r(MPI rem, MPI dividend, MPI divisor)
- 	return err;
- }
- 
-+void mpi_fdiv_q(MPI quot, MPI dividend, MPI divisor)
-+{
-+	MPI tmp = mpi_alloc(mpi_get_nlimbs(quot));
-+	mpi_fdiv_qr(quot, tmp, dividend, divisor);
-+	mpi_free(tmp);
-+}
-+
-+void mpi_fdiv_qr(MPI quot, MPI rem, MPI dividend, MPI divisor)
-+{
-+	int divisor_sign = divisor->sign;
-+	MPI temp_divisor = NULL;
-+
-+	if (quot == divisor || rem == divisor) {
-+		temp_divisor = mpi_copy(divisor);
-+		divisor = temp_divisor;
-+	}
-+
-+	mpi_tdiv_qr(quot, rem, dividend, divisor);
-+
-+	if ((divisor_sign ^ dividend->sign) && rem->nlimbs) {
-+		mpi_sub_ui(quot, quot, 1);
-+		mpi_add(rem, rem, divisor);
-+	}
-+
-+	if (temp_divisor)
-+		mpi_free(temp_divisor);
-+}
-+
- /* If den == quot, den needs temporary storage.
-  * If den == rem, den needs temporary storage.
-  * If num == quot, num needs temporary storage.
-diff --git a/lib/crypto/mpi/mpi-internal.h b/lib/crypto/mpi/mpi-internal.h
-index 8a4f49e3043c..e6cf87659e29 100644
---- a/lib/crypto/mpi/mpi-internal.h
-+++ b/lib/crypto/mpi/mpi-internal.h
-@@ -67,6 +67,14 @@ static inline int RESIZE_IF_NEEDED(MPI a, unsigned b)
- 			(d)[_i] = (s)[_i];	\
- 	} while (0)
- 
-+#define MPN_COPY_INCR(d, s, n)		\
-+	do {					\
-+		mpi_size_t _i;			\
-+		for (_i = 0; _i < (n); _i++)	\
-+			(d)[_i] = (s)[_i];	\
-+	} while (0)
-+
-+
- #define MPN_COPY_DECR(d, s, n) \
- 	do {					\
- 		mpi_size_t _i;			\
-@@ -174,6 +182,8 @@ int mpihelp_mul(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t usize,
- void mpih_sqr_n_basecase(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size);
- void mpih_sqr_n(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size,
- 		mpi_ptr_t tspace);
-+void mpihelp_mul_n(mpi_ptr_t prodp,
-+		mpi_ptr_t up, mpi_ptr_t vp, mpi_size_t size);
- 
- int mpihelp_mul_karatsuba_case(mpi_ptr_t prodp,
- 			       mpi_ptr_t up, mpi_size_t usize,
-diff --git a/lib/crypto/mpi/mpi-inv.c b/lib/crypto/mpi/mpi-inv.c
-new file mode 100644
-index 000000000000..61e37d18f793
---- /dev/null
-+++ b/lib/crypto/mpi/mpi-inv.c
-@@ -0,0 +1,143 @@
-+/* mpi-inv.c  -  MPI functions
-+ *	Copyright (C) 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
-+ *
-+ * This file is part of Libgcrypt.
-+ *
-+ * Libgcrypt is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU Lesser General Public License as
-+ * published by the Free Software Foundation; either version 2.1 of
-+ * the License, or (at your option) any later version.
-+ *
-+ * Libgcrypt is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this program; if not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#include "mpi-internal.h"
-+
-+/****************
-+ * Calculate the multiplicative inverse X of A mod N
-+ * That is: Find the solution x for
-+ *		1 = (a*x) mod n
-+ */
-+int mpi_invm(MPI x, MPI a, MPI n)
-+{
-+	/* Extended Euclid's algorithm (See TAOCP Vol II, 4.5.2, Alg X)
-+	 * modified according to Michael Penk's solution for Exercise 35
-+	 * with further enhancement
-+	 */
-+	MPI u, v, u1, u2 = NULL, u3, v1, v2 = NULL, v3, t1, t2 = NULL, t3;
-+	unsigned int k;
-+	int sign;
-+	int odd;
-+
-+	if (!mpi_cmp_ui(a, 0))
-+		return 0; /* Inverse does not exists.  */
-+	if (!mpi_cmp_ui(n, 1))
-+		return 0; /* Inverse does not exists.  */
-+
-+	u = mpi_copy(a);
-+	v = mpi_copy(n);
-+
-+	for (k = 0; !mpi_test_bit(u, 0) && !mpi_test_bit(v, 0); k++) {
-+		mpi_rshift(u, u, 1);
-+		mpi_rshift(v, v, 1);
-+	}
-+	odd = mpi_test_bit(v, 0);
-+
-+	u1 = mpi_alloc_set_ui(1);
-+	if (!odd)
-+		u2 = mpi_alloc_set_ui(0);
-+	u3 = mpi_copy(u);
-+	v1 = mpi_copy(v);
-+	if (!odd) {
-+		v2 = mpi_alloc(mpi_get_nlimbs(u));
-+		mpi_sub(v2, u1, u); /* U is used as const 1 */
-+	}
-+	v3 = mpi_copy(v);
-+	if (mpi_test_bit(u, 0)) { /* u is odd */
-+		t1 = mpi_alloc_set_ui(0);
-+		if (!odd) {
-+			t2 = mpi_alloc_set_ui(1);
-+			t2->sign = 1;
-+		}
-+		t3 = mpi_copy(v);
-+		t3->sign = !t3->sign;
-+		goto Y4;
-+	} else {
-+		t1 = mpi_alloc_set_ui(1);
-+		if (!odd)
-+			t2 = mpi_alloc_set_ui(0);
-+		t3 = mpi_copy(u);
-+	}
-+
-+	do {
-+		do {
-+			if (!odd) {
-+				if (mpi_test_bit(t1, 0) || mpi_test_bit(t2, 0)) {
-+					/* one is odd */
-+					mpi_add(t1, t1, v);
-+					mpi_sub(t2, t2, u);
-+				}
-+				mpi_rshift(t1, t1, 1);
-+				mpi_rshift(t2, t2, 1);
-+				mpi_rshift(t3, t3, 1);
-+			} else {
-+				if (mpi_test_bit(t1, 0))
-+					mpi_add(t1, t1, v);
-+				mpi_rshift(t1, t1, 1);
-+				mpi_rshift(t3, t3, 1);
-+			}
-+Y4:
-+			;
-+		} while (!mpi_test_bit(t3, 0)); /* while t3 is even */
-+
-+		if (!t3->sign) {
-+			mpi_set(u1, t1);
-+			if (!odd)
-+				mpi_set(u2, t2);
-+			mpi_set(u3, t3);
-+		} else {
-+			mpi_sub(v1, v, t1);
-+			sign = u->sign; u->sign = !u->sign;
-+			if (!odd)
-+				mpi_sub(v2, u, t2);
-+			u->sign = sign;
-+			sign = t3->sign; t3->sign = !t3->sign;
-+			mpi_set(v3, t3);
-+			t3->sign = sign;
-+		}
-+		mpi_sub(t1, u1, v1);
-+		if (!odd)
-+			mpi_sub(t2, u2, v2);
-+		mpi_sub(t3, u3, v3);
-+		if (t1->sign) {
-+			mpi_add(t1, t1, v);
-+			if (!odd)
-+				mpi_sub(t2, t2, u);
-+		}
-+	} while (mpi_cmp_ui(t3, 0)); /* while t3 != 0 */
-+	/* mpi_lshift( u3, k ); */
-+	mpi_set(x, u1);
-+
-+	mpi_free(u1);
-+	mpi_free(v1);
-+	mpi_free(t1);
-+	if (!odd) {
-+		mpi_free(u2);
-+		mpi_free(v2);
-+		mpi_free(t2);
-+	}
-+	mpi_free(u3);
-+	mpi_free(v3);
-+	mpi_free(t3);
-+
-+	mpi_free(u);
-+	mpi_free(v);
-+	return 1;
-+}
-+EXPORT_SYMBOL_GPL(mpi_invm);
-diff --git a/lib/crypto/mpi/mpi-mod.c b/lib/crypto/mpi/mpi-mod.c
-index d5fdaec3d0b6..5a6475f58fa7 100644
---- a/lib/crypto/mpi/mpi-mod.c
-+++ b/lib/crypto/mpi/mpi-mod.c
-@@ -5,9 +5,153 @@
-  * This file is part of Libgcrypt.
-  */
- 
-+
- #include "mpi-internal.h"
-+#include "longlong.h"
-+
-+/* Context used with Barrett reduction.  */
-+struct barrett_ctx_s {
-+	MPI m;   /* The modulus - may not be modified. */
-+	int m_copied;   /* If true, M needs to be released.  */
-+	int k;
-+	MPI y;
-+	MPI r1;  /* Helper MPI. */
-+	MPI r2;  /* Helper MPI. */
-+	MPI r3;  /* Helper MPI allocated on demand. */
-+};
-+
-+
- 
- int mpi_mod(MPI rem, MPI dividend, MPI divisor)
- {
- 	return mpi_fdiv_r(rem, dividend, divisor);
- }
-+
-+/* This function returns a new context for Barrett based operations on
-+ * the modulus M.  This context needs to be released using
-+ * _gcry_mpi_barrett_free.  If COPY is true M will be transferred to
-+ * the context and the user may change M.  If COPY is false, M may not
-+ * be changed until gcry_mpi_barrett_free has been called.
-+ */
-+mpi_barrett_t mpi_barrett_init(MPI m, int copy)
-+{
-+	mpi_barrett_t ctx;
-+	MPI tmp;
-+
-+	mpi_normalize(m);
-+	ctx = kcalloc(1, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return NULL;
-+
-+	if (copy) {
-+		ctx->m = mpi_copy(m);
-+		ctx->m_copied = 1;
-+	} else
-+		ctx->m = m;
-+
-+	ctx->k = mpi_get_nlimbs(m);
-+	tmp = mpi_alloc(ctx->k + 1);
-+
-+	/* Barrett precalculation: y = floor(b^(2k) / m). */
-+	mpi_set_ui(tmp, 1);
-+	mpi_lshift_limbs(tmp, 2 * ctx->k);
-+	mpi_fdiv_q(tmp, tmp, m);
-+
-+	ctx->y  = tmp;
-+	ctx->r1 = mpi_alloc(2 * ctx->k + 1);
-+	ctx->r2 = mpi_alloc(2 * ctx->k + 1);
-+
-+	return ctx;
-+}
-+
-+void mpi_barrett_free(mpi_barrett_t ctx)
-+{
-+	if (ctx) {
-+		mpi_free(ctx->y);
-+		mpi_free(ctx->r1);
-+		mpi_free(ctx->r2);
-+		if (ctx->r3)
-+			mpi_free(ctx->r3);
-+		if (ctx->m_copied)
-+			mpi_free(ctx->m);
-+		kfree(ctx);
-+	}
-+}
-+
-+
-+/* R = X mod M
-+ *
-+ * Using Barrett reduction.  Before using this function
-+ * _gcry_mpi_barrett_init must have been called to do the
-+ * precalculations.  CTX is the context created by this precalculation
-+ * and also conveys M.  If the Barret reduction could no be done a
-+ * straightforward reduction method is used.
-+ *
-+ * We assume that these conditions are met:
-+ * Input:  x =(x_2k-1 ...x_0)_b
-+ *     m =(m_k-1 ....m_0)_b	  with m_k-1 != 0
-+ * Output: r = x mod m
-+ */
-+void mpi_mod_barrett(MPI r, MPI x, mpi_barrett_t ctx)
-+{
-+	MPI m = ctx->m;
-+	int k = ctx->k;
-+	MPI y = ctx->y;
-+	MPI r1 = ctx->r1;
-+	MPI r2 = ctx->r2;
-+	int sign;
-+
-+	mpi_normalize(x);
-+	if (mpi_get_nlimbs(x) > 2*k) {
-+		mpi_mod(r, x, m);
-+		return;
-+	}
-+
-+	sign = x->sign;
-+	x->sign = 0;
-+
-+	/* 1. q1 = floor( x / b^k-1)
-+	 *    q2 = q1 * y
-+	 *    q3 = floor( q2 / b^k+1 )
-+	 * Actually, we don't need qx, we can work direct on r2
-+	 */
-+	mpi_set(r2, x);
-+	mpi_rshift_limbs(r2, k-1);
-+	mpi_mul(r2, r2, y);
-+	mpi_rshift_limbs(r2, k+1);
-+
-+	/* 2. r1 = x mod b^k+1
-+	 *	r2 = q3 * m mod b^k+1
-+	 *	r  = r1 - r2
-+	 * 3. if r < 0 then  r = r + b^k+1
-+	 */
-+	mpi_set(r1, x);
-+	if (r1->nlimbs > k+1) /* Quick modulo operation.  */
-+		r1->nlimbs = k+1;
-+	mpi_mul(r2, r2, m);
-+	if (r2->nlimbs > k+1) /* Quick modulo operation. */
-+		r2->nlimbs = k+1;
-+	mpi_sub(r, r1, r2);
-+
-+	if (mpi_has_sign(r)) {
-+		if (!ctx->r3) {
-+			ctx->r3 = mpi_alloc(k + 2);
-+			mpi_set_ui(ctx->r3, 1);
-+			mpi_lshift_limbs(ctx->r3, k + 1);
-+		}
-+		mpi_add(r, r, ctx->r3);
-+	}
-+
-+	/* 4. while r >= m do r = r - m */
-+	while (mpi_cmp(r, m) >= 0)
-+		mpi_sub(r, r, m);
-+
-+	x->sign = sign;
-+}
-+
-+
-+void mpi_mul_barrett(MPI w, MPI u, MPI v, mpi_barrett_t ctx)
-+{
-+	mpi_mul(w, u, v);
-+	mpi_mod_barrett(w, w, ctx);
-+}
-diff --git a/lib/crypto/mpi/mpicoder.c b/lib/crypto/mpi/mpicoder.c
-index dde01030807d..3cb6bd148fa9 100644
---- a/lib/crypto/mpi/mpicoder.c
-+++ b/lib/crypto/mpi/mpicoder.c
-@@ -25,6 +25,7 @@
- #include <linux/string.h>
- #include "mpi-internal.h"
- 
-+#define MAX_EXTERN_SCAN_BYTES (16*1024*1024)
- #define MAX_EXTERN_MPI_BITS 16384
- 
- /**
-@@ -109,6 +110,112 @@ MPI mpi_read_from_buffer(const void *xbuffer, unsigned *ret_nread)
- }
- EXPORT_SYMBOL_GPL(mpi_read_from_buffer);
- 
-+/****************
-+ * Fill the mpi VAL from the hex string in STR.
-+ */
-+int mpi_fromstr(MPI val, const char *str)
-+{
-+	int sign = 0;
-+	int prepend_zero = 0;
-+	int i, j, c, c1, c2;
-+	unsigned int nbits, nbytes, nlimbs;
-+	mpi_limb_t a;
-+
-+	if (*str == '-') {
-+		sign = 1;
-+		str++;
-+	}
-+
-+	/* Skip optional hex prefix.  */
-+	if (*str == '0' && str[1] == 'x')
-+		str += 2;
-+
-+	nbits = strlen(str);
-+	if (nbits > MAX_EXTERN_SCAN_BYTES) {
-+		mpi_clear(val);
-+		return -EINVAL;
-+	}
-+	nbits *= 4;
-+	if ((nbits % 8))
-+		prepend_zero = 1;
-+
-+	nbytes = (nbits+7) / 8;
-+	nlimbs = (nbytes+BYTES_PER_MPI_LIMB-1) / BYTES_PER_MPI_LIMB;
-+
-+	if (val->alloced < nlimbs)
-+		mpi_resize(val, nlimbs);
-+
-+	i = BYTES_PER_MPI_LIMB - (nbytes % BYTES_PER_MPI_LIMB);
-+	i %= BYTES_PER_MPI_LIMB;
-+	j = val->nlimbs = nlimbs;
-+	val->sign = sign;
-+	for (; j > 0; j--) {
-+		a = 0;
-+		for (; i < BYTES_PER_MPI_LIMB; i++) {
-+			if (prepend_zero) {
-+				c1 = '0';
-+				prepend_zero = 0;
-+			} else
-+				c1 = *str++;
-+
-+			if (!c1) {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			c2 = *str++;
-+			if (!c2) {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			if (c1 >= '0' && c1 <= '9')
-+				c = c1 - '0';
-+			else if (c1 >= 'a' && c1 <= 'f')
-+				c = c1 - 'a' + 10;
-+			else if (c1 >= 'A' && c1 <= 'F')
-+				c = c1 - 'A' + 10;
-+			else {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			c <<= 4;
-+			if (c2 >= '0' && c2 <= '9')
-+				c |= c2 - '0';
-+			else if (c2 >= 'a' && c2 <= 'f')
-+				c |= c2 - 'a' + 10;
-+			else if (c2 >= 'A' && c2 <= 'F')
-+				c |= c2 - 'A' + 10;
-+			else {
-+				mpi_clear(val);
-+				return -EINVAL;
-+			}
-+			a <<= 8;
-+			a |= c;
-+		}
-+		i = 0;
-+		val->d[j-1] = a;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(mpi_fromstr);
-+
-+MPI mpi_scanval(const char *string)
-+{
-+	MPI a;
-+
-+	a = mpi_alloc(0);
-+	if (!a)
-+		return NULL;
-+
-+	if (mpi_fromstr(a, string)) {
-+		mpi_free(a);
-+		return NULL;
-+	}
-+	mpi_normalize(a);
-+	return a;
-+}
-+EXPORT_SYMBOL_GPL(mpi_scanval);
-+
- static int count_lzeros(MPI a)
- {
- 	mpi_limb_t alimb;
-@@ -414,3 +521,232 @@ MPI mpi_read_raw_from_sgl(struct scatterlist *sgl, unsigned int nbytes)
- 	return val;
- }
- EXPORT_SYMBOL_GPL(mpi_read_raw_from_sgl);
-+
-+/* Perform a two's complement operation on buffer P of size N bytes.  */
-+static void twocompl(unsigned char *p, unsigned int n)
-+{
-+	int i;
-+
-+	for (i = n-1; i >= 0 && !p[i]; i--)
-+		;
-+	if (i >= 0) {
-+		if ((p[i] & 0x01))
-+			p[i] = (((p[i] ^ 0xfe) | 0x01) & 0xff);
-+		else if ((p[i] & 0x02))
-+			p[i] = (((p[i] ^ 0xfc) | 0x02) & 0xfe);
-+		else if ((p[i] & 0x04))
-+			p[i] = (((p[i] ^ 0xf8) | 0x04) & 0xfc);
-+		else if ((p[i] & 0x08))
-+			p[i] = (((p[i] ^ 0xf0) | 0x08) & 0xf8);
-+		else if ((p[i] & 0x10))
-+			p[i] = (((p[i] ^ 0xe0) | 0x10) & 0xf0);
-+		else if ((p[i] & 0x20))
-+			p[i] = (((p[i] ^ 0xc0) | 0x20) & 0xe0);
-+		else if ((p[i] & 0x40))
-+			p[i] = (((p[i] ^ 0x80) | 0x40) & 0xc0);
-+		else
-+			p[i] = 0x80;
-+
-+		for (i--; i >= 0; i--)
-+			p[i] ^= 0xff;
-+	}
-+}
-+
-+int mpi_print(enum gcry_mpi_format format, unsigned char *buffer,
-+			size_t buflen, size_t *nwritten, MPI a)
-+{
-+	unsigned int nbits = mpi_get_nbits(a);
-+	size_t len;
-+	size_t dummy_nwritten;
-+	int negative;
-+
-+	if (!nwritten)
-+		nwritten = &dummy_nwritten;
-+
-+	/* Libgcrypt does no always care to set clear the sign if the value
-+	 * is 0.  For printing this is a bit of a surprise, in particular
-+	 * because if some of the formats don't support negative numbers but
-+	 * should be able to print a zero.  Thus we need this extra test
-+	 * for a negative number.
-+	 */
-+	if (a->sign && mpi_cmp_ui(a, 0))
-+		negative = 1;
-+	else
-+		negative = 0;
-+
-+	len = buflen;
-+	*nwritten = 0;
-+	if (format == GCRYMPI_FMT_STD) {
-+		unsigned char *tmp;
-+		int extra = 0;
-+		unsigned int n;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+
-+		if (negative) {
-+			twocompl(tmp, n);
-+			if (!(*tmp & 0x80)) {
-+				/* Need to extend the sign.  */
-+				n++;
-+				extra = 2;
-+			}
-+		} else if (n && (*tmp & 0x80)) {
-+			/* Positive but the high bit of the returned buffer is set.
-+			 * Thus we need to print an extra leading 0x00 so that the
-+			 * output is interpreted as a positive number.
-+			 */
-+			n++;
-+			extra = 1;
-+		}
-+
-+		if (buffer && n > len) {
-+			/* The provided buffer is too short. */
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			if (extra == 1)
-+				*s++ = 0;
-+			else if (extra)
-+				*s++ = 0xff;
-+			memcpy(s, tmp, n-!!extra);
-+		}
-+		kfree(tmp);
-+		*nwritten = n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_USG) {
-+		unsigned int n = (nbits + 7)/8;
-+
-+		/* Note:  We ignore the sign for this format.  */
-+		/* FIXME: for performance reasons we should put this into
-+		 * mpi_aprint because we can then use the buffer directly.
-+		 */
-+
-+		if (buffer && n > len)
-+			return -E2BIG;
-+		if (buffer) {
-+			unsigned char *tmp;
-+
-+			tmp = mpi_get_buffer(a, &n, NULL);
-+			if (!tmp)
-+				return -EINVAL;
-+			memcpy(buffer, tmp, n);
-+			kfree(tmp);
-+		}
-+		*nwritten = n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_PGP) {
-+		unsigned int n = (nbits + 7)/8;
-+
-+		/* The PGP format can only handle unsigned integers.  */
-+		if (negative)
-+			return -EINVAL;
-+
-+		if (buffer && n+2 > len)
-+			return -E2BIG;
-+
-+		if (buffer) {
-+			unsigned char *tmp;
-+			unsigned char *s = buffer;
-+
-+			s[0] = nbits >> 8;
-+			s[1] = nbits;
-+
-+			tmp = mpi_get_buffer(a, &n, NULL);
-+			if (!tmp)
-+				return -EINVAL;
-+			memcpy(s+2, tmp, n);
-+			kfree(tmp);
-+		}
-+		*nwritten = n+2;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_SSH) {
-+		unsigned char *tmp;
-+		int extra = 0;
-+		unsigned int n;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+
-+		if (negative) {
-+			twocompl(tmp, n);
-+			if (!(*tmp & 0x80)) {
-+				/* Need to extend the sign.  */
-+				n++;
-+				extra = 2;
-+			}
-+		} else if (n && (*tmp & 0x80)) {
-+			n++;
-+			extra = 1;
-+		}
-+
-+		if (buffer && n+4 > len) {
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			*s++ = n >> 24;
-+			*s++ = n >> 16;
-+			*s++ = n >> 8;
-+			*s++ = n;
-+			if (extra == 1)
-+				*s++ = 0;
-+			else if (extra)
-+				*s++ = 0xff;
-+			memcpy(s, tmp, n-!!extra);
-+		}
-+		kfree(tmp);
-+		*nwritten = 4+n;
-+		return 0;
-+	} else if (format == GCRYMPI_FMT_HEX) {
-+		unsigned char *tmp;
-+		int i;
-+		int extra = 0;
-+		unsigned int n = 0;
-+
-+		tmp = mpi_get_buffer(a, &n, NULL);
-+		if (!tmp)
-+			return -EINVAL;
-+		if (!n || (*tmp & 0x80))
-+			extra = 2;
-+
-+		if (buffer && 2*n + extra + negative + 1 > len) {
-+			kfree(tmp);
-+			return -E2BIG;
-+		}
-+		if (buffer) {
-+			unsigned char *s = buffer;
-+
-+			if (negative)
-+				*s++ = '-';
-+			if (extra) {
-+				*s++ = '0';
-+				*s++ = '0';
-+			}
-+
-+			for (i = 0; i < n; i++) {
-+				unsigned int c = tmp[i];
-+
-+				*s++ = (c >> 4) < 10 ? '0'+(c>>4) : 'A'+(c>>4)-10;
-+				c &= 15;
-+				*s++ = c < 10 ? '0'+c : 'A'+c-10;
-+			}
-+			*s++ = 0;
-+			*nwritten = s - buffer;
-+		} else {
-+			*nwritten = 2*n + extra + negative + 1;
-+		}
-+		kfree(tmp);
-+		return 0;
-+	} else
-+		return -EINVAL;
-+}
-+EXPORT_SYMBOL_GPL(mpi_print);
-diff --git a/lib/crypto/mpi/mpih-mul.c b/lib/crypto/mpi/mpih-mul.c
-index a93647564054..e5f1c84e3c48 100644
---- a/lib/crypto/mpi/mpih-mul.c
-+++ b/lib/crypto/mpi/mpih-mul.c
-@@ -317,6 +317,31 @@ mpih_sqr_n(mpi_ptr_t prodp, mpi_ptr_t up, mpi_size_t size, mpi_ptr_t tspace)
- 	}
- }
- 
-+
-+void mpihelp_mul_n(mpi_ptr_t prodp,
-+		mpi_ptr_t up, mpi_ptr_t vp, mpi_size_t size)
-+{
-+	if (up == vp) {
-+		if (size < KARATSUBA_THRESHOLD)
-+			mpih_sqr_n_basecase(prodp, up, size);
-+		else {
-+			mpi_ptr_t tspace;
-+			tspace = mpi_alloc_limb_space(2 * size);
-+			mpih_sqr_n(prodp, up, size, tspace);
-+			mpi_free_limb_space(tspace);
-+		}
-+	} else {
-+		if (size < KARATSUBA_THRESHOLD)
-+			mul_n_basecase(prodp, up, vp, size);
-+		else {
-+			mpi_ptr_t tspace;
-+			tspace = mpi_alloc_limb_space(2 * size);
-+			mul_n(prodp, up, vp, size, tspace);
-+			mpi_free_limb_space(tspace);
-+		}
-+	}
-+}
-+
- int
- mpihelp_mul_karatsuba_case(mpi_ptr_t prodp,
- 			   mpi_ptr_t up, mpi_size_t usize,
-diff --git a/lib/crypto/mpi/mpiutil.c b/lib/crypto/mpi/mpiutil.c
-index 979ece5a81d2..c8ab00f6f4f4 100644
---- a/lib/crypto/mpi/mpiutil.c
-+++ b/lib/crypto/mpi/mpiutil.c
-@@ -20,6 +20,63 @@
- 
- #include "mpi-internal.h"
- 
-+/* Constants allocated right away at startup.  */
-+static MPI constants[MPI_NUMBER_OF_CONSTANTS];
-+
-+/* Initialize the MPI subsystem.  This is called early and allows to
-+ * do some initialization without taking care of threading issues.
-+ */
-+static int __init mpi_init(void)
-+{
-+	int idx;
-+	unsigned long value;
-+
-+	for (idx = 0; idx < MPI_NUMBER_OF_CONSTANTS; idx++) {
-+		switch (idx) {
-+		case MPI_C_ZERO:
-+			value = 0;
-+			break;
-+		case MPI_C_ONE:
-+			value = 1;
-+			break;
-+		case MPI_C_TWO:
-+			value = 2;
-+			break;
-+		case MPI_C_THREE:
-+			value = 3;
-+			break;
-+		case MPI_C_FOUR:
-+			value = 4;
-+			break;
-+		case MPI_C_EIGHT:
-+			value = 8;
-+			break;
-+		default:
-+			pr_err("MPI: invalid mpi_const selector %d\n", idx);
-+			return -EFAULT;
-+		}
-+		constants[idx] = mpi_alloc_set_ui(value);
-+		constants[idx]->flags = (16|32);
-+	}
-+
-+	return 0;
-+}
-+postcore_initcall(mpi_init);
-+
-+/* Return a constant MPI descripbed by NO which is one of the
-+ * MPI_C_xxx macros.  There is no need to copy this returned value; it
-+ * may be used directly.
-+ */
-+MPI mpi_const(enum gcry_mpi_constants no)
-+{
-+	if ((int)no < 0 || no > MPI_NUMBER_OF_CONSTANTS)
-+		pr_err("MPI: invalid mpi_const selector %d\n", no);
-+	if (!constants[no])
-+		pr_err("MPI: MPI subsystem not initialized\n");
-+	return constants[no];
-+}
-+EXPORT_SYMBOL_GPL(mpi_const);
-+
- /****************
-  * Note:  It was a bad idea to use the number of limbs to allocate
-  *	  because on a alpha the limbs are large but we normally need
-@@ -106,6 +163,15 @@ int mpi_resize(MPI a, unsigned nlimbs)
- 	return 0;
- }
- 
-+void mpi_clear(MPI a)
-+{
-+	if (!a)
-+		return;
-+	a->nlimbs = 0;
-+	a->flags = 0;
-+}
-+EXPORT_SYMBOL_GPL(mpi_clear);
-+
- void mpi_free(MPI a)
- {
- 	if (!a)
-@@ -146,5 +212,121 @@ MPI mpi_copy(MPI a)
- 	return b;
- }
- 
-+/****************
-+ * This function allocates an MPI which is optimized to hold
-+ * a value as large as the one given in the argument and allocates it
-+ * with the same flags as A.
-+ */
-+MPI mpi_alloc_like(MPI a)
-+{
-+	MPI b;
-+
-+	if (a) {
-+		b = mpi_alloc(a->nlimbs);
-+		b->nlimbs = 0;
-+		b->sign = 0;
-+		b->flags = a->flags;
-+	} else
-+		b = NULL;
-+
-+	return b;
-+}
-+
-+
-+/* Set U into W and release U.  If W is NULL only U will be released. */
-+void mpi_snatch(MPI w, MPI u)
-+{
-+	if (w) {
-+		mpi_assign_limb_space(w, u->d, u->alloced);
-+		w->nlimbs = u->nlimbs;
-+		w->sign   = u->sign;
-+		w->flags  = u->flags;
-+		u->alloced = 0;
-+		u->nlimbs = 0;
-+		u->d = NULL;
-+	}
-+	mpi_free(u);
-+}
-+
-+
-+MPI mpi_set(MPI w, MPI u)
-+{
-+	mpi_ptr_t wp, up;
-+	mpi_size_t usize = u->nlimbs;
-+	int usign = u->sign;
-+
-+	if (!w)
-+		w = mpi_alloc(mpi_get_nlimbs(u));
-+	RESIZE_IF_NEEDED(w, usize);
-+	wp = w->d;
-+	up = u->d;
-+	MPN_COPY(wp, up, usize);
-+	w->nlimbs = usize;
-+	w->flags = u->flags;
-+	w->flags &= ~(16|32); /* Reset the immutable and constant flags.  */
-+	w->sign = usign;
-+	return w;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set);
-+
-+MPI mpi_set_ui(MPI w, unsigned long u)
-+{
-+	if (!w)
-+		w = mpi_alloc(1);
-+	/* FIXME: If U is 0 we have no need to resize and thus possible
-+	 * allocating the limbs.
-+	 */
-+	RESIZE_IF_NEEDED(w, 1);
-+	w->d[0] = u;
-+	w->nlimbs = u ? 1 : 0;
-+	w->sign = 0;
-+	w->flags = 0;
-+	return w;
-+}
-+EXPORT_SYMBOL_GPL(mpi_set_ui);
-+
-+MPI mpi_alloc_set_ui(unsigned long u)
-+{
-+	MPI w = mpi_alloc(1);
-+	w->d[0] = u;
-+	w->nlimbs = u ? 1 : 0;
-+	w->sign = 0;
-+	return w;
-+}
-+
-+/****************
-+ * Swap the value of A and B, when SWAP is 1.
-+ * Leave the value when SWAP is 0.
-+ * This implementation should be constant-time regardless of SWAP.
-+ */
-+void mpi_swap_cond(MPI a, MPI b, unsigned long swap)
-+{
-+	mpi_size_t i;
-+	mpi_size_t nlimbs;
-+	mpi_limb_t mask = ((mpi_limb_t)0) - swap;
-+	mpi_limb_t x;
-+
-+	if (a->alloced > b->alloced)
-+		nlimbs = b->alloced;
-+	else
-+		nlimbs = a->alloced;
-+	if (a->nlimbs > nlimbs || b->nlimbs > nlimbs)
-+		return;
-+
-+	for (i = 0; i < nlimbs; i++) {
-+		x = mask & (a->d[i] ^ b->d[i]);
-+		a->d[i] = a->d[i] ^ x;
-+		b->d[i] = b->d[i] ^ x;
-+	}
-+
-+	x = mask & (a->nlimbs ^ b->nlimbs);
-+	a->nlimbs = a->nlimbs ^ x;
-+	b->nlimbs = b->nlimbs ^ x;
-+
-+	x = mask & (a->sign ^ b->sign);
-+	a->sign = a->sign ^ x;
-+	b->sign = b->sign ^ x;
-+}
-+
- MODULE_DESCRIPTION("Multiprecision maths library");
- MODULE_LICENSE("GPL");
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyByZXZlcnRzIGNvbW1pdCBkYTRmZTY4MTVhY2EyNTYwMzk0NGE2NGIwOTY1MzEwNTEyZTg2
+N2QwLgoKUmVpbnRyb2R1Y2UgZWMgaW1wbGVtZW50YXRpb24gdG8gTVBJIGxpYnJhcnkgdG8gc3Vw
+cG9ydCBzbTIuCgpTaWduZWQtb2ZmLWJ5OiBHdSBCb3dlbiA8Z3Vib3dlbjVAaHVhd2VpLmNvbT4K
+LS0tCiBpbmNsdWRlL2xpbnV4L21waS5oICAgICB8ICAxMDUgKysrCiBsaWIvY3J5cHRvL21waS9N
+YWtlZmlsZSB8ICAgIDEgKwogbGliL2NyeXB0by9tcGkvZWMuYyAgICAgfCAxNTA3ICsrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogMyBmaWxlcyBjaGFuZ2VkLCAxNjEzIGlu
+c2VydGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBsaWIvY3J5cHRvL21waS9lYy5jCgpkaWZm
+IC0tZ2l0IGEvaW5jbHVkZS9saW51eC9tcGkuaCBiL2luY2x1ZGUvbGludXgvbXBpLmgKaW5kZXgg
+OWFkN2U3MjMxZWU5Li4zMzE3ZWZmZTU3YmEgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvbXBp
+LmgKKysrIGIvaW5jbHVkZS9saW51eC9tcGkuaApAQCAtMTU3LDYgKzE1NywxMTEgQEAgdm9pZCBt
+cGlfZmRpdl9xKE1QSSBxdW90LCBNUEkgZGl2aWRlbmQsIE1QSSBkaXZpc29yKTsKIC8qLS0gbXBp
+LWludi5jIC0tKi8KIGludCBtcGlfaW52bShNUEkgeCwgTVBJIGEsIE1QSSBuKTsKIAorLyotLSBl
+Yy5jIC0tKi8KKworLyogT2JqZWN0IHRvIHJlcHJlc2VudCBhIHBvaW50IGluIHByb2plY3RpdmUg
+Y29vcmRpbmF0ZXMgKi8KK3N0cnVjdCBnY3J5X21waV9wb2ludCB7CisJTVBJIHg7CisJTVBJIHk7
+CisJTVBJIHo7Cit9OworCit0eXBlZGVmIHN0cnVjdCBnY3J5X21waV9wb2ludCAqTVBJX1BPSU5U
+OworCisvKiBNb2RlbHMgZGVzY3JpYmluZyBhbiBlbGxpcHRpYyBjdXJ2ZSAqLworZW51bSBnY3J5
+X21waV9lY19tb2RlbHMgeworCS8qIFRoZSBTaG9ydCBXZWllcnN0cmFzcyBlcXVhdGlvbiBpcwor
+CSAqICAgICAgeV4yID0geF4zICsgYXggKyBiCisJICovCisJTVBJX0VDX1dFSUVSU1RSQVNTID0g
+MCwKKwkvKiBUaGUgTW9udGdvbWVyeSBlcXVhdGlvbiBpcworCSAqICAgICAgYnleMiA9IHheMyAr
+IGF4XjIgKyB4CisJICovCisJTVBJX0VDX01PTlRHT01FUlksCisJLyogVGhlIFR3aXN0ZWQgRWR3
+YXJkcyBlcXVhdGlvbiBpcworCSAqICAgICAgYXheMiArIHleMiA9IDEgKyBieF4yeV4yCisJICog
+Tm90ZSB0aGF0IHdlIHVzZSAnYicgaW5zdGVhZCBvZiB0aGUgY29tbW9ubHkgdXNlZCAnZCcuCisJ
+ICovCisJTVBJX0VDX0VEV0FSRFMKK307CisKKy8qIERpYWxlY3RzIHVzZWQgd2l0aCBlbGxpcHRp
+YyBjdXJ2ZXMgKi8KK2VudW0gZWNjX2RpYWxlY3RzIHsKKwlFQ0NfRElBTEVDVF9TVEFOREFSRCA9
+IDAsCisJRUNDX0RJQUxFQ1RfRUQyNTUxOSwKKwlFQ0NfRElBTEVDVF9TQUZFQ1VSVkUKK307CisK
+Ky8qIFRoaXMgY29udGV4dCBpcyB1c2VkIHdpdGggYWxsIG91ciBFQyBmdW5jdGlvbnMuICovCitz
+dHJ1Y3QgbXBpX2VjX2N0eCB7CisJZW51bSBnY3J5X21waV9lY19tb2RlbHMgbW9kZWw7IC8qIFRo
+ZSBtb2RlbCBkZXNjcmliaW5nIHRoaXMgY3VydmUuICovCisJZW51bSBlY2NfZGlhbGVjdHMgZGlh
+bGVjdDsgICAgIC8qIFRoZSBFQ0MgZGlhbGVjdCB1c2VkIHdpdGggdGhlIGN1cnZlLiAqLworCWlu
+dCBmbGFnczsgICAgICAgICAgICAgICAgICAgICAvKiBQdWJsaWMga2V5IGZsYWdzIChub3QgYWx3
+YXlzIHVzZWQpLiAqLworCXVuc2lnbmVkIGludCBuYml0czsgICAgICAgICAgICAvKiBOdW1iZXIg
+b2YgYml0cy4gICovCisKKwkvKiBEb21haW4gcGFyYW1ldGVycy4gIE5vdGUgdGhhdCB0aGV5IG1h
+eSBub3QgYWxsIGJlIHNldCBhbmQgaWYgc2V0CisJICogdGhlIE1QSXMgbWF5IGJlIGZsYWdnZWQg
+YXMgY29uc3RhbnQuCisJICovCisJTVBJIHA7ICAgICAgICAgLyogUHJpbWUgc3BlY2lmeWluZyB0
+aGUgZmllbGQgR0YocCkuICAqLworCU1QSSBhOyAgICAgICAgIC8qIEZpcnN0IGNvZWZmaWNpZW50
+IG9mIHRoZSBXZWllcnN0cmFzcyBlcXVhdGlvbi4gICovCisJTVBJIGI7ICAgICAgICAgLyogU2Vj
+b25kIGNvZWZmaWNpZW50IG9mIHRoZSBXZWllcnN0cmFzcyBlcXVhdGlvbi4gICovCisJTVBJX1BP
+SU5UIEc7ICAgLyogQmFzZSBwb2ludCAoZ2VuZXJhdG9yKS4gICovCisJTVBJIG47ICAgICAgICAg
+LyogT3JkZXIgb2YgRy4gICovCisJdW5zaWduZWQgaW50IGg7ICAgICAgIC8qIENvZmFjdG9yLiAg
+Ki8KKworCS8qIFRoZSBhY3R1YWwga2V5LiAgTWF5IG5vdCBiZSBzZXQuICAqLworCU1QSV9QT0lO
+VCBROyAgIC8qIFB1YmxpYyBrZXkuICAgKi8KKwlNUEkgZDsgICAgICAgICAvKiBQcml2YXRlIGtl
+eS4gICovCisKKwljb25zdCBjaGFyICpuYW1lOyAgICAgIC8qIE5hbWUgb2YgdGhlIGN1cnZlLiAg
+Ki8KKworCS8qIFRoaXMgc3RydWN0dXJlIGlzIHByaXZhdGUgdG8gbXBpL2VjLmMhICovCisJc3Ry
+dWN0IHsKKwkJc3RydWN0IHsKKwkJCXVuc2lnbmVkIGludCBhX2lzX3BtaW51czM6MTsKKwkJCXVu
+c2lnbmVkIGludCB0d29faW52X3A6MTsKKwkJfSB2YWxpZDsgLyogRmxhZ3MgdG8gaGVscCBzZXR0
+aW5nIHRoZSBoZWxwZXIgdmFycyBiZWxvdy4gICovCisKKwkJaW50IGFfaXNfcG1pbnVzMzsgIC8q
+IFRydWUgaWYgQSA9IFAgLSAzLiAqLworCisJCU1QSSB0d29faW52X3A7CisKKwkJbXBpX2JhcnJl
+dHRfdCBwX2JhcnJldHQ7CisKKwkJLyogU2NyYXRjaCB2YXJpYWJsZXMuICAqLworCQlNUEkgc2Ny
+YXRjaFsxMV07CisKKwkJLyogSGVscGVyIGZvciBmYXN0IHJlZHVjdGlvbi4gICovCisJCS8qICAg
+aW50IG5pc3RfbmJpdHM7IC9cKiBJZiB0aGlzIGlzIGEgTklTVCBjdXJ2ZSwgdGhlICMgb2YgYml0
+cy4gKlwvICovCisJCS8qICAgTVBJIHNbMTBdOyAqLworCQkvKiAgIE1QSSBjOyAqLworCX0gdDsK
+KworCS8qIEN1cnZlIHNwZWNpZmljIGNvbXB1dGF0aW9uIHJvdXRpbmVzIGZvciB0aGUgZmllbGQu
+ICAqLworCXZvaWQgKCphZGRtKShNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0
+eCAqY3R4KTsKKwl2b2lkICgqc3VibSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1waV9l
+Y19jdHggKmVjKTsKKwl2b2lkICgqbXVsbSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1w
+aV9lY19jdHggKmN0eCk7CisJdm9pZCAoKnBvdzIpKE1QSSB3LCBjb25zdCBNUEkgYiwgc3RydWN0
+IG1waV9lY19jdHggKmN0eCk7CisJdm9pZCAoKm11bDIpKE1QSSB3LCBNUEkgdSwgc3RydWN0IG1w
+aV9lY19jdHggKmN0eCk7Cit9OworCit2b2lkIG1waV9lY19pbml0KHN0cnVjdCBtcGlfZWNfY3R4
+ICpjdHgsIGVudW0gZ2NyeV9tcGlfZWNfbW9kZWxzIG1vZGVsLAorCQkJZW51bSBlY2NfZGlhbGVj
+dHMgZGlhbGVjdCwKKwkJCWludCBmbGFncywgTVBJIHAsIE1QSSBhLCBNUEkgYik7Cit2b2lkIG1w
+aV9lY19kZWluaXQoc3RydWN0IG1waV9lY19jdHggKmN0eCk7CitNUElfUE9JTlQgbXBpX3BvaW50
+X25ldyh1bnNpZ25lZCBpbnQgbmJpdHMpOwordm9pZCBtcGlfcG9pbnRfcmVsZWFzZShNUElfUE9J
+TlQgcCk7Cit2b2lkIG1waV9wb2ludF9pbml0KE1QSV9QT0lOVCBwKTsKK3ZvaWQgbXBpX3BvaW50
+X2ZyZWVfcGFydHMoTVBJX1BPSU5UIHApOworaW50IG1waV9lY19nZXRfYWZmaW5lKE1QSSB4LCBN
+UEkgeSwgTVBJX1BPSU5UIHBvaW50LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KTsKK3ZvaWQgbXBp
+X2VjX2FkZF9wb2ludHMoTVBJX1BPSU5UIHJlc3VsdCwKKwkJCU1QSV9QT0lOVCBwMSwgTVBJX1BP
+SU5UIHAyLAorCQkJc3RydWN0IG1waV9lY19jdHggKmN0eCk7Cit2b2lkIG1waV9lY19tdWxfcG9p
+bnQoTVBJX1BPSU5UIHJlc3VsdCwKKwkJCU1QSSBzY2FsYXIsIE1QSV9QT0lOVCBwb2ludCwKKwkJ
+CXN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpOworaW50IG1waV9lY19jdXJ2ZV9wb2ludChNUElfUE9J
+TlQgcG9pbnQsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpOworCiAvKiBpbmxpbmUgZnVuY3Rpb25z
+ICovCiAKIC8qKgpkaWZmIC0tZ2l0IGEvbGliL2NyeXB0by9tcGkvTWFrZWZpbGUgYi9saWIvY3J5
+cHRvL21waS9NYWtlZmlsZQppbmRleCA0NzdkZWJkN2VkNTAuLjZlNmVmOWEzNGZlMSAxMDA2NDQK
+LS0tIGEvbGliL2NyeXB0by9tcGkvTWFrZWZpbGUKKysrIGIvbGliL2NyeXB0by9tcGkvTWFrZWZp
+bGUKQEAgLTEzLDYgKzEzLDcgQEAgbXBpLXkgPSBcCiAJZ2VuZXJpY19tcGloLXJzaGlmdC5vCQlc
+CiAJZ2VuZXJpY19tcGloLXN1YjEubwkJXAogCWdlbmVyaWNfbXBpaC1hZGQxLm8JCVwKKwllYy5v
+CQkJCVwKIAltcGljb2Rlci5vCQkJXAogCW1waS1hZGQubwkJCVwKIAltcGktYml0Lm8JCQlcCmRp
+ZmYgLS1naXQgYS9saWIvY3J5cHRvL21waS9lYy5jIGIvbGliL2NyeXB0by9tcGkvZWMuYwpuZXcg
+ZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjQ3ODFmMDA5ODJlZgotLS0gL2Rl
+di9udWxsCisrKyBiL2xpYi9jcnlwdG8vbXBpL2VjLmMKQEAgLTAsMCArMSwxNTA3IEBACisvKiBl
+Yy5jIC0gIEVsbGlwdGljIEN1cnZlIGZ1bmN0aW9ucworICogQ29weXJpZ2h0IChDKSAyMDA3IEZy
+ZWUgU29mdHdhcmUgRm91bmRhdGlvbiwgSW5jLgorICogQ29weXJpZ2h0IChDKSAyMDEzIGcxMCBD
+b2RlIEdtYkgKKyAqCisgKiBUaGlzIGZpbGUgaXMgcGFydCBvZiBMaWJnY3J5cHQuCisgKgorICog
+TGliZ2NyeXB0IGlzIGZyZWUgc29mdHdhcmU7IHlvdSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9v
+ciBtb2RpZnkKKyAqIGl0IHVuZGVyIHRoZSB0ZXJtcyBvZiB0aGUgR05VIExlc3NlciBHZW5lcmFs
+IFB1YmxpYyBMaWNlbnNlIGFzCisgKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91
+bmRhdGlvbjsgZWl0aGVyIHZlcnNpb24gMi4xIG9mCisgKiB0aGUgTGljZW5zZSwgb3IgKGF0IHlv
+dXIgb3B0aW9uKSBhbnkgbGF0ZXIgdmVyc2lvbi4KKyAqCisgKiBMaWJnY3J5cHQgaXMgZGlzdHJp
+YnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCwKKyAqIGJ1dCBXSVRIT1VU
+IEFOWSBXQVJSQU5UWTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mCisgKiBN
+RVJDSEFOVEFCSUxJVFkgb3IgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICBTZWUg
+dGhlCisgKiBHTlUgTGVzc2VyIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWls
+cy4KKyAqCisgKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgTGVz
+c2VyIEdlbmVyYWwgUHVibGljCisgKiBMaWNlbnNlIGFsb25nIHdpdGggdGhpcyBwcm9ncmFtOyBp
+ZiBub3QsIHNlZSA8aHR0cDovL3d3dy5nbnUub3JnL2xpY2Vuc2VzLz4uCisgKi8KKworI2luY2x1
+ZGUgIm1waS1pbnRlcm5hbC5oIgorI2luY2x1ZGUgImxvbmdsb25nLmgiCisKKyNkZWZpbmUgcG9p
+bnRfaW5pdChhKSAgbXBpX3BvaW50X2luaXQoKGEpKQorI2RlZmluZSBwb2ludF9mcmVlKGEpICBt
+cGlfcG9pbnRfZnJlZV9wYXJ0cygoYSkpCisKKyNkZWZpbmUgbG9nX2Vycm9yKGZtdCwgLi4uKSBw
+cl9lcnIoZm10LCAjI19fVkFfQVJHU19fKQorI2RlZmluZSBsb2dfZmF0YWwoZm10LCAuLi4pIHBy
+X2VycihmbXQsICMjX19WQV9BUkdTX18pCisKKyNkZWZpbmUgRElNKHYpIChzaXplb2Yodikvc2l6
+ZW9mKCh2KVswXSkpCisKKworLyogQ3JlYXRlIGEgbmV3IHBvaW50IG9wdGlvbi4gIE5CSVRTIGdp
+dmVzIHRoZSBzaXplIGluIGJpdHMgb2Ygb25lCisgKiBjb29yZGluYXRlOyBpdCBpcyBvbmx5IHVz
+ZWQgdG8gcHJlLWFsbG9jYXRlIHNvbWUgcmVzb3VyY2VzIGFuZAorICogbWlnaHQgYWxzbyBiZSBw
+YXNzZWQgYXMgMCB0byB1c2UgYSBkZWZhdWx0IHZhbHVlLgorICovCitNUElfUE9JTlQgbXBpX3Bv
+aW50X25ldyh1bnNpZ25lZCBpbnQgbmJpdHMpCit7CisJTVBJX1BPSU5UIHA7CisKKwkodm9pZClu
+Yml0czsgIC8qIEN1cnJlbnRseSBub3QgdXNlZC4gICovCisKKwlwID0ga21hbGxvYyhzaXplb2Yo
+KnApLCBHRlBfS0VSTkVMKTsKKwlpZiAocCkKKwkJbXBpX3BvaW50X2luaXQocCk7CisJcmV0dXJu
+IHA7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChtcGlfcG9pbnRfbmV3KTsKKworLyogUmVsZWFzZSB0
+aGUgcG9pbnQgb2JqZWN0IFAuICBQIG1heSBiZSBOVUxMLiAqLwordm9pZCBtcGlfcG9pbnRfcmVs
+ZWFzZShNUElfUE9JTlQgcCkKK3sKKwlpZiAocCkgeworCQltcGlfcG9pbnRfZnJlZV9wYXJ0cyhw
+KTsKKwkJa2ZyZWUocCk7CisJfQorfQorRVhQT1JUX1NZTUJPTF9HUEwobXBpX3BvaW50X3JlbGVh
+c2UpOworCisvKiBJbml0aWFsaXplIHRoZSBmaWVsZHMgb2YgYSBwb2ludCBvYmplY3QuICBnY3J5
+X21waV9wb2ludF9mcmVlX3BhcnRzCisgKiBtYXkgYmUgdXNlZCB0byByZWxlYXNlIHRoZSBmaWVs
+ZHMuCisgKi8KK3ZvaWQgbXBpX3BvaW50X2luaXQoTVBJX1BPSU5UIHApCit7CisJcC0+eCA9IG1w
+aV9uZXcoMCk7CisJcC0+eSA9IG1waV9uZXcoMCk7CisJcC0+eiA9IG1waV9uZXcoMCk7Cit9CitF
+WFBPUlRfU1lNQk9MX0dQTChtcGlfcG9pbnRfaW5pdCk7CisKKy8qIFJlbGVhc2UgdGhlIHBhcnRz
+IG9mIGEgcG9pbnQgb2JqZWN0LiAqLwordm9pZCBtcGlfcG9pbnRfZnJlZV9wYXJ0cyhNUElfUE9J
+TlQgcCkKK3sKKwltcGlfZnJlZShwLT54KTsgcC0+eCA9IE5VTEw7CisJbXBpX2ZyZWUocC0+eSk7
+IHAtPnkgPSBOVUxMOworCW1waV9mcmVlKHAtPnopOyBwLT56ID0gTlVMTDsKK30KK0VYUE9SVF9T
+WU1CT0xfR1BMKG1waV9wb2ludF9mcmVlX3BhcnRzKTsKKworLyogU2V0IHRoZSB2YWx1ZSBmcm9t
+IFMgaW50byBELiAgKi8KK3N0YXRpYyB2b2lkIHBvaW50X3NldChNUElfUE9JTlQgZCwgTVBJX1BP
+SU5UIHMpCit7CisJbXBpX3NldChkLT54LCBzLT54KTsKKwltcGlfc2V0KGQtPnksIHMtPnkpOwor
+CW1waV9zZXQoZC0+eiwgcy0+eik7Cit9CisKK3N0YXRpYyB2b2lkIHBvaW50X3Jlc2l6ZShNUElf
+UE9JTlQgcCwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwlzaXplX3QgbmxpbWJzID0gY3R4
+LT5wLT5ubGltYnM7CisKKwltcGlfcmVzaXplKHAtPngsIG5saW1icyk7CisJcC0+eC0+bmxpbWJz
+ID0gbmxpbWJzOworCW1waV9yZXNpemUocC0+eiwgbmxpbWJzKTsKKwlwLT56LT5ubGltYnMgPSBu
+bGltYnM7CisKKwlpZiAoY3R4LT5tb2RlbCAhPSBNUElfRUNfTU9OVEdPTUVSWSkgeworCQltcGlf
+cmVzaXplKHAtPnksIG5saW1icyk7CisJCXAtPnktPm5saW1icyA9IG5saW1iczsKKwl9Cit9CisK
+K3N0YXRpYyB2b2lkIHBvaW50X3N3YXBfY29uZChNUElfUE9JTlQgZCwgTVBJX1BPSU5UIHMsIHVu
+c2lnbmVkIGxvbmcgc3dhcCwKKwkJc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwltcGlfc3dh
+cF9jb25kKGQtPngsIHMtPngsIHN3YXApOworCWlmIChjdHgtPm1vZGVsICE9IE1QSV9FQ19NT05U
+R09NRVJZKQorCQltcGlfc3dhcF9jb25kKGQtPnksIHMtPnksIHN3YXApOworCW1waV9zd2FwX2Nv
+bmQoZC0+eiwgcy0+eiwgc3dhcCk7Cit9CisKKworLyogVyA9IFcgbW9kIFAuICAqLworc3RhdGlj
+IHZvaWQgZWNfbW9kKE1QSSB3LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqZWMpCit7CisJaWYgKGVjLT50
+LnBfYmFycmV0dCkKKwkJbXBpX21vZF9iYXJyZXR0KHcsIHcsIGVjLT50LnBfYmFycmV0dCk7CisJ
+ZWxzZQorCQltcGlfbW9kKHcsIHcsIGVjLT5wKTsKK30KKworc3RhdGljIHZvaWQgZWNfYWRkbShN
+UEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9hZGQo
+dywgdSwgdik7CisJZWNfbW9kKHcsIGN0eCk7Cit9CisKK3N0YXRpYyB2b2lkIGVjX3N1Ym0oTVBJ
+IHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0IG1waV9lY19jdHggKmVjKQoreworCW1waV9zdWIodywg
+dSwgdik7CisJd2hpbGUgKHctPnNpZ24pCisJCW1waV9hZGQodywgdywgZWMtPnApOworCS8qZWNf
+bW9kKHcsIGVjKTsqLworfQorCitzdGF0aWMgdm9pZCBlY19tdWxtKE1QSSB3LCBNUEkgdSwgTVBJ
+IHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJbXBpX211bCh3LCB1LCB2KTsKKwllY19t
+b2QodywgY3R4KTsKK30KKworLyogVyA9IDIgKiBVIG1vZCBQLiAgKi8KK3N0YXRpYyB2b2lkIGVj
+X211bDIoTVBJIHcsIE1QSSB1LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9sc2hp
+ZnQodywgdSwgMSk7CisJZWNfbW9kKHcsIGN0eCk7Cit9CisKK3N0YXRpYyB2b2lkIGVjX3Bvd20o
+TVBJIHcsIGNvbnN0IE1QSSBiLCBjb25zdCBNUEkgZSwKKwkJc3RydWN0IG1waV9lY19jdHggKmN0
+eCkKK3sKKwltcGlfcG93bSh3LCBiLCBlLCBjdHgtPnApOworCS8qIG1waV9hYnModyk7ICovCit9
+CisKKy8qIFNob3J0Y3V0IGZvcgorICogZWNfcG93bShCLCBCLCBtcGlfY29uc3QoTVBJX0NfVFdP
+KSwgY3R4KTsKKyAqIGZvciBlYXNpZXIgb3B0aW1pemF0aW9uLgorICovCitzdGF0aWMgdm9pZCBl
+Y19wb3cyKE1QSSB3LCBjb25zdCBNUEkgYiwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwkv
+KiBVc2luZyBtcGlfbXVsIGlzIHNsaWdodGx5IGZhc3RlciAoYXQgbGVhc3Qgb24gYW1kNjQpLiAg
+Ki8KKwkvKiBtcGlfcG93bSh3LCBiLCBtcGlfY29uc3QoTVBJX0NfVFdPKSwgY3R4LT5wKTsgKi8K
+KwllY19tdWxtKHcsIGIsIGIsIGN0eCk7Cit9CisKKy8qIFNob3J0Y3V0IGZvcgorICogZWNfcG93
+bShCLCBCLCBtcGlfY29uc3QoTVBJX0NfVEhSRUUpLCBjdHgpOworICogZm9yIGVhc2llciBvcHRp
+bWl6YXRpb24uCisgKi8KK3N0YXRpYyB2b2lkIGVjX3BvdzMoTVBJIHcsIGNvbnN0IE1QSSBiLCBz
+dHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9wb3dtKHcsIGIsIG1waV9jb25zdChNUElf
+Q19USFJFRSksIGN0eC0+cCk7Cit9CisKK3N0YXRpYyB2b2lkIGVjX2ludm0oTVBJIHgsIE1QSSBh
+LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCWlmICghbXBpX2ludm0oeCwgYSwgY3R4LT5w
+KSkKKwkJbG9nX2Vycm9yKCJlY19pbnZtOiBpbnZlcnNlIGRvZXMgbm90IGV4aXN0OlxuIik7Cit9
+CisKK3N0YXRpYyB2b2lkIG1waWhfc2V0X2NvbmQobXBpX3B0cl90IHdwLCBtcGlfcHRyX3QgdXAs
+CisJCW1waV9zaXplX3QgdXNpemUsIHVuc2lnbmVkIGxvbmcgc2V0KQoreworCW1waV9zaXplX3Qg
+aTsKKwltcGlfbGltYl90IG1hc2sgPSAoKG1waV9saW1iX3QpMCkgLSBzZXQ7CisJbXBpX2xpbWJf
+dCB4OworCisJZm9yIChpID0gMDsgaSA8IHVzaXplOyBpKyspIHsKKwkJeCA9IG1hc2sgJiAod3Bb
+aV0gXiB1cFtpXSk7CisJCXdwW2ldID0gd3BbaV0gXiB4OworCX0KK30KKworLyogUm91dGluZXMg
+Zm9yIDJeMjU1IC0gMTkuICAqLworCisjZGVmaW5lIExJTUJfU0laRV8yNTUxOSAoKDI1NitCSVRT
+X1BFUl9NUElfTElNQi0xKS9CSVRTX1BFUl9NUElfTElNQikKKworc3RhdGljIHZvaWQgZWNfYWRk
+bV8yNTUxOShNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQorewor
+CW1waV9wdHJfdCB3cCwgdXAsIHZwOworCW1waV9zaXplX3Qgd3NpemUgPSBMSU1CX1NJWkVfMjU1
+MTk7CisJbXBpX2xpbWJfdCBuW0xJTUJfU0laRV8yNTUxOV07CisJbXBpX2xpbWJfdCBib3Jyb3c7
+CisKKwlpZiAody0+bmxpbWJzICE9IHdzaXplIHx8IHUtPm5saW1icyAhPSB3c2l6ZSB8fCB2LT5u
+bGltYnMgIT0gd3NpemUpCisJCWxvZ19idWcoImFkZG1fMjU1MTk6IGRpZmZlcmVudCBzaXplc1xu
+Iik7CisKKwltZW1zZXQobiwgMCwgc2l6ZW9mKG4pKTsKKwl1cCA9IHUtPmQ7CisJdnAgPSB2LT5k
+OworCXdwID0gdy0+ZDsKKworCW1waWhlbHBfYWRkX24od3AsIHVwLCB2cCwgd3NpemUpOworCWJv
+cnJvdyA9IG1waWhlbHBfc3ViX24od3AsIHdwLCBjdHgtPnAtPmQsIHdzaXplKTsKKwltcGloX3Nl
+dF9jb25kKG4sIGN0eC0+cC0+ZCwgd3NpemUsIChib3Jyb3cgIT0gMFVMKSk7CisJbXBpaGVscF9h
+ZGRfbih3cCwgd3AsIG4sIHdzaXplKTsKKwl3cFtMSU1CX1NJWkVfMjU1MTktMV0gJj0gfigobXBp
+X2xpbWJfdCkxIDw8ICgyNTUgJSBCSVRTX1BFUl9NUElfTElNQikpOworfQorCitzdGF0aWMgdm9p
+ZCBlY19zdWJtXzI1NTE5KE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0cnVjdCBtcGlfZWNfY3R4ICpj
+dHgpCit7CisJbXBpX3B0cl90IHdwLCB1cCwgdnA7CisJbXBpX3NpemVfdCB3c2l6ZSA9IExJTUJf
+U0laRV8yNTUxOTsKKwltcGlfbGltYl90IG5bTElNQl9TSVpFXzI1NTE5XTsKKwltcGlfbGltYl90
+IGJvcnJvdzsKKworCWlmICh3LT5ubGltYnMgIT0gd3NpemUgfHwgdS0+bmxpbWJzICE9IHdzaXpl
+IHx8IHYtPm5saW1icyAhPSB3c2l6ZSkKKwkJbG9nX2J1Zygic3VibV8yNTUxOTogZGlmZmVyZW50
+IHNpemVzXG4iKTsKKworCW1lbXNldChuLCAwLCBzaXplb2YobikpOworCXVwID0gdS0+ZDsKKwl2
+cCA9IHYtPmQ7CisJd3AgPSB3LT5kOworCisJYm9ycm93ID0gbXBpaGVscF9zdWJfbih3cCwgdXAs
+IHZwLCB3c2l6ZSk7CisJbXBpaF9zZXRfY29uZChuLCBjdHgtPnAtPmQsIHdzaXplLCAoYm9ycm93
+ICE9IDBVTCkpOworCW1waWhlbHBfYWRkX24od3AsIHdwLCBuLCB3c2l6ZSk7CisJd3BbTElNQl9T
+SVpFXzI1NTE5LTFdICY9IH4oKG1waV9saW1iX3QpMSA8PCAoMjU1ICUgQklUU19QRVJfTVBJX0xJ
+TUIpKTsKK30KKworc3RhdGljIHZvaWQgZWNfbXVsbV8yNTUxOShNUEkgdywgTVBJIHUsIE1QSSB2
+LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9wdHJfdCB3cCwgdXAsIHZwOworCW1w
+aV9zaXplX3Qgd3NpemUgPSBMSU1CX1NJWkVfMjU1MTk7CisJbXBpX2xpbWJfdCBuW0xJTUJfU0la
+RV8yNTUxOSoyXTsKKwltcGlfbGltYl90IG1bTElNQl9TSVpFXzI1NTE5KzFdOworCW1waV9saW1i
+X3QgY3k7CisJaW50IG1zYjsKKworCSh2b2lkKWN0eDsKKwlpZiAody0+bmxpbWJzICE9IHdzaXpl
+IHx8IHUtPm5saW1icyAhPSB3c2l6ZSB8fCB2LT5ubGltYnMgIT0gd3NpemUpCisJCWxvZ19idWco
+Im11bG1fMjU1MTk6IGRpZmZlcmVudCBzaXplc1xuIik7CisKKwl1cCA9IHUtPmQ7CisJdnAgPSB2
+LT5kOworCXdwID0gdy0+ZDsKKworCW1waWhlbHBfbXVsX24obiwgdXAsIHZwLCB3c2l6ZSk7CisJ
+bWVtY3B5KHdwLCBuLCB3c2l6ZSAqIEJZVEVTX1BFUl9NUElfTElNQik7CisJd3BbTElNQl9TSVpF
+XzI1NTE5LTFdICY9IH4oKG1waV9saW1iX3QpMSA8PCAoMjU1ICUgQklUU19QRVJfTVBJX0xJTUIp
+KTsKKworCW1lbWNweShtLCBuK0xJTUJfU0laRV8yNTUxOS0xLCAod3NpemUrMSkgKiBCWVRFU19Q
+RVJfTVBJX0xJTUIpOworCW1waWhlbHBfcnNoaWZ0KG0sIG0sIExJTUJfU0laRV8yNTUxOSsxLCAo
+MjU1ICUgQklUU19QRVJfTVBJX0xJTUIpKTsKKworCW1lbWNweShuLCBtLCB3c2l6ZSAqIEJZVEVT
+X1BFUl9NUElfTElNQik7CisJY3kgPSBtcGloZWxwX2xzaGlmdChtLCBtLCBMSU1CX1NJWkVfMjU1
+MTksIDQpOworCW1bTElNQl9TSVpFXzI1NTE5XSA9IGN5OworCWN5ID0gbXBpaGVscF9hZGRfbiht
+LCBtLCBuLCB3c2l6ZSk7CisJbVtMSU1CX1NJWkVfMjU1MTldICs9IGN5OworCWN5ID0gbXBpaGVs
+cF9hZGRfbihtLCBtLCBuLCB3c2l6ZSk7CisJbVtMSU1CX1NJWkVfMjU1MTldICs9IGN5OworCWN5
+ID0gbXBpaGVscF9hZGRfbihtLCBtLCBuLCB3c2l6ZSk7CisJbVtMSU1CX1NJWkVfMjU1MTldICs9
+IGN5OworCisJY3kgPSBtcGloZWxwX2FkZF9uKHdwLCB3cCwgbSwgd3NpemUpOworCW1bTElNQl9T
+SVpFXzI1NTE5XSArPSBjeTsKKworCW1lbXNldChtLCAwLCB3c2l6ZSAqIEJZVEVTX1BFUl9NUElf
+TElNQik7CisJbXNiID0gKHdwW0xJTUJfU0laRV8yNTUxOS0xXSA+PiAoMjU1ICUgQklUU19QRVJf
+TVBJX0xJTUIpKTsKKwltWzBdID0gKG1bTElNQl9TSVpFXzI1NTE5XSAqIDIgKyBtc2IpICogMTk7
+CisJd3BbTElNQl9TSVpFXzI1NTE5LTFdICY9IH4oKG1waV9saW1iX3QpMSA8PCAoMjU1ICUgQklU
+U19QRVJfTVBJX0xJTUIpKTsKKwltcGloZWxwX2FkZF9uKHdwLCB3cCwgbSwgd3NpemUpOworCisJ
+bVswXSA9IDA7CisJY3kgPSBtcGloZWxwX3N1Yl9uKHdwLCB3cCwgY3R4LT5wLT5kLCB3c2l6ZSk7
+CisJbXBpaF9zZXRfY29uZChtLCBjdHgtPnAtPmQsIHdzaXplLCAoY3kgIT0gMFVMKSk7CisJbXBp
+aGVscF9hZGRfbih3cCwgd3AsIG0sIHdzaXplKTsKK30KKworc3RhdGljIHZvaWQgZWNfbXVsMl8y
+NTUxOShNUEkgdywgTVBJIHUsIHN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisJZWNfYWRkbV8y
+NTUxOSh3LCB1LCB1LCBjdHgpOworfQorCitzdGF0aWMgdm9pZCBlY19wb3cyXzI1NTE5KE1QSSB3
+LCBjb25zdCBNUEkgYiwgc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwllY19tdWxtXzI1NTE5
+KHcsIGIsIGIsIGN0eCk7Cit9CisKKy8qIFJvdXRpbmVzIGZvciAyXjQ0OCAtIDJeMjI0IC0gMS4g
+ICovCisKKyNkZWZpbmUgTElNQl9TSVpFXzQ0OCAoKDQ0OCtCSVRTX1BFUl9NUElfTElNQi0xKS9C
+SVRTX1BFUl9NUElfTElNQikKKyNkZWZpbmUgTElNQl9TSVpFX0hBTEZfNDQ4ICgoTElNQl9TSVpF
+XzQ0OCsxKS8yKQorCitzdGF0aWMgdm9pZCBlY19hZGRtXzQ0OChNUEkgdywgTVBJIHUsIE1QSSB2
+LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCW1waV9wdHJfdCB3cCwgdXAsIHZwOworCW1w
+aV9zaXplX3Qgd3NpemUgPSBMSU1CX1NJWkVfNDQ4OworCW1waV9saW1iX3QgbltMSU1CX1NJWkVf
+NDQ4XTsKKwltcGlfbGltYl90IGN5OworCisJaWYgKHctPm5saW1icyAhPSB3c2l6ZSB8fCB1LT5u
+bGltYnMgIT0gd3NpemUgfHwgdi0+bmxpbWJzICE9IHdzaXplKQorCQlsb2dfYnVnKCJhZGRtXzQ0
+ODogZGlmZmVyZW50IHNpemVzXG4iKTsKKworCW1lbXNldChuLCAwLCBzaXplb2YobikpOworCXVw
+ID0gdS0+ZDsKKwl2cCA9IHYtPmQ7CisJd3AgPSB3LT5kOworCisJY3kgPSBtcGloZWxwX2FkZF9u
+KHdwLCB1cCwgdnAsIHdzaXplKTsKKwltcGloX3NldF9jb25kKG4sIGN0eC0+cC0+ZCwgd3NpemUs
+IChjeSAhPSAwVUwpKTsKKwltcGloZWxwX3N1Yl9uKHdwLCB3cCwgbiwgd3NpemUpOworfQorCitz
+dGF0aWMgdm9pZCBlY19zdWJtXzQ0OChNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2Vj
+X2N0eCAqY3R4KQoreworCW1waV9wdHJfdCB3cCwgdXAsIHZwOworCW1waV9zaXplX3Qgd3NpemUg
+PSBMSU1CX1NJWkVfNDQ4OworCW1waV9saW1iX3QgbltMSU1CX1NJWkVfNDQ4XTsKKwltcGlfbGlt
+Yl90IGJvcnJvdzsKKworCWlmICh3LT5ubGltYnMgIT0gd3NpemUgfHwgdS0+bmxpbWJzICE9IHdz
+aXplIHx8IHYtPm5saW1icyAhPSB3c2l6ZSkKKwkJbG9nX2J1Zygic3VibV80NDg6IGRpZmZlcmVu
+dCBzaXplc1xuIik7CisKKwltZW1zZXQobiwgMCwgc2l6ZW9mKG4pKTsKKwl1cCA9IHUtPmQ7CisJ
+dnAgPSB2LT5kOworCXdwID0gdy0+ZDsKKworCWJvcnJvdyA9IG1waWhlbHBfc3ViX24od3AsIHVw
+LCB2cCwgd3NpemUpOworCW1waWhfc2V0X2NvbmQobiwgY3R4LT5wLT5kLCB3c2l6ZSwgKGJvcnJv
+dyAhPSAwVUwpKTsKKwltcGloZWxwX2FkZF9uKHdwLCB3cCwgbiwgd3NpemUpOworfQorCitzdGF0
+aWMgdm9pZCBlY19tdWxtXzQ0OChNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBpX2VjX2N0
+eCAqY3R4KQoreworCW1waV9wdHJfdCB3cCwgdXAsIHZwOworCW1waV9zaXplX3Qgd3NpemUgPSBM
+SU1CX1NJWkVfNDQ4OworCW1waV9saW1iX3QgbltMSU1CX1NJWkVfNDQ4KjJdOworCW1waV9saW1i
+X3QgYTJbTElNQl9TSVpFX0hBTEZfNDQ4XTsKKwltcGlfbGltYl90IGEzW0xJTUJfU0laRV9IQUxG
+XzQ0OF07CisJbXBpX2xpbWJfdCBiMFtMSU1CX1NJWkVfSEFMRl80NDhdOworCW1waV9saW1iX3Qg
+YjFbTElNQl9TSVpFX0hBTEZfNDQ4XTsKKwltcGlfbGltYl90IGN5OworCWludCBpOworI2lmIChM
+SU1CX1NJWkVfSEFMRl80NDggPiBMSU1CX1NJWkVfNDQ4LzIpCisJbXBpX2xpbWJfdCBiMV9yZXN0
+LCBhM19yZXN0OworI2VuZGlmCisKKwlpZiAody0+bmxpbWJzICE9IHdzaXplIHx8IHUtPm5saW1i
+cyAhPSB3c2l6ZSB8fCB2LT5ubGltYnMgIT0gd3NpemUpCisJCWxvZ19idWcoIm11bG1fNDQ4OiBk
+aWZmZXJlbnQgc2l6ZXNcbiIpOworCisJdXAgPSB1LT5kOworCXZwID0gdi0+ZDsKKwl3cCA9IHct
+PmQ7CisKKwltcGloZWxwX211bF9uKG4sIHVwLCB2cCwgd3NpemUpOworCisJZm9yIChpID0gMDsg
+aSA8ICh3c2l6ZSArIDEpIC8gMjsgaSsrKSB7CisJCWIwW2ldID0gbltpXTsKKwkJYjFbaV0gPSBu
+W2krd3NpemUvMl07CisJCWEyW2ldID0gbltpK3dzaXplXTsKKwkJYTNbaV0gPSBuW2krd3NpemUr
+d3NpemUvMl07CisJfQorCisjaWYgKExJTUJfU0laRV9IQUxGXzQ0OCA+IExJTUJfU0laRV80NDgv
+MikKKwliMFtMSU1CX1NJWkVfSEFMRl80NDgtMV0gJj0gKChtcGlfbGltYl90KTFVTCA8PCAzMikt
+MTsKKwlhMltMSU1CX1NJWkVfSEFMRl80NDgtMV0gJj0gKChtcGlfbGltYl90KTFVTCA8PCAzMikt
+MTsKKworCWIxX3Jlc3QgPSAwOworCWEzX3Jlc3QgPSAwOworCisJZm9yIChpID0gKHdzaXplICsg
+MSkgLyAyIC0gMTsgaSA+PSAwOyBpLS0pIHsKKwkJbXBpX2xpbWJfdCBiMXYsIGEzdjsKKwkJYjF2
+ID0gYjFbaV07CisJCWEzdiA9IGEzW2ldOworCQliMVtpXSA9IChiMV9yZXN0IDw8IDMyKSB8IChi
+MXYgPj4gMzIpOworCQlhM1tpXSA9IChhM19yZXN0IDw8IDMyKSB8IChhM3YgPj4gMzIpOworCQli
+MV9yZXN0ID0gYjF2ICYgKCgobXBpX2xpbWJfdCkxVUwgPDwgMzIpLTEpOworCQlhM19yZXN0ID0g
+YTN2ICYgKCgobXBpX2xpbWJfdCkxVUwgPDwgMzIpLTEpOworCX0KKyNlbmRpZgorCisJY3kgPSBt
+cGloZWxwX2FkZF9uKGIwLCBiMCwgYTIsIExJTUJfU0laRV9IQUxGXzQ0OCk7CisJY3kgKz0gbXBp
+aGVscF9hZGRfbihiMCwgYjAsIGEzLCBMSU1CX1NJWkVfSEFMRl80NDgpOworCWZvciAoaSA9IDA7
+IGkgPCAod3NpemUgKyAxKSAvIDI7IGkrKykKKwkJd3BbaV0gPSBiMFtpXTsKKyNpZiAoTElNQl9T
+SVpFX0hBTEZfNDQ4ID4gTElNQl9TSVpFXzQ0OC8yKQorCXdwW0xJTUJfU0laRV9IQUxGXzQ0OC0x
+XSAmPSAoKChtcGlfbGltYl90KTFVTCA8PCAzMiktMSk7CisjZW5kaWYKKworI2lmIChMSU1CX1NJ
+WkVfSEFMRl80NDggPiBMSU1CX1NJWkVfNDQ4LzIpCisJY3kgPSBiMFtMSU1CX1NJWkVfSEFMRl80
+NDgtMV0gPj4gMzI7CisjZW5kaWYKKworCWN5ID0gbXBpaGVscF9hZGRfMShiMSwgYjEsIExJTUJf
+U0laRV9IQUxGXzQ0OCwgY3kpOworCWN5ICs9IG1waWhlbHBfYWRkX24oYjEsIGIxLCBhMiwgTElN
+Ql9TSVpFX0hBTEZfNDQ4KTsKKwljeSArPSBtcGloZWxwX2FkZF9uKGIxLCBiMSwgYTMsIExJTUJf
+U0laRV9IQUxGXzQ0OCk7CisJY3kgKz0gbXBpaGVscF9hZGRfbihiMSwgYjEsIGEzLCBMSU1CX1NJ
+WkVfSEFMRl80NDgpOworI2lmIChMSU1CX1NJWkVfSEFMRl80NDggPiBMSU1CX1NJWkVfNDQ4LzIp
+CisJYjFfcmVzdCA9IDA7CisJZm9yIChpID0gKHdzaXplICsgMSkgLyAyIC0gMTsgaSA+PSAwOyBp
+LS0pIHsKKwkJbXBpX2xpbWJfdCBiMXYgPSBiMVtpXTsKKwkJYjFbaV0gPSAoYjFfcmVzdCA8PCAz
+MikgfCAoYjF2ID4+IDMyKTsKKwkJYjFfcmVzdCA9IGIxdiAmICgoKG1waV9saW1iX3QpMVVMIDw8
+IDMyKS0xKTsKKwl9CisJd3BbTElNQl9TSVpFX0hBTEZfNDQ4LTFdIHw9IChiMV9yZXN0IDw8IDMy
+KTsKKyNlbmRpZgorCWZvciAoaSA9IDA7IGkgPCB3c2l6ZSAvIDI7IGkrKykKKwkJd3BbaSsod3Np
+emUgKyAxKSAvIDJdID0gYjFbaV07CisKKyNpZiAoTElNQl9TSVpFX0hBTEZfNDQ4ID4gTElNQl9T
+SVpFXzQ0OC8yKQorCWN5ID0gYjFbTElNQl9TSVpFX0hBTEZfNDQ4LTFdOworI2VuZGlmCisKKwlt
+ZW1zZXQobiwgMCwgd3NpemUgKiBCWVRFU19QRVJfTVBJX0xJTUIpOworCisjaWYgKExJTUJfU0la
+RV9IQUxGXzQ0OCA+IExJTUJfU0laRV80NDgvMikKKwluW0xJTUJfU0laRV9IQUxGXzQ0OC0xXSA9
+IGN5IDw8IDMyOworI2Vsc2UKKwluW0xJTUJfU0laRV9IQUxGXzQ0OF0gPSBjeTsKKyNlbmRpZgor
+CW5bMF0gPSBjeTsKKwltcGloZWxwX2FkZF9uKHdwLCB3cCwgbiwgd3NpemUpOworCisJbWVtc2V0
+KG4sIDAsIHdzaXplICogQllURVNfUEVSX01QSV9MSU1CKTsKKwljeSA9IG1waWhlbHBfc3ViX24o
+d3AsIHdwLCBjdHgtPnAtPmQsIHdzaXplKTsKKwltcGloX3NldF9jb25kKG4sIGN0eC0+cC0+ZCwg
+d3NpemUsIChjeSAhPSAwVUwpKTsKKwltcGloZWxwX2FkZF9uKHdwLCB3cCwgbiwgd3NpemUpOwor
+fQorCitzdGF0aWMgdm9pZCBlY19tdWwyXzQ0OChNUEkgdywgTVBJIHUsIHN0cnVjdCBtcGlfZWNf
+Y3R4ICpjdHgpCit7CisJZWNfYWRkbV80NDgodywgdSwgdSwgY3R4KTsKK30KKworc3RhdGljIHZv
+aWQgZWNfcG93Ml80NDgoTVBJIHcsIGNvbnN0IE1QSSBiLCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4
+KQoreworCWVjX211bG1fNDQ4KHcsIGIsIGIsIGN0eCk7Cit9CisKK3N0cnVjdCBmaWVsZF90YWJs
+ZSB7CisJY29uc3QgY2hhciAqcDsKKworCS8qIGNvbXB1dGF0aW9uIHJvdXRpbmVzIGZvciB0aGUg
+ZmllbGQuICAqLworCXZvaWQgKCphZGRtKShNUEkgdywgTVBJIHUsIE1QSSB2LCBzdHJ1Y3QgbXBp
+X2VjX2N0eCAqY3R4KTsKKwl2b2lkICgqc3VibSkoTVBJIHcsIE1QSSB1LCBNUEkgdiwgc3RydWN0
+IG1waV9lY19jdHggKmN0eCk7CisJdm9pZCAoKm11bG0pKE1QSSB3LCBNUEkgdSwgTVBJIHYsIHN0
+cnVjdCBtcGlfZWNfY3R4ICpjdHgpOworCXZvaWQgKCptdWwyKShNUEkgdywgTVBJIHUsIHN0cnVj
+dCBtcGlfZWNfY3R4ICpjdHgpOworCXZvaWQgKCpwb3cyKShNUEkgdywgY29uc3QgTVBJIGIsIHN0
+cnVjdCBtcGlfZWNfY3R4ICpjdHgpOworfTsKKworc3RhdGljIGNvbnN0IHN0cnVjdCBmaWVsZF90
+YWJsZSBmaWVsZF90YWJsZVtdID0geworCXsKKwkJIjB4N0ZGRkZGRkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZFRCIsCisJCWVjX2FkZG1fMjU1
+MTksCisJCWVjX3N1Ym1fMjU1MTksCisJCWVjX211bG1fMjU1MTksCisJCWVjX211bDJfMjU1MTks
+CisJCWVjX3BvdzJfMjU1MTkKKwl9LAorCXsKKwkJIjB4RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkUiCisJCSJGRkZGRkZGRkZGRkZGRkZGRkZG
+RkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRiIsCisJCWVjX2FkZG1fNDQ4LAor
+CQllY19zdWJtXzQ0OCwKKwkJZWNfbXVsbV80NDgsCisJCWVjX211bDJfNDQ4LAorCQllY19wb3cy
+XzQ0OAorCX0sCisJeyBOVUxMLCBOVUxMLCBOVUxMLCBOVUxMLCBOVUxMLCBOVUxMIH0sCit9Owor
+CisvKiBGb3JjZSByZWNvbXB1dGF0aW9uIG9mIGFsbCBoZWxwZXIgdmFyaWFibGVzLiAgKi8KK3N0
+YXRpYyB2b2lkIG1waV9lY19nZXRfcmVzZXQoc3RydWN0IG1waV9lY19jdHggKmVjKQoreworCWVj
+LT50LnZhbGlkLmFfaXNfcG1pbnVzMyA9IDA7CisJZWMtPnQudmFsaWQudHdvX2ludl9wID0gMDsK
+K30KKworLyogQWNjZXNzb3IgZm9yIGhlbHBlciB2YXJpYWJsZS4gICovCitzdGF0aWMgaW50IGVj
+X2dldF9hX2lzX3BtaW51czMoc3RydWN0IG1waV9lY19jdHggKmVjKQoreworCU1QSSB0bXA7CisK
+KwlpZiAoIWVjLT50LnZhbGlkLmFfaXNfcG1pbnVzMykgeworCQllYy0+dC52YWxpZC5hX2lzX3Bt
+aW51czMgPSAxOworCQl0bXAgPSBtcGlfYWxsb2NfbGlrZShlYy0+cCk7CisJCW1waV9zdWJfdWko
+dG1wLCBlYy0+cCwgMyk7CisJCWVjLT50LmFfaXNfcG1pbnVzMyA9ICFtcGlfY21wKGVjLT5hLCB0
+bXApOworCQltcGlfZnJlZSh0bXApOworCX0KKworCXJldHVybiBlYy0+dC5hX2lzX3BtaW51czM7
+Cit9CisKKy8qIEFjY2Vzc29yIGZvciBoZWxwZXIgdmFyaWFibGUuICAqLworc3RhdGljIE1QSSBl
+Y19nZXRfdHdvX2ludl9wKHN0cnVjdCBtcGlfZWNfY3R4ICplYykKK3sKKwlpZiAoIWVjLT50LnZh
+bGlkLnR3b19pbnZfcCkgeworCQllYy0+dC52YWxpZC50d29faW52X3AgPSAxOworCQlpZiAoIWVj
+LT50LnR3b19pbnZfcCkKKwkJCWVjLT50LnR3b19pbnZfcCA9IG1waV9hbGxvYygwKTsKKwkJZWNf
+aW52bShlYy0+dC50d29faW52X3AsIG1waV9jb25zdChNUElfQ19UV08pLCBlYyk7CisJfQorCXJl
+dHVybiBlYy0+dC50d29faW52X3A7Cit9CisKK3N0YXRpYyBjb25zdCBjaGFyICpjb25zdCBjdXJ2
+ZTI1NTE5X2JhZF9wb2ludHNbXSA9IHsKKwkiMHg3ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmVkIiwKKwkiMHgwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwKKwki
+MHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAxIiwKKwkiMHgwMGI4NDk1ZjE2MDU2Mjg2ZmRiMTMyOWNlYjhkMDlkYTZhYzQ5ZmYx
+ZmFlMzU2MTZhZWI4NDEzYjdjN2FlYmUwIiwKKwkiMHg1NzExOWZkMGRkNGUyMmQ4ODY4ZTFjNThj
+NDVjNDQwNDViZWY4MzljNTViMWQwYjEyNDhjNTBhM2JjOTU5YzVmIiwKKwkiMHg3ZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmVjIiwK
+KwkiMHg3ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmVlIiwKKwlOVUxMCit9OworCitzdGF0aWMgY29uc3QgY2hhciAqY29uc3QgY3Vy
+dmU0NDhfYmFkX3BvaW50c1tdID0geworCSIweGZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZlIgorCSJmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZiIsCisJIjB4MDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAiCisJIjAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwKKwkiMHgwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIKKwkiMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEiLAor
+CSIweGZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZlIgorCSJmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZSIsCisJIjB4ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm
+ZmZmZmZmZmZmZmZmZmYiCisJIjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwIiwKKwlOVUxMCit9OworCitzdGF0aWMgY29uc3QgY2hhciAqY29u
+c3QgKmJhZF9wb2ludHNfdGFibGVbXSA9IHsKKwljdXJ2ZTI1NTE5X2JhZF9wb2ludHMsCisJY3Vy
+dmU0NDhfYmFkX3BvaW50cywKK307CisKK3N0YXRpYyB2b2lkIG1waV9lY19jb2VmZmljaWVudF9u
+b3JtYWxpemUoTVBJIGEsIE1QSSBwKQoreworCWlmIChhLT5zaWduKSB7CisJCW1waV9yZXNpemUo
+YSwgcC0+bmxpbWJzKTsKKwkJbXBpaGVscF9zdWJfbihhLT5kLCBwLT5kLCBhLT5kLCBwLT5ubGlt
+YnMpOworCQlhLT5ubGltYnMgPSBwLT5ubGltYnM7CisJCWEtPnNpZ24gPSAwOworCX0KK30KKwor
+LyogVGhpcyBmdW5jdGlvbiBpbml0aWFsaXplZCBhIGNvbnRleHQgZm9yIGVsbGlwdGljIGN1cnZl
+IGJhc2VkIG9uIHRoZQorICogZmllbGQgR0YocCkuICBQIGlzIHRoZSBwcmltZSBzcGVjaWZ5aW5n
+IHRoaXMgZmllbGQsIEEgaXMgdGhlIGZpcnN0CisgKiBjb2VmZmljaWVudC4gIENUWCBpcyBleHBl
+Y3RlZCB0byBiZSB6ZXJvaXplZC4KKyAqLwordm9pZCBtcGlfZWNfaW5pdChzdHJ1Y3QgbXBpX2Vj
+X2N0eCAqY3R4LCBlbnVtIGdjcnlfbXBpX2VjX21vZGVscyBtb2RlbCwKKwkJCWVudW0gZWNjX2Rp
+YWxlY3RzIGRpYWxlY3QsCisJCQlpbnQgZmxhZ3MsIE1QSSBwLCBNUEkgYSwgTVBJIGIpCit7CisJ
+aW50IGk7CisJc3RhdGljIGludCB1c2VfYmFycmV0dCA9IC0xIC8qIFRPRE86IDEgb3IgLTEgKi87
+CisKKwltcGlfZWNfY29lZmZpY2llbnRfbm9ybWFsaXplKGEsIHApOworCW1waV9lY19jb2VmZmlj
+aWVudF9ub3JtYWxpemUoYiwgcCk7CisKKwkvKiBGaXhtZTogRG8gd2Ugd2FudCB0byBjaGVjayBz
+b21lIGNvbnN0cmFpbnRzPyBlLmcuICBhIDwgcCAgKi8KKworCWN0eC0+bW9kZWwgPSBtb2RlbDsK
+KwljdHgtPmRpYWxlY3QgPSBkaWFsZWN0OworCWN0eC0+ZmxhZ3MgPSBmbGFnczsKKwlpZiAoZGlh
+bGVjdCA9PSBFQ0NfRElBTEVDVF9FRDI1NTE5KQorCQljdHgtPm5iaXRzID0gMjU2OworCWVsc2UK
+KwkJY3R4LT5uYml0cyA9IG1waV9nZXRfbmJpdHMocCk7CisJY3R4LT5wID0gbXBpX2NvcHkocCk7
+CisJY3R4LT5hID0gbXBpX2NvcHkoYSk7CisJY3R4LT5iID0gbXBpX2NvcHkoYik7CisKKwljdHgt
+PmQgPSBOVUxMOworCWN0eC0+dC50d29faW52X3AgPSBOVUxMOworCisJY3R4LT50LnBfYmFycmV0
+dCA9IHVzZV9iYXJyZXR0ID4gMCA/IG1waV9iYXJyZXR0X2luaXQoY3R4LT5wLCAwKSA6IE5VTEw7
+CisKKwltcGlfZWNfZ2V0X3Jlc2V0KGN0eCk7CisKKwlpZiAobW9kZWwgPT0gTVBJX0VDX01PTlRH
+T01FUlkpIHsKKwkJZm9yIChpID0gMDsgaSA8IERJTShiYWRfcG9pbnRzX3RhYmxlKTsgaSsrKSB7
+CisJCQlNUEkgcF9jYW5kaWRhdGUgPSBtcGlfc2NhbnZhbChiYWRfcG9pbnRzX3RhYmxlW2ldWzBd
+KTsKKwkJCWludCBtYXRjaF9wID0gIW1waV9jbXAoY3R4LT5wLCBwX2NhbmRpZGF0ZSk7CisJCQlp
+bnQgajsKKworCQkJbXBpX2ZyZWUocF9jYW5kaWRhdGUpOworCQkJaWYgKCFtYXRjaF9wKQorCQkJ
+CWNvbnRpbnVlOworCisJCQlmb3IgKGogPSAwOyBpIDwgRElNKGN0eC0+dC5zY3JhdGNoKSAmJiBi
+YWRfcG9pbnRzX3RhYmxlW2ldW2pdOyBqKyspCisJCQkJY3R4LT50LnNjcmF0Y2hbal0gPSBtcGlf
+c2NhbnZhbChiYWRfcG9pbnRzX3RhYmxlW2ldW2pdKTsKKwkJfQorCX0gZWxzZSB7CisJCS8qIEFs
+bG9jYXRlIHNjcmF0Y2ggdmFyaWFibGVzLiAgKi8KKwkJZm9yIChpID0gMDsgaSA8IERJTShjdHgt
+PnQuc2NyYXRjaCk7IGkrKykKKwkJCWN0eC0+dC5zY3JhdGNoW2ldID0gbXBpX2FsbG9jX2xpa2Uo
+Y3R4LT5wKTsKKwl9CisKKwljdHgtPmFkZG0gPSBlY19hZGRtOworCWN0eC0+c3VibSA9IGVjX3N1
+Ym07CisJY3R4LT5tdWxtID0gZWNfbXVsbTsKKwljdHgtPm11bDIgPSBlY19tdWwyOworCWN0eC0+
+cG93MiA9IGVjX3BvdzI7CisKKwlmb3IgKGkgPSAwOyBmaWVsZF90YWJsZVtpXS5wOyBpKyspIHsK
+KwkJTVBJIGZfcDsKKworCQlmX3AgPSBtcGlfc2NhbnZhbChmaWVsZF90YWJsZVtpXS5wKTsKKwkJ
+aWYgKCFmX3ApCisJCQlicmVhazsKKworCQlpZiAoIW1waV9jbXAocCwgZl9wKSkgeworCQkJY3R4
+LT5hZGRtID0gZmllbGRfdGFibGVbaV0uYWRkbTsKKwkJCWN0eC0+c3VibSA9IGZpZWxkX3RhYmxl
+W2ldLnN1Ym07CisJCQljdHgtPm11bG0gPSBmaWVsZF90YWJsZVtpXS5tdWxtOworCQkJY3R4LT5t
+dWwyID0gZmllbGRfdGFibGVbaV0ubXVsMjsKKwkJCWN0eC0+cG93MiA9IGZpZWxkX3RhYmxlW2ld
+LnBvdzI7CisJCQltcGlfZnJlZShmX3ApOworCisJCQltcGlfcmVzaXplKGN0eC0+YSwgY3R4LT5w
+LT5ubGltYnMpOworCQkJY3R4LT5hLT5ubGltYnMgPSBjdHgtPnAtPm5saW1iczsKKworCQkJbXBp
+X3Jlc2l6ZShjdHgtPmIsIGN0eC0+cC0+bmxpbWJzKTsKKwkJCWN0eC0+Yi0+bmxpbWJzID0gY3R4
+LT5wLT5ubGltYnM7CisKKwkJCWZvciAoaSA9IDA7IGkgPCBESU0oY3R4LT50LnNjcmF0Y2gpICYm
+IGN0eC0+dC5zY3JhdGNoW2ldOyBpKyspCisJCQkJY3R4LT50LnNjcmF0Y2hbaV0tPm5saW1icyA9
+IGN0eC0+cC0+bmxpbWJzOworCisJCQlicmVhazsKKwkJfQorCisJCW1waV9mcmVlKGZfcCk7CisJ
+fQorfQorRVhQT1JUX1NZTUJPTF9HUEwobXBpX2VjX2luaXQpOworCit2b2lkIG1waV9lY19kZWlu
+aXQoc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwlpbnQgaTsKKworCW1waV9iYXJyZXR0X2Zy
+ZWUoY3R4LT50LnBfYmFycmV0dCk7CisKKwkvKiBEb21haW4gcGFyYW1ldGVyLiAgKi8KKwltcGlf
+ZnJlZShjdHgtPnApOworCW1waV9mcmVlKGN0eC0+YSk7CisJbXBpX2ZyZWUoY3R4LT5iKTsKKwlt
+cGlfcG9pbnRfcmVsZWFzZShjdHgtPkcpOworCW1waV9mcmVlKGN0eC0+bik7CisKKwkvKiBUaGUg
+a2V5LiAgKi8KKwltcGlfcG9pbnRfcmVsZWFzZShjdHgtPlEpOworCW1waV9mcmVlKGN0eC0+ZCk7
+CisKKwkvKiBQcml2YXRlIGRhdGEgb2YgZWMuYy4gICovCisJbXBpX2ZyZWUoY3R4LT50LnR3b19p
+bnZfcCk7CisKKwlmb3IgKGkgPSAwOyBpIDwgRElNKGN0eC0+dC5zY3JhdGNoKTsgaSsrKQorCQlt
+cGlfZnJlZShjdHgtPnQuc2NyYXRjaFtpXSk7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChtcGlfZWNf
+ZGVpbml0KTsKKworLyogQ29tcHV0ZSB0aGUgYWZmaW5lIGNvb3JkaW5hdGVzIGZyb20gdGhlIHBy
+b2plY3RpdmUgY29vcmRpbmF0ZXMgaW4KKyAqIFBPSU5ULiAgU2V0IHRoZW0gaW50byBYIGFuZCBZ
+LiAgSWYgb25lIGNvb3JkaW5hdGUgaXMgbm90IHJlcXVpcmVkLAorICogWCBvciBZIG1heSBiZSBw
+YXNzZWQgYXMgTlVMTC4gIENUWCBpcyB0aGUgdXN1YWwgY29udGV4dC4gUmV0dXJuczogMAorICog
+b24gc3VjY2VzcyBvciAhMCBpZiBQT0lOVCBpcyBhdCBpbmZpbml0eS4KKyAqLworaW50IG1waV9l
+Y19nZXRfYWZmaW5lKE1QSSB4LCBNUEkgeSwgTVBJX1BPSU5UIHBvaW50LCBzdHJ1Y3QgbXBpX2Vj
+X2N0eCAqY3R4KQoreworCWlmICghbXBpX2NtcF91aShwb2ludC0+eiwgMCkpCisJCXJldHVybiAt
+MTsKKworCXN3aXRjaCAoY3R4LT5tb2RlbCkgeworCWNhc2UgTVBJX0VDX1dFSUVSU1RSQVNTOiAv
+KiBVc2luZyBKYWNvYmlhbiBjb29yZGluYXRlcy4gICovCisJCXsKKwkJCU1QSSB6MSwgejIsIHoz
+OworCisJCQl6MSA9IG1waV9uZXcoMCk7CisJCQl6MiA9IG1waV9uZXcoMCk7CisJCQllY19pbnZt
+KHoxLCBwb2ludC0+eiwgY3R4KTsgIC8qIHoxID0gel4oLTEpIG1vZCBwICAqLworCQkJZWNfbXVs
+bSh6MiwgejEsIHoxLCBjdHgpOyAgICAvKiB6MiA9IHpeKC0yKSBtb2QgcCAgKi8KKworCQkJaWYg
+KHgpCisJCQkJZWNfbXVsbSh4LCBwb2ludC0+eCwgejIsIGN0eCk7CisKKwkJCWlmICh5KSB7CisJ
+CQkJejMgPSBtcGlfbmV3KDApOworCQkJCWVjX211bG0oejMsIHoyLCB6MSwgY3R4KTsgICAgICAv
+KiB6MyA9IHpeKC0zKSBtb2QgcCAqLworCQkJCWVjX211bG0oeSwgcG9pbnQtPnksIHozLCBjdHgp
+OworCQkJCW1waV9mcmVlKHozKTsKKwkJCX0KKworCQkJbXBpX2ZyZWUoejIpOworCQkJbXBpX2Zy
+ZWUoejEpOworCQl9CisJCXJldHVybiAwOworCisJY2FzZSBNUElfRUNfTU9OVEdPTUVSWToKKwkJ
+eworCQkJaWYgKHgpCisJCQkJbXBpX3NldCh4LCBwb2ludC0+eCk7CisKKwkJCWlmICh5KSB7CisJ
+CQkJbG9nX2ZhdGFsKCIlczogR2V0dGluZyBZLWNvb3JkaW5hdGUgb24gJXMgaXMgbm90IHN1cHBv
+cnRlZFxuIiwKKwkJCQkJCSJtcGlfZWNfZ2V0X2FmZmluZSIsICJNb250Z29tZXJ5Iik7CisJCQkJ
+cmV0dXJuIC0xOworCQkJfQorCQl9CisJCXJldHVybiAwOworCisJY2FzZSBNUElfRUNfRURXQVJE
+UzoKKwkJeworCQkJTVBJIHo7CisKKwkJCXogPSBtcGlfbmV3KDApOworCQkJZWNfaW52bSh6LCBw
+b2ludC0+eiwgY3R4KTsKKworCQkJbXBpX3Jlc2l6ZSh6LCBjdHgtPnAtPm5saW1icyk7CisJCQl6
+LT5ubGltYnMgPSBjdHgtPnAtPm5saW1iczsKKworCQkJaWYgKHgpIHsKKwkJCQltcGlfcmVzaXpl
+KHgsIGN0eC0+cC0+bmxpbWJzKTsKKwkJCQl4LT5ubGltYnMgPSBjdHgtPnAtPm5saW1iczsKKwkJ
+CQljdHgtPm11bG0oeCwgcG9pbnQtPngsIHosIGN0eCk7CisJCQl9CisJCQlpZiAoeSkgeworCQkJ
+CW1waV9yZXNpemUoeSwgY3R4LT5wLT5ubGltYnMpOworCQkJCXktPm5saW1icyA9IGN0eC0+cC0+
+bmxpbWJzOworCQkJCWN0eC0+bXVsbSh5LCBwb2ludC0+eSwgeiwgY3R4KTsKKwkJCX0KKworCQkJ
+bXBpX2ZyZWUoeik7CisJCX0KKwkJcmV0dXJuIDA7CisKKwlkZWZhdWx0OgorCQlyZXR1cm4gLTE7
+CisJfQorfQorRVhQT1JUX1NZTUJPTF9HUEwobXBpX2VjX2dldF9hZmZpbmUpOworCisvKiAgUkVT
+VUxUID0gMiAqIFBPSU5UICAoV2VpZXJzdHJhc3MgdmVyc2lvbikuICovCitzdGF0aWMgdm9pZCBk
+dXBfcG9pbnRfd2VpZXJzdHJhc3MoTVBJX1BPSU5UIHJlc3VsdCwKKwkJTVBJX1BPSU5UIHBvaW50
+LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworI2RlZmluZSB4MyAocmVzdWx0LT54KQorI2Rl
+ZmluZSB5MyAocmVzdWx0LT55KQorI2RlZmluZSB6MyAocmVzdWx0LT56KQorI2RlZmluZSB0MSAo
+Y3R4LT50LnNjcmF0Y2hbMF0pCisjZGVmaW5lIHQyIChjdHgtPnQuc2NyYXRjaFsxXSkKKyNkZWZp
+bmUgdDMgKGN0eC0+dC5zY3JhdGNoWzJdKQorI2RlZmluZSBsMSAoY3R4LT50LnNjcmF0Y2hbM10p
+CisjZGVmaW5lIGwyIChjdHgtPnQuc2NyYXRjaFs0XSkKKyNkZWZpbmUgbDMgKGN0eC0+dC5zY3Jh
+dGNoWzVdKQorCisJaWYgKCFtcGlfY21wX3VpKHBvaW50LT55LCAwKSB8fCAhbXBpX2NtcF91aShw
+b2ludC0+eiwgMCkpIHsKKwkJLyogUF95ID09IDAgfHwgUF96ID09IDAgPT4gWzE6MTowXSAqLwor
+CQltcGlfc2V0X3VpKHgzLCAxKTsKKwkJbXBpX3NldF91aSh5MywgMSk7CisJCW1waV9zZXRfdWko
+ejMsIDApOworCX0gZWxzZSB7CisJCWlmIChlY19nZXRfYV9pc19wbWludXMzKGN0eCkpIHsKKwkJ
+CS8qIFVzZSB0aGUgZmFzdGVyIGNhc2UuICAqLworCQkJLyogTDEgPSAzKFggLSBaXjIpKFggKyBa
+XjIpICovCisJCQkvKiAgICAgICAgICAgICAgICAgICAgICAgICAgVDE6IHVzZWQgZm9yIFpeMi4g
+Ki8KKwkJCS8qICAgICAgICAgICAgICAgICAgICAgICAgICBUMjogdXNlZCBmb3IgdGhlIHJpZ2h0
+IHRlcm0uICovCisJCQllY19wb3cyKHQxLCBwb2ludC0+eiwgY3R4KTsKKwkJCWVjX3N1Ym0obDEs
+IHBvaW50LT54LCB0MSwgY3R4KTsKKwkJCWVjX211bG0obDEsIGwxLCBtcGlfY29uc3QoTVBJX0Nf
+VEhSRUUpLCBjdHgpOworCQkJZWNfYWRkbSh0MiwgcG9pbnQtPngsIHQxLCBjdHgpOworCQkJZWNf
+bXVsbShsMSwgbDEsIHQyLCBjdHgpOworCQl9IGVsc2UgeworCQkJLyogU3RhbmRhcmQgY2FzZS4g
+Ki8KKwkJCS8qIEwxID0gM1heMiArIGFaXjQgKi8KKwkJCS8qICAgICAgICAgICAgICAgICAgICAg
+ICAgICBUMTogdXNlZCBmb3IgYVpeNC4gKi8KKwkJCWVjX3BvdzIobDEsIHBvaW50LT54LCBjdHgp
+OworCQkJZWNfbXVsbShsMSwgbDEsIG1waV9jb25zdChNUElfQ19USFJFRSksIGN0eCk7CisJCQll
+Y19wb3dtKHQxLCBwb2ludC0+eiwgbXBpX2NvbnN0KE1QSV9DX0ZPVVIpLCBjdHgpOworCQkJZWNf
+bXVsbSh0MSwgdDEsIGN0eC0+YSwgY3R4KTsKKwkJCWVjX2FkZG0obDEsIGwxLCB0MSwgY3R4KTsK
+KwkJfQorCQkvKiBaMyA9IDJZWiAqLworCQllY19tdWxtKHozLCBwb2ludC0+eSwgcG9pbnQtPnos
+IGN0eCk7CisJCWVjX211bDIoejMsIHozLCBjdHgpOworCisJCS8qIEwyID0gNFhZXjIgKi8KKwkJ
+LyogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUMjogdXNlZCBmb3IgWTI7IHJlcXVpcmVk
+IGxhdGVyLiAqLworCQllY19wb3cyKHQyLCBwb2ludC0+eSwgY3R4KTsKKwkJZWNfbXVsbShsMiwg
+dDIsIHBvaW50LT54LCBjdHgpOworCQllY19tdWxtKGwyLCBsMiwgbXBpX2NvbnN0KE1QSV9DX0ZP
+VVIpLCBjdHgpOworCisJCS8qIFgzID0gTDFeMiAtIDJMMiAqLworCQkvKiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFQxOiB1c2VkIGZvciBMMl4yLiAqLworCQllY19wb3cyKHgzLCBsMSwg
+Y3R4KTsKKwkJZWNfbXVsMih0MSwgbDIsIGN0eCk7CisJCWVjX3N1Ym0oeDMsIHgzLCB0MSwgY3R4
+KTsKKworCQkvKiBMMyA9IDhZXjQgKi8KKwkJLyogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBUMjogdGFrZW4gZnJvbSBhYm92ZS4gKi8KKwkJZWNfcG93Mih0MiwgdDIsIGN0eCk7CisJCWVj
+X211bG0obDMsIHQyLCBtcGlfY29uc3QoTVBJX0NfRUlHSFQpLCBjdHgpOworCisJCS8qIFkzID0g
+TDEoTDIgLSBYMykgLSBMMyAqLworCQllY19zdWJtKHkzLCBsMiwgeDMsIGN0eCk7CisJCWVjX211
+bG0oeTMsIHkzLCBsMSwgY3R4KTsKKwkJZWNfc3VibSh5MywgeTMsIGwzLCBjdHgpOworCX0KKwor
+I3VuZGVmIHgzCisjdW5kZWYgeTMKKyN1bmRlZiB6MworI3VuZGVmIHQxCisjdW5kZWYgdDIKKyN1
+bmRlZiB0MworI3VuZGVmIGwxCisjdW5kZWYgbDIKKyN1bmRlZiBsMworfQorCisvKiAgUkVTVUxU
+ID0gMiAqIFBPSU5UICAoTW9udGdvbWVyeSB2ZXJzaW9uKS4gKi8KK3N0YXRpYyB2b2lkIGR1cF9w
+b2ludF9tb250Z29tZXJ5KE1QSV9QT0lOVCByZXN1bHQsCisJCQkJTVBJX1BPSU5UIHBvaW50LCBz
+dHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCSh2b2lkKXJlc3VsdDsKKwkodm9pZClwb2ludDsK
+Kwkodm9pZCljdHg7CisJbG9nX2ZhdGFsKCIlczogJXMgbm90IHlldCBzdXBwb3J0ZWRcbiIsCisJ
+CQkibXBpX2VjX2R1cF9wb2ludCIsICJNb250Z29tZXJ5Iik7Cit9CisKKy8qICBSRVNVTFQgPSAy
+ICogUE9JTlQgIChUd2lzdGVkIEVkd2FyZHMgdmVyc2lvbikuICovCitzdGF0aWMgdm9pZCBkdXBf
+cG9pbnRfZWR3YXJkcyhNUElfUE9JTlQgcmVzdWx0LAorCQlNUElfUE9JTlQgcG9pbnQsIHN0cnVj
+dCBtcGlfZWNfY3R4ICpjdHgpCit7CisjZGVmaW5lIFgxIChwb2ludC0+eCkKKyNkZWZpbmUgWTEg
+KHBvaW50LT55KQorI2RlZmluZSBaMSAocG9pbnQtPnopCisjZGVmaW5lIFgzIChyZXN1bHQtPngp
+CisjZGVmaW5lIFkzIChyZXN1bHQtPnkpCisjZGVmaW5lIFozIChyZXN1bHQtPnopCisjZGVmaW5l
+IEIgKGN0eC0+dC5zY3JhdGNoWzBdKQorI2RlZmluZSBDIChjdHgtPnQuc2NyYXRjaFsxXSkKKyNk
+ZWZpbmUgRCAoY3R4LT50LnNjcmF0Y2hbMl0pCisjZGVmaW5lIEUgKGN0eC0+dC5zY3JhdGNoWzNd
+KQorI2RlZmluZSBGIChjdHgtPnQuc2NyYXRjaFs0XSkKKyNkZWZpbmUgSCAoY3R4LT50LnNjcmF0
+Y2hbNV0pCisjZGVmaW5lIEogKGN0eC0+dC5zY3JhdGNoWzZdKQorCisJLyogQ29tcHV0ZTogKFhf
+MyA6IFlfMyA6IFpfMykgPSAyKCBYXzEgOiBZXzEgOiBaXzEgKSAqLworCisJLyogQiA9IChYXzEg
+KyBZXzEpXjIgICovCisJY3R4LT5hZGRtKEIsIFgxLCBZMSwgY3R4KTsKKwljdHgtPnBvdzIoQiwg
+QiwgY3R4KTsKKworCS8qIEMgPSBYXzFeMiAqLworCS8qIEQgPSBZXzFeMiAqLworCWN0eC0+cG93
+MihDLCBYMSwgY3R4KTsKKwljdHgtPnBvdzIoRCwgWTEsIGN0eCk7CisKKwkvKiBFID0gYUMgKi8K
+KwlpZiAoY3R4LT5kaWFsZWN0ID09IEVDQ19ESUFMRUNUX0VEMjU1MTkpCisJCWN0eC0+c3VibShF
+LCBjdHgtPnAsIEMsIGN0eCk7CisJZWxzZQorCQljdHgtPm11bG0oRSwgY3R4LT5hLCBDLCBjdHgp
+OworCisJLyogRiA9IEUgKyBEICovCisJY3R4LT5hZGRtKEYsIEUsIEQsIGN0eCk7CisKKwkvKiBI
+ID0gWl8xXjIgKi8KKwljdHgtPnBvdzIoSCwgWjEsIGN0eCk7CisKKwkvKiBKID0gRiAtIDJIICov
+CisJY3R4LT5tdWwyKEosIEgsIGN0eCk7CisJY3R4LT5zdWJtKEosIEYsIEosIGN0eCk7CisKKwkv
+KiBYXzMgPSAoQiAtIEMgLSBEKSDCtyBKICovCisJY3R4LT5zdWJtKFgzLCBCLCBDLCBjdHgpOwor
+CWN0eC0+c3VibShYMywgWDMsIEQsIGN0eCk7CisJY3R4LT5tdWxtKFgzLCBYMywgSiwgY3R4KTsK
+KworCS8qIFlfMyA9IEYgwrcgKEUgLSBEKSAqLworCWN0eC0+c3VibShZMywgRSwgRCwgY3R4KTsK
+KwljdHgtPm11bG0oWTMsIFkzLCBGLCBjdHgpOworCisJLyogWl8zID0gRiDCtyBKICovCisJY3R4
+LT5tdWxtKFozLCBGLCBKLCBjdHgpOworCisjdW5kZWYgWDEKKyN1bmRlZiBZMQorI3VuZGVmIFox
+CisjdW5kZWYgWDMKKyN1bmRlZiBZMworI3VuZGVmIFozCisjdW5kZWYgQgorI3VuZGVmIEMKKyN1
+bmRlZiBECisjdW5kZWYgRQorI3VuZGVmIEYKKyN1bmRlZiBICisjdW5kZWYgSgorfQorCisvKiAg
+UkVTVUxUID0gMiAqIFBPSU5UICAqLworc3RhdGljIHZvaWQKK21waV9lY19kdXBfcG9pbnQoTVBJ
+X1BPSU5UIHJlc3VsdCwgTVBJX1BPSU5UIHBvaW50LCBzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQor
+eworCXN3aXRjaCAoY3R4LT5tb2RlbCkgeworCWNhc2UgTVBJX0VDX1dFSUVSU1RSQVNTOgorCQlk
+dXBfcG9pbnRfd2VpZXJzdHJhc3MocmVzdWx0LCBwb2ludCwgY3R4KTsKKwkJYnJlYWs7CisJY2Fz
+ZSBNUElfRUNfTU9OVEdPTUVSWToKKwkJZHVwX3BvaW50X21vbnRnb21lcnkocmVzdWx0LCBwb2lu
+dCwgY3R4KTsKKwkJYnJlYWs7CisJY2FzZSBNUElfRUNfRURXQVJEUzoKKwkJZHVwX3BvaW50X2Vk
+d2FyZHMocmVzdWx0LCBwb2ludCwgY3R4KTsKKwkJYnJlYWs7CisJfQorfQorCisvKiBSRVNVTFQg
+PSBQMSArIFAyICAoV2VpZXJzdHJhc3MgdmVyc2lvbikuKi8KK3N0YXRpYyB2b2lkIGFkZF9wb2lu
+dHNfd2VpZXJzdHJhc3MoTVBJX1BPSU5UIHJlc3VsdCwKKwkJTVBJX1BPSU5UIHAxLCBNUElfUE9J
+TlQgcDIsCisJCXN0cnVjdCBtcGlfZWNfY3R4ICpjdHgpCit7CisjZGVmaW5lIHgxIChwMS0+eCkK
+KyNkZWZpbmUgeTEgKHAxLT55KQorI2RlZmluZSB6MSAocDEtPnopCisjZGVmaW5lIHgyIChwMi0+
+eCkKKyNkZWZpbmUgeTIgKHAyLT55KQorI2RlZmluZSB6MiAocDItPnopCisjZGVmaW5lIHgzIChy
+ZXN1bHQtPngpCisjZGVmaW5lIHkzIChyZXN1bHQtPnkpCisjZGVmaW5lIHozIChyZXN1bHQtPnop
+CisjZGVmaW5lIGwxIChjdHgtPnQuc2NyYXRjaFswXSkKKyNkZWZpbmUgbDIgKGN0eC0+dC5zY3Jh
+dGNoWzFdKQorI2RlZmluZSBsMyAoY3R4LT50LnNjcmF0Y2hbMl0pCisjZGVmaW5lIGw0IChjdHgt
+PnQuc2NyYXRjaFszXSkKKyNkZWZpbmUgbDUgKGN0eC0+dC5zY3JhdGNoWzRdKQorI2RlZmluZSBs
+NiAoY3R4LT50LnNjcmF0Y2hbNV0pCisjZGVmaW5lIGw3IChjdHgtPnQuc2NyYXRjaFs2XSkKKyNk
+ZWZpbmUgbDggKGN0eC0+dC5zY3JhdGNoWzddKQorI2RlZmluZSBsOSAoY3R4LT50LnNjcmF0Y2hb
+OF0pCisjZGVmaW5lIHQxIChjdHgtPnQuc2NyYXRjaFs5XSkKKyNkZWZpbmUgdDIgKGN0eC0+dC5z
+Y3JhdGNoWzEwXSkKKworCWlmICgoIW1waV9jbXAoeDEsIHgyKSkgJiYgKCFtcGlfY21wKHkxLCB5
+MikpICYmICghbXBpX2NtcCh6MSwgejIpKSkgeworCQkvKiBTYW1lIHBvaW50OyBuZWVkIHRvIGNh
+bGwgdGhlIGR1cGxpY2F0ZSBmdW5jdGlvbi4gICovCisJCW1waV9lY19kdXBfcG9pbnQocmVzdWx0
+LCBwMSwgY3R4KTsKKwl9IGVsc2UgaWYgKCFtcGlfY21wX3VpKHoxLCAwKSkgeworCQkvKiBQMSBp
+cyBhdCBpbmZpbml0eS4gICovCisJCW1waV9zZXQoeDMsIHAyLT54KTsKKwkJbXBpX3NldCh5Mywg
+cDItPnkpOworCQltcGlfc2V0KHozLCBwMi0+eik7CisJfSBlbHNlIGlmICghbXBpX2NtcF91aSh6
+MiwgMCkpIHsKKwkJLyogUDIgaXMgYXQgaW5maW5pdHkuICAqLworCQltcGlfc2V0KHgzLCBwMS0+
+eCk7CisJCW1waV9zZXQoeTMsIHAxLT55KTsKKwkJbXBpX3NldCh6MywgcDEtPnopOworCX0gZWxz
+ZSB7CisJCWludCB6MV9pc19vbmUgPSAhbXBpX2NtcF91aSh6MSwgMSk7CisJCWludCB6Ml9pc19v
+bmUgPSAhbXBpX2NtcF91aSh6MiwgMSk7CisKKwkJLyogbDEgPSB4MSB6Ml4yICAqLworCQkvKiBs
+MiA9IHgyIHoxXjIgICovCisJCWlmICh6Ml9pc19vbmUpCisJCQltcGlfc2V0KGwxLCB4MSk7CisJ
+CWVsc2UgeworCQkJZWNfcG93MihsMSwgejIsIGN0eCk7CisJCQllY19tdWxtKGwxLCBsMSwgeDEs
+IGN0eCk7CisJCX0KKwkJaWYgKHoxX2lzX29uZSkKKwkJCW1waV9zZXQobDIsIHgyKTsKKwkJZWxz
+ZSB7CisJCQllY19wb3cyKGwyLCB6MSwgY3R4KTsKKwkJCWVjX211bG0obDIsIGwyLCB4MiwgY3R4
+KTsKKwkJfQorCQkvKiBsMyA9IGwxIC0gbDIgKi8KKwkJZWNfc3VibShsMywgbDEsIGwyLCBjdHgp
+OworCQkvKiBsNCA9IHkxIHoyXjMgICovCisJCWVjX3Bvd20obDQsIHoyLCBtcGlfY29uc3QoTVBJ
+X0NfVEhSRUUpLCBjdHgpOworCQllY19tdWxtKGw0LCBsNCwgeTEsIGN0eCk7CisJCS8qIGw1ID0g
+eTIgejFeMyAgKi8KKwkJZWNfcG93bShsNSwgejEsIG1waV9jb25zdChNUElfQ19USFJFRSksIGN0
+eCk7CisJCWVjX211bG0obDUsIGw1LCB5MiwgY3R4KTsKKwkJLyogbDYgPSBsNCAtIGw1ICAqLwor
+CQllY19zdWJtKGw2LCBsNCwgbDUsIGN0eCk7CisKKwkJaWYgKCFtcGlfY21wX3VpKGwzLCAwKSkg
+eworCQkJaWYgKCFtcGlfY21wX3VpKGw2LCAwKSkgeworCQkJCS8qIFAxIGFuZCBQMiBhcmUgdGhl
+IHNhbWUgLSB1c2UgZHVwbGljYXRlIGZ1bmN0aW9uLiAqLworCQkJCW1waV9lY19kdXBfcG9pbnQo
+cmVzdWx0LCBwMSwgY3R4KTsKKwkJCX0gZWxzZSB7CisJCQkJLyogUDEgaXMgdGhlIGludmVyc2Ug
+b2YgUDIuICAqLworCQkJCW1waV9zZXRfdWkoeDMsIDEpOworCQkJCW1waV9zZXRfdWkoeTMsIDEp
+OworCQkJCW1waV9zZXRfdWkoejMsIDApOworCQkJfQorCQl9IGVsc2UgeworCQkJLyogbDcgPSBs
+MSArIGwyICAqLworCQkJZWNfYWRkbShsNywgbDEsIGwyLCBjdHgpOworCQkJLyogbDggPSBsNCAr
+IGw1ICAqLworCQkJZWNfYWRkbShsOCwgbDQsIGw1LCBjdHgpOworCQkJLyogejMgPSB6MSB6MiBs
+MyAgKi8KKwkJCWVjX211bG0oejMsIHoxLCB6MiwgY3R4KTsKKwkJCWVjX211bG0oejMsIHozLCBs
+MywgY3R4KTsKKwkJCS8qIHgzID0gbDZeMiAtIGw3IGwzXjIgICovCisJCQllY19wb3cyKHQxLCBs
+NiwgY3R4KTsKKwkJCWVjX3BvdzIodDIsIGwzLCBjdHgpOworCQkJZWNfbXVsbSh0MiwgdDIsIGw3
+LCBjdHgpOworCQkJZWNfc3VibSh4MywgdDEsIHQyLCBjdHgpOworCQkJLyogbDkgPSBsNyBsM14y
+IC0gMiB4MyAgKi8KKwkJCWVjX211bDIodDEsIHgzLCBjdHgpOworCQkJZWNfc3VibShsOSwgdDIs
+IHQxLCBjdHgpOworCQkJLyogeTMgPSAobDkgbDYgLSBsOCBsM14zKS8yICAqLworCQkJZWNfbXVs
+bShsOSwgbDksIGw2LCBjdHgpOworCQkJZWNfcG93bSh0MSwgbDMsIG1waV9jb25zdChNUElfQ19U
+SFJFRSksIGN0eCk7IC8qIGZpeG1lOiBVc2Ugc2F2ZWQgdmFsdWUqLworCQkJZWNfbXVsbSh0MSwg
+dDEsIGw4LCBjdHgpOworCQkJZWNfc3VibSh5MywgbDksIHQxLCBjdHgpOworCQkJZWNfbXVsbSh5
+MywgeTMsIGVjX2dldF90d29faW52X3AoY3R4KSwgY3R4KTsKKwkJfQorCX0KKworI3VuZGVmIHgx
+CisjdW5kZWYgeTEKKyN1bmRlZiB6MQorI3VuZGVmIHgyCisjdW5kZWYgeTIKKyN1bmRlZiB6Mgor
+I3VuZGVmIHgzCisjdW5kZWYgeTMKKyN1bmRlZiB6MworI3VuZGVmIGwxCisjdW5kZWYgbDIKKyN1
+bmRlZiBsMworI3VuZGVmIGw0CisjdW5kZWYgbDUKKyN1bmRlZiBsNgorI3VuZGVmIGw3CisjdW5k
+ZWYgbDgKKyN1bmRlZiBsOQorI3VuZGVmIHQxCisjdW5kZWYgdDIKK30KKworLyogUkVTVUxUID0g
+UDEgKyBQMiAgKE1vbnRnb21lcnkgdmVyc2lvbikuKi8KK3N0YXRpYyB2b2lkIGFkZF9wb2ludHNf
+bW9udGdvbWVyeShNUElfUE9JTlQgcmVzdWx0LAorCQlNUElfUE9JTlQgcDEsIE1QSV9QT0lOVCBw
+MiwKKwkJc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwkodm9pZClyZXN1bHQ7CisJKHZvaWQp
+cDE7CisJKHZvaWQpcDI7CisJKHZvaWQpY3R4OworCWxvZ19mYXRhbCgiJXM6ICVzIG5vdCB5ZXQg
+c3VwcG9ydGVkXG4iLAorCQkJIm1waV9lY19hZGRfcG9pbnRzIiwgIk1vbnRnb21lcnkiKTsKK30K
+KworLyogUkVTVUxUID0gUDEgKyBQMiAgKFR3aXN0ZWQgRWR3YXJkcyB2ZXJzaW9uKS4qLworc3Rh
+dGljIHZvaWQgYWRkX3BvaW50c19lZHdhcmRzKE1QSV9QT0lOVCByZXN1bHQsCisJCU1QSV9QT0lO
+VCBwMSwgTVBJX1BPSU5UIHAyLAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworI2RlZmlu
+ZSBYMSAocDEtPngpCisjZGVmaW5lIFkxIChwMS0+eSkKKyNkZWZpbmUgWjEgKHAxLT56KQorI2Rl
+ZmluZSBYMiAocDItPngpCisjZGVmaW5lIFkyIChwMi0+eSkKKyNkZWZpbmUgWjIgKHAyLT56KQor
+I2RlZmluZSBYMyAocmVzdWx0LT54KQorI2RlZmluZSBZMyAocmVzdWx0LT55KQorI2RlZmluZSBa
+MyAocmVzdWx0LT56KQorI2RlZmluZSBBIChjdHgtPnQuc2NyYXRjaFswXSkKKyNkZWZpbmUgQiAo
+Y3R4LT50LnNjcmF0Y2hbMV0pCisjZGVmaW5lIEMgKGN0eC0+dC5zY3JhdGNoWzJdKQorI2RlZmlu
+ZSBEIChjdHgtPnQuc2NyYXRjaFszXSkKKyNkZWZpbmUgRSAoY3R4LT50LnNjcmF0Y2hbNF0pCisj
+ZGVmaW5lIEYgKGN0eC0+dC5zY3JhdGNoWzVdKQorI2RlZmluZSBHIChjdHgtPnQuc2NyYXRjaFs2
+XSkKKyNkZWZpbmUgdG1wIChjdHgtPnQuc2NyYXRjaFs3XSkKKworCXBvaW50X3Jlc2l6ZShyZXN1
+bHQsIGN0eCk7CisKKwkvKiBDb21wdXRlOiAoWF8zIDogWV8zIDogWl8zKSA9IChYXzEgOiBZXzEg
+OiBaXzEpICsgKFhfMiA6IFlfMiA6IFpfMykgKi8KKworCS8qIEEgPSBaMSDCtyBaMiAqLworCWN0
+eC0+bXVsbShBLCBaMSwgWjIsIGN0eCk7CisKKwkvKiBCID0gQV4yICovCisJY3R4LT5wb3cyKEIs
+IEEsIGN0eCk7CisKKwkvKiBDID0gWDEgwrcgWDIgKi8KKwljdHgtPm11bG0oQywgWDEsIFgyLCBj
+dHgpOworCisJLyogRCA9IFkxIMK3IFkyICovCisJY3R4LT5tdWxtKEQsIFkxLCBZMiwgY3R4KTsK
+KworCS8qIEUgPSBkIMK3IEMgwrcgRCAqLworCWN0eC0+bXVsbShFLCBjdHgtPmIsIEMsIGN0eCk7
+CisJY3R4LT5tdWxtKEUsIEUsIEQsIGN0eCk7CisKKwkvKiBGID0gQiAtIEUgKi8KKwljdHgtPnN1
+Ym0oRiwgQiwgRSwgY3R4KTsKKworCS8qIEcgPSBCICsgRSAqLworCWN0eC0+YWRkbShHLCBCLCBF
+LCBjdHgpOworCisJLyogWF8zID0gQSDCtyBGIMK3ICgoWF8xICsgWV8xKSDCtyAoWF8yICsgWV8y
+KSAtIEMgLSBEKSAqLworCWN0eC0+YWRkbSh0bXAsIFgxLCBZMSwgY3R4KTsKKwljdHgtPmFkZG0o
+WDMsIFgyLCBZMiwgY3R4KTsKKwljdHgtPm11bG0oWDMsIFgzLCB0bXAsIGN0eCk7CisJY3R4LT5z
+dWJtKFgzLCBYMywgQywgY3R4KTsKKwljdHgtPnN1Ym0oWDMsIFgzLCBELCBjdHgpOworCWN0eC0+
+bXVsbShYMywgWDMsIEYsIGN0eCk7CisJY3R4LT5tdWxtKFgzLCBYMywgQSwgY3R4KTsKKworCS8q
+IFlfMyA9IEEgwrcgRyDCtyAoRCAtIGFDKSAqLworCWlmIChjdHgtPmRpYWxlY3QgPT0gRUNDX0RJ
+QUxFQ1RfRUQyNTUxOSkgeworCQljdHgtPmFkZG0oWTMsIEQsIEMsIGN0eCk7CisJfSBlbHNlIHsK
+KwkJY3R4LT5tdWxtKFkzLCBjdHgtPmEsIEMsIGN0eCk7CisJCWN0eC0+c3VibShZMywgRCwgWTMs
+IGN0eCk7CisJfQorCWN0eC0+bXVsbShZMywgWTMsIEcsIGN0eCk7CisJY3R4LT5tdWxtKFkzLCBZ
+MywgQSwgY3R4KTsKKworCS8qIFpfMyA9IEYgwrcgRyAqLworCWN0eC0+bXVsbShaMywgRiwgRywg
+Y3R4KTsKKworCisjdW5kZWYgWDEKKyN1bmRlZiBZMQorI3VuZGVmIFoxCisjdW5kZWYgWDIKKyN1
+bmRlZiBZMgorI3VuZGVmIFoyCisjdW5kZWYgWDMKKyN1bmRlZiBZMworI3VuZGVmIFozCisjdW5k
+ZWYgQQorI3VuZGVmIEIKKyN1bmRlZiBDCisjdW5kZWYgRAorI3VuZGVmIEUKKyN1bmRlZiBGCisj
+dW5kZWYgRworI3VuZGVmIHRtcAorfQorCisvKiBDb21wdXRlIGEgc3RlcCBvZiBNb250Z29tZXJ5
+IExhZGRlciAob25seSB1c2UgWCBhbmQgWiBpbiB0aGUgcG9pbnQpLgorICogSW5wdXRzOiAgUDEs
+IFAyLCBhbmQgeC1jb29yZGluYXRlIG9mIERJRiA9IFAxIC0gUDEuCisgKiBPdXRwdXRzOiBQUkQg
+PSAyICogUDEgYW5kICBTVU0gPSBQMSArIFAyLgorICovCitzdGF0aWMgdm9pZCBtb250Z29tZXJ5
+X2xhZGRlcihNUElfUE9JTlQgcHJkLCBNUElfUE9JTlQgc3VtLAorCQlNUElfUE9JTlQgcDEsIE1Q
+SV9QT0lOVCBwMiwgTVBJIGRpZl94LAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCWN0
+eC0+YWRkbShzdW0tPngsIHAyLT54LCBwMi0+eiwgY3R4KTsKKwljdHgtPnN1Ym0ocDItPnosIHAy
+LT54LCBwMi0+eiwgY3R4KTsKKwljdHgtPmFkZG0ocHJkLT54LCBwMS0+eCwgcDEtPnosIGN0eCk7
+CisJY3R4LT5zdWJtKHAxLT56LCBwMS0+eCwgcDEtPnosIGN0eCk7CisJY3R4LT5tdWxtKHAyLT54
+LCBwMS0+eiwgc3VtLT54LCBjdHgpOworCWN0eC0+bXVsbShwMi0+eiwgcHJkLT54LCBwMi0+eiwg
+Y3R4KTsKKwljdHgtPnBvdzIocDEtPngsIHByZC0+eCwgY3R4KTsKKwljdHgtPnBvdzIocDEtPnos
+IHAxLT56LCBjdHgpOworCWN0eC0+YWRkbShzdW0tPngsIHAyLT54LCBwMi0+eiwgY3R4KTsKKwlj
+dHgtPnN1Ym0ocDItPnosIHAyLT54LCBwMi0+eiwgY3R4KTsKKwljdHgtPm11bG0ocHJkLT54LCBw
+MS0+eCwgcDEtPnosIGN0eCk7CisJY3R4LT5zdWJtKHAxLT56LCBwMS0+eCwgcDEtPnosIGN0eCk7
+CisJY3R4LT5wb3cyKHN1bS0+eCwgc3VtLT54LCBjdHgpOworCWN0eC0+cG93MihzdW0tPnosIHAy
+LT56LCBjdHgpOworCWN0eC0+bXVsbShwcmQtPnosIHAxLT56LCBjdHgtPmEsIGN0eCk7IC8qIENU
+WC0+QTogKGEtMikvNCAqLworCWN0eC0+bXVsbShzdW0tPnosIHN1bS0+eiwgZGlmX3gsIGN0eCk7
+CisJY3R4LT5hZGRtKHByZC0+eiwgcDEtPngsIHByZC0+eiwgY3R4KTsKKwljdHgtPm11bG0ocHJk
+LT56LCBwcmQtPnosIHAxLT56LCBjdHgpOworfQorCisvKiBSRVNVTFQgPSBQMSArIFAyICovCit2
+b2lkIG1waV9lY19hZGRfcG9pbnRzKE1QSV9QT0lOVCByZXN1bHQsCisJCU1QSV9QT0lOVCBwMSwg
+TVBJX1BPSU5UIHAyLAorCQlzdHJ1Y3QgbXBpX2VjX2N0eCAqY3R4KQoreworCXN3aXRjaCAoY3R4
+LT5tb2RlbCkgeworCWNhc2UgTVBJX0VDX1dFSUVSU1RSQVNTOgorCQlhZGRfcG9pbnRzX3dlaWVy
+c3RyYXNzKHJlc3VsdCwgcDEsIHAyLCBjdHgpOworCQlicmVhazsKKwljYXNlIE1QSV9FQ19NT05U
+R09NRVJZOgorCQlhZGRfcG9pbnRzX21vbnRnb21lcnkocmVzdWx0LCBwMSwgcDIsIGN0eCk7CisJ
+CWJyZWFrOworCWNhc2UgTVBJX0VDX0VEV0FSRFM6CisJCWFkZF9wb2ludHNfZWR3YXJkcyhyZXN1
+bHQsIHAxLCBwMiwgY3R4KTsKKwkJYnJlYWs7CisJfQorfQorRVhQT1JUX1NZTUJPTF9HUEwobXBp
+X2VjX2FkZF9wb2ludHMpOworCisvKiBTY2FsYXIgcG9pbnQgbXVsdGlwbGljYXRpb24gLSB0aGUg
+bWFpbiBmdW5jdGlvbiBmb3IgRUNDLiAgSWYgdGFrZXMKKyAqIGFuIGludGVnZXIgU0NBTEFSIGFu
+ZCBhIFBPSU5UIGFzIHdlbGwgYXMgdGhlIHVzdWFsIGNvbnRleHQgQ1RYLgorICogUkVTVUxUIHdp
+bGwgYmUgc2V0IHRvIHRoZSByZXN1bHRpbmcgcG9pbnQuCisgKi8KK3ZvaWQgbXBpX2VjX211bF9w
+b2ludChNUElfUE9JTlQgcmVzdWx0LAorCQkJTVBJIHNjYWxhciwgTVBJX1BPSU5UIHBvaW50LAor
+CQkJc3RydWN0IG1waV9lY19jdHggKmN0eCkKK3sKKwlNUEkgeDEsIHkxLCB6MSwgaywgaCwgeXk7
+CisJdW5zaWduZWQgaW50IGksIGxvb3BzOworCXN0cnVjdCBnY3J5X21waV9wb2ludCBwMSwgcDIs
+IHAxaW52OworCisJaWYgKGN0eC0+bW9kZWwgPT0gTVBJX0VDX0VEV0FSRFMpIHsKKwkJLyogU2lt
+cGxlIGxlZnQgdG8gcmlnaHQgYmluYXJ5IG1ldGhvZC4gIEFsZ29yaXRobSAzLjI3IGZyb20KKwkJ
+ICoge2F1dGhvcj17SGFua2Vyc29uLCBEYXJyZWwgYW5kIE1lbmV6ZXMsIEFsZnJlZCBKLiBhbmQg
+VmFuc3RvbmUsIFNjb3R0fSwKKwkJICogIHRpdGxlID0ge0d1aWRlIHRvIEVsbGlwdGljIEN1cnZl
+IENyeXB0b2dyYXBoeX0sCisJCSAqICB5ZWFyID0gezIwMDN9LCBpc2JuID0gezAzODc5NTI3M1h9
+LAorCQkgKiAgdXJsID0ge2h0dHA6Ly93d3cuY2Fjci5tYXRoLnV3YXRlcmxvby5jYS9lY2MvfSwK
+KwkJICogIHB1Ymxpc2hlciA9IHtTcHJpbmdlci1WZXJsYWcgTmV3IFlvcmssIEluYy59fQorCQkg
+Ki8KKwkJdW5zaWduZWQgaW50IG5iaXRzOworCQlpbnQgajsKKworCQlpZiAobXBpX2NtcChzY2Fs
+YXIsIGN0eC0+cCkgPj0gMCkKKwkJCW5iaXRzID0gbXBpX2dldF9uYml0cyhzY2FsYXIpOworCQll
+bHNlCisJCQluYml0cyA9IG1waV9nZXRfbmJpdHMoY3R4LT5wKTsKKworCQltcGlfc2V0X3VpKHJl
+c3VsdC0+eCwgMCk7CisJCW1waV9zZXRfdWkocmVzdWx0LT55LCAxKTsKKwkJbXBpX3NldF91aShy
+ZXN1bHQtPnosIDEpOworCQlwb2ludF9yZXNpemUocG9pbnQsIGN0eCk7CisKKwkJcG9pbnRfcmVz
+aXplKHJlc3VsdCwgY3R4KTsKKwkJcG9pbnRfcmVzaXplKHBvaW50LCBjdHgpOworCisJCWZvciAo
+aiA9IG5iaXRzLTE7IGogPj0gMDsgai0tKSB7CisJCQltcGlfZWNfZHVwX3BvaW50KHJlc3VsdCwg
+cmVzdWx0LCBjdHgpOworCQkJaWYgKG1waV90ZXN0X2JpdChzY2FsYXIsIGopKQorCQkJCW1waV9l
+Y19hZGRfcG9pbnRzKHJlc3VsdCwgcmVzdWx0LCBwb2ludCwgY3R4KTsKKwkJfQorCQlyZXR1cm47
+CisJfSBlbHNlIGlmIChjdHgtPm1vZGVsID09IE1QSV9FQ19NT05UR09NRVJZKSB7CisJCXVuc2ln
+bmVkIGludCBuYml0czsKKwkJaW50IGo7CisJCXN0cnVjdCBnY3J5X21waV9wb2ludCBwMV8sIHAy
+XzsKKwkJTVBJX1BPSU5UIHExLCBxMiwgcHJkLCBzdW07CisJCXVuc2lnbmVkIGxvbmcgc3c7CisJ
+CW1waV9zaXplX3QgcnNpemU7CisKKwkJLyogQ29tcHV0ZSBzY2FsYXIgcG9pbnQgbXVsdGlwbGlj
+YXRpb24gd2l0aCBNb250Z29tZXJ5IExhZGRlci4KKwkJICogTm90ZSB0aGF0IHdlIGRvbid0IHVz
+ZSBZLWNvb3JkaW5hdGUgaW4gdGhlIHBvaW50cyBhdCBhbGwuCisJCSAqIFJFU1VMVC0+WSB3aWxs
+IGJlIGZpbGxlZCBieSB6ZXJvLgorCQkgKi8KKworCQluYml0cyA9IG1waV9nZXRfbmJpdHMoc2Nh
+bGFyKTsKKwkJcG9pbnRfaW5pdCgmcDEpOworCQlwb2ludF9pbml0KCZwMik7CisJCXBvaW50X2lu
+aXQoJnAxXyk7CisJCXBvaW50X2luaXQoJnAyXyk7CisJCW1waV9zZXRfdWkocDEueCwgMSk7CisJ
+CW1waV9mcmVlKHAyLngpOworCQlwMi54ID0gbXBpX2NvcHkocG9pbnQtPngpOworCQltcGlfc2V0
+X3VpKHAyLnosIDEpOworCisJCXBvaW50X3Jlc2l6ZSgmcDEsIGN0eCk7CisJCXBvaW50X3Jlc2l6
+ZSgmcDIsIGN0eCk7CisJCXBvaW50X3Jlc2l6ZSgmcDFfLCBjdHgpOworCQlwb2ludF9yZXNpemUo
+JnAyXywgY3R4KTsKKworCQltcGlfcmVzaXplKHBvaW50LT54LCBjdHgtPnAtPm5saW1icyk7CisJ
+CXBvaW50LT54LT5ubGltYnMgPSBjdHgtPnAtPm5saW1iczsKKworCQlxMSA9ICZwMTsKKwkJcTIg
+PSAmcDI7CisJCXByZCA9ICZwMV87CisJCXN1bSA9ICZwMl87CisKKwkJZm9yIChqID0gbmJpdHMt
+MTsgaiA+PSAwOyBqLS0pIHsKKwkJCXN3ID0gbXBpX3Rlc3RfYml0KHNjYWxhciwgaik7CisJCQlw
+b2ludF9zd2FwX2NvbmQocTEsIHEyLCBzdywgY3R4KTsKKwkJCW1vbnRnb21lcnlfbGFkZGVyKHBy
+ZCwgc3VtLCBxMSwgcTIsIHBvaW50LT54LCBjdHgpOworCQkJcG9pbnRfc3dhcF9jb25kKHByZCwg
+c3VtLCBzdywgY3R4KTsKKwkJCXN3YXAocTEsIHByZCk7CisJCQlzd2FwKHEyLCBzdW0pOworCQl9
+CisKKwkJbXBpX2NsZWFyKHJlc3VsdC0+eSk7CisJCXN3ID0gKG5iaXRzICYgMSk7CisJCXBvaW50
+X3N3YXBfY29uZCgmcDEsICZwMV8sIHN3LCBjdHgpOworCisJCXJzaXplID0gcDEuei0+bmxpbWJz
+OworCQlNUE5fTk9STUFMSVpFKHAxLnotPmQsIHJzaXplKTsKKwkJaWYgKHJzaXplID09IDApIHsK
+KwkJCW1waV9zZXRfdWkocmVzdWx0LT54LCAxKTsKKwkJCW1waV9zZXRfdWkocmVzdWx0LT56LCAw
+KTsKKwkJfSBlbHNlIHsKKwkJCXoxID0gbXBpX25ldygwKTsKKwkJCWVjX2ludm0oejEsIHAxLnos
+IGN0eCk7CisJCQllY19tdWxtKHJlc3VsdC0+eCwgcDEueCwgejEsIGN0eCk7CisJCQltcGlfc2V0
+X3VpKHJlc3VsdC0+eiwgMSk7CisJCQltcGlfZnJlZSh6MSk7CisJCX0KKworCQlwb2ludF9mcmVl
+KCZwMSk7CisJCXBvaW50X2ZyZWUoJnAyKTsKKwkJcG9pbnRfZnJlZSgmcDFfKTsKKwkJcG9pbnRf
+ZnJlZSgmcDJfKTsKKwkJcmV0dXJuOworCX0KKworCXgxID0gbXBpX2FsbG9jX2xpa2UoY3R4LT5w
+KTsKKwl5MSA9IG1waV9hbGxvY19saWtlKGN0eC0+cCk7CisJaCAgPSBtcGlfYWxsb2NfbGlrZShj
+dHgtPnApOworCWsgID0gbXBpX2NvcHkoc2NhbGFyKTsKKwl5eSA9IG1waV9jb3B5KHBvaW50LT55
+KTsKKworCWlmIChtcGlfaGFzX3NpZ24oaykpIHsKKwkJay0+c2lnbiA9IDA7CisJCWVjX2ludm0o
+eXksIHl5LCBjdHgpOworCX0KKworCWlmICghbXBpX2NtcF91aShwb2ludC0+eiwgMSkpIHsKKwkJ
+bXBpX3NldCh4MSwgcG9pbnQtPngpOworCQltcGlfc2V0KHkxLCB5eSk7CisJfSBlbHNlIHsKKwkJ
+TVBJIHoyLCB6MzsKKworCQl6MiA9IG1waV9hbGxvY19saWtlKGN0eC0+cCk7CisJCXozID0gbXBp
+X2FsbG9jX2xpa2UoY3R4LT5wKTsKKwkJZWNfbXVsbSh6MiwgcG9pbnQtPnosIHBvaW50LT56LCBj
+dHgpOworCQllY19tdWxtKHozLCBwb2ludC0+eiwgejIsIGN0eCk7CisJCWVjX2ludm0oejIsIHoy
+LCBjdHgpOworCQllY19tdWxtKHgxLCBwb2ludC0+eCwgejIsIGN0eCk7CisJCWVjX2ludm0oejMs
+IHozLCBjdHgpOworCQllY19tdWxtKHkxLCB5eSwgejMsIGN0eCk7CisJCW1waV9mcmVlKHoyKTsK
+KwkJbXBpX2ZyZWUoejMpOworCX0KKwl6MSA9IG1waV9jb3B5KG1waV9jb25zdChNUElfQ19PTkUp
+KTsKKworCW1waV9tdWwoaCwgaywgbXBpX2NvbnN0KE1QSV9DX1RIUkVFKSk7IC8qIGggPSAzayAq
+LworCWxvb3BzID0gbXBpX2dldF9uYml0cyhoKTsKKwlpZiAobG9vcHMgPCAyKSB7CisJCS8qIElm
+IFNDQUxBUiBpcyB6ZXJvLCB0aGUgYWJvdmUgbXBpX211bCBzZXRzIEggdG8gemVybyBhbmQgdGh1
+cworCQkgKiBMT09QcyB3aWxsIGJlIHplcm8uICBUbyBhdm9pZCBhbiB1bmRlcmZsb3cgb2YgSSBp
+biB0aGUgbWFpbgorCQkgKiBsb29wIHdlIHNldCBMT09QIHRvIDIgYW5kIHRoZSByZXN1bHQgdG8g
+KDAsMCwwKS4KKwkJICovCisJCWxvb3BzID0gMjsKKwkJbXBpX2NsZWFyKHJlc3VsdC0+eCk7CisJ
+CW1waV9jbGVhcihyZXN1bHQtPnkpOworCQltcGlfY2xlYXIocmVzdWx0LT56KTsKKwl9IGVsc2Ug
+eworCQltcGlfc2V0KHJlc3VsdC0+eCwgcG9pbnQtPngpOworCQltcGlfc2V0KHJlc3VsdC0+eSwg
+eXkpOworCQltcGlfc2V0KHJlc3VsdC0+eiwgcG9pbnQtPnopOworCX0KKwltcGlfZnJlZSh5eSk7
+IHl5ID0gTlVMTDsKKworCXAxLnggPSB4MTsgeDEgPSBOVUxMOworCXAxLnkgPSB5MTsgeTEgPSBO
+VUxMOworCXAxLnogPSB6MTsgejEgPSBOVUxMOworCXBvaW50X2luaXQoJnAyKTsKKwlwb2ludF9p
+bml0KCZwMWludik7CisKKwkvKiBJbnZlcnQgcG9pbnQ6IHkgPSBwIC0geSBtb2QgcCAgKi8KKwlw
+b2ludF9zZXQoJnAxaW52LCAmcDEpOworCWVjX3N1Ym0ocDFpbnYueSwgY3R4LT5wLCBwMWludi55
+LCBjdHgpOworCisJZm9yIChpID0gbG9vcHMtMjsgaSA+IDA7IGktLSkgeworCQltcGlfZWNfZHVw
+X3BvaW50KHJlc3VsdCwgcmVzdWx0LCBjdHgpOworCQlpZiAobXBpX3Rlc3RfYml0KGgsIGkpID09
+IDEgJiYgbXBpX3Rlc3RfYml0KGssIGkpID09IDApIHsKKwkJCXBvaW50X3NldCgmcDIsIHJlc3Vs
+dCk7CisJCQltcGlfZWNfYWRkX3BvaW50cyhyZXN1bHQsICZwMiwgJnAxLCBjdHgpOworCQl9CisJ
+CWlmIChtcGlfdGVzdF9iaXQoaCwgaSkgPT0gMCAmJiBtcGlfdGVzdF9iaXQoaywgaSkgPT0gMSkg
+eworCQkJcG9pbnRfc2V0KCZwMiwgcmVzdWx0KTsKKwkJCW1waV9lY19hZGRfcG9pbnRzKHJlc3Vs
+dCwgJnAyLCAmcDFpbnYsIGN0eCk7CisJCX0KKwl9CisKKwlwb2ludF9mcmVlKCZwMSk7CisJcG9p
+bnRfZnJlZSgmcDIpOworCXBvaW50X2ZyZWUoJnAxaW52KTsKKwltcGlfZnJlZShoKTsKKwltcGlf
+ZnJlZShrKTsKK30KK0VYUE9SVF9TWU1CT0xfR1BMKG1waV9lY19tdWxfcG9pbnQpOworCisvKiBS
+ZXR1cm4gdHJ1ZSBpZiBQT0lOVCBpcyBvbiB0aGUgY3VydmUgZGVzY3JpYmVkIGJ5IENUWC4gICov
+CitpbnQgbXBpX2VjX2N1cnZlX3BvaW50KE1QSV9QT0lOVCBwb2ludCwgc3RydWN0IG1waV9lY19j
+dHggKmN0eCkKK3sKKwlpbnQgcmVzID0gMDsKKwlNUEkgeCwgeSwgdzsKKworCXggPSBtcGlfbmV3
+KDApOworCXkgPSBtcGlfbmV3KDApOworCXcgPSBtcGlfbmV3KDApOworCisJLyogQ2hlY2sgdGhh
+dCB0aGUgcG9pbnQgaXMgaW4gcmFuZ2UuICBUaGlzIG5lZWRzIHRvIGJlIGRvbmUgaGVyZSBhbmQK
+KwkgKiBub3QgYWZ0ZXIgY29udmVyc2lvbiB0byBhZmZpbmUgY29vcmRpbmF0ZXMuCisJICovCisJ
+aWYgKG1waV9jbXBhYnMocG9pbnQtPngsIGN0eC0+cCkgPj0gMCkKKwkJZ290byBsZWF2ZTsKKwlp
+ZiAobXBpX2NtcGFicyhwb2ludC0+eSwgY3R4LT5wKSA+PSAwKQorCQlnb3RvIGxlYXZlOworCWlm
+IChtcGlfY21wYWJzKHBvaW50LT56LCBjdHgtPnApID49IDApCisJCWdvdG8gbGVhdmU7CisKKwlz
+d2l0Y2ggKGN0eC0+bW9kZWwpIHsKKwljYXNlIE1QSV9FQ19XRUlFUlNUUkFTUzoKKwkJeworCQkJ
+TVBJIHh4eDsKKworCQkJaWYgKG1waV9lY19nZXRfYWZmaW5lKHgsIHksIHBvaW50LCBjdHgpKQor
+CQkJCWdvdG8gbGVhdmU7CisKKwkJCXh4eCA9IG1waV9uZXcoMCk7CisKKwkJCS8qIHleMiA9PSB4
+XjMgKyBhwrd4ICsgYiAqLworCQkJZWNfcG93Mih5LCB5LCBjdHgpOworCisJCQllY19wb3czKHh4
+eCwgeCwgY3R4KTsKKwkJCWVjX211bG0odywgY3R4LT5hLCB4LCBjdHgpOworCQkJZWNfYWRkbSh3
+LCB3LCBjdHgtPmIsIGN0eCk7CisJCQllY19hZGRtKHcsIHcsIHh4eCwgY3R4KTsKKworCQkJaWYg
+KCFtcGlfY21wKHksIHcpKQorCQkJCXJlcyA9IDE7CisKKwkJCW1waV9mcmVlKHh4eCk7CisJCX0K
+KwkJYnJlYWs7CisKKwljYXNlIE1QSV9FQ19NT05UR09NRVJZOgorCQl7CisjZGVmaW5lIHh4IHkK
+KwkJCS8qIFdpdGggTW9udGdvbWVyeSBjdXJ2ZSwgb25seSBYLWNvb3JkaW5hdGUgaXMgdmFsaWQu
+ICovCisJCQlpZiAobXBpX2VjX2dldF9hZmZpbmUoeCwgTlVMTCwgcG9pbnQsIGN0eCkpCisJCQkJ
+Z290byBsZWF2ZTsKKworCQkJLyogVGhlIGVxdWF0aW9uIGlzOiBiICogeV4yID09IHheMyArIGEg
+wrcgeF4yICsgeCAqLworCQkJLyogV2UgY2hlY2sgaWYgcmlnaHQgaGFuZCBpcyBxdWFkcmF0aWMg
+cmVzaWR1ZSBvciBub3QgYnkKKwkJCSAqIEV1bGVyJ3MgY3JpdGVyaW9uLgorCQkJICovCisJCQkv
+KiBDVFgtPkEgaGFzIChhLTIpLzQgYW5kIENUWC0+QiBoYXMgYl4tMSAqLworCQkJZWNfbXVsbSh3
+LCBjdHgtPmEsIG1waV9jb25zdChNUElfQ19GT1VSKSwgY3R4KTsKKwkJCWVjX2FkZG0odywgdywg
+bXBpX2NvbnN0KE1QSV9DX1RXTyksIGN0eCk7CisJCQllY19tdWxtKHcsIHcsIHgsIGN0eCk7CisJ
+CQllY19wb3cyKHh4LCB4LCBjdHgpOworCQkJZWNfYWRkbSh3LCB3LCB4eCwgY3R4KTsKKwkJCWVj
+X2FkZG0odywgdywgbXBpX2NvbnN0KE1QSV9DX09ORSksIGN0eCk7CisJCQllY19tdWxtKHcsIHcs
+IHgsIGN0eCk7CisJCQllY19tdWxtKHcsIHcsIGN0eC0+YiwgY3R4KTsKKyN1bmRlZiB4eAorCQkJ
+LyogQ29tcHV0ZSBFdWxlcidzIGNyaXRlcmlvbjogd14ocC0xKS8yICovCisjZGVmaW5lIHBfbWlu
+dXMxIHkKKwkJCWVjX3N1Ym0ocF9taW51czEsIGN0eC0+cCwgbXBpX2NvbnN0KE1QSV9DX09ORSks
+IGN0eCk7CisJCQltcGlfcnNoaWZ0KHBfbWludXMxLCBwX21pbnVzMSwgMSk7CisJCQllY19wb3dt
+KHcsIHcsIHBfbWludXMxLCBjdHgpOworCisJCQlyZXMgPSAhbXBpX2NtcF91aSh3LCAxKTsKKyN1
+bmRlZiBwX21pbnVzMQorCQl9CisJCWJyZWFrOworCisJY2FzZSBNUElfRUNfRURXQVJEUzoKKwkJ
+eworCQkJaWYgKG1waV9lY19nZXRfYWZmaW5lKHgsIHksIHBvaW50LCBjdHgpKQorCQkJCWdvdG8g
+bGVhdmU7CisKKwkJCW1waV9yZXNpemUodywgY3R4LT5wLT5ubGltYnMpOworCQkJdy0+bmxpbWJz
+ID0gY3R4LT5wLT5ubGltYnM7CisKKwkJCS8qIGEgwrcgeF4yICsgeV4yIC0gMSAtIGIgwrcgeF4y
+IMK3IHleMiA9PSAwICovCisJCQljdHgtPnBvdzIoeCwgeCwgY3R4KTsKKwkJCWN0eC0+cG93Mih5
+LCB5LCBjdHgpOworCQkJaWYgKGN0eC0+ZGlhbGVjdCA9PSBFQ0NfRElBTEVDVF9FRDI1NTE5KQor
+CQkJCWN0eC0+c3VibSh3LCBjdHgtPnAsIHgsIGN0eCk7CisJCQllbHNlCisJCQkJY3R4LT5tdWxt
+KHcsIGN0eC0+YSwgeCwgY3R4KTsKKwkJCWN0eC0+YWRkbSh3LCB3LCB5LCBjdHgpOworCQkJY3R4
+LT5tdWxtKHgsIHgsIHksIGN0eCk7CisJCQljdHgtPm11bG0oeCwgeCwgY3R4LT5iLCBjdHgpOwor
+CQkJY3R4LT5zdWJtKHcsIHcsIHgsIGN0eCk7CisJCQlpZiAoIW1waV9jbXBfdWkodywgMSkpCisJ
+CQkJcmVzID0gMTsKKwkJfQorCQlicmVhazsKKwl9CisKK2xlYXZlOgorCW1waV9mcmVlKHcpOwor
+CW1waV9mcmVlKHgpOworCW1waV9mcmVlKHkpOworCisJcmV0dXJuIHJlczsKK30KK0VYUE9SVF9T
+WU1CT0xfR1BMKG1waV9lY19jdXJ2ZV9wb2ludCk7Ci0tIAoyLjI1LjEKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
