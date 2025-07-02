@@ -2,88 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C251AF0F3A
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jul 2025 11:10:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4673CAF5AD7
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jul 2025 16:15:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 855B0C3F93A;
-	Wed,  2 Jul 2025 09:10:56 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F47EC3F93A;
+	Wed,  2 Jul 2025 14:15:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1608EC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA7BC35E00
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Jul 2025 09:10:55 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-450ce3a2dd5so32905915e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 02 Jul 2025 02:10:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1751447455; x=1752052255;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SCvgBdrIzmyxvo92jPpKMB/LyPu8S/mztJbd6iPipx0=;
- b=ClTS6wDaBfwyxpgUVNjlcK+7OhxfQSOsAiZbGY69TenyoEHTmH4u6ajZdU2cuqckWX
- cTLoP1kJY6Gakt9ZOeY9GpfuEgvs3KPAaptrUHLQqsK26HkKgVJ6IMSo5H7ISsQ6zoj+
- 1NF376dlrG9WqAn0UKQCRFR6OsCAbh42KY/u1ZatcmV3+d+shZzdMhuRgPsWolO/BWqX
- Pv3l+y/tlsmnH0zy0oNxiiXShkBL7bIOwzjBTddP1IBV22ZIibtKEXIOvTHf8KHw3cMM
- 51Yq+R69tx01G+K9vAhJGNQ0h0JV9g9b7cUETwjcmrsFMjAM80EZ2PL4Bj+SuiKTESm7
- 5VQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1751447455; x=1752052255;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SCvgBdrIzmyxvo92jPpKMB/LyPu8S/mztJbd6iPipx0=;
- b=RLEUYGuycMeHxD9piTTdl/R0OHCznhIh/jeQ5XiHk16e0Y0G9g+hDSuaQjpFBn3apK
- rgc05rOi9QQyqzV4ZCA7DPx81fqo1I0fykvEOljgjXGwBxE3AEdKQRk2SFn7OhBsP/QS
- Eeglnhc+mWp1eqi3r6pdd470rtqH+3BxntSc/n0E8pvDA6bN/xOILXR52lwdjaW7c0gy
- kgOWT1ypAGX1Z7Gyctrs7ylMqZ70E+o6Fu/sRKA3qsrdBgtyCbh+bR1KwUoOriVskLSo
- iif95FaYT7/wRCky0aWnDRYEWCTOCcvictmWQYGvpYf/lMJzOrn/pKMeSS4JERycVyGE
- 7b1g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWTO8BzSTzPgG8eokGuPwlq9IvL5H+V1eThcGTTPDHd3DfCBUuFzK2/cmapReHwsnpfnq/qpeFqnSzgFA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyJ2hS8C68XvcpOdiPA1kOabxaFPXxRNkp85vPkDnP4m0cDAdOI
- U3ESeeNMG+Q1Rc2yxoB8QbtF1c0KjKGVi7ftxeGzGOJNtY3tzfz1MsKAgLujKwQzkt0=
-X-Gm-Gg: ASbGncvdnRO42RjbwOjYJ9ZtBdsROcU+r8NIRea8/TTKN/rrCjGeSxo98BiDdouRLI/
- Q/tCUmKY+gUExCSX9CLENepBcpEU3ORZkRl+MmsEDBaBU1JN3YH8OV7VvwNENawD7e4zZZuWeBi
- C0U8eaeQBW8HtLJm9jvV8H70kHAWxoHSd8fEW++/MR27GEAoN7B2TXyYWcXj9nxSBDnvoOmicoO
- u5ynkLOEhXTJ+RTEyw2ScOKSirZEM3pNn9rm5/3utf09pcqbpkNTyOlsYo7AGbw7VvBe0V3kwBz
- PpPHdfvp/uGXbfC+nLut42P0S0sYlCyyt1zP4+CC90P4KpvZ9G0j/N+CTAAj
-X-Google-Smtp-Source: AGHT+IE2uNkHx82MMiG8CGeHGUvRcCCh7iICIVjsq7NBy92UZNfJfN/G6zonzIOaQuM2K57woKCLRg==
-X-Received: by 2002:a05:600c:6818:b0:442:ccfa:1461 with SMTP id
- 5b1f17b1804b1-454a36e3ec8mr22278755e9.13.1751447455288; 
- Wed, 02 Jul 2025 02:10:55 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:8827:d0e:25e:834a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4538a3fe28dsm192866295e9.20.2025.07.02.02.10.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Jul 2025 02:10:54 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Ludovic Desroches <ludovic.desroches@microchip.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Andy Shevchenko <andy@kernel.org>,
- Thorsten Scherer <t.scherer@eckelmann.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed,  2 Jul 2025 11:10:51 +0200
-Message-ID: <175144745011.23577.5985560691841779187.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
-References: <20250625-gpiochip-set-rv-gpio-round2-v1-0-bc110a3b52ff@linaro.org>
+ Wed,  2 Jul 2025 14:15:41 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 562DIwPT009778;
+ Wed, 2 Jul 2025 16:15:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ VR6E01Xg6J6Izs0olt9dR6pYp+S5ROquFthL7GlUqPs=; b=dBDQHoEXqF/md8Ai
+ OKxTINMTwYY9+MXakIisn2u4OHsDwVaws4+1VieBQiNXPftGP0VE8IKDZH79YV9C
+ gDu+8iKUecC6lTA5ex8FURzdpDRCP4m/LQweQkCWaJTIbkrTllzw7aH+Rxeuwntn
+ utlstZrXHzSVULtL2Cc2OeUtYOrfnxH6LYJk/mWHDIEXpYkQRK9ktb31DLmb16v8
+ IQ4M7f9TAHR4Q0aCT0gLzcFyIT99ZXhPfBCV/NcxixuYXHjqrUI8h1A2+IEiQK0n
+ OkuVflyw9cWVeufHcOel2SUgz5K4BtxO8qghv8cKOOkUm6NRS9TCAHbMDBGTCt8h
+ +QRk2A==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47j5tmb9wc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 02 Jul 2025 16:15:22 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 46F9340050;
+ Wed,  2 Jul 2025 16:14:05 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 22C18BB2448;
+ Wed,  2 Jul 2025 16:13:50 +0200 (CEST)
+Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
+ 2025 16:13:49 +0200
+Message-ID: <164e93e7-b9b1-45ff-8418-3a381b2bc781@foss.st.com>
+Date: Wed, 2 Jul 2025 16:13:48 +0200
 MIME-Version: 1.0
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 00/12] gpio: use new GPIO line value
-	setter callbacks
+User-Agent: Mozilla Thunderbird
+To: Philipp Zabel <p.zabel@pengutronix.de>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jonathan Corbet <corbet@lwn.net>, Gatien
+ Chevallier <gatien.chevallier@foss.st.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+References: <20250623-ddrperfm-upstream-v1-0-7dffff168090@foss.st.com>
+ <20250623-ddrperfm-upstream-v1-6-7dffff168090@foss.st.com>
+ <5d4cf5bff7733421c8a031493742ba6a21e98583.camel@pengutronix.de>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <5d4cf5bff7733421c8a031493742ba6a21e98583.camel@pengutronix.de>
+X-Originating-IP: [10.48.86.185]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
+ definitions=2025-07-02_02,2025-07-02_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 06/13] perf: stm32: introduce DDRPERFM
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,55 +83,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-
-On Wed, 25 Jun 2025 12:33:23 +0200, Bartosz Golaszewski wrote:
-> Commit 98ce1eb1fd87e ("gpiolib: introduce gpio_chip setters that return
-> values") added new line setter callbacks to struct gpio_chip. They allow
-> to indicate failures to callers. We're in the process of converting all
-> GPIO controllers to using them before removing the old ones. This series
-> converts another round of GPIO drivers.
-> 
-> 
-> [...]
-
-Applied, thanks!
-
-[01/12] gpio: sama5d2-piobu: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/df213abe6913cae8d1d69efa66b725831f63e663
-[02/12] gpio: sch311x: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/e932e894aec6ee22d7314f74e0a27db244a14fdb
-[03/12] gpio: sch: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/883c7eb2c4a9e143b2662ba754f9c16fb31adced
-[04/12] gpio: siox: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/d5297b0f861a124efe7965619212a632d5138281
-[05/12] gpio: spear-spics: remove unneeded callbacks
-        https://git.kernel.org/brgl/linux/c/e9a5f9ac245fd58b8477f1d2fe5a077803631460
-[06/12] gpio: spear-spics: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/70c8f51ff68147176a41d549587a67ea377ed2e2
-[07/12] gpio: sprd: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/ae35dd91ad2ea4ae446e74364edd6428a26f5080
-[08/12] gpio: stmpe: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/c9148553ac13565ad06d83d7baebef133245ebe6
-[09/12] gpio: stp-xway: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/e87dff29ff6b919f64ca25b066c44bbacdc08ac3
-[10/12] gpio: syscon: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/c203705c9b46ad0b66ef3bdc93ec9073b00efed1
-[11/12] gpio: tangier: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/f3c9b6a51cb31a8816feb801c8c8a2265432143e
-[12/12] gpio: tc3589x: use new GPIO line value setter callbacks
-        https://git.kernel.org/brgl/linux/c/b033bc5a9a7d95b8dc206dd7455a033b0670d8e7
-
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUGhpbGlwCgpPbiA2LzMwLzI1IDEwOjM4LCBQaGlsaXBwIFphYmVsIHdyb3RlOgo+IE9uIE1v
+LCAyMDI1LTA2LTIzIGF0IDExOjI3ICswMjAwLCBDbMOpbWVudCBMZSBHb2ZmaWMgd3JvdGU6Cj4+
+IEludHJvZHVjZSB0aGUgZHJpdmVyIGZvciB0aGUgRERSIFBlcmZvcm1hbmNlIE1vbml0b3IgYXZh
+aWxhYmxlIG9uCj4+IFNUTTMyTVBVIFNvQy4KPj4KPj4gT24gU1RNMzJNUDIgcGxhdGZvcm1zLCB0
+aGUgRERSUEVSRk0gYWxsb3dzIHRvIG1vbml0b3IgdXAgdG8gOCBERFIgZXZlbnRzCj4+IHRoYXQg
+Y29tZSBmcm9tIHRoZSBERFIgQ29udHJvbGxlciBzdWNoIGFzIHJlYWQgb3Igd3JpdGUgZXZlbnRz
+Lgo+Pgo+PiBPbiBTVE0zMk1QMSBwbGF0Zm9ybXMsIHRoZSBERFJQRVJGTSBjYW5ub3QgbW9uaXRv
+ciBhbnkgZXZlbnQgb24gYW55Cj4+IGNvdW50ZXIsIHRoZXJlIGlzIGEgbm90aW9uIG9mIHNldCBv
+ZiBldmVudHMuCj4+IEV2ZW50cyBmcm9tIGRpZmZlcmVudCBzZXRzIGNhbm5vdCBiZSBtb25pdG9y
+ZWQgYXQgdGhlIHNhbWUgdGltZS4KPj4gVGhlIGZpcnN0IGNob3NlbiBldmVudCBzZWxlY3RzIHRo
+ZSBzZXQuCj4+IFRoZSBzZXQgaXMgY29kZWQgaW4gdGhlIGZpcnN0IHR3byBieXRlcyBvZiB0aGUg
+Y29uZmlnIHZhbHVlIHdoaWNoIGlzIG9uIDQKPj4gYnl0ZXMuCj4+Cj4+IE9uIFNUTTMyTVAyNXgg
+c2VyaWVzLCB0aGUgRERSUEVSRk0gY2xvY2sgaXMgc2hhcmVkIHdpdGggdGhlIEREUiBjb250cm9s
+bGVyCj4+IGFuZCBtYXkgYmUgc2VjdXJlZCBieSBib290bG9hZGVycy4KPj4gQWNjZXNzIGNvbnRy
+b2xsZXJzIGFsbG93IHRvIGNoZWNrIGFjY2VzcyB0byBhIHJlc291cmNlLiBVc2UgdGhlIGFjY2Vz
+cwo+PiBjb250cm9sbGVyIGRlZmluZWQgaW4gdGhlIGRldmljZXRyZWUgdG8ga25vdyBhYm91dCB0
+aGUgYWNjZXNzIHRvIHRoZQo+PiBERFJQRVJGTSBjbG9jay4KPj4KPj4gU2lnbmVkLW9mZi1ieTog
+Q2zDqW1lbnQgTGUgR29mZmljIDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPgo+PiAtLS0K
+Pj4gICBkcml2ZXJzL3BlcmYvS2NvbmZpZyAgICAgICAgIHwgIDExICsKPj4gICBkcml2ZXJzL3Bl
+cmYvTWFrZWZpbGUgICAgICAgIHwgICAxICsKPj4gICBkcml2ZXJzL3BlcmYvc3RtMzJfZGRyX3Bt
+dS5jIHwgODkzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4g
+ICAzIGZpbGVzIGNoYW5nZWQsIDkwNSBpbnNlcnRpb25zKCspCj4+Cj4gWy4uLl0KPj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvcGVyZi9zdG0zMl9kZHJfcG11LmMgYi9kcml2ZXJzL3BlcmYvc3RtMzJf
+ZGRyX3BtdS5jCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMDAwMC4u
+YzBiY2UxZjQ0NmEwCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvZHJpdmVycy9wZXJmL3N0bTMy
+X2Rkcl9wbXUuYwo+PiBAQCAtMCwwICsxLDg5MyBAQAo+IFsuLi5dCj4+ICsJaWYgKG9mX3Byb3Bl
+cnR5X3ByZXNlbnQocGRldi0+ZGV2Lm9mX25vZGUsICJyZXNldHMiKSkgewo+PiArCQlyc3QgPSBk
+ZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0KCZwZGV2LT5kZXYsIE5VTEwpOwo+IAo+IFVzZSBkZXZtX3Jl
+c2V0X2NvbnRyb2xfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZSgpIGluc3RlYWQuIEl0IHJldHVybnMK
+PiBOVUxMIGlmIHRoZSBkZXZpY2UgdHJlZSBkb2Vzbid0IGNvbnRhaW4gYSByZXNldHMgcHJvcGVy
+dHkuCgpPayBJIHdpbGwgaGF2ZSBhIGxvb2ssIHRoYW5rIHlvdQoKPiAKPj4gKwkJaWYgKElTX0VS
+Uihyc3QpKSB7Cj4+ICsJCQlkZXZfZXJyKCZwZGV2LT5kZXYsICJGYWlsZWQgdG8gZ2V0IHJlc2V0
+XG4iKTsKPiAKPiBQbGVhc2UgY29uc2lkZXIgdXNpbmcgZGV2X2Vycl9wcm9iZSgpIGluc3RlYWQu
+CgpPawoKPj4gKwkJCXJldCA9IFBUUl9FUlIocnN0KTsKPj4gKwkJCWdvdG8gZXJyX2NsazsKPj4g
+KwkJfQo+PiArCQlyZXNldF9jb250cm9sX2Fzc2VydChyc3QpOwo+PiArCQlyZXNldF9jb250cm9s
+X2RlYXNzZXJ0KHJzdCk7Cj4gCj4gVGhlc2UgY2FuIGJlIGRvbmUgdW5jb25kaXRpb25hbGx5LCBh
+cyB0aGV5IGFyZSBuby1vcHMgZm9yIHJzdCA9PSBOVUxMLgoKSW5kZWVkCgpCZXN0IHJlZ2FyZHMs
+CkNsw6ltZW50Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
