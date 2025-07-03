@@ -2,73 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454B4AF6E78
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 11:21:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C1C8AF6E6D
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 11:20:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE57EC3F943;
-	Thu,  3 Jul 2025 09:21:54 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98B0DC3F93E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86A7AC3F943;
+	Thu,  3 Jul 2025 09:20:14 +0000 (UTC)
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
+ (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D964AC3F93E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Jul 2025 09:21:53 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5639KN7v012395;
- Thu, 3 Jul 2025 11:21:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- U8/3UFXjScc/VhoP6EsW6/w+rmVzUP3VLZMHXQEnMOc=; b=Rg6zIqxXVN/lfQGs
- fKnQFf0q/7ilTG9vRlVMMzqP/IgJ92tkaLQr0rS2KExqysC3Gy6bGWQZhiSg9SRA
- jPXgr7nCkK63QVKuTpnMDT6fg8jn97ZefaBY+hOB+VJ8t3DSDHOupGONAyg8dHE5
- sHbhWZGSOr88smm5nf3mNdHedMB6jSUpHqp2dRgtTQQp53Pt5zv7CgCk5S74shfW
- u0lGL8pRyaqSKir+pjJ/47XtcfNMHjAG6Q2vykONLC6UkAYpCthqqASIIu8KvJa5
- w2Gvkb2yRzCfgbdOCIrjV6GU3SY6XNIPh/8VDNxIlmXv6nxOEC/QwvH+yk5bCZws
- 8I56Bg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47jubp3tx3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Jul 2025 11:21:37 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 570B54002D;
- Thu,  3 Jul 2025 11:20:00 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD797B2B8A3;
- Thu,  3 Jul 2025 11:19:06 +0200 (CEST)
-Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Jul
- 2025 11:19:05 +0200
-Message-ID: <01d03052-4d9b-4d71-9781-a050ee669d45@foss.st.com>
-Date: Thu, 3 Jul 2025 11:19:05 +0200
+ Thu,  3 Jul 2025 09:20:12 +0000 (UTC)
+Received: from E0005182LT.eswin.cn (unknown [10.12.96.155])
+ by app2 (Coremail) with SMTP id TQJkCgAHmZI2S2ZoXl+oAA--.51343S2;
+ Thu, 03 Jul 2025 17:19:52 +0800 (CST)
+From: weishangjuan@eswincomputing.com
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+ yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
+ jszhang@kernel.org, jan.petrous@oss.nxp.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
+ boon.khai.ng@altera.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu,  3 Jul 2025 17:19:47 +0800
+Message-Id: <20250703091947.1148-1-weishangjuan@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20250703091808.1092-1-weishangjuan@eswincomputing.com>
+References: <20250703091808.1092-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andi Shyti <andi.shyti@kernel.org>
-References: <20250630-i2c-upstream-v3-0-7a23ab26683a@foss.st.com>
- <20250630-i2c-upstream-v3-2-7a23ab26683a@foss.st.com>
- <zp3pagbojmu67o4sjm65a44ovvui5uvybs32nayvhtewfbm4el@n5lro4v5iq36>
-Content-Language: en-US
-From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-In-Reply-To: <zp3pagbojmu67o4sjm65a44ovvui5uvybs32nayvhtewfbm4el@n5lro4v5iq36>
-X-Originating-IP: [10.48.86.185]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-03_02,2025-07-02_04,2025-03-28_01
-Cc: linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- Pierre-Yves
- MORDRET <pierre-yves.mordret@st.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/3] i2c: stm32f7: unmap DMA mapped
-	buffer
+X-CM-TRANSID: TQJkCgAHmZI2S2ZoXl+oAA--.51343S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jw45Zw4rZw47trykKw1ftFb_yoW7Ar1Upa
+ yxC3y3Jr1xJr13Xw47tF10kF13Jan3Cr4YkrnFqw17t3sIga4Fqr4akF15Ga4UCr4xZFy5
+ uFWYv34xA3Wjyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+ k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+ MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+ 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
+ MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+ 8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRMrWrDUUUU
+X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
+Subject: [Linux-stm32] [PATCH v3 1/2] dt-bindings: ethernet: eswin: Document
+	for EIC7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,52 +66,208 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW5kaSwKCk9uIDcvMi8yNSAxOTowOCwgQW5kaSBTaHl0aSB3cm90ZToKPiBIaSBDbGVtZW50
-LAo+IAo+IE9uIE1vbiwgSnVuIDMwLCAyMDI1IGF0IDAyOjU1OjE0UE0gKzAyMDAsIENsw6ltZW50
-IExlIEdvZmZpYyB3cm90ZToKPj4gRml4IGFuIGlzc3VlIHdoZXJlIHRoZSBtYXBwZWQgRE1BIGJ1
-ZmZlciB3YXMgbm90IHVubWFwcGVkLgo+IAo+ICJGaXggYW4gaXNzdWUuLi4iIGlzIHRvbyBnZW5l
-cmljLiBDYW4geW91IGJlIG1vcmUgc3BlY2lmaWM/IFdoZXJlCj4gd2FzIGl0IG1hcHBlZD8gV2hl
-cmUgd2FzIGl0IGxlZnQgdW5tYXBwZWQ/Cj4gCj4gUGxlYXNlLCBkbyBjb25zaWRlciB0aGF0IHRo
-ZSB1c2VyIG5lZWRzIHRvIHVuZGVyc3RhbmQgd2hhdAo+IGhhcHBlbnMgaW4gdGhlIHBhdGNoIHdp
-dGhvdXQgbmVlZGluZyB0byBsb29rIGludG8gdGhlIHBhdGNoLgoKT2sgc3VyZSBJJ2xsIHJlZmlu
-ZSB0aGUgY29tbWl0IG1lc3NhZ2UuCgo+IAo+PiBGaXhlczogN2VjYzhjZmRlNTUzICgiaTJjOiBp
-MmMtc3RtMzJmNzogQWRkIERNQSBzdXBwb3J0IikKPj4gQWNrZWQtYnk6IEFsYWluIFZvbG1hdCA8
-YWxhaW4udm9sbWF0QGZvc3Muc3QuY29tPgo+PiBTaWduZWQtb2ZmLWJ5OiBDbMOpbWVudCBMZSBH
-b2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMv
-aTJjL2J1c3Nlcy9pMmMtc3RtMzJmNy5jIHwgNiArKysrKysKPj4gICAxIGZpbGUgY2hhbmdlZCwg
-NiBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2kyYy9idXNzZXMvaTJj
-LXN0bTMyZjcuYyBiL2RyaXZlcnMvaTJjL2J1c3Nlcy9pMmMtc3RtMzJmNy5jCj4+IGluZGV4IGU0
-YWFlYjIyNjJkMC4uMDQyMzg2YjRjYWJlIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2kyYy9idXNz
-ZXMvaTJjLXN0bTMyZjcuYwo+PiArKysgYi9kcml2ZXJzL2kyYy9idXNzZXMvaTJjLXN0bTMyZjcu
-Ywo+PiBAQCAtMTU1NCw2ICsxNTU0LDggQEAgc3RhdGljIGlycXJldHVybl90IHN0bTMyZjdfaTJj
-X2hhbmRsZV9pc3JfZXJycyhzdHJ1Y3Qgc3RtMzJmN19pMmNfZGV2ICppMmNfZGV2LAo+PiAgIAlp
-ZiAoaTJjX2Rldi0+dXNlX2RtYSkgewo+PiAgIAkJc3RtMzJmN19pMmNfZGlzYWJsZV9kbWFfcmVx
-KGkyY19kZXYpOwo+PiAgIAkJZG1hZW5naW5lX3Rlcm1pbmF0ZV9hc3luYyhkbWEtPmNoYW5fdXNp
-bmcpOwo+PiArCQlkbWFfdW5tYXBfc2luZ2xlKGkyY19kZXYtPmRldiwgZG1hLT5kbWFfYnVmLCBk
-bWEtPmRtYV9sZW4sCj4+ICsJCQkJIGRtYS0+ZG1hX2RhdGFfZGlyKTsKPj4gICAJfQo+PiAgIAo+
-PiAgIAlpMmNfZGV2LT5tYXN0ZXJfbW9kZSA9IGZhbHNlOwo+PiBAQCAtMTYyMiw2ICsxNjI0LDgg
-QEAgc3RhdGljIGlycXJldHVybl90IHN0bTMyZjdfaTJjX2lzcl9ldmVudF90aHJlYWQoaW50IGly
-cSwgdm9pZCAqZGF0YSkKPj4gICAJCWlmIChpMmNfZGV2LT51c2VfZG1hKSB7Cj4+ICAgCQkJc3Rt
-MzJmN19pMmNfZGlzYWJsZV9kbWFfcmVxKGkyY19kZXYpOwo+PiAgIAkJCWRtYWVuZ2luZV90ZXJt
-aW5hdGVfYXN5bmMoZG1hLT5jaGFuX3VzaW5nKTsKPj4gKwkJCWRtYV91bm1hcF9zaW5nbGUoaTJj
-X2Rldi0+ZGV2LCBkbWEtPmRtYV9idWYsIGRtYS0+ZG1hX2xlbiwKPj4gKwkJCQkJIGRtYS0+ZG1h
-X2RhdGFfZGlyKTsKPj4gICAJCX0KPj4gICAJCWY3X21zZy0+cmVzdWx0ID0gLUVOWElPOwo+PiAg
-IAl9Cj4+IEBAIC0xNjQyLDYgKzE2NDYsOCBAQCBzdGF0aWMgaXJxcmV0dXJuX3Qgc3RtMzJmN19p
-MmNfaXNyX2V2ZW50X3RocmVhZChpbnQgaXJxLCB2b2lkICpkYXRhKQo+PiAgIAkJCQlkZXZfZGJn
-KGkyY19kZXYtPmRldiwgIjwlcz46IFRpbWVkIG91dFxuIiwgX19mdW5jX18pOwo+PiAgIAkJCQlz
-dG0zMmY3X2kyY19kaXNhYmxlX2RtYV9yZXEoaTJjX2Rldik7Cj4+ICAgCQkJCWRtYWVuZ2luZV90
-ZXJtaW5hdGVfYXN5bmMoZG1hLT5jaGFuX3VzaW5nKTsKPj4gKwkJCQlkbWFfdW5tYXBfc2luZ2xl
-KGkyY19kZXYtPmRldiwgZG1hLT5kbWFfYnVmLCBkbWEtPmRtYV9sZW4sCj4+ICsJCQkJCQkgZG1h
-LT5kbWFfZGF0YV9kaXIpOwo+IAo+IENhbid0IHdlIHVzZSB0aGUgZG1hX2NhbGxiYWNrIGhlcmUs
-IG9yIHNpbWlsYXI/IEkgc2VlIHNvbWUKPiBzaW1pbGFyIHBhdHRlcm5zIGFuZCBJIHRoaW5rIHRo
-ZSBjb2RlIGNhbiBiZSBpbXByb3ZlZC4KClllcywgaXQgc2VlbXMgdGhlIGNvZGUgY2FuIGJlIGZh
-Y3Rvcml6ZWQuCkknbGwgc3VibWl0IGEgbmV3IHZlcnNpb24gd2l0aCB0aGUgZmFjdG9yaXphdGlv
-bi4KCkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+Add ESWIN EIC7700 Ethernet controller, supporting clock
+configuration, delay adjustment and speed adaptive functions.
+
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+---
+ .../bindings/net/eswin,eic7700-eth.yaml       | 175 ++++++++++++++++++
+ 1 file changed, 175 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+new file mode 100644
+index 000000000000..04b4c7bfbb5b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -0,0 +1,175 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Eswin EIC7700 SOC Eth Controller
++
++maintainers:
++  - Shuang Liang <liangshuang@eswincomputing.com>
++  - Zhi Li <lizhi2@eswincomputing.com>
++  - Shangjuan Wei <weishangjuan@eswincomputing.com>
++
++description:
++  The eth controller registers are part of the syscrg block on
++  the EIC7700 SoC.
++
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - eswin,eic7700-qos-eth
++  required:
++    - compatible
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: eswin,eic7700-qos-eth
++      - const: snps,dwmac-5.20
++
++  reg:
++    minItems: 1
++
++  interrupt-names:
++    const: macirq
++
++  interrupts:
++    maxItems: 1
++
++  phy-mode:
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - rgmii
++      - rgmii-rxid
++      - rgmii-txid
++      - rgmii-id
++
++  phy-handle:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Reference to the PHY device
++
++  clocks:
++    minItems: 2
++    maxItems: 2
++
++  clock-names:
++    minItems: 2
++    maxItems: 2
++    contains:
++      enum:
++        - stmmaceth
++        - tx
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    items:
++      - const: stmmaceth
++
++  rx-internal-delay-ps:
++    description:
++      RGMII Receive Clock Delay defined in pico seconds. This is used for
++      controllers that have configurable RX internal delays. If this
++      property is present then the MAC applies the RX delay.
++
++  tx-internal-delay-ps:
++    description:
++      RGMII Transmit Clock Delay defined in pico seconds. This is used for
++      controllers that have configurable TX internal delays. If this
++      property is present then the MAC applies the TX delay.
++
++  eswin,hsp-sp-csr:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - description: Phandle to HSP(High-Speed Peripheral) device
++      - description: Control register offset
++      - description: Status register offset
++      - description: Interrupt register offset
++    description: |
++      A phandle to hsp-sp-csr with three arguments that configure
++      HSP(High-Speed Peripheral) device. The argument one is the
++      offset of control register, the argument two is the offset
++      of status register, the argument three is the offset of
++      interrupt register.
++
++  eswin,syscrg-csr:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - description:
++          Phandle to system CRG(System Clock and Reset Generator)
++          device
++      - description: Clock control register offset
++      - description: Reset control register offset
++    description: |
++      A phandle to syscrg-csr with two arguments that configure
++      CRG(System Clock and Reset Generator) device. The argument
++      one is the offset of clock control register, the argument
++      two is the offset of reset control register.
++
++  eswin,dly-hsp-reg:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    items:
++      - description: Control the delay of TXD
++      - description: Control the CLK delay of TX and RX
++      - description: Control the delay of RXD
++    description: |
++      An array to dly-hsp-reg with three arguments that
++      configure delay. The argument one is used to control the
++      delay of TXD, the argument two is used to control the
++      CLK delay of TX and RX, the argument three is used to
++      control the delay of RXD.
++
++required:
++  - compatible
++  - reg
++  - interrupt-names
++  - interrupts
++  - phy-mode
++  - rx-internal-delay-ps
++  - tx-internal-delay-ps
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - eswin,hsp-sp-csr
++  - eswin,syscrg-csr
++  - eswin,dly-hsp-reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet@50400000 {
++        compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
++        reg = <0x50400000 0x10000>;
++        interrupt-parent = <&plic>;
++        interrupt-names = "macirq";
++        interrupts = <61>;
++        phy-mode = "rgmii";
++        phy-handle = <&phy0>;
++        rx-internal-delay-ps = <9000>;
++        tx-internal-delay-ps = <2200>;
++        clocks = <&clock 417>, <&clock 418>;
++        clock-names = "stmmaceth", "tx";
++        resets = <&reset 95>;
++        reset-names = "stmmaceth";
++        eswin,hsp-sp-csr = <&hsp_sp_csr 0x1030 0x100 0x108>;
++        eswin,syscrg-csr = <&sys_crg 0x148 0x14c>;
++        eswin,dly-hsp-reg = <0x114 0x118 0x11c>;
++        snps,axi-config = <&stmmac_axi_setup>;
++        snps,fixed-burst;
++        snps,aal;
++        snps,tso;
++        stmmac_axi_setup: stmmac-axi-config {
++            snps,blen = <0 0 0 0 16 8 4>;
++            snps,rd_osr_lmt = <2>;
++            snps,wr_osr_lmt = <2>;
++        };
++    };
+--
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
