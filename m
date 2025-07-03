@@ -2,73 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7CDAAF6B64
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 09:23:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0FC3AF6DE9
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 10:58:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D0E5C35E2E;
-	Thu,  3 Jul 2025 07:23:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA395C36B27
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15455C3F943;
+	Thu,  3 Jul 2025 08:58:00 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (l-sdnproxy.icoremail.net
+ [20.188.111.126])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B881DC3F93E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Jul 2025 07:23:23 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5636iKQV002403;
- Thu, 3 Jul 2025 09:23:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- npzxxQg3AAleq0Lybv60/mXXydV8H5IHVXqUHauWTxs=; b=Uj1QAxdPfx6LqXSh
- 1+ryb8pe7ooyPtWVa7Z+iCLzfHWV92go8qbzCrCafplRgwUiZqCVBFK4pH5+Ifvt
- u+62KttT2B0xFNxEoDnMRW5bhqezQaYJLLxHsBP9XCO+2GH4wThfQuNe5TWfGuf2
- zI0aC3ls5dNIr+S9RCNLGu4S8EJSiuP1rz4LmSSyApYqyewv66QrhQTRPzFbUeU7
- I4s96SUsp8XocexpRUPm2ur2TZ2AKAS6gthIggspdBJPwPIlRFLbPJjv8ZgAvzXl
- zb0NCzKvoUKnbVibDymFj+qbXxUNatvAV1wU5wzXOeH5un+Fyi5bH2Q0/8dCS5DY
- Lm0dJA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47j7r6e53n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Jul 2025 09:23:03 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3CFA24002D;
- Thu,  3 Jul 2025 09:21:43 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ABD54AF01A6;
- Thu,  3 Jul 2025 09:20:27 +0200 (CEST)
-Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Jul
- 2025 09:20:26 +0200
-Message-ID: <44f4f1a4-0225-4fda-b17b-f3159e00851d@foss.st.com>
-Date: Thu, 3 Jul 2025 09:20:26 +0200
+ Thu,  3 Jul 2025 08:57:57 +0000 (UTC)
+Received: from E0005182LT.eswin.cn (unknown [10.12.96.155])
+ by app2 (Coremail) with SMTP id TQJkCgBX9pT1RWZoWl2oAA--.28545S2;
+ Thu, 03 Jul 2025 16:57:28 +0800 (CST)
+From: weishangjuan@eswincomputing.com
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+ yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
+ jszhang@kernel.org, jan.petrous@oss.nxp.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
+ boon.khai.ng@altera.com, dfustini@tenstorrent.com, 0x1207@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Thu,  3 Jul 2025 16:57:24 +0800
+Message-Id: <20250703085724.1960-1-weishangjuan@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andi Shyti <andi.shyti@kernel.org>
-References: <20250630-i2c-upstream-v3-0-7a23ab26683a@foss.st.com>
- <20250630-i2c-upstream-v3-1-7a23ab26683a@foss.st.com>
- <n4mx3xukr5zffajpwomuwp27fywmogm6nmv7hgkcwpghjaorwv@2mqmgg3u5far>
-Content-Language: en-US
-From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
-In-Reply-To: <n4mx3xukr5zffajpwomuwp27fywmogm6nmv7hgkcwpghjaorwv@2mqmgg3u5far>
-X-Originating-IP: [10.48.86.185]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-03_02,2025-07-02_04,2025-03-28_01
-Cc: linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- Pierre-Yves
- MORDRET <pierre-yves.mordret@st.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/3] i2c: stm32: fix the device used
-	for the DMA map
+X-CM-TRANSID: TQJkCgBX9pT1RWZoWl2oAA--.28545S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1rGr1fKFy3tw4fZFW3trb_yoW8Cr18pa
+ yDCFy5Gw1ktryxJan3Jw10kFySqan7tr1a9r1Iq3WfXayqya90vw4avF4FkF9rArWDXF1a
+ qFW3urn8CFn8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBv14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+ k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+ MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+ 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+ IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+ A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRBOJnUUUUU=
+X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
+Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
+Subject: [Linux-stm32] [PATCH v3 0/2] Add driver support for Eswin eic7700
+	SoC ethernet controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,22 +64,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW5keSwKCk9uIDcvMi8yNSAxODo1NywgQW5kaSBTaHl0aSB3cm90ZToKPiBIaSBDbGVtZW50
-LAo+IAo+IC4uLgo+IAo+PiBAQCAtMTE4LDcgKzExOCw3IEBAIGludCBzdG0zMl9pMmNfcHJlcF9k
-bWFfeGZlcihzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBzdG0zMl9pMmNfZG1hICpkbWEsCj4+
-ICAgCWRtYS0+ZG1hX2xlbiA9IGxlbjsKPj4gICAJY2hhbl9kZXYgPSBkbWEtPmNoYW5fdXNpbmct
-PmRldmljZS0+ZGV2Owo+PiAgIAo+PiAtCWRtYS0+ZG1hX2J1ZiA9IGRtYV9tYXBfc2luZ2xlKGNo
-YW5fZGV2LCBidWYsIGRtYS0+ZG1hX2xlbiwKPj4gKwlkbWEtPmRtYV9idWYgPSBkbWFfbWFwX3Np
-bmdsZShkZXYsIGJ1ZiwgZG1hLT5kbWFfbGVuLAo+PiAgIAkJCQkgICAgICBkbWEtPmRtYV9kYXRh
-X2Rpcik7Cj4+ICAgCWlmIChkbWFfbWFwcGluZ19lcnJvcihjaGFuX2RldiwgZG1hLT5kbWFfYnVm
-KSkgewo+IAkJCSAgICAgIF5eXl5eXl5eCj4gCj4gdGhpcyBvbmUgc2hvdWxkIGJlICJkZXYiIHRv
-bywgd2hpY2ggcmVuZGVycyB0aGUgY2hhbl9kZXYgdmFyaWFibGUKPiB1bnVzZWQuCgpPaCB5ZXMg
-d2lsbCBzZW5kIGEgdjQKCkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+This patch depends on the vendor prefix patch:
+https://lore.kernel.org/all/20250616112316.3833343-4-pinkesh.vaghela@einfochips.com/
+
+Updates:
+
+  Changes in v3:
+  - Updated eswin,eic7700-eth.yaml
+    - Add descriptions of snps,write-questions, snps,read-questions,
+      snps,burst-map attributes
+    - Remove the description of reg
+    - Delete snps,axi-config
+  - Updated dwmac-eic7700.c
+    - Simplify drivers and remove unnecessary API and DTS attribute configurations
+    - Increase the mapping from tx/rx_delay_ps to private dly
+  - Link to v2: https://lore.kernel.org/all/aDad+8YHEFdOIs38@mev-dev.igk.intel.com/
+
+  Changes in v2:
+  - Updated eswin,eic7700-eth.yaml
+    - Add snps,dwmac in binding file
+    - Chang the names of reset-names and phy-mode
+  - Updated dwmac-eic7700.c
+    - Remove the code related to PHY LED configuration from the MAC driver
+    - Adjust the code format and driver interfaces, such as replacing kzalloc
+      with devm_kzalloc, etc.
+    - Use phylib instead of the GPIO API in the driver to implement the PHY
+      reset function
+  - Link to v1: https://lore.kernel.org/all/20250516010849.784-1-weishangjuan@eswincomputing.com/
+
+Shangjuan Wei (2):
+  dt-bindings: ethernet: eswin: Document for EIC7700 SoC
+  ethernet: eswin: Add eic7700 ethernet driver
+
+ .../bindings/net/eswin,eic7700-eth.yaml       | 175 ++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 257 ++++++++++++++++++
+ 4 files changed, 444 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
