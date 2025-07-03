@@ -2,59 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E92AF732D
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 14:03:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3FE7AF739F
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 14:18:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 081C8C3F944;
-	Thu,  3 Jul 2025 12:03:37 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3089C3F944;
+	Thu,  3 Jul 2025 12:18:16 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73854C3F943
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF0A3C3F943
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Jul 2025 12:03:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0bLFCgSGsGWYqU1VUzp/98s4ncOYCMUP6PUrfSKkQ9I=; b=ayEG+PtL2NdfYFXcLmfnMMc+/o
- REzK/c2hbPC5peR8ZFgtSTCGIwfArWZLcKgJZYlfV4CQSgckIAtgEpCBuc0U9ApE8zxEcdu84+/Vp
- /8m8ibuEVYYA0mOJUFD3FeLs4FzBiiugflhOFF//Qlplz/DBrvsIu8Li98qAgzaldWJ08LShkNJMw
- k678K+PC1fbvUgCwdIlPjRJGFyYe7M8RBdMckjrhpz9jEDTLsc53yiMyEQNgrFIdUmsxPZON/xTch
- KRAGlD50wX7grhb9R40HOToRDopp9oo4HXTCggU+zZHztGDRVUjubbE2dbpddRVH+1FXWgZvCetN0
- M2/p8Rbw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43908)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1uXIeh-0000gv-0k;
- Thu, 03 Jul 2025 13:03:07 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1uXIeZ-00054e-1E;
- Thu, 03 Jul 2025 13:02:59 +0100
-Date: Thu, 3 Jul 2025 13:02:59 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: weishangjuan@eswincomputing.com
-Message-ID: <aGZxc-9C0rPVMsGH@shell.armlinux.org.uk>
-References: <20250703091808.1092-1-weishangjuan@eswincomputing.com>
- <20250703092015.1200-1-weishangjuan@eswincomputing.com>
+ Thu,  3 Jul 2025 12:18:14 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id
+ d2e1a72fcca58-7425bd5a83aso5102569b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 03 Jul 2025 05:18:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1751545093; x=1752149893;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=81yxCIGAi+pZiTG+ZtQqhKBsE1y3xIl6UxS2rPadYt8=;
+ b=I7TK2c/Tat0+MSBYpOeHXrYVYtumrUyz+WKG3YCEcXN5emhjSDNSA0bNfaQJTMtLoj
+ DGRY75adILtclqOGKOsggXAqMFmCQk/SFN6t5NZDeHO8MdTQ5MQu7Zr7AXCzUBQapCU3
+ CeLroKBC9l9OzcwRI6R6Pd8EK1G3R6O6j3xesCF8TOZUDgpWNauEzR2dIskYscGUozzR
+ xvGpAmfSvBQYM5sbOo2gVDCXXSMefym+MR3D6pO1ZQz6aX1xoNeQnEjyPxoncLAP/p5k
+ 1OZO/1jTsxRz7Gtge08+G4yW5cxbJRPEAOvNOH3f1fX1TlHuRuPF7qDoD9gO0CypAVcS
+ 2mxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1751545093; x=1752149893;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=81yxCIGAi+pZiTG+ZtQqhKBsE1y3xIl6UxS2rPadYt8=;
+ b=GfSeVYXvZHd2VtVGdmExvRdOsc+WCerzR0hpKczBp395NQXuzbZ+LyTkar8yJeQ1h6
+ /e/vScOzVMoAFfHK3a3IEQv04KzzplimIrxDH7NLAVdbl0AShZ++LLcQZcsLVK+QtaBi
+ oB5mq6Q/GsnLmeV/jpnhblAW8+hOqznMsUjQg5JmqTAbGnS7erYh8PQ46chtYbleMkcs
+ laODlZiQwvD6iS9wqMswcdZxTjZub3U0oq+Z9fAWhHpxyaawSNv4M1LyZf75K9xPy16h
+ Ze330EFZl5k9wpg4jOYfnhTafvZXXUQraaOlub7JnYV4u/3cO+HQUKQh5PhvXk5LU28N
+ 2Q7Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWuZ3S93o7+cgv50v6Mz2NGbYtHDGNlDkFsBUEYBUyAlSl4t23JZ4uGJdrr+d7DWZJGq6uDJIXKL9xm0Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzENQ2ilNqzyscukqWGFZ3vJEL8qMzjOM78hm2fp3JWXjX2/kvI
+ 0YowA4JAIu2z2pXRKNj876TW3j0FX9HjOBzoORIRBCudwhVCrfIsbRLmqk5dsqeBkNX8fA==
+X-Gm-Gg: ASbGncsdKuc3ffNTMtMdFo7g/8yCfVpr2Uifvq6N1z/MdWYwJDLKw3HO2e6ZkRHRMaC
+ OJJn8IeopyZ6VtAt4xIZMYb4KiEQOAyZEBUiRnONtqEK02WqKixBXzhOj0iS9Su7Hjy3gcOso9X
+ zDCHXYfhwtw1hI7NuIs/tElU6uVGzDNU5CLkbleroK49tm7SelZpunQIR4JCVBeJVoBs1vtiCfd
+ c538uMOF8mWmKwfgeu5u6olCXy2WMohZ7qKL0fN2MvbReAKHLkzchT77p48aNYkbBjpyCbQKdtr
+ WP6bYFHT0q6qe1kaglZqXaBe7ApdzFp9uxdtc3KsHqSRYef6lgQAmVtzKTjObgz6I8dHsgE+3Pw
+ uwLY=
+X-Google-Smtp-Source: AGHT+IEeULaBlyscxQYttwhGr76vxRO967SQxsaj9KakTVjPulR/8ZvydQtW7zfOnBO+trZkmhwoHQ==
+X-Received: by 2002:a05:6a00:1823:b0:749:8c3:873e with SMTP id
+ d2e1a72fcca58-74b513efdebmr8967270b3a.24.1751545092970; 
+ Thu, 03 Jul 2025 05:18:12 -0700 (PDT)
+Received: from localhost.localdomain ([43.129.244.20])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74af5575895sm18591081b3a.94.2025.07.03.05.18.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Jul 2025 05:18:12 -0700 (PDT)
+From: Menglong Dong <menglong8.dong@gmail.com>
+X-Google-Original-From: Menglong Dong <dongml2@chinatelecom.cn>
+To: alexei.starovoitov@gmail.com,
+	rostedt@goodmis.org,
+	jolsa@kernel.org
+Date: Thu,  3 Jul 2025 20:15:20 +0800
+Message-Id: <20250703121521.1874196-18-dongml2@chinatelecom.cn>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250703121521.1874196-1-dongml2@chinatelecom.cn>
+References: <20250703121521.1874196-1-dongml2@chinatelecom.cn>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250703092015.1200-1-weishangjuan@eswincomputing.com>
-Cc: vladimir.oltean@nxp.com, edumazet@google.com, jszhang@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- ningyu@eswincomputing.com, 0x1207@gmail.com, lizhi2@eswincomputing.com,
- kuba@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- jan.petrous@oss.nxp.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- yong.liang.choong@linux.intel.com, dfustini@tenstorrent.com,
- linux-arm-kernel@lists.infradead.org, linmin@eswincomputing.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, inochiama@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] ethernet: eswin: Add eic7700
-	ethernet driver
+Cc: Hao Luo <haoluo@google.com>, Mykola Lysenko <mykolal@fb.com>,
+ linux-kselftest@vger.kernel.org, Eduard Zingerman <eddyz87@gmail.com>,
+ John Fastabend <john.fastabend@gmail.com>, KP Singh <kpsingh@kernel.org>,
+ linux-kernel@vger.kernel.org, Song Liu <song@kernel.org>,
+ Stanislav Fomichev <sdf@fomichev.me>, Yonghong Song <yonghong.song@linux.dev>,
+ bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Menglong Dong <dongml2@chinatelecom.cn>
+Subject: [Linux-stm32] [PATCH bpf-next v2 17/18] selftests/bpf: add basic
+	testcases for tracing_multi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,194 +99,1060 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 03, 2025 at 05:20:15PM +0800, weishangjuan@eswincomputing.com wrote:
-> +static void eic7700_qos_fix_speed(void *priv, int speed, u32 mode)
-> +{
-> +	struct eic7700_qos_priv *dwc_priv = priv;
-> +	int i;
-> +
-> +	switch (speed) {
-> +	case SPEED_1000:
-> +		for (i = 0; i < 3; i++)
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_1000m[i]);
-> +		break;
-> +	case SPEED_100:
-> +		for (i = 0; i < 3; i++) {
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_100m[i]);
-> +		}
+In this commit, we add some testcases for the following attach types:
 
-The other two instances don't have the curley braces, why does this need
-it?
+BPF_TRACE_FENTRY_MULTI
+BPF_TRACE_FEXIT_MULTI
+BPF_MODIFY_RETURN_MULTI
 
-> +		break;
-> +	case SPEED_10:
-> +		for (i = 0; i < 3; i++) {
-> +			regmap_write(dwc_priv->hsp_regmap,
-> +				     dwc_priv->dly_hsp_reg[i],
-> +				     dwc_priv->dly_param_10m[i]);
-> +		}
-> +		break;
-> +	default:
-> +		dev_err(dwc_priv->dev, "invalid speed %u\n", speed);
-> +		break;
-> +	}
+We reuse the testings in fentry_test.c, fexit_test.c and modify_return.c
+by attach the tracing bpf prog as tracing_multi.
 
-Overall, wouldn't:
+We add some functions to skip for tracing progs to bpf_get_ksyms(). The
+functions that in the "btf_id_deny" should be skipped. What's more, the
+kernel can't find the right function address according to the btf type id
+when duplicated function name exist. So we skip such functions that we
+meet. The list is not whole, so we still can fail during attaching the
+FENTRY_MULTI to all the kernel functions. This is something that we need
+to fix in the feature.
 
-	const u32 *dly_param;
+Signed-off-by: Menglong Dong <dongml2@chinatelecom.cn>
+---
+ tools/testing/selftests/bpf/Makefile          |   2 +-
+ .../selftests/bpf/prog_tests/fentry_fexit.c   |  22 +-
+ .../selftests/bpf/prog_tests/fentry_test.c    |  79 +++++--
+ .../selftests/bpf/prog_tests/fexit_test.c     |  79 +++++--
+ .../selftests/bpf/prog_tests/modify_return.c  |  60 +++++
+ .../bpf/prog_tests/tracing_multi_link.c       | 210 ++++++++++++++++++
+ .../selftests/bpf/progs/fentry_multi_empty.c  |  13 ++
+ .../selftests/bpf/progs/tracing_multi_test.c  | 181 +++++++++++++++
+ .../selftests/bpf/test_kmods/bpf_testmod.c    |  24 ++
+ tools/testing/selftests/bpf/test_progs.c      |  50 +++++
+ tools/testing/selftests/bpf/test_progs.h      |   3 +
+ tools/testing/selftests/bpf/trace_helpers.c   |  69 ++++++
+ 12 files changed, 744 insertions(+), 48 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/tracing_multi_link.c
+ create mode 100644 tools/testing/selftests/bpf/progs/fentry_multi_empty.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_test.c
 
-	switch (speed) {
-	case SPEED_1000:
-		dly_param = dwc_priv->dly_param_1000m;
-		break;
-	... etc ...
-	default:
-		dly_param = NULL;
-		dev_err(dwc_priv->dev, "invalid speed %u\n", speed);
-		break;
-	}
-
-	if (dly_param)
-		for (i = 0; i < 3; i++)
-			regmap_write(dwc_priv->hsp_regmap,
-				     dwc_priv->dly_hsp_reg[i],
-				     dly_param[i]);
-
-be more concise and easier to read?
-
-> +}
-> +
-> +static int eic7700_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct eic7700_qos_priv *dwc_priv;
-> +	u32 hsp_aclk_ctrl_offset;
-> +	u32 hsp_aclk_ctrl_regset;
-> +	u32 hsp_cfg_ctrl_offset;
-> +	u32 eth_axi_lp_ctrl_offset;
-> +	u32 eth_phy_ctrl_offset;
-> +	u32 eth_phy_ctrl_regset;
-> +	bool has_rx_dly = false;
-> +	bool has_tx_dly = false;
-> +	int ret;
-> +
-> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				"failed to get resources\n");
-> +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat),
-> +				"dt configuration failed\n");
-> +
-> +	dwc_priv = devm_kzalloc(&pdev->dev, sizeof(*dwc_priv), GFP_KERNEL);
-> +	if (!dwc_priv)
-> +		return -ENOMEM;
-> +
-> +	dwc_priv->dev = &pdev->dev;
-> +	dwc_priv->dly_param_1000m[0] = EIC7700_DELAY_VALUE0;
-> +	dwc_priv->dly_param_1000m[1] = EIC7700_DELAY_VALUE1;
-> +	dwc_priv->dly_param_1000m[2] = EIC7700_DELAY_VALUE0;
-> +	dwc_priv->dly_param_100m[0] = EIC7700_DELAY_VALUE0;
-> +	dwc_priv->dly_param_100m[1] = EIC7700_DELAY_VALUE1;
-> +	dwc_priv->dly_param_100m[2] = EIC7700_DELAY_VALUE0;
-> +	dwc_priv->dly_param_10m[0] = 0x0;
-> +	dwc_priv->dly_param_10m[1] = 0x0;
-> +	dwc_priv->dly_param_10m[2] = 0x0;
-> +
-> +	ret = of_property_read_u32(pdev->dev.of_node, "rx-internal-delay-ps",
-> +				   &dwc_priv->rx_delay_ps);
-> +	if (ret)
-> +		dev_dbg(&pdev->dev, "can't get rx-internal-delay-ps, ret(%d).", ret);
-
-Consider using %pe and ERR_PTR(ret) so that error codes can be
-translated to human readable strings. Ditto elsewhere.
-
-> +	else
-> +		has_rx_dly = true;
-> +
-> +	ret = of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
-> +				   &dwc_priv->tx_delay_ps);
-> +	if (ret)
-> +		dev_dbg(&pdev->dev, "can't get tx-internal-delay-ps, ret(%d).", ret);
-> +	else
-> +		has_tx_dly = true;
-> +	if (has_rx_dly && has_tx_dly) {
-> +		eic7700_set_delay(dwc_priv->rx_delay_ps, dwc_priv->tx_delay_ps,
-> +				  &dwc_priv->dly_param_1000m[1]);
-> +		eic7700_set_delay(dwc_priv->rx_delay_ps, dwc_priv->tx_delay_ps,
-> +				  &dwc_priv->dly_param_100m[1]);
-> +		eic7700_set_delay(dwc_priv->rx_delay_ps, dwc_priv->tx_delay_ps,
-> +				  &dwc_priv->dly_param_10m[1]);
-> +	} else {
-> +		dev_dbg(&pdev->dev, " use default dly\n");
-> +	}
-> +
-> +	ret = of_property_read_variable_u32_array(pdev->dev.of_node, "eswin,dly_hsp_reg",
-> +						  &dwc_priv->dly_hsp_reg[0], 3, 0);
-> +	if (ret != 3) {
-> +		dev_err(&pdev->dev, "can't get delay hsp reg.ret(%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	dwc_priv->crg_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-> +							       "eswin,syscrg_csr");
-> +	if (IS_ERR(dwc_priv->crg_regmap))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(dwc_priv->crg_regmap),
-> +				"Failed to get syscrg_csr regmap\n");
-> +
-> +	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,syscrg_csr", 1,
-> +					 &hsp_aclk_ctrl_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "can't get hsp_aclk_ctrl_offset\n");
-> +
-> +	regmap_read(dwc_priv->crg_regmap, hsp_aclk_ctrl_offset, &hsp_aclk_ctrl_regset);
-> +	hsp_aclk_ctrl_regset |= (EIC7700_HSP_ACLK_CLKEN | EIC7700_HSP_ACLK_DIVSOR);
-> +	regmap_write(dwc_priv->crg_regmap, hsp_aclk_ctrl_offset, hsp_aclk_ctrl_regset);
-> +
-> +	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,syscrg_csr", 2,
-> +					 &hsp_cfg_ctrl_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "can't get hsp_cfg_ctrl_offset\n");
-> +
-> +	regmap_write(dwc_priv->crg_regmap, hsp_cfg_ctrl_offset, EIC7700_HSP_CFG_CTRL_REGSET);
-> +
-> +	dwc_priv->hsp_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-> +							       "eswin,hsp_sp_csr");
-> +	if (IS_ERR(dwc_priv->hsp_regmap))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(dwc_priv->hsp_regmap),
-> +				"Failed to get hsp_sp_csr regmap\n");
-> +
-> +	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,hsp_sp_csr", 2,
-> +					 &eth_phy_ctrl_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "can't get eth_phy_ctrl_offset\n");
-> +
-> +	regmap_read(dwc_priv->hsp_regmap, eth_phy_ctrl_offset, &eth_phy_ctrl_regset);
-> +	eth_phy_ctrl_regset |= (EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
-> +	regmap_write(dwc_priv->hsp_regmap, eth_phy_ctrl_offset, eth_phy_ctrl_regset);
-> +
-> +	ret = of_property_read_u32_index(pdev->dev.of_node, "eswin,hsp_sp_csr", 3,
-> +					 &eth_axi_lp_ctrl_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "can't get eth_axi_lp_ctrl_offset\n");
-> +
-> +	regmap_write(dwc_priv->hsp_regmap, eth_axi_lp_ctrl_offset, EIC7700_ETH_CSYSREQ_VAL);
-> +
-
-Consider more sensible wrapping of this (netdev frowns at >80
-characters per line, except for message strings that should remain
-greppable.)
-
+diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
+index 4863106034df..1fa0da096262 100644
+--- a/tools/testing/selftests/bpf/Makefile
++++ b/tools/testing/selftests/bpf/Makefile
+@@ -496,7 +496,7 @@ LINKED_SKELS := test_static_linked.skel.h linked_funcs.skel.h		\
+ 		test_subskeleton.skel.h test_subskeleton_lib.skel.h	\
+ 		test_usdt.skel.h
+ 
+-LSKELS := fentry_test.c fexit_test.c fexit_sleep.c atomics.c 		\
++LSKELS := fexit_sleep.c atomics.c 		\
+ 	trace_printk.c trace_vprintk.c map_ptr_kern.c 			\
+ 	core_kern.c core_kern_overflow.c test_ringbuf.c			\
+ 	test_ringbuf_n.c test_ringbuf_map_key.c test_ringbuf_write.c
+diff --git a/tools/testing/selftests/bpf/prog_tests/fentry_fexit.c b/tools/testing/selftests/bpf/prog_tests/fentry_fexit.c
+index 130f5b82d2e6..84cc8b669684 100644
+--- a/tools/testing/selftests/bpf/prog_tests/fentry_fexit.c
++++ b/tools/testing/selftests/bpf/prog_tests/fentry_fexit.c
+@@ -1,32 +1,32 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2019 Facebook */
+ #include <test_progs.h>
+-#include "fentry_test.lskel.h"
+-#include "fexit_test.lskel.h"
++#include "fentry_test.skel.h"
++#include "fexit_test.skel.h"
+ 
+ void test_fentry_fexit(void)
+ {
+-	struct fentry_test_lskel *fentry_skel = NULL;
+-	struct fexit_test_lskel *fexit_skel = NULL;
++	struct fentry_test *fentry_skel = NULL;
++	struct fexit_test *fexit_skel = NULL;
+ 	__u64 *fentry_res, *fexit_res;
+ 	int err, prog_fd, i;
+ 	LIBBPF_OPTS(bpf_test_run_opts, topts);
+ 
+-	fentry_skel = fentry_test_lskel__open_and_load();
++	fentry_skel = fentry_test__open_and_load();
+ 	if (!ASSERT_OK_PTR(fentry_skel, "fentry_skel_load"))
+ 		goto close_prog;
+-	fexit_skel = fexit_test_lskel__open_and_load();
++	fexit_skel = fexit_test__open_and_load();
+ 	if (!ASSERT_OK_PTR(fexit_skel, "fexit_skel_load"))
+ 		goto close_prog;
+ 
+-	err = fentry_test_lskel__attach(fentry_skel);
++	err = fentry_test__attach(fentry_skel);
+ 	if (!ASSERT_OK(err, "fentry_attach"))
+ 		goto close_prog;
+-	err = fexit_test_lskel__attach(fexit_skel);
++	err = fexit_test__attach(fexit_skel);
+ 	if (!ASSERT_OK(err, "fexit_attach"))
+ 		goto close_prog;
+ 
+-	prog_fd = fexit_skel->progs.test1.prog_fd;
++	prog_fd = bpf_program__fd(fexit_skel->progs.test1);
+ 	err = bpf_prog_test_run_opts(prog_fd, &topts);
+ 	ASSERT_OK(err, "ipv6 test_run");
+ 	ASSERT_OK(topts.retval, "ipv6 test retval");
+@@ -40,6 +40,6 @@ void test_fentry_fexit(void)
+ 	}
+ 
+ close_prog:
+-	fentry_test_lskel__destroy(fentry_skel);
+-	fexit_test_lskel__destroy(fexit_skel);
++	fentry_test__destroy(fentry_skel);
++	fexit_test__destroy(fexit_skel);
+ }
+diff --git a/tools/testing/selftests/bpf/prog_tests/fentry_test.c b/tools/testing/selftests/bpf/prog_tests/fentry_test.c
+index aee1bc77a17f..9edd383feabd 100644
+--- a/tools/testing/selftests/bpf/prog_tests/fentry_test.c
++++ b/tools/testing/selftests/bpf/prog_tests/fentry_test.c
+@@ -1,26 +1,16 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2019 Facebook */
+ #include <test_progs.h>
+-#include "fentry_test.lskel.h"
++#include "fentry_test.skel.h"
+ #include "fentry_many_args.skel.h"
+ 
+-static int fentry_test_common(struct fentry_test_lskel *fentry_skel)
++static int fentry_test_check(struct fentry_test *fentry_skel)
+ {
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
+ 	int err, prog_fd, i;
+-	int link_fd;
+ 	__u64 *result;
+-	LIBBPF_OPTS(bpf_test_run_opts, topts);
+-
+-	err = fentry_test_lskel__attach(fentry_skel);
+-	if (!ASSERT_OK(err, "fentry_attach"))
+-		return err;
+ 
+-	/* Check that already linked program can't be attached again. */
+-	link_fd = fentry_test_lskel__test1__attach(fentry_skel);
+-	if (!ASSERT_LT(link_fd, 0, "fentry_attach_link"))
+-		return -1;
+-
+-	prog_fd = fentry_skel->progs.test1.prog_fd;
++	prog_fd = bpf_program__fd(fentry_skel->progs.test1);
+ 	err = bpf_prog_test_run_opts(prog_fd, &topts);
+ 	ASSERT_OK(err, "test_run");
+ 	ASSERT_EQ(topts.retval, 0, "test_run");
+@@ -31,7 +21,28 @@ static int fentry_test_common(struct fentry_test_lskel *fentry_skel)
+ 			return -1;
+ 	}
+ 
+-	fentry_test_lskel__detach(fentry_skel);
++	return 0;
++}
++
++static int fentry_test_common(struct fentry_test *fentry_skel)
++{
++	struct bpf_link *link;
++	int err;
++
++	err = fentry_test__attach(fentry_skel);
++	if (!ASSERT_OK(err, "fentry_attach"))
++		return err;
++
++	/* Check that already linked program can't be attached again. */
++	link = bpf_program__attach(fentry_skel->progs.test1);
++	if (!ASSERT_ERR_PTR(link, "fentry_attach_link"))
++		return -1;
++
++	err = fentry_test_check(fentry_skel);
++	if (!ASSERT_OK(err, "fentry_test_check"))
++		return err;
++
++	fentry_test__detach(fentry_skel);
+ 
+ 	/* zero results for re-attach test */
+ 	memset(fentry_skel->bss, 0, sizeof(*fentry_skel->bss));
+@@ -40,10 +51,10 @@ static int fentry_test_common(struct fentry_test_lskel *fentry_skel)
+ 
+ static void fentry_test(void)
+ {
+-	struct fentry_test_lskel *fentry_skel = NULL;
++	struct fentry_test *fentry_skel = NULL;
+ 	int err;
+ 
+-	fentry_skel = fentry_test_lskel__open_and_load();
++	fentry_skel = fentry_test__open_and_load();
+ 	if (!ASSERT_OK_PTR(fentry_skel, "fentry_skel_load"))
+ 		goto cleanup;
+ 
+@@ -55,7 +66,7 @@ static void fentry_test(void)
+ 	ASSERT_OK(err, "fentry_second_attach");
+ 
+ cleanup:
+-	fentry_test_lskel__destroy(fentry_skel);
++	fentry_test__destroy(fentry_skel);
+ }
+ 
+ static void fentry_many_args(void)
+@@ -84,10 +95,42 @@ static void fentry_many_args(void)
+ 	fentry_many_args__destroy(fentry_skel);
+ }
+ 
++static void fentry_multi_test(void)
++{
++	struct fentry_test *fentry_skel = NULL;
++	int err, prog_cnt;
++
++	fentry_skel = fentry_test__open();
++	if (!ASSERT_OK_PTR(fentry_skel, "fentry_skel_open"))
++		goto cleanup;
++
++	prog_cnt = sizeof(fentry_skel->progs) / sizeof(long);
++	err = bpf_to_tracing_multi((void *)&fentry_skel->progs, prog_cnt);
++	if (!ASSERT_OK(err, "fentry_to_multi"))
++		goto cleanup;
++
++	err = fentry_test__load(fentry_skel);
++	if (!ASSERT_OK(err, "fentry_skel_load"))
++		goto cleanup;
++
++	err = bpf_attach_as_tracing_multi((void *)&fentry_skel->progs,
++					  prog_cnt,
++					  (void *)&fentry_skel->links);
++	if (!ASSERT_OK(err, "fentry_attach_multi"))
++		goto cleanup;
++
++	err = fentry_test_check(fentry_skel);
++	ASSERT_OK(err, "fentry_first_attach");
++cleanup:
++	fentry_test__destroy(fentry_skel);
++}
++
+ void test_fentry_test(void)
+ {
+ 	if (test__start_subtest("fentry"))
+ 		fentry_test();
++	if (test__start_subtest("fentry_multi"))
++		fentry_multi_test();
+ 	if (test__start_subtest("fentry_many_args"))
+ 		fentry_many_args();
+ }
+diff --git a/tools/testing/selftests/bpf/prog_tests/fexit_test.c b/tools/testing/selftests/bpf/prog_tests/fexit_test.c
+index 1c13007e37dd..5652d02b3ad9 100644
+--- a/tools/testing/selftests/bpf/prog_tests/fexit_test.c
++++ b/tools/testing/selftests/bpf/prog_tests/fexit_test.c
+@@ -1,26 +1,16 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2019 Facebook */
+ #include <test_progs.h>
+-#include "fexit_test.lskel.h"
++#include "fexit_test.skel.h"
+ #include "fexit_many_args.skel.h"
+ 
+-static int fexit_test_common(struct fexit_test_lskel *fexit_skel)
++static int fexit_test_check(struct fexit_test *fexit_skel)
+ {
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
+ 	int err, prog_fd, i;
+-	int link_fd;
+ 	__u64 *result;
+-	LIBBPF_OPTS(bpf_test_run_opts, topts);
+-
+-	err = fexit_test_lskel__attach(fexit_skel);
+-	if (!ASSERT_OK(err, "fexit_attach"))
+-		return err;
+ 
+-	/* Check that already linked program can't be attached again. */
+-	link_fd = fexit_test_lskel__test1__attach(fexit_skel);
+-	if (!ASSERT_LT(link_fd, 0, "fexit_attach_link"))
+-		return -1;
+-
+-	prog_fd = fexit_skel->progs.test1.prog_fd;
++	prog_fd = bpf_program__fd(fexit_skel->progs.test1);
+ 	err = bpf_prog_test_run_opts(prog_fd, &topts);
+ 	ASSERT_OK(err, "test_run");
+ 	ASSERT_EQ(topts.retval, 0, "test_run");
+@@ -31,7 +21,28 @@ static int fexit_test_common(struct fexit_test_lskel *fexit_skel)
+ 			return -1;
+ 	}
+ 
+-	fexit_test_lskel__detach(fexit_skel);
++	return 0;
++}
++
++static int fexit_test_common(struct fexit_test *fexit_skel)
++{
++	struct bpf_link *link;
++	int err;
++
++	err = fexit_test__attach(fexit_skel);
++	if (!ASSERT_OK(err, "fexit_attach"))
++		return err;
++
++	/* Check that already linked program can't be attached again. */
++	link = bpf_program__attach(fexit_skel->progs.test1);
++	if (!ASSERT_ERR_PTR(link, "fexit_attach_link"))
++		return -1;
++
++	err = fexit_test_check(fexit_skel);
++	if (!ASSERT_OK(err, "fexit_test_check"))
++		return err;
++
++	fexit_test__detach(fexit_skel);
+ 
+ 	/* zero results for re-attach test */
+ 	memset(fexit_skel->bss, 0, sizeof(*fexit_skel->bss));
+@@ -40,10 +51,10 @@ static int fexit_test_common(struct fexit_test_lskel *fexit_skel)
+ 
+ static void fexit_test(void)
+ {
+-	struct fexit_test_lskel *fexit_skel = NULL;
++	struct fexit_test *fexit_skel = NULL;
+ 	int err;
+ 
+-	fexit_skel = fexit_test_lskel__open_and_load();
++	fexit_skel = fexit_test__open_and_load();
+ 	if (!ASSERT_OK_PTR(fexit_skel, "fexit_skel_load"))
+ 		goto cleanup;
+ 
+@@ -55,7 +66,7 @@ static void fexit_test(void)
+ 	ASSERT_OK(err, "fexit_second_attach");
+ 
+ cleanup:
+-	fexit_test_lskel__destroy(fexit_skel);
++	fexit_test__destroy(fexit_skel);
+ }
+ 
+ static void fexit_many_args(void)
+@@ -84,10 +95,42 @@ static void fexit_many_args(void)
+ 	fexit_many_args__destroy(fexit_skel);
+ }
+ 
++static void fexit_test_multi(void)
++{
++	struct fexit_test *fexit_skel = NULL;
++	int err, prog_cnt;
++
++	fexit_skel = fexit_test__open();
++	if (!ASSERT_OK_PTR(fexit_skel, "fexit_skel_open"))
++		goto cleanup;
++
++	prog_cnt = sizeof(fexit_skel->progs) / sizeof(long);
++	err = bpf_to_tracing_multi((void *)&fexit_skel->progs, prog_cnt);
++	if (!ASSERT_OK(err, "fexit_to_multi"))
++		goto cleanup;
++
++	err = fexit_test__load(fexit_skel);
++	if (!ASSERT_OK(err, "fexit_skel_load"))
++		goto cleanup;
++
++	err = bpf_attach_as_tracing_multi((void *)&fexit_skel->progs,
++					  prog_cnt,
++					  (void *)&fexit_skel->links);
++	if (!ASSERT_OK(err, "fexit_attach_multi"))
++		goto cleanup;
++
++	err = fexit_test_check(fexit_skel);
++	ASSERT_OK(err, "fexit_first_attach");
++cleanup:
++	fexit_test__destroy(fexit_skel);
++}
++
+ void test_fexit_test(void)
+ {
+ 	if (test__start_subtest("fexit"))
+ 		fexit_test();
++	if (test__start_subtest("fexit_multi"))
++		fexit_test_multi();
+ 	if (test__start_subtest("fexit_many_args"))
+ 		fexit_many_args();
+ }
+diff --git a/tools/testing/selftests/bpf/prog_tests/modify_return.c b/tools/testing/selftests/bpf/prog_tests/modify_return.c
+index a70c99c2f8c8..3ca454379e90 100644
+--- a/tools/testing/selftests/bpf/prog_tests/modify_return.c
++++ b/tools/testing/selftests/bpf/prog_tests/modify_return.c
+@@ -49,6 +49,56 @@ static void run_test(__u32 input_retval, __u16 want_side_effect, __s16 want_ret)
+ 	modify_return__destroy(skel);
+ }
+ 
++static void run_multi_test(__u32 input_retval, __u16 want_side_effect, __s16 want_ret)
++{
++	struct modify_return *skel = NULL;
++	int err, prog_fd, prog_cnt;
++	__u16 side_effect;
++	__s16 ret;
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
++
++	skel = modify_return__open();
++	if (!ASSERT_OK_PTR(skel, "skel_open"))
++		goto cleanup;
++
++	/* stack function args is not supported by tracing multi-link yet,
++	 * so we only enable the bpf progs without stack function args.
++	 */
++	bpf_program__set_expected_attach_type(skel->progs.fentry_test,
++					      BPF_TRACE_FENTRY_MULTI);
++	bpf_program__set_expected_attach_type(skel->progs.fexit_test,
++					      BPF_TRACE_FEXIT_MULTI);
++	bpf_program__set_expected_attach_type(skel->progs.fmod_ret_test,
++					      BPF_MODIFY_RETURN_MULTI);
++
++	err = modify_return__load(skel);
++	if (!ASSERT_OK(err, "skel_load"))
++		goto cleanup;
++
++	prog_cnt = sizeof(skel->progs) / sizeof(long);
++	err = bpf_attach_as_tracing_multi((void *)&skel->progs,
++					  prog_cnt,
++					  (void *)&skel->links);
++	if (!ASSERT_OK(err, "modify_return__attach failed"))
++		goto cleanup;
++
++	skel->bss->input_retval = input_retval;
++	prog_fd = bpf_program__fd(skel->progs.fmod_ret_test);
++	err = bpf_prog_test_run_opts(prog_fd, &topts);
++	ASSERT_OK(err, "test_run");
++
++	side_effect = UPPER(topts.retval);
++	ret = LOWER(topts.retval);
++
++	ASSERT_EQ(ret, want_ret, "test_run ret");
++	ASSERT_EQ(side_effect, want_side_effect, "modify_return side_effect");
++	ASSERT_EQ(skel->bss->fentry_result, 1, "modify_return fentry_result");
++	ASSERT_EQ(skel->bss->fexit_result, 1, "modify_return fexit_result");
++	ASSERT_EQ(skel->bss->fmod_ret_result, 1, "modify_return fmod_ret_result");
++cleanup:
++	modify_return__destroy(skel);
++}
++
+ /* TODO: conflict with get_func_ip_test */
+ void serial_test_modify_return(void)
+ {
+@@ -59,3 +109,13 @@ void serial_test_modify_return(void)
+ 		 0 /* want_side_effect */,
+ 		 -EINVAL * 2 /* want_ret */);
+ }
++
++void serial_test_modify_return_multi(void)
++{
++	run_multi_test(0 /* input_retval */,
++		       2 /* want_side_effect */,
++		       33 /* want_ret */);
++	run_multi_test(-EINVAL /* input_retval */,
++		       1 /* want_side_effect */,
++		       -EINVAL + 29 /* want_ret */);
++}
+diff --git a/tools/testing/selftests/bpf/prog_tests/tracing_multi_link.c b/tools/testing/selftests/bpf/prog_tests/tracing_multi_link.c
+new file mode 100644
+index 000000000000..1cbe6089472f
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/tracing_multi_link.c
+@@ -0,0 +1,210 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2025 ChinaTelecom */
++
++#include <test_progs.h>
++
++#include "tracing_multi_test.skel.h"
++#include "fentry_multi_empty.skel.h"
++
++static void test_run(struct tracing_multi_test *skel)
++{
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
++	int err, prog_fd;
++
++	skel->bss->pid = getpid();
++	prog_fd = bpf_program__fd(skel->progs.fentry_cookie_test1);
++	err = bpf_prog_test_run_opts(prog_fd, &topts);
++	ASSERT_OK(err, "test_run");
++	ASSERT_EQ(topts.retval, 0, "test_run");
++
++	ASSERT_EQ(skel->bss->fentry_test1_result, 1, "fentry_test1_result");
++	ASSERT_EQ(skel->bss->fentry_test2_result, 1, "fentry_test2_result");
++	ASSERT_EQ(skel->bss->fentry_test3_result, 1, "fentry_test3_result");
++	ASSERT_EQ(skel->bss->fentry_test4_result, 1, "fentry_test4_result");
++	ASSERT_EQ(skel->bss->fentry_test5_result, 1, "fentry_test5_result");
++	ASSERT_EQ(skel->bss->fentry_test6_result, 1, "fentry_test6_result");
++	ASSERT_EQ(skel->bss->fentry_test7_result, 1, "fentry_test7_result");
++	ASSERT_EQ(skel->bss->fentry_test8_result, 1, "fentry_test8_result");
++}
++
++static void test_skel_auto_api(void)
++{
++	struct tracing_multi_test *skel;
++	int err;
++
++	skel = tracing_multi_test__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "tracing_multi_test__open_and_load"))
++		return;
++
++	/* disable all programs that should fail */
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test1, false);
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test2, false);
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test3, false);
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test4, false);
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test5, false);
++	bpf_program__set_autoattach(skel->progs.fentry_fail_test6, false);
++
++	bpf_program__set_autoattach(skel->progs.fexit_fail_test1, false);
++	bpf_program__set_autoattach(skel->progs.fexit_fail_test2, false);
++	bpf_program__set_autoattach(skel->progs.fexit_fail_test3, false);
++
++	err = tracing_multi_test__attach(skel);
++	if (!ASSERT_OK(err, "tracing_multi_test__attach"))
++		goto cleanup;
++
++	test_run(skel);
++
++cleanup:
++	tracing_multi_test__destroy(skel);
++}
++
++static int attach_bpf(struct bpf_program *prog, struct bpf_link **link_ptr,
++		       bool success)
++{
++	struct bpf_link *link;
++	int err;
++
++	link = bpf_program__attach(prog);
++	err = libbpf_get_error(link);
++	if (!ASSERT_OK(success ? err : !err, "attach_bpf"))
++		return err;
++	*link_ptr = link;
++
++	return 0;
++}
++
++#define attach_skel_bpf(name, success) \
++	attach_bpf(skel->progs.name, &skel->links.name, success)
++
++static void test_skel_manual_api(void)
++{
++	struct tracing_multi_test *skel;
++
++	skel = tracing_multi_test__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "tracing_multi_test__open_and_load"))
++		return;
++
++	if (attach_skel_bpf(fentry_success_test1, true) ||
++	    attach_skel_bpf(fentry_success_test2, true) ||
++	    attach_skel_bpf(fentry_success_test3, true) ||
++	    attach_skel_bpf(fentry_success_test4, true) ||
++	    attach_skel_bpf(fexit_success_test1, true) ||
++	    attach_skel_bpf(fexit_success_test2, true) ||
++	    attach_skel_bpf(fentry_fail_test1, false) ||
++	    attach_skel_bpf(fentry_fail_test2, false) ||
++	    attach_skel_bpf(fentry_fail_test3, false) ||
++	    attach_skel_bpf(fentry_fail_test4, false) ||
++	    attach_skel_bpf(fentry_fail_test5, false) ||
++	    attach_skel_bpf(fentry_fail_test6, false) ||
++	    attach_skel_bpf(fexit_fail_test1, false) ||
++	    attach_skel_bpf(fexit_fail_test2, false) ||
++	    attach_skel_bpf(fexit_fail_test3, false) ||
++	    attach_skel_bpf(fentry_cookie_test1, true))
++		goto cleanup;
++
++	test_run(skel);
++
++cleanup:
++	tracing_multi_test__destroy(skel);
++}
++
++static void test_attach_api(void)
++{
++	LIBBPF_OPTS(bpf_trace_multi_opts, opts);
++	struct tracing_multi_test *skel;
++	struct bpf_link *link;
++	const char *syms[8] = {
++		"bpf_fentry_test1",
++		"bpf_fentry_test2",
++		"bpf_fentry_test3",
++		"bpf_fentry_test4",
++		"bpf_fentry_test5",
++		"bpf_fentry_test6",
++		"bpf_fentry_test7",
++		"bpf_fentry_test8",
++	};
++	__u64 cookies[] = {1, 7, 2, 3, 4, 5, 6, 8};
++
++	skel = tracing_multi_test__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "tracing_multi_test__open_and_load"))
++		return;
++
++	opts.syms = syms;
++	opts.cookies = cookies;
++	opts.cnt = ARRAY_SIZE(syms);
++	link = bpf_program__attach_trace_multi_opts(skel->progs.fentry_cookie_test1,
++						    &opts);
++	if (!ASSERT_OK_PTR(link, "bpf_program__attach_trace_multi_opts"))
++		goto cleanup;
++	skel->links.fentry_cookie_test1 = link;
++
++	skel->bss->test_cookie = true;
++	test_run(skel);
++cleanup:
++	tracing_multi_test__destroy(skel);
++}
++
++static void test_attach_bench(bool kernel)
++{
++	LIBBPF_OPTS(bpf_trace_multi_opts, opts);
++	struct fentry_multi_empty *skel;
++	long attach_start_ns, attach_end_ns;
++	long detach_start_ns, detach_end_ns;
++	double attach_delta, detach_delta;
++	struct bpf_link *link = NULL;
++	char **syms = NULL;
++	size_t cnt = 0;
++
++	if (!ASSERT_OK(bpf_get_ksyms(&syms, &cnt, kernel), "get_syms"))
++		return;
++
++	skel = fentry_multi_empty__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "fentry_multi_empty__open_and_load"))
++		goto cleanup;
++
++	opts.syms = (const char **) syms;
++	opts.cnt = cnt;
++	opts.skip_invalid = true;
++
++	attach_start_ns = get_time_ns();
++	link = bpf_program__attach_trace_multi_opts(skel->progs.fentry_multi_empty,
++						    &opts);
++	attach_end_ns = get_time_ns();
++
++	if (!ASSERT_OK_PTR(link, "bpf_program__attach_trace_multi_opts"))
++		return;
++
++	detach_start_ns = get_time_ns();
++	bpf_link__destroy(link);
++	detach_end_ns = get_time_ns();
++
++	attach_delta = (attach_end_ns - attach_start_ns) / 1000000000.0;
++	detach_delta = (detach_end_ns - detach_start_ns) / 1000000000.0;
++
++	printf("%s: found %lu functions\n", __func__, opts.cnt);
++	printf("%s: attached in %7.3lfs\n", __func__, attach_delta);
++	printf("%s: detached in %7.3lfs\n", __func__, detach_delta);
++
++cleanup:
++	fentry_multi_empty__destroy(skel);
++	if (syms)
++		free(syms);
++}
++
++void serial_test_tracing_multi_attach_bench(void)
++{
++	if (test__start_subtest("kernel"))
++		test_attach_bench(true);
++	if (test__start_subtest("modules"))
++		test_attach_bench(false);
++}
++
++void test_tracing_multi_attach_test(void)
++{
++	if (test__start_subtest("skel_auto_api"))
++		test_skel_auto_api();
++	if (test__start_subtest("skel_manual_api"))
++		test_skel_manual_api();
++	if (test__start_subtest("attach_api"))
++		test_attach_api();
++}
+diff --git a/tools/testing/selftests/bpf/progs/fentry_multi_empty.c b/tools/testing/selftests/bpf/progs/fentry_multi_empty.c
+new file mode 100644
+index 000000000000..a09ba216dff8
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/fentry_multi_empty.c
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2025 ChinaTelecom */
++#include <linux/bpf.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++SEC("fentry.multi/bpf_fentry_test1")
++int BPF_PROG(fentry_multi_empty)
++{
++	return 0;
++}
+diff --git a/tools/testing/selftests/bpf/progs/tracing_multi_test.c b/tools/testing/selftests/bpf/progs/tracing_multi_test.c
+new file mode 100644
+index 000000000000..fa27851896b9
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/tracing_multi_test.c
+@@ -0,0 +1,181 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2025 ChinaTelecom */
++#include <linux/bpf.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++struct bpf_testmod_struct_arg_1 {
++	int a;
++};
++struct bpf_testmod_struct_arg_2 {
++	long a;
++	long b;
++};
++
++__u64 test_result = 0;
++
++int pid = 0;
++int test_cookie = 0;
++
++__u64 fentry_test1_result = 0;
++__u64 fentry_test2_result = 0;
++__u64 fentry_test3_result = 0;
++__u64 fentry_test4_result = 0;
++__u64 fentry_test5_result = 0;
++__u64 fentry_test6_result = 0;
++__u64 fentry_test7_result = 0;
++__u64 fentry_test8_result = 0;
++
++extern const void bpf_fentry_test1 __ksym;
++extern const void bpf_fentry_test2 __ksym;
++extern const void bpf_fentry_test3 __ksym;
++extern const void bpf_fentry_test4 __ksym;
++extern const void bpf_fentry_test5 __ksym;
++extern const void bpf_fentry_test6 __ksym;
++extern const void bpf_fentry_test7 __ksym;
++extern const void bpf_fentry_test8 __ksym;
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_13")
++int BPF_PROG2(fentry_success_test1, struct bpf_testmod_struct_arg_2, a)
++{
++	test_result = a.a + a.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_10")
++int BPF_PROG2(fentry_success_test2, int, a, struct bpf_testmod_struct_arg_2, b)
++{
++	test_result = a + b.a + b.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_4")
++int BPF_PROG2(fentry_success_test3, struct bpf_testmod_struct_arg_2, a, int, b,
++	      int, c)
++{
++	test_result = c;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_2")
++int BPF_PROG2(fentry_success_test4, struct bpf_testmod_struct_arg_2, a, int, b,
++	      int, c)
++{
++	test_result = c;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_1")
++int BPF_PROG2(fentry_fail_test1, struct bpf_testmod_struct_arg_2, a)
++{
++	test_result = a.a + a.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_2")
++int BPF_PROG2(fentry_fail_test2, struct bpf_testmod_struct_arg_2, a)
++{
++	test_result = a.a + a.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_4")
++int BPF_PROG2(fentry_fail_test3, struct bpf_testmod_struct_arg_2, a)
++{
++	test_result = a.a + a.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_2")
++int BPF_PROG2(fentry_fail_test4, int, a, struct bpf_testmod_struct_arg_2, b)
++{
++	test_result = a + b.a + b.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_13")
++int BPF_PROG2(fentry_fail_test5, int, a, struct bpf_testmod_struct_arg_2, b)
++{
++	test_result = a + b.a + b.b;
++	return 0;
++}
++
++SEC("fentry.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_12")
++int BPF_PROG2(fentry_fail_test6, struct bpf_testmod_struct_arg_2, a, int, b,
++	      int, c)
++{
++	test_result = c;
++	return 0;
++}
++
++SEC("fexit.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_3")
++int BPF_PROG2(fexit_success_test1, struct bpf_testmod_struct_arg_2, a, int, b,
++	      int, c, int, retval)
++{
++	test_result = retval;
++	return 0;
++}
++
++SEC("fexit.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_12")
++int BPF_PROG2(fexit_success_test2, int, a, struct bpf_testmod_struct_arg_2, b,
++	      int, c, int, retval)
++{
++	test_result = a + b.a + b.b + retval;
++	return 0;
++}
++
++SEC("fexit.multi/bpf_testmod_test_struct_arg_1,bpf_testmod_test_struct_arg_4")
++int BPF_PROG2(fexit_fail_test1, struct bpf_testmod_struct_arg_2, a, int, b,
++	      int, c, int, retval)
++{
++	test_result = retval;
++	return 0;
++}
++
++SEC("fexit.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_10")
++int BPF_PROG2(fexit_fail_test2, int, a, struct bpf_testmod_struct_arg_2, b,
++	      int, c, int, retval)
++{
++	test_result = a + b.a + b.b + retval;
++	return 0;
++}
++
++SEC("fexit.multi/bpf_testmod_test_struct_arg_2,bpf_testmod_test_struct_arg_11")
++int BPF_PROG2(fexit_fail_test3, int, a, struct bpf_testmod_struct_arg_2, b,
++	      int, c, int, retval)
++{
++	test_result = a + b.a + b.b + retval;
++	return 0;
++}
++
++static void tracing_multi_check_cookie(unsigned long long *ctx)
++{
++	if (bpf_get_current_pid_tgid() >> 32 != pid)
++		return;
++
++	__u64 cookie = test_cookie ? bpf_get_attach_cookie(ctx) : 0;
++	__u64 addr = bpf_get_func_ip(ctx);
++
++#define SET(__var, __addr, __cookie) ({			\
++	if (((const void *) addr == __addr) &&		\
++	     (!test_cookie || (cookie == __cookie)))	\
++		__var = 1;				\
++})
++	SET(fentry_test1_result, &bpf_fentry_test1, 1);
++	SET(fentry_test2_result, &bpf_fentry_test2, 7);
++	SET(fentry_test3_result, &bpf_fentry_test3, 2);
++	SET(fentry_test4_result, &bpf_fentry_test4, 3);
++	SET(fentry_test5_result, &bpf_fentry_test5, 4);
++	SET(fentry_test6_result, &bpf_fentry_test6, 5);
++	SET(fentry_test7_result, &bpf_fentry_test7, 6);
++	SET(fentry_test8_result, &bpf_fentry_test8, 8);
++}
++
++SEC("fentry.multi/bpf_fentry_test1,bpf_fentry_test2,bpf_fentry_test3,bpf_fentry_test4,bpf_fentry_test5,bpf_fentry_test6,bpf_fentry_test7,bpf_fentry_test8")
++int BPF_PROG(fentry_cookie_test1)
++{
++	tracing_multi_check_cookie(ctx);
++	return 0;
++}
+diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+index e9e918cdf31f..07ea1d5d3795 100644
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+@@ -128,6 +128,30 @@ bpf_testmod_test_struct_arg_9(u64 a, void *b, short c, int d, void *e, char f,
+ 	return bpf_testmod_test_struct_arg_result;
+ }
+ 
++noinline int
++bpf_testmod_test_struct_arg_10(int a, struct bpf_testmod_struct_arg_2 b) {
++	bpf_testmod_test_struct_arg_result = a + b.a + b.b;
++	return bpf_testmod_test_struct_arg_result;
++}
++
++noinline struct bpf_testmod_struct_arg_2 *
++bpf_testmod_test_struct_arg_11(int a, struct bpf_testmod_struct_arg_2 b, int c) {
++	bpf_testmod_test_struct_arg_result = a + b.a + b.b + c;
++	return (void *)bpf_testmod_test_struct_arg_result;
++}
++
++noinline int
++bpf_testmod_test_struct_arg_12(int a, struct bpf_testmod_struct_arg_2 b, int *c) {
++	bpf_testmod_test_struct_arg_result = a + b.a + b.b + *c;
++	return bpf_testmod_test_struct_arg_result;
++}
++
++noinline int
++bpf_testmod_test_struct_arg_13(struct bpf_testmod_struct_arg_2 b) {
++	bpf_testmod_test_struct_arg_result = b.a + b.b;
++	return bpf_testmod_test_struct_arg_result;
++}
++
+ noinline int
+ bpf_testmod_test_arg_ptr_to_struct(struct bpf_testmod_struct_arg_1 *a) {
+ 	bpf_testmod_test_struct_arg_result = a->a;
+diff --git a/tools/testing/selftests/bpf/test_progs.c b/tools/testing/selftests/bpf/test_progs.c
+index 309d9d4a8ace..533b714f1ca6 100644
+--- a/tools/testing/selftests/bpf/test_progs.c
++++ b/tools/testing/selftests/bpf/test_progs.c
+@@ -667,6 +667,56 @@ int bpf_find_map(const char *test, struct bpf_object *obj, const char *name)
+ 	return bpf_map__fd(map);
+ }
+ 
++int bpf_to_tracing_multi(struct bpf_program **progs, int prog_cnt)
++{
++	enum bpf_attach_type type;
++	int i, err;
++
++	for (i = 0; i < prog_cnt; i++) {
++		type = bpf_program__get_expected_attach_type(progs[i]);
++		if (type == BPF_TRACE_FENTRY)
++			type = BPF_TRACE_FENTRY_MULTI;
++		else if (type == BPF_TRACE_FEXIT)
++			type = BPF_TRACE_FEXIT_MULTI;
++		else if (type == BPF_MODIFY_RETURN)
++			type = BPF_MODIFY_RETURN_MULTI;
++		else
++			continue;
++		err = bpf_program__set_expected_attach_type(progs[i], type);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
++int bpf_attach_as_tracing_multi(struct bpf_program **progs, int prog_cnt,
++				struct bpf_link **link)
++{
++	struct bpf_link *__link;
++	int err, type;
++
++	for (int i = 0; i < prog_cnt; i++) {
++		LIBBPF_OPTS(bpf_trace_multi_opts, opts);
++
++		type = bpf_program__get_expected_attach_type(progs[i]);
++		if (type != BPF_TRACE_FENTRY_MULTI &&
++		    type != BPF_TRACE_FEXIT_MULTI &&
++		    type != BPF_MODIFY_RETURN_MULTI)
++			continue;
++
++		opts.attach_tracing = true;
++		__link = bpf_program__attach_trace_multi_opts(progs[i], &opts);
++		err = libbpf_get_error(link);
++		if (err)
++			return err;
++
++		link[i] = __link;
++	}
++
++	return 0;
++}
++
+ int compare_map_keys(int map1_fd, int map2_fd)
+ {
+ 	__u32 key, next_key;
+diff --git a/tools/testing/selftests/bpf/test_progs.h b/tools/testing/selftests/bpf/test_progs.h
+index df2222a1806f..7e30c6dbf35c 100644
+--- a/tools/testing/selftests/bpf/test_progs.h
++++ b/tools/testing/selftests/bpf/test_progs.h
+@@ -496,6 +496,9 @@ int trigger_module_test_write(int write_sz);
+ int write_sysctl(const char *sysctl, const char *value);
+ int get_bpf_max_tramp_links_from(struct btf *btf);
+ int get_bpf_max_tramp_links(void);
++int bpf_to_tracing_multi(struct bpf_program **progs, int prog_cnt);
++int bpf_attach_as_tracing_multi(struct bpf_program **progs, int prog_cnt,
++				struct bpf_link **link);
+ 
+ struct netns_obj;
+ struct netns_obj *netns_new(const char *name, bool open);
+diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
+index d24baf244d1f..a9e9dd3be226 100644
+--- a/tools/testing/selftests/bpf/trace_helpers.c
++++ b/tools/testing/selftests/bpf/trace_helpers.c
+@@ -559,6 +559,75 @@ static bool skip_entry(char *name)
+ 	if (!strncmp(name, "__ftrace_invalid_address__",
+ 		     sizeof("__ftrace_invalid_address__") - 1))
+ 		return true;
++
++	/* skip functions in "btf_id_deny" */
++	if (!strcmp(name, "migrate_disable"))
++		return true;
++	if (!strcmp(name, "migrate_enable"))
++		return true;
++	if (!strcmp(name, "rcu_read_unlock_strict"))
++		return true;
++	if (!strcmp(name, "preempt_count_add"))
++		return true;
++	if (!strcmp(name, "preempt_count_sub"))
++		return true;
++	if (!strcmp(name, "__rcu_read_lock"))
++		return true;
++	if (!strcmp(name, "__rcu_read_unlock"))
++		return true;
++
++	/* Following symbols have multi definition in kallsyms, take
++	 * "t_next" for example:
++	 *
++	 *     ffffffff813c10d0 t t_next
++	 *     ffffffff813d31b0 t t_next
++	 *     ffffffff813e06b0 t t_next
++	 *     ffffffff813eb360 t t_next
++	 *     ffffffff81613360 t t_next
++	 *
++	 * but only one of them have corresponding mrecord:
++	 *     ffffffff81613364 t_next
++	 *
++	 * The kernel search the target function address by the symbol
++	 * name "t_next" with kallsyms_lookup_name() during attaching
++	 * and the function "0xffffffff813c10d0" can be matched, which
++	 * doesn't have a corresponding mrecord. And this will make
++	 * the attach failing. Skip the functions like this.
++	 *
++	 * The list maybe not whole, so we still can fail......We need a
++	 * way to make the whole things right. Yes, we need fix it :/
++	 */
++	if (!strcmp(name, "kill_pid_usb_asyncio"))
++		return true;
++	if (!strcmp(name, "t_next"))
++		return true;
++	if (!strcmp(name, "t_stop"))
++		return true;
++	if (!strcmp(name, "t_start"))
++		return true;
++	if (!strcmp(name, "p_next"))
++		return true;
++	if (!strcmp(name, "p_stop"))
++		return true;
++	if (!strcmp(name, "p_start"))
++		return true;
++	if (!strcmp(name, "mem32_serial_out"))
++		return true;
++	if (!strcmp(name, "mem32_serial_in"))
++		return true;
++	if (!strcmp(name, "io_serial_in"))
++		return true;
++	if (!strcmp(name, "io_serial_out"))
++		return true;
++	if (!strcmp(name, "event_callback"))
++		return true;
++	if (!strcmp(name, "amd_pmu_init"))
++		return true;
++	if (!strcmp(name, "sync_regs"))
++		return true;
++	if (!strcmp(name, "empty"))
++		return true;
++
+ 	return false;
+ }
+ 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.39.5
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
