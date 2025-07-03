@@ -2,58 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CB6AF75A0
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 15:29:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 341FEAF7BFB
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jul 2025 17:30:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F17FC3F949;
-	Thu,  3 Jul 2025 13:29:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C967AC3F94F;
+	Thu,  3 Jul 2025 15:30:48 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E67BC3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 616CFC3F94D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Jul 2025 13:29:29 +0000 (UTC)
+ Thu,  3 Jul 2025 15:30:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A9B7E45AE9;
- Thu,  3 Jul 2025 13:29:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7F2C4CEF0;
- Thu,  3 Jul 2025 13:29:26 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
- dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com
- header.b="jKOzT2lb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105; 
- t=1751549364;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ttQ9IlSas/7byHbl3N830DTSnlGxfWvdLVjZQAWvIdk=;
- b=jKOzT2lb2+tzjr/h7XdTM6pY64vKrZT+NyVEfAjhWGFUqRwxcaTHGJG7y2sxpY2y6iQ8bo
- XokFr/A5k9b/+tlJZt+UyTwpaq/Ff/5lpia1H9WzWV8b7+avnJ4CLcb8mg57R0/vlS44se
- 0Ah1gTu1dh32SLD8z1M8TXiwfjwdL2E=
-Received: by mail.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id d211acee
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Thu, 3 Jul 2025 13:29:24 +0000 (UTC)
-Date: Thu, 3 Jul 2025 15:29:21 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Gu Bowen <gubowen5@huawei.com>
-Message-ID: <aGaFsaUOuNd1xs8m@zx2c4.com>
-References: <20250630133934.766646-1-gubowen5@huawei.com>
- <aGaCTOJ30KNPOBIC@zx2c4.com>
+ by sea.source.kernel.org (Postfix) with ESMTP id 0D1AD4652A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  3 Jul 2025 15:30:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0B79C4CEF5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  3 Jul 2025 15:30:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1751556645;
+ bh=kf3R69g/8+n9ejwwkL6h4el8NdPueW74hEy4yuQ+Fcs=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=nG0c3PQKGVGoTtfCDduTcEI7W1NSi6vabGp+6w7YXIKmlYKIrjxaDRvDafBw0K0Qr
+ oGHuVf6XBn3o1jILbhnAFdiQFJAdbFG38T/avxI6ruCAYXZEdVWCGO+I2FetJqbA3d
+ vpLTDmrQksbPAlmfTn3E+RzN+ASyuwjyreA220nPQK5WV+iLFhfactLuqf5ACtHbyP
+ O6gmYgwTkqq5P3KCMd0lCz5w+DjoZg7FOygXUggOVQwA89jEtX8Q6ZdT72lTiQxoGr
+ 3XhRfmbBLBier1wTDGeV6f5IRMyEsmjeQKZYxC6JtFxhF9fZG6A75HUqI0edagzTat
+ ose0hmAvxc0yQ==
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-ae3cd8fdd77so822266b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 03 Jul 2025 08:30:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXKYa1BHtVou9IY4L5mbmqvdv5z7O0ANN9l5LQ7QrL3PI8DDy9MYZhVK44G529zsrSkvQu7saAlxekfPw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzAJL5iQTdS4nT/4QGyfVpOPKGya2lweu9ZGU7vJCnuJ7E6kEAL
+ qepMsYCw2GASVuBW35PyeHOox0gQ9OEwIvDn2H3S+BIJHcYjn60/GQ/pb3jvtFUP9aYoYBiieu+
+ nVJASuEw7jLUHlYEKQwNQ1fBUkEsVXQ==
+X-Google-Smtp-Source: AGHT+IFGK3wNYEmDTQE7cJvW5bwhu5w4lNajdS9akjc5i1/E/t6dIX21GgObTKsLF38FMy+/VygKrLB7PYcfFn+IPck=
+X-Received: by 2002:a17:907:94cb:b0:ade:44f8:569 with SMTP id
+ a640c23a62f3a-ae3c2c9d41bmr815278466b.42.1751556644360; Thu, 03 Jul 2025
+ 08:30:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aGaCTOJ30KNPOBIC@zx2c4.com>
-Cc: linux-arm-kernel@lists.infradead.org, Eric Biggers <ebiggers@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Tianjia Zhang <tianjia.zhang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- GONG Ruiqi <gongruiqi1@huawei.com>, linux-stm32@st-md-mailman.stormreply.com,
- Lu Jialin <lujialin4@huawei.com>, Ard Biesheuvel <ardb@kernel.org>,
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Lukas Wunner <lukas@wunner.de>, keyrings@vger.kernel.org,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ignat Korchagin <ignat@cloudflare.com>, David Woodhouse <dwmw2@infradead.org>,
- "David S . Miller" <davem@davemloft.net>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH RFC 0/4] Reintroduce the sm2 algorithm
+References: <20250630213748.71919-1-matthew.gerlach@altera.com>
+In-Reply-To: <20250630213748.71919-1-matthew.gerlach@altera.com>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 3 Jul 2025 10:30:32 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLrLJ6wiqBk31NhronsUqX4_5FN-Lb26r-3SceDD7kkAA@mail.gmail.com>
+X-Gm-Features: Ac12FXxuKTihI_ySZjceamap3hZ9PwUnYru49iIiSxON-urQArDwhuRwHAUu1ZI
+Message-ID: <CAL_JsqLrLJ6wiqBk31NhronsUqX4_5FN-Lb26r-3SceDD7kkAA@mail.gmail.com>
+To: Matthew Gerlach <matthew.gerlach@altera.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
+ netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Mun Yew Tham <mun.yew.tham@altera.com>, dinguyen@kernel.org,
+ edumazet@google.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, krzk+dt@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v7] dt-bindings: net: Convert
+	socfpga-dwmac bindings to yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,79 +72,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 03, 2025 at 03:14:52PM +0200, Jason A. Donenfeld wrote:
-> Hi,
-> 
-> On Mon, Jun 30, 2025 at 09:39:30PM +0800, Gu Bowen wrote:
-> > To reintroduce the sm2 algorithm, the patch set did the following:
-> >  - Reintroduce the mpi library based on libgcrypt.
-> >  - Reintroduce ec implementation to MPI library.
-> >  - Rework sm2 algorithm.
-> >  - Support verification of X.509 certificates.
-> > 
-> > Gu Bowen (4):
-> >   Revert "Revert "lib/mpi: Extend the MPI library""
-> >   Revert "Revert "lib/mpi: Introduce ec implementation to MPI library""
-> >   crypto/sm2: Rework sm2 alg with sig_alg backend
-> >   crypto/sm2: support SM2-with-SM3 verification of X.509 certificates
-> 
-> I am less than enthusiastic about this. Firstly, I'm kind of biased
-> against the whole "national flag algorithms" thing. But I don't know how
-> much weight that argument will have here. More importantly, however,
-> implementing this atop MPI sounds very bad. The more MPI we can get rid
-> of, the better.
-> 
-> Is MPI constant time? Usually the good way to implement EC algorithms
-> like this is to very carefully work out constant time (and fast!) field
-> arithmetic routines, verify their correctness, and then implement your
-> ECC atop that. At this point, there's *lots* of work out there on doing
-> fast verified ECC and a bunch of different frameworks for producing good
-> implementations. There are also other implementations out there you
-> could look at that people have presumably studied a lot. This is old
-> news. (In 3 minutes of scrolling around, I noticed that
-> count_leading_zeros() on a value is used as a loop index, for example.
-> Maybe fine, maybe not, I dunno; this stuff requires analysis.)
-> 
-> On the other hand, maybe you don't care because you only implement
-> verification, not signing, so all info is public? If so, the fact that
-> you don't care about CT should probably be made pretty visible. But
-> either way, you should still be concerned with having an actually good &
-> correct implementation of which you feel strongly about the correctness.
-> 
-> Secondly, the MPI stuff you're proposing here adds a 25519 and 448
-> implementation, and support for weierstrauss, montgomery, and edwards,
-> and... surely you don't need all of this for SM-2. Why add all this
-> unused code? Presumably because you don't really understand or "own" all
-> of the code that you're proposing to add. And that gives me a lot of
-> hesitation, because somebody is going to have to maintain this, and if
-> the person sending patches with it isn't fully on top of it, we're not
-> off to a good start.
-> 
-> Lastly, just to nip in the bud the argument, "but weierstrauss is all
-> the same, so why not just have one library to do all possible
-> weierstrauss curves?" -- the fact that this series reintroduces the
-> removed "generic EC library" indicates there's actually not another user
-> of it, even before we get into questions of whether it's a good idea.
-
-I went looking for reference implementations and came across this
-"GmSSL" project and located:
-
-https://github.com/guanzhi/GmSSL/blob/master/src/sm2_sign.c#L271
-which uses some routines from
-https://github.com/guanzhi/GmSSL/blob/master/src/sm2_z256.c
-
-I have no idea what the deal actually is here -- is this any good? has
-anybody looked at it? is it a random github? -- but it certainly
-_resembles_ something more comfortable than the MPI code. Who knows, it
-could be terrible, but you get the idea.
-
-Jason
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBKdW4gMzAsIDIwMjUgYXQgNDozOOKAr1BNIE1hdHRoZXcgR2VybGFjaAo8bWF0dGhl
+dy5nZXJsYWNoQGFsdGVyYS5jb20+IHdyb3RlOgo+Cj4gQ29udmVydCB0aGUgYmluZGluZ3MgZm9y
+IHNvY2ZwZ2EtZHdtYWMgdG8geWFtbC4gU2luY2UgdGhlIG9yaWdpbmFsCj4gdGV4dCBjb250YWlu
+ZWQgZGVzY3JpcHRpb25zIGZvciB0d28gc2VwYXJhdGUgbm9kZXMsIHR3byBzZXBhcmF0ZQo+IHlh
+bWwgZmlsZXMgd2VyZSBjcmVhdGVkLgoKRGlkIHlvdSB0ZXN0IHRoaXMgYWdhaW5zdCB5b3VyIGR0
+cyBmaWxlcz86CgpldGhlcm5ldEBmZjgwNDAwMCAoYWx0cixzb2NmcGdhLXN0bW1hYy1hMTAtczEw
+KTogaW9tbXVzOiBbWzExLCAzXV0gaXMgdG9vIHNob3J0CmV0aGVybmV0QGZmODAyMDAwIChhbHRy
+LHNvY2ZwZ2Etc3RtbWFjLWExMC1zMTApOiBpb21tdXM6IFtbMTEsIDJdXSBpcyB0b28gc2hvcnQK
+ZXRoZXJuZXRAZmY4MDAwMDAgKGFsdHIsc29jZnBnYS1zdG1tYWMtYTEwLXMxMCk6IGlvbW11czog
+W1sxMSwgMV1dIGlzIHRvbyBzaG9ydAoKVGhlcmUncyBhbHNvIG9uZSBmb3IgJ3BoeS1hZGRyJywg
+YnV0IHRoYXQgbmVlZHMgdG8gYmUgZHJvcHBlZCBmcm9tIHRoZQouZHRzIGZpbGVzIGFzIGl0IGRv
+ZXNuJ3QgYXBwZWFyIHRvIGJlIHVzZWQuCgpbLi4uXQoKPiArICBpb21tdXM6Cj4gKyAgICBtYXhJ
+dGVtczogMgoKWW91IG5lZWQgdG8gYWRkOgoKbWluSXRlbXM6IDEKCgpSb2IKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
+aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
