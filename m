@@ -2,63 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1209AAF8A26
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jul 2025 09:54:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A48AF8A2D
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jul 2025 09:55:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7B99C36B2F;
-	Fri,  4 Jul 2025 07:54:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAEECC36B19;
+	Fri,  4 Jul 2025 07:55:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64FA5C36B2F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56271C36B18
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Jul 2025 07:54:49 +0000 (UTC)
+ Fri,  4 Jul 2025 07:55:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1751615690; x=1783151690;
+ t=1751615712; x=1783151712;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gjeDw4vIXjSrxqdxHy0Im4aZwqFHN+s2mpooAal1uHY=;
- b=Hx4Z/2mcs3MwDTkAoJD69T7RV+2j85scUVqsSSMlvs4ZUB5e8r3HfcbL
- +rC+tO79o8THB/K4gqJFz7YhWCD/k8qvmMg/eadms3L/TF+mJBh5+YrXh
- EPYJ9A6VNTDAtNHe627Ui+Z85/US8XECY52Uz6kxY4z7wBuRhgprbwpV4
- k0G/dAensy7wt3ze4AdyT0/DGaOH785EkAtAoHqnFjPIQR+6E3kKaXRz3
- k8Pv2MI03ych35eteQeYsWHvTxG1O1CzYGCS7JIJZIEXRWY5efiCsuOSg
- 9EPzvU8MFRlGBeogmVH5m8XucmfWXMJepzWMqvPo+L17F2nRdlGW0rKxa A==;
-X-CSE-ConnectionGUID: stTA3uxzR4qtPJpV9bqpYQ==
-X-CSE-MsgGUID: JVAPJMpYQbqQtNcE0/YQDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="64194238"
-X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="64194238"
+ bh=qdmUiSbcVU8OwH5Ch7+z/U3eHB06Y+cXa7QkEocRcdI=;
+ b=dhmWncIYP/hdX0UcD927GW1b5W+7NSRjrXv8+YeiorP5mwaidYnwpg5k
+ m2E5nhkNCHpnVKIgVfEpiOTLcTOC5YtKRG8LQbJPxyfSCnBf8NTwNPL7D
+ 1C0JcFUuvs7ofCR95ORlsNDD8Wv36tQLlyB1yH31Ts+XWsQxuPLdSE5OP
+ Ok60MC3fcZ83IveJp6lbEWIEJNX6pMBKS+tFPMqUGjlH52uTxI4EwkKQ0
+ IZ6X4Clejq5tRgn70NGMlQFJ4vInfx9m1h1M1Coj5K26pArQVXWAh3Qzy
+ 74csqe47i/4OcmqA5ZA3QCSgIR/qfKnDyZVqw7sfoNpAanIwoeS+BJfPz Q==;
+X-CSE-ConnectionGUID: z/uhXiTjQ7e/HShLBt03ZA==
+X-CSE-MsgGUID: qJqLzUtDTXu/Aiif98xHiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="64194302"
+X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="64194302"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 00:54:49 -0700
-X-CSE-ConnectionGUID: /bzuSEQFSLmXBgTqlRBzJg==
-X-CSE-MsgGUID: fs1mzZWtTNG62igOJzDl4Q==
+ 04 Jul 2025 00:55:03 -0700
+X-CSE-ConnectionGUID: bwddRgeVRwqpKScWUZtONQ==
+X-CSE-MsgGUID: k8eLgNmTQQGdFKgWydH4aA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="158616625"
+X-IronPort-AV: E=Sophos;i="6.16,286,1744095600"; d="scan'208";a="158616645"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
  svinhufvud.fi.intel.com) ([10.245.244.244])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 00:54:46 -0700
+ 04 Jul 2025 00:54:50 -0700
 Received: from svinhufvud.lan (localhost [IPv6:::1])
- by svinhufvud.fi.intel.com (Postfix) with ESMTP id DD9DD44419;
- Fri,  4 Jul 2025 10:54:44 +0300 (EEST)
+ by svinhufvud.fi.intel.com (Postfix) with ESMTP id 1923F44424;
+ Fri,  4 Jul 2025 10:54:48 +0300 (EEST)
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+To: Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Frank Li <Frank.Li@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Han Xu <han.xu@nxp.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Yogesh Gaur <yogeshgaur.83@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri,  4 Jul 2025 10:54:44 +0300
-Message-Id: <20250704075444.3221445-1-sakari.ailus@linux.intel.com>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Michal Simek <michal.simek@amd.com>
+Date: Fri,  4 Jul 2025 10:54:47 +0300
+Message-Id: <20250704075447.3221784-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250704075225.3212486-1-sakari.ailus@linux.intel.com>
 References: <20250704075225.3212486-1-sakari.ailus@linux.intel.com>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 57/80] regulator: stm32-vrefbuf: Remove
-	redundant pm_runtime_mark_last_busy() calls
+Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 61/80] spi: Remove redundant
+	pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,61 +112,489 @@ rc2:
         git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
                 pm-runtime-6.17-rc1
 
- drivers/regulator/stm32-vrefbuf.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/spi/atmel-quadspi.c       | 5 -----
+ drivers/spi/spi-cadence-quadspi.c | 2 --
+ drivers/spi/spi-cadence.c         | 1 -
+ drivers/spi/spi-fsl-espi.c        | 2 --
+ drivers/spi/spi-fsl-lpspi.c       | 2 --
+ drivers/spi/spi-imx.c             | 3 ---
+ drivers/spi/spi-mtk-nor.c         | 1 -
+ drivers/spi/spi-nxp-fspi.c        | 1 -
+ drivers/spi/spi-omap2-mcspi.c     | 3 ---
+ drivers/spi/spi-rockchip-sfc.c    | 3 ---
+ drivers/spi/spi-s3c64xx.c         | 3 ---
+ drivers/spi/spi-sprd.c            | 1 -
+ drivers/spi/spi-stm32-ospi.c      | 7 -------
+ drivers/spi/spi-stm32-qspi.c      | 7 -------
+ drivers/spi/spi-stm32.c           | 2 --
+ drivers/spi/spi-ti-qspi.c         | 2 --
+ drivers/spi/spi-zynqmp-gqspi.c    | 1 -
+ drivers/spi/spi.c                 | 3 ---
+ 18 files changed, 49 deletions(-)
 
-diff --git a/drivers/regulator/stm32-vrefbuf.c b/drivers/regulator/stm32-vrefbuf.c
-index a85ea94f0673..9e391206f09d 100644
---- a/drivers/regulator/stm32-vrefbuf.c
-+++ b/drivers/regulator/stm32-vrefbuf.c
-@@ -67,7 +67,6 @@ static int stm32_vrefbuf_enable(struct regulator_dev *rdev)
- 		writel_relaxed(val, priv->base + STM32_VREFBUF_CSR);
- 	}
+diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
+index fc555c0ce52e..4e9bfd26aa80 100644
+--- a/drivers/spi/atmel-quadspi.c
++++ b/drivers/spi/atmel-quadspi.c
+@@ -965,7 +965,6 @@ static int atmel_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	err = aq->ops->transfer(mem, op, offset);
  
--	pm_runtime_mark_last_busy(priv->dev);
- 	pm_runtime_put_autosuspend(priv->dev);
+ pm_runtime_put:
+-	pm_runtime_mark_last_busy(&aq->pdev->dev);
+ 	pm_runtime_put_autosuspend(&aq->pdev->dev);
+ 	return err;
+ }
+@@ -1168,7 +1167,6 @@ static int atmel_qspi_setup(struct spi_device *spi)
+ 	aq->scr |= QSPI_SCR_SCBR(scbr);
+ 	atmel_qspi_write(aq->scr, aq, QSPI_SCR);
  
- 	return ret;
-@@ -87,7 +86,6 @@ static int stm32_vrefbuf_disable(struct regulator_dev *rdev)
- 	val &= ~STM32_ENVR;
- 	writel_relaxed(val, priv->base + STM32_VREFBUF_CSR);
- 
--	pm_runtime_mark_last_busy(priv->dev);
- 	pm_runtime_put_autosuspend(priv->dev);
- 
- 	return 0;
-@@ -104,7 +102,6 @@ static int stm32_vrefbuf_is_enabled(struct regulator_dev *rdev)
- 
- 	ret = readl_relaxed(priv->base + STM32_VREFBUF_CSR) & STM32_ENVR;
- 
--	pm_runtime_mark_last_busy(priv->dev);
- 	pm_runtime_put_autosuspend(priv->dev);
- 
- 	return ret;
-@@ -125,7 +122,6 @@ static int stm32_vrefbuf_set_voltage_sel(struct regulator_dev *rdev,
- 	val = (val & ~STM32_VRS) | FIELD_PREP(STM32_VRS, sel);
- 	writel_relaxed(val, priv->base + STM32_VREFBUF_CSR);
- 
--	pm_runtime_mark_last_busy(priv->dev);
- 	pm_runtime_put_autosuspend(priv->dev);
+-	pm_runtime_mark_last_busy(ctrl->dev.parent);
+ 	pm_runtime_put_autosuspend(ctrl->dev.parent);
  
  	return 0;
-@@ -144,7 +140,6 @@ static int stm32_vrefbuf_get_voltage_sel(struct regulator_dev *rdev)
- 	val = readl_relaxed(priv->base + STM32_VREFBUF_CSR);
- 	ret = FIELD_GET(STM32_VRS, val);
+@@ -1230,7 +1228,6 @@ static int atmel_qspi_set_cs_timing(struct spi_device *spi)
+ 	aq->mr |= QSPI_MR_DLYBCT(cs_hold) | QSPI_MR_DLYCS(cs_inactive);
+ 	atmel_qspi_write(aq->mr, aq, QSPI_MR);
  
--	pm_runtime_mark_last_busy(priv->dev);
- 	pm_runtime_put_autosuspend(priv->dev);
+-	pm_runtime_mark_last_busy(ctrl->dev.parent);
+ 	pm_runtime_put_autosuspend(ctrl->dev.parent);
  
- 	return ret;
-@@ -218,7 +213,6 @@ static int stm32_vrefbuf_probe(struct platform_device *pdev)
- 	}
- 	platform_set_drvdata(pdev, rdev);
+ 	return 0;
+@@ -1435,7 +1432,6 @@ static int atmel_qspi_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
  
 -	pm_runtime_mark_last_busy(&pdev->dev);
  	pm_runtime_put_autosuspend(&pdev->dev);
  
  	return 0;
+@@ -1560,7 +1556,6 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
+ 
+ 	atmel_qspi_write(aq->scr, aq, QSPI_SCR);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+index aa1932ba17cb..82f1c4d59af8 100644
+--- a/drivers/spi/spi-cadence-quadspi.c
++++ b/drivers/spi/spi-cadence-quadspi.c
+@@ -1469,7 +1469,6 @@ static int cqspi_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 
+ 	ret = cqspi_mem_process(mem, op);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	if (ret)
+@@ -1975,7 +1974,6 @@ static int cqspi_probe(struct platform_device *pdev)
+ 		goto probe_setup_failed;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-cadence.c b/drivers/spi/spi-cadence.c
+index 9e56bde87768..5ae09b21d23a 100644
+--- a/drivers/spi/spi-cadence.c
++++ b/drivers/spi/spi-cadence.c
+@@ -662,7 +662,6 @@ static int cdns_spi_probe(struct platform_device *pdev)
+ 		/* Set to default valid value */
+ 		ctlr->max_speed_hz = xspi->clk_rate / 4;
+ 		xspi->speed_hz = ctlr->max_speed_hz;
+-		pm_runtime_mark_last_busy(&pdev->dev);
+ 		pm_runtime_put_autosuspend(&pdev->dev);
+ 	} else {
+ 		ctlr->mode_bits |= SPI_NO_CS;
+diff --git a/drivers/spi/spi-fsl-espi.c b/drivers/spi/spi-fsl-espi.c
+index 6a73eaa34cf7..f2f1d3298e6c 100644
+--- a/drivers/spi/spi-fsl-espi.c
++++ b/drivers/spi/spi-fsl-espi.c
+@@ -513,7 +513,6 @@ static int fsl_espi_setup(struct spi_device *spi)
+ 
+ 	fsl_espi_setup_transfer(spi, NULL);
+ 
+-	pm_runtime_mark_last_busy(espi->dev);
+ 	pm_runtime_put_autosuspend(espi->dev);
+ 
+ 	return 0;
+@@ -726,7 +725,6 @@ static int fsl_espi_probe(struct device *dev, struct resource *mem,
+ 
+ 	dev_info(dev, "irq = %u\n", irq);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-fsl-lpspi.c b/drivers/spi/spi-fsl-lpspi.c
+index 5e3818445234..67d4000c3cef 100644
+--- a/drivers/spi/spi-fsl-lpspi.c
++++ b/drivers/spi/spi-fsl-lpspi.c
+@@ -233,7 +233,6 @@ static int lpspi_unprepare_xfer_hardware(struct spi_controller *controller)
+ 	struct fsl_lpspi_data *fsl_lpspi =
+ 				spi_controller_get_devdata(controller);
+ 
+-	pm_runtime_mark_last_busy(fsl_lpspi->dev);
+ 	pm_runtime_put_autosuspend(fsl_lpspi->dev);
+ 
+ 	return 0;
+@@ -966,7 +965,6 @@ static int fsl_lpspi_probe(struct platform_device *pdev)
+ 		goto free_dma;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(fsl_lpspi->dev);
+ 	pm_runtime_put_autosuspend(fsl_lpspi->dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
+index c93d80a4d734..155ddeb8fcd4 100644
+--- a/drivers/spi/spi-imx.c
++++ b/drivers/spi/spi-imx.c
+@@ -1748,7 +1748,6 @@ spi_imx_prepare_message(struct spi_controller *controller, struct spi_message *m
+ 
+ 	ret = spi_imx->devtype_data->prepare_message(spi_imx, msg);
+ 	if (ret) {
+-		pm_runtime_mark_last_busy(spi_imx->dev);
+ 		pm_runtime_put_autosuspend(spi_imx->dev);
+ 	}
+ 
+@@ -1760,7 +1759,6 @@ spi_imx_unprepare_message(struct spi_controller *controller, struct spi_message
+ {
+ 	struct spi_imx_data *spi_imx = spi_controller_get_devdata(controller);
+ 
+-	pm_runtime_mark_last_busy(spi_imx->dev);
+ 	pm_runtime_put_autosuspend(spi_imx->dev);
+ 	return 0;
+ }
+@@ -1933,7 +1931,6 @@ static int spi_imx_probe(struct platform_device *pdev)
+ 		goto out_register_controller;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(spi_imx->dev);
+ 	pm_runtime_put_autosuspend(spi_imx->dev);
+ 
+ 	return ret;
+diff --git a/drivers/spi/spi-mtk-nor.c b/drivers/spi/spi-mtk-nor.c
+index 85ab5ce96c4d..5cc4632e13d7 100644
+--- a/drivers/spi/spi-mtk-nor.c
++++ b/drivers/spi/spi-mtk-nor.c
+@@ -918,7 +918,6 @@ static int mtk_nor_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto err_probe;
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	dev_info(&pdev->dev, "spi frequency: %d Hz\n", sp->spi_freq);
+diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
+index e63c77e41823..c7d4827f1bf1 100644
+--- a/drivers/spi/spi-nxp-fspi.c
++++ b/drivers/spi/spi-nxp-fspi.c
+@@ -968,7 +968,6 @@ static int nxp_fspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	/* Invalidate the data in the AHB buffer. */
+ 	nxp_fspi_invalid(f);
+ 
+-	pm_runtime_mark_last_busy(f->dev);
+ 	pm_runtime_put_autosuspend(f->dev);
+ 
+ 	return err;
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index 70bb74b3bd9c..6dc58a30804a 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -272,7 +272,6 @@ static void omap2_mcspi_set_cs(struct spi_device *spi, bool enable)
+ 
+ 		mcspi_write_chconf0(spi, l);
+ 
+-		pm_runtime_mark_last_busy(mcspi->dev);
+ 		pm_runtime_put_autosuspend(mcspi->dev);
+ 	}
+ }
+@@ -1102,7 +1101,6 @@ static int omap2_mcspi_setup(struct spi_device *spi)
+ 	if (ret && initial_setup)
+ 		omap2_mcspi_cleanup(spi);
+ 
+-	pm_runtime_mark_last_busy(mcspi->dev);
+ 	pm_runtime_put_autosuspend(mcspi->dev);
+ 
+ 	return ret;
+@@ -1379,7 +1377,6 @@ static int omap2_mcspi_controller_setup(struct omap2_mcspi *mcspi)
+ 	ctx->wakeupenable = OMAP2_MCSPI_WAKEUPENABLE_WKEN;
+ 
+ 	omap2_mcspi_set_mode(ctlr);
+-	pm_runtime_mark_last_busy(mcspi->dev);
+ 	pm_runtime_put_autosuspend(mcspi->dev);
+ 	return 0;
+ }
+diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
+index f3fe10eddb6a..9eba5c0a60f2 100644
+--- a/drivers/spi/spi-rockchip-sfc.c
++++ b/drivers/spi/spi-rockchip-sfc.c
+@@ -565,7 +565,6 @@ static int rockchip_sfc_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op
+ 
+ 	ret = rockchip_sfc_xfer_done(sfc, 100000);
+ out:
+-	pm_runtime_mark_last_busy(sfc->dev);
+ 	pm_runtime_put_autosuspend(sfc->dev);
+ 
+ 	return ret;
+@@ -712,7 +711,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_register;
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+@@ -799,7 +797,6 @@ static int rockchip_sfc_resume(struct device *dev)
+ 
+ 	rockchip_sfc_init(sfc);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-s3c64xx.c b/drivers/spi/spi-s3c64xx.c
+index 9c47f5741c5f..b1567243ae19 100644
+--- a/drivers/spi/spi-s3c64xx.c
++++ b/drivers/spi/spi-s3c64xx.c
+@@ -1045,14 +1045,12 @@ static int s3c64xx_spi_setup(struct spi_device *spi)
+ 		}
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&sdd->pdev->dev);
+ 	pm_runtime_put_autosuspend(&sdd->pdev->dev);
+ 	s3c64xx_spi_set_cs(spi, false);
+ 
+ 	return 0;
+ 
+ setup_exit:
+-	pm_runtime_mark_last_busy(&sdd->pdev->dev);
+ 	pm_runtime_put_autosuspend(&sdd->pdev->dev);
+ 	/* setup() returns with device de-selected */
+ 	s3c64xx_spi_set_cs(spi, false);
+@@ -1384,7 +1382,6 @@ static int s3c64xx_spi_probe(struct platform_device *pdev)
+ 	dev_dbg(&pdev->dev, "\tIOmem=[%pR]\tFIFO %dbytes\n",
+ 		mem_res, sdd->fifo_depth);
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-sprd.c b/drivers/spi/spi-sprd.c
+index ae794058b381..ad75f5f0f2bf 100644
+--- a/drivers/spi/spi-sprd.c
++++ b/drivers/spi/spi-sprd.c
+@@ -982,7 +982,6 @@ static int sprd_spi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_rpm_put;
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index 4ab7e86f4bd5..2829535e5cd4 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -547,7 +547,6 @@ static int stm32_ospi_poll_status(struct spi_mem *mem,
+ 	ret = stm32_ospi_send(mem->spi, op);
+ 	mutex_unlock(&ospi->lock);
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return ret;
+@@ -571,7 +570,6 @@ static int stm32_ospi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	ret = stm32_ospi_send(mem->spi, op);
+ 	mutex_unlock(&ospi->lock);
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return ret;
+@@ -628,7 +626,6 @@ static ssize_t stm32_ospi_dirmap_read(struct spi_mem_dirmap_desc *desc,
+ 	ret = stm32_ospi_send(desc->mem->spi, &op);
+ 	mutex_unlock(&ospi->lock);
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return ret ?: len;
+@@ -713,7 +710,6 @@ static int stm32_ospi_transfer_one_message(struct spi_controller *ctrl,
+ 	msg->status = ret;
+ 	spi_finalize_current_message(ctrl);
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return ret;
+@@ -750,7 +746,6 @@ static int stm32_ospi_setup(struct spi_device *spi)
+ 
+ 	mutex_unlock(&ospi->lock);
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return 0;
+@@ -953,7 +948,6 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+ 		goto err_pm_resume;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return 0;
+@@ -1032,7 +1026,6 @@ static int __maybe_unused stm32_ospi_resume(struct device *dev)
+ 
+ 	writel_relaxed(ospi->cr_reg, regs_base + OSPI_CR);
+ 	writel_relaxed(ospi->dcr_reg, regs_base + OSPI_DCR1);
+-	pm_runtime_mark_last_busy(ospi->dev);
+ 	pm_runtime_put_autosuspend(ospi->dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 9691197bbf5a..f2d19f1c5ab1 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -463,7 +463,6 @@ static int stm32_qspi_poll_status(struct spi_mem *mem, const struct spi_mem_op *
+ 	ret = stm32_qspi_send(mem->spi, op);
+ 	mutex_unlock(&qspi->lock);
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ 
+ 	return ret;
+@@ -487,7 +486,6 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	ret = stm32_qspi_send(mem->spi, op);
+ 	mutex_unlock(&qspi->lock);
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ 
+ 	return ret;
+@@ -543,7 +541,6 @@ static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
+ 	ret = stm32_qspi_send(desc->mem->spi, &op);
+ 	mutex_unlock(&qspi->lock);
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ 
+ 	return ret ?: len;
+@@ -627,7 +624,6 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
+ 	msg->status = ret;
+ 	spi_finalize_current_message(ctrl);
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ 
+ 	return ret;
+@@ -684,7 +680,6 @@ static int stm32_qspi_setup(struct spi_device *spi)
+ 	writel_relaxed(qspi->dcr_reg, qspi->io_base + QSPI_DCR);
+ 	mutex_unlock(&qspi->lock);
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ 
+ 	return 0;
+@@ -858,7 +853,6 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_pm_runtime_free;
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+@@ -938,7 +932,6 @@ static int __maybe_unused stm32_qspi_resume(struct device *dev)
+ 	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
+ 	writel_relaxed(qspi->dcr_reg, qspi->io_base + QSPI_DCR);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 3d20f09f1ae7..e8f3eff71b0e 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -2469,7 +2469,6 @@ static int stm32_spi_probe(struct platform_device *pdev)
+ 		goto err_pm_disable;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	dev_info(&pdev->dev, "driver initialized (%s mode)\n",
+@@ -2588,7 +2587,6 @@ static int __maybe_unused stm32_spi_resume(struct device *dev)
+ 
+ 	spi->cfg->config(spi);
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
+index a284d2794586..0b7eaccbc797 100644
+--- a/drivers/spi/spi-ti-qspi.c
++++ b/drivers/spi/spi-ti-qspi.c
+@@ -158,7 +158,6 @@ static int ti_qspi_setup(struct spi_device *spi)
+ 		return ret;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	ret = pm_runtime_put_autosuspend(qspi->dev);
+ 	if (ret < 0) {
+ 		dev_err(qspi->dev, "pm_runtime_put_autosuspend() failed\n");
+@@ -195,7 +194,6 @@ static void ti_qspi_setup_clk(struct ti_qspi *qspi, u32 speed_hz)
+ 		ctx_reg->clkctrl = clk_ctrl_new;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(qspi->dev);
+ 	pm_runtime_put_autosuspend(qspi->dev);
+ }
+ 
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 595b6dc10845..502fd5eccc83 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1330,7 +1330,6 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
+ 		goto clk_dis_all;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	return 0;
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 1bc0fdbb1bd7..91413cc0936a 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -1723,7 +1723,6 @@ EXPORT_SYMBOL_GPL(spi_finalize_current_transfer);
+ static void spi_idle_runtime_pm(struct spi_controller *ctlr)
+ {
+ 	if (ctlr->auto_runtime_pm) {
+-		pm_runtime_mark_last_busy(ctlr->dev.parent);
+ 		pm_runtime_put_autosuspend(ctlr->dev.parent);
+ 	}
+ }
+@@ -3856,7 +3855,6 @@ static int spi_set_cs_timing(struct spi_device *spi)
+ 			}
+ 
+ 			status = spi->controller->set_cs_timing(spi);
+-			pm_runtime_mark_last_busy(parent);
+ 			pm_runtime_put_autosuspend(parent);
+ 		} else {
+ 			status = spi->controller->set_cs_timing(spi);
+@@ -3991,7 +3989,6 @@ int spi_setup(struct spi_device *spi)
+ 		status = 0;
+ 
+ 		spi_set_cs(spi, false, true);
+-		pm_runtime_mark_last_busy(spi->controller->dev.parent);
+ 		pm_runtime_put_autosuspend(spi->controller->dev.parent);
+ 	} else {
+ 		spi_set_cs(spi, false, true);
 -- 
 2.39.5
 
