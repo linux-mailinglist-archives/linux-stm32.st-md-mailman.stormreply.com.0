@@ -2,50 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FB65AF9ACB
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jul 2025 20:35:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC65FAFA0FA
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Jul 2025 19:03:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4DC0C3F943;
-	Fri,  4 Jul 2025 18:35:43 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35DC4C349C1
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B527C32E8D;
+	Sat,  5 Jul 2025 17:03:37 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07AD0C36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Jul 2025 18:35:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C95A45C69CD;
- Fri,  4 Jul 2025 18:35:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB0EC4CEE3;
- Fri,  4 Jul 2025 18:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1751654140;
- bh=U9geYByHsf8enlHJPpCq7QpmK+9AHfjGM5nRLkE02tM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dGzz2/Y8p6yKxIIBQzuSGWV8tUC8IUNJPRS2gz/LHrY9js/7JdC8k4glofIqp77h+
- YSDivQepATF5uokXAGpsaPrQMQNYRAg2Ff43bRvt0fx666/2Cc2yY1d9XNbUp1ll66
- R/DA0QcoAqY9AeVIAm3TAA3NI/JmmMAR1cbhlWScjaM3ayyYBAg6R8tPI+D2vgYDVY
- LvOoAyF2FnzxKMD0Qb08KGndQVSSKUxAt89fhqlWLyEChOwaUAecHeByOuy+Fbhx4t
- tpBkrHRSB2vyQf5abCd+iQYhpUcXDUVmvhX0Eg71Dc9Kf22Gh6+GyCxyBhhPZp0vyi
- YTtWjjNLcqUCw==
-Date: Fri, 4 Jul 2025 19:35:34 +0100
-From: Simon Horman <horms@kernel.org>
-To: EricChan <chenchuangyu@xiaomi.com>
-Message-ID: <20250704183534.GA356576@horms.kernel.org>
-References: <20250703020449.105730-1-chenchuangyu@xiaomi.com>
+ Sat,  5 Jul 2025 17:03:35 +0000 (UTC)
+X-CSE-ConnectionGUID: UIRvHSRsSVmKRx59j0yRyQ==
+X-CSE-MsgGUID: cnHpFD2WTtap0SSiNRFArw==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 06 Jul 2025 02:03:33 +0900
+Received: from localhost.localdomain (unknown [10.226.92.32])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1D9304010E1B;
+ Sun,  6 Jul 2025 02:03:28 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Sat,  5 Jul 2025 18:03:24 +0100
+Message-ID: <20250705170326.106073-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250703020449.105730-1-chenchuangyu@xiaomi.com>
-Cc: Yanteng Si <si.yanteng@linux.dev>, xiaojianfeng <xiaojianfeng1@xiaomi.com>,
- netdev@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, xiongliang <xiongliang@xiaomi.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: Fix interrupt handling
- for level-triggered mode in DWC_XGMAC2
+Cc: Biju Das <biju.das.au@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-renesas-gbeth:
+	Add PM suspend/resume callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,41 +54,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 03, 2025 at 10:04:49AM +0800, EricChan wrote:
-> According to the Synopsys Controller IP XGMAC-10G Ethernet MAC Databook
-> v3.30a (section 2.7.2), when the INTM bit in the DMA_Mode register is set
-> to 2, the sbd_perch_tx_intr_o[] and sbd_perch_rx_intr_o[] signals operate
-> in level-triggered mode. However, in this configuration, the DMA does not
-> assert the XGMAC_NIS status bit for Rx or Tx interrupt events.
-> 
-> This creates a functional regression where the condition
-> if (likely(intr_status & XGMAC_NIS)) in dwxgmac2_dma_interrupt() will
-> never evaluate to true, preventing proper interrupt handling for
-> level-triggered mode. The hardware specification explicitly states that
-> "The DMA does not assert the NIS status bit for the Rx or Tx interrupt
-> events" (Synopsys DWC_XGMAC2 Databook v3.30a, sec. 2.7.2).
-> 
-> The fix ensures correct handling of both edge and level-triggered
-> interrupts while maintaining backward compatibility with existing
-> configurations. It has been tested on the hardware device (not publicly
-> available), and it can properly trigger the RX and TX interrupt handling
-> in both the INTM=0 and INTM=2 configurations.
-> 
-> Fixes: d6ddfacd95c7 ("net: stmmac: Add DMA related callbacks for XGMAC2")
-> Tested-by: EricChan <chenchuangyu@xiaomi.com>
-> Signed-off-by: EricChan <chenchuangyu@xiaomi.com>
-> ---
-> Changes from v1:
-> - Add a Fixes tag pointing to the commit in which the problem was introduced
-> - Add the testing results of this patch
-> 
-> [v1] https://lore.kernel.org/all/20250625025134.97056-1-chenchuangyu@xiaomi.com/
+Add PM suspend/resume callbacks for RZ/G3E SMARC EVK.
 
-Thanks,
+The PM deep entry is executed by pressing the SLEEP button and exit from
+entry is by pressing the power button.
 
-I note that this addresses the review by Jakub of v1.
+Logs:
+root@smarc-rzg3e:~# PM: suspend entry (deep)
+Filesystems sync: 0.115 seconds
+Freezing user space processes
+Freezing user space processes completed (elapsed 0.002 seconds)
+OOM killer disabled.
+Freezing remaining freezable tasks
+Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+printk: Suspending console(s) (use no_console_suspend to debug)
+NOTICE:  BL2: v2.10.5(release):2.10.5/rz_soc_dev-162-g7148ba838
+NOTICE:  BL2: Built : 14:23:58, Jul  5 2025
+NOTICE:  BL2: SYS_LSI_MODE: 0x13e06
+NOTICE:  BL2: SYS_LSI_DEVID: 0x8679447
+NOTICE:  BL2: SYS_LSI_PRR: 0x0
+NOTICE:  BL2: Booting BL31
+renesas-gbeth 15c30000.ethernet end0: Link is Down
+Disabling non-boot CPUs ...
+psci: CPU3 killed (polled 0 ms)
+psci: CPU2 killed (polled 0 ms)
+psci: CPU1 killed (polled 0 ms)
+Enabling non-boot CPUs ...
+Detected VIPT I-cache on CPU1
+GICv3: CPU1: found redistributor 100 region 0:0x0000000014960000
+CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
+CPU1 is up
+Detected VIPT I-cache on CPU2
+GICv3: CPU2: found redistributor 200 region 0:0x0000000014980000
+CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
+CPU2 is up
+Detected VIPT I-cache on CPU3
+GICv3: CPU3: found redistributor 300 region 0:0x00000000149a0000
+CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
+CPU3 is up
+dwmac4: Master AXI performs fixed burst length
+15c30000.ethernet end0: No Safety Features support found
+15c30000.ethernet end0: IEEE 1588-2008 Advanced Timestamp supported
+15c30000.ethernet end0: configuring for phy/rgmii-id link mode
+dwmac4: Master AXI performs fixed burst length
+15c40000.ethernet end1: No Safety Features support found
+15c40000.ethernet end1: IEEE 1588-2008 Advanced Timestamp supported
+15c40000.ethernet end1: configuring for phy/rgmii-id link mode
+OOM killer enabled.
+Restarting tasks: Starting
+Restarting tasks: Done
+random: crng reseeded on system resumption
+PM: suspend exit
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+15c30000.ethernet end0: Link is Up - 1Gbps/Full - flow control rx/tx
+root@smarc-rzg3e:~# ifconfig end0 192.168.10.7 up
+root@smarc-rzg3e:~# ping 192.168.10.1
+PING 192.168.10.1 (192.168.10.1) 56(84) bytes of data.
+64 bytes from 192.168.10.1: icmp_seq=1 ttl=64 time=2.05 ms
+64 bytes from 192.168.10.1: icmp_seq=2 ttl=64 time=0.928 ms
+
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+This patch is tested with out-of tree patch for save/restore
+ethernet OEN registers in the pinctrl block.
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+index 9a774046455b..df4ca897a60c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+@@ -136,6 +136,7 @@ static struct platform_driver renesas_gbeth_driver = {
+ 	.probe  = renesas_gbeth_probe,
+ 	.driver = {
+ 		.name		= "renesas-gbeth",
++		.pm		= &stmmac_pltfr_pm_ops,
+ 		.of_match_table	= renesas_gbeth_match,
+ 	},
+ };
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
