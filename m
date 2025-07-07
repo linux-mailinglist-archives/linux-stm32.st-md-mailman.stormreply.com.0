@@ -2,71 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B97B7AFB0EB
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jul 2025 12:15:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F72FAFB64A
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jul 2025 16:43:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 670E5C3F92E;
-	Mon,  7 Jul 2025 10:15:03 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06127C3089F;
+	Mon,  7 Jul 2025 14:43:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC401C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 108C6C36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Jul 2025 10:15:01 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5676FZb1022788;
- Mon, 7 Jul 2025 12:14:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- M+uhJcJDTeJCAUeixIicqUqHNPuuMmXwRPR3UP1fAmM=; b=qa/jqMjNzLnoNdla
- J8gS5RL+QKKO2XkLCjN1Dd1OFZalOvLdthzFGzbzKNCrkE5b+Ck8ShWM9wT3Hcgk
- fyKnJggAL2QWHo/tQpb4DWqE+1O6KxhnJZJPllEqH/KtQ54t6G7qdb3HinT2xvYK
- 7cm/3L2Dhe84flz9gvspRWEVXDcz5AJLAVa4it5nqaU1zsjuk9FoC+WN47Pzt8H/
- q76kIXGyHHPxiBYBSbCQvnl2aXetkDNUnMcp/K6iqGshBxLlfgAMIZxxEP1fWexI
- rTOlSIEGxIUVt1DhjqJLUUbVPbjejAuyPa+egSUHsCKJVyHQGleIjiG5qTqBXGr9
- 4dKz0g==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47psfm84re-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 07 Jul 2025 12:14:36 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E636440056;
- Mon,  7 Jul 2025 12:13:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C7BEAC4AF2;
- Mon,  7 Jul 2025 12:12:18 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Jul
- 2025 12:12:17 +0200
-Date: Mon, 7 Jul 2025 12:12:11 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
-Message-ID: <20250707101211.GA984919@gnbcxd0016.gnb.st.com>
-References: <20250704-i2c-upstream-v4-0-84a095a2c728@foss.st.com>
+ Mon,  7 Jul 2025 14:43:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 14A0B61454
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Jul 2025 14:43:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC42EC4CEF7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Jul 2025 14:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1751899421;
+ bh=pygmB6Y0A8GnIvfkKxpvuMj1/8T5+x16Brq+Mu3flTM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=hW7AEn/kJoZ8G/Ci6vwPyUhco7+VT+w71XTx1ckOOlEvFJ/XKwDhl5sE5b9n0vETn
+ EoBQn8bKGxm2xp53PmFWiarQqh3pag3ilMqvwhTHb3byIy+pYBNJSt52ADXNa/MOFS
+ +St49nQkrtc6KQHchPzRFYKXHZIdwRyz1ELm99WFwf2g00rsR9i0S6bgj0rpxYxHuL
+ 5PigZFIt0Es2ZgJV0o8sqXtLuX+r7gcko2jCPn8vGe4Lng1QsjwOuSMZLDyMrFf0Wc
+ IFOnWDqHkuLn04u1NoOC2CQOYtSHxEo9oBSMWBRjdi6oZ3bQwILTM5qDqUhwWEOJ8M
+ QHRiEECr41zTQ==
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-ae3c5f666bfso522939966b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 07 Jul 2025 07:43:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW6le9XRrOP4GbT9fxK0DLiWcaEJrQmYz9mzR4puL+o+PDlCer5bKfg9Zm1dYbIvYza0f8E1ulM4q/iRQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxRMoLN+F7jcVseZ0x4O6eX8fklFJkf4uk70jFlm4yxqA3bjfAT
+ utSGoF8tlru/5kIYqr7p7Xilytc+LVFkiWxbC9Er6OXLBM+joZoAbVJGSMn1GeSMbecYpuFVFdC
+ 17NbQuQl8CNm/KT6aDQz2dnK+9VdUWQ==
+X-Google-Smtp-Source: AGHT+IH+f8zvdudHp1LuRKAAn7cL9u6+1JqOnozuxrIIQH8whQPjPMtiGupPBrID+yAocJ3AfWvuowkyHK1U/F/njY4=
+X-Received: by 2002:a17:907:96ac:b0:ae6:abe9:8cbc with SMTP id
+ a640c23a62f3a-ae6abe98e66mr63239166b.12.1751899420274; Mon, 07 Jul 2025
+ 07:43:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250704-i2c-upstream-v4-0-84a095a2c728@foss.st.com>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.130.77.119]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-07_02,2025-07-07_01,2025-03-28_01
-Cc: linaro-mm-sig@lists.linaro.org, Andi Shyti <andi.shyti@kernel.org>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, Pierre-Yves
- MORDRET <pierre-yves.mordret@st.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/3] Fix STM32 I2C dma operations
+References: <20250703183537.2075746-1-robh@kernel.org>
+ <1e33e6b6-845a-44bf-a398-4a9fb895a125@sirena.org.uk>
+In-Reply-To: <1e33e6b6-845a-44bf-a398-4a9fb895a125@sirena.org.uk>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 7 Jul 2025 09:43:27 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+8ObyEM-f88QSq1QfptVPrk5s5mVM-irq4ZTGNW9NKTw@mail.gmail.com>
+X-Gm-Features: Ac12FXwY1NqOYzEWnEAy2ESIy7UgECjX4aJqnXTz286AyGb5Rk-mUEzeguxMrTU
+Message-ID: <CAL_Jsq+8ObyEM-f88QSq1QfptVPrk5s5mVM-irq4ZTGNW9NKTw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32-ospi: Use
+ of_reserved_mem_region_to_resource() for "memory-region"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,77 +69,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Cl=E9ment,
-
-On Fri, Jul 04, 2025 at 10:39:13AM +0200, Cl=E9ment Le Goffic wrote:
-> This patch series aims to fix some issues inside the driver's DMA
-> handling.
-> It also uses newer I2C DMA API.
-> =
-
-> Signed-off-by: Cl=E9ment Le Goffic <clement.legoffic@foss.st.com>
-> ---
-> Changes in v4:
-> - Patch[1]: Remove all `chan_dev` variable occurrencies
-> - Patch[2]:
->     - Refine commit message
->     - Use the dma_callback to factorize the code
-> - Patch[3]: Refine commit message
-> - Link to v3: https://lore.kernel.org/r/20250630-i2c-upstream-v3-0-7a23ab=
-26683a@foss.st.com
-> =
-
-> Changes in v3:
-> - Add Alain Volmat's "Acked-by" on patch 1 and 2
-> - Link to v2: https://lore.kernel.org/r/20250627-i2c-upstream-v2-0-8c1452=
-3481dc@foss.st.com
-> =
-
-> Changes in v2:
-> - Fix the dev used in dma_unmap also in the error path of
->   `stm32_i2c_prep_dma_xfer`
-> - Add a dma_unmap_single also in the ITs error handler
-> - Add Alain Volmat's "Acked-by" on patch 3
-> - Link to v1: https://lore.kernel.org/r/20250616-i2c-upstream-v1-0-42d3d5=
-374e65@foss.st.com
-> =
-
-> ---
-> Cl=E9ment Le Goffic (3):
->       i2c: stm32: fix the device used for the DMA map
->       i2c: stm32f7: unmap DMA mapped buffer
->       i2c: stm32f7: support i2c_*_dma_safe_msg_buf APIs
-> =
-
->  drivers/i2c/busses/i2c-stm32.c   |  8 +++---
->  drivers/i2c/busses/i2c-stm32f7.c | 56 +++++++++++++++++++++-------------=
-------
->  2 files changed, 33 insertions(+), 31 deletions(-)
-> ---
-
-Thanks for this new version of the serie.
-This all looks good to me. My Acked-by are already set since v3 so
-nothing more from me.
-
-Regards,
-Alain
-
-> base-commit: d0b3b7b22dfa1f4b515fd3a295b3fd958f9e81af
-> change-id: 20250527-i2c-upstream-e5b69501359a
-> =
-
-> Best regards,
-> --  =
-
-> Cl=E9ment Le Goffic <clement.legoffic@foss.st.com>
-> =
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdWwgNCwgMjAyNSBhdCA4OjUw4oCvQU0gTWFyayBCcm93biA8YnJvb25pZUBrZXJu
+ZWwub3JnPiB3cm90ZToKPgo+IE9uIFRodSwgSnVsIDAzLCAyMDI1IGF0IDAxOjM1OjM3UE0gLTA1
+MDAsIFJvYiBIZXJyaW5nIChBcm0pIHdyb3RlOgo+ID4gVXNlIHRoZSBuZXdseSBhZGRlZCBvZl9y
+ZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlKCkgZnVuY3Rpb24gdG8KPiA+IGhhbmRsZSAi
+bWVtb3J5LXJlZ2lvbiIgcHJvcGVydGllcy4KPgo+IFRoaXMgYnJlYWtzIGFuIGFsbG1vZGNvbmZp
+ZyBidWlsZDoKPgo+IC9idWlsZC9zdGFnZS9saW51eC9kcml2ZXJzL3NwaS9zcGktc3RtMzItb3Nw
+aS5jOjc3NToyMzogZXJyb3I6IHVudXNlZCB2YXJpYWJsZSAncm1lbScgWy1XZXJyb3IsLVd1bnVz
+ZWQtdmFyaWFibGVdCj4gICA3NzUgfCAgICAgICAgIHN0cnVjdCByZXNlcnZlZF9tZW0gKnJtZW0g
+PSBOVUxMOwo+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+Cj4gL2J1
+aWxkL3N0YWdlL2xpbnV4L2RyaXZlcnMvc3BpL3NwaS1zdG0zMi1vc3BpLmM6Nzc2OjIyOiBlcnJv
+cjogdW51c2VkIHZhcmlhYmxlICdub2RlJyBbLVdlcnJvciwtV3VudXNlZC12YXJpYWJsZV0KPiAg
+IDc3NiB8ICAgICAgICAgc3RydWN0IGRldmljZV9ub2RlICpub2RlOwo+ICAgICAgIHwgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIF5+fn4KClNpZ2guIEkgc3dlYXIgSSBoYWQgZml4ZWQgdGhh
+dC4uLgoKClJvYgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
