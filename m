@@ -2,53 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122B8B1486D
+	by mail.lfdr.de (Postfix) with ESMTPS id 27610B1486E
 	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 08:48:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA560C35E2B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1CBDC35E3C;
 	Tue, 29 Jul 2025 06:48:54 +0000 (UTC)
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
- (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4A2C3089F
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 040D7C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Jul 2025 10:10:05 +0000 (UTC)
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Mon, 7 Jul 2025 18:09:30 +0800 (GMT+08:00)
-X-Originating-IP: [10.11.96.26]
-Date: Mon, 7 Jul 2025 18:09:30 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Andrew Lunn" <andrew@lunn.ch>, "Krzysztof Kozlowski" <krzk@kernel.org>
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2025 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <c212c50e-52ae-4330-8e67-792e83ab29e4@lunn.ch>
-References: <20250703091808.1092-1-weishangjuan@eswincomputing.com>
- <20250703092015.1200-1-weishangjuan@eswincomputing.com>
- <c212c50e-52ae-4330-8e67-792e83ab29e4@lunn.ch>
+ Wed,  9 Jul 2025 17:17:51 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-7d21cecc11fso18381885a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 09 Jul 2025 10:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1752081471; x=1752686271;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=aHdX3CSfue/m3/kt/dPbNz+FIQl6EVMspXvXyxqMLdA=;
+ b=gbTI74lRFeGDXAcf3s162F6k1ixi0N8LirHuRirbLSa+UZ9TPdeFybUVOiNVVlDhJX
+ n1pUVJXbyMqJH6Go4q6LsI/gs1b9VQpRiwonEwxaUyKZ7TEftGMlTeVy+kAiBMWepGu8
+ EjurpZgox61obnRZAG8mPs1r0UkkYOPiTOXtKh8bZkbfY9z4jN5pNRf+/fWMD9arzCA0
+ ZHRPwy422pbpkRE0noiyIyc9A34JO4vRQY2mSZg+1LRCGKQxpUhiLneigGOv2z7WkdRz
+ qcOqpXzeph+e2Q35sh04kl/fq1gOtbbNsRrLc6ILgMMsESu3dNYzJsTJrPufoVjK9NKz
+ IKlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752081471; x=1752686271;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aHdX3CSfue/m3/kt/dPbNz+FIQl6EVMspXvXyxqMLdA=;
+ b=nah/wXY/kmZCW2nFGjnQfsVLrbOVHGkSpBlsmhHcbsn4B5VBKiIgYuW0JcqcowPo8B
+ /2eKnn6mfEHDMuqq++s9ieP6oAvF+XM7PxGizHJagTgaOx+M/QlydwCvxeE4ETGyLwDa
+ uThqlfeg1ssyfhD5GVu18rayGa/rLgINMdkTPKa77pKkqepYeecm+UKpjM7E9VBCXDLX
+ d8o36Gc/5hpVD7hHxf+PeR6HDzLgG1ahgYHQ9TIV8FhBJGnAWnJs8fBy4vPc8+L3rc43
+ M0LsyEYxYmR+SfidtoHtNLISe+HFZl+eDWtMZH+mdV2Ux2o4hxY7fM1stPZ9OrxRNy1A
+ dBmA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWHVhx3wH6FFN3xIXxULOnFEp7+aAesZ/O6WW1TOGVUA1MD7pCyyjmMT4snuuYVgc01nAiN4RILJzE9ng==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxPYY3IpjSrLwnjltEHIqeTKGT2U/BkUUeyKkFzHRj75ORB1O0M
+ DjMJBqGVn9gY4WldTDvX0FtYIDBI4PUP7NmjOKWkOwKLrpxcdUxYDEXG
+X-Gm-Gg: ASbGnctRk9vgMp8PeQqQtHWx/OdsPSMnnKlAsM506o6nZao4kCQBlK5CqU5ayguMcgz
+ GaY8ue6a9hF7/YeOEfurfuEHDZtHbKacXs6kS5VW3ExkStLT2uwyHUHAhkjDbaysd0uFXteXKwd
+ ETFyHyozvPM2GHsSW6SwQkmui1wDywK2KvCJIMN8z2DCmklFZUMWDR4Znlc5m8qrjJO/ZjEOnjG
+ AgLiTLVXVLtdmk62mozQCtj5K09Le0W5u7ZeF4H32fuuE+ATyPRFnrhRSQWd874oGLXc/SctNuu
+ MIhFFnTdxEIj8gUF7Y3lO9PbTzmjcG77BrVcRidvzl76nZIRzMUZ3kpwJPJjVmovWsqYNAS7kuv
+ l1EbF6Bxu7GD0+niRmviYcwBD6A==
+X-Google-Smtp-Source: AGHT+IFyo9Srr/PXWJqOwCu+w7JjiunHszi5Ked3rjKmNIKWjnrm7o66h8G3fWaB8PXaJR9/0zFBhQ==
+X-Received: by 2002:a05:620a:318f:b0:7d4:5361:bb7e with SMTP id
+ af79cd13be357-7dc999b2d07mr45969085a.8.1752081470416; 
+ Wed, 09 Jul 2025 10:17:50 -0700 (PDT)
+Received: from fyre-x-redhat96-nsd-1.fyre.ibm.com ([129.41.87.0])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7d5dbdb0aebsm971824085a.33.2025.07.09.10.17.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Jul 2025 10:17:49 -0700 (PDT)
+From: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
+To: suzuki.poulose@arm.com, alexander.shishkin@linux.intel.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Date: Wed,  9 Jul 2025 10:17:30 -0700
+Message-ID: <20250709171730.14786-1-chelsyratnawat2001@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Message-ID: <6a3684b9.2f79.197e45cb6b9.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: TAJkCgAHLBLbnGtoDWyqAA--.13334W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEQDGhqpUk+VwABsZ
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
- CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
- daVFxhVjvjDU=
 X-Mailman-Approved-At: Tue, 29 Jul 2025 06:48:52 +0000
-Cc: vladimir.oltean@nxp.com, edumazet@google.com, jszhang@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- weishangjuan@eswincomputing.com, ningyu@eswincomputing.com, 0x1207@gmail.com,
- kuba@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- jan.petrous@oss.nxp.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- rmk+kernel@armlinux.org.uk, yong.liang.choong@linux.intel.com,
- dfustini@tenstorrent.com, linux-arm-kernel@lists.infradead.org,
- linmin@eswincomputing.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
- mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v3 2/2] ethernet: eswin: Add eic7700
-	ethernet driver
+Cc: james.clark@linaro.org, linux-kernel@vger.kernel.org,
+ Chelsy Ratnawat <chelsyratnawat2001@gmail.com>, coresight@lists.linaro.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ mike.leach@linaro.org
+Subject: [Linux-stm32] [PATCH v3] coresight: Replace scnprintf() with
+	sysfs_emit() in sysfs show functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,125 +86,629 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RGVhciBBbmRyZXcgTHVubiwKVGhhbmsgeW91IGZvciB5b3VyIHByb2Zlc3Npb25hbCBhbmQgdmFs
-dWFibGUgc3VnZ2VzdGlvbnMuCldlIGhhdmUgY2FyZWZ1bGx5IHJldmlld2VkIHlvdXIgY29tbWVu
-dHMgYW5kIG1hZGUgdGhlIGNvcnJlc3BvbmRpbmcgY2hhbmdlcy4gQ291bGQgeW91IHBsZWFzZSBo
-ZWxwIHVzIGV2YWx1YXRlIHdoZXRoZXIgdGhlIHVwZGF0ZXMgd2UgbWVudGlvbmVkIGluIG91ciBw
-cmV2aW91cyBlbWFpbCBwcm9wZXJseSBhZGRyZXNzIHlvdXIgY29uY2VybnMgYW5kIG1lZXQgdGhl
-IGV4cGVjdGVkIHN0YW5kYXJkcz8KQXQgdGhlIHNhbWUgdGltZSwgd2Ugc3RpbGwgaGF2ZSBzb21l
-IHF1ZXN0aW9ucyB0aGF0IG5lZWQgY2xhcmlmaWNhdGlvbi4gV2UgaGF2ZSBpbmNsdWRlZCB0aGVz
-ZSBpbiB0aGUgb3JpZ2luYWwgZW1haWwg4oCUIHdlIHdvdWxkIGFwcHJlY2lhdGUgaXQgaWYgeW91
-IGNvdWxkIGFsc28gdGFrZSBhIG1vbWVudCB0byByZXZpZXcgdGhvc2UgcG9pbnRzLgoKCkBLcnp5
-c3p0b2YgS296bG93c2tpCldlIG5vdGljZWQgeW91ciByZXZpZXcgY29tbWVudCBvbiB0aGUgZm9s
-bG93aW5nIHBhZ2UsIGJ1dCB3ZSBkaWQgbm90IHJlY2VpdmUgaXQgdmlhIGVtYWlsOgrwn5SXIGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvZjA5NmFmYTEtMjYwZS00ZjhjLTg1OTUtM2I0MTQy
-NWIyOTY0QGtlcm5lbC5vcmcvClRoYW5rIHlvdSBmb3IgeW91ciBwcm9mZXNzaW9uYWwgZmVlZGJh
-Y2sgb24gb3VyIEV0aGVybmV0IGRyaXZlci4KUmVnYXJkaW5nIHRoZSBpc3N1ZSB5b3UgcmFpc2Vk
-OgoiVGhlcmUgaXMgbm8gc3VjaCBwcm9wZXJ0eS4gSSBhbHJlYWR5IHNhaWQgYXQgdjIgeW91IGNh
-bm5vdCBoYXZlIHVuZG9jdW1lbnRlZCBBQkkuIgpVcG9uIHJlY2hlY2tpbmcsIHdlIHJlYWxpemVk
-IHRoYXQgZHVyaW5nIHZlcmlmaWNhdGlvbiwgd2UgbWlzdGFrZW5seSB1c2VkIHVuZGVyc2NvcmUt
-c2VwYXJhdGVkIHByb3BlcnR5IG5hbWVzIGluIHRoZSBkcml2ZXIsIHdoaWxlIGRhc2gtc2VwYXJh
-dGVkIG5hbWVzIHdlcmUgdXNlZCBpbiB0aGUgWUFNTCBiaW5kaW5ncy4gV2UgaGF2ZSBub3cgc3lu
-Y2hyb25pemVkIHRoZSBwcm9wZXJ0eSBuYW1pbmcuCkNvdWxkIHlvdSBwbGVhc2UgY29uZmlybSBp
-ZiB0aGlzIG1pc21hdGNoIHdhcyB0aGUgcm9vdCBjYXVzZSBvZiB5b3VyIGNvbmNlcm4/CgoKQmVz
-dCByZWdhcmRzLAoKTGkgWmhpCkVzd2luIENvbXB1dGluZwoKPiAtLS0tLeWOn+Wni+mCruS7ti0t
-LS0tCj4g5Y+R5Lu25Lq6OiAiQW5kcmV3IEx1bm4iIDxhbmRyZXdAbHVubi5jaD4KPiDlj5HpgIHm
-l7bpl7Q6MjAyNS0wNy0wNCAwMDoxMjoyOSAo5pif5pyf5LqUKQo+IOaUtuS7tuS6ujogd2Vpc2hh
-bmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbQo+IOaKhOmAgTogYW5kcmV3K25ldGRldkBsdW5uLmNo
-LCBkYXZlbUBkYXZlbWxvZnQubmV0LCBlZHVtYXpldEBnb29nbGUuY29tLCBrdWJhQGtlcm5lbC5v
-cmcsIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBrZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwu
-b3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZywg
-bGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwg
-YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWss
-IHlvbmcubGlhbmcuY2hvb25nQGxpbnV4LmludGVsLmNvbSwgdmxhZGltaXIub2x0ZWFuQG54cC5j
-b20sIGpzemhhbmdAa2VybmVsLm9yZywgamFuLnBldHJvdXNAb3NzLm54cC5jb20sIHByYWJoYWth
-ci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbSwgaW5vY2hpYW1hQGdtYWlsLmNvbSwgYm9v
-bi5raGFpLm5nQGFsdGVyYS5jb20sIGRmdXN0aW5pQHRlbnN0b3JyZW50LmNvbSwgMHgxMjA3QGdt
-YWlsLmNvbSwgbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgt
-YXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnLCBuaW5neXVAZXN3aW5jb21wdXRpbmcuY29t
-LCBsaW5taW5AZXN3aW5jb21wdXRpbmcuY29tLCBsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tCj4g
-5Li76aKYOiBSZTogW1BBVENIIHYzIDIvMl0gZXRoZXJuZXQ6IGVzd2luOiBBZGQgZWljNzcwMCBl
-dGhlcm5ldCBkcml2ZXIKPiAKPiA+ICsvKiBEZWZhdWx0IGRlbGF5IHZhbHVlKi8KPiA+ICsjZGVm
-aW5lIEVJQzc3MDBfREVMQVlfVkFMVUUwIDB4MjAyMDIwMjAKPiA+ICsjZGVmaW5lIEVJQzc3MDBf
-REVMQVlfVkFMVUUxIDB4OTYyMDVBMjAKPiAKPiBXZSBuZWVkIGEgYmV0dGVyIGV4cGxhbmF0aW9u
-IG9mIHdoYXQgaXMgZ29pbmcgb24gaGVyZS4gV2hhdCBkbyB0aGVzZQo+IG51bWJlcnMgbWVhbj8K
-PiAKCkluIHJlc3BvbnNlIHRvIHlvdXIgc3VnZ2VzdGlvbiwgd2UgYWRkZWQgdGhlIGZvbGxvd2lu
-ZyBtb3JlIGRldGFpbGVkIGNvbW1lbnRzIHRvIHRoZSBjb2RlLiBJcyB0aGlzIGFwcHJvcHJpYXRl
-PworLyoKK8KgKiBEZWZhdWx0IGRlbGF5IHJlZ2lzdGVyIHZhbHVlcyBmb3IgZGlmZmVyZW50IHNp
-Z25hbHM6CivCoCoKK8KgKiBFSUM3NzAwX0RFTEFZX1ZBTFVFMDogVXNlZCBmb3IgVFhEIGFuZCBS
-WEQgc2lnbmFscyBkZWxheSBjb25maWd1cmF0aW9uLgorwqAqIEJpdHMgbGF5b3V0OgorwqAqIMKg
-IEJ5dGUgMCAoYml0cyAwLTcpIMKgIDogVFhEMCAvIFJYRDAgZGVsYXkgKDB4MjAgPSAzLjIgbnMp
-CivCoCogwqAgQnl0ZSAxIChiaXRzIDgtMTUpIMKgOiBUWEQxIC8gUlhEMSBkZWxheSAoMHgyMCA9
-IDMuMiBucykKK8KgKiDCoCBCeXRlIDIgKGJpdHMgMTYtMjMpIDogVFhEMiAvIFJYRDIgZGVsYXkg
-KDB4MjAgPSAzLjIgbnMpCivCoCogwqAgQnl0ZSAzIChiaXRzIDI0LTMxKSA6IFRYRDMgLyBSWEQz
-IGRlbGF5ICgweDIwID0gMy4yIG5zKQorwqAqCivCoCogRUlDNzcwMF9ERUxBWV9WQUxVRTE6IFVz
-ZWQgZm9yIGNvbnRyb2wgc2lnbmFscyBkZWxheSBjb25maWd1cmF0aW9uLgorwqAqIEJpdHMgbGF5
-b3V0OgorwqAqIMKgIEJpdHMgMC02IMKgIMKgIDogVFhFTiBkZWxheQorwqAqIMKgIEJpdHMgOC0x
-NCDCoCDCoDogVFhDTEsgZGVsYXkKK8KgKiDCoCBCaXQgwqAxNSDCoCDCoCDCoDogVFhDTEsgaW52
-ZXJ0ICgxID0gaW52ZXJ0KQorwqAqIMKgIEJpdHMgMTYtMjIgwqAgOiBSWERWIGRlbGF5CivCoCog
-wqAgQml0cyAyNC0zMCDCoCA6IFJYQ0xLIGRlbGF5CivCoCogwqAgQml0IMKgMzEgwqAgwqAgwqA6
-IFJYQ0xLIGludmVydCAoMSA9IGludmVydCkKK8KgKi8KKyNkZWZpbmUgRUlDNzcwMF9ERUxBWV9W
-QUxVRTAgMHgyMDIwMjAyMAorI2RlZmluZSBFSUM3NzAwX0RFTEFZX1ZBTFVFMSAweDk2MjA1QTIw
-Cgo+ID4gKwlkd2NfcHJpdi0+ZGx5X3BhcmFtXzEwMDBtWzBdID0gRUlDNzcwMF9ERUxBWV9WQUxV
-RTA7Cj4gPiArCWR3Y19wcml2LT5kbHlfcGFyYW1fMTAwMG1bMV0gPSBFSUM3NzAwX0RFTEFZX1ZB
-TFVFMTsKPiA+ICsJZHdjX3ByaXYtPmRseV9wYXJhbV8xMDAwbVsyXSA9IEVJQzc3MDBfREVMQVlf
-VkFMVUUwOwo+ID4gKwlkd2NfcHJpdi0+ZGx5X3BhcmFtXzEwMG1bMF0gPSBFSUM3NzAwX0RFTEFZ
-X1ZBTFVFMDsKPiA+ICsJZHdjX3ByaXYtPmRseV9wYXJhbV8xMDBtWzFdID0gRUlDNzcwMF9ERUxB
-WV9WQUxVRTE7Cj4gPiArCWR3Y19wcml2LT5kbHlfcGFyYW1fMTAwbVsyXSA9IEVJQzc3MDBfREVM
-QVlfVkFMVUUwOwo+ID4gKwlkd2NfcHJpdi0+ZGx5X3BhcmFtXzEwbVswXSA9IDB4MDsKPiA+ICsJ
-ZHdjX3ByaXYtPmRseV9wYXJhbV8xMG1bMV0gPSAweDA7Cj4gPiArCWR3Y19wcml2LT5kbHlfcGFy
-YW1fMTBtWzJdID0gMHgwOwo+IAo+IFdoYXQgYXJlIHRoZSB0aHJlZSBkaWZmZXJlbnQgdmFsdWVz
-IGZvcj8KCkluIHJlc3BvbnNlIHRvIHlvdXIgcXVlc3Rpb24sIHdlIGhhdmUgYWRkZWQgdGhlIGZv
-bGxvd2luZyBtb3JlIGRldGFpbGVkIGNvbW1lbnRzIHRvIHRoZSBjb2RlLiBJcyB0aGlzIGFwcHJv
-cHJpYXRlPworICAgICAgICAvKiBJbml0aWFsaXplIGRlZmF1bHQgZGVsYXkgcGFyYW1ldGVycyBm
-b3IgMTAwME1icHMgYW5kIDEwME1icHMgc3BlZWRzICovCivCoCDCoCDCoCDCoCBkd2NfcHJpdi0+
-ZGx5X3BhcmFtXzEwMDBtWzBdID0gRUlDNzcwMF9ERUxBWV9WQUxVRTA7IC8qIFRYRCBkZWxheSAq
-LworwqAgwqAgwqAgwqAgZHdjX3ByaXYtPmRseV9wYXJhbV8xMDAwbVsxXSA9IEVJQzc3MDBfREVM
-QVlfVkFMVUUxOyAvKiBDb250cm9sIHNpZ25hbHMgZGVsYXkgKi8KK8KgIMKgIMKgIMKgIGR3Y19w
-cml2LT5kbHlfcGFyYW1fMTAwMG1bMl0gPSBFSUM3NzAwX0RFTEFZX1ZBTFVFMDsgLyogUlhEIGRl
-bGF5ICovCivCoCDCoCDCoCDCoCBkd2NfcHJpdi0+ZGx5X3BhcmFtXzEwMG1bMF0gPSBFSUM3NzAw
-X0RFTEFZX1ZBTFVFMDsKK8KgIMKgIMKgIMKgIGR3Y19wcml2LT5kbHlfcGFyYW1fMTAwbVsxXSA9
-IEVJQzc3MDBfREVMQVlfVkFMVUUxOworwqAgwqAgwqAgwqAgZHdjX3ByaXYtPmRseV9wYXJhbV8x
-MDBtWzJdID0gRUlDNzcwMF9ERUxBWV9WQUxVRTA7CivCoCDCoCDCoCDCoCAvKiBGb3IgMTBNYnBz
-LCBubyBkZWxheSBieSBkZWZhdWx0ICovCivCoCDCoCDCoCDCoCBkd2NfcHJpdi0+ZGx5X3BhcmFt
-XzEwbVswXSA9IDB4MDsKK8KgIMKgIMKgIMKgIGR3Y19wcml2LT5kbHlfcGFyYW1fMTBtWzFdID0g
-MHgwOworwqAgwqAgwqAgwqAgZHdjX3ByaXYtPmRseV9wYXJhbV8xMG1bMl0gPSAweDA7Cgo+IAo+
-ID4gKwo+ID4gKwlyZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5kZXYub2Zfbm9kZSwg
-InJ4LWludGVybmFsLWRlbGF5LXBzIiwKPiA+ICsJCQkJICAgJmR3Y19wcml2LT5yeF9kZWxheV9w
-cyk7Cj4gPiArCWlmIChyZXQpCj4gPiArCQlkZXZfZGJnKCZwZGV2LT5kZXYsICJjYW4ndCBnZXQg
-cngtaW50ZXJuYWwtZGVsYXktcHMsIHJldCglZCkuIiwgcmV0KTsKPiA+ICsJZWxzZQo+ID4gKwkJ
-aGFzX3J4X2RseSA9IHRydWU7Cj4gPiArCj4gPiArCXJldCA9IG9mX3Byb3BlcnR5X3JlYWRfdTMy
-KHBkZXYtPmRldi5vZl9ub2RlLCAidHgtaW50ZXJuYWwtZGVsYXktcHMiLAo+ID4gKwkJCQkgICAm
-ZHdjX3ByaXYtPnR4X2RlbGF5X3BzKTsKPiA+ICsJaWYgKHJldCkKPiA+ICsJCWRldl9kYmcoJnBk
-ZXYtPmRldiwgImNhbid0IGdldCB0eC1pbnRlcm5hbC1kZWxheS1wcywgcmV0KCVkKS4iLCByZXQp
-Owo+ID4gKwllbHNlCj4gPiArCQloYXNfdHhfZGx5ID0gdHJ1ZTsKPiA+ICsJaWYgKGhhc19yeF9k
-bHkgJiYgaGFzX3R4X2RseSkKPiAKPiBXaGF0IGlmIGkgb25seSB0byBzZXQgYSBUWCBkZWxheT8g
-SSB3YW50IHRoZSBSWCBkZWxheSB0byBkZWZhdWx0IHRvCj4gMHBzLgo+IAoKUmVnYXJkaW5nIHlv
-dXIgcXVlc3Rpb24sIHdlIGhhdmUgYWRkZWQgZGVmYXVsdCB2YWx1ZXMg4oCL4oCLZm9yIHR4IGRl
-bGF5IGFuZCByeCBkZWxheSBpbiB0aGUgY29kZSwgYW5kIGFzIGxvbmcgYXMgb25lIG9mIHRoZSB0
-d28gZGVsYXlzIGlzIGNvbmZpZ3VyZWQgaW4gRFRTLCB0aGUgb3JpZ2luYWwgY29uZmlndXJhdGlv
-biBjYW4gYmUgb3ZlcndyaXR0ZW4uIERvZXMgdGhpcyBwcm9jZXNzIG1lZXQgeW91ciBzdWdnZXN0
-aW9uPworICAgICAgICAvKiBEZWZhdWx0IGRlbGF5cyBpbiBwaWNvc2Vjb25kcyAqLworwqAgwqAg
-wqAgwqAgZHdjX3ByaXYtPnJ4X2RlbGF5X3BzID0gMDsKK8KgIMKgIMKgIMKgIGR3Y19wcml2LT50
-eF9kZWxheV9wcyA9IDA7CisKK8KgIMKgIMKgIMKgIGlmIChoYXNfcnhfZGx5IHx8IGhhc190eF9k
-bHkpIHsKCj4gewo+ID4gKwkJZWljNzcwMF9zZXRfZGVsYXkoZHdjX3ByaXYtPnJ4X2RlbGF5X3Bz
-LCBkd2NfcHJpdi0+dHhfZGVsYXlfcHMsCj4gPiArCQkJCSAgJmR3Y19wcml2LT5kbHlfcGFyYW1f
-MTAwMG1bMV0pOwo+ID4gKwkJZWljNzcwMF9zZXRfZGVsYXkoZHdjX3ByaXYtPnJ4X2RlbGF5X3Bz
-LCBkd2NfcHJpdi0+dHhfZGVsYXlfcHMsCj4gPiArCQkJCSAgJmR3Y19wcml2LT5kbHlfcGFyYW1f
-MTAwbVsxXSk7Cj4gPiArCQllaWM3NzAwX3NldF9kZWxheShkd2NfcHJpdi0+cnhfZGVsYXlfcHMs
-IGR3Y19wcml2LT50eF9kZWxheV9wcywKPiA+ICsJCQkJICAmZHdjX3ByaXYtPmRseV9wYXJhbV8x
-MG1bMV0pOwo+ID4gKwl9IGVsc2Ugewo+ID4gKwkJZGV2X2RiZygmcGRldi0+ZGV2LCAiIHVzZSBk
-ZWZhdWx0IGRseVxuIik7Cj4gCj4gV2hhdCBpcyB0aGUgZGVmYXVsdD8gSXQgc2hvdWxkIGJlIDBw
-cy4gU28gdGhlcmUgaXMgbm8gcG9pbnQgcHJpbnRpbmcKPiB0aGlzIG1lc3NhZ2UuCj4gCgpPdXIg
-b3JpZ2luYWwgc3RyYXRlZ3kgd2FzIHRvIHVzZSB0aGUgdmFsdWUgdXNlZCB3aGVuIGluaXRpYWxp
-emluZyBkbHlfcGFyYW1fKm0gYXMgdGhlIGRlZmF1bHQgdmFsdWUsIHNvIHNob3VsZCB3ZSBjb250
-aW51ZSB0byBmb2xsb3cgeW91ciBzdWdnZXN0aW9uIGFuZCB1c2UgMHBzIGFzIHRoZSBkZWZhdWx0
-IHZhbHVlPwoKPiAJQW5kcmV3Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Documentation/filesystems/sysfs.rst mentions that show() should only
+use sysfs_emit() or sysfs_emit_at() when formating the value to be
+returned to user space. So replace scnprintf() with sysfs_emit().
+
+Signed-off-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
+Reviewed-by: James Clark <james.clark@linaro.org>
+---
+Changes in v3:
+ - fixed warnings from checkpatch.pl
+
+ .../hwtracing/coresight/coresight-etm-perf.c  |   4 +-
+ .../coresight/coresight-etm3x-sysfs.c         |   2 +-
+ .../coresight/coresight-etm4x-sysfs.c         | 118 +++++++++---------
+ drivers/hwtracing/coresight/coresight-stm.c   |   8 +-
+ drivers/hwtracing/coresight/coresight-sysfs.c |   4 +-
+ 5 files changed, 68 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
+index f1551c08ecb2..8cfdcbc2f8f6 100644
+--- a/drivers/hwtracing/coresight/coresight-etm-perf.c
++++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
+@@ -851,7 +851,7 @@ static ssize_t etm_perf_sink_name_show(struct device *dev,
+ 	struct dev_ext_attribute *ea;
+ 
+ 	ea = container_of(dattr, struct dev_ext_attribute, attr);
+-	return scnprintf(buf, PAGE_SIZE, "0x%lx\n", (unsigned long)(ea->var));
++	return sysfs_emit(buf, "0x%lx\n", (unsigned long)(ea->var));
+ }
+ 
+ static struct dev_ext_attribute *
+@@ -943,7 +943,7 @@ static ssize_t etm_perf_cscfg_event_show(struct device *dev,
+ 	struct dev_ext_attribute *ea;
+ 
+ 	ea = container_of(dattr, struct dev_ext_attribute, attr);
+-	return scnprintf(buf, PAGE_SIZE, "configid=0x%lx\n", (unsigned long)(ea->var));
++	return sysfs_emit(buf, "configid=0x%lx\n", (unsigned long)(ea->var));
+ }
+ 
+ int etm_perf_add_symlink_cscfg(struct device *dev, struct cscfg_config_desc *config_desc)
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+index 762109307b86..4868eb05a312 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+@@ -1182,7 +1182,7 @@ static ssize_t cpu_show(struct device *dev,
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->cpu;
+-	return scnprintf(buf, PAGE_SIZE, "%d\n", val);
++	return sysfs_emit(buf, "%d\n", val);
+ 
+ }
+ static DEVICE_ATTR_RO(cpu);
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+index ab251865b893..4ddc0d344b61 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+@@ -63,7 +63,7 @@ static ssize_t nr_pe_cmp_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_pe_cmp;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_pe_cmp);
+ 
+@@ -75,7 +75,7 @@ static ssize_t nr_addr_cmp_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_addr_cmp;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_addr_cmp);
+ 
+@@ -87,7 +87,7 @@ static ssize_t nr_cntr_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_cntr;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_cntr);
+ 
+@@ -99,7 +99,7 @@ static ssize_t nr_ext_inp_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_ext_inp;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_ext_inp);
+ 
+@@ -111,7 +111,7 @@ static ssize_t numcidc_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->numcidc;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(numcidc);
+ 
+@@ -123,7 +123,7 @@ static ssize_t numvmidc_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->numvmidc;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(numvmidc);
+ 
+@@ -135,7 +135,7 @@ static ssize_t nrseqstate_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nrseqstate;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nrseqstate);
+ 
+@@ -147,7 +147,7 @@ static ssize_t nr_resource_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_resource;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_resource);
+ 
+@@ -159,7 +159,7 @@ static ssize_t nr_ss_cmp_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->nr_ss_cmp;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(nr_ss_cmp);
+ 
+@@ -287,7 +287,7 @@ static ssize_t mode_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->mode;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t mode_store(struct device *dev,
+@@ -453,7 +453,7 @@ static ssize_t pe_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->pe_sel;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t pe_store(struct device *dev,
+@@ -488,7 +488,7 @@ static ssize_t event_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->eventctrl0;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t event_store(struct device *dev,
+@@ -537,7 +537,7 @@ static ssize_t event_instren_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = FIELD_GET(TRCEVENTCTL1R_INSTEN_MASK, config->eventctrl1);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t event_instren_store(struct device *dev,
+@@ -593,7 +593,7 @@ static ssize_t event_ts_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->ts_ctrl;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t event_ts_store(struct device *dev,
+@@ -623,7 +623,7 @@ static ssize_t syncfreq_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->syncfreq;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t syncfreq_store(struct device *dev,
+@@ -653,7 +653,7 @@ static ssize_t cyc_threshold_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->ccctlr;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t cyc_threshold_store(struct device *dev,
+@@ -686,7 +686,7 @@ static ssize_t bb_ctrl_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->bb_ctrl;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t bb_ctrl_store(struct device *dev,
+@@ -726,7 +726,7 @@ static ssize_t event_vinst_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = FIELD_GET(TRCVICTLR_EVENT_MASK, config->vinst_ctrl);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t event_vinst_store(struct device *dev,
+@@ -758,7 +758,7 @@ static ssize_t s_exlevel_vinst_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = FIELD_GET(TRCVICTLR_EXLEVEL_S_MASK, config->vinst_ctrl);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t s_exlevel_vinst_store(struct device *dev,
+@@ -793,7 +793,7 @@ static ssize_t ns_exlevel_vinst_show(struct device *dev,
+ 
+ 	/* EXLEVEL_NS, bits[23:20] */
+ 	val = FIELD_GET(TRCVICTLR_EXLEVEL_NS_MASK, config->vinst_ctrl);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t ns_exlevel_vinst_store(struct device *dev,
+@@ -827,7 +827,7 @@ static ssize_t addr_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->addr_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_idx_store(struct device *dev,
+@@ -866,11 +866,11 @@ static ssize_t addr_instdatatype_show(struct device *dev,
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	idx = config->addr_idx;
+ 	val = FIELD_GET(TRCACATRn_TYPE_MASK, config->addr_acc[idx]);
+-	len = scnprintf(buf, PAGE_SIZE, "%s\n",
+-			val == TRCACATRn_TYPE_ADDR ? "instr" :
+-			(val == TRCACATRn_TYPE_DATA_LOAD_ADDR ? "data_load" :
+-			(val == TRCACATRn_TYPE_DATA_STORE_ADDR ? "data_store" :
+-			"data_load_store")));
++	len = sysfs_emit(buf, "%s\n",
++			 val == TRCACATRn_TYPE_ADDR ? "instr" :
++			 (val == TRCACATRn_TYPE_DATA_LOAD_ADDR ? "data_load" :
++			 (val == TRCACATRn_TYPE_DATA_STORE_ADDR ? "data_store" :
++			 "data_load_store")));
+ 	raw_spin_unlock(&drvdata->spinlock);
+ 	return len;
+ }
+@@ -918,7 +918,7 @@ static ssize_t addr_single_show(struct device *dev,
+ 	}
+ 	val = (unsigned long)config->addr_val[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_single_store(struct device *dev,
+@@ -974,7 +974,7 @@ static ssize_t addr_range_show(struct device *dev,
+ 	val1 = (unsigned long)config->addr_val[idx];
+ 	val2 = (unsigned long)config->addr_val[idx + 1];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx %#lx\n", val1, val2);
++	return sysfs_emit(buf, "%#lx %#lx\n", val1, val2);
+ }
+ 
+ static ssize_t addr_range_store(struct device *dev,
+@@ -1049,7 +1049,7 @@ static ssize_t addr_start_show(struct device *dev,
+ 
+ 	val = (unsigned long)config->addr_val[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_start_store(struct device *dev,
+@@ -1104,7 +1104,7 @@ static ssize_t addr_stop_show(struct device *dev,
+ 
+ 	val = (unsigned long)config->addr_val[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_stop_store(struct device *dev,
+@@ -1152,7 +1152,7 @@ static ssize_t addr_ctxtype_show(struct device *dev,
+ 	idx = config->addr_idx;
+ 	/* CONTEXTTYPE, bits[3:2] */
+ 	val = FIELD_GET(TRCACATRn_CONTEXTTYPE_MASK, config->addr_acc[idx]);
+-	len = scnprintf(buf, PAGE_SIZE, "%s\n", val == ETM_CTX_NONE ? "none" :
++	len = sysfs_emit(buf, "%s\n", val == ETM_CTX_NONE ? "none" :
+ 			(val == ETM_CTX_CTXID ? "ctxid" :
+ 			(val == ETM_CTX_VMID ? "vmid" : "all")));
+ 	raw_spin_unlock(&drvdata->spinlock);
+@@ -1219,7 +1219,7 @@ static ssize_t addr_context_show(struct device *dev,
+ 	/* context ID comparator bits[6:4] */
+ 	val = FIELD_GET(TRCACATRn_CONTEXT_MASK, config->addr_acc[idx]);
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_context_store(struct device *dev,
+@@ -1262,7 +1262,7 @@ static ssize_t addr_exlevel_s_ns_show(struct device *dev,
+ 	idx = config->addr_idx;
+ 	val = FIELD_GET(TRCACATRn_EXLEVEL_MASK, config->addr_acc[idx]);
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t addr_exlevel_s_ns_store(struct device *dev,
+@@ -1325,8 +1325,8 @@ static ssize_t addr_cmp_view_show(struct device *dev,
+ 	}
+ 	raw_spin_unlock(&drvdata->spinlock);
+ 	if (addr_type) {
+-		size = scnprintf(buf, PAGE_SIZE, "addr_cmp[%i] %s %#lx", idx,
+-				 addr_type_names[addr_type], addr_v);
++		size = sysfs_emit(buf, "addr_cmp[%i] %s %#lx", idx,
++				  addr_type_names[addr_type], addr_v);
+ 		if (addr_type == ETM_ADDR_TYPE_RANGE) {
+ 			size += scnprintf(buf + size, PAGE_SIZE - size,
+ 					  " %#lx %s", addr_v2,
+@@ -1335,7 +1335,7 @@ static ssize_t addr_cmp_view_show(struct device *dev,
+ 		size += scnprintf(buf + size, PAGE_SIZE - size,
+ 				  " ctrl(%#lx)\n", addr_ctrl);
+ 	} else {
+-		size = scnprintf(buf, PAGE_SIZE, "addr_cmp[%i] unused\n", idx);
++		size = sysfs_emit(buf, "addr_cmp[%i] unused\n", idx);
+ 	}
+ 	return size;
+ }
+@@ -1352,7 +1352,7 @@ static ssize_t vinst_pe_cmp_start_stop_show(struct device *dev,
+ 	if (!drvdata->nr_pe_cmp)
+ 		return -EINVAL;
+ 	val = config->vipcssctlr;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static ssize_t vinst_pe_cmp_start_stop_store(struct device *dev,
+ 					     struct device_attribute *attr,
+@@ -1383,7 +1383,7 @@ static ssize_t seq_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->seq_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t seq_idx_store(struct device *dev,
+@@ -1419,7 +1419,7 @@ static ssize_t seq_state_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->seq_state;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t seq_state_store(struct device *dev,
+@@ -1453,7 +1453,7 @@ static ssize_t seq_event_show(struct device *dev,
+ 	idx = config->seq_idx;
+ 	val = config->seq_ctrl[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t seq_event_store(struct device *dev,
+@@ -1486,7 +1486,7 @@ static ssize_t seq_reset_event_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->seq_rst;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t seq_reset_event_store(struct device *dev,
+@@ -1516,7 +1516,7 @@ static ssize_t cntr_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->cntr_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t cntr_idx_store(struct device *dev,
+@@ -1556,7 +1556,7 @@ static ssize_t cntrldvr_show(struct device *dev,
+ 	idx = config->cntr_idx;
+ 	val = config->cntrldvr[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t cntrldvr_store(struct device *dev,
+@@ -1594,7 +1594,7 @@ static ssize_t cntr_val_show(struct device *dev,
+ 	idx = config->cntr_idx;
+ 	val = config->cntr_val[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t cntr_val_store(struct device *dev,
+@@ -1632,7 +1632,7 @@ static ssize_t cntr_ctrl_show(struct device *dev,
+ 	idx = config->cntr_idx;
+ 	val = config->cntr_ctrl[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t cntr_ctrl_store(struct device *dev,
+@@ -1664,7 +1664,7 @@ static ssize_t res_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->res_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t res_idx_store(struct device *dev,
+@@ -1708,7 +1708,7 @@ static ssize_t res_ctrl_show(struct device *dev,
+ 	idx = config->res_idx;
+ 	val = config->res_ctrl[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t res_ctrl_store(struct device *dev,
+@@ -1746,7 +1746,7 @@ static ssize_t sshot_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->ss_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t sshot_idx_store(struct device *dev,
+@@ -1780,7 +1780,7 @@ static ssize_t sshot_ctrl_show(struct device *dev,
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	val = config->ss_ctrl[config->ss_idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t sshot_ctrl_store(struct device *dev,
+@@ -1815,7 +1815,7 @@ static ssize_t sshot_status_show(struct device *dev,
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	val = config->ss_status[config->ss_idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ static DEVICE_ATTR_RO(sshot_status);
+ 
+@@ -1830,7 +1830,7 @@ static ssize_t sshot_pe_ctrl_show(struct device *dev,
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	val = config->ss_pe_cmp[config->ss_idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t sshot_pe_ctrl_store(struct device *dev,
+@@ -1864,7 +1864,7 @@ static ssize_t ctxid_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->ctxid_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t ctxid_idx_store(struct device *dev,
+@@ -1911,7 +1911,7 @@ static ssize_t ctxid_pid_show(struct device *dev,
+ 	idx = config->ctxid_idx;
+ 	val = (unsigned long)config->ctxid_pid[idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t ctxid_pid_store(struct device *dev,
+@@ -1972,7 +1972,7 @@ static ssize_t ctxid_masks_show(struct device *dev,
+ 	val1 = config->ctxid_mask0;
+ 	val2 = config->ctxid_mask1;
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx %#lx\n", val1, val2);
++	return sysfs_emit(buf, "%#lx %#lx\n", val1, val2);
+ }
+ 
+ static ssize_t ctxid_masks_store(struct device *dev,
+@@ -2090,7 +2090,7 @@ static ssize_t vmid_idx_show(struct device *dev,
+ 	struct etmv4_config *config = &drvdata->config;
+ 
+ 	val = config->vmid_idx;
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t vmid_idx_store(struct device *dev,
+@@ -2135,7 +2135,7 @@ static ssize_t vmid_val_show(struct device *dev,
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	val = (unsigned long)config->vmid_val[config->vmid_idx];
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t vmid_val_store(struct device *dev,
+@@ -2187,7 +2187,7 @@ static ssize_t vmid_masks_show(struct device *dev,
+ 	val1 = config->vmid_mask0;
+ 	val2 = config->vmid_mask1;
+ 	raw_spin_unlock(&drvdata->spinlock);
+-	return scnprintf(buf, PAGE_SIZE, "%#lx %#lx\n", val1, val2);
++	return sysfs_emit(buf, "%#lx %#lx\n", val1, val2);
+ }
+ 
+ static ssize_t vmid_masks_store(struct device *dev,
+@@ -2303,7 +2303,7 @@ static ssize_t cpu_show(struct device *dev,
+ 	struct etmv4_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 
+ 	val = drvdata->cpu;
+-	return scnprintf(buf, PAGE_SIZE, "%d\n", val);
++	return sysfs_emit(buf, "%d\n", val);
+ 
+ }
+ static DEVICE_ATTR_RO(cpu);
+@@ -2461,7 +2461,7 @@ static ssize_t coresight_etm4x_reg_show(struct device *dev,
+ 	val = etmv4_cross_read(drvdata, offset);
+ 	pm_runtime_put_sync(dev->parent);
+ 
+-	return scnprintf(buf, PAGE_SIZE, "0x%x\n", val);
++	return sysfs_emit(buf, "0x%x\n", val);
+ }
+ 
+ static bool
+diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
+index e45c6c7204b4..fa09a43889d7 100644
+--- a/drivers/hwtracing/coresight/coresight-stm.c
++++ b/drivers/hwtracing/coresight/coresight-stm.c
+@@ -470,7 +470,7 @@ static ssize_t hwevent_enable_show(struct device *dev,
+ 	struct stm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	unsigned long val = drvdata->stmheer;
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t hwevent_enable_store(struct device *dev,
+@@ -499,7 +499,7 @@ static ssize_t hwevent_select_show(struct device *dev,
+ 	struct stm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	unsigned long val = drvdata->stmhebsr;
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t hwevent_select_store(struct device *dev,
+@@ -534,7 +534,7 @@ static ssize_t port_select_show(struct device *dev,
+ 		spin_unlock(&drvdata->spinlock);
+ 	}
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t port_select_store(struct device *dev,
+@@ -581,7 +581,7 @@ static ssize_t port_enable_show(struct device *dev,
+ 		spin_unlock(&drvdata->spinlock);
+ 	}
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
++	return sysfs_emit(buf, "%#lx\n", val);
+ }
+ 
+ static ssize_t port_enable_store(struct device *dev,
+diff --git a/drivers/hwtracing/coresight/coresight-sysfs.c b/drivers/hwtracing/coresight/coresight-sysfs.c
+index feadaf065b53..547f4970e1e5 100644
+--- a/drivers/hwtracing/coresight/coresight-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-sysfs.c
+@@ -315,7 +315,7 @@ static ssize_t enable_sink_show(struct device *dev,
+ {
+ 	struct coresight_device *csdev = to_coresight_device(dev);
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%u\n", csdev->sysfs_sink_activated);
++	return sysfs_emit(buf, "%u\n", csdev->sysfs_sink_activated);
+ }
+ 
+ static ssize_t enable_sink_store(struct device *dev,
+@@ -343,7 +343,7 @@ static ssize_t enable_source_show(struct device *dev,
+ 	struct coresight_device *csdev = to_coresight_device(dev);
+ 
+ 	guard(mutex)(&coresight_mutex);
+-	return scnprintf(buf, PAGE_SIZE, "%u\n",
++	return sysfs_emit(buf, "%u\n",
+ 			 coresight_get_mode(csdev) == CS_MODE_SYSFS);
+ }
+ 
+-- 
+2.47.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
