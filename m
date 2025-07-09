@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 366EDAFDD2E
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 03:59:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1195AFDD42
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 04:09:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A445DC36B2A;
-	Wed,  9 Jul 2025 01:59:20 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15A0DC36B13
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A9A1C36B2A;
+	Wed,  9 Jul 2025 02:09:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EFC3C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jul 2025 01:59:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=WSN+C6H9KoKUTLtYWfa9o8QO7YdJug8NwcG1uzFZFgs=; b=M
- GCdhL9oONYi+nIb0w6lj7sjOVtk+JWJO6FB7AuGUCD3+7oJdCz3ysWOq+VdOnDht
- UtvHVlqZBqp/AHCvPAlyHQu8ky7RyBKHRmk/0Vo/kXhz9ylMdBegE6OGAy/0l58/
- bkfj2vejnT+YKDa3AuYWV2cq46OwKYb506lz13M02o=
-Received: from sensor1010$163.com ( [61.155.242.146] ) by
- ajax-webmail-wmsvr-40-106 (Coremail) ; Wed, 9 Jul 2025 09:58:21 +0800 (CST)
-X-Originating-IP: [61.155.242.146]
-Date: Wed, 9 Jul 2025 09:58:21 +0800 (CST)
-From: lizhe  <sensor1010@163.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
- Copyright (c) 2002-2025 www.mailtech.cn 163com
-In-Reply-To: <aG1X9pPYDGO8kfM9@shell.armlinux.org.uk>
-References: <20250708165044.3923-1-sensor1010@163.com>
- <aG1X9pPYDGO8kfM9@shell.armlinux.org.uk>
-X-CM-CTRLMSGS: smu+v3RyYWNlS2V5PXByZV9kZmNjZWE1NDM2YzE1NTM0OWYyNDdkY2E5M2FjM
- WEyMg==
-X-NTES-SC: AL_Qu2eAPyZuUsr5yWfZekfmU4WhO47Ucewvfwu1IBUNpx6jCDp/iwNfH1TGVnn4sWDBASLkAiHXSle09hifYt/bqUg5h7eTn9Z3CQy77ngOfAnDg==
+ Wed,  9 Jul 2025 02:09:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0856E5C6445;
+ Wed,  9 Jul 2025 02:09:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41B7C4CEED;
+ Wed,  9 Jul 2025 02:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752026984;
+ bh=Tge18Np48taeWjJACOO6TUJgmCjNPLeql+dotgV6YSo=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=dm+yJ3At23CkipXs+0O1nAne2zg2jFc59qtDHBiNtXDjGIP6DETAAsgcFtZXRSqyD
+ 1b0PiyePUBi9Sf2nCD1rcnU6gDOoUdeaFqkclFOkDQhfsDzITDS+los819gXHUMkiV
+ kvKz8Z60vQ7jM64QXUN361WZWha4m1NjeVHLEs2CbaghXbh+rgKDRSCMOybTcOzBy1
+ RkT/wYuChpdk538c6UeN+TZsHqsp3cJuoD1+02dXsXp3uV7a2LIdONOa2WILAWpkTl
+ 5JTVCPL/X3W+1XQkGiTPoWy/ayLrJ49o1RFtvChK8FLEbg2t298+pZnCXDFXUkkeiQ
+ DecyY+/T+Fq+Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 9605E380DBEE; Wed,  9 Jul 2025 02:10:08 +0000 (UTC)
 MIME-Version: 1.0
-Message-ID: <2588871d.189d.197ece7c486.Coremail.sensor1010@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: aigvCgD3Hvu9zG1owIsFAA--.36903W
-X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/1tbiEAKEq2htSoXT6wAEsL
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-Cc: linux-kernel@vger.kernel.org, vladimir.oltean@nxp.com,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Support gpio high-level
- reset for devices requiring it
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <175202700747.194427.6933538958086222973.git-patchwork-notify@kernel.org>
+Date: Wed, 09 Jul 2025 02:10:07 +0000
+References: <20250707154409.15527-1-matthew.gerlach@altera.com>
+In-Reply-To: <20250707154409.15527-1-matthew.gerlach@altera.com>
+To: Matthew Gerlach <matthew.gerlach@altera.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ andrew+netdev@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, dinguyen@kernel.org,
+ edumazet@google.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, krzk+dt@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: altr,
+ socfpga-stmmac.yaml: add minItems to iommus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,155 +57,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7501304731805197997=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7501304731805197997==
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_24371_2147466458.1752026301574"
+Hello:
 
-------=_Part_24371_2147466458.1752026301574
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-CgoKSGksIAoKCgoKVGh4ICEKCgoKCmkgY29uZHVjdGVkIGFuIGV4cGVyaW1lbnQsIGFuZCBubyBt
-YXR0ZXIgd2hldGhlciBpIGNvbmZpZ3VyZWQgaXQgYXMgCgpHUElPX0FDVElWRV9MT1cgb3IgR1BJ
-T19BQ1RJVkVfSElHSCBpbiB0aGUgZHRzLCB0aGUgcmVzdWx0aW5nCgpHUElPIHBpbiBzdGF0ZSB3
-YXMgMCwgaW5kaWNhdGluZyBhIGxvdyBsZXZlbC4KCgoKCgoKCmlmIChkZWxheXNbMl0pCgogICAg
-bXNsZWVwKERJVl9ST1VORF9VUChERUxBWVNbMl0sIDEwMDApKTsKCgoKCisgZ3Bpb19zdGF0ZSA9
-IGdwaW9kX2dldF92YWx1ZV9jYW5fc2xlZXAocmVzZXRfZ3Bpbyk7CgorIHByX2luZm8oImdwaW9f
-c3RhdGU6ICVkXG4iLCBncGlvX3N0YXRlKTsKCgoKCgoKCgoKCgoKCgpBdCAyMDI1LTA3LTA5IDAx
-OjQwOjA2LCAiUnVzc2VsbCBLaW5nIChPcmFjbGUpIiA8bGludXhAYXJtbGludXgub3JnLnVrPiB3
-cm90ZToKPk9uIFR1ZSwgSnVsIDA4LCAyMDI1IGF0IDA5OjUwOjQ0QU0gLTA3MDAsIExpemhlIHdy
-b3RlOgo+PiBzb21lIGRldmljZXMgb25seSByZXNldCB3aGVuIHRoZSBHUElPIGlzIGF0IGEgaGln
-aCBsZXZlbCwgYnV0IHRoZQo+PiBjdXJyZW50IGZ1bmN0aW9uIGxhY2tzIHN1cHBvcnQgZm9yIHN1
-Y2ggZGV2aWNlcy4gYWRkIGhpZ2gtbGV2ZWwKPj4gcmVzZXQgZnVuY3Rpb25hbGl0eSB0byB0aGUg
-ZnVuY3Rpb24gdG8gc3VwcG9ydCBkZXZpY2VzIHRoYXQgcmVxdWlyZQo+PiBoaWdoLWxldmVsIHRy
-aWdnZXJpbmcgZm9yIHJlc2V0Cj4+IAo+PiBTaWduZWQtb2ZmLWJ5OiBMaXpoZSA8c2Vuc29yMTAx
-MEAxNjMuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L3N0bW1hY19tZGlvLmMgfCA4ICsrKysrKy0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRp
-b25zKCspLCAyIGRlbGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0
-aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tZGlvLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWRpby5jCj4+IGluZGV4IDgzNmYyODQ4ZGZlYi4uY2I5
-ODllNmQ3ZWFjIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9zdG1tYWNfbWRpby5jCj4+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
-c3RtbWFjL3N0bW1hY19tZGlvLmMKPj4gQEAgLTQ1OCw2ICs0NTgsNyBAQCBpbnQgc3RtbWFjX21k
-aW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKPj4gIAo+PiAgI2lmZGVmIENPTkZJR19PRgo+
-PiAgCWlmIChwcml2LT5kZXZpY2UtPm9mX25vZGUpIHsKPj4gKwkJaW50IGFjdGl2ZV9sb3cgPSAw
-Owo+PiAgCQlzdHJ1Y3QgZ3Bpb19kZXNjICpyZXNldF9ncGlvOwo+PiAgCQl1MzIgZGVsYXlzWzNd
-ID0geyAwLCAwLCAwIH07Cj4+ICAKPj4gQEAgLTQ2Nyw2ICs0NjgsOSBAQCBpbnQgc3RtbWFjX21k
-aW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKPj4gIAkJaWYgKElTX0VSUihyZXNldF9ncGlv
-KSkKPj4gIAkJCXJldHVybiBQVFJfRVJSKHJlc2V0X2dwaW8pOwo+PiAgCj4+ICsJCWlmIChyZXNl
-dF9ncGlvKQo+PiArCQkJYWN0aXZlX2xvdyA9IGdwaW9kX2lzX2FjdGl2ZV9sb3cocmVzZXRfZ3Bp
-byk7Cj4+ICsKPj4gIAkJZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyX2FycmF5KHByaXYtPmRldmlj
-ZSwKPj4gIAkJCQkJICAgICAgICJzbnBzLHJlc2V0LWRlbGF5cy11cyIsCj4+ICAJCQkJCSAgICAg
-ICBkZWxheXMsIEFSUkFZX1NJWkUoZGVsYXlzKSk7Cj4+IEBAIC00NzQsMTEgKzQ3OCwxMSBAQCBp
-bnQgc3RtbWFjX21kaW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKPj4gIAkJaWYgKGRlbGF5
-c1swXSkKPj4gIAkJCW1zbGVlcChESVZfUk9VTkRfVVAoZGVsYXlzWzBdLCAxMDAwKSk7Cj4+ICAK
-Pj4gLQkJZ3Bpb2Rfc2V0X3ZhbHVlX2NhbnNsZWVwKHJlc2V0X2dwaW8sIDEpOwo+PiArCQlncGlv
-ZF9zZXRfdmFsdWVfY2Fuc2xlZXAocmVzZXRfZ3BpbywgYWN0aXZlX2xvdyA/IDEgOiAwKTsKPj4g
-IAkJaWYgKGRlbGF5c1sxXSkKPj4gIAkJCW1zbGVlcChESVZfUk9VTkRfVVAoZGVsYXlzWzFdLCAx
-MDAwKSk7Cj4+ICAKPj4gLQkJZ3Bpb2Rfc2V0X3ZhbHVlX2NhbnNsZWVwKHJlc2V0X2dwaW8sIDAp
-Owo+PiArCQlncGlvZF9zZXRfdmFsdWVfY2Fuc2xlZXAocmVzZXRfZ3BpbywgYWN0aXZlX2xvdyA/
-IDAgOiAxKTsKPj4gIAkJaWYgKGRlbGF5c1syXSkKPj4gIAkJCW1zbGVlcChESVZfUk9VTkRfVVAo
-ZGVsYXlzWzJdLCAxMDAwKSk7Cj4+ICAJfQo+Cj5OQUsuIE5vdCByZXF1aXJlZC4gVGhlIEdQSU8g
-bGF5ZXIgY2FuIGNvcGUgd2l0aCBhY3RpdmUtaGlnaCBhbmQKPmFjdGl2ZS1sb3cgc2lnbmFscyBk
-ZWNsYXJlZCBpbiBmaXJtd2FyZSB3aXRob3V0IG5lZWRpbmcgZHJpdmVyCj5tb2RpZmljYXRpb24u
-IFVzZSB0aGUgcmlnaHQgZGF0YSBpbiB0aGUgZmlybXdhcmUgYW5kIHlvdSBkb24ndAo+bmVlZCB0
-byBwYXRjaC4KPgo+LyogQml0IDAgZXhwcmVzcyBwb2xhcml0eSAqLwo+I2RlZmluZSBHUElPX0FD
-VElWRV9ISUdIIDAKPiNkZWZpbmUgR1BJT19BQ1RJVkVfTE9XIDEKPgo+LS0gCj5STUsncyBQYXRj
-aCBzeXN0ZW06IGh0dHBzOi8vd3d3LmFybWxpbnV4Lm9yZy51ay9kZXZlbG9wZXIvcGF0Y2hlcy8K
-PkZUVFAgaXMgaGVyZSEgODBNYnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQgY29ubmVjdGl2aXR5
-IGF0IGxhc3QhCg==
-------=_Part_24371_2147466458.1752026301574
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+On Mon,  7 Jul 2025 08:44:09 -0700 you wrote:
+> Add missing 'minItems: 1' to iommus property of the Altera SOCFPGA SoC
+> implementation of the Synopsys DWMAC.
+> 
+> Fixes: 6d359cf464f4 ("dt-bindings: net: Convert socfpga-dwmac bindings to yaml")
+> Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
+> ---
+>  Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
-Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
-ZD0ic3BuRWRpdG9yQ29udGVudCI+PHAgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L3A+PHAgc3R5
-bGU9Im1hcmdpbjogMDsiPkhpLCZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwv
-cD48cCBzdHlsZT0ibWFyZ2luOiAwOyI+VGh4ICE8L3A+PHAgc3R5bGU9Im1hcmdpbjogMHB4OyI+
-PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2luOiAwcHg7Ij5pIGNvbmR1Y3RlZCBhbiBleHBlcmltZW50
-LCBhbmQgbm8gbWF0dGVyIHdoZXRoZXIgaSBjb25maWd1cmVkIGl0IGFzJm5ic3A7PC9wPjxwIHN0
-eWxlPSJtYXJnaW46IDBweDsiPkdQSU9fQUNUSVZFX0xPVyBvciBHUElPX0FDVElWRV9ISUdIIGlu
-IHRoZSBkdHMsIHRoZSByZXN1bHRpbmc8L3A+PHAgc3R5bGU9Im1hcmdpbjogMHB4OyI+R1BJTyBw
-aW4gc3RhdGUgd2FzIDAsIGluZGljYXRpbmcgYSBsb3cgbGV2ZWwuPC9wPjxwIHN0eWxlPSJtYXJn
-aW46IDBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjogMHB4OyI+PGJyPjwvcD48cCBzdHls
-ZT0ibWFyZ2luOiAwcHg7Ij5pZiAoZGVsYXlzWzJdKTwvcD48cCBzdHlsZT0ibWFyZ2luOiAwcHg7
-Ij4mbmJzcDsgJm5ic3A7IG1zbGVlcChESVZfUk9VTkRfVVAoREVMQVlTWzJdLCAxMDAwKSk7PC9w
-PjxwIHN0eWxlPSJtYXJnaW46IDBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjogMHB4OyI+
-KyBncGlvX3N0YXRlID0gZ3Bpb2RfZ2V0X3ZhbHVlX2Nhbl9zbGVlcChyZXNldF9ncGlvKTs8L3A+
-PHAgc3R5bGU9Im1hcmdpbjogMHB4OyI+KyBwcl9pbmZvKCJncGlvX3N0YXRlOiAlZFxuIiwgZ3Bp
-b19zdGF0ZSk7PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJn
-aW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjwvZGl2PjxkaXYg
-c3R5bGU9InBvc2l0aW9uOnJlbGF0aXZlO3pvb206MSI+PC9kaXY+PGRpdiBpZD0iZGl2TmV0ZWFz
-ZU1haWxDYXJkIj48L2Rpdj48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48cHJlPjxicj5B
-dCAyMDI1LTA3LTA5IDAxOjQwOjA2LCAiUnVzc2VsbCBLaW5nIChPcmFjbGUpIiAmbHQ7bGludXhA
-YXJtbGludXgub3JnLnVrJmd0OyB3cm90ZToKJmd0O09uIFR1ZSwgSnVsIDA4LCAyMDI1IGF0IDA5
-OjUwOjQ0QU0gLTA3MDAsIExpemhlIHdyb3RlOgomZ3Q7Jmd0OyBzb21lIGRldmljZXMgb25seSBy
-ZXNldCB3aGVuIHRoZSBHUElPIGlzIGF0IGEgaGlnaCBsZXZlbCwgYnV0IHRoZQomZ3Q7Jmd0OyBj
-dXJyZW50IGZ1bmN0aW9uIGxhY2tzIHN1cHBvcnQgZm9yIHN1Y2ggZGV2aWNlcy4gYWRkIGhpZ2gt
-bGV2ZWwKJmd0OyZndDsgcmVzZXQgZnVuY3Rpb25hbGl0eSB0byB0aGUgZnVuY3Rpb24gdG8gc3Vw
-cG9ydCBkZXZpY2VzIHRoYXQgcmVxdWlyZQomZ3Q7Jmd0OyBoaWdoLWxldmVsIHRyaWdnZXJpbmcg
-Zm9yIHJlc2V0CiZndDsmZ3Q7IAomZ3Q7Jmd0OyBTaWduZWQtb2ZmLWJ5OiBMaXpoZSAmbHQ7c2Vu
-c29yMTAxMEAxNjMuY29tJmd0OwomZ3Q7Jmd0OyAtLS0KJmd0OyZndDsgIGRyaXZlcnMvbmV0L2V0
-aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tZGlvLmMgfCA4ICsrKysrKy0tCiZndDsmZ3Q7
-ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQomZ3Q7Jmd0
-OyAKJmd0OyZndDsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
-bWFjL3N0bW1hY19tZGlvLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9z
-dG1tYWNfbWRpby5jCiZndDsmZ3Q7IGluZGV4IDgzNmYyODQ4ZGZlYi4uY2I5ODllNmQ3ZWFjIDEw
-MDY0NAomZ3Q7Jmd0OyAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9z
-dG1tYWNfbWRpby5jCiZndDsmZ3Q7ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
-c3RtbWFjL3N0bW1hY19tZGlvLmMKJmd0OyZndDsgQEAgLTQ1OCw2ICs0NTgsNyBAQCBpbnQgc3Rt
-bWFjX21kaW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKJmd0OyZndDsgIAomZ3Q7Jmd0OyAg
-I2lmZGVmIENPTkZJR19PRgomZ3Q7Jmd0OyAgCWlmIChwcml2LSZndDtkZXZpY2UtJmd0O29mX25v
-ZGUpIHsKJmd0OyZndDsgKwkJaW50IGFjdGl2ZV9sb3cgPSAwOwomZ3Q7Jmd0OyAgCQlzdHJ1Y3Qg
-Z3Bpb19kZXNjICpyZXNldF9ncGlvOwomZ3Q7Jmd0OyAgCQl1MzIgZGVsYXlzWzNdID0geyAwLCAw
-LCAwIH07CiZndDsmZ3Q7ICAKJmd0OyZndDsgQEAgLTQ2Nyw2ICs0NjgsOSBAQCBpbnQgc3RtbWFj
-X21kaW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKJmd0OyZndDsgIAkJaWYgKElTX0VSUihy
-ZXNldF9ncGlvKSkKJmd0OyZndDsgIAkJCXJldHVybiBQVFJfRVJSKHJlc2V0X2dwaW8pOwomZ3Q7
-Jmd0OyAgCiZndDsmZ3Q7ICsJCWlmIChyZXNldF9ncGlvKQomZ3Q7Jmd0OyArCQkJYWN0aXZlX2xv
-dyA9IGdwaW9kX2lzX2FjdGl2ZV9sb3cocmVzZXRfZ3Bpbyk7CiZndDsmZ3Q7ICsKJmd0OyZndDsg
-IAkJZGV2aWNlX3Byb3BlcnR5X3JlYWRfdTMyX2FycmF5KHByaXYtJmd0O2RldmljZSwKJmd0OyZn
-dDsgIAkJCQkJICAgICAgICJzbnBzLHJlc2V0LWRlbGF5cy11cyIsCiZndDsmZ3Q7ICAJCQkJCSAg
-ICAgICBkZWxheXMsIEFSUkFZX1NJWkUoZGVsYXlzKSk7CiZndDsmZ3Q7IEBAIC00NzQsMTEgKzQ3
-OCwxMSBAQCBpbnQgc3RtbWFjX21kaW9fcmVzZXQoc3RydWN0IG1paV9idXMgKmJ1cykKJmd0OyZn
-dDsgIAkJaWYgKGRlbGF5c1swXSkKJmd0OyZndDsgIAkJCW1zbGVlcChESVZfUk9VTkRfVVAoZGVs
-YXlzWzBdLCAxMDAwKSk7CiZndDsmZ3Q7ICAKJmd0OyZndDsgLQkJZ3Bpb2Rfc2V0X3ZhbHVlX2Nh
-bnNsZWVwKHJlc2V0X2dwaW8sIDEpOwomZ3Q7Jmd0OyArCQlncGlvZF9zZXRfdmFsdWVfY2Fuc2xl
-ZXAocmVzZXRfZ3BpbywgYWN0aXZlX2xvdyA/IDEgOiAwKTsKJmd0OyZndDsgIAkJaWYgKGRlbGF5
-c1sxXSkKJmd0OyZndDsgIAkJCW1zbGVlcChESVZfUk9VTkRfVVAoZGVsYXlzWzFdLCAxMDAwKSk7
-CiZndDsmZ3Q7ICAKJmd0OyZndDsgLQkJZ3Bpb2Rfc2V0X3ZhbHVlX2NhbnNsZWVwKHJlc2V0X2dw
-aW8sIDApOwomZ3Q7Jmd0OyArCQlncGlvZF9zZXRfdmFsdWVfY2Fuc2xlZXAocmVzZXRfZ3Bpbywg
-YWN0aXZlX2xvdyA/IDAgOiAxKTsKJmd0OyZndDsgIAkJaWYgKGRlbGF5c1syXSkKJmd0OyZndDsg
-IAkJCW1zbGVlcChESVZfUk9VTkRfVVAoZGVsYXlzWzJdLCAxMDAwKSk7CiZndDsmZ3Q7ICAJfQom
-Z3Q7CiZndDtOQUsuIE5vdCByZXF1aXJlZC4gVGhlIEdQSU8gbGF5ZXIgY2FuIGNvcGUgd2l0aCBh
-Y3RpdmUtaGlnaCBhbmQKJmd0O2FjdGl2ZS1sb3cgc2lnbmFscyBkZWNsYXJlZCBpbiBmaXJtd2Fy
-ZSB3aXRob3V0IG5lZWRpbmcgZHJpdmVyCiZndDttb2RpZmljYXRpb24uIFVzZSB0aGUgcmlnaHQg
-ZGF0YSBpbiB0aGUgZmlybXdhcmUgYW5kIHlvdSBkb24ndAomZ3Q7bmVlZCB0byBwYXRjaC4KJmd0
-OwomZ3Q7LyogQml0IDAgZXhwcmVzcyBwb2xhcml0eSAqLwomZ3Q7I2RlZmluZSBHUElPX0FDVElW
-RV9ISUdIIDAKJmd0OyNkZWZpbmUgR1BJT19BQ1RJVkVfTE9XIDEKJmd0OwomZ3Q7LS0gCiZndDtS
-TUsncyBQYXRjaCBzeXN0ZW06IGh0dHBzOi8vd3d3LmFybWxpbnV4Lm9yZy51ay9kZXZlbG9wZXIv
-cGF0Y2hlcy8KJmd0O0ZUVFAgaXMgaGVyZSEgODBNYnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQg
-Y29ubmVjdGl2aXR5IGF0IGxhc3QhCjwvcHJlPjwvZGl2PjxpbWcgc3R5bGU9IndpZHRoOjFweDto
-ZWlnaHQ6MXB4IiBzcmM9Imh0dHBzOi8vY291bnQubWFpbC4xNjMuY29tL2JlYWNvbi93ZWJtYWls
-LmdpZj90eXBlPXdlYm1haWxfbWFpbHRyYWNlJmFtcDtndWlkPXByZV9kZmNjZWE1NDM2YzE1NTM0
-OWYyNDdkY2E5M2FjMWEyMiI+
-------=_Part_24371_2147466458.1752026301574--
+Here is the summary with links:
+  - dt-bindings: net: altr,socfpga-stmmac.yaml: add minItems to iommus
+    https://git.kernel.org/netdev/net-next/c/8a00a173d1a4
 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
---===============7501304731805197997==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7501304731805197997==--
-
