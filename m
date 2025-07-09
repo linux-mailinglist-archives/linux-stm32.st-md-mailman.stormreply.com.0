@@ -2,39 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53FEEAFED52
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 17:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0CF6AFEDDB
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 17:36:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CE3FC36B2A;
-	Wed,  9 Jul 2025 15:13:34 +0000 (UTC)
-Received: from brain.vintagevanners.com (brain.vintagevanners.com
- [86.106.104.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67B55C36B2A;
+	Wed,  9 Jul 2025 15:36:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42D1FC36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6DFCC36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jul 2025 15:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=dkim;
- d=vintagevanners.com; 
- h=Reply-To:From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
- i=kyra@vintagevanners.com; bh=1XHVxa4kktHgFAPSuIe9N775Vqk=;
- b=VwAT7VtTyxIwnHyrQd5HsCwdQhltHWyvoaE0DevwZe3J2I3DiEONUDWME9CQb2v5w9UwphELcXRL
- QRrwzPvTY8dYChJKjesKiM0MPG+84E+diNkfLRlz2GN6YBqjpbUIunghoCeR+raCbzbHdFDDL9J2
- lwzqahHVLhebXRqv8EfmykjWSz4qHJePtLUQ+fCEZU8ZwcYDJLlE0GRFWCSd1WELVVtTBZas8dKn
- S94SbNKxgLKLFAcUBI8kE9hvS+wyPCOCHot5h1yCJTNgJGrti1c7t4OqSBCTvzQ409z0tZXgELH0
- UeBFwDExGludjmjnUnB0or86bsr3N/ZXiK74/A==
-DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=dkim; d=vintagevanners.com; 
- b=NbXMbImzZFV0sISMwmuUL//zKQLVA2nt/Yk7dN8VDWrniIANijmDfu9wMi61M4PckNq188gMJbDj
- 2n3rhE21+eJqBzLQdLsGI6+HOTfvmPvCx03kIzCCv/Kc8uwCyYR5B2Zxgb7Nl7iVwirlaeBtZhel
- KOvpFouczpRUdnaBTCvQNLT3BYvB+7k+7Z+T/Mx/psNhezIvdKLbK0NT5MLOVoFT2aop9cqWzQaE
- TCekPjNahSWyqBtgmu2ADKb7AoHbEPvCPYtr/pHVXNEvfeuezMuW9AChL45JGxngpE+o9htyPUNL
- LTiyLwrVKN3VAHYN90gBNe+vf1yjXepttojClQ==;
-From: TRX CAPITAL CRYPTO<kyra@vintagevanners.com>
-To: linux-stm32@st-md-mailman.stormreply.com
-Date: 9 Jul 2025 08:13:31 -0700
-Message-ID: <20250709081331.6CEA0D63360BB4A3@vintagevanners.com>
+ Wed,  9 Jul 2025 15:36:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B872661148;
+ Wed,  9 Jul 2025 15:36:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F52C4CEEF;
+ Wed,  9 Jul 2025 15:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752075368;
+ bh=z5R0g5bRaFcE+byBEvAYFxwzxwtN+sL10BzKO0308UM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=kJaOkhdxWi9qV5vWcFnJ+JHTiQSlubZYl18mUsLG/pSBYdw+T1NKtWF5028TxIiFZ
+ wZfpISsYz6qDXmz2TI9Vt2XUjIKX936nTToXVpxLwiDoaCgB6R4T9SzqBhHgJFfpBd
+ DUjk1wdx3vSPwyZIM2EFvrhSQPqiWhpnXIU+dEh09EHx2ZObNI3mOIZsCcG9pdYe8q
+ BC4Z5NY1XOLoQTFEXD6LRKGjWkLN/mitCQSJ4wZRDpY40o5N+wT3fnKdwgpqCDUsHx
+ JG9DsmlWMhj+0erNX6r8khQZ4MuvF5NJtd+TeRO4St5FF7gaDqAbNdZh8u/V4dEqHi
+ 8bPTgLe8qW+Og==
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+In-Reply-To: <20250709021638.2047365-1-robh@kernel.org>
+References: <20250709021638.2047365-1-robh@kernel.org>
+Message-Id: <175207536585.695960.5730567147905543825.b4-ty@kernel.org>
+Date: Wed, 09 Jul 2025 16:36:05 +0100
 MIME-Version: 1.0
-Subject: [Linux-stm32] Welcome to TRX CRYPTO SERVICE.
+X-Mailer: b4 0.15-dev-07fe9
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32-ospi: Use
+ of_reserved_mem_region_to_resource() for "memory-region"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,49 +53,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: trx.capital@qspace.online
-Content-Type: multipart/mixed; boundary="===============2046470931564774912=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============2046470931564774912==
-Content-Type: text/html
-Content-Transfer-Encoding: quoted-printable
+On Tue, 08 Jul 2025 21:16:37 -0500, Rob Herring (Arm) wrote:
+> Use the newly added of_reserved_mem_region_to_resource() function to
+> handle "memory-region" properties.
+> 
+> 
 
-<!DOCTYPE HTML>
+Applied to
 
-<html><head><title></title>
-<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
-</head>
-<body style=3D"margin: 0.4em; font-size: 14pt;"><p>Welcome to TRX CRYPTO SE=
-RVICE<br>Bitcoins price is rapidly rising as where earlier predicted and wi=
-ll rise to $1 million dollars per coin in a short period of time,<br>This i=
-s the fastest and wisest way as of today to becoming a future billionaire b=
-y investing wisely today while the price is still affordable<br>And We have=
- good news for you to help make this a reality. </p><p>
-We have over $800 Million USD Worth of bitcoins for trades, sales and loans=
- services, <br>You can trade,exchange and buy any cryptocurrencies of your =
-choice with us,you will also earn 100 percent of your balances or traded am=
-ount daily(risk free)</p><p>(1) When you buy from us you can pay after you =
-have received your cryptocurrencies in your wallet by completing all the ve=
-rification requirement<br>
-(2) You can trade while your cryptocurrencies assets remain in your wallet =
-and account without transferring it to anyone, only to your account.</p><p>=
-Register today on our platform to buy, sale, exchange and start trading.<br=
-><a href=3D"https://trxcapitalcrypto.vercel.app/">https://trxcapitalcrypto.=
-vercel.app/</a></p><p>Please make sure to reply&nbsp;and contact us after r=
-egistration to give you all the assistance you need.<br><br>TRX CRYPTO SERV=
-ICE</p><p><br></p></body></html>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
---===============2046470931564774912==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks!
+
+[1/1] spi: stm32-ospi: Use of_reserved_mem_region_to_resource() for "memory-region"
+      commit: defe01abfb7f5c5bd53c723b8577d4fcd64faa5a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2046470931564774912==--
