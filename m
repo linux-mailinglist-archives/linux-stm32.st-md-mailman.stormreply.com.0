@@ -2,93 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9EF0AFE096
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 08:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08AB7AFE19B
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 09:49:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D5E6C36B2B;
-	Wed,  9 Jul 2025 06:54:33 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2290C36B2A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D5E0C36B2B;
+	Wed,  9 Jul 2025 07:49:35 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0B2EC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jul 2025 06:54:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 98300A54657;
- Wed,  9 Jul 2025 06:54:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC80C4CEF0;
- Wed,  9 Jul 2025 06:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752044070;
- bh=jSkYtAbBZp35/z4jcL3yY2+kEXDrxQhSiS5zpSyzP+Y=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=eqrLfrxIJhdGA2IsXhWrEJpqblQOzBS0DIG7bpfPkEFjfbv2ZgTlcmnuVLkSSvatt
- 9cCXVUGd1akJACFXvD9uYvlvVgkGhbfjLlJg2bUoIlxyKPC6nFXuQN0TKPnLepa3LM
- bm2xvxXGLHIrrpv3KZGn8IntV5OwCzcZ6ssW92n+u7KEYxn93C3NqEfBEKtt8QKv0w
- eNAMvvSjJhkIk6O4JGBlu8hzxDqnNcE0XEqvitet6a5CR9Ax+OyoJYmFejqJdk7Cf+
- RlEfhyR7lN0mIcDlTTfj+dETee/zO7azwR7bbkw2XmxcsukunnEs9/EkSE2HBgz7hP
- +Zcb59XohjuSQ==
-Message-ID: <b752c340-bbb5-479f-bc2c-a9e8541509c3@kernel.org>
-Date: Wed, 9 Jul 2025 08:54:24 +0200
+ Wed,  9 Jul 2025 07:49:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=Fr2uTYjem/3fTlULQcF08UUYYQvmOJGfC0cp/mJIMf8=; b=R
+ vo/4bemj34b9v+C+focO3L5GrhZyWgqOHLiBeAo1EfR4BSjUE5qT2eRnpo540EBR
+ m62XJOxRDSqLA/cDhOx4UvAdtLAlcqqnhSjTCxZBohGYOY9nW9fojbVNRQfNlzn+
+ Ygzqc8dPF+8akPNIo1ZuA/v2Q4XW92+NrJaSGvoszE=
+Received: from sensor1010$163.com ( [61.155.242.146] ) by
+ ajax-webmail-wmsvr-40-107 (Coremail) ; Wed, 9 Jul 2025 15:48:25 +0800 (CST)
+X-Originating-IP: [61.155.242.146]
+Date: Wed, 9 Jul 2025 15:48:25 +0800 (CST)
+From: lizhe  <sensor1010@163.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.14 build 20240801(9da12a7b)
+ Copyright (c) 2002-2025 www.mailtech.cn 163com
+In-Reply-To: <aG3vj1WYn3TjcBZe@shell.armlinux.org.uk>
+References: <20250708165044.3923-1-sensor1010@163.com>
+ <52b71fe7-d10a-4680-9549-ca55fd2e2864@lunn.ch>
+ <5c7adfef.1876.197ece74c25.Coremail.sensor1010@163.com>
+ <aG3vj1WYn3TjcBZe@shell.armlinux.org.uk>
+X-CM-CTRLMSGS: E5M20XRyYWNlS2V5PXByZV9iMmI5MzI2ZjkyMzdiZDY4ZmE4YjI5NjI5ZTJiN
+ WMxNA==
+X-NTES-SC: AL_Qu2eAPyfuEsr4yiYZekfmU4WhO47Ucewvfwu1IBUNpx6jCHpxAwReHNTIGvo4sWDKhGenQiHViNt5913bZR8QakpYO2rhBC2R+/o9BmmREQAUQ==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Matthew Gerlach <matthew.gerlach@altera.com>, dinguyen@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20250707154409.15527-1-matthew.gerlach@altera.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20250707154409.15527-1-matthew.gerlach@altera.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: altr,
- socfpga-stmmac.yaml: add minItems to iommus
+Message-ID: <5bb49dc0.6933.197ee28444e.Coremail.sensor1010@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: aygvCgDX_27JHm5oJ_UFAA--.28124W
+X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/1tbiKBOFq2ht5tHPBwACst
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ vladimir.oltean@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Support gpio high-level
+ reset for devices requiring it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,45 +58,96 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3744208722166843377=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07/07/2025 17:44, Matthew Gerlach wrote:
-> Add missing 'minItems: 1' to iommus property of the Altera SOCFPGA SoC
-> implementation of the Synopsys DWMAC.
+--===============3744208722166843377==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_102477_70438275.1752047305804"
 
-Why? Explain why you are doing thing, not what you are doing. What is
-obvious which makes entire two-line commit msg redundant and useless.
+------=_Part_102477_70438275.1752047305804
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Original binding had no iommus and referenced commit does not explain
-why they appeared during conversion in the first place.
+SGksIAoKYWZ0ZXIgcmVwbGFjaW5nIHdpdGggdGhpcyBmdW5jdGlvbiwgdGhlIGZ1bmN0aW9uIHJl
+dHVybnMgMCwgbWVhbmluZyB0aGUgZ3BpbyBpcwoKc3RpbGwgYXQgYSBsb3cgdm9sdGFnZSBsZXZl
+bC4KCisgICAgICAgICAgICAgIGludCBncGlvX3N0YXRlID0gLTE7CgoKCgogICAgICAgICAgICAg
+ICAgaWYgKGRlbGF5c1syXSkKCiAgICAgICAgICAgICAgICAgICAgICAgIG1zbGVlcChESVZfUk9V
+TkRfVVAoZGVsYXlzWzJdLCAxMDAwKSk7CgorCgorICAgICAgICAgICAgICAgZ3Bpb19zdGF0ZSA9
+IGdwaW9kX2dldF9yYXdfdmFsdWVfY2Fuc2xlZXAocmVzZXRfZ3Bpbyk7CgorICAgICAgICAgICAg
+ICAgcHJfaW5mbygiZ3Bpb19zdGF0ZTogJWRcbiIsIGdwaW9fc3RhdGUpOwoKKyAgICAgICAgICAg
+ICAgIHByX2luZm8oImdwaW9fc3RhdGU6ICVkXG4iLCBncGlvX3N0YXRlKTsKCgoKCgoKCiBncGlv
+LTExMSAoICAgICAgICAgICAgICAgICAgICB8c25wcyxyZXNldCAgICAgICAgICApIG91dCBsbwoK
+CgoKWyAgICAzLjg5OTMxOV0gZ3Bpb19zdGF0ZTogMAoKWyAgICAzLjg5OTMyNF0gZ3Bpb19zdGF0
+ZTogMAoKCgoKCgoKVGh4CgpMaXpoZQoKCkF0IDIwMjUtMDctMDkgMTI6MjY6NTUsICJSdXNzZWxs
+IEtpbmcgKE9yYWNsZSkiIDxsaW51eEBhcm1saW51eC5vcmcudWs+IHdyb3RlOgo+T24gV2VkLCBK
+dWwgMDksIDIwMjUgYXQgMDk6NTc6NTBBTSArMDgwMCwgbGl6aGUgd3JvdGU6Cj4+ICsgZ3Bpb19z
+dGF0ZSA9IGdwaW9kX2dldF92YWx1ZV9jYW5fc2xlZXAocmVzZXRfZ3Bpbyk7Cj4KPlVzZSBncGlv
+ZF9nZXRfcmF3X3ZhbHVlX2NhbnNsZWVwKCkuIFRoZSBub3JtYWwgZ2V0L3NldCByZXR1cm4gdGhl
+Cj5hY3RpdmUvaW5hY3RpdmUgc3RhdGUsIHdoZXJlYXMgdGhlIF9yYXcgZ2V0L3NldCByZXR1cm4g
+dGhlIHBoeXNpY2FsCj5zdGF0ZS4KPgo+LS0gCj5STUsncyBQYXRjaCBzeXN0ZW06IGh0dHBzOi8v
+d3d3LmFybWxpbnV4Lm9yZy51ay9kZXZlbG9wZXIvcGF0Y2hlcy8KPkZUVFAgaXMgaGVyZSEgODBN
+YnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQgY29ubmVjdGl2aXR5IGF0IGxhc3QhCg==
+------=_Part_102477_70438275.1752047305804
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-> 
-> Fixes: 6d359cf464f4 ("dt-bindings: net: Convert socfpga-dwmac bindings to yaml")
-> Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
-> ---
->  Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> index c5d8dfe5b801..ec34daff2aa0 100644
-> --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> @@ -59,6 +59,7 @@ properties:
->        - const: ptp_ref
->  
->    iommus:
-> +    minItems: 1
->      maxItems: 2
+PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
+Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
+ZD0ic3BuRWRpdG9yQ29udGVudCI+PHAgc3R5bGU9Im1hcmdpbjogMDsiPkhpLCZuYnNwOzwvcD48
+cCBzdHlsZT0ibWFyZ2luOiAwOyI+YWZ0ZXIgcmVwbGFjaW5nIHdpdGggdGhpcyBmdW5jdGlvbiwg
+dGhlIGZ1bmN0aW9uIHJldHVybnMgMCwgbWVhbmluZyB0aGUgZ3BpbyBpczwvcD48cCBzdHlsZT0i
+bWFyZ2luOiAwOyI+c3RpbGwgYXQgYSBsb3cgdm9sdGFnZSBsZXZlbC48YnI+PGJyPismbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgaW50IGdwaW9fc3RhdGUg
+PSAtMTs8L3A+PHAgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjog
+MDsiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgaWYgKGRlbGF5c1syXSk8L3A+PHAgc3R5bGU9Im1hcmdpbjogMDsiPiZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7IG1zbGVlcChESVZfUk9VTkRfVVAoZGVsYXlzWzJdLCAxMDAwKSk7PC9wPjxw
+IHN0eWxlPSJtYXJnaW46IDA7Ij4rPC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij4rJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2dwaW9fc3RhdGUg
+PSBncGlvZF9nZXRfcmF3X3ZhbHVlX2NhbnNsZWVwKHJlc2V0X2dwaW8pOzwvcD48cCBzdHlsZT0i
+bWFyZ2luOiAwOyI+KyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtwcl9pbmZvKCJncGlvX3N0YXRlOiAlZFxuIiwgZ3Bpb19zdGF0ZSk7PC9wPjxw
+IHN0eWxlPSJtYXJnaW46IDA7Ij4rJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwO3ByX2luZm8oImdwaW9fc3RhdGU6ICVkXG4iLCBncGlvX3N0YXRl
+KTs8L3A+PGRpdj48YnI+PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L3A+PHAgc3R5
+bGU9Im1hcmdpbjogMDsiPiZuYnNwO2dwaW8tMTExICgmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgfHNucHMscmVzZXQm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICkgb3V0IGxvPC9wPjxwIHN0eWxlPSJt
+YXJnaW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij5bJm5ic3A7ICZuYnNwOyAz
+Ljg5OTMxOV0gZ3Bpb19zdGF0ZTogMDwvcD48cCBzdHlsZT0ibWFyZ2luOiAwOyI+WyZuYnNwOyAm
+bmJzcDsgMy44OTkzMjRdIGdwaW9fc3RhdGU6IDA8L3A+PGRpdj48YnI+PC9kaXY+PHAgc3R5bGU9
+Im1hcmdpbjogMDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjogMDsiPlRoeDwvcD48L2Rpdj48
+ZGl2IHN0eWxlPSJwb3NpdGlvbjpyZWxhdGl2ZTt6b29tOjEiPjwvZGl2PjxkaXYgaWQ9ImRpdk5l
+dGVhc2VNYWlsQ2FyZCI+PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjogMDsiPkxpemhlPC9wPjxwcmU+
+PGJyPkF0IDIwMjUtMDctMDkgMTI6MjY6NTUsICJSdXNzZWxsIEtpbmcgKE9yYWNsZSkiICZsdDts
+aW51eEBhcm1saW51eC5vcmcudWsmZ3Q7IHdyb3RlOgomZ3Q7T24gV2VkLCBKdWwgMDksIDIwMjUg
+YXQgMDk6NTc6NTBBTSArMDgwMCwgbGl6aGUgd3JvdGU6CiZndDsmZ3Q7ICsgZ3Bpb19zdGF0ZSA9
+IGdwaW9kX2dldF92YWx1ZV9jYW5fc2xlZXAocmVzZXRfZ3Bpbyk7CiZndDsKJmd0O1VzZSBncGlv
+ZF9nZXRfcmF3X3ZhbHVlX2NhbnNsZWVwKCkuIFRoZSBub3JtYWwgZ2V0L3NldCByZXR1cm4gdGhl
+CiZndDthY3RpdmUvaW5hY3RpdmUgc3RhdGUsIHdoZXJlYXMgdGhlIF9yYXcgZ2V0L3NldCByZXR1
+cm4gdGhlIHBoeXNpY2FsCiZndDtzdGF0ZS4KJmd0OwomZ3Q7LS0gCiZndDtSTUsncyBQYXRjaCBz
+eXN0ZW06IGh0dHBzOi8vd3d3LmFybWxpbnV4Lm9yZy51ay9kZXZlbG9wZXIvcGF0Y2hlcy8KJmd0
+O0ZUVFAgaXMgaGVyZSEgODBNYnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQgY29ubmVjdGl2aXR5
+IGF0IGxhc3QhCjwvcHJlPjwvZGl2PjxpbWcgc3R5bGU9IndpZHRoOjFweDtoZWlnaHQ6MXB4IiBz
+cmM9Imh0dHBzOi8vY291bnQubWFpbC4xNjMuY29tL2JlYWNvbi93ZWJtYWlsLmdpZj90eXBlPXdl
+Ym1haWxfbWFpbHRyYWNlJmFtcDtndWlkPXByZV9iMmI5MzI2ZjkyMzdiZDY4ZmE4YjI5NjI5ZTJi
+NWMxNCI+
+------=_Part_102477_70438275.1752047305804--
 
-Why this has to be flexible on given SoC? This is weird. Same hardware
-differs somehow?
 
-Best regards,
-Krzysztof
+--===============3744208722166843377==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3744208722166843377==--
+
