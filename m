@@ -2,46 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0CF6AFEDDB
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 17:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED09FAFEDE4
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 17:38:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67B55C36B2A;
-	Wed,  9 Jul 2025 15:36:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0946C36B2A;
+	Wed,  9 Jul 2025 15:38:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6DFCC36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 546ADC36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jul 2025 15:36:09 +0000 (UTC)
+ Wed,  9 Jul 2025 15:38:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B872661148;
- Wed,  9 Jul 2025 15:36:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F52C4CEEF;
- Wed,  9 Jul 2025 15:36:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B715343EB8;
+ Wed,  9 Jul 2025 15:38:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C79C4CEEF;
+ Wed,  9 Jul 2025 15:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752075368;
- bh=z5R0g5bRaFcE+byBEvAYFxwzxwtN+sL10BzKO0308UM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=kJaOkhdxWi9qV5vWcFnJ+JHTiQSlubZYl18mUsLG/pSBYdw+T1NKtWF5028TxIiFZ
- wZfpISsYz6qDXmz2TI9Vt2XUjIKX936nTToXVpxLwiDoaCgB6R4T9SzqBhHgJFfpBd
- DUjk1wdx3vSPwyZIM2EFvrhSQPqiWhpnXIU+dEh09EHx2ZObNI3mOIZsCcG9pdYe8q
- BC4Z5NY1XOLoQTFEXD6LRKGjWkLN/mitCQSJ4wZRDpY40o5N+wT3fnKdwgpqCDUsHx
- JG9DsmlWMhj+0erNX6r8khQZ4MuvF5NJtd+TeRO4St5FF7gaDqAbNdZh8u/V4dEqHi
- 8bPTgLe8qW+Og==
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-In-Reply-To: <20250709021638.2047365-1-robh@kernel.org>
-References: <20250709021638.2047365-1-robh@kernel.org>
-Message-Id: <175207536585.695960.5730567147905543825.b4-ty@kernel.org>
-Date: Wed, 09 Jul 2025 16:36:05 +0100
+ s=k20201202; t=1752075492;
+ bh=Xl25DKWUzLXWpg5KhyYoRSsxahTDR5DpYlzJd9W9CaA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=uYdDGgmoD68kb2rNpNP/hz5SiwAXDsyvezTzMSDMKDb2YClMAF2yt/AxOjTPs7sNl
+ ZTOE8jKrng1ejwdimLIcfCR+DZXhizhMc2qXzwb7YBRhhYhR+Xnf7h120quqvHtuXQ
+ vwH5eiko3xNTUaDORSLeGHicywXRuFhftgO6XszyBy6kDg/HN0KkQYjiYK9KT3zzls
+ T5Wx4zQYlggDBTLa0AXA3d8QhmsyQveEUAZY1P8m2i8gSq2eYriSLniXhAiyw5Yn+g
+ o8IjE8LQibgIjGnYjnHpSjOCrrGvcXASgZXGde0dgcLjH93VVyf4X6KUiYxOt+Ess8
+ Oo5M4FmCysnGA==
+Date: Wed, 9 Jul 2025 16:37:56 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Message-ID: <20250709163756.32b0e1d1@jic23-huawei>
+In-Reply-To: <20250708231152.971398-1-sakari.ailus@linux.intel.com>
+References: <20250708231144.971170-1-sakari.ailus@linux.intel.com>
+ <20250708231152.971398-1-sakari.ailus@linux.intel.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-07fe9
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32-ospi: Use
- of_reserved_mem_region_to_resource() for "memory-region"
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Rob Herring \(Arm\)" <robh@kernel.org>,
+ Francesco Dolcini <francesco@dolcini.it>, Samuel Holland <samuel@sholland.org>,
+ "Jiri Slaby
+ \(SUSE\)" <jirislaby@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Haibo Chen <haibo.chen@nxp.com>, Marek Vasut <marek.vasut@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, David Lechner <dlechner@baylibre.com>,
+ linux-sunxi@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Eugen Hristev <eugen.hristev@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Julien Stephan <jstephan@baylibre.com>, linux-arm-kernel@lists.infradead.org,
+ Andy Shevchenko <andy@kernel.org>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ =?UTF-8?B?Sm/Do28=?= Paulo =?UTF-8?B?R29uw6dhbHZlcw==?=
+ <jpaulo.silvagoncalves@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [Linux-stm32] [PATCH v2 02/12] iio: adc: Remove redundant
+ pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,39 +81,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 08 Jul 2025 21:16:37 -0500, Rob Herring (Arm) wrote:
-> Use the newly added of_reserved_mem_region_to_resource() function to
-> handle "memory-region" properties.
+On Wed,  9 Jul 2025 02:11:52 +0300
+Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+
+> pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+> pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+> to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+> pm_runtime_mark_last_busy().
 > 
-> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Applied to
+Some comments for the future as more about what can be improved on the back
+of this than what you have here.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+>
+> diff --git a/drivers/iio/adc/rcar-gyroadc.c b/drivers/iio/adc/rcar-gyroadc.c
+> index cc326f21d398..3a17b3898bf6 100644
+> --- a/drivers/iio/adc/rcar-gyroadc.c
+> +++ b/drivers/iio/adc/rcar-gyroadc.c
+> @@ -163,12 +163,10 @@ static int rcar_gyroadc_set_power(struct rcar_gyroadc *priv, bool on)
+>  {
+>  	struct device *dev = priv->dev;
+>  
+This is a very clear example of where the *_set_power() pattern is a bad idea.
+There are two calls of this function, one with it hard coded as on and one with it
+hard coded as off.  We can just push the pm_runtime_resume_and_get()
+to the on case etc.
 
-Thanks!
+I don't mind that much if we do so as a follow up patch so this one can
+be the mechanical change and then we follow up with the enabled simplification.
 
-[1/1] spi: stm32-ospi: Use of_reserved_mem_region_to_resource() for "memory-region"
-      commit: defe01abfb7f5c5bd53c723b8577d4fcd64faa5a
+> -	if (on) {
+> +	if (on)
+>  		return pm_runtime_resume_and_get(dev);
+> -	} else {
+> -		pm_runtime_mark_last_busy(dev);
+> -		return pm_runtime_put_autosuspend(dev);
+> -	}
+> +
+> +	return pm_runtime_put_autosuspend(dev);
+>  }
+>  
+>  static int rcar_gyroadc_read_raw(struct iio_dev *indio_dev,
+>> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
+> index 48549d617e5f..f2a93c63ca14 100644
+> --- a/drivers/iio/adc/ti-ads1015.c
+> +++ b/drivers/iio/adc/ti-ads1015.c
+> @@ -374,12 +374,10 @@ static int ads1015_set_power_state(struct ads1015_data *data, bool on)
+>  	int ret;
+>  	struct device *dev = regmap_get_device(data->regmap);
+>  
+> -	if (on) {
+> +	if (on)
+>  		ret = pm_runtime_resume_and_get(dev);
+> -	} else {
+> -		pm_runtime_mark_last_busy(dev);
+> +	else
+>  		ret = pm_runtime_put_autosuspend(dev);
+> -	}
+>  
+>  	return ret < 0 ? ret : 0;
+So this one has a stub version which only brings benefits because
+we have checks on the pm_runtime_put_autosuspend() path failing
+(which it does if we have !CONFIG_PM).
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I think the right option there is check the return value is < 0
+for the resume_and_get() and don't check the _put_autosuspend()
+return value at all.  Then we can just push this down to the
+call sites as all of them hard code the bool value.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+>  }
 
 _______________________________________________
 Linux-stm32 mailing list
