@@ -2,95 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 769F0AFF0DF
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jul 2025 20:27:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17195AFF4A2
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 00:24:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2091BC36B2B;
-	Wed,  9 Jul 2025 18:27:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF623C36B2F;
+	Wed,  9 Jul 2025 22:24:05 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2087.outbound.protection.outlook.com [40.107.101.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3796C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76294C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jul 2025 18:27:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 28E6F5C6AB1;
- Wed,  9 Jul 2025 18:27:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32A9C4CEEF;
- Wed,  9 Jul 2025 18:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752085624;
- bh=UB7QIkBRdueZ/ucMHH1IuDHFg0K94C/+SQoeb+QY6ho=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QWBeZQxwZASERzxDIwjW5W+0P6+iLI1k64l0zYRHwNnYQEyqvany0TzwBe5etHkK8
- EQfb67UbXa1cHhp0QpqVISRlJrkyKPY26krioFaIDKy8AguRRqVXwqV3ACZFW6OZNC
- bjKKlqE3SeC3Na6ph8iwGQRWQPqPV5OtJcR5uVoN2XTfWu7qne9QM9dLjzpmXRvnVZ
- hTbfA+B290u0dFvcDpa16udiwh5XG9PTW+IfFldFbNsCQcU6YopDMrhjWXvNR+H+8O
- EVyVsfXThD3DVnVnVTfUY0nYJBO7MbEnE43/9+eHPx7QcwVBqQQPOkXXajJJGjmays
- tddA4Cnc3wn4w==
-Message-ID: <e016efd6-891b-467e-8a4e-9ea53b7006a9@kernel.org>
-Date: Wed, 9 Jul 2025 20:27:00 +0200
-MIME-Version: 1.0
+ Wed,  9 Jul 2025 22:24:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yz5JYZfNoFFwzzToITZEDtqzN3i0Lzd7JILgE9jdtSQbaftcyP9gEZ5+SIs+u6iK/L/mVeYaAcfbNBHrjEJ+k7e+y+PBmRFGGwp1DXwC9LYJF0mI6ZEL0wJNDMt6V/j0vWs7uBlSgv9IaGrfI//BhBlnM98UyPwqjJnkk0kVdVsQUVXuXogWlN2ItVNTgEcNR6WMrcTpHhY3ZgFrAQZ9R75IKErXPL8wdaDfze7xruphmv+cu2p1vJxOfJy98K6QAAmR40azxsL32bwdzDqWl0CzVKODkt9IbihpjD5Af438Rkki6uU3l7WNWkRqyLeovclkVlOQMUF8GTuNTxwcqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FDdXf6oIZVGyX7muyvj4oq7a9ScDmRL4WmHTJ4hM6oY=;
+ b=FLVqw72EoEYApthbC+HshWiEit5VQn+3QoMXtKCG9bcVOcThhWwhUs0H/kvhLrrIxoGulgO37/58bTj72ILaQhY2A8uJBf+8l7wR6h0/Uh+6TEcVRY4X16wdu/7tDmiH+LAgqq9X0soeyyutGNNEiuVukEbu4FiSvTn3P7dfPp5udmRhTFuQLLJmbdZ2eTDrFmTv3OrbHluG8Qb86BeV1ncLpV8+aM/a6ipbKSMIIxs47jYpVXmxFakM6Kq6K/xipZhGyadZc1HYd2R+8Z+AWxPAGTFsiGj0r3VpbZIQiKeKrFm6knRRx2XDdt3E/frPxlPjIw7iJRsskvQcYLFYUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FDdXf6oIZVGyX7muyvj4oq7a9ScDmRL4WmHTJ4hM6oY=;
+ b=j5n41i/UfXBG3mavPfp++UqrwrhZ+tsnTPYgr+cOkupz9xn7IjqWgrU5Ij4Ki1qE/UiICcRD6/eKpK0v3dN6zb8MUp+FnIT4iZpCivCgjIUDnQ654Dz4jMA0QZsOMlI4m9OSreh+cCAhW4IRwQ01w60drbfMpR63suS31Ht4W8dbUbjlk1J6n+qHlj4c0VS4lNRO4i1ZBA3rKv2m2peQhbYrsRacGtci9/nLAa+cGq/2BWa2KUJrUbkqvbhbp+0iuvcurOyPB+1QwL94mLcZnrWu2myromiQvGVn8Ndsk5czw87sNOIlC/MGtkwFOWh2ib6mWAVjuamNf4k1etfnGg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from BYAPR03MB3461.namprd03.prod.outlook.com (2603:10b6:a02:b4::23)
+ by SA2PR03MB5866.namprd03.prod.outlook.com (2603:10b6:806:111::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Wed, 9 Jul
+ 2025 22:24:00 +0000
+Received: from BYAPR03MB3461.namprd03.prod.outlook.com
+ ([fe80::706b:dd15:bc81:313c]) by BYAPR03MB3461.namprd03.prod.outlook.com
+ ([fe80::706b:dd15:bc81:313c%6]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
+ 22:24:00 +0000
+Message-ID: <c048d76e-8187-440f-9f28-b6594810d5dd@altera.com>
+Date: Wed, 9 Jul 2025 15:23:58 -0700
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20250626-ddr-bindings-v1-0-cae30933c54c@foss.st.com>
- <20250626-ddr-bindings-v1-1-cae30933c54c@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, dinguyen@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20250707154409.15527-1-matthew.gerlach@altera.com>
+ <b752c340-bbb5-479f-bc2c-a9e8541509c3@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250626-ddr-bindings-v1-1-cae30933c54c@foss.st.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH RFC 1/2] dt-bindings: memory: add jedec,
- ddr[3-4]-channel binding
+From: Matthew Gerlach <matthew.gerlach@altera.com>
+In-Reply-To: <b752c340-bbb5-479f-bc2c-a9e8541509c3@kernel.org>
+X-ClientProxiedBy: SJ0PR03CA0380.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::25) To BYAPR03MB3461.namprd03.prod.outlook.com
+ (2603:10b6:a02:b4::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3461:EE_|SA2PR03MB5866:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08f9e7c7-e064-4c8a-10b7-08ddbf374d78
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eWJPMEkyb0pFYS9UTDdJSkE1S2FqaUFib0hDcTBFMFZ6bTdwRG1LYU5kTVVq?=
+ =?utf-8?B?MUk1UDVKdUMwcFNvbHRHbkxLS2JtRmNnOGdPTUFjTVBrOGc3T0c3eEZGaS96?=
+ =?utf-8?B?emhySHZEWDlNbTVpT21EOFZGazFFSHo0dHFpSEk3WGdiR2dFNWdkVjBPaE4x?=
+ =?utf-8?B?UUlpVThpVHlFdThIcVRYc05yWVNzc3pwMWw5Q2xnVDJDbDJmZXVTY2pHS04y?=
+ =?utf-8?B?dGhhYkNOK1gxUU9OTW1GYlFmeHY1a2lITkY2YkRPNXh5c2k3b3Z5YWZHTDk4?=
+ =?utf-8?B?a3liVGZENVNXNjNMbXAvMFlpT2RCRE51QWhPOFlIblFFNEFDSEhEL0YrMC9F?=
+ =?utf-8?B?bEhuM2crZFhuZlFMOEtHUFhxdVV6b0ZMQTRvVEEzNk1RTmM3OVd5N1RFMTRQ?=
+ =?utf-8?B?Yy9LMWIrZ0VpTDYwWEUzSUkwdXF5NnRPYzUvS2hTcCtrOWR3dnRaVW5Ddmsy?=
+ =?utf-8?B?ekpLM05nOE1PS3hPNUs5RjZsL2F2aWtxcEU1UFExcDdZY2lGdXllR2NZTEZq?=
+ =?utf-8?B?cUM1ZU5rRkpYWURkYWNHQWVhYkxaZ0NsVVhWR091K1grNXIzQmp3VHVscmRh?=
+ =?utf-8?B?Nll4dWd5Zldnd1luTk1IeHpLeklTRDdmNmJiVmFDK1pFQ0N0L1RUVGtmZE1T?=
+ =?utf-8?B?ZDRXRDYvQ2ZIUTZvNVV6MnlSUGluZ3pOT0xaWEV1RnNQdWJwVnNvbGIzVk1C?=
+ =?utf-8?B?Uy9obzVScTVGTEFPd2FmSG1SeVlXM20yTmsyQTdXT0U1K0dFTks1dy8wRUFE?=
+ =?utf-8?B?WHFDNDJQcllkYlZFS0tOazFCWUxjdTZIZlEwQnFsd3FXQW5MRXl5VWhVNVBV?=
+ =?utf-8?B?endQc1JlMlFtZm9XSHZiMXNjbEtqdHY4WnpOZm5OTlJoYmZZcGdiZXI2VTJu?=
+ =?utf-8?B?N0s4QlJkaStXMFNFbVJ4Vm4wcUhVWm5XSTh1NVJmTjhGQWNlOExvYlBxTTVu?=
+ =?utf-8?B?REViZjRpekdKSUtjczVpWVgvRlpYV2tVM1dmdHE2dFhVb0dFUi8wQ2hXUUZB?=
+ =?utf-8?B?L3pzM2dncmt1UVRxU09zaWNnTzJocTZhSERrc1VQUkZ6S2NNRHR0SjNMU2d1?=
+ =?utf-8?B?RE0zTjZXbTlkbTM5VllCL3QvZk9GaEVuaW5leGw4VzF4VmNiSk83WGRKd3da?=
+ =?utf-8?B?WEM2endJWUs5a3d5ek15V3NlVlpRRzdKN1FUSUR5TlR1LzNmY0xVODlhcjlv?=
+ =?utf-8?B?WFJhLzRXSDJsN3lVdnBtOURCc2tqVmp2cjFoMkluV001KzlnbXRzSjFUVFlI?=
+ =?utf-8?B?d1NFOHlxaXhNMjBzUEY3cDhLN21WNXR0eFFpdkQ0MGRoS2VXbGcxRGxTOXFH?=
+ =?utf-8?B?N092QmtPYWhHNmlSZDBKWWMrbVZ1dFRZeUhyWG8xdDVxbVBnK0NCTHhpdG12?=
+ =?utf-8?B?VGxYSnhLdEpvbkRha3lVSFRKNGwrVmMxT3ZZM3Ard2VGdW9XUEhVS3RTempT?=
+ =?utf-8?B?WnYyVSt0ZExGLy9Bc0tsWWlkRHBTSWJIOTZ2dU9QQVRqTmkzUElQNWNDbFRs?=
+ =?utf-8?B?TEI5Uy9FOHVIb2U0SEtveTF5ZG41cjRVaG9MS1QveXFZRkNDVzlQRk9ueXhv?=
+ =?utf-8?B?ejYzZEFKTjNNcVN3SFBCV3VyYjRkN2d0dlp3Ukl6NUl1L1UyeTFmZlA0STNj?=
+ =?utf-8?B?djhmaHhrdys2UU4zcE90SGZoM0RBZmtuR3F2MEwwQnpsa1g1MzdWZWlXRFM5?=
+ =?utf-8?B?NitJcmZkTEh0c2Jsc3JZV0kzN05pU2VJcHhTSFM3MmpDWXFmek9QL0RUOHd3?=
+ =?utf-8?B?OEppZHFjMWpJR2pVZjF6VHlvRXhzSnJCNTBpTGZKZ1lWU1pwc2ZFVFFtd2dr?=
+ =?utf-8?B?R2c5TVBsS1ZLd2xyNHpMekVJdkV1RjNFclNmQXpvUURWeW5MeTlpRU9qbjdu?=
+ =?utf-8?B?Q0VueTlFaWs4N3lLdXZ2RmdoeU50dGpHQXRGbS8ycjRLUlNzZ2c5Yk92Rk5Y?=
+ =?utf-8?B?M3FaV2wyZlRmTEllQ0xRbFJiWW9Vck9neTUrcmhkT1hrYXpEckh4enJ2MnMz?=
+ =?utf-8?B?dzluVjlnUU13PT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR03MB3461.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckZ4aTUrYk45dUZXUmNTYUJvcXNFakYvTXUrWFVSNWIrZHZ6eE1Dd3dLa0lw?=
+ =?utf-8?B?RDlucUNoQ0pweWR3US9vUEE5dUxsZ3h3RVUwTHQ0bU9kK3RteVAzRFhRcVhS?=
+ =?utf-8?B?bmNkUDBGakNkcmFiTCtydFJ1Yk5jZTZlZEpjaFpVUDJaNFlYWjNOOHhFUFVQ?=
+ =?utf-8?B?YU96eG9wL1hyRlJVNitoZ2xuYlU3dlViQjBrVTdwLzZ3aDRzdTFXSU8vcytt?=
+ =?utf-8?B?alI4eGcvMHRsNUc2TVFER05uY09aMlRqRUQ1MTFkUHlWTGR0K0RXRlhrNUVP?=
+ =?utf-8?B?WEN3VEI1VTgyT3lYKzYrRFErMVgvbWt5aEVrR1BnYjJrZnlpK0VSaVE1NDVP?=
+ =?utf-8?B?M1VrMFo3OEFKUUx2dFo0WlVMa1dHZG1DQUNyd0Q0Qkh4ZThSbHlKQ2J2VFZk?=
+ =?utf-8?B?YlNtWGNPU2Jtci93L3VRcnpyYklLY0tXT0N5NzdJcFhJck5OSGt2UTF4VHlP?=
+ =?utf-8?B?MDZKdnVhd3Z2bVRMemVvZnpUTCttSjBqN3B1c2dHTm1hZHU1SFNZZy96WHNC?=
+ =?utf-8?B?aHU3TWo4clJSVzAzZCt6alJ6UlhHMDBja29FckxyN05tc3NXNmIwK0l1U1RN?=
+ =?utf-8?B?eFV6RWowTVp2SVJmdk1EY1l1M1liV2o1UkkyMUM1UWwzbFFRRmdwTm9QUlVQ?=
+ =?utf-8?B?MTgwSktBWTkyL0lZN3NBbkdmRk1XQmloK29TdjhsZXJGNGlXK2dmYUlnT1NP?=
+ =?utf-8?B?ZkJHL09ncXBleHd0dWpPN3pJODZUTko4VllSUE9rWlFUcE9RYXpGeEdUQnpV?=
+ =?utf-8?B?Z0JiOXRDMVNHdklhb3Jma0RMSGVKbjJ5K3hUK0RneW52eUVOVHQ4eUxySmRS?=
+ =?utf-8?B?VjhxK1JDd1paQlpPZGVFL1hMeUV6cjlFbUpaMjNwMGh1aHI0a0hYUlNDVzE4?=
+ =?utf-8?B?M1dRUVN5RUJYc3BWWUlCZENzQkRiU3Y2Q3loNFB3M1p6bm1ueGVSSG5iZnVX?=
+ =?utf-8?B?SFN5TWZ6em9RdHJFUFNRR0RqUmsycFZXcnV0bGxCdFhtTi9URWxCaDRBZzdy?=
+ =?utf-8?B?ckFtMS9jOU5aY0crNEwvQUFvYkRSR29xYnh3azdIY1ZpOWNJRnRxb2JzR212?=
+ =?utf-8?B?NjRpL3FBMGlwUkladDhFeDgvK0pBM1BOVnFCNUlKdGsxVUpqQTdOOHJHQ2I0?=
+ =?utf-8?B?VjE5THVjTk1FZ3hmY0hIY21KMGJjMlcydlcrMHY1SnNVc2l0a01lVERGdTNk?=
+ =?utf-8?B?bDFhVUlONWkxOUpleEZBRmNRRzRwWkN3akZPSjJUK0VlY1NMRHBoMGU2MHl2?=
+ =?utf-8?B?ZHQrTGVJK0J6ajhGTTNOdEw2bkFzemhWclZ0L1E0K0x6amExVnlQMzhmRVZt?=
+ =?utf-8?B?dXBXMlliSFVCM01BVTZTNWR3L1N1YW9pTkdPTUJ2VlloYWRKelJLVGdOS1A1?=
+ =?utf-8?B?UytmOC8zRXE0dndIMlVtSTAwTUQyeFFNWGVMZ0xLZ2R1SWZkbXpVKzZrTjZO?=
+ =?utf-8?B?S3oyZjZ2d1QxQTA2cmNPS1RBMG40b1lEempHcmEvYXQ1cEdGZGdldjNXRFds?=
+ =?utf-8?B?N2MyN01FV2hWcWlkR2R5QVlLMEk5SGZHY3RrREp0M2tCUTFlYnZhY29kbEJR?=
+ =?utf-8?B?ZWx6VTIwL1l3cnZrNGM2aVNsNGFXL3R0TDhqTGVsbGNyL010amtaZGUxU0Fs?=
+ =?utf-8?B?V1IwV1I1UnQ3L1pRRWd6cUpBY2lHN3g2L3BOU01NNjVMMEVjcTluUlhrdHFY?=
+ =?utf-8?B?akNkRmJWQm9nZ2Q4Wnpqa1llb1Rkbmg1bEJObGlxdVVLU3dhc0sxblFVMDBu?=
+ =?utf-8?B?YmcvV0xLU09qSG1vVk1OSFhrM0xVNnV5VFJBU01nNTlkMU1pbXhRSkpVbDdF?=
+ =?utf-8?B?SHRVNk5TdlBTeGFzeDl1a3locFRSM0lJY0dpRnhPdjNxU1p5cmNHR3BiUzhJ?=
+ =?utf-8?B?dnRkSGJKV0ZDb1dOL0hOZkpiVW14enlkbE1rb3lvK3pReWdkZ2dqYUNYTnM0?=
+ =?utf-8?B?cWNMc0lQbzRIVlFUZ09uNm1GY1prVWQvaytkUGZiZWt4YlJnWHYrUjU2Q1JZ?=
+ =?utf-8?B?ZHlDNkpNckhGbWdZWkt2NFovUnRUVXphUzBpUmxEdDZsWDN5Qk5iYzJENlZ6?=
+ =?utf-8?B?MjNkSmdlbVAwdVNPaGJRZmNTRU9KQkh0dkh5bXZ3RXR6ZzdSMk84Tyt2Y1lH?=
+ =?utf-8?B?aXFNbVErYUhPcC80bFRNa2lmMGFRZ2ZFSmdCS2xZZU5hK1RNMUpBd2J0cmNv?=
+ =?utf-8?B?R0E9PQ==?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08f9e7c7-e064-4c8a-10b7-08ddbf374d78
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3461.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 22:24:00.2285 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P0Y4TkOFJnLPPc0Rb0lqEoTkkYJlmTpMWoXUJWF8/Jx46ObAPcSohKGtEj0QWNKbryEiN9InlLsxuEDY4O5dkok+YxFVtDnbjzWytvYJJqs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5866
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: altr,
+ socfpga-stmmac.yaml: add minItems to iommus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,20 +166,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjYvMDYvMjAyNSAyMTo0OCwgQ2zDqW1lbnQgTGUgR29mZmljIHdyb3RlOgo+IEludHJvZHVj
-ZSBhcyBwZXIgamRlYyxscGRkclgtY2hhbm5lbCBiaW5kaW5nLCBqZGVjLGRkclszLTRdLWNoYW5u
-ZWwKCnMvamRlYy9qZWRlYy8KCj4gYmluZGluZy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDbMOpbWVu
-dCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4gLS0tCgoKPiArCj4g
-K2FkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQo+ICsKPiArZXhhbXBsZXM6Cj4gKyAgLSB8Cj4g
-KyAgICBkZHJfY2hhbm5lbDogZGRyMy1jaGFubmVsQDAgewo+ICsgICAgICAgIGNvbXBhdGlibGUg
-PSAiamVkZWMsZGRyMy1jaGFubmVsIjsKPiArICAgICAgICBpby13aWR0aCA9IDwxNj47CgpNaXNz
-aW5nIHJlZy4uLiBvciBub3Q/IFdoYXQgd2FzIHlvdXIgaW50ZW50aW9uCgoKPiArICAgIH07Cj4g
-CgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+On 7/8/25 11:54 PM, Krzysztof Kozlowski wrote:
+> On 07/07/2025 17:44, Matthew Gerlach wrote:
+> > Add missing 'minItems: 1' to iommus property of the Altera SOCFPGA SoC
+> > implementation of the Synopsys DWMAC.
+>
+> Why? Explain why you are doing thing, not what you are doing. What is
+> obvious which makes entire two-line commit msg redundant and useless.
+This conversion to yaml was a merge of two separate conversions from 
+Ding Nguyen and myself plus some resolved issues highlighted by Rob 
+Herring, but I missed the minItems:
+
+https://lore.kernel.org/lkml/20250626234816.GB1398428-robh@kernel.org/
+
+>
+> Original binding had no iommus and referenced commit does not explain
+> why they appeared during conversion in the first place.
+The text version of the binding was created before the device trees for 
+the Agilex family, which do support iommus, were accepted into the kernel.
+>
+> > 
+> > Fixes: 6d359cf464f4 ("dt-bindings: net: Convert socfpga-dwmac bindings to yaml")
+> > Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
+> > ---
+> >  Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> > index c5d8dfe5b801..ec34daff2aa0 100644
+> > --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> > @@ -59,6 +59,7 @@ properties:
+> >        - const: ptp_ref
+> >  
+> >    iommus:
+> > +    minItems: 1
+> >      maxItems: 2
+>
+> Why this has to be flexible on given SoC? This is weird. Same hardware
+> differs somehow?
+Dinh can you comment on this binding from 
+https://lore.kernel.org/all/20250624191549.474686-1-dinguyen@kernel.org/?
+
+>
+> Best regards,
+> Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
