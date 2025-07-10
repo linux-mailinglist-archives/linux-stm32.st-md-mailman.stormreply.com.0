@@ -2,78 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EFBAB00A15
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 19:43:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABBFB00A18
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 19:43:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28126C349C3;
-	Thu, 10 Jul 2025 17:43:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AE50C349C3;
+	Thu, 10 Jul 2025 17:43:25 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CF12C349C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81EB4C349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jul 2025 17:43:20 +0000 (UTC)
+ Thu, 10 Jul 2025 17:43:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1752169399;
+ s=mimecast20190719; t=1752169402;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=DyfQeplimHxaigWHPTIL8Brwr48uc1PFyqGCkna6oLc=;
- b=G9aOiE+0aYdrqX9IVdj0RI9mkJcww+CMqBn4zOgyCLp5SAWaoGqCqMEOIgCpTn3oNGlLxP
- kWs0VjRYqq9yAEh553svSBykp3HrGnFAyL/eiEnAJDfaNrm33mwMa+CgBuD0vhWiYUO23T
- 8eExWt7xNup76N+bKzVbZy81XoiSaqc=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uSQAcfejxg7NhusLP2Sc0sAULtF+i3/IlJefnecYrRg=;
+ b=B+6OjqfQc7p8lwXolVXwYI/sb1mmSew49ZKRY/KEFppN5CIQOX2tXqR15/HBHj8Iyhiy/w
+ zPjmigVnLuQuNw8K+YqgZwb4FkLf9h76UTuRQVA41ahpiwjgsdo6BcLdBctGGtqYANHUlm
+ R6LGc/pNG5eddjJzwH+hFdoOer6ePn8=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-fsIVQphQMcqJjBPatru3xQ-1; Thu, 10 Jul 2025 13:43:18 -0400
-X-MC-Unique: fsIVQphQMcqJjBPatru3xQ-1
-X-Mimecast-MFC-AGG-ID: fsIVQphQMcqJjBPatru3xQ_1752169398
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4a9c7f2f4baso53868141cf.0
+ us-mta-616-wfGQrw25PtK5fegBfLHnhg-1; Thu, 10 Jul 2025 13:43:21 -0400
+X-MC-Unique: wfGQrw25PtK5fegBfLHnhg-1
+X-Mimecast-MFC-AGG-ID: wfGQrw25PtK5fegBfLHnhg_1752169401
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7d09bc05b77so217760185a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jul 2025 10:43:18 -0700 (PDT)
+ Thu, 10 Jul 2025 10:43:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752169398; x=1752774198;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=DyfQeplimHxaigWHPTIL8Brwr48uc1PFyqGCkna6oLc=;
- b=YLuI1t/QiF1cAvpFSGuuBpP5KaZ6y3m+18B1hOP19npzKlc/PkIg1RPqa0k3xJgymS
- sdO3XmsQHP79x2XETq0BS47WHGcYzucl8Uw8qItpJgyxNmZSCY2HuIbJXlTrmkTBsiof
- rNnF5O3X9iLmib85Gu44MHZ4zLvhqCcVHO/AJL/K4zrMh9+T3YuAknlmOPplRL+KBG5L
- OJiHxb1fed2C4bFl8R02gc0ipHkBUoI50s/IYheS9vqTi/Pfr8ldMgj7DG/jFBObSVi+
- +ehPYttBg+cSJdKVjkaw/R9+RbhDmHvP/4POCH+gPmzCC2TTS5AjN4AMmkUyd6OLFJiZ
- nFbw==
+ d=1e100.net; s=20230601; t=1752169401; x=1752774201;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uSQAcfejxg7NhusLP2Sc0sAULtF+i3/IlJefnecYrRg=;
+ b=tTnKBjUpulgrpdSe8r0ctPHlyQmdcQR02kYqwljOciUSdDq+a81eWIf6r1qxKfJi2V
+ HzzY7Ay+UEABmDzlHBrBrdEN6ykvorNKjn3dVAgyxCCUOs3peuQWmrDzNQN8mj9yGAew
+ nNblHdig5VljnXsJRMLMjedOyKkYNFdzEyRdlU+zDmNu2shWO5+LR0jmsYC3mbjmnZKd
+ YG2o9flVs1I4ri+5/DJPeJTWv4fAdk89ztdOs4+tUW1QhyuznnBw+LB7XrVa1OimH1Bl
+ 5LzqoOHfg8yZlGeWMMsCUnchhFS8c8w85rhi62Yvn61EGmC3V6SSMv/Q6I3ocwep9h2W
+ WxJQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSWou+jVaWIitMtDfgz5EilkT9TczABWnnONOXVq6K7kxuiIWnwGabPAOSFjBR/KMx4QeY2bjVLpYzbg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyzg0WDMoJxlfR1YlrdDip6DdbaxFTt/uIgc3v+iXvR9lDnlK2u
- UbwpFoL59xc52DEerK80BY5eah9mewtYXfNkEZGk03228sEQIEhp3Hk34ZRw3EdVDR22uHWgLCd
- a3bTPfI7ig0zYVK9leIyYKroBPW4Gm6lXGBZQ1rfFrs88xqzBSqq0uSJmuEaC1Y+FOqSbpdROZK
- lvkUTvHQ==
-X-Gm-Gg: ASbGncuZt8PaPZrCsWkwTUt3fIeNSg/Kft1mfkGtpbJEvEkm7RLN0P8TQ8BnI60Hy34
- /Ln2VStHf1zSkkRDpai5PTaDRG4I16v380LxYnVw4cbJrn3b79lQkceJzlGkeFV357hg0NmkoSd
- 4goDRC9L5O+uk8B0OROWjNp4PduckbV1Vr3UrO8OlcIVS7PVShH3FWsf1/P4eeIvRDzgegYkxHq
- bYjOhWxfTVGh4lNoW415LSyjF22tp4HpGxtHhGYjiGZnB33JKIP/SEmd9YLP7NWIfdPqomsJ2mr
- IIdANJegL3X392QEbdIcPfHhXlWqLaujfeSsj9hx62g5eL2XvO7zvRDT3KiY
-X-Received: by 2002:a05:622a:2587:b0:4a7:944:9af6 with SMTP id
- d75a77b69052e-4a9e9bb2cb6mr64645761cf.3.1752169397555; 
- Thu, 10 Jul 2025 10:43:17 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGzZd5sCbip5ZJYV/QhNlPWrkBJ+B+0jLvPSQhYSok5Gwj5HHCpjaKv310CLkZIEGxcJf2Gkg==
-X-Received: by 2002:a05:622a:2587:b0:4a7:944:9af6 with SMTP id
- d75a77b69052e-4a9e9bb2cb6mr64645231cf.3.1752169397063; 
- Thu, 10 Jul 2025 10:43:17 -0700 (PDT)
+ AJvYcCXOKwPBD7MXOKyKPUYCTVYCxO3JrkimlvWRrlc1yPxpCWIrNuGewh6k7EsTFbtXNzVGNj/NZfKAwVWvnQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyjWSqBpCYXwV5okamtxpkIYodDtsR8a/DSvc/g2WXHl0RN8Slh
+ dLZ8yW9nX4z6oIO1+KhtdFr4BEdALB5lGS6rHgvX9C2WGBON5wh1d7UFEg3ZLNwc/A72edfq+K9
+ LkEHBRWXDtw7gIB4lAQ/cfmqGLkOLGggHiZyiLpoma//AjVcmvVLt9wbRNe96uBpqJHRw2059GY
+ prvmNZWg==
+X-Gm-Gg: ASbGncul1HHJvq4oqNSBiJBVbYFrKOCN6yGTqpF8w08QIRq3PVfdEv7REmfVRROotKM
+ Mh3qzdyq+AC8pl/AG9JfHIdO84ipsRpbZss8PKW/VUH5IPLGtqbFcI7/8f1XuEMpWXrH0as4opG
+ wvnSQdm0W/lvZ1nRFLxkuYmj+VwxQskqwUwJHNk6uZUNcKBv+DZFMUc4H33VyL1WIEID6XlgaSm
+ bNaUQ6BddVFLUTL1XweMZFO/HYIHXh/68nMvLBcta0NpcvnOnCRcTSh8a7p4AFpNulk9PbI4P9i
+ MgfGSMUoutdUCR3zGvebGeVr7CG4JIk6FjaNZf274yhjqXQ0nWcO+E4kLLgm
+X-Received: by 2002:ad4:576f:0:b0:702:ca9e:dba6 with SMTP id
+ 6a1803df08f44-704a40f3f86mr2464856d6.16.1752169400869; 
+ Thu, 10 Jul 2025 10:43:20 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGneFeZHD+R2IlA/RJ8povEc4F9IjcKH8Fgp0p4dCYgtfr/rKSizrHDLTlvLp9E8FfSRTeZdQ==
+X-Received: by 2002:ad4:576f:0:b0:702:ca9e:dba6 with SMTP id
+ 6a1803df08f44-704a40f3f86mr2464046d6.16.1752169400264; 
+ Thu, 10 Jul 2025 10:43:20 -0700 (PDT)
 Received: from [192.168.1.3] (c-73-183-52-120.hsd1.pa.comcast.net.
  [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.13
+ 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jul 2025 10:43:16 -0700 (PDT)
+ Thu, 10 Jul 2025 10:43:19 -0700 (PDT)
 From: Brian Masney <bmasney@redhat.com>
-Date: Thu, 10 Jul 2025 13:43:01 -0400
-Message-Id: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
+Date: Thu, 10 Jul 2025 13:43:02 -0400
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAKX7b2gC/x2M0QpAQBAAf0X7bOuQdH5FHs7dYsPRHlKXf3d5n
- KaZCIGEKUCbRRC6OfDuExR5BnY2fiJklxhKVdaqKRQ62dCuC8p+eYdiTsIhKa2tspVpIIWH0Mj
- PP+369/0AcAOnAmQAAAA=
-X-Change-ID: 20250710-drm-clk-round-rate-b25099c0c3a7
+Message-Id: <20250710-drm-clk-round-rate-v1-1-601b9ea384c3@redhat.com>
+References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
+In-Reply-To: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -95,23 +94,23 @@ To: Philipp Zabel <p.zabel@pengutronix.de>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=5611;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=1689;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=vneJkQuL/Z9KZYxCdcdDpCorNOqE4VZX51RmlX/8Hik=;
- b=SpSyr0e3I/aRNxEswleY3osHpqJj9B58Sz5Gtf7aIsUZ1Ktyc0g084VrIsjKHpCXHyL9qqOiF
- ZRnFirWq0YVBiYQPmMMBH7RCwJ87s3PvceRTEkBR4y7+BkHAKJo5Jbj
+ bh=JMQuzI07hiKrV1ATnFggAmht1J6rMxSCqpxpi2ExgQM=;
+ b=2cWi9RxWr4DG/uT+Adfe1rLsJLWqf/HsK4V1CHvsD1HqS0tzYLionTpIhnP/uRurPd7gfFmll
+ 2lm+LwJba1xA78TVoaKVn+hJWZX7dEn9fhckaPz4uGeZs+gsOpWRugK
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ie1DSYpKReh4bY8pNOAws3-KffeGEosuGioZBPdzqnA_1752169398
+X-Mimecast-MFC-PROC-ID: 4CPV1qG9BCC97DqcY1SfSubfsB_rt42w7q3JuDnBoNY_1752169401
 X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/9] drm: convert from clk round_rate() to
-	determine_rate()
+Subject: [Linux-stm32] [PATCH 1/9] drm/imx/ipuv3/imx-tve: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,171 +127,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The round_rate() clk ops is deprecated in the clk framework in favor
-of the determine_rate() clk ops, so let's go ahead and convert the
-drivers in the drm subsystem using the Coccinelle semantic patch
-posted below. I did a few minor cosmetic cleanups of the code in a
-few cases.
-
-Coccinelle semantic patch:
-
-    virtual patch
-
-    // Look up the current name of the round_rate function
-    @ has_round_rate @
-    identifier round_rate_name =~ ".*_round_rate";
-    identifier hw_param, rate_param, parent_rate_param;
-    @@
-
-    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
-                  unsigned long *parent_rate_param)
-    {
-    	...
-    }
-
-    // Rename the route_rate function name to determine_rate()
-    @ script:python generate_name depends on has_round_rate @
-    round_rate_name << has_round_rate.round_rate_name;
-    new_name;
-    @@
-
-    coccinelle.new_name = round_rate_name.replace("_round_rate", "_determine_rate")
-
-    // Change rate to req->rate; also change occurrences of 'return XXX'.
-    @ chg_rate depends on generate_name @
-    identifier has_round_rate.round_rate_name;
-    identifier has_round_rate.hw_param;
-    identifier has_round_rate.rate_param;
-    identifier has_round_rate.parent_rate_param;
-    identifier ERR =~ "E.*";
-    expression E;
-    @@
-
-    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
-                  unsigned long *parent_rate_param)
-    {
-    <...
-    (
-    -return -ERR;
-    +return -ERR;
-    |
-    - return rate_param;
-    + return 0;
-    |
-    - return E;
-    + req->rate = E;
-    +
-    + return 0;
-    |
-    - rate_param
-    + req->rate
-    )
-    ...>
-    }
-
-    // Coccinelle only transforms the first occurrence of the rate parameter
-    // Run a second time. FIXME: Is there a better way to do this?
-    @ chg_rate2 depends on generate_name @
-    identifier has_round_rate.round_rate_name;
-    identifier has_round_rate.hw_param;
-    identifier has_round_rate.rate_param;
-    identifier has_round_rate.parent_rate_param;
-    @@
-
-    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
-                  unsigned long *parent_rate_param)
-    {
-    <...
-    - rate_param
-    + req->rate
-    ...>
-    }
-
-    // Change parent_rate to req->best_parent_rate
-    @ chg_parent_rate depends on generate_name @
-    identifier has_round_rate.round_rate_name;
-    identifier has_round_rate.hw_param;
-    identifier has_round_rate.rate_param;
-    identifier has_round_rate.parent_rate_param;
-    @@
-
-    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
-                  unsigned long *parent_rate_param)
-    {
-    <...
-    (
-    - *parent_rate_param
-    + req->best_parent_rate
-    |
-    - parent_rate_param
-    + &req->best_parent_rate
-    )
-    ...>
-    }
-
-    // Convert the function definition from round_rate() to determine_rate()
-    @ func_definition depends on chg_rate @
-    identifier has_round_rate.round_rate_name;
-    identifier has_round_rate.hw_param;
-    identifier has_round_rate.rate_param;
-    identifier has_round_rate.parent_rate_param;
-    identifier generate_name.new_name;
-    @@
-
-    - long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
-    -               unsigned long *parent_rate_param)
-    + int new_name(struct clk_hw *hw, struct clk_rate_request *req)
-    {
-        ...
-    }
-
-    // Update the ops from round_rate() to determine_rate()
-    @ ops depends on func_definition @
-    identifier has_round_rate.round_rate_name;
-    identifier generate_name.new_name;
-    @@
-
-    {
-        ...,
-    -   .round_rate = round_rate_name,
-    +   .determine_rate = new_name,
-        ...,
-    }
-
-Note that I used coccinelle 1.2 instead of 1.3 since the newer version
-adds unnecessary braces as described in this post.
-https://lore.kernel.org/cocci/67642477-5f3e-4b2a-914d-579a54f48cbd@intel.com/
+The round_rate() clk ops is deprecated, so migrate this driver from
+round_rate() to determine_rate() using the Coccinelle semantic patch
+on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
-Brian Masney (9):
-      drm/imx/ipuv3/imx-tve: convert from round_rate() to determine_rate()
-      drm/mcde/mcde_clk_div: convert from round_rate() to determine_rate()
-      drm/msm/disp/mdp4/mdp4_lvds_pll: convert from round_rate() to determine_rate()
-      drm/msm/hdmi_pll_8960: convert from round_rate() to determine_rate()
-      drm/pl111: convert from round_rate() to determine_rate()
-      drm/stm/dw_mipi_dsi-stm: convert from round_rate() to determine_rate()
-      drm/stm/lvds: convert from round_rate() to determine_rate()
-      drm/sun4i/sun4i_hdmi_ddc_clk: convert from round_rate() to determine_rate()
-      drm/sun4i/sun4i_tcon_dclk: convert from round_rate() to determine_rate()
+ drivers/gpu/drm/imx/ipuv3/imx-tve.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
- drivers/gpu/drm/imx/ipuv3/imx-tve.c           | 17 ++++++++++-------
- drivers/gpu/drm/mcde/mcde_clk_div.c           | 13 ++++++++-----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_pll.c | 13 ++++++++-----
- drivers/gpu/drm/msm/hdmi/hdmi_pll_8960.c      | 12 +++++++-----
- drivers/gpu/drm/pl111/pl111_display.c         | 13 ++++++++-----
- drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         | 14 ++++++++------
- drivers/gpu/drm/stm/lvds.c                    | 12 +++++++-----
- drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c    | 12 +++++++-----
- drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c       | 18 ++++++++++--------
- 9 files changed, 73 insertions(+), 51 deletions(-)
----
-base-commit: b551c4e2a98a177a06148cf16505643cd2108386
-change-id: 20250710-drm-clk-round-rate-b25099c0c3a7
+diff --git a/drivers/gpu/drm/imx/ipuv3/imx-tve.c b/drivers/gpu/drm/imx/ipuv3/imx-tve.c
+index c5629e155d25aef5b43445bc18c6c90039c99974..63f23b821b0be66a8e8a379e1375ffd98552e72f 100644
+--- a/drivers/gpu/drm/imx/ipuv3/imx-tve.c
++++ b/drivers/gpu/drm/imx/ipuv3/imx-tve.c
+@@ -368,17 +368,20 @@ static unsigned long clk_tve_di_recalc_rate(struct clk_hw *hw,
+ 	return 0;
+ }
+ 
+-static long clk_tve_di_round_rate(struct clk_hw *hw, unsigned long rate,
+-				  unsigned long *prate)
++static int clk_tve_di_determine_rate(struct clk_hw *hw,
++				     struct clk_rate_request *req)
+ {
+ 	unsigned long div;
+ 
+-	div = *prate / rate;
++	div = req->best_parent_rate / req->rate;
+ 	if (div >= 4)
+-		return *prate / 4;
++		req->rate = req->best_parent_rate / 4;
+ 	else if (div >= 2)
+-		return *prate / 2;
+-	return *prate;
++		req->rate = req->best_parent_rate / 2;
++	else
++		req->rate = req->best_parent_rate;
++
++	return 0;
+ }
+ 
+ static int clk_tve_di_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -409,7 +412,7 @@ static int clk_tve_di_set_rate(struct clk_hw *hw, unsigned long rate,
+ }
+ 
+ static const struct clk_ops clk_tve_di_ops = {
+-	.round_rate = clk_tve_di_round_rate,
++	.determine_rate = clk_tve_di_determine_rate,
+ 	.set_rate = clk_tve_di_set_rate,
+ 	.recalc_rate = clk_tve_di_recalc_rate,
+ };
 
-Best regards,
 -- 
-Brian Masney <bmasney@redhat.com>
+2.50.0
 
 _______________________________________________
 Linux-stm32 mailing list
