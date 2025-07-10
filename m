@@ -2,61 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1402B00701
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 17:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F36AB0079B
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 17:51:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2F9BC349C2;
-	Thu, 10 Jul 2025 15:36:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54B5BC349C1
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB78DC349C2;
+	Thu, 10 Jul 2025 15:51:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66DC9C349C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jul 2025 15:36:36 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56AFPij1003754;
- Thu, 10 Jul 2025 17:36:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=KzAzOUNX3up9WMQCB7MqOT
- zOvJNFeyyub5F+P4jf5qM=; b=lsxCRHRbNjQ/9zQewQtP0wwHl9RzC2qQeY9/7Y
- EhODSKMa4ySHAbtwKLDOltmwzZHNBLs6dnrESG1atSpDh+RcHAfC8zGopS0eMgdW
- Jzt0L13iNu8MWFfZfotWAVJ3s+WR6nOr4d4zw4XI/2wDpi1F47tA0CcrEb3ITsTO
- U/rn01DbiAJgahsL9r2Axz3K72gxfXmyR0VcQioCRzpWkH92MMhI9Mx/e5/VynS+
- SEOXn7GXBW0PJsvhxyS1Iy92c+AEgrIoeuzn0cU8mb62dd/rphstUnV32PQEHRaD
- +Q0N0abltr1bbWWqbp4u5H7DTt+z3zogCuPg5X6IvyI43o6w==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47pud3j4y1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Jul 2025 17:36:22 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 542B04005B;
- Thu, 10 Jul 2025 17:35:20 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0C05BB1F9A8;
- Thu, 10 Jul 2025 17:33:08 +0200 (CEST)
-Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Jul
- 2025 17:33:07 +0200
-Message-ID: <b3e3363b-1ea5-457c-b244-2cbe26f7d6e4@foss.st.com>
-Date: Thu, 10 Jul 2025 17:33:07 +0200
+ Thu, 10 Jul 2025 15:51:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1752162705;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=WADJ7rxEf5+t43hyxNegpLJp1h0n13l+s0KkiLPhYtw=;
+ b=NoOG/5n3eNk1WDsqPLy/gTrXzR40kMOq9CpEFCSL8Dn1c1B2W2Y/hGvafTkgupA1jY0Xbi
+ S6bMhfPxv0AJqjNxnL4XTEe27nbTRCxpofubbD/8KszqGmobFnHqDd3hutNKF9asSZJnP3
+ +0ag61dv8pFI6o00kQfOP267IpLgKOs=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-343-GAW7S2IcPPKs711nTT8vkg-1; Thu, 10 Jul 2025 11:51:43 -0400
+X-MC-Unique: GAW7S2IcPPKs711nTT8vkg-1
+X-Mimecast-MFC-AGG-ID: GAW7S2IcPPKs711nTT8vkg_1752162702
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-6ff810877aaso26071356d6.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Jul 2025 08:51:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752162702; x=1752767502;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WADJ7rxEf5+t43hyxNegpLJp1h0n13l+s0KkiLPhYtw=;
+ b=tah0o2S5Ts8upP/uvvDMnhvMY4xhFPQ1V9LudNgwUV3K/Jugg2jei4dn/6H1ARGq6v
+ ACDp5WGxY9sRCgfldDH05h6iZzFKKFVlsxRU0gnQgVdcLy3ziNCW4Msd3/APaQMvH3JE
+ K7oRi/q+EI8/C80BEDF1loA+kyC37iDYjyjaC4kRrJOYsoe/tbNnSw/CCML2aaWoPWfU
+ og3u/pZEXv+ACzRapMwmZp5ASMP4wNXYPJR6XcDNmUhYgSKWGXlOuL//xmkFscbSFXxt
+ kPO3Daxztle1+inbxUOiJ8wgU4BOcndzZWKF3rN3xFQ2+UvTdzTVzufShqOWJw8JxCo9
+ UGQg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU39KaqWnNaLV9Jj29rDIG/PcT4C1Fuzk2c08XPIeXRCxJDkka8e51TVF4wfDjY1vrrNOFYlx4LIkiGYQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxez5mgRax6yPNNaZ2YrT0gzmlo9Kd6+6NyMdJN7NsSVymxLw91
+ c1aB1SHXGqqb96RTGT411T8bAIy03Np+mqGue88MweTlYMgp+C30DDQ5AWW0f9nBJSvuMkWQ5G3
+ YvuAG0LaPA6x8Dj4gbrRV0+0OeLnoTI0qMa5F7vV8nA/AG5SOiOy3FBIIsutD0UeKlDQM5WuNrB
+ QrKQoPwg==
+X-Gm-Gg: ASbGncvKBd3QMXMqkhwvyjxWpRGcccqYMiIkCRHxbY6iXBvXa74Sw2xfeiUcdPFOueH
+ 5BXhZvoj5OQtX2M9FGUe+LO/3YWCnGUAmqjo3rZzuYy4oyIPd/tD4iH7Kq7edhaWjVvGLedhc7C
+ FJbEu47CunfH0odAzWYnMIG1KcrCEftRJiPyldY80ZUL/r9TY7ef5LzwqOHlVPyVY/wSy4H7AjE
+ HWwCKaF4lM/g7cZqDaIXup+xVye8dwBSwnFHiNFJkmU3bSDhDHbXPn3oT+hCYYXMd0/2I68G3L/
+ YM5YYVrBp2BHj32kJ9DfXzthzDoB9GrpVs90tB1pakAUYK4gwQnnGrfCYQKQ
+X-Received: by 2002:a05:6214:f6f:b0:6fb:50da:48c0 with SMTP id
+ 6a1803df08f44-704981df370mr48741536d6.32.1752162702185; 
+ Thu, 10 Jul 2025 08:51:42 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE6tTS21fRt7gW+5oC/mUmMYYDHl8pgKSfHGnscN6OnkB2uw7eNnpNtqA9BjpxUhpgOQUOErg==
+X-Received: by 2002:a05:6214:f6f:b0:6fb:50da:48c0 with SMTP id
+ 6a1803df08f44-704981df370mr48740986d6.32.1752162701655; 
+ Thu, 10 Jul 2025 08:51:41 -0700 (PDT)
+Received: from [192.168.1.3] (c-73-183-52-120.hsd1.pa.comcast.net.
+ [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-70497d3940asm9475456d6.73.2025.07.10.08.51.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Jul 2025 08:51:41 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+Date: Thu, 10 Jul 2025 11:51:06 -0400
+Message-Id: <20250710-sound-clk-round-rate-v1-0-4a9c3bb6ff3a@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Kevin Hilman <khilman@baylibre.com>,
- <arm@kernel.org>, <soc@kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-10_04,2025-07-09_01,2025-03-28_01
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v6.17#1
+X-B4-Tracking: v=1; b=H4sIAGrhb2gC/x2MQQqAIBAAvxJ7bkGDMvpKdDDdaiks1oog+nvib
+ eYw80IkYYrQFS8I3Rx5D0l0WYBbbJgJ2SeHSlW1Mlph3K/g0W0rSiaxJ6H1o7ZGj75tDKT0EJr
+ 4ydt++L4fj0lNa2YAAAA=
+X-Change-ID: 20250710-sound-clk-round-rate-adb1a71bd867
+To: Support Opensource <support.opensource@diasemi.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Oder Chiou <oder_chiou@realtek.com>, Srinivas Kandagatla <srini@kernel.org>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Maxime Ripard <mripard@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752162699; l=5203;
+ i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
+ bh=9HMFkZbuW9ZpnWbftnssfH9Bqhp8qt4XbuXWzr1wRy0=;
+ b=sGBwjqYM4hPVL1CZFdLUsSLiPft7TSDB69HuiD4QNIFy9Mz6ke78nYWLUUl9QcWx2qrOP3kGY
+ O85EabSwvs7AKgAZmdJB/ePYT6ukziJUFUbHtudOEOYr50RuwcvWs0Y
+X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
+ pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: pLC_hvVTPuUP_WCuxAj9cG9WYJTjfTB9oX3Bursxvmw_1752162702
+X-Mimecast-Originator: redhat.com
+Cc: linux-arm-msm@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/6] sound: convert from clk round_rate() to
+ determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,82 +111,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQVJNIFNvQyBtYWludGFpbmVycywKClBsZWFzZSBjb25zaWRlciB0aGlzIGZpcnN0IHJvdW5k
-IG9mIFNUTTMyIERUIGNoYW5nZXMgZm9yIHY2LjE3IGN5Y2xlLgpJIGFkZGVkIGEgY29uZmlnIHBh
-dGNoIGluc2lkZS4KClRoYW5rcwpBbGV4CgoKVGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNv
-bW1pdCAxOTI3MmIzN2FhNGY4M2NhNTJiZGY5YzE2ZDVkODFiZGQxMzU0NDk0OgoKICAgTGludXgg
-Ni4xNi1yYzEgKDIwMjUtMDYtMDggMTM6NDQ6NDMgLTA3MDApCgphcmUgYXZhaWxhYmxlIGluIHRo
-ZSBHaXQgcmVwb3NpdG9yeSBhdDoKCiAgIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGlu
-dXgva2VybmVsL2dpdC9hdG9yZ3VlL3N0bTMyLmdpdCAKdGFncy9zdG0zMi1kdC1mb3ItdjYuMTct
-MQoKZm9yIHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIDFhMzJmNzQyN2ViM2QxMjQ4YmM2NGNk
-NzQ1YjkzZjg4Y2M4Mzg5MzM6CgogICBhcm02NDogZHRzOiBzdDogcmVtb3ZlIGVtcHR5IGxpbmUg
-aW4gc3RtMzJtcDI1MS5kdHNpICgyMDI1LTA3LTEwIAoxNzowNTo1NiArMDIwMCkKCi0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-U1RNMzIgRFQgZm9yIHY2LjE3LCByb3VuZCAxCgpIaWdobGlnaHRzOgotLS0tLS0tLS0tCgotIE1Q
-VToKICAgLSBTVE0zMk1QMTM6CiAgICAgLUFkZCBFdGhlcm5ldCBNQUMgYWRyZXNzIGVmdXNlIHN1
-cHBvcnQuCgogICAtIFNUTVAzMk1QMTU6CiAgICAgLSBBZGQgc3RtMzJtcDE1N2YtREsyIGJvYXJk
-IHN1cHBvcnQuIFRoaXMgYm9hcmQgZW1iZWRkcyB0aGUgc2FtZQogICAgICAgY29uZWN0aXZpdHkg
-ZGV2aWNlcywgRERSIC4uLiB0aGFuIHN0bTMybXAxNTdjLWRrMi4KICAgICAgIEhvd2V2ZXIgdGhl
-cmUgYXJlIHR3byBkaWZmZXJlbmNlczogU1RNMzJNUDE1N0YgU29DIHdoaWNoIGFsbG93cwogICAg
-ICAgb3ZlcmRyaXZlIE9QUCBhbmQgdGhlIFNDTUkgc3VwcG9ydCBmb3Igc3lzdGVtIGZlYXR1cmVz
-IGxpa2UKICAgICAgIGNsb2NrcyBhbmQgcmVndWxhdG9ycy4KCiAgIC0gU1RNMzJNUDI1OgogICAg
-IC0gRml4IHRpY2sgdGltZXIgZm9yIGxvdyBwb3dlciB1c2UgY2FzZXMuCiAgICAgLSBBZGQgdGlt
-ZXIgc3VwcG9ydC4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0KQWxleGFuZHJlIFRvcmd1ZSAoMSk6CiAgICAgICBBUk06IGR0
-czogc3RtMzI6IGZ1bGxmaWxsIGRpdmVyc2l0eSB3aXRoIE9QUCBmb3IgU1RNMzJNMTV4RiBTT0Nz
-CgpBbWVsaWUgRGVsYXVuYXkgKDMpOgogICAgICAgQVJNOiBkdHM6IHN0bTMyOiB1c2UgJ3R5cGVj
-JyBnZW5lcmljIG5hbWUgZm9yIHN0dXNiMTYwMCBvbiAKc3RtMzJtcDE1eHgtZGt4CiAgICAgICBB
-Uk06IGR0czogc3RtMzI6IHVzZSBpbnRlcm5hbCByZWd1bGF0b3JzIGJpbmRpbmdzIGZvciBNUDE1
-IHNjbWkgCnZhcmlhbnRzCiAgICAgICBBUk06IGR0czogc3RtMzI6IGFkZCBzdG0zMm1wMTU3Zi1k
-azIgYm9hcmQgc3VwcG9ydAoKRXRpZW5uZSBDYXJyaWVyZSAoMik6CiAgICAgICBkdC1iaW5kaW5n
-czogcmVndWxhdG9yOiBBZGQgU1RNMzJNUDE1IFNDTUkgcmVndWxhdG9yIGlkZW50aWZpZXJzCiAg
-ICAgICBBUk06IGR0czogc3RtMzI6IG9wdGVlIGFzeW5jIG5vdGlmIGludGVycnVwdCBmb3IgTVAx
-NSBzY21pIHZhcmlhbnRzCgpGYWJyaWNlIEdhc25pZXIgKDQpOgogICAgICAgYXJtNjQ6IGR0czog
-c3Q6IGFkZCB0aW1lciBub2RlcyBvbiBzdG0zMm1wMjUxCiAgICAgICBhcm02NDogZHRzOiBzdDog
-YWRkIHRpbWVyIHBpbnMgZm9yIHN0bTMybXAyNTdmLWV2MQogICAgICAgYXJtNjQ6IGR0czogc3Q6
-IGFkZCB0aW1lciBub2RlcyBvbiBzdG0zMm1wMjU3Zi1ldjEKICAgICAgIGFybTY0OiBkZWZjb25m
-aWc6IGVuYWJsZSBTVE0zMiB0aW1lcnMgZHJpdmVycwoKSGltYW5zaHUgQmhhdmFuaSAoMSk6CiAg
-ICAgICBkdC1iaW5kaW5nczogYXJtOiBzdG0zMjogYWRkIFNUTTMyTVAxNTdGLURLMiBib2FyZCBj
-b21wYXRpYmxlCgpPbGl2aWVyIE1veXNhbiAoMSk6CiAgICAgICBBUk06IGR0czogc3RtMzI6IGFk
-ZCBzeXN0ZW0tY2xvY2stZGlyZWN0aW9uLW91dCBvbiBzdG0zMm1wMTV4eC1ka3gKClBhdHJpY2Ug
-Q2hvdGFyZCAoMSk6CiAgICAgICBhcm02NDogZGVmY29uZmlnOiBFbmFibGUgU1RNMzIgT2N0byBN
-ZW1vcnkgTWFuYWdlciBhbmQgT2NzdG9TUEkgCmRyaXZlcgoKUGF0cmljayBEZWxhdW5heSAoMik6
-CiAgICAgICBhcm02NDogZHRzOiBzdDogZml4IHRpbWVyIHVzZWQgZm9yIHRpY2tzCiAgICAgICBh
-cm02NDogZHRzOiBzdDogcmVtb3ZlIGVtcHR5IGxpbmUgaW4gc3RtMzJtcDI1MS5kdHNpCgpVd2Ug
-S2xlaW5lLUvDtm5pZyAoMSk6CiAgICAgICBBUk06IGR0czogc3RtMzI6IEFkZCBudm1lbS1jZWxs
-cyB0byBldGhlcm5ldCBub2RlcyBmb3IgY29uc3RhbnQgCm1hYy1hZGRyZXNzZXMKCiAgRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2FybS9zdG0zMi9zdG0zMi55YW1sIHwgICAxICsK
-ICBhcmNoL2FybS9ib290L2R0cy9zdC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAgICAgICAg
-fCAgIDMgKy0KICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMxLmR0c2kgICAgICAgICAg
-ICAgICAgICAgfCAgIDIgKwogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzMuZHRzaSAg
-ICAgICAgICAgICAgICAgICB8ICAgMiArCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1
-LXNjbWkuZHRzaSAgICAgICAgICAgICAgIHwgIDEwICsrLQogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0
-L3N0bTMybXAxNTdmLWRrMi1zY21pLmR0c2kgICAgICAgICB8IDE5NiAKKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0L3N0bTMybXAxNTdmLWRrMi5kdHMgICAgICAgICAgICAgICB8IDE3OSAKKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKICBhcmNoL2FybS9ib290
-L2R0cy9zdC9zdG0zMm1wMTV4Zi5kdHNpICAgICAgICAgICAgICAgICAgfCAgMTcgKysrKysKICBh
-cmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4eC1ka3guZHRzaSAgICAgICAgICAgICAgfCAg
-IDMgKy0KICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNS1waW5jdHJsLmR0c2kgICAg
-ICAgICAgfCAgNjEgCisrKysrKysrKysrKysrKysrKwogIGFyY2gvYXJtNjQvYm9vdC9kdHMvc3Qv
-c3RtMzJtcDI1MS5kdHNpICAgICAgICAgICAgICAgICB8IDUyNyAKKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLQogIGFyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYx
-LmR0cyAgICAgICAgICAgICB8ICA1OCAKKysrKysrKysrKysrKysrKysKICBhcmNoL2FybTY0L2Nv
-bmZpZ3MvZGVmY29uZmlnICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDYgKysKICBpbmNs
-dWRlL2R0LWJpbmRpbmdzL3JlZ3VsYXRvci9zdCxzdG0zMm1wMTUtcmVndWxhdG9yLmggfCAgNDAg
-KysrKysrKysrKysrCiAgMTQgZmlsZXMgY2hhbmdlZCwgMTA5OCBpbnNlcnRpb25zKCspLCA3IGRl
-bGV0aW9ucygtKQogIGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0z
-Mm1wMTU3Zi1kazItc2NtaS5kdHNpCiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0L3N0bTMybXAxNTdmLWRrMi5kdHMKICBjcmVhdGUgbW9kZSAxMDA2NDQgYXJjaC9hcm0v
-Ym9vdC9kdHMvc3Qvc3RtMzJtcDE1eGYuZHRzaQogIGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRl
-L2R0LWJpbmRpbmdzL3JlZ3VsYXRvci9zdCxzdG0zMm1wMTUtcmVndWxhdG9yLmgKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The round_rate() clk ops is deprecated in the clk framework in favor
+of the determine_rate() clk ops, so let's go ahead and convert the
+drivers in the rtc subsystem using the Coccinelle semantic patch
+posted below. I did a few minor cosmetic cleanups of the code in a
+few cases.
+
+Coccinelle semantic patch:
+
+    virtual patch
+
+    // Look up the current name of the round_rate function
+    @ has_round_rate @
+    identifier round_rate_name =~ ".*_round_rate";
+    identifier hw_param, rate_param, parent_rate_param;
+    @@
+
+    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
+                  unsigned long *parent_rate_param)
+    {
+    	...
+    }
+
+    // Rename the route_rate function name to determine_rate()
+    @ script:python generate_name depends on has_round_rate @
+    round_rate_name << has_round_rate.round_rate_name;
+    new_name;
+    @@
+
+    coccinelle.new_name = round_rate_name.replace("_round_rate", "_determine_rate")
+
+    // Change rate to req->rate; also change occurrences of 'return XXX'.
+    @ chg_rate depends on generate_name @
+    identifier has_round_rate.round_rate_name;
+    identifier has_round_rate.hw_param;
+    identifier has_round_rate.rate_param;
+    identifier has_round_rate.parent_rate_param;
+    identifier ERR =~ "E.*";
+    expression E;
+    @@
+
+    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
+                  unsigned long *parent_rate_param)
+    {
+    <...
+    (
+    -return -ERR;
+    +return -ERR;
+    |
+    - return rate_param;
+    + return 0;
+    |
+    - return E;
+    + req->rate = E;
+    +
+    + return 0;
+    |
+    - rate_param
+    + req->rate
+    )
+    ...>
+    }
+
+    // Coccinelle only transforms the first occurrence of the rate parameter
+    // Run a second time. FIXME: Is there a better way to do this?
+    @ chg_rate2 depends on generate_name @
+    identifier has_round_rate.round_rate_name;
+    identifier has_round_rate.hw_param;
+    identifier has_round_rate.rate_param;
+    identifier has_round_rate.parent_rate_param;
+    @@
+
+    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
+                  unsigned long *parent_rate_param)
+    {
+    <...
+    - rate_param
+    + req->rate
+    ...>
+    }
+
+    // Change parent_rate to req->best_parent_rate
+    @ chg_parent_rate depends on generate_name @
+    identifier has_round_rate.round_rate_name;
+    identifier has_round_rate.hw_param;
+    identifier has_round_rate.rate_param;
+    identifier has_round_rate.parent_rate_param;
+    @@
+
+    long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
+                  unsigned long *parent_rate_param)
+    {
+    <...
+    (
+    - *parent_rate_param
+    + req->best_parent_rate
+    |
+    - parent_rate_param
+    + &req->best_parent_rate
+    )
+    ...>
+    }
+
+    // Convert the function definition from round_rate() to determine_rate()
+    @ func_definition depends on chg_rate @
+    identifier has_round_rate.round_rate_name;
+    identifier has_round_rate.hw_param;
+    identifier has_round_rate.rate_param;
+    identifier has_round_rate.parent_rate_param;
+    identifier generate_name.new_name;
+    @@
+
+    - long round_rate_name(struct clk_hw *hw_param, unsigned long rate_param,
+    -               unsigned long *parent_rate_param)
+    + int new_name(struct clk_hw *hw, struct clk_rate_request *req)
+    {
+        ...
+    }
+
+    // Update the ops from round_rate() to determine_rate()
+    @ ops depends on func_definition @
+    identifier has_round_rate.round_rate_name;
+    identifier generate_name.new_name;
+    @@
+
+    {
+        ...,
+    -   .round_rate = round_rate_name,
+    +   .determine_rate = new_name,
+        ...,
+    }
+
+Note that I used coccinelle 1.2 instead of 1.3 since the newer version
+adds unnecessary braces as described in this post.
+https://lore.kernel.org/cocci/67642477-5f3e-4b2a-914d-579a54f48cbd@intel.com/
+
+Signed-off-by: Brian Masney <bmasney@redhat.com>
+---
+Brian Masney (6):
+      sound: soc: codecs: da7219: convert from round_rate() to determine_rate()
+      sound: soc: codecs: rt5682: convert from round_rate() to determine_rate()
+      sound: soc: codecs: rt5682s: convert from round_rate() to determine_rate()
+      sound: soc: qcom: qdsp6: q6dsp-lpass-clocks: convert from round_rate() to determine_rate()
+      sound: soc: stm: stm32_i2s: convert from round_rate() to determine_rate()
+      sound: soc: stm: stm32_sai_sub: convert from round_rate() to determine_rate()
+
+ sound/soc/codecs/da7219.c                 | 64 ++++++++++++++++---------------
+ sound/soc/codecs/rt5682.c                 | 26 +++++++------
+ sound/soc/codecs/rt5682s.c                | 26 +++++++------
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c |  8 ++--
+ sound/soc/stm/stm32_i2s.c                 | 21 ++++++----
+ sound/soc/stm/stm32_sai_sub.c             | 14 ++++---
+ 6 files changed, 87 insertions(+), 72 deletions(-)
+---
+base-commit: b551c4e2a98a177a06148cf16505643cd2108386
+change-id: 20250710-sound-clk-round-rate-adb1a71bd867
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
