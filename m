@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160E2B00A33
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 19:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B2AB00A36
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jul 2025 19:43:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB249C349C3;
-	Thu, 10 Jul 2025 17:43:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D92DFC349C3;
+	Thu, 10 Jul 2025 17:43:49 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EC0DC349C2
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81EE6C349C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jul 2025 17:43:45 +0000 (UTC)
+ Thu, 10 Jul 2025 17:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1752169424;
+ s=mimecast20190719; t=1752169427;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=exSjMafszsHf+hPI+jA3EKbDPNjmXxeN/VchItvqKMU=;
- b=FNh7qlXD6m2QLcZ3QRT4K5kIxg92JTM+rUjeJk25DvzaNoB/evf4izVsHdYE8cqlmUJqOq
- yiRnOq67x67x4T2EwgevrqcJJHL56py6c0HPE9dmZBN21DAgRpOBHaW2qTO/4ta4i+gN4K
- dlNe6TpPpmEbjjMS2z/n9CJsbSfV2lU=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=/OrtVi+H4smani+Wxuj7rrrlvdLEKHZeWuJz/QAEtZ0=;
+ b=C1NKOcA9WOjno+qVJncqzTsNd6tK1OAbQ/UwBy4EBdMnt4Xsye00ti/gS9SWSzC72f3Qme
+ 7/4nj1LECVyixuEcNUN0nPDlCSFLDGPZNcQ9nKJJXF3v7bGm4gP1VEyNxbQNKMyEYFUU2b
+ VY73g0YPuvBXipL1Hqt2qlcEP3OjR1U=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-480-wAbgOat2Py6qwgupk1rkJw-1; Thu, 10 Jul 2025 13:43:43 -0400
-X-MC-Unique: wAbgOat2Py6qwgupk1rkJw-1
-X-Mimecast-MFC-AGG-ID: wAbgOat2Py6qwgupk1rkJw_1752169423
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4a9764b4dc9so22515941cf.2
+ us-mta-363-_8HUMwTgMKqU1UtjEYvBjQ-1; Thu, 10 Jul 2025 13:43:46 -0400
+X-MC-Unique: _8HUMwTgMKqU1UtjEYvBjQ-1
+X-Mimecast-MFC-AGG-ID: _8HUMwTgMKqU1UtjEYvBjQ_1752169426
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-6fb5f71b363so20705016d6.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jul 2025 10:43:43 -0700 (PDT)
+ Thu, 10 Jul 2025 10:43:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752169423; x=1752774223;
+ d=1e100.net; s=20230601; t=1752169426; x=1752774226;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=exSjMafszsHf+hPI+jA3EKbDPNjmXxeN/VchItvqKMU=;
- b=ErRXxTN76hOW6XWUpmgy+473T+yUQV3PWDF1ci4QqaCFw/UsAJT4Tl73fRMCLEtSEy
- U7hooZwQo7qrI6owb8+b/Da/oPayrWMD2v5zp9AvdRaDWb0hnaQKZJ49ogtLDopGdO//
- 06zWQAHTMdLz6vTREQmCB+QYhhdc31QLtkoi6h+pn98U8dZknthjjV4wJGMDe8G/22Zj
- 9hPoS3zN1kseF75Ef/Nsf/0R0LqdsiRJCJKv1/iQ0FOucga4+/57GHTA2qGbM+we+jQ1
- 0kQs3DwrsTPW4keXEf96xAiStskhsro9GCGHa14INeHpkEMiHcUwNSXJTsPmqbpiqkdL
- OHDg==
+ bh=/OrtVi+H4smani+Wxuj7rrrlvdLEKHZeWuJz/QAEtZ0=;
+ b=ThDpDxnZcuh7CErdNB9TfAuOc/GIwEI65u9gbCjQrhFnq6dr5nTTbWh4jcOt0GWDlg
+ Y0Zn/veWwMYE/JHVhWliJlX0F/K+fiVaQyD/paks60McGc4lcytuHme5USjVBsT4Ces9
+ 0uyIuC+Pz2BkVbV45rkPY54t9cDAYlYY1+9cZcXHGqF2iYa+MJSrbxe5c1jCwk12fBrQ
+ 9/slKt/+YWnI1Ozi9Gl8228G9EtymSmAIiyur9B5hq3jFCr4n+hC0I9UTPWHT40D3+Lk
+ EP0u/cbyvNEx1wBzKpwW0Ro1uxCRBFkRUOujarKDEs4IrR/ZTuXcTPmO/iF3nUvOWyp2
+ 6jyg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUkQAsgRJzKwc8p1YfA0xhYQMKrC2jJ52LyZVBFrIvsMBPB9Lje2xfQHZ51pueQBjRlE6wWlac1D/lmXg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy/z84J/FlMyexSX8V1OyFZHq8LZMADaQ0THSdXvR4RXjthU5gv
- ElI7ctSeBTCygJe8TL5pFdtD8li9FCyxkyKUjfj3PoZ69UoR9X6WUJHEPv+87Z4/Uf9hs1xaQ+T
- 8JiMCWLnt9KAVzIy0aWg8bKJU73BCwNIaqegk0W9CfB4mthNgRiNpJviKELJq4BZARFW0mcuh94
- XT9DNcUQ==
-X-Gm-Gg: ASbGncvOd2iLb98/Jxbh1nY1DZKAIPNkeEKNHxl0Lp3ZoJOYJMnpa/ZqbIojlynZW3o
- gvo5fFXwuUkTM/zdBTGWSkSBgwC08QutPodRfaBSk8ARJL86sVj7b/SzDCSr28eS4Bq2ic1qTGw
- 9ayH/4KHR+thIHPK6iAWbWWsKcaphzCrz+KlPZ+4rex7BRnkkBqBQ6oTeDX1sZtxcco9TUl4Xyq
- f5EKD85vJ7lPJguzK6giTfOdsG3GoFGI1uSQ/cft2YQPpJf5PFyeAZakFs2oxb7cWVMh+ywyJU/
- jcj/gxoaz5dCkpZT3L6HZjRfmcc8lwFct0OI0qYGT2nAjro8gE2Dzla+JMay
-X-Received: by 2002:ad4:4eab:0:b0:702:d7e1:9a61 with SMTP id
- 6a1803df08f44-704a4325359mr1692706d6.32.1752169422751; 
- Thu, 10 Jul 2025 10:43:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE946PzHD0RXk4GY5dDiYIFHgj5udxSitTpswAFFe0EalaGRnpP5sdgmvG0/oOdFa+px1bfeQ==
-X-Received: by 2002:ad4:4eab:0:b0:702:d7e1:9a61 with SMTP id
- 6a1803df08f44-704a4325359mr1692226d6.32.1752169422349; 
- Thu, 10 Jul 2025 10:43:42 -0700 (PDT)
+ AJvYcCXwGL8XSuupriaU2d4cUtgEVj1cLJYtQDveHJ5iJ6iBD3nKlSOYyXC30+Ievt1lduD/yf0pVkhWq/bAUQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YysHGgVc9Z+KxpVv46I7lJFJXJhCWdtFL4m8XfcM7xRNOelYOz9
+ dqhPqo0B8tp3lH/FuG99csbLhDNYn0rWereOlF9YvNFvOH6q+cWgEeAZKX2AxV04yFIzmBwzlYF
+ OjsIIt+cI2tJ1eUGZvzGASU/Fot+ktcKuqR8xjNjOHB2IgX4wAl6jbFCUsKHOAlsmXMI7rzmMBB
+ Yp9OewNQ==
+X-Gm-Gg: ASbGnctP4u4TWEU9TfVsU5LoXqYgBq530DzeHNP1U3DqagVArh+LsR1WrtD+B43j2Ea
+ Fn7BkdJ3Y8O4pCwQ1LvBsvz94ByPxQY0Smqxff7ON46GP2qCc8UBVZYipyqGDUHjugkQ/uTzUtT
+ ntvKMWaLGnUgoCu5Ur1ERIO32UAwxBUGR6FOPUK/++dVsYJT3Q2WQsuZ0bNgGxSX3TIAIJymGD/
+ AoX+uOD/Q3jUOG3aL405NlXW/nhh9MGNadIILdKzC+ZIHuWpUQiqMisys1rA61eCixe9aLG9MYs
+ v9uaFIc/nj7xpPNGDDKpgkDN5M7zjETqF1i2lNvZ3p9luvLqBl+iQKJPa3LX
+X-Received: by 2002:a05:6214:5d0a:b0:704:9bc2:be36 with SMTP id
+ 6a1803df08f44-704a4083bcemr2613826d6.7.1752169425800; 
+ Thu, 10 Jul 2025 10:43:45 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGxO+/+2HUAUPTiUYztt/lC4Yi0Q22OZoIfFBMZk64H2H2sqirYgZh1L3qOGgIkQVmmCaX6kA==
+X-Received: by 2002:a05:6214:5d0a:b0:704:9bc2:be36 with SMTP id
+ 6a1803df08f44-704a4083bcemr2613296d6.7.1752169425386; 
+ Thu, 10 Jul 2025 10:43:45 -0700 (PDT)
 Received: from [192.168.1.3] (c-73-183-52-120.hsd1.pa.comcast.net.
  [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.39
+ 6a1803df08f44-70497d71419sm10652876d6.86.2025.07.10.10.43.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jul 2025 10:43:41 -0700 (PDT)
+ Thu, 10 Jul 2025 10:43:44 -0700 (PDT)
 From: Brian Masney <bmasney@redhat.com>
-Date: Thu, 10 Jul 2025 13:43:09 -0400
+Date: Thu, 10 Jul 2025 13:43:10 -0400
 MIME-Version: 1.0
-Message-Id: <20250710-drm-clk-round-rate-v1-8-601b9ea384c3@redhat.com>
+Message-Id: <20250710-drm-clk-round-rate-v1-9-601b9ea384c3@redhat.com>
 References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
 In-Reply-To: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -94,23 +94,23 @@ To: Philipp Zabel <p.zabel@pengutronix.de>,
  Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=1647;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752169393; l=2262;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=OHsRnwsdtf93oenlkpM8OGpjPNCqkqTYz1ncE/Hukgk=;
- b=ho7GtAWEeFJp5Ux6aTEtHmHkJKzsUOAKpGEfNDI+F7l5XbF1qK2v1eRvTIse1y82RTcxYpTS9
- vSPNZAJFAqpDDKhg/zIW7SbizIxqSMy8J+QnCYzoa0xmplhJw/HPvrO
+ bh=xPkagiW22ryYRgcFeUxKsYb4R3sx64zzzkaF7TIS6rk=;
+ b=l1P9iwEOFZ7iseMUGqrDwyTv1j/GS/74kLm+7ZgYbXOn1R2j8JwTxirCensojfrRCiquhbnNY
+ RQW74FdbQM8B7MkeQZA7rAthmyuLBvNMin91wee7+2bXtn9fga4VsSS
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iuTs9OyW5AEGC31SmDpKm9IoLSg51NcbsSa3uD-DMA4_1752169423
+X-Mimecast-MFC-PROC-ID: 6_O1_f2rBY_z6D9YESjDGs8UWmFZnCJThJQVf2_jKWk_1752169426
 X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 8/9] drm/sun4i/sun4i_hdmi_ddc_clk: convert
- from round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 9/9] drm/sun4i/sun4i_tcon_dclk: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,42 +133,66 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c
-index 12430b9d4e930f7e7b0536a5cabdf788ba182176..b1beadb9bb59f8fffd23fd5f1a175d7385cd5e06 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_ddc_clk.c
-@@ -59,13 +59,15 @@ static unsigned long sun4i_ddc_calc_divider(unsigned long rate,
- 	return best_rate;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c b/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
+index 03d7de1911cd654f395ea85ad914588c4351f391..9b85bf512d4c81d0a12e8cf726d5d5440343519c 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
+@@ -67,8 +67,8 @@ static unsigned long sun4i_dclk_recalc_rate(struct clk_hw *hw,
+ 	return parent_rate / val;
  }
  
--static long sun4i_ddc_round_rate(struct clk_hw *hw, unsigned long rate,
--				 unsigned long *prate)
-+static int sun4i_ddc_determine_rate(struct clk_hw *hw,
-+				    struct clk_rate_request *req)
+-static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
+-				  unsigned long *parent_rate)
++static int sun4i_dclk_determine_rate(struct clk_hw *hw,
++				     struct clk_rate_request *req)
  {
- 	struct sun4i_ddc *ddc = hw_to_ddc(hw);
+ 	struct sun4i_dclk *dclk = hw_to_dclk(hw);
+ 	struct sun4i_tcon *tcon = dclk->tcon;
+@@ -77,7 +77,7 @@ static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
+ 	int i;
  
--	return sun4i_ddc_calc_divider(rate, *prate, ddc->pre_div,
--				      ddc->m_offset, NULL, NULL);
-+	req->rate = sun4i_ddc_calc_divider(req->rate, req->best_parent_rate,
-+					   ddc->pre_div, ddc->m_offset, NULL, NULL);
+ 	for (i = tcon->dclk_min_div; i <= tcon->dclk_max_div; i++) {
+-		u64 ideal = (u64)rate * i;
++		u64 ideal = (u64) req->rate * i;
+ 		unsigned long rounded;
+ 
+ 		/*
+@@ -99,17 +99,19 @@ static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
+ 			goto out;
+ 		}
+ 
+-		if (abs(rate - rounded / i) <
+-		    abs(rate - best_parent / best_div)) {
++		if (abs(req->rate - rounded / i) <
++		    abs(req->rate - best_parent / best_div)) {
+ 			best_parent = rounded;
+ 			best_div = i;
+ 		}
+ 	}
+ 
+ out:
+-	*parent_rate = best_parent;
++	req->best_parent_rate = best_parent;
+ 
+-	return best_parent / best_div;
++	req->rate = best_parent / best_div;
 +
 +	return 0;
  }
  
- static unsigned long sun4i_ddc_recalc_rate(struct clk_hw *hw,
-@@ -101,7 +103,7 @@ static int sun4i_ddc_set_rate(struct clk_hw *hw, unsigned long rate,
+ static int sun4i_dclk_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -155,7 +157,7 @@ static const struct clk_ops sun4i_dclk_ops = {
+ 	.is_enabled	= sun4i_dclk_is_enabled,
  
- static const struct clk_ops sun4i_ddc_ops = {
- 	.recalc_rate	= sun4i_ddc_recalc_rate,
--	.round_rate	= sun4i_ddc_round_rate,
-+	.determine_rate = sun4i_ddc_determine_rate,
- 	.set_rate	= sun4i_ddc_set_rate,
- };
+ 	.recalc_rate	= sun4i_dclk_recalc_rate,
+-	.round_rate	= sun4i_dclk_round_rate,
++	.determine_rate = sun4i_dclk_determine_rate,
+ 	.set_rate	= sun4i_dclk_set_rate,
  
+ 	.get_phase	= sun4i_dclk_get_phase,
 
 -- 
 2.50.0
