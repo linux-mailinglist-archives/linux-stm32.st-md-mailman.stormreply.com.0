@@ -2,79 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42EB4B01909
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jul 2025 12:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59B6BB01911
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jul 2025 12:01:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC55AC3089F;
-	Fri, 11 Jul 2025 10:00:23 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18128C3089F;
+	Fri, 11 Jul 2025 10:01:03 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2791EC3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D326CC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jul 2025 10:00:21 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56B3GH05016058
- for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 11 Jul 2025 10:00:20 GMT
+ Fri, 11 Jul 2025 10:01:01 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56B1XAG4018452
+ for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 11 Jul 2025 10:01:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- S8yPPRkJL/ZzeV4qZbIKYir/HwBPXfbbXpIoKWUgSDE=; b=axw5SR9uMFk3cf5O
- c65Nu/hMWRZOrxPT5SbOCqJIjVKnOvBhRE8X0fQ6i0KGuZLwsJI0EMBLgz44VhIW
- WcVUXjWHyNwtSFfylk/BbF+Eaf/rUfoS1cG536ujCumN/i+ut4Zxunksp+PYpzh7
- 9T05vbaYGayHfh2hWaTcUL5KISKFpUwpRwKtAn9d9LconQakq9FBerVWsIjzrkET
- twVdqZ98NXYE937d6Lqi2sragbZoGI3siTh6HPt3YfEY+J9hwAYplrs+on2CVKB8
- qWsm/cZD23v+ESTat3Gkt/SyuF/AK3Lr8QaRKSrvAKbwTUDr9l5tbRMmg66stqP7
- Qqv/kQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47ttj9s0mt-1
+ S8yPPRkJL/ZzeV4qZbIKYir/HwBPXfbbXpIoKWUgSDE=; b=NgVA7m81R1L9A0Ki
+ QNp4kFDi3N8DvO3qx9RAcYjs1jtC9/B+avlbDc1rtVhy9F3stierm1OKhJXjyvGW
+ YdJRQ9sJZI2dq1voO32H+V90S5DBNkGEzMB+xaAjR/XUQqiqXKUbmfFIb4pfvmVg
+ addsweOBBLqrhC+UeeNjdbg6BndSLotgYWOKAXr9XGGsXN938CxJNVJZZLif9/67
+ bTDai8X5rgEivv0G/Ddbk30UzPRe6GPhQK07mI7NvCLN/vavWRbSaFIQIrbwsqW6
+ eGBhsOpspzm7+h66u4RlX5bUzXbU/874gi2Q1I2OiV3jDc5IUlMIMm7Q1MkP6jwn
+ rNhUlw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 47tkf322dj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jul 2025 10:00:20 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7dfd0470485so12237185a.1
+ Fri, 11 Jul 2025 10:00:59 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7de3c682919so17712385a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jul 2025 03:00:20 -0700 (PDT)
+ Fri, 11 Jul 2025 03:00:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752228020; x=1752832820;
+ d=1e100.net; s=20230601; t=1752228058; x=1752832858;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=S8yPPRkJL/ZzeV4qZbIKYir/HwBPXfbbXpIoKWUgSDE=;
- b=xIV6bGuihFO4x2Ka46lZ3DCbIRANr5xrj78kmhzxPoCea/JMrEKGiytlH0OB2OE4Uv
- zjTF2e+FNOmPRmyyoQYMjp0yj08O0nJEwHq1clF1XC8gN1JMz14X5EmFQPmNvH8WWRzQ
- fhrR7DWY4ri6tNonQ1tZnCADolXM8nbWS86QKJuwr5abvzhAfI+wLlvwRkFDovfDEBal
- P0B5o5i1YqeaQf9Y4tnovMtPvVmOAV/JMK+IdYC4FJZ14yCs0PjCqT8soEicrsI73dFM
- hirKFJ9oOFfB/h6r43OPSKy4cUAWLVMNxc37M9b2RdYyqeT3CR/LJXIoFk9qeZeAgVvk
- 9R2g==
+ b=fU+B16bjDXOH1FyXZtJpQAcKK9YrgywzarB2D6xAh9fbsq37Aq6oDYasbcNqK+x7IV
+ OJyrPjQh/jv7ygrEYOY/W9OJVqFyetOgXGOVumnEXRpPYpVvmSoobxp6JuL2bOrFZ90Z
+ Ksuv3AjQPD12sJr6A+x5tEepHZ9DQ83DrSzrwdq6g5chSywVdIovNfYSg5CuXSDdnf8U
+ JArPtdyBs7NUWmYUK9FT6reDny6qnSR+1jUBmV58X8cqaSJprQV9T0dZrCrJhRzmINEq
+ +3CfWhdgaKgFSWvYoTbA3wJs5yBt/JX8y1dU0FmG9OyLjzRfvKD+jkU1Epww8sJjJfKF
+ QBAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUz1tQ4rvk1+0g2j7CtTb0zDe7Cwu/03XnviiGKfU6lt7V7EhV95tpYO1M9J+oWYFA13bAbeZLdTg/Mmw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxVXAX7JDriX6HdXABvsEapfYFHri7ATscTT8jTEUHIdrAcApD/
- LxWioJyf5PGHZP9oLoWp8WcDO6oZH02JCy+NGGJEQA85b/1jllOLwIJV65sT9yLeVcAAVxc4HYU
- dktnI1ggCHKExDLjdeYYZ1Qd0I1OvHaVWBZjfKANZQoYz2IAjXhXV/2AitvAHrcD9QAYoTuYnEG
- DjIOJVLQY=
-X-Gm-Gg: ASbGnctI1qfjqlqVo6bBJEWYEEu2Kmy0yefbR9P/lLZPP1xXkGh3aKuxLtWj9IQzGrS
- Az2V0E7FI4nOZ9MLcRLHUyo8M22EsK7c+Z2a9hhZiMNWlw4M3ynSG+R3jj6EtpDiKcQFvWVadsw
- y/+cIcvkhUCRaNq7B79F24NKtXLRPqz8ZwqPE6p8zgunphohUU62qi/lrCBASvqOZFuLm2ze5Eq
- 1Y9lDfN72L/AsRney94i+k4ylfmFdx2FrRl8N7dbv7ywOTVSUEDtzIgcys1Q4nTwEs8YOFE3YO7
- 5PepxqggLznUgAq5+wxgOvVu5w4pvk1chjL1GFyjiDHt3ITcP/VYSYiX0gfskTk3q0zGk35O0Um
- ws7eji0qBqySLJVlb5g7z
-X-Received: by 2002:a05:620a:1791:b0:7d4:4353:880 with SMTP id
- af79cd13be357-7de97c2cee7mr101575685a.6.1752228019696; 
- Fri, 11 Jul 2025 03:00:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFlhPKclj6Yn0L7q+F2xj0Xt2MfgZll0J2UP/WxG5I7gSC0cNE/OxkTsOoKzfyHayBKXzvFZg==
-X-Received: by 2002:a05:620a:1791:b0:7d4:4353:880 with SMTP id
- af79cd13be357-7de97c2cee7mr101571885a.6.1752228019106; 
- Fri, 11 Jul 2025 03:00:19 -0700 (PDT)
+ AJvYcCVLkyPKp7E5mLTx0asZq/AG3KwwmUkcmmBlNJPlipQYCPMthQV1uGjCUetEfa4vHeFkPx3irX7Jq5kKMg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxjfaqhqCZ8zQeGWZC3kiE38VBykvFzinCo/HmIKnNZOW0GnBY3
+ NKJPfmCG6HD4jRipUsA6UPB9O9tLxyPDvRKMnRsvzMe3KZrJbpnnxmOrXOGQPz/WIYkvro8gJeF
+ je2ALwF5mp3eXbp8k95S4mrzgGmsZpomcLRrEWooiopr5kM+VVN+29ZdCoinPK3lT86Z9Khxvvj
+ zeu0aeU3A=
+X-Gm-Gg: ASbGncuRhY0DpeOSsLzEu2enLAmjFRMudWQeE9xV139D453Od1fNIcLj9AEjOcrv7mU
+ UCP4cSALQWz3z9ayUBjHGgGdV/m5wV+GS/Le2I9sZOMJP33ICeDSj8RI3DQ69/nGYLa3pMK2RKQ
+ GWrhWam3pQxLyTYyRpRRfSj0d8ayLJtQv9KnuO6eJ+D3z3JaQ3ujZl9gj6Oq7IUGMc3N3r4SsqK
+ ZkpK0BqPLfdBBlRJwGgBmw+/OzstB17fueOsabI3OPO06pzUItRbUYW9PzL+QRZ8veK0FDAkitQ
+ poglNgYAfoMn1U/ZwKg63hrTn6iYU4u32miGo8mPb/1wrA4gW1FgiturD2Rvb95R1gXyBRJJbSp
+ fKXT81VJJOg/YgN0Rm2s1
+X-Received: by 2002:a05:620a:198d:b0:7d3:c69e:e3b with SMTP id
+ af79cd13be357-7ddec077b97mr142431285a.12.1752228058109; 
+ Fri, 11 Jul 2025 03:00:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFLY0/uyOhHuHX1X9pWT4ZRBIdqoYlueRYMn0zZIdfXxI0Ouch9sgLT86MrHZruF7j7b5jRXQ==
+X-Received: by 2002:a05:620a:198d:b0:7d3:c69e:e3b with SMTP id
+ af79cd13be357-7ddec077b97mr142425885a.12.1752228057424; 
+ Fri, 11 Jul 2025 03:00:57 -0700 (PDT)
 Received: from [192.168.143.225] (078088045245.garwolin.vectranet.pl.
  [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae6e7e907c7sm276215566b.17.2025.07.11.03.00.12
+ a640c23a62f3a-ae6e82645c3sm274825766b.99.2025.07.11.03.00.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Jul 2025 03:00:15 -0700 (PDT)
-Message-ID: <9b1c3318-7d89-4fcf-99ea-3b446793a758@oss.qualcomm.com>
-Date: Fri, 11 Jul 2025 12:00:10 +0200
+ Fri, 11 Jul 2025 03:00:43 -0700 (PDT)
+Message-ID: <ee4fb01e-4fc4-4082-be96-3be22e1769e3@oss.qualcomm.com>
+Date: Fri, 11 Jul 2025 12:00:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
@@ -98,30 +98,30 @@ To: Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
  <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
 References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
- <20250710-drm-clk-round-rate-v1-3-601b9ea384c3@redhat.com>
+ <20250710-drm-clk-round-rate-v1-4-601b9ea384c3@redhat.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250710-drm-clk-round-rate-v1-3-601b9ea384c3@redhat.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzExMDA3MCBTYWx0ZWRfX80TT8Rjmtrv6
- x3wmCETWJM1jrAiazs/6Vv2cm4tvEJsNa5UQjjl7woC2Y6ITywSRCZ1UCKpeYqGcORjm6mL1vBq
- m5sn0nT5Is0HhBoWTrGlrGwpHviUpU0wDVVfrrvh34ik1keO+sHTxdZXalLcTop/qWc41Ne+TrJ
- np+3Jwj4k2I0Tzh0cBq897SqShp0w0cRCa7MYdPsmg/XQC/1RxoaKJQPbzCloLh+rThdcVR0lRM
- HlCZSKAYGLNPUt4T69CXT8i63vmPXoDT7i2p+x4nq15BD4EUQV5MsEldiwR5K/RXiHnv7G13h7g
- ovsbNuVaUCqr3oqxf/18HXAYNFSXydIbFcqT6cg4GiINgwDTaIefaKR8jF1UCDATNmnXMNMm82W
- CSpLAKqWUTrRVs0Cbyhc4Sc4YXA2ye+3HVX+JvUeMS4+lNPdC5PkBr202f15gozUwbbSVKXy
-X-Proofpoint-ORIG-GUID: HFLruaiwpiq4-S23osO9wJfjqPj5_Q4y
-X-Authority-Analysis: v=2.4 cv=Gu1C+l1C c=1 sm=1 tr=0 ts=6870e0b4 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+In-Reply-To: <20250710-drm-clk-round-rate-v1-4-601b9ea384c3@redhat.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzExMDA3MCBTYWx0ZWRfX6qYzoVAdLAzL
+ aRLTHmFv26ugRJUKyA8s97Oz5PgP835zxPQJsILlK9gvWV5zTY5z4D+7x8kqp3wrsligraAiaju
+ ETC4gVXFskt9SWIFr0AqqpKOsyTLVeJLVAu+2DzJ2ZTZi57CBSv/OpE6TMYLh2CP7C1+1bUmUzv
+ IQ9Qlf5ky2FAtuzF73fd9Bg01iXoDw/9hYd0fpRLDOAPjrOJqwxIG0XTEve1IioRi0+A/NzZz3k
+ j9LQXEA9S/GpFQsk88KvDqPTQHC0hUWLuhxVcGyxblaebGZpqPSyf8GjBgTiIwGAnEgi73Wj1Pp
+ n3GtcwAHYYVbrhyeSHrr8MQztt3g6x+gwVEWiPJV26/SZBYdw5Atr36p8DxRNB7SRQB0LlT3Mz8
+ K0pq6ktx5DOXHBXa+F6gLbd96W2GZ+K1MLurym0ey1yOhx5x0DaY57kLl/cMsBbfAgTU/eH1
+X-Proofpoint-GUID: 5mwbdGekvlldULg5TiUH3bpFqitCyQN5
+X-Authority-Analysis: v=2.4 cv=Xuf6OUF9 c=1 sm=1 tr=0 ts=6870e0db cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
  a=IkcTkHD0fZMA:10 a=Wb1JkmetP80A:10 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8
- a=Lh8LEGs6nEvmLzq652MA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: HFLruaiwpiq4-S23osO9wJfjqPj5_Q4y
+ a=Lh8LEGs6nEvmLzq652MA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 5mwbdGekvlldULg5TiUH3bpFqitCyQN5
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
  definitions=2025-07-11_03,2025-07-09_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0 impostorscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0
- suspectscore=0 mlxlogscore=689 classifier=spam authscore=0 authtc=n/a authcc=
+ suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0 mlxscore=0
+ phishscore=0 mlxlogscore=624 classifier=spam authscore=0 authtc=n/a authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505280000
  definitions=main-2507110070
 Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
@@ -129,8 +129,8 @@ Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/9] drm/msm/disp/mdp4/mdp4_lvds_pll:
- convert from round_rate() to determine_rate()
+Subject: Re: [Linux-stm32] [PATCH 4/9] drm/msm/hdmi_pll_8960: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
