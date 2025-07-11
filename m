@@ -2,89 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40E7FB022F5
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jul 2025 19:45:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA7AB02421
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jul 2025 20:52:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C666AC3087A;
-	Fri, 11 Jul 2025 17:44:51 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9A33C3087A;
+	Fri, 11 Jul 2025 18:52:11 +0000 (UTC)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19B53C36B0E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4245CC36B0E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jul 2025 17:44:50 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-32f2947ab0bso16935871fa.3
+ Fri, 11 Jul 2025 18:52:11 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-717b580ff2aso22203897b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jul 2025 10:44:50 -0700 (PDT)
+ Fri, 11 Jul 2025 11:52:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752255889; x=1752860689;
+ d=linaro.org; s=google; t=1752259930; x=1752864730;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u+ZM5SO8L4rZ2xYIS3dtWrMrDyHsyXlquIkrSDaXE+w=;
- b=oWOqQZhfDqFTjDNIw/cykQXMEnFZT4wEtiV8xAVcnXNZd4lPqwNNWor6lGuOmWcnvh
- TwvBO6hjWDJIR0E9lifLrhBlIqg3t23E0zYXbJ+TQe9tLbx88pvmo/8R+A48z5ba5N92
- xHsMECxQYUVEkdFuYd+BPZa00X8hWQIfozJKkomJSFjfu8M56S3HOzcCWIIlaL02uHlK
- oZ+Vicp0Fc3U8Ps8D8xzbnc1SnuqhCO+9PRMOoMnI05xrqVqjjLbUHbijucdoS9+gQSe
- Z/cEPLmmFAwgT8a31PuwAp5U3y7RNYDYffzVEnA/7HpamAgSwNel/cUNchoMxl0TuRzi
- s8MQ==
+ bh=Y0H6HqwurK8du4Yig7CnNYD3RLplnogpWij/DKV6wnM=;
+ b=IJzRIyG3ZKeh8GZGavMq9s9tYtdoqwT0pt91GUFh9dmmQ6oLuD83P+6FkNSxHBOrdo
+ uDHC3Wrs/TPrqdFeW1m7znbwGeLbjtl/fDxOAX5MbtQMkAu3BWpNnPU1nzGmu72C9Uv2
+ l2wjpvNSqAf5DFHS8i6aI2EeIcwVYBFN+O2pHTLVSP66kbC+PK+iy5MGisawK9P0FPei
+ n3pU/nZGunRA0MYESrAoXJOuxZfP73tz3rkP8KgKkWmYExSYQiaZjeqUa/C8ZPTo02gy
+ EL9oqibCDcuETLksHoeEoOc5QfM07YR5Jylc6NyNdWW96DFLW6jeEslesJB3smfH6Aqr
+ 2LBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752255889; x=1752860689;
+ d=1e100.net; s=20230601; t=1752259930; x=1752864730;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u+ZM5SO8L4rZ2xYIS3dtWrMrDyHsyXlquIkrSDaXE+w=;
- b=G8ISVxjju4fI+FtY+NJ15NNrvYIjfJ5UjqlBFqyEuyznLhL3D/L+gMfXb9oaVroCGV
- byj8tL+R/lPJK3nWa0bSQd8vW5bHIKJT6M2XM9XLXAss7Rwyn+prkAr9W0K41fK2IGsA
- JZ8T4hORZuGrBv9z9qzOQ5fNGthxH275fujagNmRx5pJ53ynjIlQLKto0+V7pqp5T+aU
- IoGVtSL/pFf2wTvvwbT35FOWA3eLzuYoUdhYVVj0OtQZzlKzvO0lzIHOsUtdxKtNzzcn
- ZqxFvfM6hVYTPDUXbcm4E5vtwyjgX9/Ea3YlOPy+75ZKu4U/GnlKkqOiFIpEyCWh5Z1y
- yR+g==
+ bh=Y0H6HqwurK8du4Yig7CnNYD3RLplnogpWij/DKV6wnM=;
+ b=JY1YfZUUTxGnUgcdDqjrc1BKmkYtynP+U45cRQ1KYvseWx1WkDZdGDHPBI2zeOsXUZ
+ BZiZAyfd0LkIWtCu9+sOtrhwxFZDGUlqFV3YiEEI20XBkEEyJ910b14ziyBKh3qKxGmM
+ wOR0mKlmXx/PHmx1KNUkRCSge2mAlZiB2OXWr7GYdxTaHzc3OZpK0IfOuYwewn9ESE5i
+ +oHZnN3rDUsGmSd4x52wAUA8OiZmqyHoggpAmlq6UWiSXCvnxPd/QznGQj3SUgqf5XPz
+ hpfYsxhAVWSqXiPWPAzwSvAsWU8Ta1LoU/uJOuviiyT4Iygv1/YswlawM4Tw9qW+1FS2
+ 85Sw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVLW5FpYEYg4yap3bj+d7XHVNV9khSkyZ7gQs3yh74KAut6t+/6fo97J+JJCVVI2fERc0nLC+r88lPptA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzjVv+e5Wz9BUnZv8vfz9gFRbbga7JijwNEnsjU/ZkIrGoRvZGJ
- RP4FA1rWVOvdJOT6TdZYYko/d4BeSbbg3sx4Jk4sJddtB3Mn07EzuQ4AdGcK0fngrQs+hCKfJYI
- oqTObMkWKmkBKYIPXYrBacLTI8qKkrOdClCbOoNu/0w==
-X-Gm-Gg: ASbGncsI6ZGeOl4jIJ0VHEWibIibLz5rB7+xfxf6znj15Qi53gHVkvjmevtnIwbHjW+
- eyzSYJiZHrL3EnH3PUAKGxA3gDJ31gooFy8oGrxtqvpB3y5lfR30M+kS7Pv2bWfPbwtlzATXGY3
- io3A+fymDvSufMy93E6RZNzMpwz+S9lA8QlkreYij+5By+ct6F96Df+YdAfx1bAqrYf0o0JSV+I
- bkZUAw=
-X-Google-Smtp-Source: AGHT+IH6ZOzBfHIgYUwgOc3NHyt2gji+Em8NzLEp8xFU4pLvltizLDn2SrTtw5BwtYgzrpRFDHd1anYmDStmm3/BYxA=
-X-Received: by 2002:a2e:ae05:0:b0:32b:75f0:cfa4 with SMTP id
- 38308e7fff4ca-3305343ffbdmr14799021fa.25.1752255889239; Fri, 11 Jul 2025
- 10:44:49 -0700 (PDT)
+ AJvYcCUgWM3pB+oPW+E2OlMsRu0VXN1fzvWTpwtR4Af82/eiWV6n++H97l9iLTHvAsldqou8rApEv3JDxAjBbw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyalFJcU88TY2hYtS0KzONmtxGxHiiPblQpJKpj1D0R5MsMSix0
+ dw8oNSzfKpRv5ZvlSrcszi7353lUr78IiXpNr7iWTgddH6ty4HOw1vHBO2abSNxERIyICQtGqN5
+ DmtIJmi28ZdV4pjbzhQreQL+SutAtrGqvRzrFZ0CTYg==
+X-Gm-Gg: ASbGncsbEw0oMu6uDpc+XhUnuGHD3ukpQhi0MuZ7Nq9YumqAf2uvf81gU0Y/qUO7Noo
+ 3tuu1mdGNtXsu5fqOHa/PC9FJhBNB2OGm/3fHsTQos0utPZyXQly/K6x5qTVfQhLvJjEEsEfmya
+ dmysPwF+QOWBfh8SufPVA7NHBB9iitdNP12caut367er5LFdNLZaFhql2aBMC0jRrfkz6fJbQ1X
+ C827UY=
+X-Google-Smtp-Source: AGHT+IFufbqtAPFq7ox05U9WlMb90rIorTP+4zmeOZAsbdsvZ9oDhtS+8uVsO137m7BSFuFbQhKQyBmLxkmw/Jfm0ww=
+X-Received: by 2002:a05:690c:6ac2:b0:70e:73ce:80de with SMTP id
+ 00721157ae682-717daeb302dmr49577697b3.25.1752259929914; Fri, 11 Jul 2025
+ 11:52:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
- <20250710-drm-clk-round-rate-v1-5-601b9ea384c3@redhat.com>
-In-Reply-To: <20250710-drm-clk-round-rate-v1-5-601b9ea384c3@redhat.com>
+References: <20250711-hdp-upstream-v7-0-faeecf7aaee1@foss.st.com>
+ <20250711-hdp-upstream-v7-1-faeecf7aaee1@foss.st.com>
+ <11a49801-d187-479b-865b-810ca5adbf00@foss.st.com>
+In-Reply-To: <11a49801-d187-479b-865b-810ca5adbf00@foss.st.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 11 Jul 2025 19:44:38 +0200
-X-Gm-Features: Ac12FXxUNTUQvVOGg3MoOkpShRe7WywXW6kbpP4WvN3P-CcJwwv5gR7MoObTWCg
-Message-ID: <CACRpkda3R+2hhzvd+snkTGrRb-gZ8OUvzAhFE5Cg6yXfZ+E4nQ@mail.gmail.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
- David Airlie <airlied@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 5/9] drm/pl111: convert from round_rate()
-	to determine_rate()
+Date: Fri, 11 Jul 2025 20:51:56 +0200
+X-Gm-Features: Ac12FXxNxgzgzDBEHJS_Xpef7MtqDivB9Et0gKV7kxfFrSfbv0PvRNxLHxkuJiA
+Message-ID: <CACRpkdYXQRGO7BrF9+08StWyOkDoqLhNQdgk=bhoccg1BogpqQ@mail.gmail.com>
+To: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 1/8] dt-bindings: pinctrl: stm32:
+	Introduce HDP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,13 +93,12 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBKdWwgMTAsIDIwMjUgYXQgNzo0M+KAr1BNIEJyaWFuIE1hc25leSA8Ym1hc25leUBy
-ZWRoYXQuY29tPiB3cm90ZToKCj4gVGhlIHJvdW5kX3JhdGUoKSBjbGsgb3BzIGlzIGRlcHJlY2F0
-ZWQsIHNvIG1pZ3JhdGUgdGhpcyBkcml2ZXIgZnJvbQo+IHJvdW5kX3JhdGUoKSB0byBkZXRlcm1p
-bmVfcmF0ZSgpIHVzaW5nIHRoZSBDb2NjaW5lbGxlIHNlbWFudGljIHBhdGNoCj4gb24gdGhlIGNv
-dmVyIGxldHRlciBvZiB0aGlzIHNlcmllcy4KPgo+IFNpZ25lZC1vZmYtYnk6IEJyaWFuIE1hc25l
-eSA8Ym1hc25leUByZWRoYXQuY29tPgoKUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxpbnVz
-LndhbGxlaWpAbGluYXJvLm9yZz4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+T24gRnJpLCBKdWwgMTEsIDIwMjUgYXQgMTA6MDTigK9BTSBDbGVtZW50IExFIEdPRkZJQwo8Y2xl
+bWVudC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4gd3JvdGU6Cgo+ID4gK21haW50YWluZXJzOgo+ID4g
+KyAgLSBDbMOpbWVudCBMRSBHT0ZGSUMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4K
+PiBPb3BzLCBuZWVkIHRvIGNoYW5nZSB0aGUgbWFpbCBhZGRyZXNzIGhlcmUgdG9vLgoKRG9uJ3Qg
+d29ycnkgSSBmaXhlZCBpdCB3aGlsZSBhcHBseWluZyB0aGUgcGF0Y2guCgpZb3VycywKTGludXMg
+V2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
