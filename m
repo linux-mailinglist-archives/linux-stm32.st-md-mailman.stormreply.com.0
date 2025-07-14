@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FE32B14873
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8A0B14876
 	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 08:48:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40005C32EB0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F4F6C3089F;
 	Tue, 29 Jul 2025 06:48:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29EEEC36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4762C3F92D
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 14 Jul 2025 08:00:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0186245C91;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 47C7F5C5AD2;
  Mon, 14 Jul 2025 08:00:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CAB46C4CEED;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E15EDC4CEF5;
  Mon, 14 Jul 2025 08:00:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752480027;
- bh=x7tBS5TJxVqQ22cB02A2Vi0xzr6SLrJTnF6VPCHBuUc=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=WUUqJAx/sxPwfUHZBKTN/pEBNRu+2xugoe5P+8CKGVR9znodPsnWpP8n8QTKaP39h
- kB/vr5SfJSW6bbAb8jt45oga+JRojaoB/ZziIDudTu8z0+ZDHDX3gVuAWxPKtP4lZZ
- 1v7qz4k4K6dL14tDN6S0ru2GXlQW37t41BQlHS9hN3V5kgVhniHvKSO9WfsmEjatvL
- 2Q7kbCF370XwJFdD6XpGxfnxb148k6Vc9qZt9e1SmEGxIXWs9jy7cazCYVsjVUwi68
- NqXFTJLpYZPm6yLKSduqCnqVIZaDhTTwn75lVwe80WStfd/uxZVm4L0s9wLAevHtMr
- Ie12TrVwJdsig==
+ s=k20201202; t=1752480028;
+ bh=XpzvAHUxAzYVFgTQa2ypdhi4koHcoO778v2ak/zqA4E=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=HDrDuibBTCydpiKJ0NbveuCOlz7D3WxJr3Rf8dLFGuFGFjp0wpaLejaB8MuItUD+1
+ BL2dih69sQ6thOdZodL3eqIvpYNdPD396Pdhi5xkWqsuTcRN6lzycgmgC5oi8+4jif
+ BN77iEwF2KWHaOVGfgkndxiPW3c3yc7Z3UyaEv7MHbMQdaOdRwWUB9Bbe3MyUEBEPB
+ CfoQaBRoa3BxpUVICYUgQzyOt6HW2nAzvm1rersBHsjZ8JS2t9eQZaExlXZcfaMgQ+
+ 4+yL/dJACiSGqixmATbMO6Ufr50HRhEZzHxnt2Ndt+mZSt1Xz3I5Z9V8HqlGvXwzyZ
+ m+jMqI87e1UmA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id BD7A9C83F1A;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D094CC83F1B;
  Mon, 14 Jul 2025 08:00:27 +0000 (UTC)
 From: Rohan G Thomas via B4 Relay
  <devnull+rohan.g.thomas.altera.com@kernel.org>
-Date: Mon, 14 Jul 2025 15:59:16 +0800
-Message-Id: <20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com>
+Date: Mon, 14 Jul 2025 15:59:17 +0800
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIANS4dGgC/x3LQQqDMBBG4auEWTuQDBZLr1K6CPHXzsKxJCIBy
- d0NXX483kUFWVHo5S7KOLXobh1hcJS+0Vawzt0kXh5+CiPXdYuJN7U986IVhUcvz2kRCXMC9e+
- X8Q99e5PhYEM96NPaDauDp35tAAAA
-X-Change-ID: 20250714-xgmac-minor-fixes-40287f221dce
+Message-Id: <20250714-xgmac-minor-fixes-v1-1-c34092a88a72@altera.com>
+References: <20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com>
+In-Reply-To: <20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -49,11 +47,11 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Serge Semin <fancer.lancer@gmail.com>, 
  Romain Gantois <romain.gantois@bootlin.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752480026; l=990;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752480026; l=1448;
  i=rohan.g.thomas@altera.com; s=20250415; h=from:subject:message-id;
- bh=x7tBS5TJxVqQ22cB02A2Vi0xzr6SLrJTnF6VPCHBuUc=;
- b=eOyvh3AjlRrzHzO8kmZyoZOWk31VG+/F2coZiafOWwdLSJAK9xzmHqHbMMCpIaCjoQYXDcbwX
- o0FxciB5jAlCR/+aFZH/hv6+9wY3JRJfY2tV2ejIrqE2psmZwydwODO
+ bh=oFA2+kb2AvW4R/3k8yiyiYdyPGfCRckJUe8sIarPelM=;
+ b=EpWkcMwrFCOnahq0Sl2yqqNCuHkZ5+aiumNQUuGm3nIiRP/zrTLO8zBmThd3neqcinM6oKkYO
+ eznyo+EFxqaBHNVY5L+WIa8S1nkwy9pKMLTjSZ2QiRppcCei+eDBdO+
 X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
  pk=TLFM1xzY5sPOABaIaXHDNxCAiDwRegVWoy1tP842z5E=
 X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250415
@@ -63,7 +61,8 @@ X-Mailman-Approved-At: Tue, 29 Jul 2025 06:48:52 +0000
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
  linux-kernel@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: xgmac: Minor fixes
+Subject: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: xgmac: Disable RX
+ FIFO Overflow interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,32 +80,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch series includes following minor fixes for stmmac
-dwxgmac driver:
+From: Rohan G Thomas <rohan.g.thomas@altera.com>
 
-    1. Disable Rx FIFO overflow interrupt for dwxgmac
-    2. Correct supported speed modes for dwxgmac
-    3. Check for coe-unsupported flag before setting CIC bit of
-       Tx Desc3 in the AF_XDP flow
+Enabling RX FIFO Overflow interrupts is counterproductive
+and causes an interrupt storm when RX FIFO overflows.
+Disabling this interrupt has no side effect and eliminates
+interrupt storms when the RX FIFO overflows.
+
+Commit 8a7cb245cf28 ("net: stmmac: Do not enable RX FIFO
+overflow interrupts") disables RX FIFO overflow interrupts
+for DWMAC4 IP and removes the corresponding handling of
+this interrupt. This patch is doing the same thing for
+XGMAC IP.
 
 Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 ---
-Rohan G Thomas (3):
-      net: stmmac: xgmac: Disable RX FIFO Overflow interrupts
-      net: stmmac: xgmac: Correct supported speed modes
-      net: stmmac: Set CIC bit only for TX queues with COE
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 14 ++++++++++++--
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c  |  5 +----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   |  6 ++++--
- 3 files changed, 17 insertions(+), 8 deletions(-)
----
-base-commit: b06c4311711c57c5e558bd29824b08f0a6e2a155
-change-id: 20250714-xgmac-minor-fixes-40287f221dce
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index 5dcc95bc0ad28b756accf9670c5fa00aa94fcfe3..7201a38842651a865493fce0cefe757d6ae9bafa 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -203,10 +203,6 @@ static void dwxgmac2_dma_rx_mode(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	}
+ 
+ 	writel(value, ioaddr + XGMAC_MTL_RXQ_OPMODE(channel));
+-
+-	/* Enable MTL RX overflow */
+-	value = readl(ioaddr + XGMAC_MTL_QINTEN(channel));
+-	writel(value | XGMAC_RXOIE, ioaddr + XGMAC_MTL_QINTEN(channel));
+ }
+ 
+ static void dwxgmac2_dma_tx_mode(struct stmmac_priv *priv, void __iomem *ioaddr,
 
-Best regards,
 -- 
-Rohan G Thomas <rohan.g.thomas@altera.com>
+2.25.1
 
 
 _______________________________________________
