@@ -2,37 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00694B04011
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Jul 2025 15:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA33B04042
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Jul 2025 15:40:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C62AC3F92D;
-	Mon, 14 Jul 2025 13:34:57 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9028C3F92D;
+	Mon, 14 Jul 2025 13:40:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5BCFC36B18
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34C20C36B18
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Jul 2025 13:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=rkKA5JFXkaqeIgKnZeTRvq/H+eMfFQ7tSAFHadzv+i4=; b=qPYqJaoStTW6WZY8E3xsfppAcV
- GciwfhUoAIxtaUx5hRVyOQZL595Nutl12IeZGQ+2QwMLot/GFSllOAsMkFzzwfSJiTKTwqNREFIWM
- u1tdKdG9gNKJ9cvGzr99Z+DlXIe3rzBruOF4Hcro7UHi3k4oDscE48rIsYpUmNuaWcqU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1ubJKR-001SkI-Ao; Mon, 14 Jul 2025 15:34:47 +0200
-Date: Mon, 14 Jul 2025 15:34:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
+ Mon, 14 Jul 2025 13:40:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C6D7E439B0;
+ Mon, 14 Jul 2025 13:40:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC30CC4CEED;
+ Mon, 14 Jul 2025 13:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752500417;
+ bh=ZbTnyFu2wdFpma2HJU3wztP0Nr+eewvviXPIjhzHS7U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=O9OMVAFaYpKkEUo00VozeeMaavQOzwZLjAlgLt8ICUjTf1vDJGPmPiVM3dxUiQT8W
+ 4VRwcoLQPJ6JrniWAoHeMOl0Y7I99B7kBMzoowssvE7vvbJD99wGH+WqyeduyxvpiE
+ LFyTzOvhFSUSJalcrHQy3+4qT/AwKsvDWEJMVZJ9ttMUJkd+Zn1hL7vUYIym4+A5lG
+ Nbg4PYgM5l/qXtq27N0m06xeSHOQnvTqco088zagti/MB+TNyP4Zi51PU8IHExyzn7
+ /cSLgh9xO92hCf5ggN+Sa9BM4yu/tdDtKQgIgmfTrwZUDTk//QGnPMaS3QdxcHdY74
+ WwgdJjslLUiQg==
+Date: Mon, 14 Jul 2025 14:40:12 +0100
+From: Simon Horman <horms@kernel.org>
 To: rohan.g.thomas@altera.com
-Message-ID: <bef4d761-8909-4f90-8822-8c344291cb93@lunn.ch>
+Message-ID: <20250714134012.GN721198@horms.kernel.org>
 References: <20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com>
- <20250714-xgmac-minor-fixes-v1-1-c34092a88a72@altera.com>
+ <20250714-xgmac-minor-fixes-v1-3-c34092a88a72@altera.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250714-xgmac-minor-fixes-v1-1-c34092a88a72@altera.com>
+In-Reply-To: <20250714-xgmac-minor-fixes-v1-3-c34092a88a72@altera.com>
 Cc: linux-kernel@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
  netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -40,8 +44,8 @@ Cc: linux-kernel@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: xgmac: Disable
- RX FIFO Overflow interrupts
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Set CIC bit
+ only for TX queues with COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,56 +62,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jul 14, 2025 at 03:59:17PM +0800, Rohan G Thomas via B4 Relay wrote:
+On Mon, Jul 14, 2025 at 03:59:19PM +0800, Rohan G Thomas via B4 Relay wrote:
 > From: Rohan G Thomas <rohan.g.thomas@altera.com>
 > 
-> Enabling RX FIFO Overflow interrupts is counterproductive
-> and causes an interrupt storm when RX FIFO overflows.
-> Disabling this interrupt has no side effect and eliminates
-> interrupt storms when the RX FIFO overflows.
-> 
-> Commit 8a7cb245cf28 ("net: stmmac: Do not enable RX FIFO
-> overflow interrupts") disables RX FIFO overflow interrupts
-> for DWMAC4 IP and removes the corresponding handling of
-> this interrupt. This patch is doing the same thing for
-> XGMAC IP.
+> Currently, in the AF_XDP transmit paths, the CIC bit of
+> TX Desc3 is set for all packets. Setting this bit for
+> packets transmitting through queues that don't support
+> checksum offloading causes the TX DMA to get stuck after
+> transmitting some packets. This patch ensures the CIC bit
+> of TX Desc3 is set only if the TX queue supports checksum
+> offloading.
 > 
 > Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
 > Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 
-Please take a read of:
+Hi Rohan,
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+I notice that stmmac_xmit() handles a few other cases where
+checksum offload should not be requested via stmmac_prepare_tx_desc:
 
-This appears to be a fixed, so the Subject: line should indicate this.
-Please also include a Fixes: tag, and Cc: stable.
+        csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
+        /* DWMAC IPs can be synthesized to support tx coe only for a few tx
+         * queues. In that case, checksum offloading for those queues that don't
+         * support tx coe needs to fallback to software checksum calculation.
+         *
+         * Packets that won't trigger the COE e.g. most DSA-tagged packets will
+         * also have to be checksummed in software.
+         */
+        if (csum_insertion &&
+            (priv->plat->tx_queues_cfg[queue].coe_unsupported ||
+             !stmmac_has_ip_ethertype(skb))) {
+                if (unlikely(skb_checksum_help(skb)))
+                        goto dma_map_err;
+                csum_insertion = !csum_insertion;
+        }
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 4 ----
->  1 file changed, 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index 5dcc95bc0ad28b756accf9670c5fa00aa94fcfe3..7201a38842651a865493fce0cefe757d6ae9bafa 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -203,10 +203,6 @@ static void dwxgmac2_dma_rx_mode(struct stmmac_priv *priv, void __iomem *ioaddr,
->  	}
->  
->  	writel(value, ioaddr + XGMAC_MTL_RXQ_OPMODE(channel));
-> -
-> -	/* Enable MTL RX overflow */
-> -	value = readl(ioaddr + XGMAC_MTL_QINTEN(channel));
-> -	writel(value | XGMAC_RXOIE, ioaddr + XGMAC_MTL_QINTEN(channel));
+Do we need to care about them in stmmac_xdp_xmit_zc()
+and stmmac_xdp_xmit_xdpf() too?
 
-What is the reset default? Would it make sense to explicitly disable
-it, rather than never enable it? What does 8a7cb245cf28 do?
-
-    Andrew
-
----
-pw-bot: cr
-
-
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
