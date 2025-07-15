@@ -2,157 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D353EB06383
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jul 2025 17:53:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE38EB069AD
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jul 2025 01:01:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84553C349C0;
-	Tue, 15 Jul 2025 15:53:34 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80036C349C1;
+	Tue, 15 Jul 2025 23:01:44 +0000 (UTC)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64224C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3F8FC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jul 2025 15:53:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mCBmWA3r7RTIBgXXX5YtUHkHFBW5rHUET4m59MmaTOPeajXUoN3SJmYuQFYA6nOaHNztgiRrYumd+wTkTIQEiLAN8KawmMeQ/6XXAKDCqWn6yzYsP3+wEp/vop6H4BdQyRf8VAoUuqWzhJzwqH01MpljAkwjJgSoySUnQz8las18CI5TojrTGCYsfGFaUgR/KZ/6CIb1mtKek1FjCXsoHzUfLme6DtdDo2/jlHTv/ywcbh2qg1Ct3Jj8fAFy0w4STZxHbC7WNZZnPeuFjUjONoQKMAU3FFfIC7QlJDXlzj/sUF2bjMm4BlencP2XrE3s/QVLXagApSnl28y9Vr7BSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=otwwLS32/c07Y81fWlFwQGT75KQ8JMil2ILlArTiBy4=;
- b=tSWQIz7zNNcQgW4FuKy7nLBeAclBeFqBmPhrUb80ZFQBeIb1lx5yVXR98HdSDM+/yCGV2UqfVfauGW3sPLDq/Nif9Kz+zrngmjKuEf7Qv/vdF4Iclo4uk/aBVuK+ZcL2xS42Cz0xD+zlbRoEoktGO6rH4/LyJMRjNEdd6QN99cp+IH7//OzBBwq9eJXWMwtJuwsexePtsOgL+E5irBuMF3bstsdtSQfzRfFL8Rp4fUPJ0YvDuh3nVGTEyvfCLnG/4Cr/lgOcByqN4QygC6O+O/rqPm/iQtywUVg5l34tn72mb9z+tRCfv3cjIspe5JDK9fAv9O/QGTfrYa/ejLTNOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=otwwLS32/c07Y81fWlFwQGT75KQ8JMil2ILlArTiBy4=;
- b=ASnAyfpxk1k8YdZfTBYgdOy/Zm70tA4QuIhf7ag3aSrbo6+6w5dn18Svtd329Ad2wW2HVB/mdZfwKhGpTV2AlNMYz8XcXgPkVMKkPE4uhBZ/31Na41Ax/aZTrcPSVonSzlgfiyiLxk20i51XVM2Ig/F4UMAWkMfSfvusgVXju36k19gj9F8CDsaZom9gWLkzIVn5HWH5nlNT/vev4VpqnYwBeNmEYcax0DrK2Nfqob9lMgpUBHxSS+/ysnSR9HRxuOK+pEifH1kOWTg2cM/NUo4KrMoVHMhkORRyUiw+6w502+SA8vJ8O2CWwos2B0M2rQAY/jd4b1a+Y9G+kxeNyQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com (2603:10b6:a02:b4::23)
- by BN8PR03MB5107.namprd03.prod.outlook.com (2603:10b6:408:d8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.33; Tue, 15 Jul
- 2025 15:53:28 +0000
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c]) by BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c%6]) with mapi id 15.20.8901.024; Tue, 15 Jul 2025
- 15:53:28 +0000
-Message-ID: <52f67fef-d6a5-4e9e-8f4b-2fb904ce81b4@altera.com>
-Date: Tue, 15 Jul 2025 08:53:26 -0700
-User-Agent: Mozilla Thunderbird
+ Tue, 15 Jul 2025 23:01:42 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-73e55e829fcso978108a34.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Jul 2025 16:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1752620501; x=1753225301;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=46gEt3Bx0FBkn/nnSaRTnSsikfa6dw7cUtJIKu/AHuc=;
+ b=HawzMDVXMraOSqg0sVH+98vkdNlCKQta35QL2MOS5JG9hQHH/B/7k8mrOjGBy3u22k
+ rIZQAJjKFBdM5J+RmUyUULFKZUMKIYZ1JyzQ5JKSBGnxLsr6c3lBKVTBI5fkcR4p0VFX
+ iAcWmkS5x6/ZU5jnmKX+YxG4/ovdrgsFEY/ufPGIaAV8UHjDoAfGLLUrKu/73SMEid++
+ Ys7oG9GYAO2SWxtVdBbTysB0Mz+OlN8af4rBGVWHOF9oZWWI/im8VnabFsjoSYICJK8V
+ u/UPB2oh2asC54yuR1bBoK5x1ef4UjPAAJI66SlbScpxjT4So6o6NKZc8AB3P+GjxkbW
+ 5Whw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1752620501; x=1753225301;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=46gEt3Bx0FBkn/nnSaRTnSsikfa6dw7cUtJIKu/AHuc=;
+ b=ptxwiqssj/gKhRcQtpBW7Btl/3yax+gc6zfDskTOJxbHxC+Bfbn94GEOS4ntIFCTUG
+ VrNgHvOQbx3rFcRNP0ikPc0/xR1OAWvH7Bx277DUrel8nnnUeB0rw34/nZkhC1cQzbWU
+ 6w777mObZen+d6gMzMSEr4wdjhUxSgjK6dGBgZ7jiR6Pk5n3gArvXxlrNT2sTGO0EH45
+ /yaMoODO6yGyd1KS819Ip3YGuvz/9Yud8Whn6BqW4F6vfc3o4hgccPR+nFnMRHgaRy13
+ Uy6DWSTGhE67jqrqJuKEF/Hooz6/djPVCfl+zoNfy19zAPu+++w1zveaePMjngcI0rji
+ KcuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXIVjWFSZbou+aKADxWaM8NPsLK7ZIh3+m8HDf4YMhnZGerQhXwr8m4N9H1VcEtibia+672GZNNPHCQgg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzGi4W0flcgGxllf9+4ykwMAOcG+acwu4vwlkRxxma9jFQlY0kR
+ 3RLUTwaxsJJA/Iykm3rtgszPSNWjKkt09CKkcy/kz6eSfP55mBv9JSE97v8mchZewaY=
+X-Gm-Gg: ASbGncu0Ux9lYaGsau6P5Fa6xHY44aOc1HfLDySYShoWuICt+HgtFqDRb5cf/SAA6UE
+ YP7429aR1NsZpqo/ibcv1nu4lpjGYgiw6N9T3JjtwnV5xk/tJNfiFuyj2VOv9NcF/xua4lzOp+s
+ TsZShVGMPRSByvPpTq6mZKzGLsqahx59q9KvCWQbQtEO3aeF4ROGhbTRWDu6bxoDo4aM3HlwT2i
+ D87qxvz/i9RZP06L5wNIcf83nTvMwJHb7xi5pZfn73EefrLh5KqahA3VNNUt8Q8eR5j7ZARzM5Y
+ 3Li+aakQZt5Ipu2TPYOoQAeXnyCm3PzZtGFauJkrAyyAp4mIkBXuArTBz/CvOCFumhHd0/sHbZN
+ TilHBwUJSrYDYa240zOIH4gjME97QWxgenINq0sI=
+X-Google-Smtp-Source: AGHT+IFrIo3qo3Xq7DrVRugRg16jg4aCYHopevdB0f55AiC+g1RwMciM6Lgy4L9vDkABRNtjnbIHXQ==
+X-Received: by 2002:a05:6808:30a2:b0:409:f8e:7272 with SMTP id
+ 5614622812f47-41cf0cb0f3cmr543563b6e.38.1752620501381; 
+ Tue, 15 Jul 2025 16:01:41 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5614622812f47-41c73a25f04sm457282b6e.0.2025.07.15.16.01.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Jul 2025 16:01:40 -0700 (PDT)
+Date: Tue, 15 Jul 2025 18:01:39 -0500
+From: Dan Carpenter <dan.carpenter@linaro.org>
 To: Rob Herring <robh@kernel.org>
-References: <20250714152528.311398-1-matthew.gerlach@altera.com>
- <20250714152528.311398-2-matthew.gerlach@altera.com>
- <20250715035731.GA14648-robh@kernel.org>
-Content-Language: en-US
-From: Matthew Gerlach <matthew.gerlach@altera.com>
-In-Reply-To: <20250715035731.GA14648-robh@kernel.org>
-X-ClientProxiedBy: SJ0PR05CA0053.namprd05.prod.outlook.com
- (2603:10b6:a03:33f::28) To BYAPR03MB3461.namprd03.prod.outlook.com
- (2603:10b6:a02:b4::23)
+Message-ID: <fb2a26a2-119b-4b5a-8d44-b29e2c736081@sabinyo.mountain>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3461:EE_|BN8PR03MB5107:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6df130c-d52c-4e6f-8af1-08ddc3b7bd81
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?azQ3R21FQllYTWo4TUxVSSsxa090ZnZ4LzRoaHNLMDFwM0FkRWc5S3dweVl0?=
- =?utf-8?B?SGtjbGgyenZzRFUrcTJMZ0ZTS3V6T1F2TVIrNWhzZGgwemRYVlg5dDl2RHQz?=
- =?utf-8?B?dVRoQ0RiV1N6ZkJKcmlUTVNWL2pOQjVYVGxqZXVLSmRPR1NaZWIwUkRaaEZT?=
- =?utf-8?B?dUVkblJocWhNRmpqbEFqRExJTmU4UWRjNmlPa0JaS1JzN3lNbW8wdGRqRlZ0?=
- =?utf-8?B?M1pMNUtlblR1T1VtZVNqQzR4K1VnMVhIRjlMZUhnRFRxenVDYlpRRUlPV1po?=
- =?utf-8?B?ZldZS3M5T3ZQMGhjVkJ4TWtBQ09YOFNBUlBFQkM2TzUxa1BLWU5jRTZQQVdV?=
- =?utf-8?B?SjREOHp1R2RxMytiTU54YStlQ0ltTm9ZeGJDKzg5UVZCd1U4bFRVTVFsOVov?=
- =?utf-8?B?TDZyTFp5d0ZSMDQyVi9BRitZOUJSd3dTdU92dUoxVFdRNVc5d0pXemZmbEJB?=
- =?utf-8?B?KzdPU2VuaFJMUTNndEo0RVhWOUowNGloU2JETFdLQ01iVmlacDk1THpBMDF4?=
- =?utf-8?B?NWVud0tGUC9DNTNIc3ZXdGtRWE1IdXRBNlFJRVQxZzJ0OVZCOVBsV2R1OXpK?=
- =?utf-8?B?RjdvVCtoUUZjOWJBUThPaE1VRjJjWitFYXhTUmRSU0FrYkJkZGVaT2U4RHBD?=
- =?utf-8?B?K1UxVXk1Uk5rNDJDS3hGZzdNalhvYThObEJOaWJjdzRHT2dXQnRxNUdHRGdz?=
- =?utf-8?B?Zk1rWkIyemh5dkpueFR4WUZkSi9sWHdxVVZuYkpYNXdjT29FcmFRR01SQVNt?=
- =?utf-8?B?VzBUcVgwb09UeHZjVEhRZE0vWFdLdWlRa1dEUE9kQ3k4dzlUN1NwbzlDWnNQ?=
- =?utf-8?B?QUVkQm5yVzJZZHZpREp0eFk4TldFbG9xNkIxSUVaaWZsRWdTQlpuMFozSU9j?=
- =?utf-8?B?a1RuQVJIV25meis3MUZ0d2VFL1pBTktHWmRLVllLcUM2TGpNK2haU2VMTi8z?=
- =?utf-8?B?WEd1Z2FwVzdwV1RoeithbHBVdldub2FEK1JQbitmTjJ5S01RUk0vbS93Nmhz?=
- =?utf-8?B?aFA1RTZwOWMwWVZ2SDd3ek5LaEtVRDJNam5VMUVBTEtBRnJ4TzlBMkc0L2Q1?=
- =?utf-8?B?ZnJ2VURma3UzelpadXZkMzFIZ0IxaUpEZXQ4Y1VIend1TUx5UFBEZjg1TU5n?=
- =?utf-8?B?aGkzV1QrZTZ3NmtXZWZZWHNVMTErMEVUS1VScEFHOFNHZUFHcjdBbkVSYnVx?=
- =?utf-8?B?eHB1VmxNMVVOd1pyeUxIZ0poRy8wdDZwZUpUTUZIL3Y4dzFrUWpCMWxKdmN4?=
- =?utf-8?B?cDFvbFdEUG5obldNOE1YUXBoRWZqN2pXUStuMm9wRHdlNTd5aHpaYzduSytJ?=
- =?utf-8?B?eFhKTkhnZm5NT24xWk5RSkc1aUdGR2ZsV2lOWmxLakxkaHowOEtvejJLcy9q?=
- =?utf-8?B?S2dzRTBiTHpxaVdjK2hGZ2dFdysvL0VJdTEyc3o2TTF5QUxlVUw5c3gvWW9p?=
- =?utf-8?B?eldlWGRFYmRtNjg0QVVuSzFWNzFkSHZzTXJRQm0zYkRjSzVZc1NiOFFpOUJw?=
- =?utf-8?B?NDZnMnFPWEhZeXJueHdYaUMveWdiVXdzYnFuaWltWGpIYWJ6U1lpUzBrZHRm?=
- =?utf-8?B?MUFxYjc4cGZtWTNsVjFLTnlBTUZlZVZFcHlPVFdBRWlNNUtNSUQvUU53VEZx?=
- =?utf-8?B?UUVHSFJHU1F6ZDJGcmU0UkJVZG1Nbks2Uk9HNDhiQTV6aXhmS3pURnpLRXpm?=
- =?utf-8?B?SllKdlZ0V0l4eFp6OTJIeVdkRU5YRlhIVHQ0a01qanlONktPV09oWUpBYk9s?=
- =?utf-8?B?ajBCK0E5a1BTM3lPaTNMd0h0K05rakIvRDl2Mi96cE9JNmQ4NHpxMkw0bzlW?=
- =?utf-8?B?NUNZbVJlVDFXaDV0RkwvZ0t6eUFHc2ZwZi8xMVF6U0x6dU40OHM2YnZRYkNK?=
- =?utf-8?B?VU9WS0lwTHpvWnlvM0I5bHpuRGRLMlp4UHNZcDdpV1NHdmhQVUpLYTRrcFBS?=
- =?utf-8?Q?N1V9eZhPC9M=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB3461.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVR4OXBiTUQ0bVczM0s0a2prOFo0YjA1NS91aU5QdnFXbEhXS0RpdzBWb1VF?=
- =?utf-8?B?TWFMSUtYeTMvc3dJb1ZKdG5UME1mOWFRTFlvUVRVM1dJVjRwYjd3WkRHakFk?=
- =?utf-8?B?WWY0SmxOQk03N2lJMnpVN1M1Z0NUM3VTMTAxVmc4K3BpVURJMEM5ZlFSdGdu?=
- =?utf-8?B?NUtMdzJwVjJQUklOY0ROSDNiWGxFNHFOYXhwYjlydTFIWjdxRTlCSjAvK2FX?=
- =?utf-8?B?ZXN1L2t3THVrbnRuNk5YcVZnOWVhci9BZC82S01Ebm9nSTVyVmpyUngrVk5V?=
- =?utf-8?B?MHppdXdYTmpROGNRNFA3eG8vbjNNQjFZeWZmTVdhc3NuZEE4U3RwNHh1aEc4?=
- =?utf-8?B?ZForVFlKOTc2a2dRaHBZL2tFeWk5MjhSdmttckZXTXc4ckNGUHptd0NXZW9W?=
- =?utf-8?B?WGZPZ2dZUVZmQjR0eStrbktKVWtKS0F6UmxzeVluWmpjLytjZjMxTlRIa0M4?=
- =?utf-8?B?YXJLZVcwWHdUM3ArQ3hUVGJWb3BwNHlwV0JINDZuVm45YkNQYitmaEVYd0JW?=
- =?utf-8?B?VklDdGxDMXlXSEQ0c3BkTG1NMTFQMDQzb1hIWWtxbmMvMHNBZllJbHAxTVBl?=
- =?utf-8?B?QmxpemZEWktDN1FzMkxtdWluNndGajE2NVRVaDJxMzlqOGtqK0M4cnpnbVFG?=
- =?utf-8?B?bEVqRmpGWmltRDd4MEtpY0ZkV2QyOEhlSi81bGluUWpwWTY4UGY0S3FJWEpt?=
- =?utf-8?B?ZEgwWE1lYzRuTHBIYlFBU1liTjF6WS9jOUtNOGJuUXZHb2xuWVJ4UnNxeEV5?=
- =?utf-8?B?TW9EL2ZZUTBuc0NETjBwdW9nRUt1Mi9vMHJRNWYxZGpLR2hQajVHTHBxQVZU?=
- =?utf-8?B?TWFxclNRblYrd0FCbnYxanMreEZYK1BtNjhPbXdlRkZIYmE0VjBIQVBGN2gy?=
- =?utf-8?B?Y28zTThwYUZndm1wSC9Wa2Q1YmR3d1VEeEtvbmZNOVZQZHlDS2JMVVJPZWhD?=
- =?utf-8?B?am5tTWFlaGZmSmc4bWN2RzlnNTUvMkR5cjdjSTBQMmNkMVh3VEQrMUVWWW5T?=
- =?utf-8?B?S1RkVWJJZHpnS2xUVE5rU01SQUZFaDZMei9jMEE0ZjVBMnNBT0dPaDlaVDNi?=
- =?utf-8?B?YTVMcUs1bFp4Y3ZvNEhTcTRXTnNaR1Y3akh3blhpY0tTSjYrZ0YrYUovR2M5?=
- =?utf-8?B?Tjc1cnhNREtwRzB1REk5RldKMGFxdzRzMHVKNXNWWVU0MHJwY25OL3QyQytE?=
- =?utf-8?B?MHBHUmdCbTkwbFk1VkcyTVBsaXZNVkFrY2VIZUV3WHhoeHZoYmRSVmRPTHdw?=
- =?utf-8?B?aDdqV2JobzNnMlhnUTYyV1IxV0JiS0E5akJPSEpxWUZlUFpEQURFU1NtOHpk?=
- =?utf-8?B?MDdIMTk2eExkOGxZT3QwT2ZOaVZTMTdFZVE2bVhMTGhCdnFNWkdhMmorc3Nx?=
- =?utf-8?B?T0RFWjFqSnhhUFcvUmEvUS9KMkNKdnkwZWV0aGt4MjI1UFF0VFdobEJBUlJJ?=
- =?utf-8?B?SjExS0VhTG9iRG5HaU55N0M3THpZZ2oyVjZxamdZWDR4d3ZaK0VFZDQyc2NQ?=
- =?utf-8?B?NFJJRk5aNHBqTUdWT0xyMzQrZWJTY2tYaWZldCtsRTMxVnQzWk8weVhPY01a?=
- =?utf-8?B?RnNmVWk5Z3h0WU92MUF0aEF4TmVZQWIrZEJTVG1JUG5CVU5sU2xKdkpVUXg4?=
- =?utf-8?B?RmZkMjBIeHpXb2NFbklZZFd3ei9seTNYdjZaNEVjUEl5V24yQ1MrODkwVHFl?=
- =?utf-8?B?V1Q3cnFzQjdocTV1M3JpMjNKbWljMWMyYm5Wc0NuRGxUc1NjRnlQY2tyOU4y?=
- =?utf-8?B?eDd5bkdvUXJjdDdEckJ5TVh2TXJVTVRycjJHckF0dUZUdTJHeU1SVmU1OGdq?=
- =?utf-8?B?dHI4cFZjVGNlN2RtRys5cW5BSE5BVWJJODhIZFJkdHlBSWlmcHhTTks3Y0Ft?=
- =?utf-8?B?Q2xXV2M0eDMrZWZvL2ZsZXRBd0trNTE1eVhYTDhLRnBZU0xFWEo5OERFeGg1?=
- =?utf-8?B?bjUyTXBYZERqMk83TzZEam9sMU9PTzhWaStHM3VxL1haTDBabkx3VWQ0NFds?=
- =?utf-8?B?TDhPemMySjJreGNQdHBLdTZ1cUg2cWtHQlV5QUd4RWV0eTJHTENpZDJ4cEQ4?=
- =?utf-8?B?ODJwazlGR0paN2tyZzlXaXJNc282K2t6SmlzdnZnSk9JNCtJTGhSK0JiNDlC?=
- =?utf-8?B?R1hLcDQ1N0hnYW5pYy9VT0RWUkNCL2c3UWNjZ2g2VUNLcGxMdTRJWWtHWUNZ?=
- =?utf-8?B?R1E9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6df130c-d52c-4e6f-8af1-08ddc3b7bd81
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3461.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2025 15:53:28.3984 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ntocoFU6XrOEun6kSM5VSH2FErEGP+p6ZQG1sI5UqmGrdUqf8FmitmoX8yQRuIDv+ecorpIaWw1IoI96I5PlmcoDj65GUctBStiOem3k484=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB5107
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, dinguyen@kernel.org, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: net: altr,
- socfpga-stmmac: Add compatible string for Agilex5
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH next] spi: stm32-ospi: Fix NULL vs IS_ERR()
+ bug in stm32_ospi_get_resources()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,72 +84,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This code was changed from using devm_ioremap() which returns NULL to
+using devm_ioremap_resource() which returns error pointers.  Update
+the error checking to match.
 
+Fixes: defe01abfb7f ("spi: stm32-ospi: Use of_reserved_mem_region_to_resource() for "memory-region"")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/spi/spi-stm32-ospi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-On 7/14/25 8:57 PM, Rob Herring wrote:
-> On Mon, Jul 14, 2025 at 08:25:25AM -0700, Matthew Gerlach wrote:
-> > Add compatible string for the Altera Agilex5 variant of the Synopsys DWC
-> > XGMAC IP version 2.10.
-> > 
-> > Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
-> > ---
-> >  .../devicetree/bindings/net/altr,socfpga-stmmac.yaml     | 9 +++++++--
-> >  1 file changed, 7 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> > index ec34daff2aa0..6d5c31c891de 100644
-> > --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> > @@ -11,8 +11,8 @@ maintainers:
-> >  
-> >  description:
-> >    This binding describes the Altera SOCFPGA SoC implementation of the
-> > -  Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, and Agilex7 families
-> > -  of chips.
-> > +  Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
-> > +  families of chips.
-> >    # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
-> >    # does not validate against net/snps,dwmac.yaml.
-> >  
-> > @@ -23,6 +23,7 @@ select:
-> >          enum:
-> >            - altr,socfpga-stmmac
-> >            - altr,socfpga-stmmac-a10-s10
-> > +          - altr,socfpga-stmmac-agilex5
-> >  
-> >    required:
-> >      - compatible
-> > @@ -42,6 +43,10 @@ properties:
-> >            - const: altr,socfpga-stmmac-a10-s10
-> >            - const: snps,dwmac-3.74a
-> >            - const: snps,dwmac
-> > +      - items:
-> > +          - const: altr,socfpga-stmmac-agilex5
->
-> > +          - const: snps,dwxgmac-2.10
-> > +          - const: snps,dwxgmac
->
-> Is the distinction here useful? I doubt it, so I'd just drop the last
-> one. Generally, we've moved away from any generic compatible for
-> licensed IP like this because there's *always* some SoC specific
-> difference.
->
-> Rob
-
-I will drop the '- const: snps, dwxgmac' in v2 and just list the following:
-
-> +      - items:
-> +          - const: altr,socfpga-stmmac-agilex5
-> +          - const: snps,dwxgmac-2.10
-
-
-Thanks for the feedback,
-Matthew Gerlach
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index 72baa402a2c3..f36fd36da269 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -823,9 +823,9 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
+ 	if (!ret) {
+ 		ospi->mm_size = resource_size(res);
+ 		ospi->mm_base = devm_ioremap_resource(dev, res);
+-		if (!ospi->mm_base) {
++		if (IS_ERR(ospi->mm_base)) {
+ 			dev_err(dev, "unable to map memory region: %pR\n", res);
+-			ret = -ENOMEM;
++			ret = PTR_ERR(ospi->mm_base);
+ 			goto err_dma;
+ 		}
+ 
+-- 
+2.47.2
 
 _______________________________________________
 Linux-stm32 mailing list
