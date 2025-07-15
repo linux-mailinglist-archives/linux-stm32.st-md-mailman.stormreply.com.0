@@ -2,77 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE38EB069AD
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jul 2025 01:01:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43424B069EE
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jul 2025 01:39:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80036C349C1;
-	Tue, 15 Jul 2025 23:01:44 +0000 (UTC)
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6077C349C3;
+	Tue, 15 Jul 2025 23:39:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3F8FC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B712C349C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jul 2025 23:01:42 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-73e55e829fcso978108a34.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jul 2025 16:01:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1752620501; x=1753225301;
- darn=st-md-mailman.stormreply.com; 
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=46gEt3Bx0FBkn/nnSaRTnSsikfa6dw7cUtJIKu/AHuc=;
- b=HawzMDVXMraOSqg0sVH+98vkdNlCKQta35QL2MOS5JG9hQHH/B/7k8mrOjGBy3u22k
- rIZQAJjKFBdM5J+RmUyUULFKZUMKIYZ1JyzQ5JKSBGnxLsr6c3lBKVTBI5fkcR4p0VFX
- iAcWmkS5x6/ZU5jnmKX+YxG4/ovdrgsFEY/ufPGIaAV8UHjDoAfGLLUrKu/73SMEid++
- Ys7oG9GYAO2SWxtVdBbTysB0Mz+OlN8af4rBGVWHOF9oZWWI/im8VnabFsjoSYICJK8V
- u/UPB2oh2asC54yuR1bBoK5x1ef4UjPAAJI66SlbScpxjT4So6o6NKZc8AB3P+GjxkbW
- 5Whw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1752620501; x=1753225301;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=46gEt3Bx0FBkn/nnSaRTnSsikfa6dw7cUtJIKu/AHuc=;
- b=ptxwiqssj/gKhRcQtpBW7Btl/3yax+gc6zfDskTOJxbHxC+Bfbn94GEOS4ntIFCTUG
- VrNgHvOQbx3rFcRNP0ikPc0/xR1OAWvH7Bx277DUrel8nnnUeB0rw34/nZkhC1cQzbWU
- 6w777mObZen+d6gMzMSEr4wdjhUxSgjK6dGBgZ7jiR6Pk5n3gArvXxlrNT2sTGO0EH45
- /yaMoODO6yGyd1KS819Ip3YGuvz/9Yud8Whn6BqW4F6vfc3o4hgccPR+nFnMRHgaRy13
- Uy6DWSTGhE67jqrqJuKEF/Hooz6/djPVCfl+zoNfy19zAPu+++w1zveaePMjngcI0rji
- KcuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXIVjWFSZbou+aKADxWaM8NPsLK7ZIh3+m8HDf4YMhnZGerQhXwr8m4N9H1VcEtibia+672GZNNPHCQgg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzGi4W0flcgGxllf9+4ykwMAOcG+acwu4vwlkRxxma9jFQlY0kR
- 3RLUTwaxsJJA/Iykm3rtgszPSNWjKkt09CKkcy/kz6eSfP55mBv9JSE97v8mchZewaY=
-X-Gm-Gg: ASbGncu0Ux9lYaGsau6P5Fa6xHY44aOc1HfLDySYShoWuICt+HgtFqDRb5cf/SAA6UE
- YP7429aR1NsZpqo/ibcv1nu4lpjGYgiw6N9T3JjtwnV5xk/tJNfiFuyj2VOv9NcF/xua4lzOp+s
- TsZShVGMPRSByvPpTq6mZKzGLsqahx59q9KvCWQbQtEO3aeF4ROGhbTRWDu6bxoDo4aM3HlwT2i
- D87qxvz/i9RZP06L5wNIcf83nTvMwJHb7xi5pZfn73EefrLh5KqahA3VNNUt8Q8eR5j7ZARzM5Y
- 3Li+aakQZt5Ipu2TPYOoQAeXnyCm3PzZtGFauJkrAyyAp4mIkBXuArTBz/CvOCFumhHd0/sHbZN
- TilHBwUJSrYDYa240zOIH4gjME97QWxgenINq0sI=
-X-Google-Smtp-Source: AGHT+IFrIo3qo3Xq7DrVRugRg16jg4aCYHopevdB0f55AiC+g1RwMciM6Lgy4L9vDkABRNtjnbIHXQ==
-X-Received: by 2002:a05:6808:30a2:b0:409:f8e:7272 with SMTP id
- 5614622812f47-41cf0cb0f3cmr543563b6e.38.1752620501381; 
- Tue, 15 Jul 2025 16:01:41 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:9b4e:9dd8:875d:d59])
- by smtp.gmail.com with UTF8SMTPSA id
- 5614622812f47-41c73a25f04sm457282b6e.0.2025.07.15.16.01.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Jul 2025 16:01:40 -0700 (PDT)
-Date: Tue, 15 Jul 2025 18:01:39 -0500
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <fb2a26a2-119b-4b5a-8d44-b29e2c736081@sabinyo.mountain>
+ Tue, 15 Jul 2025 23:39:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DED5646909;
+ Tue, 15 Jul 2025 23:39:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9497C4CEE3;
+ Tue, 15 Jul 2025 23:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1752622785;
+ bh=q3QIBc/TsdXBWirwIMIHxwp+8kRlnWdwqh1CRlQ82NU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=EotaRwYUI7AAtHpn69V6T63FUu/TQgcsEuWQOrGJo5F/IWGf/z8IHUenYw8Wive+q
+ SW+2AYdXXZnmnd1P07d86pJso5KevSYAytDeXBV8yKUD8jzz8mYgCQGDyf91U4sHFq
+ P6IMnFoISHnRqz3EQjKoshItmjaTR2ckZ6hVNdApnhi06fRk7/SC1Ug8Fzsqatr2IY
+ Dx9rJYvDkp/2iyFt4NSFObtVDPvbC0Wy40Fs2/gScMSVKTw2qrM83nX406DfumOpWO
+ fDyy21UbuPE1UQBOdAlXT8ewL0TuaC6fcxGrIBpcfh3CdnUH2vzUnPkpaADF5HJmS1
+ w9ZyS9PBNsmhg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 7167E383BA30; Tue, 15 Jul 2025 23:40:07 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH next] spi: stm32-ospi: Fix NULL vs IS_ERR()
- bug in stm32_ospi_get_resources()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <175262280626.617203.5242260114409933910.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Jul 2025 23:40:06 +0000
+References: <20250713-stmmac_crossts-v1-1-31bfe051b5cb@blochl.de>
+In-Reply-To: <20250713-stmmac_crossts-v1-1-31bfe051b5cb@blochl.de>
+To: =?utf-8?b?TWFya3VzIEJsw7ZjaGwgPG1hcmt1c0BibG9jaGwuZGU+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
+Cc: linux-kernel@vger.kernel.org, lakshmi.sowjanya.d@intel.com,
+ markus.bloechl@ipetronik.com, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, jstultz@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, tglx@linutronix.de, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: intel: populate entire
+ system_counterval_t in get_time_fn() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,34 +62,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This code was changed from using devm_ioremap() which returns NULL to
-using devm_ioremap_resource() which returns error pointers.  Update
-the error checking to match.
+Hello:
 
-Fixes: defe01abfb7f ("spi: stm32-ospi: Use of_reserved_mem_region_to_resource() for "memory-region"")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/spi/spi-stm32-ospi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 72baa402a2c3..f36fd36da269 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -823,9 +823,9 @@ static int stm32_ospi_get_resources(struct platform_device *pdev)
- 	if (!ret) {
- 		ospi->mm_size = resource_size(res);
- 		ospi->mm_base = devm_ioremap_resource(dev, res);
--		if (!ospi->mm_base) {
-+		if (IS_ERR(ospi->mm_base)) {
- 			dev_err(dev, "unable to map memory region: %pR\n", res);
--			ret = -ENOMEM;
-+			ret = PTR_ERR(ospi->mm_base);
- 			goto err_dma;
- 		}
- 
+On Sun, 13 Jul 2025 22:21:41 +0200 you wrote:
+> get_time_fn() callback implementations are expected to fill out the
+> entire system_counterval_t struct as it may be initially uninitialized.
+> 
+> This broke with the removal of convert_art_to_tsc() helper functions
+> which left use_nsecs uninitialized.
+> 
+> Initially assign the entire struct with default values.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: stmmac: intel: populate entire system_counterval_t in get_time_fn() callback
+    https://git.kernel.org/netdev/net/c/e6176ab107ec
+
+You are awesome, thank you!
 -- 
-2.47.2
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
