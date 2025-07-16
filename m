@@ -2,54 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65492B072EA
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jul 2025 12:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD96B07C0D
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jul 2025 19:31:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19E2BC32EB5;
-	Wed, 16 Jul 2025 10:14:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AE73C3F938;
+	Wed, 16 Jul 2025 17:31:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52C12C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17410C3F933
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Jul 2025 10:14:51 +0000 (UTC)
+ Wed, 16 Jul 2025 17:31:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1D62C5C5B28;
- Wed, 16 Jul 2025 10:14:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8949BC4CEF6;
- Wed, 16 Jul 2025 10:14:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A56E0448AA;
+ Wed, 16 Jul 2025 17:31:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44FDC4CEF0;
+ Wed, 16 Jul 2025 17:30:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1752660889;
- bh=ZAJ4hltXuvDrA1GGiGb4i5399iwHMLmhNwupb9CXkxs=;
+ s=k20201202; t=1752687061;
+ bh=PaXYTlyE1AmCd9f7kz8r4SkpNALOlTX1xFZrFy9kj0A=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=hOKeeCU/pjKMC2NPJSWQ8DxIWEIVjScFWz7ziwxLtCmiGmFGtOzcvx0qzFB0gHEwj
- y3OAaC7OkmqXklzm5qmGZyMddX5ZvHHv6x+F8EQa/5mf4t3Mz5v5IEQeyFH6uJt1ox
- 8JIoXzdurcQ2DS5bSHmAiKnPPw2A5jNQca/KpbXj5/OACZlCbUj5ZZ5D78mG3bNOZA
- sWqPKHNfcwDb0aWX6xKZge46mh1CzDsLdG5AUcSzkBQQnYVSWO+9DZSBhXDlIqmFIC
- GJPGPGNigitGA8Jm2ggCFE+WNxwyG1EwuLnzjfEH4VMMs58WUl3jzo8TV/TU7g1oyn
- JYN71CvwLzciQ==
+ b=RIsPrqhyv6e9Qxaf7h3jN09thDJp15IZQO/mwKshVTqYWa95vzhXZlSxH4erTUW1/
+ N1F+kqa3Fi0D3Jk5hEhCKwaEXoq64BRYzpY1gqHIcbdfCQWTOavi97qhqzxaEAYnwS
+ RoRevb3I2gJBTTmtwLo6Szt/gjD56GbFshfWMcfcEkOScawnBl1UvuHzTa4XhgJSGB
+ 5yMeBlder1FV2bxGLHEqLTGSaY3GRInR3di0cjC2jMVct8LRagXyHbBusEth12UhoW
+ y2OXRTuDA82/dyb5XZ4CwPq4cRG/nOEI2E3sv0x2IQgX+lxtDgrbGBXrDfR/MayeLh
+ V1civMqJepi3Q==
 From: Mark Brown <broonie@kernel.org>
-To: Support Opensource <support.opensource@diasemi.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Oder Chiou <oder_chiou@realtek.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Olivier Moysan <olivier.moysan@foss.st.com>, 
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Ripard <mripard@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20250710-sound-clk-round-rate-v1-0-4a9c3bb6ff3a@redhat.com>
-References: <20250710-sound-clk-round-rate-v1-0-4a9c3bb6ff3a@redhat.com>
-Message-Id: <175266088527.17737.6588270584150732640.b4-ty@kernel.org>
-Date: Wed, 16 Jul 2025 11:14:45 +0100
+To: Rob Herring <robh@kernel.org>, Dan Carpenter <dan.carpenter@linaro.org>
+In-Reply-To: <fb2a26a2-119b-4b5a-8d44-b29e2c736081@sabinyo.mountain>
+References: <fb2a26a2-119b-4b5a-8d44-b29e2c736081@sabinyo.mountain>
+Message-Id: <175268705940.745920.11297005700076211217.b4-ty@kernel.org>
+Date: Wed, 16 Jul 2025 18:30:59 +0100
 MIME-Version: 1.0
 X-Mailer: b4 0.15-dev-cff91
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/6] sound: convert from clk round_rate()
- to determine_rate()
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH next] spi: stm32-ospi: Fix NULL vs
+ IS_ERR() bug in stm32_ospi_get_resources()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,35 +57,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 10 Jul 2025 11:51:06 -0400, Brian Masney wrote:
-> The round_rate() clk ops is deprecated in the clk framework in favor
-> of the determine_rate() clk ops, so let's go ahead and convert the
-> drivers in the rtc subsystem using the Coccinelle semantic patch
-> posted below. I did a few minor cosmetic cleanups of the code in a
-> few cases.
+On Tue, 15 Jul 2025 18:01:39 -0500, Dan Carpenter wrote:
+> This code was changed from using devm_ioremap() which returns NULL to
+> using devm_ioremap_resource() which returns error pointers.  Update
+> the error checking to match.
 > 
-> Coccinelle semantic patch:
 > 
-> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
 Thanks!
 
-[1/6] sound: soc: codecs: da7219: convert from round_rate() to determine_rate()
-      commit: 8a4d73121d6bd9a70895e65d6d1014ed6b0a6c8e
-[2/6] sound: soc: codecs: rt5682: convert from round_rate() to determine_rate()
-      commit: 4e15a10f6fb254e33d73a6da3c4d00e3e64d2eb8
-[3/6] sound: soc: codecs: rt5682s: convert from round_rate() to determine_rate()
-      commit: a37d9c8aef1c78876eff0bc8980a889c083de89d
-[4/6] sound: soc: qcom: qdsp6: q6dsp-lpass-clocks: convert from round_rate() to determine_rate()
-      commit: fc62ed665eb2e8fb0f1e12ab9cdb578666704a76
-[5/6] sound: soc: stm: stm32_i2s: convert from round_rate() to determine_rate()
-      commit: afd529d740028a41fa750d4491b106cecbccba3e
-[6/6] sound: soc: stm: stm32_sai_sub: convert from round_rate() to determine_rate()
-      commit: d5f317fd5cd9dfdf5bbe11384001817760c12b75
+[1/1] spi: stm32-ospi: Fix NULL vs IS_ERR() bug in stm32_ospi_get_resources()
+      commit: 951a6d8d41289b86a564ee5563ededa702b62b1b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
