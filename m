@@ -2,68 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E01B1487F
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 08:48:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9888B1488E
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 08:49:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86C94C3F945;
-	Tue, 29 Jul 2025 06:48:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 853C4C3F952;
+	Tue, 29 Jul 2025 06:49:43 +0000 (UTC)
+Received: from cpanel.siel.si (cpanel.siel.si [46.19.9.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96028C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42382C3F945
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Jul 2025 06:33:33 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56H6VLuC026811;
- Thu, 17 Jul 2025 08:33:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- iwWYLVWIQhsieK1q3dXMnApygXnCasOaR3eXeKwwLbg=; b=ajzJHYbhy5oSXC2l
- TDEc2nIV35DWNo30+RAiFhQ2HuOncwuajXfN/if/Uj9G8UY8FcklyqMjbGycRVa4
- DWYgwIn1Oq49RcjUscrubIwQa2Wi2xLl+UgtoqFFLoWt/1aHz38pld/1n8BuWyhW
- zLQuykTcZ1aJG0MzFC7ZZXqVJRNZDzOQGycZiut4l79xsG1iUGjX8/K1XBRcC5X9
- J24AmVOjgHlBl0s/lzTyn4bAYkxrF99VE8R+qrXH7OH6IapCbd+No+YYeTrwnMcp
- 2yGvAOdEHyjt1AlFp9SjBnSOey5b/6z1j0b1H/e3OKoXmyf7iGOYjT31OWAtEyx4
- u9qYKA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 47ucu9pd3c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Jul 2025 08:33:15 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AE7C04005D;
- Thu, 17 Jul 2025 08:32:20 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DC71778C59D;
- Thu, 17 Jul 2025 08:31:19 +0200 (CEST)
-Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
- 2025 08:31:19 +0200
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>,
- <kwilczynski@kernel.org>, <mani@kernel.org>, <robh@kernel.org>,
- <bhelgaas@google.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <linus.walleij@linaro.org>
-Date: Thu, 17 Jul 2025 08:30:41 +0200
-Message-ID: <20250717063042.2236524-2-christian.bruel@foss.st.com>
+ Thu, 17 Jul 2025 09:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com; 
+ s=default;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=dsr9dRbVAldNjV8JKgEZYv9SvaMuV8zTMgrBYyOwtvE=; b=Ne0VSSo1FLMDjFtkk3AAUBO5xK
+ pTqhbA0WtSEWXzGsjQ9zMWPhGJPBdZs0rj5gEFVGGscS0TVlWNbFMQna8knEIof9bjUXTMcpoFAW9
+ s+XZji/MfUzftQXCOFDAAebFBP60xagu34eHu5Pcoi7RvfnesdqDwk1GiARfXnyzOE21NGOdmjAaz
+ ahO/BCLMzXImHsBQi6pJYKKNaKBZCDwsEhuTRoOlYrRMO3ct1crtcglsT5jvA/XuuOSYKC8QN6um4
+ iGPGgbcgZOkMSbCEbbOgRvT/JyUNDjBLHYkEsm4K6DgLKcHWvshJAds9DcSVCu0g7pJy2hFKLCtpm
+ 4JxFgFDA==;
+Received: from [89.212.21.243] (port=53282 helo=localhost.localdomain)
+ by cpanel.siel.si with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
+ (envelope-from <primoz.fiser@norik.com>) id 1ucKTp-00DbO3-1Q;
+ Thu, 17 Jul 2025 11:00:40 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Wei Fang <wei.fang@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 17 Jul 2025 11:00:35 +0200
+Message-Id: <20250717090037.4097520-1-primoz.fiser@norik.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250717063042.2236524-1-christian.bruel@foss.st.com>
-References: <20250717063042.2236524-1-christian.bruel@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-17_01,2025-07-16_02,2025-03-28_01
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cpanel.siel.si
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cpanel.siel.si: authenticated_id:
+ primoz.fiser@norik.com
+X-Authenticated-Sender: cpanel.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-Mailman-Approved-At: Tue, 29 Jul 2025 06:48:52 +0000
-Cc: linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [RESEND PATCH 1/2] pinctrl: Add
-	pinctrl_pm_select_init_state helper function
+Cc: imx@lists.linux.dev, netdev@vger.kernel.org, upstream@lists.phytec.de,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] Populate of_node for i.MX netdevs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,84 +75,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If a platform requires an initial state during probing, this helper function
-provides the client with access to the same initial state used to balance
-from a pinctrl_pm_select_sleep_state .
-eg:
+Recently when working on predictable network names for i.MX SoCs, it
+was discovered that of_node sysfs properties are missing for FEC and
+EQOS interfaces.
 
- xxx_suspend_noirq
-    pinctrl_pm_select_sleep_state
+Without this, udev is unable to expose the OF_* properties (OF_NAME,
+OF_FULLNAME, OF_COMPATIBLE, OF_ALIAS, etc.) and thus we cannot identify
+interface based on those properties.
 
- xxx resume_noirq
-    pinctrl_pm_select_init_state
-    ...
-    pinctrl_pm_select_default_state
+Fix this by populating netdev of_node in respective drivers.
 
-Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
----
- drivers/pinctrl/core.c           | 13 +++++++++++++
- include/linux/pinctrl/consumer.h | 10 ++++++++++
- 2 files changed, 23 insertions(+)
+Result:
 
-diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
-index 9046292d1360..80cf9f20f626 100644
---- a/drivers/pinctrl/core.c
-+++ b/drivers/pinctrl/core.c
-@@ -1655,6 +1655,19 @@ int pinctrl_pm_select_default_state(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(pinctrl_pm_select_default_state);
- 
-+/**
-+ * pinctrl_pm_select_init_state() - select init pinctrl state for PM
-+ * @dev: device to select init state for
-+ */
-+int pinctrl_pm_select_init_state(struct device *dev)
-+{
-+	if (!dev->pins)
-+		return 0;
-+
-+	return pinctrl_select_bound_state(dev, dev->pins->init_state);
-+}
-+EXPORT_SYMBOL_GPL(pinctrl_pm_select_init_state);
-+
- /**
-  * pinctrl_pm_select_sleep_state() - select sleep pinctrl state for PM
-  * @dev: device to select sleep state for
-diff --git a/include/linux/pinctrl/consumer.h b/include/linux/pinctrl/consumer.h
-index 73de70362b98..63ce16191eb9 100644
---- a/include/linux/pinctrl/consumer.h
-+++ b/include/linux/pinctrl/consumer.h
-@@ -48,6 +48,7 @@ int pinctrl_select_default_state(struct device *dev);
- 
- #ifdef CONFIG_PM
- int pinctrl_pm_select_default_state(struct device *dev);
-+int pinctrl_pm_select_init_state(struct device *dev);
- int pinctrl_pm_select_sleep_state(struct device *dev);
- int pinctrl_pm_select_idle_state(struct device *dev);
- #else
-@@ -55,6 +56,10 @@ static inline int pinctrl_pm_select_default_state(struct device *dev)
- {
- 	return 0;
- }
-+static inline int pinctrl_pm_select_init_state(struct device *dev)
-+{
-+	return 0;
-+}
- static inline int pinctrl_pm_select_sleep_state(struct device *dev)
- {
- 	return 0;
-@@ -143,6 +148,11 @@ static inline int pinctrl_pm_select_default_state(struct device *dev)
- 	return 0;
- }
- 
-+static inline int pinctrl_pm_select_init_state(struct device *dev)
-+{
-+	return 0;
-+}
-+
- static inline int pinctrl_pm_select_sleep_state(struct device *dev)
- {
- 	return 0;
+$ ls -l /sys/class/net/end1/of_node
+/sys/class/net/end1/of_node -> 
+'../../../../../../../firmware/devicetree/base/soc@0/bus@42800000/ethernet@428a0000'/
+$ ls -l /sys/class/net/end0/of_node                                                                              
+/sys/class/net/end0/of_node -> 
+'../../../../../../../firmware/devicetree/base/soc@0/bus@42800000/ethernet@42890000'/
+
+$ udevadm info /sys/class/net/end0
+P: /devices/platform/soc@0/42800000.bus/42890000.ethernet/net/end0
+M: end0
+R: 0
+U: net
+I: 2
+E: DEVPATH=/devices/platform/soc@0/42800000.bus/42890000.ethernet/net/end0
+E: SUBSYSTEM=net
+E: OF_NAME=ethernet
+E: OF_FULLNAME=/soc@0/bus@42800000/ethernet@42890000
+E: OF_COMPATIBLE_0=fsl,imx93-fec
+E: OF_COMPATIBLE_1=fsl,imx8mq-fec
+E: OF_COMPATIBLE_2=fsl,imx6sx-fec
+E: OF_COMPATIBLE_N=3
+E: OF_ALIAS_0=ethernet0
+E: INTERFACE=end0
+E: IFINDEX=2
+E: USEC_INITIALIZED=5227083
+E: ID_NET_DRIVER=fec
+E: ID_NET_NAMING_SCHEME=latest
+E: ID_NET_NAME_MAC=enx502df44dbd5e
+E: ID_NET_NAME_ONBOARD=end0
+E: ID_PATH=platform-42890000.ethernet
+E: ID_PATH_TAG=platform-42890000_ethernet
+E: SYSTEMD_ALIAS=/sys/subsystem/net/devices/end0
+E: TAGS=:systemd:
+E: CURRENT_TAGS=:systemd:
+
+$ udevadm info /sys/class/net/end1
+P: /devices/platform/soc@0/42800000.bus/428a0000.ethernet/net/end1
+M: end1
+R: 1
+U: net
+I: 3
+E: DEVPATH=/devices/platform/soc@0/42800000.bus/428a0000.ethernet/net/end1
+E: SUBSYSTEM=net
+E: OF_NAME=ethernet
+E: OF_FULLNAME=/soc@0/bus@42800000/ethernet@428a0000
+E: OF_COMPATIBLE_0=nxp,imx93-dwmac-eqos
+E: OF_COMPATIBLE_1=snps,dwmac-5.10a
+E: OF_COMPATIBLE_N=2
+E: OF_ALIAS_0=ethernet1
+E: INTERFACE=end1
+E: IFINDEX=3
+E: USEC_INITIALIZED=5370305
+E: ID_NET_NAMING_SCHEME=latest
+E: ID_NET_NAME_MAC=enx502df44dbd5f
+E: ID_NET_NAME_ONBOARD=end1
+E: ID_PATH=platform-428a0000.ethernet
+E: ID_PATH_TAG=platform-428a0000_ethernet
+E: SYSTEMD_ALIAS=/sys/subsystem/net/devices/end1
+E: TAGS=:systemd:
+E: CURRENT_TAGS=:systemd:
+
+
+Primoz Fiser (2):
+  net: fec: fec_probe(): Populate netdev of_node
+  net: stmmac: Populate netdev of_node
+
+ drivers/net/ethernet/freescale/fec_main.c         | 1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 +
+ 2 files changed, 2 insertions(+)
+
 -- 
 2.34.1
 
