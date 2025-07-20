@@ -2,21 +2,21 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 568FCB0B399
-	for <lists+linux-stm32@lfdr.de>; Sun, 20 Jul 2025 07:18:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFE06B0B7AD
+	for <lists+linux-stm32@lfdr.de>; Sun, 20 Jul 2025 20:35:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2C8BC3F930;
-	Sun, 20 Jul 2025 05:18:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E8F6C3F94D;
+	Sun, 20 Jul 2025 18:35:27 +0000 (UTC)
 Received: from youth.vozum.com (youth.vozum.com [86.106.104.139])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 587D3C36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E0DCC3F932
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Jul 2025 05:18:48 +0000 (UTC)
+ Sun, 20 Jul 2025 18:35:25 +0000 (UTC)
 From: BANK MANAGER OUAGADOUGOU <kyra@vintagevanners.com>
 To: linux-stm32@st-md-mailman.stormreply.com
-Date: 19 Jul 2025 22:18:47 -0700
-Message-ID: <20250719221847.C3203D957836338D@vintagevanners.com>
+Date: 20 Jul 2025 11:04:07 -0700
+Message-ID: <20250720110407.294783E201467129@vintagevanners.com>
 MIME-Version: 1.0
 Subject: [Linux-stm32] CONFIDENTIAL REQUEST.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -30,12 +30,12 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: cfo.afriquebankingfinance@afribf.com
-Content-Type: multipart/mixed; boundary="===============4730257492554580471=="
+Reply-To: oilandgasexportnationwide@gmail.com
+Content-Type: multipart/mixed; boundary="===============2933018533930203899=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============4730257492554580471==
+--===============2933018533930203899==
 Content-Type: text/html
 Content-Transfer-Encoding: quoted-printable
 
@@ -63,7 +63,7 @@ r>Telephone Number:.......<br>Email address.............<br>Agreement lette=
 r of Oath:........ </p><p>Thanks and best regards.<br>Manager of bank Ouaga=
 dougou .</p></body></html>
 
---===============4730257492554580471==
+--===============2933018533930203899==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -74,4 +74,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4730257492554580471==--
+--===============2933018533930203899==--
