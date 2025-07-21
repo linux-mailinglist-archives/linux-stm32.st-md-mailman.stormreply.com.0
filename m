@@ -2,81 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B77B0C132
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 12:22:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35859B0C2AD
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 13:20:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73893C32E8F;
-	Mon, 21 Jul 2025 10:22:44 +0000 (UTC)
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5378C32E92;
+	Mon, 21 Jul 2025 11:20:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25481C32E8E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2EDAC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 10:22:43 +0000 (UTC)
-Received: by mail-il1-f171.google.com with SMTP id
- e9e14a558f8ab-3e290cbe6d0so14865945ab.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 03:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753093362; x=1753698162;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VHEm6bHDLYflRAkB3nDyc8N9yM14dw/BsI6dT8qL9b8=;
- b=haf0sqTTG4URZNN0j14uAMKy2mM0Ffcn1LFwjCjJVciLA3LLZVup2DEfSuMN1lZxmw
- fbuLUtaXETm6lFElKPuLJM6+fgkGZlNe+q41Mjp/yVQTxd7gMlNOxjUOK/lnF/U1VK/J
- c3dbwB6fdBEWsW9U/OSZB2TffI0j/VNeDA2bveUcLw1fMDvaLFDvisXxPXQBemrisGma
- NizccxigSv9bcc3i1m7kKXkwDPd9nCe9cJJhxMmp64gFCn/vKTJdJiYcAullEz3hgeBt
- jvqmFLrPvNjr/Uo9Kl/fqe31hq6CkSlTG5MOvPB+J2y7dPCjkYw5NXsiCD1xbhw3aRf8
- t/Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753093362; x=1753698162;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VHEm6bHDLYflRAkB3nDyc8N9yM14dw/BsI6dT8qL9b8=;
- b=uCugGeYeItdKdWPNouHttONzaDnBC96YaD96qIm7Cghg2408M/d4m76tO0C/r1j89G
- KYFxsY+naP1pkUUWnycKcfFo2OU/+emySg4U4Pku/sVxaiH8kjksxl8LCSwHE+1Dt3Pn
- kl4qMe13XTtL9vq/SfrI5Ub+FnbMabLeRaCy3LTEytc/DiWC0QjMDgA9eraQstKClks5
- nZgs8RMbAakLWHZQW+iCsL7IIFBHGPN6INacuM1ql5VHgmOTCZPp1IS1RhFgaPVwTmmd
- o/CvQRqSfLrxKYWCTBQ2L0bdluBZyl5mkmQX8xE9Ih226tYYsf3GzDeB8WnPfJhWKSr9
- CrkQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1E8WwpQtwGLx8hxCMwOg9eSRcC+nAWDVZuW09BO4Fi27qeaYHvyu9ojHPmAnVBIVNay9byB8hUZ6HcQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyJgvf+Jr+L3+SjMjqck76y8+YvorLFX5vFvstmIZ5t/SCaxTzN
- Y1O9Zto5XT3g5ljJKCUUhLOR9jW1gUbPnhgDI2HXzx2CEZn+QhK1gRjt0oiR8yhJpPwMaWbPE+o
- RfW7u7S7AxmS7zXCfjDODIaJjeblHkYs=
-X-Gm-Gg: ASbGnctyjLE+tilOAU7SWqy+ekz2tRimVwZjXmOJP00UxsS8HmR/NxNRB/mRsFv5RRC
- qxuccSSgGtaNW6fg6VvnmtYj/5nXaMKtrW7vRTIW905PfiMNePX2k1fpaad2idAFwi683IwYqZD
- TvvAbkPsXGiPzuvmgW5UVS2Mm2eBVd7dfSSV/ZoFHEQASYZc0rwOapkhscquPCJ+H5NgXgQ2PYU
- zpnHhk/IJMiI9P78w==
-X-Google-Smtp-Source: AGHT+IFXBPH0yx8S02iqQkJZIi4L0Jm+RaJLQnvPek++YwE2QGcqsWI+nl8r2YrcQAJo6zGNTHvEyQhndIVsVoiBNsI=
-X-Received: by 2002:a05:6e02:1806:b0:3e2:9e93:b673 with SMTP id
- e9e14a558f8ab-3e29e93b68cmr100435465ab.1.1753093361694; Mon, 21 Jul 2025
- 03:22:41 -0700 (PDT)
+ Mon, 21 Jul 2025 11:20:50 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56LBF4uV010018;
+ Mon, 21 Jul 2025 13:20:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=QoQzhe6ekd1hJ/ZaGFBf7S
+ uWNDyQBUmJcxHnIpw3sJo=; b=f+MNoPkA81GS0ddC+vRkWKScn7mJWfwYPUyRW7
+ XZJmRdGSwTMUE5uvYHglUdBFeVAhFVGXAbuILaIcG+hyScev0nWbGxGecVIx5RiI
+ 8cLwbfUiotFU7Ps6qYpabzHGtkubsNLnVSYwX6OcrCfMtXF/8pjyxnfUlBx+OXZl
+ lH2u9kn+2/UE4tuo3ZDFUbPA/j6HQ1icM1WxzJ2twf2YHevb+IClmcIH9emng2cd
+ KyiS5scrri0zbfnGxmP9pRO0dTdirw86qHN6Ts/tgCE4nfG0oW64qcto+cK9YEaj
+ nv99cq/rqBYlMZcA/Dy/8lOR9a8jDiEI2CvVGPo5OFj9s+cg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48028g06fj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Jul 2025 13:20:20 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 829A34005A;
+ Mon, 21 Jul 2025 13:18:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 31CEA7A16C6;
+ Mon, 21 Jul 2025 13:17:46 +0200 (CEST)
+Received: from localhost (10.48.87.141) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Jul
+ 2025 13:17:45 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Mon, 21 Jul 2025 13:14:42 +0200
+Message-ID: <20250721-wol-smsc-phy-v1-0-89d262812dba@foss.st.com>
 MIME-Version: 1.0
-References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
- <20250721083343.16482-3-kerneljasonxing@gmail.com>
- <20250721101217.GC2459@horms.kernel.org>
-In-Reply-To: <20250721101217.GC2459@horms.kernel.org>
-From: Jason Xing <kerneljasonxing@gmail.com>
-Date: Mon, 21 Jul 2025 18:22:05 +0800
-X-Gm-Features: Ac12FXxglQj0R4EkMw3SzP0qFiFwMjjIS-PnIkKo_EqhulukoCpP4A9yL3kNbVo
-Message-ID: <CAL+tcoAEtRVvX5YkK980OtfaKHAf2+dw+WFR-HwPO2GO0nemyA@mail.gmail.com>
-To: Simon Horman <horms@kernel.org>
-Cc: edumazet@google.com, anthony.l.nguyen@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- przemyslaw.kitszel@intel.com, john.fastabend@gmail.com, sdf@fomichev.me,
- intel-wired-lan@lists.osuosl.org, kuba@kernel.org, pabeni@redhat.com,
- Jason Xing <kernelxing@tencent.com>, maciej.fijalkowski@intel.com,
- hawk@kernel.org, ast@kernel.org, magnus.karlsson@intel.com,
- netdev@vger.kernel.org, andrew+netdev@lunn.ch, bjorn@kernel.org,
- mcoquelin.stm32@gmail.com, jonathan.lemon@gmail.com, bpf@vger.kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] igb: xsk: solve underflow of
- nb_pkts in zerocopy mode
+X-B4-Tracking: v=1; b=H4sIACMhfmgC/x3MTQ5AMBBA4avIrE1SRTSuIhZ+pkxCSUeoiLtrL
+ L/Few8IeSaBOnnA08nCm4vI0gSGuXMTIY/RoJUuVaUzvLYFZZUB9/lGa/O+UKYwptQQk92T5fD
+ vGnB0oKNwQPu+H00czfVoAAAA
+X-Change-ID: 20250721-wol-smsc-phy-ff3b40848852
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Christophe Roullier
+ <christophe.roullier@foss.st.com>, Andrew Lunn <andrew@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ Tristram Ha <Tristram.Ha@microchip.com>, Florian
+ Fainelli <florian.fainelli@broadcom.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1625;
+ i=gatien.chevallier@foss.st.com; h=from:subject:message-id;
+ bh=tdvpUOKEzaCuWOlkS6WWclQSY25kc0lUfypoOsiSomo=;
+ b=owEB7QES/pANAwAKAar3Rq6G8cMoAcsmYgBofiHXy5WQo9qc1HiPHV335Rofl8r2vNOuoDj9F
+ zaycVnIc9SJAbMEAAEKAB0WIQRuDsu+jpEBc9gaoV2q90auhvHDKAUCaH4h1wAKCRCq90auhvHD
+ KEoyDACpQVS5/Izrchq3yuy2z2bCLfPWIGikxbq7ATHBiU+P9gSlnbZGyf7i6NVMoNzKpO5pMbM
+ MUfCKhHbWFK3hUTf03KEejPD9xFPir09Se0oxxSlWb1EvWth5tLq9ggZrKi+Qbyi6G4fBLYQyO2
+ UkBVYClMWPeH9oBQY+9XLH2oT27hKzOX/R1P5F53EmzylJdOj4VoX4IszXNHKsU/BHoNi2j2yuC
+ iXRKns9uhl2LzqG6MCxxRxf+IQ6cdxxwbVy9DOHFjzP3vRj+4/5yuTAOWTtt4zKzTwtwHEGU2+V
+ JjJQazacVp/t8PhugNingGDOQnl/FkA9A0QpCammNBF5UODs0ulrQOLvASf6AabV2bp4I4FXyaP
+ t+wESNtmNix3gC/DyrZL7CahvvXuynI5/3sBHgSuNr0jvq1ThWpVx96nj5Iu/rNLKaIo+B0Wc6f
+ keGvnelxrUzjdZzN/bfbRqta/U7m6mGiuPYp5AZxdUcHv/yks4EyQt6Bq9wuaUIN2U3OE=
+X-Developer-Key: i=gatien.chevallier@foss.st.com; a=openpgp;
+ fpr=6E0ECBBE8E910173D81AA15DAAF746AE86F1C328
+X-Originating-IP: [10.48.87.141]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-21_03,2025-07-21_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/4] net: add WoL from PHY support
+ for stm32mp135f-dk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,47 +96,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgU2ltb24sCgpPbiBNb24sIEp1bCAyMSwgMjAyNSBhdCA2OjEy4oCvUE0gU2ltb24gSG9ybWFu
-IDxob3Jtc0BrZXJuZWwub3JnPiB3cm90ZToKPgo+IE9uIE1vbiwgSnVsIDIxLCAyMDI1IGF0IDA0
-OjMzOjQzUE0gKzA4MDAsIEphc29uIFhpbmcgd3JvdGU6Cj4gPiBGcm9tOiBKYXNvbiBYaW5nIDxr
-ZXJuZWx4aW5nQHRlbmNlbnQuY29tPgo+ID4KPiA+IFRoZXJlIGlzIG5vIGJyZWFrIHRpbWUgaW4g
-dGhlIHdoaWxlKCkgbG9vcCwgc28gZXZlcnkgdGltZSBhdCB0aGUgZW5kIG9mCj4gPiBpZ2JfeG1p
-dF96YygpLCB1bmRlcmZsb3cgb2YgbmJfcGt0cyB3aWxsIG9jY3VyLCB3aGljaCByZW5kZXJzIHRo
-ZSByZXR1cm4KPiA+IHZhbHVlIGFsd2F5cyBmYWxzZS4gQnV0IHRoZW9yZXRpY2FsbHksIHRoZSBy
-ZXN1bHQgc2hvdWxkIGJlIHNldCBhZnRlcgo+ID4gY2FsbGluZyB4c2tfdHhfcGVla19yZWxlYXNl
-X2Rlc2NfYmF0Y2goKS4gV2UgY2FuIHRha2UgaTQwZV94bWl0X3pjKCkgYXMKPiA+IGEgZ29vZCBl
-eGFtcGxlLgo+ID4KPiA+IFJldHVybmluZyBmYWxzZSBtZWFucyB3ZSdyZSBub3QgZG9uZSB3aXRo
-IHRyYW5zbWlzc2lvbiBhbmQgd2UgbmVlZCBvbmUKPiA+IG1vcmUgcG9sbCwgd2hpY2ggaXMgZXhh
-Y3RseSB3aGF0IGlnYl94bWl0X3pjKCkgYWx3YXlzIGRpZCBiZWZvcmUgdGhpcwo+ID4gcGF0Y2gu
-IEFmdGVyIHRoaXMgcGF0Y2gsIHRoZSByZXR1cm4gdmFsdWUgZGVwZW5kcyBvbiB0aGUgbmJfcGt0
-cyB2YWx1ZS4KPiA+IFR3byBjYXNlcyBtaWdodCBoYXBwZW4gdGhlbjoKPiA+IDEuIGlmIChuYl9w
-a3RzIDwgYnVkZ2V0KSwgaXQgbWVhbnMgd2UgcHJvY2VzcyBhbGwgdGhlIHBvc3NpYmxlIGRhdGEs
-IHNvCj4gPiAgICByZXR1cm4gdHJ1ZSBhbmQgbm8gbW9yZSBuZWNlc3NhcnkgcG9sbCB3aWxsIGJl
-IHRyaWdnZXJlZCBiZWNhdXNlIG9mCj4gPiAgICB0aGlzLgo+ID4gMi4gaWYgKG5iX3BrdHMgPT0g
-YnVkZ2V0KSwgaXQgbWVhbnMgd2UgbWlnaHQgaGF2ZSBtb3JlIGRhdGEsIHNvIHJldHVybgo+ID4g
-ICAgZmFsc2UgdG8gbGV0IGFub3RoZXIgcG9sbCBydW4gYWdhaW4uCj4gPgo+ID4gRml4ZXM6IGY4
-ZTI4NGEwMmFmYyAoImlnYjogQWRkIEFGX1hEUCB6ZXJvLWNvcHkgVHggc3VwcG9ydCIpCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBKYXNvbiBYaW5nIDxrZXJuZWx4aW5nQHRlbmNlbnQuY29tPgo+ID4gLS0t
-Cj4gPiAgZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWdiL2lnYl94c2suYyB8IDIgKy0KPiA+
-ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiA+Cj4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWdiL2lnYl94c2suYyBiL2Ry
-aXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2lnYi9pZ2JfeHNrLmMKPiA+IGluZGV4IDVjZjY3YmEy
-OTI2OS4uMjQzZjQyNDZmZWU4IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQv
-aW50ZWwvaWdiL2lnYl94c2suYwo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwv
-aWdiL2lnYl94c2suYwo+ID4gQEAgLTQ4Miw3ICs0ODIsNyBAQCBib29sIGlnYl94bWl0X3pjKHN0
-cnVjdCBpZ2JfcmluZyAqdHhfcmluZywgc3RydWN0IHhza19idWZmX3Bvb2wgKnhza19wb29sKQo+
-ID4gICAgICAgaWYgKCFuYl9wa3RzKQo+ID4gICAgICAgICAgICAgICByZXR1cm4gdHJ1ZTsKPiA+
-Cj4gPiAtICAgICB3aGlsZSAobmJfcGt0cy0tID4gMCkgewo+ID4gKyAgICAgd2hpbGUgKGkgPCBu
-Yl9wa3RzKSB7Cj4KPiBIaSBKYXNvbiwKPgo+IEZXSUlXLCBJIHRoaW5rIHVzaW5nIGEgZm9yIGxv
-b3AgaXMgYSBtb3JlIGlkaW9tYXRpYyB3YXkKPiBvZiBoYW5kbGluZyB0aGUgcmVsYXRpb25zaGlw
-IGJldHdlZW4gaSwgbmJfcGt0cywgYW5kCj4gdGhlIGl0ZXJhdGlvbnMgb2YgdGhpcyBsb29wLgoK
-U3VyZSwgSSBjYW4gdHVybiBpdCBpbnRvICdmb3IgKGkgPSAwOyBpIDwgbmJfcGt0czsgaSsrKScg
-aW4gdGhlIG5leHQgdmVyc2lvbi4KClRoYW5rcywKSmFzb24KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+A previous patchset in drivers/net/phy/smsc.c introduced the WoL
+from PHY capability of some PHYs. The Microchip LAN8742 PHY is
+present on the stm32mp135f-dk board and posesses this capability.
+
+Therefore, add the possibility to specify in the device tree that,
+for a MAC instance, we want to use the WoL from PHY capability
+instead of the MAC one.
+
+However, when testing multiple power sequences with magic packets,
+the first one succeeded but the following ones failed. This was
+caused by uncleared flags in a PHY register. Therefore, I added
+a patch to add suspend()/resume() callbacks that handle these.
+These callbacks are only implemented for the Microchip LAN8742 as I
+have no way of testing it for other WoL capable PHYs.
+
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+Gatien Chevallier (4):
+      dt-bindings: net: document st,phy-wol property
+      net: stmmac: stm32: add WoL from PHY support
+      net: phy: smsc: fix and improve WoL support
+      arm: dts: st: activate ETH1 WoL from PHY on stm32mp135f-dk
+
+ .../devicetree/bindings/net/stm32-dwmac.yaml       |  6 ++++
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts            |  1 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c  |  5 +++
+ drivers/net/phy/smsc.c                             | 42 +++++++++++++++++++---
+ include/linux/smscphy.h                            |  2 ++
+ 5 files changed, 52 insertions(+), 4 deletions(-)
+---
+base-commit: 4701ee5044fb3992f1c910630a9673c2dc600ce5
+change-id: 20250721-wol-smsc-phy-ff3b40848852
+
+Best regards,
+-- 
+Gatien Chevallier <gatien.chevallier@foss.st.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
