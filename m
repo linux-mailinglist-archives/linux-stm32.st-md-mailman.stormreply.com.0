@@ -2,53 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D1ECB0C630
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 16:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1194B0C764
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 17:20:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C8C5C32E92;
-	Mon, 21 Jul 2025 14:24:06 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87C4AC32E8F;
+	Mon, 21 Jul 2025 15:20:43 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C4D5C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B47DC349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 14:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=hHzpUiLN7Jg4Lz4KXx4NfLv+H9x1eSd9BwpY3gu+U20=; b=yuZy083TIKWJigFiyJMEIO7mEL
- CW77wF+9YJR9suubJ3/IY4OYuLkd52G6nptaS9fV7lW7Fj7Lkt1mA/V95X650ZAgj2wdFYvoe6Jh0
- UeN4rX/9MDUAAXnFyZW8Rr+OYnT+phRL+5FFl1AfFJOmVXjgQuyBgzO7I2Mkn/dgetuM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1udrQo-002Mif-LR; Mon, 21 Jul 2025 16:23:54 +0200
-Date: Mon, 21 Jul 2025 16:23:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Message-ID: <a3b97fbd-8c4f-4657-aeca-732aee3782c3@lunn.ch>
-References: <20250721-wol-smsc-phy-v1-0-89d262812dba@foss.st.com>
- <20250721-wol-smsc-phy-v1-3-89d262812dba@foss.st.com>
- <cca8e9e6-a063-4e00-87af-f59ea926cce3@lunn.ch>
- <b95e3439-717b-4159-acf9-7ce76d1c43d4@foss.st.com>
+ Mon, 21 Jul 2025 15:20:42 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1753111241;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/9FzCqmcyJh+8Ydz6tHP0relc2+nn3FdzXGKT9u9tC0=;
+ b=dSUpea09yTKvaap84BHTchrX/mvRMJUc48+kcHHkQxoYAlMq1o9H91n0rEyouWUQZds+Ls
+ rJWeBKpdVh+r6TVg9PcQPcuj0sZz+kTaDMsLK4KCjaOjlWQYgv4f4R/F/uiKtEsxW6IPu8
+ BZs7DYrF+ZLrdRacfIavNLPjVeum/qGXpUL0kBgehfj92Ae5GBzPEau0pmYMGKZYiMUTmA
+ WBzzEbBwXCWSUfsni3ElVs+D8g26iSUsJ/++lpGRihfVxdZY1aFI35kcEgLVtGeA+2qJTV
+ JIM9YCZ9KB6Tup50FIIXZa38Dsi7uKFBiXUKjNhkEMalmJWrVmGFGCj4lmFI7A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1753111241;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/9FzCqmcyJh+8Ydz6tHP0relc2+nn3FdzXGKT9u9tC0=;
+ b=Q0GGv108K0Wx0ZlG5G8V8V0Na3jr3eUG3hFHWm0zuYoWeHBjtZZPu1Oy3mIu6+M+ntdxcb
+ YsPYlYqxSgIstBDQ==
+To: panchuang <panchuang@vivo.com>, Miquel Raynal <miquel.raynal@bootlin.com>
+In-Reply-To: <draft-87ikjnvqfx.ffs@tglx>
+References: <draft-87ikjnvqfx.ffs@tglx>
+Date: Mon, 21 Jul 2025 17:20:39 +0200
+Message-ID: <87qzy9tvso.ffs@tglx>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b95e3439-717b-4159-acf9-7ce76d1c43d4@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, devicetree@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Amit Kucheria <amitk@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Costa Shulyupin <costa.shul@redhat.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Yury Norov <yury.norov@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Uwe =?utf-8?Q?Kleine-K?= =?utf-8?Q?=C3=B6nig?=
+ <u.kleine-koenig@pengutronix.de>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ Zhang Rui <rui.zhang@intel.com>, Colin Ian King <colin.i.king@gmail.com>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tristram Ha <Tristram.Ha@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/4] net: phy: smsc: fix and
-	improve WoL support
+ =?utf-8?Q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
+ =?utf-8?B?5p2O5oms6Z+s?= <frank.li@vivo.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Markus Mayer <mmayer@broadcom.com>,
+ Jonathan Cameron <jonathan.cameron@huawei.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Julien Panis <jpanis@baylibre.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ zhanghongchen <zhanghongchen@loongson.cn>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ Cheng-Yang Chou <yphbchou0911@gmail.com>,
+ "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Caleb Sander Mateos <csander@purestorage.com>,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Shawn Guo <shawnguo@kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [Linux-stm32]
+ =?utf-8?b?5Zue5aSNOiBbUEFUQ0ggdjYgMDEvMjRdIGdlbmly?=
+ =?utf-8?q?q/devres=3A_Add_devm=5Frequest=5Fthreaded=5Firq=5Fprobe=28=29_a?=
+ =?utf-8?b?bmQgZGV2bV9yZXF1ZXN0X2lycV9wcm9iZSgp?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,19 +112,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> I wanted to state clearly that the wake up happended because of a WoL
-> event but sure, I understand that it's best if log isn't spammed. Do you
-> prefer it completely removed or dev_info()->dev_dbg() ?
-
-phydev_dbg() is fine.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCBKdWwgMTkgMjAyNSBhdCAyMzowOCwgVGhvbWFzIEdsZWl4bmVyIHdyb3RlOgo+IE9u
+IFdlZCwgSnVsIDA5IDIwMjUgYXQgMTc6MTMsIHBhbmNodWFuZ0B2aXZvLmNvbSB3cm90ZToKPj4g
+SGkgdGdseCBhbmQgTWlxdcOobCwgSnVzdCBhIGdlbnRsZSBwaW5nIG9uIHRoaXMgcGF0Y2hzZXQu
+IEkgdW5kZXJzdGFuZCAKPj4geW91J3JlIGxpa2VseSBidXN5IHdpdGggbWFueSBvdGhlciB0YXNr
+cywgYnV0IGFueSBmZWVkYmFjayBvciBndWlkYW5jZSAKPj4gb24gaG93IHRvIHByb2NlZWQgd291
+bGQgYmUgZ3JlYXRseSBhcHByZWNpYXRlZC4gQXMgZGlzY3Vzc2VkIGluIHRoZSAKPj4gcHJldmlv
+dXMgdGhyZWFkLCB0aGVyZSB3YXMgc29tZSB1bmNlcnRhaW50eSBhYm91dCB3aGV0aGVyIHdlIHNo
+b3VsZCAKPj4gZGlyZWN0bHkgaW50ZWdyYXRlIGRldl9lcnJfcHJvYmUoKSBpbnRvIGRldm1fcmVx
+dWVzdF90aHJlYWRlZF9pcnEoKSwgb3IgCj4+IGlmIGl0J3MgYmV0dGVyIHRvIGNyZWF0ZSBhIHdy
+YXBwZXIgZnVuY3Rpb24uIFRoYW5rcyBmb3IgeW91ciB0aW1lISAKPj4gVGhhbmtzLCBQYW5jaHVh
+bmcKCkZvciBzaW1wbGljaXR5IHNha2UganVzdCByZW5hbWUgdGhlIGV4aXN0aW5nIGZ1bmN0aW9u
+cwpkZXZtX3JlcXVlc3RfdGhyZWFkZWRfaXJxKCkgYW5kIGRldm1fcmVxdWVzdF9hbnlfY29udGV4
+dF9pcnEoKSB0bwpfX2Rldm1fcmVxdWVzdF90aHJlYWRlZF9pcnEoKSBhbmQgX19kZXZtX3JlcXVl
+c3RfYW55X2NvbnRleHRfaXJxKCkuCgpUaGVuIGNyZWF0ZSBuZXcgZnVuY3Rpb25zIGZvciB0aGUg
+QVBJLCB3aGljaAoKICAgLSBpbnZva2UgdGhlIHVuZGVyc2NvcmUgdmFyaWFudHMKICAgLSBhbmQg
+b24gZXJyb3IgaW52b2tlIGRldl9lcnJfcHJvYmUoKSBzaW1pbGFyIHRvIHdoYXQgSSBzdWdnZXN0
+ZWQgaW4KICAgICBteSByZXBseSBpbiB0aGlzIHRocmVhZC4KCkluIHRoZSByYXJlIGNhc2Ugb2Yg
+ZmFpbHVyZSwgdGhpcyB3aWxsIHByaW50IGVycm9yIG1lc3NhZ2VzIGZvciB0aGUKYWZmZWN0ZWQg
+ZHJpdmVycyBib3RoIGluIHRoZSBjb3JlIGFuZCBhdCB0aGUgY2FsbHNpdGUsIGJ1dCB0aGF0J3Mg
+bm90CnRoZSBlbmQgb2YgdGhlIHdvcmxkLgoKVGhlbiBnbyBhbmQgcmVtb3ZlIHRoZSByYW5kb20g
+cHJpbnRrcyBmcm9tIHRoZSBkcml2ZXJzLCBvbmNlIHRoZSBjb3JlCmNoYW5nZSBoYXMgaGl0IHVw
+c3RyZWFtLgoKVGhhbmtzLAoKICAgICAgICB0Z2x4CgoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
