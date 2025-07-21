@@ -2,85 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C1FCB0C7C1
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 17:37:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE28FB0C7F6
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 17:47:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFCDCC32E8F;
-	Mon, 21 Jul 2025 15:37:45 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6913CC32E8F;
+	Mon, 21 Jul 2025 15:47:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78B5BC349C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A352EC349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 15:37:44 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-7425bd5a83aso3855213b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 08:37:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753112263; x=1753717063;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SDh6f89OtCRQRfeV7TsPgYDLKkybdTNwjOtD8a9eZwA=;
- b=XpaSNDZ+deo13GOrqS3wq7b87C4EDGJFdlqgvpNW244bZFhdQokcJJbfeXOKfplzYN
- 2bMSscP9ekdM7kFOggmVDCNvRwSUOtKMgST8lnhAR5Jbjdrv2TVH3RDbTfLD2BNbmMoS
- kHLu3DyLk0L+9qKSnwPljjqXFJSpNgxqt9b78fyRo60bsPmMkiGgppG0NRpipnvY5sdn
- OkjQpgEE9dxXqBDh1CtBiJ6Ezpyt2kjg4HOrnJ2yntlaokU2kUYuWoQHuy2IuWGDp89W
- HPjkXJLukDZaH2AG2ZVPIjXLYGHOPQ6zleCG2A3VhCqfwvW/3bO9g2UG5Xc217p71xbD
- z1iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753112263; x=1753717063;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SDh6f89OtCRQRfeV7TsPgYDLKkybdTNwjOtD8a9eZwA=;
- b=o27hSSiza4yYisWNQmIOf3KFVWIeI6TezCzvLHUpF2fE5Bkt93too56jQkmQfgZoKL
- d29TXiXhjopOr/itzwmildq+orJOVcoPgfWQfAWOY8TqMEtKXJyJ6ByfWbZ1YlrPdHGk
- TjNrSOSibKkVGgM9vcq3ShjG46Edw53ocdWbGFAzUP+q18UaU4kMRHxgeUOAHiINChBj
- D0DY1mdywmmoZ4aohevyN0vSwCaTCm3zLkjQ00UD2/AGsJZdjLz7tqdCB1mwP9yQE9kN
- cfjyqhSczj8L6zG6XllPE4jKV2pqUiCf/eC8YLXBgUVAbiU+SNiYcYJZLKcUfLcvID4n
- ZPNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWK6gQyhTRctg1WewcuatT/8NXQ4/ty2RRK5vwgSGKpszLu8vWFb+O/3lSxHSyIOzWi8BYFgK5/aEwxVA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzHMfySjFaoRq7G0Q4xxdH3l1P1DaXQhDSSZGUHOOGk27BAYswA
- 7mkH0lU3L/ee+VhDdZK/7jRSSDH2ldCK8GKXsRKixCvOEao0x0yoPO4=
-X-Gm-Gg: ASbGncsk5skb+L7hpx9J1UiEbfS0v2O0twq1nUGLDwMNgCq+/BTSeFP7KgT6VSjcca6
- eEP+VILXntIxAcZuclQhSNKXzKkxWSENglnB42QH0VIpItZJK8ocffmJUFzyx/eovfW77qkm6vc
- nPtMmBYyfH/+hPVoFl+RUwu8SbYP2MLTpUuVlJS0CJZ1woiNKIOlfxJtIy2JZWNi47E6X1my7hl
- XXBCc2C7XbgaNqFeSERRfKcMe8OG6k6HqYxA+9psvPLYjHBEV0Au6uU69qd2PmkOIrEsLt/WnRu
- 4UEWYoGqg9W5cfJf/mwBcvfAPyLIdFPpuLL9WYhNrvN4ILuQ+Q2ikOzse7RhmsNfaWvlDAB4JT2
- yATppvD1voaFBlTJM/PIc5Uh8ZyC76iawrJdtHM1F7Ds5VHfrq9xd3h3GP/WRPXaKRBlv1Q==
-X-Google-Smtp-Source: AGHT+IEaIspNuv99Qrfx4sC4q4Y93JQlnVL5ZHYgom/rDGQzYOHx3souBPvCEmbOTJYWppBnuW8WRw==
-X-Received: by 2002:a05:6a00:856:b0:748:f1ba:9b0d with SMTP id
- d2e1a72fcca58-75723e74318mr31994730b3a.11.1753112262692; 
- Mon, 21 Jul 2025 08:37:42 -0700 (PDT)
-Received: from localhost (c-73-158-218-242.hsd1.ca.comcast.net.
- [73.158.218.242]) by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-759cb155de8sm6048908b3a.84.2025.07.21.08.37.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jul 2025 08:37:42 -0700 (PDT)
-Date: Mon, 21 Jul 2025 08:37:41 -0700
-From: Stanislav Fomichev <stfomichev@gmail.com>
-To: Jason Xing <kerneljasonxing@gmail.com>
-Message-ID: <aH5exXo_BdonTfmf@mini-arch>
-References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
- <20250721083343.16482-2-kerneljasonxing@gmail.com>
+ Mon, 21 Jul 2025 15:47:42 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56LDt62k020590;
+ Mon, 21 Jul 2025 17:47:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ P1ZuzEzRREiwLydWZlhzK+dlWBAxlIhEYuf20M8l1eU=; b=3xbpjXFnyMs0SC5A
+ i2NSTVksJj+qckbzFNDpYbQCrsNAuBlK574aC/pSgp9d95ovb31I7jR/KuivJ7Z7
+ vrlAF+Tjwygg8on9g8Nk5p0sTilTUvoy9mumnLwxZBwjmm5NG/irpmq9NNUmkiFu
+ 0wrn5CM/J1V4wrupgXWM38kPE8qB0Av7ZcgyJMY415Yd2dEUQK7cZuJkMRI5BKp/
+ DW2K9XPdF4dI97k5wGLSQiynVfnweB2tJ1SZhLZSWwfrcbbY7ZWOHj3Oq1ycURsO
+ 5wh+4Djrh+l9cQH6KWUDkkJClULDqjLBmk0Ufn2f8W5yGH6gc1qtD7k05Ef/cmMt
+ a3Wd6g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4800g8hn2a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Jul 2025 17:47:23 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 822DF4007D;
+ Mon, 21 Jul 2025 17:46:05 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36E51768F09;
+ Mon, 21 Jul 2025 17:44:23 +0200 (CEST)
+Received: from [10.252.5.249] (10.252.5.249) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Jul
+ 2025 17:44:21 +0200
+Message-ID: <162aa05f-69df-4607-bf47-fbec60589f95@foss.st.com>
+Date: Mon, 21 Jul 2025 17:44:20 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250721083343.16482-2-kerneljasonxing@gmail.com>
-Cc: edumazet@google.com, anthony.l.nguyen@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- przemyslaw.kitszel@intel.com, john.fastabend@gmail.com, sdf@fomichev.me,
- intel-wired-lan@lists.osuosl.org, kuba@kernel.org, pabeni@redhat.com,
- Jason Xing <kernelxing@tencent.com>, maciej.fijalkowski@intel.com,
- hawk@kernel.org, ast@kernel.org, magnus.karlsson@intel.com,
- netdev@vger.kernel.org, andrew+netdev@lunn.ch, bjorn@kernel.org,
- mcoquelin.stm32@gmail.com, jonathan.lemon@gmail.com, bpf@vger.kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] stmmac: xsk: fix underflow
- of budget in zerocopy mode
+User-Agent: Mozilla Thunderbird
+To: Rob Herring <robh@kernel.org>
+References: <20250711-ddrperfm-upstream-v2-0-cdece720348f@foss.st.com>
+ <20250711-ddrperfm-upstream-v2-6-cdece720348f@foss.st.com>
+ <20250715032020.GB4144523-robh@kernel.org>
+ <ae960a16-65ad-4b22-b9fb-89efbffacd3e@foss.st.com>
+ <20250715150224.GA1319886-robh@kernel.org>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <20250715150224.GA1319886-robh@kernel.org>
+X-Originating-IP: [10.252.5.249]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-21_04,2025-07-21_02,2025-03-28_01
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Stephen Boyd <sboyd@kernel.org>,
+ linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+ linux-doc@vger.kernel.org, linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ linux-perf-users@vger.kernel.org, Le Goffic <legoffic.clement@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 06/16] arm64: dts: st: add LPDDR
+ channel to stm32mp257f-dk board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,46 +84,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07/21, Jason Xing wrote:
-> From: Jason Xing <kernelxing@tencent.com>
-> 
-> The issue can happen when the budget number of descs are consumed. As
-> long as the budget is decreased to zero, it will again go into
-> while (budget-- > 0) statement and get decreased by one, so the
-> underflow issue can happen. It will lead to returning true whereas the
-> expected value should be false.
-> 
-> In this case where all the budget are used up, it means zc function
-> should return false to let the poll run again because normally we
-> might have more data to process.
-> 
-> Fixes: 132c32ee5bc0 ("net: stmmac: Add TX via XDP zero-copy socket")
-> Signed-off-by: Jason Xing <kernelxing@tencent.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index f350a6662880..ea5541f9e9a6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -2596,7 +2596,7 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
->  
->  	budget = min(budget, stmmac_tx_avail(priv, queue));
->  
-> -	while (budget-- > 0) {
-> +	while (budget > 0) {
-
-There is a continue on line 2621. Should we do 'for (; budget > 0; budget--)'
-instead? And maybe the same for ixgbe [0]?
-
-0: https://lore.kernel.org/netdev/20250720091123.474-3-kerneljasonxing@gmail.com/
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUm9iCgpPbiA3LzE1LzI1IDE3OjAyLCBSb2IgSGVycmluZyB3cm90ZToKPiBPbiBUdWUsIEp1
+bCAxNSwgMjAyNSBhdCAxMDozMjowOUFNICswMjAwLCBDbGVtZW50IExFIEdPRkZJQyB3cm90ZToK
+Pj4gSGkgUm9iLAo+Pgo+PiBUaGFua3MgZm9yIHRoZSByZXZpZXcgIQo+Pgo+PiBPbiA3LzE1LzI1
+IDA1OjIwLCBSb2IgSGVycmluZyB3cm90ZToKPj4+IE9uIEZyaSwgSnVsIDExLCAyMDI1IGF0IDA0
+OjQ4OjU4UE0gKzAyMDAsIENsw6ltZW50IExlIEdvZmZpYyB3cm90ZToKPj4+PiBBZGQgMzJiaXRz
+IExQRERSNCBjaGFubmVsIHRvIHRoZSBzdG0zMm1wMjU3Zi1kayBib2FyZC4KPj4+Pgo+Pj4+IFNp
+Z25lZC1vZmYtYnk6IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVudC5sZWdvZmZpY0Bmb3NzLnN0
+LmNvbT4KPj4+PiAtLS0KPj4+PiAgICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTdm
+LWRrLmR0cyB8IDcgKysrKysrKwo+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMo
+KykKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAy
+NTdmLWRrLmR0cyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZGsuZHRzCj4+
+Pj4gaW5kZXggYTI3OGExZTNjZTAzLi5hOTdiNDFmMTRlY2MgMTAwNjQ0Cj4+Pj4gLS0tIGEvYXJj
+aC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjU3Zi1kay5kdHMKPj4+PiArKysgYi9hcmNoL2Fy
+bTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTdmLWRrLmR0cwo+Pj4+IEBAIC01NCw2ICs1NCwxMyBA
+QCBsZWQtYmx1ZSB7Cj4+Pj4gICAgCQl9Owo+Pj4+ICAgIAl9Owo+Pj4+ICsJbHBkZHJfY2hhbm5l
+bDogbHBkZHI0LWNoYW5uZWwgewo+Pj4+ICsJCSNhZGRyZXNzLWNlbGxzID0gPDE+Owo+Pj4+ICsJ
+CSNzaXplLWNlbGxzID0gPDA+Owo+Pj4+ICsJCWNvbXBhdGlibGUgPSAiamVkZWMsbHBkZHI0LWNo
+YW5uZWwiOwo+Pj4KPj4+IE5vdCB0ZXN0ZWQgYmVjYXVzZSB0aGlzIGRvZXNuJ3QgbWF0Y2ggdGhl
+IGJpbmRpbmcuCj4+Cj4+IEhtbSwgSSd2ZSB0ZXN0ZWQgd2l0aCBtYWtlIGR0YnNfY2hlY2sgYW5k
+IGR0X2JpbmRpbmdfY2hlY2sgYW5kIGl0IGRpZG4ndAo+PiBjb21wbGFpbiBvbiBteSBzaWRlLgo+
+PiBXaGF0IEkgaGF2ZSBtaXNzID8KPiAKPiBPaCB3YWl0LCB3ZSBhbHJlYWR5IGhhdmUgYSBiaW5k
+aW5nIGZvciB0aGF0LiBJIHdhcyBjb25mdXNlZCB3aXRoIHlvdXIKPiBhZGRpbmcgImplZGVjLGRk
+cjQtY2hhbm5lbCIuIFNvcnJ5IGZvciB0aGUgbm9pc2UuCgpJdCdzIGZpbmUgbm8gd29ycmllcy4K
+SG93ZXZlciwgaW4gdGhlIHBhdGNoIDgsIEkgYWRkIHRoZSBwcm9wZXJ0eSAibWVtb3J5LWNoYW5u
+ZWwiIHRoYXQgaXMgbm90IAppbiB0aGUgZHRzY2hlbWEgcmVwbyBhbmQgSSBkaWRuJ3QgZ2V0IGFu
+eSByZXZpZXdzIG9uIGl0LgpJcyBpdCBvayBmb3IgeW91ID8gb3IgbWF5YmUgc2hvdWxkIHdlIGRp
+c2N1c3MgaXQgb3ZlciB0aGVyZSA/CkkgY2FuIHRyeSB0byBkbyBhIFBSIG9uIHRoZSBkdHNjaGVt
+YSB0aG91Z2h0LCBpZiBpdCBpcyBvay4KCkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
