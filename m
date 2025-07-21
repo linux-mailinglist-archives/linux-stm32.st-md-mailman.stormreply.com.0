@@ -2,83 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FF5CB0BEFB
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 10:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF279B0BF7C
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jul 2025 10:57:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2BBEC32E8E;
-	Mon, 21 Jul 2025 08:34:04 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BDE6C32E8E;
+	Mon, 21 Jul 2025 08:57:36 +0000 (UTC)
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18BB8C32E8D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A00AC32E8D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 08:34:04 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-313154270bbso3955190a91.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jul 2025 01:34:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753086843; x=1753691643;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lbtNVv68Al+8cVNVFbCAZPRp/ZwmAyAvC1F+49a5gy8=;
- b=WIeVP/i5FZicH4zQTnt2bJA4yDyDgFTw5bRWcpxXhj8JbR1wKDRJmMgLQz0a9JUADC
- a3UDS+RvUT2vyCU8vc8/SML37x+MH1ShueXRepCDTtKvvA+wOsBzOxIGgBTR/f2tP62/
- eUJuKJCqs/Fit3TAqST8dMbdXvSwrCaTX+Rk3ve3hZCLn/0yOu9oPgcUjeTFlTFzFA+/
- 7XUnDX7SZr0AZYfCCtJ74ZZVX9TeUWkwhmpDtNGP98YPfqEkWx1zsmigpjeRx7PG9szL
- bcdlmFD/E3R7shJJgAW0RnejuTwFu30qJiTJUp5zdxf/R7rhD2M97jynkI5hPvpl/95g
- eN+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753086843; x=1753691643;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lbtNVv68Al+8cVNVFbCAZPRp/ZwmAyAvC1F+49a5gy8=;
- b=XRQXoisSjSTbT4Td2/rCWGdglw/b16BdULir5qTJyS6sZVEkEPOwRQzLJgziunEoRC
- 7kS/pjpH+4+QZuBdqwuYNdq9BlrYxv+IZkXWLqqCXrHZ0wNynGjH//KSlN4YbRH5ipyM
- ciNoKJBuroTHF7wE5i/EFrdLuJGOEDTUE4Ntnl62Y2bkAUoug4aUthyxI0aOJJ0pvYqX
- fxfiZx23d/UOGqClFc9jCDkyQAQ8hqiHU37pVb5vAtL5M2MYk5nUy93tWMCoHkOc9v8R
- 9eF7CA3ODbBlzqaQKqkDg4bFwjEz5Fi0Vi5kzhLqGonpxeN+3t6gDIaWcftqqy69etU4
- KlbQ==
-X-Gm-Message-State: AOJu0YzFrQvUHr2ChAvAwd53ekEwJfxHNiJYDACAE/eTulBp4U67BjwM
- oSwEM01cfx0ow2Y8tdr68pARVALMMcUd67NzCUbCfkxb7lhe/BZ+C07u
-X-Gm-Gg: ASbGncvxUE8VrkkOiZRxOu7/coh7VMbT02MzbeYMTcZi/cNxYgMA0DfA9Qi9oqSR8Qk
- QaYINL9Ct0+4GCiF5YKAuQEFPj90oFAZSe3EMmZpvc0LUmH4QjnYv5NH5UvjLdFwuE2CB0MQgE8
- zBtVlhDVDg3ymqM1VRmXFUZnQ5brBZ6ChbFc6k06XgffV1ZVuXCbCwJkufxDfZHTkdERC07655/
- oaFSPqkC4V2l88QoYD9W62EbvcxwuXm/cSvIZBK0S9cUMLv5tl6VN0ftiNVXKbkhEwc65D7nQIO
- 1qzFhwJTzu8dtn4W3TfawoVRwf/8ldUtRCb9qx2QgCH0JFR+5azAUYkJKa6N1ENzHOO8h6UuKPS
- G7SNQEUCxs+yNJYZTWNuJ3uba3juI9qKJQRYO/d7227SLwQhPXgQQhvGiA2o=
-X-Google-Smtp-Source: AGHT+IGyQK7XJLz3sOROYFmqcWgOIYrK0cMqYO+1HcoFFA3G5PlGwInuETMs6mPtONWOozx+/OJv8Q==
-X-Received: by 2002:a17:90b:2684:b0:311:ff18:b84b with SMTP id
- 98e67ed59e1d1-31c9f47c7d7mr25319465a91.25.1753086842487; 
- Mon, 21 Jul 2025 01:34:02 -0700 (PDT)
-Received: from KERNELXING-MC1.tencent.com ([111.201.24.59])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31cb7742596sm7082116a91.27.2025.07.21.01.33.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jul 2025 01:34:02 -0700 (PDT)
-From: Jason Xing <kerneljasonxing@gmail.com>
-To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, bjorn@kernel.org,
- magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
- jonathan.lemon@gmail.com, sdf@fomichev.me, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Mon, 21 Jul 2025 16:33:43 +0800
-Message-Id: <20250721083343.16482-3-kerneljasonxing@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20250721083343.16482-1-kerneljasonxing@gmail.com>
-References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
+ Mon, 21 Jul 2025 08:57:35 +0000 (UTC)
+Received: from [192.168.2.202] (p5dc55eaf.dip0.t-ipconnect.de [93.197.94.175])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 9118D61E64844;
+ Mon, 21 Jul 2025 10:56:34 +0200 (CEST)
+Message-ID: <8c9e97e4-3590-49a8-940b-717deac0078d@molgen.mpg.de>
+Date: Mon, 21 Jul 2025 10:56:33 +0200
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-stm32@st-md-mailman.stormreply.com,
- Jason Xing <kernelxing@tencent.com>
-Subject: [Linux-stm32] [PATCH net-next 2/2] igb: xsk: solve underflow of
-	nb_pkts in zerocopy mode
+User-Agent: Mozilla Thunderbird
+To: Jason Xing <kerneljasonxing@gmail.com>
+References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
+ <20250721083343.16482-2-kerneljasonxing@gmail.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20250721083343.16482-2-kerneljasonxing@gmail.com>
+Cc: edumazet@google.com, anthony.l.nguyen@intel.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ przemyslaw.kitszel@intel.com, john.fastabend@gmail.com, sdf@fomichev.me,
+ intel-wired-lan@lists.osuosl.org, kuba@kernel.org, pabeni@redhat.com,
+ Jason Xing <kernelxing@tencent.com>, maciej.fijalkowski@intel.com,
+ hawk@kernel.org, ast@kernel.org, magnus.karlsson@intel.com,
+ netdev@vger.kernel.org, andrew+netdev@lunn.ch, bjorn@kernel.org,
+ mcoquelin.stm32@gmail.com, jonathan.lemon@gmail.com, bpf@vger.kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH net-next 1/2] stmmac:
+ xsk: fix underflow of budget in zerocopy mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,52 +51,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jason Xing <kernelxing@tencent.com>
-
-There is no break time in the while() loop, so every time at the end of
-igb_xmit_zc(), underflow of nb_pkts will occur, which renders the return
-value always false. But theoretically, the result should be set after
-calling xsk_tx_peek_release_desc_batch(). We can take i40e_xmit_zc() as
-a good example.
-
-Returning false means we're not done with transmission and we need one
-more poll, which is exactly what igb_xmit_zc() always did before this
-patch. After this patch, the return value depends on the nb_pkts value.
-Two cases might happen then:
-1. if (nb_pkts < budget), it means we process all the possible data, so
-   return true and no more necessary poll will be triggered because of
-   this.
-2. if (nb_pkts == budget), it means we might have more data, so return
-   false to let another poll run again.
-
-Fixes: f8e284a02afc ("igb: Add AF_XDP zero-copy Tx support")
-Signed-off-by: Jason Xing <kernelxing@tencent.com>
----
- drivers/net/ethernet/intel/igb/igb_xsk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
-index 5cf67ba29269..243f4246fee8 100644
---- a/drivers/net/ethernet/intel/igb/igb_xsk.c
-+++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
-@@ -482,7 +482,7 @@ bool igb_xmit_zc(struct igb_ring *tx_ring, struct xsk_buff_pool *xsk_pool)
- 	if (!nb_pkts)
- 		return true;
- 
--	while (nb_pkts-- > 0) {
-+	while (i < nb_pkts) {
- 		dma = xsk_buff_raw_get_dma(xsk_pool, descs[i].addr);
- 		xsk_buff_raw_dma_sync_for_device(xsk_pool, dma, descs[i].len);
- 
--- 
-2.41.3
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBKYXNvbiwKCgpUaGFuayB5b3UgZm9yIHlvdXIgcGF0Y2guCgpBbSAyMS4wNy4yNSB1bSAx
+MDozMyBzY2hyaWViIEphc29uIFhpbmc6Cj4gRnJvbTogSmFzb24gWGluZyA8a2VybmVseGluZ0B0
+ZW5jZW50LmNvbT4KPiAKPiBUaGUgaXNzdWUgY2FuIGhhcHBlbiB3aGVuIHRoZSBidWRnZXQgbnVt
+YmVyIG9mIGRlc2NzIGFyZSBjb25zdW1lZC4gQXMKCkluc3RlYWQgb2Yg4oCcVGhlIGlzc3Vl4oCd
+LCBJ4oCZZCB1c2Ug4oCcQW4gdW5kZXJmbG93IOKApuKAnS4KCj4gbG9uZyBhcyB0aGUgYnVkZ2V0
+IGlzIGRlY3JlYXNlZCB0byB6ZXJvLCBpdCB3aWxsIGFnYWluIGdvIGludG8KPiB3aGlsZSAoYnVk
+Z2V0LS0gPiAwKSBzdGF0ZW1lbnQgYW5kIGdldCBkZWNyZWFzZWQgYnkgb25lLCBzbyB0aGUKPiB1
+bmRlcmZsb3cgaXNzdWUgY2FuIGhhcHBlbi4gSXQgd2lsbCBsZWFkIHRvIHJldHVybmluZyB0cnVl
+IHdoZXJlYXMgdGhlCj4gZXhwZWN0ZWQgdmFsdWUgc2hvdWxkIGJlIGZhbHNlLgoKV2hhdCBpcyDi
+gJxpdOKAnT8KCj4gSW4gdGhpcyBjYXNlIHdoZXJlIGFsbCB0aGUgYnVkZ2V0IGFyZSB1c2VkIHVw
+LCBpdCBtZWFucyB6YyBmdW5jdGlvbgoKKmlzKiB1c2VkPwoKPiBzaG91bGQgcmV0dXJuIGZhbHNl
+IHRvIGxldCB0aGUgcG9sbCBydW4gYWdhaW4gYmVjYXVzZSBub3JtYWxseSB3ZQo+IG1pZ2h0IGhh
+dmUgbW9yZSBkYXRhIHRvIHByb2Nlc3MuCgpEbyB5b3UgaGF2ZSBhIHJlcHJvZHVjZXIsIHlvdSBj
+b3VsZCBhZGQgdG8gdGhlIGNvbW1pdCBtZXNzYWdlPwoKPiBGaXhlczogMTMyYzMyZWU1YmMwICgi
+bmV0OiBzdG1tYWM6IEFkZCBUWCB2aWEgWERQIHplcm8tY29weSBzb2NrZXQiKQo+IFNpZ25lZC1v
+ZmYtYnk6IEphc29uIFhpbmcgPGtlcm5lbHhpbmdAdGVuY2VudC5jb20+Cj4gLS0tCj4gICBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIHwgNCArKystCj4g
+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
+LmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCj4g
+aW5kZXggZjM1MGE2NjYyODgwLi5lYTU1NDFmOWU5YTYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwo+ICsrKyBiL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKPiBAQCAtMjU5Niw3ICsy
+NTk2LDcgQEAgc3RhdGljIGJvb2wgc3RtbWFjX3hkcF94bWl0X3pjKHN0cnVjdCBzdG1tYWNfcHJp
+diAqcHJpdiwgdTMyIHF1ZXVlLCB1MzIgYnVkZ2V0KQo+ICAgCj4gICAJYnVkZ2V0ID0gbWluKGJ1
+ZGdldCwgc3RtbWFjX3R4X2F2YWlsKHByaXYsIHF1ZXVlKSk7Cj4gICAKPiAtCXdoaWxlIChidWRn
+ZXQtLSA+IDApIHsKPiArCXdoaWxlIChidWRnZXQgPiAwKSB7CgpTbywgaWYgdGhlIHdoaWxlIGxv
+b3Agc2hvdWxkIG5vdCBiZSBlbnRlcmVkIHdpdGggYnVkZ2V0IGJlaW5nIDAsIHRoZW4gCnRoZSBs
+aW5lIGNvdWxkICBiZSBjaGFuZ2VkIHRvIGB3aGlsZSAoLS1idWRnZXQgPiAwKSB7YD8gQnV0IHRo
+ZW4gaXQgCndvdWxkbuKAmXQgYmUgY2FsbGVkIGZvciBidWRnZXQgYmVpbmcgMS4KCkEgZm9yIGxv
+b3AgbWlnaHQgYmUgdGhlIGJldHRlciBjaG9pY2UgZm9yIGEgbG9vcCB3aXRoIGJ1ZGdldCBhcyBj
+b3VudGluZyAKdmFyaWFibGU/Cgo+ICAgCQlzdHJ1Y3Qgc3RtbWFjX21ldGFkYXRhX3JlcXVlc3Qg
+bWV0YV9yZXE7Cj4gICAJCXN0cnVjdCB4c2tfdHhfbWV0YWRhdGEgKm1ldGEgPSBOVUxMOwo+ICAg
+CQlkbWFfYWRkcl90IGRtYV9hZGRyOwo+IEBAIC0yNjgxLDYgKzI2ODEsOCBAQCBzdGF0aWMgYm9v
+bCBzdG1tYWNfeGRwX3htaXRfemMoc3RydWN0IHN0bW1hY19wcml2ICpwcml2LCB1MzIgcXVldWUs
+IHUzMiBidWRnZXQpCj4gICAKPiAgIAkJdHhfcS0+Y3VyX3R4ID0gU1RNTUFDX0dFVF9FTlRSWSh0
+eF9xLT5jdXJfdHgsIHByaXYtPmRtYV9jb25mLmRtYV90eF9zaXplKTsKPiAgIAkJZW50cnkgPSB0
+eF9xLT5jdXJfdHg7Cj4gKwo+ICsJCWJ1ZGdldC0tOwo+ICAgCX0KPiAgIAl1NjRfc3RhdHNfdXBk
+YXRlX2JlZ2luKCZ0eHFfc3RhdHMtPm5hcGlfc3luY3ApOwo+ICAgCXU2NF9zdGF0c19hZGQoJnR4
+cV9zdGF0cy0+bmFwaS50eF9zZXRfaWNfYml0LCB0eF9zZXRfaWNfYml0KTsKCkV4Y3VzZSBteSBp
+Z25vcmFuY2UsIGJ1dCBJIGRvIG5vdCB5ZXQgc2VlIHRoZSBwcm9ibGVtIHRoYXQgdGhlIHdoaWxl
+IApsb29wIGlzIGVudGVyZWQgYW5kIGJ1ZmZlciBpcyBzZXQgdG8gMC4gSXMgaXQgbGF0ZXIgdGhl
+IHJldHVybiBjb25kaXRpb24/CgogICAgIHJldHVybiAhIWJ1ZGdldCAmJiB3b3JrX2RvbmU7CgoK
+S2luZCByZWdhcmRzLAoKUGF1bApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
