@@ -2,71 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE29B0E6C2
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 00:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6C4EB0E6E1
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 01:05:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E143C36B0C;
-	Tue, 22 Jul 2025 22:57:53 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F7AC36B0C;
+	Tue, 22 Jul 2025 23:05:06 +0000 (UTC)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60404C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DB32C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jul 2025 22:57:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tRHxx3s63gK7fxd6KXoQFpMiOEIrFkGNGYZBp4mLO+c=; b=0CThilS/+BqK/91rcK4h50c2bc
- iKiHdcV/oxxVFXCQOlZfdykWHlojpCHpcX+ZRHEkP3JQCa6MzQpJFlWODnIodUgqERBaGcJdxNxQM
- Bca1tSskla9Nw82ZeI4rtooCIwZyjfGBFxjFX71GlaGSQg7vLk4Oydui8KxjkwH9DWJAu9bddX2L7
- wroMLAN0L8J5DJw+e1nPhljl/rznxVwG5m5SNITXGbkuCP2it7peKghtuvYyXuGXmPZ6+7P44r3P9
- nT36pM4YqwjYYNbsXaNjEyjYnKkTKA8XrJXdA7ix8BU/EWrBd578FUxx0ZYUm8wjvQHfrUe0Hcr5c
- e63ES15g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:55460)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1ueLvP-0000kZ-2V;
- Tue, 22 Jul 2025 23:57:31 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1ueLvJ-0007WU-0l;
- Tue, 22 Jul 2025 23:57:25 +0100
-Date: Tue, 22 Jul 2025 23:57:25 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aIAXVSIJqOa5PEOQ@shell.armlinux.org.uk>
-References: <f5c4bb6d-4ff1-4dc1-9d27-3bb1e26437e3@foss.st.com>
- <e3c99bdb-649a-4652-9f34-19b902ba34c1@lunn.ch>
- <38278e2a-5a1b-4908-907e-7d45a08ea3b7@foss.st.com>
- <5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch>
- <383299bb-883c-43bf-a52a-64d7fda71064@foss.st.com>
- <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
- <aH_yiKJURZ80gFEv@shell.armlinux.org.uk>
- <ae31d10f-45cf-47c8-a717-bb27ba9b7fbe@lunn.ch>
- <aIAFKcJApcl5r7tL@shell.armlinux.org.uk>
- <aIAKAlkdB5S8UiYx@shell.armlinux.org.uk>
+ Tue, 22 Jul 2025 23:05:05 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-3e2c44be5abso8875745ab.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 22 Jul 2025 16:05:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753225504; x=1753830304;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=o7EJqvbx78jyg/AF+HgULO5h7plKJg0CprdQbemfJYI=;
+ b=LZ6Gnqa+t3DrOznbOxycDIhzJudYCFDzf2CnsQjQYPULwVGBkrhqHYtVYlgVAqxHoy
+ 52wpWyr5abQ9ks2BXLCuBALVbKC1K5GDUI5tc3frpxtXX8ymFgqaaGmX6O5gYQ9pGho8
+ 0YLY5w2IWxLD2TBqsb5mF/JGZhQDG50ZS0EV28/R1zGXxmOVYDyTTTkQxwGF1rFtwQz4
+ UbsBwZu9HP/RkNVROWLCxrg+6N+u2HbXJ1SfhuZAFx9csbXNATPQfvJgfjAHTN22bLm7
+ 1CtcosuPJ6ECwd0qaVPF4tQHHwU5JJsuNkEIZplF8n2nWgezdLawpc9ZiZT52J6ZPZTv
+ nPBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753225504; x=1753830304;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=o7EJqvbx78jyg/AF+HgULO5h7plKJg0CprdQbemfJYI=;
+ b=ZvIbbml45u0JFiuXFPxDql5f9L/SJpCF6UTr/5UF3cXYqeX6exkawJWqQnTvnpNjc8
+ HD4+sCHYD/KdnaqR3Aqmq/9lU0xOwQJadQIkUMEXW4h3M+Q7OccL5uaYWnDT5aMyiF8h
+ ufpknjCs9bUacMM8QdH9gcQ+AB5qUtsRBuPE0icM5zXoDbORRXRCaWa58pA0SwETcFxa
+ j9wDqSfRYYl+7tNLTgze5eLb+rWpsbb1A5w8OFwFg1h8ATk2nmTLxwsG0Cs3zm3CXmkN
+ wO0sLKiUzQdioJxE7WZL0MOUa86fheHt3guvKbH6BBH2mkjwQBBbaMnnkH2e9G7yQp/q
+ yPlQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWF9KFnbcWGHulejgg2gDSoLTHAyv7zDmqeBY967TQYBZPKiey2vxEFoPsO21zURTUaJsHZyvgub7hqSw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyIIBU5ZYePO6EB8s3TF2UAyvkS93VtVjpcZ56xnzWETGZD6/cY
+ /DrdGn4SV293OaWcoHJHYGx0BNYtbmvL9uUFdDexflIoKZk5HA3lGd1E2hdQQoy5A5/0QoMTym9
+ YVDeB98jTNEB97OhNifdgFlg28ILyV4IKfN6C+O8=
+X-Gm-Gg: ASbGnctzT5ah34xSHNOG5tk9M3Xvtp5B6z4CuCSXp1WyX6bPYDhi/6n8Qv6T27MpMEq
+ sWcq6CkVKapeK2wnsH95ibhCHZkUyaz86zt9eALury4GJRBLIiELKpFP2PUyey8mErZsx34A1Mb
+ YGMoHAIQgk4pZOASGOZyus3a610BHiKjkBHvas6gBOI4yOTOIgPZ5e5w1Yr3Qs5saGMfyP2PuAi
+ /e1JYk=
+X-Google-Smtp-Source: AGHT+IGM9UuN6Ixs1sIL8NACSug2SQUUVxyblxGzqYvFhlPX7uYT59jMr39yoO6RCwIf1f0wFOILXKZ+Lj8MuW7dEg8=
+X-Received: by 2002:a05:6e02:3c8a:b0:3df:49fa:7af5 with SMTP id
+ e9e14a558f8ab-3e3354b36d0mr17914325ab.21.1753225503835; Tue, 22 Jul 2025
+ 16:05:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aIAKAlkdB5S8UiYx@shell.armlinux.org.uk>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Simon Horman <horms@kernel.org>, Tristram Ha <Tristram.Ha@microchip.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] dt-bindings: net: document
- st, phy-wol property
+References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
+ <20250721083343.16482-2-kerneljasonxing@gmail.com>
+ <8c9e97e4-3590-49a8-940b-717deac0078d@molgen.mpg.de>
+ <CAL+tcoAP7Zk7A4pzK-za+_NMoX11SGR3ubtY6R+aaywoEq_H+g@mail.gmail.com>
+ <687f9d4cf0b14_2aa7cc29443@willemb.c.googlers.com.notmuch>
+ <CAL+tcoC5KnTuWKxKcUqFGh-nBSF+X+RWzr=RkkK86+jY1Q20Kw@mail.gmail.com>
+ <687fca7852e84_2cbf622949d@willemb.c.googlers.com.notmuch>
+In-Reply-To: <687fca7852e84_2cbf622949d@willemb.c.googlers.com.notmuch>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Wed, 23 Jul 2025 07:04:27 +0800
+X-Gm-Features: Ac12FXxlIdpCobXEpYuKgIInC5aDftS0FkSg-5UHsYyoMLW8D0PgDpjZEO7FH-U
+Message-ID: <CAL+tcoA7W=3m2+=EGicrAkiwc2HUGTn3js=0r_gm9=z0BKR3ag@mail.gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: edumazet@google.com, anthony.l.nguyen@intel.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ przemyslaw.kitszel@intel.com, john.fastabend@gmail.com, sdf@fomichev.me,
+ intel-wired-lan@lists.osuosl.org, kuba@kernel.org, pabeni@redhat.com,
+ Jason Xing <kernelxing@tencent.com>, Paul Menzel <pmenzel@molgen.mpg.de>,
+ maciej.fijalkowski@intel.com, hawk@kernel.org, ast@kernel.org,
+ magnus.karlsson@intel.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ bjorn@kernel.org, mcoquelin.stm32@gmail.com, jonathan.lemon@gmail.com,
+ bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH net-next 1/2] stmmac:
+ xsk: fix underflow of budget in zerocopy mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,143 +92,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 22, 2025 at 11:00:34PM +0100, Russell King (Oracle) wrote:
-> On Tue, Jul 22, 2025 at 10:39:53PM +0100, Russell King (Oracle) wrote:
-> > rtl8211f_get_wol() does not take account of whether the PMEB pin is
-> > wired or not. Thus, stmmac can't just forward the get_wol() and
-> > set_wol() ops to the PHY driver and let it decide, as suggested
-> > earlier. As stmmac gets used with multiple PHYs, (and hey, we can't
-> > tell what they are, because DT doesn't list what the PHY actually is!)
-> > we can't know how many other PHY drivers also have this problem.
-> 
-> I've just read a bit more of the RTL8211F datasheet, and looked at the
-> code, and I'm now wondering whether WoL has even been tested with
-> RTL8211F. What I'm about to state doesn't negate anything I've said
-> in my previous reply.
-> 
-> 
-> So, the RTL8211F doesn't have a separate PMEB pin. It has a pin that
-> is shared between "interrupt" and "PMEB".
-> 
-> Register 22, page 0xd40, bit 5 determines whether this pin is used for
-> PMEB (in which case it is pulsed on wake-up) or whether it is used as
-> an interrupt. It's one or the other function, but can't be both.
-> 
-> rtl8211f_set_wol() manipulates this bit depending on whether
-> WAKE_MAGIC is enabled or not.
-> 
-> The effect of this is...
-> 
-> If we're using PHY interrupts from the RTL8211F, and then userspace
-> configures magic packet WoL on the PHY, then we reconfigure the
-> interrupt pin to become a wakeup pin, disabling the interrupt
-> function - we no longer receive interrupts from the RTL8211F !!!!!!!
-> 
-> Yes, the driver does support interrupts for this device!
-> 
-> This is surely wrong because it will break phylib's ability to track
-> the link state as there will be no further interrupts _and_ phylib
-> won't be expecting to poll the PHY.
-> 
-> The really funny thing is that the PHY does have the ability to
-> raise an interrupt if a wakeup occurs through the interrupt pin
-> (when configured as such) via register 18, page 0xa42, bit 7...
-> but the driver doesn't touch that.
-> 
-> 
-> Jetson Xavier NX uses interrupts from this PHY. Forwarding an
-> ethtool .set_wol() op to the PHY driver which enables magic packet
-> will, as things stand, switch the interrupt pin to wake-up only
-> mode, preventing delivery of further link state change events to
-> phylib, breaking phylib.
-> 
-> Maybe there's a need for this behaviour with which-ever network
-> driver first used RTL8211F in the kernel. Maybe the set of network
-> drivers that use interrupts from the RTL8211F don't use WoL and
-> vice versa. If there's any network drivers that do forward WoL
-> calls to the RTL8211F driver _and_ use interrupts from the PHY...
-> that's just going to break if magic packet WoL is ever enabled at
-> the PHY.
-
-The only solutions I can think that may work with RTL8211F are:
-
-Solution 1. move the control of RTL8211F_INTBCR_INTB_PMEB to a new
-  rtl8211f_suspend() / rtl8211f_resume(), and switch the pin between
-  interrupt mode and PMEB mode accordingly if WoL is enabled. This
-  should be relatively low-risk, and not require DT changes.
-
-Solution 2. don't switch to PMEB mode if phylib is using interrupts.
-  Instead, enable WoL interrupt when in INTB mode. Also needs
-  rtl8211f_handle_interrupt() modified to "handle" the interrupt
-  to prevent an interrupt storm. May cause other problems - PMEB
-  is pulsed, WoL over INTB is level-based, so higher risk.
-
-Solution 3. introduce a DT flag for rtl8211f PHYs to tell the PHY
-  driver "this platform should enable WoL interrupts in INTB mode
-  and not switch to PMEB mode". Safest, as no change in behaviour
-  without the flag being present... but arguable whether it truly
-  describes hardware. However, what we currently have in DT
-  *doesn't* actually describe hardware because of the mistakes made.
-  (Maybe we can use the wakeup-source property to indicate this
-  mode, which may be more acceptable to Krzysztof than a whole new
-  flag.)
-
-Maybe something else would be acceptable to DT folk - I think I've
-provided enough of a description of the problem we currently have
-to allow DT folk to digest the issue here.
-
-Just random thoughts below... here's the description of the PHY on
-the Jetson Xavier NX which I'll use as a basis for some scenarios.
-(from arch/arm64/boot/dts/nvidia/tegra194-p3668.dtsi).
-
-	phy: ethernet-phy@0 {
-		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0x0>;
-		interrupt-parent = <&gpio>;
-		interrupts = <TEGRA194_MAIN_GPIO(G, 4) IRQ_TYPE_LEVEL_LOW>;
-		#phy-cells = <0>;
-	};
-
-If WoL is supported through interrupts, then maybe we describe it
-as:
-
-	phy: ethernet-phy@0 {
-		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0x0>;
-		interrupt-parent = <&gpio>;
-		interrupts = <TEGRA194_MAIN_GPIO(G, 4) IRQ_TYPE_LEVEL_LOW>;
-		#phy-cells = <0>;
-		wakeup-source;
-	};
-
-WoL is supported through PMEB, no interrupt support, then it gets
-described as:
-
-	phy: ethernet-phy@0 {
-		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0x0>;
-		#phy-cells = <0>;
-		wakeup-source;
-	};
-
-The problem becomes how to describe the _existing_ behaviour going
-forward, which we get with the current (first) description above. We
-would need to preserve this for the existing description for backward
-compatibility to avoid breaking existing setups. Do we try to come up
-with something different that allows wakeup-source to be added?
-Should we say that shared-interrupt and PMEB mode isn't something we
-support except for legacy stuff, and thus not care about the missing
-wakeup-source property? Something else, if so what (please suggest) ?
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdWwgMjMsIDIwMjUgYXQgMToyOeKAr0FNIFdpbGxlbSBkZSBCcnVpam4KPHdpbGxl
+bWRlYnJ1aWpuLmtlcm5lbEBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSmFzb24gWGluZyB3cm90ZToK
+PiA+IE9uIFR1ZSwgSnVsIDIyLCAyMDI1IGF0IDEwOjE24oCvUE0gV2lsbGVtIGRlIEJydWlqbgo+
+ID4gPHdpbGxlbWRlYnJ1aWpuLmtlcm5lbEBnbWFpbC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPiBK
+YXNvbiBYaW5nIHdyb3RlOgo+ID4gPiA+IEhpIFBhdWwsCj4gPiA+ID4KPiA+ID4gPiBPbiBNb24s
+IEp1bCAyMSwgMjAyNSBhdCA0OjU24oCvUE0gUGF1bCBNZW56ZWwgPHBtZW56ZWxAbW9sZ2VuLm1w
+Zy5kZT4gd3JvdGU6Cj4gPiA+ID4gPgo+ID4gPiA+ID4gRGVhciBKYXNvbiwKPiA+ID4gPiA+Cj4g
+PiA+ID4gPgo+ID4gPiA+ID4gVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLgo+ID4gPiA+Cj4gPiA+
+ID4gVGhhbmtzIGZvciB5b3VyIHF1aWNrIHJlc3BvbnNlIGFuZCByZXZpZXcgOikKPiA+ID4gPgo+
+ID4gPiA+ID4KPiA+ID4gPiA+IEFtIDIxLjA3LjI1IHVtIDEwOjMzIHNjaHJpZWIgSmFzb24gWGlu
+ZzoKPiA+ID4gPiA+ID4gRnJvbTogSmFzb24gWGluZyA8a2VybmVseGluZ0B0ZW5jZW50LmNvbT4K
+PiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gVGhlIGlzc3VlIGNhbiBoYXBwZW4gd2hlbiB0aGUgYnVk
+Z2V0IG51bWJlciBvZiBkZXNjcyBhcmUgY29uc3VtZWQuIEFzCj4gPiA+ID4gPgo+ID4gPiA+ID4g
+SW5zdGVhZCBvZiDigJxUaGUgaXNzdWXigJ0sIEnigJlkIHVzZSDigJxBbiB1bmRlcmZsb3cg4oCm
+4oCdLgo+ID4gPiA+Cj4gPiA+ID4gV2lsbCBjaGFuZ2UgaXQuCj4gPiA+ID4KPiA+ID4gPiA+Cj4g
+PiA+ID4gPiA+IGxvbmcgYXMgdGhlIGJ1ZGdldCBpcyBkZWNyZWFzZWQgdG8gemVybywgaXQgd2ls
+bCBhZ2FpbiBnbyBpbnRvCj4gPiA+ID4gPiA+IHdoaWxlIChidWRnZXQtLSA+IDApIHN0YXRlbWVu
+dCBhbmQgZ2V0IGRlY3JlYXNlZCBieSBvbmUsIHNvIHRoZQo+ID4gPiA+ID4gPiB1bmRlcmZsb3cg
+aXNzdWUgY2FuIGhhcHBlbi4gSXQgd2lsbCBsZWFkIHRvIHJldHVybmluZyB0cnVlIHdoZXJlYXMg
+dGhlCj4gPiA+ID4gPiA+IGV4cGVjdGVkIHZhbHVlIHNob3VsZCBiZSBmYWxzZS4KPiA+ID4gPiA+
+Cj4gPiA+ID4gPiBXaGF0IGlzIOKAnGl04oCdPwo+ID4gPiA+Cj4gPiA+ID4gSXQgbWVhbnMgJ3Vu
+ZGVyZmxvdyBvZiBidWRnZXQnIGJlaGF2aW9yLgo+ID4gPgo+ID4gPiBBIHRlY2huaWNhbGl0eSwg
+YnV0IHRoaXMgaXMgKG5lZ2F0aXZlKSBvdmVyZmxvdy4KPiA+ID4KPiA+ID4gVW5kZXJmbG93IGlz
+IGEgY29tcHV0YXRpb24gdGhhdCByZXN1bHRzIGluIGEgdmFsdWUgdGhhdCBpcyB0b28gc21hbGwK
+PiA+ID4gdG8gYmUgcmVwcmVzZW50ZWQgYnkgdGhlIGdpdmVuIHR5cGUuCj4gPgo+ID4gSW50ZXJl
+c3RpbmcuIFRoYW5rcyBmb3Igc2hhcmluZyB0aGlzIHdpdGggbWU6KQo+ID4KPiA+IEkganVzdCBj
+aGVja2VkIHRoZSB3aWtpcGVkaWFbMV0gdGhhdCBzYXlzICIgVW5kZXJmbG93IGNhbiBpbiBwYXJ0
+IGJlCj4gPiByZWdhcmRlZCBhcyBuZWdhdGl2ZSBvdmVyZmxvdyBvZiB0aGUgZXhwb25lbnQgb2Yg
+dGhlIGZsb2F0aW5nLXBvaW50Cj4gPiB2YWx1ZS4iLiBJIGFzc3VtZSB0aGlzIHJ1bGUgY2FuIGFs
+c28gYmUgYXBwbGllZCBpbiB0aGlzIGNhc2U/IEknbQo+ID4gaGVzaXRhbnQgdG8gc2VuZCB0aGUg
+djMgcGF0Y2ggdG9tb3Jyb3cgd2l0aCB0aGlzICduZWdhdGl2ZSBvdmVyZmxvdycKPiA+IHRlcm0g
+aW5jbHVkZWQuCj4KPiBNeSBwb2ludCBpcyB2ZXJ5IHBlZGFudGljLiBJIHRoaW5rIHRoZXNlIGNh
+c2VzIGFyZSBub3QgdW5kZXJmbG93Lgo+Cj4gQnV0IGl0IGlzIG9mdGVuIGNhbGxlZCB0aGF0LCB1
+bmRlcnN0YW5kYWJseS4gU28gY2hvb3NlIGFzIHlvdSBzZWUgZml0LgoKSSBzZWUuIFRoYW5rcyBm
+b3IgcG9pbnRpbmcgdGhhdCBvdXQuIEkgd2lsbCBjaGFuZ2UgaXQgOikKClRoYW5rcywKSmFzb24K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
+MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
+aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtc3RtMzIK
