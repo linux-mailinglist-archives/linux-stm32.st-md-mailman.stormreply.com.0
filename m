@@ -2,79 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2480B0E5CE
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jul 2025 23:58:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA03AB0E5FF
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 00:00:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 747FBC36B0D;
-	Tue, 22 Jul 2025 21:58:18 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8948C36B0C;
+	Tue, 22 Jul 2025 22:00:53 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6958EC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A48EC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jul 2025 21:58:17 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-5f438523d6fso2199a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jul 2025 14:58:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1753221497; x=1753826297;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XphRFYGKTpOm5xqnRvI7xsnYVXmfTKHiTieuuJNNgkI=;
- b=MfnTXOaZ0BTFew22iQWJEPNcHMzBBvQSOZuPRaockywcJVIak9O1Bama62hZUfwAn3
- s/Pf0aLC2IlzEsRoBO3EqYpWYHcmxqkdgMXfB97TbJc8uZ3GDPInH43Jr0IaZWyIpVN3
- 66lnQQ25zwA2YQcrLyph4QE2L5wlmT+z10Tqc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753221497; x=1753826297;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XphRFYGKTpOm5xqnRvI7xsnYVXmfTKHiTieuuJNNgkI=;
- b=Isc18zHDfkVgdXxQinDs30P4rwMRBBtaV4u7CROFugFBJZANrzvEi/lRvoXRMVE+YQ
- qLZPir2CUFxb6dgyH6U1RjvZktI5vEaTfQsC+4sMEYfxpS02BIsrR/5+AzNYNe725MOB
- wDrJEeIJbbhfp/zWu+fC1lpRRPBAXLxLPoPCMrk4lWID3v7Sd7H/vya5Wf6rGBCutZHJ
- Drjmy3QsIJSwIxjirngauZbS7c/305ZaxHUTF30xbloh13BmwqF5zCVvGUQpN8FJI/J2
- SZlbYZD/j7FoBvEkhRHgus7BVXXHZopjY8wn9bg5QsLR0+/x0GjsE0b6BQ9O0eaUgErx
- Uq1Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVBY0eGqdU8kjro9cj1vOVyehsMtWMFpxFZYZX+teY/Ufn/029vVaWgjuMmHkZzK8hUbty3Xa7iWbW0eA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx859Zm7qCEOMebTflhfD9bk2WyyTZ99Bnj9s5Egq04B4gECt0a
- CMFfeRPKIcSS468E8xCWdWiJFFQcJSioT1Xaw70AmDLV/cOZ6GhXk4EtbjtqqadknYTFnxTqBxy
- CmnQV62b+/DxLE28Nyp06NiSg0oGykGIze3h3ivOU
-X-Gm-Gg: ASbGnctgGWboJDHUSMu2Hgl8yT3XXILRR31cwL8kQLaFJu/q9GYQrShDA6O+Qq0C7xP
- NCPArWDCRjKiyzo/ttF5j5tQPR5wawr9f5pVt1qrwKPnL3Uk+UDVbjvoHnhcwxN4VO1POrfKqc2
- 0RBu6KfJYPcxvFisFiFf6OrDXnUs4IQLGmkwL8VRX/Funrenl82yYnYlvCqB3rRGE5QLZ6dpFl1
- uAlEZcYVMS5XY/F2e4By6ivTnciCutRT7y97pJiG/US
-X-Google-Smtp-Source: AGHT+IFp5y+l1fTW8GtjpxnnyEe4EWyuH/zYE3JF5LoJQi9huRUvCNpCO/HKD9InP/jd87P+NKE1aVh/xMR3qwPcil0=
-X-Received: by 2002:a50:cd11:0:b0:612:7599:65c7 with SMTP id
- 4fb4d7f45d1cf-6149ac2e0b6mr29581a12.6.1753221496595; Tue, 22 Jul 2025
- 14:58:16 -0700 (PDT)
+ Tue, 22 Jul 2025 22:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XSSmyEAVCfx6UoBN6/vyS4ypSsBayt+epb+whGNpxlc=; b=efkh5OYuxMntLpQJfhREDs00bT
+ e31RvBopK3XWSjzCJceqzHhiBJnPqtcwtbFK2oBy1s+de/r7ALJUKHqz9WXbLx63YkB6KsGHefWJm
+ bVpZBLUWfqTjXLGYD+9/yA6JkLuiDEHB3SC1+2EKu+hGz0nnQxP1d51EvqA0oztSftHu8f8AOUXY6
+ Uh/2FYBf5MV7yTGyrYO4gHZrkZeLx8Ol7t4D5hCvcROVO2KkTqzCgOZJcAGkyqZoeh6yqbhEV3BMY
+ oRfBIsyD+K7rDqe/zylRjiXU91hxTdGab+qPmrM/htdnJM+aafdw8LQLtBZ3+B02TzBlV0zgqVBdg
+ xuuzHWUQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56144)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1ueL2L-0000hK-0z;
+ Tue, 22 Jul 2025 23:00:37 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1ueL2I-0007UG-0n;
+ Tue, 22 Jul 2025 23:00:34 +0100
+Date: Tue, 22 Jul 2025 23:00:34 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aIAKAlkdB5S8UiYx@shell.armlinux.org.uk>
+References: <faea23d5-9d5d-4fbb-9c6a-a7bc38c04866@kernel.org>
+ <f5c4bb6d-4ff1-4dc1-9d27-3bb1e26437e3@foss.st.com>
+ <e3c99bdb-649a-4652-9f34-19b902ba34c1@lunn.ch>
+ <38278e2a-5a1b-4908-907e-7d45a08ea3b7@foss.st.com>
+ <5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch>
+ <383299bb-883c-43bf-a52a-64d7fda71064@foss.st.com>
+ <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
+ <aH_yiKJURZ80gFEv@shell.armlinux.org.uk>
+ <ae31d10f-45cf-47c8-a717-bb27ba9b7fbe@lunn.ch>
+ <aIAFKcJApcl5r7tL@shell.armlinux.org.uk>
 MIME-Version: 1.0
-References: <20250722-ddrperfm-upstream-v3-0-7b7a4f3dc8a0@foss.st.com>
- <20250722-ddrperfm-upstream-v3-7-7b7a4f3dc8a0@foss.st.com>
-In-Reply-To: <20250722-ddrperfm-upstream-v3-7-7b7a4f3dc8a0@foss.st.com>
-From: Julius Werner <jwerner@chromium.org>
-Date: Tue, 22 Jul 2025 14:58:03 -0700
-X-Gm-Features: Ac12FXx4M-_tpsnv6SoYOcaCR3mVKSUiARmyCSX04o5wxXNHMo0oAxmxSQQ0MIM
-Message-ID: <CAODwPW-kVcnVtVakXs7aBcwb_nv0bLTaK5PKNo4zmJaJ=VC8Wg@mail.gmail.com>
-To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <aIAFKcJApcl5r7tL@shell.armlinux.org.uk>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Le Goffic <legoffic.clement@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Julius Werner <jwerner@chromium.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 07/19] dt-bindings: memory: factorise
- LPDDR channel binding into memory channel
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Simon Horman <horms@kernel.org>, Tristram Ha <Tristram.Ha@microchip.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/4] dt-bindings: net: document
+ st, phy-wol property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,30 +83,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +  purpose of this node is to overall memory topology of the system, including the
+On Tue, Jul 22, 2025 at 10:39:53PM +0100, Russell King (Oracle) wrote:
+> rtl8211f_get_wol() does not take account of whether the PMEB pin is
+> wired or not. Thus, stmmac can't just forward the get_wol() and
+> set_wol() ops to the PHY driver and let it decide, as suggested
+> earlier. As stmmac gets used with multiple PHYs, (and hey, we can't
+> tell what they are, because DT doesn't list what the PHY actually is!)
+> we can't know how many other PHY drivers also have this problem.
 
-nit: Might take the opportunity to fix the typo here (missing words:
-"is to describe the overall memory topology").
+I've just read a bit more of the RTL8211F datasheet, and looked at the
+code, and I'm now wondering whether WoL has even been tested with
+RTL8211F. What I'm about to state doesn't negate anything I've said
+in my previous reply.
 
->    - Julius Werner <jwerner@chromium.org>
 
-Why remove me? (Although I'm also not really sure why I'm maintainer
-for this file and Krzysztof for all the others, tbh.)
+So, the RTL8211F doesn't have a separate PMEB pin. It has a pin that
+is shared between "interrupt" and "PMEB".
 
->  examples:
->    - |
+Register 22, page 0xd40, bit 5 determines whether this pin is used for
+PMEB (in which case it is pulsed on wake-up) or whether it is used as
+an interrupt. It's one or the other function, but can't be both.
 
-I think that's a load-bearing pipe character you're removing here?
+rtl8211f_set_wol() manipulates this bit depending on whether
+WAKE_MAGIC is enabled or not.
 
-> -    lpddr-channel0 {
-> +    memory-channel0 {
+The effect of this is...
 
-Just to double-check, the name of this node doesn't really mean
-anything and isn't directly interpreted by the kernel, right? I'm fine
-with changing the example here to fit better with the new expanded
-scope of the schema, but we have existing firmware that generates
-nodes with the `lpddr-channel0` name, I want to make sure that it
-won't break from making changes here.
+If we're using PHY interrupts from the RTL8211F, and then userspace
+configures magic packet WoL on the PHY, then we reconfigure the
+interrupt pin to become a wakeup pin, disabling the interrupt
+function - we no longer receive interrupts from the RTL8211F !!!!!!!
+
+Yes, the driver does support interrupts for this device!
+
+This is surely wrong because it will break phylib's ability to track
+the link state as there will be no further interrupts _and_ phylib
+won't be expecting to poll the PHY.
+
+The really funny thing is that the PHY does have the ability to
+raise an interrupt if a wakeup occurs through the interrupt pin
+(when configured as such) via register 18, page 0xa42, bit 7...
+but the driver doesn't touch that.
+
+
+Jetson Xavier NX uses interrupts from this PHY. Forwarding an
+ethtool .set_wol() op to the PHY driver which enables magic packet
+will, as things stand, switch the interrupt pin to wake-up only
+mode, preventing delivery of further link state change events to
+phylib, breaking phylib.
+
+Maybe there's a need for this behaviour with which-ever network
+driver first used RTL8211F in the kernel. Maybe the set of network
+drivers that use interrupts from the RTL8211F don't use WoL and
+vice versa. If there's any network drivers that do forward WoL
+calls to the RTL8211F driver _and_ use interrupts from the PHY...
+that's just going to break if magic packet WoL is ever enabled at
+the PHY.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
