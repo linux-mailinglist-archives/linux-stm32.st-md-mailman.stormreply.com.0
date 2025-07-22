@@ -2,90 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE13B0E298
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jul 2025 19:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC62BB0E4DC
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jul 2025 22:20:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8564C36B0C;
-	Tue, 22 Jul 2025 17:29:32 +0000 (UTC)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B6E2C36B0C;
+	Tue, 22 Jul 2025 20:20:49 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BACA6C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02D7BC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jul 2025 17:29:30 +0000 (UTC)
-Received: by mail-yb1-f178.google.com with SMTP id
- 3f1490d57ef6-e8986a25cbfso4089351276.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jul 2025 10:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753205369; x=1753810169;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wAsiexFpJG29+h65JJPZFpAJdqh8AwtAuRFszUNX74E=;
- b=RJ4P/abwdpbO3zyE7J9am/FlkEhovSzi1hcU87YEQrRqvcn5KwUCzpnH2NfBYyib3l
- EuXhTbP89pRzkdySgaQxkRH9ACSat3YGRHRZKCy9YJmZvBuV2a+GDY+7VXTfpQkMCfeC
- CqpmH++LuhQO6ZhFnX/YTHrimwaSYxsoz6KSt1yw+cLWy4CyZBp+07hX+o9gMygm8NMq
- u5ejecpnSHD+mQ12N8Lg5OzFM/gR6FpLsWuPSgGbb4j4uoYFnqs4kpFaM2ohgqCe2E7b
- /0nHPalZJi4u6v0es2uxOSw4c9xi2M1KsboLda860dBIaVTffRg4kuT7KG2tbske18wH
- QMWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753205369; x=1753810169;
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=wAsiexFpJG29+h65JJPZFpAJdqh8AwtAuRFszUNX74E=;
- b=j1O7M+rfQegVOUarqQX23W/eorSjA9/geNZbyw6oDAAAD9NeGCqNQvAp/Pz36UuOb2
- PAqiidh/hH4H3nveTQlMPJ7U2vXO4cUh8kCwCjE5zs1ECMAr7t9jtnM2C/P1o+gr7Nws
- QCg0kGZ1kx9r4D92XvpStdipAeU0s1A5RZ4n75/QlOYcVNNbLGIODLeJJUou30xqn5r/
- RcCems6F4B8TGAS4mnUUyhfOVjq0WMI5vkh69pZPdTB7IgDWCcfXkNkhOhS+OiNQKPDf
- DQk/5gFa9GstQZYb5+zB/hwOHn4LTD9XPNMOCuIzbJaixPg3fNnZGYXtPlrIhs5nHXlm
- tdtg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXGS9bk/LX3ZfBjVZc2xjrHLdP0UPv8567ol5wDi05TDAhY5P9Rrr2r5nFlqOv/s205/6BLLAq7GFeSLw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yybh6mYSKoEclHmLm08QAuEA6tCW0Mp95IueXz5SYpAJDc1zD1b
- cR4Sm+KW8l1MI4yiI4pia7XxGd0tZEZuwkIIbJL3npx+PlKJLbyp6GnO
-X-Gm-Gg: ASbGncs4y8521JSIpsWAucCZ/7M3JYbY42M3ib+d/bLrE4oVjqr5mWJzlOtDZp2MrEf
- XyVDiU8MP1D9qxhBE8wptngh7Z40M8LWOKpJjFuCpkGZeMTHPW1YYtHY3XK+Ai1CoohQGgJHTRd
- pz4/k2JqhvsC/1bF6IrxuPt2kycH7eLJIlckSVFXL9qZtUUncDgTFy55czll0TC89WvPdS5SKpE
- viUGqBR9vvtwDDWwcDl+xczpmpEZZFNykEFgbAfsD3iQiATmpoAsfxwPmCiHSd/J8ZYxj/c68Rq
- pgZinXqTCqFDGh7YzpSeEuJkVKGp6vnRAknHqdNh46orXTH8WhX3Pqz8dzeHsS+gKf4DR6TW4Fl
- xEnixnbW+p7AFu29c0LiB8/h+F0Vwv14UrbeI/hDlADJnW/gfE1pAO7SolETvmzE9JWbTbA==
-X-Google-Smtp-Source: AGHT+IF7A13lSEqts+dgqsU65x9gG5+n8sudziRUQP5o9tvzg5UXPLY2Xux38fUj0ahxVpgCIrZuJA==
-X-Received: by 2002:a05:690c:8c08:b0:719:4bd6:8ba6 with SMTP id
- 00721157ae682-7194bd68c99mr168256107b3.20.1753205369278; 
- Tue, 22 Jul 2025 10:29:29 -0700 (PDT)
-Received: from localhost (23.67.48.34.bc.googleusercontent.com. [34.48.67.23])
- by smtp.gmail.com with UTF8SMTPSA id
- 00721157ae682-719532c7cc0sm26018107b3.70.2025.07.22.10.29.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Jul 2025 10:29:28 -0700 (PDT)
-Date: Tue, 22 Jul 2025 13:29:28 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Jason Xing <kerneljasonxing@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Message-ID: <687fca7852e84_2cbf622949d@willemb.c.googlers.com.notmuch>
-In-Reply-To: <CAL+tcoC5KnTuWKxKcUqFGh-nBSF+X+RWzr=RkkK86+jY1Q20Kw@mail.gmail.com>
-References: <20250721083343.16482-1-kerneljasonxing@gmail.com>
- <20250721083343.16482-2-kerneljasonxing@gmail.com>
- <8c9e97e4-3590-49a8-940b-717deac0078d@molgen.mpg.de>
- <CAL+tcoAP7Zk7A4pzK-za+_NMoX11SGR3ubtY6R+aaywoEq_H+g@mail.gmail.com>
- <687f9d4cf0b14_2aa7cc29443@willemb.c.googlers.com.notmuch>
- <CAL+tcoC5KnTuWKxKcUqFGh-nBSF+X+RWzr=RkkK86+jY1Q20Kw@mail.gmail.com>
-Mime-Version: 1.0
-Cc: edumazet@google.com, anthony.l.nguyen@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
- przemyslaw.kitszel@intel.com, john.fastabend@gmail.com, sdf@fomichev.me,
- intel-wired-lan@lists.osuosl.org, kuba@kernel.org, pabeni@redhat.com,
- Jason Xing <kernelxing@tencent.com>, Paul Menzel <pmenzel@molgen.mpg.de>,
- maciej.fijalkowski@intel.com, hawk@kernel.org, ast@kernel.org,
- magnus.karlsson@intel.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- bjorn@kernel.org, mcoquelin.stm32@gmail.com, jonathan.lemon@gmail.com,
- bpf@vger.kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH net-next 1/2] stmmac:
- xsk: fix underflow of budget in zerocopy mode
+ Tue, 22 Jul 2025 20:20:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=kbhK64lKfzGoli4FgA99Y7jN3LYJzkq8kXFb4Szyfl4=; b=V4QT5v6a0Feyd72Kw5Aiz/opbu
+ w6blYrG1N35+yEilK7qBcjzE8zdnxuuOyZt1stdsPaQshuXWbw80NGGHcTMWdXoINB39EpoZn9/t6
+ aXgPDyrY/oGclFya19XRVhvmFGU18AEW/qehpAHn7X/L3GuEzqwURhj07XOWeyfcqnhWlTS4TzWHl
+ UQwDqUdWTEsI1/Qv5gnz8v2bNbPrJtlh/A7tvf6bpWyVnQLlQQFdupsoPYPJknNQyszHHAQehBEiR
+ jtnOEtFKWU09sJUjIyax8o3pAa4sMMCCjt+vbriqm018nAzaZpdqH60MrmeaMOaaCk1UNMRcw86lj
+ OKg/N+dQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52434)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1ueJTQ-0000Y8-2A;
+ Tue, 22 Jul 2025 21:20:28 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1ueJTM-0007Qz-0W;
+ Tue, 22 Jul 2025 21:20:24 +0100
+Date: Tue, 22 Jul 2025 21:20:24 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aH_yiKJURZ80gFEv@shell.armlinux.org.uk>
+References: <20250721-wol-smsc-phy-v1-0-89d262812dba@foss.st.com>
+ <20250721-wol-smsc-phy-v1-1-89d262812dba@foss.st.com>
+ <faea23d5-9d5d-4fbb-9c6a-a7bc38c04866@kernel.org>
+ <f5c4bb6d-4ff1-4dc1-9d27-3bb1e26437e3@foss.st.com>
+ <e3c99bdb-649a-4652-9f34-19b902ba34c1@lunn.ch>
+ <38278e2a-5a1b-4908-907e-7d45a08ea3b7@foss.st.com>
+ <5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch>
+ <383299bb-883c-43bf-a52a-64d7fda71064@foss.st.com>
+ <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
+Cc: Christophe Roullier <christophe.roullier@foss.st.com>,
+ Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Simon Horman <horms@kernel.org>, Tristram Ha <Tristram.Ha@microchip.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/4] dt-bindings: net: document
+ st, phy-wol property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,42 +77,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SmFzb24gWGluZyB3cm90ZToKPiBPbiBUdWUsIEp1bCAyMiwgMjAyNSBhdCAxMDoxNuKAr1BNIFdp
-bGxlbSBkZSBCcnVpam4KPiA8d2lsbGVtZGVicnVpam4ua2VybmVsQGdtYWlsLmNvbT4gd3JvdGU6
-Cj4gPgo+ID4gSmFzb24gWGluZyB3cm90ZToKPiA+ID4gSGkgUGF1bCwKPiA+ID4KPiA+ID4gT24g
-TW9uLCBKdWwgMjEsIDIwMjUgYXQgNDo1NuKAr1BNIFBhdWwgTWVuemVsIDxwbWVuemVsQG1vbGdl
-bi5tcGcuZGU+IHdyb3RlOgo+ID4gPiA+Cj4gPiA+ID4gRGVhciBKYXNvbiwKPiA+ID4gPgo+ID4g
-PiA+Cj4gPiA+ID4gVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLgo+ID4gPgo+ID4gPiBUaGFua3Mg
-Zm9yIHlvdXIgcXVpY2sgcmVzcG9uc2UgYW5kIHJldmlldyA6KQo+ID4gPgo+ID4gPiA+Cj4gPiA+
-ID4gQW0gMjEuMDcuMjUgdW0gMTA6MzMgc2NocmllYiBKYXNvbiBYaW5nOgo+ID4gPiA+ID4gRnJv
-bTogSmFzb24gWGluZyA8a2VybmVseGluZ0B0ZW5jZW50LmNvbT4KPiA+ID4gPiA+Cj4gPiA+ID4g
-PiBUaGUgaXNzdWUgY2FuIGhhcHBlbiB3aGVuIHRoZSBidWRnZXQgbnVtYmVyIG9mIGRlc2NzIGFy
-ZSBjb25zdW1lZC4gQXMKPiA+ID4gPgo+ID4gPiA+IEluc3RlYWQgb2Yg4oCcVGhlIGlzc3Vl4oCd
-LCBJ4oCZZCB1c2Ug4oCcQW4gdW5kZXJmbG93IOKApuKAnS4KPiA+ID4KPiA+ID4gV2lsbCBjaGFu
-Z2UgaXQuCj4gPiA+Cj4gPiA+ID4KPiA+ID4gPiA+IGxvbmcgYXMgdGhlIGJ1ZGdldCBpcyBkZWNy
-ZWFzZWQgdG8gemVybywgaXQgd2lsbCBhZ2FpbiBnbyBpbnRvCj4gPiA+ID4gPiB3aGlsZSAoYnVk
-Z2V0LS0gPiAwKSBzdGF0ZW1lbnQgYW5kIGdldCBkZWNyZWFzZWQgYnkgb25lLCBzbyB0aGUKPiA+
-ID4gPiA+IHVuZGVyZmxvdyBpc3N1ZSBjYW4gaGFwcGVuLiBJdCB3aWxsIGxlYWQgdG8gcmV0dXJu
-aW5nIHRydWUgd2hlcmVhcyB0aGUKPiA+ID4gPiA+IGV4cGVjdGVkIHZhbHVlIHNob3VsZCBiZSBm
-YWxzZS4KPiA+ID4gPgo+ID4gPiA+IFdoYXQgaXMg4oCcaXTigJ0/Cj4gPiA+Cj4gPiA+IEl0IG1l
-YW5zICd1bmRlcmZsb3cgb2YgYnVkZ2V0JyBiZWhhdmlvci4KPiA+Cj4gPiBBIHRlY2huaWNhbGl0
-eSwgYnV0IHRoaXMgaXMgKG5lZ2F0aXZlKSBvdmVyZmxvdy4KPiA+Cj4gPiBVbmRlcmZsb3cgaXMg
-YSBjb21wdXRhdGlvbiB0aGF0IHJlc3VsdHMgaW4gYSB2YWx1ZSB0aGF0IGlzIHRvbyBzbWFsbAo+
-ID4gdG8gYmUgcmVwcmVzZW50ZWQgYnkgdGhlIGdpdmVuIHR5cGUuCj4gCj4gSW50ZXJlc3Rpbmcu
-IFRoYW5rcyBmb3Igc2hhcmluZyB0aGlzIHdpdGggbWU6KQo+IAo+IEkganVzdCBjaGVja2VkIHRo
-ZSB3aWtpcGVkaWFbMV0gdGhhdCBzYXlzICIgVW5kZXJmbG93IGNhbiBpbiBwYXJ0IGJlCj4gcmVn
-YXJkZWQgYXMgbmVnYXRpdmUgb3ZlcmZsb3cgb2YgdGhlIGV4cG9uZW50IG9mIHRoZSBmbG9hdGlu
-Zy1wb2ludAo+IHZhbHVlLiIuIEkgYXNzdW1lIHRoaXMgcnVsZSBjYW4gYWxzbyBiZSBhcHBsaWVk
-IGluIHRoaXMgY2FzZT8gSSdtCj4gaGVzaXRhbnQgdG8gc2VuZCB0aGUgdjMgcGF0Y2ggdG9tb3Jy
-b3cgd2l0aCB0aGlzICduZWdhdGl2ZSBvdmVyZmxvdycKPiB0ZXJtIGluY2x1ZGVkLgoKTXkgcG9p
-bnQgaXMgdmVyeSBwZWRhbnRpYy4gSSB0aGluayB0aGVzZSBjYXNlcyBhcmUgbm90IHVuZGVyZmxv
-dy4KCkJ1dCBpdCBpcyBvZnRlbiBjYWxsZWQgdGhhdCwgdW5kZXJzdGFuZGFibHkuIFNvIGNob29z
-ZSBhcyB5b3Ugc2VlIGZpdC4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Tue, Jul 22, 2025 at 03:40:16PM +0200, Andrew Lunn wrote:
+> I know Russell has also replied about issues with stmmac. Please
+> consider that when reading what i say... It might be not applicable.
+> 
+> > Seems like a fair and logical approach. It seems reasonable that the
+> > MAC driver relies on the get_wol() API to know what's supported.
+> > 
+> > The tricky thing for the PHY used in this patchset is to get this
+> > information:
+> > 
+> > Extract from the documentation of the LAN8742A PHY:
+> > "The WoL detection can be configured to assert the nINT interrupt pin
+> > or nPME pin"
+> 
+> https://www.kernel.org/doc/Documentation/devicetree/bindings/power/wakeup-source.txt
+> 
+> It is a bit messy, but in the device tree, you could have:
+> 
+>     interrupts = <&sirq 0 IRQ_TYPE_LEVEL_LOW>
+>                  <&pmic 42 IRQ_TYPE_LEVEL_LOW>;
+>     interrupt-names = "nINT", "wake";
+>     wakeup-source
+> 
+> You could also have:
+> 
+>     interrupts = <&sirq 0 IRQ_TYPE_LEVEL_LOW>;
+>     interrupt-names = "wake";
+>     wakeup-source
+> 
+> In the first example, since there are two interrupts listed, it must
+> be using the nPME. For the second, since there is only one, it must be
+> using nINT.
+> 
+> Where this does not work so well is when you have a board which does
+> not have nINT wired, but does have nPME. The phylib core will see
+> there is an interrupt and request it, and disable polling. And then
+> nothing will work. We might be able to delay solving that until such a
+> board actually exists?
+
+(Officially, I'm still on vacation...)
+
+At this point, I'd like to kick off a discussion about PHY-based
+wakeup that is relevant to this thread.
+
+The kernel has device-based wakeup support. We have:
+
+- device_set_wakeup_capable(dev, flag) - indicates that the is
+  capable of waking the system depending on the flag.
+
+- device_set_wakeup_enable(dev, flag) - indicates whether "dev"
+  has had wake-up enabled or disabled depending on the flag.
+
+- dev*_pm_set_wake_irq(dev, irq) - indicates to the wake core that
+  the indicated IRQ is capable of waking the system, and the core
+  will handle enabling/disabling irq wake capabilities on the IRQ
+  as appropriate (dependent on device_set_wakeup_enable()). Other
+  functions are available for wakeup IRQs that are dedicated to
+  only waking up the system (e.g. the WOL_INT pin on AR8031).
+
+Issue 1. In stmmac_init_phy(), we have this code:
+
+        if (!priv->plat->pmt) {
+                struct ethtool_wolinfo wol = { .cmd = ETHTOOL_GWOL };
+
+                phylink_ethtool_get_wol(priv->phylink, &wol);
+                device_set_wakeup_capable(priv->device, !!wol.supported);
+                device_set_wakeup_enable(priv->device, !!wol.wolopts);
+        }
+
+This reads the WoL state from the PHY (a different struct device)
+and sets the wakeup capability and enable state for the _stmmac_
+device accordingly, but in the case of PHY based WoL, it's the PHY
+doing the wakeup, not the MAC. So this seems wrong on the face of
+it.
+
+Issue 2. no driver in phylib, nor the core, ever uses any of the
+device_set_wakeup_*() functions. As PHYs on their own are capable
+of WoL, isn't this an oversight? Shouldn't phylib be supporting
+this rather than leaving it to MAC drivers to figure something out?
+
+Issue 3. should pins like WOL_INT or nPME be represented as an
+interrupt, and dev_pm_set_dedicated_wake_irq() used to manage that
+interrupt signal if listed as an IRQ in the PHY's DT description?
+
+(Side note: I have tried WoL on the Jetson Xavier NX board I have
+which uses stmmac-based WoL, but it seems non-functional. I've
+dropped a private email to Jon and Thierry to see whether this is
+expected or something that needs fixing. I'm intending to convert
+stmmac to use core wakeirq support, rather than managing
+the enable_irq_wake()/disable_irq_wake() by itself.)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
