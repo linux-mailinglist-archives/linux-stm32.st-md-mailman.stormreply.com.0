@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45C66B0F32D
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 15:09:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A8C2B0F340
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 15:10:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07DD5C36B3F;
-	Wed, 23 Jul 2025 13:09:39 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E29C1C35E2B;
+	Wed, 23 Jul 2025 13:10:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0F33C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23BE2C36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jul 2025 13:09:37 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56ND4eCh026047;
- Wed, 23 Jul 2025 15:09:25 +0200
+ Wed, 23 Jul 2025 13:10:08 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NCX8Lx000944;
+ Wed, 23 Jul 2025 15:09:55 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- iltrvkkBDPNUkwWqDFThCKXQjo7LhI+eeBGbd3adnYk=; b=GZAtIP6w0OHPrm6y
- AZ2GVFDUvGO84rN9CmrxdkuZ+iqQJV1hncEqauoFXzknP+0brNjQbtoFTkCeRe6D
- 2L5E19Va7jYFj37Hj7Y8zwjb90A5fNE6qtk2Dhe6wKxJ8nDdDY8K8olDXKIpS6Tj
- Vg9jOdBGsIa0zoOQ+kHl5By5zL9GBFi1tESTAkQHXImdugjIKTUHB2Tew83+JJCf
- qbKzYdKcB2vLtO5c0FnRDUSNowG/H8qRkRBon7fP6mYFQSLYUYa10yYwEKj2sV3O
- ASB6BfAd7XpVJSBc+D0Sbv39o0Z3O0g/P+H6jZGQXOaC0ZoGi/aCDcE18PdeR4tW
- 77rUXw==
+ +oFosf+Y2aWw9hUSMPebh2RDsEkKVFT8bx1JKOIHJNs=; b=35oZvwN1an/ggBlG
+ 31NT3I5thUhT8nm5gZOeUMI6VmQ+GF/4bYSYtFHUlj0QwtoLw3dra+qKYMu3CaFl
+ f1SomLpRIhDtKsUmOxGdooqhcLs5jphObQn755T7WsaviQtgxekE8/ygwfhicfyi
+ RnDNdrThVF7Oi02ARll+gSS7qZoonVtmiC38GRlneNqRaUgY7asHue6klueH6q0j
+ hdwVQwNRTTF1FPqN2JvVKn7N4R2olVkirrEHQv/UObjhlNO7pdAgVl/gufsqn4oU
+ 4bk+IponXsA96vyoEBBYqcAXZbS4WVOWx9Z0Nlh6a2z9en7tB0yKF4MHbYykeJes
+ 4NzA6w==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 480pan0rdx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4800g8uvef-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Jul 2025 15:09:25 +0200 (MEST)
+ Wed, 23 Jul 2025 15:09:55 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3EFFF40054;
- Wed, 23 Jul 2025 15:07:58 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 40F6C40055;
+ Wed, 23 Jul 2025 15:08:18 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 54E4E799A43;
- Wed, 23 Jul 2025 15:06:14 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1C6A3372B47;
+ Wed, 23 Jul 2025 15:06:15 +0200 (CEST)
 Received: from localhost (10.48.86.185) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
  2025 15:06:14 +0200
 From: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>
-Date: Wed, 23 Jul 2025 15:05:59 +0200
+Date: Wed, 23 Jul 2025 15:06:00 +0200
 MIME-Version: 1.0
-Message-ID: <20250723-ddrperfm-upstream-v4-15-1aa53ca319f4@foss.st.com>
+Message-ID: <20250723-ddrperfm-upstream-v4-16-1aa53ca319f4@foss.st.com>
 References: <20250723-ddrperfm-upstream-v4-0-1aa53ca319f4@foss.st.com>
 In-Reply-To: <20250723-ddrperfm-upstream-v4-0-1aa53ca319f4@foss.st.com>
 To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rob
@@ -68,8 +68,8 @@ Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 15/20] MAINTAINERS: add myself as STM32 DDR
- PMU maintainer
+Subject: [Linux-stm32] [PATCH v4 16/20] ARM: dts: stm32: add ddrperfm on
+	stm32mp131
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,20 +86,21 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QWRkIENsw6ltZW50IExlIEdvZmZpYyBhcyBTVE0zMiBERFIgUE1VIG1haW50YWluZXIuCgpTaWdu
-ZWQtb2ZmLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5j
-b20+Ci0tLQogTUFJTlRBSU5FUlMgfCA3ICsrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2Vy
-dGlvbnMoKykKCmRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTCmluZGV4IDEw
-ODUwNTEyYzExOC4uMjQ3ZjA3YWU0MTc2IDEwMDY0NAotLS0gYS9NQUlOVEFJTkVSUworKysgYi9N
-QUlOVEFJTkVSUwpAQCAtMjM0ODcsNiArMjM0ODcsMTMgQEAgUzoJTWFpbnRhaW5lZAogRjoJRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Bvd2VyL3N1cHBseS9zdCxzdGMzMTE3Lnlh
-bWwKIEY6CWRyaXZlcnMvcG93ZXIvc3VwcGx5L3N0YzMxMTdfZnVlbF9nYXVnZS5jCiAKK1NUIFNU
-TTMyIEREUiBQTVUKK006CUNsw6ltZW50IExlIEdvZmZpYyA8bGVnb2ZmaWMuY2xlbWVudEBnbWFp
-bC5jb20+CitTOglNYWludGFpbmVkCitGOglEb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL3BlcmYv
-c3RtMzItZGRyLXBtdS5yc3QKK0Y6CURvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9w
-ZXJmL3N0LHN0bTMyLWRkci1wbXUueWFtbAorRjoJZHJpdmVycy9wZXJmL3N0bTMyX2Rkci1wbXUu
-YworCiBTVCBTVE0zMiBGSVJFV0FMTAogTToJR2F0aWVuIENoZXZhbGxpZXIgPGdhdGllbi5jaGV2
-YWxsaWVyQGZvc3Muc3QuY29tPgogUzoJTWFpbnRhaW5lZAoKLS0gCjIuNDMuMAoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+VGhlIEREUlBFUkZNIGlzIHRoZSBERFIgUGVyZm9ybWFuY2UgTW9uaXRvciBlbWJlZGRlZCBpbiBT
+VE0zMk1QMTMxIFNvQy4KClNpZ25lZC1vZmYtYnk6IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVu
+dC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4KLS0tCiBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1w
+MTMxLmR0c2kgfCA3ICsrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCmRp
+ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMxLmR0c2kgYi9hcmNoL2Fy
+bS9ib290L2R0cy9zdC9zdG0zMm1wMTMxLmR0c2kKaW5kZXggNDkyYmNmNTg2MzYxLi5lMDk3NzIz
+Nzg5YWEgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzEuZHRzaQor
+KysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTMxLmR0c2kKQEAgLTk5OCw2ICs5OTgs
+MTMgQEAgaXdkZzI6IHdhdGNoZG9nQDVhMDAyMDAwIHsKIAkJCXN0YXR1cyA9ICJkaXNhYmxlZCI7
+CiAJCX07CiAKKwkJZGRycGVyZm06IHBlcmZANWEwMDcwMDAgeworCQkJY29tcGF0aWJsZSA9ICJz
+dCxzdG0zMm1wMTMxLWRkci1wbXUiOworCQkJcmVnID0gPDB4NWEwMDcwMDAgMHg0MDA+OworCQkJ
+Y2xvY2tzID0gPCZyY2MgRERSUEVSRk0+OworCQkJcmVzZXRzID0gPCZyY2MgRERSUEVSRk1fUj47
+CisJCX07CisKIAkJcnRjOiBydGNANWMwMDQwMDAgewogCQkJY29tcGF0aWJsZSA9ICJzdCxzdG0z
+Mm1wMS1ydGMiOwogCQkJcmVnID0gPDB4NWMwMDQwMDAgMHg0MDA+OwoKLS0gCjIuNDMuMAoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
