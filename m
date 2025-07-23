@@ -2,61 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9254DB0F4C4
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 16:02:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EEB4B0F525
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 16:23:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CC6CC36B3D;
-	Wed, 23 Jul 2025 14:02:23 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF0D8C36B3F;
+	Wed, 23 Jul 2025 14:23:38 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CC66C36B3A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E86D7C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jul 2025 14:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=hnXBrp6nZj1igjITrTimshdIDwjv73qcH+GOPbSCUXk=; b=gdY94EqZaE3KR5jXzRnewjo9j5
- dUhX3/ZwF3t7tQ4kLjRQ80zgcsHZwbSkawzNvRgELZGmeQNNoi48mr4P3YBz1mIcSQbeHy1MooEf2
- hRQNbLaUae0+pOCg6XV7N9BQQ9gLi593mxlmQeeNAuui0kCR8nF763Il9lhWAOPOhSZI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uea2m-002aZn-6G; Wed, 23 Jul 2025 16:02:04 +0200
-Date: Wed, 23 Jul 2025 16:02:04 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <dea45ecd-c183-426b-abae-12220a2b6827@lunn.ch>
-References: <f5c4bb6d-4ff1-4dc1-9d27-3bb1e26437e3@foss.st.com>
- <e3c99bdb-649a-4652-9f34-19b902ba34c1@lunn.ch>
- <38278e2a-5a1b-4908-907e-7d45a08ea3b7@foss.st.com>
- <5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch>
- <383299bb-883c-43bf-a52a-64d7fda71064@foss.st.com>
- <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
- <aH_yiKJURZ80gFEv@shell.armlinux.org.uk>
- <ae31d10f-45cf-47c8-a717-bb27ba9b7fbe@lunn.ch>
- <aIAFKcJApcl5r7tL@shell.armlinux.org.uk>
- <aIAKAlkdB5S8UiYx@shell.armlinux.org.uk>
+ Wed, 23 Jul 2025 14:23:37 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2352400344aso62272505ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Jul 2025 07:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753280616; x=1753885416;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=UxwHaK6YDUmdrsdUjFROIjJz+2g48h51kQ60Ua/P8/U=;
+ b=GVtqqzSLUP4w9tmbJb6BcKWkGoANi3RK83wUltcRBWN8O2SEC352ykhPBSuRRp/bKt
+ 7tBvnEfJa93Exlpa/YwbQDFQSQW2Az4033uU4PK6mGWtyyRb90SRAH6YIsaoK3Q+NyAQ
+ DUi9pmLGk9nT4itGbJNqmq76LVoiG5K2C2GAceFPMTkbKT4VrTXT7UGoNv/gVTXVPbiO
+ OskPPAA2u5sP4QFv9HgwyFyzrMJ0u4JAHmeucHD86oCS5fek61m/Yuvc+f4Pip9JmQ5L
+ lz8Crbox3HQ8/Nk3LqjecTgFYKY3LWlq7Ye4FitKcL11RpVCN1Onmt+Vv9bk5BwMOxQj
+ MK9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753280616; x=1753885416;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UxwHaK6YDUmdrsdUjFROIjJz+2g48h51kQ60Ua/P8/U=;
+ b=vH9YhrBbqeBG4QbpxCrjc5gmGbfJAWVsLGgnzgiCoulzGPpXjocsEBBcqRGXkGpUMf
+ OFvVKsOImIWtM4YOSWISDf5tSwY2L5cdgZAvTeBwYf1gHRBmlS5M4VNVbEYadsG1XD0I
+ RtwrkSrJParx2B5HhlOZ9KRrxaZNi1TbpcPIdX4cKj9lPF/x/Z0Pe0sSfmxAnovxUOom
+ J65b/g4XZKztHo2JwR7REX4yUn9lCs9p78UphVXECekumquprzw7+Yf+1Xv71MhLBOZr
+ hUhitOOJHPwL/dF8fB1lJgNoZU/t8yQiIWhTBM0SmLJRzuAJWti+lAHNPfPb3nBcgHrz
+ JQvg==
+X-Gm-Message-State: AOJu0YxA3YdUM3F9QiPgDgtRRB3yyWRQAog/jbntnAzqgKrEcIGwpulj
+ /AX6GwZeHUel6tx7oBKDgyYW/6+t76NuOQ43eUX4jteU+h4mSgDv/Xv/
+X-Gm-Gg: ASbGncsRUHXUH4Ma+rP7ZNA7bewYnkKmQ1IAZHbHMwP+vJTswHDm96IviKodWaxD04g
+ 0FQPGmdTqOpQfL627zcm4OdHR84RqTXWed5ptAYyaQJeW/Dlprud4fNAekUGrEmAG4U1V68K1s2
+ NAwSfxqw0EYN6WThfvUivqJy/aCmsHvlXbA3G7oMlbvnbI4VV1tFaf2kB5mvVHg69ejTxCrCjJt
+ xOAaljPcfScX+R8GjSf3pApCVqSAptzKRgHS4OX1f6lyExoU9zq0f6VQAc50RJgQM8TLc/4N0Fn
+ YE/4L3uauG86x48gfbUUpX5r3nUNA/Gu5JZZLgMppnCP7imw9soPTuL5dWCNIsNqsP2lYDma/sI
+ da3r8nDTOVJhgMjiY9665+z+N1EqGYvAgp35RDIIMrnvuQu8am9Tzs2sW7BKvvpL4LLchRA==
+X-Google-Smtp-Source: AGHT+IEd0wy3eDFLecrSHW0WlQqhyyQ7MxV95sUDV+ufUcT8vx5C+vZm/dLJytY/egk/pAWS9HDwiA==
+X-Received: by 2002:a17:903:230c:b0:234:a66d:ccf5 with SMTP id
+ d9443c01a7336-23f98235191mr55549135ad.49.1753280616283; 
+ Wed, 23 Jul 2025 07:23:36 -0700 (PDT)
+Received: from KERNELXING-MC1.tencent.com ([111.201.28.60])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23e3b6b4a9esm97929595ad.93.2025.07.23.07.23.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Jul 2025 07:23:35 -0700 (PDT)
+From: Jason Xing <kerneljasonxing@gmail.com>
+To: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, bjorn@kernel.org,
+ magnus.karlsson@intel.com, maciej.fijalkowski@intel.com,
+ jonathan.lemon@gmail.com, sdf@fomichev.me, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Date: Wed, 23 Jul 2025 22:23:25 +0800
+Message-Id: <20250723142327.85187-1-kerneljasonxing@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aIAKAlkdB5S8UiYx@shell.armlinux.org.uk>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Simon Horman <horms@kernel.org>, Tristram Ha <Tristram.Ha@microchip.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] dt-bindings: net: document
- st, phy-wol property
+Cc: netdev@vger.kernel.org, bpf@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jason Xing <kernelxing@tencent.com>
+Subject: [Linux-stm32] [PATCH net v3 0/2] xsk: fix negative overflow issues
+	in zerocopy xmit
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,36 +92,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> I've just read a bit more of the RTL8211F datasheet, and looked at the
-> code, and I'm now wondering whether WoL has even been tested with
-> RTL8211F. What I'm about to state doesn't negate anything I've said
-> in my previous reply.
-> 
-> 
-> So, the RTL8211F doesn't have a separate PMEB pin. It has a pin that
-> is shared between "interrupt" and "PMEB".
-> 
-> Register 22, page 0xd40, bit 5 determines whether this pin is used for
-> PMEB (in which case it is pulsed on wake-up) or whether it is used as
-> an interrupt. It's one or the other function, but can't be both.
+From: Jason Xing <kernelxing@tencent.com>
 
-This sounds familiar.
+Fix two negative overflow issues around {stmmac_xdp|igb}_xmit_zc().
 
-> rtl8211f_set_wol() manipulates this bit depending on whether
-> WAKE_MAGIC is enabled or not.
-> 
-> The effect of this is...
-> 
-> If we're using PHY interrupts from the RTL8211F, and then userspace
-> configures magic packet WoL on the PHY, then we reconfigure the
-> interrupt pin to become a wakeup pin, disabling the interrupt
-> function - we no longer receive interrupts from the RTL8211F !!!!!!!
+Jason Xing (2):
+  stmmac: xsk: fix negative overflow of budget in zerocopy mode
+  igb: xsk: solve negative overflow of nb_pkts in zerocopy mode
 
-Ah. I thought that switch happened in the PHY driver suspend() call,
-and it gets restored in the resume() call? That does required that
-suspend/resume actually gets called despite WoL being enabled...
+ drivers/net/ethernet/intel/igb/igb_xsk.c          | 3 +--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-	Andrew
+-- 
+2.41.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
