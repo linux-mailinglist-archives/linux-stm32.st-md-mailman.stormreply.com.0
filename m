@@ -2,72 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC6EB0EE61
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 11:25:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFE04B0F31B
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 15:09:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF9ADC36B36;
-	Wed, 23 Jul 2025 09:25:47 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 887E2C36B3F;
+	Wed, 23 Jul 2025 13:09:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D51DC36B2F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61566C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jul 2025 09:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RQQNlB7I/R+hz0Pu8a7A7amzzOyNcSagtZOh2OuR264=; b=WZh6BmN8hQuSFxA834dDH6kvHr
- 6SE3fOtagej8RVCHO+0bc9gYSxOLat7qdCtP1argbaypPp9KTTL48yPBCyeXWL7bufvDhgiiZzZW0
- QxUS9kXhOIh12/uAVF1hrtwrNqCGTvM3N4HLwhZYE+7kfRm6aksFTDzKT+NYOh9IVPzDaJrFoiuXi
- dyVtSMnykJmX4bX5BOATpSENv1AJYnlW6Vp5Fvjd+a8x5KZb1xrLcCEUw15jdcNLdfzuS+Ck+B41n
- wSNRlEqXRc4WNGFTlQv1iPhgoO8fgYiNTxZIuLOW+4kxj6a8nh0nN9/ES8MU3zEewbPqD6+19jcii
- o92g88QQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37166)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1ueVjC-0001QJ-0A;
- Wed, 23 Jul 2025 10:25:34 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1ueVj9-00082Q-34;
- Wed, 23 Jul 2025 10:25:31 +0100
-Date: Wed, 23 Jul 2025 10:25:31 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Message-ID: <aICqi9eRi-vB1i1m@shell.armlinux.org.uk>
-References: <faea23d5-9d5d-4fbb-9c6a-a7bc38c04866@kernel.org>
- <f5c4bb6d-4ff1-4dc1-9d27-3bb1e26437e3@foss.st.com>
- <e3c99bdb-649a-4652-9f34-19b902ba34c1@lunn.ch>
- <38278e2a-5a1b-4908-907e-7d45a08ea3b7@foss.st.com>
- <5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch>
- <383299bb-883c-43bf-a52a-64d7fda71064@foss.st.com>
- <2563a389-4e7c-4536-b956-476f98e24b37@lunn.ch>
- <aH_yiKJURZ80gFEv@shell.armlinux.org.uk>
- <5a2e0cd8-6d20-4f5a-a3a0-9010305509e3@foss.st.com>
- <9c9499e3-10c9-4245-938a-65831fe10c05@foss.st.com>
+ Wed, 23 Jul 2025 13:09:04 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NCVpp4020047;
+ Wed, 23 Jul 2025 15:08:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=gqjUBfZmAPTshwYSijQ6cS
+ Kj6QvH6tkjctPdCuS2eNo=; b=Bo0vPrhb+Jt+jvUHmAfcntVDrsoE5Dt5GY/cjT
+ URK9YNjEN6EloUit+bH06v8dac1mLwHPygKUJ6JJRQsi/aHczc+V84fLUAbAm0LE
+ qmIul4kAb6lpxm9j0FI1FoSzh+iYgBNiIUy1d5lUKQvGtwVVie7y4lgG2ALMmobV
+ dfEgV4kNcg4U0tU1Z34ZkzgPD19ViOhkdEBhrqN03FP9qa4I0Ju1uE4fHBI2LS0z
+ wk12jW2BE66gbGKB4k2MezmTh3hD1AS+ThQ61bFFzqPb6Dc+LdJDReuZQcFX9vR0
+ T+l+nTcCMtlpDUJ/hSFoyMHcVtueth3s4z/cQyKuxeqQ1JIw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4802q2c3h6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Jul 2025 15:08:46 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 446CA40046;
+ Wed, 23 Jul 2025 15:07:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 02F5C784EBE;
+ Wed, 23 Jul 2025 15:06:03 +0200 (CEST)
+Received: from localhost (10.48.86.185) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
+ 2025 15:06:02 +0200
+From: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>
+Date: Wed, 23 Jul 2025 15:05:44 +0200
+Message-ID: <20250723-ddrperfm-upstream-v4-0-1aa53ca319f4@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9c9499e3-10c9-4245-938a-65831fe10c05@foss.st.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Simon Horman <horms@kernel.org>, Tristram Ha <Tristram.Ha@microchip.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] dt-bindings: net: document
- st, phy-wol property
+X-B4-Tracking: v=1; b=H4sIACnegGgC/23OTQ7CIBAF4Ks0rKWBoS3VlfcwLigMlkV/ApVom
+ t5dWhca7ezeJPPNm0lA7zCQUzYTj9EFN/QpFIeM6Fb1N6TOpEyAQclKqKgxfkRvO3ofw+RRdbS
+ xTNpSSlkaRdLd6NG6x2Zerim3LkyDf24vIl+3b60CsaNFThmVxqbhVc2O7GyHEPIw5XroyOpF+
+ BiS8z0DkqENapTARFHbf0N8GQB7hlh7NFIVVhhdq58ey7K8AAz4lTc8AQAA
+X-Change-ID: 20250526-ddrperfm-upstream-bf07f57775da
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Gabriel Fernandez
+ <gabriel.fernandez@foss.st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Le
+ Goffic <legoffic.clement@gmail.com>, Julius Werner <jwerner@chromium.org>
+X-Mailer: b4 0.15-dev-8018a
+X-Originating-IP: [10.48.86.185]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-23_02,2025-07-22_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 00/20] Introduce STM32 DDR PMU for STM32MP
+	platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,147 +83,138 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 23, 2025 at 10:53:55AM +0200, Gatien CHEVALLIER wrote:
-> On 7/23/25 10:50, Gatien CHEVALLIER wrote:
-> > On 7/22/25 22:20, Russell King (Oracle) wrote:
-> > > On Tue, Jul 22, 2025 at 03:40:16PM +0200, Andrew Lunn wrote:
-> > > > I know Russell has also replied about issues with stmmac. Please
-> > > > consider that when reading what i say... It might be not applicable.
-> > > > =
-
-> > > > > Seems like a fair and logical approach. It seems reasonable that =
-the
-> > > > > MAC driver relies on the get_wol() API to know what's supported.
-> > > > > =
-
-> > > > > The tricky thing for the PHY used in this patchset is to get this
-> > > > > information:
-> > > > > =
-
-> > > > > Extract from the documentation of the LAN8742A PHY:
-> > > > > "The WoL detection can be configured to assert the nINT interrupt=
- pin
-> > > > > or nPME pin"
-> > > > =
-
-> > > > https://www.kernel.org/doc/Documentation/devicetree/bindings/power/=
-wakeup-source.txt
-> > > > =
-
-> > > > It is a bit messy, but in the device tree, you could have:
-> > > > =
-
-> > > > =A0=A0=A0=A0 interrupts =3D <&sirq 0 IRQ_TYPE_LEVEL_LOW>
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 <&pmic 42 IRQ_T=
-YPE_LEVEL_LOW>;
-> > > > =A0=A0=A0=A0 interrupt-names =3D "nINT", "wake";
-> > > > =A0=A0=A0=A0 wakeup-source
-> > > > =
-
-> > > > You could also have:
-> > > > =
-
-> > > > =A0=A0=A0=A0 interrupts =3D <&sirq 0 IRQ_TYPE_LEVEL_LOW>;
-> > > > =A0=A0=A0=A0 interrupt-names =3D "wake";
-> > > > =A0=A0=A0=A0 wakeup-source
-> > > > =
-
-> > > > In the first example, since there are two interrupts listed, it must
-> > > > be using the nPME. For the second, since there is only one, it must=
- be
-> > > > using nINT.
-> > > > =
-
-> > > > Where this does not work so well is when you have a board which does
-> > > > not have nINT wired, but does have nPME. The phylib core will see
-> > > > there is an interrupt and request it, and disable polling. And then
-> > > > nothing will work. We might be able to delay solving that until suc=
-h a
-> > > > board actually exists?
-> > > =
-
-> > > (Officially, I'm still on vacation...)
-> > > =
-
-> > > At this point, I'd like to kick off a discussion about PHY-based
-> > > wakeup that is relevant to this thread.
-> > > =
-
-> > > The kernel has device-based wakeup support. We have:
-> > > =
-
-> > > - device_set_wakeup_capable(dev, flag) - indicates that the is
-> > > =A0=A0 capable of waking the system depending on the flag.
-> > > =
-
-> > > - device_set_wakeup_enable(dev, flag) - indicates whether "dev"
-> > > =A0=A0 has had wake-up enabled or disabled depending on the flag.
-> > > =
-
-> > > - dev*_pm_set_wake_irq(dev, irq) - indicates to the wake core that
-> > > =A0=A0 the indicated IRQ is capable of waking the system, and the core
-> > > =A0=A0 will handle enabling/disabling irq wake capabilities on the IRQ
-> > > =A0=A0 as appropriate (dependent on device_set_wakeup_enable()). Other
-> > > =A0=A0 functions are available for wakeup IRQs that are dedicated to
-> > > =A0=A0 only waking up the system (e.g. the WOL_INT pin on AR8031).
-> > > =
-
-> > > Issue 1. In stmmac_init_phy(), we have this code:
-> > > =
-
-> > > =A0=A0=A0=A0=A0=A0=A0=A0 if (!priv->plat->pmt) {
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct ethtool_wolin=
-fo wol =3D { .cmd =3D ETHTOOL_GWOL };
-> > > =
-
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 phylink_ethtool_get_=
-wol(priv->phylink, &wol);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 device_set_wakeup_ca=
-pable(priv->device,
-> > > !!wol.supported);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 device_set_wakeup_en=
-able(priv->device, !!wol.wolopts);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0 }
-> > > =
-
-> > > This reads the WoL state from the PHY (a different struct device)
-> > > and sets the wakeup capability and enable state for the _stmmac_
-> > > device accordingly, but in the case of PHY based WoL, it's the PHY
-> > > doing the wakeup, not the MAC. So this seems wrong on the face of
-> > > it.
-> > =
-
-> > 2 cents: Maybe even remove in stmmac_set_wol() if !priv->plat->pmt.
-> > =
-
-> =
-
-> Sorry, that's not very clear. I was thinking of removing:
-> device_set_wakeup_enable(priv->device, !!wol->wolopts); in
-> stmmac_set_wol()
-
-Yes, I think that's something which should be looked into, along with
-the code at the bottom of stmmac_init_phy() calling
-device_set_wakeup_capable() and device_set_wakeup_enable() depending on
-the PHY state. However, that's something which needs testing by folk
-who have stmmac setups that use PHY-side WoL.
-
-It appears that my Jetson Xavier NX currently doesn't, although
-MAC-side WoL also doesn't appear to work, so I've asked nVidia folk
-for assistance. It could be it's supposed to use PHY-side, or maybe
-there's something missing to support MAC-side (e.g. clk_rx_i is
-being turned off in suspend despite WoL being enabled.)
-
--- =
-
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBwYXRjaCBzZXJpZXMgaW50cm9kdWNlcyB0aGUgRERSIFBlcmZvcm1hbmNlIE1vbml0b3Ig
+KEREUlBFUkZNKSBzdXBwb3J0IGZvcgpTVE0zMk1QIHBsYXRmb3Jtcy4KClRoZSBzZXJpZXMgaW1w
+cm92ZXMgdGhlIFNUTTMyTVAyNSBSQ0MgZHJpdmVyIHRvIG1ha2UgaXQgdXNhYmxlCmFzIGFuIGFj
+Y2VzcyBjb250cm9sbGVyLCBuZWVkZWQgZm9yIGRyaXZlciBwcm9iZS4KClRoZSBzZXJpZXMgaW50
+cm9kdWNlcyBzdXBwb3J0IG9mIEREUiBjaGFubmVsIHRocm91Z2ggZHQtYmluZGluZyBhbmQKZGV2
+aWNldHJlZSBlbnRyaWVzLgoKSXQgYWxzbyBpbmNsdWRlcyB0aGUgYWRkaXRpb24gb2YgRERSUEVS
+Rk0gZGV2aWNlIHRyZWUgYmluZGluZ3MsCnRoZSBERFJQRVJGTSBkcml2ZXIsIHRoZSBkb2N1bWVu
+dGF0aW9uIGFuZCB1cGRhdGVzIHRvIHRoZSBkZXZpY2UgdHJlZSBmaWxlcwpmb3IgU1RNMzJNUDEz
+LCBTVE0zMk1QMTUsIFNUTTMyTVAyNSBTb0NzIGFuZCBzdG0zMm1wMjU3Zi1kayBhbmQKc3RtMzJt
+cDI1N2YtZXYxIGJvYXJkcy4KVGhlIHNlcmllcyBhbHNvIHVwZGF0ZXMgdGhlIE1BSU5UQUlORVJT
+IGZpbGUgdG8gaW5jbHVkZSBteXNlbGYgYXMgdGhlCm1haW50YWluZXIgZm9yIHRoZSBTVE0zMiBE
+RFIgUE1VIGRyaXZlci4KClNpZ25lZC1vZmYtYnk6IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVu
+dC5sZWdvZmZpY0Bmb3NzLnN0LmNvbT4KLS0tCkNoYW5nZXMgaW4gdjQ6Ci0gRml4IEREUlBFUkZN
+IGR0LWJpbmRpbmcgZXhhbXBsZSB3aXRoIGEgRERSNCBjaGFubmVsIGluc3RlYWQgb2YgRERSMwot
+IHMvbWVtb3J5L3NkcmFtLyBmb3IgZmFjdG9yaXNpbmcgcGF0Y2hlcy4KLSBJbXByb3ZlIHByb3Bl
+cnRpZXMgZGVzY3JpcHRpb24gZm9yIHRoZSBuZXcgU0RSQU0gcHJvcHMgYmluZGluZyBieQogIGFk
+ZGluZyBpbmZvcm1hdGlvbiBvbiBjb21wYXRpYmxlIGdlbmVyYXRpb24sIHJldmlzaW9uLWlkLCBk
+ZW5zaXR5IGFuZAogIGlvLXdpZHRoIGZvciBERFIgdGhhdCBjb21lcyB3aXRoIGFuIFNQRCBtb2R1
+bGUuCi0gQWRkIGEgcGF0Y2ggdG8gc3RhbmRhcmRpc2Ugc2RyYW0gY2hhbm5lbCBub2RlIG5hbWUu
+Ci0gSW1wcm92ZSBERFI0IGNvbXBhdGlibGUgcGF0dGVybi4KLSBMaW5rIHRvIHYzOiBodHRwczov
+L2xvcmUua2VybmVsLm9yZy9yLzIwMjUwNzIyLWRkcnBlcmZtLXVwc3RyZWFtLXYzLTAtN2I3YTRm
+M2RjOGEwQGZvc3Muc3QuY29tCgpDaGFuZ2VzIGluIHYzOgotIGR0LWJpbmRpbmdzOgogIC0gcGVy
+ZjoKICAgIC0gZml4IGNvbXBhdGlibGUgY29uZGl0aW9ucyBhbmQgZHRic19jaGVjay9kdF9iaW5k
+aW5nX2NoZWNrIGVycm9ycwogIC0gbWVtb3J5OgogICAgLSBSZW1vdmUgZGRyLWNoYW5uZWwgYmlu
+ZGluZyBhZGRlZCBpbiB2MgogICAgLSBHZW5lcmFsaXNlIGxwZGRyLXByb3BzIGJpbmRpbmcgaW50
+byBtZW1vcnktcHJvcHMgYmluZGluZwogICAgLSBBZGQgZGRyNCBiaW5kaW5nCiAgICAtIEdlbmVy
+YWxpc2UgbHBkZHItY2hhbm5lbCBiaW5kaW5nIGludG8gbWVtb3J5LWNoYW5uZWwtYmluZGluZwot
+IGRldmljZXRyZWU6CiAgICAtIHVwZGF0ZSBzdG0zMm1wMjU3Zi1ldjEgYm9hcmQgZGV2aWNldHJl
+ZSBhcyBwZXIgbmV3IGRkcjQtY2hhbm5lbAogICAgICBiaW5kaW5nCi0gZHJpdmVyOgogICAgLSBS
+ZW1vdmUgdW5uZWVkZWQgcG11IGFuZCBldmVudCBwb2ludGVyIHRlc3RzIGluCiAgICAgIGBzdG0z
+Ml9kZHJfcG11X2dldF9jb3VudGVyKClgIGFzIGl0IHdvdWxkIGJyZWFrIGJlZm9yZSBpZiB0aGV5
+IGFyZQogICAgICBOVUxMCiAgICAtIFJlbmFtZSBtYWNybyB0byBiZSBtb3JlIGRyaXZlciBzcGVj
+aWZpYwogICAgLSBGaXggZmV3IHRyYWlsaW5nIGNvbW1hcyBpbiBhcnJheSBhbmQgZW51bSBsYXN0
+IGVudHJpZXMKICAgIC0gU3RpY2sgdG8gdGhlIHVzZSBvZiBgcG11LT5kZXZgIGluIHRoZSBwcm9i
+ZSBpbnN0ZWFkIG9mCiAgICAgIGAmcGRldi0+ZGV2YAogICAgLSBzL2Rldm1fY2xrX2dldF9vcHRp
+b25hbF9wcmVwYXJlZC9kZXZtX2Nsa19nZXRfb3B0aW9uYWxfZW5hYmxlZC8gdG8KICAgICAgZml4
+IHVud2luZGluZyBpc3N1ZSBhbmQgcmVtb3ZlIHRoZSBgY2xrX2VuYWJsZSgpYCBvZiB0aGUgcHJv
+YmUuCiAgICAtIE1vdmUgdGhlIGBwZXJmX3BtdV9yZWdpc3RlcigpYCBhdCB0aGUgZW5kIG9mIHRo
+ZSBwcm9iZQogICAgLSBBZGQgbGFja2luZyBzcGFjZXMgaW4gcmVnc3BlYyBzdHJ1Y3RzCiAgICAt
+IFVzZSBERUZJTkVfU0lNUExFX0RFVl9QTV9PUFMgaW5zdGVhZCBvZiBTRVRfU1lTVEVNX1NMRUVQ
+X1BNX09QUwotIExpbmsgdG8gdjI6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNTA3MTEt
+ZGRycGVyZm0tdXBzdHJlYW0tdjItMC1jZGVjZTcyMDM0OGZAZm9zcy5zdC5jb20KCkNoYW5nZXMg
+aW4gdjI6Ci0gTUFJTlRBSU5FUlM6CiAgICBEdWUgdG8gcmVvcmdhbmlzYXRpb24sIG15IGNvbnRy
+YWN0IHdpdGggU1QgZW5kcyBhdCB0aGUgZW5kIG9mIHRoaXMgbW9udGgKICAgIGFuZCBJIHdpbGwg
+bm8gbG9uZ2VyIGhhdmUgYWNjZXNzIHRvIHRoaXMgbWFpbGJveC4KICAgIFRoZXJlZm9yZSwgSSB3
+aWxsIGJlIGF2YWlsYWJsZSBmb3IgYW55IG1pc3Npb24gcmVsYXRlZCB0byBlbWJlZGRlZCBhbmQK
+ICAgIGtlcm5lbCBsaW51eC4KICAgIENoYW5nZSBlbWFpbCBhZGRyZXNzIGluIE1BSU5UQUlORVJT
+IGZpbGUgZm9yIFNUTTMyIEREUiBQTVUgZHJpdmVyLgotIGRldmljZXRyZWVzOgogIC1zdG0zMm1w
+MjU3Zi1kazogYWRkIExQRERSNCBjaGFubmVsCiAgLXN0bTMybXAyNTdmLWV2MTogYWRkIEREUjQg
+Y2hhbm5lbAotIGR0LWJpbmRpbmdzOgogIC0gcGVyZjoKICAgIC0gQ2hhbmdlIE1haW50YWluZXIg
+ZW1haWwgYWRkcmVzcwogICAgLSBEcm9wIG9idmlvdXMgZGVzY3JpcHRpb25zIChjbG9ja3MgYW5k
+IHJlc2V0IHByb3BlcnR5KQogICAgLSBEcm9wIHJlZHVuZGFudCAiYmluZGluZ3MiIGluIGNvbW1p
+dCBtZXNzYWdlCiAgICAtIERyb3AgdW5uZWVkZGVkICJzdG0zMm1wMTUxLWRkci1wbXUiIGNvbXBh
+dGlibGUKICAgIC0gcy9zdCxkcmFtLXR5cGUvbWVtb3J5LWNoYW5uZWwvLCBtZW1vcnktY2hhbm5l
+bCBwcm9wZXJ0eSBpcyBub3QgaW4KICAgICAgZHRzY2hlbWEgbGlicmFyeSBzbyBpdCB3aWxsIHBy
+b2R1Y2UgYW4gZXJyb3IgaW4gdGhlIHYyLgogIC0gcmNjOgogICAgLSBBZGQgcmVxdWlyZWQgImFj
+Y2Vzcy1jb250cm9sbGVyLWNlbGxzIiBwcm9wZXJ0eSBpbiBleGFtcGxlCiAgLSBkZHItY2hhbm5l
+bDoKICAgIC0gQWRkIGJpbmRpbmdzIGFzIHBlciBqZWRlYyxscGRkclgtY2hhbm5lbCBiaW5kaW5n
+cwotIGRyaXZlcjoKICAtIFN1YnN0aXR1dGUgdGhlIHBhcnNpbmcgb2YgdGhlICdzdCxkcmFtLXR5
+cGUnIHZlbmRvciBkZXZpY2V0cmVlCiAgICBwcm9wZXJ0eSB2YWx1ZSB3aXRoIHRoZSBwYXJzaW5n
+IG9mIHRoZSBbbHBdZGRyIGNoYW5uZWwgY29tcGF0aWJsZQogIC0gUmVtb3ZlIHVubmVlZGVkICJz
+dG0zMm1wMTUxLWRkci1wbXUiIGNvbXBhdGlibGUKICAtIFVzZSBkZXZfZXJyX3Byb2JlIHdoZW4g
+cG9zc2libGUKICAtIEFzc2VydCBhbmQgZGVhc3NlcnQgcmVzZXQgbGluZSB1bmNvbmRpdGlvbm5h
+bHkKICAtIFVzZSBgZGV2bV9yZXNldF9jb250cm9sX2dldF9vcHRpb25hbF9leGNsdXNpdmVgIGlu
+c3RlYWQgb2YKICAgIGBvZl9wcm9wZXJ0eV9wcmVzZW50YCB0aGVuIGBkZXZtX3Jlc2V0X2NvbnRy
+b2xfZ2V0YAogIC0gVXNlIGBkZXZtX2Nsa19nZXRfb3B0aW9uYWxfcHJlcGFyZWRgIGluc3RlYWQg
+b2YgYG9mX3Byb3BlcnR5X3ByZXNlbnRgCiAgICB0aGVuIGBkZXZtX2Nsa19nZXRfcHJlcGFyZWRg
+CiAgLSBEaXNhYmxlIGFuZCB1bnByZXBhcmUgdGhlIGNsb2NrIGF0IGVuZCBvZiBwcm9iZQogIC0g
+QWRkIGlvLmggaW5jbHVkZSBhcyBwZXIgTEtQIHRlc3QgcmVwb3J0CiAgLSBSZW1vdmVkIGBvZl9t
+YXRjaF9wdHJgIHJlZmVyZW5jZSBpbiBgcGxhdGZvcm1fZHJpdmVyYCBzdHJ1Y3QKICAtIEFkZCBg
+cG1fc2xlZXBfcHRyYCBtYWNybyBmb3IgYHBsYXRmb3JtX2RyaXZlcmAgc3RydWN0J3MgYHBtYCBm
+aWVsZAogIC0gTGluayB0byB2MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI1MDYyMy1k
+ZHJwZXJmbS11cHN0cmVhbS12MS0wLTdkZmZmZjE2ODA5MEBmb3NzLnN0LmNvbQoKLS0tCkNsw6lt
+ZW50IExlIEdvZmZpYyAoMjApOgogICAgICBidXM6IGZpcmV3YWxsOiBtb3ZlIHN0bTMyX2ZpcmV3
+YWxsIGhlYWRlciBmaWxlIGluIGluY2x1ZGUgZm9sZGVyCiAgICAgIGR0LWJpbmRpbmdzOiBzdG0z
+Mjogc3RtMzJtcDI1OiBhZGQgYGFjY2Vzcy1jb250cm9sbGVyLWNlbGxgIHByb3BlcnR5CiAgICAg
+IGNsazogc3RtMzJtcDI1OiBhZGQgZmlyZXdhbGwgZ3JhbnRfYWNjZXNzIG9wcwogICAgICBhcm02
+NDogZHRzOiBzdDogc2V0IHJjYyBhcyBhbiBhY2Nlc3MtY29udHJvbGxlcgogICAgICBkdC1iaW5k
+aW5nczogbWVtb3J5OiBmYWN0b3Jpc2UgTFBERFIgcHJvcHMgaW50byBTRFJBTSBwcm9wcwogICAg
+ICBkdC1iaW5kaW5nczogbWVtb3J5OiBpbnRyb2R1Y2UgRERSNAogICAgICBkdC1iaW5kaW5nczog
+bWVtb3J5OiBmYWN0b3Jpc2UgTFBERFIgY2hhbm5lbCBiaW5kaW5nIGludG8gU0RSQU0gY2hhbm5l
+bAogICAgICBkdC1iaW5kaW5nOiBtZW1vcnk6IGFkZCBERFI0IGNoYW5uZWwgY29tcGF0aWJsZQog
+ICAgICBkdC1iaW5kaW5nczogbWVtb3J5OiBTRFJBTSBjaGFubmVsOiBzdGFuZGFyZGlzZSBub2Rl
+IG5hbWUKICAgICAgYXJtNjQ6IGR0czogc3Q6IGFkZCBMUEREUiBjaGFubmVsIHRvIHN0bTMybXAy
+NTdmLWRrIGJvYXJkCiAgICAgIGFybTY0OiBkdHM6IHN0OiBhZGQgRERSIGNoYW5uZWwgdG8gc3Rt
+MzJtcDI1N2YtZXYxIGJvYXJkCiAgICAgIGR0LWJpbmRpbmdzOiBwZXJmOiBzdG0zMjogaW50cm9k
+dWNlIEREUlBFUkZNIGR0LWJpbmRpbmdzCiAgICAgIHBlcmY6IHN0bTMyOiBpbnRyb2R1Y2UgRERS
+UEVSRk0gZHJpdmVyCiAgICAgIERvY3VtZW50YXRpb246IHBlcmY6IHN0bTMyOiBhZGQgZGRycGVy
+Zm0gc3VwcG9ydAogICAgICBNQUlOVEFJTkVSUzogYWRkIG15c2VsZiBhcyBTVE0zMiBERFIgUE1V
+IG1haW50YWluZXIKICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgZGRycGVyZm0gb24gc3RtMzJt
+cDEzMQogICAgICBBUk06IGR0czogc3RtMzI6IGFkZCBkZHJwZXJmbSBvbiBzdG0zMm1wMTUxCiAg
+ICAgIGFybTY0OiBkdHM6IHN0OiBhZGQgZGRycGVyZm0gb24gc3RtMzJtcDI1MQogICAgICBhcm02
+NDogZHRzOiBzdDogc3VwcG9ydCBkZHJwZXJmbSBvbiBzdG0zMm1wMjU3Zi1kawogICAgICBhcm02
+NDogZHRzOiBzdDogc3VwcG9ydCBkZHJwZXJmbSBvbiBzdG0zMm1wMjU3Zi1ldjEKCiBEb2N1bWVu
+dGF0aW9uL2FkbWluLWd1aWRlL3BlcmYvaW5kZXgucnN0ICAgICAgICAgICB8ICAgMSArCiBEb2N1
+bWVudGF0aW9uL2FkbWluLWd1aWRlL3BlcmYvc3RtMzItZGRyLXBtdS5yc3QgICB8ICA4NiArKwog
+Li4uL2JpbmRpbmdzL2Nsb2NrL3N0LHN0bTMybXAyNS1yY2MueWFtbCAgICAgICAgICAgfCAgIDcg
+KwogLi4uL21lbW9yeS1jb250cm9sbGVycy9kZHIvamVkZWMsZGRyNC55YW1sICAgICAgICAgfCAg
+MzQgKwogLi4uL21lbW9yeS1jb250cm9sbGVycy9kZHIvamVkZWMsbHBkZHItcHJvcHMueWFtbCAg
+fCAgNzQgLS0KIC4uLi9tZW1vcnktY29udHJvbGxlcnMvZGRyL2plZGVjLGxwZGRyMi55YW1sICAg
+ICAgIHwgICAyICstCiAuLi4vbWVtb3J5LWNvbnRyb2xsZXJzL2Rkci9qZWRlYyxscGRkcjMueWFt
+bCAgICAgICB8ICAgMiArLQogLi4uL21lbW9yeS1jb250cm9sbGVycy9kZHIvamVkZWMsbHBkZHI0
+LnlhbWwgICAgICAgfCAgIDIgKy0KIC4uLi9tZW1vcnktY29udHJvbGxlcnMvZGRyL2plZGVjLGxw
+ZGRyNS55YW1sICAgICAgIHwgICAyICstCiAuLi5scGRkci1jaGFubmVsLnlhbWwgPT4gamVkZWMs
+c2RyYW0tY2hhbm5lbC55YW1sfSB8ICA0MCArLQogLi4uL21lbW9yeS1jb250cm9sbGVycy9kZHIv
+amVkZWMsc2RyYW0tcHJvcHMueWFtbCAgfCAgOTIgKysrCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5n
+cy9wZXJmL3N0LHN0bTMyLWRkci1wbXUueWFtbCB8ICA5NCArKysKIE1BSU5UQUlORVJTICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICA3ICsKIGFyY2gvYXJtL2Jvb3Qv
+ZHRzL3N0L3N0bTMybXAxMzEuZHRzaSAgICAgICAgICAgICAgIHwgICA3ICsKIGFyY2gvYXJtL2Jv
+b3QvZHRzL3N0L3N0bTMybXAxNTEuZHRzaSAgICAgICAgICAgICAgIHwgICA3ICsKIGFyY2gvYXJt
+NjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpICAgICAgICAgICAgIHwgICA4ICsKIGFyY2gv
+YXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZGsuZHRzICAgICAgICAgIHwgIDEyICsKIGFy
+Y2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYxLmR0cyAgICAgICAgIHwgIDEyICsK
+IGRyaXZlcnMvYnVzL3N0bTMyX2V0enBjLmMgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAz
+ICstCiBkcml2ZXJzL2J1cy9zdG0zMl9maXJld2FsbC5jICAgICAgICAgICAgICAgICAgICAgICB8
+ICAgMyArLQogZHJpdmVycy9idXMvc3RtMzJfcmlmc2MuYyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgIDMgKy0KIGRyaXZlcnMvY2xrL3N0bTMyL2Nsay1zdG0zMm1wMjUuYyAgICAgICAgICAg
+ICAgICAgIHwgIDQwICstCiBkcml2ZXJzL3BlcmYvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAxMSArCiBkcml2ZXJzL3BlcmYvTWFrZWZpbGUgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL3BlcmYvc3RtMzJfZGRyX3BtdS5jICAgICAg
+ICAgICAgICAgICAgICAgICB8IDg5NiArKysrKysrKysrKysrKysrKysrKysKIHtkcml2ZXJzID0+
+IGluY2x1ZGUvbGludXh9L2J1cy9zdG0zMl9maXJld2FsbC5oICAgIHwgICAwCiAyNiBmaWxlcyBj
+aGFuZ2VkLCAxMzQ4IGluc2VydGlvbnMoKyksIDk4IGRlbGV0aW9ucygtKQotLS0KYmFzZS1jb21t
+aXQ6IDg5YmU5YTgzY2NmMWY4ODUyMjMxN2NlMDJmODU0ZjMwZDYxMTVjNDEKY2hhbmdlLWlkOiAy
+MDI1MDUyNi1kZHJwZXJmbS11cHN0cmVhbS1iZjA3ZjU3Nzc1ZGEKCkJlc3QgcmVnYXJkcywKLS0g
+IApDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
