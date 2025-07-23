@@ -2,41 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EBA2B0F445
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 15:41:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6379B0F482
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jul 2025 15:51:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C97F3C36B3D;
-	Wed, 23 Jul 2025 13:41:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83189C36B3D;
+	Wed, 23 Jul 2025 13:51:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 668FBC36B3A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76AD7C36B3A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jul 2025 13:41:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0D3925C62A8;
- Wed, 23 Jul 2025 13:41:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DD9C4CEE7;
- Wed, 23 Jul 2025 13:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753278109;
- bh=zxxC/wQlJmLxLa47Q7NNudHjnXvG/vCvKPONP/39QCg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PmuG7qTl4sg7/QMBKgyBmArSjY7MW6zMzETCIkWyLdi81B49I4VHdhuWfDtD85keA
- s1bLp3unFlREP9Un4fUUX5JziSZMKwf4Hw/KgMn4VmYohw3DYwp/XXVUfyBh5wkyD3
- R09TNEfWqkjGMY/LeDVi0f9DYMrxS2enzACUqqbvhnTzVcHNryjALifb57fyVeXAHb
- L1ILoKBkyV+Sg2NQ8JbJ+iBlFG6RrkLTutCNyS6FMTUcZyOmERe66AVfkM7t7YxQvS
- J5Dx9ktAMD/94OEX5E4E6anz65xzMbxXPuCU2irBMH4pS5JuXICjJt5QYIrsV2r6ZK
- GQzPzDIu1LfKg==
-Date: Wed, 23 Jul 2025 08:41:48 -0500
-From: Rob Herring <robh@kernel.org>
-To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
-Message-ID: <20250723134148.GA2136293-robh@kernel.org>
+ Wed, 23 Jul 2025 13:51:03 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56NDEqHF005546;
+ Wed, 23 Jul 2025 15:50:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ XdmtswUaNr7oJjimezjiXJoD/ZylkFXiGJCOd1EELY0=; b=uvEohgRVKt/NpkRA
+ 2i/LYLEavOHikPFmlWpRLubh47aTWuYUcAsWdGcrUlsIggOJk3nTEnTfSXiQ6Daq
+ B397w3Fh+nhhWLrDXVVdDFbt458tDWAUTHZ58FMU+8tXuK4pSOpfQBtJqEgJCw6r
+ 513Jw9+03JgYy+PYBtQo1wGTKt68un91GsKESvT5TG0nYIw1d02PmjbMqrNvrS0x
+ Ypa2hmlpQcecePuRJZIJcWv1afeUgNqHW2zrIfArB4cr+xbrUXqBBbkiJ2n56iQV
+ Zy+D7YHaP3JFEzm4WfXxPTpOnFKUFmpjtC+6uIvZppe2H+Ti6lIA5vivoAgn0hVA
+ vcadow==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 480mx4saep-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Jul 2025 15:50:45 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 594BC4006F;
+ Wed, 23 Jul 2025 15:49:23 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E9763778896;
+ Wed, 23 Jul 2025 15:49:08 +0200 (CEST)
+Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
+ 2025 15:49:07 +0200
+Message-ID: <a9505893-c762-4cc9-b20e-4fccda7c1ac1@foss.st.com>
+Date: Wed, 23 Jul 2025 15:49:07 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Rob Herring <robh@kernel.org>
 References: <20250723-ddrperfm-upstream-v4-0-1aa53ca319f4@foss.st.com>
  <20250723-ddrperfm-upstream-v4-2-1aa53ca319f4@foss.st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250723-ddrperfm-upstream-v4-2-1aa53ca319f4@foss.st.com>
+ <20250723134148.GA2136293-robh@kernel.org>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <20250723134148.GA2136293-robh@kernel.org>
+X-Originating-IP: [10.48.86.185]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-23_02,2025-07-23_01,2025-03-28_01
 Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
  Michael Turquette <mturquette@baylibre.com>,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
@@ -62,70 +83,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 23, 2025 at 03:05:46PM +0200, Cl=E9ment Le Goffic wrote:
-> RCC is able to check the availability of a clock.
-> Allow to query the RCC with a firewall ID.
-
-The subject is wrong. There is no such "access-controller-cell" =
-
-property.
-> =
-
-> Signed-off-by: Cl=E9ment Le Goffic <clement.legoffic@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> =
-
-> diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yam=
-l b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
-> index 88e52f10d1ec..4d471e3d89bc 100644
-> --- a/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
-> @@ -31,6 +31,11 @@ properties:
->    '#reset-cells':
->      const: 1
->  =
-
-> +  '#access-controller-cells':
-> +    const: 1
-> +    description:
-> +      Contains the firewall ID associated to the peripheral.
-> +
->    clocks:
->      items:
->        - description: CK_SCMI_HSE High Speed External oscillator (8 to 48=
- MHz)
-> @@ -123,6 +128,7 @@ required:
->    - reg
->    - '#clock-cells'
->    - '#reset-cells'
-> +  - '#access-controller-cells'
->    - clocks
->  =
-
->  additionalProperties: false
-> @@ -136,6 +142,7 @@ examples:
->          reg =3D <0x44200000 0x10000>;
->          #clock-cells =3D <1>;
->          #reset-cells =3D <1>;
-> +        #access-controller-cells =3D <1>;
->          clocks =3D  <&scmi_clk CK_SCMI_HSE>,
->                    <&scmi_clk CK_SCMI_HSI>,
->                    <&scmi_clk CK_SCMI_MSI>,
-> =
-
-> -- =
-
-> 2.43.0
-> =
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUm9iLAoKT24gNy8yMy8yNSAxNTo0MSwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gT24gV2VkLCBK
+dWwgMjMsIDIwMjUgYXQgMDM6MDU6NDZQTSArMDIwMCwgQ2zDqW1lbnQgTGUgR29mZmljIHdyb3Rl
+Ogo+PiBSQ0MgaXMgYWJsZSB0byBjaGVjayB0aGUgYXZhaWxhYmlsaXR5IG9mIGEgY2xvY2suCj4+
+IEFsbG93IHRvIHF1ZXJ5IHRoZSBSQ0Mgd2l0aCBhIGZpcmV3YWxsIElELgo+IAo+IFRoZSBzdWJq
+ZWN0IGlzIHdyb25nLiBUaGVyZSBpcyBubyBzdWNoICJhY2Nlc3MtY29udHJvbGxlci1jZWxsIgo+
+IHByb3BlcnR5LgoKSSBmb3VuZCBpdCBoZXJlIHRob3VnaDoKRG9jdW1lbnRhdGlvbi9kZXZpY2V0
+cmVlL2JpbmRpbmdzL2FjY2Vzcy1jb250cm9sbGVycy9hY2Nlc3MtY29udHJvbGxlcnMueWFtbAoK
+QW5kIHdhbnQgdG8gdXNlIGl0IGxpa2UgaGVyZToKRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
+bmRpbmdzL2J1cy9zdCxzdG0zMi1ldHpwYy55YW1sOjQxCgpPaCBJIHNlZSBJIG1pZ2h0IG5lZWQg
+dG8gYWRkIHRoZSAjLgoKQmVzdCByZWdhcmRzLApDbMOpbWVudApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
