@@ -2,141 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06F3B10EEB
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jul 2025 17:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9AEBB1108C
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jul 2025 19:56:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77F45C3F938;
-	Thu, 24 Jul 2025 15:42:57 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B796C32EA8;
+	Thu, 24 Jul 2025 17:56:56 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC253C3F938
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7908C36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Jul 2025 15:42:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uNyGjXoV312GqYoDVLU7PnQzkFKhhJUphrrfaRp6G6NynsLj/g35AjJp5fFocWfXxLBUL2tVeNMOOOW+oMg0lyhYzbOfMgmfjftskJUtWtWnv96yeNGJYTUdu2sQr+CctdWB8YmJy1DSCXRq+YT2uT9wiliDsGdV8XWpa8M6yg9YsUhEqAbgBLfAnfqHlKVYueoJiDJ0dBZ5Lf6x2WfW1xHtdbcI6aF9xhEPmpfLKgl5dzmfNgBQm7D7LH6x3pF4lFzFeDw/S+gFRQfwmx5tGopEGBf4M74vzZE/809tW3oydSekGpVe2XrljHF7+rX+3fxEzWREmu64k8jJpnj8kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H1IwsZmC02vP103Rx14Bkto4xFLl4zhnYtFMTOg5JJk=;
- b=fws0w0Js/wXWRO3aJA/orVR0+9Yk7Jynf/nPhJ62HDlpbvlq4DNLfoIpfjxlwArwNpX54dx3W+LXHcQe50ByfZWc9y0WPVrArGfFBQj30Y+51Oi4Gt0Aoq4g8O+qH06zwoMyarnSDBKYkyRD51iLIWhKEAUQbypLAp8uifWkcBI/V+cPSeH2MDcPU1NFtRu+DcQDQUaZAetUjfrkFfyjefmnGMZd18tqf27ETmEdWVTCQxyYwY51C+TdTKw1T1uBNo92tP7DxeKiLVC40p26B0yh6k9HctMfDDKDp4Kan4E6pTypNCTBQ/6XMOa/B6wKPmfLBrbSyXLwBujI+RAhnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H1IwsZmC02vP103Rx14Bkto4xFLl4zhnYtFMTOg5JJk=;
- b=aCQgTH5/vw47uT7kKvu2OyQhGtGRyWqACeJPvynhthzd1LIha9oTTufRrJ12821Ii6QCP4feQylILtxIAyC+ByZvzF3VCFlePs58uELnfdZppAjmCfUZnIX/HCov6y1HbJfTPT7z2e2dnVKobYOyfNZNrs7CtMMzcNnW97WJtF6nCg5ud4Gh3ibi0Pp42SEi3Mq/59qS0P1/z0ydCz11AatNkcyae/TYxId3285a36uXMxsAPcaUeItu3pFqBC/ih1j3LHK63wvm/IUiQ77b+6DUiBO1zkrQ4KKVT+H7O15MGYK7tKwAus+2nrH7KnXDJZMBmpqEzvPjO5FbQas89Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com (2603:10b6:a02:b4::23)
- by SJ2PR03MB7167.namprd03.prod.outlook.com (2603:10b6:a03:4f5::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Thu, 24 Jul
- 2025 15:42:52 +0000
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c]) by BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c%6]) with mapi id 15.20.8943.029; Thu, 24 Jul 2025
- 15:42:52 +0000
-From: Matthew Gerlach <matthew.gerlach@altera.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, dinguyen@kernel.org,
- maxime.chevallier@bootlin.com, richardcochran@gmail.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 24 Jul 2025 08:40:51 -0700
-Message-ID: <20250724154052.205706-5-matthew.gerlach@altera.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250724154052.205706-1-matthew.gerlach@altera.com>
-References: <20250724154052.205706-1-matthew.gerlach@altera.com>
-X-ClientProxiedBy: SJ0PR05CA0094.namprd05.prod.outlook.com
- (2603:10b6:a03:334::9) To BYAPR03MB3461.namprd03.prod.outlook.com
- (2603:10b6:a02:b4::23)
+ Thu, 24 Jul 2025 17:56:54 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-32b7113ed6bso13778301fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Jul 2025 10:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1753379814; x=1753984614;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=7+Hc/EJTpAN/zUBy6dWU21PJ3WMLmwKCsM/9bWx/tE4=;
+ b=mT0Wgt2mLAyaqegrEuljmzBxBOwKm3rMXxVn8sBLo8lLFlGSN1mUggYoLcjD/gjUyb
+ Uo2lr8UZB8dU+HcYV8tRdUeuuetT/uYSNH27o+r3dRV9fOD1FQ4eJq1Nf9x8pGm+2PGk
+ 3OA+u7WVG8I1xzuIBtK/d2waAI6MI9Oa2nfrdMBrE2bMakpHb4r7MLp2gKquFJjG7d8H
+ Q0tB4Su/LlJEs1XKs6sF/42rTLsmgTv2ug3sgiYjkplFo9eyQ3HetO3FvdFQ3Dlc6bG3
+ KP90XHthpecAzXbYBDv9H2v7GMXgFnn7L/sWL3zPMm/S0C1cWCJqpQ3WOMP+7zspqVhI
+ IOeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753379814; x=1753984614;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7+Hc/EJTpAN/zUBy6dWU21PJ3WMLmwKCsM/9bWx/tE4=;
+ b=Xv4yAD9wsE3eJ/4/UP+bFoUdwY0mnEtOqclecSPpu9zvHxzIQ63YAGJ8xaKyM3iSZh
+ yQYD4xcHT42i7i0JR4hJ6FINtng9Zwx186yZpTvIWlHD83hvgOAI+Eg35WTfLUFCWyup
+ YnrNY9q7QTTgsD604r6MvmwY4HWN4ZbkBpFn25eCh1Um6G5zku5EgE2fJKRCx4AB5CP/
+ WJpPM57Nliyk0715tNSf8RuZHyGUJfx8PlUfzv7k25Obq7h46kY1KCJpd0KGouGT0f5Q
+ JU4xIlk9FmNaUJxMvdn5W5W3BRQzgb/GBeGkl20HKvj4P2f5WOU03zX4E22+mu28UuBl
+ mLdw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU0aHJqlgkFTpxpDnivlsaqBmpMxivk1DAw9oulQxjafV9qbyfeiNRJH51AT3Zs8AX/ASEE6pf0p989Qw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzmH72iVFA1Wf4w1JSbspQZ9bf6eqK+WEmMUgDaV2hn5kGV3goQ
+ Jmjc5t3L+IBjv+DBksFUjVuNmxnLXoQ+kRcJkefV4Uhm/zg0VYgqbcf5
+X-Gm-Gg: ASbGnct0QhTk+9Mby8pD3GTY/fvhXMyWYuuAfjKBixxf/Du6Ti+CLBD2oWT64FHGMgX
+ EtVu+6qA7iKaKF3fywakALRVmJwDt3Fi47gG/+dgBzyMz7iwiN2iyWI9HFZbxVQ0/sV3q+0fpNo
+ bJPLomWRyWiPYCiLZLKWWlNFUblRfYTAdhb4Hp8b5b57rxMM5sqRVRcHtKXhUsHERge+wwyslS+
+ Yi9gadK/U7xztwmPO5q0ySpkdnk9RtdeDa4SC/cYi2CJy+gpCnjMZqVTCUQYDjcHWqXik45dvrx
+ HF7Nxd1w4i6gA4soq2f9b2YEBZm9zRxHvGpz2reQgAPerbbnsHs7mezu0R3HnkjBTHVniYyweoI
+ vK2390uedLd37v9ZUAurFZR+FPduw+401l2BHHiWy
+X-Google-Smtp-Source: AGHT+IFN4Xrrwc5r0VQkcaQC/psZUUhsAWA2bd+XSOCuqzO1usstf65IZl+/xhZAoKMELAzl9zDBaw==
+X-Received: by 2002:a2e:9cc2:0:b0:32b:3104:f89c with SMTP id
+ 38308e7fff4ca-330dfe3cf57mr22675651fa.29.1753379813377; 
+ Thu, 24 Jul 2025 10:56:53 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-331e08e98aesm4007631fa.54.2025.07.24.10.56.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jul 2025 10:56:52 -0700 (PDT)
+Date: Thu, 24 Jul 2025 20:56:06 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
+Message-ID: <tcebsuesjejtk3vmzx77yuo7zil2xciucnnrakubrslwvnndas@utvi4r7ob3xa>
+References: <20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com>
+ <20250714-xgmac-minor-fixes-v1-2-c34092a88a72@altera.com>
+ <b192c96a-2989-4bdf-ba4f-8b7bcfd09cfa@lunn.ch>
+ <e903cb0f-3970-4ad2-a0a2-ee58551779dc@altera.com>
+ <6fsqayppkyubkucghk5i6m7jjgytajtzm4wxhtdkh7i2v3znk5@vwqbzz5uffyy>
+ <4df7133e-5dcd-4d3d-9a58-d09ad5fd7ec3@altera.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3461:EE_|SJ2PR03MB7167:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf1d0881-53f4-450a-277a-08ddcac8bfde
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|1800799024|376014|366016|921020; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bBaHekVcMusnnieQEABLa4mhtSOteHq0NyRd32tyJ6etwH0CPtkibTEPMk/s?=
- =?us-ascii?Q?IVQyAU3iJco8g5UJuyNG/ZaZaxyKnZpYyUsQGSm91D9ylBWamBasF47rytTB?=
- =?us-ascii?Q?NuK+qjaRi2if4AFrtE8n7TduWkPsbhg0DgA58YntIJ4xoUe1kz8dtaIBsSqu?=
- =?us-ascii?Q?P7xz5654yjL2mIgwUPO5UptF1XbfTuYjHVCF0iwxnGVxd9+Ht2/fX8oAM3R6?=
- =?us-ascii?Q?MCcJAsaArwbcqfqxJ+vuXooClT2TLFeQZYSIvGPP/0+8RvnjWj+WN+hqs5H8?=
- =?us-ascii?Q?N2F9nB1J0oFISUMAecq8ygvh0LZkke/7U88IYNJ+3ZAECp3gBaTfCPeuFdCR?=
- =?us-ascii?Q?vpFZ0mXy4rZiflDcjCcORRvevys3iombTvsLdy5GneQj9O1/HL4dXo6RITzv?=
- =?us-ascii?Q?XTesk7PpmwZNijGUJz0nNsPB/NmBFTP+HUv0kcmvQUSP+EMRQvpSmrpxyRkh?=
- =?us-ascii?Q?1H9mXGWOHKtr4dE1f2uOwa6zQlszmtZGcb3X1t0Bp6zROT+QQQpxn+30C/ZR?=
- =?us-ascii?Q?y11HFqqd3e1foyLr1jDAAR1PcxvUC5wYgLBP9ZM1okrrklKXv6w3Gv+CPrkM?=
- =?us-ascii?Q?/tJIP0zGbrXSeA1BNH7cfiPRKUFznU/6e/XO3z1h9O6Ch1mMzZfdkqvExcqr?=
- =?us-ascii?Q?UuW56gSmVrSJcgG6vvcxNl2xVzDXQ21zTedgWeixY9uOHynDfW9em5/YrN9G?=
- =?us-ascii?Q?mVptlVxkD4KpxYpSwzY8kgVN1D2P14huclW5lKlC/7YvpDuhh9PwDvP8g3Xs?=
- =?us-ascii?Q?0kqnmrBdLfgrOujYCaSrd0Q8sbRHgG5xNPO0ySq5t8jxHZE7vqJv1HUf9pJC?=
- =?us-ascii?Q?WhIvgQS3XNOcdm4g1zzDpj9KVZ9pv0noynvL2lmiJJQswxqm8qFVt4W4Vr05?=
- =?us-ascii?Q?yVcMbo0gWX+7iAR7lq7iZ/rtYVuvGXCKMP0CQ52pSE6OBM3GJibuLfMZqQg+?=
- =?us-ascii?Q?TVIqwAjev09JYB/t7tNR1tdPsQNEkIobS72cSPkuzJXvyhDH6FRj/j+elYCv?=
- =?us-ascii?Q?B4afb+X9dmEGXs5Uvo21KH/5gv0dJdmRCehdmDUQw7h/x4eDkzA2MVVoX3BE?=
- =?us-ascii?Q?wkIcIQkhLt4rdvIjr2A187+Si1FjOJ9ghzWYYuJhDl3qoCZR1ebWMFD7vtC2?=
- =?us-ascii?Q?9oKTqB7kECfjORqBMwlrB7SaiD6FopC46eUFjqOfyMQf+2A/DVTPj9wcuHyE?=
- =?us-ascii?Q?hca3WwQyAXvHSg73s8ODcU7HEGD7ZSO1EMyghzU/tiUK6pykC904wzKhTbLE?=
- =?us-ascii?Q?walnWQKNLrFHVFCOlUm6b9z3xM8/NgvUlnJeo5REBHR/IVxLdbNvwKLwzk/3?=
- =?us-ascii?Q?/h8qRyq/PFtXHPf1lzfNJKeHfouDIIUo1k39w64OQhD+yKTTXV+B/7me3WHC?=
- =?us-ascii?Q?FS3cp18SZmryG7zPUCM3CbpL0/Ff93sT8mZbMP71hBxIYnIEvGP9x2jL6NZi?=
- =?us-ascii?Q?P4Yphj7+qzR7+j0Ttg1jjjP+7m5OfL5gFoZIhlo0xBWkXFFebQFuxw=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB3461.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(1800799024)(376014)(366016)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OFM1KKOrYfCX1z7KqXXO21uA85suOwNdj1TdW2yGg2MGTBYUr+GoTvvlozyb?=
- =?us-ascii?Q?ZUL6aJ4FRbeupLEcoSZBanWvMzT2ebXcd4sUgX8IERY6fo6iTMLhpo6kUoJP?=
- =?us-ascii?Q?2bL0nY2TnoVTOgcfNmtJNhgE8FQCu1rB5OtmMIN0sPtx75IxdUwEWhE8K/dV?=
- =?us-ascii?Q?2iDAtUXnw3D7wpd5erwfiLn5rdAd91DwTQDAXocurQTzlv1vXhdu2qJsEW+7?=
- =?us-ascii?Q?pjufGr4XAASnSL3uCfpMSqNQ5tc5S3ehS/OXwrHqleYZXhqwTsOqbWG78ZN7?=
- =?us-ascii?Q?+BIYgAfDVizCNfGpveY+JCMW+Rz/qfRar49bjddAupv9nTUV2B5TiGRY7X7S?=
- =?us-ascii?Q?dO4JcB70bPmDXBycVQ6AkWGx6KcAccUQSG8CPKTT6GYK1utlTsBfUOE4dbwU?=
- =?us-ascii?Q?SqrPK09yG2zKAsH0vLCS8uFez6YQkej13/ei5llTcZgnsZ6szMJSCB2D03Wm?=
- =?us-ascii?Q?3M+R7s0sHKbAupwHTaqqJXaRDlmtKhl408aeNGGuUCC/TRU0oQ/zjRpY1kdN?=
- =?us-ascii?Q?w6+34Tfz13PBeyUny+xjFZLOFwRf+G5iTSABKGKNMVbgFl5Tybqw3JD0wy71?=
- =?us-ascii?Q?+UtLg6j9P348hphuOw9bLfc2XMVLYHFao4+y6FzLmnx+vD0TIH1N9l//0QkV?=
- =?us-ascii?Q?CoaF9kMOUjNQwcQbYtUnclEhH1Aq4B9Ou/2Kxv85l2yD5DhQ/Wf5Br1nkh+O?=
- =?us-ascii?Q?Czl9SWi77bniJMnQnPixXcNb1EFvGBGnXAivWUkY0jvGrRZr47KDjbSTgV2v?=
- =?us-ascii?Q?GE0l+fD5SxZOoJQeZNaWdg81eWITtq35XAuI4MXjNRK6iBVuVIZZauUaGOqd?=
- =?us-ascii?Q?QCNjeKlE0fDXYIVV471vqX9Ezl2RoDrV8inzx3CbeB+Ub8GaovwnbfXSUabC?=
- =?us-ascii?Q?ygWOaX5/33mjzWZ3NN2AObxlH+lY/aTPhKsPMGjwkipjLtfMNxZm4ZfD5eZL?=
- =?us-ascii?Q?eiK7VKwKosqdj5DFdztT6TjzBL3Eqjs0HaEbfccHUbtX1uvPwFnNQrCv4B2J?=
- =?us-ascii?Q?o50AMrkRvXxwktj0Sm/TFNtFrwlTynycIogKhQ3ntVHj2PGMITvETsjZetDN?=
- =?us-ascii?Q?1ul5R5Wm9fzd+VkAchS9Gfk0rBHmYHfHqL28CTBahl1Q5zBhx+iLyPhWGAd6?=
- =?us-ascii?Q?Vgx87txHGR3BLBIQgr53rj08s2Nhsav2V0U6k4jKdmWH7PLFaa+/0v7ZYrgu?=
- =?us-ascii?Q?pH2QhgBl4/ni6XD5wXuI3h0jV9wFPyO2B8RBnLAAHOXsyh0I3Ann5pK0h+bj?=
- =?us-ascii?Q?KZTuw8ylBBDYSL0WTEsdFCQeN8SdbnyqY0YKyrKjaZuwUB+wQHTi5WTPN7Kp?=
- =?us-ascii?Q?VvRVpRyQj6Nn01fTcOnw30zEo03vPMQiZtMIZCi+m7cslUJWWIdkCE7SyI92?=
- =?us-ascii?Q?nzue+1LnUabfeKiQPL1lM2Nhl8uaNwSQuuDUjl+1Ytw6V74eYnTy7ud6W//Q?=
- =?us-ascii?Q?rGQUGPd/1otRssPlaGA27VdvVG4LVNZwjTeXh7nNEKc6OxNmQq9XR3GdZy+k?=
- =?us-ascii?Q?6F30z19mFpsWHa9oacqil7pt1V+if2zxZ9tSqqivYagxzDPChhVbs+ujGK0E?=
- =?us-ascii?Q?lwCUFkKdGS3seTsMg6Jm1a7IerU9hFMozwhg2sf2qlOOra14FZQIsOqQN3KY?=
- =?us-ascii?Q?1Q=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf1d0881-53f4-450a-277a-08ddcac8bfde
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3461.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 15:42:51.9810 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W/bm7XtFVLoXWcn3IjPMHlepsMnFR7DbacLfLso6z5/xl4k8yLW/0Fqysvg2489+e4wfvgiHhYxaPyIliH3AL2Qq3AMBsywyQo7EnQ2EmGw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7167
-Cc: Mun Yew Tham <mun.yew.tham@altera.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>
-Subject: [Linux-stm32] [PATCH v2 4/4] net: stmmac: dwmac-socfpga: Add xgmac
-	support for Agilex5
+Content-Disposition: inline
+In-Reply-To: <4df7133e-5dcd-4d3d-9a58-d09ad5fd7ec3@altera.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: xgmac: Correct
+ supported speed modes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -153,31 +99,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Mun Yew Tham <mun.yew.tham@altera.com>
+Hi Rohan
 
-Add support for Agilex5 compatible value.
+On Thu, Jul 24, 2025 at 09:48:29PM +0530, G Thomas, Rohan wrote:
+> On 7/17/2025 5:17 PM, Serge Semin wrote:
+> > DW XGMAC IP-core of v2.x and older don't support 10/100Mbps modes
+> > neither in the XGMII nor in the GMII interfaces. That's why I dropped
+> > the 10/100Mbps link capabilities retaining 1G, 2.5G and 10G speeds
+> > only (the only speeds supported for DW XGMAC 1.20a/2.11a Tx in the
+> > MAC_Tx_Configuration.SS register field). Although I should have
+> > dropped the MAC_5000FD too since it has been supported since v3.0
+> > IP-core version. My bad.(
+> > 
+> > Starting from DW XGMAC v3.00a IP-core the list of the supported speeds
+> > has been extended to: 10/100Mbps (MII), 1G/2.5G (GMII), 2.5G/5G/10G
+> > (XGMII). Thus the more appropriate fix here should take into account
+> > the IP-core version. Like this:
+> > 	if (dma_cap->mbps_1000 && MAC_Version.SNPSVER >= 0x30)
+> > 		dma_cap->mbps_10_100 = 1;
+> > 
+> > Then you can use the mbps_1000 and mbps_10_100 flags to set the proper
+> > MAC-capabilities to hw->link.caps in the dwxgmac2_setup() method. I
+> > would have added the XGMII 2.5G/5G MAC-capabilities setting up to the
+> > dwxgmac2_setup() method too for the v3.x IP-cores and newer.
+> 
+> Hi Serge,
+> 
+> From the databook, I noticed the condition:
+> (DWCXG_XGMII_GMII == 1) && <DWC-XGMAC-V2_20 feature authorized>
+> which seems to suggest that 10/100 Mbps support was introduced starting
+> from version 2.20.
+> 
+> Am I interpreting this correctly, or is this feature only fully
+> supported from v3.00 onwards.
 
-Signed-off-by: Mun Yew Tham <mun.yew.tham@altera.com>
-Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 1 +
- 1 file changed, 1 insertion(+)
+Hm. Interesting discovery. I've got only DW XGMAC v1.20a, v2.11a,
+v3.01a and v3.20a databooks at hands. So I can't prove for sure your
+inference. But the DW XGMAC v3.01a doc indeed states that
+DWCXG_FDUPLX_ONLY parameter is enabled if:
+(DWCXG_XGMII_GMII == 1) && <DWC-XGMAC-V2_20 feature authorized>
+which implies that the parameter was originally introduced in v2.20a
+IP-core.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 72b50f6d72f4..01dd0cf0923c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -515,6 +515,7 @@ static const struct socfpga_dwmac_ops socfpga_gen10_ops = {
- static const struct of_device_id socfpga_dwmac_match[] = {
- 	{ .compatible = "altr,socfpga-stmmac", .data = &socfpga_gen5_ops },
- 	{ .compatible = "altr,socfpga-stmmac-a10-s10", .data = &socfpga_gen10_ops },
-+	{ .compatible = "altr,socfpga-stmmac-agilex5", .data = &socfpga_gen10_ops },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
--- 
-2.35.3
+So to speak you might be right. Perhaps it will be more correct to set
+dma_cap->mbps_10_100 for v2.20a (SNPSVER = 0x22) IP-cores too
+especially seeing another parameter DWCXG_MII_SUPPORT depends on
+SNPS_RSVDPARAM_16 which also depends on DWC-XGMAC-V2_20.
 
+-Serge(y)
+
+> 
+> Best Regards,
+> Rohan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
