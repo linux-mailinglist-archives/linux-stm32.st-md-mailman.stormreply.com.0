@@ -2,78 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F52B11598
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 03:14:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C87A4B11817
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 07:52:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76BF1C36B2B;
-	Fri, 25 Jul 2025 01:14:14 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62D4EC30883;
+	Fri, 25 Jul 2025 05:52:34 +0000 (UTC)
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A203BC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17018C3087B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 01:14:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1449B601D9;
- Fri, 25 Jul 2025 01:14:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E852C4CEED;
- Fri, 25 Jul 2025 01:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753406051;
- bh=QCfq7NK2qUEbOfaVUsUfHClTgphOJ5SqPV/8zEcK5wk=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=eib7mR13CXAqUYOGvZuBnzmXTI28/D0YWPjLXhdoeP2ORv2J/Bg0cre+NJXHgkvlK
- JyS6JBrn3yGS57nKM5UJ14FmIckuuILLLwq3pvt1YoDAqLfk5LmjIQCkPIytUlTNpJ
- cLqu+6QxYzG4zkvPS35ormr/S06tETerOT4NCnCpKMKGLmhpCxgtGoze/ZZkjk3W4R
- XYJ6vldLFjCDoLxMoZwR5Q274cnYfR/X6eeqcgq8Pt/Zj4QwzHxBIZi6usZGcL3or7
- h1xE6oTKpeNi3bW0aycHqsQ0vymIyGUOoQjyr1OzMlr8nt92advrsBmVyZRhIuEhEi
- RsgTts79mDXWw==
+ Fri, 25 Jul 2025 05:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1753422753; x=1784958753;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=iuVSHOikXhu/wYVbuNONjAFSRY2ql17gzgRLIzRC3Ng=;
+ b=JrOSlwjmXAldf6eDIWcBu7geCy043y5uQJQb7HW53EvaotgZyAmvRegq
+ VHfLb1X35JVjEy4dWfIdRxfbpN8n/Oh9oWPAWF447uUW94HQiAQQCJaJD
+ LVCAcOVJX5U4+tMrDycZwTaUgEe9uk3y4oL56apq8bWznm6k9Qa1bHlDd
+ lmY3znD6INvGKzY0p+TvoBvQnaR1AZRPdCe2QUmcBA4o6OmoIlgEs2njL
+ tFkvb7oUN5XxBkSxlpCt6BeqSfoDAHqsFcL64At6rMx/YtER9QkvwxGMu
+ Y1UC+xujFbseCCGR3RNfMPjdy7cMVjXS6a6oNhsxLwy52+AE4fxac9ODi w==;
+X-CSE-ConnectionGUID: CnGdkg3lRoyewLU0Ay8xYw==
+X-CSE-MsgGUID: 1gFfGMw+QYmLb3/VB/qSIw==
+X-IronPort-AV: E=Sophos;i="6.16,338,1744063200"; d="scan'208";a="45412473"
+Received: from vmailcow01.tq-net.de ([10.150.86.48])
+ by mx1.tq-group.com with ESMTP; 25 Jul 2025 07:52:29 +0200
+X-CheckPoint: {68831B9C-2D-4FC15ADB-CD71293B}
+X-MAIL-CPID: 1D1F9231A91F7DBFBC957FFF256F8A75_0
+X-Control-Analysis: str=0001.0A002103.68831BC0.0008, ss=1, re=0.000, recu=0.000,
+ reip=0.000, cl=1, cld=1, fgs=0
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 5047C1682BB; Fri, 25 Jul 2025 07:52:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ew.tq-group.com;
+ s=dkim; t=1753422744;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=iuVSHOikXhu/wYVbuNONjAFSRY2ql17gzgRLIzRC3Ng=;
+ b=oyzKEkx25B9P597urr/TQ4CGH0UThu7GbikqokVj9ixGHld5Sl+b1OgdtBB3sibD42o1EQ
+ jTcdrSyJJEtMNTgoL3/DXrMVMjZ8eU2v3rq8RomCd/bCTeXs4wrJFD01qcQ5sDdKNF3Uql
+ 870iPX/fQoStQFzarajnlqh3tt4kxhhAsuwfekVfT00Tfq9gGrY6jMp/ACw/QB6rbmP9Gj
+ 9wawEB+ZJQiFh8z1inVKvzSaj+c59NVH2CENc6SsNriYhoVEo3Li2j3agO1ovmRGpUInI7
+ oXr6/5ynsVBeoLQ9tdrF/11SFSYRa2AAlDRqzQb9sMl2PSIYkMCGY/VQ7m/+Tg==
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 25 Jul 2025 07:52:20 +0200
+Message-ID: <20250725055221.258501-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-In-Reply-To: <20250623-byeword-update-v2-19-cf1fc08a2e1f@collabora.com>
-References: <20250623-byeword-update-v2-0-cf1fc08a2e1f@collabora.com>
- <20250623-byeword-update-v2-19-cf1fc08a2e1f@collabora.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Andy Yan <andy.yan@rock-chips.com>,
- Bill Wendling <morbo@google.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, David Airlie <airlied@gmail.com>,
- David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Heiko Stuebner <heiko@sntech.de>, Jaehoon Chung <jh80.chung@samsung.com>,
- Jakub Kicinski <kuba@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Justin Stitt <justinstitt@google.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Krzysztof =?utf-8?q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime Ripard <mripard@k
- ernel.org>, Michael Turquette <mturquette@baylibre.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Paolo Abeni <pabeni@redhat.com>, Qin Jian <qinjian@cqplus1.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Rob Herring <robh@kernel.org>,
- Sandy Huang <hjc@rock-chips.com>, Shawn Lin <shawn.lin@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>, Simona Vetter <simona@ffwll.ch>,
- Takashi Iwai <tiwai@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Ulf Hansson <ulf.hansson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Yury Norov <yury.norov@gmail.com>
-Date: Thu, 24 Jul 2025 18:14:10 -0700
-Message-ID: <175340605069.3513.18204498860033427106@lazor>
-User-Agent: alot/0.11
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 19/20] clk: sp7021: switch to
-	FIELD_PREP_WM16 macro
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/1] gpio: stmpe: Allow to compile as a module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,20 +77,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Nicolas Frattaroli (2025-06-23 09:05:47)
-> The sp7021 clock driver has its own shifted high word mask macro,
-> similar to the ones many Rockchip drivers have.
-> 
-> Remove it, and replace instances of it with hw_bitfield.h's
-> FIELD_PREP_WM16 macro, which does the same thing except in a common
-> macro that also does compile-time error checking.
-> 
-> This was compile-tested with 32-bit ARM with Clang, no runtime tests
-> were performed as I lack the hardware. However, I verified that fix
-> commit 5c667d5a5a3e ("clk: sp7021: Adjust width of _m in HWM_FIELD_PREP()")
-> is not regressed. No warning is produced.
+Add the necessary boilerplate to also make this driver modular.
+This follows commit a2b8191ab695a ("pwm: stmpe: Allow to compile as a
+module") which does the same for pwm. Also add OF match table for module
+autoloading.
 
-Does it generate the same code before and after?
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ drivers/gpio/Kconfig      |  2 +-
+ drivers/gpio/gpio-stmpe.c | 19 +++++++++++--------
+ 2 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 500d839f65ee8..0621832d045fa 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -1559,7 +1559,7 @@ config GPIO_SL28CPLD
+ 	  called gpio-sl28cpld.
+ 
+ config GPIO_STMPE
+-	bool "STMPE GPIOs"
++	tristate "STMPE GPIOs"
+ 	depends on MFD_STMPE
+ 	depends on OF_GPIO
+ 	select GPIOLIB_IRQCHIP
+diff --git a/drivers/gpio/gpio-stmpe.c b/drivers/gpio/gpio-stmpe.c
+index 0a270156e0bea..db9f4cd1e8615 100644
+--- a/drivers/gpio/gpio-stmpe.c
++++ b/drivers/gpio/gpio-stmpe.c
+@@ -534,16 +534,19 @@ static int stmpe_gpio_probe(struct platform_device *pdev)
+ 	return devm_gpiochip_add_data(dev, &stmpe_gpio->chip, stmpe_gpio);
+ }
+ 
++static const struct of_device_id stmpe_gpio_of_matches[] = {
++	{ .compatible = "st,stmpe-gpio", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, stmpe_gpio_of_matches);
++
+ static struct platform_driver stmpe_gpio_driver = {
+ 	.driver = {
+-		.suppress_bind_attrs	= true,
+-		.name			= "stmpe-gpio",
++		.name = "stmpe-gpio",
++		.of_match_table = stmpe_gpio_of_matches,
+ 	},
+-	.probe		= stmpe_gpio_probe,
+ };
++module_platform_driver_probe(stmpe_gpio_driver, stmpe_gpio_probe);
+ 
+-static int __init stmpe_gpio_init(void)
+-{
+-	return platform_driver_register(&stmpe_gpio_driver);
+-}
+-subsys_initcall(stmpe_gpio_init);
++MODULE_DESCRIPTION("STMPE expander GPIO");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
