@@ -2,66 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9ED6B118EF
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 09:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29277B118FE
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 09:13:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADE02C3089D;
-	Fri, 25 Jul 2025 07:12:17 +0000 (UTC)
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1078C3089D;
+	Fri, 25 Jul 2025 07:13:47 +0000 (UTC)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46584C30883
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F9A8C30883
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 07:12:16 +0000 (UTC)
+ Fri, 25 Jul 2025 07:13:46 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-32e14ce168eso20136321fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Jul 2025 00:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1753427536; x=1784963536;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8tMj9FLX+UA66nhFkirMdu8Rq5921p22OMdpvQW5B+o=;
- b=QPqSuewjFm3mkgeCqAxWWW+EjF2hQoAxb0BRBlVRo0mhxfrw7A/y+mdn
- GJ9ovml6lFH0ng0ID/fWUQg9BaZUYnhvPS/jY4p9fuejBzbRDq4N9AZsH
- m+9E6n2v4DHl3WM4a00Gogy1Oa10ZAoStsbIStBUltfvBHhNg3d60qcP+
- NTx97BsevKyKzvo2oRlVzwIYjYglWvxLrlcWav1nT1b10/jwkyhJbZrgw
- lb4UDzHuEIw7ZrGARmpRmVPLN7CYQjHemhimir2M+IVXANAIZoPeF5pDB
- 11e+c/rQ0IQxkhf7YbnM4IBq1oHUCkHebxK20CnJcPOalMa5iHz5xq9fE g==;
-X-CSE-ConnectionGUID: R6V/ESMKQaqDsJScWh+wlQ==
-X-CSE-MsgGUID: aUmYHp5HSDiBtPnuSqOtjg==
-X-IronPort-AV: E=Sophos;i="6.16,338,1744063200"; d="scan'208";a="45414813"
-Received: from vmailcow01.tq-net.de ([10.150.86.48])
- by mx1.tq-group.com with ESMTP; 25 Jul 2025 09:12:15 +0200
-X-CheckPoint: {68832E4F-45-BB1FFBB0-EB2CC75E}
-X-MAIL-CPID: C5BE8A659E63DAFC652D904DD8B1D1B3_2
-X-Control-Analysis: str=0001.0A002107.68832E09.0057, ss=1, re=0.000, recu=0.000,
- reip=0.000, cl=1, cld=1, fgs=0
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5F21F1682BB; Fri, 25 Jul 2025 09:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ew.tq-group.com;
- s=dkim; t=1753427531;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8tMj9FLX+UA66nhFkirMdu8Rq5921p22OMdpvQW5B+o=;
- b=M0eLX4Ujutss1qZ8GQTyQpXgDYLsPdryClHkoBp6ctET1b5aG0QJjTJaJyzST5lTXYFvDk
- 27hPCyCI3SW1GAEfHt1TxudH9tHkq4kDl2WDDSD0v0h+E8lfxmJnDB7L+SYiewXbU3+8QG
- jFBeG0J7U+YODhXr2m9u+BCKvodyG+PuSXivaQGx1HlYqNgvEfuikGTX5WoJfeaPA5TSsJ
- ArTT+Xaq4qj7LwDTYLu+qFslj5Wa2q7A2ezrX+pvOXFWwPxCf0jN1Ov1kC0oXQPqO5TMl8
- 3Dglo4NVkghWd6erYHVY02tJcGIRv3r6vMhKBFzOzqLQmD6OgCYvBGwV4Xwr2A==
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 25 Jul 2025 09:11:51 +0200
-Message-ID: <20250725071153.338912-4-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250725071153.338912-1-alexander.stein@ew.tq-group.com>
-References: <20250725071153.338912-1-alexander.stein@ew.tq-group.com>
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1753427625; x=1754032425;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ceB1qf+gLasT0iKM4trjiwxebZfTYB6IsMaryh73jIo=;
+ b=BN2jr3B9Uwd58SVFyLT2kd3PAcP6OE2BzZtszzZ6mt6HVOBuG89AGi0GcChIrCP50N
+ +GWhM0Xushkqi4hkqGH5BdXBNjAORXkfiGRXdOYHlxzbtPUWljE7MKpv6eWySs0uCX5c
+ 1JK65DlL3+COtITBxn8cAVIpFWdtp7uUiYxEwzR4+aJA9gmUqsd1XsoM0NmpPQCfsCAL
+ 2JiI30/dwGFtcHXdHfXYIni0Y/bHN5aso5b31HIn2cBkv2+xSYutJlx20mLIQY2FhcJ3
+ 1UmH9+1ehe59ZNskT5v9fJnT4v33BzrZ2xQSxCSC0KWgGogfusCtWgAUQWvXYso227kM
+ S4RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753427625; x=1754032425;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ceB1qf+gLasT0iKM4trjiwxebZfTYB6IsMaryh73jIo=;
+ b=jMRPEFPMLRIPrxczH6Hkz6uwHF9hRvE0s89c/elJ6ue+tpaXCLstwGI0C/bVO6nw9h
+ T09a6AXSdbDS/1sRmiqQMFtSFFrXazdFvMJ6oJaRBvYN8DZofYrWwrtQtCF523hGrC3n
+ /IoqILIm48fEV04NXhY1RUNx3iuSA7G8NjfaYpmtjv1g94+0GOqsMz5ZV1gZnVSrwo27
+ qCBqauDWqo6yoZI14rM83dDIEAspWk46O6s1ECd4GvKhIJ5X+LzocL7ajds0aBwrQhRl
+ axvgaW3Ne+Mrb33tenYB1Ws3WIO59qGFPF7W7StNgrkDf6MWM6qpLT3jJAiWGDSxzPGJ
+ mPQA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVx3gMy1LURJs4CpPnsx4B0X7ONRKXaYx+YwUGkVYTwIQPA09amnbqcdt/+vJihTufxNxLGmAP6uvpm3Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLxjW+j1Ag5VxxgJwTZgVJOAJ2mHGVBZtLH7iCO4jcrBEotsmL
+ hVEzthrjarPnrCozmhtUY3DADazdQpSh8RfmJuTHIYeVv7/TkiBo8DfBGE0tL3X9GvgA655XGo+
+ zz3DsaP9VYcgXUR12d70opA6FkjhnvN/kcvUJ7k4g8g==
+X-Gm-Gg: ASbGncsdsfquZGxwC7LRkKyvyJvRrMHt/D+t0cJvGK5l88Iex/8lLlCAeSNagn1htgE
+ goWt6O/ooT1VN6IM5e+MAbn0y5naZo4dzhzDCPdp3kLoRFPVqNZ9QnhQPwiU0eYEIE8fo+J0W+/
+ zu47uD4Saf8Jqc1miap2lhJZ2do3oWVCsL3xFzGSZmsbpxGnvrDKNu7tjG2hQZP2aOfcu2zFMG8
+ cA46NNiYVNWDxD6o9afew44l40xzPOQI4O1ixM8WPxZbRSHag==
+X-Google-Smtp-Source: AGHT+IGZ6IpSoNGJljT1FXr2JWFQwLBJcl/zkngQEk6KemDtXvzc434wLZBIztSCj044zT6GZ+DEkjAHeT2KYoDAfi0=
+X-Received: by 2002:a05:6512:4003:b0:553:a4cf:2106 with SMTP id
+ 2adb3069b0e04-55b5f4ea71bmr197629e87.57.1753427625388; Fri, 25 Jul 2025
+ 00:13:45 -0700 (PDT)
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] mfd: stmpe: Allow building as module
+References: <20250725055221.258501-1-alexander.stein@ew.tq-group.com>
+In-Reply-To: <20250725055221.258501-1-alexander.stein@ew.tq-group.com>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Fri, 25 Jul 2025 09:13:34 +0200
+X-Gm-Features: Ac12FXxdj3cPCvNBd3Lm4-GvXKqLYsKZr59Agf2YhP9X2Y28_xXRSYG4_XGAoZY
+Message-ID: <CAMRc=Mew_F9ngFSNSyPL8ecm9ZgivYkbJg-jYghnWPGuy4pwVA@mail.gmail.com>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/1] gpio: stmpe: Allow to compile as a
+	module
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,85 +80,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Export the core probe and remove function to be used by modules. Add
-necessary module information so the driver can be built as a module.
-
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- drivers/mfd/Kconfig | 10 +++++-----
- drivers/mfd/stmpe.c |  6 ++++++
- 2 files changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index 8f11b2df14704..a58c95e5b8072 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1539,8 +1539,8 @@ config MFD_DB8500_PRCMU
- 	  through a register map.
- 
- config MFD_STMPE
--	bool "STMicroelectronics STMPE"
--	depends on I2C=y || SPI_MASTER=y
-+	tristate "STMicroelectronics STMPE"
-+	depends on I2C || SPI_MASTER
- 	depends on OF
- 	select MFD_CORE
- 	help
-@@ -1568,14 +1568,14 @@ menu "STMicroelectronics STMPE Interface Drivers"
- depends on MFD_STMPE
- 
- config STMPE_I2C
--	bool "STMicroelectronics STMPE I2C Interface"
--	depends on I2C=y
-+	tristate "STMicroelectronics STMPE I2C Interface"
-+	depends on I2C
- 	default y
- 	help
- 	  This is used to enable I2C interface of STMPE
- 
- config STMPE_SPI
--	bool "STMicroelectronics STMPE SPI Interface"
-+	tristate "STMicroelectronics STMPE SPI Interface"
- 	depends on SPI_MASTER
- 	help
- 	  This is used to enable SPI interface of STMPE
-diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
-index e1165f63aedae..5faf13fd6cf83 100644
---- a/drivers/mfd/stmpe.c
-+++ b/drivers/mfd/stmpe.c
-@@ -1482,6 +1482,7 @@ int stmpe_probe(struct stmpe_client_info *ci, enum stmpe_partnum partnum)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(stmpe_probe);
- 
- void stmpe_remove(struct stmpe *stmpe)
- {
-@@ -1497,6 +1498,7 @@ void stmpe_remove(struct stmpe *stmpe)
- 
- 	mfd_remove_devices(stmpe->dev);
- }
-+EXPORT_SYMBOL_GPL(stmpe_remove);
- 
- static int stmpe_suspend(struct device *dev)
- {
-@@ -1520,3 +1522,7 @@ static int stmpe_resume(struct device *dev)
- 
- EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmpe_dev_pm_ops,
- 			     stmpe_suspend, stmpe_resume);
-+
-+MODULE_DESCRIPTION("STMPE MFD Core driver");
-+MODULE_AUTHOR("Rabin Vincent <rabin.vincent@stericsson.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdWwgMjUsIDIwMjUgYXQgNzo1MuKAr0FNIEFsZXhhbmRlciBTdGVpbgo8YWxleGFu
+ZGVyLnN0ZWluQGV3LnRxLWdyb3VwLmNvbT4gd3JvdGU6Cj4KPiBBZGQgdGhlIG5lY2Vzc2FyeSBi
+b2lsZXJwbGF0ZSB0byBhbHNvIG1ha2UgdGhpcyBkcml2ZXIgbW9kdWxhci4KPiBUaGlzIGZvbGxv
+d3MgY29tbWl0IGEyYjgxOTFhYjY5NWEgKCJwd206IHN0bXBlOiBBbGxvdyB0byBjb21waWxlIGFz
+IGEKPiBtb2R1bGUiKSB3aGljaCBkb2VzIHRoZSBzYW1lIGZvciBwd20uIEFsc28gYWRkIE9GIG1h
+dGNoIHRhYmxlIGZvciBtb2R1bGUKPiBhdXRvbG9hZGluZy4KPgo+IFNpZ25lZC1vZmYtYnk6IEFs
+ZXhhbmRlciBTdGVpbiA8YWxleGFuZGVyLnN0ZWluQGV3LnRxLWdyb3VwLmNvbT4KPiAtLS0KPiAg
+ZHJpdmVycy9ncGlvL0tjb25maWcgICAgICB8ICAyICstCj4gIGRyaXZlcnMvZ3Bpby9ncGlvLXN0
+bXBlLmMgfCAxOSArKysrKysrKysrKy0tLS0tLS0tCj4gIDIgZmlsZXMgY2hhbmdlZCwgMTIgaW5z
+ZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwaW8v
+S2NvbmZpZyBiL2RyaXZlcnMvZ3Bpby9LY29uZmlnCj4gaW5kZXggNTAwZDgzOWY2NWVlOC4uMDYy
+MTgzMmQwNDVmYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwaW8vS2NvbmZpZwo+ICsrKyBiL2Ry
+aXZlcnMvZ3Bpby9LY29uZmlnCj4gQEAgLTE1NTksNyArMTU1OSw3IEBAIGNvbmZpZyBHUElPX1NM
+MjhDUExECj4gICAgICAgICAgIGNhbGxlZCBncGlvLXNsMjhjcGxkLgo+Cj4gIGNvbmZpZyBHUElP
+X1NUTVBFCj4gLSAgICAgICBib29sICJTVE1QRSBHUElPcyIKPiArICAgICAgIHRyaXN0YXRlICJT
+VE1QRSBHUElPcyIKPiAgICAgICAgIGRlcGVuZHMgb24gTUZEX1NUTVBFCj4gICAgICAgICBkZXBl
+bmRzIG9uIE9GX0dQSU8KPiAgICAgICAgIHNlbGVjdCBHUElPTElCX0lSUUNISVAKPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncGlvL2dwaW8tc3RtcGUuYyBiL2RyaXZlcnMvZ3Bpby9ncGlvLXN0bXBl
+LmMKPiBpbmRleCAwYTI3MDE1NmUwYmVhLi5kYjlmNGNkMWU4NjE1IDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3Bpby9ncGlvLXN0bXBlLmMKPiArKysgYi9kcml2ZXJzL2dwaW8vZ3Bpby1zdG1wZS5j
+Cj4gQEAgLTUzNCwxNiArNTM0LDE5IEBAIHN0YXRpYyBpbnQgc3RtcGVfZ3Bpb19wcm9iZShzdHJ1
+Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgICAgICAgcmV0dXJuIGRldm1fZ3Bpb2NoaXBf
+YWRkX2RhdGEoZGV2LCAmc3RtcGVfZ3Bpby0+Y2hpcCwgc3RtcGVfZ3Bpbyk7Cj4gIH0KPgo+ICtz
+dGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBzdG1wZV9ncGlvX29mX21hdGNoZXNbXSA9
+IHsKPiArICAgICAgIHsgLmNvbXBhdGlibGUgPSAic3Qsc3RtcGUtZ3BpbyIsIH0sCj4gKyAgICAg
+ICB7IC8qIHNlbnRpbmVsICovIH0KPiArfTsKPiArTU9EVUxFX0RFVklDRV9UQUJMRShvZiwgc3Rt
+cGVfZ3Bpb19vZl9tYXRjaGVzKTsKPiArCj4gIHN0YXRpYyBzdHJ1Y3QgcGxhdGZvcm1fZHJpdmVy
+IHN0bXBlX2dwaW9fZHJpdmVyID0gewo+ICAgICAgICAgLmRyaXZlciA9IHsKPiAtICAgICAgICAg
+ICAgICAgLnN1cHByZXNzX2JpbmRfYXR0cnMgICAgPSB0cnVlLAo+IC0gICAgICAgICAgICAgICAu
+bmFtZSAgICAgICAgICAgICAgICAgICA9ICJzdG1wZS1ncGlvIiwKPiArICAgICAgICAgICAgICAg
+Lm5hbWUgPSAic3RtcGUtZ3BpbyIsCj4gKyAgICAgICAgICAgICAgIC5vZl9tYXRjaF90YWJsZSA9
+IHN0bXBlX2dwaW9fb2ZfbWF0Y2hlcywKPiAgICAgICAgIH0sCj4gLSAgICAgICAucHJvYmUgICAg
+ICAgICAgPSBzdG1wZV9ncGlvX3Byb2JlLAo+ICB9Owo+ICttb2R1bGVfcGxhdGZvcm1fZHJpdmVy
+X3Byb2JlKHN0bXBlX2dwaW9fZHJpdmVyLCBzdG1wZV9ncGlvX3Byb2JlKTsKPgo+IC1zdGF0aWMg
+aW50IF9faW5pdCBzdG1wZV9ncGlvX2luaXQodm9pZCkKPiAtewo+IC0gICAgICAgcmV0dXJuIHBs
+YXRmb3JtX2RyaXZlcl9yZWdpc3Rlcigmc3RtcGVfZ3Bpb19kcml2ZXIpOwo+IC19Cj4gLXN1YnN5
+c19pbml0Y2FsbChzdG1wZV9ncGlvX2luaXQpOwoKUGxlYXNlIGRvbid0IHJlb3JkZXIgdGhlIHJl
+Z2lzdHJhdGlvbiBmb3IgYnVpbHQtaW4gbW9kZS4KCkJhcnQKCj4gK01PRFVMRV9ERVNDUklQVElP
+TigiU1RNUEUgZXhwYW5kZXIgR1BJTyIpOwo+ICtNT0RVTEVfTElDRU5TRSgiR1BMIik7Cj4gLS0K
+PiAyLjQzLjAKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
