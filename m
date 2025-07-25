@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6B1B124E2
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 21:50:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C6BB12758
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Jul 2025 01:25:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B739C3089E;
-	Fri, 25 Jul 2025 19:50:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C851C36B2D;
+	Fri, 25 Jul 2025 23:25:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D775BC3089D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66807C36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 19:50:33 +0000 (UTC)
+ Fri, 25 Jul 2025 23:25:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A61C95C5EA4;
- Fri, 25 Jul 2025 19:50:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA87C4CEE7;
- Fri, 25 Jul 2025 19:50:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ECDEA442D1;
+ Fri, 25 Jul 2025 23:25:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A37C4CEE7;
+ Fri, 25 Jul 2025 23:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753473032;
- bh=6lY6UGRDx8pQqm2Sb2XSSnUUQnx59WVl3IMojaG/Ruw=;
+ s=k20201202; t=1753485918;
+ bh=30Lu0lu5cTdskwZvddFTxEhvmB6dDSde5G6CiimxE18=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Oxp9UEfET5NaqA86+frV0GpYesrm5a6+Y91ObXxbH/l3ZMs8itaYumIF4kJ262fui
- f2JZ7SK43n7wt6+w7fB6MND3aDzqMst07G5/AmDUVIusijI0gwZFKPS04db+yGZ5z/
- C1Bum5jGv372JMKCMeSVyzfYbUEkIwTVbpmjB4qUM3hm1y2RSGGZjGHfkq8S8Z7IR0
- 0bCYDOArJfhVtXL723YvFzRR2U32j+hXNLIRPYe02YwpnMkkaVs/P2RPcPt5DssKor
- 3BPb7ZjZvWk08y9FE71kJUgyYZPR8N2AlauH73m3hFUzaRGj3q/LyLoGfJa0PPOMSj
- j1QAIkSAe23cg==
-Date: Fri, 25 Jul 2025 14:50:31 -0500
+ b=BhH2V1yHUI/4eJQ6O6SG1WTvCOkt3dRljpQMyc6AJJvfc9Ge6R4yFP34FihWPc4AU
+ sCHjWECuBb9JWB5DHvvXko61NyKC4mpUdZUBDorYydB9bN4zn+wWJXl9dRjjTi5oNm
+ 69IZ10ziTsotIvFjLvZ5zVRy0Aw8VaWi36Zm01diusnQXnPMP/Er4YWcGxQ/lIZD03
+ JQewW2m6ut/0cqUi+V2EZFgFNUuRVVyZlHJl/PRCu3xi28NZFElIJzIx9EKtLDIFJ7
+ E4curYdmx/NhdLREspoJMKHpBsLMP0OxYHetdO3gTNCl53Mvd6oA2GnJE7/UAegz/B
+ yCq9g/Ji9+iCQ==
+Date: Fri, 25 Jul 2025 18:25:17 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <175347303098.1735273.16989682825723022280.robh@kernel.org>
-References: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
- <20250725-drm-misc-next-v1-2-a59848e62cf9@foss.st.com>
+To: Matthew Gerlach <matthew.gerlach@altera.com>
+Message-ID: <175348591737.2024488.4815901624908424031.robh@kernel.org>
+References: <20250724154052.205706-1-matthew.gerlach@altera.com>
+ <20250724154052.205706-2-matthew.gerlach@altera.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250725-drm-misc-next-v1-2-a59848e62cf9@foss.st.com>
-Cc: Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- David Airlie <airlied@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 02/12] dt-bindings: display: st,
- stm32-ltdc: add access-controllers property
+In-Reply-To: <20250724154052.205706-2-matthew.gerlach@altera.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
+ linux-kernel@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, dinguyen@kernel.org,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] dt-bindings: net: altr,
+ socfpga-stmmac: Add compatible string for Agilex5
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,22 +62,20 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Fri, 25 Jul 2025 12:03:54 +0200, Raphael Gallais-Pou wrote:
-> access-controllers is an optional property that allows a peripheral to
-> refer to one or more domain access controller(s).
+On Thu, 24 Jul 2025 08:40:48 -0700, Matthew Gerlach wrote:
+> Add compatible string for the Altera Agilex5 variant of the Synopsys DWC
+> XGMAC IP version 2.10.
 > 
-> This property is added when the peripheral is under the STM32 firewall
-> controller.  It allows an accurate representation of the hardware, where
-> the peripheral is connected to a firewall bus.  The firewall can then check
-> the peripheral accesses before allowing its device to probe.
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
 > ---
->  Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+> v2:
+>  - Remove generic compatible string for Agilex5.
+> ---
+>  .../devicetree/bindings/net/altr,socfpga-stmmac.yaml      | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
