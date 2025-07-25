@@ -2,55 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FE5B11CF8
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 12:59:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D0BB11D4E
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 13:11:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAD3AC3089D;
-	Fri, 25 Jul 2025 10:59:12 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9DF8C30883;
+	Fri, 25 Jul 2025 11:11:45 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D078AC30883
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB5F7C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 10:59:11 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.18.186.31])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4bpPwC6pBLz6L56g;
- Fri, 25 Jul 2025 18:57:31 +0800 (CST)
-Received: from frapeml500008.china.huawei.com (unknown [7.182.85.71])
- by mail.maildlp.com (Postfix) with ESMTPS id 3805F140159;
- Fri, 25 Jul 2025 18:59:11 +0800 (CST)
-Received: from localhost (10.203.177.66) by frapeml500008.china.huawei.com
- (7.182.85.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Fri, 25 Jul
- 2025 12:59:10 +0200
-Date: Fri, 25 Jul 2025 11:59:08 +0100
-From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-To: =?ISO-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
-Message-ID: <20250725115908.000074d7@huawei.com>
-In-Reply-To: <20250725115655.00002304@huawei.com>
-References: <20250722-ddrperfm-upstream-v3-0-7b7a4f3dc8a0@foss.st.com>
- <20250722-ddrperfm-upstream-v3-12-7b7a4f3dc8a0@foss.st.com>
- <20250725115655.00002304@huawei.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+ Fri, 25 Jul 2025 11:11:44 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56PA7CB4004324;
+ Fri, 25 Jul 2025 13:11:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ 7EIFICZ6PcSv8Dm1Wx1IcEsY2QkDaiXmUkaUpQzq2mw=; b=N3M2Egl7vTiFztE5
+ eWo2u9sUVXirJiniHCzcbmnm41xHXf33B3ctG5RtYCk9GRh++0Sz5JzTNNeOUard
+ sPyHLHT1ipV3o770xZa2wnlHs2zl6ex/6pM3+PIhbuFun/95aqW3xttHRUDWEjQc
+ DaXeKT7wLq6SpwVUaIo+qyhjkUj8aPtzFqqW67TZSFfRyJd7MjaOZGgO+r3uBnOd
+ hJnDkqU+UvTrpxhWQFe4XxEgHYjeHOTcub0B/q+CpnKVWhc5GBlpBK0cakMJg1iY
+ vo427FXrD3VPZtlgCF9U+oQsmx3WXVAC92qSFtQQ11nZn/zqjDW4Lcp7h9saIfPZ
+ Lwyx9Q==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 483w3ett17-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 25 Jul 2025 13:11:25 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 03F9B4004D;
+ Fri, 25 Jul 2025 13:10:04 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AE05C22306A;
+ Fri, 25 Jul 2025 13:09:00 +0200 (CEST)
+Received: from [10.48.86.185] (10.48.86.185) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Jul
+ 2025 13:08:59 +0200
+Message-ID: <85673db7-d311-47cc-be52-291d94e136e4@foss.st.com>
+Date: Fri, 25 Jul 2025 13:08:58 +0200
 MIME-Version: 1.0
-X-Originating-IP: [10.203.177.66]
-X-ClientProxiedBy: lhrpeml100005.china.huawei.com (7.191.160.25) To
- frapeml500008.china.huawei.com (7.182.85.71)
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com, Rob
- Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Le Goffic <legoffic.clement@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Julius Werner <jwerner@chromium.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3 12/19] perf: stm32: introduce DDRPERFM
-	driver
+User-Agent: Mozilla Thunderbird
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+References: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
+ <20250725-drm-misc-next-v1-9-a59848e62cf9@foss.st.com>
+Content-Language: en-US
+From: Clement LE GOFFIC <clement.legoffic@foss.st.com>
+In-Reply-To: <20250725-drm-misc-next-v1-9-a59848e62cf9@foss.st.com>
+X-Originating-IP: [10.48.86.185]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-25_03,2025-07-24_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 09/12] arm64: dts: st: add lvds support on
+ stm32mp255
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,38 +82,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > +
-> > +	platform_set_drvdata(pdev, pmu);
-> > +	pmu->dev = &pdev->dev;
-> > +
-> > +	pmu->cfg = device_get_match_data(pmu->dev);
-> > +
-> > +	pmu->membase = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> > +	if (IS_ERR(pmu->membase))
-> > +		return PTR_ERR(pmu->membase);
-> > +
-> > +	if (of_property_present(pmu->dev->of_node, "access-controllers")) {
-> > +		ret = stm32_firewall_get_firewall(pmu->dev->of_node, &firewall, 1);  
-> 
-> Jiri is busy driving dev_fwnode() thorugh to get rid of all the directly references
-> to of_node.  Probably better to use that here from the start.
-> 
-Need more coffee. Ignore this one, you still need an of_node here.
-
-> 
-> > +		if (ret)
-> > +			return dev_err_probe(pmu->dev, ret, "Failed to get firewall\n");
-> > +		ret = stm32_firewall_grant_access_by_id(&firewall, firewall.firewall_id);
-> > +		if (ret)
-> > +			return dev_err_probe(pmu->dev, ret, "Failed to grant access\n");
-> > +	}
-> > +
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUmFwaGFlbCwKCk9uIDcvMjUvMjUgMTI6MDQsIFJhcGhhZWwgR2FsbGFpcy1Qb3Ugd3JvdGU6
+Cj4gVGhlIExWRFMgaXMgdXNlZCBvbiBTVE0zMk1QMiBhcyBhIGRpc3BsYXkgaW50ZXJmYWNlLgo+
+IAo+IEFkZCB0aGUgTFZEUyBub2RlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFJhcGhhZWwgR2FsbGFp
+cy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+Cj4gLS0tCj4gICBhcmNoL2Fy
+bTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTUuZHRzaSB8IDEyICsrKysrKysrKysrKwo+ICAgMSBm
+aWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm02
+NC9ib290L2R0cy9zdC9zdG0zMm1wMjU1LmR0c2kgYi9hcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0
+bTMybXAyNTUuZHRzaQo+IGluZGV4IGY2ODliNDdjNTAxMDAzMzEyMDE0NmNmMTk1NGQ2NjI0YzAy
+NzAwNDUuLmE0ZDk2NWY3ODVmYTQyYzQ1OTc0OTQwMTA4NTVhZWM3ZTFiOWZkZDEgMTAwNjQ0Cj4g
+LS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjU1LmR0c2kKPiArKysgYi9hcmNo
+L2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTUuZHRzaQo+IEBAIC02LDYgKzYsMTggQEAKPiAg
+ICNpbmNsdWRlICJzdG0zMm1wMjUzLmR0c2kiCj4gICAKPiAgICZyaWZzYyB7Cj4gKwlsdmRzOiBs
+dmRzQDQ4MDYwMDAwIHsKPiArCQljb21wYXRpYmxlID0gInN0LHN0bTMybXAyNS1sdmRzIjsKCkZv
+ciB0aGUgY29tcGF0aWJsZSB5b3Ugbm93IG5lZWQgb25lIGNvbWFwdGlibGUgcGVyIFNvQy4KSXQg
+bWVhbnMgeW91ciBjb21wYXRpYmxlIHNob3VsZCBsb29rIGxpa2UgOiAic3Qsc3RtMzJtcDI1MS1s
+dmRzIi4KVGhpcyB3YXksIGlmIG9uIHRoZSAyNTMgb3IgMjU1IHRoZXJlIGlzIGFuIGlzc3VlIHlv
+dSBhcmUgYWJsZSB0byBlYXNpbHkgCmFkZCBtYXRjaCBkYXRhIGluIHRoZSBkcml2ZXIgd2l0aCBj
+b21wYXRpYmxlICJzdCxzdG0zMm1wMjUzLWx2ZHMiIG9yIAoic3Qsc3RtMzJtcDI1NS1sdmRzIi4K
+QSBwcmlvciBkaXNjdXNzaW9uIG9uIHRoaXMgc3ViamVjdCBoYXMgYmVlbiByYWlzZWQgb24gbXkg
+VjEgb2YgSERQIAppbnZvbHZpbmcgS3J6eXN6dG9mIGFuZCBBbGV4YW5kcmUgOgpodHRwczovL2xv
+cmUua2VybmVsLm9yZy9hbGwvNDE4YTgwYTktOGMwOC00ZGQxLWJmNDktMWJkNzM3ODMyMWFhQGtl
+cm5lbC5vcmcvCgo+ICsJCSNjbG9jay1jZWxscyA9IDwwPjsKPiArCQlyZWcgPSA8MHg0ODA2MDAw
+MCAweDIwMDA+Owo+ICsJCWNsb2NrcyA9IDwmcmNjIENLX0JVU19MVkRTPiwgPCZyY2MgQ0tfS0VS
+X0xWRFNQSFk+Owo+ICsJCWNsb2NrLW5hbWVzID0gInBjbGsiLCAicmVmIjsKPiArCQlyZXNldHMg
+PSA8JnJjYyBMVkRTX1I+Owo+ICsJCWFjY2Vzcy1jb250cm9sbGVycyA9IDwmcmlmc2MgODQ+Owo+
+ICsJCXBvd2VyLWRvbWFpbnMgPSA8JkNMVVNURVJfUEQ+Owo+ICsJCXN0YXR1cyA9ICJkaXNhYmxl
+ZCI7Cj4gKwl9Owo+ICsKPiAgIAl2ZGVjOiB2ZGVjQDQ4MGQwMDAwIHsKPiAgIAkJY29tcGF0aWJs
+ZSA9ICJzdCxzdG0zMm1wMjUtdmRlYyI7Cj4gICAJCXJlZyA9IDwweDQ4MGQwMDAwIDB4M2M4PjsK
+PiAKCkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
