@@ -2,74 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6459B11BA4
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 12:07:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 120ADB11CED
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jul 2025 12:57:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B869C3F92E;
-	Fri, 25 Jul 2025 10:07:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB04DC30883;
+	Fri, 25 Jul 2025 10:56:59 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C1F9C3F92D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEEF3C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 10:07:28 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56P9cSdj007814;
- Fri, 25 Jul 2025 12:07:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- W1KDXoh5LDTtJ7+frb/wxVL20UcusznPewWOmjzvoSg=; b=P5/N2NqUWvzWCv3R
- stbsbjLB2ACbZ1qfozrK9ZLyn9RHBOLGCwhHSYMjHBuvL5opd13raNkM3QSrL05G
- 6jRbwyqly2tT04FlXo9+FfzfHDq7gnUIJVIyVKdjsnTiS6pnt/asQ2Nm4et0BgyN
- po8qNUemwoodHakrbbMsLvcerUBGjY9jjJuF4/1L2SkfvZImDPOvVjuQkeQkRA4q
- bqZKmfmuv4tWwO25aa9sG9ywuafaj99kCYihwbzZFCjNvKR63SiH5djApWngti8A
- f+0P4hGtnM8ZOwriOP8zNK4J+g+PQEMU1st2hYY4CRSk7f+92xPnAbIPLLGiTdA0
- F/hZUA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 483w3m2hdy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Jul 2025 12:07:13 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2A7F940060;
- Fri, 25 Jul 2025 12:05:45 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CD1607A19E6;
- Fri, 25 Jul 2025 12:04:37 +0200 (CEST)
-Received: from localhost (10.252.19.90) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Jul
- 2025 12:04:37 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Fri, 25 Jul 2025 12:04:04 +0200
+ Fri, 25 Jul 2025 10:56:58 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.18.186.31])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4bpPpz1MQQz6HJRn;
+ Fri, 25 Jul 2025 18:52:59 +0800 (CST)
+Received: from frapeml500008.china.huawei.com (unknown [7.182.85.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id A06C61400DC;
+ Fri, 25 Jul 2025 18:56:57 +0800 (CST)
+Received: from localhost (10.203.177.66) by frapeml500008.china.huawei.com
+ (7.182.85.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Fri, 25 Jul
+ 2025 12:56:56 +0200
+Date: Fri, 25 Jul 2025 11:56:55 +0100
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+To: =?ISO-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
+Message-ID: <20250725115655.00002304@huawei.com>
+In-Reply-To: <20250722-ddrperfm-upstream-v3-12-7b7a4f3dc8a0@foss.st.com>
+References: <20250722-ddrperfm-upstream-v3-0-7b7a4f3dc8a0@foss.st.com>
+ <20250722-ddrperfm-upstream-v3-12-7b7a4f3dc8a0@foss.st.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Message-ID: <20250725-drm-misc-next-v1-12-a59848e62cf9@foss.st.com>
-References: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
-In-Reply-To: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.252.19.90]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-25_02,2025-07-24_01,2025-03-28_01
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 12/12] arm64: dts: st: add loopback clocks on
-	LTDC node
+X-Originating-IP: [10.203.177.66]
+X-ClientProxiedBy: lhrpeml100005.china.huawei.com (7.191.160.25) To
+ frapeml500008.china.huawei.com (7.182.85.71)
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, Gabriel
+ Fernandez <gabriel.fernandez@foss.st.com>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob
+ Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Conor
+ Dooley <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Le Goffic <legoffic.clement@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Julius Werner <jwerner@chromium.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 12/19] perf: stm32: introduce DDRPERFM
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,68 +61,226 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ck_ker_ltdc has the CLK_SET_RATE_PARENT flag.  While having this flag is
-semantically correct, it for now leads to an improper setting of the
-clock rate.  The ck_ker_ltdc parent clock is the flexgen 27, which does
-not support changing rates yet.  To overcome this issue, a fixed clock
-can be used for the kernel clock.
+On Tue, 22 Jul 2025 16:03:29 +0200
+Cl=E9ment Le Goffic <clement.legoffic@foss.st.com> wrote:
 
-Add the clocks needed for the LTDC to work.
+> Introduce the driver for the DDR Performance Monitor available on
+> STM32MPU SoC.
+> =
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
- arch/arm64/boot/dts/st/stm32mp255.dtsi | 7 ++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+> On STM32MP2 platforms, the DDRPERFM allows to monitor up to 8 DDR events
+> that come from the DDR Controller such as read or write events.
+> =
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index c561df51a6001004e45fb53a56d5d42c310e6b61..54dd57e0a98eabbbcfe89459e6d63eb287f5ca04 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -52,6 +52,12 @@ clk_rcbsec: clk-rcbsec {
- 			compatible = "fixed-clock";
- 			clock-frequency = <64000000>;
- 		};
-+
-+		clk_flexgen_27_fixed: clk-54000000 {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <54000000>;
-+		};
- 	};
- 
- 	firmware {
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index a4d965f785fa42c4597494010855aec7e1b9fdd1..82c2fa67b6b91f67d51872ed098aea897fab0197 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -5,6 +5,11 @@
-  */
- #include "stm32mp253.dtsi"
- 
-+&ltdc {
-+	clocks = <&rcc CK_BUS_LTDC>, <&clk_flexgen_27_fixed>, <&syscfg>, <&lvds>;
-+	clock-names = "bus", "lcd", "ref", "lvds";
-+};
-+
- &rifsc {
- 	lvds: lvds@48060000 {
- 		compatible = "st,stm32mp25-lvds";
-@@ -34,4 +39,4 @@ venc: venc@480e0000 {
- 		clocks = <&rcc CK_BUS_VENC>;
- 		access-controllers = <&rifsc 90>;
- 	};
--};
-\ No newline at end of file
-+};
+> On STM32MP1 platforms, the DDRPERFM cannot monitor any event on any
+> counter, there is a notion of set of events.
+> Events from different sets cannot be monitored at the same time.
+> The first chosen event selects the set.
+> The set is coded in the first two bytes of the config value which is on 4
+> bytes.
+> =
 
--- 
-2.25.1
+> On STM32MP25x series, the DDRPERFM clock is shared with the DDR controller
+> and may be secured by bootloaders.
+> Access controllers allow to check access to a resource. Use the access
+> controller defined in the devicetree to know about the access to the
+> DDRPERFM clock.
+> =
+
+> Signed-off-by: Cl=E9ment Le Goffic <clement.legoffic@foss.st.com>
+Hi Cl=E9ment,
+
+Minor comments inline.,
+
+Thanks,
+
+Jonathan
+
+> --- /dev/null
+> +++ b/drivers/perf/stm32_ddr_pmu.c
+> @@ -0,0 +1,896 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2025, STMicroelectronics - All Rights Reserved
+> + * Author: Cl=E9ment Le Goffic <clement.legoffic@foss.st.com> for STMicr=
+oelectronics.
+> + */
+> +
+> +#include <linux/bus/stm32_firewall_device.h>
+> +#include <linux/clk.h>
+> +#include <linux/hrtimer.h>
+> +#include <linux/io.h>
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+Why?  =
+
+Looks like of.h is needed so you should include that directly.
+
+Check all your headers.  mod_devicetable.h should be here
+for instance.
+
+> +#include <linux/perf_event.h>
+> +#include <linux/reset.h>
+
+> +
+> +static void stm32_ddr_pmu_event_del(struct perf_event *event, int flags)
+> +{
+> +	struct stm32_ddr_pmu *pmu =3D to_stm32_ddr_pmu(event->pmu);
+> +	struct stm32_ddr_cnt *counter =3D event->pmu_private;
+> +	bool events =3D true;
+> +
+> +	stm32_ddr_pmu_event_stop(event, PERF_EF_UPDATE);
+> +
+> +	stm32_ddr_pmu_free_counter(pmu, counter);
+> +
+> +	for (int i =3D 0; i < pmu->cfg->counters_nb; i++)
+> +		events =3D !list_empty(&pmu->counters[i]);
+What is this trying to do?  It seems to be only setting
+	events =3D !list_empty(&pmu->counters[pmu->cfg_counters_nb - 1]);
+
+If so just check that but my guess it you care if there is anything
+in any of them lists.
+
+> +
+> +	/* If there is activity nothing to do */
+> +	if (events)
+> +		return;
+> +
+> +	hrtimer_cancel(&pmu->hrtimer);
+> +	stm32_ddr_stop_counters(pmu);
+> +
+> +	pmu->selected_set =3D -1;
+> +
+> +	clk_disable(pmu->clk);
+> +}
+
+
+> +static int stm32_ddr_pmu_get_memory_type(struct stm32_ddr_pmu *pmu)
+> +{
+> +	struct platform_device *pdev =3D to_platform_device(pmu->dev);
+> +	struct device_node *memchan;
+> +
+> +	memchan =3D of_parse_phandle(pdev->dev.of_node, "memory-channel", 0);
+> +	if (!memchan)
+> +		return dev_err_probe(&pdev->dev, -EINVAL,
+> +				     "Missing device-tree property 'memory-channel'\n");
+> +
+> +	if (of_device_is_compatible(memchan, "jedec,lpddr4-channel"))
+
+Random thought, feel free to ignore.
+I wonder if it's worth using an of_device_id match table here?
+
+
+> +		pmu->dram_type =3D STM32_DDR_PMU_LPDDR4;
+> +	else if (of_device_is_compatible(memchan, "jedec,lpddr3-channel"))
+> +		pmu->dram_type =3D STM32_DDR_PMU_LPDDR3;
+> +	else if (of_device_is_compatible(memchan, "jedec,ddr4-channel"))
+> +		pmu->dram_type =3D STM32_DDR_PMU_DDR4;
+> +	else if (of_device_is_compatible(memchan, "jedec,ddr3-channel"))
+> +		pmu->dram_type =3D STM32_DDR_PMU_DDR3;
+> +	else
+> +		return dev_err_probe(&pdev->dev, -EINVAL, "Unsupported memory channel =
+type\n");
+> +
+> +	if (pmu->dram_type =3D=3D STM32_DDR_PMU_LPDDR3)
+> +		dev_warn(&pdev->dev,
+> +			 "LPDDR3 supported by DDRPERFM but not supported by DDRCTRL/DDRPHY\n"=
+);
+> +
+> +	return 0;
+> +}
+
+> +static struct attribute *stm32_ddr_pmu_events_attrs_mp[] =3D {
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_op_is_rd, PERF_OP_IS_RD),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_op_is_wr, PERF_OP_IS_WR),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_op_is_activate, PERF_OP_IS_ACTIVATE),
+> +	STM32_DDR_PMU_EVENT_ATTR(ctl_idle, CTL_IDLE),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_hpr_req_with_no_credit, PERF_HPR_REQ_WITH=
+_NO_CREDIT),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_lpr_req_with_no_credit, PERF_LPR_REQ_WITH=
+_NO_CREDIT),
+> +	STM32_DDR_PMU_EVENT_ATTR(cactive_ddrc, CACTIVE_DDRC),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_op_is_enter_powerdown, PERF_OP_IS_ENTER_P=
+OWERDOWN),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_op_is_refresh, PERF_OP_IS_REFRESH),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_selfresh_mode, PERF_SELFRESH_MODE),
+> +	STM32_DDR_PMU_EVENT_ATTR(dfi_lp_req, DFI_LP_REQ),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_hpr_xact_when_critical, PERF_HPR_XACT_WHE=
+N_CRITICAL),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_lpr_xact_when_critical, PERF_LPR_XACT_WHE=
+N_CRITICAL),
+> +	STM32_DDR_PMU_EVENT_ATTR(perf_wr_xact_when_critical, PERF_WR_XACT_WHEN_=
+CRITICAL),
+> +	STM32_DDR_PMU_EVENT_ATTR(dfi_lp_req_cpy, DFI_LP_REQ),  /* Suffixed '_cp=
+y' to allow the
+> +								* choice between sets 2 and 3
+> +								*/
+> +	STM32_DDR_PMU_EVENT_ATTR(time_cnt, TIME_CNT),
+> +	NULL,
+
+No trailing comma for a terminating entry like this.  You got the other cas=
+es
+so I guess this one just got missed.
+
+> +};
+
+> +static int stm32_ddr_pmu_device_probe(struct platform_device *pdev)
+> +{
+> +	struct stm32_firewall firewall;
+> +	struct stm32_ddr_pmu *pmu;
+> +	struct reset_control *rst;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	pmu =3D devm_kzalloc(&pdev->dev, struct_size(pmu, counters, MP2_CNT_NB)=
+, GFP_KERNEL);
+> +	if (!pmu)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, pmu);
+> +	pmu->dev =3D &pdev->dev;
+> +
+> +	pmu->cfg =3D device_get_match_data(pmu->dev);
+> +
+> +	pmu->membase =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+> +	if (IS_ERR(pmu->membase))
+> +		return PTR_ERR(pmu->membase);
+> +
+> +	if (of_property_present(pmu->dev->of_node, "access-controllers")) {
+> +		ret =3D stm32_firewall_get_firewall(pmu->dev->of_node, &firewall, 1);
+
+Jiri is busy driving dev_fwnode() thorugh to get rid of all the directly re=
+ferences
+to of_node.  Probably better to use that here from the start.
+
+
+> +		if (ret)
+> +			return dev_err_probe(pmu->dev, ret, "Failed to get firewall\n");
+> +		ret =3D stm32_firewall_grant_access_by_id(&firewall, firewall.firewall=
+_id);
+> +		if (ret)
+> +			return dev_err_probe(pmu->dev, ret, "Failed to grant access\n");
+> +	}
+> +
+> +	pmu->clk =3D devm_clk_get_optional_enabled(pmu->dev, NULL);
+> +	if (IS_ERR(pmu->clk))
+> +		return dev_err_probe(pmu->dev, PTR_ERR(pmu->clk), "Failed to get prepa=
+re clock\n");
+
+Comment doesn't match code. This is going to enabled, not just prepared.
+
+> +
+> +	rst =3D devm_reset_control_get_optional_exclusive(pmu->dev, NULL);
+> +	if (IS_ERR(rst))
+> +		return dev_err_probe(pmu->dev, PTR_ERR(rst), "Failed to get reset\n");
+
+> +}
+
 
 _______________________________________________
 Linux-stm32 mailing list
