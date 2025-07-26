@@ -2,50 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B54B127C0
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Jul 2025 02:00:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D76DBB127FF
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Jul 2025 02:25:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DC45C36B3C;
-	Fri, 25 Jul 2025 23:59:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4208BC36B3C;
+	Sat, 26 Jul 2025 00:25:51 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D87FFC36B2D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00367C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jul 2025 23:59:58 +0000 (UTC)
+ Sat, 26 Jul 2025 00:25:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 74D0543C5B;
- Fri, 25 Jul 2025 23:59:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D3EC4CEE7;
- Fri, 25 Jul 2025 23:59:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ABAF3418C0;
+ Sat, 26 Jul 2025 00:25:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4FDC4CEE7;
+ Sat, 26 Jul 2025 00:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753487997;
- bh=aWagL43nzO3VnFNpASht2nxBuHJFMqurTi8Xfa3eL1Y=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=jesXExFDdeul9WCN5G39/ib4nkocPTDnI/yeEIpfsW8Lz+DJykYp2TOdeGmRjGptT
- x92BA46355IUA7dRi7Y8UMlSR36Pf2O0t1buP5Z9ZSRIea6lJu0LxYw0y8Tf4UDLEW
- FGMqBmM0WEu4R5RARdWHsW/B0kg9E1MxNu90rJ5XI4jFgmQWfCh3A+DSuwAizPP3zx
- tERKyuOmyQT6oOGb3dUneQaDjnjTWs7//Dmak4RGSTX3OGcV3PlqVreruRpxinVTrb
- okRPYR1MXiNUH18pMY5ZuKYOak2sSkk0apz9PeRdBXCCph5YfZlOE1Qy01gsYFRcUx
- +EhKf9EJ/C2jw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EAC74383BF4E; Sat, 26 Jul 2025 00:00:15 +0000 (UTC)
+ s=k20201202; t=1753489548;
+ bh=Dko3kWgCT0Ys++R7H9KuFtq5eskVkBM8MOSnrUZdmSM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Yexe2ilWaZpg4EONL/tBPagglcnpt1t2mC9YTEcUOirFA4Vjm4ooF6XzXKBMUZQy9
+ e2gZLxn6Co3PeNaQ0UipNCoc2PI93Jj8A/gkcq7IQ6DMgssqfM6JIThKV52QPiU/Vd
+ FgVV5nQVPFRRXoZEJw6rQFPy104fmqwxEdk+NKJcbAH6JbAC8gdpGrhzJCsaY08bUr
+ l5njw75dvCUEP8KWSrqLiS60IJ2TxwiFhme/Zn+9uqm2mZ3q4sWr/InoxUxsXEdpzo
+ geQAjruPoUDFOv+QCfwiC641tZFmFBgG9vj3uiRAWFna8d6J5vEedJkNhIRhsa6SJn
+ ROuZXyfueL8Zg==
+Date: Fri, 25 Jul 2025 17:25:47 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20250725172547.13d550a4@kernel.org>
+In-Reply-To: <20250724-relative_flex_pps-v1-0-37ca65773369@foss.st.com>
+References: <20250724-relative_flex_pps-v1-0-37ca65773369@foss.st.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175348801475.3451765.4389353168084644772.git-patchwork-notify@kernel.org>
-Date: Sat, 26 Jul 2025 00:00:14 +0000
-References: <20250724154052.205706-1-matthew.gerlach@altera.com>
-In-Reply-To: <20250724154052.205706-1-matthew.gerlach@altera.com>
-To: Matthew Gerlach <matthew.gerlach@altera.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- dinguyen@kernel.org, netdev@vger.kernel.org, richardcochran@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, krzk+dt@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/4] arm64: dts: socfpga: enable
- ethernet support for Agilex5
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: allow
+ generation of flexible PPS relative to MAC time
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,38 +59,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 24 Jul 2025 08:40:47 -0700 you wrote:
-> This patch set enables ethernet support for the Agilex5 family of SOCFPGAs,
-> and specifically enables gmac2 on the Agilex5 SOCFPGA Premium Development
-> Kit.
+On Thu, 24 Jul 2025 14:31:17 +0200 Gatien Chevallier wrote:
+> When doing some testing on stm32mp2x platforms(MACv5), I noticed that
+> the command previously used with a MACv4 for genering a PPS signal:
+> echo "0 0 0 1 1" > /sys/class/ptp/ptp0/period
+> did not work.
 > 
-> Patch 1 defines Agilex5 compatibility string in the device tree bindings.
+> This is because the arguments passed through this command must contain
+> the start time at which the PPS should be generated, relative to the
+> MAC system time. For some reason, a time set in the past seems to work
+> with a MACv4.
 > 
-> Patch 2 defines the base gmac nodes it the Agilex5 DTSI.
+> Because passing such an argument is tedious, introduce
+> STMMAC_RELATIVE_FLEX_PPS config switch so that the MAC system time
+> is added to the args to the stmmac_ptp driver.
 > 
-> [...]
+> Example to generate a flexible PPS signal that has a 1s period 3s
+> relative to when the command was entered before and after setting
+> STMMAC_RELATIVE_FLEX_PPS:
+> 
+> Before: echo "0 175xxxxxxx 0 1 1" > /sys/class/ptp/ptp0/period
+> 
+> After: echo "0 3 0 1 1" > /sys/class/ptp/ptp0/period
 
-Here is the summary with links:
-  - [v2,1/4] dt-bindings: net: altr,socfpga-stmmac: Add compatible string for Agilex5
-    https://git.kernel.org/netdev/net-next/c/92068a32f978
-  - [v2,2/4] arm64: dts: Agilex5 Add gmac nodes to DTSI for Agilex5
-    (no matching commit)
-  - [v2,3/4] arm64: dts: socfpga: agilex5: enable gmac2 on the Agilex5 dev kit
-    (no matching commit)
-  - [v2,4/4] net: stmmac: dwmac-socfpga: Add xgmac support for Agilex5
-    https://git.kernel.org/netdev/net-next/c/a5e290aab8fc
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Kconfig doesn't seem like a great way of achieving the outcome.
+Some per-platform knob would be better.
+But ideally we wouldn't do either. Could we possibly guess which
+format user has chosen based on the values, at runtime?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
