@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF1E9B14890
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 08:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1FB0B13F16
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 17:46:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7D87C3F957;
-	Tue, 29 Jul 2025 06:49:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62669C36B2E;
+	Mon, 28 Jul 2025 15:46:52 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9240CC36B2C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34FBEC36B2C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jul 2025 15:46:45 +0000 (UTC)
+ Mon, 28 Jul 2025 15:46:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=h7p+MOlLweXe2Hm+XHQ5RfeFVChHqjBc73YEBAdhv8s=; b=gD6is6onBtRRFkuCtUmTqAbWbd
- nRYJZwBiIIHYby5y8n/ASqygGL6W9D3bfe4JzHu0zApAP0d/OcA1Q4tnDFpcAmeUNWZCN902XGgI5
- sfyOBRkCU0YlDmiHZc4ZtOW92KeDLmbZNjETNbdytjcqHhPfVO5zIht1mBUloE8glVqBcDoeTtjqh
- HALEc8zZ5NnQ0WbEItSIRq6Dr8slMFK7Fr5y2Hil5oN1Y3T1FAa6Yk2fqrmKzxd/svPWUVxxAHgrB
- LB/WMtrmLEM7HkYBp0QmtTIc4lgmHKN07CZhm63RRyyjih3xB2QOHVX0ew7LC6eXAjeId3cfqvZHD
- lRcpmE2w==;
+ bh=uknV8kFABnbg9sOVYofqLfBmUsHtQdNpXIke2XrC9CM=; b=N2FoDpuKGup3GsZwcHFrF+b/e8
+ lV42d1oNydb/bGE3Gt8hd38gwNfSBWfa1UNCDmVKpGH3MJ4DtIBU71u/ZEVAKauyZgKRoOiZECdY5
+ koC+MFfOpjwZpLjs/63UeT2KaOIPrWhoFPwjFdhKDKRvoyEILKN7lKvOwrglno51ONom56JR3O1Bv
+ tWaRDUWTWzBa5vhSoo9MFE3tW/QfHABjOJW0RnnRQWQQEW3DjsO1aUNZFYPbtKrNjNmYFwSH+uxFw
+ tZcAeJWKuEjeu+iKu5fSeJYplRfD9i4nSJvWYLo3zW6q+5RUz1uUVUoYKnyOzYR0ETjQupZJctVRH
+ cm4c63uQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54464 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:40936 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1ugQ3l-0000V8-1D;
- Mon, 28 Jul 2025 16:46:41 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1ugQ3q-0000VP-1T;
+ Mon, 28 Jul 2025 16:46:46 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1ugQ33-006KDR-Nj; Mon, 28 Jul 2025 16:45:57 +0100
+ id 1ugQ38-006KDX-RT; Mon, 28 Jul 2025 16:46:02 +0100
 In-Reply-To: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
 References: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,16 +41,15 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1ugQ33-006KDR-Nj@rmk-PC.armlinux.org.uk>
-Date: Mon, 28 Jul 2025 16:45:57 +0100
-X-Mailman-Approved-At: Tue, 29 Jul 2025 06:48:52 +0000
+Message-Id: <E1ugQ38-006KDX-RT@rmk-PC.armlinux.org.uk>
+Date: Mon, 28 Jul 2025 16:46:02 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next 6/7] net: stmmac: add helpers to
- indicate WoL enable status
+Subject: [Linux-stm32] [PATCH RFC net-next 7/7] net: stmmac: explain the
+ phylink_speed_down() call in stmmac_release()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,104 +66,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add two helpers to abstract the WoL enable status at the PHY and MAC to
-make the code easier to read.
+The call to phylink_speed_down() looks odd on the face of it. Add a
+comment to explain why this call is there.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h          | 10 ++++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 11 +++++------
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c |  4 ++--
- 3 files changed, 17 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index e1df59a643e3..2ae7174ec4b8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -373,6 +373,16 @@ enum stmmac_state {
- 	STMMAC_SERVICE_SCHED,
- };
- 
-+static inline bool stmmac_wol_enabled_mac(struct stmmac_priv *priv)
-+{
-+	return priv->plat->pmt && device_may_wakeup(priv->device);
-+}
-+
-+static inline bool stmmac_wol_enabled_phy(struct stmmac_priv *priv)
-+{
-+	return !priv->plat->pmt && device_may_wakeup(priv->device);
-+}
-+
- int stmmac_mdio_unregister(struct net_device *ndev);
- int stmmac_mdio_register(struct net_device *ndev);
- int stmmac_mdio_reset(struct mii_bus *mii);
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7d467b494685..f44f8b1b0efa 100644
+index f44f8b1b0efa..0da5c29b8cb0 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7857,7 +7857,7 @@ int stmmac_suspend(struct device *dev)
- 		priv->plat->serdes_powerdown(ndev, priv->plat->bsp_priv);
+@@ -4138,8 +4138,13 @@ static int stmmac_release(struct net_device *dev)
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u32 chan;
  
- 	/* Enable Power down mode by programming the PMT regs */
--	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
-+	if (stmmac_wol_enabled_mac(priv)) {
- 		stmmac_pmt(priv, priv->hw, priv->wolopts);
- 		priv->irq_wake = 1;
- 	} else {
-@@ -7868,11 +7868,10 @@ int stmmac_suspend(struct device *dev)
- 	mutex_unlock(&priv->lock);
- 
- 	rtnl_lock();
--	if (device_may_wakeup(priv->device) && !priv->plat->pmt)
-+	if (stmmac_wol_enabled_phy(priv))
++	/* If the PHY or MAC has WoL enabled, then the PHY will not be
++	 * suspended when phylink_stop() is called below. Set the PHY
++	 * to its slowest speed to save power.
++	 */
+ 	if (device_may_wakeup(priv->device))
  		phylink_speed_down(priv->phylink, false);
- 
--	phylink_suspend(priv->phylink,
--			device_may_wakeup(priv->device) && priv->plat->pmt);
-+	phylink_suspend(priv->phylink, stmmac_wol_enabled_mac(priv));
- 	rtnl_unlock();
- 
- 	if (stmmac_fpe_supported(priv))
-@@ -7939,7 +7938,7 @@ int stmmac_resume(struct device *dev)
- 	 * this bit because it can generate problems while resuming
- 	 * from another devices (e.g. serial console).
- 	 */
--	if (device_may_wakeup(priv->device) && priv->plat->pmt) {
-+	if (stmmac_wol_enabled_mac(priv)) {
- 		mutex_lock(&priv->lock);
- 		stmmac_pmt(priv, priv->hw, 0);
- 		mutex_unlock(&priv->lock);
-@@ -7992,7 +7991,7 @@ int stmmac_resume(struct device *dev)
- 	 * workqueue thread, which will race with initialisation.
- 	 */
- 	phylink_resume(priv->phylink);
--	if (device_may_wakeup(priv->device) && !priv->plat->pmt)
-+	if (stmmac_wol_enabled_phy(priv))
- 		phylink_speed_up(priv->phylink);
- 
- 	rtnl_unlock();
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 38b1c04c92a2..19f370bb934c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -954,7 +954,7 @@ static int __maybe_unused stmmac_pltfr_noirq_suspend(struct device *dev)
- 	if (!netif_running(ndev))
- 		return 0;
- 
--	if (!device_may_wakeup(priv->device) || !priv->plat->pmt) {
-+	if (!stmmac_wol_enabled_mac(priv)) {
- 		/* Disable clock in case of PWM is off */
- 		clk_disable_unprepare(priv->plat->clk_ptp_ref);
- 
-@@ -975,7 +975,7 @@ static int __maybe_unused stmmac_pltfr_noirq_resume(struct device *dev)
- 	if (!netif_running(ndev))
- 		return 0;
- 
--	if (!device_may_wakeup(priv->device) || !priv->plat->pmt) {
-+	if (!stmmac_wol_enabled_mac(priv)) {
- 		/* enable the clk previously disabled */
- 		ret = pm_runtime_force_resume(dev);
- 		if (ret)
++
+ 	/* Stop and disconnect the PHY */
+ 	phylink_stop(priv->phylink);
+ 	phylink_disconnect_phy(priv->phylink);
 -- 
 2.30.2
 
