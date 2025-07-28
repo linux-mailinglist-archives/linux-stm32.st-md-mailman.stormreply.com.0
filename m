@@ -2,142 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B697AB13595
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 09:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1BDB13627
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 10:17:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A72DC36B2C;
-	Mon, 28 Jul 2025 07:19:00 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013056.outbound.protection.outlook.com [52.101.72.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86E7AC36B2C;
+	Mon, 28 Jul 2025 08:17:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AC0EC36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FDE1C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jul 2025 07:18:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kzg9iG4Saa3UHSmf0B6T91waLNuT80LWoaKS5R+vVuInWVVKBVPmI5FA62Z8xqHg3Gdj/NAPQaBYxYW7frQEpYzBJB8BaUQLrj5U9R1omzzPvP9no0S2w4Vnbg1EWPlOMeTViAQUqBkOEBuXr4ZJZgTwyIkyq1szkiKM06/gp0yvgkmI0L2T2ddxUHazMAa7QEHUplZEEteBkWyCjr/aFSfrYhZeYtubfXAdjqAllWfULTLmzuLBmbuNYyhfM9p3HMtJKMqLnM44gtJRNi3nlRNtQyb6scFIvi373mfCdSgKQP3BpTauYLBu8cOqeTihlLs5ImoKnhZoUeRifBNjqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m/ewjz9MSfSgcneQZg2VwqmZsMYvUuwnlFGfk/j/pLA=;
- b=mEE6fZyq2yMjCOcqW2N8BoQtC+nKykIVF+ctyx8/FXR5lLkEn2tlV/smMUe4Y2DCXpc0XUDHEkHaxjvRCkvuh0F5hOPqWkm6vi1vh37YJOCUliBxQAVwzouKQpwIiPSonFmYh+cZhRLlq7VKUE4dGzufR15d4O5CezF9+j9TOazRB1e6BuQEPxSswapkOKk5wYb0vu/w/YmiFfbyx48E56APEDz4cODc73NguLsWDyOEGbwM2u4sWfCd16qyK2ge3z9cTrNvFICRUzhSDzadtlzySFlqDCBpv5NRgk1XqMtfe8PhbhkgDTbdmUkVPPXVdcmH8YPNUyOlO2dW311Iwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m/ewjz9MSfSgcneQZg2VwqmZsMYvUuwnlFGfk/j/pLA=;
- b=TJ4+mJJbOlKXUN+lSRUJblEspX8+jnUWKeRlz4KQ0BiWFU5zba2ZdrUoYoKzgM0ucx3Dt7+8B4eyvWPwGG3WY+WvXnAx9l1qfvUnvlejw4CWLZJeWA7uRL+j3F+SQVvE4QmG7Xe1lBVcG3/vLRUlREN9LtoCF20ATdHXQpWvaP6u9CcorSjtCLMuFM9icVt2BOuLLZCyn+IWzvnX4vcNvt6f+M/OXNCFu5j8v3WQ5l0hxoOwbGl6LOE6yyBQBvHK6Vlzp0NO9ep56Z5moVYRTzniDFP45alhvVhnjXJ9pcRiSbwA8INQSpBOpqMr/OBNkDORPm5eL/G5qAMOz/ljpw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS4PR04MB9386.eurprd04.prod.outlook.com (2603:10a6:20b:4e9::8)
- by VI1PR04MB10050.eurprd04.prod.outlook.com (2603:10a6:800:1db::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Mon, 28 Jul
- 2025 07:18:57 +0000
-Received: from AS4PR04MB9386.eurprd04.prod.outlook.com
- ([fe80::261e:eaf4:f429:5e1c]) by AS4PR04MB9386.eurprd04.prod.outlook.com
- ([fe80::261e:eaf4:f429:5e1c%7]) with mapi id 15.20.8964.025; Mon, 28 Jul 2025
- 07:18:57 +0000
-From: Joy Zou <joy.zou@nxp.com>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, peng.fan@nxp.com, richardcochran@gmail.com,
- catalin.marinas@arm.com, will@kernel.org, ulf.hansson@linaro.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, frieder.schrempf@kontron.de,
- primoz.fiser@norik.com, othacehe@gnu.org, Markus.Niebel@ew.tq-group.com,
- alexander.stein@ew.tq-group.com
-Date: Mon, 28 Jul 2025 15:14:38 +0800
-Message-Id: <20250728071438.2332382-12-joy.zou@nxp.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20250728071438.2332382-1-joy.zou@nxp.com>
-References: <20250728071438.2332382-1-joy.zou@nxp.com>
-X-ClientProxiedBy: MW4PR04CA0172.namprd04.prod.outlook.com
- (2603:10b6:303:85::27) To AS4PR04MB9386.eurprd04.prod.outlook.com
- (2603:10a6:20b:4e9::8)
+ Mon, 28 Jul 2025 08:17:36 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56S78cGN007928;
+ Mon, 28 Jul 2025 10:17:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ l/1C0ecdmCsSKInhz4z8SdSet/WiKzIt/u3FdhjILhQ=; b=C3cAEzX0Fw+6SVHZ
+ E8pdcAyNbkxOsLM6zze7ldv5v6FI6fSHTEBYzrybHm4PPNdaQGX0wjYVgskvgYWc
+ /FEfbHh5uPHrr++YWsgK3NiRUfZZQO/3Q3haGaO3CNNABtgHZpKphcAROYJGKkJV
+ JsizCNbYoAZUmkl29WrI44TlHudLZ4xzQMq8UfIBeSpw8S4YMQwqh/n+u0ujmezW
+ jZe8kBp9+IQIY9RtIQpR4lS+uvTQvj/insHisUxR3trrLvINZe76FKXp3iZZ7x/Z
+ oitKiKvYlDvFswyryoFPxNAAPsOHg00F4c8IbFXMWSwyTtpRYVd5KYaivSAY47iS
+ HqpYbw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 484m58xx6m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 28 Jul 2025 10:17:12 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1565B40049;
+ Mon, 28 Jul 2025 10:15:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 07AEE6EF690;
+ Mon, 28 Jul 2025 10:15:13 +0200 (CEST)
+Received: from [10.48.87.141] (10.48.87.141) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
+ 2025 10:15:12 +0200
+Message-ID: <424f8bbd-10b2-468c-aac8-edc71296dabb@foss.st.com>
+Date: Mon, 28 Jul 2025 10:15:07 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS4PR04MB9386:EE_|VI1PR04MB10050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6912e6e7-5fd2-4ae6-c3af-08ddcda7042c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|52116014|19092799006|1800799024|38350700014|921020;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AOUeTa1aJECcgTRYox2VBRFo38e4K+PBxmN85QR0iGzqxgTmWR+P00uW2NYp?=
- =?us-ascii?Q?2UyipjvBGt1qAiLB9njRSecs3wAOX8JnBB1aKTn5efiE8aesXfJpFS9KW4cs?=
- =?us-ascii?Q?g1uuwXg/kF4y3TuI83rg98ln2G6XpeWRVpWTTyfcthF4P7DAOuHdzadKZM9z?=
- =?us-ascii?Q?3Lw0DZSxFK8O+wJthORXKhxj+qF/E2uLysMV/UH+uya1xvUrDrBAxuPx5fb2?=
- =?us-ascii?Q?CfX0K8WK075px0yow3FOxmEtqN90A4OfGUNcW9cykGKOscqL8f+cW2x/VEei?=
- =?us-ascii?Q?Q5viZ5L+88VUlE/7GyrMlQUnGrUQTVcgQje/ZNqbzuvJfD3X5kwq9F7RPb2i?=
- =?us-ascii?Q?Lqgyl+ZZfonUhkqSNUaaH1Bc7HgGFHjp/rRtnxVLZvNui85TmL0qs9xVZfLO?=
- =?us-ascii?Q?pXILaOArcsn9f2hVOSSuvJrnW2A+3mPnKHMIrLe1PEawQIMi1NeVWV3GfCM8?=
- =?us-ascii?Q?DDLmokYdFPzfURaKRqKDPfQm1ZavT6x1c+2Ozma9iyzatufchDsf9qIjm8HY?=
- =?us-ascii?Q?U+wpjzZEbJxylw6QV5pjuL+Br0EBcYyYe22gihPIMz5PtNvNb+KpWYNVU1ZO?=
- =?us-ascii?Q?45Wcv6vwTVfX7J9lKZK7EqVvrhfIyw3hdMlK2gU/lYebrECbH0ajSKZA5ztP?=
- =?us-ascii?Q?hmIUfzx1XHC+Da1MFKxrAKE8nbrFsCnYaDX89yQ+9WdBNfjNSly91+rRlbb1?=
- =?us-ascii?Q?68ep2xOK+RWWTV6r+7lCOiI8bJjdJhn/UlHgvkfP/VSV1XzJ3I6c/P96Ov9w?=
- =?us-ascii?Q?VAqZNqm5gGR37JNgt2goTNpLSyHyokBNMxRk/WGtp4H3gI9cc9pfV5WkPRq2?=
- =?us-ascii?Q?ui/Q8YJbbtl2Hl+xhta+x+0lrQJrfrvBO2kTY0acAaArDk3XvAmnjocuxtqn?=
- =?us-ascii?Q?lH8sTvxKaU8Ufoft2Tzv/TNaJsJFustoiFepxDB4Lm6dzdgRaQJuYlEPHr/e?=
- =?us-ascii?Q?oVDoC76gWNXyPD5CEwYhSX4Y56xxjpCuVJE50CyVlWEGtAr82YsdmTtYOLx0?=
- =?us-ascii?Q?N1OYTZbkyHruR5wFSDOSXTFWPCZSugLYt1BP29n1eVPlcSS7DyH1vzg0bnVD?=
- =?us-ascii?Q?33yNgOABd5KsdiTwKwXaAAxQMNylAe70LL7SwYENvP+HyUZLazdgvcxIFe2+?=
- =?us-ascii?Q?PBWK+PQY+L7viOeAwwFP/EC6OYpo6P8vd/CXvb4Vv6aHeu152Cj+cKza+bQi?=
- =?us-ascii?Q?cEWwNdCjv1yZNYn8G8/WkcLwsg/f9ZxgQ/k4X1F9ee/eGzWa+t08ENA7nmK2?=
- =?us-ascii?Q?JJxofG8h702a+cuhmUCJAa5CG6rPNSRS/ww5etsJUIJuVrfpG3QZCDbXOA+L?=
- =?us-ascii?Q?Dk1GUirZrxB41z3lkf0QGqX20L5XIt/xX6xhU+EXQL7f9piV5aXqyC2Z3ZBC?=
- =?us-ascii?Q?wqiTiXzgMYc7DfILYPM/nvNkVYtp+8OvNeGSMGGQIl4FaTBSzO0S+e9/qXTY?=
- =?us-ascii?Q?fSsHQCdu4KPx95ca4DzaUMtvGWuRuegLmXSGMR53C8+Fp+sWd4LXODgcSp+Z?=
- =?us-ascii?Q?rz3+PKnilS719Pg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS4PR04MB9386.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(52116014)(19092799006)(1800799024)(38350700014)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?M6NOQ2CTkKJflElOdA9OQSwTSSePHn9EM/rAoO0nRsgAKOOz/ouD0MnB5Gim?=
- =?us-ascii?Q?rC9uZvN5F5Zvcp5PpJ1z75xSU+1W5GhTGG7ZP+hs4s4TZzct5biKQvsa3sK2?=
- =?us-ascii?Q?Sw026hx+b/k0ZF2z56QWKIx5X+63pTlGgbTzHA1eJpvpneRn+yJhMGysrPQK?=
- =?us-ascii?Q?vJ0bi/sQuKhsBo4V6ALE2pplb+kJYIJ2GKLjQX9EaqN5ZQ1AEY91BW4NG5gC?=
- =?us-ascii?Q?c8EEJ3kNsFz7yPR20eabztOBY6ZxMd+EvygRVZOrF81HXcpaMyVI39pS3dvF?=
- =?us-ascii?Q?HS5Fj6VeOJdnynt4fU38AXqdaUnYwXVR3y1j8+SnJCFsUNxTYsE0jBa6+XOx?=
- =?us-ascii?Q?GpPMAlGaNvfkDZ2zhhPFV8oATOyVX5sYTVW+C+1tAWLHtrL/dTIapQcL5KaQ?=
- =?us-ascii?Q?R63r+ao1dCPAj5Ur/dCZz8jPU8jnw4fG5s8KMbrB+oa3Xld9O/LBraKhPeLn?=
- =?us-ascii?Q?7d77/ym0y21jbE/zIKumay1s/bs6UZRMYYJsVty9yhHZ4QzFwXCiC7NMyQMQ?=
- =?us-ascii?Q?tSrhGwJOnTmg0U3f4znKtRYTrdwoWuVCf8op9LCXqHP9kD9oAIqRMFqNGtOA?=
- =?us-ascii?Q?Xc494ccN8cHcLslTZxLBZ/7ld+EYLMzDGQ/SOHSNTVZiXP+lrRRO2uFk/1HK?=
- =?us-ascii?Q?OEOy4b4RLjwxZzMNmUyczBRJ+DIwc6UnSVk15ivS1chyb5mpD4GqxAeBE4uy?=
- =?us-ascii?Q?ZA7Uu+51tdKZsG/NtUuGzgP5DYSPANktq1nO0yBHBDut5f9XKcBkupgYiWkU?=
- =?us-ascii?Q?9gPOs4FEtqy3nNfhAjSbqQKXksH3kIw/zZm2BXcZZoq1cIpQd8M7c6k6SD19?=
- =?us-ascii?Q?h4mA4rS7mKYc7NWx4gbUkSjo83y3StEDscjKucGS4UdNxIRTWuAqOMKiVCHr?=
- =?us-ascii?Q?XbO7jYCZQiLzDWKxho66wWgMU5PmZRzIeJKJE67QumIvewUrvTIsPYYHFdOt?=
- =?us-ascii?Q?9N2YL1aJuxrErcW4C+HGqUQf7HbjfquUOP9sEfMueIMNhhTTuyai6jtKFQRp?=
- =?us-ascii?Q?IfhP0bMEDkT7KUe3j04M/oBZLsV0elRrCW5aXZNl866xFnSLsDCHkSx+6l8u?=
- =?us-ascii?Q?RnZFtYNlCYtZ6fB0g/nlgGOAH9eIIJvsMeOttkZC4LNGeVmGn8RJolDq5CfY?=
- =?us-ascii?Q?yDxv53UyHjPeuCCbyOAR4yq0nu0CwVFwWsRmSvDbHl2JmYCubDpNxYuwOMC/?=
- =?us-ascii?Q?C6nPYBpxZEFHV6krg8FHcoBQUl3ZMdX4A9ZCZiix5KkrNg2k81QcgO1SQmh9?=
- =?us-ascii?Q?1o7At5gYlMCgNSA5t5HZTv2CNjCe16bwE6v2vq7ySCjclQeI7GY3XhhvMMXH?=
- =?us-ascii?Q?oL3WVN8pUYre0BlC6Y5u7cj5HUcOQwV1gHdyk5qwgZx2GsAqBEwLNU/Nu3TL?=
- =?us-ascii?Q?JqgbSdrYYb3E1EH4D7l1s0Ke4qApLqTZ1bM1fiDT31NixVkld+zDayAc3nq6?=
- =?us-ascii?Q?clUZZ5WEqinev1hGEyxemyyteBlN+iESRHNRWzwJ8xg3ZtCZUB9CQi5tB0XC?=
- =?us-ascii?Q?s5xrpipiqbAzwrtfg/cVNxXNJe867R2VtUwhVRBeW5VlPdWz9xIz+N1ocwoo?=
- =?us-ascii?Q?MuMzcRw2IT5BpWdlqVREhOZuvyJIqecjT4qbRl+J?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6912e6e7-5fd2-4ae6-c3af-08ddcda7042c
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9386.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 07:18:57.5115 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AOmlQE2G9xgFpTxL1uJaQ+zSYJWp7hMp0LRUEb7ZLQwX6oge8hbfy1TpmDk2Oq+E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB10050
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
- linux-pm@vger.kernel.org, Frank.Li@nxp.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux@ew.tq-group.com
-Subject: [Linux-stm32] [PATCH v7 11/11] net: stmmac: imx: add i.MX91 support
+User-Agent: Mozilla Thunderbird
+To: Jakub Kicinski <kuba@kernel.org>
+References: <20250724-relative_flex_pps-v1-0-37ca65773369@foss.st.com>
+ <20250725172547.13d550a4@kernel.org>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20250725172547.13d550a4@kernel.org>
+X-Originating-IP: [10.48.87.141]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-28_03,2025-07-24_01,2025-03-28_01
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: allow
+ generation of flexible PPS relative to MAC time
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,44 +76,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add i.MX91 specific settings for EQoS.
 
-Signed-off-by: Joy Zou <joy.zou@nxp.com>
----
-Changes for v5:
-1. add imx91 support.
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 7/26/25 02:25, Jakub Kicinski wrote:
+> On Thu, 24 Jul 2025 14:31:17 +0200 Gatien Chevallier wrote:
+>> When doing some testing on stm32mp2x platforms(MACv5), I noticed that
+>> the command previously used with a MACv4 for genering a PPS signal:
+>> echo "0 0 0 1 1" > /sys/class/ptp/ptp0/period
+>> did not work.
+>>
+>> This is because the arguments passed through this command must contain
+>> the start time at which the PPS should be generated, relative to the
+>> MAC system time. For some reason, a time set in the past seems to work
+>> with a MACv4.
+>>
+>> Because passing such an argument is tedious, introduce
+>> STMMAC_RELATIVE_FLEX_PPS config switch so that the MAC system time
+>> is added to the args to the stmmac_ptp driver.
+>>
+>> Example to generate a flexible PPS signal that has a 1s period 3s
+>> relative to when the command was entered before and after setting
+>> STMMAC_RELATIVE_FLEX_PPS:
+>>
+>> Before: echo "0 175xxxxxxx 0 1 1" > /sys/class/ptp/ptp0/period
+>>
+>> After: echo "0 3 0 1 1" > /sys/class/ptp/ptp0/period
+> 
+> Kconfig doesn't seem like a great way of achieving the outcome.
+> Some per-platform knob would be better.
+> But ideally we wouldn't do either. Could we possibly guess which
+> format user has chosen based on the values, at runtime?
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 889e2bb6f7f5..54243bacebfd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -301,6 +301,7 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	dwmac->clk_mem = NULL;
- 
- 	if (of_machine_is_compatible("fsl,imx8dxl") ||
-+	    of_machine_is_compatible("fsl,imx91") ||
- 	    of_machine_is_compatible("fsl,imx93")) {
- 		dwmac->clk_mem = devm_clk_get(dev, "mem");
- 		if (IS_ERR(dwmac->clk_mem)) {
-@@ -310,6 +311,7 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	}
- 
- 	if (of_machine_is_compatible("fsl,imx8mp") ||
-+	    of_machine_is_compatible("fsl,imx91") ||
- 	    of_machine_is_compatible("fsl,imx93")) {
- 		/* Binding doc describes the propety:
- 		 * is required by i.MX8MP, i.MX93.
--- 
-2.37.1
+Hello Jakub,
 
+There are two reasons for which I chose this approach:
+1) I did not want to affect other platforms and possibly
+break scripts that work with the current behavior. Is it
+acceptable to do otherwise? If so, maybe there's no need
+for a config switch or a per-platform implementation.
+2) SoCs may implement more than one MAC and the system
+time for these MACs may or may not be synced + the system
+time maintained by a MAC may not be a value that represents
+a date.
+
+For these reasons, I'm not sure we can rely on the values
+that were given to stmmac_enable() to deduce what behavior
+we choose. The ptp_clock_request() structure does not hold
+loads of information as well.
+
+Maybe we could compare the time to the current MAC system
+time and, if the start time is in the past, consider the
+value to be an offset. Therefore, any value set in the past
+would be considered as an offset. I see some implementations
+doing either that or replacing any value set in the past to
+a safe start + a fixed offset.
+
+Best regards,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
