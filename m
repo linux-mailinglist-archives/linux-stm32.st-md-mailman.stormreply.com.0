@@ -2,54 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87830B13F15
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 17:46:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90524B13F0C
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 17:46:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 415E3C36B2E;
-	Mon, 28 Jul 2025 15:46:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9890C36B2E;
+	Mon, 28 Jul 2025 15:46:05 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0632C36B2C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9D73C36B2C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jul 2025 15:46:40 +0000 (UTC)
+ Mon, 28 Jul 2025 15:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hvpIuIYR+OFZWfZ+noueKHmU0ee5RQLXv8mbWGSuBsw=; b=Z1lR3FYIP49Z9k1MorzRPnrMHG
- CedRUGtvJDyzN4J0cYnbsqxGHDkT00bZ17ACNq3UKY9mBOqKSmZb6ZuB6IXYxjVrNyid1gEBUCZoF
- L3oYho/a15hewwVtueD3UQ3meSqfuRhM6W0xpf/LIWskSPZ81b9xw92ajbeEzpGasraOlOHALwxaj
- dVLNaj1MJ3q4Y6QmskK03YtIZkt5I+jSYUWrQ6K753ExCycbclR6v157vNWsEOhwpZI6bPR89yMBR
- TDefZq0uuk57ZpqmkUwDxuJz+4JReRHsVd9KdOc/DT3srMeYtPvrvk49F2TrGRAorItQcNIja6myi
- lwQPS3Ag==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54450 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=g7Dd/VCgHGXa1ZZy0kScT3IdI9bOz/Ax0ajFta3++S4=; b=XQyJE2LKFjRGg5l5bnJgrSVqLX
+ Bo99l4IkvV3otCd4Jl/PKZPafnFD8qX9Kd4M2Yr3TMQP8BLeRQSoTzCn5joFr61IUQWs4Tl4SIS9c
+ 3NC+aWzHM3wRa1WNCeiP1t2QnQTUbhw7VdiizO1ULQJP83lx5kBABvzHWVrdNUyLrYtTimHzp1ZyS
+ 02MbuvCyzVa2r554wFRjFr5EZ3pj7lKAUvbfejxSqC1xve3jB7r2Dsi4lMfwR5U6cns7plcLLW7NK
+ 8q+MPgdTiCHmQOAQHR1M94RYki4cLzaNqu6wwz7E9hen1xgxITNHr883aiIvpwlZQGp+LnepJr3AU
+ p6wT1ZUg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43158)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1ugQ3g-0000Up-11;
- Mon, 28 Jul 2025 16:46:36 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1ugQ2y-006KDL-K7; Mon, 28 Jul 2025 16:45:52 +0100
-In-Reply-To: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
-References: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ (envelope-from <linux@armlinux.org.uk>) id 1ugQ32-0000TU-0S;
+ Mon, 28 Jul 2025 16:45:56 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
+ (envelope-from <linux@shell.armlinux.org.uk>) id 1ugQ2y-0004sJ-1s;
+ Mon, 28 Jul 2025 16:45:52 +0100
+Date: Mon, 28 Jul 2025 16:45:52 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1ugQ2y-006KDL-K7@rmk-PC.armlinux.org.uk>
-Date: Mon, 28 Jul 2025 16:45:52 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next 5/7] net: stmmac: use core wake
-	IRQ support
+Subject: [Linux-stm32] [PATCH RFC net-next 0/7] net: stmmac: EEE and WoL
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,99 +63,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The PM core provides management of wake IRQs along side setting the
-device wake enable state. In order to use this, we need to register
-the interrupt used to wakeup the system using devm_pm_set_wake_irq()
-or dev_pm_set_wake_irq(). The core will then enable or disable IRQ
-wake state on this interrupt as appropriate.
+Hi,
 
-Make use of this functionality, rather than explicitly managing the
-IRQ enable state in the set_wol() ethtool op. This removes the IRQ
-wake state management from stmmac.
+This series contains a series of cleanup patches for the EEE and WoL
+code in stmmac, prompted by issues raised during the last three weeks.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  1 -
- .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 14 +-------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  4 ++--
- 3 files changed, 3 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  1 -
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       | 11 +++++++-
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 31 +---------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 21 ++++++++-------
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  4 +--
+ 5 files changed, 25 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index cda09cf5dcca..e1df59a643e3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -289,7 +289,6 @@ struct stmmac_priv {
- 	u32 msg_enable;
- 	int wolopts;
- 	int wol_irq;
--	bool wol_irq_disabled;
- 	int clk_csr;
- 	struct timer_list eee_ctrl_timer;
- 	int lpi_irq;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 58542b72cc01..39fa1ec92f82 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -815,19 +815,7 @@ static int stmmac_set_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
- 		return ret;
- 	}
- 
--	if (wol->wolopts) {
--		device_set_wakeup_enable(priv->device, 1);
--		/* Avoid unbalanced enable_irq_wake calls */
--		if (priv->wol_irq_disabled)
--			enable_irq_wake(priv->wol_irq);
--		priv->wol_irq_disabled = false;
--	} else {
--		device_set_wakeup_enable(priv->device, 0);
--		/* Avoid unbalanced disable_irq_wake calls */
--		if (!priv->wol_irq_disabled)
--			disable_irq_wake(priv->wol_irq);
--		priv->wol_irq_disabled = true;
--	}
-+	device_set_wakeup_enable(priv->device, !!wol->wolopts);
- 
- 	mutex_lock(&priv->lock);
- 	priv->wolopts = wol->wolopts;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6a4ef32f57ec..7d467b494685 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -29,6 +29,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/slab.h>
- #include <linux/pm_runtime.h>
-+#include <linux/pm_wakeirq.h>
- #include <linux/prefetch.h>
- #include <linux/pinctrl/consumer.h>
- #ifdef CONFIG_DEBUG_FS
-@@ -3724,7 +3725,6 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	/* Request the Wake IRQ in case of another line
- 	 * is used for WoL
- 	 */
--	priv->wol_irq_disabled = true;
- 	if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
- 		int_name = priv->int_name_wol;
- 		sprintf(int_name, "%s:%s", dev->name, "wol");
-@@ -3885,7 +3885,6 @@ static int stmmac_request_irq_single(struct net_device *dev)
- 	/* Request the Wake IRQ in case of another line
- 	 * is used for WoL
- 	 */
--	priv->wol_irq_disabled = true;
- 	if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
- 		ret = request_irq(priv->wol_irq, stmmac_interrupt,
- 				  IRQF_SHARED, dev->name, dev);
-@@ -7277,6 +7276,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 	if (priv->plat->pmt) {
- 		dev_info(priv->device, "Wake-Up On Lan supported\n");
- 		device_set_wakeup_capable(priv->device, 1);
-+		devm_pm_set_wake_irq(priv->device, priv->wol_irq);
- 	}
- 
- 	if (priv->dma_cap.tsoen)
 -- 
-2.30.2
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
