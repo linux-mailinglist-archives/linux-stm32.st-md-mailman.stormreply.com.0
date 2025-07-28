@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F349B14105
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 19:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DD2AB1411F
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jul 2025 19:20:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E83E3C36B2E;
-	Mon, 28 Jul 2025 17:12:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 718E0C36B2E;
+	Mon, 28 Jul 2025 17:20:02 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FCA9C36B2C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 729C8C36B2C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jul 2025 17:12:16 +0000 (UTC)
+ Mon, 28 Jul 2025 17:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=oeyvvuTCaBRy7drnXePaUBtIXrGKicLr161z5oeQWTA=; b=Vf1libXAmZ3fGrZF9TaeB87gB2
- MJ2BnUHvG4/m97ycRsaJ57W7ul5gbL+O9Fxep5UQTv8DTohMHFI2z5tCNqmPKCr4gZbjd8A86d927
- oGo5S/UHAaItwJOjxYQv0n9P/81zK8GZIp7Jdkbuz4P6Q4u5cGTBpeg9d8jZv2lJorRU=;
+ bh=wlh8TQENPeCYbTiQf0d9bZH4utQ+NyqyA5rQwHDtMqQ=; b=FO8DlWdHOopyqPulTAnvX5Y0nc
+ E06J1mwbvsRBJeXYQHdy7fTgEY23XcJOhXnBqMRc2j+Vw2h0H3ZAWwes0u/jD11qeSXAkPhzQ7AVw
+ mx7GCCM0R8lZRkx00QIPwaMHD3Jsa1xpuoyGBbdg75ANQhkwBvsojBP3ki0nn08UdeC0=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1ugROS-0037Ks-E7; Mon, 28 Jul 2025 19:12:08 +0200
-Date: Mon, 28 Jul 2025 19:12:08 +0200
+ id 1ugRVx-0037OV-Rw; Mon, 28 Jul 2025 19:19:53 +0200
+Date: Mon, 28 Jul 2025 19:19:53 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <c8fe4307-f036-40bd-8d77-b80f19ca8fc2@lunn.ch>
+Message-ID: <cc0b948d-01ac-4a06-a16e-597d0f11b1a7@lunn.ch>
 References: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
- <E1ugQ2y-006KDL-K7@rmk-PC.armlinux.org.uk>
+ <E1ugQ38-006KDX-RT@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1ugQ2y-006KDL-K7@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1ugQ38-006KDX-RT@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 5/7] net: stmmac: use core
-	wake IRQ support
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 7/7] net: stmmac: explain the
+ phylink_speed_down() call in stmmac_release()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,27 +56,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> -	if (wol->wolopts) {
-> -		device_set_wakeup_enable(priv->device, 1);
-> -		/* Avoid unbalanced enable_irq_wake calls */
-> -		if (priv->wol_irq_disabled)
-> -			enable_irq_wake(priv->wol_irq);
-> -		priv->wol_irq_disabled = false;
-> -	} else {
-> -		device_set_wakeup_enable(priv->device, 0);
-> -		/* Avoid unbalanced disable_irq_wake calls */
-> -		if (!priv->wol_irq_disabled)
-> -			disable_irq_wake(priv->wol_irq);
-> -		priv->wol_irq_disabled = true;
-> -	}
-> +	device_set_wakeup_enable(priv->device, !!wol->wolopts);
+On Mon, Jul 28, 2025 at 04:46:02PM +0100, Russell King (Oracle) wrote:
+> The call to phylink_speed_down() looks odd on the face of it. Add a
+> comment to explain why this call is there.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-It might be worth mentioning in the commit message that
-device_set_wakeup_enable() does not care about unbalanced calls to
-enable/disable. This obviously caused issues in the past with
-enable_irq_wake()/disable_irq_wake().
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-	Andrew
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
