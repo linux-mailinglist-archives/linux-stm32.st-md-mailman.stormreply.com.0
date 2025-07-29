@@ -2,77 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A8EB15FBB
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D8BB15152
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 18:31:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EF9AC3F93B;
-	Wed, 30 Jul 2025 11:48:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2172C35E3F;
+	Tue, 29 Jul 2025 16:31:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FC72C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 019D9C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 15:37:21 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56TDmAM5017943;
- Tue, 29 Jul 2025 17:37:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- 6QqV7V0tO5OxA4sByxR+cgSgc3c8gdKE4nRdb/3tQco=; b=nbYnA8XpRf1fY3nQ
- BmZSCmVbXeZojxlvIrPSmVWLJM+N/dwW8puHyD5dzhA23IRcFijCyILdmwDQuQmk
- jgA3M3+ZgluhThgK0mwolAGs/4VoEuE7TQ7VUraLRS1bNdewXYP0j1SUbpBAkMBO
- OGwLFE4DEDcMb3VydAcNYBT9Uu/pMGtRbpk/KuFf3OvX0wzR0qHcV89M/b1Yb50/
- VRMCDaA1Fb93dHaUSlq0mrdG5YphzF5vHu+UrrVlzo+AFJMT/ZvYe//8L61V8n8D
- YtaQb6fdQSS18+TXn6/ApB7b3D4N+dXCnql0457taRapEFXJHOYDAHUNeDIpvQHN
- wVzaQw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 484memp190-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Jul 2025 17:37:02 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 620F840049;
- Tue, 29 Jul 2025 17:35:38 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 327B977F2C9;
- Tue, 29 Jul 2025 17:34:50 +0200 (CEST)
-Received: from [10.48.87.141] (10.48.87.141) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Jul
- 2025 17:34:49 +0200
-Message-ID: <186a2265-8ca8-4b75-b4a2-a81d21ca42eb@foss.st.com>
-Date: Tue, 29 Jul 2025 17:34:49 +0200
+ Tue, 29 Jul 2025 16:31:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B4CA8439C4;
+ Tue, 29 Jul 2025 16:31:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76977C4CEF4;
+ Tue, 29 Jul 2025 16:31:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1753806693;
+ bh=sPWerXoTnJdupEJFgfzlBFo08Ou/toO0osnBkMyj3F8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Xt4z40PFrTNRm+gchkzSFN8IZ7lR97MmgUmhmW7xTh+MJkUc9okSXr9V5mM4Mw2i4
+ 7xketuGtMIVNB85UWt6kb4nKjtJGf/mf5a/0SF8E5QqCk4jWVsby/FjJ0W4If9YWSw
+ n3UQTfIab46FGLkOee3bgXACTsvM3uFdjuTJmKwt8azfPGnQ5u3/oo64BG0175yQjU
+ MKj++96I31z25cIz+ITK6gTWF8osNPZ1SGjzNaR+FGqBWhoLRWOEqo9Qs1jZOk+W/a
+ 7NFkAYgEBUzlgqe6Bh7Sa7wA1Co9bMX2SK0n8RIFVkpGjymWU4b2feO4sAQlPqee6S
+ 6iexWo6KdPe/A==
+Date: Tue, 29 Jul 2025 11:31:32 -0500
+From: Rob Herring <robh@kernel.org>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Message-ID: <20250729163132.GA507560-robh@kernel.org>
+References: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
+ <20250725-drm-misc-next-v1-3-a59848e62cf9@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-References: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
- <E1ugQ33-006KDR-Nj@rmk-PC.armlinux.org.uk>
- <eaef1b1b-5366-430c-97dd-cf3b40399ac7@lunn.ch>
- <aIe5SqLITb2cfFQw@shell.armlinux.org.uk>
- <77229e46-6466-4cd4-9b3b-d76aadbe167c@foss.st.com>
- <aIiOWh7tBjlsdZgs@shell.armlinux.org.uk>
- <aIjCg_sjTOge9vd4@shell.armlinux.org.uk>
- <d300d546-09fa-4b37-b8e0-349daa0cc108@foss.st.com>
- <aIjePMWG6pEBvna6@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <aIjePMWG6pEBvna6@shell.armlinux.org.uk>
-X-Originating-IP: [10.48.87.141]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-29_03,2025-07-28_01,2025-03-28_01
-X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 6/7] net: stmmac: add helpers
- to indicate WoL enable status
+Content-Disposition: inline
+In-Reply-To: <20250725-drm-misc-next-v1-3-a59848e62cf9@foss.st.com>
+Cc: Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Will Deacon <will@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 03/12] dt-bindings: display: st,
+ stm32mp25-lvds: add access-controllers property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,150 +61,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Jul 25, 2025 at 12:03:55PM +0200, Raphael Gallais-Pou wrote:
+> access-controllers is an optional property that allows a peripheral to
+> refer to one or more domain access controller(s).
+> 
+> This property is added when the peripheral is under the STM32 firewall
+> controller.  It allows an accurate representation of the hardware, where
+> the peripheral is connected to a firewall bus.  The firewall can then
+> check the peripheral accesses before allowing its device to probe.
+> 
+> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/display/st,stm32mp25-lvds.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-
-On 7/29/25 16:44, Russell King (Oracle) wrote:
-> On Tue, Jul 29, 2025 at 03:10:56PM +0200, Gatien CHEVALLIER wrote:
->>
->>
->> On 7/29/25 14:45, Russell King (Oracle) wrote:
->>> On Tue, Jul 29, 2025 at 10:03:22AM +0100, Russell King (Oracle) wrote:
->>>> With Thierry's .dts patch, PHY interrupts completely stop working, so
->>>> we don't get link change notifications anymore - and we still don't
->>>> seem to be capable of waking the system up with the PHY interrupt
->>>> being asserted.
->>>>
->>>> Without Thierry's .dts patch, as I predicted, enabling WoL at the
->>>> PHY results in Bad Stuff happening - the code in the realtek driver
->>>> for WoL is quite simply broken and wrong.
->>>>
->>>> Switching the pin from INTB mode to PMEB mode results in:
->>>> - No link change interrupts once WoL is enabled
->>>> - The interrupt output being stuck at active level, causing an
->>>>     interrupt storm and the interrupt is eventually disabled.
->>>>     The PHY can be configured to pulse the PMEB or hold at an active
->>>>     level until the WoL is cleared - and by default it's the latter.
->>>>
->>>> So, switching the interrupt pin to PMEB mode is simply wrong and
->>>> breaks phylib. I guess the original WoL support was only tested on
->>>> a system which didn't use the PHY interrupt, only using the interrupt
->>>> pin for wake-up purposes.
->>>>
->>>> I was working on the realtek driver to fix this, but it's pointless
->>>> spending time on this until the rest of the system can wake up -
->>>> and thus the changes can be tested. This is where I got to (and
->>>> includes work from both Thierry and myself, so please don't pick
->>>> this up as-is, because I can guarantee that you'll get the sign-offs
->>>> wrong! It's a work-in-progress, and should be a series for submission.)
->>>
->>> Okay, with this patch, wake-up now works on the PHY interrupt line, but
->>> because normal interrupts aren't processed, the interrupt output from
->>> the PHY is stuck at active level, so the system immediately wakes up
->>> from suspend.
->>>
->>
->> If I'm following correctly, you do not use the PMEB mode and share
->> the same pin for WoL and regular interrupts (INTB mode)?
-> 
-> As the driver is currently structured, switching the pin to PMEB mode
-> in .set_wol() breaks phylib, since as soon as one enables WoL at the
-> PHY, link state interrupts are no longer delivered.
-> 
-> It may be appropriate to switch the pin to PMEB mode in the suspend
-> method while waiting for a wakeup but we need code in place to deal
-> with the resulting interrupt storm (by clearing the wakeup) and that
-> code is missing.
-> 
-> The other approach would be to leave the pin in INTB mode, and
-> reconfigure the interrupt enable register (INER) to allow WoL
-> interrupts, maybe disabling link state interrupts (more on that
-> below.) This has the advantage that reading the interrupt status
-> register clears the interrupt - and that code already exists so we
-> avoid the interrupt storm.
-> 
->>> Without the normal interrupt problem solved, there's nothing further
->>> I can do on this.
->>>
->>> Some of the open questions are:
->>> - whether we should configure the WoL interrupt in the suspend/resume
->>>     function
->>
->> For the LAN8742 PHY with which I worked with, the recommendation when
->> using the same pin for WoL and regular interrupt management is to mask
->> regular interrupt and enable the WoL IIRC.
-> 
-> That's only really appropriate if the MAC isn't involved in WoL. Let's
-> say that the PHY can support magic-packet WoL, but the MAC can also
-> support unicast frame WoL, and the user has enabled both.
-> 
-
-Oops, just saw that I mispronounced your name in a previous message,
-sorry for that.
-
-For STMMAC:
-I'm a bit lost there. I may be missing something. I thought that using
-PHY WoL (therefore having STMMAC_FLAG_USE_PHY_WOL) superseded the MAC
-WoL usage.
-
-In stmmac_hw_init():
-
-if (priv->plat->pmt) {
-         dev_info(priv->device, "Wake-Up On Lan supported\n");
-         device_set_wakeup_capable(priv->device, 1);
-}
-
-but above:
-
-priv->plat->pmt = priv->dma_cap.pmt_remote_wake_up &&
-!(priv->plat->flags & STMMAC_FLAG_USE_PHY_WOL);
-
-Then, in stmmac_set_wol(), it's either set the WoL for the
-PHY or the MAC?
-
-Can you point me to the part I'm missing please?
-
-> The system goes to sleep (e.g. overnight) and during the night, there's
-> a hiccup which causes the link to drop and re-establish at a slower
-> speed.
-> 
-> Since the MAC has not been reconfigured (because the link state
-> interrupt is disabled, and thus won't wake the system) the MAC can now
-> no longer receive unicast frames to check whether they match the
-> despired system wakeup condition.
-> 
-> So, this poses another question: do we really want to support
-> simultaneous PHY and MAC level WoL support, or should we only allow
-> one or other device to support WoL?
-> 
-> If we explicitly deny the WoL at both approach, then we don't have
-> to care about link state interrupts, because the PHY will be able
-> to cope with the different link speed without needing to wake the
-> iystem to reconfigure the network interface for the new link
-> parameters.
-> 
->> This prevents the PHY from waking up from undesired events while still
->> being able use the WoL capability and should be done in suspend() /
->> resume() callbacks. I guess this means also that you share the same
->> interrupt handler that must manage both WoL events and regular events.
->>
->> On the other hand, on the stm32mp135f-dk, the nPME pin (equivalent to
->> PMEB IIUC) is wired and is different from the nINT pin. Therefore, I
->> guess it should not be done during suspend()/resume() and it really
->> depends on how the PHY is wired. Because if a WoL event is received at
->> runtime, then the PHY must clear the flags otherwise the WoL event won't
->> trigger a system wakeup afterwards.
->>
->> I need to look at how the PHYs can handle two different interrupts.
-> 
-> The RTL8211F only has one pin (pin 31) which can be used in INTB mode
-> or PMEB mode. You can't have independent interrupt and wakeup signals
-> with this PHY.
-> 
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
