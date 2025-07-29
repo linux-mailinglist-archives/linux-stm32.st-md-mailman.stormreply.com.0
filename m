@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED89B151C2
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 18:58:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BD0B15FBC
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B607AC349C1;
-	Tue, 29 Jul 2025 16:58:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66679C3F93F;
+	Wed, 30 Jul 2025 11:48:12 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A19E3C35E3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEBC3C35E3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 16:58:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C90560202;
- Tue, 29 Jul 2025 16:58:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A35EC4CEF5;
- Tue, 29 Jul 2025 16:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753808296;
- bh=Hb9smdHf0g56CpF8sBWDOF38RasuaUJ0puvOlmqvOjY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KlPT85UP6HQLETFTi6OtUJx9aRuyZBcfrc4BG0gLSetfvPPGD3huNlBLFo0yL5k22
- Mtx9Bqa1YmgYyOQeni00rZcMrLD1xMmj+A/AcO7/p2AZGoUM57od4OFqJgUlcbZPy1
- vwoHTTPkVS1J/e0Wea9moLyTMgW5hPt3gOmatUFpd7vYVdHguB+8uTPSslkTw2M+Nd
- AQ9lmMqb8djPioT5MzVN22+r099MIJTq6z508uKiDs1wcvKL++f6Yh4T1g5d9/PNTn
- kMtkM/iz68Sx+YMXAHzvOowhlMKSqVIczcTgLwLbXL7BKChTSMwB2V7Xl1e7J3sn/D
- v2qe7PZzt4j6A==
-Date: Tue, 29 Jul 2025 17:58:10 +0100
-From: Simon Horman <horms@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Message-ID: <20250729165810.GG1877762@horms.kernel.org>
-References: <20250729-relative_flex_pps-v2-0-3e5f03525c45@foss.st.com>
- <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
+ Tue, 29 Jul 2025 17:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=eN8xia2pWS6RYX3WcW0Y0ly9LBsjiwKipKHOrqKEcmU=; b=fUBNgdgwB8JWrKCuOAdz0SVivV
+ nv0YVIGRzpTMTDR2aP+y9xnk32N88CgEQoLoGNV3Hz99QJDMUynddwGxl4bCG7zPPt+DtykhJ30H1
+ Y1mG2NbWq4GANzenNfNDcNjLVT++XSZBhLvpbaz0hxSekWYzicV0KLzaD7/KoyOyI8qY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1ugo6Z-003DUL-7n; Tue, 29 Jul 2025 19:27:11 +0200
+Date: Tue, 29 Jul 2025 19:27:11 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <b88160a5-a0b8-4a1a-a489-867b8495a88e@lunn.ch>
+References: <E1ugQ33-006KDR-Nj@rmk-PC.armlinux.org.uk>
+ <eaef1b1b-5366-430c-97dd-cf3b40399ac7@lunn.ch>
+ <aIe5SqLITb2cfFQw@shell.armlinux.org.uk>
+ <77229e46-6466-4cd4-9b3b-d76aadbe167c@foss.st.com>
+ <aIiOWh7tBjlsdZgs@shell.armlinux.org.uk>
+ <aIjCg_sjTOge9vd4@shell.armlinux.org.uk>
+ <d300d546-09fa-4b37-b8e0-349daa0cc108@foss.st.com>
+ <aIjePMWG6pEBvna6@shell.armlinux.org.uk>
+ <186a2265-8ca8-4b75-b4a2-a81d21ca42eb@foss.st.com>
+ <aIj4Q6WzEQkcGYVQ@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+In-Reply-To: <aIj4Q6WzEQkcGYVQ@shell.armlinux.org.uk>
+X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
+Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/2] drivers: net: stmmac:
- handle start time set in the past for flexible PPS
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 6/7] net: stmmac: add helpers
+ to indicate WoL enable status
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,70 +66,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 29, 2025 at 04:52:00PM +0200, Gatien Chevallier wrote:
-> In case the time arguments used for flexible PPS signal generation are in
-> the past, consider the arguments to be a time offset relative to the MAC
-> system time.
+> stmmac gets this wrong right now, but (as I've written previously)
+> this is going to be a *very* difficult problem to solve, because
+> the PHY drivers are - to put it bluntly - "utter crap" when it
+> comes to WoL.
+
+Agreed.
+
+> I'll take the rtl8211f again as an example - its get_wol()
+> implementation is quite typical of many PHY drivers. Someone comes
+> along and decides to implement WoL support at the PHY. They add the
+> .get_wol() method, which unconditionally returns the PHY's hardware
+> capabilities without regards for the rest of the system.
 > 
-> This way, past time use case is handled and it avoids the tedious work
-> of passing an absolute time value for the flexible PPS signal generation
-> while not breaking existing scripts that may rely on this behavior.
+> Consider the case where a PHY supports WoL, but the signalling for
+> WoL to wake up the system is not wired. The .get_wol() method happily
+> says that WoL is supported. Let's say that the PHY supports magic
+> packet, and so does the MAC, and the MAC WoL is functional.
 > 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 31 ++++++++++++++++++++++++
->  1 file changed, 31 insertions(+)
+> Now, with what Andrew said in his email, and consider what this means.
+> .set_wol() is called, requesting magic packet. The PHY driver says "oh
+> yes, the PHY hardware supports this, I'll program the PHY and return
+> zero". At this point, the MAC thinks the PHY has accepted the WoL
+> configuration.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> index 3767ba495e78d210b0529ee1754e5331f2dd0a47..5c712b33851081b5ae1dbf2a0988919ae647a9e2 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> @@ -10,6 +10,8 @@
->  #include "stmmac.h"
->  #include "stmmac_ptp.h"
->  
-> +#define PTP_SAFE_TIME_OFFSET_NS	500000
-> +
->  /**
->   * stmmac_adjust_freq
->   *
-> @@ -172,6 +174,10 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
->  
->  	switch (rq->type) {
->  	case PTP_CLK_REQ_PEROUT:
-> +		struct timespec64 curr_time;
-> +		u64 target_ns = 0;
-> +		u64 ns = 0;
-> +
+> The user suspends the system. The user sends the correct magic
+> packet. The system does not wake up. The user is now confused.
 
-I think you need to wrap this case in {}, as is already done for the following
-case.
+There are some MAC drivers which simply trust the PHY. They pass
+.get_wol() and .set_wol() direct to the PHY. They don't attempt to
+perform MAC WoL, or the MAC driver does not have any hardware support
+for it. Such systems are going to end up with a confused user when the
+driver says WoL is enabled, but it does not wake.
 
-Clang 20.1.8 W=1 build warn about the current arrangement as follows.
+So while i agree we cannot simply 'fix' stmmac, the issue of PHY
+drivers not behaving properly is a bigger problem across a wide range
+of MAC drivers.
 
-  .../stmmac_ptp.c:177:3: warning: label followed by a declaration is a C23 extension [-Wc23-extensions]
-    177 |                 struct timespec64 curr_time;
-        |                 ^
-  1 warning generated.
+I think we could quickly improve the situation to some degree by
+reviewing the PHY drivers. e.g. the current code in mxl-gpy.c makes it
+clear WoL is just another interrupt source. There is no special
+pin. So get_wol() needs a call to phy_interrupt_is_valid(phydev) and
+return not return any WoL modes if there is not a valid interrupt.
 
-GCC 8.5.0 (but not 15.1.0) also flags this problem.
+This will not work for all PHYs, e.g. the Marvell 1G PHYs can
+repurposed LED2 for WoL indication.
 
-Also, please note:
+motorcomm.c looks broken. The code suggests WoL is just another
+interrupt source, but the driver lacks interrupt handling...
 
-## Form letter - net-next-closed
+The broadcom code looks like it gets it correct.
+bcm54xx_phy_can_wakeup() checks if there is an interrupt or a
+dedicated GPIO, and return no wakeup modes if not. KUDOS to Florians
+team.
 
-The merge window for v6.17 has begun and therefore net-next is closed
-for new drivers, features, code refactoring and optimizations. We are
-currently accepting bug fixes only.
+dp83822.c appears to be missing a phy_interrupt_is_valid(phydev),
+since WoL appears to be just another interrupt source.
 
-Please repost when net-next reopens after 11th August.
+Same for dp83867.c.
 
-RFC patches sent for review only are obviously welcome at any time.
+And i did notice that the Broadcom code is the only one doing anything
+with enable_irq_wake()/disable_irq_wake(). We need to scatter these
+into the drivers.
 
-See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+	Andrew
 
--- 
-pw-bot: defer
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
