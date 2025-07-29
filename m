@@ -2,64 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98272B15FBA
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED89B151C2
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 18:58:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A332C3F93D;
-	Wed, 30 Jul 2025 11:48:12 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B607AC349C1;
+	Tue, 29 Jul 2025 16:58:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 345DBC35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A19E3C35E3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 16:35:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LUnLUSkkHQ0KtmeifxLqpV19mfTPS/23h/uc9Q4JzE4=; b=Yn7TvtWASbRMJEShmmX8wbGU29
- w8cc/jSobrXubE6LcPAHIPHD9MOcuyRGTOgzRIWmlbJiaK63XqQRuZHIMOiNnaCdff5y/+k2l4ENc
- ThplDkSAXq+0F0v8DHWd13z4lrPwaS38uBIDYnZnukOfuGD/GC+ttx64ddeXSfrZLVip9jFeMxQl1
- LC4Tmzk3E8g9Jz/o8dsvL8yB12YZQ3oyzzBYzJSTZuvJQHdYvS5hpYksPkktYsH+k3ybGhKIJvt+j
- 4Zyrft+4Mb2JQD1RJXAFDNJWFDLUMEOLhETH10NCigvvjMY0dlP8BQlup4QnZDRuftMd+TcTdBcmn
- P4ZJ9Shg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37072)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1ugnIN-0002Cl-1t;
- Tue, 29 Jul 2025 17:35:19 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.96)
- (envelope-from <linux@shell.armlinux.org.uk>) id 1ugnIJ-0007YC-2w;
- Tue, 29 Jul 2025 17:35:15 +0100
-Date: Tue, 29 Jul 2025 17:35:15 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Message-ID: <aIj4Q6WzEQkcGYVQ@shell.armlinux.org.uk>
-References: <aIebMKnQgzQxIY3j@shell.armlinux.org.uk>
- <E1ugQ33-006KDR-Nj@rmk-PC.armlinux.org.uk>
- <eaef1b1b-5366-430c-97dd-cf3b40399ac7@lunn.ch>
- <aIe5SqLITb2cfFQw@shell.armlinux.org.uk>
- <77229e46-6466-4cd4-9b3b-d76aadbe167c@foss.st.com>
- <aIiOWh7tBjlsdZgs@shell.armlinux.org.uk>
- <aIjCg_sjTOge9vd4@shell.armlinux.org.uk>
- <d300d546-09fa-4b37-b8e0-349daa0cc108@foss.st.com>
- <aIjePMWG6pEBvna6@shell.armlinux.org.uk>
- <186a2265-8ca8-4b75-b4a2-a81d21ca42eb@foss.st.com>
+ Tue, 29 Jul 2025 16:58:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C90560202;
+ Tue, 29 Jul 2025 16:58:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A35EC4CEF5;
+ Tue, 29 Jul 2025 16:58:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1753808296;
+ bh=Hb9smdHf0g56CpF8sBWDOF38RasuaUJ0puvOlmqvOjY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KlPT85UP6HQLETFTi6OtUJx9aRuyZBcfrc4BG0gLSetfvPPGD3huNlBLFo0yL5k22
+ Mtx9Bqa1YmgYyOQeni00rZcMrLD1xMmj+A/AcO7/p2AZGoUM57od4OFqJgUlcbZPy1
+ vwoHTTPkVS1J/e0Wea9moLyTMgW5hPt3gOmatUFpd7vYVdHguB+8uTPSslkTw2M+Nd
+ AQ9lmMqb8djPioT5MzVN22+r099MIJTq6z508uKiDs1wcvKL++f6Yh4T1g5d9/PNTn
+ kMtkM/iz68Sx+YMXAHzvOowhlMKSqVIczcTgLwLbXL7BKChTSMwB2V7Xl1e7J3sn/D
+ v2qe7PZzt4j6A==
+Date: Tue, 29 Jul 2025 17:58:10 +0100
+From: Simon Horman <horms@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20250729165810.GG1877762@horms.kernel.org>
+References: <20250729-relative_flex_pps-v2-0-3e5f03525c45@foss.st.com>
+ <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <186a2265-8ca8-4b75-b4a2-a81d21ca42eb@foss.st.com>
-X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+In-Reply-To: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 6/7] net: stmmac: add helpers
- to indicate WoL enable status
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/2] drivers: net: stmmac:
+ handle start time set in the past for flexible PPS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,59 +63,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 29, 2025 at 05:34:49PM +0200, Gatien CHEVALLIER wrote:
-> For STMMAC:
-> I'm a bit lost there. I may be missing something. I thought that using
-> PHY WoL (therefore having STMMAC_FLAG_USE_PHY_WOL) superseded the MAC
-> WoL usage.
+On Tue, Jul 29, 2025 at 04:52:00PM +0200, Gatien Chevallier wrote:
+> In case the time arguments used for flexible PPS signal generation are in
+> the past, consider the arguments to be a time offset relative to the MAC
+> system time.
+> 
+> This way, past time use case is handled and it avoids the tedious work
+> of passing an absolute time value for the flexible PPS signal generation
+> while not breaking existing scripts that may rely on this behavior.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 31 ++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> index 3767ba495e78d210b0529ee1754e5331f2dd0a47..5c712b33851081b5ae1dbf2a0988919ae647a9e2 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> @@ -10,6 +10,8 @@
+>  #include "stmmac.h"
+>  #include "stmmac_ptp.h"
+>  
+> +#define PTP_SAFE_TIME_OFFSET_NS	500000
+> +
+>  /**
+>   * stmmac_adjust_freq
+>   *
+> @@ -172,6 +174,10 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+>  
+>  	switch (rq->type) {
+>  	case PTP_CLK_REQ_PEROUT:
+> +		struct timespec64 curr_time;
+> +		u64 target_ns = 0;
+> +		u64 ns = 0;
+> +
 
-I'll simply point you to Andrew's message:
+I think you need to wrap this case in {}, as is already done for the following
+case.
 
-https://lore.kernel.org/r/5b8608cb-1369-4638-9cda-1cf90412fc0f@lunn.ch
+Clang 20.1.8 W=1 build warn about the current arrangement as follows.
 
-The PHY and the MAC are supposed to inter-operate so that one ends
-up with the union of the WoL capabilities.
+  .../stmmac_ptp.c:177:3: warning: label followed by a declaration is a C23 extension [-Wc23-extensions]
+    177 |                 struct timespec64 curr_time;
+        |                 ^
+  1 warning generated.
 
-stmmac gets this wrong right now, but (as I've written previously)
-this is going to be a *very* difficult problem to solve, because
-the PHY drivers are - to put it bluntly - "utter crap" when it
-comes to WoL.
+GCC 8.5.0 (but not 15.1.0) also flags this problem.
 
-I'll take the rtl8211f again as an example - its get_wol()
-implementation is quite typical of many PHY drivers. Someone comes
-along and decides to implement WoL support at the PHY. They add the
-.get_wol() method, which unconditionally returns the PHY's hardware
-capabilities without regards for the rest of the system.
+Also, please note:
 
-Consider the case where a PHY supports WoL, but the signalling for
-WoL to wake up the system is not wired. The .get_wol() method happily
-says that WoL is supported. Let's say that the PHY supports magic
-packet, and so does the MAC, and the MAC WoL is functional.
+## Form letter - net-next-closed
 
-Now, with what Andrew said in his email, and consider what this means.
-.set_wol() is called, requesting magic packet. The PHY driver says "oh
-yes, the PHY hardware supports this, I'll program the PHY and return
-zero". At this point, the MAC thinks the PHY has accepted the WoL
-configuration.
+The merge window for v6.17 has begun and therefore net-next is closed
+for new drivers, features, code refactoring and optimizations. We are
+currently accepting bug fixes only.
 
-The user suspends the system. The user sends the correct magic
-packet. The system does not wake up. The user is now confused.
+Please repost when net-next reopens after 11th August.
 
-However, if the PHY driver were to behave correctly according to what
-Andrew says, and not allow WoL if it can't wake the system, then
-instead we would program the MAC to allow magic packet, and the user
-would be happy because their system would wake up as expected.
+RFC patches sent for review only are obviously welcome at any time.
 
-This is why we can't simply "fix" stmmac - not without all the PHY
-drivers that are being used with stmmac behaving properly. Can it
-ever be fixed to work as Andrew suggests? I really don't know. I
-suspect not, because that will probably involve regressing a lot of
-setups that work today (fixing the PHY drivers will likely cause
-user visible regressions.)
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+pw-bot: defer
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
