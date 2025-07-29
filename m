@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D8BB15152
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 18:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127BBB15157
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 18:31:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2172C35E3F;
-	Tue, 29 Jul 2025 16:31:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C45B8C35E3F;
+	Tue, 29 Jul 2025 16:31:45 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 019D9C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49691C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 16:31:34 +0000 (UTC)
+ Tue, 29 Jul 2025 16:31:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B4CA8439C4;
- Tue, 29 Jul 2025 16:31:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76977C4CEF4;
- Tue, 29 Jul 2025 16:31:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 330F243720;
+ Tue, 29 Jul 2025 16:31:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE32C4CEF5;
+ Tue, 29 Jul 2025 16:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753806693;
- bh=sPWerXoTnJdupEJFgfzlBFo08Ou/toO0osnBkMyj3F8=;
+ s=k20201202; t=1753806703;
+ bh=1dkxZGkmuXVhfESsKgV+CRMmTLpxdc9oKXATIi9vcIQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xt4z40PFrTNRm+gchkzSFN8IZ7lR97MmgUmhmW7xTh+MJkUc9okSXr9V5mM4Mw2i4
- 7xketuGtMIVNB85UWt6kb4nKjtJGf/mf5a/0SF8E5QqCk4jWVsby/FjJ0W4If9YWSw
- n3UQTfIab46FGLkOee3bgXACTsvM3uFdjuTJmKwt8azfPGnQ5u3/oo64BG0175yQjU
- MKj++96I31z25cIz+ITK6gTWF8osNPZ1SGjzNaR+FGqBWhoLRWOEqo9Qs1jZOk+W/a
- 7NFkAYgEBUzlgqe6Bh7Sa7wA1Co9bMX2SK0n8RIFVkpGjymWU4b2feO4sAQlPqee6S
- 6iexWo6KdPe/A==
-Date: Tue, 29 Jul 2025 11:31:32 -0500
-From: Rob Herring <robh@kernel.org>
+ b=p26GeTUqOA1PeWl1t8jitMJV6dUSclnyI8FTib78TlJdGSUqKco9fXR0TqdNL//2N
+ 1O4Jm8HPbyFdVhL5AvaUkL1Ovv0tI9tgZdxku4C4b6rLOYLNzVYnn3wMku55diK4/J
+ cibZ0RSpKIy14kxmVDjBwj3bVQEVH+TXEmErN6mGswnMkGkH986dsBZbR/NC1a9JcR
+ DCvLbCm03u4ykOdru21TAcXgzYpZuJZwGQ/2ZYNXCz09gFWbBs3/I6t92v3BZInM6o
+ zhvpOgFZqSDqEHa4CCwTnHrEMd3Riy3zsnd4mHmVlgntTzqcyIx85jW6F5A61z8y5o
+ 8YfDKRtqeVBOw==
+Date: Tue, 29 Jul 2025 11:31:42 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <20250729163132.GA507560-robh@kernel.org>
+Message-ID: <175380670133.511931.13043391606503114133.robh@kernel.org>
 References: <20250725-drm-misc-next-v1-0-a59848e62cf9@foss.st.com>
- <20250725-drm-misc-next-v1-3-a59848e62cf9@foss.st.com>
+ <20250725-drm-misc-next-v1-4-a59848e62cf9@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250725-drm-misc-next-v1-3-a59848e62cf9@foss.st.com>
+In-Reply-To: <20250725-drm-misc-next-v1-4-a59848e62cf9@foss.st.com>
 Cc: Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Will Deacon <will@kernel.org>,
  Catalin Marinas <catalin.marinas@arm.com>,
  Yannick Fertre <yannick.fertre@foss.st.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  Christophe Roullier <christophe.roullier@foss.st.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 03/12] dt-bindings: display: st,
- stm32mp25-lvds: add access-controllers property
+Subject: Re: [Linux-stm32] [PATCH 04/12] dt-bindings: display: st,
+ stm32mp25-lvds: add power-domains property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,21 +66,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 25, 2025 at 12:03:55PM +0200, Raphael Gallais-Pou wrote:
-> access-controllers is an optional property that allows a peripheral to
-> refer to one or more domain access controller(s).
-> 
-> This property is added when the peripheral is under the STM32 firewall
-> controller.  It allows an accurate representation of the hardware, where
-> the peripheral is connected to a firewall bus.  The firewall can then
-> check the peripheral accesses before allowing its device to probe.
+
+On Fri, 25 Jul 2025 12:03:56 +0200, Raphael Gallais-Pou wrote:
+> STM32 LVDS peripheral may be in a power domain.  Allow an optional
+> single 'power-domains' entry for STM32 LVDS devices.
 > 
 > Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 > ---
 >  Documentation/devicetree/bindings/display/st,stm32mp25-lvds.yaml | 3 +++
 >  1 file changed, 3 insertions(+)
+> 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
