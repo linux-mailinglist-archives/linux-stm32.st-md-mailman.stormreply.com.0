@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA7BFB14F9F
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 16:55:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E6E9B14FFB
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jul 2025 17:08:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E674C32E92;
-	Tue, 29 Jul 2025 14:55:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B2FEC35E3F;
+	Tue, 29 Jul 2025 15:08:03 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E17EC349C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAA1AC35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 14:55:01 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56TDqD6D023729;
- Tue, 29 Jul 2025 16:54:42 +0200
+ Tue, 29 Jul 2025 15:08:00 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56TCpPUJ031980;
+ Tue, 29 Jul 2025 17:07:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- f/Foo9POshykOfCA1tCQxxLdk6j4kVXsCtJfrKcrneA=; b=f/tV+cw8yLM1QTsX
- jftRGfiAZCia852woVLiue+QfJQkryig+H9TTOxqdiPp2rhMirV0lIeG1AxqOiBp
- lyTWhg8wj4RnQBYOUpUIZ1SRG455sxnsSvBAoU1ScbvIwMKaohFgRfZyLdMtG3yo
- UjAPkbHpUijYL5MQDZFrlKaXEQ0Lg0o3EJxaBM76tJn4aSYC/0qED+1x5zjcjEUk
- IGIMfx/4eB0QqecOkjd2PPCbk4Kg1mW2VGi4RH+lGiURbVuw+O5yzwwC4p8qAWEp
- LJm5Ssvv+TIfTnjsf9ge4cqz+nvm6JZucdDBFu1z7u2aT8FHpJV5G86NfcGw0kIz
- u4F9/g==
+ rxNeNoGx1mH4GH0w94NI93U/kEXE+lSVdRaFrGTDI0g=; b=MKJFsGf/y754Tnvr
+ xLdfD2hsDaNECBNZBmwKrazssfYyHo9DBQ4DdKdsN13xS5PgKmEbmoBLTAjq5s5E
+ v3ee1pbRlyhjybenzVv6IpWfpM2LeWqmZlsEdD82pfYmXEt/uTJfL/xTj5mzz2eL
+ euCEtL895eMzGzW9sCNXyqlw/cEEx5yjok5wH724M83/XgT3JmaLoH78eBlGZjRi
+ ZDKRdC763CR4ysxOXrUsrNHxNUsPB7GEWk2L3FhzR3VS+XwT6F+thDHNSwq9XCEU
+ ycCwSJG9uoYj+fy+vzJP7mVRbfKOJNc4FNNgIUUNYYKbMPu5lsfIJ631pbzkjFET
+ 4YtQmg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 484memnux3-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4859ynjf35-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Jul 2025 16:54:42 +0200 (MEST)
+ Tue, 29 Jul 2025 17:07:38 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6E3B94002D;
- Tue, 29 Jul 2025 16:53:18 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CEAB44002D;
+ Tue, 29 Jul 2025 17:06:26 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E3340778886;
- Tue, 29 Jul 2025 16:52:18 +0200 (CEST)
-Received: from localhost (10.48.87.141) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8C5FA763987;
+ Tue, 29 Jul 2025 17:05:40 +0200 (CEST)
+Received: from [10.48.87.141] (10.48.87.141) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Jul
- 2025 16:52:18 +0200
-From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Date: Tue, 29 Jul 2025 16:52:01 +0200
+ 2025 17:05:39 +0200
+Message-ID: <b25eff85-73fd-45b3-b92f-5cc0a86011c7@foss.st.com>
+Date: Tue, 29 Jul 2025 17:05:39 +0200
 MIME-Version: 1.0
-Message-ID: <20250729-relative_flex_pps-v2-2-3e5f03525c45@foss.st.com>
-References: <20250729-relative_flex_pps-v2-0-3e5f03525c45@foss.st.com>
-In-Reply-To: <20250729-relative_flex_pps-v2-0-3e5f03525c45@foss.st.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.14.2
+User-Agent: Mozilla Thunderbird
+To: Jakub Kicinski <kuba@kernel.org>
+References: <20250724-relative_flex_pps-v1-0-37ca65773369@foss.st.com>
+ <20250725172547.13d550a4@kernel.org>
+ <424f8bbd-10b2-468c-aac8-edc71296dabb@foss.st.com>
+ <20250728085818.5c7a1e45@kernel.org>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20250728085818.5c7a1e45@kernel.org>
 X-Originating-IP: [10.48.87.141]
 X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-07-29_03,2025-07-28_01,2025-03-28_01
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 2/2] ARM: dts: stm32: add missing
- PTP reference clocks on stm32mp13x SoCs
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: allow
+ generation of flexible PPS relative to MAC time
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,61 +78,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ETH1/2 miss their PTP reference clock in the SoC device tree. Add them
-as the fallback is not correctly handled for PPS generation and it seems
-there's no reason to not add them.
 
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp131.dtsi | 2 ++
- arch/arm/boot/dts/st/stm32mp133.dtsi | 2 ++
- 2 files changed, 4 insertions(+)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index 492bcf586361c487208439ed71a93c2bf83d5eb2..6f5720fb9fa1f58bd97b6bf19fc898f0fecb34d1 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -1602,11 +1602,13 @@ ethernet1: ethernet@5800a000 {
- 					      "mac-clk-tx",
- 					      "mac-clk-rx",
- 					      "ethstp",
-+					      "ptp_ref",
- 					      "eth-ck";
- 				clocks = <&rcc ETH1MAC>,
- 					 <&rcc ETH1TX>,
- 					 <&rcc ETH1RX>,
- 					 <&rcc ETH1STP>,
-+					 <&rcc ETH1PTP_K>,
- 					 <&rcc ETH1CK_K>;
- 				st,syscon = <&syscfg 0x4 0xff0000>;
- 				snps,mixed-burst;
-diff --git a/arch/arm/boot/dts/st/stm32mp133.dtsi b/arch/arm/boot/dts/st/stm32mp133.dtsi
-index e48838374f0df4e003aee5046e45b49986c1daea..0112c05b13e1f02e5ec4b4bffc9a11b4bef1b9bc 100644
---- a/arch/arm/boot/dts/st/stm32mp133.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp133.dtsi
-@@ -81,11 +81,13 @@ ethernet2: ethernet@5800e000 {
- 			      "mac-clk-tx",
- 			      "mac-clk-rx",
- 			      "ethstp",
-+			      "ptp_ref",
- 			      "eth-ck";
- 		clocks = <&rcc ETH2MAC>,
- 			 <&rcc ETH2TX>,
- 			 <&rcc ETH2RX>,
- 			 <&rcc ETH2STP>,
-+			 <&rcc ETH2PTP_K>,
- 			 <&rcc ETH2CK_K>;
- 		st,syscon = <&syscfg 0x4 0xff000000>;
- 		snps,mixed-burst;
+On 7/28/25 17:58, Jakub Kicinski wrote:
+> On Mon, 28 Jul 2025 10:15:07 +0200 Gatien CHEVALLIER wrote:
+>> Maybe we could compare the time to the current MAC system
+>> time and, if the start time is in the past, consider the
+>> value to be an offset. Therefore, any value set in the past
+>> would be considered as an offset. I see some implementations
+>> doing either that or replacing any value set in the past to
+>> a safe start + a fixed offset.
+> 
+> Let's try this.
 
--- 
-2.25.1
-
+Ok, I sent a V2 with a proposal implementing this behavior.
+Thank you.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
