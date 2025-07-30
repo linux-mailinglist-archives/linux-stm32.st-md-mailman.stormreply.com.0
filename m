@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E4CB167DE
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 22:56:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0DECB16813
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 23:11:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4C6C3089D;
-	Wed, 30 Jul 2025 20:56:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56F7DC3089D;
+	Wed, 30 Jul 2025 21:11:55 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27C4CC30883
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4ADCC30883
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 20:56:57 +0000 (UTC)
+ Wed, 30 Jul 2025 21:11:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 99E9B44744;
- Wed, 30 Jul 2025 20:56:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D34CC4CEE3;
- Wed, 30 Jul 2025 20:56:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 705BF43CE9;
+ Wed, 30 Jul 2025 21:11:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2041AC4CEE3;
+ Wed, 30 Jul 2025 21:11:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753909015;
- bh=meJm08gIW/vRrCYpVEM3urM9k5Mm+PBeXQeuvnQVQVE=;
+ s=k20201202; t=1753909912;
+ bh=sFIpHKRKR7Q2Kj3ofVG6atyA9wvqpFYGRwPhKFIISFo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R/abVUfbuP7icZl+93Lwq3my8o2/6jYbJCSJ0QiaT84VAMWsguxPTRoaNY3GpCz6W
- TyzKtkhybnWvlCMN/wRcxd5rwQd9lzfZ4gBQ1R5snp7d0gO2KB0wqAUBzQgvDWQDv4
- gvKTMqalfwzGGXkZOb52EDKsLC+5bk2v2cgq1IBaqlHWcjZ16LasrbxA//uQ462lrc
- I81cbSHyXF9EeRXShOA+lG3Ex2Qt7PJx3D9QmZl80sRV2Z0MCRxig1sWAIHGtJ+oEB
- l4FeT15ITP8uapf9qWEUqtO2ZartcWM0t6tQrgJ8GJhO6Vbo4Z2fQFo+t+/VvxKVqe
- UcaQvCMWw/m+w==
-Date: Wed, 30 Jul 2025 15:56:54 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Joy Zou <joy.zou@nxp.com>
-Message-ID: <175390901389.1733801.13463071578614787293.robh@kernel.org>
-References: <20250728071438.2332382-1-joy.zou@nxp.com>
- <20250728071438.2332382-3-joy.zou@nxp.com>
+ b=n3xABHcPFOX3yvig7wmxjCuJPhi6RshxouhCDUYXPm3K6kFZz8yT/qMOan4XHRzh8
+ gnHZ/FwNJiZkBmERRghPasQypZc8mRk7jASMb8Gi+qRcJQp06eIDLHe62Hc0ftkqQV
+ usOByMpMJJ/qTgGgcOA0oMF7S94yAncpaSzEaDUhIrIP0LfctdsGFUw7yj9sC8q6n2
+ aJiZjJ7+r/H1d51rWcYuVBBWfS5TP0CUPO6qIKHP+dElSAlSsO+EtUJzmL0kN/lUib
+ hglSWftmmXtsFcN1/9fWViL13nc9pcqqKxAxv+Ko7NPxEilIU/v88wQ6ffVblg7KrU
+ TETD/8/Y/SwOQ==
+Date: Wed, 30 Jul 2025 16:11:51 -0500
+From: Rob Herring <robh@kernel.org>
+To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>
+Message-ID: <20250730211151.GA1749004-robh@kernel.org>
+References: <20250728-ddrperfm-upstream-v5-0-03f1be8ad396@foss.st.com>
+ <20250728-ddrperfm-upstream-v5-6-03f1be8ad396@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250728071438.2332382-3-joy.zou@nxp.com>
-Cc: imx@lists.linux.dev, ulf.hansson@linaro.org,
- alexander.stein@ew.tq-group.com, catalin.marinas@arm.com, Frank.Li@nxp.com,
- edumazet@google.com, festevam@gmail.com, peng.fan@nxp.com,
- Markus.Niebel@ew.tq-group.com, will@kernel.org, frieder.schrempf@kontron.de,
- linux-stm32@st-md-mailman.stormreply.com, primoz.fiser@norik.com,
- kuba@kernel.org, pabeni@redhat.com, s.hauer@pengutronix.de,
- devicetree@vger.kernel.org, conor+dt@kernel.org, kernel@pengutronix.de,
- linux-pm@vger.kernel.org, othacehe@gnu.org, richardcochran@gmail.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, shawnguo@kernel.org, davem@davemloft.net,
- linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v7 02/11] dt-bindings: soc: imx-blk-ctrl:
- add i.MX91 blk-ctrl compatible
+In-Reply-To: <20250728-ddrperfm-upstream-v5-6-03f1be8ad396@foss.st.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Will Deacon <will@kernel.org>, linux-clk@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Le Goffic <legoffic.clement@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ Julius Werner <jwerner@chromium.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v5 06/20] dt-bindings: memory: introduce
+	DDR4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,39 +62,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jul 28, 2025 at 05:29:37PM +0200, Cl=E9ment Le Goffic wrote:
+> Introduce JEDEC compliant DDR bindings, that use new memory-props binding.
+> =
 
-On Mon, 28 Jul 2025 15:14:29 +0800, Joy Zou wrote:
-> Add new compatible string "fsl,imx91-media-blk-ctrl" for i.MX91,
-> which has different input clocks compared to i.MX93. Update the
-> clock-names list and handle it in the if-else branch accordingly.
-> 
-> Keep the same restriction for the existed compatible strings.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Joy Zou <joy.zou@nxp.com>
+> Signed-off-by: Cl=E9ment Le Goffic <clement.legoffic@foss.st.com>
 > ---
-> Changes for v7:
-> 1. add clocks constraints in the if-else branch.
-> 2. reorder the imx93 and imx91 if-else branch.
->    These changes come from review comments:
->    https://lore.kernel.org/imx/urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26/
-> 4. add Reviewed-by tag.
-> 
-> Changes for v5:
-> 1. The i.MX91 has different input clocks compared to i.MX93,
->    so add new compatible string for i.MX91.
-> 2. update clock-names list and handle it in the if-else branch.
-> ---
->  .../soc/imx/fsl,imx93-media-blk-ctrl.yaml     | 59 +++++++++++++++----
->  1 file changed, 47 insertions(+), 12 deletions(-)
-> 
+>  .../memory-controllers/ddr/jedec,ddr4.yaml         | 34 ++++++++++++++++=
+++++++
+>  1 file changed, 34 insertions(+)
+> =
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> diff --git a/Documentation/devicetree/bindings/memory-controllers/ddr/jed=
+ec,ddr4.yaml b/Documentation/devicetree/bindings/memory-controllers/ddr/jed=
+ec,ddr4.yaml
+> new file mode 100644
+> index 000000000000..f457066a2f8b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/memory-controllers/ddr/jedec,ddr4=
+.yaml
+> @@ -0,0 +1,34 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/memory-controllers/ddr/jedec,ddr4.yam=
+l#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: DDR3 SDRAM compliant to JEDEC JESD79-4D
+> +
+> +maintainers:
+> +  - Krzysztof Kozlowski <krzk@kernel.org>
+> +
+> +allOf:
+> +  - $ref: jedec,sdram-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - pattern: "^ddr4-[0-9a-f]{2},[0-9a-f]{1}$"
+
+Shouldn't this be 'jedec,ddr4-...'
+
+> +      - const: jedec,ddr4
+> +
+> +required:
+> +  - compatible
+> +  - density
+> +  - io-width
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    ddr {
+> +        compatible =3D "ddr4-ff,f", "jedec,ddr4";
+> +        density =3D <8192>;
+> +        io-width =3D <8>;
+> +    };
+> =
+
+> -- =
+
+> 2.43.0
+> =
 
 _______________________________________________
 Linux-stm32 mailing list
