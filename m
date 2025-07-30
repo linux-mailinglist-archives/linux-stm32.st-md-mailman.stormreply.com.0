@@ -2,123 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B25B15F85
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 148F7B16301
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 16:43:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63217C30883;
-	Wed, 30 Jul 2025 11:33:14 +0000 (UTC)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
- [209.85.221.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A99AC30883;
+	Wed, 30 Jul 2025 14:43:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB932C3087B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D475BC3087B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 11:33:12 +0000 (UTC)
-Received: by mail-vk1-f180.google.com with SMTP id
- 71dfb90a1353d-5390ccb30bfso1563297e0c.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 04:33:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753875191; x=1754479991;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nW9Fed3oaCcY5j8zAXTzmhRy4s/lDYERKz+lZhw5SjM=;
- b=OqxDZQiDDr1bBnd8S4Icpnzh3fPRjGoeBWaZPs+sd5zBmWEDnxt3eQnlhqhyonCFvr
- aoP5b9soK4m0rsJINQepqkD7gyZy0PCkOdEdfwR7qLwyFjhEvSQrGQ/MefgTpgEtrkzs
- jt1QK0IX3Ae3YWnHCMPv9qpCyO+d8x7RacwGsNROQO+ij7bf5CSYJH650dq/o400pZyu
- 0gjhVjRCrbmscf3BRXKXadmqT/tsjKrom62KDk6jX6DTz+V8en4xqinAF8nRzvpgd6c9
- 3Z2gsOJUGhjg6ToHTTqeTIf5JeFa0AkmEJku+rnIiezLXe6whxkESAk4xRcb0pOg0WHb
- 2jNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVNUcsr7Kf+9C7WWfZZl4w5JFl52OL7AEYhAbqy2Q5QLhq6dYE1kbLApjwNkyHThv240Dym2cPIn5R5Cg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxJ2rZAcqqqbirwR3NEFlGiVQIHfzwCzc6Mx1XHwd7jbUaBlVQE
- ihE9Sml1652a1941R6hd0LiUfp4R1hlAsKKT/NKJVZBTPpMYOqXmLJq6F2igHbOS
-X-Gm-Gg: ASbGnctn51zechII3VdlwvNjYv1kIqAfjiYoyLT92y00c91NXXEPBaaA9AFgLJxIqdT
- RbR+YN+LgX3dVqHajPKwn83jAolwF6rvkaPdW+50YT+ZgSlq2ELS4XCEdx/rJtopVxXL6rlaELm
- iAizesKnEiZm/F2xSvn2G+W5ZRoOTxBWS0F46eLDUnH6Fi0q0CxvC6dD2Mg+8jIb9fM4Ex+swk3
- oruXL5fs3iuguBROVKEj/mHiB5gqLuLxxAkGDekRYZ4ZbvbewUg26UkW5YxPUsspdjK3TvrbM+E
- sHW93V9mdaKLxvXt7/5raqQjAq8AORZniiboReVspA7vfXL+jjpORgD9cKheJx78ii+cbb97Lcg
- 6FaHxBpPuUxsG3LPx5ufrmiQJvb10+OZOzGGbSwG3fXe7nWZb6ahUfEHJZ+B2
-X-Google-Smtp-Source: AGHT+IFjXpnqOqOrhmk2NivktWCMcA29Mv3tK7Ey1GClOeeP9DGzTjwJFtm+7nUX5DflJSgdLEXwDw==
-X-Received: by 2002:a05:6122:3c4e:b0:526:2210:5b68 with SMTP id
- 71dfb90a1353d-5391cef1cf6mr1770950e0c.4.1753875191163; 
- Wed, 30 Jul 2025 04:33:11 -0700 (PDT)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
- [209.85.222.54]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-53919edc337sm694786e0c.2.2025.07.30.04.33.09
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 04:33:09 -0700 (PDT)
-Received: by mail-ua1-f54.google.com with SMTP id
- a1e0cc1a2514c-88bb987d8fbso1338490241.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 04:33:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCVQt+4zaxYRiQrwsytJWyEZqULAC1rUs3+QB9i206mqkPgQPfGT7AE2z7qTfJqoIBREsfYW6ypPswtomA==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6102:418b:b0:4c5:4591:ffda with SMTP id
- ada2fe7eead31-4fbe87b425emr1711001137.21.1753875189085; Wed, 30 Jul 2025
- 04:33:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
- <20250730-topic-dma_genise_cookie-v1-3-b505c1238f9f@oss.qualcomm.com>
-In-Reply-To: <20250730-topic-dma_genise_cookie-v1-3-b505c1238f9f@oss.qualcomm.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 30 Jul 2025 13:32:58 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV0JO=qtregrrHsBZ-6tpNdPUj3G1_LWRfRsj0vBb+qyw@mail.gmail.com>
-X-Gm-Features: Ac12FXwFObS4veqAcz-kMArtfpOLnucchkvqP_CejUTAp0AxApTTYboaikMMzJA
-Message-ID: <CAMuHMdV0JO=qtregrrHsBZ-6tpNdPUj3G1_LWRfRsj0vBb+qyw@mail.gmail.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: imx@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>, Frank Li <Frank.Li@nxp.com>,
- Jaroslav Kysela <perex@perex.cz>, Paul Cercueil <paul@crapouillou.net>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, linux-spi@vger.kernel.org,
- Janne Grunau <j@jannau.net>, linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Samuel Holland <samuel@sholland.org>, Viresh Kumar <vireshk@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-arm-msm@vger.kernel.org,
- =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- linux-mips@vger.kernel.org, Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- asahi@lists.linux.dev, Viken Dadhaniya <quic_vdadhani@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Wed, 30 Jul 2025 14:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1753886623; x=1785422623;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=idRnj5P4PrYGxexiNDf1IWPLr0mVthPDzs6oUfOLhrM=;
+ b=k7+HGMIj2fJh4I80sSzLhN7vtJ63Vs4xfPZzGVtY+8CAKTYSiDzCI8i8
+ 4GNk7y73M0/AgaddFKqe6M3jZ+Dgd1LB8yY7ihsmDzcXTd30hjDhQOFvT
+ RugsZKJM4gMXDQIdnB+yqgd/QdpHAiWkPgtqyfrSWxl4YHsXR4jUSbs5D
+ cp568AvD3DOknEi8j7sk0u8r7cr1OxiYZdG6UG7040s4MayiyRGhDdzIz
+ N7MB/uKtZfJs8q/Of7TXx3WteK7cqQY7PTEI6lvjo8Iijt0/efUV3pjHz
+ I/ubcRFRhnLo4CmTVxupImtXpps/F1YDktJLwT7gSTP7Cl0Wi2vP9zTjA A==;
+X-CSE-ConnectionGUID: FlOX4Hf1QgKnJaubkAN/zg==
+X-CSE-MsgGUID: AIbKhAJISQOFt5V4Mem4CQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11507"; a="55890918"
+X-IronPort-AV: E=Sophos;i="6.16,350,1744095600"; d="scan'208";a="55890918"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2025 07:43:40 -0700
+X-CSE-ConnectionGUID: oTzVPsG9QR+19wHO6VXhaA==
+X-CSE-MsgGUID: 8uYbk/j7SeWAaepWravi+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,350,1744095600"; d="scan'208";a="193987297"
+Received: from lkp-server01.sh.intel.com (HELO 160750d4a34c) ([10.239.97.150])
+ by orviesa002.jf.intel.com with ESMTP; 30 Jul 2025 07:43:34 -0700
+Received: from kbuild by 160750d4a34c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1uh81k-0002qG-0g;
+ Wed, 30 Jul 2025 14:43:32 +0000
+Date: Wed, 30 Jul 2025 22:43:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-tegra@vger.kernel.org, Sven Peter <sven@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Saravana Kannan <saravanak@google.com>, Scott Branden <sbranden@broadcom.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>, linux-sound@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Takao Orito <orito.takao@socionext.com>, dmaengine@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Neal Gompa <neal@gompa.dev>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Daniel Mack <daniel@zonque.org>, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH RFC 3/6] dmaengine: qcom: gpi: Accept
-	protocol ID hints
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Le Goffic <legoffic.clement@gmail.com>,
+ Julius Werner <jwerner@chromium.org>
+Message-ID: <202507302237.gyVCBmXs-lkp@intel.com>
+References: <20250728-ddrperfm-upstream-v5-13-03f1be8ad396@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250728-ddrperfm-upstream-v5-13-03f1be8ad396@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 13/20] perf: stm32: introduce DDRPERFM
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,61 +78,201 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Konrad,
+Hi Cl=E9ment,
 
-On Wed, 30 Jul 2025 at 11:35, Konrad Dybcio <konradybcio@kernel.org> wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
-> Client drivers may now pass hints to dmaengine drivers. GPI DMA's only
-> consumers (GENI SEs) need to pass a protocol (I2C, I3C, SPI, etc.) ID
-> to the DMA engine driver, for it to take different actions.
->
-> Currently, that's done through passing that ID through device tree,
-> with each Serial Engine expressed NUM_PROTOCOL times, resulting in
-> terrible dt-bindings that are full of useless copypasta.
->
-> To help get rid of that, accept the driver cookie instead, while
-> keeping backwards compatibility.
->
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+kernel test robot noticed the following build errors:
 
-Thanks for your patch!
+[auto build test ERROR on 89be9a83ccf1f88522317ce02f854f30d6115c41]
 
-> --- a/drivers/dma/qcom/gpi.c
-> +++ b/drivers/dma/qcom/gpi.c
-> @@ -2145,7 +2151,8 @@ static struct dma_chan *gpi_of_dma_xlate(struct of_phandle_args *args,
->         }
->
->         gchan->seid = seid;
-> -       gchan->protocol = args->args[2];
-> +       /* The protocol ID is in the teens range, simply ignore the higher bits */
-> +       gchan->protocol = (u32)((u64)proto);
+url:    https://github.com/intel-lab-lkp/linux/commits/Cl-ment-Le-Goffic/bu=
+s-firewall-move-stm32_firewall-header-file-in-include-folder/20250728-234144
+base:   89be9a83ccf1f88522317ce02f854f30d6115c41
+patch link:    https://lore.kernel.org/r/20250728-ddrperfm-upstream-v5-13-0=
+3f1be8ad396%40foss.st.com
+patch subject: [PATCH v5 13/20] perf: stm32: introduce DDRPERFM driver
+config: s390-randconfig-001-20250730 (https://download.01.org/0day-ci/archi=
+ve/20250730/202507302237.gyVCBmXs-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f022=
+7cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
+/20250730/202507302237.gyVCBmXs-lkp@intel.com/reproduce)
 
-A single cast "(uintptr_t)" should be sufficient.
-Casing the pointer to u64 on 32-bit may trigger:
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202507302237.gyVCBmXs-lkp@i=
+ntel.com/
 
-    warning: cast from pointer to integer of different size
-[-Wpointer-to-int-cast]
+All errors (new ones prefixed by >>):
 
->
->         return dma_get_slave_channel(&gchan->vc.chan);
->  }
+>> drivers/perf/stm32_ddr_pmu.c:213:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     213 |         writel_relaxed(r->start.mask, pmu->membase + r->start.re=
+g);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:220:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     220 |         writel_relaxed(r->stop.mask, pmu->membase + r->stop.reg);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:227:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     227 |         writel_relaxed(r->clear_time.mask, pmu->membase + r->cle=
+ar_time.reg);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:234:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     234 |         writel_relaxed(r->clear_cnt.mask & BIT(counter->idx), pm=
+u->membase + r->clear_cnt.reg);
+         |         ^
+>> drivers/perf/stm32_ddr_pmu.c:240:15: error: call to undeclared function =
+'readl_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     240 |         u32 status =3D readl_relaxed(pmu->membase + r->status.re=
+g);
+         |                      ^
+   drivers/perf/stm32_ddr_pmu.c:255:12: error: call to undeclared function =
+'readl_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     255 |         u32 val =3D readl_relaxed(pmu->membase + r->enable.reg);
+         |                   ^
+   drivers/perf/stm32_ddr_pmu.c:258:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     258 |         writel_relaxed(val, pmu->membase + r->enable.reg);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:264:12: error: call to undeclared function =
+'readl_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     264 |         u32 val =3D readl_relaxed(pmu->membase + r->enable.reg);
+         |                   ^
+   drivers/perf/stm32_ddr_pmu.c:267:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     267 |         writel_relaxed(val, pmu->membase + r->enable.reg);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:285:17: error: call to undeclared function =
+'readl_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     285 |                 cnt_sel_val =3D readl_relaxed(pmu->membase + r->=
+cfg.reg);
+         |                               ^
+   drivers/perf/stm32_ddr_pmu.c:288:3: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     288 |                 writel_relaxed(cnt_sel_val, pmu->membase + r->cf=
+g.reg);
+         |                 ^
+   drivers/perf/stm32_ddr_pmu.c:302:16: error: call to undeclared function =
+'readl_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     302 |         cnt_sel_val =3D readl_relaxed(pmu->membase + cnt_sel_evt=
+_reg);
+         |                       ^
+   drivers/perf/stm32_ddr_pmu.c:306:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     306 |         writel_relaxed(cnt_sel_val, pmu->membase + cnt_sel_evt_r=
+eg);
+         |         ^
+   drivers/perf/stm32_ddr_pmu.c:428:9: error: call to undeclared function '=
+readl_relaxed'; ISO C99 and later do not support implicit function declarat=
+ions [-Wimplicit-function-declaration]
+     428 |                 val =3D readl_relaxed(pmu->membase + r->counter_=
+evt[counter->idx].reg);
+         |                       ^
+   drivers/perf/stm32_ddr_pmu.c:778:3: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     778 |                 writel_relaxed(pmu->dram_type, pmu->membase + pm=
+u->cfg->regs->dram_inf.reg);
+         |                 ^
+   drivers/perf/stm32_ddr_pmu.c:803:2: error: call to undeclared function '=
+writel_relaxed'; ISO C99 and later do not support implicit function declara=
+tions [-Wimplicit-function-declaration]
+     803 |         writel_relaxed(pmu->dram_type, pmu->membase + pmu->cfg->=
+regs->dram_inf.reg);
+         |         ^
+   16 errors generated.
 
-Gr{oetje,eeting}s,
 
-                        Geert
+vim +/writel_relaxed +213 drivers/perf/stm32_ddr_pmu.c
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+   208	=
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+   209	static void stm32_ddr_start_counters(struct stm32_ddr_pmu *pmu)
+   210	{
+   211		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
+   212	=
+
+ > 213		writel_relaxed(r->start.mask, pmu->membase + r->start.reg);
+   214	}
+   215	=
+
+   216	static void stm32_ddr_stop_counters(struct stm32_ddr_pmu *pmu)
+   217	{
+   218		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
+   219	=
+
+   220		writel_relaxed(r->stop.mask, pmu->membase + r->stop.reg);
+   221	}
+   222	=
+
+   223	static void stm32_ddr_clear_time_counter(struct stm32_ddr_pmu *pmu)
+   224	{
+   225		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
+   226	=
+
+   227		writel_relaxed(r->clear_time.mask, pmu->membase + r->clear_time.reg=
+);
+   228	}
+   229	=
+
+   230	static void stm32_ddr_clear_event_counter(struct stm32_ddr_pmu *pmu,=
+ struct stm32_ddr_cnt *counter)
+   231	{
+   232		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
+   233	=
+
+   234		writel_relaxed(r->clear_cnt.mask & BIT(counter->idx), pmu->membase =
++ r->clear_cnt.reg);
+   235	}
+   236	=
+
+   237	static void stm32_ddr_clear_counter(struct stm32_ddr_pmu *pmu, struc=
+t stm32_ddr_cnt *counter)
+   238	{
+   239		const struct stm32_ddr_pmu_regspec *r =3D pmu->cfg->regs;
+ > 240		u32 status =3D readl_relaxed(pmu->membase + r->status.reg);
+   241	=
+
+   242		if (counter->idx =3D=3D pmu->cfg->time_cnt_idx)
+   243			stm32_ddr_clear_time_counter(pmu);
+   244		else
+   245			stm32_ddr_clear_event_counter(pmu, counter);
+   246	=
+
+   247		if (status & r->status.mask)
+   248			dev_err(pmu->dev, "Failed to clear counter %i because the PMU is b=
+usy\n",
+   249				counter->idx);
+   250	}
+   251	=
+
+
+-- =
+
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
