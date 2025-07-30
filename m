@@ -2,98 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C86A7B1685F
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 23:44:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02EA6B1695A
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Jul 2025 01:46:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79A4DC3089E;
-	Wed, 30 Jul 2025 21:44:57 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48EBEC3089D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5630DC3F92E;
+	Wed, 30 Jul 2025 23:46:37 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A67FC3F92D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 21:44:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1753911895;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=etY/MDRGFrNa3/NcGdo98kEahLCyg5BbKHxxOTQSp/k=;
- b=NefG+6+AoB+nFdpZ+Mvu2NIzuXZlagaCp//jX+1tbnrdjPncw7v6yX2nAiBAio1zkx6niJ
- gUHhSY3aAFEOzAafEwReh8wVfBbiY6PRCmjRy2pqoIkoRfBRl6CzHHeh/74hcaFFuKN+Lj
- YirNP4/+yqXVhT4auVKrq63d+e1PXqY=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-216-tlRrwBy5MMyOqDYHGzcrTQ-1; Wed, 30 Jul 2025 17:44:54 -0400
-X-MC-Unique: tlRrwBy5MMyOqDYHGzcrTQ-1
-X-Mimecast-MFC-AGG-ID: tlRrwBy5MMyOqDYHGzcrTQ_1753911893
-Received: by mail-ej1-f69.google.com with SMTP id
- a640c23a62f3a-af911fc1751so21386466b.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 14:44:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753911893; x=1754516693;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=etY/MDRGFrNa3/NcGdo98kEahLCyg5BbKHxxOTQSp/k=;
- b=RTw8Zl8+WPXshLL6EAFXZrZ4WswlGOhNWWSpVlmjLuH54zLnNarKkR5I5k6qp2DzQi
- /EJ8aSDrubP8mjpffkk7PY6Ttr1jFVBZqIz5tHC6hdwfE4kDja32XM41VLeH1I6JLMEq
- YTVXP2V0nQznIOhJMp/PBZ+yZqHHi3Do2X4wl9nkjGys3OcGgNN21LDo+FNkjUSNr3LY
- /0FEEHvDHz+ZvN++lNVxP3mKCfSJAn2SQAcK4OBAKFCX+inBzjV0Tf1DF2GYDKq8ZGV8
- Bgxa0NUNW33wtrFOURNG8UvoR/B147oqJEVKWwl6qAAtapa5BbZUyEh+r28kixz17RsZ
- WG1A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX2ZFfrCyRqtkmtwVN8REec9vdoPGhTHkucNm6ngXsmQoR7CGoW4Q2KJzpgKkeUyoY+OutriN26zaAK/A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzHlFW3RfPur+YMD4Y/wfQkxs5wEcEbqwHgBbEQLulNhXuR8GAS
- wRymNG4kD69FT4uzwDrAUTakbWAH4a1ihEe09fnWB+ZJxdvQTTckKZYWqADXdKeOxlnQvJCwj0B
- cWI6Rtk9BP8M9AukG3ytyqe68b9JKx/FshxNO+CILGA/LBvHqwRnwzYekJiCm415HRfFihu7WXn
- z4CeOxFXCpJNKy3bygWpZtRG6/L64VPYN+n9Dq91ZtWPmAB9/yW/6NHYs+
-X-Gm-Gg: ASbGnctRubdURt7tJzUYeEN9NuV5dNnb75w5VpZ7c8Y0mnsGkATEBf9uv5g+0u/BtGc
- pNKcYQFhBr5OXUDCOxkPTA715q4kJAfXzUSO7d+8Qmdxw2w12/EnYWx8mVZyE1dOC5cIpmGqOBy
- IKrEqQvJ09h65Qbj3lcDx1
-X-Received: by 2002:a17:906:478c:b0:aec:4881:6e2b with SMTP id
- a640c23a62f3a-af8fd95983cmr588747266b.28.1753911892799; 
- Wed, 30 Jul 2025 14:44:52 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IETx/Q8z8JkM7YCT5hwYxMVdj/tg+Mt8q7qzSVGG/eKji/F1PzdcrMN7TdxkQSZqczHP8nko8qLTPufvPgLTYo=
-X-Received: by 2002:a17:906:478c:b0:aec:4881:6e2b with SMTP id
- a640c23a62f3a-af8fd95983cmr588742766b.28.1753911892317; Wed, 30 Jul 2025
- 14:44:52 -0700 (PDT)
+ Wed, 30 Jul 2025 23:46:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 88F915C5435;
+ Wed, 30 Jul 2025 23:46:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE60C4CEEB;
+ Wed, 30 Jul 2025 23:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1753919193;
+ bh=lVT1wO7Gp792FLsRAdREUHlRgKkz5jzpbMWb3qz8oAY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=N6aMB3CEnMYdRMvFhM0HoWxdlsfSHx5m9Bk/+p1Tu0UGicuWCsqhq19gp+dX0Al9h
+ ufzZFFn01VVIdroTIq4MKl0fZ/jXA0kQi1QCdTjqDcwTjZxYoyfU/uuJyEJFJ07qA3
+ JeevVFdeYuOabfOwyqTlFCWN1dNkch6m/kOPdEHig9UkogvqR0kkVlL3sW42idySmr
+ x7aqCguqpUrMz8Z85WFv4WuLtwZBipysMMnejHZV3hwlBdm9je7Ql0SKF+YJtdXmhy
+ NHQOsrp+G1CwLUn1GZ0rWyOwYzqJkYhvDIzHrpoYxleGqrTIE6mU0fyubuC2rc1aQK
+ gJh+uVlo0psBg==
+Date: Wed, 30 Jul 2025 18:46:31 -0500
+From: Rob Herring <robh@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Message-ID: <20250730234631.GA1899887-robh@kernel.org>
+References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
+ <20250730-topic-dma_genise_cookie-v1-1-b505c1238f9f@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
- <20250710-drm-clk-round-rate-v1-9-601b9ea384c3@redhat.com>
- <20250711-adorable-winged-petrel-3a55df@houat>
-In-Reply-To: <20250711-adorable-winged-petrel-3a55df@houat>
-From: Brian Masney <bmasney@redhat.com>
-Date: Wed, 30 Jul 2025 17:44:40 -0400
-X-Gm-Features: Ac12FXzMGo-MKds2pkAwVkvrlMlbQL40TOGBvmpmqZ_c-U-gdfMUVGNxYave4ac
-Message-ID: <CABx5tqKuOcE83t+BVz=1WudVtBxJYTzcjWJ_n4se0JQWeU_Y1w@mail.gmail.com>
-To: Maxime Ripard <mripard@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: n-TrfewD-mjwLmY0DEMwrzdoItzEy7u3JweRLp9ViC0_1753911893
-X-Mimecast-Originator: redhat.com
-Cc: imx@lists.linux.dev, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
- David Airlie <airlied@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+Content-Disposition: inline
+In-Reply-To: <20250730-topic-dma_genise_cookie-v1-1-b505c1238f9f@oss.qualcomm.com>
+Cc: imx@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>, Frank Li <Frank.Li@nxp.com>,
+ Jaroslav Kysela <perex@perex.cz>, Paul Cercueil <paul@crapouillou.net>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-spi@vger.kernel.org,
+ Janne Grunau <j@jannau.net>, linux-stm32@st-md-mailman.stormreply.com,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Andi Shyti <andi.shyti@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>, Viresh Kumar <vireshk@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jon Hunter <jonathanh@nvidia.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ linux-arm-msm@vger.kernel.org,
+ Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ linux-mips@vger.kernel.org, Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ asahi@lists.linux.dev, Viken Dadhaniya <quic_vdadhani@quicinc.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Mark Brown <broonie@kernel.org>,
+ linux-rpi-kernel@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-tegra@vger.kernel.org, Sven Peter <sven@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Saravana Kannan <saravanak@google.com>, Scott Branden <sbranden@broadcom.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>, linux-sound@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 9/9] drm/sun4i/sun4i_tcon_dclk: convert
- from round_rate() to determine_rate()
+ Takao Orito <orito.takao@socionext.com>, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Neal Gompa <neal@gompa.dev>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Daniel Mack <daniel@zonque.org>, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH RFC 1/6] dt-bindings: dma: qcom,
+ gpi: Retire passing the protocol ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,31 +97,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdWwgMTEsIDIwMjUgYXQgMzowNeKAr0FNIE1heGltZSBSaXBhcmQgPG1yaXBhcmRA
-a2VybmVsLm9yZz4gd3JvdGU6Cj4gT24gVGh1LCBKdWwgMTAsIDIwMjUgYXQgMDE6NDM6MTBQTSAt
-MDQwMCwgQnJpYW4gTWFzbmV5IHdyb3RlOgo+ID4gLXN0YXRpYyBsb25nIHN1bjRpX2RjbGtfcm91
-bmRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLAo+ID4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nICpwYXJlbnRfcmF0ZSkKPiA+
-ICtzdGF0aWMgaW50IHN1bjRpX2RjbGtfZGV0ZXJtaW5lX3JhdGUoc3RydWN0IGNsa19odyAqaHcs
-Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbGtfcmF0ZV9y
-ZXF1ZXN0ICpyZXEpCj4gPiAgewo+ID4gICAgICAgc3RydWN0IHN1bjRpX2RjbGsgKmRjbGsgPSBo
-d190b19kY2xrKGh3KTsKPiA+ICAgICAgIHN0cnVjdCBzdW40aV90Y29uICp0Y29uID0gZGNsay0+
-dGNvbjsKPiA+IEBAIC03Nyw3ICs3Nyw3IEBAIHN0YXRpYyBsb25nIHN1bjRpX2RjbGtfcm91bmRf
-cmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLAo+ID4gICAgICAgaW50
-IGk7Cj4gPgo+ID4gICAgICAgZm9yIChpID0gdGNvbi0+ZGNsa19taW5fZGl2OyBpIDw9IHRjb24t
-PmRjbGtfbWF4X2RpdjsgaSsrKSB7Cj4gPiAtICAgICAgICAgICAgIHU2NCBpZGVhbCA9ICh1NjQp
-cmF0ZSAqIGk7Cj4gPiArICAgICAgICAgICAgIHU2NCBpZGVhbCA9ICh1NjQpIHJlcS0+cmF0ZSAq
-IGk7Cj4KPiBUaGVyZSBzaG91bGRuJ3QgYmUgYW55IHNwYWNlIGFmdGVyIHRoZSBjYXN0Lgo+Cj4g
-T25jZSBmaXhlZCwKPiBBY2tlZC1ieTogTWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3Jn
-PgoKT0suIEknbSBwbGFubmluZyB0byBzdWJtaXQgYSB2MiBvZiB0aGlzIHNlcmllcyBvbiBBdWd1
-c3QgMTF0aCB3aGVuCnY2LjE3cmMxIGlzIG91dC4gVW5sZXNzIHRoZSBtYWludGFpbmVyIHRoYXQg
-cGlja3MgdXAgdGhpcyB3aG9sZSBzZXJpZXMKcGxhbnMgdG8gZHJvcCB0aGUgc3BhY2Ugb24gbWVy
-Z2UuCgpCcmlhbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+On Wed, Jul 30, 2025 at 11:33:28AM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> This is a software construct that has no business being expressed in
+> dt-bindings. Drivers can be constructed to retrieve the protocol ID at
+> runtime or hardcode them per protocol.
+> 
+> Remove it, as a pre-requisite for further simplifying the GENI
+> bindings.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> index bbe4da2a11054f0d272017ddf5d5f7e47cf7a443..745613b93b210afd38946030f7477e91e08c907a 100644
+> --- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> +++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> @@ -61,14 +61,13 @@ properties:
+>      maxItems: 13
+>  
+>    "#dma-cells":
+> -    const: 3
+> +    const: 2
+
+I think you need to keep 3 and note it is deprecated. Does an existing 
+kernel support this being 2 already. If not, ABI break...
+
+>      description: >
+>        DMA clients must use the format described in dma.txt, giving a phandle
+>        to the DMA controller plus the following 3 integer cells:
+>        - channel: if set to 0xffffffff, any available channel will be allocated
+>          for the client. Otherwise, the exact channel specified will be used.
+>        - seid: serial id of the client as defined in the SoC documentation.
+> -      - client: type of the client as defined in dt-bindings/dma/qcom-gpi.h
+>  
+>    iommus:
+>      maxItems: 1
+> @@ -98,7 +97,7 @@ examples:
+>      #include <dt-bindings/dma/qcom-gpi.h>
+>      gpi_dma0: dma-controller@800000 {
+>          compatible = "qcom,sdm845-gpi-dma";
+> -        #dma-cells = <3>;
+> +        #dma-cells = <2>;
+>          reg = <0x00800000 0x60000>;
+>          iommus = <&apps_smmu 0x0016 0x0>;
+>          dma-channels = <13>;
+> 
+> -- 
+> 2.50.1
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
