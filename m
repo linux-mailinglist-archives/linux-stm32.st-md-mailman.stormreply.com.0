@@ -2,66 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17AA3B16859
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 23:40:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C86A7B1685F
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 23:44:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28418C3089E;
-	Wed, 30 Jul 2025 21:40:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B898C3089D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79A4DC3089E;
+	Wed, 30 Jul 2025 21:44:57 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48EBEC3089D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 21:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1753911624; x=1785447624;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Bwf0g/5AzUEYlPHG3eNTNg9IPQ/fpGX+/5lZMyGu0FQ=;
- b=fKFNGiiQ/LRbgrOamtyuEZy5Pp60uJ2fx/ISv/uFUqYkbQ/HcpxZ3+Kz
- vwmmDuudkIGzpc3f7DlFP64uaj2h8QHEF0boTKejLmmEiq2P12Ru0Qy3T
- oGMCGuMMpSgs1dttLgLY1Vsy7gFwTZUeDyVEaKmQ09QTlj6wamdkReYrV
- lMLSGjqCvKkuA53bZvVgs5E8NSdK+treUMrAxuWMZeUqov4oIZlTxx/KF
- QCWdVr8XmwWiI4iUr2J9vGh1ip0YGnRHWC+uxH8U1rb/whogA7aAvVlj8
- z2OAtsa0cd0cQO8P0ZN5XciN7GneUZhDFb7AAj7P/Xkv9mH/oP+KEYNAg A==;
-X-CSE-ConnectionGUID: 1HW1HyDRRAGaHXDMfswBqg==
-X-CSE-MsgGUID: DVjfNhzXTeKlh8G2KntMlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11507"; a="73684209"
-X-IronPort-AV: E=Sophos;i="6.16,353,1744095600"; d="scan'208";a="73684209"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2025 14:40:21 -0700
-X-CSE-ConnectionGUID: //39XzHJTVaxuw3IekjVqA==
-X-CSE-MsgGUID: 9l9nEmG7TCGapoRWhEIOBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,353,1744095600"; d="scan'208";a="163433695"
-Received: from lkp-server01.sh.intel.com (HELO 160750d4a34c) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 30 Jul 2025 14:40:16 -0700
-Received: from kbuild by 160750d4a34c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1uhEX0-0003AC-1q;
- Wed, 30 Jul 2025 21:40:14 +0000
-Date: Thu, 31 Jul 2025 05:39:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Message-ID: <202507310541.o0TF0jd1-lkp@intel.com>
-References: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
+ Wed, 30 Jul 2025 21:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1753911895;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=etY/MDRGFrNa3/NcGdo98kEahLCyg5BbKHxxOTQSp/k=;
+ b=NefG+6+AoB+nFdpZ+Mvu2NIzuXZlagaCp//jX+1tbnrdjPncw7v6yX2nAiBAio1zkx6niJ
+ gUHhSY3aAFEOzAafEwReh8wVfBbiY6PRCmjRy2pqoIkoRfBRl6CzHHeh/74hcaFFuKN+Lj
+ YirNP4/+yqXVhT4auVKrq63d+e1PXqY=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-216-tlRrwBy5MMyOqDYHGzcrTQ-1; Wed, 30 Jul 2025 17:44:54 -0400
+X-MC-Unique: tlRrwBy5MMyOqDYHGzcrTQ-1
+X-Mimecast-MFC-AGG-ID: tlRrwBy5MMyOqDYHGzcrTQ_1753911893
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-af911fc1751so21386466b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 30 Jul 2025 14:44:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1753911893; x=1754516693;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=etY/MDRGFrNa3/NcGdo98kEahLCyg5BbKHxxOTQSp/k=;
+ b=RTw8Zl8+WPXshLL6EAFXZrZ4WswlGOhNWWSpVlmjLuH54zLnNarKkR5I5k6qp2DzQi
+ /EJ8aSDrubP8mjpffkk7PY6Ttr1jFVBZqIz5tHC6hdwfE4kDja32XM41VLeH1I6JLMEq
+ YTVXP2V0nQznIOhJMp/PBZ+yZqHHi3Do2X4wl9nkjGys3OcGgNN21LDo+FNkjUSNr3LY
+ /0FEEHvDHz+ZvN++lNVxP3mKCfSJAn2SQAcK4OBAKFCX+inBzjV0Tf1DF2GYDKq8ZGV8
+ Bgxa0NUNW33wtrFOURNG8UvoR/B147oqJEVKWwl6qAAtapa5BbZUyEh+r28kixz17RsZ
+ WG1A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX2ZFfrCyRqtkmtwVN8REec9vdoPGhTHkucNm6ngXsmQoR7CGoW4Q2KJzpgKkeUyoY+OutriN26zaAK/A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzHlFW3RfPur+YMD4Y/wfQkxs5wEcEbqwHgBbEQLulNhXuR8GAS
+ wRymNG4kD69FT4uzwDrAUTakbWAH4a1ihEe09fnWB+ZJxdvQTTckKZYWqADXdKeOxlnQvJCwj0B
+ cWI6Rtk9BP8M9AukG3ytyqe68b9JKx/FshxNO+CILGA/LBvHqwRnwzYekJiCm415HRfFihu7WXn
+ z4CeOxFXCpJNKy3bygWpZtRG6/L64VPYN+n9Dq91ZtWPmAB9/yW/6NHYs+
+X-Gm-Gg: ASbGnctRubdURt7tJzUYeEN9NuV5dNnb75w5VpZ7c8Y0mnsGkATEBf9uv5g+0u/BtGc
+ pNKcYQFhBr5OXUDCOxkPTA715q4kJAfXzUSO7d+8Qmdxw2w12/EnYWx8mVZyE1dOC5cIpmGqOBy
+ IKrEqQvJ09h65Qbj3lcDx1
+X-Received: by 2002:a17:906:478c:b0:aec:4881:6e2b with SMTP id
+ a640c23a62f3a-af8fd95983cmr588747266b.28.1753911892799; 
+ Wed, 30 Jul 2025 14:44:52 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IETx/Q8z8JkM7YCT5hwYxMVdj/tg+Mt8q7qzSVGG/eKji/F1PzdcrMN7TdxkQSZqczHP8nko8qLTPufvPgLTYo=
+X-Received: by 2002:a17:906:478c:b0:aec:4881:6e2b with SMTP id
+ a640c23a62f3a-af8fd95983cmr588742766b.28.1753911892317; Wed, 30 Jul 2025
+ 14:44:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/2] drivers: net: stmmac:
- handle start time set in the past for flexible PPS
+References: <20250710-drm-clk-round-rate-v1-0-601b9ea384c3@redhat.com>
+ <20250710-drm-clk-round-rate-v1-9-601b9ea384c3@redhat.com>
+ <20250711-adorable-winged-petrel-3a55df@houat>
+In-Reply-To: <20250711-adorable-winged-petrel-3a55df@houat>
+From: Brian Masney <bmasney@redhat.com>
+Date: Wed, 30 Jul 2025 17:44:40 -0400
+X-Gm-Features: Ac12FXzMGo-MKds2pkAwVkvrlMlbQL40TOGBvmpmqZ_c-U-gdfMUVGNxYave4ac
+Message-ID: <CABx5tqKuOcE83t+BVz=1WudVtBxJYTzcjWJ_n4se0JQWeU_Y1w@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: n-TrfewD-mjwLmY0DEMwrzdoItzEy7u3JweRLp9ViC0_1753911893
+X-Mimecast-Originator: redhat.com
+Cc: imx@lists.linux.dev, Linus Walleij <linus.walleij@linaro.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
+ David Airlie <airlied@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, Dmitry Baryshkov <lumag@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 9/9] drm/sun4i/sun4i_tcon_dclk: convert
+ from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,155 +105,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Gatien,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on fa582ca7e187a15e772e6a72fe035f649b387a60]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/drivers-net-stmmac-handle-start-time-set-in-the-past-for-flexible-PPS/20250729-225635
-base:   fa582ca7e187a15e772e6a72fe035f649b387a60
-patch link:    https://lore.kernel.org/r/20250729-relative_flex_pps-v2-1-3e5f03525c45%40foss.st.com
-patch subject: [PATCH net-next v2 1/2] drivers: net: stmmac: handle start time set in the past for flexible PPS
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20250731/202507310541.o0TF0jd1-lkp@intel.com/config)
-compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250731/202507310541.o0TF0jd1-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202507310541.o0TF0jd1-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c:177:3: error: expected expression
-                   struct timespec64 curr_time;
-                   ^
->> drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c:207:3: error: use of undeclared identifier 'curr_time'
-                   curr_time = ns_to_timespec64(ns);
-                   ^
-   drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c:209:49: error: use of undeclared identifier 'curr_time'
-                           cfg->start = timespec64_add_safe(cfg->start, curr_time);
-                                                                        ^
-   3 errors generated.
-
-
-vim +177 drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-
-   163	
-   164	static int stmmac_enable(struct ptp_clock_info *ptp,
-   165				 struct ptp_clock_request *rq, int on)
-   166	{
-   167		struct stmmac_priv *priv =
-   168		    container_of(ptp, struct stmmac_priv, ptp_clock_ops);
-   169		void __iomem *ptpaddr = priv->ptpaddr;
-   170		struct stmmac_pps_cfg *cfg;
-   171		int ret = -EOPNOTSUPP;
-   172		unsigned long flags;
-   173		u32 acr_value;
-   174	
-   175		switch (rq->type) {
-   176		case PTP_CLK_REQ_PEROUT:
- > 177			struct timespec64 curr_time;
-   178			u64 target_ns = 0;
-   179			u64 ns = 0;
-   180	
-   181			/* Reject requests with unsupported flags */
-   182			if (rq->perout.flags)
-   183				return -EOPNOTSUPP;
-   184	
-   185			cfg = &priv->pps[rq->perout.index];
-   186	
-   187			cfg->start.tv_sec = rq->perout.start.sec;
-   188			cfg->start.tv_nsec = rq->perout.start.nsec;
-   189	
-   190			/* A time set in the past won't trigger the start of the flexible PPS generation for
-   191			 * the GMAC5. For some reason it does for the GMAC4 but setting a time in the past
-   192			 * should be addressed anyway. Therefore, any value set it the past is considered as
-   193			 * an offset compared to the current MAC system time.
-   194			 * Be aware that an offset too low may not trigger flexible PPS generation
-   195			 * if time spent in this configuration makes the targeted time already outdated.
-   196			 * To address this, add a safe time offset.
-   197			 */
-   198			if (!cfg->start.tv_sec && cfg->start.tv_nsec < PTP_SAFE_TIME_OFFSET_NS)
-   199				cfg->start.tv_nsec += PTP_SAFE_TIME_OFFSET_NS;
-   200	
-   201			target_ns = cfg->start.tv_nsec + ((u64)cfg->start.tv_sec * NSEC_PER_SEC);
-   202	
-   203			stmmac_get_systime(priv, priv->ptpaddr, &ns);
-   204			if (ns > TIME64_MAX - PTP_SAFE_TIME_OFFSET_NS)
-   205				return -EINVAL;
-   206	
- > 207			curr_time = ns_to_timespec64(ns);
-   208			if (target_ns < ns + PTP_SAFE_TIME_OFFSET_NS) {
-   209				cfg->start = timespec64_add_safe(cfg->start, curr_time);
-   210				if (cfg->start.tv_sec == TIME64_MAX)
-   211					return -EINVAL;
-   212			}
-   213	
-   214			cfg->period.tv_sec = rq->perout.period.sec;
-   215			cfg->period.tv_nsec = rq->perout.period.nsec;
-   216	
-   217			write_lock_irqsave(&priv->ptp_lock, flags);
-   218			ret = stmmac_flex_pps_config(priv, priv->ioaddr,
-   219						     rq->perout.index, cfg, on,
-   220						     priv->sub_second_inc,
-   221						     priv->systime_flags);
-   222			write_unlock_irqrestore(&priv->ptp_lock, flags);
-   223			break;
-   224		case PTP_CLK_REQ_EXTTS: {
-   225			u8 channel;
-   226	
-   227			mutex_lock(&priv->aux_ts_lock);
-   228			acr_value = readl(ptpaddr + PTP_ACR);
-   229			channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
-   230			acr_value &= ~PTP_ACR_MASK;
-   231	
-   232			if (on) {
-   233				if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
-   234					netdev_err(priv->dev,
-   235						   "Cannot enable auxiliary snapshot %d as auxiliary snapshot %d is already enabled",
-   236						rq->extts.index, channel);
-   237					mutex_unlock(&priv->aux_ts_lock);
-   238					return -EBUSY;
-   239				}
-   240	
-   241				priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
-   242	
-   243				/* Enable External snapshot trigger */
-   244				acr_value |= PTP_ACR_ATSEN(rq->extts.index);
-   245				acr_value |= PTP_ACR_ATSFC;
-   246			} else {
-   247				priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
-   248			}
-   249			netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
-   250				   rq->extts.index, on ? "enabled" : "disabled");
-   251			writel(acr_value, ptpaddr + PTP_ACR);
-   252			mutex_unlock(&priv->aux_ts_lock);
-   253			/* wait for auxts fifo clear to finish */
-   254			ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
-   255						 !(acr_value & PTP_ACR_ATSFC),
-   256						 10, 10000);
-   257			break;
-   258		}
-   259	
-   260		default:
-   261			break;
-   262		}
-   263	
-   264		return ret;
-   265	}
-   266	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdWwgMTEsIDIwMjUgYXQgMzowNeKAr0FNIE1heGltZSBSaXBhcmQgPG1yaXBhcmRA
+a2VybmVsLm9yZz4gd3JvdGU6Cj4gT24gVGh1LCBKdWwgMTAsIDIwMjUgYXQgMDE6NDM6MTBQTSAt
+MDQwMCwgQnJpYW4gTWFzbmV5IHdyb3RlOgo+ID4gLXN0YXRpYyBsb25nIHN1bjRpX2RjbGtfcm91
+bmRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLAo+ID4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nICpwYXJlbnRfcmF0ZSkKPiA+
+ICtzdGF0aWMgaW50IHN1bjRpX2RjbGtfZGV0ZXJtaW5lX3JhdGUoc3RydWN0IGNsa19odyAqaHcs
+Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbGtfcmF0ZV9y
+ZXF1ZXN0ICpyZXEpCj4gPiAgewo+ID4gICAgICAgc3RydWN0IHN1bjRpX2RjbGsgKmRjbGsgPSBo
+d190b19kY2xrKGh3KTsKPiA+ICAgICAgIHN0cnVjdCBzdW40aV90Y29uICp0Y29uID0gZGNsay0+
+dGNvbjsKPiA+IEBAIC03Nyw3ICs3Nyw3IEBAIHN0YXRpYyBsb25nIHN1bjRpX2RjbGtfcm91bmRf
+cmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQgbG9uZyByYXRlLAo+ID4gICAgICAgaW50
+IGk7Cj4gPgo+ID4gICAgICAgZm9yIChpID0gdGNvbi0+ZGNsa19taW5fZGl2OyBpIDw9IHRjb24t
+PmRjbGtfbWF4X2RpdjsgaSsrKSB7Cj4gPiAtICAgICAgICAgICAgIHU2NCBpZGVhbCA9ICh1NjQp
+cmF0ZSAqIGk7Cj4gPiArICAgICAgICAgICAgIHU2NCBpZGVhbCA9ICh1NjQpIHJlcS0+cmF0ZSAq
+IGk7Cj4KPiBUaGVyZSBzaG91bGRuJ3QgYmUgYW55IHNwYWNlIGFmdGVyIHRoZSBjYXN0Lgo+Cj4g
+T25jZSBmaXhlZCwKPiBBY2tlZC1ieTogTWF4aW1lIFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3Jn
+PgoKT0suIEknbSBwbGFubmluZyB0byBzdWJtaXQgYSB2MiBvZiB0aGlzIHNlcmllcyBvbiBBdWd1
+c3QgMTF0aCB3aGVuCnY2LjE3cmMxIGlzIG91dC4gVW5sZXNzIHRoZSBtYWludGFpbmVyIHRoYXQg
+cGlja3MgdXAgdGhpcyB3aG9sZSBzZXJpZXMKcGxhbnMgdG8gZHJvcCB0aGUgc3BhY2Ugb24gbWVy
+Z2UuCgpCcmlhbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
