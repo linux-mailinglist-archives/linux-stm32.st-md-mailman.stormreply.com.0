@@ -2,129 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45F1B15FBE
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E8ACB157D7
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 05:37:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FF25C3F944;
-	Wed, 30 Jul 2025 11:48:12 +0000 (UTC)
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
- [209.85.160.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C8ABC32EA8;
+	Wed, 30 Jul 2025 03:37:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 658B1C32E92
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A4F7C36B2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 22:01:48 +0000 (UTC)
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-4ab5953f5dcso58283941cf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jul 2025 15:01:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1753826507; x=1754431307;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=MWallFmHDs9ZWDkZSi+x55d0KJtII8ohAMcXEHud3xg=;
- b=dD0qO3NXpmdi/Y5ocdV6FWMO1IaAYdFOsMtBecgTzy4vnjUQ92FnaHLwnL5oE3wo9d
- KqttWHLMyZcdC4pelaR/chCRP85mt/s9LHjdglYt1dfEFA9/6oKmA/R6tWeJgr2LvZor
- SIkQYkJrLnYAfb7liyD/ElHzFtYBvrqGq29eXRQUBjnnMWmWFI8y/Gp9ou2UVOwMhFdv
- nWBPSrQRGm/C9fmokLYX7YSFCyDaAeJiyouE40YTML8jECAifmOACHHBKq04dyP4wzRW
- maCjIRe0WytwdBZwQFxvoj6BI6I1b1tSc7sYav4HxvmL6sJhQUZHdEOSuNdGTJ+3Z6Ul
- 9slw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753826507; x=1754431307;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MWallFmHDs9ZWDkZSi+x55d0KJtII8ohAMcXEHud3xg=;
- b=D6M2n96Z+w9/rvCoF2p8tZM34tsYJ6Xsn8uRQUrMnjjIz0ko4dQNcqhbEvASh+5Qod
- RUto2ThthL+lFnP5U0A2F2hY6JX50oWU0n/Nz4BwvODLt94f1hWVsjcouwZuBu9YHQAK
- rke+g0nal3/YDU4aEaARDyk7O+uoQng2UwuUOA2Bc+FUSe7Rhjj8wmTX9mxduRILGulL
- 9MUiXxyp13KqFHCE/zko6uOSHbNPcBjgfikACbPVyTIPm2eE5E+60YwLNQ6heyvtnyIy
- BiiZ3HFLrmiwDVoMBLzwrV1nZwFGNL8iNheVZr/RFPKZD4QTMh8OcXnkUx4lBCod0vum
- o9pw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVxJWvDyX0hXbrsIVhmfiVTtua07p62LscK+9SuIZ4aGNCknXYn504cuisHh0nahDA6s3VUlmidhTXniA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwkNDKvj1J5/6wg80h7aE8dxhtLJJbtG7JXq59UOfhsjlnDVk8R
- 3kBzPBHX4DCiDobkwUSbOhxejVoBowrDEDoKc/PSGt7V3bKzgRbxKc/X
-X-Gm-Gg: ASbGncvFts+je4TgwLIgdYSz1sgWro/M0i7iJkRNpDdZJW7EGi7CbzjucgLkpACIrG6
- U3FS+hPKDJqv1dfO70rZpeJvi/KmmcOL4TNJG8ZcHQFB11eMVj6p0ZzHjzjnZza6LD10Ee9Dzi7
- KFwAOqN5x/Z3Dbtgfr2dtEdh5IsRb1eJ1rZTQUk6TrWFjI8/Vaqk/Tk8FKLxLSzow2QD9gq5zMe
- 8yurg5kd0qfeJd/X0d+gRpaC1tfLzOCCxhjAFGWTb1FMmtZ8IwYox1YbCN1ZkizwswHQ+JuNKHt
- 67Txi1zxEG4xrMuykdmfKZgMyFoa9xaxmWLrsWj0Jxazmc5hQ1kdIN+fSMHQ7Ze3IVW+Ae+P7mx
- zLN/XJXc3sTbL3p9nwbBlkudzztoKNFCDLzDSRdU3RJ0ymQ68reTkDxagk291pnjZ+kzrNGw=
-X-Google-Smtp-Source: AGHT+IEvdcCG0w/+CuXlf8z4cdBDzm/VOuFAHwLTBB4uMWUEHDzTj5mE8m3z3Zn7Qfciq2gbGNvUqA==
-X-Received: by 2002:a05:622a:15d1:b0:4ab:5888:38fb with SMTP id
- d75a77b69052e-4aedbc3afb2mr21371981cf.32.1753826506905; 
- Tue, 29 Jul 2025 15:01:46 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4ae9966e30csm55570921cf.55.2025.07.29.15.01.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 15:01:45 -0700 (PDT)
-Message-ID: <5f68f153-c633-45da-96cc-113482e0b6d1@gmail.com>
-Date: Tue, 29 Jul 2025 15:01:43 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>
-References: <eaef1b1b-5366-430c-97dd-cf3b40399ac7@lunn.ch>
- <aIe5SqLITb2cfFQw@shell.armlinux.org.uk>
- <77229e46-6466-4cd4-9b3b-d76aadbe167c@foss.st.com>
- <aIiOWh7tBjlsdZgs@shell.armlinux.org.uk>
- <aIjCg_sjTOge9vd4@shell.armlinux.org.uk>
- <d300d546-09fa-4b37-b8e0-349daa0cc108@foss.st.com>
- <aIjePMWG6pEBvna6@shell.armlinux.org.uk>
- <186a2265-8ca8-4b75-b4a2-a81d21ca42eb@foss.st.com>
- <aIj4Q6WzEQkcGYVQ@shell.armlinux.org.uk>
- <b88160a5-a0b8-4a1a-a489-867b8495a88e@lunn.ch>
- <aIkQxlqmg9_EFqsI@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-Autocrypt: addr=f.fainelli@gmail.com; keydata=
- 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
- WlfRzlpjIPmdjgoicA==
-In-Reply-To: <aIkQxlqmg9_EFqsI@shell.armlinux.org.uk>
-X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Wed, 30 Jul 2025 03:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1753846648; x=1785382648;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Ymk96y7FUWnE0zbfR0VLJRsckN/JMqE00GtgLPj0qRo=;
+ b=Gw/JDC8RaTXfnUH4Ezun4dimH7LP+CS4G9GiU0/fagOpJzblHHvwcEtt
+ wd8QbiztDNBeb8VHF0dCrx9qbEKPzTKVwMAH/5a3ArOT+281KOHssqa2v
+ Se+vvBBicPl08ZDj8GTqFIii6SKvmwnGvnYvU0t2w8FNajPzXHRYq3Mvv
+ HWPJlwIcEjPHLCLs/KzcSlIWL5X1LG+sOOVYcz51tmWz/CGzTDTLTWtvn
+ 4xfHyo4wO1Zh4cc8cjT7VjmwpMjJV25S3kK+2IglMqKAw4gA8ChfIJW3N
+ PfK0p3PAadMJRnIHTphuDj0KVBdvvv35a9jTojwkKCw24ZupPu8lwVNbg A==;
+X-CSE-ConnectionGUID: 5C5cXaSwR7S/kKHJVYyfgg==
+X-CSE-MsgGUID: RtaJCd27RW2TVmsVdpcfRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11506"; a="81578763"
+X-IronPort-AV: E=Sophos;i="6.16,350,1744095600"; d="scan'208";a="81578763"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2025 20:37:26 -0700
+X-CSE-ConnectionGUID: ar/G3DOGS8uedznncdnXVw==
+X-CSE-MsgGUID: H23rFKPZQJqYSvne5Xy7JA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,350,1744095600"; d="scan'208";a="167077052"
+Received: from lkp-server01.sh.intel.com (HELO 160750d4a34c) ([10.239.97.150])
+ by orviesa003.jf.intel.com with ESMTP; 29 Jul 2025 20:37:22 -0700
+Received: from kbuild by 160750d4a34c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1ugxd1-0001y2-21;
+ Wed, 30 Jul 2025 03:37:19 +0000
+Date: Wed, 30 Jul 2025 11:36:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 6/7] net: stmmac: add helpers
- to indicate WoL enable status
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Message-ID: <202507301148.TVzOecMo-lkp@intel.com>
+References: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250729-relative_flex_pps-v2-1-3e5f03525c45@foss.st.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/2] drivers: net: stmmac:
+ handle start time set in the past for flexible PPS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,31 +73,148 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/29/25 11:19, Russell King (Oracle) wrote:
-> On Tue, Jul 29, 2025 at 07:27:11PM +0200, Andrew Lunn wrote:
->> And i did notice that the Broadcom code is the only one doing anything
->> with enable_irq_wake()/disable_irq_wake(). We need to scatter these
->> into the drivers.
-> 
-> It's better to use devm_pm_set_wake_irq() in the probe function, and
-> then let the core code (drivers/base/power/wakeup.c and
-> drivers/base/power/wakeirq.c) handle it. This is what I'm doing for
-> the rtl8211f.
-> 
-> IRQ wake gets enabled/disabled at suspend/resume time, rather than
-> when the device wakeup state changes, which I believe is what is
-> preferred.
-> 
+Hi Gatien,
 
-Sounds reasonable, I will go test that instead of doing the 
-enable_irq_wake()/disable_irq_wake() dance. Thanks!
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on fa582ca7e187a15e772e6a72fe035f649b387a60]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/drivers-net-stmmac-handle-start-time-set-in-the-past-for-flexible-PPS/20250729-225635
+base:   fa582ca7e187a15e772e6a72fe035f649b387a60
+patch link:    https://lore.kernel.org/r/20250729-relative_flex_pps-v2-1-3e5f03525c45%40foss.st.com
+patch subject: [PATCH net-next v2 1/2] drivers: net: stmmac: handle start time set in the past for flexible PPS
+config: x86_64-buildonly-randconfig-002-20250730 (https://download.01.org/0day-ci/archive/20250730/202507301148.TVzOecMo-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250730/202507301148.TVzOecMo-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202507301148.TVzOecMo-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c:177:3: warning: label followed by a declaration is a C23 extension [-Wc23-extensions]
+     177 |                 struct timespec64 curr_time;
+         |                 ^
+   1 warning generated.
+
+
+vim +177 drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+
+   163	
+   164	static int stmmac_enable(struct ptp_clock_info *ptp,
+   165				 struct ptp_clock_request *rq, int on)
+   166	{
+   167		struct stmmac_priv *priv =
+   168		    container_of(ptp, struct stmmac_priv, ptp_clock_ops);
+   169		void __iomem *ptpaddr = priv->ptpaddr;
+   170		struct stmmac_pps_cfg *cfg;
+   171		int ret = -EOPNOTSUPP;
+   172		unsigned long flags;
+   173		u32 acr_value;
+   174	
+   175		switch (rq->type) {
+   176		case PTP_CLK_REQ_PEROUT:
+ > 177			struct timespec64 curr_time;
+   178			u64 target_ns = 0;
+   179			u64 ns = 0;
+   180	
+   181			/* Reject requests with unsupported flags */
+   182			if (rq->perout.flags)
+   183				return -EOPNOTSUPP;
+   184	
+   185			cfg = &priv->pps[rq->perout.index];
+   186	
+   187			cfg->start.tv_sec = rq->perout.start.sec;
+   188			cfg->start.tv_nsec = rq->perout.start.nsec;
+   189	
+   190			/* A time set in the past won't trigger the start of the flexible PPS generation for
+   191			 * the GMAC5. For some reason it does for the GMAC4 but setting a time in the past
+   192			 * should be addressed anyway. Therefore, any value set it the past is considered as
+   193			 * an offset compared to the current MAC system time.
+   194			 * Be aware that an offset too low may not trigger flexible PPS generation
+   195			 * if time spent in this configuration makes the targeted time already outdated.
+   196			 * To address this, add a safe time offset.
+   197			 */
+   198			if (!cfg->start.tv_sec && cfg->start.tv_nsec < PTP_SAFE_TIME_OFFSET_NS)
+   199				cfg->start.tv_nsec += PTP_SAFE_TIME_OFFSET_NS;
+   200	
+   201			target_ns = cfg->start.tv_nsec + ((u64)cfg->start.tv_sec * NSEC_PER_SEC);
+   202	
+   203			stmmac_get_systime(priv, priv->ptpaddr, &ns);
+   204			if (ns > TIME64_MAX - PTP_SAFE_TIME_OFFSET_NS)
+   205				return -EINVAL;
+   206	
+   207			curr_time = ns_to_timespec64(ns);
+   208			if (target_ns < ns + PTP_SAFE_TIME_OFFSET_NS) {
+   209				cfg->start = timespec64_add_safe(cfg->start, curr_time);
+   210				if (cfg->start.tv_sec == TIME64_MAX)
+   211					return -EINVAL;
+   212			}
+   213	
+   214			cfg->period.tv_sec = rq->perout.period.sec;
+   215			cfg->period.tv_nsec = rq->perout.period.nsec;
+   216	
+   217			write_lock_irqsave(&priv->ptp_lock, flags);
+   218			ret = stmmac_flex_pps_config(priv, priv->ioaddr,
+   219						     rq->perout.index, cfg, on,
+   220						     priv->sub_second_inc,
+   221						     priv->systime_flags);
+   222			write_unlock_irqrestore(&priv->ptp_lock, flags);
+   223			break;
+   224		case PTP_CLK_REQ_EXTTS: {
+   225			u8 channel;
+   226	
+   227			mutex_lock(&priv->aux_ts_lock);
+   228			acr_value = readl(ptpaddr + PTP_ACR);
+   229			channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
+   230			acr_value &= ~PTP_ACR_MASK;
+   231	
+   232			if (on) {
+   233				if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
+   234					netdev_err(priv->dev,
+   235						   "Cannot enable auxiliary snapshot %d as auxiliary snapshot %d is already enabled",
+   236						rq->extts.index, channel);
+   237					mutex_unlock(&priv->aux_ts_lock);
+   238					return -EBUSY;
+   239				}
+   240	
+   241				priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
+   242	
+   243				/* Enable External snapshot trigger */
+   244				acr_value |= PTP_ACR_ATSEN(rq->extts.index);
+   245				acr_value |= PTP_ACR_ATSFC;
+   246			} else {
+   247				priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+   248			}
+   249			netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
+   250				   rq->extts.index, on ? "enabled" : "disabled");
+   251			writel(acr_value, ptpaddr + PTP_ACR);
+   252			mutex_unlock(&priv->aux_ts_lock);
+   253			/* wait for auxts fifo clear to finish */
+   254			ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
+   255						 !(acr_value & PTP_ACR_ATSFC),
+   256						 10, 10000);
+   257			break;
+   258		}
+   259	
+   260		default:
+   261			break;
+   262		}
+   263	
+   264		return ret;
+   265	}
+   266	
+
 -- 
-Florian
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
