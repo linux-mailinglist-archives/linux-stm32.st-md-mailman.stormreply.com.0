@@ -2,40 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08FD7B15FBF
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FFD5B15FC0
 	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFB10C3F949;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C97C7C3F94F;
 	Wed, 30 Jul 2025 11:48:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B47FBC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFAA9C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 09:34:29 +0000 (UTC)
+ Wed, 30 Jul 2025 09:34:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 19747601D5;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1788343A64;
+ Wed, 30 Jul 2025 09:34:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4047CC4CEF5;
  Wed, 30 Jul 2025 09:34:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05A0C4CEE7;
- Wed, 30 Jul 2025 09:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753868067;
- bh=CIVuQYfavwb/2ra5GsD9SGItvqbBHNthKR9qvQvzOGI=;
- h=From:Subject:Date:To:Cc:From;
- b=mn3mWr7aA9V5VQdmoPI1MDwUFqmYcbYou3spQN0mTpS2xY/Q2IAmer8ElcJzAHti+
- KDI3Je9i5rYwxmc1Uu6frvKz5aCvEdeIaJV5v0eUbJgOtZmLFLXve2bcmizzIvgMEn
- zQqsAseUiBNcc0woER4J692Ev/4bp7WTpJQJ+R/ErEE5f9CVblx7OIN1CZA/zM/LZx
- ZgtSmBLu8mJcqqTFok+wdPrjTWQ4KU23lsYRxK+U5FL/RLAIYBgwxmTvJMoFOzaETL
- y6mDyNH5gHTpUEo+vdF56kw6vXYSq/gBDMHez4n+nx7iA96Ye8h3ttmX3XshWhq+mw
- OFIlGH+1lL8JQ==
+ s=k20201202; t=1753868086;
+ bh=0jkmJjmaLP26q19mUDnS43dqbcQIG+Aa08NpifOstZ4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=TmAAKvXdDoW/CWU1bIrTKUHmmGHqTa0gGirkycgOKiG3JXRxCzMoHt4wQgCSEdVXb
+ k0ZYLvbZ1Rm7AMx287Y/rx3Xm++nXEEiO0Ym2huhAik83Lp1RDv8KzUQQJcyQmy8HK
+ ZM1ohBTvCRjQPrK7tnkcrFn9xfDjJk8lD4ut7utYa26O/JjpOeSh6Cxkj0QcLPmTTB
+ FHer34d0RC/ZQDNB4Q1ZXx/PwPZ9GsTTlMMkqM3kWuRVTZ00KEye8E6Ozt7ZVDO6L+
+ 2r+IcE5ef1D7VvGRBXVajkGwc77mBT3LUq3lgJ+TvwR7yslcDnbodWWo5EuzEocsI2
+ AqqUn5a3MGaLA==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 30 Jul 2025 11:33:27 +0200
-Message-Id: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
+Date: Wed, 30 Jul 2025 11:33:28 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAOfmiWgC/x3MTQqAIBBA4avErBO0P6mrRETpaEOkoRFBePek5
- bd474WIgTDCULwQ8KZI3mWIsgC1Lc4iI50NFa9aLkXDLn+SYvpYZouOIs7K+52QdZ1WK5emNrq
- HXJ8BDT3/eZxS+gB+aeXZaQAAAA==
-X-Change-ID: 20250714-topic-dma_genise_cookie-66dcb07f3fd9
+Message-Id: <20250730-topic-dma_genise_cookie-v1-1-b505c1238f9f@oss.qualcomm.com>
+References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
+In-Reply-To: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Sven Peter <sven@kernel.org>, 
  Janne Grunau <j@jannau.net>, Alyssa Rosenzweig <alyssa@rosenzweig.io>, 
  Neal Gompa <neal@gompa.dev>, 
@@ -84,11 +82,11 @@ To: Vinod Koul <vkoul@kernel.org>, Sven Peter <sven@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753868049; l=5799;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753868049; l=1740;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=CIVuQYfavwb/2ra5GsD9SGItvqbBHNthKR9qvQvzOGI=;
- b=va5fmQm0vcHgbpGnfydpzko+HQU0+0iHNYCXm7WHYjVRwugQO/jlg6FABqOs3xChvtQiLtHfX
- nwgfqitX8ihAL4cqD4UZZ9Xblo1yiqYPkj39iyy4q4XnXfktK7X59k3
+ bh=yNIS2ZIXL38n6NlfTncthlTW/cDDGkytjzcrGiY6noU=;
+ b=jRMGBRYh5z3VhrE2hOQ/tsahlnmmCcC5+6eD5S7UtXRq/sQbsboibgpVNMlio7nRvIevSuKgV
+ G2e4Ba2obqDAiq+P7fA3mJTvqy4/YFtc8YKHIuHXwOfKw1XAd4F1c9N
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
@@ -102,8 +100,8 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, imx@lists.linux.dev,
  linux-spi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  asahi@lists.linux.dev
-Subject: [Linux-stm32] [RFC PATCH 0/6] Allow DMA consumers to pass a cookie
- to providers' of_xlate
+Subject: [Linux-stm32] [PATCH RFC 1/6] dt-bindings: dma: qcom,
+ gpi: Retire passing the protocol ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,123 +118,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DMA subsystem attempts to make it theoretically possible to pair
-any DMA block with any user. While that's convenient from a
-codebase sanity perspective, some blocks are more intertwined.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-One such case is the Qualcomm GENI, where each wrapper contains a
-number of Serial Engine instances, each one of which can be programmed
-to support a different protocol (such as I2C, I3C, SPI, UART, etc.).
+This is a software construct that has no business being expressed in
+dt-bindings. Drivers can be constructed to retrieve the protocol ID at
+runtime or hardcode them per protocol.
 
-The GPI DMA it's designed together with, needs to receive the ID of the
-protocol that's in use, to adjust its behavior accordingly. Currently,
-that's done through passing that ID through device tree, with each
-Serial Engine expressed NUM_PROTOCOL times, resulting in terrible
-dt-bindings that are full of useless copypasta.
-
-Currently, the DT looks like:
-
-i2c@foobar {
-	compatible = "qcom,geni-i2c";
-	dmas = <&gpi_dma1 0 0 QCOM_GPI_I2C>,
-	       <&gpi_dma1 1 0 QCOM_GPI_I2C>;
-	// actual hw description
-};
-
-spi@foobar {
-        compatible = "qcom,geni-spi";
-        dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
-               <&gpi_dma1 1 1 QCOM_GPI_SPI>;
-	// actual, identical hw description
-};
-
-Which is manageable when there's two of them. Unfortunately, we're
-in the double digits range nowadays.
-
-This series attempts to cut down on that through making the last cell
-unnecessary, moving the purely-SW data that the current protocol ID is
-into the driver.
-
-The mass of_xlate signature change is a little unfortunate, let me know
-if it can be avoided somehow..
-
-Attaching the relevant dt-bindings change and converting one platform
-over as an example.
+Remove it, as a pre-requisite for further simplifying the GENI
+bindings.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-Konrad Dybcio (6):
-      dt-bindings: dma: qcom,gpi: Retire passing the protocol ID
-      dmaengine: Make of_dma_request_slave_channel pass a cookie to of_xlate
-      dmaengine: qcom: gpi: Accept protocol ID hints
-      i2c: qcom-geni: Hint GENI protocol ID to GPI DMA
-      spi: geni-qcom: Hint GENI protocol ID to GPI DMA
-      arm64: dts: qcom: x1e80100: Remove GENI protocol ID from DMA cells
+ Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
- .../devicetree/bindings/dma/qcom,gpi.yaml          |   5 +-
- arch/arm64/boot/dts/qcom/x1e80100.dtsi             | 198 ++++++++++-----------
- drivers/dma/amba-pl08x.c                           |   3 +-
- drivers/dma/apple-admac.c                          |   3 +-
- drivers/dma/at_hdmac.c                             |   6 +-
- drivers/dma/at_xdmac.c                             |   3 +-
- drivers/dma/bcm2835-dma.c                          |   3 +-
- drivers/dma/dma-jz4780.c                           |   3 +-
- drivers/dma/dmaengine.c                            |  20 ++-
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c     |   3 +-
- drivers/dma/dw/of.c                                |   3 +-
- drivers/dma/ep93xx_dma.c                           |   6 +-
- drivers/dma/fsl-edma-main.c                        |   6 +-
- drivers/dma/img-mdc-dma.c                          |   3 +-
- drivers/dma/imx-dma.c                              |   3 +-
- drivers/dma/imx-sdma.c                             |   3 +-
- drivers/dma/lgm/lgm-dma.c                          |   3 +-
- drivers/dma/milbeaut-hdmac.c                       |   4 +-
- drivers/dma/mmp_pdma.c                             |   3 +-
- drivers/dma/mmp_tdma.c                             |   3 +-
- drivers/dma/moxart-dma.c                           |   3 +-
- drivers/dma/mxs-dma.c                              |   3 +-
- drivers/dma/nbpfaxi.c                              |   3 +-
- drivers/dma/of-dma.c                               |  18 +-
- drivers/dma/owl-dma.c                              |   3 +-
- drivers/dma/pl330.c                                |   3 +-
- drivers/dma/pxa_dma.c                              |   3 +-
- drivers/dma/qcom/bam_dma.c                         |   3 +-
- drivers/dma/qcom/gpi.c                             |  16 +-
- drivers/dma/qcom/qcom_adm.c                        |   3 +-
- drivers/dma/sh/rcar-dmac.c                         |   3 +-
- drivers/dma/sh/rz-dmac.c                           |   3 +-
- drivers/dma/sh/usb-dmac.c                          |   3 +-
- drivers/dma/st_fdma.c                              |   3 +-
- drivers/dma/ste_dma40.c                            |   3 +-
- drivers/dma/stm32/stm32-dma.c                      |   3 +-
- drivers/dma/stm32/stm32-dma3.c                     |   4 +-
- drivers/dma/stm32/stm32-mdma.c                     |   3 +-
- drivers/dma/sun4i-dma.c                            |   3 +-
- drivers/dma/sun6i-dma.c                            |   3 +-
- drivers/dma/tegra186-gpc-dma.c                     |   3 +-
- drivers/dma/tegra20-apb-dma.c                      |   3 +-
- drivers/dma/tegra210-adma.c                        |   3 +-
- drivers/dma/ti/cppi41.c                            |   3 +-
- drivers/dma/ti/edma.c                              |   3 +-
- drivers/dma/ti/k3-udma.c                           |   3 +-
- drivers/dma/uniphier-xdmac.c                       |   3 +-
- drivers/dma/xilinx/xilinx_dma.c                    |   3 +-
- drivers/dma/xilinx/xilinx_dpdma.c                  |   3 +-
- drivers/dma/xilinx/zynqmp_dma.c                    |   3 +-
- drivers/i2c/busses/i2c-qcom-geni.c                 |   4 +-
- drivers/spi/spi-geni-qcom.c                        |   4 +-
- include/linux/dmaengine.h                          |   7 +
- include/linux/of_dma.h                             |  16 +-
- sound/soc/apple/mca.c                              |   2 +-
- sound/soc/renesas/rcar/dma.c                       |   2 +-
- 56 files changed, 261 insertions(+), 177 deletions(-)
----
-base-commit: 79fb37f39b77bbf9a56304e9af843cd93a7a1916
-change-id: 20250714-topic-dma_genise_cookie-66dcb07f3fd9
+diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+index bbe4da2a11054f0d272017ddf5d5f7e47cf7a443..745613b93b210afd38946030f7477e91e08c907a 100644
+--- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
++++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+@@ -61,14 +61,13 @@ properties:
+     maxItems: 13
+ 
+   "#dma-cells":
+-    const: 3
++    const: 2
+     description: >
+       DMA clients must use the format described in dma.txt, giving a phandle
+       to the DMA controller plus the following 3 integer cells:
+       - channel: if set to 0xffffffff, any available channel will be allocated
+         for the client. Otherwise, the exact channel specified will be used.
+       - seid: serial id of the client as defined in the SoC documentation.
+-      - client: type of the client as defined in dt-bindings/dma/qcom-gpi.h
+ 
+   iommus:
+     maxItems: 1
+@@ -98,7 +97,7 @@ examples:
+     #include <dt-bindings/dma/qcom-gpi.h>
+     gpi_dma0: dma-controller@800000 {
+         compatible = "qcom,sdm845-gpi-dma";
+-        #dma-cells = <3>;
++        #dma-cells = <2>;
+         reg = <0x00800000 0x60000>;
+         iommus = <&apps_smmu 0x0016 0x0>;
+         dma-channels = <13>;
 
-Best regards,
 -- 
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+2.50.1
 
 _______________________________________________
 Linux-stm32 mailing list
