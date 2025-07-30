@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5554FB15FC2
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBA43B15FC3
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jul 2025 13:48:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E6BBC3F92E;
-	Wed, 30 Jul 2025 11:48:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 755BBC3F92E;
+	Wed, 30 Jul 2025 11:48:22 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FC6BC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AD6BC36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jul 2025 09:35:22 +0000 (UTC)
+ Wed, 30 Jul 2025 09:35:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 61E4044987;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4673B5C5A05;
+ Wed, 30 Jul 2025 09:35:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B07B0C4CEF6;
  Wed, 30 Jul 2025 09:35:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26518C4CEFA;
- Wed, 30 Jul 2025 09:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1753868121;
- bh=aA06HY/lOSd3mPr1XSqrpLr6Pd2WiKly7Q4jhNILr0k=;
+ s=k20201202; t=1753868137;
+ bh=gPmFOCUj56gB0mgUUsKxqdENITaoV8SNoAcVzVDUVXQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=X20Qu+oAGYALAZW8LlI1Jp8MQCufmMbh8UsHOAntPiRCfIo1vVPagWzlUeHRzM2ib
- jT+xdrw78SNuwjwUb32cbcH3mgxpAoXOZ4Zg1j7NWUooGA/ZzGBOiH9W1L4GWjRWFE
- B/+oPbMaoJ/wt9VhCc9QhlTLuuet2qAKY9aLNueH8qcl65h6W6ooJqVilX5yoB1mc8
- zFhYhT2q7996B2D9NvA675YD22D615U/u5YdtI7LVxBEYGg2dY0FpjSl9cAboL4RVk
- 4+8DZ3a/6AahKCAFKmzPsmsdjdV/g3ZCQmkNFHI+3Z7iMJIgQJNyHvl7PPoaU4c/bH
- BKWc4j/OR9R6Q==
+ b=gUey1daysHX4CjFYuMEGjnbmPolvDXae9NnSIwYiFjcedOZLw+Z1H91EszY3i9Bc+
+ RQb/4FH768f4vRWIXstiydvBg+lsjMHIYvVN+AQ0Luf2kvzaT/+ifGBQ7GjMRHFqct
+ tLb1O8mFe9RIBntuWpGyZY+EnmBlnKZdEPAXnHzfDreCdthUu7eGCtl3xQ1/l1Kxe5
+ AYTdZjvbTKquJpRVroXwWZ5ko5AHCLbaAde97Nidc33PwK9Cmfdm7LwL1SMxNmoOhU
+ UCe10rrtQlM4Jt4MzH4+scSeEZXRR7w5bPsNNJosKHQPaDrtTYSR9/fDH1RhxNM6ij
+ rZmNU67Z9qVvw==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Wed, 30 Jul 2025 11:33:30 +0200
+Date: Wed, 30 Jul 2025 11:33:31 +0200
 MIME-Version: 1.0
-Message-Id: <20250730-topic-dma_genise_cookie-v1-3-b505c1238f9f@oss.qualcomm.com>
+Message-Id: <20250730-topic-dma_genise_cookie-v1-4-b505c1238f9f@oss.qualcomm.com>
 References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
 In-Reply-To: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Sven Peter <sven@kernel.org>, 
@@ -82,11 +82,11 @@ To: Vinod Koul <vkoul@kernel.org>, Sven Peter <sven@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1753868049; l=2282;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1753868049; l=1290;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=hT9/eTcrm4TFika8xoyExyqhdwm/y3dhh9PjlVi8zDo=;
- b=rFCrLSTCp6a2Uf6sMUaFPcqvBgaQoklHtJ66/j+p46U6SPZphS90PFnkwzDJjknQfkSaPRA61
- hdswKqRCxQHBYk8hSzo3z4zQMrQXXMGPR2fTI1C8CqBTvD4QZfE497x
+ bh=I3VYNNnaYUUJT+yNxJu2LDKZ0p5QFLebL1fPwM6iQcU=;
+ b=r8aKTBYPiwfltdkmnV7Jw0zxdzT1E+Hq8RSvGglxlhd/28VcOh7CqbzzK2Fs5vifRSyZ6bAiZ
+ 4ZgyjRNT4cvDIvkGt7EnjNhvpWuKR/4k4cVpRwSghCBSCh7hc6aFGyn
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-Mailman-Approved-At: Wed, 30 Jul 2025 11:48:10 +0000
@@ -100,8 +100,8 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, imx@lists.linux.dev,
  linux-spi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  asahi@lists.linux.dev
-Subject: [Linux-stm32] [PATCH RFC 3/6] dmaengine: qcom: gpi: Accept protocol
-	ID hints
+Subject: [Linux-stm32] [PATCH RFC 4/6] i2c: qcom-geni: Hint GENI protocol ID
+	to GPI DMA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,68 +120,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Client drivers may now pass hints to dmaengine drivers. GPI DMA's only
-consumers (GENI SEs) need to pass a protocol (I2C, I3C, SPI, etc.) ID
-to the DMA engine driver, for it to take different actions.
-
-Currently, that's done through passing that ID through device tree,
-with each Serial Engine expressed NUM_PROTOCOL times, resulting in
-terrible dt-bindings that are full of useless copypasta.
-
-To help get rid of that, accept the driver cookie instead, while
-keeping backwards compatibility.
+With the API in place, request the correct protocol ID with the GPI DMA
+to avoid having to hardcode this obvious information in the device
+tree.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/dma/qcom/gpi.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/i2c/busses/i2c-qcom-geni.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-index 51d19494099dae09f4579ba8c3eddfa0487bf487..de9e564dc21b2230c9446dfb881135003721a750 100644
---- a/drivers/dma/qcom/gpi.c
-+++ b/drivers/dma/qcom/gpi.c
-@@ -17,6 +17,8 @@
- #include "../dmaengine.h"
- #include "../virt-dma.h"
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+index ff2289b52c84ccf9ef786c2618bd869453c5f611..4c702ee728d6cc9282688bc278bd401f3de3266a 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -754,14 +754,14 @@ static int setup_gpi_dma(struct geni_i2c_dev *gi2c)
+ 	int ret;
  
-+#include <linux/soc/qcom/geni-se.h>
-+
- #define TRE_TYPE_DMA		0x10
- #define TRE_TYPE_IMMEDIATE_DMA	0x11
- #define TRE_TYPE_GO		0x20
-@@ -2109,15 +2111,19 @@ static int gpi_find_avail_gpii(struct gpi_dev *gpi_dev, u32 seid)
- /* gpi_of_dma_xlate: open client requested channel */
- static struct dma_chan *gpi_of_dma_xlate(struct of_phandle_args *args,
- 					 struct of_dma *of_dma,
--					 void *data)
-+					 void *proto)
- {
- 	struct gpi_dev *gpi_dev = (struct gpi_dev *)of_dma->of_dma_data;
- 	u32 seid, chid;
- 	int gpii;
- 	struct gchan *gchan;
- 
--	if (args->args_count < 3) {
--		dev_err(gpi_dev->dev, "gpii require minimum 2 args, client passed:%d args\n",
-+	/* The protocol ID has been historically stored in the third cell */
-+	if (!proto && args->args_count < 3)
-+		return NULL;
-+
-+	if (args->args_count < 2) {
-+		dev_err(gpi_dev->dev, "gpii requires minimum 2 args, client passed:%d args\n",
- 			args->args_count);
- 		return NULL;
- 	}
-@@ -2145,7 +2151,8 @@ static struct dma_chan *gpi_of_dma_xlate(struct of_phandle_args *args,
+ 	geni_se_select_mode(&gi2c->se, GENI_GPI_DMA);
+-	gi2c->tx_c = dma_request_chan(gi2c->se.dev, "tx");
++	gi2c->tx_c = dma_request_chan_w_data(gi2c->se.dev, "tx", (void *)GENI_SE_I2C);
+ 	if (IS_ERR(gi2c->tx_c)) {
+ 		ret = dev_err_probe(gi2c->se.dev, PTR_ERR(gi2c->tx_c),
+ 				    "Failed to get tx DMA ch\n");
+ 		goto err_tx;
  	}
  
- 	gchan->seid = seid;
--	gchan->protocol = args->args[2];
-+	/* The protocol ID is in the teens range, simply ignore the higher bits */
-+	gchan->protocol = (u32)((u64)proto);
- 
- 	return dma_get_slave_channel(&gchan->vc.chan);
- }
+-	gi2c->rx_c = dma_request_chan(gi2c->se.dev, "rx");
++	gi2c->rx_c = dma_request_chan_w_data(gi2c->se.dev, "rx", (void *)GENI_SE_I2C);
+ 	if (IS_ERR(gi2c->rx_c)) {
+ 		ret = dev_err_probe(gi2c->se.dev, PTR_ERR(gi2c->rx_c),
+ 				    "Failed to get rx DMA ch\n");
 
 -- 
 2.50.1
