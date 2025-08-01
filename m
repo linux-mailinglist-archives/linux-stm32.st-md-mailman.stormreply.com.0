@@ -2,91 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE09B18163
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Aug 2025 14:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5321B19C0F
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3F37C36B14;
-	Fri,  1 Aug 2025 12:00:20 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86B0FC32E8E;
+	Mon,  4 Aug 2025 07:16:22 +0000 (UTC)
+Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com
+ [91.218.175.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52F1EC36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D79E2C36B14
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Aug 2025 12:00:19 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 3245AB5;
- Fri,  1 Aug 2025 13:59:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754049572;
- bh=EZzubd/xjF898M9Natt5msPracSUglnvBpuGxbey28Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=csSEQphShVW12KdVnTQnQgd8x4xM5grcNqKzGR+ppmLQ+JFyJUCU+zHhmagy7Z3hm
- NpCO8zEN1Kn5Zp/oSyG4PzbGQc9rVQYUc8NxohQ878NFh/I5Zywoz5Hp+ONwmSSZpf
- yJq8N7gHMTda3o4TRvZBBaBio2AAjXuKtD0aWOu0=
-Date: Fri, 1 Aug 2025 15:00:07 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank Li <Frank.li@nxp.com>
-Message-ID: <20250801120007.GB4906@pendragon.ideasonboard.com>
-References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
- <20250730-topic-dma_genise_cookie-v1-2-b505c1238f9f@oss.qualcomm.com>
- <aIpKz495WI1SJTeB@lizhi-Precision-Tower-5810>
- <20250730180417.GC21430@pendragon.ideasonboard.com>
- <aIpmgpXME1BmThxU@lizhi-Precision-Tower-5810>
+ Fri,  1 Aug 2025 21:21:38 +0000 (UTC)
+Message-ID: <12e12833-3c0f-4bf2-a758-25275b48ce0b@postmarketos.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+ s=key1; t=1754083298;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hLPwcuI4ugiXwkjg0rvMLapTACGRc+nL6mhp+Zi3zRs=;
+ b=eBXMmg4IgNgYoxpUUhPyxeDjTZe055ln/0r8qfcr287bdmPA5gekrn5JjOHhNCuuawYgHR
+ +StGYDtgs7Mr08wWH4ECB/dbGugeuY5X72izeu+wci++KnIPTyhr6PmqEF0k5I1Q9qmzUa
+ 2r9eZCmuwmylDeRoXBHBNH3L6+gHjL2Q5WcTLnQSRUxRkoGNFD8lN9p2qkUp4K4RE017fw
+ n6HqQgZr61p7zrxfr6LXZHOdOrGOQ4xNGKUauAc+Fc2476CFwlDx/twnh+hkurcOup/U7f
+ RowjwMIw7YN76ZCXEG2QWilNFMDFHNadC62R/vqqAsIzMsKjQxD3H/vyD0tegQ==
+Date: Fri, 1 Aug 2025 14:21:33 -0700
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aIpmgpXME1BmThxU@lizhi-Precision-Tower-5810>
-Cc: imx@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>,
- Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Paul Cercueil <paul@crapouillou.net>,
- Laxman Dewangan <ldewangan@nvidia.com>, linux-i2c@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, linux-spi@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Samuel Holland <samuel@sholland.org>, Janne Grunau <j@jannau.net>,
- Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-arm-msm@vger.kernel.org,
- Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
- linux-mips@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- asahi@lists.linux.dev, Viken Dadhaniya <quic_vdadhani@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+To: Sergey Larin <cerg2010cerg2010@mail.ru>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- Sven Peter <sven@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Saravana Kannan <saravanak@google.com>, Scott Branden <sbranden@broadcom.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>, linux-sound@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Takao Orito <orito.takao@socionext.com>, dmaengine@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Neal Gompa <neal@gompa.dev>,
- Shawn Guo <shawnguo@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [Linux-stm32] [PATCH RFC 2/6] dmaengine: Make
- of_dma_request_slave_channel pass a cookie to of_xlate
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20210618145149.10136-1-cerg2010cerg2010@mail.ru>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Paul Sajna <sajattack@postmarketos.org>
+In-Reply-To: <20210618145149.10136-1-cerg2010cerg2010@mail.ru>
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:20 +0000
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] Input: stmpe-keypad - add STMPE1801
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,253 +56,236 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Frank,
+I've been heavily testing and relying on this patch for part of a 
+device-specific-port to BlackBerry KEY2. This patch works great. I hope 
+to submit my changes upstream when they are ready. Please let me know if 
+there's anything I can do to help move this patch forward.
 
-On Wed, Jul 30, 2025 at 02:37:54PM -0400, Frank Li wrote:
-> On Wed, Jul 30, 2025 at 09:04:17PM +0300, Laurent Pinchart wrote:
-> > On Wed, Jul 30, 2025 at 12:39:43PM -0400, Frank Li wrote:
-> > > On Wed, Jul 30, 2025 at 11:33:29AM +0200, Konrad Dybcio wrote:
-> > > > From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > >
-> > > > The DMA subsystem attempts to make it theoretically possible to pair
-> > > > any DMA block with any user. While that's convenient from a
-> > > > codebase sanity perspective, some blocks are more intertwined.
-> > > >
-> > > > One such case is the Qualcomm GENI, where each wrapper contains a
-> > > > number of Serial Engine instances, each one of which can be programmed
-> > > > to support a different protocol (such as I2C, I3C, SPI, UART, etc.).
-> > > >
-> > > > The GPI DMA it's designed together with, needs to receive the ID of the
-> > > > protocol that's in use, to adjust its behavior accordingly. Currently,
-> > > > that's done through passing that ID through device tree, with each
-> > > > Serial Engine expressed NUM_PROTOCOL times, resulting in terrible
-> > > > dt-bindings that are full of useless copypasta.
-> > > >
-> > > > In a step to cut down on that, let the DMA user give the engine driver
-> > > > a hint at request time.
-> > > >
-> > > > Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > > ---
-> > > >  drivers/dma/amba-pl08x.c                       |  3 ++-
-> > > >  drivers/dma/apple-admac.c                      |  3 ++-
-> > > >  drivers/dma/at_hdmac.c                         |  6 ++++--
-> > > >  drivers/dma/at_xdmac.c                         |  3 ++-
-> > > >  drivers/dma/bcm2835-dma.c                      |  3 ++-
-> > > >  drivers/dma/dma-jz4780.c                       |  3 ++-
-> > > >  drivers/dma/dmaengine.c                        | 20 +++++++++++++++++---
-> > > >  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c |  3 ++-
-> > > >  drivers/dma/dw/of.c                            |  3 ++-
-> > > >  drivers/dma/ep93xx_dma.c                       |  6 ++++--
-> > > >  drivers/dma/fsl-edma-main.c                    |  6 ++++--
-> > > >  drivers/dma/img-mdc-dma.c                      |  3 ++-
-> > > >  drivers/dma/imx-dma.c                          |  3 ++-
-> > > >  drivers/dma/imx-sdma.c                         |  3 ++-
-> > > >  drivers/dma/lgm/lgm-dma.c                      |  3 ++-
-> > > >  drivers/dma/milbeaut-hdmac.c                   |  4 +++-
-> > > >  drivers/dma/mmp_pdma.c                         |  3 ++-
-> > > >  drivers/dma/mmp_tdma.c                         |  3 ++-
-> > > >  drivers/dma/moxart-dma.c                       |  3 ++-
-> > > >  drivers/dma/mxs-dma.c                          |  3 ++-
-> > > >  drivers/dma/nbpfaxi.c                          |  3 ++-
-> > > >  drivers/dma/of-dma.c                           | 18 +++++++++++-------
-> > > >  drivers/dma/owl-dma.c                          |  3 ++-
-> > > >  drivers/dma/pl330.c                            |  3 ++-
-> > > >  drivers/dma/pxa_dma.c                          |  3 ++-
-> > > >  drivers/dma/qcom/bam_dma.c                     |  3 ++-
-> > > >  drivers/dma/qcom/gpi.c                         |  3 ++-
-> > > >  drivers/dma/qcom/qcom_adm.c                    |  3 ++-
-> > > >  drivers/dma/sh/rcar-dmac.c                     |  3 ++-
-> > > >  drivers/dma/sh/rz-dmac.c                       |  3 ++-
-> > > >  drivers/dma/sh/usb-dmac.c                      |  3 ++-
-> > > >  drivers/dma/st_fdma.c                          |  3 ++-
-> > > >  drivers/dma/ste_dma40.c                        |  3 ++-
-> > > >  drivers/dma/stm32/stm32-dma.c                  |  3 ++-
-> > > >  drivers/dma/stm32/stm32-dma3.c                 |  4 +++-
-> > > >  drivers/dma/stm32/stm32-mdma.c                 |  3 ++-
-> > > >  drivers/dma/sun4i-dma.c                        |  3 ++-
-> > > >  drivers/dma/sun6i-dma.c                        |  3 ++-
-> > > >  drivers/dma/tegra186-gpc-dma.c                 |  3 ++-
-> > > >  drivers/dma/tegra20-apb-dma.c                  |  3 ++-
-> > > >  drivers/dma/tegra210-adma.c                    |  3 ++-
-> > > >  drivers/dma/ti/cppi41.c                        |  3 ++-
-> > > >  drivers/dma/ti/edma.c                          |  3 ++-
-> > > >  drivers/dma/ti/k3-udma.c                       |  3 ++-
-> > > >  drivers/dma/uniphier-xdmac.c                   |  3 ++-
-> > > >  drivers/dma/xilinx/xilinx_dma.c                |  3 ++-
-> > > >  drivers/dma/xilinx/xilinx_dpdma.c              |  3 ++-
-> > > >  drivers/dma/xilinx/zynqmp_dma.c                |  3 ++-
-> > > >  include/linux/dmaengine.h                      |  7 +++++++
-> > > >  include/linux/of_dma.h                         | 16 +++++++++-------
-> > > >  sound/soc/apple/mca.c                          |  2 +-
-> > > >  sound/soc/renesas/rcar/dma.c                   |  2 +-
-> > > >  52 files changed, 146 insertions(+), 68 deletions(-)
-> > > >
-> > > > diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
-> > >
-> > > ...
-> > >
-> > > >  						const char *name)
-> > > >  {
-> > > > diff --git a/include/linux/of_dma.h b/include/linux/of_dma.h
-> > > > index fd706cdf255c61c82ce30ef9a2c44930bef34bc8..9f9bc4207b85d48d73c25aad4b362e7c84c01756 100644
-> > > > --- a/include/linux/of_dma.h
-> > > > +++ b/include/linux/of_dma.h
-> > > > @@ -19,7 +19,7 @@ struct of_dma {
-> > > >  	struct list_head	of_dma_controllers;
-> > > >  	struct device_node	*of_node;
-> > > >  	struct dma_chan		*(*of_dma_xlate)
-> > > > -				(struct of_phandle_args *, struct of_dma *);
-> > > > +				(struct of_phandle_args *, struct of_dma *, void *);
-> > >
-> > > I suggest pass down more informaiton, like client's dev point. So we can
-> > > auto create device link between client's dev and dma chan's device.
-> >
-> > Is .of_dma_xlate() really the right place to do that ? If you want to
-> > create a device link for PM reasons, isn't it better created when the
-> > channel is requested ? It should also be removed when the channel is
-> > freed.
-> 
-> I remember just need record client device pointer here.
-> 
-> > >
-> > > DMA Engineer device
-> > >    DMA chan device
-> > >        consumer clients' device.
-> > >
-> > > If consumer device runtime pm suspend can auto trigger DMA chan's device's
-> > > runtime pm function.
-> > >
-> > > It will simplifly DMA engine's run time pm manage. Currently many DMA run
-> > > time pm implement as, runtime_pm_get() when alloc and runtime_pm_put() at
-> > > free channel.  But many devices request dma channel at probe, which make
-> > > dma engine work at always 'on' state.
-> > >
-> > > But ideally, dma chan should be resume only when it is used to transfer.
-> >
-> > This is exactly what I was going to mention after reading the last
-> > paragraph. Is there anything that prevents a DMA engine driver to
-> > perform a rutime PM get() when a transfer is submitted
-> 
-> DMA description is a queue, It is hard to track each descriptor submit and
-> finished. espcially cycle buffer case.
-> 
-> And according to dma engine API defination, submit a descriptor not
-> neccessary to turn on clock, maybe just pure software operation, such as
-> enqueue it to a software list.
-> 
-> Many driver call dmaengine_submit() in irq context,  submit new descriptor
-> when previous descriptor finished. runtime_pm_get() can NOT be called in
-> atomic context.
-> 
-> And some driver submit many descripor advance. Only issue_transfer() is
-> actually trigger hardware to start transfer.
-> 
-> Some client use cycle descripor, such audio devices.  Some audio devices
-> have not free descriptor at their run time suspend function, just disable
-> audio devices's clocks.  Audio devices run time suspend, which means no
-> one use this dma channel, dma channel can auto suspend if built device link
-> between audio device and dma chan devices.
-> 
-> Some DMA client have not devices, such as memory to memory. for this kind
-> case, it need keep chan always on.
-> 
-> issue_transfer() can be call in atomic context. but trigger hardware transfer
-> need clock and runtime_pm_get() can't be called in atomic context.
-> 
-> Most case issue_transfer() is call in irq handle, which means device should
-> already be in runtime resume statue.  DMA engine can safely access their
-> register if using device link.
+https://github.com/sdm660-mainline/linux/pull/97
 
-You have good points there, in particular the fact the issue_transfer()
-can be called in interrupt context.
-
-For me this calls for new DMA engine operations to "start/stop" the DMA
-engine (better names are likely needed) from a client perspective.
-
-> > and a put() when
-> > it completes ? (Logically speaking, the actual implementation would
-> > likely be a bit different in drivers, but the result would be similar.)
-> >
-> > > >  	void			*(*of_dma_route_allocate)
-> > > >  				(struct of_phandle_args *, struct of_dma *);
-> > > >  	struct dma_router	*dma_router;
-> > > > @@ -34,7 +34,7 @@ struct of_dma_filter_info {
-> > > >  #ifdef CONFIG_DMA_OF
-> > > >  extern int of_dma_controller_register(struct device_node *np,
-> > > >  		struct dma_chan *(*of_dma_xlate)
-> > > > -		(struct of_phandle_args *, struct of_dma *),
-> > > > +		(struct of_phandle_args *, struct of_dma *, void *),
-> > > >  		void *data);
-> > > >  extern void of_dma_controller_free(struct device_node *np);
-> > > >
-> > > > @@ -45,16 +45,17 @@ extern int of_dma_router_register(struct device_node *np,
-> > > >  #define of_dma_router_free of_dma_controller_free
-> > > >
-> > > >  extern struct dma_chan *of_dma_request_slave_channel(struct device_node *np,
-> > > > -						     const char *name);
-> > > > +						     const char *name,
-> > > > +						     void *data);
-> > > >  extern struct dma_chan *of_dma_simple_xlate(struct of_phandle_args *dma_spec,
-> > > > -		struct of_dma *ofdma);
-> > > > +		struct of_dma *ofdma, void *data);
-> > > >  extern struct dma_chan *of_dma_xlate_by_chan_id(struct of_phandle_args *dma_spec,
-> > > > -		struct of_dma *ofdma);
-> > > > +		struct of_dma *ofdma, void *data);
-> > > >
-> > > >  #else
-> > > >  static inline int of_dma_controller_register(struct device_node *np,
-> > > >  		struct dma_chan *(*of_dma_xlate)
-> > > > -		(struct of_phandle_args *, struct of_dma *),
-> > > > +		(struct of_phandle_args *, struct of_dma *, void *),
-> > > >  		void *data)
-> > > >  {
-> > > >  	return -ENODEV;
-> > > > @@ -75,7 +76,8 @@ static inline int of_dma_router_register(struct device_node *np,
-> > > >  #define of_dma_router_free of_dma_controller_free
-> > > >
-> > > >  static inline struct dma_chan *of_dma_request_slave_channel(struct device_node *np,
-> > > > -						     const char *name)
-> > > > +							    const char *name,
-> > > > +							    void *data)
-> > > >  {
-> > > >  	return ERR_PTR(-ENODEV);
-> > > >  }
-> > > > diff --git a/sound/soc/apple/mca.c b/sound/soc/apple/mca.c
-> > > > index 5dd24ab90d0f052bb48f451cf009dc2e9128014d..43d48e4ac8161ee9955120fe64f7b911bfdfe1ca 100644
-> > > > --- a/sound/soc/apple/mca.c
-> > > > +++ b/sound/soc/apple/mca.c
-> > > > @@ -926,7 +926,7 @@ static struct dma_chan *mca_request_dma_channel(struct mca_cluster *cl, unsigned
-> > > >  	char *name = devm_kasprintf(cl->host->dev, GFP_KERNEL,
-> > > >  				    is_tx ? "tx%da" : "rx%db", cl->no);
-> > > >  #endif
-> > > > -	return of_dma_request_slave_channel(cl->host->dev->of_node, name);
-> > > > +	return of_dma_request_slave_channel(cl->host->dev->of_node, name, NULL);
-> > > >
-> > > >  }
-> > > >
-> > > > diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> > > > index 2035ce06fe4c4aeaa8620d817910a5319732fa58..dcbff2fc61a0472adea226371016a128563b3cd0 100644
-> > > > --- a/sound/soc/renesas/rcar/dma.c
-> > > > +++ b/sound/soc/renesas/rcar/dma.c
-> > > > @@ -204,7 +204,7 @@ struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node, char *nam
-> > > >  		}
-> > > >
-> > > >  		if (i == rsnd_mod_id_raw(mod) && (!chan))
-> > > > -			chan = of_dma_request_slave_channel(np, x);
-> > > > +			chan = of_dma_request_slave_channel(np, x, NULL);
-> > > >  		i++;
-> > > >  	}
-> > > >
-
--- 
-Regards,
-
-Laurent Pinchart
+On 6/18/21 7:51 AM, Sergey Larin wrote:
+> This chip variant differs from others - it has different register
+> map and swapped rows/columns.
+>
+> Signed-off-by: Sergey Larin <cerg2010cerg2010@mail.ru>
+> ---
+>   drivers/input/keyboard/stmpe-keypad.c | 108 ++++++++++++++++++++------
+>   1 file changed, 85 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/input/keyboard/stmpe-keypad.c b/drivers/input/keyboard/stmpe-keypad.c
+> index 7bf97285e30c..ed74578927a3 100644
+> --- a/drivers/input/keyboard/stmpe-keypad.c
+> +++ b/drivers/input/keyboard/stmpe-keypad.c
+> @@ -13,7 +13,7 @@
+>   #include <linux/input/matrix_keypad.h>
+>   #include <linux/mfd/stmpe.h>
+>   
+> -/* These are at the same addresses in all STMPE variants */
+> +/* These are at the same addresses in all STMPE variants, except 1801 */
+>   #define STMPE_KPC_COL			0x60
+>   #define STMPE_KPC_ROW_MSB		0x61
+>   #define STMPE_KPC_ROW_LSB		0x62
+> @@ -42,14 +42,15 @@
+>   #define STMPE_KEYPAD_MAX_DEBOUNCE	127
+>   #define STMPE_KEYPAD_MAX_SCAN_COUNT	15
+>   
+> -#define STMPE_KEYPAD_MAX_ROWS		8
+> -#define STMPE_KEYPAD_MAX_COLS		8
+> +#define STMPE_KEYPAD_MAX_ROWS		10
+> +#define STMPE_KEYPAD_MAX_COLS		12
+>   #define STMPE_KEYPAD_ROW_SHIFT		3
+>   #define STMPE_KEYPAD_KEYMAP_MAX_SIZE \
+>   	(STMPE_KEYPAD_MAX_ROWS * STMPE_KEYPAD_MAX_COLS)
+>   
+>   
+>   #define STMPE1601_NUM_DATA	5
+> +#define STMPE1801_NUM_DATA	5
+>   #define STMPE2401_NUM_DATA	3
+>   #define STMPE2403_NUM_DATA	5
+>   
+> @@ -67,6 +68,12 @@
+>    * @max_rows: maximum number of rows supported
+>    * @col_gpios: bitmask of gpios which can be used for columns
+>    * @row_gpios: bitmask of gpios which can be used for rows
+> + * @col_regs: registers for setting column pins
+> + * @row_regs: registers for setting row pins
+> + * @data_regs: registers for reading key data
+> + * @ctrl_msb_reg: register for setting scan count
+> + * @ctrl_lsb_reg: register for setting debounce time
+> + * @cmd_reg: register for toggling scan mode
+>    */
+>   struct stmpe_keypad_variant {
+>   	bool		auto_increment;
+> @@ -77,6 +84,18 @@ struct stmpe_keypad_variant {
+>   	int		max_rows;
+>   	unsigned int	col_gpios;
+>   	unsigned int	row_gpios;
+> +
+> +#define MAX_COL_REGS 3
+> +#define MAX_ROW_REGS 3
+> +#define MAX_DATA_REGS 5
+> +
+> +	u8 col_regs[MAX_COL_REGS];
+> +	u8 row_regs[MAX_ROW_REGS];
+> +	u8 data_regs[MAX_DATA_REGS];
+> +	u8 ctrl_msb_reg;
+> +	u8 ctrl_lsb_reg;
+> +	u8 cmd_reg;
+> +	bool read_inverted;
+>   };
+>   
+>   static const struct stmpe_keypad_variant stmpe_keypad_variants[] = {
+> @@ -88,6 +107,29 @@ static const struct stmpe_keypad_variant stmpe_keypad_variants[] = {
+>   		.max_rows		= 8,
+>   		.col_gpios		= 0x000ff,	/* GPIO 0 - 7 */
+>   		.row_gpios		= 0x0ff00,	/* GPIO 8 - 15 */
+> +		.col_regs		= { 0x60 },
+> +		.row_regs		= { 0x62, 0x61 },
+> +		.data_regs		= { 0x68, 0x69, 0x6a, 0x6b, 0x6c },
+> +		.ctrl_msb_reg		= 0x63,
+> +		.ctrl_lsb_reg		= 0x64,
+> +		.cmd_reg		= 0x64,
+> +		.read_inverted		= 0,
+> +	},
+> +	[STMPE1801] = {
+> +		.auto_increment		= true,
+> +		.num_data		= STMPE1801_NUM_DATA,
+> +		.num_normal_data	= 3,
+> +		.max_cols		= 10,
+> +		.max_rows		= 8,
+> +		.col_gpios		= 0x3ff00,	/* GPIO 8 - 17 */
+> +		.row_gpios		= 0x000ff,	/* GPIO 0 - 7 */
+> +		.col_regs		= { 0x31, 0x32 },
+> +		.row_regs		= { 0x30 },
+> +		.data_regs		= { 0x3a, 0x3b, 0x3c, 0x3d, 0x3e },
+> +		.ctrl_msb_reg		= 0x33,
+> +		.ctrl_lsb_reg		= 0x34,
+> +		.cmd_reg		= 0x36,
+> +		.read_inverted		= 1,
+>   	},
+>   	[STMPE2401] = {
+>   		.auto_increment		= false,
+> @@ -98,6 +140,13 @@ static const struct stmpe_keypad_variant stmpe_keypad_variants[] = {
+>   		.max_rows		= 12,
+>   		.col_gpios		= 0x0000ff,	/* GPIO 0 - 7*/
+>   		.row_gpios		= 0x1f7f00,	/* GPIO 8-14, 16-20 */
+> +		.col_regs		= { 0x60 },
+> +		.row_regs		= { 0x62, 0x61 },
+> +		.data_regs		= { 0x68, 0x69, 0x6a, 0x6b, 0x6c },
+> +		.ctrl_msb_reg		= 0x63,
+> +		.ctrl_lsb_reg		= 0x64,
+> +		.cmd_reg		= 0x64,
+> +		.read_inverted		= 0,
+>   	},
+>   	[STMPE2403] = {
+>   		.auto_increment		= true,
+> @@ -108,6 +157,13 @@ static const struct stmpe_keypad_variant stmpe_keypad_variants[] = {
+>   		.max_rows		= 12,
+>   		.col_gpios		= 0x0000ff,	/* GPIO 0 - 7*/
+>   		.row_gpios		= 0x1fef00,	/* GPIO 8-14, 16-20 */
+> +		.col_regs		= { 0x60 },
+> +		.row_regs		= { 0x62, 0x61 },
+> +		.data_regs		= { 0x68, 0x69, 0x6a, 0x6b, 0x6c },
+> +		.ctrl_msb_reg		= 0x63,
+> +		.ctrl_lsb_reg		= 0x64,
+> +		.cmd_reg		= 0x64,
+> +		.read_inverted		= 0,
+>   	},
+>   };
+>   
+> @@ -145,11 +201,11 @@ static int stmpe_keypad_read_data(struct stmpe_keypad *keypad, u8 *data)
+>   	int i;
+>   
+>   	if (variant->auto_increment)
+> -		return stmpe_block_read(stmpe, STMPE_KPC_DATA_BYTE0,
+> +		return stmpe_block_read(stmpe, variant->data_regs[0],
+>   					variant->num_data, data);
+>   
+>   	for (i = 0; i < variant->num_data; i++) {
+> -		ret = stmpe_reg_read(stmpe, STMPE_KPC_DATA_BYTE0 + i);
+> +		ret = stmpe_reg_read(stmpe, variant->data_regs[i]);
+>   		if (ret < 0)
+>   			return ret;
+>   
+> @@ -176,7 +232,9 @@ static irqreturn_t stmpe_keypad_irq(int irq, void *dev)
+>   		u8 data = fifo[i];
+>   		int row = (data & STMPE_KPC_DATA_ROW) >> 3;
+>   		int col = data & STMPE_KPC_DATA_COL;
+> -		int code = MATRIX_SCAN_CODE(row, col, STMPE_KEYPAD_ROW_SHIFT);
+> +		int code = variant->read_inverted ?
+> +			  MATRIX_SCAN_CODE(col, row, STMPE_KEYPAD_ROW_SHIFT)
+> +			: MATRIX_SCAN_CODE(row, col, STMPE_KEYPAD_ROW_SHIFT);
+>   		bool up = data & STMPE_KPC_DATA_UP;
+>   
+>   		if ((data & STMPE_KPC_DATA_NOKEY_MASK)
+> @@ -265,7 +323,7 @@ static int stmpe_keypad_chip_init(struct stmpe_keypad *keypad)
+>   {
+>   	const struct stmpe_keypad_variant *variant = keypad->variant;
+>   	struct stmpe *stmpe = keypad->stmpe;
+> -	int ret;
+> +	int ret, val, i;
+>   
+>   	if (keypad->debounce_ms > STMPE_KEYPAD_MAX_DEBOUNCE)
+>   		return -EINVAL;
+> @@ -281,33 +339,37 @@ static int stmpe_keypad_chip_init(struct stmpe_keypad *keypad)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	ret = stmpe_reg_write(stmpe, STMPE_KPC_COL, keypad->cols);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	ret = stmpe_reg_write(stmpe, STMPE_KPC_ROW_LSB, keypad->rows);
+> -	if (ret < 0)
+> -		return ret;
+> +	val = keypad->cols;
+> +	i = 0;
+> +	do {
+> +		ret = stmpe_reg_write(stmpe, variant->col_regs[i++], val & 0xff);
+> +		if (ret < 0)
+> +			return ret;
+> +	} while ((val >>= 8) != 0);
+>   
+> -	if (variant->max_rows > 8) {
+> -		ret = stmpe_set_bits(stmpe, STMPE_KPC_ROW_MSB,
+> -				     STMPE_KPC_ROW_MSB_ROWS,
+> -				     keypad->rows >> 8);
+> +	val = keypad->rows;
+> +	i = 0;
+> +	do {
+> +		ret = stmpe_reg_write(stmpe, variant->row_regs[i++], val & 0xff);
+>   		if (ret < 0)
+>   			return ret;
+> -	}
+> +	} while ((val >>= 8) != 0);
+>   
+> -	ret = stmpe_set_bits(stmpe, STMPE_KPC_CTRL_MSB,
+> +	ret = stmpe_set_bits(stmpe, variant->ctrl_msb_reg,
+>   			     STMPE_KPC_CTRL_MSB_SCAN_COUNT,
+>   			     keypad->scan_count << 4);
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	return stmpe_set_bits(stmpe, STMPE_KPC_CTRL_LSB,
+> -			      STMPE_KPC_CTRL_LSB_SCAN |
+> +	ret = stmpe_set_bits(stmpe, variant->ctrl_lsb_reg,
+>   			      STMPE_KPC_CTRL_LSB_DEBOUNCE,
+> -			      STMPE_KPC_CTRL_LSB_SCAN |
+>   			      (keypad->debounce_ms << 1));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return stmpe_set_bits(stmpe, variant->cmd_reg,
+> +			      STMPE_KPC_CTRL_LSB_SCAN,
+> +			      STMPE_KPC_CTRL_LSB_SCAN);
+>   }
+>   
+>   static void stmpe_keypad_fill_used_pins(struct stmpe_keypad *keypad,
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
