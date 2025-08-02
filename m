@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B52B2B19C32
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9558B19C44
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EEF5C424C1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84520C424C5;
 	Mon,  4 Aug 2025 07:16:34 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95D44C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F047C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Aug 2025 09:29:48 +0000 (UTC)
+ Sat,  2 Aug 2025 09:29:56 +0000 (UTC)
 Received: from [192.168.0.172] (mob-5-90-138-121.net.vodafone.it
  [5.90.138.121])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 395973E43;
- Sat,  2 Aug 2025 11:28:54 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id D13D93EE9;
+ Sat,  2 Aug 2025 11:29:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754126942;
- bh=MthwYUOLpqBn0ba6jZYKpMy9cQjcqOQkTUKOiMmYskY=;
+ s=mail; t=1754126950;
+ bh=QMXN795g4JQ02dbn34MUgI1SrXfUXWeSvy7JvnRGT/4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=WrzWKhJzGGme5zOuQKXcQS/gNGIUjt+o1Z00R2tij+Qj4M9aA/SV+y5Z26X7R3HR1
- nYV72q1Za8zMTe1MdtszLQQRIrdrEHwMHomB/rG6zrt8mk52l3LNAcujKID2JmXYOv
- 3WD21E56BSQ+HYPkYABpAkGGxFx8a7Yv2PLlaV8g=
+ b=a6yKtLO3p3dptqs8nDpC4CTqf6f17ThWt2kAQ1RtjLbHys7ZhKQtBaxqQGSFM14hJ
+ lo2so0O2XgjC9oyqujkhkQVVJ41fDYV4TE+DbxU0VOqJKvsFvw9M/9U/KkF7+/glzq
+ Xda2N5WbvBrVab8G1DXb+S/ilReE23HpnougskVQ=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Sat, 02 Aug 2025 11:23:00 +0200
+Date: Sat, 02 Aug 2025 11:23:01 +0200
 MIME-Version: 1.0
-Message-Id: <20250802-media-private-data-v1-38-eb140ddd6a9d@ideasonboard.com>
+Message-Id: <20250802-media-private-data-v1-39-eb140ddd6a9d@ideasonboard.com>
 References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 In-Reply-To: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -107,21 +107,21 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, 
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4867;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6555;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=MthwYUOLpqBn0ba6jZYKpMy9cQjcqOQkTUKOiMmYskY=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj8TQAFq4EkLSez561K0ZCn/vn/BBJTmiqEC
- bdHNw8gzSWJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y/AAKCRByNAaPFqFW
- PJFxD/0TIoksJkRESbXqmBqgUb3qo3kiE82eWw0Z6Q17TElBpWIw99pBtQOEfWrjRc99I2UNoAc
- mCWz87rZyt3b6rGydUaLt9eHY90h2RMG8ZuGxvsCjUqNu2QgiOXjLWK+BThZ6GSsaJU/obfD58m
- M5vJxlycDcFVA5yj4c9cYo9gOkSEthg2q7w+YAK5woOn3Vhbu23YWdJCoZpSNqcddOpyHsiqnEZ
- avPs8NZ686jUTHS/YnHe3ZYCI/gQcUffV4SXamBdh+FkxWa0WALMw86oWkcaFkX5WXmX9wNfith
- /kP9lim1JndmUQqWhp2EC7h7aowy/H3g4BtOWW9Z00CDQZ+3e4LiZ7Kqddsxq0uE5QNF7jPETC1
- hJybOhHs6dvry1LAO5LFktHgr2lIdVTZQs9thfuO2XeQoqVM6z4bBjwLozzZsiN6urjUYoUz1XC
- iYuPhRgfbhwGyHjeVLsCHuXYR6JmLQXWLDCs6ZamO1AxcA1+VIjV3MS9lbcssLjGWrs++h+MJbD
- KljduZoHMhOINt+uFXu/pPJDBZ/AC/9qe73RGy3LvPoTSfbm+fTyCcLaqIn3INSuce3gG9VafpX
- 3OWHslj9R1uowlyL4FDQTnn2sNB+gM5WCqNDA5Sjx3AwLtjkJT1LApcSPeOOfKoBM/c3R1RVeVD
- u4zEl7mhyZWHBtw==
+ bh=QMXN795g4JQ02dbn34MUgI1SrXfUXWeSvy7JvnRGT/4=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj8/oWIIARD+dfkmFv/taMUYIiUf/KYJk9vV
+ f7+9cr+2++JAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y/AAKCRByNAaPFqFW
+ PKtxD/0WLPIL/mL1eF89kxSMM9GwOxEKdo8GLGfT13RWpduaSJTQpP/edD44lwWuTCc/Ppgs83F
+ u9bd6x4dOVwYfaPQIN5wij1VrkrZ6Bukd6h598tHgoKq0LmK6g9AS6SSJyKCVG8ETu/fpF0ARpW
+ 1oq1soPH+lkWm2YsCf88hjEAeLKuLe6T2CZB8MolKhAQOKNFewTMquWE8SfXrpMELAUh97npU/h
+ GzVOcyJRfI+Me9QDMgov6AQRy+qGdm2K6R0aK8XaHuDSUkdPw4breQtXzbxvHJujLsZ3Ylt4IrG
+ 5pTN90+UngJ1pYigkyC8u8WI8bF5BcOxKx+gjGXuO+zcdr++UiIKHU/iOzkeJvdSnBPE6XjtZEW
+ DBYFVMgrlvKkBQ9pjwJIsek4GgkDSCUoTnyXtR5YpjSZLIOP2Hkxg/MYLR1K00HzGwNykLZfmwU
+ gvHiAygX/esogRpR/rFyA6SnjaCLLoy/9Dak8v/a15IEWnRsw8DD6LGJGELTh5E3YGkkeFfBkWQ
+ nk9hYsCX5zLegyyQZ6tjuv6HJc53gqm0Mq3KtJl8V5t46D4VXt+WsPiGrcRHyyYD8ibuJBlaHs2
+ ocOq1NEyVZ4BCdDoTWV7kqUn46e9u4uWM6Owwwggr8iOtxOn3o1mz5KuPz3wd7z2Oc1LrqSZ3Ry
+ yexlpARHGjG1bXg==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:21 +0000
@@ -134,7 +134,7 @@ Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 38/65] media: tegra-vde: Access v4l2_fh from
+Subject: [Linux-stm32] [PATCH 39/65] media: imx-jpeg: Access v4l2_fh from
 	file
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -158,119 +158,152 @@ to be available in file->private_data, initialised by v4l2_fh_add().
 Access the v4l2_fh, and from there the driver-specific structure,
 from the file * in all ioctl handlers.
 
+While at it, remove the now unused mxc_jpeg_fh_to_ctx() macro.
+
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/platform/nvidia/tegra-vde/v4l2.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 33 +++++++++++---------------
+ 1 file changed, 14 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/media/platform/nvidia/tegra-vde/v4l2.c b/drivers/media/platform/nvidia/tegra-vde/v4l2.c
-index 0c50f4ff82e0a8f4935325d00691c58072182926..d94978ae2baf3394206ad7c3eb7a400aeee47cf7 100644
---- a/drivers/media/platform/nvidia/tegra-vde/v4l2.c
-+++ b/drivers/media/platform/nvidia/tegra-vde/v4l2.c
-@@ -46,9 +46,9 @@ static const struct v4l2_ctrl_config ctrl_cfgs[] = {
- 	},
- };
- 
--static inline struct tegra_ctx *fh_to_tegra_ctx(struct v4l2_fh *fh)
-+static inline struct tegra_ctx *file_to_tegra_ctx(struct file *file)
- {
--	return container_of(fh, struct tegra_ctx, fh);
-+	return container_of(file_to_v4l2_fh(file), struct tegra_ctx, fh);
+diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+index fa7d74d8c1aabd3bf74482e214165d8c1a7e89da..df3ccdf767baf0bf6687808e2c017063181a7220 100644
+--- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+@@ -644,11 +644,6 @@ static void print_mxc_buf(struct mxc_jpeg_dev *jpeg, struct vb2_buffer *buf,
+ 	}
  }
  
- static void tegra_set_control_data(struct tegra_ctx *ctx, void *data, u32 id)
-@@ -506,7 +506,7 @@ static int tegra_querycap(struct file *file, void *priv,
- static int tegra_enum_decoded_fmt(struct file *file, void *priv,
- 				  struct v4l2_fmtdesc *f)
+-static inline struct mxc_jpeg_ctx *mxc_jpeg_fh_to_ctx(struct v4l2_fh *fh)
+-{
+-	return container_of(fh, struct mxc_jpeg_ctx, fh);
+-}
+-
+ static inline struct mxc_jpeg_ctx *mxc_jpeg_file_to_ctx(struct file *filp)
  {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 
- 	if (WARN_ON(!ctx->coded_fmt_desc))
- 		return -EINVAL;
-@@ -522,7 +522,7 @@ static int tegra_enum_decoded_fmt(struct file *file, void *priv,
- static int tegra_g_decoded_fmt(struct file *file, void *priv,
- 			       struct v4l2_format *f)
+ 	return container_of(file_to_v4l2_fh(filp), struct mxc_jpeg_ctx, fh);
+@@ -1610,7 +1605,7 @@ static int mxc_jpeg_decoder_cmd(struct file *file, void *priv,
+ 				struct v4l2_decoder_cmd *cmd)
  {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 
- 	*f = ctx->decoded_fmt;
- 	return 0;
-@@ -531,8 +531,8 @@ static int tegra_g_decoded_fmt(struct file *file, void *priv,
- static int tegra_try_decoded_fmt(struct file *file, void *priv,
- 				 struct v4l2_format *f)
- {
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
- 	const struct tegra_coded_fmt_desc *coded_desc;
- 	unsigned int i;
- 
-@@ -571,7 +571,7 @@ static int tegra_try_decoded_fmt(struct file *file, void *priv,
- static int tegra_s_decoded_fmt(struct file *file, void *priv,
- 			       struct v4l2_format *f)
- {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	struct vb2_queue *vq;
- 	int err;
- 
-@@ -593,7 +593,7 @@ static int tegra_s_decoded_fmt(struct file *file, void *priv,
- static int tegra_enum_coded_fmt(struct file *file, void *priv,
- 				struct v4l2_fmtdesc *f)
- {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	const struct tegra_vde_soc *soc = ctx->vde->soc;
- 
- 	if (f->index >= soc->num_coded_fmts)
-@@ -607,7 +607,7 @@ static int tegra_enum_coded_fmt(struct file *file, void *priv,
- static int tegra_g_coded_fmt(struct file *file, void *priv,
- 			     struct v4l2_format *f)
- {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 
- 	*f = ctx->coded_fmt;
- 	return 0;
-@@ -631,7 +631,7 @@ static int tegra_try_coded_fmt(struct file *file, void *priv,
- 			       struct v4l2_format *f)
- {
- 	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	const struct tegra_vde_soc *soc = ctx->vde->soc;
- 	int size = pix_mp->plane_fmt[0].sizeimage;
- 	const struct tegra_coded_fmt_desc *desc;
-@@ -656,7 +656,7 @@ static int tegra_try_coded_fmt(struct file *file, void *priv,
- static int tegra_s_coded_fmt(struct file *file, void *priv,
- 			     struct v4l2_format *f)
- {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
- 	const struct tegra_coded_fmt_desc *desc;
- 	struct vb2_queue *peer_vq, *vq;
-@@ -718,7 +718,7 @@ static int tegra_s_coded_fmt(struct file *file, void *priv,
- static int tegra_enum_framesizes(struct file *file, void *priv,
- 				 struct v4l2_frmsizeenum *fsize)
- {
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(priv);
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
- 	const struct tegra_coded_fmt_desc *fmt;
- 
- 	if (fsize->index)
-@@ -852,8 +852,8 @@ static int tegra_open(struct file *file)
- 
- static int tegra_release(struct file *file)
- {
-+	struct tegra_ctx *ctx = file_to_tegra_ctx(file);
  	struct v4l2_fh *fh = file_to_v4l2_fh(file);
--	struct tegra_ctx *ctx = fh_to_tegra_ctx(fh);
- 	struct tegra_vde *vde = ctx->vde;
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	unsigned long flags;
+ 	int ret;
  
- 	v4l2_fh_del(fh, file);
+@@ -1643,7 +1638,7 @@ static int mxc_jpeg_encoder_cmd(struct file *file, void *priv,
+ 				struct v4l2_encoder_cmd *cmd)
+ {
+ 	struct v4l2_fh *fh = file_to_v4l2_fh(file);
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	unsigned long flags;
+ 	int ret;
+ 
+@@ -2260,7 +2255,7 @@ static int mxc_jpeg_querycap(struct file *file, void *priv,
+ static int mxc_jpeg_enum_fmt_vid_cap(struct file *file, void *priv,
+ 				     struct v4l2_fmtdesc *f)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_q_data *q_data = mxc_jpeg_get_q_data(ctx, f->type);
+ 
+ 	if (ctx->mxc_jpeg->mode == MXC_JPEG_ENCODE) {
+@@ -2300,7 +2295,7 @@ static int mxc_jpeg_enum_fmt_vid_cap(struct file *file, void *priv,
+ static int mxc_jpeg_enum_fmt_vid_out(struct file *file, void *priv,
+ 				     struct v4l2_fmtdesc *f)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	u32 type = ctx->mxc_jpeg->mode == MXC_JPEG_DECODE ?  MXC_JPEG_FMT_TYPE_ENC :
+ 							     MXC_JPEG_FMT_TYPE_RAW;
+ 	int ret;
+@@ -2441,7 +2436,7 @@ static int mxc_jpeg_try_fmt(struct v4l2_format *f,
+ static int mxc_jpeg_try_fmt_vid_cap(struct file *file, void *priv,
+ 				    struct v4l2_format *f)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_dev *jpeg = ctx->mxc_jpeg;
+ 	struct device *dev = jpeg->dev;
+ 	struct mxc_jpeg_q_data tmp_q;
+@@ -2460,7 +2455,7 @@ static int mxc_jpeg_try_fmt_vid_cap(struct file *file, void *priv,
+ static int mxc_jpeg_try_fmt_vid_out(struct file *file, void *priv,
+ 				    struct v4l2_format *f)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_dev *jpeg = ctx->mxc_jpeg;
+ 	struct device *dev = jpeg->dev;
+ 	struct mxc_jpeg_q_data tmp_q;
+@@ -2512,20 +2507,20 @@ static int mxc_jpeg_s_fmt(struct mxc_jpeg_ctx *ctx,
+ static int mxc_jpeg_s_fmt_vid_cap(struct file *file, void *priv,
+ 				  struct v4l2_format *f)
+ {
+-	return mxc_jpeg_s_fmt(mxc_jpeg_fh_to_ctx(priv), f);
++	return mxc_jpeg_s_fmt(mxc_jpeg_file_to_ctx(file), f);
+ }
+ 
+ static int mxc_jpeg_s_fmt_vid_out(struct file *file, void *priv,
+ 				  struct v4l2_format *f)
+ {
+ 	int ret;
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct vb2_queue *dst_vq;
+ 	struct mxc_jpeg_q_data *q_data_cap;
+ 	enum v4l2_buf_type cap_type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	struct v4l2_format fc;
+ 
+-	ret = mxc_jpeg_s_fmt(mxc_jpeg_fh_to_ctx(priv), f);
++	ret = mxc_jpeg_s_fmt(ctx, f);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2554,7 +2549,7 @@ static int mxc_jpeg_s_fmt_vid_out(struct file *file, void *priv,
+ static int mxc_jpeg_g_fmt_vid(struct file *file, void *priv,
+ 			      struct v4l2_format *f)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(priv);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_dev *jpeg = ctx->mxc_jpeg;
+ 	struct device *dev = jpeg->dev;
+ 	struct v4l2_pix_format_mplane   *pix_mp = &f->fmt.pix_mp;
+@@ -2592,7 +2587,7 @@ static int mxc_jpeg_g_fmt_vid(struct file *file, void *priv,
+ 
+ static int mxc_jpeg_dec_g_selection(struct file *file, void *fh, struct v4l2_selection *s)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_q_data *q_data_cap;
+ 
+ 	if (s->type != V4L2_BUF_TYPE_VIDEO_CAPTURE && s->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
+@@ -2621,7 +2616,7 @@ static int mxc_jpeg_dec_g_selection(struct file *file, void *fh, struct v4l2_sel
+ 
+ static int mxc_jpeg_enc_g_selection(struct file *file, void *fh, struct v4l2_selection *s)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_q_data *q_data_out;
+ 
+ 	if (s->type != V4L2_BUF_TYPE_VIDEO_OUTPUT && s->type != V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+@@ -2649,7 +2644,7 @@ static int mxc_jpeg_enc_g_selection(struct file *file, void *fh, struct v4l2_sel
+ 
+ static int mxc_jpeg_g_selection(struct file *file, void *fh, struct v4l2_selection *s)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 
+ 	if (ctx->mxc_jpeg->mode == MXC_JPEG_DECODE)
+ 		return mxc_jpeg_dec_g_selection(file, fh, s);
+@@ -2659,7 +2654,7 @@ static int mxc_jpeg_g_selection(struct file *file, void *fh, struct v4l2_selecti
+ 
+ static int mxc_jpeg_s_selection(struct file *file, void *fh, struct v4l2_selection *s)
+ {
+-	struct mxc_jpeg_ctx *ctx = mxc_jpeg_fh_to_ctx(fh);
++	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
+ 	struct mxc_jpeg_q_data *q_data_out;
+ 
+ 	if (ctx->mxc_jpeg->mode != MXC_JPEG_ENCODE)
 
 -- 
 2.49.0
