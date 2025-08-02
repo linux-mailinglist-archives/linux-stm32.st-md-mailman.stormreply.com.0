@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912E9B19C2B
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FFFFB19C2E
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44599C424B8;
-	Mon,  4 Aug 2025 07:16:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DE98C424BA;
+	Mon,  4 Aug 2025 07:16:33 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02177C349C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44F7DC349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Aug 2025 09:28:59 +0000 (UTC)
+ Sat,  2 Aug 2025 09:29:08 +0000 (UTC)
 Received: from [192.168.0.172] (mob-5-90-138-121.net.vodafone.it
  [5.90.138.121])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8152C3C67;
- Sat,  2 Aug 2025 11:28:04 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8D5B13C64;
+ Sat,  2 Aug 2025 11:28:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754126893;
- bh=41vTx83z/Uwja6XVkgBfBZsgFkv9BjK18LAN6EVk9C4=;
+ s=mail; t=1754126902;
+ bh=L0ZUzNfnoLjztZUAFo8LD82f1tvHxDD9diPSRFvNFG8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pVvNcAuntI593b3+8JOouhdzGDFt2tmHaE57Nr/H0+gti/BMJpEEIFHA5+uFfKKEi
- /TinR7qedy9WiH2jyXomKJZiyq8x2qshMpdc2vFlrCpho2CEsAjd95XWFp6F9VNkLH
- qOhagXfR5W5AHnPYjhQSxrZyg7F3cCClyLs7v+n8=
+ b=YgNxCbbV4Lu9nSUDHOLXb+Khn3iTG7uca8DR8oTYu966wM689OJhwdvHajbpALfe7
+ SobfPhefVv+UXuwNOm8AUrwSyV4o5pUIWPMqBB8HNh+YKTlUKsjnNpHfDd0JY4HgnM
+ 2ljjhNlRhMYivAPRG+3MQuqEA4D06LL5zLT0b0+Y=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Sat, 02 Aug 2025 11:22:55 +0200
+Date: Sat, 02 Aug 2025 11:22:56 +0200
 MIME-Version: 1.0
-Message-Id: <20250802-media-private-data-v1-33-eb140ddd6a9d@ideasonboard.com>
+Message-Id: <20250802-media-private-data-v1-34-eb140ddd6a9d@ideasonboard.com>
 References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 In-Reply-To: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -107,21 +107,21 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, 
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2772;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5473;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=41vTx83z/Uwja6XVkgBfBZsgFkv9BjK18LAN6EVk9C4=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj7pwyrSBi9rnZ2weNb65Z8p51fNTUj4IIin
- TQAaww2RVaJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+wAKCRByNAaPFqFW
- PAMDD/9Ug9QwsOwqd/AgPzEvnOkucjAOnVc54Ut2Iym9meadtfaDDV1mc7FXlnf4QLXhPrr78BW
- mpb135tIptu5FHRKG7ysZfYALCQMddnU3UUQx0/gn5ZIZ5zPK4m9roV/TBUt4NtkFNAEaGV8NLQ
- 9FEY9ol3rYLDbWKjxpoZe+VhhCMaZiOBw5yagf67MDewREcw+UUrbGSHW4ru40PKZciqbc/vj0e
- nQfpCOMoiEF91JYrkF/d2z0t/W67gr7LDYsHVhwa/juCbCz2Wu5KQFwJkwZkJNSo2XbrEJdiJ4w
- jnU91qYWYQryas5efYVfY85hlacIcp74d7FCyJCPUdYt8NZ/hyYn8/VfC6qTgKHjcL/9vUZ3uu+
- H32Q5uHhBqaFOo33iNE4+ZRkxfXJ5OcPoqWx+OWYYHE3044p0atCe5/EpNW+pdAD9SD5D+D4UTZ
- kv3SB4HWGcxMS+9txidCBc03zJCYCS8Vc6QIc/VosL0FGTOMEiMfJr6LSwuOipAKCDgNrX2V8sT
- OTZ9kYNFRnph4i25ZZq1/kHy+UJ5IMzKBGRFfCzBCuOngdJG5UtWh9IEQa9OTuiAJTnDo8qoqwT
- viKs/nKaDQkiXseRHCpINPwJEHsdfM+BRPU5LJEZzEfrGdcAxUCWkgHfZ07hCSfQ953aDjIBp9O
- TtEBNodMx+bGSzA==
+ bh=L0ZUzNfnoLjztZUAFo8LD82f1tvHxDD9diPSRFvNFG8=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj7gvp1bn79ddqFVF08lQxDnSWTM0Yzt2fgT
+ Quste8pkyOJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+wAKCRByNAaPFqFW
+ PAUHD/9/Mn8W2TWnpnF5jCtc9S3BNAZMttSJxyX+rR5RRe6S8x/I8d8N3U+ykOsqQyM3NIWlHt0
+ C0myb3twn6+97X7lRzosteZ2DCTbU2QWnjIcTCpAiC5uJ9saBPoaf2KxxZERdg3yWqYKvAVsua7
+ VKVqQwfE565lqKpZOqPSLhA5VTIGbTuooNI1HFqoeXpPp9jAhn7wWfGfkH8vE1NaSOA1BxrlRhR
+ QVWvVysYhH/lafXj4XSniCcqUfwh4oL4MfFDIACucn0RFellTnptdo/gTgMD2Y04sHl1ljGBgYU
+ jsCiRvcCJDg1zGLsSMdbHlB4R+5GJtxaIfkNRG090P5o1m/8e7Q/RxhaKbK5ml9QAPaWR65nOjr
+ Xj60Z0XEKbTo/fTrLy+jRwmDXGxvQAm9qqisXrgZPPsxfwFnWCzSPbu4WosZZQbm3+ZiU6m+TcW
+ apyakcWCNeVbV7xLZBKnIdSerEsIGn+SVC/p74Jw9H1nCbaWkZPcaZBEJK2Oc5kZZr5eGZyJmLe
+ dZr9DrtDSNvB6WaMD/8C45rV3JqAyV8ogmJLOzSgjIGvt520pPa9mhqd6uIeSFfYpn2CCzteEz3
+ 8lRJcdt5+Yu1wdlhYyOIKbtlfg0jX/CKb1rMpjtwpxx96U+3vwC7VG/MzM+mDutHW/YgrZnAebP
+ XCCbyjTWWZJHYzQ==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:21 +0000
@@ -134,8 +134,8 @@ Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 33/65] media: m2m-deinterlace: Access v4l2_fh
-	from file
+Subject: [Linux-stm32] [PATCH 34/65] media: mtk: jpeg: Access v4l2_fh from
+ file->private_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,75 +158,128 @@ to be available in file->private_data, initialised by v4l2_fh_add().
 Access the v4l2_fh, and from there the driver-specific structure,
 from the file * in all ioctl handlers.
 
+While at it, remove the now unused mtk_jpeg_fh_to_ctx() macro.
+
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/platform/m2m-deinterlace.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ .../media/platform/mediatek/jpeg/mtk_jpeg_core.c   | 27 +++++++++-------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
-index 51c2f206cb1f601ec2f3d07fffbf63c86f4cdc01..e07e57d4206baa5e7a467298cb240c3a2cd57cd8 100644
---- a/drivers/media/platform/m2m-deinterlace.c
-+++ b/drivers/media/platform/m2m-deinterlace.c
-@@ -517,13 +517,13 @@ static int vidioc_g_fmt(struct deinterlace_ctx *ctx, struct v4l2_format *f)
- static int vidioc_g_fmt_vid_out(struct file *file, void *priv,
- 				struct v4l2_format *f)
- {
--	return vidioc_g_fmt(priv, f);
-+	return vidioc_g_fmt(file_to_ctx(file), f);
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 8e1883d034f5c67d418f5607c593c60f5d6ddbee..6268d651bdcfd212b58bf686c55660d64b659dfe 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -119,11 +119,6 @@ static inline struct mtk_jpeg_ctx *ctrl_to_ctx(struct v4l2_ctrl *ctrl)
+ 	return container_of(ctrl->handler, struct mtk_jpeg_ctx, ctrl_hdl);
  }
  
- static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
- 				struct v4l2_format *f)
+-static inline struct mtk_jpeg_ctx *mtk_jpeg_fh_to_ctx(struct v4l2_fh *fh)
+-{
+-	return container_of(fh, struct mtk_jpeg_ctx, fh);
+-}
+-
+ static inline struct mtk_jpeg_ctx *mtk_jpeg_file_to_ctx(struct file *filp)
  {
--	return vidioc_g_fmt(priv, f);
-+	return vidioc_g_fmt(file_to_ctx(file), f);
- }
- 
- static int vidioc_try_fmt(struct v4l2_format *f, struct deinterlace_fmt *fmt)
-@@ -544,8 +544,8 @@ static int vidioc_try_fmt(struct v4l2_format *f, struct deinterlace_fmt *fmt)
- static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- 				  struct v4l2_format *f)
+ 	return container_of(file_to_v4l2_fh(filp), struct mtk_jpeg_ctx, fh);
+@@ -217,7 +212,7 @@ static int mtk_jpeg_enum_fmt(struct mtk_jpeg_fmt *mtk_jpeg_formats, int n,
+ static int mtk_jpeg_enum_fmt_vid_cap(struct file *file, void *priv,
+ 				     struct v4l2_fmtdesc *f)
  {
-+	struct deinterlace_ctx *ctx = file_to_ctx(file);
- 	struct deinterlace_fmt *fmt;
--	struct deinterlace_ctx *ctx = priv;
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
  
- 	fmt = find_format(f);
- 	if (!fmt || !(fmt->types & MEM2MEM_CAPTURE))
-@@ -638,20 +638,20 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
- 	ret = vidioc_try_fmt_vid_cap(file, priv, f);
+ 	return mtk_jpeg_enum_fmt(jpeg->variant->formats,
+@@ -228,7 +223,7 @@ static int mtk_jpeg_enum_fmt_vid_cap(struct file *file, void *priv,
+ static int mtk_jpeg_enum_fmt_vid_out(struct file *file, void *priv,
+ 				     struct v4l2_fmtdesc *f)
+ {
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 
+ 	return mtk_jpeg_enum_fmt(jpeg->variant->formats,
+@@ -310,7 +305,7 @@ static int mtk_jpeg_g_fmt_vid_mplane(struct file *file, void *priv,
+ 	struct vb2_queue *vq;
+ 	struct mtk_jpeg_q_data *q_data = NULL;
+ 	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 	int i;
+ 
+@@ -356,7 +351,7 @@ static int mtk_jpeg_g_fmt_vid_mplane(struct file *file, void *priv,
+ static int mtk_jpeg_try_fmt_vid_cap_mplane(struct file *file, void *priv,
+ 					   struct v4l2_format *f)
+ {
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 	struct mtk_jpeg_fmt *fmt;
+ 
+@@ -385,7 +380,7 @@ static int mtk_jpeg_try_fmt_vid_cap_mplane(struct file *file, void *priv,
+ static int mtk_jpeg_try_fmt_vid_out_mplane(struct file *file, void *priv,
+ 					   struct v4l2_format *f)
+ {
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
+ 	struct mtk_jpeg_fmt *fmt;
+ 
+@@ -475,7 +470,7 @@ static int mtk_jpeg_s_fmt_vid_out_mplane(struct file *file, void *priv,
  	if (ret)
  		return ret;
--	return vidioc_s_fmt(priv, f);
-+	return vidioc_s_fmt(file_to_ctx(file), f);
+ 
+-	return mtk_jpeg_s_fmt_mplane(mtk_jpeg_fh_to_ctx(priv), f,
++	return mtk_jpeg_s_fmt_mplane(mtk_jpeg_file_to_ctx(file), f,
+ 				     MTK_JPEG_FMT_FLAG_OUTPUT);
  }
  
- static int vidioc_s_fmt_vid_out(struct file *file, void *priv,
- 				struct v4l2_format *f)
- {
--	struct deinterlace_ctx *ctx = priv;
-+	struct deinterlace_ctx *ctx = file_to_ctx(file);
- 	int ret;
- 
- 	ret = vidioc_try_fmt_vid_out(file, priv, f);
+@@ -488,7 +483,7 @@ static int mtk_jpeg_s_fmt_vid_cap_mplane(struct file *file, void *priv,
  	if (ret)
  		return ret;
  
--	ret = vidioc_s_fmt(priv, f);
-+	ret = vidioc_s_fmt(ctx, f);
- 	if (!ret)
- 		ctx->colorspace = f->fmt.pix.colorspace;
+-	return mtk_jpeg_s_fmt_mplane(mtk_jpeg_fh_to_ctx(priv), f,
++	return mtk_jpeg_s_fmt_mplane(mtk_jpeg_file_to_ctx(file), f,
+ 				     MTK_JPEG_FMT_FLAG_CAPTURE);
+ }
  
-@@ -661,8 +661,8 @@ static int vidioc_s_fmt_vid_out(struct file *file, void *priv,
- static int vidioc_streamon(struct file *file, void *priv,
- 			   enum v4l2_buf_type type)
+@@ -517,7 +512,7 @@ static int mtk_jpeg_subscribe_event(struct v4l2_fh *fh,
+ static int mtk_jpeg_enc_g_selection(struct file *file, void *priv,
+ 				    struct v4l2_selection *s)
  {
-+	struct deinterlace_ctx *ctx = file_to_ctx(file);
- 	struct deinterlace_q_data *s_q_data, *d_q_data;
--	struct deinterlace_ctx *ctx = priv;
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
  
- 	s_q_data = get_q_data(V4L2_BUF_TYPE_VIDEO_OUTPUT);
- 	d_q_data = get_q_data(V4L2_BUF_TYPE_VIDEO_CAPTURE);
+ 	if (s->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
+ 		return -EINVAL;
+@@ -542,7 +537,7 @@ static int mtk_jpeg_enc_g_selection(struct file *file, void *priv,
+ static int mtk_jpeg_dec_g_selection(struct file *file, void *priv,
+ 				    struct v4l2_selection *s)
+ {
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 
+ 	if (s->type != V4L2_BUF_TYPE_VIDEO_CAPTURE)
+ 		return -EINVAL;
+@@ -571,7 +566,7 @@ static int mtk_jpeg_dec_g_selection(struct file *file, void *priv,
+ static int mtk_jpeg_enc_s_selection(struct file *file, void *priv,
+ 				    struct v4l2_selection *s)
+ {
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 
+ 	if (s->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
+ 		return -EINVAL;
+@@ -594,7 +589,7 @@ static int mtk_jpeg_enc_s_selection(struct file *file, void *priv,
+ static int mtk_jpeg_qbuf(struct file *file, void *priv, struct v4l2_buffer *buf)
+ {
+ 	struct v4l2_fh *fh = file_to_v4l2_fh(file);
+-	struct mtk_jpeg_ctx *ctx = mtk_jpeg_fh_to_ctx(priv);
++	struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
+ 	struct vb2_queue *vq;
+ 	struct vb2_buffer *vb;
+ 	struct mtk_jpeg_src_buf *jpeg_src_buf;
 
 -- 
 2.49.0
