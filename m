@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 413EEB19C1D
+	by mail.lfdr.de (Postfix) with ESMTPS id 38925B19C1B
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72505C3FAC8;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87545C3FACA;
 	Mon,  4 Aug 2025 07:16:24 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AC1DC349C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12E76C349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Aug 2025 09:26:17 +0000 (UTC)
+ Sat,  2 Aug 2025 09:26:31 +0000 (UTC)
 Received: from [192.168.0.172] (mob-5-90-138-121.net.vodafone.it
  [5.90.138.121])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7ED6732A6;
- Sat,  2 Aug 2025 11:25:20 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C5733382;
+ Sat,  2 Aug 2025 11:25:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754126731;
- bh=zpnIwVYIp7ypZ1fcLHzyPvjh8rTKeT+VELtoNeP7zPc=;
+ s=mail; t=1754126745;
+ bh=w27FBrYuy5luuq8sfLJhkAyXcxYLO6q6OgUGzOvjXCg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Aq19Q2nrPXf6402OKOWFm8otA0CLAkk8S1RrOtGTySgQYBF2fg4rJCODH8bW16FNL
- pVgq3zitoHUeNFytnfbtbBBgd9E5Q5Bdy/8WtYlDbVA/Jz3CVHIP253xgfEAfa70Za
- oPRzuCj4TIjDImKku1Uj/Od/PKd2Gg/gU8ccslXQ=
+ b=KfCGdKe1K3Fc0zAQ4xzG9+N4gRTgUX7hp2XSLsiS8QJYWuuBMu/dxj1woEa4oaDSG
+ ePa2piLt7m4G65UgqLGBXtTVqiJuzfB5hKjMmfZtMDLqdf2V+hRecSUEVTop8muZJ9
+ 6AtH6ZyFsW2g9mm1rqXW6sWXRXQIwCNR02B0Uaeg=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Sat, 02 Aug 2025 11:22:39 +0200
+Date: Sat, 02 Aug 2025 11:22:40 +0200
 MIME-Version: 1.0
-Message-Id: <20250802-media-private-data-v1-17-eb140ddd6a9d@ideasonboard.com>
+Message-Id: <20250802-media-private-data-v1-18-eb140ddd6a9d@ideasonboard.com>
 References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 In-Reply-To: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -107,24 +107,24 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, 
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=936;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=954;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=zpnIwVYIp7ypZ1fcLHzyPvjh8rTKeT+VELtoNeP7zPc=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj5qAvM1W11y3eYPTqi4SdtrYyBxO2xYiR+h
- or9E17Q/iGJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+QAKCRByNAaPFqFW
- PN2tD/0RGqTPdqW8RlaR9z1IRhg8ScsmdFRh/ZMQE2VtOzJ94v7+xB2dliSExPo9x7ySaLIYI1f
- LwLSeI+X1RMPjTK+lN3mVhG/LbQf0Z8+NsEE6GEe+L4faXhbBL/vfddlGjgMHYGZXvYoISOP6rb
- KC2/r9tsW8n0VY+X7Tv3yWkksNugzetOMqAe/kbdIOpGg/zFwgGM50hjZnL5qaUUN9qF/bPqQ/R
- irtg2ynJVsxkxn9JK7XA3NTPxlTQTrh9LUhuMAwDowSqRZ2S4ij7l2PiLUgxcHIz7kjUm9MFPJY
- 8223+FLQRPI0l7exJgDkLe5Te6yvPg/pmGgRlipYufbF8ZOaA2Eu+nGdYbxvQu+4yEqEmVDP34M
- lNTnm+YWFa717LA1btjXhdQeUxzGYlH+/ST3yFGWczrxr4cAAsnJth2pZ1zVZMUyTQUjGpG9VAR
- qmEIBwJudVBfoSmzM71uajLl3fBbysQPX5MARM8q9r2RaS8nUM8+hoTrKOQKERxy/U1Ny2Y/sbu
- FD+m5FALVJT7xpmYCH4/aSpaU/icTmbFUaxMNlUCBPeMj0k8dN7M2uffS4Ce/jJ7ph3AgvX7OQE
- E9KLB86w2mijIE71MOjEY1QhNEFeoF+UNjiiUimmNL4YZXqHmOXLaLQoD5qZixbfvO0xo5FLtPP
- sclGwxTMJHMLRgw==
+ bh=w27FBrYuy5luuq8sfLJhkAyXcxYLO6q6OgUGzOvjXCg=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj5leh6NZr7YBb5F3lUqdPDVAoAv/E+Apn8a
+ VdBJqbYhJOJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+QAKCRByNAaPFqFW
+ PDjxEACcu4vUKoDreIA9sdrRv0rPntbmVcO2EIY5HI+PZ7TWdXhWtE/uwJnsTBw8XW8YyxFL1Ko
+ B7edSHJtyHk7hhRiCEQshw3WA5B3rs82kRtrhLR3zwlgcyLE96k1J2SJQpEzrtt9p9E51UWfD0U
+ BqcZAisqTFozP7zQW0WGKc8lEyJt0/F2RNj3Ic0vjqTjBg90DgZsPtueqxNGkinh50/AXDKsZxA
+ +HMqE2gTktb4hQIXKTjZpa+e+3ILeB5U0Mnrz1/6EBcONhc0haAuWp1Vf5xRpZkQxJXpVtBEi47
+ RusW/FbWHWez/uMc68lFdXOe005GtLsYoP9jbKJmi9am2yQGdjulGsavfIHnnwNdSSwhRFKyeEj
+ Frh8FHbh6zi6N/2qZQqS2HLKV0PQvUit8vqN86W8YqZ30843b51yZ1uMMqXDa4JpeJV+5by9KaL
+ XXbn9tYid9Mu+NVhfQxXxTiUFZRRWTUMhKJ/fb+7d6Ckohv/KfMZT2NCIIsQQNLzJb7V9iR5jJT
+ Qw6Q2Yr6GB/yGn+78O8+pyIAfOS1/O36Otr4bdVWOkjkBzfXrJ/RksX8plhoJE390pM1Wbd0GC2
+ 9ByBL0oNCt/Vvv8CMMv1vO87h4lAeh3jTbr5YVmfD3+1X/gXXOZRR1GBpkDZJLW8ctFkCmxHueY
+ fs0wBGy3WUnSD6w==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
-X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:20 +0000
+X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:21 +0000
 Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, linux-doc@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, mjpeg-users@lists.sourceforge.net,
@@ -134,7 +134,7 @@ Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 17/65] media: rcar-vin: Do not set
+Subject: [Linux-stm32] [PATCH 18/65] media: rzg2l-cru: Do not set
 	file->private_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -152,7 +152,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The R-Car VIN driver sets file->private_data to the driver-specific
+The RZ G2/L CRU driver sets file->private_data to the driver-specific
 structure, but the following call to v4l2_fh_open() overwrites it
 with a pointer to the just allocated v4l2_fh.
 
@@ -160,19 +160,18 @@ Remove the mis-leading assignment in the driver.
 
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-index 62eddf3a35fc91434cb2e584a01819380a7a6dd8..079dbaf016c25139e2ac82be63d8fce0d11fd208 100644
---- a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-+++ b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
-@@ -588,8 +588,6 @@ static int rvin_open(struct file *file)
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+index a8817a7066b22f8a8dd1fdab50efabc486e4dfdb..941badc90ff55c5225644f88de1d70239eb3a247 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+@@ -1078,7 +1078,6 @@ static int rzg2l_cru_open(struct file *file)
  	if (ret)
- 		goto err_pm;
+ 		return ret;
  
--	file->private_data = vin;
--
+-	file->private_data = cru;
  	ret = v4l2_fh_open(file);
  	if (ret)
  		goto err_unlock;
