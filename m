@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DAE0B19C1F
+	by mail.lfdr.de (Postfix) with ESMTPS id 39570B19C1C
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 09:16:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1DB1C3FACC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BED03C3FACE;
 	Mon,  4 Aug 2025 07:16:24 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAD15C349C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A78B6C349C7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Aug 2025 09:26:41 +0000 (UTC)
+ Sat,  2 Aug 2025 09:26:51 +0000 (UTC)
 Received: from [192.168.0.172] (mob-5-90-138-121.net.vodafone.it
  [5.90.138.121])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 92F0C3484;
- Sat,  2 Aug 2025 11:25:45 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7C7583997;
+ Sat,  2 Aug 2025 11:25:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754126756;
- bh=W7Xf+mYBvYt6o9va9RI60UvIC8rElGReU++HhnCmVfg=;
+ s=mail; t=1754126766;
+ bh=plDKQLiwBIj0x8r/FQG+sxFHvp8nFgmjt6T8+cGPkZI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FmxGWJBO4E5gfmQ58+RSnlUN52ZRP+BEdoqkKtsfvQR6jjDAnirS/9gNoOYc57lfI
- RexzJSryXfalvYWYRWKmdwZ8L2tq10eTyRsJFwKGBOzBN7fqkrTHkfy8UsCflim1KR
- F/nX+wFryQEtYqk1VrqnVMHTDoDHwqd89mcMY3hM=
+ b=Yg7mSLXywEATs7NdZAo/15CRPyv1tSknSnoBACCZsbidd3zRcjyh5s7g5TNfPXgb9
+ gUhe1Tm6jpa01d4o5M2x6RA6R1VZl63+VBHlceA7hW5Fvnepymmk7TyYyDGBnQ6TTA
+ Sw6wC1k5m0p9lWqybBEcYlPRZH86WPer4t5vumTM=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Sat, 02 Aug 2025 11:22:41 +0200
+Date: Sat, 02 Aug 2025 11:22:42 +0200
 MIME-Version: 1.0
-Message-Id: <20250802-media-private-data-v1-19-eb140ddd6a9d@ideasonboard.com>
+Message-Id: <20250802-media-private-data-v1-20-eb140ddd6a9d@ideasonboard.com>
 References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 In-Reply-To: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -107,21 +107,21 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, 
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2008;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1305;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=UzWhpz4xRfaNWR/lEJP22EOtdoViE3HjL6eKhJD+k4E=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj5QI9RGxRjTZ4i0/Oxsr0jsuAyLpLtzBDRp
- lLra/Ptx/+JAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+QAKCRByNAaPFqFW
- PLxcD/9DQ1eh+7ORvSewCGfbUsdvwcusgLEdfimWMtixIHeb8GHjJBgZDHWANs4tzRhizZXc00D
- eB14EgzGTuYSfBh+SeiIQc2W821bIB4AF47VJ7paLr+6Ehpkjta3Z9R8684aE4hVEiozkIjYbTm
- YDe7CD5rgm8Jxkr6rX3dnXVv3MwvobNjhi4ZLVj6k9GQi4Knz4hcfrM/vftFhzLuQJ7iO0z72Pt
- kNNyNzwedzcS25WOSLeBekAuKEUA5on008vbsIrI+w6ZkD1g3nPmRoK0ak2y8wZBKOFoxpWVg41
- hHb++Y41ZeyaCZqGPftDkbkZiTaN/mlWTMoxSmxYGEQK98fuyUmJlocZW7DqkRmRr+0QaBXBuUX
- 2P/KOa1ID1yyoeGLNOtc/IJoi0NMW/2fxW504y5sisWA36Esidq6GNT+5Brx9IwS98eXy8ujgHC
- OeQ9v8xXeq/kiAy1xvlranHBEXkvrjxMJrC+Mh8Q075Ps5z2MIKmHxhkZ3hp3a0UEtZOHnSr1w3
- e++lQSZIhkz5edb0mFzoBAz4eZuAcMxacVvDKu6o0H//a5qBlxcGCrWKfBGmMCamzv5ClbFVnOg
- WvJO6KxSYl0EQPtZIbie3YGK/346Ea3AjdRLlWbUUCy1XZ+IuhfreqtwvYzPbTByCucwYBv86xb
- RdlrEzhdk+VnUcg==
+ bh=plDKQLiwBIj0x8r/FQG+sxFHvp8nFgmjt6T8+cGPkZI=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBojdj5cxYW858SCw6LTG+aHwiW1liG/P/5haVZ9
+ 0mzExpmUPCJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCaI3Y+QAKCRByNAaPFqFW
+ PHhwEACP6/NBzk7i6VJN72Jn8/7oEe8k4hjRvq0+0ovO2wCFUpNc5OX+ZqalxcHnw8QWm9aZoBX
+ cthgY0YADO91eZH63UwrNZViYnp2K+RtXE89BkRMKucikIDs/zTZr9+wHcPCGbbw7Ue+q1HuWh3
+ 4gVRKZ7fbAXbp3R244W2ws9cxUElPjUZzgiPmQqHurk6/MxXXC2MU7AgVMc80OAUyGeAODZwwmJ
+ wfVDsO5348pe+cK6lIPs8PbtbOyXTzrP+qAA1+0EraPxa5RW7DJTG2+OZRvqJ2bxfWQl6EGqx0Y
+ 4WIL25OQyMoRYTiak2eEHRH5de8cfpPxTqzix6noCSKq8dHwYleqMhG0F/Uhsw8SGP33AzYmhNu
+ LKYAEM03Uh3l7qmXVqBDHnZOvBcenlAd9RGHeFJmDdcXyzC84PVQVKHHbQbGZWpMa3XCHcwqB6r
+ dyTqw36hcSnIGas5cBvTAfz1puBJYHqsdthf3soOfaYgYWsgZnt0Wl9cIYbkJiV7BfcZgpbhqF8
+ cf/WNrSpBF3AnjeYXdbvfwB2GbgLK2U2ocbsCWGGsrsv89ej4XYypUVse+T+uox6Dh+nUj+w375
+ sTcNMNGfzONapg7E8wydsqThpj3t8+rIufCWwqaBcMobAYyhE0VrXzs+5ThA40cwY/dLD0VM6A/
+ RxrM2yMXPUqLZUw==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 X-Mailman-Approved-At: Mon, 04 Aug 2025 07:16:21 +0000
@@ -134,8 +134,8 @@ Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 19/65] media: camss: Replace .open() file
- operation with v4l2_fh_open()
+Subject: [Linux-stm32] [PATCH 20/65] media: camss: Remove custom .release
+	fop()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,70 +152,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+The 'file->private_data' pointer is reset in the vb2_fop_release()
+call path. For this reason a custom handler for the .release
+file operation is not needed and the driver can use
+vb2_fop_release() directly.
 
-The custom video_open() function in the camss driver open-codes the
-v4l2_fh_open() helper, with an additional mutex that protects the whole
-function. Given that the function does not modify any data guarded by
-the lock, there's no need for using the mutex and the function can be
-replaced by v4l2_fh_open().
-
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- drivers/media/platform/qcom/camss/camss-video.c | 32 +------------------------
- 1 file changed, 1 insertion(+), 31 deletions(-)
+ drivers/media/platform/qcom/camss/camss-video.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 8d05802d1735a35cb1a1a0a81c6666b1517dd2e6..c5d02f9ebc6aa9bfd6910944f3d40a2e5f0a908f 100644
+index c5d02f9ebc6aa9bfd6910944f3d40a2e5f0a908f..831486e14754ab3a24b077e21be14ea3169220a4 100644
 --- a/drivers/media/platform/qcom/camss/camss-video.c
 +++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -604,36 +604,6 @@ static const struct v4l2_ioctl_ops msm_vid_ioctl_ops = {
+@@ -604,20 +604,11 @@ static const struct v4l2_ioctl_ops msm_vid_ioctl_ops = {
   * V4L2 file operations
   */
  
--static int video_open(struct file *file)
+-static int video_release(struct file *file)
 -{
--	struct video_device *vdev = video_devdata(file);
--	struct camss_video *video = video_drvdata(file);
--	struct v4l2_fh *vfh;
--	int ret;
+-	vb2_fop_release(file);
 -
--	mutex_lock(&video->lock);
--
--	vfh = kzalloc(sizeof(*vfh), GFP_KERNEL);
--	if (vfh == NULL) {
--		ret = -ENOMEM;
--		goto error_alloc;
--	}
--
--	v4l2_fh_init(vfh, vdev);
--	v4l2_fh_add(vfh);
--
--	file->private_data = vfh;
--
--	mutex_unlock(&video->lock);
+-	file->private_data = NULL;
 -
 -	return 0;
--
--error_alloc:
--	mutex_unlock(&video->lock);
--
--	return ret;
 -}
 -
- static int video_release(struct file *file)
- {
- 	vb2_fop_release(file);
-@@ -646,7 +616,7 @@ static int video_release(struct file *file)
  static const struct v4l2_file_operations msm_vid_fops = {
  	.owner          = THIS_MODULE,
  	.unlocked_ioctl = video_ioctl2,
--	.open           = video_open,
-+	.open           = v4l2_fh_open,
- 	.release        = video_release,
+ 	.open           = v4l2_fh_open,
+-	.release        = video_release,
++	.release        = vb2_fop_release,
  	.poll           = vb2_fop_poll,
  	.mmap		= vb2_fop_mmap,
+ 	.read		= vb2_fop_read,
 
 -- 
 2.49.0
