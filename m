@@ -2,161 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7059BB1A55C
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Aug 2025 16:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 660A6B1B782
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Aug 2025 17:32:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17EF8C32E92;
-	Mon,  4 Aug 2025 14:58:04 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013022.outbound.protection.outlook.com
- [40.93.196.22])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 014A7C3F932;
+	Tue,  5 Aug 2025 15:32:24 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4DCCC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAA6FC32EBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Aug 2025 14:58:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o3oWJNLPG+BC9NJJwy8H7h7P/ukeF2Qy8EP6cwQn7pOl8BflQJSOtR6qbUAipXp6UI7rYGSHLNZW5Z3UZXgndeaSnZ9NfsT++E5UZtX+eey0ExmuFyAO0uXmF/Y1rYUSc65VznVRXbjVYvxEiZvE+W9sT1L2JYRIXHCs0uWZV/G/zzOxI5oLtM0zuHE9zCXbfclpRi26HEg4y8Cq28oRJGWrQ7rNnAhtOkYmpplLb+QTheCssmJDPl6f53BmQJlYuuy3dX5nfoTQVrMnWW7Z8J4UUoq9Dhss2B84EwTGtR5WLZwR+OeZymLzgnUkuZz4LKB2ECn9s+rrh78Z8ZyAKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ZLOjPbwiFW8fCGAnJJzg7apR5muoXgwDsN53y7ZklU=;
- b=a9d3zVnChzw1tWj2f3EQXphcCFRQGuTRPQVAT1DYexzA1lSdmNos0Bs9k+3Z5DVlEhrumVRBvYX25iSBGowBlNV05EQhoK+du/K7NYZd97mk05LT8MMNS6QeDMEM4OhBzDr0id16mxqKAxfAxNkXJR7NCvKBha/1Dk+bhylnM2Wj8SgIEOWWWQMEozvbttv8pBMHzG0yMiAFSAldIAe0MKLNYbTmp80LhbWWAC65RDZ7c65eD3qm0JiZjJe/ANeIgG2DS/vm7jJa9P+440H4acXs4Ggln0A3RI4gK4vCuSrcf7F1BaxUEMYFmPJR1EJeRyMicjsGy7sDvajqdf54tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ZLOjPbwiFW8fCGAnJJzg7apR5muoXgwDsN53y7ZklU=;
- b=nCyIV24p2lhzjoN2qUeql+zR7AofcCW8DoJzITj0ceS6YmNUKSp6AcZ+NdOBMbYASWNOrRsodtWRb7NvMu00JgCJULwg9UOSOBxJYbLbuLN/vTChbCfFeHJyAflv2l4ob03MEIMVHvZZlux90u5BiqeF2l/YXrxD73b36O+KgnJMQOvx2AGOiuPx/eA1RRNKVFBYgCSC5+eZieKwjr0rH1dObo0hQXaf2YxdMe90koeoeMVooTSDZY0UlM3B/GbRarMJm62KTM/9Ag4YJEjiKL3HBj4b+m87VQFILFo5YhhFjsCXpkW9u4Dev7j17JKIxaEcnNpr47JAihqOjLL4Eg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com (2603:10b6:a02:b4::23)
- by BN9PR03MB6138.namprd03.prod.outlook.com (2603:10b6:408:11b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.14; Mon, 4 Aug
- 2025 14:57:58 +0000
-Received: from BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c]) by BYAPR03MB3461.namprd03.prod.outlook.com
- ([fe80::706b:dd15:bc81:313c%6]) with mapi id 15.20.8989.020; Mon, 4 Aug 2025
- 14:57:58 +0000
-Message-ID: <13467efc-7c79-4d06-af1c-301b852a530c@altera.com>
-Date: Mon, 4 Aug 2025 07:57:55 -0700
-User-Agent: Mozilla Thunderbird
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, dinguyen@kernel.org,
- maxime.chevallier@bootlin.com, richardcochran@gmail.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20250724154052.205706-1-matthew.gerlach@altera.com>
- <20250724154052.205706-3-matthew.gerlach@altera.com>
-Content-Language: en-US
-From: Matthew Gerlach <matthew.gerlach@altera.com>
-In-Reply-To: <20250724154052.205706-3-matthew.gerlach@altera.com>
-X-ClientProxiedBy: SJ0PR13CA0147.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::32) To BYAPR03MB3461.namprd03.prod.outlook.com
- (2603:10b6:a02:b4::23)
+ Mon,  4 Aug 2025 22:00:30 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id E28EB1F00050
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  4 Aug 2025 21:59:46 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id 6662BB0117A; Mon,  4 Aug 2025 21:59:39 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on spamassassin
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
+ autolearn=disabled version=4.0.0
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id 02B54B01170;
+ Mon,  4 Aug 2025 21:59:27 +0000 (UTC)
+Date: Mon, 4 Aug 2025 23:59:25 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Message-ID: <aJEtPd_-IzQZVBfl@shepard>
+References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
+ <20250802-media-private-data-v1-54-eb140ddd6a9d@ideasonboard.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3461:EE_|BN9PR03MB6138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4632fc1c-7dc2-495a-6ef8-08ddd3674cfb
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N3d2bFBTQ0lyQ29zZWdJVW0vZEdiQkRLWXZDMTJEMlA1bWVjVzBKbGRvSlFT?=
- =?utf-8?B?NWFCQ01NQ2xaSFJnYkZGWnJBeFJ0RmNKelBZYmRRMTd1aFRXZGFINXE3dURk?=
- =?utf-8?B?Z1Rab2ZJT2hUdDV3Rk5ST3NUWnZnU1hrV1BqNVZOTnFScGVKdFFNTk16d3Fv?=
- =?utf-8?B?RXloNUNhbmZmT1duQUsvOENiS3plRFFRdFBYQWVNWXNSRTRUcFQrbWhJblZv?=
- =?utf-8?B?WVlxaU5yTTJlYkxJZnIwbWRKemxmOVRDa3gyTmsyakNJa2Y2QndXSzBsKzc4?=
- =?utf-8?B?R1hKbHI3MlZBckJ3VEpSR0d3ZGNXUDQzTnRpeVp0emc3Wmpvdi9haDlCL2dv?=
- =?utf-8?B?K3QzYmxtMG1FZkVQOWRuMzZkM1NqbUh5ZS90d0Q0NmlBNjdYMWw0eEtwekpm?=
- =?utf-8?B?YXlyaUQ3QlhNSWRiK014OUcwMkMxQ3hrckxVNXdHcCtMblBhVTVmQU1BZ3Nq?=
- =?utf-8?B?QlhQYVN3a2JYOWczZEpzR1dEYmF6REFIQTlhdWZIMVg3WW1TT0xoRDhwbVI3?=
- =?utf-8?B?eUwxbGkySVcxVUtUdU1QVjJBNG5UZ09NWmgxV2J3YmRPWnYyWEtnQnRVanl6?=
- =?utf-8?B?STc5NDJNSVdtZ3FJcVlmQjZoczdlWHdpTXJUS3ROSUErT00wb2oxUE9SV1cz?=
- =?utf-8?B?ZXR2TzZsRFg4d0diRStCWFl1WjF1UnMrNkdzVVRRNmRYSmlKV1pBU1p6NWNp?=
- =?utf-8?B?QWJSSUhhZzZYUWxmdjNxUEoyR21JZ2V0UUdFOGg3RThLZ2gzeEFuYmlNZlZY?=
- =?utf-8?B?Mmc5M3E1RmlPVzluTHdjeXBvTCtBSklJZ1RJM0hnMkt6Y2k1M1ZtSktINkpm?=
- =?utf-8?B?RnZ6WDdmeGtZcXcyVlgyang4TWt2STBEbWFCNnpjSXBOb2xjdGRrRW1Rb1J1?=
- =?utf-8?B?b3JFeHgra3ZPb05sQVd4OEdyVDFJQXcyVjhudWFxaUkvUCtsWnVDL3EyZFJM?=
- =?utf-8?B?NHF4a3lpcVgySWxKVC9lL2Z4NEwvbVVpZjJ3a2RsMGZPUEFiQzduaXNiTkZt?=
- =?utf-8?B?NjhJbE5rWmZqbHpXQi9INTVvRXM0SU40b2dLVFRYYTNjV29FeGdKTnd6Mlpm?=
- =?utf-8?B?VVEzRFJBVUZnYzU0cnZQSC95UGliMnhqN29ROXQ0QjZKeFdTNFBLcGh2bWhp?=
- =?utf-8?B?YnVBbHI1UHU3THFYZEQzV2U0TVNySUlNbnpYelZaYjhXUnllaTNsb0NSeUZB?=
- =?utf-8?B?eFVxNUlYNVlseFR6VkZ1WXFjQUFhTVpUZGgvSE00M2pvNXNIYThOak5hM2F6?=
- =?utf-8?B?OStxTDFiWHV4ZVV0NEMzYlRMeE42Qmw5eTVoblZQbFB5Qy9qcnFJa0dlZDBq?=
- =?utf-8?B?TFdIa1FZMmhLaFhWbm5YMm1NeU1mR0tCdlU3bUVYbGx4SWpLNitKM1BtRzdX?=
- =?utf-8?B?dnFPQjhPVWxxR3dLWEswczc2VlJNUTRleVBDbURTWXgrbVlhenZKSlZYU3JL?=
- =?utf-8?B?eFAwOFloaU5kZGtFQ1IzT29NZ3g2RXd4dHliMVpjQnlYWnlyVGJ5QWZ1WXI0?=
- =?utf-8?B?L2swVUwzVzVxME5obkRUKzdBVkpPbm1leCsydTJvT0ZMdmFjd0pSR3Y5OVdF?=
- =?utf-8?B?d2Ria1p1djZnOTRyWVdjSDc3dGowTzhCWVRLcWFVV1dNS2ZiVW5JTDRwS0VY?=
- =?utf-8?B?YjViS093eWpwQVF0L2tnbWdpUEp0UUpZd0FWazVoK21mWDdpd2FVUi9CUHRS?=
- =?utf-8?B?ZGZFWTFCcjc3eWV3VWNncjFFc0lrbnBVd2RVMEd0cU10NEZDMElEdm9iRTA2?=
- =?utf-8?B?L0g1Zi9SY01wSHB0enBydlRORU5jSzFQYkxEZ3dsK2lObHJvbkZKM0NXUEZD?=
- =?utf-8?B?dTVUeGVlR2hmRGgzcmFiRWlsVEFpbzJKa081Vmk2dXJBQnk4V2JNOTBjc09x?=
- =?utf-8?B?RE01cVdoVkVEb3VJQUFqVUgxREFoVWwzclRjYlk2QWRWQ1NjTnNsdTg1UitZ?=
- =?utf-8?B?akYzak1sSGhzN0txTFdtMHJielVRTzM5THB0bjZGSzZHQ3M1T3BOQ2w3MGk5?=
- =?utf-8?B?cjFiVXpoK2tBPT0=?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR03MB3461.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TW5pazNsWFlaK2JUZzFDaElDcm45NDR0dHJycXB4eHJPK3FkdFNTMVVocXV3?=
- =?utf-8?B?R0dhRDl4K0ZaUkNLaXJFcWZBYmRxbktaNnZBbGVyOUU0RTlkR3c1d1pYSEZG?=
- =?utf-8?B?MFZMSHNNYm5rN2FKbC9sdS9zM3pTTWQ3bkdzTmYreTMvMmluSW9uVUpaYkFJ?=
- =?utf-8?B?OFBySU9pTE1YU1BjK0JCVnVrVnRwUW5hemhMeUllSTVqbWVvWlFmMVhUeklM?=
- =?utf-8?B?WDgwZURYd29UUVh5WUNkSnBiRk9JNHNjb2NwNGlYeGU0Y1o0UlZMQmhMMzFR?=
- =?utf-8?B?QkNIaTdpRDF6RWtzVDltSTlpM0ZZdDAvbk9aM2w3T2svdlMwRGYvdFdFWWpi?=
- =?utf-8?B?ZkxUcGk4ZWU3TjFrSE13cGpYc1Z5UXRMdVZwa3FNNU56UHNrSW5ZNFgrekVJ?=
- =?utf-8?B?d3Y3dkdXUi9SSys1bEJ0bXF3ZlJBTzJxT210RmQvb2NXd1didDVuRVl4bEFU?=
- =?utf-8?B?bnp6M1FWSUZhOXIxVi9oSXYyVzNwTk8zSHhMS1dNR0syWEpaT29ydzBFUzFG?=
- =?utf-8?B?OHo0WVhmWm1ZbGtjV0o1TmNuS010TjBtRmVzWVphcStYdUd0NWNuaXJGMy9Q?=
- =?utf-8?B?NFVJSzRRS2RveFIxam1pa0xsUDdZRFY4Z2RhM0FJS1VJM0hqUUVpNzNhZml1?=
- =?utf-8?B?VUF4MzRhdUFOM2wxWDdudEVWRFBLd3FFQ1hPVTY2dW1pNnhvS3h2Z2syUm5H?=
- =?utf-8?B?RTFLNm9zOVYyWldrRWQ5dkVncnRvU1Z0cUgvTTBucFNGZ1g3WGxFWjVDSGM4?=
- =?utf-8?B?TzcvYWluTmFpUHZDdXI4M3dZc0hENkV4ZlJWS2ZndjgxZG9uUVlSdGRQcnVT?=
- =?utf-8?B?aGdGakw3VFpGZ2gxNkJndlE0OGRpRDQvSXlFYk01MmtrZmxJejZFQ1pjZ2Jt?=
- =?utf-8?B?VFdvcUJ2bWNRbjZ0YTk0NXZTc1NvbVI1dllOczF4TW9Fbm9RWnJvN2t1TUZW?=
- =?utf-8?B?RmlZMS9vYVhmMkZrblhkbWZoNXZ6N05wRS8xclBaOFVWU2M2L3h2SlZKOHg0?=
- =?utf-8?B?UzZWS3R3S3E2VndYbmZsOW9WQVpGZ01Zb2ZLZWNpcHowU2p5K01wcnl5ZlQy?=
- =?utf-8?B?d2xWdTBSalVxanJNUUVUV3NVRXBBZW8zWElQc3MzdU11djFUOXQ0M2hTaHM5?=
- =?utf-8?B?VGZDU0d5RzJCMU1RRXdzeHM5aUJOSEpOWC91M3lqaFBNcXFubzlHQnJ4aldk?=
- =?utf-8?B?cFRNREI4eUVNV2wrVHNYMTdtNk4rOTlnbEtic1N2Z1RCNVhVNmlRYzJ1QzFC?=
- =?utf-8?B?VXpZbVdONmdOTWNIaGx1NlQySzlpa2FnRHZtaEpwV0gvZU1ZNXQ4RGlBUVdh?=
- =?utf-8?B?WnBTZHRuMDIxWVdsQnJwZU0rYU8rcUM4TlVZVmRyNTByNS9Ja3UxN0Z0TjdS?=
- =?utf-8?B?c3A0N0l5U3pWdkI3Ujh6WTBnN0trQkhLd0FseWE2WVBoYk9KZGN5UVIxM0Fu?=
- =?utf-8?B?OENIcXoxVVd1bURVSU53MDJyMVAzN1Q2SkRpaU1YcnFBQzZwcHc1bkhHZHZQ?=
- =?utf-8?B?dDdrZ3JqWC8rMXlycnB3SVNPcFFUQldPcG0zZVhUUEVGWTJqamtBNzdDdHBS?=
- =?utf-8?B?QWUxOVl0dHBrUU54VTZzYjRrT3NuOTB6MWxZbHdtN1F2ZUREMUNnaWkyM09m?=
- =?utf-8?B?c3h6Mll6WlM0VHJnYkwrRWh4OXJHY3grL1M1clltNktxV0FlZ3FnRkJDZy8x?=
- =?utf-8?B?eVNoaU9BVGNUV0lVV01jUEM3Z2srbWQxRnN6ektYelZxQlV5S1VscVVQZlZ4?=
- =?utf-8?B?cVlMN1Z0WkEzcmFubmVZWEhXV2FaK3VhdGorMjNpa3g3SmRIVG9COU5pVC82?=
- =?utf-8?B?WnFYWjFMeHg1V3ZRdXcvNzZIRGtzSHhBM3B0Um5xRGNzaXNhSHBPRjA1cUlB?=
- =?utf-8?B?MmJGVFl1Rm9jME5MRlQrVWhBVHNRQmt3bWU1NUd3TkdNdlU2QWMyM1JkQ0Rj?=
- =?utf-8?B?TU9TNmNiZzJoUnFTN0NVVTV0NlhNT3V1WS85WUNiWFc1V3F2TWY0UUo2dGZv?=
- =?utf-8?B?eE9TZXdlK1VEQzE3bzhDcVRkK0VvVE16MTVSMUh3NTdqOTlRcUtjR3EzZ0RO?=
- =?utf-8?B?TzFFLzVFS0IxVXNoQlpVaFA3MzJSZ2JYemcyZGxoRUwwODcrS0hZd3dxT1B5?=
- =?utf-8?B?Sm43ejVKekNGVWJRVUFVQ3oxcU5tNHF3Y1cwNFp5UTdXK2RNNGFMMU1vS3ow?=
- =?utf-8?B?Z2c9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4632fc1c-7dc2-495a-6ef8-08ddd3674cfb
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3461.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 14:57:58.6856 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /iKykeYphT1n9ZxWNWy3wSEBilDrGbSuycu8U1JZJ/YgY6RY6PDupDKArIaX9MzBsOASzje9TBQU+D2xDvjQeIxSniraCZN7xFfnfWA5LDw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6138
-Cc: Mun Yew Tham <mun.yew.tham@altera.com>
-Subject: Re: [Linux-stm32] [PATCH v2 2/4] arm64: dts: Agilex5 Add gmac nodes
- to DTSI for Agilex5
+In-Reply-To: <20250802-media-private-data-v1-54-eb140ddd6a9d@ideasonboard.com>
+X-Mailman-Approved-At: Tue, 05 Aug 2025 15:32:20 +0000
+Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Christian Gromm <christian.gromm@microchip.com>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jacob Chen <jacob-chen@iotwrt.com>, Steve Longerbeam <slongerbeam@gmail.com>,
+ Bingbu Cao <bingbu.cao@intel.com>, linux-sunxi@lists.linux.dev,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Nas Chung <nas.chung@chipsnmedia.com>, Andy Walls <awalls@md.metrocast.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-usb@vger.kernel.org,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Ming Qian <ming.qian@nxp.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-doc@vger.kernel.org,
+ Yunfei Dong <yunfei.dong@mediatek.com>, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Dongliang Mu <dzm91@hust.edu.cn>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Jerome Brunet <jbrunet@baylibre.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ linux-media@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Houlong Wei <houlong.wei@mediatek.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, Zhou Peng <eagle.zhou@nxp.com>,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-mediatek@lists.infradead.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, imx@lists.linux.dev,
+ Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Jonathan Corbet <corbet@lwn.net>, Mike Isely <isely@pobox.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>, linux-staging@lists.linux.dev,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bin Liu <bin.liu@mediatek.com>,
+ mjpeg-users@lists.sourceforge.net,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dikshita Agarwal <quic_dikshita@quicinc.com>, Tomasz Figa <tfiga@chromium.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Shawn Guo <shawnguo@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Todor Tomov <todor.too@gmail.com>, Mirela Rabulea <mirela.rabulea@nxp.com>,
+ Alex Shi <alexs@kernel.org>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Corentin Labbe <clabbe@baylibre.com>,
+ Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Benoit Parrot <bparrot@ti.com>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Hans Verkuil <hverkuil@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Subject: Re: [Linux-stm32] [PATCH 54/65] media: hantro: Access v4l2_fh from
+ file->private_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,385 +116,226 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============2508602915374472565=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
+--===============2508602915374472565==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/6X2y1A/1uo421sv"
+Content-Disposition: inline
 
-On 7/24/25 8:40 AM, Matthew Gerlach wrote:
-> From: Mun Yew Tham <mun.yew.tham@altera.com>
->
-> Add the base device tree nodes for gmac0, gmac1, and gmac2 to the DTSI
-> for the Agilex5 SOCFPGA.  Agilex5 has three Ethernet controllers based on
-> Synopsys DWC XGMAC IP version 2.10.
->
-> Signed-off-by: Mun Yew Tham <mun.yew.tham@altera.com>
-> Signed-off-by: Matthew Gerlach <matthew.gerlach@altera.com>
+
+--/6X2y1A/1uo421sv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Very nice cleanup, glad to see this abstracted away from drivers!
+
+Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
+
+All the best,
+
+Paul
+
+On Sat 02 Aug 25, 11:23, Jacopo Mondi wrote:
+> From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>=20
+> To prepare for the introduction of video_device_state as second argument
+> of the v4l2_ioctl_ops handler, access the v4l2_fh from
+> file->private_data instead of using void *priv.
+>=20
+> The file->private_data is initialized to point to the v4l2_fh
+> by the usage of v4l2_fh_init() in the v4l2_file_operations.open()
+> handler.
+>=20
+> While at it remove the only left user of fh_to_ctx() and remove
+> the macro completely.
+>=20
+> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > ---
-> v2:
->   - Remove generic compatible string for Agilex5.
-> ---
->   .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 336 ++++++++++++++++++
->   1 file changed, 336 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> index 7d9394a04302..04e99cd7e74b 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -486,5 +486,341 @@ qspi: spi@108d2000 {
->   			clocks = <&qspi_clk>;
->   			status = "disabled";
->   		};
+>  drivers/media/platform/verisilicon/hantro.h      |  5 -----
+>  drivers/media/platform/verisilicon/hantro_v4l2.c | 22 +++++++++++-------=
+----
+>  2 files changed, 11 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/=
+platform/verisilicon/hantro.h
+> index 0f10714f1953945472e11d8c8ad87f8ec009b39f..e0fdc4535b2d73c5260057b0a=
+89aee67a4732dd2 100644
+> --- a/drivers/media/platform/verisilicon/hantro.h
+> +++ b/drivers/media/platform/verisilicon/hantro.h
+> @@ -382,11 +382,6 @@ extern int hantro_debug;
+>  	pr_err("%s:%d: " fmt, __func__, __LINE__, ##args)
+> =20
+>  /* Structure access helpers. */
+> -static __always_inline struct hantro_ctx *fh_to_ctx(struct v4l2_fh *fh)
+> -{
+> -	return container_of(fh, struct hantro_ctx, fh);
+> -}
+> -
+>  static __always_inline struct hantro_ctx *file_to_ctx(struct file *filp)
+>  {
+>  	return container_of(file_to_v4l2_fh(filp), struct hantro_ctx, fh);
+> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
+edia/platform/verisilicon/hantro_v4l2.c
+> index 7c3515cf7d64a090adfb8d8aff368f9a617f8c8a..6bcd892e7bb49c654aae58416=
+64d68c1692064bd 100644
+> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+> @@ -185,7 +185,7 @@ static int vidioc_querycap(struct file *file, void *p=
+riv,
+>  static int vidioc_enum_framesizes(struct file *file, void *priv,
+>  				  struct v4l2_frmsizeenum *fsize)
+>  {
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+>  	const struct hantro_fmt *fmt;
+> =20
+>  	fmt =3D hantro_find_format(ctx, fsize->pixel_format);
+> @@ -217,7 +217,7 @@ static int vidioc_enum_fmt(struct file *file, void *p=
+riv,
+>  			   struct v4l2_fmtdesc *f, bool capture)
+> =20
+>  {
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+>  	const struct hantro_fmt *fmt, *formats;
+>  	unsigned int num_fmts, i, j =3D 0;
+>  	bool skip_mode_none, enum_all_formats;
+> @@ -297,7 +297,7 @@ static int vidioc_g_fmt_out_mplane(struct file *file,=
+ void *priv,
+>  				   struct v4l2_format *f)
+>  {
+>  	struct v4l2_pix_format_mplane *pix_mp =3D &f->fmt.pix_mp;
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+> =20
+>  	vpu_debug(4, "f->type =3D %d\n", f->type);
+> =20
+> @@ -310,7 +310,7 @@ static int vidioc_g_fmt_cap_mplane(struct file *file,=
+ void *priv,
+>  				   struct v4l2_format *f)
+>  {
+>  	struct v4l2_pix_format_mplane *pix_mp =3D &f->fmt.pix_mp;
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+> =20
+>  	vpu_debug(4, "f->type =3D %d\n", f->type);
+> =20
+> @@ -398,13 +398,13 @@ static int hantro_try_fmt(const struct hantro_ctx *=
+ctx,
+>  static int vidioc_try_fmt_cap_mplane(struct file *file, void *priv,
+>  				     struct v4l2_format *f)
+>  {
+> -	return hantro_try_fmt(fh_to_ctx(priv), &f->fmt.pix_mp, f->type);
+> +	return hantro_try_fmt(file_to_ctx(file), &f->fmt.pix_mp, f->type);
+>  }
+> =20
+>  static int vidioc_try_fmt_out_mplane(struct file *file, void *priv,
+>  				     struct v4l2_format *f)
+>  {
+> -	return hantro_try_fmt(fh_to_ctx(priv), &f->fmt.pix_mp, f->type);
+> +	return hantro_try_fmt(file_to_ctx(file), &f->fmt.pix_mp, f->type);
+>  }
+> =20
+>  static void
+> @@ -648,19 +648,19 @@ static int hantro_set_fmt_cap(struct hantro_ctx *ct=
+x,
+>  static int
+>  vidioc_s_fmt_out_mplane(struct file *file, void *priv, struct v4l2_forma=
+t *f)
+>  {
+> -	return hantro_set_fmt_out(fh_to_ctx(priv), &f->fmt.pix_mp, HANTRO_AUTO_=
+POSTPROC);
+> +	return hantro_set_fmt_out(file_to_ctx(file), &f->fmt.pix_mp, HANTRO_AUT=
+O_POSTPROC);
+>  }
+> =20
+>  static int
+>  vidioc_s_fmt_cap_mplane(struct file *file, void *priv, struct v4l2_forma=
+t *f)
+>  {
+> -	return hantro_set_fmt_cap(fh_to_ctx(priv), &f->fmt.pix_mp);
+> +	return hantro_set_fmt_cap(file_to_ctx(file), &f->fmt.pix_mp);
+>  }
+> =20
+>  static int vidioc_g_selection(struct file *file, void *priv,
+>  			      struct v4l2_selection *sel)
+>  {
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+> =20
+>  	/* Crop only supported on source. */
+>  	if (!ctx->is_encoder ||
+> @@ -691,7 +691,7 @@ static int vidioc_g_selection(struct file *file, void=
+ *priv,
+>  static int vidioc_s_selection(struct file *file, void *priv,
+>  			      struct v4l2_selection *sel)
+>  {
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+>  	struct v4l2_rect *rect =3D &sel->r;
+>  	struct vb2_queue *vq;
+> =20
+> @@ -738,7 +738,7 @@ static const struct v4l2_event hantro_eos_event =3D {
+>  static int vidioc_encoder_cmd(struct file *file, void *priv,
+>  			      struct v4l2_encoder_cmd *ec)
+>  {
+> -	struct hantro_ctx *ctx =3D fh_to_ctx(priv);
+> +	struct hantro_ctx *ctx =3D file_to_ctx(file);
+>  	int ret;
+> =20
+>  	ret =3D v4l2_m2m_ioctl_try_encoder_cmd(file, priv, ec);
+>=20
+> --=20
+> 2.49.0
+>=20
 
-Is there any feedback for this patch and the next one in the series, 
-"[PATCH v2 3/4] arm64: dts: socfpga: agilex5: enable gmac2 on the 
-Agilex5 dev kit"?
+--=20
+Paul Kocialkowski,
 
-Thanks,
-Matthew Gerlach
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
-> +
-> +		gmac0: ethernet@10810000 {
-> +			compatible = "altr,socfpga-stmmac-agilex5",
-> +				     "snps,dwxgmac-2.10";
-> +			reg = <0x10810000 0x3500>;
-> +			interrupts = <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			resets = <&rst EMAC0_RESET>, <&rst EMAC0_OCP_RESET>;
-> +			reset-names = "stmmaceth", "ahb";
-> +			clocks = <&clkmgr AGILEX5_EMAC0_CLK>,
-> +				 <&clkmgr AGILEX5_EMAC_PTP_CLK>;
-> +			clock-names = "stmmaceth", "ptp_ref";
-> +			mac-address = [00 00 00 00 00 00];
-> +			tx-fifo-depth = <32768>;
-> +			rx-fifo-depth = <16384>;
-> +			snps,multicast-filter-bins = <64>;
-> +			snps,perfect-filter-entries = <64>;
-> +			snps,axi-config = <&stmmac_axi_emac0_setup>;
-> +			snps,mtl-rx-config = <&mtl_rx_emac0_setup>;
-> +			snps,mtl-tx-config = <&mtl_tx_emac0_setup>;
-> +			snps,pbl = <32>;
-> +			snps,tso;
-> +			altr,sysmgr-syscon = <&sysmgr 0x44 0>;
-> +			snps,clk-csr = <0>;
-> +			status = "disabled";
-> +
-> +			stmmac_axi_emac0_setup: stmmac-axi-config {
-> +				snps,wr_osr_lmt = <31>;
-> +				snps,rd_osr_lmt = <31>;
-> +				snps,blen = <0 0 0 32 16 8 4>;
-> +			};
-> +
-> +			mtl_rx_emac0_setup: rx-queues-config {
-> +				snps,rx-queues-to-use = <8>;
-> +				snps,rx-sched-sp;
-> +				queue0 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x0>;
-> +				};
-> +				queue1 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x1>;
-> +				};
-> +				queue2 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x2>;
-> +				};
-> +				queue3 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x3>;
-> +				};
-> +				queue4 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x4>;
-> +				};
-> +				queue5 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x5>;
-> +				};
-> +				queue6 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x6>;
-> +				};
-> +				queue7 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x7>;
-> +				};
-> +			};
-> +
-> +			mtl_tx_emac0_setup: tx-queues-config {
-> +				snps,tx-queues-to-use = <8>;
-> +				snps,tx-sched-wrr;
-> +				queue0 {
-> +					snps,weight = <0x09>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue1 {
-> +					snps,weight = <0x0A>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue2 {
-> +					snps,weight = <0x0B>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue3 {
-> +					snps,weight = <0x0C>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue4 {
-> +					snps,weight = <0x0D>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue5 {
-> +					snps,weight = <0x0E>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue6 {
-> +					snps,weight = <0x0F>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue7 {
-> +					snps,weight = <0x10>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +			};
-> +		};
-> +
-> +		gmac1: ethernet@10820000 {
-> +			compatible = "altr,socfpga-stmmac-agilex5",
-> +				     "snps,dwxgmac-2.10";
-> +			reg = <0x10820000 0x3500>;
-> +			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			resets = <&rst EMAC1_RESET>, <&rst EMAC1_OCP_RESET>;
-> +			reset-names = "stmmaceth", "ahb";
-> +			clocks = <&clkmgr AGILEX5_EMAC1_CLK>,
-> +				 <&clkmgr AGILEX5_EMAC_PTP_CLK>;
-> +			clock-names = "stmmaceth", "ptp_ref";
-> +			mac-address = [00 00 00 00 00 00];
-> +			tx-fifo-depth = <32768>;
-> +			rx-fifo-depth = <16384>;
-> +			snps,multicast-filter-bins = <64>;
-> +			snps,perfect-filter-entries = <64>;
-> +			snps,axi-config = <&stmmac_axi_emac1_setup>;
-> +			snps,mtl-rx-config = <&mtl_rx_emac1_setup>;
-> +			snps,mtl-tx-config = <&mtl_tx_emac1_setup>;
-> +			snps,pbl = <32>;
-> +			snps,tso;
-> +			altr,sysmgr-syscon = <&sysmgr 0x48 0>;
-> +			snps,clk-csr = <0>;
-> +			status = "disabled";
-> +
-> +			stmmac_axi_emac1_setup: stmmac-axi-config {
-> +				snps,wr_osr_lmt = <31>;
-> +				snps,rd_osr_lmt = <31>;
-> +				snps,blen = <0 0 0 32 16 8 4>;
-> +			};
-> +
-> +			mtl_rx_emac1_setup: rx-queues-config {
-> +				snps,rx-queues-to-use = <8>;
-> +				snps,rx-sched-sp;
-> +				queue0 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x0>;
-> +				};
-> +				queue1 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x1>;
-> +				};
-> +				queue2 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x2>;
-> +				};
-> +				queue3 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x3>;
-> +				};
-> +				queue4 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x4>;
-> +				};
-> +				queue5 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x5>;
-> +				};
-> +				queue6 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x6>;
-> +				};
-> +				queue7 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x7>;
-> +				};
-> +			};
-> +
-> +			mtl_tx_emac1_setup: tx-queues-config {
-> +				snps,tx-queues-to-use = <8>;
-> +				snps,tx-sched-wrr;
-> +				queue0 {
-> +					snps,weight = <0x09>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue1 {
-> +					snps,weight = <0x0A>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue2 {
-> +					snps,weight = <0x0B>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue3 {
-> +					snps,weight = <0x0C>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue4 {
-> +					snps,weight = <0x0D>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue5 {
-> +					snps,weight = <0x0E>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue6 {
-> +					snps,weight = <0x0F>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue7 {
-> +					snps,weight = <0x10>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +			};
-> +		};
-> +
-> +		gmac2: ethernet@10830000 {
-> +			compatible = "altr,socfpga-stmmac-agilex5",
-> +				     "snps,dwxgmac-2.10";
-> +			reg = <0x10830000 0x3500>;
-> +			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			resets = <&rst EMAC2_RESET>, <&rst EMAC2_OCP_RESET>;
-> +			reset-names = "stmmaceth", "ahb";
-> +			clocks = <&clkmgr AGILEX5_EMAC2_CLK>,
-> +				 <&clkmgr AGILEX5_EMAC_PTP_CLK>;
-> +			clock-names = "stmmaceth", "ptp_ref";
-> +			mac-address = [00 00 00 00 00 00];
-> +			tx-fifo-depth = <32768>;
-> +			rx-fifo-depth = <16384>;
-> +			snps,multicast-filter-bins = <64>;
-> +			snps,perfect-filter-entries = <64>;
-> +			snps,axi-config = <&stmmac_axi_emac2_setup>;
-> +			snps,mtl-rx-config = <&mtl_rx_emac2_setup>;
-> +			snps,mtl-tx-config = <&mtl_tx_emac2_setup>;
-> +			snps,pbl = <32>;
-> +			snps,tso;
-> +			altr,sysmgr-syscon = <&sysmgr 0x4c 0>;
-> +			snps,clk-csr = <0>;
-> +			status = "disabled";
-> +
-> +			stmmac_axi_emac2_setup: stmmac-axi-config {
-> +				snps,wr_osr_lmt = <31>;
-> +				snps,rd_osr_lmt = <31>;
-> +				snps,blen = <0 0 0 32 16 8 4>;
-> +			};
-> +
-> +			mtl_rx_emac2_setup: rx-queues-config {
-> +				snps,rx-queues-to-use = <8>;
-> +				snps,rx-sched-sp;
-> +				queue0 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x0>;
-> +				};
-> +				queue1 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x1>;
-> +				};
-> +				queue2 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x2>;
-> +				};
-> +				queue3 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x3>;
-> +				};
-> +				queue4 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x4>;
-> +				};
-> +				queue5 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x5>;
-> +				};
-> +				queue6 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x6>;
-> +				};
-> +				queue7 {
-> +					snps,dcb-algorithm;
-> +					snps,map-to-dma-channel = <0x7>;
-> +				};
-> +			};
-> +
-> +			mtl_tx_emac2_setup: tx-queues-config {
-> +				snps,tx-queues-to-use = <8>;
-> +				snps,tx-sched-wrr;
-> +				queue0 {
-> +					snps,weight = <0x09>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue1 {
-> +					snps,weight = <0x0A>;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue2 {
-> +					snps,weight = <0x0B>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue3 {
-> +					snps,weight = <0x0C>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue4 {
-> +					snps,weight = <0x0D>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue5 {
-> +					snps,weight = <0x0E>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue6 {
-> +					snps,weight = <0x0F>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +				queue7 {
-> +					snps,weight = <0x10>;
-> +					snps,coe-unsupported;
-> +					snps,dcb-algorithm;
-> +				};
-> +			};
-> +		};
->   	};
->   };
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--/6X2y1A/1uo421sv
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmiRLT0ACgkQhP3B6o/u
+lQzrNQ//exzkeWe4akWNjtSBn1Bl653EfO7v/aMS3Y3CCAKwErQrOulake7C7uWp
+FWmge5iMC9U/bJjnJn6lW9WfRnVUXmp5akqOeWHMSQNTJOKjpKKu2vbmpqvYuw8/
+EZ2UXBGtg72QjRVuzMJ+SE6pK4JPFM8d4TgJxzk49W5ABja+ipgEbdccHOOiSC6+
+uFVnPmJI1kOcxLhh4CLeJsq2rbT56LiAWFj/BcsoRnz0+2o3/E8FL3f2KG5T4/Hj
+6hZjsZySX3X+bwDVFBhMXv1d/ecgXPjUrdhj2kM+v50DMAu1jbz9aNM1kFzxA01q
+9uh4AeSC65gQ8YnjC8mUo9BH/9JWzvf8SsGLTqLfDxkaHZcs5dIfqvNkmTs+sAM9
+syJ2hplhAYUk20Pn/AAda2drxoqYYnUjt6R+UOaVcaJMLIr2z8CS60rWr2+Uwhpd
+njA1mv/Zih/rq8uNN8l+j4DAQabNh8g/LPeroTO0/eF5WsPTvZM/BKtKrJgoy3Rv
+E+C0EwaEiCNxZH9vUSmqw/DkWRX2CBe6NoDzUGwjWGJeSAjSCgbklwdyUuhKaJq0
+MTDz/VZ2xLIMFm8RRFfYBjKohUK+RXA2OHHst4bQGq0rvjqtJo9yd3UzIFz+ww+L
+VpD0vh+lndjqAQHcpftyzMcgB6AVADDZydaRUFdLGm9OHaeZA5k=
+=4/Uq
+-----END PGP SIGNATURE-----
+
+--/6X2y1A/1uo421sv--
+
+--===============2508602915374472565==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2508602915374472565==--
