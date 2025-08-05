@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF42B1B41E
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Aug 2025 15:09:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC7BB1B441
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Aug 2025 15:11:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06107C3F92D;
-	Tue,  5 Aug 2025 13:09:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 306D1C3F92D;
+	Tue,  5 Aug 2025 13:11:46 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 178EEC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3F26C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Aug 2025 13:09:57 +0000 (UTC)
+ Tue,  5 Aug 2025 13:11:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 18B3A601D9;
- Tue,  5 Aug 2025 13:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396ACC4CEF0;
- Tue,  5 Aug 2025 13:09:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B0D7D60204;
+ Tue,  5 Aug 2025 13:11:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEEA9C4CEFE;
+ Tue,  5 Aug 2025 13:11:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754399396;
- bh=Qyw2Seyv99FKHqkQGzgzhkf96Afcfp/hz1VcHx8L4aU=;
+ s=k20201202; t=1754399503;
+ bh=dSsKft6R8Ur2qdOcK2P58eAK0xJaJB/wuxX5XnU1Ktg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oa90mp6nH2jmdGDeDx1W6U4hN+VoFrpFYw8lSlcVrLD7Kstvd5GNfHl2W+ARRl/Ga
- 55iTAvlm8ApdzRQ+/YVnX8SVLD5+zeItIpXqmnm9PHBhyo6w6VD0e7isyWKeAhvnmL
- b9mkh/z15OXSaT1aXtGJXO4bEYanDb6m5SHhIQ8r0gRg6EW8HjdXG1s7WY+JBf5oPv
- gKkXplf0G9px9l1bT0u/WECjJcj3mJnKuUtAt1UuMeUdulH0Tt1NBglRnjfG5DcT0n
- /ZHhp79srmnIb7ZleUdNF+3WYWlbreS9Kv58xWxnJCOq30ArtYOqmiSiEW9hIEC/QS
- DBUCEBVdOEDxw==
+ b=NGBm2yp/TA7x/KtUo7ySEXK8aBVficvdSnm4NxBpBV37xVQPMMvkWhm6A1BPEpQwu
+ XMGnaqW7vnpw54jxYBcMCRbQjHKwd1bnn3eoh23eT1xWMu0XHf1qQF9Dm0HGA6ltT9
+ ZtkuqRBsko5HSwdteOhChQ47X9DlL0D2tdm5ZTNaeqIvs9oB0GvIxt7RVKrd2sUk7K
+ uhD37NngEXGe9SJix2FpxeWwG4tE0gBl7GEe9B3iSQd/+Y5WTeeCcsejEAwvRSg+mq
+ 1bvrv1WfWJpZGqC8R9NAs6yNsovb+cCGJEuWD/AFUlo7KPnzxnvUpLMHTjdb2RAUmJ
+ F+V7JXD/61IOw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Date: Tue,  5 Aug 2025 09:08:40 -0400
-Message-Id: <20250805130945.471732-5-sashal@kernel.org>
+Date: Tue,  5 Aug 2025 09:09:27 -0400
+Message-Id: <20250805130945.471732-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250805130945.471732-1-sashal@kernel.org>
 References: <20250805130945.471732-1-sashal@kernel.org>
@@ -40,11 +40,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.16
-Cc: Sasha Levin <sashal@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- mcoquelin.stm32@gmail.com, Linus Walleij <linus.walleij@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.16-5.4] pinctrl: stm32: Manage irq
-	affinity settings
+Cc: Sasha Levin <sashal@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.16-6.1] dmaengine: stm32-dma:
+	configure next sg only if there are more than 2 sgs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,96 +61,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Cheick Traore <cheick.traore@foss.st.com>
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
-[ Upstream commit 4c5cc2f65386e22166ce006efe515c667aa075e4 ]
+[ Upstream commit e19bdbaa31082b43dab1d936e20efcebc30aa73d ]
 
-Trying to set the affinity of the interrupts associated to stm32
-pinctrl results in a write error.
+DMA operates in Double Buffer Mode (DBM) when the transfer is cyclic and
+there are at least two periods.
+When DBM is enabled, the DMA toggles between two memory targets (SxM0AR and
+SxM1AR), indicated by the SxSCR.CT bit (Current Target).
+There is no need to update the next memory address if two periods are
+configured, as SxM0AR and SxM1AR are already properly set up before the
+transfer begins in the stm32_dma_start_transfer() function.
+This avoids unnecessary updates to SxM0AR/SxM1AR, thereby preventing
+potential Transfer Errors. Specifically, when the channel is enabled,
+SxM0AR and SxM1AR can only be written if SxSCR.CT=1 and SxSCR.CT=0,
+respectively. Otherwise, a Transfer Error interrupt is triggered, and the
+stream is automatically disabled.
 
-Fill struct irq_chip::irq_set_affinity to use the default helper
-function.
-
-Signed-off-by: Cheick Traore <cheick.traore@foss.st.com>
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Link: https://lore.kernel.org/20250610143042.295376-3-antonio.borneo@foss.st.com
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Link: https://lore.kernel.org/r/20250624-stm32_dma_dbm_fix-v1-1-337c40d6c93e@foss.st.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Based on my analysis, here's my assessment:
+Based on my comprehensive analysis of the commit and the STM32 DMA
+driver code, here's my assessment:
 
 **Backport Status: YES**
 
-This commit should be backported to stable kernel trees for the
-following reasons:
+This commit should be backported to stable kernel trees. Here's an
+extensive explanation based on the code analysis:
 
-1. **Fixes a real bug**: The commit message explicitly states "Trying to
-   set the affinity of the interrupts associated to stm32 pinctrl
-   results in a write error." This is a functional bug that affects
-   users trying to configure IRQ affinity on STM32 platforms.
+## Bug Being Fixed
 
-2. **Small and contained fix**: The change is minimal - just adding a
-   single line:
-  ```c
-  .irq_set_affinity = IS_ENABLED(CONFIG_SMP) ?
-  irq_chip_set_affinity_parent : NULL,
-  ```
-  This is a one-line fix that adds the missing callback to the irq_chip
-  structure.
+The commit fixes a **Transfer Error interrupt** issue in the STM32 DMA
+driver when operating in Double Buffer Mode (DBM) with exactly two
+periods. The bug manifests as follows:
 
-3. **Follows established patterns**: My analysis shows that other
-   GPIO/pinctrl drivers already implement this callback in the same way:
-   - `drivers/pinctrl/renesas/pinctrl-rzg2l.c`
-   - `drivers/gpio/gpio-thunderx.c`
-   - `drivers/gpio/gpio-msc313.c`
+1. **The Problem**: When DBM is enabled with exactly 2 scatter-gather
+   segments (periods), the driver was unnecessarily calling
+   `stm32_dma_configure_next_sg()` in the interrupt handler (line 748 of
+   stm32_dma_handle_chan_done).
 
-   The STM32 driver was missing this standard callback that other
-similar drivers have.
+2. **Hardware Constraint**: As explained in the commit message, when the
+   channel is enabled, the memory address registers (SxM0AR and SxM1AR)
+   can only be written when specific conditions are met:
+   - SxM0AR can only be written when CT (Current Target) = 1
+   - SxM1AR can only be written when CT = 0
+   - Writing at the wrong time triggers a Transfer Error interrupt
 
-4. **No architectural changes**: This is purely a bug fix that enables
-   existing kernel functionality (IRQ affinity setting) to work
-   properly. It doesn't introduce new features or change any
-   architecture.
+3. **The Fix**: The simple addition of `&& chan->desc->num_sgs > 2`
+   condition prevents unnecessary updates when there are exactly 2
+   periods, as the hardware automatically toggles between the two pre-
+   configured buffers.
 
-5. **Minimal regression risk**: The fix uses the standard
-   `irq_chip_set_affinity_parent` helper function that's already well-
-   tested in the kernel. The conditional compilation with
-   `IS_ENABLED(CONFIG_SMP)` ensures it's only enabled on SMP systems
-   where it's relevant.
+## Why This Is a Good Backport Candidate
 
-6. **Related to known issues**: My search found related commits like
-   `3e17683ff4a8` ("irqchip/stm32-exti: Fix irq_set_affinity return
-   value") showing that the STM32 platform has had IRQ affinity issues
-   that needed fixing.
+1. **Clear Bug Fix**: This fixes a specific hardware-related bug that
+   causes Transfer Error interrupts, which can disrupt DMA operations
+   and potentially cause system instability.
 
-7. **Clear user impact**: Without this fix, users cannot set IRQ
-   affinity for GPIO interrupts on STM32 platforms, which can impact
-   system performance optimization and interrupt load balancing on
-   multi-core STM32 systems.
+2. **Minimal and Safe Change**: The fix is a single-line conditional
+   check that adds `&& chan->desc->num_sgs > 2` to line 747. This is:
+   - Very small in scope (1 line change)
+   - Low risk of regression
+   - Only affects the specific case of DBM with 2 periods
 
-The commit meets all the stable tree criteria: it fixes an important
-bug, is small and self-contained, has minimal risk, and doesn't
-introduce new functionality. This is exactly the type of fix that should
-be backported to ensure stable kernels have proper functionality.
+3. **Hardware-Specific Fix**: The change addresses a specific STM32 DMA
+   hardware behavior documented in the reference manual, making it
+   necessary for proper operation on affected hardware.
 
- drivers/pinctrl/stm32/pinctrl-stm32.c | 1 +
- 1 file changed, 1 insertion(+)
+4. **No Architectural Changes**: The commit doesn't introduce new
+   features or change the driver's architecture - it simply prevents an
+   unnecessary operation that violates hardware constraints.
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index ba49d48c3a1d..e6ad63df82b7 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -411,6 +411,7 @@ static struct irq_chip stm32_gpio_irq_chip = {
- 	.irq_set_wake	= irq_chip_set_wake_parent,
- 	.irq_request_resources = stm32_gpio_irq_request_resources,
- 	.irq_release_resources = stm32_gpio_irq_release_resources,
-+	.irq_set_affinity = IS_ENABLED(CONFIG_SMP) ? irq_chip_set_affinity_parent : NULL,
- };
- 
- static int stm32_gpio_domain_translate(struct irq_domain *d,
+5. **Production Impact**: Transfer Error interrupts can cause DMA
+   streams to be automatically disabled (as mentioned in the commit
+   message), leading to data transfer failures in production systems
+   using cyclic DMA with 2 periods.
+
+6. **Clear Error Path**: Looking at the interrupt handler (lines
+   804-809), unhandled status bits including TEI (Transfer Error
+   Interrupt) result in error messages and potential channel disabling,
+   which this fix prevents.
+
+## Code Analysis Confirms the Fix
+
+From the code analysis:
+- Line 1207 shows DBM is enabled for multi-period cyclic transfers
+- Lines 593-595 show initial setup correctly configures both SM0AR and
+  SM1AR
+- Line 606 shows `stm32_dma_configure_next_sg()` is called during
+  initial transfer setup
+- The problematic line 748 (now 747) was updating memory addresses
+  unnecessarily for 2-period DBM transfers
+
+The fix ensures that for 2-period DBM transfers, the hardware's
+automatic toggling mechanism is used without software intervention,
+preventing Transfer Error interrupts while maintaining correct operation
+for transfers with more than 2 periods.
+
+ drivers/dma/stm32/stm32-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32-dma.c
+index 917f8e922373..0e39f99bce8b 100644
+--- a/drivers/dma/stm32/stm32-dma.c
++++ b/drivers/dma/stm32/stm32-dma.c
+@@ -744,7 +744,7 @@ static void stm32_dma_handle_chan_done(struct stm32_dma_chan *chan, u32 scr)
+ 		/* cyclic while CIRC/DBM disable => post resume reconfiguration needed */
+ 		if (!(scr & (STM32_DMA_SCR_CIRC | STM32_DMA_SCR_DBM)))
+ 			stm32_dma_post_resume_reconfigure(chan);
+-		else if (scr & STM32_DMA_SCR_DBM)
++		else if (scr & STM32_DMA_SCR_DBM && chan->desc->num_sgs > 2)
+ 			stm32_dma_configure_next_sg(chan);
+ 	} else {
+ 		chan->busy = false;
 -- 
 2.39.5
 
