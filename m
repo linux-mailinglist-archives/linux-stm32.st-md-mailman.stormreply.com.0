@@ -2,142 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DB5B1C527
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Aug 2025 13:44:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80F06B1C606
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Aug 2025 14:39:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19279C3F933;
-	Wed,  6 Aug 2025 11:44:12 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010048.outbound.protection.outlook.com [52.101.69.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F963C3F932;
+	Wed,  6 Aug 2025 12:39:06 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF6F3C3F932
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF23DC36B11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Aug 2025 11:44:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gaEwUNb8BQK9qR0i0q6/CYoddd6FPJn2IU7aZTpwYM+sTgQP1THmT2KqViVYaULerswKmLBUYHQnmPqADSYdXK6zDfwxEhLghvlmCHcEH0q/nRqiFnyqDfXipELBtT+CuQFC3ZrIcil4qrkPE64saP2vPmMFf6QJVzgreb4qv5Wd/A5Y7hbdHyEJ0BpBqq76Rbeq5bAhBU0Vpc7/NAMT9Om4yMMPniZD8pJV9eH/pXghaWIQXVM9a5CCkXzPWZWP4cWQAS4EQCQFtYk2RFY+KBSYxQJD5Kvzh5k6IeoEH7V6++Yoh1A7J1Z+syP3H1Wd5+ZzjreESWPMQy77oEh/Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cYoqaBu7fYjbmRWy4+bmWCPbZ7C5Oi6/AZ9bX+E4/hQ=;
- b=Zrpdmcl3HvNx3NTsSr+M6adekLbxI1/wvD4NFamn6FaeMWiwuyOb24O6ceZHfnFcobcyAzONADtt4OacLCH5CeNUmIU3ogHAWs7wMhlcMVz3lI6H3jrm8ysmpAqI/SwaSO5IsFGFf+1RbV7u6mQeOJWrbF0hIdbTbi5d5oCkAW1cGoPLuAICl5r3IJAssACw1itldQ/wQKixctyjJuhIwmfcpNY6TwN4N2B4tQRNThe5pyUwythILQ/26sVmebVuWUjJIezD80RnD5W6RYLsTHPmSHNP8cUbWMFWmioXipgl616KVOqGHHMhZ4hG1mcVyyWLhWxWn5a0GJ7yPlBeSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cYoqaBu7fYjbmRWy4+bmWCPbZ7C5Oi6/AZ9bX+E4/hQ=;
- b=AZJWXwYfcDNmgyViNhuZHez9cwzQTnJtwVqw6cKbg2HpfM9XqgHFQ8gFUV6Xgf5DRjPLmlC/XtuDLcOgH3V2N5iDa2/kNp9o299qcqwpP9xta8f+Wjs2+03kdYYZ5c7Rkc2x8CPXuMEsOueq1o41xRPEjTuIjw+YtfQnZXSQDEdghO5LAFmY99VW2IIUVrBXotEfrBB1whFpkVF8I8/vl77573iASyQHfb5ZI72lU4YERKXHOVwqJ8u02/G9l4Lv3ibIPP7jlsARwyNU9r/tYDL5PaTTgtZp34MhLlaxHwp3wCzxlr2JWAi97bWKw4ZXYucHwYwlnEwUj4P1IUwjzg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS4PR04MB9386.eurprd04.prod.outlook.com (2603:10a6:20b:4e9::8)
- by DB8PR04MB7002.eurprd04.prod.outlook.com (2603:10a6:10:119::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.16; Wed, 6 Aug
- 2025 11:44:09 +0000
-Received: from AS4PR04MB9386.eurprd04.prod.outlook.com
- ([fe80::261e:eaf4:f429:5e1c]) by AS4PR04MB9386.eurprd04.prod.outlook.com
- ([fe80::261e:eaf4:f429:5e1c%7]) with mapi id 15.20.9009.013; Wed, 6 Aug 2025
- 11:44:09 +0000
-From: Joy Zou <joy.zou@nxp.com>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, peng.fan@nxp.com, richardcochran@gmail.com,
- catalin.marinas@arm.com, will@kernel.org, ulf.hansson@linaro.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, frieder.schrempf@kontron.de,
- primoz.fiser@norik.com, othacehe@gnu.org, Markus.Niebel@ew.tq-group.com,
- alexander.stein@ew.tq-group.com
-Date: Wed,  6 Aug 2025 19:41:19 +0800
-Message-Id: <20250806114119.1948624-12-joy.zou@nxp.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20250806114119.1948624-1-joy.zou@nxp.com>
-References: <20250806114119.1948624-1-joy.zou@nxp.com>
-X-ClientProxiedBy: SI1PR02CA0031.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::11) To AS4PR04MB9386.eurprd04.prod.outlook.com
- (2603:10a6:20b:4e9::8)
+ Wed,  6 Aug 2025 12:39:05 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 576CC3qH008508;
+ Wed, 6 Aug 2025 14:38:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ +9IsvCzYMDK0gCqL2cCxHQLQ+DlESL1F/sd9l2UbGxI=; b=ALOz9sx/aoS4LcZj
+ Jv6BgZX6lM2lEyEM4mykxHVI7EkOCuKkdL9NWek0jfa+QN+KWCJNMlB54vR/4CU2
+ gv34OkICK/Oo1dSWTnHLsJiCnrI0/sTov+Gaf4Rgx258D4b4Cfq+l4pwbEgSHmS0
+ 3pKHOlRdQiUVccAq8hybkfFn66waaXm8aEryafELGWtxmhoYHjvPLeF5rnoHOG0Q
+ zPTxxGmVt2ItBW1MJVSUjnbRAwIhL3/QbPBxkkfrZg3WnrPIGMLUVwpAMuA5CIJE
+ EGJXiv+vEvyR+aJvmeC0Yl98+Hy6L0uqn2uJGcH5ri8TgPHtAJPJvrfu37jpN6qD
+ gVXYiQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48bpx63ddb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 06 Aug 2025 14:38:49 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id CFECC40050;
+ Wed,  6 Aug 2025 14:37:39 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C83B2718A8F;
+ Wed,  6 Aug 2025 14:36:56 +0200 (CEST)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Aug
+ 2025 14:36:56 +0200
+Message-ID: <832fb088-8862-4bd7-82a4-0e7ad58efe76@foss.st.com>
+Date: Wed, 6 Aug 2025 14:36:55 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS4PR04MB9386:EE_|DB8PR04MB7002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80f62b80-1f51-49a6-c9a3-08ddd4de8e6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|52116014|376014|7416014|366016|1800799024|19092799006|38350700014|921020;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NLg5eDBJE0p1KKB9WtFGzisEYVSbojF2FvxZ4NqUmERWVQtGmWfpfY3OhQpt?=
- =?us-ascii?Q?MFkQjAX/HpyIQtEBVQ4gH7HtdcSiA43x6BWqRCONJbC36L/9Jdu+Bv+q7FoS?=
- =?us-ascii?Q?9XnzI4h31v0Noxz3IqA75kId90MaJCsSF8OLpof13e3hRg4QolTMucUkkkFV?=
- =?us-ascii?Q?Ymy1fJqPxMZrDO36yV08sGiTIvlF9/NysnkWnd91hcf9o5CjUoLjZ744pkBl?=
- =?us-ascii?Q?vlRTCaYZZEamk10wH/YrO5yYXeI05vL+wbC68MP0YncrJAU5b3Fe8FHUEYO/?=
- =?us-ascii?Q?MN03p6w7J/yyxLJx0iAMVEwi9sIGUnhbVgZZ0kIgZ0Sl90KJhYTtHM45LNrg?=
- =?us-ascii?Q?XTMfvTEpQOQNsIX5IqSl+YpG1wWjLeUPmQ44oAh5jxpViDkfPm6se2avH0OH?=
- =?us-ascii?Q?31nw0k2LEjqQX9c4Jva8s6r4tCsywOeCFWpK41fiyCKLdWcAxCRxVqnZhY/B?=
- =?us-ascii?Q?6n+9P5NiFzPjzpMLHgIsSZggCLc40lnPMwl3d5hstcFXAgxervH/dGeU3RYo?=
- =?us-ascii?Q?EJbh4q29ufQH8uAtmug0oRY/BYU+ErZXceVbJXe+6gvVqLcg2C7F0gJiwGiu?=
- =?us-ascii?Q?2OYiUk544+zUuFnighuoZl9UooUoZNISTrL8e5IlubcsnI4+YuTT3JuZm/JP?=
- =?us-ascii?Q?vugXlsu1bLxmlrz1E39eA18XKptm8E1Bdq+ZmcPkRX/xsxKlaVHI2b1ei5V3?=
- =?us-ascii?Q?0ojMrMewHJqoRjQAWXvueueN5WVKB+0u+KTwAGzqcKk//9NJ/rC0hNVmXrPV?=
- =?us-ascii?Q?Uj3CB/rPDys//uZZOaulOljhqz0OrT9zsRhy8Q62OGCuYSlCyeTbHlWC9ekP?=
- =?us-ascii?Q?NP9bVyo7wFYymikFtLtU/FRVhBny4vnRsY+GMuZQDXdsDDnAZMi0qHyqd3ZS?=
- =?us-ascii?Q?H2LJrr4H0N/i1pAB3OPOjSUVvF7gBVvNlUFB0/+83o26EpM5V696GEJtPUxN?=
- =?us-ascii?Q?JGSTCGJfRo8ircZSQNHo/7ySFr1NyVFJh1LCF8jGqiQqg1/sn2ZDLFySIYsn?=
- =?us-ascii?Q?gLseRy0m8skdMCxN7urBSVkhsCSGRD2iBWbMgMftT7brwhTwNlVorrqsKIyz?=
- =?us-ascii?Q?PODR11K/xPauvQNjdkngjvqbtCYFor3C4Rs0bjeZ1lQ1VEOU3UYDu5zhgDqC?=
- =?us-ascii?Q?RKMugUr+EDMSKWAS7mduYNwd4OSwX7HA4LsLuw0rEEGHqMTaBSXxiZGRk/A/?=
- =?us-ascii?Q?YjENI8yQN5vbxiN5wxHoQ+aphknzp6GdYwR/FCdLwQWjboWjFoxB9ui0JLO4?=
- =?us-ascii?Q?myHzTmAGFwBVncO2AC/a7t3NP5ZxUr9dmvdUc5trRFWO+OCgKh5LArXupj9E?=
- =?us-ascii?Q?fpWM4hOQWPeY+/ByKbT35R/1iVreyTGV5NATUS5niDyNSvUeL/e30IENb6KG?=
- =?us-ascii?Q?layt/jojuFp8dmc0H4TqQeluW8pYNuFdLpuVMrsMSyCbooE+ZRq06B4HuNSY?=
- =?us-ascii?Q?r8SvoTeuW+xD7+muKo8VhroSG1dbooy//VqJ4yQhKy4d5aV5G8XUg/KO1pHO?=
- =?us-ascii?Q?0n8P3w74HnMpocw=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS4PR04MB9386.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(52116014)(376014)(7416014)(366016)(1800799024)(19092799006)(38350700014)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vLY4NRGT33Wq3YIB8A5Tu8E+3m9xQdl2YJwQ8MnTl9OONBapKTQfWKZIjeu1?=
- =?us-ascii?Q?6vSiT0p61FArAQBWS81Q8wac3ENNgGRHMjj4aO1KnhAAi19exPrcD6416umL?=
- =?us-ascii?Q?PpHnKuvcu6r9UjG685sZ87B+hvr3SK22TsMzc7t+gIId13I7tpv285tq+X5C?=
- =?us-ascii?Q?J18F3Tzp9kq7GTTnGH0z+Vycmdpwa+qVYjSpRyMGy0nFNo2cf49SkF/+oDkA?=
- =?us-ascii?Q?+YCkxDtg6/f4Ld/GR0sLyLKmu9E7wH/epzwt8PNVKiI/3NaD2V4p4CP2y1zA?=
- =?us-ascii?Q?6VtgrjU3Y14o3MufxBWBVzNTvOmlqMYCnEx66sVuEi7bSnlF8iogQF3p11Up?=
- =?us-ascii?Q?lQoJeGhULR3clpIddfIjfJS0hgWZ2TW53E+rdQpIl3wj1EJh/qwydM0Ydua7?=
- =?us-ascii?Q?YYLnqypC3TJ+Wv6oSGKAd4tu8jkly9KMiFq1H3vrDZxMhyV1bO6mOk/OBrCs?=
- =?us-ascii?Q?qmmb6r+kx9eaW2S5q2saqb2R4yXvNSZf14ltvfMI4aZk/eSu22bIB4UpLh+X?=
- =?us-ascii?Q?LQDhk6GZgRiyoBfoJ0lF/IVZvDBSd4H+l1iwgHqjpTyjqqsJwl0h1u6mxsbr?=
- =?us-ascii?Q?Qj3k1I3RUOCccQ643HWu0R6XGgOkbwVWwgPb6hdIPGhK1uFHcO0GAnOE1Obf?=
- =?us-ascii?Q?mdF3ogda7wR3O3zpruMHj97fzinzz8uBSiq/CY/qJMlIJjYhS/ipOa4x0G6S?=
- =?us-ascii?Q?sotj8aOMIs+EszRa/Bdz5pjyqpfJ8L6l31CjrjSvPaqyEvW+u3yWfJrkvvPx?=
- =?us-ascii?Q?XjOeaz/xH4fmswtixxTF6WuGBPvUjmNwTmnX0xEelKUJ658iKS1bOxemecYw?=
- =?us-ascii?Q?4wMJj3snCbfvOBO3hC7AXy5170Tsn3/VjB25aTSpzvKXVehxV9p0WwcHzY8x?=
- =?us-ascii?Q?tUzsNfmi5UXWyuFozpINAGOLlFK4pegNCH6DtXrsNb7H0132+XlJz50YxVRs?=
- =?us-ascii?Q?EP6iBzz1avV0uQadZvoL3Dd36LhU5V5hSXTqepiBpVZD4k+ZNTqUAALCgtNM?=
- =?us-ascii?Q?GVU5fTuzsGIFCFBsnBLWZal3GrzSZFVbeIx72khwNXNYfPoHkJ7uaoNCzGyY?=
- =?us-ascii?Q?jfFym0ZHXpXsFDlUmro6CyQuafV2yIFbfYMpMdW6Cig5s2ktYCzwHPIuFYeX?=
- =?us-ascii?Q?MzWTX9XWze2wXnEW962ww0lAldxuIe+ZfUAfDoMkQJknmLVlbM8pZBVenhKB?=
- =?us-ascii?Q?QV49aZUiof1uMZDh81HKn1AeDotsUzywWtmjp5z4WB4Qmz2rP3vqwoRAsHdV?=
- =?us-ascii?Q?AGENbry4BNmdA27pHAuv2lB1wX/xN63nGE8Ia06DhMLy6PT0wFfDXynKQzs6?=
- =?us-ascii?Q?wWiVljgkeZvKd6YlmKZYWkn+k4eKESU0SglbAA+/eemh2vVZGrqKaUB37M4C?=
- =?us-ascii?Q?1dD+BqRdh41xHEAq//QSKCLKs8A4AbFYXS7okSOXdYonXiwWureWA3+yOe53?=
- =?us-ascii?Q?WQdz2fFPTClIvbmwvT1VuBNZSaglKCLK5ihKShEp5C6YShe1J23lb9gvl6Mc?=
- =?us-ascii?Q?t80I5e1FFoWDsArDahTOFa4Djnu7AakqTShzF3Ahq647hWbShXZg3iKztIzJ?=
- =?us-ascii?Q?aBcB1i2XDlqxKh5MK+3GIS5uan94aQMBEJsisKR4?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80f62b80-1f51-49a6-c9a3-08ddd4de8e6c
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9386.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 11:44:09.7614 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yCyIAW2ZnkNp05LukQfSDBvJLSTN52dkX+1D/BMpqY6YorlCjHVqOE30FY3bJQmW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7002
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
- linux-pm@vger.kernel.org, Frank.Li@nxp.com, linux-kernel@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20250806-upstream_fix_dts_omm-v1-1-e68c15ed422d@foss.st.com>
+ <9e0c5453-b8f4-4d0a-8e8d-82014aac67dd@kernel.org>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <9e0c5453-b8f4-4d0a-8e8d-82014aac67dd@kernel.org>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-06_03,2025-08-06_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux@ew.tq-group.com
-Subject: [Linux-stm32] [PATCH v8 11/11] net: stmmac: imx: add i.MX91 support
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: Add memory-region-names
+ property for stm32mp257f-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,40 +82,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add i.MX91 specific settings for EQoS.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Joy Zou <joy.zou@nxp.com>
----
-Changes for v5:
-1. add imx91 support.
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 889e2bb6f7f5..54243bacebfd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -301,6 +301,7 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	dwmac->clk_mem = NULL;
- 
- 	if (of_machine_is_compatible("fsl,imx8dxl") ||
-+	    of_machine_is_compatible("fsl,imx91") ||
- 	    of_machine_is_compatible("fsl,imx93")) {
- 		dwmac->clk_mem = devm_clk_get(dev, "mem");
- 		if (IS_ERR(dwmac->clk_mem)) {
-@@ -310,6 +311,7 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	}
- 
- 	if (of_machine_is_compatible("fsl,imx8mp") ||
-+	    of_machine_is_compatible("fsl,imx91") ||
- 	    of_machine_is_compatible("fsl,imx93")) {
- 		/* Binding doc describes the propety:
- 		 * is required by i.MX8MP, i.MX93.
--- 
-2.37.1
+On 8/6/25 10:23, Krzysztof Kozlowski wrote:
+> On 06/08/2025 10:09, Patrice Chotard wrote:
+>> Add memory-region-names property for stm32mp257f-ev1.
+>> This allows to identify and check memory-map area's configuration.
+> 
+> No, first entry is already identified.
 
+ok
+
+> 
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: cad2492de91c ("arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board")
+>>
+> 
+> No blank lines.
+
+ok
+> 
+>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>> ---
+>>  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>> index 2f561ad4066544445e93db78557bc4be1c27095a..16309029758cf24834f406f5203046ded371a8f9 100644
+>> --- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>> +++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>> @@ -197,6 +197,7 @@ &i2c8 {
+>>  
+>>  &ommanager {
+>>  	memory-region = <&mm_ospi1>;
+>> +	memory-region-names = "mm_ospi1";
+> 
+> It does not look like you tested the DTS against bindings. Please run
+> `make dtbs_check W=1` (see
+
+My bad, i am preparing the v2.
+
+Thanks
+
+> Documentation/devicetree/bindings/writing-schema.rst or
+> https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
+> for instructions).
+> Maybe you need to update your dtschema and yamllint. Don't rely on
+> distro packages for dtschema and be sure you are using the latest
+> released dtschema.
+> 
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
