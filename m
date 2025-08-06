@@ -2,108 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F15E8B1BC60
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Aug 2025 00:08:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A02FB1C3A7
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Aug 2025 11:45:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E54D3C3F92E;
-	Tue,  5 Aug 2025 22:08:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6FC3C3F931;
+	Wed,  6 Aug 2025 09:45:37 +0000 (UTC)
+Received: from smtpbg154.qq.com (smtpbg154.qq.com [15.184.224.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3660AC3F92D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25B2AC3F931
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Aug 2025 22:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754431715; x=1785967715;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=/aoxjBnanB6z5ZymLaTy2qG1GykI0n2CxoPSGTJMDc4=;
- b=fnuMfwcRKAFEfNlyqfrpQR8xaIvx6uPvE+4eTLFRAXIurD7TsmVrISif
- HOwsQOx91u56cuf87ZJSUtE2iHEM+JXvIDrlrK+/T6ayPT+UAFwLjjJBc
- LL4Xym8XPOt5NNmvbjGNE0ZTCwM3V43qcDNugtRoKIrJoaWkMrCEBfbko
- OzGBL8ErfS1pY1Iyc62ZKjHmriA1hP6qdx8xiq8nuytFBQ6o7/FzlLI4H
- X9vJzRUUlQOPlLMBoLsOW/ihg3MLmOyUJwTjfYkqEX8lrB3TGcAhpMyCf
- fWnKhkEfqSGsl6107buvC0svUflFA4HOL5il9dfMwm0WCmN99+gRhDY9n Q==;
-X-CSE-ConnectionGUID: kJ++91L4Rzay7KyCrRzTmg==
-X-CSE-MsgGUID: DIKAuZdZThWE3qWD89GuGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11513"; a="44334938"
-X-IronPort-AV: E=Sophos;i="6.17,268,1747724400"; d="scan'208";a="44334938"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 15:08:31 -0700
-X-CSE-ConnectionGUID: cvABU6gySmCN+nSbWkFxIg==
-X-CSE-MsgGUID: QOXnb3dlQReNBMfKeCvA3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,268,1747724400"; d="scan'208";a="164139100"
-Received: from smile.fi.intel.com ([10.237.72.52])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 15:08:13 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1ujPpG-00000003rhU-3uHR; Wed, 06 Aug 2025 01:08:06 +0300
-Date: Wed, 6 Aug 2025 01:08:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <aJKAxkXO7csIi5Oi@smile.fi.intel.com>
-References: <20250730-topic-dma_genise_cookie-v1-0-b505c1238f9f@oss.qualcomm.com>
- <20250730-topic-dma_genise_cookie-v1-3-b505c1238f9f@oss.qualcomm.com>
- <CAMuHMdV0JO=qtregrrHsBZ-6tpNdPUj3G1_LWRfRsj0vBb+qyw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdV0JO=qtregrrHsBZ-6tpNdPUj3G1_LWRfRsj0vBb+qyw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: imx@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>,
- Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
- Frank Li <Frank.Li@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Paul Cercueil <paul@crapouillou.net>, Laxman Dewangan <ldewangan@nvidia.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, linux-spi@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Samuel Holland <samuel@sholland.org>, Janne Grunau <j@jannau.net>,
- Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- linux-arm-msm@vger.kernel.org,
- Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
- linux-mips@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- asahi@lists.linux.dev, Viken Dadhaniya <quic_vdadhani@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Wed,  6 Aug 2025 01:15:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1754442853;
+ bh=V4RaJ1Se4NL5O3wmyRABO7eqwflr25ayetGnQRjwR4g=;
+ h=From:To:Subject:Date:Message-Id;
+ b=AK7nXAMQYnBNo9K3x7aZh+dRBs+h/4oOxAjeSWeXxmwmxF0JHdlgSAAnmk5AdjmHX
+ sQq62d8zLJzU0xxNctRsNQdnkxTnewwj8J3g9Mmoo5w4EeGDa72U1eJWPDn1eAhqO2
+ lnuQl995SiBJ+QpDsj60l8ijYB5tACLTkwzjvFHY=
+X-QQ-mid: zesmtpsz5t1754442851tccb2169c
+X-QQ-Originating-IP: Upns4K98WQPZ+nhbkTV8Mu3PYlo3Q5rJ1jS/uYj8JwI=
+Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 06 Aug 2025 09:14:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 794500594761782103
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-actions@lists.infradead.org,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Mark Brown <broonie@kernel.org>,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- Sven Peter <sven@kernel.org>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Saravana Kannan <saravanak@google.com>, Scott Branden <sbranden@broadcom.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>, linux-sound@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Vinod Koul <vkoul@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Takao Orito <orito.takao@socionext.com>, dmaengine@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Neal Gompa <neal@gompa.dev>,
- Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Daniel Mack <daniel@zonque.org>, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH RFC 3/6] dmaengine: qcom: gpi: Accept
-	protocol ID hints
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Jonas Karlman <jonas@kwiboo.se>, David Wu <david.wu@rock-chips.com>
+Date: Wed,  6 Aug 2025 09:14:05 +0800
+Message-Id: <20250806011405.115-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrsz:qybglogicsvrsz4a-0
+X-QQ-XMAILINFO: NoS5wdqc5dY8filCnKoiiWDopRo26igGdH6iGYEmjDqUfx/9BANeJNq3
+ 0DRir6bzns71Jpv2LTy2tL3fy/lfRpksUP02w4zWqlkmo3JELULpXJHmPKJi7N3G9nIoNy4
+ //I6Qqtrc0PK21vl2LUoz0OE6YndlVol9L6fZqVKjxEns7CeCWKfoUP6wRs27n+g5GrUfRx
+ xMxow+ie2PWHpo0Nxp5S+KXWp1xntXVNKjnpMhmdsM4u7zNLZuFAh4CYecXpBTMKDluLMrH
+ CCEkQZJc2ehOmnAToxXXxwalnMPzbcrg5lbT1iTEOuSRlUMasuOe2Rob5hIDlapli6t3mFC
+ naV6w8SH5d5XgRmUhBEX/Uw1Z7om62W+hNqaD/Dt/Nh/Tpn90pm20vJ8X/16up5ZYrQ5bag
+ IxElEDAgW5XWszbmEBMM3o31Q7Cuz3qExl8slE+isFUNGA7JeyKW40LvedB1M67BcsykbQU
+ fROPJiAElvvEU9RK428OIOE4pBhe8oN3VI3xkAaSoBaYcAV7965b04wKukExrvwdBvR8Eel
+ QRtH8GPa5blNi/3gH4fr/rnsWCaN9qXiruBR2jmMTxu51lgSIE63IGM04Ft0+yA9djdRwij
+ SLy4g71xKyaaNF0i+seB+cg8x1/NaBDlAhTaLKjTKm5g/zu3Hr9YG4iXWmXVxgvIIV46T5m
+ qKFeWe2A78yOyhExsLm9/yyjaufBMFqezpU+7c+8jgivPx9Edyim+ZLu97ylAOewp/UC3Vy
+ hlan9MQygEYRD1SsZbAwoSI43W1OEuShf2Z4houQiPyRGiYYjuoCX781MHCxLvmc8+61tY8
+ hibdqXiZ4xjDFjTEMClkKA1tP0FYj1xs+J4/Ms+tYvB+UmLLluT9c3/fYIKlyVjU46PCfXJ
+ 2Tl5M0lA3NCXwBFRxB9HgN28H67v6M30V9+hRdRQNND3DyjbP1YtUeW1fPtGSmFYz18Inuq
+ CCZWWvCsTuj68WRBLF/P508RjpOsbPYz+bwo=
+X-QQ-XMRINFO: Nq+8W0+stu50PRdwbJxPCL0=
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Wed, 06 Aug 2025 09:45:37 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: ethernet: stmmac: dwmac-rk: Make the
+	clk_phy could be used for external phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,35 +76,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jul 30, 2025 at 01:32:58PM +0200, Geert Uytterhoeven wrote:
-> On Wed, 30 Jul 2025 at 11:35, Konrad Dybcio <konradybcio@kernel.org> wrote:
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-...
+For external phy, clk_phy should be optional, and some external phy
+need the clock input from clk_phy. This patch adds support for setting
+clk_phy for external phy.
 
-> > +       /* The protocol ID is in the teens range, simply ignore the higher bits */
-> > +       gchan->protocol = (u32)((u64)proto);
-> 
-> A single cast "(uintptr_t)" should be sufficient.
+Signed-off-by: David Wu <david.wu@rock-chips.com>
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-FWIW, this means (unsigned long) as Torvalds is quite against uintptr_t in the kernel.
-
-> Casing the pointer to u64 on 32-bit may trigger:
-> 
->     warning: cast from pointer to integer of different size
-> [-Wpointer-to-int-cast]
-> 
-> >         return dma_get_slave_channel(&gchan->vc.chan);
-> >  }
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 700858ff6f7c..703b4b24f3bc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1558,6 +1558,7 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
+ 	struct device *dev = &bsp_priv->pdev->dev;
+ 	int phy_iface = bsp_priv->phy_iface;
+ 	int i, j, ret;
++	unsigned int rate;
+ 
+ 	bsp_priv->clk_enabled = false;
+ 
+@@ -1595,12 +1596,19 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
+ 		clk_set_rate(bsp_priv->clk_mac, 50000000);
+ 	}
+ 
+-	if (plat->phy_node && bsp_priv->integrated_phy) {
++	if (plat->phy_node) {
+ 		bsp_priv->clk_phy = of_clk_get(plat->phy_node, 0);
+ 		ret = PTR_ERR_OR_ZERO(bsp_priv->clk_phy);
+-		if (ret)
+-			return dev_err_probe(dev, ret, "Cannot get PHY clock\n");
+-		clk_set_rate(bsp_priv->clk_phy, 50000000);
++		/* If it is not integrated_phy, clk_phy is optional */
++		if (bsp_priv->integrated_phy) {
++			if (ret)
++				return dev_err_probe(dev, ret, "Cannot get PHY clock\n");
++
++			ret = of_property_read_u32(plat->phy_node, "clock-frequency", &rate);
++			if (ret)
++				rate = 0;
++			clk_set_rate(bsp_priv->clk_phy, rate ? rate : 50000000);
++		}
+ 	}
+ 
+ 	return 0;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.49.0
 
 _______________________________________________
 Linux-stm32 mailing list
