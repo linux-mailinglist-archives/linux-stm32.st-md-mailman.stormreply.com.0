@@ -2,78 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1220B1DA69
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 16:51:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05946B1DB30
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 18:01:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FB83C3F951;
-	Thu,  7 Aug 2025 14:51:31 +0000 (UTC)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF5DFC36B15;
+	Thu,  7 Aug 2025 16:01:00 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6CADC3F950
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C174C36B0D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Aug 2025 14:51:29 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-76bd9d723bfso1023396b3a.1
+ Thu,  7 Aug 2025 16:00:59 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-458aee6e86aso7295255e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 Aug 2025 07:51:29 -0700 (PDT)
+ Thu, 07 Aug 2025 09:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1754578288; x=1755183088;
+ d=linaro.org; s=google; t=1754582458; x=1755187258;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9OzOvhq3GmbvaBtGUgAaXSZiV6ZbsCylTW2ygbBRF/o=;
- b=eKrsSRJsaYkkyL5nP5fMFs9XjTjftUfjv0NxHN9+qYaa+SacldP6IT4DDi3IM9djJk
- PIpoDbVea305eoze5S1l0izlbuGzkwSsVUzw5ls9N2Nrmk5qtFVP2BPx1tlhBJfFihVM
- tgr7zPDSbw9QLzIXpu9f0J89eEsACxuj1a3zbCjmN9l1F0KfJc1Xk3xTqNCxFebNmem8
- CXrSZhDeLbrtCA4cGDAtg+EMTaKoNYjnWp9OYiY8h2apUoGu2/TzAEvHZ0nXlYu0OTWS
- FLMUeub93ijEaP+lO/J9uFvRAZ9xr/QN69R5nyXDKXUNLcZApGt0SzI/QzcNAL6cZzai
- /lkA==
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Dr6FBHzwX3eTyKfHZchP63hrZQ6u8tw7ZAjbpylBYI0=;
+ b=sojMCdNvM0yadX3hfenneVIXaX2usc+NVpFRjgA3cSqOX8ICXfOEGK/zVbsgQ9kYuH
+ YkIf4e+6QjtH/BgH3YdAFTyh64e6e5KXItKoM3hYBCd+gkcc+wYaxyveMMOiXW39k9as
+ RH5MIDJXMfM9Nep68W7hKi7UiefnS67SnjZ404dso796n3LQ31KcVX4BZwy0yZ+TXi0l
+ 0mcbNQ3QGudbreJikUGDd9UcE2V/CAzfbnUBxa2G/DIPhRBy9zF7Dl5Cbfp+Z6TJJQA3
+ 0lDu6oYNvcvGH8S4/HeUQviBKuHYHT0A4FpDNl5ftyAuM1cflGHZEmnJvRXfOSYSPQ2N
+ tszA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754578288; x=1755183088;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9OzOvhq3GmbvaBtGUgAaXSZiV6ZbsCylTW2ygbBRF/o=;
- b=R5ngh5gjgpuvP6aye8UX8TqK9pI/JJ3MtypZhoZynz21iDP/InYhs72lxtV+NtxL6b
- VIQAP10QgQmK38IGM0As5AVLCFSsdPlATjvTMYOFyh/8iNlL9Z5lP7FAaI+TCyuZo7A8
- M9jVqBLG2/NvVzZc5tXeUNN3gE8zTOQMtVf7OBgWHcrYwSVu18wuU6fs53GsmyhEkbVj
- G9a/1uW8MGs88ldsyPmqYMFwh999WeVQMFpmfMoUIZB6UYcDyti6UZ5w0Xx0po6IMozG
- GszoPjFnsJpc5Ng9B8Zb0G45FQm9y9j9T1mVd3UsifHmeb3C1Huru4zJoqRLm6fEwbU5
- tXQQ==
+ d=1e100.net; s=20230601; t=1754582458; x=1755187258;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Dr6FBHzwX3eTyKfHZchP63hrZQ6u8tw7ZAjbpylBYI0=;
+ b=RK/ILUXOH8xIyphxntiq8YxSRfypH2t3zl6TEaauj3vXgfsGYtmaKPM7hgXv25j+RI
+ WpBIXqv8vhXwrpQ2fmVUWGHCXq9P54Qgz5tov0LWw+2bFfA7ekpMcBJg7vdDAC0am1c9
+ +gLK3wLcdCB74LazPb4kH8//pY5EsPh7A0sJl/F0YhEbTQcuWcW8WiL646LpXg3zcslm
+ DY+Fs/PHCUODMTFrt5/Yyp34WOMlDiGTErIhJR3Y37MtIuMXI40MgvlKRxIPw5iTvvUx
+ md2P5EkV83vMS1yVxrMHiCDxWKZ7Gu4n4nqAa2DQ1FZJOxkKILrOoGWBokP6m5+BDafW
+ xA3w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCULxxFDrx06rpXxqHBz2ze5ShJ/n274a4g96zDhQvPIqJ/a/I2AJnUL2s8MqbNn4JRcV2pyuonKqj3BzQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxwZUPwEHgM+Bkx4ekGu4IIwtro59nuXuNP11l0s50hhpWyez9C
- 2SPbeD16vKkJY5oBMQbkZxAFVuivMMUrf1PCBFJoP7BTRbkxvqBiKaMO
-X-Gm-Gg: ASbGncsunVy0dcycc0AjRbT9BOeSyN3Jm61Na78sTUAogCRMjXf8iNt5Q4St+cpOcNI
- YBOcE5nLjCiTvRRBhtqHkHYFHT3P+GDpIXN7oo0LpwuxxLzQGOe7yMYkEsKcugNjdxLVi7c580r
- /1b3HceS3wZVyezMeclfWTugiPfBFhagi542bHlaWNdqPoHHfT3e0Ms19SUBBo0WficCHdc3XrT
- l8NrO3oGrWx/L/in5JQFLRddua8TNYtAueSBJglji78Svy67KQ1L0FY8BqeLTbyQ/D0CgA7BfjM
- 29irYjan7XRXi578m+cP2Wpku1VFDVjsWG7/s27OSkQi8dIaXU8WgT7mk60R9QNFe6pJ9Zv3XdM
- nhmNY5a64HMcp9n/+a9y1pi09PWeILDvk/ms1dRVth9TinmXTlXkIJx5CHD4CDAc=
-X-Google-Smtp-Source: AGHT+IGtphOkrCppTiHiV45+Qe9W2hQNmX+FpcoXnXXadWOHWcmzG19NrBZWjxt3jESoe+Rbd+mthQ==
-X-Received: by 2002:a05:6300:210c:b0:23d:c4c6:f406 with SMTP id
- adf61e73a8af0-2403159487dmr11371637637.43.1754578288227; 
- Thu, 07 Aug 2025 07:51:28 -0700 (PDT)
-Received: from ak-workspace.tail730999.ts.net ([49.207.200.134])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b422bac0d6csm15569174a12.38.2025.08.07.07.51.25
+ AJvYcCXBe+1DVbXUAaj3bIRCTK6FwYTF3p56zoQ8BD5jheqq4iAy8vrmu/fNcN5kDURDYfYiwEV+ibWJ7w7lRw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwF3856OPYUnmtsvM/Q3ZrvcjQ0rgU+ZDFLnb4YI+306HWIDA6I
+ BehraVsGgUVenqiOJzq0fXPm4wouttqfvcIXNb2hZZvJyQAZmHRU5Okm/zJHYP2DA00=
+X-Gm-Gg: ASbGncv9d0NuEYuOgD8qM7BDjP4Fnb/W44Mp+vdVV79dbH8kT4zP/VrdHyeoveh+h6r
+ cAZ8PGMjAv7Fff/nAq7IW6QXXQpeLWLuvySlvM8Wz88sB0qqQOuXiDDAiSblPnmbNVzvUtaFqOo
+ l45GXPwMOJl4ISHC8XnNyqQ4wvt6ySOeW6Sg3YK2EYZMayrLhHpeGyUEjgcg88s7zGazX+s8364
+ 42eV00ZjK+E5fWt/CROwRUR3vnvbBlxFT4hdPyqh86BLogCqKifMPCvWpleWRAmketylawdSPtu
+ mIqkv1CHYe4Oix0VKCSpcleKaAmNMSwODeEgZlUJ0D+wAAdVtViQy/7IMWklCEmVZBU9lOsQOrG
+ AW02uMU8SKJBpgM8VX7fBVplGII4=
+X-Google-Smtp-Source: AGHT+IHn1bzy9/wv9h73KG6SIwvZUbFU0uyciZGOD58bVmhqsJOtqDR/PG3xfbeBeTxpvUUB37AwHw==
+X-Received: by 2002:a05:6000:258a:b0:3b7:9af4:9c93 with SMTP id
+ ffacd0b85a97d-3b8f41c836cmr7155256f8f.35.1754582458154; 
+ Thu, 07 Aug 2025 09:00:58 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-458b8aab8c0sm231753495e9.19.2025.08.07.09.00.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Aug 2025 07:51:27 -0700 (PDT)
-From: Akshaykumar Gunari <akshaygunari@gmail.com>
-To: corbet@lwn.net,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com
-Date: Thu,  7 Aug 2025 20:21:19 +0530
-Message-ID: <20250807145119.2214-1-akshaygunari@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Thu, 07 Aug 2025 09:00:57 -0700 (PDT)
+Date: Thu, 7 Aug 2025 19:00:54 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Message-ID: <aJTNtpDUbTz7eyJc@stanley.mountain>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Akshaykumar Gunari <akshaygunari@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org
-Subject: [Linux-stm32] [PATCH RESEND] docs: arm: stm32: fix typo "busses" ->
-	"buses"
+Content-Disposition: inline
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [bug report] media: subdev: Add
+	v4l2_subdev_call_state_try() macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,100 +85,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix the spelling of "busses" to the preferred form "buses" in STM32 ARM
-architecture documentation.
+Hello Tomi Valkeinen,
 
-Signed-off-by: Akshaykumar Gunari <akshaygunari@gmail.com>
----
- Documentation/arch/arm/stm32/stm32f746-overview.rst  | 2 +-
- Documentation/arch/arm/stm32/stm32f769-overview.rst  | 2 +-
- Documentation/arch/arm/stm32/stm32h743-overview.rst  | 2 +-
- Documentation/arch/arm/stm32/stm32h750-overview.rst  | 2 +-
- Documentation/arch/arm/stm32/stm32mp13-overview.rst  | 2 +-
- Documentation/arch/arm/stm32/stm32mp151-overview.rst | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
+Commit 982c0487185b ("media: subdev: Add v4l2_subdev_call_state_try()
+macro") from Jul 1, 2022 (linux-next), leads to the following Smatch
+static checker warning:
 
-diff --git a/Documentation/arch/arm/stm32/stm32f746-overview.rst b/Documentation/arch/arm/stm32/stm32f746-overview.rst
-index 78befddc7740..335f0855a858 100644
---- a/Documentation/arch/arm/stm32/stm32f746-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32f746-overview.rst
-@@ -15,7 +15,7 @@ It features:
- - SD/MMC/SDIO support
- - Ethernet controller
- - USB OTFG FS & HS controllers
--- I2C, SPI, CAN busses support
-+- I2C, SPI, CAN buses support
- - Several 16 & 32 bits general purpose timers
- - Serial Audio interface
- - LCD controller
-diff --git a/Documentation/arch/arm/stm32/stm32f769-overview.rst b/Documentation/arch/arm/stm32/stm32f769-overview.rst
-index e482980ddf21..ef31aadee68f 100644
---- a/Documentation/arch/arm/stm32/stm32f769-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32f769-overview.rst
-@@ -15,7 +15,7 @@ It features:
- - SD/MMC/SDIO support*2
- - Ethernet controller
- - USB OTFG FS & HS controllers
--- I2C*4, SPI*6, CAN*3 busses support
-+- I2C*4, SPI*6, CAN*3 buses support
- - Several 16 & 32 bits general purpose timers
- - Serial Audio interface*2
- - LCD controller
-diff --git a/Documentation/arch/arm/stm32/stm32h743-overview.rst b/Documentation/arch/arm/stm32/stm32h743-overview.rst
-index 4e15f1a42730..7659df24d362 100644
---- a/Documentation/arch/arm/stm32/stm32h743-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32h743-overview.rst
-@@ -15,7 +15,7 @@ It features:
- - SD/MMC/SDIO support
- - Ethernet controller
- - USB OTFG FS & HS controllers
--- I2C, SPI, CAN busses support
-+- I2C, SPI, CAN buses support
- - Several 16 & 32 bits general purpose timers
- - Serial Audio interface
- - LCD controller
-diff --git a/Documentation/arch/arm/stm32/stm32h750-overview.rst b/Documentation/arch/arm/stm32/stm32h750-overview.rst
-index 0e51235c9547..be032b77d1f1 100644
---- a/Documentation/arch/arm/stm32/stm32h750-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32h750-overview.rst
-@@ -15,7 +15,7 @@ It features:
- - SD/MMC/SDIO support
- - Ethernet controller
- - USB OTFG FS & HS controllers
--- I2C, SPI, CAN busses support
-+- I2C, SPI, CAN buses support
- - Several 16 & 32 bits general purpose timers
- - Serial Audio interface
- - LCD controller
-diff --git a/Documentation/arch/arm/stm32/stm32mp13-overview.rst b/Documentation/arch/arm/stm32/stm32mp13-overview.rst
-index 3bb9492dad49..b5e9589fb06f 100644
---- a/Documentation/arch/arm/stm32/stm32mp13-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32mp13-overview.rst
-@@ -24,7 +24,7 @@ More details:
- - ADC/DAC
- - USB EHCI/OHCI controllers
- - USB OTG
--- I2C, SPI, CAN busses support
-+- I2C, SPI, CAN buses support
- - Several general purpose timers
- - Serial Audio interface
- - LCD controller
-diff --git a/Documentation/arch/arm/stm32/stm32mp151-overview.rst b/Documentation/arch/arm/stm32/stm32mp151-overview.rst
-index f42a2ac309c0..b58c256ede9a 100644
---- a/Documentation/arch/arm/stm32/stm32mp151-overview.rst
-+++ b/Documentation/arch/arm/stm32/stm32mp151-overview.rst
-@@ -23,7 +23,7 @@ More details:
- - ADC/DAC
- - USB EHCI/OHCI controllers
- - USB OTG
--- I2C, SPI busses support
-+- I2C, SPI buses support
- - Several general purpose timers
- - Serial Audio interface
- - LCD-TFT controller
--- 
-2.43.0
+	drivers/media/platform/st/stm32/stm32-dcmi.c:995 dcmi_try_fmt()
+	error: 'state' dereferencing possible ERR_PTR()
 
+drivers/media/platform/st/stm32/stm32-dcmi.c
+    993 
+    994         v4l2_fill_mbus_format(&format.format, pix, sd_fmt->mbus_code);
+--> 995         ret = v4l2_subdev_call_state_try(dcmi->source, pad, set_fmt, &format);
+
+The problem is the v4l2_subdev_call_state_try() macro:
+
+  1965  #define v4l2_subdev_call_state_try(sd, o, f, args...)                 \
+  1966          ({                                                            \
+  1967                  int __result;                                         \
+  1968                  static struct lock_class_key __key;                   \
+  1969                  const char *name = KBUILD_BASENAME                    \
+  1970                          ":" __stringify(__LINE__) ":state->lock";     \
+  1971                  struct v4l2_subdev_state *state =                     \
+  1972                          __v4l2_subdev_state_alloc(sd, name, &__key);  \
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+If this fails
+
+  1973                  v4l2_subdev_lock_state(state);                        \
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+then it leads to a crash.
+
+  1974                  __result = v4l2_subdev_call(sd, o, f, state, ##args); \
+  1975                  v4l2_subdev_unlock_state(state);                      \
+  1976                  __v4l2_subdev_state_free(state);                      \
+  1977                  __result;                                             \
+  1978          })
+
+
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
