@@ -2,39 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DECF8B1D7E5
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 14:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 452C6B1D8CF
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 15:18:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44AACC3F951;
-	Thu,  7 Aug 2025 12:32:18 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0992EC36B0C;
+	Thu,  7 Aug 2025 13:18:45 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE585C3F950
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 086A6C36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Aug 2025 12:32:16 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id EDCB18FA;
- Thu,  7 Aug 2025 14:31:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754569883;
- bh=mDLUQyipon3TC8s7Xe5hlhtx/kxMnlzT8INeN44SBME=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LACv+uFTAOqCoVr6y4n8xhP/phvZ2YaIqX4nfPzsq8htw1/33Ig2joQ5o1c7g1TI/
- sm6fQdyxttR4+gfZN8u7QpF8EcmmN4qBOEZ1BO6Gpa7oo5sCerPApF06+UQkNeTbXv
- CoAosKL4r64nC+r6TFuPhQz7Lyc1Gdn1yLFrA/Yc=
-Date: Thu, 7 Aug 2025 15:31:57 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Message-ID: <20250807123157.GF11583@pendragon.ideasonboard.com>
+ Thu,  7 Aug 2025 13:18:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C5AF55C6748;
+ Thu,  7 Aug 2025 13:18:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7EEC4CEEB;
+ Thu,  7 Aug 2025 13:18:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1754572721;
+ bh=jhZGuKs+VTL1EX9JQsLLNKW9dU7Cq1mi1XfmDpxGgmo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JrXszesK5tUM43V2eGqUN+jLW7uAsSpNpdAmHts3xnx9QnJBpsYabAVOkIMuN0hlu
+ vzSFO46kPooQ1U2SGy2fglffZP201jX0qjnxVu3is1h2rPaX0wgEZlqC1slHgg6arf
+ yfim2V/46ZQzB6iWcvcGW/VFgwkYTHHWrZeMvCx5Q571Hhw5KHIT3k0pRTF/MjEovO
+ ZwltMIlwKlapLaLNAQpAk4dMiYSWyUMDBcDlSWqJ56K+t555RJyDC/bTgOZ+V4Nys1
+ PFvalFsiCbVAcywS7w3AHHACq/81AbcrBbBOyU/09/Ie/BhylPBBz3NbkFZV04DH0t
+ fUmdplWqOQxWQ==
+Message-ID: <8c24481d-dfdf-4923-9629-3f6b074c27da@kernel.org>
+Date: Thu, 7 Aug 2025 15:18:19 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
  <20250802-media-private-data-v1-58-eb140ddd6a9d@ideasonboard.com>
  <d8875dea-aa04-41fc-b1b4-519d06ed6cba@kernel.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d8875dea-aa04-41fc-b1b4-519d06ed6cba@kernel.org>
+ <20250807123157.GF11583@pendragon.ideasonboard.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20250807123157.GF11583@pendragon.ideasonboard.com>
 Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
  Alim Akhtar <alim.akhtar@samsung.com>,
@@ -46,7 +51,7 @@ Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
  Jacob Chen <jacob-chen@iotwrt.com>, Steve Longerbeam <slongerbeam@gmail.com>,
  Bingbu Cao <bingbu.cao@intel.com>, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
+ =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
  Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
  Nas Chung <nas.chung@chipsnmedia.com>, Andy Walls <awalls@md.metrocast.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -103,7 +108,7 @@ Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
  Tiffany Lin <tiffany.lin@mediatek.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
 Subject: Re: [Linux-stm32] [PATCH 58/65] media: zoran: Remove access to __fh
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -121,89 +126,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 07, 2025 at 08:58:01AM +0200, Hans Verkuil wrote:
-> On 02/08/2025 11:23, Jacopo Mondi wrote:
-> > The __fh parameter is assigned to an unsued variable. Remove it
-> > and remove the unused struct zoran_fh type.
-> > 
-> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > ---
-> >  drivers/media/pci/zoran/zoran.h        | 6 ------
-> >  drivers/media/pci/zoran/zoran_driver.c | 3 +--
-> >  2 files changed, 1 insertion(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/media/pci/zoran/zoran.h b/drivers/media/pci/zoran/zoran.h
-> > index 1cd990468d3de9db8b14b72483972041c57bfee2..d05e222b392156bf1b3b4c83c6591db642c3c377 100644
-> > --- a/drivers/media/pci/zoran/zoran.h
-> > +++ b/drivers/media/pci/zoran/zoran.h
-> > @@ -154,12 +154,6 @@ struct zoran_jpg_settings {
-> >  
-> >  struct zoran;
-> >  
-> > -/* zoran_fh contains per-open() settings */
-> > -struct zoran_fh {
-> > -	struct v4l2_fh fh;
-> > -	struct zoran *zr;
-> > -};
-> > -
-> >  struct card_info {
-> >  	enum card_type type;
-> >  	char name[32];
-> > diff --git a/drivers/media/pci/zoran/zoran_driver.c b/drivers/media/pci/zoran/zoran_driver.c
-> > index f42f596d3e6295e31e3b33cd83c5f7243911bd30..ec7fc1da4cc02f5a344cb49bb9a783c41c758195 100644
-> > --- a/drivers/media/pci/zoran/zoran_driver.c
-> > +++ b/drivers/media/pci/zoran/zoran_driver.c
-> > @@ -511,12 +511,11 @@ static int zoran_s_fmt_vid_cap(struct file *file, void *__fh,
+On 8/7/25 14:31, Laurent Pinchart wrote:
+> On Thu, Aug 07, 2025 at 08:58:01AM +0200, Hans Verkuil wrote:
+>> On 02/08/2025 11:23, Jacopo Mondi wrote:
+>>> The __fh parameter is assigned to an unsued variable. Remove it
+>>> and remove the unused struct zoran_fh type.
+>>>
+>>> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+>>> ---
+>>>  drivers/media/pci/zoran/zoran.h        | 6 ------
+>>>  drivers/media/pci/zoran/zoran_driver.c | 3 +--
+>>>  2 files changed, 1 insertion(+), 8 deletions(-)
+>>>
+>>> diff --git a/drivers/media/pci/zoran/zoran.h b/drivers/media/pci/zoran/zoran.h
+>>> index 1cd990468d3de9db8b14b72483972041c57bfee2..d05e222b392156bf1b3b4c83c6591db642c3c377 100644
+>>> --- a/drivers/media/pci/zoran/zoran.h
+>>> +++ b/drivers/media/pci/zoran/zoran.h
+>>> @@ -154,12 +154,6 @@ struct zoran_jpg_settings {
+>>>  
+>>>  struct zoran;
+>>>  
+>>> -/* zoran_fh contains per-open() settings */
+>>> -struct zoran_fh {
+>>> -	struct v4l2_fh fh;
+>>> -	struct zoran *zr;
+>>> -};
+>>> -
+>>>  struct card_info {
+>>>  	enum card_type type;
+>>>  	char name[32];
+>>> diff --git a/drivers/media/pci/zoran/zoran_driver.c b/drivers/media/pci/zoran/zoran_driver.c
+>>> index f42f596d3e6295e31e3b33cd83c5f7243911bd30..ec7fc1da4cc02f5a344cb49bb9a783c41c758195 100644
+>>> --- a/drivers/media/pci/zoran/zoran_driver.c
+>>> +++ b/drivers/media/pci/zoran/zoran_driver.c
+>>> @@ -511,12 +511,11 @@ static int zoran_s_fmt_vid_cap(struct file *file, void *__fh,
+>>
+>> This driver uses __fh as the name for the second argument of the ioctl
+>> callbacks. Can you take this opportunity to rename it to either 'fh' or 'priv'?
 > 
-> This driver uses __fh as the name for the second argument of the ioctl
-> callbacks. Can you take this opportunity to rename it to either 'fh' or 'priv'?
-
-It's a bit of yak shaving, but not too difficult so it will be addressed
-in the next version (Jacopo already wrote the patches, thanks).
-
-> Generally it's not a good idea to prefix variables with __ for no good reason.
+> It's a bit of yak shaving, but not too difficult so it will be addressed
+> in the next version (Jacopo already wrote the patches, thanks).
 > 
-> Grepping for __fh also shows two other drivers:
+>> Generally it's not a good idea to prefix variables with __ for no good reason.
+>>
+>> Grepping for __fh also shows two other drivers:
+>>
+>> drivers/media/platform/chips-media/coda/coda-common.c:#define fh_to_ctx(__fh)   container_of(__fh, struct coda_ctx, fh)
+>> drivers/media/platform/samsung/s5p-mfc/s5p_mfc_common.h:#define fh_to_ctx(__fh) container_of(__fh, struct s5p_mfc_ctx, fh)
+>>
+>> I think it is a good idea to rename __fh to fh there as well.
 > 
-> drivers/media/platform/chips-media/coda/coda-common.c:#define fh_to_ctx(__fh)   container_of(__fh, struct coda_ctx, fh)
-> drivers/media/platform/samsung/s5p-mfc/s5p_mfc_common.h:#define fh_to_ctx(__fh) container_of(__fh, struct s5p_mfc_ctx, fh)
+> That can't be done, otherwise things like
 > 
-> I think it is a good idea to rename __fh to fh there as well.
+> #define fh_to_ctx(fh)	container_of(fh, struct coda_ctx, fh)
+> 
+> static inline struct coda_ctx *file_to_ctx(struct file *filp)
+> {
+> 	return fh_to_ctx(file_to_v4l2_fh(filp));
+> }
+> 
+> will expand in the file_to_ctx() function to
+> 
+> 	return container_of(file_to_v4l2_fh(filp), struct coda_ctx, file_to_v4l2_fh(filp))
 
-That can't be done, otherwise things like
+If the fh_to_ctx #define is changed to a static inline, then there is no problem.
 
-#define fh_to_ctx(fh)	container_of(fh, struct coda_ctx, fh)
+That said, it is overkill.
 
-static inline struct coda_ctx *file_to_ctx(struct file *filp)
-{
-	return fh_to_ctx(file_to_v4l2_fh(filp));
-}
-
-will expand in the file_to_ctx() function to
-
-	return container_of(file_to_v4l2_fh(filp), struct coda_ctx, file_to_v4l2_fh(filp))
-
-We could rename the __fh argument to vfh or v4l2fh, but I think __fh is
-equally good there. It's just the macro argument name.
-
-> >  			       struct v4l2_format *fmt)
-> >  {
-> >  	struct zoran *zr = video_drvdata(file);
-> > -	struct zoran_fh *fh = __fh;
-> >  	int i;
-> >  	int res = 0;
-> >  
-> >  	if (fmt->fmt.pix.pixelformat == V4L2_PIX_FMT_MJPEG)
-> > -		return zoran_s_fmt_vid_out(file, fh, fmt);
-> > +		return zoran_s_fmt_vid_out(file, __fh, fmt);
-> >  
-> >  	for (i = 0; i < NUM_FORMATS; i++)
-> >  		if (fmt->fmt.pix.pixelformat == zoran_formats[i].fourcc)
-
--- 
 Regards,
 
-Laurent Pinchart
+	Hans
+
+> 
+> We could rename the __fh argument to vfh or v4l2fh, but I think __fh is
+> equally good there. It's just the macro argument name.
+> 
+>>>  			       struct v4l2_format *fmt)
+>>>  {
+>>>  	struct zoran *zr = video_drvdata(file);
+>>> -	struct zoran_fh *fh = __fh;
+>>>  	int i;
+>>>  	int res = 0;
+>>>  
+>>>  	if (fmt->fmt.pix.pixelformat == V4L2_PIX_FMT_MJPEG)
+>>> -		return zoran_s_fmt_vid_out(file, fh, fmt);
+>>> +		return zoran_s_fmt_vid_out(file, __fh, fmt);
+>>>  
+>>>  	for (i = 0; i < NUM_FORMATS; i++)
+>>>  		if (fmt->fmt.pix.pixelformat == zoran_formats[i].fourcc)
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
