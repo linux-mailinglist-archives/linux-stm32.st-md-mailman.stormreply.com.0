@@ -2,124 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B89B1D33D
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 09:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4892DB1D36D
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 09:35:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05BD7C3F942;
-	Thu,  7 Aug 2025 07:27:01 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2424C3F942;
+	Thu,  7 Aug 2025 07:35:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1A67C3F940
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7541BC3F940
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Aug 2025 07:26:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 52B1EA55991;
- Thu,  7 Aug 2025 07:26:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7BCC4CEEB;
- Thu,  7 Aug 2025 07:26:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754551617;
- bh=jA/fkFcaPP9T15v+HXVc4jZD411tvTX+kQQippvkz0w=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
- b=HXv8m5DBlRsOYwxR14qxKj5v4vQuZyP9n5Q0BQR0d8nY8ke/z+IPeQRacCKsBCpZV
- wmBXuI23d6QLiznV61pjiZWKULCv4POwFdPuWVKSxrnCAf7I4A/cJAIbDOIAyZUiWq
- y9X3ouYnXFrMWo0ua30zcqhnCYgL1TNePL1Pml+3AcfHJYgwQtWLhZr3vT/TW6vKLK
- bbxDXf1HqgqIJsWQ4ojwYl58GJnuJmDRY6iHo4pr4kTuxaNVOMrsp+tQ34+C8twXuH
- CuW6xIQqumBTB7Yq347TsueV9Iau/w/P6wGQDsKF4+CRX8q5eqAM1RpvUhufib6rRl
- BMfNpTuX5tQnw==
-Message-ID: <5bda2b73-0538-41d1-b065-9b541a027475@kernel.org>
-Date: Thu, 7 Aug 2025 09:26:34 +0200
+ Thu,  7 Aug 2025 07:35:45 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5776Y6k6008798;
+ Thu, 7 Aug 2025 09:35:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=TrfZdnEzM8YI3DydNQ0/ut
+ FTCYg5k0TRMMcoKD0jcS8=; b=15WPNXIqawe1InQtQS6TSQ7l19vx8wRzokD1YL
+ JX3/zXFuyzz5TtJrOWn2Xp66pICNI8wj98GWT3UZ7WYqw2bjZ2Dk8Fk23dOO9oDF
+ jCn39Tkb0mpexYUSFm1r38PeLTP0B4WYP/DjQqxlsYOEx/RElBTWflhMj5Rj1Iog
+ KG4nK4TYItqmOS4zJgFWL+lEoM5KXMuVkHj8vPYcqIpQ3dG2oYb3Iszy1LZFyCFF
+ P5FGPzk/JuN9yOFEGdolwa6TS/rFj+deMJR4hcDE3ukiRmX9roLV7PF4WGncL6eY
+ AZ8f8rF+A2LMpVJcergbpPDF3H4kSox0TZnLvU91k6cZAKCg==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48cq00g955-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Aug 2025 09:35:26 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D4AC94005B;
+ Thu,  7 Aug 2025 09:34:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0AEF871860B;
+ Thu,  7 Aug 2025 09:34:11 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
+ 2025 09:34:10 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 7 Aug 2025 09:34:09 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Devarsh Thakkar
- <devarsht@ti.com>, Benoit Parrot <bparrot@ti.com>,
- Hans Verkuil <hverkuil@kernel.org>, Mike Isely <isely@pobox.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
- Christian Gromm <christian.gromm@microchip.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Shi
- <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
- Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Andy Walls <awalls@md.metrocast.net>,
- Michael Tretter <m.tretter@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Bin Liu <bin.liu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
- <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, Ming Qian <ming.qian@nxp.com>,
- Zhou Peng <eagle.zhou@nxp.com>, Xavier Roumegue
- <xavier.roumegue@oss.nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Dikshita Agarwal <quic_dikshita@quicinc.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Samuel Holland <samuel@sholland.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Nas Chung <nas.chung@chipsnmedia.com>,
- Jackson Lee <jackson.lee@chipsnmedia.com>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
- Houlong Wei <houlong.wei@mediatek.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
- Jacob Chen <jacob-chen@iotwrt.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Heiko Stuebner <heiko@sntech.de>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Message-ID: <20250807-upstream_omm_fix_req2ack_test_condition-v2-1-d7df4af2b48b@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAPBWlGgC/5WNQQ7CIBQFr2JYSwNYhbryHqYhCB9LDKXysdE0v
+ bvYG7icl5eZhSDkAEjOu4VkmAOGNFYQ+x2xgxnvQIOrTAQTR6bYib4mLBlM1ClG7cNbZ3gKYx+
+ 6ABZt0+hCqQ4qJSh/Y44fnCLVNmWo76107SsPAUvKny0889/6f2PmlNNWyc5wJ73s2otPiA2Wx
+ qZI+nVdvyRBBrTgAAAA
+X-Change-ID: 20250806-upstream_omm_fix_req2ack_test_condition-77e8fb0d13d8
+To: Krzysztof Kozlowski <krzk@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Steve Longerbeam <slongerbeam@gmail.com>, Maxime Ripard
- <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Corentin Labbe <clabbe@baylibre.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
-References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
- <20250802-media-private-data-v1-65-eb140ddd6a9d@ideasonboard.com>
-Content-Language: en-US, nl
-In-Reply-To: <20250802-media-private-data-v1-65-eb140ddd6a9d@ideasonboard.com>
-Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- mjpeg-users@lists.sourceforge.net, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-usb@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 65/65] media: v4l2-ioctl: Stop passing fh
- pointer to ioctl handlers
+ Christophe Kerello <christophe.kerello@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-06_05,2025-08-06_01,2025-03-28_01
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] memory: stm32_omm: Fix req2ack update test
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,486 +80,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 02/08/2025 11:23, Jacopo Mondi wrote:
-> From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> Now that all drivers access the v4l2_fh from the file structure, there
-> is no need to pass it as an explicit argument to ioctl handlers. Set the
-> argument to NULL in the w__video_do_ioctl(), and drop the name of the
-> void *fh argument in the ioctl handler declarations to indicate it is
-> not used.
-> 
-> The argument could be removed altogether with a mechanical change
-> (probably using coccinelle), but there are plans to pass a new argument
-> to the ioctl handlers in the near future. The tree-wide change to remove
-> the argument, only to add another one soon after, would be too much
-> churn.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> ---
->  drivers/media/v4l2-core/v4l2-ioctl.c |   5 +-
->  include/media/v4l2-ioctl.h           | 236 +++++++++++++++++------------------
->  2 files changed, 120 insertions(+), 121 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index 44c2f5ef3dae407d9786c5278d13efc982be2ff0..248a0b5b56ec7a09f2d4c61114f81aa5a9b8b041 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -3078,7 +3078,6 @@ static long __video_do_ioctl(struct file *file,
->  	bool write_only = false;
->  	struct v4l2_ioctl_info default_info;
->  	const struct v4l2_ioctl_info *info;
-> -	void *fh = file_to_v4l2_fh(file);
->  	struct v4l2_fh *vfh = NULL;
->  	int dev_debug = vfd->dev_debug;
->  	long ret = -ENOTTY;
-> @@ -3140,11 +3139,11 @@ static long __video_do_ioctl(struct file *file,
->  
->  	write_only = _IOC_DIR(cmd) == _IOC_WRITE;
->  	if (info != &default_info) {
-> -		ret = info->func(ops, file, fh, arg);
-> +		ret = info->func(ops, file, NULL, arg);
->  	} else if (!ops->vidioc_default) {
->  		ret = -ENOTTY;
->  	} else {
-> -		ret = ops->vidioc_default(file, fh,
-> +		ret = ops->vidioc_default(file, NULL,
->  			vfh ? v4l2_prio_check(vfd->prio, vfh->prio) >= 0 : 0,
->  			cmd, arg);
->  	}
+If "st,omm-req2ack-ns" property is found and its value is not 0,
+the current test doesn't allow to compute and set req2ack value,
+Fix this test.
 
-drivers/media/v4l2-core/v4l2-compat-ioctl32.c also calls ops->vidioc_query_ext_ctrl
-directly, but still passes the fh as second argument: that needs to be replaced by
-a NULL pointer as well. That should be fixed in this patch as well.
+Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+Changes in v2:
+- Add more detail in commit message
+- Remove "Cc: <stable@vger.kernel.org>" tag as the fixed patch is not part of a LTS.
+- Link to v1: https://lore.kernel.org/r/20250806-upstream_omm_fix_req2ack_test_condition-v1-1-4879a1d7f794@foss.st.com
+---
+ drivers/memory/stm32_omm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Regarding v4l2-ioctl.c: I would like a follow-up patch that pushes the NULL pointer
-down into each ioctl helper function. I.e. drop the 'void *fh' argument in the
-struct v4l2_ioctl_info 'func' callback, and all callbacks like v4l_g_fmt() just
-replace 'fh' by 'NULL' when they call the vidioc op.
+diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
+index 79ceb1635698f6bc8bd4a39fdeaced1ec318e1f6..9efc56a85b5ecca49eb6dfc0ef83880f89591cd1 100644
+--- a/drivers/memory/stm32_omm.c
++++ b/drivers/memory/stm32_omm.c
+@@ -247,7 +247,7 @@ static int stm32_omm_configure(struct device *dev)
+ 		if (mux & CR_MUXEN) {
+ 			ret = of_property_read_u32(dev->of_node, "st,omm-req2ack-ns",
+ 						   &req2ack);
+-			if (!ret && !req2ack) {
++			if (!ret && req2ack) {
+ 				req2ack = DIV_ROUND_UP(req2ack, NSEC_PER_SEC / clk_rate_max) - 1;
+ 
+ 				if (req2ack > 256)
 
-Part of it is that the core functions currently suggest that the second argument is
-a filehandle (since it's still named 'fh'), which is obviously wrong. And I also think
-that the core framework shouldn't use a dummy second argument at all. I admit that
-changing all vidioc callbacks in the whole subsystem to drop the second argument is
-too much churn, but for this core file I think it is something that should be done.
+---
+base-commit: 038d61fd642278bab63ee8ef722c50d10ab01e8f
+change-id: 20250806-upstream_omm_fix_req2ack_test_condition-77e8fb0d13d8
 
-Regards,
-
-	Hans
-
-> diff --git a/include/media/v4l2-ioctl.h b/include/media/v4l2-ioctl.h
-> index 82695c3a300a73219f262fb556ed61a8f09d273e..223e2c7a3516fc96fb486ab64226163e52f775a6 100644
-> --- a/include/media/v4l2-ioctl.h
-> +++ b/include/media/v4l2-ioctl.h
-> @@ -293,144 +293,144 @@ struct v4l2_ioctl_ops {
->  	/* ioctl callbacks */
->  
->  	/* VIDIOC_QUERYCAP handler */
-> -	int (*vidioc_querycap)(struct file *file, void *fh,
-> +	int (*vidioc_querycap)(struct file *file, void *,
->  			       struct v4l2_capability *cap);
->  
->  	/* VIDIOC_ENUM_FMT handlers */
-> -	int (*vidioc_enum_fmt_vid_cap)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_vid_cap)(struct file *file, void *,
->  				       struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_vid_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_vid_overlay)(struct file *file, void *,
->  					   struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_vid_out)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_vid_out)(struct file *file, void *,
->  				       struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_sdr_cap)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_sdr_cap)(struct file *file, void *,
->  				       struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_sdr_out)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_sdr_out)(struct file *file, void *,
->  				       struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_meta_cap)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_meta_cap)(struct file *file, void *,
->  					struct v4l2_fmtdesc *f);
-> -	int (*vidioc_enum_fmt_meta_out)(struct file *file, void *fh,
-> +	int (*vidioc_enum_fmt_meta_out)(struct file *file, void *,
->  					struct v4l2_fmtdesc *f);
->  
->  	/* VIDIOC_G_FMT handlers */
-> -	int (*vidioc_g_fmt_vid_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vid_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_overlay)(struct file *file, void *,
->  					struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vid_out)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vid_out_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_out_overlay)(struct file *file, void *,
->  					    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vbi_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vbi_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_sliced_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_sliced_vbi_cap)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_sliced_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_sliced_vbi_out)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vid_cap_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_cap_mplane)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_vid_out_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_vid_out_mplane)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_sdr_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_sdr_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_sdr_out)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_sdr_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_meta_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_meta_cap)(struct file *file, void *,
->  				     struct v4l2_format *f);
-> -	int (*vidioc_g_fmt_meta_out)(struct file *file, void *fh,
-> +	int (*vidioc_g_fmt_meta_out)(struct file *file, void *,
->  				     struct v4l2_format *f);
->  
->  	/* VIDIOC_S_FMT handlers */
-> -	int (*vidioc_s_fmt_vid_cap)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vid_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_overlay)(struct file *file, void *,
->  					struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vid_out)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vid_out_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_out_overlay)(struct file *file, void *,
->  					    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vbi_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vbi_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_sliced_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_sliced_vbi_cap)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_sliced_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_sliced_vbi_out)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vid_cap_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_cap_mplane)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_vid_out_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_vid_out_mplane)(struct file *file, void *,
->  					   struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_sdr_cap)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_sdr_cap)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_sdr_out)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_sdr_out)(struct file *file, void *,
->  				    struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_meta_cap)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_meta_cap)(struct file *file, void *,
->  				     struct v4l2_format *f);
-> -	int (*vidioc_s_fmt_meta_out)(struct file *file, void *fh,
-> +	int (*vidioc_s_fmt_meta_out)(struct file *file, void *,
->  				     struct v4l2_format *f);
->  
->  	/* VIDIOC_TRY_FMT handlers */
-> -	int (*vidioc_try_fmt_vid_cap)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_cap)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vid_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_overlay)(struct file *file, void *,
->  					  struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vid_out)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_out)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vid_out_overlay)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_out_overlay)(struct file *file, void *,
->  					     struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vbi_cap)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vbi_out)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_sliced_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_sliced_vbi_cap)(struct file *file, void *,
->  					     struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_sliced_vbi_out)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_sliced_vbi_out)(struct file *file, void *,
->  					     struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vid_cap_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_cap_mplane)(struct file *file, void *,
->  					     struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_vid_out_mplane)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_vid_out_mplane)(struct file *file, void *,
->  					     struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_sdr_cap)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_sdr_cap)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_sdr_out)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_sdr_out)(struct file *file, void *,
->  				      struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_meta_cap)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_meta_cap)(struct file *file, void *,
->  				       struct v4l2_format *f);
-> -	int (*vidioc_try_fmt_meta_out)(struct file *file, void *fh,
-> +	int (*vidioc_try_fmt_meta_out)(struct file *file, void *,
->  				       struct v4l2_format *f);
->  
->  	/* Buffer handlers */
-> -	int (*vidioc_reqbufs)(struct file *file, void *fh,
-> +	int (*vidioc_reqbufs)(struct file *file, void *,
->  			      struct v4l2_requestbuffers *b);
-> -	int (*vidioc_querybuf)(struct file *file, void *fh,
-> +	int (*vidioc_querybuf)(struct file *file, void *,
->  			       struct v4l2_buffer *b);
-> -	int (*vidioc_qbuf)(struct file *file, void *fh,
-> +	int (*vidioc_qbuf)(struct file *file, void *,
->  			   struct v4l2_buffer *b);
-> -	int (*vidioc_expbuf)(struct file *file, void *fh,
-> +	int (*vidioc_expbuf)(struct file *file, void *,
->  			     struct v4l2_exportbuffer *e);
-> -	int (*vidioc_dqbuf)(struct file *file, void *fh,
-> +	int (*vidioc_dqbuf)(struct file *file, void *,
->  			    struct v4l2_buffer *b);
->  
-> -	int (*vidioc_create_bufs)(struct file *file, void *fh,
-> +	int (*vidioc_create_bufs)(struct file *file, void *,
->  				  struct v4l2_create_buffers *b);
-> -	int (*vidioc_prepare_buf)(struct file *file, void *fh,
-> +	int (*vidioc_prepare_buf)(struct file *file, void *,
->  				  struct v4l2_buffer *b);
-> -	int (*vidioc_remove_bufs)(struct file *file, void *fh,
-> +	int (*vidioc_remove_bufs)(struct file *file, void *,
->  				  struct v4l2_remove_buffers *d);
->  
-> -	int (*vidioc_overlay)(struct file *file, void *fh, unsigned int i);
-> -	int (*vidioc_g_fbuf)(struct file *file, void *fh,
-> +	int (*vidioc_overlay)(struct file *file, void *, unsigned int i);
-> +	int (*vidioc_g_fbuf)(struct file *file, void *,
->  			     struct v4l2_framebuffer *a);
-> -	int (*vidioc_s_fbuf)(struct file *file, void *fh,
-> +	int (*vidioc_s_fbuf)(struct file *file, void *,
->  			     const struct v4l2_framebuffer *a);
->  
->  		/* Stream on/off */
-> -	int (*vidioc_streamon)(struct file *file, void *fh,
-> +	int (*vidioc_streamon)(struct file *file, void *,
->  			       enum v4l2_buf_type i);
-> -	int (*vidioc_streamoff)(struct file *file, void *fh,
-> +	int (*vidioc_streamoff)(struct file *file, void *,
->  				enum v4l2_buf_type i);
->  
->  		/*
-> @@ -438,135 +438,135 @@ struct v4l2_ioctl_ops {
->  		 *
->  		 * Note: ENUMSTD is handled by videodev.c
->  		 */
-> -	int (*vidioc_g_std)(struct file *file, void *fh, v4l2_std_id *norm);
-> -	int (*vidioc_s_std)(struct file *file, void *fh, v4l2_std_id norm);
-> -	int (*vidioc_querystd)(struct file *file, void *fh, v4l2_std_id *a);
-> +	int (*vidioc_g_std)(struct file *file, void *, v4l2_std_id *norm);
-> +	int (*vidioc_s_std)(struct file *file, void *, v4l2_std_id norm);
-> +	int (*vidioc_querystd)(struct file *file, void *, v4l2_std_id *a);
->  
->  		/* Input handling */
-> -	int (*vidioc_enum_input)(struct file *file, void *fh,
-> +	int (*vidioc_enum_input)(struct file *file, void *,
->  				 struct v4l2_input *inp);
-> -	int (*vidioc_g_input)(struct file *file, void *fh, unsigned int *i);
-> -	int (*vidioc_s_input)(struct file *file, void *fh, unsigned int i);
-> +	int (*vidioc_g_input)(struct file *file, void *, unsigned int *i);
-> +	int (*vidioc_s_input)(struct file *file, void *, unsigned int i);
->  
->  		/* Output handling */
-> -	int (*vidioc_enum_output)(struct file *file, void *fh,
-> +	int (*vidioc_enum_output)(struct file *file, void *,
->  				  struct v4l2_output *a);
-> -	int (*vidioc_g_output)(struct file *file, void *fh, unsigned int *i);
-> -	int (*vidioc_s_output)(struct file *file, void *fh, unsigned int i);
-> +	int (*vidioc_g_output)(struct file *file, void *, unsigned int *i);
-> +	int (*vidioc_s_output)(struct file *file, void *, unsigned int i);
->  
->  		/* Control handling */
-> -	int (*vidioc_query_ext_ctrl)(struct file *file, void *fh,
-> +	int (*vidioc_query_ext_ctrl)(struct file *file, void *,
->  				     struct v4l2_query_ext_ctrl *a);
-> -	int (*vidioc_g_ext_ctrls)(struct file *file, void *fh,
-> +	int (*vidioc_g_ext_ctrls)(struct file *file, void *,
->  				  struct v4l2_ext_controls *a);
-> -	int (*vidioc_s_ext_ctrls)(struct file *file, void *fh,
-> +	int (*vidioc_s_ext_ctrls)(struct file *file, void *,
->  				  struct v4l2_ext_controls *a);
-> -	int (*vidioc_try_ext_ctrls)(struct file *file, void *fh,
-> +	int (*vidioc_try_ext_ctrls)(struct file *file, void *,
->  				    struct v4l2_ext_controls *a);
-> -	int (*vidioc_querymenu)(struct file *file, void *fh,
-> +	int (*vidioc_querymenu)(struct file *file, void *,
->  				struct v4l2_querymenu *a);
->  
->  	/* Audio ioctls */
-> -	int (*vidioc_enumaudio)(struct file *file, void *fh,
-> +	int (*vidioc_enumaudio)(struct file *file, void *,
->  				struct v4l2_audio *a);
-> -	int (*vidioc_g_audio)(struct file *file, void *fh,
-> +	int (*vidioc_g_audio)(struct file *file, void *,
->  			      struct v4l2_audio *a);
-> -	int (*vidioc_s_audio)(struct file *file, void *fh,
-> +	int (*vidioc_s_audio)(struct file *file, void *,
->  			      const struct v4l2_audio *a);
->  
->  	/* Audio out ioctls */
-> -	int (*vidioc_enumaudout)(struct file *file, void *fh,
-> +	int (*vidioc_enumaudout)(struct file *file, void *,
->  				 struct v4l2_audioout *a);
-> -	int (*vidioc_g_audout)(struct file *file, void *fh,
-> +	int (*vidioc_g_audout)(struct file *file, void *,
->  			       struct v4l2_audioout *a);
-> -	int (*vidioc_s_audout)(struct file *file, void *fh,
-> +	int (*vidioc_s_audout)(struct file *file, void *,
->  			       const struct v4l2_audioout *a);
-> -	int (*vidioc_g_modulator)(struct file *file, void *fh,
-> +	int (*vidioc_g_modulator)(struct file *file, void *,
->  				  struct v4l2_modulator *a);
-> -	int (*vidioc_s_modulator)(struct file *file, void *fh,
-> +	int (*vidioc_s_modulator)(struct file *file, void *,
->  				  const struct v4l2_modulator *a);
->  	/* Crop ioctls */
-> -	int (*vidioc_g_pixelaspect)(struct file *file, void *fh,
-> +	int (*vidioc_g_pixelaspect)(struct file *file, void *,
->  				    int buf_type, struct v4l2_fract *aspect);
-> -	int (*vidioc_g_selection)(struct file *file, void *fh,
-> +	int (*vidioc_g_selection)(struct file *file, void *,
->  				  struct v4l2_selection *s);
-> -	int (*vidioc_s_selection)(struct file *file, void *fh,
-> +	int (*vidioc_s_selection)(struct file *file, void *,
->  				  struct v4l2_selection *s);
->  	/* Compression ioctls */
-> -	int (*vidioc_g_jpegcomp)(struct file *file, void *fh,
-> +	int (*vidioc_g_jpegcomp)(struct file *file, void *,
->  				 struct v4l2_jpegcompression *a);
-> -	int (*vidioc_s_jpegcomp)(struct file *file, void *fh,
-> +	int (*vidioc_s_jpegcomp)(struct file *file, void *,
->  				 const struct v4l2_jpegcompression *a);
-> -	int (*vidioc_g_enc_index)(struct file *file, void *fh,
-> +	int (*vidioc_g_enc_index)(struct file *file, void *,
->  				  struct v4l2_enc_idx *a);
-> -	int (*vidioc_encoder_cmd)(struct file *file, void *fh,
-> +	int (*vidioc_encoder_cmd)(struct file *file, void *,
->  				  struct v4l2_encoder_cmd *a);
-> -	int (*vidioc_try_encoder_cmd)(struct file *file, void *fh,
-> +	int (*vidioc_try_encoder_cmd)(struct file *file, void *,
->  				      struct v4l2_encoder_cmd *a);
-> -	int (*vidioc_decoder_cmd)(struct file *file, void *fh,
-> +	int (*vidioc_decoder_cmd)(struct file *file, void *,
->  				  struct v4l2_decoder_cmd *a);
-> -	int (*vidioc_try_decoder_cmd)(struct file *file, void *fh,
-> +	int (*vidioc_try_decoder_cmd)(struct file *file, void *,
->  				      struct v4l2_decoder_cmd *a);
->  
->  	/* Stream type-dependent parameter ioctls */
-> -	int (*vidioc_g_parm)(struct file *file, void *fh,
-> +	int (*vidioc_g_parm)(struct file *file, void *,
->  			     struct v4l2_streamparm *a);
-> -	int (*vidioc_s_parm)(struct file *file, void *fh,
-> +	int (*vidioc_s_parm)(struct file *file, void *,
->  			     struct v4l2_streamparm *a);
->  
->  	/* Tuner ioctls */
-> -	int (*vidioc_g_tuner)(struct file *file, void *fh,
-> +	int (*vidioc_g_tuner)(struct file *file, void *,
->  			      struct v4l2_tuner *a);
-> -	int (*vidioc_s_tuner)(struct file *file, void *fh,
-> +	int (*vidioc_s_tuner)(struct file *file, void *,
->  			      const struct v4l2_tuner *a);
-> -	int (*vidioc_g_frequency)(struct file *file, void *fh,
-> +	int (*vidioc_g_frequency)(struct file *file, void *,
->  				  struct v4l2_frequency *a);
-> -	int (*vidioc_s_frequency)(struct file *file, void *fh,
-> +	int (*vidioc_s_frequency)(struct file *file, void *,
->  				  const struct v4l2_frequency *a);
-> -	int (*vidioc_enum_freq_bands)(struct file *file, void *fh,
-> +	int (*vidioc_enum_freq_bands)(struct file *file, void *,
->  				      struct v4l2_frequency_band *band);
->  
->  	/* Sliced VBI cap */
-> -	int (*vidioc_g_sliced_vbi_cap)(struct file *file, void *fh,
-> +	int (*vidioc_g_sliced_vbi_cap)(struct file *file, void *,
->  				       struct v4l2_sliced_vbi_cap *a);
->  
->  	/* Log status ioctl */
-> -	int (*vidioc_log_status)(struct file *file, void *fh);
-> +	int (*vidioc_log_status)(struct file *file, void *);
->  
-> -	int (*vidioc_s_hw_freq_seek)(struct file *file, void *fh,
-> +	int (*vidioc_s_hw_freq_seek)(struct file *file, void *,
->  				     const struct v4l2_hw_freq_seek *a);
->  
->  	/* Debugging ioctls */
->  #ifdef CONFIG_VIDEO_ADV_DEBUG
-> -	int (*vidioc_g_register)(struct file *file, void *fh,
-> +	int (*vidioc_g_register)(struct file *file, void *,
->  				 struct v4l2_dbg_register *reg);
-> -	int (*vidioc_s_register)(struct file *file, void *fh,
-> +	int (*vidioc_s_register)(struct file *file, void *,
->  				 const struct v4l2_dbg_register *reg);
->  
-> -	int (*vidioc_g_chip_info)(struct file *file, void *fh,
-> +	int (*vidioc_g_chip_info)(struct file *file, void *,
->  				  struct v4l2_dbg_chip_info *chip);
->  #endif
->  
-> -	int (*vidioc_enum_framesizes)(struct file *file, void *fh,
-> +	int (*vidioc_enum_framesizes)(struct file *file, void *,
->  				      struct v4l2_frmsizeenum *fsize);
->  
-> -	int (*vidioc_enum_frameintervals)(struct file *file, void *fh,
-> +	int (*vidioc_enum_frameintervals)(struct file *file, void *,
->  					  struct v4l2_frmivalenum *fival);
->  
->  	/* DV Timings IOCTLs */
-> -	int (*vidioc_s_dv_timings)(struct file *file, void *fh,
-> +	int (*vidioc_s_dv_timings)(struct file *file, void *,
->  				   struct v4l2_dv_timings *timings);
-> -	int (*vidioc_g_dv_timings)(struct file *file, void *fh,
-> +	int (*vidioc_g_dv_timings)(struct file *file, void *,
->  				   struct v4l2_dv_timings *timings);
-> -	int (*vidioc_query_dv_timings)(struct file *file, void *fh,
-> +	int (*vidioc_query_dv_timings)(struct file *file, void *,
->  				       struct v4l2_dv_timings *timings);
-> -	int (*vidioc_enum_dv_timings)(struct file *file, void *fh,
-> +	int (*vidioc_enum_dv_timings)(struct file *file, void *,
->  				      struct v4l2_enum_dv_timings *timings);
-> -	int (*vidioc_dv_timings_cap)(struct file *file, void *fh,
-> +	int (*vidioc_dv_timings_cap)(struct file *file, void *,
->  				     struct v4l2_dv_timings_cap *cap);
-> -	int (*vidioc_g_edid)(struct file *file, void *fh,
-> +	int (*vidioc_g_edid)(struct file *file, void *,
->  			     struct v4l2_edid *edid);
-> -	int (*vidioc_s_edid)(struct file *file, void *fh,
-> +	int (*vidioc_s_edid)(struct file *file, void *,
->  			     struct v4l2_edid *edid);
->  
->  	int (*vidioc_subscribe_event)(struct v4l2_fh *fh,
-> @@ -575,7 +575,7 @@ struct v4l2_ioctl_ops {
->  					const struct v4l2_event_subscription *sub);
->  
->  	/* For other private ioctls */
-> -	long (*vidioc_default)(struct file *file, void *fh,
-> +	long (*vidioc_default)(struct file *file, void *,
->  			       bool valid_prio, unsigned int cmd, void *arg);
->  };
->  
-> 
+Best regards,
+-- 
+Patrice Chotard <patrice.chotard@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
