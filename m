@@ -2,93 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56EC7B1D283
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 08:34:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7B4B1D2C4
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 08:58:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72D89C3F93E;
-	Thu,  7 Aug 2025 06:34:52 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF468C3F93E;
+	Thu,  7 Aug 2025 06:58:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C540C3F93D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63A71C3F93D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Aug 2025 06:34:50 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5776CoqW032244;
- Thu, 7 Aug 2025 06:34:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +vAYAORzrriPUdJ+Q/oYHNyyItcYIcDJcqMoO5EPZgA=; b=hKXse06KhM1knT5j
- 7RDvqPzGg5IJlXPGU0Lk0Vjxa76n3FvZ7RLOz83tx/HjuKDb5+s3KuipR42A/dTG
- gkH11ouP2gg9iTEPb3Med1Mf9tpWtZlv6F8Ncw2oSnBi7tMPV3O/lZy4T1pktRHo
- 8YsWmZyP5V3NH2CrlR3TiYu9dR4e/H98GVEO/URPHikCnZumDZhfShvxhe5USXSk
- O8auAORkY6K8PuCmcv4/4NSwZs3AMuJQnYLvhx5d8kydcUvalk6SvF2OQNFapLAS
- 45gh4A11AILgb7/hITijqajWzGOAbHnFL8//rXkrnDglHbXvXqzL1G8GUNFAfNPQ
- 07XcIA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48bpw2wbgx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Aug 2025 06:34:37 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 5776Yaer005536
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 7 Aug 2025 06:34:36 GMT
-Received: from [10.239.133.49] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 6 Aug
- 2025 23:34:32 -0700
-Message-ID: <fbb693a7-224a-4155-88a2-67e05faaf21e@quicinc.com>
-Date: Thu, 7 Aug 2025 14:34:29 +0800
+ Thu,  7 Aug 2025 06:58:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id AF050437A3;
+ Thu,  7 Aug 2025 06:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3474EC4CEEB;
+ Thu,  7 Aug 2025 06:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1754549903;
+ bh=tNf8yXWpoqOnHiYWPw3fqpNsTnL+1s/P0u4Xeao7oac=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+ b=FiIz5oVgOYMO6q4869RWcOtlVdu9nL+0h0TxLPttL1GsnNHj8WeGZvdTa0hQ9g2IF
+ b2wpXZEdscZwcYTFUfD3Vak7J29IVobTHxanKkkz14AEYU/ukIZ++vsVvVAw99umRg
+ fszGhSjaHM5r+e6TZDl+fqCQot/inXgAQ76e8uSvp7C7I/EYbVds7D778J5GQxDrvP
+ K/8R8NLvCgWzWtfarV/vXEHBez0mayIYSmeKfaDsccXFY1Pe71Jfa20pHWGtm9MUgF
+ 6fVTDAxHrEq3NGzLwa0Z2/p/Q8or6h4Ic4LhSq8VFOMX6ph8bptUk/1SV7iMmp4cMZ
+ 528aoa8dBtCjQ==
+Message-ID: <d8875dea-aa04-41fc-b1b4-519d06ed6cba@kernel.org>
+Date: Thu, 7 Aug 2025 08:58:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Tingwei Zhang
- <quic_tingweiz@quicinc.com>
-References: <20230419141328.37472-1-quic_jinlmao@quicinc.com>
- <87cz3yyiqf.fsf@ubik.fi.intel.com>
-Content-Language: en-US
-From: Jinlong Mao <quic_jinlmao@quicinc.com>
-In-Reply-To: <87cz3yyiqf.fsf@ubik.fi.intel.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=Vbz3PEp9 c=1 sm=1 tr=0 ts=689448fd cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8
- a=b55CFHG7iiXKeY8L-hQA:9 a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: -GOc8sAEv-RcYJ75lxStY_8IBQuYJA7m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODA2MDAwOCBTYWx0ZWRfX8M/trCRHG0r3
- 5InmPPFyj/YFls1zisGC/cSV4Ri1xxORfGM0HhTk40jMhQDArESBAKDrtE7Uqz3av8Sa1JS8/wb
- bKA31BrUs/QDF0n5tBJ2WfY5RzIP+EMmt4GDHGLj0XBjkbz7StqaForb4jkasBW9CvPahEtEoQ4
- BaCHl5JUg+oMWMFnS0pbZJpAmDuvB1olc7ri5cs7I5EeSbW6VYBlk/XSe03wgFvjAkWzpOiyhTA
- Grbg24ViW8GIOXpD5eQz173OFHAC0WR/DiqKIcRVZ2bbnkDmTCOt4iXBogfjLMNsGosj3ESMjsm
- 8HjL5WMdio9db7ECoBoVPcEv3o9rPpoHpNBQJTETlZCIaeddo/tTZ33h1mLhuIUZs5YOenk13uN
- +ncssL07
-X-Proofpoint-GUID: -GOc8sAEv-RcYJ75lxStY_8IBQuYJA7m
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-06_05,2025-08-06_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 adultscore=0 suspectscore=0 bulkscore=0
- phishscore=0 priorityscore=1501 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508060008
-Cc: linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tao Zhang <quic_taozha@quicinc.com>,
- Yuanfang Zhang <quic_yuanfang@quicinc.com>, Hao Zhang <quic_hazha@quicinc.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] stm: class: Add MIPI OST protocol
-	support
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Devarsh Thakkar
+ <devarsht@ti.com>, Benoit Parrot <bparrot@ti.com>,
+ Hans Verkuil <hverkuil@kernel.org>, Mike Isely <isely@pobox.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Christian Gromm <christian.gromm@microchip.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Shi
+ <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
+ Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Andy Walls <awalls@md.metrocast.net>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Bin Liu <bin.liu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, Ming Qian <ming.qian@nxp.com>,
+ Zhou Peng <eagle.zhou@nxp.com>, Xavier Roumegue
+ <xavier.roumegue@oss.nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Dikshita Agarwal <quic_dikshita@quicinc.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Nas Chung <nas.chung@chipsnmedia.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ =?UTF-8?Q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>, Maxime Ripard
+ <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Corentin Labbe <clabbe@baylibre.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
+ <20250802-media-private-data-v1-58-eb140ddd6a9d@ideasonboard.com>
+Content-Language: en-US, nl
+In-Reply-To: <20250802-media-private-data-v1-58-eb140ddd6a9d@ideasonboard.com>
+Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ mjpeg-users@lists.sourceforge.net, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-usb@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 58/65] media: zoran: Remove access to __fh
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,239 +130,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 02/08/2025 11:23, Jacopo Mondi wrote:
+> The __fh parameter is assigned to an unsued variable. Remove it
+> and remove the unused struct zoran_fh type.
+> 
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> ---
+>  drivers/media/pci/zoran/zoran.h        | 6 ------
+>  drivers/media/pci/zoran/zoran_driver.c | 3 +--
+>  2 files changed, 1 insertion(+), 8 deletions(-)
+> 
+> diff --git a/drivers/media/pci/zoran/zoran.h b/drivers/media/pci/zoran/zoran.h
+> index 1cd990468d3de9db8b14b72483972041c57bfee2..d05e222b392156bf1b3b4c83c6591db642c3c377 100644
+> --- a/drivers/media/pci/zoran/zoran.h
+> +++ b/drivers/media/pci/zoran/zoran.h
+> @@ -154,12 +154,6 @@ struct zoran_jpg_settings {
+>  
+>  struct zoran;
+>  
+> -/* zoran_fh contains per-open() settings */
+> -struct zoran_fh {
+> -	struct v4l2_fh fh;
+> -	struct zoran *zr;
+> -};
+> -
+>  struct card_info {
+>  	enum card_type type;
+>  	char name[32];
+> diff --git a/drivers/media/pci/zoran/zoran_driver.c b/drivers/media/pci/zoran/zoran_driver.c
+> index f42f596d3e6295e31e3b33cd83c5f7243911bd30..ec7fc1da4cc02f5a344cb49bb9a783c41c758195 100644
+> --- a/drivers/media/pci/zoran/zoran_driver.c
+> +++ b/drivers/media/pci/zoran/zoran_driver.c
+> @@ -511,12 +511,11 @@ static int zoran_s_fmt_vid_cap(struct file *file, void *__fh,
 
+This driver uses __fh as the name for the second argument of the ioctl
+callbacks. Can you take this opportunity to rename it to either 'fh' or 'priv'?
 
-On 4/20/2023 6:02 PM, Alexander Shishkin wrote:
-> Mao Jinlong <quic_jinlmao@quicinc.com> writes:
-> 
->> Add MIPI OST(Open System Trace) protocol support for stm to format
->> the traces. OST over STP packet consists of Header/Payload/End. In
->> header, there will be STARTSIMPLE/VERSION/ENTITY/PROTOCOL. STARTSIMPLE
->> is used to signal the beginning of a simplified OST base protocol
->> packet.The Entity ID field is a one byte unsigned number that identifies
->> the source. FLAG packet is used for END token.
-> 
-> We'd need a better explanation of what OST is, maybe a link to the spec
-> if one exists.
-> 
-Hi Alexander,
+Generally it's not a good idea to prefix variables with __ for no good reason.
 
-Checked with different internal teams. Spec is not public. We need to 
-upstream these codes. We can add more explanation into the commit
-text. Is that ok for your ?
+Grepping for __fh also shows two other drivers:
 
-Thanks
-Jinlong Mao
+drivers/media/platform/chips-media/coda/coda-common.c:#define fh_to_ctx(__fh)   container_of(__fh, struct coda_ctx, fh)
+drivers/media/platform/samsung/s5p-mfc/s5p_mfc_common.h:#define fh_to_ctx(__fh) container_of(__fh, struct s5p_mfc_ctx, fh)
 
+I think it is a good idea to rename __fh to fh there as well.
 
+Regards,
 
-> Another thing that this patch does is adding source identification,
-> which needs to be described better.
+	Hans
+
+>  			       struct v4l2_format *fmt)
+>  {
+>  	struct zoran *zr = video_drvdata(file);
+> -	struct zoran_fh *fh = __fh;
+>  	int i;
+>  	int res = 0;
+>  
+>  	if (fmt->fmt.pix.pixelformat == V4L2_PIX_FMT_MJPEG)
+> -		return zoran_s_fmt_vid_out(file, fh, fmt);
+> +		return zoran_s_fmt_vid_out(file, __fh, fmt);
+>  
+>  	for (i = 0; i < NUM_FORMATS; i++)
+>  		if (fmt->fmt.pix.pixelformat == zoran_formats[i].fourcc)
 > 
-> [...]
-> 
->> +CONFIG_STM_PROTO_OST is for p_ost driver enablement. Once this config
->> +is enabled, you can select the p_ost protocol by command below:
->> +
->> +# mkdir /sys/kernel/config/stp-policy/stm0:p_ost.policy
->> +
->> +The policy name format is extended like this:
->> +    <device_name>:<protocol_name>.<policy_name>
->> +
->> +With coresight-stm device, it will be look like "stm0:p_ost.policy".
-> 
-> The part about protocol selection should probably be in stm.rst
-> instead.
-> 
->> +You can check if the protocol is set successfully by:
->> +# cat /sys/kernel/config/stp-policy/stm0:p_ost.policy/protocol
->> +p_ost
-> 
-> A successful mkdir is technically enough.
-> 
->> +With MIPI OST protocol driver, the attributes for each protocol node is:
->> +# mkdir /sys/kernel/config/stp-policy/stm0:p_ost.policy/default
->> +# ls /sys/kernel/config/stp-policy/stm0:p_ost.policy/default
->> +channels  entity    masters
-> 
-> Where's "entity_available"?
-> 
->> +The entity here is the set the entity that p_ost supports. Currently
->> +p_ost supports ftrace and console entity.
->> +
->> +Get current available entity that p_ost supports:
->> +# cat /sys/kernel/config/stp-policy/stm0:p_ost.policy/default/entity_available
->> +ftrace console
->> +
->> +Set entity:
->> +# echo 'ftrace' > /sys/kernel/config/stp-policy/stm0:p_ost.policy/default/entity
-> 
-> This is not a very good example, as it will flag everything that goes
-> through STM as "ftrace", which is probably not what anybody wants.
-> 
-> The bigger question is, why do we need to set the source type (for
-> which "entity" is not a very good name, btw) in the configfs when
-> corresponding stm source drivers already carry this information.
-> There should be a way to propagate the source type from stm source
-> driver to the protocol driver without relying on the user to set it
-> correctly.
-> 
->> +See Documentation/ABI/testing/configfs-stp-policy-p_ost for more details.
->> diff --git a/drivers/hwtracing/stm/Kconfig b/drivers/hwtracing/stm/Kconfig
->> index eda6b11d40a1..daa4aa09f64d 100644
->> --- a/drivers/hwtracing/stm/Kconfig
->> +++ b/drivers/hwtracing/stm/Kconfig
->> @@ -40,6 +40,20 @@ config STM_PROTO_SYS_T
->>   
->>   	  If you don't know what this is, say N.
->>   
->> +config STM_PROTO_OST
->> +	tristate "MIPI OST STM framing protocol driver"
->> +	default CONFIG_STM
->> +	help
->> +	  This is an implementation of MIPI OST protocol to be used
->> +	  over the STP transport. In addition to the data payload, it
->> +	  also carries additional metadata for entity, better
->> +	  means of trace source identification, etc.
-> 
-> What does "entity" mean here?
-> 
-> [...]
-> 
->> +#define OST_TOKEN_STARTSIMPLE		(0x10)
->> +#define OST_VERSION_MIPI1		(0x10 << 8)
-> 
-> Either write them as bits (BIT(12)) or as a hex value (0x1000).
-> 
->> +/* entity id to identify the source*/
->> +#define OST_ENTITY_FTRACE		(0x01 << 16)
->> +#define OST_ENTITY_CONSOLE		(0x02 << 16)
->> +
->> +#define OST_CONTROL_PROTOCOL		(0x0 << 24)
-> 
-> Zero, really? At this point I'm wondering if this code has even been
-> tested.
-> 
-> [...]
-> 
->> +static ssize_t
->> +ost_t_policy_entity_store(struct config_item *item, const char *page,
->> +			size_t count)
->> +{
->> +	struct mutex *mutexp = &item->ci_group->cg_subsys->su_mutex;
->> +	struct ost_policy_node *pn = to_pdrv_policy_node(item);
->> +	char str[10] = "";
->> +
->> +	mutex_lock(mutexp);
->> +	if (sscanf(page, "%s", str) != 1)
->> +		return -EINVAL;
->> +	mutex_unlock(mutexp);
-> 
-> You forgot to release the mutex in the error path.
-> Also, why do you need a mutex around sscanf() in the first place?
-> Also, the sscanf() can overrun str.
-> 
->> +	if (!strcmp(str, str_ost_entity_type[OST_ENTITY_TYPE_FTRACE]))
->> +		pn->entity_type = OST_ENTITY_TYPE_FTRACE;
->> +	else if (!strcmp(str, str_ost_entity_type[OST_ENTITY_TYPE_CONSOLE]))
->> +		pn->entity_type = OST_ENTITY_TYPE_CONSOLE;
-> 
-> Why can't you strcmp() on the page directly?
-> Also, this is where you do want to hold the mutex.
-> Also, what if there are more source types?
-> 
->> +	else
->> +		return -EINVAL;
->> +	return count;
->> +}
->> +CONFIGFS_ATTR(ost_t_policy_, entity);
->> +
->> +static ssize_t ost_t_policy_entity_available_show(struct config_item *item,
->> +				char *page)
->> +{
->> +	return scnprintf(page, PAGE_SIZE, "%s\n", "ftrace console");
-> 
-> Don't hardcode these.
-> 
->> +}
->> +CONFIGFS_ATTR_RO(ost_t_policy_, entity_available);
->> +
->> +static struct configfs_attribute *ost_t_policy_attrs[] = {
->> +	&ost_t_policy_attr_entity,
->> +	&ost_t_policy_attr_entity_available,
->> +	NULL,
->> +};
->> +
->> +static ssize_t notrace ost_write(struct stm_data *data,
->> +		struct stm_output *output, unsigned int chan,
->> +		const char *buf, size_t count)
->> +{
->> +	unsigned int c = output->channel + chan;
->> +	unsigned int m = output->master;
->> +	const unsigned char nil = 0;
->> +	u32 header = DATA_HEADER;
->> +	u8 trc_hdr[16];
->> +	ssize_t sz;
->> +
->> +	struct ost_output *op = output->pdrv_private;
-> 
-> As said above, the stm source driver that calls here already knows its
-> own source type, there's no need to store it separately.
-> 
->> +
->> +	/*
->> +	 * Identify the source by entity type.
->> +	 * If entity type is not set, return error value.
->> +	 */
->> +	if (op->node.entity_type == OST_ENTITY_TYPE_FTRACE) {
->> +		header |= OST_ENTITY_FTRACE;
->> +	} else if (op->node.entity_type == OST_ENTITY_TYPE_CONSOLE) {
->> +		header |= OST_ENTITY_CONSOLE;
->> +	} else {
->> +		pr_debug("p_ost: Entity must be set for trace data.");
-> 
-> You forgot a newline.
-> Also, this message seems to be quite useless: it's either a nop or a
-> dmesg storm. In general, it's a bad idea to printk() in the write
-> callback.
-> 
->> +		return -EINVAL;
->> +	}
->> +
->> +	/*
->> +	 * STP framing rules for OST frames:
->> +	 *   * the first packet of the OST frame is marked;
->> +	 *   * the last packet is a FLAG with timestamped tag.
->> +	 */
->> +	/* Message layout: HEADER / DATA / TAIL */
->> +	/* HEADER */
->> +	sz = data->packet(data, m, c, STP_PACKET_DATA, STP_PACKET_MARKED,
->> +			  4, (u8 *)&header);
->> +	if (sz <= 0)
->> +		return sz;
->> +
->> +	/* DATA */
->> +	*(u16 *)(trc_hdr) = STM_MAKE_VERSION(0, 4);
->> +	*(u16 *)(trc_hdr + 2) = STM_HEADER_MAGIC;
->> +	*(u32 *)(trc_hdr + 4) = raw_smp_processor_id();
->> +	*(u64 *)(trc_hdr + 8) = task_tgid_nr(get_current());
-> 
-> What's the value in exporting PIDs when there are PID namespaces? How is
-> this useful? Also, neither console nor ftrace are required to come in a
-> task context.
-> 
-> I already asked in the previous version, why is trc_hdr not a struct?
-> 
-> There also used to be a timestamp field in trc_hdr, what happened to it?
-> 
-> Regards,
-> --
-> Alex
 
 _______________________________________________
 Linux-stm32 mailing list
