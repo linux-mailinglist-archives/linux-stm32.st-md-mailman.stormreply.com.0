@@ -2,128 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B073B1D48D
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 11:07:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE5DB1D6F3
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Aug 2025 13:51:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97997C3F94D;
-	Thu,  7 Aug 2025 09:07:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40582C3F951;
+	Thu,  7 Aug 2025 11:51:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31743C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DE3EC3F950
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Aug 2025 09:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754557650; x=1786093650;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=LdyIokBuO7Un8obo21ibvQiKDOlr/VJXcK2c42DetEE=;
- b=Qff97d3VgjO3mycJN6RbSJmi1HqtQ24ctgzgr4k6CPLv8u4hjMBGvzSN
- 7BzGi04BH73DK/LFfLMO7FJ7jSXcRSSYzG4LOvt5CwFi3BsdUdT2K0Pl6
- mTajO6AqL76SJzwj0/cCjD4fSw4boX943Ypkjru2J2tu1ajhkwmfbkvX6
- Y7FhGiABQgHPhtcwppWbyPzPjPbLfn4ftAFoBfIZ8nqT0OSU2Wj9ZdqTq
- 24S0yeI+Va0dSc3zDv9Dz87j0OC9YTlL0kWOv/Laq7AtxqyyONWsN3QG6
- 5dVfiOHQmFG++JFZrEEOX87mKz550x6eQMruD3Gqt0vbjXEhwZhwhWbOD Q==;
-X-CSE-ConnectionGUID: CNuuVDVSTSeYxmPCmIW8EA==
-X-CSE-MsgGUID: sMRur72YRgCJr9qedBf5ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="68340106"
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="68340106"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 02:07:27 -0700
-X-CSE-ConnectionGUID: HkVbQkL0THy+UJOo9yzC6A==
-X-CSE-MsgGUID: KJ6iZxlSSOyomEAi+j3fxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,271,1747724400"; d="scan'208";a="169473134"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
- ([10.245.244.255])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2025 02:07:16 -0700
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 79BBB11FC45;
- Thu,  7 Aug 2025 12:07:13 +0300 (EEST)
-Date: Thu, 7 Aug 2025 09:07:13 +0000
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Message-ID: <aJRswZIVKCuzqCpr@kekkonen.localdomain>
-References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
- <20250802-media-private-data-v1-64-eb140ddd6a9d@ideasonboard.com>
+ Thu,  7 Aug 2025 11:51:20 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 577BcO0H029331;
+ Thu, 7 Aug 2025 13:51:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ HVsSu2JQlkuMay902nxoX0MpAL4pe0AraHz4EjlfA/4=; b=1eupmTdait8w75Di
+ rmc14oVpRPxnbd94Q+JTpKhZInez4rF4BakuCzwkhYQ5xJrv0nphT8jusphCOV99
+ d+FC8Ki805e4PM2bbnIV5nDXr9mkd+pBtznEMX/g7+2H2nbT62V8neuAfek4X5lk
+ 9K7QxqiGZJU2GaMlbYlrb9fOBiqLMFVFyZBYGthQhpCzzDKq6geeCWOwHMBP1usD
+ Mp5mq4H8OvsiOeK4QqEaH2x+9FTMkMS56NH9PfVAvDgJV0bbIfSW+0gdiHXZMeDS
+ 50nmE+6JxsyyT8OX8dUksu7zFsmsqDEwMhaXt57+O9/2sAj4nA6HvtKQjq6oL/3r
+ 9zqW8w==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48c7pvuxqr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Aug 2025 13:51:10 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 48F9D4004A;
+ Thu,  7 Aug 2025 13:50:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 769D671FDA0;
+ Thu,  7 Aug 2025 13:49:30 +0200 (CEST)
+Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
+ 2025 13:49:29 +0200
+Message-ID: <48d20fc0-3212-499f-881f-9546607b250d@foss.st.com>
+Date: Thu, 7 Aug 2025 13:49:29 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250802-media-private-data-v1-64-eb140ddd6a9d@ideasonboard.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Christian Gromm <christian.gromm@microchip.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Jacob Chen <jacob-chen@iotwrt.com>, Steve Longerbeam <slongerbeam@gmail.com>,
- Bingbu Cao <bingbu.cao@intel.com>, linux-sunxi@lists.linux.dev,
- Sascha Hauer <s.hauer@pengutronix.de>,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
- Nas Chung <nas.chung@chipsnmedia.com>, Andy Walls <awalls@md.metrocast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-usb@vger.kernel.org,
- Michael Tretter <m.tretter@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Ming Qian <ming.qian@nxp.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-doc@vger.kernel.org,
- Yunfei Dong <yunfei.dong@mediatek.com>, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Dongliang Mu <dzm91@hust.edu.cn>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Jerome Brunet <jbrunet@baylibre.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
- linux-media@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Houlong Wei <houlong.wei@mediatek.com>, linux-amlogic@lists.infradead.org,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Zhou Peng <eagle.zhou@nxp.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-mediatek@lists.infradead.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>, imx@lists.linux.dev,
- Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>, Mike Isely <isely@pobox.com>,
- Jackson Lee <jackson.lee@chipsnmedia.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bin Liu <bin.liu@mediatek.com>,
- mjpeg-users@lists.sourceforge.net,
- Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dikshita Agarwal <quic_dikshita@quicinc.com>, Tomasz Figa <tfiga@chromium.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Shawn Guo <shawnguo@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Todor Tomov <todor.too@gmail.com>, Mirela Rabulea <mirela.rabulea@nxp.com>,
- Alex Shi <alexs@kernel.org>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Corentin Labbe <clabbe@baylibre.com>,
- Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Benoit Parrot <bparrot@ti.com>,
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
- Hans Verkuil <hverkuil@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>
-Subject: Re: [Linux-stm32] [PATCH 64/65] media: staging: ipu7: isys: Don't
- set V4L2_FL_USES_V4L2_FH manually
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20250806-upstream_fix_dts_omm-v1-1-e68c15ed422d@foss.st.com>
+ <9e0c5453-b8f4-4d0a-8e8d-82014aac67dd@kernel.org>
+ <832fb088-8862-4bd7-82a4-0e7ad58efe76@foss.st.com>
+ <5924a691-2533-4856-a169-d16c3e577c42@kernel.org>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <5924a691-2533-4856-a169-d16c3e577c42@kernel.org>
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-07_02,2025-08-06_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, stable@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: Add memory-region-names
+ property for stm32mp257f-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,21 +84,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 02, 2025 at 11:23:26AM +0200, Jacopo Mondi wrote:
-> From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+
+On 8/6/25 14:44, Krzysztof Kozlowski wrote:
+> On 06/08/2025 14:36, Patrice CHOTARD wrote:
+>>>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+>>>> ---
+>>>>  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 1 +
+>>>>  1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>>>> index 2f561ad4066544445e93db78557bc4be1c27095a..16309029758cf24834f406f5203046ded371a8f9 100644
+>>>> --- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>>>> +++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+>>>> @@ -197,6 +197,7 @@ &i2c8 {
+>>>>  
+>>>>  &ommanager {
+>>>>  	memory-region = <&mm_ospi1>;
+>>>> +	memory-region-names = "mm_ospi1";
+>>>
+>>> It does not look like you tested the DTS against bindings. Please run
+>>> `make dtbs_check W=1` (see
+>>
+>> My bad, i am preparing the v2.
+> Why? I claim this is not needed according to your description. You said
+> it is necessary to identify "memory-map area's configuration." but
+> memory-region already tells that. What exactly is not identified?
+
+Sorry but memory-region doesn't tell if this area is dedicated to ospi1 or ospi2.
+
+In order to set the AMCR register, which configure the memory-region split
+between ospi1 and ospi2, we need to identify the ospi instance.
+
+By using memory-region-names, it allows to identify the ospi instance it belongs to.
+
+Thanks
+Patrice
+
 > 
-> The V4L2_FL_USES_V4L2_FH flag is set by v4l2_fh_init(). It is not meant
-> to be set manually by drivers. Drop it from the ipu7-isys driver.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-
-Thanks, Jacopo!
-
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
--- 
-Sakari Ailus
+> Best regards,
+> Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
