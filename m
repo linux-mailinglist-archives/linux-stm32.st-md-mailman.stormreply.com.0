@@ -2,52 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6598BB1E82D
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 14:17:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57332B1E8EF
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 15:10:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDF27C3F953;
-	Fri,  8 Aug 2025 12:17:30 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31628C3F952;
+	Fri,  8 Aug 2025 13:10:05 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B91CC349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDD95C349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Aug 2025 12:17:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2FzBoXIxcZVkbVHJFLWQcEdWdrkGqtJVfXXxBAhEpkU=; b=zhtgFgOTmNI0iXvJmndtzAHEfz
- JP1V5GKLViXtZAOPj5hiniBuJPdLs7vRYITMXoXN0nOAOsP91CyOiWZ/Y53vFoX8gY/hDMxuEm2k1
- Bcu4H1tYP3jBZjACeZxXmCkrc6HccX6SQAfJ3oTk4eLC06xEE4lvq6cTejMAaQbQbegCwA4cvxKfh
- WS7EDZ/Qk5s/1E6PwF2LYi2rvS5Gts9O4KU1ULN0dMup4vElCcCHqZMKZez2FpCwdj0TGtjRqr58d
- rexwQQsLSrii+Ctb2XWMC79E4+7ObgXNpxCxpzgwhDmfaNpDDYMXbn46I/V/f8aB6OPRMEd7aLM21
- M9qh50GA==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41686 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1ukM2G-0007Zg-0D;
- Fri, 08 Aug 2025 13:17:24 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1ukM1X-0086qu-Td; Fri, 08 Aug 2025 13:16:39 +0100
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Thierry Reding <treding@nvidia.com>
+ Fri,  8 Aug 2025 13:10:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 656F5A556D0;
+ Fri,  8 Aug 2025 13:10:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74BAAC4CEED;
+ Fri,  8 Aug 2025 13:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1754658602;
+ bh=Ry/5UI73pZtdPKEskqZzyPIwhQo+s64pnx0FlVxe0dk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oFOwBdRshhFKDGtm6ZJNi50fc33bSOPHC1hQMCtSk20p3W1WQd2f4JcdQCjINzeXX
+ Dh3LLcw/aZAB8B849z6ypCLJC4025T1Ko/yKIXpt7bXG6W2MJOaHAaCF+qy7X3Gcua
+ 2YoqTry90teKprfUWIlirzavBwIxyfTD2LIU5sE6UP+lTuOciJzRkcrg4OKNV+YqFu
+ 2uMdlNe3iQ0VjaZJcTxh+vIyCFc9FtIQoJQeIPYsQ1oUpSHav9HCfMMMQBLI76a+M7
+ sut8kVIa4+QLyekrP1S06cNVMJKu58YlBl8ZNSRi5s30vx9DMof01qfsaJFJPniV+U
+ MFGC2fdQ/1xmw==
+Date: Fri, 8 Aug 2025 14:09:57 +0100
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20250808130957.GB1705@horms.kernel.org>
+References: <E1ujwIY-007qKa-Ka@rmk-PC.armlinux.org.uk>
+ <20250807183359.GO61519@horms.kernel.org>
+ <aJT7QTzT_AHmkS6H@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1ukM1X-0086qu-Td@rmk-PC.armlinux.org.uk>
-Date: Fri, 08 Aug 2025 13:16:39 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+In-Reply-To: <aJT7QTzT_AHmkS6H@shell.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: dwc-qos: fix clk
- prepare/enable leak on probe failure
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: rk: put the PHY clock on
+	remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,70 +63,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwc_eth_dwmac_probe() gets bulk clocks, and then prepares and enables
-them. Unfortunately, if dwc_eth_dwmac_config_dt() or stmmac_dvr_probe()
-fail, we leave the clocks prepared and enabled. Fix this by using
-devm_clk_bulk_get_all_enabled() to combine the steps and provide devm
-based release of the prepare and enable state.
+On Thu, Aug 07, 2025 at 08:15:13PM +0100, Russell King (Oracle) wrote:
+> On Thu, Aug 07, 2025 at 07:33:59PM +0100, Simon Horman wrote:
+> > On Thu, Aug 07, 2025 at 09:48:30AM +0100, Russell King (Oracle) wrote:
+> > > The PHY clock (bsp_priv->clk_phy) is obtained using of_clk_get(), which
+> > > doesn't take part in the devm release. Therefore, when a device is
+> > > unbound, this clock needs to be explicitly put. Fix this.
+> > > 
+> > > Fixes: fecd4d7eef8b ("net: stmmac: dwmac-rk: Add integrated PHY support")
+> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > > ---
+> > > Spotted this resource leak while making other changes to dwmac-rk.
+> > > Would be great if the dwmac-rk maintainers can test it.
+> > > 
+> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> > > index 79b92130a03f..4a315c87c4d0 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> > > @@ -1770,6 +1770,9 @@ static void rk_gmac_remove(struct platform_device *pdev)
+> > >  	stmmac_dvr_remove(&pdev->dev);
+> > >  
+> > >  	rk_gmac_powerdown(bsp_priv);
+> > > +
+> > > +	if (plat->phy_node && bsp_priv->integrated_phy)
+> > > +		clk_put(bsp_priv->clk_phy);
+> > 
+> > Hi Russell,
+> > 
+> > Something seems a little off here.
+> > I don't see plat in this context in net.
+> 
+> Already have a fix for it, thanks anyway. Today ended up going awol
+> due to dentistry stuff. :(
 
-This also fixes a similar leakin dwc_eth_dwmac_remove() which wasn't
-correctly retrieving the struct plat_stmmacenet_data. This becomes
-unnecessary.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-index 09ae16e026eb..6c363f9b0ce2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-@@ -330,15 +330,11 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
- 	if (IS_ERR(plat_dat))
- 		return PTR_ERR(plat_dat);
- 
--	ret = devm_clk_bulk_get_all(&pdev->dev, &plat_dat->clks);
-+	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &plat_dat->clks);
- 	if (ret < 0)
--		return dev_err_probe(&pdev->dev, ret, "Failed to retrieve all required clocks\n");
-+		return dev_err_probe(&pdev->dev, ret, "Failed to retrieve and enable all required clocks\n");
- 	plat_dat->num_clks = ret;
- 
--	ret = clk_bulk_prepare_enable(plat_dat->num_clks, plat_dat->clks);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
--
- 	plat_dat->stmmac_clk = stmmac_pltfr_find_clk(plat_dat,
- 						     data->stmmac_clk_name);
- 
-@@ -346,7 +342,6 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
- 		ret = data->probe(pdev, plat_dat, &stmmac_res);
- 	if (ret < 0) {
- 		dev_err_probe(&pdev->dev, ret, "failed to probe subdriver\n");
--		clk_bulk_disable_unprepare(plat_dat->num_clks, plat_dat->clks);
- 		return ret;
- 	}
- 
-@@ -370,15 +365,11 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
- static void dwc_eth_dwmac_remove(struct platform_device *pdev)
- {
- 	const struct dwc_eth_dwmac_data *data = device_get_match_data(&pdev->dev);
--	struct plat_stmmacenet_data *plat_dat = dev_get_platdata(&pdev->dev);
- 
- 	stmmac_dvr_remove(&pdev->dev);
- 
- 	if (data->remove)
- 		data->remove(pdev);
--
--	if (plat_dat)
--		clk_bulk_disable_unprepare(plat_dat->num_clks, plat_dat->clks);
- }
- 
- static const struct of_device_id dwc_eth_dwmac_match[] = {
--- 
-2.30.2
-
+Thanks, I see the fix now.
+Hope your AFK mission went well.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
