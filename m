@@ -2,42 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57332B1E8EF
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 15:10:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92ED6B1E9B1
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 15:57:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31628C3F952;
-	Fri,  8 Aug 2025 13:10:05 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD39C3F952;
+	Fri,  8 Aug 2025 13:57:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDD95C349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB22EC349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Aug 2025 13:10:03 +0000 (UTC)
+ Fri,  8 Aug 2025 13:57:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 656F5A556D0;
- Fri,  8 Aug 2025 13:10:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74BAAC4CEED;
- Fri,  8 Aug 2025 13:09:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 1D5665C6832;
+ Fri,  8 Aug 2025 13:57:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29736C4CEED;
+ Fri,  8 Aug 2025 13:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754658602;
- bh=Ry/5UI73pZtdPKEskqZzyPIwhQo+s64pnx0FlVxe0dk=;
+ s=k20201202; t=1754661432;
+ bh=AgMrnqxhNaxCNBFzW1CbjSj7+1BQvkwh3Ak4/ManYq8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oFOwBdRshhFKDGtm6ZJNi50fc33bSOPHC1hQMCtSk20p3W1WQd2f4JcdQCjINzeXX
- Dh3LLcw/aZAB8B849z6ypCLJC4025T1Ko/yKIXpt7bXG6W2MJOaHAaCF+qy7X3Gcua
- 2YoqTry90teKprfUWIlirzavBwIxyfTD2LIU5sE6UP+lTuOciJzRkcrg4OKNV+YqFu
- 2uMdlNe3iQ0VjaZJcTxh+vIyCFc9FtIQoJQeIPYsQ1oUpSHav9HCfMMMQBLI76a+M7
- sut8kVIa4+QLyekrP1S06cNVMJKu58YlBl8ZNSRi5s30vx9DMof01qfsaJFJPniV+U
- MFGC2fdQ/1xmw==
-Date: Fri, 8 Aug 2025 14:09:57 +0100
+ b=n2EzPM4nZP1QcAlZ2twuc6dYXtrX046zg9nolGES4MFdm9zE1vVUiCwVbbZcrZUkq
+ 8MsDCMRT/j1bJ1by3EKEKcJ+EyKNVRQyRaNZaQZAv9D5S2NVYU+6+w4wIR9kkAdl8G
+ YEK5X/uSDR5qfFnqqWpQiCVTLFHoflYMh8ZYAmuRA7upA/QBkKt8DE+43Heob76niF
+ s0fxTYvCxFbM1rqIUIXv/tmoMUSTtQoeIBRojgMhHTwJkHrL2Okg15442yUdORHMMc
+ NsN+a7LihHhlyyD0Z1MmnOMIDrdSbHVirL1Cw7/xiOBCNhQtdcAqnQds49wexNRLz9
+ oF6XD8AsFZAwg==
+Date: Fri, 8 Aug 2025 14:57:07 +0100
 From: Simon Horman <horms@kernel.org>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20250808130957.GB1705@horms.kernel.org>
-References: <E1ujwIY-007qKa-Ka@rmk-PC.armlinux.org.uk>
- <20250807183359.GO61519@horms.kernel.org>
- <aJT7QTzT_AHmkS6H@shell.armlinux.org.uk>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250808135707.GE1705@horms.kernel.org>
+References: <E1ukM1S-0086qo-PC@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aJT7QTzT_AHmkS6H@shell.armlinux.org.uk>
+In-Reply-To: <E1ukM1S-0086qo-PC@rmk-PC.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
@@ -45,8 +43,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: rk: put the PHY clock on
-	remove
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: rk: put the PHY clock
+	on remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,44 +61,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 07, 2025 at 08:15:13PM +0100, Russell King (Oracle) wrote:
-> On Thu, Aug 07, 2025 at 07:33:59PM +0100, Simon Horman wrote:
-> > On Thu, Aug 07, 2025 at 09:48:30AM +0100, Russell King (Oracle) wrote:
-> > > The PHY clock (bsp_priv->clk_phy) is obtained using of_clk_get(), which
-> > > doesn't take part in the devm release. Therefore, when a device is
-> > > unbound, this clock needs to be explicitly put. Fix this.
-> > > 
-> > > Fixes: fecd4d7eef8b ("net: stmmac: dwmac-rk: Add integrated PHY support")
-> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > ---
-> > > Spotted this resource leak while making other changes to dwmac-rk.
-> > > Would be great if the dwmac-rk maintainers can test it.
-> > > 
-> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > index 79b92130a03f..4a315c87c4d0 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > @@ -1770,6 +1770,9 @@ static void rk_gmac_remove(struct platform_device *pdev)
-> > >  	stmmac_dvr_remove(&pdev->dev);
-> > >  
-> > >  	rk_gmac_powerdown(bsp_priv);
-> > > +
-> > > +	if (plat->phy_node && bsp_priv->integrated_phy)
-> > > +		clk_put(bsp_priv->clk_phy);
-> > 
-> > Hi Russell,
-> > 
-> > Something seems a little off here.
-> > I don't see plat in this context in net.
+On Fri, Aug 08, 2025 at 01:16:34PM +0100, Russell King (Oracle) wrote:
+> The PHY clock (bsp_priv->clk_phy) is obtained using of_clk_get(), which
+> doesn't take part in the devm release. Therefore, when a device is
+> unbound, this clock needs to be explicitly put. Fix this.
 > 
-> Already have a fix for it, thanks anyway. Today ended up going awol
-> due to dentistry stuff. :(
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+> Spotted this resource leak while making other changes to dwmac-rk.
+> Would be great if the dwmac-rk maintainers can test it.
+> 
+> v2: fix build error
 
-Thanks, I see the fix now.
-Hope your AFK mission went well.
+Thanks for the update Russell.
+
+This fix looks good to me.
+Reviewed-by: Simon Horman <horms@kernel.org>
+
+And I guess it ought to be marked with.
+Fixes: fecd4d7eef8b ("net: stmmac: dwmac-rk: Add integrated PHY support")
+
+If correct, then I don't think any further action is required as supplying
+tags via email should be sufficient.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
