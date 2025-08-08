@@ -2,131 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B45B1E31E
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 09:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7109CB1E4A0
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Aug 2025 10:47:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 865B5C349C4;
-	Fri,  8 Aug 2025 07:22:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11A63C349C4;
+	Fri,  8 Aug 2025 08:47:27 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EACAC36B3A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04370C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Aug 2025 07:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1754637766; x=1786173766;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=fbLBorPezoJWXQtvSg4WV87SLfHofuZpGSIX8FwjR+A=;
- b=l2SzjwROXw2Yqxgz1UsCudev9JYmjpeEMz2aFVu6tN0u5DmHwPCzRy5e
- MjvTDcafn0BVJuhegqGA10fwSmIvaTWHYfdZ/HmNdOj7RQOlK4nlTSF7D
- DC4gEzyccSloqEMgLGgZY/SaFUk/eGMoWfCqaS6VWBHfF4l9C6Rn6Y3pi
- ZJajoKhgwuvKkBHNwZFqQmGDvlqpcRnYRw8zkr6UKbKMdLFuSGVEZp7CA
- 3CeomvAzI7j/+LBTUK301U7l96R+QPNahRsEOJ2LEBVOEIjdAXZXAjct7
- mxBeHPtY9pNiKnk9pFbNApQfQEBQBrvF3Hf0v/5V2BkdL7NtOnlGVV64F w==;
-X-CSE-ConnectionGUID: 8XvIh9TjQgGT7Zva8wTOXQ==
-X-CSE-MsgGUID: ul9K0X2eSka8RLB3p801wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11514"; a="82427464"
-X-IronPort-AV: E=Sophos;i="6.17,274,1747724400"; d="scan'208";a="82427464"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2025 00:22:44 -0700
-X-CSE-ConnectionGUID: OdNPlVlrR9m1H28JVd9Cfw==
-X-CSE-MsgGUID: 6MIOtN9XTOqpGi12upForA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,274,1747724400"; d="scan'208";a="188944168"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
- ([10.245.245.151])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2025 00:22:33 -0700
-Received: from kekkonen.localdomain (localhost [127.0.0.1])
- by kekkonen.fi.intel.com (Postfix) with SMTP id 7FB8211FC97;
- Fri,  8 Aug 2025 10:22:31 +0300 (EEST)
-Date: Fri, 8 Aug 2025 07:22:31 +0000
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <aJWltxB6NfXg53KI@kekkonen.localdomain>
-References: <20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com>
- <20250802-media-private-data-v1-64-eb140ddd6a9d@ideasonboard.com>
- <aJRswZIVKCuzqCpr@kekkonen.localdomain>
- <20250807170135.GH11583@pendragon.ideasonboard.com>
+ Fri,  8 Aug 2025 08:47:24 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9CB961198;
+ Fri,  8 Aug 2025 10:46:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1754642794;
+ bh=Zif3aIoRe8MwoDhGwQjrAyjWSZB86ZHLPe3QaS9/bAU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iHJqllLsETAvmZAT4PrdxljPGA6YoqAkTq1fXFTTs1C9/d0ZJVQYNSKCLDc7UN413
+ N7Jh9l4Ap3wNh3pcvDnvWuwq0WaSdO8PUWlQ7L9Qgz9hwSkBmS3PwNXvFTd9NAHQyu
+ K046Rn7B1QToZrcaBXxrGFssjahhrP/H67dEeXrs=
+Message-ID: <ad3ac484-7215-4656-b3a3-a96c68a720f4@ideasonboard.com>
+Date: Fri, 8 Aug 2025 11:47:21 +0300
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250807170135.GH11583@pendragon.ideasonboard.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
- Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Christian Gromm <christian.gromm@microchip.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Jacob Chen <jacob-chen@iotwrt.com>, Steve Longerbeam <slongerbeam@gmail.com>,
- Bingbu Cao <bingbu.cao@intel.com>, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
- Nas Chung <nas.chung@chipsnmedia.com>, Andy Walls <awalls@md.metrocast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-usb@vger.kernel.org,
- Michael Tretter <m.tretter@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Ming Qian <ming.qian@nxp.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-doc@vger.kernel.org,
- Yunfei Dong <yunfei.dong@mediatek.com>, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Yanteng Si <si.yanteng@linux.dev>,
- Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Dongliang Mu <dzm91@hust.edu.cn>,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Jerome Brunet <jbrunet@baylibre.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
- linux-media@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Houlong Wei <houlong.wei@mediatek.com>, linux-amlogic@lists.infradead.org,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Zhou Peng <eagle.zhou@nxp.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-mediatek@lists.infradead.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>, imx@lists.linux.dev,
- Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>, Mike Isely <isely@pobox.com>,
- Jackson Lee <jackson.lee@chipsnmedia.com>, linux-staging@lists.linux.dev,
- Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bin Liu <bin.liu@mediatek.com>,
- mjpeg-users@lists.sourceforge.net,
- Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dikshita Agarwal <quic_dikshita@quicinc.com>, Tomasz Figa <tfiga@chromium.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Shawn Guo <shawnguo@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Todor Tomov <todor.too@gmail.com>, Mirela Rabulea <mirela.rabulea@nxp.com>,
- Alex Shi <alexs@kernel.org>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Corentin Labbe <clabbe@baylibre.com>,
- Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Benoit Parrot <bparrot@ti.com>,
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>
-Subject: Re: [Linux-stm32] [PATCH 64/65] media: staging: ipu7: isys: Don't
- set V4L2_FL_USES_V4L2_FH manually
+User-Agent: Mozilla Thunderbird
+To: Dan Carpenter <dan.carpenter@linaro.org>
+References: <aJTNtpDUbTz7eyJc@stanley.mountain>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <aJTNtpDUbTz7eyJc@stanley.mountain>
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [bug report] media: subdev: Add
+ v4l2_subdev_call_state_try() macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,29 +96,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 07, 2025 at 08:01:35PM +0300, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> On Thu, Aug 07, 2025 at 09:07:13AM +0000, Sakari Ailus wrote:
-> > On Sat, Aug 02, 2025 at 11:23:26AM +0200, Jacopo Mondi wrote:
-> > > From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > 
-> > > The V4L2_FL_USES_V4L2_FH flag is set by v4l2_fh_init(). It is not meant
-> > > to be set manually by drivers. Drop it from the ipu7-isys driver.
-> > > 
-> > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > 
-> > Thanks, Jacopo!
-> > 
-> > Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> 
-> Can we get you review on patch 63/65 too (for the IPU6 driver) too ?
+Hi,
 
-Done.
+On 07/08/2025 19:00, Dan Carpenter wrote:
+> Hello Tomi Valkeinen,
+> 
+> Commit 982c0487185b ("media: subdev: Add v4l2_subdev_call_state_try()
+> macro") from Jul 1, 2022 (linux-next), leads to the following Smatch
+> static checker warning:
+> 
+> 	drivers/media/platform/st/stm32/stm32-dcmi.c:995 dcmi_try_fmt()
+> 	error: 'state' dereferencing possible ERR_PTR()
+> 
+> drivers/media/platform/st/stm32/stm32-dcmi.c
+>     993 
+>     994         v4l2_fill_mbus_format(&format.format, pix, sd_fmt->mbus_code);
+> --> 995         ret = v4l2_subdev_call_state_try(dcmi->source, pad, set_fmt, &format);
+> 
+> The problem is the v4l2_subdev_call_state_try() macro:
+> 
+>   1965  #define v4l2_subdev_call_state_try(sd, o, f, args...)                 \
+>   1966          ({                                                            \
+>   1967                  int __result;                                         \
+>   1968                  static struct lock_class_key __key;                   \
+>   1969                  const char *name = KBUILD_BASENAME                    \
+>   1970                          ":" __stringify(__LINE__) ":state->lock";     \
+>   1971                  struct v4l2_subdev_state *state =                     \
+>   1972                          __v4l2_subdev_state_alloc(sd, name, &__key);  \
+>                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+> If this fails
+> 
+>   1973                  v4l2_subdev_lock_state(state);                        \
+>                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> then it leads to a crash.
+> 
+>   1974                  __result = v4l2_subdev_call(sd, o, f, state, ##args); \
+>   1975                  v4l2_subdev_unlock_state(state);                      \
+>   1976                  __v4l2_subdev_state_free(state);                      \
+>   1977                  __result;                                             \
+>   1978          })
+> 
 
--- 
-Sakari Ailus
+Thanks. For some reason I can't reproduce the error with smatch.
+However, it looks clear to me. We need:
+
+if (IS_ERR(state)) {
+        __result = PTR_ERR(state);
+} else {
+        v4l2_subdev_lock_state(state);
+        __result = v4l2_subdev_call(sd, o, f, state, ##args);
+        v4l2_subdev_unlock_state(state);
+        __v4l2_subdev_state_free(state);
+}
+__result;
+
+ Tomi
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
