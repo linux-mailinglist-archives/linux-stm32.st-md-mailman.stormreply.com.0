@@ -2,62 +2,128 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACAE1B1F684
-	for <lists+linux-stm32@lfdr.de>; Sat,  9 Aug 2025 23:19:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACE9CB1FF56
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 08:26:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A4EEC36B2B;
-	Sat,  9 Aug 2025 21:19:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2D9BC349C4;
+	Mon, 11 Aug 2025 06:26:23 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A19DC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02C2BC36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  9 Aug 2025 21:19:17 +0000 (UTC)
+ Sun, 10 Aug 2025 01:31:22 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
  [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 322A189A;
- Sat,  9 Aug 2025 23:18:26 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id B579F7E6;
+ Sun, 10 Aug 2025 03:30:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1754774306;
- bh=EEJJP0/RcpbPyqA9R91ox9qV1ieWlE3OTIHe9J2ILPI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EKAmo0+CjMk8w8x6ty6zdEUlQDqOdMCLk5PHGCLKE3WoJeX2IECO5W3HNL7kliEPX
- Yoko52C8Yg1P4WcLap0EI0D6aXQX9wkIZ+1TJroATx/HNFPPXoCWixnyXqM9rdBxjW
- 0qC8hR+y7Yb8R4+x4YTeg1qTLHdMTo2oQGAcHz10=
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ s=mail; t=1754789427;
+ bh=HOmqI1p7+7lwlytISaVugdq5EyxVUWR5y7GMXOK7I2c=;
+ h=From:To:Cc:Subject:Date:From;
+ b=SC1/vmH5WQcYHbX8d62vL0YQHU8pof3DAENqiOChxLFgu7Yt8JXH6dYdGd8crzVaG
+ vMuN3wTWqn2xANVVrC+wtj/KBorBj+n+0lwafA9W3bgB0bAHSZoqy6Q5Lrjtfl1aRZ
+ zleeDvw1UhRdx6QuAFRJkFKUGLofbYwxRs/fBe0Y=
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: linux-media@vger.kernel.org
-Date: Sun, 10 Aug 2025 00:16:52 +0300
-Message-ID: <20250809211654.28887-76-laurent.pinchart@ideasonboard.com>
+Date: Sun, 10 Aug 2025 04:29:42 +0300
+Message-ID: <20250810013100.29776-1-laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: git-send-email 2.49.1
-In-Reply-To: <20250809211654.28887-1-laurent.pinchart@ideasonboard.com>
-References: <20250809211654.28887-1-laurent.pinchart@ideasonboard.com>
 MIME-Version: 1.0
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, kernel@collabora.com,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Ingo Molnar <mingo@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- Chen-Yu Tsai <wens@csie.org>, Jacob Chen <jacob-chen@iotwrt.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>, linux-sunxi@lists.linux.dev,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
+X-Mailman-Approved-At: Mon, 11 Aug 2025 06:26:23 +0000
+Cc: Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Christian Gromm <christian.gromm@microchip.com>,
+ Dmitry Osipenko <digetx@gmail.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Michael Grzeschik <m.grzeschik@pengutronix.de>, Robert Foss <rfoss@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Erling Ljunggren <hljunggr@cisco.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>, Bingbu Cao <bingbu.cao@intel.com>,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
  =?UTF-8?q?=C5=81ukasz=20Stelmach?= <l.stelmach@samsung.com>,
- Eduardo Valentin <edubezval@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
- Yong Deng <yong.deng@magewell.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Shuah Khan <skhan@linuxfoundation.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Nas Chung <nas.chung@chipsnmedia.com>,
+ Andy Walls <awalls@md.metrocast.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-usb@vger.kernel.org,
+ Michael Tretter <m.tretter@pengutronix.de>, Jai Luthra <jai.luthra@linux.dev>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Hans Verkuil <hans@jjverkuil.nl>, Ming Qian <ming.qian@nxp.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-doc@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Ariel Otilibili <ariel.otilibili-anieli@eurecom.fr>, kernel@collabora.com,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Ingo Molnar <mingo@kernel.org>, Matthew Majewski <mattwmajewski@gmail.com>,
+ Yanteng Si <si.yanteng@linux.dev>, Magnus Damm <magnus.damm@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Dongliang Mu <dzm91@hust.edu.cn>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, Houlong Wei <houlong.wei@mediatek.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Eduardo Valentin <edubezval@gmail.com>, Zhou Peng <eagle.zhou@nxp.com>,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Abhishek Tamboli <abhishektamboli9@gmail.com>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, imx@lists.linux.dev,
+ Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
+ Vikash Garodia <quic_vgarodia@quicinc.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Jonathan Corbet <corbet@lwn.net>, Mike Isely <isely@pobox.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>, linux-staging@lists.linux.dev,
+ Yunke Cao <yunkec@google.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jacob Chen <jacob-chen@iotwrt.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bin Liu <bin.liu@mediatek.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Akash Kumar <quic_akakum@quicinc.com>, mjpeg-users@lists.sourceforge.net,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dikshita Agarwal <quic_dikshita@quicinc.com>, Tomasz Figa <tfiga@chromium.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Ricardo Ribalda <ribalda@chromium.org>,
+ Tommaso Merciai <tomm.merciai@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Todor Tomov <todor.too@gmail.com>, Mirela Rabulea <mirela.rabulea@nxp.com>,
+ Jiasheng Jiang <jiashengjiangcool@gmail.com>, Alex Shi <alexs@kernel.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Corentin Labbe <clabbe@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ma Ke <make24@iscas.ac.cn>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Benoit Parrot <bparrot@ti.com>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ linux-mediatek@lists.infradead.org, Yong Deng <yong.deng@magewell.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Jai Luthra <jai.luthra@linux.dev>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ricardo Ribalda <ribalda@chromium.org>, Hans Verkuil <hans@jjverkuil.nl>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Subject: [Linux-stm32] [PATCH v2 75/76] media: v4l2: Rename second ioctl
-	handlers argument to 'void *priv'
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Subject: [Linux-stm32] [PATCH v3 00/76] media: Rationalise usage of v4l2_fh
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,1089 +140,356 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Hello,
 
-The second argument to the ioctl handlers is not a file handle any more.
-The standard practice is to name it 'void *priv' in drivers. Many
-drivers still name it 'void *fh', and a few use more exotic names.
-Replace those more exotic names with 'void *priv' in all media drivers.
+Apologies for sending v3 right after v2, I realized just a tad too late
+that I made a mistake and sent the wrong patches.
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
----
- .../extron-da-hd-4k-plus.c                    |  4 +-
- drivers/media/pci/bt8xx/bttv-driver.c         | 14 ++---
- drivers/media/pci/bt8xx/bttv-vbi.c            |  6 +-
- drivers/media/pci/cobalt/cobalt-v4l2.c        | 60 +++++++++----------
- drivers/media/pci/saa7134/saa7134-video.c     |  4 +-
- drivers/media/platform/rockchip/rga/rga.c     | 14 ++---
- drivers/media/platform/samsung/s5p-g2d/g2d.c  | 18 +++---
- .../platform/samsung/s5p-mfc/s5p_mfc_dec.c    |  2 +-
- .../platform/samsung/s5p-mfc/s5p_mfc_enc.c    |  2 +-
- drivers/media/platform/st/stm32/dma2d/dma2d.c | 10 ++--
- .../sunxi/sun6i-csi/sun6i_csi_capture.c       | 16 ++---
- .../platform/synopsys/hdmirx/snps_hdmirx.c    |  8 +--
- .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   |  2 +-
- drivers/media/platform/ti/omap/omap_vout.c    |  6 +-
- .../radio/si4713/radio-platform-si4713.c      | 10 ++--
- drivers/media/usb/cx231xx/cx231xx-417.c       |  2 +-
- drivers/media/usb/gspca/gspca.c               | 18 +++---
- drivers/media/usb/hdpvr/hdpvr-video.c         | 30 +++++-----
- 18 files changed, 113 insertions(+), 113 deletions(-)
+This patch series refactors v4l2_fh support to make the API easier to
+use, simplify drivers, and overall improve consistency through the whole
+subsystem.
 
-diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-index 41d019b01ec0..c476e8d1279e 100644
---- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-+++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-@@ -1252,7 +1252,7 @@ static int extron_s_output(struct file *file, void *priv, unsigned int o)
- 	return o ? -EINVAL : 0;
- }
- 
--static int extron_g_edid(struct file *file, void *_fh,
-+static int extron_g_edid(struct file *file, void *priv,
- 			 struct v4l2_edid *edid)
- {
- 	struct extron_port *port = video_drvdata(file);
-@@ -1280,7 +1280,7 @@ static int extron_g_edid(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int extron_s_edid(struct file *file, void *_fh, struct v4l2_edid *edid)
-+static int extron_s_edid(struct file *file, void *priv, struct v4l2_edid *edid)
- {
- 	struct extron_port *port = video_drvdata(file);
- 
-diff --git a/drivers/media/pci/bt8xx/bttv-driver.c b/drivers/media/pci/bt8xx/bttv-driver.c
-index 9ce67f515843..17e4529e537a 100644
---- a/drivers/media/pci/bt8xx/bttv-driver.c
-+++ b/drivers/media/pci/bt8xx/bttv-driver.c
-@@ -1620,7 +1620,7 @@ static int bttv_g_std(struct file *file, void *priv, v4l2_std_id *id)
- 	return 0;
- }
- 
--static int bttv_querystd(struct file *file, void *f, v4l2_std_id *id)
-+static int bttv_querystd(struct file *file, void *priv, v4l2_std_id *id)
- {
- 	struct bttv *btv = video_drvdata(file);
- 
-@@ -1750,7 +1750,7 @@ static int bttv_s_frequency(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int bttv_log_status(struct file *file, void *f)
-+static int bttv_log_status(struct file *file, void *priv)
- {
- 	struct video_device *vdev = video_devdata(file);
- 	struct bttv *btv = video_drvdata(file);
-@@ -1761,7 +1761,7 @@ static int bttv_log_status(struct file *file, void *f)
- }
- 
- #ifdef CONFIG_VIDEO_ADV_DEBUG
--static int bttv_g_register(struct file *file, void *f,
-+static int bttv_g_register(struct file *file, void *priv,
- 					struct v4l2_dbg_register *reg)
- {
- 	struct bttv *btv = video_drvdata(file);
-@@ -1774,7 +1774,7 @@ static int bttv_g_register(struct file *file, void *f,
- 	return 0;
- }
- 
--static int bttv_s_register(struct file *file, void *f,
-+static int bttv_s_register(struct file *file, void *priv,
- 					const struct v4l2_dbg_register *reg)
- {
- 	struct bttv *btv = video_drvdata(file);
-@@ -2159,7 +2159,7 @@ static int bttv_enum_fmt_vid_cap(struct file *file, void  *priv,
- 	return 0;
- }
- 
--static int bttv_g_parm(struct file *file, void *f,
-+static int bttv_g_parm(struct file *file, void *priv,
- 				struct v4l2_streamparm *parm)
- {
- 	struct bttv *btv = video_drvdata(file);
-@@ -2208,7 +2208,7 @@ static int bttv_g_pixelaspect(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int bttv_g_selection(struct file *file, void *f, struct v4l2_selection *sel)
-+static int bttv_g_selection(struct file *file, void *priv, struct v4l2_selection *sel)
- {
- 	struct bttv *btv = video_drvdata(file);
- 
-@@ -2232,7 +2232,7 @@ static int bttv_g_selection(struct file *file, void *f, struct v4l2_selection *s
- 	return 0;
- }
- 
--static int bttv_s_selection(struct file *file, void *f, struct v4l2_selection *sel)
-+static int bttv_s_selection(struct file *file, void *priv, struct v4l2_selection *sel)
- {
- 	struct bttv *btv = video_drvdata(file);
- 	const struct v4l2_rect *b;
-diff --git a/drivers/media/pci/bt8xx/bttv-vbi.c b/drivers/media/pci/bt8xx/bttv-vbi.c
-index a71440611e46..0ca88a2400ee 100644
---- a/drivers/media/pci/bt8xx/bttv-vbi.c
-+++ b/drivers/media/pci/bt8xx/bttv-vbi.c
-@@ -241,7 +241,7 @@ static int try_fmt(struct v4l2_vbi_format *f, const struct bttv_tvnorm *tvnorm,
- 	return 0;
- }
- 
--int bttv_try_fmt_vbi_cap(struct file *file, void *f, struct v4l2_format *frt)
-+int bttv_try_fmt_vbi_cap(struct file *file, void *priv, struct v4l2_format *frt)
- {
- 	struct bttv *btv = video_drvdata(file);
- 	const struct bttv_tvnorm *tvnorm;
-@@ -258,7 +258,7 @@ int bttv_try_fmt_vbi_cap(struct file *file, void *f, struct v4l2_format *frt)
- }
- 
- 
--int bttv_s_fmt_vbi_cap(struct file *file, void *f, struct v4l2_format *frt)
-+int bttv_s_fmt_vbi_cap(struct file *file, void *priv, struct v4l2_format *frt)
- {
- 	struct bttv *btv = video_drvdata(file);
- 	const struct bttv_tvnorm *tvnorm;
-@@ -301,7 +301,7 @@ int bttv_s_fmt_vbi_cap(struct file *file, void *f, struct v4l2_format *frt)
- }
- 
- 
--int bttv_g_fmt_vbi_cap(struct file *file, void *f, struct v4l2_format *frt)
-+int bttv_g_fmt_vbi_cap(struct file *file, void *priv, struct v4l2_format *frt)
- {
- 	const struct bttv_tvnorm *tvnorm;
- 	struct bttv *btv = video_drvdata(file);
-diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
-index ae82427e3479..51fd9576c6c2 100644
---- a/drivers/media/pci/cobalt/cobalt-v4l2.c
-+++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
-@@ -447,7 +447,7 @@ static int cobalt_cobaltc(struct cobalt *cobalt, unsigned int cmd, void *arg)
- 	return 0;
- }
- 
--static int cobalt_g_register(struct file *file, void *priv_fh,
-+static int cobalt_g_register(struct file *file, void *priv,
- 		struct v4l2_dbg_register *reg)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -456,7 +456,7 @@ static int cobalt_g_register(struct file *file, void *priv_fh,
- 	return cobalt_cobaltc(cobalt, VIDIOC_DBG_G_REGISTER, reg);
- }
- 
--static int cobalt_s_register(struct file *file, void *priv_fh,
-+static int cobalt_s_register(struct file *file, void *priv,
- 		const struct v4l2_dbg_register *reg)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -467,7 +467,7 @@ static int cobalt_s_register(struct file *file, void *priv_fh,
- }
- #endif
- 
--static int cobalt_querycap(struct file *file, void *priv_fh,
-+static int cobalt_querycap(struct file *file, void *priv,
- 				struct v4l2_capability *vcap)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -562,7 +562,7 @@ static void cobalt_video_input_status_show(struct cobalt_stream *s)
- 	cobalt_info("rx%d: Packer: %x\n", rx, ioread32(&packer->control));
- }
- 
--static int cobalt_log_status(struct file *file, void *priv_fh)
-+static int cobalt_log_status(struct file *file, void *priv)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 	struct cobalt *cobalt = s->cobalt;
-@@ -596,7 +596,7 @@ static int cobalt_log_status(struct file *file, void *priv_fh)
- 	return 0;
- }
- 
--static int cobalt_enum_dv_timings(struct file *file, void *priv_fh,
-+static int cobalt_enum_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_enum_dv_timings *timings)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -613,7 +613,7 @@ static int cobalt_enum_dv_timings(struct file *file, void *priv_fh,
- 			pad, enum_dv_timings, timings);
- }
- 
--static int cobalt_s_dv_timings(struct file *file, void *priv_fh,
-+static int cobalt_s_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -641,7 +641,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv_fh,
- 	return err;
- }
- 
--static int cobalt_g_dv_timings(struct file *file, void *priv_fh,
-+static int cobalt_g_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -654,7 +654,7 @@ static int cobalt_g_dv_timings(struct file *file, void *priv_fh,
- 			pad, g_dv_timings, 0, timings);
- }
- 
--static int cobalt_query_dv_timings(struct file *file, void *priv_fh,
-+static int cobalt_query_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -667,7 +667,7 @@ static int cobalt_query_dv_timings(struct file *file, void *priv_fh,
- 			pad, query_dv_timings, 0, timings);
- }
- 
--static int cobalt_dv_timings_cap(struct file *file, void *priv_fh,
-+static int cobalt_dv_timings_cap(struct file *file, void *priv,
- 				    struct v4l2_dv_timings_cap *cap)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -677,7 +677,7 @@ static int cobalt_dv_timings_cap(struct file *file, void *priv_fh,
- 			pad, dv_timings_cap, cap);
- }
- 
--static int cobalt_enum_fmt_vid_cap(struct file *file, void *priv_fh,
-+static int cobalt_enum_fmt_vid_cap(struct file *file, void *priv,
- 		struct v4l2_fmtdesc *f)
- {
- 	switch (f->index) {
-@@ -697,7 +697,7 @@ static int cobalt_enum_fmt_vid_cap(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_g_fmt_vid_cap(struct file *file, void *priv_fh,
-+static int cobalt_g_fmt_vid_cap(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -726,7 +726,7 @@ static int cobalt_g_fmt_vid_cap(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_try_fmt_vid_cap(struct file *file, void *priv_fh,
-+static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -787,7 +787,7 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_s_fmt_vid_cap(struct file *file, void *priv_fh,
-+static int cobalt_s_fmt_vid_cap(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -796,7 +796,7 @@ static int cobalt_s_fmt_vid_cap(struct file *file, void *priv_fh,
- 	if (vb2_is_busy(&s->q))
- 		return -EBUSY;
- 
--	if (cobalt_try_fmt_vid_cap(file, priv_fh, f))
-+	if (cobalt_try_fmt_vid_cap(file, priv, f))
- 		return -EINVAL;
- 
- 	s->width = pix->width;
-@@ -821,7 +821,7 @@ static int cobalt_s_fmt_vid_cap(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_try_fmt_vid_out(struct file *file, void *priv_fh,
-+static int cobalt_try_fmt_vid_out(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct v4l2_pix_format *pix = &f->fmt.pix;
-@@ -862,7 +862,7 @@ static int cobalt_try_fmt_vid_out(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_g_fmt_vid_out(struct file *file, void *priv_fh,
-+static int cobalt_g_fmt_vid_out(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -882,7 +882,7 @@ static int cobalt_g_fmt_vid_out(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_enum_fmt_vid_out(struct file *file, void *priv_fh,
-+static int cobalt_enum_fmt_vid_out(struct file *file, void *priv,
- 		struct v4l2_fmtdesc *f)
- {
- 	switch (f->index) {
-@@ -899,7 +899,7 @@ static int cobalt_enum_fmt_vid_out(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_s_fmt_vid_out(struct file *file, void *priv_fh,
-+static int cobalt_s_fmt_vid_out(struct file *file, void *priv,
- 		struct v4l2_format *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -909,7 +909,7 @@ static int cobalt_s_fmt_vid_out(struct file *file, void *priv_fh,
- 	};
- 	u32 code;
- 
--	if (cobalt_try_fmt_vid_out(file, priv_fh, f))
-+	if (cobalt_try_fmt_vid_out(file, priv, f))
- 		return -EINVAL;
- 
- 	if (vb2_is_busy(&s->q) && (pix->pixelformat != s->pixfmt ||
-@@ -942,7 +942,7 @@ static int cobalt_s_fmt_vid_out(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_enum_input(struct file *file, void *priv_fh,
-+static int cobalt_enum_input(struct file *file, void *priv,
- 				 struct v4l2_input *inp)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -963,7 +963,7 @@ static int cobalt_enum_input(struct file *file, void *priv_fh,
- 			video, g_input_status, &inp->status);
- }
- 
--static int cobalt_g_input(struct file *file, void *priv_fh, unsigned int *i)
-+static int cobalt_g_input(struct file *file, void *priv, unsigned int *i)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 
-@@ -971,7 +971,7 @@ static int cobalt_g_input(struct file *file, void *priv_fh, unsigned int *i)
- 	return 0;
- }
- 
--static int cobalt_s_input(struct file *file, void *priv_fh, unsigned int i)
-+static int cobalt_s_input(struct file *file, void *priv, unsigned int i)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 
-@@ -990,7 +990,7 @@ static int cobalt_s_input(struct file *file, void *priv_fh, unsigned int i)
- 			ADV76XX_PAD_HDMI_PORT_A, 0, 0);
- }
- 
--static int cobalt_enum_output(struct file *file, void *priv_fh,
-+static int cobalt_enum_output(struct file *file, void *priv,
- 				 struct v4l2_output *out)
- {
- 	if (out->index)
-@@ -1001,18 +1001,18 @@ static int cobalt_enum_output(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int cobalt_g_output(struct file *file, void *priv_fh, unsigned int *i)
-+static int cobalt_g_output(struct file *file, void *priv, unsigned int *i)
- {
- 	*i = 0;
- 	return 0;
- }
- 
--static int cobalt_s_output(struct file *file, void *priv_fh, unsigned int i)
-+static int cobalt_s_output(struct file *file, void *priv, unsigned int i)
- {
- 	return i ? -EINVAL : 0;
- }
- 
--static int cobalt_g_edid(struct file *file, void *fh, struct v4l2_edid *edid)
-+static int cobalt_g_edid(struct file *file, void *priv, struct v4l2_edid *edid)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 	u32 pad = edid->pad;
-@@ -1026,7 +1026,7 @@ static int cobalt_g_edid(struct file *file, void *fh, struct v4l2_edid *edid)
- 	return ret;
- }
- 
--static int cobalt_s_edid(struct file *file, void *fh, struct v4l2_edid *edid)
-+static int cobalt_s_edid(struct file *file, void *priv, struct v4l2_edid *edid)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 	u32 pad = edid->pad;
-@@ -1050,7 +1050,7 @@ static int cobalt_subscribe_event(struct v4l2_fh *fh,
- 	return v4l2_ctrl_subscribe_event(fh, sub);
- }
- 
--static int cobalt_g_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
-+static int cobalt_g_parm(struct file *file, void *priv, struct v4l2_streamparm *a)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
- 	struct v4l2_fract fps;
-@@ -1065,7 +1065,7 @@ static int cobalt_g_parm(struct file *file, void *fh, struct v4l2_streamparm *a)
- 	return 0;
- }
- 
--static int cobalt_g_pixelaspect(struct file *file, void *fh,
-+static int cobalt_g_pixelaspect(struct file *file, void *priv,
- 				int type, struct v4l2_fract *f)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-@@ -1084,7 +1084,7 @@ static int cobalt_g_pixelaspect(struct file *file, void *fh,
- 	return err;
- }
- 
--static int cobalt_g_selection(struct file *file, void *fh,
-+static int cobalt_g_selection(struct file *file, void *priv,
- 			      struct v4l2_selection *sel)
- {
- 	struct cobalt_stream *s = video_drvdata(file);
-diff --git a/drivers/media/pci/saa7134/saa7134-video.c b/drivers/media/pci/saa7134/saa7134-video.c
-index c88939bce56b..4a51b873e47a 100644
---- a/drivers/media/pci/saa7134/saa7134-video.c
-+++ b/drivers/media/pci/saa7134/saa7134-video.c
-@@ -1302,7 +1302,7 @@ static int saa7134_g_pixelaspect(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int saa7134_g_selection(struct file *file, void *f, struct v4l2_selection *sel)
-+static int saa7134_g_selection(struct file *file, void *priv, struct v4l2_selection *sel)
- {
- 	struct saa7134_dev *dev = video_drvdata(file);
- 
-@@ -1325,7 +1325,7 @@ static int saa7134_g_selection(struct file *file, void *f, struct v4l2_selection
- 	return 0;
- }
- 
--static int saa7134_s_selection(struct file *file, void *f, struct v4l2_selection *sel)
-+static int saa7134_s_selection(struct file *file, void *priv, struct v4l2_selection *sel)
- {
- 	struct saa7134_dev *dev = video_drvdata(file);
- 	struct v4l2_rect *b = &dev->crop_bounds;
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 7c657df623f2..776046de979a 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -446,7 +446,7 @@ vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *cap)
- 	return 0;
- }
- 
--static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
-+static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f)
- {
- 	struct rga_fmt *fmt;
- 
-@@ -459,7 +459,7 @@ static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
- 	return 0;
- }
- 
--static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
- 	struct rga_ctx *ctx = file_to_rga_ctx(file);
-@@ -481,7 +481,7 @@ static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
- 	struct rga_fmt *fmt;
-@@ -501,7 +501,7 @@ static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
- 	struct rga_ctx *ctx = file_to_rga_ctx(file);
-@@ -514,7 +514,7 @@ static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	/* Adjust all values accordingly to the hardware capabilities
- 	 * and chosen format.
- 	 */
--	ret = vidioc_try_fmt(file, prv, f);
-+	ret = vidioc_try_fmt(file, priv, f);
- 	if (ret)
- 		return ret;
- 	vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx, f->type);
-@@ -558,7 +558,7 @@ static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_g_selection(struct file *file, void *prv,
-+static int vidioc_g_selection(struct file *file, void *priv,
- 			      struct v4l2_selection *s)
- {
- 	struct rga_ctx *ctx = file_to_rga_ctx(file);
-@@ -606,7 +606,7 @@ static int vidioc_g_selection(struct file *file, void *prv,
- 	return 0;
- }
- 
--static int vidioc_s_selection(struct file *file, void *prv,
-+static int vidioc_s_selection(struct file *file, void *priv,
- 			      struct v4l2_selection *s)
- {
- 	struct rga_ctx *ctx = file_to_rga_ctx(file);
-diff --git a/drivers/media/platform/samsung/s5p-g2d/g2d.c b/drivers/media/platform/samsung/s5p-g2d/g2d.c
-index 55f5130156b7..ffb9bee6cb9d 100644
---- a/drivers/media/platform/samsung/s5p-g2d/g2d.c
-+++ b/drivers/media/platform/samsung/s5p-g2d/g2d.c
-@@ -297,7 +297,7 @@ static int vidioc_querycap(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
-+static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f)
- {
- 	if (f->index >= NUM_FORMATS)
- 		return -EINVAL;
-@@ -305,7 +305,7 @@ static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
- 	return 0;
- }
- 
--static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct g2d_ctx *ctx = file2ctx(file);
- 	struct vb2_queue *vq;
-@@ -327,7 +327,7 @@ static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct g2d_fmt *fmt;
- 	enum v4l2_field *field;
-@@ -357,7 +357,7 @@ static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct g2d_ctx *ctx = file2ctx(file);
- 	struct g2d_dev *dev = ctx->dev;
-@@ -368,7 +368,7 @@ static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 
- 	/* Adjust all values accordingly to the hardware capabilities
- 	 * and chosen format. */
--	ret = vidioc_try_fmt(file, prv, f);
-+	ret = vidioc_try_fmt(file, priv, f);
- 	if (ret)
- 		return ret;
- 	vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx, f->type);
-@@ -397,7 +397,7 @@ static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_g_selection(struct file *file, void *prv,
-+static int vidioc_g_selection(struct file *file, void *priv,
- 			      struct v4l2_selection *s)
- {
- 	struct g2d_ctx *ctx = file2ctx(file);
-@@ -447,7 +447,7 @@ static int vidioc_g_selection(struct file *file, void *prv,
- 	return 0;
- }
- 
--static int vidioc_try_selection(struct file *file, void *prv,
-+static int vidioc_try_selection(struct file *file, void *priv,
- 				const struct v4l2_selection *s)
- {
- 	struct g2d_ctx *ctx = file2ctx(file);
-@@ -475,14 +475,14 @@ static int vidioc_try_selection(struct file *file, void *prv,
- 	return 0;
- }
- 
--static int vidioc_s_selection(struct file *file, void *prv,
-+static int vidioc_s_selection(struct file *file, void *priv,
- 			      struct v4l2_selection *s)
- {
- 	struct g2d_ctx *ctx = file2ctx(file);
- 	struct g2d_frame *f;
- 	int ret;
- 
--	ret = vidioc_try_selection(file, prv, s);
-+	ret = vidioc_try_selection(file, priv, s);
- 	if (ret)
- 		return ret;
- 	f = get_frame(ctx, s->type);
-diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_dec.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_dec.c
-index 606e1a7121b5..afd28beabfde 100644
---- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_dec.c
-+++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_dec.c
-@@ -330,7 +330,7 @@ static int vidioc_enum_fmt(struct file *file, struct v4l2_fmtdesc *f,
- 	return 0;
- }
- 
--static int vidioc_enum_fmt_vid_cap(struct file *file, void *pirv,
-+static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
- 				   struct v4l2_fmtdesc *f)
- {
- 	return vidioc_enum_fmt(file, f, false);
-diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_enc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_enc.c
-index 694b68788a95..3f8701e5614f 100644
---- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_enc.c
-+++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc_enc.c
-@@ -1375,7 +1375,7 @@ static int vidioc_enum_fmt(struct file *file, struct v4l2_fmtdesc *f,
- 	return -EINVAL;
- }
- 
--static int vidioc_enum_fmt_vid_cap(struct file *file, void *pirv,
-+static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
- 				   struct v4l2_fmtdesc *f)
- {
- 	return vidioc_enum_fmt(file, f, false);
-diff --git a/drivers/media/platform/st/stm32/dma2d/dma2d.c b/drivers/media/platform/st/stm32/dma2d/dma2d.c
-index a22f587a5f83..468c247ba328 100644
---- a/drivers/media/platform/st/stm32/dma2d/dma2d.c
-+++ b/drivers/media/platform/st/stm32/dma2d/dma2d.c
-@@ -343,7 +343,7 @@ static int vidioc_querycap(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
-+static int vidioc_enum_fmt(struct file *file, void *priv, struct v4l2_fmtdesc *f)
- {
- 	if (f->index >= NUM_FORMATS)
- 		return -EINVAL;
-@@ -352,7 +352,7 @@ static int vidioc_enum_fmt(struct file *file, void *prv, struct v4l2_fmtdesc *f)
- 	return 0;
- }
- 
--static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct dma2d_ctx *ctx = file2ctx(file);
- 	struct vb2_queue *vq;
-@@ -377,7 +377,7 @@ static int vidioc_g_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct dma2d_ctx *ctx = file2ctx(file);
- 	struct dma2d_fmt *fmt;
-@@ -420,7 +420,7 @@ static int vidioc_try_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	return 0;
- }
- 
--static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
-+static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- {
- 	struct dma2d_ctx *ctx = file2ctx(file);
- 	struct vb2_queue *vq;
-@@ -431,7 +431,7 @@ static int vidioc_s_fmt(struct file *file, void *prv, struct v4l2_format *f)
- 	/* Adjust all values accordingly to the hardware capabilities
- 	 * and chosen format.
- 	 */
--	ret = vidioc_try_fmt(file, prv, f);
-+	ret = vidioc_try_fmt(file, priv, f);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-index 76356bc7f10e..65879f4802c0 100644
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c
-@@ -711,7 +711,7 @@ static void sun6i_csi_capture_format_prepare(struct v4l2_format *format)
- 	pix_format->xfer_func = V4L2_XFER_FUNC_DEFAULT;
- }
- 
--static int sun6i_csi_capture_querycap(struct file *file, void *private,
-+static int sun6i_csi_capture_querycap(struct file *file, void *priv,
- 				      struct v4l2_capability *capability)
- {
- 	struct sun6i_csi_device *csi_dev = video_drvdata(file);
-@@ -725,7 +725,7 @@ static int sun6i_csi_capture_querycap(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_enum_fmt(struct file *file, void *private,
-+static int sun6i_csi_capture_enum_fmt(struct file *file, void *priv,
- 				      struct v4l2_fmtdesc *fmtdesc)
- {
- 	u32 index = fmtdesc->index;
-@@ -738,7 +738,7 @@ static int sun6i_csi_capture_enum_fmt(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_g_fmt(struct file *file, void *private,
-+static int sun6i_csi_capture_g_fmt(struct file *file, void *priv,
- 				   struct v4l2_format *format)
- {
- 	struct sun6i_csi_device *csi_dev = video_drvdata(file);
-@@ -748,7 +748,7 @@ static int sun6i_csi_capture_g_fmt(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_s_fmt(struct file *file, void *private,
-+static int sun6i_csi_capture_s_fmt(struct file *file, void *priv,
- 				   struct v4l2_format *format)
- {
- 	struct sun6i_csi_device *csi_dev = video_drvdata(file);
-@@ -764,7 +764,7 @@ static int sun6i_csi_capture_s_fmt(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_try_fmt(struct file *file, void *private,
-+static int sun6i_csi_capture_try_fmt(struct file *file, void *priv,
- 				     struct v4l2_format *format)
- {
- 	sun6i_csi_capture_format_prepare(format);
-@@ -772,7 +772,7 @@ static int sun6i_csi_capture_try_fmt(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_enum_input(struct file *file, void *private,
-+static int sun6i_csi_capture_enum_input(struct file *file, void *priv,
- 					struct v4l2_input *input)
- {
- 	if (input->index != 0)
-@@ -784,7 +784,7 @@ static int sun6i_csi_capture_enum_input(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_g_input(struct file *file, void *private,
-+static int sun6i_csi_capture_g_input(struct file *file, void *priv,
- 				     unsigned int *index)
- {
- 	*index = 0;
-@@ -792,7 +792,7 @@ static int sun6i_csi_capture_g_input(struct file *file, void *private,
- 	return 0;
- }
- 
--static int sun6i_csi_capture_s_input(struct file *file, void *private,
-+static int sun6i_csi_capture_s_input(struct file *file, void *priv,
- 				     unsigned int index)
- {
- 	if (index != 0)
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 7af6765532e3..b7d278b3889f 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -459,7 +459,7 @@ static bool port_no_link(struct snps_hdmirx_dev *hdmirx_dev)
- 	return !tx_5v_power_present(hdmirx_dev);
- }
- 
--static int hdmirx_query_dv_timings(struct file *file, void *_fh,
-+static int hdmirx_query_dv_timings(struct file *file, void *priv,
- 				   struct v4l2_dv_timings *timings)
- {
- 	struct hdmirx_stream *stream = video_drvdata(file);
-@@ -751,7 +751,7 @@ static int hdmirx_dv_timings_cap(struct file *file, void *fh,
- 	return 0;
- }
- 
--static int hdmirx_enum_dv_timings(struct file *file, void *_fh,
-+static int hdmirx_enum_dv_timings(struct file *file, void *priv,
- 				  struct v4l2_enum_dv_timings *timings)
- {
- 	return v4l2_enum_dv_timings_cap(timings, &hdmirx_timings_cap, NULL, NULL);
-@@ -1323,7 +1323,7 @@ static int hdmirx_g_fmt_vid_cap_mplane(struct file *file, void *fh,
- 	return 0;
- }
- 
--static int hdmirx_g_dv_timings(struct file *file, void *_fh,
-+static int hdmirx_g_dv_timings(struct file *file, void *priv,
- 			       struct v4l2_dv_timings *timings)
- {
- 	struct hdmirx_stream *stream = video_drvdata(file);
-@@ -1339,7 +1339,7 @@ static int hdmirx_g_dv_timings(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int hdmirx_s_dv_timings(struct file *file, void *_fh,
-+static int hdmirx_s_dv_timings(struct file *file, void *priv,
- 			       struct v4l2_dv_timings *timings)
- {
- 	struct hdmirx_stream *stream = video_drvdata(file);
-diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-index b628d6e081db..7fb565ebbe62 100644
---- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-+++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-@@ -299,7 +299,7 @@ static int ti_csi2rx_enum_fmt_vid_cap(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int ti_csi2rx_g_fmt_vid_cap(struct file *file, void *prov,
-+static int ti_csi2rx_g_fmt_vid_cap(struct file *file, void *priv,
- 				   struct v4l2_format *f)
- {
- 	struct ti_csi2rx_dev *csi = video_drvdata(file);
-diff --git a/drivers/media/platform/ti/omap/omap_vout.c b/drivers/media/platform/ti/omap/omap_vout.c
-index a87d5030ac35..22782e9f1f4e 100644
---- a/drivers/media/platform/ti/omap/omap_vout.c
-+++ b/drivers/media/platform/ti/omap/omap_vout.c
-@@ -1236,7 +1236,7 @@ static int vidioc_g_fbuf(struct file *file, void *fh,
- 	return 0;
- }
- 
--static int vidioc_enum_output(struct file *file, void *priv_fh,
-+static int vidioc_enum_output(struct file *file, void *priv,
- 			      struct v4l2_output *out)
- {
- 	if (out->index)
-@@ -1246,13 +1246,13 @@ static int vidioc_enum_output(struct file *file, void *priv_fh,
- 	return 0;
- }
- 
--static int vidioc_g_output(struct file *file, void *priv_fh, unsigned int *i)
-+static int vidioc_g_output(struct file *file, void *priv, unsigned int *i)
- {
- 	*i = 0;
- 	return 0;
- }
- 
--static int vidioc_s_output(struct file *file, void *priv_fh, unsigned int i)
-+static int vidioc_s_output(struct file *file, void *priv, unsigned int i)
- {
- 	return i ? -EINVAL : 0;
- }
-diff --git a/drivers/media/radio/si4713/radio-platform-si4713.c b/drivers/media/radio/si4713/radio-platform-si4713.c
-index 67b4afadc95a..4132968110e3 100644
---- a/drivers/media/radio/si4713/radio-platform-si4713.c
-+++ b/drivers/media/radio/si4713/radio-platform-si4713.c
-@@ -75,35 +75,35 @@ static inline struct v4l2_device *get_v4l2_dev(struct file *file)
- 	return &((struct radio_si4713_device *)video_drvdata(file))->v4l2_dev;
- }
- 
--static int radio_si4713_g_modulator(struct file *file, void *p,
-+static int radio_si4713_g_modulator(struct file *file, void *priv,
- 				    struct v4l2_modulator *vm)
- {
- 	return v4l2_device_call_until_err(get_v4l2_dev(file), 0, tuner,
- 					  g_modulator, vm);
- }
- 
--static int radio_si4713_s_modulator(struct file *file, void *p,
-+static int radio_si4713_s_modulator(struct file *file, void *priv,
- 				    const struct v4l2_modulator *vm)
- {
- 	return v4l2_device_call_until_err(get_v4l2_dev(file), 0, tuner,
- 					  s_modulator, vm);
- }
- 
--static int radio_si4713_g_frequency(struct file *file, void *p,
-+static int radio_si4713_g_frequency(struct file *file, void *priv,
- 				    struct v4l2_frequency *vf)
- {
- 	return v4l2_device_call_until_err(get_v4l2_dev(file), 0, tuner,
- 					  g_frequency, vf);
- }
- 
--static int radio_si4713_s_frequency(struct file *file, void *p,
-+static int radio_si4713_s_frequency(struct file *file, void *priv,
- 				    const struct v4l2_frequency *vf)
- {
- 	return v4l2_device_call_until_err(get_v4l2_dev(file), 0, tuner,
- 					  s_frequency, vf);
- }
- 
--static long radio_si4713_default(struct file *file, void *p,
-+static long radio_si4713_default(struct file *file, void *priv,
- 				 bool valid_prio, unsigned int cmd, void *arg)
- {
- 	return v4l2_device_call_until_err(get_v4l2_dev(file), 0, core,
-diff --git a/drivers/media/usb/cx231xx/cx231xx-417.c b/drivers/media/usb/cx231xx/cx231xx-417.c
-index e585c8f6e4c5..c695a97e202b 100644
---- a/drivers/media/usb/cx231xx/cx231xx-417.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-417.c
-@@ -1499,7 +1499,7 @@ static int vidioc_g_selection(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int vidioc_g_std(struct file *file, void *fh0, v4l2_std_id *norm)
-+static int vidioc_g_std(struct file *file, void *priv, v4l2_std_id *norm)
- {
- 	struct cx231xx *dev = video_drvdata(file);
- 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 25edd2189654..3fc15d16df8e 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -1029,15 +1029,15 @@ static int vidioc_enum_fmt_vid_cap(struct file *file, void  *priv,
- 	return 0;
- }
- 
--static int vidioc_g_fmt_vid_cap(struct file *file, void *_priv,
-+static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
- 				struct v4l2_format *fmt)
- {
- 	struct gspca_dev *gspca_dev = video_drvdata(file);
--	u32 priv = fmt->fmt.pix.priv;
-+	u32 fmt_priv = fmt->fmt.pix.priv;
- 
- 	fmt->fmt.pix = gspca_dev->pixfmt;
- 	/* some drivers use priv internally, so keep the original value */
--	fmt->fmt.pix.priv = priv;
-+	fmt->fmt.pix.priv = fmt_priv;
- 	return 0;
- }
- 
-@@ -1075,24 +1075,24 @@ static int try_fmt_vid_cap(struct gspca_dev *gspca_dev,
- 	return mode;			/* used when s_fmt */
- }
- 
--static int vidioc_try_fmt_vid_cap(struct file *file, void *_priv,
-+static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
- 				  struct v4l2_format *fmt)
- {
- 	struct gspca_dev *gspca_dev = video_drvdata(file);
--	u32 priv = fmt->fmt.pix.priv;
-+	u32 fmt_priv = fmt->fmt.pix.priv;
- 
- 	if (try_fmt_vid_cap(gspca_dev, fmt) < 0)
- 		return -EINVAL;
- 	/* some drivers use priv internally, so keep the original value */
--	fmt->fmt.pix.priv = priv;
-+	fmt->fmt.pix.priv = fmt_priv;
- 	return 0;
- }
- 
--static int vidioc_s_fmt_vid_cap(struct file *file, void *_priv,
-+static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
- 				struct v4l2_format *fmt)
- {
- 	struct gspca_dev *gspca_dev = video_drvdata(file);
--	u32 priv = fmt->fmt.pix.priv;
-+	u32 fmt_priv = fmt->fmt.pix.priv;
- 	int mode;
- 
- 	if (vb2_is_busy(&gspca_dev->queue))
-@@ -1109,7 +1109,7 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *_priv,
- 	else
- 		gspca_dev->pixfmt = gspca_dev->cam.cam_mode[mode];
- 	/* some drivers use priv internally, so keep the original value */
--	fmt->fmt.pix.priv = priv;
-+	fmt->fmt.pix.priv = fmt_priv;
- 	return 0;
- }
- 
-diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-index 8a5c2c5227eb..8c7ae362d992 100644
---- a/drivers/media/usb/hdpvr/hdpvr-video.c
-+++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-@@ -590,7 +590,7 @@ static int vidioc_querycap(struct file *file, void  *priv,
- 	return 0;
- }
- 
--static int vidioc_s_std(struct file *file, void *_fh,
-+static int vidioc_s_std(struct file *file, void *priv,
- 			v4l2_std_id std)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -610,7 +610,7 @@ static int vidioc_s_std(struct file *file, void *_fh,
- 	return hdpvr_config_call(dev, CTRL_VIDEO_STD_TYPE, std_type);
- }
- 
--static int vidioc_g_std(struct file *file, void *_fh,
-+static int vidioc_g_std(struct file *file, void *priv,
- 			v4l2_std_id *std)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -623,7 +623,7 @@ static int vidioc_g_std(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int vidioc_querystd(struct file *file, void *_fh, v4l2_std_id *a)
-+static int vidioc_querystd(struct file *file, void *priv, v4l2_std_id *a)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
- 	struct hdpvr_fh *fh = file_to_hdpvr_fh(file);
-@@ -642,7 +642,7 @@ static int vidioc_querystd(struct file *file, void *_fh, v4l2_std_id *a)
- 	return ret;
- }
- 
--static int vidioc_s_dv_timings(struct file *file, void *_fh,
-+static int vidioc_s_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -665,7 +665,7 @@ static int vidioc_s_dv_timings(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int vidioc_g_dv_timings(struct file *file, void *_fh,
-+static int vidioc_g_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -678,7 +678,7 @@ static int vidioc_g_dv_timings(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int vidioc_query_dv_timings(struct file *file, void *_fh,
-+static int vidioc_query_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_dv_timings *timings)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -720,7 +720,7 @@ static int vidioc_query_dv_timings(struct file *file, void *_fh,
- 	return ret;
- }
- 
--static int vidioc_enum_dv_timings(struct file *file, void *_fh,
-+static int vidioc_enum_dv_timings(struct file *file, void *priv,
- 				    struct v4l2_enum_dv_timings *timings)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -736,7 +736,7 @@ static int vidioc_enum_dv_timings(struct file *file, void *_fh,
- 	return 0;
- }
- 
--static int vidioc_dv_timings_cap(struct file *file, void *_fh,
-+static int vidioc_dv_timings_cap(struct file *file, void *priv,
- 				    struct v4l2_dv_timings_cap *cap)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -763,7 +763,7 @@ static const char *iname[] = {
- 	[HDPVR_COMPOSITE] = "Composite",
- };
- 
--static int vidioc_enum_input(struct file *file, void *_fh, struct v4l2_input *i)
-+static int vidioc_enum_input(struct file *file, void *priv, struct v4l2_input *i)
- {
- 	unsigned int n;
- 
-@@ -783,7 +783,7 @@ static int vidioc_enum_input(struct file *file, void *_fh, struct v4l2_input *i)
- 	return 0;
- }
- 
--static int vidioc_s_input(struct file *file, void *_fh,
-+static int vidioc_s_input(struct file *file, void *priv,
- 			  unsigned int index)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -817,7 +817,7 @@ static int vidioc_s_input(struct file *file, void *_fh,
- 	return retval;
- }
- 
--static int vidioc_g_input(struct file *file, void *private_data,
-+static int vidioc_g_input(struct file *file, void *priv,
- 			  unsigned int *index)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -849,7 +849,7 @@ static int vidioc_enumaudio(struct file *file, void *priv,
- 	return 0;
- }
- 
--static int vidioc_s_audio(struct file *file, void *private_data,
-+static int vidioc_s_audio(struct file *file, void *priv,
- 			  const struct v4l2_audio *audio)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -868,7 +868,7 @@ static int vidioc_s_audio(struct file *file, void *private_data,
- 	return retval;
- }
- 
--static int vidioc_g_audio(struct file *file, void *private_data,
-+static int vidioc_g_audio(struct file *file, void *priv,
- 			  struct v4l2_audio *audio)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
-@@ -985,7 +985,7 @@ static int hdpvr_s_ctrl(struct v4l2_ctrl *ctrl)
- 	return ret;
- }
- 
--static int vidioc_enum_fmt_vid_cap(struct file *file, void *private_data,
-+static int vidioc_enum_fmt_vid_cap(struct file *file, void *priv,
- 				    struct v4l2_fmtdesc *f)
- {
- 	if (f->index != 0)
-@@ -996,7 +996,7 @@ static int vidioc_enum_fmt_vid_cap(struct file *file, void *private_data,
- 	return 0;
- }
- 
--static int vidioc_g_fmt_vid_cap(struct file *file, void *_fh,
-+static int vidioc_g_fmt_vid_cap(struct file *file, void *priv,
- 				struct v4l2_format *f)
- {
- 	struct hdpvr_device *dev = video_drvdata(file);
+In V4L2, drivers that need to store per file handle data allocate their
+per file handle data structure in the .open() handler and set the struct
+file private_data field to point to it. The private_data field is
+entirely managed by drivers, and is generally opaque to the V4L2
+framework.
+
+The V4L2 framework also needs to store per file handle data to support
+features such as V4L2 events or per file handle controls. To make use of
+those features, driver need to use the v4l2_fh structure to store per
+file handle data, either as-is, or embedded in a driver-specific
+structure. In either case, drivers must initialize the v4l2_fh structure
+with v4l2_fh_init(), and set the file private_data field to point to the
+v4l2_fh structure. The initialization operation sets the
+V4L2_FL_USES_V4L2_FH flag in the video_device.flags field, which
+indicates to the V4L2 core that private_data points to a valid v4l2_fh.
+
+In practice, while v4l2_fh usage is optional, all V4L2 drivers make use
+of it. As all new drivers are required to use v4l2_fh, this situation
+will not change, and opens the door to lots of simplifications in the
+V4L2 core and in drivers.
+
+The series starts with patches 01/76 to 07/76 that align the behaviour
+of all drivers, ensuring they all store a v4l2_fh pointer in the file
+private_data. Seven drivers store a pointer to driver-specific
+structures that embed v4l2_fh. This causes no issue in practice as the
+v4l2_fh field is always the first one in all those structures, but the
+code lacks coherency.
+
+After that, the series eliminates direct access to the file
+private_data. Patch 08/76 introduces a helper to retrieve the v4l2_fh
+from the file, and patches 09/76 to 11/76 use the helper in drivers.
+
+Patches 12/76 to 25/76 are assorted refactoring and cleanup that prepare
+drivers to remove the last manual accesses to private_data. Patches
+26/76 and 27/27 drop those, by setting private_data in the v4l2_fh_add()
+helper, and resetting it to NULL in v4l2_fh_del(). Prior refactoring
+makes it possible for those last two patches to be generated by
+coccinelle with only small manual additions.
+
+Patches 28/76 to 32/76 then move to simplify the V4L2 core. As all
+drivers are guaranteed to use v4l2_fh, all the V4L2_FL_USES_V4L2_FH
+checks can be dropped. Patch 32/76 does so. It however stops short of
+dropping V4L2_FL_USES_V4L2_FH completely, and instead adds a temporary
+check in the open file operation to verify that the driver uses v4l2_fh.
+That check could be dropped after a few kernel releases.
+
+The second part of the series, address a second source of inconsistent
+behaviours in drivers. The V4L2 core passes to most ioctl handlers both
+the file pointer and the file private_data pointer, with the latter
+being passed as a void pointer. Not only is the void pointer redundant,
+as driver can (and do in many cases) access the per file data from the
+file private_data field, but passing a v4l2_fh through a void pointer is
+error-prone as incorrect casts wouldn't be noticed by the compiler.
+
+To fix this, patches 33/76 to 68/76 replace all usage of the void
+pointer, retrieving instead the v4l2_fh from the file structure. Patches
+69/76 and 70/76 then pass a NULL value through the ioctl void pointer
+argument, to ensure no new driver will try to access the v4l2_fh from
+there. They also rename the 'void *fh' argument to the ioctl handler
+definitions to 'void *priv'.
+
+Finally, patches 71/76 to 76/76 also rename the same arguments in
+several locations:
+
+- in the test drivers, the uvcvideo driver and the v4l2-pci-skeleton
+  driver due to their role as sample and reference code (71/76 to
+  73/76) ;
+
+- in the V4L2 core (74/76) ; and
+
+- in all drivers that use names other than the most common 'void *priv'
+  and 'void *fh', in order to standardize on those two names only (75/76
+  and 76/76).
+
+Renaming all remaining 'void *fh' to 'void *priv' would be lots of
+additional churn, and this series is big enough. Furthermore, we have
+plans to introduce a new video_device_state argument to ioctl handlers.
+We will likely remove the 'void *' argument at that time, to avoid
+modifying all ioctl handlers in all drivers twice in a short amount of
+time.
+
+This series is based on the latest linux-media next branch. It has a
+soft dependency on the "[PATCH 0/4] Remove the wl1273 FM Radio" series
+([1]) in the sense that the wl1273 driver is the very last V4L2 driver
+that does not use v4l2_fh. Merging this series first would break the
+wl1273 driver (at runtime), but given that the driver is scheduled for
+removal due to having no user, this shouldn't be an issue.
+
+Compared to v1, all review comments have been addressed. The most
+notable changes are
+
+- the removal of the V4L2_FL_USES_V4L2_FH checks
+- the push of the NULL private pointer to the ioctl wrappers
+- the reintroduction of the 'void *' parameter name in the ioctl handler
+  definitions (now named 'priv'),
+- the rename of the 'void *' arguments in drivers and in the V4L2 core
+
+Link to v1: https://lore.kernel.org/r/20250802-media-private-data-v1-0-eb140ddd6a9d@ideasonboard.com
+
+[1] https://lore.kernel.org/linux-media/20250625133258.78133-1-linux@treblig.org/
+
+Jacopo Mondi (37):
+  media: rcar-vin: Do not set file->private_data
+  media: rzg2l-cru: Do not set file->private_data
+  media: camss: Remove custom .release fop()
+  media: zoran: Remove zoran_fh structure
+  media: zoran: Rename __fh to fh
+  media: v4l2-ioctl: Access v4l2_fh from private_data
+  media: allegro: Access v4l2_fh from file
+  media: meson-ge2d: Access v4l2_fh from file
+  media: coda: Access v4l2_fh from file
+  media: wave5: Access v4l2_fh from file
+  media: m2m-deinterlace: Access v4l2_fh from file
+  media: mtk: jpeg: Access v4l2_fh from file->private_data
+  media: mtk_mdp_m2m: Access v4l2_fh from file
+  media: mtk: mdp3: Access v4l2_fh from file
+  media: mtk: vcodec: Access v4l2_fh from file
+  media: tegra-vde: Access v4l2_fh from file
+  media: imx-jpeg: Access v4l2_fh from file
+  media: imx-isi: Access v4l2_fh from file
+  media: nxp: mx2: Access v4l2_fh from file
+  media: renesas: Access v4l2_fh from file
+  media: rockhip: rga: Access v4l2_fh from file
+  media: rockchip: rkvdec: Access v4l2_fh from file
+  media: exynos-gsc: Access v4l2_fh from file
+  media: exynos4-is: Access v4l2_fh from file
+  media: s3c-camif: Access v4l2_fh from file
+  media: s5p-g2d: Access v4l2_fh from file
+  media: s5p-jpeg: Access v4l2_fh from file
+  media: s5p-mfc: Access v4l2_fh from file
+  media: bdisp: Access v4l2_fh from file
+  media: st: delta: Access v4l2_fh from file
+  media: stm32: dma2d: Access v4l2_fh from file
+  media: omap3isp: Access v4l2_fh from file
+  media: cx18: Access v4l2_fh from file
+  media: ivtv: Access v4l2_fh from file
+  media: usb: hdpvr: Access v4l2_fh from file
+  media: usb: uvc: Access v4l2_fh from file
+  media: staging: imx: Access v4l2_fh from file
+
+Laurent Pinchart (39):
+  media: pci: saa7164: Store v4l2_fh pointer in file->private_data
+  media: imagination: Store v4l2_fh pointer in file->private_data
+  media: ti: vpe: Store v4l2_fh pointer in file->private_data
+  media: usb: hdpvr: Store v4l2_fh pointer in file->private_data
+  media: usb: pvrusb2: Store v4l2_fh pointer in file->private_data
+  media: usb: uvcvideo: Store v4l2_fh pointer in file->private_data
+  media: staging: most: Store v4l2_fh pointer in file->private_data
+  media: Wrap file->private_data access with a helper function
+  media: Replace file->private_data access with file_to_v4l2_fh()
+  media: nvidia: tegra-vde: Replace file->private_data access
+  media: Replace file->private_data access with custom functions
+  media: pci: ivtv: Don't create fake v4l2_fh
+  media: amphion: Make some vpu_v4l2 functions static
+  media: amphion: Delete v4l2_fh synchronously in .release()
+  media: visl: Drop visl_v4l2fh_to_ctx() function
+  media: v4l2-fh: Move piece of documentation to correct function
+  media: camss: Replace .open() file operation with v4l2_fh_open()
+  media: chips-media: wave5: Pass file pointer to
+    wave5_cleanup_instance()
+  media: qcom: iris: Pass file pointer to iris_v4l2_fh_(de)init()
+  media: qcom: iris: Set file->private_data in iris_v4l2_fh_(de)init()
+  media: qcom: iris: Drop unused argument to iris_get_inst()
+  media: qcom: venus: Pass file pointer to venus_close_common()
+  media: Set file->private_data in v4l2_fh_add()
+  media: Reset file->private_data to NULL in v4l2_fh_del()
+  media: ipu6: isys: Don't set V4L2_FL_USES_V4L2_FH manually
+  media: staging: ipu7: isys: Don't set V4L2_FL_USES_V4L2_FH manually
+  media: v4l2-ctrls: Move v4l2_fh retrieval after V4L2_FL_USES_V4L2_FH
+    check
+  media: v4l2-dev: Make open and release file operations mandatory
+  media: Drop V4L2_FL_USES_V4L2_FH checks
+  media: s5p-mfc: Store s5p_mfc_ctx in vb2_queue.drv_priv
+  media: hantro: Access v4l2_fh from file->private_data
+  media: v4l2-ioctl: Stop passing fh pointer to ioctl handlers
+  media: v4l2-ioctl: Push NULL fh argument down to ioctl wrappers
+  media: test-drivers: Rename second ioctl handlers argument to 'void
+    *priv'
+  media: uvcvideo: Rename second ioctl handlers argument to 'void *priv'
+  media: v4l2-pci-skeleton: Rename second ioctl handlers argument to
+    'void *priv'
+  media: v4l2-core: Rename second ioctl handlers argument to 'void
+    *priv'
+  media: v4l2: Rename second ioctl handlers argument to 'void *priv'
+  media: staging: Rename second ioctl handlers argument to 'void *priv'
+
+ Documentation/driver-api/media/v4l2-fh.rst    |  59 ++-
+ .../zh_CN/video4linux/v4l2-framework.txt      |  16 +-
+ .../extron-da-hd-4k-plus.c                    |   4 +-
+ .../media/common/videobuf2/videobuf2-v4l2.c   |  12 +-
+ drivers/media/pci/bt8xx/bttv-driver.c         |  14 +-
+ drivers/media/pci/bt8xx/bttv-vbi.c            |   6 +-
+ drivers/media/pci/cobalt/cobalt-v4l2.c        |  60 +--
+ drivers/media/pci/cx18/cx18-driver.h          |   2 +-
+ drivers/media/pci/cx18/cx18-fileops.c         |  11 +-
+ drivers/media/pci/cx18/cx18-ioctl.c           |  64 +--
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    |   1 -
+ drivers/media/pci/ivtv/ivtv-alsa-pcm.c        |   2 -
+ drivers/media/pci/ivtv/ivtv-driver.h          |   7 +-
+ drivers/media/pci/ivtv/ivtv-fileops.c         |  40 +-
+ drivers/media/pci/ivtv/ivtv-ioctl.c           | 124 ++---
+ drivers/media/pci/ivtv/ivtv-irq.c             |   4 +-
+ drivers/media/pci/saa7134/saa7134-video.c     |   4 +-
+ drivers/media/pci/saa7164/saa7164-encoder.c   |  30 +-
+ drivers/media/pci/saa7164/saa7164-vbi.c       |  25 +-
+ drivers/media/pci/saa7164/saa7164.h           |  10 +
+ drivers/media/pci/zoran/zoran.h               |   6 -
+ drivers/media/pci/zoran/zoran_driver.c        |  35 +-
+ .../media/platform/allegro-dvt/allegro-core.c |  33 +-
+ .../media/platform/amlogic/meson-ge2d/ge2d.c  |  25 +-
+ drivers/media/platform/amphion/vpu.h          |   2 +-
+ drivers/media/platform/amphion/vpu_v4l2.c     |  22 +-
+ drivers/media/platform/amphion/vpu_v4l2.h     |   8 -
+ .../platform/chips-media/coda/coda-common.c   |  50 +-
+ .../platform/chips-media/wave5/wave5-helper.c |  10 +-
+ .../platform/chips-media/wave5/wave5-helper.h |   2 +-
+ .../chips-media/wave5/wave5-vpu-dec.c         |  23 +-
+ .../chips-media/wave5/wave5-vpu-enc.c         |  29 +-
+ .../platform/chips-media/wave5/wave5-vpu.h    |   5 +
+ .../platform/imagination/e5010-jpeg-enc.c     |  23 +-
+ .../platform/imagination/e5010-jpeg-enc.h     |   5 +
+ drivers/media/platform/m2m-deinterlace.c      |  26 +-
+ .../platform/mediatek/jpeg/mtk_jpeg_core.c    |  37 +-
+ .../media/platform/mediatek/mdp/mtk_mdp_m2m.c |  29 +-
+ .../platform/mediatek/mdp3/mtk-mdp3-m2m.c     |  25 +-
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.c  |  36 +-
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |   9 +-
+ .../vcodec/decoder/mtk_vcodec_dec_drv.h       |   5 +
+ .../mediatek/vcodec/encoder/mtk_vcodec_enc.c  |  37 +-
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c       |   9 +-
+ .../vcodec/encoder/mtk_vcodec_enc_drv.h       |   4 +-
+ .../media/platform/nvidia/tegra-vde/v4l2.c    |  35 +-
+ drivers/media/platform/nxp/dw100/dw100.c      |   7 +-
+ .../media/platform/nxp/imx-jpeg/mxc-jpeg.c    |  45 +-
+ drivers/media/platform/nxp/imx-pxp.c          |   7 +-
+ .../platform/nxp/imx8-isi/imx8-isi-m2m.c      |  21 +-
+ drivers/media/platform/nxp/mx2_emmaprp.c      |  24 +-
+ .../media/platform/qcom/camss/camss-video.c   |  43 +-
+ drivers/media/platform/qcom/iris/iris_vidc.c  |  36 +-
+ drivers/media/platform/qcom/venus/core.c      |   4 +-
+ drivers/media/platform/qcom/venus/core.h      |   4 +-
+ drivers/media/platform/qcom/venus/vdec.c      |   5 +-
+ drivers/media/platform/qcom/venus/venc.c      |   5 +-
+ .../platform/renesas/rcar-vin/rcar-v4l2.c     |   2 -
+ drivers/media/platform/renesas/rcar_fdp1.c    |  17 +-
+ drivers/media/platform/renesas/rcar_jpu.c     |  27 +-
+ .../platform/renesas/rzg2l-cru/rzg2l-video.c  |   1 -
+ .../media/platform/renesas/vsp1/vsp1_histo.c  |   6 +-
+ .../media/platform/renesas/vsp1/vsp1_video.c  |  18 +-
+ drivers/media/platform/rockchip/rga/rga.c     |  30 +-
+ drivers/media/platform/rockchip/rga/rga.h     |   5 +
+ .../media/platform/rockchip/rkvdec/rkvdec.c   |  21 +-
+ .../media/platform/rockchip/rkvdec/rkvdec.h   |   4 +-
+ .../platform/samsung/exynos-gsc/gsc-core.h    |   6 +-
+ .../platform/samsung/exynos-gsc/gsc-m2m.c     |  37 +-
+ .../platform/samsung/exynos4-is/fimc-core.h   |   5 +-
+ .../platform/samsung/exynos4-is/fimc-m2m.c    |  19 +-
+ .../samsung/s3c-camif/camif-capture.c         |  26 +-
+ drivers/media/platform/samsung/s5p-g2d/g2d.c  |  40 +-
+ .../platform/samsung/s5p-jpeg/jpeg-core.c     |  33 +-
+ .../media/platform/samsung/s5p-mfc/s5p_mfc.c  |  17 +-
+ .../platform/samsung/s5p-mfc/s5p_mfc_common.h |   6 +-
+ .../platform/samsung/s5p-mfc/s5p_mfc_dec.c    |  34 +-
+ .../platform/samsung/s5p-mfc/s5p_mfc_enc.c    |  38 +-
+ .../media/platform/st/sti/bdisp/bdisp-v4l2.c  |  30 +-
+ .../media/platform/st/sti/delta/delta-v4l2.c  |  41 +-
+ drivers/media/platform/st/sti/hva/hva-v4l2.c  |  38 +-
+ drivers/media/platform/st/sti/hva/hva.h       |   2 -
+ drivers/media/platform/st/stm32/dma2d/dma2d.c |  28 +-
+ .../sunxi/sun6i-csi/sun6i_csi_capture.c       |  16 +-
+ .../media/platform/sunxi/sun8i-di/sun8i-di.c  |  10 +-
+ .../sunxi/sun8i-rotate/sun8i_rotate.c         |  10 +-
+ .../platform/synopsys/hdmirx/snps_hdmirx.c    |   8 +-
+ .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   |   2 +-
+ drivers/media/platform/ti/omap/omap_vout.c    |   6 +-
+ drivers/media/platform/ti/omap3isp/ispvideo.c |  36 +-
+ drivers/media/platform/ti/omap3isp/ispvideo.h |   6 +-
+ drivers/media/platform/ti/vpe/vpe.c           |  21 +-
+ drivers/media/platform/verisilicon/hantro.h   |   4 +-
+ .../media/platform/verisilicon/hantro_drv.c   |  10 +-
+ .../media/platform/verisilicon/hantro_v4l2.c  |  22 +-
+ drivers/media/platform/xilinx/xilinx-dma.c    |  10 +-
+ .../radio/si4713/radio-platform-si4713.c      |  10 +-
+ .../media/test-drivers/vicodec/vicodec-core.c |  21 +-
+ drivers/media/test-drivers/vim2m.c            |   7 +-
+ .../media/test-drivers/vimc/vimc-capture.c    |   2 +-
+ drivers/media/test-drivers/visl/visl-core.c   |   5 +-
+ drivers/media/test-drivers/visl/visl.h        |   7 +-
+ drivers/media/test-drivers/vivid/vivid-core.c | 100 ++--
+ .../media/test-drivers/vivid/vivid-radio-rx.c |  12 +-
+ .../media/test-drivers/vivid/vivid-radio-rx.h |   8 +-
+ .../media/test-drivers/vivid/vivid-radio-tx.c |   8 +-
+ .../media/test-drivers/vivid/vivid-radio-tx.h |   4 +-
+ .../media/test-drivers/vivid/vivid-sdr-cap.c  |  18 +-
+ .../media/test-drivers/vivid/vivid-sdr-cap.h  |  18 +-
+ .../media/test-drivers/vivid/vivid-vbi-cap.c  |  10 +-
+ .../media/test-drivers/vivid/vivid-vbi-cap.h  |   8 +-
+ .../media/test-drivers/vivid/vivid-vbi-out.c  |   8 +-
+ .../media/test-drivers/vivid/vivid-vbi-out.h  |   6 +-
+ .../media/test-drivers/vivid/vivid-vid-cap.c  |  24 +-
+ .../media/test-drivers/vivid/vivid-vid-cap.h  |  24 +-
+ .../test-drivers/vivid/vivid-vid-common.c     |   8 +-
+ .../test-drivers/vivid/vivid-vid-common.h     |   8 +-
+ .../media/test-drivers/vivid/vivid-vid-out.c  |  16 +-
+ .../media/test-drivers/vivid/vivid-vid-out.h  |  16 +-
+ drivers/media/usb/cx231xx/cx231xx-417.c       |   2 +-
+ drivers/media/usb/gspca/gspca.c               |  18 +-
+ drivers/media/usb/hdpvr/hdpvr-video.c         |  69 +--
+ drivers/media/usb/pvrusb2/pvrusb2-v4l2.c      |  69 +--
+ drivers/media/usb/uvc/uvc_metadata.c          |  22 +-
+ drivers/media/usb/uvc/uvc_v4l2.c              |  85 ++--
+ drivers/media/usb/uvc/uvcvideo.h              |   5 +
+ drivers/media/v4l2-core/v4l2-compat-ioctl32.c |   9 +-
+ drivers/media/v4l2-core/v4l2-ctrls-api.c      |  11 +-
+ drivers/media/v4l2-core/v4l2-dev.c            |  45 +-
+ drivers/media/v4l2-core/v4l2-fh.c             |  16 +-
+ drivers/media/v4l2-core/v4l2-ioctl.c          | 456 +++++++++---------
+ drivers/media/v4l2-core/v4l2-mem2mem.c        |  50 +-
+ drivers/media/v4l2-core/v4l2-subdev.c         |  16 +-
+ .../staging/media/imx/imx-media-csc-scaler.c  |  26 +-
+ drivers/staging/media/ipu7/ipu7-isys-video.c  |   1 -
+ drivers/staging/media/meson/vdec/vdec.c       |  29 +-
+ drivers/staging/media/meson/vdec/vdec.h       |   5 +
+ drivers/staging/media/sunxi/cedrus/cedrus.c   |   8 +-
+ drivers/staging/media/sunxi/cedrus/cedrus.h   |   5 +
+ .../staging/media/sunxi/cedrus/cedrus_video.c |   5 -
+ .../media/sunxi/sun6i-isp/sun6i_isp_capture.c |  16 +-
+ .../media/sunxi/sun6i-isp/sun6i_isp_params.c  |   6 +-
+ drivers/staging/most/video/video.c            |  19 +-
+ drivers/usb/gadget/function/uvc.h             |   5 +
+ drivers/usb/gadget/function/uvc_v4l2.c        |   8 +-
+ include/media/v4l2-ctrls.h                    |   4 +-
+ include/media/v4l2-dev.h                      |   2 +-
+ include/media/v4l2-fh.h                       |  30 +-
+ include/media/v4l2-ioctl.h                    | 238 ++++-----
+ include/media/v4l2-mem2mem.h                  |  42 +-
+ samples/v4l/v4l2-pci-skeleton.c               |  10 +-
+ 151 files changed, 1792 insertions(+), 1806 deletions(-)
+
+
+base-commit: d968e50b5c26642754492dea23cbd3592bde62d8
 -- 
 Regards,
 
