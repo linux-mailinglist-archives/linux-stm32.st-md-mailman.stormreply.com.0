@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9FDB21F31
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE4B6B21F48
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:11:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66303C2908C;
-	Tue, 12 Aug 2025 07:10:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82037C29095;
+	Tue, 12 Aug 2025 07:11:13 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06564C424BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 967DEC424B1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:54 +0000 (UTC)
+ Mon, 11 Aug 2025 15:19:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B94E6695E;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 18188C4E68D;
+ by tor.source.kernel.org (Postfix) with ESMTP id 07EC8669D5;
+ Mon, 11 Aug 2025 15:18:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 42AEDC567CD;
  Mon, 11 Aug 2025 15:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925515;
- bh=8yFQn/0V+G3SE/Nld8CAixy+jX80NpW3cIdqK6pmmEc=;
+ bh=uWr8f50WYVoQV7Ccl1uBbME03HF6scdVafmMAIIh/BY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=OUWRvmtuSXdlVptyhtHZ2gbwlpDfcA24qyzed+7thXBwJYd6MGGB3OYsMXVGmS55e
- /iRpfoAGramTBbLXzGFMZXbJohYCj47HMJAJYqGq9U7cvuJmDyagciX4j2HXldxH82
- b8iB1J/wlUs4ZtSL7tNxwY33jKNWnhUkHxUKW5DaIRSZD5SBOSTgyCc5aHZDOBP8Yv
- f3Bx+L2zvxO7zvtu/Yyx27gcMVegzXRMiWnTpUu0FsBV13HvvJOYNzPL3cqEoB23/C
- nvWKl5EqV/ylz5W+CWjVIyr6PhY04kx4nXCieuBUuDapq+VXsYr98Ow/YagmsBWnxe
- UUlsv8QBKbmkw==
+ b=eAzC2oTWYDS441ObEBuaT04xUZasg4T1J0+xaQtxRzfh4/5H26IdDqKI6LC+hpvy3
+ wqQN9AuC3p8wCCzRm5h7yL4jA5eD5VG0LRaSjZiiLhWrd9ZTrOoczb0MHd2veDXE+R
+ GDO9FWVjujeylCq5jSbM7r+mMRtcQQ1MXl+P59mD0C1XjVDxVPnxgS8DzFr7lDoQT/
+ C01IzSOXVO/4MApsipeRGz9Ok1L0sAODGSO7T+Mpp73l8+KzMxXRXGTh3AfPzFVTCZ
+ +IsoYOKUexM6U3Hsq65PxR2lo69ZCFiErnZJVn3Pqo6dzV7dzrGeYFM0LNMtfJKKkZ
+ wi+NC8AQwseXg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E8F35CA0ED8;
- Mon, 11 Aug 2025 15:18:34 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 21FC3CA0EC4;
+ Mon, 11 Aug 2025 15:18:35 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:29 -0400
+Date: Mon, 11 Aug 2025 11:19:30 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-97-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-98-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=4461;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1677;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=rdxgpdA+5LOZ/7CHakL5ki1icj7gNHfthuGcJ7vBYJk=;
- b=yt/m+CsjZ2sdii1+ZCBUSFlC7Hfk3mz5ymDXaz2sgWd/cE4Nyh/h9+AJD/8y+hn/vG5XBHOBw
- GNti/3o14ZSBQhvTCB4TmL3xyG6EVakz6hYA8E2hIypKOOVRqrrCOr5
+ bh=AN0ZkbVaUA8tTGFU3Eedcp5VCTSIYinCM4zH/lp4X78=;
+ b=RwUb+yzBQLB+WhHb6DN83KgnRynAOTouCccpnzeigffDx2MvdwSsrfb0Vh3mRKT/FE0BRBfYn
+ IcUx/VLPXc3DmbtsVLaXc9AOM1IUOIEBSv3DRIAvouKcG5+tKABo2of
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 097/114] clk: rp1: convert from round_rate()
- to determine_rate()
+Subject: [Linux-stm32] [PATCH 098/114] clk: samsung: cpu: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,124 +139,41 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/clk-rp1.c | 45 ++++++++++++++++++++++++++-------------------
- 1 file changed, 26 insertions(+), 19 deletions(-)
+ drivers/clk/samsung/clk-cpu.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/clk/clk-rp1.c b/drivers/clk/clk-rp1.c
-index afff90d487341cee0463e62e4066ff0eb723bd07..8d985c431d9e35a5bfe48b45a24bf26555659b7c 100644
---- a/drivers/clk/clk-rp1.c
-+++ b/drivers/clk/clk-rp1.c
-@@ -530,13 +530,15 @@ static unsigned long rp1_pll_core_recalc_rate(struct clk_hw *hw,
- 	return calc_rate;
- }
+diff --git a/drivers/clk/samsung/clk-cpu.c b/drivers/clk/samsung/clk-cpu.c
+index 4e1ebd8a30b1b422e33a4bb4527006e36c41666f..300f8d5d3c48d8c08fa599aad74526cd9dd822c7 100644
+--- a/drivers/clk/samsung/clk-cpu.c
++++ b/drivers/clk/samsung/clk-cpu.c
+@@ -567,12 +567,14 @@ static int exynos850_cpuclk_post_rate_change(struct clk_notifier_data *ndata,
+ /* -------------------------------------------------------------------------- */
  
--static long rp1_pll_core_round_rate(struct clk_hw *hw, unsigned long rate,
--				    unsigned long *parent_rate)
-+static int rp1_pll_core_determine_rate(struct clk_hw *hw,
-+				       struct clk_rate_request *req)
+ /* Common round rate callback usable for all types of CPU clocks */
+-static long exynos_cpuclk_round_rate(struct clk_hw *hw, unsigned long drate,
+-				     unsigned long *prate)
++static int exynos_cpuclk_determine_rate(struct clk_hw *hw,
++					struct clk_rate_request *req)
  {
- 	u32 fbdiv_int, fbdiv_frac;
- 
--	return get_pll_core_divider(hw, rate, *parent_rate,
--				    &fbdiv_int, &fbdiv_frac);
-+	req->rate = get_pll_core_divider(hw, req->rate, req->best_parent_rate,
-+					 &fbdiv_int, &fbdiv_frac);
+ 	struct clk_hw *parent = clk_hw_get_parent(hw);
+-	*prate = clk_hw_round_rate(parent, drate);
+-	return *prate;
++	req->best_parent_rate = clk_hw_round_rate(parent, req->rate);
++	req->rate = req->best_parent_rate;
 +
 +	return 0;
  }
  
- static void get_pll_prim_dividers(unsigned long rate, unsigned long parent_rate,
-@@ -614,14 +616,16 @@ static unsigned long rp1_pll_recalc_rate(struct clk_hw *hw,
- 	return DIV_ROUND_CLOSEST(parent_rate, prim_div1 * prim_div2);
- }
+ /* Common recalc rate callback usable for all types of CPU clocks */
+@@ -591,7 +593,7 @@ static unsigned long exynos_cpuclk_recalc_rate(struct clk_hw *hw,
  
--static long rp1_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--			       unsigned long *parent_rate)
-+static int rp1_pll_determine_rate(struct clk_hw *hw,
-+				  struct clk_rate_request *req)
- {
- 	u32 div1, div2;
- 
--	get_pll_prim_dividers(rate, *parent_rate, &div1, &div2);
-+	get_pll_prim_dividers(req->rate, req->best_parent_rate, &div1, &div2);
- 
--	return DIV_ROUND_CLOSEST(*parent_rate, div1 * div2);
-+	req->rate = DIV_ROUND_CLOSEST(req->best_parent_rate, div1 * div2);
-+
-+	return 0;
- }
- 
- static int rp1_pll_ph_is_on(struct clk_hw *hw)
-@@ -671,13 +675,15 @@ static unsigned long rp1_pll_ph_recalc_rate(struct clk_hw *hw,
- 	return parent_rate / data->fixed_divider;
- }
- 
--static long rp1_pll_ph_round_rate(struct clk_hw *hw, unsigned long rate,
--				  unsigned long *parent_rate)
-+static int rp1_pll_ph_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
- {
- 	struct rp1_clk_desc *pll_ph = container_of(hw, struct rp1_clk_desc, hw);
- 	const struct rp1_pll_ph_data *data = pll_ph->data;
- 
--	return *parent_rate / data->fixed_divider;
-+	req->rate = req->best_parent_rate / data->fixed_divider;
-+
-+	return 0;
- }
- 
- static int rp1_pll_divider_is_on(struct clk_hw *hw)
-@@ -754,11 +760,12 @@ static unsigned long rp1_pll_divider_recalc_rate(struct clk_hw *hw,
- 	return clk_divider_ops.recalc_rate(hw, parent_rate);
- }
- 
--static long rp1_pll_divider_round_rate(struct clk_hw *hw,
--				       unsigned long rate,
--				       unsigned long *parent_rate)
-+static int rp1_pll_divider_determine_rate(struct clk_hw *hw,
-+					  struct clk_rate_request *req)
- {
--	return clk_divider_ops.round_rate(hw, rate, parent_rate);
-+	req->rate = clk_divider_ops.determine_rate(hw, req);
-+
-+	return 0;
- }
- 
- static int rp1_clock_is_on(struct clk_hw *hw)
-@@ -1068,13 +1075,13 @@ static const struct clk_ops rp1_pll_core_ops = {
- 	.unprepare = rp1_pll_core_off,
- 	.set_rate = rp1_pll_core_set_rate,
- 	.recalc_rate = rp1_pll_core_recalc_rate,
--	.round_rate = rp1_pll_core_round_rate,
-+	.determine_rate = rp1_pll_core_determine_rate,
+ static const struct clk_ops exynos_cpuclk_clk_ops = {
+ 	.recalc_rate = exynos_cpuclk_recalc_rate,
+-	.round_rate = exynos_cpuclk_round_rate,
++	.determine_rate = exynos_cpuclk_determine_rate,
  };
  
- static const struct clk_ops rp1_pll_ops = {
- 	.set_rate = rp1_pll_set_rate,
- 	.recalc_rate = rp1_pll_recalc_rate,
--	.round_rate = rp1_pll_round_rate,
-+	.determine_rate = rp1_pll_determine_rate,
- };
- 
- static const struct clk_ops rp1_pll_ph_ops = {
-@@ -1082,7 +1089,7 @@ static const struct clk_ops rp1_pll_ph_ops = {
- 	.prepare = rp1_pll_ph_on,
- 	.unprepare = rp1_pll_ph_off,
- 	.recalc_rate = rp1_pll_ph_recalc_rate,
--	.round_rate = rp1_pll_ph_round_rate,
-+	.determine_rate = rp1_pll_ph_determine_rate,
- };
- 
- static const struct clk_ops rp1_pll_divider_ops = {
-@@ -1091,7 +1098,7 @@ static const struct clk_ops rp1_pll_divider_ops = {
- 	.unprepare = rp1_pll_divider_off,
- 	.set_rate = rp1_pll_divider_set_rate,
- 	.recalc_rate = rp1_pll_divider_recalc_rate,
--	.round_rate = rp1_pll_divider_round_rate,
-+	.determine_rate = rp1_pll_divider_determine_rate,
- };
- 
- static const struct clk_ops rp1_clk_ops = {
+ /*
 
 -- 
 2.50.1
