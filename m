@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7984B21F20
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC71CB21F3C
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6254EC2908B;
-	Tue, 12 Aug 2025 07:10:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD034C290BA;
+	Tue, 12 Aug 2025 07:10:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F65C3FAC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1A39C424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:41 +0000 (UTC)
+ Mon, 11 Aug 2025 15:19:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DC2804446F;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D976CC4DE12;
- Mon, 11 Aug 2025 15:18:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 37671669A3;
+ Mon, 11 Aug 2025 15:18:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 06E97C4DDF4;
+ Mon, 11 Aug 2025 15:18:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925514;
- bh=thCqN7jOKzg53XIrmX0z7cQx5zWSr/m9OvUqSHZl9zo=;
+ bh=wTgud6tQwIyLfx0HB1tF4KhBQQnjEgnYtuPNQw5ihWI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=FmU4kqHdF0qJTgUVErscOjm3zzjidcy/J2UDjbF22u5Gemo3vxImdb91JDIs402rb
- qgOVjZa1Qyutqit0aqT4mUYq5jTQ/7wVOBLZzAAEsH8Ax73HlFdrK0U8ybbPLVcmVI
- LLED9vcKljxhW84Kx3UKsLP58pt8R2ftE3wbACXHzPEKuisTy4SQea12euBBIM3BhK
- wDpgaA73DUfulvNPFWc7sWbSTbXxBVoVE+QgToXllCMP3a9txzXAX7TzODNc3VBl8z
- hxZft/45H9HQIURn6idC73gXaYizH0Nc/+yPcb42vsm9fSbe4zJPhmplUiw/EdoLk4
- j9Zex9Sfm5kvQ==
+ b=aZxyoP2Secxor+RGDxhNNhVsfbkSVfVHekQGNMzQ00BHlXyF/zqGpuYPTT0nHiRYs
+ HH0hqPnqVEvoMYojvTR50y5wgH+MCGKbz6idQ9XgiX4QYUVmMRBbU8U/A282K3AKZC
+ Z2M3IM3TJiU4kc+H4jC+8gkI5Q/Ctow6S4uVMo6jCQSQeVXbemIwcfKP5c1jyFJ4Yl
+ UiQ8vP6YaaqgSzGt8EuZhFHBzij0ghKlQQ2HQqYm9PHuNA0F5WEnc95rBlyrLsc6Cp
+ XqkoaRWCpEL4zJSwdwLiM/6NvFDLPvDdzjTWANq3pyr65mRED9aUE/kt1ucMOlWpWS
+ XoRMrKMh3OiNQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AFE7CCA0ED1;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DC28BCA0ED3;
  Mon, 11 Aug 2025 15:18:33 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:17 -0400
+Date: Mon, 11 Aug 2025 11:19:18 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-85-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-86-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1400;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=2154;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=8qbBWdyr0m4/bLai4y7fFfOuB+IEx7T9sCToW1ID/kI=;
- b=99AZnqRCmXbaNKQzZeqgHH6rFhjJdeaFhiKUYdZbAdHWh7xm+9vI+0uMTHA3EclkZxIWw0hUD
- QyDsDGK5LV1DrAqEo4U93v9dxiqmd0UpvM+TMCBkcz1KSNWdlQezfYQ
+ bh=zwDunKg0lpAhFaodOmT22ze6HLMcfBssPgf6TXDOiXk=;
+ b=6ad8PB3l2Nqn41bpE9FA76MGUBvzXCTk75xig2LzUCXVw2TZeb0QVl/EU9/lw5/jOOW6ZBq2f
+ UlWdPGJ6/PXD81Z+ls3NBipmAVeQZq+jdD/LYSNDNYntA5JsZjymEU+
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 085/114] clk: mvebu: ap-cpu-clk: convert from
- round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 086/114] clk: mvebu: armada-37xx-periph:
+ convert from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,40 +139,57 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/mvebu/ap-cpu-clk.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/clk/mvebu/armada-37xx-periph.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/clk/mvebu/ap-cpu-clk.c b/drivers/clk/mvebu/ap-cpu-clk.c
-index 677cc351484970e8e788c832650689eb04acd08e..1e44ace7d95197b2d8b777329912bf75cd40888d 100644
---- a/drivers/clk/mvebu/ap-cpu-clk.c
-+++ b/drivers/clk/mvebu/ap-cpu-clk.c
-@@ -210,19 +210,21 @@ static int ap_cpu_clk_set_rate(struct clk_hw *hw, unsigned long rate,
- 	return 0;
+diff --git a/drivers/clk/mvebu/armada-37xx-periph.c b/drivers/clk/mvebu/armada-37xx-periph.c
+index 13906e31bef8691c59631e7f1940e6cab82549a6..bd0bc8e7b1e7781c6ddeff2a00aab50e57ae30e2 100644
+--- a/drivers/clk/mvebu/armada-37xx-periph.c
++++ b/drivers/clk/mvebu/armada-37xx-periph.c
+@@ -454,12 +454,12 @@ static unsigned long clk_pm_cpu_recalc_rate(struct clk_hw *hw,
+ 	return DIV_ROUND_UP_ULL((u64)parent_rate, div);
  }
  
--static long ap_cpu_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+-static long clk_pm_cpu_round_rate(struct clk_hw *hw, unsigned long rate,
 -				  unsigned long *parent_rate)
-+static int ap_cpu_clk_determine_rate(struct clk_hw *hw,
++static int clk_pm_cpu_determine_rate(struct clk_hw *hw,
 +				     struct clk_rate_request *req)
  {
--	int divider = *parent_rate / rate;
-+	int divider = req->best_parent_rate / req->rate;
+ 	struct clk_pm_cpu *pm_cpu = to_clk_pm_cpu(hw);
+ 	struct regmap *base = pm_cpu->nb_pm_base;
+-	unsigned int div = *parent_rate / rate;
++	unsigned int div = req->best_parent_rate / req->rate;
+ 	unsigned int load_level;
+ 	/* only available when DVFS is enabled */
+ 	if (!armada_3700_pm_dvfs_is_enabled(base))
+@@ -474,13 +474,16 @@ static long clk_pm_cpu_round_rate(struct clk_hw *hw, unsigned long rate,
  
- 	divider = min(divider, APN806_MAX_DIVIDER);
- 
--	return *parent_rate / divider;
-+	req->rate = req->best_parent_rate / divider;
+ 		val >>= offset;
+ 		val &= ARMADA_37XX_NB_TBG_DIV_MASK;
+-		if (val == div)
++		if (val == div) {
+ 			/*
+ 			 * We found a load level matching the target
+ 			 * divider, switch to this load level and
+ 			 * return.
+ 			 */
+-			return *parent_rate / div;
++			req->rate = req->best_parent_rate / div;
 +
-+	return 0;
- }
++			return 0;
++		}
+ 	}
  
- static const struct clk_ops ap_cpu_clk_ops = {
- 	.recalc_rate	= ap_cpu_clk_recalc_rate,
--	.round_rate	= ap_cpu_clk_round_rate,
-+	.determine_rate = ap_cpu_clk_determine_rate,
- 	.set_rate	= ap_cpu_clk_set_rate,
+ 	/* We didn't find any valid divider */
+@@ -600,7 +603,7 @@ static int clk_pm_cpu_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ static const struct clk_ops clk_pm_cpu_ops = {
+ 	.get_parent = clk_pm_cpu_get_parent,
+-	.round_rate = clk_pm_cpu_round_rate,
++	.determine_rate = clk_pm_cpu_determine_rate,
+ 	.set_rate = clk_pm_cpu_set_rate,
+ 	.recalc_rate = clk_pm_cpu_recalc_rate,
  };
- 
 
 -- 
 2.50.1
