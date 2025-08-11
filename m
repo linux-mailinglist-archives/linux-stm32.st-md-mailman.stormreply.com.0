@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29AA1B21F05
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4ECCB21EF2
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA9E0C290A6;
-	Tue, 12 Aug 2025 07:10:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5767EC424CE;
+	Tue, 12 Aug 2025 07:10:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43145C3FACA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 689E9C3FAC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A51B361487;
- Mon, 11 Aug 2025 15:18:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D0284C4CEF5;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 24EBF5C577F;
+ Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E10D6C4CEF8;
  Mon, 11 Aug 2025 15:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754925509;
- bh=/xbZfJSWvgdrl56vtnWeCWhWPwuGG/9fbB17u7Zh+os=;
+ s=k20201202; t=1754925510;
+ bh=MhEGRNx5PEKUNY1zKi5fR7x2pFBbHeEH8AEkTPsWEKM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=eicOe+rmPzTbK81aaaLg0N2PLwABrySSQigI8l1wTp9DfW/by0z7m2ZSXskzMSySo
- 4u44god1D1RspSWXnpLeVHdcNGAjHAV8gl718mPMCdwoWa3R8wBQ7+67xLr0oc8hsx
- YrB5d6GfK0T4AUPdvGcH8MMPYHfRCyLkPztHjo+Zr/KdmZyC1Oxo6VtZ6aP5Hhhg5q
- NQR26tAX7R7zLSBNP++ER9psV81xlGW5bN4db6NJWdtSqnNY6m3ZhNcVgADghV78zq
- 2IuP1i7N9YYS1ES7TwaNkGREcudFR+QzPUwMdSXXT9PgP9+EvsVkBFXgtFHHMK1M3B
- 84CMzInmee+xA==
+ b=HUx/vexGMtUMukHYUUT6xkyBbsUR2c7wR4pRyO+IyDr9KZFtUM6L2QPudEzuARxYK
+ C78VC98KRC8EGebbVR2K/lAaSgwgS1MSf864vhHuie0DsmizbwTfOxVkanqF39bzOE
+ PBq6JSijov71Dld3Cdx3EftV2cMuuQau4XHu80sD8pVySXhvoztSkD99C6Cgvdr4Yq
+ COcjGUdK7Ztsncay5p9yeA1UGg/t68QRSd09d8X5VpnNPz+LbwRPLlJtrFs7zpkK4H
+ PAqMfqt8hptPU1PXLNW7K/0R23qaqcWtx8ueKs1/IlenWuZj3rWWd3pzlJZOihI41Y
+ +2fBR79wJSh/w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AD9D3C87FD2;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C86E8C88CB9;
  Mon, 11 Aug 2025 15:18:29 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:36 -0400
+Date: Mon, 11 Aug 2025 11:18:37 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-44-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-45-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,17 +91,17 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1503;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=2083;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=fVELDYjSyI3lUqmGhDZt2zJiIzyldRApSKQVIiZoQQc=;
- b=mXhZDIe2ygJEtQnwK6iMSzuNOozId22qmcQlmwQLfFq1GIf1Zsc4/MiB2qDJEao85Qr9DATBb
- PBR/+f6XuiFDi3gSkSnXvUTuo2rqaXmEr1A/Q8nkhuGhfsTsRfTJ2Bl
+ bh=u1OMhMwXuV7+/nhwfF+uE+ysp+6puvUWRn+/hBv686M=;
+ b=zpWpLy+2xiSBJ6LH++CWDJRg9CmksGcCmVV92O/D6wLJsbE+fqWNn7gTXf4hZ8lkhalu8vaHJ
+ PIgZEXW+ERCCeTAnIfuj3No+uaGXP+qj9mx5ugWj7Hvgybp28YzzirP
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
  auth_id=472
 X-Original-From: Brian Masney <bmasney@redhat.com>
-X-Mailman-Approved-At: Tue, 12 Aug 2025 07:10:16 +0000
+X-Mailman-Approved-At: Tue, 12 Aug 2025 07:10:15 +0000
 Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
  Brian Masney <bmasney@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 044/114] clk: si544: convert from round_rate()
+Subject: [Linux-stm32] [PATCH 045/114] clk: si570: convert from round_rate()
  to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,41 +139,69 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/clk-si544.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/clk/clk-si570.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/clk/clk-si544.c b/drivers/clk/clk-si544.c
-index ca3473efa314b44b7eff6bc3ec9eafa518e0bd9e..09c06ecec1a52a6a521428e349cbd4cf166bbea3 100644
---- a/drivers/clk/clk-si544.c
-+++ b/drivers/clk/clk-si544.c
-@@ -307,16 +307,16 @@ static unsigned long si544_recalc_rate(struct clk_hw *hw,
- 	return si544_calc_rate(&settings);
+diff --git a/drivers/clk/clk-si570.c b/drivers/clk/clk-si570.c
+index e97fe90443a645c905465ad37cb5490c0c096834..b0b1830dd4302f9ad92023de2e0276cd8ea02639 100644
+--- a/drivers/clk/clk-si570.c
++++ b/drivers/clk/clk-si570.c
+@@ -246,34 +246,40 @@ static unsigned long si570_recalc_rate(struct clk_hw *hw,
+ 	return rate;
  }
  
--static long si544_round_rate(struct clk_hw *hw, unsigned long rate,
+-static long si570_round_rate(struct clk_hw *hw, unsigned long rate,
 -		unsigned long *parent_rate)
-+static int si544_determine_rate(struct clk_hw *hw,
++static int si570_determine_rate(struct clk_hw *hw,
 +				struct clk_rate_request *req)
  {
- 	struct clk_si544 *data = to_clk_si544(hw);
+ 	int err;
+ 	u64 rfreq;
+ 	unsigned int n1, hs_div;
+ 	struct clk_si570 *data = to_clk_si570(hw);
  
--	if (!is_valid_frequency(data, rate))
-+	if (!is_valid_frequency(data, req->rate))
- 		return -EINVAL;
+-	if (!rate)
++	if (!req->rate) {
++		req->rate = 0;
++
+ 		return 0;
++	}
  
- 	/* The accuracy is less than 1 Hz, so any rate is possible */
+-	if (div64_u64(abs(rate - data->frequency) * 10000LL,
++	if (div64_u64(abs(req->rate - data->frequency) * 10000LL,
+ 				data->frequency) < 35) {
+-		rfreq = div64_u64((data->rfreq * rate) +
+-				div64_u64(data->frequency, 2), data->frequency);
++		rfreq = div64_u64((data->rfreq * req->rate) +
++				  div64_u64(data->frequency, 2),
++				  data->frequency);
+ 		n1 = data->n1;
+ 		hs_div = data->hs_div;
+ 
+ 	} else {
+-		err = si570_calc_divs(rate, data, &rfreq, &n1, &hs_div);
++		err = si570_calc_divs(req->rate, data, &rfreq, &n1, &hs_div);
+ 		if (err) {
+ 			dev_err(&data->i2c_client->dev,
+ 					"unable to round rate\n");
++			req->rate = 0;
++
+ 			return 0;
+ 		}
+ 	}
+ 
 -	return rate;
 +	return 0;
  }
  
- /* Calculates the maximum "small" change, 950 * rate / 1000000 */
-@@ -408,7 +408,7 @@ static const struct clk_ops si544_clk_ops = {
- 	.unprepare = si544_unprepare,
- 	.is_prepared = si544_is_prepared,
- 	.recalc_rate = si544_recalc_rate,
--	.round_rate = si544_round_rate,
-+	.determine_rate = si544_determine_rate,
- 	.set_rate = si544_set_rate,
+ /**
+@@ -368,7 +374,7 @@ static int si570_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ static const struct clk_ops si570_clk_ops = {
+ 	.recalc_rate = si570_recalc_rate,
+-	.round_rate = si570_round_rate,
++	.determine_rate = si570_determine_rate,
+ 	.set_rate = si570_set_rate,
  };
  
 
