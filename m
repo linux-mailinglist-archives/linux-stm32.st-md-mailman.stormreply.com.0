@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29335B21F35
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2ECB21F47
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:11:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAB7EC290A2;
-	Tue, 12 Aug 2025 07:10:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70973C29093;
+	Tue, 12 Aug 2025 07:11:13 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CCE0C424B0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC5AC424B1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:57 +0000 (UTC)
+ Mon, 11 Aug 2025 15:19:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3AAA06696B;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 17D7CC56874;
+ by tor.source.kernel.org (Postfix) with ESMTP id E94DC668C2;
+ Mon, 11 Aug 2025 15:18:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3F222C4FE0F;
  Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925516;
- bh=0qRwAyI6BBJq6rdVO6xTsGUiWxnfqdNJv4I89uhp6PE=;
+ bh=I06g9EZ+WeE9wpMdXbgUNj6cuTI+vnV/N4MiCLjBRto=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=EJNYcMcJgJfGLB8KQajBCkdDDpfXj6eEvnoAC3mmXdDy7uvjtQ0PpxeiRqPo76Mpz
- 9hIUjdGEy7I5FBtvfbcTZ/eRB7dC2wRUUakyIjCo2SBivN43Xf8YreKlVQ6FCPcfdi
- BCTUAsi65yWu2Mj0sDHvkWIVkz8brD42mJX8cSvhaHKT4S9awrahjNrEOMQb4yFB96
- lY4SH+vy5FSBSpziPKm0MRedYqzlIfrOQkjDLbSyi9lxnzHdDrkjRW5qTrG6Xmo3Vr
- Jy9vgMAkB4HKTZsyag4ZpSdmkQX9gMZ1ZKsfuZj2u79ZqkzQ6EN32Qe7oZTmJoOsi9
- UgN+Tc14LdQQg==
+ b=muXlH9I12xudI1gel43aCQiNXldBaYO92+fpo+deer1eYA+4PlBbVjrbo2tjk3OR/
+ 32k3HwoanF4BrW2/Jgdx+E/GCQifGj83wRm3+dlt0O08zO0kU3osha3vowrnGesSXa
+ KH+fcCiZKrtwotho5j7Dz+jZmbhMOsNygrJXw2xpjwBefljTfL0goVnOeJN1H+yVtw
+ atj9gVbqosDL5GEq5X0jviMCtdNJIYEKQ1jH203gIl7+COrVZKwwATn4A7P6VSiaoT
+ Ak+n9Uvtgs/kfxSukJYgfEUZIVtnjb5XPhoxXywbPNwd5vxyIVFKmfr87UeGhayu50
+ 49Oc0JXirtPvg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E1B5ACA0EDA;
- Mon, 11 Aug 2025 15:18:35 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 03D5ACA0ED3;
+ Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:39 -0400
+Date: Mon, 11 Aug 2025 11:19:40 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-107-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-108-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=3930;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=3737;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=pV0hzX5meej1V9jCXC+yNB+MJ8wG4M3giNUgVcvRU6k=;
- b=Wdn2Qf11E4dJPJknD+q7/QSac+tyKquY4ucfn3WYnbfrHqheDIUvUlz/ppyf2ZscSer1ShS6t
- 4+ibqLTJPFrBF9rvjpWKjY/ljTSBF/A9Puce8k+rLTXd4V9Vvqnqy0A
+ bh=s6RrIFratukpDYKqOi9KzbyMVPMeFX+Sv4XuD3QoLpU=;
+ b=u+oEBWc/MchojuVxUSN0tz+lCPTO3tXOYo+ZzRrOF/c29BFEP2K2uZuXAcj8p7GUxOUfw7pDI
+ LHL7LIH8TfNAi3s/C2jJXayNi/tsw7YnWMh8Xvmo0uF0O2HJvTdYhBb
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 107/114] clk: versaclock7: convert from
+Subject: [Linux-stm32] [PATCH 108/114] clk: versatile: icst: convert from
  round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,93 +139,119 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/clk-versaclock7.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+ drivers/clk/versatile/clk-icst.c | 72 +++++++++++++++++++++++++---------------
+ 1 file changed, 45 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/clk/clk-versaclock7.c b/drivers/clk/clk-versaclock7.c
-index 483285b30c13d90117850458998b8fd6136574b8..adcc603e32593121f7e760e62e77a06a976672e7 100644
---- a/drivers/clk/clk-versaclock7.c
-+++ b/drivers/clk/clk-versaclock7.c
-@@ -900,17 +900,18 @@ static unsigned long vc7_fod_recalc_rate(struct clk_hw *hw, unsigned long parent
- 	return fod_rate;
+diff --git a/drivers/clk/versatile/clk-icst.c b/drivers/clk/versatile/clk-icst.c
+index b69c3fbdfbce66876d5b1d4faaf4050759e44561..86ca04ad9fab0334f7b051377db709338a1f7244 100644
+--- a/drivers/clk/versatile/clk-icst.c
++++ b/drivers/clk/versatile/clk-icst.c
+@@ -234,39 +234,51 @@ static unsigned long icst_recalc_rate(struct clk_hw *hw,
+ 	return icst->rate;
  }
  
--static long vc7_fod_round_rate(struct clk_hw *hw, unsigned long rate, unsigned long *parent_rate)
-+static int vc7_fod_determine_rate(struct clk_hw *hw,
-+				  struct clk_rate_request *req)
+-static long icst_round_rate(struct clk_hw *hw, unsigned long rate,
+-			    unsigned long *prate)
++static int icst_determine_rate(struct clk_hw *hw,
++			       struct clk_rate_request *req)
  {
- 	struct vc7_fod_data *fod = container_of(hw, struct vc7_fod_data, hw);
- 	unsigned long fod_rate;
+ 	struct clk_icst *icst = to_icst(hw);
+ 	struct icst_vco vco;
  
- 	pr_debug("%s - %s: requested rate: %lu, parent_rate: %lu\n",
--		 __func__, clk_hw_get_name(hw), rate, *parent_rate);
-+		 __func__, clk_hw_get_name(hw), req->rate, req->best_parent_rate);
+ 	if (icst->ctype == ICST_INTEGRATOR_AP_CM ||
+ 	    icst->ctype == ICST_INTEGRATOR_CP_CM_CORE) {
+-		if (rate <= 12000000)
+-			return 12000000;
+-		if (rate >= 160000000)
+-			return 160000000;
+-		/* Slam to closest megahertz */
+-		return DIV_ROUND_CLOSEST(rate, 1000000) * 1000000;
++		if (req->rate <= 12000000)
++			req->rate = 12000000;
++		else if (req->rate >= 160000000)
++			req->rate = 160000000;
++		else {
++			/* Slam to closest megahertz */
++			req->rate = DIV_ROUND_CLOSEST(req->rate, 1000000) * 1000000;
++		}
++
++		return 0;
+ 	}
  
--	vc7_calc_fod_divider(rate, *parent_rate,
-+	vc7_calc_fod_divider(req->rate, req->best_parent_rate,
- 			     &fod->fod_1st_int, &fod->fod_2nd_int, &fod->fod_frac);
--	fod_rate = vc7_calc_fod_2nd_stage_rate(*parent_rate, fod->fod_1st_int,
-+	fod_rate = vc7_calc_fod_2nd_stage_rate(req->best_parent_rate, fod->fod_1st_int,
- 					       fod->fod_2nd_int, fod->fod_frac);
+ 	if (icst->ctype == ICST_INTEGRATOR_CP_CM_MEM) {
+-		if (rate <= 6000000)
+-			return 6000000;
+-		if (rate >= 66000000)
+-			return 66000000;
+-		/* Slam to closest 0.5 megahertz */
+-		return DIV_ROUND_CLOSEST(rate, 500000) * 500000;
++		if (req->rate <= 6000000)
++			req->rate = 6000000;
++		else if (req->rate >= 66000000)
++			req->rate = 66000000;
++		else {
++			/* Slam to closest 0.5 megahertz */
++			req->rate = DIV_ROUND_CLOSEST(req->rate, 500000) * 500000;
++		}
++
++		return 0;
+ 	}
  
- 	pr_debug("%s - %s: fod_1st_int: %u, fod_2nd_int: %u, fod_frac: %llu\n",
-@@ -918,7 +919,9 @@ static long vc7_fod_round_rate(struct clk_hw *hw, unsigned long rate, unsigned l
- 		 fod->fod_1st_int, fod->fod_2nd_int, fod->fod_frac);
- 	pr_debug("%s - %s rate: %lu\n", __func__, clk_hw_get_name(hw), fod_rate);
+ 	if (icst->ctype == ICST_INTEGRATOR_AP_SYS) {
+ 		/* Divides between 3 and 50 MHz in steps of 0.25 MHz */
+-		if (rate <= 3000000)
+-			return 3000000;
+-		if (rate >= 50000000)
+-			return 5000000;
+-		/* Slam to closest 0.25 MHz */
+-		return DIV_ROUND_CLOSEST(rate, 250000) * 250000;
++		if (req->rate <= 3000000)
++			req->rate = 3000000;
++		else if (req->rate >= 50000000)
++			req->rate = 5000000;
++		else {
++			/* Slam to closest 0.25 MHz */
++			req->rate = DIV_ROUND_CLOSEST(req->rate, 250000) * 250000;
++		}
++
++		return 0;
+ 	}
  
--	return fod_rate;
-+	req->rate = fod_rate;
+ 	if (icst->ctype == ICST_INTEGRATOR_AP_PCI) {
+@@ -274,14 +286,20 @@ static long icst_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		 * If we're below or less than halfway from 25 to 33 MHz
+ 		 * select 25 MHz
+ 		 */
+-		if (rate <= 25000000 || rate < 29000000)
+-			return 25000000;
+-		/* Else just return the default frequency */
+-		return 33000000;
++		if (req->rate <= 25000000 || req->rate < 29000000)
++			req->rate = 25000000;
++		else {
++			/* Else just return the default frequency */
++			req->rate = 33000000;
++		}
++
++		return 0;
+ 	}
+ 
+-	vco = icst_hz_to_vco(icst->params, rate);
+-	return icst_hz(icst->params, vco);
++	vco = icst_hz_to_vco(icst->params, req->rate);
++	req->rate = icst_hz(icst->params, vco);
 +
 +	return 0;
  }
  
- static int vc7_fod_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
-@@ -952,7 +955,7 @@ static int vc7_fod_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long
+ static int icst_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -329,7 +347,7 @@ static int icst_set_rate(struct clk_hw *hw, unsigned long rate,
  
- static const struct clk_ops vc7_fod_ops = {
- 	.recalc_rate = vc7_fod_recalc_rate,
--	.round_rate = vc7_fod_round_rate,
-+	.determine_rate = vc7_fod_determine_rate,
- 	.set_rate = vc7_fod_set_rate,
- };
- 
-@@ -978,21 +981,24 @@ static unsigned long vc7_iod_recalc_rate(struct clk_hw *hw, unsigned long parent
- 	return iod_rate;
- }
- 
--static long vc7_iod_round_rate(struct clk_hw *hw, unsigned long rate, unsigned long *parent_rate)
-+static int vc7_iod_determine_rate(struct clk_hw *hw,
-+				  struct clk_rate_request *req)
- {
- 	struct vc7_iod_data *iod = container_of(hw, struct vc7_iod_data, hw);
- 	unsigned long iod_rate;
- 
- 	pr_debug("%s - %s: requested rate: %lu, parent_rate: %lu\n",
--		 __func__, clk_hw_get_name(hw), rate, *parent_rate);
-+		 __func__, clk_hw_get_name(hw), req->rate, req->best_parent_rate);
- 
--	vc7_calc_iod_divider(rate, *parent_rate, &iod->iod_int);
--	iod_rate = div64_u64(*parent_rate, iod->iod_int);
-+	vc7_calc_iod_divider(req->rate, req->best_parent_rate, &iod->iod_int);
-+	iod_rate = div64_u64(req->best_parent_rate, iod->iod_int);
- 
- 	pr_debug("%s - %s: iod_int: %u\n", __func__, clk_hw_get_name(hw), iod->iod_int);
- 	pr_debug("%s - %s rate: %ld\n", __func__, clk_hw_get_name(hw), iod_rate);
- 
--	return iod_rate;
-+	req->rate = iod_rate;
-+
-+	return 0;
- }
- 
- static int vc7_iod_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
-@@ -1023,7 +1029,7 @@ static int vc7_iod_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long
- 
- static const struct clk_ops vc7_iod_ops = {
- 	.recalc_rate = vc7_iod_recalc_rate,
--	.round_rate = vc7_iod_round_rate,
-+	.determine_rate = vc7_iod_determine_rate,
- 	.set_rate = vc7_iod_set_rate,
+ static const struct clk_ops icst_ops = {
+ 	.recalc_rate = icst_recalc_rate,
+-	.round_rate = icst_round_rate,
++	.determine_rate = icst_determine_rate,
+ 	.set_rate = icst_set_rate,
  };
  
 
