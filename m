@@ -2,116 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67BBAB20697
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 12:56:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E13CB206FE
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 13:12:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22B70C32EA8;
-	Mon, 11 Aug 2025 10:56:59 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AD62C32E8F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FDE0C349C7;
+	Mon, 11 Aug 2025 11:12:53 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D59C349C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 10:56:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1754909817;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CR+LHOxQNJH4mrdkRrblEPU2A6Ou6dlR4qZMmeyZ4e8=;
- b=eUMN4dSQ3le9FS/Y+6Y244khcoOhLYX3ErDME7G3+JqrItrM3btxiZa4VxtdirKP6n+uVz
- bKdOfahB50Z39mmUTDcCmij99rrkoz/YQHYs97rsBTh7lYgC0fX7KFzWbQTg/8Dqn5Y990
- K+ndaUng1xI4r+jRbtzKOn34Udo47z8=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-292-KVk_F-UBOPWccqZY-spMeA-1; Mon, 11 Aug 2025 06:56:56 -0400
-X-MC-Unique: KVk_F-UBOPWccqZY-spMeA-1
-X-Mimecast-MFC-AGG-ID: KVk_F-UBOPWccqZY-spMeA_1754909815
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7e8106a41e7so1030889485a.2
+ Mon, 11 Aug 2025 11:12:51 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-3b783ea502eso2923299f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 03:56:55 -0700 (PDT)
+ Mon, 11 Aug 2025 04:12:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754910771; x=1755515571;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZpFd1p985Zt2FE0ikX1FewH4hrglpUtZfkFtt2DZdFk=;
+ b=OyrPvvlcV8KM/AMa11SXRCuGpXPh8qzrOsMMyoSCC68y7HEGqxIrzE5Hi7wVe0+dYy
+ aGbsM3z945iQYdi8sIR/d3n+/VDGt97VlWrWufQYt5kFqZQJ7tp8kGy9ovdFAr43CLV8
+ TRZZb9XH54sCpA4AnWf+qGvnP+Awd6UagXMFuL1E9rcvj6vsu+kqx9qFXsL/0djjP8uh
+ 62pHX+Qkc55XxTa/syta7B4D78C/wIxBx0ltYmGwS6GlXqX0qY+cs9Cxx04y7zu+R2Q1
+ 1E9Q49aa4bA0U4nkoWcnClHpNa8aIy55CeogjEtWFtZpb9Bws6g02G/FXRm98fh5rhY+
+ Xs/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754909815; x=1755514615;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CR+LHOxQNJH4mrdkRrblEPU2A6Ou6dlR4qZMmeyZ4e8=;
- b=mjalVT8sljU7AsTYVHW+0AkYRVvfyPQ3f30PfjV13xRrNi8O2qNM3O8Rm063pinhdC
- YsIZi+C5+0qlwEKWAEpLAyOYjBiHFIF6J3KA5eaj2jrWAIPEksQL7R96KWlLkMNZhRas
- qdrw5mPtf3TBrpf/EPi+VOMz11QNIipeffhcpq7L9JVftEOQzO1qZ96x6WsQQNOClrAF
- FCy1rTLR3E03JMUJxZJDSMEicLoxJ46kDlMzDzVbljUhYDVJBJg14sWydH6lYBdPluJW
- 5OXqZ+2fw4ZjQnb1m/VSgekmGcLzIk+SXunshVKO6hoVo3t6b/LDv6cT+vXJhJVlf9CP
- rklQ==
+ d=1e100.net; s=20230601; t=1754910771; x=1755515571;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZpFd1p985Zt2FE0ikX1FewH4hrglpUtZfkFtt2DZdFk=;
+ b=Nt8MTAjy33TY41iVSgxfcqrML65XO/7LGC78CT6Re1NKSXdF+2YR590/KcY0vpZBCV
+ VpUbzF7KBmcc3Ceh9hveWj0zQOYc4exepnG2w7M6CPT3u6+np0buyYfhJ3a1bSBJzpFf
+ dzZ8EsyY9hkdUJSkUQhc1GX19R6VRI/Wg9LAiFB2xTVdB4i7MGlhKy8+gyaCCJ3DOSua
+ MZmQ3TKG7K5k3UnZ+kw8LeNlNbVxh279quqj9gCKfuxK20pZFprgbV8oA/ef5nE12a5d
+ khoSpBYlxagrR4Lj3f1DNMt3+QV7Gt4t6O8OGnQ4xAmQ8eo3kUgluQNDTg0LOxoq3Y+b
+ 3dCQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUUDcsiCD8MRFqZhswPg6lD4erjo5TTdGJelU0GwwHFlDN0NT7nRsqG/1dscu+IsSvV6CN9eHUear1yaw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw5wm3BKL4dUpbbtt4aV+s6J+jPyynxWQ+JGtdI2SqmDA8N+38b
- 0Ffwvc5lM0dPils17JsY1Sb9q9dJPsL817pCtStaR/Wih+Qnz10/sChWlev4Hs32dzBQbrrWTH4
- G4jIp+yjdH0GIewxpRMdwBjc+drzpYeI2jy7KAhYBLxQWG8Rpqlchywdutna4mcO/b2K81F6S7O
- MCbNzQxg==
-X-Gm-Gg: ASbGncuw6C0UKsiyWzN+OLBClZpJ4ukxW1CpGDmOkoxg+ION195YpBQg2EPNqDa0l14
- yVl6BZ+7ZCgBx20fsqhndj0mnO6juKgWdcVfHtEZloY2AdMZ+5ZyTkNmBrUODweCWM2Y97D+UOJ
- 0UuWpJAziL6bj5obUFxEkj+G3/Uiv8sUm3KwQ8SOXJMvIHI4W5Lb5yXne2l4dbJSF3T0T0DyJ/g
- 4HH4KJp3BUiU1BWLVvuHRL9uyZl/qmg1j+G163V+2yYPjBxs9RdhV97xD80H0NePm6iTz4lUZLf
- ZGVbfmxEJ5SJwB6D7nswF0SZgLsR/NkiWk7JY1QsQr9MeWJIyXee2XL6Oh13UA71dHFzQrPwRd4
- oKPU=
-X-Received: by 2002:a05:620a:1996:b0:7e8:54f7:67cd with SMTP id
- af79cd13be357-7e854f76862mr91485985a.50.1754909815347; 
- Mon, 11 Aug 2025 03:56:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFSii5P15b+af3L4E7F/cQGCM1Xz8KwmyfhCdGkZGKODW+eFh6Bky1dDzTK+GfwnJZiiMZJQQ==
-X-Received: by 2002:a05:620a:1996:b0:7e8:54f7:67cd with SMTP id
- af79cd13be357-7e854f76862mr91484185a.50.1754909814934; 
- Mon, 11 Aug 2025 03:56:54 -0700 (PDT)
-Received: from [192.168.1.15] (c-73-183-52-120.hsd1.pa.comcast.net.
- [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7e698de2df7sm1273446485a.80.2025.08.11.03.56.51
+ AJvYcCVhytkvCEygtErWdMn2qogtW1MHhXmbW5KJ1NfF9BIT4DJmuk6uB8ybnehXaHU7Byt6KruZ5l6Ys2UFkg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxVux0/9UxTWnRjYXmkOB0H+EG5MvylWkEYwC2YeI5UFMLi9dOL
+ tCcRffcbSmvxgA+fhT05sdsN+qvJOqJIHMNdh83kYje1rripByoJB2W9
+X-Gm-Gg: ASbGncsWmTljgua7h3krCdzYVMDVLuYA3BnDBQI6/I7KvHBahoHGtydltOCZ0uss9hu
+ c5qO6Dtp9iIwucE2MCkHjtoRSVfZ8e0JHQJO+PmVy4s//BlIOgzn9aqzGMnCC4Be1DtBba511Vk
+ Q5IoOjFsXDg7bpOCEj7gkzdlYVGYqc8hZ9Hhrmb7aRYJEYypeFUPa1L4T6UeXjVOg6lbWDKT7jg
+ brS+McstKiUSRzd4TAsfmSaOItmizrcPBfsnKK0rqZOsMd/8BSvzcaH2IerZxKl9AN+gIAGHKRP
+ U+xQeVFY4ucQkFzaRnd7XlH/7A48tYGunq9QxH0pBSqL9PhxH2cuyqEqcOOTnwE4+w/w6NKVRPh
+ DrdubmARLWTmjy9Q+OalO
+X-Google-Smtp-Source: AGHT+IEgnc5QqrRg0lz9+OdndWHdvt/rKwyilSbik0M4f9+GbjXlUx7jAfvxAzW/AxvkKUcd3R5bIw==
+X-Received: by 2002:a05:6000:4308:b0:3b7:915c:5fa3 with SMTP id
+ ffacd0b85a97d-3b900fe7e69mr12080048f8f.24.1754910770430; 
+ Mon, 11 Aug 2025 04:12:50 -0700 (PDT)
+Received: from localhost ([87.254.0.133]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b79c3abed3sm40116248f8f.10.2025.08.11.04.12.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 03:56:53 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-Date: Mon, 11 Aug 2025 06:56:13 -0400
+ Mon, 11 Aug 2025 04:12:49 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Mon, 11 Aug 2025 12:12:11 +0100
+Message-ID: <20250811111211.1646600-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Message-Id: <20250811-drm-clk-round-rate-v2-9-4a91ccf239cf@redhat.com>
-References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
-In-Reply-To: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754909781; l=2307;
- i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=y0KLkFzoWiBCsjyKHVyFf5yBXdH+nrgv9bMtrhIbLXo=;
- b=j1ZnE8gcsk3YjO3zCEvUNiC5B3rrw/rsR6rCeLo5Q9BxZp8jvK69xEFMszvH1iDCwux2pSDHd
- eRkR0peMpaDCxDNa8Bi3chrL3Nda3ZZTmewCk0Eb5cefUz9pD7/Qw2Q
-X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
- pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GXTsA-vtISjrkUf62zMz7x33Vep8m9G22ZUpaQYghJQ_1754909815
-X-Mimecast-Originator: redhat.com
-Cc: imx@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-sunxi@lists.linux.dev, freedreno@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 9/9] drm/sun4i/sun4i_tcon_dclk: convert
- from round_rate() to determine_rate()
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: make variable data a u32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,74 +91,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The round_rate() clk ops is deprecated, so migrate this driver from
-round_rate() to determine_rate() using the Coccinelle semantic patch
-on the cover letter of this series.
+Make data a u32 instead of an unsigned long, this way it is
+explicitly the same width as the operations performed on it
+and the same width as a writel store, and it cleans up sign
+extention warnings when 64 bit static analysis is performed
+on the code.
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c b/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
-index 03d7de1911cd654f395ea85ad914588c4351f391..4afb12bd5281f0d1720cfe2c8f79b80d97244ef2 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon_dclk.c
-@@ -67,8 +67,8 @@ static unsigned long sun4i_dclk_recalc_rate(struct clk_hw *hw,
- 	return parent_rate / val;
- }
- 
--static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
--				  unsigned long *parent_rate)
-+static int sun4i_dclk_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+index 4846bf49c576..467f1a05747e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+@@ -251,7 +251,7 @@ void dwmac_dma_flush_tx_fifo(void __iomem *ioaddr)
+ void stmmac_set_mac_addr(void __iomem *ioaddr, const u8 addr[6],
+ 			 unsigned int high, unsigned int low)
  {
- 	struct sun4i_dclk *dclk = hw_to_dclk(hw);
- 	struct sun4i_tcon *tcon = dclk->tcon;
-@@ -77,7 +77,7 @@ static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
- 	int i;
+-	unsigned long data;
++	u32 data;
  
- 	for (i = tcon->dclk_min_div; i <= tcon->dclk_max_div; i++) {
--		u64 ideal = (u64)rate * i;
-+		u64 ideal = (u64)req->rate * i;
- 		unsigned long rounded;
- 
- 		/*
-@@ -99,17 +99,19 @@ static long sun4i_dclk_round_rate(struct clk_hw *hw, unsigned long rate,
- 			goto out;
- 		}
- 
--		if (abs(rate - rounded / i) <
--		    abs(rate - best_parent / best_div)) {
-+		if (abs(req->rate - rounded / i) <
-+		    abs(req->rate - best_parent / best_div)) {
- 			best_parent = rounded;
- 			best_div = i;
- 		}
- 	}
- 
- out:
--	*parent_rate = best_parent;
-+	req->best_parent_rate = best_parent;
- 
--	return best_parent / best_div;
-+	req->rate = best_parent / best_div;
-+
-+	return 0;
- }
- 
- static int sun4i_dclk_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -155,7 +157,7 @@ static const struct clk_ops sun4i_dclk_ops = {
- 	.is_enabled	= sun4i_dclk_is_enabled,
- 
- 	.recalc_rate	= sun4i_dclk_recalc_rate,
--	.round_rate	= sun4i_dclk_round_rate,
-+	.determine_rate = sun4i_dclk_determine_rate,
- 	.set_rate	= sun4i_dclk_set_rate,
- 
- 	.get_phase	= sun4i_dclk_get_phase,
-
+ 	data = (addr[5] << 8) | addr[4];
+ 	/* For MAC Addr registers we have to set the Address Enable (AE)
 -- 
 2.50.1
 
