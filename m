@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A77BB21EF6
+	by mail.lfdr.de (Postfix) with ESMTPS id 58C00B21EF8
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8CB4C29081;
-	Tue, 12 Aug 2025 07:10:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E56CC29086;
+	Tue, 12 Aug 2025 07:10:24 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CDF1C3FAC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7068C3FACA
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 11 Aug 2025 15:18:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2698E6145F;
+ by tor.source.kernel.org (Postfix) with ESMTP id 335376688D;
  Mon, 11 Aug 2025 15:18:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D82FBC4AF1B;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E9972C4CEFF;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754925508;
- bh=EceAz0gkP06guCu7njtkRh0Rlxv1sGIen5KvFDr5Yhc=;
+ s=k20201202; t=1754925509;
+ bh=queKsTtKB32N7EPjQSUCR/4rTC/5USNoziJ/hkh36Do=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=mFgG3loQTzNEJEvfb7yKawEQS2S1u5xDmEItebIeXipr+4USFmTWjTKMvEj/Vs3Mg
- JwkejLkwWWadR42nJkn86o+ZwxJVOHTmlyJJ4BSUKxgOXc9nDcOoeuj6xRiRnVoc8Z
- 5CQxnlL9BOsCxXCD5VtTUP1P2fA4ikOiEhZBPPswLSSYsKsdKoEGS+/znWBvsBtzNS
- hRWEBODnk8HlVUxiOBfsgWhyhS0fNA2AjJGccT6r4gbv+/wRC4eUWfu78s3Tyq+/hQ
- xNgB/ltwTqMjL3A/LF3iHOctz1I4CYAKOP4oEsEY1DlAPeBzOKrHb25h6kPGD6RVi8
- L4nuAQx6j/LZA==
+ b=bwbkkkP+OMzrmN2zvbzl0YBE6XTdLHAmS2lmkMVTWvPIYvv5K4Yqza+skGrE3oX16
+ 2vMgt+Fhaq+x+EFXjNO8B5J36wRJk9kAVOYkjb+opELAhGNSsvcfUoYxBHfretsRLA
+ 4zGYB5tubX4WobBHSnJRtGTymUt8CicVtWsuICL0bLiyPac5LO2rYcrQConJ79ktsn
+ cfngnHp2yfE0Bp52S/e06c8odvWOupl48duxmmDzvnnMWG4XzbU2DJU07yEnk/VXlt
+ SXI0dxcK7qVuM0OFyrwEcR2ttGb4de7yPovU0ccJvJqqKfC4opbxfTo00zUqY69v8N
+ pSC7//Tk5wYuA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id C0DBCC87FD2;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D6325C87FDA;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:27 -0400
+Date: Mon, 11 Aug 2025 11:18:28 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-35-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-36-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=1810;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=2856;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=kg08atohLFewl0jOxOzsnjF5Gymt0yX/f+cIJ8dXOXA=;
- b=qFmcgAGLaBbDRycLB4coxbfj8Y/JJhKjcTMkrnwQ8lSeQqTuZDivXIMPyNJd/3F4h55Wx4ELW
- JJMgwNs4wUQDxH29+4RDewAMGj/vwO0jCE2Qaw/XbgNoLrraUg/Jg5i
+ bh=le7opsxs0SynMMO1WbjAmxEq9McwQ2/93Evsw++xuwQ=;
+ b=Kxhwjvdno7BQdbPOQ6FQwluBNf+pBvM1qs5Lxn/nxYkyMDPwVqnZbrDrRrQRloIFcBfsoB6Fk
+ Ue2Yz4cZOJrAE4dZQ3/gEwhrcGfLfhaNTnBzchHnHAV2J+2OfHmaoFG
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 035/114] clk: nuvoton: ma35d1-divider: convert
+Subject: [Linux-stm32] [PATCH 036/114] clk: nuvoton: ma35d1-pll: convert
  from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,42 +139,80 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1-divider.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1-pll.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-index bb8c23d2b895ff1975165443b4bd2541e9d6e272..e39f53d5bf4578c628d34b05233c8e8da317c4d4 100644
---- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-@@ -39,12 +39,16 @@ static unsigned long ma35d1_clkdiv_recalc_rate(struct clk_hw *hw, unsigned long
- 				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-pll.c b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+index ff3fb8b87c24b0fc0823cbd2e3cf311137fa56db..4620acfe47e85f7982325bb5610a23888c7a9cf2 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-pll.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+@@ -244,35 +244,43 @@ static unsigned long ma35d1_clk_pll_recalc_rate(struct clk_hw *hw, unsigned long
+ 	return 0;
  }
  
--static long ma35d1_clkdiv_round_rate(struct clk_hw *hw, unsigned long rate, unsigned long *prate)
-+static int ma35d1_clkdiv_determine_rate(struct clk_hw *hw,
-+					struct clk_rate_request *req)
+-static long ma35d1_clk_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+-				      unsigned long *parent_rate)
++static int ma35d1_clk_pll_determine_rate(struct clk_hw *hw,
++					 struct clk_rate_request *req)
  {
- 	struct ma35d1_adc_clk_div *dclk = to_ma35d1_adc_clk_div(hw);
+ 	struct ma35d1_clk_pll *pll = to_ma35d1_clk_pll(hw);
+ 	u32 reg_ctl[3] = { 0 };
+ 	unsigned long pll_freq;
+ 	long ret;
  
--	return divider_round_rate(hw, rate, prate, dclk->table,
--				  dclk->width, CLK_DIVIDER_ROUND_CLOSEST);
-+	req->rate = divider_round_rate(hw, req->rate, &req->best_parent_rate,
-+				       dclk->table, dclk->width,
-+				       CLK_DIVIDER_ROUND_CLOSEST);
+-	if (*parent_rate < PLL_FREF_MIN_FREQ || *parent_rate > PLL_FREF_MAX_FREQ)
++	if (req->best_parent_rate < PLL_FREF_MIN_FREQ || req->best_parent_rate > PLL_FREF_MAX_FREQ)
+ 		return -EINVAL;
+ 
+-	ret = ma35d1_pll_find_closest(pll, rate, *parent_rate, reg_ctl, &pll_freq);
++	ret = ma35d1_pll_find_closest(pll, req->rate, req->best_parent_rate,
++				      reg_ctl, &pll_freq);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	switch (pll->id) {
+ 	case CAPLL:
+ 		reg_ctl[0] = readl_relaxed(pll->ctl0_base);
+-		pll_freq = ma35d1_calc_smic_pll_freq(reg_ctl[0], *parent_rate);
+-		return pll_freq;
++		pll_freq = ma35d1_calc_smic_pll_freq(reg_ctl[0], req->best_parent_rate);
++		req->rate = pll_freq;
 +
-+	return 0;
++		return 0;
+ 	case DDRPLL:
+ 	case APLL:
+ 	case EPLL:
+ 	case VPLL:
+ 		reg_ctl[0] = readl_relaxed(pll->ctl0_base);
+ 		reg_ctl[1] = readl_relaxed(pll->ctl1_base);
+-		pll_freq = ma35d1_calc_pll_freq(pll->mode, reg_ctl, *parent_rate);
+-		return pll_freq;
++		pll_freq = ma35d1_calc_pll_freq(pll->mode, reg_ctl, req->best_parent_rate);
++		req->rate = pll_freq;
++
++		return 0;
+ 	}
++
++	req->rate = 0;
++
+ 	return 0;
  }
  
- static int ma35d1_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
-@@ -71,7 +75,7 @@ static int ma35d1_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate, unsigne
- 
- static const struct clk_ops ma35d1_adc_clkdiv_ops = {
- 	.recalc_rate = ma35d1_clkdiv_recalc_rate,
--	.round_rate = ma35d1_clkdiv_round_rate,
-+	.determine_rate = ma35d1_clkdiv_determine_rate,
- 	.set_rate = ma35d1_clkdiv_set_rate,
+@@ -311,12 +319,12 @@ static const struct clk_ops ma35d1_clk_pll_ops = {
+ 	.unprepare = ma35d1_clk_pll_unprepare,
+ 	.set_rate = ma35d1_clk_pll_set_rate,
+ 	.recalc_rate = ma35d1_clk_pll_recalc_rate,
+-	.round_rate = ma35d1_clk_pll_round_rate,
++	.determine_rate = ma35d1_clk_pll_determine_rate,
  };
  
+ static const struct clk_ops ma35d1_clk_fixed_pll_ops = {
+ 	.recalc_rate = ma35d1_clk_pll_recalc_rate,
+-	.round_rate = ma35d1_clk_pll_round_rate,
++	.determine_rate = ma35d1_clk_pll_determine_rate,
+ };
+ 
+ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const char *name,
 
 -- 
 2.50.1
