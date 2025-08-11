@@ -2,70 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45858B20A3F
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 15:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58F2B20CEF
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 17:04:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED57BC32E8E;
-	Mon, 11 Aug 2025 13:33:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 635D4C32E8E;
+	Mon, 11 Aug 2025 15:04:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C3FDC32E8D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62EA4C32E8D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 13:33:15 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57BDNkl9025158;
- Mon, 11 Aug 2025 15:32:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- aywYyzoixAm3Sjd8epTOZToUh9Gg+kyh1HfqY33n5bw=; b=Zv4kHUCXcILUQIx5
- iF4WiJiPI9HHvmA+T3RoIcBguAuS3C3kJDOPnxHM0kLu4l/+9SwtqS4cV6SWc5UI
- wU25e4iXd6rhFt8jyReReMhjqGC3POpMn3Fsvn19vgxAyo5jU/cF5q6co8GkTBAi
- Y6ZkpKmwjsMMOAufHn1POVfQotIT9MsYheaNWLEwgf03SC9ZweA5EIPWXG57iv43
- 4NsH6+qCCE4kbtBLzwSxUc6wYRfBjVsj4PvD9iEtZhEol8L2Nv878LY6uMrUDmjR
- o4uMnnnj6GuP8q+wSo0cNWkJQunTzuuQGx8Gf2Yoq7qBpxK+gD4WWO6kpG+ueWv3
- ajQglg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48dw7g65xf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Aug 2025 15:32:49 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 036A340044;
- Mon, 11 Aug 2025 15:31:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0BA2474D375;
- Mon, 11 Aug 2025 15:30:11 +0200 (CEST)
-Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 Aug
- 2025 15:30:10 +0200
-Message-ID: <2c497e75-bdb7-45ee-96ba-e293e33db91b@foss.st.com>
-Date: Mon, 11 Aug 2025 15:30:08 +0200
+ Mon, 11 Aug 2025 14:11:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6ACAA613AE;
+ Mon, 11 Aug 2025 14:11:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C30C4CEED;
+ Mon, 11 Aug 2025 14:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1754921497;
+ bh=HC0XY4Rhc7WOuzRzVmyl37sEhdbWKSBnwHufZNs1mlg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YCnli5jA26zq2pNPHckm2vDfk0UjlenfmUYYa6r4zxT4SvDbqTPGY4e/Xm2uTfzNg
+ lJbx4VXtQsWqEpP4mvR8bW0qazkFXDdDB+RQ3ZA+/rsyoaFq+I3Mrhpo56v3jU7r9q
+ mNCGBrZbz5m3YwfzJBfaSkpWwpsqpyyIitgbB5UF8is+j5NT4SghI4DFNcaiRtod2E
+ VBNLUH0yUHs5ic3z3zAX9hDoHhDk1EKD3xGcBQub25x+4BRdgCrjOEfoN+nIt6dKS8
+ VXLlVhHtuOBSc8Yaa1WBBfoJfakAJktRvuhamGBuN85S2PE0Bze9VYv0WmpVr2dzzC
+ xgV/rJFmzNmvQ==
+Date: Mon, 11 Aug 2025 19:41:28 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Harshal Dev <quic_hdev@quicinc.com>
+Message-ID: <aJn6EPjXzq07aDTM@sumit-X1>
+References: <20250625094028.758016-1-arnaud.pouliquen@foss.st.com>
+ <20250625094028.758016-3-arnaud.pouliquen@foss.st.com>
+ <d4694157-a757-41f5-8874-4b67b262bc83@quicinc.com>
+ <7c77dba4-27f9-4840-b9aa-253119308519@foss.st.com>
+ <e5a234c7-0f8d-4b52-95fb-82371c8e4460@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Bjorn Helgaas <helgaas@kernel.org>
-References: <20250808164527.GA92564@bhelgaas>
-From: Christian Bruel <christian.bruel@foss.st.com>
-Content-Language: en-US
-In-Reply-To: <20250808164527.GA92564@bhelgaas>
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-11_02,2025-08-11_01,2025-03-28_01
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- p.zabel@pengutronix.de, mani@kernel.org, linux-pci@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, thippeswamy.havalige@amd.com,
- linux-stm32@st-md-mailman.stormreply.com, cassel@kernel.org,
- devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- bhelgaas@google.com, krzk+dt@kernel.org, shradha.t@samsung.com,
- lpieralisi@kernel.org, johan+linaro@kernel.org, kwilczynski@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v12 2/9] PCI: stm32: Add PCIe host support
-	for STM32MP25
+Content-Disposition: inline
+In-Reply-To: <e5a234c7-0f8d-4b52-95fb-82371c8e4460@quicinc.com>
+X-Mailman-Approved-At: Mon, 11 Aug 2025 15:04:25 +0000
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-remoteproc@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Jens Wiklander <jens.wiklander@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v19 2/6] remoteproc: Add TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,81 +59,159 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Harshal,
 
-
-On 8/8/25 18:45, Bjorn Helgaas wrote:
-> On Fri, Aug 08, 2025 at 04:55:52PM +0200, Christian Bruel wrote:
->> On 8/7/25 20:09, Bjorn Helgaas wrote:
->>> [+to Linus for pinctrl usage question below]
->>>
->>> On Tue, Jun 10, 2025 at 11:07:07AM +0200, Christian Bruel wrote:
->>>> Add driver for the STM32MP25 SoC PCIe Gen1 2.5 GT/s and Gen2 5GT/s
->>>> controller based on the DesignWare PCIe core.
+On Mon, Aug 04, 2025 at 02:56:18PM +0530, Harshal Dev wrote:
+> Hi Arnaud,
 > 
->>>> +	return pinctrl_pm_select_sleep_state(dev);
->>>
->>> Isn't there some setup required before we can use
->>> pinctrl_select_state(), pinctrl_pm_select_sleep_state(),
->>> pinctrl_pm_select_default_state(), etc?
->>>
->>> I expected something like devm_pinctrl_get() in the .probe() path, but
->>> I don't see anything.  I don't know how pinctrl works, but I don't see
->>> how dev->pins gets set up.
->>
->> Linus knows better, but the dev->pins states are attached to the dev struct
->> before probe by the pinctrl driver
->>
->> /**
->>   * pinctrl_bind_pins() - called by the device core before probe
->>   * @dev: the device that is just about to probe
->>   */
->> int pinctrl_bind_pins(struct device *dev)
+> On 8/1/2025 12:53 PM, Arnaud POULIQUEN wrote:
+> > Hello Harshal,
+> > 
+> > 
+> > On 7/31/25 12:25, Harshal Dev wrote:
+> >> Hello Arnaud,
+> >>
+> >> On 6/25/2025 3:10 PM, Arnaud Pouliquen wrote:
+> >>> Add a remoteproc TEE (Trusted Execution Environment) driver that will be
+> >>> probed by the TEE bus. If the associated Trusted application is supported
+> >>> on the secure part, this driver offers a client interface to load firmware
+> >>> by the secure part.
+> >>> This firmware could be authenticated by the secure trusted application.
+> >>>
+> >>> A specificity of the implementation is that the firmware has to be
+> >>> authenticated and optionally decrypted to access the resource table.
+> >>>
+> >>> Consequently, the boot sequence is:
+> >>>
+> >>> 1) rproc_parse_fw --> rproc_tee_parse_fw
+> >>>    remoteproc TEE:
+> >>>    - Requests the TEE application to authenticate and load the firmware
+> >>>      in the remote processor memories.
+> >>>    - Requests the TEE application for the address of the resource table.
+> >>>    - Creates a copy of the resource table stored in rproc->cached_table.
+> >>>
+> >>> 2) rproc_load_segments --> rproc_tee_load_fw
+> >>>    remoteproc TEE:
+> >>>    - Requests the TEE application to load the firmware. Nothing is done
+> >>>      at the TEE application as the firmware is already loaded.
+> >>>    - In case of recovery, the TEE application has to reload the firmware.
+> >>>
+> >>> 3) rproc_tee_get_loaded_rsc_table
+> >>>    remoteproc TEE requests the TEE application for the address of the
+> >>>    resource table.
+> >>>
+> >>> 4) rproc_start --> rproc_tee_start
+> >>>    - Requests the TEE application to start the remote processor.
+> >>>
+> >>> The shutdown sequence is:
+> >>>
+> >>> 5) rproc_stop --> rproc_tee_stop
+> >>>    - Requests the TEE application to stop the remote processor.
+> >>>
+> >>> 6) rproc_tee_release_fw
+> >>>    This function is used to request the TEE application to perform actions
+> >>>    to return to the initial state on stop or on error during the boot
+> >>>    sequence.
+> >>>
+> >>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >>> ---
+> >>> Updates vs version [18]:
+> >>> - rework/fix function headers
+> >>> - use memremap instead of ioremap for the resource table.
+> >>> - realign comments to 80 chars limit, with few exceptions for readability
+> >>> - replace spinlock by mutex and and protect APIs from concurrent access
+> >>> - add support of 64-bit address in rproc_tee_get_loaded_rsc_table()
+> >>> - Generalize teston rproc_tee_ctx.dev to prevent an unbind
+> >>> - update copyright year
+> >>>
+> >>> Updates vs version [17]:
+> >>> Fix warning:
+> >>> warning: EXPORT_SYMBOL() is used, but #include <linux/export.h> is missing
+> >>> ---
+> >>>  drivers/remoteproc/Kconfig          |  10 +
+> >>>  drivers/remoteproc/Makefile         |   1 +
+> >>>  drivers/remoteproc/remoteproc_tee.c | 708 ++++++++++++++++++++++++++++
+> >>>  include/linux/remoteproc_tee.h      |  87 ++++
+> >>>  4 files changed, 806 insertions(+)
+> >>>  create mode 100644 drivers/remoteproc/remoteproc_tee.c
+> >>>  create mode 100644 include/linux/remoteproc_tee.h
+> >>>
+
+<snip>
+
+> >>> +
+> >>> +static int rproc_tee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+> >>> +{
+> >>> +	/* Today we support only the OP-TEE, could be extend to other tees */
+> >>> +	return (ver->impl_id == TEE_IMPL_ID_OPTEE);
+> >>> +}
+> >>> +
+> >>> +static int rproc_tee_probe(struct device *dev)
+> >>> +{
+> >>> +	struct tee_context *tee_ctx;
+> >>> +	int ret;
+> >>> +
+> >>> +	/* Open context with TEE driver */
+> >>> +	tee_ctx = tee_client_open_context(NULL, rproc_tee_ctx_match, NULL, NULL);
+> >>> +	if (IS_ERR(tee_ctx))
+> >>> +		return PTR_ERR(tee_ctx);
+> >>> +
+> >>> +	ret = mutex_lock_interruptible(&ctx_lock);
+> >>> +	if (ret)
+> >>> +		return ret;
+> >>> +
+> >>> +	rproc_tee_ctx.dev = dev;
+> >>> +	rproc_tee_ctx.tee_ctx = tee_ctx;
+> >>> +	INIT_LIST_HEAD(&rproc_tee_ctx.sessions);
+> >>> +	mutex_unlock(&ctx_lock);
+> >>> +
+> >>> +	return 0;
+> >>> +}
+> >>
+> >> As you mentioned above, this could be extended to other TEEs. If so, is it possible for probe
+> >> to be called multiple times if we we have other TEE devices exposing the firmware authentication
+> >> service? In that case, I think rproc_tee_ctx should be dynamically initializated instead of being
+> >> static. And since we are creating a link between the Rproc device and TEE device, a call to a
+> >> function like rproc_tee_start() could retreive the associated TEE device, and then the associated
+> >> rproc_tee? :)
+> > 
+> > I have never seen a use case that requires multiple instances, but perhaps you
+> > have some?
+> > 
+> > We can expect only one TEE, which could be OP-TEE, Trusty, or another.
+> > The device is associated with a unique UUID, so only one instance is expected.
+> > 
+> > That said, making this driver support multiple instances seems like a valid
+> > future enhancement. However, I would suggest implementing it as a second step
+> > when there is a concrete need.
+> > 
 > 
-> Thanks for the pointer.  Might be worthy of a mention in
-> Documentation/driver-api/pin-control.rst.  Maybe pinctrl/consumer.h
-> could even have a bread crumb to that effect since drivers use all
-> those interfaces that rely in the implicit initialization done before
-> their .probe().
+> My thought process on this stems from 1) the recent ARM FF-A developments and 2) from the current
+> implementation of the TEE subsystem which allows multiple back-end drivers to register themselves
+> via the tee_device_register() API. This means, that it's possible to have a configuration
+> where a platform supports multiple TEEs running as Secure Partitions via FF-A, and each of those
+> TEEs register their services as PTA devices on the TEE bus.
 > 
-> pin-control.rst mentions pinctrl_get_select_default() being called
-> just before the driver probe, but that's now unused and it looks like
-> pinctrl_bind_pins() does something similar:
+> However, I do not really know if it's possible to have a UUID collision in such a case, which
+> would lead to rproc_tee_probe() being called twice above, which is why I raised this question. :)
 > 
->    really_probe
->      pinctrl_bind_pins
->        dev->pins = devm_kzalloc()
->        devm_pinctrl_get
->        pinctrl_lookup_state(PINCTRL_STATE_DEFAULT)
->        pinctrl_lookup_state(PINCTRL_STATE_INIT)
->        pinctrl_select_state(init)      # if present, else default
->      call_driver_probe
+> All of this aside, I realize now that other TEE client drivers are also implemented with a static
+> private data similar to how you are doing it. So perhaps we can think of this as a later
+> enhancement if we believe that the scenario I am describing is not possible in the near future..
+>
 
-Yeah, and state_init is not mentioned in the documentation even for the 
-'normal probe'. The only doc I see from the original commit 
-ef0eebc05130b0d22b0ea65c0cd014ee16fc89c7
+Theoretically it is possible for multiple TEE services to be there but
+why should a platform/silicon vendor require 2 redundant remoteproc firmware
+loading services to be supported? It should either be a service hosted
+by the trusted OS or can rather be an independent platform service
+running as a FF-A secure partition.
 
-" 
-
-     Let's introudce a new "init" state.  If this is defined we'll set
-     pinctrl to this state before probe and then "default" after probe
-     (unless the driver explicitly changed states already). 
-
-"
-
-I will propose something in pin-control.rst, with maybe some code-block 
-for the pm part and respin [PATCH 0/2] Add pinctrl_pm_select_init_state 
-helper function...
-
-Christian
-
-> 
-> Bjorn
-
+-Sumit
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
