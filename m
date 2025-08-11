@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE575B21EED
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDA7CB21EFC
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B128C424C3;
-	Tue, 12 Aug 2025 07:10:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 765E5C2908E;
+	Tue, 12 Aug 2025 07:10:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2D02C3F95D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8487CC3FAC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D408614BD;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CC0846078;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 43611C4CEFE;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 551A9C4CEF8;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925508;
- bh=D0+0HBJ7gBFk3mQrClsW6gZHZMCBYhVZq5dCZk+U4EA=;
+ bh=JXFxzPmNEcmAc9CaGg3a44Xz6AHd9Frd9XNjsAxp210=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=cavdbgVAgWi1Q8Iv3Mnf7WEmbB1xdeUHE/blW4Ix8Cq3fip4DW3gG11n97wFYnPzE
- LkR0+x2CcdazwTXLxUfWeHQwzHCQtaZpHV+GGkGPxT9t6LBLttKmf6OD6FHKyx4vTU
- 9js3oIcu6puaJFBPFUFIxpNJL7gKgBHaZXG8jjWP/CnQ14fbePFkFlqW7c7fcusOsO
- nTr+O08qe9RiDW33jEdrW5YyzZEgHs8mRBB26nSbOf2dWw9VbkXmeldWq7GQ4/7JNW
- VgkVqyF8SzeCvJzd5ko9W09AB/4Xzlbq+WimWVXuuNMajhxJcuqSymYXLSs2MUsBEg
- t96/27rodptwA==
+ b=BNPtBhr9qBZIApf/cKfIg9eiluUfd22RE6MmEGdcKiUGgm8O/qzlFns6ao1Zuffxq
+ EhqLNA972TApavC2JiNerCkHqQE2FEsBFCq6KGCz3wDKQoGtqH4mjNvL5Y9+U8WjO5
+ QEDZ+UbynpCtv2bKrplNU5shAj1xabtuDQxQK48AR+ylyMEVTMAANc/MdIjUSPtFHv
+ jqL7nJDkvX5I8e2CUM1cBC1cnavzf/s9Juy3fe3NqLKORMdNdFXMUAcjxF9m8IpPWx
+ n05Tq79n8CaraY5LqzyZ3dk0gtVQlYKkD94eqXja9MUbHg7d4JIqN8+KG50ZqIALi4
+ D5FdR/jQHCd7g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 31C2BC87FDA;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 47D74C88CB9;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:21 -0400
+Date: Mon, 11 Aug 2025 11:18:22 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-29-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-30-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,17 +91,17 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=2085;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=2117;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=+yJFa5zFEUdNyjiEQPxFKaRY/PiG96TT1vlVYCT3CIE=;
- b=1q+FolOnvR2myVfUyWKDb+ibNzbIQfpr6SWmkMEVEG6fb5kEbV/XpQl6dEyLJKWSPsgld0L7u
- 0hemjN7BaYtD46ZSFWC89VYR0/EjoOyDSI4MO7q9iEzUnMCEXWmw+k7
+ bh=nbS+lfseW4POf+7BKNGCbFuuk4z3vqh5brFU07BCWjY=;
+ b=TxNZDlVqAB/rK83cdrpvc0jn++UNNk6hgPv5sXh/3OQ/S/DFzXtYhHVM02DhfEqyVBbsnp9jF
+ eO6x4YmPLY1AOuCF7wFj/UUbs3nsp+tbfFitys89bDtBMo8m2AYgHiW
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
  auth_id=472
 X-Original-From: Brian Masney <bmasney@redhat.com>
-X-Mailman-Approved-At: Tue, 12 Aug 2025 07:10:15 +0000
+X-Mailman-Approved-At: Tue, 12 Aug 2025 07:10:16 +0000
 Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
  Brian Masney <bmasney@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 029/114] clk: mmp: audio: convert from
+Subject: [Linux-stm32] [PATCH 030/114] clk: mmp: frac: convert from
  round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,63 +139,64 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/mmp/clk-audio.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/clk/mmp/clk-frac.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/clk/mmp/clk-audio.c b/drivers/clk/mmp/clk-audio.c
-index 88d798d510cdbe950a61a0bbb312dc546a6853fb..ed27fc796c941d8cf5b3297573db84a7830b7e4f 100644
---- a/drivers/clk/mmp/clk-audio.c
-+++ b/drivers/clk/mmp/clk-audio.c
-@@ -164,23 +164,23 @@ static unsigned long audio_pll_recalc_rate(struct clk_hw *hw,
- 	return 0;
- }
+diff --git a/drivers/clk/mmp/clk-frac.c b/drivers/clk/mmp/clk-frac.c
+index 6556f6ada2e830178b9525462f684bad683db454..0b1bb01346f0d7b450e85b805f6c84da6f803f56 100644
+--- a/drivers/clk/mmp/clk-frac.c
++++ b/drivers/clk/mmp/clk-frac.c
+@@ -21,8 +21,8 @@
  
--static long audio_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--				 unsigned long *parent_rate)
-+static int audio_pll_determine_rate(struct clk_hw *hw,
-+				    struct clk_rate_request *req)
+ #define to_clk_factor(hw) container_of(hw, struct mmp_clk_factor, hw)
+ 
+-static long clk_factor_round_rate(struct clk_hw *hw, unsigned long drate,
+-		unsigned long *prate)
++static int clk_factor_determine_rate(struct clk_hw *hw,
++				     struct clk_rate_request *req)
  {
- 	unsigned int prediv;
- 	unsigned int postdiv;
- 	long rounded = 0;
+ 	struct mmp_clk_factor *factor = to_clk_factor(hw);
+ 	u64 rate = 0, prev_rate;
+@@ -33,19 +33,20 @@ static long clk_factor_round_rate(struct clk_hw *hw, unsigned long drate,
+ 		d = &factor->ftbl[i];
  
- 	for (prediv = 0; prediv < ARRAY_SIZE(predivs); prediv++) {
--		if (predivs[prediv].parent_rate != *parent_rate)
-+		if (predivs[prediv].parent_rate != req->best_parent_rate)
- 			continue;
- 		for (postdiv = 0; postdiv < ARRAY_SIZE(postdivs); postdiv++) {
- 			long freq = predivs[prediv].freq_vco;
- 
- 			freq /= postdivs[postdiv].divisor;
--			if (freq == rate)
--				return rate;
--			if (freq < rate)
-+			if (freq == req->rate)
-+				return 0;
-+			if (freq < req->rate)
- 				continue;
- 			if (rounded && freq > rounded)
- 				continue;
-@@ -188,7 +188,9 @@ static long audio_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 		}
+ 		prev_rate = rate;
+-		rate = (u64)(*prate) * d->denominator;
++		rate = (u64)(req->best_parent_rate) * d->denominator;
+ 		do_div(rate, d->numerator * factor->masks->factor);
+-		if (rate > drate)
++		if (rate > req->rate)
+ 			break;
  	}
- 
--	return rounded;
-+	req->rate = rounded;
+-	if ((i == 0) || (i == factor->ftbl_cnt)) {
+-		return rate;
+-	} else {
+-		if ((drate - prev_rate) > (rate - drate))
+-			return rate;
+-		else
+-			return prev_rate;
+-	}
++
++	if ((i == 0) || (i == factor->ftbl_cnt))
++		req->rate = rate;
++	else if ((req->rate - prev_rate) > (rate - req->rate))
++		req->rate = rate;
++	else
++		req->rate = prev_rate;
 +
 +	return 0;
  }
  
- static int audio_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -228,7 +230,7 @@ static int audio_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ static unsigned long clk_factor_recalc_rate(struct clk_hw *hw,
+@@ -160,7 +161,7 @@ static int clk_factor_init(struct clk_hw *hw)
  
- static const struct clk_ops audio_pll_ops = {
- 	.recalc_rate = audio_pll_recalc_rate,
--	.round_rate = audio_pll_round_rate,
-+	.determine_rate = audio_pll_determine_rate,
- 	.set_rate = audio_pll_set_rate,
+ static const struct clk_ops clk_factor_ops = {
+ 	.recalc_rate = clk_factor_recalc_rate,
+-	.round_rate = clk_factor_round_rate,
++	.determine_rate = clk_factor_determine_rate,
+ 	.set_rate = clk_factor_set_rate,
+ 	.init = clk_factor_init,
  };
- 
 
 -- 
 2.50.1
