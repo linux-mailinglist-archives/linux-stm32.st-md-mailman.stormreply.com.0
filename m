@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD93B21EE8
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ED2EB21EDC
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5AA8C424B7;
-	Tue, 12 Aug 2025 07:10:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 534ABC3FACF;
+	Tue, 12 Aug 2025 07:10:20 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 251D8C3F931
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44ADFC32E92
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:31 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E49BB6148F;
+ by nyc.source.kernel.org (Postfix) with ESMTP id E0CB0A56EAE;
  Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 71BF7C4CEFC;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 72F9AC4AF1A;
  Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925507;
- bh=C05qN+rnG/d3AGses+aAapiwOZCatP6PgtsobjYNUxo=;
+ bh=/m0n1INc3kjKj/iN6d8ZFdtoDJNBF32BzXLWWav9174=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=nQVlfLC5FERuGVAYNhIDC7pCSE1/v48Z2gdzhs4CNkdY1w/daDSpV0AOT3eYPWM1p
- k+M2sOpSyN4dd3TS3i1Sp3VnpjBr5V508mW0O4o2j01jJ/d/k/0i6wowPRVoxqIQLt
- +gkjyOGLrOhVfew0rcm3jDyXz3utMyzOBwZDDycZCm4ZpYZ5Jz+SZa5prgxc2qArgd
- pxudJnL0X5/ospwn5MR1r+ofn0VCZlEXOK5b0S3D3jGlPrL7VPqsf/7azLXTDGeYVm
- AdwAgVUAI4nBQhek7pFgkF4tCzBw6W1XPD0+somwRetdNg5NenFg4eLD5nn1Tahhj1
- jijBE3nOg0z3w==
+ b=mUbkN6N+CNmm8nTVqGRkFckCwJiU1p1E3R9dGgYnaFaLQtoFQb5BwcNUw9d6hkm7g
+ XBR7mrDWtporFUlSsi0382MonLYH2BfvtRnW5JtLXwjQHxGy8l7Tz/wwZJYPKCFmXa
+ 7dE6LlaiKs8rhhwF2fClJm+9BV+a4L1YeL4WuYlFltjLoJNxkcrxtA5SO9iJ6my9nd
+ 4kBHQPR9g76oyz42O4yvDvZQlvCz0YikpDjQw32JY8htxsYwhPkgLOssNXzlAsnlY1
+ nQAjwFU2PhoJ/59YoDs3gAe2PHstlQgAk1hRJRQL/OxfNz1zy1Habt7SkPzARArisl
+ rutQqSPuNszYg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 42F74C87FDA;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 5FB12C88CB9;
  Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:14 -0400
+Date: Mon, 11 Aug 2025 11:18:15 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-22-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-23-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=1643;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=1813;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=HtI1wvPz+5VdtS2qexqe2gHJW0XaSbgytBsDxFNInmk=;
- b=I/ftK0zO5KhfvWSspMM0n3T2XFtDNqi7KJXM5VDoHnMC3O9R8uaRBcQXlqQXM8RSKKFShUBUy
- KuGS3/JXiDxCQH6WtfJ9PL2VP8I7ckSpcvVp7q4O7vVmAi2h4M2G/rB
+ bh=MPzcrBPQGuTfy56c5U5WcclOdTxeqPehVwkouGqu3Y4=;
+ b=fmvYy9drD5J5zVeuCA/o62mRsAJKEF9i+yF7AEdh4jKSXBdGTuOFIpHpll7aYhS8aCTB6bTPn
+ O9N7kQvZyOzCAZkEfXW5xZFF+SWrOkWWqFNMrkcqg32x9FVx+8pAVZX
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 022/114] clk: ingenic: cgu: convert from
- round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 023/114] clk: ingenic: jz4780-cgu: convert
+ from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,43 +139,53 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/ingenic/cgu.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/clk/ingenic/jz4780-cgu.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/clk/ingenic/cgu.c b/drivers/clk/ingenic/cgu.c
-index 0c9c8344ad1103b13337a26e14b0d5d5c340d705..91e7ac0cc3342e3552acb9d2ec00865a5234ad4f 100644
---- a/drivers/clk/ingenic/cgu.c
-+++ b/drivers/clk/ingenic/cgu.c
-@@ -174,14 +174,16 @@ ingenic_pll_calc(const struct ingenic_cgu_clk_info *clk_info,
- 		n * od);
+diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
+index b1dadc0a5e7556a8570286344818c2d1157bf9e8..07e2f3c5c4549e28726b2dccd5f465f56aa9e694 100644
+--- a/drivers/clk/ingenic/jz4780-cgu.c
++++ b/drivers/clk/ingenic/jz4780-cgu.c
+@@ -128,19 +128,19 @@ static unsigned long jz4780_otg_phy_recalc_rate(struct clk_hw *hw,
+ 	return parent_rate;
  }
  
--static long
--ingenic_pll_round_rate(struct clk_hw *hw, unsigned long req_rate,
--		       unsigned long *prate)
-+static int ingenic_pll_determine_rate(struct clk_hw *hw,
-+				      struct clk_rate_request *req)
+-static long jz4780_otg_phy_round_rate(struct clk_hw *hw, unsigned long req_rate,
+-				      unsigned long *parent_rate)
++static int jz4780_otg_phy_determine_rate(struct clk_hw *hw,
++					 struct clk_rate_request *req)
  {
- 	struct ingenic_clk *ingenic_clk = to_ingenic_clk(hw);
- 	const struct ingenic_cgu_clk_info *clk_info = to_clk_info(ingenic_clk);
+-	if (req_rate < 15600000)
+-		return 12000000;
+-
+-	if (req_rate < 21600000)
+-		return 19200000;
++	if (req->rate < 15600000)
++		req->rate = 12000000;
++	else if (req->rate < 21600000)
++		req->rate = 19200000;
++	else if (req->rate < 36000000)
++		req->rate = 24000000;
++	else
++		req->rate = 48000000;
  
--	return ingenic_pll_calc(clk_info, req_rate, *prate, NULL, NULL, NULL);
-+	req->rate = ingenic_pll_calc(clk_info, req->rate, req->best_parent_rate,
-+				     NULL, NULL, NULL);
-+
+-	if (req_rate < 36000000)
+-		return 24000000;
+-
+-	return 48000000;
 +	return 0;
  }
  
- static inline int ingenic_pll_check_stable(struct ingenic_cgu *cgu,
-@@ -317,7 +319,7 @@ static int ingenic_pll_is_enabled(struct clk_hw *hw)
+ static int jz4780_otg_phy_set_rate(struct clk_hw *hw, unsigned long req_rate,
+@@ -212,7 +212,7 @@ static int jz4780_otg_phy_is_enabled(struct clk_hw *hw)
  
- static const struct clk_ops ingenic_pll_ops = {
- 	.recalc_rate = ingenic_pll_recalc_rate,
--	.round_rate = ingenic_pll_round_rate,
-+	.determine_rate = ingenic_pll_determine_rate,
- 	.set_rate = ingenic_pll_set_rate,
+ static const struct clk_ops jz4780_otg_phy_ops = {
+ 	.recalc_rate = jz4780_otg_phy_recalc_rate,
+-	.round_rate = jz4780_otg_phy_round_rate,
++	.determine_rate = jz4780_otg_phy_determine_rate,
+ 	.set_rate = jz4780_otg_phy_set_rate,
  
- 	.enable = ingenic_pll_enable,
+ 	.enable		= jz4780_otg_phy_enable,
 
 -- 
 2.50.1
