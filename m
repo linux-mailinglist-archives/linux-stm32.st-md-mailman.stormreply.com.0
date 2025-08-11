@@ -2,41 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B3AB1FFF1
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 09:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB6CB2006E
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Aug 2025 09:36:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D99B4C349C4;
-	Mon, 11 Aug 2025 07:09:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7627CC349C4;
+	Mon, 11 Aug 2025 07:36:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21271C36B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69A36C36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 07:09:48 +0000 (UTC)
+ Mon, 11 Aug 2025 07:36:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B4FC345833;
- Mon, 11 Aug 2025 07:09:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F7F8C4CEF1;
- Mon, 11 Aug 2025 07:09:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 413F861133;
+ Mon, 11 Aug 2025 07:36:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87602C4CEED;
+ Mon, 11 Aug 2025 07:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754896186;
- bh=sn7Sh5UF5eaSY/+uXbe3/GqIqYmFQl7TvOkBU92oEAU=;
+ s=k20201202; t=1754897792;
+ bh=FTwdbvuHr+oybtA3gNLW9qkwWv1MZMxUxE1XDWX3zZg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=At0Bc/zv2ATk+HEZY7+bQ41FpJDgYyUyxmsW4l8nJmZSvOZZNmN0MnAR+h6Ry/8GI
- JvWiPUgUCMlTJp4fRJkwwkOAa3QdUuwhmKZZt7u8Bv1+NZM0ykhtdd8w6uW4OQwiwE
- P3/TM7bYRqNfqM2ypo3wLpLparLJwuMmkxWTt+36MoQaNc4o0RAA7EWcVMkIFapxfe
- /ppUmmvJO0nOIxx7PyFhk5RnhBY2lcQmzkQMOD97wI30LUyCKSidTpHjqfq1Gfc1b3
- GImehTPjB1R0lcrs3v/PJ/KG2VITlSa7LcHN7Efu/7obhqAWaHRC9fNuseaEiCGeAO
- u34A+h5jEcWdg==
-Message-ID: <39c67e57-e4e6-46ba-bd61-46afc650381c@kernel.org>
-Date: Mon, 11 Aug 2025 09:09:42 +0200
+ b=LoXj+qtplu3dfcr/AV7V5bVpHmNEn+3ixgYdntJWHySBMuHorVVZbJ8cnuY6y9KKF
+ jlLFwWZ/T12dVEGOBec76WQGk4bDMFsCS4YkqqPSuHlFxb4irybKnRO58Ub1B4SkeZ
+ qIdr7p0dPko0oZwh5PvXNTg0NPAeC8262duAnOO9pqCwsYGYtOePM+KDxMYwnmlgcb
+ wMDK6qgtdNKPkoHPQoZcr9RA+XOzHQZQWQg7BGWl3X6qs7ZlATcSPhas0bf8B/iFEk
+ Z85SMY1suLZ+tqqvELCughcvBtmiqfaZsIW+fJYf/CrkHpu2vKEYa0iJxj1YRYaNtf
+ +rpySYDmhUAPg==
+Message-ID: <7883de94-425e-4679-822f-af9fc263ae9c@kernel.org>
+Date: Mon, 11 Aug 2025 09:36:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Patrice Chotard <patrice.chotard@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Kerello <christophe.kerello@foss.st.com>
-References: <20250807-upstream_omm_fix_req2ack_test_condition-v2-1-d7df4af2b48b@foss.st.com>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20250811-upstream_fix_dts_omm-v2-1-00ff55076bd5@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -82,12 +83,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250807-upstream_omm_fix_req2ack_test_condition-v2-1-d7df4af2b48b@foss.st.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] memory: stm32_omm: Fix req2ack update
-	test
+In-Reply-To: <20250811-upstream_fix_dts_omm-v2-1-00ff55076bd5@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] arm64: dts: st: Add
+ memory-region-names property for stm32mp257f-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,19 +104,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07/08/2025 09:34, Patrice Chotard wrote:
-> If "st,omm-req2ack-ns" property is found and its value is not 0,
-> the current test doesn't allow to compute and set req2ack value,
-> Fix this test.
+On 11/08/2025 09:01, Patrice Chotard wrote:
+> In order to set the AMCR register, which configures the
+> memory-region split between ospi1 and ospi2, we need to
+> identify the ospi instance.
 > 
-> Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
+> By using memory-region-names, it allows to identify the
+> ospi instance this memory-region belongs to.
+> 
+> Fixes: cad2492de91c ("arm64: dts: st: Add SPI NOR flash support on stm32mp257f-ev1 board")
 > Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 > ---
 > Changes in v2:
-> - Add more detail in commit message
+> - Update commit message.
+> - Use correct memory-region-names value.
 > - Remove "Cc: <stable@vger.kernel.org>" tag as the fixed patch is not part of a LTS.
 
-Why LTS would matter? Which kernel is being fixed here?
+How LTS is relevant here?
 
 Best regards,
 Krzysztof
