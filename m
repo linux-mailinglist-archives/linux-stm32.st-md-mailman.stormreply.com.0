@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7BCB21EF9
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 569DBB21EEA
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26C71C29088;
-	Tue, 12 Aug 2025 07:10:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11687C424BB;
+	Tue, 12 Aug 2025 07:10:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24C69C3FAC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0A7DC3F92E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:35 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2BA854606A;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6089B6144F;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0D1A7C4AF0F;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 28B71C4CEFF;
  Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925508;
- bh=KIzK1y+XvJXgXVJmpxuu1oj/TOtYyynNT1K4bxquqpQ=;
+ bh=zMy6whF6uKQ1TUzx17dFw1StJamO9kLFNyTBGcp6mAQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=ladf+r+f+n6mLIzsUVkEhYGuhV89YOHh1xm5PwjJdWqejO8mknxvrm0/Uu0kUnMJg
- ypa0J0UAFTt/wXwIa9FFLUpBrbkuCKqs3TKGAP2ygJ7GznrHhKvMxDvNAY38yefc7Q
- keI9OSOQD7Qq60BwfotALnCbK5DtdIT1B4qyLQT3zq2OmRNVoe0sgtVxT9mJ6247bV
- s3G5UYBX1PyY9kTM1JheVrOq+lAhNjuqCEAZlGKYNFsKGouUPwtJKt8Gs3luR0g/yf
- BX+KfFH8JcA9T1e3wmruE4MmQUQ9g7PEpRttyerBZ073OiOHtJIgvydtjd1/rWTjgG
- QppZEQOWJ+3Xw==
+ b=OISyr9Nfh5//srgsIzU5HjQlI5maAJGDmSAct+6THYDZvoxeiRoubgVhYJ4mdLFx4
+ ZzCl2vvDNTqmQTY7u00wim9Jqp+IqRdhZmkbAZCy5AgLhYoGVpqCkD1jNgWTXx4yV3
+ L6sj88dowt1PKZQxq5Sa33Vi/8VCWl/7OXJ6xYh3/LwTYPBwxmIhmdqcqOlM8vxziP
+ Q1b0XAvoog6bKGbp2m+xt0DB/LGkA9mJ+OWFQIXglkBuRNa/FzgGDJOivPE3r6zDiy
+ 47HRbarerlQIhDc8edo1na97jd7z6nS4tODBU7LIcqiw+WaLdSbjhLAsVb15mWyGsQ
+ H0f9QB86PFakw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EDD87C87FD2;
- Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 18BE3CA0EC4;
+ Mon, 11 Aug 2025 15:18:28 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:19 -0400
+Date: Mon, 11 Aug 2025 11:18:20 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-27-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-28-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=2448;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=2218;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=ACn7Vzsmdgc+NbDAa3T2dL1GhpryIFxMBrKCCE3Hka4=;
- b=OH/TJn3POMBI1RZ7OuWCF052s7ausTtnOWsJMmihrPM2qsKOSmjfBDkfMqICJ5bu7wjHjW7Fd
- vPIX9InPWBxDR3TMeX7PJ9YYwvobQIWrICCRcdOgZLyIa+xzx9WVjKV
+ bh=5TdaCYdNCxvtkvciw+iLI7X0B3hQqFVvjJmg7rSFzmU=;
+ b=e/NyMnffsCwpeedyIkqkgkajSKAMa4dsuRJNgY+hbjCH1vZeUN/Z2aGHGhUDQNmD4KDP64ttS
+ hAypdkGK3uHCv6C6A9OVfoqzT9uwhDOYr9qD1oeu/ATPAEsOUa15Z3T
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 027/114] clk: max9485: convert from
+Subject: [Linux-stm32] [PATCH 028/114] clk: milbeaut: convert from
  round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,83 +139,58 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/clk-max9485.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/clk/clk-milbeaut.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/clk/clk-max9485.c b/drivers/clk/clk-max9485.c
-index be9020b6c789642e6d63065aa905088e01929147..0515e3e41162e38fb31809e7cb3116257204f2c0 100644
---- a/drivers/clk/clk-max9485.c
-+++ b/drivers/clk/clk-max9485.c
-@@ -159,29 +159,32 @@ static unsigned long max9485_clkout_recalc_rate(struct clk_hw *hw,
- 	return 0;
+diff --git a/drivers/clk/clk-milbeaut.c b/drivers/clk/clk-milbeaut.c
+index 18c20aff45f7698ac40451ef8000ec4fc4efc96b..b4f9b7143eaa658a7f2a14ff3cc9d91d8aa071c6 100644
+--- a/drivers/clk/clk-milbeaut.c
++++ b/drivers/clk/clk-milbeaut.c
+@@ -386,8 +386,8 @@ static unsigned long m10v_clk_divider_recalc_rate(struct clk_hw *hw,
+ 				   divider->flags, divider->width);
  }
  
--static long max9485_clkout_round_rate(struct clk_hw *hw, unsigned long rate,
--				      unsigned long *parent_rate)
-+static int max9485_clkout_determine_rate(struct clk_hw *hw,
-+					 struct clk_rate_request *req)
+-static long m10v_clk_divider_round_rate(struct clk_hw *hw, unsigned long rate,
+-				unsigned long *prate)
++static int m10v_clk_divider_determine_rate(struct clk_hw *hw,
++					   struct clk_rate_request *req)
  {
- 	const struct max9485_rate *curr, *prev = NULL;
+ 	struct m10v_clk_divider *divider = to_m10v_div(hw);
  
- 	for (curr = max9485_rates; curr->out != 0; curr++) {
- 		/* Exact matches */
--		if (curr->out == rate)
--			return rate;
-+		if (curr->out == req->rate)
-+			return 0;
+@@ -398,13 +398,19 @@ static long m10v_clk_divider_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		val = readl(divider->reg) >> divider->shift;
+ 		val &= clk_div_mask(divider->width);
  
- 		/*
- 		 * Find the first entry that has a frequency higher than the
- 		 * requested one.
- 		 */
--		if (curr->out > rate) {
-+		if (curr->out > req->rate) {
- 			unsigned int mid;
- 
- 			/*
- 			 * If this is the first entry, clamp the value to the
- 			 * lowest possible frequency.
- 			 */
--			if (!prev)
--				return curr->out;
-+			if (!prev) {
-+				req->rate = curr->out;
+-		return divider_ro_round_rate(hw, rate, prate, divider->table,
+-					     divider->width, divider->flags,
+-					     val);
++		req->rate = divider_ro_round_rate(hw, req->rate,
++						  &req->best_parent_rate,
++						  divider->table,
++						  divider->width,
++						  divider->flags, val);
 +
-+				return 0;
-+			}
- 
- 			/*
- 			 * Otherwise, determine whether the previous entry or
-@@ -189,14 +192,18 @@ static long max9485_clkout_round_rate(struct clk_hw *hw, unsigned long rate,
- 			 */
- 			mid = prev->out + ((curr->out - prev->out) / 2);
- 
--			return (mid > rate) ? prev->out : curr->out;
-+			req->rate = mid > req->rate ? prev->out : curr->out;
-+
-+			return 0;
- 		}
- 
- 		prev = curr;
++		return 0;
  	}
  
- 	/* If the last entry was still too high, clamp the value */
--	return prev->out;
-+	req->rate = prev->out;
+-	return divider_round_rate(hw, rate, prate, divider->table,
+-				  divider->width, divider->flags);
++	req->rate = divider_round_rate(hw, req->rate, &req->best_parent_rate,
++				       divider->table, divider->width, divider->flags);
 +
 +	return 0;
  }
  
- struct max9485_clk {
-@@ -221,7 +228,7 @@ static const struct max9485_clk max9485_clks[MAX9485_NUM_CLKS] = {
- 		.parent_index = -1,
- 		.ops = {
- 			.set_rate	= max9485_clkout_set_rate,
--			.round_rate	= max9485_clkout_round_rate,
-+			.determine_rate = max9485_clkout_determine_rate,
- 			.recalc_rate	= max9485_clkout_recalc_rate,
- 		},
- 	},
+ static int m10v_clk_divider_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -450,7 +456,7 @@ static int m10v_clk_divider_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ static const struct clk_ops m10v_clk_divider_ops = {
+ 	.recalc_rate = m10v_clk_divider_recalc_rate,
+-	.round_rate = m10v_clk_divider_round_rate,
++	.determine_rate = m10v_clk_divider_determine_rate,
+ 	.set_rate = m10v_clk_divider_set_rate,
+ };
+ 
 
 -- 
 2.50.1
