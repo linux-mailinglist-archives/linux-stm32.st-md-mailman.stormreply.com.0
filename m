@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1875B21F4A
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:11:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24D6DB21F24
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5001C29099;
-	Tue, 12 Aug 2025 07:11:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C89C6C29089;
+	Tue, 12 Aug 2025 07:10:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDEF3C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAF3DC3FACC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:19:09 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 26875669DA;
+ by sea.source.kernel.org (Postfix) with ESMTP id 15C3D46007;
  Mon, 11 Aug 2025 15:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E583C4FE82;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 76EEFC4AF68;
  Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925516;
- bh=rzpBZkYghAZcxtF48aK2WAxgo7EwTwU3cUAFCTDtOyY=;
+ bh=m78DV2zSD9uqTTZTe+VLdvNS6pgFLPKMmR9Tja/DEes=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Wkvzqek+eZ2j6dfM5MIuXiSdorEkJB21qNzYKi8aL9xhvlmuaYskZP+qA8rCAZBZT
- x6m5Tcqhin1B2YoMlRPhWcyyyJwZl8UafAMMYeyq7XAECSNPI8PhMrOOvib2yGoPDC
- btrBdDazbZUf7YpgYhRdUC+7YzUGekFF+iWR/+0YGj81g4hWIL+0E6E61HrK0Ph5I5
- udTYJkCqmmaYO3mXm7FnzOxvPTdLHaQr+QiWd7LtQKgpWc3ZNBxfGkCAJxt9u2k4nJ
- MWFbv+4OcOj1FRZk7Ia0fPyL59w5YQfeOS2owc9jXE/DZhEx8pkCirrg49xjQt3f3r
- z8xGExFXm+79A==
+ b=Wm3999anwzJZLAsMfXtmHF/2AjShEzDOKrwZxk9METfQFaPy4DJF+PAI29QAWpBvD
+ l8Ej0emAoY5+6SnnOIotcmMHp1KBQlKScxzGH9rWhUI5qeuvCkY3WaOJ8uoNKghxLJ
+ 8watR7BciNiGZfs0L92ciUWPzPGb/jf0T3eVmbtP+jAV+GIlJx+2TUjjlDNhsyyyDG
+ oBOEiUokVIeZRlj1atucWlmQ5K75wXxzFV7DmhZWaWno5n4pqKQEcP4CR9Q7xy+ldt
+ WqRA8qiAiUdTIhDqauuuiba6gvyYR99DvkjsPksFJnZIP+kU7Kg/epHRA6rMwuW665
+ +Cm8XOMKgjzCw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 468DDCA0EC4;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 648A4CA0ED3;
  Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:42 -0400
+Date: Mon, 11 Aug 2025 11:19:43 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-110-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-111-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1976;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=2270;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=r0wZpG3a0OGoiWWOr5otP68Bbfx3lAgII/aJOFlzSdg=;
- b=k8KX5ycT4h+UD6Ldn+nVMm4CPQVIS/kfEwZv0cAIgiTd/uDJjAfgTwd1RRiqR3Paz0ywOWfvw
- Ps307wc4OEfBYUcvIzgQljpxLU2s8HVxlxD56X2u8DKuTuSP9uNJRuh
+ bh=ZIHCAEVSfzUYC7gs59802c9M/dWpJRCFCvoeCSAJWOI=;
+ b=ers9IA4nnmWnnnlCVnGasS5HZexaGz09F3l7/rT15n8N76akhVQx+IBd+lMd2sYJN9EmVlJIO
+ EA9yeUIhJDwCG7q6iVGduu4D+JEwojIkaqCdALlK7pEQrY/rFTNhJ3U
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 110/114] clk: visconti: pll: convert from
- round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 111/114] clk: divider: remove round_rate() in
+ favor of determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,59 +133,66 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Brian Masney <bmasney@redhat.com>
 
-The round_rate() clk ops is deprecated, so migrate this driver from
-round_rate() to determine_rate() using the Coccinelle semantic patch
-on the cover letter of this series.
+This driver implements both the determine_rate() and round_rate() clk
+ops, and the round_rate() clk ops is deprecated. When both are defined,
+clk_core_determine_round_nolock() from the clk core will only use the
+determine_rate() clk ops. Also all clk drivers that directly calls
+divider's round_rate() have been migrated over to determine_rate(). So
+let's remove the round_rate() clk ops.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/visconti/pll.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/clk/clk-divider.c | 23 -----------------------
+ 1 file changed, 23 deletions(-)
 
-diff --git a/drivers/clk/visconti/pll.c b/drivers/clk/visconti/pll.c
-index 8ca1bad61864204027b7aff9020f1cb9e7d198d3..681721d8503203de9ac49ac3207e121bb5bf2163 100644
---- a/drivers/clk/visconti/pll.c
-+++ b/drivers/clk/visconti/pll.c
-@@ -100,8 +100,8 @@ static unsigned long visconti_get_pll_rate_from_data(struct visconti_pll *pll,
- 	return rate_table[0].rate;
+diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
+index c1f426b8a5043cb5a1de08e1da385928ec54a2ed..2601b6155afb7391c6a0ffb91c58fa66cde98197 100644
+--- a/drivers/clk/clk-divider.c
++++ b/drivers/clk/clk-divider.c
+@@ -431,27 +431,6 @@ long divider_ro_round_rate_parent(struct clk_hw *hw, struct clk_hw *parent,
  }
+ EXPORT_SYMBOL_GPL(divider_ro_round_rate_parent);
  
--static long visconti_pll_round_rate(struct clk_hw *hw,
--				    unsigned long rate, unsigned long *prate)
-+static int visconti_pll_determine_rate(struct clk_hw *hw,
-+				       struct clk_rate_request *req)
+-static long clk_divider_round_rate(struct clk_hw *hw, unsigned long rate,
+-				unsigned long *prate)
+-{
+-	struct clk_divider *divider = to_clk_divider(hw);
+-
+-	/* if read only, just return current value */
+-	if (divider->flags & CLK_DIVIDER_READ_ONLY) {
+-		u32 val;
+-
+-		val = clk_div_readl(divider) >> divider->shift;
+-		val &= clk_div_mask(divider->width);
+-
+-		return divider_ro_round_rate(hw, rate, prate, divider->table,
+-					     divider->width, divider->flags,
+-					     val);
+-	}
+-
+-	return divider_round_rate(hw, rate, prate, divider->table,
+-				  divider->width, divider->flags);
+-}
+-
+ static int clk_divider_determine_rate(struct clk_hw *hw,
+ 				      struct clk_rate_request *req)
  {
- 	struct visconti_pll *pll = to_visconti_pll(hw);
- 	const struct visconti_pll_rate_table *rate_table = pll->rate_table;
-@@ -109,11 +109,16 @@ static long visconti_pll_round_rate(struct clk_hw *hw,
+@@ -527,7 +506,6 @@ static int clk_divider_set_rate(struct clk_hw *hw, unsigned long rate,
  
- 	/* Assuming rate_table is in descending order */
- 	for (i = 0; i < pll->rate_count; i++)
--		if (rate >= rate_table[i].rate)
--			return rate_table[i].rate;
-+		if (req->rate >= rate_table[i].rate) {
-+			req->rate = rate_table[i].rate;
-+
-+			return 0;
-+		}
- 
- 	/* return minimum supported value */
--	return rate_table[i - 1].rate;
-+	req->rate = rate_table[i - 1].rate;
-+
-+	return 0;
- }
- 
- static unsigned long visconti_pll_recalc_rate(struct clk_hw *hw,
-@@ -232,7 +237,7 @@ static const struct clk_ops visconti_pll_ops = {
- 	.enable = visconti_pll_enable,
- 	.disable = visconti_pll_disable,
- 	.is_enabled = visconti_pll_is_enabled,
--	.round_rate = visconti_pll_round_rate,
-+	.determine_rate = visconti_pll_determine_rate,
- 	.recalc_rate = visconti_pll_recalc_rate,
- 	.set_rate = visconti_pll_set_rate,
+ const struct clk_ops clk_divider_ops = {
+ 	.recalc_rate = clk_divider_recalc_rate,
+-	.round_rate = clk_divider_round_rate,
+ 	.determine_rate = clk_divider_determine_rate,
+ 	.set_rate = clk_divider_set_rate,
  };
+@@ -535,7 +513,6 @@ EXPORT_SYMBOL_GPL(clk_divider_ops);
+ 
+ const struct clk_ops clk_divider_ro_ops = {
+ 	.recalc_rate = clk_divider_recalc_rate,
+-	.round_rate = clk_divider_round_rate,
+ 	.determine_rate = clk_divider_determine_rate,
+ };
+ EXPORT_SYMBOL_GPL(clk_divider_ro_ops);
 
 -- 
 2.50.1
