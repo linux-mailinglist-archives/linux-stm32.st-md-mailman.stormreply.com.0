@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C07B21F49
+	by mail.lfdr.de (Postfix) with ESMTPS id E1875B21F4A
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:11:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94C98C29097;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5001C29099;
 	Tue, 12 Aug 2025 07:11:13 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C7F4C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDEF3C424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 11 Aug 2025 15:19:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 108B2668BB;
+ by tor.source.kernel.org (Postfix) with ESMTP id 26875669DA;
  Mon, 11 Aug 2025 15:18:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 38939C56890;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E583C4FE82;
  Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925516;
- bh=3YHiafO5ai5TDjyb1XuiS4P3RZCXD0dPBkmj+Wz8urA=;
+ bh=rzpBZkYghAZcxtF48aK2WAxgo7EwTwU3cUAFCTDtOyY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=rMvcJ6AEni5KWK0ZfZGbq0BcXk+Lw742zf3c0TcrVL7ng/biXVnab+a60hfxdW4Ow
- /xKh5d9U1wrRu4QYvFNpzalzbqZlyy7tKdbbzNuGEAvjQ8Rpz0zgqpzXxCE/XjSqPz
- nLRQ1a2lY4S5pNfVkMrJcidkTovihCe7pxftRO53orFz5JVwYaMMsgF32R6MaUwL8z
- yct4fGERFqbnBn989+Udc/vSvDILEb/mTgu/HJgzEfaKKiWFSgnJP+jOPi1E7vcYkg
- +VtKqd25H3z+tmVbHHXHekbm4waPWLcPlA4DHj3XWWz6Uclmk9FAzxMHFt91csXvQk
- UXVTdmR0K9NIg==
+ b=Wkvzqek+eZ2j6dfM5MIuXiSdorEkJB21qNzYKi8aL9xhvlmuaYskZP+qA8rCAZBZT
+ x6m5Tcqhin1B2YoMlRPhWcyyyJwZl8UafAMMYeyq7XAECSNPI8PhMrOOvib2yGoPDC
+ btrBdDazbZUf7YpgYhRdUC+7YzUGekFF+iWR/+0YGj81g4hWIL+0E6E61HrK0Ph5I5
+ udTYJkCqmmaYO3mXm7FnzOxvPTdLHaQr+QiWd7LtQKgpWc3ZNBxfGkCAJxt9u2k4nJ
+ MWFbv+4OcOj1FRZk7Ia0fPyL59w5YQfeOS2owc9jXE/DZhEx8pkCirrg49xjQt3f3r
+ z8xGExFXm+79A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1894ECA0ED7;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 468DDCA0EC4;
  Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:41 -0400
+Date: Mon, 11 Aug 2025 11:19:42 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-109-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-110-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1786;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1976;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=WxkhOFvXpJuPJ7xh1egBdlkK/xyPytMRdcsFFyltjAo=;
- b=S77BI7+2cZZGQObG51SfDHh+3vtt0iyhJIgVxfXMtet+TJGdq4KheCro0npIZwM5MMmAZsVli
- SX29nDOYn69AWncz3ZURtGQ9bxHYYmErvSXT7FYv1mWHeRHy8gJ9APm
+ bh=r0wZpG3a0OGoiWWOr5otP68Bbfx3lAgII/aJOFlzSdg=;
+ b=k8KX5ycT4h+UD6Ldn+nVMm4CPQVIS/kfEwZv0cAIgiTd/uDJjAfgTwd1RRiqR3Paz0ywOWfvw
+ Ps307wc4OEfBYUcvIzgQljpxLU2s8HVxlxD56X2u8DKuTuSP9uNJRuh
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 109/114] clk: versatile: vexpress-osc: convert
- from round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 110/114] clk: visconti: pll: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,48 +139,53 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/versatile/clk-vexpress-osc.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/clk/visconti/pll.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/clk/versatile/clk-vexpress-osc.c b/drivers/clk/versatile/clk-vexpress-osc.c
-index c385ca2f4a744dff3c3e4cf30add2e80718075ad..9adbf5c33bd1cadab0968134ddee1d1061f61239 100644
---- a/drivers/clk/versatile/clk-vexpress-osc.c
-+++ b/drivers/clk/versatile/clk-vexpress-osc.c
-@@ -33,18 +33,18 @@ static unsigned long vexpress_osc_recalc_rate(struct clk_hw *hw,
- 	return rate;
+diff --git a/drivers/clk/visconti/pll.c b/drivers/clk/visconti/pll.c
+index 8ca1bad61864204027b7aff9020f1cb9e7d198d3..681721d8503203de9ac49ac3207e121bb5bf2163 100644
+--- a/drivers/clk/visconti/pll.c
++++ b/drivers/clk/visconti/pll.c
+@@ -100,8 +100,8 @@ static unsigned long visconti_get_pll_rate_from_data(struct visconti_pll *pll,
+ 	return rate_table[0].rate;
  }
  
--static long vexpress_osc_round_rate(struct clk_hw *hw, unsigned long rate,
--		unsigned long *parent_rate)
-+static int vexpress_osc_determine_rate(struct clk_hw *hw,
+-static long visconti_pll_round_rate(struct clk_hw *hw,
+-				    unsigned long rate, unsigned long *prate)
++static int visconti_pll_determine_rate(struct clk_hw *hw,
 +				       struct clk_rate_request *req)
  {
- 	struct vexpress_osc *osc = to_vexpress_osc(hw);
+ 	struct visconti_pll *pll = to_visconti_pll(hw);
+ 	const struct visconti_pll_rate_table *rate_table = pll->rate_table;
+@@ -109,11 +109,16 @@ static long visconti_pll_round_rate(struct clk_hw *hw,
  
--	if (osc->rate_min && rate < osc->rate_min)
--		rate = osc->rate_min;
-+	if (osc->rate_min && req->rate < osc->rate_min)
-+		req->rate = osc->rate_min;
+ 	/* Assuming rate_table is in descending order */
+ 	for (i = 0; i < pll->rate_count; i++)
+-		if (rate >= rate_table[i].rate)
+-			return rate_table[i].rate;
++		if (req->rate >= rate_table[i].rate) {
++			req->rate = rate_table[i].rate;
++
++			return 0;
++		}
  
--	if (osc->rate_max && rate > osc->rate_max)
--		rate = osc->rate_max;
-+	if (osc->rate_max && req->rate > osc->rate_max)
-+		req->rate = osc->rate_max;
- 
--	return rate;
+ 	/* return minimum supported value */
+-	return rate_table[i - 1].rate;
++	req->rate = rate_table[i - 1].rate;
++
 +	return 0;
  }
  
- static int vexpress_osc_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -57,7 +57,7 @@ static int vexpress_osc_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- static const struct clk_ops vexpress_osc_ops = {
- 	.recalc_rate = vexpress_osc_recalc_rate,
--	.round_rate = vexpress_osc_round_rate,
-+	.determine_rate = vexpress_osc_determine_rate,
- 	.set_rate = vexpress_osc_set_rate,
+ static unsigned long visconti_pll_recalc_rate(struct clk_hw *hw,
+@@ -232,7 +237,7 @@ static const struct clk_ops visconti_pll_ops = {
+ 	.enable = visconti_pll_enable,
+ 	.disable = visconti_pll_disable,
+ 	.is_enabled = visconti_pll_is_enabled,
+-	.round_rate = visconti_pll_round_rate,
++	.determine_rate = visconti_pll_determine_rate,
+ 	.recalc_rate = visconti_pll_recalc_rate,
+ 	.set_rate = visconti_pll_set_rate,
  };
- 
 
 -- 
 2.50.1
