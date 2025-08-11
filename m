@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB749B21F3A
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DDEEB21F30
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BB16C290AB;
-	Tue, 12 Aug 2025 07:10:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4960EC29097;
+	Tue, 12 Aug 2025 07:10:55 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81238C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E56BC3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:19:00 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8AC8466981;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F35EAC4FEA3;
- Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 98CBD6694D;
+ Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 187B1C55DDF;
+ Mon, 11 Aug 2025 15:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1754925513;
- bh=MrrMtNkSO9iG1WIbrcOSOjndK2PbBimlmPdKKlwYuOc=;
+ bh=NuJCEAEh3idUr6pU5F77ik+B6H4UWsdyl59LYOYF++w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=TyV4pa7s7Ob9QAibNEzzgNTsPwZjEYuYNWSrWnJliPN+vAj62iaNcis7y8PhfLe9Q
- IIC4EtfvwvHJ+q2IijL5Ebv9KcjbgCeBm/HmPXuu3YH/WldaYJEro/oKToZ2STHR8+
- zjZb990MFFha9XPxvU2ECc3Bzg5As7gCwBrxqt1VxAPAAsghEOw6Np/6HV7e0FDgjV
- PQu46MU3h1K8rc8rLr7aFJzrd4evqZWqau2ViRxLPZJvXBjsTSfa85EwN8HZbRamLg
- obskFOesjDXBZ8Y1fwcwKyinbIeJljt2fPrVLLU8DEsrtaA96hnlM1AHcLRhBKTNRH
- ri9JeMaYdK5Ng==
+ b=d8SazZ9w82FFuZtrLd5bErX8sLaWibRYAywfZlG5TFVPJAlSe3CirHFTR9KVdtT6p
+ 9XdaQspHo0t8a4/cco0NnRtdFVFGVq6PMPpkRxknLFCroJYJ6mhsXEOG/9H+v+Wi50
+ FG7fThVD7djnv98bmvUfm+KaI3koTcYvTZnnjXSPxpnChm7k8KaS6igfWHjcuCkJfT
+ beeE2dMsI+r6FSHTUeIoSaKOqULgaIQnBVOI8XdNIXaXPylzoMv/zR7Zd6qxCD7B30
+ rEaEzIO7/2A84Gj6nBzgmQ2LgP6w2uPTGHpjaVXdPRPdue2t+PLWuZ3Yoz668+xWvo
+ iAdrkLMRdQ9lQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DC39CCA0EC8;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id F133ACA0EC4;
  Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:08 -0400
+Date: Mon, 11 Aug 2025 11:19:09 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-76-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-77-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1817;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1754;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=+FK9LgHGXyQGGBSuKsYmGY0ad82VKpfsWPKq5cr8Ky0=;
- b=4I4qzLfvBXGWv1gBj0awBFVRJ6GU0raJMhE98aQB0e3Ey7YZ36DyHuoPKBRcBWuNwCpLg+4P4
- p3bkeEj+q4zC8OBsQklbj+kv8XBYWUnjHqHyrxMcTUYzvp7FMuo3K7z
+ bh=tJrefzaCIDHByIhDmSEbTFNo+MefLj7nMaGKSK6K6Kw=;
+ b=m/812GTBmvOl/yXEoIRoY72Q2sCPGjSyIZ0zetPLMAujCyyipwCyUqF8+bQbyT504uREIcJX6
+ Iy59Ks71TLEAws3xxupdrOq2zkLiYBEYQNSKs0r9amPdTNJKylARqU3
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 076/114] clk: axs10x: i2s_pll_clock: convert
- from round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 077/114] clk: axs10x: pll_clock: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,48 +139,47 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/axs10x/i2s_pll_clock.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/clk/axs10x/pll_clock.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/clk/axs10x/i2s_pll_clock.c b/drivers/clk/axs10x/i2s_pll_clock.c
-index 9667ce898428032f6db4070bd0e8ba92c074f277..6f3e1151b354e0a0d001b3241695f992df3b8711 100644
---- a/drivers/clk/axs10x/i2s_pll_clock.c
-+++ b/drivers/clk/axs10x/i2s_pll_clock.c
-@@ -108,21 +108,21 @@ static unsigned long i2s_pll_recalc_rate(struct clk_hw *hw,
- 	return ((parent_rate / idiv) * fbdiv) / odiv;
+diff --git a/drivers/clk/axs10x/pll_clock.c b/drivers/clk/axs10x/pll_clock.c
+index 6c7a2b62b406379279b1aab71ac0759f3c5fc64a..c7ca473ee76c83a52e924651046414f60736d542 100644
+--- a/drivers/clk/axs10x/pll_clock.c
++++ b/drivers/clk/axs10x/pll_clock.c
+@@ -149,8 +149,8 @@ static unsigned long axs10x_pll_recalc_rate(struct clk_hw *hw,
+ 	return rate;
  }
  
--static long i2s_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--			unsigned long *prate)
-+static int i2s_pll_determine_rate(struct clk_hw *hw,
-+				  struct clk_rate_request *req)
+-static long axs10x_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+-				  unsigned long *prate)
++static int axs10x_pll_determine_rate(struct clk_hw *hw,
++				     struct clk_rate_request *req)
  {
- 	struct i2s_pll_clk *clk = to_i2s_pll_clk(hw);
--	const struct i2s_pll_cfg *pll_cfg = i2s_pll_get_cfg(*prate);
-+	const struct i2s_pll_cfg *pll_cfg = i2s_pll_get_cfg(req->best_parent_rate);
  	int i;
+ 	long best_rate;
+@@ -163,11 +163,13 @@ static long axs10x_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+ 	best_rate = pll_cfg[0].rate;
  
- 	if (!pll_cfg) {
--		dev_err(clk->dev, "invalid parent rate=%ld\n", *prate);
-+		dev_err(clk->dev, "invalid parent rate=%ld\n", req->best_parent_rate);
- 		return -EINVAL;
+ 	for (i = 1; pll_cfg[i].rate != 0; i++) {
+-		if (abs(rate - pll_cfg[i].rate) < abs(rate - best_rate))
++		if (abs(req->rate - pll_cfg[i].rate) < abs(req->rate - best_rate))
+ 			best_rate = pll_cfg[i].rate;
  	}
  
- 	for (i = 0; pll_cfg[i].rate != 0; i++)
--		if (pll_cfg[i].rate == rate)
--			return rate;
-+		if (pll_cfg[i].rate == req->rate)
-+			return 0;
- 
- 	return -EINVAL;
+-	return best_rate;
++	req->rate = best_rate;
++
++	return 0;
  }
-@@ -156,7 +156,7 @@ static int i2s_pll_set_rate(struct clk_hw *hw, unsigned long rate,
  
- static const struct clk_ops i2s_pll_ops = {
- 	.recalc_rate = i2s_pll_recalc_rate,
--	.round_rate = i2s_pll_round_rate,
-+	.determine_rate = i2s_pll_determine_rate,
- 	.set_rate = i2s_pll_set_rate,
+ static int axs10x_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -208,7 +210,7 @@ static int axs10x_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ 
+ static const struct clk_ops axs10x_pll_ops = {
+ 	.recalc_rate = axs10x_pll_recalc_rate,
+-	.round_rate = axs10x_pll_round_rate,
++	.determine_rate = axs10x_pll_determine_rate,
+ 	.set_rate = axs10x_pll_set_rate,
  };
  
 
