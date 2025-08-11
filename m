@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2262DB21EDF
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D980EB21EF4
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C13CC3FAD1;
-	Tue, 12 Aug 2025 07:10:20 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85405C424D2;
+	Tue, 12 Aug 2025 07:10:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36C3CC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA579C3FACA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:29 +0000 (UTC)
+ Mon, 11 Aug 2025 15:18:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A3B725C57A4;
+ by sea.source.kernel.org (Postfix) with ESMTP id 97CBB4604E;
  Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E2B00C4DDE9;
- Mon, 11 Aug 2025 15:18:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 08D0FC4CEF7;
+ Mon, 11 Aug 2025 15:18:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754925506;
- bh=yUg1/t+RSmWtkk8iXc+Fnlb499lxXyvx0CNf5Bvycvs=;
+ s=k20201202; t=1754925507;
+ bh=pMSzs+LLQG/nV8KzlANIdjdPWA+TqzqMKv3U3QB7ebM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=YxWxCKX2kCTJIoAOvAiNhMY7eBxi+5/PVN2FNvX2RQ91gq6EnUUVHvFdpKWv/49dR
- zz98YMP46jnbllk0cWRWoVfUKIyelwoeFwJFvsn3yi2pWwnL+1iEFZ7/ic+cnhA17+
- GxuwN0tc+n1GOyTXlhMicxft4MJ9KWgvmp2v5aHtr6U8IfnsdBIabkCGfoz87KOiMc
- g5dEHEwiRVsaNxP6b0vkdWzNQ/cen8nTsdMNrMulJEarXpZ3b5irGhlITplK2yp6rW
- ydJOixGGPRNk4zf5YYI4FRRmI03quUbeCPEH3W0HfXD2GNg7XCD5Zo8xyK+Fawm0rG
- q0WEcv7WLGM9g==
+ b=plhY4fja1ygSEJLSTJG8dQiEYHuFNFBe4XitmxVdlN7Ea1SuHiLQ69WnavKsQJ17V
+ oRz+pZtQZyJ3ejlPs/TLItv9IDYszXPdXxvG+N/ebx470Ps3J+xuJmcjf5I4xNWWc/
+ Y2Kuz/5C7Aaz2wVTfkTeB/Lbirhp90Y53kVE17p3ie7YryF4BQcPdgdfGHKQ85D3/p
+ q8hKOKXeismBM7HQT1kZBfc2BkgmrzcI0wWIck82/rRtq30qKXnGRZ0bfCKH7hqUYj
+ lU/Ew8qxiTgMOXcEhRpD1C+m/5hGGcZWgaEKcmyjB8O3XIJd3TbsR1T3toNrrwmkmC
+ It0oL8UEH64Fw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CAAE8C87FDA;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E66AEC87FD2;
  Mon, 11 Aug 2025 15:18:26 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:18:10 -0400
+Date: Mon, 11 Aug 2025 11:18:11 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-18-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-19-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=1756;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925497; l=1857;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=YuAb/9WMhB5mgliqR9lEgRQWllZcQDXdJ4bdDgpH2vs=;
- b=OStIu9YLY/3p0vlTi5r6PsxiaGoJeTFbM8AV/IEyDt2QnmfNZWsRkvf0Apct10RgpVV26PI5e
- YMNijXglbZhBmFMLCOHBcq5xXg3S3k1GnwV3TTxCg17KRPaAfQhYAAG
+ bh=pA5mClIAqWRD8xr23+LW8paHRk4bx6Ip6j+lR6gsEH4=;
+ b=/4xa+9ZPbf1YpEA8q63RlWiisStSIhIqYd5eTHQrEvH3tDR3ww5drLjmHYBPoDFxS5vVEOwzG
+ iA8xPx+82hLBFeEgQKvF4kjQtv0Kp39kEqcfrO9GEkgnniXf6kRNkKx
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,8 +112,8 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 018/114] clk: hisilicon: clkdivider-hi6220:
- convert from round_rate() to determine_rate()
+Subject: [Linux-stm32] [PATCH 019/114] clk: hisilicon: hi3660-stub: move
+ comma from declaration of DEFINE_CLK_STUB()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,48 +133,46 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Brian Masney <bmasney@redhat.com>
 
-The round_rate() clk ops is deprecated, so migrate this driver from
-round_rate() to determine_rate() using the Coccinelle semantic patch
-on the cover letter of this series.
+When trying to use Coccinelle to make changes inside drivers/clk/, it
+really does not like the trailing comma at the end of the declaration
+of DEFINE_CLK_STUB, and fails to process this file. It also looks weird
+to not have commas to separate the various array members of
+hi3660_stub_clks. Let's move the trailing comma out of the define so
+that Coccinelle can be ran against this source file.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/hisilicon/clkdivider-hi6220.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/clk/hisilicon/clk-hi3660-stub.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/clk/hisilicon/clkdivider-hi6220.c b/drivers/clk/hisilicon/clkdivider-hi6220.c
-index 5348bafe694f0dacf30a59af92606c56efdb443b..6bae18a84cb6c0e19dd00762613fd9051849fdd0 100644
---- a/drivers/clk/hisilicon/clkdivider-hi6220.c
-+++ b/drivers/clk/hisilicon/clkdivider-hi6220.c
-@@ -55,13 +55,15 @@ static unsigned long hi6220_clkdiv_recalc_rate(struct clk_hw *hw,
- 				   CLK_DIVIDER_ROUND_CLOSEST, dclk->width);
- }
+diff --git a/drivers/clk/hisilicon/clk-hi3660-stub.c b/drivers/clk/hisilicon/clk-hi3660-stub.c
+index 3a653d54bee0562d26d0de1dd31525786d05d40d..b0a996385301af7bcce231be9e7d5092dd21c3ac 100644
+--- a/drivers/clk/hisilicon/clk-hi3660-stub.c
++++ b/drivers/clk/hisilicon/clk-hi3660-stub.c
+@@ -34,7 +34,7 @@
+ 			.num_parents = 0,			\
+ 			.flags = CLK_GET_RATE_NOCACHE,		\
+ 		},						\
+-	},
++	}
  
--static long hi6220_clkdiv_round_rate(struct clk_hw *hw, unsigned long rate,
--					unsigned long *prate)
-+static int hi6220_clkdiv_determine_rate(struct clk_hw *hw,
-+					struct clk_rate_request *req)
- {
- 	struct hi6220_clk_divider *dclk = to_hi6220_clk_divider(hw);
+ #define to_stub_clk(_hw) container_of(_hw, struct hi3660_stub_clk, hw)
  
--	return divider_round_rate(hw, rate, prate, dclk->table,
--				  dclk->width, CLK_DIVIDER_ROUND_CLOSEST);
-+	req->rate = divider_round_rate(hw, req->rate, &req->best_parent_rate, dclk->table,
-+				       dclk->width, CLK_DIVIDER_ROUND_CLOSEST);
-+
-+	return 0;
- }
- 
- static int hi6220_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -93,7 +95,7 @@ static int hi6220_clkdiv_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- static const struct clk_ops hi6220_clkdiv_ops = {
- 	.recalc_rate = hi6220_clkdiv_recalc_rate,
--	.round_rate = hi6220_clkdiv_round_rate,
-+	.determine_rate = hi6220_clkdiv_determine_rate,
- 	.set_rate = hi6220_clkdiv_set_rate,
+@@ -102,10 +102,10 @@ static const struct clk_ops hi3660_stub_clk_ops = {
  };
  
+ static struct hi3660_stub_clk hi3660_stub_clks[HI3660_CLK_STUB_NUM] = {
+-	DEFINE_CLK_STUB(HI3660_CLK_STUB_CLUSTER0, 0x0001030A, "cpu-cluster.0")
+-	DEFINE_CLK_STUB(HI3660_CLK_STUB_CLUSTER1, 0x0002030A, "cpu-cluster.1")
+-	DEFINE_CLK_STUB(HI3660_CLK_STUB_GPU, 0x0003030A, "clk-g3d")
+-	DEFINE_CLK_STUB(HI3660_CLK_STUB_DDR, 0x00040309, "clk-ddrc")
++	DEFINE_CLK_STUB(HI3660_CLK_STUB_CLUSTER0, 0x0001030A, "cpu-cluster.0"),
++	DEFINE_CLK_STUB(HI3660_CLK_STUB_CLUSTER1, 0x0002030A, "cpu-cluster.1"),
++	DEFINE_CLK_STUB(HI3660_CLK_STUB_GPU, 0x0003030A, "clk-g3d"),
++	DEFINE_CLK_STUB(HI3660_CLK_STUB_DDR, 0x00040309, "clk-ddrc"),
+ };
+ 
+ static struct clk_hw *hi3660_stub_clk_hw_get(struct of_phandle_args *clkspec,
 
 -- 
 2.50.1
