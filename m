@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D73B21F0B
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87B8B21F39
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 09:10:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20E04C29082;
-	Tue, 12 Aug 2025 07:10:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64972C290B6;
+	Tue, 12 Aug 2025 07:10:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F900C3FACC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23FCBC424B0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
+ Mon, 11 Aug 2025 15:19:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 555C15C558A;
- Mon, 11 Aug 2025 15:18:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C8301C4FF69;
+ by tor.source.kernel.org (Postfix) with ESMTP id 64A9366979;
+ Mon, 11 Aug 2025 15:18:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DF6A9C4AF0D;
  Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1754925512;
- bh=2MQP3in/0DNTL1tFUNdoKk8zcgy1cktnTa17pA2Cp5Y=;
+ s=k20201202; t=1754925513;
+ bh=3Gx03Ubsd5XMlMsMuFXdQK6hi5zxv2zoI8SJJjgJbSc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=dSDSxRPUQIAPgz0kTtWerHwYTdLYx+GJW0d1n75xbXQ1d9v2VeIxgWHOfj3ZObpMA
- QtVIlZR3nZkn5RmZZLOi6NxtHkz2xOgYTfXHKIWQRpXNWcXISyYn4aFl4YXOzwQp91
- nN77D3K2ahZmgh5ztNYyX8n+Fnlfg/UJqOUu6FonVvyHXP6EHAjJ8lZvqYi2TL58Tg
- RONZrVrJXc66Ku7qwFmBU/D515zpS6T+yexGdx73f9fCb+nz/js1bbi2c4o9e8dxbC
- iMxQlNYhYkPnLTtYIKJ6uA5K//no6YIZNaJLzwe5G7TWjMrQKngLyiMSmd73xgI498
- PDUfGumoOryDQ==
+ b=fqfY2reaIr3raNTN9sLMwGg9AlG+1pJUTsqxpKAz0JGBosE5iPq0GoM8LLMewTysx
+ tUP1EmXe2IBufRm8Q1AqHIZEIlaISl/9hQhrH2QSSz6+eu2g9g/UDFKLjINAKpQjRj
+ 2PY69D256RPQ8s6vX8+OPu65GCAz31a2NkLEdE6ASHyKZ0wC7h3Ai0cNlF3Dtzaqmh
+ mkiEJ62ax5dM32lWCN0vYRdLL9Yezx4WuV+hPmjK+E6jCJTOlI+y1ND0BZuHFN0cFa
+ DqWVcZTH31KbSJGjzlPds/F5vigTvrBWv53b9HNXxXfkaz445KrHyS9z5Wvmvsl9W8
+ mc595lwvvLJcg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id ABD62C87FD2;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C519ECA0ED1;
  Mon, 11 Aug 2025 15:18:32 +0000 (UTC)
 From: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Date: Mon, 11 Aug 2025 11:19:06 -0400
+Date: Mon, 11 Aug 2025 11:19:07 -0400
 MIME-Version: 1.0
-Message-Id: <20250811-clk-for-stephen-round-rate-v1-74-b3bf97b038dc@redhat.com>
+Message-Id: <20250811-clk-for-stephen-round-rate-v1-75-b3bf97b038dc@redhat.com>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
@@ -91,11 +91,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, 
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=2031;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1754925498; l=1712;
  i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
- bh=sPT71oy/nWfZWaCZ7el7QuoJ5ywx213EbLL8JhnT798=;
- b=IDpLSapmJO7PXGkC7plnr+o3NMSOGWmV/eJXMUiAXrlNF8HuVybNrfzkKp237krZ1OQLKwfma
- Reujd9fb10CBJ2DdQyK7WJxk2x6RExm5QnmSYYCR1C8ckWx/0GcYV4t
+ bh=6h2xxwGEdK+Wqe4OGkdQF+YuCDgQOB1uNjeimgHHxDs=;
+ b=GzFETmQ8VLKjT+mYaxzbS2sPx4d1/254ZhtTZRz5jRInTKHnyUcJbXAPDOt34cI1WGcpcU0P7
+ RZ0Ve+f7ARsCKVlLe63f0XM/7NRMtZOv/L4h2vtQ1TrfZGQ8yrTuEpb
 X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
  pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
 X-Endpoint-Received: by B4 Relay for bmasney@redhat.com/20250528 with
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 074/114] clk: actions: owl-pll: convert from
+Subject: [Linux-stm32] [PATCH 075/114] clk: apple-nco: convert from
  round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,64 +139,43 @@ on the cover letter of this series.
 
 Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- drivers/clk/actions/owl-pll.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ drivers/clk/clk-apple-nco.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/clk/actions/owl-pll.c b/drivers/clk/actions/owl-pll.c
-index 155f313986b40f15b7c426f4d49b1ed560acf9c3..869690b79cc16f05d63383b965ae5fc96deee79f 100644
---- a/drivers/clk/actions/owl-pll.c
-+++ b/drivers/clk/actions/owl-pll.c
-@@ -56,8 +56,8 @@ static const struct clk_pll_table *_get_pll_table(
- 	return table;
+diff --git a/drivers/clk/clk-apple-nco.c b/drivers/clk/clk-apple-nco.c
+index 457a48d4894128fff24d50eb7c9a3cbd7d35f245..d3ced4a0f029ec0440ff42d49d31e314fdf86846 100644
+--- a/drivers/clk/clk-apple-nco.c
++++ b/drivers/clk/clk-apple-nco.c
+@@ -212,13 +212,15 @@ static unsigned long applnco_recalc_rate(struct clk_hw *hw,
+ 			((u64) div) * incbase + inc1);
  }
  
--static long owl_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--		unsigned long *parent_rate)
-+static int owl_pll_determine_rate(struct clk_hw *hw,
+-static long applnco_round_rate(struct clk_hw *hw, unsigned long rate,
+-				unsigned long *parent_rate)
++static int applnco_determine_rate(struct clk_hw *hw,
 +				  struct clk_rate_request *req)
  {
- 	struct owl_pll *pll = hw_to_owl_pll(hw);
- 	struct owl_pll_hw *pll_hw = &pll->pll_hw;
-@@ -65,17 +65,24 @@ static long owl_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	u32 mul;
+-	unsigned long lo = *parent_rate / (COARSE_DIV_OFFSET + LFSR_TBLSIZE) + 1;
+-	unsigned long hi = *parent_rate / COARSE_DIV_OFFSET;
++	unsigned long lo = req->best_parent_rate / (COARSE_DIV_OFFSET + LFSR_TBLSIZE) + 1;
++	unsigned long hi = req->best_parent_rate / COARSE_DIV_OFFSET;
  
- 	if (pll_hw->table) {
--		clkt = _get_pll_table(pll_hw->table, rate);
--		return clkt->rate;
-+		clkt = _get_pll_table(pll_hw->table, req->rate);
-+		req->rate = clkt->rate;
-+
-+		return 0;
- 	}
- 
- 	/* fixed frequency */
--	if (pll_hw->width == 0)
--		return pll_hw->bfreq;
-+	if (pll_hw->width == 0) {
-+		req->rate = pll_hw->bfreq;
- 
--	mul = owl_pll_calculate_mul(pll_hw, rate);
-+		return 0;
-+	}
-+
-+	mul = owl_pll_calculate_mul(pll_hw, req->rate);
- 
--	return pll_hw->bfreq * mul;
-+	req->rate = pll_hw->bfreq * mul;
+-	return clamp(rate, lo, hi);
++	req->rate = clamp(req->rate, lo, hi);
 +
 +	return 0;
  }
  
- static unsigned long owl_pll_recalc_rate(struct clk_hw *hw,
-@@ -188,7 +195,7 @@ const struct clk_ops owl_pll_ops = {
- 	.enable = owl_pll_enable,
- 	.disable = owl_pll_disable,
- 	.is_enabled = owl_pll_is_enabled,
--	.round_rate = owl_pll_round_rate,
-+	.determine_rate = owl_pll_determine_rate,
- 	.recalc_rate = owl_pll_recalc_rate,
- 	.set_rate = owl_pll_set_rate,
- };
+ static int applnco_enable(struct clk_hw *hw)
+@@ -246,7 +248,7 @@ static void applnco_disable(struct clk_hw *hw)
+ static const struct clk_ops applnco_ops = {
+ 	.set_rate = applnco_set_rate,
+ 	.recalc_rate = applnco_recalc_rate,
+-	.round_rate = applnco_round_rate,
++	.determine_rate = applnco_determine_rate,
+ 	.enable = applnco_enable,
+ 	.disable = applnco_disable,
+ 	.is_enabled = applnco_is_enabled,
 
 -- 
 2.50.1
