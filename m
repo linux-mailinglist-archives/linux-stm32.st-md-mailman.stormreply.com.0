@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A07CB22936
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 15:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE06CB22931
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 15:51:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D227EC3F942;
-	Tue, 12 Aug 2025 13:51:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95F4FC3F940;
+	Tue, 12 Aug 2025 13:51:23 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21B1BC36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24794C3F93B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 13:51:24 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57CDRMS8015833;
+ Tue, 12 Aug 2025 13:51:22 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57CCM5mY016353;
  Tue, 12 Aug 2025 15:51:10 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- f5aImXme3gOQU/pOSB7kqei5E9wyfdYQvACc7haullE=; b=Zu7WXQ/e7DyTGGHj
- fxaSwM4T+AZtmAbzs5i8U4KIvcw8nfscQZCODS5KzRNNAv3aO9hatkcNuHvk+KPK
- RcbEA2Dqtrhpzlob5yM+uTyCI1TXCIpJSyUcxH4joLss+oH2qQ2TdLDHFEbtHxQ6
- 79QZb6deO9Jqkzq9zzLLKlSoWTjFkWp5veDIrKlKiPFoJYd4ZhGAT+tmSUBy+51t
- Tz34JyJXwvZ1YHnlo1s7Eec4UUrU0EoBalHviqCwCUnIE2ejXPrKvnZfupstji9B
- CRtRt0KttcqLuJqgQJavEQw+DBIIsoeDxNnTr22WMy4CsOjVaBsextDseahrJA93
- anW4eQ==
+ ACBF/XewF9ltNTPIvrsgsmJlHAjTuMQ64yXm9zsSnVo=; b=ofvFiU8T9zR0gGeK
+ gZZI1WUFkDmCK8+9N/xNXLZDpREqfGtp2+0Odc6YIA06BpTYdBAIqWXfjx7L07kY
+ F1YbwZ29ktQaJthCdu+q6jxFF5vBpUQpldWG+qtB+8fbOSPMupH/Z1InIUYIb592
+ mquBOGQe49brJvI7dR8V4HfWtsce4FPJUIpY7/J0evOV7IrPdqkokEPQrvELKhtD
+ FMBlHYbRP+QMy5NdOx0pzLeeSZRZIKD7yBb2F0YUX0bWd37HYhoNQ5qEPHY+Dygg
+ h3h0f7j37Xy+bztM580DjaMZEFpx6XVmjtb6Xlab168oFnK+7U91q1vrQddOcCoA
+ mSWx4g==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48dw7gad9m-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48eh9n8c2m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 12 Aug 2025 15:51:10 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E6BAF400AC;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E6CE7400AE;
  Tue, 12 Aug 2025 15:49:27 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7DF0B765D1F;
- Tue, 12 Aug 2025 15:49:07 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2486678C45C;
+ Tue, 12 Aug 2025 15:49:08 +0200 (CEST)
 Received: from localhost (10.130.74.180) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
  2025 15:49:07 +0200
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Tue, 12 Aug 2025 15:49:09 +0200
+Date: Tue, 12 Aug 2025 15:49:10 +0200
 MIME-Version: 1.0
-Message-ID: <20250812-drm-misc-next-v2-12-132fd84463d7@foss.st.com>
+Message-ID: <20250812-drm-misc-next-v2-13-132fd84463d7@foss.st.com>
 References: <20250812-drm-misc-next-v2-0-132fd84463d7@foss.st.com>
 In-Reply-To: <20250812-drm-misc-next-v2-0-132fd84463d7@foss.st.com>
 To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
@@ -68,8 +68,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 12/13] arm64: dts: st: enable display
- support on stm32mp257f-ev1 board
+Subject: [Linux-stm32] [PATCH v2 13/13] arm64: dts: st: add loopback clocks
+	on LTDC node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,122 +86,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable the following IPs on stm32mp257f-ev1 in order to get display:
-   * LTDC
-   * LVDS
-   * WSVGA LVDS panel (1024x600)
-   * Panel LVDS backlight as GPIO backlight
-   * ILI2511 i2c touchscreen
+ck_ker_ltdc has the CLK_SET_RATE_PARENT flag.  While having this flag is
+semantically correct, it for now leads to an improper setting of the
+clock rate.  The ck_ker_ltdc parent clock is the flexgen 27, which does
+not support changing rates yet.  To overcome this issue, a fixed clock
+can be used for the kernel clock.
+
+Add the clocks needed for the LTDC to work.
 
 Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 79 ++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi | 5 +++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 2f561ad4066544445e93db78557bc4be1c27095a..b324b0c226ddf043e62f01245240f3e8d2b0a53c 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -86,6 +86,43 @@ mm_ospi1: mm-ospi@60000000 {
- 			no-map;
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index d833b2b7904bef1cf1db8f1da210a1abd8a87d09..55f63cb7b881a91498042a71fcd39ac5191ad47d 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -52,6 +52,12 @@ clk_rcbsec: clk-rcbsec {
+ 			compatible = "fixed-clock";
+ 			clock-frequency = <64000000>;
  		};
- 	};
 +
-+	panel_lvds: display {
-+		compatible = "edt,etml0700z9ndha", "panel-lvds";
-+		enable-gpios = <&gpiog 15 GPIO_ACTIVE_HIGH>;
-+		backlight = <&panel_lvds_backlight>;
-+		power-supply = <&scmi_v3v3>;
-+		status = "okay";
-+
-+		width-mm = <156>;
-+		height-mm = <92>;
-+		data-mapping = "vesa-24";
-+
-+		panel-timing {
++		clk_flexgen_27_fixed: clk-54000000 {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
 +			clock-frequency = <54000000>;
-+			hactive = <1024>;
-+			vactive = <600>;
-+			hfront-porch = <150>;
-+			hback-porch = <150>;
-+			hsync-len = <21>;
-+			vfront-porch = <24>;
-+			vback-porch = <24>;
-+			vsync-len = <21>;
 +		};
-+
-+		port {
-+			lvds_panel_in: endpoint {
-+				remote-endpoint = <&lvds_out0>;
-+			};
-+		};
-+	};
-+
-+	panel_lvds_backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+		status = "okay";
-+	};
- };
- 
- &arm_wdt {
-@@ -183,6 +220,15 @@ imx335_ep: endpoint {
- 			};
- 		};
  	};
-+
-+	ili2511: ili2511@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		interrupt-parent = <&gpioi>;
-+		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiog 14 GPIO_ACTIVE_LOW>;
-+		status = "okay";
-+	};
- };
  
- &i2c8 {
-@@ -230,6 +276,39 @@ timer {
- 	};
- };
+ 	firmware {
+diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+index a3b5ae25d28c83ade12c2ff69b82c9cccfd29b00..07c200470b2cedde771ae987f2267d6097ea78f0 100644
+--- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+@@ -5,6 +5,11 @@
+  */
+ #include "stm32mp253.dtsi"
  
 +&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_ep0_out: endpoint {
-+			remote-endpoint = <&lvds_in>;
-+		};
-+	};
++	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
++	clock-names = "lcd", "bus", "ref", "lvds";
 +};
 +
-+&lvds {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			lvds_in: endpoint {
-+				remote-endpoint = <&ltdc_ep0_out>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			lvds_out0: endpoint {
-+				remote-endpoint = <&lvds_panel_in>;
-+			};
-+		};
-+	};
-+};
-+
- &rtc {
- 	status = "okay";
- };
+ &rifsc {
+ 	lvds: lvds@48060000 {
+ 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
 
 -- 
 2.25.1
