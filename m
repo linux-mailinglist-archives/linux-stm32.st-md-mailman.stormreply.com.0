@@ -2,74 +2,142 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE06CB22931
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 15:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EAAEB2294C
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 15:54:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95F4FC3F940;
-	Tue, 12 Aug 2025 13:51:23 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24794C3F93B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C146C3F931;
+	Tue, 12 Aug 2025 13:54:06 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F9CC36B09
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 13:51:22 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57CCM5mY016353;
- Tue, 12 Aug 2025 15:51:10 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- ACBF/XewF9ltNTPIvrsgsmJlHAjTuMQ64yXm9zsSnVo=; b=ofvFiU8T9zR0gGeK
- gZZI1WUFkDmCK8+9N/xNXLZDpREqfGtp2+0Odc6YIA06BpTYdBAIqWXfjx7L07kY
- F1YbwZ29ktQaJthCdu+q6jxFF5vBpUQpldWG+qtB+8fbOSPMupH/Z1InIUYIb592
- mquBOGQe49brJvI7dR8V4HfWtsce4FPJUIpY7/J0evOV7IrPdqkokEPQrvELKhtD
- FMBlHYbRP+QMy5NdOx0pzLeeSZRZIKD7yBb2F0YUX0bWd37HYhoNQ5qEPHY+Dygg
- h3h0f7j37Xy+bztM580DjaMZEFpx6XVmjtb6Xlab168oFnK+7U91q1vrQddOcCoA
- mSWx4g==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48eh9n8c2m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Aug 2025 15:51:10 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id E6CE7400AE;
- Tue, 12 Aug 2025 15:49:27 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2486678C45C;
- Tue, 12 Aug 2025 15:49:08 +0200 (CEST)
-Received: from localhost (10.130.74.180) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
- 2025 15:49:07 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Tue, 12 Aug 2025 15:49:10 +0200
+ Tue, 12 Aug 2025 13:54:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1755006843;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q//s+/zCNBEzjNslOllCQGV4nFuLBeOueQxvALXBZS0=;
+ b=FsOBs53MFI0jFR+2T3HZfYzHe/dHKoSUNhMoSBaobcr77iFZmWKEnd7i6AAHdtzlJkdBEl
+ kp7lVaUVT/jutIpiaJi7eRiEJ/BYN98gGLoS98vppqx/GdDiuudGJ/ktsycbezuDgVmln4
+ U0xYXm5hHSNNh9lA4cylY+S9O8F7nT4=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-564-er5QOZeMO02FCJ94J5CgbA-1; Tue, 12 Aug 2025 09:54:02 -0400
+X-MC-Unique: er5QOZeMO02FCJ94J5CgbA-1
+X-Mimecast-MFC-AGG-ID: er5QOZeMO02FCJ94J5CgbA_1755006842
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-4b0a3557d05so117958641cf.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 12 Aug 2025 06:54:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755006842; x=1755611642;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Q//s+/zCNBEzjNslOllCQGV4nFuLBeOueQxvALXBZS0=;
+ b=eaLLCRBJLrsmybMwyqRu0j+sqo6sW4lrBP7u7MCXpFsTux6JiKMcbmSD2m0yGlpok3
+ sZ6DeYU++4sylmAPQzeHGVBEM2VFjKDopt1KNfvoQIS3WeCbuhZS53oxM/o5Ix1MMAtM
+ K8ftDGg9KjsTPRQw0mV3Jyd14+v47vm6xe2OP6pFwYbb0QngfwpsT8nqDPWqYNGcj+tQ
+ v3MEgiHycUTT8mqwzak1reJHohBnZNfpjXIQMtkuXDyeGYil0I9Ih62rxkxBJtnRsjxr
+ 5n4sG9apCnP0+6FGMXUMGNyLaYn7yPNksbzF7dxr1Os8fm235+awG18IAUfW1jGdM7Cw
+ FoZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUikT2ehh7Emp+f/siJPKX3JVMF9Yo8aNhlBDLcRDHRR6q+NsPAlMWgDVJbSssD06dAu6KvjW4f+bvQfg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzsJAil9dB1d4Ydrl7M4jqPcBSEyToC0dn4A/u6ZiI2FwsE7MiR
+ mXpoe+d2XB47KSrl0kt8je3cqMACdO7CjjHRzzZzRhSvyvbrqz2CPrHNMp6uOoP76CdvpoB+pZG
+ V2muIAhE1HdSyEwayvTEB3AfLmfHJhB3WVmQcwLy2IeakRl5bfcop+HpHAiNxsKzrbbBIbSVp3k
+ odrN0RHQ==
+X-Gm-Gg: ASbGnctlkvv3ye9fGAat86Z7Ld54hX+Belt4tHVeeeNhgRyxCna1VSBuu1RuceilBWn
+ s/dbbuOlELjtG/EpEGFn5ZH0ztfPIQ8pJ/hNqozbDTZICZqteiUC3t8UnfOHp/gCvvJjoC92+ti
+ 8dqXGoffjDAMb5D0sNx9O5aK+qhUrSHzsvzDnE+EpofMgIm2hv/8qrQFCVSjKv4K1K7DtDXVEZY
+ WEtWKSMbDQ3nzp4nnnhF8fCI98bW8Kf2hdG72BAx+ngEGMX5Yhsq94iRXBXUnFIVvMzZUPYB+Xu
+ JryGcoztchrRqqXN2n/OYIJO0IkaL5xRD8P7gRuJ4esIdH+p8DQ5YUQnyUmyt6o=
+X-Received: by 2002:a05:622a:30c:b0:4a4:2c4c:ccb3 with SMTP id
+ d75a77b69052e-4b0aed36723mr265510451cf.38.1755006841706; 
+ Tue, 12 Aug 2025 06:54:01 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHL0wdDdlaxY3Jk0TgFfLYMOMEPwCaVnL7cxWLBN3HaRHoOlakRNGI4PvbhwBJNSUpcz9s5eQ==
+X-Received: by 2002:a05:622a:30c:b0:4a4:2c4c:ccb3 with SMTP id
+ d75a77b69052e-4b0aed36723mr265508911cf.38.1755006840909; 
+ Tue, 12 Aug 2025 06:54:00 -0700 (PDT)
+Received: from x1 (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4b0aa1efe78sm75493211cf.8.2025.08.12.06.53.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Aug 2025 06:54:00 -0700 (PDT)
+Date: Tue, 12 Aug 2025 09:53:54 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Icenowy Zheng <uwu@icenowy.me>
+Message-ID: <aJtHcs8_671G33Ez@x1>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <a151ed7c1caac83e872cf6075c215fa55bd21f82.camel@icenowy.me>
 MIME-Version: 1.0
-Message-ID: <20250812-drm-misc-next-v2-13-132fd84463d7@foss.st.com>
-References: <20250812-drm-misc-next-v2-0-132fd84463d7@foss.st.com>
-In-Reply-To: <20250812-drm-misc-next-v2-0-132fd84463d7@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.130.74.180]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-12_07,2025-08-11_01,2025-03-28_01
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 13/13] arm64: dts: st: add loopback clocks
-	on LTDC node
+In-Reply-To: <a151ed7c1caac83e872cf6075c215fa55bd21f82.camel@icenowy.me>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: yrUujXZ3HYAJHZZJh_fnjR0w7aCrStfAIKJmOCD3vyw_1755006842
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
+ Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
+ Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
+ linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
+ Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
+ Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
+ Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
+ linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
+ Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andrea della Porta <andrea.porta@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 000/114] clk: convert drivers from
+ deprecated round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,56 +154,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ck_ker_ltdc has the CLK_SET_RATE_PARENT flag.  While having this flag is
-semantically correct, it for now leads to an improper setting of the
-clock rate.  The ck_ker_ltdc parent clock is the flexgen 27, which does
-not support changing rates yet.  To overcome this issue, a fixed clock
-can be used for the kernel clock.
+On Tue, Aug 12, 2025 at 09:39:45PM +0800, Icenowy Zheng wrote:
+> I was doing a patch to add divider setting support to clk-th1520-ap
+> driver and sent patch now, should I remove round_rate from the next
+> revision and just keep determine_rate? Is it safe to do this even if
+> this patchset is not merged?
 
-Add the clocks needed for the LTDC to work.
+Yes, you only need to implement the determine_rate() clk op. Please
+remove any references to the round_rate() clk op from your driver. If
+you implement both, then only the determine_rate() clk op is actually
+used by the clk core.
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
- arch/arm64/boot/dts/st/stm32mp255.dtsi | 5 +++++
- 2 files changed, 11 insertions(+)
+> In addition, will the clk_round_rate() API exported to other subsystems
+> be affected?
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index d833b2b7904bef1cf1db8f1da210a1abd8a87d09..55f63cb7b881a91498042a71fcd39ac5191ad47d 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -52,6 +52,12 @@ clk_rcbsec: clk-rcbsec {
- 			compatible = "fixed-clock";
- 			clock-frequency = <64000000>;
- 		};
-+
-+		clk_flexgen_27_fixed: clk-54000000 {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <54000000>;
-+		};
- 	};
- 
- 	firmware {
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index a3b5ae25d28c83ade12c2ff69b82c9cccfd29b00..07c200470b2cedde771ae987f2267d6097ea78f0 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -5,6 +5,11 @@
-  */
- #include "stm32mp253.dtsi"
- 
-+&ltdc {
-+	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
-+	clock-names = "lcd", "bus", "ref", "lvds";
-+};
-+
- &rifsc {
- 	lvds: lvds@48060000 {
- 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
+No, that will stay as is, and with the same name. The underlying
+implementation in the clk core uses the determine_rate() clk op.
 
--- 
-2.25.1
+Brian
 
 _______________________________________________
 Linux-stm32 mailing list
