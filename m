@@ -2,83 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EAAEB2294C
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 15:54:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89700B22BD9
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 17:39:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C146C3F931;
-	Tue, 12 Aug 2025 13:54:06 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F9CC36B09
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD78DC3F931;
+	Tue, 12 Aug 2025 15:39:16 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DBB3C3089F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 13:54:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1755006843;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Q//s+/zCNBEzjNslOllCQGV4nFuLBeOueQxvALXBZS0=;
- b=FsOBs53MFI0jFR+2T3HZfYzHe/dHKoSUNhMoSBaobcr77iFZmWKEnd7i6AAHdtzlJkdBEl
- kp7lVaUVT/jutIpiaJi7eRiEJ/BYN98gGLoS98vppqx/GdDiuudGJ/ktsycbezuDgVmln4
- U0xYXm5hHSNNh9lA4cylY+S9O8F7nT4=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-er5QOZeMO02FCJ94J5CgbA-1; Tue, 12 Aug 2025 09:54:02 -0400
-X-MC-Unique: er5QOZeMO02FCJ94J5CgbA-1
-X-Mimecast-MFC-AGG-ID: er5QOZeMO02FCJ94J5CgbA_1755006842
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-4b0a3557d05so117958641cf.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 06:54:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755006842; x=1755611642;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Q//s+/zCNBEzjNslOllCQGV4nFuLBeOueQxvALXBZS0=;
- b=eaLLCRBJLrsmybMwyqRu0j+sqo6sW4lrBP7u7MCXpFsTux6JiKMcbmSD2m0yGlpok3
- sZ6DeYU++4sylmAPQzeHGVBEM2VFjKDopt1KNfvoQIS3WeCbuhZS53oxM/o5Ix1MMAtM
- K8ftDGg9KjsTPRQw0mV3Jyd14+v47vm6xe2OP6pFwYbb0QngfwpsT8nqDPWqYNGcj+tQ
- v3MEgiHycUTT8mqwzak1reJHohBnZNfpjXIQMtkuXDyeGYil0I9Ih62rxkxBJtnRsjxr
- 5n4sG9apCnP0+6FGMXUMGNyLaYn7yPNksbzF7dxr1Os8fm235+awG18IAUfW1jGdM7Cw
- FoZA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUikT2ehh7Emp+f/siJPKX3JVMF9Yo8aNhlBDLcRDHRR6q+NsPAlMWgDVJbSssD06dAu6KvjW4f+bvQfg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzsJAil9dB1d4Ydrl7M4jqPcBSEyToC0dn4A/u6ZiI2FwsE7MiR
- mXpoe+d2XB47KSrl0kt8je3cqMACdO7CjjHRzzZzRhSvyvbrqz2CPrHNMp6uOoP76CdvpoB+pZG
- V2muIAhE1HdSyEwayvTEB3AfLmfHJhB3WVmQcwLy2IeakRl5bfcop+HpHAiNxsKzrbbBIbSVp3k
- odrN0RHQ==
-X-Gm-Gg: ASbGnctlkvv3ye9fGAat86Z7Ld54hX+Belt4tHVeeeNhgRyxCna1VSBuu1RuceilBWn
- s/dbbuOlELjtG/EpEGFn5ZH0ztfPIQ8pJ/hNqozbDTZICZqteiUC3t8UnfOHp/gCvvJjoC92+ti
- 8dqXGoffjDAMb5D0sNx9O5aK+qhUrSHzsvzDnE+EpofMgIm2hv/8qrQFCVSjKv4K1K7DtDXVEZY
- WEtWKSMbDQ3nzp4nnnhF8fCI98bW8Kf2hdG72BAx+ngEGMX5Yhsq94iRXBXUnFIVvMzZUPYB+Xu
- JryGcoztchrRqqXN2n/OYIJO0IkaL5xRD8P7gRuJ4esIdH+p8DQ5YUQnyUmyt6o=
-X-Received: by 2002:a05:622a:30c:b0:4a4:2c4c:ccb3 with SMTP id
- d75a77b69052e-4b0aed36723mr265510451cf.38.1755006841706; 
- Tue, 12 Aug 2025 06:54:01 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHL0wdDdlaxY3Jk0TgFfLYMOMEPwCaVnL7cxWLBN3HaRHoOlakRNGI4PvbhwBJNSUpcz9s5eQ==
-X-Received: by 2002:a05:622a:30c:b0:4a4:2c4c:ccb3 with SMTP id
- d75a77b69052e-4b0aed36723mr265508911cf.38.1755006840909; 
- Tue, 12 Aug 2025 06:54:00 -0700 (PDT)
-Received: from x1 (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4b0aa1efe78sm75493211cf.8.2025.08.12.06.53.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Aug 2025 06:54:00 -0700 (PDT)
-Date: Tue, 12 Aug 2025 09:53:54 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Icenowy Zheng <uwu@icenowy.me>
-Message-ID: <aJtHcs8_671G33Ez@x1>
+ Tue, 12 Aug 2025 15:39:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 0EF64A56EC0;
+ Tue, 12 Aug 2025 15:39:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284FDC4CEF0;
+ Tue, 12 Aug 2025 15:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755013153;
+ bh=iGUpF1C71k7qo9/61ohvQv5Z7z5laJQcZjUsXmHz/vc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LiZpRdpDhra8HQLi6oTJvzINkJJSuv23n4QKhmL0GdIDFfOjMCDM1OqYhcWHHq3TI
+ L28O5b3iPN5wVc9EXSMe1wiMP/NajukL3ql7pF4a85lv1fNAUZsV+TlMAAvN2rrzmr
+ wRMnMSseO6nd8/EPTJY79HOmJ9zeY5vY0LS0u24hUa3icUGD8uDqDLMHMPTvWLEQv1
+ l7Tw7lcXGU5Rs7ZD4eklupowdOLUecuU8uOFa6RlUoRtZfGlD+/8Ge0Ca3RaSQaoYZ
+ h2ClWJH1Q8I12fZ++utjNSDaO59Bx51zYgkj3Rxo8YY8S6cPtFbxYBa0hRIu+GN5Me
+ k5jWalHFpopnQ==
+Date: Tue, 12 Aug 2025 21:08:28 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: bmasney@redhat.com
+Message-ID: <tcl4eqicuqcptnbo4mcvjhacxkh2gh344k2bdrwfjbqflxspy7@x24np6pxjacf>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <a151ed7c1caac83e872cf6075c215fa55bd21f82.camel@icenowy.me>
+ <20250811-clk-for-stephen-round-rate-v1-79-b3bf97b038dc@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <a151ed7c1caac83e872cf6075c215fa55bd21f82.camel@icenowy.me>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yrUujXZ3HYAJHZZJh_fnjR0w7aCrStfAIKJmOCD3vyw_1755006842
-X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-79-b3bf97b038dc@redhat.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>,
@@ -121,13 +79,12 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
  Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
  Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
  linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
  Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
  Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
  Paul Walmsley <paul.walmsley@sifive.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
@@ -136,8 +93,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
  patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
  linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 000/114] clk: convert drivers from
- deprecated round_rate() to determine_rate()
+Subject: Re: [Linux-stm32] [PATCH 079/114] clk: bm1880: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,31 +106,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 12, 2025 at 09:39:45PM +0800, Icenowy Zheng wrote:
-> I was doing a patch to add divider setting support to clk-th1520-ap
-> driver and sent patch now, should I remove round_rate from the next
-> revision and just keep determine_rate? Is it safe to do this even if
-> this patchset is not merged?
-
-Yes, you only need to implement the determine_rate() clk op. Please
-remove any references to the round_rate() clk op from your driver. If
-you implement both, then only the determine_rate() clk op is actually
-used by the clk core.
-
-> In addition, will the clk_round_rate() API exported to other subsystems
-> be affected?
-
-No, that will stay as is, and with the same name. The underlying
-implementation in the clk core uses the determine_rate() clk op.
-
-Brian
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBdWcgMTEsIDIwMjUgYXQgMTE6MTk6MTFBTSBHTVQsIEJyaWFuIE1hc25leSB2aWEg
+QjQgUmVsYXkgd3JvdGU6Cj4gRnJvbTogQnJpYW4gTWFzbmV5IDxibWFzbmV5QHJlZGhhdC5jb20+
+Cj4gCj4gVGhlIHJvdW5kX3JhdGUoKSBjbGsgb3BzIGlzIGRlcHJlY2F0ZWQsIHNvIG1pZ3JhdGUg
+dGhpcyBkcml2ZXIgZnJvbQo+IHJvdW5kX3JhdGUoKSB0byBkZXRlcm1pbmVfcmF0ZSgpIHVzaW5n
+IHRoZSBDb2NjaW5lbGxlIHNlbWFudGljIHBhdGNoCj4gb24gdGhlIGNvdmVyIGxldHRlciBvZiB0
+aGlzIHNlcmllcy4KPiAKCk9uY2UgdGhpcyBwYXRjaCBnZXRzIG1lcmdlZCwgdGhlICdDb2NjaW5l
+bGxlIHNlbWFudGljIHBhdGNoIG9uIHRoZSBjb3ZlciBsZXR0ZXIKb2YgdGhpcyBzZXJpZXMnIGJl
+Y29tZXMgaXJyZWxldmFudC4gSSdkIHN1Z2dlc3QgdG8gZWl0aGVyIGluY2x1ZGUgdGhlIHNjcmlw
+dApoZXJlIG9yIGRvIG5vdCBtZW50aW9uIGl0IGF0IGFsbC4KCi0gTWFuaQoKPiBTaWduZWQtb2Zm
+LWJ5OiBCcmlhbiBNYXNuZXkgPGJtYXNuZXlAcmVkaGF0LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9j
+bGsvY2xrLWJtMTg4MC5jIHwgMjEgKysrKysrKysrKysrKy0tLS0tLS0tCj4gIDEgZmlsZSBjaGFu
+Z2VkLCAxMyBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2Nsay9jbGstYm0xODgwLmMgYi9kcml2ZXJzL2Nsay9jbGstYm0xODgwLmMKPiBpbmRl
+eCAwMDJmNzM2MGIxYzZjNmUzMDU4NjA2YTA4MDgxMTViNDhmZDMxNDdhLi5kYWMxOTBiYzZlMTlh
+NmRkNGJlNDEzZWE1MmQ0MWY3NDkzNGExYWE5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvY2xrL2Ns
+ay1ibTE4ODAuYwo+ICsrKyBiL2RyaXZlcnMvY2xrL2Nsay1ibTE4ODAuYwo+IEBAIC02MDgsOCAr
+NjA4LDggQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgYm0xODgwX2Nsa19kaXZfcmVjYWxjX3JhdGUo
+c3RydWN0IGNsa19odyAqaHcsCj4gIAlyZXR1cm4gcmF0ZTsKPiAgfQo+ICAKPiAtc3RhdGljIGxv
+bmcgYm0xODgwX2Nsa19kaXZfcm91bmRfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywgdW5zaWduZWQg
+bG9uZyByYXRlLAo+IC0JCQkJICAgICAgdW5zaWduZWQgbG9uZyAqcHJhdGUpCj4gK3N0YXRpYyBp
+bnQgYm0xODgwX2Nsa19kaXZfZGV0ZXJtaW5lX3JhdGUoc3RydWN0IGNsa19odyAqaHcsCj4gKwkJ
+CQkJIHN0cnVjdCBjbGtfcmF0ZV9yZXF1ZXN0ICpyZXEpCj4gIHsKPiAgCXN0cnVjdCBibTE4ODBf
+ZGl2X2h3X2Nsb2NrICpkaXZfaHcgPSB0b19ibTE4ODBfZGl2X2Nsayhodyk7Cj4gIAlzdHJ1Y3Qg
+Ym0xODgwX2Rpdl9jbG9jayAqZGl2ID0gJmRpdl9ody0+ZGl2Owo+IEBAIC02MjEsMTMgKzYyMSwx
+OCBAQCBzdGF0aWMgbG9uZyBibTE4ODBfY2xrX2Rpdl9yb3VuZF9yYXRlKHN0cnVjdCBjbGtfaHcg
+Kmh3LCB1bnNpZ25lZCBsb25nIHJhdGUsCj4gIAkJdmFsID0gcmVhZGwocmVnX2FkZHIpID4+IGRp
+di0+c2hpZnQ7Cj4gIAkJdmFsICY9IGNsa19kaXZfbWFzayhkaXYtPndpZHRoKTsKPiAgCj4gLQkJ
+cmV0dXJuIGRpdmlkZXJfcm9fcm91bmRfcmF0ZShodywgcmF0ZSwgcHJhdGUsIGRpdi0+dGFibGUs
+Cj4gLQkJCQkJICAgICBkaXYtPndpZHRoLCBkaXYtPmZsYWdzLAo+IC0JCQkJCSAgICAgdmFsKTsK
+PiArCQlyZXEtPnJhdGUgPSBkaXZpZGVyX3JvX3JvdW5kX3JhdGUoaHcsIHJlcS0+cmF0ZSwKPiAr
+CQkJCQkJICAmcmVxLT5iZXN0X3BhcmVudF9yYXRlLAo+ICsJCQkJCQkgIGRpdi0+dGFibGUsCj4g
+KwkJCQkJCSAgZGl2LT53aWR0aCwgZGl2LT5mbGFncywgdmFsKTsKPiArCj4gKwkJcmV0dXJuIDA7
+Cj4gIAl9Cj4gIAo+IC0JcmV0dXJuIGRpdmlkZXJfcm91bmRfcmF0ZShodywgcmF0ZSwgcHJhdGUs
+IGRpdi0+dGFibGUsCj4gLQkJCQkgIGRpdi0+d2lkdGgsIGRpdi0+ZmxhZ3MpOwo+ICsJcmVxLT5y
+YXRlID0gZGl2aWRlcl9yb3VuZF9yYXRlKGh3LCByZXEtPnJhdGUsICZyZXEtPmJlc3RfcGFyZW50
+X3JhdGUsCj4gKwkJCQkgICAgICAgZGl2LT50YWJsZSwgZGl2LT53aWR0aCwgZGl2LT5mbGFncyk7
+Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gIHN0YXRpYyBpbnQgYm0xODgwX2Nsa19kaXZf
+c2V0X3JhdGUoc3RydWN0IGNsa19odyAqaHcsIHVuc2lnbmVkIGxvbmcgcmF0ZSwKPiBAQCAtNjY1
+LDcgKzY3MCw3IEBAIHN0YXRpYyBpbnQgYm0xODgwX2Nsa19kaXZfc2V0X3JhdGUoc3RydWN0IGNs
+a19odyAqaHcsIHVuc2lnbmVkIGxvbmcgcmF0ZSwKPiAgCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
+Y2xrX29wcyBibTE4ODBfY2xrX2Rpdl9vcHMgPSB7Cj4gIAkucmVjYWxjX3JhdGUgPSBibTE4ODBf
+Y2xrX2Rpdl9yZWNhbGNfcmF0ZSwKPiAtCS5yb3VuZF9yYXRlID0gYm0xODgwX2Nsa19kaXZfcm91
+bmRfcmF0ZSwKPiArCS5kZXRlcm1pbmVfcmF0ZSA9IGJtMTg4MF9jbGtfZGl2X2RldGVybWluZV9y
+YXRlLAo+ICAJLnNldF9yYXRlID0gYm0xODgwX2Nsa19kaXZfc2V0X3JhdGUsCj4gIH07Cj4gIAo+
+IAo+IC0tIAo+IDIuNTAuMQo+IAo+IAoKLS0gCuCuruCuo+Cuv+CuteCuo+CvjeCuo+CuqeCvjSDg
+rprgrqTgrr7grprgrr/grrXgrq7gr40KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
