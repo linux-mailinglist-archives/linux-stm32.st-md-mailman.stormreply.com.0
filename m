@@ -2,170 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50F06B22288
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 11:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB24B222A3
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Aug 2025 11:16:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10200C3089F;
-	Tue, 12 Aug 2025 09:14:25 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4013AC3087A;
+	Tue, 12 Aug 2025 09:16:48 +0000 (UTC)
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
+ [209.85.161.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9C6AC3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0F75C32EB5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 09:14:23 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57C7FhQA008171
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 12 Aug 2025 09:14:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- clJ5A/6cgDIQE2u4HyX9gAv44cIhvX0vHF2jW/8Rc5Y=; b=cfdgQiWNNxQ+3gOz
- tvXu+hfjH5tUiLlCYXVCQj4yajCG2tbwmGSKj8r6EPIclyHu34r1Mq6Yl5gff/Z5
- rjMhJd4x8GzKxE6kL3nIqqhOrnJOSnOb6Nrx14iYpIZqPgyuDd6VhuWRuyrNAynZ
- G9tqJgPuq4rYDPz+y5a0M3z3ORQGSwDcElBx7jEOo2ZRLufvhAIOGqeiaOdTkzjm
- tPMLfaaWIzvq2kY+T0SliAsuaDCHIBCqnpus61yCdav0D9wmC7jEiFf0YfI4ZUMZ
- BaNmNlevD2vZKyrsN0RYsV5OylahioN/uPBIRG74BeWZcuwuvK8/ihxzhffefMma
- RyIkIA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48ffhjkc7w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ Tue, 12 Aug 2025 09:16:46 +0000 (UTC)
+Received: by mail-oo1-f47.google.com with SMTP id
+ 006d021491bc7-61b932f2c0eso369259eaf.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 09:14:22 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4af23052fb8so8198261cf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Aug 2025 02:14:22 -0700 (PDT)
+ Tue, 12 Aug 2025 02:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1754990205; x=1755595005;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=rOGKCteFZMAy3LeuWf1j/2F5b+EEOJ9yxzrgy674/8c=;
+ b=Tsh7wHVNZkeyYAc88Eiv0lm87X1CD/KqntyChOrs25E8Yofvy19UD+LjRSyMas25j1
+ dzhqAmYiHckW9w+ppXa4VK05X24L6e82nsgmYdJWxpBFz59qW64xiApu3eciG8CKZ7EM
+ Gv8id93HI5l4lEHAEfwEpfv3kF7T6q2jmII8GOkeW9Jb6SPD4o9eF73Tq4i9WEwoby50
+ eif5EPyVmGhjsjecVfdANaQyH5ZhdZIJqCt/xBGWq6BQm3aBQhS2agSE9FjGiN6nek1O
+ Wik8yLgV9D5qTnh0sNt/rc7zAHhIDBhb6BxtI4rjdRAqOQqyKCNuyBx/Bc500w5Gps9a
+ ar5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1754990062; x=1755594862;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=clJ5A/6cgDIQE2u4HyX9gAv44cIhvX0vHF2jW/8Rc5Y=;
- b=O0WnxqLjQy+IrtFi+sbN48pZ9YVuGOl+r9vxzedt4gOcBGqoQ7PK7dy0k7HVNYX0D5
- 1Lqolo15Cm137bWh4HG3Xh2R2s/GdraMhrClazk7XdFt2er2aS6rKz105MecGdDKk2C6
- /E+6WYLGJIYea8ZOSK64fsYU7ytg5DfjKBXNcuoD9fJyhvvSjw4PSZp8kh0pTqWunDqQ
- bFC811HvFzBUs8EX86HSIEYwJrirGyfybJnfW187oOpB1PKv2tGqLSpkhuqLa+VoNmoJ
- LgNAvsUqXkwUBQGxDka1OwjBIAw5QYpl90edQd7mk4bCJXyWgH1jWnbaZVdzo6tbJARp
- 0cpg==
+ d=1e100.net; s=20230601; t=1754990205; x=1755595005;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rOGKCteFZMAy3LeuWf1j/2F5b+EEOJ9yxzrgy674/8c=;
+ b=o+3HSzlMGO+tNuJkHztph+Ib2beBwze6xCRogQCNtMw0Ys4jK/5QEhA+B2TK9cc0Dd
+ cCMgaddUghujLjmnAlTH4I6PF2LGEoyBejCFxb7cvxjvHkRxmySZ5kkS/ypaH2x5UyAl
+ jO10vVYEgutJ4N9KZvIbmzfhuX9/dhUc83qBPEZUEtWg+N4ritjDwgeX0GZcAQLop7rI
+ xtViJeyDa+JWhAsz4oW3Z86SfEC2MWKjzwXeydM2SoBbPcspkm5WusywC7IYED3oDYDN
+ y1tuB6QPqwNOmWs4Geeno0irP+qj0nOq4i7Jb4yLdSO+AusGekvk6Pgg+CpHB1TrSPHd
+ 6MKg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV4aWzLi6gkMhIOpQLXWnMpF1nA5GxWzdVkanmD1Lb3VMmT2BhQQtEBE1FjfWPSYA6oYf6cdVMweafzaA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwcQS4P9bXmS4IRGKIgmHn6BgBv0CjJBCTPiXt4GKIi9jsd+CxU
- qGZgxrpS3PD4O5aEu7etBDeN7fq4O3fFVCi4WBIBGub7724RMlPrIRnLOzLjdtmFELo4GPAQetI
- lWFKn+WrG3nuHC2G3ORZJqWZFM1R353f326muRoowFIW8Z3cI0dhLT/qu3WWXV0jQU9Mzjb1/lp
- 0uvps272c=
-X-Gm-Gg: ASbGncvb9UOvJZ9OisISMO08ImToWxLj0VO9qgRfsFPpV0Y+A0xyELs5zM7PRYwmOqd
- LY2RQyLUCcEMxyZ9lR2aGy9RA+Ft+exw+zpNv92bIrilNZkkAUmfceOxuumEdTRgZlCMCueQEOF
- E3Mrvu38oC8RoG34aTx1okTWaUM29D9I70x7O+FpkbtBxzHRhxvvIzl0jr3/RlqrSA2ZQc+H1ZI
- 6wR+fu4CUPWXViMEvv83LzuukSZeXUsseTvLiaALWrGnubPnTFQhA/8wxhY3jkMh98O9eKfdjAa
- GquJ2pzA2+3k1ICejvcruFieFQWjs5gQGO4uxevF+C7pe1X//nmoJ6Nevajf3DjKgvoA7Q4/k9o
- VmqokbTF5svzSPWq+iw==
-X-Received: by 2002:ac8:580d:0:b0:4ab:23fe:a743 with SMTP id
- d75a77b69052e-4b0f4ccc1ccmr2591161cf.9.1754990061621; 
- Tue, 12 Aug 2025 02:14:21 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHV6Qlx1UbGp6Aaax5Fxj5SKbEXoDO3q7jBZvznDhAU+9eJcmfQCUOIdtA9nAu77phChEO34w==
-X-Received: by 2002:ac8:580d:0:b0:4ab:23fe:a743 with SMTP id
- d75a77b69052e-4b0f4ccc1ccmr2590471cf.9.1754990061134; 
- Tue, 12 Aug 2025 02:14:21 -0700 (PDT)
-Received: from [192.168.43.16] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a218aa3sm2185232666b.93.2025.08.12.02.14.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 02:14:20 -0700 (PDT)
-Message-ID: <86b3f3e9-8a48-4580-82f4-68164e3022b9@oss.qualcomm.com>
-Date: Tue, 12 Aug 2025 11:14:11 +0200
+ AJvYcCWqypRR8gs+gfvg4nOWZZ4Tuo0vTgXZr7j8GUTIcHuwgu9xuUl8GZYNvPRkP1JU38TKlV6hp0RhbSoJGQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzC+BD+8zKmfByAZzvBnhnDkLarxmxW6UtHxR0b813mmqGQXLBT
+ rXlFAqBnIORnRDLyv+Cuf3Y+iyQKwVcJ5h24eHSWYX4yvWeSOKGDMPSK+6WSZU0QRnYo4B7ah3Y
+ dLd14qu7L3Ls1/Y6H+NN1O16eWnP0SJA=
+X-Gm-Gg: ASbGncsDOhvBMCzd/FLuJpPJiAxDbLXZnyvHel51GXBIi8tECVO73lU1l0VU/KqWrJS
+ 7/AEjQwmtFaHA7OxEv97U3KEmnay9U38BwHC9qKpCwulqB1/eV7qzY0VGK9agZj/UWT++G1zhDM
+ wL5UAvIB5vAOdD/adQd3XyvIT6mVTDRPP/oggF1trtNHzO+0sJ03AvWiSPW2Mu0tQdD27btz00i
+ /Eu4A==
+X-Google-Smtp-Source: AGHT+IETTIJEQRSUprmEW/PZ43+7aaIWslt+bYkWZi3Waoz2cOUzGNm7S8/l4wJRhakmB2sfTn3K3AA6daLwKG1Ea8M=
+X-Received: by 2002:a05:6808:181a:b0:433:fd1b:73f1 with SMTP id
+ 5614622812f47-435c90f0e8fmr1519318b6e.6.1754990205351; Tue, 12 Aug 2025
+ 02:16:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: bmasney@redhat.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Paul Cercueil <paul@crapouillou.net>, Keguang Zhang
- <keguang.zhang@gmail.com>, Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Samuel Holland <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>,
- UNGLinuxDriver@microchip.com, Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Neal Gompa <neal@gompa.dev>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Daniel Palmer <daniel@thingy.jp>,
- Romain Perier <romain.perier@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>, Andrea della Porta
- <andrea.porta@suse.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Qin Jian <qinjian@cqplus1.com>,
- Viresh Kumar <vireshk@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Alex Helms <alexander.helms.jy@renesas.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-91-b3bf97b038dc@redhat.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-91-b3bf97b038dc@redhat.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODExMDA3NCBTYWx0ZWRfXyhL/roY+DaR9
- gPzGzu//jX8yvzZNs5L3NOwivBDp4J0jUYw/PR4Dh4soWmWmAKranzpGR4NK65FkAk74Sp4Rrek
- /x/jH0nvYzKuVJ65RD1e+l/Ztinsa8muXr4AEm4vBJjpi06ftv9FOiUl/IPkmFttVuJGbhBjewc
- VJPR+W0p//4dej5HpAfE/m91FyKaWmdSYOQDDYSRE/XSxJ2EztTe5rrtD81PN+UKCGDoisWcXt6
- OdYqsSI/h01jiajXYXdcpc8iO4PrwgU+7wJ1AKdS1H4j3oaSn9xewgR94mbBqWaV6O465jleqYb
- xJF7sbA4tWrVL8OIw1tcGb5N3MkpGmziWaNkIYPJMqLS+byNeD9qNlLEtKrva72YtxCdnRydy19
- PXDTxpPy
-X-Proofpoint-GUID: sbgvKCKACuPTbm2RtFgh4vb6BDPVvLr-
-X-Authority-Analysis: v=2.4 cv=TJFFS0la c=1 sm=1 tr=0 ts=689b05ee cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8
- a=lhVY8u9YebhmjeZYKd4A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: sbgvKCKACuPTbm2RtFgh4vb6BDPVvLr-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-12_04,2025-08-11_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
- phishscore=0 clxscore=1015 spamscore=0 bulkscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2508110074
-Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
- asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 091/114] clk: qcom: regmap-divider:
- convert from round_rate() to determine_rate()
+ <20250811-clk-for-stephen-round-rate-v1-54-b3bf97b038dc@redhat.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-54-b3bf97b038dc@redhat.com>
+From: Chunyan Zhang <zhang.lyra@gmail.com>
+Date: Tue, 12 Aug 2025 17:16:09 +0800
+X-Gm-Features: Ac12FXzs0-qDCA0x0Aw1aZmy8texiIAG_F4IY6MycSoBtAjQ1ujDKaGaSXI8gxQ
+Message-ID: <CAAfSe-u-YkkwKyS4+6EU+-zg5ghemk-4VJVE8p4Sky1-e4Y13g@mail.gmail.com>
+To: bmasney@redhat.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
+ Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
+ Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
+ linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
+ Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
+ Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
+ Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
+ linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
+ Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andrea della Porta <andrea.porta@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-mips@vger.kernel.org, Takao Orito <orito.takao@socionext.com>
+Subject: Re: [Linux-stm32] [PATCH 054/114] clk: sprd: pll: convert from
+	round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -182,22 +138,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/11/25 5:19 PM, Brian Masney via B4 Relay wrote:
+On Mon, 11 Aug 2025 at 23:18, Brian Masney via B4 Relay
+<devnull+bmasney.redhat.com@kernel.org> wrote:
+>
 > From: Brian Masney <bmasney@redhat.com>
-> 
+>
 > The round_rate() clk ops is deprecated, so migrate this driver from
 > round_rate() to determine_rate() using the Coccinelle semantic patch
 > on the cover letter of this series.
-> 
-> Note that prior to running the Coccinelle, div_round_ro_rate() was
-> renamed to div_ro_round_rate().
-> 
+>
 > Signed-off-by: Brian Masney <bmasney@redhat.com>
+
+Reviewed-by: Chunyan Zhang <zhang.lyra@gmail.com>
+
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+>  drivers/clk/sprd/pll.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/clk/sprd/pll.c b/drivers/clk/sprd/pll.c
+> index 13a322b2535ac37ecb17f2c39d17d2c03532cfcb..bc6610d5fcb72faa7406ea78dca4cd9b848e9392 100644
+> --- a/drivers/clk/sprd/pll.c
+> +++ b/drivers/clk/sprd/pll.c
+> @@ -254,16 +254,16 @@ static int sprd_pll_clk_prepare(struct clk_hw *hw)
+>         return 0;
+>  }
+>
+> -static long sprd_pll_round_rate(struct clk_hw *hw, unsigned long rate,
+> -                               unsigned long *prate)
+> +static int sprd_pll_determine_rate(struct clk_hw *hw,
+> +                                  struct clk_rate_request *req)
+>  {
+> -       return rate;
+> +       return 0;
+>  }
+>
+>  const struct clk_ops sprd_pll_ops = {
+>         .prepare = sprd_pll_clk_prepare,
+>         .recalc_rate = sprd_pll_recalc_rate,
+> -       .round_rate = sprd_pll_round_rate,
+> +       .determine_rate = sprd_pll_determine_rate,
+>         .set_rate = sprd_pll_set_rate,
+>  };
+>  EXPORT_SYMBOL_GPL(sprd_pll_ops);
+>
+> --
+> 2.50.1
+>
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
