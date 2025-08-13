@@ -2,104 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140C4B24502
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Aug 2025 11:08:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0CEBB248E2
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Aug 2025 13:55:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3FA3C36B0F;
-	Wed, 13 Aug 2025 09:08:02 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9D8CC36B16;
+	Wed, 13 Aug 2025 11:55:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 158EBC36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AAEDC36B15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Aug 2025 09:08:00 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 9806843283;
- Wed, 13 Aug 2025 09:07:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1755076079;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zeW3w+muABU56lk8AynPRRMO7XtEP4qDrJkq+5Lwhw0=;
- b=RBcxly02YqHg6yIG6IVGb6L0wWxwyXgbzexV7fz5MW/s00R1yXLzqz8R0Q4Hp6XCzFEgKy
- aJQuxXVY2VuM3LcR+HuKLiDTJxPk7hPeIic299sk4PSxG2ekcA+2ZeJQZ9DJMqGpdiEK55
- dlmn2pZocXR5RTpeMH7mXYpDsa1p5LBc6yeLbl5BB9RJI44aKGy2UdQyipWgEiGweTT6Zs
- yKZjMHYwq/2e6TLrhQ1n/5tSh0xMWWU8ZMi+8EvpkTaKYRbcurnOinRJ6WojpOPIpt9hGK
- EGL3JqryRCMP/IrQCvVCa6eDAFIGmMSS2+OxScw07Z8iZPtIZg8PP1xYwoncfg==
-Date: Wed, 13 Aug 2025 11:07:45 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org>
-Message-ID: <20250813110745.63523645@booty>
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-106-b3bf97b038dc@redhat.com>
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-106-b3bf97b038dc@redhat.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+ Wed, 13 Aug 2025 11:55:39 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57DBn5Bn008281;
+ Wed, 13 Aug 2025 13:55:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=PFZKPQG+k1gfjsY3a1ZAOk
+ Yj+KM4A3F6NxUPB1WMPvo=; b=15NOOiACV8P2LRL/T3X7nWZjJ2DyJJTPufMbmy
+ 0tVJpCRAlu0UdNJV1KWcgrIuxrzGI6HfioEEaReCJkrNEjkCyjiHPECc2r++KA1f
+ SU514XoFEogWxO9wmVEa8zAlEqrKImNsr3aYFJI4YEzC877HS4G1szBlj4X7ZiZo
+ NcBpjxyo9U86COA4KQEIwnNAwiwxhycVmn9pY9VgLlveBz1/eP1wd+yCS3zdx9oJ
+ ySJv3LqK9CoUs1UOC9Jbrnk+F9ArQ+hsR7BbO2L/24nGzHVA5VGFw9NFhO1KaxVr
+ 4IwgjNz2Jm4qVL70aZGStpHmdd0Z1ehOxXhCoLd6Wm9JbN8g==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48duf8xsg8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Aug 2025 13:55:24 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C20314002D;
+ Wed, 13 Aug 2025 13:54:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A72073FE23;
+ Wed, 13 Aug 2025 13:53:32 +0200 (CEST)
+Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
+ 2025 13:53:31 +0200
+From: Christian Bruel <christian.bruel@foss.st.com>
+To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>,
+ <kwilczynski@kernel.org>, <mani@kernel.org>, <robh@kernel.org>,
+ <bhelgaas@google.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <linus.walleij@linaro.org>
+Date: Wed, 13 Aug 2025 13:53:19 +0200
+Message-ID: <20250813115319.212721-1-christian.bruel@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddufeejkedtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfgjfhhoofggtgfgsehtjeeftdertddvnecuhfhrohhmpefnuhgtrgcuvegvrhgvshholhhiuceolhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeehffejffekudfhkeeklefgjeeuheekffelheejgfeijeehieelkedttdfhjedtnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvrgdtvdemieejtdemvddtvddtmegvrgdtudemsggvgedumeelhegvjeemfeegfeemledufegvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepvdgrtddvmeeijedtmedvtddvtdemvggrtddumegsvgegudemleehvgejmeefgeefmeeludefvgdphhgvlhhopegsohhothihpdhmrghilhhfrhhomheplhhutggrrdgtvghrvghsohhlihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepkeelpdhrtghpthhtohepuggvvhhnuhhllhdosghmrghsnhgvhidrrhgvughhrghtrdgtohhmsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegsmhgrshhnvgihsehrvgguhhgrthdrtghomhdprhgtphhtthhopehmthhurhhqu
- hgvthhtvgessggrhihlihgsrhgvrdgtohhmpdhrtghpthhtohepshgsohihugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepshhuuggvvghprdhhohhllhgrsegrrhhmrdgtohhmpdhrtghpthhtoheptghrihhsthhirghnrdhmrghruhhsshhisegrrhhmrdgtohhmpdhrtghpthhtohepuhhnihgtohhrnhgpfigrnhhgsehouhhtlhhoohhkrdgtohhmpdhrtghpthhtohepihhnohgthhhirghmrgesghhmrghilhdrtghomh
-X-GND-Sasl: luca.ceresoli@bootlin.com
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Daniel Machon <daniel.machon@microchip.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
- Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
- Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
- linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
- Viresh Kumar <vireshk@kernel.org>,
- Gregory Clement <gregory.clement@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
- Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
- Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
- Inochi Amaoto <inochiama@gmail.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- asahi@lists.linux.dev, Sudeep Holla <sudeep.holla@arm.com>,
- Romain Perier <romain.perier@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,
- Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
- linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
- Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Takao Orito <orito.takao@socionext.com>, bmasney@redhat.com,
- linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Andrea della Porta <andrea.porta@suse.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
- patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
- linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 106/114] clk: versaclock5: convert from
- round_rate() to determine_rate()
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-13_01,2025-08-11_01,2025-03-28_01
+Cc: kernel test robot <lkp@intel.com>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v1] PCI: stm32: use
+	pinctrl_pm_select_init_state() in stm32_pcie_resume_noirq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,23 +76,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 11 Aug 2025 11:19:38 -0400
-Brian Masney via B4 Relay <devnull+bmasney.redhat.com@kernel.org> wrote:
+Replace direct access to dev->pins->init_state with the new helper
+pinctrl_pm_select_init_state() to select the init pinctrl state.
+This fixes build issues when CONFIG_PINCTRL is not defined.
 
-> From: Brian Masney <bmasney@redhat.com>
-> 
-> The round_rate() clk ops is deprecated, so migrate this driver from
-> round_rate() to determine_rate() using the Coccinelle semantic patch
-> on the cover letter of this series.
-> 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
+Depends-on: <20250813081139.93201-3-christian.bruel@foss.st.com>
+Reported-by: Bjorn Helgaas <bhelgaas@google.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202506260920.bmQ9hQ9s-lkp@intel.com/
+Fixes: 633f42f48af5 ("PCI: stm32: Add PCIe host support for STM32MP25")
+Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+---
+Changes in v1:
+ - pinctrl_pm_select_init_state() return 0 if the state is not defined.
+   No need to test as pinctrl_pm_select_default_state() is called.
+---
+ drivers/pci/controller/dwc/pcie-stm32.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
+diff --git a/drivers/pci/controller/dwc/pcie-stm32.c b/drivers/pci/controller/dwc/pcie-stm32.c
+index 50fae5f5ced2..8501b9ed0633 100644
+--- a/drivers/pci/controller/dwc/pcie-stm32.c
++++ b/drivers/pci/controller/dwc/pcie-stm32.c
+@@ -90,14 +90,10 @@ static int stm32_pcie_resume_noirq(struct device *dev)
+ 
+ 	/*
+ 	 * The core clock is gated with CLKREQ# from the COMBOPHY REFCLK,
+-	 * thus if no device is present, must force it low with an init pinmux
+-	 * to be able to access the DBI registers.
++	 * thus if no device is present, must deassert it with a GPIO from
++	 * pinctrl pinmux before accessing the DBI registers.
+ 	 */
+-	if (!IS_ERR(dev->pins->init_state))
+-		ret = pinctrl_select_state(dev->pins->p, dev->pins->init_state);
+-	else
+-		ret = pinctrl_pm_select_default_state(dev);
+-
++	ret = pinctrl_pm_select_init_state(dev);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to activate pinctrl pm state: %d\n", ret);
+ 		return ret;
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
