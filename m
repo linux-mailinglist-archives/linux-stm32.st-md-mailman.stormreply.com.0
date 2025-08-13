@@ -2,51 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264DCB24F3F
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Aug 2025 18:16:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B98B25CC0
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Aug 2025 09:11:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDBABC36B16;
-	Wed, 13 Aug 2025 16:16:29 +0000 (UTC)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86AE9C36B15
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38ADBC36B3E;
+	Thu, 14 Aug 2025 07:11:39 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2475C36B15
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Aug 2025 16:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- s=k1; bh=JOIOq894v+zaK4XV37kMzgRxg3LpyHPgMP/RL2Mj3a4=; b=gQgD4H
- D9eZ10uOMPdefygxiftpeI0O9E4P2jdt5Ft+P6+nRtsbPFJo/Rx7oP5R4qfkLOlk
- K8yTgsKitD2MGbLSdu7nsxjvMIzS4QRN6PDl/lbizFjApUYmaqz0FU1/+UYXoJHr
- kfREh1l1caSGge8T+0wGQD9Q8LrToK/Mt10h7u14NxdhGIQr9CG+MqtDfcTBCIOh
- scvODsgiNRQbNO/DX8xchORmLrWw13AXbSHx1ceMwnmtnr5AQ4Yqi8fbgjgH+cEz
- W+QTokqZBfvPTn0uK0cUMiu6aKSevxnWHJuTMBTDNSQ5F8jlJEmKsQnaf8WCp+Y6
- M9lCqwuXQ+wny+cw==
-Received: (qmail 695008 invoked from network); 13 Aug 2025 18:16:13 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 13 Aug 2025 18:16:13 +0200
-X-UD-Smtp-Session: l3s3148p1@Tie5eUE8HNttKLKq
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Date: Wed, 13 Aug 2025 18:14:55 +0200
-Message-ID: <20250813161517.4746-10-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-References: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
+ Wed, 13 Aug 2025 16:43:34 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCEFB12FC;
+ Wed, 13 Aug 2025 09:43:25 -0700 (PDT)
+Received: from e130802.arm.com (e130802.arm.com [10.1.33.71])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D0D923F5A1;
+ Wed, 13 Aug 2025 09:43:30 -0700 (PDT)
+Date: Wed, 13 Aug 2025 17:42:58 +0100
+From: Abdellatif El Khlifi <abdellatif.elkhlifi@arm.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <aJzAkk-k4nfXY7Ux@e130802.arm.com>
+References: <20250625094028.758016-1-arnaud.pouliquen@foss.st.com>
+ <20250625094028.758016-3-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-samsung-soc@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Samuel Holland <samuel@sholland.org>, imx@lists.linux.dev,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-sunxi@lists.linux.dev, Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 09/21] mfd: remove unneeded 'fast_io'
-	parameter in regmap_config
+Content-Disposition: inline
+In-Reply-To: <20250625094028.758016-3-arnaud.pouliquen@foss.st.com>
+X-Mailman-Approved-At: Thu, 14 Aug 2025 07:11:38 +0000
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, Srinivas Kalaga <Srinivas.Kalaga2@arm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Abdellatif El Khlifi <abdellatif.elkhlifi@arm.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v19 2/6] remoteproc: Add TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,77 +48,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When using MMIO with regmap, fast_io is implied. No need to set it
-again.
-
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
-No dependencies, can be applied directly to the subsystem tree. Buildbot is
-happy, too.
-
- drivers/mfd/exynos-lpass.c    | 1 -
- drivers/mfd/fsl-imx25-tsadc.c | 1 -
- drivers/mfd/stm32-lptimer.c   | 1 -
- drivers/mfd/sun4i-gpadc.c     | 1 -
- 4 files changed, 4 deletions(-)
-
-diff --git a/drivers/mfd/exynos-lpass.c b/drivers/mfd/exynos-lpass.c
-index 44797001a432..9bb2687c2835 100644
---- a/drivers/mfd/exynos-lpass.c
-+++ b/drivers/mfd/exynos-lpass.c
-@@ -101,7 +101,6 @@ static const struct regmap_config exynos_lpass_reg_conf = {
- 	.reg_stride	= 4,
- 	.val_bits	= 32,
- 	.max_register	= 0xfc,
--	.fast_io	= true,
- };
- 
- static void exynos_lpass_disable_lpass(void *data)
-diff --git a/drivers/mfd/fsl-imx25-tsadc.c b/drivers/mfd/fsl-imx25-tsadc.c
-index 0aab6428e042..467b1a23faeb 100644
---- a/drivers/mfd/fsl-imx25-tsadc.c
-+++ b/drivers/mfd/fsl-imx25-tsadc.c
-@@ -17,7 +17,6 @@
- #include <linux/regmap.h>
- 
- static const struct regmap_config mx25_tsadc_regmap_config = {
--	.fast_io = true,
- 	.max_register = 8,
- 	.reg_bits = 32,
- 	.val_bits = 32,
-diff --git a/drivers/mfd/stm32-lptimer.c b/drivers/mfd/stm32-lptimer.c
-index 09073dbc9c80..123659178cc2 100644
---- a/drivers/mfd/stm32-lptimer.c
-+++ b/drivers/mfd/stm32-lptimer.c
-@@ -19,7 +19,6 @@ static const struct regmap_config stm32_lptimer_regmap_cfg = {
- 	.val_bits = 32,
- 	.reg_stride = sizeof(u32),
- 	.max_register = STM32_LPTIM_MAX_REGISTER,
--	.fast_io = true,
- };
- 
- static int stm32_lptimer_detect_encoder(struct stm32_lptimer *ddata)
-diff --git a/drivers/mfd/sun4i-gpadc.c b/drivers/mfd/sun4i-gpadc.c
-index 3029d48e982c..bf2f6fdaf8bf 100644
---- a/drivers/mfd/sun4i-gpadc.c
-+++ b/drivers/mfd/sun4i-gpadc.c
-@@ -72,7 +72,6 @@ static const struct regmap_config sun4i_gpadc_regmap_config = {
- 	.reg_bits = 32,
- 	.val_bits = 32,
- 	.reg_stride = 4,
--	.fast_io = true,
- };
- 
- static const struct of_device_id sun4i_gpadc_of_match[] = {
--- 
-2.47.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQXJuYXVkLAoKPiBBZGQgYSByZW1vdGVwcm9jIFRFRSAoVHJ1c3RlZCBFeGVjdXRpb24gRW52
+aXJvbm1lbnQpIGRyaXZlciB0aGF0IHdpbGwgYmUKPiBwcm9iZWQgYnkgdGhlIFRFRSBidXMuIElm
+IHRoZSBhc3NvY2lhdGVkIFRydXN0ZWQgYXBwbGljYXRpb24gaXMgc3VwcG9ydGVkCj4gb24gdGhl
+IHNlY3VyZSBwYXJ0LCB0aGlzIGRyaXZlciBvZmZlcnMgYSBjbGllbnQgaW50ZXJmYWNlIHRvIGxv
+YWQgZmlybXdhcmUKPiBieSB0aGUgc2VjdXJlIHBhcnQuCj4gVGhpcyBmaXJtd2FyZSBjb3VsZCBi
+ZSBhdXRoZW50aWNhdGVkIGJ5IHRoZSBzZWN1cmUgdHJ1c3RlZCBhcHBsaWNhdGlvbi4KPiAKPiBB
+IHNwZWNpZmljaXR5IG9mIHRoZSBpbXBsZW1lbnRhdGlvbiBpcyB0aGF0IHRoZSBmaXJtd2FyZSBo
+YXMgdG8gYmUKPiBhdXRoZW50aWNhdGVkIGFuZCBvcHRpb25hbGx5IGRlY3J5cHRlZCB0byBhY2Nl
+c3MgdGhlIHJlc291cmNlIHRhYmxlLgo+IAo+IENvbnNlcXVlbnRseSwgdGhlIGJvb3Qgc2VxdWVu
+Y2UgaXM6Cj4gCj4gMSkgcnByb2NfcGFyc2VfZncgLS0+IHJwcm9jX3RlZV9wYXJzZV9mdwo+ICAg
+IHJlbW90ZXByb2MgVEVFOgo+ICAgIC0gUmVxdWVzdHMgdGhlIFRFRSBhcHBsaWNhdGlvbiB0byBh
+dXRoZW50aWNhdGUgYW5kIGxvYWQgdGhlIGZpcm13YXJlCj4gICAgICBpbiB0aGUgcmVtb3RlIHBy
+b2Nlc3NvciBtZW1vcmllcy4KPiAgICAtIFJlcXVlc3RzIHRoZSBURUUgYXBwbGljYXRpb24gZm9y
+IHRoZSBhZGRyZXNzIG9mIHRoZSByZXNvdXJjZSB0YWJsZS4KPiAgICAtIENyZWF0ZXMgYSBjb3B5
+IG9mIHRoZSByZXNvdXJjZSB0YWJsZSBzdG9yZWQgaW4gcnByb2MtPmNhY2hlZF90YWJsZS4KPiAK
+PiAyKSBycHJvY19sb2FkX3NlZ21lbnRzIC0tPiBycHJvY190ZWVfbG9hZF9mdwo+ICAgIHJlbW90
+ZXByb2MgVEVFOgo+ICAgIC0gUmVxdWVzdHMgdGhlIFRFRSBhcHBsaWNhdGlvbiB0byBsb2FkIHRo
+ZSBmaXJtd2FyZS4gTm90aGluZyBpcyBkb25lCj4gICAgICBhdCB0aGUgVEVFIGFwcGxpY2F0aW9u
+IGFzIHRoZSBmaXJtd2FyZSBpcyBhbHJlYWR5IGxvYWRlZC4KPiAgICAtIEluIGNhc2Ugb2YgcmVj
+b3ZlcnksIHRoZSBURUUgYXBwbGljYXRpb24gaGFzIHRvIHJlbG9hZCB0aGUgZmlybXdhcmUuCj4g
+Cj4gMykgcnByb2NfdGVlX2dldF9sb2FkZWRfcnNjX3RhYmxlCj4gICAgcmVtb3RlcHJvYyBURUUg
+cmVxdWVzdHMgdGhlIFRFRSBhcHBsaWNhdGlvbiBmb3IgdGhlIGFkZHJlc3Mgb2YgdGhlCj4gICAg
+cmVzb3VyY2UgdGFibGUuCj4gCj4gNCkgcnByb2Nfc3RhcnQgLS0+IHJwcm9jX3RlZV9zdGFydAo+
+ICAgIC0gUmVxdWVzdHMgdGhlIFRFRSBhcHBsaWNhdGlvbiB0byBzdGFydCB0aGUgcmVtb3RlIHBy
+b2Nlc3Nvci4KPiAKPiBUaGUgc2h1dGRvd24gc2VxdWVuY2UgaXM6Cj4gCj4gNSkgcnByb2Nfc3Rv
+cCAtLT4gcnByb2NfdGVlX3N0b3AKPiAgICAtIFJlcXVlc3RzIHRoZSBURUUgYXBwbGljYXRpb24g
+dG8gc3RvcCB0aGUgcmVtb3RlIHByb2Nlc3Nvci4KPiAKPiA2KSBycHJvY190ZWVfcmVsZWFzZV9m
+dwo+ICAgIFRoaXMgZnVuY3Rpb24gaXMgdXNlZCB0byByZXF1ZXN0IHRoZSBURUUgYXBwbGljYXRp
+b24gdG8gcGVyZm9ybSBhY3Rpb25zCj4gICAgdG8gcmV0dXJuIHRvIHRoZSBpbml0aWFsIHN0YXRl
+IG9uIHN0b3Agb3Igb24gZXJyb3IgZHVyaW5nIHRoZSBib290Cj4gICAgc2VxdWVuY2UuCj4gCj4g
+U2lnbmVkLW9mZi1ieTogQXJuYXVkIFBvdWxpcXVlbiA8YXJuYXVkLnBvdWxpcXVlbkBmb3NzLnN0
+LmNvbT4KLi4uCj4gKwo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHRlZV9jbGllbnRfZGV2aWNlX2lk
+IHJwcm9jX3RlZV9pZF90YWJsZVtdID0gewo+ICsJe1VVSURfSU5JVCgweDgwYTRjMjc1LCAweDBh
+NDcsIDB4NDkwNSwgMHg4MiwgMHg4NSwgMHgxNCwgMHg4NiwgMHhhOSwgMHg3NywgMHgxYSwgMHgw
+OCl9LAo+ICsJe30KPiArfTsKCk90aGVyIGltcGxlbWVudGF0aW9ucyBtYXkgdXNlIGRpZmZlcmVu
+dCBVVUlEcy4KV2hhdCBhYm91dCBhZGRpbmcgYSBrZXJuZWwgY29uZmlndXJhdGlvbiBvcHRpb24g
+d2hpY2gsIHdoZW4gZW5hYmxlZCwgYWxsb3dzCmFsdGVybmF0aXZlIGltcGxlbWVudGF0aW9ucyB0
+byBvdmVycmlkZSB0aGlzIHRhYmxlPwoKPiArLyoqCj4gKyAqIHJwcm9jX3RlZV9yZWdpc3Rlcigp
+IC0gUmVnaXN0ZXIgYSByZW1vdGUgcHJvY2Vzc29yIGNvbnRyb2xsZWQgYnkgdGhlIFRFRSBhcHBs
+aWNhdGlvbi4KLi4uCj4gKwo+ICtzdGF0aWMgaW50IHJwcm9jX3RlZV9jdHhfbWF0Y2goc3RydWN0
+IHRlZV9pb2N0bF92ZXJzaW9uX2RhdGEgKnZlciwgY29uc3Qgdm9pZCAqZGF0YSkKPiArewo+ICsJ
+LyogVG9kYXkgd2Ugc3VwcG9ydCBvbmx5IHRoZSBPUC1URUUsIGNvdWxkIGJlIGV4dGVuZCB0byBv
+dGhlciB0ZWVzICovCj4gKwlyZXR1cm4gKHZlci0+aW1wbF9pZCA9PSBURUVfSU1QTF9JRF9PUFRF
+RSk7Cj4gK30KCkNvdWxkIHdlIG1ha2UgdmVyLT5pbXBsX2lkIHVzZXItY29uZmlndXJhYmxlIHBs
+ZWFzZSA/IGZvciBleGFtcGxlLCBieSByZWFkaW5nCml0IGZyb20gdGhlIGRldmljZSB0cmVlIHNp
+bmNlIGl0IGlzbuKAmXQgZGlzY292ZXJhYmxlIGF0IHJ1bnRpbWU/IEluIG91ciBzZXR1cCwgd2Xi
+gJlkIHNldAppdCB0byBURUVfSU1QTF9JRF9UU1RFRS4KCj4gKwo+ICtzdGF0aWMgaW50IHJwcm9j
+X3RlZV9wcm9iZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gK3sKPiArCXN0cnVjdCB0ZWVfY29udGV4
+dCAqdGVlX2N0eDsKPiArCWludCByZXQ7Cj4gKwo+ICsJLyogT3BlbiBjb250ZXh0IHdpdGggVEVF
+IGRyaXZlciAqLwo+ICsJdGVlX2N0eCA9IHRlZV9jbGllbnRfb3Blbl9jb250ZXh0KE5VTEwsIHJw
+cm9jX3RlZV9jdHhfbWF0Y2gsIE5VTEwsIE5VTEwpOwo+ICsJaWYgKElTX0VSUih0ZWVfY3R4KSkK
+PiArCQlyZXR1cm4gUFRSX0VSUih0ZWVfY3R4KTsKPiArCj4gKwlyZXQgPSBtdXRleF9sb2NrX2lu
+dGVycnVwdGlibGUoJmN0eF9sb2NrKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKCklu
+IHNvbWUgVEVFcywgdGhlIGNsaWVudCBkcml2ZXIgbWlnaHQgbmVlZCB0byBwZXJmb3JtIGV4dHJh
+IHdvcmsgZHVyaW5nIHByb2JpbmcuCkZvciBleGFtcGxlLCB3aGVuIHVzaW5nIFRTIFRFRSwgY2Fs
+bGluZyB0ZWVfc2htX2FsbG9jX2tlcm5lbF9idWYoKSBpcyByZXF1aXJlZC4KQ291bGQgd2UgaW50
+cm9kdWNlIGFuIHJwcm9jX3RlZV9vcHMgYW5kIGFkZCBhIFRFRSBwcm9iZSBvcGVyYXRpb24gY2Fs
+bGVkIGJ5IHRoZQpyZW1vdGVwcm9jIGRyaXZlciBmb3IgcGVyZm9ybWluZyBjdXN0b20gVEVFIHNl
+dHVwID8KCktpbmQgcmVnYXJkcywKQWJkZWxsYXRpZgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
