@@ -2,74 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65BFAB26AA3
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Aug 2025 17:17:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82980B2A111
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 14:05:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 283A0C35E2E;
-	Thu, 14 Aug 2025 15:17:16 +0000 (UTC)
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E022EC3F93C;
+	Mon, 18 Aug 2025 12:05:23 +0000 (UTC)
+Received: from flow-b4-smtp.messagingengine.com
+ (flow-b4-smtp.messagingengine.com [202.12.124.139])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8EE4C35E00
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B752AC32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Aug 2025 15:17:14 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-30ccea8a199so1122999fac.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Aug 2025 08:17:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755184633; x=1755789433;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=umiR4j7DjLNlMEowdV58E6T5tLX87kYcXiEtAZnwsfI=;
- b=UTOIeNjis4H9xjfTQ26FE46SAAf3WcMAj5RuLlrCnPLnESfYoqM+1owHlYLof3NDXZ
- ezbm7ir3+IEEJwFIQljePjMdweh7RxCLbY9lqaVkVAvFwKr39M8SgLn4W4WsI2aEgha8
- 8AClE2V/L65e1WnWt8XbSDI82EeN1z90d1Q1bggTlaysFcZBHU07on/LHiPtN7bDMJqB
- CuO0ngHG4TblasWRRpBdu8dvOypOWl6iGg/X+UV/T+mixNTDzMnd3BnLyYi/xe3jAilz
- WkQpdUygpRGaRQDgAG/bEWzwYLbSKgcnz03kKLHx/biywHcpLQcEKzW5Q5zNaXo/NWZt
- Gc2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhk3qQSpUkE0ebVpnnLk+q/XQZ1IQhkvGsPN+Jz9sMTmeqa2dhV3togIs3kGP/VwdUpGKvStR5ECg8pw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwJ67N+R9Igcd96Jw4CUuF/uUDhRD6SIbdHZ5MAj/BKxuCoZgxG
- Cw+5uzx062G2CU5rmU0m1oAStJeWnXNFZ461KmQqrQGy1mHYiho7MXB9JdKsvV+i
-X-Gm-Gg: ASbGncuWDflUoARd48BoA7tPx+oBCa2vhD3FVb4HxIOjhAbReIq7YImv2pZuz1TTD+m
- NcND//HglwjvAvSu9FtMHjodnuEtjP19nGS4WMUa7UMso3bB6djH1WGqs+1svvRxI8rk9MFgsoP
- GPAvzVqD1U+ljjBMEgiWhwXtOKMus1emwnkRhWYgJbTGWoSd0ZwyvskNW4GkhN9pijKi6Mxq2Dr
- AXWyrvvv8t9BCTzvkhoAvdaxJl/9gjXd4ZbHz/2QveelPPMHoTMt9PsT6uzW7W39EXCv8RJ2U2d
- gbTvK/lFDWM+y6fcZch6n0RucrLhbH/FVsA6qLdgbxygGYYSugaO7BmYG9BxNzZakCXoHO+mnUG
- VkCmJP9Bfbk60iRixHbVqUI/fp3PMsVDByx9+5mDFNy0hqRQb5NiDxLuBx1gCxdEy3yhR6jM=
-X-Google-Smtp-Source: AGHT+IEvyJV+pTGriPT5vetSMx95jRKDxo0KOIWbCgzV0PVVw2uqXORQMLmIi+C7KBvzEnT00mhOiw==
-X-Received: by 2002:a05:6870:f694:b0:30b:66b0:becd with SMTP id
- 586e51a60fabf-30cd135a8c7mr2271660fac.27.1755184633283; 
- Thu, 14 Aug 2025 08:17:13 -0700 (PDT)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com.
- [209.85.210.50]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-30cd018da90sm704968fac.32.2025.08.14.08.17.13
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 08:17:13 -0700 (PDT)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-74381f217e7so744937a34.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Aug 2025 08:17:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWLVYFxjmjY+Yc+LLKYyLP2x1VaD603Knvq7yukXhe6SjKk9ALPJ+BJbTCyUL9DCUhLvE8rxBMiBZzCtg==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6102:4192:b0:4fc:1484:5500 with SMTP id
- ada2fe7eead31-50feb4013d9mr1289391137.21.1755184278470; Thu, 14 Aug 2025
- 08:11:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-93-b3bf97b038dc@redhat.com>
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-93-b3bf97b038dc@redhat.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 14 Aug 2025 17:11:07 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUpmdSzNcUOgjWLJhH6+5FkPEF9uruqGqbk-u0SC5z5wg@mail.gmail.com>
-X-Gm-Features: Ac12FXzyDBZHsviTnjmg5miZS8Vof98mQ5mu_iqWAq-BW-zvBlKCQTg0qFd90xs
-Message-ID: <CAMuHMdUpmdSzNcUOgjWLJhH6+5FkPEF9uruqGqbk-u0SC5z5wg@mail.gmail.com>
+ Thu, 14 Aug 2025 15:29:30 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.stl.internal (Postfix) with ESMTP id 105C21300304;
+ Thu, 14 Aug 2025 11:29:27 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Thu, 14 Aug 2025 11:29:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1755185366; x=1755192566; bh=rkWnl6reuM
+ 6yvJ3xZDTKQK+EuArjQadhj3fE3KZMVRQ=; b=bk5vgVr1CLPZUpu/8yzDk9lb/A
+ tHVYzQv9hTbjQ5kwcym7VsHTp19WAkg0Hpqa0wD+CqZ1Nd+U4CYQUhklsxcsM+gf
+ +Z8ariB4+I6d0eYBWBqwN85t+DHDwDQ7fqbhoqiETlG6gco3KS7d4UK8VRBiyAAS
+ 6uQ21llXN+4WgyvPXd92zlyXucFtCItZdyaRf6rM974aMV78YFLsf5bYqI0hfslp
+ WGrZ3W02q0h1GvDjIb47eJZZb/RoRsmrCwwgfK5H4wRRs0C8WqQHHYIrOMK0ZHVP
+ aDBjLclEdxOpupQdAWDgeTb1M/iK05Vsaa408ZFpj/IrPd9EETcasajpGZrQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1755185366; x=1755192566; bh=rkWnl6reuM6yvJ3xZDTKQK+EuArjQadhj3f
+ E3KZMVRQ=; b=OgtRYyef+tMauOvZ4k9rGfwXDQPdj9klbG3t2P3cD1RmOS/9tKr
+ ofSSHcPOA4xPenVBOXiV5FhURDpUSMTCxAaCfaGDs8djlJNyu+CDw00HGUTHuZE7
+ iZZjz4ciUS7g9j3QlvnqXWnhLS9T0Hfr1vQzrZacIOAYqclBu7P8wHiQyBn3x1Tv
+ 3IRsTGZTVlX0WWvOsiM9n8XZ6hNCPKGYNq9gwZN2kX8ko8IOuG4Q8FPM4sUswTeC
+ AgWkrih3zpy+BYFRHxDex0LNtVY1D6KtF6Lq5T4lYxyTSy86ct+fI6zX8qKxzdu/
+ 3y8kkYasdpgKe+p3NAh/zboekg1+6r4CeXQ==
+X-ME-Sender: <xms:0ACeaPzCAtXgPuyqWluGHhM-MFgm73xya4MqxCsQTtBCktFBJqK7kg>
+ <xme:0ACeaMERX6gx9_hULngxnLQfekqkXc4lLgLYc32ut3v9CMFW_su7guEwNB2tie5mH
+ w5fawJBsHbwl2-YVLE>
+X-ME-Received: <xmr:0ACeaLVGQlU6CrqqKVJitR-Q-KYnw8sFF555-uv-1ZSx_gltuJRQBRXFJYSpweaBmMTG7ASMGOfysdY55ljMVadCgzU7C0B0G9o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddugedugeegucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkfhggtggujgesthdtredttddtjeenucfhrhhomheplfgrnhhnvgcu
+ ifhruhhnrghuuceojhesjhgrnhhnrghurdhnvghtqeenucggtffrrghtthgvrhhnpefgvd
+ ffveelgedujeeffeehheekheelheefgfejffeftedugeethfeuudefheefteenucevlhhu
+ shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehjsehjrghnnhgruh
+ drnhgvthdpnhgspghrtghpthhtohepkeekpdhmohguvgepshhmthhpohhuthdprhgtphht
+ thhopegsmhgrshhnvgihsehrvgguhhgrthdrtghomhdprhgtphhtthhopehmthhurhhquh
+ gvthhtvgessggrhihlihgsrhgvrdgtohhmpdhrtghpthhtohepshgsohihugeskhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtohepshhuuggvvghprdhhohhllhgrsegrrhhmrdgtohhmpd
+ hrtghpthhtoheptghrihhsthhirghnrdhmrghruhhsshhisegrrhhmrdgtohhmpdhrtghp
+ thhtohepuhhnihgtohhrnhgpfigrnhhgsehouhhtlhhoohhkrdgtohhmpdhrtghpthhtoh
+ epihhnohgthhhirghmrgesghhmrghilhdrtghomhdprhgtphhtthhopehnihgtohhlrghs
+ rdhfvghrrhgvsehmihgtrhhotghhihhprdgtohhmpdhrtghpthhtoheprghlvgigrghnug
+ hrvgdrsggvlhhlohhnihessghoohhtlhhinhdrtghomh
+X-ME-Proxy: <xmx:0QCeaCmil7BHYfOOKicsmHxn_e78pk70Rk65CyKWeasaaevmqI2c1w>
+ <xmx:0QCeaDoCeuybXqCAns088Q1xVlB3g1e970x8zyEDaKcok_TAC0lcKQ>
+ <xmx:0QCeaEVFJkoSfREyDcMyNqqo6Jw3DXglTgApYi_wACt6wsNooYRRBw>
+ <xmx:0QCeaBiIqVIoEzYCR8Pz3QPaA5HZY-DpDdZxQjhq8wajhutrO-oikw>
+ <xmx:1gCeaFTE4FSOg2ZAQsli0z35YCTwrTgdlOhrp7ge8wLAulQpy-Pb8Suw>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 14 Aug 2025 11:29:19 -0400 (EDT)
+Date: Thu, 14 Aug 2025 17:29:18 +0200
+From: Janne Grunau <j@jannau.net>
 To: bmasney@redhat.com
+Message-ID: <20250814152918.GA854971@robin.jannau.net>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-75-b3bf97b038dc@redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-75-b3bf97b038dc@redhat.com>
+X-Mailman-Approved-At: Mon, 18 Aug 2025 12:05:23 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
@@ -110,11 +121,11 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
  Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
  Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
- linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
- Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
+ linux-riscv@lists.infradead.org, Chen Wang <unicorn_wang@outlook.com>,
+ arm-scmi@vger.kernel.org,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Manivannan Sadhasivam <mani@kernel.org>,
  Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
@@ -125,8 +136,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
  patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
  linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 093/114] clk: renesas: rzv2h-cpg: remove
- round_rate() in favor of determine_rate()
+Subject: Re: [Linux-stm32] [PATCH 075/114] clk: apple-nco: convert from
+ round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,31 +154,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 11 Aug 2025 at 17:18, Brian Masney via B4 Relay
-<devnull+bmasney.redhat.com@kernel.org> wrote:
+On Mon, Aug 11, 2025 at 11:19:07AM -0400, Brian Masney via B4 Relay wrote:
 > From: Brian Masney <bmasney@redhat.com>
->
-> This driver implements both the determine_rate() and round_rate() clk
-> ops, and the round_rate() clk ops is deprecated. When both are defined,
-> clk_core_determine_round_nolock() from the clk core will only use the
-> determine_rate() clk ops, so let's remove the round_rate() clk ops since
-> it's unused.
->
+> 
+> The round_rate() clk ops is deprecated, so migrate this driver from
+> round_rate() to determine_rate() using the Coccinelle semantic patch
+> on the cover letter of this series.
+> 
 > Signed-off-by: Brian Masney <bmasney@redhat.com>
+> ---
+>  drivers/clk/clk-apple-nco.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-clk for v6.18.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Reviewed-by: Janne Grunau <j@jannau.net>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
