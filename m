@@ -2,107 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0DA7B263E5
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Aug 2025 13:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11560B2658B
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Aug 2025 14:40:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B071C36B3F;
-	Thu, 14 Aug 2025 11:14:16 +0000 (UTC)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B35A7C35E00;
+	Thu, 14 Aug 2025 12:40:08 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D40A2C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CA25C36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Aug 2025 11:14:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id ADBE6A56A87;
- Thu, 14 Aug 2025 11:14:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF02C4CEED;
- Thu, 14 Aug 2025 11:13:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755170053;
- bh=tEQmYgzbbnDyqDEJWRtGvNd+F5EzBR/vQBdSyaJQhYo=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nNpjrfeQtIacQG0WEX7mhSYTd7hQlnB7xgoGgJ3v0sCDCZTw/gWywOLfqOYZY4LEw
- 5E1vCRzlD1L7yPW24oE8hMcbLDvBgKF7UglcpNWQtk+d21igAN/jkLiw4vfw95mmaO
- Wy7Aqpr6pD43wwMPVYuuHLtW+Bl/6xetkfjwBZUQFNWFgaJ0eeIdJk6JAFWM+nmE53
- +kHohC9FP8zxW9RrnA7dkwqqcgSuN4MKh4R6jlzu+aBiOCgoS1PQtvycwFenFDAKSf
- 8NGwtU+raJOCaLGmFHJD4RvJXWWS3gsAOxCpMzRtcOJrdMPkcN8DQ2NiQbSAuAjRLj
- ccmAEOd0wNzVg==
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-In-Reply-To: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-References: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-Message-Id: <175517003454.17441.365944262533574232.b4-ty@kernel.org>
-Date: Thu, 14 Aug 2025 12:13:54 +0100
+ Thu, 14 Aug 2025 12:40:07 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57EAioq1010546;
+ Thu, 14 Aug 2025 14:39:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ WzSNHix+jDzhryW7L6rWS044+qiGmGt0CFqW85ry1ZA=; b=MXCMvXlNHKbc+con
+ Gfz+5BevdW0tajuBGnIhEJT5lDj+ijrbmRk/6w1spiO43qCkWl3tZW7gwJ/x36SA
+ Qbi0deGn40RBnP5ubhNCLBvz0iAjYE6XmPBN3c60DRZLovhvuEE1GNx84ZR8Hbee
+ fFl9MEdnS0k5WqzrGo0JKjLlikmtpaFgtnWE6cic9Fy8xgIvDxVOmmg6t50qAFqJ
+ cXPLf9+oWcXdRmy/P11Hv6e9XESlfpbCUObOs00BlYX71IoHDRugn6zS/mG5K/SM
+ 4cq8ZLBZGub26xJdIXbTKZaZqbHH2ltlsk2vPjFrP+DbHnXWA+i/8KiBMx/twoPk
+ 66sqnw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48eh9nh6xa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Aug 2025 14:39:41 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 38D9A4004D;
+ Thu, 14 Aug 2025 14:38:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5A1B671CEDD;
+ Thu, 14 Aug 2025 14:36:49 +0200 (CEST)
+Received: from [10.252.20.8] (10.252.20.8) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 Aug
+ 2025 14:36:48 +0200
+Message-ID: <2c13bf48-5453-4302-9cde-eac51e314af1@foss.st.com>
+Date: Thu, 14 Aug 2025 14:36:47 +0200
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-cff91
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>, Guo Ren <guoren@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jassi Brar <jassisinghbrar@gmail.com>,
- David Lechner <dlechner@baylibre.com>, linux-sunxi@lists.linux.dev,
- Tali Perry <tali.perry1@gmail.com>, linux-pm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Andy Shevchenko <andy@kernel.org>, linux-spi@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Drew Fustini <fustini@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Yangtao Li <tiny.windzz@gmail.com>, Samuel Holland <samuel.holland@sifive.com>,
- Simona Vetter <simona@ffwll.ch>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Lee Jones <lee@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vasily Khoruzhick <anarsoul@gmail.com>, linux-rockchip@lists.infradead.org,
- linux-media@vger.kernel.org, Liu Ying <victor.liu@nxp.com>,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Sandy Huang <hjc@rock-chips.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Cameron <jic23@kernel.org>,
- imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-rtc@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Nancy Yuen <yuenn@google.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-input@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- linux-pwm@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
- Vladimir Zapolskiy <vz@mleia.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, Fu Wei <wefu@redhat.com>,
- Takashi Iwai <tiwai@suse.com>, linux-riscv@lists.infradead.org,
- David Airlie <airlied@gmail.com>, Iwona Winiarska <iwona.winiarska@intel.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, openbmc@lists.ozlabs.org,
- Zhang Rui <rui.zhang@intel.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20250812-drm-misc-next-v2-0-132fd84463d7@foss.st.com>
+ <20250812-drm-misc-next-v2-3-132fd84463d7@foss.st.com>
+ <20250814-dancing-nautilus-of-camouflage-ebb441@kuoka>
+Content-Language: en-US
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20250814-dancing-nautilus-of-camouflage-ebb441@kuoka>
+X-Originating-IP: [10.252.20.8]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-13_02,2025-08-14_01,2025-03-28_01
+Cc: Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Andrea della Porta <andrea.porta@suse.com>,
- Patrick Venture <venture@google.com>, Bjorn Andersson <andersson@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, Vinod Koul <vkoul@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 00/21] treewide: remove unneeded
- 'fast_io' parameter in regmap_config
+ Maxime Ripard <mripard@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 03/13] dt-bindings: display: st: add
+ new compatible to LVDS device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,51 +82,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 13 Aug 2025 18:14:46 +0200, Wolfram Sang wrote:
-> While working on a driver using regmap with MMIO, I wondered if I need
-> to set 'fast_io' in the config. Turned out I don't need to, so I added
-> documentation for it with commit ffc72771ff6e ("regmap: Annotate that
-> MMIO implies fast IO").
-> 
-> This series fixes the existing users in the tree which needlessly set
-> the flag. They have been found using this coccinelle script:
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[19/21] spi: remove unneeded 'fast_io' parameter in regmap_config
-        commit: 48124569bbc6bfda1df3e9ee17b19d559f4b1aa3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA4LzE0LzI1IDExOjA5LCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOgo+IE9uIFR1ZSwg
+QXVnIDEyLCAyMDI1IGF0IDAzOjQ5OjAwUE0gKzAyMDAsIFJhcGhhZWwgR2FsbGFpcy1Qb3Ugd3Jv
+dGU6Cj4+IFVwZGF0ZSB0aGUgY29tcGF0aWJsZSB0byBhY2NlcHQgYm90aCAic3Qsc3RtMzJtcDI1
+NS1sdmRzIiBhbmQKPj4gc3Qsc3RtMzJtcDI1LWx2ZHMiIHJlc3BlY3RpdmVseS4gIERlZmF1bHQg
+d2lsbCBmYWxsIGJhY2sgdG8KPj4gInN0LHN0bTMybXAyNS1sdmRzIi4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNv
+bT4KPj4gLS0tCj4+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9z
+dCxzdG0zMm1wMjUtbHZkcy55YW1sIHwgOCArKysrKysrLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDcg
+aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRh
+dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvc3Qsc3RtMzJtcDI1LWx2ZHMueWFtbCBi
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L3N0LHN0bTMybXAyNS1s
+dmRzLnlhbWwKPj4gaW5kZXggNjczNmY5MzI1NmI1Y2ViYjU1OGNkYTUyNTAzNjllYzRiMWIzMDMz
+Yy4uYjc3N2M1NTYyNmU0YjMyMmQ3N2VmNDExYWQ5ZTRhM2FmYjZjOTEzMSAxMDA2NDQKPj4gLS0t
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvc3Qsc3RtMzJtcDI1
+LWx2ZHMueWFtbAo+PiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlz
+cGxheS9zdCxzdG0zMm1wMjUtbHZkcy55YW1sCj4+IEBAIC0zMSw3ICszMSwxMyBAQCBkZXNjcmlw
+dGlvbjogfAo+PiAgCj4+ICBwcm9wZXJ0aWVzOgo+PiAgICBjb21wYXRpYmxlOgo+PiAtICAgIGNv
+bnN0OiBzdCxzdG0zMm1wMjUtbHZkcwo+PiArICAgIG9uZU9mOgo+PiArICAgICAgLSBpdGVtczoK
+Pj4gKyAgICAgICAgICAtIGVudW06Cj4+ICsgICAgICAgICAgICAgIC0gc3Qsc3RtMzJtcDI1NS1s
+dmRzCj4+ICsgICAgICAgICAgLSBjb25zdDogc3Qsc3RtMzJtcDI1LWx2ZHMKPj4gKyAgICAgIC0g
+aXRlbXM6Cj4gRHJvcC4gVGhpcyBzaG91bGQgYmUganVzdCBlbnVtIG9yIGNvbnN0LCBubyBuZWVk
+IGZvciBpdGVtcy4KCldoeSB3b3VsZCBpdGVtcyBub3QgYmUgYXBwbGljYWJsZSBpbiB0aGlzIGNh
+c2UgPyBJIHdhbnQgdGhlIGNvbXBhdGlibGUgZmllbGQgdG8KYmUgZWl0aGVyOgoKY29tcGF0aWJs
+ZSA9ICJzdCxzdG0zMm1wMjU1LWx2ZHMiLCAic3Qsc3RtMzJtcDI1LWx2ZHMiOwoKb3IKCmNvbXBh
+dGlibGUgPSAic3Qsc3RtMzJtcDI1LWx2ZHMiOwoKZXhhbXBsZS1zY2hlbWEueWFtbCBzdGF0ZXMg
+dGhlIHNhbWUgcGF0dGVybi4KCkJlc3QgcmVnYXJkcywKUmFwaGHDq2wKPgo+IEFja2VkLWJ5OiBL
+cnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+Cj4KPiBC
+ZXN0IHJlZ2FyZHMsCj4gS3J6eXN6dG9mCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
