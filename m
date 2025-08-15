@@ -2,107 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE105B2822A
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Aug 2025 16:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D97AB28460
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Aug 2025 18:55:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B44C9C32EBF;
-	Fri, 15 Aug 2025 14:42:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD478C3F930;
+	Fri, 15 Aug 2025 16:55:30 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 640C7C32EB5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54048C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Aug 2025 14:42:13 +0000 (UTC)
+ Fri, 15 Aug 2025 16:55:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DEA18439C8;
- Fri, 15 Aug 2025 14:42:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B35C4CEEB;
- Fri, 15 Aug 2025 14:42:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EA1B841A5A;
+ Fri, 15 Aug 2025 16:55:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BF2B4C4CEF1;
+ Fri, 15 Aug 2025 16:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755268931;
- bh=3eUf4UXirGpUX0gw3VvalDgnQQxUYuzOa7d+Bn86Fb0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QGhHpuiSTtGAbt/6dlTCnnoTA4ZplxFC8Tro0GJAdbAh12tMNEUSLu07z11OvQBvk
- oHTf5TJS/YKStrrrPHeWRzwJ0jGE6j5AZ1tbRvaZy3dDmEE9KCuVb15MPpzSH6J/gw
- 2nlRciQR5ILTUmZcjfPb8Wftcr9/dguuRdUZKw9cWJDeaG76YAPPH1GvTVv9P/kSEx
- wLYcS3eJZ7unChNgWOYh7wQNPjdRjal2zeZDCWKyPnLkisSlJQ+WGVCBgVhn2LIrAt
- +qG7XHhqCY/zS15DuM72YtrsT2tpKSGGxqzGtUU2p/oH3AF5g3+H8o04kc5YGhgMBJ
- knwp+/59e078g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Date: Fri, 15 Aug 2025 09:42:02 -0500
-Message-ID: <175526892008.370600.8859545110801188375.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-References: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
+ s=k20201202; t=1755276925;
+ bh=zl87QclcDa3DKTevz342RWsdUkmKZ3kWOu2bPgZotaQ=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=d+DXsfzwZz/1607mPnylsjSqtFkdljLyHXb1M+0KtScK3u3fJozABnYjf/4A3v1dF
+ /KPUafe1k1W61UwDtCQfnE5wiGCr3A+l9Ybnr+dqfTSmwFfmCV2e5xFUe7Lm73HaRu
+ TyWnrpEwdjBWkoRwatOzNR9m7qSTFV3YdiXTQ65CX8wDPk62E5/jdutbvOEGzM/MAz
+ vugEwC/22T+7oWvoqexFFvFGQajpA6+vMs+2ArxZ8aJxn7SkYj8wmIxoTNwIg6YdRN
+ hNkXmV+a4CNEuBjX0sB14Rfyd9B+dTcVWcrcUwghHkYuLhZS++QczJ3H30abbYPhKi
+ GG/a29Q1cf4NQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B349CCA0EE6;
+ Fri, 15 Aug 2025 16:55:25 +0000 (UTC)
+From: Rohan G Thomas via B4 Relay
+ <devnull+rohan.g.thomas.altera.com@kernel.org>
+Date: Sat, 16 Aug 2025 00:55:22 +0800
+Message-Id: <20250816-xgmac-minor-fixes-v2-0-699552cf8a7f@altera.com>
 MIME-Version: 1.0
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>, Guo Ren <guoren@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jassi Brar <jassisinghbrar@gmail.com>,
- David Lechner <dlechner@baylibre.com>, linux-sunxi@lists.linux.dev,
- Tali Perry <tali.perry1@gmail.com>, linux-pm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Andy Shevchenko <andy@kernel.org>, linux-spi@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Drew Fustini <fustini@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Yangtao Li <tiny.windzz@gmail.com>, Samuel Holland <samuel.holland@sifive.com>,
- Simona Vetter <simona@ffwll.ch>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Lee Jones <lee@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vasily Khoruzhick <anarsoul@gmail.com>, linux-rockchip@lists.infradead.org,
- linux-media@vger.kernel.org, Liu Ying <victor.liu@nxp.com>,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Sandy Huang <hjc@rock-chips.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Cameron <jic23@kernel.org>,
- imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, linux-phy@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-rtc@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Nancy Yuen <yuenn@google.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-input@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- linux-pwm@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
- Vladimir Zapolskiy <vz@mleia.com>, Mark Brown <broonie@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>, Fu Wei <wefu@redhat.com>,
- Takashi Iwai <tiwai@suse.com>, linux-riscv@lists.infradead.org,
- David Airlie <airlied@gmail.com>, Iwona Winiarska <iwona.winiarska@intel.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, openbmc@lists.ozlabs.org,
- Zhang Rui <rui.zhang@intel.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Andrea della Porta <andrea.porta@suse.com>,
- Patrick Venture <venture@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Vinod Koul <vkoul@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 00/21] treewide: remove unneeded
-	'fast_io' parameter in regmap_config
+X-B4-Tracking: v=1; b=H4sIAHpmn2gC/32NQQqDMBBFryKz7pRkatF25T2KixBHHahJSYKki
+ HdvyAG6fDze/wdEDsIRns0BgXeJ4l0BujRgV+MWRpkKAym6q063mJfNWNzE+YCzZI7YKuq7mUh
+ PlqF0n8BVlOwFjhM6zgnGYlaJyYdvPdt19X92d40K7a1VDzJ9bzoazDtxMFfrNxjP8/wBtwHLZ
+ 70AAAA=
+X-Change-ID: 20250714-xgmac-minor-fixes-40287f221dce
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Serge Semin <fancer.lancer@gmail.com>, 
+ Romain Gantois <romain.gantois@bootlin.com>, 
+ Jose Abreu <Jose.Abreu@synopsys.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755276924; l=1234;
+ i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
+ bh=zl87QclcDa3DKTevz342RWsdUkmKZ3kWOu2bPgZotaQ=;
+ b=e07IJKlqLpRHehRFXDj41qKkESxMxzz5NMzfNCTXpgPDuowY+O4sUC/gPBXEZ9NWseGEfNinm
+ rkO9woTy9UxBhgwURhP+g6fPGdtebSJAlvhGr6DwzbJJ1lwj9/FqhuN
+X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
+ pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
+X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
+ with auth_id=494
+X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>, linux-kernel@vger.kernel.org,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/3] net: stmmac: xgmac: Minor
+	fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,31 +79,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: rohan.g.thomas@altera.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This patch series includes following minor fixes for stmmac
+dwxgmac driver:
 
-On Wed, 13 Aug 2025 18:14:46 +0200, Wolfram Sang wrote:
-> While working on a driver using regmap with MMIO, I wondered if I need
-> to set 'fast_io' in the config. Turned out I don't need to, so I added
-> documentation for it with commit ffc72771ff6e ("regmap: Annotate that
-> MMIO implies fast IO").
-> 
-> This series fixes the existing users in the tree which needlessly set
-> the flag. They have been found using this coccinelle script:
-> 
-> [...]
+    1. Disable Rx FIFO overflow interrupt for dwxgmac
+    2. Correct supported speed modes for dwxgmac
+    3. Check for coe-unsupported flag before setting CIC bit of
+       Tx Desc3 in the AF_XDP flow
 
-Applied, thanks!
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+---
+Changes in v2:
+- Added Fixes: tags to relevant commits.
+- Added a check for synopsys version to enable 10Mbps, 100Mbps support.
+- Link to v1: https://lore.kernel.org/r/20250714-xgmac-minor-fixes-v1-0-c34092a88a72@altera.com
 
-[18/21] soc: remove unneeded 'fast_io' parameter in regmap_config
-        commit: 5d8a9c8401648d338d072a488d455ed4611c5d4b
+---
+Rohan G Thomas (3):
+      net: stmmac: xgmac: Do not enable RX FIFO Overflow interrupts
+      net: stmmac: xgmac: Correct supported speed modes
+      net: stmmac: Set CIC bit only for TX queues with COE
+
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 13 +++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c  |  9 +++++----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   |  6 ++++--
+ 3 files changed, 20 insertions(+), 8 deletions(-)
+---
+base-commit: 88250d40ed59d2b3c2dff788e9065caa7eb4dba0
+change-id: 20250714-xgmac-minor-fixes-40287f221dce
 
 Best regards,
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Rohan G Thomas <rohan.g.thomas@altera.com>
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
