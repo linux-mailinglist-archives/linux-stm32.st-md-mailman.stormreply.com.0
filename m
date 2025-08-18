@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4024B2AB93
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 16:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0EF6B2ABC7
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 16:56:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA3CC3F93D;
-	Mon, 18 Aug 2025 14:51:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9470FC3F93B;
+	Mon, 18 Aug 2025 14:56:18 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27CD2C3F93B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2D39C3F93A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 14:51:43 +0000 (UTC)
+ Mon, 18 Aug 2025 14:56:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EF8AE600AE;
- Mon, 18 Aug 2025 14:51:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F69AC4CEF1;
- Mon, 18 Aug 2025 14:51:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6CBE15C5D6D;
+ Mon, 18 Aug 2025 14:56:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05313C4CEEB;
+ Mon, 18 Aug 2025 14:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755528699;
- bh=ym5XcW6YS0QEETglCaiadrAbWVSrb2w1A4Z8G9cVeRU=;
+ s=k20201202; t=1755528975;
+ bh=j79Kr2vIgsfUz//Ws0Wkm4E2WFNQVHp73NmbHApah+I=;
  h=Date:Subject:To:References:From:In-Reply-To:From;
- b=dgvv5WboEEa9MZDU2M0iFqQlS+iLMJt1d6lgX8P3mgFAc49WgUWb6PQZKbRHh5WL4
- mi11ESZDFzGfqKh2pdNdx4VBjh1EKpcHEe+FmYL5S5BRh0A5dv4r9BX+x9lVdESb4G
- 4bL+Js90hF0cOwz9o5s4Mo530QCEdGMqE3+ZsgjsshAd5GPEWUgnDgfajjE2jrD+sW
- cZsXPfFfo8WLLgpy5RBa0dkYrs6ehgB4YkLtyVHxdqt0H5auzjk4deyP6PMOrB0LHq
- qDHshpdN01wOzo5PnewavTZa8C2NBVyS3vB1tuh1mB+52esSEWRSW9ReXcC8/HrFbi
- EiZLp0nhHJE/Q==
-Message-ID: <259e72c0-b69a-42d4-aec5-ad8a6e03d416@kernel.org>
-Date: Mon, 18 Aug 2025 16:51:34 +0200
+ b=jGs8i5MQKoGkpsQWYGbDwSysvs8MdXQKkMylj+u+bNGtCLE6Se+fDOVma99zDVhav
+ JAMtuBWLaMsZ8OESF4zaD9f/ZB3LBSDOFPhzWKQ0FHoDfQ4wS9N1+akhXWLAgoUAEh
+ t/AmkDmxYE0SAz1K/PyZyKS130wA3HD1DpqvJ1JmZMgtNqn1Ar+ZzLVLy0lfCKrdCr
+ YMPDb0SWJteThcsoFdGG6SrIEKBJwqAGCBOjLc2PevaqC7bKhSdM5HZI8sD9rDhVwI
+ ou3xG9sBROxT/u5taSr390zi5qplu1TbTnglF5+dSsutwDtzu2w2y6ymE6bzbzWjV6
+ mSHnRCVmTmlew==
+Message-ID: <651df530-797a-45e1-b199-917deda33222@kernel.org>
+Date: Mon, 18 Aug 2025 16:56:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Marek Vasut <marek.vasut@mailbox.org>,
@@ -45,6 +45,7 @@ To: Marek Vasut <marek.vasut@mailbox.org>,
  kernel@dh-electronics.com
 References: <20250818143730.244379-2-krzysztof.kozlowski@linaro.org>
  <388e6f81-383b-4b39-9b75-8d2cdbf95d37@mailbox.org>
+ <259e72c0-b69a-42d4-aec5-ad8a6e03d416@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,7 +91,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <388e6f81-383b-4b39-9b75-8d2cdbf95d37@mailbox.org>
+In-Reply-To: <259e72c0-b69a-42d4-aec5-ad8a6e03d416@kernel.org>
 Subject: Re: [Linux-stm32] [PATCH] arm: dts: stm32: Drop redundant
 	status=okay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -109,21 +110,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 18/08/2025 16:45, Marek Vasut wrote:
-> On 8/18/25 4:37 PM, Krzysztof Kozlowski wrote:
->> Device nodes are enabled by default, so remove confusing or duplicated
->> enabling of few nodes.  No practical impact, verified with dtx_diff.
-> I assume the "no practical impact" means DTs are identical before/after 
-> this patch ? If yes,
-
-
-No, DTS cannot be identical in this case because one had status, new one
-does not have. Practical impact means... visible impact in practice. How
-to say it more clearly?
-
+On 18/08/2025 16:51, Krzysztof Kozlowski wrote:
+> On 18/08/2025 16:45, Marek Vasut wrote:
+>> On 8/18/25 4:37 PM, Krzysztof Kozlowski wrote:
+>>> Device nodes are enabled by default, so remove confusing or duplicated
+>>> enabling of few nodes.  No practical impact, verified with dtx_diff.
+>> I assume the "no practical impact" means DTs are identical before/after 
+>> this patch ? If yes,
 > 
-> Reviewed-by: Marek Vasut <marek.vasut@mailbox.org>
+> 
+> No, DTS cannot be identical in this case because one had status, new one
+> does not have. Practical impact means... visible impact in practice. How
+> to say it more clearly?
+To illustrate: this is "no practical impact":
 
+
+--- dts-old/st/stm32mp157c-dhcom-picoitx.dtb
++++ dts-new/st/stm32mp157c-dhcom-picoitx.dtb
+@@ -691,14 +691,12 @@
+ 					interrupt-controller;
+ 					interrupts-extended = <0x49 0x00
+ 					reg = <0x33>;
+-					status = "okay";
+
+
+But this would be a practical impact:
+
+
+@@ -1124,7 +1121,7 @@
+ 					dmas = <0x26 0x59 0x400 0x01>;
+ 					phandle = <0x39>;
+ 					reg = <0x04 0x20>;
+-					status = "okay";
++					status = "disabled";
 
 
 Best regards,
