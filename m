@@ -2,60 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD92B2BAF6
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 09:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3196B2B143
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 21:11:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80A81C3F945;
-	Tue, 19 Aug 2025 07:42:26 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20DCAC3F93A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 14:58:54 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8B54C36B1E;
+	Mon, 18 Aug 2025 19:11:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4c5G7b537qz9t7s;
- Mon, 18 Aug 2025 16:58:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1755529131;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=It6WsGpfjWI4leoXs05vkzx9/2tYzuPt+sPubFhfa+0=;
- b=ZohjIzNQt2wCVmQYGFKOP73CFbd6Ia0/eaGon8+3QyJWF1qEjO3Ww3UY5k/frrG/RiYlHC
- Gr/S+lyczLT2Knd0qczhXn2tzrfObKvXItL8eQzz7O9RPyaQPSIUX7KqRjmRAiS8+ojZVD
- ZoWeeH3G1LHZgkLl4EMyUwrAnIXGI7B7xOJovQFn/i87Jqfbt2iUsSGfvI3M/CKVSe7Xbn
- TntQ2bHdqBtkddu2hZyQh9+9v0E5mC2zqzqyc1zXrro52VjACsNYWZdaQ6tlahOzvvTLJQ
- dJsvfcKTHPaAo5ex3L0T6ZMJjiunz6u30bzxbdbIfeZeyGk72zL0/3jinC4YeA==
-Message-ID: <d1510b98-5094-4eec-b81b-55d0ba3e1b4a@mailbox.org>
-Date: Mon, 18 Aug 2025 16:58:47 +0200
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CED70C36B15
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 18 Aug 2025 19:11:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A60E56111C;
+ Mon, 18 Aug 2025 19:11:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5769AC4CEEB;
+ Mon, 18 Aug 2025 19:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755544269;
+ bh=OZK5CyXw1PInn/yqI4pDY8A9Y5pwSG9xCax8VqYzUdI=;
+ h=Date:From:To:Cc:Subject:Reply-To:From;
+ b=BSQq1w5JizmpSZUf4s5+tSO15Q/XuPUlIXNgf1lPgC6Pnth2YBndwPcZNe43Yz22l
+ aiAO/8djv6cgRjptjNlsO74pfWV92BT333yfBGhdxxO98IDtl22SSCsx3zVYv4NqzB
+ +BYzAH6+UQvq8qtZXQQ3H0ovg0z8at8SU1kKuzNcG+QMQnJGJclFDJwzkORw/cyvpw
+ XzRJ6qLivhVK38NONmfhs3MqKXQMUPujPlT2Tk37jMqef1ss8NnQOXHk83xn7Ll5mD
+ nyG/zTRJhjyz+DA7kC0kkMqTnXtCU4WEEjdG0E10KmP7TTsNiGgMRdmHrMmelN8F1f
+ tOfVwQIQBekwg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+ id 07D41CE0CC4; Mon, 18 Aug 2025 12:11:09 -0700 (PDT)
+Date: Mon, 18 Aug 2025 12:11:09 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: linux-kernel@vger.kernel.org
+Message-ID: <7ee6a142-1ed9-4874-83b7-128031e41874@paulmck-laptop>
 MIME-Version: 1.0
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@dh-electronics.com
-References: <20250818143730.244379-2-krzysztof.kozlowski@linaro.org>
- <388e6f81-383b-4b39-9b75-8d2cdbf95d37@mailbox.org>
- <259e72c0-b69a-42d4-aec5-ad8a6e03d416@kernel.org>
- <651df530-797a-45e1-b199-917deda33222@kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <651df530-797a-45e1-b199-917deda33222@kernel.org>
-X-MBO-RS-META: 6nsdwhcsnfm3nimas3f6jx49wjpdyxzm
-X-MBO-RS-ID: e1973190b65b1be2432
-X-Mailman-Approved-At: Tue, 19 Aug 2025 07:42:25 +0000
-Subject: Re: [Linux-stm32] [PATCH] arm: dts: stm32: Drop redundant
-	status=okay
+Content-Disposition: inline
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC] net: stmmac: Make DWMAC_ROCKCHIP and
+ DWMAC_STM32 depend on PM_SLEEP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,36 +57,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: paulmck@kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/18/25 4:56 PM, Krzysztof Kozlowski wrote:
-> On 18/08/2025 16:51, Krzysztof Kozlowski wrote:
->> On 18/08/2025 16:45, Marek Vasut wrote:
->>> On 8/18/25 4:37 PM, Krzysztof Kozlowski wrote:
->>>> Device nodes are enabled by default, so remove confusing or duplicated
->>>> enabling of few nodes.  No practical impact, verified with dtx_diff.
->>> I assume the "no practical impact" means DTs are identical before/after
->>> this patch ? If yes,
->>
->>
->> No, DTS cannot be identical in this case because one had status, new one
->> does not have. Practical impact means... visible impact in practice. How
->> to say it more clearly?
-> To illustrate: this is "no practical impact":
-> 
-> 
-> --- dts-old/st/stm32mp157c-dhcom-picoitx.dtb
-> +++ dts-new/st/stm32mp157c-dhcom-picoitx.dtb
-> @@ -691,14 +691,12 @@
->   					interrupt-controller;
->   					interrupts-extended = <0x49 0x00
->   					reg = <0x33>;
-> -					status = "okay";
-Sorry, yes, this ^ is what I meant and obviously wrote too fast and too 
-inaccurately. My RB still stands. Thanks
+Hello!
+
+This might be more of a bug report than a patch, but here goes...
+
+Running rcuscale or refscale performance tests on datacenter ARM systems
+gives the following build errors with CONFIG_HIBERNATION=n:
+
+ERROR: modpost: "stmmac_simple_pm_ops" [drivers/net/ethernet/stmicro/stmmac/dwmac-rk.ko] undefined!
+ERROR: modpost: "stmmac_simple_pm_ops" [drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.ko] undefined!
+
+The problem is that these two drivers unconditionally reference
+stmmac_simple_pm_ops, which is not exported to modules in kernels built
+without CONFIG_PM_SLEEP, which depends on CONFIG_HIBERNATION.
+
+Therefore, update drivers/net/ethernet/stmicro/stmmac/Kconfig so that
+CONFIG_DWMAC_ROCKCHIP and CONFIG_DWMAC_STM32 depend on CONFIG_PM_SLEEP,
+thus preventing the dependence on a symbol when it is not exported.
+With this change, rcuscale and refscale build and run happily on the
+ARM system that I have access to.
+
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: <netdev@vger.kernel.org>
+Cc: <linux-stm32@st-md-mailman.stormreply.com>
+Cc: <linux-arm-kernel@lists.infradead.org>
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 67fa879b1e521e..150f662953a24b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -146,7 +146,7 @@ config DWMAC_RENESAS_GBETH
+ config DWMAC_ROCKCHIP
+ 	tristate "Rockchip dwmac support"
+ 	default ARCH_ROCKCHIP
+-	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
++	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST) && PM_SLEEP
+ 	select MFD_SYSCON
+ 	help
+ 	  Support for Ethernet controller on Rockchip RK3288 SoC.
+@@ -231,7 +231,7 @@ config DWMAC_STI
+ config DWMAC_STM32
+ 	tristate "STM32 DWMAC support"
+ 	default ARCH_STM32
+-	depends on OF && HAS_IOMEM && (ARCH_STM32 || COMPILE_TEST)
++	depends on OF && HAS_IOMEM && (ARCH_STM32 || COMPILE_TEST) && PM_SLEEP
+ 	select MFD_SYSCON
+ 	help
+ 	  Support for ethernet controller on STM32 SOCs.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
