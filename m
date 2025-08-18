@@ -2,70 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8BEDB29FA5
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 12:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17644B2A12D
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 14:12:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2097DC3F93B;
-	Mon, 18 Aug 2025 10:53:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8792C3F93B;
+	Mon, 18 Aug 2025 12:12:46 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 227B7C3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFFA9C3F93A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 10:53:27 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57I9Z0je028985;
- Mon, 18 Aug 2025 12:53:02 +0200
+ Mon, 18 Aug 2025 12:12:44 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57IAJpjQ011221;
+ Mon, 18 Aug 2025 14:12:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- sX1oBWhQYj9bxa1O4MkbKyeiDwQaF+Lccrzrfxq3YzE=; b=Ns5OP/VnvRmLnLgD
- 9RA7z5rw5ag2xsjnGb3k1KdgsZch33rgXeoxnkh1IqNN0vq/u1d1grsiwnxEflvQ
- 5MUxN+aEKGwXH9XHDVzXA1SzGoiHClTs0QbFbxXXzBeLDqU5ZzccSAZRQaRrNRtq
- YFhivY3eoVm7RjDHXDyFMDJTS+NCHEYW/3c8jUG0LhrWjLghZJAq7LV0cINe/Myy
- ALf4IoFuRUlgKWMmahZlfYYPh5ILdmgrdjF5WE0e/HXQXQ/wIUIOEOqwt8JmHo1C
- Z8nf0xhPTRWRdqb6LmfcQu6Yy2zn7+6GpWyrru8Ui0fBhI7TFgQ+0KHa66eoPnQr
- VNZylg==
+ vF8oVy6/ZMtowVhAnxsrKfpp6JXqFRBEiZTXs8imWKc=; b=PSxNhDdZaYr8EoNw
+ 8aZMzG+HAc5zZ/G6iGzm7FWO+i9981Jvk6JfEpE+hG0VOKlKZPoIa46QiLFU4DYx
+ sUznRsmqgIiHeCSbPJoiisAuzQzZ6hgkO4CmmJIHG7kce+fJ4nFBIscnYKnoIKbX
+ 3aYq4auNUAVqWfPNpND0uGOiy/LN0NcMei0rDbyUEd+d+AzIAj5hnYsC2UnS0xR7
+ owFelE/4Cju4Q5ND97wzWltji6xPXOGJ9DX+MuHSSWyyGgT9iyzcWsaxj1P2gIhN
+ ZoZAmieb/bp+Dh/tSZAo0g1gI8TJ7Cp2gxhDUWfG1cXNsAamFT96b+DTHpo8oG9Y
+ 4YsXyw==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48jfdk6ds4-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48k3j4capj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Aug 2025 12:53:02 +0200 (MEST)
+ Mon, 18 Aug 2025 14:12:15 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8530040045;
- Mon, 18 Aug 2025 12:51:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7A72D723BAA;
- Mon, 18 Aug 2025 12:50:22 +0200 (CEST)
-Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DD37C40046;
+ Mon, 18 Aug 2025 14:10:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CD98B6D4186;
+ Mon, 18 Aug 2025 14:08:47 +0200 (CEST)
+Received: from [10.48.87.121] (10.48.87.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Aug
- 2025 12:50:21 +0200
-Message-ID: <917c9323-9c0c-406f-a314-a6e4a5511b45@foss.st.com>
-Date: Mon, 18 Aug 2025 12:50:19 +0200
+ 2025 14:08:43 +0200
+Message-ID: <20437dbf-9d45-4a51-815f-ad1d1d15346e@foss.st.com>
+Date: Mon, 18 Aug 2025 14:08:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Christian Bruel <christian.bruel@foss.st.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-References: <20250813192957.GA286749@bhelgaas>
+To: <bmasney@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ "Cristian Marussi" <cristian.marussi@arm.com>, Chen Wang
+ <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, Nicolas
+ Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Paul Cercueil <paul@crapouillou.net>, Keguang Zhang
+ <keguang.zhang@gmail.com>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ "Takao Orito" <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jacky Huang
+ <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, "Vladimir
+ Zapolskiy" <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Samuel Holland
+ <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>, Steen Hegelund
+ <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ <UNGLinuxDriver@microchip.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Michal Simek <michal.simek@amd.com>,
+ "Maxime Ripard" <mripard@kernel.org>, =?UTF-8?Q?Andreas_F=C3=A4rber?=
+ <afaerber@suse.de>, Manivannan Sadhasivam <mani@kernel.org>, Sven Peter
+ <sven@kernel.org>, Janne Grunau <j@jannau.net>, Alyssa Rosenzweig
+ <alyssa@rosenzweig.io>, Neal Gompa <neal@gompa.dev>, Eugeniy Paltsev
+ <Eugeniy.Paltsev@synopsys.com>, Ray Jui <rjui@broadcom.com>, Scott Branden
+ <sbranden@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,
+ Daniel Palmer <daniel@thingy.jp>,
+ Romain Perier <romain.perier@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner
+ <heiko@sntech.de>, Andrea della Porta <andrea.porta@suse.com>, "Krzysztof
+ Kozlowski" <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Qin Jian <qinjian@cqplus1.com>,
+ Viresh Kumar <vireshk@kernel.org>, "Ulf Hansson" <ulf.hansson@linaro.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Alex Helms <alexander.helms.jy@renesas.com>, Linus Walleij
+ <linus.walleij@linaro.org>, Liviu Dudau <liviu.dudau@arm.com>, "Lorenzo
+ Pieralisi" <lpieralisi@kernel.org>, Nobuhiro Iwamatsu
+ <nobuhiro1.iwamatsu@toshiba.co.jp>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-58-b3bf97b038dc@redhat.com>
 Content-Language: en-US
-In-Reply-To: <20250813192957.GA286749@bhelgaas>
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
+From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-58-b3bf97b038dc@redhat.com>
+X-Originating-IP: [10.48.87.121]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-18_04,2025-08-14_01,2025-03-28_01
-Cc: robh@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
- mani@kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- thippeswamy.havalige@amd.com, linux-kernel@vger.kernel.org, cassel@kernel.org,
- devicetree@vger.kernel.org, quic_schintav@quicinc.com,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- bhelgaas@google.com, krzk+dt@kernel.org, shradha.t@samsung.com,
- linux-stm32@st-md-mailman.stormreply.com, johan+linaro@kernel.org,
- kwilczynski@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v12 2/9] PCI: stm32: Add PCIe host support
-	for STM32MP25
+ definitions=2025-08-18_05,2025-08-14_01,2025-03-28_01
+Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
+ asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 058/114] clk: stm32: stm32-core: convert
+ from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,450 +130,82 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/13/25 21:29, Bjorn Helgaas wrote:
-> On Tue, Jun 10, 2025 at 11:07:07AM +0200, Christian Bruel wrote:
->> Add driver for the STM32MP25 SoC PCIe Gen1 2.5 GT/s and Gen2 5GT/s
->> controller based on the DesignWare PCIe core.
->> ...
-> 
->> +struct stm32_pcie {
->> +	struct dw_pcie pci;
->> +	struct regmap *regmap;
->> +	struct reset_control *rst;
->> +	struct phy *phy;
->> +	struct clk *clk;
->> +	struct gpio_desc *perst_gpio;
->> +	struct gpio_desc *wake_gpio;
->> +};
->> +
->> +static void stm32_pcie_deassert_perst(struct stm32_pcie *stm32_pcie)
->> +{
->> +	/* Delay PERST# de-assertion until the power stabilizes */
->> +	msleep(PCIE_T_PVPERL_MS);
->> +
->> +	gpiod_set_value(stm32_pcie->perst_gpio, 0);
->> +
->> +	/* Wait for the REFCLK to stabilize */
->> +	if (stm32_pcie->perst_gpio)
->> +		msleep(PCIE_T_RRS_READY_MS);
-> 
-> This obviously relies on gpiod_set_value(stm32_pcie->perst_gpio, 0)
-> being a no-op when perst_gpio == NULL.  Since we're testing perst_gpio
-> anyway, I think it might be more readable to avoid relying on
-> gpiod_set_value() being a no-op:
-> 
->    msleep(PCIE_T_PVPERL_MS);
-> 
->    if (stm32_pcie->perst_gpio) {
->      gpiod_set_value(stm32_pcie->perst_gpio, 0);
->      msleep(PCIE_T_RRS_READY_MS);
->    }
-> 
-> (And a similar change in stm32_pcie_assert_perst())
-> 
-> But this seems wrong because PCIE_T_PVPERL_MS is a delay before PERST#
-> is deasserted, but when perst_gpio == NULL, PERST# has already *been*
-> deasserted.
-> 
-> So it seems like it would make more sense as:
-> 
->    if (stm32_pcie->perst_gpio) {
->      msleep(PCIE_T_PVPERL_MS);
->      gpiod_set_value(stm32_pcie->perst_gpio, 0);
->    }
-> 
->    msleep(PCIE_T_RRS_READY_MS);
 
-I agree, grouping pvperl_ms and the PERST# deassertion together makes 
-sense. thank you.
+On 8/11/25 17:18, Brian Masney via B4 Relay wrote:
+> From: Brian Masney <bmasney@redhat.com>
+>
+> The round_rate() clk ops is deprecated, so migrate this driver from
+> round_rate() to determine_rate() using the Coccinelle semantic patch
+> on the cover letter of this series.
+>
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+Reviewed-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-> 
->> +}
->> +
->> +static void stm32_pcie_assert_perst(struct stm32_pcie *stm32_pcie)
->> +{
->> +	gpiod_set_value(stm32_pcie->perst_gpio, 1);
->> +}
->> +
->> +static int stm32_pcie_start_link(struct dw_pcie *pci)
->> +{
->> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
->> +
->> +	return regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
->> +				  STM32MP25_PCIECR_LTSSM_EN,
->> +				  STM32MP25_PCIECR_LTSSM_EN);
->> +}
->> +
->> +static void stm32_pcie_stop_link(struct dw_pcie *pci)
->> +{
->> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
->> +
->> +	regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
->> +			   STM32MP25_PCIECR_LTSSM_EN, 0);
->> +}
->> +
->> +static int stm32_pcie_suspend_noirq(struct device *dev)
->> +{
->> +	struct stm32_pcie *stm32_pcie = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	ret = dw_pcie_suspend_noirq(&stm32_pcie->pci);
->> +	if (ret)
->> +		return ret;
->> +
->> +	stm32_pcie_assert_perst(stm32_pcie);
->> +
->> +	clk_disable_unprepare(stm32_pcie->clk);
->> +
->> +	if (!device_wakeup_path(dev))
->> +		phy_exit(stm32_pcie->phy);
->> +
->> +	return pinctrl_pm_select_sleep_state(dev);
->> +}
->> +
->> +static int stm32_pcie_resume_noirq(struct device *dev)
->> +{
->> +	struct stm32_pcie *stm32_pcie = dev_get_drvdata(dev);
->> +	int ret;
->> +
->> +	/*
->> +	 * The core clock is gated with CLKREQ# from the COMBOPHY REFCLK,
->> +	 * thus if no device is present, must force it low with an init pinmux
->> +	 * to be able to access the DBI registers.
-> 
-> What happens on initial probe if no device is present?  I assume we
-> access DBI registers in the dw_pcie_host_init() path, and it seems
-> like we'd have the same issue with DBI not being accessible when no
-> device is present.
-
-Correct, same issue. The magic happens with the PINCTRL init state that 
-is automatically called before probe. As I tried to explain in the 
-Documentation in the pinctrl patch:
-
-- if ``init`` and ``default`` are defined in the device tree, the "init"
-   state is selected before the driver probe and the "default" state is
-   selected after the driver probe.
-
-> 
->> +	if (!IS_ERR(dev->pins->init_state))
->> +		ret = pinctrl_select_state(dev->pins->p, dev->pins->init_state);
->> +	else
->> +		ret = pinctrl_pm_select_default_state(dev);
->> +
->> +	if (ret) {
->> +		dev_err(dev, "Failed to activate pinctrl pm state: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if (!device_wakeup_path(dev)) {
->> +		ret = phy_init(stm32_pcie->phy);
->> +		if (ret) {
->> +			pinctrl_pm_select_default_state(dev);
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	ret = clk_prepare_enable(stm32_pcie->clk);
->> +	if (ret)
->> +		goto err_phy_exit;
->> +
->> +	stm32_pcie_deassert_perst(stm32_pcie);
->> +
->> +	ret = dw_pcie_resume_noirq(&stm32_pcie->pci);
->> +	if (ret)
->> +		goto err_disable_clk;
->> +
->> +	pinctrl_pm_select_default_state(dev);
->> +
->> +	return 0;
->> +
->> +err_disable_clk:
->> +	stm32_pcie_assert_perst(stm32_pcie);
->> +	clk_disable_unprepare(stm32_pcie->clk);
->> +
->> +err_phy_exit:
->> +	phy_exit(stm32_pcie->phy);
->> +	pinctrl_pm_select_default_state(dev);
->> +
->> +	return ret;
->> +}
->> +
->> +static const struct dev_pm_ops stm32_pcie_pm_ops = {
->> +	NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_pcie_suspend_noirq,
->> +				  stm32_pcie_resume_noirq)
->> +};
->> +
->> +static const struct dw_pcie_host_ops stm32_pcie_host_ops = {
->> +};
->> +
->> +static const struct dw_pcie_ops dw_pcie_ops = {
->> +	.start_link = stm32_pcie_start_link,
->> +	.stop_link = stm32_pcie_stop_link
->> +};
->> +
->> +static int stm32_add_pcie_port(struct stm32_pcie *stm32_pcie)
->> +{
->> +	struct device *dev = stm32_pcie->pci.dev;
->> +	unsigned int wake_irq;
->> +	int ret;
->> +
->> +	/* Start to enable resources with PERST# asserted */
-> 
-> I guess if device tree doesn't describe PERST#, we assume PERST# is
-> actually *deasserted* already at this point (because
-> stm32_pcie_deassert_perst() does nothing other than the delay)?
-
-yes, this also implies that PV is stable
-
-> 
->> +	ret = phy_set_mode(stm32_pcie->phy, PHY_MODE_PCIE);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = phy_init(stm32_pcie->phy);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
->> +				 STM32MP25_PCIECR_TYPE_MASK,
->> +				 STM32MP25_PCIECR_RC);
->> +	if (ret)
->> +		goto err_phy_exit;
->> +
->> +	stm32_pcie_deassert_perst(stm32_pcie);
->> +
->> +	if (stm32_pcie->wake_gpio) {
->> +		wake_irq = gpiod_to_irq(stm32_pcie->wake_gpio);
->> +		ret = dev_pm_set_dedicated_wake_irq(dev, wake_irq);
->> +		if (ret) {
->> +			dev_err(dev, "Failed to enable wakeup irq %d\n", ret);
->> +			goto err_assert_perst;
->> +		}
->> +		irq_set_irq_type(wake_irq, IRQ_TYPE_EDGE_FALLING);
->> +	}
->> +
->> +	return 0;
->> +
->> +err_assert_perst:
->> +	stm32_pcie_assert_perst(stm32_pcie);
->> +
->> +err_phy_exit:
->> +	phy_exit(stm32_pcie->phy);
->> +
->> +	return ret;
->> +}
->> +
->> +static void stm32_remove_pcie_port(struct stm32_pcie *stm32_pcie)
->> +{
->> +	dev_pm_clear_wake_irq(stm32_pcie->pci.dev);
->> +
->> +	stm32_pcie_assert_perst(stm32_pcie);
->> +
->> +	phy_exit(stm32_pcie->phy);
->> +}
->> +
->> +static int stm32_pcie_parse_port(struct stm32_pcie *stm32_pcie)
->> +{
->> +	struct device *dev = stm32_pcie->pci.dev;
->> +	struct device_node *root_port;
->> +
->> +	root_port = of_get_next_available_child(dev->of_node, NULL);
->> +
->> +	stm32_pcie->phy = devm_of_phy_get(dev, root_port, NULL);
->> +	if (IS_ERR(stm32_pcie->phy)) {
->> +		of_node_put(root_port);
->> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->phy),
->> +				     "Failed to get pcie-phy\n");
->> +	}
->> +
->> +	stm32_pcie->perst_gpio = devm_fwnode_gpiod_get(dev, of_fwnode_handle(root_port),
->> +						       "reset", GPIOD_OUT_HIGH, NULL);
->> +	if (IS_ERR(stm32_pcie->perst_gpio)) {
->> +		if (PTR_ERR(stm32_pcie->perst_gpio) != -ENOENT) {
->> +			of_node_put(root_port);
->> +			return dev_err_probe(dev, PTR_ERR(stm32_pcie->perst_gpio),
->> +					     "Failed to get reset GPIO\n");
->> +		}
->> +		stm32_pcie->perst_gpio = NULL;
-> 
-> This looks like perst_gpio is optional in device tree?  Is that really
-> the case?  It seems hard to ensure we have the PCIE_T_PVPERL_MS and
-> PCIE_T_RRS_READY_MS delays in the right place if we don't have
-> perst_gpio.
-
-perst_gpio was initially made optional for pre-silicon platforms with 
-hooked PHY functions (or no PHY).
-It is assumed that the PV and REFCLK signals are already stable, I 
-suppose that without perst_gpio, the system must rely on these 
-assumptions. But my experience with other models without perst as gpio 
-is limited to this.
-
-> 
->> +	}
->> +
->> +	stm32_pcie->wake_gpio = devm_fwnode_gpiod_get(dev, of_fwnode_handle(root_port),
->> +						      "wake", GPIOD_IN, NULL);
->> +
->> +	if (IS_ERR(stm32_pcie->wake_gpio)) {
->> +		if (PTR_ERR(stm32_pcie->wake_gpio) != -ENOENT) {
->> +			of_node_put(root_port);
->> +			return dev_err_probe(dev, PTR_ERR(stm32_pcie->wake_gpio),
->> +					     "Failed to get wake GPIO\n");
->> +		}
->> +		stm32_pcie->wake_gpio = NULL;
->> +	}
->> +
->> +	of_node_put(root_port);
->> +
->> +	return 0;
->> +}
->> +
->> +static int stm32_pcie_probe(struct platform_device *pdev)
->> +{
->> +	struct stm32_pcie *stm32_pcie;
->> +	struct device *dev = &pdev->dev;
->> +	int ret;
->> +
->> +	stm32_pcie = devm_kzalloc(dev, sizeof(*stm32_pcie), GFP_KERNEL);
->> +	if (!stm32_pcie)
->> +		return -ENOMEM;
->> +
->> +	stm32_pcie->pci.dev = dev;
->> +	stm32_pcie->pci.ops = &dw_pcie_ops;
->> +	stm32_pcie->pci.pp.ops = &stm32_pcie_host_ops;
->> +
->> +	stm32_pcie->regmap = syscon_regmap_lookup_by_compatible("st,stm32mp25-syscfg");
->> +	if (IS_ERR(stm32_pcie->regmap))
->> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->regmap),
->> +				     "No syscfg specified\n");
->> +
->> +	stm32_pcie->clk = devm_clk_get(dev, NULL);
->> +	if (IS_ERR(stm32_pcie->clk))
->> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->clk),
->> +				     "Failed to get PCIe clock source\n");
->> +
->> +	stm32_pcie->rst = devm_reset_control_get_exclusive(dev, NULL);
->> +	if (IS_ERR(stm32_pcie->rst))
->> +		return dev_err_probe(dev, PTR_ERR(stm32_pcie->rst),
->> +				     "Failed to get PCIe reset\n");
->> +
->> +	ret = stm32_pcie_parse_port(stm32_pcie);
->> +	if (ret)
->> +		return ret;
->> +
->> +	platform_set_drvdata(pdev, stm32_pcie);
->> +
->> +	ret = stm32_add_pcie_port(stm32_pcie);
->> +	if (ret)
->> +		return ret;
->> +
->> +	reset_control_assert(stm32_pcie->rst);
->> +	reset_control_deassert(stm32_pcie->rst);
->> +
->> +	ret = clk_prepare_enable(stm32_pcie->clk);
->> +	if (ret) {
->> +		dev_err(dev, "Core clock enable failed %d\n", ret);
->> +		goto err_remove_port;
->> +	}
->> +
->> +	ret = pm_runtime_set_active(dev);
->> +	if (ret < 0) {
->> +		clk_disable_unprepare(stm32_pcie->clk);
->> +		stm32_remove_pcie_port(stm32_pcie);
->> +		return dev_err_probe(dev, ret, "Failed to activate runtime PM\n");
->> +	}
->> +
->> +	pm_runtime_no_callbacks(dev);
->> +
->> +	ret = devm_pm_runtime_enable(dev);
->> +	if (ret < 0) {
->> +		clk_disable_unprepare(stm32_pcie->clk);
->> +		stm32_remove_pcie_port(stm32_pcie);
->> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
->> +	}
->> +
->> +	ret = dw_pcie_host_init(&stm32_pcie->pci.pp);
->> +	if (ret)
->> +		goto err_disable_clk;
->> +
->> +	if (stm32_pcie->wake_gpio)
->> +		device_init_wakeup(dev, true);
->> +
->> +	return 0;
->> +
->> +err_disable_clk:
->> +	clk_disable_unprepare(stm32_pcie->clk);
->> +
->> +err_remove_port:
->> +	stm32_remove_pcie_port(stm32_pcie);
->> +
->> +	return ret;
->> +}
->> +
->> +static void stm32_pcie_remove(struct platform_device *pdev)
->> +{
->> +	struct stm32_pcie *stm32_pcie = platform_get_drvdata(pdev);
->> +	struct dw_pcie_rp *pp = &stm32_pcie->pci.pp;
->> +
->> +	if (stm32_pcie->wake_gpio)
->> +		device_init_wakeup(&pdev->dev, false);
->> +
->> +	dw_pcie_host_deinit(pp);
->> +
->> +	clk_disable_unprepare(stm32_pcie->clk);
->> +
->> +	stm32_remove_pcie_port(stm32_pcie);
->> +
->> +	pm_runtime_put_noidle(&pdev->dev);
->> +}
->> +
->> +static const struct of_device_id stm32_pcie_of_match[] = {
->> +	{ .compatible = "st,stm32mp25-pcie-rc" },
->> +	{},
->> +};
->> +
->> +static struct platform_driver stm32_pcie_driver = {
->> +	.probe = stm32_pcie_probe,
->> +	.remove = stm32_pcie_remove,
->> +	.driver = {
->> +		.name = "stm32-pcie",
->> +		.of_match_table = stm32_pcie_of_match,
->> +		.pm = &stm32_pcie_pm_ops,
->> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
->> +	},
->> +};
->> +
->> +module_platform_driver(stm32_pcie_driver);
->> +
->> +MODULE_AUTHOR("Christian Bruel <christian.bruel@foss.st.com>");
->> +MODULE_DESCRIPTION("STM32MP25 PCIe Controller driver");
->> +MODULE_LICENSE("GPL");
->> +MODULE_DEVICE_TABLE(of, stm32_pcie_of_match);
->> diff --git a/drivers/pci/controller/dwc/pcie-stm32.h b/drivers/pci/controller/dwc/pcie-stm32.h
->> new file mode 100644
->> index 000000000000..387112c4e42c
->> --- /dev/null
->> +++ b/drivers/pci/controller/dwc/pcie-stm32.h
->> @@ -0,0 +1,15 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * ST PCIe driver definitions for STM32-MP25 SoC
->> + *
->> + * Copyright (C) 2025 STMicroelectronics - All Rights Reserved
->> + * Author: Christian Bruel <christian.bruel@foss.st.com>
->> + */
->> +
->> +#define to_stm32_pcie(x)	dev_get_drvdata((x)->dev)
->> +
->> +#define STM32MP25_PCIECR_TYPE_MASK	GENMASK(11, 8)
->> +#define STM32MP25_PCIECR_LTSSM_EN	BIT(2)
->> +#define STM32MP25_PCIECR_RC		BIT(10)
->> +
->> +#define SYSCFG_PCIECR			0x6000
->> -- 
->> 2.34.1
->>
-
+> ---
+>   drivers/clk/stm32/clk-stm32-core.c | 28 ++++++++++++++++++----------
+>   1 file changed, 18 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
+> index 933e3cde0795386c3e5e6902aa0989cf3dffc01e..72825b9c36a4d3b8ba3f7615b9026c09ffaf88d1 100644
+> --- a/drivers/clk/stm32/clk-stm32-core.c
+> +++ b/drivers/clk/stm32/clk-stm32-core.c
+> @@ -351,14 +351,14 @@ static int clk_stm32_divider_set_rate(struct clk_hw *hw, unsigned long rate,
+>   	return ret;
+>   }
+>   
+> -static long clk_stm32_divider_round_rate(struct clk_hw *hw, unsigned long rate,
+> -					 unsigned long *prate)
+> +static int clk_stm32_divider_determine_rate(struct clk_hw *hw,
+> +					    struct clk_rate_request *req)
+>   {
+>   	struct clk_stm32_div *div = to_clk_stm32_divider(hw);
+>   	const struct stm32_div_cfg *divider;
+>   
+>   	if (div->div_id == NO_STM32_DIV)
+> -		return rate;
+> +		return 0;
+>   
+>   	divider = &div->clock_data->dividers[div->div_id];
+>   
+> @@ -369,14 +369,22 @@ static long clk_stm32_divider_round_rate(struct clk_hw *hw, unsigned long rate,
+>   		val =  readl(div->base + divider->offset) >> divider->shift;
+>   		val &= clk_div_mask(divider->width);
+>   
+> -		return divider_ro_round_rate(hw, rate, prate, divider->table,
+> -				divider->width, divider->flags,
+> -				val);
+> +		req->rate = divider_ro_round_rate(hw, req->rate,
+> +						  &req->best_parent_rate,
+> +						  divider->table,
+> +						  divider->width,
+> +						  divider->flags, val);
+> +
+> +		return 0;
+>   	}
+>   
+> -	return divider_round_rate_parent(hw, clk_hw_get_parent(hw),
+> -					 rate, prate, divider->table,
+> -					 divider->width, divider->flags);
+> +	req->rate = divider_round_rate_parent(hw, clk_hw_get_parent(hw),
+> +					      req->rate,
+> +					      &req->best_parent_rate,
+> +					      divider->table,
+> +					      divider->width, divider->flags);
+> +
+> +	return 0;
+>   }
+>   
+>   static unsigned long clk_stm32_divider_recalc_rate(struct clk_hw *hw,
+> @@ -392,7 +400,7 @@ static unsigned long clk_stm32_divider_recalc_rate(struct clk_hw *hw,
+>   
+>   const struct clk_ops clk_stm32_divider_ops = {
+>   	.recalc_rate	= clk_stm32_divider_recalc_rate,
+> -	.round_rate	= clk_stm32_divider_round_rate,
+> +	.determine_rate = clk_stm32_divider_determine_rate,
+>   	.set_rate	= clk_stm32_divider_set_rate,
+>   };
+>   
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
