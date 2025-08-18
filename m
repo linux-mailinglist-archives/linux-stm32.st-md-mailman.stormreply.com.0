@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17644B2A12D
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 14:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35BF8B2A13A
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Aug 2025 14:14:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8792C3F93B;
-	Mon, 18 Aug 2025 12:12:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4146C3F93B;
+	Mon, 18 Aug 2025 12:14:02 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFFA9C3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EF08C3F93A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 12:12:44 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57IAJpjQ011221;
- Mon, 18 Aug 2025 14:12:15 +0200
+ Mon, 18 Aug 2025 12:14:01 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57IBp5bh013848;
+ Mon, 18 Aug 2025 14:13:38 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- vF8oVy6/ZMtowVhAnxsrKfpp6JXqFRBEiZTXs8imWKc=; b=PSxNhDdZaYr8EoNw
- 8aZMzG+HAc5zZ/G6iGzm7FWO+i9981Jvk6JfEpE+hG0VOKlKZPoIa46QiLFU4DYx
- sUznRsmqgIiHeCSbPJoiisAuzQzZ6hgkO4CmmJIHG7kce+fJ4nFBIscnYKnoIKbX
- 3aYq4auNUAVqWfPNpND0uGOiy/LN0NcMei0rDbyUEd+d+AzIAj5hnYsC2UnS0xR7
- owFelE/4Cju4Q5ND97wzWltji6xPXOGJ9DX+MuHSSWyyGgT9iyzcWsaxj1P2gIhN
- ZoZAmieb/bp+Dh/tSZAo0g1gI8TJ7Cp2gxhDUWfG1cXNsAamFT96b+DTHpo8oG9Y
- 4YsXyw==
+ Di2sJMGDTfc2gFtc34a6qY4519gtg5sAUPBz5vhubF0=; b=1hz90Qtb072d/lZA
+ y9NnyHsNccVQIbaFxcx7E7yMN9BVd6YWYCKylGEN0e+OTGXy865/O0Gbf3dEl9Z1
+ +pyjnZtqZmY2hzn9RxRMNrPWlLtWLnBzv9SpI7iBuZ/YBnTIyzd+BxQeYYhkAnBf
+ lX0UbccWrDFNhEjef3I/A05Gy8if96eAhsYMdQYBIYX+g0MMFq0OgbfziCesFdFl
+ nXQ1MgcAlJriBhvCSa3kyLIDJFZiBSDm3BbHyZUB9/jrK0ro6YbspzGy9IWCI7bL
+ FHgHd+KEt/UAXCrUnRbJH4HCqt+6p5voVSZk9OWqBUOTtwg3MAsd6wUIGVvnupeu
+ MGwV9Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48k3j4capj-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48k4xmm2ax-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 18 Aug 2025 14:12:15 +0200 (MEST)
+ Mon, 18 Aug 2025 14:13:38 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DD37C40046;
- Mon, 18 Aug 2025 14:10:01 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 53C774004D;
+ Mon, 18 Aug 2025 14:11:21 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CD98B6D4186;
- Mon, 18 Aug 2025 14:08:47 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5BF7971CEFF;
+ Mon, 18 Aug 2025 14:09:58 +0200 (CEST)
 Received: from [10.48.87.121] (10.48.87.121) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Aug
- 2025 14:08:43 +0200
-Message-ID: <20437dbf-9d45-4a51-815f-ad1d1d15346e@foss.st.com>
-Date: Mon, 18 Aug 2025 14:08:25 +0200
+ 2025 14:09:53 +0200
+Message-ID: <836b8be6-ec6a-413d-8657-ee02025ebc24@foss.st.com>
+Date: Mon, 18 Aug 2025 14:09:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: <bmasney@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
@@ -93,10 +93,10 @@ To: <bmasney@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
  Pieralisi" <lpieralisi@kernel.org>, Nobuhiro Iwamatsu
  <nobuhiro1.iwamatsu@toshiba.co.jp>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-58-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-59-b3bf97b038dc@redhat.com>
 Content-Language: en-US
 From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-58-b3bf97b038dc@redhat.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-59-b3bf97b038dc@redhat.com>
 X-Originating-IP: [10.48.87.121]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
  (10.75.129.69)
@@ -112,7 +112,7 @@ Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 058/114] clk: stm32: stm32-core: convert
+Subject: Re: [Linux-stm32] [PATCH 059/114] clk: stm32: stm32mp1: convert
  from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -142,69 +142,42 @@ On 8/11/25 17:18, Brian Masney via B4 Relay wrote:
 Reviewed-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
 > ---
->   drivers/clk/stm32/clk-stm32-core.c | 28 ++++++++++++++++++----------
->   1 file changed, 18 insertions(+), 10 deletions(-)
+>   drivers/clk/stm32/clk-stm32mp1.c | 13 ++++++++-----
+>   1 file changed, 8 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
-> index 933e3cde0795386c3e5e6902aa0989cf3dffc01e..72825b9c36a4d3b8ba3f7615b9026c09ffaf88d1 100644
-> --- a/drivers/clk/stm32/clk-stm32-core.c
-> +++ b/drivers/clk/stm32/clk-stm32-core.c
-> @@ -351,14 +351,14 @@ static int clk_stm32_divider_set_rate(struct clk_hw *hw, unsigned long rate,
->   	return ret;
+> diff --git a/drivers/clk/stm32/clk-stm32mp1.c b/drivers/clk/stm32/clk-stm32mp1.c
+> index b8b45ed22f981df580506f3d4ca801ba11d2bab2..2d9ccd96ec98c05eb836d632bfd9903de60ba1bb 100644
+> --- a/drivers/clk/stm32/clk-stm32mp1.c
+> +++ b/drivers/clk/stm32/clk-stm32mp1.c
+> @@ -970,12 +970,15 @@ static unsigned long __bestmult(struct clk_hw *hw, unsigned long rate,
+>   	return mult;
 >   }
 >   
-> -static long clk_stm32_divider_round_rate(struct clk_hw *hw, unsigned long rate,
-> -					 unsigned long *prate)
-> +static int clk_stm32_divider_determine_rate(struct clk_hw *hw,
-> +					    struct clk_rate_request *req)
+> -static long timer_ker_round_rate(struct clk_hw *hw, unsigned long rate,
+> -				 unsigned long *parent_rate)
+> +static int timer_ker_determine_rate(struct clk_hw *hw,
+> +				    struct clk_rate_request *req)
 >   {
->   	struct clk_stm32_div *div = to_clk_stm32_divider(hw);
->   	const struct stm32_div_cfg *divider;
+> -	unsigned long factor = __bestmult(hw, rate, *parent_rate);
+> +	unsigned long factor = __bestmult(hw, req->rate,
+> +					  req->best_parent_rate);
 >   
->   	if (div->div_id == NO_STM32_DIV)
-> -		return rate;
-> +		return 0;
->   
->   	divider = &div->clock_data->dividers[div->div_id];
->   
-> @@ -369,14 +369,22 @@ static long clk_stm32_divider_round_rate(struct clk_hw *hw, unsigned long rate,
->   		val =  readl(div->base + divider->offset) >> divider->shift;
->   		val &= clk_div_mask(divider->width);
->   
-> -		return divider_ro_round_rate(hw, rate, prate, divider->table,
-> -				divider->width, divider->flags,
-> -				val);
-> +		req->rate = divider_ro_round_rate(hw, req->rate,
-> +						  &req->best_parent_rate,
-> +						  divider->table,
-> +						  divider->width,
-> +						  divider->flags, val);
-> +
-> +		return 0;
->   	}
->   
-> -	return divider_round_rate_parent(hw, clk_hw_get_parent(hw),
-> -					 rate, prate, divider->table,
-> -					 divider->width, divider->flags);
-> +	req->rate = divider_round_rate_parent(hw, clk_hw_get_parent(hw),
-> +					      req->rate,
-> +					      &req->best_parent_rate,
-> +					      divider->table,
-> +					      divider->width, divider->flags);
+> -	return *parent_rate * factor;
+> +	req->rate = req->best_parent_rate * factor;
 > +
 > +	return 0;
 >   }
 >   
->   static unsigned long clk_stm32_divider_recalc_rate(struct clk_hw *hw,
-> @@ -392,7 +400,7 @@ static unsigned long clk_stm32_divider_recalc_rate(struct clk_hw *hw,
+>   static int timer_ker_set_rate(struct clk_hw *hw, unsigned long rate,
+> @@ -1026,7 +1029,7 @@ static unsigned long timer_ker_recalc_rate(struct clk_hw *hw,
 >   
->   const struct clk_ops clk_stm32_divider_ops = {
->   	.recalc_rate	= clk_stm32_divider_recalc_rate,
-> -	.round_rate	= clk_stm32_divider_round_rate,
-> +	.determine_rate = clk_stm32_divider_determine_rate,
->   	.set_rate	= clk_stm32_divider_set_rate,
+>   static const struct clk_ops timer_ker_ops = {
+>   	.recalc_rate	= timer_ker_recalc_rate,
+> -	.round_rate	= timer_ker_round_rate,
+> +	.determine_rate = timer_ker_determine_rate,
+>   	.set_rate	= timer_ker_set_rate,
+>   
 >   };
->   
 >
 _______________________________________________
 Linux-stm32 mailing list
