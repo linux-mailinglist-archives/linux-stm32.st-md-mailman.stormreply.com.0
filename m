@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7383FB2B44B
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 01:06:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B2AB2B5DC
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 03:20:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B9D2C36B24;
-	Mon, 18 Aug 2025 23:06:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC646C36B2E;
+	Tue, 19 Aug 2025 01:20:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13EF0C36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF0F4C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 23:06:47 +0000 (UTC)
+ Tue, 19 Aug 2025 01:20:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BDE5844AA3;
- Mon, 18 Aug 2025 23:06:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7603C4CEEB;
- Mon, 18 Aug 2025 23:06:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7B26F6111C;
+ Tue, 19 Aug 2025 01:20:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EB40C4CEEB;
+ Tue, 19 Aug 2025 01:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755558402;
- bh=FEJffBBO1GLCjVFd+vVCwbbTg5k2KIInXnhfagOBwMs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=blwLuBx1g4adfeKGLh3pBnCLg9iEbXEvSOMPLrSmWNuooAFkAtZyO4IB66/G79Emr
- wFY5JUW6IO22P30f9reCRQEXOScadGZpvELaHJl6J1ddMfYSHZRKHfv9VbTCeMxxPM
- nhEj2d7FoAD9WuQzpAP2IZQvBLDdFtUCJ/e1SrahHsiUy4sZ3W2Pr8DoilPM6xwng8
- xPFcMmmcfF4gY0Br1MYl0yFfp2Io+lTINebmUgCaQcADnEb5OO3UjgXQd5sKlbSS2a
- jULfiSAnXYHHpuP+IxZwKm5kY0/lzMO7fDd2FEIHgHZhLWt4kt7AspAopU7vjB3N3u
- CkqzjyqjPGZKw==
-Date: Mon, 18 Aug 2025 18:06:40 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20250818230640.GA560877@bhelgaas>
+ s=k20201202; t=1755566418;
+ bh=imG/COrLI0xVx1ALeCqp04JnSJqQTYTunHsThHcZ3I8=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=plD62Ex9l6pV1NHPyPjLMLTkTsUI805/2pd2ujdpQp4+tLCoC83T4ZIPS13/Xnegk
+ RP2s97IkcwdtF55vfrUWWZVVjCDTMi9055n6J7sBDCW8E/jm+AvkTz0vvEbzTzMSCU
+ 4Rj6yG1Sess3UqqyWY+q5m0tIZui06wbssfumY0409GHonL8rmFmqV710yebrI6QjW
+ LQ17VAXvqmcc+A2RmJiYO0PeAMxYQLqsA/q4++V9qzCMizU5ZOm3M6IOu+Ht+5vEya
+ eL6pWI8nPRJ6QNyseD6MK5hFwE90/+kQav0CTT5DBke7iWfVGpyDNzqtSZxoOyPjAh
+ ZFgzYRROMNE+g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 70DAC383BF4E; Tue, 19 Aug 2025 01:20:29 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <917c9323-9c0c-406f-a314-a6e4a5511b45@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
- mani@kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- thippeswamy.havalige@amd.com, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, cassel@kernel.org, devicetree@vger.kernel.org,
- quic_schintav@quicinc.com, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, bhelgaas@google.com, krzk+dt@kernel.org,
- shradha.t@samsung.com, linux-stm32@st-md-mailman.stormreply.com,
- johan+linaro@kernel.org, kwilczynski@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v12 2/9] PCI: stm32: Add PCIe host support
-	for STM32MP25
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <175556642825.2971230.1225757977150449764.git-patchwork-notify@kernel.org>
+Date: Tue, 19 Aug 2025 01:20:28 +0000
+References: <aJ8avIp8DBAckgMc@shell.armlinux.org.uk>
+In-Reply-To: <aJ8avIp8DBAckgMc@shell.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: EEE and WoL
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,104 +61,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[+cc Linus]
+Hello:
 
-On Mon, Aug 18, 2025 at 12:50:19PM +0200, Christian Bruel wrote:
-> On 8/13/25 21:29, Bjorn Helgaas wrote:
-> > On Tue, Jun 10, 2025 at 11:07:07AM +0200, Christian Bruel wrote:
-> > > Add driver for the STM32MP25 SoC PCIe Gen1 2.5 GT/s and Gen2 5GT/s
-> > > controller based on the DesignWare PCIe core.
-> > > ...
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> > > +static int stm32_pcie_resume_noirq(struct device *dev)
-> > > +{
-> > > +	struct stm32_pcie *stm32_pcie = dev_get_drvdata(dev);
-> > > +	int ret;
-> > > +
-> > > +	/*
-> > > +	 * The core clock is gated with CLKREQ# from the COMBOPHY REFCLK,
-> > > +	 * thus if no device is present, must force it low with an init pinmux
-> > > +	 * to be able to access the DBI registers.
-> > 
-> > What happens on initial probe if no device is present?  I assume we
-> > access DBI registers in the dw_pcie_host_init() path, and it seems
-> > like we'd have the same issue with DBI not being accessible when no
-> > device is present.
+On Fri, 15 Aug 2025 12:32:12 +0100 you wrote:
+> Hi,
 > 
-> Correct, same issue. The magic happens with the PINCTRL init state that is
-> automatically called before probe. As I tried to explain in the
-> Documentation in the pinctrl patch:
+> This series contains a series of cleanup patches for the EEE and WoL
+> code in stmmac, prompted by issues raised during the last three weeks.
 > 
-> - if ``init`` and ``default`` are defined in the device tree, the "init"
->   state is selected before the driver probe and the "default" state is
->   selected after the driver probe.
-
-OK, thanks for that reminder!
-
-The fact that the pinctrl init state is set implicitly before .probe(),
-but we have to do it explicitly in .stm32_pcie_resume_noirq() seems a
-*little* bit weird and makes the driver harder to review.  But ... I
-guess that's out of scope for this series.
-
-I see that Linus has given his approval to merge the new
-pinctrl_pm_select_init_state() along with this series.  Would you mind
-pulling those changes [1] and the use [2] into a v13 of this series?
-That way I won't have to collect up all the pieces and risk missing
-something.
-
-BTW, I noticed a s/platformm/platform/ typo in the "[PATCH v1 2/2]
-pinctrl: Add pinctrl_pm_select_init_state helper function" patch.
-
-> > > +	if (!IS_ERR(dev->pins->init_state))
-> > > +		ret = pinctrl_select_state(dev->pins->p, dev->pins->init_state);
-> > > +	else
-> > > +		ret = pinctrl_pm_select_default_state(dev);
-> > > +
-> > > +	if (ret) {
-> > > +		dev_err(dev, "Failed to activate pinctrl pm state: %d\n", ret);
-> > > +		return ret;
-> > > +	}
-
-> > > +static int stm32_add_pcie_port(struct stm32_pcie *stm32_pcie)
-> > > +{
-> > > +	struct device *dev = stm32_pcie->pci.dev;
-> > > +	unsigned int wake_irq;
-> > > +	int ret;
-> > > +
-> > > +	/* Start to enable resources with PERST# asserted */
-> > 
-> > I guess if device tree doesn't describe PERST#, we assume PERST# is
-> > actually *deasserted* already at this point (because
-> > stm32_pcie_deassert_perst() does nothing other than the delay)?
+> Andrew's r-b's added from the RFC posting.
 > 
-> yes, this also implies that PV is stable
+> [...]
 
-Maybe we could update the comment somehow?  Or maybe even just remove
-it, since we actually don't know the state of PERST# at this point?
+Here is the summary with links:
+  - [net-next,1/7] net: stmmac: remove unnecessary checks in ethtool eee ops
+    https://git.kernel.org/netdev/net-next/c/6d598e856d10
+  - [net-next,2/7] net: stmmac: remove write-only mac->pmt
+    https://git.kernel.org/netdev/net-next/c/49b97bc52aff
+  - [net-next,3/7] net: stmmac: remove redundant WoL option validation
+    https://git.kernel.org/netdev/net-next/c/b181306e5e68
+  - [net-next,4/7] net: stmmac: remove unnecessary "stmmac: wakeup enable" print
+    https://git.kernel.org/netdev/net-next/c/f17bd297bb83
+  - [net-next,5/7] net: stmmac: use core wake IRQ support
+    https://git.kernel.org/netdev/net-next/c/d09413dd2577
+  - [net-next,6/7] net: stmmac: add helpers to indicate WoL enable status
+    https://git.kernel.org/netdev/net-next/c/6a9a6ce96229
+  - [net-next,7/7] net: stmmac: explain the phylink_speed_down() call in stmmac_release()
+    https://git.kernel.org/netdev/net-next/c/5e5b39aa6f82
 
-It sounds like we don't know the PERST# state until after we call
-stm32_pcie_deassert_perst() below.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> > > +	ret = phy_set_mode(stm32_pcie->phy, PHY_MODE_PCIE);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	ret = phy_init(stm32_pcie->phy);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	ret = regmap_update_bits(stm32_pcie->regmap, SYSCFG_PCIECR,
-> > > +				 STM32MP25_PCIECR_TYPE_MASK,
-> > > +				 STM32MP25_PCIECR_RC);
-> > > +	if (ret)
-> > > +		goto err_phy_exit;
-> > > +
-> > > +	stm32_pcie_deassert_perst(stm32_pcie);
-
-Bjorn
-
-[1] https://lore.kernel.org/r/20250813081139.93201-1-christian.bruel@foss.st.com
-[2] https://lore.kernel.org/r/20250813115319.212721-1-christian.bruel@foss.st.com
 
 _______________________________________________
 Linux-stm32 mailing list
