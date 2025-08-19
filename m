@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39824B2BDD1
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 11:46:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5121AB2BDDA
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 11:47:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E83D8C3F949;
-	Tue, 19 Aug 2025 09:46:44 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 114F9C3F949;
+	Tue, 19 Aug 2025 09:47:35 +0000 (UTC)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CFADC3F945
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B020C3F945
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 09:46:43 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-55ce509127bso3967191e87.0
+ Tue, 19 Aug 2025 09:47:34 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-333f91526bcso36960721fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 02:46:43 -0700 (PDT)
+ Tue, 19 Aug 2025 02:47:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755596803; x=1756201603;
+ d=linaro.org; s=google; t=1755596853; x=1756201653;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CnJekPM0wQKG9e7pS0aBHZul0jrDqWHtRHfFM2JeVrQ=;
- b=pzXlTMdKtlLkOb9SLQfLxny6UzA0Ul5ZVDUL4KvJLAlgmUFcAGA37KUHtUUC08vvn/
- swzpxs5d5Xgf9KlObJh8p/Y9nzl8xdgRenAFVvhGnmuQdbsUjRzpAthOozvzTjwU47Hn
- 3kxII5my60qbriTeJYSs+6CIL8zemQbZRZWgoun88ZhMVDbZxer9cz4Yspj7Aevvmcak
- lBPskIGXGCLLS02SgbxSW60q/BG7V0ki00A8EWAMWBWCUwd716OrFfVQSISlboiN5ItV
- f0SGFpdSNHdMGxrYI1JJDsy9cOMltuc/ao4az1/TmXbMTH4d0NwC4MxsLfgB7PQ0Qoyk
- 6hSA==
+ bh=RdTVW2acL3x4TY+q3fiwzcKJmZ14PXDkj8EpJokxAbo=;
+ b=V04cjOg24krxqTgOjYlCoMnz1DEMcIWBNnieqqkTASeSYuNl/G2+YtQY5oDA4wzRuZ
+ WkWaHrxtb9Iv2fAZLoODxPKm97cQOlnNIRJpeULZ/OU/zhHZ52eKTTGiq6rSWiaoQnDq
+ o9heYWPvp9RVa2D6LOUnVTQRhXuisW37qck7fPwgkOZqkmjDPK6E7Ksp81dk+kk6xWgO
+ qGtjSEHwTiVnp+CM0nlBV+tBYaiVoYeECBtmHWm7p9qc/1Y5Tasvf52o4H8DLXiEqIX3
+ lephBPWVBdSDV4vhPXFaKSSrX1Yw6pmieICQARqOv++o9YMh51KBzA8/bTyY/UoAbC0/
+ bKsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755596803; x=1756201603;
+ d=1e100.net; s=20230601; t=1755596853; x=1756201653;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=CnJekPM0wQKG9e7pS0aBHZul0jrDqWHtRHfFM2JeVrQ=;
- b=lEJo4IpIsKwqiwp0u5z3b8VRiBmimqxqeYy+IowR+zmGt723nzMF+rGCcW0TDz21qp
- Gog3hWmzY6CCSEw02+iqnpDrQHgXhKHadkDlC+7g6WCYpEM8Lztwrnyi+MzO2eLMO838
- OIyYE2PNZ1I+IEtfpIS9j85yrnE3Q5/A9M5q26+q6CobNstbs5BXiAoIsIgXVw7D0xDW
- DicDPb6iTDYAeaPYyukamCGYDuB/ByXZFqSRAekApD2S/PuxeaGwOOF61ZoZCi5nBVay
- 7YblYSfx8+PU5/kyU07gNHkjpJAOx0uK++Z1Rl+ZkhFnrS4DuwTbTlUQkuykEiFWLlUh
- 4B7w==
+ bh=RdTVW2acL3x4TY+q3fiwzcKJmZ14PXDkj8EpJokxAbo=;
+ b=L/gzzl4ioMjGz7OZplY1kIeORb2wRuUC2Q3RfL1NrTcbWycunPABkQSfma0qZnelbP
+ B3ulJLCWw0yyl45izlhfY3G2K6Myj5y6/mM394U/mnZp2i8k1E+uAKpKK+2tjKB7VTYL
+ 9PIKioSEZf8S11ypXSmIreMn1G0uZEPJ0nYNTmje4664bGyUukImQ+o06f2ky6drLK59
+ GPj16VUkg6nc34FrSIk2mSDk54+wTWqk7NUHiEY9mZsGiNv/a16vdJ15FL0ZxksjC+0B
+ 97gbcROdsQLc5LIVGMsDhX7bFBuh6YuLTKHPOh7unET5AqTsOlvoh77Tap0XukMlpGdy
+ uzSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVRn/+dqEgZsvOg9YqiV/m5H6HCns2Yph3ioqZsNTdG9V1x3ius1Z+VgOFn3rhhcc5uNt0X0WwF3M2Dcg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxIlPJSlXgNOWLOZ0aKQ6ijELi9ZT7s/7AOHuVtBWnJveh1Tigb
- /G72roA7uhCrkGq/RyMUV3BQRkqdRxCh75ucmeMJ1tgTZ4GlayBh1XZ3Kzv1DnVP93fnlVO9n9I
- 4m591f3a4u8ofjQgi/eQZqC+LI2HolDfIHVbfWwFQIg==
-X-Gm-Gg: ASbGncvZO7yEsqcknoEbwVHpvvYu3rhrAZvxfqwtoRcDlHkEEMk7mXP4qaTHCF9gA3q
- d9d18VJ7MfWDqr5Lh4spa4tGV2bfKcdy4MgXQU7LwOoi3uf1JzEGIRJ7lF9IjNCrbRZOytiUbk7
- +zdhSFLI0/r8k0dmCNBgCJPvZqmaOOHUS23DWmZIp3ts+GnzT5kPe2NXh0W6s/JgRp1IA8aP9pg
- 3IF7Tc=
-X-Google-Smtp-Source: AGHT+IEnhi69VygT7g84GFEWBMGYd/u/z/IkVXlUwHEo4DfM7Y7k8WnKy5jP9SBDHCTX2vCUgNODYTsIltctm9ywUhA=
-X-Received: by 2002:a05:6512:61d4:20b0:55c:c9d5:d337 with SMTP id
- 2adb3069b0e04-55e007aecbfmr398443e87.24.1755596802917; Tue, 19 Aug 2025
- 02:46:42 -0700 (PDT)
+ AJvYcCWPfQg59lMVFyfZDsd/mXJBAuvgcpsK6V+GBHkn75MuE9tiFnLbRBwwCRzUoNO9QVv8p2P3to9hPU69Dg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw5EyebHapNvcnXA8WE6SjugioWIUiQV5L7AOrVCfw8VJb5XoQ9
+ DvyFrdUOEuQMlJ8DSRq0fZG+ZaPHZENvZe/Ig8Xm/RssVbEAybYQRtm4b47WTOXfFVv+liFXOiI
+ CZmKISivdqXr7IZfpJdPN0bKwrEiGiG4mfJG0uSlRJw==
+X-Gm-Gg: ASbGncsXMlcvdZoIh7JBtyoPgB+hQ353yS5r/pMY2/VRBg5g1MDhYzzYHs8bQsb+x9C
+ sK6fbYMQOrX4ia9uC2PAOJaSqJHeNjyM2xEMkud65NOQOvlw4hTydU6w/mnofo/yMSZjXEItpJo
+ qeN+h1sKFL7yZpQxGp0Oj9R6lIZc0LIfA5MDEg50U1Wzo2wwRXih6vnsL4NCx/O6h8o1zoCkcxs
+ 0MDtCEw3Hfw
+X-Google-Smtp-Source: AGHT+IFaAkF1r4GWgj+j3Xeyk0sBgHgQuFXAyBRPToaJvqEtDi6Qt1cFt8RtILv6l5mltG8+0huqL2sCrZ81MI3EBAM=
+X-Received: by 2002:a05:651c:b2c:b0:333:ad0c:a44e with SMTP id
+ 38308e7fff4ca-335305347dbmr5252501fa.7.1755596852940; Tue, 19 Aug 2025
+ 02:47:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-16-b3bf97b038dc@redhat.com>
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-16-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-105-b3bf97b038dc@redhat.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-105-b3bf97b038dc@redhat.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 19 Aug 2025 11:46:31 +0200
-X-Gm-Features: Ac12FXzd6X-i_It645W5rQicFyi-TYZe6vnFChkDKrkqPz2wrPccuV5zYO_EO9M
-Message-ID: <CACRpkdaeF5VueC44jQZzdJjVJXj2F7cDsOzb6aa6bHLgQJXS7Q@mail.gmail.com>
+Date: Tue, 19 Aug 2025 11:47:21 +0200
+X-Gm-Features: Ac12FXwQ8ZNlahHw5FRReJn3coSNBp0waFbtb0dR-jKWl_cQ9vhC2BCpFgBry0M
+Message-ID: <CACRpkdZ3M65bKzaHcKPRhEFCy+TvHUq8bZ-8Zr_7HSRKsk_TWQ@mail.gmail.com>
 To: bmasney@redhat.com
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -121,7 +121,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
  patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
  linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 016/114] clk: gemini: convert from
+Subject: Re: [Linux-stm32] [PATCH 105/114] clk: ux500: prcmu: convert from
 	round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -139,7 +139,7 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBBdWcgMTEsIDIwMjUgYXQgNToxOOKAr1BNIEJyaWFuIE1hc25leSB2aWEgQjQgUmVs
+T24gTW9uLCBBdWcgMTEsIDIwMjUgYXQgNToxOeKAr1BNIEJyaWFuIE1hc25leSB2aWEgQjQgUmVs
 YXkKPGRldm51bGwrYm1hc25leS5yZWRoYXQuY29tQGtlcm5lbC5vcmc+IHdyb3RlOgoKPiBGcm9t
 OiBCcmlhbiBNYXNuZXkgPGJtYXNuZXlAcmVkaGF0LmNvbT4KPgo+IFRoZSByb3VuZF9yYXRlKCkg
 Y2xrIG9wcyBpcyBkZXByZWNhdGVkLCBzbyBtaWdyYXRlIHRoaXMgZHJpdmVyIGZyb20KPiByb3Vu
