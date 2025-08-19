@@ -2,64 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2117B2C50F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 15:17:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B83FB2C510
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 15:17:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 202BBC3F945;
-	Tue, 19 Aug 2025 13:17:15 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57729C3F94D;
+	Tue, 19 Aug 2025 13:17:16 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAB57C36B18
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 073BEC36B18
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 13:17:13 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-6188b67a951so818089a12.1
+ Tue, 19 Aug 2025 13:17:15 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b7895e9so758694a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 06:17:13 -0700 (PDT)
+ Tue, 19 Aug 2025 06:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1755609433; x=1756214233;
+ d=linaro.org; s=google; t=1755609434; x=1756214234;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JKZOwRgVgk/u0KdrUt1cAkiGVJS+RKkMWzXrX75b1m0=;
- b=dRzHfE4yLnt8M/x6mgh7JFG1RuVVM0G8JISePA6tjqqL40vnUXUbhkR8w2bF5ZqHQY
- fBXxf4pXo1iu6ZdX3dUa3/N4P4Jkcr77A74wzhjp+azvGM0Yehj1SqYTLZkUBvGtGoMc
- CHWA4FEcWT0VEbwynqmUReZROW1zltRPfF3407Tr3XmvRJCflDdZnmMwyOFoQe1sQXCM
- 3NE53DzPpuOHAX6FY30GrgbMg8nRuPLIEfiRiDKjzU/q6ABazE9hSC3yIeGcPdmXgZrg
- bI4aoUeyXY6NCujdjoKtRoZtaT3xWReZAHmEmTkSYwRmdgJVG56GogU1+I9KHVKYpn63
- w5mg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eYMdhxIUQ31/cy7vzWDrnpVEGbQxqOB4QZi3i8Wf6a0=;
+ b=bNULXCedemd5gFsV9SirFWcIs865CpwZg1Os/Qn+s7uC3wkz8mxRasiOWnm5d70tgh
+ LFBVZvmd3xUk/XEZDSyr7GFcEglP64gXf1+w+j5nCTKtneQltSR5Jj8SUYZ9xLhl+jwI
+ VKsrJ9rEix3mofdX7RqB86LTuoww8mFuh462neohWWtrGen8JdHcdpZJ6tf5XSTMzfXn
+ KGsCMRrCB6bXJpFuZSC2jDQgwSpiDRujmhO/AGYeC1wCpt3TEGRe1ldXjqxDvlDTMjm2
+ No90LqTmyR83WNkqAf6iKusuAhWsE9SnOQiqEtDy9ZFQNj3M0bw/KSSLDA5l+E+p/kSM
+ /pQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755609433; x=1756214233;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JKZOwRgVgk/u0KdrUt1cAkiGVJS+RKkMWzXrX75b1m0=;
- b=pEqGXZKlLqPDPJOzzxguIZpHZSIe8zVxwrcWQC/TvfN+1kP8ZBJhtmhrrh45YBDAVX
- FgkLvPWO9px6LSCauIhL2/hz3NVy0VLwprf/saC+DpLPIFXFDW6Mu56XlPEBmb4ARXpu
- MNgHthpzgEBllLft6Y5xhVV3FHPTISIfUnJCI+LWstCggJQoeJucOfeTmgTurra2veC7
- YrDyHCSrrDuzf+/RIhpX4z4zBRiUyTTUJkvNtu9zC6mdygzZRgdmvHSWtPZWv+q5Awuu
- h5PMbRCkFHdFleVeaPEihY88vBoMZHAZbmMBcDO3XTCX4LU83lWeKxphSSibdZedq13N
- 9IuA==
+ d=1e100.net; s=20230601; t=1755609434; x=1756214234;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eYMdhxIUQ31/cy7vzWDrnpVEGbQxqOB4QZi3i8Wf6a0=;
+ b=Wh+BkrJOO8MHUPMeP7/D+uyPn/EHu31VUu+H1U4usfObTniBNOfOUKr3TGQjid+rPX
+ YEs4h+v2+rp8TWOiQGrdGynQgdxHWcIIxs8spn9My4jQzCkf3cPyy5jDQnIGwSgVjAZL
+ xEhrHqUS993NRJfhdK+JD7rTw8q3rGT4DJ5tlQ28jz2MlZA7WWbcgA3vOw2DtiqIkG+q
+ qm2Ixs+j//JHS3YxPCqkxAKfY0rX/d6cBJ5jh+KXXENvTdSwoi7xiW8R0T5PyltFdkf6
+ 5sJeWSaMtNpmr8/Q6VjPteltiUbDOme/E0yoYZgfVx2Wwu7kRpwm7sLzi90PhhZQ65DD
+ ag4g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlxvC/1hK5aGuM4ioZalddqwUn7BWIWPFp1BQ+U7ZUppUTE+/lmUwxh9ItQ0aJi1c4aVd/Aj1iAJeUsw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyBCo2UxCTh8fHGZdOGwUWSen7Fk00dSrjWvYVs7dOH7a6N47O+
- 8Ol7urRTrgaKByvXRuqtIIbQNLR817/JcgoK42Qnp+86SSAXQkGUkwWrAlTNUvZpTx4=
-X-Gm-Gg: ASbGnct00TevD65CrjbN5eJhfVQURjLWtF2EFCDo9l9OxFIeLmJQV8tVeVI+wD+14UZ
- H2WBU6quoHPpRLyuMiRfrmNgMIY/64c62lD8cWNcVQ0p/uPxLAbFTdyIrLkf5/4nMHzVUuHtPFf
- OKHBxmNRNZbcBsNjDaDYajUNiyrh2XiGg5S3TLG1Lb/sCWfiwXJTL8dCIAfbPK5/kR65eBtjj7m
- c5pceGieVzIS0miXxjFscf9LMYDPySzhJxNAj+BcGnodliRfC3/JCSurkGb6zvM/TxU0GgtUX+S
- 1H7VFvHQ22PKWXMxPuPWlLgHR+ReoFANhIXP3Ik7bVPnJvypmEyJjaJ2jdGcWz/xWuD5xc1yQCz
- O+OGcgFyjC8VX+IOvUyi7kU1I5vpqEDUnMw==
-X-Google-Smtp-Source: AGHT+IE/vAUGvaFZ7UmmcB7vUKiiYyvdlgsGn3EINffXwUbDoJ0n2eu7BMJecMYq+4729BjHVfjv/w==
-X-Received: by 2002:a05:6402:13c7:b0:612:e258:33e2 with SMTP id
- 4fb4d7f45d1cf-61a7e768851mr1075178a12.4.1755609432667; 
- Tue, 19 Aug 2025 06:17:12 -0700 (PDT)
+ AJvYcCWDbz/pQjK0zOLQJ+jvBrBV4JQyefOaOSWbJjTGGWe4hSlRjWLBckn1t8eDjQ9o03exnBb5WM/YbsjaWA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxu/v4QC6JzyN/u+j+6c7KTLQC9zS4CXT+UIoGLv2psKU9mAAj0
+ gbCKwXgR+puH9jP71WkH7y23JIesB67ptIgyqajV/erffARBZhh34ye/UjwIcOo1rGY=
+X-Gm-Gg: ASbGncvQDzktezMRgz4nNt/77w7oxaLIvQDdhPalZYVYQotZg/qLjzFO67gbgzLZddB
+ k26TICatWerFvc26l+L4sp6HAHpHfG5iiCxWEc8d3W3BQIM5JVehbSPPeEhA6Cssweg3WEITqQ0
+ aDklUkW3bLWd1Nw+w0X4UyX/BM/yn1KH4mDpu0DSPNd3PesJenoIZ4k+8IpwzvWc0alYWNztAYc
+ eteZHEAqPFBRG/f/SXNoytV41n42cnBGA7kHxIn/xVU1dJgKoF5PuPpQ5VZOorxM5drjV1U1WLR
+ QXJs/Cd9G+Iv0L5+haLgwChGnJbYouhCLKD1pSxw3a0Gvj3YeAVq/PxrMbk5gMsKO5TjFBqMkVW
+ 0shb9ryD+nCToT9YTfND4vcy/fOgLKxs7FA==
+X-Google-Smtp-Source: AGHT+IGKdkV+1r589d0SVRi3O+feTSsj4hmOGvm3/y18TTqAWbPqtEd00j4EtkVL8S15WigaZDcifQ==
+X-Received: by 2002:a05:6402:35ce:b0:612:f2fc:2b9b with SMTP id
+ 4fb4d7f45d1cf-61a7e6d953emr1012321a12.1.1755609434365; 
+ Tue, 19 Aug 2025 06:17:14 -0700 (PDT)
 Received: from kuoka.. ([178.197.219.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a92678f45sm129674a12.18.2025.08.19.06.17.11
+ 4fb4d7f45d1cf-61a92678f45sm129674a12.18.2025.08.19.06.17.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Aug 2025 06:17:12 -0700 (PDT)
+ Tue, 19 Aug 2025 06:17:13 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
@@ -69,29 +70,32 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  =?UTF-8?q?B=C3=B6rge=20Str=C3=BCmpfel?= <boerge.struempfel@gmail.com>,
  devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 19 Aug 2025 15:17:08 +0200
-Message-ID: <20250819131707.86657-3-krzysztof.kozlowski@linaro.org>
+Date: Tue, 19 Aug 2025 15:17:09 +0200
+Message-ID: <20250819131707.86657-4-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250819131707.86657-3-krzysztof.kozlowski@linaro.org>
+References: <20250819131707.86657-3-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1895;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=937;
  i=krzysztof.kozlowski@linaro.org; 
- h=from:subject; bh=B3zj8kIxlI6NNxjczKCH38wkItfXZHU2cc6N45nCziM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBopHlTkXi33JJKHIMfKBoPhPxIx908F+l6S81a7
- m1fzcytzaeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaKR5UwAKCRDBN2bmhouD
- 1346EACYQWFZHMhc9Q28PrXrM2zH4iKyydMy43eCV8WTv37Msn65uyxgguJ7kyC7hc5MaL4HKOa
- d0JKgl4tyaTwoIkCHUvT5ZewBrP+RHxyq7mTQqTfVHCIwKXtFf8liWHQ1noXqVcWnsy0I1sbcw5
- MMU25nXzXQvz4Aqiv/BIDN0C5N2e4znVVzQcaoHiSjB2Fzdrgi4d3UKDrMCK5gZKfDE8cbFVIbf
- GksfXa95bREav2g46bo/xcVRDYQhRp5Hfk1zyG2Dr3ck7eqQ3AVOxp4tVT9/Hwxgz0bykWSIxCV
- qA0chuos9BWz/JF2cwNxHR27T+R9ezSXbSjMoVf6tjFnZkJXuXKlrRWa3WZ57CRAPFZnnSNH/d5
- lPVdiZiTTBEEw1oySG4+ukrMqs6VEJdNa6ZnSeFclm1PGWhmRyfrRGCJWOf+SZ0YF6tkbbSJUmU
- 0sHwyexaVYtKSrY3polDkTaDIU8gPZkHYBIfW7dwPd8bojdX5ghigh+k14+ZGDnSINFI4dJZVKy
- kITbrPn1Udz5I2aRC2GSFK4c75IxREqD4ZxqgKjgakZoc2eY8zLdzJNgY+ps4sHu6GWPhxaam1f
- VRpB5DfQ4FaAdxO7awxj+qtl9dsqEsRQBSoMxHLrpuW7ZYfe+kBEy4aEquCc7+hIY3redt+aRdS
- E6E7i24wVw2SGxA==
+ h=from:subject; bh=CbjadNNNEe8Yn9p48OvNEAWuQJuq9CsOCkHrF+TBmzM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBopHlUh9ijAKsBRMt2aMyQYJ9QM9JmObsPeF4fB
+ AxubSnhgyCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaKR5VAAKCRDBN2bmhouD
+ 1xayD/9T2Czt91Y2lD5WnyYHRP0t4bhHs/mS2Qe5NTJa2kew7W8Ij/MB5UdXtd0mQcNRTLa1RmQ
+ zXdldkv7Q4qLc0e8j8u6/U+ZeGUQ0TNC0amXAXc1XbKOrQI8RmACzjSwjV7bueIInrNE+Wm3xh4
+ JjHAbMbiTxjc5DFkVK33xKIzty0UwuTjB0GrFPdA5aMfnRQTrtyux3nG5b3BrlvheRM8u/iAB05
+ YdIBZDyrB7Zp/W2+4lxfUuSmRrp8Q9LZX4mSCVQXPKAgKiHcWYQTTgKcudviMw/owCZrKDmfu8j
+ Qyc3qwE5+zfAMMHEZGMMBjxd0eFcXj94nTyZET3KIyG76XwIbyuU82mc11GVAk5x0C5jrIFCwm0
+ W8ogs68q1bM6Hj78EeyNLzdnVpg8l8wo9c9WIsJwvT8SALOtFSRGeyTh6Jxq5GnQF1HOJKs/TrK
+ kUHl7U3aLmpMrPUtwTDtCSdyhIKxNBdfX6AknvtipYJ24n4a953GkS8UVw2FefBkvaCbt/scdjR
+ tTYvQMz0UXez7T6LuMsDNIR9DuKvK0PXXcbn01XzwSaI9YmmDPpiSb+y6RnNHn2aoKNQ1FABysk
+ YaI8qpT+itvR0oJ1W1chMdyl7JA5C5KpZdSgnK4kLjb6jjrv190uoih1k91q9q4z2S+Pgak9lV2
+ zSIyIDqwPENIr1w==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Minor whitespace cleanup
+Subject: [Linux-stm32] [PATCH 2/2] arm64: dts: stm32: Minor whitespace
+	cleanup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,55 +112,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DTS code coding style expects exactly one space around '=' or '{'
-characters.
+The DTS code coding style expects exactly one space around '='
+character.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts        | 2 +-
- arch/arm/boot/dts/st/stm32mp157c-ultra-fly-sbc.dts | 2 +-
- arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi      | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts b/arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts
-index 39a3211c6133..b886aa91bb86 100644
---- a/arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts
-+++ b/arch/arm/boot/dts/st/stm32mp151c-plyaqm.dts
-@@ -255,7 +255,7 @@ &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
- 		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
--	reset-names =  "mcu_rst", "hold_boot";
-+	reset-names = "mcu_rst", "hold_boot";
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 836b1958ce65..4ff334563599 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -100,7 +100,7 @@ &combophy {
  };
  
- &mdma1 {
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ultra-fly-sbc.dts b/arch/arm/boot/dts/st/stm32mp157c-ultra-fly-sbc.dts
-index ac42d462d449..2531f4bc8ca4 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ultra-fly-sbc.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ultra-fly-sbc.dts
-@@ -92,7 +92,7 @@ gpu_reserved: gpu@f8000000 {
- 	leds: leds {
- 		compatible = "gpio-leds";
- 
--		led0{
-+		led0 {
- 			label = "buzzer";
- 			gpios = <&gpiof 2 GPIO_ACTIVE_HIGH>;
- 			default-state = "off";
-diff --git a/arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi b/arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi
-index be0c355d3105..154698f87b0e 100644
---- a/arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi
-@@ -262,7 +262,7 @@ &i2c5 {
+ &csi {
+-	vdd-supply =  <&scmi_vddcore>;
++	vdd-supply = <&scmi_vddcore>;
+ 	vdda18-supply = <&scmi_v1v8>;
  	status = "okay";
- 
- 	usbhub: usbhub@2c {
--		compatible ="microchip,usb2514b";
-+		compatible = "microchip,usb2514b";
- 		reg = <0x2c>;
- 		vdd-supply = <&v3v3>;
- 		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
+ 	ports {
+@@ -151,7 +151,7 @@ phy0_eth2: ethernet-phy@1 {
+ 			reg = <1>;
+ 			reset-assert-us = <10000>;
+ 			reset-deassert-us = <300>;
+-			reset-gpios =  <&gpiog 6 GPIO_ACTIVE_LOW>;
++			reset-gpios = <&gpiog 6 GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+ };
 -- 
 2.48.1
 
