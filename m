@@ -2,82 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4CEB2B991
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 08:36:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54A90B2B992
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 08:37:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06942C3F942;
-	Tue, 19 Aug 2025 06:36:58 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 144BDC3F942;
+	Tue, 19 Aug 2025 06:37:04 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89AD7C3F940
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B216C3F940
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 06:36:56 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57INtK3k002506
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 19 Aug 2025 06:36:55 GMT
+ Tue, 19 Aug 2025 06:37:03 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57J0ckFL017547
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 19 Aug 2025 06:37:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NsIfrvTLDxKj7MQKwmdBE+vbOboHExWTllcv4P/M3bA=; b=c+JMjzgEcVFmcxER
- v3JF67q6FOkC376kvXdUcyupeLy+T1ZB7CInbTGMcmOqLH9pfIQJBW36EzhEpaBq
- DbrcoBs2lK955IEMidOTVzVyfT5r2YUqIRQ7qj6CO6diaagvPNHPsKGyML2HGMEv
- D2gzTc+lJMlCGsx8pbAtcoLHnJZyyTGWfK1a+H63aMZXvVqNOaLQGv64d1Thl/s5
- r//HcGmwGHFurajZqtmQHu4O0bsO/9P9ludM8U95If+lfO5bRdsdwjbVF7nve8cI
- sW7vTww3IVzI5faDIxEYcFwv5e/lDUQaHRioSqn+w4sCntTJn+Ks/YWsYccxhSrs
- pBIyVQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48m62vje5v-1
+ Ae35zkKIC0CJ5nbsXi7yf5SwcQqgHmGyPNS8+VvWx1s=; b=ZVEiNzhE+Tl4Rj0R
+ WulZY0o88RbENvsUmd0z/k3HgdH2FwIr7UOWqe4HWznqHxKNw3veSNzHTlo/6KM3
+ Z8aH3SMpTRqAr60UMrisijuT5gL7edu97lM1rq9ubQ/LY+yeWp4E/2CI9dScNIjA
+ dZqQ5Ayx/Hob80EpiF/kF0fI1T+JRqACqtYH70xH6NgKgQeScquJy9RpNjOscb/N
+ eYoulDAagOm67pDis7TBMpcuDTND1IkySdHNx7AUFGOhkPjisi3M86oL4bmbJken
+ HPVPmzX+BBiflXxhz1DZcGZI2t423A3J9YTJt/1mSmYfr65OuoCe8WpWRvPSN+Fk
+ mR803Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jj747g8w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 06:36:55 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-24457f440f0so54700475ad.0
+ Tue, 19 Aug 2025 06:37:01 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b4716fa1e59so4189600a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 23:36:55 -0700 (PDT)
+ Mon, 18 Aug 2025 23:37:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755585414; x=1756190214;
+ d=1e100.net; s=20230601; t=1755585421; x=1756190221;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NsIfrvTLDxKj7MQKwmdBE+vbOboHExWTllcv4P/M3bA=;
- b=GP3Hw/GuRkI+/AedqpTm/oR417sFsiYsbGuZdLKcJNaQwUAqW6JDY+Pxd82yKzKoEu
- G9RFUEbVmt2h9V2ejeSArQpxleaO+brR5gzm7/iahxN2XxEI0YExJWwrYV9DIBUgvPRq
- IdaUPD25XmODSDim6cd5GkmgbyTYSrfPT/c3z/qMGmH4FhDNuYiwNnrryYjcMpPiOSCv
- V3n80dHfAEn9gkfmPnK8gkz1FZatVI5Ek2dpqTiQME9w5vx6x7Qi6/IikuKwDUE5FqH2
- L9nGavzSKXQqmOpqBGMzmGsY+vKhc2OQrFtE/JNCL5n4OZecBPwb5ZljKhv0SKcu4bY5
- 37iw==
+ bh=Ae35zkKIC0CJ5nbsXi7yf5SwcQqgHmGyPNS8+VvWx1s=;
+ b=KqxI8u7mm/FlO9wIqTrKgz0k86yRECIKhy3xpc4R/6cc/myxajsRDMGyQnxjR2/cSn
+ cF4pJgbFsPqO+BPhoiyYVZs35IrAu5drDBZOtcdg0bUGIL6z7AqIMka4rnY7ypI9h30F
+ yOlNEANFfYHRI6/TcNWRn8z1QFBUU3wQp4Ls+UHie6E/QBkCWAMwZCV44nCwc9NSL3rA
+ yuhGzzgIlq3nSNKk+awgx9eY0STPlzhjrSXFQBviI5fmNPMbO/LYELBnJMExw9SPu03P
+ 4NDgKRT5tHeffP2LhZotuCObKRVWzXR38twpsVgEyYpa0lG9fP0ESrZd/fqN+32TkhkR
+ PfqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVT4jBRrTr31t7eXswRJ3vKX6dymzopzYK8IyNKEIrWANz/avz5w+aFwNSkXdvVmSA9TG9MX4yRfrkdog==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwKFm8ZNFLuFS0bnYDuriOVM5fK8tfbM4cw7/CJA20TFLFOoqFJ
- QSaZOzCKJgVnuNeAWLILy3fRrQmiFQ1Ze7mLx3TFn3b9K7LPIGXJCjxLwInWGvUNjuvQ4zUuyHF
- 0HYlt/Bo1WrMA1WrHV/gP+TytIUa76hig+i+z8fZlPYOb5ImLfEpRM7+3wATE+STYg6xM0oUXcC
- vItd9FZW59ZWdabSpV+Q==
-X-Gm-Gg: ASbGncssW3EJ4kjRESg4zPEyrqNqXzRQTVQ83J4u7uN9FSlIWJpK2RRJMfgwj7Wsx4M
- CI/Fes2pvN+a+Z/ujh6zgpCqBICyZ3V1G0MSYJkuvJU/i674cv+qff1Io3CL+ijL0sYcjmR+MqZ
- +V9ku5PRT3/B6Z8oVOMqmGO4wcFTML2VZB9R+T39mPX6rFjABXkF+vSYNZ8V8UTVW6MxNNI4MA6
- aVxAM2iXZrh6Xty7yG9dWdl8HrsD2Aj72q+/DRxsv5l539a0JRBuAo3gHYrhIHIi1nxtr4hYF/w
- kvKapdX6DSlSyNwVPD6gEYCFE2zK/4KlauFR/BNWpIs+jp+aQV987VdJFtKCs+r+UbbCMEEGv5i
- aLtdIu0EC2uX/OUycRFe7HQAEsEDAXQG/Dg==
-X-Received: by 2002:a17:902:fc50:b0:234:a734:4ab1 with SMTP id
- d9443c01a7336-245e02c1277mr16956215ad.3.1755585413802; 
- Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFOco999Bi1j/ttDYbCi3adNC02Vim++BGoj+wK9RJiQcjLfwcPNu9Sf7OenyvPy4yfGschLQ==
-X-Received: by 2002:a17:902:fc50:b0:234:a734:4ab1 with SMTP id
- d9443c01a7336-245e02c1277mr16955945ad.3.1755585413364; 
- Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
+ AJvYcCVI8SBvGGOTa9CwNq1qLKy5gQu3/cxvrDjjJFq6D0gP4Fex/pjAwOwjaIb5F5krSvW50Y/xzlqGB5UIBg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwYei5Exw1uw6z7NHlLPORZTF0C/XI3DG8udQZufmwA6RyqAe4o
+ I+kIVG92BSVWPHX1zqXfAqVLtNYYj2abQwizicGKjCKwRxkmHbDTG5QFordoz70/i44Q2exG1ON
+ dmqZE2y5HAkZAK4mi5YHa+o6ESwXrksLizNEMmZMAYea/rTv/U9vEN6aoJoyAdfevO3Fuy8+XHU
+ CxTesk3HE=
+X-Gm-Gg: ASbGnctyzaZ8hG1CuCqzVPN9xfATx9lNIoNUNZzQn46EcRBK1OY7QbbR9qwPbewS/it
+ Tyswj0/RoJay+L8wrUHFedHtpGsDwclqKNN4x12EANldUw4yEuvjKp+arwwZh/QvUeTgCXmcU9c
+ G0d571pA6myylOaJzaQWD9rEG2orhrsOya8uGnYJ98NwJZJny34DR3/s8qAM8MxMV78PpSpqq7z
+ Lo60As8Xr5ZEG5D1bXGAKfnDWJO6ixDOZWnl9KetaJARi9EYQXW2kVZyHWcgF1nq1c12SNXdLMZ
+ YC3IMzHIshW6QPBtAlWwDe2trFNjHD0+Hy+F880tIXium+wK2GPyETNW+1UURxl4oZ4tuAUiuBK
+ 5kMjVfH1fTFk5YtJqwlJ92T1fBOLS3HW4dg==
+X-Received: by 2002:a17:902:db03:b0:23d:dd04:28e2 with SMTP id
+ d9443c01a7336-245e0488c4fmr19904775ad.35.1755585420856; 
+ Mon, 18 Aug 2025 23:37:00 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHplGjIOsxjG9ywwt+oNjQuHnKblFHJP7DfxgAQ8xey2qyG+dk48tjcBRJvmxvcv4HDGKrHbg==
+X-Received: by 2002:a17:902:db03:b0:23d:dd04:28e2 with SMTP id
+ d9443c01a7336-245e0488c4fmr19904435ad.35.1755585420372; 
+ Mon, 18 Aug 2025 23:37:00 -0700 (PDT)
 Received: from yijiyang-gv.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2446d54fe38sm98120455ad.135.2025.08.18.23.36.47
+ d9443c01a7336-2446d54fe38sm98120455ad.135.2025.08.18.23.36.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
+ Mon, 18 Aug 2025 23:37:00 -0700 (PDT)
 From: YijieYang <yijie.yang@oss.qualcomm.com>
-Date: Tue, 19 Aug 2025 14:35:58 +0800
+Date: Tue, 19 Aug 2025 14:35:59 +0800
 MIME-Version: 1.0
-Message-Id: <20250819-qcs615_eth-v4-3-5050ed3402cb@oss.qualcomm.com>
+Message-Id: <20250819-qcs615_eth-v4-4-5050ed3402cb@oss.qualcomm.com>
 References: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
 In-Reply-To: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -92,42 +92,42 @@ To: Vinod Koul <vkoul@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Conor Dooley <conor+dt@kernel.org>,
  Richard Cochran <richardcochran@gmail.com>
 X-Mailer: b4 0.15-dev-5bbf5
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1755585388; l=1620;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755585388; l=2876;
  i=yijie.yang@oss.qualcomm.com; s=20240408; h=from:subject:message-id;
- bh=esGpkrp578FqjkRZx/3YPPX9onv/FUSUV77hdcvh6nw=;
- b=SUGbTSGQ410eDz8ELdraMbuF+QvX9Z7EjnQVSHXQrih713dfkqJqB0VRBBkKfxTattHHcRdCV
- LC73TCyJ5V5CFuy5wSYE3kML7+6fQj/5Yhsi4kHtiXSyscOKAuX5Nlo
+ bh=SBNbTe9YfI7ypi1j4e391PPYp7WypDnpFergOj/Dd7Q=;
+ b=Y2i2zXFfa34tuFIzyhBVHW5D/Xyb8q0LcUejJetwkYc/LdcqZOdTvNtFXsejUdHPb7YxeCmqT
+ 1jqm9QwQyuoBnMs4I9qAjEVJHAoEMTcRllDLyPQmrgFZ1i3MufhCX7L
 X-Developer-Key: i=yijie.yang@oss.qualcomm.com; a=ed25519;
  pk=XvMv0rxjrXLYFdBXoFjTdOdAwDT5SPbQ5uAKGESDihk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE4MDEzOSBTYWx0ZWRfXxTqB/iimjcQi
- U5y739mgrSQiSJ81oqIFbY1swl5rCG3zpfSNv+0pI5s0/2zz1Zp1H0Bj06PH/qruU6VSEr/6Bun
- FHDunyTwkBoqd3dUn1pORrW3OxP2f/np7fMKphJ6/+0FITaEdC7+pCnkc9PONB0bjvBKCH3MGXd
- nCkqGNF4Hcgrz1xEcDkzVSlastqxU35X7TD5T6zld6as5IMWaVCeMMbdvIb7+97267CUnxBu6dp
- PneJKtYsvVrwQ6B5dIn6rgegvc+FkBGHHZycqKrTa/xYniu3OXhOzDPgUthXLFw2VGuNSUUfVKX
- /sLQAqVpbVEdZBZIAjuh6deILeq/kpcgdaweUVcXnJHIcOMH3/lmkTKUZjo0HU2AVaL4cSX3Apc
- sr6xD2l7
-X-Proofpoint-GUID: d6xspGhbRS6hG9JbMIK5rFBMf7liXu4C
-X-Authority-Analysis: v=2.4 cv=A4tsP7WG c=1 sm=1 tr=0 ts=68a41b87 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-GUID: 1gZda-7-EYQfee8X5G8L59FB-TuIUedw
+X-Proofpoint-ORIG-GUID: 1gZda-7-EYQfee8X5G8L59FB-TuIUedw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAzMyBTYWx0ZWRfX2h6Hbyo5JFB4
+ joWm6O0HyC7NbpF5Sz9TdYV+nQ2mMrCNbQ20G0LRECdS5SPYuqua3YP+Jqjcnx+LEWzByQDRZuQ
+ vWabo5tUH97y0XKgQDyDNO5cCAytTr9rH7QZfEEiwj0noP8BNHE/hXrCKfVMVBiBRhQfrCQUmf3
+ VEAvly216ORUgKBDLy0UWHDT95Q9OC+GtSyfucIMFL+HL6jpEu1lsFfnRbsEM/2CyBtkoyrigYJ
+ ZRn15gywVzbbsneQW0Poi++H0Ru8D+K/oZ8rZDP5xJxLTCTOInpseDiZ3QcyAUKGsqBURo4ZzZu
+ tlxZ3wD+yn7Pj66AIvJ8Xfnj1EPANb3KQZWcbEZabJ/CgEWQ1gVC/QLJXsmpFwwcfUT4UEVZgBg
+ dN+JDCKI
+X-Authority-Analysis: v=2.4 cv=MJtgmNZl c=1 sm=1 tr=0 ts=68a41b8d cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
- a=ufJ1yBTjRq6Z22V5Zn0A:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+ a=FOSVMqNBLdhn2M3QeyoA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
  a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: d6xspGhbRS6hG9JbMIK5rFBMf7liXu4C
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-19_01,2025-08-14_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
- spamscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ malwarescore=0 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ phishscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508180139
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508160033
 Cc: stable+noautosel@kernel.org, devicetree@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Yijie Yang <quic_yijiyang@quicinc.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Yijie Yang <yijie.yang@oss.qualcomm.com>
-Subject: [Linux-stm32] [PATCH v4 3/6] arm64: dts: qcom: qcs615: add ethernet
-	node
+Subject: [Linux-stm32] [PATCH v4 4/6] arm64: dts: qcom: qcs615-ride: Enable
+	ethernet node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,59 +146,136 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Yijie Yang <quic_yijiyang@quicinc.com>
 
-Add an ethernet controller node for QCS615 SoC to enable ethernet
-functionality.
+Enable the ethernet node, add the phy node and pinctrl for ethernet.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
 ---
- arch/arm64/boot/dts/qcom/sm6150.dtsi | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ arch/arm64/boot/dts/qcom/qcs615-ride.dts | 104 +++++++++++++++++++++++++++++++
+ 1 file changed, 104 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6150.dtsi b/arch/arm64/boot/dts/qcom/sm6150.dtsi
-index 591fcb740259..8ec97532911c 100644
---- a/arch/arm64/boot/dts/qcom/sm6150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6150.dtsi
-@@ -491,6 +491,39 @@ soc: soc@0 {
- 		dma-ranges = <0 0 0 0 0x10 0>;
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-+		ethernet: ethernet@20000 {
-+			compatible = "qcom,qcs615-ethqos", "qcom,qcs404-ethqos";
-+			reg = <0x0 0x00020000 0x0 0x10000>,
-+			      <0x0 0x00036000 0x0 0x100>;
-+			reg-names = "stmmaceth",
-+				    "rgmii";
-+
-+			clocks = <&gcc GCC_EMAC_AXI_CLK>,
-+				 <&gcc GCC_EMAC_SLV_AHB_CLK>,
-+				 <&gcc GCC_EMAC_PTP_CLK>,
-+				 <&gcc GCC_EMAC_RGMII_CLK>;
-+			clock-names = "stmmaceth",
-+				      "pclk",
-+				      "ptp_ref",
-+				      "rgmii";
-+
-+			interrupts = <GIC_SPI 660 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 661 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq",
-+					  "eth_lpi";
-+
-+			power-domains = <&gcc EMAC_GDSC>;
-+			resets = <&gcc GCC_EMAC_BCR>;
-+
-+			iommus = <&apps_smmu 0x1c0 0x0>;
-+
-+			snps,tso;
-+			snps,pbl = <32>;
-+			rx-fifo-depth = <16384>;
-+			tx-fifo-depth = <20480>;
-+
-+			status = "disabled";
-+		};
+diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+index 59582d3dc4c4..05d8609c0483 100644
+--- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
++++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+@@ -288,6 +288,59 @@ vreg_l17a: ldo17 {
+ 	};
+ };
  
- 		gcc: clock-controller@100000 {
- 			compatible = "qcom,qcs615-gcc";
++&ethernet {
++	pinctrl-0 = <&ethernet_defaults>;
++	pinctrl-names = "default";
++
++	phy-handle = <&rgmii_phy>;
++	phy-mode = "rgmii-id";
++
++	snps,mtl-rx-config = <&mtl_rx_setup>;
++	snps,mtl-tx-config = <&mtl_tx_setup>;
++
++	status = "okay";
++
++	mdio: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		rgmii_phy: phy@7 {
++			compatible = "ethernet-phy-ieee802.3-c22";
++			reg = <0x7>;
++
++			interrupts-extended = <&tlmm 121 IRQ_TYPE_EDGE_FALLING>;
++			device_type = "ethernet-phy";
++			reset-gpios = <&tlmm 104 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <11000>;
++			reset-deassert-us = <70000>;
++		};
++	};
++
++	mtl_rx_setup: rx-queues-config {
++		snps,rx-queues-to-use = <1>;
++		snps,rx-sched-sp;
++
++		queue0 {
++			snps,dcb-algorithm;
++			snps,map-to-dma-channel = <0x0>;
++			snps,route-up;
++			snps,priority = <0x1>;
++		};
++	};
++
++	mtl_tx_setup: tx-queues-config {
++		snps,tx-queues-to-use = <1>;
++		snps,tx-sched-wrr;
++
++		queue0 {
++			snps,weight = <0x10>;
++			snps,dcb-algorithm;
++			snps,priority = <0x0>;
++		};
++	};
++};
++
+ &gcc {
+ 	clocks = <&rpmhcc RPMH_CXO_CLK>,
+ 		 <&rpmhcc RPMH_CXO_CLK_A>,
+@@ -446,6 +499,57 @@ &sdhc_2 {
+ 	status = "okay";
+ };
+ 
++&tlmm {
++	ethernet_defaults: ethernet-defaults-state {
++		mdc-pins {
++			pins = "gpio113";
++			function = "rgmii";
++			bias-pull-up;
++		};
++
++		mdio-pins {
++			pins = "gpio114";
++			function = "rgmii";
++			bias-pull-up;
++		};
++
++		rgmii-rx-pins {
++			pins = "gpio81", "gpio82", "gpio83", "gpio102", "gpio103", "gpio112";
++			function = "rgmii";
++			bias-disable;
++			drive-strength = <2>;
++		};
++
++		rgmii-tx-pins {
++			pins = "gpio92", "gpio93", "gpio94", "gpio95", "gpio96", "gpio97";
++			function = "rgmii";
++			bias-pull-up;
++			drive-strength = <16>;
++		};
++
++		phy-intr-pins {
++			pins = "gpio121";
++			function = "gpio";
++			bias-disable;
++			drive-strength = <8>;
++		};
++
++		pps-pins {
++			pins = "gpio91";
++			function = "rgmii";
++			bias-disable;
++			drive-strength = <8>;
++		};
++
++		phy-reset-pins {
++			pins = "gpio104";
++			function = "gpio";
++			bias-pull-up;
++			drive-strength = <16>;
++		};
++	};
++};
++
+ &uart0 {
+ 	status = "okay";
+ };
 
 -- 
 2.34.1
