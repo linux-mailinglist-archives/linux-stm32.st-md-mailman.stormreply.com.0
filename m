@@ -2,82 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3873BB2B98F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 08:36:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4CEB2B991
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 08:36:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDCBEC3F942;
-	Tue, 19 Aug 2025 06:36:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06942C3F942;
+	Tue, 19 Aug 2025 06:36:58 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66DE9C3F940
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89AD7C3F940
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 06:36:50 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57J2HW4U010055
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 19 Aug 2025 06:36:49 GMT
+ Tue, 19 Aug 2025 06:36:56 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57INtK3k002506
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 19 Aug 2025 06:36:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ld9b/944CjtaKJ4f0GVdMrbvW/5r/vcAN6uf8GN4R0w=; b=SxriH++/O4uXEARY
- InmyMzGsG3soLrLTTxi5nUolDv1QgOL05Falu8ascfpYMwGcrIXNhIN09FazkZW+
- RAZeUFb4rW/0Dvd/u1OWZMjT6a27OcdqsSye2NS3ZKNbxyfRWV3lj7nJBM5U+v5k
- GoZmRDOaFJgLsK5f52TBQEx5oY7gjtlJE4ytHq2kGqpWLamu9p4NMDWnRXZpyRK1
- Ds02flI5hTrxzGLBqi0z+1rhaI+9oFSOZxJ6MKj/FYJWIWidAr7Tu6CfAM/YUTEE
- ucwY0N5MAxumQ+BCjPKeZg1WvOmCGu+u60PSXSdVqXO10KaRF+M891uqucQEqIAQ
- q9Ys4w==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jhagydxc-1
+ NsIfrvTLDxKj7MQKwmdBE+vbOboHExWTllcv4P/M3bA=; b=c+JMjzgEcVFmcxER
+ v3JF67q6FOkC376kvXdUcyupeLy+T1ZB7CInbTGMcmOqLH9pfIQJBW36EzhEpaBq
+ DbrcoBs2lK955IEMidOTVzVyfT5r2YUqIRQ7qj6CO6diaagvPNHPsKGyML2HGMEv
+ D2gzTc+lJMlCGsx8pbAtcoLHnJZyyTGWfK1a+H63aMZXvVqNOaLQGv64d1Thl/s5
+ r//HcGmwGHFurajZqtmQHu4O0bsO/9P9ludM8U95If+lfO5bRdsdwjbVF7nve8cI
+ sW7vTww3IVzI5faDIxEYcFwv5e/lDUQaHRioSqn+w4sCntTJn+Ks/YWsYccxhSrs
+ pBIyVQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48m62vje5v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 06:36:49 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-24458264c5aso51890555ad.3
+ Tue, 19 Aug 2025 06:36:55 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-24457f440f0so54700475ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Aug 2025 23:36:48 -0700 (PDT)
+ Mon, 18 Aug 2025 23:36:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755585408; x=1756190208;
+ d=1e100.net; s=20230601; t=1755585414; x=1756190214;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Ld9b/944CjtaKJ4f0GVdMrbvW/5r/vcAN6uf8GN4R0w=;
- b=l/ojFNNp/gLyD59svU0L5uuZ3QW2xTpsWohw1FKbKX1XB95p9FGrwzpufraB1M+ihb
- 2cl8fbSmNYSPL0ZZEsOWuP/541AET8GwoTcrpTK8CGr2FRsMLT9YpcyyYCfFnBw4qCRk
- IrZs3yGD5Oe8t63H8vjxGKCLA40Yg+/urH4/T3EFIRWoo/yu9gVwEm2dry9smsa/T/8A
- ZP+rZLn0+IQJtF5fLHMhLhXT2G8d58HcOhj2uPMBWJXAgiNcXVLPKHSLT8k6/JyNKyiD
- FZWWQQ86l3z2ouQSFK/nBAuTcZOakQH9C0xzIjJM1gLXgeWI1HjZ70crrTqR7Mqh1MUo
- 8jeg==
+ bh=NsIfrvTLDxKj7MQKwmdBE+vbOboHExWTllcv4P/M3bA=;
+ b=GP3Hw/GuRkI+/AedqpTm/oR417sFsiYsbGuZdLKcJNaQwUAqW6JDY+Pxd82yKzKoEu
+ G9RFUEbVmt2h9V2ejeSArQpxleaO+brR5gzm7/iahxN2XxEI0YExJWwrYV9DIBUgvPRq
+ IdaUPD25XmODSDim6cd5GkmgbyTYSrfPT/c3z/qMGmH4FhDNuYiwNnrryYjcMpPiOSCv
+ V3n80dHfAEn9gkfmPnK8gkz1FZatVI5Ek2dpqTiQME9w5vx6x7Qi6/IikuKwDUE5FqH2
+ L9nGavzSKXQqmOpqBGMzmGsY+vKhc2OQrFtE/JNCL5n4OZecBPwb5ZljKhv0SKcu4bY5
+ 37iw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVKY9gckKmhV2sAowGbZ40e49y5d/flAUGlVoKZUzMbBgwdymPx7BJTjlOReFrkVnKdCRogcqass76dNQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxDzHTj+DA5gp5PLzh/YFeQyLWu6UWgfcx4d6gN1Ni3MJl7131b
- Fa8ugexiGcX/+zMoqjTkWjUvO3ONq5ucqVSObZ0GCpzeYdrFB6juFxDehDXA5XMFyiqmBthAptg
- 0K3iR2+LzGEx7FfyJjJe+mdlpZEY7QSQczaTecRvG4Piws8X5JqDCV1PAjv1kAcfeSQUnBnb4ff
- 6nq9Wa1e8=
-X-Gm-Gg: ASbGnctse+a8Uld4RoaIGrivPJ0zehVUEUdUsIAAdhByB17xkbr7rKxc/kr81Mhs+04
- +gvFYPTXayqog8/FGj+MYhuQo4ZhrrLskJQhF/1NqFbI8geUQWanVvE0KQhhaZgBbnHazQXqFIf
- GxaO1gevvvoTLkfJzq5qlc4B2mew1+0rwVCHfrdJOuiA1qQAgyeMMXTlLFX8LW65wtTcG+9iQ64
- 6hQ09KaVZy/YJnfTRgVxJdLmSPZdzIR1TuP27xF9UcAuLCu1793RJoMuhE41rI37x+Nb4Dji56T
- is0xVoCknizLfZn4Nm7hCeOqW3XLlkUHMqWOYm3SsXONwHGeAmQ3PONzY6NuDcc1WReneV8NdSM
- KwMJ/NJNSrVthkEMTNTpWnwNWvd7877N5AA==
-X-Received: by 2002:a17:902:ec85:b0:242:9bcb:7b92 with SMTP id
- d9443c01a7336-245e04eadeamr18308635ad.54.1755585407772; 
- Mon, 18 Aug 2025 23:36:47 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGOjWML1uqzguCXznXnAu0JqJOKHjx8VTTczeOLxTEHogZ2jjjwiB/QPUxpZhx7gk6jZa+sNw==
-X-Received: by 2002:a17:902:ec85:b0:242:9bcb:7b92 with SMTP id
- d9443c01a7336-245e04eadeamr18308195ad.54.1755585407263; 
- Mon, 18 Aug 2025 23:36:47 -0700 (PDT)
+ AJvYcCVT4jBRrTr31t7eXswRJ3vKX6dymzopzYK8IyNKEIrWANz/avz5w+aFwNSkXdvVmSA9TG9MX4yRfrkdog==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwKFm8ZNFLuFS0bnYDuriOVM5fK8tfbM4cw7/CJA20TFLFOoqFJ
+ QSaZOzCKJgVnuNeAWLILy3fRrQmiFQ1Ze7mLx3TFn3b9K7LPIGXJCjxLwInWGvUNjuvQ4zUuyHF
+ 0HYlt/Bo1WrMA1WrHV/gP+TytIUa76hig+i+z8fZlPYOb5ImLfEpRM7+3wATE+STYg6xM0oUXcC
+ vItd9FZW59ZWdabSpV+Q==
+X-Gm-Gg: ASbGncssW3EJ4kjRESg4zPEyrqNqXzRQTVQ83J4u7uN9FSlIWJpK2RRJMfgwj7Wsx4M
+ CI/Fes2pvN+a+Z/ujh6zgpCqBICyZ3V1G0MSYJkuvJU/i674cv+qff1Io3CL+ijL0sYcjmR+MqZ
+ +V9ku5PRT3/B6Z8oVOMqmGO4wcFTML2VZB9R+T39mPX6rFjABXkF+vSYNZ8V8UTVW6MxNNI4MA6
+ aVxAM2iXZrh6Xty7yG9dWdl8HrsD2Aj72q+/DRxsv5l539a0JRBuAo3gHYrhIHIi1nxtr4hYF/w
+ kvKapdX6DSlSyNwVPD6gEYCFE2zK/4KlauFR/BNWpIs+jp+aQV987VdJFtKCs+r+UbbCMEEGv5i
+ aLtdIu0EC2uX/OUycRFe7HQAEsEDAXQG/Dg==
+X-Received: by 2002:a17:902:fc50:b0:234:a734:4ab1 with SMTP id
+ d9443c01a7336-245e02c1277mr16956215ad.3.1755585413802; 
+ Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFOco999Bi1j/ttDYbCi3adNC02Vim++BGoj+wK9RJiQcjLfwcPNu9Sf7OenyvPy4yfGschLQ==
+X-Received: by 2002:a17:902:fc50:b0:234:a734:4ab1 with SMTP id
+ d9443c01a7336-245e02c1277mr16955945ad.3.1755585413364; 
+ Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
 Received: from yijiyang-gv.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2446d54fe38sm98120455ad.135.2025.08.18.23.36.41
+ d9443c01a7336-2446d54fe38sm98120455ad.135.2025.08.18.23.36.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Aug 2025 23:36:47 -0700 (PDT)
-From: Yijie Yang <yijie.yang@oss.qualcomm.com>
-Date: Tue, 19 Aug 2025 14:35:57 +0800
+ Mon, 18 Aug 2025 23:36:53 -0700 (PDT)
+From: YijieYang <yijie.yang@oss.qualcomm.com>
+Date: Tue, 19 Aug 2025 14:35:58 +0800
 MIME-Version: 1.0
-Message-Id: <20250819-qcs615_eth-v4-2-5050ed3402cb@oss.qualcomm.com>
+Message-Id: <20250819-qcs615_eth-v4-3-5050ed3402cb@oss.qualcomm.com>
 References: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
 In-Reply-To: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -92,40 +92,42 @@ To: Vinod Koul <vkoul@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Conor Dooley <conor+dt@kernel.org>,
  Richard Cochran <richardcochran@gmail.com>
 X-Mailer: b4 0.15-dev-5bbf5
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1755585388; l=2354;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755585388; l=1620;
  i=yijie.yang@oss.qualcomm.com; s=20240408; h=from:subject:message-id;
- bh=ag43pockrDVtSatmI1WnRHpBp2uI2rmdqCD6gVEQcbQ=;
- b=Fcu73+RjcncqZavOSj+QtxfGgYLFkY5TAdyWRJtMz8D97y7ERiL7+MMw4ItBYEW6ZfIbO3jIv
- G65ah+bKButDKbO2XcT87cRZ+H7HKxJ/fAzmR9/uMZr0AG4GRu1e3tC
+ bh=esGpkrp578FqjkRZx/3YPPX9onv/FUSUV77hdcvh6nw=;
+ b=SUGbTSGQ410eDz8ELdraMbuF+QvX9Z7EjnQVSHXQrih713dfkqJqB0VRBBkKfxTattHHcRdCV
+ LC73TCyJ5V5CFuy5wSYE3kML7+6fQj/5Yhsi4kHtiXSyscOKAuX5Nlo
 X-Developer-Key: i=yijie.yang@oss.qualcomm.com; a=ed25519;
  pk=XvMv0rxjrXLYFdBXoFjTdOdAwDT5SPbQ5uAKGESDihk=
-X-Authority-Analysis: v=2.4 cv=D9xHKuRj c=1 sm=1 tr=0 ts=68a41b81 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=-JoBx-Ykr0mbciFiY24A:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: xcQ0fwKPPjVO9o8qvc1nshUvSRQKDjpE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyNCBTYWx0ZWRfXzEDktKGMwz2b
- 9/7cuqOnTpSgyhvrsdPoZSr1uL3od85xaXaF6S6/DZ9z4CtshqgnOta9rhV/+OyzhWaemEWqp7n
- OuTL6xq12OMGfGFaoO8CdGUhqyjd5pwBO7+ogqecgd2IA7mWWDZmG3ZsbNgM+NYlXAZea0hTV2r
- XLMw/u6jNSHYIsTdgQWcgN+aqO3sn+0nRj838+v5y3ZKVGw8Lq3nFJ/fT6ouSMQfJMzhJOQfWg1
- KUidAcxbNMOvsb7BH6T+6SfF0t1fvI0I7RcY3PGc7lwoVoV/DPtv/UDEcWezcByNPsIdg7QVxAn
- eX7hOzrPHj+nnYUY+CZX1AdtVLsj70DLPwLKQ3zKJbRN1BxX+xhxqo6Mc/4HtGUbL22UB/V3NBI
- uk8sXQai
-X-Proofpoint-GUID: xcQ0fwKPPjVO9o8qvc1nshUvSRQKDjpE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE4MDEzOSBTYWx0ZWRfXxTqB/iimjcQi
+ U5y739mgrSQiSJ81oqIFbY1swl5rCG3zpfSNv+0pI5s0/2zz1Zp1H0Bj06PH/qruU6VSEr/6Bun
+ FHDunyTwkBoqd3dUn1pORrW3OxP2f/np7fMKphJ6/+0FITaEdC7+pCnkc9PONB0bjvBKCH3MGXd
+ nCkqGNF4Hcgrz1xEcDkzVSlastqxU35X7TD5T6zld6as5IMWaVCeMMbdvIb7+97267CUnxBu6dp
+ PneJKtYsvVrwQ6B5dIn6rgegvc+FkBGHHZycqKrTa/xYniu3OXhOzDPgUthXLFw2VGuNSUUfVKX
+ /sLQAqVpbVEdZBZIAjuh6deILeq/kpcgdaweUVcXnJHIcOMH3/lmkTKUZjo0HU2AVaL4cSX3Apc
+ sr6xD2l7
+X-Proofpoint-GUID: d6xspGhbRS6hG9JbMIK5rFBMf7liXu4C
+X-Authority-Analysis: v=2.4 cv=A4tsP7WG c=1 sm=1 tr=0 ts=68a41b87 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8
+ a=ufJ1yBTjRq6Z22V5Zn0A:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: d6xspGhbRS6hG9JbMIK5rFBMf7liXu4C
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-08-19_01,2025-08-14_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0
+ suspectscore=0 phishscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508160024
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508180139
 Cc: stable+noautosel@kernel.org, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yijie Yang <quic_yijiyang@quicinc.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Yijie Yang <yijie.yang@oss.qualcomm.com>
-Subject: [Linux-stm32] [PATCH v4 2/6] net: stmmac: Inverse the phy-mode
-	definition
+Subject: [Linux-stm32] [PATCH v4 3/6] arm64: dts: qcom: qcs615: add ethernet
+	node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,61 +144,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the initial device tree submission, the definitions of rgmii and
-rgmii-id in the phy-mode property were inverted compared to the
-conventions used by the upstream Linux kernel community.
+From: Yijie Yang <quic_yijiyang@quicinc.com>
 
-Only QCS-EVB-400 and SA8155-ADP platforms are affected due to the
-incorrect PHY mode configuration: 'rgmii' was used instead of the
-correct 'rgmii-id'. This change results in an ABI compatibility break,
-but it is acceptable as these platforms are not actively used by any
-customers, based on current observations.
+Add an ethernet controller node for QCS615 SoC to enable ethernet
+functionality.
 
-Qualcomm expects the MAC, not the PHY, to introduce the timing delay,
-and the driver is designed accordingly. This is due to specific SoC
-hardware that handles delay and sampling internally.
-
-Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ arch/arm64/boot/dts/qcom/sm6150.dtsi | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index a4ea72f86ca8..a3e595e3b1e4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -390,14 +390,11 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- {
- 	struct device *dev = &ethqos->pdev->dev;
--	int phase_shift;
-+	int phase_shift = 0;
- 	int loopback;
- 
- 	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
--	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
--	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
--		phase_shift = 0;
--	else
-+	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID)
- 		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
- 
- 	/* Disable loopback mode */
-@@ -803,7 +800,14 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	if (!ethqos)
- 		return -ENOMEM;
- 
-+	/* Qualcomm configures the MAC to introduce delay; instruct the
-+	 * PHY not to add additional delay.
-+	 */
-+	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_RGMII_ID)
-+		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+diff --git a/arch/arm64/boot/dts/qcom/sm6150.dtsi b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+index 591fcb740259..8ec97532911c 100644
+--- a/arch/arm64/boot/dts/qcom/sm6150.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6150.dtsi
+@@ -491,6 +491,39 @@ soc: soc@0 {
+ 		dma-ranges = <0 0 0 0 0x10 0>;
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
++		ethernet: ethernet@20000 {
++			compatible = "qcom,qcs615-ethqos", "qcom,qcs404-ethqos";
++			reg = <0x0 0x00020000 0x0 0x10000>,
++			      <0x0 0x00036000 0x0 0x100>;
++			reg-names = "stmmaceth",
++				    "rgmii";
 +
- 	ethqos->phy_mode = plat_dat->phy_interface;
++			clocks = <&gcc GCC_EMAC_AXI_CLK>,
++				 <&gcc GCC_EMAC_SLV_AHB_CLK>,
++				 <&gcc GCC_EMAC_PTP_CLK>,
++				 <&gcc GCC_EMAC_RGMII_CLK>;
++			clock-names = "stmmaceth",
++				      "pclk",
++				      "ptp_ref",
++				      "rgmii";
 +
- 	switch (ethqos->phy_mode) {
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
++			interrupts = <GIC_SPI 660 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 661 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq",
++					  "eth_lpi";
++
++			power-domains = <&gcc EMAC_GDSC>;
++			resets = <&gcc GCC_EMAC_BCR>;
++
++			iommus = <&apps_smmu 0x1c0 0x0>;
++
++			snps,tso;
++			snps,pbl = <32>;
++			rx-fifo-depth = <16384>;
++			tx-fifo-depth = <20480>;
++
++			status = "disabled";
++		};
+ 
+ 		gcc: clock-controller@100000 {
+ 			compatible = "qcom,qcs615-gcc";
 
 -- 
 2.34.1
