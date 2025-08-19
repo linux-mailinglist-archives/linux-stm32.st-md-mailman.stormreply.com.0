@@ -2,74 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5CF3B2BCFC
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 11:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF84B2BDC2
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Aug 2025 11:44:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C8E6C3F949;
-	Tue, 19 Aug 2025 09:18:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B47EC3F949;
+	Tue, 19 Aug 2025 09:44:10 +0000 (UTC)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D5B7C3F949
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 221EEC3F945
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Aug 2025 09:18:49 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57J8BtZr032500;
- Tue, 19 Aug 2025 11:18:30 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- r+8zNdQhsELNVTCqoDyv7ptRsFjNWXK/YZ/09FrMas4=; b=OFB74465rD8x1IIM
- qYfYMczvzSqt5ATAiBzQT3j7mrMJVVkk/r6aOCzClSULAYKHr/Cu5GZVIEokILXX
- h+6qwDKi9qTeHB11NjlspQSK5KpIDziA3+4wzlussHt5Gv9O5ODDP33NVXiRwM+i
- 6AMFjB+zCQt8JfG5YRJ6J4rOq1mR/SNq0oY9wVoVPZp1lbYS+O0LXChpnwjDrrru
- 2YZnezprgTadeYCk3/VSGC2fcNHbvJzo+1DKyQ9e00oJITgyriSzGxe/sTqg4CaB
- 0ThRuAZEb0s8Di08Nd496GPN9AoFhu+6wGMutbXEKyCzRsmUky0D5pfrdkw8B09+
- u1ijBQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48jhb1t8q0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Aug 2025 11:18:30 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B19184005C;
- Tue, 19 Aug 2025 11:17:02 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F32FE71CDB4;
- Tue, 19 Aug 2025 11:16:04 +0200 (CEST)
-Received: from localhost (10.130.74.180) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 19 Aug
- 2025 11:16:04 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Tue, 19 Aug 2025 11:16:06 +0200
+ Tue, 19 Aug 2025 09:44:10 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-55ce4d3b746so5770588e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Aug 2025 02:44:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1755596649; x=1756201449;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OOZDAaZrI66ydwRO+2rFbEiHfOOLnYyWJFOFD28ZEkM=;
+ b=MX6oZLAxZ8KVX7dmbnWPSlBtr2XwbIsVesdbpgXyucXhLfGApr5y2SyUFE1OhQybKK
+ ks+ejrRFkkOMiYQ/2jl8UDig848sqFBC6q7c0z6rLCx628fqlVHpIw23++EASLYlHqWI
+ 6bn3H9rIJdAeiVMvXgvmo2m1aoADZMI5QAMqe7DQ/U+k63uY+dxdnAU5LXpAfbKcps71
+ UTYd8RtDdnha8hpOVV9JoXOwAe1KNmzLnv9czYkiSsY6Z31Fsjit6rA1Kvl4ETRS6wBX
+ caGNBVyuh3uSnKg+BTh4Vd3gXLqWcJZaeEthI7e7yMGvDYoBSz06mN5x9lDVD4KVn3Kh
+ iPjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1755596649; x=1756201449;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OOZDAaZrI66ydwRO+2rFbEiHfOOLnYyWJFOFD28ZEkM=;
+ b=e4I0DOs2GejU3/SCsCJI9ogz6KF6zBlegOIlYIHEspgOx5d4GYtbQsbCBnLKY2PVLj
+ 4/MwBNToZ4vDb+UFw1DrrNMIQy7897yDrS9/c9P5jzs/Pqdtt49nX+qtM0HpkUuSWSmW
+ 0lefBHoYaSaPJor3EbNSNV2KYKCrSCFQMWAilNTKqKC4SaZC0knj8vjLHt89SMmhzWop
+ 0MnoudV1ZOXnjH7HTqrSd8qz8X+0urhJYkhVNSA+mddOt1qjHI7o2cp2+BDzjZuWNOQb
+ RSW5ZBxXbA0gqko7U9UGkwF3d9AfPDmum+2TeBf5spOMEBSoSRp9oEYAPDyvSo30T0AV
+ 4p8g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUxZC33iJE/4WWHWewOwlaGkFwufxEp1c/F4gSHTJYAiAU438yOcI9lLWkpwybjgdeJJO8IxBnK+1LAog==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyofvRHr0xxpcRWRUrR0Nn0nYh/IHRjP2lHbmIbyWKhdUFwPtTT
+ qZO1hmmNSkt+gG/w9xi5jXRUrC+xDORpDNRsVkuBUMBKAML2r17rT27RJb5C4GAfTAtdTNbRjVR
+ P2nJ1aSel0oJCZEeXRbGTRfCDK+Hf2TugxLm0TRlyZQ==
+X-Gm-Gg: ASbGncukapuh1oXei6kjxckewTFVfPlywBqE8yMPs+/QcqiY7awoyd+T+mZQ1YanRB7
+ /kNUha62i2PPK0F4Ixd5gJdWsd6iNh0e0jXl11lBNukxWKFITK7fnF2fjLYPP9KYDpLAQZuPkaq
+ bAQpYGw25r8hPlraMI0ARQAw79+CBBnN5DTF2vs3WL45WIIUtvRp3SoWUk/86UgWWklw+en/p0E
+ LCzKW9sm9yB
+X-Google-Smtp-Source: AGHT+IEb5axoDvieP94ahUcvQF4Cdj/DI1kgL87CBZO05dhRfNXWtWdEPdVzxE8EKpKiDOV7nU9/phOY4imeW35mO0s=
+X-Received: by 2002:a05:6512:3984:b0:55b:79e8:bf83 with SMTP id
+ 2adb3069b0e04-55e00e3ab16mr476219e87.14.1755596649121; Tue, 19 Aug 2025
+ 02:44:09 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <20250819-drm-misc-next-v3-13-04153978ebdb@foss.st.com>
-References: <20250819-drm-misc-next-v3-0-04153978ebdb@foss.st.com>
-In-Reply-To: <20250819-drm-misc-next-v3-0-04153978ebdb@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.130.74.180]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-19_01,2025-08-14_01,2025-03-28_01
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 13/13] arm64: dts: st: add loopback clocks
-	on LTDC node
+References: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
+In-Reply-To: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 19 Aug 2025 11:43:58 +0200
+X-Gm-Features: Ac12FXxWHK9Y341YvKoMtvojeGQDJurTuXUIgTK46n0rp4Sv0-QLWOBJFmGfpkc
+Message-ID: <CACRpkdYungF_01g0XO=u7meo7pq+9y2YHP5XCBDtKHByee8yPA@mail.gmail.com>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
+ linux-gpio@vger.kernel.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Tali Perry <tali.perry1@gmail.com>, Nancy Yuen <yuenn@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Fair <benjaminfair@google.com>
+Subject: Re: [Linux-stm32] [PATCH 0/5] pinctrl: replace legacy bgpio_init()
+ with its modernized alternative
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,63 +86,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ck_ker_ltdc has the CLK_SET_RATE_PARENT flag.  While having this flag is
-semantically correct, it for now leads to an improper setting of the
-clock rate.  The ck_ker_ltdc parent clock is the flexgen 27, which does
-not support changing rates yet.  To overcome this issue, a fixed clock
-can be used for the kernel clock.
-
-Add the clocks needed for the LTDC to work.
-
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
- arch/arm64/boot/dts/st/stm32mp255.dtsi | 5 +++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 6d9c0a430a8cc82542029f18b8a1a954a7c4fddb..24823bbfee31f15e813573ad1a0c4f67a125ce51 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -52,6 +52,12 @@ clk_rcbsec: clk-rcbsec {
- 			compatible = "fixed-clock";
- 			clock-frequency = <64000000>;
- 		};
-+
-+		clk_flexgen_27_fixed: clk-54000000 {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <54000000>;
-+		};
- 	};
- 
- 	firmware {
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index a3b5ae25d28c83ade12c2ff69b82c9cccfd29b00..07c200470b2cedde771ae987f2267d6097ea78f0 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -5,6 +5,11 @@
-  */
- #include "stm32mp253.dtsi"
- 
-+&ltdc {
-+	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
-+	clock-names = "lcd", "bus", "ref", "lvds";
-+};
-+
- &rifsc {
- 	lvds: lvds@48060000 {
- 		compatible = "st,stm32mp255-lvds", "st,stm32mp25-lvds";
-
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBdWcgMTEsIDIwMjUgYXQgNTowMuKAr1BNIEJhcnRvc3ogR29sYXN6ZXdza2kgPGJy
+Z2xAYmdkZXYucGw+IHdyb3RlOgoKPiBXZSBhcmUgaW4gdGhlIHByb2Nlc3Mgb2YgbW9kZXJuaXpp
+bmcgdGhlIGdwaW8tbW1pbyBpbnRlcmZhY2UuIFRoaXMKPiBzZXJpZXMgY29udmVydHMgYWxsIHBp
+bmN0cmwgZHJpdmVycyBjYWxsaW5nIGJncGlvX2luaXQoKSB0byB1c2luZyB0aGUKPiBuZXcgdmFy
+aWFudCBmcm9tIGxpbnV4L2dwaW8vZ2VuZXJpYy5oLgo+Cj4gTGludXM6IFBsZWFzZSBjcmVhdGUg
+YW4gaW1tdXRhYmxlIGJyYW5jaCBjb250YWluaW5nIHRoZXNlIGNvbW1pdHMgb25jZQo+IHF1ZXVl
+ZCBhcyBJJ2xsIGhhdmUgc29tZSBtb3JlIGNoYW5nZXMgY29tbWluZyBvbiB0b3Agb2YgdGhlbSAt
+IG1vc3QKPiBpbXBvcnRhbnRseTogcmVtb3ZpbmcgdGhlIG9sZCBpbnRlcmZhY2UuIEkgd2lsbCBu
+ZWVkIHRoZW0gaW4gbXkgdHJlZS4KCkFsbCBwYXRjaGVzIGFwcGxpZWQgdG8gdGhpcyBpbW11dGFi
+bGUgYnJhbmNoIGJhc2VkIG9uIHY2LjE3LXJjMToKaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIv
+c2NtL2xpbnV4L2tlcm5lbC9naXQvbGludXN3L2xpbnV4LXBpbmN0cmwuZ2l0L2xvZy8/aD1pYi1n
+cGlvX2dlbmVyaWNfY2hpcF9pbml0CgpUaGVuIEkgaGF2ZSBtZXJnZWQgdGhpcyB0byBteSBkZXZl
+bCBicmFuY2guCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
