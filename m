@@ -2,77 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2FBEB2D896
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Aug 2025 11:39:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8896AB2DD58
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Aug 2025 15:08:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75C53C36B3E;
-	Wed, 20 Aug 2025 09:39:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72721C349C6;
+	Wed, 20 Aug 2025 13:08:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 817BFC36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1892AC36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Aug 2025 09:39:28 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57K9Y2ox000924;
- Wed, 20 Aug 2025 11:39:02 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- vlariyUg/2e3sM/3EKHYDRoybrUl8t7Wg/1mNFbV/AA=; b=8QJZqQQOdu73pxWF
- /8WRjLizsLGRCWdqzd6mc0DDZXQIQF9pNKeVdKEpnR3UBd8645bs3uAi/GOBIsL2
- GaABo7FcA1YQDNzmubKpKd2ZLrVG8i638heMKjcO0UdXkEN39LmKJSHUMDMyXrof
- w7Jy0gPxVBdero2AIz18ReBuzWE/IJ2BPKH77fRYftkM98jOjc00eTL9ps4eFZJA
- CZDy0+OVHszAdaV4l5nEOpkDESwzRoKXuCtqcLukr8dsTjqbhEZm19rUpU0by2Xc
- HHpqbY38qmmuB2lHlYISbw2mAHCfH9RGomTFOGXLCZfqlAfopJkV+N9sVWEOcBKC
- OsLtVQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n6uj9dxb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Aug 2025 11:39:02 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 45DDA40044;
- Wed, 20 Aug 2025 11:37:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 623115FE4CD;
- Wed, 20 Aug 2025 11:35:58 +0200 (CEST)
-Received: from [10.48.87.62] (10.48.87.62) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
- 2025 11:35:57 +0200
-Message-ID: <72c32584-26a8-41bc-9eb6-1b5c0b25a6b2@foss.st.com>
-Date: Wed, 20 Aug 2025 11:35:56 +0200
+ Wed, 20 Aug 2025 13:08:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B10FF5C5A67;
+ Wed, 20 Aug 2025 13:08:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694ADC4CEED;
+ Wed, 20 Aug 2025 13:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755695328;
+ bh=ZMa6c5IXXc7FTpDi4XwZl4jGC7UySzLS0/LL8shetd8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CpVkkvsC4Vdv5Os71gtsmYfUWJ/rB6peVMstYHp5nr3ZjHT69/1UcRQkYkQivO91T
+ KUhGyRC/fEzdupijaiv00W2E9JW+8j4yidXGgkxBv4kTCAHnzeNGn3PPfSwEZN8CME
+ eplaQVTvPWKk8Y4qoCgUuT3u/UoBx+I2yBQrvFx19SqJtfIwJY8GrxtWEBpV1j9SFM
+ tFJXq8X1TUEGQNSo6cGUEhyoiWUBt+NhAvMIN5CTmZrcEDGGRRGMOFD/bLTfz0MWMW
+ f6XWwNgGzj5RWmo7/Ulc8XR/ARkOSfSD39yIiFL5ubzLt6YY0D5OzdOyHPFp8XUsaK
+ kYUpvn33knZ5Q==
+Message-ID: <9fe9d86e-0d24-4877-aefc-438248d7024e@kernel.org>
+Date: Wed, 20 Aug 2025 15:08:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Daniel Baluta <daniel.baluta@gmail.com>, "Rob Herring (Arm)"
- <robh@kernel.org>
-References: <20250819213831.1368296-1-robh@kernel.org>
- <CAEnQRZDga2cX=YPY5Z9NDyro94bxFjK9k5Xm5Vt2vVzf4ysKyA@mail.gmail.com>
+To: Yijie Yang <yijie.yang@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+References: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
+ <20250819-qcs615_eth-v4-3-5050ed3402cb@oss.qualcomm.com>
+ <c4cbd50e-82e3-410b-bec6-72b9db1bafca@kernel.org>
+ <157c048d-0efd-458c-8a3f-dfc30d07edf8@oss.qualcomm.com>
+ <0b53dc0b-a96f-49e1-a81e-3748fa908144@kernel.org>
+ <1394aa43-3edc-4ed5-9662-43d98bf8d85f@oss.qualcomm.com>
+ <7c072b63-f4ff-4d7f-b71e-01f239f6b465@kernel.org>
+ <b1eb2ed6-9743-465e-9b2e-75d5a06c1497@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <CAEnQRZDga2cX=YPY5Z9NDyro94bxFjK9k5Xm5Vt2vVzf4ysKyA@mail.gmail.com>
-X-Originating-IP: [10.48.87.62]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-20_03,2025-08-20_01,2025-03-28_01
-Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-remoteproc@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Magnus Damm <magnus.damm@gmail.com>, Aisheng Dong <aisheng.dong@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Iuliana Prodan <iuliana.prodan@nxp.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5] remoteproc: Use
- of_reserved_mem_region_* functions for "memory-region"
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <b1eb2ed6-9743-465e-9b2e-75d5a06c1497@oss.qualcomm.com>
+Cc: stable+noautosel@kernel.org, devicetree@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yijie Yang <quic_yijiyang@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 3/6] arm64: dts: qcom: qcs615: add
+	ethernet node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,46 +114,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA4LzIwLzI1IDEwOjIxLCBEYW5pZWwgQmFsdXRhIHdyb3RlOgo+IEhpIFJvYiwKPiAKPiBU
-aGlzIHBhdGNoIHdpbGwgYnJlYWsgSU1YIFJQUk9DIHN1cHBvcnQuCj4gPHNuaXA+Cj4gCj4+IC0t
-LSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9pbXhfcnByb2MuYwo+PiArKysgYi9kcml2ZXJzL3JlbW90
-ZXByb2MvaW14X3Jwcm9jLmMKPiAKPiA8c25pcD4KPj4gIHN0YXRpYyBpbnQgaW14X3Jwcm9jX3Bh
-cnNlX2Z3KHN0cnVjdCBycHJvYyAqcnByb2MsIGNvbnN0IHN0cnVjdCBmaXJtd2FyZSAqZncpCj4g
-PHNuaXA+Cj4gCj4+IC0gICAgICAgICAgICAgICBwcml2LT5tZW1bYl0uY3B1X2FkZHIgPSBkZXZt
-X2lvcmVtYXBfd2MoJnBkZXYtPmRldiwgcmVzLnN0YXJ0LCByZXNvdXJjZV9zaXplKCZyZXMpKTsK
-Pj4gKyAgICAgICAgICAgICAgIHByaXYtPm1lbVtiXS5jcHVfYWRkciA9IGRldm1faW9yZW1hcF9y
-ZXNvdXJjZV93YygmcGRldi0+ZGV2LCAmcmVzKTsKPiAKPiBkZXZtX2lvcmVtYXBfcmVzb3VyY2Vf
-d2Mgd29ya3Mgb25seSBmb3IgSU9SRVNPVVJDRV9NRU0gcmVzb3VyY2VzOgo+IAo+IGxpYi9kZXZy
-ZXMuYzoxMjQKPiBzdGF0aWMgdm9pZCBfX2lvbWVtICoKPiBfX2Rldm1faW9yZW1hcF9yZXNvdXJj
-ZShzdHJ1Y3QgZGV2aWNlICpkZXYsIGNvbnN0IHN0cnVjdCByZXNvdXJjZSAqcmVzLAo+IAo+IMK7
-ICAgICAgIGlmICghcmVzIHx8IHJlc291cmNlX3R5cGUocmVzKSAhPSBJT1JFU09VUkNFX01FTSkg
-ewo+IMK7ICAgICAgIMK7ICAgICAgIHJldCA9IGRldl9lcnJfcHJvYmUoZGV2LCAtRUlOVkFMLCAi
-aW52YWxpZCByZXNvdXJjZQo+ICVwUlxuIiwgcmVzKTsKPiDCuyAgICAgICDCuyAgICAgICByZXR1
-cm4gSU9NRU1fRVJSX1BUUihyZXQpOwo+IMK7ICAgICAgIH0KPiAKPiB3aGlsZSB0aGUgZGV2bV9p
-b3JlbWFwX3djIGRvZXNuJ3QgY2FyZSBhYm91dCB0aGlzLgo+IApIaSBBbGwsCgo+IFNvIHdlIGNh
-bm5vdCB1c2UgZGV2bV9pb3JlbWFwX3Jlc291cmNlX3djIGhlcmUgdW5sZXNzIHlvdSBhZGQKPiBJ
-T1JFU09VUkNFX01FTSBmbGFncwo+IHRvICBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291
-cmNlIGFzIGRpc2N1c3NlZCBoZXJlOgoKQWdyZWUgd2l0aCBEYW5pZWwsIElPUkVTT1VSQ0VfTUVN
-IGZsYWdzIHNob3VsZCBiZSBzZXQgaW4gb2ZfcmVzZXJ2ZWRfbWVtX3JlZ2lvbl90b19yZXNvdXJj
-ZSgpLgoKSSBnb3QgYSBzaW1pbGFyIGlzc3VlIHNpbmNlIGNvbW1pdCBkZWZlMDFhYmZiN2YgKCJz
-cGk6IHN0bTMyLW9zcGk6IFVzZSBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlKCkg
-Zm9yICJtZW1vcnktcmVnaW9uIikKcmVzb3VyY2UgZmxhZ3MgaXMgdW5zZXQsIHdoaWNoIGNhdXNp
-bmcgdGhlIGZvbGxvd2luZyBlcnJvcjoKClsgICAxMS40NTUzODddIHN0bTMyLW9zcGkgNDA0MzAw
-MDAuc3BpOiBlcnJvciAtRUlOVkFMOiBpbnZhbGlkIHJlc291cmNlIFs/Pz8gMHg2MDAwMDAwMC0w
-eDZmZmZmZmZmIGZsYWdzIDB4MF0KClRoYW5rcwpQYXRyaWNlCj4gCj4gaHR0cHM6Ly9sa21sLm9y
-Zy9sa21sLzIwMjUvNC8yOC83NTkKPiAKPiBUaGUgc2FtZSBpc3N1ZSB3ZSBhcmUgYWxyZWFkeSBl
-eHBlcmllbmNpbmcgd2l0aCBTb3VuZCBPcGVuIEZpcm13YXJlCj4gd2hlcmUgdGhlIGNoYW5nZSB3
-YXMgYWxyZWFkeSBtZXJnZWQKPiBhbmQgd2UgaGF2ZSBhIGJ1ZyBhbHJlYWR5IHJlcG9ydGVkLgo+
-IAo+IEhvdyBzaG91bGQgd2UgZml4IHRoaXM6Cj4gCj4gMSkgQWRkICByZXMtPmZsYWdzID0gSU9S
-RVNPVVJDRV9NRU07IGluICBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291cmNlCj4gCj4g
-T1IKPiAKPiAyKSBVc2UgZGV2bV9pb3JlbWFwX3djIGluc3RlYWQgb2YgZGV2bV9pb3JlbWFwX3Jl
-c291cmNlX3djLgo+IAo+IHRoYW5rcywKPiBEYW5pZWwuCj4gCj4gCj4gCj4gRGFuaWVsLgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+On 20/08/2025 10:57, Yijie Yang wrote:
+> 
+> 
+> On 2025-08-19 17:08, Krzysztof Kozlowski wrote:
+>> On 19/08/2025 11:04, Yijie Yang wrote:
+>>>
+>>>
+>>> On 2025-08-19 15:15, Krzysztof Kozlowski wrote:
+>>>> On 19/08/2025 08:51, Yijie Yang wrote:
+>>>>>
+>>>>>
+>>>>> On 2025-08-19 14:44, Krzysztof Kozlowski wrote:
+>>>>>> On 19/08/2025 08:35, YijieYang wrote:
+>>>>>>> From: Yijie Yang <quic_yijiyang@quicinc.com>
+>>>>>>>
+>>>>>>> Add an ethernet controller node for QCS615 SoC to enable ethernet
+>>>>>>> functionality.
+>>>>>>>
+>>>>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>>>> Signed-off-by: Yijie Yang <quic_yijiyang@quicinc.com>
+>>>>>>> ---
+>>>>>>
+>>>>>>
+>>>>>> Why do you mix up DTS and net-next patches? This only makes difficult to
+>>>>>> apply it, for no benefits.
+>>>>>
+>>>>> The DTS changes and driver code modifications work together to achieve a
+>>>>> single purpose, so I included them in one patch series. Should I
+>>>>> consider splitting them into two separate series?
+>>>> Of course yes. You are just making difficult to apply this. Patches are
+>>>> completely independent and even your internal guideline asks to NOT
+>>>> combine independent patches.
+>>>
+>>> The challenge with splitting this series lies in the fact that it
+>>> attempts to reverse the incorrect semantics of phy-mode in both the
+>>> driver code and the device tree. Selecting only part of the series would
+>>> break Ethernet functionality on both boards.
+>>
+>> And where did you explain that? Anyway, you did not achieve your goal,
+>> because you broke the boards still.
+>>
+>> Your patchset is not bisectable and does not follow standard submission
+>> guidelines. DTS is always independent, please read carefully the docs.
+> 
+> The approach I'm taking will inevitably make the series non-bisectable, 
+
+The series are non-bisectable now!
+
+Do you understand the concept of commit and how patch is applied? How
+splitting this patchset per two changes ANYTHING in bisectability?
+
+And you keep arguing on this...
+
+Best regards,
+Krzysztof
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
