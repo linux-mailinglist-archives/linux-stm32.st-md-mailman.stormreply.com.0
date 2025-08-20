@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5384EB2D566
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Aug 2025 09:59:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69EF6B2D568
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Aug 2025 09:59:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14627C36B31;
-	Wed, 20 Aug 2025 07:59:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 335C3C3F949;
+	Wed, 20 Aug 2025 07:59:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EFF0C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3730FC36B2D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Aug 2025 07:59:48 +0000 (UTC)
+ Wed, 20 Aug 2025 07:59:52 +0000 (UTC)
 Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57K7WJhF022226;
- Wed, 20 Aug 2025 09:59:22 +0200
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57K7i0pJ011121;
+ Wed, 20 Aug 2025 09:59:27 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- KjWfTQSCKKRCTnFDq93iRRJHJSrL9YMWowgtxA3/MP4=; b=gWrU7/zQAREd1KdT
- H/PoIT1lX0u89Y9nE/nTlRYqDecR/rkofhSmUVHx2he8l2/dz2BCIlDg2KgS0IgT
- z3BjYKRkN4C0Zp5qkrxevLUEQsklPNPIwdeDYSxPTXMVNAaEKMP51QcsW1lJpdz/
- T7E4r2x1n40Gn601U5Uaol9hB73sHyYNvNQsbkrJMNLtUb/NALY5L0QgNfZSe5px
- NydbzNbYoG99FJPbCqBm0aaayvch2RNM6SIIbBWOFbUrWG+BC1YQA+L8emdbLkju
- VAZM7vrJcea4e95CFEnUmUBIS7yBD08mcSJ6Pwow9BdgZpYz2mBhvozIwacooFIV
- NLVC1Q==
+ 2aCnbaJkf95wFTf1Eb2cQ4V/qecIbdzw00dRoxQPp0U=; b=IfoiP8lzbpba+cyB
+ 0icqfIQNjWIkTKuHd7dXDVd+LHNV5FKXCkb3LiAME/rvD5MXYR7mqNvm250GDPLZ
+ EE9EuUaxq1z72oMzWjnMFJocAblhr/fYnWTlFLT+3VfNvJ9tnGdq0SIBbzAfPYzU
+ q+p2oKV4tUFS6tQok/xvNfuLytU44tqGQD/v7ypw2M21VOKTMbg1JnInBcuwEh+y
+ y2uGYCXwQyaLWQnhugluaupKIEjatNEZU1xv2/8GY9b7PqLZfwgrtzphij6p3nI2
+ x5Lit0N6l6+lPsuoqF/v2OzaeSvlaPEye6ODlu/M8iSClWKT6mxGiRMKbUEaT7mW
+ KJ31Ug==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n7w5rsnx-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n7w5rsp0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Aug 2025 09:59:22 +0200 (MEST)
+ Wed, 20 Aug 2025 09:59:27 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 2DBB740046;
- Wed, 20 Aug 2025 09:57:35 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A242E40049;
+ Wed, 20 Aug 2025 09:57:39 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 64C4B5E8110;
- Wed, 20 Aug 2025 09:56:14 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 54B825E8119;
+ Wed, 20 Aug 2025 09:56:17 +0200 (CEST)
 Received: from localhost (10.130.77.120) by SHFDAG1NODE3.st.com (10.75.129.71)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 20 Aug
- 2025 09:56:14 +0200
+ 2025 09:56:17 +0200
 From: Christian Bruel <christian.bruel@foss.st.com>
 To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>,
  <kwilczynski@kernel.org>, <mani@kernel.org>, <robh@kernel.org>,
@@ -51,8 +51,8 @@ To: <christian.bruel@foss.st.com>, <lpieralisi@kernel.org>,
  <namcao@linutronix.de>, <qiang.yu@oss.qualcomm.com>,
  <thippeswamy.havalige@amd.com>, <inochiama@gmail.com>,
  <quic_schintav@quicinc.com>
-Date: Wed, 20 Aug 2025 09:54:07 +0200
-Message-ID: <20250820075411.1178729-8-christian.bruel@foss.st.com>
+Date: Wed, 20 Aug 2025 09:54:08 +0200
+Message-ID: <20250820075411.1178729-9-christian.bruel@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250820075411.1178729-1-christian.bruel@foss.st.com>
 References: <20250820075411.1178729-1-christian.bruel@foss.st.com>
@@ -67,8 +67,8 @@ Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, johan+linaro@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v13 07/11] MAINTAINERS: add entry for ST
-	STM32MP25 PCIe drivers
+Subject: [Linux-stm32] [PATCH v13 08/11] arm64: dts: st: add PCIe pinctrl
+	entries in stm32mp25-pinctrl.dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,31 +85,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add myself as maintainer of STM32MP25 PCIe host and PCIe endpoint drivers
+Add PCIe pinctrl entries in stm32mp25-pinctrl.dtsi
+init: forces GPIO to low while probing so CLKREQ is low for
+phy_init
+default: restore the AFMUX after controller probe
+
+Add Analog pins of PCIe to perform power cycle
 
 Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fe168477caa4..8318f105e0cd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19377,6 +19377,13 @@ L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	drivers/pci/controller/dwc/pci-exynos.c
+diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+index 5ac9e72478dd..04e1606df126 100644
+--- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+@@ -133,6 +133,26 @@ pins {
+ 		};
+ 	};
  
-+PCI DRIVER FOR STM32MP25
-+M:	Christian Bruel <christian.bruel@foss.st.com>
-+L:	linux-pci@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/pci/st,stm32-pcie-*.yaml
-+F:	drivers/pci/controller/dwc/*stm32*
++	pcie_pins_a: pcie-0 {
++		pins {
++			pinmux = <STM32_PINMUX('J', 0, AF4)>;
++			bias-disable;
++		};
++	};
 +
- PCI DRIVER FOR SYNOPSYS DESIGNWARE
- M:	Jingoo Han <jingoohan1@gmail.com>
- M:	Manivannan Sadhasivam <mani@kernel.org>
++	pcie_init_pins_a: pcie-init-0 {
++		pins {
++			pinmux = <STM32_PINMUX('J', 0, GPIO)>;
++			output-low;
++		};
++	};
++
++	pcie_sleep_pins_a: pcie-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('J', 0, ANALOG)>;
++		};
++	};
++
+ 	pwm3_pins_a: pwm3-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('B', 15, AF7)>; /* TIM3_CH2 */
 -- 
 2.34.1
 
