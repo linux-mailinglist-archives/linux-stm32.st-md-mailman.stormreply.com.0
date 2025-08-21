@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46560B2F610
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Aug 2025 13:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D558AB2F609
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Aug 2025 13:12:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01465C3F959;
-	Thu, 21 Aug 2025 11:12:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A485C3F956;
+	Thu, 21 Aug 2025 11:12:36 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABDDAC3F959
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC436C3F954
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Aug 2025 11:12:35 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57LBBDHn018680;
+ Thu, 21 Aug 2025 11:12:33 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57LAT3k3011323;
  Thu, 21 Aug 2025 13:12:20 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=selector1; bh=
- RUmj8Nt5UtGZPKvlR+QnuojqoxKp1z0jwnSFCxypOrQ=; b=l6aS4tbOQjqnuEBm
- ccNRG7ibCIyp398fXuPe3xuSRQG6AyGMUlUDxgC7gQKjyeC4mAIP12PafXYXnGjB
- 9RoGzOXjvwcSQ/bf9VwIEaywOJF93XTxpI7E2QkAoD1/lgQAlWxFVLIsPTL/tYo2
- zNm01wYm7mMmdqY+41BEXdRNe1K3n84DSlLZNic0rXB6ID6LLFB/cIo2rj0gQupQ
- kreUTFL/DkjMKFDKuFDTHZlrQt30BMToSS2tAFHz3/hsh4HYGs40KP/3SYBNToMR
- sCYIWXk2+HQwKRfCcY910feOgKFJyLtDrfiRrEV96pn2fITpTAmiQHruZA6optm+
- sQjTDg==
+ ssbplN6xP6Yb8xqVTeSdSuu1Z6zTfktHu8ETkXtqxKE=; b=SFTHTd7aZTeDlLSG
+ J443NSeHX7DdxDZGisChXp0cAkxodKQRiaalMXgBOLhP2bwMRt+kKUQWhJlTxP+Y
+ dWyp5dRHUJQBu0rc/3WJ9dUpvUClcgj+8CVIpKFz1wjUG1dw+JJXpXSS1Men0ysv
+ hGQGiMpm1GTHz9beQDgj7wHro42mGuVLWisVsmqDmzNnvCohAyj2KU8M580hUkvs
+ pYGOXcr9YT+W8jWzR07QUHhpi6ftcdD2xArUXHxbIO1X6BlxGV8nOe9TpC7CGKt+
+ xEL3ZmDyP5XL+dBbNeuBiU545pOJMVrFscUkQAftMsZDud67uVZR/EfKIoj0q2tf
+ BU5ZnQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n70dej4a-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n754ehje-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Thu, 21 Aug 2025 13:12:20 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AD18A40054;
- Thu, 21 Aug 2025 13:10:55 +0200 (CEST)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B391540056;
+ Thu, 21 Aug 2025 13:10:56 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E4A574E7CD;
- Thu, 21 Aug 2025 13:09:59 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 585C974EF0F;
+ Thu, 21 Aug 2025 13:10:00 +0200 (CEST)
 Received: from localhost (10.252.7.99) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 21 Aug
  2025 13:09:59 +0200
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Thu, 21 Aug 2025 13:08:59 +0200
+Date: Thu, 21 Aug 2025 13:09:00 +0200
 MIME-Version: 1.0
-Message-ID: <20250821-drm-misc-next-v4-9-7060500f8fd3@foss.st.com>
+Message-ID: <20250821-drm-misc-next-v4-10-7060500f8fd3@foss.st.com>
 References: <20250821-drm-misc-next-v4-0-7060500f8fd3@foss.st.com>
 In-Reply-To: <20250821-drm-misc-next-v4-0-7060500f8fd3@foss.st.com>
 To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
@@ -68,8 +68,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v4 09/13] arm64: dts: st: add ltdc support on
-	stm32mp251
+Subject: [Linux-stm32] [PATCH v4 10/13] arm64: dts: st: add ltdc support on
+	stm32mp255
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +86,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The LCD-TFT Display Controller (LTDC) handles display composition,
-scaling and rotation.  It provides a parallel digital RGB flow to be
-used by display interfaces.
+Add the LTDC node for stm32mp255 SoC and handle its loopback clocks.
 
-Add the LTDC node.
+ck_ker_ltdc has the CLK_SET_RATE_PARENT flag.  While having this flag is
+semantically correct, it for now leads to an improper setting of the
+clock rate.  The ck_ker_ltdc parent clock is the flexgen 27, which does
+not support changing rates yet.  To overcome this issue, a fixed clock
+can be used for the kernel clock.
 
 Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 303abf915b8e489671b51a8c832041c14a42ecb8..372a99d9cc5c3730e8fbeddeb6134a3b18d938b6 100644
+index 372a99d9cc5c3730e8fbeddeb6134a3b18d938b6..b44ff221e0da968be104ff8195f9bef79c90c57a 100644
 --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1576,6 +1576,18 @@ dcmipp: dcmipp@48030000 {
- 				status = "disabled";
- 			};
- 
-+			ltdc: display-controller@48010000 {
-+				compatible = "st,stm32mp251-ltdc";
-+				reg = <0x48010000 0x400>;
-+				interrupts = <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
-+					<GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_LTDC>, <&rcc CK_BUS_LTDC>;
-+				clock-names = "lcd", "bus";
-+				resets = <&rcc LTDC_R>;
-+				access-controllers = <&rifsc 80>;
-+				status = "disabled";
-+			};
+@@ -52,6 +52,12 @@ clk_rcbsec: clk-rcbsec {
+ 			compatible = "fixed-clock";
+ 			clock-frequency = <64000000>;
+ 		};
 +
- 			combophy: phy@480c0000 {
- 				compatible = "st,stm32mp25-combophy";
- 				reg = <0x480c0000 0x1000>;
++		clk_flexgen_27_fixed: clk-54000000 {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <54000000>;
++		};
+ 	};
+ 
+ 	firmware {
+diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+index f689b47c5010033120146cf1954d6624c0270045..48a95af1741c42300195b753b710e714abc60d96 100644
+--- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+@@ -5,6 +5,12 @@
+  */
+ #include "stm32mp253.dtsi"
+ 
++&ltdc {
++	compatible = "st,stm32mp255-ltdc";
++	clocks = <&clk_flexgen_27_fixed>, <&rcc CK_BUS_LTDC>, <&syscfg>, <&lvds>;
++	clock-names = "lcd", "bus", "ref", "lvds";
++};
++
+ &rifsc {
+ 	vdec: vdec@480d0000 {
+ 		compatible = "st,stm32mp25-vdec";
 
 -- 
 2.25.1
