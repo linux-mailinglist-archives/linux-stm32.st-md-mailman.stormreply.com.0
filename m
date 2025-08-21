@@ -2,52 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB715B2EBF7
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Aug 2025 05:33:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8C8B2F383
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Aug 2025 11:15:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B74DCC3F92F;
-	Thu, 21 Aug 2025 03:33:34 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5F23C3F952;
+	Thu, 21 Aug 2025 09:15:25 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03A94C3F92E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2382CC3F951
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Aug 2025 03:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=NhecIOpybuUkmVRn+RV36PWvwdJyuFnrfxzmzDFBna8=; b=Hmv4e2X61kfRt4AKpoofe646kq
- +OlNDQvtDGPXi8oms7OYJ/6oEIjEzhjsJL7A5gesXFfDlcKge+jHv9dBJY7j3XTHjRIhzF4LDk1xe
- gSVBZl88aCPwpRJU9bXmBTeLW2ajoPbGtz6VNWFLA7d3SqcqG1hM3eowksQ0wkAClWoE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uow3G-005P9K-PC; Thu, 21 Aug 2025 05:33:22 +0200
-Date: Thu, 21 Aug 2025 05:33:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yijie Yang <yijie.yang@oss.qualcomm.com>
-Message-ID: <f93d325f-2c04-49ab-ae92-b87ae88ab49d@lunn.ch>
-References: <20250819-qcs615_eth-v4-0-5050ed3402cb@oss.qualcomm.com>
- <20250819-qcs615_eth-v4-2-5050ed3402cb@oss.qualcomm.com>
- <80a60564-3174-4edd-a57c-706431f2ad91@lunn.ch>
- <f467aade-e604-448d-b23e-9b169c30ff2e@oss.qualcomm.com>
+ Thu, 21 Aug 2025 09:15:25 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57L90E15004160;
+ Thu, 21 Aug 2025 11:15:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=eXSSb7hau3lLxL822Dash4
+ tjRXgn93V51VZQeX8MsTE=; b=fNjIcH9Hmk72pMu7f1tlbcksLZaFHNHkh1SdVV
+ tgj4ljvki2fdQmUMBdqCvX3iqCQjIYheSH4uBwU4i4BEw067gmtu3Wn9IRA8Q6L2
+ 3pu+EmCDbQMfeKuGGrvKjzF4oFd2PJFaJYITJu5O73s50I5o+idJ32ABbM2AMrF+
+ EFrI2fM555PSmkFHnnsuE/GG+7KI1Iuf/JpTBFbxtns7OnWc79aM4qy0g/+amELF
+ xgYPLauk9wH4LUzhbMhcYE4Rmu+b8MjeaqGojKA2+ox3K2/wsLWtqRxXm1avOpYX
+ Mx3EwvEO2jrpwUVr1vIWoyDMJ+aKIQ4+Az4RQPI7wvGrGpnQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48n81wnvsx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Aug 2025 11:15:14 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3B9BF40048;
+ Thu, 21 Aug 2025 11:14:26 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BF2DA73D3F4;
+ Thu, 21 Aug 2025 11:14:04 +0200 (CEST)
+Received: from localhost (10.48.87.62) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 21 Aug
+ 2025 11:14:04 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 21 Aug 2025 11:14:02 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f467aade-e604-448d-b23e-9b169c30ff2e@oss.qualcomm.com>
-Cc: Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- stable+noautosel@kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/6] net: stmmac: Inverse the phy-mode
-	definition
+Message-ID: <20250821-upstream_defconfig_enable_stm32_dma3-v1-1-d9c1b71883d9@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAFnjpmgC/x3NWwrCMBBG4a2UeTaQCxZ1KyIhJn/qgElLphWhd
+ O8GH7+Xc3YSNIbQbdip4cPCc+0wp4HiK9QJilM3WW3P+mK12hZZG0LxCTnONfPkUcPzDS9rcda
+ nEpyKJl5dNmbEaKmnlobM3//m/jiOHy2UqVh2AAAA
+X-Change-ID: 20250820-upstream_defconfig_enable_stm32_dma3-c1c93f116e62
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.48.87.62]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-21_02,2025-08-20_03,2025-03-28_01
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] arm64: defconfig: Enable STMicroelectronics
+ STM32 DMA3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,40 +77,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 21, 2025 at 10:22:05AM +0800, Yijie Yang wrote:
-> 
-> 
-> On 2025-08-20 00:20, Andrew Lunn wrote:
-> > >   static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
-> > >   {
-> > >   	struct device *dev = &ethqos->pdev->dev;
-> > > -	int phase_shift;
-> > > +	int phase_shift = 0;
-> > >   	int loopback;
-> > >   	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
-> > > -	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
-> > > -	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
-> > > -		phase_shift = 0;
-> > > -	else
-> > > +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID)
-> > >   		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
-> > 
-> > Does this one setting control both RX and TX delays? The hardware
-> > cannot support 2ns delay on TX, but 0ns on RX? Or 2ns on RX but 0ns on
-> > TX?
-> > 
-> 
-> This setting is only for Tx delay. Rx delays are taken care separately with
-> DLL delays.
+Enable STMicroelectronics STM32 DMA3 support as module.
+STM32 DMA3 is used among others by STM32 Octo SPI driver on
+STM32MP257F-EV1 board.
 
-If this is only for Tx delays, why is it also not used for
-PHY_INTERFACE_MODE_RGMII_TXID?
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-It is simpler to just let the PHY add the delays, the PHY drivers get
-this right, are well tested, and just work. MAC drivers often get
-delays wrong.
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 667c4859ecc3cda9b0a3dae7abdd8587fc4f8dbe..d0a9d2a5b140aabe40927981ee710b0eb3b729cf 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1302,6 +1302,7 @@ CONFIG_RENESAS_USB_DMAC=m
+ CONFIG_RZ_DMAC=y
+ CONFIG_TI_K3_UDMA=y
+ CONFIG_TI_K3_UDMA_GLUE_LAYER=y
++CONFIG_STM32_DMA3=m
+ CONFIG_VFIO=y
+ CONFIG_VFIO_PCI=y
+ CONFIG_VIRTIO_PCI=y
 
-	Andrew
+---
+base-commit: 5303936d609e09665deda94eaedf26a0e5c3a087
+change-id: 20250820-upstream_defconfig_enable_stm32_dma3-c1c93f116e62
+
+Best regards,
+-- 
+Patrice Chotard <patrice.chotard@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
