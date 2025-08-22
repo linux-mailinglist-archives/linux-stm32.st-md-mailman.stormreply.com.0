@@ -2,84 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8541EB31665
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 13:32:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF4D8B3179F
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 14:24:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCBA9C3F959;
-	Fri, 22 Aug 2025 11:32:48 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C3F4C32E92
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54879C3F959;
+	Fri, 22 Aug 2025 12:24:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A08A7C32E92
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Aug 2025 11:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1755862366;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=szopGzlKxzQVjhy80Hyf8D8Trqw2L0U+tNPu86d0YYI=;
- b=BE8CoLr/UTBBNqQsuYyg+Z7I5egLwLXk/zkjwbSJO9qn7gxAjQU3YYnoMeiSs4VtE76gCR
- lWHeeyH8nptERunJscai8+z/TetKt2naz9dp4bGVEpWZUIpSqpO23Y/iyaSfuY7+0Cc8pG
- IuCUBiPY6GnkPrVZ+TJxyHlRioBpPv0=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-583-35tb09eZOlO_snIZUCXnqw-1; Fri, 22 Aug 2025 07:32:45 -0400
-X-MC-Unique: 35tb09eZOlO_snIZUCXnqw-1
-X-Mimecast-MFC-AGG-ID: 35tb09eZOlO_snIZUCXnqw_1755862365
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-7e87062832bso522372385a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Aug 2025 04:32:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755862365; x=1756467165;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=szopGzlKxzQVjhy80Hyf8D8Trqw2L0U+tNPu86d0YYI=;
- b=urR1DfCDQR1ZYsegwOISnYYdhQM9NLTKv+tr9KLEL9X3HEIczIjJsnH1StlNyKBCla
- 4DvZsmRZIQbvlDov8g18WaO3ZI6INT0whrEZDqHRxzO7fwF0msDJemNwx0AteJWaMk8P
- FsOiATzzMzKfM+3gLef6jCD2mJoENEtp2pi4eIJpTIWsEmBt2rWJLfVEzp2PAjk4iT8e
- JnXtx7FJqWg72tdIA+Ej+5Q05rXNgyrG10urfIYlsTIMYwFmJKAhuG8+PkeN6gJf3A79
- eYg07fP5ons7L3IL7br8esYVTIe0xwJErj0rhYb5m7rtyJx/9m1odzA6OihWt3TH7Bd4
- DzXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXr5B/lhrgwomST372d53Ld+l7D8JoLNyl9ZCRUPL870LCuYc2ErTlMNgRBiM6JXvv7IuRdjAHlWus4uw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwAdSwUcjKxz9yIr8U7ln7jy6E/PCpt3CBxtvzaGR+x0J9Nhc32
- CUrm0UPgB/ZJ/gH552EguQlMcD0cOR3gYqp7ox5vMO2zFkBGKt3u5Dn8l8Aszd04vofhi4w7FV0
- NFPIwmqV5snDUghUMidc7o45qcBPfe7rqs6qWYK2KNKDVY/WHtPay0WQoftLmYEUPit5rOjilJz
- OI3nj1gQ==
-X-Gm-Gg: ASbGncue5sDKiY0IGKHX6cp8+OZQOmgirX8JPE/Nphb5SNvws+dJ7Z6bz1hv77GPhUo
- 3Mh7sNMcElEpVtZ56PhDlcC2MO3EdHILgrjPrSNvCZ0pmWQUvuQXL2iBaz+KRxP5FcpGmm2Tp8w
- RmNUkoTTXVwvy5F1+qEY0x1nqT+zaYT7Kmz9V1sTWoujyzhWeYfbks75A8j23OJMYEYykokl/M9
- hka9tPo9oHiAd8vPqrIdncl9/dBK1BLBP5rcUlRjgF6de1DgWVUfZ+ODu1uZnQMtMNRTcUMHzOL
- Y92z33+iJl0qhy3GqEpQgi3gpQZdSWybOJEP9sz3gPioPW8HPPJYpaQzqAC2wVms/wKGp71qTpJ
- sB1dE1nYgAjrqZUsZ8hw=
-X-Received: by 2002:a05:620a:404c:b0:7e8:46ff:baac with SMTP id
- af79cd13be357-7ea10fc7a12mr283053985a.1.1755862364419; 
- Fri, 22 Aug 2025 04:32:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEmUibDYWQCc5l/mEz36xU/pWXO/c0soUOFhWHapUhi9osq4o9OwXIif6VsGjeizcb9uRTquQ==
-X-Received: by 2002:a05:620a:404c:b0:7e8:46ff:baac with SMTP id
- af79cd13be357-7ea10fc7a12mr283046685a.1.1755862363659; 
- Fri, 22 Aug 2025 04:32:43 -0700 (PDT)
-Received: from x1 (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7e87e1c186esm1319562485a.68.2025.08.22.04.32.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Aug 2025 04:32:42 -0700 (PDT)
-Date: Fri, 22 Aug 2025 07:32:36 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <aKhVVJPEPxCoKKjI@x1>
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <1907e1c7-2b15-4729-8497-a7e6f0526366@kernel.org>
+ Fri, 22 Aug 2025 12:24:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4BB645C6F95;
+ Fri, 22 Aug 2025 12:24:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A4BC4CEED;
+ Fri, 22 Aug 2025 12:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755865451;
+ bh=mLeAMWSsn4iVdHA2aA84aTUB8QKMlhhT8JXX6dQuNPQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fcpB/GZAsmBnGA/ZXo/UCMu1olcQfBfqlVKRoaI1amZ4bW1+EvmbI0yn1tYdhcF0M
+ TjH+tGsg+lJNOBq9Uul/XrYzIVjjdjzS1eLfy5FR/tt+moM74912vyVYtEO74POO9X
+ +gSFjaiCREATXI+OESdAL4wOTu8CD3PEpE7yS8dKcW+lR2kBv2PrNGQnry4bGkjo7t
+ 5RDpGggIe+qqueEE/2/BCXfLt4rJd8Y57zwkcFLYFZICaqLXTzwEFU2nZYHXYT6/Wb
+ gb2H8CDOwtKvPtN4DcobS1WFke+0ZnuYiTy793mwJAJi+u3x75ysGEbsekUqzd/bja
+ T7NkRWqrpT26g==
+Message-ID: <4d31df9e-62c9-4988-9301-2911ff7de229@kernel.org>
+Date: Fri, 22 Aug 2025 14:23:50 +0200
 MIME-Version: 1.0
-In-Reply-To: <1907e1c7-2b15-4729-8497-a7e6f0526366@kernel.org>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9NxKHi-GEuWrd0VlXaPguWQDr0IDpvIYPM4SbrA5mT4_1755862365
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+To: Brian Masney <bmasney@redhat.com>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <1907e1c7-2b15-4729-8497-a7e6f0526366@kernel.org> <aKhVVJPEPxCoKKjI@x1>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <aKhVVJPEPxCoKKjI@x1>
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Linus Walleij <linus.walleij@linaro.org>,
@@ -121,7 +122,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
  Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
  Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
  Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
  linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
@@ -154,53 +155,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Krzysztof (and Stephen),
-
-On Fri, Aug 22, 2025 at 08:31:08AM +0200, Krzysztof Kozlowski wrote:
-> On 11/08/2025 17:17, Brian Masney via B4 Relay wrote:
-> > The round_rate() clk ops is deprecated in the clk framework in favor
-> > of the determine_rate() clk ops, so let's go ahead and convert the
-> > various clk drivers using the Coccinelle semantic patch posted below.
-> > I did a few minor cosmetic cleanups of the code in a few cases.
+On 22/08/2025 13:32, Brian Masney wrote:
+> 7 of the 114 patches in this series needs a v2 with a minor fix. I see
+> several paths forward to merging this. It's ultimately up to Stephen how
+> he wants to proceed.
 > 
-> This is going to create huge conflicts and I did not find here any
-> merging strategy.
+> - I send Stephen a PULL request with all of these patches with the minor
+>   cleanups to the 7 patches. Depending on the timing, Stephen can merge
+>   the other work first, and I deal with cleaning up the merge conflicts.
+>   Or he can if he prefers to instead.
 > 
-> What do you expect from us here?
+> - Stephen applies everyone else's work first to his tree, and then the
+>   good 107 patches in this series. He skips anything that doesn't apply
+>   due to other people's work and I follow up with a smaller series.
 
-That's a good question. You are right that there's a handful of drivers
-where this will create a merge conflict with some other work that's been
-posted this development cycle due to other unrelated changes. I suspect
-the majority of these will still apply cleanly.
+Both cause cross tree merge conflicts. Anyway, please document clearly
+the dependencies between patches.
 
-This series doesn't remove round_rate from the clk core, and I'll post
-that change once everything else has been merged across the tree. I've
-been trying to catch any new round_rate implementations that are posted
-in review.
 
-7 of the 114 patches in this series needs a v2 with a minor fix. I see
-several paths forward to merging this. It's ultimately up to Stephen how
-he wants to proceed.
-
-- I send Stephen a PULL request with all of these patches with the minor
-  cleanups to the 7 patches. Depending on the timing, Stephen can merge
-  the other work first, and I deal with cleaning up the merge conflicts.
-  Or he can if he prefers to instead.
-
-- Stephen applies everyone else's work first to his tree, and then the
-  good 107 patches in this series. He skips anything that doesn't apply
-  due to other people's work and I follow up with a smaller series.
-
-I would prefer to not to have to post a v2 114 patch series if
-possible.
-
-If I don't hear back from Stephen about how he wants to proceed, then
-I'm planning to send him a PULL request the week of Sep 1st.
-
-Does this sound good? I'm open to other suggestions.
-
-Brian
-
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
