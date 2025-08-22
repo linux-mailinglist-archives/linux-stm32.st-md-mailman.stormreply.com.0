@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764D0B30FF5
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C239B30FF6
 	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 09:08:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3422CC3FAD0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44CBFC3FAD2;
 	Fri, 22 Aug 2025 07:08:41 +0000 (UTC)
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2DC7C3F959
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34724C3F959
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Aug 2025 03:51:42 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-77033293ed8so130665b3a.0
+ Fri, 22 Aug 2025 03:51:54 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-76e2ea933b7so1658276b3a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Aug 2025 20:51:42 -0700 (PDT)
+ Thu, 21 Aug 2025 20:51:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1755834701; x=1756439501;
+ d=gmail.com; s=20230601; t=1755834713; x=1756439513;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=/EixXrQYznjJW/63oKtisPH5UyKT6tWjQS1Ri3VBxh8=;
- b=AkYiL41sFkOs8shASNFdrLpaS7Re0gpjBp7aDZ3iLACmmcRrLiWG8fW1Il/Il6hUav
- t3niYroxNeZTS9mwBAWqZN9lfABtevuECe+Ode5VF/vLuKZmEu0E1BF/Pl4JWvO9hkDh
- mcrNsSp8J3NrlbvFbwdlyD8rEptCKxbRRl+tpXpdxBT9y13TDmZJAXXG6rn0OUkPx6LA
- WPVXYOx9SSA/RMMvbmG/K5luejOiWFpOp8wDvfDeJ7o6SlCyNH3HoDJ0dskQqwrxQc1f
- JH+eDw2AdTzjnh5E6zyUwZ76K1dfzpPEUQjCFJjWvpxnxFShTdTfedHDnShnHsnlIWQb
- hVlw==
+ :reply-to; bh=HtaId0UEXdWNlODSrBbRe1UfW9oq1uGtqK7BQmJdRjE=;
+ b=CP0whXPpCYie0se4LtZLJwRgp+le56iKFq1UL9If23/fuJKkM7GCOfW6DPbsxjAxtS
+ Z4wO1VuKlnWQ65TZCaizudDpg+qn300TcE6DgCQbqzSVzqUy6U6kw8Lm/nABv/KXbv6a
+ al5pa5j2Uzr8eveXUSU89GBZMv1pylGebW/LHHQcFSsR2M7fPheKxuJmAuvWqiJssyA/
+ csX+l8bN2xjRmGfiSumXcZma0YoRB+77Bx6pgbBbQhkyCufhzF1ATFt7+eQEvUQkUvWU
+ 83KcU7bbpwnpYPsHkN/Zl0iiF91qAr+vE2jzYu0env2gVcJD2ENIOoHympGlC+qjGK/h
+ iEvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1755834701; x=1756439501;
+ d=1e100.net; s=20230601; t=1755834713; x=1756439513;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/EixXrQYznjJW/63oKtisPH5UyKT6tWjQS1Ri3VBxh8=;
- b=GlEh0GtPS3I8n2xrjZuAwNxNT9cgp9fksCKjo5FOeQD0rkfZsMi4ENvRrcZklLMZTB
- JkIc0tPBUNDs2DIxE98c1nHS8fQ1MR0rGgMiN7V5v/1T3Ua/pDm1cTizNSB0eoGxSvPd
- d+KWU9PqGzQne4T72WMqj6Mxmy4ljgu4P87qHlZCpMYpMq7qjGFMzn1rnCclanoD/UgU
- 2w6OT0kfWqzYXHNdPU8jFc9S954wQlAsQCC3gglBmkISi1CmBz0H3zqhL8jCIskfANqm
- wQ3gHlN+0FHfrpgRQklte+rYoYXCFTvznC89CBZ9GXd8jINW+5up3s3ugfEj0PcRBvhl
- lqOQ==
+ bh=HtaId0UEXdWNlODSrBbRe1UfW9oq1uGtqK7BQmJdRjE=;
+ b=marfCAA9vKlBHj/mMKQEnMJkTViPcan2lWVwAUmZzl4k+oQKlndPcPMFaIp5n66B5G
+ 5kRgqRL3KREkrDI1TUC+mI1amsSyILa/m8Ig0PixtPWhAsJyrWXWp43/gqOt7TCKPJnW
+ Pu5NtJg2xAiyrImRyS5dQpXU/YNgyxZel8UzCf/trVCPy4wNcaW3VXRHT6Et9sXDZ+a8
+ zHwi2lO/KxqyTSPd2mZ3Z0o/geZrHyyFnn1mdyQP15IZeBeycFhwrBwKIpMu+k1VVQZ+
+ ylJT6A+NVovETCtTHv+ZKAKIx9qldnQtH/2+cyQS/+EYkqjXhuIyL3RpAZCFAv1hy/d1
+ AodA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEZMaBR5wNQJ4+9vsOrPy7cxSwitSCk9dmZFkpRj19mo0lwEkvbs4gbaXFVHJ3RJnOdo9gDERJNB9/fw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwxalKjWPnDE3QBJB28i0HhMGQXTCXpGfQSNoZ2uqztFwcjH21R
- O6POQQQIq9FIPFv7eSu94ZcVki/5PB+Hw5lQ10dXaNlixO5GAKlGbCx2
-X-Gm-Gg: ASbGncsb5O7/zeOikuohhA18NQrCqgUmlj7i06v04oQ4Yiry93QQLSxs1C0FcWsl7r0
- BSKbdiw4TBv7dM3t+ps9FQ4iI5DUt10ynTmwDSE7DpC6SlqG51rjjKjFO+E+yB7jDv81XGcjllG
- VTtZw7jaS24SsHORFwuHaiMihd2hKlGkJCibrj17GNlmz4j3Pjd/QMgOyeIqiHYjFvI56P87TGQ
- k6Dtj8PylAoQFC116g11sdH83UodXLRH2CkA605pxWFEuEfsSKDgjkJL2MXazM7Hbd0iA+JyHb1
- 8latvgsO1QA/MpxPMG+Q7vnKKM4rxsH3UqBnPBLpNdrvG2NHiXGjdtZ5MudZ9AtBjZSvs2KAwGO
- bA/X4RmTi0Yt+s+cUV79oGrdMijFA
-X-Google-Smtp-Source: AGHT+IGmG2iHm+kPtdB8VyZNf1Keeivo0b/Ddo4YxYKdTXfFyokHg1nQnJSsPhPXXQhViC7G78ZoCQ==
-X-Received: by 2002:a05:6a00:2288:b0:770:3064:78fa with SMTP id
- d2e1a72fcca58-77030647984mr1909008b3a.2.1755834701233; 
- Thu, 21 Aug 2025 20:51:41 -0700 (PDT)
+ AJvYcCUMTnmp8nArkD7XccJN25WQo3Vytg2BXURFAKAmNX8TwtfyVeEgvT5qygl2OMgiGPDRbdO0k6LNM7KFgw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx6+v52zVG3FR55qdiRTI/sghbrVXGepis8UiqkbEZSiuFo1Iqn
+ tAjoEA6pvnPPY1GoAwORRErjQDY56/8u2uJ9uC+v5gNLFvvQic9vTJPx
+X-Gm-Gg: ASbGnctGdUfQPbON7K8BsRO0eOtrmJtcp50QUUyCxpCI//M3b3Ef5h53AoXsF+xDwh0
+ kzhEm6qObIP6ZHn5lUfDHfXJUt3pqccOyCQLjTrnDWMTUrYunybg0EKHM7McBH9au86OvQLhEKK
+ bnuMBLhnFHmqWWKKm3pg8ixcztIG0gRk7wh/sMJlx8nTuoJtg1aWeBcmlXAOzGGzF4f88BLVsHA
+ 4EQKVGpTyvrHrRELbUvNzj2/LQUDLrrHW1o30rhzbw91mjd3HYQQ2M++RJRB5bYlLinpNYICiiZ
+ GTLS+i4NjuPtOwGFqZ4rM599mH3ioTXgTNkJYlcb/rH29gn4l21AktBeWvcP0s9NcsCsiMRMcDq
+ urTpiZkQ2EACMhy39xevwhILIAYwK
+X-Google-Smtp-Source: AGHT+IHEL8ONsqgS7iIxwqRUVPY9B8jnNtZgB3rknZG4iSaMdkOlahK3+51EyJoqDE0SH8cv7geg1Q==
+X-Received: by 2002:aa7:8889:0:b0:748:e289:6bc with SMTP id
+ d2e1a72fcca58-7703051195bmr1992722b3a.1.1755834712769; 
+ Thu, 21 Aug 2025 20:51:52 -0700 (PDT)
 Received: from [127.0.1.1] ([2401:4900:1c7e:807:34f9:502:b902:b409])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76e7d10fdb1sm9449656b3a.27.2025.08.21.20.51.30
+ d2e1a72fcca58-76e7d10fdb1sm9449656b3a.27.2025.08.21.20.51.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Aug 2025 20:51:40 -0700 (PDT)
+ Thu, 21 Aug 2025 20:51:52 -0700 (PDT)
 From: Dixit Parmar <dixitparmar19@gmail.com>
-Date: Fri, 22 Aug 2025 09:19:56 +0530
+Date: Fri, 22 Aug 2025 09:19:57 +0530
 MIME-Version: 1.0
-Message-Id: <20250822-enomam_logs-v1-8-db87f2974552@gmail.com>
+Message-Id: <20250822-enomam_logs-v1-9-db87f2974552@gmail.com>
 References: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
 In-Reply-To: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -84,11 +84,11 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Andreas Klinger <ak@it-klinger.de>, Crt Mori <cmo@melexis.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1755834598; l=834;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755834598; l=1421;
  i=dixitparmar19@gmail.com; s=20250726; h=from:subject:message-id;
- bh=9sYG9bHos7xB9NTLNoGx74dL9X517YjRrTR6gyjXoAQ=;
- b=NI1M2YGG1OwJpwbLAJnJ6Qnit+GivyUJswFcnSjAyT2MnVw5sTWxxCLJoS3GZsCiajAbZFUyc
- 84hThunItQmAHPZ5dwKUdMNC8vDzpzBO3EbM2n4xQrC+R98ypIPo+hY
+ bh=o0kHbqFpyBP/mgTiX4N/QGk9oAOztYPO8grzmPdvqrY=;
+ b=Q8J70rA64x5Wx/SDVM/m1/65rdR7MZeOH79krewJg9gKcpihiqbOP8UjztiODzFgeo32vIohz
+ JBzgUFPJRTDAPYbuF7xQHLIOA4XuPnb93j9EvkSJSHk3SkSO6mnz926
 X-Developer-Key: i=dixitparmar19@gmail.com; a=ed25519;
  pk=TI6k8pjTuLFcYiHazsate3W8rZGU2lbOrSJ4IWNoQhI=
 X-Mailman-Approved-At: Fri, 22 Aug 2025 07:08:39 +0000
@@ -96,8 +96,8 @@ Cc: imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
  linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dixit Parmar <dixitparmar19@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 08/10] iio: pressure: Drop unnecessary -ENOMEM
-	messages
+Subject: [Linux-stm32] [PATCH 09/10] iio: proximity: Drop unnecessary
+	-ENOMEM messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,25 +120,42 @@ messages from the probe().
 
 Signed-off-by: Dixit Parmar <dixitparmar19@gmail.com>
 ---
- drivers/iio/pressure/dlhl60d.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/iio/proximity/ping.c  | 4 +---
+ drivers/iio/proximity/srf04.c | 4 +---
+ 2 files changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/pressure/dlhl60d.c b/drivers/iio/pressure/dlhl60d.c
-index 48afe5c94000..c5f4f5efaef8 100644
---- a/drivers/iio/pressure/dlhl60d.c
-+++ b/drivers/iio/pressure/dlhl60d.c
-@@ -294,10 +294,8 @@ static int dlh_probe(struct i2c_client *client)
- 	}
+diff --git a/drivers/iio/proximity/ping.c b/drivers/iio/proximity/ping.c
+index c5b4e1378b7d..e3487094d7be 100644
+--- a/drivers/iio/proximity/ping.c
++++ b/drivers/iio/proximity/ping.c
+@@ -280,10 +280,8 @@ static int ping_probe(struct platform_device *pdev)
+ 	struct iio_dev *indio_dev;
  
- 	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*st));
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(struct ping_data));
 -	if (!indio_dev) {
--		dev_err(&client->dev, "failed to allocate iio device\n");
+-		dev_err(dev, "failed to allocate IIO device\n");
 +	if (!indio_dev)
  		return -ENOMEM;
 -	}
  
- 	i2c_set_clientdata(client, indio_dev);
+ 	data = iio_priv(indio_dev);
+ 	data->dev = dev;
+diff --git a/drivers/iio/proximity/srf04.c b/drivers/iio/proximity/srf04.c
+index b059bac1078b..f9d32f9aba1f 100644
+--- a/drivers/iio/proximity/srf04.c
++++ b/drivers/iio/proximity/srf04.c
+@@ -253,10 +253,8 @@ static int srf04_probe(struct platform_device *pdev)
+ 	int ret;
  
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(struct srf04_data));
+-	if (!indio_dev) {
+-		dev_err(dev, "failed to allocate IIO device\n");
++	if (!indio_dev)
+ 		return -ENOMEM;
+-	}
+ 
+ 	data = iio_priv(indio_dev);
+ 	data->dev = dev;
 
 -- 
 2.43.0
