@@ -2,32 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DF1FB30C6C
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 05:18:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0290B30C8A
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 05:26:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E069C3F95A;
-	Fri, 22 Aug 2025 03:18:05 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07819C3F959
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 347ECC3F95A;
+	Fri, 22 Aug 2025 03:26:36 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (l-sdnproxy.icoremail.net
+ [20.188.111.126])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF00FC3F959
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Aug 2025 03:18:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=FQHWCj2G7uE0VQTePlKYzggszJQgMhjnofu5HSi2Vew=; b=5OuwMnFk8XspHeSWT5qjK0jRrg
- C0ctkC7F0t/TaaLvA8Rr/qlr4y6DSI/6ALz5iiVOM4Uf4PUAurNE49I9LOCAHJClYQK3D+vGHkPse
- NOT9YoUvBtM6e8cRThEI7IZ4FAJqJrCOXw5YOaKpl45cH8SYNgZzrHQ8wAVoZsVq7jno=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1upIHZ-005X48-JB; Fri, 22 Aug 2025 05:17:37 +0200
-Date: Fri, 22 Aug 2025 05:17:37 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-Message-ID: <548973df-2fa8-4502-9f7c-668d0eeb16c6@lunn.ch>
+ Fri, 22 Aug 2025 03:26:33 +0000 (UTC)
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Fri, 22 Aug 2025 11:26:02 +0800 (GMT+08:00)
+X-Originating-IP: [10.11.96.26]
+Date: Fri, 22 Aug 2025 11:26:02 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Andrew Lunn" <andrew@lunn.ch>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2025 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <548973df-2fa8-4502-9f7c-668d0eeb16c6@lunn.ch>
 References: <c212c50e-52ae-4330-8e67-792e83ab29e4@lunn.ch>
  <7ccc507d.34b1.1980d6a26c0.Coremail.lizhi2@eswincomputing.com>
  <e734f2fd-b96f-4981-9f00-a94f3fd03213@lunn.ch>
@@ -38,9 +34,15 @@ References: <c212c50e-52ae-4330-8e67-792e83ab29e4@lunn.ch>
  <2b4deeba.3f61.1985fb2e8d4.Coremail.lizhi2@eswincomputing.com>
  <bad83fec-afca-4c41-bee4-e4e4f9ced57a@lunn.ch>
  <3261748c.629.198cfa3bc10.Coremail.lizhi2@eswincomputing.com>
+ <548973df-2fa8-4502-9f7c-668d0eeb16c6@lunn.ch>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3261748c.629.198cfa3bc10.Coremail.lizhi2@eswincomputing.com>
+Message-ID: <1935a8ad.648.198cfcfdcb1.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: TAJkCgDH3g9L46do9c3BAA--.11720W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgECDGinSk8OdAABs8
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
 Cc: vladimir.oltean@nxp.com, edumazet@google.com, jszhang@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
  weishangjuan@eswincomputing.com, ningyu@eswincomputing.com, 0x1207@gmail.com,
@@ -65,27 +67,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> We re-tuned and verified that setting the TXD and RXD delays to 0 and
-> configuring TXEN and RXDV to 0 yielded the same hardware performance as
-> long as we only applied delays (e.g. 200ps) to TXCLK and RXCLK.
-
-This is in addition to phy-mode = 'rgmii-id'?
-
-> Therefore, in the next patch, we will drop the vendor-specific properties
-> (e.g. eswin,dly-param-*) and keep only the standard attributes, namely
-> rx-internal-delay-ps and tx-internal-delay-ps.
-> Is this correct?
-
-Yes, 200ps is a small tuning value, when the PHY adds the 2ns. This is
-O.K.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBBbmRyZXcgTHVubiwKVGhhbmsgeW91IGZvciB5b3VyIHZhbHVhYmxlIGFuZCBwcm9mZXNz
+aW9uYWwgc3VnZ2VzdGlvbnMuClBsZWFzZSBmaW5kIG91ciBleHBsYW5hdGlvbnMgZW1iZWRkZWQg
+YmVsb3cgeW91ciBjb21tZW50cyBpbiB0aGUKb3JpZ2luYWwgZW1haWwuCgpCZXN0IHJlZ2FyZHMs
+CgpMaSBaaGkKRXN3aW4gQ29tcHV0aW5nCgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R
+5Lu25Lq6OiAiQW5kcmV3IEx1bm4iIDxhbmRyZXdAbHVubi5jaD4KPiDlj5HpgIHml7bpl7Q6MjAy
+NS0wOC0yMiAxMToxNzozNyAo5pif5pyf5LqUKQo+IOaUtuS7tuS6ujog5p2O5b+XIDxsaXpoaTJA
+ZXN3aW5jb21wdXRpbmcuY29tPgo+IOaKhOmAgTogd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5n
+LmNvbSwgYW5kcmV3K25ldGRldkBsdW5uLmNoLCBkYXZlbUBkYXZlbWxvZnQubmV0LCBlZHVtYXpl
+dEBnb29nbGUuY29tLCBrdWJhQGtlcm5lbC5vcmcsIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBr
+ZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBk
+ZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywg
+bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwgYWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbSwg
+cm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWssIHlvbmcubGlhbmcuY2hvb25nQGxpbnV4LmludGVs
+LmNvbSwgdmxhZGltaXIub2x0ZWFuQG54cC5jb20sIGpzemhhbmdAa2VybmVsLm9yZywgamFuLnBl
+dHJvdXNAb3NzLm54cC5jb20sIHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNv
+bSwgaW5vY2hpYW1hQGdtYWlsLmNvbSwgYm9vbi5raGFpLm5nQGFsdGVyYS5jb20sIGRmdXN0aW5p
+QHRlbnN0b3JyZW50LmNvbSwgMHgxMjA3QGdtYWlsLmNvbSwgbGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3Jn
+LCBuaW5neXVAZXN3aW5jb21wdXRpbmcuY29tLCBsaW5taW5AZXN3aW5jb21wdXRpbmcuY29tLCBw
+aW5rZXNoLnZhZ2hlbGFAZWluZm9jaGlwcy5jb20KPiDkuLvpopg6IFJlOiBSZTogUmU6IFJlOiBS
+ZTogUmU6IFtQQVRDSCB2MyAyLzJdIGV0aGVybmV0OiBlc3dpbjogQWRkIGVpYzc3MDAgZXRoZXJu
+ZXQgZHJpdmVyCj4gCj4gPiBXZSByZS10dW5lZCBhbmQgdmVyaWZpZWQgdGhhdCBzZXR0aW5nIHRo
+ZSBUWEQgYW5kIFJYRCBkZWxheXMgdG8gMCBhbmQKPiA+IGNvbmZpZ3VyaW5nIFRYRU4gYW5kIFJY
+RFYgdG8gMCB5aWVsZGVkIHRoZSBzYW1lIGhhcmR3YXJlIHBlcmZvcm1hbmNlIGFzCj4gPiBsb25n
+IGFzIHdlIG9ubHkgYXBwbGllZCBkZWxheXMgKGUuZy4gMjAwcHMpIHRvIFRYQ0xLIGFuZCBSWENM
+Sy4KPiAKPiBUaGlzIGlzIGluIGFkZGl0aW9uIHRvIHBoeS1tb2RlID0gJ3JnbWlpLWlkJz8KPiAK
+Clllcywgb3VyIHJlLXR1bmluZyBhbmQgdmVyaWZpY2F0aW9uIHdlcmUgcGVyZm9ybWVkIHdpdGgg
+cGh5LW1vZGUgc2V0IHRvCnJnbWlpLWlkLgoKPiA+IFRoZXJlZm9yZSwgaW4gdGhlIG5leHQgcGF0
+Y2gsIHdlIHdpbGwgZHJvcCB0aGUgdmVuZG9yLXNwZWNpZmljIHByb3BlcnRpZXMKPiA+IChlLmcu
+IGVzd2luLGRseS1wYXJhbS0qKSBhbmQga2VlcCBvbmx5IHRoZSBzdGFuZGFyZCBhdHRyaWJ1dGVz
+LCBuYW1lbHkKPiA+IHJ4LWludGVybmFsLWRlbGF5LXBzIGFuZCB0eC1pbnRlcm5hbC1kZWxheS1w
+cy4KPiA+IElzIHRoaXMgY29ycmVjdD8KPiAKPiBZZXMsIDIwMHBzIGlzIGEgc21hbGwgdHVuaW5n
+IHZhbHVlLCB3aGVuIHRoZSBQSFkgYWRkcyB0aGUgMm5zLiBUaGlzIGlzCj4gTy5LLgo+IAo+IAlB
+bmRyZXcKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
