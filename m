@@ -2,40 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6062B32AFB
-	for <lists+linux-stm32@lfdr.de>; Sat, 23 Aug 2025 18:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB2F9B32B11
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 Aug 2025 18:48:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1A7C3089D;
-	Sat, 23 Aug 2025 16:43:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AD79C3089D;
+	Sat, 23 Aug 2025 16:48:42 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32E0EC36B0F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA6BAC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 23 Aug 2025 16:43:45 +0000 (UTC)
+ Sat, 23 Aug 2025 16:48:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1D55960054;
- Sat, 23 Aug 2025 16:43:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D084DC113CF;
- Sat, 23 Aug 2025 16:43:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 458665C53B1;
+ Sat, 23 Aug 2025 16:48:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3333C4CEE7;
+ Sat, 23 Aug 2025 16:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1755967423;
- bh=xFZkeJN2BuDgCkOi+KgCMmmiWf02TF4MkQxM0ILCb/c=;
+ s=k20201202; t=1755967718;
+ bh=PDfxYI4xJFYmIUFeVYOEcKsGHc9UOGEej4nxqYpMpgE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=itdiEScC2Beeu6c63pmd/CTzPnWhE183hRyVzasZY+gmKVI5vd3nuihdYSmXUtzqM
- n5pXlMOZ4f4CfdZ3y+9TL4OAfKF1rUicpUcWpAKV25yexOoQiIUVRBOvzvVlnT7m1x
- Ow/syOgbGs/7sFzlP8M9T9k2hQaa02Q05lgaQ79U07gOCwpaS6+/LYxvOeLuY9D4Yg
- tFdZWFXEVSKg+nsuehNXz2gcumXyv2a/Cv5In16FOD/gqLYo3Ce8RoRceAlgwmH+KZ
- F0iWduD+DHlVLd9Xvqi99qFs+b/bjDIb80nCd1xXSh9G2AR1wHFNtLXyjiCEgmjyyG
- kbRIEhswFKxGg==
-Message-ID: <7c6cc42c-fc76-4300-b0d2-8dabf54cf337@kernel.org>
-Date: Sat, 23 Aug 2025 18:43:23 +0200
+ b=HOXXqNd5ZbNFfXhPJvOSJpuLPaIFgLCHSTOAh/B1wd0Q2+30Sz2yxhHeQ70I+6ira
+ 0Y5NvdqZewIGHh3fkbPEhG731f/9TGrKaqfi79StYlzLt0GkPuc4NLdiVOkkkxLTNj
+ lCF/coYvgjNcuwJWCN2zhq4sqXhpK39/OUs5pH4vNM0y+kq4UP444vgPGrnlvtOBZ3
+ vWypYT/Tu9R0zxIRm9lNFsGdK0gPihI1EbGXWDeLh+oYTOkC391/3865/PLGswrKR0
+ ci3Jz3vltoNG+fME7+Z7D1Hi98pBVKINaG1l8/tKH5WKRXP5EgThnk9ap13vHnwjWY
+ WyuxowF5X6EHQ==
+Message-ID: <64c311f7-1cc1-4d0d-9f9d-b586050b8fec@kernel.org>
+Date: Sat, 23 Aug 2025 18:48:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Brian Masney <bmasney@redhat.com>
+To: bmasney@redhat.com, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Paul Cercueil <paul@crapouillou.net>, Keguang Zhang
+ <keguang.zhang@gmail.com>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Takao Orito <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
+ Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Samuel Holland <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>, UNGLinuxDriver@microchip.com,
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <mani@kernel.org>, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Neal Gompa <neal@gompa.dev>, Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Daniel Palmer <daniel@thingy.jp>, Romain Perier <romain.perier@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Heiko Stuebner <heiko@sntech.de>, Andrea della Porta
+ <andrea.porta@suse.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Qin Jian <qinjian@cqplus1.com>, Viresh Kumar <vireshk@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Alex Helms <alexander.helms.jy@renesas.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <1907e1c7-2b15-4729-8497-a7e6f0526366@kernel.org> <aKhVVJPEPxCoKKjI@x1>
- <4d31df9e-62c9-4988-9301-2911ff7de229@kernel.org> <aKhr8NYhei59At0s@x1>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -81,63 +126,16 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <aKhr8NYhei59At0s@x1>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Daniel Machon <daniel.machon@microchip.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
- Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
- Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
- linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Inochi Amaoto <inochiama@gmail.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
- Viresh Kumar <vireshk@kernel.org>,
- Gregory Clement <gregory.clement@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
- Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
- Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
- Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
- linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
- Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Andrea della Porta <andrea.porta@suse.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
- patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
- linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
+ asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH 000/114] clk: convert drivers from
  deprecated round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -156,48 +154,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 22/08/2025 15:09, Brian Masney wrote:
-> On Fri, Aug 22, 2025 at 02:23:50PM +0200, Krzysztof Kozlowski wrote:
->> On 22/08/2025 13:32, Brian Masney wrote:
->>> 7 of the 114 patches in this series needs a v2 with a minor fix. I see
->>> several paths forward to merging this. It's ultimately up to Stephen how
->>> he wants to proceed.
->>>
->>> - I send Stephen a PULL request with all of these patches with the minor
->>>   cleanups to the 7 patches. Depending on the timing, Stephen can merge
->>>   the other work first, and I deal with cleaning up the merge conflicts.
->>>   Or he can if he prefers to instead.
->>>
->>> - Stephen applies everyone else's work first to his tree, and then the
->>>   good 107 patches in this series. He skips anything that doesn't apply
->>>   due to other people's work and I follow up with a smaller series.
->>
->> Both cause cross tree merge conflicts. Anyway, please document clearly
->> the dependencies between patches.
+On 11/08/2025 17:17, Brian Masney via B4 Relay wrote:
+> The round_rate() clk ops is deprecated in the clk framework in favor
+> of the determine_rate() clk ops, so let's go ahead and convert the
+> various clk drivers using the Coccinelle semantic patch posted below.
+> I did a few minor cosmetic cleanups of the code in a few cases.
 > 
-> This series only touches drivers/clk, so it shouldn't cause any issues
-> with other subsystems, unless there's a topic branch somewhere, or I'm
-> missing something?
+@Stephen,
 
-Individual maintainers handle subdirectories.
-
-> 
-> There are some drivers under drivers/clk/ where there is an entry in the
-> MAINTAINERS file that's not Stephen, although it wasn't clear to me if
-> all of those people will send PULL requests to Stephen. I described on
-> the cover how how the series was broken up.
-> 
->   - Patches 4-70 are for drivers where there is no clk submaintainer
->   - Patches 71-110 are for drivers where this is an entry in MAINTAINERS
->     (for drivers/clk)
-
-It's hidden between multiple other descriptions of patches, so I really
-would not think that this means that it is okay by individual maintainer
-to take the patch.
-
-This really should be the one most important part of the cover letter
-for something like this.
-..
+There will be dependencies/conflicts for Samsung, so I will take the two
+Samsung patches. Let me know if you disagree.
 
 Best regards,
 Krzysztof
