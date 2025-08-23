@@ -2,74 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE87B31C1B
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Aug 2025 16:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6062B32AFB
+	for <lists+linux-stm32@lfdr.de>; Sat, 23 Aug 2025 18:43:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B00B2C3FAC8;
-	Fri, 22 Aug 2025 14:40:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1A7C3089D;
+	Sat, 23 Aug 2025 16:43:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47F33C3FAC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32E0EC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Aug 2025 14:40:09 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57MEXa4a015372;
- Fri, 22 Aug 2025 16:39:55 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=selector1; bh=
- yXVYC0AdsjZP2euUO1U7QZk0RRDGdK2Vzwc3AXoC1dA=; b=KwODd6+Bhcqmq19y
- KCXIu5+EpZkD3z2usXDA/SCAUx5cEOI32TN+AwBEDhnxAvxVSwdyaXBf+H1G16hI
- 6rz9xSBN2IloUoHWpeMyrBHYiq7ZBjKCn2Vi16BC1DS+lwxOIlinMpgpECPS2jcy
- UK105687qwWSvcSOCvN6VEvo97JyK9KbGgDNJpvS4HjcBELYNCbGP2qVvl6eLlIz
- MGRU29d+LSAj4nHe9iPiOrQOI2Izh1igzFviCWvljZR5rYW+owMp/pCyftXoG88u
- 1zdHmta3cBDXo4YZovQp/OQ+BT/Db3c/A7HfbB7q9rKEWqIa2TtPeJBnc0DMa3iW
- cP65Hw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48nj3v8jn0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Aug 2025 16:39:55 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id BACB74005D;
- Fri, 22 Aug 2025 16:38:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 21C3A726F1A;
- Fri, 22 Aug 2025 16:35:57 +0200 (CEST)
-Received: from localhost (10.130.74.180) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 22 Aug
- 2025 16:35:56 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Fri, 22 Aug 2025 16:34:22 +0200
+ Sat, 23 Aug 2025 16:43:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1D55960054;
+ Sat, 23 Aug 2025 16:43:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D084DC113CF;
+ Sat, 23 Aug 2025 16:43:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1755967423;
+ bh=xFZkeJN2BuDgCkOi+KgCMmmiWf02TF4MkQxM0ILCb/c=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=itdiEScC2Beeu6c63pmd/CTzPnWhE183hRyVzasZY+gmKVI5vd3nuihdYSmXUtzqM
+ n5pXlMOZ4f4CfdZ3y+9TL4OAfKF1rUicpUcWpAKV25yexOoQiIUVRBOvzvVlnT7m1x
+ Ow/syOgbGs/7sFzlP8M9T9k2hQaa02Q05lgaQ79U07gOCwpaS6+/LYxvOeLuY9D4Yg
+ tFdZWFXEVSKg+nsuehNXz2gcumXyv2a/Cv5In16FOD/gqLYo3Ce8RoRceAlgwmH+KZ
+ F0iWduD+DHlVLd9Xvqi99qFs+b/bjDIb80nCd1xXSh9G2AR1wHFNtLXyjiCEgmjyyG
+ kbRIEhswFKxGg==
+Message-ID: <7c6cc42c-fc76-4300-b0d2-8dabf54cf337@kernel.org>
+Date: Sat, 23 Aug 2025 18:43:23 +0200
 MIME-Version: 1.0
-Message-ID: <20250822-drm-misc-next-v5-13-9c825e28f733@foss.st.com>
-References: <20250822-drm-misc-next-v5-0-9c825e28f733@foss.st.com>
-In-Reply-To: <20250822-drm-misc-next-v5-0-9c825e28f733@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.130.74.180]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-22_04,2025-08-20_03,2025-03-28_01
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v5 13/13] arm64: dts: st: enable display
- support on stm32mp257f-ev1 board
+User-Agent: Mozilla Thunderbird
+To: Brian Masney <bmasney@redhat.com>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <1907e1c7-2b15-4729-8497-a7e6f0526366@kernel.org> <aKhVVJPEPxCoKKjI@x1>
+ <4d31df9e-62c9-4988-9301-2911ff7de229@kernel.org> <aKhr8NYhei59At0s@x1>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <aKhr8NYhei59At0s@x1>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
+ Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
+ Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
+ linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
+ Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
+ Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
+ Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
+ linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
+ Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andrea della Porta <andrea.porta@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 000/114] clk: convert drivers from
+ deprecated round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,127 +156,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable the following IPs on stm32mp257f-ev1 in order to get display:
-   * LTDC
-   * LVDS
-   * WSVGA LVDS panel (1024x600)
-   * Panel LVDS backlight as GPIO backlight
-   * ILI2511 i2c touchscreen
+On 22/08/2025 15:09, Brian Masney wrote:
+> On Fri, Aug 22, 2025 at 02:23:50PM +0200, Krzysztof Kozlowski wrote:
+>> On 22/08/2025 13:32, Brian Masney wrote:
+>>> 7 of the 114 patches in this series needs a v2 with a minor fix. I see
+>>> several paths forward to merging this. It's ultimately up to Stephen how
+>>> he wants to proceed.
+>>>
+>>> - I send Stephen a PULL request with all of these patches with the minor
+>>>   cleanups to the 7 patches. Depending on the timing, Stephen can merge
+>>>   the other work first, and I deal with cleaning up the merge conflicts.
+>>>   Or he can if he prefers to instead.
+>>>
+>>> - Stephen applies everyone else's work first to his tree, and then the
+>>>   good 107 patches in this series. He skips anything that doesn't apply
+>>>   due to other people's work and I follow up with a smaller series.
+>>
+>> Both cause cross tree merge conflicts. Anyway, please document clearly
+>> the dependencies between patches.
+> 
+> This series only touches drivers/clk, so it shouldn't cause any issues
+> with other subsystems, unless there's a topic branch somewhere, or I'm
+> missing something?
 
-Acked-by: Yannick Fertre <yannick.fertre@foss.st.com>
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 79 ++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+Individual maintainers handle subdirectories.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 836b1958ce65fb72c99d634a92af3efaf9844d76..2958ad413b0675575d84942e193a16f80197b88e 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -86,6 +86,43 @@ mm_ospi1: mm-ospi@60000000 {
- 			no-map;
- 		};
- 	};
-+
-+	panel_lvds: display {
-+		compatible = "edt,etml0700z9ndha", "panel-lvds";
-+		enable-gpios = <&gpiog 15 GPIO_ACTIVE_HIGH>;
-+		backlight = <&panel_lvds_backlight>;
-+		power-supply = <&scmi_v3v3>;
-+		status = "okay";
-+
-+		width-mm = <156>;
-+		height-mm = <92>;
-+		data-mapping = "vesa-24";
-+
-+		panel-timing {
-+			clock-frequency = <54000000>;
-+			hactive = <1024>;
-+			vactive = <600>;
-+			hfront-porch = <150>;
-+			hback-porch = <150>;
-+			hsync-len = <21>;
-+			vfront-porch = <24>;
-+			vback-porch = <24>;
-+			vsync-len = <21>;
-+		};
-+
-+		port {
-+			lvds_panel_in: endpoint {
-+				remote-endpoint = <&lvds_out0>;
-+			};
-+		};
-+	};
-+
-+	panel_lvds_backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpioi 5 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+		status = "okay";
-+	};
- };
- 
- &arm_wdt {
-@@ -183,6 +220,15 @@ imx335_ep: endpoint {
- 			};
- 		};
- 	};
-+
-+	ili2511: ili2511@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		interrupt-parent = <&gpioi>;
-+		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiog 14 GPIO_ACTIVE_LOW>;
-+		status = "okay";
-+	};
- };
- 
- &i2c8 {
-@@ -230,6 +276,39 @@ timer {
- 	};
- };
- 
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_ep0_out: endpoint {
-+			remote-endpoint = <&lvds_in>;
-+		};
-+	};
-+};
-+
-+&lvds {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			lvds_in: endpoint {
-+				remote-endpoint = <&ltdc_ep0_out>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			lvds_out0: endpoint {
-+				remote-endpoint = <&lvds_panel_in>;
-+			};
-+		};
-+	};
-+};
-+
- &rtc {
- 	status = "okay";
- };
+> 
+> There are some drivers under drivers/clk/ where there is an entry in the
+> MAINTAINERS file that's not Stephen, although it wasn't clear to me if
+> all of those people will send PULL requests to Stephen. I described on
+> the cover how how the series was broken up.
+> 
+>   - Patches 4-70 are for drivers where there is no clk submaintainer
+>   - Patches 71-110 are for drivers where this is an entry in MAINTAINERS
+>     (for drivers/clk)
 
--- 
-2.25.1
+It's hidden between multiple other descriptions of patches, so I really
+would not think that this means that it is okay by individual maintainer
+to take the patch.
 
+This really should be the one most important part of the cover letter
+for something like this.
+..
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
