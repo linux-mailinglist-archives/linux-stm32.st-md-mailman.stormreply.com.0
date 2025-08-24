@@ -2,48 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78529B32DB8
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Aug 2025 08:15:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0797B32EB1
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Aug 2025 11:21:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B214FC36B38;
-	Sun, 24 Aug 2025 06:15:02 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F1DCC3F939;
+	Sun, 24 Aug 2025 09:21:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 049A8C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22C1AC3F938
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Aug 2025 06:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=XJNcRjw5toGkbDMbVP0D+FBSoxAKho17jgy82++k1Xw=; b=zRzQdU/ElHgDkQb/6td8iVgBxb
- Hyew4QJUr+v3M4NGpFQT1qnb7wngqSWRm+Cq/sl3UKgjvMdkfgPJjZMPypDUXhrBOFzYaihOaOeeW
- qugmI0ZH7FmBj+73ljS/5Km2eN7UKpkuTtClcyVnJXVUrR+Et7qcSCpVJJ1sfx66rZ+J+l0hhqdXU
- WWTA2emDMJOAzZNpaT7WwQVys3eK2zDPXIdmcFAw2O7JVsUlb+/SEIv6uoQjeI8zQL/1Lf1lp5wzo
- DMqog+DtwaSucqUzROuIdjHcg47SN1cGZnzRePV6XId49A5qBiDcSSGiBC9cZeu0/ShMUFU/6FRtb
- 5NEJQQJw==;
-Received: from [50.53.25.54] (helo=[192.168.254.17])
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uq40G-00000005lAr-3R3b; Sun, 24 Aug 2025 06:14:56 +0000
-Message-ID: <277661e8-dd75-475e-b798-b384a66c7a93@infradead.org>
-Date: Sat, 23 Aug 2025 23:14:56 -0700
+ Sun, 24 Aug 2025 09:21:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CBEFA40BE1;
+ Sun, 24 Aug 2025 09:21:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA99C4CEEB;
+ Sun, 24 Aug 2025 09:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756027273;
+ bh=TePubqI9AcNR0qwMPahOp4rbJX0w3i3fs/cTg7AxDBw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=stF7yeXZ5mOGTtkj4CiErJFbaGQkPc6jD4ShIx/+320L7sJ+H9Z3hJUFPA8Sc/TGN
+ bIsal3EESgk6YXHGWDGTU8Jy+zONb2NYcE8exzsll9WFvkJuYB+IKGkly+k08dlIZs
+ 7AFKxJ2spcI6mgUuo+TllH6K/847OR/WkpXvv5Rnb3KIZgPZ/HFLiPqiKdlREArlzM
+ NcwjGukxzx8o7mC1hffG+cF9sHwu+97j8lKO+Yum/MqOvjcBeLjgpSY2vJjYEZGDGf
+ 5PJrptVmXakzz+3HboG8ntIaKWvWHM0BqrbzleAvHW/iZ9Jnh1A85s+iw+6j7xk9st
+ lRo+aDUnlN/3Q==
+Date: Sun, 24 Aug 2025 11:21:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Message-ID: <20250824-stimulating-herring-of-romance-df21ea@kuoka>
+References: <20250822-drm-misc-next-v5-0-9c825e28f733@foss.st.com>
+ <20250822-drm-misc-next-v5-1-9c825e28f733@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <E1uojpo-00BMoL-4W@rmk-PC.armlinux.org.uk>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <E1uojpo-00BMoL-4W@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix
- stmmac_simple_pm_ops build errors
+Content-Disposition: inline
+In-Reply-To: <20250822-drm-misc-next-v5-1-9c825e28f733@foss.st.com>
+Cc: Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Will Deacon <will@kernel.org>,
+ devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 01/13] dt-bindings: display: st: add
+ two new compatibles to LTDC device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,53 +66,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 8/20/25 7:30 AM, Russell King (Oracle) wrote:
-> The kernel test robot reports that various drivers have an undefined
-> reference to stmmac_simple_pm_ops. This is caused by
-> EXPORT_SYMBOL_GPL_SIMPLE_DEV_PM_OPS() defining the struct as static
-> and omitting the export when CONFIG_PM=n, unlike DEFINE_SIMPLE_PM_OPS()
-> which still defines the struct non-static.
+On Fri, Aug 22, 2025 at 04:34:10PM +0200, Raphael Gallais-Pou wrote:
+> The new STMicroelectronics SoC features a display controller similar to
+> the one used in previous SoCs.  Because there is additional registers,
+> and different mandatory clocks it is incompatible with existing IPs.  On
+> STM32MP251, the device only needs two clocks while on STM32MP255 it
+> needs four.
 > 
-> Switch to using DEFINE_SIMPLE_PM_OPS() + EXPORT_SYMBOL_GPL(), which
-> means we always define stmmac_simple_pm_ops, and it will always be
-> visible for dwmac-* to reference whether modular or built-in.
+> Add the new names to the list of compatible string and handle each
+> quirks accordingly.
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202508132051.a7hJXkrd-lkp@intel.com/
-> Closes: https://lore.kernel.org/oe-kbuild-all/202508132158.dEwQdick-lkp@intel.com/
-> Closes: https://lore.kernel.org/oe-kbuild-all/202508140029.V6tDuUxc-lkp@intel.com/
-> Closes: https://lore.kernel.org/oe-kbuild-all/202508161406.RwQuZBkA-lkp@intel.com/
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-Thanks.
-
+> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index a55e43804670..fa3d26c28502 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -8024,8 +8024,9 @@ int stmmac_resume(struct device *dev)
->  }
->  EXPORT_SYMBOL_GPL(stmmac_resume);
->  
-> -EXPORT_GPL_SIMPLE_DEV_PM_OPS(stmmac_simple_pm_ops, stmmac_suspend,
-> -			     stmmac_resume);
-> +/* This is not the same as EXPORT_GPL_SIMPLE_DEV_PM_OPS() when CONFIG_PM=n */
-> +DEFINE_SIMPLE_DEV_PM_OPS(stmmac_simple_pm_ops, stmmac_suspend, stmmac_resume);
-> +EXPORT_SYMBOL_GPL(stmmac_simple_pm_ops);
->  
->  #ifndef MODULE
->  static int __init stmmac_cmdline_opt(char *str)
+>  .../devicetree/bindings/display/st,stm32-ltdc.yaml | 52 +++++++++++++++++++++-
+>  1 file changed, 50 insertions(+), 2 deletions(-)
 
--- 
-~Randy
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
