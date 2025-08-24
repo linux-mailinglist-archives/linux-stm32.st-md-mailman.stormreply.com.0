@@ -2,54 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0797B32EB1
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Aug 2025 11:21:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F436B32F74
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Aug 2025 13:32:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F1DCC3F939;
-	Sun, 24 Aug 2025 09:21:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC3B8C3F93C;
+	Sun, 24 Aug 2025 11:31:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22C1AC3F938
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F191BC3F93B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Aug 2025 09:21:22 +0000 (UTC)
+ Sun, 24 Aug 2025 11:31:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CBEFA40BE1;
- Sun, 24 Aug 2025 09:21:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA99C4CEEB;
- Sun, 24 Aug 2025 09:21:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id BA6DF5C55F8;
+ Sun, 24 Aug 2025 11:31:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5402FC4CEEB;
+ Sun, 24 Aug 2025 11:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756027273;
- bh=TePubqI9AcNR0qwMPahOp4rbJX0w3i3fs/cTg7AxDBw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=stF7yeXZ5mOGTtkj4CiErJFbaGQkPc6jD4ShIx/+320L7sJ+H9Z3hJUFPA8Sc/TGN
- bIsal3EESgk6YXHGWDGTU8Jy+zONb2NYcE8exzsll9WFvkJuYB+IKGkly+k08dlIZs
- 7AFKxJ2spcI6mgUuo+TllH6K/847OR/WkpXvv5Rnb3KIZgPZ/HFLiPqiKdlREArlzM
- NcwjGukxzx8o7mC1hffG+cF9sHwu+97j8lKO+Yum/MqOvjcBeLjgpSY2vJjYEZGDGf
- 5PJrptVmXakzz+3HboG8ntIaKWvWHM0BqrbzleAvHW/iZ9Jnh1A85s+iw+6j7xk9st
- lRo+aDUnlN/3Q==
-Date: Sun, 24 Aug 2025 11:21:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <20250824-stimulating-herring-of-romance-df21ea@kuoka>
-References: <20250822-drm-misc-next-v5-0-9c825e28f733@foss.st.com>
- <20250822-drm-misc-next-v5-1-9c825e28f733@foss.st.com>
+ s=k20201202; t=1756035117;
+ bh=cpyFPlB8MnUUXTQVVcPPuBYODuS/NKNu8RdSa260DpU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Dj3zOQ6IxeNsZy334vBiSNJmHSxBKy1UbLwr4+y18jjpoMQ+WaNiEPlIjreaS2fdj
+ TqnIXz8oWJMlXuY5oTiJnlahauO7Q0Jg7FemWGn+JzkKMTbhCODOCltz03OiwEMh5A
+ 7HkpOCG/iFBMrOHpXH+EMzyWNIG3rsC3BqxMaU2tfxzHKR7SHyrZImfOhQpBuFkNKw
+ k8dEupg3/XTd2kiSgpzuP3DXMcjshU/HJQzUN4u43UdQrNdCKXCzHQ6lbfbcKpbF4j
+ H6a6JE9SpapsvvysX4AuFXTKZ5TvqPGxq8d1tm3BdshIC2cIXYa0IDG+uBQyOJuqi/
+ is6/b0vmNy47w==
+Message-ID: <9a0bbf17-2b20-48fb-88f0-279363639d24@kernel.org>
+Date: Sun, 24 Aug 2025 13:31:53 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250822-drm-misc-next-v5-1-9c825e28f733@foss.st.com>
-Cc: Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Will Deacon <will@kernel.org>,
- devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 01/13] dt-bindings: display: st: add
- two new compatibles to LTDC device
+User-Agent: Mozilla Thunderbird
+To: Patrice Chotard <patrice.chotard@foss.st.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20250821-upstream_defconfig_enable_stm32_dma3-v1-1-d9c1b71883d9@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250821-upstream_defconfig_enable_stm32_dma3-v1-1-d9c1b71883d9@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] arm64: defconfig: Enable
+ STMicroelectronics STM32 DMA3 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,26 +102,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 22, 2025 at 04:34:10PM +0200, Raphael Gallais-Pou wrote:
-> The new STMicroelectronics SoC features a display controller similar to
-> the one used in previous SoCs.  Because there is additional registers,
-> and different mandatory clocks it is incompatible with existing IPs.  On
-> STM32MP251, the device only needs two clocks while on STM32MP255 it
-> needs four.
+On 21/08/2025 11:14, Patrice Chotard wrote:
+> Enable STMicroelectronics STM32 DMA3 support as module.
+> STM32 DMA3 is used among others by STM32 Octo SPI driver on
+> STM32MP257F-EV1 board.
 > 
-> Add the new names to the list of compatible string and handle each
-> quirks accordingly.
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 > ---
->  .../devicetree/bindings/display/st,stm32-ltdc.yaml | 52 +++++++++++++++++++++-
->  1 file changed, 50 insertions(+), 2 deletions(-)
+
+You did not Cc all your maintainers.
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
