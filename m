@@ -2,125 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D087B345B4
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3AC4B3466A
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:56:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D73CC3FADA;
-	Mon, 25 Aug 2025 15:26:50 +0000 (UTC)
-Received: from bayard.4d2.org (bayard.4d2.org [155.254.16.17])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E780C349C3;
+	Mon, 25 Aug 2025 15:56:58 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C545DC3FAD7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66DE4C35E2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 15:19:26 +0000 (UTC)
-Received: from localhost (bayard.4d2.org [127.0.0.1])
- by bayard.4d2.org (Postfix) with ESMTP id 754A512FB9E1;
- Mon, 25 Aug 2025 08:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
- t=1756135165; bh=A7Ok+6x0nz7G/NXQZolAaahGwavoIJocShJSVNv4IUY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VUpZlwhPxWL3ebw/nnirosxs3Rjd5L7t/60O/HEV9YxrNt2siHqrlZaZDter3XKN8
- PsYY/F+uuzOxMUIrMLBnzxR2QSneGnJk3Mzpjtjkmr2fNqiymcDPhdiYuRWqL4Ne7k
- Khi1pAOAQp1g6nHWSv6Qmp2sfIx+7NpAN0IBLMTPHCIWRkkKbZnJAKboONlp8zNsaH
- UJj/PiwGVbX5uQ74V1aqDseWL5Z+FWFENTfXDe5Sg/K82P6tNRrlpd+cPN9H4oudfz
- 2rDKHuXmgj/vzunHquSVHpf1HL4WLRMLz47qThVFat1+9OveTtQQKe7f77Ne+L/Nw2
- 7EUZh/J1K+4yg==
-X-Virus-Scanned: amavis at 4d2.org
-Received: from bayard.4d2.org ([127.0.0.1])
- by localhost (bayard.4d2.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 98egf3YSLU1r; Mon, 25 Aug 2025 08:19:24 -0700 (PDT)
-Received: from ketchup (unknown [117.171.64.92])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: heylenay@4d2.org)
- by bayard.4d2.org (Postfix) with ESMTPSA id 41E5A12FB9E3;
- Mon, 25 Aug 2025 08:19:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
- t=1756135163; bh=A7Ok+6x0nz7G/NXQZolAaahGwavoIJocShJSVNv4IUY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=duEdRiVjwA2Ug0kAQ3mge4pcWDsoESpJ80SNf7IVWNzZZRpvm9evWQaowfkmCkZ+a
- oQWfjuZ+IzKzxlNrb09/4ZRdSpGOXBG+6YisKkS1cb/wksihSBhCJJk+lYXYFU6oxF
- QU4EAvZTzJ1PC9QsR6agnYj/+z7cC1L7x2Cd1zufggZRqATeTKyn2StZ/7c8atpREJ
- w5ronVaZKmRKyj14LxpKmy7ZO75UbpRAqllX4O/IomGBw8vJLF87Rs4pk9IwW+zy2D
- NLRc9ZoreAMYv1VcszhcTWaeSAmCBma/XwUAUK2WeCTsX+8xnzC7csZqc2FKwbuYL/
- P0JKnwjGbGeJg==
-Date: Mon, 25 Aug 2025 15:18:57 +0000
-From: Haylen Chu <heylenay@4d2.org>
-To: bmasney@redhat.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Paul Cercueil <paul@crapouillou.net>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Samuel Holland <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>,
- UNGLinuxDriver@microchip.com, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Neal Gompa <neal@gompa.dev>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Max Filippov <jcmvbkbc@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Daniel Palmer <daniel@thingy.jp>, Romain Perier <romain.perier@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>,
- Andrea della Porta <andrea.porta@suse.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Qin Jian <qinjian@cqplus1.com>, Viresh Kumar <vireshk@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Alex Helms <alexander.helms.jy@renesas.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
-Message-ID: <aKx-4bkkOeVi7j82@ketchup>
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-51-b3bf97b038dc@redhat.com>
+ Mon, 25 Aug 2025 15:56:56 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1uqZYd-0003lu-Pz; Mon, 25 Aug 2025 17:56:31 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
+ helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1uqZYZ-0025Zy-04;
+ Mon, 25 Aug 2025 17:56:27 +0200
+Received: from pza by lupine with local (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1uqZYY-000dPY-2w;
+ Mon, 25 Aug 2025 17:56:26 +0200
+Message-ID: <ca0aabeae81758a64bcad5f8113962e79b06ffd5.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Christian Bruel <christian.bruel@foss.st.com>, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
+ bhelgaas@google.com,  krzk+dt@kernel.org, conor+dt@kernel.org,
+ mcoquelin.stm32@gmail.com,  alexandre.torgue@foss.st.com,
+ linus.walleij@linaro.org, corbet@lwn.net,  shradha.t@samsung.com,
+ mayank.rana@oss.qualcomm.com, namcao@linutronix.de, 
+ qiang.yu@oss.qualcomm.com, thippeswamy.havalige@amd.com,
+ inochiama@gmail.com,  quic_schintav@quicinc.com
+Date: Mon, 25 Aug 2025 17:56:26 +0200
+In-Reply-To: <7378edca-12f4-44a1-9c2a-ea07ebab4ad0@foss.st.com>
+References: <20250820075411.1178729-1-christian.bruel@foss.st.com>
+ <20250820075411.1178729-5-christian.bruel@foss.st.com>
+ <e67d5a27fb00040ba87a0b108322747ecca8d05b.camel@pengutronix.de>
+ <7378edca-12f4-44a1-9c2a-ea07ebab4ad0@foss.st.com>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-51-b3bf97b038dc@redhat.com>
-X-Mailman-Approved-At: Mon, 25 Aug 2025 15:26:49 +0000
-Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
- asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 051/114] clk: spacemit: ccu_pll: convert
- from round_rate() to determine_rate()
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, johan+linaro@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v13 04/11] PCI: stm32: Add PCIe host
+ support for STM32MP25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,19 +73,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 11, 2025 at 11:18:43AM -0400, Brian Masney via B4 Relay wrote:
-> From: Brian Masney <bmasney@redhat.com>
+On Mo, 2025-08-25 at 16:47 +0200, Christian Bruel wrote:
 > 
-> The round_rate() clk ops is deprecated, so migrate this driver from
-> round_rate() to determine_rate() using the Coccinelle semantic patch
-> on the cover letter of this series.
+> On 8/25/25 11:15, Philipp Zabel wrote:
+> > On Mi, 2025-08-20 at 09:54 +0200, Christian Bruel wrote:
+> > > Add driver for the STM32MP25 SoC PCIe Gen1 2.5 GT/s and Gen2 5GT/s
+> > > controller based on the DesignWare PCIe core.
+> > > 
+> > > Supports MSI via GICv2m, Single Virtual Channel, Single Function
+> > > 
+> > > Supports WAKE# GPIO.
+> > > 
+> > > Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
+> > > ---
+> > >   drivers/pci/controller/dwc/Kconfig      |  12 +
+> > >   drivers/pci/controller/dwc/Makefile     |   1 +
+> > >   drivers/pci/controller/dwc/pcie-stm32.c | 360 ++++++++++++++++++++++++
+> > >   drivers/pci/controller/dwc/pcie-stm32.h |  15 +
+> > >   4 files changed, 388 insertions(+)
+> > >   create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
+> > >   create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
+> > > 
+> > > diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+> > > index deafc512b079..a8174817fd5b 100644
+> > > --- a/drivers/pci/controller/dwc/Kconfig
+> > > +++ b/drivers/pci/controller/dwc/Kconfig
+> > > @@ -423,6 +423,18 @@ config PCIE_SPEAR13XX
+> > >   	help
+> > >   	  Say Y here if you want PCIe support on SPEAr13XX SoCs.
+> > >   
+> > > +config PCIE_STM32_HOST
+> > > +	tristate "STMicroelectronics STM32MP25 PCIe Controller (host mode)"
+> > > +	depends on ARCH_STM32 || COMPILE_TEST
+> > > +	depends on PCI_MSI
+> > > +	select PCIE_DW_HOST
+> > > +	help
+> > > +	  Enables Root Complex (RC) support for the DesignWare core based PCIe
+> > > +	  controller found in STM32MP25 SoC.
+> > > +
+> > > +	  This driver can also be built as a module. If so, the module
+> > > +	  will be called pcie-stm32.
+> > > +
+> > >   config PCI_DRA7XX
+> > >   	tristate
+> > >   
+> > > diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
+> > > index 6919d27798d1..1307a87b1cf0 100644
+> > > --- a/drivers/pci/controller/dwc/Makefile
+> > > +++ b/drivers/pci/controller/dwc/Makefile
+> > > @@ -31,6 +31,7 @@ obj-$(CONFIG_PCIE_UNIPHIER) += pcie-uniphier.o
+> > >   obj-$(CONFIG_PCIE_UNIPHIER_EP) += pcie-uniphier-ep.o
+> > >   obj-$(CONFIG_PCIE_VISCONTI_HOST) += pcie-visconti.o
+> > >   obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
+> > > +obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
+> > >   
+> > >   # The following drivers are for devices that use the generic ACPI
+> > >   # pci_root.c driver but don't support standard ECAM config access.
+> > > diff --git a/drivers/pci/controller/dwc/pcie-stm32.c b/drivers/pci/controller/dwc/pcie-stm32.c
+> > > new file mode 100644
+> > > index 000000000000..964fa6f674c8
+> > > --- /dev/null
+> > > +++ b/drivers/pci/controller/dwc/pcie-stm32.c
+> > > @@ -0,0 +1,360 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * STMicroelectronics STM32MP25 PCIe root complex driver.
+> > > + *
+> > > + * Copyright (C) 2025 STMicroelectronics
+> > > + * Author: Christian Bruel <christian.bruel@foss.st.com>
+> > > + */
+> > > +
+> > > +#include <linux/clk.h>
+> > > +#include <linux/mfd/syscon.h>
+> > > +#include <linux/of_platform.h>
+> > > +#include <linux/phy/phy.h>
+> > > +#include <linux/pinctrl/consumer.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/pm_runtime.h>
+> > > +#include <linux/pm_wakeirq.h>
+> > > +#include <linux/regmap.h>
+> > > +#include <linux/reset.h>
+> > > +#include "pcie-designware.h"
+> > > +#include "pcie-stm32.h"
+> > > +#include "../../pci.h"
+> > > +
+> > > +struct stm32_pcie {
+> > > +	struct dw_pcie pci;
+> > > +	struct regmap *regmap;
+> > > +	struct reset_control *rst;
+> > 
+> > This could be a local variable in stm32_pcie_probe().
+>
+> Thank you for pointing that out.
 > 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
-> ---
->  drivers/clk/spacemit/ccu_pll.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+> Since we use the same common resources in stm32_pcie for both the host 
+> and endpoint drivers, aligning the same fields in the struct stm32_pcie 
+> seems more consistent.
 
-Reviewed-by: Haylen Chu <heylenay@4d2.org>
+I hadn't seen the host driver at that point.
+
+Aligning struct stm32_pcie with another struct in another .c file as an
+unwritten rule doesn't make sense to me. If parts of the structs should
+be kept aligned between host and endpoint drivers, it would be better
+to define a common base struct in a shared header.
+
+> Additionally, we could improve the code by moving regmap, clk, and rst 
+> out of probe into a new function, stm32_pcie_resource_get().
+> 
+> Which approach do you think is best? Moving rst to stm32_pcie_probe() 
+> offers slight optimization,
+
+This option would be my preference, but it's not a strong one.
+
+Storing a single pointer unnecessarily isn't a big deal.
+My mind just went "where is it used? - oh, nowhere", so I thought I'd
+point that out.
+
+> while using a new stm32_pcie_resource_get() 
+> provides better modularity.
+
+I think this isn't enough code to warrant sharing
+stm32_pcie_resource_get() between host and endpoint drivers in the
+absence of other shared code.
+
+Whether splitting this out in each driver improves readability of the
+probe functions is a matter of taste. I think it's fine as-is. I
+wouldn't argue against the change either.
+
+> Shall I re-spin a v14 with either of these options?
+
+Don't respin just for this.
+
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
