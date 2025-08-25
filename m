@@ -2,50 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97B48B34DDB
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 23:23:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BA85B34EFC
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Aug 2025 00:24:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEC66C32EB0;
-	Mon, 25 Aug 2025 21:23:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AACDC32EBF;
+	Mon, 25 Aug 2025 22:24:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F5DDC36B0C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1833C32EB5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 21:23:07 +0000 (UTC)
+ Mon, 25 Aug 2025 22:24:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5CAB76023B;
- Mon, 25 Aug 2025 21:23:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B47C4CEED;
- Mon, 25 Aug 2025 21:22:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6F6E35C5EE1;
+ Mon, 25 Aug 2025 22:23:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2B5C4CEED;
+ Mon, 25 Aug 2025 22:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756156975;
- bh=l+302sdoxhUbhMzKkT4wkwdq4eHKUpQjmtWZfxKoga8=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=UcgMEh3p+CplQZ32HJ2eXNNfERFHlx365eJRZvmWsrUE8QEntcuBZdVWBWBjL6Fck
- +uwxzDPaocOckAC/Q0YdbYr+xE/kKh/E+NLeDYF1RdVAAL08h6p0TIxvgoLk2hfbDB
- ZpedqxOv/j02bonBagtjTvG+WOhcW/p+d7J4zqw9ESEKT7w9jrLh7F3tFEXUo3uESj
- NNl5HjdOrcGIeOX7nZH8Xy7HGDVV9JCZ4edcm5RMfN3QSoy8Mk9JQf5l+OSdcKkd8n
- KGGULcvX7dr46Ew4nmlswKf/6+jHQJOzLvk5mrkkQ8r6Eg9glMpjmQeg48exFXRMx1
- urbRBOcojTj3Q==
-Date: Mon, 25 Aug 2025 16:22:54 -0500
+ s=k20201202; t=1756160639;
+ bh=C8dCcIKDdLsDA62THkA9YNFeAbhvDEtzivsFsYtysoQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=eFrzhgcpB4xSQ+04CnDToPC6BbaXLfZhYIA5I/BavZfky4LVkNeiBm33bKCwjfNMR
+ 7Xb6TL3pLhbQUnBSeoZywHVCHtHEMtbySuCz757jR5LLWGzGIAWc2BOMQnJKu/GTDD
+ OqBmH7dyMmZk1RARABrqGFKsw9O9AnWfe1iHh5N4qj7JtCSjVfAJPlNBoDQzAapk03
+ krEs+vWhYgzabnk0EG5oW4LBwfNFqc1Pw+++S7/1krPhye3Fbxfwd3gAuIyFq598JK
+ pyPcrlbN+zCcku+7kEqoKnQ115oGGgQBsZT2rIXqlg87fc1FYNe8a8EqRPk1p8C1S+
+ DRCnOZhIQCHAQ==
+From: Yixun Lan <dlan@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Keguang Zhang <keguang.zhang@gmail.com>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Takao Orito <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
+ Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Daniel Machon <daniel.machon@microchip.com>, UNGLinuxDriver@microchip.com,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <mani@kernel.org>, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Neal Gompa <neal@gompa.dev>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Daniel Palmer <daniel@thingy.jp>, Romain Perier <romain.perier@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Andrea della Porta <andrea.porta@suse.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Qin Jian <qinjian@cqplus1.com>,
+ Viresh Kumar <vireshk@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Alex Helms <alexander.helms.jy@renesas.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Brian Masney <bmasney@redhat.com>
+Date: Tue, 26 Aug 2025 06:23:38 +0800
+Message-ID: <175616003525.79746.16402526303339008811.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Joy Zou <joy.zou@nxp.com>
-In-Reply-To: <20250825091223.1378137-1-joy.zou@nxp.com>
-References: <20250825091223.1378137-1-joy.zou@nxp.com>
-Message-Id: <175615562513.578111.8377939047997958239.robh@kernel.org>
-Cc: imx@lists.linux.dev, alexander.stein@ew.tq-group.com, Frank.Li@nxp.com,
- edumazet@google.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, Markus.Niebel@ew.tq-group.com,
- frieder.schrempf@kontron.de, primoz.fiser@norik.com, kuba@kernel.org,
- pabeni@redhat.com, richardcochran@gmail.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, kernel@pengutronix.de, linux-pm@vger.kernel.org,
- othacehe@gnu.org, s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, shawnguo@kernel.org,
- davem@davemloft.net, linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v9 0/6] Add i.MX91 platform support
+Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-actions@lists.infradead.org, asahi@lists.linux.dev,
+ sophgo@lists.linux.dev, Yixun Lan <dlan@kernel.org>,
+ linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH 000/114] clk: convert drivers
+	from deprecated round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,171 +120,28 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Mon, 25 Aug 2025 17:12:17 +0800, Joy Zou wrote:
-> The design of i.MX91 platform is very similar to i.MX93.
-> Extracts the common parts in order to reuse code.
+On Mon, 11 Aug 2025 11:17:52 -0400, Brian Masney wrote:
+> The round_rate() clk ops is deprecated in the clk framework in favor
+> of the determine_rate() clk ops, so let's go ahead and convert the
+> various clk drivers using the Coccinelle semantic patch posted below.
+> I did a few minor cosmetic cleanups of the code in a few cases.
 > 
-> The mainly difference between i.MX91 and i.MX93 is as follows:
-> - i.MX91 removed some clocks and modified the names of some clocks.
-> - i.MX91 only has one A core.
-> - i.MX91 has different pinmux.
+> This series is broken up into several categories:
 > 
-> ---
-> Changes for v9:
-> - rebased onto commit 0f4c93f7eb86 ("Add linux-next specific files for 20250822")
->   to align with latest changes.
-> - there is no functional changes for these patches.
-> - Link to v8: https://lore.kernel.org/imx/20250806114119.1948624-1-joy.zou@nxp.com/
-> 
-> Changes for v8:
-> - add Reviewed-by tag for patch #2/3/4/5/6/7/8/9/11.
-> - modify commit message for patch #10.
-> - move imx91 before imx93 in Makefile for patch #6.
-> - modify the commit message to keep wrap at 75 chars for patch #5.
-> - Link to v7: https://lore.kernel.org/imx/20250728071438.2332382-1-joy.zou@nxp.com/
-> 
-> Changes for v7:
-> - Optimize i.MX91 num_clks hardcode with ARRAY_SIZE()for patch #10.
-> - Add new patch in order to optimize i.MX93 num_clks hardcode
->   with ARRAY_SIZE() for patch #9.
-> - remove this unused comments for patch #6.
-> - align all pinctrl value to the same column for patch #6.
-> - add aliases because remove aliases from common dtsi for patch #6.
-> - remove fec property eee-broken-1000t from imx91 and imx93 board dts
->   for patch #6 and #7.
-> - The aliases are removed from common.dtsi because the imx93.dtsi
->   aliases are removed for patch #4.
-> - Add new patch that move aliases from imx93.dtsi to board dts for
->   patch #3.
-> - These aliases aren't common, so need to drop in imx93.dtsi for patch #3.
-> - Only add aliases using to imx93 board dts for patch #3.
-> - patch #3 changes come from review comments:
->   https://lore.kernel.org/imx/4e8f2426-92a1-4c7e-b860-0e10e8dd886c@kernel.org/
-> - add clocks constraints in the if-else branch for patch #2.
-> - reorder the imx93 and imx91 if-else branch for patch #2.
-> - patch #2 changes come from review comments:
->   https://lore.kernel.org/imx/urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26/
-> - add Reviewed-by tag for patch #2.
-> - Link to v6: https://lore.kernel.org/imx/20250623095732.2139853-1-joy.zou@nxp.com/
-> 
-> Changes for v6:
-> - add changelog in per patch.
-> - correct commit message spell for patch #1.
-> - merge rename imx93.dtsi to imx91_93_common.dtsi and move i.MX93
->   specific part from imx91_93_common.dtsi to imx93.dtsi for patch #3.
-> - modify the commit message for patch #3.
-> - restore copyright time and add modification time for common dtsi for
->   patch #3.
-> - remove unused map0 label in imx91_93_common.dtsi for patch #3.
-> - remove tmu related node for patch #4.
-> - remove unused regulators and pinctrl settings for patch #5.
-> - add new modification for aliases change patch #6.
-> - Link to v5: https://lore.kernel.org/imx/20250613100255.2131800-1-joy.zou@nxp.com/
-> 
-> Changes for v5:
-> - rename imx93.dtsi to imx91_93_common.dtsi.
-> - move imx93 specific part from imx91_93_common.dtsi to imx93.dtsi.
-> - modify the imx91.dtsi to use imx91_93_common.dtsi.
-> - add new the imx93-blk-ctrl binding and driver patch for imx91 support.
-> - add new net patch for imx91 support.
-> - change node name codec and lsm6dsm into common name audio-codec and
->   inertial-meter, and add BT compatible string for imx91 board dts.
-> - Link to v4: https://lore.kernel.org/imx/20250121074017.2819285-1-joy.zou@nxp.com/
-> 
-> Changes for v4:
-> - Add one imx93 patch that add labels in imx93.dtsi
-> - modify the references in imx91.dtsi
-> - modify the code alignment
-> - remove unused newline
-> - delete the status property
-> - align pad hex values
-> - Link to v3: https://lore.kernel.org/imx/20241120094945.3032663-1-pengfei.li_1@nxp.com/
-> 
-> Changes for v3:
-> - Add Conor's ack on patch #1
-> - format imx91-11x11-evk.dts with the dt-format tool
-> - add lpi2c1 node
-> - Link to v2: https://lore.kernel.org/imx/20241118051541.2621360-1-pengfei.li_1@nxp.com/
-> 
-> Changes for v2:
-> - change ddr node pmu compatible
-> - remove mu1 and mu2
-> - change iomux node compatible and enable 91 pinctrl
-> - refine commit message for patch #2
-> - change hex to lowercase in pinfunc.h
-> - ordering nodes with the dt-format tool
-> - Link to v1: https://lore.kernel.org/imx/20241108022703.1877171-1-pengfei.li_1@nxp.com/
-> 
-> Joy Zou (6):
->   arm64: dts: freescale: move aliases from imx93.dtsi to board dts
->   arm64: dts: freescale: rename imx93.dtsi to imx91_93_common.dtsi and
->     modify them
->   arm64: dts: imx91: add i.MX91 dtsi support
->   arm64: dts: freescale: add i.MX91 11x11 EVK basic support
->   arm64: dts: imx93-11x11-evk: remove fec property eee-broken-1000t
->   net: stmmac: imx: add i.MX91 support
-> 
->  arch/arm64/boot/dts/freescale/Makefile        |    1 +
->  .../boot/dts/freescale/imx91-11x11-evk.dts    |  674 ++++++++
->  arch/arm64/boot/dts/freescale/imx91-pinfunc.h |  770 +++++++++
->  arch/arm64/boot/dts/freescale/imx91.dtsi      |   71 +
->  .../{imx93.dtsi => imx91_93_common.dtsi}      |  176 +-
->  .../boot/dts/freescale/imx93-11x11-evk.dts    |   20 +-
->  .../boot/dts/freescale/imx93-14x14-evk.dts    |   15 +
->  .../boot/dts/freescale/imx93-9x9-qsb.dts      |   18 +
->  .../dts/freescale/imx93-kontron-bl-osm-s.dts  |   21 +
->  .../dts/freescale/imx93-phyboard-nash.dts     |   21 +
->  .../dts/freescale/imx93-phyboard-segin.dts    |    9 +
->  .../freescale/imx93-tqma9352-mba91xxca.dts    |   11 +
->  .../freescale/imx93-tqma9352-mba93xxca.dts    |   25 +
->  .../freescale/imx93-tqma9352-mba93xxla.dts    |   25 +
->  .../dts/freescale/imx93-var-som-symphony.dts  |   17 +
->  arch/arm64/boot/dts/freescale/imx93.dtsi      | 1518 ++---------------
->  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |    2 +
->  17 files changed, 1863 insertions(+), 1531 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-pinfunc.h
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91.dtsi
->  copy arch/arm64/boot/dts/freescale/{imx93.dtsi => imx91_93_common.dtsi} (90%)
->  rewrite arch/arm64/boot/dts/freescale/imx93.dtsi (97%)
-> 
-> --
-> 2.37.1
-> 
-> 
-> 
+> [...]
 
+Thanks, Applied to SpacemiT's SoC tree at "k1/clk-for-6.18" branch
 
-My bot found new DTB warnings on the .dts files added or changed in this
-series.
+[049/114] clk: spacemit: ccu_ddn: convert from round_rate() to determine_rate()
+          https://github.com/spacemit-com/linux/commit/b4a7b0d2c4485d11d37dec721709660f3967efcf
+[050/114] clk: spacemit: ccu_mix: convert from round_rate() to determine_rate()
+          https://github.com/spacemit-com/linux/commit/56737edda7db58549550776092da12fe03600399
+[051/114] clk: spacemit: ccu_pll: convert from round_rate() to determine_rate()
+          https://github.com/spacemit-com/linux/commit/d02c71cba7bba453d233a49497412ddbf2d44871
 
-Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
-are fixed by another series. Ultimately, it is up to the platform
-maintainer whether these warnings are acceptable or not. No need to reply
-unless the platform maintainer has comments.
-
-If you already ran DT checks and didn't see these error(s), then
-make sure dt-schema is up to date:
-
-  pip3 install dtschema --upgrade
-
-
-This patch series was applied (using b4) to base:
- Base: attempting to guess base-commit...
- Base: tags/v6.17-rc1-2-ge0a4a651f7c8 (best guess, 12/14 blobs matched)
-
-If this is not the correct base, please add 'base-commit' tag
-(or use b4 which does this automatically)
-
-New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/freescale/' for 20250825091223.1378137-1-joy.zou@nxp.com:
-
-arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /: failed to match any schema with compatible: ['fsl,imx91-11x11-evk', 'fsl,imx91']
-arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /: failed to match any schema with compatible: ['fsl,imx91-11x11-evk', 'fsl,imx91']
-arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /soc@0/system-controller@4ac10000: failed to match any schema with compatible: ['fsl,imx91-media-blk-ctrl', 'syscon']
-
-
-
-
+Best regards,
+-- 
+Yixun Lan
 
 _______________________________________________
 Linux-stm32 mailing list
