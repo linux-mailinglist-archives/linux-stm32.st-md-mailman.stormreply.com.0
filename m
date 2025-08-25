@@ -2,125 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE83B345B2
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C589B34569
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:17:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E866C349C3;
-	Mon, 25 Aug 2025 15:26:50 +0000 (UTC)
-Received: from bayard.4d2.org (bayard.4d2.org [155.254.16.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EEF2C3FAD8;
+	Mon, 25 Aug 2025 15:17:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9111CC3FAD7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7794C3FAD7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 15:17:32 +0000 (UTC)
-Received: from localhost (bayard.4d2.org [127.0.0.1])
- by bayard.4d2.org (Postfix) with ESMTP id 9C8B812FB9E0;
- Mon, 25 Aug 2025 08:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
- t=1756135050; bh=1D+OO1Z+2hy3PuE7cQ3HZhhpy2c1X8740B+Ft/pujPA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DrW4njwdTos7Tr4D/hJWJfzXOiEf+SRDsAo4Ry/JJOyWw3h955TVHky0fTmZIMc6b
- l6HICNWR7CusICgbxTme1oFf2gCXZ0ld9o3r6i+RPGR/fbOiERLbFTfKgGWXgrQsxZ
- 6tpMcjGI0yEaC2KCaMwFx16QGYsGVgEc2q7UhryAL7TuopvR9SP+oFRN9uZqDB87Oa
- ZRJ64Oujs0ftwCrSLWRrMWSAgZUNvurIGuMkzqRAh9EeFQZTPOqJzJ7VcHnR2Uw9Dj
- 07MvAkU27F1Qxx+h3HKk0DSKuCRQ7v0QHfBj5pxg/8yHIT0c4AorBN9bGUK+uxQaG0
- RyA+s94fkFtBg==
-X-Virus-Scanned: amavis at 4d2.org
-Received: from bayard.4d2.org ([127.0.0.1])
- by localhost (bayard.4d2.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id KVwsL0Vo9y59; Mon, 25 Aug 2025 08:17:28 -0700 (PDT)
-Received: from ketchup (unknown [117.171.64.92])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: heylenay@4d2.org)
- by bayard.4d2.org (Postfix) with ESMTPSA id 9CF6712FB435;
- Mon, 25 Aug 2025 08:17:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=4d2.org; s=mail;
- t=1756135048; bh=1D+OO1Z+2hy3PuE7cQ3HZhhpy2c1X8740B+Ft/pujPA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XbzP8DhBaP3scQswWTdz5ACYHQ4v/MZQMcqpn0puVv3NztnWZ9pb0nNcTuNgThLe6
- UTWPEb4p9AoOb1GbiOYD7lF6F38zGqG/lgWkPfd9bKqI1XZJDIn4C4UJki7Lj7iYKB
- MOL+BfMvxNc7F/jqvSgeLFL4tC6yjuuz2cvWV21gIOar+KZPS/n8KHH5XAaoqkPmrC
- q+np6SgnoazpMdVzPSJaatTZSlIOov+HfEt0O6fh1/o/Gmnxhy288PLt8u6rkW0KUj
- rFs299O5KC4mHBhvhdmvnTLT81m2MaYEUoztmIvwYua4Pp3hB/WkMuCgjNFsakwFXX
- tkMsfI3899c5w==
-Date: Mon, 25 Aug 2025 15:17:00 +0000
-From: Haylen Chu <heylenay@4d2.org>
-To: bmasney@redhat.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Paul Cercueil <paul@crapouillou.net>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Samuel Holland <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>,
- UNGLinuxDriver@microchip.com, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Neal Gompa <neal@gompa.dev>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Max Filippov <jcmvbkbc@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Daniel Palmer <daniel@thingy.jp>, Romain Perier <romain.perier@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>,
- Andrea della Porta <andrea.porta@suse.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Qin Jian <qinjian@cqplus1.com>, Viresh Kumar <vireshk@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Alex Helms <alexander.helms.jy@renesas.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
-Message-ID: <aKx-bEJr9uvYUZVA@ketchup>
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-49-b3bf97b038dc@redhat.com>
+ Mon, 25 Aug 2025 15:17:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3B51D60246;
+ Mon, 25 Aug 2025 15:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B230C4CEED;
+ Mon, 25 Aug 2025 15:17:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756135067;
+ bh=ygOKofieAuYX9xZmlHzgVr7NEyqnOdJZIQfa/ZE7W3Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=BV2UIFwWRC++PKgc4dpvEzT+tAPRCS9+NJgTxI7AVYyPM3nKuBMkyjvdkcwUfYZHS
+ 4CxhwEEZ7TEDMAMAXJKKfISeuAYf4pesVpKboRkapXfe7cOu8Dz00oIAcbLjPFI80m
+ 9nHIpGEO+Qu1Ug714Yvfu+xngFKGLzRviTsMRge693KxVSTa06ssDDfu7l+YRiSKEw
+ 605faDIaNKUfOwd71apzT3c0dWoP1eHNLaPwmCQoQOXEkBlqitrsftePex9XL2TKBJ
+ HW8RuzcAxLq71/4iL0z77qyHxXTEbE/9TaQ14n98Fo7HKr58H+7mrSTXVwbHihrkZt
+ XnM7FkPcxOLug==
+Date: Mon, 25 Aug 2025 16:17:20 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Message-ID: <20250825161720.65bdf415@jic23-huawei>
+In-Reply-To: <20250825135401.1765847-12-sakari.ailus@linux.intel.com>
+References: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
+ <20250825135401.1765847-12-sakari.ailus@linux.intel.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.50; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-49-b3bf97b038dc@redhat.com>
-X-Mailman-Approved-At: Mon, 25 Aug 2025 15:26:49 +0000
-Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Crt Mori <cmo@melexis.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Frank Li <Frank.Li@nxp.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Rob Herring \(Arm\)" <robh@kernel.org>, linux-iio@vger.kernel.org,
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Francesco Dolcini <francesco@dolcini.it>, Samuel Holland <samuel@sholland.org>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Abhash Jha <abhashkumarjha123@gmail.com>,
+ Haibo Chen <haibo.chen@nxp.com>,
+ Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>,
+ Marek Vasut <marek.vasut@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-arm-kernel@lists.infradead.org, Bo Liu <liubo03@inspur.com>,
+ Sean Nyekjaer <sean@geanix.com>, chuguangqing <chuguangqing@inspur.com>,
+ David Lechner <dlechner@baylibre.com>, Waqar Hameed <waqar.hameed@axis.com>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ =?UTF-8?B?QmFybmFiw6FzIEN6?= =?UTF-8?B?w6ltw6Fu?=
+ <barnabas.czeman@mainlining.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Vasileios Amoiridis <vassilisamir@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Jakob Hauser <jahau@rocketmail.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Eugen Hristev <eugen.hristev@linaro.org>, Andreas Klinger <ak@it-klinger.de>,
+ Han Xu <han.xu@nxp.com>, Julien Stephan <jstephan@baylibre.com>,
+ Alexandru Ardelean <aardelean@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Per-Daniel Olsson <perdaniel.olsson@axis.com>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Gustavo Vaz <gustavo.vaz@usp.br>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
- asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 049/114] clk: spacemit: ccu_ddn: convert
- from round_rate() to determine_rate()
+ linux-sunxi@lists.linux.dev, David Laight <david.laight@aculab.com>,
+ =?UTF-8?B?Sm/Do28=?= Paulo =?UTF-8?B?R29uw6dhbHZlcw==?=
+ <jpaulo.silvagoncalves@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rayyan Ansari <rayyan@ansari.sh>, Cai Huoqing <cai.huoqing@linux.dev>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Hans de Goede <hansg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>
+Subject: Re: [Linux-stm32] [PATCH v3 11/12] iio: proximity: Remove redundant
+ pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,63 +103,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 11, 2025 at 11:18:41AM -0400, Brian Masney via B4 Relay wrote:
-> From: Brian Masney <bmasney@redhat.com>
-> 
-> The round_rate() clk ops is deprecated, so migrate this driver from
-> round_rate() to determine_rate() using the Coccinelle semantic patch
-> on the cover letter of this series.
-> 
-> Signed-off-by: Brian Masney <bmasney@redhat.com>
-> ---
->  drivers/clk/spacemit/ccu_ddn.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
+On Mon, 25 Aug 2025 16:54:00 +0300
+Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 
-Reviewed-by: Haylen Chu <heylenay@4d2.org>
-
-Thanks for cleaning it up, I should have done this when submitting the
-driver.
-
-Best regards,
-Haylen Chu
-
-> diff --git a/drivers/clk/spacemit/ccu_ddn.c b/drivers/clk/spacemit/ccu_ddn.c
-> index be311b045698e95a688a35858a8ac1bcfbffd2c7..02b68ea84db9bd3ecdde41f8013c48263edbd917 100644
-> --- a/drivers/clk/spacemit/ccu_ddn.c
-> +++ b/drivers/clk/spacemit/ccu_ddn.c
-> @@ -39,13 +39,16 @@ static unsigned long ccu_ddn_calc_best_rate(struct ccu_ddn *ddn,
->  	return ccu_ddn_calc_rate(prate, *num, *den);
->  }
->  
-> -static long ccu_ddn_round_rate(struct clk_hw *hw, unsigned long rate,
-> -			       unsigned long *prate)
-> +static int ccu_ddn_determine_rate(struct clk_hw *hw,
-> +				  struct clk_rate_request *req)
->  {
->  	struct ccu_ddn *ddn = hw_to_ccu_ddn(hw);
->  	unsigned long num, den;
->  
-> -	return ccu_ddn_calc_best_rate(ddn, rate, *prate, &num, &den);
-> +	req->rate = ccu_ddn_calc_best_rate(ddn, req->rate,
-> +					   req->best_parent_rate, &num, &den);
-> +
-> +	return 0;
->  }
->  
->  static unsigned long ccu_ddn_recalc_rate(struct clk_hw *hw, unsigned long prate)
-> @@ -78,6 +81,6 @@ static int ccu_ddn_set_rate(struct clk_hw *hw, unsigned long rate,
->  
->  const struct clk_ops spacemit_ccu_ddn_ops = {
->  	.recalc_rate	= ccu_ddn_recalc_rate,
-> -	.round_rate	= ccu_ddn_round_rate,
-> +	.determine_rate = ccu_ddn_determine_rate,
->  	.set_rate	= ccu_ddn_set_rate,
->  };
+> pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+> pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+> to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+> pm_runtime_mark_last_busy().
 > 
-> -- 
-> 2.50.1
-> 
-> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Applied,
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
