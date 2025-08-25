@@ -2,58 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D737AB33E3C
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 13:39:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A45B33E87
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 13:57:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8741DC36B3E;
-	Mon, 25 Aug 2025 11:39:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B360EC36B3E;
+	Mon, 25 Aug 2025 11:57:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DC43C36B31
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4E28C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 11:39:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A615041992;
- Mon, 25 Aug 2025 11:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0328DC4CEED;
- Mon, 25 Aug 2025 11:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756121970;
- bh=7GO8Jac/WHBeZjLJm6fIwvfWXASWj8xYr2ROiPzF9aw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=iwfu8tcaJGUohZ1xHZUMJowvML3G8NY+bdjH9VfIzuIhdm5y42l5Ande4p8TWQ1Lx
- gmEgz/P9aAafKnlQrJlUWyXYAcAqj+I4CwQxT5qle6VRvEQQRxr0+RgQm0NHLhQo+s
- Df9HLsaYXPKqsW2AdXzaD9NpxoM4DA2QAgFzLpaOMDBsX6yuwpDpi+OjdaQDCPhNri
- HgkWVFk67uDHuGhqaclhyjdCY9mCxc93vBEI75XUrAlrJS0oIyFvBfwM06WakAkS4Q
- XzpIrftTP3tJJwESpsBNigK4l0dfZoHYX7RcTRyN5KZ04FBbC5d2mwlPahqF+W9ZUU
- xnUQcc7EWJuFA==
-Date: Mon, 25 Aug 2025 12:39:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Dixit Parmar <dixitparmar19@gmail.com>
-Message-ID: <20250825123919.3c228ef7@jic23-huawei>
-In-Reply-To: <20250825093150.3ba23f2a@jic23-huawei>
-References: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
- <20250825093150.3ba23f2a@jic23-huawei>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
+ Mon, 25 Aug 2025 11:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756123059; x=1787659059;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=u2aZrMHjp5VNoFtmPYT/Q13ILrdcSo4FSZG4TtJl/mU=;
+ b=UCF25Yv2EDVndMzPQ0ryzKwgNvUPMGJgum8eWos2SSro29l2IamljDxQ
+ KRvNeOi5F4G4CbqRsmjLEE2qQJfRwUAcIcryJAByhEv1an7w7bq4BwZha
+ fexkX5XI5HrwBnWx8k+LcdheDg+26efFliRzmtnhGGKnhc+Uueoylkf5G
+ 4IH+ze4mLJ9OckiaUwPEmDg1Jlzab3M7KXaZfnk5fevH9FjWGBUSEHoaJ
+ Nd9wlp0oC1J2j6UpfyfRL3AgPBExMAdxxd1HcZH0n0kJIBlU5PG6KFzWm
+ crdlrGTn1Yh2dAIcVTnpIwCmxoMoouD6oCT2va/nbOL/7NE/IaHZLBufa Q==;
+X-CSE-ConnectionGUID: gE9CPyZWQwqZR5l4+2R5fQ==
+X-CSE-MsgGUID: U4Gu2J8EQPKkzp+GJHmt0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11532"; a="58479725"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="58479725"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2025 04:57:36 -0700
+X-CSE-ConnectionGUID: hdTgoxMQSJ63eWNqPKthrA==
+X-CSE-MsgGUID: +r8EtaYQTHi9Cnk+LVEvvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="169178170"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.245.7])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2025 04:57:27 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id F1E361203CE;
+ Mon, 25 Aug 2025 14:57:23 +0300 (EEST)
+Date: Mon, 25 Aug 2025 14:57:23 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <aKxPo3Kg0ppOcczG@kekkonen.localdomain>
+References: <20250708231144.971170-1-sakari.ailus@linux.intel.com>
+ <20250708231152.971398-1-sakari.ailus@linux.intel.com>
+ <20250709163756.32b0e1d1@jic23-huawei>
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Haibo Chen <haibo.chen@nxp.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- David Lechner <dlechner@baylibre.com>,
+Content-Disposition: inline
+In-Reply-To: <20250709163756.32b0e1d1@jic23-huawei>
+Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Rob Herring \(Arm\)" <robh@kernel.org>,
+ Francesco Dolcini <francesco@dolcini.it>, Samuel Holland <samuel@sholland.org>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Marek Vasut <marek.vasut@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ David Lechner <dlechner@baylibre.com>, linux-sunxi@lists.linux.dev,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-samsung-soc@vger.kernel.org,
- Cai Huoqing <cai.huoqing@linux.dev>, Andreas Klinger <ak@it-klinger.de>,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>,
- Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/10] iio: Drop unnecessary -ENOMEM
-	messages
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Eugen Hristev <eugen.hristev@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Julien Stephan <jstephan@baylibre.com>, linux-arm-kernel@lists.infradead.org,
+ Andy Shevchenko <andy@kernel.org>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ =?iso-8859-1?Q?Jo=E3o_Paulo_Gon=E7alves?= <jpaulo.silvagoncalves@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [Linux-stm32] [PATCH v2 02/12] iio: adc: Remove redundant
+ pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,107 +99,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 25 Aug 2025 09:31:50 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Hi Jonathan,
 
-> On Fri, 22 Aug 2025 09:19:48 +0530
-> Dixit Parmar <dixitparmar19@gmail.com> wrote:
+Thanks for the review.
+
+On Wed, Jul 09, 2025 at 04:37:56PM +0100, Jonathan Cameron wrote:
+> On Wed,  9 Jul 2025 02:11:52 +0300
+> Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 > 
-> > The drivers do not require their own error messages for error
-> > -ENOMEM, memory allocation failures. So remove the dev_err
-> > messages from the probe().
-> > With these patches, all the iio drivers now has uniform handling
-> > of the -ENOMEM while device_allocation and trigger_allocation
-> > calls.
+> > pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+> > pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+> > to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+> > pm_runtime_mark_last_busy().
 > > 
-> > Signed-off-by: Dixit Parmar <dixitparmar19@gmail.com>  
-> Series looks fine to me, after the minor tweaks to commit messages
-> that Andy requested.  However as it touches a lot of drivers
-> I'd like to leave it on list a little longer.
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> 
+> Some comments for the future as more about what can be improved on the back
+> of this than what you have here.
+> 
+> >
+> > diff --git a/drivers/iio/adc/rcar-gyroadc.c b/drivers/iio/adc/rcar-gyroadc.c
+> > index cc326f21d398..3a17b3898bf6 100644
+> > --- a/drivers/iio/adc/rcar-gyroadc.c
+> > +++ b/drivers/iio/adc/rcar-gyroadc.c
+> > @@ -163,12 +163,10 @@ static int rcar_gyroadc_set_power(struct rcar_gyroadc *priv, bool on)
+> >  {
+> >  	struct device *dev = priv->dev;
+> >  
+> This is a very clear example of where the *_set_power() pattern is a bad idea.
+> There are two calls of this function, one with it hard coded as on and one with it
+> hard coded as off.  We can just push the pm_runtime_resume_and_get()
+> to the on case etc.
+> 
+> I don't mind that much if we do so as a follow up patch so this one can
+> be the mechanical change and then we follow up with the enabled simplification.
 
-I changed my mind after taking the dev_err_probe() series earlier.
-I'm rather too busy at the moment, so clearing this out now will reduce
-what I need to keep track of.
-
-Fixed up the () that Andy asked for in commit messages and applied
-to the togreg branch of iio.git, pushed out initially as testing.
-
-There is still the rest of the week (probably) in which I can add
-tags etc if anyone wants to give them before I push that out as
-a non rebasing tree.
-
-Thanks,
-
-Jonathan
+Ack. I presume this pattern is due to one driver having used it first and
+then other drivers copying that. I haven't seen it elsewhere, or at least
+not being used as widely.
 
 > 
-> Thanks,
+> > -	if (on) {
+> > +	if (on)
+> >  		return pm_runtime_resume_and_get(dev);
+> > -	} else {
+> > -		pm_runtime_mark_last_busy(dev);
+> > -		return pm_runtime_put_autosuspend(dev);
+> > -	}
+> > +
+> > +	return pm_runtime_put_autosuspend(dev);
+> >  }
+> >  
+> >  static int rcar_gyroadc_read_raw(struct iio_dev *indio_dev,
+> >> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
+> > index 48549d617e5f..f2a93c63ca14 100644
+> > --- a/drivers/iio/adc/ti-ads1015.c
+> > +++ b/drivers/iio/adc/ti-ads1015.c
+> > @@ -374,12 +374,10 @@ static int ads1015_set_power_state(struct ads1015_data *data, bool on)
+> >  	int ret;
+> >  	struct device *dev = regmap_get_device(data->regmap);
+> >  
+> > -	if (on) {
+> > +	if (on)
+> >  		ret = pm_runtime_resume_and_get(dev);
+> > -	} else {
+> > -		pm_runtime_mark_last_busy(dev);
+> > +	else
+> >  		ret = pm_runtime_put_autosuspend(dev);
+> > -	}
+> >  
+> >  	return ret < 0 ? ret : 0;
+> So this one has a stub version which only brings benefits because
+> we have checks on the pm_runtime_put_autosuspend() path failing
+> (which it does if we have !CONFIG_PM).
 > 
-> Jonathan
-> 
-> > ---
-> > Dixit Parmar (10):
-> >       iio: accel: Drop unnecessary -ENOMEM messages
-> >       iio: adc: Drop unnecessary -ENOMEM messages
-> >       iio: dac: Drop unnecessary -ENOMEM messages
-> >       iio: health: Drop unnecessary -ENOMEM messages
-> >       iio: humidity: Drop unnecessary -ENOMEM messages
-> >       iio: light: Drop unnecessary -ENOMEM messages
-> >       iio: potentiostat: Drop unnecessary -ENOMEM messages
-> >       iio: pressure: Drop unnecessary -ENOMEM messages
-> >       iio: proximity: Drop unnecessary -ENOMEM messages
-> >       iio: temperature: Drop unnecessary -ENOMEM messages
-> > 
-> >  drivers/iio/accel/bma220_spi.c      | 4 +---
-> >  drivers/iio/accel/dmard06.c         | 4 +---
-> >  drivers/iio/accel/dmard09.c         | 4 +---
-> >  drivers/iio/accel/dmard10.c         | 4 +---
-> >  drivers/iio/accel/mc3230.c          | 4 +---
-> >  drivers/iio/accel/mma7660.c         | 4 +---
-> >  drivers/iio/accel/stk8312.c         | 4 +---
-> >  drivers/iio/accel/stk8ba50.c        | 4 +---
-> >  drivers/iio/adc/ad7949.c            | 4 +---
-> >  drivers/iio/adc/bcm_iproc_adc.c     | 4 +---
-> >  drivers/iio/adc/cpcap-adc.c         | 6 ++----
-> >  drivers/iio/adc/da9150-gpadc.c      | 5 ++---
-> >  drivers/iio/adc/dln2-adc.c          | 9 +++------
-> >  drivers/iio/adc/exynos_adc.c        | 4 +---
-> >  drivers/iio/adc/imx7d_adc.c         | 4 +---
-> >  drivers/iio/adc/imx8qxp-adc.c       | 4 +---
-> >  drivers/iio/adc/mxs-lradc-adc.c     | 4 +---
-> >  drivers/iio/adc/palmas_gpadc.c      | 4 +---
-> >  drivers/iio/adc/rn5t618-adc.c       | 4 +---
-> >  drivers/iio/adc/stm32-dfsdm-adc.c   | 4 +---
-> >  drivers/iio/adc/stmpe-adc.c         | 4 +---
-> >  drivers/iio/adc/ti-adc084s021.c     | 4 +---
-> >  drivers/iio/adc/ti-ads131e08.c      | 8 ++------
-> >  drivers/iio/adc/ti_am335x_adc.c     | 5 ++---
-> >  drivers/iio/adc/twl4030-madc.c      | 4 +---
-> >  drivers/iio/adc/viperboard_adc.c    | 4 +---
-> >  drivers/iio/dac/ad5380.c            | 4 +---
-> >  drivers/iio/dac/ad5764.c            | 4 +---
-> >  drivers/iio/dac/ds4424.c            | 4 +---
-> >  drivers/iio/dac/ti-dac7311.c        | 4 +---
-> >  drivers/iio/dac/vf610_dac.c         | 4 +---
-> >  drivers/iio/health/afe4403.c        | 4 +---
-> >  drivers/iio/health/afe4404.c        | 4 +---
-> >  drivers/iio/humidity/am2315.c       | 4 +---
-> >  drivers/iio/humidity/dht11.c        | 4 +---
-> >  drivers/iio/light/stk3310.c         | 4 +---
-> >  drivers/iio/potentiostat/lmp91000.c | 4 +---
-> >  drivers/iio/pressure/dlhl60d.c      | 4 +---
-> >  drivers/iio/proximity/ping.c        | 4 +---
-> >  drivers/iio/proximity/srf04.c       | 4 +---
-> >  drivers/iio/temperature/mlx90632.c  | 4 +---
-> >  41 files changed, 47 insertions(+), 130 deletions(-)
-> > ---
-> > base-commit: d7b8f8e20813f0179d8ef519541a3527e7661d3a
-> > change-id: 20250822-enomam_logs-f66642957fb3
-> > 
-> > Best regards,  
-> 
-> 
+> I think the right option there is check the return value is < 0
+> for the resume_and_get() and don't check the _put_autosuspend()
+> return value at all.  Then we can just push this down to the
+> call sites as all of them hard code the bool value.
 
+Ack.
+
+-- 
+Regards,
+
+Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
