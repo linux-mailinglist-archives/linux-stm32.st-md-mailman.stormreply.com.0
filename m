@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B501B3455E
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C37B34564
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:17:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC78EC349C3;
-	Mon, 25 Aug 2025 15:16:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04413C3FAD7;
+	Mon, 25 Aug 2025 15:17:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1A35C35E2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F755C349C3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 15:16:22 +0000 (UTC)
+ Mon, 25 Aug 2025 15:17:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 52A7041868;
- Mon, 25 Aug 2025 15:16:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2ADEC4CEED;
- Mon, 25 Aug 2025 15:15:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6ACB76023C;
+ Mon, 25 Aug 2025 15:17:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3EECC4CEED;
+ Mon, 25 Aug 2025 15:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756134981;
- bh=ksZo7O/an1egh++NqqPXMDhaLDy/S33PXrwPNp3MOqY=;
+ s=k20201202; t=1756135024;
+ bh=jl2VDKsYIQa8mBsjagZAspCiOT/m+v5dbsVJB9EbsUU=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=rRFES+Ktw15O9XiztMF+h5Ctk8J+tgDGriguGscvOgMkpP3xu6yBEm3LWCmuU94T1
- MbRDUU5ADf/JMaIpqI3l0pkcEM0JoB3/cDA44R3DFNGGR5VQVTTEeShD4qV/CQE3cH
- mNqtElV+9S4LbJyBfpsz4s/9BzU1aE7bx8H3SZ1WpRI28CZE8qShhrrwqPKGLUwDKT
- e6Qe6SQcamXATW7mDhkwQY2h+/fFW9vjI3Q7FL9Yq2K5QBzepGznkQeFjGMHY6kJl3
- HQ32NjopO8g4ti6oxIAD5MTPbNFO6NcBBHDrqKE8o4lfnkMZKQSJDsyVw1cl85O6CN
- qzydW110cddSQ==
-Date: Mon, 25 Aug 2025 16:15:52 +0100
+ b=gHDIfZeyZ/ixpifjd9OWSudvAcfIddIXAKjvoKtDjgIZsK37nbiRxiBu4Vjz69AED
+ xPf19mvxzy9tXtH17+ktmN5/dMlslN0a2FozhTSGvVgd/W6R7D3SYik5iqH/f/k9Dn
+ XOMfZCuEnEM7zKidyS22Wl376RGXDy0BjFsWaeE+EWRkv4qCOSq/sxiDiJCo5ULojI
+ m3Ya40JU36tF+JfGqUgQMQ19aAsm/U1Dn6I2OszTiV6rdVyTj+ibOz7QGb8ZTrLRfa
+ VadVPzxVkyptQRP+/tbLCFVY1O3hUrhy6ghPp9tP91D36e+XW/uZ/0WfR0WqzZWz/+
+ jCbm0HNtAr9Rg==
+Date: Mon, 25 Aug 2025 16:16:36 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20250825161552.69b6e5a3@jic23-huawei>
-In-Reply-To: <20250825135401.1765847-10-sakari.ailus@linux.intel.com>
+Message-ID: <20250825161636.38480a05@jic23-huawei>
+In-Reply-To: <20250825135401.1765847-11-sakari.ailus@linux.intel.com>
 References: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
- <20250825135401.1765847-10-sakari.ailus@linux.intel.com>
+ <20250825135401.1765847-11-sakari.ailus@linux.intel.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.50; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -85,8 +85,8 @@ Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Shawn Guo <shawnguo@kernel.org>,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Hans de Goede <hansg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [Linux-stm32] [PATCH v3 09/12] iio: magnetometer: Remove
- redundant pm_runtime_mark_last_busy() calls
+Subject: Re: [Linux-stm32] [PATCH v3 10/12] iio: pressure: Remove redundant
+ pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,7 +103,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 25 Aug 2025 16:53:58 +0300
+On Mon, 25 Aug 2025 16:53:59 +0300
 Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 
 > pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
@@ -111,54 +111,8 @@ Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 > to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
 > pm_runtime_mark_last_busy().
 > 
-> Also drop checking for errors on pm_runtime_put_autosuspend() in
-> bmc150_magn_set_power_state().
-> 
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-
-One comment inline, but similar to the light sensors, I think it
-still makes sense to take this patch now.
-
-Applied
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/magnetometer/bmc150_magn.c b/drivers/iio/magnetometer/bmc150_magn.c
-> index 761daead5ada..6a73f6e2f1f0 100644
-> --- a/drivers/iio/magnetometer/bmc150_magn.c
-> +++ b/drivers/iio/magnetometer/bmc150_magn.c
-> @@ -257,22 +257,17 @@ static int bmc150_magn_set_power_mode(struct bmc150_magn_data *data,
->  
->  static int bmc150_magn_set_power_state(struct bmc150_magn_data *data, bool on)
->  {
-This is another 'helper' that should probably go away in the longer term.
-
-> -#ifdef CONFIG_PM
-> -	int ret;
-> +	int ret = 0;
->  
-> -	if (on) {
-> +	if (on)
->  		ret = pm_runtime_resume_and_get(data->dev);
-> -	} else {
-> -		pm_runtime_mark_last_busy(data->dev);
-> -		ret = pm_runtime_put_autosuspend(data->dev);
-> -	}
-> -
-> +	else
-> +		pm_runtime_put_autosuspend(data->dev);
->  	if (ret < 0) {
->  		dev_err(data->dev,
->  			"failed to change power state to %d\n", on);
->  		return ret;
->  	}
-> -#endif
->  
->  	return 0;
->  }
+Applied.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
