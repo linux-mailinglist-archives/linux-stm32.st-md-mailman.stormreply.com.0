@@ -2,69 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90B2CB33D38
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 12:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695F4B33E0D
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 13:31:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F32EC36B31;
-	Mon, 25 Aug 2025 10:53:41 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2776C36B3E;
+	Mon, 25 Aug 2025 11:31:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 199BDC36B2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 098BBC36B31
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 10:53:40 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20250825105340euoutp0171d2c07c0c176e77fcfb195266c6790c~e-SBbhUbW0147801478euoutp01j
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 10:53:40 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20250825105340euoutp0171d2c07c0c176e77fcfb195266c6790c~e-SBbhUbW0147801478euoutp01j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1756119220;
- bh=/fa4+ZI2ynYvAnmTSBhg899GLSJbeJtzYjuSjpeEGlo=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=O7Cv3imsFNC7IeAXaIsQOTVSs76RWqKfhuY1jXd2FZM3Ej/vljQpDs3xEZkUN5oVS
- yD3dDR5BV5Iy+WZgQeEsmHuWRu5jXr5enJzwDjpRONP0YLo+IUG8+2kMY+tteupH4e
- 6arTUTVUhfF3zVlfow0G8gUAI3YCMMvTsmHj+HwI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20250825105339eucas1p13cf980f9b7f4ba4f465f5953b97f149c~e-SA9vcu40800108001eucas1p1m;
- Mon, 25 Aug 2025 10:53:39 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20250825105337eusmtip19068233323fe8c45892597caf271a2e6~e-R-X77KD1201812018eusmtip19;
- Mon, 25 Aug 2025 10:53:37 +0000 (GMT)
-Message-ID: <809848c9-2ffa-4743-adda-b8b714b404de@samsung.com>
-Date: Mon, 25 Aug 2025 12:53:37 +0200
+ Mon, 25 Aug 2025 11:31:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B01DC40B8D;
+ Mon, 25 Aug 2025 11:31:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE62C4CEED;
+ Mon, 25 Aug 2025 11:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756121473;
+ bh=OgbR/W4gItCa2yQLXixaqQP3APnO9bdaKfA3LJBQfCg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=L/bp8JiSSu+DlgC5Jlw27azJqw5qLfIPDzMWuWAVBFPdKWEEDCulvu0L+jZv6fqfs
+ 8t/v6LSdy7Eo44fugSbuHh85J3k7JnIBwt4hbQMAAr5kmbgIN+Y1HaadG7wACwCM32
+ Uk01Y6fBU95g41Qx4lOb75wliUbj41wOVpN4415IB84qZot8lJoPgwvH1qqse6qsVv
+ ZSxCqjrUCOwcZFqTFWpBvo4CZqbQhuJBAAkGHz4Fp+7DlHCIqeE+Tj2g9ES2VT5JWw
+ iY8BLMV9Ej4+JIfEV2QrNjEVEdzfAQMicwOeUVuk94uDqkSzX6Bh9HQpcwPQe487Bh
+ iv1JIsfuKy/HQ==
+Date: Mon, 25 Aug 2025 12:31:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Dixit Parmar <dixitparmar19@gmail.com>
+Message-ID: <20250825123100.43d8c4ff@jic23-huawei>
+In-Reply-To: <20250822-enomam_logs-v1-3-db87f2974552@gmail.com>
+References: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
+ <20250822-enomam_logs-v1-3-db87f2974552@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>, Chaoyi Chen
- <kernel@airkyi.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, "Russell King (Oracle)"
- <rmk+kernel@armlinux.org.uk>, Jonas Karlman <jonas@kwiboo.se>, David Wu
- <david.wu@rock-chips.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <d0fe6d16-181f-4b38-9457-1099fb6419d0@rock-chips.com>
-X-CMS-MailID: 20250825105339eucas1p13cf980f9b7f4ba4f465f5953b97f149c
-X-Msg-Generator: CA
-X-RootMTR: 20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93
-X-EPHeader: CA
-X-CMS-RootMailID: 20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93
-References: <20250815023515.114-1-kernel@airkyi.com>
- <CGME20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93@eucas1p2.samsung.com>
- <a30a8c97-6b96-45ba-bad7-8a40401babc2@samsung.com>
- <d0fe6d16-181f-4b38-9457-1099fb6419d0@rock-chips.com>
-Cc: netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3] net: ethernet: stmmac:
- dwmac-rk: Make the clk_phy could be used for external phy
+Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ David Lechner <dlechner@baylibre.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-samsung-soc@vger.kernel.org,
+ Cai Huoqing <cai.huoqing@linux.dev>, Andreas Klinger <ak@it-klinger.de>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 03/10] iio: dac: Drop unnecessary -ENOMEM
+	messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,70 +65,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjUuMDguMjAyNSAxMTo1NywgQ2hhb3lpIENoZW4gd3JvdGU6Cj4gT24gOC8yNS8yMDI1IDM6
-MjMgUE0sIE1hcmVrIFN6eXByb3dza2kgd3JvdGU6Cj4+IE9uIDE1LjA4LjIwMjUgMDQ6MzUsIENo
-YW95aSBDaGVuIHdyb3RlOgo+Pj4gRnJvbTogQ2hhb3lpIENoZW4gPGNoYW95aS5jaGVuQHJvY2st
-Y2hpcHMuY29tPgo+Pj4KPj4+IEZvciBleHRlcm5hbCBwaHksIGNsa19waHkgc2hvdWxkIGJlIG9w
-dGlvbmFsLCBhbmQgc29tZSBleHRlcm5hbCBwaHkKPj4+IG5lZWQgdGhlIGNsb2NrIGlucHV0IGZy
-b20gY2xrX3BoeS4gVGhpcyBwYXRjaCBhZGRzIHN1cHBvcnQgZm9yIHNldHRpbmcKPj4+IGNsa19w
-aHkgZm9yIGV4dGVybmFsIHBoeS4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBEYXZpZCBXdSA8ZGF2
-aWQud3VAcm9jay1jaGlwcy5jb20+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDaGFveWkgQ2hlbiA8Y2hh
-b3lpLmNoZW5Acm9jay1jaGlwcy5jb20+Cj4+PiAtLS0KPj4+Cj4+PiBDaGFuZ2VzIGluIHYzOgo+
-Pj4gLSBMaW5rIHRvIFYyOiAKPj4+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi8yMDI1
-MDgxMjAxMjEyNy4xOTctMS1rZXJuZWxAYWlya3lpLmNvbS8KPj4+IC0gUmViYXNlIHRvIG5ldC1u
-ZXh0L21haW4KPj4+Cj4+PiBDaGFuZ2VzIGluIHYyOgo+Pj4gLSBMaW5rIHRvIFYxOiAKPj4+IGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi8yMDI1MDgwNjAxMTQwNS4xMTUtMS1rZXJuZWxA
-YWlya3lpLmNvbS8KPj4+IC0gUmVtb3ZlIGdldCBjbG9jayBmcmVxdWVuY3kgZnJvbSBEVCBwcm9w
-Cj4+Pgo+Pj4gwqDCoCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1y
-ay5jIHwgMTEgKysrKysrKy0tLS0KPj4+IMKgwqAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9u
-cygrKSwgNCBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYyAKPj4+IGIvZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYwo+Pj4gaW5kZXggYWM4Mjg4MzAxOTk0Li41ZDky
-MWU2MmMyZjUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9kd21hYy1yay5jCj4+PiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9kd21hYy1yay5jCj4+PiBAQCAtMTQxMiwxMiArMTQxMiwxNSBAQCBzdGF0aWMgaW50IHJr
-X2dtYWNfY2xrX2luaXQoc3RydWN0IAo+Pj4gcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXQpCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjbGtfc2V0X3JhdGUocGxhdC0+c3RtbWFjX2NsaywgNTAw
-MDAwMDApOwo+Pj4gwqDCoMKgwqDCoMKgIH0KPj4+IMKgwqAgLcKgwqDCoCBpZiAocGxhdC0+cGh5
-X25vZGUgJiYgYnNwX3ByaXYtPmludGVncmF0ZWRfcGh5KSB7Cj4+PiArwqDCoMKgIGlmIChwbGF0
-LT5waHlfbm9kZSkgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnNwX3ByaXYtPmNsa19waHkg
-PSBvZl9jbGtfZ2V0KHBsYXQtPnBoeV9ub2RlLCAwKTsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldCA9IFBUUl9FUlJfT1JfWkVSTyhic3BfcHJpdi0+Y2xrX3BoeSk7Cj4+PiAtwqDCoMKgwqDC
-oMKgwqAgaWYgKHJldCkKPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBkZXZfZXJy
-X3Byb2JlKGRldiwgcmV0LCAiQ2Fubm90IGdldCBQSFkgY2xvY2tcbiIpOwo+Pj4gLcKgwqDCoMKg
-wqDCoMKgIGNsa19zZXRfcmF0ZShic3BfcHJpdi0+Y2xrX3BoeSwgNTAwMDAwMDApOwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIC8qIElmIGl0IGlzIG5vdCBpbnRlZ3JhdGVkX3BoeSwgY2xrX3BoeSBpcyBv
-cHRpb25hbCAqLwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChic3BfcHJpdi0+aW50ZWdyYXRlZF9w
-aHkpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBkZXZfZXJyX3Byb2JlKGRldiwgcmV0LCAiQ2Fu
-bm90IGdldCBQSFkgCj4+PiBjbG9ja1xuIik7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBj
-bGtfc2V0X3JhdGUoYnNwX3ByaXYtPmNsa19waHksIDUwMDAwMDAwKTsKPj4+ICvCoMKgwqDCoMKg
-wqDCoCB9Cj4KPiBJIHRoaW5rwqAgd2Ugc2hvdWxkIHNldCBic3BfcHJpdi0+Y2xrX3BoeSB0byBO
-VUxMIGhlcmUgaWYgd2UgZmFpbGVkIHRvIAo+IGdldCB0aGUgY2xvY2suCj4KPiBDb3VsZCB5b3Ug
-dHJ5IHRoaXMgb24geW91ciBib2FyZD8gVGhhbmsgeW91LgoKUmlnaHQsIHRoZSBmb2xsb3dpbmcg
-Y2hhbmdlIGFsc28gZml4ZXMgdGhpcyBpc3N1ZToKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9l
-dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIApiL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKaW5kZXggOWZjNDEyMDdjYzQ1Li4yZDE5ZDQ4YmUw
-MWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFj
-LXJrLmMKKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsu
-YwpAQCAtMTQxNSw2ICsxNDE1LDggQEAgc3RhdGljIGludCBya19nbWFjX2Nsa19pbml0KHN0cnVj
-dCAKcGxhdF9zdG1tYWNlbmV0X2RhdGEgKnBsYXQpCiDCoMKgwqDCoMKgwqDCoCBpZiAocGxhdC0+
-cGh5X25vZGUpIHsKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBic3BfcHJpdi0+Y2xr
-X3BoeSA9IG9mX2Nsa19nZXQocGxhdC0+cGh5X25vZGUsIDApOwogwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldCA9IFBUUl9FUlJfT1JfWkVSTyhic3BfcHJpdi0+Y2xrX3BoeSk7CivC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyZXQpCivCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBic3BfcHJpdi0+Y2xrX3BoeSA9IE5VTEw7CiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogSWYgaXQgaXMgbm90IGludGVncmF0ZWRfcGh5
-LCBjbGtfcGh5IGlzIG9wdGlvbmFsICovCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-aWYgKGJzcF9wcml2LT5pbnRlZ3JhdGVkX3BoeSkgewogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQoKCiA+IC4uLgoKQmVzdCByZWdhcmRzCi0t
-IApNYXJlayBTenlwcm93c2tpLCBQaEQKU2Ftc3VuZyBSJkQgSW5zdGl0dXRlIFBvbGFuZAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+On Fri, 22 Aug 2025 09:19:51 +0530
+Dixit Parmar <dixitparmar19@gmail.com> wrote:
+
+> The drivers do not require their own error messages for error
+> -ENOMEM, memory allocation failures. So remove the dev_err
+> messages from the probe().
+> 
+> Signed-off-by: Dixit Parmar <dixitparmar19@gmail.com>
+> ---
+>  drivers/iio/dac/ad5380.c     | 4 +---
+>  drivers/iio/dac/ad5764.c     | 4 +---
+>  drivers/iio/dac/ds4424.c     | 4 +---
+>  drivers/iio/dac/ti-dac7311.c | 4 +---
+>  drivers/iio/dac/vf610_dac.c  | 4 +---
+Raced with another series doing a dev_err_probe() conversion and the relevant
+lines are gone.
+
+I'll fix up.
+
+Jonathan
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
