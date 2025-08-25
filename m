@@ -2,66 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3128B34CD5
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 22:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97B48B34DDB
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 23:23:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E277C32EB5;
-	Mon, 25 Aug 2025 20:53:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEC66C32EB0;
+	Mon, 25 Aug 2025 21:23:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B76A8C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F5DDC36B0C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 20:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756155211; x=1787691211;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=s3tmR7nxofceGS0RADamNfNDc9paoHZFEDJVu8jYTu8=;
- b=GyjZ8eT4NcghuL4aijRJCqIoGBsZ8Zxvm6kfFlaIek06sOQhlQmDzaRg
- AcZfZE+JD/aQbdu7Cx7nARY+mBrSBINXRsUI1t9fEFmd8nxZWc/CUVNv4
- fTIpbjLKT7I8uX0knYlowQkJKE2kv02JAIikxFT4EbbuJSIXnSclUhid1
- TKG5hP48GALz5ioqtiCt9vdslDYEo+qaQjxoFYPFbkTx+cNIJ5qaYrvz7
- mXA9OJ5NJJF6ULE3qOB3h6FDTGzlrJjgpYyGwjPhvTq000kTsXxuB5bIY
- qHK9JdZeh+FpAJrhVS2xfLKhK2PF08l13vI6I8DsRxxOhwkpuZPU/dFO0 Q==;
-X-CSE-ConnectionGUID: +7F85qW6TUKeZN6Zo4AnwQ==
-X-CSE-MsgGUID: WHu93z1xQnOivJMvC8UnOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="62205756"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="62205756"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2025 13:52:43 -0700
-X-CSE-ConnectionGUID: F+7z9UEqTpCLzRepANTSzQ==
-X-CSE-MsgGUID: hMmmi/nIT2mlfySCXjSzQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="200286930"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
- ([10.245.245.157])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2025 13:52:39 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
- by kekkonen.fi.intel.com (Postfix) with ESMTP id 33C1C11FB0F;
- Mon, 25 Aug 2025 23:52:36 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
- (envelope-from <sakari.ailus@linux.intel.com>)
- id 1uqeBA-00000007PWX-0Pyt; Mon, 25 Aug 2025 23:52:36 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Date: Mon, 25 Aug 2025 23:52:35 +0300
-Message-ID: <20250825205235.1766401-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.2
+ Mon, 25 Aug 2025 21:23:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CAB76023B;
+ Mon, 25 Aug 2025 21:23:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B47C4CEED;
+ Mon, 25 Aug 2025 21:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756156975;
+ bh=l+302sdoxhUbhMzKkT4wkwdq4eHKUpQjmtWZfxKoga8=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=UcgMEh3p+CplQZ32HJ2eXNNfERFHlx365eJRZvmWsrUE8QEntcuBZdVWBWBjL6Fck
+ +uwxzDPaocOckAC/Q0YdbYr+xE/kKh/E+NLeDYF1RdVAAL08h6p0TIxvgoLk2hfbDB
+ ZpedqxOv/j02bonBagtjTvG+WOhcW/p+d7J4zqw9ESEKT7w9jrLh7F3tFEXUo3uESj
+ NNl5HjdOrcGIeOX7nZH8Xy7HGDVV9JCZ4edcm5RMfN3QSoy8Mk9JQf5l+OSdcKkd8n
+ KGGULcvX7dr46Ew4nmlswKf/6+jHQJOzLvk5mrkkQ8r6Eg9glMpjmQeg48exFXRMx1
+ urbRBOcojTj3Q==
+Date: Mon, 25 Aug 2025 16:22:54 -0500
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Lechner <dlechner@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 1/1] iio: dac: Remove redundant
-	pm_runtime_mark_last_busy() calls
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Joy Zou <joy.zou@nxp.com>
+In-Reply-To: <20250825091223.1378137-1-joy.zou@nxp.com>
+References: <20250825091223.1378137-1-joy.zou@nxp.com>
+Message-Id: <175615562513.578111.8377939047997958239.robh@kernel.org>
+Cc: imx@lists.linux.dev, alexander.stein@ew.tq-group.com, Frank.Li@nxp.com,
+ edumazet@google.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, Markus.Niebel@ew.tq-group.com,
+ frieder.schrempf@kontron.de, primoz.fiser@norik.com, kuba@kernel.org,
+ pabeni@redhat.com, richardcochran@gmail.com, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, kernel@pengutronix.de, linux-pm@vger.kernel.org,
+ othacehe@gnu.org, s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, shawnguo@kernel.org,
+ davem@davemloft.net, linux@ew.tq-group.com
+Subject: Re: [Linux-stm32] [PATCH v9 0/6] Add i.MX91 platform support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,69 +62,172 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-pm_runtime_mark_last_busy().
 
-Also clean up error handling in stm32_dac_set_enable_state().
+On Mon, 25 Aug 2025 17:12:17 +0800, Joy Zou wrote:
+> The design of i.MX91 platform is very similar to i.MX93.
+> Extracts the common parts in order to reuse code.
+> 
+> The mainly difference between i.MX91 and i.MX93 is as follows:
+> - i.MX91 removed some clocks and modified the names of some clocks.
+> - i.MX91 only has one A core.
+> - i.MX91 has different pinmux.
+> 
+> ---
+> Changes for v9:
+> - rebased onto commit 0f4c93f7eb86 ("Add linux-next specific files for 20250822")
+>   to align with latest changes.
+> - there is no functional changes for these patches.
+> - Link to v8: https://lore.kernel.org/imx/20250806114119.1948624-1-joy.zou@nxp.com/
+> 
+> Changes for v8:
+> - add Reviewed-by tag for patch #2/3/4/5/6/7/8/9/11.
+> - modify commit message for patch #10.
+> - move imx91 before imx93 in Makefile for patch #6.
+> - modify the commit message to keep wrap at 75 chars for patch #5.
+> - Link to v7: https://lore.kernel.org/imx/20250728071438.2332382-1-joy.zou@nxp.com/
+> 
+> Changes for v7:
+> - Optimize i.MX91 num_clks hardcode with ARRAY_SIZE()for patch #10.
+> - Add new patch in order to optimize i.MX93 num_clks hardcode
+>   with ARRAY_SIZE() for patch #9.
+> - remove this unused comments for patch #6.
+> - align all pinctrl value to the same column for patch #6.
+> - add aliases because remove aliases from common dtsi for patch #6.
+> - remove fec property eee-broken-1000t from imx91 and imx93 board dts
+>   for patch #6 and #7.
+> - The aliases are removed from common.dtsi because the imx93.dtsi
+>   aliases are removed for patch #4.
+> - Add new patch that move aliases from imx93.dtsi to board dts for
+>   patch #3.
+> - These aliases aren't common, so need to drop in imx93.dtsi for patch #3.
+> - Only add aliases using to imx93 board dts for patch #3.
+> - patch #3 changes come from review comments:
+>   https://lore.kernel.org/imx/4e8f2426-92a1-4c7e-b860-0e10e8dd886c@kernel.org/
+> - add clocks constraints in the if-else branch for patch #2.
+> - reorder the imx93 and imx91 if-else branch for patch #2.
+> - patch #2 changes come from review comments:
+>   https://lore.kernel.org/imx/urgfsmkl25woqy5emucfkqs52qu624po6rd532hpusg3fdnyg3@s5iwmhnfsi26/
+> - add Reviewed-by tag for patch #2.
+> - Link to v6: https://lore.kernel.org/imx/20250623095732.2139853-1-joy.zou@nxp.com/
+> 
+> Changes for v6:
+> - add changelog in per patch.
+> - correct commit message spell for patch #1.
+> - merge rename imx93.dtsi to imx91_93_common.dtsi and move i.MX93
+>   specific part from imx91_93_common.dtsi to imx93.dtsi for patch #3.
+> - modify the commit message for patch #3.
+> - restore copyright time and add modification time for common dtsi for
+>   patch #3.
+> - remove unused map0 label in imx91_93_common.dtsi for patch #3.
+> - remove tmu related node for patch #4.
+> - remove unused regulators and pinctrl settings for patch #5.
+> - add new modification for aliases change patch #6.
+> - Link to v5: https://lore.kernel.org/imx/20250613100255.2131800-1-joy.zou@nxp.com/
+> 
+> Changes for v5:
+> - rename imx93.dtsi to imx91_93_common.dtsi.
+> - move imx93 specific part from imx91_93_common.dtsi to imx93.dtsi.
+> - modify the imx91.dtsi to use imx91_93_common.dtsi.
+> - add new the imx93-blk-ctrl binding and driver patch for imx91 support.
+> - add new net patch for imx91 support.
+> - change node name codec and lsm6dsm into common name audio-codec and
+>   inertial-meter, and add BT compatible string for imx91 board dts.
+> - Link to v4: https://lore.kernel.org/imx/20250121074017.2819285-1-joy.zou@nxp.com/
+> 
+> Changes for v4:
+> - Add one imx93 patch that add labels in imx93.dtsi
+> - modify the references in imx91.dtsi
+> - modify the code alignment
+> - remove unused newline
+> - delete the status property
+> - align pad hex values
+> - Link to v3: https://lore.kernel.org/imx/20241120094945.3032663-1-pengfei.li_1@nxp.com/
+> 
+> Changes for v3:
+> - Add Conor's ack on patch #1
+> - format imx91-11x11-evk.dts with the dt-format tool
+> - add lpi2c1 node
+> - Link to v2: https://lore.kernel.org/imx/20241118051541.2621360-1-pengfei.li_1@nxp.com/
+> 
+> Changes for v2:
+> - change ddr node pmu compatible
+> - remove mu1 and mu2
+> - change iomux node compatible and enable 91 pinctrl
+> - refine commit message for patch #2
+> - change hex to lowercase in pinfunc.h
+> - ordering nodes with the dt-format tool
+> - Link to v1: https://lore.kernel.org/imx/20241108022703.1877171-1-pengfei.li_1@nxp.com/
+> 
+> Joy Zou (6):
+>   arm64: dts: freescale: move aliases from imx93.dtsi to board dts
+>   arm64: dts: freescale: rename imx93.dtsi to imx91_93_common.dtsi and
+>     modify them
+>   arm64: dts: imx91: add i.MX91 dtsi support
+>   arm64: dts: freescale: add i.MX91 11x11 EVK basic support
+>   arm64: dts: imx93-11x11-evk: remove fec property eee-broken-1000t
+>   net: stmmac: imx: add i.MX91 support
+> 
+>  arch/arm64/boot/dts/freescale/Makefile        |    1 +
+>  .../boot/dts/freescale/imx91-11x11-evk.dts    |  674 ++++++++
+>  arch/arm64/boot/dts/freescale/imx91-pinfunc.h |  770 +++++++++
+>  arch/arm64/boot/dts/freescale/imx91.dtsi      |   71 +
+>  .../{imx93.dtsi => imx91_93_common.dtsi}      |  176 +-
+>  .../boot/dts/freescale/imx93-11x11-evk.dts    |   20 +-
+>  .../boot/dts/freescale/imx93-14x14-evk.dts    |   15 +
+>  .../boot/dts/freescale/imx93-9x9-qsb.dts      |   18 +
+>  .../dts/freescale/imx93-kontron-bl-osm-s.dts  |   21 +
+>  .../dts/freescale/imx93-phyboard-nash.dts     |   21 +
+>  .../dts/freescale/imx93-phyboard-segin.dts    |    9 +
+>  .../freescale/imx93-tqma9352-mba91xxca.dts    |   11 +
+>  .../freescale/imx93-tqma9352-mba93xxca.dts    |   25 +
+>  .../freescale/imx93-tqma9352-mba93xxla.dts    |   25 +
+>  .../dts/freescale/imx93-var-som-symphony.dts  |   17 +
+>  arch/arm64/boot/dts/freescale/imx93.dtsi      | 1518 ++---------------
+>  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |    2 +
+>  17 files changed, 1863 insertions(+), 1531 deletions(-)
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx91-pinfunc.h
+>  create mode 100644 arch/arm64/boot/dts/freescale/imx91.dtsi
+>  copy arch/arm64/boot/dts/freescale/{imx93.dtsi => imx91_93_common.dtsi} (90%)
+>  rewrite arch/arm64/boot/dts/freescale/imx93.dtsi (97%)
+> 
+> --
+> 2.37.1
+> 
+> 
+> 
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
-since v3:
 
-- Fix condition for calling pm_runtime_put_autosuspend().
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
- drivers/iio/dac/stm32-dac.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
 
-diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
-index 344388338d9b..874e6dcc0d61 100644
---- a/drivers/iio/dac/stm32-dac.c
-+++ b/drivers/iio/dac/stm32-dac.c
-@@ -82,9 +82,9 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
- 
- 	ret = regmap_update_bits(dac->common->regmap, STM32_DAC_CR, msk, en);
- 	mutex_unlock(&dac->lock);
--	if (ret < 0) {
-+	if (ret) {
- 		dev_err(&indio_dev->dev, "%s failed\n", str_enable_disable(en));
--		goto err_put_pm;
-+		goto err_pm_put;
- 	}
- 
- 	/*
-@@ -95,18 +95,9 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
- 	if (en && dac->common->hfsel)
- 		udelay(1);
- 
--	if (!enable) {
--		pm_runtime_mark_last_busy(dev);
--		pm_runtime_put_autosuspend(dev);
--	}
--
--	return 0;
--
--err_put_pm:
--	if (enable) {
--		pm_runtime_mark_last_busy(dev);
-+err_pm_put:
-+	if (!enable || (enable && ret))
- 		pm_runtime_put_autosuspend(dev);
--	}
- 
- 	return ret;
- }
-@@ -349,7 +340,6 @@ static int stm32_dac_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_pm_put;
- 
--	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
--- 
-2.47.2
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+This patch series was applied (using b4) to base:
+ Base: attempting to guess base-commit...
+ Base: tags/v6.17-rc1-2-ge0a4a651f7c8 (best guess, 12/14 blobs matched)
+
+If this is not the correct base, please add 'base-commit' tag
+(or use b4 which does this automatically)
+
+New warnings running 'make CHECK_DTBS=y for arch/arm64/boot/dts/freescale/' for 20250825091223.1378137-1-joy.zou@nxp.com:
+
+arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /: failed to match any schema with compatible: ['fsl,imx91-11x11-evk', 'fsl,imx91']
+arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /: failed to match any schema with compatible: ['fsl,imx91-11x11-evk', 'fsl,imx91']
+arch/arm64/boot/dts/freescale/imx91-11x11-evk.dtb: /soc@0/system-controller@4ac10000: failed to match any schema with compatible: ['fsl,imx91-media-blk-ctrl', 'syscon']
+
+
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
