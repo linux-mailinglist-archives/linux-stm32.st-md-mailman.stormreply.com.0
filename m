@@ -2,59 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 906DBB33A68
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 11:16:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84CC8B33C03
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 11:57:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5173DC36B2A;
-	Mon, 25 Aug 2025 09:16:06 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33490C3FAD8;
+	Mon, 25 Aug 2025 09:57:52 +0000 (UTC)
+Received: from mail-m1973194.qiye.163.com (mail-m1973194.qiye.163.com
+ [220.197.31.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18425C36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA37C36B2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 09:16:05 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1uqTIb-0007lb-JP; Mon, 25 Aug 2025 11:15:33 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1uqTIZ-0022kp-0v;
- Mon, 25 Aug 2025 11:15:31 +0200
-Received: from pza by lupine with local (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1uqTIZ-000Hu4-0a;
- Mon, 25 Aug 2025 11:15:31 +0200
-Message-ID: <e67d5a27fb00040ba87a0b108322747ecca8d05b.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Christian Bruel <christian.bruel@foss.st.com>, lpieralisi@kernel.org, 
- kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
- bhelgaas@google.com,  krzk+dt@kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com,  alexandre.torgue@foss.st.com,
- linus.walleij@linaro.org, corbet@lwn.net,  shradha.t@samsung.com,
- mayank.rana@oss.qualcomm.com, namcao@linutronix.de, 
- qiang.yu@oss.qualcomm.com, thippeswamy.havalige@amd.com,
- inochiama@gmail.com,  quic_schintav@quicinc.com
-Date: Mon, 25 Aug 2025 11:15:31 +0200
-In-Reply-To: <20250820075411.1178729-5-christian.bruel@foss.st.com>
-References: <20250820075411.1178729-1-christian.bruel@foss.st.com>
- <20250820075411.1178729-5-christian.bruel@foss.st.com>
-User-Agent: Evolution 3.46.4-2 
+ Mon, 25 Aug 2025 09:57:50 +0000 (UTC)
+Received: from [172.16.12.153] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 2082e1fe5;
+ Mon, 25 Aug 2025 17:57:46 +0800 (GMT+08:00)
+Message-ID: <d0fe6d16-181f-4b38-9457-1099fb6419d0@rock-chips.com>
+Date: Mon, 25 Aug 2025 17:57:45 +0800
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, johan+linaro@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v13 04/11] PCI: stm32: Add PCIe host
- support for STM32MP25
+User-Agent: Mozilla Thunderbird
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ Chaoyi Chen <kernel@airkyi.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Jonas Karlman <jonas@kwiboo.se>, David Wu <david.wu@rock-chips.com>
+References: <20250815023515.114-1-kernel@airkyi.com>
+ <CGME20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93@eucas1p2.samsung.com>
+ <a30a8c97-6b96-45ba-bad7-8a40401babc2@samsung.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <a30a8c97-6b96-45ba-bad7-8a40401babc2@samsung.com>
+X-HM-Tid: 0a98e0a9922903abkunm8d311f8d115b06e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQk0ZSlYfTR1CGB8dSx9IS01WFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSU9PT0
+ hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=fX6zBgaTEeGN0mpna6Hvlzu9hPBOaJ7ysGmaTVSCNEshJ9NI0YvqT5dN41kV5vWU0MQxI0TSU8F7UxzWsQA9frFPm3X79taqass4ZUIJaPhcySrUKlvo3GWS8gfLxFa1RstO8YkKTk7RqkHJ2hQjZJeTm8Bl3jwoy9sEqJzh9HQ=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=EVpH2Wm83g8Rb+u3uT+a83bsfBledd8G1BDKOR8Jgq0=;
+ h=date:mime-version:subject:message-id:from;
+Cc: netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: ethernet: stmmac:
+ dwmac-rk: Make the clk_phy could be used for external phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,102 +62,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mi, 2025-08-20 at 09:54 +0200, Christian Bruel wrote:
-> Add driver for the STM32MP25 SoC PCIe Gen1 2.5 GT/s and Gen2 5GT/s
-> controller based on the DesignWare PCIe core.
-> 
-> Supports MSI via GICv2m, Single Virtual Channel, Single Function
-> 
-> Supports WAKE# GPIO.
-> 
-> Signed-off-by: Christian Bruel <christian.bruel@foss.st.com>
-> ---
->  drivers/pci/controller/dwc/Kconfig      |  12 +
->  drivers/pci/controller/dwc/Makefile     |   1 +
->  drivers/pci/controller/dwc/pcie-stm32.c | 360 ++++++++++++++++++++++++
->  drivers/pci/controller/dwc/pcie-stm32.h |  15 +
->  4 files changed, 388 insertions(+)
->  create mode 100644 drivers/pci/controller/dwc/pcie-stm32.c
->  create mode 100644 drivers/pci/controller/dwc/pcie-stm32.h
-> 
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> index deafc512b079..a8174817fd5b 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -423,6 +423,18 @@ config PCIE_SPEAR13XX
->  	help
->  	  Say Y here if you want PCIe support on SPEAr13XX SoCs.
->  
-> +config PCIE_STM32_HOST
-> +	tristate "STMicroelectronics STM32MP25 PCIe Controller (host mode)"
-> +	depends on ARCH_STM32 || COMPILE_TEST
-> +	depends on PCI_MSI
-> +	select PCIE_DW_HOST
-> +	help
-> +	  Enables Root Complex (RC) support for the DesignWare core based PCIe
-> +	  controller found in STM32MP25 SoC.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called pcie-stm32.
-> +
->  config PCI_DRA7XX
->  	tristate
->  
-> diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
-> index 6919d27798d1..1307a87b1cf0 100644
-> --- a/drivers/pci/controller/dwc/Makefile
-> +++ b/drivers/pci/controller/dwc/Makefile
-> @@ -31,6 +31,7 @@ obj-$(CONFIG_PCIE_UNIPHIER) += pcie-uniphier.o
->  obj-$(CONFIG_PCIE_UNIPHIER_EP) += pcie-uniphier-ep.o
->  obj-$(CONFIG_PCIE_VISCONTI_HOST) += pcie-visconti.o
->  obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
-> +obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
->  
->  # The following drivers are for devices that use the generic ACPI
->  # pci_root.c driver but don't support standard ECAM config access.
-> diff --git a/drivers/pci/controller/dwc/pcie-stm32.c b/drivers/pci/controller/dwc/pcie-stm32.c
-> new file mode 100644
-> index 000000000000..964fa6f674c8
-> --- /dev/null
-> +++ b/drivers/pci/controller/dwc/pcie-stm32.c
-> @@ -0,0 +1,360 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * STMicroelectronics STM32MP25 PCIe root complex driver.
-> + *
-> + * Copyright (C) 2025 STMicroelectronics
-> + * Author: Christian Bruel <christian.bruel@foss.st.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/pm_wakeirq.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include "pcie-designware.h"
-> +#include "pcie-stm32.h"
-> +#include "../../pci.h"
-> +
-> +struct stm32_pcie {
-> +	struct dw_pcie pci;
-> +	struct regmap *regmap;
-> +	struct reset_control *rst;
-
-This could be a local variable in stm32_pcie_probe().
-
-regards
-Philipp
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFyZWssCgpPbiA4LzI1LzIwMjUgMzoyMyBQTSwgTWFyZWsgU3p5cHJvd3NraSB3cm90ZToK
+PiBPbiAxNS4wOC4yMDI1IDA0OjM1LCBDaGFveWkgQ2hlbiB3cm90ZToKPj4gRnJvbTogQ2hhb3lp
+IENoZW4gPGNoYW95aS5jaGVuQHJvY2stY2hpcHMuY29tPgo+Pgo+PiBGb3IgZXh0ZXJuYWwgcGh5
+LCBjbGtfcGh5IHNob3VsZCBiZSBvcHRpb25hbCwgYW5kIHNvbWUgZXh0ZXJuYWwgcGh5Cj4+IG5l
+ZWQgdGhlIGNsb2NrIGlucHV0IGZyb20gY2xrX3BoeS4gVGhpcyBwYXRjaCBhZGRzIHN1cHBvcnQg
+Zm9yIHNldHRpbmcKPj4gY2xrX3BoeSBmb3IgZXh0ZXJuYWwgcGh5Lgo+Pgo+PiBTaWduZWQtb2Zm
+LWJ5OiBEYXZpZCBXdSA8ZGF2aWQud3VAcm9jay1jaGlwcy5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6
+IENoYW95aSBDaGVuIDxjaGFveWkuY2hlbkByb2NrLWNoaXBzLmNvbT4KPj4gLS0tCj4+Cj4+IENo
+YW5nZXMgaW4gdjM6Cj4+IC0gTGluayB0byBWMjogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0
+ZGV2LzIwMjUwODEyMDEyMTI3LjE5Ny0xLWtlcm5lbEBhaXJreWkuY29tLwo+PiAtIFJlYmFzZSB0
+byBuZXQtbmV4dC9tYWluCj4+Cj4+IENoYW5nZXMgaW4gdjI6Cj4+IC0gTGluayB0byBWMTogaHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjUwODA2MDExNDA1LjExNS0xLWtlcm5lbEBh
+aXJreWkuY29tLwo+PiAtIFJlbW92ZSBnZXQgY2xvY2sgZnJlcXVlbmN5IGZyb20gRFQgcHJvcAo+
+Pgo+PiAgICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIHwg
+MTEgKysrKysrKy0tLS0KPj4gICAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgNCBk
+ZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
+cm8vc3RtbWFjL2R3bWFjLXJrLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1h
+Yy9kd21hYy1yay5jCj4+IGluZGV4IGFjODI4ODMwMTk5NC4uNWQ5MjFlNjJjMmY1IDEwMDY0NAo+
+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jCj4+
+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMKPj4g
+QEAgLTE0MTIsMTIgKzE0MTIsMTUgQEAgc3RhdGljIGludCBya19nbWFjX2Nsa19pbml0KHN0cnVj
+dCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxhdCkKPj4gICAgCQljbGtfc2V0X3JhdGUocGxhdC0+
+c3RtbWFjX2NsaywgNTAwMDAwMDApOwo+PiAgICAJfQo+PiAgICAKPj4gLQlpZiAocGxhdC0+cGh5
+X25vZGUgJiYgYnNwX3ByaXYtPmludGVncmF0ZWRfcGh5KSB7Cj4+ICsJaWYgKHBsYXQtPnBoeV9u
+b2RlKSB7Cj4+ICAgIAkJYnNwX3ByaXYtPmNsa19waHkgPSBvZl9jbGtfZ2V0KHBsYXQtPnBoeV9u
+b2RlLCAwKTsKPj4gICAgCQlyZXQgPSBQVFJfRVJSX09SX1pFUk8oYnNwX3ByaXYtPmNsa19waHkp
+Owo+PiAtCQlpZiAocmV0KQo+PiAtCQkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2LCByZXQsICJD
+YW5ub3QgZ2V0IFBIWSBjbG9ja1xuIik7Cj4+IC0JCWNsa19zZXRfcmF0ZShic3BfcHJpdi0+Y2xr
+X3BoeSwgNTAwMDAwMDApOwo+PiArCQkvKiBJZiBpdCBpcyBub3QgaW50ZWdyYXRlZF9waHksIGNs
+a19waHkgaXMgb3B0aW9uYWwgKi8KPj4gKwkJaWYgKGJzcF9wcml2LT5pbnRlZ3JhdGVkX3BoeSkg
+ewo+PiArCQkJaWYgKHJldCkKPj4gKwkJCQlyZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIHJldCwg
+IkNhbm5vdCBnZXQgUEhZIGNsb2NrXG4iKTsKPj4gKwkJCWNsa19zZXRfcmF0ZShic3BfcHJpdi0+
+Y2xrX3BoeSwgNTAwMDAwMDApOwo+PiArCQl9CgpJIHRoaW5rwqAgd2Ugc2hvdWxkIHNldCBic3Bf
+cHJpdi0+Y2xrX3BoeSB0byBOVUxMIGhlcmUgaWYgd2UgZmFpbGVkIHRvIGdldCB0aGUgY2xvY2su
+CgpDb3VsZCB5b3UgdHJ5IHRoaXMgb24geW91ciBib2FyZD8gVGhhbmsgeW91LgoKPj4gICAgCX0K
+Pj4gICAgCj4+ICAgIAlyZXR1cm4gMDsKPiBUaGUgYWJvdmUgY2hhbmdlIGxhY2tzIHRoZSBmb2xs
+b3dpbmcgY2hlY2sgaW5nbWFjX2Nsa19lbmFibGUoKTogaWYgKCFic3BfcHJpdi0+aW50ZWdyYXRl
+ZF9waHkpIHJldHVybiAwOwo+Cj4gT3RoZXJ3aXNlIGl0IGJsb3dzIG9uIG1hY2hpbmVzIHdpdGgg
+aW50ZWdyYXRlZCBQSFksIGxpa2UgSGFyZGtlcm5lbCdzIE9kcm9pZC1NMSAoUkszNTY4IGJhc2Vk
+KToKPgo+IHJrX2dtYWMtZHdtYWMgZmUyYTAwMDAuZXRoZXJuZXQ6IElSUSBldGhfbHBpIG5vdCBm
+b3VuZAo+IHJrX2dtYWMtZHdtYWMgZmUyYTAwMDAuZXRoZXJuZXQ6IElSUSBzZnR5IG5vdCBmb3Vu
+ZAo+IHJrX2dtYWMtZHdtYWMgZmUyYTAwMDAuZXRoZXJuZXQ6IGNsb2NrIGlucHV0IG9yIG91dHB1
+dD8gKG91dHB1dCkuCj4gcmtfZ21hYy1kd21hYyBmZTJhMDAwMC5ldGhlcm5ldDogVFggZGVsYXko
+MHg0ZikuCj4gcmtfZ21hYy1kd21hYyBmZTJhMDAwMC5ldGhlcm5ldDogUlggZGVsYXkoMHgyZCku
+Cj4gcmtfZ21hYy1kd21hYyBmZTJhMDAwMC5ldGhlcm5ldDogaW50ZWdyYXRlZCBQSFk/IChubyku
+Cj4gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgcGFnaW5nIHJlcXVlc3QgYXQgdmlydHVhbCBhZGRy
+ZXNzIGZmZmZmZmZmZmZmZmZmZmUKPiBNZW0gYWJvcnQgaW5mbzoKPiAgICAgRVNSID0gMHgwMDAw
+MDAwMDk2MDAwMDA2Cj4gICAgIEVDID0gMHgyNTogREFCVCAoY3VycmVudCBFTCksIElMID0gMzIg
+Yml0cwo+ICAgICBTRVQgPSAwLCBGblYgPSAwCj4gICAgIEVBID0gMCwgUzFQVFcgPSAwCj4gICAg
+IEZTQyA9IDB4MDY6IGxldmVsIDIgdHJhbnNsYXRpb24gZmF1bHQKPiBEYXRhIGFib3J0IGluZm86
+Cj4gICAgIElTViA9IDAsIElTUyA9IDB4MDAwMDAwMDYsIElTUzIgPSAweDAwMDAwMDAwCj4gICAg
+IENNID0gMCwgV25SID0gMCwgVG5EID0gMCwgVGFnQWNjZXNzID0gMAo+ICAgICBHQ1MgPSAwLCBP
+dmVybGF5ID0gMCwgRGlydHlCaXQgPSAwLCBYcyA9IDAKPiBzd2FwcGVyIHBndGFibGU6IDRrIHBh
+Z2VzLCA0OC1iaXQgVkFzLCBwZ2RwPTAwMDAwMDAwMDI0OWUwMDAKPiBbZmZmZmZmZmZmZmZmZmZm
+ZV0gcGdkPTAwMDAwMDAwMDAwMDAwMDAsIHA0ZD0wMDAwMDAwMDAzNzZmNDAzLCBwdWQ9MDAwMDAw
+MDAwMzc3MDQwMywgcG1kPTAwMDAwMDAwMDAwMDAwMDAKPiBJbnRlcm5hbCBlcnJvcjogT29wczog
+MDAwMDAwMDA5NjAwMDAwNiBbIzFdICBTTVAKPiBNb2R1bGVzIGxpbmtlZCBpbjogc25kX3NvY19y
+b2NrY2hpcF9pMnNfdGRtIHNuZF9zb2Nfcms4MTcgc25kX3NvY19jb3JlIHNuZF9jb21wcmVzcyBz
+bmRfcGNtX2RtYWVuZ2luZSByb2NrY2hpcF90aGVybWFsIHNuZF9wY20gZHdtYWNfcmsoKykgaGFu
+dHJvX3ZwdSByb2NrY2hpcF9zYXJhZGMgaW5kdXN0cmlhbGlvX3RyaWdnZXJlZF9idWZmZXIga2Zp
+Zm9fYnVmIHN0bW1hY19wbGF0Zm9ybSByb2NrY2hpcF9yZ2EgdjRsMl92cDkgc3RtbWFjIHNwaV9y
+b2NrY2hpcF9zZmMoKykgdjRsMl9oMjY0IHNuZF90aW1lciBwY3NfeHBjcyByb2NrY2hpcGRybSgr
+KSB2aWRlb2J1ZjJfZG1hX3NnIHY0bDJfanBlZyByazgwNV9wd3JrZXkgdjRsMl9tZW0ybWVtIHZp
+ZGVvYnVmMl9kbWFfY29udGlnIGR3X2hkbWlfcXAgcm9ja2NoaXBfZGZpIHJrODE3X2NoYXJnZXIg
+dmlkZW9idWYyX21lbW9wcyBhbmFsb2dpeF9kcCB2aWRlb2J1ZjJfdjRsMiBkd19taXBpX2RzaSBw
+YW5mcm9zdCBzbmQgcnRjX3JrODA4IGRybV9kcF9hdXhfYnVzIHZpZGVvZGV2IGRybV9zaG1lbV9o
+ZWxwZXIgc291bmRjb3JlIGR3X2hkbWkgdmlkZW9idWYyX2NvbW1vbiBkcm1fZGlzcGxheV9oZWxw
+ZXIgbWMgZ3B1X3NjaGVkIGFoY2lfZHdjIGlwdjYKPiBDUFU6IDMgVUlEOiAwIFBJRDogMTU0IENv
+bW06IHN5c3RlbWQtdWRldmQgTm90IHRhaW50ZWQgNi4xNy4wLXJjMSsgIzEwODc1IFBSRUVNUFQK
+PiBIYXJkd2FyZSBuYW1lOiBIYXJka2VybmVsIE9EUk9JRC1NMSAoRFQpCj4gcHN0YXRlOiA2MDQw
+MDAwOSAoblpDdiBkYWlmICtQQU4gLVVBTyAtVENPIC1ESVQgLVNTQlMgQlRZUEU9LS0pCj4gcGMg
+OiBjbGtfcHJlcGFyZSsweDE4LzB4NDQKPiBsciA6IGdtYWNfY2xrX2VuYWJsZSsweGY4LzB4MTg4
+IFtkd21hY19ya10KPiAuLgo+IENhbGwgdHJhY2U6Cj4gICAgY2xrX3ByZXBhcmUrMHgxOC8weDQ0
+IChQKQo+ICAgIGdtYWNfY2xrX2VuYWJsZSsweGY4LzB4MTg4IFtkd21hY19ya10KPiAgICBya19n
+bWFjX3Bvd2VydXArMHg0Yy8weDFmMCBbZHdtYWNfcmtdCj4gICAgcmtfZ21hY19wcm9iZSsweDNi
+NC8weDVjOCBbZHdtYWNfcmtdCj4gICAgcGxhdGZvcm1fcHJvYmUrMHg1Yy8weGFjCj4gICAgcmVh
+bGx5X3Byb2JlKzB4YmMvMHgyOTgKPiAgICBfX2RyaXZlcl9wcm9iZV9kZXZpY2UrMHg3OC8weDEy
+Ywo+ICAgIGRyaXZlcl9wcm9iZV9kZXZpY2UrMHg0MC8weDE2NAo+ICAgIF9fZHJpdmVyX2F0dGFj
+aCsweDljLzB4MWFjCj4gICAgYnVzX2Zvcl9lYWNoX2RldisweDc0LzB4ZDAKPiAgICBkcml2ZXJf
+YXR0YWNoKzB4MjQvMHgzMAo+ICAgIGJ1c19hZGRfZHJpdmVyKzB4ZTQvMHgyMDgKPiAgICBkcml2
+ZXJfcmVnaXN0ZXIrMHg2MC8weDEyOAo+ICAgIF9fcGxhdGZvcm1fZHJpdmVyX3JlZ2lzdGVyKzB4
+MjQvMHgzMAo+ICAgIHJrX2dtYWNfZHdtYWNfZHJpdmVyX2luaXQrMHgyMC8weDEwMDAgW2R3bWFj
+X3JrXQo+ICAgIGRvX29uZV9pbml0Y2FsbCsweDY0LzB4MzA4Cj4gICAgZG9faW5pdF9tb2R1bGUr
+MHg1OC8weDIzYwo+ICAgIGxvYWRfbW9kdWxlKzB4MWI0OC8weDFkYzQKPiAgICBpbml0X21vZHVs
+ZV9mcm9tX2ZpbGUrMHg4NC8weGM0Cj4gICAgaWRlbXBvdGVudF9pbml0X21vZHVsZSsweDE4OC8w
+eDI4MAo+ICAgIF9fYXJtNjRfc3lzX2Zpbml0X21vZHVsZSsweDY4LzB4YWMKPiAgICBpbnZva2Vf
+c3lzY2FsbCsweDQ4LzB4MTEwCj4gICAgZWwwX3N2Y19jb21tb24uY29uc3Rwcm9wLjArMHhjOC8w
+eGU4Cj4gICAgZG9fZWwwX3N2YysweDIwLzB4MmMKPiAgICBlbDBfc3ZjKzB4NGMvMHgxNjAKPiAg
+ICBlbDB0XzY0X3N5bmNfaGFuZGxlcisweGEwLzB4ZTQKPiAgICBlbDB0XzY0X3N5bmMrMHgxOTgv
+MHgxOWMKPiBDb2RlOiA5MTAwMDNmZCBmOTAwMGJmMyA1MjgwMDAxMyBiNDAwMDBlMCAoZjk0MDAw
+MTMpCj4gLS0tWyBlbmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBdLS0tCj4KPiBCZXN0IHJlZ2Fy
+ZHMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
