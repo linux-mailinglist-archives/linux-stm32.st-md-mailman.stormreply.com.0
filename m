@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69200B340BE
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 15:32:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3511BB340E4
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 15:38:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D030AC349C3;
-	Mon, 25 Aug 2025 13:32:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48899C3FAD7;
+	Mon, 25 Aug 2025 13:38:02 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B953C35E2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 923E6C349C3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 13:32:07 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57PDCIBW027573;
- Mon, 25 Aug 2025 15:31:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=selector1; bh=Eh5kA4z57YCWnp0H2BkHkl
- l7osoEmhb74s1I8zaGHUs=; b=eZxm3CD9MNInOp4ICb87YDtOpCMYWexIn8VCMT
- /ZygQI4qHnD3zrdegBsq1wANFc6nbRl5GQL3BBRm3PQTJj/hUMPfNLltj6438rLo
- K1kI2589taImdq0G5zeaaqdkRzSJdAvHn5OxkI0dM6H5aqJZ/hxbfBuQsk4Gk0q8
- L2IgcddKVkRR7bhZWEzlsch/J+gseA0zBq9nYXd6r4qqM54uEiP4fgPMU77Tnoh0
- Hrctmn7eLeEH7LiSk4zhw6Sdvbfb1AjdngUiZLjjWyVu3f5lSMjNbAiYzGSZ5Q37
- iijNCJB3dwnDMrXNqn1PdPftnEcQTNDzFEDOAt3qxNTTdoqg==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48q5xbektb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Aug 2025 15:31:49 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 9B65240044;
- Mon, 25 Aug 2025 15:30:35 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F1636C9827;
- Mon, 25 Aug 2025 15:30:02 +0200 (CEST)
-Received: from localhost (10.130.74.180) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 25 Aug
- 2025 15:30:02 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 25 Aug 2025 15:29:51 +0200
-Message-ID: <20250825132951.547899-1-raphael.gallais-pou@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 25 Aug 2025 13:38:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PVgYUvPT1vPM01I1nr9R+3H7BRFArSAfjzLQN6iJKvQ=; b=SCimNEDupFMkyQhB1L09lOvN6L
+ 2R2NcLUFXj3aX6q1C9zMzhUzbva/YBhfegk7MxjDN9oyQchc03Y+e3j+lu0irp5X2jaAcQNfcLzkw
+ 57qcs0A5jOaIq5wT7QANf9CQw6k4yxggPLKlR2yYU9Hywo3l9qD2g0f/WNHW+WeGYkILoDqzSx59i
+ 64jBpaJd1/A5X2fUoTAm8taxCXd+syedJ0xfiDBwokuWNqMVpiwgI0EQCCMmjCy8MeQ3DEWfab/9z
+ P/l3yoCWe6alpUfHXrf9VaRE17B1xFYZ0brzJFjmu3wKvk3yrOAqMNfujbdN1WPD7tVxWtSF8RFUT
+ iH3woFiQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53562)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1uqXOF-000000006XF-25Id;
+ Mon, 25 Aug 2025 14:37:39 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1uqXO9-0000000089m-0a0b; Mon, 25 Aug 2025 14:37:33 +0100
+Date: Mon, 25 Aug 2025 14:37:32 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <aKxnHFSrVeM7Be5A@shell.armlinux.org.uk>
+References: <20250815023515.114-1-kernel@airkyi.com>
+ <CGME20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93@eucas1p2.samsung.com>
+ <a30a8c97-6b96-45ba-bad7-8a40401babc2@samsung.com>
+ <d0fe6d16-181f-4b38-9457-1099fb6419d0@rock-chips.com>
+ <809848c9-2ffa-4743-adda-b8b714b404de@samsung.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.130.74.180]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-08-25_06,2025-08-20_03,2025-03-28_01
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2] drm/stm: ltdc: unify log system
+Content-Disposition: inline
+In-Reply-To: <809848c9-2ffa-4743-adda-b8b714b404de@samsung.com>
+Cc: Chaoyi Chen <kernel@airkyi.com>, linux-kernel@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: ethernet: stmmac:
+ dwmac-rk: Make the clk_phy could be used for external phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,495 +68,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DRM_ERROR and similar are deprecated.  Use drm_dev based logging.
+On Mon, Aug 25, 2025 at 12:53:37PM +0200, Marek Szyprowski wrote:
+> On 25.08.2025 11:57, Chaoyi Chen wrote:
+> > On 8/25/2025 3:23 PM, Marek Szyprowski wrote:
+> >> On 15.08.2025 04:35, Chaoyi Chen wrote:
+> >>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> >>>
+> >>> For external phy, clk_phy should be optional, and some external phy
+> >>> need the clock input from clk_phy. This patch adds support for setting
+> >>> clk_phy for external phy.
+> >>>
+> >>> Signed-off-by: David Wu <david.wu@rock-chips.com>
+> >>> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> >>> ---
+> >>>
+> >>> Changes in v3:
+> >>> - Link to V2: =
 
-Link: https://lore.kernel.org/r/20250821130356.883553-1-raphael.gallais-pou@foss.st.com
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
-Changes in v2:
-- Fix kernel test robot's warnings
-https://lore.kernel.org/all/202508250637.nLxtkS26-lkp@intel.com/
-- Rebased onto latest drm-misc-next
-- Remove Yannick's acked-by since the patch changed
----
- drivers/gpu/drm/stm/ltdc.c | 139 +++++++++++++++++++------------------
- 1 file changed, 70 insertions(+), 69 deletions(-)
+> >>> https://lore.kernel.org/netdev/20250812012127.197-1-kernel@airkyi.com/
+> >>> - Rebase to net-next/main
+> >>>
+> >>> Changes in v2:
+> >>> - Link to V1: =
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index ba315c66a04d..b9477fbec1c1 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -641,7 +641,7 @@ static inline void ltdc_set_ycbcr_config(struct drm_plane *plane, u32 drm_pix_fm
- 		break;
- 	default:
- 		/* RGB or not a YCbCr supported format */
--		DRM_ERROR("Unsupported pixel format: %u\n", drm_pix_fmt);
-+		drm_err(plane->dev, "Unsupported pixel format: %u\n", drm_pix_fmt);
- 		return;
- 	}
- 
-@@ -664,18 +664,19 @@ static inline void ltdc_set_ycbcr_coeffs(struct drm_plane *plane)
- 	u32 lofs = plane->index * LAY_OFS;
- 
- 	if (enc != DRM_COLOR_YCBCR_BT601 && enc != DRM_COLOR_YCBCR_BT709) {
--		DRM_ERROR("color encoding %d not supported, use bt601 by default\n", enc);
-+		drm_err(plane->dev, "color encoding %d not supported, use bt601 by default\n", enc);
- 		/* set by default color encoding to DRM_COLOR_YCBCR_BT601 */
- 		enc = DRM_COLOR_YCBCR_BT601;
- 	}
- 
- 	if (ran != DRM_COLOR_YCBCR_LIMITED_RANGE && ran != DRM_COLOR_YCBCR_FULL_RANGE) {
--		DRM_ERROR("color range %d not supported, use limited range by default\n", ran);
-+		drm_err(plane->dev,
-+			"color range %d not supported, use limited range by default\n", ran);
- 		/* set by default color range to DRM_COLOR_YCBCR_LIMITED_RANGE */
- 		ran = DRM_COLOR_YCBCR_LIMITED_RANGE;
- 	}
- 
--	DRM_DEBUG_DRIVER("Color encoding=%d, range=%d\n", enc, ran);
-+	drm_err(plane->dev, "Color encoding=%d, range=%d\n", enc, ran);
- 	regmap_write(ldev->regmap, LTDC_L1CYR0R + lofs,
- 		     ltdc_ycbcr2rgb_coeffs[enc][ran][0]);
- 	regmap_write(ldev->regmap, LTDC_L1CYR1R + lofs,
-@@ -774,7 +775,7 @@ static void ltdc_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
- 	struct drm_device *ddev = crtc->dev;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(crtc->dev, "\n");
- 
- 	pm_runtime_get_sync(ddev->dev);
- 
-@@ -798,7 +799,7 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc *crtc,
- 	struct drm_device *ddev = crtc->dev;
- 	int layer_index = 0;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(crtc->dev, "\n");
- 
- 	drm_crtc_vblank_off(crtc);
- 
-@@ -837,7 +838,7 @@ ltdc_crtc_mode_valid(struct drm_crtc *crtc,
- 
- 	result = clk_round_rate(ldev->pixel_clk, target);
- 
--	DRM_DEBUG_DRIVER("clk rate target %d, available %d\n", target, result);
-+	drm_dbg_driver(crtc->dev, "clk rate target %d, available %d\n", target, result);
- 
- 	/* Filter modes according to the max frequency supported by the pads */
- 	if (result > ldev->caps.pad_max_freq_hz)
-@@ -872,14 +873,14 @@ static bool ltdc_crtc_mode_fixup(struct drm_crtc *crtc,
- 	int rate = mode->clock * 1000;
- 
- 	if (clk_set_rate(ldev->pixel_clk, rate) < 0) {
--		DRM_ERROR("Cannot set rate (%dHz) for pixel clk\n", rate);
-+		drm_err(crtc->dev, "Cannot set rate (%dHz) for pixel clk\n", rate);
- 		return false;
- 	}
- 
- 	adjusted_mode->clock = clk_get_rate(ldev->pixel_clk) / 1000;
- 
--	DRM_DEBUG_DRIVER("requested clock %dkHz, adjusted clock %dkHz\n",
--			 mode->clock, adjusted_mode->clock);
-+	drm_dbg_driver(crtc->dev, "requested clock %dkHz, adjusted clock %dkHz\n",
-+		       mode->clock, adjusted_mode->clock);
- 
- 	return true;
- }
-@@ -934,20 +935,20 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 	if (!pm_runtime_active(ddev->dev)) {
- 		ret = pm_runtime_get_sync(ddev->dev);
- 		if (ret) {
--			DRM_ERROR("Failed to set mode, cannot get sync\n");
-+			drm_err(crtc->dev, "Failed to set mode, cannot get sync\n");
- 			return;
- 		}
- 	}
- 
--	DRM_DEBUG_DRIVER("CRTC:%d mode:%s\n", crtc->base.id, mode->name);
--	DRM_DEBUG_DRIVER("Video mode: %dx%d", mode->hdisplay, mode->vdisplay);
--	DRM_DEBUG_DRIVER(" hfp %d hbp %d hsl %d vfp %d vbp %d vsl %d\n",
--			 mode->hsync_start - mode->hdisplay,
--			 mode->htotal - mode->hsync_end,
--			 mode->hsync_end - mode->hsync_start,
--			 mode->vsync_start - mode->vdisplay,
--			 mode->vtotal - mode->vsync_end,
--			 mode->vsync_end - mode->vsync_start);
-+	drm_dbg_driver(crtc->dev, "CRTC:%d mode:%s\n", crtc->base.id, mode->name);
-+	drm_dbg_driver(crtc->dev, "Video mode: %dx%d", mode->hdisplay, mode->vdisplay);
-+	drm_dbg_driver(crtc->dev, " hfp %d hbp %d hsl %d vfp %d vbp %d vsl %d\n",
-+		       mode->hsync_start - mode->hdisplay,
-+		       mode->htotal - mode->hsync_end,
-+		       mode->hsync_end - mode->hsync_start,
-+		       mode->vsync_start - mode->vdisplay,
-+		       mode->vtotal - mode->vsync_end,
-+		       mode->vsync_end - mode->vsync_start);
- 
- 	/* Convert video timings to ltdc timings */
- 	hsync = mode->hsync_end - mode->hsync_start - 1;
-@@ -1033,7 +1034,7 @@ static void ltdc_crtc_atomic_flush(struct drm_crtc *crtc,
- 	struct drm_device *ddev = crtc->dev;
- 	struct drm_pending_vblank_event *event = crtc->state->event;
- 
--	DRM_DEBUG_ATOMIC("\n");
-+	drm_dbg_atomic(crtc->dev, "\n");
- 
- 	ltdc_crtc_update_clut(crtc);
- 
-@@ -1121,7 +1122,7 @@ static int ltdc_crtc_enable_vblank(struct drm_crtc *crtc)
- 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
- 	struct drm_crtc_state *state = crtc->state;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(crtc->dev, "\n");
- 
- 	if (state->enable)
- 		regmap_set_bits(ldev->regmap, LTDC_IER, IER_LIE);
-@@ -1135,7 +1136,7 @@ static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
- {
- 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(crtc->dev, "\n");
- 	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_LIE);
- }
- 
-@@ -1144,11 +1145,11 @@ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
- 	struct ltdc_device *ldev;
- 	int ret;
- 
--	DRM_DEBUG_DRIVER("\n");
--
- 	if (!crtc)
- 		return -ENODEV;
- 
-+	drm_dbg_driver(crtc->dev, "\n");
-+
- 	ldev = crtc_to_ltdc(crtc);
- 
- 	if (source && strcmp(source, "auto") == 0) {
-@@ -1168,14 +1169,14 @@ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
- static int ltdc_crtc_verify_crc_source(struct drm_crtc *crtc,
- 				       const char *source, size_t *values_cnt)
- {
--	DRM_DEBUG_DRIVER("\n");
--
- 	if (!crtc)
- 		return -ENODEV;
- 
-+	drm_dbg_driver(crtc->dev, "\n");
-+
- 	if (source && strcmp(source, "auto") != 0) {
--		DRM_DEBUG_DRIVER("Unknown CRC source %s for %s\n",
--				 source, crtc->name);
-+		drm_dbg_driver(crtc->dev, "Unknown CRC source %s for %s\n",
-+			       source, crtc->name);
- 		return -EINVAL;
- 	}
- 
-@@ -1233,7 +1234,7 @@ static int ltdc_plane_atomic_check(struct drm_plane *plane,
- 	struct drm_framebuffer *fb = new_plane_state->fb;
- 	u32 src_w, src_h;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(plane->dev, "\n");
- 
- 	if (!fb)
- 		return 0;
-@@ -1244,7 +1245,7 @@ static int ltdc_plane_atomic_check(struct drm_plane *plane,
- 
- 	/* Reject scaling */
- 	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
--		DRM_DEBUG_DRIVER("Scaling is not supported");
-+		drm_dbg_driver(plane->dev, "Scaling is not supported");
- 
- 		return -EINVAL;
- 	}
-@@ -1270,7 +1271,7 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
- 	enum ltdc_pix_fmt pf;
- 
- 	if (!newstate->crtc || !fb) {
--		DRM_DEBUG_DRIVER("fb or crtc NULL");
-+		drm_dbg_driver(plane->dev, "fb or crtc NULL");
- 		return;
- 	}
- 
-@@ -1280,11 +1281,11 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
- 	src_w = newstate->src_w >> 16;
- 	src_h = newstate->src_h >> 16;
- 
--	DRM_DEBUG_DRIVER("plane:%d fb:%d (%dx%d)@(%d,%d) -> (%dx%d)@(%d,%d)\n",
--			 plane->base.id, fb->base.id,
--			 src_w, src_h, src_x, src_y,
--			 newstate->crtc_w, newstate->crtc_h,
--			 newstate->crtc_x, newstate->crtc_y);
-+	drm_dbg_driver(plane->dev, "plane:%d fb:%d (%dx%d)@(%d,%d) -> (%dx%d)@(%d,%d)\n",
-+		       plane->base.id, fb->base.id,
-+		       src_w, src_h, src_x, src_y,
-+		       newstate->crtc_w, newstate->crtc_h,
-+		       newstate->crtc_x, newstate->crtc_y);
- 
- 	regmap_read(ldev->regmap, LTDC_BPCR, &bpcr);
- 
-@@ -1312,8 +1313,8 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
- 		val = ltdc_set_flexible_pixel_format(plane, pf);
- 
- 	if (val == NB_PF) {
--		DRM_ERROR("Pixel format %.4s not supported\n",
--			  (char *)&fb->format->format);
-+		drm_err(fb->dev, "Pixel format %.4s not supported\n",
-+			(char *)&fb->format->format);
- 		val = 0;	/* set by default ARGB 32 bits */
- 	}
- 	regmap_write_bits(ldev->regmap, LTDC_L1PFCR + lofs, LXPFCR_PF, val);
-@@ -1350,7 +1351,7 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
- 	if (newstate->rotation & DRM_MODE_REFLECT_Y)
- 		paddr += (fb->pitches[0] * (y1 - y0));
- 
--	DRM_DEBUG_DRIVER("fb: phys 0x%08x", paddr);
-+	drm_dbg_driver(fb->dev, "fb: phys 0x%08x", paddr);
- 	regmap_write(ldev->regmap, LTDC_L1CFBAR + lofs, paddr);
- 
- 	/* Configures the color frame buffer pitch in bytes & line length */
-@@ -1517,8 +1518,8 @@ static void ltdc_plane_atomic_disable(struct drm_plane *plane,
- 		regmap_write_bits(ldev->regmap, LTDC_L1RCR + lofs,
- 				  LXRCR_IMR | LXRCR_VBR | LXRCR_GRMSK, LXRCR_VBR);
- 
--	DRM_DEBUG_DRIVER("CRTC:%d plane:%d\n",
--			 oldstate->crtc->base.id, plane->base.id);
-+	drm_dbg_driver(plane->dev, "CRTC:%d plane:%d\n",
-+		       oldstate->crtc->base.id, plane->base.id);
- }
- 
- static void ltdc_plane_atomic_print_state(struct drm_printer *p,
-@@ -1632,7 +1633,7 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
- 
- 	drm_plane_create_alpha_property(plane);
- 
--	DRM_DEBUG_DRIVER("plane:%d created\n", plane->base.id);
-+	drm_dbg_driver(plane->dev, "plane:%d created\n", plane->base.id);
- 
- 	return plane;
- }
-@@ -1647,7 +1648,7 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
- 
- 	primary = ltdc_plane_create(ddev, DRM_PLANE_TYPE_PRIMARY, 0);
- 	if (!primary) {
--		DRM_ERROR("Can not create primary plane\n");
-+		drm_err(ddev, "Can not create primary plane\n");
- 		return -EINVAL;
- 	}
- 
-@@ -1668,7 +1669,7 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
- 		ret = drmm_crtc_init_with_planes(ddev, crtc, primary, NULL,
- 						 &ltdc_crtc_funcs, NULL);
- 	if (ret) {
--		DRM_ERROR("Can not initialize CRTC\n");
-+		drm_err(ddev, "Can not initialize CRTC\n");
- 		return ret;
- 	}
- 
-@@ -1677,13 +1678,13 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
- 	drm_mode_crtc_set_gamma_size(crtc, CLUT_SIZE);
- 	drm_crtc_enable_color_mgmt(crtc, 0, false, CLUT_SIZE);
- 
--	DRM_DEBUG_DRIVER("CRTC:%d created\n", crtc->base.id);
-+	drm_dbg_driver(ddev, "CRTC:%d created\n", crtc->base.id);
- 
- 	/* Add planes. Note : the first layer is used by primary plane */
- 	for (i = 1; i < ldev->caps.nb_layers; i++) {
- 		overlay = ltdc_plane_create(ddev, DRM_PLANE_TYPE_OVERLAY, i);
- 		if (!overlay) {
--			DRM_ERROR("Can not create overlay plane %d\n", i);
-+			drm_err(ddev, "Can not create overlay plane %d\n", i);
- 			return -ENOMEM;
- 		}
- 		if (ldev->caps.dynamic_zorder)
-@@ -1704,7 +1705,7 @@ static void ltdc_encoder_disable(struct drm_encoder *encoder)
- 	struct drm_device *ddev = encoder->dev;
- 	struct ltdc_device *ldev = ddev->dev_private;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(encoder->dev, "\n");
- 
- 	/* Disable LTDC */
- 	regmap_clear_bits(ldev->regmap, LTDC_GCR, GCR_LTDCEN);
-@@ -1718,7 +1719,7 @@ static void ltdc_encoder_enable(struct drm_encoder *encoder)
- 	struct drm_device *ddev = encoder->dev;
- 	struct ltdc_device *ldev = ddev->dev_private;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(encoder->dev, "\n");
- 
- 	/* set fifo underrun threshold register */
- 	if (ldev->caps.fifo_threshold)
-@@ -1734,7 +1735,7 @@ static void ltdc_encoder_mode_set(struct drm_encoder *encoder,
- {
- 	struct drm_device *ddev = encoder->dev;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(encoder->dev, "\n");
- 
- 	/*
- 	 * Set to default state the pinctrl only with DPI type.
-@@ -1770,7 +1771,7 @@ static int ltdc_encoder_init(struct drm_device *ddev, struct drm_bridge *bridge)
- 	if (ret)
- 		return ret;
- 
--	DRM_DEBUG_DRIVER("Bridge encoder:%d created\n", encoder->base.id);
-+	drm_dbg_driver(encoder->dev, "Bridge encoder:%d created\n", encoder->base.id);
- 
- 	return 0;
- }
-@@ -1870,7 +1871,7 @@ void ltdc_suspend(struct drm_device *ddev)
- {
- 	struct ltdc_device *ldev = ddev->dev_private;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(ddev, "\n");
- 	clk_disable_unprepare(ldev->pixel_clk);
- }
- 
-@@ -1879,11 +1880,11 @@ int ltdc_resume(struct drm_device *ddev)
- 	struct ltdc_device *ldev = ddev->dev_private;
- 	int ret;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(ddev, "\n");
- 
- 	ret = clk_prepare_enable(ldev->pixel_clk);
- 	if (ret) {
--		DRM_ERROR("failed to enable pixel clock (%d)\n", ret);
-+		drm_err(ddev, "failed to enable pixel clock (%d)\n", ret);
- 		return ret;
- 	}
- 
-@@ -1903,7 +1904,7 @@ int ltdc_load(struct drm_device *ddev)
- 	int irq, i, nb_endpoints;
- 	int ret = -ENODEV;
- 
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(ddev, "\n");
- 
- 	/* Get number of endpoints */
- 	nb_endpoints = of_graph_get_endpoint_count(np);
-@@ -1913,12 +1914,12 @@ int ltdc_load(struct drm_device *ddev)
- 	ldev->pixel_clk = devm_clk_get(dev, "lcd");
- 	if (IS_ERR(ldev->pixel_clk)) {
- 		if (PTR_ERR(ldev->pixel_clk) != -EPROBE_DEFER)
--			DRM_ERROR("Unable to get lcd clock\n");
-+			drm_err(ddev, "Unable to get lcd clock\n");
- 		return PTR_ERR(ldev->pixel_clk);
- 	}
- 
- 	if (clk_prepare_enable(ldev->pixel_clk)) {
--		DRM_ERROR("Unable to prepare pixel clock\n");
-+		drm_err(ddev, "Unable to prepare pixel clock\n");
- 		return -ENODEV;
- 	}
- 
-@@ -1939,7 +1940,7 @@ int ltdc_load(struct drm_device *ddev)
- 		if (panel) {
- 			bridge = drmm_panel_bridge_add(ddev, panel);
- 			if (IS_ERR(bridge)) {
--				DRM_ERROR("panel-bridge endpoint %d\n", i);
-+				drm_err(ddev, "panel-bridge endpoint %d\n", i);
- 				ret = PTR_ERR(bridge);
- 				goto err;
- 			}
-@@ -1949,7 +1950,7 @@ int ltdc_load(struct drm_device *ddev)
- 			ret = ltdc_encoder_init(ddev, bridge);
- 			if (ret) {
- 				if (ret != -EPROBE_DEFER)
--					DRM_ERROR("init encoder endpoint %d\n", i);
-+					drm_err(ddev, "init encoder endpoint %d\n", i);
- 				goto err;
- 			}
- 		}
-@@ -1967,29 +1968,29 @@ int ltdc_load(struct drm_device *ddev)
- 
- 	ldev->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(ldev->regs)) {
--		DRM_ERROR("Unable to get ltdc registers\n");
-+		drm_err(ddev, "Unable to get ltdc registers\n");
- 		ret = PTR_ERR(ldev->regs);
- 		goto err;
- 	}
- 
- 	ldev->regmap = devm_regmap_init_mmio(&pdev->dev, ldev->regs, &stm32_ltdc_regmap_cfg);
- 	if (IS_ERR(ldev->regmap)) {
--		DRM_ERROR("Unable to regmap ltdc registers\n");
-+		drm_err(ddev, "Unable to regmap ltdc registers\n");
- 		ret = PTR_ERR(ldev->regmap);
- 		goto err;
- 	}
- 
- 	ret = ltdc_get_caps(ddev);
- 	if (ret) {
--		DRM_ERROR("hardware identifier (0x%08x) not supported!\n",
--			  ldev->caps.hw_version);
-+		drm_err(ddev, "hardware identifier (0x%08x) not supported!\n",
-+			ldev->caps.hw_version);
- 		goto err;
- 	}
- 
- 	/* Disable all interrupts */
- 	regmap_clear_bits(ldev->regmap, LTDC_IER, IER_MASK);
- 
--	DRM_DEBUG_DRIVER("ltdc hw version 0x%08x\n", ldev->caps.hw_version);
-+	drm_dbg_driver(ddev, "ltdc hw version 0x%08x\n", ldev->caps.hw_version);
- 
- 	/* initialize default value for fifo underrun threshold & clear interrupt error counters */
- 	ldev->transfer_err = 0;
-@@ -2008,27 +2009,27 @@ int ltdc_load(struct drm_device *ddev)
- 						ltdc_irq_thread, IRQF_ONESHOT,
- 						dev_name(dev), ddev);
- 		if (ret) {
--			DRM_ERROR("Failed to register LTDC interrupt\n");
-+			drm_err(ddev, "Failed to register LTDC interrupt\n");
- 			goto err;
- 		}
- 	}
- 
- 	crtc = drmm_kzalloc(ddev, sizeof(*crtc), GFP_KERNEL);
- 	if (!crtc) {
--		DRM_ERROR("Failed to allocate crtc\n");
-+		drm_err(ddev, "Failed to allocate crtc\n");
- 		ret = -ENOMEM;
- 		goto err;
- 	}
- 
- 	ret = ltdc_crtc_init(ddev, crtc);
- 	if (ret) {
--		DRM_ERROR("Failed to init crtc\n");
-+		drm_err(ddev, "Failed to init crtc\n");
- 		goto err;
- 	}
- 
- 	ret = drm_vblank_init(ddev, NB_CRTC);
- 	if (ret) {
--		DRM_ERROR("Failed calling drm_vblank_init()\n");
-+		drm_err(ddev, "Failed calling drm_vblank_init()\n");
- 		goto err;
- 	}
- 
-@@ -2047,7 +2048,7 @@ int ltdc_load(struct drm_device *ddev)
- 
- void ltdc_unload(struct drm_device *ddev)
- {
--	DRM_DEBUG_DRIVER("\n");
-+	drm_dbg_driver(ddev, "\n");
- 
- 	pm_runtime_disable(ddev->dev);
- }
--- 
-2.25.1
+> >>> https://lore.kernel.org/netdev/20250806011405.115-1-kernel@airkyi.com/
+> >>> - Remove get clock frequency from DT prop
+> >>>
+> >>> =A0=A0 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 11 +++++++----
+> >>> =A0=A0 1 file changed, 7 insertions(+), 4 deletions(-)
+> >>>
+> >>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c =
 
+> >>> b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> >>> index ac8288301994..5d921e62c2f5 100644
+> >>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> >>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> >>> @@ -1412,12 +1412,15 @@ static int rk_gmac_clk_init(struct =
+
+> >>> plat_stmmacenet_data *plat)
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(plat->stmmac_clk, 5000000=
+0);
+> >>> =A0=A0=A0=A0=A0=A0 }
+> >>> =A0=A0 -=A0=A0=A0 if (plat->phy_node && bsp_priv->integrated_phy) {
+> >>> +=A0=A0=A0 if (plat->phy_node) {
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_priv->clk_phy =3D of_clk_get(plat-=
+>phy_node, 0);
+> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D PTR_ERR_OR_ZERO(bsp_priv->clk_=
+phy);
+> >>> -=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return dev_err_probe(dev, ret, "Ca=
+nnot get PHY clock\n");
+> >>> -=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(bsp_priv->clk_phy, 50000000);
+> >>> +=A0=A0=A0=A0=A0=A0=A0 /* If it is not integrated_phy, clk_phy is opt=
+ional */
+> >>> +=A0=A0=A0=A0=A0=A0=A0 if (bsp_priv->integrated_phy) {
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return dev_err_probe(d=
+ev, ret, "Cannot get PHY =
+
+> >>> clock\n");
+> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(bsp_priv->clk_phy, 50=
+000000);
+> >>> +=A0=A0=A0=A0=A0=A0=A0 }
+> >
+> > I think=A0 we should set bsp_priv->clk_phy to NULL here if we failed to =
+
+> > get the clock.
+> >
+> > Could you try this on your board? Thank you.
+> =
+
+> Right, the following change also fixes this issue:
+> =
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c =
+
+> b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 9fc41207cc45..2d19d48be01f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> @@ -1415,6 +1415,8 @@ static int rk_gmac_clk_init(struct =
+
+> plat_stmmacenet_data *plat)
+>  =A0=A0=A0=A0=A0=A0=A0 if (plat->phy_node) {
+>  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_priv->clk_phy =3D of_c=
+lk_get(plat->phy_node, 0);
+>  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D PTR_ERR_OR_ZERO(bs=
+p_priv->clk_phy);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_p=
+riv->clk_phy =3D NULL;
+
+Or just:
+
+		clk =3D of_clk_get(plat->phy_node, 0);
+		if (clk =3D=3D ERR_PTR(-EPROBE_DEFER))
+			...
+		else if (!IS_ERR)
+			bsp_priv->clk_phy =3D clk;
+
+I don't have a free terminal to work out what "..." should be.
+
+-- =
+
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
