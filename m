@@ -2,15 +2,15 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44267B34226
+	by mail.lfdr.de (Postfix) with ESMTPS id 34FC9B34225
 	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 15:54:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E3EC3FADB;
-	Mon, 25 Aug 2025 13:54:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E92D3C3FAD9;
+	Mon, 25 Aug 2025 13:54:34 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CB9BC3FADE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE9B7C3FAD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 25 Aug 2025 13:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
@@ -18,34 +18,34 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  t=1756130073; x=1787666073;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wKj/IhlPnM+gHvIFcJbZi5IDmy88qJ8AS8fWUotOmVY=;
- b=f1IfkI0UuFEjlepTePXZmrcxTYozZoAoPhSyJjANH0ftAqSLEN6HEh6p
- IWZ5Rd1zk9/ES8/Md05dul1huy6LWPp8+gzr00TfkKiXx0mY2n7ue2muw
- qzOYoh0b5KZK1dKXAqcZsb4yAbGCVkmxCPH3U048cuPDNblgVBe2zpE1n
- Ztw+oPeTFHQRJ4uDG1Ex0AVl3s+3DBXaDf0DX7nYXVUHsrCbITBO+fydU
- kGkR+2IIzhW/wPUjCf0PmMxnIZiI8ZI020P5RrOZES8oeNPoq76/Fue6Y
- LKJgwS8AC88bNKgsXAv++1qy5xvkN2op1yOv2Ql1qlGavpBSN67bdR3uo Q==;
-X-CSE-ConnectionGUID: iFmOCm+tSfeah9irJcTzKQ==
-X-CSE-MsgGUID: Ly+Jk+IqQ2yiN0xb47wZxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="68936909"
-X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="68936909"
+ bh=QuDzdgEbhe01RGcDa58j/iJHR5TXAvIxXXDXJUBmrxo=;
+ b=BvHsN92yQgRlFW7j/NFJoGx4rRTGmkL2psqx/0w4fzn4yhTuST9smqM/
+ c981uKUTILl4r8EjxODFzX7MEuY+kI8jLXT4No4YJNwW/Uw0T+g6+1tLM
+ R8FR1U3oYs4F3j0ljQXWAVV+hFGu7GMlJlOB3TsFWYujhcoJC7NAu58Pi
+ W8EUBG4o4ZRZ8bXEKCDgZQTamcvmKpkXftzb5VN2o4kffrf9zKnmkv7he
+ 1/g+A3aaTOE5GraWhpigNrT8LKo8vxo9Tjq8v7Cnv0jvglIcLGfSHindq
+ pvfcCAy81NZqXc+/EC/HMf58zTNWlsRHax46E8DCAOgs4Uwnl7vfMjB22 A==;
+X-CSE-ConnectionGUID: GrnTbMufSfm2REdlp3i1ww==
+X-CSE-MsgGUID: tnfKp5NtTgK1y//vR/Fetw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="68936884"
+X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="68936884"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2025 06:54:29 -0700
-X-CSE-ConnectionGUID: z1PklkAiTp6fPPgNC36t7Q==
-X-CSE-MsgGUID: uHlSmdVIQwqnM10bs2Uyzg==
+X-CSE-ConnectionGUID: GuTPFhU6QaK22cPQ2eEZXA==
+X-CSE-MsgGUID: 6lwKuP7jR/KEs0KwCNno2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="168547698"
+X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="168547699"
 Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
  ([10.245.245.7])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Aug 2025 06:54:25 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
- by kekkonen.fi.intel.com (Postfix) with ESMTP id E097F121F82;
+ by kekkonen.fi.intel.com (Postfix) with ESMTP id E44C5121F83;
  Mon, 25 Aug 2025 16:54:01 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
  (envelope-from <sakari.ailus@linux.intel.com>)
- id 1uqXe5-00000007POn-3gUu; Mon, 25 Aug 2025 16:54:01 +0300
+ id 1uqXe5-00000007POs-3m4x; Mon, 25 Aug 2025 16:54:01 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -103,8 +103,8 @@ To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
  =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>,
  David Laight <david.laight@aculab.com>, Jakob Hauser <jahau@rocketmail.com>
-Date: Mon, 25 Aug 2025 16:54:00 +0300
-Message-ID: <20250825135401.1765847-12-sakari.ailus@linux.intel.com>
+Date: Mon, 25 Aug 2025 16:54:01 +0300
+Message-ID: <20250825135401.1765847-13-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
 References: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
@@ -113,7 +113,7 @@ Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 11/12] iio: proximity: Remove redundant
+Subject: [Linux-stm32] [PATCH v3 12/12] iio: temperature: Remove redundant
 	pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -137,39 +137,49 @@ to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
 pm_runtime_mark_last_busy().
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Acked-by: Crt Mori <cmo@melexis.com>
 ---
- drivers/iio/proximity/pulsedlight-lidar-lite-v2.c | 1 -
- drivers/iio/proximity/srf04.c                     | 4 +---
- 2 files changed, 1 insertion(+), 4 deletions(-)
+ drivers/iio/temperature/mlx90614.c | 1 -
+ drivers/iio/temperature/mlx90632.c | 1 -
+ drivers/iio/temperature/mlx90635.c | 1 -
+ 3 files changed, 3 deletions(-)
 
-diff --git a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-index 01c013acfda2..21336b8f122a 100644
---- a/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-+++ b/drivers/iio/proximity/pulsedlight-lidar-lite-v2.c
-@@ -185,7 +185,6 @@ static int lidar_get_measurement(struct lidar_data *data, u16 *reg)
- 		}
- 		ret = -EIO;
+diff --git a/drivers/iio/temperature/mlx90614.c b/drivers/iio/temperature/mlx90614.c
+index 740018d4b3df..8a44a00bfd5e 100644
+--- a/drivers/iio/temperature/mlx90614.c
++++ b/drivers/iio/temperature/mlx90614.c
+@@ -225,7 +225,6 @@ static void mlx90614_power_put(struct mlx90614_data *data)
+ 	if (!data->wakeup_gpio)
+ 		return;
+ 
+-	pm_runtime_mark_last_busy(&data->client->dev);
+ 	pm_runtime_put_autosuspend(&data->client->dev);
+ }
+ #else
+diff --git a/drivers/iio/temperature/mlx90632.c b/drivers/iio/temperature/mlx90632.c
+index ae4ea587e7f9..bf689f6143f3 100644
+--- a/drivers/iio/temperature/mlx90632.c
++++ b/drivers/iio/temperature/mlx90632.c
+@@ -1043,7 +1043,6 @@ static int mlx90632_read_raw(struct iio_dev *indio_dev,
  	}
--	pm_runtime_mark_last_busy(&client->dev);
- 	pm_runtime_put_autosuspend(&client->dev);
  
+ mlx90632_read_raw_pm:
+-	pm_runtime_mark_last_busy(&data->client->dev);
+ 	pm_runtime_put_autosuspend(&data->client->dev);
  	return ret;
-diff --git a/drivers/iio/proximity/srf04.c b/drivers/iio/proximity/srf04.c
-index b059bac1078b..310467ce39e2 100644
---- a/drivers/iio/proximity/srf04.c
-+++ b/drivers/iio/proximity/srf04.c
-@@ -117,10 +117,8 @@ static int srf04_read(struct srf04_data *data)
- 	udelay(data->cfg->trigger_pulse_us);
- 	gpiod_set_value(data->gpiod_trig, 0);
+ }
+diff --git a/drivers/iio/temperature/mlx90635.c b/drivers/iio/temperature/mlx90635.c
+index 1175c7887ae1..d7d16a56f90b 100644
+--- a/drivers/iio/temperature/mlx90635.c
++++ b/drivers/iio/temperature/mlx90635.c
+@@ -749,7 +749,6 @@ static int mlx90635_read_raw(struct iio_dev *indio_dev,
+ 	}
  
--	if (data->gpiod_power) {
--		pm_runtime_mark_last_busy(data->dev);
-+	if (data->gpiod_power)
- 		pm_runtime_put_autosuspend(data->dev);
--	}
- 
- 	/* it should not take more than 20 ms until echo is rising */
- 	ret = wait_for_completion_killable_timeout(&data->rising, HZ/50);
+ mlx90635_read_raw_pm:
+-	pm_runtime_mark_last_busy(&data->client->dev);
+ 	pm_runtime_put_autosuspend(&data->client->dev);
+ 	return ret;
+ }
 -- 
 2.47.2
 
