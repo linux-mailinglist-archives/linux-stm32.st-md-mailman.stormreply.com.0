@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E89A0B339BF
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 10:44:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1119AB339C0
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 10:44:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 393A8C36B2A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58488C3FAD7;
 	Mon, 25 Aug 2025 08:44:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D1AEC36B29
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0A22C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 08:40:47 +0000 (UTC)
+ Mon, 25 Aug 2025 08:41:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 34199601F4;
- Mon, 25 Aug 2025 08:40:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A433C4CEED;
- Mon, 25 Aug 2025 08:40:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6760444B9A;
+ Mon, 25 Aug 2025 08:41:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7064FC4CEF1;
+ Mon, 25 Aug 2025 08:41:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756111245;
- bh=aL0MAVPP+baLaUpSwr0jfz0k4rjTubYNQV6vSJB6OP8=;
+ s=k20201202; t=1756111270;
+ bh=YvGhFydXbrmE9yimRweNKCZChGzfZ1CATQpB6bIekEY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FhTSsXLtwO6EYA8rIZFKJgEf1O0j/6AFVpaIb7+0szOlxeqEkxITba+wS9KfZ+kjH
- dJ4D0usUwHPH2GWzU3dXYRelvBK6F/Z+h883XsJq3lJG4gwBDPoq7M/8L4HEjQ78Vz
- uw/bRo0VNtHxfdkgkl90Rnhxn0zOB4RalzhxYxbJGexY8w9QaG1wwgcVo4YigkvXdQ
- HQavQb3MOaV1ehg5AV6v7VNw85VJa0JTCzNxPuL1pTIJOwcfLGwF2EeUKXrxIt0vRt
- UCzCy8PTNnoYCOQUG/lUyh80qq0nQtE3jstm5jDssnnjYRZ8hsuFayTUr3+h+B+cyD
- ob0l8lzfNS6fA==
-Date: Mon, 25 Aug 2025 16:40:43 +0800
+ b=kOMZ2uUVb/0wo3syOidoV1f0HRnUy2RJHSLMdGqk7yLVCovHqwhjwaAlh5RRjGhHZ
+ vntVwdIrQaIPc6RHyWqxDvKuJf4yALVzvwSkz6MQRZOCjYqhY5PmaPIKYrOPpB1p8u
+ ZQQcgaSOLbnXSBweKyIJlNLbQ4eko+2s1j1Kyd2DdcthL3uR+6Q+zm9V6VZoqVXEwk
+ YjSDNkhA9rZ9AoJyJlfQ5AVgcfN/tGkd589lOdTPjxZRJZFSYBmnMyeGFXPtEjvyYF
+ AaBOk5ZqAGeb9e0X69QoM8YFdfSFRB83tOPM4vDNmgfhRwb0C+7Wd6fILQWTsgyp8c
+ FHQseDkSJrtGw==
+Date: Mon, 25 Aug 2025 16:41:07 +0800
 From: Yixun Lan <dlan@kernel.org>
 To: bmasney@redhat.com
-Message-ID: <20250825084043-GYA1096417@kernel.org>
+Message-ID: <20250825084107-GYB1096417@kernel.org>
 References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
- <20250811-clk-for-stephen-round-rate-v1-49-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-50-b3bf97b038dc@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-49-b3bf97b038dc@redhat.com>
+In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-50-b3bf97b038dc@redhat.com>
 X-Mailman-Approved-At: Mon, 25 Aug 2025 08:44:17 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -95,7 +95,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
  Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
  patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
  linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 049/114] clk: spacemit: ccu_ddn: convert
+Subject: Re: [Linux-stm32] [PATCH 050/114] clk: spacemit: ccu_mix: convert
  from round_rate() to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -115,12 +115,6 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Brian,
 
-  Thanks for doing this
-
-  I will give my rb to 49-51 for SpacemiT, and here we face same
-issue as Krzysztof did for samsung, to avoid potential conflicts
-we will route the clk patches through SpacemiT SoC tree..
-
 On 11:18 Mon 11 Aug     , Brian Masney via B4 Relay wrote:
 > From: Brian Masney <bmasney@redhat.com>
 > 
@@ -131,42 +125,47 @@ On 11:18 Mon 11 Aug     , Brian Masney via B4 Relay wrote:
 > Signed-off-by: Brian Masney <bmasney@redhat.com>
 
 Reviewed-by: Yixun Lan <dlan@kernel.org>
-
 > ---
->  drivers/clk/spacemit/ccu_ddn.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
+>  drivers/clk/spacemit/ccu_mix.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/clk/spacemit/ccu_ddn.c b/drivers/clk/spacemit/ccu_ddn.c
-> index be311b045698e95a688a35858a8ac1bcfbffd2c7..02b68ea84db9bd3ecdde41f8013c48263edbd917 100644
-> --- a/drivers/clk/spacemit/ccu_ddn.c
-> +++ b/drivers/clk/spacemit/ccu_ddn.c
-> @@ -39,13 +39,16 @@ static unsigned long ccu_ddn_calc_best_rate(struct ccu_ddn *ddn,
->  	return ccu_ddn_calc_rate(prate, *num, *den);
+> diff --git a/drivers/clk/spacemit/ccu_mix.c b/drivers/clk/spacemit/ccu_mix.c
+> index 9b852aa61f78aed5256bfe6fc3b01932d6db6256..7b7990875372314dce131295af7f40267d0a127a 100644
+> --- a/drivers/clk/spacemit/ccu_mix.c
+> +++ b/drivers/clk/spacemit/ccu_mix.c
+> @@ -80,10 +80,12 @@ static int ccu_mix_trigger_fc(struct clk_hw *hw)
+>  					       MIX_FC_TIMEOUT_US);
 >  }
 >  
-> -static long ccu_ddn_round_rate(struct clk_hw *hw, unsigned long rate,
-> -			       unsigned long *prate)
-> +static int ccu_ddn_determine_rate(struct clk_hw *hw,
-> +				  struct clk_rate_request *req)
+> -static long ccu_factor_round_rate(struct clk_hw *hw, unsigned long rate,
+> -				  unsigned long *prate)
+> +static int ccu_factor_determine_rate(struct clk_hw *hw,
+> +				     struct clk_rate_request *req)
 >  {
->  	struct ccu_ddn *ddn = hw_to_ccu_ddn(hw);
->  	unsigned long num, den;
->  
-> -	return ccu_ddn_calc_best_rate(ddn, rate, *prate, &num, &den);
-> +	req->rate = ccu_ddn_calc_best_rate(ddn, req->rate,
-> +					   req->best_parent_rate, &num, &den);
+> -	return ccu_factor_recalc_rate(hw, *prate);
+> +	req->rate = ccu_factor_recalc_rate(hw, req->best_parent_rate);
 > +
 > +	return 0;
 >  }
 >  
->  static unsigned long ccu_ddn_recalc_rate(struct clk_hw *hw, unsigned long prate)
-> @@ -78,6 +81,6 @@ static int ccu_ddn_set_rate(struct clk_hw *hw, unsigned long rate,
+>  static int ccu_factor_set_rate(struct clk_hw *hw, unsigned long rate,
+> @@ -198,7 +200,7 @@ const struct clk_ops spacemit_ccu_gate_ops = {
+>  };
 >  
->  const struct clk_ops spacemit_ccu_ddn_ops = {
->  	.recalc_rate	= ccu_ddn_recalc_rate,
-> -	.round_rate	= ccu_ddn_round_rate,
-> +	.determine_rate = ccu_ddn_determine_rate,
->  	.set_rate	= ccu_ddn_set_rate,
+>  const struct clk_ops spacemit_ccu_factor_ops = {
+> -	.round_rate	= ccu_factor_round_rate,
+> +	.determine_rate = ccu_factor_determine_rate,
+>  	.recalc_rate	= ccu_factor_recalc_rate,
+>  	.set_rate	= ccu_factor_set_rate,
+>  };
+> @@ -220,7 +222,7 @@ const struct clk_ops spacemit_ccu_factor_gate_ops = {
+>  	.enable		= ccu_gate_enable,
+>  	.is_enabled	= ccu_gate_is_enabled,
+>  
+> -	.round_rate	= ccu_factor_round_rate,
+> +	.determine_rate = ccu_factor_determine_rate,
+>  	.recalc_rate	= ccu_factor_recalc_rate,
+>  	.set_rate	= ccu_factor_set_rate,
 >  };
 > 
 > -- 
