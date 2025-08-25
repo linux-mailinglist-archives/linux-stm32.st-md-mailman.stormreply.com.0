@@ -2,86 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70ECDB33930
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 10:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D69CB338F4
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 10:32:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D156C36B29;
-	Mon, 25 Aug 2025 08:34:32 +0000 (UTC)
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31810C36B29;
+	Mon, 25 Aug 2025 08:32:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51721C36B1F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A333AC36B1F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 08:34:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1756110820; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=LFAtsntCOuSlbC+Yj5ZRCjRMHvHoYaewb+xttNTjyBEp1wUg4UVp7R9azPmNo+krE244LrfthV97cO1frpohR4C5Od72zy01di5drl9CB3vfzZOvOjbTGo3Q5kLzG2GMAq1JUVl/mbxuvbXzyusKN1x/fEbPc1PrChn6tUSYf+4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1756110820;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ro4CYktrHjQl1zV/xi0GQHqJQjcL5YX/tkQEHL0EB80=; 
- b=Vb8Pt7K/T7ggbw/08L/o7pBGNkglyJ1EJhn1b8HlmdV+/CSe7wibT9+jGWu8CJ3Hq3Maq7LxMWjMUC2j09HwXngFK9tznb6N1mctDSHKnCaFFznjdyog4rklKmIaNtMU72AQgAPA6pTPUU9+LMVl+hkpwu1DRsJLcYHGIKFMsV0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1756110820; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=ro4CYktrHjQl1zV/xi0GQHqJQjcL5YX/tkQEHL0EB80=;
- b=hXsl/tA1XRD+QYp28O5qCK9TTJ1fNcNTZEdyncy9TtuJ03KWzrre2jCqBrKw7Kvp
- D5tHb/iboM5G5FghUjkAoXWd9OFAHgL7asfERYA9DVwE96op7O1bwW+T+6FM+zr/Ljn
- xhJqO6+WyaCfhICwj2n6N0LWq+rHhUtrPfp27igk=
-Received: by mx.zohomail.com with SMTPS id 1756110819128320.62627416678515;
- Mon, 25 Aug 2025 01:33:39 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 25 Aug 2025 10:28:40 +0200
+ Mon, 25 Aug 2025 08:32:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 639504324A;
+ Mon, 25 Aug 2025 08:32:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833F4C4CEED;
+ Mon, 25 Aug 2025 08:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756110726;
+ bh=YtLquqnrZFkL+9TrwMrCafRYQgPgCKY67KeGNrtiSPY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=rp2A+/RyJolPR8cWUJlVT1SQ5O2QvNnnBaXZpgc497a4bqRfsfnGKyxRWXVaF2z5h
+ sKfZZFcYCUiY1AQue7/udSAtjsA/YV9MuvSmc2Xod0WF/RKgS8xp/cCXZIZaMvwsTJ
+ iPder646D5Cpcm/lqe30SdiEAH+3vnj2lUa2bfUNCs+B7Qibul7iawHSm3czGpw/7D
+ NnMxGWMXaCUgA0HQ/wgLNUlN/ceKbTio9Ox8LCT0jiH3txBkvCUIzbH8i5Uol8oYhK
+ qr1wlTV4h0/W/maZJdovsHVQSIYrNd3cnXuRq3tKN0qPoP2Zd9uUbkFkU9lTYAcuWb
+ tBQTB0fVzNq0g==
+Date: Mon, 25 Aug 2025 09:31:50 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Dixit Parmar <dixitparmar19@gmail.com>
+Message-ID: <20250825093150.3ba23f2a@jic23-huawei>
+In-Reply-To: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
+References: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Message-Id: <20250825-byeword-update-v3-20-947b841cdb29@collabora.com>
-References: <20250825-byeword-update-v3-0-947b841cdb29@collabora.com>
-In-Reply-To: <20250825-byeword-update-v3-0-947b841cdb29@collabora.com>
-To: Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jaehoon Chung <jh80.chung@samsung.com>, 
- Ulf Hansson <ulf.hansson@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
- Shreeya Patel <shreeya.patel@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
- MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Qin Jian <qinjian@cqplus1.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-X-Mailer: b4 0.14.2
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 20/20] phy: rockchip-pcie: switch to
- FIELD_PREP_WM16 macro
+Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ David Lechner <dlechner@baylibre.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-samsung-soc@vger.kernel.org,
+ Cai Huoqing <cai.huoqing@linux.dev>, Andreas Klinger <ak@it-klinger.de>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/10] iio: Drop unnecessary -ENOMEM
+	messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,181 +69,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The era of hand-rolled HIWORD_UPDATE macros is over, at least for those
-drivers that use constant masks.
+On Fri, 22 Aug 2025 09:19:48 +0530
+Dixit Parmar <dixitparmar19@gmail.com> wrote:
 
-The Rockchip PCIe PHY driver, used on the RK3399, has its own definition
-of HIWORD_UPDATE.
+> The drivers do not require their own error messages for error
+> -ENOMEM, memory allocation failures. So remove the dev_err
+> messages from the probe().
+> With these patches, all the iio drivers now has uniform handling
+> of the -ENOMEM while device_allocation and trigger_allocation
+> calls.
+> 
+> Signed-off-by: Dixit Parmar <dixitparmar19@gmail.com>
+Series looks fine to me, after the minor tweaks to commit messages
+that Andy requested.  However as it touches a lot of drivers
+I'd like to leave it on list a little longer.
 
-Remove it, and replace instances of it with hw_bitfield.h's
-FIELD_PREP_WM16. To achieve this, some mask defines are reshuffled, as
-FIELD_PREP_WM16 uses the mask as both the mask of bits to write and to
-derive the shift amount from in order to shift the value.
+Thanks,
 
-In order to ensure that the mask is always a constant, the inst->index
-shift is performed after the FIELD_PREP_WM16, as this is a runtime
-value.
+Jonathan
 
-From this, we gain compile-time error checking, and in my humble opinion
-nicer code, as well as a single definition of this macro across the
-entire codebase to aid in code comprehension.
-
-Tested on a RK3399 ROCKPro64, where PCIe still works as expected when
-accessing an NVMe drive.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/phy/rockchip/phy-rockchip-pcie.c | 70 +++++++++-----------------------
- 1 file changed, 20 insertions(+), 50 deletions(-)
-
-diff --git a/drivers/phy/rockchip/phy-rockchip-pcie.c b/drivers/phy/rockchip/phy-rockchip-pcie.c
-index 4e2dfd01adf2ff09da5129579171e6ac44ca89e5..126306c014546d3f4d8c630c1eed6d339c49800b 100644
---- a/drivers/phy/rockchip/phy-rockchip-pcie.c
-+++ b/drivers/phy/rockchip/phy-rockchip-pcie.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/io.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-@@ -18,22 +19,13 @@
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
--/*
-- * The higher 16-bit of this register is used for write protection
-- * only if BIT(x + 16) set to 1 the BIT(x) can be written.
-- */
--#define HIWORD_UPDATE(val, mask, shift) \
--		((val) << (shift) | (mask) << ((shift) + 16))
- 
- #define PHY_MAX_LANE_NUM      4
--#define PHY_CFG_DATA_SHIFT    7
--#define PHY_CFG_ADDR_SHIFT    1
--#define PHY_CFG_DATA_MASK     0xf
--#define PHY_CFG_ADDR_MASK     0x3f
-+#define PHY_CFG_DATA_MASK     GENMASK(10, 7)
-+#define PHY_CFG_ADDR_MASK     GENMASK(6, 1)
- #define PHY_CFG_WR_ENABLE     1
- #define PHY_CFG_WR_DISABLE    0
--#define PHY_CFG_WR_SHIFT      0
--#define PHY_CFG_WR_MASK       1
-+#define PHY_CFG_WR_MASK       BIT(0)
- #define PHY_CFG_PLL_LOCK      0x10
- #define PHY_CFG_CLK_TEST      0x10
- #define PHY_CFG_CLK_SCC       0x12
-@@ -48,11 +40,7 @@
- #define PHY_LANE_RX_DET_SHIFT 11
- #define PHY_LANE_RX_DET_TH    0x1
- #define PHY_LANE_IDLE_OFF     0x1
--#define PHY_LANE_IDLE_MASK    0x1
--#define PHY_LANE_IDLE_A_SHIFT 3
--#define PHY_LANE_IDLE_B_SHIFT 4
--#define PHY_LANE_IDLE_C_SHIFT 5
--#define PHY_LANE_IDLE_D_SHIFT 6
-+#define PHY_LANE_IDLE_MASK    BIT(3)
- 
- struct rockchip_pcie_data {
- 	unsigned int pcie_conf;
-@@ -99,22 +87,14 @@ static inline void phy_wr_cfg(struct rockchip_pcie_phy *rk_phy,
- 			      u32 addr, u32 data)
- {
- 	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_conf,
--		     HIWORD_UPDATE(data,
--				   PHY_CFG_DATA_MASK,
--				   PHY_CFG_DATA_SHIFT) |
--		     HIWORD_UPDATE(addr,
--				   PHY_CFG_ADDR_MASK,
--				   PHY_CFG_ADDR_SHIFT));
-+		     FIELD_PREP_WM16(PHY_CFG_DATA_MASK, data) |
-+		     FIELD_PREP_WM16(PHY_CFG_ADDR_MASK, addr));
- 	udelay(1);
- 	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_conf,
--		     HIWORD_UPDATE(PHY_CFG_WR_ENABLE,
--				   PHY_CFG_WR_MASK,
--				   PHY_CFG_WR_SHIFT));
-+		     FIELD_PREP_WM16(PHY_CFG_WR_MASK, PHY_CFG_WR_ENABLE));
- 	udelay(1);
- 	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_conf,
--		     HIWORD_UPDATE(PHY_CFG_WR_DISABLE,
--				   PHY_CFG_WR_MASK,
--				   PHY_CFG_WR_SHIFT));
-+		     FIELD_PREP_WM16(PHY_CFG_WR_MASK, PHY_CFG_WR_DISABLE));
- }
- 
- static int rockchip_pcie_phy_power_off(struct phy *phy)
-@@ -125,11 +105,9 @@ static int rockchip_pcie_phy_power_off(struct phy *phy)
- 
- 	guard(mutex)(&rk_phy->pcie_mutex);
- 
--	regmap_write(rk_phy->reg_base,
--		     rk_phy->phy_data->pcie_laneoff,
--		     HIWORD_UPDATE(PHY_LANE_IDLE_OFF,
--				   PHY_LANE_IDLE_MASK,
--				   PHY_LANE_IDLE_A_SHIFT + inst->index));
-+	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_laneoff,
-+		     FIELD_PREP_WM16(PHY_LANE_IDLE_MASK,
-+				     PHY_LANE_IDLE_OFF) << inst->index);
- 
- 	if (--rk_phy->pwr_cnt) {
- 		return 0;
-@@ -139,11 +117,9 @@ static int rockchip_pcie_phy_power_off(struct phy *phy)
- 	if (err) {
- 		dev_err(&phy->dev, "assert phy_rst err %d\n", err);
- 		rk_phy->pwr_cnt++;
--		regmap_write(rk_phy->reg_base,
--			     rk_phy->phy_data->pcie_laneoff,
--			     HIWORD_UPDATE(!PHY_LANE_IDLE_OFF,
--					   PHY_LANE_IDLE_MASK,
--					   PHY_LANE_IDLE_A_SHIFT + inst->index));
-+		regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_laneoff,
-+			     FIELD_PREP_WM16(PHY_LANE_IDLE_MASK,
-+					     !PHY_LANE_IDLE_OFF) << inst->index);
- 		return err;
- 	}
- 
-@@ -159,11 +135,9 @@ static int rockchip_pcie_phy_power_on(struct phy *phy)
- 
- 	guard(mutex)(&rk_phy->pcie_mutex);
- 
--	regmap_write(rk_phy->reg_base,
--		     rk_phy->phy_data->pcie_laneoff,
--		     HIWORD_UPDATE(!PHY_LANE_IDLE_OFF,
--				   PHY_LANE_IDLE_MASK,
--				   PHY_LANE_IDLE_A_SHIFT + inst->index));
-+	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_laneoff,
-+		     FIELD_PREP_WM16(PHY_LANE_IDLE_MASK,
-+				     !PHY_LANE_IDLE_OFF) << inst->index);
- 
- 	if (rk_phy->pwr_cnt++) {
- 		return 0;
-@@ -177,9 +151,7 @@ static int rockchip_pcie_phy_power_on(struct phy *phy)
- 	}
- 
- 	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_conf,
--		     HIWORD_UPDATE(PHY_CFG_PLL_LOCK,
--				   PHY_CFG_ADDR_MASK,
--				   PHY_CFG_ADDR_SHIFT));
-+		     FIELD_PREP_WM16(PHY_CFG_ADDR_MASK, PHY_CFG_PLL_LOCK));
- 
- 	/*
- 	 * No documented timeout value for phy operation below,
-@@ -210,9 +182,7 @@ static int rockchip_pcie_phy_power_on(struct phy *phy)
- 	}
- 
- 	regmap_write(rk_phy->reg_base, rk_phy->phy_data->pcie_conf,
--		     HIWORD_UPDATE(PHY_CFG_PLL_LOCK,
--				   PHY_CFG_ADDR_MASK,
--				   PHY_CFG_ADDR_SHIFT));
-+		     FIELD_PREP_WM16(PHY_CFG_ADDR_MASK, PHY_CFG_PLL_LOCK));
- 
- 	err = regmap_read_poll_timeout(rk_phy->reg_base,
- 				       rk_phy->phy_data->pcie_status,
-
--- 
-2.51.0
+> ---
+> Dixit Parmar (10):
+>       iio: accel: Drop unnecessary -ENOMEM messages
+>       iio: adc: Drop unnecessary -ENOMEM messages
+>       iio: dac: Drop unnecessary -ENOMEM messages
+>       iio: health: Drop unnecessary -ENOMEM messages
+>       iio: humidity: Drop unnecessary -ENOMEM messages
+>       iio: light: Drop unnecessary -ENOMEM messages
+>       iio: potentiostat: Drop unnecessary -ENOMEM messages
+>       iio: pressure: Drop unnecessary -ENOMEM messages
+>       iio: proximity: Drop unnecessary -ENOMEM messages
+>       iio: temperature: Drop unnecessary -ENOMEM messages
+> 
+>  drivers/iio/accel/bma220_spi.c      | 4 +---
+>  drivers/iio/accel/dmard06.c         | 4 +---
+>  drivers/iio/accel/dmard09.c         | 4 +---
+>  drivers/iio/accel/dmard10.c         | 4 +---
+>  drivers/iio/accel/mc3230.c          | 4 +---
+>  drivers/iio/accel/mma7660.c         | 4 +---
+>  drivers/iio/accel/stk8312.c         | 4 +---
+>  drivers/iio/accel/stk8ba50.c        | 4 +---
+>  drivers/iio/adc/ad7949.c            | 4 +---
+>  drivers/iio/adc/bcm_iproc_adc.c     | 4 +---
+>  drivers/iio/adc/cpcap-adc.c         | 6 ++----
+>  drivers/iio/adc/da9150-gpadc.c      | 5 ++---
+>  drivers/iio/adc/dln2-adc.c          | 9 +++------
+>  drivers/iio/adc/exynos_adc.c        | 4 +---
+>  drivers/iio/adc/imx7d_adc.c         | 4 +---
+>  drivers/iio/adc/imx8qxp-adc.c       | 4 +---
+>  drivers/iio/adc/mxs-lradc-adc.c     | 4 +---
+>  drivers/iio/adc/palmas_gpadc.c      | 4 +---
+>  drivers/iio/adc/rn5t618-adc.c       | 4 +---
+>  drivers/iio/adc/stm32-dfsdm-adc.c   | 4 +---
+>  drivers/iio/adc/stmpe-adc.c         | 4 +---
+>  drivers/iio/adc/ti-adc084s021.c     | 4 +---
+>  drivers/iio/adc/ti-ads131e08.c      | 8 ++------
+>  drivers/iio/adc/ti_am335x_adc.c     | 5 ++---
+>  drivers/iio/adc/twl4030-madc.c      | 4 +---
+>  drivers/iio/adc/viperboard_adc.c    | 4 +---
+>  drivers/iio/dac/ad5380.c            | 4 +---
+>  drivers/iio/dac/ad5764.c            | 4 +---
+>  drivers/iio/dac/ds4424.c            | 4 +---
+>  drivers/iio/dac/ti-dac7311.c        | 4 +---
+>  drivers/iio/dac/vf610_dac.c         | 4 +---
+>  drivers/iio/health/afe4403.c        | 4 +---
+>  drivers/iio/health/afe4404.c        | 4 +---
+>  drivers/iio/humidity/am2315.c       | 4 +---
+>  drivers/iio/humidity/dht11.c        | 4 +---
+>  drivers/iio/light/stk3310.c         | 4 +---
+>  drivers/iio/potentiostat/lmp91000.c | 4 +---
+>  drivers/iio/pressure/dlhl60d.c      | 4 +---
+>  drivers/iio/proximity/ping.c        | 4 +---
+>  drivers/iio/proximity/srf04.c       | 4 +---
+>  drivers/iio/temperature/mlx90632.c  | 4 +---
+>  41 files changed, 47 insertions(+), 130 deletions(-)
+> ---
+> base-commit: d7b8f8e20813f0179d8ef519541a3527e7661d3a
+> change-id: 20250822-enomam_logs-f66642957fb3
+> 
+> Best regards,
 
 _______________________________________________
 Linux-stm32 mailing list
