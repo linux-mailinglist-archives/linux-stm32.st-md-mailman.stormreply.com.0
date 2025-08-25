@@ -2,61 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3511BB340E4
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 15:38:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 183D0B34218
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 15:54:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48899C3FAD7;
-	Mon, 25 Aug 2025 13:38:02 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCB35C3FADD;
+	Mon, 25 Aug 2025 13:54:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 923E6C349C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0AF3C3FAD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 13:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PVgYUvPT1vPM01I1nr9R+3H7BRFArSAfjzLQN6iJKvQ=; b=SCimNEDupFMkyQhB1L09lOvN6L
- 2R2NcLUFXj3aX6q1C9zMzhUzbva/YBhfegk7MxjDN9oyQchc03Y+e3j+lu0irp5X2jaAcQNfcLzkw
- 57qcs0A5jOaIq5wT7QANf9CQw6k4yxggPLKlR2yYU9Hywo3l9qD2g0f/WNHW+WeGYkILoDqzSx59i
- 64jBpaJd1/A5X2fUoTAm8taxCXd+syedJ0xfiDBwokuWNqMVpiwgI0EQCCMmjCy8MeQ3DEWfab/9z
- P/l3yoCWe6alpUfHXrf9VaRE17B1xFYZ0brzJFjmu3wKvk3yrOAqMNfujbdN1WPD7tVxWtSF8RFUT
- iH3woFiQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53562)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1uqXOF-000000006XF-25Id;
- Mon, 25 Aug 2025 14:37:39 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1uqXO9-0000000089m-0a0b; Mon, 25 Aug 2025 14:37:33 +0100
-Date: Mon, 25 Aug 2025 14:37:32 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <aKxnHFSrVeM7Be5A@shell.armlinux.org.uk>
-References: <20250815023515.114-1-kernel@airkyi.com>
- <CGME20250825072312eucas1p2d4751199c0ea069c7938218be60e5e93@eucas1p2.samsung.com>
- <a30a8c97-6b96-45ba-bad7-8a40401babc2@samsung.com>
- <d0fe6d16-181f-4b38-9457-1099fb6419d0@rock-chips.com>
- <809848c9-2ffa-4743-adda-b8b714b404de@samsung.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <809848c9-2ffa-4743-adda-b8b714b404de@samsung.com>
-Cc: Chaoyi Chen <kernel@airkyi.com>, linux-kernel@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, linux-rockchip@lists.infradead.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Mon, 25 Aug 2025 13:54:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756130058; x=1787666058;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=h8KYyuHuFwjgcmdF6lDE+3T/TcaauwbKkHbIgmMmcbo=;
+ b=beORAhg3VZS5mVcLO0bkaGBqtDvJefQpRkX52+RFQrgeNF9tRmwcy4/4
+ LsOxivMLk4M7nUt4V5kYTjlqMZM3wn66mk4qZ5OZS/48/n/PvWIhi84Mf
+ h3rvVqXfCUvg5YoUwBBdbLzkhCVb3WmSIWnFAjcTmJoVYjwshArjRn+x8
+ x9xiqd9GLYQPK/YxHAn/spKSrhgxAZSEuwa7rMI1p4Cg08GCmveij/6VN
+ 5wQ7q/FBPQ/dcaZlGFTuDVfj4EZhBuRvlq9xosWYfuBg5AxUJ35x//+LO
+ 7Foj8TDx3SGkmZCBxcbrpRp1wqg1YKS5962d+VQy/Xv6EHdQ1uxxMe8hd w==;
+X-CSE-ConnectionGUID: iNwZ2QNjS5KRPFhEfeB2ig==
+X-CSE-MsgGUID: djnj4dvbQJ+3Z8qScsu7MQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11533"; a="68936517"
+X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="68936517"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2025 06:54:15 -0700
+X-CSE-ConnectionGUID: 6Zq36epbSYaPlqSo9P8dQg==
+X-CSE-MsgGUID: iZMQQn3xTlyEOBHZR+oS+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,213,1751266800"; d="scan'208";a="174583468"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.245.7])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2025 06:54:11 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+ by kekkonen.fi.intel.com (Postfix) with ESMTP id B5683121F61;
+ Mon, 25 Aug 2025 16:54:01 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+ (envelope-from <sakari.ailus@linux.intel.com>)
+ id 1uqXe5-00000007PNz-2m8J; Mon, 25 Aug 2025 16:54:01 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Eugen Hristev <eugen.hristev@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Cai Huoqing <cai.huoqing@linux.dev>, Haibo Chen <haibo.chen@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Marek Vasut <marek.vasut@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ =?UTF-8?q?Jo=C3=A3o=20Paulo=20Gon=C3=A7alves?=
+ <jpaulo.silvagoncalves@gmail.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Subhajit Ghosh <subhajit.ghosh@tweaklogic.com>,
+ Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Andreas Klinger <ak@it-klinger.de>, Crt Mori <cmo@melexis.com>,
+ Waqar Hameed <waqar.hameed@axis.com>,
+ Julien Stephan <jstephan@baylibre.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, Bo Liu <liubo03@inspur.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Sean Nyekjaer <sean@geanix.com>,
+ Frank Li <Frank.Li@nxp.com>, Han Xu <han.xu@nxp.com>,
+ Rayyan Ansari <rayyan@ansari.sh>, Gustavo Vaz <gustavo.vaz@usp.br>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Alexandru Ardelean <aardelean@baylibre.com>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ "Rob Herring (Arm)" <robh@kernel.org>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Vasileios Amoiridis <vassilisamir@gmail.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Abhash Jha <abhashkumarjha123@gmail.com>,
+ chuguangqing <chuguangqing@inspur.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Per-Daniel Olsson <perdaniel.olsson@axis.com>,
+ =?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ David Laight <david.laight@aculab.com>, Jakob Hauser <jahau@rocketmail.com>
+Date: Mon, 25 Aug 2025 16:53:49 +0300
+Message-ID: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.2
+MIME-Version: 1.0
+Cc: imx@lists.linux.dev, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3] net: ethernet: stmmac:
- dwmac-rk: Make the clk_phy could be used for external phy
+Subject: [Linux-stm32] [PATCH v3 00/12] iio: Remove redundant
+	pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,116 +124,228 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 25, 2025 at 12:53:37PM +0200, Marek Szyprowski wrote:
-> On 25.08.2025 11:57, Chaoyi Chen wrote:
-> > On 8/25/2025 3:23 PM, Marek Szyprowski wrote:
-> >> On 15.08.2025 04:35, Chaoyi Chen wrote:
-> >>> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> >>>
-> >>> For external phy, clk_phy should be optional, and some external phy
-> >>> need the clock input from clk_phy. This patch adds support for setting
-> >>> clk_phy for external phy.
-> >>>
-> >>> Signed-off-by: David Wu <david.wu@rock-chips.com>
-> >>> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> >>> ---
-> >>>
-> >>> Changes in v3:
-> >>> - Link to V2: =
+Hello everyone,
 
-> >>> https://lore.kernel.org/netdev/20250812012127.197-1-kernel@airkyi.com/
-> >>> - Rebase to net-next/main
-> >>>
-> >>> Changes in v2:
-> >>> - Link to V1: =
+Late last year I posted a set to switch to __pm_runtime_mark_last_busy()
+and gradually get rid of explicit pm_runtime_mark_last_busy() calls in
+drivers, embedding them in the appropriate pm_runtime_*autosuspend*()
+calls. The overall feedback I got at the time was that this is an
+unnecessary intermediate step, and removing the
+pm_runtime_mark_last_busy() calls can be done after adding them to the
+relevant Runtime PM autosuspend related functions. The latter part has
+been done and is present in v6.17-rc1.
 
-> >>> https://lore.kernel.org/netdev/20250806011405.115-1-kernel@airkyi.com/
-> >>> - Remove get clock frequency from DT prop
-> >>>
-> >>> =A0=A0 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 11 +++++++----
-> >>> =A0=A0 1 file changed, 7 insertions(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c =
+These patches are on next-20250825.
 
-> >>> b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> >>> index ac8288301994..5d921e62c2f5 100644
-> >>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> >>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> >>> @@ -1412,12 +1412,15 @@ static int rk_gmac_clk_init(struct =
+It'd be nice to merge these as fixes for 6.17.
 
-> >>> plat_stmmacenet_data *plat)
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(plat->stmmac_clk, 5000000=
-0);
-> >>> =A0=A0=A0=A0=A0=A0 }
-> >>> =A0=A0 -=A0=A0=A0 if (plat->phy_node && bsp_priv->integrated_phy) {
-> >>> +=A0=A0=A0 if (plat->phy_node) {
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_priv->clk_phy =3D of_clk_get(plat-=
->phy_node, 0);
-> >>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D PTR_ERR_OR_ZERO(bsp_priv->clk_=
-phy);
-> >>> -=A0=A0=A0=A0=A0=A0=A0 if (ret)
-> >>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return dev_err_probe(dev, ret, "Ca=
-nnot get PHY clock\n");
-> >>> -=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(bsp_priv->clk_phy, 50000000);
-> >>> +=A0=A0=A0=A0=A0=A0=A0 /* If it is not integrated_phy, clk_phy is opt=
-ional */
-> >>> +=A0=A0=A0=A0=A0=A0=A0 if (bsp_priv->integrated_phy) {
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (ret)
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return dev_err_probe(d=
-ev, ret, "Cannot get PHY =
+since v2:
 
-> >>> clock\n");
-> >>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clk_set_rate(bsp_priv->clk_phy, 50=
-000000);
-> >>> +=A0=A0=A0=A0=A0=A0=A0 }
-> >
-> > I think=A0 we should set bsp_priv->clk_phy to NULL here if we failed to =
+- Drop some unneeded newlines.
 
-> > get the clock.
-> >
-> > Could you try this on your board? Thank you.
-> =
+- Further clean up stm32_dac_set_enable_state().
 
-> Right, the following change also fixes this issue:
-> =
+- Avoid #ifdefs in bmc150_magn_set_power_state() by assuming
+  pm_runtime_put_autosuspend() won't meaningfully fail (and what would you
+  do about it anyway?).
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c =
+since v1:
 
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 9fc41207cc45..2d19d48be01f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1415,6 +1415,8 @@ static int rk_gmac_clk_init(struct =
+- Drop unneeded braces.
 
-> plat_stmmacenet_data *plat)
->  =A0=A0=A0=A0=A0=A0=A0 if (plat->phy_node) {
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_priv->clk_phy =3D of_c=
-lk_get(plat->phy_node, 0);
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D PTR_ERR_OR_ZERO(bs=
-p_priv->clk_phy);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (ret)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 bsp_p=
-riv->clk_phy =3D NULL;
+- Further rework call sites that simply assigned a local variable (ret) to
+  return it, by removing that local variable and the redundant else
+  clause.
 
-Or just:
+The diff from rebased v2
+(<20250708231144.971170-1-sakari.ailus@linux.intel.com>) for iio patches
+is:
 
-		clk =3D of_clk_get(plat->phy_node, 0);
-		if (clk =3D=3D ERR_PTR(-EPROBE_DEFER))
-			...
-		else if (!IS_ERR)
-			bsp_priv->clk_phy =3D clk;
+diff --git a/drivers/iio/accel/bmc150-accel-core.c b/drivers/iio/accel/bmc150-accel-core.c
+index fe1783d439de..3c5d1560b163 100644
+--- a/drivers/iio/accel/bmc150-accel-core.c
++++ b/drivers/iio/accel/bmc150-accel-core.c
+@@ -336,7 +336,6 @@ static int bmc150_accel_set_power_state(struct bmc150_accel_data *data, bool on)
+ 		ret = pm_runtime_resume_and_get(dev);
+ 	else
+ 		ret = pm_runtime_put_autosuspend(dev);
+-
+ 	if (ret < 0) {
+ 		dev_err(dev,
+ 			"Failed: %s for %d\n", __func__, on);
+diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+index 393294df02db..15172ba2972c 100644
+--- a/drivers/iio/accel/mma8452.c
++++ b/drivers/iio/accel/mma8452.c
+@@ -228,7 +228,6 @@ static int mma8452_set_runtime_pm_state(struct i2c_client *client, bool on)
+ 		ret = pm_runtime_resume_and_get(&client->dev);
+ 	else
+ 		ret = pm_runtime_put_autosuspend(&client->dev);
+-
+ 	if (ret < 0) {
+ 		dev_err(&client->dev,
+ 			"failed to change power state to %d\n", on);
+diff --git a/drivers/iio/accel/mma9551_core.c b/drivers/iio/accel/mma9551_core.c
+index 247c2eda8420..2ccb1fb19b96 100644
+--- a/drivers/iio/accel/mma9551_core.c
++++ b/drivers/iio/accel/mma9551_core.c
+@@ -673,7 +673,6 @@ int mma9551_set_power_state(struct i2c_client *client, bool on)
+ 		ret = pm_runtime_resume_and_get(&client->dev);
+ 	else
+ 		ret = pm_runtime_put_autosuspend(&client->dev);
+-
+ 	if (ret < 0) {
+ 		dev_err(&client->dev,
+ 			"failed to change power state to %d\n", on);
+diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
+index 0988c991cf60..e8688f9d6df7 100644
+--- a/drivers/iio/dac/stm32-dac.c
++++ b/drivers/iio/dac/stm32-dac.c
+@@ -82,9 +82,9 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+ 
+ 	ret = regmap_update_bits(dac->common->regmap, STM32_DAC_CR, msk, en);
+ 	mutex_unlock(&dac->lock);
+-	if (ret < 0) {
++	if (ret) {
+ 		dev_err(&indio_dev->dev, "%s failed\n", str_enable_disable(en));
+-		goto err_put_pm;
++		goto err_pm_put;
+ 	}
+ 
+ 	/*
+@@ -95,14 +95,8 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
+ 	if (en && dac->common->hfsel)
+ 		udelay(1);
+ 
+-	if (!enable)
+-		pm_runtime_put_autosuspend(dev);
+-
+-	return 0;
+-
+-err_put_pm:
+-	if (enable)
+-		pm_runtime_put_autosuspend(dev);
++err_pm_put:
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/iio/magnetometer/bmc150_magn.c b/drivers/iio/magnetometer/bmc150_magn.c
+index 7c5fef79ad04..6a73f6e2f1f0 100644
+--- a/drivers/iio/magnetometer/bmc150_magn.c
++++ b/drivers/iio/magnetometer/bmc150_magn.c
+@@ -257,20 +257,17 @@ static int bmc150_magn_set_power_mode(struct bmc150_magn_data *data,
+ 
+ static int bmc150_magn_set_power_state(struct bmc150_magn_data *data, bool on)
+ {
+-#ifdef CONFIG_PM
+-	int ret;
++	int ret = 0;
+ 
+ 	if (on)
+ 		ret = pm_runtime_resume_and_get(data->dev);
+ 	else
+-		ret = pm_runtime_put_autosuspend(data->dev);
+-
++		pm_runtime_put_autosuspend(data->dev);
+ 	if (ret < 0) {
+ 		dev_err(data->dev,
+ 			"failed to change power state to %d\n", on);
+ 		return ret;
+ 	}
+-#endif
+ 
+ 	return 0;
+ }
 
-I don't have a free terminal to work out what "..." should be.
 
--- =
+Sakari Ailus (12):
+  iio: accel: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: adc: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: chemical: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: common: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: dac: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: gyro: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: imu: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: light: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: magnetometer: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: pressure: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: proximity: Remove redundant pm_runtime_mark_last_busy() calls
+  iio: temperature: Remove redundant pm_runtime_mark_last_busy() calls
 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+ drivers/iio/accel/bmc150-accel-core.c         |  7 ++-----
+ drivers/iio/accel/bmi088-accel-core.c         |  3 ---
+ drivers/iio/accel/fxls8962af-core.c           |  1 -
+ drivers/iio/accel/kxcjk-1013.c                |  4 +---
+ drivers/iio/accel/kxsd9.c                     |  3 ---
+ drivers/iio/accel/mma8452.c                   |  7 ++-----
+ drivers/iio/accel/mma9551_core.c              |  5 +----
+ drivers/iio/accel/msa311.c                    |  6 ------
+ drivers/iio/adc/ab8500-gpadc.c                |  1 -
+ drivers/iio/adc/at91-sama5d2_adc.c            | 13 +------------
+ drivers/iio/adc/imx8qxp-adc.c                 |  2 --
+ drivers/iio/adc/imx93_adc.c                   |  1 -
+ drivers/iio/adc/rcar-gyroadc.c                |  8 +++-----
+ drivers/iio/adc/rzg2l_adc.c                   |  2 --
+ drivers/iio/adc/stm32-adc-core.c              |  1 -
+ drivers/iio/adc/stm32-adc.c                   |  7 -------
+ drivers/iio/adc/sun4i-gpadc-iio.c             |  2 --
+ drivers/iio/adc/ti-ads1015.c                  |  6 ++----
+ drivers/iio/adc/ti-ads1100.c                  |  1 -
+ drivers/iio/adc/ti-ads1119.c                  |  2 --
+ drivers/iio/chemical/atlas-sensor.c           |  2 --
+ drivers/iio/chemical/bme680_core.c            |  3 ---
+ .../common/hid-sensors/hid-sensor-trigger.c   |  1 -
+ drivers/iio/dac/stm32-dac.c                   | 19 ++++---------------
+ drivers/iio/gyro/bmg160_core.c                |  4 +---
+ drivers/iio/gyro/fxas21002c_core.c            |  2 --
+ drivers/iio/gyro/mpu3050-core.c               |  3 ---
+ drivers/iio/gyro/mpu3050-i2c.c                |  1 -
+ .../iio/imu/inv_icm42600/inv_icm42600_accel.c |  5 -----
+ .../imu/inv_icm42600/inv_icm42600_buffer.c    |  1 -
+ .../iio/imu/inv_icm42600/inv_icm42600_gyro.c  |  5 -----
+ .../iio/imu/inv_icm42600/inv_icm42600_temp.c  |  1 -
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c    |  6 ------
+ drivers/iio/imu/inv_mpu6050/inv_mpu_trigger.c |  1 -
+ drivers/iio/imu/kmx61.c                       |  6 ++----
+ drivers/iio/light/apds9306.c                  |  2 --
+ drivers/iio/light/apds9960.c                  |  1 -
+ drivers/iio/light/bh1780.c                    |  1 -
+ drivers/iio/light/gp2ap002.c                  |  2 --
+ drivers/iio/light/isl29028.c                  | 11 +++--------
+ drivers/iio/light/ltrf216a.c                  |  1 -
+ drivers/iio/light/pa12203001.c                | 11 +++--------
+ drivers/iio/light/rpr0521.c                   |  6 ++----
+ drivers/iio/light/tsl2583.c                   | 12 +++---------
+ drivers/iio/light/tsl2591.c                   |  2 --
+ drivers/iio/light/us5182d.c                   | 12 +++---------
+ drivers/iio/light/vcnl4000.c                  | 11 +++--------
+ drivers/iio/light/vcnl4035.c                  | 11 +++--------
+ drivers/iio/magnetometer/ak8974.c             |  2 --
+ drivers/iio/magnetometer/ak8975.c             |  1 -
+ drivers/iio/magnetometer/als31300.c           |  2 --
+ drivers/iio/magnetometer/bmc150_magn.c        | 13 ++++---------
+ drivers/iio/magnetometer/tmag5273.c           |  2 --
+ drivers/iio/magnetometer/yamaha-yas530.c      |  2 --
+ drivers/iio/pressure/bmp280-core.c            |  5 -----
+ drivers/iio/pressure/icp10100.c               |  1 -
+ drivers/iio/pressure/mpl115.c                 |  2 --
+ drivers/iio/pressure/zpa2326.c                |  2 --
+ .../iio/proximity/pulsedlight-lidar-lite-v2.c |  1 -
+ drivers/iio/proximity/srf04.c                 |  4 +---
+ drivers/iio/temperature/mlx90614.c            |  1 -
+ drivers/iio/temperature/mlx90632.c            |  1 -
+ drivers/iio/temperature/mlx90635.c            |  1 -
+ 63 files changed, 44 insertions(+), 221 deletions(-)
+
+-- 
+2.47.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
