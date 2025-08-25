@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A619B344FB
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1A7B3450A
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Aug 2025 17:04:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB3DAC3FAD8;
-	Mon, 25 Aug 2025 15:03:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D42EAC3FAD8;
+	Mon, 25 Aug 2025 15:04:28 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E870C3FAD7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CB7BC3FAD7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Aug 2025 15:03:44 +0000 (UTC)
+ Mon, 25 Aug 2025 15:04:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 39C465C5C70;
- Mon, 25 Aug 2025 15:03:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE99C4CEED;
- Mon, 25 Aug 2025 15:03:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B06A16023C;
+ Mon, 25 Aug 2025 15:04:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1593DC4CEED;
+ Mon, 25 Aug 2025 15:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756134223;
- bh=d7h+xYOuWAehL8NAX7KrAoeL9w3UA9Rp1q2BUQS47C0=;
+ s=k20201202; t=1756134265;
+ bh=moDtz0XRlITtrg1yOQpLUA9pOtorCAl76Jnt5I6UpuI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=aWyP/1/Y7HYkd82NfOkywMhkBxSrcBdG4dxouGIYdcKcRgt+G1cjmZUGUayEpQhTC
- F5JYkfbLQNOPoEfFZ4dLk10QWfWmydy+f6+O2QB/npwm+p4dtdHv4zQnO+r6cL5drP
- fHzFvjfdPMjgH8mi1FO0bSxDXaWJ4rdGJAXhQjE2H8REnECR9pYq9iNTJqorpVQ4ZC
- d14Hfb8RxDWaY203CS81WogT/vl/BQVDU/Kdv9YeGx3vgj8su62bnuLbh2MrlI6/ZC
- N4n2ZZ3u3lDjsT3ukisbZ5RU2SyXUY8AWEJ0NuPJEpSyLXGKUSP089LXsz7Gb+mbYK
- 8YyXudjGPlMjQ==
-Date: Mon, 25 Aug 2025 16:03:14 +0100
+ b=P7z9FpKoaN4Js7ubmjGR6zmu0rHzXl4k/Q1LRQZykuA0z3Doft4uPAABcvr8KPsxC
+ 8lQNSjZsBzF6BtwiqhYsXFCx57R/jWkzvB1OYP/y5dtNjUKjJHgqD8m+BW63LKDdQO
+ PCr9G+XMQpHS1W2auotIayFXD94N3QZT5xOeM/QQ1gTKZ+BK2zV2aG8lTO+eDTzJMb
+ ANuoyx2sbcwzRbmoysIZyb/aq3TKkxZbiHRyNX75Zgtn+LKJDpjFsGJIYM1q6mkAJt
+ If+p06JGCpCUMMx6VUtvJBcXhF3JcZULqN9D3d2rJUpxBN2wwJWI2Bba7HKV1NASky
+ lGNgd7205AQNQ==
+Date: Mon, 25 Aug 2025 16:03:55 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20250825160314.15222362@jic23-huawei>
-In-Reply-To: <20250825135401.1765847-4-sakari.ailus@linux.intel.com>
+Message-ID: <20250825160355.50e8cbfd@jic23-huawei>
+In-Reply-To: <20250825135401.1765847-5-sakari.ailus@linux.intel.com>
 References: <20250825135401.1765847-1-sakari.ailus@linux.intel.com>
- <20250825135401.1765847-4-sakari.ailus@linux.intel.com>
+ <20250825135401.1765847-5-sakari.ailus@linux.intel.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.50; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -85,7 +85,7 @@ Cc: imx@lists.linux.dev, Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Shawn Guo <shawnguo@kernel.org>,
  Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  Hans de Goede <hansg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [Linux-stm32] [PATCH v3 03/12] iio: chemical: Remove redundant
+Subject: Re: [Linux-stm32] [PATCH v3 04/12] iio: common: Remove redundant
  pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -103,7 +103,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 25 Aug 2025 16:53:52 +0300
+On Mon, 25 Aug 2025 16:53:53 +0300
 Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 
 > pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
