@@ -2,162 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE1FB359E0
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Aug 2025 12:12:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39680B35A05
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Aug 2025 12:22:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37017C3F930;
-	Tue, 26 Aug 2025 10:12:49 +0000 (UTC)
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E29BBC3F930;
+	Tue, 26 Aug 2025 10:22:50 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02CC1C36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDAFFC36B3F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Aug 2025 10:12:46 +0000 (UTC)
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 57PLiOgN102372; Tue, 26 Aug 2025 05:12:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=PODMain02222019; bh=7j6NiZ87MhJVFSoZEq
- ucv+8uWsibohAGaifnPdzC8Rs=; b=nXq42VF+ftPBanB8C4oAW+zPjAnNBwyDbv
- YsOcIbVZ+pWzPH93ocs7E2mIAOTl7dnrN6X76xsEt9bjmJVP925KYixFJHxj9JUg
- RDeqfefQkXWGc6AuFbVsSuqHl1oiuIPZZ1/bTpwGKlcsLDaa2nuWFOBIFQdGuSzp
- 4e1qLIh7F+WqyC3Ob1Jjqlrdt8LwlkRJhrc+pYKsYHpUPChhRIssEVh8QfgmkJaC
- WV8tvWzaiNm7LzaUhcEGEXSFfa2c5UFbhDv2p+FMyVjG6x2QLAFggmIx371yvAVh
- Ygpf54HHP876jS3Jf2dXG5Hq+Ko589r6d/Pb+YzmE9IT1wGsZk8g==
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2129.outbound.protection.outlook.com [40.107.220.129])
- by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 48qb20n7kw-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Tue, 26 Aug 2025 05:12:29 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yomfuvBKygZhuEdTJpvmd8N9PHrgXnkaXdY8vlDFwLylpj0pD5GDIz4I5QOAnGfA0ExEdK+xJljA/A8TX+pnoIrWe9qKBMJYH1aqewRf/5WW1wp1W1yd1CG4lchIfN7H6ULKL5IJzOWilVIEkKYYMvYiS+0/jfvEosecbMmMRuRKhLcO5fULmLGVnSXsQB8dzpjqewApO60qXMT9d4bS1J6o9VspNx4QaiU7CGXCGCoUJ0p8Jm9I8SB0mXOa5YPURrbS1D/hrdivxCYU1ddgWezUun2ZpqW/Jg5bfcCZqdZ58VuZCDCqVR/mmfvnFaA2dFdYAYDWHLPlZ2t6uXo42w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7j6NiZ87MhJVFSoZEqucv+8uWsibohAGaifnPdzC8Rs=;
- b=xIxM4xizFjrvYXGv5NZ/QZAqnxM1A3oI5l/WJy1EUu7MRgxx9UuY2omfClhQAZ2j+vXUWnAUeMzRysQ4uVsU3+g/lHzmlKBL4dz3I+M6N0DZZB4u4dZzVUiaBeBob6tYFnktX466MJdzsMkAOxIYbfWLgwqONo+0PWrYDv1ZtY8zovI1GUmu2jYRxkghvbraWQycKnJ/GHTXpYtTJiEUa/rbvqx33i0Tdo2ltXV3mPVPp05zWaSbPinkmxhUhig8HYPFtvZ30tYaRmMia3ylUT9fpEWpe7dfD4+j4eeKBCwCPmnlV7kVblxEL+/PauT9sQ+yGX6/eVnO/66GVqQYpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 84.19.233.75) smtp.rcpttodomain=bgdev.pl smtp.mailfrom=opensource.cirrus.com; 
- dmarc=fail (p=reject sp=reject pct=100) action=oreject
- header.from=opensource.cirrus.com; dkim=none (message not signed); arc=none
- (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7j6NiZ87MhJVFSoZEqucv+8uWsibohAGaifnPdzC8Rs=;
- b=g96L9wikTOshZoNUJ0CPke0WOWtGYj0Ne5K2u1PYzp2uDwuzvcnp4O9NqB68TYu9jh60EIRWmvT0CjyIXimvoGeJ69KiS1DcoC8ZAUhp3lO9TGwq/ifQt6jClvIe2kxlFJo2cliWaILy7Jk9+V+I28L5pw7EGCFfUDvk61i5mpw=
-Received: from SA9PR13CA0140.namprd13.prod.outlook.com (2603:10b6:806:27::25)
- by CO1PR19MB5208.namprd19.prod.outlook.com (2603:10b6:303:f7::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Tue, 26 Aug
- 2025 10:12:24 +0000
-Received: from SN1PEPF0002BA4E.namprd03.prod.outlook.com
- (2603:10b6:806:27:cafe::1e) by SA9PR13CA0140.outlook.office365.com
- (2603:10b6:806:27::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.11 via Frontend Transport; Tue,
- 26 Aug 2025 10:12:24 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: Fail (protection.outlook.com: domain of opensource.cirrus.com
- does not designate 84.19.233.75 as permitted sender)
- receiver=protection.outlook.com; client-ip=84.19.233.75;
- helo=edirelay1.ad.cirrus.com;
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SN1PEPF0002BA4E.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.11
- via Frontend Transport; Tue, 26 Aug 2025 10:12:22 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
- [198.61.86.93])
- by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id DC93B406547;
- Tue, 26 Aug 2025 10:12:20 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
- by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id CA44382024A;
- Tue, 26 Aug 2025 10:12:20 +0000 (UTC)
-Date: Tue, 26 Aug 2025 11:12:19 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <aK2Ig9ka9WoKt/+z@opensource.cirrus.com>
-References: <20250826-gpio-dbg-show-base-v1-0-7f27cd7f2256@linaro.org>
- <20250826-gpio-dbg-show-base-v1-4-7f27cd7f2256@linaro.org>
+ Tue, 26 Aug 2025 10:22:48 +0000 (UTC)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57Q8lsM2001264;
+ Tue, 26 Aug 2025 10:22:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=corp-2025-04-25; bh=S+31LDF1Z2WhM1uyqtnd3y4W2aDT6
+ M/Q5pg0v1GbW40=; b=lbgXN7I4bJecbfq5XRvTpGgxj2mn3KosAiOcZH2cecWNC
+ r5rx4EJimO0JbMI6MYG/2wrW6m5NbtZEXNfaTcShKugT1udXEf386JtMHfkkwlhT
+ HKrIt981KqUIs2L0kLuuksjluhwxYETMCFlg2f6EWpOtDoMKUigsgf8qpZJ1zjJh
+ WDXFMX73+n2iwbLynE7L/XpJlzPUa45y9TNTjIq/yufzLTiyRB7hBlLtsCIicDZG
+ TruwIbX6EzbuhMw1i5tUhD0+MQTj8JYbPALqPyFhbfqFK6QIaIcj8Mgf6U2qHoW/
+ a+xZYykqn9ZOIrLeS3vnQb+a6zU1/Yo+kRl5NK2RQ==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 48q5pt46pr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 26 Aug 2025 10:22:23 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 57QAIxI8004960; Tue, 26 Aug 2025 10:22:22 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 48q439hy0y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 26 Aug 2025 10:22:22 +0000
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 57QAML6S028589;
+ Tue, 26 Aug 2025 10:22:21 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
+ 48q439hy0j-1; Tue, 26 Aug 2025 10:22:21 +0000
+From: Alok Tiwari <alok.a.tiwari@oracle.com>
+To: david.wu@rock-chips.com, jonas@kwiboo.se, rmk+kernel@armlinux.org.uk,
+ mcoquelin.stm32@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Date: Tue, 26 Aug 2025 03:22:15 -0700
+Message-ID: <20250826102219.49656-1-alok.a.tiwari@oracle.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250826-gpio-dbg-show-base-v1-4-7f27cd7f2256@linaro.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4E:EE_|CO1PR19MB5208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21be6382-55db-42f5-1206-08dde4890c77
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|36860700013|82310400026|61400799027; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LXMxgSV8RW8ghbkSvrGntUHL2IsNBPUIsBhWSMR3SxBVJC5d3lMTaBpqeqgh?=
- =?us-ascii?Q?pqWAkk2qWqgOZIBCzc8ki6ny/FiAnsVTsOCiZVGA8fRq19VqbXKuKcoq9q/9?=
- =?us-ascii?Q?FuOunAGyNEywCyuNawc65kQ2PHVdaGYZoYjA+r/kJO4YlYvbkrcY7nkrSlED?=
- =?us-ascii?Q?LTY61jFhb5PTPQsLxoaS9n8NwoM7EsqOaVZToZ0eKhSJBAEIDv89TwtgGYsu?=
- =?us-ascii?Q?wVXgvIXEEYecjs6qABwIfoNKVOke7Fnvns4mLB9GrSBZP7lmmevxLh7ekybq?=
- =?us-ascii?Q?zCG5C2/AgHBiG0XKNR+0giRyjklNG+my8XCn3aA8Unoq2rMoDJTreT8ILgHj?=
- =?us-ascii?Q?1dYAn3dkqJaworhTot/cm01Dx3C5he2ATlle/wFwfBQ/2FpupKk7/MBzeYXA?=
- =?us-ascii?Q?DdR16sE6OLqlNE3sO9tJzrQrZbtGbgquGs+8ucREvRCeF67B/WsuSjhC3yW5?=
- =?us-ascii?Q?LxCX5ygs3NFFuxSRCf1EfHWtmbrd6STtm8dAWZVQkhRyi81RPWqIm70n9ATP?=
- =?us-ascii?Q?A7Efn8BoOj1JZxx2jK1zvyz74Kn7PU1yexyEY5yqW51kbVuHjMsL4ZCBAp0e?=
- =?us-ascii?Q?QY4GMswvlMmcQ+QqnEx7NhdND1YUliM34ZgX1Y0gcBVwVMLyKuOaouuHHMBq?=
- =?us-ascii?Q?iKT578U52YFmV8m7j/e4CmKg0skuBNjVjN6EZZ37a4xnXZdS7bi0SgkWrUgi?=
- =?us-ascii?Q?B1DQQIRHweC/pFhTt1KdARqGAHwMWa2h1K/KNEAuD1sC61Ubpkjn90MFBHuT?=
- =?us-ascii?Q?oM9JbD3Ke8YpvDDLS4M7bqBG4bU6ShbzVD8T6uFjYMpooCIEbaXXt3ZMBy3B?=
- =?us-ascii?Q?EauPJKhWpQrmdcQWLRtDLWWADGCXc9/SbwUpWFjLOYyTnY0ga92/zrMOkDwV?=
- =?us-ascii?Q?RwzV856n0kXbR8tVz0RtkLL1BdHVmkYAdMLtUVnpyyjjaLs7Y2M2IU5FZYHH?=
- =?us-ascii?Q?zriM5D9MidV2YA4i516D2el0qELOhKSQ7MKLz3wEfSKsLSd1WYUqHdo9rw/C?=
- =?us-ascii?Q?oBrd62ALK2pRqyuniqbFA0zbdY6XLUK3OsnH2/2spTfi6YwfSFgLmbZsVMfC?=
- =?us-ascii?Q?OYkVKIthxbiLBM4z65LMXp8YpuUtcJwBWZ0+DX8njczmWgG5qzGRE+71YBfo?=
- =?us-ascii?Q?XIkR73txomAl4qrhsGMx7vfWUZGTeGsW9WGHCycWAnjp+Eose4cMX5dvvv+C?=
- =?us-ascii?Q?vWfmQsw9JTH14osPLXRa71Tj0EE9CmYKjUIMBJy3VnzjbJupXr6tPQD9hMnH?=
- =?us-ascii?Q?Oim/B5zJdNuSEPMTfVgT3xXEKjYrw7M8mkXiYFyQWpXpw6TiE7MbC9Unv2Ez?=
- =?us-ascii?Q?Qe/ybqJgrDUelV5hZlk7LJE1VdJlSMl/qD8v2aqtHLCHa/NheLgpiItri+oq?=
- =?us-ascii?Q?4CuXSgBvjgFtdm6cZx6tqy9oPgo9R/9+It/Cmd3HT3IQpIe3rQvOGE9nf8km?=
- =?us-ascii?Q?KnJVmqU/olzeGjr9seuamiQvLH7IprqVxenIdulCyPuXaHDJXsGY5LeVWy+N?=
- =?us-ascii?Q?pOej2uHDIdC8smKIO+ytB9KyWtkhLG/bEm7h?=
-X-Forefront-Antispam-Report: CIP:84.19.233.75; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:edirelay1.ad.cirrus.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(7416014)(376014)(36860700013)(82310400026)(61400799027);
- DIR:OUT; SFP:1102; 
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2025 10:12:22.4398 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21be6382-55db-42f5-1206-08dde4890c77
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8; Ip=[84.19.233.75];
- Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR19MB5208
-X-Authority-Analysis: v=2.4 cv=GbkXnRXL c=1 sm=1 tr=0 ts=68ad888d cx=c_pps
- a=pn3uJ1cN8NZYWFnaW73RRg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
- a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=kj9zAlcOel0A:10 a=2OwXVqhp2XgA:10
- a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10 a=KKAkSRfTAAAA:8 a=w1d2syhTAAAA:8
- a=CykeHtdoX445U1M9gU8A:9 a=CjuIK1q_8ugA:10 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODI2MDA5MCBTYWx0ZWRfX6UPSLbcvTMS0
- aKF3Z9oeh0qbezuLClEYbvChHAP3unywgZpwy/o2OQlBf/zTU5I7PptPq4Lqa3HBKz9EJJ/0I9x
- I4FU7h5ZUJvCPEvx6UjmQSeWYdEFtv9elHJpOw34HzFfw2GJsdCHyWOeK2t+aCrlpfEspuMfe3D
- sfYZgVpFovBogwnWdKigQJC8JaMgE9OH1JKO5wb/TPe+ua9IZn9j6J1Dhv9DIay1iIkLmCKl9GM
- FkbQcyqx529rfz6eEdVzqtgvHC+eOzBYMKwd1pqQU4Qh+KqjAuNJZM40mD10CjgxmW+tr4CogdC
- TBZcLb/ENuVeoTcQaemOeP1j7S4sV/zNJbRQNfkggh3zpUMaboS/r08NhYAspI=
-X-Proofpoint-ORIG-GUID: _yge_8CebFJoXnDmvdYHJSQRCk2kty17
-X-Proofpoint-GUID: _yge_8CebFJoXnDmvdYHJSQRCk2kty17
-X-Proofpoint-Spam-Reason: safe
-Cc: linux-pwm@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- patches@opensource.cirrus.com, Linus Walleij <linus.walleij@linaro.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/6] gpio: wm8994: don't print out global
- GPIO numbers in debugfs callbacks
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-26_02,2025-08-26_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ bulkscore=0
+ mlxlogscore=999 spamscore=0 suspectscore=0 malwarescore=0 mlxscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2508110000 definitions=main-2508260091
+X-Proofpoint-ORIG-GUID: A1rNZuMOzBCLBqP3JjLXHJ8H1V0uDCAP
+X-Proofpoint-GUID: A1rNZuMOzBCLBqP3JjLXHJ8H1V0uDCAP
+X-Authority-Analysis: v=2.4 cv=EcXIQOmC c=1 sm=1 tr=0 ts=68ad8adf b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117
+ a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=2OwXVqhp2XgA:10 a=yPCof4ZbAAAA:8 a=drNr5Ij397O-Cq_uu80A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODIzMDAzMCBTYWx0ZWRfX3TR+YKZXLVXZ
+ xl2yVtGEp/AIv0M866KYyb+u8f5fb7ceY2nkPFimDfmLd2nqCucW8HjqC2dbr7rg1V5Wf9ShqOa
+ 04A2YOBt96ozsA5MXyWo7qDXPi61+qrgissBks4ME/knlm1W1S6fE0eggX3UjipTE9Vl+ecnXBa
+ qnwHUtEqxhWiKrhahiGKHu5niwRjcdA7zrTL3+HtV8FU/y8wLVwvuoFh6PleEtG0ITNy5PAoCJ1
+ CwKGoMj74OgW3g8wxykn52SNhGQFTTk+REiQCmMjgoc/3ZSbmwaJXiLgk4IgG+n14/Q0Vt+5MXF
+ KTDIb0e9zts1Sl5HFr9m6vISoThoZPb6wNVspCBhrU9p9gKhM3Pe0sbmrP6govHmvUaKYGB/xvE
+ gGcmYWt+
+Cc: alok.a.tiwari@oracle.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: rk: remove incorrect
+	_DLY_DISABLE bit definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -174,20 +98,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 26, 2025 at 11:54:38AM +0200, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> In order to further limit the number of references to the GPIO base
-> number stored in struct gpio_chip, replace the global GPIO numbers in
-> the output of debugfs callbacks by hardware offsets.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> ---
+The RK3328 GMAC clock delay macros define enable/disable controls for
+TX and RX clock delay. While the TX definitions are correct, the
+RXCLK_DLY_DISABLE macro incorrectly clears bit 0.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+The macros RK3328_GMAC_TXCLK_DLY_DISABLE and
+RK3328_GMAC_RXCLK_DLY_DISABLE are not referenced anywhere
+in the driver code. Remove them to clean up unused definitions.
 
-Thanks,
-Charles
+No functional change.
+
+Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index f6687c2f30f6..9e9ae8525720 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -557,9 +557,7 @@ static const struct rk_gmac_ops rk3308_ops = {
+ #define RK3328_GMAC_RMII_MODE		GRF_BIT(9)
+ #define RK3328_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(9)
+ #define RK3328_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(0)
+-#define RK3328_GMAC_TXCLK_DLY_DISABLE	GRF_CLR_BIT(0)
+ #define RK3328_GMAC_RXCLK_DLY_ENABLE	GRF_BIT(1)
+-#define RK3328_GMAC_RXCLK_DLY_DISABLE	GRF_CLR_BIT(0)
+ 
+ /* RK3328_GRF_MACPHY_CON1 */
+ #define RK3328_MACPHY_RMII_MODE		GRF_BIT(9)
+-- 
+2.50.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
