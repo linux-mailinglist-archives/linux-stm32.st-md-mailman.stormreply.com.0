@@ -2,99 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6518BB382D2
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 14:49:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94377B3837C
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 15:13:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C00B7C32E8D;
-	Wed, 27 Aug 2025 12:49:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE47AC349C5
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35133C32E8D;
+	Wed, 27 Aug 2025 13:13:39 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A650AC349C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Aug 2025 12:49:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6B0F241850;
- Wed, 27 Aug 2025 12:49:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F73C4CEEB;
- Wed, 27 Aug 2025 12:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756298946;
- bh=FBo4RbmvBwJYaj/cUiU+/0VAPX3y3i/AlyAKfvOtI0M=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hNZJL511EAaIdyjnHxN24TaEFmW5tAtSBQOCdkPAYPummTQtDGeDGlXJ6/5h3BAu4
- fB5kvVMznekqyZTHYsH2ev5V1dW56BLCfAR9eROxUmI0vw/DPix8i2pRzf/2AKGpi/
- FO80oIPwV9DdoqzMQKHIHBf0Mmy+T5KzK6jSNIDhA6D74Zzd02T65+Te79/Bf6Uy2k
- rtc7AT8vUlHVOUzX7+iHnIrpFBcbu6ccmvoMIlaKyjDTZI2tke9uNbZb3+LVpWCMi1
- /hT8dU9KgFsVTNrCbXGzEKWrytw2yNfjGbXkNOaz2XyH1/aD0SjfHC6ZbHgwh+xXdA
- 27W0k7pAB3paQ==
-Message-ID: <f093fc68-c783-41eb-b51e-e48a18e6d2cf@kernel.org>
-Date: Wed, 27 Aug 2025 14:48:58 +0200
+ Wed, 27 Aug 2025 13:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1756300416;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=13LJOrVZbt5/bZNb1010AyPGLHEYUJgw1i+wJLdf1Rs=;
+ b=b6sfeUg1k3h/K+rZmCBUqdC1FVC3pux6Pf71g5GAHVPKij43CoMeWsKftGJGlQ2rVh/VIU
+ GNhyysNGbqz463uou7EP4x7eermxMXYMWOpw1FeWeae0EoMlEWddLDqD5f62BMOvA8VYnW
+ 1qLigQxwP30H/zuiYKHCE2PNHwA7ggc=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-125-wF1ldRDCMFuFf4oeh6Lgig-1; Wed, 27 Aug 2025 09:13:35 -0400
+X-MC-Unique: wF1ldRDCMFuFf4oeh6Lgig-1
+X-Mimecast-MFC-AGG-ID: wF1ldRDCMFuFf4oeh6Lgig_1756300415
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-7f2942a1aa1so237814285a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 Aug 2025 06:13:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756300405; x=1756905205;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=13LJOrVZbt5/bZNb1010AyPGLHEYUJgw1i+wJLdf1Rs=;
+ b=bS0g1cw9ffafdBvBBH/H7G4JmRZQyC/WEhRBzvOFYY1IAoWrCrxUnwh25caXlB28iG
+ hPaHH6DUUmHh484mVpZdMOV20HAFzP4tasMYsu1boFi3ARXZylkW+ZAG5d/hzDjhZIzX
+ nUasG8csXUu5EhVYmAs6XnJSAzLR/RMGT4ED/kOrV0AM0smUPYZgHAP7iYFxqSQE3z2Z
+ Tk7CczDoG/QvKLriCmwuPAqcsoyWrEZolRVaM5QfpYxgs0LP4JEkOpDDMXkmgWJDLDWP
+ A/RYaq5e5ibQYSp+NCo0RqlrIX1048xvwgKx97DRdq1wj6TtD/lndHwJV67GjbL78XE9
+ oCRQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXP9N6YG9XYUx+oT7Gwh8VcXbyZQWg6+LFPfchzCoLB5s18zGZuoPgLHfw9cwRHw/FQhyfXN0s0I8+sUQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwfD+sLVM3JYrt4e/KKvKvD7iuXwqdm9i6Hg0Zr6y0g23AvOsyE
+ rXZmjYPH1KybotmomRuAT/GxP51MTxiwEJvmpPL3Vv7nevE5ipJgOvcnzPVeFZF3OGIb+hXLxr3
+ Mqk5wgZSeTlnm6n4OI3/FqefOJ5Sf1IyOJBkXT1yFMGCqXee7vW5pyiP3YDde4JkgqTczfvgi+8
+ I+ACz0EA==
+X-Gm-Gg: ASbGncvfKFPFo43/imsPxWiGsYvweoYU4oWTipE+pO/jSUNuvlicVzEBal2+LPZy2lD
+ WgL3CKznrfIT/Qsjrq8KbhpfMpxMfNiswJJxIOQ8/nugR/wmPRA78if9b234wIhRoRBwlMmi7yT
+ VXLGWLt7nhDk1GvwBwt/S4k9p6w4JWUfEmWFWNST2BXdTYImVRj1gQ1ty1mhHO5d1qjzjp+QN/Q
+ Tc/0vzqwelEj+H8q4LAxzghxxgmAeGUXbUyUcy8y+DpBxK6vCdvuFTOxAHqjNYk7XzWTh8bARJG
+ 9svI8Qs6vkfu0+fj3e3GBAQOH3xTvY5tqMKdkRKbIq8tZHLYVkhVQ5+FdpIRsNIv/N5miaC03Sc
+ eO8QpLQP04HeIPEFPywY=
+X-Received: by 2002:a05:620a:7101:b0:7ed:92c8:7d16 with SMTP id
+ af79cd13be357-7f58d941f59mr592252385a.31.1756300404972; 
+ Wed, 27 Aug 2025 06:13:24 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG//kDH7SoWg5eCSBiMLHP3nCnmfnmaReGS2V45T15TfIErjBPeekutHDc1uHZhw0fUtcQytQ==
+X-Received: by 2002:a05:620a:7101:b0:7ed:92c8:7d16 with SMTP id
+ af79cd13be357-7f58d941f59mr592238785a.31.1756300403878; 
+ Wed, 27 Aug 2025 06:13:23 -0700 (PDT)
+Received: from x1 (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7ebeca23e10sm885475785a.6.2025.08.27.06.13.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Aug 2025 06:13:22 -0700 (PDT)
+Date: Wed, 27 Aug 2025 09:13:17 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Message-ID: <aK8EbcEHz3Yzpa1W@x1>
+References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ <20250811-clk-for-stephen-round-rate-v1-112-b3bf97b038dc@redhat.com>
+ <20250827070933.GB18994@nxa18884-linux.ap.freescale.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
- rmk+kernel@armlinux.org.uk, faizal.abdul.rahim@linux.intel.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
- jan.petrous@oss.nxp.com, jszhang@kernel.org, p.zabel@pengutronix.de,
- boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20250827081135.2243-1-weishangjuan@eswincomputing.com>
- <20250827081314.2295-1-weishangjuan@eswincomputing.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20250827081314.2295-1-weishangjuan@eswincomputing.com>
-Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
- linmin@eswincomputing.com
-Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: ethernet: eswin:
- Document for EIC7700 SoC
+In-Reply-To: <20250827070933.GB18994@nxa18884-linux.ap.freescale.net>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: l8RQn51up7uJE5AwnRcMCvwsg-2OcQNUXbwSINCQmpA_1756300415
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-clk@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, sophgo@lists.linux.dev,
+ Alex Helms <alexander.helms.jy@renesas.com>, Sven Peter <sven@kernel.org>,
+ Qin Jian <qinjian@cqplus1.com>, Scott Branden <sbranden@broadcom.com>,
+ linux-kernel@vger.kernel.org, Samuel Holland <samuel.holland@sifive.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Daniel Palmer <daniel@thingy.jp>, soc@lists.linux.dev,
+ Viresh Kumar <vireshk@kernel.org>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Maxime Ripard <mripard@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
+ Stephen Boyd <sboyd@kernel.org>, UNGLinuxDriver@microchip.com,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ imx@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Fabio Estevam <festevam@gmail.com>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Ray Jui <rjui@broadcom.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ spacemit@lists.linux.dev, Cristian Marussi <cristian.marussi@arm.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
+ Sudeep Holla <sudeep.holla@arm.com>, Romain Perier <romain.perier@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Shan-Chun Hung <schung@nuvoton.com>,
+ linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
+ Chen Wang <unicorn_wang@outlook.com>, arm-scmi@vger.kernel.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Takao Orito <orito.takao@socionext.com>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andrea della Porta <andrea.porta@suse.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yixun Lan <dlan@gentoo.org>, Taichi Sugaya <sugaya.taichi@socionext.com>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-mips@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 112/114] clk: scmi: remove round_rate() in
+ favor of determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,68 +156,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 27/08/2025 10:13, weishangjuan@eswincomputing.com wrote:
-> +  clocks:
-> +    items:
-> +      - description: GMAC main clock
-> +      - description: Tx clock
-> +      - description: AXI clock
-> +      - description: Configuration clock
-> +
-> +  clock-names:
-> +    contains:
+On Wed, Aug 27, 2025 at 03:09:33PM +0800, Peng Fan wrote:
+> Hi Brian, Sudeep, Cristian
+> 
+> On Mon, Aug 11, 2025 at 11:19:44AM -0400, Brian Masney via B4 Relay wrote:
+> >From: Brian Masney <bmasney@redhat.com>
+> >
+> >This driver implements both the determine_rate() and round_rate() clk
+> >ops, and the round_rate() clk ops is deprecated. When both are defined,
+> >clk_core_determine_round_nolock() from the clk core will only use the
+> >determine_rate() clk ops, so let's remove the round_rate() clk ops since
+> >it's unused.
+> >
+> >Signed-off-by: Brian Masney <bmasney@redhat.com>
+> >---
+> > drivers/clk/clk-scmi.c | 30 ------------------------------
+> > 1 file changed, 30 deletions(-)
+> >
+> >diff --git a/drivers/clk/clk-scmi.c b/drivers/clk/clk-scmi.c
+> >index d2408403283fc72f0cf902e65f4c08bcbc7b4b0b..6c6ddb92e7cf6a0cfac2c7e19c0f15f777bb8c51 100644
+> >--- a/drivers/clk/clk-scmi.c
+> >+++ b/drivers/clk/clk-scmi.c
+> >@@ -54,35 +54,6 @@ static unsigned long scmi_clk_recalc_rate(struct clk_hw *hw,
+> > 	return rate;
+> > }
+> > 
+> >-static long scmi_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+> >-				unsigned long *parent_rate)
+> >-{
+> 
+> I see the point of round_rate is not used if determine_rate is there.
+> But reading the code of round_rate, It might be better to rename
+> scmi_clk_round_rate to scmi_clk_determine_rate.
+> 
+> Anyway, need Sudeep and Cristian to comment.
 
-This part did not improve:
-items: instead
+In this case, yes the round_rate implementation is filled out, whereas
+the determine_rate lets the firmware handle it, and
+scmi_clk_recalc_rate() will later populate the rate the clock is running
+at.
 
-> +      enum:
-> +        - axi
-> +        - cfg
-> +        - stmmaceth
-> +        - tx
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  reset-names:
-> +    items:
-> +      - const: stmmaceth
-> +
-> +  rx-internal-delay-ps:
-> +    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-> +
-> +  tx-internal-delay-ps:
-> +    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-> +
-> +  eswin,hsp-sp-csr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - description: Phandle to HSP(High-Speed Peripheral) device
-> +      - description: Offset of phy control register for internal
-> +                     or external clock selection
-> +      - description: Offset of AXI clock controller Low-Power request
-> +                     register
-> +      - description: Offset of register controlling TX/RX clock delay
-> +    description: |
-> +      A phandle to hsp-sp-csr with three arguments that configure
-> +      HSP(High-Speed Peripheral) device. The argument one is the
-> +      offset of phy control register for internal or external clock
-> +      selection, the argument two is Offset of AXI clock controller
-> +      Low-Power request register, the argument three is Offset of
-> +      register controlling TX/RX clock delay.
+I can convert round_rate over to determine_rate in this case, however it
+would be a change to what's there now, and risks a regression. Here's
+the relevant code from drivers/clk/clk.c where the determine_rate and
+round_rate ops are called:
 
-Description is mostly redundant - it is already part of items:. Just say
-here "HSP (High Spee....) device needed to configure clock selection,
-clock low-power mode and clock delay." or something similar.
+    static int clk_core_determine_round_nolock(struct clk_core *core,
+                                               struct clk_rate_request *req)
+    {
+    	...
+            if (clk_core_rate_is_protected(core)) {
+                    req->rate = core->rate;
+            } else if (core->ops->determine_rate) {
+                    return core->ops->determine_rate(core->hw, req);
+            } else if (core->ops->round_rate) {
+                    rate = core->ops->round_rate(core->hw, req->rate,
+                                                 &req->best_parent_rate);
+    	...
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-Best regards,
-Krzysztof
+If Sudeep / Cristian want the round rate converted to determine rate in
+this driver, then I can do that in a v2.
+
+Brian
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
