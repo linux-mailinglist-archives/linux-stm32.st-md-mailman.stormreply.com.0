@@ -2,19 +2,19 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C87B37CF6
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 10:07:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F24B37D3A
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 10:12:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 970B3C3FADA;
-	Wed, 27 Aug 2025 08:07:45 +0000 (UTC)
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net
- (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C923BC3FAD9
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E38B3C3F957;
+	Wed, 27 Aug 2025 08:12:05 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [52.229.205.26])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F30F0C349C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Aug 2025 08:07:44 +0000 (UTC)
+ Wed, 27 Aug 2025 08:12:04 +0000 (UTC)
 Received: from E0005182LT.eswin.cn (unknown [10.12.96.155])
- by app1 (Coremail) with SMTP id TAJkCgBHXg+wvK5o_zPEAA--.17071S2;
- Wed, 27 Aug 2025 16:07:14 +0800 (CST)
+ by app1 (Coremail) with SMTP id TAJkCgC32xG5va5ofjTEAA--.25212S2;
+ Wed, 27 Aug 2025 16:11:40 +0800 (CST)
 From: weishangjuan@eswincomputing.com
 To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
@@ -27,28 +27,28 @@ To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  jan.petrous@oss.nxp.com, jszhang@kernel.org, p.zabel@pengutronix.de,
  boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 27 Aug 2025 16:07:03 +0800
-Message-Id: <20250827080703.2180-1-weishangjuan@eswincomputing.com>
+Date: Wed, 27 Aug 2025 16:11:35 +0800
+Message-Id: <20250827081135.2243-1-weishangjuan@eswincomputing.com>
 X-Mailer: git-send-email 2.31.1.windows.1
 MIME-Version: 1.0
-X-CM-TRANSID: TAJkCgBHXg+wvK5o_zPEAA--.17071S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw17GF47JF4DAryDGF15Jwb_yoW5KFy3pF
- W8Cry5Wwn8AryxX3ySyw10kFyfJan7Xr1akr1Iqw1fXan0va90qr4aka4YgFy7Cr4UZryY
- gay3ZF47Ca4ay3DanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAa
- Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4
- A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F
- 5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMx
- kF7I0En4kS14v26rWY6Fy7MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
- 7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
- 8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
- CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
- 1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBI
- daVFxhVjvjDU0xZFpf9x07j5EfrUUUUU=
+X-CM-TRANSID: TAJkCgC32xG5va5ofjTEAA--.25212S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw4Duw4ftr1xZFW8ArW3trb_yoWrGrykpF
+ Wjkry5Wwn8JryxXa9ayw10kFyfJan3Xr1akr1Iqw1fXws0va90qr4a9w1YgFy7Cr4DZ34Y
+ gay3uF47Ca4ay3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+ k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC2
+ 0s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI
+ 0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv2
+ 0xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87
+ Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIF
+ yTuYvjTRMrWrDUUUU
 X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
 Cc: ningyu@eswincomputing.com, lizhi2@eswincomputing.com,
  Shangjuan Wei <weishangjuan@eswincomputing.com>, linmin@eswincomputing.com
@@ -72,8 +72,10 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Shangjuan Wei <weishangjuan@eswincomputing.com>
 
-This patch depends on the vendor prefix patch:
-https://lore.kernel.org/all/20250616112316.3833343-4-pinkesh.vaghela@einfochips.com/
+This series depends on the vendor prefix [1] and config option patch [2].
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20250825&id=ac29e4487aa20a21b7c3facbd1f14f5093835dc9
+[2] https://lore.kernel.org/all/20250825132427.1618089-3-pinkesh.vaghela@einfochips.com/
 
 Updates:
 
