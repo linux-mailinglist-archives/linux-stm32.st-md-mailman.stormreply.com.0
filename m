@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F8FB37B68
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 09:22:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C38CB37B95
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Aug 2025 09:23:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2631DC3F956;
-	Wed, 27 Aug 2025 07:22:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F83FC3F956;
+	Wed, 27 Aug 2025 07:23:17 +0000 (UTC)
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35D85C3F954
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DA7FC3F954
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Aug 2025 07:22:35 +0000 (UTC)
+ Wed, 27 Aug 2025 07:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Type:Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=G+hmXrHggGQu/DFm2iaN9YOAsgDAVtUlcX4wbDIaTAM=; b=paqG0/btPjpriUue1ZLq40xLBd
- GBgOWrFL05XOmF286hGkQVhrhfZqZimImLzlqfvnvVlVMHo57pYqqanZe5p+RWyExLLfK8pM6Q5Cq
- xdTc0nJjioWVaXjKpM6xHGG33hNdJlVOqRRL+S4OzGg7IrzrmTrdXDfSV/OniMWb8NfMr7hViTPqT
- qh4CArG3EfgYiwDGIxDxzDICg/hr95MIGKc/d2Fy1Rh+nq9Okcnz7bP4oClR/Liyw76jtlNxiWYgk
- upeAZRYX6mfLnf/YA7pnADtT8ZXvkmab4GGfHfUpjyupzxU/QmqBCPG9/xLHsUBttuD7WbfOzPmK7
- upjPzyNA==;
+ bh=mstaFbCpP+w2tTbkPKin/uA9B0d8ueMbHU6EXqRNUC0=; b=Z0C0o94loTfdLOzgxwFMYT1dAG
+ wKwLGPvrwms/4j1/SFX/l5DYVEUaq/TkrX23UywqWwR9an2wuZZ1YZ0WOfrN/HeS69wJoOJwyn94Z
+ uDEbkvPyPAbtc2Bomlut8c4nMpHiYfnblh6Iefj7OCsIZmbMMrybNcO8/z/LdYdOe//SaeBBp4HLk
+ Vlm41myafyjczlduzi1NwfMlZ3yIiM8JTv9Z//bqKxQDoWhg7T+O05TnxfLGoGbhd0KSlmOv7B07/
+ qSwNbJ3Vp1sa/k5SVONiTiX18FqAuGu+8dsjHzT9j+L1A2Gl5TqGv0RsKfu6/dLz3x0fi3D8dIy3u
+ 1vMhRkgQ==;
 Received: from [213.244.170.152] (helo=phil.localnet)
  by gloria.sntech.de with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <heiko@sntech.de>)
- id 1urATt-00078I-85; Wed, 27 Aug 2025 09:22:05 +0200
+ id 1urAUa-0007YT-8m; Wed, 27 Aug 2025 09:22:48 +0200
 From: Heiko Stuebner <heiko@sntech.de>
 To: Yury Norov <yury.norov@gmail.com>,
  Rasmus Villemoes <linux@rasmusvillemoes.dk>,
@@ -58,13 +58,14 @@ To: Yury Norov <yury.norov@gmail.com>,
  Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 27 Aug 2025 09:22:04 +0200
-Message-ID: <4886676.atdPhlSkOF@phil>
-In-Reply-To: <20250825-byeword-update-v3-7-947b841cdb29@collabora.com>
+Date: Wed, 27 Aug 2025 09:22:46 +0200
+Message-ID: <5228954.Icojqenx9y@phil>
+In-Reply-To: <20250825-byeword-update-v3-8-947b841cdb29@collabora.com>
 References: <20250825-byeword-update-v3-0-947b841cdb29@collabora.com>
- <20250825-byeword-update-v3-7-947b841cdb29@collabora.com>
+ <20250825-byeword-update-v3-8-947b841cdb29@collabora.com>
 MIME-Version: 1.0
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-pm@vger.kernel.org, netdev@vger.kernel.org, llvm@lists.linux.dev,
  linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
@@ -72,8 +73,8 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, kernel@collabora.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] Re: [PATCH v3 07/20] drm/rockchip: dsi: switch to
-	FIELD_PREP_WM16* macros
+Subject: [Linux-stm32] Re: [PATCH v3 08/20] drm/rockchip: vop2: switch to
+	FIELD_PREP_WM16 macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,33 +91,19 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QW0gTW9udGFnLCAyNS4gQXVndXN0IDIwMjUsIDEwOjI4OjI3IE1pdHRlbGV1cm9ww6Rpc2NoZSBT
+QW0gTW9udGFnLCAyNS4gQXVndXN0IDIwMjUsIDEwOjI4OjI4IE1pdHRlbGV1cm9ww6Rpc2NoZSBT
 b21tZXJ6ZWl0IHNjaHJpZWIgTmljb2xhcyBGcmF0dGFyb2xpOgo+IFRoZSBlcmEgb2YgaGFuZC1y
 b2xsZWQgSElXT1JEX1VQREFURSBtYWNyb3MgaXMgb3ZlciwgYXQgbGVhc3QgZm9yIHRob3NlCj4g
-ZHJpdmVycyB0aGF0IHVzZSBjb25zdGFudCBtYXNrcy4KPiAKPiBSZW1vdmUgdGhpcyBkcml2ZXIn
-cyBISVdPUkRfVVBEQVRFIG1hY3JvLCBhbmQgcmVwbGFjZSBpbnN0YW5jZXMgb2YgaXQKPiB3aXRo
-IGVpdGhlciBGSUVMRF9QUkVQX1dNMTYgb3IgRklFTERfUFJFUF9XTTE2X0NPTlNULCBkZXBlbmRp
-bmcgb24KPiB3aGV0aGVyIHRoZXkncmUgaW4gYW4gaW5pdGlhbGl6ZXIuIFRoaXMgZ2l2ZXMgdXMg
-YmV0dGVyIGVycm9yIGNoZWNraW5nLAo+IHdoaWNoIGFscmVhZHkgc2F2ZWQgbWUgc29tZSB0cm91
-YmxlIGR1cmluZyB0aGlzIHJlZmFjdG9yLgo+IAo+IFRoZSBkcml2ZXIncyBISVdPUkRfVVBEQVRF
-IG1hY3JvIGRvZXNuJ3Qgc2hpZnQgdXAgdGhlIHZhbHVlLCBidXQgZXhwZWN0cwo+IGEgcHJlLXNo
-aWZ0ZWQgdmFsdWUuIE1lYW53aGlsZSwgRklFTERfUFJFUF9XTTE2IGFuZAo+IEZJRUxEX1BSRVBf
-V00xNl9DT05TVCB3aWxsIHNoaWZ0IHRoZSB2YWx1ZSBmb3IgdXMsIGJhc2VkIG9uIHRoZSBnaXZl
-bgo+IG1hc2suIFNvIGEgZmV3IHRoaW5ncyB0aGF0IHVzZWQgdG8gYmUgYSBISVdPUkRfVVBEQVRF
-KFZFUllfTE9OR19GT08sCj4gVkVSWV9MT05HX0ZPTykgYXJlIG5vdyBhIHNvbWV3aGF0IG1vcmUg
-cGxlYXNhbnQKPiBGSUVMRF9QUkVQX1dNMTYoVkVSWV9MT05HX0ZPTywgMSkuCj4gCj4gVGhlcmUg
-YXJlIHNvbWUgbm9uLXRyaXZpYWwgcmVmYWN0b3JzIGhlcmUuIEEgZmV3IGxpdGVyYWxzIG5lZWRl
-ZCBhIFVMCj4gc3VmZml4IGFkZGVkIHRvIHN0b3AgdGhlbSBmcm9tIHVuaW50ZW50aW9uYWxseSBv
-dmVyZmxvd2luZyBhcyBhIHNpZ25lZAo+IGxvbmcuIFRvIG1ha2Ugc3VyZSBhbGwgb2YgdGhlc2Ug
-Y2FzZXMgYXJlIGNhdWdodCwgYW5kIG5vdCBqdXN0IHRoZSBvbmVzCj4gd2hlcmUgdGhlIEZJRUxE
-X1BSRVBfV00xNiogbWFjcm9zIHVzZSBzdWNoIGEgdmFsdWUgYXMgYSBtYXNrLCBqdXN0IG1hcmsK
-PiBldmVyeSBsaXRlcmFsIHRoYXQncyB1c2VkIGFzIGEgbWFzayBhcyB1bnNpZ25lZC4KPiAKPiBO
-b24tY29udGlndW91cyBtYXNrcyBhbHNvIGhhdmUgdG8gYmUgc3BsaXQgaW50byBtdWx0aXBsZQo+
-IEZJRUxEX1BSRVBfV00xNiogaW5zdGFuY2VzLCBhcyB0aGUgbWFjcm8ncyBjaGVja3MgYW5kIHNo
-aWZ0aW5nIGxvZ2ljCj4gcmVseSBvbiBjb250aWd1b3VzIG1hc2tzLgo+IAo+IFRoaXMgaXMgY29t
-cGlsZS10ZXN0ZWQgb25seS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBOaWNvbGFzIEZyYXR0YXJvbGkg
-PG5pY29sYXMuZnJhdHRhcm9saUBjb2xsYWJvcmEuY29tPgoKUmV2aWV3ZWQtYnk6IEhlaWtvIFN0
-dWVibmVyIDxoZWlrb0BzbnRlY2guZGU+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+ZHJpdmVycyB0aGF0IHVzZSBjb25zdGFudCBtYXNrcy4KPiAKPiBSZW1vdmUgVk9QMidzIEhJV09S
+RF9VUERBVEUgbWFjcm8gZnJvbSB0aGUgdm9wMiBoZWFkZXIgZmlsZSwgYW5kIHJlcGxhY2UKPiBh
+bGwgaW5zdGFuY2VzIGluIHJvY2tjaGlwX3ZvcDJfcmVnLmMgKHRoZSBvbmx5IHVzZXIgb2YgdGhp
+cyBwYXJ0aWN1bGFyCj4gSElXT1JEX1VQREFURSBkZWZpbml0aW9uKSB3aXRoIGVxdWl2YWxlbnQg
+RklFTERfUFJFUF9XTTE2IGluc3RhbmNlcy4gVGhpcwo+IGdpdmVzIHVzIGJldHRlciBlcnJvciBj
+aGVja2luZy4KPiAKPiBSZXZpZXdlZC1ieTogQ3Jpc3RpYW4gQ2lvY2FsdGVhIDxjcmlzdGlhbi5j
+aW9jYWx0ZWFAY29sbGFib3JhLmNvbT4KPiBUZXN0ZWQtYnk6IENyaXN0aWFuIENpb2NhbHRlYSA8
+Y3Jpc3RpYW4uY2lvY2FsdGVhQGNvbGxhYm9yYS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTmljb2xh
+cyBGcmF0dGFyb2xpIDxuaWNvbGFzLmZyYXR0YXJvbGlAY29sbGFib3JhLmNvbT4KClJldmlld2Vk
+LWJ5OiBIZWlrbyBTdHVlYm5lciA8aGVpa29Ac250ZWNoLmRlPgoKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
