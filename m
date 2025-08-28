@@ -2,39 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2053DB3A7CB
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Aug 2025 19:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9649B3AA48
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Aug 2025 20:50:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB741C30883;
-	Thu, 28 Aug 2025 17:22:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 453BAC3F95F;
+	Thu, 28 Aug 2025 18:50:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8E30C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB301C3F95E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Aug 2025 17:22:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 49BAC45017;
- Thu, 28 Aug 2025 17:22:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7B7EC4CEF5;
- Thu, 28 Aug 2025 17:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756401775;
- bh=D64Dcw+3Q7Bhw7cRL3Mx51sKXxd32kG6A6P2l/nGXPI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=NniPVCL70CJLdBOdxQoW1jaUw3KHNNjTpnByZBXqpMVCAZP6eWtTCp1uK0XEEB00u
- kuHZ0awF3fnjhHf6IH6lJMdKgqVDcRh42ivtIHDLmJRs8ttBqcFf87Jy2jplZeLM3o
- zV9PXCeb/dnaMbPIH0VPYOJ5JKvIpMI2uV6RRVexO3ZmIZaS4mStzp7Wgt12uDwPOi
- Z6/VxNFYcJG2ZtfnAevv1gZT+T0kUpAtm+74fTBX9TXUh7C6HM99sp/lHozeiLbFng
- gEsXq5bQHE6s2jopMhGWOQsPuHfUhZtsa+Fmx1U8CkEtQcw9dUK3tYt6YoW7TAwc35
- /2mMgE9BOicQg==
-Date: Thu, 28 Aug 2025 12:22:53 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20250828172253.GA949714@bhelgaas>
+ Thu, 28 Aug 2025 18:50:33 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57SGK1Q6000314;
+ Thu, 28 Aug 2025 20:49:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ QngEIke0AHC8FxDBE5xQKqvSi6Ne/Qs63SuZOpgs9rU=; b=7PhGVjWors7Len+8
+ 8boKa4Mku8xTRTVBQIwPckTq5qP62dkbDckuIoWUjJwRBQVkDO/NCvZ/Xd0f0lAc
+ qlMzdA0j+8xixjOEBDzfNE/bMlhcC43lIyqxbxLuD0mDYI/P53pBKDim9k2ond7K
+ DDEnnnkNsHh8ul7tnHtQkcbAN98RKbHDJ2kr7mEAZfVmQZDlc/Lhzv/v5bB+XRpC
+ 4RVE5sqxff1+wnAQ9BtratCEwvItq0kJIPBIj1U+we+otSG3PWul6RlLRfkKN5kk
+ EZ2IBrk3RwkwnBuzL7MQ2Kt7kXS5AgcdWUIsu+Xd7OBNOZQ/yFhTSOIBk3mYIzUJ
+ DfW2Ag==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48q5xbwhff-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 28 Aug 2025 20:49:56 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D36834004B;
+ Thu, 28 Aug 2025 20:48:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E170277A5A4;
+ Thu, 28 Aug 2025 20:46:34 +0200 (CEST)
+Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Aug
+ 2025 20:46:33 +0200
+Message-ID: <3a0afc93-a7ae-467e-97ad-f1c8d7d7a693@foss.st.com>
+Date: Thu, 28 Aug 2025 20:46:30 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250820075411.1178729-7-christian.bruel@foss.st.com>
+User-Agent: Mozilla Thunderbird
+To: Bjorn Helgaas <helgaas@kernel.org>
+References: <20250828171622.GA945192@bhelgaas>
+From: Christian Bruel <christian.bruel@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <20250828171622.GA945192@bhelgaas>
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-28_04,2025-08-28_01,2025-03-28_01
 Cc: linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
  quic_schintav@quicinc.com, linux-stm32@st-md-mailman.stormreply.com,
  kwilczynski@kernel.org, namcao@linutronix.de, robh@kernel.org, corbet@lwn.net,
@@ -57,66 +78,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 20, 2025 at 09:54:06AM +0200, Christian Bruel wrote:
-> Add driver to configure the STM32MP25 SoC PCIe Gen1 2.5GT/s or Gen2 5GT/s
-> controller based on the DesignWare PCIe core in endpoint mode.
-> ...
 
-> +static int stm32_pcie_start_link(struct dw_pcie *pci)
-> +{
-> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
-> +	int ret;
-> +
-> +	if (stm32_pcie->link_status == STM32_PCIE_EP_LINK_ENABLED) {
-> +		dev_dbg(pci->dev, "Link is already enabled\n");
-> +		return 0;
-> +	}
 
-While looking at the "incorrectly reset" comment, I noticed
-stm32_pcie->link_status and wondered why it exists.  It looks like
-it's only used in stm32_pcie_start_link() and stm32_pcie_stop_link(),
-and I don't see similar tracking in other drivers.
+On 8/28/25 19:16, Bjorn Helgaas wrote:
+> On Thu, Aug 28, 2025 at 02:12:57PM +0200, Christian Bruel wrote:
+>> On 8/27/25 20:58, Bjorn Helgaas wrote:
+>>> On Wed, Aug 20, 2025 at 09:54:06AM +0200, Christian Bruel wrote:
+>>>> Add driver to configure the STM32MP25 SoC PCIe Gen1 2.5GT/s or Gen2 5GT/s
+>>>> controller based on the DesignWare PCIe core in endpoint mode.
+>>>
+>>>> +static void stm32_pcie_perst_deassert(struct dw_pcie *pci)
+>>>> +{
+>>>> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
+>>>> +	struct device *dev = pci->dev;
+>>>> +	struct dw_pcie_ep *ep = &pci->ep;
+>>>> +	int ret;
+>>>> +
+>>>> +	dev_dbg(dev, "PERST de-asserted by host\n");
+>>>> +
+>>>> +	ret = pm_runtime_resume_and_get(dev);
+>>>> +	if (ret < 0) {
+>>>> +		dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
+>>>> +		return;
+>>>> +	}
+>>>> +
+>>>> +	ret = stm32_pcie_enable_resources(stm32_pcie);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "Failed to enable resources: %d\n", ret);
+>>>> +		goto err_pm_put_sync;
+>>>> +	}
+>>>> +
+>>>> +	/*
+>>>> +	 * Need to reprogram the configuration space registers here because the
+>>>> +	 * DBI registers were incorrectly reset by the PHY RCC during phy_init().
+>>>
+>>> Is this incorrect reset of DBI registers a software issue or some kind
+>>> of hardware erratum that might be fixed someday?  Or maybe it's just a
+>>> characteristic of the hardware and thus not really "incorrect"?
+>>>
+>>> I do see that qcom_pcie_perst_deassert() in pcie-qcom-ep.c also calls
+>>> dw_pcie_ep_init_registers() in the qcom_pcie_ep_perst_irq_thread()
+>>> path.
+>>>
+>>> So does pex_ep_event_pex_rst_deassert() (pcie-tegra194.c) in the
+>>> tegra_pcie_ep_pex_rst_irq() path.
+>>>
+>>> But as far as I can tell, none of the other dwc drivers need this, so
+>>> maybe it's something to do with the glue around the DWC core?
+>>
+>> The RCC PHY reset is connected to the Synopsys cold reset logic, which
+>> explains why the registers need to be restored. This point has been
+>> addressed in the reference manual.
+> 
+> OK.  I dropped "incorrectly" from the comment because I think future
+> readers will wonder about whether or how this could be fixed, and it
+> sounds like it's just a feature of the hardware that we need to deal
+> with.
 
-It feels a little racy because the link might go down for reasons
-other than calling stm32_pcie_stop_link().
+OK, thank you. "unexpectedly" would have been appropriate, but just drop 
+it is even better.
 
-> +	dev_dbg(pci->dev, "Enable link\n");
-> +
-> +	ret = stm32_pcie_enable_link(pci);
-> +	if (ret) {
-> +		dev_err(pci->dev, "PCIe cannot establish link: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	enable_irq(stm32_pcie->perst_irq);
-> +
-> +	stm32_pcie->link_status = STM32_PCIE_EP_LINK_ENABLED;
-> +
-> +	return 0;
-> +}
-> +
-> +static void stm32_pcie_stop_link(struct dw_pcie *pci)
-> +{
-> +	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
-> +
-> +	if (stm32_pcie->link_status == STM32_PCIE_EP_LINK_DISABLED) {
-> +		dev_dbg(pci->dev, "Link is already disabled\n");
-> +		return;
-> +	}
-> +
-> +	dev_dbg(pci->dev, "Disable link\n");
-> +
-> +	disable_irq(stm32_pcie->perst_irq);
-> +
-> +	stm32_pcie_disable_link(pci);
-> +
-> +	stm32_pcie->link_status = STM32_PCIE_EP_LINK_DISABLED;
-> +}
+> 
+>>>> +	 */
+>>>> +	ret = dw_pcie_ep_init_registers(ep);
+>>>> +	if (ret) {
+>>>> +		dev_err(dev, "Failed to complete initialization: %d\n", ret);
+>>>> +		goto err_disable_resources;
+>>>> +	}
+>>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
