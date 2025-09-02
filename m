@@ -2,99 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CCDB40920
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Sep 2025 17:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0914AB40937
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Sep 2025 17:41:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B030C3FACD;
-	Tue,  2 Sep 2025 15:39:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDC38C3FACE;
+	Tue,  2 Sep 2025 15:40:59 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0775C3FACC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE0E0C3FACC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Sep 2025 15:39:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B731C60219;
- Tue,  2 Sep 2025 15:39:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52429C4CEED;
- Tue,  2 Sep 2025 15:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756827548;
- bh=idL1g8ryFMDBro5Lx09Mx5xS8dwjhi8Yq+ST74AzSiM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aIoeOZK6RxXuUzdEbQJdIMafxQj+XlRXsiArHsvlVF7d66IAcRf+9zfnh8cTb8jut
- /R2LEm4nHP5+6YXPXchvjzNe7FQklq4riSIB+AFfQQK651+URiZxPCNB54sRtsdPpU
- kpQ42h3UzKPJl49NN9TfrM1z9dGzfiBRrq1zQ65yGlRvat0SnTCzRQXkAyiThzyW6m
- qxOouATfGpYmdAYlEtJB+HtyBgZBNq3HF3/sz7/QriWBjEVzLfzhidzOyE9xfont3R
- kkD/r5na2ekN4efFet85DYIbSLRh7wqzdGXSWng4yIrvzykSnJjYGBoYC+Z6U58Xnb
- vDvHg9Z3ohrdg==
-Message-ID: <e6b47074-70b8-4cca-abf4-f3104a5d0e36@kernel.org>
-Date: Tue, 2 Sep 2025 17:39:01 +0200
+ Tue,  2 Sep 2025 15:40:57 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-b00f6705945so22101866b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 Sep 2025 08:40:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1756827657; x=1757432457;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wB2hOz6NFjWbWAhm1PV1EJGvhxwPuieGYAKDStpXw6s=;
+ b=qnCK7a45fs7d3GDvAoPDfpVlvCv2pW9q4fiKAxD4Giq2RIsdnSXhvIep+fLjg8Yq+h
+ p40Bs6Uc4QVN8KgFPOlxHppINrVsPIULym2lI2eT1sAIWLVjM9gBpPaywJ+jwfaEqNyF
+ 9so+c3qpDzslLx/gdkXe9TLN10zRcWDp2BIIXvXei+vjkRQbO9G6K3zFQPQb0db40hcq
+ U/w/82W+gZhZOuPljEQ3+SrOBVWpThSP8bxHCsVEmXpuEVjP6ZzJYEwkIwnWKQHY+zOL
+ 5/xIv/NxBQvsoSCTwTqyJ7kSiK4Jr83TDx9HSCcOLLRp7CyHWMi3cPk/GS2DFF2F+wys
+ LCUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756827657; x=1757432457;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wB2hOz6NFjWbWAhm1PV1EJGvhxwPuieGYAKDStpXw6s=;
+ b=njIQpOOkOBssw6pc3fhMklw7cKK5KedMUN8jleridTvvgBBPjqBzyprpiMd8JwC66S
+ lZkQDZY6FDXP46cWiZvgHSn7e01tZaHc3TBR8B5cPWASV97S6V99iklWpSjrdgyuS55I
+ l/kPOsG5CDof++p2uSmWuoo3/wqtChPCvs99ssV9DjFdiZuNPWbYf7zFxSodBQkXu2u/
+ FEMTl9NuzzcjsNKS51RDft4AgJ3PWdWRvhmwQFG8iKQOb4ncfwBCaKLmwc9RTiLKyrv2
+ ogn8+xy36xfkOCi1aYhVCsSJ/vqcgLnBHkhaiqNjosgHzV2xOM5DsMU1O70hEXk9wBlS
+ m7Lg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVnavhff08DPGZ7JTHzWKW7cHPxYpOyS5KGo/AXtDDr8jGHAEzi61z8fQ0Gw3jit/KQkTEnJc518AoDdQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwSMxaTg1BR9SM5gTyX4D2Yh2tyzxN221b2XvbFVRFtGAU9H3Dw
+ N0/Tu9ErkwHhjhR5PV/Z7nXu1OlMIAqwY8Hk3CWWik1CT51gvcSmjqAYzI4QofNeiYM=
+X-Gm-Gg: ASbGncsIi897UPyWs2L/7usOTesO1ECAsFrVVmR8qcLkmLRDilY2xy2AmqicH2gG96x
+ Bf26kxT5TpdoIs8QKF9IkVDDxJPLi6heVZqGhCvpL0D9qpBPgnYgPT5XOhSd9QQ1r/ffhJfY/21
+ lrolrutBIGy8VyvPkTUZNQmDiCGyx9H0cV8ZYOZ6G2mt8dRXYQdR/m1/Fro6XtxDsuOt6QWtokS
+ QtLtx2HhjKessqCrmqeE2BWog8cGBc5Fdy7ekAEiDSa9he0PM9mGXRENIujNT8UKXswLwfe2sYt
+ E7ImDC93k91JsSmyLQaHb7NePkYgVHgT5sbITd2ffFSUGgIDp4oYb8I0x9SCGZ4DeZRwXbw7VLS
+ Gx1sRpTLT+F0s7V3zLxhoXEnyIsr2dlgBNw==
+X-Google-Smtp-Source: AGHT+IEWMtUipiwvP55o7SnFFNedcIB9J8Y92SnsL3bGTAtWU6+jlkNHHkULu5G9fMF+Xt5W8a2bmQ==
+X-Received: by 2002:a17:907:3cc3:b0:afc:ebfd:c285 with SMTP id
+ a640c23a62f3a-aff0edc4d6cmr819502266b.1.1756827657134; 
+ Tue, 02 Sep 2025 08:40:57 -0700 (PDT)
+Received: from kuoka.. ([178.197.219.123]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b0438102debsm418746666b.66.2025.09.02.08.40.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Sep 2025 08:40:56 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Matthew Gerlach <matthew.gerlach@altera.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+Date: Tue,  2 Sep 2025 17:40:52 +0200
+Message-ID: <20250902154051.263156-3-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20250902091526.105905-3-krzysztof.kozlowski@linaro.org>
- <20250902091526.105905-4-krzysztof.kozlowski@linaro.org>
- <CA+V-a8s2H4UzovMqYJ15nWu1X55dL+7qJWifHxMEkqjtTzigzg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CA+V-a8s2H4UzovMqYJ15nWu1X55dL+7qJWifHxMEkqjtTzigzg@mail.gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- Magnus Damm <magnus.damm@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] dt-bindings: net: renesas,
- rzn1-gmac: Constrain interrupts
+X-Developer-Signature: v=1; a=openpgp-sha256; l=968;
+ i=krzysztof.kozlowski@linaro.org; 
+ h=from:subject; bh=sFLVskm/GZvqeQI/f+rrxfYgvGE1+3DHh+EYMzpJNhc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBotxAEs7Pi4pRQzSl+H723I8RHNxnqQ8YsTSkC4
+ vkxAmnxXj+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaLcQBAAKCRDBN2bmhouD
+ 1+k/D/0UuXc2i9vi5ZJEk2QSnLsML7RPV42gQabAHH1WKmWnL4CAxBu79LPPNM4a7I1ooZ1jhtF
+ Mr0HfnWsGPBrGmp8I1/uv/bXwxzHoXkai/Nz6y8C7yM+JNberjHA+TiBdQVzwbVM3RrI3EPANB3
+ lWmBIcSxHKokKT6EaVY1AKnmFgurZZ6y0eBstHMsdJ6ELNsyPVyS6BaAUipo++or72IL3/XbP8t
+ o30+Rbvby6HDByLMYbdefwjD4wAzJUzz8Y4uN+rOxXGvErZC3E1bvX2mJG5WVYkRRwTSN+cWw3R
+ YUEAJdS3sN0m7TIPexcrKhSmyvNL+7CebE/kX8UNOcms6KyQpmTkmoiwlKEITwCuKHu7rqCcloj
+ kXbG0f20Poz5QjpvoBJMOu13+2qCJcWhUCRNVXOGGHVR1EEKa71BYZzwH+6eM1Di4nxFa901haa
+ MPJ/wDC6mZ5vqxoKG1aMzF8c5gTYUdO8z/1pyNpGzkwLLdQdFo+k33FRQmngLKLdN3TmFgHHaya
+ RVG8d1yntleXzsQP6HRY2mICIMlwAy2wmRJpiusUUYtjnOE96Z3zIcA3TBfTXlXA92EGeJtuUKv
+ O16pHUiaXsjIP1644k6rtwNhNVpYEVZ1NJokD2I0xZ5+2h1/Xa7D3vHI9tqIkagc3GnIv4q92i7
+ pJ52l3zbCm7aBLQ==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH v2 1/2] dt-bindings: net: altr,
+	socfpga-stmmac: Constrain interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,18 +111,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDIvMDkvMjAyNSAxNzozNSwgTGFkLCBQcmFiaGFrYXIgd3JvdGU6Cj4gSGkgS3J6eXN6dG9m
-LAo+IAo+IFRoYW5rIHlvdSBmb3IgdGhlIHBhdGNoLgo+IAo+IE9uIFR1ZSwgU2VwIDIsIDIwMjUg
-YXQgMTA6MTbigK9BTSBLcnp5c3p0b2YgS296bG93c2tpCj4gPGtyenlzenRvZi5rb3psb3dza2lA
-bGluYXJvLm9yZz4gd3JvdGU6Cj4+Cj4+IFJlbmVzYXMgUlpOMSBHTUFDIHVzZXMgZXhhY3RseSBv
-bmUgaW50ZXJydXB0IGluIGluLWtlcm5lbCBEVFMgYW5kIGNvbW1vbgo+IGNvbW1pdCBtZXNzYWdl
-IG5lZWRzIHVwZGF0aW5nIGFzIHdlIGFyZSBkZXNjcmliaW5nIDMgaW50ZXJydXB0cy4KCkluZGVl
-ZCwgdGhhbmtzLgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+STMMAC on SoCFPGA uses exactly one interrupt in in-kernel DTS and common
+snps,dwmac.yaml binding is flexible, so define precise constraint for
+this device.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+---
+
+Changes in v2:
+1. Minor typo in commit msg.
+---
+ .../devicetree/bindings/net/altr,socfpga-stmmac.yaml       | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+index 3a22d35db778..fc445ad5a1f1 100644
+--- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
++++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+@@ -62,6 +62,13 @@ properties:
+       - const: stmmaceth
+       - const: ptp_ref
+ 
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: macirq
++
+   iommus:
+     minItems: 1
+     maxItems: 2
+-- 
+2.48.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
