@@ -2,64 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0914AB40937
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Sep 2025 17:41:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A018B40938
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Sep 2025 17:41:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDC38C3FACE;
-	Tue,  2 Sep 2025 15:40:59 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4542C3FACF;
+	Tue,  2 Sep 2025 15:41:00 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE0E0C3FACC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1617C3FACC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Sep 2025 15:40:57 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-b00f6705945so22101866b.1
+ Tue,  2 Sep 2025 15:40:59 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-61eacd38e75so300941a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 02 Sep 2025 08:40:57 -0700 (PDT)
+ Tue, 02 Sep 2025 08:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756827657; x=1757432457;
+ d=linaro.org; s=google; t=1756827659; x=1757432459;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=wB2hOz6NFjWbWAhm1PV1EJGvhxwPuieGYAKDStpXw6s=;
- b=qnCK7a45fs7d3GDvAoPDfpVlvCv2pW9q4fiKAxD4Giq2RIsdnSXhvIep+fLjg8Yq+h
- p40Bs6Uc4QVN8KgFPOlxHppINrVsPIULym2lI2eT1sAIWLVjM9gBpPaywJ+jwfaEqNyF
- 9so+c3qpDzslLx/gdkXe9TLN10zRcWDp2BIIXvXei+vjkRQbO9G6K3zFQPQb0db40hcq
- U/w/82W+gZhZOuPljEQ3+SrOBVWpThSP8bxHCsVEmXpuEVjP6ZzJYEwkIwnWKQHY+zOL
- 5/xIv/NxBQvsoSCTwTqyJ7kSiK4Jr83TDx9HSCcOLLRp7CyHWMi3cPk/GS2DFF2F+wys
- LCUQ==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=biM7Bjny+oEtW4RIbzxutTWTNB6Z2cdc0+Z2iihTXdU=;
+ b=it7PjChfu2zTDIAZ3ZngO6p3+xqEyzEX5YIysV1n+PQd0TqGrNAYfFHBoQzOM1hR0J
+ Bb4MkBhTfXxromSmvnclceFWVX/BSn58LGPFzDfXQ6xroq7eBUgC9HoZgamurFhpU2Yw
+ XX0hqDWVJnO7ATvBOSm/JP28DwEhHQMIv6n4ltezi/TMaeWHpKqhBtluB+8kq/FyBMAj
+ FSxm/Vo/8d8pZ+GkvdgvjlYObgVwPs2Eb2HLxzUMkMpxlrRhCMcJPJ52FRqfqyzdjvLN
+ VQc3wHkF+7wBo9gbpA0kaAwqKIV0/ZauCOHpQrafVAgEJgAUKu+nBgxRPMFC2BmJWnCT
+ KTuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756827657; x=1757432457;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wB2hOz6NFjWbWAhm1PV1EJGvhxwPuieGYAKDStpXw6s=;
- b=njIQpOOkOBssw6pc3fhMklw7cKK5KedMUN8jleridTvvgBBPjqBzyprpiMd8JwC66S
- lZkQDZY6FDXP46cWiZvgHSn7e01tZaHc3TBR8B5cPWASV97S6V99iklWpSjrdgyuS55I
- l/kPOsG5CDof++p2uSmWuoo3/wqtChPCvs99ssV9DjFdiZuNPWbYf7zFxSodBQkXu2u/
- FEMTl9NuzzcjsNKS51RDft4AgJ3PWdWRvhmwQFG8iKQOb4ncfwBCaKLmwc9RTiLKyrv2
- ogn8+xy36xfkOCi1aYhVCsSJ/vqcgLnBHkhaiqNjosgHzV2xOM5DsMU1O70hEXk9wBlS
- m7Lg==
+ d=1e100.net; s=20230601; t=1756827659; x=1757432459;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=biM7Bjny+oEtW4RIbzxutTWTNB6Z2cdc0+Z2iihTXdU=;
+ b=pGBVFIlDJ+a7giF7amnlEdp9qHnMHBYyASXJ8sxlMAVyqt+3DvMlzW0vecTdkcacHD
+ 0HJ2BOY++Hr5GMjo+m2UCUrRpBroVz4H/mnFVAzHqc8warKuuEnWpU5iHRnFze+bf10Y
+ soD0kOkF/kdFSR2aCTjWyRZ+Tq6S9Tx5jEFS15feB9q+sDml7wQPbyJHzSsaiV6Ynh9t
+ dyneddE455Vw9qGuj8bIBoe+ZUl61sNGihlKisf+wbuSlM8/CVJS+VJmeuiD8iOg4wyR
+ z1nktHg+nX4bIzssw5ukuI2caVGmlQWSSRt3whHlReMA1th2DzXLOT77HdEupwk8K/81
+ MNkg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnavhff08DPGZ7JTHzWKW7cHPxYpOyS5KGo/AXtDDr8jGHAEzi61z8fQ0Gw3jit/KQkTEnJc518AoDdQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwSMxaTg1BR9SM5gTyX4D2Yh2tyzxN221b2XvbFVRFtGAU9H3Dw
- N0/Tu9ErkwHhjhR5PV/Z7nXu1OlMIAqwY8Hk3CWWik1CT51gvcSmjqAYzI4QofNeiYM=
-X-Gm-Gg: ASbGncsIi897UPyWs2L/7usOTesO1ECAsFrVVmR8qcLkmLRDilY2xy2AmqicH2gG96x
- Bf26kxT5TpdoIs8QKF9IkVDDxJPLi6heVZqGhCvpL0D9qpBPgnYgPT5XOhSd9QQ1r/ffhJfY/21
- lrolrutBIGy8VyvPkTUZNQmDiCGyx9H0cV8ZYOZ6G2mt8dRXYQdR/m1/Fro6XtxDsuOt6QWtokS
- QtLtx2HhjKessqCrmqeE2BWog8cGBc5Fdy7ekAEiDSa9he0PM9mGXRENIujNT8UKXswLwfe2sYt
- E7ImDC93k91JsSmyLQaHb7NePkYgVHgT5sbITd2ffFSUGgIDp4oYb8I0x9SCGZ4DeZRwXbw7VLS
- Gx1sRpTLT+F0s7V3zLxhoXEnyIsr2dlgBNw==
-X-Google-Smtp-Source: AGHT+IEWMtUipiwvP55o7SnFFNedcIB9J8Y92SnsL3bGTAtWU6+jlkNHHkULu5G9fMF+Xt5W8a2bmQ==
-X-Received: by 2002:a17:907:3cc3:b0:afc:ebfd:c285 with SMTP id
- a640c23a62f3a-aff0edc4d6cmr819502266b.1.1756827657134; 
- Tue, 02 Sep 2025 08:40:57 -0700 (PDT)
+ AJvYcCVW7+/R5qp45G0SDTAaVDJPFA8iI3TwMIM5BXztNlamN8PDJnYpCJoG6fcmekdKzUWNMIqgAKSd5ZF5mg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw5NnjHBfi9yeb2NMNomU5GH89dn8yygF10C8jTZ+PQjTwVqnIH
+ pOskrpKc7H4gxrMGUAx32IrYvIXilI3/MNgXvcMZSrSsvIIkTvrOIRNDl14tFis/pQs=
+X-Gm-Gg: ASbGncu6K5DuSRsb6vCl0/uEugXG9o5bD4FVwlzrsvX5yuBicDYQdH5fvFg4CcJsyJH
+ 623kaXs+rAKlUkEY4hnrQKVRdHVRC+kMG5onoLBkO4iXACRadU4ACLeRgONLD5d5sSp0al4YtT6
+ rzsQx0mptNycGEnVxTdpLuPC/XMUW366k37cOhj1aV6BOsPnvF392xBV89ZzEVNAQWbhwZAXRTw
+ NycuaTevm+E+AuZJ+2eS2NnPtyOEvTk5t/SPill69NDaxAy6uLqX11mLVaz1rnY2tYm8VURfiwb
+ SvIwKSltzjB+uKa2ajQrxowNd7Wz+tMz7gGeAVZng/aChK7TPiMSiv94Cz/un/AD94nDwbQBIV4
+ Z6FTcnvikPmuT0mZgU32Xo10hBbl+wfQMHA==
+X-Google-Smtp-Source: AGHT+IHqvfJxZqJi2NLaX1BO2h75+SQL5o+3GXCX6kDD5SLJWDWl9iQlkkXuKU07JA390ij54jHTOw==
+X-Received: by 2002:a17:906:161b:b0:b04:3333:7e64 with SMTP id
+ a640c23a62f3a-b04333384c4mr332760066b.4.1756827658993; 
+ Tue, 02 Sep 2025 08:40:58 -0700 (PDT)
 Received: from kuoka.. ([178.197.219.123]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0438102debsm418746666b.66.2025.09.02.08.40.55
+ a640c23a62f3a-b0438102debsm418746666b.66.2025.09.02.08.40.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Sep 2025 08:40:56 -0700 (PDT)
+ Tue, 02 Sep 2025 08:40:58 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Matthew Gerlach <matthew.gerlach@altera.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -76,30 +77,33 @@ To: Matthew Gerlach <matthew.gerlach@altera.com>,
  devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org
-Date: Tue,  2 Sep 2025 17:40:52 +0200
-Message-ID: <20250902154051.263156-3-krzysztof.kozlowski@linaro.org>
+Date: Tue,  2 Sep 2025 17:40:53 +0200
+Message-ID: <20250902154051.263156-4-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250902154051.263156-3-krzysztof.kozlowski@linaro.org>
+References: <20250902154051.263156-3-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=968;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1188;
  i=krzysztof.kozlowski@linaro.org; 
- h=from:subject; bh=sFLVskm/GZvqeQI/f+rrxfYgvGE1+3DHh+EYMzpJNhc=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBotxAEs7Pi4pRQzSl+H723I8RHNxnqQ8YsTSkC4
- vkxAmnxXj+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaLcQBAAKCRDBN2bmhouD
- 1+k/D/0UuXc2i9vi5ZJEk2QSnLsML7RPV42gQabAHH1WKmWnL4CAxBu79LPPNM4a7I1ooZ1jhtF
- Mr0HfnWsGPBrGmp8I1/uv/bXwxzHoXkai/Nz6y8C7yM+JNberjHA+TiBdQVzwbVM3RrI3EPANB3
- lWmBIcSxHKokKT6EaVY1AKnmFgurZZ6y0eBstHMsdJ6ELNsyPVyS6BaAUipo++or72IL3/XbP8t
- o30+Rbvby6HDByLMYbdefwjD4wAzJUzz8Y4uN+rOxXGvErZC3E1bvX2mJG5WVYkRRwTSN+cWw3R
- YUEAJdS3sN0m7TIPexcrKhSmyvNL+7CebE/kX8UNOcms6KyQpmTkmoiwlKEITwCuKHu7rqCcloj
- kXbG0f20Poz5QjpvoBJMOu13+2qCJcWhUCRNVXOGGHVR1EEKa71BYZzwH+6eM1Di4nxFa901haa
- MPJ/wDC6mZ5vqxoKG1aMzF8c5gTYUdO8z/1pyNpGzkwLLdQdFo+k33FRQmngLKLdN3TmFgHHaya
- RVG8d1yntleXzsQP6HRY2mICIMlwAy2wmRJpiusUUYtjnOE96Z3zIcA3TBfTXlXA92EGeJtuUKv
- O16pHUiaXsjIP1644k6rtwNhNVpYEVZ1NJokD2I0xZ5+2h1/Xa7D3vHI9tqIkagc3GnIv4q92i7
- pJ52l3zbCm7aBLQ==
+ h=from:subject; bh=DD9yXaeypA2hr9FO3qZZJC8IuicCgOmdBNpfeVcWoM0=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBotxAE2AXqGVkkvcoMa6jmHyX5xtJs6fM/mG12F
+ ql3xWH2zgmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaLcQBAAKCRDBN2bmhouD
+ 104RD/9almm968xEPzjvlHGWaEROIstSx2O4TtT+LEnIzl7A7LlYbWUS1bQsIK2CPEsYTNsT5NU
+ bxVJoFKk5YoPO3EubhPUUgfdCfiLbkA0AdQwi+sEsXd7HRh6fRyzxZND7F5zC07LZsS0UfpPZpD
+ nECB2+rLdtwaN3qCuLT0YlPBFgNeGrf7j8tRuCtVg3VyL8cu9Dw0Xn+/l6K0Tw1z2Sy6x9qY/LL
+ uxrDCVCHFkv99Z99VRTIeRo/C20Fr6xq6/NUatv72p5vFaGujQpJLIgXEopsTV62Pr8ljFLfabD
+ tecCrVnC6YN4rhQRd4cN4iSYmKbgan5OIlnSneFdXA26T8gunnV9pq8flDPk+C3Pe0UQF5dEgrd
+ 0hrv/TLGmDsJuxK7375AwcweBBgfao8BlJkWRQoieTDkuI1SkYPbfy+bImFD7FyWLIEuSpiesP/
+ KG4Heoz8S8AdFqjFJ8AWAp4z1fhS28qO7ZkOX2mHVujftP3JxueVaIvQ4daAP9PSySXjmrCmPco
+ phxcZ753X5HLZ02B+63d30c9Iew0UnRuor9xudACczVOG+PUngW0Kxsj9tX+I6cKZyHUT+akTmV
+ Z7OkHSHslLZopuyqVL8FLpyyJkv9aME8QmyaHYmymzjwPjCsK50Ii+ARGaCL42LVETwBhjo227f
+ OwbKy7oAP+avSig==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v2 1/2] dt-bindings: net: altr,
-	socfpga-stmmac: Constrain interrupts
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [Linux-stm32] [PATCH v2 2/2] dt-bindings: net: renesas,
+	rzn1-gmac: Constrain interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,38 +120,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STMMAC on SoCFPGA uses exactly one interrupt in in-kernel DTS and common
+Renesas RZN1 GMAC uses three interrupts in in-kernel DTS and common
 snps,dwmac.yaml binding is flexible, so define precise constraint for
 this device.
 
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
 Changes in v2:
 1. Minor typo in commit msg.
+2. one->three interrupts in commit msg
+3. Rb tag
 ---
- .../devicetree/bindings/net/altr,socfpga-stmmac.yaml       | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../devicetree/bindings/net/renesas,rzn1-gmac.yaml       | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-index 3a22d35db778..fc445ad5a1f1 100644
---- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-+++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-@@ -62,6 +62,13 @@ properties:
-       - const: stmmaceth
-       - const: ptp_ref
+diff --git a/Documentation/devicetree/bindings/net/renesas,rzn1-gmac.yaml b/Documentation/devicetree/bindings/net/renesas,rzn1-gmac.yaml
+index d9a8d586e260..16dd7a2631ab 100644
+--- a/Documentation/devicetree/bindings/net/renesas,rzn1-gmac.yaml
++++ b/Documentation/devicetree/bindings/net/renesas,rzn1-gmac.yaml
+@@ -30,6 +30,15 @@ properties:
+       - const: renesas,rzn1-gmac
+       - const: snps,dwmac
  
 +  interrupts:
-+    maxItems: 1
++    maxItems: 3
 +
 +  interrupt-names:
 +    items:
 +      - const: macirq
++      - const: eth_wake_irq
++      - const: eth_lpi
 +
-   iommus:
-     minItems: 1
-     maxItems: 2
+   pcs-handle:
+     description:
+       phandle pointing to a PCS sub-node compatible with
 -- 
 2.48.1
 
