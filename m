@@ -2,56 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BD7B41ACF
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Sep 2025 11:57:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9273FB41EC6
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Sep 2025 14:21:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCBD4C3F95F;
-	Wed,  3 Sep 2025 09:57:31 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AF0CC3FAC8;
+	Wed,  3 Sep 2025 12:21:36 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96174C3F956
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58EA4C3FAC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Sep 2025 09:57:30 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1756893449;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/0FyGGHWcDrgxz10Urh5OV1MMiUdH5HDCFT5DAmKvuI=;
- b=WWOeJ/esyFTr51QXP37ODlRH7ABL2Yen4uDulWpqlXI2IGmDGm4I5x2S6ArN6tgwkjemKp
- 4hBP4TGK/P4Uurbs9941mrBz1+dy+UNFnGx8oZ69cimD8tqbee3vuzSEFD49zIrr69kSJy
- zxT5mzLLVXsr1OWKlGXN0DOtnG1+dH8YPW/n1jjXB3OFwhgTHkqBktmtdyWquQtxGm6pt3
- VrY74UKlTx057usWdP7FljDaQYVYQUwFMEE1WTRsX+nSVHJNAd3iqS114CHlf9CnEpUD3b
- SxVe/wOysR0+aGuuxLE1t6Qcu9NgoVXiyORMyv/bKuSASPh+wZMIPkZ4eDhDhg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1756893449;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/0FyGGHWcDrgxz10Urh5OV1MMiUdH5HDCFT5DAmKvuI=;
- b=bm7kR/26YIrTFvAFsmmUReGzi+ASqn5d2A6PPqovQGU7SfvAv39Ti03OsNUqWaclyOJbNw
- HEWw2SzRe2QcZsDA==
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Richard Cochran
- <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, John
- Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
-In-Reply-To: <20250901-relative_flex_pps-v4-1-b874971dfe85@foss.st.com>
-References: <20250901-relative_flex_pps-v4-0-b874971dfe85@foss.st.com>
- <20250901-relative_flex_pps-v4-1-b874971dfe85@foss.st.com>
-Date: Wed, 03 Sep 2025 11:57:28 +0200
-Message-ID: <877byfzwmv.ffs@tglx>
+ Wed,  3 Sep 2025 12:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=YUjvm9eofoV1ResAkmWD1i4gWOlEKZtbOKhgLDy60X4=; b=Ah0SU7TeDcUCOSpr1QDkS2w9T6
+ X1BI7rrsOnffJ+UGQkLG2e6hIadpm3DWpHV8Jq3DjceYSGhp+RQIIAIlgPUujdcjUNq/pq3se2TlC
+ P5ZGujTnFTicaOaeReDJvlWWfKE01m3xQ0exgGklDzV6Ynb/WIcr2BEMNEQfTps034ic=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1utmUS-0070oZ-Tc; Wed, 03 Sep 2025 14:21:28 +0200
+Date: Wed, 3 Sep 2025 14:21:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <5c49e94a-9267-459a-ba6c-70f3763f1a7b@lunn.ch>
+References: <20250903-mp2_ethernet-v1-0-4105b0ad2344@foss.st.com>
+ <20250903-mp2_ethernet-v1-2-4105b0ad2344@foss.st.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/3] time: export
-	timespec64_add_safe() symbol
+Content-Disposition: inline
+In-Reply-To: <20250903-mp2_ethernet-v1-2-4105b0ad2344@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/4] arm64: dts: st: enable ethernet1
+ controller on stm32mp257f-dk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,14 +56,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 01 2025 at 11:16, Gatien Chevallier wrote:
+> +&ethernet1 {
+> +	pinctrl-0 = <&eth1_rgmii_pins_b>;
+> +	pinctrl-1 = <&eth1_rgmii_sleep_pins_b>;
+> +	pinctrl-names = "default", "sleep";
+> +	max-speed = <1000>;
 
-> Export the timespec64_add_safe() symbol so that this function can be used
-> in modules where computation of time related is done.
->
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+RGMII naturally has a max-speed of 1G, so this line is pointless.
 
-Acked-by: Thomas Gleixner <tglx@linutronix.de>
+You only use max-speed when you need to restrict the system below what
+it would normally use, for example if the PCB is badly designed and
+the tracks don't support 1G, but can do 100Mbps
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
