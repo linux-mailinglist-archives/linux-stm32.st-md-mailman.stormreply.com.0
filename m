@@ -2,54 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40C2B41F59
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Sep 2025 14:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DCB0B41FA3
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Sep 2025 14:48:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA982C3FAC8;
-	Wed,  3 Sep 2025 12:40:16 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 413CEC3FAC8;
+	Wed,  3 Sep 2025 12:48:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EC9CC3FAC7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0557C3FAC7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Sep 2025 12:40:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=R+OIhPT15cRLCNkKMY1zwgni+1n9JXivTyEzbTPisXU=; b=j5APxs9d1R7JNWgFSfjgGtXVre
- mizQZQPdTsVJRgovGuNWKsTzbRmqQqsWSyHpVAxdoe/aAGWlyHzMlS4jQ4i4JcQEB+TLzgieCoNy6
- QQb3lgb8mKUVEwOUDWgx9pjBAxnPJlqzjPkKCGckaiLqgckK5ZDQbuy/EhlGQX5h0b8nkma2f/ZAG
- oX6GupfEodkkk+xu/TMln2+lndJ6KctkhgiYldKYI3nvznHy99NW6K9EMlDdYZ1vX14gZQw3DULGv
- 6YQUSckgatlQsFXcZY6yOWsoxrNeagt/NqZ8fQwEb/6x7lqekI3Hih7W20+XPDxOENr8oYOyJ6+G0
- zjdbkA4A==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56278 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1utmmZ-000000000XR-0BSS;
- Wed, 03 Sep 2025 13:40:11 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1utmmY-00000001s13-0v5M; Wed, 03 Sep 2025 13:40:10 +0100
-In-Reply-To: <aLg24RZ6hodr711j@shell.armlinux.org.uk>
-References: <aLg24RZ6hodr711j@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Wed,  3 Sep 2025 12:48:41 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 583CHub7021895;
+ Wed, 3 Sep 2025 14:48:33 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ pR/cYTMw3jgl+YXiMt8OJ3yKr+qlutsK3voWnGrYc7M=; b=GDUw3m80Tdt3GIPv
+ 3e7yfOHZMxy6xuwAfJxoGFaJVQx4jWE6yi+nojXsxJFTZe1pqz4CUNF6PpN/avDN
+ m3AYpAlSjNuGJt1x5m5dZwZT5OcgWOOVfaGEUsOxaNtgo19etY6M+YxVEUr2tKKT
+ KP96+dMgyO+6Ar+U405fJGFYAje9q3Xu8paz/EFQa8LVzWrY64BgfZ02GABhV/iO
+ lpJStkAC9IFR1+zXSaN7Fx35r+bAW53rj/MfnFo7nBllDMTaJ89HG9Sf/5lUNisA
+ cXcFDDhsVl49uMSPj+UDYCb1o1SMr1Rll/LHM4AjOJfyCDJf6/MaHvDRzVzCiTPi
+ 4XipYw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48vav2psd4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Sep 2025 14:48:32 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 5FB3B4004A;
+ Wed,  3 Sep 2025 14:47:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0437A2B4D47;
+ Wed,  3 Sep 2025 14:46:25 +0200 (CEST)
+Received: from [10.48.87.141] (10.48.87.141) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Wed, 3 Sep
+ 2025 14:46:24 +0200
+Message-ID: <dca0faa3-2d87-4a93-bc67-7028a7846647@foss.st.com>
+Date: Wed, 3 Sep 2025 14:46:27 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1utmmY-00000001s13-0v5M@rmk-PC.armlinux.org.uk>
-Date: Wed, 03 Sep 2025 13:40:10 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 11/11] net: stmmac: use
- STMMAC_CSR_xxx definitions in platform glue
+User-Agent: Mozilla Thunderbird
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20250903-mp2_ethernet-v1-0-4105b0ad2344@foss.st.com>
+ <20250903-mp2_ethernet-v1-3-4105b0ad2344@foss.st.com>
+ <faa673a3-d68c-4b7f-a2b6-1f5bf40aabfb@lunn.ch>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <faa673a3-d68c-4b7f-a2b6-1f5bf40aabfb@lunn.ch>
+X-Originating-IP: [10.48.87.141]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-03_06,2025-08-28_01,2025-03-28_01
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/4] arm64: dts: st: enable ethernet1
+ controller on stm32mp257f-ev1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,84 +76,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the STMMAC_CSR_xxx definitions to initialise plat->clk_csr in the
-platform glue drivers to make the integer values meaningful.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c    | 5 +++--
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 3 ++-
- drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c     | 5 +++--
- 3 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 3fac3945cbfa..d900b93f46ce 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -566,7 +566,8 @@ static int intel_mac_finish(struct net_device *ndev,
- 
- static void common_default_data(struct plat_stmmacenet_data *plat)
- {
--	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	plat->clk_csr = STMMAC_CSR_20_35M;
- 	plat->has_gmac = 1;
- 	plat->force_sf_dma_mode = 1;
- 
-@@ -613,7 +614,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 
- 	plat->pdev = pdev;
- 	plat->phy_addr = -1;
--	plat->clk_csr = 5;
-+	plat->clk_csr = STMMAC_CSR_250_300M;
- 	plat->has_gmac = 0;
- 	plat->has_gmac4 = 1;
- 	plat->force_sf_dma_mode = 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 6fca0fca4892..dd82dc2189e9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -90,7 +90,8 @@ static void loongson_default_data(struct pci_dev *pdev,
- 	/* Get bus_id, this can be overwritten later */
- 	plat->bus_id = pci_dev_id(pdev);
- 
--	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	plat->clk_csr = STMMAC_CSR_20_35M;
- 	plat->has_gmac = 1;
- 	plat->force_sf_dma_mode = 1;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-index e6a7d0ddac2a..4e3aa611fda8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c
-@@ -21,7 +21,8 @@ struct stmmac_pci_info {
- 
- static void common_default_data(struct plat_stmmacenet_data *plat)
- {
--	plat->clk_csr = 2;	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	/* clk_csr_i = 20-35MHz & MDC = clk_csr_i/16 */
-+	plat->clk_csr = STMMAC_CSR_20_35M;
- 	plat->has_gmac = 1;
- 	plat->force_sf_dma_mode = 1;
- 
-@@ -74,7 +75,7 @@ static int snps_gmac5_default_data(struct pci_dev *pdev,
- {
- 	int i;
- 
--	plat->clk_csr = 5;
-+	plat->clk_csr = STMMAC_CSR_250_300M;
- 	plat->has_gmac4 = 1;
- 	plat->force_sf_dma_mode = 1;
- 	plat->flags |= STMMAC_FLAG_TSO_EN;
--- 
-2.47.2
+On 9/3/25 14:24, Andrew Lunn wrote:
+>> +		phy1_eth1: ethernet-phy@4 {
+>> +			compatible = "ethernet-phy-id001c.c916";
+>> +			reset-gpios =  <&gpioj 9 GPIO_ACTIVE_LOW>;
+>> +			reset-assert-us = <10000>;
+>> +			reset-deassert-us = <80000>;
+>> +			reg = <4>;
+> 
+> The DT coding style would suggest reg comes after compatible.
+> 
+> 	Andrew
 
+Hi Andrew,
+
+Right, I will fix that for V2!
+
+Best regards,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
