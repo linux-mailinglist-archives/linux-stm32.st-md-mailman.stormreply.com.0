@@ -2,54 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F48B42D85
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 01:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 995CEB42E3A
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 02:30:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A86E0C36B38;
-	Wed,  3 Sep 2025 23:40:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4CAEC36B3D;
+	Thu,  4 Sep 2025 00:30:16 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8AEAC36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 130DFC36B3A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Sep 2025 23:40:13 +0000 (UTC)
+ Thu,  4 Sep 2025 00:30:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 56D9E44C45;
- Wed,  3 Sep 2025 23:40:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3076BC4CEE7;
- Wed,  3 Sep 2025 23:40:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C6C4B4365C;
+ Thu,  4 Sep 2025 00:30:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D84C4CEE7;
+ Thu,  4 Sep 2025 00:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756942812;
- bh=2fsTRI0s62XGwnP//OHTQCGU7+WD7rrA5jzNeU4M6lY=;
+ s=k20201202; t=1756945813;
+ bh=8YlLKo7oKMWe8nMTgXzhGD4l4zeBWdl4jzzaNRcv3tI=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=j/GrbPfJgOGjoVeEFEULkY/WrpJF/tT/fFsBDaxhblrMhUkNfDN3pjV/lZbS7go07
- vTr8xvzguB/Og4SwcemyOQyD0ayGLWI2hva68w7MnDD71Cg/pjKWmJYwpg4yjNeQDa
- NSrUHpGWLXSUOaLTdvc071RWkpm6ZeJwUsViJ/76gQ77IjstDPzUpNRQIOnDU0J55E
- pmDD0/0PR7hZ1lsHctmgUU05jJ8V2QHEG/Fv4Rb7t15P541j8LzdnLKvdQAuln5DAl
- FfNNrtXIPnqfx2MBLQLp1mDPPj9qFUcJPsZchL55js3pAA407/l2Raz9bMs+AyT9zs
- zN0TsAj8CTzTw==
+ b=odTFl1GKsc0uOzFyuMlYWir6XzVmSovsSYkA/xcaWKNQtdYQlS9T3uBVU9o2PoHWA
+ 7Z1fpfd8zoBxEgMigj3OdlYdg+E7uhhRRqQwRbGpSoukVwTIjsi35J6SvPeuHxXtel
+ r32A6otZXFewij2nw6qwkycC5XSa3m1gyVykv3RVLkQdoYEh5rzB78+XNHtHz29kbo
+ 3ADAomyrMukrTo2wGOeW6kGpBYnyhlEXTgl9LgGLzyfprTmgtLw36C3To/zkyB2UiY
+ QQKe/+5l/3KHjBwxcc1vv0xXv4o4kV0DwW38s1xJUJs6e7IYiJINqnrlgjt1V+X1ew
+ 7LME9mPlprWdw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70E51383C259; Wed,  3 Sep 2025 23:40:18 +0000 (UTC)
+ EAF72383C259; Thu,  4 Sep 2025 00:30:19 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175694281723.1237656.10367505965534451710.git-patchwork-notify@kernel.org>
-Date: Wed, 03 Sep 2025 23:40:17 +0000
-References: <20250901103632.3409896-1-joy.zou@nxp.com>
-In-Reply-To: <20250901103632.3409896-1-joy.zou@nxp.com>
-To: Joy Zou <joy.zou@nxp.com>
-Cc: imx@lists.linux.dev, alexander.stein@ew.tq-group.com, Frank.Li@nxp.com,
- edumazet@google.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- Markus.Niebel@ew.tq-group.com, frieder.schrempf@kontron.de,
- primoz.fiser@norik.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- kernel@pengutronix.de, linux-pm@vger.kernel.org, othacehe@gnu.org,
- s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, shawnguo@kernel.org,
- davem@davemloft.net, linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v10 0/6] Add i.MX91 platform support
+Message-Id: <175694581848.1248581.9473792758575091904.git-patchwork-notify@kernel.org>
+Date: Thu, 04 Sep 2025 00:30:18 +0000
+References: <20250901-relative_flex_pps-v4-0-b874971dfe85@foss.st.com>
+In-Reply-To: <20250901-relative_flex_pps-v4-0-b874971dfe85@foss.st.com>
+To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, tglx@linutronix.de,
+ devicetree@vger.kernel.org, sboyd@kernel.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, jstultz@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 0/3] net: stmmac: allow
+ generation of flexible PPS relative to MAC time
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,30 +68,26 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon,  1 Sep 2025 18:36:26 +0800 you wrote:
-> The design of i.MX91 platform is very similar to i.MX93.
-> Extracts the common parts in order to reuse code.
+On Mon, 1 Sep 2025 11:16:26 +0200 you wrote:
+> When doing some testing on stm32mp2x platforms(MACv5), I noticed that
+> the command previously used with a MACv4 for genering a PPS signal:
+> echo "0 0 0 1 1" > /sys/class/ptp/ptp0/period
+> did not work.
 > 
-> The mainly difference between i.MX91 and i.MX93 is as follows:
-> - i.MX91 removed some clocks and modified the names of some clocks.
-> - i.MX91 only has one A core.
-> - i.MX91 has different pinmux.
+> This is because the arguments passed through this command must contain
+> the start time at which the PPS should be generated, relative to the
+> MAC system time. For some reason, a time set in the past seems to work
+> with a MACv4.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v10,1/6] arm64: dts: freescale: move aliases from imx93.dtsi to board dts
+  - [net-next,v4,1/3] time: export timespec64_add_safe() symbol
+    https://git.kernel.org/netdev/net-next/c/96c88268b79b
+  - [net-next,v4,2/3] drivers: net: stmmac: handle start time set in the past for flexible PPS
+    https://git.kernel.org/netdev/net-next/c/adbe2cfd8a93
+  - [net-next,v4,3/3] ARM: dts: stm32: add missing PTP reference clocks on stm32mp13x SoCs
     (no matching commit)
-  - [v10,2/6] arm64: dts: freescale: rename imx93.dtsi to imx91_93_common.dtsi and modify them
-    (no matching commit)
-  - [v10,3/6] arm64: dts: imx91: add i.MX91 dtsi support
-    (no matching commit)
-  - [v10,4/6] arm64: dts: freescale: add i.MX91 11x11 EVK basic support
-    (no matching commit)
-  - [v10,5/6] arm64: dts: imx93-11x11-evk: remove fec property eee-broken-1000t
-    (no matching commit)
-  - [v10,6/6] net: stmmac: imx: add i.MX91 support
-    https://git.kernel.org/netdev/net-next/c/59aec9138f30
 
 You are awesome, thank you!
 -- 
