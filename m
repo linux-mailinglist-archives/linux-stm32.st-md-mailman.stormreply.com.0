@@ -2,51 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995CEB42E3A
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 02:30:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DDE8B42E78
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 02:53:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4CAEC36B3D;
-	Thu,  4 Sep 2025 00:30:16 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BDCDC36B3D;
+	Thu,  4 Sep 2025 00:53:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 130DFC36B3A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91C78C36B3A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Sep 2025 00:30:14 +0000 (UTC)
+ Thu,  4 Sep 2025 00:53:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C6C4B4365C;
- Thu,  4 Sep 2025 00:30:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D84C4CEE7;
- Thu,  4 Sep 2025 00:30:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7AE776023D;
+ Thu,  4 Sep 2025 00:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CDAC4CEE7;
+ Thu,  4 Sep 2025 00:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1756945813;
- bh=8YlLKo7oKMWe8nMTgXzhGD4l4zeBWdl4jzzaNRcv3tI=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=odTFl1GKsc0uOzFyuMlYWir6XzVmSovsSYkA/xcaWKNQtdYQlS9T3uBVU9o2PoHWA
- 7Z1fpfd8zoBxEgMigj3OdlYdg+E7uhhRRqQwRbGpSoukVwTIjsi35J6SvPeuHxXtel
- r32A6otZXFewij2nw6qwkycC5XSa3m1gyVykv3RVLkQdoYEh5rzB78+XNHtHz29kbo
- 3ADAomyrMukrTo2wGOeW6kGpBYnyhlEXTgl9LgGLzyfprTmgtLw36C3To/zkyB2UiY
- QQKe/+5l/3KHjBwxcc1vv0xXv4o4kV0DwW38s1xJUJs6e7IYiJINqnrlgjt1V+X1ew
- 7LME9mPlprWdw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EAF72383C259; Thu,  4 Sep 2025 00:30:19 +0000 (UTC)
+ s=k20201202; t=1756947211;
+ bh=PRZRjRSX2JA9lvFNL/WZkeCUWyYQfQ1+r6Jp/WjO5pw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=NgdwO+8wAFHW6LdO/eVyFoEDcchaE2YqsA5D3ztR5fafA1jCL3Sm2HpA+DttiBmGc
+ /ClJ8qp+GmwYYnTJU8T9YOjXhS90FeHJPWLUrw8FyTxBolt4XzJGSy8nL8t0W2PzgV
+ UcbGAKWYK2FD5eO7qPzQESFhUvGz/BcbTfUAHxbHjGOJZ7rhFG/TCfFiZtQemB8Qxc
+ WcZGqDmvoyw8Z0D3YBkpBRmlPmPZO4j/So44m5f9fmvANi4hxPhdvrXUGOY7PDZKlw
+ ImnIcmjuDEbWXJJgYaxxcGoPzh0qRUHNnMIRolv4044ETy6YaRJap3cAH9+do8qtX7
+ Nz0JutItWH87A==
+Date: Wed, 3 Sep 2025 17:53:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20250903175330.6937a8a5@kernel.org>
+In-Reply-To: <E1utmli-00000001s00-49Uk@rmk-PC.armlinux.org.uk>
+References: <aLg24RZ6hodr711j@shell.armlinux.org.uk>
+ <E1utmli-00000001s00-49Uk@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175694581848.1248581.9473792758575091904.git-patchwork-notify@kernel.org>
-Date: Thu, 04 Sep 2025 00:30:18 +0000
-References: <20250901-relative_flex_pps-v4-0-b874971dfe85@foss.st.com>
-In-Reply-To: <20250901-relative_flex_pps-v4-0-b874971dfe85@foss.st.com>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, tglx@linutronix.de,
- devicetree@vger.kernel.org, sboyd@kernel.org, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, jstultz@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 0/3] net: stmmac: allow
- generation of flexible PPS relative to MAC time
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 01/11] net: stmmac: mdio: provide
+ address register formatter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,38 +60,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On Wed, 03 Sep 2025 13:39:18 +0100 Russell King (Oracle) wrote:
+> +/**
+> + * stmmac_mdio_format_addr() - format the address register
+> + * @priv: struct stmmac_priv pointer
+> + * @pa: 5-bit MDIO package address
+> + * @gr: 5-bit MDIO register address (C22) or MDIO device address (C45)
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 1 Sep 2025 11:16:26 +0200 you wrote:
-> When doing some testing on stm32mp2x platforms(MACv5), I noticed that
-> the command previously used with a MACv4 for genering a PPS signal:
-> echo "0 0 0 1 1" > /sys/class/ptp/ptp0/period
-> did not work.
-> 
-> This is because the arguments passed through this command must contain
-> the start time at which the PPS should be generated, relative to the
-> MAC system time. For some reason, a time set in the past seems to work
-> with a MACv4.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v4,1/3] time: export timespec64_add_safe() symbol
-    https://git.kernel.org/netdev/net-next/c/96c88268b79b
-  - [net-next,v4,2/3] drivers: net: stmmac: handle start time set in the past for flexible PPS
-    https://git.kernel.org/netdev/net-next/c/adbe2cfd8a93
-  - [net-next,v4,3/3] ARM: dts: stm32: add missing PTP reference clocks on stm32mp13x SoCs
-    (no matching commit)
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+If you're willing to oblige kdoc it wants Return: to be documented.
+Similar comment on patch 9 where stmmac_clk_csr_set() gains a return
+value.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
