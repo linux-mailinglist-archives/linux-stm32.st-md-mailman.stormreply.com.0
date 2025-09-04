@@ -2,19 +2,19 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72B3B4366B
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 10:59:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379D2B43674
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 11:01:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD055C3FAC9;
-	Thu,  4 Sep 2025 08:59:54 +0000 (UTC)
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net
- (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC562C3FAC8
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F25BEC3FAC9;
+	Thu,  4 Sep 2025 09:01:24 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [52.229.205.26])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B6B4C3FAC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Sep 2025 08:59:53 +0000 (UTC)
+ Thu,  4 Sep 2025 09:01:23 +0000 (UTC)
 Received: from E0005182LT.eswin.cn (unknown [10.12.96.155])
- by app1 (Coremail) with SMTP id TAJkCgDn_Q7kVLlosGTIAA--.33516S2;
- Thu, 04 Sep 2025 16:59:19 +0800 (CST)
+ by app1 (Coremail) with SMTP id TAJkCgAXLg9LVbloAGXIAA--.31039S2;
+ Thu, 04 Sep 2025 17:01:01 +0800 (CST)
 From: weishangjuan@eswincomputing.com
 To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
@@ -28,33 +28,35 @@ To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  emil.renner.berthing@canonical.com
-Date: Thu,  4 Sep 2025 16:59:13 +0800
-Message-Id: <20250904085913.2494-1-weishangjuan@eswincomputing.com>
+Date: Thu,  4 Sep 2025 17:00:55 +0800
+Message-Id: <20250904090055.2546-1-weishangjuan@eswincomputing.com>
 X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20250904085913.2494-1-weishangjuan@eswincomputing.com>
+References: <20250904085913.2494-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
-X-CM-TRANSID: TAJkCgDn_Q7kVLlosGTIAA--.33516S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZF4ftw1UXFy5try3WrykZrb_yoWrAryrpF
- W0kry5Wwn8AryxXw4Iyw10kFyfJan7JF1akr1Iqw1fXa1qya90qr4ak3WjgFy7Cr4DZ34Y
- gay3ZFW7Ca4ay3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: TAJkCgAXLg9LVbloAGXIAA--.31039S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCr4kJF18CFWUAr43GFyDKFg_yoWrGr1kpF
+ WkCrW5Jr4fXr1fXa1UtF10kFn3ta1DCr1Ykrn7J3Waq3s0qa90qw4ayFy5Ga43Cr47ZFy5
+ WFWYqayxAw12k3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBl14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
  W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26rWY6Fy7MxkIecxEwVCm-wCF04
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
  k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
  MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI4
- 8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
- MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
- 8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRAnYwUUUUU
+ 8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4U
+ JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+ C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRiWrW5UUUUU==
 X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
 Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
  lizhi2@eswincomputing.com, Shangjuan Wei <weishangjuan@eswincomputing.com>,
  linmin@eswincomputing.com
-Subject: [Linux-stm32] [PATCH v5 0/2] Add driver support for Eswin eic7700
-	SoC ethernet controller
+Subject: [Linux-stm32] [PATCH v5 1/2] dt-bindings: ethernet: eswin: Document
+	for EIC7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,85 +68,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogU2hhbmdqdWFuIFdlaSA8d2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbT4KClRo
-aXMgc2VyaWVzIGRlcGVuZHMgb24gdGhlIGNvbmZpZyBvcHRpb24gcGF0Y2ggWzFdLgoKWzFdIGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDgyNTEzMjQyNy4xNjE4MDg5LTMtcGlua2Vz
-aC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLwoKVXBkYXRlczoKCiAgQ2hhbmdlcyBpbiB2Ne+8mgog
-IC0gVXBkYXRlZCBlc3dpbixlaWM3NzAwLWV0aC55YW1sCiAgICAtIFVzZSAiaXRlbXMiIGluc3Rl
-YWQgImVudW0iIGZvciBjbG9jay1uYW1lcwogICAgLSBBcnJhbmdlIGNsb2NrcyBkZXNjcmlwdGlv
-biBpbiBjb3JyZWN0IG9yZGVyCiAgICAtIERlbGV0ZSByZWR1bmRhbnQgZGVzY3JpcHRpb25zIGZv
-ciBlc3dpbixoc3Atc3AtY3NyIHByb3BlcnR5CiAgLSBVcGRhdGVkIGR3bWFjLWVpYzc3MDAuYyAg
-CiAgICAtIE9wdGltaXplIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiBlaWM3NzAwXyBhcHB5X2RlbGF5
-CiAgICAtIFVwZGF0ZSBjb21tZW50cyBhbmQgcmVtb3ZlIHJlZyBjaGVja2luZwogICAgLSBVc2Ug
-RklFTERfUFJFUCBpbiBlaWM3NzAwX2FwcGx5X2RlbGF5IGZ1bmN0aW9uCiAgICAtIFVzZSBjbGtf
-YnVsayByZWxhdGVkIEFQSXMgdG8gbWFuYWdlIGNsa3MKICAtIExpbmsgdG8gdjQ6IGh0dHBzOi8v
-bG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDgyNzA4MTEzNS4yMjQzLTEtd2Vpc2hhbmdqdWFuQGVz
-d2luY29tcHV0aW5nLmNvbS8KCiAgQ2hhbmdlcyBpbiB2NDoKICAtIFVwZGF0ZWQgZXN3aW4sZWlj
-NzcwMC1ldGgueWFtbAogICAgLSBNb2RpZnkgcmVnOm1pbkl0ZW1zOjEgdG8gcmVnOm1heEl0ZW1z
-OiAxCiAgICAtIERlbGV0ZSBtaW5JdGVtcyBhbmQgbWF4SXRlbXMgb2YgY2xvY2sgYW5kIGNsb2Nr
-LW5hbWVzCiAgICAtIERlbGV0ZSBwaHktbW9kZSBhbmQgcGh5LWhhbmRsZSBwcm9wZXJ0aWVzCiAg
-ICAtIEFkZCBkZXNjcmlwdGlvbiBmb3IgY2xvY2sKICAgIC0gQWRkIHR5cGVzIG9mIGNsb2NrLW5h
-bWVzCiAgICAtIERlbGV0ZSBkZXNjcmlwdGlvbnMgZm9yIHJ4LWludGVybmFsLWRlbGF5LXBzIGFu
-ZCB0eC1pbnRlcm5hbC1kZWxheS1wcwogICAgLSBBZGQgZW51bSB2YWx1ZSBmb3IgcngtaW50ZXJu
-YWwtZGVsYXktcHMgYW5kIHR4LWludGVybmFsLWRlbGF5LXBzCiAgICAtIE1vZGlmeSBkZXNjcmlw
-dGlvbiBmb3IgZXN3aW4saHNwLXNwLWNzciBwcm9wZXJ0eQogICAgLSBEZWxldGUgZXN3aW4sc3lz
-Y3JnLWNzciBhbmQgZXN3aW4sZGx5LWhzcC1yZWcgcHJvcGVydGllcwogICAgLSBNb2RpZnkgcGh5
-LW1vZGU9InJnbWlpIiB0byBwaHktbW9kZT0icmdtaWktaWQiCiAgLSBVcGRhdGVkIGR3bWFjLWVp
-Yzc3MDAuYwogICAgLSBSZW1vdmUgZml4X21hY19zcGVlZCBhbmQgY29uZmlndXJlIGRpZmZlcmVu
-dCBkZWxheXMgZm9yIGRpZmZlcmVudCByYXRlcwogICAgLSBNZXJnZSB0aGUgb2Zmc2V0IG9mIHRo
-ZSBkbHkgcmVnaXN0ZXIgaW50byB0aGUgZXN3aW4sIGhzcCBzcCBjc3IgYXR0cmlidXRlcwogICAg
-ICBmb3IgdW5pZmllZCBtYW5hZ2VtZW50CiAgICAtIEFkZCBtaXNzaW5nIEF1dGhvciBhbmQgb3B0
-aW1pemUgdGhlIG51bWJlciBvZiBjaGFyYWN0ZXJzIHBlcgogICAgICBsaW5lIHRvIHdpdGhpbiA4
-MAogICAgLSBTdXBwb3J0IGRlZmF1bHQgZGVsYXkgY29uZmlndXJhdGlvbiBhbmQgYWRkIHRoZSBo
-YW5kbGluZyBvZiB2ZW5kb3IgZGVsYXkgCiAgICAgIGNvbmZpZ3VyYXRpb24KICAgIC0gQWRkIGNs
-a3NfY29uZmlnIGZvciBwbV9ydW50aW1lCiAgICAtIE1vZGlmeSB0aGUgYXR0cmlidXRlIGZvcm1h
-dCwgc3VjaCBhcyBlc3dpbixoc3Bfc3BfY3NyIHRvIGVzd2luLGhzcC1zcC1jc3IKICAtIExpbmsg
-dG8gdjM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDcwMzA5MTgwOC4xMDkyLTEt
-d2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbS8KCiAgQ2hhbmdlcyBpbiB2MzoKICAtIFVw
-ZGF0ZWQgZXN3aW4sZWljNzcwMC1ldGgueWFtbAogICAgLSBNb2RpZnkgc25wcyxkd21hYyB0byBz
-bnBzLGR3bWFjLTUuMjAKICAgIC0gUmVtb3ZlIHRoZSBkZXNjcmlwdGlvbiBvZiByZWcKICAgIC0g
-TW9kaWZ5IHRoZSB2YWx1ZSBvZiBjbG9jayBtaW5JdGVtcyBhbmQgbWF4SXRlbXMKICAgIC0gTW9k
-aWZ5IHRoZSB2YWx1ZSBvZiBjbG9jay1uYW1lcyBtaW5JdGVtcyBhbmQgbWF4SXRlbXMKICAgIC0g
-QWRkIGRlc2NyaXB0aW9ucyBvZiBzbnBzLHdyaXRlLXF1ZXN0aW9ucywgc25wcyxyZWFkLXF1ZXN0
-aW9ucwogICAgLSBBZGQgcngtaW50ZXJuYWwtZGVsYXktcHMgYW5kIHR4LWludGVybmFsLWRlbGF5
-LXBzIHByb3BlcnRpZXMKICAgIC0gTW9kaWZ5IGRlc2NyaXB0aW9ucyBmb3IgY3VzdG9tIHByb3Bl
-cnRpZXMsIHN1Y2ggYXMgZXN3aW4saHNwLXNwLWNzcgogICAgLSBEZWxldGUgc25wcyxheGktY29u
-ZmlnIHByb3BlcnR5CiAgICAtIEFkZCBzbnBzLGZpeGVkLWJ1cnN0IHNucHMsYWFsIHNucHMsdHNv
-IHByb3BlcnRpZXMKICAgIC0gRGVsZXRlIHNucHMsbHBpX2VuIHByb3BlcnR5CiAgICAtIE1vZGlm
-eSBmb3JtYXQgb2YgY3VzdG9tIHByb3BlcnRpZXMKICAtIFVwZGF0ZWQgZHdtYWMtZWljNzcwMC5j
-CiAgICAtIFNpbXBsaWZ5IGRyaXZlcnMgYW5kIHJlbW92ZSB1bm5lY2Vzc2FyeSBBUEkgYW5kIERU
-UyBhdHRyaWJ1dGUgY29uZmlndXJhdGlvbnMKICAgIC0gSW5jcmVhc2UgdGhlIG1hcHBpbmcgZnJv
-bSB0eC9yeF9kZWxheV9wcyB0byBwcml2YXRlIGRseQogIC0gTGluayB0byB2MjogaHR0cHM6Ly9s
-b3JlLmtlcm5lbC5vcmcvYWxsL2FEYWQrOFlIRUZkT0lzMzhAbWV2LWRldi5pZ2suaW50ZWwuY29t
-LwoKICBDaGFuZ2VzIGluIHYyOgogIC0gVXBkYXRlZCBlc3dpbixlaWM3NzAwLWV0aC55YW1sCiAg
-ICAtIEFkZCBzbnBzLGR3bWFjIGluIGJpbmRpbmcgZmlsZQogICAgLSBNb2RpZnkgdGhlIGRlc2Ny
-aXB0aW9uIG9mIHJlZwogICAgLSBNb2RpZnkgdGhlIG51bWJlciBvZiBjbG9jay1uYW1lcwogICAg
-LSBDaGFuZ2VkIHRoZSBuYW1lcyBvZiByZXNldC1uYW1lcyBhbmQgcGh5LW1vZGUKICAgIC0gQWRk
-IGRlc2NyaXB0aW9uIGZvciBjdXN0b20gcHJvcGVydGllcywgc3VjaCBhcyBlc3dpbixoc3Bfc3Bf
-Y3NyCiAgICAtIERlbGV0ZSBzbnBzLGJsZW4gc25wcyxyZF9vc3JfbG10IHNucHMsd3Jfb3NyX2xt
-dCBwcm9wZXJ0aWVzCiAgLSBVcGRhdGVkIGR3bWFjLWVpYzc3MDAuYwogICAgLSBSZW1vdmUgdGhl
-IGNvZGUgcmVsYXRlZCB0byBQSFkgTEVEIGNvbmZpZ3VyYXRpb24gZnJvbSB0aGUgTUFDIGRyaXZl
-cgogICAgLSBBZGp1c3QgdGhlIGNvZGUgZm9ybWF0IGFuZCBkcml2ZXIgaW50ZXJmYWNlcywgc3Vj
-aCBhcyByZXBsYWNpbmcga3phbGxvYwogICAgICB3aXRoIGRldm1fa3phbGxvYywgZXRjLgogICAg
-LSBVc2UgcGh5bGliIGluc3RlYWQgb2YgdGhlIEdQSU8gQVBJIGluIHRoZSBkcml2ZXIgdG8gaW1w
-bGVtZW50IHRoZSBQSFkKICAgICAgcmVzZXQgZnVuY3Rpb24KICAtIExpbmsgdG8gdjE6IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDUxNjAxMDg0OS43ODQtMS13ZWlzaGFuZ2p1YW5A
-ZXN3aW5jb21wdXRpbmcuY29tLwoKU2hhbmdqdWFuIFdlaSAoMik6CiAgZHQtYmluZGluZ3M6IGV0
-aGVybmV0OiBlc3dpbjogRG9jdW1lbnQgZm9yIEVJQzc3MDAgU29DCiAgZXRoZXJuZXQ6IGVzd2lu
-OiBBZGQgZWljNzcwMCBldGhlcm5ldCBkcml2ZXIKCiAuLi4vYmluZGluZ3MvbmV0L2Vzd2luLGVp
-Yzc3MDAtZXRoLnlhbWwgICAgICAgfCAxMjggKysrKysrKysrCiBkcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnICAgfCAgMTEgKwogZHJpdmVycy9uZXQvZXRoZXJuZXQv
-c3RtaWNyby9zdG1tYWMvTWFrZWZpbGUgIHwgICAxICsKIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9kd21hYy1laWM3NzAwLmMgICB8IDI1MCArKysrKysrKysrKysrKysrKysKIDQgZmlsZXMg
-Y2hhbmdlZCwgMzkwIGluc2VydGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKIGNyZWF0
-ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1l
-aWM3NzAwLmMKCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+Add ESWIN EIC7700 Ethernet controller, supporting clock
+configuration, delay adjustment and speed adaptive functions.
+
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+---
+ .../bindings/net/eswin,eic7700-eth.yaml       | 128 ++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+new file mode 100644
+index 000000000000..9771fed9604e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -0,0 +1,128 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Eswin EIC7700 SOC Eth Controller
++
++maintainers:
++  - Shuang Liang <liangshuang@eswincomputing.com>
++  - Zhi Li <lizhi2@eswincomputing.com>
++  - Shangjuan Wei <weishangjuan@eswincomputing.com>
++
++description:
++  The eth controller registers are part of the syscrg block on
++  the EIC7700 SoC.
++
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - eswin,eic7700-qos-eth
++  required:
++    - compatible
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: eswin,eic7700-qos-eth
++      - const: snps,dwmac-5.20
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: macirq
++
++  clocks:
++    items:
++      - description: AXI clock
++      - description: Configuration clock
++      - description: GMAC main clock
++      - description: Tx clock
++
++  clock-names:
++    items:
++      - const: axi
++      - const: cfg
++      - const: stmmaceth
++      - const: tx
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    items:
++      - const: stmmaceth
++
++  rx-internal-delay-ps:
++    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++
++  tx-internal-delay-ps:
++    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++
++  eswin,hsp-sp-csr:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - description: Phandle to HSP(High-Speed Peripheral) device
++      - description: Offset of phy control register for internal
++                     or external clock selection
++      - description: Offset of AXI clock controller Low-Power request
++                     register
++      - description: Offset of register controlling TX/RX clock delay
++    description: |
++      High-Speed Peripheral device needed to configure clock selection,
++      clock low-power mode and clock delay.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - interrupt-names
++  - phy-mode
++  - resets
++  - reset-names
++  - rx-internal-delay-ps
++  - tx-internal-delay-ps
++  - eswin,hsp-sp-csr
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet@50400000 {
++        compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
++        reg = <0x50400000 0x10000>;
++        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
++                <&d0_clock 193>;
++        clock-names = "axi", "cfg", "stmmaceth", "tx";
++        interrupt-parent = <&plic>;
++        interrupts = <61>;
++        interrupt-names = "macirq";
++        phy-mode = "rgmii-id";
++        phy-handle = <&phy0>;
++        resets = <&reset 95>;
++        reset-names = "stmmaceth";
++        rx-internal-delay-ps = <200>;
++        tx-internal-delay-ps = <200>;
++        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
++        snps,axi-config = <&stmmac_axi_setup>;
++        snps,aal;
++        snps,fixed-burst;
++        snps,tso;
++        stmmac_axi_setup: stmmac-axi-config {
++            snps,blen = <0 0 0 0 16 8 4>;
++            snps,rd_osr_lmt = <2>;
++            snps,wr_osr_lmt = <2>;
++        };
++    };
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
