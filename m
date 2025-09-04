@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5377B4460F
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 21:02:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C8BB44616
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Sep 2025 21:04:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B63DC36B1F;
-	Thu,  4 Sep 2025 19:02:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D92FC36B1F;
+	Thu,  4 Sep 2025 19:04:13 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4123C36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 904A6C36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Sep 2025 19:02:38 +0000 (UTC)
+ Thu,  4 Sep 2025 19:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=7c9LF8t05wCPldyGpjFav7F6YUnp2uaWeZeIYO17YxQ=; b=Qiump116rQI8IMkUSa7QZlAi7A
- cplaNriHRhCc74m3WtjPza3rxaDBckbUs/+OT7XBH8z8pAFmwA/iQ91ktuM1F5h+SHX/V8JbSQrD5
- KHgKaT+ULRzJEmRIP0O7ozT53XwkbVOV2/8Py3OB1Zh+0wnmdNqm8qGquqprlD/Od87g=;
+ bh=9k49AGNLb5MxxmRILhhE+l4vy15lzrYQ/X4lAvJu9Kk=; b=hd8J0dEhz6uhVAC+yPUwr6ZBwV
+ j4EJ0jriaNrRBEiNQTgB8ldmUVR5raWKhpKevLUZyLc3rQIkdyJPTxaa7PSn9mKk9RRVE0BDa6Zal
+ iyFOES/tRgof6nruQ04rgxWLJ3R6VGPnxugD1/MmLTAKTPiQgX19EaYBeAsqJuxfmtP0=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1uuFE8-007G8T-AD; Thu, 04 Sep 2025 21:02:32 +0200
-Date: Thu, 4 Sep 2025 21:02:32 +0200
+ id 1uuFFc-007G9R-Fw; Thu, 04 Sep 2025 21:04:04 +0200
+Date: Thu, 4 Sep 2025 21:04:04 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <7b9f2bd1-76c0-4965-8148-c6c6cc282126@lunn.ch>
+Message-ID: <78e6c3c7-4a93-4310-998c-b4ea4daf15f9@lunn.ch>
 References: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
- <E1uu8oM-00000001vp4-3DC5@rmk-PC.armlinux.org.uk>
+ <E1uu8oR-00000001vpB-3fbY@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1uu8oM-00000001vp4-3DC5@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1uu8oR-00000001vpB-3fbY@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 07/11] net: stmmac: mdio:
- improve mdio register field definitions
+Subject: Re: [Linux-stm32] [PATCH net-next v2 08/11] net: stmmac: mdio: move
+ initialisation of priv->clk_csr to stmmac_mdio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,10 +56,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 04, 2025 at 01:11:30PM +0100, Russell King (Oracle) wrote:
-> Include the register name in the definitions, and use a name which
-> more closely resembles that used in documentation, while still being
-> descriptive.
+On Thu, Sep 04, 2025 at 01:11:35PM +0100, Russell King (Oracle) wrote:
+> The only user of priv->clk_csr is the MDIO code, so move its
+> initialisation to stmmac_mdio.c.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
