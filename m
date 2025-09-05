@@ -2,178 +2,186 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53B67B45A8D
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Sep 2025 16:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 872E6B45D0F
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Sep 2025 17:53:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16B56C35E2E;
-	Fri,  5 Sep 2025 14:31:40 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD14DC35E2E;
+	Fri,  5 Sep 2025 15:53:33 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6A4AC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C370CC36B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Sep 2025 14:31:38 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-323267b98a4so2044398a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Sep 2025 07:31:38 -0700 (PDT)
+ Fri,  5 Sep 2025 15:53:32 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 585FEwJk020399;
+ Fri, 5 Sep 2025 17:53:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=selector1; bh=
+ uqSgHwJcM5a6UBG0RlBxGVuzV/M9wYyaI+Zixod5o1M=; b=cqn+RTfwk1Bjafpd
+ YEJnRj5wT5JPJ5ef+Y7BxLFYctCJA/490XAofxper7+XAQ85NniGWEJakjugqbLy
+ Utb4rWQhZoYcnLuC+20OdhyYaDXMBE/RUG6JDaUFNsLnLVXKsvDDHbzdtViSPSd8
+ zl21WOf1NCgUjK8VvxSrXuHDAEA/0PhSoULD/QdZZ1cN7nfZqgPAxPX8xa62urQD
+ PEBU/4RMp0xvCrK8gyOgDMcdrIsXtmlCsF3ufhPoszKzI0eay/Lqt+Sy1K+HnTIe
+ cQvafQk+GZFhLSdwo5Ka0KMMXHv8Jrb5R+r3vIVqpv2f0Hv0B8dWRnjddoBOzGzg
+ YgFKQA==
+Received: from mrwpr03cu001.outbound.protection.outlook.com
+ (mail-francesouthazon11011048.outbound.protection.outlook.com
+ [40.107.130.48])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48ur6g2rgj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Sep 2025 17:53:21 +0200 (MEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TtOLkGeoIZJrcWTAcak2GD6K8chr9TuFVXK44VlTLa2J+c20ckKpyQRaUxiDHaxXGtQwwdK61FM99htpnVSAaLfrasvIeq8ucMa87abvBDWz3NONzC9wa5LKagn9tEZ/02gVvvbbt6XzHsbW/15Hco4sMEb2ihhIQAOg+14c2JlZmKtg5z5m8WQeI+wo6TKtWEMVx/H3L2Z2gyLFht0YQJDXH8PcXq2rmwH76mvzIGNaIHfThnJAzLpDiLIBxmis7cMhUB4g5wU0p5m1BKKOCGDR8wHRePO2gtcq4uOmq2POg/Lei+8KhgKBRhla1knvsNJQrN5QGRxhESQjITHNyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uqSgHwJcM5a6UBG0RlBxGVuzV/M9wYyaI+Zixod5o1M=;
+ b=Kh4uo2r29JXnJ1XpD1Eedj0YEZsYuQ+UcZl8Aswd0IytFPvSbb80LT7Hs6k8GATx2+poO/ezAe/GB0FRYkSnvYLN18k/x+n1fnwfKnxgoKf/7gBhnqZ7WfZMNkbBNofpdNNzx9iwkxkmKs5qWXnfOp2URUxgaf1Xf5tFrtjuNTc9jts+CksSzg5Rv5bVzR72OakN3w28K2KGbXJAch7z5Yxr5Aw+a/2GMTqHrmzcFN0TJt+Z04lHxpbDEkgwCtLkRh4VaoQrVZesNnH49BsdPdQVMx1aYrr5vpjPiu7tIGq5+glkAE5fN8M8ljkn9a1KKYdbvMBuL3gjjTcKlvoLjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=linaro.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757082697; x=1757687497;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=3vIXH9G8eZJ7ix/XNHz4bvSACtWtZGWHKqaN5lng6nE=;
- b=nY3+BwmthfoPMz5oQjrFWH83CZpDT3etBNtLVfs476k7xb6xuNdijvFdVEfUTbJ21F
- xrFnQAQgVY7wiSZy6EcuNOG3EM3crbhNSdVh18tUs670WkvsIgJ9L646lJOiOQUJbkQA
- 3x/30swMWaFmEAJsmTRjiu+Fu+V0SPFfTPxcK44XrNAxJT3/fU73xOy1aEi4Br5CaWMF
- 8WwvN4bp1h0zp0qdz9tS5gtOlePbTlBdy1lOyPjOIXgOHzlyet+6/x0/N5wjWVfZRZRg
- Tvr/Mc0vNo9TWDTSLXpLsMs3xzmeHhb95kdt98UjDgCKAEwj123/L1uKiMjcmPHUPwVi
- 8qYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757082697; x=1757687497;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:sender:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3vIXH9G8eZJ7ix/XNHz4bvSACtWtZGWHKqaN5lng6nE=;
- b=wMVu12gOW6c/2z7jjilaAj3lfY363ld/Gf8pGfcuYPNGDm0bU2gmQMoNE8Y5rFUmq3
- 1lQxY88k+PfTYkNQFq+ZJhgKqyIZVgoIGEhIN/NP1vfEXj43B3nsAApVuCacJjAdGZvn
- SQ5a1ylznnS1SsAyxvc3kYTmXnApYFKYHvyv/s5FIzDApNylzJ5KCznww7uBx5ttKGPn
- fFYAwPrZ3Gft5XDtoQwKvdkDRdo+IV7IBQLTs+flIono6Erwr5PoMLdlH54E7cHucbAp
- A1p4HwO6amgbLEn6KAqEZ5NhtN+FCaxTeEMEEIY5X8Ya/ikZ9XW4IdD2zRnktzES/tFh
- 5FbA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW5b3tIUpCnnbNNgVeW+w3NlXZWsTGuBX5KKYIvLQlWiOI1cKJyymIlkXj+NOMcFzDROAzR4vZrVVIB1w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx/57bLkWrvH5qTc2yqiDOD77Ah7JAA7ccAL2rcsbSBeO/DMx8o
- pHdZQzAoJfQd9+RH5o/ZOHf5/YkQCd2X0Eb6T7fG7ibryXeWefYTFlTR
-X-Gm-Gg: ASbGncsQ41a1dIfD7nT3gYR+BRv+XXwMyxeEulzKe7wLvC58ZJ04OU5W34N0EyZwrfh
- vCfy99paiqtipGiyrIL+ojgYlyxMZuXRVYcAvOEW8mlGXmAc3YTcjloDKzzk9qAWB3eIiPxnWg/
- rkIGmBGjahzpedQeXfwlKmgpkdGE2WmL3ebtkPfoFnS+ZBPkNaIoZBhH6l8uisu3rtaBWMk2Nsn
- ZZ/8hUsfa3U+VvbsZ1BnjaC3tsoOHUaejNJJucmIT5lA2fmjKeRZusHZzO/WHCpo7QaYHIBWexe
- 5gbnFxTWb1a6OFmfZgoYC/ABx2QPFq2GfPKRnAR4X52gJqwxWrdTESBJINmRPUJ8E/9Cktrq29a
- S/ZG8nw9EPYrUIn8luAEI10l0Lj1IOAbJcr5iMDpfWhcVv5FJYaTIjlOrN79Y3cBZw8UJ5gNoXw
- f/ge5/4g==
-X-Google-Smtp-Source: AGHT+IGsUGu45MQwt+NZPV5mLr8VYLLqfRHTzbjIcd42cuNIOrbj6li3sVxyZFvsqM7RMTuhEoyH4A==
-X-Received: by 2002:a17:90b:4c4b:b0:32b:94a2:b0d6 with SMTP id
- 98e67ed59e1d1-32b94a2b221mr8959418a91.3.1757082696826; 
- Fri, 05 Sep 2025 07:31:36 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-77267a225e6sm12382015b3a.94.2025.09.05.07.31.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Sep 2025 07:31:36 -0700 (PDT)
-Message-ID: <c00a3d00-d5d5-4f2b-8799-d1b8b22f85cb@roeck-us.net>
-Date: Fri, 5 Sep 2025 07:31:31 -0700
+ d=stmicroelectronics.onmicrosoft.com;
+ s=selector2-stmicroelectronics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uqSgHwJcM5a6UBG0RlBxGVuzV/M9wYyaI+Zixod5o1M=;
+ b=p0vnOdXL0nUKc6Ghp7SHLqejPWmNNDEysSZZYc/7u1AJD511Yl5OoYDWiKdvn+OLN/2BIB88gsrijSxtAPSOseJEA09+ywrFAGyWYxgRy2usKnkppd67q2hK0609zbEmrs9kNAYGEKHw6f2cpqcAzHXkEsT/BAhx+VnnKUGWSq4=
+Received: from AM0PR02CA0200.eurprd02.prod.outlook.com (2603:10a6:20b:28f::7)
+ by AS5PR10MB8271.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:681::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.18; Fri, 5 Sep
+ 2025 15:53:18 +0000
+Received: from AMS1EPF00000041.eurprd04.prod.outlook.com
+ (2603:10a6:20b:28f:cafe::df) by AM0PR02CA0200.outlook.office365.com
+ (2603:10a6:20b:28f::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.17 via Frontend Transport; Fri,
+ 5 Sep 2025 15:53:18 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ AMS1EPF00000041.mail.protection.outlook.com (10.167.16.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 15:53:17 +0000
+Received: from SHFDAG1NODE3.st.com (10.75.129.71) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 5 Sep
+ 2025 17:50:59 +0200
+Received: from [10.130.77.120] (10.130.77.120) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 5 Sep
+ 2025 17:53:16 +0200
+Message-ID: <0b8b8cde-d273-442c-8537-3fa95885476b@foss.st.com>
+Date: Fri, 5 Sep 2025 17:53:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Xichao Zhao <zhao.xichao@vivo.com>, Jean Delvare <jdelvare@suse.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Guillaume La Roque
- <glaroque@baylibre.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Markus Mayer <mmayer@broadcom.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, zhanghongchen
- <zhanghongchen@loongson.cn>, Yinbo Zhu <zhuyinbo@loongson.cn>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Talel Shenhar <talel@amazon.com>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
- "moderated list:ARM/Allwinner sunXi SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:THERMAL" <linux-pm@vger.kernel.org>,
- "open list:THERMAL DRIVER FOR AMLOGIC SOCS"
- <linux-amlogic@lists.infradead.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" <imx@lists.linux.dev>,
- "open list:QUALCOMM TSENS THERMAL DRIVER" <linux-arm-msm@vger.kernel.org>,
- "open list:RENESAS R-CAR THERMAL DRIVERS"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:SAMSUNG THERMAL DRIVER" <linux-samsung-soc@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- "open list:TI BANDGAP AND THERMAL DRIVER" <linux-omap@vger.kernel.org>
-References: <20250905072423.368123-1-zhao.xichao@vivo.com>
- <20250905072423.368123-3-zhao.xichao@vivo.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+References: <aLqZhL-DV4LOnHlD@stanley.mountain>
+From: Christian Bruel <christian.bruel@foss.st.com>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20250905072423.368123-3-zhao.xichao@vivo.com>
-Subject: Re: [Linux-stm32] [PATCH 02/12] hwmon: Remove redundant error log
-	prints
+In-Reply-To: <aLqZhL-DV4LOnHlD@stanley.mountain>
+X-Originating-IP: [10.130.77.120]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000041:EE_|AS5PR10MB8271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83046136-2576-457d-4b69-08ddec9454da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|82310400026|36860700013|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YngyMlBKRHkzT3JERnYyZWRncWorMnNUMWtJMzVXbXM5T0orUmYyaHFwSnFv?=
+ =?utf-8?B?NkV3cEFGczlQUzAydkJnbnF1dXJpWk8zMWpXSXBBRTEyTHZkeE1TSkhyMG95?=
+ =?utf-8?B?UUNYbXNmNHRYWXg3N0c0Wm1sbmpVbk9KU2gzR1hzdUQ3VEZCOURlSzFwZjYx?=
+ =?utf-8?B?azBaTzFNNFZETURBam1lQXpYd3N2K0Y0MDNjREt4cEJBZ1ZGNjBUVFdUZjV2?=
+ =?utf-8?B?c3BQTVBwRUhEUUdyU251WDFQbkdHTkhHM3JkanpqeFVwNXMxSldiYW10MkY5?=
+ =?utf-8?B?RXZZR1Z0aVhGNnZXUk82Sll3YXBvWVVRaU9TZVJjckl0YkkwdlBnaWFBSVJI?=
+ =?utf-8?B?YUZ5aUdwWnFwc3lmUjdCM3pZZVNzZlk3Ryt0VHNKbWc0b2hFSVNFOUtGdHZI?=
+ =?utf-8?B?Vm84MEF0ckJ4OUw5cWVpVFNzdGk2LzFEYU9tNUxtdUdlZEVoVmhGSWxxQVBG?=
+ =?utf-8?B?MWp2WmNxejN5MVFWa0toZ3lkMGxhSkhTRDU5ODlzdlJrd1hsSmE0T0htVUwy?=
+ =?utf-8?B?ZlFBY0pGakRXNmlpQzNVcExZQWp0RlhUY042OERkNkNWN2hxOXk0aWZ3a2Yx?=
+ =?utf-8?B?Ui83Z0xTaWp2MFRLYWNuT0dqbkNMV3dLdGdsRUtZRFBucWdZbXFwRm9nR0xV?=
+ =?utf-8?B?NmoxTWE1anAxWUdnMGtyYVlvMklyYlFNU3V6NE9SZk5iNG5ReFNOYldEVzhs?=
+ =?utf-8?B?RXNsc0NyVE9BUDNKb29QWGVPb2Zra3pZWmFWQ1BhUlhYM1pmdXprUHpKbG5q?=
+ =?utf-8?B?UnIwUTZvSVovdzVZa1o4enBpYlhBWVByWG91eitWdnBYMCtrZUZjY0xzcnlv?=
+ =?utf-8?B?MGcxbmFsUHpmdWFzME4xRlVwK28vYm1JTUtUdXpZcUJqRHhQaEtLVE9UL2tB?=
+ =?utf-8?B?bmVac0VNRjE2SmpxWjBKY3A5eEd4UVJQOUx0VHEzeG5NaHlleUFrMDJpRGk3?=
+ =?utf-8?B?R3ZZWG1yckEyRWV4YzhLUGsyQ2R4VDN2a283YVVMRW1mMytaTkx5TXVjaGF4?=
+ =?utf-8?B?UHZHYkljL1BPQjJ5QUUxeGZXNW90bllJTjhDUEFwQm1WakhVeElPa09BRnNN?=
+ =?utf-8?B?QjJNVWVxbEdNeFQ2KzdYVm4vdzZXQXpMRHRPN29SV0FxR0ROVVY1MUJRUW9V?=
+ =?utf-8?B?aXprTTh3bzR0MWNqRkoxZThONHNTUUcxVldCcmlHSkZtbzdQcFJjU2VTR3ow?=
+ =?utf-8?B?emtDR1o5ZVpacmVsZ082NXFOUE53SDVtYnRDZjVWbWxuaE1qSk82MmRLSGdO?=
+ =?utf-8?B?Z2NiSHhvZUw1UnhRSGREcjdPdVhZNXAvQnRYVzB0aW8rR25jd0hQdVhEbnpU?=
+ =?utf-8?B?QXJETnpLV3F1OUhjY2h0cGpPdnFWOUhndXVvaEFOKzZGbDRxNlFVY3YyR0RK?=
+ =?utf-8?B?QTlqb0cxeEs4VlFEUGdabUt4TGt5SDd5dTY0QWlISktZRUpjMWhzYXVKZ0Ru?=
+ =?utf-8?B?TU50VXMrMTZKRUZhYTZqQWpteGFqemlCNS92WGtVc2RBYzAzNVZEcmNpWXFx?=
+ =?utf-8?B?UTlleWU3SUV2dFg5R1dPN2pxUUowLzUzekJhVnJrOFZlb2RPSXZBdnh3Q09u?=
+ =?utf-8?B?WkgxSWNuWkhOOHFBdlZzWEpua2o3VXUzOHQvOVU4a0prSVFZM2prbU5nOG05?=
+ =?utf-8?B?dTFxOUlpNGZLY3ppaG52dzhIQ25IQ1JFZmQ5cWZNL1MxWlFmUXlRWnpNL09N?=
+ =?utf-8?B?QVVMQnhNMmtEbWUrRnlkQitKVHZYeG1kMGE1N3pRRUQyeVBlczB0YmxYellG?=
+ =?utf-8?B?MWNFUjhqWmlKT2UzbGZkT2FNRTYvVWJVN0g2bTllTTZBV09BMnY5YVpMcWpn?=
+ =?utf-8?B?RDlNaFFweVVYa053NXAzN2VBRm5kMk1udzdEVU9qbE54SXNCZkNNeFlWdnRv?=
+ =?utf-8?B?VUIwVTJISVRJQjQ1clBXemE2NStjYlRNdVlLZGluUlQ3NXd0QkJ6MTJVaGFS?=
+ =?utf-8?B?S29OODhCNXc5U3NHK3d4V3hRZEI1SDlsNWNTRklJVHdFbUJtTzB5OFFpaEUz?=
+ =?utf-8?B?RUdTb01WcEZFWnI0YWRzRjhuM3RwUzdpQ1d5L1pFeTlGR0NDaTVGY1VnLyti?=
+ =?utf-8?Q?50ZvjT?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(36860700013)(1800799024)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 15:53:17.8547 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83046136-2576-457d-4b69-08ddec9454da
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000041.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR10MB8271
+X-Authority-Analysis: v=2.4 cv=Ts3mhCXh c=1 sm=1 tr=0 ts=68bb0771 cx=c_pps
+ a=Wm5aeSjH12BsbKEBP/jB+g==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=RA8ZoFPxCIQA:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=FUbXzq8tPBIA:10 a=KKAkSRfTAAAA:8
+ a=8b9GpE9nAAAA:8 a=q1KfpsaXvnDjR4ywVUkA:9 a=QEXdDO2ut3YA:10
+ a=cvBusfyB2V15izCimMoJ:22 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: lBPMWtHuKhwXcpyGlvsqmY5fgawXkqt-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAxOCBTYWx0ZWRfX+yf93QAAyxYk
+ BhrRkxgA3FQzCra1MrBDnbtRlxc8MmqlIcuK1O/GazA6E1eGG5BQR66vJmufqKrE/GgiO29X1DL
+ vh6zW0G6h/SMtT9Wvt7AoIfv9mDJu34L+kk72l5EtGRHsZtd0f2CwMnKmFX6hUb963cIveOwgvQ
+ y1EvioZ2pU3Isq0x05l5VP/rv1s6/qJf0qvUkPm5Cre2+qh1Y/hpCXQtObopS3JQOnGepy29eru
+ k3/itiLRGI0OA2VknqPNsNKD1Lm+AYQi2oCM+elOseHrq/ixI3QmmjarKw5c4YS+Vw+PLeCkIxY
+ 5OE5Uze77SPn5nsB9U3Gaold5tp2IQY6+ACjYzFzdgj8IohU2/9C9ia+E/GiyXTUy39nDDVbvYU
+ Cz50AZR3
+X-Proofpoint-GUID: lBPMWtHuKhwXcpyGlvsqmY5fgawXkqt-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-05_05,2025-09-04_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ clxscore=1011
+ priorityscore=1501 malwarescore=0 adultscore=0 impostorscore=0
+ phishscore=0 suspectscore=0 bulkscore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300018
+Cc: Rob Herring <robh@kernel.org>, Manivannan
+ Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] PCI: stm32: clean up some error handling
+	in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,37 +198,55 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 9/5/25 00:23, Xichao Zhao wrote:
-> devm_thermal_of_zone_register() prints error log messages when
-> it fails, so there is no need to print error log messages again.
+
+
+On 9/5/25 10:04, Dan Carpenter wrote:
+> Smatch complains that the other error paths use gotos to clean up and
+> these two don't.  Generally, the implication with that warning is that
+> the error handly has been ommitted.  In this case, the error handling is
+> fine, but we can avoid a bit of code duplication by using gotos to clean
+> up.
 > 
-> Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > ---
->   drivers/hwmon/hwmon.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+>   drivers/pci/controller/dwc/pcie-stm32.c | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/hwmon/hwmon.c b/drivers/hwmon/hwmon.c
-> index 1688c210888a..0514e4bc5e71 100644
-> --- a/drivers/hwmon/hwmon.c
-> +++ b/drivers/hwmon/hwmon.c
-> @@ -239,8 +239,7 @@ static int hwmon_thermal_add_sensor(struct device *dev, int index)
->   	if (IS_ERR(tzd)) {
->   		if (PTR_ERR(tzd) != -ENODEV)
->   			return PTR_ERR(tzd);
-> -		dev_info(dev, "temp%d_input not attached to any thermal zone\n",
-> -			 index + 1);
-> +
-
-This series moves the message from an informational message here to an error message
-in the thermal core, even though it is (for hwmon) not an error. I personally
-think this is a bad idea. Can we get another API that lets me suppress that error
-message ?
-
-Guenter
-
->   		devm_kfree(dev, tdata);
->   		return 0;
+> diff --git a/drivers/pci/controller/dwc/pcie-stm32.c b/drivers/pci/controller/dwc/pcie-stm32.c
+> index 964fa6f674c8..96a5fb893af4 100644
+> --- a/drivers/pci/controller/dwc/pcie-stm32.c
+> +++ b/drivers/pci/controller/dwc/pcie-stm32.c
+> @@ -287,18 +287,16 @@ static int stm32_pcie_probe(struct platform_device *pdev)
+>   
+>   	ret = pm_runtime_set_active(dev);
+>   	if (ret < 0) {
+> -		clk_disable_unprepare(stm32_pcie->clk);
+> -		stm32_remove_pcie_port(stm32_pcie);
+> -		return dev_err_probe(dev, ret, "Failed to activate runtime PM\n");
+> +		dev_err_probe(dev, ret, "Failed to activate runtime PM\n");
+> +		goto err_disable_clk;
 >   	}
+>   
+>   	pm_runtime_no_callbacks(dev);
+>   
+>   	ret = devm_pm_runtime_enable(dev);
+>   	if (ret < 0) {
+> -		clk_disable_unprepare(stm32_pcie->clk);
+> -		stm32_remove_pcie_port(stm32_pcie);
+> -		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> +		dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> +		goto err_disable_clk;
+>   	}
+>   
+>   	ret = dw_pcie_host_init(&stm32_pcie->pci.pp);
+
+Acked-by: Christian Bruel <christian.bruel@foss.st.com>
+
+thank you
+
+Christian
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
