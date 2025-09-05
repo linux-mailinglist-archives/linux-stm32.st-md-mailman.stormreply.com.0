@@ -2,89 +2,175 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 384FEB487CF
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Sep 2025 11:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EED4BB459BA
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Sep 2025 15:56:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D2A6C36B24;
-	Mon,  8 Sep 2025 09:07:38 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C4DAC32EB5;
+	Fri,  5 Sep 2025 13:56:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6998FC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22DAAC35E2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Sep 2025 13:31:32 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5857JQJ3013602;
- Fri, 5 Sep 2025 13:31:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=+aB+iZJnL8ozb2pDFXduEFu8
- qABJrtYdff1K70ebeAQ=; b=I2iDrcK2MtkwVOPA+dlHtSA5J7zfQxu0rYmziqH+
- cbcPv2FznN/UqiPECDfEjy2+99U/vtjuRm/mOLxKIjwofbuMn+2P5ISX3p8sjdL5
- 7qSnITFbD7hRQ5ShNQKxqOjFRMkrL5nu9JgSWvOjNH6hqNovIE3xLIpOe5PZ612N
- /olG8fUXjIudIjG8fveehNl4AjElKTEQNBJwyg+bWm2UIG1xzdWtUgESRocyamEW
- ov4MKhunL6PY+xQXMy8BZYFJgWij9N9kdVHfDOjLbgdHBQp1+QZcJCZuDRYJLZ5C
- nDgX/1qn1WUhXq1NdMHvlBTUqB9CNSxtjm+iL6PWiwqF8A==
-Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48w8wyf709-1
+ Fri,  5 Sep 2025 13:56:21 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 585CSwMj004022;
+ Fri, 5 Sep 2025 15:56:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=selector1; bh=cm3i722vY5sBe+3qC+OCKI
+ j8qrJh5IcYW5dIGhgmaUM=; b=4NrXGP5xAiPr5ypqy7gLVJTprjmkiAA0S+o7BS
+ wsfxdvHMNv2xvqn4r3aqaVjg65ggqIAFVKGoDvmV6Kwo2e9cL/xV3ifFDJg80NHJ
+ 67/hCIesngcSl7TJT89v7qVGtLj+3mqH6U8UY/6DJxsC83iRndlyUJmm4eMH1rx6
+ vbFDtUwTTf0a+wn5eRn9obFGowepK9Wu/Zgdw2QJCFhhIxxH7h1dSqP5I/82SuCJ
+ ueJUEoudLKWMiFODSxd+e84fw4c5mjS75TB34shlGUZGXNuGGdUej/umI9f5wY81
+ 9nLdnp9XBBM2qw9eBXtSRUMQ1jpiW554kiia/aSVXL+xU4QA==
+Received: from am0pr02cu008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013039.outbound.protection.outlook.com [52.101.72.39])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 48urmxubsy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Sep 2025 13:31:08 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 585DV7hH029888
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 5 Sep 2025 13:31:07 GMT
-Received: from quicinc.com (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.24; Fri, 5 Sep
- 2025 06:31:03 -0700
-Date: Fri, 5 Sep 2025 19:00:59 +0530
-From: Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aLrmEzyxzo1DRBNG@quicinc.com>
-References: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
+ Fri, 05 Sep 2025 15:56:03 +0200 (MEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FH0H79L1kloD3Y310zddXCKS2kT4/xEEV/gc88uOrKxY8RZrNKm50TNOvYpIhIyNcPzN3JuoLdVUbdtQGpaOFr5YAs+E9Oi4+GlrTJdRs8B8uxZclnRzYg/XAdPr71SlRoZvgp8p9EVTpZmEMkAfb25vEmkj6PNdkREhF+sgLySFwuZg/0ZqcZGiu8qihMBFBrnEb+ZXaIKMOp3bNSNrvXqWC8ERKN+zMAE4mNDF9vsqfgcIiVwSm6tW1Zi+guJJ/sz0yKKYopJ87k76Ru6mvY1U3Mmw6fcKxp4rZBYRewGBTCqSYYHV9OiCdfnzJ3FKYdwvWhNMAujfQhnqRUuTkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cm3i722vY5sBe+3qC+OCKIj8qrJh5IcYW5dIGhgmaUM=;
+ b=uQcAiluUExm4LQxOKwsZBu0GX6cKxOa+uE6SfpsXlDtdSRNoOGAZ1Vd+XFJ7nH7jrjTKaFjcqs4MD7ZETvgLg8ezYT8ExYpF3X6J5Zp6q+ZeSapnITFtsY5ZQD6Vw7hmh9vVdA1m5+N5L3tajGDT5sf3kNeK8P2ER7sMa/ATC+nwInGxqZhgU72nY5uSVPQc71dqyZkpWgb1anM9UaNveAJAfUI4vdUaDRbXponKJzY26CRUxGpnmWjXaqyweIVsxhvc/H/WdK7+STJg63ssHbDClVsfJtKOzipVxN2vDS5LPNGgZ5UbTCBJiFFi4Js36UUSixaBKzm58m7gZSm36Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.44) smtp.rcpttodomain=linaro.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=stmicroelectronics.onmicrosoft.com;
+ s=selector2-stmicroelectronics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cm3i722vY5sBe+3qC+OCKIj8qrJh5IcYW5dIGhgmaUM=;
+ b=nbARquhccQlNNv+1VmCgfFT424bnfsUfEqxxPI4X4V/hwaRJiGwt351bKgsu08wt69cVnVJhPCxIEl9SDH73FYWupm+2AfOXFW4eJyeFmtUnRon/yRsgdoX/i63HWwR1s6iQ9X8zt5sC7edWLzXrOuFLIkRIDSlHCBw6+w9Xp2k=
+Received: from DUZPR01CA0169.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b3::13) by PR3PR10MB3817.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:42::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.16; Fri, 5 Sep
+ 2025 13:56:00 +0000
+Received: from DB1PEPF000509FB.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b3:cafe::5) by DUZPR01CA0169.outlook.office365.com
+ (2603:10a6:10:4b3::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.20 via Frontend Transport; Fri,
+ 5 Sep 2025 13:55:59 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.44)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.44 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.44; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.44) by
+ DB1PEPF000509FB.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9094.14 via Frontend Transport; Fri, 5 Sep 2025 13:56:00 +0000
+Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
+ (10.250.44.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 5 Sep
+ 2025 15:48:46 +0200
+Received: from localhost (10.48.86.11) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 5 Sep
+ 2025 15:55:59 +0200
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, <linux-gpio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+Date: Fri, 5 Sep 2025 15:55:38 +0200
+Message-ID: <20250905135547.934729-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Authority-Analysis: v=2.4 cv=Ycq95xRf c=1 sm=1 tr=0 ts=68bae61c cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=PHq6YzTAAAAA:8
- a=COk6AnOGAAAA:8 a=UbDMmHRTMWTSUy5J07AA:9 a=CjuIK1q_8ugA:10
- a=ZKzU8r6zoKMcqsNulkmm:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: YCkfEWMsAiv0yIOvixc3HIKlFi2tOG5r
-X-Proofpoint-ORIG-GUID: YCkfEWMsAiv0yIOvixc3HIKlFi2tOG5r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTAxMDEwMSBTYWx0ZWRfX7Sk9AX65HGTR
- +yaae3yNsjsCY8k3TeqkbgczQendvtlfhcSXhcwyCwSe1GYsvrkmA4xgyRtzMFFmCdtFstBtwnJ
- CEqL2jpzTOtyexlVDjO/w8wBR0pds4NfMBr5ZQtqrfE5RuzClfvkHhVPOVrQuQAaX0U2GKH4pYa
- lnoU3A1yJTGde98s12J038RTVu1oHLIKHVtsThYO8Al5BR6UuytlJN4bzWhgxK5n/NClbKOm5LE
- Ar76YeNMBLBC5jr0qrb89AQITGVR97610xG3uxbI7sCDbB8UcWzqJHNhNbcmcM7Bw5Qxhr0w5dm
- smqkb3iQo6N4fkfWGYNnYdl38Nu+QdNmxkO/7w4/42S3jOWGMr3DDL+mNgPHGvVh3Ekl7Qx3K+C
- fQ0hZScY
+X-Originating-IP: [10.48.86.11]
+X-ClientProxiedBy: SAFCAS1NODE1.st.com (10.75.90.11) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FB:EE_|PR3PR10MB3817:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42fcadf8-8245-48f3-1c9d-08ddec83f202
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014|7416014|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Nja3YTWnbAWU+h2LHSQwmr38H2gdYrHN3eO4CdHa18Q7S+P1oTL21DCX6Y66?=
+ =?us-ascii?Q?8an5ZuCFxx1U4HXBv/nb2INc7hs5TVIWpv1CWxIodArS7C6WTzt4eSlFeeiY?=
+ =?us-ascii?Q?7RuRYfP3UlOOEINsEth5PYgCsLf6JVviiHgUcFx54tQzkQbIl2UYifHZIcJk?=
+ =?us-ascii?Q?Sw/Ww59ouDuGPLJ0tbvhlAUSVemBAWdAgujdbJyfQGIN/PAI+4g/ileokDpM?=
+ =?us-ascii?Q?gXnn32gPSW9cVzJ7mcneX8rCxVv9MvbdbYtnBM4snbxpzR6P/Vx82m3WHkq9?=
+ =?us-ascii?Q?KjlONZJOUz6Jt6jK+zUwEgjJ2J2enDJ8E0RPX+saZ11JFHUtZPvjh+ZQB0GB?=
+ =?us-ascii?Q?u1vc6SEJEliFnoJZ0kyBZz8iZG3+CwAfam6uEl+2oNzB2hex4CE7MMehMFUp?=
+ =?us-ascii?Q?iunlVDktSJpvP3sscNzVGmO3IP+WXYdkdE9us6Oqv2Hf0Ao1cSwkLZXKKrch?=
+ =?us-ascii?Q?cwXPFOI5YYJ33ZzewwK8cD7+HZk+Vh3vqJp701b+J8DIAp2KvVkHNVsI1nKc?=
+ =?us-ascii?Q?8GJXdbqvkkmiUszD90qApRG8ppuUzH3MHNYvr5TAsiFC+kGxySazIgcIYyJ9?=
+ =?us-ascii?Q?Hyrod6TYne+hp29qu9eBHDc0oZUEc49Pc4sP/s1OcyutYrrWJjgxxYv4d0Dv?=
+ =?us-ascii?Q?ipeIwtJ6DJFyayg5NwR6amHdbapb8zOmYxm3Tooq0eCQKUrSoa9w6UtW+Pp2?=
+ =?us-ascii?Q?yXWn6jClUVFoDXAzKFLIc30iPRCwdwfm6ey+ZwePJ7QAiTwa8tLAKb6GyqIT?=
+ =?us-ascii?Q?oCv5F4+B7jBcw/uTQb8hT7jVFp2F7xvbwyHrH8BANcqdiAodjfd9mUJ0AH5/?=
+ =?us-ascii?Q?saVYf54Lqu3lNFCq1qEy5yT9W0lLMBf8g/A14SoniRd/08ec0BLmzR94sLs2?=
+ =?us-ascii?Q?kS+ClO1gS8mT8+ydV+jqQn37dRLdswEHg68CdCy2kXx9hxergIeVB60YihI/?=
+ =?us-ascii?Q?SFTb13RatyRDZhNj198y7bCV/HL5fUeY+IES5EzXyHv+p4J+Un+3yLy6mmMD?=
+ =?us-ascii?Q?AvU8RQlORTD4wJK20SoeK+Qia8/9qS9TTj6ILFk2jxF+CSwEWOyt9WXaKb9J?=
+ =?us-ascii?Q?cM3GVX2iA8PxF1pnqiqm/PdPfOu+0TbeBUrO35t53acf1v/wAfIERgUUR64Z?=
+ =?us-ascii?Q?tNeR4UVNFqTdUt+IgVgo4wxKxP/rcDcT1YszG8QOOWSmI7edBJkxplyl5iwM?=
+ =?us-ascii?Q?4FJPzYYBMzW/KyTNf0oVnv4opw3TBRO8e2uXs/U2+Kw2IyocrBPbvz3HGbJd?=
+ =?us-ascii?Q?Zm8L9TwDKz/mwduzmGQrWImAXpZNONePHcsBdwWJdqarsxMplNYbqp7gr563?=
+ =?us-ascii?Q?fWH/RjvOdTLie+v4Yd8bkN2/QuHaCGeGjXRsioZedX1DKmPYV8QeQItHerC5?=
+ =?us-ascii?Q?ZUs19wqhE8DRUFQN/T0Pd/M9LqRzyyV/fqy3zRqUv4w/ZxO2t6BwWLRIjQOT?=
+ =?us-ascii?Q?ucDc0HxPpKGHYhX+Jn8zEsv+aGFzumDgREjBe2OLGC00xcZtd1MWjCicWk0e?=
+ =?us-ascii?Q?RCcd254u43TbHNs9FMZj4nYKqYBjdLn0tS5+NKFPkITRc1V4Mx9sNDP6wQ?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.44; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014)(921020);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2025 13:56:00.0304 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42fcadf8-8245-48f3-1c9d-08ddec83f202
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.44];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509FB.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB3817
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAyNSBTYWx0ZWRfX5xd926UNlYQT
+ WPr20PMwqmSHS7Y2HpFh4wwuoXTFwaIb+M12UstHPG1j6AqZm4hC+tfNN3NYmh7hDVzKYxOOhxs
+ jw3XTWB/EiaZfpTH1A2CTWL7Sx1Kd2fzheioBiZLLkwfhc0LF8SkLGiBru+P8FdKlS3BsnzKKc1
+ YXHuZu+zv3UpL6DuJu2I7J48XUa7WGajfg+N7RotYnuT9d47WFwcB1k2Slzc5OjwFBxn4xtgBev
+ E5/rNgjiuzLxTnZgp2T54scrOY8iF2CcCrM9/+aaxUbXUqJtYklZM2VF7l8aTVsTzRTkBGZl1VD
+ CiH5S+elldAIoW5r6Vxt545z7OqeLCzkueAomBkQAq8W09s743n2CaDXd0Wt8w8U5b8VaLb0oiY
+ 5dvaRRLZ
+X-Authority-Analysis: v=2.4 cv=dqLbC0g4 c=1 sm=1 tr=0 ts=68baebf3 cx=c_pps
+ a=pv+iSUMxSX8tKyfHAWeKVg==:117 a=Tm9wYGWyy1fMlzdxM1lUeQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=y9YUpebZf6kA:10 a=yJojWOMRYYMA:10
+ a=s63m1ICgrNkA:10 a=FUbXzq8tPBIA:10 a=VwQbUJbxAAAA:8 a=8b9GpE9nAAAA:8
+ a=N9hAaWMDDcpL-UdVeGoA:9 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: vo2Kc1XbH8CkPdDmVtl56gRKrAZR7xIN
+X-Proofpoint-GUID: vo2Kc1XbH8CkPdDmVtl56gRKrAZR7xIN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-05_04,2025-09-04_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509010101
-X-Mailman-Approved-At: Mon, 08 Sep 2025 09:07:36 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac: mdio
-	cleanups
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ suspectscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ spamscore=0 clxscore=1011 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300025
+Cc: Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Subject: [Linux-stm32] [PATCH v2 0/9] pinctrl: stm32: Support I/O
+	synchronization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,49 +187,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 04, 2025 at 01:10:42PM +0100, Russell King (Oracle) wrote:
-> On Wed, Sep 03, 2025 at 01:38:57PM +0100, Russell King (Oracle) wrote:
-> Hi,
-> 
-> Clean up the stmmac MDIO code:
-> - provide an address register formatter to avoid repeated code
-> - provide a common function to wait for the busy bit to clear
-> - pre-compute the CR field (mdio clock divider)
-> - move address formatter into read/write functions
-> - combine the read/write functions into a common accessor function
-> - move runtime PM handling into common accessor function
-> - rename register constants to better reflect manufacturer names
-> - move stmmac_clk_csr_set() into stmmac_mdio
-> - make stmmac_clk_csr_set() return the CR field value and remove
->   priv->clk_csr
-> - clean up if() range tests in stmmac_clk_csr_set()
-> - use STMMAC_CSR_xxx definitions in initialisers
-> 
-> Untested on hardware; would be grateful for any testing people can do.
-> 
+This v2 is a subset of the v1, split-out to simplify the review.
+The old patches concerned in v1 where 05/14, 06/14 and 07/14.
 
-Picked this series on top of net-next and was able to test on the
-Qualcomm QCS9100 Ride R3 board with the AQR115C Phy. No issues seen with
-C45 MDIO operations, so:
+This subset:
+- introduces the generic pinctrl property "skew-delay-direction", as
+  suggested by Linus Walleij;
+- applies some cleanup to STM32 pinctrl driver to simplify the following
+  commits in the series;
+- adds support for the I/O synchronization in STM32 pinctrl driver and
+  bindings;
+- updates the DT for STM32MP25 pinctrl to use the new properties.
 
-Tested-by: Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>
+Changes v1 -> v2 subset:
+- rebased on v6.17-rc1;
+- replace ST property "st,io-delay" with generic "skew-delay";
+- replace ST property "st,io-delay-path" with generic "skew-delay-direction";
+- collapse the other ST property in a single "st,io-sync";
+- Link to v1: https://lore.kernel.org/lkml/20241022155658.1647350-1-antonio.borneo@foss.st.com/
 
-	Ayaan
 
-> v2: add "Return:" to patch 1 and 9
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c  |   5 +-
->  .../net/ethernet/stmicro/stmmac/dwmac-loongson.c   |   3 +-
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   2 +-
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  82 -----
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  | 345 ++++++++++++---------
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c   |   5 +-
->  6 files changed, 207 insertions(+), 235 deletions(-)
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-> 
+Antonio Borneo (9):
+  pinctrl: pinconf-generic: Add property "skew-delay-direction"
+  dt-bindings: pincfg-node: Add property "skew-delay-direction"
+  pinctrl: stm32: Rework stm32_pconf_parse_conf()
+  pinctrl: stm32: Simplify handling of backup pin status
+  pinctrl: stm32: Drop useless spinlock save and restore
+  pinctrl: stm32: Avoid keeping a bool value in a u32 variable
+  pinctrl: stm32: Support I/O synchronization parameters
+  dt-bindings: pinctrl: stm32: Support I/O synchronization parameters
+  arm64: dts: st: Add I/O sync to eth2 pinctrl in stm32mp25-pinctrl.dtsi
+
+ .../bindings/pinctrl/pincfg-node.yaml         |  13 +-
+ .../bindings/pinctrl/st,stm32-pinctrl.yaml    |  92 +++++
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |   2 +
+ drivers/pinctrl/pinconf-generic.c             |   2 +
+ drivers/pinctrl/stm32/pinctrl-stm32.c         | 337 ++++++++++++++----
+ drivers/pinctrl/stm32/pinctrl-stm32.h         |   1 +
+ drivers/pinctrl/stm32/pinctrl-stm32mp257.c    |   2 +
+ include/linux/pinctrl/pinconf-generic.h       |   6 +
+ 8 files changed, 378 insertions(+), 77 deletions(-)
+
+
+base-commit: 8f5ae30d69d7543eee0d70083daf4de8fe15d585
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
