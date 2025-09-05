@@ -2,70 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30644B45A74
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Sep 2025 16:28:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B67B45A8D
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Sep 2025 16:31:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1148C35E2E;
-	Fri,  5 Sep 2025 14:28:51 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16B56C35E2E;
+	Fri,  5 Sep 2025 14:31:40 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FF4EC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6A4AC35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Sep 2025 14:28:50 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-772488c78bcso2184097b3a.1
+ Fri,  5 Sep 2025 14:31:38 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-323267b98a4so2044398a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Sep 2025 07:28:50 -0700 (PDT)
+ Fri, 05 Sep 2025 07:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757082529; x=1757687329;
+ d=gmail.com; s=20230601; t=1757082697; x=1757687497;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=xIBk01NdBuwsWQnnNXVdcn6j5JKGkVjqtQzEraCQviA=;
- b=NNH+KlvJaTLUx4KZsa20Zcmvm34K/m9U1jT1YKormzZ5D8+dVMVBIJfQxfyFYNFzQ+
- ZtqDsItXRUM56MfrdFNX+LtASVcf4IzsveR/NeAaHWBlRe8lqdvia1NKkRJWMLkn2QY7
- abXR0Kt2rbIEaSCeOh2gWpvHqjlcArrtBa4aqV4FN10K42pV4rh1vIsgOLw+K/Cf3MZv
- NP89iidTxSky0/DsOf9J4uXs+y75gR/sVncw4so2ygKeYLq7b0AqPhdTlXWPLzkqZ2/p
- turp/yt/+sDCSP6J0XtE+zdVQgmqNc5hcNwwwhdvqpkI/0vWl+yiM/wvik9Bck/u0Hn4
- dHsw==
+ bh=3vIXH9G8eZJ7ix/XNHz4bvSACtWtZGWHKqaN5lng6nE=;
+ b=nY3+BwmthfoPMz5oQjrFWH83CZpDT3etBNtLVfs476k7xb6xuNdijvFdVEfUTbJ21F
+ xrFnQAQgVY7wiSZy6EcuNOG3EM3crbhNSdVh18tUs670WkvsIgJ9L646lJOiOQUJbkQA
+ 3x/30swMWaFmEAJsmTRjiu+Fu+V0SPFfTPxcK44XrNAxJT3/fU73xOy1aEi4Br5CaWMF
+ 8WwvN4bp1h0zp0qdz9tS5gtOlePbTlBdy1lOyPjOIXgOHzlyet+6/x0/N5wjWVfZRZRg
+ Tvr/Mc0vNo9TWDTSLXpLsMs3xzmeHhb95kdt98UjDgCKAEwj123/L1uKiMjcmPHUPwVi
+ 8qYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757082529; x=1757687329;
+ d=1e100.net; s=20230601; t=1757082697; x=1757687497;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:sender:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xIBk01NdBuwsWQnnNXVdcn6j5JKGkVjqtQzEraCQviA=;
- b=iaVKAOim5f4Hn5P26z65DNR+OlY2yG+fC907e3qZtC0+pu6XY47jjp4LH6g+dJIdBi
- aCyxIbbuzd3P4wRITgGALX4i2UInYBI3/Z9v4xj1Rs46Km/dAMWv8XzI0G52WX4STeiG
- cktRZMgziSQqom+CQRlWhqTFZsdNpKw1l/FbGmviLdDxkr0f1nWt6JatJOc9qzt0Vqj8
- sz8Q3SAMZ3Nbou6cpU80jebmL+vXRbG3KbDyDXmYsv/+ZKn11Gzt0mpOqKSOwfIcnbV9
- 7WuJf0RZtzuferlTwV8pP7zaTsT6gKTA5BSZKzjefnQwGomrYrsg30ZYU6F+62dQ8QjY
- bANw==
+ bh=3vIXH9G8eZJ7ix/XNHz4bvSACtWtZGWHKqaN5lng6nE=;
+ b=wMVu12gOW6c/2z7jjilaAj3lfY363ld/Gf8pGfcuYPNGDm0bU2gmQMoNE8Y5rFUmq3
+ 1lQxY88k+PfTYkNQFq+ZJhgKqyIZVgoIGEhIN/NP1vfEXj43B3nsAApVuCacJjAdGZvn
+ SQ5a1ylznnS1SsAyxvc3kYTmXnApYFKYHvyv/s5FIzDApNylzJ5KCznww7uBx5ttKGPn
+ fFYAwPrZ3Gft5XDtoQwKvdkDRdo+IV7IBQLTs+flIono6Erwr5PoMLdlH54E7cHucbAp
+ A1p4HwO6amgbLEn6KAqEZ5NhtN+FCaxTeEMEEIY5X8Ya/ikZ9XW4IdD2zRnktzES/tFh
+ 5FbA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdlc7BBobBAGUy6fcbPS6pIjgKOcbzYK+6k9QTlQABDMXp18RS73fKxQiNGzH11rC4JeASY7OkmChauQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz0af159lq99b7n/Gb104+kG1tQT8E+ZC9Jm0pYobuIebAxhAT5
- nFXMWPC1V5YVf91lgeGJMJp+RSdbYQlijeNKdOXehqUzWV8MDYixnrrc
-X-Gm-Gg: ASbGncsr1K7yCgnZ0xCIo5X5MD+lNQz4qSccJr+qS7d2LU5K7LR6gnGr+1OF1/iNeM/
- AstBOmKEUBzT59a//nOjdN2/Ms8smldbpcBx4IsLgKEneaENYbxQNYFWhoRKZp8Yghn83s33Og+
- rPC8CQ2rPQDVegZYzXtrSnPyBjNzpoUUp1hGhuaObZHXDfwiFf6LlqIeS9QA67xAg2A2YjeVo6U
- ThHeBmwKUvrh+8zsydKdMhIYfY7cOEp/VnueOg3HpInkXKVcvkoVf35fxm5vMKGp7hhGung0xTH
- 2lVfRNzZDy48f9w+tEhZYsb2pjKxboYEaA5ZmKKcELohSex2fWH/hKH94oxm+3BqYuygDs2++Pa
- Aj/v99lrzg779nQOCxkxkzqhs8kdTgluUWK+uhIHZoJK0R4JtrDbRNFyMDi2OcZ8fu3BA534=
-X-Google-Smtp-Source: AGHT+IGmtjyZd11+KjNwJeufcA4YJgYYRhNDfsNkfD6VHk0PEhzxkDj8A/25DdwjoogzCAHLZqAmGA==
-X-Received: by 2002:a17:903:1ac6:b0:240:83af:e2e0 with SMTP id
- d9443c01a7336-24944ae7beemr297755715ad.47.1757082528461; 
- Fri, 05 Sep 2025 07:28:48 -0700 (PDT)
+ AJvYcCW5b3tIUpCnnbNNgVeW+w3NlXZWsTGuBX5KKYIvLQlWiOI1cKJyymIlkXj+NOMcFzDROAzR4vZrVVIB1w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx/57bLkWrvH5qTc2yqiDOD77Ah7JAA7ccAL2rcsbSBeO/DMx8o
+ pHdZQzAoJfQd9+RH5o/ZOHf5/YkQCd2X0Eb6T7fG7ibryXeWefYTFlTR
+X-Gm-Gg: ASbGncsQ41a1dIfD7nT3gYR+BRv+XXwMyxeEulzKe7wLvC58ZJ04OU5W34N0EyZwrfh
+ vCfy99paiqtipGiyrIL+ojgYlyxMZuXRVYcAvOEW8mlGXmAc3YTcjloDKzzk9qAWB3eIiPxnWg/
+ rkIGmBGjahzpedQeXfwlKmgpkdGE2WmL3ebtkPfoFnS+ZBPkNaIoZBhH6l8uisu3rtaBWMk2Nsn
+ ZZ/8hUsfa3U+VvbsZ1BnjaC3tsoOHUaejNJJucmIT5lA2fmjKeRZusHZzO/WHCpo7QaYHIBWexe
+ 5gbnFxTWb1a6OFmfZgoYC/ABx2QPFq2GfPKRnAR4X52gJqwxWrdTESBJINmRPUJ8E/9Cktrq29a
+ S/ZG8nw9EPYrUIn8luAEI10l0Lj1IOAbJcr5iMDpfWhcVv5FJYaTIjlOrN79Y3cBZw8UJ5gNoXw
+ f/ge5/4g==
+X-Google-Smtp-Source: AGHT+IGsUGu45MQwt+NZPV5mLr8VYLLqfRHTzbjIcd42cuNIOrbj6li3sVxyZFvsqM7RMTuhEoyH4A==
+X-Received: by 2002:a17:90b:4c4b:b0:32b:94a2:b0d6 with SMTP id
+ 98e67ed59e1d1-32b94a2b221mr8959418a91.3.1757082696826; 
+ Fri, 05 Sep 2025 07:31:36 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
  ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7722a4b99fasm22492373b3a.57.2025.09.05.07.28.43
+ d2e1a72fcca58-77267a225e6sm12382015b3a.94.2025.09.05.07.31.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Sep 2025 07:28:47 -0700 (PDT)
-Message-ID: <42b68c7f-8368-470b-a7b7-d1ff075973fa@roeck-us.net>
-Date: Fri, 5 Sep 2025 07:28:42 -0700
+ Fri, 05 Sep 2025 07:31:36 -0700 (PDT)
+Message-ID: <c00a3d00-d5d5-4f2b-8799-d1b8b22f85cb@roeck-us.net>
+Date: Fri, 5 Sep 2025 07:31:31 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Xichao Zhao <zhao.xichao@vivo.com>, Jean Delvare <jdelvare@suse.com>,
@@ -124,7 +125,7 @@ To: Xichao Zhao <zhao.xichao@vivo.com>, Jean Delvare <jdelvare@suse.com>,
  "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
  "open list:TI BANDGAP AND THERMAL DRIVER" <linux-omap@vger.kernel.org>
 References: <20250905072423.368123-1-zhao.xichao@vivo.com>
- <20250905072423.368123-2-zhao.xichao@vivo.com>
+ <20250905072423.368123-3-zhao.xichao@vivo.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -170,9 +171,9 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20250905072423.368123-2-zhao.xichao@vivo.com>
-Subject: Re: [Linux-stm32] [PATCH 01/12] thermal: of: Add error handling in
- devm_thermal_*_register()
+In-Reply-To: <20250905072423.368123-3-zhao.xichao@vivo.com>
+Subject: Re: [Linux-stm32] [PATCH 02/12] hwmon: Remove redundant error log
+	prints
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,45 +191,36 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 9/5/25 00:23, Xichao Zhao wrote:
-> devm_thermal_of_zone_register() does not print any error message
-> when registering a thermal zone with a device node sensor fails
-> and allocating device resource data fails.
-> 
-> This forces each driver to implement redundant error logging.
-> Additionally, when upper-layer functions propagate these errors
-> without logging, critical debugging information is lost.
-> 
-> Add dev_err_probe() in devm_thermal_of_zone_register() to unify
-> error reporting.
+> devm_thermal_of_zone_register() prints error log messages when
+> it fails, so there is no need to print error log messages again.
 > 
 > Signed-off-by: Xichao Zhao <zhao.xichao@vivo.com>
 > ---
->   drivers/thermal/thermal_of.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+>   drivers/hwmon/hwmon.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/drivers/thermal/thermal_of.c b/drivers/thermal/thermal_of.c
-> index 1a51a4d240ff..8fe0ad402579 100644
-> --- a/drivers/thermal/thermal_of.c
-> +++ b/drivers/thermal/thermal_of.c
-> @@ -475,11 +475,15 @@ struct thermal_zone_device *devm_thermal_of_zone_register(struct device *dev, in
->   
->   	ptr = devres_alloc(devm_thermal_of_zone_release, sizeof(*ptr),
->   			   GFP_KERNEL);
-> -	if (!ptr)
-> +	if (!ptr) {
-> +		dev_err(dev, "Failed to allocate device resource data\n");
->   		return ERR_PTR(-ENOMEM);
-> +	}
->   
->   	tzd = thermal_of_zone_register(dev->of_node, sensor_id, data, ops);
+> diff --git a/drivers/hwmon/hwmon.c b/drivers/hwmon/hwmon.c
+> index 1688c210888a..0514e4bc5e71 100644
+> --- a/drivers/hwmon/hwmon.c
+> +++ b/drivers/hwmon/hwmon.c
+> @@ -239,8 +239,7 @@ static int hwmon_thermal_add_sensor(struct device *dev, int index)
 >   	if (IS_ERR(tzd)) {
-> +		dev_err_probe(dev, PTR_ERR(tzd),
-> +			      "Failed to register thermal zone sensor[%d]\n", sensor_id);
+>   		if (PTR_ERR(tzd) != -ENODEV)
+>   			return PTR_ERR(tzd);
+> -		dev_info(dev, "temp%d_input not attached to any thermal zone\n",
+> -			 index + 1);
+> +
 
-This will print an error message even if the problem is (for the calling code,
-such as hwmon) only informational.
+This series moves the message from an informational message here to an error message
+in the thermal core, even though it is (for hwmon) not an error. I personally
+think this is a bad idea. Can we get another API that lets me suppress that error
+message ?
 
 Guenter
+
+>   		devm_kfree(dev, tdata);
+>   		return 0;
+>   	}
 
 _______________________________________________
 Linux-stm32 mailing list
