@@ -2,148 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD221B496A1
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Sep 2025 19:12:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F41DB4983F
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Sep 2025 20:26:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32D4AC3F95B;
-	Mon,  8 Sep 2025 17:12:09 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D8C4C3F95A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFE68C3FAC7;
+	Mon,  8 Sep 2025 18:26:22 +0000 (UTC)
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA542C3F95F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Sep 2025 17:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1757351527;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=N0Ew5uLxMWlX2hxvzxeMznJDWzQfwf1IVExLfD9g+8c=;
- b=ZuHq0bgQveon6kp40mnKKhpBoBWJdfWnY67qlHPz9++SQVij9nh/gwl/t2W/HG+saDFKCf
- nvUu2YmR1+yWvLYAD9GVp8F/2TrLvwdYw19ooinDxC9ot27Edcn566GZjiykKj8LSVundK
- qnXN8C67pACLu9F+Y4Rld4u7G6QuGtc=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-1bqXodOBOL-ZSi5vWB1MjA-1; Mon, 08 Sep 2025 13:12:06 -0400
-X-MC-Unique: 1bqXodOBOL-ZSi5vWB1MjA-1
-X-Mimecast-MFC-AGG-ID: 1bqXodOBOL-ZSi5vWB1MjA_1757351526
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-4b60dd9634dso34031291cf.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Sep 2025 10:12:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757351526; x=1757956326;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=N0Ew5uLxMWlX2hxvzxeMznJDWzQfwf1IVExLfD9g+8c=;
- b=viuEsRkyjdM4dLqkHrqzjloK8fZj1ieNt6lMraIwS1fY0DQnTYrAx9WakA8Ib3fyfA
- 08jd9PkCDo1hEuW6jv2RggdSlBtklgIbYJjjIZa4pRZGer07L74uCOlQrG/8mkXN7hjd
- Yfs9ZRAy73wyjzIfbJHcyrz7VX6etkvnWdgzzBaUd96JawizagpkF5RN2pUFECjxY3H4
- Cx/TRZwZdhVFOr+xUxmNJPbEVZanqXpQgpExrllx6VbmIBvinw4lURTql44DWe0XCdUM
- +dHAFSGKUWKiATkxat8x46DlUqbqb2ovqzbRjBzHbWuGl3D6SyzYbuPXX3Wnj/D9yMXz
- E75w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBgHn78KNZKboTw6WOFvQst3oOuaxieSc6W2juNW6MAEn02DThRXW2lE82pA6zELweIJEUXDGqVU1sRg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy+xWPymjgyMpuA9rkyRD7sfWzW7Ijcx/3w2Tj/J/5+p6QEPu0K
- p6CvGeM84/LhI/zD+I7F0AwusgpTRVjTdPZ9jsOex4daVAm3wQsyOW8XNYeLULdgWV/KjtvPZAO
- HQP0fMRJ9v0GNkPzLFubCWoa75ZJpDZCzsGuR/5jtKeDjuKvPs3H7MzCw61aEjKl9DQkIgGzrj/
- zA9tdODQ==
-X-Gm-Gg: ASbGncvhGCNHy2JcXZES3ZKWoyTbRcBf4IuvinLdSBGdSJ6+Vhj82cbQlh1zRQTK+kY
- SsYG86cBUJZRvI+aGih4UahrrDDI9Ealc5UZxGDb9VNa1hXqbbm1yptX2rUiL4uOX7qQXby9sCt
- jM9CgF87ngQghWUG7t4ftBFzs0mX7tA9Z94UUL4wsuapaSAgckm2q8HGgUhnmgqhO8Bh6TvZuWX
- XONxeXUn9Qzl4IzvGEhUymXhAycsw8yhE8HM94FLShAKyOJoiBLthThqV4UdVynywNijnAK8Qfu
- b03GYskRHK/XqmtDpTInCsJZOOToLT6oeUsQCBb+q4pFTCBAmqqMkaR2vFU=
-X-Received: by 2002:ac8:5a12:0:b0:4b5:d739:6273 with SMTP id
- d75a77b69052e-4b5f8490345mr93489091cf.75.1757351525399; 
- Mon, 08 Sep 2025 10:12:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFVez0JttMWAhr/EpA5S3LWdvkJoIrJRGLs+fJ0AEeH7TgyS1UoHb0txwN7TUYVZQswHIwQlA==
-X-Received: by 2002:ac8:5a12:0:b0:4b5:d739:6273 with SMTP id
- d75a77b69052e-4b5f8490345mr93488361cf.75.1757351524739; 
- Mon, 08 Sep 2025 10:12:04 -0700 (PDT)
-Received: from x1 ([2600:382:8507:870e:b6f8:ee72:4f09:a16a])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-80aab5a062fsm1122872785a.48.2025.09.08.10.11.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Sep 2025 10:12:04 -0700 (PDT)
-Date: Mon, 8 Sep 2025 13:11:57 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Paul Cercueil <paul@crapouillou.net>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>,
- Shan-Chun Hung <schung@nuvoton.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Samuel Holland <samuel.holland@sifive.com>, Yixun Lan <dlan@gentoo.org>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Daniel Machon <daniel.machon@microchip.com>,
- UNGLinuxDriver@microchip.com, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Michal Simek <michal.simek@amd.com>, Maxime Ripard <mripard@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Neal Gompa <neal@gompa.dev>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Max Filippov <jcmvbkbc@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Daniel Palmer <daniel@thingy.jp>, Romain Perier <romain.perier@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Heiko Stuebner <heiko@sntech.de>,
- Andrea della Porta <andrea.porta@suse.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Qin Jian <qinjian@cqplus1.com>, Viresh Kumar <vireshk@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Alex Helms <alexander.helms.jy@renesas.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
-Message-ID: <aL8OXeFC4N-J_kvC@x1>
-References: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
+ Mon,  8 Sep 2025 18:26:20 +0000 (UTC)
+Received: from [192.168.2.102] (213.87.154.55) by msexch01.omp.ru
+ (10.188.4.12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Mon, 8 Sep
+ 2025 21:26:11 +0300
+Message-ID: <d92071a9-471e-47f3-8dff-069f9dc6f10c@omp.ru>
+Date: Mon, 8 Sep 2025 21:26:10 +0300
 MIME-Version: 1.0
-In-Reply-To: <20250811-clk-for-stephen-round-rate-v1-0-b3bf97b038dc@redhat.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7FR4niQkCODpajCche0tiOokN4TehP8haxPBmBBPnSE_1757351526
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: imx@lists.linux.dev, soc@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- arm-scmi@vger.kernel.org, patches@opensource.cirrus.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-actions@lists.infradead.org,
- asahi@lists.linux.dev, sophgo@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 000/114] clk: convert drivers from
- deprecated round_rate() to determine_rate()
+User-Agent: Mozilla Thunderbird
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+To: Vadim Fedorenko <vadim.fedorenko@linux.dev>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, <netdev@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>
+References: <58116e65-1bca-4d87-b165-78989e1aa195@omp.ru>
+ <a49cff49-3fe5-417d-8f71-7ec63a68112d@linux.dev>
+Content-Language: en-US
+Organization: Open Mobile Platform
+In-Reply-To: <a49cff49-3fe5-417d-8f71-7ec63a68112d@linux.dev>
+X-Originating-IP: [213.87.154.55]
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/08/2025 18:09:39
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 19
+X-KSE-AntiSpam-Info: Lua profiles 196103 [Sep 08 2025]
+X-KSE-AntiSpam-Info: Version: 6.1.1.11
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 66 0.3.66
+ fc5dda3b6b70d34b3701db39319eece2aeb510fb
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 213.87.154.55 in (user)
+ b.barracudacentral.org}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 213.87.154.55 in (user) dbl.spamhaus.org}
+X-KSE-AntiSpam-Info: www.ispras.ru:7.1.1; omp.ru:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; 127.0.0.199:7.1.2
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 213.87.154.55
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 19
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 09/08/2025 18:14:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 9/8/2025 5:23:00 PM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+Cc: linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: prevent division by 0 in
+ stmmac_init_tstamp_counter()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,17 +93,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 11, 2025 at 11:17:52AM -0400, Brian Masney wrote:
-> The round_rate() clk ops is deprecated in the clk framework in favor
-> of the determine_rate() clk ops, so let's go ahead and convert the
-> various clk drivers using the Coccinelle semantic patch posted below.
-> I did a few minor cosmetic cleanups of the code in a few cases.
+Hello!
 
-I included a subset of these patches in this pull request to Stephen:
-https://lore.kernel.org/linux-clk/aL8MXYrR5uoBa4cB@x1/T/#u
+On 9/7/25 8:41 PM, Vadim Fedorenko wrote:
+[...]
+>> In stmmac_init_tstamp_counter(), the sec_inc variable is initialized to 0,
+>> and if stmmac_config_sub_second_increment() fails to set it to some non-0
+> 
+> How that can happen?
 
-Brian
+   Let's see what the commit in my Fixes tag said about the problem it fixed:
 
+---
+When building with -Wsometimes-uninitialized, Clang warns:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:495:3: warning: variable 'ns' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:495:3: warning: variable 'ns' is used uninitialized whenever '&&' condition is false [-Wsometimes-uninitialized]
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:532:3: warning: variable 'ns' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:532:3: warning: variable 'ns' is used uninitialized whenever '&&' condition is false [-Wsometimes-uninitialized]
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:741:3: warning: variable 'sec_inc' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:741:3: warning: variable 'sec_inc' is used uninitialized whenever '&&' condition is false [-Wsometimes-uninitialized]
+
+Clang is concerned with the use of stmmac_do_void_callback (which
+stmmac_get_timestamp and stmmac_config_sub_second_increment wrap),
+as it may fail to initialize these values if the if condition was ever
+false (meaning the callbacks don't exist). It's not wrong because the
+callbacks (get_timestamp and config_sub_second_increment respectively)
+are the ones that initialize the variables. While it's unlikely that the
+callbacks are ever going to disappear and make that condition false, we
+can easily avoid this warning by zero initialize the variables.
+---
+
+   I think the original commit was just somewhat incomplete, as (adding 0-
+initializer into picture) it missed to add checking of sec_inc for 0 before
+invoking do_div()...
+
+> Do you have real kernel oops log?
+
+   No, this was just flagged by Svace (the static analyzer):
+
+https://www.ispras.ru/en/technologies/svace/
+
+MBR, Sergey
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
