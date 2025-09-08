@@ -2,47 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7836EB47C9D
-	for <lists+linux-stm32@lfdr.de>; Sun,  7 Sep 2025 19:41:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2DE2B4848E
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Sep 2025 08:56:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89179C3F93F;
-	Sun,  7 Sep 2025 17:41:29 +0000 (UTC)
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
- [91.218.175.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89C98C3F93E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC3CCC3F959;
+	Mon,  8 Sep 2025 06:56:31 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [13.76.142.27])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0D54C3F958
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Sep 2025 17:41:28 +0000 (UTC)
-Message-ID: <a49cff49-3fe5-417d-8f71-7ec63a68112d@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1757266887;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vEEh8/NUEHKuAlj68cbZhgQqD/5B/8B/EJHd3Ged6PQ=;
- b=tYo5WyzaTgugqiK/oTEOefKmgSagoyoO5h5BjVK83l73Mdkfh1vxQug8voG9pEhlljd8Ki
- fbp7QHRfhLGvMgpkuh8ZyrljysAZ57sGFfsNSfpiPGkBaCI+W4U42pVgrggtjavRhkA6v8
- nPSxhFfqVDzWehQbexLABjaF3KzhGu0=
-Date: Sun, 7 Sep 2025 18:41:24 +0100
+ Mon,  8 Sep 2025 06:56:29 +0000 (UTC)
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 8 Sep 2025 14:55:55 +0800 (GMT+08:00)
+X-Originating-IP: [10.11.96.26]
+Date: Mon, 8 Sep 2025 14:55:55 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2025 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <aLlpUOr3IJzTuV1g@shell.armlinux.org.uk>
+References: <20250904085913.2494-1-weishangjuan@eswincomputing.com>
+ <20250904090125.2598-1-weishangjuan@eswincomputing.com>
+ <aLlpUOr3IJzTuV1g@shell.armlinux.org.uk>
 MIME-Version: 1.0
-To: Sergey Shtylyov <s.shtylyov@omp.ru>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <58116e65-1bca-4d87-b165-78989e1aa195@omp.ru>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <58116e65-1bca-4d87-b165-78989e1aa195@omp.ru>
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: prevent division by 0 in
- stmmac_init_tstamp_counter()
+Message-ID: <a05a5e6.1188.199281c1df8.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: TAJkCgA3WxH7fb5oznPLAA--.15808W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQETDGi9s3cdZgABs0
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: vladimir.oltean@nxp.com, 0x1207@gmail.com, edumazet@google.com,
+ jszhang@kernel.org, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ weishangjuan@eswincomputing.com, ningyu@eswincomputing.com,
+ faizal.abdul.rahim@linux.intel.com, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ jan.petrous@oss.nxp.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ yong.liang.choong@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com, inochiama@gmail.com,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
+ p.zabel@pengutronix.de, netdev@vger.kernel.org, krzk+dt@kernel.org,
+ emil.renner.berthing@canonical.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v5 2/2] ethernet: eswin: Add eic7700
+	ethernet driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,19 +59,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/09/2025 17:06, Sergey Shtylyov wrote:
-> In stmmac_init_tstamp_counter(), the sec_inc variable is initialized to 0,
-> and if stmmac_config_sub_second_increment() fails to set it to some non-0
-
-How that can happen? Do you have real kernel oops log?
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBSdXNzZWxsIEtpbmcsClRoYW5rIHlvdSBmb3IgeW91ciB2YWx1YWJsZSBhbmQgcHJvZmVz
+c2lvbmFsIHN1Z2dlc3Rpb25zLgoKWW91J3JlIHJpZ2h0IOKAlCB0eF9kZWxheV9wcywgcnhfZGVs
+YXlfcHMgYW5kIGhzcF9yZWdtYXAgYXJlCm9ubHkgdXNlZCBpbiBwcm9iZSwgc28gd2XigJlsbCBz
+d2l0Y2ggdGhlbSB0byBsb2NhbCB2YXJpYWJsZXMuCldl4oCZbGwgYWxzbyBpbmxpbmUgdGhlIGRl
+bGF5IGhhbmRsaW5nIGludG8gcHJvYmUgYXMgc3VnZ2VzdGVkLgpUaGlzIHdpbGwgYmUgdXBkYXRl
+ZCBpbiB0aGUgbmV4dCB2ZXJzaW9uLgoKQmVzdCByZWdhcmRzLAoKTGkgWmhpCkVzd2luIENvbXB1
+dGluZwo+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiDlj5Hku7bkuro6ICJSdXNzZWxsIEtpbmcg
+KE9yYWNsZSkiIDxsaW51eEBhcm1saW51eC5vcmcudWs+Cj4g5Y+R6YCB5pe26Ze0OjIwMjUtMDkt
+MDQgMTg6MjY6MjQgKOaYn+acn+WbmykKPiDmlLbku7bkuro6IHdlaXNoYW5nanVhbkBlc3dpbmNv
+bXB1dGluZy5jb20KPiDmioTpgIE6IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnLCBhbmRyZXcr
+bmV0ZGV2QGx1bm4uY2gsIGRhdmVtQGRhdmVtbG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20s
+IGt1YmFAa2VybmVsLm9yZywgcGFiZW5pQHJlZGhhdC5jb20sIHJvYmhAa2VybmVsLm9yZywga3J6
+aytkdEBrZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBsaW51eC1hcm0ta2VybmVsQGxp
+c3RzLmluZnJhZGVhZC5vcmcsIG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20sIGFsZXhhbmRyZS50
+b3JndWVAZm9zcy5zdC5jb20sIHlvbmcubGlhbmcuY2hvb25nQGxpbnV4LmludGVsLmNvbSwgdmxh
+ZGltaXIub2x0ZWFuQG54cC5jb20sIGZhaXphbC5hYmR1bC5yYWhpbUBsaW51eC5pbnRlbC5jb20s
+IHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbSwgaW5vY2hpYW1hQGdtYWls
+LmNvbSwgamFuLnBldHJvdXNAb3NzLm54cC5jb20sIGpzemhhbmdAa2VybmVsLm9yZywgcC56YWJl
+bEBwZW5ndXRyb25peC5kZSwgYm9vbi5raGFpLm5nQGFsdGVyYS5jb20sIDB4MTIwN0BnbWFpbC5j
+b20sIG5ldGRldkB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcs
+IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20sIGVtaWwucmVubmVyLmJl
+cnRoaW5nQGNhbm9uaWNhbC5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxpbm1pbkBl
+c3dpbmNvbXB1dGluZy5jb20sIGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20sIHBpbmtlc2gudmFn
+aGVsYUBlaW5mb2NoaXBzLmNvbQo+IOS4u+mimDogUmU6IFtQQVRDSCB2NSAyLzJdIGV0aGVybmV0
+OiBlc3dpbjogQWRkIGVpYzc3MDAgZXRoZXJuZXQgZHJpdmVyCj4gCj4gT24gVGh1LCBTZXAgMDQs
+IDIwMjUgYXQgMDU6MDE6MjVQTSArMDgwMCwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNv
+bSB3cm90ZToKPiA+ICtzdHJ1Y3QgZWljNzcwMF9xb3NfcHJpdiB7Cj4gPiArCXN0cnVjdCBwbGF0
+X3N0bW1hY2VuZXRfZGF0YSAqcGxhdF9kYXQ7Cj4gPiArCXN0cnVjdCBkZXZpY2UgKmRldjsKPiA+
+ICsJc3RydWN0IHJlZ21hcCAqaHNwX3JlZ21hcDsKPiA+ICsJdTMyIHR4X2RlbGF5X3BzOwo+ID4g
+Kwl1MzIgcnhfZGVsYXlfcHM7Cj4gPiArfTsKPiA+ICsKPiA+ICsvKioKPiA+ICsgKiBlaWM3NzAw
+X2FwcGx5X2RlbGF5IC0gQXBwbHkgVFggb3IgUlggZGVsYXkgdG8gYSByZWdpc3RlciB2YWx1ZS4K
+PiA+ICsgKiBAZGVsYXlfcHM6IERlbGF5IGluIHBpY29zZWNvbmRzLCBjb252ZXJ0ZWQgdG8gMC4x
+bnMgdW5pdHMuCj4gPiArICogQHJlZzogICAgICBQb2ludGVyIHRvIHJlZ2lzdGVyIHZhbHVlIHRv
+IHVwZGF0ZSBpbi1wbGFjZS4KPiA+ICsgKiBAaXNfcng6ICAgIFRydWUgZm9yIFJYIGRlbGF5IChi
+aXRzIDMwOjI0KSwgZmFsc2UgZm9yIFRYIGRlbGF5IChiaXRzIDE0OjgpLgo+ID4gKyAqCj4gPiAr
+ICogQ29udmVydHMgZGVsYXkgZnJvbSBwcyB0byAwLjFucyB1bml0cywgY2FwcGVkIGJ5IEVJQzc3
+MDBfTUFYX0RFTEFZX1VOSVQuCj4gPiArICogVXBkYXRlcyBvbmx5IHRoZSBSWCBvciBUWCBkZWxh
+eSBmaWVsZCAodXNpbmcgRklFTERfUFJFUCksIGxlYXZpbmcgYWxsCj4gPiArICogb3RoZXIgYml0
+cyBpbiAqQHJlZyB1bmNoYW5nZWQuCj4gPiArICovCj4gPiArc3RhdGljIHZvaWQgZWljNzcwMF9h
+cHBseV9kZWxheSh1MzIgZGVsYXlfcHMsIHUzMiAqcmVnLCBib29sIGlzX3J4KQo+ID4gK3sKPiA+
+ICsJdTMyIHZhbCA9IG1pbihkZWxheV9wcyAvIDEwMCwgRUlDNzcwMF9NQVhfREVMQVlfVU5JVCk7
+Cj4gPiArCj4gPiArCWlmIChpc19yeCkgewo+ID4gKwkJKnJlZyAmPSB+RUlDNzcwMF9FVEhfUlhf
+QURKX0RFTEFZOwo+ID4gKwkJKnJlZyB8PSBGSUVMRF9QUkVQKEVJQzc3MDBfRVRIX1JYX0FESl9E
+RUxBWSwgdmFsKTsKPiA+ICsJfSBlbHNlIHsKPiA+ICsJCSpyZWcgJj0gfkVJQzc3MDBfRVRIX1RY
+X0FESl9ERUxBWTsKPiA+ICsJCSpyZWcgfD0gRklFTERfUFJFUChFSUM3NzAwX0VUSF9UWF9BREpf
+REVMQVksIHZhbCk7Cj4gPiArCX0KPiA+ICt9Cj4gCj4gLi4uCj4gCj4gPiArCS8qIFJlYWQgcngt
+aW50ZXJuYWwtZGVsYXktcHMgYW5kIHVwZGF0ZSByeF9jbGsgZGVsYXkgKi8KPiA+ICsJaWYgKCFv
+Zl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5kZXYub2Zfbm9kZSwKPiA+ICsJCQkJICAicngtaW50
+ZXJuYWwtZGVsYXktcHMiLAo+ID4gKwkJCQkgICZkd2NfcHJpdi0+cnhfZGVsYXlfcHMpKSB7Cj4g
+PiArCQllaWM3NzAwX2FwcGx5X2RlbGF5KGR3Y19wcml2LT5yeF9kZWxheV9wcywKPiA+ICsJCQkJ
+ICAgICZldGhfZGx5X3BhcmFtLCB0cnVlKTsKPiAKPiBJJ3ZlIGJlZW4gdHJ5aW5nIHRvIGZpZ3Vy
+ZSBvdXQgdGhlIHJlYXNvbmluZyBiZWhpbmQgdGhlIGZvbGxvd2luZzoKPiAKPiAxLiB0aGUgcHJl
+c2VuY2Ugb2YgZHdjX3ByaXYtPnJ4X2RlbGF5X3BzIGFuZCBkd2NfcHJpdi0+dHhfZGVsYXlfcHMK
+PiAgICByYXRoZXIgdGhhbiBqdXN0IHVzaW5nIGEgbG9jYWwgdmFyaWFibGUgKCJkZWxheSIgPykK
+PiAyLiB0aGUgcHJlc2VuY2Ugb2YgZWljNzcwMF9hcHBseV9kZWxheSgpIHdoZW4gd2UgaGF2ZSB0
+byBkbyBzb21ldGhpbmcKPiAgICBkaWZmZXJlbnQgdG8gZ2V0IHRoZSBkZWxheSB2YWx1ZSBhbnl3
+YXkKPiAKPiBJdCBzZWVtcyB0byBtZSB0aGF0IHRoaXMgc2hvdWxkIGVpdGhlciBiZToKPiAKPiBz
+dGF0aWMgdm9pZCBlaWM3NzAwX3BhcnNlX2RlbGF5KHUzMiAqcmVnLCBzdHJ1Y3QgZGV2aWNlICpk
+ZXYsCj4gCQkJCWNvbnN0IGNoYXIgKm5hbWUsIGJvb2wgaXNfcngpCj4gewo+IAl1MzIgZGVsYXk7
+Cj4gCj4gCWlmIChvZl9wcm9wZXJ0eV9yZWFkX3UzMihkZXYtPm9mX25vZGUsIG5hbWUsICZkZWxh
+eSkpIHsKPiAJCWRldl93YXJuKGRldiwgImNhbid0IGdldCAlc1xuIiwgbmFtZSk7Cj4gCQlyZXR1
+cm4KPiAJfQo+IAo+IAlpZiAoaXNfcngpIHsKPiAJCSpyZWcgJj0gfkVJQzc3MDBfRVRIX1JYX0FE
+Sl9ERUxBWTsKPiAJCSpyZWcgfD0gRklFTERfUFJFUChFSUM3NzAwX0VUSF9SWF9BREpfREVMQVks
+IGRlbGF5KTsKPiAJfSBlbHNlIHsKPiAJCSpyZWcgJj0gfkVJQzc3MDBfRVRIX1RYX0FESl9ERUxB
+WTsKPiAJCSpyZWcgfD0gRklFTERfUFJFUChFSUM3NzAwX0VUSF9UWF9BREpfREVMQVksIGRlbGF5
+KTsKPiAJfQo+IH0KPiAKPiBvciBqdXN0IG5vdCBib3RoZXIgd2l0aCB0aGUgZnVuY3Rpb24gYXQg
+YWxsIGFuZCBqdXN0IHdyaXRlIGl0IG91dAo+IGZ1bGx5IGluIHRoZSBwcm9iZSBmdW5jdGlvbi4K
+PiAKPiBUaGFua3MuCj4gCj4gLS0gCj4gUk1LJ3MgUGF0Y2ggc3lzdGVtOiBodHRwczovL3d3dy5h
+cm1saW51eC5vcmcudWsvZGV2ZWxvcGVyL3BhdGNoZXMvCj4gRlRUUCBpcyBoZXJlISA4ME1icHMg
+ZG93biAxME1icHMgdXAuIERlY2VudCBjb25uZWN0aXZpdHkgYXQgbGFzdCEKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
+aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
