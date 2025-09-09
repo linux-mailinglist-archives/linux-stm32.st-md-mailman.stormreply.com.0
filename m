@@ -2,75 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F084AB49A1A
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Sep 2025 21:39:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C24B49EB4
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Sep 2025 03:30:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CDCBC3F95F;
-	Mon,  8 Sep 2025 19:39:41 +0000 (UTC)
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F05CC36B38;
+	Tue,  9 Sep 2025 01:30:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B044BC3F95B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F407C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Sep 2025 19:39:39 +0000 (UTC)
-Received: from [192.168.2.102] (213.87.154.55) by msexch01.omp.ru
- (10.188.4.12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Mon, 8 Sep
- 2025 22:39:36 +0300
-Message-ID: <877641ca-aadb-4510-9ed7-cc23cf666653@omp.ru>
-Date: Mon, 8 Sep 2025 22:39:35 +0300
+ Tue,  9 Sep 2025 01:30:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E97444B27;
+ Tue,  9 Sep 2025 01:30:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBE7C4CEF1;
+ Tue,  9 Sep 2025 01:30:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757381433;
+ bh=LW/aTIf77jl0JmfF2/xesj80TUgUyZIZrteGn5xgTdY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=N2LmF253IP2fFjntS60H1EYz6n0oEhQ5SgNReZZZmm3iqr6QI3hTSvNSk5bBn87IN
+ Nm7e6KWeH/dJMvr3InUPJE5nIKSenKb2OPVhh1h7OHDKEoKGmVWSJZcdEbfSic/Frt
+ fbCSclpBOXPLrO/ExMrE8fSwyZTVCbcGgWh2j/15/JOz934kzuyl9l0jBRAi/8MdNN
+ nb6Twcs4Ic29o2KgYjuNrkaWHbPQu7nNRzfJu7c4lmFYu/3MCnaBPME07q1IqL/c+A
+ +90B59i+nRriO0ExgWvZJpS3ql/ZedNtYlLNoswTgajTIPSPz+i4G/p9OGTKjaRu7d
+ 15DhRXbwi0YiQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33C8F383BF69; Tue,  9 Sep 2025 01:30:38 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
-References: <58116e65-1bca-4d87-b165-78989e1aa195@omp.ru>
- <c3183a23-21da-435d-b599-7003ae7ba79b@lunn.ch>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-In-Reply-To: <c3183a23-21da-435d-b599-7003ae7ba79b@lunn.ch>
-X-Originating-IP: [213.87.154.55]
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 09/08/2025 18:59:50
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 196103 [Sep 08 2025]
-X-KSE-AntiSpam-Info: Version: 6.1.1.11
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 66 0.3.66
- fc5dda3b6b70d34b3701db39319eece2aeb510fb
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2; www.kernel.org:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 213.87.154.55
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 09/08/2025 19:03:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 9/8/2025 5:23:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: prevent division by 0 in
- stmmac_init_tstamp_counter()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <175738143698.108077.11508219910437568266.git-patchwork-notify@kernel.org>
+Date: Tue, 09 Sep 2025 01:30:36 +0000
+References: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
+In-Reply-To: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac: mdio
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,65 +61,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 9/8/25 7:47 PM, Andrew Lunn wrote:
+Hello:
 
->> In stmmac_init_tstamp_counter(), the sec_inc variable is initialized to 0,
->> and if stmmac_config_sub_second_increment() fails to set it to some non-0
->> value, the following div_u64() call would cause a kernel oops (because of
->> the divide error exception).  Let's check sec_inc for 0 before dividing by
->> it and just return -EINVAL if so...
->>
->> Found by Linux Verification Center (linuxtesting.org) with the Svace static
->> analysis tool.
->>
->> Fixes: df103170854e ("net: stmmac: Avoid sometimes uninitialized Clang warnings")
->> Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
->>
->> ---
->> The patch is against the master branch of Linus Torvalds' linux.git repo.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 4 Sep 2025 13:10:42 +0100 you wrote:
+> On Wed, Sep 03, 2025 at 01:38:57PM +0100, Russell King (Oracle) wrote:
+> Hi,
 > 
-> Wrong tree. Please see:
+> Clean up the stmmac MDIO code:
+> - provide an address register formatter to avoid repeated code
+> - provide a common function to wait for the busy bit to clear
+> - pre-compute the CR field (mdio clock divider)
+> - move address formatter into read/write functions
+> - combine the read/write functions into a common accessor function
+> - move runtime PM handling into common accessor function
+> - rename register constants to better reflect manufacturer names
+> - move stmmac_clk_csr_set() into stmmac_mdio
+> - make stmmac_clk_csr_set() return the CR field value and remove
+>   priv->clk_csr
+> - clean up if() range tests in stmmac_clk_csr_set()
+> - use STMMAC_CSR_xxx definitions in initialisers
 > 
-> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+> [...]
 
-   Well, formerly being a reviewer for the Renesas drivers (before Greg KH
-threw me out of MAINTAINERS last year), I kinda know this! :-)
-   The real problem is that I've lost the ability to pull from git.kernel.org
-(first using git:// protocol and later using https:// as well)... Sometimes
-the ability used to return (along with Facebook/LinkedIn -- which are actually
-blocked in .ru) but that hasn't happened for more than a week now. I can now
-pull from Linus' tree at github. I strongly suspect some interaction between
-the .ru blocking and the Anubis program that is now used on git.kernel.org --
-I've also lost access to lore.kernel.org (sometimes it works -- but not now)
-and also elixir.bootlin.com, both of which seem to use the darn Anubis as
-well... :-(
+Here is the summary with links:
+  - [net-next,v2,01/11] net: stmmac: mdio: provide address register formatter
+    https://git.kernel.org/netdev/net-next/c/16e03235d51b
+  - [net-next,v2,02/11] net: stmmac: mdio: provide stmmac_mdio_wait()
+    https://git.kernel.org/netdev/net-next/c/9eb633ad1d69
+  - [net-next,v2,03/11] net: stmmac: mdio: provide priv->gmii_address_bus_config
+    https://git.kernel.org/netdev/net-next/c/6717746f33ab
+  - [net-next,v2,04/11] net: stmmac: mdio: move stmmac_mdio_format_addr() into read/write
+    https://git.kernel.org/netdev/net-next/c/6cb3d67ad624
+  - [net-next,v2,05/11] net: stmmac: mdio: merge stmmac_mdio_read() and stmmac_mdio_write()
+    https://git.kernel.org/netdev/net-next/c/9b0ed33a4256
+  - [net-next,v2,06/11] net: stmmac: mdio: move runtime PM into stmmac_mdio_access()
+    https://git.kernel.org/netdev/net-next/c/9b88194a3b68
+  - [net-next,v2,07/11] net: stmmac: mdio: improve mdio register field definitions
+    https://git.kernel.org/netdev/net-next/c/3581acbb789a
+  - [net-next,v2,08/11] net: stmmac: mdio: move initialisation of priv->clk_csr to stmmac_mdio
+    https://git.kernel.org/netdev/net-next/c/661a868937a1
+  - [net-next,v2,09/11] net: stmmac: mdio: return clk_csr value from stmmac_clk_csr_set()
+    https://git.kernel.org/netdev/net-next/c/231e2b016fb2
+  - [net-next,v2,10/11] net: stmmac: mdio: remove redundant clock rate tests
+    https://git.kernel.org/netdev/net-next/c/78c91bec8fb9
+  - [net-next,v2,11/11] net: stmmac: use STMMAC_CSR_xxx definitions in platform glue
+    https://git.kernel.org/netdev/net-next/c/fc8f62c827ea
 
-> This also needs reviewing by somebody who know the STMMAC
-> hardware. There is a comment:
-> 
-> 	/* For GMAC3.x, 4.x versions, in "fine adjustement mode" set sub-second
-                                               ^ Look, a typo! :-)
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> 	 * increment to twice the number of nanoseconds of a clock cycle.
-> 	 * The calculation of the default_addend value by the caller will set it
-> 	 * to mid-range = 2^31 when the remainder of this division is zero,
-> 	 * which will make the accumulator overflow once every 2 ptp_clock
-> 	 * cycles, adding twice the number of nanoseconds of a clock cycle :
-> 	 * 2000000000ULL / ptp_clock.
-> 
-> So i'm wondering if the subsecond adjustment is sufficient, the
-> sec_inc might be zero, and rather than returning an error, the
-> hardware just needs programming differently?
-
-   Sorry, I don't readily see how the data var in config_sub_second_increment()
-can wrap to 0. I agree that a look of a more knowledgeable person would be good
-though... :-)
-
->     Andrew
-
-[...]
-
-MBR, Sergey
 
 _______________________________________________
 Linux-stm32 mailing list
