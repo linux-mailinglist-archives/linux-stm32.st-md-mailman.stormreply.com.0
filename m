@@ -2,49 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3C24B49EB4
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Sep 2025 03:30:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C163B4A32F
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Sep 2025 09:14:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F05CC36B38;
-	Tue,  9 Sep 2025 01:30:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6DCDC36B3D;
+	Tue,  9 Sep 2025 07:14:46 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F407C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15256C36B16
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Sep 2025 01:30:34 +0000 (UTC)
+ Tue,  9 Sep 2025 07:14:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9E97444B27;
- Tue,  9 Sep 2025 01:30:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBE7C4CEF1;
- Tue,  9 Sep 2025 01:30:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A926943667;
+ Tue,  9 Sep 2025 07:14:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0328C4CEF4;
+ Tue,  9 Sep 2025 07:14:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757381433;
- bh=LW/aTIf77jl0JmfF2/xesj80TUgUyZIZrteGn5xgTdY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=N2LmF253IP2fFjntS60H1EYz6n0oEhQ5SgNReZZZmm3iqr6QI3hTSvNSk5bBn87IN
- Nm7e6KWeH/dJMvr3InUPJE5nIKSenKb2OPVhh1h7OHDKEoKGmVWSJZcdEbfSic/Frt
- fbCSclpBOXPLrO/ExMrE8fSwyZTVCbcGgWh2j/15/JOz934kzuyl9l0jBRAi/8MdNN
- nb6Twcs4Ic29o2KgYjuNrkaWHbPQu7nNRzfJu7c4lmFYu/3MCnaBPME07q1IqL/c+A
- +90B59i+nRriO0ExgWvZJpS3ql/ZedNtYlLNoswTgajTIPSPz+i4G/p9OGTKjaRu7d
- 15DhRXbwi0YiQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33C8F383BF69; Tue,  9 Sep 2025 01:30:38 +0000 (UTC)
+ s=k20201202; t=1757402083;
+ bh=9eG5fnaSGiqXsw4eiPV/yIEg2n0/EzNdL6QuKQ4J0G4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PyuPtYAwzhNuKU4CSjN/l5NrjK4jQlq9+Gd6w3rSIGppeuJ0CPZX6VeWqDtHL4h65
+ RPH4fFhyVl7Dh0ieAdIQZbCjO5GMIckLfwxIZrzUVa9RdVZB3IOQkZFrdEbMdvmobG
+ GZOgJb3ByAtgslNt9n6hMSayDcghNkFv9NbfbDyA1ePzq4ZqnsZ4dqiGdQ1tpArVy8
+ PfdTXAuLyA6+jiPGJG6XjNEmrkQpwBiBILIhyYjhVhaTgRTWiUKGI9AJ/H7NbjLHB9
+ MdhAX5tTLBe9r/FHQBAHLTl6KgqZH1IZTlhwM4hgonvAzGZDXtuuK+sBNZjRXi3hiD
+ VS+HP22zctCDA==
+Date: Tue, 9 Sep 2025 09:14:41 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Message-ID: <20250909-charming-tuscan-mouse-abc1e0@kuoka>
+References: <20250908105901.3198975-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20250908105901.3198975-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175738143698.108077.11508219910437568266.git-patchwork-notify@kernel.org>
-Date: Tue, 09 Sep 2025 01:30:36 +0000
-References: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
-In-Reply-To: <aLmBwsMdW__XBv7g@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac: mdio
-	cleanups
+Content-Disposition: inline
+In-Reply-To: <20250908105901.3198975-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: renesas,
+ rzv2h-gbeth: Document Renesas RZ/T2H and RZ/N2H SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,60 +73,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 4 Sep 2025 13:10:42 +0100 you wrote:
-> On Wed, Sep 03, 2025 at 01:38:57PM +0100, Russell King (Oracle) wrote:
-> Hi,
+On Mon, Sep 08, 2025 at 11:58:59AM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
-> Clean up the stmmac MDIO code:
-> - provide an address register formatter to avoid repeated code
-> - provide a common function to wait for the busy bit to clear
-> - pre-compute the CR field (mdio clock divider)
-> - move address formatter into read/write functions
-> - combine the read/write functions into a common accessor function
-> - move runtime PM handling into common accessor function
-> - rename register constants to better reflect manufacturer names
-> - move stmmac_clk_csr_set() into stmmac_mdio
-> - make stmmac_clk_csr_set() return the CR field value and remove
->   priv->clk_csr
-> - clean up if() range tests in stmmac_clk_csr_set()
-> - use STMMAC_CSR_xxx definitions in initialisers
+> Add device tree binding support for the Gigabit Ethernet MAC (GMAC) IP
+> on Renesas RZ/T2H and RZ/N2H SoCs. While these SoCs use the same
+> Synopsys DesignWare MAC version 5.20 as RZ/V2H, they are synthesized
+> with different hardware configurations.
 > 
-> [...]
+> Add new compatible strings "renesas,r9a09g077-gbeth" for RZ/T2H and
+> "renesas,r9a09g087-gbeth" for RZ/N2H, with the latter using RZ/T2H as
+> fallback since they share identical GMAC IP.
+> 
+> Update the schema to handle hardware differences between SoC variants.
+> RZ/T2H requires only 3 clocks compared to 7 on RZ/V2H, supports 8 RX/TX
+> queue pairs instead of 4, and needs 2 reset controls with reset-names
+> property versus a single unnamed reset. RZ/T2H also has the split header
+> feature enabled which is disabled on RZ/V2H.
+> 
+> Add support for an optional pcs-handle property to connect the GMAC to
+> the MIIC PCS converter on RZ/T2H. Use conditional schema validation to
+> enforce the correct clock, reset, and interrupt configurations per SoC
+> variant.
+> 
+> Extend the base snps,dwmac.yaml schema to accommodate the increased
+> interrupt count, supporting up to 19 interrupts and extending the
+> rx-queue and tx-queue interrupt name patterns to cover queues 0-7.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Here is the summary with links:
-  - [net-next,v2,01/11] net: stmmac: mdio: provide address register formatter
-    https://git.kernel.org/netdev/net-next/c/16e03235d51b
-  - [net-next,v2,02/11] net: stmmac: mdio: provide stmmac_mdio_wait()
-    https://git.kernel.org/netdev/net-next/c/9eb633ad1d69
-  - [net-next,v2,03/11] net: stmmac: mdio: provide priv->gmii_address_bus_config
-    https://git.kernel.org/netdev/net-next/c/6717746f33ab
-  - [net-next,v2,04/11] net: stmmac: mdio: move stmmac_mdio_format_addr() into read/write
-    https://git.kernel.org/netdev/net-next/c/6cb3d67ad624
-  - [net-next,v2,05/11] net: stmmac: mdio: merge stmmac_mdio_read() and stmmac_mdio_write()
-    https://git.kernel.org/netdev/net-next/c/9b0ed33a4256
-  - [net-next,v2,06/11] net: stmmac: mdio: move runtime PM into stmmac_mdio_access()
-    https://git.kernel.org/netdev/net-next/c/9b88194a3b68
-  - [net-next,v2,07/11] net: stmmac: mdio: improve mdio register field definitions
-    https://git.kernel.org/netdev/net-next/c/3581acbb789a
-  - [net-next,v2,08/11] net: stmmac: mdio: move initialisation of priv->clk_csr to stmmac_mdio
-    https://git.kernel.org/netdev/net-next/c/661a868937a1
-  - [net-next,v2,09/11] net: stmmac: mdio: return clk_csr value from stmmac_clk_csr_set()
-    https://git.kernel.org/netdev/net-next/c/231e2b016fb2
-  - [net-next,v2,10/11] net: stmmac: mdio: remove redundant clock rate tests
-    https://git.kernel.org/netdev/net-next/c/78c91bec8fb9
-  - [net-next,v2,11/11] net: stmmac: use STMMAC_CSR_xxx definitions in platform glue
-    https://git.kernel.org/netdev/net-next/c/fc8f62c827ea
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
