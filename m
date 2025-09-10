@@ -2,53 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEDCB51CE8
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Sep 2025 18:04:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4088B5245D
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Sep 2025 01:02:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15939C35E2B;
-	Wed, 10 Sep 2025 16:04:44 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0B52C32EB0;
+	Wed, 10 Sep 2025 23:02:11 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89F00C36B3F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8334C349C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Sep 2025 16:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=KlHv0+GrHV1hBNSj6BJKLSwams6/gKxyprG2p5gwuN8=; b=La6wrW4KHul4jfO4rtbU8hD01X
- FcZppvUr5TlhkRKeJber2yMH0LVsSwhRAKwz+bhLWoEMEg0OIAjMwJ7FC5Ow/BYVscoA22vdPHydt
- Jot1v/kCWKxpJ0qC5GzmEy1GXrSPjmz8c8Sh1AOlk431WwjvNSYPJU6caRZ7GOnck1Eo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uwNJ6-007y3p-Ip; Wed, 10 Sep 2025 18:04:28 +0200
-Date: Wed, 10 Sep 2025 18:04:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <24cd127d-1be7-42f4-a2ec-697c5e7554db@lunn.ch>
-References: <20250910-qcom-sa8255p-emac-v1-0-32a79cf1e668@linaro.org>
- <20250910-qcom-sa8255p-emac-v1-2-32a79cf1e668@linaro.org>
+ Wed, 10 Sep 2025 23:02:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XfBP9bG2tl0NXE5ziSY+fRi8/aEFKp1uutR7MpEd4G0=; b=ehZy0YEK3SoZWMNLnS8hKW++R6
+ pi9lEWn+q4alBozXX1FaURdClBIU4Z5Ux1mM46qU7Q+NYXL5Pj+sl0js1xL/1xetnjETmOEYWD/Qf
+ qodDqbNGiam30JDn0x1DQu2TwRw+I9IKEfiIKyRHGjHYxiu6TEjJkch4izOOutaDK6F768vBcrBjz
+ yK88UxY5COOJzzRn/yty70Dmj2AEHm469DSqzf5nDtUAh9/R6XDv6vF0ITiNv8+zXSebv/nhZnUan
+ I5xsrDBuQxLw/zChwYSGWrbK7fLtYxo6bpFvE8h48p9mNX4RfK1tlpIqZgBm7wRRKrKx4/4ZNOJ5B
+ C7KeTHFw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56228)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1uwTpC-000000002E4-1Vz1;
+ Thu, 11 Sep 2025 00:02:02 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1uwTp7-000000001lV-0Zix; Thu, 11 Sep 2025 00:01:57 +0100
+Date: Thu, 11 Sep 2025 00:01:56 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+Message-ID: <aMIDZE0mLHAa5pdr@shell.armlinux.org.uk>
+References: <aMBaCga5UAXT03Bi@shell.armlinux.org.uk>
+ <E1uw1Vk-00000004MCX-38Zs@rmk-PC.armlinux.org.uk>
+ <94e20b19-eb89-43c1-9a7c-3a529c60be8b@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250910-qcom-sa8255p-emac-v1-2-32a79cf1e668@linaro.org>
-Cc: Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 2/9] dt-bindings: net: qcom: document the
- ethqos device for SCMI-based systems
+In-Reply-To: <94e20b19-eb89-43c1-9a7c-3a529c60be8b@foss.st.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 08/11] net: stmmac: rename
+ stmmac_init_ptp()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,38 +72,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +    ethernet: ethernet@7a80000 {
-> +        compatible = "qcom,sa8255p-ethqos";
-> +        reg = <0x23040000 0x10000>,
-> +              <0x23056000 0x100>;
-> +        reg-names = "stmmaceth", "rgmii";
-> +
-> +        iommus = <&apps_smmu 0x120 0x7>;
-> +
-> +        interrupts = <GIC_SPI 946 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 782 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-names = "macirq", "sfty";
-> +
-> +        dma-coherent;
-> +
-> +        snps,tso;
-> +        snps,pbl = <32>;
-> +        rx-fifo-depth = <16384>;
-> +        tx-fifo-depth = <16384>;
-> +
-> +        phy-handle = <&sgmii_phy1>;
-> +        phy-mode = "2500base-x";
+On Wed, Sep 10, 2025 at 04:42:18PM +0200, Gatien CHEVALLIER wrote:
+> 
+> 
+> On 9/9/25 18:48, Russell King (Oracle) wrote:
+> > In preparation to cleaning up the (re-)initialisation of timestamping,
+> > rename the existing stmmac_init_ptp() to stmmac_init_timestamping()
+> > which better reflects its functionality.
+> > 
+> 
+> I agree it's mostly about time stamping but if the ptp_clk_freq_config()
+> ops is implemented, then it's not only about timestamping. Wasn't it
+> fine as is?
 
-Nitpicking: It is clearly not an SGMII PHY if it support
-2500BaseX. You might want to give the node a better name.
+No, if you look at the history, various bits of PTP initialisation
+have had to be moved out of stmmac_init_ptp() due to various problems,
+and this includes initialisation of the TAI timekeeping block block
+(or what we call ptp_clock in the kernel.) It's become less about
+initialising the entire PTP subsystem, more about just the time-
+stamping part.
 
-> +        snps,mtl-rx-config = <&mtl_rx_setup1>;
-> +        snps,mtl-tx-config = <&mtl_tx_setup1>;
-> +        snps,ps-speed = <1000>;
+So, the rename is justified, even though there's still bits in there
+that need to be re-architected.
 
-Since this MAC can do 2.5G, is 1000 correct here?
+However, continuing to call it "init_ptp" when it doesn't initialise
+all of PTP, especially as the patches after this adds another function
+that _does_ to the full initialisation just doesn't make sense - in
+fact, it becomes down-right confusing.
 
-      Andrew
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
