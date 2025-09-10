@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D10B51003
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Sep 2025 09:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3E6B5100B
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Sep 2025 09:57:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64AE3C3FACF;
-	Wed, 10 Sep 2025 07:54:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93D22C3FACE;
+	Wed, 10 Sep 2025 07:57:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3B3DC3FACE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B37CAC35E00
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Sep 2025 07:54:52 +0000 (UTC)
+ Wed, 10 Sep 2025 07:57:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 606EC44470;
- Wed, 10 Sep 2025 07:54:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EFF3C4CEF5;
- Wed, 10 Sep 2025 07:54:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 75AC5419A1;
+ Wed, 10 Sep 2025 07:57:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F7AC4CEF0;
+ Wed, 10 Sep 2025 07:57:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757490891;
- bh=/Cvlcl3lSVxIswV9jynJ/e4AYCtz89efpAEudugYMIw=;
+ s=k20201202; t=1757491027;
+ bh=9fjD2fNRSaM8UgWVZRkBtaZv1nqX5uwHyIlpPz0EWXU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ByAqknhQxTz5AuwNFMa3NeXS+psWNlXu858IH8RhV5WRDRT6/Er16498NMAI/6bBD
- SsC6di1+qrYZKG0/JLFvcqTvMr778/sGlSuvjhc3v7KNFW/kHbl2CwMpRFR4Bu051l
- ErX7CASZW0ejiZAsqXt0gFlI0gWrH7YNL4Xmy/DMDRBbPry/DVhl/4pP5qqFKV8f2x
- h8yd10TqVJiygJy32AMSB5ilvaj42MMp/VVLc9xh6do1MDxS1tIxU07JPOTLpA805e
- e8Cp5j4A/PLS0IIY/yEHZyxPqkY8mah+LGTBZfNzP7ncfQCPQbt5Z5LJlbCiidHE0R
- kPE8/SWr9/cPQ==
-Date: Wed, 10 Sep 2025 09:54:48 +0200
+ b=kaLZpnsmrHrGGLP+0KguzRFCRfaUyvd8cTnmNsdxhg0gWm2UTWQ6Uo+799KsWNSym
+ CrhsRXZgc8VeqUDQ3XRRqKG6KXv3iR6Wf5CeDAZyZRbqRB5k/o5xfwXknqNEN9neoA
+ VgLtVqNSaQmLc9iKjxB30OcWaDJKHvc2TCk64/46ZwBNAJOlwtrWPI7Fr2/arNJxwM
+ ZCKIt0zrgNySUkCx5ycX5hyuNwSEF1PWfMyln4YO+5Vxg3qO5YVxDOe+z24g8ksHOz
+ iT354QBmykiQdgu59sVJGEwJFmmv+oImcIKDNKRvr67QwsclSwr4QjHX8wyL6yDlQ0
+ l4Rr09eDm7cZA==
+Date: Wed, 10 Sep 2025 09:57:04 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: =?utf-8?Q?Cl=C3=A9ment?= Le Goffic <legoffic.clement@gmail.com>
-Message-ID: <20250910-flat-raptor-of-temperance-5e8c7c@kuoka>
+Message-ID: <20250910-adamant-hospitable-firefly-ae30c5@kuoka>
 References: <20250909-b4-ddrperfm-upstream-v6-0-ce082cc801b5@gmail.com>
- <20250909-b4-ddrperfm-upstream-v6-5-ce082cc801b5@gmail.com>
+ <20250909-b4-ddrperfm-upstream-v6-12-ce082cc801b5@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250909-b4-ddrperfm-upstream-v6-5-ce082cc801b5@gmail.com>
+In-Reply-To: <20250909-b4-ddrperfm-upstream-v6-12-ce082cc801b5@gmail.com>
 Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
  Michael Turquette <mturquette@baylibre.com>,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
@@ -50,8 +50,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
  Philipp Zabel <p.zabel@pengutronix.de>, Julius Werner <jwerner@chromium.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v6 05/20] dt-bindings: memory: factorise
- LPDDR props into SDRAM props
+Subject: Re: [Linux-stm32] [PATCH v6 12/20] dt-bindings: perf: stm32:
+ introduce DDRPERFM dt-bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,28 +68,34 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBTZXAgMDksIDIwMjUgYXQgMTI6MTI6MTJQTSArMDIwMCwgQ2zDqW1lbnQgTGUgR29m
+T24gVHVlLCBTZXAgMDksIDIwMjUgYXQgMTI6MTI6MTlQTSArMDIwMCwgQ2zDqW1lbnQgTGUgR29m
 ZmljIHdyb3RlOgo+IEZyb206IENsw6ltZW50IExlIEdvZmZpYyA8Y2xlbWVudC5sZWdvZmZpY0Bm
-b3NzLnN0LmNvbT4KPiAKPiBMUEREUiBhbmQgRERSIGJpbmRpbmdzIGFyZSBTRFJBTSB0eXBlcyBh
-bmQgYXJlIGxpa2VseSB0byBzaGFyZSB0aGUgc2FtZQo+IHByb3BlcnRpZXMgKGF0IGxlYXN0IGZv
-ciBkZW5zaXR5LCBpby13aWR0aCBhbmQgcmVnKS4KPiBUbyBhdm9pZCBiaW5kaW5ncyBkdXBsaWNh
-dGlvbiwgZmFjdG9yaXNlIHRoZSBwcm9wZXJ0aWVzLgo+IAo+IFRoZSBjb21wYXRpYmxlIGRlc2Ny
-aXB0aW9uIGhhcyBiZWVuIHVwZGF0ZWQgYmVjYXVzZSB0aGUgTVIgKE1vZGUKPiByZWdpc3RlcnMp
-IHVzZWQgdG8gZ2V0IG1hbnVmYWN0dXJlciBJRCBhbmQgcmV2aXNpb24gSUQgYXJlIG5vdCBwcmVz
-ZW50Cj4gaW4gY2FzZSBvZiBERFIuCj4gVGhvc2UgaW5mb3JtYXRpb24gc2hvdWxkIGJlIGluIGEg
-U1BEIChTZXJpYWwgUHJlc2VuY2UgRGV0ZWN0KSBFRVBST00gaW4KPiBjYXNlIG9mIERJTU0gbW9k
-dWxlIG9yIGFyZSBrbm93biBpbiBjYXNlIG9mIHNvbGRlcmVkIG1lbW9yeSBjaGlwcyBhcwo+IHRo
-ZXkgYXJlIGluIHRoZSBkYXRhc2hlZXQgb2YgdGhlIG1lbW9yeSBjaGlwcy4KPiAKPiBTaWduZWQt
-b2ZmLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+
-CgpJcyB0aGlzIGVtYWlsIGRlZnVuY3Qgbm93LCB0aGF0IHlvdSBhZGQgc2Vjb25kIFNvQj8KCj4g
-U2lnbmVkLW9mZi1ieTogQ2zDqW1lbnQgTGUgR29mZmljIDxsZWdvZmZpYy5jbGVtZW50QGdtYWls
-LmNvbT4KCkkgc3RpbGwgc2VlIGluIHRoaXMgcGF0Y2hzZXQgYXJvdW5kIDUgZGlmZmVyZW50IHN1
-YnN5c3RlbXMuIE5vdGhpbmcgaW4KdGhlIGNvdmVyIGxldHRlciBleHBsYWlucyB0aGUgZGVwZW5k
-ZW5jaWVzLCBzbyBncm91cGluZyBsb29rcyBsaWtlCmNvaW5jaWRlbmNlIGFuZCB5b3UganVzdCBt
-YWtlIGl0IGRpZmZpY3VsdCBmb3IgbWFpbnRhaW5lcnMgZm9yIG5vCnJlYXNvbi4KClBsZWFzZSBv
-cmdhbml6ZSB5b3VyIHBhdGNoc2V0cyBwZXIgc3Vic3lzdGVtcywgc2VlIHN1Ym1pdHRpbmcgcGF0
-Y2hlcwpkb2MgZm9yIG1vcmUgZGV0YWlscy4KCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+b3NzLnN0LmNvbT4KPiAKPiBERFJQRVJGTSBpcyB0aGUgRERSIFBlcmZvcm1hbmNlIE1vbml0b3Ig
+ZW1iZWRkZWQgaW4gU1RNMzJNUFUgU29DLgo+IEl0IGFsbG93cyB0byBtb25pdG9yIEREUiBldmVu
+dHMgdGhhdCBjb21lIGZyb20gdGhlIEREUiBDb250cm9sbGVyCj4gc3VjaCBhcyByZWFkIG9yIHdy
+aXRlIGV2ZW50cy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1l
+bnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQ2zDqW1lbnQgTGUgR29m
+ZmljIDxsZWdvZmZpYy5jbGVtZW50QGdtYWlsLmNvbT4KPiAtLS0KPiAgLi4uL2RldmljZXRyZWUv
+YmluZGluZ3MvcGVyZi9zdCxzdG0zMi1kZHItcG11LnlhbWwgfCA5NCArKysrKysrKysrKysrKysr
+KysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA5NCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdp
+dCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9wZXJmL3N0LHN0bTMyLWRkci1w
+bXUueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9wZXJmL3N0LHN0bTMy
+LWRkci1wbXUueWFtbAo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMDAwMDAw
+Li4xZDk3ODYxZTNkNDQKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL3BlcmYvc3Qsc3RtMzItZGRyLXBtdS55YW1sCj4gQEAgLTAsMCArMSw5
+NCBAQAo+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9SIEJTRC0y
+LUNsYXVzZSkKPiArJVlBTUwgMS4yCj4gKy0tLQo+ICskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9y
+Zy9zY2hlbWFzL3BlcmYvc3Qsc3RtMzItZGRyLXBtdS55YW1sIwo+ICskc2NoZW1hOiBodHRwOi8v
+ZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMKPiArCj4gK21haW50YWluZXJz
+Ogo+ICsgIC0gQ2zDqW1lbnQgTGUgR29mZmljIDxsZWdvZmZpYy5jbGVtZW50QGdtYWlsLmNvbT4K
+PiArCj4gK3RpdGxlOiBTVE1pY3JvZWxlY3Ryb25pY3MgU1RNMzIgRERSIFBlcmZvcm1hbmNlIE1v
+bml0b3IgKEREUlBFUkZNKQo+ICsKPiArcHJvcGVydGllczoKPiArICBjb21wYXRpYmxlOgo+ICsg
+ICAgb25lT2Y6Cj4gKyAgICAgIC0gaXRlbXM6Cj4gKyAgICAgICAgICAtIGNvbnN0OiBzdCxzdG0z
+Mm1wMTMxLWRkci1wbXUKPiArICAgICAgLSBpdGVtczoKPiArICAgICAgICAgIC0gZW51bToKPiAr
+ICAgICAgICAgICAgICAtIHN0LHN0bTMybXAxNTEtZGRyLXBtdQo+ICsgICAgICAgICAgLSBjb25z
+dDogc3Qsc3RtMzJtcDEzMS1kZHItcG11Cj4gKyAgICAgIC0gaXRlbXM6Cj4gKyAgICAgICAgICAt
+IGNvbnN0OiBzdCxzdG0zMm1wMjUxLWRkci1wbXUKCllvdSBkaWQgbm90IGltcGxlbWVudCBSb2In
+cyBjb21tZW50LgoKQmVzdCByZWdhcmRzLApLcnp5c3p0b2YKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
