@@ -2,73 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 642AAB50F32
+	by mail.lfdr.de (Postfix) with ESMTPS id 68BD3B50F33
 	for <lists+linux-stm32@lfdr.de>; Wed, 10 Sep 2025 09:25:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14F33C3FACE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23E5AC3FAD0;
 	Wed, 10 Sep 2025 07:25:54 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD757C35E00
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B63ABC35E00
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Sep 2025 07:25:51 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-45dd5e24d16so46660545e9.3
+ Wed, 10 Sep 2025 07:25:53 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3dae49b117bso5683351f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Sep 2025 00:25:51 -0700 (PDT)
+ Wed, 10 Sep 2025 00:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1757489151; x=1758093951;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1757489153; x=1758093953;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QAOVD/NXoo6Qinrlhcnn2ltKwFLoKauBP77YUEELpDE=;
- b=VwKLHKKYvcHwZ3pPWdJlJmyPXbWE70jt2/o3myh18Ans4s3+45vbV4SILbqXhb2+oQ
- KojIHVD8riXAe6QwAOD/OLUBowCE4gDc1SsOVyJaMnA15EDLUGAf+wzg0fDUtA8iPjru
- uwOwLNy6N17OSCR9AFvIbelZecZCx06p28jpW0kCmM4nPpgh6TXYwGUcZ/fvKBvfEXEt
- ouOzH+1W1IRXEYKFiR/Bkqsx7T1xhgpyY7yQ5BMe2S2ODEDlr0H7NaZMmVtvAE8qqSPw
- QW8Ij5gSK4bBg/1ppTPvW1g0mwqvPFNI/Nn7f+0WS6Ua/8Cbnq3tuXaeJvQusTfikNIa
- Ofnw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=gl5EvZZ7qePjJl2BaNjHQ+dzPz2TAyeCpTwHy9T9Wfo=;
+ b=dnIgQdt53aY4yPxK2NV4ioqZXO/DAaaxj+4gaSMjim/uXjtuGXEfMAzVGIz8VuKZyP
+ SQD6pl25tu2ZNpTkXvyqyWgqmMIHYrjJIeR/cJz10JGVZTbJAKQc4J+O+gkCh9TxU/9R
+ TLWkdFzubJhO9HCmqLIAQtuPwrnNSh4po7aLUkj211D+xbXcry+GDxUUkmafgdi24k3y
+ yMbF800O0AjB6xU26qAJpasXJwTE50yrbhanpu1b9ZndGuKq9eXB4GyY4U8fIODaqVQG
+ DEiC6vL02qC2XGAIU4mdo9kJ1XpreECjmg/N9X6YQgaWvLDp+fuVOdpcRNNcV4Ud6Js6
+ Yzqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757489151; x=1758093951;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QAOVD/NXoo6Qinrlhcnn2ltKwFLoKauBP77YUEELpDE=;
- b=rLIJkDyBEJx/GYlrMMmgiQJDncXSBEAgn4Yp5Oq2hrtQUwVG2TOZMoVPaplojc+T4D
- pLBQ0x7GrJZJhLCMttNlMXrUxkmNVOsQxrGvXgCJQqxO9IsoCtU5QNQjTKlNztG0xui0
- WnY+yWit/54BMzgrpVG/9ULnLyZm/Xnkt6Ha6NvS5A9LOZh9PXi/eeELrel378889TBF
- oUmNSdyTSXIna8oc8CgzkoJNV9Sr8EozWLz0UidovxgpXXDYsE5x2X7KniGHopkn21Qv
- SiaqApy0Kk90DtAvgB1QM0E7juH0VBYOWba74Op1vao8sP9yWhIOguVCWabTl+iOq8MI
- aDJA==
+ d=1e100.net; s=20230601; t=1757489153; x=1758093953;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gl5EvZZ7qePjJl2BaNjHQ+dzPz2TAyeCpTwHy9T9Wfo=;
+ b=TAitE34p+ldJYuCE9gXSep7GN70QNXUhSaaOFIeIf+yBwVU/nn0rN8TRtKWoJH4C8m
+ EEYNRpjzAIrsnUEF5qCqjPnl4RVy91OI4xXrkcMMZeVpqEqaWe+xiZ9pmCcFgwVVPNLN
+ kGszxCcSdzG/++w/NZUMIhYWKJT7otM5ndqwaBa++hcQZ07PdrowpISKB5ZnEwUOVmeE
+ BG0L07KO6itbO1+HL04vuBvERcvqW8ce2U3RTx1C3NtG9EPHTwjokSzrL4hgdxoDYuMk
+ ZIh0dgBPWfXKQ0A3FenWaSuIL300SD7NzTahpsJlHiIIhGjT+zkcoPOoS6tdqMjzcQhb
+ OSrA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEWJkJNXdkBVrwY3knPvboRIPs9vv7CAuewcLoxm7tPBqK8c1yFwzfyOmg9IipCkqFxoHavS36HmAhTg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw7wmkCT+fITzQSK7VMTQL4E6KvTeOSc0R5xYHdfKgjf1wwR9q5
- wbMRrMSGnGKdx24gfc5QxO0nutAX0Lfrh0fN+5l4U0Bj+1cDe+gT/5C6bHrJwcUkRZY=
-X-Gm-Gg: ASbGncsgkt7OqA99yfgSyuPGkZCy3jih/TvWsUHmL+YlTyVWsBfNighvVXMC2AO2zOP
- uClFeIs3w/v+uVERpjzdgxhqoAMk/9UvEx530hgTgvRBNn2fNSWsks0tWUcj6bwrN/9+BmFElc7
- O8zh7FANoKLqxO3H0fwa94gQx9ixyCHZEAh4wZq29pcGe50oC3Cvd45Nbgq/sUJw5qeoUfNAZi7
- eTX18CaeGbZ2rgCxsh3yTRv0+TBTJV/bJ4jfOJyaZ7kpNyOd4h47mJzxVD8TB72QG2Kl+w7q7d5
- JHA1uR84LFKvyO/COcxDqLxPQhGiuMFaN8pV1/P2WkbaIN2xkdAb5dN+EViKFuUkUvnhXo2NqAQ
- rTtbTymAHwCs1G8DAt52EWKO4cSGF
-X-Google-Smtp-Source: AGHT+IHGcMRUmLBYK4SgC+8FxVXfL1XsZk92Y0HumCVsdD0bP05sNhcUQfhnESNzNcG8GqNwFSRO+g==
-X-Received: by 2002:a05:600c:1393:b0:45b:7b00:c129 with SMTP id
- 5b1f17b1804b1-45dddf021a4mr111254435e9.35.1757489150984; 
- Wed, 10 Sep 2025 00:25:50 -0700 (PDT)
+ AJvYcCXHwjHYxwOkBZX6lT6ROq1CDvKEgcUML+JuhD58DBXiPeJh6PwsORLq75bN6zZxqPadeR6I2seUgbaE4g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyUEcOYLQzBa6081qvqb5S/5pnGzS7QOOMxe0psYT5RW7rzomCG
+ 9udtAPLP1luuarfgQNSvgXYcuZJ3N6puPwDK7eZCzfpD09CfD49YpS0AoB8+gdphydk=
+X-Gm-Gg: ASbGncsv9+FbW3euGTKYInvRWIE3bZSK5KjMPtyCdgqo87SJyP6pdlq5K1FtlyeUKVE
+ Rm5TRKNX8br3eI3rS2RKRB+3FX3BOd1ZBxIOUwCipAIqYodjROO5KLtuTKqZFNJDxg2479DhmGL
+ l4QqgH+36nLEaN16gvO2sDRJfiv2ukJWQi22IaSbvWAwXIhkg638vKLeKWw0eeB8m453T/Y7sXV
+ XdUkihTLtz8ONf89Jx+zlXywe0gfFTvP27DZJGo9z0dM2+YQkUvB7TrHpYaYDM2Aa7c9QGtIj5Q
+ YFW4YHyfDfcjQ6JT6YqzK8g+k2R13ioBmdLvP4tQWhKRcX6AVs3ExTS9C+ZnehysSGFRk7q7qwO
+ 6Qj/b/eBxqfJ4m4hTm8eblJwvmGwbXcgDxrsGd9Y=
+X-Google-Smtp-Source: AGHT+IFKdWd/MOTTMywYPHVw5YIDU4ZG0NZ3VmH44f3IGf1C3HlllFBC2cfty+fO45t0VoMp0fb6YA==
+X-Received: by 2002:a05:6000:1a8d:b0:3e3:f332:73f6 with SMTP id
+ ffacd0b85a97d-3e646257abcmr9958246f8f.31.1757489153027; 
+ Wed, 10 Sep 2025 00:25:53 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:3936:709a:82c4:3e38])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45df8236428sm16729825e9.24.2025.09.10.00.25.49
+ 5b1f17b1804b1-45df8236428sm16729825e9.24.2025.09.10.00.25.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Sep 2025 00:25:50 -0700 (PDT)
+ Wed, 10 Sep 2025 00:25:52 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 10 Sep 2025 09:25:44 +0200
-Message-Id: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
+Date: Wed, 10 Sep 2025 09:25:45 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAPgnwWgC/x3NTQrCMBBA4auUWTuQ/kiJVxEX03Ssg8mkTKoUS
- u9ucPlt3jugsAkXuDUHGH+lSNaK9tJAeJEujDJXQ+e6q/POY6I3Y8hpzR+dMcrGRrGgZksUkRY
- SxbZ3Yx/COEx+gFpajZ+y/y/3x3n+AJ5+BqB1AAAA
-X-Change-ID: 20250909-make-compound-literals-normal-again-13073cc74b94
+Message-Id: <20250910-make-compound-literals-normal-again-v1-1-076ee7738a0b@linaro.org>
+References: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
+In-Reply-To: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
 To: Lee Jones <lee@kernel.org>, 
  Andy Shevchenko <andriy.shevchenko@intel.com>, 
  Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
@@ -95,29 +93,29 @@ To: Lee Jones <lee@kernel.org>,
  Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2536;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=979;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=mbaKzHcgj41PgNucTuXNTRRDYpWfb/AcMMrNDA/c0O8=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBowSf8fAuHxdMgXnxNQ6BJ55Q2hyWr1ftxMskiL
- dcle+ZX0s+JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaMEn/AAKCRARpy6gFHHX
- cr6ND/99HqQnU9BaJ0rG9nmyHWz9UVNShxsHcidnTQYDpvGwd2PHnJcJdwpjGZC1msq3r+GB/ga
- /zA5bR2ZsRzfO/XKfM2IjjN6BaSGRl3qj9qX5cxH5gT86+KMQWrzjOYsJhcIldkm+B/vxqqMHom
- MFHfiq0n0NhdzWqe4O3C1X7fVIpRgGSXVSYfka6cg3On8jzmA6PyhkaYa706xoCHPHckqJaKRk1
- P+NLmTJxoupn2H21plGDEESji9GS0g3dXUS7H/uHSv5ILsR67EA6A21k4utyvCfQNrL/27uhiSm
- hxO4JygFgiZBOLGyX7WXgmTyFKtFZ9mnl5Y10vpz7itfuPUJWQk0GJ594d7f3ZIDJqZueax0J1e
- Z9CFk6U3ZT1jZ/oMIJAydNph0r1xH5OHAbczLcvLOoR5GkxxP5NePvsyr7k0t2+6Xw2Nukz4n05
- aQ1qzE7sNjWX4cxaqeRfInnYZHQy89Qf+mTyJKVrx3MAz+sXZHhtN5Q74xMDTydQMOhKX/iaZic
- YfBgTRRt9OWEIaiGrlyxYGj1whz5lTrSdziP3ZNQQRyBqFA1bYzMOGHlTHK2/1DSVLM6EOMheNZ
- QVH65EM200UB4DiHwbgDAcSSaAhQ2UUoYc/mi5fX28HetdMG3CdC40i4ZKPvnCNmCf7Ld3NAZoi
- Tx4rK9U0Rc28ZCA==
+ bh=2AiYFCloD/4RAraZbO+KeVDtX8xcEqWOa6di+UP2k+Y=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBowSf8VTnO9QVF1tR30IBvEZEbYU3RFZcMzjLBO
+ 2ZoExM1MEWJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaMEn/AAKCRARpy6gFHHX
+ chgMEAC1UA+PKD6t6aGSJKb2WwHVdpLkaweVvLymwppdHKPAhq4e2ZXBwcfe2Xf21UCZiVRN5Pb
+ sXKBL7TU2hsVJnh+nY1deWzVbeenzo8hfzM5je3+XttTa2Cd7DH6irICePcyIIAX9BlaWTAaKiP
+ OzZfpmYjW0CygB3YYK5biWI3U5cbt8nLFSPKK/ST9iUNo1jaFukc6FipCfVUosMTABpdPQOqmxc
+ EhVqSROfAU4VXT6X9L7y4z/srhtMFu2ufagfAW3sz0zMFPXiSOQcSirf7JyGZrRkwKN26VcH7XE
+ SMpZQkhb/5/ccgPK9pObeHyNoII8VEhVuraYCkIOiW6C04U2HwPu6nfDQ0YdiITYx2gObHsjuKA
+ dFyC1qARBLWkPpFha9B/WfdT4effL2+txlK5x8JKZY3ZYwbv+7kgyLjuwGt3fYKMneEXrd3GWwj
+ Ob2IeaFzQUJplmbPWMbcU/LOW4JBy7aOXHImgg6G6fOJSUTexbqJflcFeQ6aqoJ+iMezbpCUVxX
+ DaEUCGs/NEd4R7KcgIrmSebHGlPJot9MGekvnPntd4Xt/34GEdDUYMriQBIjB8jshF2MoPpqAbq
+ MVDAbVmCWbgIP0Aljy2QDxkXCnS8MoTibWav6SmYomsrAUE1bXtWLPW/j4cOMWhP7q0xosfcc/0
+ W2Qzs1Uc+uQvMHQ==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: imx@lists.linux.dev, linux-unisoc@lists.infradead.org,
  openbmc@lists.ozlabs.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/3] gpio/pinctrl/mfd: use more common syntax
- for compound literals
+Subject: [Linux-stm32] [PATCH 1/3] mfd: vexpress-sysreg: use more common
+ syntax for compound literals
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,61 +132,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As discussed[1] with Andy: it's probably better to use a more common
-syntax for compound literals so fix the commits that converted GPIO
-chips to using the new generic GPIO chip API and make them explicitly
-spell out the type they're initializing.
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-Each commit in this series can go directly into its respective tree:
-MFD, pinctrl and GPIO.
+The (typeof(foo)) construct is unusual in the kernel, use a more typical
+syntax by explicitly spelling out the type.
 
-[1] https://lore.kernel.org/all/20250909-gpio-mmio-gpio-conv-part4-v1-13-9f723dc3524a@linaro.org/
-
+Link: https://lore.kernel.org/all/20250909-gpio-mmio-gpio-conv-part4-v1-13-9f723dc3524a@linaro.org/
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
-Bartosz Golaszewski (3):
-      mfd: vexpress-sysreg: use more common syntax for compound literals
-      pinctrl: use more common syntax for compound literals
-      gpio: use more common syntax for compound literals
+ drivers/mfd/vexpress-sysreg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpio/gpio-amdpt.c                 | 2 +-
- drivers/gpio/gpio-blzp1600.c              | 2 +-
- drivers/gpio/gpio-dwapb.c                 | 2 +-
- drivers/gpio/gpio-ep93xx.c                | 2 +-
- drivers/gpio/gpio-ftgpio010.c             | 2 +-
- drivers/gpio/gpio-ge.c                    | 2 +-
- drivers/gpio/gpio-grgpio.c                | 2 +-
- drivers/gpio/gpio-hisi.c                  | 2 +-
- drivers/gpio/gpio-idt3243x.c              | 2 +-
- drivers/gpio/gpio-ixp4xx.c                | 2 +-
- drivers/gpio/gpio-loongson-64bit.c        | 2 +-
- drivers/gpio/gpio-mlxbf.c                 | 2 +-
- drivers/gpio/gpio-mlxbf2.c                | 2 +-
- drivers/gpio/gpio-mlxbf3.c                | 2 +-
- drivers/gpio/gpio-mpc8xxx.c               | 2 +-
- drivers/gpio/gpio-mxs.c                   | 2 +-
- drivers/gpio/gpio-rda.c                   | 2 +-
- drivers/gpio/gpio-realtek-otto.c          | 2 +-
- drivers/gpio/gpio-tb10x.c                 | 2 +-
- drivers/gpio/gpio-ts4800.c                | 2 +-
- drivers/gpio/gpio-vf610.c                 | 2 +-
- drivers/gpio/gpio-visconti.c              | 2 +-
- drivers/gpio/gpio-xgene-sb.c              | 2 +-
- drivers/gpio/gpio-xgs-iproc.c             | 2 +-
- drivers/mfd/vexpress-sysreg.c             | 2 +-
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 2 +-
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 2 +-
- drivers/pinctrl/nuvoton/pinctrl-wpcm450.c | 2 +-
- drivers/pinctrl/pinctrl-equilibrium.c     | 2 +-
- drivers/pinctrl/stm32/pinctrl-stm32-hdp.c | 2 +-
- 30 files changed, 30 insertions(+), 30 deletions(-)
----
-base-commit: 65dd046ef55861190ecde44c6d9fcde54b9fb77d
-change-id: 20250909-make-compound-literals-normal-again-13073cc74b94
+diff --git a/drivers/mfd/vexpress-sysreg.c b/drivers/mfd/vexpress-sysreg.c
+index 9399eb850ca29b0a9d9be2173bee4bcf6888d10f..f49cee91f71cc2e6132cd3118dafd42a48821e0d 100644
+--- a/drivers/mfd/vexpress-sysreg.c
++++ b/drivers/mfd/vexpress-sysreg.c
+@@ -120,7 +120,7 @@ static int vexpress_sysreg_probe(struct platform_device *pdev)
+ 	if (!mmc_gpio_chip)
+ 		return -ENOMEM;
+ 
+-	config = (typeof(config)){
++	config = (struct gpio_generic_chip_config) {
+ 		.dev = &pdev->dev,
+ 		.sz = 4,
+ 		.dat = base + SYS_MCI,
 
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+2.48.1
 
 _______________________________________________
 Linux-stm32 mailing list
