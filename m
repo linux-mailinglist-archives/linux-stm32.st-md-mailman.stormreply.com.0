@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A3CB50586
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Sep 2025 20:46:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 747D9B50AC6
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Sep 2025 04:08:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4900DC3F93B;
-	Tue,  9 Sep 2025 18:46:26 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72DCFC3FACB;
+	Wed, 10 Sep 2025 02:08:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47487C3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADB25C3FACA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Sep 2025 18:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=lRwvBfaT+yf+uQJrvSGSQs+uuRk8X3P8qH0TRfgm1YI=; b=JPLMlUpzERItWrQzhAqHKr3cEa
- lgvLCXK/1mcEVZUS9+ZzzssMX75QpSPWHJIyM6pRvm5YRU/PHtsGzWR8x3aHbbbJOobSGp/4WjkI7
- mXAwAYChDQ4Wk/3elC1Qk5ZvYAD/S7Jls5dLP1jUWvU+MdzYMPYo3+OdDxycQMStlDTw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uw3M1-007qdT-1T; Tue, 09 Sep 2025 20:46:09 +0200
-Date: Tue, 9 Sep 2025 20:46:09 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <afb70e68-5e59-47a3-837d-d15cde9dc8da@lunn.ch>
-References: <aMBaCga5UAXT03Bi@shell.armlinux.org.uk>
+ Wed, 10 Sep 2025 02:08:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8AF4360230;
+ Wed, 10 Sep 2025 02:08:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F02FC4CEF4;
+ Wed, 10 Sep 2025 02:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757470120;
+ bh=oXLn8INDpdCoJrpkQGlJIpgFhY/DdHeBq7FxlLPN/QA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GITImNdl8yjBYTBk+yQX/0uVI7ltS4/7XTrkNfaxIJHXYKft1RXu9SwcEiy/Sy5bs
+ 6bdVpM6Gwf1mjLTdS9K5NE+Pl3DXTqFkPbfYd/R8q3fgo815ac2nao1ORqBMwNhGqk
+ 3dwdifNPSWhqoyBB6unLZ9lZyRslZOtg+2nqu+DKJqgRNTyMkHjgM2bGZEBNxdC5EX
+ 7B4lT+XR/2wik9T6Wd+0XsIhMwuaQrVeDpewcB22N9NtIDUSCnIbZrXtJIotOauMI7
+ BaAxguReXGE32lMgS9CzrOu9nkoeXk+eP2fJqReOyu5th/roU2pO5hMyPxGJlBHxA5
+ kk5KMFM0JGx6w==
+Date: Tue, 9 Sep 2025 21:08:39 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Antonio Borneo <antonio.borneo@foss.st.com>
+Message-ID: <175747011863.3632305.14159900534334210899.robh@kernel.org>
+References: <20250905135547.934729-1-antonio.borneo@foss.st.com>
+ <20250905135547.934729-3-antonio.borneo@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aMBaCga5UAXT03Bi@shell.armlinux.org.uk>
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 00/11] net: stmmac:
-	timestamping/ptp cleanups
+In-Reply-To: <20250905135547.934729-3-antonio.borneo@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH v2 2/9] dt-bindings: pincfg-node: Add
+ property "skew-delay-direction"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,17 +62,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> On that point... I hardly (never?) seem to get testing feedback from
-> anyone when touching stmmac. I suspect that's because of the structure
-> of the driver, where MAINTAINERS only lists people for their appropriate
-> dwmac-* files. Thus they don't get Cc'd for core stmmac changes. Not
-> sure what the solution is, but manually picking out all the entries
-> in MAINTAINERS every time doesn't scale.
 
-One option might be to add an R: entry to the STMMAC ETHERNET DRIVER
-for everybody who Maintains a glue driver?
+On Fri, 05 Sep 2025 15:55:40 +0200, Antonio Borneo wrote:
+> Add the property "skew-delay-direction" to specify on which pin's
+> direction (either input, output or both) the value of the generic
+> property 'skew-delay' applies.
+> For backward compatibility, 'skew-delay' applies on both input and
+> output directions when the new property is not present or has
+> value '0'.
+> 
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+> ---
+>  .../devicetree/bindings/pinctrl/pincfg-node.yaml    | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
 
-    Andrew
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
