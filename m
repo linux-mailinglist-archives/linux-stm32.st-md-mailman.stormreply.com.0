@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E27B52B80
+	by mail.lfdr.de (Postfix) with ESMTPS id E194FB52B81
 	for <lists+linux-stm32@lfdr.de>; Thu, 11 Sep 2025 10:23:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B281C349C1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45232C349C7;
 	Thu, 11 Sep 2025 08:23:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2371C349C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0203C36B14
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 11 Sep 2025 08:23:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7E5D1449CE;
+ by tor.source.kernel.org (Postfix) with ESMTP id C86BC6013D;
  Thu, 11 Sep 2025 08:23:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 54C25C4CEF1;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67236C4CEF7;
  Thu, 11 Sep 2025 08:23:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1757579009;
- bh=1NTqCYvC1K8jjPMv2VYdraK1iRDgvz7FsY1W+cOys54=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=tozocLldwSOpQgbhOhuvt904CuPrNKqz+MyiPtI+nj9sGun7ieVcxmDeSsvZdBjfE
- DLC53avdIrGgvbJ7sYRUGgMdyO5pDjfLUmKKhASmcFSxQsv4LthlyehDTGPFBOJyFE
- LWECmeFEORqBI6+cZlkendWmxSj4/qKrNl9EJ87Db8k6v49PLB2my6YBkHqNGOavIZ
- /NF0Ecd/e1bXoBZaP1lNhSBIoZtyF0KfALdU7cr7WYkNc/bpQEfZujDShE7nrw67h/
- 8yQ53MOPF1dkpX+X/zg3sSrpVvWb7nNLUq9i7dqyb7Wo6CWHDHTMLXyr1rKSB1cLyV
- mBubwOsiRx0CQ==
+ bh=/v0yrpBEJQ0D28G9+YyT6cosJyEdCGkLKC3aD1BtsjQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=CQxyzVZfqH+P8zdM82GRHXbD8rE+lYTjiUXu+VMzpsklXBR9fuIyHyWn95aOHeij+
+ KRbHJHTH1k7NCMiEZ0DPX6Oy84HwmVwMu+cvW5iGVfZz3l7vuW/EK/sift3aM/85FS
+ nQ8m3gzMIZ1e29VOW8+pIln+g9i03WkXc+d+z0wRvrMgRz/VC7RloIXEYvmQI9gmGs
+ /1EZuYKLIdxqaNNj3hGFk3tJqo6+/nsxiI7JZJ87zRdNlE4AZnCWTKRK97n1nFszT3
+ VQhv+/NRP4yPq1vH9CtgsHsaONBPTjPjEDU5Zjk9XVs+qwBAWqe9cW5yD2qIBmM0nc
+ lKsJ5rUKSOZow==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 43F6CCAC58D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 54666CAC587;
  Thu, 11 Sep 2025 08:23:29 +0000 (UTC)
 From: Rohan G Thomas via B4 Relay
  <devnull+rohan.g.thomas.altera.com@kernel.org>
-Date: Thu, 11 Sep 2025 16:22:58 +0800
-Message-Id: <20250911-qbv-fixes-v1-0-e81e9597cf1f@altera.com>
+Date: Thu, 11 Sep 2025 16:22:59 +0800
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAOKGwmgC/x3KSwqAIBRG4a3IHSdo2HMr0cDqr+7ESkOCcO9Jw
- 49zXgrwjEC9eMkjcuDDZehC0Lxbt0Hykk2lKivVaS2vKcqVHwRpLGqzoK2BhvJ/evwh7wM53DS
- m9AHmLbwtYAAAAA==
-X-Change-ID: 20250911-qbv-fixes-4ae64de86ee7
+Message-Id: <20250911-qbv-fixes-v1-1-e81e9597cf1f@altera.com>
+References: <20250911-qbv-fixes-v1-0-e81e9597cf1f@altera.com>
+In-Reply-To: <20250911-qbv-fixes-v1-0-e81e9597cf1f@altera.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -49,11 +47,11 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Jose Abreu <Jose.Abreu@synopsys.com>, 
  Rohan G Thomas <rohan.g.thomas@intel.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1757579008; l=729;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1757579008; l=1329;
  i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
- bh=1NTqCYvC1K8jjPMv2VYdraK1iRDgvz7FsY1W+cOys54=;
- b=/0L8KgDwlzFCr8RVOL5SgK/pXkurP0ELzcipg5jz0KqFqfz7OjcBHkJi9PknfxYLHM1GdYnME
- v5v0C/w9B7TBnsTcDbFxJQY0Jdl7+CyWmJD9rD5EXlB2gHxKlKOoeeO
+ bh=08KV5iTtWBP58r0AMyc5QP0+5U8/3Bb20vU2hpRSVqk=;
+ b=RKVL8L4shTtsE0yMWktLB7UBTuTa5UWJgk5bAXN9GwEGjDkZuaPg7txbFStG1fwxJBY0LIErS
+ eYMjClFcT76BBd+UOuHoOQAlvwTtkpfhVFDcJ60tcbGH5COJq7AZ5kT
 X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
  pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
 X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
@@ -62,8 +60,8 @@ X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
  linux-kernel@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 0/2] net: stmmac: Minor fixes for stmmac
- EST implementation
+Subject: [Linux-stm32] [PATCH net 1/2] net: stmmac: est: Fix GCL bounds
+	checks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,27 +79,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patchset includes following minor fixes for stmmac EST
-implementation:
-   1. Fix GCL bounds checks
-   2. Consider Tx VLAN offload tag length for maxSDU
+From: Rohan G Thomas <rohan.g.thomas@intel.com>
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+Fix the bounds checks for the hw supported maximum GCL entry
+count and gate interval time.
+
+Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO scheduler API")
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
+Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 ---
-Rohan G Thomas (2):
-      net: stmmac: est: Fix GCL bounds checks
-      net: stmmac: Consider Tx VLAN offload tag length for maxSDU
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++++++++++-------
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c   |  4 ++--
- 2 files changed, 20 insertions(+), 9 deletions(-)
----
-base-commit: 1f24a240974589ce42f70502ccb3ff3f5189d69a
-change-id: 20250911-qbv-fixes-4ae64de86ee7
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 694d6ee1438197bd4434af6e9b78f022e94ff98f..89d094abb6be5c993c81901e3f79a6b03f310511 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -981,7 +981,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 	if (qopt->cmd == TAPRIO_CMD_DESTROY)
+ 		goto disable;
+ 
+-	if (qopt->num_entries >= dep)
++	if (qopt->num_entries > dep)
+ 		return -EINVAL;
+ 	if (!qopt->cycle_time)
+ 		return -ERANGE;
+@@ -1012,7 +1012,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+ 		s64 delta_ns = qopt->entries[i].interval;
+ 		u32 gates = qopt->entries[i].gate_mask;
+ 
+-		if (delta_ns > GENMASK(wid, 0))
++		if (delta_ns >= BIT(wid))
+ 			return -ERANGE;
+ 		if (gates > GENMASK(31 - wid, 0))
+ 			return -ERANGE;
 
-Best regards,
 -- 
-Rohan G Thomas <rohan.g.thomas@altera.com>
+2.25.1
 
 
 _______________________________________________
