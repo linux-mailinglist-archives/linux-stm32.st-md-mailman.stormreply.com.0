@@ -2,56 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344D1B53393
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Sep 2025 15:24:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156BFB53F5D
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 02:02:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3AC1C349C1;
-	Thu, 11 Sep 2025 13:24:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ABC9C3F930;
+	Fri, 12 Sep 2025 00:02:04 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B65EAC36B14
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F02FAC3F92F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Sep 2025 13:24:07 +0000 (UTC)
+ Fri, 12 Sep 2025 00:02:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5C4BF4076B;
- Thu, 11 Sep 2025 13:24:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2804AC4CEF0;
- Thu, 11 Sep 2025 13:24:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B31F40501;
+ Fri, 12 Sep 2025 00:02:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03CCC4CEF0;
+ Fri, 12 Sep 2025 00:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757597046;
- bh=ReBPBkxXd+EypkUBHcKbC5D48dqv14ID4CKpjTXEUa4=;
+ s=k20201202; t=1757635321;
+ bh=0wrrUK4oFK61WEcwJoC3CXhY9QFy4rgtgWwUYrq0Opk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=CaDSz7w62JVQ9qph9vkiqPWEkMdO9ksAVmIJj6NNKrNQhtpY77er7EdYsXNaC3Gw7
- Or7QidGxUnAo4jA+WYPKEG0esydorOwwWQZMNuyXSKReLFJbk9OUJjmMX1h8WrZaCC
- kdugKwZrxFmyMFGRCijvIsDKthcvmqU6FbjU7TfoPRV/fEKPknX6eThWyBYYYCmWGy
- NnptvyWq2o2frDJrRPJalmbwzPlpzkUokxPIWhCQK0WY4lfqfYh6AH5G/p/N9YIJYF
- TZ4WZwjrZBDTfKUguTN6o6JgjeEoNWh5YbaKNSRXQFbXRrQSUX+E1cGz+mssdgJDSF
- 6ZLuO0WOJbW1Q==
-Date: Thu, 11 Sep 2025 06:24:04 -0700
+ b=kd44Djh7pYO5hpTr2eXfUuw2U3SIZXAP03Bx/lMr6U5OjMqZoVFGwuKp9niagx3mW
+ J7wtpMixRjTORzLjl3S57ubl0+IUzLk2Jwu1UVqVexsGvGbvJnRYY+mfuDQ3hUEkt4
+ y0za4yPT4yyi/dVgIcHUQEK6ourw0nMI3CYlkmVqykCbpokVXyaeIChewqrrWBSgif
+ vZh8FxXMumht53cMKwt5uakXzo17LP/lsOSN5N6iZN7VpaPIeXChx0YXuUVaX+Tf8J
+ wFrn2ZgrkBGKTmDjZs0myx2YZDxAwO2DWG630RBOHmXYddJusBJhctH/sQIZCqypnJ
+ t87HiHPMP/kLg==
+Date: Thu, 11 Sep 2025 17:01:59 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Message-ID: <20250911062404.1d2c98f6@kernel.org>
-In-Reply-To: <aMI6HNACh3y1UWhW@dragon>
-References: <20250901103632.3409896-1-joy.zou@nxp.com>
- <175694281723.1237656.10367505965534451710.git-patchwork-notify@kernel.org>
- <aMI0PJtHJyPom68X@dragon>
- <aMI1ljdUkC3qxGU9@lizhi-Precision-Tower-5810>
- <aMI6HNACh3y1UWhW@dragon>
+To: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
+Message-ID: <20250911170159.383edcc6@kernel.org>
+In-Reply-To: <2d00df77-870d-426c-a823-3a9f53d9eb30@altera.com>
+References: <20250911-qbv-fixes-v1-0-e81e9597cf1f@altera.com>
+ <20250911-qbv-fixes-v1-1-e81e9597cf1f@altera.com>
+ <aMKxc6AuEiWplhcV@shell.armlinux.org.uk>
+ <2d00df77-870d-426c-a823-3a9f53d9eb30@altera.com>
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, alexander.stein@ew.tq-group.com,
- Frank Li <Frank.li@nxp.com>, edumazet@google.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- Markus.Niebel@ew.tq-group.com, frieder.schrempf@kontron.de,
- primoz.fiser@norik.com, Shawn Guo <shawnguo2@yeah.net>, pabeni@redhat.com,
- richardcochran@gmail.com, Joy Zou <joy.zou@nxp.com>,
- devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- linux-pm@vger.kernel.org, othacehe@gnu.org, s.hauer@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, kernel@pengutronix.de,
- krzk+dt@kernel.org, shawnguo@kernel.org, davem@davemloft.net,
- linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v10 0/6] Add i.MX91 platform support
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/2] net: stmmac: est: Fix GCL bounds
+	checks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,29 +64,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 11 Sep 2025 10:55:24 +0800 Shawn Guo wrote:
-> > > Can you stop applying DTS changes via net tree?  
+On Thu, 11 Sep 2025 18:12:16 +0530 G Thomas, Rohan wrote:
+> On 9/11/2025 4:54 PM, Russell King (Oracle) wrote:
+> > On Thu, Sep 11, 2025 at 04:22:59PM +0800, Rohan G Thomas via B4 Relay wrote:  
+> >> @@ -1012,7 +1012,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
+> >>   		s64 delta_ns = qopt->entries[i].interval;
+> >>   		u32 gates = qopt->entries[i].gate_mask;
+> >>   
+> >> -		if (delta_ns > GENMASK(wid, 0))
+> >> +		if (delta_ns >= BIT(wid))  
 > > 
-> > shawn:
-> > 	Suppose Jaku only pick patch 6.
-> > 
-> >         - [v10,6/6] net: stmmac: imx: add i.MX91 support
-> >           https://git.kernel.org/netdev/net-next/c/59aec9138f30
-> > 
-> > other patches is "(no matching commit)"  
+> > While I agree this makes it look better, you don't change the version
+> > below, which makes the code inconsistent. I also don't see anything
+> > wrong with the original comparison.  
 > 
-> Ah, sorry for missing that!  Thanks for pointing it out, Frank!
+> Just to clarify the intent behind this change:
+> For example, if wid = 3, then GENMASK(3, 0) = 0b1111 = 15. But the
+> maximum supported gate interval in this case is actually 7, since only 3
+> bits are available to represent the value. So in the patch, the
+> condition delta_ns >= BIT(wid) effectively checks if delta_ns is 8 or
+> more, which correctly returns an error for values that exceed the 3-bit
+> limit.
 
-The output is a little confusing.
-
-Konstantin, would it be possible to add (part) to the subject of the
-patchwork bot reply when only some patches were applied? I've seen
-other people's bots do this. Something like:
-
- Re: (part) $subject
-
-? Maybe there are other ideas how to express that just part of the
-series was applied, no real preference.
+Comparison to BIT() looks rather odd, I think it's better to correct
+the GENMASK() bound?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
