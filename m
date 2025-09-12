@@ -2,104 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887F9B543D3
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 09:27:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8863BB54F03
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 15:14:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F540C32E93;
-	Fri, 12 Sep 2025 07:27:02 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23F0AC32EA8;
+	Fri, 12 Sep 2025 13:14:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFBE2C349C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C3F8C32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 07:27:01 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-45b9853e630so13758555e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 00:27:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1757662021; x=1758266821;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j3tI11OAkSN7RqNGcTXf8rRvtsdFAfZUpl45jMI60AM=;
- b=tY1DT2JiWzaShhGzy4Gz/dgZ042V+yN9/Ze4NLFnUwmwSG2RIOkWZuLi2q2ixhyfnW
- iiZ7m2+irYtSPjl2dSTn0rFZ1vfC/eCdVFpyOh2SE0EtSdrN5KxTzT0UkXjs3Q5/rEwk
- ULUfpRYdD/0x7DHTnTe0X8M7mWYmaerttZRD3iRBI0XvCT7yUgFwAyJiruZzjxxiuxQG
- ZEpsaz6xlwAZbIkVLo/wjHgLvdJ5hM/0EVnE3yEOeAw1B5bBLH08D8BxnKec3SDJ162f
- 45YrvsrE2Lt0lLo+rTZw2v3aOx6NebzYfQtY+Mli9KWS1i1QtJaM1f+ND66r7v96BKWA
- X/zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757662021; x=1758266821;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=j3tI11OAkSN7RqNGcTXf8rRvtsdFAfZUpl45jMI60AM=;
- b=FTNcCluys1NpnC8DOBo8WNAcMStaKiN7jT61MLHeJ3ay8mjH5doL7ZFc5J1J37GeZC
- aKkweY74+7cWSyiOjrLyfeesbFgecZt0Tqi5w+btiknq830ZfJkGBzdeEnyQSy37q8d8
- ksCdAj09Ssvfa9dT+1rS9wgg5TnndSVALsW4w2r+11OxuNWVMCKcnP8mCg5z+ZFLAsS3
- eBS4YulRcPJ0/HDObwoeULNyIJdvQwPjwu7jzuliJSFwCHe6lxYXqGboglwn4yUcHiRi
- tm0vBwjOc83sxN/yrOtHkXjvnvtuvgj2vHkmDsSyumnE0uewk87wAuJ3H1rHN2U6A7bt
- QqZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX3J3ULV2sAC4xhLUT4h383atSwQF4brhjiXwF8ZZWSL2WED+HvNVPDGw/b9/RMAXSJf7nSyQA4FcDq2w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxLTkiTl5Upo+csJaYpmEEUVcGgTorLuR4H1DMnP/cAYXgjC6xg
- 7vo9G2XZtGk87TnioMkhKRrPfAvWiXU3lwvi4AxfYDydsAlRD1bSc7uFFiorTEc4G8M=
-X-Gm-Gg: ASbGncujSdzsVcJmRt9LNPvYEeS/SRHRIYCftqsnCiv9cGPZWelenKK5ikdQi6N4jrl
- ZYd8T9v1YnujzKxLb+RPXwdQaNPSUZ3fcPcLlxVcEN+KylCbfLDTcqNo6RsdlUAyR4YccLY8fR4
- 2qfuwgPnH4I9JyfzjbEMDsy56wuxCiW5rRIP5v8aSZ0WNJ0iyc32B740jgZ2lG1UDVHsGvvkdPi
- 254TrGhvZj5Uy0dFXSV6UzBJZaK2XGWAueDtdpWj++P1jDD2l4DyCcIweRGa9Mx8qVygL5az5bU
- bgfFaqr6/QqWpVMCuvl15LS/IjKPs7aT0v1dw1eUEB+Qo+KsFMeoL2cQOPEplbYgUwLo+hfxnjz
- ptJgoyYLDj8hwNTDGXu448tA=
-X-Google-Smtp-Source: AGHT+IGXpoEAuIYw6/UluyUVnBbgfJgpGf6NHBYCv+YqFkoz5Fkn4jAGq9fRMx7AKxy66hsY9dDhlg==
-X-Received: by 2002:a7b:c04b:0:b0:45b:81b4:1917 with SMTP id
- 5b1f17b1804b1-45f211d5d6fmr14759865e9.10.1757662020614; 
- Fri, 12 Sep 2025 00:27:00 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:dc:7e00:b6ab:4211:ebab:762])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3e774a3fb5bsm730202f8f.58.2025.09.12.00.26.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Sep 2025 00:27:00 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Lee Jones <lee@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- =?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <legoffic.clement@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- James Cowgill <james.cowgill@blaize.com>,
- Matt Redfearn <matt.redfearn@blaize.com>,
- Neil Jones <neil.jones@blaize.com>,
- Nikolaos Pasaloukos <nikolaos.pasaloukos@blaize.com>,
- Hoan Tran <hoan@os.amperecomputing.com>, Yang Shen <shenyang39@huawei.com>,
- Imre Kaloz <kaloz@openwrt.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Fri, 12 Sep 2025 09:26:54 +0200
-Message-ID: <175766186357.9646.17039178132060352918.b4-ty@linaro.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
-References: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
+ Fri, 12 Sep 2025 13:14:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 799AD601E8;
+ Fri, 12 Sep 2025 13:14:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E603C4CEF1;
+ Fri, 12 Sep 2025 13:14:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757682873;
+ bh=MxMamnhy9oj92yxyc9e8YwEgNJD+oI68n6DyGiWWVCs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GEwyhLVW7tgTFSLAz7JK3+1HYMD/7HIye32Lxy3ySptbeD+445/nkm2JHAK+972z4
+ hN1yg6qT/Cv6KzMK+8abeYegIyHojhenatknUEJABAkmsZKRhxN9A/1PKsL28JNgpG
+ P8gPONP1X/RAQ3DDLBshYfOaHDXkUep0mwc3eyRp2eHwvDGNkpqIyR27ghXrurze4a
+ 32xG1qLEdaIZUklU3/X4Sb88ZgBxKg0LUkvcL4hf/jh43Eg4SPXr+hTax9PtE/mo+E
+ agzGNJBkiGuwxZdGrjohvI5zMdbZtdppELU60GEdYwgj7UoTvHhVvBA+kwIrM0xjlf
+ O2SDiRwfa8GpQ==
+Message-ID: <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
+Date: Fri, 12 Sep 2025 15:14:24 +0200
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-unisoc@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/3] gpio/pinctrl/mfd: use more
-	common syntax for compound literals
+User-Agent: Mozilla Thunderbird
+To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
+ rmk+kernel@armlinux.org.uk, faizal.abdul.rahim@linux.intel.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
+ jan.petrous@oss.nxp.com, jszhang@kernel.org, p.zabel@pengutronix.de,
+ boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ emil.renner.berthing@canonical.com
+References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
+ <20250912055612.2884-1-weishangjuan@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250912055612.2884-1-weishangjuan@eswincomputing.com>
+Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+ lizhi2@eswincomputing.com, linmin@eswincomputing.com
+Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: ethernet: eswin:
+ Document for EIC7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,28 +112,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-
-
-On Wed, 10 Sep 2025 09:25:44 +0200, Bartosz Golaszewski wrote:
-> As discussed[1] with Andy: it's probably better to use a more common
-> syntax for compound literals so fix the commits that converted GPIO
-> chips to using the new generic GPIO chip API and make them explicitly
-> spell out the type they're initializing.
+On 12/09/2025 07:56, weishangjuan@eswincomputing.com wrote:
+> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
 > 
-> Each commit in this series can go directly into its respective tree:
-> MFD, pinctrl and GPIO.
+> Add ESWIN EIC7700 Ethernet controller, supporting clock
+> configuration, delay adjustment and speed adaptive functions.
 > 
-> [...]
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
 
-Applied, thanks!
+There is no explanation of dropping the tag. Please read CAREFULLY
+submitting patches.
 
-[3/3] gpio: use more common syntax for compound literals
-      https://git.kernel.org/brgl/linux/c/7eee64e8be51f9ff0393b5bd0752a6e8f9252bf9
+Comparing also fails:
+
+b4 diff '<20250912055352.2832-1-weishangjuan@eswincomputing.com>'
+Using cached copy of the lookup
+---
+Analyzing 55 messages in the thread
+Preparing fake-am for v6: dt-bindings: ethernet: eswin: Document for
+EIC7700 SoC
+ERROR: Could not fake-am version v6
+---
+Could not create fake-am range for upper series v6
+
+I am not going to review twice, so you can drop my tag again without
+explanation.
 
 Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
