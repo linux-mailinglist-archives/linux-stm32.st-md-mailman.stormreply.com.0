@@ -2,36 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8863BB54F03
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 15:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC437B54F32
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 15:18:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23F0AC32EA8;
-	Fri, 12 Sep 2025 13:14:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D00FC32EA8;
+	Fri, 12 Sep 2025 13:18:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C3F8C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D9A2C32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 13:14:34 +0000 (UTC)
+ Fri, 12 Sep 2025 13:18:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 799AD601E8;
- Fri, 12 Sep 2025 13:14:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E603C4CEF1;
- Fri, 12 Sep 2025 13:14:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 42FBF43F05;
+ Fri, 12 Sep 2025 13:18:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3DDFC4CEF1;
+ Fri, 12 Sep 2025 13:18:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757682873;
- bh=MxMamnhy9oj92yxyc9e8YwEgNJD+oI68n6DyGiWWVCs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GEwyhLVW7tgTFSLAz7JK3+1HYMD/7HIye32Lxy3ySptbeD+445/nkm2JHAK+972z4
- hN1yg6qT/Cv6KzMK+8abeYegIyHojhenatknUEJABAkmsZKRhxN9A/1PKsL28JNgpG
- P8gPONP1X/RAQ3DDLBshYfOaHDXkUep0mwc3eyRp2eHwvDGNkpqIyR27ghXrurze4a
- 32xG1qLEdaIZUklU3/X4Sb88ZgBxKg0LUkvcL4hf/jh43Eg4SPXr+hTax9PtE/mo+E
- agzGNJBkiGuwxZdGrjohvI5zMdbZtdppELU60GEdYwgj7UoTvHhVvBA+kwIrM0xjlf
- O2SDiRwfa8GpQ==
-Message-ID: <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
-Date: Fri, 12 Sep 2025 15:14:24 +0200
+ s=k20201202; t=1757683106;
+ bh=0kMqkbeltdD0+hkiQDYxpMhQHrKg2khUuaUPs1Ep/hI=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=S/cve73U+Bw437os2DmOTcDcAxGgeMMGJW70XQxJfg5ffPkgfjlSBiQ8huULc5d+5
+ zvkaNiaPM03OGirJzboN9rT62iO/WmT7v2ToCve0tUc6y7B++Rs4hioHbFWRbX2nq9
+ hPx/7JC4p0KuOSgaxI8rAMzGqY/ctvSdQTYpvSq2OYZH59uZjPG9VzLsGCn4TZvU9d
+ z5WBAC2HxY/NVfFDZiDy22+CM5WFVEflj9rjB9slCD6mCsUQwB63/XpNOxFJiUre2l
+ x5a0OFES0jcxTY4qIQLbn1OqG6/QsAz7w5slxE+g1qBRRYE2wZC4+7lQYgV+JasYen
+ gGninWye9fkVg==
+Message-ID: <228603d0-c7fc-48b7-9589-c897ff805808@kernel.org>
+Date: Fri, 12 Sep 2025 15:18:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
  andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -46,7 +47,7 @@ To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
  emil.renner.berthing@canonical.com
 References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
  <20250912055612.2884-1-weishangjuan@eswincomputing.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,7 +92,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250912055612.2884-1-weishangjuan@eswincomputing.com>
+In-Reply-To: <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
 Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
  lizhi2@eswincomputing.com, linmin@eswincomputing.com
 Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: ethernet: eswin:
@@ -112,32 +113,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/09/2025 07:56, weishangjuan@eswincomputing.com wrote:
-> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+On 12/09/2025 15:14, Krzysztof Kozlowski wrote:
+> On 12/09/2025 07:56, weishangjuan@eswincomputing.com wrote:
+>> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+>>
+>> Add ESWIN EIC7700 Ethernet controller, supporting clock
+>> configuration, delay adjustment and speed adaptive functions.
+>>
+>> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+>> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
 > 
-> Add ESWIN EIC7700 Ethernet controller, supporting clock
-> configuration, delay adjustment and speed adaptive functions.
+> There is no explanation of dropping the tag. Please read CAREFULLY
+> submitting patches.
 > 
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+> Comparing also fails:
+> 
+> b4 diff '<20250912055352.2832-1-weishangjuan@eswincomputing.com>'
+> Using cached copy of the lookup
+> ---
+> Analyzing 55 messages in the thread
+> Preparing fake-am for v6: dt-bindings: ethernet: eswin: Document for
+> EIC7700 SoC
+> ERROR: Could not fake-am version v6
+> ---
+> Could not create fake-am range for upper series v6
 
-There is no explanation of dropping the tag. Please read CAREFULLY
-submitting patches.
 
-Comparing also fails:
+Ah, that because your patchset is broken.
 
-b4 diff '<20250912055352.2832-1-weishangjuan@eswincomputing.com>'
-Using cached copy of the lookup
----
-Analyzing 55 messages in the thread
-Preparing fake-am for v6: dt-bindings: ethernet: eswin: Document for
-EIC7700 SoC
-ERROR: Could not fake-am version v6
----
-Could not create fake-am range for upper series v6
+Please start using b4, which would solve such problems. Otherwise you
+just waste your own and ours time, because this cannot be applied and
+cannot be tested.
 
-I am not going to review twice, so you can drop my tag again without
-explanation.
+> 
+> I am not going to review twice, so you can drop my tag again without
+> explanation.
 
 Best regards,
 Krzysztof
