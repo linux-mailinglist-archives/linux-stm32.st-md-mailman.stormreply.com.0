@@ -2,101 +2,178 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC437B54F32
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 15:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19305B55463
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 18:04:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D00FC32EA8;
-	Fri, 12 Sep 2025 13:18:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 664D7C3087B;
+	Fri, 12 Sep 2025 16:04:23 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D9A2C32E93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BA57C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 13:18:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 42FBF43F05;
- Fri, 12 Sep 2025 13:18:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3DDFC4CEF1;
- Fri, 12 Sep 2025 13:18:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757683106;
- bh=0kMqkbeltdD0+hkiQDYxpMhQHrKg2khUuaUPs1Ep/hI=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=S/cve73U+Bw437os2DmOTcDcAxGgeMMGJW70XQxJfg5ffPkgfjlSBiQ8huULc5d+5
- zvkaNiaPM03OGirJzboN9rT62iO/WmT7v2ToCve0tUc6y7B++Rs4hioHbFWRbX2nq9
- hPx/7JC4p0KuOSgaxI8rAMzGqY/ctvSdQTYpvSq2OYZH59uZjPG9VzLsGCn4TZvU9d
- z5WBAC2HxY/NVfFDZiDy22+CM5WFVEflj9rjB9slCD6mCsUQwB63/XpNOxFJiUre2l
- x5a0OFES0jcxTY4qIQLbn1OqG6/QsAz7w5slxE+g1qBRRYE2wZC4+7lQYgV+JasYen
- gGninWye9fkVg==
-Message-ID: <228603d0-c7fc-48b7-9589-c897ff805808@kernel.org>
-Date: Fri, 12 Sep 2025 15:18:17 +0200
+ Fri, 12 Sep 2025 16:04:21 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58CFUFw0029599;
+ Fri, 12 Sep 2025 18:04:01 +0200
+Received: from gvxpr05cu001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013037.outbound.protection.outlook.com
+ [52.101.83.37])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 490ywn0bfm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Sep 2025 18:04:01 +0200 (MEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=av2uBWVFngVafYop2IOV/3lyK7UvLU5NO/v0Fh4r83KEm9aa989H5YJfI5XK8uq+zKFwKemp/SZFV7HkT/jr8j+c/DVVF5KSjyVMW7jHnLMC52uGrndfw/YRaGe27kW40VqKD8hDTLiF+IuCPW/kT6aBf0zQj+4wQb5/1MyoHG9c6znKiOCtJbU9VlleLE9S5chYG86alyPxbdtpJKu/5Da8HbE0LFwgR/+C7cnzSyNvKraWq9pJUJ44wmS61ZC2kUG+FehLDd6r0z4duSfD6uDhbPpKxvb9fYfmS+8DYxy/bHqjzLsQvcqa1EnFhrUJwgS5GI9PQC56couM9YL/vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=shFndJ4soXqjZfay1OZSf17vidnwrY2UyeKVO6HGEQE=;
+ b=omxZVCdLlJuYrqNVkaGg6jIpKhGvG3vn8zNufq+T0Au0MFCda6WrqKcWAga08FOjVtqCZKYaT5pIYX8hEbyussX2V8vnRcUv4l6P5BsnJWW7QC0BhwhFi2OTCj8t5WlQfpAdIXQfxahOdkvZR8qZVmh8q9V5J+SFYoyMhO3uzdzfYST4faEWa39TE5tD6Onv1tFRRBXNdrz1cdDcrLiuuL00PrHg0VYkA0fvnkqc2KQCu4wCUGl984zJDFe28sj3UtX8FrLd3Y2lQMmusvD+APgh+tgcQo7DflzwDFGqy9W8ZMYT88KcbyLKzWey8wiqqcO2rcwV+O7p/mXSt5jweQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=shFndJ4soXqjZfay1OZSf17vidnwrY2UyeKVO6HGEQE=;
+ b=Bx6TH2kcJyYnPSqQZ2OYc4eax65WpElN0yvKr9r7IrxQ7uYei8hDSG/5JleaA4gNPjxu5Ms9pd8iNOBdih3VJS6AQzAZQDzQ0iqV17cBkGGhcZxrpfHqhIkLVchn4bdELyXO3tqGthcKNwCqmV3g2zd3scWTwIe7RRkwn2TPD2AWVhbwoVqCAJYi0nv4Dz/6uFz4BedB7m7NCvixGHBWktaObYptTn4AXTd07CXNJvd8k/ni3htUpQ8SjUPbZX48KXWjIsfLRqC/hCgyjFPJIsOilhFtNOCMXYW6i/pfnp2AhsIlXcbrBgJz64WjZlkKAYHobfke86s9Gt3SJpGbZQ==
+Received: from AM0PR04CA0093.eurprd04.prod.outlook.com (2603:10a6:208:be::34)
+ by AM7PR10MB3938.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:14e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Fri, 12 Sep
+ 2025 16:03:52 +0000
+Received: from AM3PEPF0000A792.eurprd04.prod.outlook.com
+ (2603:10a6:208:be:cafe::3e) by AM0PR04CA0093.outlook.office365.com
+ (2603:10a6:208:be::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9115.17 via Frontend Transport; Fri,
+ 12 Sep 2025 16:03:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ AM3PEPF0000A792.mail.protection.outlook.com (10.167.16.121) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9115.13 via Frontend Transport; Fri, 12 Sep 2025 16:03:52 +0000
+Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 12 Sep
+ 2025 18:01:29 +0200
+Received: from SAFDAG1NODE1.st.com (10.75.90.17) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 12 Sep
+ 2025 18:03:51 +0200
+Received: from [10.48.87.127] (10.48.87.127) by SAFDAG1NODE1.st.com
+ (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Fri, 12 Sep
+ 2025 18:03:50 +0200
+Message-ID: <cc53b15e-f0a4-413d-95cb-174996344d64@foss.st.com>
+Date: Fri, 12 Sep 2025 18:03:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
- rmk+kernel@armlinux.org.uk, faizal.abdul.rahim@linux.intel.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, inochiama@gmail.com,
- jan.petrous@oss.nxp.com, jszhang@kernel.org, p.zabel@pengutronix.de,
- boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- emil.renner.berthing@canonical.com
-References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
- <20250912055612.2884-1-weishangjuan@eswincomputing.com>
- <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20250625094028.758016-1-arnaud.pouliquen@foss.st.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
-Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
- lizhi2@eswincomputing.com, linmin@eswincomputing.com
-Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: ethernet: eswin:
- Document for EIC7700 SoC
+In-Reply-To: <20250625094028.758016-1-arnaud.pouliquen@foss.st.com>
+X-Originating-IP: [10.48.87.127]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
+ (10.75.90.17)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM3PEPF0000A792:EE_|AM7PR10MB3938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41ec35a4-383d-48ae-17b8-08ddf215f7cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|82310400026|1800799024|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?THgzTy96V2xtYVdISXZIMEpocEFnOXBIbTZXOFhrZnNMaUVFeWFpTmtpY2Rn?=
+ =?utf-8?B?RzhPYUtsZkQvbXYzc2cxb0V5MmRNWitNdVZLUElqQ2krUEh5VU52UUhMeU41?=
+ =?utf-8?B?YU9qdlBRUGJzQWlDR2F5UFJZWGp4Z1p4TCszK0ZiUDNQZkdyNTJsRkMrQXRo?=
+ =?utf-8?B?dXU0VGFYM213QllDcGdZZ1ZpeG1VaktvdStWN0IwSHBuQ2t0QlZvZXd5U0lB?=
+ =?utf-8?B?Uk1DVG5pN1NrSzZvQktwMHYvS255OWZ2MmNVVGk0QWpMZ3d1eWYydUE2emdP?=
+ =?utf-8?B?Vm5EcXhjY1dvVG9wUFNMUlIxSElxMzQzdEtqU3Z0WFltZXYyTEd6ZEJuZHlM?=
+ =?utf-8?B?cFY1SE9JZXhVL2hWOVZDdUNmS0cwNi9CdTVCK2xBa0dhWUMzMXNMRUsydDRM?=
+ =?utf-8?B?b0FOYlJIQlFiNkdXWENiVElYQlB0T2p5aDltR1lPNm1rUnBrVlpRditoSUpm?=
+ =?utf-8?B?dTlkRjlTNXFPVWtBNFlaTlVVZnc1NTVlRWRueFEzOEFsaFJXYUVXRndpZGFW?=
+ =?utf-8?B?eVFyNzBLWk01MFFaN1VIVFRrOWtaUXEwb214aDdzQTlnanZpTWFocEZOZGdY?=
+ =?utf-8?B?TjRDQS9reStsaStTdjhGNkhMMTlFdGFqa2duSTREL2dGU3NKL2NKSHZRZTlX?=
+ =?utf-8?B?S1dZZm1zT211OFdmb0x0eFp2UHNBWmE4ZkVQWGNOU3A0QXpUR3VKdmsxOUdN?=
+ =?utf-8?B?Q2xiUTU4RGVFNlVqSlZlNW9tN3hBUWp0aEwrNGlhaWdKQVh6TDZZQmZWc2pC?=
+ =?utf-8?B?NjdXSzNFL1YvVEZ3Tm5acEF5QlVmbk5Zb2FRY1pCeWt6MTkybHAzOG1CU0ZX?=
+ =?utf-8?B?QWpYS0ZYMUVubVNsTENhNUN6UUJFL09FOUQvYzRXemtSQWUwbW40WVgweDEz?=
+ =?utf-8?B?RjNsRk5TbHZWZFk1dmhZTHlERDl6cE5ocFZiZGJPVE03Z2g0NWdMLzM5VGVS?=
+ =?utf-8?B?d1NSeTB4ZkNyaG1qSFNnK1E1MlZKWUJsOGRxMGpFVDlLWmFCeGtTUisvUExy?=
+ =?utf-8?B?TTFFcDZQVmxFVTJ1MTR4SDBBTjlJTFpyNHVBR28xUEJ3RnAzb3ZsSjVMMUJ4?=
+ =?utf-8?B?clpUd1NuVVZSVEljdzE0UmsvOVZYQnBFYW5WMkthNFpudEw1dURPeXp1VjFM?=
+ =?utf-8?B?Tnc0Nm56bTNSMTRBL2xRMGc1eGpYaUFiUEpZSEUzQy9scjJISE1pZ1QxTGV5?=
+ =?utf-8?B?OFZVNlZIVjBjUERhWGFld292ZXlic3QwYThJdUFWT3EvRmJsUW41aXZuTENh?=
+ =?utf-8?B?UXNPV3l4Rk4wQkNwaTBVamM2eE53TkM3OWJ1QmZXQTVZSTBuTm9MY21oV1do?=
+ =?utf-8?B?L2lGREFtMUJwZFFha2xwRnh5T0laSWt0M3E0YUhvbEVYTXZOMWlRazhWbGVJ?=
+ =?utf-8?B?VlNxOXd3TVdVZko3aU4yV1NlbkFxTndZeGhucUJlRUxOOVEwU1YxZjUydndS?=
+ =?utf-8?B?OFNMeVFDQTNPeFVpdVNvaFNkT29Kdytud3h6aWpmZDJXT1FJUGR3cGkvb1Jj?=
+ =?utf-8?B?TnQ1S0M0Y0lNZklXcXN5NDdyMjZ1dTZvYlVyV01BU1JUd3doSzEvV0tEMVBS?=
+ =?utf-8?B?OTltVzRPdUxCTmh0RVlvMWRqUXd5SHJRdVNsMlZPYkZLQlp4U2dyNllaVkpi?=
+ =?utf-8?B?R3c4SjREeEhZc1Z0U2dldXJJakhWeDJhTU5MR0tFeGNDa1ZjcVN2RTlQNlNy?=
+ =?utf-8?B?cHA5WG9ia3J3bE03QWRHUzdUd1BGcXNzREJNUUVQRHZOYVVBWlI5am1xM2c4?=
+ =?utf-8?B?S1h2OTg0cWpibkE1TFJuSnhCM2hlWW1YWld5SVdONmZmQVNyM2FXUjJmZTNx?=
+ =?utf-8?B?YUpRRHl6NEFqaTVwaUorUDBtbXdkOWRtREdqK1FFZkRudUZIbFp2UXlucTNj?=
+ =?utf-8?B?aUdiUXFML0hUY3BhOXFIVjNBY1d3allMeDZxRkJadjdPaWZ6dFhoMDdJNFpP?=
+ =?utf-8?B?eDhEejc4WGhBSDNLSDYwRE5XYVcyejN2UnVoUjJSQXpjZkJrb2w1RFJTWXly?=
+ =?utf-8?B?ODZlZjhNU1hnPT0=?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2025 16:03:52.1230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41ec35a4-383d-48ae-17b8-08ddf215f7cd
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM3PEPF0000A792.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3938
+X-Authority-Analysis: v=2.4 cv=OaqYDgTY c=1 sm=1 tr=0 ts=68c44471 cx=c_pps
+ a=RjD04lOnQ4Lz5/88gw47hg==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=FOPVHIcnkjUA:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10 a=VwQbUJbxAAAA:8
+ a=8b9GpE9nAAAA:8 a=NEAV23lmAAAA:8 a=KKAkSRfTAAAA:8 a=xw-PHShiiOY97SZu4-oA:9
+ a=QEXdDO2ut3YA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: bNPVEa56AIYNM6znhVe8x73PIMedoeLr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA3MDAwNiBTYWx0ZWRfX530NuF79EQ5B
+ tKrT9ESVkrIsmXV9uspnZSsFckEVVfmumx0ryN7JE8QzyscMebS1BqtXF4IPIzHWw89FdYtR6Fx
+ nQX7qPqsWv/NUAOwSoF3YD6MPwWJ1+ACa9p9PyPU2duLbp6zAZFVGsss8leVNtS/CLkIYBfqovP
+ 1Lx26qnvKC4+pr7+1DVrhFc0CpM80wamYr4vzBk4z4Ontcx0Hm5MCl4DUL9x4wGKIMmqXEkTtq5
+ tnTid1Xu59p70a8fR/hSfD/5vUqh10OI26YLREQeyyyhJLcCMoIj7xhnPGh5eZQW02RcK6qTWnX
+ HXc238Qd4L8eTDLZ5tKI6g0cY4G8E5cdP5FuRQzQHC0Z8IEcDjAH8rdUxyQUQ9PoLail19HlI3L
+ A4D49b/I
+X-Proofpoint-GUID: bNPVEa56AIYNM6znhVe8x73PIMedoeLr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-12_05,2025-09-12_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ clxscore=1011
+ suspectscore=0 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 impostorscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509070006
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v19 0/6] Introduction of a remoteproc tee
+ to load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,49 +185,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/09/2025 15:14, Krzysztof Kozlowski wrote:
-> On 12/09/2025 07:56, weishangjuan@eswincomputing.com wrote:
->> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
->>
->> Add ESWIN EIC7700 Ethernet controller, supporting clock
->> configuration, delay adjustment and speed adaptive functions.
->>
->> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
->> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
-> 
-> There is no explanation of dropping the tag. Please read CAREFULLY
-> submitting patches.
-> 
-> Comparing also fails:
-> 
-> b4 diff '<20250912055352.2832-1-weishangjuan@eswincomputing.com>'
-> Using cached copy of the lookup
-> ---
-> Analyzing 55 messages in the thread
-> Preparing fake-am for v6: dt-bindings: ethernet: eswin: Document for
-> EIC7700 SoC
-> ERROR: Could not fake-am version v6
-> ---
-> Could not create fake-am range for upper series v6
+Hello BJorn, Mathieu,
 
+Do you think, you could find time to review this series before the
+next merge window.
 
-Ah, that because your patchset is broken.
+Regarding the discussion between Harshal and Sumit, I did not notice any
+comments requesting immediate updates; the conversation focused more
+on potential future extensions for FF-A.
 
-Please start using b4, which would solve such problems. Otherwise you
-just waste your own and ours time, because this cannot be applied and
-cannot be tested.
+Thanks and Regards,
+Arnaud.
 
-> 
-> I am not going to review twice, so you can drop my tag again without
-> explanation.
+On 6/25/25 11:40, Arnaud Pouliquen wrote:
+> Main updates from version V18[2]:
+> - rework documentation for the release_fw ops
+> - rework function documentation in remoteproc_tee.c
+> - replace spinlock by mutex and generalize usage in remoteproc_tee.c
+>
+>
+> Main updates from version V17[1]:
+> - Fix:  warning: EXPORT_SYMBOL() is used, but #include <linux/export.h>
+>    is missing
+>
+> More details are available in each patch commit message.
+>
+> [1]https://lore.kernel.org/linux-remoteproc/20250613091650.2337411-1-arnaud.pouliquen@foss.st.com/
+> [2]https://lore.kernel.org/linux-remoteproc/20250616075530.4106090-1-arnaud.pouliquen@foss.st.com/
+>
+> Tested-on: commit 19272b37aa4f ("Linux 6.16-rc1")
+>
+> Description of the feature:
+> --------------------------
+> This series proposes the implementation of a remoteproc tee driver to
+> communicate with a TEE trusted application responsible for authenticating
+> and loading the remoteproc firmware image in an Arm secure context.
+>
+> 1) Principle:
+>
+> The remoteproc tee driver provides services to communicate with the OP-TEE
+> trusted application running on the Trusted Execution Context (TEE).
+> The trusted application in TEE manages the remote processor lifecycle:
+>
+> - authenticating and loading firmware images,
+> - isolating and securing the remote processor memories,
+> - supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+> - managing the start and stop of the firmware by the TEE.
+>
+> 2) Format of the signed image:
+>
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+>
+> 3) OP-TEE trusted application API:
+>
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+>
+> 4) OP-TEE signature script
+>
+> Refer to:
+> https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+>
+> Example of usage:
+> sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+>
+>
+> 5) Impact on User space Application
+>
+> No sysfs impact. The user only needs to provide the signed firmware image
+> instead of the ELF image.
+>
+>
+> For more information about the implementation, a presentation is available here
+> (note that the format of the signed image has evolved between the presentation
+> and the integration in OP-TEE).
+>
+> https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+>
+> Arnaud Pouliquen (6):
+>    remoteproc: core: Introduce rproc_pa_to_va helper
+>    remoteproc: Add TEE support
+>    remoteproc: Introduce optional release_fw operation
+>    dt-bindings: remoteproc: Add compatibility for TEE support
+>    remoteproc: stm32: Create sub-functions to request shutdown and
+>      release
+>    remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+>
+>   .../bindings/remoteproc/st,stm32-rproc.yaml   |  58 +-
+>   drivers/remoteproc/Kconfig                    |  10 +
+>   drivers/remoteproc/Makefile                   |   1 +
+>   drivers/remoteproc/remoteproc_core.c          |  52 ++
+>   drivers/remoteproc/remoteproc_internal.h      |   6 +
+>   drivers/remoteproc/remoteproc_tee.c           | 708 ++++++++++++++++++
+>   drivers/remoteproc/stm32_rproc.c              | 139 +++-
+>   include/linux/remoteproc.h                    |   6 +
+>   include/linux/remoteproc_tee.h                |  87 +++
+>   9 files changed, 1023 insertions(+), 44 deletions(-)
+>   create mode 100644 drivers/remoteproc/remoteproc_tee.c
+>   create mode 100644 include/linux/remoteproc_tee.h
+>
+>
+> base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
 
-Best regards,
-Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
