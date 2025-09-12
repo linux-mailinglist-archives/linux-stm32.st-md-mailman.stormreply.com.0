@@ -2,19 +2,19 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F0C8B54238
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 07:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F9EB54251
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 07:56:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D85BAC3FAD4;
-	Fri, 12 Sep 2025 05:54:32 +0000 (UTC)
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net
- (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF85C32E93
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 128FAC3FAD4;
+	Fri, 12 Sep 2025 05:56:44 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (l-sdnproxy.icoremail.net
+ [20.188.111.126])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C85AEC32E93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 05:54:31 +0000 (UTC)
+ Fri, 12 Sep 2025 05:56:42 +0000 (UTC)
 Received: from E0005182LT.eswin.cn (unknown [10.12.96.155])
- by app2 (Coremail) with SMTP id TQJkCgAHmZJztcNo553OAA--.31689S2;
- Fri, 12 Sep 2025 13:53:57 +0800 (CST)
+ by app1 (Coremail) with SMTP id TAJkCgD3DQ_+tcNowaPOAA--.51970S2;
+ Fri, 12 Sep 2025 13:56:17 +0800 (CST)
 From: weishangjuan@eswincomputing.com
 To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
@@ -28,33 +28,35 @@ To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  boon.khai.ng@altera.com, 0x1207@gmail.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  emil.renner.berthing@canonical.com
-Date: Fri, 12 Sep 2025 13:53:52 +0800
-Message-Id: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
+Date: Fri, 12 Sep 2025 13:56:12 +0800
+Message-Id: <20250912055612.2884-1-weishangjuan@eswincomputing.com>
 X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
+References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
-X-CM-TRANSID: TQJkCgAHmZJztcNo553OAA--.31689S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFyUXFy7uw1UZr43ZF4fKrg_yoWrurWUpF
- W0kry5Wwn8tryxX3yftw10kFyfJan3Xr1akr1Iqw1fXa1qvas0vr4ak3W5GFy7Ar4DZ34Y
- 9ay3ZFW7Ca4ay3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: TAJkCgD3DQ_+tcNowaPOAA--.51970S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCr4kJF18CFWUAr43GFyDKFg_yoWrJw4kpF
+ WkCrW5Jr4fXr1fXa17tF10kFn3tanrCF1Ykrn7t3Waq3s0qas0qw1ayFy5Ga43Cr47ZFy5
+ WFWYvayxA3W2k3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBl14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ 2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
  W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
  Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26rWY6Fy7MxkIecxEwVCm-wCF04
  k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
  MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI4
- 8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
- MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
- 8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRJPEfUUUUU
+ 8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4U
+ JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+ C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sR_jjg7UUUUU==
 X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/
 Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
  lizhi2@eswincomputing.com, Shangjuan Wei <weishangjuan@eswincomputing.com>,
  linmin@eswincomputing.com
-Subject: [Linux-stm32] [PATCH v6 0/2] Add driver support for Eswin eic7700
-	SoC ethernet controller
+Subject: [Linux-stm32] [PATCH v6 1/2] dt-bindings: ethernet: eswin: Document
+	for EIC7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,92 +68,160 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogU2hhbmdqdWFuIFdlaSA8d2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbT4KClRo
-aXMgc2VyaWVzIGRlcGVuZHMgb24gdGhlIGNvbmZpZyBvcHRpb24gcGF0Y2ggWzFdLgoKWzFdIGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDgyNTEzMjQyNy4xNjE4MDg5LTMtcGlua2Vz
-aC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLwoKVXBkYXRlczoKCiAgQ2hhbmdlcyBpbiB2Nu+8mgog
-IC0gVXBkYXRlIGRyaXZlciBwYXRjaCdzIGNvbW1pdCBtZXNzYWdlCiAgLSBVcGRhdGUgZXN3aW4s
-ZWljNzcwMC1ldGgueWFtbAogICAgLSBNb2RpZnkgdGhlIGRlc2NyaXB0aW9uIGNvbnRlbnQKICAt
-IFVwZGF0ZSBkd21hYy1laWM3NzAwLmMgIAogICAgLSBNb3ZlIHRocmVlIHZhcmlhYmxlcyBmcm9t
-IHByaXYgdG8gbG9jYWwgc2NvcGUKICAgIC0gSW5saW5lIGVpYzc3MDBfYXBwbHlfZGVsYXkgbG9n
-aWMgZGlyZWN0bHkgaW50byB0aGUgcHJvYmUgZnVuY3Rpb24KICAtIExpbmsgdG8gdjU6IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI1MDkwNDA4NTkxMy4yNDk0LTEtd2Vpc2hhbmdqdWFu
-QGVzd2luY29tcHV0aW5nLmNvbS8KCiAgQ2hhbmdlcyBpbiB2Ne+8mgogIC0gVXBkYXRlIGVzd2lu
-LGVpYzc3MDAtZXRoLnlhbWwKICAgIC0gVXNlICJpdGVtcyIgaW5zdGVhZCAiZW51bSIgZm9yIGNs
-b2NrLW5hbWVzCiAgICAtIEFycmFuZ2UgY2xvY2tzIGRlc2NyaXB0aW9uIGluIGNvcnJlY3Qgb3Jk
-ZXIKICAgIC0gRGVsZXRlIHJlZHVuZGFudCBkZXNjcmlwdGlvbnMgZm9yIGVzd2luLGhzcC1zcC1j
-c3IgcHJvcGVydHkKICAtIFVwZGF0ZSBkd21hYy1laWM3NzAwLmMgIAogICAgLSBPcHRpbWl6ZSB0
-aGUgaW1wbGVtZW50YXRpb24gb2YgZWljNzcwMF8gYXBweV9kZWxheQogICAgLSBVcGRhdGUgY29t
-bWVudHMgYW5kIHJlbW92ZSByZWcgY2hlY2tpbmcKICAgIC0gVXNlIEZJRUxEX1BSRVAgaW4gZWlj
-NzcwMF9hcHBseV9kZWxheSBmdW5jdGlvbgogICAgLSBVc2UgY2xrX2J1bGsgcmVsYXRlZCBBUElz
-IHRvIG1hbmFnZSBjbGtzCiAgLSBMaW5rIHRvIHY0OiBodHRwczovL2xvcmUua2VybmVsLm9yZy9h
-bGwvMjAyNTA4MjcwODExMzUuMjI0My0xLXdlaXNoYW5nanVhbkBlc3dpbmNvbXB1dGluZy5jb20v
-CgogIENoYW5nZXMgaW4gdjQ6CiAgLSBVcGRhdGUgZXN3aW4sZWljNzcwMC1ldGgueWFtbAogICAg
-LSBNb2RpZnkgcmVnOm1pbkl0ZW1zOjEgdG8gcmVnOm1heEl0ZW1zOiAxCiAgICAtIERlbGV0ZSBt
-aW5JdGVtcyBhbmQgbWF4SXRlbXMgb2YgY2xvY2sgYW5kIGNsb2NrLW5hbWVzCiAgICAtIERlbGV0
-ZSBwaHktbW9kZSBhbmQgcGh5LWhhbmRsZSBwcm9wZXJ0aWVzCiAgICAtIEFkZCBkZXNjcmlwdGlv
-biBmb3IgY2xvY2sKICAgIC0gQWRkIHR5cGVzIG9mIGNsb2NrLW5hbWVzCiAgICAtIERlbGV0ZSBk
-ZXNjcmlwdGlvbnMgZm9yIHJ4LWludGVybmFsLWRlbGF5LXBzIGFuZCB0eC1pbnRlcm5hbC1kZWxh
-eS1wcwogICAgLSBBZGQgZW51bSB2YWx1ZSBmb3IgcngtaW50ZXJuYWwtZGVsYXktcHMgYW5kIHR4
-LWludGVybmFsLWRlbGF5LXBzCiAgICAtIE1vZGlmeSBkZXNjcmlwdGlvbiBmb3IgZXN3aW4saHNw
-LXNwLWNzciBwcm9wZXJ0eQogICAgLSBEZWxldGUgZXN3aW4sc3lzY3JnLWNzciBhbmQgZXN3aW4s
-ZGx5LWhzcC1yZWcgcHJvcGVydGllcwogICAgLSBNb2RpZnkgcGh5LW1vZGU9InJnbWlpIiB0byBw
-aHktbW9kZT0icmdtaWktaWQiCiAgLSBVcGRhdGUgZHdtYWMtZWljNzcwMC5jCiAgICAtIFJlbW92
-ZSBmaXhfbWFjX3NwZWVkIGFuZCBjb25maWd1cmUgZGlmZmVyZW50IGRlbGF5cyBmb3IgZGlmZmVy
-ZW50IHJhdGVzCiAgICAtIE1lcmdlIHRoZSBvZmZzZXQgb2YgdGhlIGRseSByZWdpc3RlciBpbnRv
-IHRoZSBlc3dpbiwgaHNwIHNwIGNzciBhdHRyaWJ1dGVzCiAgICAgIGZvciB1bmlmaWVkIG1hbmFn
-ZW1lbnQKICAgIC0gQWRkIG1pc3NpbmcgQXV0aG9yIGFuZCBvcHRpbWl6ZSB0aGUgbnVtYmVyIG9m
-IGNoYXJhY3RlcnMgcGVyCiAgICAgIGxpbmUgdG8gd2l0aGluIDgwCiAgICAtIFN1cHBvcnQgZGVm
-YXVsdCBkZWxheSBjb25maWd1cmF0aW9uIGFuZCBhZGQgdGhlIGhhbmRsaW5nIG9mIHZlbmRvciBk
-ZWxheSAKICAgICAgY29uZmlndXJhdGlvbgogICAgLSBBZGQgY2xrc19jb25maWcgZm9yIHBtX3J1
-bnRpbWUKICAgIC0gTW9kaWZ5IHRoZSBhdHRyaWJ1dGUgZm9ybWF0LCBzdWNoIGFzIGVzd2luLGhz
-cF9zcF9jc3IgdG8gZXN3aW4saHNwLXNwLWNzcgogIC0gTGluayB0byB2MzogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvYWxsLzIwMjUwNzAzMDkxODA4LjEwOTItMS13ZWlzaGFuZ2p1YW5AZXN3aW5j
-b21wdXRpbmcuY29tLwoKICBDaGFuZ2VzIGluIHYzOgogIC0gVXBkYXRlIGVzd2luLGVpYzc3MDAt
-ZXRoLnlhbWwKICAgIC0gTW9kaWZ5IHNucHMsZHdtYWMgdG8gc25wcyxkd21hYy01LjIwCiAgICAt
-IFJlbW92ZSB0aGUgZGVzY3JpcHRpb24gb2YgcmVnCiAgICAtIE1vZGlmeSB0aGUgdmFsdWUgb2Yg
-Y2xvY2sgbWluSXRlbXMgYW5kIG1heEl0ZW1zCiAgICAtIE1vZGlmeSB0aGUgdmFsdWUgb2YgY2xv
-Y2stbmFtZXMgbWluSXRlbXMgYW5kIG1heEl0ZW1zCiAgICAtIEFkZCBkZXNjcmlwdGlvbnMgb2Yg
-c25wcyx3cml0ZS1xdWVzdGlvbnMsIHNucHMscmVhZC1xdWVzdGlvbnMKICAgIC0gQWRkIHJ4LWlu
-dGVybmFsLWRlbGF5LXBzIGFuZCB0eC1pbnRlcm5hbC1kZWxheS1wcyBwcm9wZXJ0aWVzCiAgICAt
-IE1vZGlmeSBkZXNjcmlwdGlvbnMgZm9yIGN1c3RvbSBwcm9wZXJ0aWVzLCBzdWNoIGFzIGVzd2lu
-LGhzcC1zcC1jc3IKICAgIC0gRGVsZXRlIHNucHMsYXhpLWNvbmZpZyBwcm9wZXJ0eQogICAgLSBB
-ZGQgc25wcyxmaXhlZC1idXJzdCBzbnBzLGFhbCBzbnBzLHRzbyBwcm9wZXJ0aWVzCiAgICAtIERl
-bGV0ZSBzbnBzLGxwaV9lbiBwcm9wZXJ0eQogICAgLSBNb2RpZnkgZm9ybWF0IG9mIGN1c3RvbSBw
-cm9wZXJ0aWVzCiAgLSBVcGRhdGUgZHdtYWMtZWljNzcwMC5jCiAgICAtIFNpbXBsaWZ5IGRyaXZl
-cnMgYW5kIHJlbW92ZSB1bm5lY2Vzc2FyeSBBUEkgYW5kIERUUyBhdHRyaWJ1dGUgY29uZmlndXJh
-dGlvbnMKICAgIC0gSW5jcmVhc2UgdGhlIG1hcHBpbmcgZnJvbSB0eC9yeF9kZWxheV9wcyB0byBw
-cml2YXRlIGRseQogIC0gTGluayB0byB2MjogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL2FE
-YWQrOFlIRUZkT0lzMzhAbWV2LWRldi5pZ2suaW50ZWwuY29tLwoKICBDaGFuZ2VzIGluIHYyOgog
-IC0gVXBkYXRlIGVzd2luLGVpYzc3MDAtZXRoLnlhbWwKICAgIC0gQWRkIHNucHMsZHdtYWMgaW4g
-YmluZGluZyBmaWxlCiAgICAtIE1vZGlmeSB0aGUgZGVzY3JpcHRpb24gb2YgcmVnCiAgICAtIE1v
-ZGlmeSB0aGUgbnVtYmVyIG9mIGNsb2NrLW5hbWVzCiAgICAtIENoYW5nZSB0aGUgbmFtZXMgb2Yg
-cmVzZXQtbmFtZXMgYW5kIHBoeS1tb2RlCiAgICAtIEFkZCBkZXNjcmlwdGlvbiBmb3IgY3VzdG9t
-IHByb3BlcnRpZXMsIHN1Y2ggYXMgZXN3aW4saHNwX3NwX2NzcgogICAgLSBEZWxldGUgc25wcyxi
-bGVuIHNucHMscmRfb3NyX2xtdCBzbnBzLHdyX29zcl9sbXQgcHJvcGVydGllcwogIC0gVXBkYXQg
-ZHdtYWMtZWljNzcwMC5jCiAgICAtIFJlbW92ZSB0aGUgY29kZSByZWxhdGVkIHRvIFBIWSBMRUQg
-Y29uZmlndXJhdGlvbiBmcm9tIHRoZSBNQUMgZHJpdmVyCiAgICAtIEFkanVzdCB0aGUgY29kZSBm
-b3JtYXQgYW5kIGRyaXZlciBpbnRlcmZhY2VzLCBzdWNoIGFzIHJlcGxhY2luZyBremFsbG9jCiAg
-ICAgIHdpdGggZGV2bV9remFsbG9jLCBldGMuCiAgICAtIFVzZSBwaHlsaWIgaW5zdGVhZCBvZiB0
-aGUgR1BJTyBBUEkgaW4gdGhlIGRyaXZlciB0byBpbXBsZW1lbnQgdGhlIFBIWQogICAgICByZXNl
-dCBmdW5jdGlvbgogIC0gTGluayB0byB2MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIw
-MjUwNTE2MDEwODQ5Ljc4NC0xLXdlaXNoYW5nanVhbkBlc3dpbmNvbXB1dGluZy5jb20vCgpTaGFu
-Z2p1YW4gV2VpICgyKToKICBkdC1iaW5kaW5nczogZXRoZXJuZXQ6IGVzd2luOiBEb2N1bWVudCBm
-b3IgRUlDNzcwMCBTb0MKICBldGhlcm5ldDogZXN3aW46IEFkZCBlaWM3NzAwIGV0aGVybmV0IGRy
-aXZlcgoKIC4uLi9iaW5kaW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbCAgICAgICB8IDEy
-OCArKysrKysrKysrCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmln
-ICAgfCAgMTEgKwogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUg
-IHwgICAxICsKIC4uLi9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAwLmMgICB8
-IDIyNiArKysrKysrKysrKysrKysrKysKIDQgZmlsZXMgY2hhbmdlZCwgMzY2IGluc2VydGlvbnMo
-KykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-bmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL25l
-dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAwLmMKCi0tIAoyLjE3LjEKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+
+Add ESWIN EIC7700 Ethernet controller, supporting clock
+configuration, delay adjustment and speed adaptive functions.
+
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
+---
+ .../bindings/net/eswin,eic7700-eth.yaml       | 128 ++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+new file mode 100644
+index 000000000000..9771fed9604e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -0,0 +1,128 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Eswin EIC7700 SOC Eth Controller
++
++maintainers:
++  - Shuang Liang <liangshuang@eswincomputing.com>
++  - Zhi Li <lizhi2@eswincomputing.com>
++  - Shangjuan Wei <weishangjuan@eswincomputing.com>
++
++description:
++  Platform glue layer implementation for STMMAC Ethernet driver.
++
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - eswin,eic7700-qos-eth
++  required:
++    - compatible
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: eswin,eic7700-qos-eth
++      - const: snps,dwmac-5.20
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: macirq
++
++  clocks:
++    items:
++      - description: AXI clock
++      - description: Configuration clock
++      - description: GMAC main clock
++      - description: Tx clock
++
++  clock-names:
++    items:
++      - const: axi
++      - const: cfg
++      - const: stmmaceth
++      - const: tx
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    items:
++      - const: stmmaceth
++
++  rx-internal-delay-ps:
++    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++
++  tx-internal-delay-ps:
++    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
++
++  eswin,hsp-sp-csr:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - description: Phandle to HSP(High-Speed Peripheral) device
++      - description: Offset of phy control register for internal
++                     or external clock selection
++      - description: Offset of AXI clock controller Low-Power request
++                     register
++      - description: Offset of register controlling TX/RX clock delay
++    description: |
++      High-Speed Peripheral device needed to configure clock selection,
++      clock low-power mode and clock delay.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - interrupt-names
++  - phy-mode
++  - resets
++  - reset-names
++  - rx-internal-delay-ps
++  - tx-internal-delay-ps
++  - eswin,hsp-sp-csr
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet@50400000 {
++        compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
++        reg = <0x50400000 0x10000>;
++        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
++                <&d0_clock 193>;
++        clock-names = "axi", "cfg", "stmmaceth", "tx";
++        interrupt-parent = <&plic>;
++        interrupts = <61>;
++        interrupt-names = "macirq";
++        phy-mode = "rgmii-id";
++        phy-handle = <&phy0>;
++        resets = <&reset 95>;
++        reset-names = "stmmaceth";
++        rx-internal-delay-ps = <200>;
++        tx-internal-delay-ps = <200>;
++        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
++        snps,axi-config = <&stmmac_axi_setup>;
++        snps,aal;
++        snps,fixed-burst;
++        snps,tso;
++        stmmac_axi_setup: stmmac-axi-config {
++            snps,blen = <0 0 0 0 16 8 4>;
++            snps,rd_osr_lmt = <2>;
++            snps,wr_osr_lmt = <2>;
++        };
++    };
+--
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
