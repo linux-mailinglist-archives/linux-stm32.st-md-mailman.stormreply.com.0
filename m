@@ -2,51 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDBB2B557A3
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Sep 2025 22:30:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01C3AB561B3
+	for <lists+linux-stm32@lfdr.de>; Sat, 13 Sep 2025 17:09:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 599B5C3F93E;
-	Fri, 12 Sep 2025 20:30:52 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E57EC3F931;
+	Sat, 13 Sep 2025 15:09:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F798C36B0D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40054C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Sep 2025 20:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=mVBouDME3yyB4oBFbpIyijCZ2IoHFwuH0Y/Nfu3LeAM=; b=YCPcdasteYKljjzN0JKrJrS6lP
- l3fz/ljsVsjqV2C0ALlax8u6tA3uvM9WaSTUQTrQFM9giuHCkSQwHRgmi4fihEeo6RhZmjkVZ4FqS
- WJNH9xfAocflQzYZpnQKzblj9gY81xljHdYLn36SnAVt7nqshJZidrxEdFFOgk/07zR0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1uxAPc-008FmE-0B; Fri, 12 Sep 2025 22:30:28 +0200
-Date: Fri, 12 Sep 2025 22:30:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: weishangjuan@eswincomputing.com
-Message-ID: <7c81cd46-36e5-4280-9a49-8924a7bd5f92@lunn.ch>
-References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
- <20250912055702.2939-1-weishangjuan@eswincomputing.com>
+ Sat, 13 Sep 2025 15:09:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C759243D08;
+ Sat, 13 Sep 2025 15:09:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBA7C4CEEB;
+ Sat, 13 Sep 2025 15:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757776164;
+ bh=k3JGm7bgPzqa31QJZlMPgghHEp9L20SNijx437wsPug=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qpZ4Xk/0h6acPs74zvOc1NFJ5Jxq3AutOs0wqXl+ci/YlJMKz2qsZ7wQfDFyBvrJR
+ lC9m1DO0QpsyefA0jSIkWLuo+iQ23zEINuTRDSaA1wtEGdp6toKAFNpCnyx76DKAhD
+ 8f473nFSEKygwdbTVRQ0yekLJhvrj8dr+zl3mSM/vCPVo8VKdCw6DL3fxtRtA0Ft0O
+ 3o7r2ZJ6ajL9TTnimHNSCKl+54t5yx7wumR8QHAEnrT7lZ+4gP4THT1Lemj0kp4sYs
+ VpZOpFhwL/9ivY///QFf3eH7S3btU6e6wo+/NHtYm2A6W/cokalzFhnWNbMK1RbWrt
+ hCobJgwcrm+kQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Date: Sat, 13 Sep 2025 11:09:16 -0400
+Message-ID: <20250913150917.1408380-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <2025091308-trio-unedited-6b17@gregkh>
+References: <2025091308-trio-unedited-6b17@gregkh>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20250912055702.2939-1-weishangjuan@eswincomputing.com>
-Cc: vladimir.oltean@nxp.com, 0x1207@gmail.com, edumazet@google.com,
- jszhang@kernel.org, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- ningyu@eswincomputing.com, faizal.abdul.rahim@linux.intel.com,
- lizhi2@eswincomputing.com, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- jan.petrous@oss.nxp.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- rmk+kernel@armlinux.org.uk, yong.liang.choong@linux.intel.com,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, inochiama@gmail.com, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, p.zabel@pengutronix.de,
- netdev@vger.kernel.org, krzk+dt@kernel.org, emil.renner.berthing@canonical.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v6 2/2] ethernet: eswin: Add eic7700
-	ethernet driver
+Cc: Sasha Levin <sashal@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Richard Weinberger <richard@nod.at>, linux-kernel@vger.kernel.org,
+ Cai Huoqing <cai.huoqing@linux.dev>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jack Wang <jinpu.wang@ionos.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mtd@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 5.15.y 1/2] mtd: rawnand: stm32_fmc2: Fix
+	dma_map_sg error check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,21 +61,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> +	/* Read rx-internal-delay-ps and update rx_clk delay */
-> +	if (!of_property_read_u32(pdev->dev.of_node,
-> +				  "rx-internal-delay-ps", &delay_ps)) {
-> +		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-> +
-> +		eth_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
-> +		eth_dly_param |= FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
-> +	} else {
-> +		dev_warn(&pdev->dev, "can't get rx-internal-delay-ps\n");
-> +	}
+From: Jack Wang <jinpu.wang@ionos.com>
 
-The binding specifies the X-internal-delay-ps values are required. So
-this should be dev_err_probe() and return -EINVAL to stop the probe.
+[ Upstream commit 43b81c2a3e6e07915151045aa13a6e8a9bd64419 ]
 
-	Andrew
+dma_map_sg return 0 on error, in case of error return -EIO.
+
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Christophe Kerello <christophe.kerello@foss.st.com>
+Cc: Cai Huoqing <cai.huoqing@linux.dev>
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
+Reviewed-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Link: https://lore.kernel.org/linux-mtd/20220819060801.10443-5-jinpu.wang@ionos.com
+Stable-dep-of: 513c40e59d5a ("mtd: rawnand: stm32_fmc2: avoid overlapping mappings on ECC buffer")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mtd/nand/raw/stm32_fmc2_nand.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+index 1ac8c4887ce03..a65ee2d3c1b3a 100644
+--- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
++++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
+@@ -860,8 +860,8 @@ static int stm32_fmc2_nfc_xfer(struct nand_chip *chip, const u8 *buf,
+ 
+ 	ret = dma_map_sg(nfc->dev, nfc->dma_data_sg.sgl,
+ 			 eccsteps, dma_data_dir);
+-	if (ret < 0)
+-		return ret;
++	if (!ret)
++		return -EIO;
+ 
+ 	desc_data = dmaengine_prep_slave_sg(dma_ch, nfc->dma_data_sg.sgl,
+ 					    eccsteps, dma_transfer_dir,
+@@ -891,8 +891,10 @@ static int stm32_fmc2_nfc_xfer(struct nand_chip *chip, const u8 *buf,
+ 
+ 		ret = dma_map_sg(nfc->dev, nfc->dma_ecc_sg.sgl,
+ 				 eccsteps, dma_data_dir);
+-		if (ret < 0)
++		if (!ret) {
++			ret = -EIO;
+ 			goto err_unmap_data;
++		}
+ 
+ 		desc_ecc = dmaengine_prep_slave_sg(nfc->dma_ecc_ch,
+ 						   nfc->dma_ecc_sg.sgl,
+-- 
+2.51.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
