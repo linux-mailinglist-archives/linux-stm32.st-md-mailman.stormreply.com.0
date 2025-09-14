@@ -2,45 +2,112 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 290DAB56750
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Sep 2025 10:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5EBB56852
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Sep 2025 14:08:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF64DC36B3A;
-	Sun, 14 Sep 2025 08:02:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF0D0C36B38
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B4E0C349C0;
+	Sun, 14 Sep 2025 12:08:44 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9F3FC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Sep 2025 08:02:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B0F1360139;
- Sun, 14 Sep 2025 08:02:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7040C4CEF1;
- Sun, 14 Sep 2025 08:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1757836952;
- bh=4GHLyzJY2sTeEBEEyUXqmvdNfKqu8/fmMo42pcIvBKU=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=BPVCIeEByvssS1BDps+OcPr1X3XN49wS6QPq1BClzGsBb9jmiIyAYfRM2nATCnCVm
- Rt/O2Co15vNAg9JvpPw5AM6WvtZvtbgDlCeYrytAjBL1T5R9My21vnaDyG0SMB1Inw
- fdfZYxgJCPG6KW4dVSpbVl2pR+gM9NmYCOVoJdmk=
-To: alexandre.torgue@foss.st.com, cai.huoqing@linux.dev,
- christophe.kerello@foss.st.com, gregkh@linuxfoundation.org,
- jinpu.wang@ionos.com, linux-arm-kernel@lists.infradead.org,
- linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- mcoquelin.stm32@gmail.com, miquel.raynal@bootlin.com, p.zabel@pengutronix.de,
- richard@nod.at, sashal@kernel.org, vigneshr@ti.com
-From: <gregkh@linuxfoundation.org>
-Date: Sun, 14 Sep 2025 10:02:03 +0200
-In-Reply-To: <20250913150917.1408380-1-sashal@kernel.org>
-Message-ID: <2025091403-passivism-tadpole-aee9@gregkh>
+ Sun, 14 Sep 2025 12:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1757851722;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=TGC4WoAJlpX9tdCXckzAZr5W3saj1ZSsINit3PsYuzA=;
+ b=imz9D0ZWulrhNzDA9ecq5NsgrmHxFAE22jVC/qw8KJNN3prtT1ImYL6dKQcMGnMcfjN3kg
+ 7pNJnJJPgdc0tTAKSAcvFfU3XnvL9LT/4du4A/9qLEu6VFkP3vCO4nCQ6T4QEks20jA3g8
+ 81W68oipXGK5MKoYBJ5XpezqP5DZzuQ=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-500-pUUfakb4My2DecQ8ValjDA-1; Sun, 14 Sep 2025 08:08:39 -0400
+X-MC-Unique: pUUfakb4My2DecQ8ValjDA-1
+X-Mimecast-MFC-AGG-ID: pUUfakb4My2DecQ8ValjDA_1757851718
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8178135137fso949523485a.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 14 Sep 2025 05:08:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757851718; x=1758456518;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TGC4WoAJlpX9tdCXckzAZr5W3saj1ZSsINit3PsYuzA=;
+ b=RtyEswM+6qp6zCSrR2G9abCm9R7i1QO4z2dPg7HqcxQwddpFkLZgVXgco/GWvVNu2x
+ Qg/ICx+FecZHWZzVrx6ErYIOZkmjuHDEQPNb3DfWAQXOzQCaQndgfMuydV5PPsHO2C1+
+ Vk2XkuvKRs6SXSYfxm3eKsqk513eEBgYnIkBDBkOfTgzCKw7PV84Fv6MIpZsDErWNwpE
+ hmo0j+v2395CtoD8gsrcf1vzaRHxyiLt8u6Bflb0oxrUtZlMsGDZmzJ2ULP5rMP8ZMI1
+ B4zIviPGJIjfjEmWw1vLFJkOZL8pGnwTQ9ShoaDRHJrPdUXi/wl1UWlzFd3UXvKF/qOR
+ Ef/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV8/vI4V1xielexdK8i0bPpVig/rfc95qk/yxI5Ef9KiM2hyQyax0+GC/sPUWju2+TcyOzvMlJtg5oEHw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxEkYBh8IgRjOS2JRZHDWoDnBPzFwTn7G7LaVihHpHPA+5D2T5+
+ kOWJTFCOTqdjDZPnaVc0jD7dbZYscKKFXgLD78TqUx2PvLVZNqBNaC1byWjMqZlMj8KwSGnkFH2
+ mnG8KazdI6LBITI5SvrKphMJyhuN4lD+hSFjBXMcE1VEk4iY1lYOyKNQgdmiBPAxdyP5Q+mVZzc
+ /0sZwaWQ==
+X-Gm-Gg: ASbGncteIGg066wLbUiUdb51KLtH9kSnX1bViikchy9PjqsC/N6cUbS1EAFKVi7uNiQ
+ w+iC3KwDax9wQBTTcqo0h9y4UKc0iMhijfsUqQJ5TQDHmQM6zBLQnx28WtZqRuK5XpGruPxHgdw
+ DqMDC3gyw177HXvon2iYBHUXqneZ9p8OUNIR4w0bcZMzk92yXHvbdZoiXpScGihju7r9q+zgU3l
+ oi81lYVhz8Pr7g5yzm531TzbvWKa9xr2bX5w0xw8Tg7xSJQpvav82+qFbq4pjmpv6lFFYloCjSm
+ IpZc83TP1F2ThmrtaHubhY+oAebZ+kUSXEDynFxVp0B4CkY2Cbp7hUmm2seVmPziXXqGxSk3Eyn
+ GKeb4Kuc5egKgKSZP4CyxHzwWlzSvhv4=
+X-Received: by 2002:a05:620a:c4f:b0:815:9bd3:72a4 with SMTP id
+ af79cd13be357-82401a95c9bmr1036168885a.69.1757851718239; 
+ Sun, 14 Sep 2025 05:08:38 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFRdCKGXPgtbhvJpUCdDwCaaC2B0DLna/CzbBAvfkLzYJU98qL9IvUSFcqawGBto49lPMPxgQ==
+X-Received: by 2002:a05:620a:c4f:b0:815:9bd3:72a4 with SMTP id
+ af79cd13be357-82401a95c9bmr1036164085a.69.1757851717778; 
+ Sun, 14 Sep 2025 05:08:37 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net.
+ [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-820cfcaca15sm580413985a.71.2025.09.14.05.08.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Sep 2025 05:08:37 -0700 (PDT)
+Date: Sun, 14 Sep 2025 08:08:33 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>
+Message-ID: <aMawQYUIjPw9m4IO@redhat.com>
+References: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore
-Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "mtd: rawnand: stm32_fmc2: Fix dma_map_sg error
-	check" has been added to the 5.15-stable tree
+In-Reply-To: <20250811-drm-clk-round-rate-v2-0-4a91ccf239cf@redhat.com>
+User-Agent: Mutt/2.2.14 (2025-02-20)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: XuywDDUTkSSkTTG5PSopczNRs7paG9kyTycFJMh7CLw_1757851718
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, imx@lists.linux.dev,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ freedreno@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/9] drm: convert from clk round_rate()
+ to determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,110 +124,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi all,
 
-This is a note to let you know that I've just added the patch titled
+On Mon, Aug 11, 2025 at 06:56:04AM -0400, Brian Masney wrote:
+> The round_rate() clk ops is deprecated in the clk framework in favor
+> of the determine_rate() clk ops, so let's go ahead and convert the
+> drivers in the drm subsystem using the Coccinelle semantic patch
+> posted below. I did a few minor cosmetic cleanups of the code in a
+> few cases.
+> 
+> Changes since v1:
+> - Drop space after the cast (Maxime)
+> - Added various Acked-by and Reviewed-by tags
 
-    mtd: rawnand: stm32_fmc2: Fix dma_map_sg error check
+Would it be possible to get this picked up for v6.18? I'd like to remove
+this API from drivers/clk in v6.19.
 
-to the 5.15-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+I'm not sure which tree(s) this should go through. All of the patches
+except patch 1 have at least one Acked-by or Reviewed-by.
 
-The filename of the patch is:
-     mtd-rawnand-stm32_fmc2-fix-dma_map_sg-error-check.patch
-and it can be found in the queue-5.15 subdirectory.
+Thanks,
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+Brian
 
-
-From stable+bounces-179495-greg=kroah.com@vger.kernel.org Sat Sep 13 17:09:31 2025
-From: Sasha Levin <sashal@kernel.org>
-Date: Sat, 13 Sep 2025 11:09:16 -0400
-Subject: mtd: rawnand: stm32_fmc2: Fix dma_map_sg error check
-To: stable@vger.kernel.org
-Cc: Jack Wang <jinpu.wang@ionos.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, Christophe Kerello <christophe.kerello@foss.st.com>, Cai Huoqing <cai.huoqing@linux.dev>, linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>
-Message-ID: <20250913150917.1408380-1-sashal@kernel.org>
-
-From: Jack Wang <jinpu.wang@ionos.com>
-
-[ Upstream commit 43b81c2a3e6e07915151045aa13a6e8a9bd64419 ]
-
-dma_map_sg return 0 on error, in case of error return -EIO.
-
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Christophe Kerello <christophe.kerello@foss.st.com>
-Cc: Cai Huoqing <cai.huoqing@linux.dev>
-Cc: linux-mtd@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Jack Wang <jinpu.wang@ionos.com>
-Reviewed-by: Christophe Kerello <christophe.kerello@foss.st.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://lore.kernel.org/linux-mtd/20220819060801.10443-5-jinpu.wang@ionos.com
-Stable-dep-of: 513c40e59d5a ("mtd: rawnand: stm32_fmc2: avoid overlapping mappings on ECC buffer")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/mtd/nand/raw/stm32_fmc2_nand.c |    8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -860,8 +860,8 @@ static int stm32_fmc2_nfc_xfer(struct na
- 
- 	ret = dma_map_sg(nfc->dev, nfc->dma_data_sg.sgl,
- 			 eccsteps, dma_data_dir);
--	if (ret < 0)
--		return ret;
-+	if (!ret)
-+		return -EIO;
- 
- 	desc_data = dmaengine_prep_slave_sg(dma_ch, nfc->dma_data_sg.sgl,
- 					    eccsteps, dma_transfer_dir,
-@@ -891,8 +891,10 @@ static int stm32_fmc2_nfc_xfer(struct na
- 
- 		ret = dma_map_sg(nfc->dev, nfc->dma_ecc_sg.sgl,
- 				 eccsteps, dma_data_dir);
--		if (ret < 0)
-+		if (!ret) {
-+			ret = -EIO;
- 			goto err_unmap_data;
-+		}
- 
- 		desc_ecc = dmaengine_prep_slave_sg(nfc->dma_ecc_ch,
- 						   nfc->dma_ecc_sg.sgl,
-
-
-Patches currently in stable-queue which might be from sashal@kernel.org are
-
-queue-5.15/media-i2c-imx214-fix-link-frequency-validation.patch
-queue-5.15/flexfiles-pnfs-fix-null-checks-on-result-of-ff_layou.patch
-queue-5.15/kvm-svm-set-synthesized-tsa-cpuid-flags.patch
-queue-5.15/tcp_bpf-call-sk_msg_free-when-tcp_bpf_send_verdict-f.patch
-queue-5.15/mm-rmap-reject-hugetlb-folios-in-folio_make_device_exclusive.patch
-queue-5.15/media-mtk-vcodec-venc-avoid-wenum-compare-conditional-warning.patch
-queue-5.15/nfsv4-clear-the-nfs_cap_fs_locations-flag-if-it-is-n.patch
-queue-5.15/revert-fbdev-disable-sysfb-device-registration-when-.patch
-queue-5.15/tracing-do-not-add-length-to-print-format-in-synthetic-events.patch
-queue-5.15/tracing-fix-tracing_marker-may-trigger-page-fault-du.patch
-queue-5.15/kvm-svm-return-tsa_sq_no-and-tsa_l1_no-bits-in-__do_cpuid_func.patch
-queue-5.15/nfsv4-don-t-clear-capabilities-that-won-t-be-reset.patch
-queue-5.15/s390-cpum_cf-deny-all-sampling-events-by-counter-pmu.patch
-queue-5.15/nfsv4-flexfiles-fix-layout-merge-mirror-check.patch
-queue-5.15/mtd-nand-raw-atmel-respect-tar-tclr-in-read-setup-timing.patch
-queue-5.15/mtd-nand-raw-atmel-fix-comment-in-timings-preparation.patch
-queue-5.15/nfsv4-clear-the-nfs_cap_xattr-flag-if-not-supported-.patch
-queue-5.15/net-fix-null-ptr-deref-by-sock_lock_init_class_and_name-and-rmmod.patch
-queue-5.15/mtd-rawnand-stm32_fmc2-fix-dma_map_sg-error-check.patch
-queue-5.15/mtd-rawnand-stm32_fmc2-avoid-overlapping-mappings-on-ecc-buffer.patch
-queue-5.15/kvm-x86-move-open-coded-cpuid-leaf-0x80000021-eax-bit-propagation-code.patch
-queue-5.15/xfs-short-circuit-xfs_growfs_data_private-if-delta-i.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
