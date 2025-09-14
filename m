@@ -2,56 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A13B56B55
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Sep 2025 20:40:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD92CB56B7A
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Sep 2025 21:10:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 448AEC3F938;
-	Sun, 14 Sep 2025 18:40:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A2A4C3F938;
+	Sun, 14 Sep 2025 19:10:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B3B3C3F931
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2EB77C3F931
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Sep 2025 18:40:08 +0000 (UTC)
+ Sun, 14 Sep 2025 19:10:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DA907601A9;
- Sun, 14 Sep 2025 18:40:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA79C4CEF1;
- Sun, 14 Sep 2025 18:40:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AAD3344357;
+ Sun, 14 Sep 2025 19:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F437C4CEF0;
+ Sun, 14 Sep 2025 19:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757875207;
- bh=YieT40UUJGq33KYU6kqgUp5hNH+j4q3y+c8x9dfZKSI=;
+ s=k20201202; t=1757877017;
+ bh=HyErwXZjJxtC9lke1N7NrfDdKBhf9mDw543eo29YW8w=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=AEiY5IJyCBvKp5SFmrw9R3Ld8gUZhhaZLJpAyli3NTlg1zp8qmByc0FjidSZy+O23
- y+TN7mR8rYpW9PJrTO/tFTR9wIokRxb/80u4VDGNAOZFEJQglgib91C7vRkhDROSaH
- 8DnXF8PQ7ES4aPlP8qpfKvkxx/2RH/wN80qKJF5KirSFhTauyPDZjr1lXAgBa3+Jiv
- 2y6T56wj52TGAYWKP0Kmh6FWnpdOcn1tEGB6KOc1KQK48gtpN4y6PopQ5PhQyreqJe
- ZVZtYYAvHQL6IzBqxd+ZLgDFuosA79V00dReDKONnsmbTsa1YKTcuHZxsCy7scdD0t
- QGbEa59BgbHDA==
+ b=E1zPJ01dh7kcko3XfxPCXOE0PzCnY3Y+TW/DO9qYP7YofigcyrnOeNJZZYqewjcaA
+ g1yCXHROYGtXy/JbC++uEb1NWs/JlSOJfqLX7JrDG+0/NF1lnaxT1n0HniKXJs734Y
+ NaYz8max6eY8y4xXrgOMtvqcOaXgyVN9rj24O2l1G//UNKAy83cfi9DFA7QrX1ESIw
+ hHXmHNS5/7ePiSnU2aFvKUImBS3tP2Md+MDk17UmqpPUJhIViDwauA8U5ziKQDr5A0
+ dbd4YiCcnMrnR5W9g6Ncykc/hCLXmc6j/iu0aFTdZjuMaa2/InPKkR0D3DLdSXyLMu
+ LheY9KHtjydDw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70E9F39B167D; Sun, 14 Sep 2025 18:40:10 +0000 (UTC)
+ 70FFC39B167D; Sun, 14 Sep 2025 19:10:20 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <175787520925.3525025.295266235162136621.git-patchwork-notify@kernel.org>
-Date: Sun, 14 Sep 2025 18:40:09 +0000
-References: <20250908105901.3198975-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20250908105901.3198975-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Lad@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
- Prabhakar <prabhakar.csengg@gmail.com>
-Cc: geert+renesas@glider.be, vladimir.oltean@nxp.com, edumazet@google.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- magnus.damm@gmail.com, linux@armlinux.org.uk, joabreu@synopsys.com,
- kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, fabrizio.castro.jz@renesas.com,
- biju.das.jz@bp.renesas.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- andrew+netdev@lunn.ch, p.zabel@pengutronix.de, krzk+dt@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] Add GMAC support for
- Renesas RZ/{T2H, N2H} SoCs
+Message-Id: <175787701925.3530077.1414169170117971537.git-patchwork-notify@kernel.org>
+Date: Sun, 14 Sep 2025 19:10:19 +0000
+References: <aMKtV6O0WqlmJFN4@shell.armlinux.org.uk>
+In-Reply-To: <aMKtV6O0WqlmJFN4@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: richardcochran@gmail.com, andrew@lunn.ch, hawk@kernel.org,
+ daniel@iogearbox.net, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, john.fastabend@gmail.com,
+ ast@kernel.org, andrew+netdev@lunn.ch, edumazet@google.com, sdf@fomichev.me,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, bpf@vger.kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac:
+	timestamping/ptp cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,23 +68,41 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon,  8 Sep 2025 11:58:58 +0100 you wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, 11 Sep 2025 12:07:03 +0100 you wrote:
+> Hi,
 > 
-> Hi All,
+> This series cleans up the hardware timestamping / PTP initialisation
+> and cleanup code in the stmmac driver. Several key points in no
+> particular order:
 > 
-> This series adds support for the Ethernet MAC (GMAC) IP present on
-> the Renesas RZ/T2H and RZ/N2H SoCs.
+> 1. Golden rule: unregister first, then release resources.
+>    stmmac_release_ptp didn't do this.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v3,1/3] dt-bindings: net: renesas,rzv2h-gbeth: Document Renesas RZ/T2H and RZ/N2H SoCs
-    https://git.kernel.org/netdev/net-next/c/d43ce9822349
-  - [net-next,v3,2/3] net: stmmac: dwmac-renesas-gbeth: Use OF data for configuration
-    https://git.kernel.org/netdev/net-next/c/264c26934f75
-  - [net-next,v3,3/3] net: stmmac: dwmac-renesas-gbeth: Add support for RZ/T2H SoC
-    https://git.kernel.org/netdev/net-next/c/57e9e4d7023a
+  - [net-next,v2,01/11] net: stmmac: ptp: improve handling of aux_ts_lock lifetime
+    https://git.kernel.org/netdev/net-next/c/9a1d6fa0012d
+  - [net-next,v2,02/11] net: stmmac: disable PTP clock after unregistering PTP
+    https://git.kernel.org/netdev/net-next/c/99a8789afd12
+  - [net-next,v2,03/11] net: stmmac: fix PTP error cleanup in __stmmac_open()
+    https://git.kernel.org/netdev/net-next/c/454bbe5913b2
+  - [net-next,v2,04/11] net: stmmac: fix stmmac_xdp_open() clk_ptp_ref error cleanup
+    https://git.kernel.org/netdev/net-next/c/586f1aebc9a1
+  - [net-next,v2,05/11] net: stmmac: unexport stmmac_init_tstamp_counter()
+    https://git.kernel.org/netdev/net-next/c/ff2e19d5690e
+  - [net-next,v2,06/11] net: stmmac: add __stmmac_release() to complement __stmmac_open()
+    https://git.kernel.org/netdev/net-next/c/67ec43792b11
+  - [net-next,v2,07/11] net: stmmac: move stmmac_init_ptp() messages into function
+    https://git.kernel.org/netdev/net-next/c/4fbd180acd57
+  - [net-next,v2,08/11] net: stmmac: rename stmmac_init_ptp()
+    https://git.kernel.org/netdev/net-next/c/b09f58ddc6ca
+  - [net-next,v2,09/11] net: stmmac: add stmmac_setup_ptp()
+    https://git.kernel.org/netdev/net-next/c/84b994ac4e4e
+  - [net-next,v2,10/11] net: stmmac: move PTP support check into stmmac_init_timestamping()
+    https://git.kernel.org/netdev/net-next/c/9d5059228c55
+  - [net-next,v2,11/11] net: stmmac: move timestamping/ptp init to stmmac_hw_setup() caller
+    https://git.kernel.org/netdev/net-next/c/98d8ea566b85
 
 You are awesome, thank you!
 -- 
