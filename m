@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF1DEB572C3
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Sep 2025 10:22:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC3DB5753B
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Sep 2025 11:50:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7288AC3F958;
-	Mon, 15 Sep 2025 08:22:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B89FC3F957
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2CBFC3F958;
+	Mon, 15 Sep 2025 09:50:41 +0000 (UTC)
+Received: from zg8tmty1ljiyny4xntuumtyw.icoremail.net
+ (zg8tmty1ljiyny4xntuumtyw.icoremail.net [165.227.155.160])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3699CC3F957
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Sep 2025 08:22:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D0EE443B82;
- Mon, 15 Sep 2025 08:22:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A8F26C4CEFA;
- Mon, 15 Sep 2025 08:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757924536;
- bh=mo4HPuFIxILu1fSJb80bB4lgwGqWuG93OPcqvnD64Pc=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=JTi177P/uBOLY62ASimFn1X5aACZldEUqQP2h1qOfZVarSFyT83Qs762HpRoUZRsy
- IAe3Ks9JKMIHq55nWZ9F8Vma/vJEdPHS2fMZ/vz46aMOKnN4TXRv9Tb5HkuPFVmGSQ
- fpsjQrVP4D4BPR8US21f6BGYmy+cLsvgfKH78pbENfYvTtGpz9P2CbUU4GAnNVKBhn
- 9Ml1rsXJh/fD8I3JCPxP9mvaqU/qgrJujyV3Z445LmIhWjRPJ6zjqVoE29JyDQOU/g
- BMxsnXsms6AmbJfIuSc3E9BJWfL/+wCBrhwUhVmIf+v/ZZhRKt3FIAw4yqJ0LR/Arj
- KdpMnPPzOSAAw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 94F5ACAC599;
- Mon, 15 Sep 2025 08:22:16 +0000 (UTC)
-From: Rohan G Thomas via B4 Relay
- <devnull+rohan.g.thomas.altera.com@kernel.org>
-Date: Mon, 15 Sep 2025 16:22:14 +0800
+ Mon, 15 Sep 2025 09:50:40 +0000 (UTC)
+Received: from weishangjuan$eswincomputing.com ( [10.12.96.155] ) by
+ ajax-webmail-app2 (Coremail) ; Mon, 15 Sep 2025 17:50:01 +0800 (GMT+08:00)
+X-Originating-IP: [10.12.96.155]
+Date: Mon, 15 Sep 2025 17:50:01 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6Z+m5bCa5aif?= <weishangjuan@eswincomputing.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2025 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
+References: <20250912055352.2832-1-weishangjuan@eswincomputing.com>
+ <20250912055612.2884-1-weishangjuan@eswincomputing.com>
+ <50496bf2-1d10-4d89-addb-f4fe774497d9@kernel.org>
 MIME-Version: 1.0
-Message-Id: <20250915-hlbs_2-v2-1-27266b2afdd9@altera.com>
-X-B4-Tracking: v=1; b=H4sIALXMx2gC/12NywrCMBBFf6XM2pEkOtq68j+kSB9TM1ATSUKpl
- Py7oUuXh3M5d4PIQTjCrdog8CJRvCtgDhUMtnMvRhkLg1GGVKM12rmPT4M0jSPxuT5NykAZfwJ
- Psu6hBzhO6HhN0BZjJSYfvvvDonf/H1s0ahz6CxHXTUP99d7NiUN3HPwb2pzzD68txvunAAAA
-X-Change-ID: 20250911-hlbs_2-5fdd5e483f02
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1757924535; l=4857;
- i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
- bh=hFASYJ89I2m+eMFKEU8Vw8nda9ry4NXxOx/oENtYScc=;
- b=JZPA6bBDBbmw1kmGvVEjSVf2f5+gWw40697/4dlWcC1R3xyZcnqCR2GZQqK2kNwiiDUisLXIO
- v/YYi0W9bpmAn6u75g6queSx6QKhCUO9XrUq7Jh19vBgWWamXQIgAm/
-X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
- pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
-X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
- with auth_id=494
-X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
-Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
- linux-kernel@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: est: Drop frames
- causing HLBS error
+Message-ID: <45afe6bc.1302.1994cc80846.Coremail.weishangjuan@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: TQJkCgA31pRJ4cdoWlTRAA--.24971W
+X-CM-SenderInfo: pzhl2xxdqjy31dq6v25zlqu0xpsx3x1qjou0bp/1tbiAQEGEGjG7f gnDAACsE
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: vladimir.oltean@nxp.com, 0x1207@gmail.com, edumazet@google.com,
+ jszhang@kernel.org, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ ningyu@eswincomputing.com, faizal.abdul.rahim@linux.intel.com,
+ lizhi2@eswincomputing.com, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ jan.petrous@oss.nxp.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ rmk+kernel@armlinux.org.uk, yong.liang.choong@linux.intel.com,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
+ linmin@eswincomputing.com, inochiama@gmail.com, linux-kernel@vger.kernel.org,
+ andrew+netdev@lunn.ch, boon.khai.ng@altera.com, p.zabel@pengutronix.de,
+ netdev@vger.kernel.org, krzk+dt@kernel.org, emil.renner.berthing@canonical.com,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: ethernet: eswin:
+ Document for EIC7700 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,134 +60,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: rohan.g.thomas@altera.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rohan G Thomas <rohan.g.thomas@altera.com>
-
-Drop those frames causing HLBS error to avoid HLBS interrupt
-flooding and netdev watchdog timeouts due to blocked packets.
-Also add HLBS frame drops to taprio stats.
-
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
----
-Changes in v2:
-- Removed unnecessary parantheses
-- Link to v1: https://lore.kernel.org/r/20250911-hlbs_2-v1-1-cb655e8995b7@altera.com
----
- drivers/net/ethernet/stmicro/stmmac/common.h     | 1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_est.c | 9 ++++++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_est.h | 1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c  | 7 +++++--
- 4 files changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index eaa1f2e1c5a53b297b014a8218bf8f3db5beb4de..8f34c9ad457f07553206841223fd38e55208d5ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -228,6 +228,7 @@ struct stmmac_extra_stats {
- 	unsigned long mtl_est_btrlm;
- 	unsigned long max_sdu_txq_drop[MTL_MAX_TX_QUEUES];
- 	unsigned long mtl_est_txq_hlbf[MTL_MAX_TX_QUEUES];
-+	unsigned long mtl_est_txq_hlbs[MTL_MAX_TX_QUEUES];
- 	/* per queue statistics */
- 	struct stmmac_txq_stats txq_stats[MTL_MAX_TX_QUEUES];
- 	struct stmmac_rxq_stats rxq_stats[MTL_MAX_RX_QUEUES];
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-index ac6f2e3a3fcd2f9ae21913845282ff015cd2f7ec..4b513d27a9889046e8b5e404adfd917f469c3f05 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
-@@ -63,7 +63,7 @@ static int est_configure(struct stmmac_priv *priv, struct stmmac_est *cfg,
- 			 EST_GMAC5_PTOV_SHIFT;
- 	}
- 	if (cfg->enable)
--		ctrl |= EST_EEST | EST_SSWL;
-+		ctrl |= EST_EEST | EST_SSWL | EST_DFBS;
- 	else
- 		ctrl &= ~EST_EEST;
- 
-@@ -109,6 +109,10 @@ static void est_irq_status(struct stmmac_priv *priv, struct net_device *dev,
- 
- 		x->mtl_est_hlbs++;
- 
-+		for (i = 0; i < txqcnt; i++)
-+			if (value & BIT(i))
-+				x->mtl_est_txq_hlbs[i]++;
-+
- 		/* Clear Interrupt */
- 		writel(value, est_addr + EST_SCH_ERR);
- 
-@@ -131,10 +135,9 @@ static void est_irq_status(struct stmmac_priv *priv, struct net_device *dev,
- 
- 		x->mtl_est_hlbf++;
- 
--		for (i = 0; i < txqcnt; i++) {
-+		for (i = 0; i < txqcnt; i++)
- 			if (feqn & BIT(i))
- 				x->mtl_est_txq_hlbf[i]++;
--		}
- 
- 		/* Clear Interrupt */
- 		writel(feqn, est_addr + EST_FRM_SZ_ERR);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.h
-index d247fa383a6e44a5a8371dd491eab5b1c99cd1f2..f70221c9c84afe6bce62782c7847a8005e469dd7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.h
-@@ -16,6 +16,7 @@
- #define EST_XGMAC_PTOV_MUL		9
- #define EST_SSWL			BIT(1)
- #define EST_EEST			BIT(0)
-+#define EST_DFBS			BIT(5)
- 
- #define EST_STATUS			0x00000008
- #define EST_GMAC5_BTRL			GENMASK(11, 8)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 694d6ee1438197bd4434af6e9b78f022e94ff98f..97e89a604abd7a01bb8e904c38f10716e0a911c1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -1080,6 +1080,7 @@ static int tc_taprio_configure(struct stmmac_priv *priv,
- 		for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
- 			priv->xstats.max_sdu_txq_drop[i] = 0;
- 			priv->xstats.mtl_est_txq_hlbf[i] = 0;
-+			priv->xstats.mtl_est_txq_hlbs[i] = 0;
- 		}
- 		mutex_unlock(&priv->est_lock);
- 	}
-@@ -1097,7 +1098,8 @@ static void tc_taprio_stats(struct stmmac_priv *priv,
- 
- 	for (i = 0; i < priv->plat->tx_queues_to_use; i++)
- 		window_drops += priv->xstats.max_sdu_txq_drop[i] +
--				priv->xstats.mtl_est_txq_hlbf[i];
-+				priv->xstats.mtl_est_txq_hlbf[i] +
-+				priv->xstats.mtl_est_txq_hlbs[i];
- 	qopt->stats.window_drops = window_drops;
- 
- 	/* Transmission overrun doesn't happen for stmmac, hence always 0 */
-@@ -1111,7 +1113,8 @@ static void tc_taprio_queue_stats(struct stmmac_priv *priv,
- 	int queue = qopt->queue_stats.queue;
- 
- 	q_stats->stats.window_drops = priv->xstats.max_sdu_txq_drop[queue] +
--				      priv->xstats.mtl_est_txq_hlbf[queue];
-+				      priv->xstats.mtl_est_txq_hlbf[queue] +
-+				      priv->xstats.mtl_est_txq_hlbs[queue];
- 
- 	/* Transmission overrun doesn't happen for stmmac, hence always 0 */
- 	q_stats->stats.tx_overruns = 0;
-
----
-base-commit: 5b5ba63a54cc7cb050fa734dbf495ffd63f9cbf7
-change-id: 20250911-hlbs_2-5fdd5e483f02
-
-Best regards,
--- 
-Rohan G Thomas <rohan.g.thomas@altera.com>
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBLcnp5c3p0b2YgS296bG93c2tpLAoKSSBhbSB3cml0aW5nIHRvIHNpbmNlcmVseSBhcG9s
+b2dpemUgZm9yIG9taXR0aW5nIHlvdXIgIlJldmlld2VkLWJ5IiB0YWcKaW4gdGhlIHY2IHBhdGNo
+IHNlcmllcyB3aXRob3V0IHByb3ZpZGluZyBhbiBleHBsYW5hdGlvbi4gVGhpcyB3YXMgYW4gb3Zl
+cnNpZ2h0Cm9uIG15IHBhcnQsIGFuZCBJIHRydWx5IHJlZ3JldCBhbnkgaW5jb252ZW5pZW5jZSBv
+ciBmcnVzdHJhdGlvbiBpdCBoYXMgY2F1c2VkLgoKVGhlIHJlYXNvbiB3aHkgSSBkaWRuJ3QgYWRk
+IHRhZ3MgaXMgdGhhdCBJIG1hZGUgbW9kaWZpY2F0aW9ucyB0byB0aGUgZGVzY3JpcHRpb24KaW4g
+dGhlIFlBTUwgZmlsZS4gRHVlIHRvIHRoZXNlIGNoYW5nZXMgdGhhdCBhbHRlciB0aGUgY29udGVu
+dCB5b3UgaGF2ZSBwcmV2aW91c2x5CnZpZXdlZCwgSSBiZWxpZXZlIHRoZXNlIG1vZGlmaWNhdGlv
+bnMgbWF5IHJlcXVpcmUgYSByZSBleGFtaW5hdGlvbiBhbmQgdGhlcmVmb3JlCnNob3VsZCBub3Qg
+YmUgcmV0YWluZWQgd2l0aG91dCB5b3VyIGNvbmZpcm1hdGlvbi4KCkkgdW5kZXJzdGFuZCB0aGF0
+IHdoZW4gc3VibWl0dGluZyB0aGUgcGF0Y2gsIEkgc2hvdWxkIGNsZWFybHkgc3RhdGUgdGhlIHJl
+YXNvbi4KSSBoYXZlIGNhcmVmdWxseSByZWFkIHRoZSBzdWJtaXNzaW9uIGd1aWRlbGluZXMgYW5k
+IHdpbGwgZW5zdXJlIGZ1bGwgY29tcGxpYW5jZQp3aXRoIHRoZSBwcm9jZXNzIGluIGFsbCBmdXR1
+cmUgY29udHJpYnV0aW9ucywgaW5jbHVkaW5nIHByb3BlciB1c2Ugb2YgYjQgYW5kIGNsZWFyCmNv
+bW11bmljYXRpb24gb2YgY2hhbmdlcy4KClRoYW5rIHlvdSBmb3IgeW91ciBwYXRpZW5jZSBhbmQg
+Z3VpZGFuY2UuCgpCZXN0IHJlZ2FyZHMsClNoYW5nanVhbiBXZWkKCgo+IC0tLS0t5Y6f5aeL6YKu
+5Lu2LS0tLS0KPiDlj5Hku7bkuro6ICJLcnp5c3p0b2YgS296bG93c2tpIiA8a3J6a0BrZXJuZWwu
+b3JnPgo+IOWPkemAgeaXtumXtDoyMDI1LTA5LTEyIDIxOjE0OjI0ICjmmJ/mnJ/kupQpCj4g5pS2
+5Lu25Lq6OiB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tLCBkZXZpY2V0cmVlQHZnZXIu
+a2VybmVsLm9yZywgYW5kcmV3K25ldGRldkBsdW5uLmNoLCBkYXZlbUBkYXZlbWxvZnQubmV0LCBl
+ZHVtYXpldEBnb29nbGUuY29tLCBrdWJhQGtlcm5lbC5vcmcsIHBhYmVuaUByZWRoYXQuY29tLCBy
+b2JoQGtlcm5lbC5vcmcsIGtyemsrZHRAa2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywg
+bGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnLCBtY29xdWVsaW4uc3RtMzJAZ21h
+aWwuY29tLCBhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tLCB5b25nLmxpYW5nLmNob29uZ0Bs
+aW51eC5pbnRlbC5jb20sIHZsYWRpbWlyLm9sdGVhbkBueHAuY29tLCBybWsra2VybmVsQGFybWxp
+bnV4Lm9yZy51aywgZmFpemFsLmFiZHVsLnJhaGltQGxpbnV4LmludGVsLmNvbSwgcHJhYmhha2Fy
+Lm1haGFkZXYtbGFkLnJqQGJwLnJlbmVzYXMuY29tLCBpbm9jaGlhbWFAZ21haWwuY29tLCBqYW4u
+cGV0cm91c0Bvc3MubnhwLmNvbSwganN6aGFuZ0BrZXJuZWwub3JnLCBwLnphYmVsQHBlbmd1dHJv
+bml4LmRlLCBib29uLmtoYWkubmdAYWx0ZXJhLmNvbSwgMHgxMjA3QGdtYWlsLmNvbSwgbmV0ZGV2
+QHZnZXIua2VybmVsLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgZW1pbC5yZW5uZXIuYmVydGhpbmdAY2Fu
+b25pY2FsLmNvbQo+IOaKhOmAgTogbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVz
+d2luY29tcHV0aW5nLmNvbSwgbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbSwgcGlua2VzaC52YWdo
+ZWxhQGVpbmZvY2hpcHMuY29tCj4g5Li76aKYOiBSZTogW1BBVENIIHY2IDEvMl0gZHQtYmluZGlu
+Z3M6IGV0aGVybmV0OiBlc3dpbjogRG9jdW1lbnQgZm9yIEVJQzc3MDAgU29DCj4gCj4gT24gMTIv
+MDkvMjAyNSAwNzo1Niwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbSB3cm90ZToKPiA+
+IEZyb206IFNoYW5nanVhbiBXZWkgPHdlaXNoYW5nanVhbkBlc3dpbmNvbXB1dGluZy5jb20+Cj4g
+PiAKPiA+IEFkZCBFU1dJTiBFSUM3NzAwIEV0aGVybmV0IGNvbnRyb2xsZXIsIHN1cHBvcnRpbmcg
+Y2xvY2sKPiA+IGNvbmZpZ3VyYXRpb24sIGRlbGF5IGFkanVzdG1lbnQgYW5kIHNwZWVkIGFkYXB0
+aXZlIGZ1bmN0aW9ucy4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogWmhpIExpIDxsaXpoaTJAZXN3
+aW5jb21wdXRpbmcuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogU2hhbmdqdWFuIFdlaSA8d2Vpc2hh
+bmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbT4KPiAKPiBUaGVyZSBpcyBubyBleHBsYW5hdGlvbiBv
+ZiBkcm9wcGluZyB0aGUgdGFnLiBQbGVhc2UgcmVhZCBDQVJFRlVMTFkKPiBzdWJtaXR0aW5nIHBh
+dGNoZXMuCj4gCj4gQ29tcGFyaW5nIGFsc28gZmFpbHM6Cj4gCj4gYjQgZGlmZiAnPDIwMjUwOTEy
+MDU1MzUyLjI4MzItMS13ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tPicKPiBVc2luZyBj
+YWNoZWQgY29weSBvZiB0aGUgbG9va3VwCj4gLS0tCj4gQW5hbHl6aW5nIDU1IG1lc3NhZ2VzIGlu
+IHRoZSB0aHJlYWQKPiBQcmVwYXJpbmcgZmFrZS1hbSBmb3IgdjY6IGR0LWJpbmRpbmdzOiBldGhl
+cm5ldDogZXN3aW46IERvY3VtZW50IGZvcgo+IEVJQzc3MDAgU29DCj4gRVJST1I6IENvdWxkIG5v
+dCBmYWtlLWFtIHZlcnNpb24gdjYKPiAtLS0KPiBDb3VsZCBub3QgY3JlYXRlIGZha2UtYW0gcmFu
+Z2UgZm9yIHVwcGVyIHNlcmllcyB2Ngo+IAo+IEkgYW0gbm90IGdvaW5nIHRvIHJldmlldyB0d2lj
+ZSwgc28geW91IGNhbiBkcm9wIG15IHRhZyBhZ2FpbiB3aXRob3V0Cj4gZXhwbGFuYXRpb24uCj4g
+Cj4gQmVzdCByZWdhcmRzLAo+IEtyenlzenRvZgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
