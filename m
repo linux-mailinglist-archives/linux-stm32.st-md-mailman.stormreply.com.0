@@ -2,79 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BADB587C2
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Sep 2025 00:46:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97EB5B58B27
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Sep 2025 03:28:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69C04C349C3;
-	Mon, 15 Sep 2025 22:46:26 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9C0CC32EB0;
+	Tue, 16 Sep 2025 01:28:41 +0000 (UTC)
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A289C35E2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A93BC349C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Sep 2025 22:46:25 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-b07d01fd4fbso487928266b.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Sep 2025 15:46:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757976385; x=1758581185;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=13DnP3wRqU+zsSJbDDW+krsmHK5NNVJV3DHwW0NPTaE=;
- b=Qdh60eadjWKE+ypCJCDdEXZgWY4Gp7Tj9y7VM3vL7T2GtuaUar5QUyDEO2vhA0ZL1n
- dK/44YyDsF5fG6TROZnzBVeEnEFVTIK074L/CBATKv0FpRgmXSM457CNA12zSZp9fnuG
- CoZl2hSm7L/IXugzNnxBe2RJ6uq2+crnamnG2pvgegg0I1LOrdTJBR053BQA9/9IKp0V
- 4w6tRIL9gNSHlV/MjX6SEtWteCn4WX6dL8YQ7ecmaSQwqbWXpljRMU3/CndfjwdVGxwK
- DFvxYXXrn1sq40Bf3O957Vqf7bz3/2ngKJB2NJJGEs2k5fYqR2cRgX2Up3NmE/qExtx8
- n4kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757976385; x=1758581185;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=13DnP3wRqU+zsSJbDDW+krsmHK5NNVJV3DHwW0NPTaE=;
- b=UeLVDZBJous4JcaD+PbbOlTPSsjpJgg3hCiGzcK0+l2/F1meW4FUtgg/jz9O2RVnCo
- Cj/jJzqr7S5f5G0VyBZjFlPV6yGPZoTVmG/wu4UTzVr2ob1WLu977pMYZ/cVzFQNH7z0
- l+CGV8zfc3GFTkH3scKGW5y1BgS+XujpNPGW9HSOHSJqmU6jJz0yuG0nmxXomiQCAaf7
- agGOM48ZtTsUpCnPZ0KGpDUR1JmQ/rxxnVNQWH0XnNYXnvmdaGsO0+xGkr7qE4fcztKV
- he5lpVK32C3DsUpCvmwq6t/nUNqcs230eNOqSEgtFUPd6LpAP1uRoGpcKqEyootGvJrh
- srGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVSPlKObHhamCbkfy9Hn9AgpjDUtR9B2vvfL9NVPZqUpOUUgfVxOLaud9d5V2tUvw9/YlSE3/3zScu+7A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxQCYWUhKtg3Cv4hvK1KetVAbf2+rAwB0I8OBDz+f8cIBLHrWwi
- db7g7PCxncRRcZ1KbveDaM6KOoLB69kBjopTibrlkbyhD1pkcJcQlTE=
-X-Gm-Gg: ASbGncurgUJAp3K90loe79r04B8xwlfx86NmOGyfZduQCotKIi5/iQI5dLihCxuVL/b
- NYC6zQK8cHUe9azmztzJp103xFPIe/2qQYxjeYNq3Pp82l9XW3GMUwKLFHcM8ohIoVKuT2YioVV
- cwqZ0JY2c4fvgibcRjabnOLJyeLGyIffVgyj1V6mLWVArwsl0/WjE6UOIhbqK9nvPRRWCVoKVTx
- iIZSSitS25bqr6qX+iECGkNAmmjppEmM4W0KaAR2ZTyRROSjlLsgWgM2Xor5kYhKVxWxXPFumw8
- akij8UQoW+VshQ7xu7TrYrV2CDEXhy54S0RtWZKoZmyzFNBvu3lA83npkIiQL5IDxNHi83QNKUK
- EOvuTHut90EgPUtzjKX0TdZr6V4t1fT3SKDM86SiEKhdQOoQ=
-X-Google-Smtp-Source: AGHT+IFC1RDAQdftftflM3IR9GIxbYxiAqxOMxHqEUoMHehF7YawNWtyqMfqbQIPOxJCVyY9vyzwnw==
-X-Received: by 2002:a17:907:1c9e:b0:b04:5385:e26 with SMTP id
- a640c23a62f3a-b07c37a7fcemr1575363166b.58.1757976384468; 
- Mon, 15 Sep 2025 15:46:24 -0700 (PDT)
-Received: from localhost.localdomain
- ([2a0d:e487:214e:a6f2:7d6e:32b1:d615:2ff1])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b07b32dd5bfsm1011153366b.63.2025.09.15.15.46.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Sep 2025 15:46:22 -0700 (PDT)
-From: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-To: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com
-Date: Tue, 16 Sep 2025 00:46:11 +0200
-Message-Id: <20250915224611.169980-1-jihed.chaibi.dev@gmail.com>
-X-Mailer: git-send-email 2.39.5
+ Tue, 16 Sep 2025 01:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1757986002;
+ bh=r40/9/byFQ5Kdho5bSZgFzvBLnr6GNZb9hi7qVjYjLk=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=J98MyLcbMRG94NEiVPEjeSXACyzHlGMhioQe+AoZz+U5Pl5VQ3tvrizeCPZchXSH0
+ d2rMdEy5H/PcgpFTo13OzEfrZ4GonSnL1tUb0wvZGI64BXUf/kaItCe4zy6dRa1XJM
+ oVipO6zCRqLqhivuCR8IJ8o6LMSpaqpg8K/p6Q98=
+X-QQ-mid: esmtpgz16t1757985994tb691f01f
+X-QQ-Originating-IP: 9WqvNV5m81o9OAQGGCKKLjLtxMwpN1LWrrj43UnBIq8=
+Received: from DESKTOP-8BT1A2O.localdomain ( [58.22.7.114])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 16 Sep 2025 09:26:31 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13026834714890684059
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Jonas Karlman <jonas@kwiboo.se>, David Wu <david.wu@rock-chips.com>
+Date: Tue, 16 Sep 2025 09:26:28 +0800
+Message-ID: <0A3F1D1604FEE424+20250916012628.1819-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jihed.chaibi.dev@gmail.com, krzk+dt@kernel.org,
- s.trumtrar@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: stm32mp157c-phycore: Fix
-	STMPE811 touchscreen node properties
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrsz:qybglogicsvrsz4a-0
+X-QQ-XMAILINFO: NpSUeF22LnzDaMKYiEuFqevqeK1MYzf4iSkkCu3fQqOjrNgyfGsywGra
+ GMwsWfxhO5M0UlGrG374jH3Xa17Hadfevx69JtfBFyquyr68EHvK2gqjtNyOyGoN5N/9Ypm
+ kv2vOCH1CMFRpEpIgjYRQ4sSB5udtTSTunJKOV7T8qxujPtCch7tkg2wkeh3aY97izqA7zs
+ fNXf6auP3iTDII0WIJKE9Vltww++i4bLigltiLAncAP7lsgqPay9ChFGa2sxFMpXFSxkRUY
+ IwLGia11ARql5Ns2AvaY2uG+nPJpXN/KnzHaVl2+I5OI0r6qtg7kXLjJN1i0dPSHDedKhUd
+ T+PdR1TWVAMpVmesdSinSeyyZDWVmffXSDAgV88zwpKYQ8Gq6yuQr+VyVwoSM8+h96Tm+z+
+ 2KutP7P6l+B5dU/6fULMPT4BnM+MQr7iNsYP19RJm79bjmiepNqfxbjs6b21AsjrcnsLrnJ
+ EAKuVCXTj5X7ze5uXsIQBXeYa2SDOSrXiUEFiE50dqj5xOV9znX4FbpLeCNQXvnFBkRelAB
+ FsVObfsXPkF0WkkL+619MIYdebgIOFIBx3c2t5Xe2VjtDokOc4Xitf2eprN8YvgcVULfnLa
+ OlnhGfIoX2E9URDE+Lrbj7S/f8plgVl/ok2vV/W0LOcD3WCS3S3ez6xM0rfr2A/QCpPuBex
+ 8XGoTFjaDSUilnJkOizFTOeG2SavuAvNPlzPjAB0DYksyIVmUE9Om69N8nL9S0zyVez7No1
+ XQU4G9/uczKgpSlwBVZqiM2LIaucy41R4WKSeefH/4j+mu1JCf+n2horpNVZCsaNmG3QQWC
+ zo5Bu9MIFGZxBHe3foojnFqdZ02SDzWGyEdxAcdwwNmhG6SfD5zwaND74VHf5UzjvZpFty+
+ AhYAiM9/If3Q55L+HCWcd5BbrrCEb9ZMzW8zlvJ0wcflYp8sT3LiBQwYwAx4fDtI4IdkAys
+ xRiJLq952WEZ+uDHpDt5/KlbJma6R/bcVeWasD1XDg7yJeg==
+X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
+X-QQ-RECHKSPAM: 0
+Cc: ziyao@disroot.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sebastian.reichel@collabora.com, linux-rockchip@lists.infradead.org,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] Revert "net: ethernet: stmmac:
+	dwmac-rk: Make the clk_phy could be used for external phy"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,42 +82,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move st,adc-freq, st,mod-12b, st,ref-sel, and st,sample-time properties
-from the touchscreen subnode to the parent touch@44 node. These properties
-are defined in the st,stmpe.yaml schema for the parent node, not the
-touchscreen subnode, resolving the validation error about unevaluated
-properties.
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Fixes: 27538a18a4fcc ("ARM: dts: stm32: add STM32MP1-based Phytec SoM")
-Signed-off-by: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
+This reverts commit da114122b83149d1f1db0586b1d67947b651aa20.
+
+As discussed, the PHY clock should be managed by PHY driver instead
+of other driver like dwmac-rk.
+
+Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 ---
- .../boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi    | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi b/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-index bf0c32027ba..370b2afbf15 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp157c-phycore-stm32mp15-som.dtsi
-@@ -185,13 +185,13 @@ touch@44 {
- 		interrupt-parent = <&gpioi>;
- 		vio-supply = <&v3v3>;
- 		vcc-supply = <&v3v3>;
-+		st,sample-time = <4>;
-+		st,mod-12b = <1>;
-+		st,ref-sel = <0>;
-+		st,adc-freq = <1>;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 266c53379236..49f92cd79aa8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1410,15 +1410,12 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
+ 		clk_set_rate(plat->stmmac_clk, 50000000);
+ 	}
  
- 		touchscreen {
- 			compatible = "st,stmpe-ts";
--			st,sample-time = <4>;
--			st,mod-12b = <1>;
--			st,ref-sel = <0>;
--			st,adc-freq = <1>;
- 			st,ave-ctrl = <1>;
- 			st,touch-det-delay = <2>;
- 			st,settling = <2>;
+-	if (plat->phy_node) {
++	if (plat->phy_node && bsp_priv->integrated_phy) {
+ 		bsp_priv->clk_phy = of_clk_get(plat->phy_node, 0);
+ 		ret = PTR_ERR_OR_ZERO(bsp_priv->clk_phy);
+-		/* If it is not integrated_phy, clk_phy is optional */
+-		if (bsp_priv->integrated_phy) {
+-			if (ret)
+-				return dev_err_probe(dev, ret, "Cannot get PHY clock\n");
+-			clk_set_rate(bsp_priv->clk_phy, 50000000);
+-		}
++		if (ret)
++			return dev_err_probe(dev, ret, "Cannot get PHY clock\n");
++		clk_set_rate(bsp_priv->clk_phy, 50000000);
+ 	}
+ 
+ 	return 0;
 -- 
-2.39.5
+2.49.0
 
 _______________________________________________
 Linux-stm32 mailing list
