@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30C26B80700
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Sep 2025 17:13:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CF8B80703
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Sep 2025 17:13:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E33EEC3F959;
-	Wed, 17 Sep 2025 15:13:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2806C3F954;
+	Wed, 17 Sep 2025 15:13:07 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62BCAC3F959
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F50EC3F954
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Sep 2025 15:13:03 +0000 (UTC)
+ Wed, 17 Sep 2025 15:13:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PLGSCkhJYkYCcobuSQ5Oyaf1uTdDzYldkQNkhdDB1IA=; b=Ky4aasfZomTPEs8qJrkEO+3qSW
- R+FEbkZwUTF3AVeo4jl+6lmcokTr3ASdPmX3cAoDOnIzqYLLYIVHLDSQ+rG7DxOkiJiKXq9GJyC5X
- 8h5tF0n2ewXaLazmDSEpe+y1ae24MT3D60FIsCPBiH41ERffhxDePikqTk3P4PYqU+G1Nj6FgLBlh
- qTb1fnO0wDSjezlqtu++O4VmGYgHDQzkYkxW/CIxn4YBuhvkBaDw+/apGHqaI9uHFYheS+QjW0Bm5
- 5GTeaDgY8ynejLytv4jFUYvtq2HE/b7WVgfdoAnvrJb27nHkBC7kvUt9K6EoGDEJE77TQKP3dc19o
- 3skCHiuA==;
+ bh=ChcytkVLrz+IKUJS3Cck/qqHKiLa2YGrU2v03wuGGrM=; b=mvFAhoOslfMXI6PpLYMlk+frsP
+ A5cengYY0t6QZcdChxdPgmGo+ipcwiIcPyi2US5P9uC3kBocp2y9pf2sPs6KqkmRVXIzzhNG87Mkb
+ iugRGz6jqqB9LyxbZEtthJlUPBsl/NIVom9Ks0mvfrrbh53EJqOpQzmb5/u4lMvIow8qD57kP4XIZ
+ x6xOYDqMRZGdfqtRANEiOpqoNx9UtoRESXyAffLyBt6F5kjpc9mfmbLwnfkvrwOk9s/QeklW+0Kj3
+ BQyLhO7rQezSrusw4pBk7Yg8+mKrLMNPa7mHN+9WbaUcHqkhsk3kx8TchCH4mPCGtiypxU0a6suV6
+ brzJOU8w==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60996 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:32780 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1uytpl-000000004m2-0fIP;
- Wed, 17 Sep 2025 16:12:37 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1uytpq-000000004mN-0A9j;
+ Wed, 17 Sep 2025 16:12:42 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1uytpf-00000006H2c-3hiU; Wed, 17 Sep 2025 16:12:31 +0100
+ id 1uytpl-00000006H2k-08pH; Wed, 17 Sep 2025 16:12:37 +0100
 In-Reply-To: <aMrPpc8oRxqGtVPJ@shell.armlinux.org.uk>
 References: <aMrPpc8oRxqGtVPJ@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1uytpf-00000006H2c-3hiU@rmk-PC.armlinux.org.uk>
-Date: Wed, 17 Sep 2025 16:12:31 +0100
+Message-Id: <E1uytpl-00000006H2k-08pH@rmk-PC.armlinux.org.uk>
+Date: Wed, 17 Sep 2025 16:12:37 +0100
 Cc: Drew Fustini <fustini@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
  imx@lists.linux.dev, Eric Dumazet <edumazet@google.com>,
  Guo Ren <guoren@kernel.org>, linux-riscv@lists.infradead.org,
@@ -58,7 +58,7 @@ Cc: Drew Fustini <fustini@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
  Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next 07/10] net: stmmac: stm32: convert to
+Subject: [Linux-stm32] [PATCH net-next 08/10] net: stmmac: sun8i: convert to
  use phy_interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,134 +76,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwmac-stm32 supports MII, RMII, GMII and RGMII interface modes,
-selecting the dwmac core interface mode via bits 23:21 of the
-SYSCFG register. The bit combinations are identical to the
-dwmac phy_intf_sel_i signals.
+dwmac-sun8i supports MII, RMII and RGMII interface modes only. It
+is unclear whether the dwmac core interface is different from the
+one presented to the outside world.
 
-None of the DTS files set "mac-mode", so mac_interface will be
-identical to phy_interface.
+However, as none of the DTS files set "mac-mode", mac_interface will
+be identical to phy_interface.
 
-Convert dwmac-stm32 to use phy_interface when determining the
+Convert dwmac-sun8i to use phy_interface when determining the
 interface mode rather than mac_interface.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 26 +++++++++----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index 77a04c4579c9..6c179911ef3f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -171,7 +171,7 @@ static int stm32mp1_select_ethck_external(struct plat_stmmacenet_data *plat_dat)
- {
- 	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
- 
--	switch (plat_dat->mac_interface) {
-+	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		dwmac->enable_eth_ck = dwmac->ext_phyclk;
- 		return 0;
-@@ -193,7 +193,7 @@ static int stm32mp1_select_ethck_external(struct plat_stmmacenet_data *plat_dat)
- 	default:
- 		dwmac->enable_eth_ck = false;
- 		dev_err(dwmac->dev, "Mode %s not supported",
--			phy_modes(plat_dat->mac_interface));
-+			phy_modes(plat_dat->phy_interface));
- 		return -EINVAL;
- 	}
- }
-@@ -206,7 +206,7 @@ static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data *plat_dat)
- 	if (!dwmac->enable_eth_ck)
- 		return 0;
- 
--	switch (plat_dat->mac_interface) {
-+	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 	case PHY_INTERFACE_MODE_GMII:
- 		if (clk_rate == ETH_CK_F_25M)
-@@ -228,7 +228,7 @@ static int stm32mp1_validate_ethck_rate(struct plat_stmmacenet_data *plat_dat)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 690f3650f84e..5d871b2cd111 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -974,7 +974,7 @@ static int sun8i_dwmac_set_syscon(struct device *dev,
+ 		}
  	}
  
- 	dev_err(dwmac->dev, "Mode %s does not match eth-ck frequency %d Hz",
--		phy_modes(plat_dat->mac_interface), clk_rate);
-+		phy_modes(plat_dat->phy_interface), clk_rate);
- 	return -EINVAL;
- }
- 
-@@ -238,7 +238,7 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
- 	u32 reg = dwmac->mode_reg;
- 	int val = 0;
- 
--	switch (plat_dat->mac_interface) {
-+	switch (plat_dat->phy_interface) {
+-	switch (plat->mac_interface) {
++	switch (plat->phy_interface) {
  	case PHY_INTERFACE_MODE_MII:
- 		/*
- 		 * STM32MP15xx supports both MII and GMII, STM32MP13xx MII only.
-@@ -269,12 +269,12 @@ static int stm32mp1_configure_pmcr(struct plat_stmmacenet_data *plat_dat)
+ 		/* default */
+ 		break;
+@@ -989,7 +989,7 @@ static int sun8i_dwmac_set_syscon(struct device *dev,
  		break;
  	default:
- 		dev_err(dwmac->dev, "Mode %s not supported",
--			phy_modes(plat_dat->mac_interface));
-+			phy_modes(plat_dat->phy_interface));
- 		/* Do not manage others interfaces */
+ 		dev_err(dev, "Unsupported interface mode: %s",
+-			phy_modes(plat->mac_interface));
++			phy_modes(plat->phy_interface));
  		return -EINVAL;
  	}
  
--	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->phy_interface));
- 
- 	/* Shift value at correct ethernet MAC offset in SYSCFG_PMCSETR */
- 	val <<= ffs(dwmac->mode_mask) - ffs(SYSCFG_MP1_ETH_MASK);
-@@ -294,7 +294,7 @@ static int stm32mp2_configure_syscfg(struct plat_stmmacenet_data *plat_dat)
- 	u32 reg = dwmac->mode_reg;
- 	int val = 0;
- 
--	switch (plat_dat->mac_interface) {
-+	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		/* ETH_REF_CLK_SEL bit in SYSCFG register is not applicable in MII mode */
- 		break;
-@@ -319,12 +319,12 @@ static int stm32mp2_configure_syscfg(struct plat_stmmacenet_data *plat_dat)
- 		break;
- 	default:
- 		dev_err(dwmac->dev, "Mode %s not supported",
--			phy_modes(plat_dat->mac_interface));
-+			phy_modes(plat_dat->phy_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
- 
--	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->phy_interface));
- 
- 	/* Select PTP (IEEE1588) clock selection from RCC (ck_ker_ethxptp) */
- 	val |= SYSCFG_ETHCR_ETH_PTP_CLK_SEL;
-@@ -359,7 +359,7 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	u32 reg = dwmac->mode_reg;
- 	int val;
- 
--	switch (plat_dat->mac_interface) {
-+	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_MII:
- 		val = SYSCFG_MCU_ETH_SEL_MII;
- 		break;
-@@ -368,12 +368,12 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 		break;
- 	default:
- 		dev_err(dwmac->dev, "Mode %s not supported",
--			phy_modes(plat_dat->mac_interface));
-+			phy_modes(plat_dat->phy_interface));
- 		/* Do not manage others interfaces */
- 		return -EINVAL;
- 	}
- 
--	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->mac_interface));
-+	dev_dbg(dwmac->dev, "Mode %s", phy_modes(plat_dat->phy_interface));
- 
- 	return regmap_update_bits(dwmac->regmap, reg,
- 				 SYSCFG_MCU_ETH_MASK, val << 23);
 -- 
 2.47.3
 
