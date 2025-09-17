@@ -2,172 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81ED9B7FE73
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Sep 2025 16:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F3EB8069D
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Sep 2025 17:12:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4248C32E93;
-	Wed, 17 Sep 2025 14:21:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D5BEC3F954;
+	Wed, 17 Sep 2025 15:12:03 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 629B3C32E8D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DDB4C3F93C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Sep 2025 14:21:20 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58HDofBc019816;
- Wed, 17 Sep 2025 16:20:52 +0200
-Received: from du2pr03cu002.outbound.protection.outlook.com
- (mail-northeuropeazon11011024.outbound.protection.outlook.com [52.101.65.24])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 497fxgv7xb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Sep 2025 16:20:52 +0200 (MEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eF6UdREvVCXfMucWSpFYzdzuvegrOs1F1gOjRVcUM8bGAtR09xdzUdU/1qCQVhD6665O5Qa/5oS7GljBXW2aIwyJ/JUKa/80g5je+N5fHWCOIn3yCIIqaquYrCxfxnAwVPlGAacpj7JMNwP9Z7D9dpL2JaXwlYXv/0widte9/gTmfiMqrvnoEEzotWpMxDz+iRvTZP4Mbo5KGzQf0BWSxb2uewy5wXuVHn9gxbBz3Oxg+SFY39odCRnTU0ItfAPVs8Yhdzg6mYTEOc54gDI90KWj9IvxT29DrpLoEC/Zx4s4a0jGnOjA38pX1O75YXZZ1V2Y34dPSejfMzNlL8fFhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2fXWnAcwy4QY30y7K29mOFLIbpOkUW2fwS3ybjf2ArY=;
- b=xPgTj4EnXUGDQoIUdYVsFXXvGOmPPF1enNSvhtQvaefk1ED6AjZUv8C5yC/3+gmvTtkdiM/pM5lhoQN/LwpcLL52tRCbT030ZBJNILxVE3OuIMm3yMp5ZizpLJBdAorxaVeiBKhGoT2QXvA/I4qXyAYU7VuiX5YhPOzRoV5VC6bXFvQ2sFPyxhp738AxLlczJuoSj5C495TJA60XfPiPdBVDEjGWFATvTOQZ55ZM3an/St5dcksAezP1qxSVbOMs3jutwxvGQcUUPONLrct7x2gKJkvIq6Y3CDkDx5uzlolConbhIGwPrhFJKSAXsVds0Z7HHlfpjcv8JpmqLyKZrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.43) smtp.rcpttodomain=renesas.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2fXWnAcwy4QY30y7K29mOFLIbpOkUW2fwS3ybjf2ArY=;
- b=QnNlqHsstu88oeKVfN78rfr1h4zxT/AxMn8G86wqb2Khc5CKaNvycsWEjV5CrUCEyked3881HbVyGu4xoHJInt/NNW/13M1xfqaP0rA3Fc6bWu7Wj0xr1+IX0UeYyghYqTFOJh8x7RaAG2Sb1IgOMBG61DRqKzsk7e2V8RIuDRgDxwXohrXGjrqihQHRhdE/9cvY0en0QkEZLKhRHbGqosZB43ZUZI0GlHWD2C3q/h4s67HvYDOzPQoAv+dFyvF/BQtaED1K/wUFpyyK6VK1aScIp5Kn0W9H0+ErOKfOhi9rqtxSO7ENkOC23xxskqlm0sidUJ8/K3dgOeY1ed3zwg==
-Received: from DU2PR04CA0244.eurprd04.prod.outlook.com (2603:10a6:10:28e::9)
- by FRWPR10MB9254.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:d10:179::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Wed, 17 Sep
- 2025 14:20:48 +0000
-Received: from DB1PEPF000509E3.eurprd03.prod.outlook.com
- (2603:10a6:10:28e:cafe::8e) by DU2PR04CA0244.outlook.office365.com
- (2603:10a6:10:28e::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.13 via Frontend Transport; Wed,
- 17 Sep 2025 14:20:48 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.43; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.43) by
- DB1PEPF000509E3.mail.protection.outlook.com (10.167.242.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9137.12 via Frontend Transport; Wed, 17 Sep 2025 14:20:47 +0000
-Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
- (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Wed, 17 Sep
- 2025 16:18:22 +0200
-Received: from [10.252.19.234] (10.252.19.234) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Wed, 17 Sep
- 2025 16:20:46 +0200
-Message-ID: <a9725bfd-a2b8-4343-83f2-d18908029ea0@foss.st.com>
-Date: Wed, 17 Sep 2025 16:20:23 +0200
+ Wed, 17 Sep 2025 15:12:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Z9DCHnUskoAQsh4r0zX0pM3YjsFlNAkxg7COa2SK03s=; b=paOB4LDXN15KG0UXWrMKam+OMH
+ aZOO7D2SyGG0TEQzk8TvwQx527ujk+cjVaq9dB5vejyXfhPCSkTUJs64LU/CTQ9tZThfqn88jGwO8
+ 5wR9xFtWLStSP/S1t5sY9e6o64ps6PeMAJZYb8HxbyPmmhvY0fy1s2iKuXnGotbZEEAJkyS58BUHC
+ Qun28H6WmBZUyEPcX2PntSb2b1KeGYKAvV63EpVbPs4MLVG4js2lHn1wNFqUU1cHEDDPwpqasmdj3
+ 9NcyfYEEP1QUudsP4DznsTI7pEdsn5dJeYOyBJ7cC7Zj1oI4BWiC+boI55TDbz201JJx0ijh+qH0Z
+ 1ZyX2ONA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43408)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1uytot-000000004jS-0P44;
+ Wed, 17 Sep 2025 16:11:43 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1uytoj-000000000Hx-11GN; Wed, 17 Sep 2025 16:11:33 +0100
+Date: Wed, 17 Sep 2025 16:11:33 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aMrPpc8oRxqGtVPJ@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20250916123118.84175-1-olivier.moysan@foss.st.com>
- <87ms6taph0.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <87ms6taph0.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.252.19.234]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509E3:EE_|FRWPR10MB9254:EE_
-X-MS-Office365-Filtering-Correlation-Id: a187dd9a-1bdd-4446-1b9e-08ddf5f5657d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|7416014|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VkRCR1RSSVhYTFhIK0s1Q2VuK2gyRkNVeE1ZOEcvRnVZR1A3emtnRW1XSXpF?=
- =?utf-8?B?bTAwd2JEVlNqL3VnOVlFWmlSV0cvYTlYWFZkVm1WY1R6WlhlOWxyR2pPTDNq?=
- =?utf-8?B?T3pQNENRWHVrUjNyQ2l5aHZRTjVtaCt4Z1NLWG55OUZielFQNlZCaGI5Tk9M?=
- =?utf-8?B?aHJHb0ZvOXloN25ybFEyUnhWalY2Y3JSMWpMdC9uOEIzdlBLVHByRHN2Vzlv?=
- =?utf-8?B?SDJiUUQ5dzJ6anUwUXRpeEJjTHJXOW5BTTdBbGswT3R6ZFVuNmxXRm1WK01k?=
- =?utf-8?B?UHlzcllUR0RJaDNZQmp3VjFtanBnMkVHZGg4dGMySzVhUW5MVGJGWkF3a2E4?=
- =?utf-8?B?Z2xVdmhZRVNJYTMyOTlrWHM3bTY2MTB2cEpoSUZsS0ljU0FSSFhxVFh5SFJq?=
- =?utf-8?B?TzlKcFUzdWhoTDltT1JwRitVRlByYjRuNFNUQVp5QnhtOTlEY01qa1EvTFJW?=
- =?utf-8?B?bHJJS3N5Wk16SDhjVVhVamtpekN6SHdKZFFtbllxQnRod0d0clZ6a0hXa1dX?=
- =?utf-8?B?TXBvQklVU1Zud1NzdHlLb3M0SlF0MGRlb0Q3ZmE1VklxdmZJRzBGSStna0wx?=
- =?utf-8?B?cm1HT3QrbHBXZ2hnUDg5cGg4WktuUGI1Njl3NmFHM04rQmJySUpPbjZiNjkr?=
- =?utf-8?B?Wkdkb1pVQWQ1Um5uQnJNOXIrblFVUmR4bHJKTXdHMVZmQUptQTY2SnArUHUz?=
- =?utf-8?B?K3RCbUFwcHI2eTFwWEp1MkRVbnA1VmRmTERBemhFQ05RclNuMmJBNEpBT1hq?=
- =?utf-8?B?Ti9BYStGTG11TVAzR2k3MmpEUXkrV1loV1lWYWc2K0RrQkpDWFpXVnJUVXVM?=
- =?utf-8?B?M3BvQkNYbTl0SUo1OHovNWpveXRnMVkzWXFHRDBXNFVRYXk4Rko5dlVseGpJ?=
- =?utf-8?B?dTdLRGNETnVsSDlmcG9BMEx1bFlCT1hGdzIrVjZZRzltUGl3NFR2M1lSZTht?=
- =?utf-8?B?UHZvQW9hTnEwWWFGZGFxNmpBSkRIakYvQ2V5ejB6TDRVK3dsN0l0aDNZcnpN?=
- =?utf-8?B?TnhzTHF4TWlQWXAwZ1AzWWY1eWxFMCtzVDQvTnJ4NWo5ejRUUGJmazM5N3Q2?=
- =?utf-8?B?TVVxVjBqc1RoMUphT1llSFRjK3BKRkMwYWg0UDZwR2JKeXJBTHBTU2Z3dXBx?=
- =?utf-8?B?WWNPWTdMdFVIMllFQ1p6b2o4N3Rab2dCTUZJczVoNm9UMGQvYWprNmRGdmYz?=
- =?utf-8?B?VFZMRHVXY096VVR4REhJdmxtMGFNdjJ5MElNTC9NMWgvTU02dWNtaFpFVUJR?=
- =?utf-8?B?aCtJbmkrMGZZQ3Vrb0ZtdmRKNFZPMVYzMUFoQ0cyQXc3Q2hBMTdNcWtVRTFB?=
- =?utf-8?B?alRmR3NQb0Y1eno0UndjclluZC8yVXVlR1ZwUGhjTDNiZjVMWk5nM0NQT0Rw?=
- =?utf-8?B?Y2l5NkdCSVI2cFd3ek51T2I2VWFndE51WjdyWU5iVVJwTXg4RTlxbG5oY3dN?=
- =?utf-8?B?dEtJbC9EVDZhbkYvWTZEVXVKenJTeDJBZmJ6eGJJaFVlazBmbmRCRTlEWk5I?=
- =?utf-8?B?ZnNsTHJwZFg2RStJbzRYNTl3bXVydXBKRmpNOHVIb0ZSc1VKdEFNMmFDd2FK?=
- =?utf-8?B?amlJNWxxa2NUN1o2dTVRUVlUazA1NEpxUnZrTnBpWkJCby8yOGQzNFJLOU5P?=
- =?utf-8?B?Y2pNamJ2WS8yS2UyR2Nqd1FaQk5LaVJJSzdmbUJQbktRcncvVEpSTFJDUXZD?=
- =?utf-8?B?SHRSWE8vNTlHZDdxcnJlNGtNd2ljcXJxRFlFbWJIWHQ0djU4bGVKdy80T3Y1?=
- =?utf-8?B?dTFwOUxONm5Gd3RzbDRBRFJNNlpyY2t2MXNuUWo2eXlNbytxWHFzckRzOGR3?=
- =?utf-8?B?QmhyZ0liUGUxUUlKKzNQS3ppQ2tBWXRFYmJFWFVVQkg5VHRaTnA3bTRITFFJ?=
- =?utf-8?B?SWo3NTNXaXN6QlQ0Wm5wYmRLckpXMTRmclNWOVZTVzlLdzF2ems0NnRCK0pL?=
- =?utf-8?B?dktteE41N1BBZUZmMHZjVTVVeDJ0VE5XWWt3aFdqUXB5NUtBRHBQNnNQeXY5?=
- =?utf-8?B?QldFNnlYbXlwV1dROXk1QWxGbFRyMkZwVlp0dlU5Slp1enNDa3dpd1FJWlVN?=
- =?utf-8?Q?qzCJIi?=
-X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(7416014)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2025 14:20:47.3705 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a187dd9a-1bdd-4446-1b9e-08ddf5f5657d
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509E3.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR10MB9254
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE2MDIwMiBTYWx0ZWRfX/iF0vQFtHLeI
- 5NTZ+nyv9LFHwdTLN0zpgkf2w0Ihku5tPAXUs3YWGYL9LwTe3bA0NQeahYUtpAKnd7BRotCFGMU
- 5I+O6gMvymi8NdZXrmE+MT0zIGkLcaDnISSUrNw7kHC9wBm48DyTAnogwa3bU3HQgOa1LfxpfrF
- JDPuglkRKhB33syEOd40/4mEKyG+XtGuD/UPjGGVNgnn5o319L58/6+O2aOHdkUir3CK2H+Z2fE
- yPF+z3yfV23hiXrcUYVYwEpr5oGqva6uE0FlRLORWC+BARo+BoubrB+9Fz81fBk8SjmvQjo2ahT
- Avp1H5Qq/taIY3wAjWk2BvyDlDxR8GqImdZh42DSB6vT+QzXUMIaJ+jd6NizSenW+g/gKvA4Bv4
- HpLL2JF3
-X-Proofpoint-ORIG-GUID: kxZtXdqFilDc6Lm_9nLKaXdFnWvOFzhT
-X-Authority-Analysis: v=2.4 cv=aJLwqa9m c=1 sm=1 tr=0 ts=68cac3c4 cx=c_pps
- a=jAp52Qr6e1vdGvI99yDuOQ==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
- a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
- a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=tmmfVvVmf_gA:10 a=IkcTkHD0fZMA:10
- a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=tbB4qTXv7ZqPBi31GnQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: kxZtXdqFilDc6Lm_9nLKaXdFnWvOFzhT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-17_01,2025-09-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- suspectscore=0
- bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501
- phishscore=0 spamscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.19.0-2507300000 definitions=main-2509160202
-Cc: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ASoC: stm32: sai: manage context in
-	set_sysclk callback
+Content-Disposition: inline
+Cc: Drew Fustini <fustini@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ imx@lists.linux.dev, Eric Dumazet <edumazet@google.com>,
+ Guo Ren <guoren@kernel.org>, linux-riscv@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Minda Chen <minda.chen@starfivetech.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next 00/10] net: stmmac: remove
+	mac_interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -179,127 +68,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Kuninori,
+The dwmac core supports a range of interfaces, but when it comes to
+SerDes interfaces, the core itself does not include the SerDes block.
+Consequently, it has to provide an interface suitable to interface such
+a block to, and uses TBI for this.
 
-On 9/17/25 02:32, Kuninori Morimoto wrote:
-> 
-> Hi Olivier
-> 
-> Thank you for your feedback
-> 
->> Here is feedback regarding commit 5725bce709db1c001140d79398581e067e28c031
->> ASoC: simple-card-utils: Unify clock direction by clk_direction
-> (snip)
->> To accommodate the change introduced by this commit, I added the property
->> "system-clock-direction-out" in the SAI device tree node.
-> (snip)
->> * Before the change:
->> - Initialization:
->> simple_init_dai() -> set_sysclk(id=0, freq=sai_ck freq, dir=out)
->> 	Calls clk_set_rate_exclusive()
->> simple_util_shutdown() -> set_sysclk(id=0, freq=0, dir=out)
->> 	Calls clk_rate_exclusive_put() (releases the mclk clock)
-> 
-> Here, about "Before the change". Does this "change" mean "before adding
-> system-clock-direction-out" or "before commit 5725bce709db1..." ?
-> 
+The driver also uses "PCS" for RGMII, even though the dwmac PCS block
+is not present for this interface type - it was a convenice for the
+code structure as RGMII includes inband signalling of the PHY state,
+much like Cisco SGMII does at a high level.
 
-Oh yes, I mean both in fact. Namely, before having the commit and the 
-system-clock-direction-out property. Typically, I tested on a v6.10 and 
-on a v6.17 (or later) where I noticed a change in the SAI driver behavior.
+As such, the code refers to RGMII and SGMII modes for the PCS, and
+there used to be STMMAC_PCS_TBI and STMMAC_PCS_RTBI constants as well
+but these were never set, although they were used in the code.
 
->> * After the change:
->> - Initialization:
->> simple_init_dai() -> set_sysclk(id=0, freq=sai_ck freq, dir=out)
->> 	Calls clk_set_rate_exclusive()
->> simple_util_shutdown() -> set_sysclk(id=0, freq=0, dir=in)
->> 	clk_rate_exclusive_put() NOT called (mclk clock is not released)
-> 
-> Hmm...
-> If it was latest kernel, and if you added "system-clock-direction-out" in DT,
-> dir should be "out" in my understanding. dir=in means it doesn't have
-> "system-clock-direction-out".
-> 
-> And, dir will not be changed (out/in) in init / shutdown.
-> Are these same DAI ? Both "struct snd_soc_dai" and "struct simple_util_dai"
-> have "*name". Could you please double-check it ?
-> 
+The selection of the PCS mode was from mac_interface. Thus, it seems
+that the original intention was for mac_interface to describe the
+interface mode used within the dwmac core, and phy_interface to
+describe the external world-accessible interface (e.g. which would
+connect to a PHY or SFP cage.)
 
-I did supplementary checks, keeping only one DAI and adding additional 
-traces. It seems I reached a wrong conclusion regarding the cause of 
-unbalanced calls. Sorry for the confusion.
-Looking at the traces (see below), initially, we had one call with the 
-'in' direction (kernel clock frequency) and one call with the 'out' 
-direction.
-Now, both calls have the 'out' direction when the property 
-'system-clock-direction-out' is set. This seems more consistent with the 
-changes from commit 5725bce709db1.
-In my setup, the kernel clock is an input clock. Maybe it should be 
-tagged as an input clock. However, we have no 
-'system-clock-direction-in' property yet.
-Anyway, the patch in the STM32 SAI driver is still valid.
+It appears that many glue drivers misinterpret these. A good exmple
+is socfpga. This supports SGMII and 1000BASE-X, but does not include
+the dwmac PCS, relying on the Lynx PCS instead. However, it makes use
+of mac_interface to configure the dwmac core to its GMII/MII mode.
 
-v6.10
+So, when operating in either of these modes, the dwmac is configured
+for GMII mode to communicate with the Lynx PCS which then provides
+the SGMII or 1000BASE-X interface mode to the external world.
 
-simple_init_dai - dai: 0x110b6418, dai name: cs42l51-hifi,
-simple_init_dai - dai: 0x6204899f, dai name: 4400b004.audio-controller,
-stm32_sai_set_sysclk - dai: 0x6204899f, dai name: 
-4400b004.audio-controller, id: 0, freq: 29700000, dir: 0
-stm32_sai_set_sysclk - dai: 0x6204899f, dai name: 
-4400b004.audio-controller, id: 0, freq: 12288000, dir: 1
-stm32_sai_set_sysclk - dai: 0x6204899f, [set_rate] current freq: 0, 
-request freq: 12288000
-simple_util_shutdown - dai: 0x6204899f, dai name: 
-4400b004.audio-controller, dir: 0
-stm32_sai_set_sysclk - dai: 0x6204899f, dai name: 
-4400b004.audio-controller, id: 0, freq: 0, dir: 1
-stm32_sai_set_sysclk - dai: 0x6204899f, [put_rate]
+Given that phy_interface is the external world interface, and
+mac_interface is the dwmac core interface, selecting the interface
+mode based on mac_interface being 1000BASEX makes no sense.
 
-v6.17
+Moreover, mac_interface is initialised by the stmmac core code. If
+the "mac-mode" property is set in DT, this will be used. Otherwise,
+it will reflect the "phy-mode" property - meaning that it defaults
+to phy_interface. As no in-kernel DT makes reference to a "mac-mode"
+property, we can assume that for all in-kernel platforms, these two
+interface variables are the same. The exception are those platform
+glues which I reviwed and suggested they use phy_interface, setting
+mac_interface to PHY_INTERFACE_MODE_NA.
 
-simple_init_dai - dai: 0xbca889eb, dai name: cs42l51-hifi,
-simple_init_dai - dai: 0x4c0382ed, dai name: 4400b004.audio-controller,
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 29700000, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [set_rate] current freq: 0, 
-request freq: 29700000
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 12288000, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [set_rate] current freq: 
-24573875, request freq: 12288000
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 12288000, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [set_rate] current freq: 
-24573875, request freq: 12288000
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 12288000, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [set_rate] current freq: 
-24573875, request freq: 12288000
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 12288000, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [set_rate] current freq: 
-24573875, request freq: 12288000
-simple_util_shutdown - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, dai name: 
-4400b004.audio-controller, id: 0, freq: 0, dir: 1
-stm32_sai_set_sysclk - dai: 0x4c0382ed, [put_rate]
+The conclusion to all of this is that mac_interface serves no useful
+purpose, and causes confusion as the platform glue code doesn't seem
+to know which one should be used.
 
-I hope this can be helpful.
+Thus, let's get rid of mac_interface, which makes all this code more
+understandable. It also helps to untangle some of the questions such
+as:
+- should this be using the interface passed from phylink
+- should we set the range of phylink supported interfaces to be
+  more than one
+- when we get phylink PCS support for the dwmac PCS, should we be
+  selecting it based on mac_interface or phy_interface, and how
+  should we populate the PCS' supported_interface bitmap.
 
-Thanks and Best regards
-Olivier
+Having converted socfpga to use phy_interface, this turns out to
+feel like "the right way" to do this - convert the external world
+"phy_interface" to whatever phy_intf_sel value that the dwmac core
+needs to achieve the connection to whatever hardware blocks are
+integrated inside the SoC to achieve the requested external world
+interface.
 
-> Thank you for your help !!
-> 
-> Best regards
-> ---
-> Kuninori Morimoto
+As an illustration why - consider that in the case of socfpga, it
+_could_ have been implemented such that the dwmac PCS was used for
+SGMII, and the Lynx PCS for 1000BASE-X, or vice versa. Only the
+platform glue would know which it is.
+
+I will also note that several cores provide their currently configured
+interface mode via the ACTPHYIF field of Hardware Feature 0, and thus
+can be read back in the platform-independent parts of the driver to
+decide whether the internal PCS or the RGMII (or actually SMII) "PCS"
+should be used.
+
+This is hot-off-the-press, and has only been build tested. As I have
+none of these platforms, this series has not been run-tested, so
+please test on your hardware. Thanks.
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    | 20 +++++++-------
+ .../net/ethernet/stmicro/stmmac/dwmac-ingenic.c    | 25 ++++++++++-------
+ .../net/ethernet/stmicro/stmmac/dwmac-loongson.c   |  2 --
+ .../net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c    |  1 -
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   |  6 ++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c  | 26 +++++++++---------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  |  4 +--
+ drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c  | 24 ++++++++---------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  6 ++++-
+ include/linux/stmmac.h                             | 31 ++++++++++++++--------
+ 12 files changed, 82 insertions(+), 67 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
