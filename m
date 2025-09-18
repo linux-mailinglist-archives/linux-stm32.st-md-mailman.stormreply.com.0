@@ -2,160 +2,181 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18450B843C5
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Sep 2025 12:55:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E539B84A63
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Sep 2025 14:47:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EA27C3089F;
-	Thu, 18 Sep 2025 10:55:22 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50564C3F942;
+	Thu, 18 Sep 2025 12:47:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8AFFC3089D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB977C3F940
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Sep 2025 10:55:20 +0000 (UTC)
+ Thu, 18 Sep 2025 12:47:13 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58ICYDK7014495;
+ Thu, 18 Sep 2025 14:46:47 +0200
+Received: from gvxpr05cu001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013014.outbound.protection.outlook.com
+ [52.101.83.14])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 497fxb0r35-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Sep 2025 14:46:47 +0200 (MEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGoLwrjt9v8A4N51kU2JAjpvZBMt974pO4rBPexV2py6ye64IAuxWKxyE9Z59S9AeMd6wD1QG03IxRk7ukoges+mab8RpPV//KpSXGx8c4xAKWrMqDiKshdNMcqiphjZdMIXlPcBr+T3pUenLOCXSgM6OmM5c4LDUAyiihcr+NX3Qxe1AM9HWvIxcVDkjLHnjrUXMWd8wIwUZg3Tj1kB6aOh+HxIRqq0sftgBh/C41qZG4DS2K6njKkKQRMd5s78iSiteApqH6+cvj8YaGicwqQNvcEplwJ3dWg+Jx/kfIkBVDBfd8x+d3B5qk1C9H0jI6mLl7fpoD7b+HmoFLX+Ww==
+ b=H06+q9Lh6N9lzF0egAi0Y3rr8k59bF/Foz4uq1WH8raQy6/2j1Z+Y/pfEGOv9YZ+IoD7AgnaawaU3kNh3gRNPs0UEqm8cJcoFZ873srcWNlXF1xf229pU5nEfw0t4H4l3CUipAy0S8JT43dFXy26lhg5dFQhf3FDl1V8/EZgDdTXj8JfnFp2f2g63kL0Svywid6jwGxy/gQ1S7iplzSYa76TK3Q0TuwjIg2w0m/3LmPFZYgBPEe5V/wp/5GAnqCeTmotcu+gagTZV1bTbIO7HB3DdLUOIB76N/ltu4XG1472JSO1k6MiiMaO5b0r/nS1H/ra2D3EHPVZB+xdM2c+rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aKXv9GFbuVOE5qf6K6IHzS8o04CSaTpA1oplbvaAR2c=;
- b=QvrixxxgXDx5r4HMszJoVqsdd78HMiLIhTWMbATMseJcNqHa1wBcanc+CiX7Zj6JGVXmEJ4G0pEYibRci4z/qwo7h7mbG9EgPcOWwmuC50ioc3fRE/Sybjbvqsv9w6ivuHVLnFfe4YIQGNEcO4MRD2EtbVREIdbKk3gfinf8O3+pTfOogj9d6JjgSzrFYOPcbqq4B6Z1SA8tJoSvAmFwk4Q7CZfxdCQcR3iIPTwuGqLeFsKenj/bLGMnXkCgo/jbj/uKumRowtV3kl3MahpiRv+m9a5TjIvmw6PU08qCAFjUkdjlnFlUSvoKq7WDbkjGXYRYTOAW2+aXaYinaRXLJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ bh=e4eGYGTD6uDDss6GS4vkQgleprCRjJV87KWZEjuUoDo=;
+ b=h5y6Z3TuOnoyXk5b3Zw8wEjjW/WpFNveVXwr0TGLQUWl9/q271vzwq6u0Bl68bLpUMj17v0gt5T+5RDKIBZZ0tATr81Zm467rF6jI72xi/Ww0g+dS9QC8FVQHDhDZacEgvfP7B0zz5zyfGHZ/XOZhcJQZj0m+1ITBFsCPjDLK0+jAv/QQwn3xZXcVUmh2H9Rn/zu++iChlHKWwJOvOSr7Yeeuao7UL3/5LDtYFs/UFiUXYq0YeRP8Sl5TMFPiKQewBc04GqDFD/M7Lqt4peHSNyZ4HNtPUHPxlM0298supzdcjYGtREsU3ofkho469hPcKFsM1gIcl+v4bje3bN/Sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=armlinux.org.uk smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aKXv9GFbuVOE5qf6K6IHzS8o04CSaTpA1oplbvaAR2c=;
- b=QILcSkxqi9/Xa32GAJLvq5Mvi1mQYtX6p2wd0nN2q94rr7fYvOtSnME4kJT7za5t3RdJdS+snvyoyJeyrx1NwxtFPqC2iwk9bzgz+PDPBueVIHIB98tsgA0jpVbZlLscGirMkgxjk2nlpVHmTf7WH5LFMyeQR0dhlcX9aQFRwwObUOCrkgF+E8ci1R7VHPaLphWQnoeYVF1vtq2bV5PoUC+Gc5+yKJjIpoc5wszBQJQ0A0iAmUSQ9f7upZCn0yoq7zmv//xqBvwaFeOjAMnCtSs2FaliattlyFNDhPTeCW9VkKS3oHjNZ1VI6CYhErwaHo7olCZ4F2gyXRIcdyNjVw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com (2603:10b6:5:24c::21)
- by BL1PR03MB6168.namprd03.prod.outlook.com (2603:10b6:208:319::20) with
+ bh=e4eGYGTD6uDDss6GS4vkQgleprCRjJV87KWZEjuUoDo=;
+ b=WaKeFONQdqG0+8J+LNKfxrFpdzYDIfFs8EycbscH1p9RvGEom+1Q/GMsNpqmOJSdy+Iz1Z5PZbY47yxJInKt6kv8w8RzK71F7es48cJis7CefFEVwjhPjLn8TEDWrV9v6sPbHzBjwxckypuo2gP3ab03WMY2IOv/nuSYRC8pkLGCOfVD3OQitZTLhjOiU9sME9WKZFjIKmS56tko0Rz+AKyarSQCU+eqW8/t3Dlry43MpEbqnLdxSMl6bL2RYx0bKmWlOBH8Pvg9EJdoKHEZeCz7xPbcYXMBhwUSNumhQmZlzC9DZq3I3DKVtIbcxOODBuYcabzJz7ZNLptG38y95w==
+Received: from DU2PR04CA0007.eurprd04.prod.outlook.com (2603:10a6:10:3b::12)
+ by VI0PR10MB9128.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:213::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.13; Thu, 18 Sep
- 2025 10:55:17 +0000
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076]) by DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076%4]) with mapi id 15.20.9137.012; Thu, 18 Sep 2025
- 10:55:17 +0000
-Message-ID: <572d958e-a3db-452c-b888-c15a9fd4afe9@altera.com>
-Date: Thu, 18 Sep 2025 16:25:07 +0530
-User-Agent: Mozilla Thunderbird
-To: Jakub Kicinski <kuba@kernel.org>,
- Rohan G Thomas via B4 Relay <devnull+rohan.g.thomas.altera.com@kernel.org>
-References: <20250915-qbv-fixes-v2-0-ec90673bb7d4@altera.com>
- <20250915-qbv-fixes-v2-2-ec90673bb7d4@altera.com>
- <20250917154920.7925a20d@kernel.org> <20250917155412.7b2af4f1@kernel.org>
-Content-Language: en-US
-From: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-In-Reply-To: <20250917155412.7b2af4f1@kernel.org>
-X-ClientProxiedBy: MA0P287CA0009.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:d9::9) To DM6PR03MB5371.namprd03.prod.outlook.com
- (2603:10b6:5:24c::21)
+ 2025 12:46:41 +0000
+Received: from DB5PEPF00014B8D.eurprd02.prod.outlook.com
+ (2603:10a6:10:3b:cafe::a5) by DU2PR04CA0007.outlook.office365.com
+ (2603:10a6:10:3b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.13 via Frontend Transport; Thu,
+ 18 Sep 2025 12:46:41 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ DB5PEPF00014B8D.mail.protection.outlook.com (10.167.8.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 12:46:40 +0000
+Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Thu, 18 Sep
+ 2025 14:44:15 +0200
+Received: from [10.48.87.141] (10.48.87.141) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Thu, 18 Sep
+ 2025 14:46:38 +0200
+Message-ID: <72ad4e2d-42fa-41c2-960d-c0e7ea80c6ff@foss.st.com>
+Date: Thu, 18 Sep 2025 14:46:54 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <20250917-wol-smsc-phy-v2-0-105f5eb89b7f@foss.st.com>
+ <20250917-wol-smsc-phy-v2-2-105f5eb89b7f@foss.st.com>
+ <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
+Content-Language: en-US
+In-Reply-To: <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
+X-Originating-IP: [10.48.87.141]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|BL1PR03MB6168:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5469994-b62f-42af-e20e-08ddf6a1da27
-X-MS-Exchange-AtpMessageProperties: SA
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B8D:EE_|VI0PR10MB9128:EE_
+X-MS-Office365-Filtering-Correlation-Id: cad66d6f-c54e-459f-652b-08ddf6b16a1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RGw2bElaamZQYVlzcnFaMGx4SVRQNmpRaUI0RmdPRGk2dktZU1NTc0RHSmVZ?=
- =?utf-8?B?azNKYWRDSUtRdDk2OUdkSlZFQXNINnpUN25lVjZESHgra1VvYmZLTktaS002?=
- =?utf-8?B?WERLOFh1UGNGdjVaaytDNU1wYW5VRWo2MXBvRjJFL2ZrY0NlK2U1MHVOSWJJ?=
- =?utf-8?B?dm0zK0l0Qm45L2hWRTNCdkErUUZTa2RsYkp5U0tiTkF0Qk1uUDFYYlFyaFNa?=
- =?utf-8?B?akF0NUt2ZHowM0p6aWNoY0hhQmEzYkZQcnNrNzk5dGFVaWtjRmRPOWY4NkYx?=
- =?utf-8?B?d0tKSUhjYlF4OTdtUW8rWE5xOFlBS3RKcVdReUpEamJBeVlYOFI3SFd0TTVm?=
- =?utf-8?B?Wk96eUx2ZUppVXlKRjY4YnRJcFdYTzVBWW9IejdONEhCVWJhOEQ1Qnp2TStw?=
- =?utf-8?B?SjY1d09IaiszTTVOSlprUW4xYnVtRlhVa1lQVnNoV2ROWE8rQlpuanZRYXNo?=
- =?utf-8?B?NnhxelhIR21TUDlxMGszV084SkNZaDFhWUFiaEV2bjljbi9jRkVYRHBYOUFP?=
- =?utf-8?B?VnI0S0NlcUsvZDZTYVY1RWFEeEh2bjBrOG5OY0tRbHBZNnY4UHFmN1NkRXhw?=
- =?utf-8?B?eTNidGIzK3lOMnhPTllaWFlrbHY5ak95eFVpazRrYVh6WjZlczJwNWNNQW1m?=
- =?utf-8?B?cjlqVkZkRS9jbHpRaWxGMkp5aWsvSGhnNHRxSmFCbDFGclJMZWhodW45YmhU?=
- =?utf-8?B?N0hPYU80N0RVU3FiTG1iaUNRaHlUenNnY0ZPU3JRcm52UGw1VlZoTTN5ZHht?=
- =?utf-8?B?b1V2UDN1KysxMGFVUkhlb2R4WXFKVGFJWVFuSHI4dmd2bVVzSGtXM3ZQZTNU?=
- =?utf-8?B?U21GMVE4T2FVbVV2SUdKV0UxT1dhcjUvUDREOHhuSUNmbFZoVTRpK24wUkNz?=
- =?utf-8?B?aEx5eXRCZG41N2NHYnUra0tEVmphODhxdWc4VzU4T1RkN2paRCtrRTcyaWk0?=
- =?utf-8?B?U3BuTDJMY0hZa1RZVWpna2ZOZGJiWGw1V3IyZzlockVtWVpaTmVEWlJvZVBR?=
- =?utf-8?B?L21sNUpTT1RwR3hma3ZWamZxWW0raDBEa2ZmVUViUHNGZE4zSWVCcy9mY3gz?=
- =?utf-8?B?Q1R5QWFCZWtueXRQVTZSVVhTOXlvSy82dXYxNTk0bHpHejBQd05oekVRb0dY?=
- =?utf-8?B?bTRGVDNaZ0xCR1Y2bDRac2RaaDhISUJjSzk5bGFFbkdEaVJTR2lEYVpEdy9G?=
- =?utf-8?B?ejdEeFh2b3VPc0laN3M0dlZwMDM1bDRuQWRra1JqT0kxRWhzanZ2L1gwbUJt?=
- =?utf-8?B?ZFB2WXNFNnFKUnpnRlM5MjFac0pYRXJpQTJBS2Z2UkhoMDFERnJJR0tRRkl2?=
- =?utf-8?B?WjRCRTN3bzFhVThOa2FtRkpFeFpuU3V1UE02SldQU0cxNm13dnJ6TFFLTTRx?=
- =?utf-8?B?QmJ2eDRKckNNZEIzUGpjTlM4RlVRNXVXYlpSOCtxS2xtOW5jeWN2MWFjNGxY?=
- =?utf-8?B?NkdGV25TQ0gxUzlHd0V0UFZDYzAzbzN2NFpxRHMxRlQ0R3BBN1gzMUZaMklW?=
- =?utf-8?B?NWJtYUREa0RYT2dFRHViOGEzcWI5Vm5vZjNDU0F6eDFSYkNQTFR2bStwR3dE?=
- =?utf-8?B?RVdLbEdDRkRXd2pyM1J1REtVWURMT0RpeFJNZCs3MTRaYnZBUlhRb2xSUktW?=
- =?utf-8?B?aXlOWG4ycGVDRFk5QTQ3cm0rbHBhak96MktCOWlWc3VCRDhvbjFLZTN4dzFa?=
- =?utf-8?B?ZXF2SFU0czRiN3lzZWRlYjFQc3JhRG4xNThLUjRXRWdRRUtBeGQ3eTZaR000?=
- =?utf-8?B?NlVzVmYzMTE0ZHBkSmVVVXF1MWpsZG1xYktURHpLZEFLWVF6RFIvU2I2ZjVQ?=
- =?utf-8?B?Y3BRWEIwYlk3SlBvYmJHT1lGYWVXQmRXZUdEVDNMK1BOS0FhN3hRWjkreE5I?=
- =?utf-8?B?Rzc1NU9yV2xVQXlYbmtUQnVac3FKOTh6VzBtTmpsdDZUNlh2Y1ViQ0VWamNS?=
- =?utf-8?Q?Hji3T+RLIgU=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR03MB5371.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnF1RmptOHRoWWFPWDBoZEtPVEMwa25DSHQ0OXZYL2NSd2tiQUVPNm15Z29w?=
- =?utf-8?B?TWpZZGpHeVJkUVQ4b2dpR1orQUxmeGR5OEI4ekFrQVN3L1lMcDFrb1Q4QWhF?=
- =?utf-8?B?T2YxL21mb1R0Z2h2QXlCRi9OY0htbDdNMTJXQlREQzdKOE4xalVzWmJIRmxU?=
- =?utf-8?B?MXZCV2RuU3VuT1V0MEJHSlpUa2tJT052L3AzNG5JcVZ3bTNlcmxBTXVlVnRC?=
- =?utf-8?B?dEZ5T2hqZUp2UWNmYnRMblhQM2JSOXc0TjE0dzNuMEJEZnBFMHRLaE5pR3kr?=
- =?utf-8?B?Mk5aeEF2YlRoSVcvckFGQXZlR3BFZ0trWUNvVHhiQmlPWFU3SWVEM2RQNThx?=
- =?utf-8?B?Q2NiUHVPSGVJbjNnK1ViejZRZGhQandNWWpqYXZWdzFpbFVRb1BMdjV5TVRi?=
- =?utf-8?B?Q0Eyb0FvdjZOa2FrTWJZRThLQXJQZXVpeGlCcFVxK0VDY1NDbTNRYytTa00y?=
- =?utf-8?B?NXNNUXR4eG5JTkpJVHE4YnhkSXNWaG1PMHpJOTd1a3F4Ym9TNlZqeVpXRkZZ?=
- =?utf-8?B?ZTh3eDFLNHRqdjJHMmFVdEhVVXYzTUJKT0VJS2JUUy9XVVZjMXRlN3o4ZlFi?=
- =?utf-8?B?SHdNVnpXQUlGWFlaUHYxWFZJTTVTUXpRZ2xWelA5K2kzK1doalBCMklBY1hx?=
- =?utf-8?B?T21ROHZZdjAwdEN1REFBT1lVRm9MOE53Ync4TzYrSkRHMG1zYnZVY2p6b3hN?=
- =?utf-8?B?U0g2citOV3lEWnNjRktrN2JmVkxLVWo0Nm8rTUJCajk4dEZnNzhzM05NK1hU?=
- =?utf-8?B?ZGtyV3E1bFM0TWlVZ1lMQnY1WjlOMTI2dW9EUHREdFlSTXBYWVJidy91VGlq?=
- =?utf-8?B?WkJTK3FON25NakpRWUw4ZjR4eS9aS0djV2JvTXMxQlY2bzdyTjRHL0tPZnNY?=
- =?utf-8?B?UDJjY1hOMTZTd0RXazVNMjMxTFc4Z2ZsVThxdzhFampVTUR2YmVHamVTV3Jv?=
- =?utf-8?B?MFJ3c3NzUmgvdTlETzJYeVByQ1JyaDZIT0Vxbkd5S1hna2tXK3pkYmswQjR4?=
- =?utf-8?B?Q2UvMVdUQkt0RDJMTXNKSlVHOFZNQS9UeHVRZklIZURaMHJiOUVmRGhtL2sy?=
- =?utf-8?B?K0NhQkhtWWNLYWJHMU9pK29PbERLZ1NNNHppeTk3NU8zY05CL2p6WjlaS21X?=
- =?utf-8?B?RS9WTm04a29aR25DWCt6RHJXczhkUVZmVHF1WDA5UThTeE9xM24reGdITWxu?=
- =?utf-8?B?bWsrT3I5aGxTdlVhTE1FeG1FMys3V1ZEWlhwc2EzbHRiS0l1dnErLzhudHBu?=
- =?utf-8?B?NlhWTlgxcnk5bmJwTHlueTlWTXQwZVhSZThVOHBOTEdpODh5a1FPVHVkOExJ?=
- =?utf-8?B?TFVDUWFkaXVrdWRnNVoyMjlyRGhyOUdMMDBad1VMZGJDcFpIbk5ldmdGd0M2?=
- =?utf-8?B?eldUdllTenVMci9pSFVZdFdEck0xMFZzTGJJNzVzbEE2a2pEU0dYVTlYYmRw?=
- =?utf-8?B?MU9MazJGbzZ0YnVUQ2VncmJzUjE5TlNTVUZRT05wVUlEYnhUeGhDaWRqWmV5?=
- =?utf-8?B?MFgzYjYycWdFcXJzc1VzZ1hleEJZTCsvMXM3VXpCdXFnUmNvamV6L3VINmNL?=
- =?utf-8?B?MytTaDJseDZxK29INWxHeWZScGxUZWkwbzlWMzdNc1NsMEkyZ2g3bkhQU3d5?=
- =?utf-8?B?bUdaV3lEdW4weHlvNjlBTDFzS1JUZXRwcEpwci84T0Iwa0VkTSt2ai9kYW1I?=
- =?utf-8?B?RWR2d29qTnFJTlZqOVllZ0w2RGNRNExyWTFBU0d0K1BXSEsrR1liVHpKZStn?=
- =?utf-8?B?YlVtT2ZWUlYyYVl5bWlqZElzK08rTWVoSFNJK3VVYXUyR1hOUFZnN24xcS9m?=
- =?utf-8?B?cmE1Ni9xekc4UmpiRU55SFNmbEhaRnNmRWZadEtxQjFzV1lSUFFhYmdpdy9p?=
- =?utf-8?B?dVpZVEhIQkExNTBJZEpyRjlrUTVBa1BXS2tDaWw1ODFkZXRZTFBEUVdYOS9z?=
- =?utf-8?B?WUhBb2NkZ3QwU0xnd3g0UVBFS2Z4QnJXNEpyekMxRUQwQzd2bUI0OEtJWjQw?=
- =?utf-8?B?S21yT0E1R1oxU1RIYTlZUEZaK1I0dE41VmZBTXdMaE9xL2hZSmdFdTQ4cE1N?=
- =?utf-8?B?YmVTa0krdVVJNjJVNnZZZzlSRU1vRUQ0TFNxTFRvSDBEbndmSS9tUnNiNy8v?=
- =?utf-8?B?R0JHSndJa1B4L0o4eVcrUmg1WFNYVWxna1V0bXVqZmVDUkpsQ0h3VFVsVXh6?=
- =?utf-8?B?SEE9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5469994-b62f-42af-e20e-08ddf6a1da27
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5371.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 10:55:17.1623 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /Xq6JKx3ZRpfCLGInThKISDqZqyTuJBB8EUR/uKbIgJXe1UVvucknasDa/5ca87Ky071agwDzSB/RImWFqFOkITZbaXdXnHWPUQjZzOkFJI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6168
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014|7416014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MU9XeWI5eE9tMjMxTTFpcUF0dWxXUDBLeDFTYUtVMUdRblRDZEZLMjFOS0Zi?=
+ =?utf-8?B?RUg4N1RPSWFnZHZHaTdneVVlWXV6NzFROStGZ3pXZTdiMUZJbDg5T3Q2dzNv?=
+ =?utf-8?B?VEY2NWdTTmY0T2ZlaDNKa2RjMjBSYy9way9FZkpDYkFNZnFtSGZNNEpmRjdJ?=
+ =?utf-8?B?UFJCVm90bUczK096VHZuTXdsVllIV3V1WFU4ZU5SUFV0YitCMWVPTjUrY1dF?=
+ =?utf-8?B?NkE5TkQ1dERoaGx2emlXS2NLQnRQOExQUWNDVHN5N0xKWHNqL0lrYmhlNUlI?=
+ =?utf-8?B?QkNjNHQrT1luUGxhbnlRU1Y3Q3JYVndxS1hBOVdiN2lxU25OTjh2c3dURlRF?=
+ =?utf-8?B?akRTbmZ4aWZ0VnJNQnA4d3crSDhka2s5Yjd5dlRUTXRlSTNyc2xidmpzM0Uy?=
+ =?utf-8?B?WGVtbER5L1RhMnlHNGY2UDNmUUluaXl4cHR4UUFIN3N2bkt6ZFBoTGRrYWow?=
+ =?utf-8?B?VHcwSitoa3FRYlVJZ2NVb1lUL1VDZ1hMVmNFTExQTmd0a2VxQXRCQ2tEeEtL?=
+ =?utf-8?B?cGVHdTNvRmF4NkRodmZKeDJ0Qm9yLzdmRnZUVHZCTm9MRTF3UzFTd25MYitE?=
+ =?utf-8?B?MmdEeklwVFREWEdpNnNFcDJCWFRvVlEyaWtwTVBkLzJFbEpkWDJha0RoUnph?=
+ =?utf-8?B?OXZWUzMxa2lUUkI3ZFRQekF1Wkw1aGZ6SGN5SDc1c2dwd0lCR1YrL1VVSGx5?=
+ =?utf-8?B?NDRpeForS3c3S01SWldZQ1ZQbWFodUlLYng3S0FzVkN6WWdacVFReDl1aDls?=
+ =?utf-8?B?bGdkc25IVXhrMk9RK2g0OHc3RXR3bUY2YWtFa2JTQVRrdXhkcW9xQldRblVY?=
+ =?utf-8?B?eGcrN24vZEhXc0xtVlJsNTB6K2ovNlZ2THY4NTdFclM0cWVOd2h4ZWJjQ3dm?=
+ =?utf-8?B?cXFKMGl5MFI4cVRzTVpwNEhLTlVoZ3ZpWjVhd1drUHZObS9Zd3hSNjRNdjJz?=
+ =?utf-8?B?ai9ZekRteDZ3NXBOREUxSjhRenk3bzJXZ283RU0wZ21tWm9FWWFhYmpIbzdN?=
+ =?utf-8?B?cVIrN3ZwSldvdUw4SmhnYnI2UVFTNE93SGw2MEZiZGtSR2NDNjhGSW5iUzlP?=
+ =?utf-8?B?ZXJDcGdZcGdEWDJkaDZyZnlHWWFXVjN2Vll2b3lIT2ljN2M2WTBWRVZ5eito?=
+ =?utf-8?B?STltcStVakI2b2xxSWNhb2xZZzAxUkxBZ3RjcW1oTS9LajZxSC9ocUhZVnVM?=
+ =?utf-8?B?U2puRDVOVUFiOFNXMXVmMmtIdHhMbmV4OUhNeldWTk5uZEVhY2FKbmp3WllQ?=
+ =?utf-8?B?bkhSYmoyN3BFOGhtVVpEb1c1VzRwUGZkTlNwb3JwMEhyUG5qek5KQkNKVmMx?=
+ =?utf-8?B?YldzZE0yUEVoelBHVXhIcGFKampZYzNRWk9GL0R3YmpVTTFkK0tGczlTSnBz?=
+ =?utf-8?B?eVpLNzZwUERGWEJHeDEraDQ3ZGJnSHMxTS9OSzNDT3E5WUM2MCsxN1ZISjlS?=
+ =?utf-8?B?aGtobnM4ZDFqZlNtb2pNaWFhVUZOUjJKSm1RQ2FUWVVHMTc4NWltTGtzTWdH?=
+ =?utf-8?B?TnAxRjEyaWFhNzFoNTBKdWFMV2VuZTFLUVRCY0NlRjc3dG1ncFlKK1JjSmxY?=
+ =?utf-8?B?ek0xMi9iRUdqdkgrZld1MXh5YzJqYytoUHZiSDdwQmdXaUtNWHdmN3piem9i?=
+ =?utf-8?B?MS92RllYZ1RmQm1RTVgxZDFJTmVhbTh3Y0tZUUFQL0NkNkZiL1haeUcwTTFh?=
+ =?utf-8?B?V05xWkxtUXBtUzE1SzRLRDYxUmN2RlBjOTcrbDVyMDNqM2hKamZVMDZnL3lR?=
+ =?utf-8?B?TDhTd0ZVUm5IL2xqQjJHZ1crTXdMUDlyckhSUFJlL0RUUmxMWWt6VTl0TXM1?=
+ =?utf-8?B?RHU5SVF1YVpWUmtnSk5BSk5xYWs1OXlwckFCY0lqMTBnTnFaRTBBVWtPa2Y3?=
+ =?utf-8?B?cnBtMkEvdEcxR1RkYWZBTU00U3BwblNydkwwM1ZSSlJycXBHT0xyY21sQjV1?=
+ =?utf-8?B?MnBwUXdiVzROTlU3NGUvb0R2RFNnOTJ6S29VTDRVREdscU9TWURDL29pcjdD?=
+ =?utf-8?B?ZXNhS3h0UFdYWmtHRms0bzFRbGJnMXZwK3NlcXdtNStFa3lORVBIMzNudGxx?=
+ =?utf-8?Q?gfTxee?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7416014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 12:46:40.5131 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cad66d6f-c54e-459f-652b-08ddf6b16a1d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B8D.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9128
+X-Authority-Analysis: v=2.4 cv=RPOzH5i+ c=1 sm=1 tr=0 ts=68cbff37 cx=c_pps
+ a=g9/3GMKIs+LCGVgKrk4MiA==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=ei1tl_lDKmQA:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10 a=8b9GpE9nAAAA:8
+ a=0glZYLincierIbUUXmEA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: tyNQECcvvEfLc3QyviA30XUg7lIizoIE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE2MDIwMiBTYWx0ZWRfXwKAiRRZGddep
+ 2qJKGCYEy622bjXORup6MQ3FOhMx7Rgz5tQna7CxfY1c0ESSHQ+F6Mn/MWa4ToKOniUNYK9+Kt/
+ ufZFVZ0aMi7IkMwcGCsBKUZSqT/rSLdB5amgyQg+nZ0oQ5yqa2107r0XLbE4Fha9Plw05Sa0Sge
+ ZA9jLwOyd7Enj6U2lOKYV85n49RK6twUYCSivPraLudj9Tk62HI/w23z8Lg1531s5D/sbKGHkJe
+ KmuQt26kjQwc/kmIeyaeHgT54yn7yIKyweLuk5KAfICWFoz4uRirteCSNXk8ry3+4xrJV15osH4
+ PR+9DyLfcOamn/QKfev9BJZBZv2LkusNJc/Fj3ZWNBEhLbxCWSjLOdVpgRPu4wgozESOzxb1K0M
+ CQ9kelSX
+X-Proofpoint-GUID: tyNQECcvvEfLc3QyviA30XUg7lIizoIE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-17_01,2025-09-18_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 impostorscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 spamscore=0 clxscore=1015
+ bulkscore=0 phishscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509160202
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew@lunn.ch>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, "Ng,
- Boon Khai" <boon.khai.ng@altera.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: Consider Tx VLAN
- offload tag length for maxSDU
+ Tristram Ha <Tristram.Ha@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org, Heiner
+ Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: stm32: add
+ WoL from PHY support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -172,100 +193,189 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jakub,
 
-Thanks for reviewing the patch.
 
-On 9/18/2025 4:24 AM, Jakub Kicinski wrote:
-> On Wed, 17 Sep 2025 15:49:20 -0700 Jakub Kicinski wrote:
->> On Mon, 15 Sep 2025 16:17:19 +0800 Rohan G Thomas via B4 Relay wrote:
->>> From: Rohan G Thomas <rohan.g.thomas@altera.com>
->>>
->>> On hardware with Tx VLAN offload enabled, add the VLAN tag
->>> length to the skb length before checking the Qbv maxSDU.
->>> Add 4 bytes for 802.1Q an add 8 bytes for 802.1AD tagging.
->>>
->>> Fixes: c5c3e1bfc9e0 ("net: stmmac: Offload queueMaxSDU from tc-taprio")
->>> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
->>> Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
->>> ---
->>>   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++++++++++-------
->>>   1 file changed, 18 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>> index 8c8ca5999bd8ad369eafa0cd8448a15da55be86b..c06c947ef7764bf40291a556984651f4edd7cb74 100644
->>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->>> @@ -4537,6 +4537,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->>>   	bool has_vlan, set_ic;
->>>   	int entry, first_tx;
->>>   	dma_addr_t des;
->>> +	u32 sdu_len;
->>>   
->>>   	tx_q = &priv->dma_conf.tx_queue[queue];
->>>   	txq_stats = &priv->xstats.txq_stats[queue];
->>> @@ -4553,13 +4554,6 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->>>   			return stmmac_tso_xmit(skb, dev);
->>>   	}
->>>   
->>> -	if (priv->est && priv->est->enable &&
->>> -	    priv->est->max_sdu[queue] &&
->>> -	    skb->len > priv->est->max_sdu[queue]){
->>> -		priv->xstats.max_sdu_txq_drop[queue]++;
->>> -		goto max_sdu_err;
->>> -	}
->>> -
->>>   	if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
->>>   		if (!netif_tx_queue_stopped(netdev_get_tx_queue(dev, queue))) {
->>>   			netif_tx_stop_queue(netdev_get_tx_queue(priv->dev,
->>> @@ -4575,6 +4569,23 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->>>   	/* Check if VLAN can be inserted by HW */
->>>   	has_vlan = stmmac_vlan_insert(priv, skb, tx_q);
->>>   
->>> +	sdu_len = skb->len;
->>> +	if (has_vlan) {
->>> +		/* Add VLAN tag length to sdu length in case of txvlan offload */
->>> +		if (priv->dev->features & NETIF_F_HW_VLAN_CTAG_TX)
->>> +			sdu_len += VLAN_HLEN;
->>> +		if (skb->vlan_proto == htons(ETH_P_8021AD) &&
->>> +		    priv->dev->features & NETIF_F_HW_VLAN_STAG_TX)
->>> +			sdu_len += VLAN_HLEN;
+On 9/17/25 18:31, Russell King (Oracle) wrote:
+> On Wed, Sep 17, 2025 at 05:36:37PM +0200, Gatien Chevallier wrote:
+>> If the "st,phy-wol" property is present in the device tree node,
+>> set the STMMAC_FLAG_USE_PHY_WOL flag to use the WoL capability of
+>> the PHY.
 >>
->> Is the device adding the same VLAN tag twice if the proto is 8021AD?
->> It looks like it from the code, but how every strange..
+>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>> ---
+>>   drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
 >>
->> In any case, it doesn't look like the driver is doing anything with
->> the NETIF_F_HW_VLAN_* flags right? stmmac_vlan_insert() works purely
->> off of vlan proto. So I think we should do the same thing here?
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+>> index 77a04c4579c9dbae886a0b387f69610a932b7b9e..6f197789cc2e8018d6959158b795e4bca46869c5 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+>> @@ -106,6 +106,7 @@ struct stm32_dwmac {
+>>   	u32 speed;
+>>   	const struct stm32_ops *ops;
+>>   	struct device *dev;
+>> +	bool phy_wol;
+>>   };
+>>   
+>>   struct stm32_ops {
+>> @@ -433,6 +434,8 @@ static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
+>>   		}
+>>   	}
+>>   
+>> +	dwmac->phy_wol = of_property_read_bool(np, "st,phy-wol");
+>> +
+>>   	return err;
+>>   }
+>>   
+>> @@ -557,6 +560,8 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
+>>   	plat_dat->bsp_priv = dwmac;
+>>   	plat_dat->suspend = stm32_dwmac_suspend;
+>>   	plat_dat->resume = stm32_dwmac_resume;
+>> +	if (dwmac->phy_wol)
+>> +		plat_dat->flags |= STMMAC_FLAG_USE_PHY_WOL;
 > 
-> I suppose the double tagging depends on the exact SKU but first check
-> looks unnecessary. Maybe stmmac_vlan_insert() should return the number
-> of vlans it decided to insert?
+> I would much rather we found a different approach, rather than adding
+> custom per-driver DT properties to figure this out.
 > 
+> Andrew has previously suggested that MAC drivers should ask the PHY
+> whether WoL is supported, but this pre-supposes that PHY drivers are
+> coded correctly to only report WoL capabilities if they are really
+> capable of waking the system. As shown in your smsc PHY driver patch,
+> this may not be the case.
 
-Agreed, those checks using NETIF_F_HW_VLAN_*_TX flags are redundant, as
-stmmac_vlan_insert() already returns true. As you suggested I'll update 
-stmmac_vlan_insert() to return the VLAN header length it decides to 
-insert, so the logic can be simplified and made more concise.
+So how can we distinguish whether a PHY that implements WoL features
+is actually able (wired) to wake up the system? By adding the
+"wakeup-source" property to the PHY node?
 
->>> +	}
->>> +
->>> +	if (priv->est && priv->est->enable &&
->>> +	    priv->est->max_sdu[queue] &&
->>> +	    sdu_len > priv->est->max_sdu[queue]) {
->>> +		priv->xstats.max_sdu_txq_drop[queue]++;
->>> +		goto max_sdu_err;
->>> +	}
->>> +
->>>   	entry = tx_q->cur_tx;
->>>   	first_entry = entry;
->>>   	WARN_ON(tx_q->tx_skbuff[first_entry]);
->>>    
->>
+Therefore, only set the "can wakeup" capability when both the PHY
+supports WoL and the property is present in the PHY node?
+
+However, this does not solve the actual static pin function
+configuration for pins that can, if correct alternate function is
+selected, generate interrupts, in PHY drivers.
+
+It would be nice to be able to apply some kind of pinctrl to configure
+the PHY pins over the MDIO bus thanks to some kind of pinctrl hogging.
+This suggests modifying relevant PHY drivers and documentation to be
+able to handle an optional pinctrl.
+
+Disregarding syntax issues, could be something like:
+
+phy0_eth1: ethernet-phy@0 {
+	compatible = "ethernet-phy-id0007.c131";
+	reg = <0>;
+	reset-gpios = <&mcp23017 9 GPIO_ACTIVE_LOW>;
+	wakeup-source;
+	pinctrl-0 = <&phy_pin_npme_hog &phy_pin_nint_hog>;
+
+	phy_pin_npme_hog: nPME {
+		pins = "LED2/nINT/nPME/nINTSEL";
+		function = "nPME";
+	};
+
+	phy_pin_nint_hog: nINT {
+		pins = "LED1/nINT/nPME/nINTSEL";
+		function = "nINT";
+	};
+};
+
+What do you think of that?
+
+Otherwise, the idea below looks promising to me.
+
 > 
-
-Best Regards,
-Rohan
+> Given that we have historically had PHY drivers reporting WoL
+> capabilities without being able to wake the system, we can't
+> implement Andrew's suggestion easily.
+> 
+> The only approach I can think that would allow us to transition is
+> to add:
+> 
+> static inline bool phy_can_wakeup(struct phy_device *phy_dev)
+> {
+> 	return device_can_wakeup(&phy_dev->mdio.dev);
+> }
+> 
+> to include/linux/phy.h, and a corresponding wrapper for phylink.
+> This can then be used to determine whether to attempt to use PHY-based
+> Wol in stmmac_get_wol() and rtl8211f_set_wol(), falling back to
+> PMT-based WoL if supported at the MAC.
+> 
+> So, maybe something like:
+> 
+> static u32 stmmac_wol_support(struct stmmac_priv *priv)
+> {
+> 	u32 support = 0;
+> 
+> 	if (priv->plat->pmt && device_can_wakeup(priv->device)) {
+> 		support = WAKE_UCAST;
+> 		if (priv->hw_cap_support && priv->dma_cap.pmt_magic_frame)
+> 			support |= WAKE_MAGIC;
+> 	}
+> 
+> 	return support;
+> }
+> 
+> static void stmmac_get_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+> {
+> 	struct stmmac_priv *priv = netdev_priv(dev);
+> 	int err;
+> 
+> 	/* Check STMMAC_FLAG_USE_PHY_WOL for legacy */
+> 	if (phylink_can_wakeup(priv->phylink) ||
+> 	    priv->plat->flags & STMMAC_FLAG_USE_PHY_WOL) {
+> 		err = phylink_ethtool_get_wol(priv->phylink, wol);
+> 		if (err != 0 && err != -EOPNOTSUPP)
+> 			return;
+> 	}
+> 
+> 	wol->supported |= stmmac_wol_support(priv);
+> 
+> 	/* A read of priv->wolopts is single-copy atomic. Locking
+> 	 * doesn't add any benefit.
+> 	 */
+> 	wol->wolopts |= priv->wolopts;
+> }
+> 
+> static int stmmac_set_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+> {
+> 	struct stmmac_priv *priv = netdev_priv(dev);
+> 	u32 support, wolopts;
+> 	int err;
+> 
+> 	wolopts = wol->wolopts;
+> 
+> 	/* Check STMMAC_FLAG_USE_PHY_WOL for legacy */
+> 	if (phylink_can_wakeup(priv->phylink) ||
+> 	    priv->plat->flags & STMMAC_FLAG_USE_PHY_WOL) {
+> 		struct ethtool_wolinfo w;
+> 
+> 		err = phylink_ethtool_set_wol(priv->phylink, wol);
+> 		if (err != -EOPNOTSUPP)
+> 			return err;
+> 
+> 		/* Remove the WoL modes that the PHY is handling */
+> 		if (!phylink_ethtool_get_wol(priv->phylink, &w))
+> 			wolopts &= ~w.wolopts;
+> 	}
+> 
+> 	support = stmmac_wol_support(priv);
+> 
+> 	mutex_lock(&priv->lock);
+> 	priv->wolopts = wolopts & support;
+> 	device_set_wakeup_enable(priv->device, !!priv->wolopts);
+> 	mutex_unlock(&priv->lock);
+> 
+> 	return 0;
+> }
+> 
+> ... and now I'm wondering whether this complexity is something that
+> phylink should handle internally, presenting a mac_set_wol() method
+> to configure the MAC-side WoL settings. What makes it difficult to
+> just move into phylink is the STMMAC_FLAG_USE_PHY_WOL flag, but
+> that could be a "force_phy_wol" flag in struct phylink_config as
+> a transitionary measure... so long as PHY drivers get fixed.
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
