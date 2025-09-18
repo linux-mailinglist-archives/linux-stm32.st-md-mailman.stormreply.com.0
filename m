@@ -2,63 +2,176 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35003B84EFD
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Sep 2025 15:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D18B85429
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Sep 2025 16:33:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0223C3F940;
-	Thu, 18 Sep 2025 13:59:32 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10A46C349C6;
+	Thu, 18 Sep 2025 14:33:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03261C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22ED4C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Sep 2025 13:59:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jZhxEQj8wZgmKlh5JqOaBLYYciKgqt6bF58Ec3MI89Q=; b=x0uhvtYBfqM4ev+QWxKV0Frpwg
- N9X8yEsVyXlcdquDplWJZyDSlAuYdBR/tphzRSDW0zb1xSWPXb5fyhb6wT625E6bya4WZyk3APlLp
- GVzyCnyrbryNoM1RQ6h5uepOBsoSK1fQX5fQ9KY3kEC7q/gLhn5VGtaDK7f0zZxqJU4MD8lIEVOp9
- C+vWkp3FiAdoyUyE+IeL/dsRBWh8fDVUt5eS1Fc01ftOWH7skmHklK/wGzAPgsLg+EfMgPIsZ2krI
- 5P1StXX1neYRSzqDCeJDD34LPKo1UIlSvE9Mm0EohDvCDVEATdxJDVNrtVBUOsUeL0zLiWOp7wQoi
- 93q80zzw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49182)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1uzFAC-000000000ng-2pjn;
- Thu, 18 Sep 2025 14:59:08 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1uzFA8-000000001EY-1H75; Thu, 18 Sep 2025 14:59:04 +0100
-Date: Thu, 18 Sep 2025 14:59:04 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Message-ID: <aMwQKERA1p29BeKF@shell.armlinux.org.uk>
-References: <20250917-wol-smsc-phy-v2-0-105f5eb89b7f@foss.st.com>
- <20250917-wol-smsc-phy-v2-2-105f5eb89b7f@foss.st.com>
- <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
- <72ad4e2d-42fa-41c2-960d-c0e7ea80c6ff@foss.st.com>
+ Thu, 18 Sep 2025 14:33:49 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58IDH7Ix003888;
+ Thu, 18 Sep 2025 16:33:26 +0200
+Received: from osppr02cu001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013027.outbound.protection.outlook.com [40.107.159.27])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 497fxh1805-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Sep 2025 16:33:25 +0200 (MEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QL63/LiUqLI0AFSFTwjEwLpSJxUc78Pt/9OvaOOBNaqetf+DQYRWCShWCLoQWefY6zB2LiSjCmej07mTqlu+6qyD+auKjXTDFp19dGdNx962Bs/kiI1YFJp7qga5LZ8vIEu2uy+uJlcgbXYRH4ctZ5a2pZwGcJyvvg6jhW+cK+VeIAt8+JZf+/r2KwUT/36c69nHpEmPCJre5H2OPL3zDHYEYHx2zBGl60AcPsDhXL5k2rrBVsU+H4UV8OKJkyefHASUhxVkBodAM7hL9hLlVEY6XNHaDbIg1yevleYqgCAN3KWkrLsKVXtcPi2ChiO1j0/xPJCbm1z1OgQyS243dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i4vhXqCTvf7X6GlOUXmF9fBp2K2kRDuE4XSUGDa4ACM=;
+ b=RwYwqd98GyaFjTtGJBarijKEzJUAKhB6XHhQi6N5AinGvKSSkoqA3OMfCtQsJ6jzTV7NcyUnt73FJJY1hbZAPi8rfvxY3fYKaJaZomybU/RgtNA4/3BqVN9RCRV1Cs6Itidal0mBQa8DOUf1Om1RiTL7k/oIsERPcKBkenbp9S/h+Qr8aKMfjIw6n2/oDxe9eGVmXihuDkSNiBoyRrF1fxFCoshTkMPCWDJ1VWFNQsQrPH1NcdFxsGLmkM+Q3Mita6z770aQDbDy3UOXxjXt2f+Y8fL7cIzTZ5uuXVfOCsMBVJnOUffVTDDPh1tKKO/ba6iXJsReKrmIbEAnCb4nDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i4vhXqCTvf7X6GlOUXmF9fBp2K2kRDuE4XSUGDa4ACM=;
+ b=RvIX2y20wciYpvTGo3YAwDoRbdYc1PEZkHErqzN8OfgYR4JG5Qmq2eOkZF7IxC/M9tgZSseAI0BgmnBRmW/z3btkzw/VXZEQQqlwBp8VTQ+FClPDzVXmq1CKKBoekKmw90tDK1kZqjKTh1XGyF9/BffPhTIIFSMRCroSNH+FMGMhIhufpKMZVZvxG7pIpqIoG/mTvoQ1KYqEjfMcM2iA+A3vV4tu1Sg3ZbIFCitx0x8Ij9lFcD6tZtx2WgThl0ww42q9IhajNTtku6S0TITjzkK8DOvTyY8qQ4wWe1oGer7lyZNa3J6oPbVYgBW8bEXpvGy+fnIECWRTwz2ucb4XhQ==
+Received: from AM0PR03CA0105.eurprd03.prod.outlook.com (2603:10a6:208:69::46)
+ by AM7PR10MB3905.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:14c::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9137.14; Thu, 18 Sep
+ 2025 14:33:22 +0000
+Received: from AM4PEPF00027A62.eurprd04.prod.outlook.com
+ (2603:10a6:208:69:cafe::a6) by AM0PR03CA0105.outlook.office365.com
+ (2603:10a6:208:69::46) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9137.14 via Frontend Transport; Thu,
+ 18 Sep 2025 14:33:22 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ AM4PEPF00027A62.mail.protection.outlook.com (10.167.16.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9137.12 via Frontend Transport; Thu, 18 Sep 2025 14:33:22 +0000
+Received: from SHFDAG1NODE2.st.com (10.75.129.70) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Thu, 18 Sep
+ 2025 16:30:57 +0200
+Received: from localhost (10.252.18.54) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Thu, 18 Sep
+ 2025 16:33:21 +0200
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Date: Thu, 18 Sep 2025 16:33:18 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <72ad4e2d-42fa-41c2-960d-c0e7ea80c6ff@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-arm-kernel@lists.infradead.org,
+Message-ID: <20250918-drm-misc-next-v1-1-7b2742b2ba8a@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAC0YzGgC/x3MMQqAMAxA0auUzAa0IrReRRyKiZrBKo1IQXp3i
+ +Mb/n9BOQkrjOaFxI+onLGiawwse4gbo1A12NYOre8cUjrwEF0wcr7R2oGCJ9d776A2V+JV8v+
+ b5lI+1YgwH18AAAA=
+X-Change-ID: 20250918-drm-misc-next-225da9d83998
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tristram Ha <Tristram.Ha@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: stm32: add
- WoL from PHY support
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+X-Originating-IP: [10.252.18.54]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00027A62:EE_|AM7PR10MB3905:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68a7a6ed-ed6e-442d-2755-08ddf6c051f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|7416014|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NUJrc3huSjl2RDdmZURhWGhqdmFWNmNlTk1IS0hUUjFCZVkxU1FITW9WRE5r?=
+ =?utf-8?B?UXFZaVFpMDF0RlNVZVdScXlCNUtQR2ZwTCtVM3ZUUU8xWTBhcGFKQkgwcWkx?=
+ =?utf-8?B?eVBIeThsbDd3dFpzeEQyWDN1NXhnd1VIUFJKQ2tFdFI1RUordStTZ0psZi9K?=
+ =?utf-8?B?TmxPblMra1R0d3d2ZkhsSUcvTGtpSkZuUWQ4YWIvT1luN2NPYk5LamVsZWpl?=
+ =?utf-8?B?WDJlaGxEVXJ4dnAxN3RERGxQV284dVdvbVdLWEpobWxBVkxzOU8vUmgvaFN4?=
+ =?utf-8?B?SjR0MGk2NXRDOGd3UGNWb1JQY2ordjFCNEdrRXRnTHcxeW1WZ2wvNyt5dXdU?=
+ =?utf-8?B?aGtBSlo4RUx6U1BZdHgxUjQ4d1haeWtFa2xIS0h0eGdiZXNhMVlCVVBuVUps?=
+ =?utf-8?B?a3JjbURVUjdsZTFVUmpMQkpPWERUY2xyRUIvWCt1OExCZ2ZNRUM4Z2pYSnpv?=
+ =?utf-8?B?a3krSS9hRTl6NjQzUUFVS29QanAwekIzc2hCdDVkL1J5V0RObm9YekUxZjBz?=
+ =?utf-8?B?OXRVREd5ZHpWckYxWklWeFpxYWJaeEVHcFdwTmRka0ZnZmY0TlBqMHBsMXpS?=
+ =?utf-8?B?cjZMeDk3U09BY2JNT2gvdzJ2eVkxRmNJVmdramZBRW5YZHI0RmZlMzd1Qjdn?=
+ =?utf-8?B?b0ZCdEc0TWhSTjlPalNoc0dGOW9GZ29sWWg1VnZUYjlBVktYeDcyUDA3bGsr?=
+ =?utf-8?B?UEF6RXFjTi8yOWpwV29nR25Rb2FleDVPWTZpNVdiN3ljbjBlN2xXRHNoamt6?=
+ =?utf-8?B?OXdpTmp0TGE5c0VkY3JlYzhSWXpNQ2ZKM0t4ZGRJUlZTcTNUV0dEOUFWSE94?=
+ =?utf-8?B?bHhGcFgzb0Qwb3NjQzBySm44Q0N4TVVNajY3aGwzbldSVDhhMnR3UjVUVjhT?=
+ =?utf-8?B?L21EVCs2WnB6TjhMZko4eUtsZkRZc2JtUFVOdUU4SThhdWZLS0x0aDlHNmlG?=
+ =?utf-8?B?Wjkxa2VpTjFwY1I0Mm1iMDdYUDFZejlVeVVGbSs0Sm02WUluNytPVTRabjBx?=
+ =?utf-8?B?UDB6ZExldEk3L3VNNUEyRDJrN1NadUp5Q0xqRkM1WGhTdjZlMEJSOVNuY2hy?=
+ =?utf-8?B?bTVPSmpBUHA3RzNxb1hPbTFlRys4MkNrVGJDckR3cHI2VDk5dnpGdUFYNUIx?=
+ =?utf-8?B?bng1aURTeUduYmJMaTRBRkJUMmd5MS9SbFhUTUVCQzRUTnFITGJhWlVydDlG?=
+ =?utf-8?B?M0gxNDFvWW1QdENKeUlzK0hBRU8yTDRUV29GR3A1MkEvZXJjd3pLWUtIVDRZ?=
+ =?utf-8?B?bG1scjBsWms1TXAxcGFtaGt2bEhyYmpObHQwUzBSbVlUa0NiZE9EcUgraUhP?=
+ =?utf-8?B?V1RDVjdId3M5UXhoUGVObU5FMGE3R213WGllNWRJR2hLTDVHRmJmM3dUZTJS?=
+ =?utf-8?B?YnlENVhYT2pmb2QwNVg3OW4raHpEVitnak5aQk10V09CdGZxdTI5TGZnSmxh?=
+ =?utf-8?B?cmRFNDBsZXYzaVNKQTA5eTBtLzM4MHBtOHRiT2VJT2VHOXYwemd3c2x3ODUy?=
+ =?utf-8?B?c0FXTEpjK1h5U1RhcFduYWlTbjJaTGsyUTBBU0xnMFd0ZGtMaFRpdWRnS1M0?=
+ =?utf-8?B?V2dLQUlhN1QrVjJXVDhLSEdDQjJmaTFvNHAzUUdUZmZOZE5mQzBncUQrUnl2?=
+ =?utf-8?B?Sy96NHhmcEo2M3pmV2xKWFNiUU91UmVVQjdIRWRyVVZTa3FORXJ2UUErcFhE?=
+ =?utf-8?B?bW83RWJTRUZ3Z1hxWWpNbUZLT3hRUnhidnNQWlg3VlVkSlFoOG1Qc3NjQjhz?=
+ =?utf-8?B?YXRpajk4djQ1aE9DWHc3YnEwTzR1OUVBY2dKOTF0UEhpOU5FeFpwaDZOSWFK?=
+ =?utf-8?B?QS8vczQxNlNXbGd4Skx6aUt6Sm91czNDd29oQ3ZYTHJSb2NrSFlPVUtFeEZt?=
+ =?utf-8?B?MGxxajJoS3VQVDZuRVpnQmNwaDRBSVB2cVBYSS9xVmlXdU1NYUVrcHVnQm82?=
+ =?utf-8?B?a1V1UkZ1Wk5WZ3ZHT2V1T2hsQldsRFVjTjZ3Z1AySHBHdmlSOXgxcnJjSlVS?=
+ =?utf-8?B?QTNDTy9TMUxqcEZsYzJKSm5OQ0tQWGVHb253MFRYWW4xNzNNazg1WXFCMVZ2?=
+ =?utf-8?Q?Pbov3U?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(7416014)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 14:33:22.4286 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68a7a6ed-ed6e-442d-2755-08ddf6c051f0
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A62.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3905
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE2MDIwMiBTYWx0ZWRfX+bCGIrNLgJvC
+ n7wk3FegZD89CdupIHGv8aYtS75dBQdCVYtqhFpxFemOJfc7mCzuMALSDjR2mxOd1UFf4zUth1s
+ GKEBJK7LMaH7Yr8ycgSefLsTI4nE8W2U1XpgQ3psPW+fI8YMQNeruDicxncGvq7z+xLs6mUwDCt
+ TzMQzqWzIrUCodo7bDjpSMuGu1Fy1cvUxXqP7e7WgJTKCxsRiO4xvo/ecVWmkQwO1/cyIBFSrxU
+ zcAoHg3e2odsd8jWP7v8qDhWRBk7jHjpBxI4DfFVWh/oaczeT3TGNDncVLAIWJQf+tt4sNyrbXw
+ BesQcqvu5L4HgMmvltQT3As+HYYgqepFuCTlTcwURb8Mzd6WAAxDshABfSpHJM92M5TUmWXUU4K
+ 2Od65Ma4
+X-Proofpoint-ORIG-GUID: CJUAVYgK9iYoPxtk2ajLkwh8q_5lFrnv
+X-Authority-Analysis: v=2.4 cv=aJLwqa9m c=1 sm=1 tr=0 ts=68cc1835 cx=c_pps
+ a=G6gdhMNhEIa2rRoNLXB4Vg==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=qojlnMLHMOUA:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10 a=8b9GpE9nAAAA:8
+ a=xTi5VqLmas-pcsdGNAgA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-GUID: CJUAVYgK9iYoPxtk2ajLkwh8q_5lFrnv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-18_01,2025-09-18_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ suspectscore=0
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501
+ phishscore=0 spamscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2509160202
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] drm/stm: ltdc: switch to
+	pm_runtime_resume_and_get
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,152 +188,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 18, 2025 at 02:46:54PM +0200, Gatien CHEVALLIER wrote:
-> On 9/17/25 18:31, Russell King (Oracle) wrote:
-> > On Wed, Sep 17, 2025 at 05:36:37PM +0200, Gatien Chevallier wrote:
-> > > If the "st,phy-wol" property is present in the device tree node,
-> > > set the STMMAC_FLAG_USE_PHY_WOL flag to use the WoL capability of
-> > > the PHY.
-> > > 
-> > > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> > > ---
-> > >   drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 5 +++++
-> > >   1 file changed, 5 insertions(+)
-> > > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> > > index 77a04c4579c9dbae886a0b387f69610a932b7b9e..6f197789cc2e8018d6959158b795e4bca46869c5 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> > > @@ -106,6 +106,7 @@ struct stm32_dwmac {
-> > >   	u32 speed;
-> > >   	const struct stm32_ops *ops;
-> > >   	struct device *dev;
-> > > +	bool phy_wol;
-> > >   };
-> > >   struct stm32_ops {
-> > > @@ -433,6 +434,8 @@ static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
-> > >   		}
-> > >   	}
-> > > +	dwmac->phy_wol = of_property_read_bool(np, "st,phy-wol");
-> > > +
-> > >   	return err;
-> > >   }
-> > > @@ -557,6 +560,8 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
-> > >   	plat_dat->bsp_priv = dwmac;
-> > >   	plat_dat->suspend = stm32_dwmac_suspend;
-> > >   	plat_dat->resume = stm32_dwmac_resume;
-> > > +	if (dwmac->phy_wol)
-> > > +		plat_dat->flags |= STMMAC_FLAG_USE_PHY_WOL;
-> > 
-> > I would much rather we found a different approach, rather than adding
-> > custom per-driver DT properties to figure this out.
-> > 
-> > Andrew has previously suggested that MAC drivers should ask the PHY
-> > whether WoL is supported, but this pre-supposes that PHY drivers are
-> > coded correctly to only report WoL capabilities if they are really
-> > capable of waking the system. As shown in your smsc PHY driver patch,
-> > this may not be the case.
-> 
-> So how can we distinguish whether a PHY that implements WoL features
-> is actually able (wired) to wake up the system? By adding the
-> "wakeup-source" property to the PHY node?
+pm_runtime_get_sync() error code is not checked if it fails on clock
+enable.  This can lead to an illegal access to the clock peripheral and
+cause a system hang on MP1 or a SERC fired on MP2.  By using
+pm_runtime_resume_and_get(), the PM counter isn't incremented if an
+error occurs and we can return the error code.
 
-Andrew's original idea was essentially that if the PHY reports that it
-supports WoL, then it's functional.
+Switch from pm_runtime_get_sync() to pm_runtime_resume_and_get() and
+check returned error code.
 
-Sadly, that's not the case with many PHY drivers - the driver
-implementers just considered "does this PHY have the ability to detect
-WoL packets" and not "can this PHY actually wake the system."
+Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+---
+ drivers/gpu/drm/stm/ltdc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Thankfully, all but one PHY driver does not use
-device_set_wakeup_capable() - my recent patches for realtek look like
-the first PHY driver to use this.
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index d1501e86a5b1c3fd5e8791a2143616a66850a62b..5ce3fd205fd7bbfd8735535c0ba4a660d68d02f9 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -779,7 +779,8 @@ static void ltdc_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	drm_dbg_driver(crtc->dev, "\n");
+ 
+-	pm_runtime_get_sync(ddev->dev);
++	if (pm_runtime_resume_and_get(ddev->dev))
++		return;
+ 
+ 	/* Sets the background color value */
+ 	regmap_write(ldev->regmap, LTDC_BCCR, BCCR_BCBLACK);
+@@ -941,7 +942,7 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
+ 	}
+ 
+ 	if (!pm_runtime_active(ddev->dev)) {
+-		ret = pm_runtime_get_sync(ddev->dev);
++		ret = pm_runtime_resume_and_get(ddev->dev);
+ 		if (ret) {
+ 			drm_err(crtc->dev, "Failed to set mode, cannot get sync\n");
+ 			return;
 
-Thus, if we insist that PHY drivers use device_set_wakeup_capable()
-to indicate that (a) they have WoL capability _and_ are really
-capable of waking the system, we have a knob we can test for.
+---
+base-commit: 0bf37f45d5c472aebdf32da64775cac1110c085c
+change-id: 20250918-drm-misc-next-225da9d83998
 
-Sadly, there is no way to really know whether the interrupt that the
-PHY is attached to can wake the system. Things get worse with PHYs
-that don't use interrupts to wake the system. So, I would suggest
-that, as we already have this "wakeup-source" property available for
-_any_ device in DT, we start using this to say "on this system, this
-PHY is connected to something that can wake the system up."
-
-See the past discussion when Realtek was being added - some of the
-context there covers what I mention above.
-
-> Therefore, only set the "can wakeup" capability when both the PHY
-> supports WoL and the property is present in the PHY node?
-
-Given that telling the device model that a device is wakeup
-capable causes this to be advertised to userspace, we really do
-not want devices saying that they are wakeup capable when they
-aren't capable of waking the system. So I would say that a call
-to device_set_wakeup_capable(dev, true) should _only_ be made if
-the driver is 100% certain that this device really can, without
-question, wake the platform.
-
-If we don't have that guarantee, then we're on a hiding to nothing
-and chaos will reign, MAC drivers won't work properly... but I would
-suggest that's the price to be paid for shoddy implementation and
-not adhering to a sensible approach such as what I outline above.
-
-> However, this does not solve the actual static pin function
-> configuration for pins that can, if correct alternate function is
-> selected, generate interrupts, in PHY drivers.
-> 
-> It would be nice to be able to apply some kind of pinctrl to configure
-> the PHY pins over the MDIO bus thanks to some kind of pinctrl hogging.
-> This suggests modifying relevant PHY drivers and documentation to be
-> able to handle an optional pinctrl.
-
-How would that work with something like the Realtek 8821F which has
-a single pin which can either signal interrupts (including a wake-up)
-or be in PME mode, where it only ever signals a wake-up event.
-Dynamically switching between the two modes is what got us into the
-crazy situation where, when WoL was enabled on this PHY, phylib
-stopped working because the pin was switched to PME mode, and we no
-longer got link status interrupts. So one could enable WoL, plug in
-an ethernet cable, and the kernel has no idea that the link has come
-up.
-
-So no. In a situation like this, either we want to be in interrupt
-mode (in which case we have an interrupt), or the pin is wired to
-a power management controller and needs to be in PME mode, or it isn't
-wired.
-
-Which it is can be easily identified.
-
-$1. Is there an interrupt specified (Y/N) ?
-$2. Is there a wakeup-source property (Y/N) ?
-
-States:
-$1  $2
-*   N   we have no idea if an interrupt (if specified) can wake the
-        system, or if there is other wiring from the PHY which might.
-	Legacy driver, or has no wake-up support. We have to fall back
-	on existing approaches to maintain compatibility and void
-	breaking userspace, which may suggest WoL is supported when it
-	isn't. For example, with stmmac, if STMMAC_FLAG_USE_PHY_WOL is
-	set, we must assume the PHY can wake the system in this case.
-Y   Y   interrupt wakes the system, we're good for WoL
-N   Y   non-interrupt method of waking the system, e.g. PME
-
-I'd prefer not to go for a complicated solution to this, e.g. involving
-pinctrl, when we don't know how many PHYs need this, because forcing
-extra complexity on driver authors means we have yet more to review, and
-I think it's fair to say that we're already missing stuff. Getting the
-pinctrl stuff right also requires knowledge of the hardware, and is
-likely something that reviewers can't know if it's correct or not -
-because datasheets giving this information aren't publicly available.
-
-So, I'm all in favour of "keep it damn simple, don't give people more
-work, even if it looks nice in DT" here.
-
+Best regards,
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
