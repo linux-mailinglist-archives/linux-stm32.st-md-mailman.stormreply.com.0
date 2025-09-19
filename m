@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6119B893A1
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Sep 2025 13:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA16B893A4
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Sep 2025 13:19:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9238AC3FACC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB20AC3FACE;
 	Fri, 19 Sep 2025 11:19:14 +0000 (UTC)
-Received: from fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [3.72.182.33])
+Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [52.28.197.132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 616DFC36B2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB380C36B2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Sep 2025 10:19:12 +0000 (UTC)
+ Fri, 19 Sep 2025 10:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277152; x=1789813152;
+ t=1758277214; x=1789813214;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LF9YnUdrpKxMSkc+LEc4zqlPhsgbROXsY4bZTz/lajY=;
- b=OTwG6aYi4F52hAiiEI34bKjl/EC6TBk+8QwIIS5GWL7p97sScaCA1HUu
- CJVUIFce+EEdQrJW3X9VmtFHSGyy5GCWUst2pGfLrFpnVSNnQC2tgtqaJ
- DOAaLq8wk4sknlaG1rT941lo/wqFfkm2R7dZz3zFHaPXR90ytczD0qY19
- qwWaNThzzj0+ktulUj/gIvUP0Cxm0wGWrXNSXDG/iK6EjOmoAF3QIDoE9
- t1txqGO6/bOdaGzKx5zt4bAtTNDKFj+jIxMvyUeh7xqYzCQsksWgpAOPG
- Hd+BKajBxajYQR3TqQiZgCDHM9DF1bCKaiz8k4SmgRoIrMruAdyrEzxHA Q==;
-X-CSE-ConnectionGUID: hmN84oTaS9W699Ec+bGblQ==
-X-CSE-MsgGUID: UpgN2WA1T0u6VKUgYo1Jsg==
+ bh=QGaAvozmIqIzV143yBTS5nQtsGF8X9DZFIMkdv4YYLs=;
+ b=q525tzqopCR9OgAdCL1Vs1rcjhD9Nc6qUZ0fM3AjiCsT00rVJ7DHp/3Q
+ 8eU1cB89oKh1UheZVNbx8idds9CI9ORXnWxI46U8tUtbrFtNdnsnTfd1Q
+ TpasA+KNnReYY/YXULHURrxHej8B6j7SxaRcwCmLwi7U6flhYbmX01JrF
+ SlLL7utL9/rpBcMdT9r9OgSxM7lJEXPywTNjhEc+xO8gjtov/+leFUN/u
+ Fc3TNkh7MmV1LmtEKKaVz3yS9vIIdU3+Y64wqqI/FgD5Nornc0b9rT69v
+ KJ5H2gh000hydiXeMjdR8kaSR5OivSbDNsc5Q7lNWR6AOQJX5zBcIWyvS Q==;
+X-CSE-ConnectionGUID: bNGyTyr9Tluytx4xpBWYaw==
+X-CSE-MsgGUID: NUPh/j/ESIquMv5V2VCWqg==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2365478"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-003.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:19:03 +0000
-Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:27737]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.47.2:2525]
+   d="scan'208";a="2263473"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:20:05 +0000
+Received: from EX19MTAEUB001.ant.amazon.com [54.240.197.226:21045]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.8.212:2525]
  with esmtp (Farcaster)
- id 6db254e8-ef34-49a5-874f-f0766e9b7851; Fri, 19 Sep 2025 10:19:03 +0000 (UTC)
-X-Farcaster-Flow-ID: 6db254e8-ef34-49a5-874f-f0766e9b7851
+ id 156d81fd-6821-4347-8cba-062f59dcaca0; Fri, 19 Sep 2025 10:20:04 +0000 (UTC)
+X-Farcaster-Flow-ID: 156d81fd-6821-4347-8cba-062f59dcaca0
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.124) with Microsoft SMTP Server
+ EX19MTAEUB001.ant.amazon.com (10.252.51.28) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:19:01 +0000
+ Fri, 19 Sep 2025 10:20:04 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:18:32 +0000
+ 10:19:36 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -95,19 +95,19 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-Date: Fri, 19 Sep 2025 10:17:02 +0000
-Message-ID: <20250919101727.16152-3-farbere@amazon.com>
+Date: Fri, 19 Sep 2025 10:17:03 +0000
+Message-ID: <20250919101727.16152-4-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 References: <20250919101727.16152-1-farbere@amazon.com>
 MIME-Version: 1.0
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D043UWC001.ant.amazon.com (10.13.139.202) To
+X-ClientProxiedBy: EX19D045UWA004.ant.amazon.com (10.13.139.91) To
  EX19D018EUA004.ant.amazon.com (10.252.50.85)
 X-Mailman-Approved-At: Fri, 19 Sep 2025 11:19:11 +0000
 Cc: jonnyc@amazon.com
-Subject: [Linux-stm32] [PATCH 02/27 5.10.y] minmax: sanity check constant
-	bounds when clamping
+Subject: [Linux-stm32] [PATCH 03/27 5.10.y] minmax: clamp more efficiently
+	by avoiding extra comparison
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,76 +126,182 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: "Jason A. Donenfeld" <Jason@zx2c4.com>
 
-[ Upstream commit 5efcecd9a3b18078d3398b359a84c83f549e22cf ]
+[ Upstream commit 2122e2a4efc2cd139474079e11939b6e07adfacd ]
 
-The clamp family of functions only makes sense if hi>=lo.  If hi and lo
-are compile-time constants, then raise a build error.  Doing so has
-already caught buggy code.  This also introduces the infrastructure to
-improve the clamping function in subsequent commits.
+Currently the clamp algorithm does:
 
-[akpm@linux-foundation.org: coding-style cleanups]
-[akpm@linux-foundation.org: s@&&\@&& \@]
-Link: https://lkml.kernel.org/r/20220926133435.1333846-1-Jason@zx2c4.com
+    if (val > hi)
+        val = hi;
+    if (val < lo)
+        val = lo;
+
+But since hi > lo by definition, this can be made more efficient with:
+
+    if (val > hi)
+        val = hi;
+    else if (val < lo)
+        val = lo;
+
+So fix up the clamp and clamp_t functions to do this, adding the same
+argument checking as for min and min_t.
+
+For simple cases, code generation on x86_64 and aarch64 stay about the
+same:
+
+    before:
+            cmp     edi, edx
+            mov     eax, esi
+            cmova   edi, edx
+            cmp     edi, esi
+            cmovnb  eax, edi
+            ret
+    after:
+            cmp     edi, esi
+            mov     eax, edx
+            cmovnb  esi, edi
+            cmp     edi, edx
+            cmovb   eax, esi
+            ret
+
+    before:
+            cmp     w0, w2
+            csel    w8, w0, w2, lo
+            cmp     w8, w1
+            csel    w0, w8, w1, hi
+            ret
+    after:
+            cmp     w0, w1
+            csel    w8, w0, w1, hi
+            cmp     w0, w2
+            csel    w0, w8, w2, lo
+            ret
+
+On MIPS64, however, code generation improves, by removing arithmetic in
+the second branch:
+
+    before:
+            sltu    $3,$6,$4
+            bne     $3,$0,.L2
+            move    $2,$6
+
+            move    $2,$4
+    .L2:
+            sltu    $3,$2,$5
+            bnel    $3,$0,.L7
+            move    $2,$5
+
+    .L7:
+            jr      $31
+            nop
+    after:
+            sltu    $3,$4,$6
+            beq     $3,$0,.L13
+            move    $2,$6
+
+            sltu    $3,$4,$5
+            bne     $3,$0,.L12
+            move    $2,$4
+
+    .L13:
+            jr      $31
+            nop
+
+    .L12:
+            jr      $31
+            move    $2,$5
+
+For more complex cases with surrounding code, the effects are a bit
+more complicated. For example, consider this simplified version of
+timestamp_truncate() from fs/inode.c on x86_64:
+
+    struct timespec64 timestamp_truncate(struct timespec64 t, struct inode *inode)
+    {
+        struct super_block *sb = inode->i_sb;
+        unsigned int gran = sb->s_time_gran;
+
+        t.tv_sec = clamp(t.tv_sec, sb->s_time_min, sb->s_time_max);
+        if (t.tv_sec == sb->s_time_max || t.tv_sec == sb->s_time_min)
+            t.tv_nsec = 0;
+        return t;
+    }
+
+    before:
+            mov     r8, rdx
+            mov     rdx, rsi
+            mov     rcx, QWORD PTR [r8]
+            mov     rax, QWORD PTR [rcx+8]
+            mov     rcx, QWORD PTR [rcx+16]
+            cmp     rax, rdi
+            mov     r8, rcx
+            cmovge  rdi, rax
+            cmp     rdi, rcx
+            cmovle  r8, rdi
+            cmp     rax, r8
+            je      .L4
+            cmp     rdi, rcx
+            jge     .L4
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            mov     rax, r8
+            ret
+
+    after:
+            mov     rax, QWORD PTR [rdx]
+            mov     rdx, QWORD PTR [rax+8]
+            mov     rax, QWORD PTR [rax+16]
+            cmp     rax, rdi
+            jg      .L6
+            mov     r8, rax
+            xor     edx, edx
+    .L2:
+            mov     rax, r8
+            ret
+    .L6:
+            cmp     rdx, rdi
+            mov     r8, rdi
+            cmovge  r8, rdx
+            cmp     rax, r8
+            je      .L4
+            xor     eax, eax
+            cmp     rdx, rdi
+            cmovl   rax, rsi
+            mov     rdx, rax
+            mov     rax, r8
+            ret
+    .L4:
+            xor     edx, edx
+            jmp     .L2
+
+In this case, we actually gain a branch, unfortunately, because the
+compiler's replacement axioms no longer as cleanly apply.
+
+So all and all, this change is a bit of a mixed bag.
+
+Link: https://lkml.kernel.org/r/20220926133435.1333846-2-Jason@zx2c4.com
 Signed-off-by: Jason A. Donenfeld <Jason@zx2c4.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Kees Cook <keescook@chromium.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ include/linux/minmax.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 1aea34b8f19b..8b092c66c5aa 100644
+index 8b092c66c5aa..abdeae409dad 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -37,6 +37,28 @@
- 		__cmp(x, y, op), \
+@@ -38,7 +38,7 @@
  		__cmp_once(x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y), op))
  
-+#define __clamp(val, lo, hi)	\
-+	__cmp(__cmp(val, lo, >), hi, <)
-+
-+#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
-+		typeof(val) unique_val = (val);				\
-+		typeof(lo) unique_lo = (lo);				\
-+		typeof(hi) unique_hi = (hi);				\
-+		__clamp(unique_val, unique_lo, unique_hi); })
-+
-+#define __clamp_input_check(lo, hi)					\
-+        (BUILD_BUG_ON_ZERO(__builtin_choose_expr(			\
-+                __is_constexpr((lo) > (hi)), (lo) > (hi), false)))
-+
-+#define __careful_clamp(val, lo, hi) ({					\
-+	__clamp_input_check(lo, hi) +					\
-+	__builtin_choose_expr(__typecheck(val, lo) && __typecheck(val, hi) && \
-+			      __typecheck(hi, lo) && __is_constexpr(val) && \
-+			      __is_constexpr(lo) && __is_constexpr(hi),	\
-+		__clamp(val, lo, hi),					\
-+		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
-+			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
-+
- /**
-  * min - return minimum of two values of the same or compatible types
-  * @x: first value
-@@ -103,7 +125,7 @@
-  * This macro does strict typechecking of @lo/@hi to make sure they are of the
-  * same type as @val.  See the unnecessary pointer comparisons.
-  */
--#define clamp(val, lo, hi) min((typeof(val))max(val, lo), hi)
-+#define clamp(val, lo, hi) __careful_clamp(val, lo, hi)
+ #define __clamp(val, lo, hi)	\
+-	__cmp(__cmp(val, lo, >), hi, <)
++	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
  
- /*
-  * ..and if you can't take the strict
-@@ -138,7 +160,7 @@
-  * This macro does no typechecking and uses temporary variables of type
-  * @type to make all the comparisons.
-  */
--#define clamp_t(type, val, lo, hi) min_t(type, max_t(type, val, lo), hi)
-+#define clamp_t(type, val, lo, hi) __careful_clamp((type)(val), (type)(lo), (type)(hi))
- 
- /**
-  * clamp_val - return a value clamped to a given range using val's type
+ #define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+ 		typeof(val) unique_val = (val);				\
 -- 
 2.47.3
 
