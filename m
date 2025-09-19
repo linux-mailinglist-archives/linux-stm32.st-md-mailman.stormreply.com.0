@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D76B893B9
+	by mail.lfdr.de (Postfix) with ESMTPS id 57519B893BC
 	for <lists+linux-stm32@lfdr.de>; Fri, 19 Sep 2025 13:19:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C569CC3FADF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2F48C36B2F;
 	Fri, 19 Sep 2025 11:19:15 +0000 (UTC)
-Received: from fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.178.132.221])
+Received: from fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [18.199.210.3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBAF3C36B2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6509C36B2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Sep 2025 10:23:54 +0000 (UTC)
+ Fri, 19 Sep 2025 10:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758277434; x=1789813434;
+ t=1758277470; x=1789813470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=M14+Hrw3+0xfvL7LtAKdftp5KA5xdtXGebEkX3FEMMU=;
- b=YxIchiVIadAIenftC0fpL4mVBkNMAGTBw0bgP0ogEu//CZRiGB9O8dUv
- 8UpnQQTrD4jY6jPMNA1WeeJY59Jccc8g8480JRh1aqaJzdftH7XFs+Rrr
- 3e43dltI1lGhnPh8eB0IjjD0+LfjihG55TSJz1ZQagoUPYWXB5q0+iWsV
- uFvCurM3jLXRl03ZrpJuMTb0Od8LnyG97ldY0SSwgHPKodLOpfMZ42DLF
- gh599nvDxiFQhSiImdUYzsHyrbeAMrsW1ugSAzv7dopksoSb2jxU/xbDq
- 1N5A4MyuBP7QrDZJG+8qKbdRiMDS5AFkveeF+5A+mL2SN55qzwpiRVVIA g==;
-X-CSE-ConnectionGUID: tVddmQdzSSWtL5CWETEbBg==
-X-CSE-MsgGUID: BwlTxSfMRb+QOlcWG8kkaQ==
+ bh=Up26bfkjgG7bBpXTUDNOne3Gaz9xL27H6G5Ic5zP1jo=;
+ b=PmZ2tUHuT3bjjMSsJt4Gkge7/XoYDIK1D/RxzK8CxrjAHM2WeS59f60A
+ dWLmTv9oRfBYEZmsFNcVBWTiJk3LexnjfN35nAjM3n6oAtfRNCX4GYCWs
+ 5nJqoY/a7ABPnibe8hhgjcysrUl1ffCGgVy5A5e5oiQt6qjOAceUCKzi6
+ 8dXkKzQxCQjauLjyW3wTlG0yt/5BE1s4KdBPYPwT21rDByFkbhuggyGIq
+ nB3F7wv/45hlGW0RuertYC9y8RkAhg/rahMZ2C18I6JLm2eBQGvch3PFn
+ MATbe6fHvbl6vrlerd9fXH/KAV7s0gqwBePRGyIQdMXauIdfVJ2ixIV7Z Q==;
+X-CSE-ConnectionGUID: uOA4YP9ESZq1z3U+/FQblQ==
+X-CSE-MsgGUID: +9AKtw6XT7ywoAOd2DOyxg==
 X-IronPort-AV: E=Sophos;i="6.18,277,1751241600"; 
-   d="scan'208";a="2264307"
+   d="scan'208";a="2264848"
 Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
  smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
- by internal-fra-out-013.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:23:54 +0000
-Received: from EX19MTAEUC001.ant.amazon.com [54.240.197.225:6079]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.0.240:2525]
+ by internal-fra-out-014.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2025 10:24:21 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:12085]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.64:2525]
  with esmtp (Farcaster)
- id adafa649-7e2b-48cb-b9f9-f9d8c19f03d6; Fri, 19 Sep 2025 10:23:53 +0000 (UTC)
-X-Farcaster-Flow-ID: adafa649-7e2b-48cb-b9f9-f9d8c19f03d6
+ id 13c390b8-4d66-4da4-9902-c277754da027; Fri, 19 Sep 2025 10:24:21 +0000 (UTC)
+X-Farcaster-Flow-ID: 13c390b8-4d66-4da4-9902-c277754da027
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC001.ant.amazon.com (10.252.51.193) with Microsoft SMTP Server
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 19 Sep 2025 10:23:50 +0000
+ Fri, 19 Sep 2025 10:24:18 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 19 Sep 2025
- 10:23:22 +0000
+ 10:23:50 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
@@ -95,8 +95,8 @@ To: <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
  <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
  <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
  <stable@vger.kernel.org>
-Date: Fri, 19 Sep 2025 10:17:10 +0000
-Message-ID: <20250919101727.16152-11-farbere@amazon.com>
+Date: Fri, 19 Sep 2025 10:17:11 +0000
+Message-ID: <20250919101727.16152-12-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250919101727.16152-1-farbere@amazon.com>
 References: <20250919101727.16152-1-farbere@amazon.com>
@@ -107,8 +107,8 @@ X-ClientProxiedBy: EX19D032UWA003.ant.amazon.com (10.13.139.37) To
 X-Mailman-Approved-At: Fri, 19 Sep 2025 11:19:11 +0000
 Cc: Christoph Hellwig <hch@infradead.org>,
  Linus Torvalds <torvalds@linux-foundation.org>, jonnyc@amazon.com
-Subject: [Linux-stm32] [PATCH 10/27 5.10.y] minmax: allow comparisons of
-	'int' against 'unsigned char/short'
+Subject: [Linux-stm32] [PATCH 11/27 5.10.y] minmax: relax check to allow
+	comparison between unsigned arguments and signed constants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,12 +127,16 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 4ead534fba42fc4fd41163297528d2aa731cd121 ]
+[ Upstream commit 867046cc7027703f60a46339ffde91a1970f2901 ]
 
-Since 'unsigned char/short' get promoted to 'signed int' it is safe to
-compare them against an 'int' value.
+Allow (for example) min(unsigned_var, 20).
 
-Link: https://lkml.kernel.org/r/8732ef5f809c47c28a7be47c938b28d4@AcuMS.aculab.com
+The opposite min(signed_var, 20u) is still errored.
+
+Since a comparison between signed and unsigned never makes the unsigned
+value negative it is only necessary to adjust the __types_ok() test.
+
+Link: https://lkml.kernel.org/r/633b64e2f39e46bb8234809c5595b8c7@AcuMS.aculab.com
 Signed-off-by: David Laight <david.laight@aculab.com>
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Christoph Hellwig <hch@infradead.org>
@@ -142,22 +146,51 @@ Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ include/linux/minmax.h | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index c0e738eacefa..842c1db62ffe 100644
+index 842c1db62ffe..2ec559284a9f 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -26,8 +26,9 @@
+@@ -10,13 +10,18 @@
+ /*
+  * min()/max()/clamp() macros must accomplish three things:
+  *
+- * - avoid multiple evaluations of the arguments (so side-effects like
++ * - Avoid multiple evaluations of the arguments (so side-effects like
+  *   "x++" happen only once) when non-constant.
+- * - perform signed v unsigned type-checking (to generate compile
+- *   errors instead of nasty runtime surprises).
+- * - retain result as a constant expressions when called with only
++ * - Retain result as a constant expressions when called with only
+  *   constant expressions (to avoid tripping VLA warnings in stack
+  *   allocation usage).
++ * - Perform signed v unsigned type-checking (to generate compile
++ *   errors instead of nasty runtime surprises).
++ * - Unsigned char/short are always promoted to signed int and can be
++ *   compared against signed or unsigned arguments.
++ * - Unsigned arguments can be compared against non-negative signed constants.
++ * - Comparison of a signed argument against an unsigned constant fails
++ *   even if the constant is below __INT_MAX__ and could be cast to int.
+  */
+ #define __typecheck(x, y) \
+ 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+@@ -26,9 +31,14 @@
  	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
  		is_signed_type(typeof(x)), 0)
  
--#define __types_ok(x, y) \
--	(__is_signed(x) == __is_signed(y))
-+#define __types_ok(x, y) 			\
-+	(__is_signed(x) == __is_signed(y) ||	\
-+		__is_signed((x) + 0) == __is_signed((y) + 0))
+-#define __types_ok(x, y) 			\
+-	(__is_signed(x) == __is_signed(y) ||	\
+-		__is_signed((x) + 0) == __is_signed((y) + 0))
++/* True for a non-negative signed int constant */
++#define __is_noneg_int(x)	\
++	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
++
++#define __types_ok(x, y) 					\
++	(__is_signed(x) == __is_signed(y) ||			\
++		__is_signed((x) + 0) == __is_signed((y) + 0) ||	\
++		__is_noneg_int(x) || __is_noneg_int(y))
  
  #define __cmp_op_min <
  #define __cmp_op_max >
