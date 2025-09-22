@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92DCEB90078
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Sep 2025 12:33:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0727B90094
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Sep 2025 12:34:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51C97C32E92;
-	Mon, 22 Sep 2025 10:33:50 +0000 (UTC)
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FD19C32E92;
+	Mon, 22 Sep 2025 10:34:25 +0000 (UTC)
+Received: from fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.178.143.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D1D3C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21B40C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Sep 2025 10:33:48 +0000 (UTC)
+ Mon, 22 Sep 2025 10:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758537228; x=1790073228;
+ t=1758537264; x=1790073264;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ripGF9rqnm7tHR7M3YpLJcXn9QY6D+OUp0N8RCNiC7M=;
- b=dQTXmu+z0lrEg3Bn43XStdFwBaVbobeKaL9/BxfHjUyL8S4Hxnaa4y9e
- +HIFvrDkcVYk6TI4nNXZJ/b0e6gsUYPISOnMw82QLvB1347MEP8hIfKBS
- u9pfXd2/Xpfasfx/aYduLql5gwZtNsco7661sPjoEIFNiE71XcBsfD3xP
- 2I0Dv51qFxwRlnVB3edZTjHznF2wK8ImDhKKMrgEIWm/F/qwGVLa5VLfv
- E0SW4rRjxc7S+IQk6egWtejVoVx0EzQN6lH2u25DupviIkMn0IxY/kWOc
- L0qmAbKeGKjvFta9Hq4x9PR8d9ZOtSVUOuOPEzq156/tCape//zNcRZ7L A==;
-X-CSE-ConnectionGUID: EfS0ySD4QuiodgYBvLgJ0Q==
-X-CSE-MsgGUID: iJ0xXlIjTmGXhiqi3oxuFw==
+ bh=GIzXOOEvZKeS6UuNgkU2k1mesw4I+NOSJCqENQl3gzM=;
+ b=fpGVvUlGzB2PHWcCXQn8OZyjMxYlJ2zkkeBwjAJN1ssC/q4WvdI67lqi
+ eueVIu8I7WbHXi/PuejJGLQnvamXkGatludiabBFU0Sef3Sd/BY/P/fS3
+ 5OB4+y6Apa0a6w6LL/xsUlElguzSoMTWhf1lPj3zBD3C51Vs0Y6DW4s3n
+ sG/HEW+0ujNPs/jEPoOyVayLfYHSYcS8c36JEQObiJS1Qxu4GqDrpRm7v
+ x39XQisSianlMKKOrRm3m414+7o4XLd30qwsG5bSq6qcg9//BbIWutTDI
+ 5IflvOdP6UaR85BSdePpuvLZgxPT0/pCpSf4nDjK1ezL/Qfz/kXnLZ3J1 g==;
+X-CSE-ConnectionGUID: h9HJdj9ZSL6OxFZaboM3vg==
+X-CSE-MsgGUID: olU9DTdMSs2kDNXwuFOHDg==
 X-IronPort-AV: E=Sophos;i="6.18,284,1751241600"; 
-   d="scan'208";a="2475964"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:33:39 +0000
-Received: from EX19MTAEUC002.ant.amazon.com [54.240.197.228:14817]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.23.64:2525]
+   d="scan'208";a="2370489"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-010.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2025 10:34:14 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:28647]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.36.68:2525]
  with esmtp (Farcaster)
- id 574fc1fc-5740-4523-a02e-399120b77f10; Mon, 22 Sep 2025 10:33:39 +0000 (UTC)
-X-Farcaster-Flow-ID: 574fc1fc-5740-4523-a02e-399120b77f10
+ id 15c415c2-fd16-4370-94f6-83d5598a6dea; Mon, 22 Sep 2025 10:34:14 +0000 (UTC)
+X-Farcaster-Flow-ID: 15c415c2-fd16-4370-94f6-83d5598a6dea
 Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUC002.ant.amazon.com (10.252.51.245) with Microsoft SMTP Server
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Mon, 22 Sep 2025 10:33:39 +0000
+ Mon, 22 Sep 2025 10:34:04 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Mon, 22 Sep 2025
- 10:33:13 +0000
+ 10:33:39 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>,
  <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>,
@@ -91,8 +91,8 @@ To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>,
  <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
  <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>,
  <bpf@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Mon, 22 Sep 2025 10:32:27 +0000
-Message-ID: <20250922103241.16213-2-farbere@amazon.com>
+Date: Mon, 22 Sep 2025 10:32:28 +0000
+Message-ID: <20250922103241.16213-3-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20250922103241.16213-1-farbere@amazon.com>
 References: <20250922103241.16213-1-farbere@amazon.com>
@@ -103,8 +103,8 @@ X-ClientProxiedBy: EX19D039UWB002.ant.amazon.com (10.13.138.79) To
 Cc: David Laight <David.Laight@aculab.com>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: [Linux-stm32] [PATCH 01/15 6.6.y] minmax: avoid overly complicated
-	constant expressions in VM code
+Subject: [Linux-stm32] [PATCH 02/15 6.6.y] minmax: simplify and clarify
+	min_t()/max_t() implementation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,77 +123,73 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+[ Upstream commit 017fa3e89187848fd056af757769c9e66ac3e93d ]
 
-The minmax infrastructure is overkill for simple constants, and can
-cause huge expansions because those simple constants are then used by
-other things.
+This simplifies the min_t() and max_t() macros by no longer making them
+work in the context of a C constant expression.
 
-For example, 'pageblock_order' is a core VM constant, but because it was
-implemented using 'min_t()' and all the type-checking that involves, it
-actually expanded to something like 2.5kB of preprocessor noise.
+That means that you can no longer use them for static initializers or
+for array sizes in type definitions, but there were only a couple of
+such uses, and all of them were converted (famous last words) to use
+MIN_T/MAX_T instead.
 
-And when that simple constant was then used inside other expansions:
-
-  #define pageblock_nr_pages      (1UL << pageblock_order)
-  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
-
-and we then use that inside a 'max()' macro:
-
-	case ISOLATE_SUCCESS:
-		update_cached = false;
-		last_migrated_pfn = max(cc->zone->zone_start_pfn,
-			pageblock_start_pfn(cc->migrate_pfn - 1));
-
-the end result was that one statement expanding to 253kB in size.
-
-There are probably other cases of this, but this one case certainly
-stood out.
-
-I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
-constant with specific type" use.  These macros skip the type checking,
-and as such need to be very sparingly used only for obvious cases that
-have active issues like this.
-
-Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
 Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h          | 7 +++++++
- include/linux/pageblock-flags.h | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ include/linux/minmax.h | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 2ec559284a9f..a7ef65f78933 100644
+index a7ef65f78933..9c2848abc804 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
- #define swap(a, b) \
- 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+@@ -45,17 +45,20 @@
  
-+/*
-+ * Use these carefully: no type checking, and uses the arguments
-+ * multiple times. Use for obvious constants only.
-+ */
-+#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
-+#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
+ #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
+ 
+-#define __cmp_once(op, x, y, unique_x, unique_y) ({	\
+-	typeof(x) unique_x = (x);			\
+-	typeof(y) unique_y = (y);			\
++#define __cmp_once_unique(op, type, x, y, ux, uy) \
++	({ type ux = (x); type uy = (y); __cmp(op, ux, uy); })
 +
- #endif	/* _LINUX_MINMAX_H */
-diff --git a/include/linux/pageblock-flags.h b/include/linux/pageblock-flags.h
-index e83c4c095041..a4bf7f0989b2 100644
---- a/include/linux/pageblock-flags.h
-+++ b/include/linux/pageblock-flags.h
-@@ -41,7 +41,7 @@ extern unsigned int pageblock_order;
-  * Huge pages are a constant size, but don't exceed the maximum allocation
-  * granularity.
++#define __cmp_once(op, type, x, y) \
++	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
++
++#define __careful_cmp_once(op, x, y) ({			\
+ 	static_assert(__types_ok(x, y),			\
+ 		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-	__cmp(op, unique_x, unique_y); })
++	__cmp_once(op, __auto_type, x, y); })
+ 
+ #define __careful_cmp(op, x, y)					\
+ 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+-		__cmp(op, x, y),				\
+-		__cmp_once(op, x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y)))
++		__cmp(op, x, y), __careful_cmp_once(op, x, y))
+ 
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+@@ -158,7 +161,7 @@
+  * @x: first value
+  * @y: second value
   */
--#define pageblock_order		min_t(unsigned int, HUGETLB_PAGE_ORDER, MAX_ORDER)
-+#define pageblock_order		MIN_T(unsigned int, HUGETLB_PAGE_ORDER, MAX_ORDER)
+-#define min_t(type, x, y)	__careful_cmp(min, (type)(x), (type)(y))
++#define min_t(type, x, y) __cmp_once(min, type, x, y)
  
- #endif /* CONFIG_HUGETLB_PAGE_SIZE_VARIABLE */
+ /**
+  * max_t - return maximum of two values, using the specified type
+@@ -166,7 +169,7 @@
+  * @x: first value
+  * @y: second value
+  */
+-#define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
++#define max_t(type, x, y) __cmp_once(max, type, x, y)
  
+ /*
+  * Do not check the array parameter using __must_be_array().
 -- 
 2.47.3
 
