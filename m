@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9743FB911EC
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Sep 2025 14:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3204B911F2
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Sep 2025 14:27:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 561DCC3F931;
-	Mon, 22 Sep 2025 12:27:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77E1DC3F939;
+	Mon, 22 Sep 2025 12:27:34 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00399C3F931
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 440D6C3F92E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Sep 2025 12:27:27 +0000 (UTC)
+ Mon, 22 Sep 2025 12:27:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DEDAC44DB1;
- Mon, 22 Sep 2025 12:27:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C696C116B1;
- Mon, 22 Sep 2025 12:27:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 25A34435C8;
+ Mon, 22 Sep 2025 12:27:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4CDC113D0;
+ Mon, 22 Sep 2025 12:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1758544046;
- bh=7ocyK+3FzD6V+C25dQYZW41KRJc+fHbACGeGMEnQN5g=;
+ s=korg; t=1758544052;
+ bh=rRfLqX/zR5w+ifwG90F2/vKyrmETA1lsBOrPDyyqAEM=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=JcqUJiPmkQt1Wtj2boeGm6ynazYCaFwP45kTBA1K5E5xobdGe3n9FRj63J43/elTW
- HCLEbRA43DsEy3HdMnu2rRRllp49AB/iHuVJ21d7sKfRruRksjsqvPf54ywINOqxuj
- 2/4brXazhZ6QCJ9bWcIIzfmWngrTXftz2POrLXmk=
+ b=vR10fA4FmZ4v7KaHCZIyLcLXELsAbPUAD5lYraSzHLR8SUfcT7fvuaVAfns1d40qo
+ ntIYtwcGsPGn6qaY9unY9gkWp6CxSXcCwRRsXp2js5R/wunwsZ0apFhkBqd5cHpQeH
+ 1Is19V8BQwQKhQvN6kPToNslukgQ2UAJ+ojqTKAY=
 To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, agk@redhat.com,
 	airlied@gmail.com, akpm@linux-foundation.org,
@@ -64,13 +64,13 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	wens@csie.org, wg@grandegger.com, x86@kernel.org
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 22 Sep 2025 14:27:00 +0200
-In-Reply-To: <20250922103241.16213-3-farbere@amazon.com>
-Message-ID: <2025092200-backache-provolone-1ed1@gregkh>
+In-Reply-To: <20250922103241.16213-6-farbere@amazon.com>
+Message-ID: <2025092200-bullfrog-resolved-b3bd@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore
 Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "minmax: simplify and clarify min_t()/max_t()
+Subject: [Linux-stm32] Patch "minmax: simplify min()/max()/clamp()
 	implementation" has been added to the 6.6-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -91,40 +91,83 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This is a note to let you know that I've just added the patch titled
 
-    minmax: simplify and clarify min_t()/max_t() implementation
+    minmax: simplify min()/max()/clamp() implementation
 
 to the 6.6-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+     minmax-simplify-min-max-clamp-implementation.patch
 and it can be found in the queue-6.6 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From prvs=353d6d59a=farbere@amazon.com Mon Sep 22 12:34:24 2025
+From stable+bounces-180928-greg=kroah.com@vger.kernel.org Mon Sep 22 12:37:49 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Mon, 22 Sep 2025 10:32:28 +0000
-Subject: minmax: simplify and clarify min_t()/max_t() implementation
+Date: Mon, 22 Sep 2025 10:32:31 +0000
+Subject: minmax: simplify min()/max()/clamp() implementation
 To: <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <mchehab@kernel.org>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@lists.linux.dev>, <mailhol.vincent@wanadoo.fr>, <wg@grandegger.com>, <mkl@pengutronix.de>, <davem@davemloft.net>, <edu
  mazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>, <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>, <malattia@linux.it>, <hdegoede@redhat.com>, <ilpo.jarvinen@linux.intel.com>, <markgross@kernel.org>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>, <pmladek@suse.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <senozhatsky@chromium.org>, <minchan@kernel.org>, <akpm@linux-foundation.org>, <dsahern@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>, <wad@chromium.org>, <farbere@amazon.com>, <David.Laight@ACULAB.COM>, <arnd@kernel.org>, <linux-um@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedeskto
  p.org>, <dri-devel@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <linux-can@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>, <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>, <bpf@vger.kernel.org>, <stable@vger.kernel.org>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Message-ID: <20250922103241.16213-3-farbere@amazon.com>
+Message-ID: <20250922103241.16213-6-farbere@amazon.com>
 
 From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 017fa3e89187848fd056af757769c9e66ac3e93d ]
+[ Upstream commit dc1c8034e31b14a2e5e212104ec508aec44ce1b9 ]
 
-This simplifies the min_t() and max_t() macros by no longer making them
-work in the context of a C constant expression.
+Now that we no longer have any C constant expression contexts (ie array
+size declarations or static initializers) that use min() or max(), we
+can simpify the implementation by not having to worry about the result
+staying as a C constant expression.
 
-That means that you can no longer use them for static initializers or
-for array sizes in type definitions, but there were only a couple of
-such uses, and all of them were converted (famous last words) to use
-MIN_T/MAX_T instead.
+So now we can unconditionally just use temporary variables of the right
+type, and get rid of the excessive expansion that used to come from the
+use of
+
+   __builtin_choose_expr(__is_constexpr(...), ..
+
+to pick the specialized code for constant expressions.
+
+Another expansion simplification is to pass the temporary variables (in
+addition to the original expression) to our __types_ok() macro.  That
+may superficially look like it complicates the macro, but when we only
+want the type of the expression, expanding the temporary variable names
+is much simpler and smaller than expanding the potentially complicated
+original expression.
+
+As a result, on my machine, doing a
+
+  $ time make drivers/staging/media/atomisp/pci/isp/kernels/ynr/ynr_1.0/ia_css_ynr.host.i
+
+goes from
+
+	real	0m16.621s
+	user	0m15.360s
+	sys	0m1.221s
+
+to
+
+	real	0m2.532s
+	user	0m2.091s
+	sys	0m0.452s
+
+because the token expansion goes down dramatically.
+
+In particular, the longest line expansion (which was line 71 of that
+'ia_css_ynr.host.c' file) shrinks from 23,338kB (yes, 23MB for one
+single line) to "just" 1,444kB (now "only" 1.4MB).
+
+And yes, that line is still the line from hell, because it's doing
+multiple levels of "min()/max()" expansion thanks to some of them being
+hidden inside the uDIGIT_FITTING() macro.
+
+Lorenzo has a nice cleanup patch that makes that driver use inline
+functions instead of macros for sDIGIT_FITTING() and uDIGIT_FITTING(),
+which will fix that line once and for all, but the 16-fold reduction in
+this case does show why we need to simplify these helpers.
 
 Cc: David Laight <David.Laight@aculab.com>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
@@ -132,56 +175,77 @@ Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h |   19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ include/linux/minmax.h |   43 ++++++++++++++++++++-----------------------
+ 1 file changed, 20 insertions(+), 23 deletions(-)
 
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -45,17 +45,20 @@
+@@ -35,10 +35,10 @@
+ #define __is_noneg_int(x)	\
+ 	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
  
- #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
+-#define __types_ok(x, y) 					\
+-	(__is_signed(x) == __is_signed(y) ||			\
+-		__is_signed((x) + 0) == __is_signed((y) + 0) ||	\
+-		__is_noneg_int(x) || __is_noneg_int(y))
++#define __types_ok(x, y, ux, uy) 				\
++	(__is_signed(ux) == __is_signed(uy) ||			\
++	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
++	 __is_noneg_int(x) || __is_noneg_int(y))
  
--#define __cmp_once(op, x, y, unique_x, unique_y) ({	\
--	typeof(x) unique_x = (x);			\
--	typeof(y) unique_y = (y);			\
-+#define __cmp_once_unique(op, type, x, y, ux, uy) \
-+	({ type ux = (x); type uy = (y); __cmp(op, ux, uy); })
-+
-+#define __cmp_once(op, type, x, y) \
-+	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
-+
-+#define __careful_cmp_once(op, x, y) ({			\
- 	static_assert(__types_ok(x, y),			\
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -51,34 +51,31 @@
+ #define __cmp_once(op, type, x, y) \
+ 	__cmp_once_unique(op, type, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
+ 
+-#define __careful_cmp_once(op, x, y) ({			\
+-	static_assert(__types_ok(x, y),			\
++#define __careful_cmp_once(op, x, y, ux, uy) ({		\
++	__auto_type ux = (x); __auto_type uy = (y);	\
++	static_assert(__types_ok(x, y, ux, uy),		\
  		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
--	__cmp(op, unique_x, unique_y); })
-+	__cmp_once(op, __auto_type, x, y); })
+-	__cmp_once(op, __auto_type, x, y); })
++	__cmp(op, ux, uy); })
  
- #define __careful_cmp(op, x, y)					\
- 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
--		__cmp(op, x, y),				\
--		__cmp_once(op, x, y, __UNIQUE_ID(__x), __UNIQUE_ID(__y)))
-+		__cmp(op, x, y), __careful_cmp_once(op, x, y))
+-#define __careful_cmp(op, x, y)					\
+-	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+-		__cmp(op, x, y), __careful_cmp_once(op, x, y))
++#define __careful_cmp(op, x, y) \
++	__careful_cmp_once(op, x, y, __UNIQUE_ID(x_), __UNIQUE_ID(y_))
  
  #define __clamp(val, lo, hi)	\
  	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
-@@ -158,7 +161,7 @@
-  * @x: first value
-  * @y: second value
-  */
--#define min_t(type, x, y)	__careful_cmp(min, (type)(x), (type)(y))
-+#define min_t(type, x, y) __cmp_once(min, type, x, y)
+ 
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
+-	typeof(val) unique_val = (val);						\
+-	typeof(lo) unique_lo = (lo);						\
+-	typeof(hi) unique_hi = (hi);						\
++#define __clamp_once(val, lo, hi, uval, ulo, uhi) ({				\
++	__auto_type uval = (val);						\
++	__auto_type ulo = (lo);							\
++	__auto_type uhi = (hi);							\
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-	__clamp(unique_val, unique_lo, unique_hi); })
+-
+-#define __careful_clamp(val, lo, hi) ({					\
+-	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
+-		__clamp(val, lo, hi),					\
+-		__clamp_once(val, lo, hi, __UNIQUE_ID(__val),		\
+-			     __UNIQUE_ID(__lo), __UNIQUE_ID(__hi))); })
++	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	__clamp(uval, ulo, uhi); })
++
++#define __careful_clamp(val, lo, hi) \
++	__clamp_once(val, lo, hi, __UNIQUE_ID(v_), __UNIQUE_ID(l_), __UNIQUE_ID(h_))
  
  /**
-  * max_t - return maximum of two values, using the specified type
-@@ -166,7 +169,7 @@
-  * @x: first value
-  * @y: second value
-  */
--#define max_t(type, x, y)	__careful_cmp(max, (type)(x), (type)(y))
-+#define max_t(type, x, y) __cmp_once(max, type, x, y)
- 
- /*
-  * Do not check the array parameter using __must_be_array().
+  * min - return minimum of two values of the same or compatible types
 
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
