@@ -2,70 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634EFB8E658
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Sep 2025 23:37:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8354FB8EF91
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Sep 2025 07:02:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7317C3087A;
-	Sun, 21 Sep 2025 21:37:16 +0000 (UTC)
-Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- [63.176.194.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 858BCC349C5;
+	Mon, 22 Sep 2025 05:02:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DCC1C32EB5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77B1AC349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Sep 2025 21:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1758490635; x=1790026635;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=w/nAd4kDSjaQjN1Dv16qY5ce7rfWNGwV0jiO1W97n90=;
- b=jzlsULJ2p5fKgIQ0eGiIPu9Sag3yI25oc5CcSAHn/13NbDHFinsf6Jzf
- bo4rEPXT9bVIktD4veBOTwKZkri4IpDOCBJdCXzVqcHiDPxCbOhc+e/5j
- bKMiJ+dDmQcWHQPoHPqM+EHrMfoE4P1JuQOQ1tWqhNvUcFwDyeNSX5mNa
- LZlG+ASVSjilsq4o5vJE9fiGhkbdvBisdWvvzVhyOYMOcphd+1mIBS1AI
- Wyd+uPV2qwlFML4CaCzI0DKl1cnbbC7gEKbVo8JmpFnXH367no6ZUgU74
- S/eTtbRxI8tiLdmFp/oeCBFk9pOc/BegW92QgsuHxcGzCOVPLS7bTorqF w==;
-X-CSE-ConnectionGUID: IkzWuETbT12a0z9pqWbBLQ==
-X-CSE-MsgGUID: PRMHOoNlThOyMzCGXOQDbw==
-X-IronPort-AV: E=Sophos;i="6.18,283,1751241600"; 
-   d="scan'208";a="2450586"
-Received: from ip-10-6-3-216.eu-central-1.compute.internal (HELO
- smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.3.216])
- by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
- with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2025 21:37:06 +0000
-Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:22107]
- by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.21.26:2525]
- with esmtp (Farcaster)
- id e11f0e39-22b8-46a0-839c-05efcff8dbe9; Sun, 21 Sep 2025 21:37:06 +0000 (UTC)
-X-Farcaster-Flow-ID: e11f0e39-22b8-46a0-839c-05efcff8dbe9
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.124) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Sun, 21 Sep 2025 21:37:03 +0000
-Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
- EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Sun, 21 Sep 2025 21:37:02 +0000
-Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
- EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
- 15.02.2562.020; Sun, 21 Sep 2025 21:37:02 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Thread-Topic: [PATCH 00/27 5.10.y] Backport minmax.h updates from v6.17-rc6
-Thread-Index: AQHcKz/dRIfBoG9yrEaIjS9Ywn6sYg==
-Date: Sun, 21 Sep 2025 21:37:02 +0000
-Message-ID: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
+ Mon, 22 Sep 2025 05:02:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 503AD601DC;
+ Mon, 22 Sep 2025 05:02:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A858C4CEF5;
+ Mon, 22 Sep 2025 05:02:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1758517333;
+ bh=/nk8xPLOsGXuSw5wS41Jy4q570vGloBiPOCZp2/irX0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BcNVWZn6zT4Gv/IUZ2C0NZn/XQ5pAMMpsZzcS58NBPYxD2oFH/k4xQ1OcYygH2JDO
+ qM8XphYZH6pOzc+c2uakvnfuiVmB28vwfNolajwWxIrag0Gc1iZ0LiKuoKaX4EXv7U
+ h1tGLKcFUdBrn8iKhoSlB6ijAzBdHBAHMrirLbcw=
+Date: Mon, 22 Sep 2025 07:02:08 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Farber, Eliav" <farbere@amazon.com>
+Message-ID: <2025092203-untreated-sloppily-23b5@gregkh>
 References: <20250919101727.16152-1-farbere@amazon.com>
  <2025092136-unelected-skirt-d91d@gregkh>
-In-Reply-To: <2025092136-unelected-skirt-d91d@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.143.176]
+ <4f497306c58240a88c0bb001786c3ad2@amazon.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <4f497306c58240a88c0bb001786c3ad2@amazon.com>
 Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "malattia@linux.it" <malattia@linux.it>,
@@ -189,34 +158,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
-> > This series includes a total of 27 patches, to align minmax.h of
-> > v5.15.y with v6.17-rc6.
+On Sun, Sep 21, 2025 at 09:37:02PM +0000, Farber, Eliav wrote:
+> > On Fri, Sep 19, 2025 at 10:17:00AM +0000, Eliav Farber wrote:
+> > > This series includes a total of 27 patches, to align minmax.h of
+> > > v5.15.y with v6.17-rc6.
+> > >
+> > > The set consists of 24 commits that directly update minmax.h:
+> > > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
+> > >    once")
 > >
-> > The set consists of 24 commits that directly update minmax.h:
-> > 1) 92d23c6e9415 ("overflow, tracing: Define the is_signed_type() macro
-> >    once")
->
-> But this isn't in 5.15.y, so how is this syncing things up?
->
-> I'm all for this, but I got confused here, at the first commit :)
+> > But this isn't in 5.15.y, so how is this syncing things up?
+> >
+> > I'm all for this, but I got confused here, at the first commit :)
+> 
+> It's a typo.
+> It should be 5.10.y and not 5.15.y.
+> 
+> > Some of these are also only in newer kernels, which, as you know, is
+> > generally a bad thing (i.e. I can't take patches only for older
+> > kernels.)
+> >
+> > I want these changes, as they are great, but can you perhaps provide
+> > patch series for newer kernels first so that I can then take these?
+> 
+> So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
+> then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
+> align 5.10 and even 5.4?
 
-It's a typo.
-It should be 5.10.y and not 5.15.y.
+Yes please!
 
-> Some of these are also only in newer kernels, which, as you know, is
-> generally a bad thing (i.e. I can't take patches only for older
-> kernels.)
->
-> I want these changes, as they are great, but can you perhaps provide
-> patch series for newer kernels first so that I can then take these?
-
-So you'd first like first to align 6.16 with 6.17, then 6.15 with 6.16,
-then 6.12 with 6.15, then 6.6 with 6.12, and so on until we eventually
-align 5.10 and even 5.4?
-
----
-Regards, Eliav
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
