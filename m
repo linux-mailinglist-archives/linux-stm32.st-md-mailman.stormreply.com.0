@@ -2,54 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2568B95A54
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Sep 2025 13:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED24AB95ABA
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Sep 2025 13:31:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8609BC3F92E;
-	Tue, 23 Sep 2025 11:26:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17140C3089D;
+	Tue, 23 Sep 2025 11:31:33 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 648B5C36B20
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A5C3C36B20
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Sep 2025 11:26:35 +0000 (UTC)
+ Tue, 23 Sep 2025 11:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=q24K7de5jaqh0rHllgz2My1TxD+1mvaZiPDKkSvAA3Q=; b=wvvoM4eue0TfQLiDWTqBwk1u4u
- AsxrfAUxyL7D6hjK6sPr6Geqd2HnXq+KNGvlv1HLDZxk3OgvpFN7fZ/LWRINV+3T4+xru0eBdC2lT
- ugsvxuDIsfBYn+hLyY1Lpi31onpgDakqrHKKZsRUv4TOz+thtDHi5psMT1uFTew16u1XdXQHzV8TB
- qOtKTopPDI39RhjAk8o7NwFpjWdnQCkcF8/8trnhh/looSHN5cyhm+zQsl8Wyqh1lTPovM1v+Rayi
- sRLv+EL9+lW1UVqIlZIbX5QjeaAQRyKKsZ6LCgSu/Jgov2mt/Ugaqx28qDO8VLjRwL6p0AykjbtBP
- plq2/Oig==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39568 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=FqqitcQCkxhV32rTsJ+uCNxHvhC6YeG2qjPkLgt2EmY=; b=V2Xf7M/44Zue2oMyR0jrB+6qMg
+ 7ZAh961BrfLS0ajhseeoLhfyHCGNfHPNryrtiAnligon5imjUELBnAYYeYvGEq8HyMCjvXGG18NeR
+ xX45bLWzxrnwcB0j2Yuoglb08+J7TKgm0LM9hQOtYHtqGNt/4LLi/I5MvXUR0NQgnNiUhEG5hUbCb
+ JDYoTT3RoUIm3MA855yGNesZCF5JUQgQT8BS9MXHIxnoViLqZaISaVBU/hb0hizZXSiz2+qH5qEXO
+ pgg/MesL/bYJCJJnAnbqqg0IgZRGp7D8trqHGNCTboXfcIhzp4fb1h7R3YigLmTnbHn8DxIhHllQS
+ q3C2v+Fg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54658)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1v11AB-0000000079Z-0c1x;
- Tue, 23 Sep 2025 12:26:27 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1v11A8-0000000774M-3pmH; Tue, 23 Sep 2025 12:26:24 +0100
-In-Reply-To: <aNKDqqI7aLsuDD52@shell.armlinux.org.uk>
+ (envelope-from <linux@armlinux.org.uk>) id 1v11F2-000000007BP-0BY1;
+ Tue, 23 Sep 2025 12:31:28 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v11Ez-0000000066T-3bkC; Tue, 23 Sep 2025 12:31:25 +0100
+Date: Tue, 23 Sep 2025 12:31:25 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aNKFDW_aaSZl2NFE@shell.armlinux.org.uk>
 References: <aNKDqqI7aLsuDD52@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1v11A8-0000000774M-3pmH@rmk-PC.armlinux.org.uk>
-Date: Tue, 23 Sep 2025 12:26:24 +0100
+In-Reply-To: <aNKDqqI7aLsuDD52@shell.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: stmmac: simplify
-	stmmac_init_phy()
+Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: yet more
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,71 +65,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If we fail to attach a PHY, there is no point trying to configure WoL
-settings. Exit the function after printing the "cannot attach to PHY"
-error, and remove the now unnecessary code indentation for configuring
-the LPI timer in phylink. Since we know that "ret" must be zero at this
-point, change the final return to use a constant rather than "ret".
+On Tue, Sep 23, 2025 at 12:25:30PM +0100, Russell King (Oracle) wrote:
+> Building on the previous cleanup series, this cleans up yet more stmmac
+> code.
+> 
+> - Move stmmac_bus_clks_config() into stmmac_platform() which is where
+>   its onlny user is.
+> 
+> - Move the xpcs Clause 73 test into stmmac_init_phy(), resulting in
+>   simpler code in __stmmac_open().
+> 
+> - Move "can't attach PHY" error message into stmmac_init_phy().
+> 
+> We then start moving stuff out of __stmac_open() into stmmac_open()
+> (and correspondingly __stmmac_release() into stmmac_release()) which
+> is not necessary when re-initialising the interface on e.g. MTU change.
+> 
+> - Move initialisation of tx_lpi_timer
+> - Move PHY attachment/detachment
+> - Move PHY error message into stmmac_init_phy()
+> 
+> Finally, simplfy the paths in stmmac_init_phy().
+> 
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   1 -
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 111 ++++++++-------------
+>  .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  32 ++++++
+>  3 files changed, 73 insertions(+), 71 deletions(-)
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 +++++++++----------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+Should've added: tested on nVidia Jetson Xavier NX.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4844d563e291..be064f240895 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1115,6 +1115,7 @@ static int stmmac_init_phy(struct net_device *dev)
- 	int mode = priv->plat->phy_interface;
- 	struct fwnode_handle *phy_fwnode;
- 	struct fwnode_handle *fwnode;
-+	struct ethtool_keee eee;
- 	int ret;
- 
- 	if (!phylink_expects_phy(priv->phylink))
-@@ -1160,19 +1161,17 @@ static int stmmac_init_phy(struct net_device *dev)
- 	if (ret) {
- 		netdev_err(priv->dev, "cannot attach to PHY (error: %pe)\n",
- 			   ERR_PTR(ret));
--	} else {
--		struct ethtool_keee eee;
-+		return ret;
-+	}
- 
--		/* Configure phylib's copy of the LPI timer. Normally,
--		 * phylink_config.lpi_timer_default would do this, but there is
--		 * a chance that userspace could change the eee_timer setting
--		 * via sysfs before the first open. Thus, preserve existing
--		 * behaviour.
--		 */
--		if (!phylink_ethtool_get_eee(priv->phylink, &eee)) {
--			eee.tx_lpi_timer = priv->tx_lpi_timer;
--			phylink_ethtool_set_eee(priv->phylink, &eee);
--		}
-+	/* Configure phylib's copy of the LPI timer. Normally,
-+	 * phylink_config.lpi_timer_default would do this, but there is a
-+	 * chance that userspace could change the eee_timer setting via sysfs
-+	 * before the first open. Thus, preserve existing behaviour.
-+	 */
-+	if (!phylink_ethtool_get_eee(priv->phylink, &eee)) {
-+		eee.tx_lpi_timer = priv->tx_lpi_timer;
-+		phylink_ethtool_set_eee(priv->phylink, &eee);
- 	}
- 
- 	if (!priv->plat->pmt) {
-@@ -1183,7 +1182,7 @@ static int stmmac_init_phy(struct net_device *dev)
- 		device_set_wakeup_enable(priv->device, !!wol.wolopts);
- 	}
- 
--	return ret;
-+	return 0;
- }
- 
- static int stmmac_phy_setup(struct stmmac_priv *priv)
+However, observed a failure changing the MTU with the link down - our
+old friend, failure to complete the DMA reset.
+
+Once that's been triggered, taking the interface down or changing the
+MTU again results in more problems, with the thread spinning in
+napi_disable_locked() with RTNL held (as we effectively end up calling
+napi_disable() twice on the same napi struct.)
+
+This basically makes the platforms networking unusable - and needs to
+be hard-reset.
+
+These issues pre-exist all my cleanups.
+
 -- 
-2.47.3
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
