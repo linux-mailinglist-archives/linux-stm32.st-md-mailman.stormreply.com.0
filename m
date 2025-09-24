@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9D96B9B6A0
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 20:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E04B9B6A6
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 20:20:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D133C3F93F;
-	Wed, 24 Sep 2025 18:20:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7780C3F93F;
+	Wed, 24 Sep 2025 18:20:50 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34637C3F93E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09CD0C3F93E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 18:20:42 +0000 (UTC)
+ Wed, 24 Sep 2025 18:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=X0Dx61SmUSZPOg+fQqzHu8F8LceEPLcrc6v6iwBDeog=; b=MfXS1Fnfcde3qYg7/oUfA8kSDE
- YhWg/6jAiNfAQo0ulW9VChKrsCBTo2IRdgH3aMBnxEz97+RCVwtlhpJcqG23ifHzqJfFO8V7I0PKZ
- fy08eRZtacm1e7mfpbXP8EbQnVQghJN29Jc5YDCkPemRkRo5XwkwyDprpII7OSX+YVIN60847K4Dq
- fTIuMPlCWasvCCIvKF9gUy/V0pOqK2ziTIiUKyBvlas0vYaivn4uzDGQLB4rLiw2+MWAXEQvOH6Bz
- HnNwtsClSQ6o8GXzqU7v8+aIQejE4LjII/XJWDdk9NzJpuB3QXl3FM5MIb/eXVe2GXi5S6KNAC9td
- cFaD1kcw==;
+ bh=wL/ame7v34EiY5oVwcuvfByYyCNwndIpgbavubqiA/g=; b=GgYtOWAd8hZV3/gkq2zHpZvize
+ ap+l+jj1hh455d79F55mHCO36OkQMvGwbHFs9jz58C2ItfKLY3WjZ/J8lxV6rLtzKmWkLYhR0Enx4
+ IW0By8tLtJtUkaHGU5h9c8mywP3L0bXUvIxp6JTqVXFEEPM7rMMLz4zAHiXTy9p21fRHVvveGKAOU
+ 7ajttVkkw27sIbX0UFIhn5SEMl6r1BOpZ0rQOK1mYXiTF03AH5l+sm7vu2XKemiP+KkGeRnr77laq
+ TR/NdMSr6hAfLBvlqjA97VD4P76Gxh95HpQ3Yweam8Xy8JzbhlC5InZWwpeLQAttrFt43T4tTSN+I
+ 1A9clRSw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51776 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44456 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1v1U5k-0000000011g-1ojl;
- Wed, 24 Sep 2025 19:19:48 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1v1U5p-0000000011y-2b7G;
+ Wed, 24 Sep 2025 19:19:53 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1v1U5j-00000007Hvi-1Q0x; Wed, 24 Sep 2025 19:19:47 +0100
+ id 1v1U5o-00000007Hvt-1y7f; Wed, 24 Sep 2025 19:19:52 +0100
 In-Reply-To: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
 References: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1v1U5j-00000007Hvi-1Q0x@rmk-PC.armlinux.org.uk>
-Date: Wed, 24 Sep 2025 19:19:47 +0100
+Message-Id: <E1v1U5o-00000007Hvt-1y7f@rmk-PC.armlinux.org.uk>
+Date: Wed, 24 Sep 2025 19:19:52 +0100
 Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
@@ -70,8 +70,8 @@ Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Vladimir Oltean <olteanv@gmail.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: [Linux-stm32] [PATCH RFC net-next 2/9] net: stmmac: remove
-	xstats.pcs_* members
+Subject: [Linux-stm32] [PATCH RFC net-next 3/9] net: stmmac: remove
+ SGMII/RGMII/SMII interrupt handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,115 +88,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As a result of the previous commit, the pcs_link, pcs_duplex and
-pcs_speed members are not used outside of the interrupt handling code,
-and are only used to print their status using the misleading "Link is"
-messages that bear no relation to the actual status of the link.
-
-Remove the printing of these messages, these members, and the code
-that decodes them from the hardware.
+Now that the only use for the interrupt is to clear it and increment a
+statistic counter (which is not that relevant anymore) remove all this
+code and ensure that the interrupt remains disabled to avoid a stuck
+interrupt.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h  |  3 --
- .../ethernet/stmicro/stmmac/dwmac1000_core.c  | 28 +------------------
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 28 +------------------
- 3 files changed, 2 insertions(+), 57 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000.h      |  6 +++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 10 ----------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h         |  3 +--
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c    |  9 ---------
+ 4 files changed, 4 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index eaa1f2e1c5a5..8ff3406cdfbf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -192,9 +192,6 @@ struct stmmac_extra_stats {
- 	unsigned long irq_pcs_ane_n;
- 	unsigned long irq_pcs_link_n;
- 	unsigned long irq_rgmii_n;
--	unsigned long pcs_link;
--	unsigned long pcs_duplex;
--	unsigned long pcs_speed;
- 	/* debug register */
- 	unsigned long mtl_tx_status_fifo_full;
- 	unsigned long mtl_tx_fifo_not_empty;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
+index 0c011a47d5a3..8f3002d9de78 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
+@@ -38,10 +38,10 @@
+ #define	GMAC_INT_DISABLE_PCSAN		BIT(2)
+ #define	GMAC_INT_DISABLE_PMT		BIT(3)
+ #define	GMAC_INT_DISABLE_TIMESTAMP	BIT(9)
+-#define	GMAC_INT_DISABLE_PCS	(GMAC_INT_DISABLE_RGMII | \
+-				 GMAC_INT_DISABLE_PCSLINK | \
++#define	GMAC_INT_DISABLE_PCS	(GMAC_INT_DISABLE_PCSLINK | \
+ 				 GMAC_INT_DISABLE_PCSAN)
+-#define	GMAC_INT_DEFAULT_MASK	(GMAC_INT_DISABLE_TIMESTAMP | \
++#define	GMAC_INT_DEFAULT_MASK	(GMAC_INT_DISABLE_RGMII | \
++				 GMAC_INT_DISABLE_TIMESTAMP | \
+ 				 GMAC_INT_DISABLE_PCS)
+ 
+ /* PMT Control and Status */
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index fe776ddf6889..2c5ee59c3208 100644
+index 2c5ee59c3208..654331b411f4 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -266,34 +266,8 @@ static void dwmac1000_pmt(struct mac_device_info *hw, unsigned long mode)
- /* RGMII or SMII interface */
- static void dwmac1000_rgsmii(void __iomem *ioaddr, struct stmmac_extra_stats *x)
- {
--	u32 status;
--
--	status = readl(ioaddr + GMAC_RGSMIIIS);
-+	readl(ioaddr + GMAC_RGSMIIIS);
- 	x->irq_rgmii_n++;
--
--	/* Check the link status */
--	if (status & GMAC_RGSMIIIS_LNKSTS) {
--		int speed_value;
--
--		x->pcs_link = 1;
--
--		speed_value = ((status & GMAC_RGSMIIIS_SPEED) >>
--			       GMAC_RGSMIIIS_SPEED_SHIFT);
--		if (speed_value == GMAC_RGSMIIIS_SPEED_125)
--			x->pcs_speed = SPEED_1000;
--		else if (speed_value == GMAC_RGSMIIIS_SPEED_25)
--			x->pcs_speed = SPEED_100;
--		else
--			x->pcs_speed = SPEED_10;
--
--		x->pcs_duplex = (status & GMAC_RGSMIIIS_LNKMOD_MASK);
--
--		pr_info("Link is Up - %d/%s\n", (int)x->pcs_speed,
--			x->pcs_duplex ? "Full" : "Half");
--	} else {
--		x->pcs_link = 0;
--		pr_info("Link is Down\n");
--	}
+@@ -263,13 +263,6 @@ static void dwmac1000_pmt(struct mac_device_info *hw, unsigned long mode)
+ 	writel(pmt, ioaddr + GMAC_PMT);
  }
  
+-/* RGMII or SMII interface */
+-static void dwmac1000_rgsmii(void __iomem *ioaddr, struct stmmac_extra_stats *x)
+-{
+-	readl(ioaddr + GMAC_RGSMIIIS);
+-	x->irq_rgmii_n++;
+-}
+-
  static int dwmac1000_irq_status(struct mac_device_info *hw,
+ 				struct stmmac_extra_stats *x)
+ {
+@@ -311,9 +304,6 @@ static int dwmac1000_irq_status(struct mac_device_info *hw,
+ 
+ 	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
+ 
+-	if (intr_status & PCS_RGSMIIIS_IRQ)
+-		dwmac1000_rgsmii(ioaddr, x);
+-
+ 	return ret;
+ }
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+index 3dec1a264cf6..6dd84b6544cc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
+@@ -106,8 +106,7 @@
+ #define GMAC_INT_LPI_EN			BIT(5)
+ #define GMAC_INT_TSIE			BIT(12)
+ 
+-#define	GMAC_PCS_IRQ_DEFAULT	(GMAC_INT_RGSMIIS | GMAC_INT_PCS_LINK |	\
+-				 GMAC_INT_PCS_ANE)
++#define	GMAC_PCS_IRQ_DEFAULT	(GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE)
+ 
+ #define	GMAC_INT_DEFAULT_ENABLE	(GMAC_INT_PMT_EN | GMAC_INT_LPI_EN | \
+ 				 GMAC_INT_TSIE)
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index d85bc0bb5c3c..8a19df7b0577 100644
+index 8a19df7b0577..bff4c371c1d2 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -592,34 +592,8 @@ static void dwmac4_ctrl_ane(struct stmmac_priv *priv, bool ane, bool srgmi_ral,
- /* RGMII or SMII interface */
- static void dwmac4_phystatus(void __iomem *ioaddr, struct stmmac_extra_stats *x)
- {
--	u32 status;
--
--	status = readl(ioaddr + GMAC_PHYIF_CONTROL_STATUS);
-+	readl(ioaddr + GMAC_PHYIF_CONTROL_STATUS);
- 	x->irq_rgmii_n++;
--
--	/* Check the link status */
--	if (status & GMAC_PHYIF_CTRLSTATUS_LNKSTS) {
--		int speed_value;
--
--		x->pcs_link = 1;
--
--		speed_value = ((status & GMAC_PHYIF_CTRLSTATUS_SPEED) >>
--			       GMAC_PHYIF_CTRLSTATUS_SPEED_SHIFT);
--		if (speed_value == GMAC_PHYIF_CTRLSTATUS_SPEED_125)
--			x->pcs_speed = SPEED_1000;
--		else if (speed_value == GMAC_PHYIF_CTRLSTATUS_SPEED_25)
--			x->pcs_speed = SPEED_100;
--		else
--			x->pcs_speed = SPEED_10;
--
--		x->pcs_duplex = (status & GMAC_PHYIF_CTRLSTATUS_LNKMOD);
--
--		pr_info("Link is Up - %d/%s\n", (int)x->pcs_speed,
--			x->pcs_duplex ? "Full" : "Half");
--	} else {
--		x->pcs_link = 0;
--		pr_info("Link is Down\n");
--	}
+@@ -589,13 +589,6 @@ static void dwmac4_ctrl_ane(struct stmmac_priv *priv, bool ane, bool srgmi_ral,
+ 	dwmac_ctrl_ane(priv->ioaddr, GMAC_PCS_BASE, ane, srgmi_ral, loopback);
  }
  
+-/* RGMII or SMII interface */
+-static void dwmac4_phystatus(void __iomem *ioaddr, struct stmmac_extra_stats *x)
+-{
+-	readl(ioaddr + GMAC_PHYIF_CONTROL_STATUS);
+-	x->irq_rgmii_n++;
+-}
+-
  static int dwmac4_irq_mtl_status(struct stmmac_priv *priv,
+ 				 struct mac_device_info *hw, u32 chan)
+ {
+@@ -667,8 +660,6 @@ static int dwmac4_irq_status(struct mac_device_info *hw,
+ 	}
+ 
+ 	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
+-	if (intr_status & PCS_RGSMIIIS_IRQ)
+-		dwmac4_phystatus(ioaddr, x);
+ 
+ 	return ret;
+ }
 -- 
 2.47.3
 
