@@ -2,77 +2,119 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB10CB9BB74
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 21:31:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B23B9BD8C
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 22:24:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8A20C3F93F;
-	Wed, 24 Sep 2025 19:31:44 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23663C3F942;
+	Wed, 24 Sep 2025 20:24:12 +0000 (UTC)
+Received: from fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [52.28.197.132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9819AC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AD21C3F940
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 19:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wWHuMNffMGutQbJvBKG/MZveRAosfgTjgtTC/tzZqkI=; b=b5/u/dXh0JBJyMqjvQCaQFkHk+
- 8Ksv2CPwkCAHaWyXWet8FTyq9FgPyo7XewgPvma6VXyppo3tezvBghJZfbT9HetuKxM795x5Kn7sr
- hIwXirxpW1Br4vDkZdC0CkWR6PKd2tEIxzEtktNIuD7WKO7pXP4kAfvgqHmmkTra4W+m4smtqCSuK
- XCOL9BxcPLVKGW785xU3zvkHu3JWuKs4AbGatRATYJYy4dHehqcVXwlroC7HjAXdeuwBz+1c2MDRq
- 4FJmYWRFEXRXE1ABa/Jzw5zSJ3zIMTfFp8EaqrW37NtkfPs0PSG0jrfnENMkugEBKVbMTyULQoSIV
- Sb37R4Rg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34686)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v1VCp-000000001DY-2osw;
- Wed, 24 Sep 2025 20:31:11 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v1VCd-000000007PA-3Edy; Wed, 24 Sep 2025 20:30:59 +0100
-Date: Wed, 24 Sep 2025 20:30:59 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jacob Keller <jacob.e.keller@intel.com>
-Message-ID: <aNRG82biP9mA-rvm@shell.armlinux.org.uk>
-References: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
- <b7fb3c8c-bfa6-4e46-b5ed-05e4752bbc00@intel.com>
+ Wed, 24 Sep 2025 20:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1758745451; x=1790281451;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KzVc5pQt1xJae1laTHwFTkgfsVttwXUFIKNqt4L9XFg=;
+ b=BnumJsHdql4VFboHnK1favBDOcWAtT9RWOROKO0HjLTiz5vZ9gBvDQQS
+ OCm9IU1H/UDKDAd+bkcb+O6s8GJZAJy/kznsqNhrQzTmqUgFIQe7mSOCQ
+ lMV0L4ScrYS0t83nrYz3EyMwWFz+WzzR7Yxt5wukVwjT1UvNEYQ+oIaH8
+ 8aTFnGB7UVsTvxg3W3u9oYFxJjHjdlQf5VG+mmBOYBKjWcN+O+vnXHH1m
+ 72vyjFxv9K6a2Krmz6BWWTTnfkFhmckwlIBUkbN0pFNL2+u5Crozr2PA0
+ EfDT4k6e62tmlxGhNVUnRYotSs1YBIegHJxqe/K1NYoYW0t/f3skv8ysx Q==;
+X-CSE-ConnectionGUID: +bpb7ezGQtmV8E8VA8qXRA==
+X-CSE-MsgGUID: SFde7s01RFKi6zh/6W6ZSQ==
+X-IronPort-AV: E=Sophos;i="6.18,291,1751241600"; 
+   d="scan'208";a="2525915"
+Received: from ip-10-6-11-83.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.11.83])
+ by internal-fra-out-011.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2025 20:24:01 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:12397]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.5.254:2525]
+ with esmtp (Farcaster)
+ id d8c58b1d-ca7d-4c1f-a53d-72dcf5ba6a6f; Wed, 24 Sep 2025 20:24:01 +0000 (UTC)
+X-Farcaster-Flow-ID: d8c58b1d-ca7d-4c1f-a53d-72dcf5ba6a6f
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Wed, 24 Sep 2025 20:24:00 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Wed, 24 Sep 2025
+ 20:23:26 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <linux@armlinux.org.uk>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <johannes@sipsolutions.net>,
+ <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>,
+ <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
+ <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>,
+ <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>,
+ <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>,
+ <mihail.atanassov@arm.com>, <brian.starkey@arm.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
+ <dmitry.baryshkov@linaro.org>, <sean@poorly.run>, <jdelvare@suse.com>,
+ <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <samuel@sholland.org>, <agk@redhat.com>,
+ <snitzer@kernel.org>, <dm-devel@redhat.com>, <rajur@chelsio.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <peppe.cavallaro@st.com>,
+ <alexandre.torgue@foss.st.com>, <joabreu@synopsys.com>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@linaro.org>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <markgross@kernel.org>,
+ <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>,
+ <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>,
+ <gregkh@linuxfoundation.org>, <fei1.li@intel.com>, <clm@fb.com>,
+ <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, 
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+ <pmladek@suse.com>, <senozhatsky@chromium.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>,
+ <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>,
+ <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>,
+ <ying.xue@windriver.com>, <andrii@kernel.org>, <mykolal@fb.com>,
+ <ast@kernel.org>, <daniel@iogearbox.net>, <martin.lau@linux.dev>,
+ <song@kernel.org>, <yhs@fb.com>, <john.fastabend@gmail.com>,
+ <kpsingh@kernel.org>, <sdf@google.com>, <haoluo@google.com>,
+ <jolsa@kernel.org>, <shuah@kernel.org>, <keescook@chromium.org>,
+ <wad@chromium.org>, <willy@infradead.org>, <farbere@amazon.com>,
+ <sashal@kernel.org>, <ruanjinjie@huawei.com>, <quic_akhilpo@quicinc.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Date: Wed, 24 Sep 2025 20:23:01 +0000
+Message-ID: <20250924202320.32333-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b7fb3c8c-bfa6-4e46-b5ed-05e4752bbc00@intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Furong Xu <0x1207@gmail.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Yu-Chun Lin <eleanor15x@gmail.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
- Abhishek Chauhan <quic_abchauha@quicinc.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Daniel Machon <daniel.machon@microchip.com>,
- Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Alexis Lothore <alexis.lothore@bootlin.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
- Rohan G Thomas <rohan.g.thomas@altera.com>,
- Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 0/9] net: stmmac:
-	experimental PCS conversion
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D043UWC004.ant.amazon.com (10.13.139.206) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+Subject: [Linux-stm32] [PATCH 00/19 v6.1.y] Backport minmax.h updates from
+	v6.17-rc7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,100 +131,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 24, 2025 at 12:13:18PM -0700, Jacob Keller wrote:
-> 
-> 
-> On 9/24/2025 11:17 AM, Russell King (Oracle) wrote:
-> > This series is radical - it takes the brave step of ripping out much of
-> > the existing PCS support code and throwing it all away.
-> > 
-> > I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
-> > flag with Bartosz Golaszewski, and the conclusion I came to is that
-> > this is to workaround the breakage that I've been going on about
-> > concerning the phylink conversion for the last five or six years.
-> > 
-> > The problem is that the stmmac PCS code manipulates the netif carrier
-> > state, which confuses phylink.
-> > 
-> > There is a way of testing this out on the Jetson Xavier NX platform as
-> > the "PCS" code paths can be exercised while in RGMII mode - because
-> > RGMII also has in-band status and the status register is shared with
-> > SGMII. Testing this out confirms my long held theory: the interrupt
-> > handler manipulates the netif carrier state before phylink gets a
-> > look-in, which means that the mac_link_up() and mac_link_down() methods
-> > are never called, resulting in the device being non-functional.
-> > 
-> > Moreover, on dwmac4 cores, ethtool reports incorrect information -
-> > despite having a full-duplex link, ethtool reports that it is
-> > half-dupex.
-> > 
-> > Thus, this code is completely broken - anyone using it will not have
-> > a functional platform, and thus it doesn't deserve to live any longer,
-> > especially as it's a thorn in phylink.
-> > 
-> > Rip all this out, leaving just the bare bones initialisation in place.
-> > 
-> > However, this is not the last of what's broken. We have this hw->ps
-> > integer which is really not descriptive, and the DT property from
-> > which it comes from does little to help understand what's going on.
-> > Putting all the clues together:
-> > 
-> > - early configuration of the GMAC configuration register for the
-> >   speed.
-> > - setting the SGMII rate adapter layer to take its speed from the
-> >   GMAC configuration register.
-> > 
-> > Lastly, setting the transmit enable (TE) bit, which is a typo that puts
-> > the nail in the coffin of this code. It should be the transmit
-> > configuration (TC) bit. Given that when the link comes up, phylink
-> > will call mac_link_up() which will overwrite the speed in the GMAC
-> > configuration register, the only part of this that is functional is
-> > changing where the SGMII rate adapter layer gets its speed from,
-> > which is a boolean.
-> > 
-> > From what I've found so far, everyone who sets the snps,ps-speed
-> > property which configures this mode also configures a fixed link,
-> > so the pre-configuration is unnecessary - the link will come up
-> > anyway.
-> > 
-> > So, this series rips that out the preconfiguration as well, and
-> > replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
-> > 
-> > We then move the sole PCS configuration into a phylink_pcs instance,
-> > which configures the PCS control register in the same way as is done
-> > during the probe function.
-> > 
-> > Thus, we end up with much easier and simpler conversion to phylink PCS
-> > than previous attempts.
-> > 
-> > Even so, this still results in inband mode always being enabled at the
-> > moment in the new .pcs_config() method to reflect what the probe
-> > function was doing. The next stage will be to change that to allow
-> > phylink to correctly configure the PCS. This needs fixing to allow
-> > platform glue maintainers who are currently blocked to progress.
-> > 
-> > Please note, however, that this has not been tested with any SGMII
-> > platform.
-> > 
-> > I've tried to get as many people into the Cc list with get_maintainers,
-> > I hope that's sufficient to get enough eyeballs on this.
-> > 
-> 
-> I'm no expert with this hardware or driver, but all of your explanations
-> seem reasonable to me.
-> 
-> I'd guess the real step is to try and get this tested against the
-> variety of hardware supported by stmmac?
+This series backports 19 patches to update minmax.h in the 6.1.y branch,
+aligning it with v6.17-rc7.
 
-Yes please, that would be very helpful, as I don't want to regress
-anyone's setup. I'm hoping that this series is going to be the low-
-risk change.
+The ultimate goal is to synchronize all longterm branches so that they
+include the full set of minmax.h changes.
 
-Thanks.
+Previous work to update 6.12.48:
+https://lore.kernel.org/stable/20250922103123.14538-1-farbere@amazon.com/T/#t
+and 6.6.107:
+https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/#t
+
+The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
+min()/max()/clamp() if the arguments have the same signedness"), which
+is missing in older kernels.
+
+In mainline, this change enables min()/max()/clamp() to accept mixed
+argument types, provided both have the same signedness. Without it,
+backported patches that use these forms may trigger compiler warnings,
+which escalate to build failures when -Werror is enabled.
+
+Andy Shevchenko (1):
+  minmax: deduplicate __unconst_integer_typeof()
+
+David Laight (8):
+  minmax: fix indentation of __cmp_once() and __clamp_once()
+  minmax.h: add whitespace around operators and after commas
+  minmax.h: update some comments
+  minmax.h: reduce the #define expansion of min(), max() and clamp()
+  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
+  minmax.h: move all the clamp() definitions after the min/max() ones
+  minmax.h: simplify the variants of clamp()
+  minmax.h: remove some #defines that are only expanded once
+
+Herve Codina (1):
+  minmax: Introduce {min,max}_array()
+
+Linus Torvalds (8):
+  minmax: avoid overly complicated constant expressions in VM code
+  minmax: simplify and clarify min_t()/max_t() implementation
+  minmax: make generic MIN() and MAX() macros available everywhere
+  minmax: add a few more MIN_T/MAX_T users
+  minmax: simplify min()/max()/clamp() implementation
+  minmax: don't use max() in situations that want a C constant
+    expression
+  minmax: improve macro expansion and type checking
+  minmax: fix up min3() and max3() too
+
+Matthew Wilcox (Oracle) (1):
+  minmax: add in_range() macro
+
+ arch/arm/mm/pageattr.c                        |   6 +-
+ arch/um/drivers/mconsole_user.c               |   2 +
+ arch/x86/mm/pgtable.c                         |   2 +-
+ drivers/edac/sb_edac.c                        |   4 +-
+ drivers/edac/skx_common.h                     |   1 -
+ .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
+ .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   2 +-
+ .../drm/arm/display/include/malidp_utils.h    |   2 +-
+ .../display/komeda/komeda_pipeline_state.c    |  24 +-
+ drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
+ drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
+ drivers/hwmon/adt7475.c                       |  24 +-
+ drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
+ drivers/irqchip/irq-sun6i-r.c                 |   2 +-
+ drivers/md/dm-integrity.c                     |   2 +-
+ drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
+ .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
+ drivers/net/fjes/fjes_main.c                  |   4 +-
+ drivers/nfc/pn544/i2c.c                       |   2 -
+ drivers/platform/x86/sony-laptop.c            |   1 -
+ drivers/scsi/isci/init.c                      |   6 +-
+ .../pci/hive_isp_css_include/math_support.h   |   5 -
+ drivers/virt/acrn/ioreq.c                     |   4 +-
+ fs/btrfs/misc.h                               |   2 -
+ fs/btrfs/tree-checker.c                       |   2 +-
+ fs/ext2/balloc.c                              |   2 -
+ fs/ext4/ext4.h                                |   2 -
+ fs/ufs/util.h                                 |   6 -
+ include/linux/compiler.h                      |   9 +
+ include/linux/minmax.h                        | 264 +++++++++++++-----
+ include/linux/pageblock-flags.h               |   2 +-
+ kernel/trace/preemptirq_delay_test.c          |   2 -
+ lib/btree.c                                   |   1 -
+ lib/decompress_unlzma.c                       |   2 +
+ lib/logic_pio.c                               |   3 -
+ lib/vsprintf.c                                |   2 +-
+ mm/zsmalloc.c                                 |   1 -
+ net/ipv4/proc.c                               |   2 +-
+ net/ipv6/proc.c                               |   2 +-
+ net/netfilter/nf_nat_core.c                   |   6 +-
+ net/tipc/core.h                               |   2 +-
+ net/tipc/link.c                               |  10 +-
+ .../selftests/bpf/progs/get_branch_snapshot.c |   4 +-
+ tools/testing/selftests/seccomp/seccomp_bpf.c |   2 +
+ tools/testing/selftests/vm/mremap_test.c      |   2 +
+ 48 files changed, 290 insertions(+), 184 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
