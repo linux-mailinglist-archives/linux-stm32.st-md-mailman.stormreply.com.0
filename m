@@ -2,80 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C064BB9D86A
+	by mail.lfdr.de (Postfix) with ESMTPS id A8445B9D867
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Sep 2025 08:07:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D755EC3F94D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEC6AC3F952;
 	Thu, 25 Sep 2025 06:07:38 +0000 (UTC)
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53342C36B19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94E16C36B19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 15:22:26 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id
- e9e14a558f8ab-4258bd8c19bso10192105ab.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 08:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758727345; x=1759332145;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=GpJzLeRv3JvJ6Rn4+qItSuKPl8oje1EaG6ybTvv5B8g=;
- b=C4RpiLW92s9HPDSNfBDD2PykZ0dWU2RF6jqiGGBIEx3Yf25zj+S9tD1TF4iPAulcvL
- tNqOpdNdKks7PUwVQ0E8XQYMx6h5wtyC/d3unE6Qxclrc7vlPEdY/5fWWV0bIi51gurB
- y2vo1Q9EEWONyGKy9cwzGhzAay/4MsScJJ1XKTc7MnpU9NGnWYvFsIjGXXB3B05nhgL5
- 0sJrkyNmwSeq7pgDz8ZutT2P79iDrJ4Rk44nD94z2RVMVkfRLIiBR3J7W2icB171l/li
- wO8N99VwH0aQ+f3Tdo9Pjo3Y4Qu2H28nwQCkS3uBMuDEF8zpZytGchYXLMuV5knD4H5d
- 2w+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758727345; x=1759332145;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GpJzLeRv3JvJ6Rn4+qItSuKPl8oje1EaG6ybTvv5B8g=;
- b=cP/xZNNhDYqbktnaKvoJ6nWgXzRKThTvvv/9TqTkmGsVPsDQE3DNT0g26+mEb9PQ1P
- lzijat4/pC4yxbZD7MOVwDf7Z+dyNn+NGOlZIXiv9HsJRaXco1MPmt9pJ7nfjnOBjb96
- DT33cAbuEjd8Qscjo/g2vHd0JQQfKprmatQaALIgmiU++fYqdJM0a+SuVMvgDC/lx3us
- CalqKS8W68hcIkQuVaY6WwpJUK78f5Slm9SPlZ/1FjkAfSPsGL1QYROLlJxbuESUmj4F
- QU16dcpLdp9Hgb87bnvT/khu4y6xcyg0keD8yah01dnn/N2PWZ10JnhPJ8uhx1Eo4jlP
- tlEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUHWx+b6BPaQq0DQpLFPEYOiDXXPa/NOTTNcloOhnOCnDksDEeZaJFeDaGOjR8/7u+H/+SDDXq8euizhg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy7Cty7L0kia94Dl7AvoG4XONpngRdgKlaTxwmkkjgfpry3V1Pe
- LY7sDH7Ff5gLSBvl6iASYPQTpWbSAIDyammm+IpA/FDt73UEONdTHKRz
-X-Gm-Gg: ASbGnctHKF204vQXmLJGHpnZloHWpcZCHQgPjBu+5EdYPnUxJhQu6nFxYdLbi8yyuin
- oaNj6LkZCnyFpmWjsGRyUw52hMwEhqnvvWUtK6G0xUg3odax+sAmFP9YwmLSu237ghZlWTxjc9a
- DAZ5uxNQkz0YM41Zk/5/ptveWNTLlDc/oakqRmwpNu6CNj/8Ubv5KMOBVb1UsCGEq0r8C/4I3G2
- mPs/8T2vpK0tlW1EaGHMlxaiz9EPw3GS2sAkuyuaPAspb4X9rIBRDQmdlR3bJz2n+oNF49nzceM
- 8kYoIYZkqtYR29OuHBD+9gCnVMLXA0KdVkRRc7o90LJC5vcsartH3czmOholg4MZ/LEYBt5hyjN
- wuik1/u6MiK9e63gtMYv5VQDiG20=
-X-Google-Smtp-Source: AGHT+IGIwXjPAbpzXy2+r7fwj/06ZO4SrCKju2WlzvWmjdH68NQxMQU95BaeD2UiUHkahmoqPGREIw==
-X-Received: by 2002:a05:6e02:228f:b0:3e5:4e4f:65df with SMTP id
- e9e14a558f8ab-42581e0fb6emr107166725ab.9.1758727344790; 
- Wed, 24 Sep 2025 08:22:24 -0700 (PDT)
-Received: from orangepi5-plus.lan ([144.24.43.60])
- by smtp.gmail.com with ESMTPSA id
- 8926c6da1cb9f-56150787e91sm2786797173.51.2025.09.24.08.22.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Sep 2025 08:22:24 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 24 Sep 2025 23:22:17 +0800
-Message-ID: <20250924152217.10749-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Wed, 24 Sep 2025 15:34:17 +0000 (UTC)
+Received: from sven-desktop.home.narfation.org
+ (p200300c597296Be00000000000000c00.dip0.t-ipconnect.de
+ [IPv6:2003:c5:9729:6be0::c00])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ by mail.simonwunderlich.de (Postfix) with ESMTPSA id 5B413FA12C;
+ Wed, 24 Sep 2025 17:34:16 +0200 (CEST)
+From: "Sven Eckelmann (Plasma Cloud)" <se@simonwunderlich.de>
+Date: Wed, 24 Sep 2025 17:33:08 +0200
+Message-Id: <20250924-backoff-table-support-v1-0-20e50fbc59de@simonwunderlich.de>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 25 Sep 2025 06:07:35 +0000
-Cc: Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Convert open-coded
-	register polling to helper macro
+X-B4-Tracking: v=1; b=H4sIADQP1GgC/0XMTW7CMBCG4atEXnckjxPbmVylYuGfSWsVcLBDi
+ hRxd9wiwfKd0ffsonJJXMXU7aLwlmrK5xb40Ynw7c5fDCm2FkoqLQkteBd+8jzD6vyRoV6XJZc
+ ViBSOo+q1NVG07VJ4Trd/9/Pw7MKXa+PX5/GtT93LbhNY8i8XOKZTWivowNJ6ot6MOG34J3tXG
+ UI+tf/U+d5ErQ1KhdqRNcpYJBtjIBxIqjDQYKWOVhzu9weSlabg6wAAAA==
+X-Change-ID: 20250917-backoff-table-support-99218823576d
+To: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>, 
+ Sean Wang <sean.wang@mediatek.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3052; i=se@simonwunderlich.de; 
+ h=from:subject:message-id;
+ bh=HPCdnJqlxl6M69qaxiFPhdy4hQEQTelm8MdgW3vvcig=; 
+ b=owGbwMvMwCXmy1+ufVnk62nG02pJDBlX+BNiF5SkX15/deLjyH3dPIxpucda0iwUp77/ePGjU
+ nfMFCm3jlIWBjEuBlkxRZY9V/LPb2Z/K/952sejMHNYmUCGMHBxCsBEbnsx/FMOPMIWvknq/BLH
+ eZP+ZtdmmwQWrbxqF7TsYMirqtmLEmYzMuw7+ztjo9HjOXMdCyMTvCyVv0tceXmk/feZTd8nMdY
+ wTWQFAA==
+X-Developer-Key: i=se@simonwunderlich.de; a=openpgp;
+ fpr=522D7163831C73A635D12FE5EC371482956781AF
+X-Mailman-Approved-At: Thu, 25 Sep 2025 06:07:36 +0000
+Cc: devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ "Sven Eckelmann \(Plasma Cloud\)" <se@simonwunderlich.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/3] wifi: mt76: mt7915: Beamforming backoff
+	limit table
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,78 +73,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Drop the open-coded register polling routines.
-Use readl_poll_timeout_atomic() in atomic state.
+It was noticed that Mediatek's MT7915 does not only require calibration of
+the normal rates (configured via DT) but also some backoff values for
+beamforming. The proprietary driver loads this from some file in the
+firmware folder. But for the the upstream driver, it is necessary to get
+them from the same place as the normal limits - in this case from the
+devicetree.
 
-Compile tested only.
-No functional change intended.
+They released the support for this [1,2] in their own SDK but
+without any kind of documentation. And it was (to my knowledge) never
+forwarded to upstream. But since also (in my case) OpenWrt needs correct
+calibration for this WiFi chip, we should get this upstreamed.
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
+I try to my best to provide some sensible information about the patch and
+the DT entries. If anyone else has more information about it (to improve
+the descriptions), please feel free to comment and provide some
+enhanced/corrected version.
+
+The patch from Shayne Chen was only rebased and modified to perform byte
+reads from the DT [3]. Besides this, only a commit message was added,
+MTK_DEBUG parts were dropped and some checkpatch problems were fixed.
+
+Regards,
+	Sven
+
+[1] https://git01.mediatek.com/plugins/gitiles/openwrt/feeds/mtk-openwrt-feeds/+/f0d2527deb4f91592b6486a5c98ea3f584f76a61
+[2] https://git01.mediatek.com/plugins/gitiles/openwrt/feeds/mtk-openwrt-feeds/+/737340322ab22b138fd200e020d61ffdbe3e36a9/autobuild/autobuild_5.4_mac80211_release/package/kernel/mt76/patches/1022-wifi-mt76-mt7915-add-bf-backoff-limit-table-support.patch
+[3] https://lore.kernel.org/r/20250917-fix-power-limits-v1-1-616e859a9881@simonwunderlich.de
+
+Signed-off-by: Sven Eckelmann (Plasma Cloud) <se@simonwunderlich.de>
 ---
- .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 28 ++++---------------
- 1 file changed, 6 insertions(+), 22 deletions(-)
+Shayne Chen (1):
+      wifi: mt76: mt7915: add bf backoff limit table support
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-index e2840fa241f2..9e445ad1aa77 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-@@ -135,7 +135,6 @@ static int init_systime(void __iomem *ioaddr, u32 sec, u32 nsec)
- static int config_addend(void __iomem *ioaddr, u32 addend)
- {
- 	u32 value;
--	int limit;
- 
- 	writel(addend, ioaddr + PTP_TAR);
- 	/* issue command to update the addend value */
-@@ -144,23 +143,15 @@ static int config_addend(void __iomem *ioaddr, u32 addend)
- 	writel(value, ioaddr + PTP_TCR);
- 
- 	/* wait for present addend update to complete */
--	limit = 10;
--	while (limit--) {
--		if (!(readl(ioaddr + PTP_TCR) & PTP_TCR_TSADDREG))
--			break;
--		mdelay(10);
--	}
--	if (limit < 0)
--		return -EBUSY;
--
--	return 0;
-+	return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
-+				!(value & PTP_TCR_TSADDREG),
-+				10, 100000);
- }
- 
- static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
- 		int add_sub, int gmac4)
- {
- 	u32 value;
--	int limit;
- 
- 	if (add_sub) {
- 		/* If the new sec value needs to be subtracted with
-@@ -187,16 +178,9 @@ static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
- 	writel(value, ioaddr + PTP_TCR);
- 
- 	/* wait for present system time adjust/update to complete */
--	limit = 10;
--	while (limit--) {
--		if (!(readl(ioaddr + PTP_TCR) & PTP_TCR_TSUPDT))
--			break;
--		mdelay(10);
--	}
--	if (limit < 0)
--		return -EBUSY;
--
--	return 0;
-+	return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
-+				!(value & PTP_TCR_TSUPDT),
-+				10, 100000);
- }
- 
- static void get_systime(void __iomem *ioaddr, u64 *systime)
+Sven Eckelmann (Plasma Cloud) (2):
+      dt-bindings: net: wireless: mt76: Document power-limits country property
+      dt-bindings: net: wireless: mt76: introduce backoff limit properties
+
+ .../bindings/net/wireless/mediatek,mt76.yaml       |  65 ++++++++
+ drivers/net/wireless/mediatek/mt76/debugfs.c       |   4 +-
+ drivers/net/wireless/mediatek/mt76/eeprom.c        |  38 ++++-
+ drivers/net/wireless/mediatek/mt76/mt76.h          |   8 +
+ .../net/wireless/mediatek/mt76/mt7915/debugfs.c    |  74 ++++++++-
+ drivers/net/wireless/mediatek/mt76/mt7915/init.c   |   7 +
+ drivers/net/wireless/mediatek/mt76/mt7915/main.c   |   2 +-
+ drivers/net/wireless/mediatek/mt76/mt7915/mcu.c    | 182 ++++++++++++++++-----
+ drivers/net/wireless/mediatek/mt76/mt7915/mcu.h    |   6 +
+ drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h |   9 +-
+ .../net/wireless/mediatek/mt76/mt7915/testmode.c   |   2 +-
+ 11 files changed, 342 insertions(+), 55 deletions(-)
+---
+base-commit: b36d55610215a976267197ddc914902c494705d7
+change-id: 20250917-backoff-table-support-99218823576d
+prerequisite-change-id: 20250917-fix-power-limits-5ce07b993681:v1
+prerequisite-patch-id: 964626eea847052cefc907ef0f01286a080fdc3c
+
+Best regards,
 -- 
-2.43.0
+Sven Eckelmann (Plasma Cloud) <se@simonwunderlich.de>
 
 _______________________________________________
 Linux-stm32 mailing list
