@@ -2,87 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE488B99496
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 12:00:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C853B9B5E0
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 20:17:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7464BC36B19;
-	Wed, 24 Sep 2025 10:00:21 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1A6C3F93D;
+	Wed, 24 Sep 2025 18:17:55 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2AFDC36B18
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 734C6C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 10:00:19 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-3ef166e625aso3765945f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 03:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758708019; x=1759312819;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qmVW+Z/mziG0ZeCkjmpV+S/k8DcMMNx/U++MptcSCGo=;
- b=KTMj+xBloYF+/OSbspXxU+W08ZLQiTHFPHarZRe5rSWS46HgcnpKq5S1EbMZsfJ9E/
- R52207tL+qAaiotIv60rZKERvwheST3fRz/al3QvkBXnTnPBR53kWPSHIkS2+cDccleY
- 3JJ8A/ewlmMBER3qDwC7dcMU8FidXkpaWlcENdbFhnUHZR2K7P2loseX25VweQXKkPz5
- xea9JGsQRY59CqhoYWiZDkNpukMsdZAwNt9LT/EC3esE6IOoAesAe9VT7qiwsSChzycV
- KAmscGuTEQn8XuoIp4fHta+GxzVYA99xHJ3IfFotC+5Up+QD2H0XofR9lnYicNsL3Rly
- plVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758708019; x=1759312819;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qmVW+Z/mziG0ZeCkjmpV+S/k8DcMMNx/U++MptcSCGo=;
- b=WC+abmAj2l725uG5m1xXlRRlBT6Cf1ChwsKAsw3DGcXr8CrroraDn786c3f4lPtcT7
- OX0sOmkEc2bJwM1iK4QR0vCUA4YPXACC4IUsmaWCNANMBSa3hIDWN6hjgAFtvCrrRcvr
- johCoeHbgYBfavo+D5FgntyQJWCAALHnz0SxPy9wxYQ1xu+N3uiiI2cxkLTO2PcFgePu
- DVgiEJ3AstLUJbC9+8iWQQT8LRUevA/2h1SVivD6Up2zhahUkpN7TEDYKHd8lwa2D+1p
- TXPausUoLxZclOK/mvH2l4sKF++46HTqABOZdEb2mV7wIc44JIBGfDuZ41f5xSQVK5wk
- HEIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU4qHLpVR8hB4lnhiCrKWuDQQGAbObs0bG7i0F4ZxSuIvEEZxAW1crUsPV1eMeF/lyof4yWJbLhSa+waQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxN9H9BPaoto3g2RMQBXFvcwH5NzP+pBbhr3ZQFhtHEOJgFiC2Q
- +3GqnBl5/vZNn7RkePf+0fqV/22HpKnKj+quyme9VkxJ7Rf9cpC+PuRH
-X-Gm-Gg: ASbGncuFIYDZXWLSt0t2mT6nj9hbIts4MrOKrwHpBA+fA8bRGReVP8RuSMt9INNm8zk
- GVCmFFxtE2QQcYomyChsyqVH7FQ5qIpJOBVCPM//HZHSgPFnpB62HumO1IC5p6vrASnLDAHJQ7n
- aWWpYl+YmIUzbRYSLo7BEqA7d14Q67gKGjFQZr6YT2sS2xBl0lTQQ6eToHBRxK1I4NNYz+NBN+J
- JXhdG0cxyR7Md5WRnrPfnn98XZ7VD3ItYAGuKeKKbSG84fRX3BMeZU0lLX1c0Oq7jIKB1VZotAe
- JB+qbQu2RGtfpdXQl+pMNJ6gga/v65UcNpaefWaMsn2Vgz6yheGOLIoAmmxUIIWN9EggxkTux8P
- 2cwtOHnUppGbs3i+ZWvc/KC7Ge6dFnzGfTPF5RflFP+V5OqK2cBhmBGSSbYLoMd/riwIsnJFwKX
- beg4vGzdQAGiYdGgMPSi7K28lgNm7PfjUwsJ7S3l+BpgDrrx1qD4Gzzw+m9EzK
-X-Google-Smtp-Source: AGHT+IG42+8OH08VTgLUl9F1YLwdDI/MKRqmfZxK/ji2sSckzPzSa7uie7TpTd+qAIdz3qyFVuJLPw==
-X-Received: by 2002:a05:6000:2082:b0:401:5ad1:682 with SMTP id
- ffacd0b85a97d-405c46c242amr5543802f8f.14.1758708019030; 
- Wed, 24 Sep 2025 03:00:19 -0700 (PDT)
-Received: from ?IPV6:2a02:8440:7503:805b:76:f865:8f03:23d3?
- (2a02-8440-7503-805b-0076-f865-8f03-23d3.rev.sfr.net.
- [2a02:8440:7503:805b:76:f865:8f03:23d3])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ee073f4f3csm26375517f8f.2.2025.09.24.03.00.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Sep 2025 03:00:18 -0700 (PDT)
-Message-ID: <430e9fad-a877-4328-848f-59b982a10706@gmail.com>
-Date: Wed, 24 Sep 2025 12:00:17 +0200
+ Wed, 24 Sep 2025 18:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=fhmKwvAUWzveTngA4eJfQvzbLqxvWCX7DkiPlDVUjgA=; b=LEKQZt+pzXyXy5B+7trTp4mEEB
+ zYn2GRXW0jpjUZZ4E7Do6tEvybf9HYmS3X+MD2pCsbcDUkGqSzB+UNW/tE0yHK2i7wwU9MWViHjHE
+ qXoUNBQQ6GzbFZ2tTv9zOR+8QHy/++4cLlTDLsKy0BrK9lQ21mEFuqxOAbjqlMvilemuNRkb2WFJH
+ 7DWRYdir4KAZZkcUgdd/c5nWckGosGDE+ug1OrzgNzjYXQxwwZV/wqk3z71FLQqDSa6cqa+rTxicG
+ HFvEb13ZW9/31LD6FKXwC5dF/0O7fP6U8lUMgWjaEkUrsqCENWthzYFnA7znLtGNl1SGPYsVUWJzV
+ 4WkmLs3g==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48390)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1v1U3K-0000000010Z-1Q9L;
+ Wed, 24 Sep 2025 19:17:18 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v1U37-000000007Md-0NV4; Wed, 24 Sep 2025 19:17:05 +0100
+Date: Wed, 24 Sep 2025 19:17:04 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Julius Werner <jwerner@chromium.org>
-References: <20250922-b4-ddr-bindings-v7-0-b3dd20e54db6@gmail.com>
- <20250922-b4-ddr-bindings-v7-2-b3dd20e54db6@gmail.com>
- <CAODwPW9Js2AjSzQrvRFMK3xHXjbb6qV2bGEj3GhYWpDELniyCQ@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
-In-Reply-To: <CAODwPW9Js2AjSzQrvRFMK3xHXjbb6qV2bGEj3GhYWpDELniyCQ@mail.gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 2/7] dt-bindings: memory: introduce DDR4
+Content-Disposition: inline
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Alexis Lothore <alexis.lothore@bootlin.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
+Subject: [Linux-stm32] [PATCH RFC net-next 0/9] net: stmmac: experimental
+	PCS conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,24 +80,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjMvMDkvMjAyNSAwMDo1MSwgSnVsaXVzIFdlcm5lciB3cm90ZToKPj4gKyAgICAgIC0gcGF0
-dGVybjogIl5kZHI0LVswLTlhLWZdezR9LFthLXpdezEsMTB9LFswLTlhLWZdezJ9JCIKPiAKPiBJ
-IGRvbid0IHJlYWxseSB1bmRlcnN0YW5kIHdoeSB0aGVyZSBjYW4gb25seSBiZSB1cCB0byAxMCBj
-aGFyYWN0ZXJzIGluCj4gdGhlIG1vZHVsZSBwYXJ0IG51bWJlci4gSSBhbHNvIGRvbid0IHVuZGVy
-c3RhbmQgd2h5IHlvdSB3cm90ZSAiMjAKPiBieXRlcyAoMTAgY2hhcnMpIiBmb3IgdGhpcyBpbiB0
-aGUgcHJldmlvdXMgcGF0Y2guIEFyZSB5b3UgYXNzdW1pbmcKPiB0aGF0IG1vZHVsZSBwYXJ0IG51
-bWJlcnMgYXJlIFVURjE2TEU/IEFjY29yZGluZyB0byBteSByZWFkaW5nIG9mIHRoZQo+IHNwZWMs
-IGl0IHNvdW5kcyBsaWtlIHRoZXkncmUgc3VwcG9zZWQgdG8gYmUgcGxhaW4gQVNDSUksIGkuZS4g
-MjAgYnl0ZXMKPiBzaG91bGQgYmUgYWJsZSB0byBjb250YWluIHVwIHRvIDIwIGNoYXJzLgoKSGkg
-SnVsaXVzLAoKWWVzIHBsYWluIEFTQ0lJIG5lZWRzIDggYml0cyBmb3IgZWFjaCBjaGFyIGFzIHRo
-ZSB2YWx1ZSByYW5nZSBpcyAwLTEyNwpJIHdhcyBoYXZpbmcgaGV4YWRlY2ltYWwgaW4gbWluZCB3
-aGlsZSB3cml0aW5nIHRoaXMsIEknbSBzb3JyeS4KSSdsbCBmaXggaXQgaGVyZSBhbmQgaW4gdGhl
-IHByZXZpb3VzIHBhdGNoLgoKQmVzdCByZWdhcmRzLApDbMOpbWVudApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+This series is radical - it takes the brave step of ripping out much of
+the existing PCS support code and throwing it all away.
+
+I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
+flag with Bartosz Golaszewski, and the conclusion I came to is that
+this is to workaround the breakage that I've been going on about
+concerning the phylink conversion for the last five or six years.
+
+The problem is that the stmmac PCS code manipulates the netif carrier
+state, which confuses phylink.
+
+There is a way of testing this out on the Jetson Xavier NX platform as
+the "PCS" code paths can be exercised while in RGMII mode - because
+RGMII also has in-band status and the status register is shared with
+SGMII. Testing this out confirms my long held theory: the interrupt
+handler manipulates the netif carrier state before phylink gets a
+look-in, which means that the mac_link_up() and mac_link_down() methods
+are never called, resulting in the device being non-functional.
+
+Moreover, on dwmac4 cores, ethtool reports incorrect information -
+despite having a full-duplex link, ethtool reports that it is
+half-dupex.
+
+Thus, this code is completely broken - anyone using it will not have
+a functional platform, and thus it doesn't deserve to live any longer,
+especially as it's a thorn in phylink.
+
+Rip all this out, leaving just the bare bones initialisation in place.
+
+However, this is not the last of what's broken. We have this hw->ps
+integer which is really not descriptive, and the DT property from
+which it comes from does little to help understand what's going on.
+Putting all the clues together:
+
+- early configuration of the GMAC configuration register for the
+  speed.
+- setting the SGMII rate adapter layer to take its speed from the
+  GMAC configuration register.
+
+Lastly, setting the transmit enable (TE) bit, which is a typo that puts
+the nail in the coffin of this code. It should be the transmit
+configuration (TC) bit. Given that when the link comes up, phylink
+will call mac_link_up() which will overwrite the speed in the GMAC
+configuration register, the only part of this that is functional is
+changing where the SGMII rate adapter layer gets its speed from,
+which is a boolean.
+
+From what I've found so far, everyone who sets the snps,ps-speed
+property which configures this mode also configures a fixed link,
+so the pre-configuration is unnecessary - the link will come up
+anyway.
+
+So, this series rips that out the preconfiguration as well, and
+replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
+
+We then move the sole PCS configuration into a phylink_pcs instance,
+which configures the PCS control register in the same way as is done
+during the probe function.
+
+Thus, we end up with much easier and simpler conversion to phylink PCS
+than previous attempts.
+
+Even so, this still results in inband mode always being enabled at the
+moment in the new .pcs_config() method to reflect what the probe
+function was doing. The next stage will be to change that to allow
+phylink to correctly configure the PCS. This needs fixing to allow
+platform glue maintainers who are currently blocked to progress.
+
+Please note, however, that this has not been tested with any SGMII
+platform.
+
+I've tried to get as many people into the Cc list with get_maintainers,
+I hope that's sufficient to get enough eyeballs on this.
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  6 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  6 +-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 65 ++-------------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  3 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 66 ++-------------------
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 25 +-------
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  4 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 68 +---------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 24 ++++----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 47 +++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 23 ++++++--
+ include/linux/stmmac.h                             |  1 -
+ 15 files changed, 104 insertions(+), 245 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
