@@ -2,73 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C853B9B5E0
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 20:17:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45EEB9B697
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Sep 2025 20:20:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1A6C3F93D;
-	Wed, 24 Sep 2025 18:17:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77267C3F93F;
+	Wed, 24 Sep 2025 18:20:22 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 734C6C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C723C3F93E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Sep 2025 18:17:53 +0000 (UTC)
+ Wed, 24 Sep 2025 18:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fhmKwvAUWzveTngA4eJfQvzbLqxvWCX7DkiPlDVUjgA=; b=LEKQZt+pzXyXy5B+7trTp4mEEB
- zYn2GRXW0jpjUZZ4E7Do6tEvybf9HYmS3X+MD2pCsbcDUkGqSzB+UNW/tE0yHK2i7wwU9MWViHjHE
- qXoUNBQQ6GzbFZ2tTv9zOR+8QHy/++4cLlTDLsKy0BrK9lQ21mEFuqxOAbjqlMvilemuNRkb2WFJH
- 7DWRYdir4KAZZkcUgdd/c5nWckGosGDE+ug1OrzgNzjYXQxwwZV/wqk3z71FLQqDSa6cqa+rTxicG
- HFvEb13ZW9/31LD6FKXwC5dF/0O7fP6U8lUMgWjaEkUrsqCENWthzYFnA7znLtGNl1SGPYsVUWJzV
- 4WkmLs3g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48390)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mcMXEH4jiFP3rRKZLsYdyQ02UP/1AZ3psLq8OIaVw+8=; b=wpnTy2KpH0R7iXvbn5HO0TtAO6
+ Gd9l8DsFuHU7QLcosoz8lPE/EbtRx4o+wdTqU/6v5ab0sEs5vmPL/+H0T2hSCjwtwdo6HOmP7s56q
+ gbbGel/sZJr7ZvG44oW1Atna0ClnxCkOM/XNbH03Rk+w5iU7z6Y9gQ9GLlzA14UXqdKEpMyipByNr
+ 5hy+FYTVcH2ufgGsaUqa2jUoayPYqPb7PYMQFTY4pnz+zC09xOz01LoHQoHV6hES3eW/NfDLeygOB
+ +OrhU3AtodXdptEk2CxdTlC4FNg/8ra1KzbSBpFfaBRZ4iDWEqZyYuY5Kzf8yTJ/ol6rCpLJqZ0mr
+ LxjsSZig==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51770 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v1U3K-0000000010Z-1Q9L;
- Wed, 24 Sep 2025 19:17:18 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v1U37-000000007Md-0NV4; Wed, 24 Sep 2025 19:17:05 +0100
-Date: Wed, 24 Sep 2025 19:17:04 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1v1U5f-0000000011a-0msZ;
+ Wed, 24 Sep 2025 19:19:43 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1v1U5e-00000007Hvb-0xWb; Wed, 24 Sep 2025 19:19:42 +0100
+In-Reply-To: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
+References: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1v1U5e-00000007Hvb-0xWb@rmk-PC.armlinux.org.uk>
+Date: Wed, 24 Sep 2025 19:19:42 +0100
 Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
  Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
  Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
  Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Huacai Chen <chenhuacai@kernel.org>,
+ Furong Xu <0x1207@gmail.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
  Abhishek Chauhan <quic_abchauha@quicinc.com>,
  Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Paolo Abeni <pabeni@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>,
  Daniel Machon <daniel.machon@microchip.com>,
  Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Alexis Lothore <alexis.lothore@bootlin.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Alexis Lothor__ <alexis.lothore@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org,
  Rohan G Thomas <rohan.g.thomas@altera.com>,
- Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Boon Khai Ng <boon.khai.ng@altera.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Vladimir Oltean <olteanv@gmail.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: [Linux-stm32] [PATCH RFC net-next 0/9] net: stmmac: experimental
-	PCS conversion
+Subject: [Linux-stm32] [PATCH RFC net-next 1/9] net: stmmac: remove broken
+	PCS code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,100 +88,274 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series is radical - it takes the brave step of ripping out much of
-the existing PCS support code and throwing it all away.
+Changing the netif_carrier_*() state behind phylink's back has always
+been prohibited because it messes up with phylinks state tracking, and
+means that phylink no longer guarantees to call the mac_link_down()
+and mac_link_up() methods at the appropriate times.  This was later
+documented in the sfp-phylink network driver conversion guide.
 
-I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
-flag with Bartosz Golaszewski, and the conclusion I came to is that
-this is to workaround the breakage that I've been going on about
-concerning the phylink conversion for the last five or six years.
+stmmac was converted to phylink in 2019, but nothing was done with the
+"PCS" code. Since then, apart from the updates as part of phylink
+development, nothing has happened with stmmac to improve its use of
+phylink, or even to address this point.
 
-The problem is that the stmmac PCS code manipulates the netif carrier
-state, which confuses phylink.
+A couple of years ago, a has_integrated_pcs boolean was added by Bart,
+which later became the STMMAC_FLAG_HAS_INTEGRATED_PCS flag, to avoid
+manipulating the netif_carrier_*() state. This flag is mis-named,
+because whenever the stmmac is synthesized for its native SGMII, TBI
+or RTBI interfaces, it has an "integrated PCS". This boolean/flag
+actually means "ignore the status from the integrated PCS".
 
-There is a way of testing this out on the Jetson Xavier NX platform as
-the "PCS" code paths can be exercised while in RGMII mode - because
-RGMII also has in-band status and the status register is shared with
-SGMII. Testing this out confirms my long held theory: the interrupt
-handler manipulates the netif carrier state before phylink gets a
-look-in, which means that the mac_link_up() and mac_link_down() methods
-are never called, resulting in the device being non-functional.
+Discussing with Bart, the reasons for this are lost to the winds of
+time (which is why we should always document the reasons in the commit
+message.)
 
-Moreover, on dwmac4 cores, ethtool reports incorrect information -
-despite having a full-duplex link, ethtool reports that it is
-half-dupex.
+RGMII also has in-band status, and the dwmac cores and stmmac code
+supports this but with one bug that saves the day.
 
-Thus, this code is completely broken - anyone using it will not have
-a functional platform, and thus it doesn't deserve to live any longer,
-especially as it's a thorn in phylink.
+When dwmac cores are synthesised for RGMII only, they do not contain
+an integrated PCS, and so priv->dma_cap.pcs is clear, which prevents
+(incorrectly) the "RGMII PCS" being used, meaning we don't read the
+in-band status. However, a core synthesised for RGMII and also SGMII,
+TBI or RTBI will have this capability bit set, thus making these
+code paths reachable.
 
-Rip all this out, leaving just the bare bones initialisation in place.
+The Jetson Xavier NX uses RGMII mode to talk to its PHY, and removing
+the incorrect check for priv->dma_cap.pcs reveals the theortical issue
+with netif_carrier_*() manipulation is real:
 
-However, this is not the last of what's broken. We have this hw->ps
-integer which is really not descriptive, and the DT property from
-which it comes from does little to help understand what's going on.
-Putting all the clues together:
+dwc-eth-dwmac 2490000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+dwc-eth-dwmac 2490000.ethernet eth0: PHY [stmmac-0:00] driver [RTL8211F Gigabit Ethernet] (irq=141)
+dwc-eth-dwmac 2490000.ethernet eth0: No Safety Features support found
+dwc-eth-dwmac 2490000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
+dwc-eth-dwmac 2490000.ethernet eth0: registered PTP clock
+dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii-id link mode
+8021q: adding VLAN 0 to HW filter on device eth0
+dwc-eth-dwmac 2490000.ethernet eth0: Adding VLAN ID 0 is not supported
+Link is Up - 1000/Full
+Link is Down
+Link is Up - 1000/Full
 
-- early configuration of the GMAC configuration register for the
-  speed.
-- setting the SGMII rate adapter layer to take its speed from the
-  GMAC configuration register.
+This looks good until one realises that the phylink "Link" status
+messages are missing, even when the RJ45 cable is reconnected. Nothing
+one can do results in the interface working. The interrupt handler
+(which prints those "Link is" messages) always wins over phylink's
+resolve worker, meaning phylink never calls the mac_link_up() nor
+mac_link_down() methods.
 
-Lastly, setting the transmit enable (TE) bit, which is a typo that puts
-the nail in the coffin of this code. It should be the transmit
-configuration (TC) bit. Given that when the link comes up, phylink
-will call mac_link_up() which will overwrite the speed in the GMAC
-configuration register, the only part of this that is functional is
-changing where the SGMII rate adapter layer gets its speed from,
-which is a boolean.
+eth0 also sees no traffic received, and is unable to obtain a DHCP
+address:
 
-From what I've found so far, everyone who sets the snps,ps-speed
-property which configures this mode also configures a fixed link,
-so the pre-configuration is unnecessary - the link will come up
-anyway.
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group defa
+ult qlen 1000
+    link/ether e6:d3:6a:e6:92:de brd ff:ff:ff:ff:ff:ff
+    RX: bytes  packets  errors  dropped overrun mcast
+    0          0        0       0       0       0
+    TX: bytes  packets  errors  dropped carrier collsns
+    27686      149      0       0       0       0
 
-So, this series rips that out the preconfiguration as well, and
-replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
+With the STMMAC_FLAG_HAS_INTEGRATED_PCS flag set, which disables the
+netif_carrier_*() manipulation then stmmac works normally:
 
-We then move the sole PCS configuration into a phylink_pcs instance,
-which configures the PCS control register in the same way as is done
-during the probe function.
+dwc-eth-dwmac 2490000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+dwc-eth-dwmac 2490000.ethernet eth0: PHY [stmmac-0:00] driver [RTL8211F Gigabit Ethernet] (irq=141)
+dwc-eth-dwmac 2490000.ethernet eth0: No Safety Features support found
+dwc-eth-dwmac 2490000.ethernet eth0: IEEE 1588-2008 Advanced Timestamp supported
+dwc-eth-dwmac 2490000.ethernet eth0: registered PTP clock
+dwc-eth-dwmac 2490000.ethernet eth0: configuring for phy/rgmii-id link mode
+8021q: adding VLAN 0 to HW filter on device eth0
+dwc-eth-dwmac 2490000.ethernet eth0: Adding VLAN ID 0 is not supported
+Link is Up - 1000/Full
+dwc-eth-dwmac 2490000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
 
-Thus, we end up with much easier and simpler conversion to phylink PCS
-than previous attempts.
+and packets can be transferred.
 
-Even so, this still results in inband mode always being enabled at the
-moment in the new .pcs_config() method to reflect what the probe
-function was doing. The next stage will be to change that to allow
-phylink to correctly configure the PCS. This needs fixing to allow
-platform glue maintainers who are currently blocked to progress.
+This clearly shows that when priv->hw->pcs is set, but
+STMMAC_FLAG_HAS_INTEGRATED_PCS is clear, the driver reliably fails.
 
-Please note, however, that this has not been tested with any SGMII
-platform.
+Discovering whether a platform falls into this is impossible as
+parsing all the dtsi and dts files to find out which use the stmmac
+driver, whether any of them use RGMII or SGMII and also depends
+whether an external interface is being used. The kernel likely
+doesn't contain all dts files either.
 
-I've tried to get as many people into the Cc list with get_maintainers,
-I hope that's sufficient to get enough eyeballs on this.
+The only driver that sets this flag uses the qcom,sa8775p-ethqos
+compatible, and uses SGMII or 2500BASE-X.
 
- drivers/net/ethernet/stmicro/stmmac/Makefile       |  2 +-
- drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
- .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  6 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  6 +-
- .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 65 ++-------------------
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  3 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 66 ++-------------------
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 25 +-------
- drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  4 ++
- .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 68 +---------------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 24 ++++----
- drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 47 +++++++++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 23 ++++++--
- include/linux/stmmac.h                             |  1 -
- 15 files changed, 104 insertions(+), 245 deletions(-)
+but these are saved from this problem by the incorrect check for
+priv->dma_cap.pcs.
 
+So, we have to assume that for every other platform that uses SGMII
+with stmmac is using an external PCS.
+
+Moreover, ethtool output can be incorrect. With the full-duplex link
+negotiated, ethtool reports:
+
+        Speed: 1000Mb/s
+        Duplex: Half
+
+because with dwmac4, the full-duplex bit is in bit 16 of the status,
+priv->xstats.pcs_duplex becomes BIT(16) for full duplex, but the
+ethtool ksettings duplex member is u8 - so becomes zero. Moreover,
+the supported, advertised and link partner modes are all "not
+reported".
+
+Finally, ksettings_set() won't be able to set the advertisement on
+a PHY if this PCS code is activated, which is incorrect when SGMII
+is used with a PHY.
+
+Thus, remove:
+1. the incorrect netif_carrier_*() manipulation.
+2. the broken ethtool ksettings code.
+
+Given that all uses of STMMAC_FLAG_HAS_INTEGRATED_PCS are now gone,
+remove the flag from stmmac.h and dwmac-qcom-ethqos.c.
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        |  4 --
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 55 -------------------
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  9 ---
+ include/linux/stmmac.h                        |  1 -
+ 4 files changed, 69 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index d8fd4d8f6ced..f62825220cf7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -96,7 +96,6 @@ struct ethqos_emac_driver_data {
+ 	bool rgmii_config_loopback_en;
+ 	bool has_emac_ge_3;
+ 	const char *link_clk_name;
+-	bool has_integrated_pcs;
+ 	u32 dma_addr_width;
+ 	struct dwmac4_addrs dwmac4_addrs;
+ 	bool needs_sgmii_loopback;
+@@ -282,7 +281,6 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
+ 	.rgmii_config_loopback_en = false,
+ 	.has_emac_ge_3 = true,
+ 	.link_clk_name = "phyaux",
+-	.has_integrated_pcs = true,
+ 	.needs_sgmii_loopback = true,
+ 	.dma_addr_width = 36,
+ 	.dwmac4_addrs = {
+@@ -856,8 +854,6 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		plat_dat->flags |= STMMAC_FLAG_TSO_EN;
+ 	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
+ 		plat_dat->flags |= STMMAC_FLAG_RX_CLK_RUNS_IN_LPI;
+-	if (data->has_integrated_pcs)
+-		plat_dat->flags |= STMMAC_FLAG_HAS_INTEGRATED_PCS;
+ 	if (data->dma_addr_width)
+ 		plat_dat->host_dma_width = data->dma_addr_width;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 39fa1ec92f82..d89662b48087 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -322,47 +322,6 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
+-	if (!(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS) &&
+-	    (priv->hw->pcs & STMMAC_PCS_RGMII ||
+-	     priv->hw->pcs & STMMAC_PCS_SGMII)) {
+-		u32 supported, advertising, lp_advertising;
+-
+-		if (!priv->xstats.pcs_link) {
+-			cmd->base.speed = SPEED_UNKNOWN;
+-			cmd->base.duplex = DUPLEX_UNKNOWN;
+-			return 0;
+-		}
+-		cmd->base.duplex = priv->xstats.pcs_duplex;
+-
+-		cmd->base.speed = priv->xstats.pcs_speed;
+-
+-		/* Encoding of PSE bits is defined in 802.3z, 37.2.1.4 */
+-
+-		ethtool_convert_link_mode_to_legacy_u32(
+-			&supported, cmd->link_modes.supported);
+-		ethtool_convert_link_mode_to_legacy_u32(
+-			&advertising, cmd->link_modes.advertising);
+-		ethtool_convert_link_mode_to_legacy_u32(
+-			&lp_advertising, cmd->link_modes.lp_advertising);
+-
+-		/* Reg49[3] always set because ANE is always supported */
+-		cmd->base.autoneg = ADVERTISED_Autoneg;
+-		supported |= SUPPORTED_Autoneg;
+-		advertising |= ADVERTISED_Autoneg;
+-		lp_advertising |= ADVERTISED_Autoneg;
+-
+-		cmd->base.port = PORT_OTHER;
+-
+-		ethtool_convert_legacy_u32_to_link_mode(
+-			cmd->link_modes.supported, supported);
+-		ethtool_convert_legacy_u32_to_link_mode(
+-			cmd->link_modes.advertising, advertising);
+-		ethtool_convert_legacy_u32_to_link_mode(
+-			cmd->link_modes.lp_advertising, lp_advertising);
+-
+-		return 0;
+-	}
+-
+ 	return phylink_ethtool_ksettings_get(priv->phylink, cmd);
+ }
+ 
+@@ -372,20 +331,6 @@ stmmac_ethtool_set_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
+-	if (!(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS) &&
+-	    (priv->hw->pcs & STMMAC_PCS_RGMII ||
+-	     priv->hw->pcs & STMMAC_PCS_SGMII)) {
+-		/* Only support ANE */
+-		if (cmd->base.autoneg != AUTONEG_ENABLE)
+-			return -EINVAL;
+-
+-		mutex_lock(&priv->lock);
+-		stmmac_pcs_ctrl_ane(priv, 1, priv->hw->ps, 0);
+-		mutex_unlock(&priv->lock);
+-
+-		return 0;
+-	}
+-
+ 	return phylink_ethtool_ksettings_set(priv->phylink, cmd);
+ }
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d17820d9e7f1..194d17beec99 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6030,15 +6030,6 @@ static void stmmac_common_interrupt(struct stmmac_priv *priv)
+ 		for (queue = 0; queue < queues_count; queue++)
+ 			stmmac_host_mtl_irq_status(priv, priv->hw, queue);
+ 
+-		/* PCS link status */
+-		if (priv->hw->pcs &&
+-		    !(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS)) {
+-			if (priv->xstats.pcs_link)
+-				netif_carrier_on(priv->dev);
+-			else
+-				netif_carrier_off(priv->dev);
+-		}
+-
+ 		stmmac_timestamp_interrupt(priv, priv);
+ 	}
+ }
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index fa1318bac06c..99022620457a 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -171,7 +171,6 @@ struct dwmac4_addrs {
+ 	u32 mtl_low_cred_offset;
+ };
+ 
+-#define STMMAC_FLAG_HAS_INTEGRATED_PCS		BIT(0)
+ #define STMMAC_FLAG_SPH_DISABLE			BIT(1)
+ #define STMMAC_FLAG_USE_PHY_WOL			BIT(2)
+ #define STMMAC_FLAG_HAS_SUN8I			BIT(3)
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
