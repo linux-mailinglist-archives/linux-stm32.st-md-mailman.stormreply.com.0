@@ -2,59 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15FC5B9F7B4
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Sep 2025 15:17:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EBC2B9F94F
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Sep 2025 15:32:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBA43C3F952;
-	Thu, 25 Sep 2025 13:17:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3F26C3F953;
+	Thu, 25 Sep 2025 13:32:26 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70ACDC36B2D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62334C3F952
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Sep 2025 13:17:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 159EA44083;
- Thu, 25 Sep 2025 13:17:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B39C4CEF0;
- Thu, 25 Sep 2025 13:17:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1758806234;
- bh=MNwrSXcKXVb9lJE4Au9UpLgsiO9I5p4DtiVl03+qqxc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QopSPyqrmZNIGVMaIf/FZsoqAWBgXD6Cg6leY8pGjgq4zEF+kymOxOHHIlmn53E5r
- 9Qml9Hy2DWQviqaFM+h/w2O40bTxtq+9KjK/Sysr3QOLUNCnt2Uv60rjpJUfcKaP9V
- in6Cveusjb5LGl6xZPerUheh39bHNo7I6oLxClbCFfd+2rbsvu+fQ+Vvy0wEmvJtlA
- 1DQi3sfOnOodMpLgpinOE4BOZX0A8tYUrNJBgrS1CbyTyMFc5dAZlW6ugKm9Vs4LJP
- b2yzb8DLpbuWw5fqjRLE/nRTPhdrhJvf2IM3VTFoAb/2U0MnOJ+kf0u9vyH1DKSE57
- GR8y0ef+3tkUg==
-Date: Thu, 25 Sep 2025 08:17:11 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Message-ID: <ba4vkdcbudvyoj3i7eufd27luhmn6ai4mgkefza6sfbjzfwgp7@rvnpins2bruh>
-References: <20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com>
- <20250924-knp-mmclk-v1-9-d7ea96b4784a@oss.qualcomm.com>
+ Thu, 25 Sep 2025 13:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+JTi6m8c71S5T93QgsVYDnnHaK5veNh8luB+E8eyeWY=; b=WnYSM/C8fOejMG1d2bpodYRk8t
+ wALItpSq7FYCgA2YHczQb+FMz3p21BaGlbQPutk7M0D9OFcnHngOCO3asmhRv0g/UFZ3dybOMeMfg
+ qt3k/h8GG/lESNkqP1H7274pfR/Y6jSsb+gYiyVMLZ6fas4mm3MT1zXXlsg7WfQU4nEie7q3gsjxv
+ IUqrrriRvLN3PZUJY5yont0AdpYn1BSgwgfjLrqgWREvPTDfpUBXDJJYOVQpmt5DVVhesFpXXVCru
+ DOfb8y3/RJfxu/kbYmUvi49AXkWyTHROJuSWKe/0TWNcaJ5BV+Bm1UTiCQVTx0vwCEAVEUas9cHpf
+ pyeEt3ug==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35828)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1v1m4c-000000002En-1dmh;
+ Thu, 25 Sep 2025 14:31:50 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v1m4N-000000008A2-3RWp; Thu, 25 Sep 2025 14:31:35 +0100
+Date: Thu, 25 Sep 2025 14:31:35 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <aNVENwSF4I3hyP4q@shell.armlinux.org.uk>
+References: <aNQ1oI0mt3VVcUcF@shell.armlinux.org.uk>
+ <4822b6a5-5b40-47bb-8bff-7a3cc91f93c8@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20250924-knp-mmclk-v1-9-d7ea96b4784a@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, yijie.yang@oss.qualcomm.com,
- Rob Herring <robh@kernel.org>, linux-clk@vger.kernel.org,
- tingwei.zhang@oss.qualcomm.com, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, aiqun.yu@oss.qualcomm.com,
- Stephen Boyd <sboyd@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jagadeesh Kona <quic_jkona@quicinc.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, trilok.soni@oss.qualcomm.com
-Subject: Re: [Linux-stm32] [PATCH 9/9] drivers: clk: qcom: Add support for
- GPUCC and GFXCLK for Kaanapali
+In-Reply-To: <4822b6a5-5b40-47bb-8bff-7a3cc91f93c8@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Furong Xu <0x1207@gmail.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Yu-Chun Lin <eleanor15x@gmail.com>,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Alexis Lothore <alexis.lothore@bootlin.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 0/9] net: stmmac:
+	experimental PCS conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,51 +90,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 24, 2025 at 04:56:50PM -0700, Jingyi Wang wrote:
-> From: Taniya Das <taniya.das@oss.qualcomm.com>
+On Thu, Sep 25, 2025 at 05:26:01PM +0530, Maxime Chevallier wrote:
+> Hi Russell,
 > 
-> Support the graphics clock controller for Kaanapali for Graphics SW
-> driver to use the clocks.
-
-GFXCLKCTL is a new thing, please describe what it is.
-
+> On 24/09/2025 23:47, Russell King (Oracle) wrote:
+> > This series is radical - it takes the brave step of ripping out much of
+> > the existing PCS support code and throwing it all away.
+> > 
+> > I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
+> > flag with Bartosz Golaszewski, and the conclusion I came to is that
+> > this is to workaround the breakage that I've been going on about
+> > concerning the phylink conversion for the last five or six years.
+> > 
+> > The problem is that the stmmac PCS code manipulates the netif carrier
+> > state, which confuses phylink.
+> > 
+> > There is a way of testing this out on the Jetson Xavier NX platform as
+> > the "PCS" code paths can be exercised while in RGMII mode - because
+> > RGMII also has in-band status and the status register is shared with
+> > SGMII. Testing this out confirms my long held theory: the interrupt
+> > handler manipulates the netif carrier state before phylink gets a
+> > look-in, which means that the mac_link_up() and mac_link_down() methods
+> > are never called, resulting in the device being non-functional.
+> > 
+> > Moreover, on dwmac4 cores, ethtool reports incorrect information -
+> > despite having a full-duplex link, ethtool reports that it is
+> > half-dupex.
+> > 
+> > Thus, this code is completely broken - anyone using it will not have
+> > a functional platform, and thus it doesn't deserve to live any longer,
+> > especially as it's a thorn in phylink.
+> > 
+> > Rip all this out, leaving just the bare bones initialisation in place.
+> > 
+> > However, this is not the last of what's broken. We have this hw->ps
+> > integer which is really not descriptive, and the DT property from
+> > which it comes from does little to help understand what's going on.
+> > Putting all the clues together:
+> > 
+> > - early configuration of the GMAC configuration register for the
+> >    speed.
+> > - setting the SGMII rate adapter layer to take its speed from the
+> >    GMAC configuration register.
+> > 
+> > Lastly, setting the transmit enable (TE) bit, which is a typo that puts
+> > the nail in the coffin of this code. It should be the transmit
+> > configuration (TC) bit. Given that when the link comes up, phylink
+> > will call mac_link_up() which will overwrite the speed in the GMAC
+> > configuration register, the only part of this that is functional is
+> > changing where the SGMII rate adapter layer gets its speed from,
+> > which is a boolean.
+> > 
+> >  From what I've found so far, everyone who sets the snps,ps-speed
+> > property which configures this mode also configures a fixed link,
+> > so the pre-configuration is unnecessary - the link will come up
+> > anyway.
+> > 
+> > So, this series rips that out the preconfiguration as well, and
+> > replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
+> > 
+> > We then move the sole PCS configuration into a phylink_pcs instance,
+> > which configures the PCS control register in the same way as is done
+> > during the probe function.
+> > 
+> > Thus, we end up with much easier and simpler conversion to phylink PCS
+> > than previous attempts.
+> > 
+> > Even so, this still results in inband mode always being enabled at the
+> > moment in the new .pcs_config() method to reflect what the probe
+> > function was doing. The next stage will be to change that to allow
+> > phylink to correctly configure the PCS. This needs fixing to allow
+> > platform glue maintainers who are currently blocked to progress.
+> > 
+> > Please note, however, that this has not been tested with any SGMII
+> > platform.
 > 
-[..]
-> diff --git a/drivers/clk/qcom/gxclkctl-kaanapali.c b/drivers/clk/qcom/gxclkctl-kaanapali.c
-[..]
-> +static struct platform_driver gx_clkctl_kaanapali_driver = {
-> +	.probe = gx_clkctl_kaanapali_probe,
-> +	.driver = {
-> +		.name = "gxclkctl-kaanapali",
-> +		.of_match_table = gx_clkctl_kaanapali_match_table,
-> +	},
-> +};
-> +
-> +static int __init gx_clkctl_kaanapali_init(void)
-> +{
-> +	return platform_driver_register(&gx_clkctl_kaanapali_driver);
-> +}
-> +subsys_initcall(gx_clkctl_kaanapali_init);
-
-We're not starting up the GPU at subsys initlevel. Can't this just be
-module_platform_driver()? If not please document why.
-
-Regards,
-Bjorn
-
-> +
-> +static void __exit gx_clkctl_kaanapali_exit(void)
-> +{
-> +	platform_driver_unregister(&gx_clkctl_kaanapali_driver);
-> +}
-> +module_exit(gx_clkctl_kaanapali_exit);
-> +
-> +MODULE_DESCRIPTION("QTI GFXCLKCTL KAANAPALI Driver");
-> +MODULE_LICENSE("GPL");
+> Thanks for that.
 > 
-> -- 
-> 2.25.1
-> 
+> I'll give this a test on socfpga next week, as I don't have access to the HW
+> right now. It may not be the best platform to test this on, as it has a lynx
+> PCS and no internal PCS :/
+
+Thanks for the offer of testing.
+
+Do you know how the stmmac core has been synthesized as far as the
+MII interface from it?
+
+If not, if it's using gmac1000, possibly later cores as well, then
+DMA_HW_FEATURE (or FEATURE0) bits 30:28 should give that information.
+I'd guess GMII, so probably contains 0. The driver doesn't actually
+use these, or even look at them.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
