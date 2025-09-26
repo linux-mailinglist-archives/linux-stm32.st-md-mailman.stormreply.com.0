@@ -2,98 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321F1BA21CE
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Sep 2025 02:55:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B22BA22AC
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Sep 2025 03:52:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7252BC3F94F;
-	Fri, 26 Sep 2025 00:55:55 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1147EC3F95D;
+	Fri, 26 Sep 2025 01:52:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D523BC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29DE5C3F94F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Sep 2025 00:55:54 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-46e317bc647so10997215e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Sep 2025 17:55:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1758848154; x=1759452954;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9e9NdOcaym+Fuz3o7AoDLOamjILGzKfxxMvCkH865N8=;
- b=GHWqh4TsHoxgDSJu562PvTcz7L985n7gQCiLitpZGO69TwbQk3WSgkgTu5o/tZVwbc
- B3t3Y5d8SdWIyz9lWB15lrVXbPBHzxxAASDlWd+sO+xdUJ2hpf3mrTEU39TGobIKbnM6
- SaFfE1yA+OYUeXvSB88yM9Ydabj5ehc8AoY+lM6Rnu1BdEPTAhmLS0aOkMDxnSenji+g
- xgjTVcD8ZqCD7rdiFWNSLYP9aXYRPTTYt4ZYnmKMgm2YjK1KzUs3fnvc2PPYtm/LdlVL
- pLl0q1MfEi8VrEK31K/3EImTptNOmheXUVY700Y5uZf0kGpiObZO0ExwEBc2XxF+nnqa
- qcKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758848154; x=1759452954;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9e9NdOcaym+Fuz3o7AoDLOamjILGzKfxxMvCkH865N8=;
- b=i7OBORT3UGmd5zX9/BAQUi+YaFmy2EHUohc5eljWyc/rbYEYv/H3Uml2cyxoamtbml
- 24ak+nxHk0xrPpmPJThSEK0w4Qdh7n3JM6OdEk9INLo/N+WzE0QOwrINzxHh/WzGBKqg
- N4PxsGFDHLzO8yhqCz3jQ3hrRylZPNaRaGF+Qc7X2x8bMndRpxkXFEqTF4qixTKfQbXl
- cDDnmagOKuZnE2eO/isLcaDJKlao8nC7uyvjwrcZiI0K4g1CZDzpHC4xOSRrDxxHd0Wp
- KRFzBRiUFkGS4YKrOSjVkTIgcci+f+YTGruTqMz+w+HItsm8R7/blpC1K9vU9WNobO2h
- u4Yw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVktGjjILuNgYHNeUNPj/FuReWZZX1sPu58hb6bpvjW8Gt/JAiVbZPJJ6RhKNmgTEVw35LoL5CclMl2LA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwGnzJ4WkD5nfM7y7pPrI6SG/AXw+Ef410OE5+rW3TnJPenxFAF
- Z7uKQNc8qy6P0BQ8gRnovmH6cjXSMaDuUeN5mJEsfVyc758mLyrXKF6Mvwt5AoKW+DE=
-X-Gm-Gg: ASbGncvyxqq/CtHlthtyJ3Uh+AH6JyqbF5T5fVS+IcUzKwUnglE8HmtItPRAqMRtiiP
- WGmoPttGJOKTbbHZVCUG8IQWFiVOh/gG4hxzzBSReILbc/anJjf00m/Vf8eaIaobcCjqton9HQz
- EviWDfzF7KshAIcUdIhNPO3Ip4yke/V56sJLHp9CQBcLA+Sk6W1KOtHn4rqg2foqk5paAvvcbAq
- SXMbgiy4fTGE635aCdBardnVibixHTMz/FsGCW8BezvWILPh7fxOW5ZY6Prs5c3bZn3N2cbDx9g
- SBnNWU8lu8tW9tqwYIbPgzr1gdmxivjQTMK59tZkSloaD5Tsa7HkFCO+0+mU16HyB/Z3IkYJNir
- glojMtjVdTc+tsUWqElZxmi/U7vRCId2bITPDQVi+BVabL8OFWA8xOGEwNxn1ukbyWZ22CMwbgY
- PjIV72vU+2IkkQYr2f3gsu
-X-Google-Smtp-Source: AGHT+IEi7fDGWCixHLoidioieRVuXJUMu0nnRncjPtslMOdDH/jitf97iTqziYXoLsGnOKsP4maIXg==
-X-Received: by 2002:a05:600c:3551:b0:46d:a04:50c6 with SMTP id
- 5b1f17b1804b1-46e32a10ef4mr59198215e9.30.1758848154080; 
- Thu, 25 Sep 2025 17:55:54 -0700 (PDT)
-Received: from [192.168.0.19] (188-141-3-146.dynamic.upc.ie. [188.141.3.146])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e2ab62233sm97057095e9.21.2025.09.25.17.55.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Sep 2025 17:55:53 -0700 (PDT)
-Message-ID: <f705e9b3-864d-46bf-a6b3-f3be4756293b@linaro.org>
-Date: Fri, 26 Sep 2025 01:55:51 +0100
+ Fri, 26 Sep 2025 01:52:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A644A4477D;
+ Fri, 26 Sep 2025 01:52:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C302BC4CEF0;
+ Fri, 26 Sep 2025 01:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1758851552;
+ bh=O8SEbiV6bsY5wk64SP2GhKRTTTiaEXDFSuX28Ph1mjg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FMB7Xx9105TLqKoh1eoqR0qRNhgr14jO3tRI1OchdSW2gQCzp3jbBaNCQqBxfDSNg
+ KqqJFu2EKPQMUEOdCOx+tlE0pubYwQ2IqPpHXDmyB1j5P7y0+6Q7grJymYg5sANG6d
+ uH7lsHvSva+WWyHgufaCC9jStvSoFTJhTtUG2umoHBevxEIicsu3OcTgo0uSqOMisS
+ 3RS/BzofuflXzDC0oHFqgOPSkD9a8Glc0SpTQS2xoPSLXl3C9wmNkIyBDPGkYYWMpJ
+ NvJnOcYkzd7xM76Ql2RLLL/0oE1jdFecH0EOm0jhiyRDvMWemB1IcNVw2MSSODcbS9
+ MfnadFklajciw==
+Date: Thu, 25 Sep 2025 18:52:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
+Message-ID: <20250925185230.62b4e2a5@kernel.org>
+In-Reply-To: <157d21fc-4745-4fa3-b7b1-b9f33e2e926e@altera.com>
+References: <20250915-qbv-fixes-v2-0-ec90673bb7d4@altera.com>
+ <20250915-qbv-fixes-v2-2-ec90673bb7d4@altera.com>
+ <20250917154920.7925a20d@kernel.org>
+ <20250917155412.7b2af4f1@kernel.org>
+ <a914f668-95b2-4e6d-bd04-01932fe0fe48@altera.com>
+ <20250924160535.12c14ae9@kernel.org>
+ <157d21fc-4745-4fa3-b7b1-b9f33e2e926e@altera.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Jagadeesh Kona <quic_jkona@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
+ Rohan G Thomas via B4 Relay <devnull+rohan.g.thomas.altera.com@kernel.org>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, "Ng,
+ Boon Khai" <boon.khai.ng@altera.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com>
- <20250924-knp-mmclk-v1-8-d7ea96b4784a@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20250924-knp-mmclk-v1-8-d7ea96b4784a@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, aiqun.yu@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- tingwei.zhang@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- trilok.soni@oss.qualcomm.com
-Subject: Re: [Linux-stm32] [PATCH 8/9] clk: qcom: Add support for VideoCC
- driver for Kaanapali
+ Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: Consider Tx VLAN
+ offload tag length for maxSDU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,42 +63,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/09/2025 00:56, Jingyi Wang wrote:
-> +	/*
-> +	 *	Maximize ctl data download delay and enable memory redundancy:
-> +	 *	MVS0A CFG3
-> +	 *	MVS0 CFG3
-> +	 *	MVS0 VPP1 CFG3
-> +	 *	MVS0 VPP0 CFG3
-> +	 *	MVS0C CFG3
-> +	 */
-> +	regmap_set_bits(regmap, 0x8088, ACCU_CFG_MASK);
-> +	regmap_set_bits(regmap, 0x80b4, ACCU_CFG_MASK);
-> +	regmap_set_bits(regmap, 0x8100, ACCU_CFG_MASK);
-> +	regmap_set_bits(regmap, 0x812c, ACCU_CFG_MASK);
-> +	regmap_set_bits(regmap, 0x8158, ACCU_CFG_MASK);
-> +}
-
-How ?
-
-You're doing the right thing commenting on what is being done but, 
-you're not providing any context on what that thing is done.
-
-Write a set of unnamed bits ?
-
-+#define ACCU_CFG_MASK GENMASK(25, 21)
-
-It's only five of them, please name in your comment at least a give a 
-clue as to what they do.
-
----
-bod
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCAyNSBTZXAgMjAyNSAxNjozMzoyMSArMDUzMCBHIFRob21hcywgUm9oYW4gd3JvdGU6
+Cj4gV2hpbGUgdGVzdGluZyA4MDIuMUFEIHdpdGggWEdNQUMgaGFyZHdhcmUgdXNpbmcgYSBzaW1w
+bGUgcGluZyB0ZXN0LCBJCj4gb2JzZXJ2ZWQgYW4gdW5leHBlY3RlZCBiZWhhdmlvcjogdGhlIGhh
+cmR3YXJlIGFwcGVhcnMgdG8gaW5zZXJ0IGFuCj4gYWRkaXRpb25hbCA4MDIuMVEgQ1RBRyB3aXRo
+IFZMQU4gSUQgMC4gRGVzcGl0ZSB0aGlzLCB0aGUgcGluZyB0ZXN0Cj4gZnVuY3Rpb25zIGNvcnJl
+Y3RseS4KPiAKPiBIZXJl4oCZcyBhIHNuYXBzaG90IGZyb20gdGhlIHBjYXAgY2FwdHVyZWQgYXQg
+dGhlIHJlbW90ZSBlbmQuIE91dGVyIFZMQU4KPiB0YWcgdXNlZCBpcyAxMDAgYW5kIGlubmVyIFZM
+QU4gdGFnIHVzZWQgaXMgMjAwLgo+IAo+IEZyYW1lIDE6IDExMCBieXRlcyBvbiB3aXJlICg4ODAg
+Yml0cyksIDExMCBieXRlcyBjYXB0dXJlZCAoODgwIGJpdHMpCj4gRXRoZXJuZXQgSUksIFNyYzog
+PHNyYz4gKDxzcmM+KSwgRHN0OiA8ZHN0PiAoPGRzdD4pCj4gSUVFRSA4MDIuMWFkLCBJRDogMTAw
+Cj4gODAyLjFRIFZpcnR1YWwgTEFOLCBQUkk6IDAsIERFSTogMCwgSUQ6IDAodW5leHBlY3RlZCkK
+PiA4MDIuMVEgVmlydHVhbCBMQU4sIFBSSTogMCwgREVJOiAwLCBJRDogMjAwCj4gSW50ZXJuZXQg
+UHJvdG9jb2wgVmVyc2lvbiA0LCBTcmM6IDE5Mi4xNjguNC4xMCwgRHN0OiAxOTIuMTY4LjQuMTEK
+PiBJbnRlcm5ldCBDb250cm9sIE1lc3NhZ2UgUHJvdG9jb2wKCkFuZCB0aGUgcGFja2V0IGFycml2
+ZXMgYXQgdGhlIGRyaXZlciB3aXRoIG9ubHkgdGhlIC4xUSBJRCAyMDAgcHVzaGVkPwoKSW5kZWVk
+LCB0aGF0IGxvb2tzIGxpa2UgYSBwcm9ibGVtIHdpdGggdGhlIGRyaXZlcitIVyBpbnRlcmFjdGlv
+bi4KSURLIHdoYXQgdGhlIHJpZ2h0IHRlcm1pbm9sb2d5IGlzIGJ1dCBJSVJDIFZMQU4gMCBpcyBu
+b3QgYSByZWFsIFZMQU4sCmp1c3QgYW4gSUQgcmVzZXJ2ZWQgZm9yIGZyYW1lcyB0aGF0IGRvbid0
+IGhhdmUgYSBWTEFOIElEIGJ1dCB3YW50IHRvCnVzZSB0aGUgcHJpb3JpdHkgZmllbGQuIFdoaWNo
+IGV4cGxhaW5zIHdoeSBpdCAid29ya3MiLCByZWNlaXZlciBqdXN0Cmlnbm9yZXMgdGhhdCB0YWcu
+IEJ1dCBpdCdzIGRlZmluaXRlbHkgbm90IGNvcnJlY3QgYmVjYXVzZSBzd2l0Y2hlcwpvbiB0aGUg
+bmV0d29yayB3aWxsIG5vIHNlZSB0aGUgcmVhbCBDLVRBRyBhZnRlciB0aGUgUy1UQUcgaXMgc3Ry
+aXBwZWQuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
