@@ -2,165 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939DBBA4B46
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Sep 2025 18:47:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C3B4BA4CC7
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Sep 2025 19:59:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FD29C3FADA;
-	Fri, 26 Sep 2025 16:47:49 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011006.outbound.protection.outlook.com
- [40.93.194.6])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA3DDC3FADA;
+	Fri, 26 Sep 2025 17:59:45 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD6FBC3F93A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1520C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Sep 2025 16:47:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tMw2+ihVJx8axcgEZF5McRrTHw+GA5VU0rHTdqsmnusVGwDBmOXphcoDHPCNjgkSBntv2kZOl6C1hWQKqrNP8JUsZTK4811YkUQ/SyAycedzMcWtv26IAS570Z0TnRih3G6ndW41HFNEN+JX5Urzx+PyorgvW2CLakbPxdIxyXLmAteYhS0ZKWmQ5vzIWPru8i7dw+jkOr2KkoJ4mer46f2ufmaSRNflCF4TdCkWWjfyyh2e9tMBGwhMd8s8tMAwn7jiaF3S0dmAsFCeTIN0hPF+V+opFSVs4NXCMOFNX2R7cNp0/VXqXecnUoxssVlrLivN2IJPIRvKkzaezKp0Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ut1Uv7e/hO5bPmHa+B9rNjrEa0C0obWESBpOH/MnuWo=;
- b=ODp5vifhL17fuLoaszTPCA6YL2DwkU+1sXVmHaY0aH5EcNkVm1HUFGGOROuJtq5UvnpQ/8to0PHf83YC/S1JJMxS+fXH19SLSvPxztcJACQaJBTVrASo+dQACKekMEwevmidu+mO3YZ/CJtL7cjLOlckQgMqyeDQSk7LyefUAdTavKkJrIBeWT7h7zfaPXaYd5kqtHd4MR/OxYxNyaFk2vx2hzhQDeRGX3huJzzgwp5L1jX3NYuXpVQjvuzORFMDaQoAd77lEmhdES/Cm6VWP1OFUPtYL+sadLBCb8WaMDrcAyNJDkUlLAdcLNLNysrkglsmed/yqqbQIJtLOPhdvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ut1Uv7e/hO5bPmHa+B9rNjrEa0C0obWESBpOH/MnuWo=;
- b=ASM74b+FaL2Nr/0gx0vAbw3bZYj+vw9tqatmUhqk9C/MvOR0RCGg9aCU0NeEUAHbjDuSwp1ptZIUEFh3YU82HzL3GTc2wsKkdqO0ASMg5CHnp3R0aojWrA2qffgNkGWwbyQT50RaSAAuTx2lby0I2mjEbWnvhBXli3t6AfEAewK74azIuiKSwMTESbQTw0UJq0Tzz0PUBOrx/WLdYKGrur+YqiYzdWOEdboPAfSoWhk/WxerbkcK4GBfIgxU6O754ra6uR4tmnnmFvYT5L0L39i++SGNzr3gYIHq+6fEqnfQeBbpkxWB4J0/+81OWKQji0/K+NcM/FG4j2RF5r3rBg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com (2603:10b6:5:24c::21)
- by LV3PR03MB7753.namprd03.prod.outlook.com (2603:10b6:408:27e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.10; Fri, 26 Sep
- 2025 16:47:44 +0000
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076]) by DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076%4]) with mapi id 15.20.9160.010; Fri, 26 Sep 2025
- 16:47:43 +0000
-Message-ID: <1e82455f-5668-41fd-bebb-0a0f7139cc3f@altera.com>
-Date: Fri, 26 Sep 2025 22:17:32 +0530
-User-Agent: Mozilla Thunderbird
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20250915-qbv-fixes-v2-0-ec90673bb7d4@altera.com>
- <20250915-qbv-fixes-v2-2-ec90673bb7d4@altera.com>
- <20250917154920.7925a20d@kernel.org> <20250917155412.7b2af4f1@kernel.org>
- <a914f668-95b2-4e6d-bd04-01932fe0fe48@altera.com>
- <20250924160535.12c14ae9@kernel.org>
- <157d21fc-4745-4fa3-b7b1-b9f33e2e926e@altera.com>
- <20250925185230.62b4e2a5@kernel.org>
-Content-Language: en-US
-From: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-In-Reply-To: <20250925185230.62b4e2a5@kernel.org>
-X-ClientProxiedBy: MA0PR01CA0121.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:11d::11) To DM6PR03MB5371.namprd03.prod.outlook.com
- (2603:10b6:5:24c::21)
+ Fri, 26 Sep 2025 17:59:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=eAJNXK78mKd7OtlQP1vMtMnWkBkndgWhCo7RQEfV9I8=; b=d4j1Y72bdiVryvfjZFl9r+ave7
+ kP7LP1VuqoWayubc7byPrNuZ8bQFRJCXoesqBaHMaSjP5hZIpF46DX2J3uBW1fbQVlfNhIQLdHEpw
+ 6kPGDWvFujNeG38Weq3cztBFrFLV+YKLGcoJspgkdHRbHXmmvsLbn5lf+G0nxK2EaT2bHKOI2s1y2
+ vJNi9SFK0zcLOdS4tc4t/Z/gr/9Absf1Jr68CwOH/P09wZdOLupJH2QyOUn8zfSx++0xmja7O51hL
+ G2LJDnnWY7hcyk6WwjJnXckCDk4vpfLwNXC8digZnvLno1oASsKSHJLp8k66+APpbbwqfK3yxkxMl
+ X21nLgSQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45712)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1v2Cj6-000000003ol-3HHZ;
+ Fri, 26 Sep 2025 18:59:24 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v2Cj1-000000000rU-3svZ; Fri, 26 Sep 2025 18:59:19 +0100
+Date: Fri, 26 Sep 2025 18:59:19 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <aNbUdweqsCKAKJKl@shell.armlinux.org.uk>
+References: <20250917-wol-smsc-phy-v2-0-105f5eb89b7f@foss.st.com>
+ <20250917-wol-smsc-phy-v2-2-105f5eb89b7f@foss.st.com>
+ <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|LV3PR03MB7753:EE_
-X-MS-Office365-Filtering-Correlation-Id: 559d73b5-1685-4ff2-7ebf-08ddfd1c69c7
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VXBpTEErRkZrOVp3L2wzcC9QTVFsWjJXUW1uZ0kvNTFNUk9tZ2ViY2Q5c0JU?=
- =?utf-8?B?K2pUN2xsUERTL3F4WEQ3cm9QWHBvRVh0eUY0Y2JVd3ZHaXpROU5MWGUxMkp3?=
- =?utf-8?B?Sk1LWUROVlhFWGN3WEc0YVVJS3RnVmhrT1RPbVhwbFJsREFibVFreWE0U2p1?=
- =?utf-8?B?WlhmKzhYR3hMRFB3YnpmUEhucU5HYVdNUFJNLzVJMGkvVzJ5dC94ZU4rUFp6?=
- =?utf-8?B?L2ZZY3c5bGtRQmlGNnRnamdrM0gxenY5YTRWQ1IvWlRYNCtnc1BMalFZaWVT?=
- =?utf-8?B?OWphTE5EOFFMU3RDZjh5VC9ZeGt1WEs2WmhPRldRVmFMMUREcm01UkM3azlF?=
- =?utf-8?B?SHhNNEhzUys3NlBjTGVVcFBVMTNBOFdmR0RQcVNpOFNEZUk3eDIrK21rTWlH?=
- =?utf-8?B?ZU5kREhiVFRlc00xYWl1VG1pU1NKUGc2VStLWExOdXEwT2UzT3BhRTdJYTh3?=
- =?utf-8?B?a2x4aDN1a1ljRnQ3dFU4UGdEVHdkVEVmcFV3QWtZM0lqS2ZnV1Y1U0RPZ2Vz?=
- =?utf-8?B?ejlQOFM2RzdVS0lkWFQ0WWZKRnNFSlVobStIQ2JqbW9mK3I0M1V2c2JyZGIr?=
- =?utf-8?B?VEVWVEVCT3hTaHRRTUZKTEZ6dDIvS2VCVDIzSTdndDNXKzZZQUFrWFdnUzVL?=
- =?utf-8?B?S0NDaEZlMjEybVk3U2JPSmF2NXpEOWhCSW1PUmFFd1FEMTgxdXFiTlpLZHBB?=
- =?utf-8?B?dEM2K2ZJelNjTEo0NGhjQU80dmxIUW5WNFE4VFlUL1c2OWR1M20vb0ZjVGwv?=
- =?utf-8?B?SndyNzdsUjJlbWNGZm9DMWRIbUJWb1hpcXN4TkxhUmFJenR0K1ZLbnNUQ2xr?=
- =?utf-8?B?a282WHFrNDJNR3ZObGttV1llNzE5RTJ4cUxBQnEwYlFpNm84RjhESDVRY3Fy?=
- =?utf-8?B?Ym5WcjcxaXd1TTdCOExtTmJXeTJnNzhRSzhIMXQycTNzRjZnWWtSd1IyNEVK?=
- =?utf-8?B?MjJLNEk2d2piZi9IUkd0N1ZtOTZ6SmxqQllGWDViQ0xKRUpUMTlaWGgvM0pu?=
- =?utf-8?B?WG13VytKWlF6S3U0dUlnMyt0L2V6d3hxa0NVUGZ1VkRuVENPQ3hRZG9jcU9U?=
- =?utf-8?B?dzR5bkRtbEs0Z2Z3TnRkUHJwRXIxMnArcGVNUTVqOE9sVXhoOExKNnRxeG5N?=
- =?utf-8?B?Vm9OZGVCaUxaYTZ1OVdUNmRFakliNmVuR0xSR2dUNVV1Z3lFb3BlV1A0VW5z?=
- =?utf-8?B?WGdPR3FjUnZaRlNHMVpIQkhoSy9RK2l0VUJDVGYrV3FNZDZWbzJHQ3ZQMFUr?=
- =?utf-8?B?cDYvTStVcXBVOUN3ZW1SMWw1UGtlMkxpVTY5dlVKM1pORGVISFFiNjhweG5q?=
- =?utf-8?B?cndGR2FxWTBhWmlnYWZyZ2VQeWEzWGMyaVZmV3RNVEY0TVRCVmN4SWkvMG9i?=
- =?utf-8?B?ajVINW1SSFFGeGszS2tWT2ZGdnJaUGp6L05XNXdlUUVTdGs2RXhSTHJmWTA1?=
- =?utf-8?B?Z3Q5d0N5M3ptTHAxTytXdndvbEhhTGlmd0tiRFRIclgxYjA5TXlDaXRjUVQv?=
- =?utf-8?B?SVkzcFhlL3orcnF5NmhZODZVYStZZDRLWlFDSTMyWjlIUXF1bXNBdmVFS2s3?=
- =?utf-8?B?MmVzdkRFRGkyL1hidFB2UjVOUHg1MlByUStFVHA1b0hzcmNrZlkzdWc2Zmxy?=
- =?utf-8?B?akUzb2N6Y2tRY3lnK1VHVlVIQ1pjV2FYaHIzMml2ZTUwTlJsdGgvWlYyd0RJ?=
- =?utf-8?B?SVVkMGc3eHlDRnBZdFdUcnViVUF0M1JQb1Y4WUZLYWFscUFyTWwvekFudzlN?=
- =?utf-8?B?TTFiVXhYeDNEdEJBV0xTOGVEdElCYVJ5L3NkdGFQRU5WYUtLOHJKbVp1Tklx?=
- =?utf-8?B?YVVQWjY4VzBuRkQ2cTQ1clhzWEN1d0tuS0IrTzd4ZlUzbk0yaGZOUVRFakpI?=
- =?utf-8?B?cngvb2RKQ2FOYlQrSk4wcEdURVpRY1pqZGZmcnFRT1Y0cmEvMFMwTHhZM2JS?=
- =?utf-8?Q?cU57qh3UqyFs38Sv1OxUodzeYILnUgCe?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR03MB5371.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm9qWUVKcWRqbFFrSkFaVGtKcVE1U1o1VUZjby9RZ1JaMnJNQ1N2TWJhT0Fj?=
- =?utf-8?B?UG9OeXBnd1dzWjl5RnpzRGxOdFAzT1R2Z1dudUxMSnJoMU1ncDRYbzVIVDlI?=
- =?utf-8?B?Nm9BZ0dJdTJsVU5VR2J2bDBVSkthT3pWWC9IOXRTR2tZNlV1eVNVS1RUMERM?=
- =?utf-8?B?a3g2WEt6c1lKNDNBdG1WSlJobk96cncxSVZiR1V2cG14Y0tZUWMyUUxSUmRW?=
- =?utf-8?B?MVhiVTBBU245NzdzNWVWMDVnMUpJNEZYejJKM0hYaW9JdXMxVzhaVkdZMU9K?=
- =?utf-8?B?K2RiQ1Q0UFlRZ1pKaXB4cEd3RXVKY0NxNEc3RHg3bThWaDhoTkVPa0hyL1Jq?=
- =?utf-8?B?UDJjNFJDSk1yWGlXNldJcEtoQTY2RzFQb2IwSTQ1YmxRayt4QzRlR2tSL0xj?=
- =?utf-8?B?OFdmMW04bHdLcUZsQjN4OVEreWFBUllYQSthZ3k2bTRTZDBpeGpmMkdoNTgx?=
- =?utf-8?B?WE84eXBlQW9WMUJBSGRDN0ZMTkdOUmQvNlZvYy9Kd2ZKU3J3dERKZVNSUGN1?=
- =?utf-8?B?OHNVcHowSnlUWHU1RGNBWWlOWU5WQTA4WFRkejdrcVJrVWtTN2RMK3hvTnh5?=
- =?utf-8?B?ZFphdGdXL1pqRk5jY2gvSTlhWmFIV1FYSXJyNFU1TVVGNzZTSFFkVTVvMCtl?=
- =?utf-8?B?a0Yxa045TDU0K2FlQm9BL2wzajg4bjhjV2plTWNGK3ZsRDJGRlVtaVNXajkr?=
- =?utf-8?B?RjVIR1RHdzZOVlN4WGdpam85OFpXSktxeEN1NU9Ca25FbG9hd1VyUGVQWWVL?=
- =?utf-8?B?Q3ViQ0lkNmlRdUZUMm9IQzNjc3RqU0Z3SFhSVExLOVZIREdtY09qOXBrNUM5?=
- =?utf-8?B?blU5MmVuN0dDMWhGQUVwekVOSWdNblAyVEFEWVE2bWE0MnlwbHRBZ3hOK25B?=
- =?utf-8?B?dGNvMFJ0cXdIZVVpTVFFVkFjWlVkTlR5alR5Nk1zSnhWd0pZWHNLcWcvUTdq?=
- =?utf-8?B?c2kwRUt6VmpQY1o5ZC81UHRWa090dmNpZ0FMc3UwOU0zZW5Wcm1ZVmhGamEy?=
- =?utf-8?B?Q2d2cnA1OVlkUFNpOU5QdnhDV2xiSmY4WTUrWkk1bjlDZnlrZmw2eUhOVjVE?=
- =?utf-8?B?L2hDSVY1RkZsWHJyd2dmMHlYc0NCZVRPdFRzWEl2UC9xVzVFS0EwblVoaVZ1?=
- =?utf-8?B?WHhCbG9TNzkxVDNsMndSbGhDdENWVk1XeGxqTDNEK05wRUJoL21tSXBDMDBN?=
- =?utf-8?B?eTRnTm4rcFpSTzltaHdTZCtxUWlkb1V0RE9RdVYxQnRENjBkQ0JlbnVrVWVW?=
- =?utf-8?B?V2hVODl6MG5rVTNWeXNXcXN4OGN2VGhnTjN5VlBHK3B4dXlMVkI0Vm1mQlor?=
- =?utf-8?B?Q0h6Vk1aZXc2NG4zYkx1QTZHNEZlNjYxYVY4ZXFnZ3l1cG9NNGd5MzFEQmJY?=
- =?utf-8?B?RlBVeWZmNElnd2pUSHNQS2taOGhjSWJXWWpFT2ZIQ1dQU3hrZHVqWXZLUFBo?=
- =?utf-8?B?QzFYZnd0dys5Q3BFL3ZZdXc3WVpNMi9FSVI5U051bk82MCtYU2NwY2M0cHM4?=
- =?utf-8?B?ZEpPZlNFMGRHUmFCbHRXTzR2WUlyYlVrV2NkTGRTRFN0cldFVGgvQk5nbm9E?=
- =?utf-8?B?cEdPcTlQa3h0eUZuQmhodDlJZWtoeXpuNzJPVUd4aVdYWHNwRmxYK29wMHBk?=
- =?utf-8?B?RW1aL3ZQM280bkMvQ2NpOGd0SDJObzlKODN2N2Q1T1JuOVRHdGJneTVPak1m?=
- =?utf-8?B?Z0RnbDF0WmhoMU9GeHo0REV4Y3FKcEpwNWFFVElZN0xMdGdtbnpxMEI3amFY?=
- =?utf-8?B?bGpJTUNydkg1eFFEWWErQ2lqYk80VEozM0w0dkR1YTNKZTBrSisyR0Y2MWFN?=
- =?utf-8?B?c2lIcktNaExWQ2dna1ovVTU4ODRRNXd6V0REMWxaQWZaSVo2MGRaalk0VG51?=
- =?utf-8?B?bG5tREsvdUs0b0daOWJYSVg5bzV3RTBINHd4SkcyVlJ1YTlFd3BsdnJEanAv?=
- =?utf-8?B?eE1LVHRad1NLTXNxSGVhYnlkWTVxNTdRdkx5SXd2alJkaTVicGRRSmtKRWs5?=
- =?utf-8?B?aWU0Q0VXZjNwVGtIaE5IaEY3Q25nYWpVOUdHTXpKZm1VRzBYdUF1b3BXVThl?=
- =?utf-8?B?ODI1NEp6ZTlaMkNaaHN4M3R2ZkxOMWlBU0pSSkpCVnBZQVlGWWEvYythM3Ri?=
- =?utf-8?B?V0Q4VEN4VjRsR1lqdG5zbm1xUzFHNGYraDREZm5IUzBKQ1B2a0VHa3AzYjd2?=
- =?utf-8?B?Qmc9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 559d73b5-1685-4ff2-7ebf-08ddfd1c69c7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5371.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2025 16:47:43.7839 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HJh3r3jG6zHA5ckryx7s564Ttf/1rJTnWQHpmF9D7w19iZceN0TUwleA3FqIPg201XRY/YYu2vR4geDdV3SpjkbikAEVhKYDmOsIn8sD+jo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7753
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
- Rohan G Thomas via B4 Relay <devnull+rohan.g.thomas.altera.com@kernel.org>,
+Content-Type: multipart/mixed; boundary="BpneffLJvKcKfQ39"
+Content-Disposition: inline
+In-Reply-To: <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew@lunn.ch>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, "Ng,
- Boon Khai" <boon.khai.ng@altera.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: Consider Tx VLAN
- offload tag length for maxSDU
+ Tristram Ha <Tristram.Ha@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: stm32: add
+ WoL from PHY support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -172,52 +70,396 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSmFrdWIsCgpPbiA5LzI2LzIwMjUgNzoyMiBBTSwgSmFrdWIgS2ljaW5za2kgd3JvdGU6Cj4g
-T24gVGh1LCAyNSBTZXAgMjAyNSAxNjozMzoyMSArMDUzMCBHIFRob21hcywgUm9oYW4gd3JvdGU6
-Cj4+IFdoaWxlIHRlc3RpbmcgODAyLjFBRCB3aXRoIFhHTUFDIGhhcmR3YXJlIHVzaW5nIGEgc2lt
-cGxlIHBpbmcgdGVzdCwgSQo+PiBvYnNlcnZlZCBhbiB1bmV4cGVjdGVkIGJlaGF2aW9yOiB0aGUg
-aGFyZHdhcmUgYXBwZWFycyB0byBpbnNlcnQgYW4KPj4gYWRkaXRpb25hbCA4MDIuMVEgQ1RBRyB3
-aXRoIFZMQU4gSUQgMC4gRGVzcGl0ZSB0aGlzLCB0aGUgcGluZyB0ZXN0Cj4+IGZ1bmN0aW9ucyBj
-b3JyZWN0bHkuCj4+Cj4+IEhlcmXigJlzIGEgc25hcHNob3QgZnJvbSB0aGUgcGNhcCBjYXB0dXJl
-ZCBhdCB0aGUgcmVtb3RlIGVuZC4gT3V0ZXIgVkxBTgo+PiB0YWcgdXNlZCBpcyAxMDAgYW5kIGlu
-bmVyIFZMQU4gdGFnIHVzZWQgaXMgMjAwLgo+Pgo+PiBGcmFtZSAxOiAxMTAgYnl0ZXMgb24gd2ly
-ZSAoODgwIGJpdHMpLCAxMTAgYnl0ZXMgY2FwdHVyZWQgKDg4MCBiaXRzKQo+PiBFdGhlcm5ldCBJ
-SSwgU3JjOiA8c3JjPiAoPHNyYz4pLCBEc3Q6IDxkc3Q+ICg8ZHN0PikKPj4gSUVFRSA4MDIuMWFk
-LCBJRDogMTAwCj4+IDgwMi4xUSBWaXJ0dWFsIExBTiwgUFJJOiAwLCBERUk6IDAsIElEOiAwKHVu
-ZXhwZWN0ZWQpCj4+IDgwMi4xUSBWaXJ0dWFsIExBTiwgUFJJOiAwLCBERUk6IDAsIElEOiAyMDAK
-Pj4gSW50ZXJuZXQgUHJvdG9jb2wgVmVyc2lvbiA0LCBTcmM6IDE5Mi4xNjguNC4xMCwgRHN0OiAx
-OTIuMTY4LjQuMTEKPj4gSW50ZXJuZXQgQ29udHJvbCBNZXNzYWdlIFByb3RvY29sCj4gCj4gQW5k
-IHRoZSBwYWNrZXQgYXJyaXZlcyBhdCB0aGUgZHJpdmVyIHdpdGggb25seSB0aGUgLjFRIElEIDIw
-MCBwdXNoZWQ/Cj4KClllcywgdGhlIHBhY2tldCBhcnJpdmVzIHRoZSBkcml2ZXIgd2l0aCBvbmx5
-IDgwMi4xUSBJRC4KClsgIDIxMC4xOTI5MTJdIHN0bW1hY2V0aCAxMDgzMDAwMC5ldGhlcm5ldCBl
-dGgwOiA+Pj4gZnJhbWUgdG8gYmUgCnRyYW5zbWl0dGVkOgpbICAyMTAuMTkyOTE3XSBsZW4gPSA0
-NiBieXRlLCBidWYgYWRkcjogMHgwMDAwMDAwMDY3Yzc4MjIyClsgIDIxMC4xOTI5MjNdIDAwMDAw
-MDAwOiB4eCB4eCB4eCB4eCB4eCB4eCB4eCB4eCB4eCB4eCB4eCB4eCA4MSAwMCAwMCBjOApbICAy
-MTAuMTkyOTI4XSAwMDAwMDAxMDogMDggMDYgMDAgMDEgMDggMDAgMDYgMDQgMDAgMDIgNDYgOWIg
-MDYgMWIgNWIgYjYKWyAgMjEwLjE5MjkzMV0gMDAwMDAwMjA6IGMwIGE4IDA0IDBhIGM4IGEzIDYy
-IDBlIGQ3IDA0IGMwIGE4IDA0IDBiCj4gSW5kZWVkLCB0aGF0IGxvb2tzIGxpa2UgYSBwcm9ibGVt
-IHdpdGggdGhlIGRyaXZlcitIVyBpbnRlcmFjdGlvbi4KPiBJREsgd2hhdCB0aGUgcmlnaHQgdGVy
-bWlub2xvZ3kgaXMgYnV0IElJUkMgVkxBTiAwIGlzIG5vdCBhIHJlYWwgVkxBTiwKPiBqdXN0IGFu
-IElEIHJlc2VydmVkIGZvciBmcmFtZXMgdGhhdCBkb24ndCBoYXZlIGEgVkxBTiBJRCBidXQgd2Fu
-dCB0bwo+IHVzZSB0aGUgcHJpb3JpdHkgZmllbGQuIFdoaWNoIGV4cGxhaW5zIHdoeSBpdCAid29y
-a3MiLCByZWNlaXZlciBqdXN0Cj4gaWdub3JlcyB0aGF0IHRhZy4gQnV0IGl0J3MgZGVmaW5pdGVs
-eSBub3QgY29ycmVjdCBiZWNhdXNlIHN3aXRjaGVzCj4gb24gdGhlIG5ldHdvcmsgd2lsbCBubyBz
-ZWUgdGhlIHJlYWwgQy1UQUcgYWZ0ZXIgdGhlIFMtVEFHIGlzIHN0cmlwcGVkLgoKWWVzLCB3ZSBh
-cmUgdHJ5aW5nIHRvIGZpZ3VyZSBvdXQgdGhlIHJpZ2h0IGNvbmZpZ3VyYXRpb24gZm9yIHRoZSBk
-cml2ZXIKc28gdGhhdCB0aGUgcmlnaHQgdGFnIGlzIGluc2VydGVkIGJ5IHRoZSBkcml2ZXIgZm9y
-IGRvdWJsZSBhbmQgc2luZ2xlClZMQU5zLiBCYXNlZCBvbiB0aGUgcmVnaXN0ZXIgY29uZmlndXJh
-dGlvbiBvcHRpb25zIGZvciBNQUNfVkxBTl9JbmNsIGFuZApNQUNfSW5uZXJfVkxBTl9JbmNsIHJl
-Z2lzdGVycyBhbmQgZGVzY3JpcHRvciBjb25maWd1cmF0aW9uIG9wdGlvbnMKYXZhaWxhYmxlLCB0
-aGUgaGFyZHdhcmUgbWF5IG5vdCBzdXBwb3J0IHNpbXVsdGFuZW91cyBvZmZsb2FkaW5nIG9mIFNU
-QUcKZm9yIDgwMi4xQUQgZG91YmxlLXRhZ2dlZCBwYWNrZXRzIGFuZCBDVEFHIGZvciA4MDIuMVEg
-c2luZ2xlLXRhZ2dlZApwYWNrZXRzLiBJZiB0aGF0IGlzIHRoZSBjYXNlIGRpc2FibGUgU1RBRyBp
-bnNlcnRpb24gb2ZmbG9hZGluZyBtYXkgYmUKdGhlIHJpZ2h0IGFwcHJvYWNoLgoKQmVzdCBSZWdh
-cmRzLApSb2hhbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+
+--BpneffLJvKcKfQ39
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Sep 17, 2025 at 05:31:16PM +0100, Russell King (Oracle) wrote:
+> On Wed, Sep 17, 2025 at 05:36:37PM +0200, Gatien Chevallier wrote:
+> > If the "st,phy-wol" property is present in the device tree node,
+> > set the STMMAC_FLAG_USE_PHY_WOL flag to use the WoL capability of
+> > the PHY.
+> > 
+> > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> > ---
+> >  drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+> > index 77a04c4579c9dbae886a0b387f69610a932b7b9e..6f197789cc2e8018d6959158b795e4bca46869c5 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+> > @@ -106,6 +106,7 @@ struct stm32_dwmac {
+> >  	u32 speed;
+> >  	const struct stm32_ops *ops;
+> >  	struct device *dev;
+> > +	bool phy_wol;
+> >  };
+> >  
+> >  struct stm32_ops {
+> > @@ -433,6 +434,8 @@ static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
+> >  		}
+> >  	}
+> >  
+> > +	dwmac->phy_wol = of_property_read_bool(np, "st,phy-wol");
+> > +
+> >  	return err;
+> >  }
+> >  
+> > @@ -557,6 +560,8 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
+> >  	plat_dat->bsp_priv = dwmac;
+> >  	plat_dat->suspend = stm32_dwmac_suspend;
+> >  	plat_dat->resume = stm32_dwmac_resume;
+> > +	if (dwmac->phy_wol)
+> > +		plat_dat->flags |= STMMAC_FLAG_USE_PHY_WOL;
+> 
+> I would much rather we found a different approach, rather than adding
+> custom per-driver DT properties to figure this out.
+> 
+> Andrew has previously suggested that MAC drivers should ask the PHY
+> whether WoL is supported, but this pre-supposes that PHY drivers are
+> coded correctly to only report WoL capabilities if they are really
+> capable of waking the system. As shown in your smsc PHY driver patch,
+> this may not be the case.
+> 
+> Given that we have historically had PHY drivers reporting WoL
+> capabilities without being able to wake the system, we can't
+> implement Andrew's suggestion easily.
+> 
+> The only approach I can think that would allow us to transition is
+> to add:
+> 
+> static inline bool phy_can_wakeup(struct phy_device *phy_dev)
+> {
+> 	return device_can_wakeup(&phy_dev->mdio.dev);
+> }
+> 
+> to include/linux/phy.h, and a corresponding wrapper for phylink.
+> This can then be used to determine whether to attempt to use PHY-based
+> Wol in stmmac_get_wol() and rtl8211f_set_wol(), falling back to
+> PMT-based WoL if supported at the MAC.
+> 
+> So, maybe something like:
+> 
+> static u32 stmmac_wol_support(struct stmmac_priv *priv)
+> {
+> 	u32 support = 0;
+> 
+> 	if (priv->plat->pmt && device_can_wakeup(priv->device)) {
+> 		support = WAKE_UCAST;
+> 		if (priv->hw_cap_support && priv->dma_cap.pmt_magic_frame)
+> 			support |= WAKE_MAGIC;
+> 	}
+> 
+> 	return support;
+> }
+> 
+> static void stmmac_get_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+> {
+> 	struct stmmac_priv *priv = netdev_priv(dev);
+> 	int err;
+> 
+> 	/* Check STMMAC_FLAG_USE_PHY_WOL for legacy */
+> 	if (phylink_can_wakeup(priv->phylink) ||
+> 	    priv->plat->flags & STMMAC_FLAG_USE_PHY_WOL) {
+> 		err = phylink_ethtool_get_wol(priv->phylink, wol);
+> 		if (err != 0 && err != -EOPNOTSUPP)
+> 			return;
+> 	}
+> 
+> 	wol->supported |= stmmac_wol_support(priv);
+> 
+> 	/* A read of priv->wolopts is single-copy atomic. Locking
+> 	 * doesn't add any benefit.
+> 	 */
+> 	wol->wolopts |= priv->wolopts;
+> }
+> 
+> static int stmmac_set_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+> {
+> 	struct stmmac_priv *priv = netdev_priv(dev);
+> 	u32 support, wolopts;
+> 	int err;
+> 
+> 	wolopts = wol->wolopts;
+> 
+> 	/* Check STMMAC_FLAG_USE_PHY_WOL for legacy */
+> 	if (phylink_can_wakeup(priv->phylink) ||
+> 	    priv->plat->flags & STMMAC_FLAG_USE_PHY_WOL) {
+> 		struct ethtool_wolinfo w;
+> 
+> 		err = phylink_ethtool_set_wol(priv->phylink, wol);
+> 		if (err != -EOPNOTSUPP)
+> 			return err;
+> 
+> 		/* Remove the WoL modes that the PHY is handling */
+> 		if (!phylink_ethtool_get_wol(priv->phylink, &w))
+> 			wolopts &= ~w.wolopts;
+> 	}
+> 
+> 	support = stmmac_wol_support(priv);
+> 
+> 	mutex_lock(&priv->lock);
+> 	priv->wolopts = wolopts & support;
+> 	device_set_wakeup_enable(priv->device, !!priv->wolopts);
+> 	mutex_unlock(&priv->lock);
+> 
+> 	return 0;
+> }
+> 
+> ... and now I'm wondering whether this complexity is something that
+> phylink should handle internally, presenting a mac_set_wol() method
+> to configure the MAC-side WoL settings. What makes it difficult to
+> just move into phylink is the STMMAC_FLAG_USE_PHY_WOL flag, but
+> that could be a "force_phy_wol" flag in struct phylink_config as
+> a transitionary measure... so long as PHY drivers get fixed.
+
+I came up with this as an experiment - I haven't tested it beyond
+running it through the compiler (didn't let it get to the link stage
+yet.) Haven't even done anything with it for stmmac yet.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+
+--BpneffLJvKcKfQ39
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0001-net-phy-add-phy_can_wakeup.patch"
+
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH net-next 1/2] net: phy: add phy_can_wakeup()
+
+Add phy_can_wakeup() to report whether the PHY driver has marked the
+PHY device as being wake-up capable as far as the driver model is
+concerned.
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ include/linux/phy.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index b377dfaa6801..7f6758198948 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -1379,6 +1379,18 @@ static inline void phy_disable_eee_mode(struct phy_device *phydev, u32 link_mode
+ 	linkmode_clear_bit(link_mode, phydev->advertising_eee);
+ }
+ 
++/**
++ * phy_can_wakeup() - indicate whether PHY has driver model wakeup capabilities
++ * @phydev: The phy_device struct
++ *
++ * Returns: true/false depending on the PHY driver's device_set_wakeup_capable()
++ * setting.
++ */
++static inline bool phy_can_wakeup(struct phy_device *phydev)
++{
++	return device_can_wakeup(&phydev->mdio.dev);
++}
++
+ void phy_resolve_aneg_pause(struct phy_device *phydev);
+ void phy_resolve_aneg_linkmode(struct phy_device *phydev);
+ 
+-- 
+2.47.3
+
+
+--BpneffLJvKcKfQ39
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0002-net-phylink-add-Wake-on-Lan-MAC-support.patch"
+
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH net-next 2/2] net: phylink: add Wake-on-Lan MAC support
+
+Add core phylink Wake-on-Lan support.
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/phy/phylink.c | 66 ++++++++++++++++++++++++++++++++++++---
+ include/linux/phylink.h   | 20 ++++++++++++
+ 2 files changed, 82 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 9d7799ea1c17..e857a147f76b 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -93,6 +93,9 @@ struct phylink {
+ 	u8 sfp_port;
+ 
+ 	struct eee_config eee_cfg;
++
++	u32 wolopts_mac;
++	u8 wol_sopass[SOPASS_MAX];
+ };
+ 
+ #define phylink_printk(level, pl, fmt, ...) \
+@@ -2673,6 +2676,17 @@ void phylink_resume(struct phylink *pl)
+ }
+ EXPORT_SYMBOL_GPL(phylink_resume);
+ 
++static bool phylink_mac_supports_wol(struct phylink *pl)
++{
++	return !!pl->mac_ops->mac_wol_set;
++}
++
++static bool phylink_phy_supports_wol(struct phylink *pl,
++				     struct phy_device *phydev)
++{
++	return phydev && (pl->config->wol_phy_legacy || phy_can_wakeup(phydev));
++}
++
+ /**
+  * phylink_ethtool_get_wol() - get the wake on lan parameters for the PHY
+  * @pl: a pointer to a &struct phylink returned from phylink_create()
+@@ -2689,8 +2703,21 @@ void phylink_ethtool_get_wol(struct phylink *pl, struct ethtool_wolinfo *wol)
+ 	wol->supported = 0;
+ 	wol->wolopts = 0;
+ 
+-	if (pl->phydev)
+-		phy_ethtool_get_wol(pl->phydev, wol);
++	if (phylink_mac_supports_wol(pl)) {
++		if (phylink_phy_supports_wol(pl, pl->phydev))
++			phy_ethtool_get_wol(pl->phydev, wol);
++
++		/* Where the MAC augments the WoL support, merge its support and
++		 * current configuration.
++		 */
++		wol->supported |= pl->config->wol_mac_support;
++		wol->wolopts |= pl->wolopts_mac;
++		memcpy(wol->sopass, pl->wol_sopass, sizeof(wol->sopass));
++	} else {
++		/* Legacy */
++		if (pl->phydev)
++			phy_ethtool_get_wol(pl->phydev, wol);
++	}
+ }
+ EXPORT_SYMBOL_GPL(phylink_ethtool_get_wol);
+ 
+@@ -2707,12 +2734,43 @@ EXPORT_SYMBOL_GPL(phylink_ethtool_get_wol);
+  */
+ int phylink_ethtool_set_wol(struct phylink *pl, struct ethtool_wolinfo *wol)
+ {
++	struct ethtool_wolinfo w;
+ 	int ret = -EOPNOTSUPP;
++	bool changed;
++	u32 wolopts;
+ 
+ 	ASSERT_RTNL();
+ 
+-	if (pl->phydev)
+-		ret = phy_ethtool_set_wol(pl->phydev, wol);
++	if (phylink_mac_supports_wol(pl)) {
++		wolopts = wol->wolopts;
++
++		if (phylink_phy_supports_wol(pl, pl->phydev)) {
++			ret = phy_ethtool_set_wol(pl->phydev, wol);
++			if (ret != 0 && ret != -EOPNOTSUPP)
++				return ret;
++
++			phy_ethtool_get_wol(pl->phydev, &w);
++
++			/* Any Wake-on-Lan modes which the PHY is handling
++			 * should not be passed on to the MAC.
++			 */
++			wolopts &= ~w.wolopts;
++		}
++
++		wolopts &= pl->config->wol_mac_support;
++		changed = pl->wolopts_mac != wolopts;
++		if (wolopts & WAKE_MAGIC)
++			changed |= !!memcmp(wol->sopass, pl->wol_sopass,
++					    sizeof(wol->sopass));
++		memcpy(pl->wol_sopass, wol->sopass, sizeof(pl->wol_sopass));
++
++		if (changed)
++			ret = pl->mac_ops->mac_wol_set(pl->config, wolopts,
++						       wol->sopass);
++	} else {
++		if (pl->phydev)
++			ret = phy_ethtool_set_wol(pl->phydev, wol);
++	}
+ 
+ 	return ret;
+ }
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 9af0411761d7..26ff099c32cb 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -156,6 +156,8 @@ enum phylink_op_type {
+  * @lpi_capabilities: MAC speeds which can support LPI signalling
+  * @lpi_timer_default: Default EEE LPI timer setting.
+  * @eee_enabled_default: If set, EEE will be enabled by phylink at creation time
++ * @wol_phy_legacy: Use Wake-on-Lan with PHY even if phy_can_wakeup() is false
++ * @wol_mac_support: Bitmask of MAC supported %WAKE_* options
+  */
+ struct phylink_config {
+ 	struct device *dev;
+@@ -173,6 +175,10 @@ struct phylink_config {
+ 	unsigned long lpi_capabilities;
+ 	u32 lpi_timer_default;
+ 	bool eee_enabled_default;
++
++	/* Wake-on-Lan support */
++	bool wol_phy_legacy;
++	u32 wol_mac_support;
+ };
+ 
+ void phylink_limit_mac_speed(struct phylink_config *config, u32 max_speed);
+@@ -188,6 +194,7 @@ void phylink_limit_mac_speed(struct phylink_config *config, u32 max_speed);
+  * @mac_link_up: allow the link to come up.
+  * @mac_disable_tx_lpi: disable LPI.
+  * @mac_enable_tx_lpi: enable and configure LPI.
++ * @mac_wol_set: configure Wake-on-Lan settings at the MAC.
+  *
+  * The individual methods are described more fully below.
+  */
+@@ -211,6 +218,9 @@ struct phylink_mac_ops {
+ 	void (*mac_disable_tx_lpi)(struct phylink_config *config);
+ 	int (*mac_enable_tx_lpi)(struct phylink_config *config, u32 timer,
+ 				 bool tx_clk_stop);
++
++	int (*mac_wol_set)(struct phylink_config *config, u32 wolopts,
++			   u8 *sopass);
+ };
+ 
+ #if 0 /* For kernel-doc purposes only. */
+@@ -440,6 +450,16 @@ void mac_disable_tx_lpi(struct phylink_config *config);
+  */
+ int mac_enable_tx_lpi(struct phylink_config *config, u32 timer,
+ 		      bool tx_clk_stop);
++
++/**
++ * mac_wol_set() - configure the Wake-on-Lan parameters
++ * @config: a pointer to a &struct phylink_config.
++ * @wolopts: Bitmask of %WAKE_* flags for enabled Wake-On-Lan modes.
++ * @sopass: SecureOn(tm) password; meaningful only for %WAKE_MAGICSECURE
++ *
++ * Returns: 0 on success.
++ */
++int (*mac_wol_set)(struct phylink_config *config, u32 wolopts, u8 *sopass);
+ #endif
+ 
+ struct phylink_pcs_ops;
+-- 
+2.47.3
+
+
+--BpneffLJvKcKfQ39
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--BpneffLJvKcKfQ39--
