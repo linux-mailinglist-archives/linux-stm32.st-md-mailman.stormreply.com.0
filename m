@@ -2,64 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74CABA6AD4
-	for <lists+linux-stm32@lfdr.de>; Sun, 28 Sep 2025 10:22:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D40C7BA6C2F
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Sep 2025 10:56:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F633C32EA8;
-	Sun, 28 Sep 2025 08:22:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96106C32EA8;
+	Sun, 28 Sep 2025 08:56:15 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86F32C36B1E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A54CC36B1E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Sep 2025 08:22:05 +0000 (UTC)
+ Sun, 28 Sep 2025 08:56:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=h4AdV+djV+yTy0JX/TnMvSNKHPhRFNpLrO26oQgiLoA=; b=oKHHqryOllCf4DGRx+mmOcOyYq
- qlL7l2DsPeXL7X9WQUyqSYuEtoQn4MyLneUOunlCH98RltxCZi4tAe6eaGjSBFD8c8C5WxbG4RbgQ
- 71qVakVU13nw89eu/EaWEEzCptoyRj321RKwY0HCjwsUfaBCohb0GsMexIBpixwfh/iGlDvRCM+tg
- 0EuVurCzgNP9xRX45J8KIo7ZcYNWb4o3rCf6ERoS7W27eiDbW1VcnmPKWjeTIHfN/eMRaJcvgBx6d
- ClmeBe0V5/qeQ3LXj984L1UvWEHENh6jDupX0gbWL6us97wJUkbdq84/koUNhOy+ryxJffEPe1Dh8
- 9gwUPoOg==;
+ bh=eaEshSke7WWsFjbgjKG91woJG61C7g3CnfzoHwJbTuA=; b=oZuzW/vIzUPgZYfnMIHlje/k9/
+ W6/8bkTFGJGj6A70h1Qv4oljN7MCn5VGdznOvEhJ0Ouf26iOZParIaKSaw+kOvwEtwUncHnH56IeM
+ fCVFx/jpMWQje9yB0HJzWM2I+0xii4aqCTkELyDZ+ZN10PWMsQq3N0rghTPiLfTbN0V0gFVAzJFXp
+ Ozpy7EFJtSN03M21ToYmNXJSiSdCi4BeTZPv3OyVsx9nweswCO+7fyhvAveQZtcC3BJiy06PIceBY
+ drZ0PIJAX+j8MQYy5bX5PehiEqi+pIsHclH1VU0DHLCpFw9fqF6fvdPWex+0l5YEEl+02hAjChCR1
+ 5HqI/vOw==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49782)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54172)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v2mfE-0000000057R-3ezc;
- Sun, 28 Sep 2025 09:21:48 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1v2nCL-0000000059y-1F6D;
+ Sun, 28 Sep 2025 09:56:01 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v2mfA-000000002QE-1riS; Sun, 28 Sep 2025 09:21:44 +0100
-Date: Sun, 28 Sep 2025 09:21:44 +0100
+ id 1v2nCH-000000002RM-2cRk; Sun, 28 Sep 2025 09:55:57 +0100
+Date: Sun, 28 Sep 2025 09:55:57 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Message-ID: <aNjwGHrefA5j3dOp@shell.armlinux.org.uk>
-References: <20250917-wol-smsc-phy-v2-0-105f5eb89b7f@foss.st.com>
- <20250917-wol-smsc-phy-v2-2-105f5eb89b7f@foss.st.com>
- <aMriVDAgZkL8DAdH@shell.armlinux.org.uk>
- <aNbUdweqsCKAKJKl@shell.armlinux.org.uk>
- <a318f055-059b-44a4-af28-2ffd80a779e6@broadcom.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <aNj4HY_mk4JDsD_D@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a318f055-059b-44a4-af28-2ffd80a779e6@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+Cc: Rob Herring <robh@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tristram Ha <Tristram.Ha@microchip.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Christophe Roullier <christophe.roullier@foss.st.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tristram Ha <Tristram.Ha@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: stm32: add
- WoL from PHY support
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH RFC net-next 0/6] net: add phylink managed WoL
+ and convert stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,71 +71,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 26, 2025 at 12:05:19PM -0700, Florian Fainelli wrote:
-> I like the direction this is going, we could probably take one step further
-> and extract the logic present in bcmgenet_wol.c and make those helper
-> functions for other drivers to get the overlay of PHY+MAC WoL
-> options/password consistent across all drivers. What do you think?
+Hi,
 
-The logic I've implemented is fairly similar, but with one difference:
-I'm always storing the sopass, which means in the wol_get method I
-don't have to be concerned with the sopass returned by the PHY.
-This should be fine, unless the PHY was already configured for WoL
-magicsecure, and in that case we'll return a zero SOPASS but indicating
-WAKE_MAGICSECURE which probably isn't great.
+This experimental series is implementing the thoughts of Andrew,
+Florian and myself in an attempt to improve the quality of Wake-on-Lan
+(WoL) implementations.
 
-So, my new get_wol logic is:
+This changes nothing for MAC drivers that do not wish to participate in
+this, but if they do, then they gain the benefit of phylink configuring
+WoL at the point closest to the media as possible.
 
-        if (phylink_mac_supports_wol(pl)) {
-                if (phylink_phy_supports_wol(pl, pl->phydev))
-                        phy_ethtool_get_wol(pl->phydev, wol);
+We first need to solve the problem that the multitude of PHY drivers
+report their device supports WoL, but are not capable of waking the
+system. Correcting this is fundamental to choosing where WoL should be
+enabled - a mis-reported WoL support can render WoL completely
+ineffective.
 
-                /* Where the MAC augments the WoL support, merge its support and
-                 * current configuration.
-                 */
-                if (~wol->wolopts & pl->wolopts_mac & WAKE_MAGICSECURE)
-                        memcpy(wol->sopass, pl->wol_sopass,
-                               sizeof(wol->sopass));
+The only PHY drivers which uses the driver model's wakeup support is
+drivers/net/phy/broadcom.c, and until recently, realtek. This means
+we have the opportunity for PHY drivers to be _correctly_ converted
+to use this method of signalling wake-up capability only when they can
+actually wake the system, and thus providing a way for phylink to
+know whether to use PHY-based WoL at all.
 
-                wol->supported |= pl->config->wol_mac_support;
-                wol->wolopts |= pl->wolopts_mac;
+However, a PHY driver not implementing that logic doesn't become a
+blocker to MACs wanting to convert. In full, the logic is:
 
-with:
+- phylink supports a flag, wol_phy_legacy, which forces phylink to use
+  the PHY-based WoL even if the MDIO device is not marked as wake-up
+  capable.
 
-static bool phylink_mac_supports_wol(struct phylink *pl)
-{
-        return !!pl->mac_ops->mac_wol_set;
-}
+- when wol_phy_legacy is not set, we check whether the PHY MDIO device
+  is wake-up capable. If it is, we offer the WoL request to the PHY.
 
-static bool phylink_phy_supports_wol(struct phylink *pl,
-                                     struct phy_device *phydev)
-{
-        return phydev && (pl->config->wol_phy_legacy || phy_can_wakeup(phydev));
-}
+- if neither wol_phy_legacy is set, or the PHY is not wake-up capable,
+  we do not offer the WoL request to the PHY.
 
-static inline bool phy_can_wakeup(struct phy_device *phydev)
-{
-        return device_can_wakeup(&phydev->mdio.dev);
-}
+In both cases, after setting any PHY based WoL, we remove the options
+that the PHY now reports are enabled from the options mask, and offer
+these (if any) to the MAC. The mac will get a "mac_set_wol()" method
+call when any settings change.
 
-This is to cope with PHYs that respond to phy_ethtool_get_wol()
-reporting that they support WoL but have no capability to actually wake
-the system up. MACs can choose whether to override that by setting
-phylink_config->wol_phy_legacy.
+Phylink mainatains the WoL state for the MAC, so there's no need for
+a "mac_get_wol()" method. There may be the need to set the initial
+state but this is not supported at present.
 
-Much like taking this logic away from MAC driver authors, I think we
-need to take the logic around "can this PHY actually wake-up the
-system" away from the PHY driver author. I believe every driver that
-supports WoL with the exception of realtek and broadcom.c reports that
-WoL is supported and accepts set_wol() even when they're not capable
-of waking the system. e.g. bcm_phy_get_wol():
+I've also added support for doing the PHY speed-up/speed-down at
+suspend/resume time depending on the WoL state, which takes another
+issue from the MAC authors.
 
-        wol->supported = BCM54XX_WOL_SUPPORTED_MASK;
-        wol->wolopts = 0;
+Lastly, with phylink now having the full picture for WoL, the
+"mac_wol" argument for phylink_suspend() becomes redundant, and for
+MAC drivers that implement mac_set_wol(), the value passed becomes
+irrelevant.
 
-with no prior checks. This is why the "phylink_phy_supports_wol()"
-logic above is necessary, otherwise implementing this "use either
-the PHY or MAC" logic will break stuff.
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       | 11 +--
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 31 +-------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 45 ++++++-----
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  4 +-
+ drivers/net/phy/phy_device.c                       | 14 +++-
+ drivers/net/phy/phylink.c                          | 89 +++++++++++++++++++++-
+ include/linux/phy.h                                | 21 +++++
+ include/linux/phylink.h                            | 28 +++++++
+ 8 files changed, 179 insertions(+), 64 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
