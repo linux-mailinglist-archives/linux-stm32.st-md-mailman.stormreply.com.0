@@ -2,80 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF4DBA8098
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 07:57:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06DE7BA846E
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 09:44:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6522AC3F93C;
-	Mon, 29 Sep 2025 05:57:46 +0000 (UTC)
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07231C3F92E;
+	Mon, 29 Sep 2025 07:44:08 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FD7FC349C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71A1DC3089D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Sep 2025 08:10:53 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-42480cb42e9so13477545ab.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Sep 2025 01:10:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758960652; x=1759565452;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lQUetzEQMP4LAhqW9E/G21GQbOBqRaYhD1bJwLd7FZQ=;
- b=juOGKlzvveZq64v60i1MGFobjAN+/dOR6ZBFkXga0Vz4F61TA9FbcVY3bKVZV/jz9y
- /gqOD6DchvKWyiOTcKsA1n014VP5q/ID+k+XIvjJ9UZrc4qbSntG722ESsGVQJKIBhx9
- UGwNEtE7pjc0GLkA4Uv6ipfRtTovdqH7SIXM7bVZGCxfs+NLIC6MNv8zYbDsKou6kvDG
- yRUF/SpDQoAc4LFW0XkCGeNGdkGM9mmPo9k3AO9mmkBRZNuNFPAVaZQXJphCkLAQNZpP
- +Pb0/J7To00EcBprkamJvzrwtqgp2PeSQOUbt393xXsHfW89hlGctkxcEyDwYyUVHFvk
- 8xVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758960652; x=1759565452;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lQUetzEQMP4LAhqW9E/G21GQbOBqRaYhD1bJwLd7FZQ=;
- b=HGeA3yVPe2JNH3cz6YQdB9asxn346IAy93W5tUCV2us9pNGuPCh3rW4fnba5y4Il/g
- GR7Vcrbq47tXA+HMrCQUoOpxRxfgiZz/yqNvs5xeBg/i3rAZ/Tsw1WugKbaKSMBJ+HZ5
- ngVT8Lx6/CM5vqPyVsujfw3uXowHqacO16xjKJ1zBF0vTXpPri+fdhP24OtSDeiq/blM
- XPTqpi3K7dQqAJJ9vjbAhTyNldp8b2MbTuNIA+JCuevX3TlIyqI+6W1JlAsEi7H3p2oF
- pBssiii+Lv/IpQKVGBaFaZ9CmrNnN5YV8MauiTBJosfqGf/rKVzLrXp5yZtN8lb7/6gT
- m40Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYvOrd+RU6A1phfjY8/fKmsg3IKBVGcFuHvfOmcQAfYj0EExcuCBGHToeJsdgAbFJFyWxg6LflCRI+SA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzjRSiqhWXk4YBiAlnQWscTEUfTHMmtMFT4yjXUMC0gUOlvNOcK
- AoI63EIpTDd+P98vy2G2AtfjpcrDms5xR70pcAlKKJvOCz8tjsAaiuCl
-X-Gm-Gg: ASbGncv2Enj+6+XtwpuFPNLmr7u7Trh1isHlX82BO59h7bFkgGAI7ONGsCIYiG8/YPE
- vqggMOw4m2Oi400N065s0QjUUbaOTKHokrsNbbLROYZt9ZJZu/mjdX8/3/qMFEtzi264f+ypxaF
- NLHv8YVOyc4gGcw60IVw1MAT+DQVEUSRSDV2xTbsckEg3LovCIDDVl1O08IYUlibBAfLWWJVtJq
- pmmVYYb367oQv6A+mHcfnmiQkdhalCmXY1VtFOg1dW+7JhD1P/ZSOK9fm4g/LC4W2iSG2SGG4Xc
- Hk/dAfAvt4WLsE31JxVdA9/wALxBhxkBH2WDcLL046eq6a2ANvsnJrvYYHH8OmK3MS8DmqfEIJ/
- pESPzuVYAprBY1SCET3iMsClJZ6H2YCo1d4KDOQ==
-X-Google-Smtp-Source: AGHT+IH0IVO5vzLeRO4V6lWOrPlzDHkhJS4CVNTknktDnTu3FcBbSqcFVPYeFHLy8GA/XY52U+1p6w==
-X-Received: by 2002:a05:6e02:1a27:b0:426:5a34:77ec with SMTP id
- e9e14a558f8ab-4265a347968mr138432705ab.11.1758960651856; 
- Sat, 27 Sep 2025 01:10:51 -0700 (PDT)
-Received: from orangepi5-plus.lan ([144.24.43.60])
- by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-4282de12fc8sm10852155ab.3.2025.09.27.01.10.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Sep 2025 01:10:51 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 27 Sep 2025 16:10:36 +0800
-Message-ID: <20250927081036.10611-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Mon, 29 Sep 2025 07:44:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AZ7xCl2wQqwqFo37e1wZWKGTGABfy99i1vqF6wtYlaY=; b=PvKEk3awO1om3h6K37Kd+aGVTP
+ 3iH+zwB8JaNnXrRJKI5aFojaxxzNwuDmpEqKWgXPpGymWoLYxDbwvLw8lcujRbLN/+Bh0DyvDV+WA
+ tIIuIKzguIB76P7Arlqz+cjxipozoPL/s37GvxgzOeu2bME+KzXPtrpfWustiAknfkSm3ZRVp+Y8x
+ QVKh16WjpClYRLRwuUxcLF1N+VPKEgsXtM+U1CPAZos7pLV21Eml+NnF4f5HO3cHtQwgsS2GXd69P
+ EQsj31cl9lzbLFr+k8gApPoPe1Rryr/sxrY6uLeQ+q4ww25s3y/4rd017e470tvbFI4b/T1N9rGJ+
+ 7jRUoHeg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51940 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <rmk@armlinux.org.uk>) id 1v38Y8-000000006KV-2uOd;
+ Mon, 29 Sep 2025 08:43:56 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1v38Y7-00000008UCQ-3w27; Mon, 29 Sep 2025 08:43:55 +0100
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 29 Sep 2025 05:57:42 +0000
-Cc: Simon Horman <horms@kernel.org>, Furong Xu <0x1207@gmail.com>,
+Content-Disposition: inline
+Message-Id: <E1v38Y7-00000008UCQ-3w27@rmk-PC.armlinux.org.uk>
+Date: Mon, 29 Sep 2025 08:43:55 +0100
+Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: Convert open-coded
-	register polling to helper macro
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: remove
+ stmmac_hw_setup() excess documentation parameter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,86 +66,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Drop the open-coded register polling routines.
-Use readl_poll_timeout_atomic() in atomic state.
+The kernel build bot reports:
 
-Also adjust the delay time to 10us which seems more reasonable.
+Warning: drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:3438 Excess function parameter 'ptp_register' description in 'stmmac_hw_setup'
 
-Tested on NXP i.MX8MP and ROCKCHIP RK3588 boards,
-the break condition was met right after the first polling,
-no delay involved at all.
-So the 10us delay should be long enough for most cases.
+Fix it.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Furong Xu <0x1207@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Fixes: 98d8ea566b85 ("net: stmmac: move timestamping/ptp init to stmmac_hw_setup() caller")
+Closes: https://lore.kernel.org/oe-kbuild-all/202509290927.svDd6xuw-lkp@intel.com/
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
-V1 -> V2: fix code alignment, update commit message
-V1: https://lore.kernel.org/all/20250924152217.10749-1-0x1207@gmail.com/
----
- .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 28 ++++---------------
- 1 file changed, 6 insertions(+), 22 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-index e2840fa241f2..bb110124f21e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-@@ -135,7 +135,6 @@ static int init_systime(void __iomem *ioaddr, u32 sec, u32 nsec)
- static int config_addend(void __iomem *ioaddr, u32 addend)
- {
- 	u32 value;
--	int limit;
- 
- 	writel(addend, ioaddr + PTP_TAR);
- 	/* issue command to update the addend value */
-@@ -144,23 +143,15 @@ static int config_addend(void __iomem *ioaddr, u32 addend)
- 	writel(value, ioaddr + PTP_TCR);
- 
- 	/* wait for present addend update to complete */
--	limit = 10;
--	while (limit--) {
--		if (!(readl(ioaddr + PTP_TCR) & PTP_TCR_TSADDREG))
--			break;
--		mdelay(10);
--	}
--	if (limit < 0)
--		return -EBUSY;
--
--	return 0;
-+	return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
-+					 !(value & PTP_TCR_TSADDREG),
-+					 10, 100000);
- }
- 
- static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
- 		int add_sub, int gmac4)
- {
- 	u32 value;
--	int limit;
- 
- 	if (add_sub) {
- 		/* If the new sec value needs to be subtracted with
-@@ -187,16 +178,9 @@ static int adjust_systime(void __iomem *ioaddr, u32 sec, u32 nsec,
- 	writel(value, ioaddr + PTP_TCR);
- 
- 	/* wait for present system time adjust/update to complete */
--	limit = 10;
--	while (limit--) {
--		if (!(readl(ioaddr + PTP_TCR) & PTP_TCR_TSUPDT))
--			break;
--		mdelay(10);
--	}
--	if (limit < 0)
--		return -EBUSY;
--
--	return 0;
-+	return readl_poll_timeout_atomic(ioaddr + PTP_TCR, value,
-+					 !(value & PTP_TCR_TSUPDT),
-+					 10, 100000);
- }
- 
- static void get_systime(void __iomem *ioaddr, u64 *systime)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index be064f240895..650d75b73e0b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3400,7 +3400,6 @@ static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
+ /**
+  * stmmac_hw_setup - setup mac in a usable state.
+  *  @dev : pointer to the device structure.
+- *  @ptp_register: register PTP if set
+  *  Description:
+  *  this is the main function to setup the HW in a usable state because the
+  *  dma engine is reset, the core registers are configured (e.g. AXI,
 -- 
-2.43.0
+2.47.3
 
 _______________________________________________
 Linux-stm32 mailing list
