@@ -2,53 +2,200 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59DF1BAA45C
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 20:19:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96AC7BAA5C6
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 20:39:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 674EAC3F93C;
-	Mon, 29 Sep 2025 18:19:36 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-80.smtpout.orange.fr
- [80.12.242.80])
- (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D648C36B36;
+	Mon, 29 Sep 2025 18:39:08 +0000 (UTC)
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FB39C36B19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74792C36B2E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Sep 2025 18:19:34 +0000 (UTC)
-Received: from fedora ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
- by smtp.orange.fr with ESMTPA
- id 3ITEvqX6XRHxd3ITEvYxTM; Mon, 29 Sep 2025 20:19:34 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1759169974;
- bh=wTnIMh7xoEfksOfJHKUgA8+GhzjMgsbCB2sGq5dPA74=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=tTpZknqUSmXo+Xqm8X+UH3zMbiw1hD8niVucVZrWGfDeodUlaV2SCMACaBSqPqB5Y
- XaBQ1i8OAwB6Yi4sogD+qHfYCpqrPPdrpau769Y6lB2GceUIJCspANhI82oD56OaAE
- jIoxVCmWIf4k2scI7jjIHs4tq4pCkP2Wqi+cmK2V2Vp1j/YVWcHUWCRYF3wdrO27gr
- h0j5uOmTjVUc7ruZ/Bd0AwpllqoEe9ASIGVsBKHdurEde2whEJ3asMnih0IKIoPtMc
- V4hBEmaVaJqE5g8uTbdLE3cPRSC+GC8SmuG2fPhcyMd0kAUwRUXOhj4S3NSGab0TaO
- sNKxpsF2TK7Dg==
-X-ME-Helo: fedora
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Mon, 29 Sep 2025 20:19:34 +0200
-X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Christian Bruel <christian.bruel@foss.st.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 29 Sep 2025 20:19:30 +0200
-Message-ID: <e69ade3edcec4da2d5bfc66e0d03bbcb5a857021.1759169956.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.51.0
+ Mon, 29 Sep 2025 18:39:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759171146; x=1790707146;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version:subject;
+ bh=vJ7eD2nV/4N7AIUA9/+6epf2vjH4s0akBoFco89HihE=;
+ b=L11Xdp/uf6MW2BFTtqW6Y6H/wM33o21P4KkiVM/gkciHLad9ruQ0yeXO
+ 9u7Dq4OtP7OfrjZ6rVTd4ciuerEvAwCftwvI2xINxgdtPhdaGtFOoejSz
+ jemhy2aPxcDgrlb8YMdevHGST29JjWEgKss2K+cq8xnnhv1KCw3HniUgz
+ mqt+In5gCvjtQsiYiVAxHttOV9H4UBLwqku2u8PTOdZXHaxfxLCEU9m+Y
+ V/EGdBAT6ZpfrTogMRA63qh+Nez12BOKbbvTrG6xrl4QdiaA0q4/wYyPH
+ R9hnPtabEH+I6dBtpI/MtT6rMOElX654ofP+HLL/cGXkWLlIzw/ze9THx g==;
+X-CSE-ConnectionGUID: EC85rEzURZ+CERFt3YJdKA==
+X-CSE-MsgGUID: tnl/cymrQVqCkLCX53HUhQ==
+X-IronPort-AV: E=Sophos;i="6.18,302,1751241600"; 
+   d="scan'208";a="2844874"
+Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 18:39:02 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:4036]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ with esmtp (Farcaster)
+ id a320107e-9e0a-4760-b3dc-26c5d986714d; Mon, 29 Sep 2025 18:39:01 +0000 (UTC)
+X-Farcaster-Flow-ID: a320107e-9e0a-4760-b3dc-26c5d986714d
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 18:39:00 +0000
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 18:39:00 +0000
+Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
+ EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
+ 15.02.2562.020; Mon, 29 Sep 2025 18:39:00 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgABQRkA=
+Date: Mon, 29 Sep 2025 18:39:00 +0000
+Message-ID: <f32d53131d0a4b61a7be4862c7a7f237@amazon.com>
+References: <20250924202320.32333-1-farbere@amazon.com>
+ <20250924202320.32333-8-farbere@amazon.com>
+ <2025092923-stove-rule-a00f@gregkh>
+In-Reply-To: <2025092923-stove-rule-a00f@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.143.172]
 MIME-Version: 1.0
-Cc: linux-pci@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] PCI: stm32: Re-use existing error handling
-	path in stm32_pcie_probe()
+Cc: "quic_akhilpo@quicinc.com" <quic_akhilpo@quicinc.com>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "malattia@linux.it" <malattia@linux.it>,
+ "robdclark@gmail.com" <robdclark@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "sashal@kernel.org" <sashal@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "samuel@sholland.org" <samuel@sholland.org>,
+ "kadlec@netfilter.org" <kadlec@netfilter.org>,
+ "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>,
+ "ngupta@vflare.org" <ngupta@vflare.org>, "pmladek@suse.com" <pmladek@suse.com>,
+ "shuah@kernel.org" <shuah@kernel.org>, "jdelvare@suse.com" <jdelvare@suse.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "luto@kernel.org" <luto@kernel.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
+ "sean@poorly.run" <sean@poorly.run>,
+ "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>,
+ "wad@chromium.org" <wad@chromium.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "jolsa@kernel.org" <jolsa@kernel.org>, "jack@suse.com" <jack@suse.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "song@kernel.org" <song@kernel.org>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>, "sdf@google.com" <sdf@google.com>,
+ "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
+ "fei1.li@intel.com" <fei1.li@intel.com>, "agk@redhat.com" <agk@redhat.com>,
+ "mykolal@fb.com" <mykolal@fb.com>,
+ "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
+ "john.fastabend@gmail.com" <john.fastabend@gmail.com>,
+ "andrii@kernel.org" <andrii@kernel.org>,
+ "coreteam@netfilter.org" <coreteam@netfilter.org>,
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>, "yhs@fb.com" <yhs@fb.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "snitzer@kernel.org" <snitzer@kernel.org>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "evan.quan@amd.com" <evan.quan@amd.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "haoluo@google.com" <haoluo@google.com>,
+ "tony.luck@intel.com" <tony.luck@intel.com>, "tytso@mit.edu" <tytso@mit.edu>,
+ Linus Torvalds <torvalds@linux-foundation.org>, "fw@strlen.de" <fw@strlen.de>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "jmaloy@redhat.com" <jmaloy@redhat.com>,
+ "minchan@kernel.org" <minchan@kernel.org>,
+ "james.morse@arm.com" <james.morse@arm.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
+ "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
+ "ast@kernel.org" <ast@kernel.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "clm@fb.com" <clm@fb.com>, "willy@infradead.org" <willy@infradead.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
+ "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>,
+ "wens@csie.org" <wens@csie.org>,
+ "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "pablo@netfilter.org" <pablo@netfilter.org>,
+ "rric@kernel.org" <rric@kernel.org>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
+ "quic_abhinavk@quicinc.com" <quic_abhinavk@quicinc.com>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>,
+ "markgross@kernel.org" <markgross@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
+ "mchehab@kernel.org" <mchehab@kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+ "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "David.Laight@aculab.com" <David.Laight@aculab.com>,
+ "linux@roeck-us.net" <linux@roeck-us.net>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "ying.xue@windriver.com" <ying.xue@windriver.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
+ "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+ "hpa@zytor.com" <hpa@zytor.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
+ "maz@kernel.org" <maz@kernel.org>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "richard@nod.at" <richard@nod.at>, "x86@kernel.org" <x86@kernel.org>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "mingo@redhat.com" <mingo@redhat.com>, "kuba@kernel.org" <kuba@kernel.org>,
+ "dushistov@mail.ru" <dushistov@mail.ru>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "josef@toxicpanda.com" <josef@toxicpanda.com>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "dsterba@suse.com" <dsterba@suse.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "dsahern@kernel.org" <dsahern@kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
+ "tipc-discussion@lists.sourceforge.net"
+ <tipc-discussion@lists.sourceforge.net>,
+ "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "rajur@chelsio.com" <rajur@chelsio.com>,
+ "dmitry.baryshkov@linaro.org" <dmitry.baryshkov@linaro.org>,
+ "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+ "martin.lau@linux.dev" <martin.lau@linux.dev>,
+ "luc.vanoostenryck@gmail.com" <luc.vanoostenryck@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 07/19 v6.1.y] minmax: make generic MIN()
+ and MAX() macros available everywhere
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,44 +212,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-An error handling path is already available, so use it instead of hand
-writing the same code.
+On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
+> From: Linus Torvalds <torvalds@linux-foundation.org>
+>
+> [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+<snip>
+
+As this didn't go into 6.6.y yet, I'll stop here on this series for now.
+Please fix up for newer kernels first and then resend these.
+
+The fix for 6.6.y was applied also on 6.1.y:
+https://lore.kernel.org/stable/20250929183358.18982-1-farbere@amazon.com/
+
 ---
- drivers/pci/controller/dwc/pcie-stm32.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-stm32.c b/drivers/pci/controller/dwc/pcie-stm32.c
-index 964fa6f674c8..96a5fb893af4 100644
---- a/drivers/pci/controller/dwc/pcie-stm32.c
-+++ b/drivers/pci/controller/dwc/pcie-stm32.c
-@@ -287,18 +287,16 @@ static int stm32_pcie_probe(struct platform_device *pdev)
- 
- 	ret = pm_runtime_set_active(dev);
- 	if (ret < 0) {
--		clk_disable_unprepare(stm32_pcie->clk);
--		stm32_remove_pcie_port(stm32_pcie);
--		return dev_err_probe(dev, ret, "Failed to activate runtime PM\n");
-+		dev_err_probe(dev, ret, "Failed to activate runtime PM\n");
-+		goto err_disable_clk;
- 	}
- 
- 	pm_runtime_no_callbacks(dev);
- 
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret < 0) {
--		clk_disable_unprepare(stm32_pcie->clk);
--		stm32_remove_pcie_port(stm32_pcie);
--		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
-+		dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
-+		goto err_disable_clk;
- 	}
- 
- 	ret = dw_pcie_host_init(&stm32_pcie->pci.pp);
--- 
-2.51.0
-
+Regards, Eliav
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
