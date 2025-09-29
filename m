@@ -2,40 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A73BA9AD0
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 16:47:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9090ABAA248
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Sep 2025 19:22:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94A67C3F93C;
-	Mon, 29 Sep 2025 14:47:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B3B1C36B2E;
+	Mon, 29 Sep 2025 17:22:12 +0000 (UTC)
+Received: from fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [63.176.194.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E8CBC3F933
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32A73C36B2C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Sep 2025 14:47:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 368E144E5D;
- Mon, 29 Sep 2025 14:47:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51EEC4CEF4;
- Mon, 29 Sep 2025 14:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1759157255;
- bh=8W8Q+OA2dF6Ur3uVnm6arrgUauWJ5keNKgi5Rakv08M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ixd7lGKjU8rPs4OWaLyHTILBe27JWFNUeW7ErLrq5kAqdgQvDcohTydA9pilDkaVH
- z52PdLZ/6lQF/TxWojd21t/6vwpwNY0xwdJgToPIfkLHWKKVz+QIaSh4krNdfG/Qsg
- H3crXkWEyIu0mULyxpLF7vZzJx+xJCpRFqbsU2Dk=
-Date: Mon, 29 Sep 2025 16:47:31 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Farber, Eliav" <farbere@amazon.com>
-Message-ID: <2025092955-module-landfall-ed45@gregkh>
+ Mon, 29 Sep 2025 17:22:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759166531; x=1790702531;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version:subject;
+ bh=gKvaxmrs9uqyIGzbajJ1O5Hd1/ndu7xAtdLZV5bBh5k=;
+ b=K8lquwtpm1JphEg5W/Z+LUIfjKmwx/c09dpUTbL+fB3WJ6cYUxdxEfL9
+ 5I4s9w4jGnSuUrg9YeNQCn24tCctCOssFQhuTyA0ceEHxfLIT3UtoS1Fa
+ IOtjqAPzapI+Oaab5qQCIiwU1T9x2vvXHbABSr1+9h8yDntJ7wHxULVoL
+ Iyzu6vpjLYPynnr3FCAiD0XvwYtUdVnMCFnwG6tQxlQAGwf1YSPcq/sEV
+ rqCyhWOoJQJCxw1ZFfVATe2AfdC1W5UObbhrYCqkzd7HMIJCCjV28FMGu
+ h+vIZLIVZSbsabTqfWSGk85RpLJsB5z9Pm2lRy2xPI/aC6jcDmF8nC69h w==;
+X-CSE-ConnectionGUID: IafcEd3hQO6oGZOiLnLKqg==
+X-CSE-MsgGUID: Itl7dVAmRv28mSSF4DAfeA==
+X-IronPort-AV: E=Sophos;i="6.18,302,1751241600"; 
+   d="scan'208";a="2841710"
+Thread-Topic: [PATCH 07/19 v6.1.y] minmax: make generic MIN() and MAX() macros
+ available everywhere
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-005.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2025 17:22:02 +0000
+Received: from EX19MTAEUA002.ant.amazon.com [54.240.197.232:7433]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.19.222:2525]
+ with esmtp (Farcaster)
+ id 39c95fb2-68e2-4279-8b5a-834631637cab; Mon, 29 Sep 2025 17:22:01 +0000 (UTC)
+X-Farcaster-Flow-ID: 39c95fb2-68e2-4279-8b5a-834631637cab
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 17:21:59 +0000
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19D018EUA004.ant.amazon.com (10.252.50.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Mon, 29 Sep 2025 17:21:59 +0000
+Received: from EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d]) by
+ EX19D018EUA004.ant.amazon.com ([fe80::e53:84f8:3456:a97d%3]) with mapi id
+ 15.02.2562.020; Mon, 29 Sep 2025 17:21:59 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Thread-Index: AQHcLZHEroQ9W2lH4EW9XJumD1KlZrSqNL0AgAAM8ACAAAMmgIAAKtlA
+Date: Mon, 29 Sep 2025 17:21:58 +0000
+Message-ID: <e754fed7d53040fb92e1ef9b64c64f6e@amazon.com>
 References: <20250924202320.32333-1-farbere@amazon.com>
  <20250924202320.32333-8-farbere@amazon.com>
  <2025092923-stove-rule-a00f@gregkh>
  <85a995bb59474300aa3d5f973d279a13@amazon.com>
+ <2025092955-module-landfall-ed45@gregkh>
+In-Reply-To: <2025092955-module-landfall-ed45@gregkh>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.143.172]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <85a995bb59474300aa3d5f973d279a13@amazon.com>
 Cc: "quic_akhilpo@quicinc.com" <quic_akhilpo@quicinc.com>,
  "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
@@ -180,28 +214,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 29, 2025 at 02:39:26PM +0000, Farber, Eliav wrote:
-> > On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
-> > > From: Linus Torvalds <torvalds@linux-foundation.org>
+> On Mon, Sep 29, 2025 at 02:39:26PM +0000, Farber, Eliav wrote:
+> > > On Wed, Sep 24, 2025 at 08:23:08PM +0000, Eliav Farber wrote:
+> > > > From: Linus Torvalds <torvalds@linux-foundation.org>
+> > > >
+> > > > [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
 > > >
-> > > [ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+> > > <snip>
+> > >
+> > > As this didn't go into 6.6.y yet, I'll stop here on this series for now.
+> > > Please fix up for newer kernels first and then resend these.
 > >
-> > <snip>
+> > For 6.6.y I backported 15 commits:
+> > https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/#t
 > >
-> > As this didn't go into 6.6.y yet, I'll stop here on this series for now.
-> > Please fix up for newer kernels first and then resend these.
-> 
-> For 6.6.y I backported 15 commits:
-> https://lore.kernel.org/stable/20250922103241.16213-1-farbere@amazon.com/T/#t
-> 
-> Why weren't all of them picked?
+> > Why weren't all of them picked?
+>
+> Because one of them broke the build, as I wrote a week ago here:
+>         https://lore.kernel.org/all/2025092209-owl-whisking-03e3@gregkh/
 
-Because one of them broke the build, as I wrote a week ago here:
-	https://lore.kernel.org/all/2025092209-owl-whisking-03e3@gregkh/
+Fixed:
+https://lore.kernel.org/stable/20250929171733.20671-1-farbere@amazon.com/T/#t
 
-thanks,
-
-greg k-h
+---
+Thanks, Eliav
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
