@@ -2,45 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB349BAE0BA
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Sep 2025 18:32:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5959BAF6E4
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Oct 2025 09:35:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9ECC5C35E3F;
-	Tue, 30 Sep 2025 16:32:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A740EC349C0;
+	Wed,  1 Oct 2025 07:35:39 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78E94C36B09
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4D43C36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Sep 2025 16:32:31 +0000 (UTC)
+ Tue, 30 Sep 2025 01:50:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 28F9345985;
- Tue, 30 Sep 2025 16:32:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA54C4CEF0;
- Tue, 30 Sep 2025 16:32:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 73932402AA;
+ Tue, 30 Sep 2025 01:50:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8F6C4CEF4;
+ Tue, 30 Sep 2025 01:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759249950;
- bh=jdVuehLsO2BbsXchfGIueYIfBtAAqPbDLFHoBeD0ySM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=btZxeuapgJ8cVMgABl2IrN7ULEYD/efA61/d6uFEPKikOD4Qv9PgFdecqs2WarnKh
- fM/lVEJ4DBWpwkaQELBbkgx9/+wjjv4ZO7+XaBKUX7vOpvL6JWPt60FgXI1GM4SUJJ
- rv4cMHFUzfTYQPe4wZv1LfqsvCW83Dj1iT04iPPdWXiJ9XaPUeCwD10mKq/8QKRTl2
- GG1UY6m+ZqyJxgEx17Pnrni2JmWvcPCaCXpMK/zVLAQOfhtC3fe34Kx3TWIVKhTQbn
- WSLpRsCuESis8oIaNeur0ZilZNqBIVwPOOjkG/X2tAIfoROkY+tvDVTdS5PLiBafuH
- iV+2vLz4an3Dw==
-Date: Tue, 30 Sep 2025 11:32:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Message-ID: <20250930163228.GA183263@bhelgaas>
+ s=k20201202; t=1759197042;
+ bh=fmcYjWJAnGdhbsMUxYEUP6vCOJjyb2KhW72GCar/ySs=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=F2d+73AKmrnqDc7leXgfFj8Ctj5ugwep7vPk45YGtVuyDgqU2H/TyHTucnswLXSq2
+ Wkjv07XWjUdSg/DBJ56ecR4SRsYSfNGm67CWRMgIaQX+rWDhBy62n1peZyw2ZFWn3a
+ tOHo8qlPPBsN/mnWLSIdrjLzQBkUqJQhPgCbJ4LccSzWKOfMYdBAIxgY2UAJ2USNXA
+ Lhrer1U2Pwa/D1szx7USSgVbnWT2HPoVkWCkmFnTgT5z4f8gPOVfeEVhS3nWXdWfMG
+ USbIerc7boAKmG9Q2iIYUtSF6dD2jYOzWSHoExc6KgGteHuEHt1E17ovQMzeY4w2oX
+ 26aCfJqcn8kDg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ EADFB39D0C1A; Tue, 30 Sep 2025 01:50:36 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <175915669921.12348.6942864048975237850.b4-ty@kernel.org>
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, lpieralisi@kernel.org,
- linux-kernel@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
- mcoquelin.stm32@gmail.com, bhelgaas@google.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- kwilczynski@kernel.org
-Subject: Re: [Linux-stm32] [PATCH] PCI: stm32: Remove link_status in PCIe EP.
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <175919703549.1783832.10169355846256119327.git-patchwork-notify@kernel.org>
+Date: Tue, 30 Sep 2025 01:50:35 +0000
+References: <20250927081036.10611-1-0x1207@gmail.com>
+In-Reply-To: <20250927081036.10611-1-0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+X-Mailman-Approved-At: Wed, 01 Oct 2025 07:35:37 +0000
+Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, xfr@outlook.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: Convert
+ open-coded register polling to helper macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,23 +62,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 29, 2025 at 08:08:19PM +0530, Manivannan Sadhasivam wrote:
-> 
-> On Tue, 02 Sep 2025 14:26:41 +0200, Christian Bruel wrote:
-> > Guarding enable_irq/disable_irq against successive link start
-> > link does not seem necessary, since it is not possible to start
-> > the link twice. Similarly for stop.
-> 
-> Applied, thanks!
-> 
-> [1/1] PCI: stm32: Remove link_status in PCIe EP.
->       commit: 7d1c807cd2ddf8ef771f214ae4dab9bebbc61522
+Hello:
 
-Since this is essentially a fix to "PCI: stm32-ep: Add PCIe Endpoint
-support for STM32MP25", which hasn't been merged upstream yet, I
-squashed it into that patch:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?id=013d82bb62c0
+On Sat, 27 Sep 2025 16:10:36 +0800 you wrote:
+> Drop the open-coded register polling routines.
+> Use readl_poll_timeout_atomic() in atomic state.
+> 
+> Also adjust the delay time to 10us which seems more reasonable.
+> 
+> Tested on NXP i.MX8MP and ROCKCHIP RK3588 boards,
+> the break condition was met right after the first polling,
+> no delay involved at all.
+> So the 10us delay should be long enough for most cases.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v2] net: stmmac: Convert open-coded register polling to helper macro
+    https://git.kernel.org/netdev/net-next/c/9dd4e022bfff
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
