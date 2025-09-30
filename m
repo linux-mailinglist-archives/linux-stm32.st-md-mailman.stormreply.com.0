@@ -2,85 +2,182 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28CABBAC1C6
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Sep 2025 10:47:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5552CBAC2C2
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Sep 2025 11:05:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB4F2C424CF;
-	Tue, 30 Sep 2025 08:47:02 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEE2AC3F944;
+	Tue, 30 Sep 2025 09:05:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C00AC424CF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C458C36B29
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Sep 2025 08:47:01 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-46e52279279so14936285e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Sep 2025 01:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759222021; x=1759826821;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=HQSp6khD66PWakk86QjUyhjTSipaHZaw5SNW0wYKmlw=;
- b=TZ4ymKiBeEVo2Wn9sNhXKj8mNBomS8LeJnjZsqECbfKpGRQeDd3FUfdRHSkZ9dRkKJ
- FHU730kNWJk3vTROUL/RxlsAwQsc/m+UY4Wj7k7VpZg0KH4UiE0QXU/qAiNlc5WHTMVB
- A6sq5Ssym5MpSsp3X6pIy1nHEoFxFpd++dl5RXx6Dhl0Uoq93QDbUfBlg+Rxfd4UiASa
- zsftrD6h0+ZCakAe6tuVB8ezMYIxFZTN7cT0tBBppQD/ctCC/ggN0hItBGVesNcIZGqH
- NmuXbXP0CrgGnwpNMbANBtyTHdrG2BRCJk60hD2/LiUNMQ5aXmdRT9tBAbkKa07WWYDP
- M4gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759222021; x=1759826821;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HQSp6khD66PWakk86QjUyhjTSipaHZaw5SNW0wYKmlw=;
- b=BDbEgjuyu28F79Q4IlIl9jRJCaoYh7neo2LXTCfXDS4dJy4wtNfcv4b7Wz2peus+5+
- /gEYd0+ozEZNWeYB3zroUjvYWoF6H3INIFDmGCxMAw4wtWi0RusbFrf6uvSF8pYOGhj1
- JOS0cGy1Mqubrj6iN8VempBsviC+/Wzis4u4B7RefeFXY1eh8WX9x3B3cM1iVh3seuwO
- /t9RXhjIOCWpfkQ5mU52/61qP60VukKfWaup8I1AnSs7IyH/U2CBPJyhze42UEoL5n9d
- wQS+bBs2pC5oMzuz65yoJu1PW/ha1McZ6hdBVm71UZ8yeViiFsYdND8iuP7uFF5QlyZM
- LRrw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU4IeTSL364TYL8tReHC4LADb4jK6o5ZQLGIN5MoIRYkWCYhNWKbjrn7Qj7nZqpDBY/I2A2WJ0R/Pv4UQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwOy6P/Ws0T4PKMsNTGiNKUn/rf2ayF9LRL1yN0vd9avWX8gz0T
- ifUlZ33M3d7+SQ/jmPrtgaF2GzJ1R7kMuoeiqA/ZMXLwuU/6T5rqMV3l
-X-Gm-Gg: ASbGncu4xK5Totq6225kNLgOMG2Ps3ThfwGWKOE93DJKoGl2kPwL5WhhlLg/VGQHbBB
- jdKNDGbPf8GKwDh1EXB3jsam9F3qy5mOpHKwB2V4h7N2nytcthLifnZW82m5yYPhwk6r9BX/gYK
- ZvZA51iPqS5Izo6E3QVfehLqbvduOzW0Axv6ZcT1UqpTF6d+URaKxFF9DJ+3MZAjoakZi8Z6Iqm
- ajTurghlxyYLEYU9OVxOcL28E46sA9HcmsHrRviTOnKJaArA3l+Iu9NtxmPKMefwxGQulH1yOkD
- E6g7Eixq3xfmy1CbjzZM8cYaYTsLINlBu3nrdAylOGgoeWIitLh+SScUAdDuBFLtEedk+quD0Qb
- X+ouqo0+zkB4OV882gJMeYY2wM1LVtxvVyfDz0uExLpe5daHv8IxRmAPtZ99JWFxXKaw3tZILIT
- Ep0KVUrm6emwVe9AWH1paR9b1Zy0G6lU6tM9yVtVgK
-X-Google-Smtp-Source: AGHT+IELjz8q9Wh4r7dTEajOLlhaehyVXuIINojrCEIqJ4/pZdMgPhXlF8x51ihCR4TA5ozMBPdmQw==
-X-Received: by 2002:a5d:5f85:0:b0:3f9:1571:fdea with SMTP id
- ffacd0b85a97d-40e4cc630b2mr20809863f8f.44.1759222020801; 
- Tue, 30 Sep 2025 01:47:00 -0700 (PDT)
-Received: from localhost (2a02-8440-7149-a758-f461-9bc4-1c75-ebc1.rev.sfr.net.
- [2a02:8440:7149:a758:f461:9bc4:1c75:ebc1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-46e2a996e2fsm282983795e9.2.2025.09.30.01.47.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Sep 2025 01:47:00 -0700 (PDT)
-From: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
-Date: Tue, 30 Sep 2025 10:46:50 +0200
+ Tue, 30 Sep 2025 09:05:19 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58U8nitU017446;
+ Tue, 30 Sep 2025 11:04:42 +0200
+Received: from db3pr0202cu003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010008.outbound.protection.outlook.com [52.101.84.8])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 49eu6xgsf3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Sep 2025 11:04:42 +0200 (MEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n+UPR9jwMSuID+Z4INnIXGP+0gUgVDF/m4PdQ9tKygPQVY3aRsZjnnV4+vw2mNTfP67EI5dGL2s8QPEbcUBpKHj4UJ/WmfQzZrOvcf4bIZ6PQLZnP5yACpV1hXSFlvVctlb+UVhKcAq24POYTNdAGsBxM46ZfMhbjbnr5NLfX8dAWzuWwThSNxc38Q/jhsyr1XfvkbK0tRo7n7094H741jrNh46iCpy83ign0AD4MCY7f02ZkQ+B6g40lUq6E3FepOqFqkVqqGEjtPO8Z5FtJ5Ngm26htLFWzEUb7k8baHWQhbqL0GQRQ74PSgge9BJzGZFyFXiD7EVQU93J9KD9tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XdyBL2TLqZrEIrUBB07NRc9zunEktSnF/PT3Vu/CgBM=;
+ b=Saqc0N9cIzuyoT+P0UHiJWCpznTYh6I/1+udaFa4flS5C5Qf2kcFyFctnbYV39ZOrdkCOrDaazjWf7iVAgcboJzT5w+1Pd+/E1DH26agTZvJDimWRjRJDqJGu9K0VSTUqwMOLdvY7b/SLDN7RSeJgzXstjIey+xLGhGOqca9onsKEq8C7NNW1Y8xdj4n4sM0dxGPiUo5O/syLqU2x947ueaaIZaHezm6g/VKoCkGCc5sXfjYUyHt0wy9u7Pk//uqHYPpMD4womg1Rqelj0zJyYNV4qHPUCCFMkZfZSdVTs/Hj8ayf6svbuwrMSI76ieK9bRl4xopb8WbP8H/qWIOJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=armlinux.org.uk smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XdyBL2TLqZrEIrUBB07NRc9zunEktSnF/PT3Vu/CgBM=;
+ b=R/H/MtvV9YWNRWIzfRvpFy7GuVytkBXHdRi9XM6VODRiyXqHLnRiDHPquyTKI3LoKy8bxkqxPtEOmzV+rmnN4pqka19w2T7PtTVZ3ZuSdSsyZqVZuY9VroBNmR04I3Gr+3BiP84DLc4gwNiR3FyS6RGdOuY5wuJqWRcXrc0WrKwFWfsEanxAsRQ61hZQGsLgKweeEJfvp/eq4wlcMSXZwU/1+APWpY2LCbUaiIsdAK8n7E4q/DQv/zDHbL27H8Pa+drrl/dpND3HUwb7kU/WINBEMR13inWxQUCToTlidQhFVFnIwylRNgiivw8iiGZ/9ajs8cEyqUJpnUSKXdw9Pg==
+Received: from DU2PR04CA0252.eurprd04.prod.outlook.com (2603:10a6:10:28e::17)
+ by DU0PR10MB7336.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:444::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9160.17; Tue, 30 Sep
+ 2025 09:04:36 +0000
+Received: from DU6PEPF0000B61D.eurprd02.prod.outlook.com
+ (2603:10a6:10:28e:cafe::7d) by DU2PR04CA0252.outlook.office365.com
+ (2603:10a6:10:28e::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9160.17 via Frontend Transport; Tue,
+ 30 Sep 2025 09:04:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ DU6PEPF0000B61D.mail.protection.outlook.com (10.167.8.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9160.9 via Frontend Transport; Tue, 30 Sep 2025 09:04:35 +0000
+Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Tue, 30 Sep
+ 2025 11:02:18 +0200
+Received: from [10.252.21.196] (10.252.21.196) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Tue, 30 Sep
+ 2025 11:04:34 +0200
+Message-ID: <2e23535f-f0a2-4111-ae64-6f496a72f27d@foss.st.com>
+Date: Tue, 30 Sep 2025 11:04:28 +0200
 MIME-Version: 1.0
-Message-Id: <20250930-b4-ddr-bindings-v8-7-fe4d8c015a50@gmail.com>
-References: <20250930-b4-ddr-bindings-v8-0-fe4d8c015a50@gmail.com>
-In-Reply-To: <20250930-b4-ddr-bindings-v8-0-fe4d8c015a50@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Julius Werner <jwerner@chromium.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.15-dev-0dae4
-Cc: devicetree@vger.kernel.org,
- =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v8 7/7] arm64: dts: st: add DDR channel to
- stm32mp257f-ev1 board
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Andrew Lunn
+ <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>
+References: <aNj4HY_mk4JDsD_D@shell.armlinux.org.uk>
+ <E1v2nFD-00000007jXP-0fX2@rmk-PC.armlinux.org.uk>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <E1v2nFD-00000007jXP-0fX2@rmk-PC.armlinux.org.uk>
+X-Originating-IP: [10.252.21.196]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61D:EE_|DU0PR10MB7336:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab77962e-b263-48ed-1e50-08de000060ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|7416014|376014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NHBaZWsrem1nRmEvaDhRYWVIdHR5ajdDSk9SVldpMmJpdjZzemNQSkZUWkV6?=
+ =?utf-8?B?LzhySExXaFBZSmtkUVNmVFFQZlRkUUh4bWlwUkowajBna0s3RG1xQldnZVdV?=
+ =?utf-8?B?eGZ6ODcxL3k1MVNhUEFRbkVhejIvK2djQ1NzdGJkQms1NFUwWUY3d3lScGxI?=
+ =?utf-8?B?K1l0d2ZkZzhEZzZBL3I1WTI2YldTWE9PbnREbVN5MHhHMmgrcGZHdjIvbDRM?=
+ =?utf-8?B?d0IzUEc1RmNIWDFEMk5UeDRTR092VzN2eUdmV1JCejNtZlF0K05mMWlUK2Y2?=
+ =?utf-8?B?L1lKMnBDOFh3RmNtWUM2SUNVTThpWGg3ZzhOV1RWcmxiMlIwYVl6K0NQZTZa?=
+ =?utf-8?B?RTg5dHNiQUxxUTRqSHhmcEpHRENMMlZ0SzhUSmtPa09aaXdtTzRrM1hXVkxG?=
+ =?utf-8?B?bGNEa3pHMFBrcFJnNmkvNnRGZGdJNGpVOHZ1RXZjYWNxS0ZFcWl6OUwvSmU1?=
+ =?utf-8?B?WnRKbEVlUENYM0l3ZlpyNjRiUnIwRnlOU0t4Y3VIR2toemhjSEEyYjFVQnBx?=
+ =?utf-8?B?eC9FV3YrNlFvSldadGJtVzk0eGdoNkFzQ2xUL25sSDM1NGg3U1B4alNBQlRi?=
+ =?utf-8?B?QVU1ZXdSMVJyQlR2eW8wRnNOSjFibU9TaDFjTmN2K2JLSGc3NldOUHc5TXVS?=
+ =?utf-8?B?SWN1dmg0RkVTeWxkUy9xNnlFTU9GeEpVanJJK3FMSFlvZjlzWGV5c3l3Z0x4?=
+ =?utf-8?B?ZCtOeTQwcTVSbzE2eEJESk10aVF3SWw2MEZnOEI5bW44bktQcjhldlNCSnZj?=
+ =?utf-8?B?Ri9JSm1qbnN3c0xXQVZUVzZWem1VeUw1bXFzVkhUSmp6UDl0cmpiNHdUUy9V?=
+ =?utf-8?B?ZEJPVWhqTzNMNWt6OHQ4eEtKK1FZZUllcXZPNGJENE05eXpzY0NYTUFhVWJo?=
+ =?utf-8?B?bVNoSEtUbmZGRG9PSksxWURTQk1yc3pwNkhoTzVaTXlZN3hhaUhlMmZka0Zv?=
+ =?utf-8?B?TUxJZ2J6bGM5d0JRQ3UvMDBaWktTdnlYcEZ2dXBRV1NrL2RXMmFPVGVDajQv?=
+ =?utf-8?B?R0MwL2VmTUN4bzIxRmk2TVJCM3hyeGRyVy91WC8yYVBXYXZ2MU4yejNncTNY?=
+ =?utf-8?B?eEFMQTd0ckJnQlBKdWFmNlVuNnAyd0NhOThPaGVCRFNNYmNpRVlKOUQzRndM?=
+ =?utf-8?B?VDdnVnNiWUkrVWpRVDdRMnVWY0hIVUZEdUNiTXRZTlRrdjFnaHhaSjFLbDVi?=
+ =?utf-8?B?ZUxVV0dmdTFsd2R0QStDN2dOS0g5NXRCV3Y2ZUJ5Z3JBbG9GUjk3MWRFQ3Fn?=
+ =?utf-8?B?MEZvYmcwQkpoL3dOOWJsSzJ6c0JYenBnM2VWbjVNb0ErazRHbENVVEFIY1V6?=
+ =?utf-8?B?ZWkwdnNMMnE4T2ljRmxjRFlFc3d0QnZGMkNxMFkveld0T2I2UHQxQTZRekdL?=
+ =?utf-8?B?WUhRd3dJMGhNNkFZSTdlUm9MTXdvRVJYUG5oZUhqSytnSm9OUjV5SXlBaDhN?=
+ =?utf-8?B?Nk9BMGxwbVVvT0dUL3hHdStBMkczdDNRVFhqZ3UzVXJLVkRZZzBLdzVHU0NX?=
+ =?utf-8?B?OVdtRmVUbEg1S0Fsancxbjg5UkxXZUw2bi9NblJvRlMvSStwaUVzSlZTajNk?=
+ =?utf-8?B?M3hPcGFweDNVL1BUSUdOSmpWcDZqRDlsQjE4RGw0bE0xK0JIZTVzNEY1MXZx?=
+ =?utf-8?B?cWtoZGdHTjVpb2lwVzNib0pYelkrc2JVVTVYWkhRZGFheGJ1WHFuUXNLeFNB?=
+ =?utf-8?B?UGFDdEJyNDJFbGRpbTltblBQTmZRQjVjN2VLNkZwYXJZKzIxYzlQbVlWMUpn?=
+ =?utf-8?B?QzVKcWloZDVvKzZjZEduS0VvZTUzNEpUdExrZWRyWGxaejJxRXFqdmlJMW1j?=
+ =?utf-8?B?VDd1VkFnV1R2ZEFOemZycWxQQ0dzMFA0SE5pNVBRRFNvT244WTl2bHpoUzNJ?=
+ =?utf-8?B?TFBBYzJGQTBZSURBeTh4L2lvWCs3Q1oxWDFVQStlbFp1SkFvNVEzUFN6Wmc3?=
+ =?utf-8?B?UjJxU01rNHdwU0tyQU4xRmFvam53aEJZU3NoQk00Q2xpMmZ4R3dkbkgzNktx?=
+ =?utf-8?B?T0g2SmJmUENuVjhKM0lBa1dnWW1jcFB1bVQwZmR6c2JubWZEQmpsVXhwbGU5?=
+ =?utf-8?B?Q3MxT1VDQVNYREZIL0NsUjhpLzZsWDY4UEtRNXo3TlIxVTJKTk0xalh6Q2lz?=
+ =?utf-8?Q?iCzw=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(7416014)(376014)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2025 09:04:35.9132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab77962e-b263-48ed-1e50-08de000060ff
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000B61D.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB7336
+X-Authority-Analysis: v=2.4 cv=fOk0HJae c=1 sm=1 tr=0 ts=68db9d2a cx=c_pps
+ a=C6zU/Za3lUHRbVusphFing==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=h8e1o3o8w34MuCiiGQrqVE4VwXA=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=bZacASX0aO4A:10 a=IkcTkHD0fZMA:10
+ a=yJojWOMRYYMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10 a=PHq6YzTAAAAA:8
+ a=YL9D9Psk-rNFDlZyr74A:9 a=QEXdDO2ut3YA:10 a=ZKzU8r6zoKMcqsNulkmm:22
+ a=nl4s5V0KI7Kw-pW0DWrs:22
+ a=pHzHmUro8NiASowvMSCR:22 a=xoEH_sTeL_Rfw54TyV31:22
+X-Proofpoint-GUID: OExFlbHry3p__PLQZfodN9nFWox7oj4H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTI4MDAwOSBTYWx0ZWRfX9tZRzSd5jBWv
+ IuxCaUepv20040dRlF+6x0tqCWl5v7ib8OJFsJHjNe4mrf89L8zUejSSnCZ9yS2fA/uMekQjcgX
+ ep+a/1+x0/Yj5r2zuTKMRoWVWXQ8lk2+jAkvggPgFx2TZSwO+MsM4MVXPOlbbgosDSPGpUn0MQP
+ I7WG7HgRnvcR9ki/cqO8LUBHrXx5zjcCVUycY7iIFMcXeXMRquZg/BEPEsMkISmgqxCYmHtHfW0
+ w3rvocl/45NktAF0DOW7gQ67CwSHs6QRY2WpBq1rWmlJMldHVcfuk105ouBKh41UjW/YGq3C2u5
+ LXWoq5/OYeI7k8mvlnKWg3FV2NmvFc/FgOjBwv6OBE/hbXw/E8q1JO5ahd0tqhEshtRwXelFyqa
+ khwHibdG+CnibjtvjkzmZI9F9Q7lLw==
+X-Proofpoint-ORIG-GUID: OExFlbHry3p__PLQZfodN9nFWox7oj4H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-30_01,2025-09-29_04,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ spamscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 malwarescore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2509150000 definitions=main-2509280009
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Simon Horman <horms@kernel.org>, Rob Herring <robh@kernel.org>,
+ linux-kernel@vger.kernel.org, Tristram Ha <Tristram.Ha@microchip.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David
+ S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/6] net: phy: add
+	phy_may_wakeup()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,27 +189,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogQ2zDqW1lbnQgTGUgR29mZmljIDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3QuY29tPgoK
-QWRkIDMyYml0cyBERFI0IGNoYW5uZWwgdG8gdGhlIHN0bTMybXAyNTdmLWRrIGJvYXJkLgoKU2ln
-bmVkLW9mZi1ieTogQ2zDqW1lbnQgTGUgR29mZmljIDxjbGVtZW50LmxlZ29mZmljQGZvc3Muc3Qu
-Y29tPgpTaWduZWQtb2ZmLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGxlZ29mZmljLmNsZW1lbnRA
-Z21haWwuY29tPgotLS0KIGFyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYxLmR0
-cyB8IDcgKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYxLmR0cyBiL2FyY2gvYXJt
-NjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYxLmR0cwppbmRleCA4MzZiMTk1OGNlNjUuLmM0
-MjIzZjA2Mzk2YSAxMDA2NDQKLS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjU3
-Zi1ldjEuZHRzCisrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1N2YtZXYxLmR0
-cwpAQCAtNDEsNiArNDEsMTMgQEAgcGFkX2NsazogcGFkLWNsayB7CiAJCX07CiAJfTsKIAorCWRk
-cl9jaGFubmVsOiBzZHJhbS1jaGFubmVsLTAgeworCQkjYWRkcmVzcy1jZWxscyA9IDwxPjsKKwkJ
-I3NpemUtY2VsbHMgPSA8MD47CisJCWNvbXBhdGlibGUgPSAiamVkZWMsZGRyNC1jaGFubmVsIjsK
-KwkJaW8td2lkdGggPSA8MzI+OworCX07CisKIAlpbXgzMzVfMnY5OiByZWd1bGF0b3ItMnY5IHsK
-IAkJY29tcGF0aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOwogCQlyZWd1bGF0b3ItbmFtZSA9ICJp
-bXgzMzUtYXZkZCI7CgotLSAKMi40My4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 9/28/25 10:58, Russell King (Oracle) wrote:
+> Add phy_may_wakeup() which uses the driver model's device_may_wakeup()
+> when the PHY driver has marked the device as wakeup capable in the
+> driver model, otherwise use phy_drv_wol_enabled().
+> 
+> Replace the sites that used to call phy_drv_wol_enabled() with this
+> as checking the driver model will be more efficient than checking the
+> WoL state.
+> 
+> Export phy_may_wakeup() so that phylink can use it.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>   drivers/net/phy/phy_device.c | 14 ++++++++++++--
+>   include/linux/phy.h          |  9 +++++++++
+>   2 files changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 01269b865f5e..4c8df9f02eb3 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -251,6 +251,16 @@ static bool phy_drv_wol_enabled(struct phy_device *phydev)
+>   	return wol.wolopts != 0;
+>   }
+>   
+> +bool phy_may_wakeup(struct phy_device *phydev)
+> +{
+> +	/* If the PHY is using driver-model based wakeup, use that state. */
+> +	if (phy_can_wakeup(phydev))
+> +		return device_may_wakeup(&phydev->mdio.dev);
+> +
+> +	return phy_drv_wol_enabled(phydev);
+> +}
+> +EXPORT_SYMBOL_GPL(phy_may_wakeup);
+> +
+>   static void phy_link_change(struct phy_device *phydev, bool up)
+>   {
+>   	struct net_device *netdev = phydev->attached_dev;
+> @@ -302,7 +312,7 @@ static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
+>   	/* If the PHY on the mido bus is not attached but has WOL enabled
+>   	 * we cannot suspend the PHY.
+>   	 */
+> -	if (!netdev && phy_drv_wol_enabled(phydev))
+> +	if (!netdev && phy_may_wakeup(phydev))
+>   		return false;
+>   
+>   	/* PHY not attached? May suspend if the PHY has not already been
+> @@ -1909,7 +1919,7 @@ int phy_suspend(struct phy_device *phydev)
+>   	if (phydev->suspended || !phydrv)
+>   		return 0;
+>   
+> -	phydev->wol_enabled = phy_drv_wol_enabled(phydev) ||
+> +	phydev->wol_enabled = phy_may_wakeup(phydev) ||
+>   			      (netdev && netdev->ethtool->wol_enabled);
+Hi Russell,
+
+First of all, thank you for taking the time to propose something.
+
+IIUC, using ethtool to enable WoL with, e.g: "ethtool -s end0 wol g"
+even if the WoL isn't really supported will prevent the phy suspend.
+Therefore, PHY drivers should be adapted to implement something like:
+
+	if (!device_can_wakeup(&dev->mdio.dev))
+		return -EOPNOTSUPP;
+
+in their set_wol() ops to fully adapt to what you propose, right?
+
+>   	/* If the device has WOL enabled, we cannot suspend the PHY */
+>   	if (phydev->wol_enabled && !(phydrv->flags & PHY_ALWAYS_CALL_SUSPEND))
+> diff --git a/include/linux/phy.h b/include/linux/phy.h
+> index 7f6758198948..2292ee9a93c0 100644
+> --- a/include/linux/phy.h
+> +++ b/include/linux/phy.h
+> @@ -1391,6 +1391,15 @@ static inline bool phy_can_wakeup(struct phy_device *phydev)
+>   	return device_can_wakeup(&phydev->mdio.dev);
+>   }
+>   
+> +/**
+> + * phy_may_wakeup() - indicate whether PHY has driver model wakeup is enabled
+> + * @phydev: The phy_device struct
+> + *
+> + * Returns: true/false depending on the PHY driver's device_set_wakeup_enabled()
+> + * setting.
+> + */
+> +bool phy_may_wakeup(struct phy_device *phydev);
+> +
+>   void phy_resolve_aneg_pause(struct phy_device *phydev);
+>   void phy_resolve_aneg_linkmode(struct phy_device *phydev);
+>   
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
