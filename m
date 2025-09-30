@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57212BAD5B7
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Sep 2025 16:56:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8CEBAD8F0
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Sep 2025 17:09:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B202EC3F951;
-	Tue, 30 Sep 2025 14:56:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82C35C3F951;
+	Tue, 30 Sep 2025 15:09:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24F05C3F94D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA38DC3F94D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Sep 2025 14:56:28 +0000 (UTC)
+ Tue, 30 Sep 2025 15:09:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1ADAF62838;
- Tue, 30 Sep 2025 14:56:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360C6C113D0;
- Tue, 30 Sep 2025 14:56:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 880CC439D6;
+ Tue, 30 Sep 2025 15:09:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C58C4CEF0;
+ Tue, 30 Sep 2025 15:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1759244186;
- bh=Z5d0b5DGcSBbhhIKTZeyvPJji5Ji+ULzzLR+8R5C37M=;
+ s=korg; t=1759244986;
+ bh=2d5mlbzXOEFsyGOAy7ajjjm9WNfNLYF3z4LyKA5hDZY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YcBoGkhq258ECAMb1o6jiyeSS/SUuq+mAN/fwi/5XZIpPUDzOJc3be9hDjD2g4ivo
- +NeU5vD+Z3jdpPBMxTpDxb2hnxY5JXIdT4trYrqPZjMkN+u3zdFPMkm4X0DrDR8O6l
- GHZlJ6F7yS+sjB8Wg6Dkc86+78l6P6vAR6Y2anAE=
+ b=Lj6v4nBa+eawqtVfF84Khk5TBoxC+nap+CTnXeyc88t//36Mgc9DWzZPWpUmg/Z5I
+ m6XoaAsuVc2vbcZzwJ8m6pl7CGxS6PzW53D+VpWOfbMf7oLHgnXx7WNQgq2981L8Jb
+ KyzJryplUmvIXqYP1enYjpMmjdNdI9j7FxlNBqjE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Tue, 30 Sep 2025 16:45:53 +0200
-Message-ID: <20250930143823.902488364@linuxfoundation.org>
+Date: Tue, 30 Sep 2025 16:46:01 +0200
+Message-ID: <20250930143828.856879967@linuxfoundation.org>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250930143822.939301999@linuxfoundation.org>
-References: <20250930143822.939301999@linuxfoundation.org>
+In-Reply-To: <20250930143827.587035735@linuxfoundation.org>
+References: <20250930143827.587035735@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -44,7 +44,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Philipp Zabel <p.zabel@pengutronix.de>, Jack Wang <jinpu.wang@ionos.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-mtd@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.10 022/122] mtd: rawnand: stm32_fmc2: Fix
+Subject: [Linux-stm32] [PATCH 5.15 031/151] mtd: rawnand: stm32_fmc2: Fix
 	dma_map_sg error check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -62,7 +62,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -97,7 +97,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
 +++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -858,8 +858,8 @@ static int stm32_fmc2_nfc_xfer(struct na
+@@ -860,8 +860,8 @@ static int stm32_fmc2_nfc_xfer(struct na
  
  	ret = dma_map_sg(nfc->dev, nfc->dma_data_sg.sgl,
  			 eccsteps, dma_data_dir);
@@ -108,7 +108,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	desc_data = dmaengine_prep_slave_sg(dma_ch, nfc->dma_data_sg.sgl,
  					    eccsteps, dma_transfer_dir,
-@@ -889,8 +889,10 @@ static int stm32_fmc2_nfc_xfer(struct na
+@@ -891,8 +891,10 @@ static int stm32_fmc2_nfc_xfer(struct na
  
  		ret = dma_map_sg(nfc->dev, nfc->dma_ecc_sg.sgl,
  				 eccsteps, dma_data_dir);
