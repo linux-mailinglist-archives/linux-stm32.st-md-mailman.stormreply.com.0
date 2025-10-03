@@ -2,88 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD062BB6412
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Oct 2025 10:44:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5C67BB6B05
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Oct 2025 15:00:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31D6FC36B14;
-	Fri,  3 Oct 2025 08:44:15 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C03CC36B14;
+	Fri,  3 Oct 2025 13:00:49 +0000 (UTC)
+Received: from fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ (fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ [3.74.81.189])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11114C349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1BACC36B0F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Oct 2025 16:19:54 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-3352018e050so1243821a91.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Oct 2025 09:19:54 -0700 (PDT)
+ Fri,  3 Oct 2025 13:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759421993; x=1760026793;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LZZ5d24XDIxkk+JwavCHmACQ+MmvpDMF7i8UGLWVc1U=;
- b=b+n68sOnTvsK34t4yFwEw5dPJAqG72kWQlaUV0hCQRxxmDsF9egV6HC6d8UxCwvZoQ
- dylM7disuCDWZpYoRMXPk22I71yq6wuus+HrX+fCNG/22FsVFnb81oSswGMZXVX16Hsr
- swhwwmRMnc9+ILkhY3G4TSmCTtXp6O2ZEkM1hCoHrdAJlixgAOr4b4L2KQ4j6ehC8M/W
- qs8unyFgt4MMI0pHg18BoG2JaotZ9SLAI33+fMxgi0BvMZhjCuYLxF2nJ7m7ws3H8R5G
- LhJO1u19jT1NQKZeblG1JXzfjbO5QM+6RffdV/r3b1AIkaPkeYIlzZZM4ro5pUw3esh5
- Z8Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759421993; x=1760026793;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LZZ5d24XDIxkk+JwavCHmACQ+MmvpDMF7i8UGLWVc1U=;
- b=YkO8IpeS5AH6h0DpUurCZCAQGJ0PQhe04xt/VJtUitdFQ73TPNvKWkCrFTAD9G/f2u
- /jVWdkQMbzTMKHtClBZL8rIhncf4UoR0ciCOt0TVzAqXXZd8FDYzCFsO4LoKJGJokpUS
- pa+bH6M0RJS16WCnVK3St8lL9Dsq/LA8VheJuh3tCxOnBihC826z35Vb4qyPCOoKtC9e
- J7KofcqbCCGPbEDD851WVBbew+elNasHrhV3UUhbA841QYaUCMyPKBYR6e7gdaVbr1V9
- BSfZSDi5DNyMMIk7HsRFGsilch2MW8k/KHgf6gS6QP2/SBj8THw46/alek7KitjOo+cx
- rCMA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWdaAZeZwFGW/B4BGjH32XopAbLcZmMWq1/b6ReKlldVjRmyuG5OLAdpnBX7YsyOwoTNMWQWKbkvANX/A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz+2rMBSJ/5Acosqhw8x//4X5Om8HvZGB44Rpg3DsxlUhabO955
- Se5a4WRDQNeDFfDgCAri0+vp5wvqiWZp/qq1dOEndQeQwd6IKnyS60JGvFCs9lx06DeZF1gYb+b
- Lc3b5BDSQZfjQKSz603J6OVnsxVYxzvc=
-X-Gm-Gg: ASbGncunK37o9v5iY72HI+Kry2ZHk/nAXWqY8+SPyZ1vPDhk8llmIBSpEEIccqMgqGy
- 0Iw31BmutCgCojXPAB4g5V5u0m6jJn2lc05jqJs/My9afGjU9CQudV3sE0uDop7d6OHL93pUEkX
- AfcWKILTCct4uotwOUWrS50lltMZfduyeKNv+Fl3n/ScUG/Qg0J9flppM/4q2XJsWXB3vtwuCC9
- Q1zIZjweZkjN9A7+ZRees/S3bnGfRY=
-X-Google-Smtp-Source: AGHT+IGDpezXRZoKRUAmvsGEGRKGV3Cca8QMZMZ4Xe0LAt5a7sDWIZ6cqn+OuFMFCBuqxZGgIpVxUstpBqxpNK7ovio=
-X-Received: by 2002:a17:90b:3145:b0:32b:ca6f:1245 with SMTP id
- 98e67ed59e1d1-339a6e6329fmr8873915a91.5.1759421993437; Thu, 02 Oct 2025
- 09:19:53 -0700 (PDT)
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+ t=1759496447; x=1791032447;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=DpRzthrnz6JTHsOC4O+aqLHWM/bhaI69F/+S/FagesY=;
+ b=VtTnutorJa3ZIGIMcCgQBkjCGhG9a8ZDX31XJL5LTQPatud7ggo7h+81
+ qEz9XgidDRnq35NxIUqWgFvdgG+w8FGdE9s60NGeScRi0rzj2dV/yEfdb
+ I5xy0FpraAWSEVgmabDKKNPUDjkjfQqKc4e5i9hfBstkgv+C5zmRlplJM
+ v5dlQyHYsoBmrsbu7t5Iv9GEbDWNRNSLTsXSEmVnJw8GfpMW1fCjLm0JL
+ qI9TdCamm47dghIsNm6hE0BmHEkhaWkNtGAnBZZV0hZF5oVEOqcbT07Gp
+ HNBFwGybf1pdUycaxoX+Jm1ZU+OWsPwt1cBZLbcb98NRCj1uW7IIbEOwD g==;
+X-CSE-ConnectionGUID: aBCG9PMxQNqBMtPRKr77WA==
+X-CSE-MsgGUID: pZYBUhUbSjiqEaIzSZznhg==
+X-IronPort-AV: E=Sophos;i="6.18,312,1751241600"; 
+   d="scan'208";a="3062608"
+Received: from ip-10-6-6-97.eu-central-1.compute.internal (HELO
+ smtpout.naws.eu-central-1.prod.farcaster.email.amazon.dev) ([10.6.6.97])
+ by internal-fra-out-004.esa.eu-central-1.outbound.mail-perimeter.amazon.com
+ with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2025 13:00:38 +0000
+Received: from EX19MTAEUB002.ant.amazon.com [54.240.197.232:5201]
+ by smtpin.naws.eu-central-1.prod.farcaster.email.amazon.dev [10.0.1.16:2525]
+ with esmtp (Farcaster)
+ id 102aa012-5090-4986-8c7d-754292fc7b11; Fri, 3 Oct 2025 13:00:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 102aa012-5090-4986-8c7d-754292fc7b11
+Received: from EX19D018EUA004.ant.amazon.com (10.252.50.85) by
+ EX19MTAEUB002.ant.amazon.com (10.252.51.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
+ Fri, 3 Oct 2025 13:00:38 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D018EUA004.ant.amazon.com (10.252.50.85) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 3 Oct 2025
+ 13:00:13 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>,
+ <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>,
+ <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>,
+ <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
+ <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>,
+ <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>,
+ <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>,
+ <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>,
+ <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>,
+ <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>,
+ <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>,
+ <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>,
+ <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>,
+ <adilger.kernel@dilger.ca>, <dushistov@mail.ru>,
+ <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>,
+ <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>,
+ <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>,
+ <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, 
+ <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>,
+ <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>,
+ <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>,
+ <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>,
+ <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>,
+ <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>,
+ <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>,
+ <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>,
+ <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Date: Fri, 3 Oct 2025 12:59:47 +0000
+Message-ID: <20251003130006.41681-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20250822-enomam_logs-v1-0-db87f2974552@gmail.com>
- <20250822-enomam_logs-v1-9-db87f2974552@gmail.com>
-In-Reply-To: <20250822-enomam_logs-v1-9-db87f2974552@gmail.com>
-From: ChaosEsque Team <chaosesqueteam@gmail.com>
-Date: Thu, 2 Oct 2025 12:24:49 -0400
-X-Gm-Features: AS18NWAkW_WGgw7RLjcHXntiCLOoMqdr7Jd-sVtGc97imtAcuufyjRqKmj5BmR0
-Message-ID: <CALC8CXdUzp=sKeOaPnwJ3GWg8=qrXrZKNsKg6XeXxvutty-U-w@mail.gmail.com>
-To: Dixit Parmar <dixitparmar19@gmail.com>
-X-Mailman-Approved-At: Fri, 03 Oct 2025 08:44:14 +0000
-Cc: imx@lists.linux.dev, Crt Mori <cmo@melexis.com>, linux-iio@vger.kernel.org,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, Haibo Chen <haibo.chen@nxp.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- David Lechner <dlechner@baylibre.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-samsung-soc@vger.kernel.org,
- Cai Huoqing <cai.huoqing@linux.dev>, Andreas Klinger <ak@it-klinger.de>,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>,
- Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 09/10] iio: proximity: Drop unnecessary
-	-ENOMEM messages
+X-Originating-IP: [172.19.116.181]
+X-ClientProxiedBy: EX19D032UWA002.ant.amazon.com (10.13.139.81) To
+ EX19D018EUA004.ant.amazon.com (10.252.50.85)
+Subject: [Linux-stm32] [PATCH v2 00/19 5.15.y] Backport minmax.h updates
+	from v6.17-rc7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,41 +110,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-eWVhaCwgZGlja3MgaXQuCgpPbiBUaHUsIEF1ZyAyMSwgMjAyNSBhdCAxMTo1M+KAr1BNIERpeGl0
-IFBhcm1hciA8ZGl4aXRwYXJtYXIxOUBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gVGhlIGRyaXZlcnMg
-ZG8gbm90IHJlcXVpcmUgdGhlaXIgb3duIGVycm9yIG1lc3NhZ2VzIGZvciBlcnJvcgo+IC1FTk9N
-RU0sIG1lbW9yeSBhbGxvY2F0aW9uIGZhaWx1cmVzLiBTbyByZW1vdmUgdGhlIGRldl9lcnIKPiBt
-ZXNzYWdlcyBmcm9tIHRoZSBwcm9iZSgpLgo+Cj4gU2lnbmVkLW9mZi1ieTogRGl4aXQgUGFybWFy
-IDxkaXhpdHBhcm1hcjE5QGdtYWlsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9paW8vcHJveGltaXR5
-L3BpbmcuYyAgfCA0ICstLS0KPiAgZHJpdmVycy9paW8vcHJveGltaXR5L3NyZjA0LmMgfCA0ICst
-LS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vcHJveGltaXR5L3BpbmcuYyBiL2RyaXZlcnMvaWlv
-L3Byb3hpbWl0eS9waW5nLmMKPiBpbmRleCBjNWI0ZTEzNzhiN2QuLmUzNDg3MDk0ZDdiZSAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2lpby9wcm94aW1pdHkvcGluZy5jCj4gKysrIGIvZHJpdmVycy9p
-aW8vcHJveGltaXR5L3BpbmcuYwo+IEBAIC0yODAsMTAgKzI4MCw4IEBAIHN0YXRpYyBpbnQgcGlu
-Z19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ICAgICAgICAgc3RydWN0IGlp
-b19kZXYgKmluZGlvX2RldjsKPgo+ICAgICAgICAgaW5kaW9fZGV2ID0gZGV2bV9paW9fZGV2aWNl
-X2FsbG9jKGRldiwgc2l6ZW9mKHN0cnVjdCBwaW5nX2RhdGEpKTsKPiAtICAgICAgIGlmICghaW5k
-aW9fZGV2KSB7Cj4gLSAgICAgICAgICAgICAgIGRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGFsbG9j
-YXRlIElJTyBkZXZpY2VcbiIpOwo+ICsgICAgICAgaWYgKCFpbmRpb19kZXYpCj4gICAgICAgICAg
-ICAgICAgIHJldHVybiAtRU5PTUVNOwo+IC0gICAgICAgfQo+Cj4gICAgICAgICBkYXRhID0gaWlv
-X3ByaXYoaW5kaW9fZGV2KTsKPiAgICAgICAgIGRhdGEtPmRldiA9IGRldjsKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9paW8vcHJveGltaXR5L3NyZjA0LmMgYi9kcml2ZXJzL2lpby9wcm94aW1pdHkv
-c3JmMDQuYwo+IGluZGV4IGIwNTliYWMxMDc4Yi4uZjlkMzJmOWFiYTFmIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvaWlvL3Byb3hpbWl0eS9zcmYwNC5jCj4gKysrIGIvZHJpdmVycy9paW8vcHJveGlt
-aXR5L3NyZjA0LmMKPiBAQCAtMjUzLDEwICsyNTMsOCBAQCBzdGF0aWMgaW50IHNyZjA0X3Byb2Jl
-KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gICAgICAgICBpbnQgcmV0Owo+Cj4gICAg
-ICAgICBpbmRpb19kZXYgPSBkZXZtX2lpb19kZXZpY2VfYWxsb2MoZGV2LCBzaXplb2Yoc3RydWN0
-IHNyZjA0X2RhdGEpKTsKPiAtICAgICAgIGlmICghaW5kaW9fZGV2KSB7Cj4gLSAgICAgICAgICAg
-ICAgIGRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGFsbG9jYXRlIElJTyBkZXZpY2VcbiIpOwo+ICsg
-ICAgICAgaWYgKCFpbmRpb19kZXYpCj4gICAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+
-IC0gICAgICAgfQo+Cj4gICAgICAgICBkYXRhID0gaWlvX3ByaXYoaW5kaW9fZGV2KTsKPiAgICAg
-ICAgIGRhdGEtPmRldiA9IGRldjsKPgo+IC0tCj4gMi40My4wCj4KPgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+This series backports 19 patches to update minmax.h in the 5.15.y branch,
+aligning it with v6.17-rc7.
+
+The ultimate goal is to synchronize all longterm branches so that they
+include the full set of minmax.h changes (6.12.y and 6.6.y were already
+backported by me and are now aligned, 6.1.y is in progress).
+
+The key motivation is to bring in commit d03eba99f5bf ("minmax: allow
+min()/max()/clamp() if the arguments have the same signedness"), which
+is missing in kernel 5.10.y.
+
+In mainline, this change enables min()/max()/clamp() to accept mixed
+argument types, provided both have the same signedness. Without it,
+backported patches that use these forms may trigger compiler warnings,
+which escalate to build failures when -Werror is enabled.
+
+Changes in v2:
+- Fix the order of patches 6 - 10 according to order in mainline branch.
+- Use same style of [ Upstream commit <HASH> ] in all patches.
+
+Andy Shevchenko (1):
+  minmax: deduplicate __unconst_integer_typeof()
+
+David Laight (8):
+  minmax: fix indentation of __cmp_once() and __clamp_once()
+  minmax.h: add whitespace around operators and after commas
+  minmax.h: update some comments
+  minmax.h: reduce the #define expansion of min(), max() and clamp()
+  minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
+  minmax.h: move all the clamp() definitions after the min/max() ones
+  minmax.h: simplify the variants of clamp()
+  minmax.h: remove some #defines that are only expanded once
+
+Herve Codina (1):
+  minmax: Introduce {min,max}_array()
+
+Linus Torvalds (8):
+  minmax: avoid overly complicated constant expressions in VM code
+  minmax: add a few more MIN_T/MAX_T users
+  minmax: simplify and clarify min_t()/max_t() implementation
+  minmax: make generic MIN() and MAX() macros available everywhere
+  minmax: don't use max() in situations that want a C constant
+    expression
+  minmax: simplify min()/max()/clamp() implementation
+  minmax: improve macro expansion and type checking
+  minmax: fix up min3() and max3() too
+
+Matthew Wilcox (Oracle) (1):
+  minmax: add in_range() macro
+
+ arch/arm/mm/pageattr.c                        |   6 +-
+ arch/um/drivers/mconsole_user.c               |   2 +
+ arch/x86/mm/pgtable.c                         |   2 +-
+ drivers/edac/sb_edac.c                        |   4 +-
+ drivers/edac/skx_common.h                     |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
+ .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |   2 +
+ .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    |  14 +-
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |   2 +
+ .../drm/arm/display/include/malidp_utils.h    |   2 +-
+ .../display/komeda/komeda_pipeline_state.c    |  24 +-
+ drivers/gpu/drm/drm_color_mgmt.c              |   2 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   6 -
+ drivers/gpu/drm/radeon/evergreen_cs.c         |   2 +
+ drivers/hwmon/adt7475.c                       |  24 +-
+ drivers/input/touchscreen/cyttsp4_core.c      |   2 +-
+ drivers/irqchip/irq-sun6i-r.c                 |   2 +-
+ drivers/md/dm-integrity.c                     |   4 +-
+ drivers/media/dvb-frontends/stv0367_priv.h    |   3 +
+ .../net/ethernet/chelsio/cxgb3/cxgb3_main.c   |  18 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
+ drivers/net/fjes/fjes_main.c                  |   4 +-
+ drivers/nfc/pn544/i2c.c                       |   2 -
+ drivers/platform/x86/sony-laptop.c            |   1 -
+ drivers/scsi/isci/init.c                      |   6 +-
+ .../pci/hive_isp_css_include/math_support.h   |   5 -
+ drivers/virt/acrn/ioreq.c                     |   4 +-
+ fs/btrfs/misc.h                               |   2 -
+ fs/btrfs/tree-checker.c                       |   2 +-
+ fs/ext2/balloc.c                              |   2 -
+ fs/ext4/ext4.h                                |   2 -
+ fs/ufs/util.h                                 |   6 -
+ include/linux/compiler.h                      |   9 +
+ include/linux/minmax.h                        | 264 +++++++++++++-----
+ kernel/trace/preemptirq_delay_test.c          |   2 -
+ lib/btree.c                                   |   1 -
+ lib/decompress_unlzma.c                       |   2 +
+ lib/logic_pio.c                               |   3 -
+ lib/vsprintf.c                                |   2 +-
+ lib/zstd/zstd_internal.h                      |   2 -
+ mm/zsmalloc.c                                 |   1 -
+ net/ipv4/proc.c                               |   2 +-
+ net/ipv6/proc.c                               |   2 +-
+ net/netfilter/nf_nat_core.c                   |   6 +-
+ net/tipc/core.h                               |   2 +-
+ net/tipc/link.c                               |  10 +-
+ tools/testing/selftests/vm/mremap_test.c      |   2 +
+ 47 files changed, 289 insertions(+), 183 deletions(-)
+
+-- 
+2.47.3
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
