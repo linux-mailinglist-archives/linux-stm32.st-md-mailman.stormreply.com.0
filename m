@@ -2,74 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29FDBB704B
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Oct 2025 15:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B83EBB8DE8
+	for <lists+linux-stm32@lfdr.de>; Sat, 04 Oct 2025 15:25:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91E74C5558B;
-	Fri,  3 Oct 2025 13:32:41 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8445BC32E92;
+	Sat,  4 Oct 2025 13:25:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E5CEC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F663C36B27
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Oct 2025 13:32:40 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 919881A10BE;
- Fri,  3 Oct 2025 13:32:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5F5E460683;
- Fri,  3 Oct 2025 13:32:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 58A1C102F1C20; 
- Fri,  3 Oct 2025 15:32:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1759498357; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=iozFpFYaZKSD23+QEqnOpovnNuv86N9KGqCqWElkBuQ=;
- b=VTKAuHmtxgyujEaNC8Ewq/1KOAAytiXK67xNcu2yreVBKKikYyOTsbf7c3YclMTtFnythb
- FlUIxfeSiqWd+DfYgU5qr/PFU2trrQcO+x6wH+DftiQHcNUejrK5S63vPviYOvOWOFexdM
- kzPZqL6SszQ2S8gVPtH0ly9/T8mBDwpSUQt57Qy/AIdcAFhM5QOe4GbuoLhRxeAswfTkyM
- KGcpHMTKo+MAtzPW4zuLPZdIhxY/Irgihbm7TtV/L4MHX3ygnaWk033IGQbxe+vw1yCGgx
- qkrDHZh3/ChQRmplaxDCnnIeV+D9v5DRUzuhqOj2R2F9XGoR1Jlgv1bfBbd60g==
-Message-ID: <269f9150-8977-4862-b6c1-7a8f94776c59@bootlin.com>
-Date: Fri, 3 Oct 2025 15:32:15 +0200
+ Sat,  4 Oct 2025 13:25:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1CFDF60144;
+ Sat,  4 Oct 2025 13:25:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C60C4CEF1;
+ Sat,  4 Oct 2025 13:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1759584326;
+ bh=bc5bP7EqrX/7tverHK4ahEMxMXdfuaRoCJxs+IXR4UI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=isrBaMWfApwQ1NDz1qxYerr3ggmdcFTR9LgDdgHJYQ39uEppFCwRZbzDkDTYqIZO8
+ BtOqmkcx73Hww6vj5nUDaAK5msqyyJqgg9lGfSngFsus5mReiwGCb4TIzeDMlSKyxM
+ S39iQ9sSMoUSCQYj82BBrXcE/ZfosunC3Xuk2z9JEDJ+Zc5x3pQRwTCAMD/kRn6OUt
+ tYN6hcLHKcPxTOrcjOTjWdzGTocQp/+z5/AlZlMcWZZcV9n08/CT2hsiF5iOM2/QfM
+ mCEyOYo8cWREIDsLjD7+CLWL0tbQD1Qtt+a0o5WlqGonWbx4jZRB3ZbpLJ5Z6ht4/I
+ IAWGofaVST+GQ==
+Date: Sat, 4 Oct 2025 14:25:17 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Message-ID: <20251004142517.0cf3e7a2@jic23-huawei>
+In-Reply-To: <5243c2c5a8f3dd24f40e30a695e2a3d4f948f388.camel@gmail.com>
+References: <20251002112250.2270144-1-olivier.moysan@foss.st.com>
+ <5243c2c5a8f3dd24f40e30a695e2a3d4f948f388.camel@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <aNj8U4xPJ0JepmZs@shell.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <aNj8U4xPJ0JepmZs@shell.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>,
- Mateusz Polchlopek <mateusz.polchlopek@intel.com>,
- Simon Horman <horms@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Huacai Chen <chenhuacai@kernel.org>, Furong Xu <0x1207@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
- Abhishek Chauhan <quic_abchauha@quicinc.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Daniel Machon <daniel.machon@microchip.com>,
- Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Alexis Lothore <alexis.lothore@bootlin.com>,
- linux-arm-kernel@lists.infradead.org,
- Rohan G Thomas <rohan.g.thomas@altera.com>, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
+Cc: Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 0/19] net: stmmac:
- experimental PCS conversion
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ David Lechner <dlechner@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: fix st,
+ adc-alt-channel property handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,114 +56,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
-
-On 28/09/2025 11:13, Russell King (Oracle) wrote:
-> This series is radical - it takes the brave step of ripping out much of
-> the existing PCS support code and throwing it all away.
-> 
-> I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
-> flag with Bartosz Golaszewski, and the conclusion I came to is that
-> this is to workaround the breakage that I've been going on about
-> concerning the phylink conversion for the last five or six years.
-> 
-> The problem is that the stmmac PCS code manipulates the netif carrier
-> state, which confuses phylink.
-> 
-> There is a way of testing this out on the Jetson Xavier NX platform as
-> the "PCS" code paths can be exercised while in RGMII mode - because
-> RGMII also has in-band status and the status register is shared with
-> SGMII. Testing this out confirms my long held theory: the interrupt
-> handler manipulates the netif carrier state before phylink gets a
-> look-in, which means that the mac_link_up() and mac_link_down() methods
-> are never called, resulting in the device being non-functional.
-> 
-> Moreover, on dwmac4 cores, ethtool reports incorrect information -
-> despite having a full-duplex link, ethtool reports that it is
-> half-dupex.
-> 
-> Thus, this code is completely broken - anyone using it will not have
-> a functional platform, and thus it doesn't deserve to live any longer,
-> especially as it's a thorn in phylink.
-> 
-> Rip all this out, leaving just the bare bones initialisation in place.
-> 
-> However, this is not the last of what's broken. We have this hw->ps
-> integer which is really not descriptive, and the DT property from
-> which it comes from does little to help understand what's going on.
-> Putting all the clues together:
-> 
-> - early configuration of the GMAC configuration register for the
->    speed.
-> - setting the SGMII rate adapter layer to take its speed from the
->    GMAC configuration register.
-> 
-> Lastly, setting the transmit enable (TE) bit, which is a typo that puts
-> the nail in the coffin of this code. It should be the transmit
-> configuration (TC) bit. Given that when the link comes up, phylink
-> will call mac_link_up() which will overwrite the speed in the GMAC
-> configuration register, the only part of this that is functional is
-> changing where the SGMII rate adapter layer gets its speed from,
-> which is a boolean.
-> 
->  From what I've found so far, everyone who sets the snps,ps-speed
-> property which configures this mode also configures a fixed link,
-> so the pre-configuration is unnecessary - the link will come up
-> anyway.
-> 
-> So, this series rips that out the preconfiguration as well, and
-> replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
-> 
-> We then move the sole PCS configuration into a phylink_pcs instance,
-> which configures the PCS control register in the same way as is done
-> during the probe function.
-> 
-> Thus, we end up with much easier and simpler conversion to phylink PCS
-> than previous attempts.
-> 
-> Even so, this still results in inband mode always being enabled at the
-> moment in the new .pcs_config() method to reflect what the probe
-> function was doing. The next stage will be to change that to allow
-> phylink to correctly configure the PCS. This needs fixing to allow
-> platform glue maintainers who are currently blocked to progress.
-> 
-> Please note, however, that this has not been tested with any SGMII
-> platform.
-> 
-> I've tried to get as many people into the Cc list with get_maintainers,
-> I hope that's sufficient to get enough eyeballs on this.
-> 
-> v2: numerous changes, too many to have kept track of, sorry. As one can
-> see, the series has more than doubled in size. Some are not up to
-> mainline submission quality, but I've included them as they give the
-> full picture. b4 may be able to do a better job at identifying the
-> differences between the two series than I could ever do.
-
-I'm not sure if you're interested in a proper Tested-by tag at that 
-point, but I tested that series on socfpga with :
-
-  - 1 instance using RGMII, w/ a ksz9031 PHY, and it works well, traffic 
-flows, ethtool seems to report correct data
-
-  - 1 instance that has the Lynx PCS (DMA_HW_FEATURE[30:28] == 0)
-
-This also works perfectly, switching between SGMII/1000BaseX dynamically 
-by hotswapping SFP modules works well, no regression found at a first 
-glance.
-
-I haven't had time t take a deep look at the code itself, but at least 
-it works :)
-
-Thanks,
-
-Maxime
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAwMyBPY3QgMjAyNSAwNzoxNTo1NiArMDEwMApOdW5vIFPDoSA8bm9uYW1lLm51bm9A
+Z21haWwuY29tPiB3cm90ZToKCj4gT24gVGh1LCAyMDI1LTEwLTAyIGF0IDEzOjIyICswMjAwLCBP
+bGl2aWVyIE1veXNhbiB3cm90ZToKPiA+IEluaXRpYWxseSBzdCxhZGMtYWx0LWNoYW5uZWwgcHJv
+cGVydHkgd2FzIGRlZmluZWQgYXMgYW4gZW51bSBpbiB0aGUgREZTRE0KPiA+IGJpbmRpbmcuIFRo
+ZSBERlNETSBiaW5kaW5nIGhhcyBiZWVuIGNoYW5nZWQgdG8gdXNlIHRoZSBuZXcgSUlPIGJhY2tl
+bmQKPiA+IGZyYW1ld29yaywgYWxvbmcgd2l0aCB0aGUgYWRvcHRpb24gb2YgSUlPIGdlbmVyaWMg
+Y2hhbm5lbHMuCj4gPiBJbiB0aGlzIG5ldyBiaW5kaW5nIHN0LGFkYy1hbHQtY2hhbm5lbCBpcyBk
+ZWZpbmVkIGFzIGEgYm9vbGVhbiBwcm9wZXJ0eSwKPiA+IGJ1dCBpdCBpcyBzdGlsbCBoYW5kbGVk
+IGhhcyBhbiBlbnVtIGluIERGU0RNIGRyaXZlci4KPiA+IEZpeCBzdCxhZGMtYWx0LWNoYW5uZWwg
+cHJvcGVydHkgaGFuZGxpbmcgaW4gREZTRE0gZHJpdmVyLgo+ID4gCj4gPiBGaXhlczogMzIwOGZh
+MGNkOTE5ICgiaWlvOiBhZGM6IHN0bTMyLWRmc2RtOiBhZG9wdCBnZW5lcmljIGNoYW5uZWxzIGJp
+bmRpbmdzIikKPiA+IFNpZ25lZC1vZmYtYnk6IE9saXZpZXIgTW95c2FuIDxvbGl2aWVyLm1veXNh
+bkBmb3NzLnN0LmNvbT4KPiA+IC0tLSAgCj4gCj4gUmV2aWV3ZWQtYnk6IE51bm8gU8OhIDxudW5v
+LnNhQGFuYWxvZy5jb20+CkFwcGxpZWQgdG8gbXkgdGVtcG9yYXJ5IGZpeGVzIGJyYW5jaCB0aGF0
+IEknbGwgcmViYXNlIG9uIHJjMSBvbmNlIGF2YWlsYWJsZS4KQWxzbyBtYXJrZWQgZm9yIHN0YWJs
+ZS4KCnRoYW5rcywKCkpvbmF0aGFuCgo+IAo+ID4gwqBkcml2ZXJzL2lpby9hZGMvc3RtMzItZGZz
+ZG0tYWRjLmMgfCA1ICsrLS0tCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyks
+IDMgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby9hZGMvc3Rt
+MzItZGZzZG0tYWRjLmMgYi9kcml2ZXJzL2lpby9hZGMvc3RtMzItZGZzZG0tYWRjLmMKPiA+IGlu
+ZGV4IDc0YjFiNGRjNmU4MS4uOTY2NGI5YmQ3NWQ0IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9p
+aW8vYWRjL3N0bTMyLWRmc2RtLWFkYy5jCj4gPiArKysgYi9kcml2ZXJzL2lpby9hZGMvc3RtMzIt
+ZGZzZG0tYWRjLmMKPiA+IEBAIC03MjUsOSArNzI1LDggQEAgc3RhdGljIGludCBzdG0zMl9kZnNk
+bV9nZW5lcmljX2NoYW5uZWxfcGFyc2Vfb2Yoc3RydWN0Cj4gPiBzdG0zMl9kZnNkbSAqZGZzZG0s
+Cj4gPiDCoAl9Cj4gPiDCoAlkZl9jaC0+c3JjID0gdmFsOwo+ID4gwqAKPiA+IC0JcmV0ID0gZndu
+b2RlX3Byb3BlcnR5X3JlYWRfdTMyKG5vZGUsICJzdCxhZGMtYWx0LWNoYW5uZWwiLCAmZGZfY2gt
+ICAKPiA+ID5hbHRfc2kpOyAgCj4gPiAtCWlmIChyZXQgIT0gLUVJTlZBTCkKPiA+IC0JCWRmX2No
+LT5hbHRfc2kgPSAwOwo+ID4gKwlpZiAoZndub2RlX3Byb3BlcnR5X3ByZXNlbnQobm9kZSwgInN0
+LGFkYy1hbHQtY2hhbm5lbCIpKQo+ID4gKwkJZGZfY2gtPmFsdF9zaSA9IDE7Cj4gPiDCoAo+ID4g
+wqAJaWYgKGFkYy0+ZGV2X2RhdGEtPnR5cGUgPT0gREZTRE1fSUlPKSB7Cj4gPiDCoAkJYmFja2Vu
+ZCA9IGRldm1faWlvX2JhY2tlbmRfZndub2RlX2dldCgmaW5kaW9fZGV2LT5kZXYsIE5VTEwsCj4g
+PiBub2RlKTsgIAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
