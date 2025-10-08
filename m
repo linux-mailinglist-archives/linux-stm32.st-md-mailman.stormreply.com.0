@@ -2,79 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66B5BBC673C
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Oct 2025 21:21:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964B0BC7CC7
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Oct 2025 09:53:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49064C555AB;
-	Wed,  8 Oct 2025 19:21:41 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ACD7C35E3F;
+	Thu,  9 Oct 2025 07:53:08 +0000 (UTC)
+Received: from sender3-of-o55.zoho.com (sender3-of-o55.zoho.com
+ [136.143.184.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3612C555A9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A72F2C424C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Oct 2025 19:21:39 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (82-203-166-19.bb.dnainternet.fi
- [82.203.166.19])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id B22C11831;
- Wed,  8 Oct 2025 21:20:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1759951203;
- bh=qQokYW/VARCWCLgR7Bc7K4ey6RBNxLIsdA5nrZ46+tE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FgmJk2/YEEqMsNrw8ePmdPns4OKSKs5GD97J2cZONy3e6nKAXD2s7B1NWuN9t9aEJ
- P1cM18SZxCqMqCZ+LDBut9PSYPfkFAj0820hagqXrnFHxBZGbus9d46BgECqHzGByr
- a+qPEkuWAbR3FMswmhzzaCoEv0Bi2mnxSGDI6U9I=
-Date: Wed, 8 Oct 2025 22:21:29 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Message-ID: <20251008192129.GG16422@pendragon.ideasonboard.com>
-References: <20251008175052.19925-1-laurent.pinchart@ideasonboard.com>
- <205478244873d09cad5b77bd887f6a836c31c7ec.camel@collabora.com>
+ Wed,  8 Oct 2025 06:36:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1759905404; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=RvXluu+LG4xEx2IUCN2flQrwaliLEj0ZzPMIZ3cc2a9wpnuLG2qqoyNDOGS6tFVkfLE+m5T7d+yG2znveQcBO5ItbU3q7vV3UjWzfyefkgWvrJqiEaseCCxIyL8ADTTavQiI7a2+D7F5P0s2ys+YpAe/iB3FAx+1KC8a+QBM5tg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1759905404;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=6IBOQA4M72hbGFUcq0MN0QpmD5I8kL0OcEW2eCfRXqs=; 
+ b=Dn9g7wMyRqX7ul2fu7ZQ2xwC5kFahdXqOgPfZAXSqXu46Ml0wR9h0GdXKsPpUMnCsExHzQSs0lTLQUF6pTLf0aKv96O4HegXjsFwPJ6ho576nxk2IveURkjdyElvifU5tkf57b0Uv/OiJjFu26lNT0z9+3UVNw8WFgnB1l7FuY8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ spf=pass  smtp.mailfrom=md.asadullah@eds-india.com;
+ dmarc=pass header.from=<md.asadullah@eds-india.com>
+Received: by mx.zohomail.com with SMTPS id 1759905402131883.049483352964;
+ Tue, 7 Oct 2025 23:36:42 -0700 (PDT)
+From: Asadeds <md.asadullah@eds-india.com>
+To: u-boot@lists.denx.de
+Date: Wed,  8 Oct 2025 12:06:23 +0530
+Message-Id: <20251008063623.1233604-1-md.asadullah@eds-india.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <205478244873d09cad5b77bd887f6a836c31c7ec.camel@collabora.com>
-Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>,
- Devarsh Thakkar <devarsht@ti.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>, Hans Verkuil <hverkuil@kernel.org>,
- Vikash Garodia <quic_vgarodia@quicinc.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>,
- Jiasheng Jiang <jiashengjiangcool@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Matthew Majewski <mattwmajewski@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Benoit Parrot <bparrot@ti.com>,
- Magnus Damm <magnus.damm@gmail.com>, linux-rockchip@lists.infradead.org,
- Jacob Chen <jacob-chen@iotwrt.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-media@vger.kernel.org,
- Bin Liu <bin.liu@mediatek.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
- Nathan Chancellor <nathan@kernel.org>, linux-mediatek@lists.infradead.org,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Tiffany Lin <tiffany.lin@mediatek.com>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Zhou Peng <eagle.zhou@nxp.com>,
- Dikshita Agarwal <quic_dikshita@quicinc.com>,
- Michael Tretter <m.tretter@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Shawn Guo <shawnguo@kernel.org>, Ming Qian <ming.qian@nxp.com>
-Subject: Re: [Linux-stm32] [PATCH 00/25] media: v4l2-mem2mem: Reduce
-	cargo-cult
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Thu, 09 Oct 2025 07:53:07 +0000
+Cc: trini@konsulko.com, linux-stm32@st-md-mailman.stormreply.com,
+ Asadeds <md.asadullah@eds-india.com>
+Subject: [Linux-stm32] [PATCH] arm: stm32mp25: add ethernet support for
+	stm32mp255 series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,125 +50,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBPY3QgMDgsIDIwMjUgYXQgMDI6MjQ6MzBQTSAtMDQwMCwgTmljb2xhcyBEdWZyZXNu
-ZSB3cm90ZToKPiBIaSwKPiAKPiBMZSBtZXJjcmVkaSAwOCBvY3RvYnJlIDIwMjUgw6AgMjA6NTAg
-KzAzMDAsIExhdXJlbnQgUGluY2hhcnQgYSDDqWNyaXTCoDoKPiA+IEhlbGxvLAo+ID4gCj4gPiBU
-aGUgdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gbmV2ZXIgcmV0dXJucyBOVUxMLCBidXQgbWFu
-eSBtZW0ybWVtCj4gPiBkcml2ZXJzIHN0aWxsIGNoZWNrIGl0cyByZXR1cm4gdmFsdWUgYW5kIGNv
-bnNpZGVyIE5VTEwgYXMgYW4gZXJyb3IuIFRoaXMKPiA+IG1heSBoYXZlIG9yaWdpbmF0ZWQgYSBs
-b25nIHRpbWUgYWdvIGZyb20gdmFsaWQgY2hlY2tzIHdoZW4KPiA+IHY0bDJfbTJtX2dldF92cSgp
-IGNvdWxkIHJldHVybiBOVUxMLCB3aXRoIGRyaXZlcnMgdGhlbiBqdXN0IGNvcHlpbmcgdGhlCj4g
-PiBjaGVja3MuIFRoaXMgc2VyaWVzIGF0dGVtcHRzIHRvIHN0b3AgdGhlIGNhcmdvLWN1bHQgYmVo
-YXZpb3VyLgo+ID4gCj4gPiBQYXRjaCAwMS8yNSBzdGFydHMgYnkgZXhwbGljaXRseSBzdGF0aW5n
-IGluIGtlcm5lbGRvYyB0aGF0IHRoZQo+ID4gdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gbmV2
-ZXIgcmV0dXJucyBOVUxMLiBBbGwgdGhlIG90aGVyIHBhdGNoZXMKPiA+IGRyb3AgTlVMTCBjaGVj
-a3MgZnJvbSBkcml2ZXJzLgo+ID4gCj4gPiBJIGhhdmUgY2FyZWZ1bGx5IGNoZWNrZWQgYWxsIHBh
-dGNoZWQgbG9jYXRpb25zIGluIGFsbCBkcml2ZXJzLiBUaGV5IGZhbGwKPiA+IGluIDMgY2F0ZWdv
-cmllczoKPiA+IAo+ID4gLSBDaGVja3MgaW4gdGhlIFZJRElPQ19HX0ZNVCwgVklESU9DX1RSWV9G
-TVQgYW5kIFZJRElPQ19TX0ZNVCBoYW5kbGVyczoKPiA+IMKgIFRob3NlIG1heSBoYXZlIGJlZW4g
-YWRkZWQgdG8gZW5zdXJlIHRoYXQgdGhlIGZvcm1hdCB0eXBlIGhhcyBhIHZhbGlkCj4gPiDCoCB2
-YWx1ZSwgYnV0IHRoYXQgaXMgZW5zdXJlZCBieSB0aGUgVjRMMiBpb2N0bCBjb3JlIGJlZm9yZSBj
-YWxsaW5nIHRoZQo+ID4gwqAgaGFuZGxlcnMuIFRoZSBjaGVja3MgY2FuIGJlIGRyb3BwZWQgd2l0
-aG91dCBhIG5lZWQgdG8gcmVwbGFjZSB0aGVtCj4gPiDCoCB3aXRoIHByb3BlciB0eXBlIGNoZWNr
-cy4KPiA+IAo+ID4gLSBDaGVja3MgaW4gdGhlIFZJRElPQ19TX1NFTEVDVElPTiBoYW5kbGVyOiBU
-aGUgb25seSBsb2NhdGlvbiB3aGVyZSB0aGlzCj4gPiDCoCBpcyBwZXJmb3JtZWQgaGFzIGFuIGV4
-cGxpY2l0IHR5cGUgY2hlY2ssIHNvIHRoZSBOVUxMIGNoZWNrIGNhbiBhbHNvIGJlCj4gPiDCoCBk
-cm9wcGVkLgo+ID4gCj4gPiAtIENoZWNrcyBpbiBvdGhlciBsb2NhdGlvbnMgd2hlcmUgdGhlIHR5
-cGUgcGFyYW1ldGVyIHRvIHRoZQo+ID4gwqAgdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gaXMg
-aGFyZGNvZGVkOiBUaGUgaGFyZGNvZGVkIHR5cGUgaXMgdmFsaWQsCj4gPiDCoCBzbyB0aGUgTlVM
-TCBjaGVjayBjYW4ndCBoYXZlIGJlZW4gbWVhbnQgdG8gY2hlY2sgdGhlIHR5cGUuIEl0IGNhbiBh
-bHNvCj4gPiDCoCBiZSByZW1vdmVkLgo+ID4gCj4gPiBUaGVyZSdzIG5vIGRlcGVuZGVuY3kgYmV0
-d2VlbiBhbnkgb2YgdGhvc2UgcGF0Y2hlcyBzbyB0aGV5IGNhbiBiZSBtZXJnZWQKPiA+IGluIGFu
-eSBvcmRlci4KPiA+IAo+ID4gTGF1cmVudCBQaW5jaGFydCAoMjUpOgo+ID4gwqAgbWVkaWE6IHY0
-bDItbWVtMm1lbTogRG9jdW1lbnQgdGhhdCB2NGwyX20ybV9nZXRfdnEoKSBuZXZlciByZXR1cm5z
-Cj4gPiDCoMKgwqAgTlVMTAo+ID4gwqAgbWVkaWE6IGFsbGdyby1kdnQ6IERyb3AgdW5uZWVkZWQg
-djRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG1lc29uLWcyZDogRHJv
-cCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogYW1w
-aGlvbjogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
-ZWRpYTogY29kYTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4g
-PiDCoCBtZWRpYTogaW1hZ2luYXRpb246IGU1MDEwOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dl
-dF92cSgpIE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBtMm0tZGVpbnRlcmxhY2U6IERyb3AgdW5u
-ZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG1lZGlhdGVr
-OiBqcGVnOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgpIE5VTEwgY2hlY2sKPiA+IMKg
-IG1lZGlhOiBtZWRpYXRlazogdmNvZGVjOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgp
-IE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBkdzEwMDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9n
-ZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogaW14LWpwZWc6IERyb3AgdW5uZWVkZWQg
-djRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IGlteC1weHA6IERyb3Ag
-dW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG54cDog
-aW14OC1pc2k6IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4g
-wqAgbWVkaWE6IG14Ml9lbW1hcHJwOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgpIE5V
-TEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBxY29tOiBpcmlzOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJt
-X2dldF92cSgpIE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBxY29tOiB2ZW51czogRHJvcCB1bm5l
-ZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogcmVuZXNhczog
-ZmRwMTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
-ZWRpYTogcmNhcl9qcHU6IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVj
-awo+IAo+IFdoeSBub3QgInJlbmVzYXM6IGpwdSIgdG8gbWF0Y2ggdGhlIGZkcDEgcGF0Y2ggbmFt
-aW5nID8KCkkgdHJpZWQgdG8gZ28gd2l0aCB0aGUgbW9zdCBjb21tb24gcHJlZml4IGFzIHJlcG9y
-dGVkIGJ5IGdpdCBsb2cuIEkKZG9uJ3QgbWluZCBjaGFuZ2luZyB0aGlzLCBJJ2xsIHdhaXQgZm9y
-IG1vcmUgcmV2aWV3cyB0byBzZWUgaWYgYSB2MiBpcwpuZWVkZWQsIG90aGVyd2lzZSB0aGlzIGNh
-biBiZSB1cGRhdGVkIHdoZW4gYXBwbHlpbmcgaWYgZGVzaXJlZC4KCj4gPiDCoCBtZWRpYTogcGxh
-dGZvcm06IHJnYTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4g
-PiDCoCBtZWRpYTogc2Ftc3VuZzogczVwLWcyZDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRf
-dnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogc2Ftc3VuZzogczVwLWpwZWc6IERyb3AgdW5u
-ZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IHN0bTMyOiBk
-bWEyZDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
-ZWRpYTogdGk6IHZwZTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNr
-Cj4gPiDCoCBtZWRpYTogdmljb2RlYzogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBO
-VUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogdmltMm06IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0
-X3ZxKCkgTlVMTCBjaGVjawo+IAo+IEkgcmV2aWV3ZWQgdGhlIGxpc3QgYW5kIGl0IHNlZW1zIGNv
-bXBsZXRlIHRvIG1lLgoKVGhhbmsgeW91LgoKPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9h
-bGxlZ3JvLWR2dC9hbGxlZ3JvLWNvcmUuY8KgwqDCoCB8wqAgMiAtLQo+ID4gwqBkcml2ZXJzL21l
-ZGlhL3BsYXRmb3JtL2FtbG9naWMvbWVzb24tZ2UyZC9nZTJkLmPCoMKgwqDCoCB8wqAgNSAtLS0t
-LQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24vdmRlYy5jwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyIC0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
-YW1waGlvbi92ZW5jLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgLS0KPiA+
-IMKgLi4uL21lZGlhL3BsYXRmb3JtL2NoaXBzLW1lZGlhL2NvZGEvY29kYS1jb21tb24uY8KgwqDC
-oCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vaW1hZ2luYXRpb24vZTUw
-MTAtanBlZy1lbmMuY8KgIHzCoCA0IC0tLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9t
-Mm0tZGVpbnRlcmxhY2UuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNyAtLS0tLS0tCj4g
-PiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvanBlZy9tdGtfanBlZ19jb3JlLmMg
-fMKgIDcgLS0tLS0tLQo+ID4gwqAuLi4vbWVkaWF0ZWsvdmNvZGVjL2RlY29kZXIvbXRrX3Zjb2Rl
-Y19kZWMuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDcgLS0tLS0tLQo+ID4gwqAuLi4vdmNvZGVjL2Rl
-Y29kZXIvdmRlYy92ZGVjX2F2MV9yZXFfbGF0X2lmLmPCoMKgwqDCoMKgwqDCoCB8wqAgMiAtLQo+
-ID4gwqAuLi4vdmNvZGVjL2RlY29kZXIvdmRlYy92ZGVjX3ZwOV9yZXFfbGF0X2lmLmPCoMKgwqDC
-oMKgwqDCoCB8wqAgMiAtLQo+ID4gwqAuLi4vbWVkaWF0ZWsvdmNvZGVjL2VuY29kZXIvbXRrX3Zj
-b2RlY19lbmMuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDggLS0tLS0tLS0KPiA+IMKgZHJpdmVycy9t
-ZWRpYS9wbGF0Zm9ybS9ueHAvZHcxMDAvZHcxMDAuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
-wqAgNyAtLS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbnhwL2lteC1qcGVnL214
-Yy1qcGVnLmPCoMKgwqDCoMKgwqAgfMKgIDQgLS0tLQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRm
-b3JtL254cC9pbXgtcHhwLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNyAt
-LS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbnhwL2lteDgtaXNpL2lteDgtaXNp
-LW0ybS5jwqDCoCB8wqAgMiAtLQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL254cC9teDJf
-ZW1tYXBycC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA3IC0tLS0tLS0KPiA+IMKgZHJp
-dmVycy9tZWRpYS9wbGF0Zm9ybS9xY29tL2lyaXMvaXJpc192ZGVjLmPCoMKgwqDCoMKgwqDCoMKg
-IHzCoCAyIC0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vcWNvbS92ZW51cy92ZGVjLmPC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0
-Zm9ybS9xY29tL3ZlbnVzL3ZlbmMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiAtLQo+
-ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL3JlbmVzYXMvcmNhcl9mZHAxLmPCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8wqAgMyAtLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2Fz
-L3JjYXJfanB1LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA4IC0tLS0tLS0tCj4gPiDCoGRy
-aXZlcnMvbWVkaWEvcGxhdGZvcm0vcm9ja2NoaXAvcmdhL3JnYS5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vc2Ftc3VuZy9zNXAt
-ZzJkL2cyZC5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEv
-cGxhdGZvcm0vc2Ftc3VuZy9zNXAtanBlZy9qcGVnLWNvcmUuY8KgIHzCoCA3IC0tLS0tLS0KPiA+
-IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdC9zdG0zMi9kbWEyZC9kbWEyZC5jwqDCoMKgwqDC
-oMKgwqAgfMKgIDUgLS0tLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS90aS92cGUvdnBl
-LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA3IC0tLS0tLS0KPiA+IMKg
-ZHJpdmVycy9tZWRpYS90ZXN0LWRyaXZlcnMvdmljb2RlYy92aWNvZGVjLWNvcmUuY8KgwqDCoCB8
-wqAgNyAtLS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvdGVzdC1kcml2ZXJzL3ZpbTJtLmPCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxMiAtLS0tLS0tLS0tLS0KPiA+IMKg
-ZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1tZW0ybWVtLmPCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHwgMTIgKy0tLS0tLS0tLS0tCj4gPiDCoGluY2x1ZGUvbWVkaWEvdjRsMi1tZW0y
-bWVtLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKg
-IDMgKysrCj4gPiDCoDMxIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTUzIGRlbGV0
-aW9ucygtKQo+ID4gCj4gPiAKPiA+IGJhc2UtY29tbWl0OiBlNWYwYTY5OGIzNGVkNzYwMDJkYzVj
-ZmYzODA0YTYxYzgwMjMzYTdhCgotLSAKUmVnYXJkcywKCkxhdXJlbnQgUGluY2hhcnQKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+Add missing CPU_STM32MP255* cases in get_eth_nb() so that U-Boot
+correctly reports 2 Ethernet interfaces on stm32mp255 devices.
+This fixes the "ethernet not found" error during boot.
+
+Signed-off-by: Md Asadullah <md.asadullah@eds-india.com>
+---
+ arch/arm/mach-stm32mp/stm32mp2/stm32mp25x.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm/mach-stm32mp/stm32mp2/stm32mp25x.c b/arch/arm/mach-stm32mp/stm32mp2/stm32mp25x.c
+index 0d199f6f903..48b452f01b1 100644
+--- a/arch/arm/mach-stm32mp/stm32mp2/stm32mp25x.c
++++ b/arch/arm/mach-stm32mp/stm32mp2/stm32mp25x.c
+@@ -78,6 +78,16 @@ int get_eth_nb(void)
+ 	case CPU_STM32MP257Axx:
+ 		nb_eth = 5; /* dual ETH with TSN support */
+ 		break;
++	case CPU_STM32MP255Dxx:
++		fallthrough;
++	case CPU_STM32MP255Axx:
++		fallthrough;
++	case CPU_STM32MP255Cxx:
++		fallthrough;
++	case CPU_STM32MP255Fxx:
++		fallthrough;
++		nb_eth = 2;
++		break;
+ 	case CPU_STM32MP253Fxx:
+ 		fallthrough;
+ 	case CPU_STM32MP253Dxx:
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
