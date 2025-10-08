@@ -2,102 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B208BC6465
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Oct 2025 20:24:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66B5BBC673C
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Oct 2025 21:21:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA668C555A9;
-	Wed,  8 Oct 2025 18:24:40 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49064C555AB;
+	Wed,  8 Oct 2025 19:21:41 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5330AC5558A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3612C555A9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Oct 2025 18:24:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1759947878;
- bh=RsqMaJC2iID86BNt1juQ80CEq7yoPe8omJ1X2/PwyHw=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=bzSgeTZ3E18DyQkDMnSOfYGpMjtoDFZvvo78LBcjUURbElc4ao00lQH9dYuLOZcqU
- JOxb9e347HFhmvKnjDQIMW3q+OSgVHHIJeTQApfGf76L3wrNwEroinPW2bX1EgIYaW
- W86Yw0pFFcXTsQJ5wyp/dieERtH9/meTkf4zdErkfhdxcKU8P/1UIgKDgPp3+96K1q
- yiQfkGFa2KgTuYf1O8MY5rgsE2USEndGBW+gejfCS344Q+DbhA0Kmo2OX4N4R6BEG0
- PSQxfjQER6VYl8eX2q7QP10sAM0FXCyxrwOpCDdhZQfXE8Q3qcJxCTbveFWheB/t6y
- jd3kzJwO68jOg==
-Received: from [IPv6:2606:6d00:17:ebd3::c41] (unknown
- [IPv6:2606:6d00:17:ebd3::c41])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5FB3517E0579;
- Wed,  8 Oct 2025 20:24:32 +0200 (CEST)
-Message-ID: <205478244873d09cad5b77bd887f6a836c31c7ec.camel@collabora.com>
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- imx@lists.linux.dev, linux-amlogic@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org
-Date: Wed, 08 Oct 2025 14:24:30 -0400
-In-Reply-To: <20251008175052.19925-1-laurent.pinchart@ideasonboard.com>
+ Wed,  8 Oct 2025 19:21:39 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (82-203-166-19.bb.dnainternet.fi
+ [82.203.166.19])
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id B22C11831;
+ Wed,  8 Oct 2025 21:20:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1759951203;
+ bh=qQokYW/VARCWCLgR7Bc7K4ey6RBNxLIsdA5nrZ46+tE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FgmJk2/YEEqMsNrw8ePmdPns4OKSKs5GD97J2cZONy3e6nKAXD2s7B1NWuN9t9aEJ
+ P1cM18SZxCqMqCZ+LDBut9PSYPfkFAj0820hagqXrnFHxBZGbus9d46BgECqHzGByr
+ a+qPEkuWAbR3FMswmhzzaCoEv0Bi2mnxSGDI6U9I=
+Date: Wed, 8 Oct 2025 22:21:29 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Message-ID: <20251008192129.GG16422@pendragon.ideasonboard.com>
 References: <20251008175052.19925-1-laurent.pinchart@ideasonboard.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+ <205478244873d09cad5b77bd887f6a836c31c7ec.camel@collabora.com>
 MIME-Version: 1.0
-Cc: Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Heiko Stuebner <heiko@sntech.de>, Devarsh Thakkar <devarsht@ti.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
+Content-Disposition: inline
+In-Reply-To: <205478244873d09cad5b77bd887f6a836c31c7ec.camel@collabora.com>
+Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>,
+ Devarsh Thakkar <devarsht@ti.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>, Hans Verkuil <hverkuil@kernel.org>,
  Vikash Garodia <quic_vgarodia@quicinc.com>,
  Mirela Rabulea <mirela.rabulea@nxp.com>,
  Jiasheng Jiang <jiashengjiangcool@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Fabio Estevam <festevam@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Matthew Majewski <mattwmajewski@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Benoit Parrot <bparrot@ti.com>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-rockchip@lists.infradead.org,
  Jacob Chen <jacob-chen@iotwrt.com>,
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mikhail Ulyanov <mikhail.ulyanov@cogentembedded.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Jerome Brunet <jbrunet@baylibre.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Bin Liu <bin.liu@mediatek.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-media@vger.kernel.org,
+ Bin Liu <bin.liu@mediatek.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
+ Xavier Roumegue <xavier.roumegue@oss.nxp.com>,
+ Nathan Chancellor <nathan@kernel.org>, linux-mediatek@lists.infradead.org,
  Jacek Anaszewski <jacek.anaszewski@gmail.com>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
  Shuah Khan <skhan@linuxfoundation.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Tiffany Lin <tiffany.lin@mediatek.com>, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Sebastian Fricke <sebastian.fricke@collabora.com>,
- Zhou Peng <eagle.zhou@nxp.com>, Dikshita Agarwal <quic_dikshita@quicinc.com>,
- Michael Tretter <m.tretter@pengutronix.de>, Benoit Parrot <bparrot@ti.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Zhou Peng <eagle.zhou@nxp.com>,
+ Dikshita Agarwal <quic_dikshita@quicinc.com>,
+ Michael Tretter <m.tretter@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Hans Verkuil <hverkuil@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Ming Qian <ming.qian@nxp.com>
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Shawn Guo <shawnguo@kernel.org>, Ming Qian <ming.qian@nxp.com>
 Subject: Re: [Linux-stm32] [PATCH 00/25] media: v4l2-mem2mem: Reduce
 	cargo-cult
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -111,197 +86,125 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1265625377636111008=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1265625377636111008==
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-LjFEnUafECFwApd/yAvu"
-
-
---=-LjFEnUafECFwApd/yAvu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le mercredi 08 octobre 2025 =C3=A0 20:50 +0300, Laurent Pinchart a =C3=A9cr=
-it=C2=A0:
-> Hello,
->=20
-> The v4l2_m2m_get_vq() function never returns NULL, but many mem2mem
-> drivers still check its return value and consider NULL as an error. This
-> may have originated a long time ago from valid checks when
-> v4l2_m2m_get_vq() could return NULL, with drivers then just copying the
-> checks. This series attempts to stop the cargo-cult behaviour.
->=20
-> Patch 01/25 starts by explicitly stating in kerneldoc that the
-> v4l2_m2m_get_vq() function never returns NULL. All the other patches
-> drop NULL checks from drivers.
->=20
-> I have carefully checked all patched locations in all drivers. They fall
-> in 3 categories:
->=20
-> - Checks in the VIDIOC_G_FMT, VIDIOC_TRY_FMT and VIDIOC_S_FMT handlers:
-> =C2=A0 Those may have been added to ensure that the format type has a val=
-id
-> =C2=A0 value, but that is ensured by the V4L2 ioctl core before calling t=
-he
-> =C2=A0 handlers. The checks can be dropped without a need to replace them
-> =C2=A0 with proper type checks.
->=20
-> - Checks in the VIDIOC_S_SELECTION handler: The only location where this
-> =C2=A0 is performed has an explicit type check, so the NULL check can als=
-o be
-> =C2=A0 dropped.
->=20
-> - Checks in other locations where the type parameter to the
-> =C2=A0 v4l2_m2m_get_vq() function is hardcoded: The hardcoded type is val=
-id,
-> =C2=A0 so the NULL check can't have been meant to check the type. It can =
-also
-> =C2=A0 be removed.
->=20
-> There's no dependency between any of those patches so they can be merged
-> in any order.
->=20
-> Laurent Pinchart (25):
-> =C2=A0 media: v4l2-mem2mem: Document that v4l2_m2m_get_vq() never returns
-> =C2=A0=C2=A0=C2=A0 NULL
-> =C2=A0 media: allgro-dvt: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: meson-g2d: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: amphion: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: coda: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: imagination: e5010: Drop unneeded v4l2_m2m_get_vq() NULL ch=
-eck
-> =C2=A0 media: m2m-deinterlace: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: mediatek: jpeg: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: mediatek: vcodec: Drop unneeded v4l2_m2m_get_vq() NULL chec=
-k
-> =C2=A0 media: dw100: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: imx-jpeg: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: imx-pxp: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: nxp: imx8-isi: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: mx2_emmaprp: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: qcom: iris: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: qcom: venus: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: renesas: fdp1: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: rcar_jpu: Drop unneeded v4l2_m2m_get_vq() NULL check
-
-Why not "renesas: jpu" to match the fdp1 patch naming ?
-
-> =C2=A0 media: platform: rga: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: samsung: s5p-g2d: Drop unneeded v4l2_m2m_get_vq() NULL chec=
-k
-> =C2=A0 media: samsung: s5p-jpeg: Drop unneeded v4l2_m2m_get_vq() NULL che=
-ck
-> =C2=A0 media: stm32: dma2d: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: ti: vpe: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: vicodec: Drop unneeded v4l2_m2m_get_vq() NULL check
-> =C2=A0 media: vim2m: Drop unneeded v4l2_m2m_get_vq() NULL check
-
-I reviewed the list and it seems complete to me.
-
-Nicolas
-
->=20
-> =C2=A0drivers/media/platform/allegro-dvt/allegro-core.c=C2=A0=C2=A0=C2=A0=
- |=C2=A0 2 --
-> =C2=A0drivers/media/platform/amlogic/meson-ge2d/ge2d.c=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 5 -----
-> =C2=A0drivers/media/platform/amphion/vdec.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0drivers/media/platform/amphion/venc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0.../media/platform/chips-media/coda/coda-common.c=C2=A0=C2=A0=C2=A0=
- |=C2=A0 4 ----
-> =C2=A0drivers/media/platform/imagination/e5010-jpeg-enc.c=C2=A0 |=C2=A0 4=
- ----
-> =C2=A0drivers/media/platform/m2m-deinterlace.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 -------
-> =C2=A0drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c |=C2=A0 7 ----=
----
-> =C2=A0.../mediatek/vcodec/decoder/mtk_vcodec_dec.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 -------
-> =C2=A0.../vcodec/decoder/vdec/vdec_av1_req_lat_if.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0.../vcodec/decoder/vdec/vdec_vp9_req_lat_if.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0.../mediatek/vcodec/encoder/mtk_vcodec_enc.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 --------
-> =C2=A0drivers/media/platform/nxp/dw100/dw100.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 -------
-> =C2=A0drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 4 ----
-> =C2=A0drivers/media/platform/nxp/imx-pxp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-7 -------
-> =C2=A0drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c=C2=A0=C2=A0 |=C2=
-=A0 2 --
-> =C2=A0drivers/media/platform/nxp/mx2_emmaprp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 -------
-> =C2=A0drivers/media/platform/qcom/iris/iris_vdec.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0drivers/media/platform/qcom/venus/vdec.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0drivers/media/platform/qcom/venus/venc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 --
-> =C2=A0drivers/media/platform/renesas/rcar_fdp1.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ---
-> =C2=A0drivers/media/platform/renesas/rcar_jpu.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 --------
-> =C2=A0drivers/media/platform/rockchip/rga/rga.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ----
-> =C2=A0drivers/media/platform/samsung/s5p-g2d/g2d.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ----
-> =C2=A0drivers/media/platform/samsung/s5p-jpeg/jpeg-core.c=C2=A0 |=C2=A0 7=
- -------
-> =C2=A0drivers/media/platform/st/stm32/dma2d/dma2d.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 -----
-> =C2=A0drivers/media/platform/ti/vpe/vpe.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 7 -------
-> =C2=A0drivers/media/test-drivers/vicodec/vicodec-core.c=C2=A0=C2=A0=C2=A0=
- |=C2=A0 7 -------
-> =C2=A0drivers/media/test-drivers/vim2m.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 12 ------------
-> =C2=A0drivers/media/v4l2-core/v4l2-mem2mem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 +-----------
-> =C2=A0include/media/v4l2-mem2mem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 +++
-> =C2=A031 files changed, 4 insertions(+), 153 deletions(-)
->=20
->=20
-> base-commit: e5f0a698b34ed76002dc5cff3804a61c80233a7a
-
---=-LjFEnUafECFwApd/yAvu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaOasXgAKCRDZQZRRKWBy
-9F8oAP92tHDSFRd6mdp01gSe1GDFGPRn1q4aOR2d4zEl8W2BoQEAuXK4NGidjdie
-sOQmoarDKx/ErFatR3/qQmk9d+ZaGAY=
-=Bmyy
------END PGP SIGNATURE-----
-
---=-LjFEnUafECFwApd/yAvu--
-
---===============1265625377636111008==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1265625377636111008==--
+T24gV2VkLCBPY3QgMDgsIDIwMjUgYXQgMDI6MjQ6MzBQTSAtMDQwMCwgTmljb2xhcyBEdWZyZXNu
+ZSB3cm90ZToKPiBIaSwKPiAKPiBMZSBtZXJjcmVkaSAwOCBvY3RvYnJlIDIwMjUgw6AgMjA6NTAg
+KzAzMDAsIExhdXJlbnQgUGluY2hhcnQgYSDDqWNyaXTCoDoKPiA+IEhlbGxvLAo+ID4gCj4gPiBU
+aGUgdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gbmV2ZXIgcmV0dXJucyBOVUxMLCBidXQgbWFu
+eSBtZW0ybWVtCj4gPiBkcml2ZXJzIHN0aWxsIGNoZWNrIGl0cyByZXR1cm4gdmFsdWUgYW5kIGNv
+bnNpZGVyIE5VTEwgYXMgYW4gZXJyb3IuIFRoaXMKPiA+IG1heSBoYXZlIG9yaWdpbmF0ZWQgYSBs
+b25nIHRpbWUgYWdvIGZyb20gdmFsaWQgY2hlY2tzIHdoZW4KPiA+IHY0bDJfbTJtX2dldF92cSgp
+IGNvdWxkIHJldHVybiBOVUxMLCB3aXRoIGRyaXZlcnMgdGhlbiBqdXN0IGNvcHlpbmcgdGhlCj4g
+PiBjaGVja3MuIFRoaXMgc2VyaWVzIGF0dGVtcHRzIHRvIHN0b3AgdGhlIGNhcmdvLWN1bHQgYmVo
+YXZpb3VyLgo+ID4gCj4gPiBQYXRjaCAwMS8yNSBzdGFydHMgYnkgZXhwbGljaXRseSBzdGF0aW5n
+IGluIGtlcm5lbGRvYyB0aGF0IHRoZQo+ID4gdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gbmV2
+ZXIgcmV0dXJucyBOVUxMLiBBbGwgdGhlIG90aGVyIHBhdGNoZXMKPiA+IGRyb3AgTlVMTCBjaGVj
+a3MgZnJvbSBkcml2ZXJzLgo+ID4gCj4gPiBJIGhhdmUgY2FyZWZ1bGx5IGNoZWNrZWQgYWxsIHBh
+dGNoZWQgbG9jYXRpb25zIGluIGFsbCBkcml2ZXJzLiBUaGV5IGZhbGwKPiA+IGluIDMgY2F0ZWdv
+cmllczoKPiA+IAo+ID4gLSBDaGVja3MgaW4gdGhlIFZJRElPQ19HX0ZNVCwgVklESU9DX1RSWV9G
+TVQgYW5kIFZJRElPQ19TX0ZNVCBoYW5kbGVyczoKPiA+IMKgIFRob3NlIG1heSBoYXZlIGJlZW4g
+YWRkZWQgdG8gZW5zdXJlIHRoYXQgdGhlIGZvcm1hdCB0eXBlIGhhcyBhIHZhbGlkCj4gPiDCoCB2
+YWx1ZSwgYnV0IHRoYXQgaXMgZW5zdXJlZCBieSB0aGUgVjRMMiBpb2N0bCBjb3JlIGJlZm9yZSBj
+YWxsaW5nIHRoZQo+ID4gwqAgaGFuZGxlcnMuIFRoZSBjaGVja3MgY2FuIGJlIGRyb3BwZWQgd2l0
+aG91dCBhIG5lZWQgdG8gcmVwbGFjZSB0aGVtCj4gPiDCoCB3aXRoIHByb3BlciB0eXBlIGNoZWNr
+cy4KPiA+IAo+ID4gLSBDaGVja3MgaW4gdGhlIFZJRElPQ19TX1NFTEVDVElPTiBoYW5kbGVyOiBU
+aGUgb25seSBsb2NhdGlvbiB3aGVyZSB0aGlzCj4gPiDCoCBpcyBwZXJmb3JtZWQgaGFzIGFuIGV4
+cGxpY2l0IHR5cGUgY2hlY2ssIHNvIHRoZSBOVUxMIGNoZWNrIGNhbiBhbHNvIGJlCj4gPiDCoCBk
+cm9wcGVkLgo+ID4gCj4gPiAtIENoZWNrcyBpbiBvdGhlciBsb2NhdGlvbnMgd2hlcmUgdGhlIHR5
+cGUgcGFyYW1ldGVyIHRvIHRoZQo+ID4gwqAgdjRsMl9tMm1fZ2V0X3ZxKCkgZnVuY3Rpb24gaXMg
+aGFyZGNvZGVkOiBUaGUgaGFyZGNvZGVkIHR5cGUgaXMgdmFsaWQsCj4gPiDCoCBzbyB0aGUgTlVM
+TCBjaGVjayBjYW4ndCBoYXZlIGJlZW4gbWVhbnQgdG8gY2hlY2sgdGhlIHR5cGUuIEl0IGNhbiBh
+bHNvCj4gPiDCoCBiZSByZW1vdmVkLgo+ID4gCj4gPiBUaGVyZSdzIG5vIGRlcGVuZGVuY3kgYmV0
+d2VlbiBhbnkgb2YgdGhvc2UgcGF0Y2hlcyBzbyB0aGV5IGNhbiBiZSBtZXJnZWQKPiA+IGluIGFu
+eSBvcmRlci4KPiA+IAo+ID4gTGF1cmVudCBQaW5jaGFydCAoMjUpOgo+ID4gwqAgbWVkaWE6IHY0
+bDItbWVtMm1lbTogRG9jdW1lbnQgdGhhdCB2NGwyX20ybV9nZXRfdnEoKSBuZXZlciByZXR1cm5z
+Cj4gPiDCoMKgwqAgTlVMTAo+ID4gwqAgbWVkaWE6IGFsbGdyby1kdnQ6IERyb3AgdW5uZWVkZWQg
+djRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG1lc29uLWcyZDogRHJv
+cCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogYW1w
+aGlvbjogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
+ZWRpYTogY29kYTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4g
+PiDCoCBtZWRpYTogaW1hZ2luYXRpb246IGU1MDEwOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dl
+dF92cSgpIE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBtMm0tZGVpbnRlcmxhY2U6IERyb3AgdW5u
+ZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG1lZGlhdGVr
+OiBqcGVnOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgpIE5VTEwgY2hlY2sKPiA+IMKg
+IG1lZGlhOiBtZWRpYXRlazogdmNvZGVjOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgp
+IE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBkdzEwMDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9n
+ZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogaW14LWpwZWc6IERyb3AgdW5uZWVkZWQg
+djRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IGlteC1weHA6IERyb3Ag
+dW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IG54cDog
+aW14OC1pc2k6IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4g
+wqAgbWVkaWE6IG14Ml9lbW1hcHJwOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJtX2dldF92cSgpIE5V
+TEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBxY29tOiBpcmlzOiBEcm9wIHVubmVlZGVkIHY0bDJfbTJt
+X2dldF92cSgpIE5VTEwgY2hlY2sKPiA+IMKgIG1lZGlhOiBxY29tOiB2ZW51czogRHJvcCB1bm5l
+ZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogcmVuZXNhczog
+ZmRwMTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
+ZWRpYTogcmNhcl9qcHU6IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVj
+awo+IAo+IFdoeSBub3QgInJlbmVzYXM6IGpwdSIgdG8gbWF0Y2ggdGhlIGZkcDEgcGF0Y2ggbmFt
+aW5nID8KCkkgdHJpZWQgdG8gZ28gd2l0aCB0aGUgbW9zdCBjb21tb24gcHJlZml4IGFzIHJlcG9y
+dGVkIGJ5IGdpdCBsb2cuIEkKZG9uJ3QgbWluZCBjaGFuZ2luZyB0aGlzLCBJJ2xsIHdhaXQgZm9y
+IG1vcmUgcmV2aWV3cyB0byBzZWUgaWYgYSB2MiBpcwpuZWVkZWQsIG90aGVyd2lzZSB0aGlzIGNh
+biBiZSB1cGRhdGVkIHdoZW4gYXBwbHlpbmcgaWYgZGVzaXJlZC4KCj4gPiDCoCBtZWRpYTogcGxh
+dGZvcm06IHJnYTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4g
+PiDCoCBtZWRpYTogc2Ftc3VuZzogczVwLWcyZDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRf
+dnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogc2Ftc3VuZzogczVwLWpwZWc6IERyb3AgdW5u
+ZWVkZWQgdjRsMl9tMm1fZ2V0X3ZxKCkgTlVMTCBjaGVjawo+ID4gwqAgbWVkaWE6IHN0bTMyOiBk
+bWEyZDogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNrCj4gPiDCoCBt
+ZWRpYTogdGk6IHZwZTogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBOVUxMIGNoZWNr
+Cj4gPiDCoCBtZWRpYTogdmljb2RlYzogRHJvcCB1bm5lZWRlZCB2NGwyX20ybV9nZXRfdnEoKSBO
+VUxMIGNoZWNrCj4gPiDCoCBtZWRpYTogdmltMm06IERyb3AgdW5uZWVkZWQgdjRsMl9tMm1fZ2V0
+X3ZxKCkgTlVMTCBjaGVjawo+IAo+IEkgcmV2aWV3ZWQgdGhlIGxpc3QgYW5kIGl0IHNlZW1zIGNv
+bXBsZXRlIHRvIG1lLgoKVGhhbmsgeW91LgoKPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9h
+bGxlZ3JvLWR2dC9hbGxlZ3JvLWNvcmUuY8KgwqDCoCB8wqAgMiAtLQo+ID4gwqBkcml2ZXJzL21l
+ZGlhL3BsYXRmb3JtL2FtbG9naWMvbWVzb24tZ2UyZC9nZTJkLmPCoMKgwqDCoCB8wqAgNSAtLS0t
+LQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24vdmRlYy5jwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAyIC0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
+YW1waGlvbi92ZW5jLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgLS0KPiA+
+IMKgLi4uL21lZGlhL3BsYXRmb3JtL2NoaXBzLW1lZGlhL2NvZGEvY29kYS1jb21tb24uY8KgwqDC
+oCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vaW1hZ2luYXRpb24vZTUw
+MTAtanBlZy1lbmMuY8KgIHzCoCA0IC0tLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9t
+Mm0tZGVpbnRlcmxhY2UuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNyAtLS0tLS0tCj4g
+PiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvanBlZy9tdGtfanBlZ19jb3JlLmMg
+fMKgIDcgLS0tLS0tLQo+ID4gwqAuLi4vbWVkaWF0ZWsvdmNvZGVjL2RlY29kZXIvbXRrX3Zjb2Rl
+Y19kZWMuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDcgLS0tLS0tLQo+ID4gwqAuLi4vdmNvZGVjL2Rl
+Y29kZXIvdmRlYy92ZGVjX2F2MV9yZXFfbGF0X2lmLmPCoMKgwqDCoMKgwqDCoCB8wqAgMiAtLQo+
+ID4gwqAuLi4vdmNvZGVjL2RlY29kZXIvdmRlYy92ZGVjX3ZwOV9yZXFfbGF0X2lmLmPCoMKgwqDC
+oMKgwqDCoCB8wqAgMiAtLQo+ID4gwqAuLi4vbWVkaWF0ZWsvdmNvZGVjL2VuY29kZXIvbXRrX3Zj
+b2RlY19lbmMuY8KgwqDCoMKgwqDCoMKgwqAgfMKgIDggLS0tLS0tLS0KPiA+IMKgZHJpdmVycy9t
+ZWRpYS9wbGF0Zm9ybS9ueHAvZHcxMDAvZHcxMDAuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqAgNyAtLS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbnhwL2lteC1qcGVnL214
+Yy1qcGVnLmPCoMKgwqDCoMKgwqAgfMKgIDQgLS0tLQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRm
+b3JtL254cC9pbXgtcHhwLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNyAt
+LS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbnhwL2lteDgtaXNpL2lteDgtaXNp
+LW0ybS5jwqDCoCB8wqAgMiAtLQo+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL254cC9teDJf
+ZW1tYXBycC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA3IC0tLS0tLS0KPiA+IMKgZHJp
+dmVycy9tZWRpYS9wbGF0Zm9ybS9xY29tL2lyaXMvaXJpc192ZGVjLmPCoMKgwqDCoMKgwqDCoMKg
+IHzCoCAyIC0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vcWNvbS92ZW51cy92ZGVjLmPC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDIgLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0
+Zm9ybS9xY29tL3ZlbnVzL3ZlbmMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiAtLQo+
+ID4gwqBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL3JlbmVzYXMvcmNhcl9mZHAxLmPCoMKgwqDCoMKg
+wqDCoMKgwqDCoCB8wqAgMyAtLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2Fz
+L3JjYXJfanB1LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA4IC0tLS0tLS0tCj4gPiDCoGRy
+aXZlcnMvbWVkaWEvcGxhdGZvcm0vcm9ja2NoaXAvcmdhL3JnYS5jwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vc2Ftc3VuZy9zNXAt
+ZzJkL2cyZC5jwqDCoMKgwqDCoMKgwqDCoCB8wqAgNCAtLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEv
+cGxhdGZvcm0vc2Ftc3VuZy9zNXAtanBlZy9qcGVnLWNvcmUuY8KgIHzCoCA3IC0tLS0tLS0KPiA+
+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdC9zdG0zMi9kbWEyZC9kbWEyZC5jwqDCoMKgwqDC
+oMKgwqAgfMKgIDUgLS0tLS0KPiA+IMKgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS90aS92cGUvdnBl
+LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA3IC0tLS0tLS0KPiA+IMKg
+ZHJpdmVycy9tZWRpYS90ZXN0LWRyaXZlcnMvdmljb2RlYy92aWNvZGVjLWNvcmUuY8KgwqDCoCB8
+wqAgNyAtLS0tLS0tCj4gPiDCoGRyaXZlcnMvbWVkaWEvdGVzdC1kcml2ZXJzL3ZpbTJtLmPCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxMiAtLS0tLS0tLS0tLS0KPiA+IMKg
+ZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1tZW0ybWVtLmPCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIHwgMTIgKy0tLS0tLS0tLS0tCj4gPiDCoGluY2x1ZGUvbWVkaWEvdjRsMi1tZW0y
+bWVtLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKg
+IDMgKysrCj4gPiDCoDMxIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTUzIGRlbGV0
+aW9ucygtKQo+ID4gCj4gPiAKPiA+IGJhc2UtY29tbWl0OiBlNWYwYTY5OGIzNGVkNzYwMDJkYzVj
+ZmYzODA0YTYxYzgwMjMzYTdhCgotLSAKUmVnYXJkcywKCkxhdXJlbnQgUGluY2hhcnQKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
