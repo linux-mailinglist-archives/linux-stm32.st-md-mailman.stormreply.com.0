@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77BDCBC8936
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Oct 2025 12:49:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72EE1BC894E
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Oct 2025 12:49:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D509C555AE;
-	Thu,  9 Oct 2025 10:49:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36C25C555AE;
+	Thu,  9 Oct 2025 10:49:49 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB49DC36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2FC0C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Oct 2025 10:48:58 +0000 (UTC)
+ Thu,  9 Oct 2025 10:49:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 45087417C5;
- Thu,  9 Oct 2025 10:48:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5E1C4CEE7;
- Thu,  9 Oct 2025 10:48:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B88B54064B;
+ Thu,  9 Oct 2025 10:49:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FE0C4CEE7;
+ Thu,  9 Oct 2025 10:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760006937;
- bh=GTjixdu7ePBauENBb+e/bL/cURiVsnusHjIi9xV2Sbw=;
+ s=k20201202; t=1760006986;
+ bh=3VZrqPhhrNXEy/mRlhhDhNRBMVFExI8o2W9EJEEHd6E=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=o6XVKd3FInHGGs+BTgwBkMh5zLoyY9Yo639JuTkPZb3r6pSxmV36AHxyfc4N/q9//
- wG89uWjuVE0rga057D8cUg4PM4qhFcbWbqgH1VDcunjFkkOtQOkpLd8tChSc1SABGe
- ceR8oTv88v3HaenVPBnzteZ34f67VHMFZHmDwLSqSJUiVt+7iygM0UDV4ZwcGsnLOn
- xRw/6FY5sy/ZRw1m5+dXTYRjlsWHzE7PY/lkDN3W3LTSAXGWBMAoWj0WA8S6XOBRhD
- ObOmZdKYK1Z0ezF6wXXNdY8SLFeuYvXF1BX5oHCdZNli+zMNHZf8qIkVMwAqUdBiRu
- FnY5ZVzPch9oA==
-Message-ID: <5a7ffa2d-6eee-4a97-acd5-1c54acfd82ba@kernel.org>
-Date: Thu, 9 Oct 2025 19:48:41 +0900
+ b=M197fa8RRsw263fxtDR0T4Dhoal4cN9+7A2grnCGtAF+MV0GdTvANntezKTJlXldM
+ ov5fui9nz4IJ1CNdK2DVR5l0rM9+htwGDSbS8zxNdNq062oQZyKtT+OhXGMxkfjEf1
+ N9PVCJH8+FEHj7tVfGcRJyAbwgEJQWtFWwkhLESe28IHHD9EMgw/uWz4bZEuYJ6eAV
+ CV1TMT96WDGhGdewd/+OGGycye6dWiCi6MimXErAdDkKicQLKsQrJnxx5NSOr0m8BL
+ 42GhOxv5Xmzwencch/oCOHvLgv1BUK8CE5gOfbGkKltKpNRhOiMHfGQQFrTfsQZi3s
+ TcI5czSlC7JEQ==
+Message-ID: <23cf6dad-1162-429d-8cdc-5fc6aa7757a8@kernel.org>
+Date: Thu, 9 Oct 2025 19:49:36 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
@@ -47,7 +47,7 @@ To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
  Taniya Das <taniya.das@oss.qualcomm.com>,
  Konrad Dybcio <konradybcio@kernel.org>
 References: <20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com>
- <20250924-knp-mmclk-v1-1-d7ea96b4784a@oss.qualcomm.com>
+ <20250924-knp-mmclk-v1-4-d7ea96b4784a@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,7 +93,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20250924-knp-mmclk-v1-1-d7ea96b4784a@oss.qualcomm.com>
+In-Reply-To: <20250924-knp-mmclk-v1-4-d7ea96b4784a@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, aiqun.yu@oss.qualcomm.com,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org,
@@ -101,8 +101,8 @@ Cc: devicetree@vger.kernel.org, aiqun.yu@oss.qualcomm.com,
  tingwei.zhang@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  trilok.soni@oss.qualcomm.com
-Subject: Re: [Linux-stm32] [PATCH 1/9] dt-bindings: clock: qcom: document
- Kaanapali DISPCC clock controller
+Subject: Re: [Linux-stm32] [PATCH 4/9] dt-bindings: clock: qcom: Add
+ Kaanapali video clock controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,13 +122,12 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On 25/09/2025 08:56, Jingyi Wang wrote:
 > From: Taniya Das <taniya.das@oss.qualcomm.com>
 > 
-> Document device tree bindings for display clock controller for
-> Qualcomm Kaanapali SoC.
+> Add device tree bindings for the video clock controller on Qualcomm
+> Kaanapali SoC.
 > 
 > Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 > Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-
-
+> ---
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
