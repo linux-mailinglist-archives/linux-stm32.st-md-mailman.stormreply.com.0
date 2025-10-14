@@ -2,50 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92145BDAE88
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Oct 2025 20:10:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C84FBBDB111
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Oct 2025 21:33:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAB7CC5660B;
-	Tue, 14 Oct 2025 18:10:35 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27845C56611;
+	Tue, 14 Oct 2025 19:33:30 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DCFCC56607
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79E3CC56608
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Oct 2025 18:10:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EBE6040AAB;
- Tue, 14 Oct 2025 18:10:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFFC1C4CEE7;
- Tue, 14 Oct 2025 18:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760465432;
- bh=BSoSmYgtZ9AesO3u1tMwafkyE42czTGEgpGza7+Fu6M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aKKRJ/OUsXrUymQ+jPoIkuuywzRbnANEGOkO+8SUH2NBHJhdK3DIWqvEJh7B/xlYh
- c9dbXKOmi07TLXV1prDdV+tJYlBPwcpnpsnNDmd6PRakAOQepQGh8gMqOdeFr6U9UJ
- jGEjNCeEHQRWHynn2za/1jqV3NS5yVqNDnJdSqpqzRKKh2s/Yrk5EkV2NBy2rHPAbB
- 3JYHSvpHYnYSOqEP6s3ztEWE5wGCTuSUlOiXjHwn+xZCCvBQ81SZEBMGZ9e26vNUKW
- C+dEmmRQ3OF95jC25AhTpbO0J1c8/E+YmAkqkZSN+fyUVV5iIaIevxdSYh+hYZRgm9
- 8pvR8xuTKQXzw==
-Date: Tue, 14 Oct 2025 19:10:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Antonio Borneo <antonio.borneo@foss.st.com>
-Message-ID: <20251014-affection-voltage-8b1764273a06@spud>
-References: <20251014140451.1009969-1-antonio.borneo@foss.st.com>
- <20251014140451.1009969-10-antonio.borneo@foss.st.com>
+ Tue, 14 Oct 2025 19:33:28 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-7815092cd0bso10284707b3.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Oct 2025 12:33:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1760470407; x=1761075207;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5ARDdDrOQu66S70j2Pcr0PW3/0XEEAOGuC2dcR/3tLc=;
+ b=slzjUcpBWlnyUo1XHvkUPevGErBBeXi3FevqVkgWsFTcsW1QpObKpYFTJ+Gf75pp2Z
+ O327zMS6LGZmMW1r4DBwxCiukQE9zFajM39EKBWCXGmr3pjfqM9mMvgGb3WDoSEoA/gB
+ WKGLuceRe7U6OkQVwRLxaCB8B8sl2yvzMESHYgyeYzwaL9ALyceOTiYs/wxoyw8512zB
+ G75bRsGr6CjTz7R8sNPRHY/sm9tcSgwoBrx+rqh4uuWEtSksxr2d0dUPh8GyrY+MEXq5
+ DvW39OKXL5eJ/V/+QqIiHjiEmTMjzx0m9cFYllcwX+xTUa+RrZu7NhGaONc4/5rk22P5
+ 9w3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760470407; x=1761075207;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5ARDdDrOQu66S70j2Pcr0PW3/0XEEAOGuC2dcR/3tLc=;
+ b=jDKlcloJoadQxDvPiOAIpY0b3RutCTQZAss+mEV/fQ0Qgll0Bz0vyKttfX89RqiLy3
+ i27UZ1LTEik6ODI1ySqpLOuVSmTH1x4Y831EtjUr7fUgLhXXxn6NZcsaxpUK1DC5VoRU
+ CIxmXWBDCV98Z7MlSxaxBgyMSkfKuOgy7JZ97HYvkBmv/eQPQ77hcnAuIa0j01j1AhAe
+ o3mlBC/Oz5qJunOSE89w9n0IN463cq9IW+CFURGltH76gwxeIPpKnouGfbt7r+PTRHBr
+ 1kBoHoq+Y7EUoy3ybD1zF3XQI18xEOn4ZdJ7F9wPgD29v83b61OdmsAxT5qLmQO0egDF
+ ZZ6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXThA3LM1m5WLdqQ7eNzmX43kp14BqfjXsB35cTHqurrMkilIEIgErsopNnoLD2AUT0QE4SvrsurT2YPw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx9X8ZZBsBQtxpfwbvpUBp+AnJvDibejg6duMEx05ljHWYJFTtB
+ 4Amj7FUqUDhGaVhmW+pAp47ciQNjQxBpJ/rgE1rwN2833FDL6lyNgswGg/Nrt5MoDjeuJgW4yG0
+ vf9UNjaMARCHBJHhSqwE0IiVOsOEPNO5z3xC9ZmJalg==
+X-Gm-Gg: ASbGncuvwHslXwlo63VSb7H3f5i+nbx4yUbrFYc51Y4nVJ0DCoWg25f4fYWS9ZCjKIK
+ dA/FUWPX0adBqzM7BP51SOXRz+D8r63GdbdrUy0p4L1AKrxZv93CpjZ2WAPJNqhlR58lq7rXwxO
+ ziYucRezuDo2gywR8Ag84SWvzL7f5hFt2gblI6UHkdYjhZUD9DQwQQJg+aROigRtCVHJzOGhQP1
+ zlfAXTY6ndbIZC75sgDJeEwNYI03w==
+X-Google-Smtp-Source: AGHT+IEUUPaRH5+Gxizt81iSypGUspUlnjKY5P6YXyV0VyPOzdQrWUfDr4OvmwdgxbP2fD1h3jeRBtg0eMKmQu2V+ic=
+X-Received: by 2002:a05:690c:6204:b0:77e:5eb8:278c with SMTP id
+ 00721157ae682-780e16fc173mr396492737b3.46.1760470407083; Tue, 14 Oct 2025
+ 12:33:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20251014140451.1009969-10-antonio.borneo@foss.st.com>
+References: <20251014140451.1009969-1-antonio.borneo@foss.st.com>
+ <20251014140451.1009969-3-antonio.borneo@foss.st.com>
+ <20251014-barbecue-crewman-717fe614daa6@spud>
+In-Reply-To: <20251014-barbecue-crewman-717fe614daa6@spud>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 14 Oct 2025 21:33:14 +0200
+X-Gm-Features: AS18NWDBmcyoyPtVx855p7YCo6bUFy5LEzs_BFgLFYqVzycznaj08XFuSAiE18s
+Message-ID: <CACRpkdZT20cdH+G6Gjw8PopAkir+gGgMtRR4pkjnXFrmDkdfog@mail.gmail.com>
+To: Conor Dooley <conor@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v3 09/10] dt-bindings: pinctrl: stm32:
- Support I/O synchronization parameters
+Subject: Re: [Linux-stm32] [PATCH v3 02/10] dt-bindings: pincfg-node: Add
+	properties 'skew-delay-{in, out}put'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,196 +87,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6220209325116038903=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6220209325116038903==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WUAPWDm9VxqWJrOr"
-Content-Disposition: inline
-
-
---WUAPWDm9VxqWJrOr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 14, 2025 at 04:04:50PM +0200, Antonio Borneo wrote:
-> Document the support of the I/O synchronization parameters:
-> - skew-delay-input;
-> - skew-delay-output;
-> - st,io-sync.
->=20
-> Forbid 'skew-delay-input' and 'skew-delay-output' to be both
-> present on the same pin.
-> Allow the new properties only with compatibles that support them.
-> Add an example that uses the new properties.
->=20
-> Co-developed-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-> ---
->  .../bindings/pinctrl/st,stm32-pinctrl.yaml    | 98 +++++++++++++++++++
->  1 file changed, 98 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.y=
-aml b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> index 2df141ed7222d..0010762127c05 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> @@ -220,12 +220,89 @@ patternProperties:
->              minimum: 0
->              maximum: 3
-> =20
-> +          skew-delay-input:
-> +            description: |
-> +              IO synchronization skew rate applied to the input path
-> +              0: No delay
-> +              1: Delay 0.30 ns
-> +              2: Delay 0.50 ns
-> +              3: Delay 0.75 ns
-> +              4: Delay 1.00 ns
-> +              5: Delay 1.25 ns
-> +              6: Delay 1.50 ns
-> +              7: Delay 1.75 ns
-> +              8: Delay 2.00 ns
-> +              9: Delay 2.25 ns
-> +              10: Delay 2.50 ns
-> +              11: Delay 2.75 ns
-> +              12: Delay 3.00 ns
-> +              13: Delay 3.25 ns
-> +            minimum: 0
-> +            maximum: 13
-> +
-> +          skew-delay-output:
-> +            description: |
-> +              IO synchronization latch delay applied to the output path
-> +              0: No delay
-> +              1: Delay 0.30 ns
-> +              2: Delay 0.50 ns
-> +              3: Delay 0.75 ns
-> +              4: Delay 1.00 ns
-> +              5: Delay 1.25 ns
-> +              6: Delay 1.50 ns
-> +              7: Delay 1.75 ns
-> +              8: Delay 2.00 ns
-> +              9: Delay 2.25 ns
-> +              10: Delay 2.50 ns
-> +              11: Delay 2.75 ns
-> +              12: Delay 3.00 ns
-> +              13: Delay 3.25 ns
-> +            minimum: 0
-> +            maximum: 13
-
-Same comments here as on the earlier patch. I would like to see times
-used natively.
-pw-bot: changes-requested
-
-> +
-> +          st,io-sync:
-> +            description: |
-> +              IO synchronization through re-sampling or inversion
-> +              0: data or clock GPIO pass-through
-> +              1: clock GPIO inverted
-> +              2: data GPIO re-sampled on clock rising edge
-> +              3: data GPIO re-sampled on clock falling edge
-> +              4: data GPIO re-sampled on both clock edges
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            enum: [0, 1, 2, 3, 4]
-
-I really don't like this kinds of properties that lead to "random"
-numbers in devicetree. I'd much rather see a string list here.
-
-> +
->          required:
->            - pinmux
-> =20
-> +        # Not allowed both skew-delay-input and skew-delay-output
-> +        if:
-> +          required:
-> +            - skew-delay-input
-> +        then:
-> +          properties:
-> +            skew-delay-output: false
-> +
->  allOf:
->    - $ref: pinctrl.yaml#
-> =20
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - st,stm32mp257-pinctrl
-> +                - st,stm32mp257-z-pinctrl
-> +    then:
-> +      patternProperties:
-> +        '-[0-9]*$':
-> +          patternProperties:
-> +            '^pins':
-> +              properties:
-> +                skew-delay-input: false
-> +                skew-delay-output: false
-> +                st,io-sync: false
-> +
->  required:
->    - compatible
->    - '#address-cells'
-> @@ -306,4 +383,25 @@ examples:
->                  pinctrl-names =3D "default";
->      };
-> =20
-> +  - |
-> +    #include <dt-bindings/pinctrl/stm32-pinfunc.h>
-> +    //Example 4 skew-delay and st,io-sync
-> +      pinctrl: pinctrl@44240000 {
-> +              compatible =3D "st,stm32mp257-pinctrl";
-> +              #address-cells =3D <1>;
-> +              #size-cells =3D <1>;
-> +              ranges =3D <0 0x44240000 0xa0400>;
-> +
-> +              eth3_rgmii_pins_a: eth3-rgmii-0 {
-> +                      pins1 {
-> +                              pinmux =3D <STM32_PINMUX('A', 6, AF14)>;
-> +                              st,io-sync =3D <4>;
-> +                      };
-> +                      pins2 {
-> +                              pinmux =3D <STM32_PINMUX('H', 2, AF14)>;
-> +                              skew-delay-output =3D <2>;
-> +                      };
-> +              };
-> +      };
-> +
->  ...
-> --=20
-> 2.34.1
->=20
-
---WUAPWDm9VxqWJrOr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaO6SEwAKCRB4tDGHoIJi
-0jCsAPwLkMNVF458mbc2zWVRT6LxatpnJfRRuZJlEdA05pbWEAEAz4z8RejXvyPP
-ECXLoXPiLCdURtPzFPKuEqQ4nRt+HQw=
-=CNDr
------END PGP SIGNATURE-----
-
---WUAPWDm9VxqWJrOr--
-
---===============6220209325116038903==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6220209325116038903==--
+T24gVHVlLCBPY3QgMTQsIDIwMjUgYXQgODowNOKAr1BNIENvbm9yIERvb2xleSA8Y29ub3JAa2Vy
+bmVsLm9yZz4gd3JvdGU6Cj4gT24gVHVlLCBPY3QgMTQsIDIwMjUgYXQgMDQ6MDQ6NDNQTSArMDIw
+MCwgQW50b25pbyBCb3JuZW8gd3JvdGU6Cgo+ID4gKyAgc2tldy1kZWxheS1pbnB1dDoKPiA+ICsg
+ICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCj4gPiArICAg
+IGRlc2NyaXB0aW9uOgo+ID4gKyAgICAgIHRoaXMgYWZmZWN0cyB0aGUgZXhwZWN0ZWQgY2xvY2sg
+c2tldyBvbiBpbnB1dCBwaW5zLgo+ID4gKyAgICAgIFR5cGljYWxseSBpbmRpY2F0ZXMgaG93IG1h
+bnkgZG91YmxlLWludmVydGVycyBhcmUgdXNlZCB0bwo+ID4gKyAgICAgIGRlbGF5IHRoZSBzaWdu
+YWwuCj4KPiBUaGlzIHByb3BlcnR5IHNlZW1zIHRvIGJlIHRlbXBvcmFsLCBJIHdvdWxkIGV4cGVj
+dCB0byBzZWUgYSB1bml0IG9mIHRpbWUKPiBtZW50aW9uZWQgaGVyZSwgb3RoZXJ3aXNlIGl0J2xs
+IHRvdGFsbHkgaW5jb25zaXN0ZW50IGluIHVzZSBiZXR3ZWVuCj4gZGV2aWNlcywgYW5kIGFsc28g
+YSBzdGFuZGFyZCB1bml0IHN1ZmZpeCBpbiB0aGUgcHJvcGVydHkgbmFtZS4KPiBwdy1ib3Q6IGNo
+YW5nZXMtcmVxdWVzdGVkCgpEb24ndCBibGFtZSB0aGUgbWVzc2VuZ2VyLCB0aGUgZXhpc3Rpbmcg
+cHJvcGVydHkgc2tldy1kZWxheQpzYXlzOgoKICBza2V3LWRlbGF5OgogICAgJHJlZjogL3NjaGVt
+YXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCiAgICBkZXNjcmlwdGlvbjoKICAgICAg
+dGhpcyBhZmZlY3RzIHRoZSBleHBlY3RlZCBjbG9jayBza2V3IG9uIGlucHV0IHBpbnMKICAgICAg
+YW5kIHRoZSBkZWxheSBiZWZvcmUgbGF0Y2hpbmcgYSB2YWx1ZSB0byBhbiBvdXRwdXQKICAgICAg
+cGluLiBUeXBpY2FsbHkgaW5kaWNhdGVzIGhvdyBtYW55IGRvdWJsZS1pbnZlcnRlcnMgYXJlCiAg
+ICAgIHVzZWQgdG8gZGVsYXkgdGhlIHNpZ25hbC4KClRoaXMgaW4gdHVybiBjb21lcyBmcm9tIHRo
+ZSBvcmlnaW5hbApEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcGluY3RybC9waW5j
+dHJsLWJpbmRpbmdzLnR4dApkb2N1bWVudCwgd2hpY2ggaW4gdHVybiBjb21lcyBmcm9tIHRoaXMg
+Y29tbWl0OgoKY29tbWl0IGUwZTFlMzlkZTQ5MGEyZDliOGExNzMzNjNjY2YyNDE1ZGRhZGE4NzEK
+QXV0aG9yOiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CkRhdGU6ICAg
+U2F0IE9jdCAyOCAxNTozNzoxNyAyMDE3ICswMjAwCgogICAgcGluY3RybDogQWRkIHNrZXctZGVs
+YXkgcGluIGNvbmZpZyBhbmQgYmluZGluZ3MKCiAgICBTb21lIHBpbiBjb250cm9sbGVycyAoc3Vj
+aCBhcyB0aGUgR2VtaW5pKSBjYW4gY29udHJvbCB0aGUKICAgIGV4cGVjdGVkIGNsb2NrIHNrZXcg
+YW5kIG91dHB1dCBkZWxheSBvbiBjZXJ0YWluIHBpbnMgd2l0aCBhCiAgICBzdWItbmFub3NlY29u
+ZCBncmFudWxhcml0eS4gVGhpcyBpcyB0eXBpY2FsbHkgZG9uZSBieSBzaHVudGluZwogICAgaW4g
+YSBudW1iZXIgb2YgZG91YmxlIGludmVydGVycyBpbiBmcm9udCBvZiBvciBiZWhpbmQgdGhlIHBp
+bi4KICAgIE1ha2UgaXQgcG9zc2libGUgdG8gY29uZmlndXJlIHRoaXMgd2l0aCBhIGdlbmVyaWMg
+YmluZGluZy4KCiAgICBDYzogZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcKICAgIEFja2VkLWJ5
+OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgogICAgQWNrZWQtYnk6IEhhbnMgVWxsaSBL
+cm9sbCA8dWxsaS5rcm9sbEBnb29nbGVtYWlsLmNvbT4KICAgIFNpZ25lZC1vZmYtYnk6IExpbnVz
+IFdhbGxlaWogPGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4KClNvIGJ5IGxlZ2FjeSBza2V3LWRl
+bGF5IGlzIGEgY3VzdG9tIGZvcm1hdCwgdXN1YWxseSB0aGUgbnVtYmVyIG9mCihkb3VibGUpIGlu
+dmVydGVycy4KCkkgZG9uJ3QgcmVjYWxsIHRoZSByZWFzb24gZm9yIHRoaXMgd2F5IG9mIGRlZmlu
+aW5nIHRoaW5ncywgYnV0IG9uZSByZWFzb24KY291bGQgYmUgdGhhdCB0aGUgc2tldy1kZWxheSBp
+bmN1cnJlZCBieSB0d28gaW52ZXJ0ZXJzIGlzIHZlcnkKZGVwZW5kZW50IG9uIHRoZSBwcm9kdWN0
+aW9uIG5vZGUgb2YgdGhlIHNpbGljb24sIGFuZCBjYW4gYmUKbmFub3NlY29uZHMgb3IgcGljb3Nl
+Y29uZHMsIHRoZXNlIGRheXMgbW9zdGx5IHBpY29zZWNvbmRzLgpFeGFtcGxlOiBEb2N1bWVudGF0
+aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FkaSxhZGluLnlhbWwKCkFudG9uaW8sIHdoYXQg
+ZG8geW91IHNheT8gRG8geW91IGhhdmUgdGhlIGFjdHVhbCBza2V3IHBpY29zZWNvbmQKdmFsdWVz
+IGZvciB0aGUgZGlmZmVyZW50IHNldHRpbmdzIHNvIHdlIGNvdWxkIGRlZmluZSB0aGlzIGFzCgpz
+a2V3LWRlbGF5LWlucHV0LXBzOgpza2V3LWRlbGF5LW91dHB1dC1wczoKCmFuZCB0cmFuc2xhdGUg
+aXQgdG8gdGhlIHJpZ2h0IHJlZ2lzdGVyIHZhbHVlcyBpbiB0aGUgZHJpdmVyPwoKSWYgd2UgaGF2
+ZSB0aGUgcHJvcGVyIGRhdGEgdGhpcyBjb3VsZCBiZSBhIGdvb2QgdGltZSB0byBhZGQgdGhpcwpJ
+U08gdW5pdCB0byB0aGVzZSB0d28gcHJvcHMuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
