@@ -2,52 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE5FBDB16E
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Oct 2025 21:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EA1BDC6DA
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 06:10:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 974F7C56612;
-	Tue, 14 Oct 2025 19:40:01 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C55D6C56615;
+	Wed, 15 Oct 2025 04:10:27 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 607FBC5660E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50C68C56613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Oct 2025 19:40:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F05A343ADB;
- Tue, 14 Oct 2025 19:39:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D77C4CEE7;
- Tue, 14 Oct 2025 19:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760470798;
- bh=O5H/YsuZs738YLiu8CU7UPY57QeILHiPa3/g7uk/1NA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qSLN5Hq5qQqaeRoRL4S6gw3Nbz3N+rvUZnaplautiXAX6nefXQTlvHDiCM4jO2Dxb
- S5IWLDMMJS9ZSDIPTK2YHsMHutYxBoAxatnzI97AnabTbrkTEaHRYgBKH3RArkCPjA
- SGFbcnTfbjB+mobrDoGdydj5sZ46yN146NH3xWbjQh6Qn+RVITJ0r3LT5vF/AzLt87
- gynvyfmfcWo5W1W1MTFLphm4t6YzZgdpKL3klZ1aRsYzb4eOXtKkah5YRJ8iNyId4f
- ZSXSMipjbBH6H0BhQjiPO8XHU97HxkESsQBDiI++fx+agiP7s158V8c2zSbVpfhUlc
- NdnPq0J/RJgsA==
-Date: Tue, 14 Oct 2025 20:39:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20251014-water-gown-11558c4eabe7@spud>
-References: <20251014140451.1009969-1-antonio.borneo@foss.st.com>
- <20251014140451.1009969-3-antonio.borneo@foss.st.com>
- <20251014-barbecue-crewman-717fe614daa6@spud>
- <CACRpkdZT20cdH+G6Gjw8PopAkir+gGgMtRR4pkjnXFrmDkdfog@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CACRpkdZT20cdH+G6Gjw8PopAkir+gGgMtRR4pkjnXFrmDkdfog@mail.gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Wed, 15 Oct 2025 04:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id; bh=F8qagTfnP+U3q0F
+ 8E63xc12CZLmAkp6qB26cnOxilr8=; b=Wq681msYKhw1B/NUTb0zuyzYfVfOZdm
+ 3k0JEoYtRbxscNKNFaQX2cnE2TkcCuzJPc28tfYpVKfvPVsBxkoAGbl3XGnVCcLx
+ q99Vs12Io7dOm0AkEiV6IKvSGHgTAMEP3tISYKqHYnABpEUYIUP2M+M+9zgRtPrz
+ omQsyEy4qfac=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
+ _____wCXnOhRHu9ovBl6AQ--.40673S2; 
+ Wed, 15 Oct 2025 12:09:04 +0800 (CST)
+From: Lizhe <sensor1010@163.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk, jonas@kwiboo.se,
+ chaoyi.chen@rock-chips.com, david.wu@rock-chips.com
+Date: Tue, 14 Oct 2025 21:08:47 -0700
+Message-Id: <20251015040847.6421-1-sensor1010@163.com>
+X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: _____wCXnOhRHu9ovBl6AQ--.40673S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4xKw13WFyfXr15Gr4fGrg_yoW8ZryUp3
+ 93CF9Fyw1kXa4xGa17tFsrZa45u3y7Kry0qF1xA34ru3W3AF1DKF18tr1FvF1jgrykXFya
+ yF4UAF1xC3Z8ur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRFPfQUUUUU=
+X-Originating-IP: [112.4.48.30]
+X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/1tbiKBrnq2jvHAA8fgAAsn
+Cc: netdev@vger.kernel.org, Lizhe <sensor1010@163.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v3 02/10] dt-bindings: pincfg-node: Add
- properties 'skew-delay-{in, out}put'
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next] net: dwmac-rk: No need to check the
+	return value of the phy_power_on()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,124 +54,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7553953599347689727=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+'phy_power_on' is a local scope one within the driver, since the return
+value of the phy_power_on() function is always 0, checking its return
+value is redundant.
 
---===============7553953599347689727==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DnZFP0H7yz35f5cB"
-Content-Disposition: inline
+the function name 'phy_power_on()' conflicts with the existing
+phy_power_on() function in the PHY subsystem. a suitable alternative
+name would be rk_phy_power_set(), particularly since when the second
+argument is false, this function actually powers off the PHY
 
+Signed-off-by: Lizhe <sensor1010@163.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
---DnZFP0H7yz35f5cB
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 14, 2025 at 09:33:14PM +0200, Linus Walleij wrote:
-> On Tue, Oct 14, 2025 at 8:04=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
-rote:
-> > On Tue, Oct 14, 2025 at 04:04:43PM +0200, Antonio Borneo wrote:
->=20
-> > > +  skew-delay-input:
-> > > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > > +    description:
-> > > +      this affects the expected clock skew on input pins.
-> > > +      Typically indicates how many double-inverters are used to
-> > > +      delay the signal.
-> >
-> > This property seems to be temporal, I would expect to see a unit of time
-> > mentioned here, otherwise it'll totally inconsistent in use between
-> > devices, and also a standard unit suffix in the property name.
-> > pw-bot: changes-requested
->=20
-> Don't blame the messenger, the existing property skew-delay
-> says:
->=20
->   skew-delay:
->     $ref: /schemas/types.yaml#/definitions/uint32
->     description:
->       this affects the expected clock skew on input pins
->       and the delay before latching a value to an output
->       pin. Typically indicates how many double-inverters are
->       used to delay the signal.
->=20
-> This in turn comes from the original
-> Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
-> document, which in turn comes from this commit:
->=20
-> commit e0e1e39de490a2d9b8a173363ccf2415ddada871
-> Author: Linus Walleij <linus.walleij@linaro.org>
-> Date:   Sat Oct 28 15:37:17 2017 +0200
->=20
->     pinctrl: Add skew-delay pin config and bindings
->=20
->     Some pin controllers (such as the Gemini) can control the
->     expected clock skew and output delay on certain pins with a
->     sub-nanosecond granularity. This is typically done by shunting
->     in a number of double inverters in front of or behind the pin.
->     Make it possible to configure this with a generic binding.
->=20
->     Cc: devicetree@vger.kernel.org
->     Acked-by: Rob Herring <robh@kernel.org>
->     Acked-by: Hans Ulli Kroll <ulli.kroll@googlemail.com>
->     Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
->=20
-> So by legacy skew-delay is a custom format, usually the number of
-> (double) inverters.
-
-Yeah, I actually noticed this after sending the mail. But as you say
-below, the new properties can be done with a unit etc
-
->=20
-> I don't recall the reason for this way of defining things, but one reason
-> could be that the skew-delay incurred by two inverters is very
-> dependent on the production node of the silicon, and can be
-> nanoseconds or picoseconds, these days mostly picoseconds.
-> Example: Documentation/devicetree/bindings/net/adi,adin.yaml
->=20
-> Antonio, what do you say? Do you have the actual skew picosecond
-> values for the different settings so we could define this as
->=20
-> skew-delay-input-ps:
-> skew-delay-output-ps:
->=20
-> and translate it to the right register values in the driver?
-
-The patch for the specific binding does have values in units of seconds
-assigned to each register value, so I think this should be doable.
-
->=20
-> If we have the proper data this could be a good time to add this
-> ISO unit to these two props.
->=20
-> Yours,
-> Linus Walleij
-
---DnZFP0H7yz35f5cB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaO6nCQAKCRB4tDGHoIJi
-0qLlAP9810SKsRFfc73sjXKlJV1iLRHPiWHn2M7TKwMkhNAhNQEAoJHsRqsTrOZv
-DEfxbqgGD+nWjS0Kv0p8dpJZC6EYfw4=
-=BzPH
------END PGP SIGNATURE-----
-
---DnZFP0H7yz35f5cB--
-
---===============7553953599347689727==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 51ea0caf16c1..9d296bfab013 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1461,23 +1461,18 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
+ 	return 0;
+ }
+ 
+-static int phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
++static void rk_phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
+ {
+ 	struct regulator *ldo = bsp_priv->regulator;
+ 	struct device *dev = bsp_priv->dev;
+-	int ret;
+ 
+ 	if (enable) {
+-		ret = regulator_enable(ldo);
+-		if (ret)
++		if (regulator_enable(ldo))
+ 			dev_err(dev, "fail to enable phy-supply\n");
+ 	} else {
+-		ret = regulator_disable(ldo);
+-		if (ret)
++		if (regulator_disable(ldo))
+ 			dev_err(dev, "fail to disable phy-supply\n");
+ 	}
+-
+-	return 0;
+ }
+ 
+ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+@@ -1655,11 +1650,7 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 		dev_err(dev, "NO interface defined!\n");
+ 	}
+ 
+-	ret = phy_power_on(bsp_priv, true);
+-	if (ret) {
+-		gmac_clk_enable(bsp_priv, false);
+-		return ret;
+-	}
++	rk_phy_power_on(bsp_priv, true);
+ 
+ 	pm_runtime_get_sync(dev);
+ 
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7553953599347689727==--
