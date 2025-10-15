@@ -2,50 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DFC7BDF919
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 18:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DC6BDF949
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 18:10:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF73C5663E;
-	Wed, 15 Oct 2025 16:09:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF6F3C5663F;
+	Wed, 15 Oct 2025 16:10:51 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27558C03FEA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9D62C56636
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 16:09:19 +0000 (UTC)
+ Wed, 15 Oct 2025 16:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=F8AivNmNX6ytHIHlRjMKoCXQh8wrZGlkylky6XBPiQc=; b=JSl3cHHKoZDp+JKzHu7hDUEWlw
- 59mlLBmMOXJDVl0p0OuMwUoP6WEKYaTspfWZwwMBcB1GSFJzGee6OMchHlEPUXc+Lkwv9XJfVKUNg
- UGf6+0vAQH0LmaN6JKzr8HupJc5COgTuT1cDtllNsAgs19TaoYZ1SGoZfx18GWaMJGySOgJP0l6iS
- zEVRBEczRTsiwio6cv+4f2ZIO6oFTKf+mWQQQb28D0K7CCA7CD/w2R+hMrUMxEW2L3S6p7iwuabz/
- pgwkwRcKVSp58/aNGiJxOEE05/vwTnZgR2wUivvdpNnLByWxjMWgnksQ654zNpuQYBm+4T0Giptcj
- 9BiTBHBw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51416)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=rD9sxXXcMPCdPzJUHRNkbrU7OVhc+3FqTiQbvaq4qKA=; b=zPIbxYT2T4pXpUpYZgf1evBIL8
+ jisw/dzamHSTXVee/35trO3vQnd3oafAsZiH55/E+MYSdOA4nrwS4e/EguiWjg+ujbT3FRgIM015L
+ /Ngz4fuS/DOBdbbkr5hDM6cQN7bCrP5hOBLDo36YmJpeAfqGbZVH004xz9Rw7PbeJ80O1bqYOwQCf
+ bKmqkoV38Vx0QwNGVnusn3scCNtUGvDpk8+fKM7rR/7ly73pZM2fITEA7QwNnV84lHKjJT2JHBf65
+ jdDp6KfWRN6zMXngWSbF7uLPtEmuuveTEzYr3Ny0NhMzOGWl0Vr2Q9pRy19j1ldNDxeY8f9MnqM2o
+ C70FcEDQ==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38608 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v943s-0000000059Q-2LIy;
- Wed, 15 Oct 2025 17:09:12 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v943n-000000002OD-3sXH; Wed, 15 Oct 2025 17:09:07 +0100
-Date: Wed, 15 Oct 2025 17:09:07 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <aO_HIwT_YvxkDS8D@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1v945K-0000000059q-0yvh;
+ Wed, 15 Oct 2025 17:10:42 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1v945J-0000000AmeJ-1GOb; Wed, 15 Oct 2025 17:10:41 +0100
+In-Reply-To: <aO_HIwT_YvxkDS8D@shell.armlinux.org.uk>
+References: <aO_HIwT_YvxkDS8D@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1v945J-0000000AmeJ-1GOb@rmk-PC.armlinux.org.uk>
+Date: Wed, 15 Oct 2025 17:10:41 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/5] net: stmmac: more cleanups
+Subject: [Linux-stm32] [PATCH net-next 1/5] net: stmmac: dwc-qos-eth: move
+ MDIO bus locking into stmmac_mdio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,42 +66,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The subject for the cover message is wearing thin as I've used it a
-number of times, but the scope for cleaning up the driver continues,
-and continue it will do, because this is just a small fraction of the
-queue.
+Rather than dwc-qos-eth manipulating the MDIO bus lock directly, add
+helpers to the stmmac MDIO layer and use them in dwc-qos-eth. This
+improves my commit 87f43e6f06a2 ("net: stmmac: dwc-qos: calibrate tegra
+with mdio bus idle").
 
-1. make a better job of one of my previous commits, moving the holding
-   of the lock into stmmac_mdio.c
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    |  4 ++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  | 14 ++++++++++++++
+ 3 files changed, 18 insertions(+), 2 deletions(-)
 
-2. move the mac_finish() method to be in-order with the layout of
-   struct phylink_mac_ops - this order was chosen because it reflects
-   the order that the methods are called, thus making the flow more
-   obvious when reading code.
-
-3. continuing on the "removal of stuff that doesn't need to happen",
-   patch 3 removes the phylink_speed_(up|down) out of the path that
-   is used for MTU changes - we really don't need to fiddle with the
-   PHY advertisement when changing the MTU!
-
-4. clean up tc_init()'s initialisation of flow_entries_max - this is
-   the sole place that this is written, and we might as well make the
-   code more easy to follow.
-
-5. stmmac_phy_setup() really confuses me when I read the code, it's
-   not really about PHY setup, but about phylink setup. So, name its
-   name reflect its functionality.
-
- .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    |  4 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 49 +++++++++++-----------
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  | 14 +++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |  6 +--
- 5 files changed, 46 insertions(+), 29 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index e8539cad4602..f1c2e35badf7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -162,7 +162,7 @@ static void tegra_eqos_fix_speed(void *bsp_priv, int speed, unsigned int mode)
+ 		priv = netdev_priv(dev_get_drvdata(eqos->dev));
+ 
+ 		/* Calibration should be done with the MDIO bus idle */
+-		mutex_lock(&priv->mii->mdio_lock);
++		stmmac_mdio_lock(priv);
+ 
+ 		/* calibrate */
+ 		value = readl(eqos->regs + SDMEMCOMPPADCTRL);
+@@ -198,7 +198,7 @@ static void tegra_eqos_fix_speed(void *bsp_priv, int speed, unsigned int mode)
+ 		value &= ~SDMEMCOMPPADCTRL_PAD_E_INPUT_OR_E_PWRD;
+ 		writel(value, eqos->regs + SDMEMCOMPPADCTRL);
+ 
+-		mutex_unlock(&priv->mii->mdio_lock);
++		stmmac_mdio_unlock(priv);
+ 	} else {
+ 		value = readl(eqos->regs + AUTO_CAL_CONFIG);
+ 		value &= ~AUTO_CAL_CONFIG_ENABLE;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 7ca5477be390..ec8bddc1c37f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -388,6 +388,8 @@ static inline bool stmmac_wol_enabled_phy(struct stmmac_priv *priv)
+ int stmmac_mdio_unregister(struct net_device *ndev);
+ int stmmac_mdio_register(struct net_device *ndev);
+ int stmmac_mdio_reset(struct mii_bus *mii);
++void stmmac_mdio_lock(struct stmmac_priv *priv);
++void stmmac_mdio_unlock(struct stmmac_priv *priv);
+ int stmmac_pcs_setup(struct net_device *ndev);
+ void stmmac_pcs_clean(struct net_device *ndev);
+ void stmmac_set_ethtool_ops(struct net_device *netdev);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index f408737f6fc7..d62b2870899d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -734,3 +734,17 @@ int stmmac_mdio_unregister(struct net_device *ndev)
+ 
+ 	return 0;
+ }
++
++void stmmac_mdio_lock(struct stmmac_priv *priv)
++{
++	if (priv->mii)
++		mutex_lock(&priv->mii->mdio_lock);
++}
++EXPORT_SYMBOL_GPL(stmmac_mdio_lock);
++
++void stmmac_mdio_unlock(struct stmmac_priv *priv)
++{
++	if (priv->mii)
++		mutex_unlock(&priv->mii->mdio_lock);
++}
++EXPORT_SYMBOL_GPL(stmmac_mdio_unlock);
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
