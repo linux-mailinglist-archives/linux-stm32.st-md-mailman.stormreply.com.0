@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26CBBE0CF4
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 23:26:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B686BE0D15
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 23:31:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D0B5C57176;
-	Wed, 15 Oct 2025 21:26:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84951C57176;
+	Wed, 15 Oct 2025 21:31:57 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CF13C57170
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31CFCC57169
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 21:26:23 +0000 (UTC)
+ Wed, 15 Oct 2025 21:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=AeSpn5dmCh2ZrJI87Q98dccP35CokF88J3n3w+4pfgg=; b=QdVmQ4Q0A4e4xTXnZnZp/kE7Vc
- N9Zc8qsSt9FhFe6cc3yhjViA8VtT+K5XsIpAYnKUA2JQU52vv6Y4ltuivAVb1QAoaldEe1ignSyHL
- rW+3zg/WtbPedbXhPxqdoxL+qjna+quTcM07UF3yNH5mFy6Bf3COJZlBCtR9IsoyApEQ=;
+ bh=WJBerh8Yj/4z2zrYhmh0chjw+l0sx+DRz1ztXndJfss=; b=kmvD/htcIJrGnf6Y10JoV2hAxa
+ zpLD6vqRZQ5OTUgpVbr+EJI1EAS2FWDMEr6Xw7mHVH6qAJBuXDg19h/2SMaujY1aLfVBJBsBFDSiu
+ I+oiO2Pii7sentVQCnIOAjkn+k/JYeaO+bAjkp0nQJRpPIwy/T9Cm7AT/O3A/bjlQI/Q=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1v990V-00B4vR-ES; Wed, 15 Oct 2025 23:26:03 +0200
-Date: Wed, 15 Oct 2025 23:26:03 +0200
+ id 1v995t-00B4xr-Te; Wed, 15 Oct 2025 23:31:37 +0200
+Date: Wed, 15 Oct 2025 23:31:37 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <15ea57e0-d127-4722-b752-4989d5a443c0@lunn.ch>
+Message-ID: <040a2f29-4c95-4561-87c0-2a70308d3f00@lunn.ch>
 References: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
- <E1v92N3-0000000AmHQ-4Bm2@rmk-PC.armlinux.org.uk>
+ <E1v92NJ-0000000AmHi-1ZGJ@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1v92N3-0000000AmHQ-4Bm2@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1v92NJ-0000000AmHi-1ZGJ@rmk-PC.armlinux.org.uk>
 Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
@@ -62,8 +62,8 @@ Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 11/14] net: stmmac: do not
- require snps, ps-speed for SGMII
+Subject: Re: [Linux-stm32] [PATCH net-next 14/14] net: stmmac: convert to
+ phylink PCS support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,20 +80,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 15, 2025 at 03:20:53PM +0100, Russell King (Oracle) wrote:
-> SGMII mode does not require port-speed to be specified; this only
-> switches SGMII to use the MAC configuration register speed settings
-> and the actual value is irrelevant when the link comes up.
-> 
-> As it seems the intention was to support "reverse SGMII" with this
-> setting, but the code didn't actually configure that due to a typo,
-> the warning and bad DT binding documentation has led people to
-> specify snps,ps-speed in their DT files inappropriately.
+> - create stmmac_pcs.c, which contains the phylink_pcs_ops structure, a
+>   dummy .pcs_get_state() method which always reports link-down
 
-I know you hit the patch limit. Do you have a patch in the next series
-which updates the binding?
+I've not followed the PCS code too closely. Why always report link
+down? Why is a dummy method needed?
 
-      Andrew
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
