@@ -2,92 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61A1CBE1586
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 05:19:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48B0BBE1D0A
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 08:53:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4AD8C57181;
-	Thu, 16 Oct 2025 03:19:09 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFC34C57192;
+	Thu, 16 Oct 2025 06:53:00 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AE23C36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2236C57167
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Oct 2025 03:19:08 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-b60971c17acso165315a12.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 20:19:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760584746; x=1761189546;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=q3V6/3lwtdjURh/3v4+zxQ+JkOqta8pLIKsB7qZtosM=;
- b=f/2n4kT1EYUntzJrysKjleo5srJONBlHkhatgjSDBdDI1arTl9sCredoKjcoVON05/
- PUB+R/ugs7/IYeV3ETrMYL6iuJ/jfCEHfYBIL9UzqMTaZz28kgOJcxmck8z4SJl2oaht
- ekXrPwIyIlfhuTNtquywonsWsPEM5/ZIpRWIlnzS+8Hwuf63xoXGOowZB8H0izyl+mx8
- 8YEqJdtEE2CKa63lnoX9V+L9VUErEfSZ0E1r56VLGzNa06ceAur0fbEEnMjLEGzWfN5X
- ATajc0UzEW4yiMn+bFi/d9EuepSRHmOScaeYZOK74ATIVMSYPi0ExY1XrV8bpJO+GnxN
- d3ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760584746; x=1761189546;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=q3V6/3lwtdjURh/3v4+zxQ+JkOqta8pLIKsB7qZtosM=;
- b=ROU6HFWZnYvFTFikJMqSdvm9B5i7ZrcF/m6Eflu8M7mj79UDuR06FWWLCkMPtkYtwz
- cKEyouKjC9MCGGjSOFQL4yXStnf9jeNw8Digbjwvl/sUY2wLGB15yC1agid3G7UbMaRw
- VKoFTXUaISag6TZeS6hiaKEpWk/bhL0LypQJPsED5jbPIFO+vOmSHSRfAn/DZ+WhyQdN
- Ib6Bxiu8NWaOt5fwl8aCPY0eBmw8RBtJON8998qllz5LebGbKzoZfLkJL1TTrKz/LgxG
- rpuQZXWjXigXzrqS2q7KxcmWJraReRfjvN8WxY7dTYPEskRXlCqzMeOWVYIXj18oFt0/
- Xo4A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUCxi4O51ebzVmDhmxxkALFmRM5e7KyIIHSuZEcXe/SzswbEoiHNNpflPdTTniLLoC7ly4sb8KYZgYr8w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyMLzBnEyke9Vo4hCsSTDAQ9RTPJjDkE61i8NyEzVuSaXdGpnW/
- w6KEWwLPH+3WNl2X9bARzgZZH46TJHsLkxx0nyhRhoCTF6Cdv0/zVf18
-X-Gm-Gg: ASbGncvXvCx3FeTvoii+KJKwzKbuEkKiV325410BnD9IE/getBsVzusJccVunIArhzY
- NXNZwFO3NE8Aq83I09SnyXU6RK1+R0HWvSe8mqYRtjJBQDr+4P4OJdHtPr0kmKHCaAVrvZCMNwj
- JvCEydEJqGO3C/fyv3jFaDrctvTEvH95CjeAn36b4ndaJaoI0ItXTwg52LAWqLfudYAynbG8e1u
- L7CueEyT40fsI6y9Dio2Xx5g7nztA4cXyVXeIBYgSSDEbNLbIl4UjjMYjWYBWL5CT9UvBjXo21i
- /0RxppDmEzMe4EJ0zsJQSjliCmeoT+fHID7hb2UEDFvte6+xeCRao3QK+K92gBSEg1sOj7bwptc
- 93L6LUpl2RCuMLlqm33/HbIySfkEYC0ZobHUBfI2WsvbMfywuhxXoUXEgnEczGNlKyMOMk7KnOf
- nzxSSHmpi/zWPq
-X-Google-Smtp-Source: AGHT+IF4v2d27Dj/e7jq1kEU9oe1rwtYs2LQ1lRSZOTT/iIRfUfi40YveMA9WdkCLpBc1j1xOkHApQ==
-X-Received: by 2002:a17:903:b4f:b0:288:e2ec:edfd with SMTP id
- d9443c01a7336-290272154a4mr369206485ad.10.1760584746390; 
- Wed, 15 Oct 2025 20:19:06 -0700 (PDT)
-Received: from [192.168.0.13] ([172.92.174.155])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29099ab9c0fsm11872355ad.82.2025.10.15.20.19.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Oct 2025 20:19:05 -0700 (PDT)
-Message-ID: <227c0045-1e6c-4b2e-93d5-263213a7ff39@gmail.com>
-Date: Wed, 15 Oct 2025 20:17:25 -0700
+ Wed, 15 Oct 2025 16:20:20 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 82D1C1A1361;
+ Wed, 15 Oct 2025 16:20:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 487D560673;
+ Wed, 15 Oct 2025 16:20:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 138CA102F22DF; 
+ Wed, 15 Oct 2025 18:20:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1760545219; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=JJ6rH+xzmRM4qbGD1O8szCgtSQ2QdUeo9drcU82TAhs=;
+ b=wtHq3Gd0pQyjV6eyAK7fkRd9w/l0K0lC4FEfqkfWEo6k637Nboqx9312H1X9fnaRV/2wfb
+ QaZ6QKn/SgxEG7NppA04nggZ69c6MQyB2QdfPZpPZs7aRKxHJD8eY66Gr283U2WCMTmDak
+ 88guPcGFdZVaksfpnPKksUJJnae0T4LLkdX0RllszUHzwp8koW7AkW3d42+ZT82a7iuP7G
+ nDuOFOMUrmu/iMcqebvj3mX2x8m7+8+umoL7QjmNGO4Lxs1r06oZx9uCz+/jpvM07WporL
+ jqoVHJIuWENfI7kHqcyASHjuMNN1yYfK86sc1rke62SvxbTpWJvvR1KIZpJ/0g==
+Message-ID: <27800f8c-eb0d-41c2-9e45-b45cf1767c23@bootlin.com>
+Date: Wed, 15 Oct 2025 18:20:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: weishangjuan@eswincomputing.com, devicetree@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
- yong.liang.choong@linux.intel.com, vladimir.oltean@nxp.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, jan.petrous@oss.nxp.com,
- inochiama@gmail.com, jszhang@kernel.org, 0x1207@gmail.com,
- boon.khai.ng@altera.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20251015113751.1114-1-weishangjuan@eswincomputing.com>
- <20251015114041.1166-1-weishangjuan@eswincomputing.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
+ <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
+ <aO-4hnUINpQ0JORE@shell.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-From: Bo Gan <ganboing@gmail.com>
-In-Reply-To: <20251015114041.1166-1-weishangjuan@eswincomputing.com>
-Cc: Xuyang Dong <dongxuyang@eswincomputing.com>, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, ningyu@eswincomputing.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- lizhi2@eswincomputing.com
-Subject: Re: [Linux-stm32] [PATCH v8 1/2] dt-bindings: ethernet: eswin:
- Document for EIC7700 SoC
+In-Reply-To: <aO-4hnUINpQ0JORE@shell.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+X-Mailman-Approved-At: Thu, 16 Oct 2025 06:52:59 +0000
+Cc: =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Move subsecond
+ increment configuration in dedicated helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,178 +66,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Zhi, ShangJuan,
+Hi Russell,
 
-
-On 10/15/25 04:40, weishangjuan@eswincomputing.com wrote:
-> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
+On 15/10/2025 17:06, Russell King (Oracle) wrote:
+> On Wed, Oct 15, 2025 at 12:27:21PM +0200, Maxime Chevallier wrote:
+>> +static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
+>> +{
+>> +	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
 > 
-> Add ESWIN EIC7700 Ethernet controller, supporting clock
-> configuration, delay adjustment and speed adaptive functions.
-> 
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-> Signed-off-by: Shangjuan Wei <weishangjuan@eswincomputing.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->   .../bindings/net/eswin,eic7700-eth.yaml       | 127 ++++++++++++++++++
->   1 file changed, 127 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-> new file mode 100644
-> index 000000000000..9ddbfe219ae2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-> @@ -0,0 +1,127 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/eswin,eic7700-eth.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Eswin EIC7700 SOC Eth Controller
-> +
-> +maintainers:
-> +  - Shuang Liang <liangshuang@eswincomputing.com>
-> +  - Zhi Li <lizhi2@eswincomputing.com>
-> +  - Shangjuan Wei <weishangjuan@eswincomputing.com>
-> +
-> +description:
-> +  Platform glue layer implementation for STMMAC Ethernet driver.
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - eswin,eic7700-qos-eth
-> +  required:
-> +    - compatible
-> +
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: eswin,eic7700-qos-eth
-> +      - const: snps,dwmac-5.20
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-names:
-> +    const: macirq
-> +
-> +  clocks:
-> +    items:
-> +      - description: AXI clock
-> +      - description: Configuration clock
-> +      - description: GMAC main clock
-> +      - description: Tx clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: axi
-> +      - const: cfg
-> +      - const: stmmaceth
-> +      - const: tx
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  reset-names:
-> +    items:
-> +      - const: stmmaceth
-> +
-> +  rx-internal-delay-ps:
-> +    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-> +
-> +  tx-internal-delay-ps:
-> +    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-> +
-> +  eswin,hsp-sp-csr:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - description: Phandle to HSP(High-Speed Peripheral) device
-> +      - description: Offset of phy control register for internal
-> +                     or external clock selection
-> +      - description: Offset of AXI clock controller Low-Power request
-> +                     register
-> +      - description: Offset of register controlling TX/RX clock delay
-> +    description: |
-> +      High-Speed Peripheral device needed to configure clock selection,
-> +      clock low-power mode and clock delay.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - phy-mode
-> +  - resets
-> +  - reset-names
-> +  - rx-internal-delay-ps
-> +  - tx-internal-delay-ps
-> +  - eswin,hsp-sp-csr
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ethernet@50400000 {
-> +        compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
-> +        reg = <0x50400000 0x10000>;
-> +        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
-> +                <&d0_clock 193>;
+> Just to say that I have patches that get rid of these has_xxx flags for
+> the cores, and these changes (and the additional platform glue patches
+> that have been posted) will conflict with them.
 
-Can you let me know which clock I should use for EIC7700 (HiFive P550), if
-I apply this patchset on top of XuYang's v6 clock patchset? ref:
-https://lore.kernel.org/all/20251009092029.140-1-dongxuyang@eswincomputing.com/
-In your vendor kernel, you have EIC7700_CLK_HSP_ETH_[APP|CSR]_CLK, but in
-the v6 clock patchset, I couldn't find them. Please help translate
-<186> <171> <40> <193> to the macro of v6 clock patchset, so I can help
-test it.
+Fair, I was in your position not so long ago :)
 
-> +        clock-names = "axi", "cfg", "stmmaceth", "tx";> +        interrupt-parent = <&plic>;
-> +        interrupts = <61>;
-> +        interrupt-names = "macirq";
-> +        phy-mode = "rgmii-id";
-> +        phy-handle = <&phy0>;> +        resets = <&reset 95>;
+For this particular series, it should be straightforward to fix the
+conflict, but for the pending new glue divers we'll have to
+find the sweet spot for these changes.
 
-For reset, I assume this <95> corresponds to EIC7700_RESET_HSP_ETH0_ARST,
-if applying on top of the v7 reset patchset, correct? ref:
-https://lore.kernel.org/all/20250930093132.2003-1-dongxuyang@eswincomputing.com/
+Maybe send it as an RFC so that people can see what to expect ?
 
-> +        reset-names = "stmmaceth";
-> +        rx-internal-delay-ps = <200>;
-> +        tx-internal-delay-ps = <200>;
-> +        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
-> +        snps,axi-config = <&stmmac_axi_setup>;
-> +        snps,aal;
-> +        snps,fixed-burst;
-> +        snps,tso;
-> +        stmmac_axi_setup: stmmac-axi-config {
-> +            snps,blen = <0 0 0 0 16 8 4>;
-> +            snps,rd_osr_lmt = <2>;
-> +            snps,wr_osr_lmt = <2>;
-> +        };
-> +    };
-> --
-> 2.17.1
-> 
+> Given the rate of change in stmmac, at some point we're going to have
+> to work out some way of stopping stmmac development to get such an
+> invasive cleanup change merged
 
-Bo
+Agreed.
+
+ - but with my variability and pressures
+> on the time I can spend even submitting patches, I've no idea how that
+> will work... I was going to send them right at the start of this
+> cycle, but various appointments on Monday and Tuesday this week plus
+> work pressures prevented that happening.
+
+To give your more visibility, that's the only work I plan to do on
+stmmac for that cycle, the rest is going to be phy_port,
+and probably some netdevsim-phy.
+
+> So, I decided instead to send out the first stmmac PCS series... which
+> means I now need to wait for that to be merged before I can think about
+> sending out anything else stmmac-related. (and there's more PCS patches
+> to come beyond the 14 I sent today.)
+
+Do you plan to send the next round of PCS stuff next, or the cleanups
+for the has_xxx flags you were mentioning ?
+
+In any case, I'll be happy to help testing :)
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
