@@ -2,79 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4144ABE0E88
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 00:13:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC21BE10D9
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 01:43:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 986EAC5717F;
-	Wed, 15 Oct 2025 22:12:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDA6EC57181;
+	Wed, 15 Oct 2025 23:43:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1102EC5717C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D0EC5717D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 22:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4wDM7ea8WG0qsfgvvugn/KuHahIyav7ggrd+qRRZvlA=; b=nCY1sWW7An16x4rxXvqnUl+x5I
- ASEGspy2pshjRY27ot+WelX1sdCT93Ru/31qG21JGNHm3IX/VDc0T7EZjjsbWBGKf8cDAoeBFIr4G
- df98PLQtMI52u+kz/qQK/ZopYCjHVgn3Owizi0rSwURl8JZRsAlNEzZOTilLqdr4kd93JpRw5317R
- X1z9CrnKnVl0YVEaQ5DB+UDV3bZHtoRxnTBPWeRxW2T0r+AzJRb0SBM/Fgwl3+2H0wgDhgXVKU2hJ
- PkGNeKSGvo3v4BcbU7C8Cph6wGmHy5WQ7sqLOlEHub3BDyhUQo9++/c8Pj+gv6Pqv1ou05ulxEtX2
- c0Vp6ubQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36642)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v99jS-000000005X8-1PdH;
- Wed, 15 Oct 2025 23:12:30 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v99jJ-000000002ei-0dcB; Wed, 15 Oct 2025 23:12:21 +0100
-Date: Wed, 15 Oct 2025 23:12:20 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aPAcRNeFa5heydq7@shell.armlinux.org.uk>
-References: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
- <E1v92MO-0000000AmGP-2hFV@rmk-PC.armlinux.org.uk>
- <51db1103-afd7-430d-9038-7094032347fc@lunn.ch>
+ Wed, 15 Oct 2025 23:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760571834; x=1792107834;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0xdTqDw9WUR1MHTE6JTRUHIGJ2mKZvvcYBTUUih42x4=;
+ b=TZe1NVgsvxiJFmoIge7On71OnU8ei7JrH2sd/X9YKgrJgq7amhV86sCT
+ nFDpbvPIvta7i8y+SXw3u4xDWMgquQl0uRYFYIKtL7EGOSLCH4ovnUUy0
+ Msq17WFu1R/R0wx0Rq4nNju5Z8OCn621Eng/ZRGF8k6MeOtcQZrJ5UU7o
+ wTYy8ksTCV05uZxXftpz7pLYgsFuOvJwt5vxYkiMgO1QCFLWNUwMSMPPX
+ hD2kDnTrQM02BGaYCrq4qLvfPnr1aL/dfnfogW0EV7x6b/+cxgDi9TRcY
+ ifYA6JjMXa1sadYQZQGayR48hbgiZYtgyX6OkQy33UlEhl2PUJhO5ppBH g==;
+X-CSE-ConnectionGUID: uKvs7yx1SgyGHLXJBsNSmQ==
+X-CSE-MsgGUID: 2q5zTULDTtaMCL5v4fMlCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="74204111"
+X-IronPort-AV: E=Sophos;i="6.19,232,1754982000"; d="scan'208";a="74204111"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2025 16:43:52 -0700
+X-CSE-ConnectionGUID: Hso+wECATpWtOfTbPJ+EBQ==
+X-CSE-MsgGUID: NhZgz1k0SL+mUJXovZND2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,232,1754982000"; d="scan'208";a="181853552"
+Received: from lkp-server02.sh.intel.com (HELO 66d7546c76b2) ([10.239.97.151])
+ by orviesa009.jf.intel.com with ESMTP; 15 Oct 2025 16:43:48 -0700
+Received: from kbuild by 66d7546c76b2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v9B9g-0004Id-38;
+ Wed, 15 Oct 2025 23:43:42 +0000
+Date: Thu, 16 Oct 2025 07:43:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lizhe <sensor1010@163.com>, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ rmk+kernel@armlinux.org.uk, jonas@kwiboo.se,
+ chaoyi.chen@rock-chips.com, david.wu@rock-chips.com
+Message-ID: <202510160726.OejMgsW0-lkp@intel.com>
+References: <20251015040847.6421-1-sensor1010@163.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <51db1103-afd7-430d-9038-7094032347fc@lunn.ch>
-Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Yu-Chun Lin <eleanor15x@gmail.com>,
- Furong Xu <0x1207@gmail.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Abhishek Chauhan <quic_abchauha@quicinc.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Daniel Machon <daniel.machon@microchip.com>,
- Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Alexis Lothore <alexis.lothore@bootlin.com>,
- Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
- Rohan G Thomas <rohan.g.thomas@altera.com>,
- Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 03/14] net: stmmac: remove
- SGMII/RGMII/SMII interrupt handling
+In-Reply-To: <20251015040847.6421-1-sensor1010@163.com>
+Cc: netdev@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Lizhe <sensor1010@163.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: dwmac-rk: No need to check
+ the return value of the phy_power_on()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,51 +74,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 15, 2025 at 11:35:40PM +0200, Andrew Lunn wrote:
-> On Wed, Oct 15, 2025 at 03:20:12PM +0100, Russell King (Oracle) wrote:
-> > Now that the only use for the interrupt is to clear it and increment a
-> > statistic counter (which is not that relevant anymore) remove all this
-> > code and ensure that the interrupt remains disabled to avoid a stuck
-> > interrupt.
-> 
-> Will this interrupt come back later, as part of the PCS? Or will the
-> PCS be polled?
+Hi Lizhe,
 
-It depends whether it has any users - given the scrappy nature of all
-this, and the fact it's never been properly implemented, I need to
-hear from the platform glue people to really know what's going on.
+kernel test robot noticed the following build errors:
 
-Right now, all I'm doing is removing loads of code that has been proven
-to be broken, and re-implementing what is left in a way that will work
-for people who are using the internal PCS (in other words, where the
-STMMAC_FLAG_HAS_INTEGRATED_PCS was set which disabled much of the
-broken code anyway.)
+[auto build test ERROR on net-next/main]
 
-> This leaves this counter unused, as you said. It does not look trivial
-> to remove it, it is part of the statistics ABI. But if the interrupt
-> comes back in a later patch, this counter could also be brought back
-> to life?
+url:    https://github.com/intel-lab-lkp/linux/commits/Lizhe/net-dwmac-rk-No-need-to-check-the-return-value-of-the-phy_power_on/20251015-121214
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/20251015040847.6421-1-sensor1010%40163.com
+patch subject: [PATCH net-next] net: dwmac-rk: No need to check the return value of the phy_power_on()
+config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20251016/202510160726.OejMgsW0-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251016/202510160726.OejMgsW0-lkp@intel.com/reproduce)
 
-Sadly, it's not quite unused - see dwmac-sun8i.c:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510160726.OejMgsW0-lkp@intel.com/
 
-        if (v & EMAC_RGMII_STA_INT)
-                x->irq_rgmii_n++;
+All errors (new ones prefixed by >>):
 
-This is more than glue, but is almost an entire core implementation as
-well - the original commit introducing it says:
+   drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c: In function 'rk_gmac_powerdown':
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:1670:9: error: implicit declaration of function 'phy_power_on'; did you mean 'rk_phy_power_on'? [-Wimplicit-function-declaration]
+    1670 |         phy_power_on(gmac, false);
+         |         ^~~~~~~~~~~~
+         |         rk_phy_power_on
 
-    The dwmac-sun8i is a heavy hacked version of stmmac hardware by
-    allwinner.
-    In fact the only common part is the descriptor management and the first
-    register function.
 
-So, rather than remove the statistic entirely, as I'm not touching this
-hacked version, I decided to keep the statistic counter as there is
-still something using it.
+vim +1670 drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+
+7ad269ea1a2b7d Roger Chen            2014-12-29  1662  
+229666c14c75ae Vincent Palatin       2016-06-15  1663  static void rk_gmac_powerdown(struct rk_priv_data *gmac)
+7ad269ea1a2b7d Roger Chen            2014-12-29  1664  {
+32c7bc0747bbd8 Jonas Karlman         2025-03-19  1665  	if (gmac->integrated_phy && gmac->ops->integrated_phy_powerdown)
+32c7bc0747bbd8 Jonas Karlman         2025-03-19  1666  		gmac->ops->integrated_phy_powerdown(gmac);
+fecd4d7eef8b21 David Wu              2017-08-10  1667  
+8f6503993911f0 Russell King (Oracle  2025-06-16  1668) 	pm_runtime_put_sync(gmac->dev);
+aec3f415f7244b Punit Agrawal         2021-09-29  1669  
+7ad269ea1a2b7d Roger Chen            2014-12-29 @1670  	phy_power_on(gmac, false);
+7ad269ea1a2b7d Roger Chen            2014-12-29  1671  	gmac_clk_enable(gmac, false);
+7ad269ea1a2b7d Roger Chen            2014-12-29  1672  }
+7ad269ea1a2b7d Roger Chen            2014-12-29  1673  
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
