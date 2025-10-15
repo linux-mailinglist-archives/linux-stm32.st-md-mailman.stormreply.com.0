@@ -2,59 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BBC2BDF6CD
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 17:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A07BDF494
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 17:11:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C93C2C57163;
-	Wed, 15 Oct 2025 15:39:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C38BDC5663F;
+	Wed, 15 Oct 2025 15:11:36 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F875C5663D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B16BC5663D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 15:06:58 +0000 (UTC)
+ Wed, 15 Oct 2025 15:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=i8WH71db750jps9WxI3z1NEUJwkE3VXRhtPG7iUgTWY=; b=04hQz4eK43+AW/wKb5wdQbpX7W
- 9qjxEPcOHoILOsxV1PI8IytNEk84VUOiE3we1jZwRHbOWnulNKUJp706hKrMypx3oAeFgwVnxQJp1
- 7NcBfL3w49o/pLRiGOLUQIQ/mWRC0KCTP8+VfDs1dsu+lXWJju+rDn+BWTwR/+t0mRP2hDyld2Iy+
- Y+3njCB/O24OWRDwUd5m5IiCMsrA2qo8dBfgqnXLAfyzO2XLKOXq0hFkLwNxW1dEVY+Dz3X9mnDRT
- 2VTa9nPxpngzLSATgjGK+7eSuRfEQT3c4w5Fc5pxwzaBcGyASUd1jlsNEB+d8MwZ634P3VQG8TnLz
- W4C0Q8HQ==;
+ bh=6dUT2aqA1jAvoeooAc2ZpehL8Qek8bypoSCOPoN+1y8=; b=O9P3uEZDSbhAxPmFpIlgHjg83i
+ FMzJkqmt2nbJ7Gjjw0Lzr2XfcDpUItAhPTIxfq2Ugm/HOwAxpOMq8VyBl7gyJkFrbcFS5zpPI7xbi
+ GOZtS0TXl+skDQcp3esrKHleiI/XNyoJkAGqrGFSeQ/KFtf51G6mE5h/Lj9B72i+epQyvl00m1LvG
+ a6wFwulnPrvh8gMGF9j8mjEXahKXpnmKPov2c0PTcWxolwJTLFgr5M8jjNQA8g5VjuGzeQ9AwhbGr
+ EMzpvDGZUhhQ6HmmrpJECbQ08YQI56mR5UseCDov+U5I0PCYyC0hlLEA24biynd4ZgJBPFZwVngtb
+ KoQgsyxA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37834)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42702)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1v935W-000000004wH-29yk;
- Wed, 15 Oct 2025 16:06:50 +0100
+ (envelope-from <linux@armlinux.org.uk>) id 1v939e-000000004ww-0mbL;
+ Wed, 15 Oct 2025 16:11:06 +0100
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1v935S-000000002Le-3AO4; Wed, 15 Oct 2025 16:06:46 +0100
-Date: Wed, 15 Oct 2025 16:06:46 +0100
+ id 1v939V-000000002Mf-1caB; Wed, 15 Oct 2025 16:10:57 +0100
+Date: Wed, 15 Oct 2025 16:10:57 +0100
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aO-4hnUINpQ0JORE@shell.armlinux.org.uk>
-References: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
- <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aO-5gVqBV-2Nl7lr@shell.armlinux.org.uk>
+References: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
-X-Mailman-Approved-At: Wed, 15 Oct 2025 15:39:09 +0000
-Cc: =?iso-8859-1?Q?K=F6ry?= Maincent <kory.maincent@bootlin.com>,
- linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Move subsecond
- increment configuration in dedicated helper
+In-Reply-To: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Alexis Lothore <alexis.lothore@bootlin.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 00/14] net: stmmac: phylink PCS
+	conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,27 +87,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 15, 2025 at 12:27:21PM +0200, Maxime Chevallier wrote:
-> +static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
-> +{
-> +	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
+On Wed, Oct 15, 2025 at 03:19:25PM +0100, Russell King (Oracle) wrote:
+> Changes since RFC:
+> - new patch (7) to remove RGMII "pcs" mode
+> - new patch (8) to move reverse "pcs" mode to stmmac_check_pcs_mode()
+> - new patch (9) to simplify the code moved in the previous patch
+> - new patch (10) to rename the confusing hw->ps to something more
+>   understandable.
+> - new patch (11) to shut up inappropriate complaints about
+>   "snps,ps-speed" being invalid.
+> - new patch (13) to add a MAC .pcs_init method, which will only be
+>   called when core has PCS present.
+> - modify patch 14 to use this new pcs_init method.
 
-Just to say that I have patches that get rid of these has_xxx flags for
-the cores, and these changes (and the additional platform glue patches
-that have been posted) will conflict with them.
-
-Given the rate of change in stmmac, at some point we're going to have
-to work out some way of stopping stmmac development to get such an
-invasive cleanup change merged - but with my variability and pressures
-on the time I can spend even submitting patches, I've no idea how that
-will work... I was going to send them right at the start of this
-cycle, but various appointments on Monday and Tuesday this week plus
-work pressures prevented that happening.
-
-So, I decided instead to send out the first stmmac PCS series... which
-means I now need to wait for that to be merged before I can think about
-sending out anything else stmmac-related. (and there's more PCS patches
-to come beyond the 14 I sent today.)
+I've just noticed I sent out RFC v2.. completely forgot about that,
+sorry. This is a subset of RFC v2, but with patches 13 and 14
+reversed.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
