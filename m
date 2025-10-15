@@ -2,58 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D05BDF6CC
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 17:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75FC8BDEF90
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 16:20:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACB5BC5663E;
-	Wed, 15 Oct 2025 15:39:09 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A0D8C56625;
+	Wed, 15 Oct 2025 14:20:18 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B33AFC5661E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82C6DC56622
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 10:27:54 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 1F5D91A13C0;
- Wed, 15 Oct 2025 10:27:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E1B5E606F9;
- Wed, 15 Oct 2025 10:27:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 02430102F22B6; 
- Wed, 15 Oct 2025 12:27:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1760524072; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding:in-reply-to:references;
- bh=QHVnsSy8bd4MBHdkXAoKW/zEg8SUtl8twOZfbMKVdIg=;
- b=XSBuRolCicBkNJm8OH1Xd8R5w3Q8ZF5Tt5gZJzjGi5wmyvKOA7n7zpn+oEpXRd0ZOGotmB
- zVbgUqeZYcrpTXDcm4FUe/M+ZNzceoKZV7HEdOwYruNARjNQGZ+ECPR7veLInMp/bP7sOq
- RtJHttX25uC4rB3OmIiTZyAhFWzJzxH5CIlacffkU2/cLNRu2FVqjlXOuk+Y9BbovwwYe2
- t08dlaBqLA1OkfVVGAWW/Z8oP1J1Allq4tM9ptcGExAeYN64SwQTxWz68ita3Rlw0A0Hxa
- fe21oratbSDiLL7OtW592xBPYSMqecFEnNBVx5yHkO98kdkkWR88GX3rsarHug==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- =?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>
-Date: Wed, 15 Oct 2025 12:27:21 +0200
-Message-ID: <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
-References: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
+ Wed, 15 Oct 2025 14:20:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Cd+vnc5+2R6vO0E42gKoeqL/Lm72sDaXvug1pdMXk+E=; b=bleYCwZ6e9k8KI/AZUcw/0mN5x
+ XDEE8vjEzTMt/+6uSPa63ftpsRMY4htwHlql8pMUz3+0VZozXUAOT4QGKpTq9ehE+hYDvYe7UKWqP
+ WVur47biWXiBt6sotW/N8jLKOnSTG44pE0v2eVLpQn7pqpokXPgo+5L9wm7DTbh3A2a8fCaseTcfY
+ TilXzGcq+cFtkzIlSC0/Sq1vbVEpaK+6FCQ3vle5P5vt4eHebtdYOTnsA8v47tU8Ivf9z0hsShO+i
+ XXSefj6hPUCwC52GpDDetTntyxCgyYqC2KkDIHvDnSfkNW3es1lc+KNIrSx9sqi8jv8N3JAdzjFnB
+ rx0X6IIA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58174)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1v92Lq-000000004dh-3LdE;
+ Wed, 15 Oct 2025 15:19:38 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v92Ld-000000002KU-2IwM; Wed, 15 Oct 2025 15:19:25 +0100
+Date: Wed, 15 Oct 2025 15:19:25 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
-X-Mailman-Approved-At: Wed, 15 Oct 2025 15:39:09 +0000
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Move subsecond
-	increment configuration in dedicated helper
+Content-Disposition: inline
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Alexis Lothore <alexis.lothore@bootlin.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next 00/14] net: stmmac: phylink PCS
+	conversion
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,91 +85,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In preparation for fine/coarse support, let's move the subsecond increment
-and addend configuration in a dedicated helper.
+This series is radical - it takes the brave step of ripping out much of
+the existing PCS support code and throwing it all away.
 
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 48 +++++++++++--------
- 1 file changed, 28 insertions(+), 20 deletions(-)
+I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
+flag with Bartosz Golaszewski, and the conclusion I came to is that
+this is to workaround the breakage that I've been going on about
+concerning the phylink conversion for the last five or six years.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 650d75b73e0b..3f79b61d64b9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -463,6 +463,33 @@ static void stmmac_get_rx_hwtstamp(struct stmmac_priv *priv, struct dma_desc *p,
- 	}
- }
- 
-+static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
-+{
-+	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
-+	u32 sec_inc = 0;
-+	u64 temp = 0;
-+
-+	stmmac_config_hw_tstamping(priv, priv->ptpaddr, priv->systime_flags);
-+
-+	/* program Sub Second Increment reg */
-+	stmmac_config_sub_second_increment(priv, priv->ptpaddr,
-+					   priv->plat->clk_ptp_rate,
-+					   xmac, &sec_inc);
-+	temp = div_u64(1000000000ULL, sec_inc);
-+
-+	/* Store sub second increment for later use */
-+	priv->sub_second_inc = sec_inc;
-+
-+	/* calculate default added value:
-+	 * formula is :
-+	 * addend = (2^32)/freq_div_ratio;
-+	 * where, freq_div_ratio = 1e9ns/sec_inc
-+	 */
-+	temp = (u64)(temp << 32);
-+	priv->default_addend = div_u64(temp, priv->plat->clk_ptp_rate);
-+	stmmac_config_addend(priv, priv->ptpaddr, priv->default_addend);
-+}
-+
- /**
-  *  stmmac_hwtstamp_set - control hardware timestamping.
-  *  @dev: device pointer.
-@@ -696,10 +723,7 @@ static int stmmac_hwtstamp_get(struct net_device *dev,
- static int stmmac_init_tstamp_counter(struct stmmac_priv *priv,
- 				      u32 systime_flags)
- {
--	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
- 	struct timespec64 now;
--	u32 sec_inc = 0;
--	u64 temp = 0;
- 
- 	if (!priv->plat->clk_ptp_rate) {
- 		netdev_err(priv->dev, "Invalid PTP clock rate");
-@@ -709,23 +733,7 @@ static int stmmac_init_tstamp_counter(struct stmmac_priv *priv,
- 	stmmac_config_hw_tstamping(priv, priv->ptpaddr, systime_flags);
- 	priv->systime_flags = systime_flags;
- 
--	/* program Sub Second Increment reg */
--	stmmac_config_sub_second_increment(priv, priv->ptpaddr,
--					   priv->plat->clk_ptp_rate,
--					   xmac, &sec_inc);
--	temp = div_u64(1000000000ULL, sec_inc);
--
--	/* Store sub second increment for later use */
--	priv->sub_second_inc = sec_inc;
--
--	/* calculate default added value:
--	 * formula is :
--	 * addend = (2^32)/freq_div_ratio;
--	 * where, freq_div_ratio = 1e9ns/sec_inc
--	 */
--	temp = (u64)(temp << 32);
--	priv->default_addend = div_u64(temp, priv->plat->clk_ptp_rate);
--	stmmac_config_addend(priv, priv->ptpaddr, priv->default_addend);
-+	stmmac_update_subsecond_increment(priv);
- 
- 	/* initialize system time */
- 	ktime_get_real_ts64(&now);
+The problem is that the stmmac PCS code manipulates the netif carrier
+state, which confuses phylink.
+
+There is a way of testing this out on the Jetson Xavier NX platform as
+the "PCS" code paths can be exercised while in RGMII mode - because
+RGMII also has in-band status and the status register is shared with
+SGMII. Testing this out confirms my long held theory: the interrupt
+handler manipulates the netif carrier state before phylink gets a
+look-in, which means that the mac_link_up() and mac_link_down() methods
+are never called, resulting in the device being non-functional.
+
+Moreover, on dwmac4 cores, ethtool reports incorrect information -
+despite having a full-duplex link, ethtool reports that it is
+half-dupex.
+
+Thus, this code is completely broken - anyone using it will not have
+a functional platform, and thus it doesn't deserve to live any longer,
+especially as it's a thorn in phylink.
+
+Rip all this out, leaving just the bare bones initialisation in place.
+
+However, this is not the last of what's broken. We have this hw->ps
+integer which is really not descriptive, and the DT property from
+which it comes from does little to help understand what's going on.
+Putting all the clues together:
+
+- early configuration of the GMAC configuration register for the
+  speed.
+- setting the SGMII rate adapter layer to take its speed from the
+  GMAC configuration register.
+
+Lastly, setting the transmit enable (TE) bit, which is a typo that puts
+the nail in the coffin of this code. It should be the transmit
+configuration (TC) bit. Given that when the link comes up, phylink
+will call mac_link_up() which will overwrite the speed in the GMAC
+configuration register, the only part of this that is functional is
+changing where the SGMII rate adapter layer gets its speed from,
+which is a boolean.
+
+From what I've found so far, everyone who sets the snps,ps-speed
+property which configures this mode also configures a fixed link,
+so the pre-configuration is unnecessary - the link will come up
+anyway.
+
+So, this series rips that out the preconfiguration as well, and
+replaces hw->ps with a boolean hw->reverse_sgmii_enable flag.
+
+We then move the sole PCS configuration into a phylink_pcs instance,
+which configures the PCS control register in the same way as is done
+during the probe function.
+
+Thus, we end up with much easier and simpler conversion to phylink PCS
+than previous attempts.
+
+Even so, this still results in inband mode always being enabled at the
+moment in the new .pcs_config() method to reflect what the probe
+function was doing. The next stage will be to change that to allow
+phylink to correctly configure the PCS. This needs fixing to allow
+platform glue maintainers who are currently blocked to progress.
+
+Please note, however, that this has not been tested with any SGMII
+platform.
+
+I've tried to get as many people into the Cc list with get_maintainers,
+I hope that's sufficient to get enough eyeballs on this.
+
+Changes since RFC:
+- new patch (7) to remove RGMII "pcs" mode
+- new patch (8) to move reverse "pcs" mode to stmmac_check_pcs_mode()
+- new patch (9) to simplify the code moved in the previous patch
+- new patch (10) to rename the confusing hw->ps to something more
+  understandable.
+- new patch (11) to shut up inappropriate complaints about
+  "snps,ps-speed" being invalid.
+- new patch (13) to add a MAC .pcs_init method, which will only be
+  called when core has PCS present.
+- modify patch 14 to use this new pcs_init method.
+
+Despite getting a couple of responses to the RFC series posted in
+September, I have had nothing testing this on hardware. I have tested
+this on the Jetson Xavier NX, which included trial runs with enabling
+the RGMII "pcs" mode, hence the new patches that rip out this mode. I
+have come to the conclusion that the only way to get stmmac changes
+tested is to get them merged into net-next, thereby forcing people to
+have to run with them... and we'll deal with any fallout later.
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  6 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  6 +-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 65 ++-------------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  3 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 66 ++-------------------
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 25 +-------
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  4 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 68 +---------------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 24 ++++----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 47 +++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 23 ++++++--
+ include/linux/stmmac.h                             |  1 -
+ 15 files changed, 104 insertions(+), 245 deletions(-)
+
 -- 
-2.49.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
