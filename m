@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46CD6BE0AFB
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 22:47:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C975BE0B10
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 22:48:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03F32C5716D;
-	Wed, 15 Oct 2025 20:47:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42132C5716E;
+	Wed, 15 Oct 2025 20:48:49 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C60ADC5716A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3057EC5716C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 20:47:25 +0000 (UTC)
+ Wed, 15 Oct 2025 20:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=o17vOS8hSXdTgpGJRLHlfCKxxyXXgIV5kt7Ks+sfQXw=; b=sKpucV16yshgSqr7P4tWlrQNd6
- h+AedhHrLnXnX/wpcG1EmtEtTSqnG4+kPszdyAABkyAN3moO+F5GMdMrthN//xGRh0TuamVv7Z/0T
- +IX+GTwIcqK5uyqv2bGU+98Lsz/a+tQJ2LU38TCOcBSb+1BlvAw0XonlBfWSCvoKZgjE=;
+ bh=fpT7/qpOc901ywWUApzY2WvHcwUb6gU4BpI3odiblaU=; b=PMWRDZzESdsJM3zKSY4rlCM7K6
+ KUtM/pAOfEKANJQ1dhoZMWvG8UYO2yUW8hobk8Mowd0+67A3CTwkO9UDppdsvmh6BeK/W37VWJtOf
+ E35liXO/YCIA+F1VGgibqHeDH2lidAoFz48tNQGTqZzE/ugTVJqLoTHLcLZhm3sgv4sI=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1v98Or-00B4ab-Hq; Wed, 15 Oct 2025 22:47:09 +0200
-Date: Wed, 15 Oct 2025 22:47:09 +0200
+ id 1v98QA-00B4cN-Jk; Wed, 15 Oct 2025 22:48:30 +0200
+Date: Wed, 15 Oct 2025 22:48:30 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <807939bb-c143-407e-922c-131c711edd2b@lunn.ch>
+Message-ID: <2bd68727-79f2-4073-bff0-256499126837@lunn.ch>
 References: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
- <E1v92MO-0000000AmGP-2hFV@rmk-PC.armlinux.org.uk>
+ <E1v92MT-0000000AmGV-3HvK@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1v92MO-0000000AmGP-2hFV@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1v92MT-0000000AmGV-3HvK@rmk-PC.armlinux.org.uk>
 Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
@@ -62,8 +62,8 @@ Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 03/14] net: stmmac: remove
- SGMII/RGMII/SMII interrupt handling
+Subject: Re: [Linux-stm32] [PATCH net-next 04/14] net: stmmac: remove PCS
+ "mode" pause handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,11 +80,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 15, 2025 at 03:20:12PM +0100, Russell King (Oracle) wrote:
-> Now that the only use for the interrupt is to clear it and increment a
-> statistic counter (which is not that relevant anymore) remove all this
-> code and ensure that the interrupt remains disabled to avoid a stuck
-> interrupt.
+On Wed, Oct 15, 2025 at 03:20:17PM +0100, Russell King (Oracle) wrote:
+> Remove the "we always autoneg pause" forcing when the stmmac driver
+> decides that a "PCS" is present, which blocks passing the ethtool
+> pause calls to phylink when using SGMII mode.
+> 
+> This prevents the pause results being reported when a PHY is attached
+> using SGMII mode, or the pause settings being changed in SGMII mode.
+> There is no reason to prevent this.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
