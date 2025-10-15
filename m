@@ -2,52 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CC0BDF197
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 16:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBC2BDF6CD
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Oct 2025 17:39:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D7B0C56639;
-	Wed, 15 Oct 2025 14:36:01 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C93C2C57163;
+	Wed, 15 Oct 2025 15:39:09 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 552BEC56638
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F875C5663D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Oct 2025 14:36:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 08EC644471;
- Wed, 15 Oct 2025 14:35:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A66C4CEF8;
- Wed, 15 Oct 2025 14:35:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760538958;
- bh=CQlnQCZTcQjCMg9gXM5j/h/j9QBEe/QKt7u0yZHQbQE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V1u6Wi/bA8yzs2VzytUSKwlOdJY627sho9aV934PlC9av+KzwXYa2BrrFU9y6Ptwo
- J+TUilM0Y8GtatWIY8ATBQIDQwY9kOqNlj344/MlQSTKbJywS1GziAxbxbP9w61X+9
- A3TSqCq6Yo5Tf/TYyPlYvL0pajqjSFWDamK27jsbDrPDxmEqidk9uRAslM99epdfbh
- dERs70VvRyfwG7Lez+yG8I2jkm1DQgffLXYES6OtZBxrEGN9KBqYSIg0MKAAG1/igN
- GjfCspVtrmiKyau0OERse5FwxKji55mnzZwUn3IZ5zfNdpuPYNhdc8/qQS79azJjVh
- Pxjs2x59J2QEQ==
-Date: Wed, 15 Oct 2025 15:35:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Antonio Borneo <antonio.borneo@foss.st.com>
-Message-ID: <20251015-headstand-impulse-95aa736e7633@spud>
-References: <20251014140451.1009969-1-antonio.borneo@foss.st.com>
- <20251014140451.1009969-10-antonio.borneo@foss.st.com>
- <20251014-affection-voltage-8b1764273a06@spud>
- <b4eca95eaa0e6f27fc07479d5eab2131d20eb270.camel@foss.st.com>
+ Wed, 15 Oct 2025 15:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=i8WH71db750jps9WxI3z1NEUJwkE3VXRhtPG7iUgTWY=; b=04hQz4eK43+AW/wKb5wdQbpX7W
+ 9qjxEPcOHoILOsxV1PI8IytNEk84VUOiE3we1jZwRHbOWnulNKUJp706hKrMypx3oAeFgwVnxQJp1
+ 7NcBfL3w49o/pLRiGOLUQIQ/mWRC0KCTP8+VfDs1dsu+lXWJju+rDn+BWTwR/+t0mRP2hDyld2Iy+
+ Y+3njCB/O24OWRDwUd5m5IiCMsrA2qo8dBfgqnXLAfyzO2XLKOXq0hFkLwNxW1dEVY+Dz3X9mnDRT
+ 2VTa9nPxpngzLSATgjGK+7eSuRfEQT3c4w5Fc5pxwzaBcGyASUd1jlsNEB+d8MwZ634P3VQG8TnLz
+ W4C0Q8HQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37834)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1v935W-000000004wH-29yk;
+ Wed, 15 Oct 2025 16:06:50 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1v935S-000000002Le-3AO4; Wed, 15 Oct 2025 16:06:46 +0100
+Date: Wed, 15 Oct 2025 16:06:46 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <aO-4hnUINpQ0JORE@shell.armlinux.org.uk>
+References: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
+ <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
-In-Reply-To: <b4eca95eaa0e6f27fc07479d5eab2131d20eb270.camel@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v3 09/10] dt-bindings: pinctrl: stm32:
- Support I/O synchronization parameters
+Content-Disposition: inline
+In-Reply-To: <20251015102725.1297985-2-maxime.chevallier@bootlin.com>
+X-Mailman-Approved-At: Wed, 15 Oct 2025 15:39:09 +0000
+Cc: =?iso-8859-1?Q?K=F6ry?= Maincent <kory.maincent@bootlin.com>,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Move subsecond
+ increment configuration in dedicated helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,82 +66,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5465064306502082269=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Oct 15, 2025 at 12:27:21PM +0200, Maxime Chevallier wrote:
+> +static void stmmac_update_subsecond_increment(struct stmmac_priv *priv)
+> +{
+> +	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
 
---===============5465064306502082269==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RrT1Ouiw7gUB6N03"
-Content-Disposition: inline
+Just to say that I have patches that get rid of these has_xxx flags for
+the cores, and these changes (and the additional platform glue patches
+that have been posted) will conflict with them.
 
+Given the rate of change in stmmac, at some point we're going to have
+to work out some way of stopping stmmac development to get such an
+invasive cleanup change merged - but with my variability and pressures
+on the time I can spend even submitting patches, I've no idea how that
+will work... I was going to send them right at the start of this
+cycle, but various appointments on Monday and Tuesday this week plus
+work pressures prevented that happening.
 
---RrT1Ouiw7gUB6N03
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+So, I decided instead to send out the first stmmac PCS series... which
+means I now need to wait for that to be merged before I can think about
+sending out anything else stmmac-related. (and there's more PCS patches
+to come beyond the 14 I sent today.)
 
-On Wed, Oct 15, 2025 at 02:56:56PM +0200, Antonio Borneo wrote:
-> On Tue, 2025-10-14 at 19:10 +0100, Conor Dooley wrote:
-> > On Tue, Oct 14, 2025 at 04:04:50PM +0200, Antonio Borneo wrote:
-
-> >=20
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 st,io-sync:
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 description: |
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 IO synchronization through r=
-e-sampling or inversion
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0: data or clock GPIO pass-t=
-hrough
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 1: clock GPIO inverted
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 2: data GPIO re-sampled on c=
-lock rising edge
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 3: data GPIO re-sampled on c=
-lock falling edge
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 4: data GPIO re-sampled on b=
-oth clock edges
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 $ref: /schemas/types.yaml#/definit=
-ions/uint32
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 enum: [0, 1, 2, 3, 4]
-> >=20
-> > I really don't like this kinds of properties that lead to "random"
-> > numbers in devicetree. I'd much rather see a string list here.
->=20
-> Agree!
-> I just need to figure out some reasonably short but still meaningful
-> string for them.
-
-pass-through
-inverted
-rising-edge
-falling-edge
-both-edges
-
-perhaps?
-
---RrT1Ouiw7gUB6N03
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaO+xRgAKCRB4tDGHoIJi
-0lfAAP9Wmew99Hvt1yhCWck5hvyNjlO7jQxH+64gBF5XK6BLXgEAjBA58Y45RCl0
-7cO7Pj2cMcMbSBMMf8uhGjNZlOnz5Qs=
-=XBKe
------END PGP SIGNATURE-----
-
---RrT1Ouiw7gUB6N03--
-
---===============5465064306502082269==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5465064306502082269==--
