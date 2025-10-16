@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542AABE3F29
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 16:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F322BE3F2C
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 16:38:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A05CC57B50;
-	Thu, 16 Oct 2025 14:38:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FC9DC57B4F;
+	Thu, 16 Oct 2025 14:38:35 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 316D2C57B4E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 076D5C57B4B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Oct 2025 14:38:32 +0000 (UTC)
+ Thu, 16 Oct 2025 14:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=i9uB3wo1/Ka052hv6IRV/tq3G7wM2y544AzIOkRq52E=; b=X3qhtgk0qmBrS0zchpOvcfFfOh
- 7wUbEWKf58owsXa0lwvAPcLzZo2LgFKNXu+h4kd4zJepDM75L35I0FZMmNsfA7ABYJCLpTlIF9m/9
- nW9sw/nED2zowLOORUXyE+orsFDR+5EasM76FuAifl3hD2lE+6fe2wOcku3yqzYYijGsflY+DBnCd
- xqhffEkbH8wYkZPbPO/YYuX9s0jA6M5DqtiRJa1jJQKBFrKUQaKeZ5PtX2HnkatBApWR2Yv9SgYvH
- ggM2OUONojKNK4E+WGNkv8x9VQSGDV9mxpPFM6hygaOvlAUIoBMHlY4hxdJlvdq/nGBNGcDQI702D
- gy39ATGw==;
+ bh=zKZGKGy/Hhc0gUrzCRXsRGfkbT59NKMuOwnA6gRxZjc=; b=CjXOylw28mx9iSDQpfU74yDKsJ
+ XWP3yFEZ+aev9rG07hI86dRj71356k7+B8UGfdKSXHiD6P5ni3RPxUpWe9Mtnc8Jcw3lAu+eFBKQL
+ c8qNNH6QnftrxCDEiemSWfM8taGRu0y0ec/dmmWORLdsOoVApJIF3bjt8tnL6RgQk5fRlRQjXA0x5
+ UUakKRuesSOR6kHUD1Aq74UHjyvs5zcvk2hmiT5Imw2zcWQ10thpDf8Aer8jCK0RbyMV9nnri7CWG
+ k7y67VyswX9RSrQLkhVPo2IeHSIb38MFr0/MBHlqgmetkhjG3nerqY4UwUpT7iO3hgFlgiRL7zN+R
+ jN/8I+Mw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44434 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53902 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1v9P6e-000000006RQ-1rjN;
+ (envelope-from <rmk@armlinux.org.uk>) id 1v9P6e-000000006Rb-47Xm;
  Thu, 16 Oct 2025 15:37:29 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1v9P6T-0000000Aoll-0Ify; Thu, 16 Oct 2025 15:37:17 +0100
+ id 1v9P6Y-0000000Aolr-0vLH; Thu, 16 Oct 2025 15:37:22 +0100
 In-Reply-To: <aPECqg0vZGnBFCbh@shell.armlinux.org.uk>
 References: <aPECqg0vZGnBFCbh@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1v9P6T-0000000Aoll-0Ify@rmk-PC.armlinux.org.uk>
-Date: Thu, 16 Oct 2025 15:37:17 +0100
+Message-Id: <E1v9P6Y-0000000Aolr-0vLH@rmk-PC.armlinux.org.uk>
+Date: Thu, 16 Oct 2025 15:37:22 +0100
 Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
@@ -69,8 +69,8 @@ Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>,
  "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next v2 07/14] net: stmmac: remove RGMII
-	"pcs" mode
+Subject: [Linux-stm32] [PATCH net-next v2 08/14] net: stmmac: move
+ reverse-"pcs" mode setup to stmmac_check_pcs_mode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,59 +87,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove the RGMII "pcs" code in stmmac_check_pcs_mode() due to:
+The broken reverse-mode, selected by snps,ps-speed, is configured when
+the platform provides a valid port speed and a PCS is being used.
 
-1) This should never have been conditional on a PCS being present, as
-   when a core is synthesised using only RGMII, the PCS won't be present
-   and priv->dma_cap.pcs will be false. Only multi-interface cores which
-   have a PCS present would have detected RGMII.
+Both these remain constant after the driver has probed, so the software
+state doesn't need to be re-initialised each time stmmac_hw_setup() is
+called (which is called at open and resume time.)
 
-2) STMMAC_PCS_RGMII has no effect since the broken netif_carrier and
-   ethtool code was removed.
+Move the software setup of reverse-mode to stmmac_check_pcs_mode()
+which is called from the driver probe function.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h      |  1 -
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 14 +++-----------
- 2 files changed, 3 insertions(+), 12 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 26 +++++++++----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 33aeac5666f4..ed5e207ffdba 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -270,7 +270,6 @@ struct stmmac_safety_stats {
- #define FLOW_AUTO	(FLOW_TX | FLOW_RX)
- 
- /* PCS defines */
--#define STMMAC_PCS_RGMII	(1 << 0)
- #define STMMAC_PCS_SGMII	(1 << 1)
- 
- #define SF_DMA_MODE 1		/* DMA STORE-AND-FORWARD Operation Mode */
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6252e30ff82d..d440b1c2b7ff 100644
+index d440b1c2b7ff..013a2f3684c7 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1087,17 +1087,9 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
- {
- 	int interface = priv->plat->phy_interface;
- 
--	if (priv->dma_cap.pcs) {
--		if ((interface == PHY_INTERFACE_MODE_RGMII) ||
--		    (interface == PHY_INTERFACE_MODE_RGMII_ID) ||
--		    (interface == PHY_INTERFACE_MODE_RGMII_RXID) ||
--		    (interface == PHY_INTERFACE_MODE_RGMII_TXID)) {
--			netdev_dbg(priv->dev, "PCS RGMII support enabled\n");
--			priv->hw->pcs = STMMAC_PCS_RGMII;
--		} else if (interface == PHY_INTERFACE_MODE_SGMII) {
--			netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
--			priv->hw->pcs = STMMAC_PCS_SGMII;
--		}
-+	if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII) {
-+		netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
-+		priv->hw->pcs = STMMAC_PCS_SGMII;
+@@ -1091,6 +1091,19 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
+ 		netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
+ 		priv->hw->pcs = STMMAC_PCS_SGMII;
  	}
++
++	/* PS and related bits will be programmed according to the speed */
++	if (priv->hw->pcs) {
++		int speed = priv->plat->mac_port_sel_speed;
++
++		if ((speed == SPEED_10) || (speed == SPEED_100) ||
++		    (speed == SPEED_1000)) {
++			priv->hw->ps = speed;
++		} else {
++			dev_warn(priv->device, "invalid port speed\n");
++			priv->hw->ps = 0;
++		}
++	}
  }
+ 
+ /**
+@@ -3435,19 +3448,6 @@ static int stmmac_hw_setup(struct net_device *dev)
+ 	stmmac_set_umac_addr(priv, priv->hw, dev->dev_addr, 0);
+ 	phylink_rx_clk_stop_unblock(priv->phylink);
+ 
+-	/* PS and related bits will be programmed according to the speed */
+-	if (priv->hw->pcs) {
+-		int speed = priv->plat->mac_port_sel_speed;
+-
+-		if ((speed == SPEED_10) || (speed == SPEED_100) ||
+-		    (speed == SPEED_1000)) {
+-			priv->hw->ps = speed;
+-		} else {
+-			dev_warn(priv->device, "invalid port speed\n");
+-			priv->hw->ps = 0;
+-		}
+-	}
+-
+ 	/* Initialize the MAC Core */
+ 	stmmac_core_init(priv, priv->hw, dev);
  
 -- 
 2.47.3
