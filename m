@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EBD3BE1DCA
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 09:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACF5BE1E53
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 09:22:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C92EC57194;
-	Thu, 16 Oct 2025 07:06:30 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 243BFC57194;
+	Thu, 16 Oct 2025 07:22:57 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D11B6C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D764DC57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Oct 2025 07:06:29 +0000 (UTC)
+ Thu, 16 Oct 2025 07:22:55 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 4540C4E410F1;
- Thu, 16 Oct 2025 07:06:29 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 740D11A1410;
+ Thu, 16 Oct 2025 07:22:54 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 010036062C;
- Thu, 16 Oct 2025 07:06:29 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3F1A56062C;
+ Thu, 16 Oct 2025 07:22:54 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E3250102F229A; 
- Thu, 16 Oct 2025 09:06:21 +0200 (CEST)
+ with ESMTPSA id 90A44102F22EB; 
+ Thu, 16 Oct 2025 09:22:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1760598388; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1760599373; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=ON2SCtQiP5UISY9OlG9TMamQzrttCF5L3Gqd7rBZXq4=;
- b=SnN1ms9YDbQxlYIHv0+nQCh4k1vRIopL+ldN2EOvNg/qox1nb7+h8HSS1A/qQJGk9/ygQ7
- VIAM1M9BjOm2tYnGe82+HmTAOnsecvqmvkOFC5Fm0VNbUXMiyN4nWH6DDCi2FlqsKZIlIF
- 4JCentfpIvDeohQY5cW0gn3jTanCLLpXXCtJfdwiFNecEdnkxv8bxHH86d6NymNsjSuGJN
- hXlrRr9j6NGkSTkJiB0ORYAYGE9jWqEjGbFRHd4WW9OTM45GDe9JdihKqo6GfEIHU4wJPC
- y+gyzNJVoABux5QGy8DNSTHGrJWsVwFact7d9h6WsDkIODhNEErsjM5Oigp+Vg==
-Message-ID: <ae07b0b6-f5d2-416d-b861-412888fda229@bootlin.com>
-Date: Thu, 16 Oct 2025 09:06:20 +0200
+ bh=7zOUzik5MyvROjRAqeUBJc8fQpkR6r5Z9zOCmYjzSrI=;
+ b=vpGWNdROx4mJa+kYUKCWf/ZKPABe5NrTWaC34G6w96sxkDyFCDXq6sg5uKoVPB7Djx8+Bv
+ eZgWrS6i7SEr26izkqJKdZEgm6kJ7yeGzl07WTlAlhYdB/GpuvNWdURxhefN2t2s8pEG/U
+ vhSdK+mePRkg12GEg3pgX/Iywy1BQhOW1wF3atE8/Lr51xWIRTsnyWksUrRaUbNJufoP1x
+ 9ixcsKgT/u6qgRmcmAHAxNIrdDTdsWkW1usH+Od3ORZMb2lvl7nh68Jy3F1s/SAcjW999C
+ bTO3HzVg9oK0na+KnHrtjsH9Zk4UOzRnGYAimcwJ+mR2esioHsRLRKgq5YAY+Q==
+Message-ID: <c1b019e6-1463-400f-b421-91ae8fa63c3b@bootlin.com>
+Date: Thu, 16 Oct 2025 09:22:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
 References: <aO_HIwT_YvxkDS8D@shell.armlinux.org.uk>
- <E1v945O-0000000AmeP-1k0t@rmk-PC.armlinux.org.uk>
+ <E1v945T-0000000AmeV-2BvU@rmk-PC.armlinux.org.uk>
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <E1v945O-0000000AmeP-1k0t@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1v945T-0000000AmeV-2BvU@rmk-PC.armlinux.org.uk>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: place
- .mac_finish() method more appropriately
+Subject: Re: [Linux-stm32] [PATCH net-next 3/5] net: stmmac: avoid PHY speed
+ change when configuring MTU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,73 +67,75 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-
 On 15/10/2025 18:10, Russell King (Oracle) wrote:
-> Place the .mac_finish() initialiser and implementation after the
-> .mac_config() initialiser and method which reflects the order that
-> they appear in struct phylink_mac_ops, and the order in which they
-> are called. This keeps logically similar code together.
+> There is no need to do the speed-down, speed-up dance when changing
+> the MTU as there is little power saving that can be gained from such
+> a brief interval between these, and the autonegotiation they cause
+> takes much longer.
+> 
+> Move the calls to phylink_speed_up() and phylink_speed_down() into
+> stmmac_open() and stmmac_release() respectively, reducing the work
+> done in the __-variants of these functions.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
 Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
 > ---
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 26 +++++++++----------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 ++++++++++---------
+>  1 file changed, 10 insertions(+), 9 deletions(-)
 > 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 650d75b73e0b..3728afa701c6 100644
+> index 3728afa701c6..500cfd19e6b5 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -859,6 +859,18 @@ static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
->  	/* Nothing to do, xpcs_config() handles everything */
->  }
+> @@ -3963,8 +3963,6 @@ static int __stmmac_open(struct net_device *dev,
+>  	stmmac_init_coalesce(priv);
 >  
-> +static int stmmac_mac_finish(struct phylink_config *config, unsigned int mode,
-> +			     phy_interface_t interface)
-> +{
-> +	struct net_device *ndev = to_net_dev(config->dev);
-> +	struct stmmac_priv *priv = netdev_priv(ndev);
+>  	phylink_start(priv->phylink);
+> -	/* We may have called phylink_speed_down before */
+> -	phylink_speed_up(priv->phylink);
+>  
+>  	ret = stmmac_request_irq(dev);
+>  	if (ret)
+> @@ -4015,6 +4013,9 @@ static int stmmac_open(struct net_device *dev)
+>  
+>  	kfree(dma_conf);
+>  
+> +	/* We may have called phylink_speed_down before */
+> +	phylink_speed_up(priv->phylink);
 > +
-> +	if (priv->plat->mac_finish)
-> +		priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode, interface);
-> +
-> +	return 0;
-> +}
-> +
->  static void stmmac_mac_link_down(struct phylink_config *config,
->  				 unsigned int mode, phy_interface_t interface)
+>  	return ret;
+>  
+>  err_disconnect_phy:
+> @@ -4032,13 +4033,6 @@ static void __stmmac_release(struct net_device *dev)
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+>  	u32 chan;
+>  
+> -	/* If the PHY or MAC has WoL enabled, then the PHY will not be
+> -	 * suspended when phylink_stop() is called below. Set the PHY
+> -	 * to its slowest speed to save power.
+> -	 */
+> -	if (device_may_wakeup(priv->device))
+> -		phylink_speed_down(priv->phylink, false);
+> -
+>  	/* Stop and disconnect the PHY */
+>  	phylink_stop(priv->phylink);
+>  
+> @@ -4078,6 +4072,13 @@ static int stmmac_release(struct net_device *dev)
 >  {
-> @@ -1053,27 +1065,15 @@ static int stmmac_mac_enable_tx_lpi(struct phylink_config *config, u32 timer,
->  	return 0;
->  }
+>  	struct stmmac_priv *priv = netdev_priv(dev);
 >  
-> -static int stmmac_mac_finish(struct phylink_config *config, unsigned int mode,
-> -			     phy_interface_t interface)
-> -{
-> -	struct net_device *ndev = to_net_dev(config->dev);
-> -	struct stmmac_priv *priv = netdev_priv(ndev);
-> -
-> -	if (priv->plat->mac_finish)
-> -		priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode, interface);
-> -
-> -	return 0;
-> -}
-> -
->  static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
->  	.mac_get_caps = stmmac_mac_get_caps,
->  	.mac_select_pcs = stmmac_mac_select_pcs,
->  	.mac_config = stmmac_mac_config,
-> +	.mac_finish = stmmac_mac_finish,
->  	.mac_link_down = stmmac_mac_link_down,
->  	.mac_link_up = stmmac_mac_link_up,
->  	.mac_disable_tx_lpi = stmmac_mac_disable_tx_lpi,
->  	.mac_enable_tx_lpi = stmmac_mac_enable_tx_lpi,
-> -	.mac_finish = stmmac_mac_finish,
->  };
+> +	/* If the PHY or MAC has WoL enabled, then the PHY will not be
+> +	 * suspended when phylink_stop() is called below. Set the PHY
+> +	 * to its slowest speed to save power.
+> +	 */
+> +	if (device_may_wakeup(priv->device))
+> +		phylink_speed_down(priv->phylink, false);
+> +
+>  	__stmmac_release(dev);
 >  
->  /**
+>  	phylink_disconnect_phy(priv->phylink);
 
 _______________________________________________
 Linux-stm32 mailing list
