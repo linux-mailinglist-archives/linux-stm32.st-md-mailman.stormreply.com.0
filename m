@@ -2,48 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1DFBE36BE
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 14:36:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29C82BE3952
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Oct 2025 15:04:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05607C57A49;
-	Thu, 16 Oct 2025 12:36:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AA54C57A4B;
+	Thu, 16 Oct 2025 13:04:01 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29774C57A43
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6859C57A45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Oct 2025 12:36:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A348943394;
- Thu, 16 Oct 2025 12:36:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7D2C113D0;
- Thu, 16 Oct 2025 12:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760618214;
- bh=rWo5L43Wc3sm+4xT2/uBYLFVmx0bMIQ/PWAvIzOWufU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZwiTDTK0gLGZXQE1l0ADMryUJjR9GTZMa2eNNVrsEHwO61+qcOveY91BrUHlsy3jD
- bs+Os5OmP32KJuLwI3/cCeT3bu4jorr2kobS7TZnEeRdfqM6hyb5cBk4k0lq+OlpX+
- 2vFK9Ss54Cs765ahcx19wfI7VfnAIKuuqZaZOE71YajqeI6PgkU1TdKDrj5ghfT/Vb
- PnBn4wvJAFlyVQP1MYmsY9zv+uFM73Y+OyQJ50fxehDvxSqRega70Utmw+S3sCYTkr
- WDZzLC+KSXxVsxxeLkEXIHi6VlHruA397fKOorRpSTFoEm3hLJJas9gj123k/GKor+
- 5dvPxGnSOqlyA==
-Date: Thu, 16 Oct 2025 13:36:48 +0100
-From: Simon Horman <horms@kernel.org>
-To: Lizhe <sensor1010@163.com>
-Message-ID: <aPDm4OMiM7Ug9rDf@horms.kernel.org>
-References: <20251015051446.2677-1-sensor1010@163.com>
+ Thu, 16 Oct 2025 13:03:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=hEzblyk9u98l/gjdOs+hCikkFBBpZAzvwctGXm8ePsI=; b=PDabEoDQxFgSUlnnqDDzZMA5ZQ
+ oiR4IPX5EusfCnp1APqs6msf2XGlSLmsIRKIA0AOO1fj2n4H1qcamSp7s3932RT+uAk6xnvhlJNvL
+ HI32EYEzLF4aPtIiQ338o/pKpGAYu9xPHlh4IyqhBx9O+6/igVNGRgcNQauY/QDLtls8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1v9Ndm-00B9Ro-FP; Thu, 16 Oct 2025 15:03:34 +0200
+Date: Thu, 16 Oct 2025 15:03:34 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <6545b453-e99e-4f44-a206-ef14deb7f96a@lunn.ch>
+References: <aO-tbQCVu47R3izM@shell.armlinux.org.uk>
+ <E1v92N3-0000000AmHQ-4Bm2@rmk-PC.armlinux.org.uk>
+ <15ea57e0-d127-4722-b752-4989d5a443c0@lunn.ch>
+ <aPAWoDGVgeRFV95b@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251015051446.2677-1-sensor1010@163.com>
-Cc: linux-kernel@vger.kernel.org, jonas@kwiboo.se, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, chaoyi.chen@rock-chips.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- david.wu@rock-chips.com, kuba@kernel.org, pabeni@redhat.com,
- rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: dwmac-rk: No need to check
- the return value of phy_power_on()
+In-Reply-To: <aPAWoDGVgeRFV95b@shell.armlinux.org.uk>
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Yu-Chun Lin <eleanor15x@gmail.com>,
+ Furong Xu <0x1207@gmail.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
+ Abhishek Chauhan <quic_abchauha@quicinc.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>, linux-arm-msm@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Alexis Lothore <alexis.lothore@bootlin.com>,
+ Drew Fustini <dfustini@tenstorrent.com>, linux-arm-kernel@lists.infradead.org,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 11/14] net: stmmac: do not
+ require snps, ps-speed for SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,72 +82,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 14, 2025 at 10:14:46PM -0700, Lizhe wrote:
-> 'phy_power_on' is a local scope one within the driver, since the
-> return value of the phy_power_on() function is always 0, checking
-> its return value is redundant.
-> 
-> the function name 'phy_power_on()' conflicts with the existing
-> phy_power_on() function in the PHY subsystem. a suitable alternative
-> name would be rk_phy_power_set(), particularly since when the
-> second argument is false, this function actually powers off the PHY
+> I don't at present, and I'm not sure what the point of updating it
+> would actually be, because this is another thing that's just broken.
 
-This is two changes. I would lean towards splitting it into
-two patches (in a single patch-set).
+> Hence, I would like this property a slow and painful^h^h^hfree death.
+> Maybe mark the property deprecated, and remove all explanation of it
+> apart from stating that it's obsolete after this patch series has
+> been merged and we've proven that it's never been useful.
 
-> 
-> Signed-off-by: Lizhe <sensor1010@163.com>
+And this is what i was thinking. At least mark it deprecated. If you
+want to remove the documentation late, i'm fine with that as well.
 
-Also, in future, please wait 24h between posting revisions of a patchset.
-And note revisions in the subject, like this:
-
-  Subject: [PATCH net-next v2] ...
-
-https://docs.kernel.org/process/maintainer-netdev.html
-
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 19 +++++--------------
->  1 file changed, 5 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 51ea0caf16c1..ac3324430b2d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1461,23 +1461,18 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
->  	return 0;
->  }
->  
-> -static int phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
-> +static void rk_phy_power_set(struct rk_priv_data *bsp_priv, bool enable)
->  {
->  	struct regulator *ldo = bsp_priv->regulator;
->  	struct device *dev = bsp_priv->dev;
-> -	int ret;
->  
->  	if (enable) {
-> -		ret = regulator_enable(ldo);
-> -		if (ret)
-> +		if (regulator_enable(ldo))
->  			dev_err(dev, "fail to enable phy-supply\n");
->  	} else {
-> -		ret = regulator_disable(ldo);
-> -		if (ret)
-> +		if (regulator_disable(ldo))
->  			dev_err(dev, "fail to disable phy-supply\n");
-
-The 'ret' changes above don't relate to the patch description.
-I'd leave this be. But if you really want to go this way
-I think it would be a separate patch.
-
->  	}
-> -
-> -	return 0;
->  }
->  
->  static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
-
--- 
-pw-bot: changes-requested
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
