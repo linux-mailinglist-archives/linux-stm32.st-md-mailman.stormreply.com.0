@@ -2,86 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE003BE90E4
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 15:50:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550A5BEA58A
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 17:58:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C984C597BC;
-	Fri, 17 Oct 2025 13:50:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD8E2C597B1;
+	Fri, 17 Oct 2025 15:58:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64815C597AA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EFECC597A8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 13:50:10 +0000 (UTC)
+ Fri, 17 Oct 2025 15:58:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D4834B446;
- Fri, 17 Oct 2025 13:50:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC21C19422;
- Fri, 17 Oct 2025 13:50:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1DBD064767;
+ Fri, 17 Oct 2025 15:58:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687B5C4CEE7;
+ Fri, 17 Oct 2025 15:58:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760709009;
- bh=aJ1FeCzYiHnuirC7SjoyZ/906lDvAeKCgeUR/M/OHDA=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=QQvl9e40eoJIz5OjPU38kmBnM8TABl/ks1uGA0/Mhxs7sVliFqw8W1LB50FVBJdKi
- bGf6SNHiQ88bIg7HeKY30IT1f9Xcp5Tw2VAZcxDk1ygRl673ogyf5L3c4fxHgrUv2z
- 07TRdIQHMElduF3J7/HcjTst+VJJcuKv7p6HT+Ps=
-To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
-	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
-	akpm@linux-foundation.org, alexander.deucher@amd.com,
-	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
-	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
-	arnd@kernel.org, artur.paszkiewicz@intel.com, axboe@kernel.dk,
-	bp@alien8.de, brian.starkey@arm.com, bvanassche@acm.org,
-	chao@kernel.org, christian.koenig@amd.com, clm@fb.com,
-	coreteam@netfilter.org, dan.carpenter@linaro.org, daniel@ffwll.ch,
-	dave.hansen@linux.intel.com, davem@davemloft.net,
-	david.laight@aculab.com, dm-devel@redhat.com,
-	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
-	dsterba@suse.com, dushistov@mail.ru, evan.quan@amd.com,
-	farbere@amazon.com, fery@cypress.com,
-	freedreno@lists.freedesktop.org, fw@strlen.de,
-	gregkh@linuxfoundation.org, harry.wentland@amd.com,
-	hch@infradead.org, hdegoede@redhat.com, herve.codina@bootlin.com,
-	hpa@zytor.com, intel-linux-scu@intel.com, jack@suse.com,
-	james.morse@arm.com, james.qian.wang@arm.com, jdelvare@suse.com,
-	jdike@addtoit.com, jejb@linux.ibm.com, jmaloy@redhat.com,
-	joabreu@synopsys.com, josef@toxicpanda.com, kadlec@netfilter.org,
-	kbusch@kernel.org, keescook@chromium.org, kuba@kernel.org,
-	kuznet@ms2.inr.ac.ru, linux-arm-kernel@lists.infradead.org,
-	linux-erofs@lists.ozlabs.org, linux-mm@kvack.org,
-	linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-um@lists.infradead.org, linux@armlinux.org.uk,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
-	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
-	luto@kernel.org, maarten.lankhorst@linux.intel.com,
-	malattia@linux.it, martin.petersen@oracle.com, mchehab@kernel.org,
-	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
-	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
-	mjguzik@gmail.com, mripard@kernel.org, nathan@kernel.org,
-	ndesaulniers@google.com, ngupta@vflare.org, pablo@netfilter.org,
-	pedro.falcato@gmail.com, peppe.cavallaro@st.com,
-	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
-	rajur@chels.st-md-mailman.stormreply.com,
-	io.com@stm-ict-prod-mailman-01.stormreply.prv, richard@nod.at,
-	robdclark@gmail.com, rostedt@goodmis.org, rric@kernel.org,
-	ruanjinjie@huawei.com, sakari.ailus@linux.intel.com,
-	sashal@kernel.org, sean@poorly.run, sergey.senozhatsky@gmail.com,
-	snitzer@redhat.com, sunpeng.li@amd.com, tglx@linutronix.de,
-	tipc-discussion@lists.sourceforge.net, tony.luck@intel.com,
-	tytso@mit.edu, tzimmermann@suse.de, willy@infradead.org,
-	x86@kernel.org, xiang@kernel.org, ying.xue@windriver.com,
-	yoshfuji@linux-ipv6.org
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 15:48:34 +0200
-In-Reply-To: <20251017090519.46992-25-farbere@amazon.com>
-Message-ID: <2025101734-evaporate-tipper-a41f@gregkh>
+ s=korg; t=1760716713;
+ bh=20X28MMOWSoptgGAWTUrviJnQniEpl6Ktq66BRGKH/M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FLtxIBv7SZeCQWvR3ANCLmaMyydymZnc8EmPjl/1wQ2ZU6GZiD2nKCaUbGU/mGLlp
+ fTOdia6A6ekGANEzH++1tbYBhBm/NR7Jy2B8blUuCuIxDXrSTaYf19VuAHrRtgTE73
+ ZyIsy6hsoafgxjCLHqBFDNZjVm7M30+2G2ZqFt0Y=
+Date: Fri, 17 Oct 2025 17:03:02 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Eliav Farber <farbere@amazon.com>
+Message-ID: <2025101704-rumble-chatroom-60b5@gregkh>
+References: <20251017090519.46992-1-farbere@amazon.com>
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
-Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "minmax.h: use BUILD_BUG_ON_MSG() for the lo <
-	hi test in clamp()" has been added to the 5.10-stable tree
+Content-Disposition: inline
+In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
+Cc: snitzer@redhat.com, dri-devel@lists.freedesktop.org, malattia@linux.it,
+ linux-stm32@st-md-mailman.stormreply.com, sashal@kernel.org,
+ bvanassche@acm.org, kadlec@netfilter.org, linux-sparse@vger.kernel.org,
+ joabreu@synopsys.com, linux@roeck-us.net, pmladek@suse.com, jdelvare@suse.com,
+ intel-linux-scu@intel.com, sunpeng.li@amd.com, linux-um@lists.infradead.org,
+ luto@kernel.org, tglx@linutronix.de, sean@poorly.run, qiuxu.zhuo@intel.com,
+ ndesaulniers@google.com, linux-kernel@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, jack@suse.com, alexander.deucher@amd.com,
+ akpm@linux-foundation.org, freedreno@lists.freedesktop.org, Jason@zx2c4.com,
+ airlied@linux.ie, dave.hansen@linux.intel.com, dm-devel@redhat.com,
+ mihail.atanassov@arm.com, agk@redhat.com, ruanjinjie@huawei.com,
+ coreteam@netfilter.org, james.qian.wang@arm.com, linux-media@vger.kernel.org,
+ alexandre.torgue@st.com, linux-arm-msm@vger.kernel.org, mripard@kernel.org,
+ peppe.cavallaro@st.com, evan.quan@amd.com,
+ linux-arm-kernel@lists.infradead.org, tony.luck@intel.com, tytso@mit.edu,
+ fw@strlen.de, christian.koenig@amd.com, jmaloy@redhat.com, minchan@kernel.org,
+ james.morse@arm.com, mcoquelin.stm32@gmail.com, brian.starkey@arm.com,
+ herve.codina@bootlin.com, linux@rasmusvillemoes.dk,
+ platform-driver-x86@vger.kernel.org, clm@fb.com, amd-gfx@lists.freedesktop.org,
+ mgross@linux.intel.com, linux-staging@lists.linux.dev, willy@infradead.org,
+ linux-input@vger.kernel.org, kuznet@ms2.inr.ac.ru, xiang@kernel.org,
+ linux-ext4@vger.kernel.org, harry.wentland@amd.com, pablo@netfilter.org,
+ rric@kernel.org, keescook@chromium.org, jejb@linux.ibm.com,
+ rostedt@goodmis.org, nathan@kernel.org, bp@alien8.de, kbusch@kernel.org,
+ mchehab@kernel.org, linux-hwmon@vger.kernel.org, fery@cypress.com,
+ martin.petersen@oracle.com, dmitry.torokhov@gmail.com, David.Laight@aculab.com,
+ ngupta@vflare.org, sakari.ailus@linux.intel.com, ying.xue@windriver.com,
+ linux-erofs@lists.ozlabs.org, davem@davemloft.net, peterz@infradead.org,
+ liviu.dudau@arm.com, linux-mm@kvack.org, artur.paszkiewicz@intel.com,
+ adilger.kernel@dilger.ca, hpa@zytor.com, anton.ivanov@cambridgegreys.com,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org,
+ linux@armlinux.org.uk, mingo@redhat.com, kuba@kernel.org, jdike@addtoit.com,
+ dushistov@mail.ru, daniel@ffwll.ch, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, josef@toxicpanda.com, hdegoede@redhat.com,
+ dsterba@suse.com, andriy.shevchenko@linux.intel.com,
+ linux-edac@vger.kernel.org, yoshfuji@linux-ipv6.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org, sergey.senozhatsky@gmail.com, robdclark@gmail.com,
+ tipc-discussion@lists.sourceforge.net, linux-btrfs@vger.kernel.org,
+ tzimmermann@suse.de, rajur@chelsio.com, luc.vanoostenryck@gmail.com
+Subject: Re: [Linux-stm32] [PATCH v2 00/27 5.10.y] Backport minmax.h updates
+	from v6.17-rc7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,109 +85,138 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-This is a note to let you know that I've just added the patch titled
-
-    minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-
-to the 5.10-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
-and it can be found in the queue-5.10 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From prvs=378230090=farbere@amazon.com Fri Oct 17 11:13:15 2025
-From: Eliav Farber <farbere@amazon.com>
-Date: Fri, 17 Oct 2025 09:05:16 +0000
-Subject: minmax.h: use BUILD_BUG_ON_MSG() for the lo < hi test in clamp()
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
- .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
-  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
- lists.sourceforge.net>
-Cc: Arnd Bergmann <arnd@kernel.org>, Christoph Hellwig <hch@infradead.org>, Dan Carpenter <dan.carpenter@linaro.org>, Jens Axboe <axboe@kernel.dk>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Mateusz Guzik <mjguzik@gmail.com>, Pedro Falcato <pedro.falcato@gmail.com>
-Message-ID: <20251017090519.46992-25-farbere@amazon.com>
-
-From: David Laight <David.Laight@ACULAB.COM>
-
-[ Upstream commit a5743f32baec4728711bbc01d6ac2b33d4c67040 ]
-
-Use BUILD_BUG_ON_MSG(statically_true(ulo > uhi), ...) for the sanity check
-of the bounds in clamp().  Gives better error coverage and one less
-expansion of the arguments.
-
-Link: https://lkml.kernel.org/r/34d53778977747f19cce2abb287bb3e6@AcuMS.aculab.com
-Signed-off-by: David Laight <david.laight@aculab.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Arnd Bergmann <arnd@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Jason A. Donenfeld <Jason@zx2c4.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Pedro Falcato <pedro.falcato@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/linux/minmax.h |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -106,8 +106,7 @@
- 	__auto_type uval = (val);						\
- 	__auto_type ulo = (lo);							\
- 	__auto_type uhi = (hi);							\
--	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
--			(lo) <= (hi), true),					\
-+	BUILD_BUG_ON_MSG(statically_true(ulo > uhi),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(uval, ulo, uhi),				\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
-
-
-Patches currently in stable-queue which might be from farbere@amazon.com are
-
-queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
-queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
-queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
-queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
-queue-5.10/minmax-add-in_range-macro.patch
-queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
-queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
-queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
-queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
-queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
-queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
-queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
-queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
-queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
-queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
-queue-5.10/minmax-fix-up-min3-and-max3-too.patch
-queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
-queue-5.10/minmax-fix-header-inclusions.patch
-queue-5.10/minmax-introduce-min-max-_array.patch
-queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
-queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
-queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
-queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
-queue-5.10/minmax.h-update-some-comments.patch
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBPY3QgMTcsIDIwMjUgYXQgMDk6MDQ6NTJBTSArMDAwMCwgRWxpYXYgRmFyYmVyIHdy
+b3RlOgo+IFRoaXMgc2VyaWVzIGJhY2twb3J0cyAyNyBwYXRjaGVzIHRvIHVwZGF0ZSBtaW5tYXgu
+aCBpbiB0aGUgNS4xMC55Cj4gYnJhbmNoLCBhbGlnbmluZyBpdCB3aXRoIHY2LjE3LXJjNy4KPiAK
+PiBUaGUgdWx0aW1hdGUgZ29hbCBpcyB0byBzeW5jaHJvbml6ZSBhbGwgbG9uZy10ZXJtIGJyYW5j
+aGVzIHNvIHRoYXQgdGhleQo+IGluY2x1ZGUgdGhlIGZ1bGwgc2V0IG9mIG1pbm1heC5oIGNoYW5n
+ZXMuCj4gCj4gLSA2LjEyLnkgaGFzIGFscmVhZHkgYmVlbiBiYWNrcG9ydGVkOyB0aGUgY2hhbmdl
+cyBhcmUgaW5jbHVkZWQgaW4KPiAgIHY2LjEyLjQ5Lgo+IC0gNi42LnkgaGFzIGFscmVhZHkgYmVl
+biBiYWNrcG9ydGVkOyB0aGUgY2hhbmdlcyBhcmUgaW5jbHVkZWQgaW4KPiAgIHY2LjYuMTA5Lgo+
+IC0gNi4xLnkgaGFzIGFscmVhZHkgYmVlbiBiYWNrcG9ydGVkOyB0aGUgY2hhbmdlcyBhcmUgY3Vy
+cmVudGx5IGluIHRoZQo+ICAgNi4xLXN0YWJsZSB0cmVlLgo+IC0gNS4xNS55IGhhcyBhbHJlYWR5
+IGJlZW4gYmFja3BvcnRlZDsgdGhlIGNoYW5nZXMgYXJlIGN1cnJlbnRseSBpbiB0aGUKPiAgIDUu
+MTUtc3RhYmxlIHRyZWUuCgpXaXRoIHRoaXMgc2VyaWVzIGFwcGxpZWQsIG9uIGFuIGFybTY0IHNl
+cnZlciwgYnVpbGRpbmcgJ2FsbG1vZGNvbmZpZycsIEkKZ2V0IHRoZSBmb2xsb3dpbmcgYnVpbGQg
+ZXJyb3IuCgpPZGRseSBJIGRvbid0IHNlZSBpdCBvbiBteSB4ODYgc2VydmVyLCBwZXJoYXBzIGR1
+ZSB0byBkaWZmZXJlbnQgY29tcGlsZXIKdmVyc2lvbnM/CgpBbnkgaWRlYXM/Cgp0aGFua3MsCgpn
+cmVnIGstaAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpJbiBmdW5jdGlvbiDigJhydDI4MDBf
+dHhwb3dlcl90b19kZXbigJksCiAgICBpbmxpbmVkIGZyb20g4oCYcnQyODAwX2NvbmZpZ19jaGFu
+bmVs4oCZIGF0IC4uL2RyaXZlcnMvbmV0L3dpcmVsZXNzL3JhbGluay9ydDJ4MDAvcnQyODAwbGli
+LmM6NDAyMjoyNToKLi8uLi9pbmNsdWRlL2xpbnV4L2NvbXBpbGVyX3R5cGVzLmg6MzA5OjQ1OiBl
+cnJvcjogY2FsbCB0byDigJhfX2NvbXBpbGV0aW1lX2Fzc2VydF8xMTY44oCZIGRlY2xhcmVkIHdp
+dGggYXR0cmlidXRlIGVycm9yOiBjbGFtcCgpIGxvdyBsaW1pdCAtNyBncmVhdGVyIHRoYW4gaGln
+aCBsaW1pdCAxNQogIDMwOSB8ICAgICAgICAgX2NvbXBpbGV0aW1lX2Fzc2VydChjb25kaXRpb24s
+IG1zZywgX19jb21waWxldGltZV9hc3NlcnRfLCBfX0NPVU5URVJfXykKICAgICAgfCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KLi8uLi9pbmNsdWRlL2xpbnV4
+L2NvbXBpbGVyX3R5cGVzLmg6MjkwOjI1OiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3JvIOKA
+mF9fY29tcGlsZXRpbWVfYXNzZXJ04oCZCiAgMjkwIHwgICAgICAgICAgICAgICAgICAgICAgICAg
+cHJlZml4ICMjIHN1ZmZpeCgpOyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICB8
+ICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fgouLy4uL2luY2x1ZGUvbGludXgvY29tcGls
+ZXJfdHlwZXMuaDozMDk6OTogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmF9jb21waWxl
+dGltZV9hc3NlcnTigJkKICAzMDkgfCAgICAgICAgIF9jb21waWxldGltZV9hc3NlcnQoY29uZGl0
+aW9uLCBtc2csIF9fY29tcGlsZXRpbWVfYXNzZXJ0XywgX19DT1VOVEVSX18pCiAgICAgIHwgICAg
+ICAgICBefn5+fn5+fn5+fn5+fn5+fn5+Ci4uL2luY2x1ZGUvbGludXgvYnVpbGRfYnVnLmg6Mzk6
+Mzc6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhjb21waWxldGltZV9hc3NlcnTigJkK
+ICAgMzkgfCAjZGVmaW5lIEJVSUxEX0JVR19PTl9NU0coY29uZCwgbXNnKSBjb21waWxldGltZV9h
+c3NlcnQoIShjb25kKSwgbXNnKQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fgouLi9pbmNsdWRlL2xpbnV4L21pbm1heC5oOjE4ODo5
+OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYQlVJTERfQlVHX09OX01TR+KAmQogIDE4
+OCB8ICAgICAgICAgQlVJTERfQlVHX09OX01TRyhzdGF0aWNhbGx5X3RydWUodWxvID4gdWhpKSwg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICB8ICAgICAgICAgXn5+fn5+fn5+fn5+
+fn5+fgouLi9pbmNsdWRlL2xpbnV4L21pbm1heC5oOjE5NTo5OiBub3RlOiBpbiBleHBhbnNpb24g
+b2YgbWFjcm8g4oCYX19jbGFtcF9vbmNl4oCZCiAgMTk1IHwgICAgICAgICBfX2NsYW1wX29uY2Uo
+dHlwZSwgdmFsLCBsbywgaGksIF9fVU5JUVVFX0lEKHZfKSwgX19VTklRVUVfSUQobF8pLCBfX1VO
+SVFVRV9JRChoXykpCiAgICAgIHwgICAgICAgICBefn5+fn5+fn5+fn4KLi4vaW5jbHVkZS9saW51
+eC9taW5tYXguaDoyMTg6MzY6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhfX2NhcmVm
+dWxfY2xhbXDigJkKICAyMTggfCAjZGVmaW5lIGNsYW1wX3QodHlwZSwgdmFsLCBsbywgaGkpIF9f
+Y2FyZWZ1bF9jbGFtcCh0eXBlLCB2YWwsIGxvLCBoaSkKICAgICAgfCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fgouLi9kcml2ZXJzL25ldC93aXJlbGVz
+cy9yYWxpbmsvcnQyeDAwL3J0MjgwMGxpYi5jOjM5ODA6MjQ6IG5vdGU6IGluIGV4cGFuc2lvbiBv
+ZiBtYWNybyDigJhjbGFtcF904oCZCiAzOTgwIHwgICAgICAgICAgICAgICAgIHJldHVybiBjbGFt
+cF90KGNoYXIsIHR4cG93ZXIsIE1JTl9BX1RYUE9XRVIsIE1BWF9BX1RYUE9XRVIpOwogICAgICB8
+ICAgICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fgpJbiBmdW5jdGlvbiDigJhydDI4MDBfdHhw
+b3dlcl90b19kZXbigJksCiAgICBpbmxpbmVkIGZyb20g4oCYcnQyODAwX2NvbmZpZ19jaGFubmVs
+4oCZIGF0IC4uL2RyaXZlcnMvbmV0L3dpcmVsZXNzL3JhbGluay9ydDJ4MDAvcnQyODAwbGliLmM6
+NDAyNDoyNToKLi8uLi9pbmNsdWRlL2xpbnV4L2NvbXBpbGVyX3R5cGVzLmg6MzA5OjQ1OiBlcnJv
+cjogY2FsbCB0byDigJhfX2NvbXBpbGV0aW1lX2Fzc2VydF8xMTY44oCZIGRlY2xhcmVkIHdpdGgg
+YXR0cmlidXRlIGVycm9yOiBjbGFtcCgpIGxvdyBsaW1pdCAtNyBncmVhdGVyIHRoYW4gaGlnaCBs
+aW1pdCAxNQogIDMwOSB8ICAgICAgICAgX2NvbXBpbGV0aW1lX2Fzc2VydChjb25kaXRpb24sIG1z
+ZywgX19jb21waWxldGltZV9hc3NlcnRfLCBfX0NPVU5URVJfXykKICAgICAgfCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KLi8uLi9pbmNsdWRlL2xpbnV4L2Nv
+bXBpbGVyX3R5cGVzLmg6MjkwOjI1OiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3JvIOKAmF9f
+Y29tcGlsZXRpbWVfYXNzZXJ04oCZCiAgMjkwIHwgICAgICAgICAgICAgICAgICAgICAgICAgcHJl
+Zml4ICMjIHN1ZmZpeCgpOyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICB8ICAg
+ICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fgouLy4uL2luY2x1ZGUvbGludXgvY29tcGlsZXJf
+dHlwZXMuaDozMDk6OTogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmF9jb21waWxldGlt
+ZV9hc3NlcnTigJkKICAzMDkgfCAgICAgICAgIF9jb21waWxldGltZV9hc3NlcnQoY29uZGl0aW9u
+LCBtc2csIF9fY29tcGlsZXRpbWVfYXNzZXJ0XywgX19DT1VOVEVSX18pCiAgICAgIHwgICAgICAg
+ICBefn5+fn5+fn5+fn5+fn5+fn5+Ci4uL2luY2x1ZGUvbGludXgvYnVpbGRfYnVnLmg6Mzk6Mzc6
+IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhjb21waWxldGltZV9hc3NlcnTigJkKICAg
+MzkgfCAjZGVmaW5lIEJVSUxEX0JVR19PTl9NU0coY29uZCwgbXNnKSBjb21waWxldGltZV9hc3Nl
+cnQoIShjb25kKSwgbXNnKQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIF5+fn5+fn5+fn5+fn5+fn5+fgouLi9pbmNsdWRlL2xpbnV4L21pbm1heC5oOjE4ODo5OiBu
+b3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYQlVJTERfQlVHX09OX01TR+KAmQogIDE4OCB8
+ICAgICAgICAgQlVJTERfQlVHX09OX01TRyhzdGF0aWNhbGx5X3RydWUodWxvID4gdWhpKSwgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICB8ICAgICAgICAgXn5+fn5+fn5+fn5+fn5+
+fgouLi9pbmNsdWRlL2xpbnV4L21pbm1heC5oOjE5NTo5OiBub3RlOiBpbiBleHBhbnNpb24gb2Yg
+bWFjcm8g4oCYX19jbGFtcF9vbmNl4oCZCiAgMTk1IHwgICAgICAgICBfX2NsYW1wX29uY2UodHlw
+ZSwgdmFsLCBsbywgaGksIF9fVU5JUVVFX0lEKHZfKSwgX19VTklRVUVfSUQobF8pLCBfX1VOSVFV
+RV9JRChoXykpCiAgICAgIHwgICAgICAgICBefn5+fn5+fn5+fn4KLi4vaW5jbHVkZS9saW51eC9t
+aW5tYXguaDoyMTg6MzY6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhfX2NhcmVmdWxf
+Y2xhbXDigJkKICAyMTggfCAjZGVmaW5lIGNsYW1wX3QodHlwZSwgdmFsLCBsbywgaGkpIF9fY2Fy
+ZWZ1bF9jbGFtcCh0eXBlLCB2YWwsIGxvLCBoaSkKICAgICAgfCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fgouLi9kcml2ZXJzL25ldC93aXJlbGVzcy9y
+YWxpbmsvcnQyeDAwL3J0MjgwMGxpYi5jOjM5ODA6MjQ6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBt
+YWNybyDigJhjbGFtcF904oCZCiAzOTgwIHwgICAgICAgICAgICAgICAgIHJldHVybiBjbGFtcF90
+KGNoYXIsIHR4cG93ZXIsIE1JTl9BX1RYUE9XRVIsIE1BWF9BX1RYUE9XRVIpOwogICAgICB8ICAg
+ICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fgpJbiBmdW5jdGlvbiDigJhydDI4MDBfdHhwb3dl
+cl90b19kZXbigJksCiAgICBpbmxpbmVkIGZyb20g4oCYcnQyODAwX2NvbmZpZ19jaGFubmVs4oCZ
+IGF0IC4uL2RyaXZlcnMvbmV0L3dpcmVsZXNzL3JhbGluay9ydDJ4MDAvcnQyODAwbGliLmM6NDAy
+ODo0OgouLy4uL2luY2x1ZGUvbGludXgvY29tcGlsZXJfdHlwZXMuaDozMDk6NDU6IGVycm9yOiBj
+YWxsIHRvIOKAmF9fY29tcGlsZXRpbWVfYXNzZXJ0XzExNjjigJkgZGVjbGFyZWQgd2l0aCBhdHRy
+aWJ1dGUgZXJyb3I6IGNsYW1wKCkgbG93IGxpbWl0IC03IGdyZWF0ZXIgdGhhbiBoaWdoIGxpbWl0
+IDE1CiAgMzA5IHwgICAgICAgICBfY29tcGlsZXRpbWVfYXNzZXJ0KGNvbmRpdGlvbiwgbXNnLCBf
+X2NvbXBpbGV0aW1lX2Fzc2VydF8sIF9fQ09VTlRFUl9fKQogICAgICB8ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXgouLy4uL2luY2x1ZGUvbGludXgvY29tcGls
+ZXJfdHlwZXMuaDoyOTA6MjU6IG5vdGU6IGluIGRlZmluaXRpb24gb2YgbWFjcm8g4oCYX19jb21w
+aWxldGltZV9hc3NlcnTigJkKICAyOTAgfCAgICAgICAgICAgICAgICAgICAgICAgICBwcmVmaXgg
+IyMgc3VmZml4KCk7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCiAgICAgIHwgICAgICAg
+ICAgICAgICAgICAgICAgICAgXn5+fn5+Ci4vLi4vaW5jbHVkZS9saW51eC9jb21waWxlcl90eXBl
+cy5oOjMwOTo5OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYX2NvbXBpbGV0aW1lX2Fz
+c2VydOKAmQogIDMwOSB8ICAgICAgICAgX2NvbXBpbGV0aW1lX2Fzc2VydChjb25kaXRpb24sIG1z
+ZywgX19jb21waWxldGltZV9hc3NlcnRfLCBfX0NPVU5URVJfXykKICAgICAgfCAgICAgICAgIF5+
+fn5+fn5+fn5+fn5+fn5+fn4KLi4vaW5jbHVkZS9saW51eC9idWlsZF9idWcuaDozOTozNzogbm90
+ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmGNvbXBpbGV0aW1lX2Fzc2VydOKAmQogICAzOSB8
+ICNkZWZpbmUgQlVJTERfQlVHX09OX01TRyhjb25kLCBtc2cpIGNvbXBpbGV0aW1lX2Fzc2VydCgh
+KGNvbmQpLCBtc2cpCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+Xn5+fn5+fn5+fn5+fn5+fn5+Ci4uL2luY2x1ZGUvbGludXgvbWlubWF4Lmg6MTg4Ojk6IG5vdGU6
+IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhCVUlMRF9CVUdfT05fTVNH4oCZCiAgMTg4IHwgICAg
+ICAgICBCVUlMRF9CVUdfT05fTVNHKHN0YXRpY2FsbHlfdHJ1ZSh1bG8gPiB1aGkpLCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBcCiAgICAgIHwgICAgICAgICBefn5+fn5+fn5+fn5+fn5+Ci4u
+L2luY2x1ZGUvbGludXgvbWlubWF4Lmg6MTk1Ojk6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNy
+byDigJhfX2NsYW1wX29uY2XigJkKICAxOTUgfCAgICAgICAgIF9fY2xhbXBfb25jZSh0eXBlLCB2
+YWwsIGxvLCBoaSwgX19VTklRVUVfSUQodl8pLCBfX1VOSVFVRV9JRChsXyksIF9fVU5JUVVFX0lE
+KGhfKSkKICAgICAgfCAgICAgICAgIF5+fn5+fn5+fn5+fgouLi9pbmNsdWRlL2xpbnV4L21pbm1h
+eC5oOjIxODozNjogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmF9fY2FyZWZ1bF9jbGFt
+cOKAmQogIDIxOCB8ICNkZWZpbmUgY2xhbXBfdCh0eXBlLCB2YWwsIGxvLCBoaSkgX19jYXJlZnVs
+X2NsYW1wKHR5cGUsIHZhbCwgbG8sIGhpKQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgXn5+fn5+fn5+fn5+fn5+Ci4uL2RyaXZlcnMvbmV0L3dpcmVsZXNzL3JhbGlu
+ay9ydDJ4MDAvcnQyODAwbGliLmM6Mzk4MDoyNDogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3Jv
+IOKAmGNsYW1wX3TigJkKIDM5ODAgfCAgICAgICAgICAgICAgICAgcmV0dXJuIGNsYW1wX3QoY2hh
+ciwgdHhwb3dlciwgTUlOX0FfVFhQT1dFUiwgTUFYX0FfVFhQT1dFUik7CiAgICAgIHwgICAgICAg
+ICAgICAgICAgICAgICAgICBefn5+fn5+Cm1ha2VbNl06ICoqKiBbLi4vc2NyaXB0cy9NYWtlZmls
+ZS5idWlsZDoyODY6IGRyaXZlcnMvbmV0L3dpcmVsZXNzL3JhbGluay9ydDJ4MDAvcnQyODAwbGli
+Lm9dIEVycm9yIDEKbWFrZVs1XTogKioqIFsuLi9zY3JpcHRzL01ha2VmaWxlLmJ1aWxkOjUwMzog
+ZHJpdmVycy9uZXQvd2lyZWxlc3MvcmFsaW5rL3J0MngwMF0gRXJyb3IgMgptYWtlWzRdOiAqKiog
+Wy4uL3NjcmlwdHMvTWFrZWZpbGUuYnVpbGQ6NTAzOiBkcml2ZXJzL25ldC93aXJlbGVzcy9yYWxp
+bmtdIEVycm9yIDIKbWFrZVs0XTogKioqIFdhaXRpbmcgZm9yIHVuZmluaXNoZWQgam9icy4uLi4K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
+MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
+aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtc3RtMzIK
