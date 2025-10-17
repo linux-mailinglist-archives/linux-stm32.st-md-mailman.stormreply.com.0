@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98DB2BE7729
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 11:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655E7BE772F
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 11:11:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5907C58D68;
-	Fri, 17 Oct 2025 09:11:00 +0000 (UTC)
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [35.155.198.111])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18C24C58D68;
+	Fri, 17 Oct 2025 09:11:05 +0000 (UTC)
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ [52.34.181.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E8D4C58D66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B1C3C58D67
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 09:10:59 +0000 (UTC)
+ Fri, 17 Oct 2025 09:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760692259; x=1792228259;
+ t=1760692264; x=1792228264;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2um4itFa7R6bmR1cOnWiQ4hvHyXTQc+TUC2WBV0osSM=;
- b=c+4vr5j6jZ8uUFf1ALXH+rA/gcqW0pfz2h3m9Gn6/70pwfRwyFB4YhlL
- TuE6CrjiT3HApNdz4UNImhP/RUbtXOSrRz9LNrHgYB+xbFiXEpqkrZ2Ur
- hinIX+yYIgjH2ydwlmBXFhXEMoNHprdZvLllBQOsuQGeQ8MZrSrnc9sCF
- 9OcKsJ5DRb8iRPVVNdvfSs/+EoC98sTpuDLv1IH7JJ+f2KNuwX54OBm4f
- yIw8q7/CLGM+HznA8FjRj3nDsA5YuDMvBWWUIm48mJ4CgMYpLjJ0ZVnlc
- TNhmGjU2AoO1Ijt0tlHAo5pvLF4Eb6Eoo1cuOBcU92rl8UF+5hWmwCpfm g==;
-X-CSE-ConnectionGUID: oT/Oymp4RQWRnFkUx7cDQg==
-X-CSE-MsgGUID: m7HI+2jdSnunzdfjsiCfqw==
-X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="4957075"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO
- smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
- by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:10:52 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:9966]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.38.191:2525]
+ bh=7swfVbslESxQg74V4Pet/sTVI7N58Kfpf4qGaJIy9fE=;
+ b=N9BM7bXLgKood1SSu5ss9YYoaLltK6EeNNK/M2Vcw3A508PgNZbmh58M
+ 2ifHDdDy7+jp84+lKuJoxtaA1EO39QNV6pJx2/dc/9hXhgYNnEXO2h3cO
+ K025NaVW4UVWpq3k5GQXaHnb+NeBKHLQbRSWNSb05uH+xuBV/byessSGV
+ 6jxr3ewiJvdFjV6tsaAkFNhV4apbZCsS12b3pn9IkyZfARYreOu6OVAu0
+ 2kbzySwT+gKcwb6t1AZ6lpFYsSGCf3zelkqODqcrT7cW//dc9mmbRUg1s
+ ZSJG+4pEMPaW2aT63i/IWKToJji9KoR3Jocb5r8PRD1gMPW0sBatFsojj A==;
+X-CSE-ConnectionGUID: Q5MoDO3uRIu7RKOhofxO9w==
+X-CSE-MsgGUID: 0ZVv2KswS5q2HkEJPsaUgg==
+X-IronPort-AV: E=Sophos;i="6.18,263,1751241600"; 
+   d="scan'208";a="5073427"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO
+ smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+ by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:11:03 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:31840]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.50:2525]
  with esmtp (Farcaster)
- id 44fd2346-0069-41ac-8a04-2b36498a64f8; Fri, 17 Oct 2025 09:10:52 +0000 (UTC)
-X-Farcaster-Flow-ID: 44fd2346-0069-41ac-8a04-2b36498a64f8
+ id 8605e8df-aafc-4858-9c90-42564ba4b59d; Fri, 17 Oct 2025 09:11:02 +0000 (UTC)
+X-Farcaster-Flow-ID: 8605e8df-aafc-4858-9c90-42564ba4b59d
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:10:47 +0000
+ Fri, 17 Oct 2025 09:11:02 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:10:31 +0000
+ 09:10:47 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
@@ -97,8 +97,8 @@ To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
  <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
  <tipc-discussion@lists.sourceforge.net>
-Date: Fri, 17 Oct 2025 09:05:08 +0000
-Message-ID: <20251017090519.46992-17-farbere@amazon.com>
+Date: Fri, 17 Oct 2025 09:05:09 +0000
+Message-ID: <20251017090519.46992-18-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
 References: <20251017090519.46992-1-farbere@amazon.com>
@@ -109,8 +109,8 @@ X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
 Cc: David Laight <David.Laight@aculab.com>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: [Linux-stm32] [PATCH v2 16/27 5.10.y] minmax: make generic MIN()
-	and MAX() macros available everywhere
+Subject: [Linux-stm32] [PATCH v2 17/27 5.10.y] minmax: don't use max() in
+	situations that want a C constant expression
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,373 +129,87 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Linus Torvalds <torvalds@linux-foundation.org>
 
-[ Upstream commit 1a251f52cfdc417c84411a056bc142cbd77baef4 ]
+[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
 
-This just standardizes the use of MIN() and MAX() macros, with the very
-traditional semantics.  The goal is to use these for C constant
-expressions and for top-level / static initializers, and so be able to
-simplify the min()/max() macros.
+We only had a couple of array[] declarations, and changing them to just
+use 'MAX()' instead of 'max()' fixes the issue.
 
-These macro names were used by various kernel code - they are very
-traditional, after all - and all such users have been fixed up, with a
-few different approaches:
-
- - trivial duplicated macro definitions have been removed
-
-   Note that 'trivial' here means that it's obviously kernel code that
-   already included all the major kernel headers, and thus gets the new
-   generic MIN/MAX macros automatically.
-
- - non-trivial duplicated macro definitions are guarded with #ifndef
-
-   This is the "yes, they define their own versions, but no, the include
-   situation is not entirely obvious, and maybe they don't get the
-   generic version automatically" case.
-
- - strange use case #1
-
-   A couple of drivers decided that the way they want to describe their
-   versioning is with
-
-	#define MAJ 1
-	#define MIN 2
-	#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
-
-   which adds zero value and I just did my Alexander the Great
-   impersonation, and rewrote that pointless Gordian knot as
-
-	#define DRV_VERSION "1.2"
-
-   instead.
-
- - strange use case #2
-
-   A couple of drivers thought that it's a good idea to have a random
-   'MIN' or 'MAX' define for a value or index into a table, rather than
-   the traditional macro that takes arguments.
-
-   These values were re-written as C enum's instead. The new
-   function-line macros only expand when followed by an open
-   parenthesis, and thus don't clash with enum use.
-
-Happily, there weren't really all that many of these cases, and a lot of
-users already had the pattern of using '#ifndef' guarding (or in one
-case just using '#undef MIN') before defining their own private version
-that does the same thing. I left such cases alone.
+This will allow us to simplify our min/max macros enormously, since they
+can now unconditionally use temporary variables to avoid using the
+argument values multiple times.
 
 Cc: David Laight <David.Laight@aculab.com>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- arch/um/drivers/mconsole_user.c               |  2 ++
- drivers/edac/skx_common.h                     |  1 -
- .../drm/amd/display/modules/hdcp/hdcp_ddc.c   |  2 ++
- .../drm/amd/pm/powerplay/hwmgr/ppevvmath.h    | 14 +++++++----
- drivers/gpu/drm/radeon/evergreen_cs.c         |  2 ++
- drivers/hwmon/adt7475.c                       | 24 +++++++++----------
- drivers/media/dvb-frontends/stv0367_priv.h    |  3 +++
- drivers/net/fjes/fjes_main.c                  |  4 +---
- drivers/nfc/pn544/i2c.c                       |  2 --
- drivers/platform/x86/sony-laptop.c            |  1 -
- drivers/scsi/isci/init.c                      |  6 +----
- .../pci/hive_isp_css_include/math_support.h   |  5 ----
- include/linux/minmax.h                        |  2 ++
- kernel/trace/preemptirq_delay_test.c          |  2 --
- lib/btree.c                                   |  1 -
- lib/decompress_unlzma.c                       |  2 ++
- lib/zstd/zstd_internal.h                      |  2 --
- mm/zsmalloc.c                                 |  1 -
- 18 files changed, 37 insertions(+), 39 deletions(-)
+ drivers/input/touchscreen/cyttsp4_core.c | 2 +-
+ drivers/md/dm-integrity.c                | 4 ++--
+ fs/btrfs/tree-checker.c                  | 2 +-
+ lib/vsprintf.c                           | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/um/drivers/mconsole_user.c b/arch/um/drivers/mconsole_user.c
-index e24298a734be..a04cd13c6315 100644
---- a/arch/um/drivers/mconsole_user.c
-+++ b/arch/um/drivers/mconsole_user.c
-@@ -71,7 +71,9 @@ static struct mconsole_command *mconsole_parse(struct mc_request *req)
- 	return NULL;
- }
+diff --git a/drivers/input/touchscreen/cyttsp4_core.c b/drivers/input/touchscreen/cyttsp4_core.c
+index 02a73d9a4def..c10140c9aafa 100644
+--- a/drivers/input/touchscreen/cyttsp4_core.c
++++ b/drivers/input/touchscreen/cyttsp4_core.c
+@@ -857,7 +857,7 @@ static void cyttsp4_get_mt_touches(struct cyttsp4_mt_data *md, int num_cur_tch)
+ 	struct cyttsp4_touch tch;
+ 	int sig;
+ 	int i, j, t = 0;
+-	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
++	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
  
-+#ifndef MIN
- #define MIN(a,b) ((a)<(b) ? (a):(b))
-+#endif
+ 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
+ 	for (i = 0; i < num_cur_tch; i++) {
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 7fa3bf74747d..917ba18be77f 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1600,7 +1600,7 @@ static void integrity_metadata(struct work_struct *w)
+ 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
+ 		char *checksums;
+ 		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
+-		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		sector_t sector;
+ 		unsigned sectors_to_process;
  
- #define STRINGX(x) #x
- #define STRING(x) STRINGX(x)
-diff --git a/drivers/edac/skx_common.h b/drivers/edac/skx_common.h
-index b93c33ac8e60..5adba76c3f4d 100644
---- a/drivers/edac/skx_common.h
-+++ b/drivers/edac/skx_common.h
-@@ -36,7 +36,6 @@
- #define I10NM_NUM_CHANNELS	2
- #define I10NM_NUM_DIMMS		2
+@@ -1882,7 +1882,7 @@ static bool __journal_read_write(struct dm_integrity_io *dio, struct bio *bio,
+ 				} while (++s < ic->sectors_per_block);
+ #ifdef INTERNAL_VERIFY
+ 				if (ic->internal_hash) {
+-					char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
++					char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
  
--#define MAX(a, b)	((a) > (b) ? (a) : (b))
- #define NUM_IMC		MAX(SKX_NUM_IMC, I10NM_NUM_IMC)
- #define NUM_CHANNELS	MAX(SKX_NUM_CHANNELS, I10NM_NUM_CHANNELS)
- #define NUM_DIMMS	MAX(SKX_NUM_DIMMS, I10NM_NUM_DIMMS)
-diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-index 1b2df97226a3..40286e8dd4e1 100644
---- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-+++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c
-@@ -25,7 +25,9 @@
+ 					integrity_sector_checksum(ic, logical_sector, mem + bv.bv_offset, checksums_onstack);
+ 					if (unlikely(memcmp(checksums_onstack, journal_entry_tag(ic, je), ic->tag_size))) {
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index c28bb37688c6..fd4768c5e439 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -587,7 +587,7 @@ static int check_dir_item(struct extent_buffer *leaf,
+ 		 */
+ 		if (key->type == BTRFS_DIR_ITEM_KEY ||
+ 		    key->type == BTRFS_XATTR_ITEM_KEY) {
+-			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
++			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
  
- #include "hdcp.h"
+ 			read_extent_buffer(leaf, namebuf,
+ 					(unsigned long)(di + 1), name_len);
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index b08b8ee1bbc0..90372391ce90 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -1078,7 +1078,7 @@ char *resource_string(char *buf, char *end, struct resource *res,
+ #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
+ #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
+ #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
+-	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
++	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
+ 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
  
-+#ifndef MIN
- #define MIN(a, b) ((a) < (b) ? (a) : (b))
-+#endif
- #define HDCP_I2C_ADDR 0x3a	/* 0x74 >> 1*/
- #define KSV_READ_SIZE 0xf	/* 0x6803b - 0x6802c */
- #define HDCP_MAX_AUX_TRANSACTION_SIZE 16
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-index 8f50a038396c..96b03a342f38 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
-@@ -22,12 +22,18 @@
-  */
- #include <asm/div64.h>
- 
--#define SHIFT_AMOUNT 16 /* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
-+enum ppevvmath_constants {
-+	/* We multiply all original integers with 2^SHIFT_AMOUNT to get the fInt representation */
-+	SHIFT_AMOUNT	= 16,
- 
--#define PRECISION 5 /* Change this value to change the number of decimal places in the final output - 5 is a good default */
-+	/* Change this value to change the number of decimal places in the final output - 5 is a good default */
-+	PRECISION	=  5,
- 
--#define SHIFTED_2 (2 << SHIFT_AMOUNT)
--#define MAX (1 << (SHIFT_AMOUNT - 1)) - 1 /* 32767 - Might change in the future */
-+	SHIFTED_2	= (2 << SHIFT_AMOUNT),
-+
-+	/* 32767 - Might change in the future */
-+	MAX		= (1 << (SHIFT_AMOUNT - 1)) - 1,
-+};
- 
- /* -------------------------------------------------------------------------------
-  * NEW TYPE - fINT
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index 468efa5ac8fc..3ce87e5f90f7 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -32,8 +32,10 @@
- #include "evergreen_reg_safe.h"
- #include "cayman_reg_safe.h"
- 
-+#ifndef MIN
- #define MAX(a,b)                   (((a)>(b))?(a):(b))
- #define MIN(a,b)                   (((a)<(b))?(a):(b))
-+#endif
- 
- #define REG_SAFE_BM_SIZE ARRAY_SIZE(evergreen_reg_safe_bm)
- 
-diff --git a/drivers/hwmon/adt7475.c b/drivers/hwmon/adt7475.c
-index b4c0f01f52c4..1e0678eb0077 100644
---- a/drivers/hwmon/adt7475.c
-+++ b/drivers/hwmon/adt7475.c
-@@ -23,23 +23,23 @@
- #include <linux/util_macros.h>
- 
- /* Indexes for the sysfs hooks */
--
--#define INPUT		0
--#define MIN		1
--#define MAX		2
--#define CONTROL		3
--#define OFFSET		3
--#define AUTOMIN		4
--#define THERM		5
--#define HYSTERSIS	6
--
-+enum adt_sysfs_id {
-+	INPUT		= 0,
-+	MIN		= 1,
-+	MAX		= 2,
-+	CONTROL		= 3,
-+	OFFSET		= 3,	// Dup
-+	AUTOMIN		= 4,
-+	THERM		= 5,
-+	HYSTERSIS	= 6,
- /*
-  * These are unique identifiers for the sysfs functions - unlike the
-  * numbers above, these are not also indexes into an array
-  */
-+	ALARM		= 9,
-+	FAULT		= 10,
-+};
- 
--#define ALARM		9
--#define FAULT		10
- 
- /* 7475 Common Registers */
- 
-diff --git a/drivers/media/dvb-frontends/stv0367_priv.h b/drivers/media/dvb-frontends/stv0367_priv.h
-index 617f605947b2..7f056d1cce82 100644
---- a/drivers/media/dvb-frontends/stv0367_priv.h
-+++ b/drivers/media/dvb-frontends/stv0367_priv.h
-@@ -25,8 +25,11 @@
- #endif
- 
- /* MACRO definitions */
-+#ifndef MIN
- #define MAX(X, Y) ((X) >= (Y) ? (X) : (Y))
- #define MIN(X, Y) ((X) <= (Y) ? (X) : (Y))
-+#endif
-+
- #define INRANGE(X, Y, Z) \
- 	((((X) <= (Y)) && ((Y) <= (Z))) || \
- 	(((Z) <= (Y)) && ((Y) <= (X))) ? 1 : 0)
-diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
-index 2a569eea4ee8..9a9ca5a8918e 100644
---- a/drivers/net/fjes/fjes_main.c
-+++ b/drivers/net/fjes/fjes_main.c
-@@ -14,9 +14,7 @@
- #include "fjes.h"
- #include "fjes_trace.h"
- 
--#define MAJ 1
--#define MIN 2
--#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN)
-+#define DRV_VERSION "1.2"
- #define DRV_NAME	"fjes"
- char fjes_driver_name[] = DRV_NAME;
- char fjes_driver_version[] = DRV_VERSION;
-diff --git a/drivers/nfc/pn544/i2c.c b/drivers/nfc/pn544/i2c.c
-index 4ac8cb262559..b9a58a424933 100644
---- a/drivers/nfc/pn544/i2c.c
-+++ b/drivers/nfc/pn544/i2c.c
-@@ -126,8 +126,6 @@ struct pn544_i2c_fw_secure_blob {
- #define PN544_FW_CMD_RESULT_COMMAND_REJECTED 0xE0
- #define PN544_FW_CMD_RESULT_CHUNK_ERROR 0xE6
- 
--#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
--
- #define PN544_FW_WRITE_BUFFER_MAX_LEN 0x9f7
- #define PN544_FW_I2C_MAX_PAYLOAD PN544_HCI_I2C_LLC_MAX_SIZE
- #define PN544_FW_I2C_WRITE_FRAME_HEADER_LEN 8
-diff --git a/drivers/platform/x86/sony-laptop.c b/drivers/platform/x86/sony-laptop.c
-index f070e4eb74f4..a66a2ee3a9ed 100644
---- a/drivers/platform/x86/sony-laptop.c
-+++ b/drivers/platform/x86/sony-laptop.c
-@@ -757,7 +757,6 @@ static union acpi_object *__call_snc_method(acpi_handle handle, char *method,
- 	return result;
- }
- 
--#define MIN(a, b)	(a > b ? b : a)
- static int sony_nc_buffer_call(acpi_handle handle, char *name, u64 *value,
- 		void *buffer, size_t buflen)
- {
-diff --git a/drivers/scsi/isci/init.c b/drivers/scsi/isci/init.c
-index 9d7cc62ace2e..8c7594720ef3 100644
---- a/drivers/scsi/isci/init.c
-+++ b/drivers/scsi/isci/init.c
-@@ -65,11 +65,7 @@
- #include "task.h"
- #include "probe_roms.h"
- 
--#define MAJ 1
--#define MIN 2
--#define BUILD 0
--#define DRV_VERSION __stringify(MAJ) "." __stringify(MIN) "." \
--	__stringify(BUILD)
-+#define DRV_VERSION "1.2.0"
- 
- MODULE_VERSION(DRV_VERSION);
- 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-index a444ec14ff9d..1c17a87a8572 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/math_support.h
-@@ -31,11 +31,6 @@
- /* A => B */
- #define IMPLIES(a, b)        (!(a) || (b))
- 
--/* for preprocessor and array sizing use MIN and MAX
--   otherwise use min and max */
--#define MAX(a, b)            (((a) > (b)) ? (a) : (b))
--#define MIN(a, b)            (((a) < (b)) ? (a) : (b))
--
- #define ROUND_DIV(a, b)      (((b) != 0) ? ((a) + ((b) >> 1)) / (b) : 0)
- #define CEIL_DIV(a, b)       (((b) != 0) ? ((a) + (b) - 1) / (b) : 0)
- #define CEIL_MUL(a, b)       (CEIL_DIV(a, b) * (b))
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 9c2848abc804..fc384714da45 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -277,6 +277,8 @@ static inline bool in_range32(u32 val, u32 start, u32 len)
-  * Use these carefully: no type checking, and uses the arguments
-  * multiple times. Use for obvious constants only.
-  */
-+#define MIN(a,b) __cmp(min,a,b)
-+#define MAX(a,b) __cmp(max,a,b)
- #define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
- #define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
- 
-diff --git a/kernel/trace/preemptirq_delay_test.c b/kernel/trace/preemptirq_delay_test.c
-index 1a4f2f424996..91a3f4006ae6 100644
---- a/kernel/trace/preemptirq_delay_test.c
-+++ b/kernel/trace/preemptirq_delay_test.c
-@@ -31,8 +31,6 @@ MODULE_PARM_DESC(burst_size, "The size of a burst (default 1)");
- 
- static struct completion done;
- 
--#define MIN(x, y) ((x) < (y) ? (x) : (y))
--
- static void busy_wait(ulong time)
- {
- 	u64 start, end;
-diff --git a/lib/btree.c b/lib/btree.c
-index b4cf08a5c267..b12f99d4c45c 100644
---- a/lib/btree.c
-+++ b/lib/btree.c
-@@ -43,7 +43,6 @@
- #include <linux/slab.h>
- #include <linux/module.h>
- 
--#define MAX(a, b) ((a) > (b) ? (a) : (b))
- #define NODESIZE MAX(L1_CACHE_BYTES, 128)
- 
- struct btree_geo {
-diff --git a/lib/decompress_unlzma.c b/lib/decompress_unlzma.c
-index 1cf409ef8d04..5b9c7a1bfaf4 100644
---- a/lib/decompress_unlzma.c
-+++ b/lib/decompress_unlzma.c
-@@ -37,7 +37,9 @@
- 
- #include <linux/decompress/mm.h>
- 
-+#ifndef MIN
- #define	MIN(a, b) (((a) < (b)) ? (a) : (b))
-+#endif
- 
- static long long INIT read_int(unsigned char *ptr, int size)
- {
-diff --git a/lib/zstd/zstd_internal.h b/lib/zstd/zstd_internal.h
-index dac753397f86..927ed4e8c11c 100644
---- a/lib/zstd/zstd_internal.h
-+++ b/lib/zstd/zstd_internal.h
-@@ -36,8 +36,6 @@
- /*-*************************************
- *  shared macros
- ***************************************/
--#define MIN(a, b) ((a) < (b) ? (a) : (b))
--#define MAX(a, b) ((a) > (b) ? (a) : (b))
- #define CHECK_F(f)                       \
- 	{                                \
- 		size_t const errcod = f; \
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index f5f80981ac98..bd66c28afb5c 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -126,7 +126,6 @@
- #define ISOLATED_BITS	3
- #define MAGIC_VAL_BITS	8
- 
--#define MAX(a, b) ((a) >= (b) ? (a) : (b))
- /* ZS_MIN_ALLOC_SIZE must be multiple of ZS_ALIGN */
- #define ZS_MIN_ALLOC_SIZE \
- 	MAX(32, (ZS_MAX_PAGES_PER_ZSPAGE << PAGE_SHIFT >> OBJ_INDEX_BITS))
+ 	char *p = sym, *pend = sym + sizeof(sym);
 -- 
 2.47.3
 
