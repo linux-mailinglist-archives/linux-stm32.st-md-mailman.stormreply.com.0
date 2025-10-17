@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0124BE7157
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:16:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB26ABE714D
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:16:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41ECDC58D49;
-	Fri, 17 Oct 2025 08:16:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DA6CC58D47;
+	Fri, 17 Oct 2025 08:16:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5F91C58D48
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA8C7C58D45
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 08:16:21 +0000 (UTC)
+ Fri, 17 Oct 2025 08:16:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A4D5464280;
- Fri, 17 Oct 2025 08:16:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98EFC4CEFE;
- Fri, 17 Oct 2025 08:16:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3030D4AEDA;
+ Fri, 17 Oct 2025 08:16:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78357C4CEF9;
+ Fri, 17 Oct 2025 08:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760688980;
- bh=KGscHLo4lmwttty+FbyKIhMbZVDGdMbkHROcEjxJKR4=;
+ s=korg; t=1760688977;
+ bh=PHE61ocZpAmbcR8Zt6lhiDv74Fbgrfjoc7lG+GFvvjg=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=Ljnhb1SV3+uNrpurZLUI7wIbg8U95WGLdT+ziKWmAFefAX0AEi/bTB9q+xQWuLXSj
- RIqHN6IABcpRyHupKXDSqp3U6LsD0mI0JK6Jqxelvm3YK52yddKOjIH75HrkcNw7kM
- /rikgip+gGkoylbYO7BA6JNw3nHTSjYC8AY9HWgI=
+ b=bcNOBDQAVwSZ8Gw7PDF8jKMOTbGQssjr4ZV43XpXV/ijYkoiBmu/AuaRm1D9AynKy
+ 8xVWFzjJ5XtopifK2sr8p3u7Uo/87NOdIDhkHvixLm2IL5EMheCU7SdZKI5suu9Zqx
+ vmUc2IXhg5amhjCQCNmSOSceBxpJW6H+LiXqkcsQ=
 To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
 	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
@@ -64,14 +64,14 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
 From: <gregkh@linuxfoundation.org>
 Date: Fri, 17 Oct 2025 10:16:14 +0200
-In-Reply-To: <20251008152946.29285-10-farbere@amazon.com>
-Message-ID: <2025101714-woozy-dolly-87b8@gregkh>
+In-Reply-To: <20251008152946.29285-7-farbere@amazon.com>
+Message-ID: <2025101714-crisping-parakeet-ceba@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "minmax: don't use max() in situations that
-	want a C constant expression" has been added to the 5.15-stable tree
+Subject: [Linux-stm32] Patch "minmax: add a few more MIN_T/MAX_T users" has
+	been added to the 5.15-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,140 +83,227 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-This is a note to let you know that I've just added the patch titled
-
-    minmax: don't use max() in situations that want a C constant expression
-
-to the 5.15-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-and it can be found in the queue-5.15 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From prvs=36971892a=farbere@amazon.com Wed Oct  8 17:32:28 2025
-From: Eliav Farber <farbere@amazon.com>
-Date: Wed, 8 Oct 2025 15:29:34 +0000
-Subject: minmax: don't use max() in situations that want a C constant expression
-To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
- inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
- ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Message-ID: <20251008152946.29285-10-farbere@amazon.com>
-
-From: Linus Torvalds <torvalds@linux-foundation.org>
-
-[ Upstream commit cb04e8b1d2f24c4c2c92f7b7529031fc35a16fed ]
-
-We only had a couple of array[] declarations, and changing them to just
-use 'MAX()' instead of 'max()' fixes the issue.
-
-This will allow us to simplify our min/max macros enormously, since they
-can now unconditionally use temporary variables to avoid using the
-argument values multiple times.
-
-Cc: David Laight <David.Laight@aculab.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/input/touchscreen/cyttsp4_core.c |    2 +-
- drivers/irqchip/irq-sun6i-r.c            |    2 +-
- drivers/md/dm-integrity.c                |    2 +-
- fs/btrfs/tree-checker.c                  |    2 +-
- lib/vsprintf.c                           |    2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
-
---- a/drivers/input/touchscreen/cyttsp4_core.c
-+++ b/drivers/input/touchscreen/cyttsp4_core.c
-@@ -871,7 +871,7 @@ static void cyttsp4_get_mt_touches(struc
- 	struct cyttsp4_touch tch;
- 	int sig;
- 	int i, j, t = 0;
--	int ids[max(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
-+	int ids[MAX(CY_TMA1036_MAX_TCH, CY_TMA4XX_MAX_TCH)];
- 
- 	memset(ids, 0, si->si_ofs.tch_abs[CY_TCH_T].max * sizeof(int));
- 	for (i = 0; i < num_cur_tch; i++) {
---- a/drivers/irqchip/irq-sun6i-r.c
-+++ b/drivers/irqchip/irq-sun6i-r.c
-@@ -268,7 +268,7 @@ static const struct irq_domain_ops sun6i
- 
- static int sun6i_r_intc_suspend(void)
- {
--	u32 buf[BITS_TO_U32(max(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
-+	u32 buf[BITS_TO_U32(MAX(SUN6I_NR_TOP_LEVEL_IRQS, SUN6I_NR_MUX_BITS))];
- 	int i;
- 
- 	/* Wake IRQs are enabled during system sleep and shutdown. */
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1705,7 +1705,7 @@ static void integrity_metadata(struct wo
- 		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
- 		char *checksums;
- 		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
--		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
-+		char checksums_onstack[MAX(HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		sector_t sector;
- 		unsigned sectors_to_process;
- 
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -608,7 +608,7 @@ static int check_dir_item(struct extent_
- 		 */
- 		if (key->type == BTRFS_DIR_ITEM_KEY ||
- 		    key->type == BTRFS_XATTR_ITEM_KEY) {
--			char namebuf[max(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
-+			char namebuf[MAX(BTRFS_NAME_LEN, XATTR_NAME_MAX)];
- 
- 			read_extent_buffer(leaf, namebuf,
- 					(unsigned long)(di + 1), name_len);
---- a/lib/vsprintf.c
-+++ b/lib/vsprintf.c
-@@ -1100,7 +1100,7 @@ char *resource_string(char *buf, char *e
- #define FLAG_BUF_SIZE		(2 * sizeof(res->flags))
- #define DECODED_BUF_SIZE	sizeof("[mem - 64bit pref window disabled]")
- #define RAW_BUF_SIZE		sizeof("[mem - flags 0x]")
--	char sym[max(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
-+	char sym[MAX(2*RSRC_BUF_SIZE + DECODED_BUF_SIZE,
- 		     2*RSRC_BUF_SIZE + FLAG_BUF_SIZE + RAW_BUF_SIZE)];
- 
- 	char *p = sym, *pend = sym + sizeof(sym);
-
-
-Patches currently in stable-queue which might be from farbere@amazon.com are
-
-queue-5.15/minmax-add-a-few-more-min_t-max_t-users.patch
-queue-5.15/minmax-improve-macro-expansion-and-type-checking.patch
-queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
-queue-5.15/minmax.h-simplify-the-variants-of-clamp.patch
-queue-5.15/minmax-add-in_range-macro.patch
-queue-5.15/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
-queue-5.15/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
-queue-5.15/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
-queue-5.15/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
-queue-5.15/minmax-simplify-min-max-clamp-implementation.patch
-queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
-queue-5.15/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
-queue-5.15/minmax.h-add-whitespace-around-operators-and-after-commas.patch
-queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
-queue-5.15/minmax-make-generic-min-and-max-macros-available-everywhere.patch
-queue-5.15/minmax-fix-up-min3-and-max3-too.patch
-queue-5.15/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
-queue-5.15/minmax-introduce-min-max-_array.patch
-queue-5.15/minmax.h-update-some-comments.patch
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
+cGF0Y2ggdGl0bGVkCgogICAgbWlubWF4OiBhZGQgYSBmZXcgbW9yZSBNSU5fVC9NQVhfVCB1c2Vy
+cwoKdG8gdGhlIDUuMTUtc3RhYmxlIHRyZWUgd2hpY2ggY2FuIGJlIGZvdW5kIGF0OgogICAgaHR0
+cDovL3d3dy5rZXJuZWwub3JnL2dpdC8/cD1saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9zdGFibGUt
+cXVldWUuZ2l0O2E9c3VtbWFyeQoKVGhlIGZpbGVuYW1lIG9mIHRoZSBwYXRjaCBpczoKICAgICBt
+aW5tYXgtYWRkLWEtZmV3LW1vcmUtbWluX3QtbWF4X3QtdXNlcnMucGF0Y2gKYW5kIGl0IGNhbiBi
+ZSBmb3VuZCBpbiB0aGUgcXVldWUtNS4xNSBzdWJkaXJlY3RvcnkuCgpJZiB5b3UsIG9yIGFueW9u
+ZSBlbHNlLCBmZWVscyBpdCBzaG91bGQgbm90IGJlIGFkZGVkIHRvIHRoZSBzdGFibGUgdHJlZSwK
+cGxlYXNlIGxldCA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4ga25vdyBhYm91dCBpdC4KCgpGcm9t
+IHN0YWJsZStib3VuY2VzLTE4MzYxOC1ncmVnPWtyb2FoLmNvbUB2Z2VyLmtlcm5lbC5vcmcgV2Vk
+IE9jdCAgOCAxNzozMzozMCAyMDI1CkZyb206IEVsaWF2IEZhcmJlciA8ZmFyYmVyZUBhbWF6b24u
+Y29tPgpEYXRlOiBXZWQsIDggT2N0IDIwMjUgMTU6Mjk6MzEgKzAwMDAKU3ViamVjdDogbWlubWF4
+OiBhZGQgYSBmZXcgbW9yZSBNSU5fVC9NQVhfVCB1c2VycwpUbzogPGdyZWdraEBsaW51eGZvdW5k
+YXRpb24ub3JnPiwgPGpkaWtlQGFkZHRvaXQuY29tPiwgPHJpY2hhcmRAbm9kLmF0PiwgPGFudG9u
+Lml2YW5vdkBjYW1icmlkZ2VncmV5cy5jb20+LCA8ZGF2ZS5oYW5zZW5AbGludXguaW50ZWwuY29t
+PiwgPGx1dG9Aa2VybmVsLm9yZz4sIDxwZXRlcnpAaW5mcmFkZWFkLm9yZz4sIDx0Z2x4QGxpbnV0
+cm9uaXguZGU+LCA8bWluZ29AcmVkaGF0LmNvbT4sIDxicEBhbGllbjguZGU+LCA8eDg2QGtlcm5l
+bC5vcmc+LCA8aHBhQHp5dG9yLmNvbT4sIDx0b255Lmx1Y2tAaW50ZWwuY29tPiwgPHFpdXh1Lnpo
+dW9AaW50ZWwuY29tPiwgPGphbWVzLm1vcnNlQGFybS5jb20+LCA8cnJpY0BrZXJuZWwub3JnPiwg
+PGFpcmxpZWRAbGludXguaWU+LCA8ZGFuaWVsQGZmd2xsLmNoPiwgPG1hYXJ0ZW4ubGFua2hvcnN0
+QGxpbnV4LmludGVsLmNvbT4sIDxtcmlwYXJkQGtlcm5lbC5vcmc+LCA8dHppbW1lcm1hbm5Ac3Vz
+ZS5kZT4sIDxyb2JkY2xhcmtAZ21haWwuY29tPiwgPHNlYW5AcG9vcmx5LnJ1bj4sIDxqZGVsdmFy
+ZUBzdXNlLmNvbT4sIDxsaW51eEByb2Vjay11cy5uZXQ+LCA8bGludXMud2FsbGVpakBsaW5hcm8u
+b3JnPiwgPGRtaXRyeS50b3Jva2hvdkBnbWFpbC5jb20+LCA8bWF6QGtlcm5lbC5vcmc+LCA8d2Vu
+c0Bjc2llLm9yZz4sIDxqZXJuZWouc2tyYWJlY0BnbWFpbC5jb20+LCA8YWdrQHJlZGhhdC5jb20+
+LCA8c25pdHplckByZWRoYXQuY29tPiwgPGRtLWRldmVsQHJlZGhhdC5jb20+LCA8ZGF2ZW1AZGF2
+ZW1sb2Z0Lm5ldD4sIDxrdWJhQGtlcm5lbC5vcmc+LCA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNv
+bT4sIDxrcnp5c3p0b2Yua296bG93c2tpQGNhbm9uaWNhbC5jb20+LCA8bWFsYXR0aWFAbGludXgu
+aXQ+LCA8aGRlZ29lZGVAcmVkaGF0LmNvbT4sIDxtZ3Jvc3NAbGludXguaW50ZWwuY29tPiwgPGpl
+amJAbGludXguaWJtLmNvbT4sIDxtYXJ0aW4ucGV0ZXJzZW5Ab3JhY2xlLmNvbT4sIDxzYWthcmku
+YWlsdXNAbAogaW51eC5pbnRlbC5jb20+LCA8Y2xtQGZiLmNvbT4sIDxqb3NlZkB0b3hpY3BhbmRh
+LmNvbT4sIDxkc3RlcmJhQHN1c2UuY29tPiwgPGphY2tAc3VzZS5jb20+LCA8dHl0c29AbWl0LmVk
+dT4sIDxhZGlsZ2VyLmtlcm5lbEBkaWxnZXIuY2E+LCA8ZHVzaGlzdG92QG1haWwucnU+LCA8bHVj
+LnZhbm9vc3RlbnJ5Y2tAZ21haWwuY29tPiwgPHJvc3RlZHRAZ29vZG1pcy5vcmc+LCA8cG1sYWRl
+a0BzdXNlLmNvbT4sIDxzZW5vemhhdHNreUBjaHJvbWl1bS5vcmc+LCA8YW5kcml5LnNoZXZjaGVu
+a29AbGludXguaW50ZWwuY29tPiwgPGxpbnV4QHJhc211c3ZpbGxlbW9lcy5kaz4sIDxtaW5jaGFu
+QGtlcm5lbC5vcmc+LCA8bmd1cHRhQHZmbGFyZS5vcmc+LCA8YWtwbUBsaW51eC1mb3VuZGF0aW9u
+Lm9yZz4sIDx5b3NoZnVqaUBsaW51eC1pcHY2Lm9yZz4sIDxkc2FoZXJuQGtlcm5lbC5vcmc+LCA8
+cGFibG9AbmV0ZmlsdGVyLm9yZz4sIDxrYWRsZWNAbmV0ZmlsdGVyLm9yZz4sIDxmd0BzdHJsZW4u
+ZGU+LCA8am1hbG95QHJlZGhhdC5jb20+LCA8eWluZy54dWVAd2luZHJpdmVyLmNvbT4sIDxzaHVh
+aEBrZXJuZWwub3JnPiwgPHdpbGx5QGluZnJhZGVhZC5vcmc+LCA8ZmFyYmVyZUBhbWF6b24uY29t
+PiwgPHNhc2hhbEBrZXJuZWwub3JnPiwgPHF1aWNfYWtoaWxwb0BxdWljaW5jLmNvbT4sIDxydWFu
+amluamllQGh1YXdlaS5jb20+LCA8RGF2aWQuTGFpZ2h0QEFDVUxBQi5DT00+LCA8aGVydmUuY29k
+aW5hQGJvb3RsaW4uY29tPiwgPGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZz4s
+IDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPiwgPGxpbnV4LXVtQGxpc3RzLmluZnJhZGVh
+ZC5vcmc+LCA8bGludXgtZWRhY0B2Z2VyLmtlcm5lbC5vcmc+LCA8YW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmc+LCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4sIDxsaW51eC1h
+cm0tbXNtQHZnZXIua2VybmVsLm9yZz4sIDxmcmVlZHJlbm9AbAogaXN0cy5mcmVlZGVza3RvcC5v
+cmc+LCA8bGludXgtaHdtb25Admdlci5rZXJuZWwub3JnPiwgPGxpbnV4LWlucHV0QHZnZXIua2Vy
+bmVsLm9yZz4sIDxsaW51eC1zdW54aUBsaXN0cy5saW51eC5kZXY+LCA8bGludXgtbWVkaWFAdmdl
+ci5rZXJuZWwub3JnPiwgPG5ldGRldkB2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbT4sIDxwbGF0Zm9ybS1kcml2ZXIteDg2QHZnZXIua2Vy
+bmVsLm9yZz4sIDxsaW51eC1zY3NpQHZnZXIua2VybmVsLm9yZz4sIDxsaW51eC1zdGFnaW5nQGxp
+c3RzLmxpbnV4LmRldj4sIDxsaW51eC1idHJmc0B2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtZXh0
+NEB2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtc3BhcnNlQHZnZXIua2VybmVsLm9yZz4sIDxsaW51
+eC1tbUBrdmFjay5vcmc+LCA8bmV0ZmlsdGVyLWRldmVsQHZnZXIua2VybmVsLm9yZz4sIDxjb3Jl
+dGVhbUBuZXRmaWx0ZXIub3JnPiwgPHRpcGMtZGlzY3Vzc2lvbkBsaXN0cy5zb3VyY2Vmb3JnZS5u
+ZXQ+LCA8bGludXgta3NlbGZ0ZXN0QHZnZXIua2VybmVsLm9yZz4sIDxzdGFibGVAdmdlci5rZXJu
+ZWwub3JnPgpDYzogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3Jn
+PiwgRGF2aWQgTGFpZ2h0IDxEYXZpZC5MYWlnaHRAYWN1bGFiLmNvbT4sIExvcmVuem8gU3RvYWtl
+cyA8bG9yZW56by5zdG9ha2VzQG9yYWNsZS5jb20+Ck1lc3NhZ2UtSUQ6IDwyMDI1MTAwODE1Mjk0
+Ni4yOTI4NS03LWZhcmJlcmVAYW1hem9uLmNvbT4KCkZyb206IExpbnVzIFRvcnZhbGRzIDx0b3J2
+YWxkc0BsaW51eC1mb3VuZGF0aW9uLm9yZz4KClsgVXBzdHJlYW0gY29tbWl0IDQ0NzdiMzljMzJm
+ZGMwMzM2M2FmZmVmNGIxMWQ0ODM5MWU2ZGM5ZmYgXQoKQ29tbWl0IDNhN2UwMmMwNDBiMSAoIm1p
+bm1heDogYXZvaWQgb3Zlcmx5IGNvbXBsaWNhdGVkIGNvbnN0YW50CmV4cHJlc3Npb25zIGluIFZN
+IGNvZGUiKSBhZGRlZCB0aGUgc2ltcGxlciBNSU5fVC9NQVhfVCBtYWNyb3MgaW4gb3JkZXIKdG8g
+YXZvaWQgc29tZSBleGNlc3NpdmUgZXhwYW5zaW9uIGZyb20gdGhlIHJhdGhlciBjb21wbGljYXRl
+ZCByZWd1bGFyCm1pbi9tYXggbWFjcm9zLgoKVGhlIGNvbXBsZXhpdHkgb2YgdGhvc2UgbWFjcm9z
+IHN0ZW1zIGZyb20gdHdvIGlzc3VlczoKCiAoYSkgdHJ5aW5nIHRvIHVzZSB0aGVtIGluIHNpdHVh
+dGlvbnMgdGhhdCByZXF1aXJlIGEgQyBjb25zdGFudAogICAgIGV4cHJlc3Npb24gKGluIHN0YXRp
+YyBpbml0aWFsaXplcnMgYW5kIGZvciBhcnJheSBzaXplcykKCiAoYikgdGhlIHR5cGUgc2FuaXR5
+IGNoZWNraW5nCgphbmQgTUlOX1QvTUFYX1QgYXZvaWRzIGJvdGggb2YgdGhlc2UgaXNzdWVzLgoK
+Tm93LCBpbiB0aGUgd2hvbGUgKGxvbmcpIGRpc2N1c3Npb24gYWJvdXQgYWxsIHRoaXMsIGl0IHdh
+cyBwb2ludGVkIG91dAp0aGF0IHRoZSB3aG9sZSB0eXBlIHNhbml0eSBjaGVja2luZyBpcyBlbnRp
+cmVseSB1bm5lY2Vzc2FyeSBmb3IKbWluX3QvbWF4X3Qgd2hpY2ggZ2V0IGEgZml4ZWQgdHlwZSB0
+aGF0IHRoZSBjb21wYXJpc29uIGlzIGRvbmUgaW4uCgpCdXQgdGhhdCBzdGlsbCBsZWF2ZXMgbWlu
+X3QvbWF4X3QgdW5uZWNlc3NhcmlseSBjb21wbGljYXRlZCBkdWUgdG8Kd29ycmllcyBhYm91dCB0
+aGUgQyBjb25zdGFudCBleHByZXNzaW9uIGNhc2UuCgpIb3dldmVyLCBpdCB0dXJucyBvdXQgdGhh
+dCB0aGVyZSByZWFsbHkgYXJlbid0IHZlcnkgbWFueSBjYXNlcyB0aGF0IHVzZQptaW5fdC9tYXhf
+dCBmb3IgdGhpcywgYW5kIHdlIGNhbiBqdXN0IGZvcmNlLWNvbnZlcnQgdGhvc2UuCgpUaGlzIGRv
+ZXMgZXhhY3RseSB0aGF0LgoKV2hpY2ggaW4gdHVybiB3aWxsIHRoZW4gYWxsb3cgZm9yIG11Y2gg
+c2ltcGxlciBpbXBsZW1lbnRhdGlvbnMgb2YKbWluX3QoKS9tYXhfdCgpLiAgQWxsIHRoZSB1c3Vh
+bCAibWFjcm9zIGluIGFsbCB1cHBlciBjYXNlIHdpbGwgZXZhbHVhdGUKdGhlIGFyZ3VtZW50cyBt
+dWx0aXBsZSB0aW1lcyIgcnVsZXMgYXBwbHkuCgpXZSBzaG91bGQgZG8gYWxsIHRoZSBzYW1lIHRo
+aW5ncyBmb3IgdGhlIHJlZ3VsYXIgbWluL21heCgpIHZzIE1JTi9NQVgoKQpjYXNlcywgYnV0IHRo
+YXQgaGFzIHRoZSBhZGRlZCBjb21wbGV4aXR5IG9mIHZhcmlvdXMgZHJpdmVycyBkZWZpbmluZwp0
+aGVpciBvd24gbG9jYWwgdmVyc2lvbnMgb2YgTUlOL01BWCwgc28gdGhhdCBuZWVkcyBhbm90aGVy
+IGxldmVsIG9mCmZpeGVzIGZpcnN0LgoKTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxs
+L2I0N2ZhZDFkMGNmODQ0OTg4NmFkMTQ4ZjhjMDEzZGFlQEFjdU1TLmFjdWxhYi5jb20vCkNjOiBE
+YXZpZCBMYWlnaHQgPERhdmlkLkxhaWdodEBhY3VsYWIuY29tPgpDYzogTG9yZW56byBTdG9ha2Vz
+IDxsb3JlbnpvLnN0b2FrZXNAb3JhY2xlLmNvbT4KU2lnbmVkLW9mZi1ieTogTGludXMgVG9ydmFs
+ZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3JnPgpTaWduZWQtb2ZmLWJ5OiBFbGlhdiBG
+YXJiZXIgPGZhcmJlcmVAYW1hem9uLmNvbT4KU2lnbmVkLW9mZi1ieTogR3JlZyBLcm9haC1IYXJ0
+bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KLS0tClYyIC0+IFYzOgpGaXggZnMvZXJv
+ZnMvemRhdGEuaCB0byB1c2UgTUlOX1QgaW5zdGVhZCBvZiBtaW5fdCB0byBmaXggYnVpbGQgb24g
+dGhlCmZvbGxvd2luZyBwYXRjaDoKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4vaW5jbHVkZS9saW51
+eC9rZXJuZWwuaDoxNiwKICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC9saXN0
+Lmg6OSwKICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC93YWl0Lmg6NywKICAg
+ICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC93YWl0X2JpdC5oOjgsCiAgICAgICAg
+ICAgICAgICAgZnJvbSAuL2luY2x1ZGUvbGludXgvZnMuaDo2LAogICAgICAgICAgICAgICAgIGZy
+b20gZnMvZXJvZnMvaW50ZXJuYWwuaDoxMCwKICAgICAgICAgICAgICAgICBmcm9tIGZzL2Vyb2Zz
+L3pkYXRhLmg6OSwKICAgICAgICAgICAgICAgICBmcm9tIGZzL2Vyb2ZzL3pkYXRhLmM6NjoKZnMv
+ZXJvZnMvemRhdGEuYzogSW4gZnVuY3Rpb24g4oCYel9lcm9mc19kZWNvbXByZXNzX3BjbHVzdGVy
+4oCZOgpmcy9lcm9mcy96ZGF0YS5oOjE4NTo2MTogZXJyb3I6IElTTyBDOTAgZm9yYmlkcyB2YXJp
+YWJsZSBsZW5ndGggYXJyYXkg4oCYcGFnZXNfb25zdGFja+KAmSBbLVdlcnJvcj12bGFdCiAgMTg1
+IHwgICAgICAgICBtaW5fdCh1bnNpZ25lZCBpbnQsIFRIUkVBRF9TSVpFIC8gOCAvIHNpemVvZihz
+dHJ1Y3QgcGFnZSAqKSwgOTZVKQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn4KLi9pbmNsdWRlL2xpbnV4L21pbm1h
+eC5oOjQ5OjIzOiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3JvIOKAmF9fY21wX29uY2VfdW5p
+cXVl4oCZCiAgIDQ5IHwgICAgICAgICAoeyB0eXBlIHV4ID0gKHgpOyB0eXBlIHV5ID0gKHkpOyBf
+X2NtcChvcCwgdXgsIHV5KTsgfSkKICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgXgouL2lu
+Y2x1ZGUvbGludXgvbWlubWF4Lmg6MTY0OjI3OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g
+4oCYX19jbXBfb25jZeKAmQogIDE2NCB8ICNkZWZpbmUgbWluX3QodHlwZSwgeCwgeSkgX19jbXBf
+b25jZShtaW4sIHR5cGUsIHgsIHkpCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICBe
+fn5+fn5+fn5+CmZzL2Vyb2ZzL3pkYXRhLmg6MTg1Ojk6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBt
+YWNybyDigJhtaW5fdOKAmQogIDE4NSB8ICAgICAgICAgbWluX3QodW5zaWduZWQgaW50LCBUSFJF
+QURfU0laRSAvIDggLyBzaXplb2Yoc3RydWN0IHBhZ2UgKiksIDk2VSkKICAgICAgfCAgICAgICAg
+IF5+fn5+CmZzL2Vyb2ZzL3pkYXRhLmM6ODQ3OjM2OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFj
+cm8g4oCYWl9FUk9GU19WTUFQX09OU1RBQ0tfUEFHRVPigJkKICA4NDcgfCAgICAgICAgIHN0cnVj
+dCBwYWdlICpwYWdlc19vbnN0YWNrW1pfRVJPRlNfVk1BUF9PTlNUQUNLX1BBR0VTXTsKICAgICAg
+fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+CmNjMTogYWxsIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCgpWMSAtPiBW
+MjoKVXNlIGBbIFVwc3RyZWFtIGNvbW1pdCA8SEFTSD4gXWAgaW5zdGVhZCBvZiBgY29tbWl0IDxI
+QVNIPiB1cHN0cmVhbS5gCmxpa2UgaW4gYWxsIG90aGVyIHBhdGNoZXMuCgogYXJjaC94ODYvbW0v
+cGd0YWJsZS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIgKy0KIGRyaXZlcnMv
+ZWRhYy9zYl9lZGFjLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA0ICsrLS0KIGRy
+aXZlcnMvZ3B1L2RybS9kcm1fY29sb3JfbWdtdC5jICAgICAgICAgICAgICAgICAgfCAgICAyICst
+CiBkcml2ZXJzL21kL2RtLWludGVncml0eS5jICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAg
+MiArLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyB8
+ICAgIDIgKy0KIGZzL2Vyb2ZzL3pkYXRhLmggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgICAyICstCiBuZXQvaXB2NC9wcm9jLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgICAgMiArLQogbmV0L2lwdjYvcHJvYy5jICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAgIDIgKy0KIDggZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5
+IGRlbGV0aW9ucygtKQoKLS0tIGEvYXJjaC94ODYvbW0vcGd0YWJsZS5jCisrKyBiL2FyY2gveDg2
+L21tL3BndGFibGUuYwpAQCAtMTA3LDcgKzEwNyw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBwZ2Rf
+bGlzdF9kZWwocGdkX3QgKnAKICNkZWZpbmUgVU5TSEFSRURfUFRSU19QRVJfUEdECQkJCVwKIAko
+U0hBUkVEX0tFUk5FTF9QTUQgPyBLRVJORUxfUEdEX0JPVU5EQVJZIDogUFRSU19QRVJfUEdEKQog
+I2RlZmluZSBNQVhfVU5TSEFSRURfUFRSU19QRVJfUEdECQkJXAotCW1heF90KHNpemVfdCwgS0VS
+TkVMX1BHRF9CT1VOREFSWSwgUFRSU19QRVJfUEdEKQorCU1BWF9UKHNpemVfdCwgS0VSTkVMX1BH
+RF9CT1VOREFSWSwgUFRSU19QRVJfUEdEKQogCiAKIHN0YXRpYyB2b2lkIHBnZF9zZXRfbW0ocGdk
+X3QgKnBnZCwgc3RydWN0IG1tX3N0cnVjdCAqbW0pCi0tLSBhL2RyaXZlcnMvZWRhYy9zYl9lZGFj
+LmMKKysrIGIvZHJpdmVycy9lZGFjL3NiX2VkYWMuYwpAQCAtMTA5LDggKzEwOSw4IEBAIHN0YXRp
+YyBjb25zdCB1MzIga25sX2ludGVybGVhdmVfbGlzdFtdID0KIAkweDEwNCwgMHgxMGMsIDB4MTE0
+LCAweDExYywgICAvKiAyMC0yMyAqLwogfTsKICNkZWZpbmUgTUFYX0lOVEVSTEVBVkUJCQkJCQkJ
+XAotCShtYXhfdCh1bnNpZ25lZCBpbnQsIEFSUkFZX1NJWkUoc2JyaWRnZV9pbnRlcmxlYXZlX2xp
+c3QpLAlcCi0JICAgICAgIG1heF90KHVuc2lnbmVkIGludCwgQVJSQVlfU0laRShpYnJpZGdlX2lu
+dGVybGVhdmVfbGlzdCksCVwKKwkoTUFYX1QodW5zaWduZWQgaW50LCBBUlJBWV9TSVpFKHNicmlk
+Z2VfaW50ZXJsZWF2ZV9saXN0KSwJXAorCSAgICAgICBNQVhfVCh1bnNpZ25lZCBpbnQsIEFSUkFZ
+X1NJWkUoaWJyaWRnZV9pbnRlcmxlYXZlX2xpc3QpLAlcCiAJCSAgICAgQVJSQVlfU0laRShrbmxf
+aW50ZXJsZWF2ZV9saXN0KSkpKQogCiBzdHJ1Y3QgaW50ZXJsZWF2ZV9wa2cgewotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vZHJtX2NvbG9yX21nbXQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Nv
+bG9yX21nbXQuYwpAQCAtNTI4LDcgKzUyOCw3IEBAIGludCBkcm1fcGxhbmVfY3JlYXRlX2NvbG9y
+X3Byb3BlcnRpZXMoc3QKIHsKIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gcGxhbmUtPmRldjsK
+IAlzdHJ1Y3QgZHJtX3Byb3BlcnR5ICpwcm9wOwotCXN0cnVjdCBkcm1fcHJvcF9lbnVtX2xpc3Qg
+ZW51bV9saXN0W21heF90KGludCwgRFJNX0NPTE9SX0VOQ09ESU5HX01BWCwKKwlzdHJ1Y3QgZHJt
+X3Byb3BfZW51bV9saXN0IGVudW1fbGlzdFtNQVhfVChpbnQsIERSTV9DT0xPUl9FTkNPRElOR19N
+QVgsCiAJCQkJCQkgICAgICAgRFJNX0NPTE9SX1JBTkdFX01BWCldOwogCWludCBpLCBsZW47CiAK
+LS0tIGEvZHJpdmVycy9tZC9kbS1pbnRlZ3JpdHkuYworKysgYi9kcml2ZXJzL21kL2RtLWludGVn
+cml0eS5jCkBAIC0yNTM2LDcgKzI1MzYsNyBAQCBzdGF0aWMgdm9pZCBkb19qb3VybmFsX3dyaXRl
+KHN0cnVjdCBkbV9pCiAJCQkJICAgIHVubGlrZWx5KGZyb21fcmVwbGF5KSAmJgogI2VuZGlmCiAJ
+CQkJICAgIGljLT5pbnRlcm5hbF9oYXNoKSB7Ci0JCQkJCWNoYXIgdGVzdF90YWdbbWF4X3Qoc2l6
+ZV90LCBIQVNIX01BWF9ESUdFU1RTSVpFLCBNQVhfVEFHX1NJWkUpXTsKKwkJCQkJY2hhciB0ZXN0
+X3RhZ1tNQVhfVChzaXplX3QsIEhBU0hfTUFYX0RJR0VTVFNJWkUsIE1BWF9UQUdfU0laRSldOwog
+CiAJCQkJCWludGVncml0eV9zZWN0b3JfY2hlY2tzdW0oaWMsIHNlYyArICgobCAtIGopIDw8IGlj
+LT5zYi0+bG9nMl9zZWN0b3JzX3Blcl9ibG9jayksCiAJCQkJCQkJCSAgKGNoYXIgKilhY2Nlc3Nf
+am91cm5hbF9kYXRhKGljLCBpLCBsKSwgdGVzdF90YWcpOwotLS0gYS9kcml2ZXJzL25ldC9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVy
+bmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKQEAgLTI4MDUsNyArMjgwNSw3IEBAIHN0
+YXRpYyB2b2lkIHN0bW1hY19kbWFfaW50ZXJydXB0KHN0cnVjdAogCXUzMiBjaGFubmVsc190b19j
+aGVjayA9IHR4X2NoYW5uZWxfY291bnQgPiByeF9jaGFubmVsX2NvdW50ID8KIAkJCQl0eF9jaGFu
+bmVsX2NvdW50IDogcnhfY2hhbm5lbF9jb3VudDsKIAl1MzIgY2hhbjsKLQlpbnQgc3RhdHVzW21h
+eF90KHUzMiwgTVRMX01BWF9UWF9RVUVVRVMsIE1UTF9NQVhfUlhfUVVFVUVTKV07CisJaW50IHN0
+YXR1c1tNQVhfVCh1MzIsIE1UTF9NQVhfVFhfUVVFVUVTLCBNVExfTUFYX1JYX1FVRVVFUyldOwog
+CiAJLyogTWFrZSBzdXJlIHdlIG5ldmVyIGNoZWNrIGJleW9uZCBvdXIgc3RhdHVzIGJ1ZmZlci4g
+Ki8KIAlpZiAoV0FSTl9PTl9PTkNFKGNoYW5uZWxzX3RvX2NoZWNrID4gQVJSQVlfU0laRShzdGF0
+dXMpKSkKLS0tIGEvZnMvZXJvZnMvemRhdGEuaAorKysgYi9mcy9lcm9mcy96ZGF0YS5oCkBAIC0x
+ODIsNyArMTgyLDcgQEAgc3RhdGljIGlubGluZSB2b2lkIHpfZXJvZnNfb25saW5lcGFnZV9lbgog
+fQogCiAjZGVmaW5lIFpfRVJPRlNfVk1BUF9PTlNUQUNLX1BBR0VTCVwKLQltaW5fdCh1bnNpZ25l
+ZCBpbnQsIFRIUkVBRF9TSVpFIC8gOCAvIHNpemVvZihzdHJ1Y3QgcGFnZSAqKSwgOTZVKQorCU1J
+Tl9UKHVuc2lnbmVkIGludCwgVEhSRUFEX1NJWkUgLyA4IC8gc2l6ZW9mKHN0cnVjdCBwYWdlICop
+LCA5NlUpCiAjZGVmaW5lIFpfRVJPRlNfVk1BUF9HTE9CQUxfUEFHRVMJMjA0OAogCiAjZW5kaWYK
+LS0tIGEvbmV0L2lwdjQvcHJvYy5jCisrKyBiL25ldC9pcHY0L3Byb2MuYwpAQCAtNDMsNyArNDMs
+NyBAQAogI2luY2x1ZGUgPG5ldC9zb2NrLmg+CiAjaW5jbHVkZSA8bmV0L3Jhdy5oPgogCi0jZGVm
+aW5lIFRDUFVEUF9NSUJfTUFYIG1heF90KHUzMiwgVURQX01JQl9NQVgsIFRDUF9NSUJfTUFYKQor
+I2RlZmluZSBUQ1BVRFBfTUlCX01BWCBNQVhfVCh1MzIsIFVEUF9NSUJfTUFYLCBUQ1BfTUlCX01B
+WCkKIAogLyoKICAqCVJlcG9ydCBzb2NrZXQgYWxsb2NhdGlvbiBzdGF0aXN0aWNzIFttZWFAdXR1
+LmZpXQotLS0gYS9uZXQvaXB2Ni9wcm9jLmMKKysrIGIvbmV0L2lwdjYvcHJvYy5jCkBAIC0yNyw3
+ICsyNyw3IEBACiAjaW5jbHVkZSA8bmV0L2lwdjYuaD4KIAogI2RlZmluZSBNQVg0KGEsIGIsIGMs
+IGQpIFwKLQltYXhfdCh1MzIsIG1heF90KHUzMiwgYSwgYiksIG1heF90KHUzMiwgYywgZCkpCisJ
+TUFYX1QodTMyLCBNQVhfVCh1MzIsIGEsIGIpLCBNQVhfVCh1MzIsIGMsIGQpKQogI2RlZmluZSBT
+Tk1QX01JQl9NQVggTUFYNChVRFBfTUlCX01BWCwgVENQX01JQl9NQVgsIFwKIAkJCUlQU1RBVFNf
+TUlCX01BWCwgSUNNUF9NSUJfTUFYKQogCgoKUGF0Y2hlcyBjdXJyZW50bHkgaW4gc3RhYmxlLXF1
+ZXVlIHdoaWNoIG1pZ2h0IGJlIGZyb20gZmFyYmVyZUBhbWF6b24uY29tIGFyZQoKcXVldWUtNS4x
+NS9taW5tYXgtYWRkLWEtZmV3LW1vcmUtbWluX3QtbWF4X3QtdXNlcnMucGF0Y2gKcXVldWUtNS4x
+NS9taW5tYXgtaW1wcm92ZS1tYWNyby1leHBhbnNpb24tYW5kLXR5cGUtY2hlY2tpbmcucGF0Y2gK
+cXVldWUtNS4xNS9taW5tYXgtZml4LWluZGVudGF0aW9uLW9mLV9fY21wX29uY2UtYW5kLV9fY2xh
+bXBfb25jZS5wYXRjaApxdWV1ZS01LjE1L21pbm1heC5oLXNpbXBsaWZ5LXRoZS12YXJpYW50cy1v
+Zi1jbGFtcC5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1hZGQtaW5fcmFuZ2UtbWFjcm8ucGF0Y2gK
+cXVldWUtNS4xNS9taW5tYXguaC1tb3ZlLWFsbC10aGUtY2xhbXAtZGVmaW5pdGlvbnMtYWZ0ZXIt
+dGhlLW1pbi1tYXgtb25lcy5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1kb24tdC11c2UtbWF4LWlu
+LXNpdHVhdGlvbnMtdGhhdC13YW50LWEtYy1jb25zdGFudC1leHByZXNzaW9uLnBhdGNoCnF1ZXVl
+LTUuMTUvbWlubWF4LmgtcmVtb3ZlLXNvbWUtZGVmaW5lcy10aGF0LWFyZS1vbmx5LWV4cGFuZGVk
+LW9uY2UucGF0Y2gKcXVldWUtNS4xNS9taW5tYXguaC11c2UtYnVpbGRfYnVnX29uX21zZy1mb3It
+dGhlLWxvLWhpLXRlc3QtaW4tY2xhbXAucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtc2ltcGxpZnkt
+bWluLW1heC1jbGFtcC1pbXBsZW1lbnRhdGlvbi5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1kZWR1
+cGxpY2F0ZS1fX3VuY29uc3RfaW50ZWdlcl90eXBlb2YucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgt
+c2ltcGxpZnktYW5kLWNsYXJpZnktbWluX3QtbWF4X3QtaW1wbGVtZW50YXRpb24ucGF0Y2gKcXVl
+dWUtNS4xNS9taW5tYXguaC1hZGQtd2hpdGVzcGFjZS1hcm91bmQtb3BlcmF0b3JzLWFuZC1hZnRl
+ci1jb21tYXMucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtYXZvaWQtb3Zlcmx5LWNvbXBsaWNhdGVk
+LWNvbnN0YW50LWV4cHJlc3Npb25zLWluLXZtLWNvZGUucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgt
+bWFrZS1nZW5lcmljLW1pbi1hbmQtbWF4LW1hY3Jvcy1hdmFpbGFibGUtZXZlcnl3aGVyZS5wYXRj
+aApxdWV1ZS01LjE1L21pbm1heC1maXgtdXAtbWluMy1hbmQtbWF4My10b28ucGF0Y2gKcXVldWUt
+NS4xNS9taW5tYXguaC1yZWR1Y2UtdGhlLWRlZmluZS1leHBhbnNpb24tb2YtbWluLW1heC1hbmQt
+Y2xhbXAucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtaW50cm9kdWNlLW1pbi1tYXgtX2FycmF5LnBh
+dGNoCnF1ZXVlLTUuMTUvbWlubWF4LmgtdXBkYXRlLXNvbWUtY29tbWVudHMucGF0Y2gKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
