@@ -2,164 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A438ABEAF9D
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 19:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C31BEB0A9
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 19:17:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5622EC597BF;
-	Fri, 17 Oct 2025 17:06:07 +0000 (UTC)
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11010027.outbound.protection.outlook.com [52.101.228.27])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21503C5A4C0;
+	Fri, 17 Oct 2025 17:17:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09B8AC597BB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB308C597BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 17:06:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LoK+hk3sqxNpGA9oTM1UL53O0fZPdYyJ77a8bZkbuGOHNYqREYg3wXQYKeAGkbcy4pUgl/S4EBK9KQoWQTa4Xps7o/Dm2TpinpNM5xNH5lyJxTOS6eW6G/IOaq1aAXpJPMt0RMdki/gnUdZEdpeTZ48bfKMYFyS8AU/lRYfCnjMgx27KmpD52LYLvCFi2blfxDQJzOiiC3YAa9NtB+p2BYGtnFiN5Ze/OIyorlRSeliUSJEKl1Q+lYDkCC4kF39V5CgX+KD38Pngc1qD2dIdcH/viaMCCg+iMJC24L6keQvEvHRd5PTjGLRRl7TcZVOxmBc35i8V0VOaq8g7YafyvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t/nqA2whF64M+PT2HrTbvBkDecn9Alf8Pc19+d2U/VE=;
- b=RfyuJCNSPrmqbpIDxaSBO7Z9vvKdTJqJ+07s9fnpKSwa/iTtGeBzqWRcuGxWO4b9539IStdeeHxM8G+RLEkiB+WNaFBoFFa1xFDGzkS0K4PwOi/EzrC3LsbtRkIF8/D9o0MXBmiRYkXyILVaIgd893+I+f6AW9tFu77UUq3chIrv7vmWwvq71PW3e7c9pLugp7rjxjK7aH52K5RP0Ghev4vWe5/UKRbR4F4f5oiY3yEX8j/sE4S6EPzA2Nw7dDJgbGzkGOELOvhuo55Ma1ROUMrkS57lSQs35TeG3uLW0WEsdfmeNmYuU/Wwdhf3IoutS6GoULfadlbVK/6qefgDqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t/nqA2whF64M+PT2HrTbvBkDecn9Alf8Pc19+d2U/VE=;
- b=u93qkuWVoYVgBbyanzRWzObm0JjZLSlqifErmoQPnQPPhEjERMy530wCXcBzoooSrhtDgaYXeEK5h6cKktO2RdlCNzaqWBY9JH+lbAAwqDG9Xpch+IJca9O2nLkVi1pEmvaLjyMoMdlNBSh4qFmNfzqHzWLqLaxnQPRAbq0oNbA=
-Received: from OSZPR01MB7019.jpnprd01.prod.outlook.com (2603:1096:604:13c::8)
- by TY3PR01MB9699.jpnprd01.prod.outlook.com (2603:1096:400:229::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.6; Fri, 17 Oct
- 2025 17:06:01 +0000
-Received: from OSZPR01MB7019.jpnprd01.prod.outlook.com
- ([fe80::8a27:ee0d:d7a4:9d10]) by OSZPR01MB7019.jpnprd01.prod.outlook.com
- ([fe80::8a27:ee0d:d7a4:9d10%2]) with mapi id 15.20.9253.005; Fri, 17 Oct 2025
- 17:06:01 +0000
-From: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>
-Thread-Topic: [PATCH net-next v2 00/14] net: stmmac: phylink PCS conversion
-Thread-Index: AQHcPqo1mbWk7z7YKEGbWzZDU76xm7TGkvmA
-Date: Fri, 17 Oct 2025 17:06:01 +0000
-Message-ID: <OSZPR01MB7019B9CA4E027DA525477D6EAAF6A@OSZPR01MB7019.jpnprd01.prod.outlook.com>
-References: <aPECqg0vZGnBFCbh@shell.armlinux.org.uk>
-In-Reply-To: <aPECqg0vZGnBFCbh@shell.armlinux.org.uk>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSZPR01MB7019:EE_|TY3PR01MB9699:EE_
-x-ms-office365-filtering-correlation-id: 8ea41dd2-d005-41c1-def0-08de0d9f7304
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|38070700021|13003099007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?XZH7U1ESZdWCh+J87zWbKrmJJj1xn88Db4DK7p3nhCwQ3jer9iT5N+ztdSsm?=
- =?us-ascii?Q?UOrhLhHUw63LgWOt/HY74osBDD0v7wrktE+3BbfPX8nbuxNZQ38dpx9qtBSq?=
- =?us-ascii?Q?ZXrEdedCMy36yrz+LYpaELfCirL6JUAnop7CZBI9h8UFyPmhvuXELgCSsWvP?=
- =?us-ascii?Q?YFAzUKOfIvRzKtpbNecg+xaGCE3jurGb2T6Nx1qSFt5HGgmIxvjI4dxQUI46?=
- =?us-ascii?Q?zDR73PnrEc0EEaNYE+8iPfZyS0EmgB6+o+rlEe8k2DiHnhKUXuha/Bs2ZCH3?=
- =?us-ascii?Q?8iZIfBbZIIUY/W6moVYZ4+R+uUlvceEYFdyATf5Zjxvy+vj1AReNcN0iArxi?=
- =?us-ascii?Q?e4D82SPS2KijhjPKINjwU/ImDbAskgaH5s4Y/1oghmbUmdhGQaSt5lp8gguV?=
- =?us-ascii?Q?Kz6gRQ1X/mH7+JiD52mui8Uw4AMJFpwLdn9J3YkUpsK4R/rtoh/A649l30g2?=
- =?us-ascii?Q?EkCRV4uvi6Hn4hDu4GsC23e9yhIrt2azXjFSJsnNwoQhJtiCkGx79TCQVRUu?=
- =?us-ascii?Q?B0OrpWSszM7mUEeoCI93p0yduc60Z41UCMT4bMtakYtKR5shbqIxDfjdvdP1?=
- =?us-ascii?Q?fztLNCzr+UK4xGH4reptO32/ngoGm+xmiwTiEs8TP5VqK8cF/qrG5aEQmiI6?=
- =?us-ascii?Q?6QQo/c13LBqeFh6Yh8vckYxcxsqYV0d2T/FWxQ77J1WyeKzCUJcOU9jG0Vie?=
- =?us-ascii?Q?X3JAN5GCyw2v7JF1+H/nswrscflvxh49EtPHMA3EjCAlkYK6ZnkTXABOHg1g?=
- =?us-ascii?Q?dZuRlU+/TnV9k/1YA4XhHlWaSGB7Xm+a61xxqKolQjDdyNywScJdpntpN4EM?=
- =?us-ascii?Q?v/YwEUr2dg+BddFFT5j11/MDHgOo5Hnz9BNsao0r1aEyA/6VjAV3DzGLxdmX?=
- =?us-ascii?Q?CoBRxQOFxtRyMi8PG8AEzcDYQ1IuKLKiXWC/wUQ+fO4EcEDIYfapbFLz/bFQ?=
- =?us-ascii?Q?A9/DM4XdGOiSJMLWqdhr4bGW/0KHK4JRhPCLJItLXf259CEAlmvCC3lYsvjp?=
- =?us-ascii?Q?AxB1VuZWsEAdRfNiViYXifQ3cFYeTA42xe2mAkAAczuWlb9cYJYAZJzRAVTz?=
- =?us-ascii?Q?HxsZE9YBYcR9R49lek2XktAZLWPIsACFlQ6mZIUmVYaRc4j/Fr4wjH9UTtNw?=
- =?us-ascii?Q?Icx4AQbkELNksOgseYelKzvVQf9uCQuECsDo1Tf7Lwi1TRhr+ESoVoynJT90?=
- =?us-ascii?Q?5SGwCL9jNPw85zLaR3e2K/kJIddZUB/sKF3vw0dsJHO88n2IJSo96/0+Z2GU?=
- =?us-ascii?Q?kupXs1RJFpnJuc8nFP6ERKNtqREW8zEW+lknwa27Rtz1y4+QqnTb9wWThL6e?=
- =?us-ascii?Q?xgJhWiBhQ9jWiBSSNLDwM6LR1wSmmpbAFS59ZB7awKz17xaiZzhvSeWJFzcv?=
- =?us-ascii?Q?dlzQ7/hUSuB62nwbFqtzGvJdKq347lSZr7AgHgQHgcoHkFobUciVGevrY0du?=
- =?us-ascii?Q?bDr/FJiHbnuDt6Kjo7a5wEqvOxIu+4tFamkmK8tFCMEtviwC6xivvg=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OSZPR01MB7019.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700021)(13003099007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Q26kuhMTwfbvafow6S9PginPbbIeheGzN+u9q4ju88CXPKBn8ypigHzLagQZ?=
- =?us-ascii?Q?5p8vphPVVyFNfsPp6GNbfBZJfnamO85/KAU+PAcWGUwdwJ/jD4J0WNGnEDzO?=
- =?us-ascii?Q?NEW1Z+ZWq/51yleCL9hT4pG5QHxdNNG/mV8TwzvDuc8eOj7aPkTDfTUymHY5?=
- =?us-ascii?Q?wX0QE66/ZgSOy5LnyRJ+uBG1l+Qgt27xvuJ15W+Sl65r/l2kQAhXhnGAKID/?=
- =?us-ascii?Q?y4RM2fMATOLUPKJyf8zBlog9wCJ14zQcmg9945Y3cWGAe9HCSu+LNlzYcd+/?=
- =?us-ascii?Q?TfHGdB3plcfgIqbz5dU0nzsNsmEALBsZKlOk0xTrQsabG2fSN9SlN8GwlJ8l?=
- =?us-ascii?Q?hkmjVLa4cGMGCYKvSRktLvX+qPIRmxpLro52GZmH1+EizxV0FM5BdOQAkC5d?=
- =?us-ascii?Q?EYQ9ZcyNYIJ5ARSDGKIq6/oAYoK8IIDEDL3+xq1OhaweJLUVpPbkbVtju7no?=
- =?us-ascii?Q?hBSv/1wEhVGqg+3IfHoPOoYUIb/hP/10k9R0XU9JJxzoVfK/5NC4XZj5Lq9/?=
- =?us-ascii?Q?LaSCqyptZlrtSJnBfofff9yse5r05DaYkg0axVOPjUJvvz6uw5vjQQqa7bZH?=
- =?us-ascii?Q?jtbiYeP85WnbgZ54D4iQihX/BW+4lpk7NuSUWAi5Ie64pFMhvlCVAa7yrLjs?=
- =?us-ascii?Q?iLdxaI9SLcMKQkybF6MtuaDApkk/+2AyGLipMTBo2DeY9rE/f+LTePhieUwQ?=
- =?us-ascii?Q?kp4qIl2g46GSM8cNeP01uYhKuoRYnSK5M/gtqslIdnkMcrBpNKuleHDBttDc?=
- =?us-ascii?Q?7aA+eWM4ddpyqogAeZ0EN5g9oUJsS7AjWNTDt5e/x3xhU489a85005aeIzzI?=
- =?us-ascii?Q?nGTvS3fmw/kPiIDhPo9orByMaemMS8YEjuyZ+GSnudha6UJoHXkaRZYnKhOm?=
- =?us-ascii?Q?W+brhK80blaxFCNkudZYlkfVobZBW4eB5F6B16ickqBZPhb4j3ml4rIUdMus?=
- =?us-ascii?Q?leBF1OYme7pqZOBMtL56SpZsDcCtq1ucoADuoKHwU7+vSB0j9PRoeq82VWEG?=
- =?us-ascii?Q?HPNcFlv1y//p4q+Pj2uovi2oWaEcmyqifMicdRwG8KTEB1BXyt5q2duSfDlt?=
- =?us-ascii?Q?LZ3DC/fQ51RfF04jXPe6hevgj8NapV3k47BE90HLjky/SVOFa81ZZjiWjddK?=
- =?us-ascii?Q?QX6u9i6tZQYzSqRHlK5mmyh5QAbz5XNcbhZe4yc6Zxl0s78Zf2JZWA0ttJhp?=
- =?us-ascii?Q?3jgMIr+1DdmqUp8mG8LYFd+7IEuZerO23wgtlNcilNvIg9KgafOFcoy3NJeH?=
- =?us-ascii?Q?80FLMLTLBdkV6MtsxwznxnjX9ENLwzGlXCyF8sLVPlMf8EfBtsDKHuifeZN/?=
- =?us-ascii?Q?g8agVPNlLLUcFKGmpiXA/QuVqQTkxR0tFfmXa8osxA0lQNCEXp0Ut1pdlLq+?=
- =?us-ascii?Q?ebB3dCbkMEXDElE0HU/evh/BVJLDwbOUJkDbLxls3vqM2WcjHv0BLU/TbZDu?=
- =?us-ascii?Q?VurFmaSksJoGLI8QJ3i34eqbgCbXn4jI4SmRa3cH5Oo85mtDX8YcszXwo2RB?=
- =?us-ascii?Q?kamIcQwS3SV3UbMSirSzrURjy+1msawtCATfpzMnss+cBMOYzvTdkgj9qlGP?=
- =?us-ascii?Q?PBlgjDDhZQbFFAVldLWpm5ylniUIRwA1PxRU41yM+Gqrw1EFsprcBqj4I4H7?=
- =?us-ascii?Q?FWSPQrmMQIJMsBQIXBUypkU=3D?=
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSZPR01MB7019.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ea41dd2-d005-41c1-def0-08de0d9f7304
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Oct 2025 17:06:01.3240 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Z1kHXetG7D1X/9kMH1v19vax4l5NBfpjsKC1NliftLsV9EXkSbJ6ZIZpof4HWOL1+csRniLHfsxuBSCA2CKAjPptc2KmR2pWvcqUGp/c82sCiWe+htmCbVctncL/8PWJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9699
-Cc: Song Yoong Siang <yoong.siang.song@intel.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Kees Cook <kees@kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Faizal Rahim <faizal.abdul.rahim@linux.intel.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- Jisheng Zhang <jszhang@kernel.org>, Simon Horman <horms@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Furong Xu <0x1207@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Shenwei Wang <shenwei.wang@nxp.com>,
- Abhishek Chauhan <quic_abchauha@quicinc.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- Daniel Machon <daniel.machon@microchip.com>,
- Ley Foon Tan <leyfoon.tan@starfivetech.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, "Jan Petrous
- \(OSS\)" <jan.petrous@oss.nxp.com>, Rohan G Thomas <rohan.g.thomas@altera.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Alexis Lothore <alexis.lothore@bootlin.com>,
- Drew Fustini <dfustini@tenstorrent.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Vladimir Oltean <olteanv@gmail.com>, Inochi Amaoto <inochiama@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
+ Fri, 17 Oct 2025 17:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760721428; x=1792257428;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=5HWbqOWYvfmFoiG9fvtGtU8661QNVQm7OM6kuBUg2po=;
+ b=BM7jxIEh3gqH9/xlyIZIH816GbGK8LMLsVf/NRVLolitu6Mw69/4mqUJ
+ vwAazGycxVdO+BQex7YkYFqo0QWsgwiwpkvM6OhXY3y4QJ2D2Uad2Cfq5
+ R9waoCB+hL6kd/XmXdDLuxVElA52SKoyAnLyl1Wf6/lRwRFxNR21mP6Wp
+ DiOsUxoCn42Kz5jK3xB7Baqxod3wyGYMzH48wqSn59JMrXLh912AwNUcD
+ WqaVyCxYGYlXebBNsZAcbY/6526tTH6sbCoEv6uLDM9XYtRexpuQT6qxP
+ 7Jf1WXbM1kg2Hxu8tMlLOxECzgpIRDco0W4Yb+IycvpnD0gi85ZQjXIWK Q==;
+X-CSE-ConnectionGUID: ScIsDK1BRnK+NOmqYrpp+g==
+X-CSE-MsgGUID: +2z2g4YPRvKranFrP5ngZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11585"; a="62984907"
+X-IronPort-AV: E=Sophos;i="6.19,237,1754982000"; d="scan'208";a="62984907"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Oct 2025 10:17:05 -0700
+X-CSE-ConnectionGUID: e0YFpg1DTJ6ZU84CZtiGig==
+X-CSE-MsgGUID: C+dZUDN6RhW+z4W8B8yqbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,237,1754982000"; d="scan'208";a="187878775"
+Received: from lkp-server02.sh.intel.com (HELO 66d7546c76b2) ([10.239.97.151])
+ by orviesa005.jf.intel.com with ESMTP; 17 Oct 2025 10:17:01 -0700
+Received: from kbuild by 66d7546c76b2 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v9o4Y-0007bX-2d;
+ Fri, 17 Oct 2025 17:16:58 +0000
+Date: Sat, 18 Oct 2025 01:16:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Rohan G Thomas via B4 Relay <devnull+rohan.g.thomas.altera.com@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: phylink
-	PCS conversion
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ Rohan G Thomas <rohan.g.thomas@intel.com>,
+ Boon Khai Ng <boon.khai.ng@altera.com>
+Message-ID: <202510180039.zqD7oO26-lkp@intel.com>
+References: <20251017-qbv-fixes-v3-2-d3a42e32646a@altera.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20251017-qbv-fixes-v3-2-d3a42e32646a@altera.com>
+Cc: netdev@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, Matthew Gerlach <matthew.gerlach@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v3 2/3] net: stmmac: Consider Tx VLAN
+ offload tag length for maxSDU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -176,174 +79,312 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Hi Rohan,
 
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: 16 October 2025 15:35
-> To: Andrew Lunn <andrew@lunn.ch>; Heiner Kallweit <hkallweit1@gmail.com>
-> Cc: Abhishek Chauhan <quic_abchauha@quicinc.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Alexis Lothore
-> <alexis.lothore@bootlin.com>; Andrew Lunn <andrew+netdev@lunn.ch>; Boon
-> Khai Ng <boon.khai.ng@altera.com>; Choong Yong Liang
-> <yong.liang.choong@linux.intel.com>; Daniel Machon
-> <daniel.machon@microchip.com>; David S. Miller <davem@davemloft.net>; Drew
-> Fustini <dfustini@tenstorrent.com>; Emil Renner Berthing
-> <emil.renner.berthing@canonical.com>; Eric Dumazet <edumazet@google.com>;
-> Faizal Rahim <faizal.abdul.rahim@linux.intel.com>; Furong Xu
-> <0x1207@gmail.com>; Inochi Amaoto <inochiama@gmail.com>; Jacob Keller
-> <jacob.e.keller@intel.com>; Jakub Kicinski <kuba@kernel.org>; Jan Petrous
-> (OSS) <jan.petrous@oss.nxp.com>; Jisheng Zhang <jszhang@kernel.org>; Kees
-> Cook <kees@kernel.org>; Kunihiko Hayashi <hayashi.kunihiko@socionext.com>;
-> Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>; Ley Foon
-> Tan <leyfoon.tan@starfivetech.com>; linux-arm-kernel@lists.infradead.org;
-> linux-arm-msm@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> Matthew Gerlach <matthew.gerlach@altera.com>; Maxime Chevallier
-> <maxime.chevallier@bootlin.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; Michal Swiatkowski
-> <michal.swiatkowski@linux.intel.com>; netdev@vger.kernel.org; Oleksij
-> Rempel <o.rempel@pengutronix.de>; Paolo Abeni <pabeni@redhat.com>; Rohan G
-> Thomas <rohan.g.thomas@altera.com>; Shenwei Wang <shenwei.wang@nxp.com>;
-> Simon Horman <horms@kernel.org>; Song Yoong Siang
-> <yoong.siang.song@intel.com>; Swathi K S <swathi.ks@samsung.com>; Tiezhu
-> Yang <yangtiezhu@loongson.cn>; Vinod Koul <vkoul@kernel.org>; Vladimir
-> Oltean <olteanv@gmail.com>; Vladimir Oltean <vladimir.oltean@nxp.com>; Yu-
-> Chun Lin <eleanor15x@gmail.com>
-> Subject: [PATCH net-next v2 00/14] net: stmmac: phylink PCS conversion
-> 
-> This series is radical - it takes the brave step of ripping out much of
-> the existing PCS support code and throwing it all away.
-> 
-> I have discussed the introduction of the STMMAC_FLAG_HAS_INTEGRATED_PCS
-> flag with Bartosz Golaszewski, and the conclusion I came to is that this
-> is to workaround the breakage that I've been going on about concerning the
-> phylink conversion for the last five or six years.
-> 
-> The problem is that the stmmac PCS code manipulates the netif carrier
-> state, which confuses phylink.
-> 
-> There is a way of testing this out on the Jetson Xavier NX platform as the
-> "PCS" code paths can be exercised while in RGMII mode - because RGMII also
-> has in-band status and the status register is shared with SGMII. Testing
-> this out confirms my long held theory: the interrupt handler manipulates
-> the netif carrier state before phylink gets a look-in, which means that
-> the mac_link_up() and mac_link_down() methods are never called, resulting
-> in the device being non-functional.
-> 
-> Moreover, on dwmac4 cores, ethtool reports incorrect information - despite
-> having a full-duplex link, ethtool reports that it is half-dupex.
-> 
-> Thus, this code is completely broken - anyone using it will not have a
-> functional platform, and thus it doesn't deserve to live any longer,
-> especially as it's a thorn in phylink.
-> 
-> Rip all this out, leaving just the bare bones initialisation in place.
-> 
-> However, this is not the last of what's broken. We have this hw->ps
-> integer which is really not descriptive, and the DT property from which it
-> comes from does little to help understand what's going on.
-> Putting all the clues together:
-> 
-> - early configuration of the GMAC configuration register for the
->   speed.
-> - setting the SGMII rate adapter layer to take its speed from the
->   GMAC configuration register.
-> 
-> Lastly, setting the transmit enable (TE) bit, which is a typo that puts
-> the nail in the coffin of this code. It should be the transmit
-> configuration (TC) bit. Given that when the link comes up, phylink will
-> call mac_link_up() which will overwrite the speed in the GMAC
-> configuration register, the only part of this that is functional is
-> changing where the SGMII rate adapter layer gets its speed from, which is
-> a boolean.
-> 
-> From what I've found so far, everyone who sets the snps,ps-speed property
-> which configures this mode also configures a fixed link, so the pre-
-> configuration is unnecessary - the link will come up anyway.
-> 
-> So, this series rips that out the preconfiguration as well, and replaces
-> hw->ps with a boolean hw->reverse_sgmii_enable flag.
-> 
-> We then move the sole PCS configuration into a phylink_pcs instance, which
-> configures the PCS control register in the same way as is done during the
-> probe function.
-> 
-> Thus, we end up with much easier and simpler conversion to phylink PCS
-> than previous attempts.
-> 
-> Even so, this still results in inband mode always being enabled at the
-> moment in the new .pcs_config() method to reflect what the probe function
-> was doing. The next stage will be to change that to allow phylink to
-> correctly configure the PCS. This needs fixing to allow platform glue
-> maintainers who are currently blocked to progress.
-> 
-> Please note, however, that this has not been tested with any SGMII
-> platform.
-> 
-> I've tried to get as many people into the Cc list with get_maintainers, I
-> hope that's sufficient to get enough eyeballs on this.
-> 
-> Changes since RFC:
-> - new patch (7) to remove RGMII "pcs" mode
-> - new patch (8) to move reverse "pcs" mode to stmmac_check_pcs_mode()
-> - new patch (9) to simplify the code moved in the previous patch
-> - new patch (10) to rename the confusing hw->ps to something more
->   understandable.
-> - new patch (11) to shut up inappropriate complaints about
->   "snps,ps-speed" being invalid.
-> - new patch (13) to add a MAC .pcs_init method, which will only be
->   called when core has PCS present.
-> - modify patch 14 to use this new pcs_init method.
-> 
-> Despite getting a couple of responses to the RFC series posted in
-> September, I have had nothing testing this on hardware. I have tested this
-> on the Jetson Xavier NX, which included trial runs with enabling the RGMII
-> "pcs" mode, hence the new patches that rip out this mode. I have come to
-> the conclusion that the only way to get stmmac changes tested is to get
-> them merged into net-next, thereby forcing people to have to run with
-> them... and we'll deal with any fallout later.
-> 
-> Changes since v1:
-> - added Andrew's reviewed-bys
-> - added additional comments to patch 3, 11 and 14.
-> No code changes.
-> 
->  drivers/net/ethernet/stmicro/stmmac/Makefile       |  2 +-
->  drivers/net/ethernet/stmicro/stmmac/common.h       |  5 +-
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  6 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  6 +-
->  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   | 65 ++---------------
-> ----
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  3 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  | 66 ++---------------
-> ----
->  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 25 +-------
->  drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 +-
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  4 ++
->  .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c   | 68 +----------------
-> -----
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 24 ++++----
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 47 +++++++++++++++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 23 ++++++--
->  include/linux/stmmac.h                             |  1 -
->  15 files changed, 104 insertions(+), 245 deletions(-)
-> 
+kernel test robot noticed the following build warnings:
 
-Although RZ/V2H doesn't have PCS, I tested this on Renesas RZ/V2H EVK
-and found no regressions.
+[auto build test WARNING on cb85ca4c0a349e246cd35161088aa3689ae5c580]
 
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+url:    https://github.com/intel-lab-lkp/linux/commits/Rohan-G-Thomas-via-B4-Relay/net-stmmac-vlan-Disable-802-1AD-tag-insertion-offload/20251017-144104
+base:   cb85ca4c0a349e246cd35161088aa3689ae5c580
+patch link:    https://lore.kernel.org/r/20251017-qbv-fixes-v3-2-d3a42e32646a%40altera.com
+patch subject: [PATCH net v3 2/3] net: stmmac: Consider Tx VLAN offload tag length for maxSDU
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20251018/202510180039.zqD7oO26-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251018/202510180039.zqD7oO26-lkp@intel.com/reproduce)
 
-Cheers,
-Prabhakar
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510180039.zqD7oO26-lkp@intel.com/
 
-> --
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-> 
-> 
-> --
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:4503:6: warning: variable 'sdu_len' set but not used [-Wunused-but-set-variable]
+    4503 |         u32 sdu_len;
+         |             ^
+   1 warning generated.
+
+
+vim +/sdu_len +4503 drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+
+  4478	
+  4479	/**
+  4480	 *  stmmac_xmit - Tx entry point of the driver
+  4481	 *  @skb : the socket buffer
+  4482	 *  @dev : device pointer
+  4483	 *  Description : this is the tx entry point of the driver.
+  4484	 *  It programs the chain or the ring and supports oversized frames
+  4485	 *  and SG feature.
+  4486	 */
+  4487	static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+  4488	{
+  4489		unsigned int first_entry, tx_packets, enh_desc;
+  4490		struct stmmac_priv *priv = netdev_priv(dev);
+  4491		unsigned int nopaged_len = skb_headlen(skb);
+  4492		int i, csum_insertion = 0, is_jumbo = 0;
+  4493		u32 queue = skb_get_queue_mapping(skb);
+  4494		int nfrags = skb_shinfo(skb)->nr_frags;
+  4495		int gso = skb_shinfo(skb)->gso_type;
+  4496		struct stmmac_txq_stats *txq_stats;
+  4497		struct dma_edesc *tbs_desc = NULL;
+  4498		struct dma_desc *desc, *first;
+  4499		struct stmmac_tx_queue *tx_q;
+  4500		bool has_vlan, set_ic;
+  4501		int entry, first_tx;
+  4502		dma_addr_t des;
+> 4503		u32 sdu_len;
+  4504	
+  4505		tx_q = &priv->dma_conf.tx_queue[queue];
+  4506		txq_stats = &priv->xstats.txq_stats[queue];
+  4507		first_tx = tx_q->cur_tx;
+  4508	
+  4509		if (priv->tx_path_in_lpi_mode && priv->eee_sw_timer_en)
+  4510			stmmac_stop_sw_lpi(priv);
+  4511	
+  4512		/* Manage oversized TCP frames for GMAC4 device */
+  4513		if (skb_is_gso(skb) && priv->tso) {
+  4514			if (gso & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))
+  4515				return stmmac_tso_xmit(skb, dev);
+  4516			if (priv->plat->has_gmac4 && (gso & SKB_GSO_UDP_L4))
+  4517				return stmmac_tso_xmit(skb, dev);
+  4518		}
+  4519	
+  4520		if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
+  4521			if (!netif_tx_queue_stopped(netdev_get_tx_queue(dev, queue))) {
+  4522				netif_tx_stop_queue(netdev_get_tx_queue(priv->dev,
+  4523									queue));
+  4524				/* This is a hard error, log it. */
+  4525				netdev_err(priv->dev,
+  4526					   "%s: Tx Ring full when queue awake\n",
+  4527					   __func__);
+  4528			}
+  4529			return NETDEV_TX_BUSY;
+  4530		}
+  4531	
+  4532		sdu_len = skb->len;
+  4533		/* Check if VLAN can be inserted by HW */
+  4534		has_vlan = stmmac_vlan_insert(priv, skb, tx_q);
+  4535		if (has_vlan)
+  4536			sdu_len += VLAN_HLEN;
+  4537	
+  4538		if (priv->est && priv->est->enable &&
+  4539		    priv->est->max_sdu[queue] &&
+  4540		    skb->len > priv->est->max_sdu[queue]){
+  4541			priv->xstats.max_sdu_txq_drop[queue]++;
+  4542			goto max_sdu_err;
+  4543		}
+  4544	
+  4545		entry = tx_q->cur_tx;
+  4546		first_entry = entry;
+  4547		WARN_ON(tx_q->tx_skbuff[first_entry]);
+  4548	
+  4549		csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
+  4550		/* DWMAC IPs can be synthesized to support tx coe only for a few tx
+  4551		 * queues. In that case, checksum offloading for those queues that don't
+  4552		 * support tx coe needs to fallback to software checksum calculation.
+  4553		 *
+  4554		 * Packets that won't trigger the COE e.g. most DSA-tagged packets will
+  4555		 * also have to be checksummed in software.
+  4556		 */
+  4557		if (csum_insertion &&
+  4558		    (priv->plat->tx_queues_cfg[queue].coe_unsupported ||
+  4559		     !stmmac_has_ip_ethertype(skb))) {
+  4560			if (unlikely(skb_checksum_help(skb)))
+  4561				goto dma_map_err;
+  4562			csum_insertion = !csum_insertion;
+  4563		}
+  4564	
+  4565		if (likely(priv->extend_desc))
+  4566			desc = (struct dma_desc *)(tx_q->dma_etx + entry);
+  4567		else if (tx_q->tbs & STMMAC_TBS_AVAIL)
+  4568			desc = &tx_q->dma_entx[entry].basic;
+  4569		else
+  4570			desc = tx_q->dma_tx + entry;
+  4571	
+  4572		first = desc;
+  4573	
+  4574		if (has_vlan)
+  4575			stmmac_set_desc_vlan(priv, first, STMMAC_VLAN_INSERT);
+  4576	
+  4577		enh_desc = priv->plat->enh_desc;
+  4578		/* To program the descriptors according to the size of the frame */
+  4579		if (enh_desc)
+  4580			is_jumbo = stmmac_is_jumbo_frm(priv, skb->len, enh_desc);
+  4581	
+  4582		if (unlikely(is_jumbo)) {
+  4583			entry = stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+  4584			if (unlikely(entry < 0) && (entry != -EINVAL))
+  4585				goto dma_map_err;
+  4586		}
+  4587	
+  4588		for (i = 0; i < nfrags; i++) {
+  4589			const skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
+  4590			int len = skb_frag_size(frag);
+  4591			bool last_segment = (i == (nfrags - 1));
+  4592	
+  4593			entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_tx_size);
+  4594			WARN_ON(tx_q->tx_skbuff[entry]);
+  4595	
+  4596			if (likely(priv->extend_desc))
+  4597				desc = (struct dma_desc *)(tx_q->dma_etx + entry);
+  4598			else if (tx_q->tbs & STMMAC_TBS_AVAIL)
+  4599				desc = &tx_q->dma_entx[entry].basic;
+  4600			else
+  4601				desc = tx_q->dma_tx + entry;
+  4602	
+  4603			des = skb_frag_dma_map(priv->device, frag, 0, len,
+  4604					       DMA_TO_DEVICE);
+  4605			if (dma_mapping_error(priv->device, des))
+  4606				goto dma_map_err; /* should reuse desc w/o issues */
+  4607	
+  4608			tx_q->tx_skbuff_dma[entry].buf = des;
+  4609	
+  4610			stmmac_set_desc_addr(priv, desc, des);
+  4611	
+  4612			tx_q->tx_skbuff_dma[entry].map_as_page = true;
+  4613			tx_q->tx_skbuff_dma[entry].len = len;
+  4614			tx_q->tx_skbuff_dma[entry].last_segment = last_segment;
+  4615			tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_SKB;
+  4616	
+  4617			/* Prepare the descriptor and set the own bit too */
+  4618			stmmac_prepare_tx_desc(priv, desc, 0, len, csum_insertion,
+  4619					priv->mode, 1, last_segment, skb->len);
+  4620		}
+  4621	
+  4622		/* Only the last descriptor gets to point to the skb. */
+  4623		tx_q->tx_skbuff[entry] = skb;
+  4624		tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_SKB;
+  4625	
+  4626		/* According to the coalesce parameter the IC bit for the latest
+  4627		 * segment is reset and the timer re-started to clean the tx status.
+  4628		 * This approach takes care about the fragments: desc is the first
+  4629		 * element in case of no SG.
+  4630		 */
+  4631		tx_packets = (entry + 1) - first_tx;
+  4632		tx_q->tx_count_frames += tx_packets;
+  4633	
+  4634		if ((skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) && priv->hwts_tx_en)
+  4635			set_ic = true;
+  4636		else if (!priv->tx_coal_frames[queue])
+  4637			set_ic = false;
+  4638		else if (tx_packets > priv->tx_coal_frames[queue])
+  4639			set_ic = true;
+  4640		else if ((tx_q->tx_count_frames %
+  4641			  priv->tx_coal_frames[queue]) < tx_packets)
+  4642			set_ic = true;
+  4643		else
+  4644			set_ic = false;
+  4645	
+  4646		if (set_ic) {
+  4647			if (likely(priv->extend_desc))
+  4648				desc = &tx_q->dma_etx[entry].basic;
+  4649			else if (tx_q->tbs & STMMAC_TBS_AVAIL)
+  4650				desc = &tx_q->dma_entx[entry].basic;
+  4651			else
+  4652				desc = &tx_q->dma_tx[entry];
+  4653	
+  4654			tx_q->tx_count_frames = 0;
+  4655			stmmac_set_tx_ic(priv, desc);
+  4656		}
+  4657	
+  4658		/* We've used all descriptors we need for this skb, however,
+  4659		 * advance cur_tx so that it references a fresh descriptor.
+  4660		 * ndo_start_xmit will fill this descriptor the next time it's
+  4661		 * called and stmmac_tx_clean may clean up to this descriptor.
+  4662		 */
+  4663		entry = STMMAC_GET_ENTRY(entry, priv->dma_conf.dma_tx_size);
+  4664		tx_q->cur_tx = entry;
+  4665	
+  4666		if (netif_msg_pktdata(priv)) {
+  4667			netdev_dbg(priv->dev,
+  4668				   "%s: curr=%d dirty=%d f=%d, e=%d, first=%p, nfrags=%d",
+  4669				   __func__, tx_q->cur_tx, tx_q->dirty_tx, first_entry,
+  4670				   entry, first, nfrags);
+  4671	
+  4672			netdev_dbg(priv->dev, ">>> frame to be transmitted: ");
+  4673			print_pkt(skb->data, skb->len);
+  4674		}
+  4675	
+  4676		if (unlikely(stmmac_tx_avail(priv, queue) <= (MAX_SKB_FRAGS + 1))) {
+  4677			netif_dbg(priv, hw, priv->dev, "%s: stop transmitted packets\n",
+  4678				  __func__);
+  4679			netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+  4680		}
+  4681	
+  4682		u64_stats_update_begin(&txq_stats->q_syncp);
+  4683		u64_stats_add(&txq_stats->q.tx_bytes, skb->len);
+  4684		if (set_ic)
+  4685			u64_stats_inc(&txq_stats->q.tx_set_ic_bit);
+  4686		u64_stats_update_end(&txq_stats->q_syncp);
+  4687	
+  4688		if (priv->sarc_type)
+  4689			stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+  4690	
+  4691		/* Ready to fill the first descriptor and set the OWN bit w/o any
+  4692		 * problems because all the descriptors are actually ready to be
+  4693		 * passed to the DMA engine.
+  4694		 */
+  4695		if (likely(!is_jumbo)) {
+  4696			bool last_segment = (nfrags == 0);
+  4697	
+  4698			des = dma_map_single(priv->device, skb->data,
+  4699					     nopaged_len, DMA_TO_DEVICE);
+  4700			if (dma_mapping_error(priv->device, des))
+  4701				goto dma_map_err;
+  4702	
+  4703			tx_q->tx_skbuff_dma[first_entry].buf = des;
+  4704			tx_q->tx_skbuff_dma[first_entry].buf_type = STMMAC_TXBUF_T_SKB;
+  4705			tx_q->tx_skbuff_dma[first_entry].map_as_page = false;
+  4706	
+  4707			stmmac_set_desc_addr(priv, first, des);
+  4708	
+  4709			tx_q->tx_skbuff_dma[first_entry].len = nopaged_len;
+  4710			tx_q->tx_skbuff_dma[first_entry].last_segment = last_segment;
+  4711	
+  4712			if (unlikely((skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) &&
+  4713				     priv->hwts_tx_en)) {
+  4714				/* declare that device is doing timestamping */
+  4715				skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+  4716				stmmac_enable_tx_timestamp(priv, first);
+  4717			}
+  4718	
+  4719			/* Prepare the first descriptor setting the OWN bit too */
+  4720			stmmac_prepare_tx_desc(priv, first, 1, nopaged_len,
+  4721					csum_insertion, priv->mode, 0, last_segment,
+  4722					skb->len);
+  4723		}
+  4724	
+  4725		if (tx_q->tbs & STMMAC_TBS_EN) {
+  4726			struct timespec64 ts = ns_to_timespec64(skb->tstamp);
+  4727	
+  4728			tbs_desc = &tx_q->dma_entx[first_entry];
+  4729			stmmac_set_desc_tbs(priv, tbs_desc, ts.tv_sec, ts.tv_nsec);
+  4730		}
+  4731	
+  4732		stmmac_set_tx_owner(priv, first);
+  4733	
+  4734		netdev_tx_sent_queue(netdev_get_tx_queue(dev, queue), skb->len);
+  4735	
+  4736		stmmac_enable_dma_transmission(priv, priv->ioaddr, queue);
+  4737		skb_tx_timestamp(skb);
+  4738		stmmac_flush_tx_descriptors(priv, queue);
+  4739		stmmac_tx_timer_arm(priv, queue);
+  4740	
+  4741		return NETDEV_TX_OK;
+  4742	
+  4743	dma_map_err:
+  4744		netdev_err(priv->dev, "Tx DMA map failed\n");
+  4745	max_sdu_err:
+  4746		dev_kfree_skb(skb);
+  4747		priv->xstats.tx_dropped++;
+  4748		return NETDEV_TX_OK;
+  4749	}
+  4750	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
