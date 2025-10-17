@@ -2,54 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 544C8BE5C76
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 01:20:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029EDBE606D
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 03:18:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED8D9C57B67;
-	Thu, 16 Oct 2025 23:20:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E000C57B64;
+	Fri, 17 Oct 2025 01:18:54 +0000 (UTC)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 907EAC57B64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CFFBC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Oct 2025 23:20:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 47EB76048C;
- Thu, 16 Oct 2025 23:20:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9C2EC4CEF1;
- Thu, 16 Oct 2025 23:20:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1760656829;
- bh=XmFZ1aCPOavivGFm2MY2rpuXNMGOSeXgUjkf7jQ4ZSY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=NdX2/npyuApB04JWfGhacNAQxh7Odc9VcysylDLj6xMk8iShYkL+ZSQulPbmVQnBP
- K5pg+2x4rOXIYLy6/MyMYeS6YblWpBHbRxa85mGx9Tk6J6BtgBwZEvq73JTA0pytjx
- ArdCtEq5O8mdevH4P1QWpfnYtEyun22mdyT+Cb4iSUuo1rXgpb8dsxGPZS5jSmxjI3
- JisiJn9jyFWATdHaf1lUoFioBvz9dCMI6MtKCCLWPD+H59kELGRRS+ljXrFV/Gdpm2
- y3F5YA3qkcYciAK53CnN5e8x+tQREXUYNusfIxLgbYaK1Oiu7vSYJxbtxC+7PBPOPc
- dVhsyg7mVesfg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33D7739D0C31; Thu, 16 Oct 2025 23:20:14 +0000 (UTC)
+ Fri, 17 Oct 2025 01:18:53 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-b62ed9c3e79so920921a12.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 16 Oct 2025 18:18:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760663932; x=1761268732;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2WufNMZZ/3kF+kxCtpxLWUmoQMaWHtLSOKhsUHckblc=;
+ b=Y7MnBcqrO6/02LyJihuMLs/7RuPHMMPETsT3vT1eLogkeV5SS6+HWGNjsbhIztwjCn
+ zO4atYgq29qk1VZFn3MCrBJ04PD7cKmimnhs6QE2kH8wL8FAgYgQR6JO9RBvRzz1hi6b
+ 8B/HcoJC7BUYb3RGCn9gHC7MGnQW+ApqRbYID0C1wDmTP7ToN4SEHkTRwXFIAEkb76O4
+ 4edPwIcvw8DTelaGJxwyiV2E9+7tvGbmoPOCJfZ1fw3ulIjhbBmBbAz+hFHn07hNWZOM
+ kyYIxC+Tkq+oKBf/2WW/zr8rf/twJsuxy9kA3hNr0CLdurk7NsEOlnmtjJPB2ScefZwY
+ TIGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760663932; x=1761268732;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2WufNMZZ/3kF+kxCtpxLWUmoQMaWHtLSOKhsUHckblc=;
+ b=dopaDaU1uBAQaT988Pi0QQSZyl45/6Gn7k3XNLo55vvAlaH7Q1JLNa9UlUNSR7tXNN
+ Dz0UXnuuyxUIpqghME71iVCo8Aa5WBuOZRDgdMmdJtXgeTt85mE9OSXgY0iKyyB3Ev/Q
+ nKFkNde/zk8mZfLSJFtyGfuOISOboLsTbzp13UKs0TXjvxeuco79Mf4lHRVePjzWqEWg
+ Tyx/+a6dc5VZJsAv9uEZT1bdHzXDyDf/f0kvqTfjTGYuWFFGkw2q0rmRuiJHSMJZQwD2
+ Xf60WAB/JGTYJ0iupGNW5PfsFHQv4mIcVQ4BF6boRzPHsL5IftKTdM93o1rUks5o1l6z
+ zElw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXTPCG8LOJw3JaHplj39nbnkFs3sviviisigITsRY4ClmQEgNVjEC4bP8sU9GTOe4FkNV0XAN+oQPFrGQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YywqFfqhyRKljj/Bej3+p09cg7x4npZ+12qK8jmvIdG549Ct1sw
+ QjnOWE0IFvK/bRr1fmRlVvCA0UfBbKAM0hQMgyq+y/5KDjjRQtJ+gVp2
+X-Gm-Gg: ASbGnctAILvEODZ21MPlYzUuMuIHu0optNTXLx1yFsRMDMIdGSVWZ7NoCblC1nCQs7j
+ bmttaXAulR8UzMgnD4Aa2hQf7LmxufjHGDE5byljET8UW6n1eEzI/3GrKqniiP59LQwIsre/HWS
+ TbJonxuJkV4wb8LvLDpL1PunbbgfwXxhGlxbtAS7H+m1qEKX0BbwDpUDBkxqRbSPky67zCt0awL
+ XdjY87gFxJR9v64n2yzu86QnCh+Orkr39/dlT/njitQ46uYP6TAJFbr7KQIaEp0BlYUPA7aCO3/
+ pvrirMKhw6bXcG7a8oTqJycQwq+6kzOWZ6UW8Ldv/eIxbaYH3f01lRTRYjJTAZGpBWhAvmwcJ4d
+ 7cnqWQ9mkzjfGtMZJ8Wov8+ULfCh2vvS/yYyRPjebDEpPpYTLxfiFWepCbheoDQgHORFyZpeZg5
+ k=
+X-Google-Smtp-Source: AGHT+IGCscuN23O1/GUCRY7mt5g8A0uy7Km3DMtv6zREsA54udw0SWdK9cRyXK5d1lQXl3K9mp81rA==
+X-Received: by 2002:a17:902:ce0f:b0:269:8d1b:40c3 with SMTP id
+ d9443c01a7336-290c9cf344bmr22801155ad.12.1760663931864; 
+ Thu, 16 Oct 2025 18:18:51 -0700 (PDT)
+Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-29099a7b032sm44355765ad.63.2025.10.16.18.18.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Oct 2025 18:18:51 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Chen Wang <unicorn_wang@outlook.com>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <ziyao@disroot.org>
+Date: Fri, 17 Oct 2025 09:18:01 +0800
+Message-ID: <20251017011802.523140-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176065681299.1942659.16205838065637894819.git-patchwork-notify@kernel.org>
-Date: Thu, 16 Oct 2025 23:20:12 +0000
-References: <20251015113751.1114-1-weishangjuan@eswincomputing.com>
-In-Reply-To: <20251015113751.1114-1-weishangjuan@eswincomputing.com>
-To: =?utf-8?b?6Z+m5bCa5aifIDx3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tPg==?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: vladimir.oltean@nxp.com, edumazet@google.com, jszhang@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, ningyu@eswincomputing.com,
- 0x1207@gmail.com, lizhi2@eswincomputing.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, jan.petrous@oss.nxp.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, rmk+kernel@armlinux.org.uk,
- yong.liang.choong@linux.intel.com, linux-arm-kernel@lists.infradead.org,
- pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, inochiama@gmail.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v8 0/2] Add driver support for Eswin
- eic7700 SoC ethernet controller
+Cc: Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Longbin Li <looong.bin@gmail.com>,
+ sophgo@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: dwmac-sophgo: Add phy interface
+	filter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,44 +99,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+As the SG2042 has an internal rx delay, the delay should be remove
+when init the mac, otherwise the phy will be misconfigurated.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Fixes: 543009e2d4cd ("net: stmmac: dwmac-sophgo: Add support for Sophgo SG2042 SoC")
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Tested-by: Han Gao <rabenda.cn@gmail.com>
+---
+ .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-On Wed, 15 Oct 2025 19:37:51 +0800 you wrote:
-> From: Shangjuan Wei <weishangjuan@eswincomputing.com>
-> 
-> Updates:
-> 
->   Changes in v8:
->   - Removed config option patch dependency from cover letter, because the patch
->     was applied.
->   - Modify the theme style of patch 2.
->   - Remove unnecessary dependencies, such as CRC32 and MII
->   - Add "Reviewed-by" tag of "Andrew Lunn" for Patch 2.
->   - Update eswin,eic7700-eth.yaml
->     - Add new line character at the end of file
->   - Update dwmac-eic7700.c
->     - Provide callbacks for plat_dat->init/exit and plat_dat->suspend/resume
->       to optimize clock processing
->     - Use devm_stmmac_pltfr_probe() instead of stmmac_dvr_probe() in probe
->     - Remove eic7700_dwmac_remove()
->   - Link to v7: https://lore.kernel.org/all/20250918085612.3176-1-weishangjuan@eswincomputing.com/
-> 
-> [...]
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+index 3b7947a7a7ba..b2dee1399eb0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+@@ -7,6 +7,7 @@
 
-Here is the summary with links:
-  - [v8,1/2] dt-bindings: ethernet: eswin: Document for EIC7700 SoC
-    https://git.kernel.org/netdev/net-next/c/888bd0eca93c
-  - [v8,2/2] net: stmmac: add Eswin EIC7700 glue driver
-    https://git.kernel.org/netdev/net-next/c/ea77dbbdbc4e
+ #include <linux/clk.h>
+ #include <linux/module.h>
++#include <linux/property.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/platform_device.h>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+@@ -29,8 +30,23 @@ static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
+ 	return 0;
+ }
 
++static int sophgo_sg2042_set_mode(struct plat_stmmacenet_data *plat_dat)
++{
++	switch (plat_dat->phy_interface) {
++	case PHY_INTERFACE_MODE_RGMII_ID:
++		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
++		return 0;
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int sophgo_dwmac_probe(struct platform_device *pdev)
+ {
++	int (*plat_set_mode)(struct plat_stmmacenet_data *plat_dat);
+ 	struct plat_stmmacenet_data *plat_dat;
+ 	struct stmmac_resources stmmac_res;
+ 	struct device *dev = &pdev->dev;
+@@ -50,11 +66,18 @@ static int sophgo_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+
++	plat_set_mode = device_get_match_data(&pdev->dev);
++	if (plat_set_mode) {
++		ret = plat_set_mode(plat_dat);
++		if (ret)
++			return ret;
++	}
++
+ 	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+ }
+
+ static const struct of_device_id sophgo_dwmac_match[] = {
+-	{ .compatible = "sophgo,sg2042-dwmac" },
++	{ .compatible = "sophgo,sg2042-dwmac", .data = sophgo_sg2042_set_mode },
+ 	{ .compatible = "sophgo,sg2044-dwmac" },
+ 	{ /* sentinel */ }
+ };
+--
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
