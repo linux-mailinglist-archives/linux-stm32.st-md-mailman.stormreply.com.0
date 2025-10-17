@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB630BE70C4
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 870A8BE70CB
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:05:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11229C58D44;
-	Fri, 17 Oct 2025 08:05:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FE8EC58D46;
+	Fri, 17 Oct 2025 08:05:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59614C58D42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B8E2C58D46
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 08:05:47 +0000 (UTC)
+ Fri, 17 Oct 2025 08:05:52 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D6D7C450BB;
- Fri, 17 Oct 2025 08:05:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34845C4CEE7;
- Fri, 17 Oct 2025 08:05:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A5676426A;
+ Fri, 17 Oct 2025 08:05:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF408C4CEE7;
+ Fri, 17 Oct 2025 08:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760688345;
- bh=jQhy/ox3fIOhCY7knzkIZUyacLZTGHWrr3u52zYJAkI=;
+ s=korg; t=1760688351;
+ bh=Tzgs9nAyY51SyO39mSR4w+R/thG+h//Bm/fKTyosOrA=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=jfsQ3+mnT/1hXaKowyNh4ESs5gv7XWT4llLVtqMbxf719r6AbXjDWmR8zBVavKXTr
- DspwYEGBxW2V4PZWTnFyaExmgP7lqPD2tc7Ax5IkWv9QpHXRROMLLI3Ym8cvq16VYc
- dXU+JcHgFA2fnbNWSnt0GfCEyA/6Q/jr15A9yGug=
-To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
+ b=yvpR5PIJ3FYApyf3Dawuz+V2d+0++37BDQiSCCA5voRVaYJOWu7qHIph0ixKDSZk2
+ kobbiTDXGB9fuxoP+Ho7iEDkvZ2/Wv/giyEHNM54vXTOxBLNnockjkdL5CaWfcOP0K
+ V9Qusd6SZTOYDOfaub90ovhHOfl+NNR5rS3wRZJc=
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
 	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
 	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
 	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
 	bp@alien8.de, clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
 	dave.hansen@linux.intel.com, davem@davemloft.net,
-	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
-	dri-devel@lists.freedesktop.org, dsahern@kernel.org,
-	dsterba@suse.com, dushistov@mail.ru, farbere@amazon.com,
-	freedreno@lists.freedesktop.org, fw@strlen.de,
-	gregkh@linuxfoundation.org, hdegoede@redhat.com,
+	david.laight@aculab.com, dm-devel@redhat.com,
+	dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org,
+	dsahern@kernel.org, dsterba@suse.com, dushistov@mail.ru,
+	farbere@amazon.com, freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, hch@infradead.org, hdegoede@redhat.com,
 	herve.codina@bootlin.com, hpa@zytor.com, jack@suse.com,
 	james.morse@arm.com, jdelvare@suse.com, jdike@addtoit.com,
 	jejb@linux.ibm.com, jernej.skrabec@gmail.com, jmaloy@redhat.com,
@@ -43,13 +43,12 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	krzysztof.kozlowski@canonical.com, kuba@kernel.org,
 	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
 	linux-mm@kvack.org, linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.co,
-	m@stm-ict-prod-mailman-01.stormreply.prv,
-	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
-	linux@rasmusvillemoes.dk, linux@roeck-us.net,
-	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
-	luto@kernel.org, maarten.lankhorst@linux.intel.com,
-	malattia@linux.it, martin.petersen@oracle.com, maz@kernel.org,
+	linux@stm-ict-prod-mailman-01.stormreply.prv,
+	-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+	linux-um@lists.infradead.org, linux@rasmusvillemoes.dk,
+	linux@roeck-us.net, luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	martin.petersen@oracle.com, maz@kernel.org,
 	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
 	minchan@kernel.org, mingo@redhat.com, mripard@kernel.org,
 	ngupta@vflare.org, pablo@netfilter.org, peterz@infradead.org,
@@ -63,15 +62,15 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	wens@csie.org, willy@infradead.org, x86@kernel.org,
 	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 10:05:09 +0200
-In-Reply-To: <20251008152946.29285-6-farbere@amazon.com>
-Message-ID: <2025101709-handcart-hunger-c414@gregkh>
+Date: Fri, 17 Oct 2025 10:05:10 +0200
+In-Reply-To: <20251008152946.29285-5-farbere@amazon.com>
+Message-ID: <2025101710-antacid-lip-fac8@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "minmax: avoid overly complicated constant
-	expressions in VM code" has been added to the 5.15-stable tree
+Subject: [Linux-stm32] Patch "minmax: fix indentation of __cmp_once() and
+	__clamp_once()" has been added to the 5.15-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,87 +90,95 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 This is a note to let you know that I've just added the patch titled
 
-    minmax: avoid overly complicated constant expressions in VM code
+    minmax: fix indentation of __cmp_once() and __clamp_once()
 
 to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+     minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
 and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From linux-staging+bounces-34820-greg=kroah.com@lists.linux.dev Wed Oct  8 17:33:38 2025
+From stable+bounces-183616-greg=kroah.com@vger.kernel.org Wed Oct  8 17:33:08 2025
 From: Eliav Farber <farbere@amazon.com>
-Date: Wed, 8 Oct 2025 15:29:30 +0000
-Subject: minmax: avoid overly complicated constant expressions in VM code
+Date: Wed, 8 Oct 2025 15:29:29 +0000
+Subject: minmax: fix indentation of __cmp_once() and __clamp_once()
 To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
  inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
  ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, David Laight <David.Laight@aculab.com>
-Message-ID: <20251008152946.29285-6-farbere@amazon.com>
+Cc: Christoph Hellwig <hch@infradead.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20251008152946.29285-5-farbere@amazon.com>
 
-From: Linus Torvalds <torvalds@linux-foundation.org>
+From: David Laight <David.Laight@ACULAB.COM>
 
-[ Upstream commit 3a7e02c040b130b5545e4b115aada7bacd80a2b6 ]
+[ Upstream commit f4b84b2ff851f01d0fac619eadef47eb41648534 ]
 
-The minmax infrastructure is overkill for simple constants, and can
-cause huge expansions because those simple constants are then used by
-other things.
+Remove the extra indentation and align continuation markers.
 
-For example, 'pageblock_order' is a core VM constant, but because it was
-implemented using 'min_t()' and all the type-checking that involves, it
-actually expanded to something like 2.5kB of preprocessor noise.
-
-And when that simple constant was then used inside other expansions:
-
-  #define pageblock_nr_pages      (1UL << pageblock_order)
-  #define pageblock_start_pfn(pfn)  ALIGN_DOWN((pfn), pageblock_nr_pages)
-
-and we then use that inside a 'max()' macro:
-
-	case ISOLATE_SUCCESS:
-		update_cached = false;
-		last_migrated_pfn = max(cc->zone->zone_start_pfn,
-			pageblock_start_pfn(cc->migrate_pfn - 1));
-
-the end result was that one statement expanding to 253kB in size.
-
-There are probably other cases of this, but this one case certainly
-stood out.
-
-I've added 'MIN_T()' and 'MAX_T()' macros for this kind of "core simple
-constant with specific type" use.  These macros skip the type checking,
-and as such need to be very sparingly used only for obvious cases that
-have active issues like this.
-
-Reported-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Link: https://lore.kernel.org/all/36aa2cad-1db1-4abf-8dd2-fb20484aabc3@lucifer.local/
-Cc: David Laight <David.Laight@aculab.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Link: https://lkml.kernel.org/r/bed41317a05c498ea0209eafbcab45a5@AcuMS.aculab.com
+Signed-off-by: David Laight <david.laight@aculab.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Jason A. Donenfeld <Jason@zx2c4.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/minmax.h |    7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/minmax.h |   30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -270,4 +270,11 @@ static inline bool in_range32(u32 val, u
- #define swap(a, b) \
- 	do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
+@@ -46,11 +46,11 @@
+ #define __cmp(op, x, y)	((x) __cmp_op_##op (y) ? (x) : (y))
  
-+/*
-+ * Use these carefully: no type checking, and uses the arguments
-+ * multiple times. Use for obvious constants only.
-+ */
-+#define MIN_T(type,a,b) __cmp(min,(type)(a),(type)(b))
-+#define MAX_T(type,a,b) __cmp(max,(type)(a),(type)(b))
-+
- #endif	/* _LINUX_MINMAX_H */
+ #define __cmp_once(op, x, y, unique_x, unique_y) ({	\
+-		typeof(x) unique_x = (x);		\
+-		typeof(y) unique_y = (y);		\
+-		static_assert(__types_ok(x, y),		\
+-			#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
+-		__cmp(op, unique_x, unique_y); })
++	typeof(x) unique_x = (x);			\
++	typeof(y) unique_y = (y);			\
++	static_assert(__types_ok(x, y),			\
++		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	__cmp(op, unique_x, unique_y); })
+ 
+ #define __careful_cmp(op, x, y)					\
+ 	__builtin_choose_expr(__is_constexpr((x) - (y)),	\
+@@ -60,16 +60,16 @@
+ #define __clamp(val, lo, hi)	\
+ 	((val) >= (hi) ? (hi) : ((val) <= (lo) ? (lo) : (val)))
+ 
+-#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({	\
+-		typeof(val) unique_val = (val);				\
+-		typeof(lo) unique_lo = (lo);				\
+-		typeof(hi) unique_hi = (hi);				\
+-		static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+-				(lo) <= (hi), true),					\
+-			"clamp() low limit " #lo " greater than high limit " #hi);	\
+-		static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
+-		static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
+-		__clamp(unique_val, unique_lo, unique_hi); })
++#define __clamp_once(val, lo, hi, unique_val, unique_lo, unique_hi) ({		\
++	typeof(val) unique_val = (val);						\
++	typeof(lo) unique_lo = (lo);						\
++	typeof(hi) unique_hi = (hi);						\
++	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
++			(lo) <= (hi), true),					\
++		"clamp() low limit " #lo " greater than high limit " #hi);	\
++	static_assert(__types_ok(val, lo), "clamp() 'lo' signedness error");	\
++	static_assert(__types_ok(val, hi), "clamp() 'hi' signedness error");	\
++	__clamp(unique_val, unique_lo, unique_hi); })
+ 
+ #define __careful_clamp(val, lo, hi) ({					\
+ 	__builtin_choose_expr(__is_constexpr((val) - (lo) + (hi)),	\
 
 
 Patches currently in stable-queue which might be from farbere@amazon.com are
