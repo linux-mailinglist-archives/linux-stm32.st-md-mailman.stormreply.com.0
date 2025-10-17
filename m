@@ -2,157 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B19BE8CB1
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 15:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF68DBE8FE0
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 15:48:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7524C59790;
-	Fri, 17 Oct 2025 13:21:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90AF2C59790;
+	Fri, 17 Oct 2025 13:48:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1934CC5978E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB813C58D7E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 13:21:23 +0000 (UTC)
+ Fri, 17 Oct 2025 13:48:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A1A76412EF;
- Fri, 17 Oct 2025 13:21:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD3EC4CEE7;
- Fri, 17 Oct 2025 13:21:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 60E5B602C0;
+ Fri, 17 Oct 2025 13:48:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00E6C4CEE7;
+ Fri, 17 Oct 2025 13:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760707282;
- bh=TsK5Tt2ouVurdxip4F9N9xRTQrAAUe+nydbZDh4kkR4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WO0rcs1LB08EtrlI4UYOZp3vA2LU4PF6GUqMUMIpmEXqmoXG3Qcm749CWSEMtRx21
- yd1cGcnjGwOdTi+mZWhyxu/7KjiFh8ulKGdwL02YJnjsySVFFQu9HMse0CT5qdfDbQ
- MZ11xTjtf2Wz3cpg9lhgccKHoyKXK7QAQW5csdhc=
-Date: Fri, 17 Oct 2025 15:21:18 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Farber, Eliav" <farbere@amazon.com>
-Message-ID: <2025101740-scion-flavoring-3a21@gregkh>
-References: <20251017090519.46992-1-farbere@amazon.com>
- <20251017090519.46992-2-farbere@amazon.com>
- <2025101708-obtuse-ellipse-e355@gregkh>
- <CH0PR18MB54337BD648C23CBE40C1060CC6F6A@CH0PR18MB5433.namprd18.prod.outlook.com>
+ s=korg; t=1760708911;
+ bh=U5rI6jYEm/hebyL7q5VHjDrSgx3DOa/8Xq1mYhcV3sc=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=geDc2iCZaiiH7/CSUypz4O9I5saDR5an2Eg++KxC8Hq7g8IcRp597KfqnToeoir6V
+ xge/WwSeEjp3RxzrcnE5Cy423LnZtgz6ZfL4FOcq2lmukly5ea6Lavkp3UVXVIKFLG
+ g3yZ+gFrdzFeY4zNZ5z82ZnOI/Ec3n+iFfp0BoS4=
+To: David.Laight@ACULAB.COM, Jason@zx2c4.com,
+	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
+	akpm@linux-foundation.org, alexander.deucher@amd.com,
+	alexandre.torgue@st.com, amd-gfx@lists.freedesktop.org,
+	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
+	artur.paszkiewicz@intel.com, bp@alien8.de, brian.starkey@arm.com,
+	bvanassche@acm.org, chao@kernel.org, christian.koenig@amd.com,
+	clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
+	dave.hansen@linux.intel.com, davem@davemloft.net,
+	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
+	dri-devel@lists.freedesktop.org, dsterba@suse.com, dushistov@mail.ru,
+	evan.quan@amd.com, farbere@amazon.com, fery@cypress.com,
+	freedreno@lists.freedesktop.org, fw@strlen.de,
+	gregkh@linuxfoundation.org, harry.wentland@amd.com,
+	hdegoede@redhat.com, herve.codina@bootlin.com, hpa@zytor.com,
+	intel-linux-scu@intel.com, jack@suse.com, james.morse@arm.com,
+	james.qian.wang@arm.com, jdelvare@suse.com, jdike@addtoit.com,
+	jejb@linux.ibm.com, jmaloy@redhat.com, joabreu@synopsys.com,
+	johan@stm-ict-prod-mailman-01.stormreply.prv, nes.thumshirn@wdc.com,
+	josef@toxicpanda.com, kadlec@netfilter.org, kbusch@kernel.org,
+	keescook@chromium.org, kuba@kernel.org, kuznet@ms2.inr.ac.ru,
+	linux-arm-kernel@lists.infradead.org, linux-erofs@lists.ozlabs.org,
+	linux-mm@kvack.org, linux-staging@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-um@lists.infradead.org, linux@armlinux.org.uk,
+	linux@rasmusvillemoes.dk, linux@roeck-us.net, liviu.dudau@arm.com,
+	luc.vanoostenryck@gmail.com, luto@kernel.org,
+	maarten.lankhorst@linux.intel.com, malattia@linux.it,
+	martin.petersen@oracle.com, mchehab@kernel.org,
+	mcoquelin.stm32@gmail.com, mgross@linux.intel.com,
+	mihail.atanassov@arm.com, minchan@kernel.org, mingo@redhat.com,
+	mripard@kernel.org, nathan@kernel.org, ndesaulniers@google.com,
+	ngupta@vflare.org, pablo@netfilter.org, peppe.cavallaro@st.com,
+	peterz@infradead.org, pmladek@suse.com, qiuxu.zhuo@intel.com,
+	rajur@chelsio.com, richard@nod.at, robdclark@gmail.com,
+	rostedt@goodmis.org, rric@kernel.org, ruanjinjie@huawei.com,
+	sakari.ailus@linux.intel.com,
+	sashal@kerne.st-md-mailman.stormreply.com,
+	l.org@stm-ict-prod-mailman-01.stormreply.prv, sean@poorly.run,
+	sergey.senozhatsky@gmail.com, snitzer@redhat.com, sunpeng.li@amd.com,
+	tglx@linutronix.de, tipc-discussion@lists.sourceforge.net,
+	tony.luck@intel.com, tytso@mit.edu, tzimmermann@suse.de,
+	willy@infradead.org, x86@kernel.org, xiang@kernel.org,
+	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 17 Oct 2025 15:48:27 +0200
+In-Reply-To: <20251017090519.46992-3-farbere@amazon.com>
+Message-ID: <2025101727-garnet-vegan-53e8@gregkh>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CH0PR18MB54337BD648C23CBE40C1060CC6F6A@CH0PR18MB5433.namprd18.prod.outlook.com>
-Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "malattia@linux.it" <malattia@linux.it>, Isabella Basso <isabbasso@riseup.net>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "sashal@kernel.org" <sashal@kernel.org>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "kadlec@netfilter.org" <kadlec@netfilter.org>,
- "linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "linux@roeck-us.net" <linux@roeck-us.net>,
- "pmladek@suse.com" <pmladek@suse.com>, "jdelvare@suse.com" <jdelvare@suse.com>,
- "intel-linux-scu@intel.com" <intel-linux-scu@intel.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "luto@kernel.org" <luto@kernel.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "sean@poorly.run" <sean@poorly.run>,
- "qiuxu.zhuo@intel.com" <qiuxu.zhuo@intel.com>,
- "ndesaulniers@google.com" <ndesaulniers@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, "jack@suse.com" <jack@suse.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- Sander Vanheule <sander@svanheule.net>, "Jason@zx2c4.com" <Jason@zx2c4.com>,
- "airlied@linux.ie" <airlied@linux.ie>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
- "agk@redhat.com" <agk@redhat.com>,
- "ruanjinjie@huawei.com" <ruanjinjie@huawei.com>,
- "coreteam@netfilter.org" <coreteam@netfilter.org>,
- "james.qian.wang@arm.com" <james.qian.wang@arm.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "alexandre.torgue@st.com" <alexandre.torgue@st.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "evan.quan@amd.com" <evan.quan@amd.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "tony.luck@intel.com" <tony.luck@intel.com>, "tytso@mit.edu" <tytso@mit.edu>,
- "fw@strlen.de" <fw@strlen.de>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "jmaloy@redhat.com" <jmaloy@redhat.com>,
- "minchan@kernel.org" <minchan@kernel.org>,
- "james.morse@arm.com" <james.morse@arm.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "brian.starkey@arm.com" <brian.starkey@arm.com>,
- "herve.codina@bootlin.com" <herve.codina@bootlin.com>,
- "linux@rasmusvillemoes.dk" <linux@rasmusvillemoes.dk>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- "clm@fb.com" <clm@fb.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "mgross@linux.intel.com" <mgross@linux.intel.com>,
- "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
- "willy@infradead.org" <willy@infradead.org>,
- "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
- "kuznet@ms2.inr.ac.ru" <kuznet@ms2.inr.ac.ru>,
- "xiang@kernel.org" <xiang@kernel.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "harry.wentland@amd.com" <harry.wentland@amd.com>,
- "pablo@netfilter.org" <pablo@netfilter.org>,
- "rric@kernel.org" <rric@kernel.org>,
- "keescook@chromium.org" <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
- "jejb@linux.ibm.com" <jejb@linux.ibm.com>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "nathan@kernel.org" <nathan@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
- "kbusch@kernel.org" <kbusch@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "fery@cypress.com" <fery@cypress.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
- Eric Dumazet <edumazet@google.com>,
- "David.Laight@aculab.com" <David.Laight@aculab.com>,
- "ngupta@vflare.org" <ngupta@vflare.org>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "ying.xue@windriver.com" <ying.xue@windriver.com>,
- "linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "artur.paszkiewicz@intel.com" <artur.paszkiewicz@intel.com>,
- "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
- "hpa@zytor.com" <hpa@zytor.com>,
- "anton.ivanov@cambridgegreys.com" <anton.ivanov@cambridgegreys.com>,
- Yury Norov <yury.norov@gmail.com>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "richard@nod.at" <richard@nod.at>, "x86@kernel.org" <x86@kernel.org>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "mingo@redhat.com" <mingo@redhat.com>, "kuba@kernel.org" <kuba@kernel.org>,
- "jdike@addtoit.com" <jdike@addtoit.com>,
- "dushistov@mail.ru" <dushistov@mail.ru>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "chao@kernel.org" <chao@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "dsterba@suse.com" <dsterba@suse.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Vlastimil Babka <vbabka@suse.cz>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "yoshfuji@linux-ipv6.org" <yoshfuji@linux-ipv6.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "sergey.senozhatsky@gmail.com" <sergey.senozhatsky@gmail.com>,
- "robdclark@gmail.com" <robdclark@gmail.com>,
- "tipc-discussion@lists.sourceforge.net"
- <tipc-discussion@lists.sourceforge.net>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "rajur@chelsio.com" <rajur@chelsio.com>,
- "luc.vanoostenryck@gmail.com" <luc.vanoostenryck@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 01/27 5.10.y] overflow,
- tracing: Define the is_signed_type() macro once
+X-stable: commit
+X-Patchwork-Hint: ignore 
+Cc: stable-commits@vger.kernel.org
+Subject: [Linux-stm32] Patch "btrfs: remove duplicated in_range() macro" has
+	been added to the 5.10-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,30 +95,126 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 17, 2025 at 12:16:27PM +0000, Farber, Eliav wrote:
-> > On Fri, Oct 17, 2025 at 09:04:53AM +0000, Eliav Farber wrote:
-> > > From: Bart Van Assche <bvanassche@acm.org>
-> > >
-> > > [ Upstream commit 92d23c6e94157739b997cacce151586a0d07bb8a ]
-> >
-> > This isn't in 5.15.y, why is it needed in 5.10.y?
-> 
-> This is the mainline commit:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/include/linux/overflow.h?h=v6.18-rc1&id=92d23c6e94157739b997cacce151586a0d07bb8a
-> 
-> The commit hash is 92d23c6e94157739b997cacce151586a0d07bb8a, which is
-> the one I used for the backport.
-> 
-> And here is the corresponding commit in the 5.15.y branch:
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/include/linux/overflow.h?h=v5.15.194&id=ed6e37e30826b12572636c6bbfe6319233690c90
-> However, the commit message there references a different hash:
-> a49a64b5bf195381c09202c524f0f84b5f3e816f.
 
-Ugh, that hash is invalid, I missed that :(
+This is a note to let you know that I've just added the patch titled
 
-Thanks for the info, I'll go work on queueing these up.
+    btrfs: remove duplicated in_range() macro
 
-greg k-h
+to the 5.10-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     btrfs-remove-duplicated-in_range-macro.patch
+and it can be found in the queue-5.10 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From stable+bounces-186267-greg=kroah.com@vger.kernel.org Fri Oct 17 11:08:02 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Fri, 17 Oct 2025 09:04:54 +0000
+Subject: btrfs: remove duplicated in_range() macro
+To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>, <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <mchehab@kernel.org>, <james.morse@arm.com>, <rric@kernel.org>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>, <evan.quan@amd.com>, <james.qian.wang@arm.com>, <liviu.dudau@arm.com>, <mihail.atanassov@arm.com>, <brian.starkey@arm.com>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <fery@cypress.com>, <dmitry.torokhov@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <rajur@chelsio
+ .com>, <davem@davemloft.net>, <kuba@kernel.org>, <peppe.cavallaro@st.com>, <alexandre.torgue@st.com>, <joabreu@synopsys.com>, <mcoquelin.stm32@gmail.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <intel-linux-scu@intel.com>, <artur.paszkiewicz@intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@linux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <xiang@kernel.org>, <chao@kernel.org>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <sergey.senozhatsky@gmail.com>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <kuznet@ms2.inr.ac.ru>, <yoshfuji@linux-ipv6.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <willy@infradead.org>, <farbere@amazon.com>,
+  <sashal@kernel.org>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <Jason@zx2c4.com>, <keescook@chromium.org>, <kbusch@kernel.org>, <nathan@kernel.org>, <bvanassche@acm.org>, <ndesaulniers@google.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-erofs@lists.ozlabs.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@
+ lists.sourceforge.net>
+Cc: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Message-ID: <20251017090519.46992-3-farbere@amazon.com>
+
+From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+
+[ Upstream commit cea628008fc8c6c9c7b53902f6659e040f33c790 ]
+
+The in_range() macro is defined twice in btrfs' source, once in ctree.h
+and once in misc.h.
+
+Remove the definition in ctree.h and include misc.h in the files depending
+on it.
+
+Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/btrfs/ctree.h     |    2 --
+ fs/btrfs/extent_io.c |    1 +
+ fs/btrfs/file-item.c |    1 +
+ fs/btrfs/raid56.c    |    1 +
+ 4 files changed, 3 insertions(+), 2 deletions(-)
+
+--- a/fs/btrfs/ctree.h
++++ b/fs/btrfs/ctree.h
+@@ -3597,8 +3597,6 @@ static inline int btrfs_defrag_cancelled
+ 	return signal_pending(current);
+ }
+ 
+-#define in_range(b, first, len) ((b) >= (first) && (b) < (first) + (len))
+-
+ /* Sanity test specific functions */
+ #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
+ void btrfs_test_destroy_inode(struct inode *inode);
+--- a/fs/btrfs/extent_io.c
++++ b/fs/btrfs/extent_io.c
+@@ -13,6 +13,7 @@
+ #include <linux/pagevec.h>
+ #include <linux/prefetch.h>
+ #include <linux/cleancache.h>
++#include "misc.h"
+ #include "extent_io.h"
+ #include "extent-io-tree.h"
+ #include "extent_map.h"
+--- a/fs/btrfs/file-item.c
++++ b/fs/btrfs/file-item.c
+@@ -9,6 +9,7 @@
+ #include <linux/highmem.h>
+ #include <linux/sched/mm.h>
+ #include <crypto/hash.h>
++#include "misc.h"
+ #include "ctree.h"
+ #include "disk-io.h"
+ #include "transaction.h"
+--- a/fs/btrfs/raid56.c
++++ b/fs/btrfs/raid56.c
+@@ -13,6 +13,7 @@
+ #include <linux/list_sort.h>
+ #include <linux/raid/xor.h>
+ #include <linux/mm.h>
++#include "misc.h"
+ #include "ctree.h"
+ #include "disk-io.h"
+ #include "volumes.h"
+
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-5.10/minmax-allow-comparisons-of-int-against-unsigned-char-short.patch
+queue-5.10/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-5.10/minmax-improve-macro-expansion-and-type-checking.patch
+queue-5.10/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.10/minmax.h-simplify-the-variants-of-clamp.patch
+queue-5.10/minmax-add-in_range-macro.patch
+queue-5.10/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
+queue-5.10/minmax-allow-min-max-clamp-if-the-arguments-have-the-same-signedness.patch
+queue-5.10/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-5.10/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+queue-5.10/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
+queue-5.10/minmax-simplify-min-max-clamp-implementation.patch
+queue-5.10/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.10/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+queue-5.10/minmax.h-add-whitespace-around-operators-and-after-commas.patch
+queue-5.10/minmax-sanity-check-constant-bounds-when-clamping.patch
+queue-5.10/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.10/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-5.10/minmax-fix-up-min3-and-max3-too.patch
+queue-5.10/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
+queue-5.10/minmax-fix-header-inclusions.patch
+queue-5.10/minmax-introduce-min-max-_array.patch
+queue-5.10/btrfs-remove-duplicated-in_range-macro.patch
+queue-5.10/overflow-tracing-define-the-is_signed_type-macro-once.patch
+queue-5.10/minmax-relax-check-to-allow-comparison-between-unsigned-arguments-and-signed-constants.patch
+queue-5.10/minmax-clamp-more-efficiently-by-avoiding-extra-comparison.patch
+queue-5.10/minmax.h-update-some-comments.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
