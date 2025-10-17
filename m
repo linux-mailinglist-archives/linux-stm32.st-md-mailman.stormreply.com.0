@@ -2,53 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21D24BE7643
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 11:07:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41210BE765A
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 11:08:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9551C58D5D;
-	Fri, 17 Oct 2025 09:07:51 +0000 (UTC)
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
- (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com
- [35.83.148.184])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFADBC58D5D;
+	Fri, 17 Oct 2025 09:08:12 +0000 (UTC)
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com
+ (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65620C58D56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BADBFC58D56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 09:07:50 +0000 (UTC)
+ Fri, 17 Oct 2025 09:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
- t=1760692070; x=1792228070;
+ t=1760692091; x=1792228091;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Axggb3gQ9gMod1E1Yl366ABHVZrqad4JWTadzq2JQtY=;
- b=Lt56+MzTPm7JVj7+pJKndDpIXgus8Fr4uJhtPFBs/eR1Q+IQoPC/y2qu
- 8B9rBYXVB/AxOKyPmS/g86wRBCQemnbYwHW8eNeaFoGsUbGneRNqR76BF
- 07XdmGpM3zww5A89d0Ro6IVvTCsfk101clPlTvJ5HvVX1/9211+/75Gxl
- kEhMetNBqLkxawoICwCuTiLpD6jAVUalGM5+MxayS27WoXJpA9M3FHavY
- RLHhByLoEVrxIYsAhc8rtSm6qXfiNV2f5SgXywot69JdKBmD150QoGQn6
- hdYZMhl3L4Vh3Gq1P3S9Di5mL4I/9uNyJztZua0oIjazbLhIjBXVzrjyY g==;
-X-CSE-ConnectionGUID: plDg+TL0RJuYnIuIvzyxwg==
-X-CSE-MsgGUID: 8TFf8viySyudMMaCnxenXg==
-X-IronPort-AV: E=Sophos;i="6.19,236,1754956800"; 
-   d="scan'208";a="4872727"
+ bh=fP5j8meArLlOtMy+CXHkrmjueNHJCB535+/rQW1z7Js=;
+ b=q/jkKglrp5BQnYwmbPIV+siRwxlPNEm8fWMV7XbP4t98GZMUoWLKstQz
+ ZnwyW9JwJwhxP/YUo3MHuctJs1fwO/AioUj1KVXDK2YiR9d0lnh/NJQxz
+ jD+d4u03DGXTpN6ZtzeeING9V5Np9xBlE0XQD6JV4twcPskCN3XruklHt
+ L7zt7s++Pm7gfsYF2RaQrEZpEZdagc5HuSWwDQhNrobX8VQpdTOj+cSAM
+ Uuco/B3qjS23U4q/vwav0ZgfuL4J7RGZXpcAW0uqL+fc4Lh419wWu1y8i
+ kLKBJTp944KfLF4Aeu7dYoWGlUAhEEvhcYlcrdIYxl1atC2YFqxjxYZ9C w==;
+X-CSE-ConnectionGUID: XVnMRMIzR62z7f3Q3W5kiA==
+X-CSE-MsgGUID: wBLf1+1hT+q/+BqR65aCqA==
+X-IronPort-AV: E=Sophos;i="6.18,281,1751241600"; 
+   d="scan'208";a="5073997"
 Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO
  smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
- by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:07:49 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:5394]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.11.52:2525]
+ by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2025 09:08:10 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:20995]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.51:2525]
  with esmtp (Farcaster)
- id d86868d2-96ac-429e-9410-ceea5e8bf28e; Fri, 17 Oct 2025 09:07:48 +0000 (UTC)
-X-Farcaster-Flow-ID: d86868d2-96ac-429e-9410-ceea5e8bf28e
+ id 36a5d8d2-a407-4db7-b7a0-d2f0b2ce4eaf; Fri, 17 Oct 2025 09:08:10 +0000 (UTC)
+X-Farcaster-Flow-ID: 36a5d8d2-a407-4db7-b7a0-d2f0b2ce4eaf
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20;
- Fri, 17 Oct 2025 09:07:45 +0000
+ Fri, 17 Oct 2025 09:08:09 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.20; Fri, 17 Oct 2025
- 09:07:31 +0000
+ 09:07:55 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux@armlinux.org.uk>, <jdike@addtoit.com>, <richard@nod.at>,
@@ -97,17 +96,16 @@ To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>,
  <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>,
  <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>,
  <tipc-discussion@lists.sourceforge.net>
-Date: Fri, 17 Oct 2025 09:04:59 +0000
-Message-ID: <20251017090519.46992-8-farbere@amazon.com>
+Date: Fri, 17 Oct 2025 09:05:00 +0000
+Message-ID: <20251017090519.46992-9-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251017090519.46992-1-farbere@amazon.com>
 References: <20251017090519.46992-1-farbere@amazon.com>
 MIME-Version: 1.0
 X-Originating-IP: [172.19.116.181]
-X-ClientProxiedBy: EX19D044UWB002.ant.amazon.com (10.13.139.188) To
+X-ClientProxiedBy: EX19D035UWA001.ant.amazon.com (10.13.139.101) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Subject: [Linux-stm32] [PATCH v2 07/27 5.10.y] minmax: deduplicate
-	__unconst_integer_typeof()
+Subject: [Linux-stm32] [PATCH v2 08/27 5.10.y] minmax: fix header inclusions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,77 +124,37 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-[ Upstream commit 5e57418a2031cd5e1863efdf3d7447a16a368172 ]
+[ Upstream commit f6e9d38f8eb00ac8b52e6d15f6aa9bcecacb081b ]
 
-It appears that compiler_types.h already have an implementation of the
-__unconst_integer_typeof() called __unqual_scalar_typeof().  Use it
-instead of the copy.
+BUILD_BUG_ON*() macros are defined in build_bug.h.  Include it.  Replace
+compiler_types.h by compiler.h, which provides the former, to have a
+definition of the __UNIQUE_ID().
 
-Link: https://lkml.kernel.org/r/20230911154913.4176033-1-andriy.shevchenko@linux.intel.com
+Link: https://lkml.kernel.org/r/20230912092355.79280-1-andriy.shevchenko@linux.intel.com
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Acked-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- include/linux/minmax.h | 26 +++-----------------------
- 1 file changed, 3 insertions(+), 23 deletions(-)
+ include/linux/minmax.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 0e89c78810f6..c813c1187510 100644
+index c813c1187510..2a197f54fe05 100644
 --- a/include/linux/minmax.h
 +++ b/include/linux/minmax.h
-@@ -2,6 +2,7 @@
+@@ -2,7 +2,8 @@
  #ifndef _LINUX_MINMAX_H
  #define _LINUX_MINMAX_H
  
-+#include <linux/compiler_types.h>
+-#include <linux/compiler_types.h>
++#include <linux/build_bug.h>
++#include <linux/compiler.h>
  #include <linux/const.h>
  #include <linux/types.h>
  
-@@ -151,27 +152,6 @@
-  */
- #define max_t(type, x, y)	__careful_cmp((type)(x), (type)(y), >)
- 
--/*
-- * Remove a const qualifier from integer types
-- * _Generic(foo, type-name: association, ..., default: association) performs a
-- * comparison against the foo type (not the qualified type).
-- * Do not use the const keyword in the type-name as it will not match the
-- * unqualified type of foo.
-- */
--#define __unconst_integer_type_cases(type)	\
--	unsigned type:  (unsigned type)0,	\
--	signed type:    (signed type)0
--
--#define __unconst_integer_typeof(x) typeof(			\
--	_Generic((x),						\
--		char: (char)0,					\
--		__unconst_integer_type_cases(char),		\
--		__unconst_integer_type_cases(short),		\
--		__unconst_integer_type_cases(int),		\
--		__unconst_integer_type_cases(long),		\
--		__unconst_integer_type_cases(long long),	\
--		default: (x)))
--
- /*
-  * Do not check the array parameter using __must_be_array().
-  * In the following legit use-case where the "array" passed is a simple pointer,
-@@ -186,13 +166,13 @@
-  * 'int *buff' and 'int buff[N]' types.
-  *
-  * The array can be an array of const items.
-- * typeof() keeps the const qualifier. Use __unconst_integer_typeof() in order
-+ * typeof() keeps the const qualifier. Use __unqual_scalar_typeof() in order
-  * to discard the const qualifier for the __element variable.
-  */
- #define __minmax_array(op, array, len) ({				\
- 	typeof(&(array)[0]) __array = (array);				\
- 	typeof(len) __len = (len);					\
--	__unconst_integer_typeof(__array[0]) __element = __array[--__len]; \
-+	__unqual_scalar_typeof(__array[0]) __element = __array[--__len];\
- 	while (__len--)							\
- 		__element = op(__element, __array[__len]);		\
- 	__element; })
 -- 
 2.47.3
 
