@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB26ABE714D
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:16:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9623ABE7161
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Oct 2025 10:16:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DA6CC58D47;
-	Fri, 17 Oct 2025 08:16:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54E92C58D4A;
+	Fri, 17 Oct 2025 08:16:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA8C7C58D45
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BDEDC58D4A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Oct 2025 08:16:18 +0000 (UTC)
+ Fri, 17 Oct 2025 08:16:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3030D4AEDA;
- Fri, 17 Oct 2025 08:16:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78357C4CEF9;
- Fri, 17 Oct 2025 08:16:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 760C664281;
+ Fri, 17 Oct 2025 08:16:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9750CC4CEFE;
+ Fri, 17 Oct 2025 08:16:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1760688977;
- bh=PHE61ocZpAmbcR8Zt6lhiDv74Fbgrfjoc7lG+GFvvjg=;
+ s=korg; t=1760688983;
+ bh=esjZ5c3IUl4375FObJ47mVUZDlqGA9IJyPO9/OsyVAo=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=bcNOBDQAVwSZ8Gw7PDF8jKMOTbGQssjr4ZV43XpXV/ijYkoiBmu/AuaRm1D9AynKy
- 8xVWFzjJ5XtopifK2sr8p3u7Uo/87NOdIDhkHvixLm2IL5EMheCU7SdZKI5suu9Zqx
- vmUc2IXhg5amhjCQCNmSOSceBxpJW6H+LiXqkcsQ=
+ b=eFU5zW51H8GlFuj3Q/QUy0tmyG1EuuKTzitri78rXVhmw3lYFNKJWmnjmWnhWKo94
+ Hy7c1vHt3j3dpdJNDY2xnoLrT0yTl+ztJBovPwzauyD5RAX9BMQBUrEx8fgNuV0FGP
+ DzlgI57Rpvl06doQb6YCE+HdJq+9WvTQL/VXO0uk=
 To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	adilger.kernel@dilger.ca, agk@redhat.com, airlied@linux.ie,
 	akpm@linux-foundation.org, amd-gfx@lists.freedesktop.org,
 	andriy.shevchenko@linux.intel.com, anton.ivanov@cambridgegreys.com,
-	bp@alien8.de, clm@fb.com, coreteam@netfilter.org, daniel@ffwll.ch,
-	dave.hansen@linux.intel.com, davem@davemloft.net,
+	arnd@kernel.org, bp@alien8.de, clm@fb.com, coreteam@netfilter.org,
+	daniel@ffwll.ch, dave.hansen@linux.intel.com, davem@davemloft.net,
 	dm-devel@redhat.com, dmitry.torokhov@gmail.com,
 	dri-devel@lists.freedesktop.org, dsahern@kernel.org,
 	dsterba@suse.com, dushistov@mail.ru, farbere@amazon.com,
@@ -43,8 +43,8 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	krzysztof.kozlowski@canonical.com, kuba@kernel.org,
 	linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
 	linux-mm@kvack.org, linux-staging@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.co,
-	m@stm-ict-prod-mailman-01.stormreply.prv,
+	linux-stm32@st-md-mailm.st-md-mailman.stormreply.com,
+	an.stormreply.com@stm-ict-prod-mailman-01.stormreply.prv,
 	linux-sunxi@lists.linux.dev, linux-um@lists.infradead.org,
 	linux@rasmusvillemoes.dk, linux@roeck-us.net,
 	lorenzo.stoakes@oracle.com, luc.vanoostenryck@gmail.com,
@@ -63,15 +63,15 @@ To: David.Laight@ACULAB.COM, David.Laight@aculab.com,
 	wens@csie.org, willy@infradead.org, x86@kernel.org,
 	ying.xue@windriver.com, yoshfuji@linux-ipv6.org
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 17 Oct 2025 10:16:14 +0200
-In-Reply-To: <20251008152946.29285-7-farbere@amazon.com>
-Message-ID: <2025101714-crisping-parakeet-ceba@gregkh>
+Date: Fri, 17 Oct 2025 10:16:15 +0200
+In-Reply-To: <20251008152946.29285-12-farbere@amazon.com>
+Message-ID: <2025101715-condone-trump-9dde@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "minmax: add a few more MIN_T/MAX_T users" has
-	been added to the 5.15-stable tree
+Subject: [Linux-stm32] Patch "minmax: improve macro expansion and type
+	checking" has been added to the 5.15-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,227 +83,255 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
-cGF0Y2ggdGl0bGVkCgogICAgbWlubWF4OiBhZGQgYSBmZXcgbW9yZSBNSU5fVC9NQVhfVCB1c2Vy
-cwoKdG8gdGhlIDUuMTUtc3RhYmxlIHRyZWUgd2hpY2ggY2FuIGJlIGZvdW5kIGF0OgogICAgaHR0
-cDovL3d3dy5rZXJuZWwub3JnL2dpdC8/cD1saW51eC9rZXJuZWwvZ2l0L3N0YWJsZS9zdGFibGUt
-cXVldWUuZ2l0O2E9c3VtbWFyeQoKVGhlIGZpbGVuYW1lIG9mIHRoZSBwYXRjaCBpczoKICAgICBt
-aW5tYXgtYWRkLWEtZmV3LW1vcmUtbWluX3QtbWF4X3QtdXNlcnMucGF0Y2gKYW5kIGl0IGNhbiBi
-ZSBmb3VuZCBpbiB0aGUgcXVldWUtNS4xNSBzdWJkaXJlY3RvcnkuCgpJZiB5b3UsIG9yIGFueW9u
-ZSBlbHNlLCBmZWVscyBpdCBzaG91bGQgbm90IGJlIGFkZGVkIHRvIHRoZSBzdGFibGUgdHJlZSwK
-cGxlYXNlIGxldCA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4ga25vdyBhYm91dCBpdC4KCgpGcm9t
-IHN0YWJsZStib3VuY2VzLTE4MzYxOC1ncmVnPWtyb2FoLmNvbUB2Z2VyLmtlcm5lbC5vcmcgV2Vk
-IE9jdCAgOCAxNzozMzozMCAyMDI1CkZyb206IEVsaWF2IEZhcmJlciA8ZmFyYmVyZUBhbWF6b24u
-Y29tPgpEYXRlOiBXZWQsIDggT2N0IDIwMjUgMTU6Mjk6MzEgKzAwMDAKU3ViamVjdDogbWlubWF4
-OiBhZGQgYSBmZXcgbW9yZSBNSU5fVC9NQVhfVCB1c2VycwpUbzogPGdyZWdraEBsaW51eGZvdW5k
-YXRpb24ub3JnPiwgPGpkaWtlQGFkZHRvaXQuY29tPiwgPHJpY2hhcmRAbm9kLmF0PiwgPGFudG9u
-Lml2YW5vdkBjYW1icmlkZ2VncmV5cy5jb20+LCA8ZGF2ZS5oYW5zZW5AbGludXguaW50ZWwuY29t
-PiwgPGx1dG9Aa2VybmVsLm9yZz4sIDxwZXRlcnpAaW5mcmFkZWFkLm9yZz4sIDx0Z2x4QGxpbnV0
-cm9uaXguZGU+LCA8bWluZ29AcmVkaGF0LmNvbT4sIDxicEBhbGllbjguZGU+LCA8eDg2QGtlcm5l
-bC5vcmc+LCA8aHBhQHp5dG9yLmNvbT4sIDx0b255Lmx1Y2tAaW50ZWwuY29tPiwgPHFpdXh1Lnpo
-dW9AaW50ZWwuY29tPiwgPGphbWVzLm1vcnNlQGFybS5jb20+LCA8cnJpY0BrZXJuZWwub3JnPiwg
-PGFpcmxpZWRAbGludXguaWU+LCA8ZGFuaWVsQGZmd2xsLmNoPiwgPG1hYXJ0ZW4ubGFua2hvcnN0
-QGxpbnV4LmludGVsLmNvbT4sIDxtcmlwYXJkQGtlcm5lbC5vcmc+LCA8dHppbW1lcm1hbm5Ac3Vz
-ZS5kZT4sIDxyb2JkY2xhcmtAZ21haWwuY29tPiwgPHNlYW5AcG9vcmx5LnJ1bj4sIDxqZGVsdmFy
-ZUBzdXNlLmNvbT4sIDxsaW51eEByb2Vjay11cy5uZXQ+LCA8bGludXMud2FsbGVpakBsaW5hcm8u
-b3JnPiwgPGRtaXRyeS50b3Jva2hvdkBnbWFpbC5jb20+LCA8bWF6QGtlcm5lbC5vcmc+LCA8d2Vu
-c0Bjc2llLm9yZz4sIDxqZXJuZWouc2tyYWJlY0BnbWFpbC5jb20+LCA8YWdrQHJlZGhhdC5jb20+
-LCA8c25pdHplckByZWRoYXQuY29tPiwgPGRtLWRldmVsQHJlZGhhdC5jb20+LCA8ZGF2ZW1AZGF2
-ZW1sb2Z0Lm5ldD4sIDxrdWJhQGtlcm5lbC5vcmc+LCA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNv
-bT4sIDxrcnp5c3p0b2Yua296bG93c2tpQGNhbm9uaWNhbC5jb20+LCA8bWFsYXR0aWFAbGludXgu
-aXQ+LCA8aGRlZ29lZGVAcmVkaGF0LmNvbT4sIDxtZ3Jvc3NAbGludXguaW50ZWwuY29tPiwgPGpl
-amJAbGludXguaWJtLmNvbT4sIDxtYXJ0aW4ucGV0ZXJzZW5Ab3JhY2xlLmNvbT4sIDxzYWthcmku
-YWlsdXNAbAogaW51eC5pbnRlbC5jb20+LCA8Y2xtQGZiLmNvbT4sIDxqb3NlZkB0b3hpY3BhbmRh
-LmNvbT4sIDxkc3RlcmJhQHN1c2UuY29tPiwgPGphY2tAc3VzZS5jb20+LCA8dHl0c29AbWl0LmVk
-dT4sIDxhZGlsZ2VyLmtlcm5lbEBkaWxnZXIuY2E+LCA8ZHVzaGlzdG92QG1haWwucnU+LCA8bHVj
-LnZhbm9vc3RlbnJ5Y2tAZ21haWwuY29tPiwgPHJvc3RlZHRAZ29vZG1pcy5vcmc+LCA8cG1sYWRl
-a0BzdXNlLmNvbT4sIDxzZW5vemhhdHNreUBjaHJvbWl1bS5vcmc+LCA8YW5kcml5LnNoZXZjaGVu
-a29AbGludXguaW50ZWwuY29tPiwgPGxpbnV4QHJhc211c3ZpbGxlbW9lcy5kaz4sIDxtaW5jaGFu
-QGtlcm5lbC5vcmc+LCA8bmd1cHRhQHZmbGFyZS5vcmc+LCA8YWtwbUBsaW51eC1mb3VuZGF0aW9u
-Lm9yZz4sIDx5b3NoZnVqaUBsaW51eC1pcHY2Lm9yZz4sIDxkc2FoZXJuQGtlcm5lbC5vcmc+LCA8
-cGFibG9AbmV0ZmlsdGVyLm9yZz4sIDxrYWRsZWNAbmV0ZmlsdGVyLm9yZz4sIDxmd0BzdHJsZW4u
-ZGU+LCA8am1hbG95QHJlZGhhdC5jb20+LCA8eWluZy54dWVAd2luZHJpdmVyLmNvbT4sIDxzaHVh
-aEBrZXJuZWwub3JnPiwgPHdpbGx5QGluZnJhZGVhZC5vcmc+LCA8ZmFyYmVyZUBhbWF6b24uY29t
-PiwgPHNhc2hhbEBrZXJuZWwub3JnPiwgPHF1aWNfYWtoaWxwb0BxdWljaW5jLmNvbT4sIDxydWFu
-amluamllQGh1YXdlaS5jb20+LCA8RGF2aWQuTGFpZ2h0QEFDVUxBQi5DT00+LCA8aGVydmUuY29k
-aW5hQGJvb3RsaW4uY29tPiwgPGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZz4s
-IDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPiwgPGxpbnV4LXVtQGxpc3RzLmluZnJhZGVh
-ZC5vcmc+LCA8bGludXgtZWRhY0B2Z2VyLmtlcm5lbC5vcmc+LCA8YW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmc+LCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4sIDxsaW51eC1h
-cm0tbXNtQHZnZXIua2VybmVsLm9yZz4sIDxmcmVlZHJlbm9AbAogaXN0cy5mcmVlZGVza3RvcC5v
-cmc+LCA8bGludXgtaHdtb25Admdlci5rZXJuZWwub3JnPiwgPGxpbnV4LWlucHV0QHZnZXIua2Vy
-bmVsLm9yZz4sIDxsaW51eC1zdW54aUBsaXN0cy5saW51eC5kZXY+LCA8bGludXgtbWVkaWFAdmdl
-ci5rZXJuZWwub3JnPiwgPG5ldGRldkB2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbT4sIDxwbGF0Zm9ybS1kcml2ZXIteDg2QHZnZXIua2Vy
-bmVsLm9yZz4sIDxsaW51eC1zY3NpQHZnZXIua2VybmVsLm9yZz4sIDxsaW51eC1zdGFnaW5nQGxp
-c3RzLmxpbnV4LmRldj4sIDxsaW51eC1idHJmc0B2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtZXh0
-NEB2Z2VyLmtlcm5lbC5vcmc+LCA8bGludXgtc3BhcnNlQHZnZXIua2VybmVsLm9yZz4sIDxsaW51
-eC1tbUBrdmFjay5vcmc+LCA8bmV0ZmlsdGVyLWRldmVsQHZnZXIua2VybmVsLm9yZz4sIDxjb3Jl
-dGVhbUBuZXRmaWx0ZXIub3JnPiwgPHRpcGMtZGlzY3Vzc2lvbkBsaXN0cy5zb3VyY2Vmb3JnZS5u
-ZXQ+LCA8bGludXgta3NlbGZ0ZXN0QHZnZXIua2VybmVsLm9yZz4sIDxzdGFibGVAdmdlci5rZXJu
-ZWwub3JnPgpDYzogTGludXMgVG9ydmFsZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3Jn
-PiwgRGF2aWQgTGFpZ2h0IDxEYXZpZC5MYWlnaHRAYWN1bGFiLmNvbT4sIExvcmVuem8gU3RvYWtl
-cyA8bG9yZW56by5zdG9ha2VzQG9yYWNsZS5jb20+Ck1lc3NhZ2UtSUQ6IDwyMDI1MTAwODE1Mjk0
-Ni4yOTI4NS03LWZhcmJlcmVAYW1hem9uLmNvbT4KCkZyb206IExpbnVzIFRvcnZhbGRzIDx0b3J2
-YWxkc0BsaW51eC1mb3VuZGF0aW9uLm9yZz4KClsgVXBzdHJlYW0gY29tbWl0IDQ0NzdiMzljMzJm
-ZGMwMzM2M2FmZmVmNGIxMWQ0ODM5MWU2ZGM5ZmYgXQoKQ29tbWl0IDNhN2UwMmMwNDBiMSAoIm1p
-bm1heDogYXZvaWQgb3Zlcmx5IGNvbXBsaWNhdGVkIGNvbnN0YW50CmV4cHJlc3Npb25zIGluIFZN
-IGNvZGUiKSBhZGRlZCB0aGUgc2ltcGxlciBNSU5fVC9NQVhfVCBtYWNyb3MgaW4gb3JkZXIKdG8g
-YXZvaWQgc29tZSBleGNlc3NpdmUgZXhwYW5zaW9uIGZyb20gdGhlIHJhdGhlciBjb21wbGljYXRl
-ZCByZWd1bGFyCm1pbi9tYXggbWFjcm9zLgoKVGhlIGNvbXBsZXhpdHkgb2YgdGhvc2UgbWFjcm9z
-IHN0ZW1zIGZyb20gdHdvIGlzc3VlczoKCiAoYSkgdHJ5aW5nIHRvIHVzZSB0aGVtIGluIHNpdHVh
-dGlvbnMgdGhhdCByZXF1aXJlIGEgQyBjb25zdGFudAogICAgIGV4cHJlc3Npb24gKGluIHN0YXRp
-YyBpbml0aWFsaXplcnMgYW5kIGZvciBhcnJheSBzaXplcykKCiAoYikgdGhlIHR5cGUgc2FuaXR5
-IGNoZWNraW5nCgphbmQgTUlOX1QvTUFYX1QgYXZvaWRzIGJvdGggb2YgdGhlc2UgaXNzdWVzLgoK
-Tm93LCBpbiB0aGUgd2hvbGUgKGxvbmcpIGRpc2N1c3Npb24gYWJvdXQgYWxsIHRoaXMsIGl0IHdh
-cyBwb2ludGVkIG91dAp0aGF0IHRoZSB3aG9sZSB0eXBlIHNhbml0eSBjaGVja2luZyBpcyBlbnRp
-cmVseSB1bm5lY2Vzc2FyeSBmb3IKbWluX3QvbWF4X3Qgd2hpY2ggZ2V0IGEgZml4ZWQgdHlwZSB0
-aGF0IHRoZSBjb21wYXJpc29uIGlzIGRvbmUgaW4uCgpCdXQgdGhhdCBzdGlsbCBsZWF2ZXMgbWlu
-X3QvbWF4X3QgdW5uZWNlc3NhcmlseSBjb21wbGljYXRlZCBkdWUgdG8Kd29ycmllcyBhYm91dCB0
-aGUgQyBjb25zdGFudCBleHByZXNzaW9uIGNhc2UuCgpIb3dldmVyLCBpdCB0dXJucyBvdXQgdGhh
-dCB0aGVyZSByZWFsbHkgYXJlbid0IHZlcnkgbWFueSBjYXNlcyB0aGF0IHVzZQptaW5fdC9tYXhf
-dCBmb3IgdGhpcywgYW5kIHdlIGNhbiBqdXN0IGZvcmNlLWNvbnZlcnQgdGhvc2UuCgpUaGlzIGRv
-ZXMgZXhhY3RseSB0aGF0LgoKV2hpY2ggaW4gdHVybiB3aWxsIHRoZW4gYWxsb3cgZm9yIG11Y2gg
-c2ltcGxlciBpbXBsZW1lbnRhdGlvbnMgb2YKbWluX3QoKS9tYXhfdCgpLiAgQWxsIHRoZSB1c3Vh
-bCAibWFjcm9zIGluIGFsbCB1cHBlciBjYXNlIHdpbGwgZXZhbHVhdGUKdGhlIGFyZ3VtZW50cyBt
-dWx0aXBsZSB0aW1lcyIgcnVsZXMgYXBwbHkuCgpXZSBzaG91bGQgZG8gYWxsIHRoZSBzYW1lIHRo
-aW5ncyBmb3IgdGhlIHJlZ3VsYXIgbWluL21heCgpIHZzIE1JTi9NQVgoKQpjYXNlcywgYnV0IHRo
-YXQgaGFzIHRoZSBhZGRlZCBjb21wbGV4aXR5IG9mIHZhcmlvdXMgZHJpdmVycyBkZWZpbmluZwp0
-aGVpciBvd24gbG9jYWwgdmVyc2lvbnMgb2YgTUlOL01BWCwgc28gdGhhdCBuZWVkcyBhbm90aGVy
-IGxldmVsIG9mCmZpeGVzIGZpcnN0LgoKTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxs
-L2I0N2ZhZDFkMGNmODQ0OTg4NmFkMTQ4ZjhjMDEzZGFlQEFjdU1TLmFjdWxhYi5jb20vCkNjOiBE
-YXZpZCBMYWlnaHQgPERhdmlkLkxhaWdodEBhY3VsYWIuY29tPgpDYzogTG9yZW56byBTdG9ha2Vz
-IDxsb3JlbnpvLnN0b2FrZXNAb3JhY2xlLmNvbT4KU2lnbmVkLW9mZi1ieTogTGludXMgVG9ydmFs
-ZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3JnPgpTaWduZWQtb2ZmLWJ5OiBFbGlhdiBG
-YXJiZXIgPGZhcmJlcmVAYW1hem9uLmNvbT4KU2lnbmVkLW9mZi1ieTogR3JlZyBLcm9haC1IYXJ0
-bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4KLS0tClYyIC0+IFYzOgpGaXggZnMvZXJv
-ZnMvemRhdGEuaCB0byB1c2UgTUlOX1QgaW5zdGVhZCBvZiBtaW5fdCB0byBmaXggYnVpbGQgb24g
-dGhlCmZvbGxvd2luZyBwYXRjaDoKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4vaW5jbHVkZS9saW51
-eC9rZXJuZWwuaDoxNiwKICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC9saXN0
-Lmg6OSwKICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC93YWl0Lmg6NywKICAg
-ICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC93YWl0X2JpdC5oOjgsCiAgICAgICAg
-ICAgICAgICAgZnJvbSAuL2luY2x1ZGUvbGludXgvZnMuaDo2LAogICAgICAgICAgICAgICAgIGZy
-b20gZnMvZXJvZnMvaW50ZXJuYWwuaDoxMCwKICAgICAgICAgICAgICAgICBmcm9tIGZzL2Vyb2Zz
-L3pkYXRhLmg6OSwKICAgICAgICAgICAgICAgICBmcm9tIGZzL2Vyb2ZzL3pkYXRhLmM6NjoKZnMv
-ZXJvZnMvemRhdGEuYzogSW4gZnVuY3Rpb24g4oCYel9lcm9mc19kZWNvbXByZXNzX3BjbHVzdGVy
-4oCZOgpmcy9lcm9mcy96ZGF0YS5oOjE4NTo2MTogZXJyb3I6IElTTyBDOTAgZm9yYmlkcyB2YXJp
-YWJsZSBsZW5ndGggYXJyYXkg4oCYcGFnZXNfb25zdGFja+KAmSBbLVdlcnJvcj12bGFdCiAgMTg1
-IHwgICAgICAgICBtaW5fdCh1bnNpZ25lZCBpbnQsIFRIUkVBRF9TSVpFIC8gOCAvIHNpemVvZihz
-dHJ1Y3QgcGFnZSAqKSwgOTZVKQogICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn4KLi9pbmNsdWRlL2xpbnV4L21pbm1h
-eC5oOjQ5OjIzOiBub3RlOiBpbiBkZWZpbml0aW9uIG9mIG1hY3JvIOKAmF9fY21wX29uY2VfdW5p
-cXVl4oCZCiAgIDQ5IHwgICAgICAgICAoeyB0eXBlIHV4ID0gKHgpOyB0eXBlIHV5ID0gKHkpOyBf
-X2NtcChvcCwgdXgsIHV5KTsgfSkKICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgXgouL2lu
-Y2x1ZGUvbGludXgvbWlubWF4Lmg6MTY0OjI3OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g
-4oCYX19jbXBfb25jZeKAmQogIDE2NCB8ICNkZWZpbmUgbWluX3QodHlwZSwgeCwgeSkgX19jbXBf
-b25jZShtaW4sIHR5cGUsIHgsIHkpCiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICBe
-fn5+fn5+fn5+CmZzL2Vyb2ZzL3pkYXRhLmg6MTg1Ojk6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBt
-YWNybyDigJhtaW5fdOKAmQogIDE4NSB8ICAgICAgICAgbWluX3QodW5zaWduZWQgaW50LCBUSFJF
-QURfU0laRSAvIDggLyBzaXplb2Yoc3RydWN0IHBhZ2UgKiksIDk2VSkKICAgICAgfCAgICAgICAg
-IF5+fn5+CmZzL2Vyb2ZzL3pkYXRhLmM6ODQ3OjM2OiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFj
-cm8g4oCYWl9FUk9GU19WTUFQX09OU1RBQ0tfUEFHRVPigJkKICA4NDcgfCAgICAgICAgIHN0cnVj
-dCBwYWdlICpwYWdlc19vbnN0YWNrW1pfRVJPRlNfVk1BUF9PTlNUQUNLX1BBR0VTXTsKICAgICAg
-fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+
-fn5+fn5+CmNjMTogYWxsIHdhcm5pbmdzIGJlaW5nIHRyZWF0ZWQgYXMgZXJyb3JzCgpWMSAtPiBW
-MjoKVXNlIGBbIFVwc3RyZWFtIGNvbW1pdCA8SEFTSD4gXWAgaW5zdGVhZCBvZiBgY29tbWl0IDxI
-QVNIPiB1cHN0cmVhbS5gCmxpa2UgaW4gYWxsIG90aGVyIHBhdGNoZXMuCgogYXJjaC94ODYvbW0v
-cGd0YWJsZS5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIgKy0KIGRyaXZlcnMv
-ZWRhYy9zYl9lZGFjLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA0ICsrLS0KIGRy
-aXZlcnMvZ3B1L2RybS9kcm1fY29sb3JfbWdtdC5jICAgICAgICAgICAgICAgICAgfCAgICAyICst
-CiBkcml2ZXJzL21kL2RtLWludGVncml0eS5jICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAg
-MiArLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyB8
-ICAgIDIgKy0KIGZzL2Vyb2ZzL3pkYXRhLmggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgfCAgICAyICstCiBuZXQvaXB2NC9wcm9jLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgICAgMiArLQogbmV0L2lwdjYvcHJvYy5jICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB8ICAgIDIgKy0KIDggZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5
-IGRlbGV0aW9ucygtKQoKLS0tIGEvYXJjaC94ODYvbW0vcGd0YWJsZS5jCisrKyBiL2FyY2gveDg2
-L21tL3BndGFibGUuYwpAQCAtMTA3LDcgKzEwNyw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBwZ2Rf
-bGlzdF9kZWwocGdkX3QgKnAKICNkZWZpbmUgVU5TSEFSRURfUFRSU19QRVJfUEdECQkJCVwKIAko
-U0hBUkVEX0tFUk5FTF9QTUQgPyBLRVJORUxfUEdEX0JPVU5EQVJZIDogUFRSU19QRVJfUEdEKQog
-I2RlZmluZSBNQVhfVU5TSEFSRURfUFRSU19QRVJfUEdECQkJXAotCW1heF90KHNpemVfdCwgS0VS
-TkVMX1BHRF9CT1VOREFSWSwgUFRSU19QRVJfUEdEKQorCU1BWF9UKHNpemVfdCwgS0VSTkVMX1BH
-RF9CT1VOREFSWSwgUFRSU19QRVJfUEdEKQogCiAKIHN0YXRpYyB2b2lkIHBnZF9zZXRfbW0ocGdk
-X3QgKnBnZCwgc3RydWN0IG1tX3N0cnVjdCAqbW0pCi0tLSBhL2RyaXZlcnMvZWRhYy9zYl9lZGFj
-LmMKKysrIGIvZHJpdmVycy9lZGFjL3NiX2VkYWMuYwpAQCAtMTA5LDggKzEwOSw4IEBAIHN0YXRp
-YyBjb25zdCB1MzIga25sX2ludGVybGVhdmVfbGlzdFtdID0KIAkweDEwNCwgMHgxMGMsIDB4MTE0
-LCAweDExYywgICAvKiAyMC0yMyAqLwogfTsKICNkZWZpbmUgTUFYX0lOVEVSTEVBVkUJCQkJCQkJ
-XAotCShtYXhfdCh1bnNpZ25lZCBpbnQsIEFSUkFZX1NJWkUoc2JyaWRnZV9pbnRlcmxlYXZlX2xp
-c3QpLAlcCi0JICAgICAgIG1heF90KHVuc2lnbmVkIGludCwgQVJSQVlfU0laRShpYnJpZGdlX2lu
-dGVybGVhdmVfbGlzdCksCVwKKwkoTUFYX1QodW5zaWduZWQgaW50LCBBUlJBWV9TSVpFKHNicmlk
-Z2VfaW50ZXJsZWF2ZV9saXN0KSwJXAorCSAgICAgICBNQVhfVCh1bnNpZ25lZCBpbnQsIEFSUkFZ
-X1NJWkUoaWJyaWRnZV9pbnRlcmxlYXZlX2xpc3QpLAlcCiAJCSAgICAgQVJSQVlfU0laRShrbmxf
-aW50ZXJsZWF2ZV9saXN0KSkpKQogCiBzdHJ1Y3QgaW50ZXJsZWF2ZV9wa2cgewotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vZHJtX2NvbG9yX21nbXQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Nv
-bG9yX21nbXQuYwpAQCAtNTI4LDcgKzUyOCw3IEBAIGludCBkcm1fcGxhbmVfY3JlYXRlX2NvbG9y
-X3Byb3BlcnRpZXMoc3QKIHsKIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gcGxhbmUtPmRldjsK
-IAlzdHJ1Y3QgZHJtX3Byb3BlcnR5ICpwcm9wOwotCXN0cnVjdCBkcm1fcHJvcF9lbnVtX2xpc3Qg
-ZW51bV9saXN0W21heF90KGludCwgRFJNX0NPTE9SX0VOQ09ESU5HX01BWCwKKwlzdHJ1Y3QgZHJt
-X3Byb3BfZW51bV9saXN0IGVudW1fbGlzdFtNQVhfVChpbnQsIERSTV9DT0xPUl9FTkNPRElOR19N
-QVgsCiAJCQkJCQkgICAgICAgRFJNX0NPTE9SX1JBTkdFX01BWCldOwogCWludCBpLCBsZW47CiAK
-LS0tIGEvZHJpdmVycy9tZC9kbS1pbnRlZ3JpdHkuYworKysgYi9kcml2ZXJzL21kL2RtLWludGVn
-cml0eS5jCkBAIC0yNTM2LDcgKzI1MzYsNyBAQCBzdGF0aWMgdm9pZCBkb19qb3VybmFsX3dyaXRl
-KHN0cnVjdCBkbV9pCiAJCQkJICAgIHVubGlrZWx5KGZyb21fcmVwbGF5KSAmJgogI2VuZGlmCiAJ
-CQkJICAgIGljLT5pbnRlcm5hbF9oYXNoKSB7Ci0JCQkJCWNoYXIgdGVzdF90YWdbbWF4X3Qoc2l6
-ZV90LCBIQVNIX01BWF9ESUdFU1RTSVpFLCBNQVhfVEFHX1NJWkUpXTsKKwkJCQkJY2hhciB0ZXN0
-X3RhZ1tNQVhfVChzaXplX3QsIEhBU0hfTUFYX0RJR0VTVFNJWkUsIE1BWF9UQUdfU0laRSldOwog
-CiAJCQkJCWludGVncml0eV9zZWN0b3JfY2hlY2tzdW0oaWMsIHNlYyArICgobCAtIGopIDw8IGlj
-LT5zYi0+bG9nMl9zZWN0b3JzX3Blcl9ibG9jayksCiAJCQkJCQkJCSAgKGNoYXIgKilhY2Nlc3Nf
-am91cm5hbF9kYXRhKGljLCBpLCBsKSwgdGVzdF90YWcpOwotLS0gYS9kcml2ZXJzL25ldC9ldGhl
-cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKQEAgLTI4MDUsNyArMjgwNSw3IEBAIHN0
-YXRpYyB2b2lkIHN0bW1hY19kbWFfaW50ZXJydXB0KHN0cnVjdAogCXUzMiBjaGFubmVsc190b19j
-aGVjayA9IHR4X2NoYW5uZWxfY291bnQgPiByeF9jaGFubmVsX2NvdW50ID8KIAkJCQl0eF9jaGFu
-bmVsX2NvdW50IDogcnhfY2hhbm5lbF9jb3VudDsKIAl1MzIgY2hhbjsKLQlpbnQgc3RhdHVzW21h
-eF90KHUzMiwgTVRMX01BWF9UWF9RVUVVRVMsIE1UTF9NQVhfUlhfUVVFVUVTKV07CisJaW50IHN0
-YXR1c1tNQVhfVCh1MzIsIE1UTF9NQVhfVFhfUVVFVUVTLCBNVExfTUFYX1JYX1FVRVVFUyldOwog
-CiAJLyogTWFrZSBzdXJlIHdlIG5ldmVyIGNoZWNrIGJleW9uZCBvdXIgc3RhdHVzIGJ1ZmZlci4g
-Ki8KIAlpZiAoV0FSTl9PTl9PTkNFKGNoYW5uZWxzX3RvX2NoZWNrID4gQVJSQVlfU0laRShzdGF0
-dXMpKSkKLS0tIGEvZnMvZXJvZnMvemRhdGEuaAorKysgYi9mcy9lcm9mcy96ZGF0YS5oCkBAIC0x
-ODIsNyArMTgyLDcgQEAgc3RhdGljIGlubGluZSB2b2lkIHpfZXJvZnNfb25saW5lcGFnZV9lbgog
-fQogCiAjZGVmaW5lIFpfRVJPRlNfVk1BUF9PTlNUQUNLX1BBR0VTCVwKLQltaW5fdCh1bnNpZ25l
-ZCBpbnQsIFRIUkVBRF9TSVpFIC8gOCAvIHNpemVvZihzdHJ1Y3QgcGFnZSAqKSwgOTZVKQorCU1J
-Tl9UKHVuc2lnbmVkIGludCwgVEhSRUFEX1NJWkUgLyA4IC8gc2l6ZW9mKHN0cnVjdCBwYWdlICop
-LCA5NlUpCiAjZGVmaW5lIFpfRVJPRlNfVk1BUF9HTE9CQUxfUEFHRVMJMjA0OAogCiAjZW5kaWYK
-LS0tIGEvbmV0L2lwdjQvcHJvYy5jCisrKyBiL25ldC9pcHY0L3Byb2MuYwpAQCAtNDMsNyArNDMs
-NyBAQAogI2luY2x1ZGUgPG5ldC9zb2NrLmg+CiAjaW5jbHVkZSA8bmV0L3Jhdy5oPgogCi0jZGVm
-aW5lIFRDUFVEUF9NSUJfTUFYIG1heF90KHUzMiwgVURQX01JQl9NQVgsIFRDUF9NSUJfTUFYKQor
-I2RlZmluZSBUQ1BVRFBfTUlCX01BWCBNQVhfVCh1MzIsIFVEUF9NSUJfTUFYLCBUQ1BfTUlCX01B
-WCkKIAogLyoKICAqCVJlcG9ydCBzb2NrZXQgYWxsb2NhdGlvbiBzdGF0aXN0aWNzIFttZWFAdXR1
-LmZpXQotLS0gYS9uZXQvaXB2Ni9wcm9jLmMKKysrIGIvbmV0L2lwdjYvcHJvYy5jCkBAIC0yNyw3
-ICsyNyw3IEBACiAjaW5jbHVkZSA8bmV0L2lwdjYuaD4KIAogI2RlZmluZSBNQVg0KGEsIGIsIGMs
-IGQpIFwKLQltYXhfdCh1MzIsIG1heF90KHUzMiwgYSwgYiksIG1heF90KHUzMiwgYywgZCkpCisJ
-TUFYX1QodTMyLCBNQVhfVCh1MzIsIGEsIGIpLCBNQVhfVCh1MzIsIGMsIGQpKQogI2RlZmluZSBT
-Tk1QX01JQl9NQVggTUFYNChVRFBfTUlCX01BWCwgVENQX01JQl9NQVgsIFwKIAkJCUlQU1RBVFNf
-TUlCX01BWCwgSUNNUF9NSUJfTUFYKQogCgoKUGF0Y2hlcyBjdXJyZW50bHkgaW4gc3RhYmxlLXF1
-ZXVlIHdoaWNoIG1pZ2h0IGJlIGZyb20gZmFyYmVyZUBhbWF6b24uY29tIGFyZQoKcXVldWUtNS4x
-NS9taW5tYXgtYWRkLWEtZmV3LW1vcmUtbWluX3QtbWF4X3QtdXNlcnMucGF0Y2gKcXVldWUtNS4x
-NS9taW5tYXgtaW1wcm92ZS1tYWNyby1leHBhbnNpb24tYW5kLXR5cGUtY2hlY2tpbmcucGF0Y2gK
-cXVldWUtNS4xNS9taW5tYXgtZml4LWluZGVudGF0aW9uLW9mLV9fY21wX29uY2UtYW5kLV9fY2xh
-bXBfb25jZS5wYXRjaApxdWV1ZS01LjE1L21pbm1heC5oLXNpbXBsaWZ5LXRoZS12YXJpYW50cy1v
-Zi1jbGFtcC5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1hZGQtaW5fcmFuZ2UtbWFjcm8ucGF0Y2gK
-cXVldWUtNS4xNS9taW5tYXguaC1tb3ZlLWFsbC10aGUtY2xhbXAtZGVmaW5pdGlvbnMtYWZ0ZXIt
-dGhlLW1pbi1tYXgtb25lcy5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1kb24tdC11c2UtbWF4LWlu
-LXNpdHVhdGlvbnMtdGhhdC13YW50LWEtYy1jb25zdGFudC1leHByZXNzaW9uLnBhdGNoCnF1ZXVl
-LTUuMTUvbWlubWF4LmgtcmVtb3ZlLXNvbWUtZGVmaW5lcy10aGF0LWFyZS1vbmx5LWV4cGFuZGVk
-LW9uY2UucGF0Y2gKcXVldWUtNS4xNS9taW5tYXguaC11c2UtYnVpbGRfYnVnX29uX21zZy1mb3It
-dGhlLWxvLWhpLXRlc3QtaW4tY2xhbXAucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtc2ltcGxpZnkt
-bWluLW1heC1jbGFtcC1pbXBsZW1lbnRhdGlvbi5wYXRjaApxdWV1ZS01LjE1L21pbm1heC1kZWR1
-cGxpY2F0ZS1fX3VuY29uc3RfaW50ZWdlcl90eXBlb2YucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgt
-c2ltcGxpZnktYW5kLWNsYXJpZnktbWluX3QtbWF4X3QtaW1wbGVtZW50YXRpb24ucGF0Y2gKcXVl
-dWUtNS4xNS9taW5tYXguaC1hZGQtd2hpdGVzcGFjZS1hcm91bmQtb3BlcmF0b3JzLWFuZC1hZnRl
-ci1jb21tYXMucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtYXZvaWQtb3Zlcmx5LWNvbXBsaWNhdGVk
-LWNvbnN0YW50LWV4cHJlc3Npb25zLWluLXZtLWNvZGUucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgt
-bWFrZS1nZW5lcmljLW1pbi1hbmQtbWF4LW1hY3Jvcy1hdmFpbGFibGUtZXZlcnl3aGVyZS5wYXRj
-aApxdWV1ZS01LjE1L21pbm1heC1maXgtdXAtbWluMy1hbmQtbWF4My10b28ucGF0Y2gKcXVldWUt
-NS4xNS9taW5tYXguaC1yZWR1Y2UtdGhlLWRlZmluZS1leHBhbnNpb24tb2YtbWluLW1heC1hbmQt
-Y2xhbXAucGF0Y2gKcXVldWUtNS4xNS9taW5tYXgtaW50cm9kdWNlLW1pbi1tYXgtX2FycmF5LnBh
-dGNoCnF1ZXVlLTUuMTUvbWlubWF4LmgtdXBkYXRlLXNvbWUtY29tbWVudHMucGF0Y2gKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+
+This is a note to let you know that I've just added the patch titled
+
+    minmax: improve macro expansion and type checking
+
+to the 5.15-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     minmax-improve-macro-expansion-and-type-checking.patch
+and it can be found in the queue-5.15 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From prvs=36971892a=farbere@amazon.com Wed Oct  8 17:33:00 2025
+From: Eliav Farber <farbere@amazon.com>
+Date: Wed, 8 Oct 2025 15:29:36 +0000
+Subject: minmax: improve macro expansion and type checking
+To: <gregkh@linuxfoundation.org>, <jdike@addtoit.com>, <richard@nod.at>, <anton.ivanov@cambridgegreys.com>, <dave.hansen@linux.intel.com>, <luto@kernel.org>, <peterz@infradead.org>, <tglx@linutronix.de>, <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>, <tony.luck@intel.com>, <qiuxu.zhuo@intel.com>, <james.morse@arm.com>, <rric@kernel.org>, <airlied@linux.ie>, <daniel@ffwll.ch>, <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <robdclark@gmail.com>, <sean@poorly.run>, <jdelvare@suse.com>, <linux@roeck-us.net>, <linus.walleij@linaro.org>, <dmitry.torokhov@gmail.com>, <maz@kernel.org>, <wens@csie.org>, <jernej.skrabec@gmail.com>, <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>, <davem@davemloft.net>, <kuba@kernel.org>, <mcoquelin.stm32@gmail.com>, <krzysztof.kozlowski@canonical.com>, <malattia@linux.it>, <hdegoede@redhat.com>, <mgross@linux.intel.com>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <sakari.ailus@l
+ inux.intel.com>, <clm@fb.com>, <josef@toxicpanda.com>, <dsterba@suse.com>, <jack@suse.com>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <dushistov@mail.ru>, <luc.vanoostenryck@gmail.com>, <rostedt@goodmis.org>, <pmladek@suse.com>, <senozhatsky@chromium.org>, <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>, <minchan@kernel.org>, <ngupta@vflare.org>, <akpm@linux-foundation.org>, <yoshfuji@linux-ipv6.org>, <dsahern@kernel.org>, <pablo@netfilter.org>, <kadlec@netfilter.org>, <fw@strlen.de>, <jmaloy@redhat.com>, <ying.xue@windriver.com>, <shuah@kernel.org>, <willy@infradead.org>, <farbere@amazon.com>, <sashal@kernel.org>, <quic_akhilpo@quicinc.com>, <ruanjinjie@huawei.com>, <David.Laight@ACULAB.COM>, <herve.codina@bootlin.com>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, <linux-um@lists.infradead.org>, <linux-edac@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>, <freedreno@l
+ ists.freedesktop.org>, <linux-hwmon@vger.kernel.org>, <linux-input@vger.kernel.org>, <linux-sunxi@lists.linux.dev>, <linux-media@vger.kernel.org>, <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, <platform-driver-x86@vger.kernel.org>, <linux-scsi@vger.kernel.org>, <linux-staging@lists.linux.dev>, <linux-btrfs@vger.kernel.org>, <linux-ext4@vger.kernel.org>, <linux-sparse@vger.kernel.org>, <linux-mm@kvack.org>, <netfilter-devel@vger.kernel.org>, <coreteam@netfilter.org>, <tipc-discussion@lists.sourceforge.net>, <linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Arnd Bergmann <arnd@kernel.org>, David Laight <David.Laight@aculab.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Message-ID: <20251008152946.29285-12-farbere@amazon.com>
+
+From: Linus Torvalds <torvalds@linux-foundation.org>
+
+[ Upstream commit 22f5468731491e53356ba7c028f0fdea20b18e2c ]
+
+This clarifies the rules for min()/max()/clamp() type checking and makes
+them a much more efficient macro expansion.
+
+In particular, we now look at the type and range of the inputs to see
+whether they work together, generating a mask of acceptable comparisons,
+and then just verifying that the inputs have a shared case:
+
+ - an expression with a signed type can be used for
+    (1) signed comparisons
+    (2) unsigned comparisons if it is statically known to have a
+        non-negative value
+
+ - an expression with an unsigned type can be used for
+    (3) unsigned comparison
+    (4) signed comparisons if the type is smaller than 'int' and thus
+        the C integer promotion rules will make it signed anyway
+
+Here rule (1) and (3) are obvious, and rule (2) is important in order to
+allow obvious trivial constants to be used together with unsigned
+values.
+
+Rule (4) is not necessarily a good idea, but matches what we used to do,
+and we have extant cases of this situation in the kernel.  Notably with
+bcachefs having an expression like
+
+	min(bch2_bucket_sectors_dirty(a), ca->mi.bucket_size)
+
+where bch2_bucket_sectors_dirty() returns an 's64', and
+'ca->mi.bucket_size' is of type 'u16'.
+
+Technically that bcachefs comparison is clearly sensible on a C type
+level, because the 'u16' will go through the normal C integer promotion,
+and become 'int', and then we're comparing two signed values and
+everything looks sane.
+
+However, it's not entirely clear that a 'min(s64,u16)' operation makes a
+lot of conceptual sense, and it's possible that we will remove rule (4).
+After all, the _reason_ we have these complicated type checks is exactly
+that the C type promotion rules are not very intuitive.
+
+But at least for now the rule is in place for backwards compatibility.
+
+Also note that rule (2) existed before, but is hugely relaxed by this
+commit.  It used to be true only for the simplest compile-time
+non-negative integer constants.  The new macro model will allow cases
+where the compiler can trivially see that an expression is non-negative
+even if it isn't necessarily a constant.
+
+For example, the amdgpu driver does
+
+	min_t(size_t, sizeof(fru_info->serial), pia[addr] & 0x3F));
+
+because our old 'min()' macro would see that 'pia[addr] & 0x3F' is of
+type 'int' and clearly not a C constant expression, so doing a 'min()'
+with a 'size_t' is a signedness violation.
+
+Our new 'min()' macro still sees that 'pia[addr] & 0x3F' is of type
+'int', but is smart enough to also see that it is clearly non-negative,
+and thus would allow that case without any complaints.
+
+Cc: Arnd Bergmann <arnd@kernel.org>
+Cc: David Laight <David.Laight@aculab.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/compiler.h |    9 +++++
+ include/linux/minmax.h   |   78 ++++++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 70 insertions(+), 17 deletions(-)
+
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -259,6 +259,15 @@ static inline void *offset_to_ptr(const
+ #define is_signed_type(type) (((type)(-1)) < (__force type)1)
+ 
+ /*
++ * Useful shorthand for "is this condition known at compile-time?"
++ *
++ * Note that the condition may involve non-constant values,
++ * but the compiler may know enough about the details of the
++ * values to determine that the condition is statically true.
++ */
++#define statically_true(x) (__builtin_constant_p(x) && (x))
++
++/*
+  * This is needed in functions which generate the stack canary, see
+  * arch/x86/kernel/smpboot.c::start_secondary() for an example.
+  */
+--- a/include/linux/minmax.h
++++ b/include/linux/minmax.h
+@@ -26,19 +26,63 @@
+ #define __typecheck(x, y) \
+ 	(!!(sizeof((typeof(x) *)1 == (typeof(y) *)1)))
+ 
+-/* is_signed_type() isn't a constexpr for pointer types */
+-#define __is_signed(x) 								\
+-	__builtin_choose_expr(__is_constexpr(is_signed_type(typeof(x))),	\
+-		is_signed_type(typeof(x)), 0)
+-
+-/* True for a non-negative signed int constant */
+-#define __is_noneg_int(x)	\
+-	(__builtin_choose_expr(__is_constexpr(x) && __is_signed(x), x, -1) >= 0)
+-
+-#define __types_ok(x, y, ux, uy) 				\
+-	(__is_signed(ux) == __is_signed(uy) ||			\
+-	 __is_signed((ux) + 0) == __is_signed((uy) + 0) ||	\
+-	 __is_noneg_int(x) || __is_noneg_int(y))
++/*
++ * __sign_use for integer expressions:
++ *   bit #0 set if ok for unsigned comparisons
++ *   bit #1 set if ok for signed comparisons
++ *
++ * In particular, statically non-negative signed integer
++ * expressions are ok for both.
++ *
++ * NOTE! Unsigned types smaller than 'int' are implicitly
++ * converted to 'int' in expressions, and are accepted for
++ * signed conversions for now. This is debatable.
++ *
++ * Note that 'x' is the original expression, and 'ux' is
++ * the unique variable that contains the value.
++ *
++ * We use 'ux' for pure type checking, and 'x' for when
++ * we need to look at the value (but without evaluating
++ * it for side effects! Careful to only ever evaluate it
++ * with sizeof() or __builtin_constant_p() etc).
++ *
++ * Pointers end up being checked by the normal C type
++ * rules at the actual comparison, and these expressions
++ * only need to be careful to not cause warnings for
++ * pointer use.
++ */
++#define __signed_type_use(x,ux) (2+__is_nonneg(x,ux))
++#define __unsigned_type_use(x,ux) (1+2*(sizeof(ux)<4))
++#define __sign_use(x,ux) (is_signed_type(typeof(ux))? \
++	__signed_type_use(x,ux):__unsigned_type_use(x,ux))
++
++/*
++ * To avoid warnings about casting pointers to integers
++ * of different sizes, we need that special sign type.
++ *
++ * On 64-bit we can just always use 'long', since any
++ * integer or pointer type can just be cast to that.
++ *
++ * This does not work for 128-bit signed integers since
++ * the cast would truncate them, but we do not use s128
++ * types in the kernel (we do use 'u128', but they will
++ * be handled by the !is_signed_type() case).
++ *
++ * NOTE! The cast is there only to avoid any warnings
++ * from when values that aren't signed integer types.
++ */
++#ifdef CONFIG_64BIT
++  #define __signed_type(ux) long
++#else
++  #define __signed_type(ux) typeof(__builtin_choose_expr(sizeof(ux)>4,1LL,1L))
++#endif
++#define __is_nonneg(x,ux) statically_true((__signed_type(ux))(x)>=0)
++
++#define __types_ok(x,y,ux,uy) \
++	(__sign_use(x,ux) & __sign_use(y,uy))
++
++#define __types_ok3(x,y,z,ux,uy,uz) \
++	(__sign_use(x,ux) & __sign_use(y,uy) & __sign_use(z,uz))
+ 
+ #define __cmp_op_min <
+ #define __cmp_op_max >
+@@ -53,8 +97,8 @@
+ 
+ #define __careful_cmp_once(op, x, y, ux, uy) ({		\
+ 	__auto_type ux = (x); __auto_type uy = (y);	\
+-	static_assert(__types_ok(x, y, ux, uy),		\
+-		#op "(" #x ", " #y ") signedness error, fix types or consider u" #op "() before " #op "_t()"); \
++	BUILD_BUG_ON_MSG(!__types_ok(x,y,ux,uy),	\
++		#op"("#x", "#y") signedness error");	\
+ 	__cmp(op, ux, uy); })
+ 
+ #define __careful_cmp(op, x, y) \
+@@ -70,8 +114,8 @@
+ 	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
+ 			(lo) <= (hi), true),					\
+ 		"clamp() low limit " #lo " greater than high limit " #hi);	\
+-	static_assert(__types_ok(uval, lo, uval, ulo), "clamp() 'lo' signedness error");	\
+-	static_assert(__types_ok(uval, hi, uval, uhi), "clamp() 'hi' signedness error");	\
++	BUILD_BUG_ON_MSG(!__types_ok3(val,lo,hi,uval,ulo,uhi),			\
++		"clamp("#val", "#lo", "#hi") signedness error");		\
+ 	__clamp(uval, ulo, uhi); })
+ 
+ #define __careful_clamp(val, lo, hi) \
+
+
+Patches currently in stable-queue which might be from farbere@amazon.com are
+
+queue-5.15/minmax-add-a-few-more-min_t-max_t-users.patch
+queue-5.15/minmax-improve-macro-expansion-and-type-checking.patch
+queue-5.15/minmax-fix-indentation-of-__cmp_once-and-__clamp_once.patch
+queue-5.15/minmax.h-simplify-the-variants-of-clamp.patch
+queue-5.15/minmax-add-in_range-macro.patch
+queue-5.15/minmax.h-move-all-the-clamp-definitions-after-the-min-max-ones.patch
+queue-5.15/minmax-don-t-use-max-in-situations-that-want-a-c-constant-expression.patch
+queue-5.15/minmax.h-remove-some-defines-that-are-only-expanded-once.patch
+queue-5.15/minmax.h-use-build_bug_on_msg-for-the-lo-hi-test-in-clamp.patch
+queue-5.15/minmax-simplify-min-max-clamp-implementation.patch
+queue-5.15/minmax-deduplicate-__unconst_integer_typeof.patch
+queue-5.15/minmax-simplify-and-clarify-min_t-max_t-implementation.patch
+queue-5.15/minmax.h-add-whitespace-around-operators-and-after-commas.patch
+queue-5.15/minmax-avoid-overly-complicated-constant-expressions-in-vm-code.patch
+queue-5.15/minmax-make-generic-min-and-max-macros-available-everywhere.patch
+queue-5.15/minmax-fix-up-min3-and-max3-too.patch
+queue-5.15/minmax.h-reduce-the-define-expansion-of-min-max-and-clamp.patch
+queue-5.15/minmax-introduce-min-max-_array.patch
+queue-5.15/minmax.h-update-some-comments.patch
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
