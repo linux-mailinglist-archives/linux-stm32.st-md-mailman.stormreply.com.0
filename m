@@ -2,99 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB083C0A4E7
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Oct 2025 09:53:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D84C0C4DA
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Oct 2025 09:30:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E70BC5A4DB;
-	Sun, 26 Oct 2025 08:53:20 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87806C6046E;
+	Mon, 27 Oct 2025 08:30:02 +0000 (UTC)
+Received: from smtp.gentoo.org (woodpecker.gentoo.org [140.211.166.183])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5248C57170
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9236C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Oct 2025 08:53:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 722B1415EA;
- Sun, 26 Oct 2025 08:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7C9C4CEE7;
- Sun, 26 Oct 2025 08:53:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761468798;
- bh=ETFWaSzahPsIU/f0IDtZ2cbGfc13FYOQRJh3Ot+xAbI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eebruFlfGd6ZRt+naeqmWT15LN4otiyVnoS1OMafAA7mHskCk9n3mdoicK7qGeQx5
- 013eA5386qeA06t7K9pJXNTKikbEhQ9BxlKG1KE4WKIwG/eYFgtsOKUWxCOTN2BUMG
- 0aGtVi9fm8qWYYS3VtBthAIhIXg1ZvQgJTiQpS9YQTg+WZgnD56H2Hbj2pjhU34s5o
- 6UpbNZ6vke378jW8lLB8xwjizSHCy4OthPKCCap3LKz9JioIDpzzDKEcIaVq4GtoXv
- uQPRm3T8vx7a2Pqg9qPB8DOBVwL40JH8mep38iV+Qj0VtRrCidUqbbdgt5aPLNonGR
- 7l1pThwn3e2ig==
-Message-ID: <e6a34c11-4ec8-4b96-ad61-642a4be3eef6@kernel.org>
-Date: Sun, 26 Oct 2025 09:53:11 +0100
+ Sat, 18 Oct 2025 00:06:02 +0000 (UTC)
+Received: from localhost (unknown [116.232.147.23])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: dlan)
+ by smtp.gentoo.org (Postfix) with ESMTPSA id C82DD341FD5;
+ Sat, 18 Oct 2025 00:05:58 +0000 (UTC)
+Date: Sat, 18 Oct 2025 08:05:48 +0800
+From: Yixun Lan <dlan@gentoo.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <20251018000548-GYA1481334@gentoo.org>
+References: <20251017011802.523140-1-inochiama@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+Content-Disposition: inline
+In-Reply-To: <20251017011802.523140-1-inochiama@gmail.com>
+X-Mailman-Approved-At: Mon, 27 Oct 2025 08:30:01 +0000
+Cc: linux-kernel@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
+ sophgo@lists.linux.dev, Vivian Wang <wangruikang@iscas.ac.cn>,
+ Chen Wang <unicorn_wang@outlook.com>, Longbin Li <looong.bin@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Han Gao <rabenda.cn@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>
-References: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
- <20251024-v6-12-topic-socfpga-agilex5-v5-5-4c4a51159eeb@pengutronix.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20251024-v6-12-topic-socfpga-agilex5-v5-5-4c4a51159eeb@pengutronix.de>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 05/10] dt-bindings: net: altr,
- socfpga-stmmac: add generic dwxgmac compatible
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Yao Zi <ziyao@disroot.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sophgo: Add phy
+	interface filter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,27 +57,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 24/10/2025 13:49, Steffen Trumtrar wrote:
-> Add the more generic "snps,dwxgmac" compatible to the list of
-> compatibles for the agilex5.
+Hi Inochi,
+
+On 09:18 Fri 17 Oct     , Inochi Amaoto wrote:
+> As the SG2042 has an internal rx delay, the delay should be remove
+                                                     s/remove/removed/
+> when init the mac, otherwise the phy will be misconfigurated.
+s/init/initialize/
 > 
-> The snps,dwmac binding explicitly uses the "snps,dwxgmac-2.10",
+> Fixes: 543009e2d4cd ("net: stmmac: dwmac-sophgo: Add support for Sophgo SG2042 SoC")
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> Tested-by: Han Gao <rabenda.cn@gmail.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 25 ++++++++++++++++++-
+>  1 file changed, 24 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+> index 3b7947a7a7ba..b2dee1399eb0 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
+> @@ -7,6 +7,7 @@
+> 
+>  #include <linux/clk.h>
+>  #include <linux/module.h>
+> +#include <linux/property.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/platform_device.h>
+> 
+> @@ -29,8 +30,23 @@ static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
+>  	return 0;
+>  }
+> 
+> +static int sophgo_sg2042_set_mode(struct plat_stmmacenet_data *plat_dat)
+> +{
+> +	switch (plat_dat->phy_interface) {
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
+> +		return 0;
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  static int sophgo_dwmac_probe(struct platform_device *pdev)
+>  {
+> +	int (*plat_set_mode)(struct plat_stmmacenet_data *plat_dat);
+>  	struct plat_stmmacenet_data *plat_dat;
+>  	struct stmmac_resources stmmac_res;
+>  	struct device *dev = &pdev->dev;
+> @@ -50,11 +66,18 @@ static int sophgo_dwmac_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+> 
+> +	plat_set_mode = device_get_match_data(&pdev->dev);
+> +	if (plat_set_mode) {
+> +		ret = plat_set_mode(plat_dat);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+>  }
+> 
+>  static const struct of_device_id sophgo_dwmac_match[] = {
+> -	{ .compatible = "sophgo,sg2042-dwmac" },
+> +	{ .compatible = "sophgo,sg2042-dwmac", .data = sophgo_sg2042_set_mode },
+I'd personally prefer to introduce a flag for this, it would be more readable and
+maintainable, something like
+struct sophgo_dwmac_compitable_data {
+	bool has_internal_rx_delay;
+}
 
-Hm? No, binding says only dwxgmac-2.10, DTS only dwxgmac-2.10.
+then.
+	if (data->has_internal_rx_delay)
+		sophgo_sg2042_set_mode(..)
 
-> "snps,dwxgmac" combination as example; the stmmac driver only checks on
 
-Example does not matter.
+>  	{ .compatible = "sophgo,sg2044-dwmac" },
+>  	{ /* sentinel */ }
+>  };
+> --
+> 2.51.0
+> 
 
-> dwmac and dwxgmac compatibles to decide what kind of gmac it is working
-
-Huh? I clearly see snps,dwxgmac-2.10 in dwmac-generic.c
-
-> with.
-This change really lacks proper rationale.
-
-Best regards,
-Krzysztof
+-- 
+Yixun Lan (dlan)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
