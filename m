@@ -2,63 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF4EBEED09
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Oct 2025 23:13:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70BCEBEF6BA
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Oct 2025 08:10:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1A04C57B73;
-	Sun, 19 Oct 2025 21:13:22 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7A76C57B7F;
+	Mon, 20 Oct 2025 06:10:26 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0758FC5660C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E5C5C57B7E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 19 Oct 2025 21:13:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eenAxMjIeldA+zxHFfckTsl9LnonghykutSollA6fAQ=; b=DDWPScIPLCw0DfEas9sSnrqwnl
- 924rKv9Y9u9qfoZfas7/Qr6FGRpBUxS8BnyqKUFxCoUBMOkOonczyDrjqwiCB5Pb7araz8LK81dnf
- FI3wZOhObn3NQBuReVlAfSSLuXoFgeOHOjX1wBwyc4YWhT5G5oJeGESzQq8EDq1kC/CERg0rqqSXd
- Dc8MmjXY7lztAYxEDIWIEXa+ydtzMt0vpvDF+Aq3m4EYZPcyTuyZrcHxDMg1JdOaUqhrcWWLPMc28
- CY4e5PkiqYHcPvlnGh5LhOcNRkETqSFJUF9tFEhdVZlakgKKv8mP6TLEhRwycx/zLuxhvhUZMy5Og
- teXOzw5A==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38750)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vAahy-000000001Ws-1Xwg;
- Sun, 19 Oct 2025 22:12:54 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vAPeu-0000000068f-3P1z; Sun, 19 Oct 2025 10:25:00 +0100
-Date: Sun, 19 Oct 2025 10:25:00 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aPSubO4tJjN_ns-t@shell.armlinux.org.uk>
-References: <20251017011802.523140-1-inochiama@gmail.com>
- <34fcc4cd-cd3d-418a-8d06-7426d2514dee@lunn.ch>
- <i5prc7y4fxt3krghgvs7buyfkwwulxnsc2oagbwdjx4tbqjqls@fx4nkkyz6tdt>
- <c16e53f9-f506-41e8-b3c6-cc3bdb1843e1@lunn.ch>
- <aPP9cjzwihca-h6C@shell.armlinux.org.uk>
- <370d13b7-bba8-449d-9050-e0719d20b57c@lunn.ch>
+ Mon, 20 Oct 2025 06:10:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=k1; bh=v3wtCgrKpXpY06
+ IA1iepJUf0jmIsp0liDp9ZApSd2Z8=; b=RcAlToUCuHt6nQyz8co6yRNGfUNVuA
+ 8UzaTOqAm+ZiKuYB6NvSL17xZZHja1eptPR9iXoEYQBGPdQC3sXqxoudg+VG9Gmv
+ OxUSs4rwvpAAgGWj9GHbiy3mt5o3RLhYbpUAGKNgwuIxrnOf9s1PQVJFGAPWouwS
+ B45m5DP9YiELKZ+xmtYQlTFsLRSEfyPp6EDndXCiaT5lRfuDe1cmcokUmxi1OUQK
+ KRBi4E6z51+bIw8ljzVmThRm8I7SANs4R3Pymh4pKIU88x+vIlSE29oX8FH3V4vP
+ 3UB8yZtXWU+4F5Dt5qQ7k1mIgouCg4AvmpmdWAXvteCVTfOmyVNzKRew==
+Received: (qmail 940898 invoked from network); 20 Oct 2025 08:10:25 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 20 Oct 2025 08:10:25 +0200
+X-UD-Smtp-Session: l3s3148p1@9Ldn8JBB9LkgAwDNf0fPAEuMhp6AgTGK
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: devicetree@vger.kernel.org
+Date: Mon, 20 Oct 2025 08:09:49 +0200
+Message-ID: <20251020060951.30776-6-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <370d13b7-bba8-449d-9050-e0719d20b57c@lunn.ch>
-Cc: Vivian Wang <wangruikang@iscas.ac.cn>, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>,
- Chen Wang <unicorn_wang@outlook.com>, Longbin Li <looong.bin@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Yixun Lan <dlan@gentoo.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Han Gao <rabenda.cn@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, sophgo@lists.linux.dev,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Yao Zi <ziyao@disroot.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sophgo: Add phy
-	interface filter
+Cc: imx@lists.linux.dev, Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-sunxi@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Liu Ying <victor.liu@nxp.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Maxime Ripard <mripard@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-spi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH 0/4] dt-bindings: treewide: don't check node
+	names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,63 +62,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Oct 19, 2025 at 02:04:02AM +0200, Andrew Lunn wrote:
-> > "rgmii-id" doesn't mean "there is a delay _somewhere_ in the system".
-> > It's supposed to mean that the PHY should add delays on both tx and
-> > rx paths.
-> 
-> When passed to the PHY it means that.
-> 
-> However, DT describes the hardware, the PCB. "rgmii-id" means the PCB
-> does not provide the delays. So the MAC/PHY combination needs to add
-> the delays. We normally have the PHY provide the delays, so the
-> phy-mode is normally passed straight to the PHY. However, if the MAC
-> is adding a delay, which it is in this case, in one direction and
-> cannot be turned off, the value passed to the PHY needs to reflect
-> this, to avoid double delays.
-> 
-> And because the MAC delay cannot be turned off, it means there are PCB
-> designs which don't work, double delays. So it would be nice not to
-> list them in the binding.
+Node names are already and properly checked by the core schema. No need
+to do it again.
 
-Well, I find this confusing. I'd suggest there needs to be common code
-to deal with it so we can stop thinking about it, and just push everyone
-towards using the common code.
+These are all occurrences I found in linux-next as of 20251015. I did
+run dt_bindings_check successfully. I haven't done a way to run
+dtbs_check yet because I would need to identify the proper architecture
+first, right? Is there some tool which tests all DTs of a certain
+binding? At least build bot is happy, I don't know if it checks DTs as
+well, though.
 
-phy_interface_t phy_fix_phy_mode_for_mac_delays(phy_interface_t interface,
-						bool mac_txid, bool mac_rxid)
-{
-	if (!phy_interface_mode_is_rgmii(interface))
-		return interface;
+I'd suggest to give subsystems some time to pick these patches before
+Rob applies the remaining ones?
 
-	if (mac_txid && mac_rxid) {
-		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
-			return PHY_INTERFACE_MODE_RGMII;
-		return PHY_INTERFACE_MODE_NA;
-	}
 
-	if (mac_txid) {
-		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
-			return PHY_INTERFACE_MODE_RGMII_RXID;
-		if (interface == PHY_INTERFACE_MODE_RGMII_TXID)
-			return PHY_INTERFACE_MODE_RGMII;
-		return PHY_INTERFACE_MODE_NA;
-	}
+Wolfram Sang (4):
+  dt-bindings: bus: don't check node names
+  dt-bindings: nvmem: don't check node names
+  ASoC: dt-bindings: don't check node names
+  dt-bindings: spi: don't check node names
 
-	if (mac_rxid) {
-		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
-			return PHY_INTERFACE_MODE_RGMII_TXID;
-		if (interface == PHY_INTERFACE_MODE_RGMII_RXID)
-			return PHY_INTERFACE_MODE_RGMII;
-		return PHY_INTERFACE_MODE_NA;
-	}
-
-	return interface;
-}
+ .../devicetree/bindings/bus/allwinner,sun8i-a23-rsb.yaml        | 2 +-
+ .../devicetree/bindings/bus/fsl,imx8qxp-pixel-link-msi-bus.yaml | 2 +-
+ Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml       | 2 +-
+ Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml   | 2 +-
+ Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml     | 2 +-
+ Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml       | 2 +-
+ Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml      | 2 +-
+ Documentation/devicetree/bindings/spi/spi-controller.yaml       | 2 +-
+ 8 files changed, 8 insertions(+), 8 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.47.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
