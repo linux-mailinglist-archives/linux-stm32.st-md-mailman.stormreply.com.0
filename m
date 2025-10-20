@@ -2,92 +2,129 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93F19BF0D17
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Oct 2025 13:25:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81F0BF0F8C
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Oct 2025 14:00:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CD32C5A4E4;
-	Mon, 20 Oct 2025 11:25:52 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C32C3C5A4E5;
+	Mon, 20 Oct 2025 12:00:53 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A6DAC57B79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5DEC5A4E3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Oct 2025 11:25:51 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-b593def09e3so2820542a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Oct 2025 04:25:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760959549; x=1761564349;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=oz+Xl2/NrMdS6fZi0EK9OqxzCdzOSL6WeQJpOQkz1Yo=;
- b=lBUQHXuT/w74N1xfazha6nYYmVmhR9mX/C7RmpP2dujTuh65LCSAJJjxNhrn8fmw+e
- lYnmgra7eXV0W/KcgIqrT3zcMpsudsTT2/0INM2NZ2aG98ik8fs09ziDfJaxkr8xWOhR
- TCRSS528yDpQF8NgoWsGWZgZHepr9tZC6/+EiXSe6ytjhF5MG4944FU04lhRwJl5LL/f
- 5KAhVNG1eLNvZYaGsxjFfjiublymCfCQdyeNqLOhbubviIRubi7yrXnzwGBDIFerBJZL
- GoiA1QBcrV+/hdN0vnjn6GPz10BpA1nrtdXQf2qepizNtkLaaWyjKb1xWHqoU3GfQdey
- B6Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760959549; x=1761564349;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oz+Xl2/NrMdS6fZi0EK9OqxzCdzOSL6WeQJpOQkz1Yo=;
- b=iBltKrInwuumGM0pwg7jgsj+6ha9VIMTkkkIIVINVBCDxgGCDExJdRuKdUUuQHMkAi
- 6btkoWjwZS0jxcToiYjN5SCJeYjUUiIPkZIqlSZYLaXPz0fInCV0p5Lq+EuKKLfEMoHy
- vkgmkK6eZXxUQ8gphufOTFgHeLdnzqdeQLUvRTbQnS0mRkbl1K2fh19c1tsz5MUVbmNe
- NthaMDznmrlG66JoMlvJ19mKUb6JUmB6HS1BzfqO2eWcGJNEOAsrqAHFiNGTMjU8lo1K
- Qg9Ew+/Y+y/6sD/no+/r0FAOiN+Mwfo5E71OGMzgeXzFjXStnE2RPqLSO5I9FC9RC8ZI
- YKUg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2eNphNTgPGEfUJF96hU3I91ZlHnZUDMm/LLSxmyIQCTJFtf6T7vTcjeSgGyKcalhCFQMwJ4Fi8rHzOg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzrqCKJ/6F2hjXwvTdWJHJyRTnEB9Z6xozBSvHmPOb7uVaug3WY
- VWnKrSFfzuTjG4+8JiPOHMoNeTmfEQuTmY7EgiT43tcncvmkCHc8SSyM
-X-Gm-Gg: ASbGncsnYv95CSsamvhfYEVzMtMA6UrhUN8Hqvf09mCGZ4b7gWlMV0x987Ib39kOn9o
- kdfuIbfCy00bOGJ2d6Z2FM89P2wovS7O4044YFm88T7Q1FKkYaJtU/axTKfLW/3oh92mTv01b9R
- /bobhv0c+UGKS2JrMKb5e0bX6gThG55yTUxRE3TBMERJDCJT3BCr6iLAGJkqFr5le48liThfLjm
- PXy+KuGXJRRIL3gErr1sX4CVgG4jMIiqFoKKjl9mpN7KBrvKiSmkHK9eCgbI7jjrmNAjWRJ5JEX
- 4fHbTWOtqjY9hnb2A98SrfbEL9taPzV7lnPbpuEBI6X43q8z+anShW8/jLNzVHo/EU1jBCyRSTa
- FJo5rZVozCHnSOpCBPSHCP1wM4WD58Bmn0DFu05ful5oZT+wN/uL0hqhE7IdFrk4xk6qrM/BYWP
- CGWRwagk7S/Q==
-X-Google-Smtp-Source: AGHT+IGmXkq5K8nuswuZOy/Q3vJ1q/fs2FggRu+CXIAg0ikFpAfPL8SJOtCn/E3IpbjQlSwX+Wyw8w==
-X-Received: by 2002:a17:903:b90:b0:290:bd15:24a8 with SMTP id
- d9443c01a7336-290c9c89fa6mr155748285ad.11.1760959549499; 
- Mon, 20 Oct 2025 04:25:49 -0700 (PDT)
-Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-292471d598asm77433485ad.63.2025.10.20.04.25.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Oct 2025 04:25:48 -0700 (PDT)
-Date: Mon, 20 Oct 2025 19:24:55 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Yixun Lan <dlan@gentoo.org>, Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <ljyivijlhvrendlslvpo4b7rycclt5pheipegx3fwz3fksn4cn@fgpzyhr2j4gi>
-References: <20251020095500.1330057-1-inochiama@gmail.com>
- <20251020095500.1330057-4-inochiama@gmail.com>
- <20251020110219-GYH1506524@gentoo.org>
+ Mon, 20 Oct 2025 12:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1760961624; x=1761566424; i=markus.elfring@web.de;
+ bh=wR0/2GDY7PH4f7EL3ehNGkIHb1OEc16UpmJv/AXFlEM=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
+ Subject:Content-Type:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=pzYULXIpa1aKDh5s29C6h/xiByFsNfGZaxejGzkiXlPItYoench1eBhLmgBEmvFv
+ XblxS4SvWNwUhRHA1JGFDWS6UElxWZgo3wniA/xzSpqNp2JzCHtmjLav0sfEtUV/l
+ t4QSNC4IGa7Clc9qSVxJAW9OgZcGKxiLq3VkSTybH55SXeoY932qs6SOx1/Tc3pcY
+ XwXghRIK5CtmZ7V7GF2eYtPBu8Qo9UpsFzy+1zuzITijA84hHMxDsdFYclOySuTYs
+ KtoX0n5vRVwXzZOxRtKbz+ldtVPwpOY171+ltRJrZ79sf1cvfP2PCCARsHfFd3FNv
+ c6bEYK3UtjiTjJVnHA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.29] ([94.31.69.235]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MQPdr-1upB4Q4B17-00WFTc; Mon, 20
+ Oct 2025 14:00:24 +0200
+Message-ID: <f7e0c023-d2d1-40ba-badb-74a7e9c23684@web.de>
+Date: Mon, 20 Oct 2025 14:00:21 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251020110219-GYH1506524@gentoo.org>
-Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Icenowy Zheng <uwu@icenowy.me>, Vivian Wang <wangruikang@iscas.ac.cn>,
- Chen Wang <unicorn_wang@outlook.com>, Russell King <linux@armlinux.org.uk>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Yao Zi <ziyao@disroot.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, sophgo@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Han Gao <rabenda.cn@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] net: stmmac: dwmac-sophgo: Add phy
- interface filter
+User-Agent: Mozilla Thunderbird
+To: linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Alain Volmat
+ <alain.volmat@foss.st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Pierre-Yves Mordret <pierre-yves.mordret@foss.st.com>,
+ Wolfram Sang <wsa@kernel.org>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+X-Provags-ID: V03:K1:3kcerp8Cu5TQ+HhZrHN48BG+Gwrdd5fazreJR3XOmWOQcdK5Oj0
+ RxkyfdlNDEtsNYXUEX8tkt5cPcuOD4j/fOOQzVAhDZttym6UgCb/tRRXNBq1LDgNMsnup7T
+ Q1qb3IKAf6B9ltb4RWu9Pj9j6JXMi0GU01S125KojePSRXEvJzIlWEA9JY3QZ2GpZmH6fiT
+ Grfnu4Pz91RbY2C6eKYBw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:9qK5WERPxbg=;O8ongV6UJdinuE+6t/wpg4wTbmB
+ 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
+ bTnU4Msx1H0El7ATaVQtop7QEQ=
+Cc: Anand Moon <linux.amoon@gmail.com>,
+ Christophe Jaillet <christophe.jaillet@wanadoo.fr>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: [Linux-stm32] [PATCH] i2c: stm32: Omit two variable reassignments
+ in stm32_i2c_dma_request()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,89 +141,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 20, 2025 at 07:02:19PM +0800, Yixun Lan wrote:
-> Hi Inochi,
-> 
-> On 17:54 Mon 20 Oct     , Inochi Amaoto wrote:
-> > As the SG2042 has an internal rx delay, the delay should be remove
-> missed my comment in v1?
-> 
+From: Markus Elfring <elfring@users.sourceforge.net>
+Date: Mon, 20 Oct 2025 13:33:12 +0200
 
-My fault, I forgot to fix here
+An error code was assigned to a variable and checked accordingly.
+This value was passed to a dev_err_probe() call in an if branch.
+This function is documented in the way that the same value is returned.
+Thus delete two redundant variable reassignments.
 
-> > when init the mac, otherwise the phy will be misconfigurated.
-> > 
-> > Fixes: 543009e2d4cd ("net: stmmac: dwmac-sophgo: Add support for Sophgo SG2042 SoC")
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > Tested-by: Han Gao <rabenda.cn@gmail.com>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/dwmac-sophgo.c  | 17 ++++++++++++++++-
-> >  1 file changed, 16 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-> > index 3b7947a7a7ba..960357d6e282 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-> > @@ -7,11 +7,16 @@
-> > 
-> >  #include <linux/clk.h>
-> >  #include <linux/module.h>
-> > +#include <linux/property.h>
-> >  #include <linux/mod_devicetable.h>
-> >  #include <linux/platform_device.h>
-> > 
-> >  #include "stmmac_platform.h"
-> > 
-> > +struct sophgo_dwmac_data {
-> > +	bool has_internal_rx_delay;
-> > +};
-> > +
-> >  static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
-> >  				    struct plat_stmmacenet_data *plat_dat,
-> >  				    struct stmmac_resources *stmmac_res)
-> > @@ -32,6 +37,7 @@ static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
-> >  static int sophgo_dwmac_probe(struct platform_device *pdev)
-> >  {
-> >  	struct plat_stmmacenet_data *plat_dat;
-> > +	const struct sophgo_dwmac_data *data;
-> >  	struct stmmac_resources stmmac_res;
-> >  	struct device *dev = &pdev->dev;
-> >  	int ret;
-> > @@ -50,11 +56,20 @@ static int sophgo_dwmac_probe(struct platform_device *pdev)
-> >  	if (ret)
-> >  		return ret;
-> > 
-> > +	data = device_get_match_data(&pdev->dev);
-> > +	if (data && data->has_internal_rx_delay)
-> > +		plat_dat->phy_interface = phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface,
-> > +									  false, true);
-> > +
-> >  	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
-> >  }
-> > 
-> > +static struct sophgo_dwmac_data sg2042_dwmac_data = {
-> static const?
+The source code was transformed by using the Coccinelle software.
 
-Right.
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+---
+ drivers/i2c/busses/i2c-stm32.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-> > +	.has_internal_rx_delay = true,
-> > +};
-> > +
-> >  static const struct of_device_id sophgo_dwmac_match[] = {
-> > -	{ .compatible = "sophgo,sg2042-dwmac" },
-> > +	{ .compatible = "sophgo,sg2042-dwmac", .data = &sg2042_dwmac_data },
-> >  	{ .compatible = "sophgo,sg2044-dwmac" },
-> >  	{ /* sentinel */ }
-> >  };
-> > --
-> > 2.51.1.dirty
-> > 
-> 
-> -- 
-> Yixun Lan (dlan)
+diff --git a/drivers/i2c/busses/i2c-stm32.c b/drivers/i2c/busses/i2c-stm32.c
+index f84ec056e36d..becf8977979f 100644
+--- a/drivers/i2c/busses/i2c-stm32.c
++++ b/drivers/i2c/busses/i2c-stm32.c
+@@ -27,8 +27,8 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	if (IS_ERR(dma->chan_tx)) {
+ 		ret = PTR_ERR(dma->chan_tx);
+ 		if (ret != -ENODEV)
+-			ret = dev_err_probe(dev, ret,
+-					    "can't request DMA tx channel\n");
++			dev_err_probe(dev, ret, "can't request DMA tx channel\n");
++
+ 		goto fail_al;
+ 	}
+ 
+@@ -48,8 +48,7 @@ struct stm32_i2c_dma *stm32_i2c_dma_request(struct device *dev,
+ 	if (IS_ERR(dma->chan_rx)) {
+ 		ret = PTR_ERR(dma->chan_rx);
+ 		if (ret != -ENODEV)
+-			ret = dev_err_probe(dev, ret,
+-					    "can't request DMA rx channel\n");
++			dev_err_probe(dev, ret, "can't request DMA rx channel\n");
+ 
+ 		goto fail_tx;
+ 	}
+-- 
+2.51.1
 
-Regards,
-Inochi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
