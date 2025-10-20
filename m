@@ -2,45 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0049CBF35DD
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Oct 2025 22:19:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6654EBF37AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Oct 2025 22:43:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E6BFC5A4EF;
-	Mon, 20 Oct 2025 20:19:07 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0012C5A4F1;
+	Mon, 20 Oct 2025 20:43:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD768C5A4E4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C9C9C5A4EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Oct 2025 20:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Lq33/SB9yszKZ/NnTc+bw3dXwj2tLUhEoeBkhpaRNmM=; b=LoPgIZEqx1mtnnRcOJlR+fysLH
- U+OrRpMdPla0zCzMQSrHgUH6gudP3khM2DUAIb2PLjWROFJqzWozL3nvNxffSasPywPgQlEVtnFjX
- pEE+w67DqXXFhlPjuO5lzSCBBsJgksHO3Qszl2iQ5rWCW4+V4hIuZpJts6NdV9GvJ1Sk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1vAwL4-00BYTv-Uo; Mon, 20 Oct 2025 22:18:42 +0200
-Date: Mon, 20 Oct 2025 22:18:42 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <3356c601-f3e6-474c-81d4-96bea3e86659@lunn.ch>
-References: <E1v38Y7-00000008UCQ-3w27@rmk-PC.armlinux.org.uk>
+ Mon, 20 Oct 2025 20:43:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4B8D462085;
+ Mon, 20 Oct 2025 20:43:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A546BC113D0;
+ Mon, 20 Oct 2025 20:43:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1760992980;
+ bh=ICw2tymwdpgjAi7jhcPJWNLOmDSZpCZMN8Mq3WAbZvU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=R69E1IQLHAg+VkCglHtQ7jfYYiZBlMH6G6VVr5UwKG2JKxJUnQmBoyYwUjYTjwpiG
+ LzbemwGnrE3WwwyCfneg3YNd9kdypNQxp6jCuPXO9ZLEDCAjIpxP+d/YLo9qVrVo9E
+ VuBIWlDPwi3BcL8735Qcg0NaoNrA4fxqyjGi1IvPBL8h9ceUt3FX8pK8GwOjmE6sTf
+ OZqBXL0sGjdkIeQUL/GNkcLBJ2r8IaZl5PEjyFWpy07/UPGgwJDLCJw96uAGDULfua
+ AceGo5xy4hfJtMc8BOarTUexozbSlCMzLbrZ+27NxvQBI+3lqD4a9Wqc5lnJBxp0Kz
+ PUK899RLlA1vA==
+Date: Mon, 20 Oct 2025 15:42:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Message-ID: <20251020204259.GA1591976-robh@kernel.org>
+References: <20251020060951.30776-6-wsa+renesas@sang-engineering.com>
+ <20251020060951.30776-7-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1v38Y7-00000008UCQ-3w27@rmk-PC.armlinux.org.uk>
-Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: remove
- stmmac_hw_setup() excess documentation parameter
+In-Reply-To: <20251020060951.30776-7-wsa+renesas@sang-engineering.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
+ imx@lists.linux.dev, Maxime Ripard <mripard@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: bus: don't check node
+	names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,21 +65,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 29, 2025 at 08:43:55AM +0100, Russell King (Oracle) wrote:
-> The kernel build bot reports:
+On Mon, Oct 20, 2025 at 08:09:50AM +0200, Wolfram Sang wrote:
+> Node names are already and properly checked by the core schema. No need
+> to do it again.
 > 
-> Warning: drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:3438 Excess function parameter 'ptp_register' description in 'stmmac_hw_setup'
-> 
-> Fix it.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: 98d8ea566b85 ("net: stmmac: move timestamping/ptp init to stmmac_hw_setup() caller")
-> Closes: https://lore.kernel.org/oe-kbuild-all/202509290927.svDd6xuw-lkp@intel.com/
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+> I'd suggest to give subsystems some time to pick this patch before
+> Rob applies it?
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Not really any subsystem for this one, so I've applied it. The rest 
+should go via subsystems.
 
-    Andrew
+> 
+>  .../devicetree/bindings/bus/allwinner,sun8i-a23-rsb.yaml        | 2 +-
+>  .../devicetree/bindings/bus/fsl,imx8qxp-pixel-link-msi-bus.yaml | 2 +-
+>  Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml       | 2 +-
+>  Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml   | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
