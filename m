@@ -2,55 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89947BF8258
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Oct 2025 20:52:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD351BF9247
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 00:51:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C67ECC5C842;
-	Tue, 21 Oct 2025 18:52:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FD94C57A50;
+	Tue, 21 Oct 2025 22:51:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68C9EC3F95B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF4B4C36B3A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Oct 2025 18:52:21 +0000 (UTC)
+ Tue, 21 Oct 2025 22:50:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E251545B5F;
- Tue, 21 Oct 2025 18:52:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAADFC4CEF5;
- Tue, 21 Oct 2025 18:52:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C66762749;
+ Tue, 21 Oct 2025 22:50:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E158C4CEF1;
+ Tue, 21 Oct 2025 22:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761072739;
- bh=/CjlmkvSVehb9uKQ22ITRCOwatYs4Z+DyN9C4O9799g=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=F411smwqWcOG0d2J5NZJxXys/QHFqMqfadrXHqCOrLNcMA8WW8cRWSk5m/BcXF9zx
- jZCozPqw0LLbKMe9Xg/7Q/5qNkvpUcFxLmVtHtolTatemNDXN1nSJTjrUI9VuvXwq7
- WKFwmr+7x/pp0G6AK4RBsvqGwJnVh2cymY/fGszwyWytaKA9KDj4sVfS+KG78BgSZY
- bcEELUX1vIfLE0lvoGBje+ts88QjDTQ9wZrrgDSKAnoSPNtxc3GvyBNpQxBQo8hSIt
- 06Xj4Zp0li6SsLoBTKYt5YN1COKgyPPPWPNwy3+TOWEwT4Yde6TiJdiW4MfOXFPNpO
- KQR4u8ujsV9Eg==
-From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-In-Reply-To: <20251020060951.30776-6-wsa+renesas@sang-engineering.com>
-References: <20251020060951.30776-6-wsa+renesas@sang-engineering.com>
-Message-Id: <176107273462.196841.10566474992325623883.b4-ty@kernel.org>
-Date: Tue, 21 Oct 2025 19:52:14 +0100
+ s=k20201202; t=1761087057;
+ bh=Qk7LUUgm4OTA/65R/5eca+jZCmwBOCQ0+YdsSmes8Bw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FSoV19XbKe7C8UMx+JY6Pj4jaUyBAFBp8/DerOBulBD4fm1gFoy8DcahXxFQGlet6
+ IRYS11vIuBmB5CsRBqSD949YQbNPklP8BPk2h8A1mQYwdQv/5xOO2UhLS55hDAt+BG
+ UcXdrfcMGgBPK7mFHXDzfH9ELSQgik8/zAObLXNmGIHlXwsqXiHmhMG8Ds4RzLCG/S
+ spO/FKr47vGoEBYQdEMY7FyHCIiA2RsnZQytqDSlwApWUJRi+vxqKIoEBj0MaO2/tf
+ Pofsp1AJAktzC4ySVsD5oTyEdlrGN9ScgTtsK/wEXZhiKXCeabbBk4/F4cqvYu+cNr
+ 3IYQ+6YtXo6XA==
+Date: Wed, 22 Oct 2025 00:50:52 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Message-ID: <s2whbqys4xwn2ant7ftgixwkguqmvtwbguajdtz7bks7avgk7c@efhaves6wzg2>
+References: <f7e0c023-d2d1-40ba-badb-74a7e9c23684@web.de>
 MIME-Version: 1.0
-X-Mailer: b4 0.15-dev-2a268
-Cc: imx@lists.linux.dev, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Liu Ying <victor.liu@nxp.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-spi@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/4] dt-bindings: treewide: don't
- check node names
+Content-Disposition: inline
+In-Reply-To: <f7e0c023-d2d1-40ba-badb-74a7e9c23684@web.de>
+Cc: Anand Moon <linux.amoon@gmail.com>,
+ Christophe Jaillet <christophe.jaillet@wanadoo.fr>,
+ Krzysztof Kozlowski <krzk@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32: Omit two variable
+ reassignments in stm32_i2c_dma_request()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,47 +60,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Oct 2025 08:09:49 +0200, Wolfram Sang wrote:
-> Node names are already and properly checked by the core schema. No need
-> to do it again.
+Hi Markus,
+
+> An error code was assigned to a variable and checked accordingly.
+> This value was passed to a dev_err_probe() call in an if branch.
+> This function is documented in the way that the same value is returned.
+> Thus delete two redundant variable reassignments.
 > 
-> These are all occurrences I found in linux-next as of 20251015. I did
-> run dt_bindings_check successfully. I haven't done a way to run
-> dtbs_check yet because I would need to identify the proper architecture
-> first, right? Is there some tool which tests all DTs of a certain
-> binding? At least build bot is happy, I don't know if it checks DTs as
-> well, though.
+> The source code was transformed by using the Coccinelle software.
 > 
-> [...]
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[3/4] ASoC: dt-bindings: don't check node names
-      commit: 6a4f29bc66294d44d61a294e5bdc623eae74587b
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+merged to i2c/i2c-host.
 
 Thanks,
-Mark
-
+Andi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
