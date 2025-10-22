@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C86BFC2BB
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 15:34:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2287EBFC3B7
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 15:43:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E28DC57B7B;
-	Wed, 22 Oct 2025 13:34:31 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC7BBC58D40;
+	Wed, 22 Oct 2025 13:43:30 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31FF8C57B64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5434C57B64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Oct 2025 13:34:30 +0000 (UTC)
+ Wed, 22 Oct 2025 13:43:29 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id C342E1A15C8;
- Wed, 22 Oct 2025 13:34:28 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 779E24E4113D;
+ Wed, 22 Oct 2025 13:43:28 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7D83E606DC;
- Wed, 22 Oct 2025 13:34:28 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4E3B6606DC;
+ Wed, 22 Oct 2025 13:43:28 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 8D361102F242F; 
- Wed, 22 Oct 2025 15:34:15 +0200 (CEST)
+ with ESMTPSA id 860B5102F242F; 
+ Wed, 22 Oct 2025 15:43:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761140067; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1761140607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=rkViBGu74KDxz9qDROM+0Y+EYcnboJC0J4JeqwsrGfw=;
- b=GlLCGWYivjHGhUt5UODhGa9mb++fg96pBZX0r044UV3KnmUGCn8/IVIiJoBTybhz4peGdy
- gdPWSBp/m26CR680XAnYDUjFnrPv54dOpLD5kS2pm5YHGQGoH/T6LuC7RYckY5V+6q8iKK
- D4C0K1aTkN9/x3Rxs6MdPx59TzRARq/MFhxp5ZN8JdinR0cF6JsoPDSqd0/PLVRi1jefkr
- U8F+cCMCFnjK4bt+ZJ8mD78OCeVKLDsvddhGwXe7z3QZJaTFsgFTp/TZQzOZrX+AvTCV6r
- NgY/fmcEmKNMpB6ktQQVpYPzFptSymM9UmJNwxHrKiqhEPR4vnZyMX5T0mo5gg==
-Message-ID: <1e4d3ec3-2e20-46a3-95d3-d3e3c22db4bc@bootlin.com>
-Date: Wed, 22 Oct 2025 15:34:14 +0200
+ bh=GBJUNGHNoCsZ2OCx56e6rdnetXjqjXfaSWdUSlMOnE4=;
+ b=E34GmBMaVokVRFK9/DcbPWDvEDixYvzU/DHT/1OEDLbtWJFAnPGC1EHS/MxGfWSnM9PgkL
+ SXUV+mfvrCrAG9D8UIVahsR0HZuwrhkfxR2amBTyvS+XLjusMJ19Fq41f8eSa3d14QVMmQ
+ LVl+gTbgKkIjhkbuclL0SYlTqQAA0y4znWe0Ot047ghc71tmrY+AcE+nckzSTy/BtJFFIL
+ ZFCwFuGTDhGKHEFKFTrxCCSxqJUAXCh14aIg52tKcon3o3lLQiz4MK3IRYeg9PG7IQKpp3
+ zj/58g+NPeZGFWHsc5MioHlSQI69YMiLiaUXGrwUJXDhMPc0RYzpCIaF3r1lzA==
+Message-ID: <ad16837d-6a30-4b3d-ab9a-99e31523867f@bootlin.com>
+Date: Wed, 22 Oct 2025 15:43:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
 References: <aPIwqo9mCEOb7ZQu@shell.armlinux.org.uk>
- <E1v9jCJ-0000000B2NQ-0mhG@rmk-PC.armlinux.org.uk>
+ <E1v9jCO-0000000B2O4-1L3V@rmk-PC.armlinux.org.uk>
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <E1v9jCJ-0000000B2NQ-0mhG@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1v9jCO-0000000B2O4-1L3V@rmk-PC.armlinux.org.uk>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: phy: add
-	phy_can_wakeup()
+Subject: Re: [Linux-stm32] [PATCH net-next 2/6] net: phy: add
+	phy_may_wakeup()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,47 +66,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
+Hi Russell,
 
 On 17/10/2025 14:04, Russell King (Oracle) wrote:
-> Add phy_can_wakeup() to report whether the PHY driver has marked the
-> PHY device as being wake-up capable as far as the driver model is
-> concerned.
+> Add phy_may_wakeup() which uses the driver model's device_may_wakeup()
+> when the PHY driver has marked the device as wakeup capable in the
+> driver model, otherwise use phy_drv_wol_enabled().
+> 
+> Replace the sites that used to call phy_drv_wol_enabled() with this
+> as checking the driver model will be more efficient than checking the
+> WoL state.
+> 
+> Export phy_may_wakeup() so that phylink can use it.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
 > ---
->  include/linux/phy.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+>  drivers/net/phy/phy_device.c | 14 ++++++++++++--
+>  include/linux/phy.h          |  9 +++++++++
+>  2 files changed, 21 insertions(+), 2 deletions(-)
 > 
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 7a67c900e79a..b7feaf0cb1df 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -251,6 +251,16 @@ static bool phy_drv_wol_enabled(struct phy_device *phydev)
+>  	return wol.wolopts != 0;
+>  }
+>  
+> +bool phy_may_wakeup(struct phy_device *phydev)
+> +{
+> +	/* If the PHY is using driver-model based wakeup, use that state. */
+> +	if (phy_can_wakeup(phydev))
+> +		return device_may_wakeup(&phydev->mdio.dev);
+> +
+> +	return phy_drv_wol_enabled(phydev);
+> +}
+> +EXPORT_SYMBOL_GPL(phy_may_wakeup);
+> +
+>  static void phy_link_change(struct phy_device *phydev, bool up)
+>  {
+>  	struct net_device *netdev = phydev->attached_dev;
+> @@ -302,7 +312,7 @@ static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
+>  	/* If the PHY on the mido bus is not attached but has WOL enabled
+>  	 * we cannot suspend the PHY.
+>  	 */
+> -	if (!netdev && phy_drv_wol_enabled(phydev))
+> +	if (!netdev && phy_may_wakeup(phydev))
+>  		return false;
+>  
+>  	/* PHY not attached? May suspend if the PHY has not already been
+> @@ -1909,7 +1919,7 @@ int phy_suspend(struct phy_device *phydev)
+>  	if (phydev->suspended || !phydrv)
+>  		return 0;
+>  
+> -	phydev->wol_enabled = phy_drv_wol_enabled(phydev) ||
+> +	phydev->wol_enabled = phy_may_wakeup(phydev) ||
+>  			      (netdev && netdev->ethtool->wol_enabled);
+>  	/* If the device has WOL enabled, we cannot suspend the PHY */
+>  	if (phydev->wol_enabled && !(phydrv->flags & PHY_ALWAYS_CALL_SUSPEND))
 > diff --git a/include/linux/phy.h b/include/linux/phy.h
-> index 3c7634482356..3eeeaec52832 100644
+> index 3eeeaec52832..801356da1fb2 100644
 > --- a/include/linux/phy.h
 > +++ b/include/linux/phy.h
-> @@ -1379,6 +1379,18 @@ static inline void phy_disable_eee_mode(struct phy_device *phydev, u32 link_mode
->  	linkmode_clear_bit(link_mode, phydev->advertising_eee);
+> @@ -1391,6 +1391,15 @@ static inline bool phy_can_wakeup(struct phy_device *phydev)
+>  	return device_can_wakeup(&phydev->mdio.dev);
 >  }
 >  
 > +/**
-> + * phy_can_wakeup() - indicate whether PHY has driver model wakeup capabilities
+> + * phy_may_wakeup() - indicate whether PHY has driver model wakeup is enabled
 > + * @phydev: The phy_device struct
 > + *
-> + * Returns: true/false depending on the PHY driver's device_set_wakeup_capable()
+> + * Returns: true/false depending on the PHY driver's device_set_wakeup_enabled()
 > + * setting.
+
+That's not exactly what's happening, this suggest this is merely a
+wrapper around device_may_wakeup().
+
+I don't think it's worth blocking the series though, but if you need to
+respin maybe this could be reworded.
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
 > + */
-> +static inline bool phy_can_wakeup(struct phy_device *phydev)
-> +{
-> +	return device_can_wakeup(&phydev->mdio.dev);
-> +}
+> +bool phy_may_wakeup(struct phy_device *phydev);
 > +
 >  void phy_resolve_aneg_pause(struct phy_device *phydev);
 >  void phy_resolve_aneg_linkmode(struct phy_device *phydev);
 >  
 
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
