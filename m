@@ -2,55 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 766E0BF92AD
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 01:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC23BF9A49
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 03:50:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CEE3C57A50;
-	Tue, 21 Oct 2025 23:02:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51023C5E2C3;
+	Wed, 22 Oct 2025 01:50:39 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CE07C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D396FC5E2AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Oct 2025 23:02:24 +0000 (UTC)
+ Wed, 22 Oct 2025 01:50:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9B5DB43AFD;
- Tue, 21 Oct 2025 23:02:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD849C4CEF1;
- Tue, 21 Oct 2025 23:02:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 18FD24538F;
+ Wed, 22 Oct 2025 01:50:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECABCC4CEF1;
+ Wed, 22 Oct 2025 01:50:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761087743;
- bh=jebPbjme7P2kWR8ZBbngJLly0Zj7VzPVjORl20HOTyo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=o+Z/ffp++yk1l4a4ImWFacO3Xbayi82Qa014hran1qQITfIuDpVRQHXPUH//jEK3O
- Sp3sfTP6wr+Aq1Y1W+iTY7TZbNXdQXYG9LoZtDrQ9IR+/y0Il/eHNiT+l9EPyUYdxy
- bTWaa0VSOGq7xbLOXAehLsVxJjpdLj6DF2ea17J0pknwn7+CX0FrpuMcDUgAWRL6th
- 2240836ngUv8ifxU/sqBRS23QAaocFlMDL9Hk80q3kleFhRCiz5XQXrXxWO2YPP7mM
- n0v4HGJlMLWsFe+cNsQ8CwNcColVc8bCLgNmjYkH0fYa+V48CZoJUETSScLnKaFwGB
- yC6c2+d6T9+zg==
-Date: Tue, 21 Oct 2025 16:02:21 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <20251021160221.4021a302@kernel.org>
-In-Reply-To: <911372f3-d941-44a8-bec2-dcc1c14d53dd@bootlin.com>
-References: <20251015102725.1297985-1-maxime.chevallier@bootlin.com>
- <20251015102725.1297985-3-maxime.chevallier@bootlin.com>
- <20251017182358.42f76387@kernel.org>
- <d40cbc17-22fa-4829-8eb0-e9fd26fc54b1@bootlin.com>
- <20251020180309.5e283d90@kernel.org>
- <911372f3-d941-44a8-bec2-dcc1c14d53dd@bootlin.com>
+ s=k20201202; t=1761097836;
+ bh=/eTy4JtMv/vr6iqZocb7lPKZoXLwzYl/RYQlWEEt4bQ=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=gITWc2OepTEpTH4QeVoo+w086E3kiGzcJG00wK8LBjY2B4lJptF5+B+uD+kE84QQx
+ HpzOaME48fucUHFOuR2cS+JxAAd7rCvc7exS4onFB62gaqgLJ0wMy5wCs6cGyPCvVm
+ 9bG3cA7mMyI3FJhPoQgao/V80EL8ceQNGMiq6SSHb3fnbG+JNOC96kD8WRJMdzgX0+
+ X3RHum0oDVWqfHVPPUarE97kpYjSjdw+CJsP1nxEYsd1g9TJqOE4ZrkHARCV4DVogY
+ qVmJ3WJQVLAq/JPWwUi1J8vNKzokw+1aaXpmWYd/fLnXzngKJpWsH5T0ElbSrI+EFt
+ 8Dj6Y0ZPc821A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 70DE03A55FAA; Wed, 22 Oct 2025 01:50:18 +0000 (UTC)
 MIME-Version: 1.0
-Cc: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>,
- linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176109781700.1305042.6815334207593742023.git-patchwork-notify@kernel.org>
+Date: Wed, 22 Oct 2025 01:50:17 +0000
+References: <20ca4962-9588-40b8-b021-fb349a92e9e5@gmail.com>
+In-Reply-To: <20ca4962-9588-40b8-b021-fb349a92e9e5@gmail.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, andrew+netdev@lunn.ch, edumazet@google.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: Allow
- supporting coarse adjustment mode
+Subject: Re: [Linux-stm32] [PATCH v2 net-next] net: stmmac: mdio: use
+ phy_find_first to simplify stmmac_mdio_register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,16 +60,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 21 Oct 2025 10:02:01 +0200 Maxime Chevallier wrote:
-> Let me know if you need more clarifications on this
+Hello:
 
-The explanation was excellent, thank you. I wonder why it's designed
-in such an odd way, instead of just having current_time with some
-extra/fractional bits not visible in the timestamp. Sigh.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-In any case, I don't feel strongly but it definitely seems to me like
-the crucial distinction here is not the precision of the timestamp but
-whether the user intends to dial the frequency.
+On Sat, 18 Oct 2025 20:48:07 +0200 you wrote:
+> Simplify the code by using phy_find_first().
+> 
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> ---
+> v2:
+> - remove variable addr and use phydev->mdio.addr
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2,net-next] net: stmmac: mdio: use phy_find_first to simplify stmmac_mdio_register
+    https://git.kernel.org/netdev/net-next/c/4a107a0e8361
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
