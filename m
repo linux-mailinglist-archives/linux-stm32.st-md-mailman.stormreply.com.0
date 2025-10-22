@@ -2,56 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8F12BFDC73
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 20:11:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E59DBFDCA0
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 20:13:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7B37C58D4D;
-	Wed, 22 Oct 2025 18:11:16 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A23CC5E2D3;
+	Wed, 22 Oct 2025 18:13:56 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93FF0C58D40
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0249EC58D40
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Oct 2025 18:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rA2LYAqEb92Q4g4Yq5hfL5BuClXd15oA216rjXGuuxw=; b=oUDa7GAInMplqxvZSxR7xdnKfh
- gnH6WvqRq/oIBsMGn5B4Ks5GnfWDskOvVYABlOA8tn8Phd8Dp7vZrjhCud8Fzmqj/iaKFdMEuCxnY
- kZvFEFV0mmL5eZU2ZxkV8WAEFsf2UL0JcrMjG7K/4TbXTaabn8auv8wRmqRN4miJ74OHF2XkN71iw
- RGfxe6FO+nXNyGucn/kr9fZQW6Fr+rd9AbX3hTGL4ag4Y+E6rLalGw44eGLv/adpU0DlyaCbVSoTN
- E1fcCouudt62ivDHgkNWQpp8exExqQYx1XBEDtlg4ILJUHnKvov2uOrXITsn5NXJgdUAhPKZAyyla
- 2VkdLFkw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57282)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vBdIf-000000005HL-3eJg;
- Wed, 22 Oct 2025 19:11:05 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vBdIb-000000000uh-3ctw; Wed, 22 Oct 2025 19:11:01 +0100
-Date: Wed, 22 Oct 2025 19:11:01 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aPkeNRyRtHOMs5h5@shell.armlinux.org.uk>
-References: <aPIwqo9mCEOb7ZQu@shell.armlinux.org.uk>
- <E1v9jCZ-0000000B2PP-2cuM@rmk-PC.armlinux.org.uk>
- <eb0d1b55-307b-4b51-953f-fdcc1a8fbe27@bootlin.com>
+ Wed, 22 Oct 2025 18:13:53 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-26a0a694ea8so51302465ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Oct 2025 11:13:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761156832; x=1761761632;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jLJgKW63U3laQ8TNHosGYPDklPCsb+gg1+m7SNDlD30=;
+ b=DOlc9eraUKX8pwVbehMIjb3mJqmFKJwYSFXyUdAnAg99r6j/MP3oy2yE8johkYtS49
+ Gig8AiV6IPG36NLN25J7s8pej+FO6xo5uQatqt4zFeBsMi21glgQw/SEUHjtKm1jdG4m
+ fAtXHGCWksIsZNvlyjuJJ2o9gx5wTPak1DVR4NR8sS/idCuemkh8ZjKkqHzQ1B4qsUXr
+ 0nCyftTaTGdv+JqXykOrDw50uDN3bgJgBnJj5ZfmxfIE/mgtC/wGLJa7q48wRPNH5kby
+ sKu0oIgxRF394ZL2l8dkxPJ6O4VR3X6+DNezd30FbT74qdwWHWMyKf84VPUahSH8KeBR
+ 8KHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761156832; x=1761761632;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jLJgKW63U3laQ8TNHosGYPDklPCsb+gg1+m7SNDlD30=;
+ b=vPQmyXa/rzKm7J4tG1BGt8CBFkS4O3LjCRuqS5aqoSBuaYH6KmM06CesPlP3KEnsE5
+ gtDQCKefI/OopqNwB8zE9ypr8U8dU+0ovolbIpG/x/84uZhHjcrobrcG+DgPI9ngvu0f
+ W/15MxFz8s9lM0O0k6X2nNyvdoNd8opJNzmDEHUtgP6xxqJP9dpMFpaoV/HXsDXHra1K
+ n5e+cJXasFlupWCM7GVhWzW4AL4KEoOpWJazTPm0WxQf5oPDxIED5Y3eMbSYqt1f67GW
+ Da83Bs/+e7gknkkZ853+CONJqtoHqWD02tHDOUlQw6eM/Ypqsj/4IhUMMC4cKvFFLW9O
+ bGuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWVZUYQJoZ3/obxyS4p/EkT40fe4fKcdO4WlB5YnqtQCI3zZlCso/ZFaspXjJ6fA1cGtFjbFA8tSqweKQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxIL4ZwxqEk1JWuipwnB1GDFmhNdn4EUuoK4UKB8ZAmURULUKkm
+ 4jiiKC8vD+ct3sEY4oFo6uCBPrnd0wLYJv0z/9ivTLWaNEklXa2PbdiW
+X-Gm-Gg: ASbGncvK92RQWGAXxLEdCXOnf9bxdSSUYh13dUUbe8yphv7pQrGUuaTxh49WEScWRuH
+ RhNr3Wbc0K6h4+5W6k/gIxlpGo96Hakg2cemCSub7yvNxYBloClfP/ar8HpMJXkJ5RrmzVUaxhc
+ phzMuuu3OzkE3+upwZVM5l818GaDiyTGSZ1oaP2/unPnkn18vQSzAKBPdhFnh1OubDDpPVrHenK
+ IbLCQztPvL7nQ0pW8msRq0ze3th7+mcY9SNR7uQbdRQUdMp4Rx7TtS3r49EPUN9mec/NbDYOppM
+ 1prGqKL+Si+aHP1dBOOQJULa+mDitlPF70rkE3tTzeagiA1Q6fA6aRbygWN/1dszVhVFtN5Ct2O
+ +82PVnjBXL3qAbkeITjMjU0cOaLnvWAIWtgtKf4uHS6PR2U9BkffvyKGwc0MYDiyfCvz2tyT/Qq
+ 0REKG5E4pO0RHmgXiYqFBSJ2LIDZFgNM9C7A1aVQ==
+X-Google-Smtp-Source: AGHT+IEKSvBBS8awXEhQRZuuE4/RFkGN+a9c8XIx/ZTqTS76us8OMEo2zvvCAOTGGDCXlFKP7uLGXg==
+X-Received: by 2002:a17:903:8c6:b0:28d:18fb:bb93 with SMTP id
+ d9443c01a7336-290c9c8968cmr299698995ad.7.1761156832260; 
+ Wed, 22 Oct 2025 11:13:52 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-33e22428b1esm3212795a91.22.2025.10.22.11.13.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Oct 2025 11:13:51 -0700 (PDT)
+Message-ID: <82e4adab-73b0-4ac7-8c29-718b12a73468@gmail.com>
+Date: Wed, 22 Oct 2025 11:13:49 -0700
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <eb0d1b55-307b-4b51-953f-fdcc1a8fbe27@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+References: <aPIwqo9mCEOb7ZQu@shell.armlinux.org.uk>
+ <E1v9jCJ-0000000B2NQ-0mhG@rmk-PC.armlinux.org.uk>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <E1v9jCJ-0000000B2NQ-0mhG@rmk-PC.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/6] net: phylink: add phylink
- managed wake-on-lan PHY speed control
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: phy: add
+	phy_can_wakeup()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,30 +92,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 22, 2025 at 04:28:19PM +0200, Maxime Chevallier wrote:
-> Hi Russell,
+On 10/17/25 05:04, Russell King (Oracle) wrote:
+> Add phy_can_wakeup() to report whether the PHY driver has marked the
+> PHY device as being wake-up capable as far as the driver model is
+> concerned.
 > 
-> > +
-> > +	if (phylink_phy_pm_speed_ctrl(pl))
-> > +		phy_speed_down(pl->phydev, false);
-> 
-> Should this rather be phylink_speed_down, to take into account the fact
->  that the PHY might be on SFP ? either here or directly in
-> phylink_phy_pm_speed_ctrl() above ?
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-I think using phylink_speed_*() makes more sense than merging the test
-into phylink_phy_pm_speed_ctrl(). If something changes in what we do
-with speed_up/down() then we want everyone to be affected (not that I
-forsee any change there.) Logically though...
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
