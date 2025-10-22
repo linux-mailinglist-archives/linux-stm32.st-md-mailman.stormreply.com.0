@@ -2,85 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1631BFDCB8
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 20:16:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82AB4BFDCCB
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Oct 2025 20:20:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B598C5E2D6;
-	Wed, 22 Oct 2025 18:16:02 +0000 (UTC)
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0099C5E2D7;
+	Wed, 22 Oct 2025 18:20:50 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F3DFC5E2D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 217EAC5E2D4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Oct 2025 18:16:00 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-7a26ea3bf76so783188b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Oct 2025 11:16:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761156959; x=1761761759;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=9QGp0U/4pbaeep/z7J48UOg7Dw8fa3jK3AlCVPGVI18=;
- b=Q22aC79IaUpZ26jfckaulyo0zlRAIk1l/mUMs5mI1i1pXYB21aJET31qxwccyIlRfA
- Njb7y/nvxdAYHPgqr8sF9P4BSLBY4HWK+Yqmma2PrLNaLu1LVitiVFwaFm9rjmWMlCiv
- Vfl5XEJykOOp+VzszzZQS7Pd3EqMfIwsN6UNYAKtZH8V7bv7/raFPp3vaXFJoS1QI+wr
- kzQa4trgnzRkEgLgu4GXiDumSvUr0uI4SB9vGsR2Qv4kIZ6+ipnfeJqecc0gw7J+8nXw
- BJhpFbIsR+vPLgIOwawnFtWUWXrkjgRJwNSkXY/JmVLTOajsUt8rEQRPh5AMrmMDBfrU
- Ephw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761156959; x=1761761759;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9QGp0U/4pbaeep/z7J48UOg7Dw8fa3jK3AlCVPGVI18=;
- b=uBpKkdO5I+YzX6VcaJSQ72aKLuEkNUnvoEe32PPappTh2DpsqaofNXu3S650CuEVf0
- yW8fLeW5gFgQOLzpF6l6Q+hyvtPNzUb4n4oPIXcb7BZpSQ/CCg9u0A0vH8GwM+ILN08e
- jrVwfPQSLBX2sYMV4WOp/Lkn+JQyqFbKhJY55Mr+tNyt+qWZCXf2qpcpkef4oaWn67cQ
- mELz+2CYeTgOm7oi2wV9mdzDL3H/lQft3DwQtHFtLcTpT32Hyky0Q6sBW5Xxh6CMfMw9
- hzT38/Q7DZa7b9+qYMmk1l96tti4OwjF8X8WEt1Ymr2zCop+CGNUbEtwuONTSvn5nB2W
- QDCA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4ND74mnktO4tcz49kpx3vbfh8d//UmMS5fdF3Fctv62KXr/kU6BV9GjEBJiCe1kKfhqkbs+dB6j70nQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy4R+rDFduiZNAp7kJt/HuSfAfZlmRF+q1O3chAUwILRB+YD8L6
- VzI/v7pzS+49JrS3jLJH8x5u4C7zvWtbB3t1cilMJtjxwfecWOhFGTDX
-X-Gm-Gg: ASbGnct0616Al5rdKM1b85+ZN5NuSt2qdVFxGvf1CVhq9FX19NTkrGydof94T2M8Cpp
- ntLuEJveTiTvX+1OReZ2YUBNPox2Tnw0xkpjey9W25+d9vh/roVVX7kTIGZ2CnzwlKDTgof/1SP
- xTWlE2rTwbdgx7e68wxjfaTfNocpQUQOzgG1IwGLfVLdg5xpKEj76sgomrFKtnQP4nbLDEyrlaZ
- DdWwiFNnoScuu+OC1gTknRYa9Aod2S6rZpGSod2uyskY4yxFRbOH7SuFAXNm6oKON2YySQnRXdf
- dU7kxmdNG3g3yYzdG+P4w1CT1FGN7VH8+bdI8QHj2BCdj0r1MBEaFO01ehJYEWYGG3u0yB1zVSh
- ksaBgIOxNITb0Jh+AwYfdIt/YqhHXJsPacg82sx+0D3NTPj0SDagOjcQO2T9Ru1GG2dqFe1+W+M
- C1/a4wPMWOuAlV7E86oN3a/SwsYZI=
-X-Google-Smtp-Source: AGHT+IFMLQ6LX3tUc8TguSda9gIy2Uw3Gh8Ff81wUitAtyD2okPrCzKkucLqxqPjpTHJn/jjBsd/SQ==
-X-Received: by 2002:a05:6a00:8d3:b0:781:24cb:13f4 with SMTP id
- d2e1a72fcca58-7a220a95434mr26308242b3a.1.1761156958833; 
- Wed, 22 Oct 2025 11:15:58 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a230121ebfsm15114561b3a.70.2025.10.22.11.15.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Oct 2025 11:15:57 -0700 (PDT)
-Message-ID: <6a962d4b-f624-4eac-8a59-5472fb82b591@gmail.com>
-Date: Wed, 22 Oct 2025 11:15:56 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+ Wed, 22 Oct 2025 18:20:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2eg5VCKhxpUu6/CBY1uNQQlvIa7Z/RikQOCRPOIN5rs=; b=eYqIBWwzr42NbDZUgJACt+frDZ
+ i7ljnO/w9b5sT4KjlaNpTFUbK5JNnvqHzCflRrJZYUk5yHDXajRMQfblY8A3PDMu2g7jrLcnFZaFv
+ hwZp/RHAkQaM7d9Jk3pU8g6t4hCJNeSnx817L7Vipz3TsRTTbt8IDMA1EpWZv/coVNrsMet0TjGI9
+ cMWI7Nzb11DBcFfC9oiB5aGvK4DKqX6/GaWmWkXTTIU+eJFWGUmtqbd1CKse7sCk3GIPiEfUIzEza
+ SwKecesTrtcNMIYnPeI7rd3RitMEk/VCq++jvTiZCOQxcG7B3yeVFk+ScGQKPVS7Zh85hQc3G2Vz0
+ uFUxJIaQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38592)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vBdS0-000000005IZ-1ACS;
+ Wed, 22 Oct 2025 19:20:44 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vBdRy-000000000v1-1be2; Wed, 22 Oct 2025 19:20:42 +0100
+Date: Wed, 22 Oct 2025 19:20:42 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <aPkgeuOAX98aT-T7@shell.armlinux.org.uk>
 References: <aPIwqo9mCEOb7ZQu@shell.armlinux.org.uk>
- <E1v9jCT-0000000B2Ob-1yo3@rmk-PC.armlinux.org.uk>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <E1v9jCT-0000000B2Ob-1yo3@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ <E1v9jCO-0000000B2O4-1L3V@rmk-PC.armlinux.org.uk>
+ <ad16837d-6a30-4b3d-ab9a-99e31523867f@bootlin.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ad16837d-6a30-4b3d-ab9a-99e31523867f@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: phylink: add phylink
- managed MAC Wake-on-Lan support
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/6] net: phy: add
+	phy_may_wakeup()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,47 +63,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/17/25 05:04, Russell King (Oracle) wrote:
-> Add core phylink managed Wake-on-Lan support, which is enabled when the
-> MAC driver fills in the new .mac_wol_set() method that this commit
-> creates.
+On Wed, Oct 22, 2025 at 03:43:20PM +0200, Maxime Chevallier wrote:
+> Hi Russell,
 > 
-> When this feature is disabled, phylink acts as it has in the past,
-> merely passing the ethtool WoL calls to phylib whenever a PHY exists.
-> No other new functionality provided by this commit is enabled.
+> That's not exactly what's happening, this suggest this is merely a
+> wrapper around device_may_wakeup().
 > 
-> When this feature is enabled, a more inteligent approach is used.
-> Phylink will first pass WoL options to the PHY, read them back, and
-> attempt to set any options that were not set at the PHY at the MAC.
+> I don't think it's worth blocking the series though, but if you need to
+> respin maybe this could be reworded.
 > 
-> Since we have PHY drivers that report they support WoL, and accept WoL
-> configuration even though they aren't wired up to be capable of waking
-> the system, we need a way to differentiate between PHYs that think
-> they support WoL and those which actually do. As PHY drivers do not
-> make use of the driver model's wake-up infrastructure, but could, we
-> use this to determine whether PHY drivers can participate. This gives
-> a path forward where, as MAC drivers are converted to this, it
-> encourages PHY drivers to also be converted.
-> 
-> Phylink will also ignore the mac_wol argument to phylink_suspend() as
-> it now knows the WoL state at the MAC.
-> 
-> MAC drivers are expected to record/configure the Wake-on-Lan state in
-> their .mac_set_wol() method, and deal appropriately with it in their
-> suspend/resume methods. The driver model provides assistance to set the
-> IRQ wake support which may assist driver authors in achieving the
-> necessary configuration.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+I've updated the description as I think patch 4 needs a repost:
+
++/**
++ * phy_may_wakeup() - indicate whether PHY has wakeup enabled
++ * @phydev: The phy_device struct
++ *
++ * Returns: true/false depending on the PHY driver's device_set_wakeup_enabled()
++ * setting if using the driver model, otherwise the legacy determination.
++ */
++bool phy_may_wakeup(struct phy_device *phydev);
++
+
+Do you want me to still add your r-b?
+
 -- 
-Florian
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
