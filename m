@@ -2,54 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BFCC00574
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Oct 2025 11:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31B8C0095D
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Oct 2025 12:54:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE87DC5EC5D;
-	Thu, 23 Oct 2025 09:46:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4950FC5EC5F;
+	Thu, 23 Oct 2025 10:54:33 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DE85C5EC5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8959C5A4C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Oct 2025 09:46:34 +0000 (UTC)
+ Thu, 23 Oct 2025 10:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lZxI4ElVQRDHDwUjNlzEzvtgHXaIDyFC91nvXTxngLA=; b=zENATkq4Lcm2pf3+N7P2MW0EL8
- u8Tiyx32llIGBSopm7LSyxe6V20ZVXf5Nsrm7are6QqBII3VMhPrqG/FaWOZTSqBM+xyS3/2hDRj5
- BRkXhq40cbDtG/t+FcoW/V8z5LfEUho6ubQOIL6ACKd9FK5sV/qM4aOhaIpL/XZVbyci8DTLU28BV
- 1BPAZ2TGzKF3gSjbeVWTcUxDU+4KNyyuK8J5B4+cQMeKMHWB3AIg9GkHnqRNS7toyAI4TT0VTfIgt
- REYio8ixamC2hpEQx81FY6h3BAHCLZSXoXE+W9VuH4VGPRf6B8vaz7o5FxZQ/VZFkt2yX5pflIEq8
- 63YMfYTw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60232 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=P5H/X2O6VAth3+1IJiZ1jVADDRZOBh553gExnuinE6g=; b=Pf30+2tgWHWff05MLYY0zw/0+w
+ abhcaYZwkQ0qPJr4E85uSPGBRk37p6qmfNoCVIxrBYfZCf8tOmpPEQJbblRJoZOCPOLObmbV/wvPO
+ uoVUr+lEphTXs9FQ9lp7Ty3ukn6EbY+cuU9CjUwYcdbXM9lcSfZCHvb7pS1TaajOqUYOdcmb+bYnz
+ 23KRqaGwo77hReiEZUy5NBKDJvqtwSIfQ1zPJk1uwJSjCpWFbhzIpKvfPO7VnLWUwHPzkGWDIPQmA
+ lfcHw/CMNhIUXbIa7hewF4ETVeKLDIjTMnFGgcBAxt0qt06glhbgO9iD1tDuu+Dd8dPEB+vOLzwXm
+ PevYaXlA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45430)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vBrtq-0000000068s-3iZF;
- Thu, 23 Oct 2025 10:46:26 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vBrtp-0000000BMYs-3bhI; Thu, 23 Oct 2025 10:46:25 +0100
-In-Reply-To: <aPn5YVeUcWo4CW3c@shell.armlinux.org.uk>
-References: <aPn5YVeUcWo4CW3c@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ (envelope-from <linux@armlinux.org.uk>) id 1vBsxV-000000006Cw-1WVS;
+ Thu, 23 Oct 2025 11:54:17 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vBsxQ-000000001cU-0p2n; Thu, 23 Oct 2025 11:54:12 +0100
+Date: Thu, 23 Oct 2025 11:54:12 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
+Message-ID: <aPoJVOUe-ASx1GmV@shell.armlinux.org.uk>
+References: <20251017-qbv-fixes-v3-0-d3a42e32646a@altera.com>
+ <20251017-qbv-fixes-v3-1-d3a42e32646a@altera.com>
+ <aPI5pBXnh5X7OXtG@shell.armlinux.org.uk>
+ <e45a8124-ace8-40bf-b55f-56dc8fbe6987@altera.com>
+ <1abbcd93-6144-440c-90d9-439d0f18383b@altera.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vBrtp-0000000BMYs-3bhI@rmk-PC.armlinux.org.uk>
-Date: Thu, 23 Oct 2025 10:46:25 +0100
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+In-Reply-To: <1abbcd93-6144-440c-90d9-439d0f18383b@altera.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>, "Ng,
+ Boon Khai" <boon.khai.ng@altera.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: add support for
- controlling PCS interrupts
+ Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net v3 1/3] net: stmmac: vlan: Disable
+ 802.1AD tag insertion offload
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,190 +70,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support to the PCS instance for controlling the PCS interrupts
-depending on whether the PCS is used.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac1000.h   |  7 +++---
- .../ethernet/stmicro/stmmac/dwmac1000_core.c  | 11 ++++------
- drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  2 --
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 10 +++------
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.c  | 22 ++++++++++++++++++-
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  4 +++-
- 6 files changed, 34 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-index 8f3002d9de78..697bba641e05 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-@@ -38,11 +38,10 @@
- #define	GMAC_INT_DISABLE_PCSAN		BIT(2)
- #define	GMAC_INT_DISABLE_PMT		BIT(3)
- #define	GMAC_INT_DISABLE_TIMESTAMP	BIT(9)
--#define	GMAC_INT_DISABLE_PCS	(GMAC_INT_DISABLE_PCSLINK | \
--				 GMAC_INT_DISABLE_PCSAN)
- #define	GMAC_INT_DEFAULT_MASK	(GMAC_INT_DISABLE_RGMII | \
--				 GMAC_INT_DISABLE_TIMESTAMP | \
--				 GMAC_INT_DISABLE_PCS)
-+				 GMAC_INT_DISABLE_PCSLINK | \
-+				 GMAC_INT_DISABLE_PCSAN | \
-+				 GMAC_INT_DISABLE_TIMESTAMP)
- 
- /* PMT Control and Status */
- #define GMAC_PMT		0x0000002c
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index 2ca94bfd3f71..a2ae136d2c0e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -27,7 +27,9 @@ static int dwmac1000_pcs_init(struct stmmac_priv *priv)
- 	if (!priv->dma_cap.pcs)
- 		return 0;
- 
--	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE);
-+	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE,
-+					  GMAC_INT_DISABLE_PCSLINK |
-+					  GMAC_INT_DISABLE_PCSAN);
- }
- 
- static void dwmac1000_core_init(struct mac_device_info *hw,
-@@ -48,12 +50,7 @@ static void dwmac1000_core_init(struct mac_device_info *hw,
- 	writel(value | GMAC_CORE_INIT, ioaddr + GMAC_CONTROL);
- 
- 	/* Mask GMAC interrupts */
--	value = GMAC_INT_DEFAULT_MASK;
--
--	if (hw->pcs)
--		value &= ~GMAC_INT_DISABLE_PCS;
--
--	writel(value, ioaddr + GMAC_INT_MASK);
-+	writel(GMAC_INT_DEFAULT_MASK, ioaddr + GMAC_INT_MASK);
- 
- #ifdef STMMAC_VLAN_TAG_USED
- 	/* Tag detection without filtering */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-index 6dd84b6544cc..3cb733781e1e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4.h
-@@ -106,8 +106,6 @@
- #define GMAC_INT_LPI_EN			BIT(5)
- #define GMAC_INT_TSIE			BIT(12)
- 
--#define	GMAC_PCS_IRQ_DEFAULT	(GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE)
--
- #define	GMAC_INT_DEFAULT_ENABLE	(GMAC_INT_PMT_EN | GMAC_INT_LPI_EN | \
- 				 GMAC_INT_TSIE)
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 6269407d70cd..a4282fd7c3c7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -27,7 +27,8 @@ static int dwmac4_pcs_init(struct stmmac_priv *priv)
- 	if (!priv->dma_cap.pcs)
- 		return 0;
- 
--	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE);
-+	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE,
-+					  GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE);
- }
- 
- static void dwmac4_core_init(struct mac_device_info *hw,
-@@ -46,12 +47,7 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 	writel((clk_rate / 1000000) - 1, ioaddr + GMAC4_MAC_ONEUS_TIC_COUNTER);
- 
- 	/* Enable GMAC interrupts */
--	value = GMAC_INT_DEFAULT_ENABLE;
--
--	if (hw->pcs)
--		value |= GMAC_PCS_IRQ_DEFAULT;
--
--	writel(value, ioaddr + GMAC_INT_EN);
-+	writel(GMAC_INT_DEFAULT_ENABLE, ioaddr + GMAC_INT_EN);
- 
- 	if (GMAC_INT_DEFAULT_ENABLE & GMAC_INT_TSIE)
- 		init_waitqueue_head(&priv->tstamp_busy_wait);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-index 50ea51d7a1cc..e2f531c11986 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-@@ -2,6 +2,22 @@
- #include "stmmac.h"
- #include "stmmac_pcs.h"
- 
-+static int dwmac_integrated_pcs_enable(struct phylink_pcs *pcs)
-+{
-+	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
-+
-+	stmmac_mac_irq_modify(spcs->priv, 0, spcs->int_mask);
-+
-+	return 0;
-+}
-+
-+static void dwmac_integrated_pcs_disable(struct phylink_pcs *pcs)
-+{
-+	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
-+
-+	stmmac_mac_irq_modify(spcs->priv, spcs->int_mask, 0);
-+}
-+
- static void dwmac_integrated_pcs_get_state(struct phylink_pcs *pcs,
- 					   unsigned int neg_mode,
- 					   struct phylink_link_state *state)
-@@ -23,11 +39,14 @@ static int dwmac_integrated_pcs_config(struct phylink_pcs *pcs,
- }
- 
- static const struct phylink_pcs_ops dwmac_integrated_pcs_ops = {
-+	.pcs_enable = dwmac_integrated_pcs_enable,
-+	.pcs_disable = dwmac_integrated_pcs_disable,
- 	.pcs_get_state = dwmac_integrated_pcs_get_state,
- 	.pcs_config = dwmac_integrated_pcs_config,
- };
- 
--int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset)
-+int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
-+			       u32 int_mask)
- {
- 	struct stmmac_pcs *spcs;
- 
-@@ -37,6 +56,7 @@ int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset)
- 
- 	spcs->priv = priv;
- 	spcs->base = priv->ioaddr + offset;
-+	spcs->int_mask = int_mask;
- 	spcs->pcs.ops = &dwmac_integrated_pcs_ops;
- 
- 	__set_bit(PHY_INTERFACE_MODE_SGMII, spcs->pcs.supported_interfaces);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-index 64397ac8ecab..cda93894168e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-@@ -52,6 +52,7 @@ struct stmmac_priv;
- struct stmmac_pcs {
- 	struct stmmac_priv *priv;
- 	void __iomem *base;
-+	u32 int_mask;
- 	struct phylink_pcs pcs;
- };
- 
-@@ -61,7 +62,8 @@ phylink_pcs_to_stmmac_pcs(struct phylink_pcs *pcs)
- 	return container_of(pcs, struct stmmac_pcs, pcs);
- }
- 
--int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset);
-+int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
-+			       u32 int_mask);
- 
- /**
-  * dwmac_pcs_isr - TBI, RTBI, or SGMII PHY ISR
--- 
-2.47.3
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBPY3QgMjMsIDIwMjUgYXQgMDk6MDE6MjBBTSArMDUzMCwgRyBUaG9tYXMsIFJvaGFu
+IHdyb3RlOgo+IEhpIFJ1c3NlbGwsCj4gCj4gT24gMTAvMTgvMjAyNSA3OjI2IEFNLCBHIFRob21h
+cywgUm9oYW4gd3JvdGU6Cj4gPiBIaSBSdXNzZWxsLAo+ID4gCj4gPiBPbiAxMC8xNy8yMDI1IDY6
+MTIgUE0sIFJ1c3NlbGwgS2luZyAoT3JhY2xlKSB3cm90ZToKPiA+ID4gT24gRnJpLCBPY3QgMTcs
+IDIwMjUgYXQgMDI6MTE6MTlQTSArMDgwMCwgUm9oYW4gRyBUaG9tYXMgdmlhIEI0IFJlbGF5IHdy
+b3RlOgo+ID4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
+bW1hYy9zdG1tYWNfbWFpbi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
+c3RtbWFjX21haW4uYwo+ID4gPiA+IGluZGV4IDY1MGQ3NWI3M2UwYjBlY2QwMmQzNWRkNWQ2YTg3
+NDJkNDUxODhjNDcuLmRlZGFhZWYzMjA4YmZhZGMxMDU5NjEwMjlmNzlkMGQyNmMzMjg5ZDggMTAw
+NjQ0Cj4gPiA+ID4gLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3Rt
+bWFjX21haW4uYwo+ID4gPiA+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL3N0bW1hY19tYWluLmMKPiA+ID4gPiBAQCAtNDA4OSwxOCArNDA4OSwxMSBAQCBzdGF0aWMg
+aW50IHN0bW1hY19yZWxlYXNlKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCj4gPiA+ID4gICAgc3Rh
+dGljIGJvb2wgc3RtbWFjX3ZsYW5faW5zZXJ0KHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiwgc3Ry
+dWN0IHNrX2J1ZmYgKnNrYiwKPiA+ID4gPiAgICAJCQkgICAgICAgc3RydWN0IHN0bW1hY190eF9x
+dWV1ZSAqdHhfcSkKPiA+ID4gPiAgICB7Cj4gPiA+ID4gLQl1MTYgdGFnID0gMHgwLCBpbm5lcl90
+YWcgPSAweDA7Cj4gPiA+ID4gLQl1MzIgaW5uZXJfdHlwZSA9IDB4MDsKPiA+ID4gPiArCXUxNiB0
+YWcgPSAweDA7Cj4gPiA+ID4gICAgCXN0cnVjdCBkbWFfZGVzYyAqcDsKPiA+ID4gCj4gPiA+ICNp
+bmNsdWRlIDxzdGRuZXRkZXZjb2RlZm9ybWF0Lmg+IC0gUGxlYXNlIG1haW50YWluIHJldmVyc2Ug
+Y2hyaXN0bWFzLQo+ID4gPiB0cmVlIG9yZGVyLgo+ID4gCj4gPiBUaGFua3MgZm9yIHBvaW50aW5n
+IHRoaXMgb3V0LiBJJ2xsIGZpeCB0aGUgZGVjbGFyYXRpb24gb3JkZXIgaW4gdGhlIG5leHQKPiA+
+IHJldmlzaW9uLgo+ID4gCj4gPiA+IAo+ID4gPiBJIGhhdmVuJ3QgeWV0IHJlZmVycmVkIHRvIHRo
+ZSBkYXRhYm9vaywgc28gdGhlcmUgbWF5IGJlIG1vcmUgY29tbWVudHMKPiA+ID4gY29taW5nIG5l
+eHQgd2Vlay4KPiA+ID4gCj4gPiAKPiA+IFN1cmUhIFdpbGwgd2FpdCBmb3IgeW91ciBmZWVkYmFj
+ayBiZWZvcmUgc2VuZGluZyB0aGUgbmV4dCByZXZpc2lvbi4KPiAKPiBKdXN0IGNoZWNraW5nIGlu
+IOKAlCBoYXZlIHlvdSBoYWQgYSBjaGFuY2UgdG8gcmV2aWV3IHRoZSBwYXRjaCBmdXJ0aGVyPyBP
+cgo+IHdvdWxkIGl0IGJlIG9rYXkgZm9yIG1lIHRvIGdvIGFoZWFkIGFuZCBzZW5kIHRoZSBuZXh0
+IHJldmlzaW9uIGZvcgo+IHJldmlldz8KCkkndmUgY2hlY2tlZCBteSB2ZXJzaW9uIG9mIHRoZSBk
+YXRhYm9vaywgYW5kIHRoZSBjb3JlIHZlcnNpb24gdGhhdCBoYXMKVkxJTlMvRFZMQU4gYW5kIG15
+IGRhdGFib29rIGRvZXNuJ3QgY292ZXIgdGhpcy4gU28gSSdtIGFmcmFpZCBJIGNhbid0CnJldmll
+dyBmdXJ0aGVyLgoKLS0gClJNSydzIFBhdGNoIHN5c3RlbTogaHR0cHM6Ly93d3cuYXJtbGludXgu
+b3JnLnVrL2RldmVsb3Blci9wYXRjaGVzLwpGVFRQIGlzIGhlcmUhIDgwTWJwcyBkb3duIDEwTWJw
+cyB1cC4gRGVjZW50IGNvbm5lY3Rpdml0eSBhdCBsYXN0IQpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
