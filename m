@@ -2,50 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB70C0312D
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Oct 2025 20:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ABC2C03136
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Oct 2025 20:51:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21FD6C5EC79;
-	Thu, 23 Oct 2025 18:51:23 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F5CBC5EC79;
+	Thu, 23 Oct 2025 18:51:34 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0231C5EC7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53D9DC5EC76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Oct 2025 18:51:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BE60E4AE28;
- Thu, 23 Oct 2025 18:51:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DBAC4CEE7;
- Thu, 23 Oct 2025 18:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761245480;
- bh=yAejfUUJiZAgzUJl4W0A3yvw8RvHpqUlB31kTfBanNc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=unAoiFqnIfbe471o7fJlWt0tAhvCj1MoRL5WGN0y+nI2rEaYyl92d3lqSkOBPLkJx
- E4v2EsiffVLRvDCUEm+PuXMOmN1Smby4jg9/3GF86ibNDRSwTDQ1TtgTFSBmJXFBNj
- BgCZ425F7QZN3aXLjcR6zgHXO1Po3s6/D/i0sXb0JZBX9RIL1PNaSHt0BEg9u9Mskd
- /rvqTOF/RDjTM0YEFtro72z1H4VVp5EMcJuwFMxsSs+zlVzqNm2zp+HHrczfMBNL1S
- Zs7wmGYy8OhMe+l1QE5dybFJYUhqwvZt8YX6z+GqiDxJUoBUD61Lq3O4cLO9qr0ZhK
- CwTBrW9V5bKFg==
-Date: Thu, 23 Oct 2025 19:51:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Antonio Borneo <antonio.borneo@foss.st.com>
-Message-ID: <20251023-gab-applause-77043d499529@spud>
-References: <20251023132700.1199871-1-antonio.borneo@foss.st.com>
- <20251023132700.1199871-5-antonio.borneo@foss.st.com>
+ Thu, 23 Oct 2025 18:51:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=Fck8LKgCheBTtzhirGZSgVYji9+4kt2G7PypWCpeZQ8=; b=o6QP+zM11VgjiUYwb3dDbDDxhB
+ itSVZWwvgs9DXykbevr1fDvhfNdpr7f4ev7J8vRWhAq35HLERa05sbIcrY2V8AgDHp7xzt3uQHxw8
+ 03eN04bzBr4VbJkBKHOmVBLLLq0HOJc98EPj1sEQmJiMVQuv1Hemka56vt1skkpQcRyk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1vC0PH-00Budg-KO; Thu, 23 Oct 2025 20:51:27 +0200
+Date: Thu, 23 Oct 2025 20:51:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <4dbb99c6-77da-49f3-bce3-5bfc297f2c21@lunn.ch>
+References: <aPn3MSQvjUWBb92P@shell.armlinux.org.uk>
+ <E1vBrla-0000000BMQM-462M@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20251023132700.1199871-5-antonio.borneo@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v4 04/12] dt-bindings: pincfg-node: Add
- properties 'skew-delay-{in, out}put-ps'
+Content-Disposition: inline
+In-Reply-To: <E1vBrla-0000000BMQM-462M@rmk-PC.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 7/8] net: stmmac: use != rather
+ than ^ for comparing dev_id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,55 +52,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2050482674421414781=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Oct 23, 2025 at 10:37:54AM +0100, Russell King (Oracle) wrote:
+> Use the more usual not-equals rather than exclusive-or operator when
+> comparing the dev_id in stmmac_hwif_find().
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
---===============2050482674421414781==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="T0BViuTcQBVHwGVl"
-Content-Disposition: inline
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-
---T0BViuTcQBVHwGVl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Oct 23, 2025 at 03:26:52PM +0200, Antonio Borneo wrote:
-> Add the properties 'skew-delay-input-ps' and 'skew-delay-output-ps'
-> to specify independent skew delay value for the two pin's directions.
-> Make the new properties unavailable when the existing property
-> 'skew-delay' is selected.
->=20
-> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
---T0BViuTcQBVHwGVl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaPp5IwAKCRB4tDGHoIJi
-0pkRAQCj7Ijye/ExnUsIE49cWonr9m6YS7a4wxdPBucoJ2MlggD/cPri8HMwGWK7
-GGWHxrCWdfLHkTbJxCga1sVo8V4lJgU=
-=q/g5
------END PGP SIGNATURE-----
-
---T0BViuTcQBVHwGVl--
-
---===============2050482674421414781==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2050482674421414781==--
