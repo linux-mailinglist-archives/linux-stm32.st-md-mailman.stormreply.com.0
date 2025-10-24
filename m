@@ -2,51 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966A8C06422
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 14:31:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F49CC064D8
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 14:45:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91DDBC5F1DF;
-	Fri, 24 Oct 2025 12:31:02 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 935ADC5F1E0;
+	Fri, 24 Oct 2025 12:45:05 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 287F5C5F1C7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90FFEC5F1DE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Oct 2025 12:31:01 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=ratatoskr.pengutronix.de)
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <s.trumtrar@pengutronix.de>)
- id 1vCGwe-0002Ya-Bf; Fri, 24 Oct 2025 14:31:00 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+ Fri, 24 Oct 2025 12:45:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=fHLFk8P7vx3fkmMAD0Z+yzWnvmAZmlIEgYDTY3u8mmw=; b=Jn76CtehcFg/oN1IzztvatWZPh
+ P3S/YEByWcAAh/kueIpYfffc4kv18iK0tvFMSMR3cqsG9kyuzexr4uLiZutXMgdnfoerSNGgaGVxX
+ LrrhOKq2YL8yiEXiNPPa0rbqISLOWlLHK0U75KAZAK/zgzZV9r3qjNf8dDKjrweDgAOoRg+3PNuJ2
+ oatiT/E08t+H7dr/kSj1YQVNrQEx58OI7/N+489J+E8T68qu7UFYZbGUt8ElKzN1mp3gnQ1st9GYI
+ mB1VaitqQl16cESVOfv2gHEiljpFmMC0rGGhb5KBcwb+Z7ZazicRoeJiwDfFprulozfvGohwxuPZv
+ 3GI2wXBA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53056)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vCHA7-000000007Yw-2tBo;
+ Fri, 24 Oct 2025 13:44:55 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vCHA5-000000002iF-1zR7; Fri, 24 Oct 2025 13:44:53 +0100
+Date: Fri, 24 Oct 2025 13:44:53 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <92e953b8-4581-4647-8173-6c7fa05a7895@bootlin.com> (Maxime
- Chevallier's message of "Fri, 24 Oct 2025 14:11:45 +0200")
-References: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
- <20251024-v6-12-topic-socfpga-agilex5-v5-1-4c4a51159eeb@pengutronix.de>
- <92e953b8-4581-4647-8173-6c7fa05a7895@bootlin.com>
-User-Agent: mu4e 1.12.13; emacs 30.2
-Date: Fri, 24 Oct 2025 14:30:57 +0200
-Message-ID: <87tszo7a7y.fsf@pengutronix.de>
+Message-ID: <aPt0xYNh9qzmesWM@shell.armlinux.org.uk>
+References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
+ <20251024070720.71174-3-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- kernel@pengutronix.de, Dinh Nguyen <dinguyen@kernel.org>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, linux-arm-kernel@lists.infradead.org,
+Content-Disposition: inline
+In-Reply-To: <20251024070720.71174-3-maxime.chevallier@bootlin.com>
+Cc: =?iso-8859-1?Q?K=F6ry?= Maincent <kory.maincent@bootlin.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 01/10] net: stmmac: dwmac-socfpga:
-	don't set has_gmac
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Add a
+ devlink attribute to control timestamping mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,59 +66,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-Hi Maxime,
-
-On 2025-10-24 at 14:11 +02, Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
-
-> Hi Steffen
+On Fri, Oct 24, 2025 at 09:07:18AM +0200, Maxime Chevallier wrote:
+> The DWMAC1000 supports 2 timestamping configurations to configure how
+> frequency adjustments are made to the ptp_clock, as well as the reported
+> timestamp values.
 > 
-> On 24/10/2025 13:49, Steffen Trumtrar wrote:
-> > Instead of setting the has_gmac or has_xgmac fields, let
-> > stmmac_probe_config_dt()) fill these fields according to the more
-> > generic compatibles.
-> > 
-> > Without setting the has_xgmac/has_gmac field correctly, even basic
-> > functions will fail, because the register offsets are different.
-> > 
-> > Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 1 -
-> >  1 file changed, 1 deletion(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> > index 354f01184e6cc..7ed125dcc73ea 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-> > @@ -497,7 +497,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
-> >  	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
-> >  	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
-> >  	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
-> > -	plat_dat->has_gmac = true;
+> There was a previous attempt at upstreaming support for configuring this
+> mode by Olivier Dautricourt and Julien Beraud a few years back [1]
 > 
-> Note that this field is now gone as per :
+> In a nutshell, the timestamping can be either set in fine mode or in
+> coarse mode.
 > 
->   26ab9830beab ("net: stmmac: replace has_xxxx with core_type")
+> In fine mode, which is the default, we use the overflow of an accumulator to
+> trigger frequency adjustments, but by doing so we lose precision on the
+> timetamps that are produced by the timestamping unit. The main drawback
+> is that the sub-second increment value, used to generate timestamps, can't be
+> set to lower than (2 / ptp_clock_freq).
 > 
-> You'll need to rebase the series :)
->
+> The "fine" qualification comes from the frequent frequency adjustments we are
+> able to do, which is perfect for a PTP follower usecase.
+> 
+> In Coarse mode, we don't do frequency adjustments based on an
+> accumulator overflow. We can therefore have very fine subsecond
+> increment values, allowing for better timestamping precision. However
+> this mode works best when the ptp clock frequency is adjusted based on
+> an external signal, such as a PPS input produced by a GPS clock. This
+> mode is therefore perfect for a Grand-master usecase.
+> 
+> Introduce a driver-specific devlink parameter "ts_coarse" to enable or
+> disable coarse mode, keeping the "fine" mode as a default.
+> 
+> This can then be changed with:
+> 
+>   devlink dev param set <dev> name ts_coarse value true cmode runtime
+> 
+> The associated documentation is also added.
+> 
+> [1] : https://lore.kernel.org/netdev/20200514102808.31163-1-olivier.dautricourt@orolia.com/
+> 
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-I see, bad timing, but luckily an easy patch :)
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-
-Best regards,
-Steffen
+Thanks!
 
 -- 
-Pengutronix e.K.                | Dipl.-Inform. Steffen Trumtrar |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
