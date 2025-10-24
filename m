@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2CCC06163
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 13:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE179C06166
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 13:50:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C323C5F1CF;
-	Fri, 24 Oct 2025 11:50:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CEEFC5F1C9;
+	Fri, 24 Oct 2025 11:50:19 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F008C5F1C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABC8CC5F1C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 24 Oct 2025 11:50:16 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=ratatoskr.trumtrar.info)
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <s.trumtrar@pengutronix.de>)
- id 1vCGJ7-0002FG-20; Fri, 24 Oct 2025 13:50:09 +0200
+ id 1vCGJ7-0002FG-Id; Fri, 24 Oct 2025 13:50:09 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Fri, 24 Oct 2025 13:49:57 +0200
+Date: Fri, 24 Oct 2025 13:49:58 +0200
 MIME-Version: 1.0
-Message-Id: <20251024-v6-12-topic-socfpga-agilex5-v5-5-4c4a51159eeb@pengutronix.de>
+Message-Id: <20251024-v6-12-topic-socfpga-agilex5-v5-6-4c4a51159eeb@pengutronix.de>
 References: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
 In-Reply-To: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -44,8 +44,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  Steffen Trumtrar <s.trumtrar@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 05/10] dt-bindings: net: altr,
- socfpga-stmmac: add generic dwxgmac compatible
+Subject: [Linux-stm32] [PATCH v5 06/10] arm64: dts: socfpga: agilex5: add
+ dwxgmac compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,31 +62,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the more generic "snps,dwxgmac" compatible to the list of
-compatibles for the agilex5.
-
-The snps,dwmac binding explicitly uses the "snps,dwxgmac-2.10",
-"snps,dwxgmac" combination as example; the stmmac driver only checks on
-dwmac and dwxgmac compatibles to decide what kind of gmac it is working
-with.
+The gmac0/1/2 are also compatible to the more generic "snps,dwxgmac"
+compatible. The platform code checks this to decide if it is a GMAC or
+GMAC4 compatible IP core.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-index fc445ad5a1f1a..b53847a2d9536 100644
---- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-+++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-@@ -46,6 +46,7 @@ properties:
-       - items:
-           - const: altr,socfpga-stmmac-agilex5
-           - const: snps,dwxgmac-2.10
-+          - const: snps,dwxgmac
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+index 4ccfebfd9d322..d0c139f03541e 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+@@ -536,7 +536,8 @@ qspi: spi@108d2000 {
  
-   clocks:
-     minItems: 1
+ 		gmac0: ethernet@10810000 {
+ 			compatible = "altr,socfpga-stmmac-agilex5",
+-				     "snps,dwxgmac-2.10";
++				     "snps,dwxgmac-2.10",
++				     "snps,dwxgmac";
+ 			reg = <0x10810000 0x3500>;
+ 			interrupts = <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "macirq";
+@@ -649,7 +650,8 @@ queue7 {
+ 
+ 		gmac1: ethernet@10820000 {
+ 			compatible = "altr,socfpga-stmmac-agilex5",
+-				     "snps,dwxgmac-2.10";
++				     "snps,dwxgmac-2.10",
++				     "snps,dwxgmac";
+ 			reg = <0x10820000 0x3500>;
+ 			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "macirq";
+@@ -762,7 +764,8 @@ queue7 {
+ 
+ 		gmac2: ethernet@10830000 {
+ 			compatible = "altr,socfpga-stmmac-agilex5",
+-				     "snps,dwxgmac-2.10";
++				     "snps,dwxgmac-2.10",
++				     "snps,dwxgmac";
+ 			reg = <0x10830000 0x3500>;
+ 			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "macirq";
 
 -- 
 2.51.0
