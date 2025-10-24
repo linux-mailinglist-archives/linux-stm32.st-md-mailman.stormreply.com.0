@@ -2,56 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C9DC043CE
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 05:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E93C048B8
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 08:44:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33C95C5A4DB;
-	Fri, 24 Oct 2025 03:23:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE886C5F1C0;
+	Fri, 24 Oct 2025 06:44:22 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C83D8C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 148EAC5EC7D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Oct 2025 03:23:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4CFA9601DE;
- Fri, 24 Oct 2025 03:23:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10ABC4CEE7;
- Fri, 24 Oct 2025 03:23:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761276212;
- bh=CNwnT8O4JG4Ottnhbl1cNUX0P6pAoK8TTMrHAWFkULg=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=PAZW1d9nE4BKbSDO5YSLJIHFY7fvvq7/qb+KsjUsGRLmxi56jdxvmOARnYJv4d2ld
- Ic/xOGBjxwDNwmiwJ7cwI4V+apON+qMOt3p6cSvOAfiZ8jtjp0hXvhPBg0AM77I1zp
- g6i8gpSAFD7DosiR9Fi+RdTt41wplPyJOLqBMx3xzyWe4tOmA43TExpxPsd4IS8kb2
- ffQAI4FNvAT46dKsdBSkShyj3Tac9+wpugnoPlwOkCefGTwchZzYXux2HTezbtbDFb
- cD2F6SLTQmqfuVuj5vCgghi+8YZx5WXGvZntDmaWeqh9aFw3ZihEuSB6O7yksVD5ou
- igWnqilxSCITA==
-Date: Thu, 23 Oct 2025 22:23:30 -0500
+ Fri, 24 Oct 2025 06:44:21 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 4BD874E412CC;
+ Fri, 24 Oct 2025 06:44:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 0E44660703;
+ Fri, 24 Oct 2025 06:44:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 689A9102F244A; 
+ Fri, 24 Oct 2025 08:44:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1761288259; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=23XHfjip0xavJrBGmNRM/VDGO8Z67OrHnHQ9YooOSIE=;
+ b=KYtGg25+hcycycAL+yfAnApj7zKCwrcjHD0C1XmCTEWz6G7WnS9cc30XTSyOgJ7icxC/Rk
+ BqgI0luB56xoC4ypAxklxqw+6dS0yUfe7IIHk658RN8QGGhIaoGUoyCH36Ds/llVKwuL2G
+ cyXkCiSkeGeITCYPhWpveysp++p/PCtKkPKbcYWiK1O9O1S2hTqj3/KiknDuIrbPbEwx8N
+ 9f89N0J4qw/LPTkrbdvkIapLZMRr96Mp0gc71NlRrw8JLnVAG48SlzxBF5BCoE0yj4PYzr
+ Lm2PpayjuUmiKTH+iCuMujhGHnik45A6axwDm0WHsU+hp71f45Jyrhhu62cuqA==
+Message-ID: <28d91eca-28dd-4e5b-ae60-021e777ee064@bootlin.com>
+Date: Fri, 24 Oct 2025 08:44:07 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-In-Reply-To: <20251024015524.291013-2-inochiama@gmail.com>
-References: <20251024015524.291013-1-inochiama@gmail.com>
- <20251024015524.291013-2-inochiama@gmail.com>
-Message-Id: <176127621096.199631.1552825919177332173.robh@kernel.org>
-Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, Icenowy Zheng <uwu@icenowy.me>,
- Vivian Wang <wangruikang@iscas.ac.cn>, Chen Wang <unicorn_wang@outlook.com>,
- Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Yao Zi <ziyao@disroot.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, sophgo@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Han Gao <rabenda.cn@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v3 1/3] dt-bindings: net: sophgo,
- sg2044-dwmac: add phy mode restriction
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+References: <aPn3MSQvjUWBb92P@shell.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <aPn3MSQvjUWBb92P@shell.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/8] net: stmmac: hwif.c cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,47 +65,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello Russell,
 
-On Fri, 24 Oct 2025 09:55:22 +0800, Inochi Amaoto wrote:
-> As the ethernet controller of SG2044 and SG2042 only supports
-> RGMII phy. Add phy-mode property to restrict the value.
+On 23/10/2025 11:36, Russell King (Oracle) wrote:
+> Hi,
 > 
-> Also, since SG2042 has internal rx delay in its mac, make
-> only "rgmii-txid" and "rgmii-id" valid for phy-mode.
+> This series cleans up hwif.c:
 > 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  .../bindings/net/sophgo,sg2044-dwmac.yaml       | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
+> - move the reading of the version information out of stmmac_hwif_init()
+>   into its own function, stmmac_get_version(), storing the result in a
+>   new struct.
 > 
+> - simplify stmmac_get_version().
+> 
+> - read the version register once, passing it to stmmac_get_id() and
+>   stmmac_get_dev_id().
+> 
+> - move stmmac_get_id() and stmmac_get_dev_id() into
+>   stmmac_get_version()
+> 
+> - define version register fields and use FIELD_GET() to decode
+> 
+> - start tackling the big loop in stmmac_hwif_init() - provide a
+>   function, stmmac_hwif_find(), which looks up the hwif entry, thus
+>   making a much smaller loop, which improves readability of this code.
+> 
+> - change the use of '^' to '!=' when comparing the dev_id, which is
+>   what is really meant here.
+> 
+> - reorganise the test after calling stmmac_hwif_init() so that we
+>   handle the error case in the indented code, and the success case
+>   with no indent, which is the classical arrangement.
+> 
+>  drivers/net/ethernet/stmicro/stmmac/common.h |   3 +
+>  drivers/net/ethernet/stmicro/stmmac/hwif.c   | 166 +++++++++++++++------------
+>  2 files changed, 98 insertions(+), 71 deletions(-)
 
-My bot found errors running 'make dt_binding_check' on your patch:
+I didn't have the bandwidth to do a full review, however I ran tests
+with this series on dwmac-socfpga and dwmac-stm32, no regressions found.
 
-yamllint warnings/errors:
+For the series,
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml: allOf:1:then: 'anyOf' conditional failed, one must be fixed:
-	'phy-mode' is not one of ['$ref', 'additionalItems', 'additionalProperties', 'allOf', 'anyOf', 'const', 'contains', 'default', 'dependencies', 'dependentRequired', 'dependentSchemas', 'deprecated', 'description', 'else', 'enum', 'exclusiveMaximum', 'exclusiveMinimum', 'items', 'if', 'minItems', 'minimum', 'maxItems', 'maximum', 'multipleOf', 'not', 'oneOf', 'pattern', 'patternProperties', 'properties', 'required', 'then', 'typeSize', 'unevaluatedProperties', 'uniqueItems']
-	'type' was expected
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20251024015524.291013-2-inochiama@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
