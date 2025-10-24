@@ -2,58 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1729FC049E4
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 09:07:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B503C054D9
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Oct 2025 11:21:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE73FC5F1C4;
-	Fri, 24 Oct 2025 07:07:44 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE2F5C5F1C2;
+	Fri, 24 Oct 2025 09:21:28 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 191DAC5F1C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02131C36B31
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Oct 2025 07:07:43 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id ABB7E1A163B;
- Fri, 24 Oct 2025 07:07:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 80FE760703;
- Fri, 24 Oct 2025 07:07:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E251F102F2479; 
- Fri, 24 Oct 2025 09:07:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761289661; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding:in-reply-to:references;
- bh=A1EtqRzxIfYahVpLg5Nn8CrI/7ldhsFWV8dKenQuIrM=;
- b=qrO2aJcuzI4rhlflKWADJQMxOtGalPJgJ1S6XY+0XAnemmmjLbzx/tCoJJdE370Ru5u2on
- pp16p2rijdILG1tL40aT+jCoNyIxWzGoQwodjLK1J6Q2MHtXE4HPRBTUg6byh/N1XNGdCg
- F+1jrissekCSDWkzrtzibmbYOURV4krfbDcK+9HRvuDjhBGHVkNGsy1MA6V2Rkz8h8cdUl
- CJCTlj9vJmYXgyN9Khn6cghXUVI1ZH0ufqApkXdcSkJLFACZ/0CLIIF7bDFdC9q+Sf/Yj8
- K2PGJ+JSwGM+dqMxCT07PKfuIhj7/ZLwGhvrMDSl86JgiHoc8ar6cVOEXDtn3A==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- =?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>
-Date: Fri, 24 Oct 2025 09:07:18 +0200
-Message-ID: <20251024070720.71174-3-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
-References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
+ Fri, 24 Oct 2025 09:21:27 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-47495477241so15098055e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Oct 2025 02:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761297687; x=1761902487;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=NY5PIARKbpIdf6CoFhX2UEn3hHI/O9Hdjy4EAS5mHE4=;
+ b=UoDj3yAumRdyrBUWrkMqfKF/E5cxzIFhi43q1ssWT78m0YizNpLyGlNOXnenpVK9cA
+ z2Rewg3Ev13xUIQLBu1mxHdWyJ6xP7pECCPieko6k0sMM+588xBvuKhlkyuRFzpdOfyg
+ aUNxeGsUNv6qP8d7shf1PORHbdUaA4XDsRS9E8EhGQG4zDHRBN2usbR8W7JWfNFeKcsC
+ WyokCVLqlm8v9ARPkopcXtidDkt+BdKfyAuaEDcBhdlx5hypyMnUufjgN2pUwD+Z6Mm/
+ /x6rZrPp7D5xIx2C0TG1JSxKMnKGznHl6Xzs08mYF2rhRsal6mOxasVYzVErfrED8NHv
+ PDvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761297687; x=1761902487;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NY5PIARKbpIdf6CoFhX2UEn3hHI/O9Hdjy4EAS5mHE4=;
+ b=Ky7L0ToaUdsSQ19+UW66Isc+yfThCQHISaiGWTFTv31vT5QVxWm5t23AHzm8J3WwGd
+ JBivhYoWraR5WA2nhojDMdAT5JWrTsWOeejnGPxBm/OAj+xb3L1k7cs8RH3ktajEJxji
+ EVAlY1Zbde674MqjsGnzpW9Fr2nZeMQKy8IF/2tJjn2Zug3dv2Y/gWF1pE6X2JczWFIy
+ qp1jl78FT4YluDbwZfuRmizU4ENGCDMUZ6Ai9E+nE5QJ1s3dG8+5ryjFDCoD+Da5Yj0k
+ QR34nJIFijWP32VSm6Kzh7G7liiSEX8PHe9zGgxZai//5qBQRqmPIFn/9/W6AqEoSaBI
+ FHrA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXubKghGbaXcHMq4GKMzevIi6hpp6qD0LmohZE9MdPJTnhObdpOWkxMk5OqKi3co9Yim3hvVIhfIC7e4Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxQgt6RkohEhUpaV/QXQMlo/sOshNLZS3CjpzF80YyOtozWi7On
+ OJVyDnoEh5Ny0yA0vkiQt4LfoSJN7TkSJi361qT8x1aE+4X7Gq/mqGKJ
+X-Gm-Gg: ASbGncvzzyhQJsA97QJCvQpUHKiPYEExI1Uewlh4RT7RTUVn5uxWDrK+kfuM1Hk/5JB
+ b+wxDR+STqtcRh5x0hzyAVrwpo0SdajGGFznAVHGhdf+Ha/lX7CpXbtj+vUyFP+0Pu3X4ld2/VH
+ W3B11K/Wd9a63802/+ZeBtfehg0+YXs9j3U8IHrbcIq4yX4a0tPtHT3jKIgddNgmlABsOAk+osl
+ vXToCIksRTV0ifD7CLTSK2R5epntDwLkQpoVFpWMBE/b/Eytf7Z4PO4uSE+POBQKYZwDxFAsqRe
+ xaP8lw2MvLTVD806lW3vFvBLmz7bkMCXa/6S1enq2c53DkQB5e58c/3AL2YzBms4gzThooTCqil
+ 0iY58SHEwC/Kbx8gkxwUujzI3yJfrPZVVlE5MAbIs+obB+y/ioMQwa4fV61+8v812sYJr/fx6DF
+ U9wPSCIh2FnjzXQXAgbdDd0ajP+gf9m++yDdl51tLLMaRxp18z/f8eWsZVBo0ubLAA4spQGgLzl
+ 1pc4zTkrOpeOVFdJP2BgNyJTchBiX0xlAr9F9kaQACA
+X-Google-Smtp-Source: AGHT+IFN2t4M6Qoj3pIFSsEj3r77vKyY565/HfDPakReHx4yAtJAuSEBAgmRyjYHNwXMg0iJVqrMIw==
+X-Received: by 2002:a05:600c:4f08:b0:46c:e3df:529e with SMTP id
+ 5b1f17b1804b1-475cb03021dmr42329985e9.19.1761297687076; 
+ Fri, 24 Oct 2025 02:21:27 -0700 (PDT)
+Received: from ?IPV6:2a02:8440:7132:30ef:ba02:7a36:289:dc72?
+ (2a02-8440-7132-30ef-ba02-7a36-0289-dc72.rev.sfr.net.
+ [2a02:8440:7132:30ef:ba02:7a36:289:dc72])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47494b02475sm81213955e9.4.2025.10.24.02.21.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Oct 2025 02:21:26 -0700 (PDT)
+Message-ID: <b3accac0-d02a-4b92-848c-ada62377e440@gmail.com>
+Date: Fri, 24 Oct 2025 11:21:25 +0200
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Add a devlink
-	attribute to control timestamping mode
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Julius Werner <jwerner@chromium.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20250930-b4-ddr-bindings-v8-0-fe4d8c015a50@gmail.com>
+ <20250930-b4-ddr-bindings-v8-2-fe4d8c015a50@gmail.com>
+ <1877f731-1599-414d-a40e-38aec05a33c0@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
+In-Reply-To: <1877f731-1599-414d-a40e-38aec05a33c0@kernel.org>
+Cc: devicetree@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 2/7] dt-bindings: memory: introduce DDR4
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,325 +97,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DWMAC1000 supports 2 timestamping configurations to configure how
-frequency adjustments are made to the ptp_clock, as well as the reported
-timestamp values.
-
-There was a previous attempt at upstreaming support for configuring this
-mode by Olivier Dautricourt and Julien Beraud a few years back [1]
-
-In a nutshell, the timestamping can be either set in fine mode or in
-coarse mode.
-
-In fine mode, which is the default, we use the overflow of an accumulator to
-trigger frequency adjustments, but by doing so we lose precision on the
-timetamps that are produced by the timestamping unit. The main drawback
-is that the sub-second increment value, used to generate timestamps, can't be
-set to lower than (2 / ptp_clock_freq).
-
-The "fine" qualification comes from the frequent frequency adjustments we are
-able to do, which is perfect for a PTP follower usecase.
-
-In Coarse mode, we don't do frequency adjustments based on an
-accumulator overflow. We can therefore have very fine subsecond
-increment values, allowing for better timestamping precision. However
-this mode works best when the ptp clock frequency is adjusted based on
-an external signal, such as a PPS input produced by a GPS clock. This
-mode is therefore perfect for a Grand-master usecase.
-
-Introduce a driver-specific devlink parameter "ts_coarse" to enable or
-disable coarse mode, keeping the "fine" mode as a default.
-
-This can then be changed with:
-
-  devlink dev param set <dev> name ts_coarse value true cmode runtime
-
-The associated documentation is also added.
-
-[1] : https://lore.kernel.org/netdev/20200514102808.31163-1-olivier.dautricourt@orolia.com/
-
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- Documentation/networking/devlink/index.rst    |   1 +
- Documentation/networking/devlink/stmmac.rst   |  31 +++++
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   3 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 115 +++++++++++++++++-
- 5 files changed, 148 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/networking/devlink/stmmac.rst
-
-diff --git a/Documentation/networking/devlink/index.rst b/Documentation/networking/devlink/index.rst
-index 0c58e5c729d9..35b12a2bfeba 100644
---- a/Documentation/networking/devlink/index.rst
-+++ b/Documentation/networking/devlink/index.rst
-@@ -99,5 +99,6 @@ parameters, info versions, and other features it supports.
-    prestera
-    qed
-    sfc
-+   stmmac
-    ti-cpsw-switch
-    zl3073x
-diff --git a/Documentation/networking/devlink/stmmac.rst b/Documentation/networking/devlink/stmmac.rst
-new file mode 100644
-index 000000000000..e8e33d1c7baf
---- /dev/null
-+++ b/Documentation/networking/devlink/stmmac.rst
-@@ -0,0 +1,31 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=======================================
-+stmmac (synopsys dwmac) devlink support
-+=======================================
-+
-+This document describes the devlink features implemented by the ``stmmac``
-+device driver.
-+
-+Parameters
-+==========
-+
-+The ``stmmac`` driver implements the following driver-specific parameters.
-+
-+.. list-table:: Driver-specific parameters implemented
-+   :widths: 5 5 5 85
-+
-+   * - Name
-+     - Type
-+     - Mode
-+     - Description
-+   * - ``ts_coarse``
-+     - Boolean
-+     - runtime
-+     - Enable the Coarse timestamping mode. In Coarse mode, the ptp clock is
-+       expected to be updated through an external PPS input, but the subsecond
-+       increment used for timestamping is set to 1/ptp_clock_rate. In Fine mode
-+       (i.e. Coarse mode == false), the ptp clock frequency is adjusted more
-+       frequently, but the subsecond increment is set to 2/ptp_clock_rate.
-+       Coarse mode is suitable for PTP Grand Master operation. If unsure, leave
-+       the parameter to False.
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 716daa51df7e..87c5bea6c2a2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -10,6 +10,7 @@ config STMMAC_ETH
- 	select PHYLINK
- 	select CRC32
- 	select RESET_CONTROLLER
-+	select NET_DEVLINK
- 	help
- 	  This is the driver for the Ethernet IPs built around a
- 	  Synopsys IP Core.
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index aaeaf42084f0..bea0ce86c718 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -259,6 +259,7 @@ struct stmmac_priv {
- 	u32 sarc_type;
- 	u32 rx_riwt[MTL_MAX_RX_QUEUES];
- 	int hwts_rx_en;
-+	bool tsfupdt_coarse;
- 
- 	void __iomem *ioaddr;
- 	struct net_device *dev;
-@@ -368,6 +369,8 @@ struct stmmac_priv {
- 	/* XDP BPF Program */
- 	unsigned long *af_xdp_zc_qps;
- 	struct bpf_prog *xdp_prog;
-+
-+	struct devlink *devlink;
- };
- 
- enum stmmac_state {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 8922c660cefa..0b15c90b67f7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -40,6 +40,7 @@
- #include <linux/phylink.h>
- #include <linux/udp.h>
- #include <linux/bpf_trace.h>
-+#include <net/devlink.h>
- #include <net/page_pool/helpers.h>
- #include <net/pkt_cls.h>
- #include <net/xdp_sock_drv.h>
-@@ -58,8 +59,7 @@
-  * with fine resolution and binary rollover. This avoid non-monotonic behavior
-  * (clock jumps) when changing timestamping settings at runtime.
-  */
--#define STMMAC_HWTS_ACTIVE	(PTP_TCR_TSENA | PTP_TCR_TSCFUPDT | \
--				 PTP_TCR_TSCTRLSSR)
-+#define STMMAC_HWTS_ACTIVE	(PTP_TCR_TSENA | PTP_TCR_TSCTRLSSR)
- 
- #define	STMMAC_ALIGN(x)		ALIGN(ALIGN(x, SMP_CACHE_BYTES), 16)
- #define	TSO_MAX_BUFF_SIZE	(SZ_16K - 1)
-@@ -148,6 +148,15 @@ static void stmmac_exit_fs(struct net_device *dev);
- 
- #define STMMAC_COAL_TIMER(x) (ns_to_ktime((x) * NSEC_PER_USEC))
- 
-+struct stmmac_devlink_priv {
-+	struct stmmac_priv *stmmac_priv;
-+};
-+
-+enum stmmac_dl_param_id {
-+	STMMAC_DEVLINK_PARAM_ID_BASE = DEVLINK_PARAM_GENERIC_ID_MAX,
-+	STMMAC_DEVLINK_PARAM_ID_TS_COARSE,
-+};
-+
- /**
-  * stmmac_set_clk_tx_rate() - set the clock rate for the MAC transmit clock
-  * @bsp_priv: BSP private data structure (unused)
-@@ -675,6 +684,8 @@ static int stmmac_hwtstamp_set(struct net_device *dev,
- 	priv->hwts_tx_en = config->tx_type == HWTSTAMP_TX_ON;
- 
- 	priv->systime_flags = STMMAC_HWTS_ACTIVE;
-+	if (!priv->tsfupdt_coarse)
-+		priv->systime_flags |= PTP_TCR_TSCFUPDT;
- 
- 	if (priv->hwts_tx_en || priv->hwts_rx_en) {
- 		priv->systime_flags |= tstamp_all | ptp_v2 |
-@@ -765,7 +776,8 @@ static int stmmac_init_timestamping(struct stmmac_priv *priv)
- 		return -EOPNOTSUPP;
- 	}
- 
--	ret = stmmac_init_tstamp_counter(priv, STMMAC_HWTS_ACTIVE);
-+	ret = stmmac_init_tstamp_counter(priv, STMMAC_HWTS_ACTIVE |
-+					       PTP_TCR_TSCFUPDT);
- 	if (ret) {
- 		netdev_warn(priv->dev, "PTP init failed\n");
- 		return ret;
-@@ -7383,6 +7395,95 @@ static const struct xdp_metadata_ops stmmac_xdp_metadata_ops = {
- 	.xmo_rx_timestamp		= stmmac_xdp_rx_timestamp,
- };
- 
-+static int stmmac_dl_ts_coarse_set(struct devlink *dl, u32 id,
-+				   struct devlink_param_gset_ctx *ctx,
-+				   struct netlink_ext_ack *extack)
-+{
-+	struct stmmac_devlink_priv *dl_priv = devlink_priv(dl);
-+	struct stmmac_priv *priv = dl_priv->stmmac_priv;
-+
-+	priv->tsfupdt_coarse = ctx->val.vbool;
-+
-+	if (priv->tsfupdt_coarse)
-+		priv->systime_flags &= ~PTP_TCR_TSCFUPDT;
-+	else
-+		priv->systime_flags |= PTP_TCR_TSCFUPDT;
-+
-+	/* In Coarse mode, we can use a smaller subsecond increment, let's
-+	 * reconfigure the systime, subsecond increment and addend.
-+	 */
-+	stmmac_update_subsecond_increment(priv);
-+
-+	return 0;
-+}
-+
-+static int stmmac_dl_ts_coarse_get(struct devlink *dl, u32 id,
-+				   struct devlink_param_gset_ctx *ctx)
-+{
-+	struct stmmac_devlink_priv *dl_priv = devlink_priv(dl);
-+	struct stmmac_priv *priv = dl_priv->stmmac_priv;
-+
-+	ctx->val.vbool = priv->tsfupdt_coarse;
-+
-+	return 0;
-+}
-+
-+static const struct devlink_param stmmac_devlink_params[] = {
-+	DEVLINK_PARAM_DRIVER(STMMAC_DEVLINK_PARAM_ID_TS_COARSE, "ts_coarse",
-+			     DEVLINK_PARAM_TYPE_BOOL,
-+			     BIT(DEVLINK_PARAM_CMODE_RUNTIME),
-+			     stmmac_dl_ts_coarse_get,
-+			     stmmac_dl_ts_coarse_set, NULL),
-+};
-+
-+/* None of the generic devlink parameters are implemented */
-+static const struct devlink_ops stmmac_devlink_ops = {};
-+
-+static int stmmac_register_devlink(struct stmmac_priv *priv)
-+{
-+	struct stmmac_devlink_priv *dl_priv;
-+	int ret;
-+
-+	/* For now, what is exposed over devlink is only relevant when
-+	 * timestamping is available and we have a valid ptp clock rate
-+	 */
-+	if (!(priv->dma_cap.time_stamp || priv->dma_cap.atime_stamp) ||
-+	    !priv->plat->clk_ptp_rate)
-+		return 0;
-+
-+	priv->devlink = devlink_alloc(&stmmac_devlink_ops, sizeof(*dl_priv),
-+				      priv->device);
-+	if (!priv->devlink)
-+		return -ENOMEM;
-+
-+	dl_priv = devlink_priv(priv->devlink);
-+	dl_priv->stmmac_priv = priv;
-+
-+	ret = devlink_params_register(priv->devlink, stmmac_devlink_params,
-+				      ARRAY_SIZE(stmmac_devlink_params));
-+	if (ret)
-+		goto dl_free;
-+
-+	devlink_register(priv->devlink);
-+	return 0;
-+
-+dl_free:
-+	devlink_free(priv->devlink);
-+
-+	return ret;
-+}
-+
-+static void stmmac_unregister_devlink(struct stmmac_priv *priv)
-+{
-+	if (!priv->devlink)
-+		return;
-+
-+	devlink_unregister(priv->devlink);
-+	devlink_params_unregister(priv->devlink, stmmac_devlink_params,
-+				  ARRAY_SIZE(stmmac_devlink_params));
-+	devlink_free(priv->devlink);
-+}
-+
- /**
-  * stmmac_dvr_probe
-  * @device: device pointer
-@@ -7656,6 +7757,10 @@ int stmmac_dvr_probe(struct device *device,
- 		goto error_phy_setup;
- 	}
- 
-+	ret = stmmac_register_devlink(priv);
-+	if (ret)
-+		goto error_devlink_setup;
-+
- 	ret = register_netdev(ndev);
- 	if (ret) {
- 		dev_err(priv->device, "%s: ERROR %i registering the device\n",
-@@ -7678,6 +7783,8 @@ int stmmac_dvr_probe(struct device *device,
- 	return ret;
- 
- error_netdev_register:
-+	stmmac_unregister_devlink(priv);
-+error_devlink_setup:
- 	phylink_destroy(priv->phylink);
- error_phy_setup:
- 	stmmac_pcs_clean(ndev);
-@@ -7714,6 +7821,8 @@ void stmmac_dvr_remove(struct device *dev)
- #ifdef CONFIG_DEBUG_FS
- 	stmmac_exit_fs(ndev);
- #endif
-+	stmmac_unregister_devlink(priv);
-+
- 	phylink_destroy(priv->phylink);
- 	if (priv->plat->stmmac_rst)
- 		reset_control_assert(priv->plat->stmmac_rst);
--- 
-2.49.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTAvMjMvMjUgMTU6MjEsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6Cj4gT24gMzAvMDkv
+MjAyNSAxMDo0NiwgQ2zDqW1lbnQgTGUgR29mZmljIHdyb3RlOgo+PiBGcm9tOiBDbMOpbWVudCBM
+ZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+Cj4+Cj4+IEludHJvZHVjZSBK
+RURFQyBjb21wbGlhbnQgRERSIGJpbmRpbmdzLCB0aGF0IHVzZSBuZXcgbWVtb3J5LXByb3BzIGJp
+bmRpbmcuCj4gCj4gCj4gSWYgdGhlcmUgaXMgZ29pbmcgdG8gYmUgcmVzZW5kLCB0aGVuIHBsZWFz
+ZSByZXBlYXQgaGVyZSBhcHBsaWNhYmxlIHBhcnQKPiBvZiBjb21wYXRpYmxlIGZvcm1hdCwgZS5n
+LiB3aHkgaXQncyBsaWtlIHRoYXQuCgpIaSBLcnp5c3p0b2YsIG9rCgo+IAo+Pgo+PiBTaWduZWQt
+b2ZmLWJ5OiBDbMOpbWVudCBMZSBHb2ZmaWMgPGNsZW1lbnQubGVnb2ZmaWNAZm9zcy5zdC5jb20+
+Cj4+IFNpZ25lZC1vZmYtYnk6IENsw6ltZW50IExlIEdvZmZpYyA8bGVnb2ZmaWMuY2xlbWVudEBn
+bWFpbC5jb20+Cj4+IC0tLQo+PiAgIC4uLi9tZW1vcnktY29udHJvbGxlcnMvZGRyL2plZGVjLGRk
+cjQueWFtbCAgICAgICAgIHwgMzQgKysrKysrKysrKysrKysrKysrKysrKwo+PiAgIDEgZmlsZSBj
+aGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbWVtb3J5LWNvbnRyb2xsZXJzL2Rkci9qZWRlYyxkZHI0Lnlh
+bWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWVtb3J5LWNvbnRyb2xsZXJz
+L2Rkci9qZWRlYyxkZHI0LnlhbWwKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4gaW5kZXggMDAw
+MDAwMDAwMDAwLi5hMmViNmY2M2MwY2UKPj4gLS0tIC9kZXYvbnVsbAo+PiArKysgYi9Eb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWVtb3J5LWNvbnRyb2xsZXJzL2Rkci9qZWRlYyxk
+ZHI0LnlhbWwKPj4gQEAgLTAsMCArMSwzNCBAQAo+PiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmll
+cjogKEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4+ICslWUFNTCAxLjIKPj4gKy0tLQo+
+PiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9tZW1vcnktY29udHJvbGxlcnMv
+ZGRyL2plZGVjLGRkcjQueWFtbCMKPj4gKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9t
+ZXRhLXNjaGVtYXMvY29yZS55YW1sIwo+PiArCj4+ICt0aXRsZTogRERSNCBTRFJBTSBjb21wbGlh
+bnQgdG8gSkVERUMgSkVTRDc5LTRECj4+ICsKPj4gK21haW50YWluZXJzOgo+PiArICAtIEtyenlz
+enRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPj4gKwo+PiArYWxsT2Y6Cj4+ICsgIC0g
+JHJlZjogamVkZWMsc2RyYW0tcHJvcHMueWFtbCMKPj4gKwo+PiArcHJvcGVydGllczoKPj4gKyAg
+Y29tcGF0aWJsZToKPj4gKyAgICBpdGVtczoKPj4gKyAgICAgIC0gcGF0dGVybjogIl5kZHI0LVsw
+LTlhLWZdezR9LFthLXpdezEsMjB9LFswLTlhLWZdezJ9JCIKPiAKPiBXaHkgZG91YmxlICcsJz8g
+SSB3b3VsZCBpbWFnaW5lIGxhc3QgJywnIHRvIGJlICctJzoKPiBkZHJYLVlZWVksQUFBQS4uLi1a
+Wgo+IAo+IFNvcnJ5IGlmIHdlIGRpc2N1c3MgdGhhdCBhbHJlYWR5LCBidXQgdGhlbiBwbGVhc2Ug
+cmVtaW5kIG1lIGFuZCB0aGlzCj4gd291bGQgbmVlZCBhZGRyZXNzaW5nIGluIGNvbW1pdCBtc2cu
+CgpJIGRvIG5vdCBzZWUgYW55dGhpbmcgYWdhaW5zdCB0aGF0LgpJJ2xsIHdhaXQgSnVsaXVzJ3Mg
+cmV2aWV3LCBpZiBhbnksIGFuZCBJIHdpbGwgc2VuZCB0aGUgbmV4dCB2ZXJzaW9uIHdpdGggCnRo
+aXMgY2hhbmdlcy4KCj4gCj4+ICsgICAgICAtIGNvbnN0OiBqZWRlYyxkZHI0Cj4gCj4gCj4gQmVz
+dCByZWdhcmRzLAo+IEtyenlzenRvZgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
