@@ -2,49 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B03AC08890
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F46C08893
 	for <lists+linux-stm32@lfdr.de>; Sat, 25 Oct 2025 04:11:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F19E1C5F1F4;
-	Sat, 25 Oct 2025 02:10:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C80BC5F1F9;
+	Sat, 25 Oct 2025 02:11:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D4C3C57B73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83882C5F1F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Oct 2025 02:10:58 +0000 (UTC)
+ Sat, 25 Oct 2025 02:10:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B138A4523F;
- Sat, 25 Oct 2025 02:10:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B53EC4CEF1;
- Sat, 25 Oct 2025 02:10:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D31360233;
+ Sat, 25 Oct 2025 02:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218BDC4CEF1;
+ Sat, 25 Oct 2025 02:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761358256;
- bh=mCPoHtHlO0sapP4Re17dwckEUzpCJ4F8z89uuFCqu0Y=;
+ s=k20201202; t=1761358258;
+ bh=T+Ll2yJOvJipZ1CY2YovdDE7zLS7U/JxGi1g5MOaDY0=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=X0je+6y5nPpzgYupq5+dgtahZgIOJb4dskI1lP7bde+T/WckmlVpgTqkILW09L0Rq
- 7n9N/R1wa1FdVfWAZ/tIEwQTFSJQsqXZCod1rLnlkb1vMBhf1Wnl2hFrR9lHJJfZIc
- CyqnNCtO4IWnqMRQ1hg2y+fCBHfLSW7RDdTlQOmKdQ/Kg0Gxr85zHETe1FntPypm6a
- RwEWB5FB83QYKBdtuYVr7x3xqxinK3FU06vXvgdyVQa4mF9EwNh2ilcU5YcwFSoIsa
- ThuNMXV8dH8jM6HJWodq3JKt9Onfj4HYw27Pr8T/CzLWcH9iVBg1rEY78pVHz4Q9lE
- TCHbZegaMf1mg==
+ b=GQyXSBVNQ2gsh3VbvCWUJkxOtGBi2PvK5Uw2J8I/7Q6gYDbzftF5Mmb8R2ZuiO2iP
+ VmrhQUjxJ/GIuekc0+02OscV0BXaDpJPGZYM1OuYI/SDhVjIPRwB04P/hQ5rMpDLPi
+ owxEMYdolKhPn/Rk9WQBnzcpVK1AaugLKzTgxeCNkTO5l47JMbYd1u0s1/YZ+QpoFg
+ UTdtjIkbgebSFZqfzlK/jGhowr2zh3ICOPFavSd8aVnPU0gKRoK/A5R0adJyZhhDmF
+ WSXDevQpnjo4FSklWCyeBR/Yife6fP1EzCiAT1/0LG30ABaaa54dOqfDYuajcVf4IF
+ RYXIZDIbLPtTw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70DAB380AA59; Sat, 25 Oct 2025 02:10:37 +0000 (UTC)
+ EAEA0380AA59; Sat, 25 Oct 2025 02:10:38 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176135823625.4124588.6828085723534144457.git-patchwork-notify@kernel.org>
-Date: Sat, 25 Oct 2025 02:10:36 +0000
-References: <aPn5YVeUcWo4CW3c@shell.armlinux.org.uk>
-In-Reply-To: <aPn5YVeUcWo4CW3c@shell.armlinux.org.uk>
+Message-Id: <176135823749.4124588.15892332311706478682.git-patchwork-notify@kernel.org>
+Date: Sat, 25 Oct 2025 02:10:37 +0000
+References: <aPnyW54J80h9DmhB@shell.armlinux.org.uk>
+In-Reply-To: <aPnyW54J80h9DmhB@shell.armlinux.org.uk>
 To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+Cc: andrew@lunn.ch, christophe.roullier@foss.st.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ florian.fainelli@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, horms@kernel.org,
+ Tristram.Ha@microchip.com, krzk+dt@kernel.org, davem@davemloft.net,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: pcs support
-	part 2
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/6] net: add phylink managed
+ WoL and convert stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,21 +69,31 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 23 Oct 2025 10:46:09 +0100 you wrote:
+On Thu, 23 Oct 2025 10:16:11 +0100 you wrote:
 > Hi,
 > 
-> This is the next part of stmmac PCS support. Not much here, other than
-> dealing with what remains of the interrupts, which are the PCS AN
-> complete and PCS Link interrupts, which are just cleared and update
-> accounting.
+> This series is implementing the thoughts of Andrew, Florian and myself
+> to improve the quality of Wake-on-Lan (WoL) implementations.
+> 
+> This changes nothing for MAC drivers that do not wish to participate in
+> this, but if they do, then they gain the benefit of phylink configuring
+> WoL at the point closest to the media as possible.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,1/2] net: stmmac: add stmmac_mac_irq_modify()
-    https://git.kernel.org/netdev/net-next/c/442a8c68f083
-  - [net-next,2/2] net: stmmac: add support for controlling PCS interrupts
-    https://git.kernel.org/netdev/net-next/c/eed68edac508
+  - [net-next,v2,1/6] net: phy: add phy_can_wakeup()
+    https://git.kernel.org/netdev/net-next/c/330ce8ffc184
+  - [net-next,v2,2/6] net: phy: add phy_may_wakeup()
+    https://git.kernel.org/netdev/net-next/c/b344bfacf1de
+  - [net-next,v2,3/6] net: phylink: add phylink managed MAC Wake-on-Lan support
+    https://git.kernel.org/netdev/net-next/c/b79fbd86c849
+  - [net-next,v2,4/6] net: phylink: add phylink managed wake-on-lan PHY speed control
+    https://git.kernel.org/netdev/net-next/c/dc1a2a9ce5b2
+  - [net-next,v2,5/6] net: stmmac: convert to phylink-managed Wake-on-Lan
+    https://git.kernel.org/netdev/net-next/c/6911308d7d11
+  - [net-next,v2,6/6] net: stmmac: convert to phylink managed WoL PHY speed
+    https://git.kernel.org/netdev/net-next/c/d65cb2e27e6e
 
 You are awesome, thank you!
 -- 
