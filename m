@@ -2,54 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C822C085EC
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 Oct 2025 02:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B2A6C08866
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 Oct 2025 04:02:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFE54C57B73;
-	Sat, 25 Oct 2025 00:07:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61E34C5F1F0;
+	Sat, 25 Oct 2025 02:02:04 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97818C3FACB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3345C3FACB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Oct 2025 00:07:39 +0000 (UTC)
+ Sat, 25 Oct 2025 02:02:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 10E0D43723;
- Sat, 25 Oct 2025 00:07:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0AAC4CEF1;
- Sat, 25 Oct 2025 00:07:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 13F69444AD;
+ Sat, 25 Oct 2025 02:02:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4FCC4CEF1;
+ Sat, 25 Oct 2025 02:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761350857;
- bh=YywZU5wTB4nYHlRvn5ywrvSbODiPXFC1hF9SDgRtOvg=;
+ s=k20201202; t=1761357720;
+ bh=znXa4MTmgD2GT+6EgOiEt1q1x1IwgN2PdMxLNSJjMV0=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dn65njhfKU//nSpM/HdwU4tKL08l32hcuHzuixi+aBjD0gC0PTsaeWd89QTMAxRuk
- cYp4Z2YrWrf6mPug22Pw8wBWAtFlLxcLTc5PHjUcAbZrgzYRFdAE4B5kBuLgdRaJ09
- 7V6O9idDND4QHFCif7dq/1igfsRQUwHEHRrzgJkkc1yml8VmhneBL/3j4U/ed2rxP+
- z9yZau0MEnF3O8sico76jw2wQ7y1O54w8wvJ0AZmjB+HUtvaMqOS3Tc0MctblnfsL0
- ObUnghY5cwYOW9jj4YRRlw7KmRIPHY+43lXpwvc+S7qRmpJIN6lu/pgmp1eDvdD303
- 4RrDLb4fd9xjw==
-Date: Fri, 24 Oct 2025 17:07:36 -0700
+ b=npHZ+2QhpzQZMTObG8byre7FkwKihYjra6KYY/j9g3Ru8obLrxwg2qn8OuY80aWmD
+ sHybgiMWxnOnhvgAOjsSC7C+ovz9IKKgoFDQYOFjseY39UonVqos0RztPHLP6AljYZ
+ S2fyn+qE7NB4qYFK7T7FRyUT4ao1BdHWBL5RqslhI8cCkJUwvSvaWHIkxIvYwzG2Fh
+ r4/1xEc0JUP2HXgf+2NODGI1Gkegf0MJhnqmeEcfziM31bV02vWrhNZS6cOBBM89qD
+ ig4OCLCwRDiZw0KEqlT3sYY65gmIknzdMiDcFeOqbbk9FivzQMqHK4hqcYaMAfeVBO
+ knmLlYvM2XpIA==
+Date: Fri, 24 Oct 2025 19:01:59 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Message-ID: <20251024170736.1098eccd@kernel.org>
-In-Reply-To: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
-References: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20251024190159.60f897e5@kernel.org>
+In-Reply-To: <E1vBrtk-0000000BMYm-3CV5@rmk-PC.armlinux.org.uk>
+References: <aPn5YVeUcWo4CW3c@shell.armlinux.org.uk>
+ <E1vBrtk-0000000BMYm-3CV5@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: Eric Dumazet <edumazet@google.com>, Austin Zhang <austin.zhang@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Teoh Ji Sheng <ji.sheng.teoh@intel.com>, linux-arm-kernel@lists.infradead.org,
- "Tham, Mun Yew" <mun.yew.tham@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Dinh Nguyen <dinguyen@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, kernel@pengutronix.de,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v5 00/10] arm64: dts: socfpga: agilex5:
- enable network and add new board
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: add
+	stmmac_mac_irq_modify()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,15 +60,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 24 Oct 2025 13:49:52 +0200 Steffen Trumtrar wrote:
-> Add an initial devicetree for a new board (Arrow AXE5-Eagle) and all
-> needed patches to support the network on current mainline.
-> 
-> Currently only QSPI and network are functional as all other hardware
-> currently lacks mainline support.
+On Thu, 23 Oct 2025 10:46:20 +0100 Russell King (Oracle) wrote:
+> Add a function to allow interrupts to be enabled and disabled in a
+> core independent manner.
 
-Please split out the drivers/net and bindings/net patches to a separate
-series. As is this is unmergable to any single tree.
+Sorry for a general question but I'm curious why stick to the callback
+format this driver insists on. Looks like we could get away with
+parameterizing the code with the register offset via the priv structure.
+
+Is it for consistency? Do you like this code structure? Is there more
+logic coming for .irq_modify variants? Or am I missing something else?
+
+Mostly curious. Personally, I'm always annoyed having to dig thru the
+indirections in this driver.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
