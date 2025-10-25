@@ -2,49 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65CFC096FB
-	for <lists+linux-stm32@lfdr.de>; Sat, 25 Oct 2025 18:26:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB88C09E5F
+	for <lists+linux-stm32@lfdr.de>; Sat, 25 Oct 2025 20:33:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CB52C36B2A;
-	Sat, 25 Oct 2025 16:26:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC98BC36B2A;
+	Sat, 25 Oct 2025 18:33:41 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E229C36B17
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBF4CC36B17
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 25 Oct 2025 16:26:54 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5475C601E8;
- Sat, 25 Oct 2025 16:26:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3330C19421;
- Sat, 25 Oct 2025 16:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761409613;
- bh=Pyi/deS0BK1bu5+MfdJKjF/aJj54u1WpI9UwOtwyXzY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VpWurLt4sZ1WGpYJcUKZfXotlmn3+SYqt7y4SbGyIQH/bxg5ZdMXKyDTVqUXWjKnz
- yA3XQq1ESDABBZntDvAJ/C/Ytug7bvLrDamz4GRyY+1bs/3gZ8/mGKgNKeFm50tWdW
- Fpmqxf/+4yuC/CPA6q+O0Nmv0TBvGFDPH1vyMNHPh4E6AIvqWmVzrzHj6FP3kd0kNk
- shOFhnUqUU/0Oo46R6Y7HSAPQvPq1vtJzD2k/qlfIUmZodZ1IN1ZAOQtyY0/N+yT1O
- 6wMdGbuyJGjMAjBYWXmbF+r5pttDGktZB6QXE080MIfY8KIy4GhPtgPYfhBhxOzXcl
- F0ruSfp7ApYyQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Date: Sat, 25 Oct 2025 12:00:24 -0400
-Message-ID: <20251025160905.3857885-393-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251025160905.3857885-1-sashal@kernel.org>
-References: <20251025160905.3857885-1-sashal@kernel.org>
+ Sat, 25 Oct 2025 18:33:40 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-475dc6029b6so6512555e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 25 Oct 2025 11:33:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761417220; x=1762022020;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=njapoqUW468MWxICa8jRinTKfR2SVCoFBRR2d+cCtuk=;
+ b=Ax8dVqbkjbXi3vNstH4Ta0TYNSXRtJFhaIXG8mxZaiBFtyBrKXl16guuntppjkgak9
+ 8tqy2TC3O8RwXrFG6jASkp0vBJNBHof/8utTcw/xc6jOfVlAlDDl7awQ87Hk1kORje7v
+ FhvPrA3h7J/tw2LSX0zwnBVD6gXPFLpgHdWfElXRAw/td6vMV6cCQY4xRS0UzqxJoog2
+ 6n8wwoHmrvBVbSYaESfMV3TxMDE8le9CTKhrP31/t9EUM1rleHJ+VMFtxV6riNIz2k6h
+ jQ8JS0Sd2cN2+8aL5bhsWeB29TEIXddv+ZeSQxNa5HcQWe5ZA3wxdBPMd9iRmAfADmX9
+ U3/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761417220; x=1762022020;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=njapoqUW468MWxICa8jRinTKfR2SVCoFBRR2d+cCtuk=;
+ b=F+tItUK+80JD/Wh9X5GlsKcx9vXr+/XGj49iNmg6ToZF+MpHWJ541TJHmNjcEEmsHV
+ nsYDK1TB8UNBzAxR+t4hZ78oPoh/Zro8gpPpj711qfrEmFXTVAYcSCKqnU7JTg9g71ei
+ aKzVOouVSW8uA0c9ICZ3N4N9QduHzOEG7c6rjgetIqi02Ktzghzi0/b/5smF82RKFYmP
+ aUIgCrj/DJ6BPODllYkvwwxRyyJbAd874mcJFRGasz7UQ8SFW8QvgMR3x4pEiyA133ke
+ SQjkjCiHY3E9qHGBun7E+8b4/fUhGf5BIosIiN9eBSaYzSndwhSjP3Iquu5CNU6pzuvE
+ qWLg==
+X-Gm-Message-State: AOJu0YxKuzq05Af+kzrRi4jMDyTc04Hb57eSJBYbG7pWJLZveRV2GqiG
+ GuchIRl+AGfnawCogSkIrME0dwEanjNELnDrY9ptO/gfS4XNZkTOQ2yV
+X-Gm-Gg: ASbGncsJXO7WoR2k2PCmzAJGpq0vLEy+ngqwDNk4sogrmxvl0LOr37nnn1Oc+Bki5zr
+ H8hQANHNox48m02Z+I3ZIYvtml1PN/TUSOoBY6EvoOVZLxYSWkv3/vYQ4N2k1MoSXKz07TWb3q9
+ pag8iwP76FVoYCehUwFuO1AB2/fiNEkMCF4f/ONPWiVK07F+T14Cjw578IHjnIJuCu3H4jfcIEH
+ upl0cOZpBEWKp8tL74OFlQV0t6JbzC7BDa8A4FpNAcxTswgm1gT/Mav4jo3ZprDF2xiww3AwgD6
+ 2lBG5o8DpsGwTg+xXuo+1ZgD5uj16Dx+8yF1owiFqnN61CpbU665Efjda8iSlCG3iU+vubhpx+c
+ z7EztENxja2cacTPeNowDrtKcjgIlv+bDeGfFkUjyhG4+SkhgEoOxLgvBtYd3fUt6VDhlTJk2Nl
+ DlMQ5LFsceODSiPIjYziCbOQKq5ZcWKTjI2LBMo3THQkziURy73XtnQ5+CFwNc/5sMSjM2Ik9H7
+ c317LmBgcpU8JAxdSq8SKheu/urBY117D+SE5aKsrQ=
+X-Google-Smtp-Source: AGHT+IG+DDe5oIMet8KWoLY/Yop7b4xsXXWiOxNNIX75KW86rgVdoPT8ZCbdmaSertyJd08nHYeHmA==
+X-Received: by 2002:a05:600c:1c8b:b0:475:de80:bb2a with SMTP id
+ 5b1f17b1804b1-475de80bc38mr21178885e9.35.1761417219771; 
+ Sat, 25 Oct 2025 11:33:39 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f39:8b00:d401:6211:9005:e76e?
+ (p200300ea8f398b00d40162119005e76e.dip0.t-ipconnect.de.
+ [2003:ea:8f39:8b00:d401:6211:9005:e76e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429952da12dsm5012085f8f.29.2025.10.25.11.33.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 25 Oct 2025 11:33:39 -0700 (PDT)
+Message-ID: <2d840dff-60d1-4b7c-bda8-04704fc4c81a@gmail.com>
+Date: Sat, 25 Oct 2025 20:33:37 +0200
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.17.5
-Cc: Sasha Levin <sashal@kernel.org>, linux-sound@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.17-6.6] ASoC: stm32: sai: manage
-	context in set_sysclk callback
+User-Agent: Mozilla Thunderbird
+From: Heiner Kallweit <hkallweit1@gmail.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ David Miller <davem@davemloft.net>
+References: <8335ad5a-f5fa-4fb6-b67a-d73c4021291a@gmail.com>
+Content-Language: en-US
+In-Reply-To: <8335ad5a-f5fa-4fb6-b67a-d73c4021291a@gmail.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: mdio: fix smatch
+	warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,65 +95,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogT2xpdmllciBNb3lzYW4gPG9saXZpZXIubW95c2FuQGZvc3Muc3QuY29tPgoKWyBVcHN0
-cmVhbSBjb21taXQgMjdmYTFhOGIyODAzZGZkODhjMzlmMDNiMDk2OWM1NWY2NjdjZGM0MyBdCgpU
-aGUgbWNsayBkaXJlY3Rpb24gbm93IG5lZWRzIHRvIGJlIHNwZWNpZmllZCBpbiBlbmRwb2ludCBu
-b2RlIHdpdGgKInN5c3RlbS1jbG9jay1kaXJlY3Rpb24tb3V0IiBwcm9wZXJ0eS4gSG93ZXZlciBz
-b21lIGNhbGxzIHRvIHRoZQpzZXRfc3lzY2xrIGNhbGxiYWNrLCByZWxhdGVkIHRvIENQVSBEQUkg
-Y2xvY2ssIHJlc3VsdCBpbiB1bmJhbGFuY2VkCmNhbGxzIHRvIGNsb2NrIEFQSS4KVGhlIHNldF9z
-eXNjbGsgY2FsbGJhY2sgaW4gU1RNMzIgU0FJIGRyaXZlciBpcyBpbnRlbmRlZCBvbmx5IGZvciBt
-Y2xrCm1hbmFnZW1lbnQuIFNvIGl0IGlzIHJlbGV2YW50IHRvIGVuc3VyZSB0aGF0IGNhbGxzIHRv
-IHNldF9zeXNjbGsgYXJlCnJlbGF0ZWQgdG8gbWNsayBvbmx5LgpTaW5jZSB0aGUgbWFzdGVyIGNs
-b2NrIGlzIGhhbmRsZWQgb25seSBhdCBydW50aW1lLCBza2lwIHRoZSBjYWxscyB0bwpzZXRfc3lz
-Y2xrIGluIHRoZSBpbml0aWFsaXphdGlvbiBwaGFzZS4KClNpZ25lZC1vZmYtYnk6IE9saXZpZXIg
-TW95c2FuIDxvbGl2aWVyLm1veXNhbkBmb3NzLnN0LmNvbT4KTGluazogaHR0cHM6Ly9wYXRjaC5t
-c2dpZC5saW5rLzIwMjUwOTE2MTIzMTE4Ljg0MTc1LTEtb2xpdmllci5tb3lzYW5AZm9zcy5zdC5j
-b20KU2lnbmVkLW9mZi1ieTogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPgpTaWduZWQt
-b2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQoKTExNIEdlbmVyYXRl
-ZCBleHBsYW5hdGlvbnMsIG1heSBiZSBjb21wbGV0ZWx5IGJvZ3VzOgoKWUVTCi0gR3VhcmRpbmcg
-YHN0bTMyX3NhaV9zZXRfc3lzY2xrKClgIHVudGlsIHRoZSBjYXJkIGlzIGluc3RhbnRpYXRlZAog
-IChgc291bmQvc29jL3N0bS9zdG0zMl9zYWlfc3ViLmM6Njc1LTY4MWApIHByZXZlbnRzIHRoZSBl
-YXJseSBzaW1wbGUtCiAgY2FyZCBgaW5pdGAgY2FsbCAoYHNvdW5kL3NvYy9nZW5lcmljL3NpbXBs
-ZS1jYXJkLXV0aWxzLmM6NTcxYCkgZnJvbQogIHByb2dyYW1taW5nIGNsb2NrcyBiZWZvcmUgcnVu
-dGltZS4KLSBUaGF0IGluaXQtdGltZSBjYWxsIGN1cnJlbnRseSB0cmlnZ2VycyBhIHNlY29uZAog
-IGBjbGtfcmF0ZV9leGNsdXNpdmVfZ2V0KClgIG9uIHRoZSBzaGFyZWQgU0FJIGtlcm5lbCBjbG9j
-awogIChgc291bmQvc29jL3N0bS9zdG0zMl9zYWlfc3ViLmM6NDQyYCkgYW5kIGFub3RoZXIKICBg
-Y2xrX3NldF9yYXRlX2V4Y2x1c2l2ZSgpYCBvbiB0aGUgTUNMSwogIChgc291bmQvc29jL3N0bS9z
-dG0zMl9zYWlfc3ViLmM6NzA5YCkgYmVmb3JlIGFueSBtYXRjaGluZyDigJww4oCvSHrigJ0KICB0
-ZWFyZG93biBoYXBwZW5zOyBhdCBzaHV0ZG93biB3ZSBvbmx5IGRyb3Agb25lIHJlZmVyZW5jZQog
-IChgc291bmQvc29jL3N0bS9zdG0zMl9zYWlfc3ViLmM6NjkyLTcwMmApLCBsZWF2aW5nIHRoZSBj
-bG9ja3MKICBwZXJtYW5lbnRseSBsb2NrZWQgYW5kIGNhdXNpbmcgbGF0ZXIgYC1FQlVTWWAgZmFp
-bHVyZXMuCi0gVGhlIHJlZ3Jlc3Npb24gc2hvd3MgdXAgYXMgc29vbiBhcyBib2FyZHMgdGFnIHRo
-ZSBDUFUgZW5kcG9pbnQgd2l0aAogIGBzeXN0ZW0tY2xvY2stZGlyZWN0aW9uLW91dGAgKHBhcnNl
-ZCBpbiBgc2ltcGxlLWNhcmQtdXRpbHMuYzoyOTBgIGFuZAogIGFscmVhZHkgcHJlc2VudCBpbiBT
-VOKAmXMgc2hpcHBpbmcgRFRzIHN1Y2ggYXMKICBgYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJt
-cDE1eHgtZGt4LmR0c2k6NTIwYCksIGEgY29uZmlndXJhdGlvbgogIGVuY291cmFnZWQgc2luY2Ug
-Y29tbWl0IDU3MjViY2U3MDlkYjsgdGhlIGV4Y2x1c2l2ZSBjbG9jayBtYW5hZ2VtZW50CiAgYWRk
-ZWQgaW4gMmNmZTFmZjIyNTU1IG1hZGUgdGhlIGltYmFsYW5jZSBmYXRhbC4KLSBUaGUgZml4IGlz
-IG1pbmltYWwgYW5kIGNvbnRhaW5lZDogaXQgc2ltcGx5IHNraXBzIHRoZSBpbml0LXBoYXNlCiAg
-aW52b2NhdGlvbiBmb3IgYSBkcml2ZXIgdGhhdCBhbHJlYWR5IGRlcml2ZXMgTUNMSyBmcm9tIHRo
-ZSBzdHJlYW0KICByYXRlLCBzbyB0aGUgcmlzayBvZiByZWdyZXNzaW9ucyBpcyBsb3cgd2hpbGUg
-aXQgcmVzb2x2ZXMgYSByZWFsCiAgcnVudGltZSBidWcgb24gY3VycmVudCBoYXJkd2FyZS4KCiBz
-b3VuZC9zb2Mvc3RtL3N0bTMyX3NhaV9zdWIuYyB8IDggKysrKysrKysKIDEgZmlsZSBjaGFuZ2Vk
-LCA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc3RtL3N0bTMyX3NhaV9z
-dWIuYyBiL3NvdW5kL3NvYy9zdG0vc3RtMzJfc2FpX3N1Yi5jCmluZGV4IDQ2M2EyYjdkMDIzYjku
-LjBhZTFlYWUyYTU5ZTIgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9zdG0vc3RtMzJfc2FpX3N1Yi5j
-CisrKyBiL3NvdW5kL3NvYy9zdG0vc3RtMzJfc2FpX3N1Yi5jCkBAIC02NzIsNiArNjcyLDE0IEBA
-IHN0YXRpYyBpbnQgc3RtMzJfc2FpX3NldF9zeXNjbGsoc3RydWN0IHNuZF9zb2NfZGFpICpjcHVf
-ZGFpLAogCXN0cnVjdCBzdG0zMl9zYWlfc3ViX2RhdGEgKnNhaSA9IHNuZF9zb2NfZGFpX2dldF9k
-cnZkYXRhKGNwdV9kYWkpOwogCWludCByZXQ7CiAKKwkvKgorCSAqIFRoZSBtY2xrIHJhdGUgaXMg
-ZGV0ZXJtaW5lZCBhdCBydW50aW1lIGZyb20gdGhlIGF1ZGlvIHN0cmVhbSByYXRlLgorCSAqIFNr
-aXAgY2FsbHMgdG8gdGhlIHNldF9zeXNjbGsgY2FsbGJhY2sgdGhhdCBhcmUgbm90IHJlbGV2YW50
-IGR1cmluZyB0aGUKKwkgKiBpbml0aWFsaXphdGlvbiBwaGFzZS4KKwkgKi8KKwlpZiAoIXNuZF9z
-b2NfY2FyZF9pc19pbnN0YW50aWF0ZWQoY3B1X2RhaS0+Y29tcG9uZW50LT5jYXJkKSkKKwkJcmV0
-dXJuIDA7CisKIAlpZiAoZGlyID09IFNORF9TT0NfQ0xPQ0tfT1VUICYmIHNhaS0+c2FpX21jbGsp
-IHsKIAkJcmV0ID0gc3RtMzJfc2FpX3N1Yl9yZWdfdXAoc2FpLCBTVE1fU0FJX0NSMV9SRUdYLAog
-CQkJCQkgICBTQUlfWENSMV9OT0RJViwKLS0gCjIuNTEuMAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 10/24/2025 9:26 PM, Heiner Kallweit wrote:
+> max_addr is the max number of addresses, not the highest possible address,
+> therefore check phydev->mdio.addr > max_addr isn't correct.
+> To fix this change the semantics of max_addr, so that it represents
+> the highest possible address. IMO this is also a little bit more intuitive
+> wrt name max_addr.
+> 
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Reported-by: Simon Horman <horms@kernel.org>
+> Fixes: 4a107a0e8361 ("net: stmmac: mdio: use phy_find_first to simplify stmmac_mdio_register")
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> ---
+
+CI complains about the patch title, so I'll change it and send a v2.
+
+--
+pw-bot: cr
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
