@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57878C0A4D6
-	for <lists+linux-stm32@lfdr.de>; Sun, 26 Oct 2025 09:50:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB083C0A4E7
+	for <lists+linux-stm32@lfdr.de>; Sun, 26 Oct 2025 09:53:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62657C57186;
-	Sun, 26 Oct 2025 08:50:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E70BC5A4DB;
+	Sun, 26 Oct 2025 08:53:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01B3FC57170
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5248C57170
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Oct 2025 08:50:43 +0000 (UTC)
+ Sun, 26 Oct 2025 08:53:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 99991431CD;
- Sun, 26 Oct 2025 08:50:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF7FC4CEE7;
- Sun, 26 Oct 2025 08:50:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 722B1415EA;
+ Sun, 26 Oct 2025 08:53:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7C9C4CEE7;
+ Sun, 26 Oct 2025 08:53:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761468642;
- bh=oP9r+izdqj4wtIPWIKwEKuljhS1FCmk4lSnwOX0lRis=;
+ s=k20201202; t=1761468798;
+ bh=ETFWaSzahPsIU/f0IDtZ2cbGfc13FYOQRJh3Ot+xAbI=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kejM9QgWHbt2ooSE+OPtoWwWdzmMWHUSzaS2VuKkTxU+ayEbs7nYinD4Vu8gDCo1s
- Ql/fy/wmBhfjcL6K2C0/r9QzBSVECa9NwsAaQnaOl0fvRm0CxHQ28DBDSHs7qs9x1e
- dae0/LjIErAdajUH55c8SwnpD0K0bUwoOU/7UDz6ADU/RpTdsECjV//1i8A6md2yCK
- rrHH17ql6QdAidwdvcRCG+AYw7ndI2VI7sMIwab5Cr/xfhvnlOnG+gjTEWjW5lvAnL
- FaE+SckBqcNl1N3b+eY8ba2qvRklGv/Vjctd8vWzLfBv5fiugJgFUe00w9yLSeJ483
- /MsjZvvoivJMA==
-Message-ID: <749bdc31-e34d-449b-9ab8-ba542276ee8d@kernel.org>
-Date: Sun, 26 Oct 2025 09:50:36 +0100
+ b=eebruFlfGd6ZRt+naeqmWT15LN4otiyVnoS1OMafAA7mHskCk9n3mdoicK7qGeQx5
+ 013eA5386qeA06t7K9pJXNTKikbEhQ9BxlKG1KE4WKIwG/eYFgtsOKUWxCOTN2BUMG
+ 0aGtVi9fm8qWYYS3VtBthAIhIXg1ZvQgJTiQpS9YQTg+WZgnD56H2Hbj2pjhU34s5o
+ 6UpbNZ6vke378jW8lLB8xwjizSHCy4OthPKCCap3LKz9JioIDpzzDKEcIaVq4GtoXv
+ uQPRm3T8vx7a2Pqg9qPB8DOBVwL40JH8mep38iV+Qj0VtRrCidUqbbdgt5aPLNonGR
+ 7l1pThwn3e2ig==
+Message-ID: <e6a34c11-4ec8-4b96-ad61-642a4be3eef6@kernel.org>
+Date: Sun, 26 Oct 2025 09:53:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
@@ -43,7 +43,7 @@ To: Steffen Trumtrar <s.trumtrar@pengutronix.de>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Matthew Gerlach <matthew.gerlach@altera.com>
 References: <20251024-v6-12-topic-socfpga-agilex5-v5-0-4c4a51159eeb@pengutronix.de>
- <20251024-v6-12-topic-socfpga-agilex5-v5-7-4c4a51159eeb@pengutronix.de>
+ <20251024-v6-12-topic-socfpga-agilex5-v5-5-4c4a51159eeb@pengutronix.de>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,12 +89,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20251024-v6-12-topic-socfpga-agilex5-v5-7-4c4a51159eeb@pengutronix.de>
+In-Reply-To: <20251024-v6-12-topic-socfpga-agilex5-v5-5-4c4a51159eeb@pengutronix.de>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 07/10] dt-bindings: net: altr,
- socfpga-stmmac: allow dma-coherent property
+Subject: Re: [Linux-stm32] [PATCH v5 05/10] dt-bindings: net: altr,
+ socfpga-stmmac: add generic dwxgmac compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,17 +112,26 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 24/10/2025 13:49, Steffen Trumtrar wrote:
-> The DMA operations on the SoCFPGA stmmac can be dma-coherent. Add as
-> optional property.
+> Add the more generic "snps,dwxgmac" compatible to the list of
+> compatibles for the agilex5.
 > 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> The snps,dwmac binding explicitly uses the "snps,dwxgmac-2.10",
 
-There is little point in mixing two subsystems in one patchset.
-Especially without marking this net-next how maintainers are supposed to
-take it?
+Hm? No, binding says only dwxgmac-2.10, DTS only dwxgmac-2.10.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> "snps,dwxgmac" combination as example; the stmmac driver only checks on
 
+Example does not matter.
+
+> dwmac and dwxgmac compatibles to decide what kind of gmac it is working
+
+Huh? I clearly see snps,dwxgmac-2.10 in dwmac-generic.c
+
+> with.
+This change really lacks proper rationale.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
