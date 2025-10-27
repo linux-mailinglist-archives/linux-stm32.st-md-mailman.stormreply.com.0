@@ -2,162 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1BFCC0C857
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Oct 2025 10:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C74CC0D2D6
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Oct 2025 12:39:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0996C6047A;
-	Mon, 27 Oct 2025 09:04:10 +0000 (UTC)
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010001.outbound.protection.outlook.com [52.101.46.1])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46BFCC6047F;
+	Mon, 27 Oct 2025 11:38:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C060DC60471
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09B01C6047A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Oct 2025 09:04:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdxKaC3+WErxQwqLX6r6Ah9h8AazZnBw4yz6Uby2KbRJ9+ewEj9s4FQfXzWCl6QdqEB6h37/QK3OK4XSD56snojVvRRvSZg+TlReOC7rIfn0CeOXLzT+PmDvKwlGHisA1x7th3YFkTtDCf7IaKfAybCBeboGPFO+sUHJj+B+VQLaIFQcEfrql9t2mfnaAVHL8qh9afWt+sAi6n9KV4d2E86ISeOeLYa+O6xoIpFyrB2bae1K3eIvpWGUHpX7Vhugccs7u9BypUaiCVWFjVuOhxcBrKf0Ki87jMHDikQ/tguaXLQ9v+eBrlujdxSEe9/REcKjElMkY+OprZccSUF/zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m8nyJ+3o2BZ/4llvv1lr9o+i/XLkw2hdqn7SLBdJJkU=;
- b=s++wQDnT5gCJPAuj1bBTvoelHP8ImcoPSyXzIrihBZKZ5lcbTU57bxf5SyIWywzGnEG84d8DyCx1YKrQClnuSEiLvEYTP2BVub+y/WNDbF4/HQAZWRf7O0xwGmnPBLhkqQ/KPsErOn7Qa12fxgegVNFs2wlByRmRqaIvnFfyO3RdzujKzL1U4xlmQG57yaUAuMBzddm16lWUEtNBVbIf28KLB7gmW1pw1F4d4FkwS2DG2rzEkrk4sEEAX0ZrpVppHgxu/VfgJuzszwy4QjV5ec0l7hk/fU8Iza7Ey6Q5vAlJn7fi6ZXsRjdioqvwsHhKbQWb/G8UU53LZ0/GsHZWaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m8nyJ+3o2BZ/4llvv1lr9o+i/XLkw2hdqn7SLBdJJkU=;
- b=KPkvJtUUY5mgRKu0R0rXCiI3p+TzdkleMmfsQJT/KlrroZfpF0uQlqUuQqOEFQLH79qjQAsTwM2Kf2wrDaaYneyDgfsaFeie15/mFlJ6v2qsWziK6wUr1rA+/RyUD3g1DyX9/4QrxBBjltZkMbxe3v0PDH3pKOgJu/vmdHhkGcIXiaU8lWM9k2kqGKB1jbcq9wTjDebSGBx5FyBKPywyF88tz2ckPJWcH0s01QVZdZioT7BZu85csF7ASkKWXf8WTuKGJVTS43c4O/8nXO+GMssJzbk6IlF8FK6ItvL/LiRlz8Ez1oCboSElZ6e10iI4PKHrwfIHSQ5/ROcsHBMxpA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com (2603:10b6:5:24c::21)
- by LV8PR03MB7352.namprd03.prod.outlook.com (2603:10b6:408:18b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Mon, 27 Oct
- 2025 09:04:04 +0000
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076]) by DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076%4]) with mapi id 15.20.9253.018; Mon, 27 Oct 2025
- 09:04:04 +0000
-Message-ID: <16d25a4e-e678-407f-8ee3-59986bcbbc28@altera.com>
-Date: Mon, 27 Oct 2025 14:33:54 +0530
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Rohan G Thomas <rohan.g.thomas@intel.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>
-References: <20251017-qbv-fixes-v3-0-d3a42e32646a@altera.com>
- <20251017-qbv-fixes-v3-2-d3a42e32646a@altera.com>
-Content-Language: en-US
-From: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-In-Reply-To: <20251017-qbv-fixes-v3-2-d3a42e32646a@altera.com>
-X-ClientProxiedBy: MA0PR01CA0057.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ac::15) To DM6PR03MB5371.namprd03.prod.outlook.com
- (2603:10b6:5:24c::21)
+ Mon, 27 Oct 2025 11:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1761565136; x=1793101136;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=JUbvz9IlQ6+L8KQRASSmO9wSpjWPjTFfbMmzkjCOkKw=;
+ b=mfUNyFATIEeqipPpwhNT/ZRxuMLOas5mRWCsTHwph7tg/KeQfT1UXZV+
+ tLfBL8D2mrff7Ph9APh1nrnng/h720ePeuQJjDdDA8uZQtdrnHe68Vyy0
+ O7GZkoFvuIwZOmmcJcoeOAO1UTqW5CvjN04l3NzXAG9okOtDdMsY7AaAG
+ F2/m0BrsWfl8BnT/IFllX+jCHaIsBd1QWtXnvtaXa9yEZxydAa5yyMgeJ
+ MGHYgy1z2HLUEscObZcSUAAkq+Lrz5rWdt3xaHm1128XRvBGH5V8QOc9E
+ J6/cLkTz9ytwg23/ZDOnnvK1Cf6DquSYZIUjhKErEWdiB11PWx9roFE/X Q==;
+X-CSE-ConnectionGUID: 6fICmc+/RO2Kad7Inz5vMA==
+X-CSE-MsgGUID: erWDHEE9R9K239LkDRQe2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="86269751"
+X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="86269751"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2025 04:38:54 -0700
+X-CSE-ConnectionGUID: G0A95y7PTseda62niZdwoA==
+X-CSE-MsgGUID: p+9mo0ATQgWn2d6ZEMfL2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,258,1754982000"; d="scan'208";a="215672873"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.245.244.31])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2025 04:38:48 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+ by kekkonen.fi.intel.com (Postfix) with ESMTP id 91DF7121E63;
+ Mon, 27 Oct 2025 13:38:45 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+ (envelope-from <sakari.ailus@linux.intel.com>)
+ id 1vDLYY-00000001ddb-22ra; Mon, 27 Oct 2025 13:38:34 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: netdev@vger.kernel.org
+Date: Mon, 27 Oct 2025 13:38:31 +0200
+Message-ID: <20251027113834.390681-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|LV8PR03MB7352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 015fa3f7-c235-4709-afe0-08de1537c738
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MWRMNnB1bWRyVWJpS3pHQ0U4S1dwWFNWNVpTQWh0SjlBdjJPWXVPdjVlaGYy?=
- =?utf-8?B?dHNrNC9lTjlJWlNIL28yald3OW1VWm01VHczSlJadEV6dktXNHJmakVleWNp?=
- =?utf-8?B?QU1WTlpFV0NQWG5sTWdQUzNhUmZCNXZQVmFEY1dhM25UK1dmNWZSWDF2T3Bt?=
- =?utf-8?B?NFE0cDVUNjVsYjdDREVudHcwQytORUkrYml6L2JoL1pJd2FjSTluRk4rQjN4?=
- =?utf-8?B?dGd1ZnhlamJiVG80eENaK0lNemRnbmVQdU5BQ0Yvdm5tM0h2UnlkaVdWaGRM?=
- =?utf-8?B?aVd2MWYrUTdNNUJadXU1Yk1HZVBackpDTHpBRC9iSE82bURITjNuVDdwZzVK?=
- =?utf-8?B?NzlhRkFKU05USEZ1NzhPMXEvNlU3YzhDV1p4SnVocnNKK2pkUHdJTmxwTEtp?=
- =?utf-8?B?aDYzSk1zeVkzRit2ZHoxaHlmZHNUV1o0empodVg1azVydDAzYVVhSUVlU1U5?=
- =?utf-8?B?RXdmYkJSVU81bDk0anNzRjJFM1FFSFZ4K0lRcFM0V3VZNmdTcVVtdjRpVWFz?=
- =?utf-8?B?dkNnM3NpRW9xQzlwYTJoZ1p6YWlPdE1tcEFoOWI5a2VISlA3dGo4OW1nZmVp?=
- =?utf-8?B?NmhQQVVDR2JOaEFST2JjdHdEWmlFaWhGY1pYdS9JeTd2cTcvK3dWcnIrWFpp?=
- =?utf-8?B?ejhhRU56R0dySEMzSm9oS2hJbTNKQkMxRkVUSzdHelllM1ZlL1V3dmROUEQx?=
- =?utf-8?B?cWZENGRPaXU1SFRxcFZjNTVjRm9KcHU4SVFPcllvVFNsQndJamd2dTZ3cWtE?=
- =?utf-8?B?MGxEMExmSVgzbXNqMEkwbWkyMlU0ZklJRXVaY1V5LzJ4c3Zpbjdobm9qTkRh?=
- =?utf-8?B?YmsxOVI3cSt5Uk9NeWhLY2kybFRZYUFYc2ptUzdqaDVuSHEzZDZnREswUFpO?=
- =?utf-8?B?Kzl4MFVjMmd6VGVIeGIxVGlVSForMmxFcDBYZVhjVm1TekhtZWxuR2o1a1Za?=
- =?utf-8?B?ZmxJTW8veENiZUlaUGRuanNLSkMrWnhzN1M1S0JlTHlhbkh2VkhSM0IxcGtL?=
- =?utf-8?B?aTgrZk5DTTJya3BSdm9FTTZWM1FwTXVFeUx0VStrRS9aelpyY0NlVndOWWVi?=
- =?utf-8?B?Q2Q0VlNuNE1mcXR2c3BOcExvQkN1YWxRYzhXVHRzaDJMNGR2a2pOQ0o4OUJt?=
- =?utf-8?B?YmI1TEUwenUyV0NlcnFpL1dYZ21ncUNMSHl3N2hkbDlyWHppTktwK2tCTEh4?=
- =?utf-8?B?eE14R1JoSnNKT0kzWHhkRlp1ck5ldy9WVWpYNHZMTldXZWlUaHQ0djh3T2FO?=
- =?utf-8?B?N1NUWE9QQ0dHL0N4dGRURG55aDRkeVhxQzZGNFBUM21rSzFFUzY0b1JDc28x?=
- =?utf-8?B?ay8yUFE5MGpJMjJPaU12K0VTVmhjalZxMnZPR2ZTa0o3Uk5LVGR0MGFPRzlH?=
- =?utf-8?B?YW5rWEcvS3pUWlk0Y2Rvd0dGSndLVTZORndkU3NFWWhFN1lZVFQ4azlwQnBR?=
- =?utf-8?B?MllWQ21BbWZiRlhRK1NkTWhKSG5GZ29ncXg2UndkbUxoaDNZdG1vSURvSks1?=
- =?utf-8?B?OW9YQVlZSmRhWTc2dFJzdlV4eTZWZVdOMkk4b1l5ejEwT1gvdnMrZWY2a2hr?=
- =?utf-8?B?Y2JIWXVCTTVhWXhVMkxUVUNNWFZMQnRnMzB1MHduZTdKN3JDMVlCeWJ6ZGwy?=
- =?utf-8?B?MEtmejJiRktVdjlQdGRIeWlmM2R0SjhGMFBVZzJ6aVc5UGFrbGJWaWdUYjNi?=
- =?utf-8?B?UjJBaFRGLzZETDhRdWVpR2M5dFJtMlppSzdnZi9MVGdkN3RBL0xZMW9qR1lU?=
- =?utf-8?B?Z1VYbTlsenAxd2Q0eTBEWlNtdkRJL1ZzWkZJQlBDS0NPNW5FYUI5YUpGY05z?=
- =?utf-8?B?aVNmR0VVVUE4d0loV3dQQWVDT1pWSFRQSnhRNW5FVVNtQXVKbFNTMDNxVFhN?=
- =?utf-8?B?aVhsMldFeVUwREtlQ2V0U0VEM05QeTl6S09CMWVnTzV1K1RGNkV5UklEbFJu?=
- =?utf-8?B?bEgxYVhacjBKQUxoeDBCWFBSZDlzeDJRanpadzBLL3lyWnIrOTh6Zm5GOWVw?=
- =?utf-8?Q?6+LkcSlKXvStvbpQ5++WW2y/sNbi0I=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR03MB5371.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1pVMVhiR0tRb0N1L0llSUJPVTJCZlhIRmduSGhENmxwemEvSmlrRExRYlFr?=
- =?utf-8?B?N3NMV2ZYMngxK1U5TjBTSk9SS1h5RlVzK1oxcEFoNlVjZEtrNjVza25OWnFH?=
- =?utf-8?B?d3VMMlRITEJqRDh1b1JiT2N6eEF5NUdhVDc0U0RhemZDVjNrMUtjdTJlb0xr?=
- =?utf-8?B?SlMrdTVab2VkcWkxSlFXYkplSHB5eHRXVkRyOEJyclU0KzF0RmhGYk5XUXBE?=
- =?utf-8?B?KysvUUxlTGw0TURTOXdNS2tOSGdFZ2hadkNKUTZia0FsZ29uVENNay82RUtk?=
- =?utf-8?B?U3BoTmlLZTN3QWRtYlVZMFhIa2ZCZkQrOUJLU2NCdkxodEJpUFJHNFowV1d4?=
- =?utf-8?B?bHFYT0JtN3RDTlZWaTVvYWVXdjRDdTZtR0tESjYwdUlPbDNxeS9jT2xMK3VY?=
- =?utf-8?B?RmpiSm1FVXFHZnFaR0NOenlHRitzQTg2Wk0xcWVITlNYT3V3WnVoNTNwMlVa?=
- =?utf-8?B?ZFN5SVYzWmZhajZ4MTc5NjJHMGprSDlCZUdTMythMHB5YmU5TGVLVGdHTDYy?=
- =?utf-8?B?emxNdmcwcGd6cUFXaGxNdGxUOEJLV1hxN2xMN0FHQjVJMWVmeVpVQzkwc0RL?=
- =?utf-8?B?UHdMbGtkcElGdG5RQ1lUdkRuQVFRODlqZHBKcWtYRWkrMzRwY2F4dlJaY3JP?=
- =?utf-8?B?SXlMR083NXZiOXF3R3hWRHArMU93SnRMelhiS2tNYzJnNnlleDI4M3A2Sy9a?=
- =?utf-8?B?VE56c0RGd3R5Vmt5bEJXS1VOT2ZyVUFRQ1MxYnpTWHhpOEpxWGJ6YzJLQ1Vz?=
- =?utf-8?B?UmpKWktxd0o3a3JuVHFPNlRYRitDOThmY21ueGNNcnlkMnFWamdUS2YyNzdw?=
- =?utf-8?B?REFwbktJRy9DcTNSMEhIbWxnemp5ZG1FcGE4aE9rWUhieTVjWlVWYmpGMWQ3?=
- =?utf-8?B?OURXMUpDRUJ1N0hRUWR3OWZpRnp1RnhCMmlxL2Z1YkNYQTZwMlVSd09hNHZy?=
- =?utf-8?B?NzIrTkQyTTIyNE9zV1pSQ1dLU0VjTTVDczlLdk5YOVBVZld2d0lCSWsxZzVr?=
- =?utf-8?B?bWRoWjlVdmc5NWF1ZmFwUUluMTBkdzJwSGZwTm5nZitkMFBtbWZZSE44b1hz?=
- =?utf-8?B?REkxSkxNZmdKbHVSeFdQWjBVOE1vTGp1WnU3blhzUDdUbmkzY3R1TzNPWDR3?=
- =?utf-8?B?ZDNENGtrK0I0SldRdzVYZmpsSk1TSElkTjhCVjhraUpmcUhhV3hiL1laUE5z?=
- =?utf-8?B?UVYzVmM2ZUh6ZUh6bG80a0tVbHpoYmRkNHM5VHdCcFlGcWMxU3ZPRC9uTXVK?=
- =?utf-8?B?NHRqUkJYWFN1ZWpUZm5rMEhXZndDejlxclNtbGdiblQ0VVR0eWRQc2xUa0RE?=
- =?utf-8?B?ZGNYcFBCT1BTUERmcXl5dW84SFlTVVdqVUl3aXNqL0tGOWpmVHB2Skl1ZWdx?=
- =?utf-8?B?aUtDbDliUEJGWG80dDlaeFA5WFVyUVg3U1BrMW5RNHRTYzlyeFkzUEE2K3NX?=
- =?utf-8?B?TTRYZlU2Nmx6VlVad1FQWkNRcmN6NDY2QWJTYzFQZXVpUzJCRjJYd01KSk1a?=
- =?utf-8?B?K0x0ZnZKMy84SjJLVk1rZXVNQXY4Um80eGxWVzBNRXNDQlYvSkNlMWFNYUdL?=
- =?utf-8?B?OEx4aTF2VFo1eDZDMnIrUlhxK0I1eGQxYStvQkhlNUNpU2twTUptUGp0RjJD?=
- =?utf-8?B?M01ub3FobnhMeWV3Ni9FSS9IOHdpVXkwT0xLajRWYURJWlFNYmJtMmc4RzAx?=
- =?utf-8?B?dU0wMnFxQ2YrTVJGbXVsbVF3WVBvNHdlazZtenhYNjBhbVVnVGd2eE4xVnJx?=
- =?utf-8?B?OXY2TktQY1cvTjJuZFhQaEVoQW9kZzFRU25mYkdSZ3ZsOCsrd3hncjB0SFM5?=
- =?utf-8?B?a2FHcVppaUtBbDZtWHBRUWRkUUFwc3JvNnBLdklpYndBdFdYMytNdXlObTZM?=
- =?utf-8?B?dmhnK0FjUmJJTVREa2lYTExMYS9QeGpObitkbHFwamJqV3p2MWlsMDRXTlhp?=
- =?utf-8?B?RWF6cCtPVFBlcTZ5Ymt0SzlJQWRBN2NDUHYrNVJ0Rk5qdE5HcHh1YTZOOGtp?=
- =?utf-8?B?MjcvS0M4cUVYQytycDhQWEp5U2NvTnRyVEN4Zjd4K3h5bmlqMFlwQzViaXhS?=
- =?utf-8?B?MW55cGkzYVY4R1lxQW8veDRick1JZE55dW9pYUExaHpOOGtHSXN1SDFZT2dw?=
- =?utf-8?B?b09CV3lXSnVDcEV5S2phWkFCa0Y1cXVVWEY3aCtiSVZBSU1EN3VLK1NweDJm?=
- =?utf-8?B?Z1E9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 015fa3f7-c235-4709-afe0-08de1537c738
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5371.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2025 09:04:04.7869 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UpMTqMpJQj4gLkfqh+jXube+RsPbNhqMgzuWh4hzytr0UtvKVfHh7hyElTk4+Yl0uOk76LaH1vcbKR2f39tTteGb/6QO+LrvLI49JKpApyc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR03MB7352
-Cc: netdev@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net v3 2/3] net: stmmac: Consider Tx VLAN
- offload tag length for maxSDU
+Cc: imx@lists.linux.dev, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
+ Andreas Kemnade <andreas@kemnade.info>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
+ Ingo Molnar <mingo@kernel.org>, Michael Nemanov <michael.nemanov@ti.com>,
+ Roopni Devanathan <quic_rdevanat@quicinc.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Shenwei Wang <shenwei.wang@nxp.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Siddharth Vadapalli <s-vadapalli@ti.com>,
+ Paolo Abeni <pabeni@redhat.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Stephan Gerhold <stephan@gerhold.net>, Liu Haijun <haijun.liu@mediatek.com>,
+ Kalle Valo <kvalo@kernel.org>,
+ =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Paul Barker <paul@pbarker.dev>, Roger Quadros <rogerq@kernel.org>,
+ Wei Fang <wei.fang@nxp.com>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+ Alex Elder <elder@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH 1/4] net: ethernet: Remove redundant
+	pm_runtime_mark_last_busy() calls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,84 +95,235 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi All,
+pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
+pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
+to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
+pm_runtime_mark_last_busy().
 
-I've noticed one more issue with this commit. Need to drop the packet
-before inserting the context descriptor with VLAN. So I think I have to
-keep the max_sdu check in the original place itself, but add VLAN length 
-if priv->dma_cap.vlins && skb_vlan_tag_present(skb) are true. Will 
-change it accordingly in the next version.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c  | 5 -----
+ drivers/net/ethernet/freescale/fec_main.c | 8 --------
+ drivers/net/ethernet/renesas/ravb_main.c  | 4 ----
+ drivers/net/ethernet/ti/davinci_mdio.c    | 7 -------
+ 4 files changed, 24 deletions(-)
 
-Apologies for the oversight in the initial patch.
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 39673f5c3337..847c4ab9df23 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -327,7 +327,6 @@ static int macb_mdio_read_c22(struct mii_bus *bus, int mii_id, int regnum)
+ 	status = MACB_BFEXT(DATA, macb_readl(bp, MAN));
+ 
+ mdio_read_exit:
+-	pm_runtime_mark_last_busy(&bp->pdev->dev);
+ 	pm_runtime_put_autosuspend(&bp->pdev->dev);
+ mdio_pm_exit:
+ 	return status;
+@@ -373,7 +372,6 @@ static int macb_mdio_read_c45(struct mii_bus *bus, int mii_id, int devad,
+ 	status = MACB_BFEXT(DATA, macb_readl(bp, MAN));
+ 
+ mdio_read_exit:
+-	pm_runtime_mark_last_busy(&bp->pdev->dev);
+ 	pm_runtime_put_autosuspend(&bp->pdev->dev);
+ mdio_pm_exit:
+ 	return status;
+@@ -405,7 +403,6 @@ static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
+ 		goto mdio_write_exit;
+ 
+ mdio_write_exit:
+-	pm_runtime_mark_last_busy(&bp->pdev->dev);
+ 	pm_runtime_put_autosuspend(&bp->pdev->dev);
+ mdio_pm_exit:
+ 	return status;
+@@ -451,7 +448,6 @@ static int macb_mdio_write_c45(struct mii_bus *bus, int mii_id,
+ 		goto mdio_write_exit;
+ 
+ mdio_write_exit:
+-	pm_runtime_mark_last_busy(&bp->pdev->dev);
+ 	pm_runtime_put_autosuspend(&bp->pdev->dev);
+ mdio_pm_exit:
+ 	return status;
+@@ -5564,7 +5560,6 @@ static int macb_probe(struct platform_device *pdev)
+ 		    macb_is_gem(bp) ? "GEM" : "MACB", macb_readl(bp, MID),
+ 		    dev->base_addr, dev->irq, dev->dev_addr);
+ 
+-	pm_runtime_mark_last_busy(&bp->pdev->dev);
+ 	pm_runtime_put_autosuspend(&bp->pdev->dev);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 1edcfaee6819..4875101c4f3f 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -2231,7 +2231,6 @@ static int fec_enet_mdio_read_c22(struct mii_bus *bus, int mii_id, int regnum)
+ 	ret = FEC_MMFR_DATA(readl(fep->hwp + FEC_MII_DATA));
+ 
+ out:
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+@@ -2280,7 +2279,6 @@ static int fec_enet_mdio_read_c45(struct mii_bus *bus, int mii_id,
+ 	ret = FEC_MMFR_DATA(readl(fep->hwp + FEC_MII_DATA));
+ 
+ out:
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+@@ -2312,7 +2310,6 @@ static int fec_enet_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
+ 	if (ret)
+ 		netdev_err(fep->netdev, "MDIO write timeout\n");
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+@@ -2356,7 +2353,6 @@ static int fec_enet_mdio_write_c45(struct mii_bus *bus, int mii_id,
+ 		netdev_err(fep->netdev, "MDIO write timeout\n");
+ 
+ out:
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+@@ -2839,7 +2835,6 @@ static void fec_enet_get_regs(struct net_device *ndev,
+ 		buf[off] = readl(&theregs[off]);
+ 	}
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ }
+ 
+@@ -3616,7 +3611,6 @@ fec_enet_open(struct net_device *ndev)
+ err_enet_alloc:
+ 	fec_enet_clk_enable(ndev, false);
+ clk_enable:
+-	pm_runtime_mark_last_busy(&fep->pdev->dev);
+ 	pm_runtime_put_autosuspend(&fep->pdev->dev);
+ 	pinctrl_pm_select_sleep_state(&fep->pdev->dev);
+ 	return ret;
+@@ -3647,7 +3641,6 @@ fec_enet_close(struct net_device *ndev)
+ 		cpu_latency_qos_remove_request(&fep->pm_qos_req);
+ 
+ 	pinctrl_pm_select_sleep_state(&fep->pdev->dev);
+-	pm_runtime_mark_last_busy(&fep->pdev->dev);
+ 	pm_runtime_put_autosuspend(&fep->pdev->dev);
+ 
+ 	fec_enet_free_buffers(ndev);
+@@ -4616,7 +4609,6 @@ fec_probe(struct platform_device *pdev)
+ 
+ 	INIT_WORK(&fep->tx_timeout_work, fec_enet_timeout_work);
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index c3fc15f9ec85..21a45583e7e1 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -1975,7 +1975,6 @@ static int ravb_open(struct net_device *ndev)
+ out_set_reset:
+ 	ravb_set_opmode(ndev, CCC_OPC_RESET);
+ out_rpm_put:
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ out_napi_off:
+ 	if (info->nc_queues)
+@@ -2404,7 +2403,6 @@ static int ravb_close(struct net_device *ndev)
+ 	if (error)
+ 		return error;
+ 
+-	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+@@ -3116,7 +3114,6 @@ static int ravb_probe(struct platform_device *pdev)
+ 	netdev_info(ndev, "Base address at %#x, %pM, IRQ %d.\n",
+ 		    (u32)ndev->base_addr, ndev->dev_addr, ndev->irq);
+ 
+-	pm_runtime_mark_last_busy(&pdev->dev);
+ 	pm_runtime_put_autosuspend(&pdev->dev);
+ 
+ 	return 0;
+@@ -3301,7 +3298,6 @@ static int ravb_resume(struct device *dev)
+ 
+ out_rpm_put:
+ 	if (!priv->wol_enabled) {
+-		pm_runtime_mark_last_busy(dev);
+ 		pm_runtime_put_autosuspend(dev);
+ 	}
+ 
+diff --git a/drivers/net/ethernet/ti/davinci_mdio.c b/drivers/net/ethernet/ti/davinci_mdio.c
+index 68507126be8e..9f049ebbf107 100644
+--- a/drivers/net/ethernet/ti/davinci_mdio.c
++++ b/drivers/net/ethernet/ti/davinci_mdio.c
+@@ -234,7 +234,6 @@ static int davinci_mdiobb_read_c22(struct mii_bus *bus, int phy, int reg)
+ 
+ 	ret = mdiobb_read_c22(bus, phy, reg);
+ 
+-	pm_runtime_mark_last_busy(bus->parent);
+ 	pm_runtime_put_autosuspend(bus->parent);
+ 
+ 	return ret;
+@@ -251,7 +250,6 @@ static int davinci_mdiobb_write_c22(struct mii_bus *bus, int phy, int reg,
+ 
+ 	ret = mdiobb_write_c22(bus, phy, reg, val);
+ 
+-	pm_runtime_mark_last_busy(bus->parent);
+ 	pm_runtime_put_autosuspend(bus->parent);
+ 
+ 	return ret;
+@@ -268,7 +266,6 @@ static int davinci_mdiobb_read_c45(struct mii_bus *bus, int phy, int devad,
+ 
+ 	ret = mdiobb_read_c45(bus, phy, devad, reg);
+ 
+-	pm_runtime_mark_last_busy(bus->parent);
+ 	pm_runtime_put_autosuspend(bus->parent);
+ 
+ 	return ret;
+@@ -285,7 +282,6 @@ static int davinci_mdiobb_write_c45(struct mii_bus *bus, int phy, int devad,
+ 
+ 	ret = mdiobb_write_c45(bus, phy, devad, reg, val);
+ 
+-	pm_runtime_mark_last_busy(bus->parent);
+ 	pm_runtime_put_autosuspend(bus->parent);
+ 
+ 	return ret;
+@@ -332,7 +328,6 @@ static int davinci_mdio_common_reset(struct davinci_mdio_data *data)
+ 	data->bus->phy_mask = phy_mask;
+ 
+ done:
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return 0;
+@@ -441,7 +436,6 @@ static int davinci_mdio_read(struct mii_bus *bus, int phy_id, int phy_reg)
+ 		break;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 	return ret;
+ }
+@@ -478,7 +472,6 @@ static int davinci_mdio_write(struct mii_bus *bus, int phy_id,
+ 		break;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(data->dev);
+ 	pm_runtime_put_autosuspend(data->dev);
+ 
+ 	return ret;
+-- 
+2.47.3
 
-On 10/17/2025 11:41 AM, Rohan G Thomas via B4 Relay wrote:
-> From: Rohan G Thomas <rohan.g.thomas@altera.com>
-> 
-> On hardware with Tx VLAN offload enabled, add the VLAN tag length to
-> the skb length before checking the Qbv maxSDU if Tx VLAN offload is
-> requested for the packet. Add 4 bytes for 802.1Q tag.
-> 
-> Fixes: c5c3e1bfc9e0 ("net: stmmac: Offload queueMaxSDU from tc-taprio")
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-> Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
-> ---
->   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 18 +++++++++++-------
->   1 file changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index dedaaef3208bfadc105961029f79d0d26c3289d8..23bf4a3d324b7f8e8c3067ed4d47b436a89c97d3 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4500,6 +4500,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->   	bool has_vlan, set_ic;
->   	int entry, first_tx;
->   	dma_addr_t des;
-> +	u32 sdu_len;
->   
->   	tx_q = &priv->dma_conf.tx_queue[queue];
->   	txq_stats = &priv->xstats.txq_stats[queue];
-> @@ -4516,13 +4517,6 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->   			return stmmac_tso_xmit(skb, dev);
->   	}
->   
-> -	if (priv->est && priv->est->enable &&
-> -	    priv->est->max_sdu[queue] &&
-> -	    skb->len > priv->est->max_sdu[queue]){
-> -		priv->xstats.max_sdu_txq_drop[queue]++;
-> -		goto max_sdu_err;
-> -	}
-> -
->   	if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
->   		if (!netif_tx_queue_stopped(netdev_get_tx_queue(dev, queue))) {
->   			netif_tx_stop_queue(netdev_get_tx_queue(priv->dev,
-> @@ -4535,8 +4529,18 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->   		return NETDEV_TX_BUSY;
->   	}
->   
-> +	sdu_len = skb->len;
->   	/* Check if VLAN can be inserted by HW */
->   	has_vlan = stmmac_vlan_insert(priv, skb, tx_q);
-> +	if (has_vlan)
-> +		sdu_len += VLAN_HLEN;
-> +
-> +	if (priv->est && priv->est->enable &&
-> +	    priv->est->max_sdu[queue] &&
-> +	    skb->len > priv->est->max_sdu[queue]){
-> +		priv->xstats.max_sdu_txq_drop[queue]++;
-> +		goto max_sdu_err;
-> +	}
->   
->   	entry = tx_q->cur_tx;
->   	first_entry = entry;
-> 
-
-Best Regards,
-Rohan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
