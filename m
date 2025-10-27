@@ -2,142 +2,163 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0512FC0D7C5
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Oct 2025 13:22:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF9FC0EE78
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Oct 2025 16:20:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D384C6047E;
-	Mon, 27 Oct 2025 12:22:50 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 323F4C6047D;
+	Mon, 27 Oct 2025 15:20:16 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69F2DC6047A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FF17C60478
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Oct 2025 12:22:48 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 59R84dq52232075
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 27 Oct 2025 12:22:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=JncXzot9W1gow8/tUDBTV3mA
- gpfqF8x82foGvNCR8u8=; b=hQQFjcNu2DH5Lw59o1W3SMNAFQY0QXjO/ktVuC40
- hzC7YzQhGKGkCh1lCcdb/C/niKl0YCCv4pxGe/CTro0PzN3sR8SCaf+bRb1G1SzN
- q+VuVqXq66xW1wvCMEun5HJ81BTKuCA3TxV612EXGGbQdvrskchdpi2h51F/OUc0
- NSqKEbYWk4av6IrCCZHgQNu/VoFWqFXK3rMMy9vmJNTSf4zHBpVxvjY5YwkyfErW
- 3Ps46xiotXAIzJnryRT7QeUNOyGxvZKYB+by7tQ7mfvn5y+2l69ZVBj3vtenKmSR
- dxdsKS6jQdPufQELxCcW3VKJ+HXMXz8y5LsPIIwe11cxCQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a24wn8qej-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Oct 2025 12:22:46 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4e8a89c9750so141767551cf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Oct 2025 05:22:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761567766; x=1762172566;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JncXzot9W1gow8/tUDBTV3mAgpfqF8x82foGvNCR8u8=;
- b=rS+6/mPcFtrPr9vQ+LSIzWgqPOnqrFdwyLjwUhVJiYZEHYBFRydut+6u+ebFMp7XHQ
- ZrjBq7inmIj5um6WXpVgB5/9DGzeBbsoe7r0C3y8RgHhL/rYbdb5UGuS4ziiPoVJ0sss
- 1AC8Y/rt+FIf47/SxoYICNniqA0ymUIvwOnetB7yn2Frh/vwQ/4hKkgE82dxcDq7bmhO
- jAQtInXxuSCAzOpXY8BNouNfDQ4sN5foPBgNewWZVU08qX7KsyxWs/Oy6hsQDVS5KoV6
- gVtcn0gfmJr9z7fuSB1KZ32DjchYJhsrUGP8pYiLu90Ap4dzezsQPazdAZgBHXR9fMmU
- fA/A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWlZD3hnGTOBGV7zYVKmwcgUkqCUHx1uCqLEr035lFuOWByxuGE8i+N4EU9Gm2Af2yXQKK1rpFWkf4itg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyVuVPf4Zs2oqzEhJTfrxMcpKA84xk2Ohw2bMMn876kS0icGQ4w
- y+DlvIorlXvz5eIIIXq+BMuBfMn6E+UZ3gE41fXem+wgGP7zhr5HeIw802QjQd3cGpoftaaHw4t
- oRaRdGmxOBBy79oqFqhzI6j9oS5z/iE8VlniUC5SdhkHK0XEGYbm28KT0J1i0M8rTsB5UGWadkS
- 1n4epA0hc=
-X-Gm-Gg: ASbGncszPX9qrRhNqXXOAByZLrmG3IcE49FmnhdHJStC6m02KUBPFSI9lumD2eQB6Fd
- t9PPx9WmJTluNlfUsa1xpVTli/rpIh3NszxDiR6498wpzACPox8YSgn/Zcz3pEvRd5sxgMQ1OOU
- 0H0UFJGj6bVRUZS4+UdofCezdKTV65h60DojkZZ4Wd7VGKsfNNteNxZRKTYKro4dBHfEnSDaVi9
- EOUL9AwMJHvay4RBxonsVr4SCPKHCyrz5wXjbRI1jvqnhla551HS8rwvTJMksGaMYNDjrm2MUGC
- Q/T2neRHZqiDFXng9n9/hZQCQCOsrMaGnn748YJN6y0vheddJxKzasAUT7BciMbIEPUm9gti0Kz
- 40Y3FY0FG6RkPNzFWyynPHzaoJlKVOjyYxLVoku9Lp6kPIYkTk+DKUCzcFPf3CuCnJ2T2D/lAav
- Vx8nEkVKnsrU7W
-X-Received: by 2002:a05:622a:353:b0:4e8:9f87:1f42 with SMTP id
- d75a77b69052e-4eb94922adcmr152956031cf.69.1761567766312; 
- Mon, 27 Oct 2025 05:22:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IH79d7Do90KoVZ1tYBoBY55fSIjzc3SaetN68K8JqBrkVyDzQwzXI4DnjU4YyJIchWS9APnNA==
-X-Received: by 2002:a05:622a:353:b0:4e8:9f87:1f42 with SMTP id
- d75a77b69052e-4eb94922adcmr152954761cf.69.1761567765265; 
- Mon, 27 Oct 2025 05:22:45 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a0c3-3a00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a0c3:3a00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-378ee0e0246sm19655221fa.49.2025.10.27.05.22.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Oct 2025 05:22:44 -0700 (PDT)
-Date: Mon, 27 Oct 2025 14:22:42 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <g4ryfonkdpnsgqo4brx2dymo7o35jkndc5kkhdybhyvwo5rust@jwsivdbievvi>
-References: <20251027115022.390997-1-sakari.ailus@linux.intel.com>
- <20251027115022.390997-2-sakari.ailus@linux.intel.com>
+ Mon, 27 Oct 2025 15:20:15 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 59RExU0n2120316; Mon, 27 Oct 2025 16:20:04 +0100
+Received: from du2pr03cu002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011061.outbound.protection.outlook.com [52.101.65.61])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4a29hmgf94-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 27 Oct 2025 16:20:04 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=izhqHS76YuSFGqI6D472Rb29KNg7YCnU1SZnmvssi8zcvzfdOzGX0SnOFj7T9NCoAn4U6mtk//y/PCNTAammvf1b3acn24BTtveEMAQbeVEww3pkd6jmd+DDjZQIefWpF3QXBfz90zgRLY2cMlFHeOeDSYNWjg1hL8KpRJYvs+Fe/+8ycUbIZjyQjL+uIzMshUUha0oWdjFOrpZk4EGGH4ocyMUjW22Ul52CW7AvdK02vY+4szDnAVtf/IckZiu3a1d70hYxjzWjnq5qkD3+Dspn9bLyxP8upzkUdoIFF9XX+oVJOqpnnQrS5NBMQux7u+/kSZimhEfJz0k4AgDiIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vWYB+OTeZ/fnzv1CZJI+Z/shUjJXFTdam06/NTUCKag=;
+ b=Bp/+PUoQfUAAns4caiIMG2n2tDc2a/pDxirzRshdzFwM+7YUwsiVhJhqvYjTPGeK0M448lPsAM87ef2p7GB5kxMhgG6ZwIXz3suG/JzOqtbySTEoqHHjaKg2nhdsDIUsMXDJ0FiGUV3LR7/RV6KUjv8Eel0dJdT5K/oD7HpnUNureF/I1iIdW8HYUnU66DTd0cR2TJMwTOj3TUS5NKBUY/YU7jBH0f/GmpUYBEdgV6XzXwrb2LplDDoARKXwwd1UgrBx/cJehkyz69PsZ22RRIrN1ImpNafe7FhcFwREp+7DdmXsGo4n8EdrjO7y/1J6poIIQMdp5aCPNVEYpUni3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.43) smtp.rcpttodomain=web.de smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vWYB+OTeZ/fnzv1CZJI+Z/shUjJXFTdam06/NTUCKag=;
+ b=eG5sAfXUBk6nFwc3v7fpcZ4dwsmIXor69SLdBDg5Gow0lqxUfEAZRi5z7Ir0ovlahx0nNNNFFEoAuVBcRelXUsxkImpaMrKKENuV4hRMpW9O+bZUUv0WTUq8QBe04hnE2aYDiwDZVx0iiE07dPdC4hUBSenEbtIvOpU5TQW+O3FUbWbBqftGnyl6WDd3iy4++VzNO7O669SgpGc+fBMA5/FexbqgfM2OnWYMP1EfLfC0wWDS0i1MKb3yI8cVVFGZhyC58dFSo2mUc3CP9W7t25u2h94E0ZOw8yeOXNSuNFzXl6nWdgEXlZHIqT0uGeasbHFkZBF3MSSIBEQ8yk64gg==
+Received: from AS4PR10CA0022.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5d8::6)
+ by AS2PR10MB7369.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:607::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.18; Mon, 27 Oct
+ 2025 15:20:02 +0000
+Received: from AM2PEPF0001C717.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5d8:cafe::ed) by AS4PR10CA0022.outlook.office365.com
+ (2603:10a6:20b:5d8::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9253.18 via Frontend Transport; Mon,
+ 27 Oct 2025 15:19:56 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.43)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.43 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.43; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.43) by
+ AM2PEPF0001C717.mail.protection.outlook.com (10.167.16.187) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9275.10 via Frontend Transport; Mon, 27 Oct 2025 15:20:01 +0000
+Received: from SHFDAG1NODE1.st.com (10.75.129.69) by smtpO365.st.com
+ (10.250.44.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Mon, 27 Oct
+ 2025 16:17:46 +0100
+Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Mon, 27 Oct
+ 2025 16:20:00 +0100
+Date: Mon, 27 Oct 2025 16:19:51 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Markus Elfring <Markus.Elfring@web.de>
+Message-ID: <20251027151951.GA1160161@gnbcxd0016.gnb.st.com>
+References: <b462b48a-eaf3-4324-86cf-ca45c1a74a69@web.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251027115022.390997-2-sakari.ailus@linux.intel.com>
-X-Authority-Analysis: v=2.4 cv=XIY9iAhE c=1 sm=1 tr=0 ts=68ff6417 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=x6icFKpwvdMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8
- a=QXDDecBx9f-8Df5VMo8A:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: SCz0s1aKu6JZFNxX8PllbFoxd4iu8OVn
-X-Proofpoint-ORIG-GUID: SCz0s1aKu6JZFNxX8PllbFoxd4iu8OVn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI3MDExNSBTYWx0ZWRfX4F0SdzpB849P
- /qJ8snf9b9xoBZXAUCfJv/giCn7GsTz1WN7K+LnSEMvOCxlvzHEzSRRPHSTbq/pq1yyPgmrQgJi
- Ma6TCTK2NpYL0zR7b4qseT+hVudXLSLI3H1umpz2xK6KwAIxUM1kCtD/fmU3VV4aFHvbecntklJ
- 8q8r7/aoO7EdVNAYWaLI0jkV4btGJqN+dWTpKn972Agh3X7doFyPpbq/ABb3mkLNPm+J1maKtfZ
- Cfq6Bdl/vXphrQMNUR9UnEHPsBMdgmT67U2XuL7Ept3dNDGxbBgIIP3uNMMlfuJe7UTjlcdSFVg
- 2q9YmkEXu2vVHyeV54iSTnB9rONzL7k20SOa/nTSYcWodxyXbRiHxjzNgkTH6q/WGrC6wvdzu/P
- ouPt7RCgp3XLcDHYScWDJ0GkpWtSbA==
+In-Reply-To: <b462b48a-eaf3-4324-86cf-ca45c1a74a69@web.de>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.130.77.119]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM2PEPF0001C717:EE_|AS2PR10MB7369:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6d5e91a-b043-484a-d035-08de156c4caa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eXAzRorJcTrMI8ZQEjXjgUFUQz2vNv/Mhyg0yn9dhzqYmTiclb55Ygn3PL7q?=
+ =?us-ascii?Q?H30U0PJ/x7gnUNfbEvIP9pabjQzbQcqi9FHpOoQTIyVwQStJprFnmgmPXfuv?=
+ =?us-ascii?Q?76NnVGzyi4+N1Ea7xJEIGWxuLONT7thq9e58qQWowpnU6J/O+hkQ0BIxd7V7?=
+ =?us-ascii?Q?IThrUtVi6cc57b0vofc9+/RemW0rmN6M4B0glCqbtyXM2R/wjmrAsWRJ5Eah?=
+ =?us-ascii?Q?DfrX0bgIPknUEAaB7AX9wW5jC8onNrVEJgxd2913aL7U5MJhhjSy8FO3iB1P?=
+ =?us-ascii?Q?bGoTWBUCPbCItRyj46dONmF3M6fKp+FBvlUfoARqXbB+DBE94V11vpQqRXXA?=
+ =?us-ascii?Q?b3tRTxfFV9awxd7lKrpdZJ5ebjYhvotZiDfz47YyKkviFqYwwce38aUqvd1y?=
+ =?us-ascii?Q?bF6Hu9DxHrFw0t98JJ/06EAJZInleU5ykORhqQ/gKc1wNxj3pyXrxJ9lYjG5?=
+ =?us-ascii?Q?PIrwaU3BpoK2/4quKX4pSWSKqORQGhtEg1WhYMyLmSpyoh9SfZQeC92iQiiD?=
+ =?us-ascii?Q?mnidz9YKg/pvEvcVDjGEcMswmNfFa7h687inDc6teq7Btn44TUU0dBs8xtfn?=
+ =?us-ascii?Q?rVzZJpQLTPweaXIpPBVxl8Tq43wLUMPRGkWIGE+uOte0nsvCCYB+krQTUYol?=
+ =?us-ascii?Q?XEOjM95eT+CClWOuJldAQuQLDL+yw+jf8K0vfN7nYo1xvlJI/MUQc1UUJ79S?=
+ =?us-ascii?Q?TSiUTpz7lW9Rm4VsRE6TXFQSwGDFC7p5PH3IlBS8AKF2nr4xQmt9mEhNlP+T?=
+ =?us-ascii?Q?txbDBLZrePkz1ilizmYkU/+7gkbrQLenubf6Pwb+AVoWjVPJvQJyyW+lNgqz?=
+ =?us-ascii?Q?FQSblmJvfOgf/rUvZaCRzmgdHEQthfdDZfN8WECy2vUIKc8ekfRB11wy4ClT?=
+ =?us-ascii?Q?cQApYamx1NcWnZCWXtm2PQpVz/LL8rVVYPOhHjsq5YQNuE7uTRJLJxBPBYAW?=
+ =?us-ascii?Q?kMe/WICuz2MbOBKXItbDi+pB3kKiRitN/zfnVCu5VaU0hHNNI04twJroX5MG?=
+ =?us-ascii?Q?NwPQYlIo6Jvb9Atp1a3PVnK+c132/6nW2ifHbqr4IVonYiYoUMonL5+K2dK6?=
+ =?us-ascii?Q?L/QEt0XoP5kw8+bxyN6zU+mlIdbgSP47BKYfDaY/KbhzrWI2ogymEGJIhlxL?=
+ =?us-ascii?Q?xl8IYharpEClu0dxfNoOwsKzZkcvP8n/z/hzKaV8eHesKVweFPJck6OIPjxK?=
+ =?us-ascii?Q?j8scXwygup8s1w/T454TbUcP91paacQcKkrJhJREiG9qTWrhtrKqLV89GRdK?=
+ =?us-ascii?Q?PpUyI1mdJtTsc+hN7Aammw2JV4/9hxwrnLoFTWdjtdXPxuDJO5KNVpy4tJVN?=
+ =?us-ascii?Q?D4biUzd8hHezDncz+rS2OYJQAyzvrf68x1YH5fL7NcuRzrWFqroWBl/rRZcn?=
+ =?us-ascii?Q?zXJt2kVhVu1zeVKKAbpt7IMVxmBux5NKWkNo2YP4rwITlp1NY2jEwfbK2Shs?=
+ =?us-ascii?Q?3JkF2GCiuQhcJCg5XJ14/X/fWrBZB//+B15Nc/mtO9Pk7mjkIpWY8RsjHZ7R?=
+ =?us-ascii?Q?3aATTJbncFrFh8XKGkkxErJsY8+aN0oW88uSHd5njEOA893YXW6LDczE4SZl?=
+ =?us-ascii?Q?BOh0m4GNK+JuB36pjBA=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.43; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2025 15:20:01.8977 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6d5e91a-b043-484a-d035-08de156c4caa
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.43];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM2PEPF0001C717.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7369
+X-Proofpoint-GUID: kCgebp749YWGaDU1ABgOzrvs7bgti4_R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI3MDE0MiBTYWx0ZWRfX3ApBWJAEbbil
+ W/ZS02sEtx4evdnuUT3ryw9nHc6RylKW5PkXSQfMUDr2p23r9ALVSadbII4MN7AS/u954yVPecZ
+ nuGaTDKcvtUuMCBoQt/+247B5KYT9oxqlaZBcX4Um9AOxcxz7eHJLkl+hmkvujmBc0FUdytk7k+
+ hgpckrBsETtwEYd+sAFfulm+Mdpd11f4EQuT4OTzdrmnEGgvt1E7rvc470roF9UsmRFCmsegNcV
+ iCHOyoGmPdwiT4x95TWi6OSx78MsZxZesoJ06q4jDHEXR4T04/NBafcpvLenyHSlayYSdVpkmmI
+ c5icLuwevZzRxZz0GUEsXFen0QYkDiCw4ZCba+Pk0n9iYVSKCyf9nS7vTuXC6zuJ729mAUpeuaA
+ 74WnqLnETRpu8JdUldWD3K3xWmU4hg==
+X-Authority-Analysis: v=2.4 cv=CLInnBrD c=1 sm=1 tr=0 ts=68ff8da4 cx=c_pps
+ a=EUaLOA8Z8AdjKRxvbO/E2w==:117 a=peP7VJn1Wk7OJvVWh4ABVQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=n5dE7JB0mAkA:10 a=kj9zAlcOel0A:10
+ a=x6icFKpwvdMA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=FP58Ms26AAAA:8 a=8b9GpE9nAAAA:8
+ a=2kwyBWd3arp2w0R20MkA:9 a=CjuIK1q_8ugA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+ a=cPQSjfK2_nFv0Q5t_7PE:22
+X-Proofpoint-ORIG-GUID: kCgebp749YWGaDU1ABgOzrvs7bgti4_R
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-10-27_05,2025-10-22_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510020000
- definitions=main-2510270115
-Cc: imx@lists.linux.dev, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Andreas Kemnade <andreas@kemnade.info>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
- Ingo Molnar <mingo@kernel.org>, Michael Nemanov <michael.nemanov@ti.com>,
- Roopni Devanathan <quic_rdevanat@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- linux-stm32@st-md-mailman.stormreply.com, Shenwei Wang <shenwei.wang@nxp.com>,
- Clark Wang <xiaoning.wang@nxp.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Paolo Abeni <pabeni@redhat.com>, "Dr. David Alan Gilbert" <linux@treblig.org>,
- Stephan Gerhold <stephan@gerhold.net>, Liu Haijun <haijun.liu@mediatek.com>,
- Kalle Valo <kvalo@kernel.org>,
- Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Paul Barker <paul@pbarker.dev>, Roger Quadros <rogerq@kernel.org>,
- Wei Fang <wei.fang@nxp.com>, Thomas Gleixner <tglx@linutronix.de>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Ricardo Martinez <ricardo.martinez@linux.intel.com>,
- Alex Elder <elder@kernel.org>, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Johannes Berg <johannes@sipsolutions.net>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH RESEND 2/4] net: ipa: Remove redundant
- pm_runtime_mark_last_busy() calls
+ definitions=2025-10-27_06,2025-10-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ spamscore=0 suspectscore=0 clxscore=1011 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510020000 definitions=main-2510270142
+Cc: Anand Moon <linux.amoon@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Christophe Jaillet <christophe.jaillet@wanadoo.fr>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] media: stm32: csi: Omit two variable
+ reassignments in stm32_csi_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,28 +175,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 27, 2025 at 01:50:20PM +0200, Sakari Ailus wrote:
-> pm_runtime_put_autosuspend(), pm_runtime_put_sync_autosuspend(),
-> pm_runtime_autosuspend() and pm_request_autosuspend() now include a call
-> to pm_runtime_mark_last_busy(). Remove the now-reduntant explicit call to
-> pm_runtime_mark_last_busy().
+Hi Markus,
+
+thanks for this patch.
+
+On Mon, Oct 20, 2025 at 02:38:08PM +0200, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Mon, 20 Oct 2025 14:30:06 +0200
 > 
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> An error code was assigned to a variable and checked accordingly.
+> This value was passed to a dev_err_probe() call in an if branch.
+> This function is documented in the way that the same value is returned.
+> Thus delete two redundant variable reassignments.
+> 
+> The source code was transformed by using the Coccinelle software.
+> 
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 > ---
->  drivers/net/ipa/ipa_interrupt.c | 1 -
->  drivers/net/ipa/ipa_main.c      | 1 -
->  drivers/net/ipa/ipa_modem.c     | 4 ----
->  drivers/net/ipa/ipa_smp2p.c     | 2 --
->  drivers/net/ipa/ipa_uc.c        | 2 --
->  5 files changed, 10 deletions(-)
+>  drivers/media/platform/st/stm32/stm32-csi.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
+> index fd2b6dfbd44c..a997b34a73d7 100644
+> --- a/drivers/media/platform/st/stm32/stm32-csi.c
+> +++ b/drivers/media/platform/st/stm32/stm32-csi.c
+> @@ -1033,8 +1033,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
+>  
+>  	ret = reset_control_assert(rstc);
+>  	if (ret) {
+> -		ret = dev_err_probe(&pdev->dev, ret,
+> -				    "Failed to assert the reset line\n");
+> +		dev_err_probe(&pdev->dev, ret, "Failed to assert the reset line\n");
+>  		goto err_cleanup;
+>  	}
+>  
+> @@ -1042,8 +1041,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
+>  
+>  	ret = reset_control_deassert(rstc);
+>  	if (ret) {
+> -		ret = dev_err_probe(&pdev->dev, ret,
+> -				    "Failed to deassert the reset line\n");
+> +		dev_err_probe(&pdev->dev, ret, "Failed to deassert the reset line\n");
+>  		goto err_cleanup;
+>  	}
+>  
+> -- 
+> 2.51.1
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Acked-by: Alain Volmat <alain.volmat@foss.st.com>
 
-
--- 
-With best wishes
-Dmitry
+Regards,
+Alain
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
