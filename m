@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFC91C12BB9
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 04:19:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C935C12BC0
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 04:19:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87BF9C628BC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F28C8C628CB;
 	Tue, 28 Oct 2025 03:19:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0A1CC628BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2D7EC628BC
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 28 Oct 2025 03:19:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8F8EA6031B;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6FE3E45909;
  Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3BBB5C113D0;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4850FC4CEFB;
  Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1761621546;
- bh=0hWKqbgkN+hfhvJMeOStqFbwoig9LbU901FZt559fFY=;
+ bh=hSMjXziVpPMEtbuIC86BFTIcw4ntPZpdEiitAvSj+tY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=l+DcDe/t57UWPX8sp+jxMaek3cJ1i01vvq/Zx5no+ZxZ5SdKXwoQSA99qM2CuiLVd
- sk+bLhNBmzXHUaYaHF44JPu+2OYIELnuLkNJGtKdXNwavSZSN7GiKAEwUK+iE5ivYA
- ynTRlYYIKPc7pKwDVT5rGb+pUW0qNSjtbqxeZcOsqCZ8w4QngxSxqp7ip0rzL6Wgpn
- bQ2c598itrqznbx/i+H0AO4PixDqriWCuHfu3SrMqjoEI49W2S6c9Z4P4984ltQfp+
- SWx9AcM8DJVyRW5zXGuLJX1lYwKfjojOSxD0fAJMCzhM0gECfhgHwP7wDAMjanz61n
- DhnjOJchFJmrA==
+ b=mBwCMk+yM52E8gR3aBMJB+YT6svhs9WzDS/MZgefCEljgwhUuVb5PFFcVelEXRJT6
+ 7CoRciHg1bISWi/pfDeQhCc3jJ27mGucNVX0uT7V2Ym2NzgPyJZTTsctKrswcBxM4S
+ eYIRDZcgKn4408Kn5PaP7y+yS1GlGVp7x/zpWmPI0bCpdvk73TbpRKl2K+RROU9eOs
+ o0XE7CaVVUs3oftPwbqs1gvWKKd+lkSvLeX4S7tEf2nPAt7KrgnuGFDJAyyc2k0PJ+
+ X3EiD0XP44EDyKf9qTyBD9Ku7nZZABhIb/ozCsUIfnoDa94vdG6pDUlghy5qffxMRZ
+ okUEKm8Qyot1g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 295FCCCF9E0;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 399C0CCD1BF;
  Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
 From: Rohan G Thomas via B4 Relay
  <devnull+rohan.g.thomas.altera.com@kernel.org>
-Date: Tue, 28 Oct 2025 11:18:43 +0800
+Date: Tue, 28 Oct 2025 11:18:44 +0800
 MIME-Version: 1.0
-Message-Id: <20251028-qbv-fixes-v4-1-26481c7634e3@altera.com>
+Message-Id: <20251028-qbv-fixes-v4-2-26481c7634e3@altera.com>
 References: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
 In-Reply-To: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -48,21 +48,21 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Rohan G Thomas <rohan.g.thomas@intel.com>, 
  Boon Khai Ng <boon.khai.ng@altera.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1761621544; l=4277;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1761621544; l=2209;
  i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
- bh=rxibg18Dd61H1Ewfb91EvrT+ppl8EDLCs85ERja28NM=;
- b=+KObgtYWGuAQEnejsbqZRVuMV8R5bTJyIFYA4j6CPeGH4Kxqv3NFjXxFbBTqvLPxZsH4XcU4o
- P7wzCNwvpIWDrcvoNBDxfNBEO+1643HG2WoSbbw1vjDe7HVtAd0Y+c3
+ bh=CO26pwlKR66OKT0ufmF/QwQbSxoYj3sToTSLa+5EzgI=;
+ b=Gx526F+k/ZNMujmfc2ZDc8kjxctS/U7dvX8WX5u1qa+DoeQOX4uMPftUDysPHK0eIcXFcqg6f
+ z96MVfr+AWPA9DUEipfGr9/X2Y0tjgBGEbyththa8HqFWE+xwgXnZb4
 X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
  pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
 X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
  with auth_id=494
 X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net v4 1/3] net: stmmac: vlan: Disable 802.1AD
- tag insertion offload
+ linux-kernel@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v4 2/3] net: stmmac: Consider Tx VLAN
+ offload tag length for maxSDU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,104 +82,56 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Rohan G Thomas <rohan.g.thomas@altera.com>
 
-The DWMAC IP's VLAN tag insertion offload does not support inserting
-STAG (802.1AD) and CTAG (802.1Q) types in bytes 13 and 14 using the
-same MAC_VLAN_Incl and MAC_VLAN_Inner_Incl register configurations.
+Queue maxSDU requirement of 802.1 Qbv standard requires mac to drop
+packets that exceeds maxSDU length and maxSDU doesn't include
+preamble, destination and source address, or FCS but includes
+ethernet type and VLAN header.
 
-Currently, MAC_VLAN_Incl is configured to offload only STAG type
-insertion. However, the DWMAC IP inserts a CTAG type when the inner
-VLAN ID field of the descriptor is not configured, and a STAG type
-when it is configured. This behavior is not documented and leads to
-inconsistent double VLAN tagging.
+On hardware with Tx VLAN offload enabled, VLAN header length is not
+included in the skb->len, when Tx VLAN offload is requested. This
+leads to incorrect length checks and allows transmission of
+oversized packets. Add the VLAN_HLEN to the skb->len before checking
+the Qbv maxSDU if Tx VLAN offload is requested for the packet.
 
-Additionally, an unexpected CTAG with VLAN ID 0 is inserted, resulting
-in frames like:
-
-Frame 1: 110 bytes on wire (880 bits), 110 bytes captured (880 bits)
-Ethernet II, Src: <src> (<src>), Dst: <dst> (<dst>)
-IEEE 802.1ad, ID: 100
-802.1Q Virtual LAN, PRI: 0, DEI: 0, ID: 0 (unexpected)
-802.1Q Virtual LAN, PRI: 0, DEI: 0, ID: 200
-Internet Protocol Version 4, Src: 192.168.4.10, Dst: 192.168.4.11
-Internet Control Message Protocol
-
-To avoid this undocumented and incorrect behavior, disable 802.1AD tag
-insertion offload. Also, don't set CSVL bit. As per the data book,
-when this bit is set, S-VLAN type (0x88A8) is inserted in the 13th and
-14th bytes of transmitted packets and when this bit is reset, C-VLAN
-type (0x8100) is inserted in the 13th and 14th bytes of transmitted
-packets.
-
-Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload")
-Fixes: e94e3f3b51ce ("net: stmmac: Add support for VLAN Insertion Offload in GMAC4+")
-Fixes: 1d2c7a5fee31 ("net: stmmac: Refactor VLAN implementation")
+Fixes: c5c3e1bfc9e0 ("net: stmmac: Offload queueMaxSDU from tc-taprio")
 Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-Reviewed-by: Boon Khai Ng <boon.khai.ng@altera.com>
+Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 18 ++++--------------
- drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c |  2 +-
- 2 files changed, 5 insertions(+), 15 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index fd51068801928e138c3b483a1115b59b5ffa955a..0e2dc0a464d5516b8aabe2f9afc60c6e37f0209e 100644
+index 0e2dc0a464d5516b8aabe2f9afc60c6e37f0209e..042c823bbced88070fa26003c6b513257c0f2bb6 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4107,18 +4107,11 @@ static int stmmac_release(struct net_device *dev)
- static bool stmmac_vlan_insert(struct stmmac_priv *priv, struct sk_buff *skb,
- 			       struct stmmac_tx_queue *tx_q)
- {
--	u16 tag = 0x0, inner_tag = 0x0;
--	u32 inner_type = 0x0;
- 	struct dma_desc *p;
-+	u16 tag = 0x0;
+@@ -4518,6 +4518,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	bool has_vlan, set_ic;
+ 	int entry, first_tx;
+ 	dma_addr_t des;
++	u32 sdu_len;
  
--	if (!priv->dma_cap.vlins)
-+	if (!priv->dma_cap.vlins || !skb_vlan_tag_present(skb))
- 		return false;
--	if (!skb_vlan_tag_present(skb))
--		return false;
--	if (skb->vlan_proto == htons(ETH_P_8021AD)) {
--		inner_tag = skb_vlan_tag_get(skb);
--		inner_type = STMMAC_VLAN_INSERT;
--	}
- 
- 	tag = skb_vlan_tag_get(skb);
- 
-@@ -4127,7 +4120,7 @@ static bool stmmac_vlan_insert(struct stmmac_priv *priv, struct sk_buff *skb,
- 	else
- 		p = &tx_q->dma_tx[tx_q->cur_tx];
- 
--	if (stmmac_set_desc_vlan_tag(priv, p, tag, inner_tag, inner_type))
-+	if (stmmac_set_desc_vlan_tag(priv, p, tag, 0x0, 0x0))
- 		return false;
- 
- 	stmmac_set_tx_owner(priv, p);
-@@ -7591,11 +7584,8 @@ int stmmac_dvr_probe(struct device *device,
- 		ndev->features |= NETIF_F_HW_VLAN_CTAG_FILTER;
- 		ndev->features |= NETIF_F_HW_VLAN_STAG_FILTER;
+ 	tx_q = &priv->dma_conf.tx_queue[queue];
+ 	txq_stats = &priv->xstats.txq_stats[queue];
+@@ -4536,10 +4537,15 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
  	}
--	if (priv->dma_cap.vlins) {
-+	if (priv->dma_cap.vlins)
- 		ndev->features |= NETIF_F_HW_VLAN_CTAG_TX;
--		if (priv->dma_cap.dvlan)
--			ndev->features |= NETIF_F_HW_VLAN_STAG_TX;
--	}
- #endif
- 	priv->msg_enable = netif_msg_init(debug, default_msg_level);
  
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-index 0b6f6228ae35db3d855d8d386c3806a007a9d176..ff02a79c00d4f52a458edde1bcc08a0895b2c1c1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-@@ -212,7 +212,7 @@ static void vlan_enable(struct mac_device_info *hw, u32 type)
+ 	if (priv->est && priv->est->enable &&
+-	    priv->est->max_sdu[queue] &&
+-	    skb->len > priv->est->max_sdu[queue]){
+-		priv->xstats.max_sdu_txq_drop[queue]++;
+-		goto max_sdu_err;
++	    priv->est->max_sdu[queue]) {
++		sdu_len = skb->len;
++		/* Add VLAN tag length if VLAN tag insertion offload is requested */
++		if (priv->dma_cap.vlins && skb_vlan_tag_present(skb))
++			sdu_len += VLAN_HLEN;
++		if (sdu_len > priv->est->max_sdu[queue]) {
++			priv->xstats.max_sdu_txq_drop[queue]++;
++			goto max_sdu_err;
++		}
+ 	}
  
- 	value = readl(ioaddr + VLAN_INCL);
- 	value |= VLAN_VLTI;
--	value |= VLAN_CSVL; /* Only use SVLAN */
-+	value &= ~VLAN_CSVL; /* Only use CVLAN */
- 	value &= ~VLAN_VLC;
- 	value |= (type << VLAN_VLC_SHIFT) & VLAN_VLC;
- 	writel(value, ioaddr + VLAN_INCL);
+ 	if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
 
 -- 
 2.43.7
