@@ -2,61 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1C0C14243
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 11:41:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37108C14A5C
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 13:35:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D803C628CF;
-	Tue, 28 Oct 2025 10:40:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47679C628D2;
+	Tue, 28 Oct 2025 12:35:01 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4E04C628BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 332C7C628AC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Oct 2025 10:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=c0wxYpGazz/mbNZkEG1ty2jCdBuuX7dP/ZCMsktvXgQ=; b=FmlJ9xZ3AY35fJOn9eqW4EynqN
- 4md0M+JNO60HV64L82O8Q+kAXwSzTSZN8aPxxeiMYBVZ5WP19k8UPJijuTrqIHxsC0ulDf0Y8VZBf
- 89DqVHJNgHjrNestsskRMz2dSzcy5w+Qk60EoQJpRKekZw5LrmWRhUY05mp0C6EJZavc1tAyv1C0G
- YNQNMpI+PJxz0WCx4Msg8YSUo0vG59zHvmIsWEMh0+sCJJrbs4QmpT6PkbNSUQoC0HviSuoGnRme3
- ShHPYC/bh9+TgDXHb+WrxgoXMqgc48fmiCQmFGfzRS3wmGhJcbhuhil3H9l4pPIsVzj2qh5PT4wqf
- 7FMhcGww==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57222)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vDh8A-0000000034l-3TOU;
- Tue, 28 Oct 2025 10:40:46 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vDh88-000000006V0-1YLu; Tue, 28 Oct 2025 10:40:44 +0000
-Date: Tue, 28 Oct 2025 10:40:44 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aQCdrNQHF07BVPti@shell.armlinux.org.uk>
-References: <aP03aQLADMg-J_4W@shell.armlinux.org.uk>
- <E1vClC5-0000000Bcbb-1WUk@rmk-PC.armlinux.org.uk>
- <604b68ce-595f-4d50-92ad-3d1d5a1b4989@bootlin.com>
- <aQCcVOYV15SeHAMU@shell.armlinux.org.uk>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aQCcVOYV15SeHAMU@shell.armlinux.org.uk>
-Cc: Yu-Chun Lin <eleanor15x@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Paolo Abeni <pabeni@redhat.com>, Daniel Machon <daniel.machon@microchip.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Furong Xu <0x1207@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Boon Khai Ng <boon.khai.ng@altera.com>,
+ Tue, 28 Oct 2025 00:39:15 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-3402942e79cso532680a91.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 27 Oct 2025 17:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1761611954; x=1762216754;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/WcWCGcgNvS5Hv44YHDTwLTthjpcd05Gmj8wnblh/dE=;
+ b=M+xO1fZHBoe1TuSYoQDJWMTVcMW229oDq/qw19xE6xh0D3mXsgM7vc12F5Rva22XK0
+ GXQe4HnhTfdwYyUwJl8fqD2m07JYyd1Nf/2mwAZAU/QpTam3KBhAae2F3PcTMfc0ncHq
+ Ckte2aLiOnLEjDQJIfQzGvKFFb42k0dIVV0WiVG4WKMA2XbOViFfEKyLymU1v0w+u+wa
+ WjJR2OicH+TouhLHjs3uwy1ufXuHMT8iq9qVEMtKAFUDnE+o5RKIdvomrp97Nmhedlwo
+ KgAib434bzYGmKeQh2kjM4bSubEy+oWjdqg77xLxpPa4WL2aIp4pqxZqzXev55D5uQCb
+ ddCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761611954; x=1762216754;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/WcWCGcgNvS5Hv44YHDTwLTthjpcd05Gmj8wnblh/dE=;
+ b=Lpja2O/LN/PgUH+pRfnH+rb6TNjpyyUNYQ1uMjmgaZMAsuVkns6/DljUojEtCIQvH6
+ Qfx8zLp1N1++qfd0Rx8DvuNcTEXfq5gXz4aPOTZQj+qGdn6o7qGwUPHYD7j+F/ftVmSm
+ RQ8SgwH2KGIJuhcsIwth2ugz+D3otIPtoXj5R8UNVCSM4LzSykacAMCr2RRODcW6aiCd
+ 0lHkVC+PHE8jYPgwiS3+brl85bu10hpHAnA+C9ruuchbhhtfDbC3m25lNOb2Lck8K7tr
+ oylB7qrnUeoia1wXA2LLiIkqLaeRpS2TzradTqCYcliAuWdSO2HHUJEFzF5suOZiqwIb
+ lImg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUBMcLRxf+cIaCXtFzTWo/B/XT8nLsqYjmNy9oWf0Viqga2tjmzTvB2EayO+dmtN9a/+Ec3D7M3JYCyjA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxZVSoLp7g+tJpbs+F+nqWvP+rj208veLfG3erxgm7LZeFN+3WS
+ AP1nprmA/v4Snln4whtuJ/wLMVW0cJFkUwxmXLKgNRyl4ja6jDYHIVns
+X-Gm-Gg: ASbGncsjxtkqq/vScnOE+xGi1YqvJZbfV8Vmvs7qpF8fc7i0+v0I6i3UGHiC+IDAL8V
+ /HRQVFJy43u/RdU/qkyFJzV/rTqpp5pvpjq+GnCx08YHpqoTh0PKk+yr5bWF+Xu5VNTF3Ig+mIC
+ 12haKiXu7C+GuaJ/4yTkrlst83YpbOgk2CDzJQ90gijBIJTPrBjxTHEFeklgUYblcgK/rJI4TYF
+ 3/fDWOLLi2yGOzZR4n3pmG464ceMmFhofqGlfcNm6XUu7wRhLcRAHXwP+ykUHNXJBQVVfP4+gpc
+ JN4Pr6RZrNhypIjNgDiiYbHYgsgH39aP4Fk0pf7M4LW4NZKO+bR5fCw2d6aYDSl1ekSKn5ZpSvY
+ LPTCDQ/eUgoe0hfUwfl/VF2w9DC4ItvqOhrSuqeJR3Bi9mpyTCXES8BC0O+JmLDJIwY08xUkJTe
+ TEEYKSSqIHLA==
+X-Google-Smtp-Source: AGHT+IGlGdHwoHvvWJbSfq7fs7gWWYLvmYXWrIA0qO3xj1Qshht6xEIpI7sww7p68LXdI3n1iXEunw==
+X-Received: by 2002:a17:90b:3882:b0:32e:e18a:368c with SMTP id
+ 98e67ed59e1d1-340279e3fa7mr2149486a91.7.1761611953610; 
+ Mon, 27 Oct 2025 17:39:13 -0700 (PDT)
+Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7a414034661sm9665148b3a.26.2025.10.27.17.39.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Oct 2025 17:39:13 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <ziyao@disroot.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
+ Inochi Amaoto <inochiama@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Alexis Lothor__ <alexis.lothore@bootlin.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: add support
- specifying PCS supported interfaces
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Date: Tue, 28 Oct 2025 08:38:57 +0800
+Message-ID: <20251028003858.267040-3-inochiama@gmail.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20251028003858.267040-1-inochiama@gmail.com>
+References: <20251028003858.267040-1-inochiama@gmail.com>
+MIME-Version: 1.0
+X-Mailman-Approved-At: Tue, 28 Oct 2025 12:35:00 +0000
+Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, sophgo@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 2/3] net: phy: Add helper for fixing RGMII
+	PHY mode based on internal mac delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +107,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 28, 2025 at 10:35:00AM +0000, Russell King (Oracle) wrote:
-> Thanks for giving Jakub a reason to mark this "changes required." :D
-> I'm not really expecting this to be merged as-is. So why didn't I
-> post it as RFC? Too many people see "RFC" as a sign to ignore the
-> patch series. Some people claim that "RFC" means it isn't ready and
-> thus isn't worth reviewing/testing/etc. I say to those people... I
-> can learn their game and work around their behaviour.
-> 
-> Yes, it will need a better commit log, but what I'm much much more
-> interested in is having people who are using the integrated PCS (in
-> SGMII mode as that's all we support) to test this, especially
-> dwmac-qcom-ethqos folk.
-> 
-> The 2.5G support was submitted by Sneh Shah, and my attempts to make
-> contact have resulted in no response.
+The "phy-mode" property of devicetree indicates whether the PCB has
+delay now, which means the mac needs to modify the PHY mode based
+on whether there is an internal delay in the mac.
 
-I should add - I'm expecting dwmac-qcom-ethqos to reveal that we need
-to include 2500BASE-X for the PCS, and possibly 1000BASE-X as well
-(which in dwmac terms uses the TBI interface to a platform integrator
-provided serdes block.)
+This modification is similar for many ethernet drivers. To simplify
+code, define the helper phy_fix_phy_mode_for_mac_delays(speed, mac_txid,
+mac_rxid) to fix PHY mode based on whether mac adds internal delay.
 
-The most important thing is for people with the hardware that would be
-affected by these patches to test. However, I'm expecting no testing
-feedback from such people based on experience - it seems stmmac is rife
-for "throw code over the wall into mainline and run away" behaviour. :(
+Suggested-by: Russell King (Oracle) <linux@armlinux.org.uk>
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
+ drivers/net/phy/phy-core.c | 43 ++++++++++++++++++++++++++++++++++++++
+ include/linux/phy.h        |  3 +++
+ 2 files changed, 46 insertions(+)
 
+diff --git a/drivers/net/phy/phy-core.c b/drivers/net/phy/phy-core.c
+index 605ca20ae192..4f258fb409da 100644
+--- a/drivers/net/phy/phy-core.c
++++ b/drivers/net/phy/phy-core.c
+@@ -101,6 +101,49 @@ const char *phy_rate_matching_to_str(int rate_matching)
+ }
+ EXPORT_SYMBOL_GPL(phy_rate_matching_to_str);
+ 
++/**
++ * phy_fix_phy_mode_for_mac_delays - Convenience function for fixing PHY
++ * mode based on whether mac adds internal delay
++ *
++ * @interface: The current interface mode of the port
++ * @mac_txid: True if the mac adds internal tx delay
++ * @mac_rxid: True if the mac adds internal rx delay
++ *
++ * Return fixed PHY mode, or PHY_INTERFACE_MODE_NA if the interface can
++ * not apply the internal delay
++ */
++phy_interface_t phy_fix_phy_mode_for_mac_delays(phy_interface_t interface,
++						bool mac_txid, bool mac_rxid)
++{
++	if (!phy_interface_mode_is_rgmii(interface))
++		return interface;
++
++	if (mac_txid && mac_rxid) {
++		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
++			return PHY_INTERFACE_MODE_RGMII;
++		return PHY_INTERFACE_MODE_NA;
++	}
++
++	if (mac_txid) {
++		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
++			return PHY_INTERFACE_MODE_RGMII_RXID;
++		if (interface == PHY_INTERFACE_MODE_RGMII_TXID)
++			return PHY_INTERFACE_MODE_RGMII;
++		return PHY_INTERFACE_MODE_NA;
++	}
++
++	if (mac_rxid) {
++		if (interface == PHY_INTERFACE_MODE_RGMII_ID)
++			return PHY_INTERFACE_MODE_RGMII_TXID;
++		if (interface == PHY_INTERFACE_MODE_RGMII_RXID)
++			return PHY_INTERFACE_MODE_RGMII;
++		return PHY_INTERFACE_MODE_NA;
++	}
++
++	return interface;
++}
++EXPORT_SYMBOL_GPL(phy_fix_phy_mode_for_mac_delays);
++
+ /**
+  * phy_interface_num_ports - Return the number of links that can be carried by
+  *			     a given MAC-PHY physical link. Returns 0 if this is
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 3c7634482356..0bc00a4cceb2 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -1813,6 +1813,9 @@ static inline bool phy_is_pseudo_fixed_link(struct phy_device *phydev)
+ 	return phydev->is_pseudo_fixed_link;
+ }
+ 
++phy_interface_t phy_fix_phy_mode_for_mac_delays(phy_interface_t interface,
++						bool mac_txid, bool mac_rxid);
++
+ int phy_save_page(struct phy_device *phydev);
+ int phy_select_page(struct phy_device *phydev, int page);
+ int phy_restore_page(struct phy_device *phydev, int oldpage, int ret);
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.51.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
