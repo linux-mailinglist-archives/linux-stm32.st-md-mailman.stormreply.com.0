@@ -2,51 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611F6C153E7
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 15:50:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FF7C154E7
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 16:03:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E61DC628D4;
-	Tue, 28 Oct 2025 14:50:35 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65ECEC628D5;
+	Tue, 28 Oct 2025 15:03:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76E11C628D2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC3E7C628D4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Oct 2025 14:50:34 +0000 (UTC)
+ Tue, 28 Oct 2025 15:03:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5997B61412;
- Tue, 28 Oct 2025 14:50:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2944C4CEE7;
- Tue, 28 Oct 2025 14:50:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B78F43E68;
+ Tue, 28 Oct 2025 15:03:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A04DC4CEE7;
+ Tue, 28 Oct 2025 15:03:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761663033;
- bh=6K/S8d0IVvVTkkQFbLMvHUlIli4SloaGEMV2HIrhuwM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=eM3+yCt18RfkfiycnlMD+IvDLDucmNxUByaJkwdlM7uZYjsJ8fBZwFjTAzV0RB5lL
- sFPDBmjn86sWiCRf+aR1aShxtEs70ohGhHYM0uMFfNlX2oR8FE/OwHVPS3YBnJiuUa
- UJuD2VaKLrJjcttYbLX9gAqgYAx9KvOAsHAeZmxGY9PXzYGrrFQJf6kZMLF03R764c
- xPthxPygltd4liezV6i2XVnOkOwImZNv7ws4EOyWJnJbOpUFe7/RmHElLefFyY4a5e
- evRh8bFWhCOLbQFsclRhijStG53G74u9aTqhOgA4dpVlbd4a3ehw7FztfGk/TrwtAW
- YnZmkl9H7GdRQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EB21C39EFA55; Tue, 28 Oct 2025 14:50:11 +0000 (UTC)
+ s=k20201202; t=1761663790;
+ bh=Z36D+6ZhfHgGmJy7pQ7Lwnpln/Jx0aH9L4PEgSkS4cM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HzVMbkK/3Fgb9ijFlyUS4iB1uC23xI0ZWZkIdfJ6RogXnWbv2lzNYqJ5EZfVySMc1
+ SB0DKWP4a80haIV3+eNxvAxMxegcgSl0pH0ouiVYimn7wLLo4q6cG1hg/MJLijGkLn
+ J/keK8Jax3TsCJTpUdStSyMwztf2rGgq0UV3SFX22tlrT0wwT6SssPtzFnN7TjgRm/
+ f99Wn7XzOr3SyxQrGBtScpV+ELzWNeWby/ogLFK9rqL5dN9qSPQUNE+lq8DpjDf0Pz
+ RANtYBei63HupbcZg6lFxV1k15YxeDwEsuPfsutaROIVrcLbDZhBNSXtbGCHw5ZOlB
+ t3v+G2BLEbK8A==
+Date: Tue, 28 Oct 2025 15:03:05 +0000
+From: Simon Horman <horms@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aQDbKYMtgiQaGgHX@horms.kernel.org>
+References: <e869999b-2d4b-4dc1-9890-c2d3d1e8d0f8@gmail.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176166301074.2258992.15898542633680780702.git-patchwork-notify@kernel.org>
-Date: Tue, 28 Oct 2025 14:50:10 +0000
-References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
-In-Reply-To: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: kory.maincent@bootlin.com, vadim.fedorenko@linux.dev,
- thomas.petazzoni@bootlin.com, netdev@vger.kernel.org, richardcochran@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
- alexis.lothore@bootlin.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- linux-kernel@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/2] net: stmmac: Add support
- for coarse timestamping
+Content-Disposition: inline
+In-Reply-To: <e869999b-2d4b-4dc1-9890-c2d3d1e8d0f8@gmail.com>
+Cc: Russell King - ARM Linux <linux@armlinux.org.uk>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, David Miller <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 net-next] net: stmmac: mdio: fix
+ incorrect phy address check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,33 +62,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Fri, 24 Oct 2025 09:07:16 +0200 you wrote:
-> Hello everyone,
+On Sat, Oct 25, 2025 at 08:35:47PM +0200, Heiner Kallweit wrote:
+> max_addr is the max number of addresses, not the highest possible address,
+> therefore check phydev->mdio.addr > max_addr isn't correct.
+> To fix this change the semantics of max_addr, so that it represents
+> the highest possible address. IMO this is also a little bit more intuitive
+> wrt name max_addr.
 > 
-> This is V2 for coarse timetamping support in stmmac. This version uses a
-> dedicated devlink param "ts_coarse" to control this mode.
-> 
-> This doesn't conflict with Russell's cleanup of hwif.
-> 
-> [...]
+> Fixes: 4a107a0e8361 ("net: stmmac: mdio: use phy_find_first to simplify stmmac_mdio_register")
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Reported-by: Simon Horman <horms@kernel.org>
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> ---
+> v2:
+> - improve subject
 
-Here is the summary with links:
-  - [net-next,v2,1/2] net: stmmac: Move subsecond increment configuration in dedicated helper
-    https://git.kernel.org/netdev/net-next/c/792000fbcd0c
-  - [net-next,v2,2/2] net: stmmac: Add a devlink attribute to control timestamping mode
-    https://git.kernel.org/netdev/net-next/c/6920fa0c764d
+Thanks, this versions looks good to me.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
