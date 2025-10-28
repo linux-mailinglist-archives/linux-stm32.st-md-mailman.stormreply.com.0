@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35213C176B0
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 00:55:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808D1C176E9
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 00:57:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12201C62D22;
-	Tue, 28 Oct 2025 23:55:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47A72C62D22;
+	Tue, 28 Oct 2025 23:57:49 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECF0BC62D21
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02355C06B87
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Oct 2025 23:55:10 +0000 (UTC)
+ Tue, 28 Oct 2025 23:57:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=S1uikCk1PVoFKraVmv1JjdTmyz7aVTR16X64oIcnMf8=; b=SA1gJowDBcLZISZx0Lli/3K9Tr
- tSQGuKix+Lwh74Sfj/czjDbD+PnGWw7ARxxjBvN5rOHI+4H2ewkNHUPFg+WtHUOPGO8x2RJQKdDYC
- pdybl08H/jFyXjVqDIP2uBppNyOHf1z97iYoOnGNAdnArT9qoiDC2f3ScEQv2UjyIDX3HY3CY1ltT
- e94lz91ONXafGZP1BifBuX/mawC8G2o6UlUaEbZaSV4Dfks24zWdHZIaIHgjxy2p8GGXs/IxzxHUP
- j6O+zAU8PPw3K0SAfHx+4P5w2kbpHPxKi9eq9ARmOHYnaZ8Yi9oudR9PZiojyBt6yP0hoyrV6QWBW
- Pv34Ld6Q==;
+ bh=+ScJmt+/0Os57nukiGynVFNomd71ekgTNx8UM6wvsiM=; b=DtBgppHxDmU/Kd/3Ruec8pBeu9
+ 6L3U554pxuSnq3NejqoXqHrRGkn4CGgFOyXlGnlK2d3m8IhamY8ccmOa/Weu3O3yKOFJHEUx+1Y/4
+ LmIEwOegwyaAUS7t2ONwQ8gbkOo4Ol4aZP4uDJtf31ZGScnCN104FG6jGbZIRqX9wvCqtkXNQB0Dh
+ t1SBNH/GoA5fPpPFsDtqTHqtyMZyEMZ/vZ39fryyZhzCP0a78gVpIMzPiDGBO+oMyndDGoWGg7V/d
+ Om1WFXacBpBrjt0/M+XKNHB0TWaxBLR6z7exMpMC/BriAozJJzMvxfpNrI3fPxfRtYBLekG4RtUxP
+ hqt671pg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40576)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56542)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vDtWo-000000003f0-3177;
- Tue, 28 Oct 2025 23:55:02 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vDtZP-000000003fK-1CVt;
+ Tue, 28 Oct 2025 23:57:43 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vDtWk-000000006xk-0Ryn; Tue, 28 Oct 2025 23:54:58 +0000
-Date: Tue, 28 Oct 2025 23:54:57 +0000
+ id 1vDtZN-000000006xv-1h3p; Tue, 28 Oct 2025 23:57:41 +0000
+Date: Tue, 28 Oct 2025 23:57:41 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <aQFX0cdyCHLHIquB@shell.armlinux.org.uk>
+Message-ID: <aQFYdRZV9CQVuqFu@shell.armlinux.org.uk>
 References: <aPt1l6ocBCg4YlyS@shell.armlinux.org.uk>
  <20251028164257.067bdbcd@kernel.org>
 MIME-Version: 1.0
@@ -98,8 +98,10 @@ On Tue, Oct 28, 2025 at 04:42:57PM -0700, Jakub Kicinski wrote:
 > 
 > This one needs a respin (patch 6 vs your IRQ masking changes?).
 
-Are you sure? Nothing came up in the re-base, and nothing was reported
-in PW.
+Ah, I see it, rebase can cope with that, but not application. Bah.
+Another week of waiting for it to be applied. :(
+
+I'm going to start sending larger patch series...
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
