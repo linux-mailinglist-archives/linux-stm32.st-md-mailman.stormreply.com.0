@@ -2,94 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0675FC122F0
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 01:39:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05DFC12BBA
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 04:19:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBED6C628B0;
-	Tue, 28 Oct 2025 00:39:20 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1477C628C8;
+	Tue, 28 Oct 2025 03:19:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1484C60495
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC389C628B8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Oct 2025 00:39:19 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-b6cf1a9527fso2752736a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Oct 2025 17:39:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1761611958; x=1762216758;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6e+TNG8HQKWjELTx3r9i/rdMStiwaJjw+wxw++IoG08=;
- b=Z1z2+OoKZ3Dr+kHwjB8ILBKPuRGJr2+lLMHlIgjL+Z15i+BwAOUnz/Z1BrAnF0/SvI
- +Ah5FTJ8IlG/h/XZ7KSUrQWdZga32cHSC1cdEHm6qoPTpcON0pVDtWSiylGfxg6NYfsC
- AXGzvB9yKNyCld29BbQL3HeSGJgOyfVnxCsdJCuPWDF3W/3b3+u6vRJoLVbaZrSe+sai
- 54fuv/LpX/Gw4TuuvNUD4J/OiQFTpMeEI9sfJWeW+2EQWIgmlhDfFojqZT/Wzrigdoxq
- CKyWrX5wsqaWolEOSY8w7i1Y2ynpLkQYcexJQuGEfQRWuyentIk4Rq97yRjm9cCYqjLp
- 9cOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761611958; x=1762216758;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6e+TNG8HQKWjELTx3r9i/rdMStiwaJjw+wxw++IoG08=;
- b=DnrOzMVClfZqh48lC2MVMRY8zJYhYyQOlslBkSaLNX86V2Wv/T38B5m9aCP/2lgtaC
- MujHjqeIa162Y+CRms4h1q7yYa2vBA9xIO4ZHXHGeh2OroSWfBWBXlilcwAwa37P1+jn
- hJ4zH4SY3uezwuXYyLLk3eLyuXU3T6p3ijIDk5RPwwy5ocf2bgQjrJtBuTU8yrVhDvCv
- 7Rl4YGMlZhjG28ve1PvoW8IY5oN93EAykrQ84PnTqAuk63wgLosmzkieBS05CiohQ/qQ
- 0FNlHHPqG6/Om/9uaNKMwQ+zq1f/0gLdMEQqk/L6lfNNy7ai/08nDdftKcZ8NL8WURDN
- hQwg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXCn/Y9LzDCt5eCiTPHe+Ltk6mcjIOxfjg6LxD3gvAsoPuvAls2xZwmBORbnk3xBkOl8tCMOJlCFbKz/A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywoz+x4ZywBdiQAojsR9C0R4aZaoMTuzkZfmhjzaAeAPFdm2v78
- KDUem9FUnShAKHSW46jjOQTVuls/GD6QyL18deHW6/YeRA2oAy7iFVWQ
-X-Gm-Gg: ASbGncv6nE5YQKyBg6bJn7X2QUVcPgJVi8Fd3U6yY4iGMeNcwAY1LU0++Cr7kdZSiLa
- hKKgvW3KtAfXWW34wfwL8N6ysciKeDnDuMhqvDj3jgMFAmqQ6eOO7CZTRhm+e0/+s3fAwI/Cl4d
- 24TKS+q9JbLAANjOzFFF/Q7ySZRz3E3CJg+KtVpnQbngkSdxXWGsNcaSbsTyTJwcD/foT7ik5xF
- cznHQ2yTaTu4dEQ7ipBjQ2XyLc8NzvjY/VFgUdaCz7TDspOUCSKxuxgTPYvXEGYbqkLGi36ex55
- bu5AfoNtIQKaZJ/E7WDcYavv9QQ93g913/pKp4lZx91L8vtEgM5xvdpUxU+ODuhYDv7j5pdjbYr
- OGpI5M1HA/BTtzCYLtm1zY1rpbONZ7MSEGMOIL5I+lDWouizhcu7qhhmvyDGLuZTQ7C6Vlm6cBd
- PhxrWARVqGIw==
-X-Google-Smtp-Source: AGHT+IGvU4zqUoctToOTJAwyDs9+4diulCuRP+v5NnW7F2ld07v4djcWl4rSSI6JXslPZV+bpZFdZA==
-X-Received: by 2002:a17:902:ea0a:b0:271:fa2d:534c with SMTP id
- d9443c01a7336-294cc74e4dfmr14030645ad.22.1761611956679; 
- Mon, 27 Oct 2025 17:39:16 -0700 (PDT)
-Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29498cf3bbcsm94917065ad.15.2025.10.27.17.39.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Oct 2025 17:39:16 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
- Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <ziyao@disroot.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
- Inochi Amaoto <inochiama@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Date: Tue, 28 Oct 2025 08:38:58 +0800
-Message-ID: <20251028003858.267040-4-inochiama@gmail.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20251028003858.267040-1-inochiama@gmail.com>
-References: <20251028003858.267040-1-inochiama@gmail.com>
+ Tue, 28 Oct 2025 03:19:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5501843F10;
+ Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 26B09C4CEF1;
+ Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761621546;
+ bh=6Pkx7EpEceX8AGS9kNb6JSNTph9sXRbaGVrP8ohO+QE=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=P9oiRTdfca6l0bHZNNRYh402zW5pfWNbzn40lSSEObiA3GpWhHu4R4yhqWlbuLjKl
+ 3q27l25EUOwe6cjIAEgKhEmlCa47ySahh3V7oCQIKsg3bae2b3aodk69V+8rJfEAFN
+ tHmU8YQPSOUz6+nToM/ZBVL3Hw4bSJHJfoycgEhct8kFcDKv7HjmRAB/VMfzzgEjAO
+ a9NL/959Yjdjxmw63iO+phnhJjfeHfcmAQAYY0o6QCbI3QOXLxxTCQYgjkB43ZM57K
+ nkSNeqRLi7ddT9sDT04oMoZ13inM5zhdxJcBY1R1Lok4zxcKS1TkpKV6/leh9e1ujd
+ l/gDQSbVXf8wA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 145E1CCF9EA;
+ Tue, 28 Oct 2025 03:19:06 +0000 (UTC)
+From: Rohan G Thomas via B4 Relay
+ <devnull+rohan.g.thomas.altera.com@kernel.org>
+Date: Tue, 28 Oct 2025 11:18:42 +0800
+Message-Id: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Longbin Li <looong.bin@gmail.com>, sophgo@lists.linux.dev,
+X-B4-Tracking: v=1; b=H4sIABI2AGkC/23MTQ7CIBAF4KuYWYvhr9C68h7GBYWpJdFWoSGap
+ ncXWZgaXb6Z970ZIgaPEfabGQImH/045CC3G7C9Gc5IvMsZOOUVbRgj9zaRzj8wEmlQSYe1QtS
+ Q+7eA5ZHrRxhwglM+9j5OY3iW/cTK689UYoQSrBk2VaNtx7qDuUwYzM6O1zKT+JpWa8rf1DZUa
+ dG22skfKj6UUabXVGTqhJEcBVdSmS+6LMsLHTpqzx4BAAA=
+X-Change-ID: 20250911-qbv-fixes-4ae64de86ee7
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <Jose.Abreu@synopsys.com>, 
+ Rohan G Thomas <rohan.g.thomas@intel.com>, 
+ Boon Khai Ng <boon.khai.ng@altera.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1761621544; l=2041;
+ i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
+ bh=6Pkx7EpEceX8AGS9kNb6JSNTph9sXRbaGVrP8ohO+QE=;
+ b=h888JNhaD6tt+8BW1WkjUzuWlKSKhGyEh25Z5t6P7ZlUiItvmkAuNr8VSOuHl3pvatHp3vM+L
+ MKOtmFc0ofsCBXhuo2MgAO8ib72NbeJxayKeRFNZILGUuxzj5YnXLA8
+X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
+ pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
+X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
+ with auth_id=494
+X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
+Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
+ linux-kernel@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 3/3] net: stmmac: dwmac-sophgo: Add phy
-	interface filter
+Subject: [Linux-stm32] [PATCH net v4 0/3] net: stmmac: Fixes for stmmac Tx
+ VLAN insert and EST
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,77 +77,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: rohan.g.thomas@altera.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As the SG2042 has an internal rx delay, the delay should be removed
-when initializing the mac, otherwise the phy will be misconfigurated.
+This patchset includes following fixes for stmmac Tx VLAN insert and
+EST implementations:
+   1. Disable STAG insertion offloading, as DWMAC IPs doesn't support
+      offload of STAG for double VLAN packets and CTAG for single VLAN
+      packets when using the same register configuration. The current
+      configuration in the driver is undocumented and is adding an
+      additional 802.1Q tag with VLAN ID 0 for double VLAN packets.
+   2. Consider Tx VLAN offload tag length for maxSDU estimation.
+   3. Fix GCL bounds check
 
-Fixes: 543009e2d4cd ("net: stmmac: dwmac-sophgo: Add support for Sophgo SG2042 SoC")
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-Tested-by: Han Gao <rabenda.cn@gmail.com>
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
 ---
- .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 20 ++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+Changes in v4:
+- Reworked sdu_len check to be done before stmmac_vlan_insert
+- Corrected formatting of the if block in the maxSDU check
+- Updated variable declarations to follow reverse christmas tree order
+- Revised the commit message to clearly reflect the maxSDU requirement
+- Link to v3: https://lore.kernel.org/r/20251017-qbv-fixes-v3-0-d3a42e32646a@altera.com
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-index 3b7947a7a7ba..7f0ca4249a13 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c
-@@ -7,11 +7,16 @@
- 
- #include <linux/clk.h>
- #include <linux/module.h>
-+#include <linux/property.h>
- #include <linux/mod_devicetable.h>
- #include <linux/platform_device.h>
- 
- #include "stmmac_platform.h"
- 
-+struct sophgo_dwmac_data {
-+	bool has_internal_rx_delay;
-+};
-+
- static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
- 				    struct plat_stmmacenet_data *plat_dat,
- 				    struct stmmac_resources *stmmac_res)
-@@ -32,6 +37,7 @@ static int sophgo_sg2044_dwmac_init(struct platform_device *pdev,
- static int sophgo_dwmac_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
-+	const struct sophgo_dwmac_data *data;
- 	struct stmmac_resources stmmac_res;
- 	struct device *dev = &pdev->dev;
- 	int ret;
-@@ -50,11 +56,23 @@ static int sophgo_dwmac_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	data = device_get_match_data(&pdev->dev);
-+	if (data && data->has_internal_rx_delay) {
-+		plat_dat->phy_interface = phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface,
-+									  false, true);
-+		if (plat_dat->phy_interface == PHY_INTERFACE_MODE_NA)
-+			return -EINVAL;
-+	}
-+
- 	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
- }
- 
-+static struct sophgo_dwmac_data sg2042_dwmac_data = {
-+	.has_internal_rx_delay = true,
-+};
-+
- static const struct of_device_id sophgo_dwmac_match[] = {
--	{ .compatible = "sophgo,sg2042-dwmac" },
-+	{ .compatible = "sophgo,sg2042-dwmac", .data = &sg2042_dwmac_data },
- 	{ .compatible = "sophgo,sg2044-dwmac" },
- 	{ /* sentinel */ }
- };
+Changes in v3:
+- Commit for disabling 802.1AD tag insertion offload is introduced in
+  to this patchset
+- Add just VLAN_HLEN to sdu_len when 802.1Q tag offload is requested
+- Link to v2: https://lore.kernel.org/r/20250915-qbv-fixes-v2-0-ec90673bb7d4@altera.com
+
+Changes in v2:
+- Use GENMASK instead of BIT for clarity and consistency
+- Link to v1: https://lore.kernel.org/r/20250911-qbv-fixes-v1-0-e81e9597cf1f@altera.com
+
+---
+Rohan G Thomas (3):
+      net: stmmac: vlan: Disable 802.1AD tag insertion offload
+      net: stmmac: Consider Tx VLAN offload tag length for maxSDU
+      net: stmmac: est: Fix GCL bounds checks
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 32 ++++++++++-------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c   |  4 +--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c |  2 +-
+ 3 files changed, 17 insertions(+), 21 deletions(-)
+---
+base-commit: bfe62db5422b1a5f25752bd0877a097d436d876d
+change-id: 20250911-qbv-fixes-4ae64de86ee7
+
+Best regards,
 -- 
-2.51.1
+Rohan G Thomas <rohan.g.thomas@altera.com>
+
 
 _______________________________________________
 Linux-stm32 mailing list
