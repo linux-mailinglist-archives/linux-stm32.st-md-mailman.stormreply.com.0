@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC181C141ED
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 11:35:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1C0C14243
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Oct 2025 11:41:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF3D6C628CB;
-	Tue, 28 Oct 2025 10:35:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D803C628CF;
+	Tue, 28 Oct 2025 10:40:59 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62B8EC628BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4E04C628BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Oct 2025 10:35:22 +0000 (UTC)
+ Tue, 28 Oct 2025 10:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7HIcXgRn4F/ZV4CqVmuIzaxh6G+n/mevlVZ22fTlXFc=; b=gJi84TZAGLfLo0NYavISvKgFUX
- Qv30sQmkW3RmiPp+TlkX9LjRD7O9xBorYxG8MfLh+6L0bmCKgpIgKxlCX8+1UeXuud9NzAz1+6I1p
- 1vpRv84Dv2MCo2NmnREhrDSelsTpEAk2JRpRuJ8KzY3z2EIprzeag8An4O3Nzt+8WoMpirVrBKz6e
- zGxX/OYOgnHPjV5g8Ap8ic0ubT8iX0NNl5ophPzAxs5zKaf1rNy5zFmQZk61WnBWfMA3whi9aEfJW
- CrZo8/4G4YTk68Kjw54uHCDQhM5e2upsg+dg7y1nITG0flqjGU5ldiw7cFY/XgsaygykhVRunSVkf
- 8zi9L2YQ==;
+ bh=c0wxYpGazz/mbNZkEG1ty2jCdBuuX7dP/ZCMsktvXgQ=; b=FmlJ9xZ3AY35fJOn9eqW4EynqN
+ 4md0M+JNO60HV64L82O8Q+kAXwSzTSZN8aPxxeiMYBVZ5WP19k8UPJijuTrqIHxsC0ulDf0Y8VZBf
+ 89DqVHJNgHjrNestsskRMz2dSzcy5w+Qk60EoQJpRKekZw5LrmWRhUY05mp0C6EJZavc1tAyv1C0G
+ YNQNMpI+PJxz0WCx4Msg8YSUo0vG59zHvmIsWEMh0+sCJJrbs4QmpT6PkbNSUQoC0HviSuoGnRme3
+ ShHPYC/bh9+TgDXHb+WrxgoXMqgc48fmiCQmFGfzRS3wmGhJcbhuhil3H9l4pPIsVzj2qh5PT4wqf
+ 7FMhcGww==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41302)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57222)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vDh2f-0000000033x-2aUs;
- Tue, 28 Oct 2025 10:35:05 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vDh8A-0000000034l-3TOU;
+ Tue, 28 Oct 2025 10:40:46 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vDh2a-000000006U0-1mOG; Tue, 28 Oct 2025 10:35:00 +0000
-Date: Tue, 28 Oct 2025 10:35:00 +0000
+ id 1vDh88-000000006V0-1YLu; Tue, 28 Oct 2025 10:40:44 +0000
+Date: Tue, 28 Oct 2025 10:40:44 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aQCcVOYV15SeHAMU@shell.armlinux.org.uk>
+Message-ID: <aQCdrNQHF07BVPti@shell.armlinux.org.uk>
 References: <aP03aQLADMg-J_4W@shell.armlinux.org.uk>
  <E1vClC5-0000000Bcbb-1WUk@rmk-PC.armlinux.org.uk>
  <604b68ce-595f-4d50-92ad-3d1d5a1b4989@bootlin.com>
+ <aQCcVOYV15SeHAMU@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <604b68ce-595f-4d50-92ad-3d1d5a1b4989@bootlin.com>
+In-Reply-To: <aQCcVOYV15SeHAMU@shell.armlinux.org.uk>
 Cc: Yu-Chun Lin <eleanor15x@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Paolo Abeni <pabeni@redhat.com>, Daniel Machon <daniel.machon@microchip.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -72,28 +73,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 28, 2025 at 11:16:00AM +0100, Maxime Chevallier wrote:
-> Hello Russell,
+On Tue, Oct 28, 2025 at 10:35:00AM +0000, Russell King (Oracle) wrote:
+> Thanks for giving Jakub a reason to mark this "changes required." :D
+> I'm not really expecting this to be merged as-is. So why didn't I
+> post it as RFC? Too many people see "RFC" as a sign to ignore the
+> patch series. Some people claim that "RFC" means it isn't ready and
+> thus isn't worth reviewing/testing/etc. I say to those people... I
+> can learn their game and work around their behaviour.
 > 
-> On 25/10/2025 22:48, Russell King (Oracle) wrote:
-> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Yes, it will need a better commit log, but what I'm much much more
+> interested in is having people who are using the integrated PCS (in
+> SGMII mode as that's all we support) to test this, especially
+> dwmac-qcom-ethqos folk.
 > 
-> Maybe this needs a commit log, even a small one ? :(
+> The 2.5G support was submitted by Sneh Shah, and my attempts to make
+> contact have resulted in no response.
 
-Thanks for giving Jakub a reason to mark this "changes required." :D
-I'm not really expecting this to be merged as-is. So why didn't I
-post it as RFC? Too many people see "RFC" as a sign to ignore the
-patch series. Some people claim that "RFC" means it isn't ready and
-thus isn't worth reviewing/testing/etc. I say to those people... I
-can learn their game and work around their behaviour.
+I should add - I'm expecting dwmac-qcom-ethqos to reveal that we need
+to include 2500BASE-X for the PCS, and possibly 1000BASE-X as well
+(which in dwmac terms uses the TBI interface to a platform integrator
+provided serdes block.)
 
-Yes, it will need a better commit log, but what I'm much much more
-interested in is having people who are using the integrated PCS (in
-SGMII mode as that's all we support) to test this, especially
-dwmac-qcom-ethqos folk.
-
-The 2.5G support was submitted by Sneh Shah, and my attempts to make
-contact have resulted in no response.
+The most important thing is for people with the hardware that would be
+affected by these patches to test. However, I'm expecting no testing
+feedback from such people based on experience - it seems stmmac is rife
+for "throw code over the wall into mainline and run away" behaviour. :(
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
