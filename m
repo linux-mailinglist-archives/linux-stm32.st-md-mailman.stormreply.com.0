@@ -2,59 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEFE9C18917
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 07:59:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DAB0C18D6C
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 09:06:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 678B7C62D3D;
-	Wed, 29 Oct 2025 06:59:25 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C703C62D3D;
+	Wed, 29 Oct 2025 08:06:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 539FAC62D3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35969C62D3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 06:59:24 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8222CC0BEBA;
- Wed, 29 Oct 2025 06:59:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C0F63606E8;
- Wed, 29 Oct 2025 06:59:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D513F103115AD; Wed, 29 Oct 2025 07:59:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1761721162; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=F+KTjI1TM7mg6rcCTezA/+UdyBmDty2R5itDbwstprQ=;
- b=o/f2BvsK1UFERMGggVndtxtQP6Off6yNARbRDm45ax8eVzx6q68dtBRTepmeXOju2Zrq3a
- jaH+noqfpaC8Gu9aTjShhjImZRq0X0lMCzzDXyVJkOV7o4wSw+RMjBH+bXzHKaF9tkTROV
- xfMczXjE0dkfTw6GY31uyOk+FWRoY+ASP+3TunTC9hMPsZKyBfeTrlkyznVPrxgBCea9mQ
- 2Xi6esdXpqoG2p1KkVm/nKFR0lzaKIy8qT0jhpGlqno5jw0YDmn+UgDngAdIfvQmhRa5BL
- 6T0m1GLtxuLgtVRF0l+z7bz9fdL2atrz2GKf0Q2UD7zXVuJDHwzF8H2BIqxAaw==
-Message-ID: <71310577-7cea-42ce-8442-49e09e0b958a@bootlin.com>
-Date: Wed, 29 Oct 2025 07:59:10 +0100
+ Wed, 29 Oct 2025 08:06:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DFEBA4923B;
+ Wed, 29 Oct 2025 08:06:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B5BD8C4CEF7;
+ Wed, 29 Oct 2025 08:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761725184;
+ bh=lJ1JcnHdvyDKrgvkF/InxR6fht7QWyd7w3ZrjqQQ9h8=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=BcRRDlLr5xYeb2Mi9o3YKmofKe4m49dtHv2WhfJJhMCgLbqSUY72233AvLmZvaUPy
+ 3pT52UGo4jjBvn0oK3rM71NotBEsurzBX771VrzFnLMjXvB7lPJfqCWK5rPgbO5aYK
+ UbxKQAQ4NyQwlD6Sw89lrTjSXKpofVM0+T2saggVff9fDtySs0RbIB95sYPGe/CjN8
+ fi58wuMaymqN5D3Dego7LDDhJncmqRcFSExrJ9m+8EC+f4v8GhulkDYShhjdfHWvs7
+ t8dYGTL9FvLiMcC7Atix+vx6MATfrEohdsGsYzOvBju90ugre34WVuRpN4vs9VSMUo
+ teU0BawZxWQiA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A3A54CCF9EE;
+ Wed, 29 Oct 2025 08:06:24 +0000 (UTC)
+From: Rohan G Thomas via B4 Relay
+ <devnull+rohan.g.thomas.altera.com@kernel.org>
+Date: Wed, 29 Oct 2025 16:06:12 +0800
+Message-Id: <20251029-agilex5_ext-v1-0-1931132d77d6@altera.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
- <20251024070720.71174-3-maxime.chevallier@bootlin.com>
- <20251028151925.12784dca@kernel.org>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20251028151925.12784dca@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: =?UTF-8?Q?K=C3=B6ry_Maincent?= <kory.maincent@bootlin.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Add a
- devlink attribute to control timestamping mode
+X-B4-Tracking: v=1; b=H4sIAPXKAWkC/x2MUQqAIBAFrxL7nZBCSF0lIkxftRAWKiFId0/6H
+ JiZQhGBEWlsCgU8HPnyFWTbkD2M3yHYVSbVqV52ahBm5xO5X5CTsFKvTuvBOmxUiztg4/zfJvJ
+ IwleL5vf9AEtpE2pnAAAA
+X-Change-ID: 20251029-agilex5_ext-c17bd779cdef
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1761725182; l=1154;
+ i=rohan.g.thomas@altera.com; s=20250815; h=from:subject:message-id;
+ bh=lJ1JcnHdvyDKrgvkF/InxR6fht7QWyd7w3ZrjqQQ9h8=;
+ b=DlJCfseSUGZMDjXBw1VVh0mpCeu7xVTb3IZNFGwtIb2gtoPFVZd7U5fHRN6pO+qAd5Jjj6orE
+ q/SIliAdApzAhEVmXtDQZjhmvj49K5KPSkeCRRyKCOfz2udKbhDaMSb
+X-Developer-Key: i=rohan.g.thomas@altera.com; a=ed25519;
+ pk=5yZXkXswhfUILKAQwoIn7m6uSblwgV5oppxqde4g4TY=
+X-Endpoint-Received: by B4 Relay for rohan.g.thomas@altera.com/20250815
+ with auth_id=494
+X-Original-From: Rohan G Thomas <rohan.g.thomas@altera.com>
+Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next 0/4] net: stmmac: socfpga: Add
+ Agilex5 platform support and enhancements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,71 +76,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: rohan.g.thomas@altera.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jakub,
+This patch series adds support for the Agilex5 EMAC platform to the
+dwmac-socfpga driver.
 
-On 28/10/2025 23:19, Jakub Kicinski wrote:
-> Sorry didn't get to review this in time.
-> 
-> On Fri, 24 Oct 2025 09:07:18 +0200 Maxime Chevallier wrote:
->> +   * - ``ts_coarse``
-> 
-> This is not a great name IMHO. Is "coarse" from the PRM?
+The series includes:
+   - Platform configuration for Agilex5 EMAC
+   - Enabling Time-Based Scheduling (TBS) for Tx queues 6 and 7
+   - Enabling TCP Segmentation Offload(TSO)
+   - Adding hardware-supported cross timestamping using the SMTG IP,
+     allowing precise synchronization between MAC and system time via
+     PTP_SYS_OFFSET_PRECISE.
 
-Yes, it uses "fine/coarse"
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+---
+Rohan G Thomas (4):
+      net: stmmac: socfpga: Agilex5 EMAC platform configuration
+      net: stmmac: socfpga: Enable TBS support for Agilex5
+      net: stmmac: socfpga: Enable TSO for Agilex5 platform
+      net: stmmac: socfpga: Add hardware supported cross-timestamp
 
-> It's the increment that's coarse, right? Not the timestamp
-> This naming confuses me greatly.
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 194 +++++++++++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |   5 +
+ 2 files changed, 189 insertions(+), 10 deletions(-)
+---
+base-commit: a8abe8e210c175b1d5a7e53df069e107b65c13cb
+change-id: 20251029-agilex5_ext-c17bd779cdef
 
-That is true, the ts_ was added as this configuration is done based
-on the timestamping control registers, and is refered to as
-"timestamping control fine update" in the register defs :(
+Best regards,
+-- 
+Rohan G Thomas <rohan.g.thomas@altera.com>
 
-So you are correct that in the end the clock frequency is coarsely
-adjusted.
 
-The patch was applied, should we revert or add another patch to rename
-that parameter ?
-
-> 
->> +     - Boolean
->> +     - runtime
->> +     - Enable the Coarse timestamping mode. In Coarse mode, the ptp clock is
->> +       expected to be updated through an external PPS input, but the subsecond
-> 
-> I guess the definition of "PPS input" got diluted but technically it
-> means Pulse Per Second, right? Here IIUC we need an actual 50MHz clock
-> fed in?
-
-For GM, yes indeed. I can update the doc accordingly.
-
-> 
->> +       increment used for timestamping is set to 1/ptp_clock_rate. In Fine mode
->> +       (i.e. Coarse mode == false), the ptp clock frequency is adjusted more
->> +       frequently, but the subsecond increment is set to 2/ptp_clock_rate.
->> +       Coarse mode is suitable for PTP Grand Master operation. If unsure, leave
->> +       the parameter to False.
-> 
-> My understanding based on your previous explanation is that basically
-> in one of the modes the frequency cannot be adjusted. It's only usable
-> if a very stable reference clock is fed into the device (or otherwise
-> we "trust" the clock that's fed in). So that's why Grand Master.
-> 
-> In the other mode we can tweak the frequency more accurately.
-> But it comes at a cost of the HW time incrementing 2x larger step.
-> 
-> If that's the case I think we should update the documentation and
-> rename the knob to indicate that it's the frequency adjustment that's
-> coarse.
-
-That's fine by me, just let me know abut the exact process, I can followup
-on that :)
-
-Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
