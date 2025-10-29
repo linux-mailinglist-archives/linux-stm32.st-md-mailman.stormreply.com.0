@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4864DC1B4E3
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 15:41:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C9EC1B6D2
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 15:53:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83362C5663A;
-	Wed, 29 Oct 2025 14:41:35 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CFA5C5663A;
+	Wed, 29 Oct 2025 14:53:46 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010002.outbound.protection.outlook.com [52.101.85.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EADACC56638
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BED06C56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 14:41:33 +0000 (UTC)
+ Wed, 29 Oct 2025 14:53:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RHFuEp4XkRQSPeOuLEHSm0lBlMDbpTgIcGNh5IkP9Jr0KwLe7mWtTC4tNGee3yt4ibzPPcZ/ud4t0xlkEM4bxcrp6VvohujUs9MTQ72lczw4EdSmacIfZ1PNGaywOU65foreH26hk3utg79vAtL4W1tekX05gL54EDuJ2HC+WN57BTxyYF5Zkwzx+GI7TpaklsFfwYNXy2lSksYAw3uj8V6qYaXyCvBHidyTUU7EDycHWzh66CLJhH75f+f6gyyTRpu7c0BmDnxXXm/wAjwLwWD4+u+HYERFLfEdzRBTsUU0RaZ5ZNgWW4W7s8Km4nSeaz6KwNfwHg01981Ywzrzjg==
+ b=b/dHM0srBi2vVm9sQoRO6TBepYUu6JTuLSgyHDUKfTXpG1zo+l6hCA+zYqg6G+rEf2jg39k06bP3zmCo5duFA0vy+Qzi9UMgbLVJS4iCj2S/gZkTwUdl3JxyRfQuwlfcPb9FpuzUJD7Ln2BfbSb1TgxKSJpe4nrCA9NMkthrIQ4B3mDt275yvzQL7+c4lN5zSL8u4RXXXeGmp0YnSbmoI9s2XPheBO0Fu2yuNMMF8Nnh7MQ0Bi7oE2H/NLI3DHXQ/E9BN3pFEKg3oV6YINVR4vo1n6B7MuOeHVOt9sQMbXcOJNWQrlJFGULxJIwyktOuGhA3DbDPTcdCXlp2wFc63w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pW+1zlmlh8OEd4rW2Bdon6riMfa2dOqs9LnZ37sqAUQ=;
- b=e3hhqm1nTVI3YMwi/BRYx2KlFxDJvwg8oZnQ6GFXpZwnPSzN7980EoOQz5YwJXPV9LdE26H/iIzuQNMyxTNtCh2tAM5soQ8+9c6uyhZy8IuPzVA2GyaxSszdb7gR9/aG5W3G8OwmpV7UCCdoghRLdBOvq0gxQ2JfEAZ5fhmL6ngneVGRbnlCTAHi5+ZC6DgA138I05Hglz/3JhmFO37iUflHJHfxpjRoildAKzLxYGygOglKTZtsajf5sRIFNQPQ4YjUzyLADU/6KdhuRWuQOWRZpifqFx0k7WLWVJZu89k4rU0TOUOIYz5XqQdPrK4J51gHyR+ISWwbPtNBcPhFAA==
+ bh=a3TTZ92PbAE0e2n5xy4KgPhB7lQBgKZcwRJAIyaRDT8=;
+ b=TTvI1hgph19s3MCf1t9D0IjAlBhRtExiEG8ccUJdtcDrXSD8NgVvNTQIR6lXRpdzCM36yJdmk/XkfCn2V13qBLNiL8CYJwAk9FIWu623DgfFBpFAH8mSQTux8Bvkhh2xMYN7BxAzzj9qZVZHf+UeTHwBWakuzZ1NroOzZ2uzG8r8b6C4tahydXvSN/Qc8DdVLXrvA4GVZN2LxWxZHUsCPRIuuuq/sPR4/GaRn4vB3hErqhDSrxOW4pN5F4RxU9fD8NIGItOmYYDaAspiKzGQrBJBfx4+FzzQazVEeW9l4takxGdoca4kXIDnrbV2o7TmGKvtghJfgdcyK195143Wow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pW+1zlmlh8OEd4rW2Bdon6riMfa2dOqs9LnZ37sqAUQ=;
- b=rcO6Q9nDG7+kPqw9GbMWExo2DYYzLDSizdw3j8fkipcgEoQLKLKvDSxnd5ldHnAh4+kLzCrbHWYeqRUp8AJezzm8qEbgge4T288e6F/Ma5iBH2t2RR7Vk3jYzQ93ta6O5gPF0duJbfmebqkpzUw83iMil9PcIIcLC4yHu5i50PYzPjd5eEHXzUjOHI4PvCKdmrJL3ODyVj+wExI41nzMdVtPPiVeGmNrXgF7fTzaFDqPT5U+PuLBvVeNV/UpXzg8XrB7MT9sKiYUGN7Mu7s6biqw0+yNSMcbK0uhM2BGEb/thryoOtgmURxx1mpssxFUZKhnIoJBSkRRFHuM8TuveQ==
+ bh=a3TTZ92PbAE0e2n5xy4KgPhB7lQBgKZcwRJAIyaRDT8=;
+ b=Qy2YoGIxdmhNHtC2yfDF4gzeB/zGbZRoVu0s1RFkQzL4XgZA6DDDqwJrLxgp1o9p0IPFxd1FpZpHFXZj76k4gMWBPVlsCGhCcvcvL2GUCemnoczxJkykKzkOj2LJgSSgs2SZEgtaJmrEngImvLQgWes+S3g7HybA1HWU+IAdSo3JtrFsLAoRUULkro/tItKCurw6OViIzwZbE9zcACms8buRKeFPwRF+OE/2JGtCEr3mVyaTugkD60epBbAZEerDG+JzR76T7+E72a0tS8cK1l/Fmw0ANvCyyy0LcFq6Dbj7phNzkR/mMKh/iqbCNfQPC6JuLQig+m5QqFLHhQToWA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from DM6PR03MB5371.namprd03.prod.outlook.com (2603:10b6:5:24c::21)
- by PH0PR03MB6608.namprd03.prod.outlook.com (2603:10b6:510:bb::13) with
+ by DM4PR03MB6207.namprd03.prod.outlook.com (2603:10b6:5:39b::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.14; Wed, 29 Oct
- 2025 14:41:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Wed, 29 Oct
+ 2025 14:53:40 +0000
 Received: from DM6PR03MB5371.namprd03.prod.outlook.com
  ([fe80::8d3c:c90d:40c:7076]) by DM6PR03MB5371.namprd03.prod.outlook.com
  ([fe80::8d3c:c90d:40c:7076%4]) with mapi id 15.20.9275.013; Wed, 29 Oct 2025
- 14:41:30 +0000
-Message-ID: <ed9e4ffb-3386-4a22-8d4c-38058885845a@altera.com>
-Date: Wed, 29 Oct 2025 20:11:20 +0530
+ 14:53:40 +0000
+Message-ID: <db213912-2250-4d3e-9b2c-a4e36e92e1cb@altera.com>
+Date: Wed, 29 Oct 2025 20:23:30 +0530
 User-Agent: Mozilla Thunderbird
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
  Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
@@ -52,112 +52,113 @@ To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Steffen Trumtrar <s.trumtrar@pengutronix.de>
 References: <20251029-agilex5_ext-v1-0-1931132d77d6@altera.com>
- <20251029-agilex5_ext-v1-4-1931132d77d6@altera.com>
- <07589613-8567-4e14-b17a-a8dd04f3098c@bootlin.com>
+ <20251029-agilex5_ext-v1-1-1931132d77d6@altera.com>
+ <a871daac-364e-4c2c-8343-d458b373e1fd@bootlin.com>
 Content-Language: en-US
 From: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-In-Reply-To: <07589613-8567-4e14-b17a-a8dd04f3098c@bootlin.com>
-X-ClientProxiedBy: MAXP287CA0024.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a00:49::32) To DM6PR03MB5371.namprd03.prod.outlook.com
+In-Reply-To: <a871daac-364e-4c2c-8343-d458b373e1fd@bootlin.com>
+X-ClientProxiedBy: MA5P287CA0135.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d2::11) To DM6PR03MB5371.namprd03.prod.outlook.com
  (2603:10b6:5:24c::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|PH0PR03MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30d3d2e5-54fa-493f-507a-08de16f93f16
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|DM4PR03MB6207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1535fa66-2380-4615-1261-08de16faf277
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|7416014|376014|366016|1800799024|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eVVJM2xPYnh4TUNHbGhkdTZ2VVp3RHlpSXFCdWdEZGxwWHFCeUt3WnhzS1Q5?=
- =?utf-8?B?L296UzhUL2hxQWFiOFVDcnRVMTN0SXh0NHRvMi9Gc0hOODI4Z1c0Nk53VnFT?=
- =?utf-8?B?aGhOODh5N3ZNVUZsaDk3WTA3OFcxV3VIeG1tQWlBVFEwQ2s3RGd4ZEJmKzZE?=
- =?utf-8?B?T2Vybm9ldmV6TzdmN29VSDdVd2pHQjh2R1k5OWdGWDcrM2tmNFpMSEdZVDJE?=
- =?utf-8?B?T0hYUU5OckpqWmZaL050UnY1UVJkbG1sUWRaOWhZZHdkS05pV1R1SVFwT0dk?=
- =?utf-8?B?L0N5blZjL1pYKzhiZ09INEFaOUhwV1VLL1RVbVUveDRMUUVubHk5RnU1RHdC?=
- =?utf-8?B?WWc5RHdlNEUvOG8xZkNueDVOUlZ0RFBiRms2MjVqMHZWakZhMnBzN2Y1Y1E5?=
- =?utf-8?B?VXQvS3lrQnlHckswMXlCTDBEaFd6aUdqSWVhRWNnTHZOK2tWNjl3RWdhTkZB?=
- =?utf-8?B?VGNBZWx4aWlpL3NidlhzMEM5RE5qQnpKdnBpZEoxa1lRQTZjdmpaNmpGcXEr?=
- =?utf-8?B?bmd3R2Vkc3R6MDg0ODhWSnBLQk9WVXYvSzNVN1l6ZVpZZG1XMnZFVVd5cm5R?=
- =?utf-8?B?bXpMaVlYK1dEOElOb3lpa0ttZlJlQVF6NVV5cFpOdFZGU0hXdUJ3eUlRREFO?=
- =?utf-8?B?ZHI2Tkw5VUF1UEt3b3BvT0NocHd0Mm9FNWZ4d2lBdDZQOEVmRWlVaWg4SGd2?=
- =?utf-8?B?TFRVL3JxaGZzYXFYUGljNkdLOEZsdEYyOFQ3Q3ozb1hTYUFhQ1hWd1FKejJZ?=
- =?utf-8?B?cU5pSEwrTW0xV0VvTnU2ZHYxTWtDenBmcTlXVHUzMVgzYUJDQ2hYdTNGbXMy?=
- =?utf-8?B?VDByL1BtTHdJWTRvanE3NFdTaUtiOUxNeXNPSXhPZE13c3NrK3A3WGRDbGpo?=
- =?utf-8?B?ZGc1N04rYVB6dnBnYWRVYk5FVWNGUnhEeFQ2LzJlcWtVanJHWDNQYlU2K2ls?=
- =?utf-8?B?emF0cjFQRG5Dd0puZzBFYzNhbzZhK203M3BHd2lzOEIzRjdDZzFJajJ1OWx4?=
- =?utf-8?B?ZVlWQzNUbC9CMUYwVUVESTY2Y1ozSFJsTTUyZm9BUVZJWlJIWXdEMVkzT2px?=
- =?utf-8?B?SlhFNzMxcStCNXBPdFMxdDZpUGFQaXFSTUN2OFBCUVNZWVZNTFZ4aC84OTUz?=
- =?utf-8?B?QzBMMW9HNk5SYzA0ZDEvWW9nNVcrMGFTaUVhQ1JPNU9qSXRGcm55K1RWRUlQ?=
- =?utf-8?B?R0R1UjlrVDRYdXFGbDRXSUZkcEVQSHo2K0wyMS9YK2tKeUdvODVjQlRybW1L?=
- =?utf-8?B?c0k1MklyMjBXNGxzMFdpVDFCK0VtRXdFTkZtZHZoWjJBeWNZUXFiV1QwbFBu?=
- =?utf-8?B?YzQyaCtiRzBmYzlVMzhuY2tzd0NsMC9RTW53T3oybi9OMDdKc2h3MUNrWCs4?=
- =?utf-8?B?cnp5MmRTU2YzMjJ6VmphSXM4c2lEa3g3d0JKNWpGSk5nVnN1b00vOWE0TE04?=
- =?utf-8?B?blVuQm5mN29DTjcyTDYxTXFlYWFIajlXRTltUEF4cGIvamxGV2t1ZWxVRWNn?=
- =?utf-8?B?NmFpOUdocU5qbmw5TE5odWF5aWxpVTgyYTZ1U1hDTEYyYTNuQTNpeElzRVZ5?=
- =?utf-8?B?WlcvOFhJYkE4dWZxcDBoRFYvUUNYWTJDTGlRQ1lwK2dnY2RkVUlWd21FNUY4?=
- =?utf-8?B?RDVtV2hIUDJ2eTl6N3VFQUZDdjBGZG84OHJTdUpJbVFhVjRZWkk0MkpIcGxX?=
- =?utf-8?B?NUR0YldaMFZ3QlNyL0JOd3cwbjR3ckl1T0YyQk5KZW13cDNMT1kyRTZDMVZL?=
- =?utf-8?B?M1dMalZQMThKRjRHTmZtL3JJaTV1bUZCd2pPZXdHbzRmK2Uya2ZHYWpKcTVm?=
- =?utf-8?B?ZFFRcmtXbDgwWUpvazFhamt4d29menlBcjAxUHo4dnkyaHMwUWJvVDFrREJM?=
- =?utf-8?B?aGdUeS9JRmZuZGxMK3JNMVIxUnRzalNjYmxqT29vVWFHNFYxS214RkFQRGFF?=
- =?utf-8?B?UkZjMXVlUGtDWnhWOWczWXE2bzNabnVOdGFOVUlxUnE5U1F3Y091Yy9qUUQ4?=
- =?utf-8?Q?DIs0dQBNLuupAEE3I/jLrYeuylpmKY=3D?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L241NnQ1UzEyS0NzeXpPVnc2TXJRVW8rajBwTVRwSkhhaStMc2ZPREJ3VkRW?=
+ =?utf-8?B?REFoMDZOdmxKTFRKUk9peHJPcERUR2crdnF1ZDh5R1FZdENxS1Z5ZklnNEJM?=
+ =?utf-8?B?OFh1Wk9pV3R3SnUwek1uNXRLcjZnT0xlUDdGaUxrV1VxZDdHNzNmS1k0REM3?=
+ =?utf-8?B?aDhaVFA0Kzh0V3k1bURZTkM0eURSYng4S0d2Smp3K3pGQUlGNms1VktpYnl0?=
+ =?utf-8?B?SzRvdlFhd2ZTckNLbWVQTzFOMXQ4ZGY2b1V3THdZcTZCMW4yUzBTdGpzbGdO?=
+ =?utf-8?B?T2NxZTJBSkdPbjcxbzR5UnRxeXNiZVd1SkhnaytSNmNxZEIvZ2twakl0NDdz?=
+ =?utf-8?B?VEZrR2hySW8veVg4TGdDdUwyS0l0Zi94NlFraU9NOUhZOG1tVlBKOVg2MVBp?=
+ =?utf-8?B?NllHMHROa0NwSlN4TXV4c2N5eE1WRmlPcE1GLzNjMGc1c2VjcG9qdGRCMTVE?=
+ =?utf-8?B?QVd1YnpSYlo0NWxPc29QYjh0L2xpbGlOT1RRb0tYeHk0R01LQ2twNzZvUE1n?=
+ =?utf-8?B?bllZeVpaRndYOVlXNmV2L05QMUJMVDc2REtWQWltKzFabnh2NEJ1cWJ1ZGJq?=
+ =?utf-8?B?aFVnZHgrampqbE9xNU1laEZzUG9OSlI2NTE1blVLcW40OWNQSElkRWxwUFVN?=
+ =?utf-8?B?NUYxaFVQVU13UUEwdzdKK1BWN1FhaXRYcmhUZU5iUy9vcHpmNVBzdTR2T21i?=
+ =?utf-8?B?UjJHUndiRnQyUWMxbmt3Ui9kUExrTzdXSlptT0lLcG9oSUhTV0VtV3NiZnNZ?=
+ =?utf-8?B?TVYzclMxa2tUNkJwMUZkWFlwMDlIRWpQZE5GWDlPTE9hRzk4SmtHUVJLZUFz?=
+ =?utf-8?B?ZzF5VWZSc3RPRlYrbkJPenBCRnZrTTB5aXk4bGNKRENHRXRxL3JXMGpoeXVC?=
+ =?utf-8?B?QUpITm5DUUR2a2lVQXhJcDJBTEJmQlhQZjR2RGxtVGluNGhJajdUMDk2U0d5?=
+ =?utf-8?B?ZU9BQkJMdlR1K1NmMFd2MUJ5eU1MNEQ1K1FCbVdlb1FMbit4NVBPdDVIaExE?=
+ =?utf-8?B?Z1hHc0F2bEZWNStKaFIxaUpWYi82aENLOUtKZkwwMDhwZ3V0Nk44ZG5lU0hy?=
+ =?utf-8?B?YllXS0JpNGZLQ05qaVdQOWhsOFFSTm1XY3V3OHBsejg5cElidmpQb3VFRGZt?=
+ =?utf-8?B?c256amtlQ2FhWVJ6ZTRHK2lEZFpmQjRnSXZ5RDRVQ3JjK3ErQnZBWDRpQzdq?=
+ =?utf-8?B?b3JiYmRaUjV6Ui9EbnFPMkorb09EMWYrQW1yZ0pDNGlLZDN5WHVpS1d6Z0FH?=
+ =?utf-8?B?a0VlNEJEWHdDWDFCM0NsQ0xlbjI4QzE0cVdmbFpoMlJiVjRkTmRhT1kwTHZF?=
+ =?utf-8?B?Zy9GQzRuVkxoU3RuT2Y1bERVZXFJYU1nM0w1SGNQOEVFcEtUeWc0WEp3UW5W?=
+ =?utf-8?B?blZrV2txdld3dVZjTFZldHcrSCtsS0NCWFVwOGZoenc5TDlRaUptdmRoQzB6?=
+ =?utf-8?B?ZGJhWFBBcXlkdlNTaTRWUCtJZzhMMWdQZDlQMVFRUDFtRUpvVEEyQVkrUkFv?=
+ =?utf-8?B?TEtJVmYwNk9HTUxrSG8ralBqczNRb2tScThqblFrTy9qMHQxcDZVOFh1MGlG?=
+ =?utf-8?B?L3RnSE1HQzgrcE5ad0k2QmdLd3BJaEZySEdSRS9hd3NZU2ZHaHJDN0o4dE1h?=
+ =?utf-8?B?TXNNQUhieFZ5Ukp5NEdyUER5eFEzSUIrQTFaS09aTXR3b01jZ0YwREtCMzJx?=
+ =?utf-8?B?SGhDc1hmQzcrU21lVWNyYk9vWkloQm95ZnNZRWpKU1EyTXJyODh5em1pY1Zm?=
+ =?utf-8?B?SnRWT2E3cEovUzRTMWN5bFRhWlBaTGNlcW5ZdjhXenlWcHBaOFdDQVRNS2pk?=
+ =?utf-8?B?QlVpQkV5MEMyMXlsRjI2VUxqRHhPRkNYOWh1bUZPMFpIZDVsUHptYVdnMG9l?=
+ =?utf-8?B?bFVxNkZiZ1pkUVBJcXg5WERHN1k1YU94eWZtRjVhZ3NMY3F3c045MGpOWjVO?=
+ =?utf-8?B?UEl3aXl5UGlaakcycldKcnNkcWFOblB4a2kyZnpoeS9VUGJyUU13S2JGaENO?=
+ =?utf-8?B?RFMvMU5RQ2pkc210dDhUUXdacXBudUxwbVlTZENqdUdmTjhxdUs5SDVLcmtK?=
+ =?utf-8?Q?jZmiRQ?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR03MB5371.namprd03.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(7416014)(376014)(366016)(1800799024)(921020); DIR:OUT; SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?azJPQytzQmk3MEtIaUdaMTdhclR2UmdDVVppM2V4aFJIUWdPODBlUnA1TW83?=
- =?utf-8?B?T1JUM2s4aXFMdGhiUHBYOTB2emFDUFpSYWh1blNDTEErR1pmdWI1bFJKODFu?=
- =?utf-8?B?NXpaTk1DSm8vMnBhMk41VHQ1T2hibDJuUURTeTFPU0IxSHVJSFdpRGFUVjJ1?=
- =?utf-8?B?aVBpS3krbmVOU1dHWDdVVjB4dmN3VDdNRDhhaGFOQUJON1h5NEFpcTE4d0xy?=
- =?utf-8?B?bTlkN2MxQ3NrTEhBSjlGdDJvMHVqMXVvMUxmaFIyOWNGdHU0SnlPNzNUSExr?=
- =?utf-8?B?WlUwdVg5MDcrSGZQeGZxSmt1OTVwSmFON0U3QjBNWDhFOU9MalZyNFp4d1VL?=
- =?utf-8?B?Ykg2OWNqajJtLyt4OXRZejlrb1NqbjlvaWhwcUFDbnlGMUFXSXdtaXorSjFW?=
- =?utf-8?B?VS9KM0ZMNDZoSWduZVVoajJaRnRvWEtaM2k3WmlwU0thM1RUZ09GQ2Nmb2Jr?=
- =?utf-8?B?cStGWTF5OFZDUVJsR2FlZ2p5Rk11RmlWbWJPaWNKYUdSK0dOZUtEVkhSMzda?=
- =?utf-8?B?RGhvM005S0NBMFlZQzg0US9RYmV5UXQ1YXE0TVV1UmRvckthTW1UN01JQzNX?=
- =?utf-8?B?ZnZaNmFLa1d1NWRxb3piTHBGZzROTzZjc3JFU3djY2ViVithV29WUDJSR0tE?=
- =?utf-8?B?U0IyRjlGL3dYcStQNnRiMjQ2cisxZUt5T0IxeEtpRXdrZmtmaEdSUEVDdUJV?=
- =?utf-8?B?SjBVYy82NTgybk1wSFFFby9OK2cxQy9FVnlkWWRIek5iMVZlR2U5Si9jRDVH?=
- =?utf-8?B?Vkx0MGY1SU5JQzY2YXNlWGZJWGNGUSt0ZmFtTlN1dzdQbkpDMW80WmJabDI5?=
- =?utf-8?B?MTFodEN5ZllhQklYemZyWFhqZ1phd0g3S3RVdXRjZTVYdXVaQTF6aEc0UWlt?=
- =?utf-8?B?L3FLdUwzNldNYmtuWmczKzUvUWMwRjB4LzNIZk9tQitMS0NlTjJtQlYyd0p2?=
- =?utf-8?B?bWxMbXpmYlI3Z2VmUUs5R0ViUEw3L1hVN0hPa0ovU0pSalBrTnJFeUJrWHNY?=
- =?utf-8?B?OU1WVk5ycW16SEFSdVJlNVdqMUJmQ0tTdVVrWU5wYUpwdkU5VzZtRUdDWndZ?=
- =?utf-8?B?U0IzMjNsa2JwTC9ERDBPd2VxMmc2SFFqQzVTVFBoalVXSHBwbDFJa0hldzlC?=
- =?utf-8?B?V1RJOGk3NVVDV0QxMldweE1kZ1g0KzBTaHZ0WDRsS2YyVjZYRHd0M0l2eS9h?=
- =?utf-8?B?TVllVXhBcEwwR3M0R044alJUWDA4QVVKTzJMR1JNTXc2cG9sTXlZckdmVVJE?=
- =?utf-8?B?OUhwa0pyQVJXN294RGRDWmxabzViUWlqakltb2prQjcwTStPVzdBYmE1cmZ3?=
- =?utf-8?B?Y2x2QVQyRzJZMmdXWk5DVi9CSisyNXlhbDk2N0p2dnNJN0kxeU1McTVxdzVZ?=
- =?utf-8?B?TU5jbjJQSkV3MDlxdS9CQ2ZVK2E5RUI3YXpEdVRTR1ROTUdlMjlNT1l0OWZN?=
- =?utf-8?B?T0ZoL1h2NVpYem1RU3hoTE0yOFc3eGsvNHhuMlhqZkh3ai9lRFp2UWlrajlL?=
- =?utf-8?B?RUczekZYbm5tQ1Y1U2x4LzBHOU8wbWFjV3dSZWQ4MjU3MVhDVEJpNGlHMkh4?=
- =?utf-8?B?MitBVWhSd2ZSbG5ENlB6YkJJZksvbTkyNEtISWtvQXROWmJtVlQxRDRDM3Y1?=
- =?utf-8?B?UTc3dFZtejU2MjUzVHpabVN6R0ZpVGY4UVZyZ0dwRlNtdkRYWmo3Q3lMWmp3?=
- =?utf-8?B?ZTZrSDcvLzV0dGFHakFwOVZLc2tvVW45UlFEdlF2Zjc4WnA4STFSa0d5d0Zu?=
- =?utf-8?B?Z1BDVFBNUWJyYThNbXpucjNBVTZtQWp3Um9SdVM5MnFHcit1N0hqTzJ6WkVk?=
- =?utf-8?B?eVNPQkN0bkhJcGtrZTZnNzJ3b2tZYjFhbXluSDVnNVRmalVHc1Y5bzBMVUh5?=
- =?utf-8?B?WXJDamRMczNWLzZFQnZjU1ZUUVd2d1UzMUt2S3Ezck9aY0hNeXJZaEZ5U3Fp?=
- =?utf-8?B?cGdCVWZGdGZNWFg3UWphMWVxbkZYa3F1ZDFBTzZ1UTl1OVRlZWF3YTNTZGJu?=
- =?utf-8?B?R2dkZndLNmNabXpVVkRkdWV4RURDS2NFd1JFRUdVZjJXUGw1SG5VTHc0S1ow?=
- =?utf-8?B?bUQxdmZtdDZkRldrcVh4eVAxME5vSzl5WEpaV2pvd1d4cThIWGJsOUdodzFK?=
- =?utf-8?B?VEtNc0NPR0xkNjZwK1hxYWZDY1JwNURNbGdEbkNHdkNTK2RTd2FuQVRDS1Ro?=
- =?utf-8?B?bHc9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWZiNXJVbkJtWWl5TFVVSGNONmVmc0tVSXpFb24xanpwc3FnRUJRSWR2cGRm?=
+ =?utf-8?B?eHN3eEpSNS9vSyt5SWNOTWhqUEpxQllLMWRQRzBwc3IxakFEVU1YYUFWZHJM?=
+ =?utf-8?B?bnNQWkE1eG83NEJBbFlMMW1YMVNUMDU0S2J1MjRXayt4UDZmS1FNUUgzSXo5?=
+ =?utf-8?B?eVI4bmpUL3ZuNytZVUZNRnUrbTdlMFVpZkFaUEM3TWt0blZiTmpZU2NCeDRh?=
+ =?utf-8?B?VHNtSndiTGJlN1NQdjhkbU1ldC9jNnVQd2YvTFMvZUhnMEQ1VVRzb1hGM1FF?=
+ =?utf-8?B?czU3UWV1T1dBcWZzNzZrU3VRc0V3RURFamFlOW5uekZFZVc0aklMR0d4WERF?=
+ =?utf-8?B?MnpWVFUwMzJFMnZmK2M0V0RRemF5d1JhMUcxTzdYSEduaUx3WlV1WCt6Y0Yw?=
+ =?utf-8?B?bDVLMk1hc3QzMDMxaUpnREtjSHdmUnd2MG1pMG5FMEFKQU5vMGxZSHZENzhk?=
+ =?utf-8?B?aXM4ZndMRldLNG5XSnNla3V6TThaa1Y2UUd2cjFjNTdrcUZlbklyeWcrMElv?=
+ =?utf-8?B?dzI0TFEvbzE3OXg4ZUV6Q3Z1Tzdud01pc2FaUWhMWGdYY1VkVzlqZkhUaXBH?=
+ =?utf-8?B?VVZzVGlCaGpOUGlrVXpnNWZMMzBUNTR5UDJYMFlGalIrMVk4QUpubjREVlFD?=
+ =?utf-8?B?eFY3WmlLMUFBRzhOcTZ4ZVh6S3djeWlBQ3JQcGR3RFJXUDVpV3NqZ3lLbTA2?=
+ =?utf-8?B?dCtMb0hCaFgxV3pHaENoZFppM1pLejFqaVZ0cHA5MU8zM0s1UUMrYWY0dkdn?=
+ =?utf-8?B?REhNZ2dON0RkTXc0MW03ckdlOElIWVA4R2JJSU1Pc29hWXVOU0pHMmlwQXBG?=
+ =?utf-8?B?blhtN3BtNFZBdW9MWm5sYkhGeHVwTlZKbEtNMjBKVjAxVVlsWGdzNzd0aFBS?=
+ =?utf-8?B?bHQ5c0pQR2tuUHdUTW1wQ1JQQTcrZ29neTlFNnplR1VKb2txbC9wcWNBYk51?=
+ =?utf-8?B?T3BTUHhETHV2WmJrOG9EQU5BMDJyc2xoSlJkcG5pMndOTkJOY3RISkZhbFpC?=
+ =?utf-8?B?VUV2UTBuNUFGUWtrOFo4TVEwV3QyTi8ySlp3cGZYSTc5eGRmY3gyWXZuNE84?=
+ =?utf-8?B?VTVFZkljRk93NU9FL1o2WGltOVRNeXBObmNiaE1HVXhxSU5vNGxWcVpsb1Vi?=
+ =?utf-8?B?d0x1dnE3YXlJUzMxSkQ5aGhiQlBhNDdvR0g2REp4dmV1R0JMMWFDb0NNenNa?=
+ =?utf-8?B?VysyaEFrUWc2bmNPMTNxM3dBajZSNVFwQmluVEoxbTVRdCtMNE5PSnc1WDZL?=
+ =?utf-8?B?WTJKRXBDQWJHc2ZPRkw0aE1XRVdESi9iQjBwemdKZEZKWnBNeTR6UWpoUFlF?=
+ =?utf-8?B?ajNnNjA0ZUFrekNDMzk1WVRscjZqRHZBbzhvZ0hONThVS0cvZ1M5OWJxSWN6?=
+ =?utf-8?B?ZGFDNmtteUJOSENRVVFKUFFiWTQxTDl2bjJGdmIrSXpSeEhKSzFaaHB6VW4y?=
+ =?utf-8?B?a2FxWExjMjBrb0FaZys2ejJNMXBTeXdqa3cxZDZ5MzJRZWRCM3B0aUFCd05B?=
+ =?utf-8?B?OWtmVFN0QmU1MjB0Uy95MWJJeGtKVUJXTVFZa0dBTlNURU9PbDR6cCtiQnlj?=
+ =?utf-8?B?cnl4OUVxODZ3OElhb3g2c2Z1ZU5Id0lxWkZOdmxpTVI1RGd0SDhNVmludHNE?=
+ =?utf-8?B?RXdCallTenlzRGhBS21YQWR5WSt1TDM0RXFmb1p4UlplejRtNk1GeEpRRm1U?=
+ =?utf-8?B?bnNRSXhqM1Y2b1ZibmlzMjRwZGNmNU12b2ozZDRjMGFadzdUVExvWnZZaGx3?=
+ =?utf-8?B?UkVLUXo4MTFZN3lBbTdVU2ZGMnp4Z1NVRHNZVHVpM25XN1ltRGhKbHZibUdE?=
+ =?utf-8?B?WmZlYUtLanlyM1E3S0ZwdmhJSzgxODRQeFVQT1p5djVWTCtON1NFRlM2cWM1?=
+ =?utf-8?B?eHBCY3cwRWxYd3dPUlFQdDQyN3BZTlhhenErUkF3WG9ITkhxV29WR0hJWW9y?=
+ =?utf-8?B?dytuamg5RmZiMlJiMlZ1MVBCSWNHQWxFR3E3L2h4L0ttdkNnZi80b1cxSndU?=
+ =?utf-8?B?VHlaZ3huQUlNRUJzOWFjak5PaU5aK1RacjNCWnp1TTViYTkyQ1drSVNSL2Fr?=
+ =?utf-8?B?SEVYd0k0TkNra2dVT0VSRm5DektWaEh4TnZwRDJIVWxCTUt4djAyLzZGR2Zl?=
+ =?utf-8?B?OWFzdE5pVDd3VVlOOGtWbVpPcVVrSUg3SFdHdkF4UmxCMmo4cDZ4ZGNOdWNU?=
+ =?utf-8?B?R0E9PQ==?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30d3d2e5-54fa-493f-507a-08de16f93f16
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1535fa66-2380-4615-1261-08de16faf277
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5371.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 14:41:30.0176 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 14:53:40.2016 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HLMxJ96OkSvJa3hcRRm70ZDKg7JwNJ+bnyNsNuBYx+PIYEiEvIiLUTRajbLf7VOAI9PVgBAKMGInKbrclD35fgDcG8Nx+7JzmEoOgvwXRXs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6608
+X-MS-Exchange-CrossTenant-UserPrincipalName: WBe/VXRt+logafozBbEovWTu8uRFWQFUkWTnrPqUChHt/xxP1F1aDFarktkSrAv3KJ8oGMtAVFDoSDvPgvG/Ol2YUJO7sJ7T0lH+V7yqWJs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6207
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: socfpga: Add
- hardware supported cross-timestamp
+Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: stmmac: socfpga:
+ Agilex5 EMAC platform configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -176,200 +177,86 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Maxime,
 
-On 10/29/2025 3:20 PM, Maxime Chevallier wrote:
+On 10/29/2025 7:04 PM, Maxime Chevallier wrote:
 > Hi Rohan,
 > 
 > On 29/10/2025 09:06, Rohan G Thomas via B4 Relay wrote:
 >> From: Rohan G Thomas <rohan.g.thomas@altera.com>
 >>
->> Cross timestamping is supported on Agilex5 platform with Synchronized
->> Multidrop Timestamp Gathering(SMTG) IP. The hardware cross-timestamp
->> result is made available the applications through the ioctl call
->> PTP_SYS_OFFSET_PRECISE, which inturn calls stmmac_getcrosststamp().
+>> Agilex5 HPS EMAC uses the dwxgmac-3.10a IP, unlike previous socfpga
+>> platforms which use dwmac1000 IP. Due to differences in platform
+>> configuration, Agilex5 requires a distinct setup.
 >>
->> Device time is stored in the MAC Auxiliary register. The 64-bit System
->> time (ARM_ARCH_COUNTER) is stored in SMTG IP. SMTG IP is an MDIO device
->> with 0xC - 0xF MDIO register space holds 64-bit system time.
->>
->> This commit is similar to following commit for Intel platforms:
->> Commit 341f67e424e5 ("net: stmmac: Add hardware supported cross-timestamp")
+>> Introduce a setup_plat_dat() callback in socfpga_dwmac_ops to handle
+>> platform-specific setup. This callback is invoked before
+>> stmmac_dvr_probe() to ensure the platform data is correctly
+>> configured. Also, implemented separate setup_plat_dat() callback for
+>> current socfpga platforms and Agilex5.
 >>
 >> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
 >> ---
->>   .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 125 +++++++++++++++++++++
->>   drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |   5 +
->>   2 files changed, 130 insertions(+)
+>>   .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 53 ++++++++++++++++++----
+>>   1 file changed, 43 insertions(+), 10 deletions(-)
 >>
 >> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
->> index 37fcf272a46920d1d97a4b651a469767609373b4..d36c9b77003ef4ad3ac598929fee3f7a8b94b9bc 100644
+>> index 2ff5db6d41ca08a1652d57f3eb73923b9a9558bf..3dae4f3c103802ed1c2cd390634bd5473192d4ee 100644
 >> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
 >> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
->> @@ -5,6 +5,7 @@
->>    */
->>   
->>   #include <linux/mfd/altera-sysmgr.h>
->> +#include <linux/clocksource_ids.h>
->>   #include <linux/of.h>
->>   #include <linux/of_address.h>
->>   #include <linux/of_net.h>
->> @@ -15,8 +16,10 @@
->>   #include <linux/reset.h>
->>   #include <linux/stmmac.h>
->>   
->> +#include "dwxgmac2.h"
->>   #include "stmmac.h"
->>   #include "stmmac_platform.h"
->> +#include "stmmac_ptp.h"
->>   
->>   #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII 0x0
->>   #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII 0x1
->> @@ -41,6 +44,13 @@
->>   #define SGMII_ADAPTER_ENABLE		0x0000
->>   #define SGMII_ADAPTER_DISABLE		0x0001
->>   
->> +#define SMTG_MDIO_ADDR		0x15
->> +#define SMTG_TSC_WORD0		0xC
->> +#define SMTG_TSC_WORD1		0xD
->> +#define SMTG_TSC_WORD2		0xE
->> +#define SMTG_TSC_WORD3		0xF
->> +#define SMTG_TSC_SHIFT		16
->> +
+>> @@ -44,6 +44,7 @@
 >>   struct socfpga_dwmac;
 >>   struct socfpga_dwmac_ops {
 >>   	int (*set_phy_mode)(struct socfpga_dwmac *dwmac_priv);
->> @@ -269,6 +279,117 @@ static int socfpga_set_phy_mode_common(int phymode, u32 *val)
->>   	return 0;
+>> +	void (*setup_plat_dat)(struct socfpga_dwmac *dwmac_priv);
+>>   };
+>>   
+>>   struct socfpga_dwmac {
+>> @@ -441,6 +442,39 @@ static int socfpga_dwmac_init(struct platform_device *pdev, void *bsp_priv)
+>>   	return dwmac->ops->set_phy_mode(dwmac);
 >>   }
 >>   
->> +static void get_smtgtime(struct mii_bus *mii, int smtg_addr, u64 *smtg_time)
+>> +static void socfpga_common_plat_dat(struct socfpga_dwmac *dwmac)
 >> +{
->> +	u64 ns;
+>> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
 >> +
->> +	ns = mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD3);
->> +	ns <<= SMTG_TSC_SHIFT;
->> +	ns |= mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD2);
->> +	ns <<= SMTG_TSC_SHIFT;
->> +	ns |= mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD1);
->> +	ns <<= SMTG_TSC_SHIFT;
->> +	ns |= mdiobus_read(mii, smtg_addr, SMTG_TSC_WORD0);
->> +
->> +	*smtg_time = ns;
+>> +	plat_dat->bsp_priv = dwmac;
+>> +	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
+>> +	plat_dat->init = socfpga_dwmac_init;
+>> +	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
+>> +	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
+>> +	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
 >> +}
 >> +
->> +static int dwxgmac_cross_ts_isr(struct stmmac_priv *priv)
+>> +static void socfpga_gen5_setup_plat_dat(struct socfpga_dwmac *dwmac)
 >> +{
->> +	return (readl(priv->ioaddr + XGMAC_INT_STATUS) & XGMAC_INT_TSIS);
+>> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
+>> +
+>> +	socfpga_common_plat_dat(dwmac);
+>> +
+>> +	plat_dat->core_type = DWMAC_CORE_GMAC;
+>> +
+>> +	/* Rx watchdog timer in dwmac is buggy in this hw */
+>> +	plat_dat->riwt_off = 1;
 >> +}
 >> +
->> +static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
->> +			    void *ctx)
+>> +static void socfpga_agilex5_setup_plat_dat(struct socfpga_dwmac *dwmac)
 >> +{
->> +	struct stmmac_priv *priv = (struct stmmac_priv *)ctx;
->> +	u32 num_snapshot, gpio_value, acr_value;
->> +	void __iomem *ptpaddr = priv->ptpaddr;
->> +	void __iomem *ioaddr = priv->hw->pcsr;
->> +	unsigned long flags;
->> +	u64 smtg_time = 0;
->> +	u64 ptp_time = 0;
->> +	int i, ret;
+>> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
 >> +
->> +	/* Both internal crosstimestamping and external triggered event
->> +	 * timestamping cannot be run concurrently.
->> +	 */
->> +	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
->> +		return -EBUSY;
->> +
->> +	mutex_lock(&priv->aux_ts_lock);
->> +	/* Enable Internal snapshot trigger */
->> +	acr_value = readl(ptpaddr + PTP_ACR);
->> +	acr_value &= ~PTP_ACR_MASK;
->> +	switch (priv->plat->int_snapshot_num) {
->> +	case AUX_SNAPSHOT0:
->> +		acr_value |= PTP_ACR_ATSEN0;
->> +		break;
->> +	case AUX_SNAPSHOT1:
->> +		acr_value |= PTP_ACR_ATSEN1;
->> +		break;
->> +	case AUX_SNAPSHOT2:
->> +		acr_value |= PTP_ACR_ATSEN2;
->> +		break;
->> +	case AUX_SNAPSHOT3:
->> +		acr_value |= PTP_ACR_ATSEN3;
->> +		break;
->> +	default:
->> +		mutex_unlock(&priv->aux_ts_lock);
->> +		return -EINVAL;
->> +	}
->> +	writel(acr_value, ptpaddr + PTP_ACR);
->> +
->> +	/* Clear FIFO */
->> +	acr_value = readl(ptpaddr + PTP_ACR);
->> +	acr_value |= PTP_ACR_ATSFC;
->> +	writel(acr_value, ptpaddr + PTP_ACR);
->> +	/* Release the mutex */
->> +	mutex_unlock(&priv->aux_ts_lock);
->> +
->> +	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
->> +	 * the GPO0 to low and back to high.
->> +	 */
->> +	gpio_value = readl(ioaddr + XGMAC_GPIO_STATUS);
->> +	gpio_value &= ~XGMAC_GPIO_GPO0;
->> +	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
->> +	gpio_value |= XGMAC_GPIO_GPO0;
->> +	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
->> +
->> +	/* Time sync done Indication - Interrupt method */
->> +	if (!wait_event_interruptible_timeout(priv->tstamp_busy_wait,
->> +					      dwxgmac_cross_ts_isr(priv),
->> +					      HZ / 100)) {
->> +		priv->plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
->> +		return -ETIMEDOUT;
+>> +	socfpga_common_plat_dat(dwmac);
 > 
-> Don't you need to set priv->plat->flags |= STMMAC_FLAG_INT_SNAPSHOT_EN first?
-> Otherwise, timestamp_interrupt() in stmmac_hwtstamp() won't call wake_up()
-> on the wait_queue.
-> 
+> I"m not familiar with this device (I only have a Cyclone V on hand), does
+> it still make sense to try to instantiate a Lynx (i.e. Altera TSE) PCS
+> for that IP ?
 
-Thanks for pointing this out. My intention was to use the polling
-method, but I accidentally left behind some code from experimenting with
-the interrupt method. While reverting those changes, I missed updating
-this part of the code. Will fix this in the next revision. Sorry for the
-error. Currently not seeing any timeout issues with polling method on
-XGMAC IP. Also some spurios interrupts causing stall when using
-the interrupt method in XGMAC.
+AFAIK, yes it is supported by Agilex V device family also.
+https://www.altera.com/products/ip/a1jui0000049uuomam/triple-speed-ethernet-fpga-ip
 
->> +	}
->> +
->> +	*system = (struct system_counterval_t) {
->> +		.cycles = 0,
->> +		.cs_id = CSID_ARM_ARCH_COUNTER,
->> +		.use_nsecs = true,
->> +	};
->> +
->> +	num_snapshot = (readl(ioaddr + XGMAC_TIMESTAMP_STATUS) &
->> +			XGMAC_TIMESTAMP_ATSNS_MASK) >>
->> +			XGMAC_TIMESTAMP_ATSNS_SHIFT;
->> +
->> +	/* Repeat until the timestamps are from the FIFO last segment */
->> +	for (i = 0; i < num_snapshot; i++) {
->> +		read_lock_irqsave(&priv->ptp_lock, flags);
->> +		stmmac_get_ptptime(priv, ptpaddr, &ptp_time);
->> +		*device = ns_to_ktime(ptp_time);
->> +		read_unlock_irqrestore(&priv->ptp_lock, flags);
->> +	}
->> +
->> +	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
->> +	system->cycles = smtg_time;
->> +
->> +	priv->plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
->> +
->> +	return ret;
->> +}
 > 
 > Maxime
+> 
+
 Best Regards,
 Rohan
-
 
 _______________________________________________
 Linux-stm32 mailing list
