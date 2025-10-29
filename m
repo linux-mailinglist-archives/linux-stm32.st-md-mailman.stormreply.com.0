@@ -2,73 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E8A1C1D98A
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 23:38:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58251C1D9E1
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 23:50:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3B15C62D5E;
-	Wed, 29 Oct 2025 22:38:15 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E029DC62D5E;
+	Wed, 29 Oct 2025 22:50:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82760C62D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C9D7C62D5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 22:38:14 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-592f5736693so388735e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 15:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1761777494; x=1762382294;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LzhhJeyhuNotVzEFbkuilK+xDg5eMa2kqkHmG2gliAs=;
- b=e48w/LqGH9JbD96DDwQrF+Q8OTzYnDHRPW71PeX3uDdNn4ZuXQaNyMOUaycNQFQvtp
- 7mwns7qdDA/k/1ZooAwwn4h1bfnyLB3QeS/33tGGJH0mPQoz0wybtmN5aApz1/LY3+/X
- 0e8NSR5qNIZyn1izWIWc54O/TAOL0H2t1qlrjCFc+ZkMbhdRjvt0zJn3NNiGojqCfx1n
- tPPfZdgq+uiMKGIv0b3Uy23dVorCzAtmgT8MOXRG6yDGtOc5XgijVOW2C9CivFzz6qw/
- hnHqT4ibBU+vHthf538/ipe6lyDHZGszgZExXVKVF+2Jsuk9i+oFdyF8zy+179DGz/5f
- NFJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761777494; x=1762382294;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LzhhJeyhuNotVzEFbkuilK+xDg5eMa2kqkHmG2gliAs=;
- b=KXBUsQ+bDehK77hmHYdnS0J80nUMEdSImf02f+TKdH1uKekc8p9aBubriL+mlFdvko
- ixiHQasfDOkd+7wYONUgh/Lj56Vr2mmtX66qsod4dx9lo+k5j0G/ktgV+SPEJ4nLD4EM
- o/6LWUJJ96BZDLQcim46ysSvQxqScSF3IIwD1771QIxDOSMNSwRkub+zhiqLNvTagRDX
- O0mv0qLQHyb+f3Ln6mk8SLoC1WkUVIz9pywgfcedQZDI8JFq/AoAxU7/Met0XSklzY+7
- dEmSo8tdmeLHs59aQHq1vvGwfDQMd5aYuwlscgFZkIVyz5UsBj7VR21T6fCzwOpxSnsn
- aZ9g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXd9yVjtCCbfh7WQ8WekoYeMkscn5bSZJhR7oYbBlWiNxwp/BYktrFxQ213v57klTJWMOwxL+t27wrrcg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxB9ZgW+qEbj8WxoA+kmzTFEO7yA/5SFlTGqlj5VOjWQBKhMSDH
- UkgtE1xQHkXiqLllSxomlCKTrdy3DDDG1JJqrfcD220N7I3PMVHnlo++q9djuM02GpVRopB5+RU
- CXYvUOpo3lXdORVkMssUwc+TIHLssew407S26kFX59w==
-X-Gm-Gg: ASbGnctVs5uEGb3ITn7A3TuD1Hd2J6Dc/NgI9TlK10jnSk0U4lCC1DlrD0HTjuUUZVP
- xTOcfzZh0Wgi0GnKBGt3lNAnqufmXBF6bpidqSoasrzzvsIbhI//jO4D89MjEU7I/VoHWyyS0Yw
- bMqZxbJBCWbXCrCXCP7pgeM1jC3KKgh4ftx8ysX2ZWm2/srLxsOuigQDVCzFx1KqN76hst0ZPKl
- uNEsgDc98XGbRgVC+c9NwxiuhOnpYmodBWpTTMBAPGFcjDy1KsNmF/+qOA/iKJXdq0zxoM=
-X-Google-Smtp-Source: AGHT+IGSUDEU3GIah9012vj+4Pg6s5GLROpJXSNa8R5tFKJQLl26wMkX/AWwD8Tr3hAmRNfydWUkSQRxKrXdGT5PldQ=
-X-Received: by 2002:a05:6512:3c96:b0:58b:8f:2cf3 with SMTP id
- 2adb3069b0e04-594128696femr1551857e87.21.1761777493571; Wed, 29 Oct 2025
- 15:38:13 -0700 (PDT)
+ Wed, 29 Oct 2025 22:50:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 33FD160273;
+ Wed, 29 Oct 2025 22:50:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6B3C4CEF7;
+ Wed, 29 Oct 2025 22:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761778243;
+ bh=mTQHrDxKx7IV8KOA3AyIUBpcpmWdEWskPrlRI2H7uIo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=BWxyrc1rNIVq3ghKKjMEPb+CHpbOQR4VH/HpURcGL3WkMqxVbgR5EA97L8sMLsTIo
+ fUcumSh7i0QaKI057eCuOl6khpjKC1dPpmPPaWiBvHP9fJFVl9TbFCcCsgJMYZ2jzb
+ 70Eo7KdNpH+h5MNmGi6RnzTy+U/khF4kKQGf6J/wU847J1HdF5vZBwioqyRRRJYfM5
+ BfigAmwxQ4Y5Ox8N+vasb29xMlsf7fpNqgTNL5uTOBY4WUfY7x/IfsJPcXP8Kl0MHH
+ 75dDEw9a0k5u0lPqlFK/y9E1bU05HR1EHGI6iadBlyqv9vHI3U5DL9KiQ5I4fAOorB
+ DsCiy3Qkc042Q==
+Date: Wed, 29 Oct 2025 15:50:42 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <20251029155042.208ecff4@kernel.org>
+In-Reply-To: <71310577-7cea-42ce-8442-49e09e0b958a@bootlin.com>
+References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
+ <20251024070720.71174-3-maxime.chevallier@bootlin.com>
+ <20251028151925.12784dca@kernel.org>
+ <71310577-7cea-42ce-8442-49e09e0b958a@bootlin.com>
 MIME-Version: 1.0
-References: <20251029014252.178-1-vulab@iscas.ac.cn>
-In-Reply-To: <20251029014252.178-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 29 Oct 2025 23:38:01 +0100
-X-Gm-Features: AWmQ_bkwwJG8Z6hmew0Xb94qZ2C3iHp-j72hqofQeN8YiL8UtJjm3k_2tYVG6MQ
-Message-ID: <CACRpkdanWwXSAu4oH9LnnTJ0mxB+7sorUKj_juFrRebhdL1WKQ@mail.gmail.com>
-To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+Cc: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: fix hwspinlock resource
-	leak in probe function
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Add a
+ devlink attribute to control timestamping mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,23 +62,19 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBPY3QgMjksIDIwMjUgYXQgMjo0M+KAr0FNIEhhb3RpYW4gWmhhbmcgPHZ1bGFiQGlz
-Y2FzLmFjLmNuPiB3cm90ZToKCj4gSW4gc3RtMzJfcGN0bF9wcm9iZSgpLCBod3NwaW5fbG9ja19y
-ZXF1ZXN0X3NwZWNpZmljKCkgaXMgY2FsbGVkIHRvCj4gcmVxdWVzdCBhIGh3c3BpbmxvY2ssIGJ1
-dCB0aGUgYWNxdWlyZWQgbG9jayBpcyBub3QgZnJlZWQgb24gbXVsdGlwbGUKPiBlcnJvciBwYXRo
-cyBhZnRlciB0aGlzIGNhbGwuIFRoaXMgY2F1c2VzIHJlc291cmNlIGxlYWthZ2Ugd2hlbiB0aGUK
-PiBmdW5jdGlvbiBmYWlscyB0byBpbml0aWFsaXplIHByb3Blcmx5Lgo+Cj4gVXNlIGRldm1faHdz
-cGluX2xvY2tfcmVxdWVzdF9zcGVjaWZpYygpIGluc3RlYWQgb2YKPiBod3NwaW5fbG9ja19yZXF1
-ZXN0X3NwZWNpZmljKCkgdG8gYXV0b21hdGljYWxseSBtYW5hZ2UgdGhlIGh3c3BpbmxvY2sKPiBy
-ZXNvdXJjZSBsaWZlY3ljbGUuCj4KPiBGaXhlczogOTdjZmI2Y2QzNGYyICgicGluY3RybDogc3Rt
-MzI6IHByb3RlY3QgY29uZmlndXJhdGlvbiByZWdpc3RlcnMgd2l0aCBhIGh3c3BpbmxvY2siKQo+
-IFNpZ25lZC1vZmYtYnk6IEhhb3RpYW4gWmhhbmcgPHZ1bGFiQGlzY2FzLmFjLmNuPgoKUGF0Y2gg
-YXBwbGllZCEKCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, 29 Oct 2025 07:59:10 +0100 Maxime Chevallier wrote:
+> The patch was applied, should we revert or add another patch to rename
+> that parameter ?
+
+I think an incremental patch is best here. You're using the register
+naming in the driver code so I suppose you won't even have to make many
+changes there.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
