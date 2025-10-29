@@ -2,158 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E28FC1C63E
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 18:15:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0B9C1C9BA
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 18:55:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39A55C62D53;
-	Wed, 29 Oct 2025 17:15:04 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010034.outbound.protection.outlook.com [52.101.56.34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 958CBC62D55;
+	Wed, 29 Oct 2025 17:54:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDCFEC62D44
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93EF8C5663C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 17:15:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JJhYd3JreE+7T/M7kAt/snQ38EbqLa1NN7wSW4a007b9CT17QAkoJytM3fCesOM+No9Eibzmyqp34pkr9DaristRdKVDVZVrvvSoLzqbt7pXL15SWm4c4qSmbwDq0NWI6INQs4so76BsU9srZYfOdAv/I2XAnhINggKeeVg4O8owI7Irxq+BMRUtO/CidE7g9PXGR6WwqzaWH1BW9CmMHmOayK6sSPl8KLqa/6Me8twYvsYtcCfPZ7tw+NAKNIYLJmHejcxDJHRh/JNlW2u2mWyhAZGPdR0t9OMgmBYtf93EwxWqrN8yuTPN0aqXgpwXY2iiK3QsT2EozvxMcHlYZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R/9Oh9MGbaCX/yyx5d5B4nlurP470Qo4sWNbPV4S5nI=;
- b=sSVuCI5enRC8MzjkqJV8aRbSGJlA9sXUJd/Ic1XW+DKfxg8YqCXEPb6Q+HKPJEKlXzkqOR6Zb/lMArWl49WhFODRxa9Fz51BM5z/xsUhxJApAFaHXgM4qgJxmzfNHXXq8zWeEwwa4wTe4gUQSPh4HQbukUhTr+rCaPk/sjIbXCc6sGL2QAViVuZ2k3jlX59aiq6wc7/QY/Ec7NoWwWGDfEfd6N17pAEIVrlAxtfRIiMvs51DbDHatjSXGLJ4+z1lBhN+/NBAvM8AavaUY9MsmobVuEfw6jvuKBu04sHYwP9scrL0M6/ULIa0+AO+xpub6W/p1IlJ/SK26x8MyKGmEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R/9Oh9MGbaCX/yyx5d5B4nlurP470Qo4sWNbPV4S5nI=;
- b=rC/Y2UOnQAksq6C0Ok3wKD9vZnvQe6Hmkhhlcvp9s3fXxdAKj4sQPGVBJ9H2Vy4nCsXVfKo6NkdsKBkndpEu7jS6OSiQod+vIxy+WtCmPN6P9CQC9+GEqwpairrgv2bou2LX+4xVBvkuEbePliTzBCDJt7Mj385FV1e3THrSr3TE2Bs8j4mw7Pu0W8DtRVhniYAV92EYjesokh73W5bE88/POMpePtrJh2P74wVqqyy3ESehml4OSYhsF6MKTtBux9Ouz5eujjQPXfdPnEvTjaEcd3plh5t2b8Ft8JuX++822g779mnqJ0m0gXc5oBBu9/NtL+SlcBVnqs8Xq/g/Bw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com (2603:10b6:5:24c::21)
- by SA3PR03MB7418.namprd03.prod.outlook.com (2603:10b6:806:396::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.12; Wed, 29 Oct
- 2025 17:14:59 +0000
-Received: from DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076]) by DM6PR03MB5371.namprd03.prod.outlook.com
- ([fe80::8d3c:c90d:40c:7076%4]) with mapi id 15.20.9275.013; Wed, 29 Oct 2025
- 17:14:59 +0000
-Message-ID: <9e4d264a-b188-4ca7-ac48-a8c90785d8f3@altera.com>
-Date: Wed, 29 Oct 2025 22:44:49 +0530
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-References: <20251029-agilex5_ext-v1-0-1931132d77d6@altera.com>
- <20251029-agilex5_ext-v1-1-1931132d77d6@altera.com>
- <aQI9ckiHEybp3c_y@shell.armlinux.org.uk>
-Content-Language: en-US
-From: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-In-Reply-To: <aQI9ckiHEybp3c_y@shell.armlinux.org.uk>
-X-ClientProxiedBy: MA5PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::15) To DM6PR03MB5371.namprd03.prod.outlook.com
- (2603:10b6:5:24c::21)
+ Wed, 29 Oct 2025 17:54:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 12B0160503;
+ Wed, 29 Oct 2025 17:54:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99C8C4CEF7;
+ Wed, 29 Oct 2025 17:54:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1761760496;
+ bh=bCXLipd8jw4UWfF/s5HKsZqILEHRwryjypVy7tkLUjI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=e2tj5JN387EOqfUzqfbcncN6EFYT4OwAISQxnGTNRwt+7QYfTddUa14wSsM/M0eA/
+ lY+4h6ETkKg7o3jpW85ZU0y2lae7avMVcvFP7v/SEFsbARyqbD0oNiAiLvpe1CYzaT
+ IuuzqvjzurbH11uNGwmCPkUZ546lWRVfgAUGPFrvFYOTckwvUFggfO++KsGCS+GWm1
+ /xbtIUCkwcQ31tp67OcF3lTVc55SJPPSso6hov6boz113Vahc+Jifr4Q5NNedVELLK
+ jLA5Jby4dX9uSizqMTZpb9knFrinWRP79P6aK0nswAcv++PSsewUjwlZK90MSo9Nlt
+ NG/j0vZNGZQHQ==
+Date: Wed, 29 Oct 2025 17:54:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <20251029-fading-expulsion-f0911c28d23d@spud>
+References: <20251028003858.267040-1-inochiama@gmail.com>
+ <20251028003858.267040-2-inochiama@gmail.com>
+ <20251028-parka-proud-265e5b342b8e@spud>
+ <rclupbdjyk67fee2lgf74k6tkf7mnjcxzwcjvyk2bohgpetqt5@toxvy3m5orm2>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5371:EE_|SA3PR03MB7418:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5bf86ca-a324-4a41-fa2a-08de170eb092
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eGV2dkpaVHE4bEpZUm10c015ZjgvM3FtSVk3aVNWRVZOUFBZN1RkYWJCa3Va?=
- =?utf-8?B?d2lNOUVRNmlmZlp0ZWxQNzhQaDdwNGdDUjRoZFh2L2M5ZlNCTGYzUkpJcFNO?=
- =?utf-8?B?UGJsY0tqc3pGSTAydThoNGNRSkY0ZmhkTUUwQ3d3TllaOTh4dXFFRFBMb3hx?=
- =?utf-8?B?K0JmTGhWQU1rR3BZeWl4RGZvZzVpU0ZBTjdUMnM5c3ZFaXVCckdzeElhc2I5?=
- =?utf-8?B?ZEZlVEhlNk9yN2tTSXB5NUY2a1FHa1NKdERkellkMmJhb3ZHcCtiY2xUcUFr?=
- =?utf-8?B?L3oxZFZYa3QxRVJQNms1bVJ6anBSUzEwdUZBY3hDaDFnOCtZakFkZTVIQkty?=
- =?utf-8?B?ZzJ1dCtxOGtHU094OEFEQnlBTWlOK3JaeTI1V01SeldxcGUxNnltOHlMU0F2?=
- =?utf-8?B?TktkMVJ2WTdMcXJtZERab0FYK0JKcWR4Mnh2cGtnbHJ2ajNSeStDZXZEajJC?=
- =?utf-8?B?OGZMOFlZN1JhU2dVNVo4SWFFcnI4K25QQUhwOXp0WUFMaHg2d2Q1eGVVNWhp?=
- =?utf-8?B?V01vc2NNd1U5L1p5Z0M4QThrM2l3ak05bHNZN09CZytpQ2pyZXU4eVhZMG1X?=
- =?utf-8?B?WGcxcFJGZGVaVWVRK3QyV3cyRlh0a1RBVFNldUxVaVdVUDUzU2tmUTlGZmk2?=
- =?utf-8?B?QXlibU1IUDR2MGZZR3hLRUJIb1BKbTlra1V5bjgwOTVVNjhxei9XNlc1emtN?=
- =?utf-8?B?eGdJU1Z5eWlma0VzYXorcDRqaW1BVWM4ait0ZG11OGJ0UC9GcW5OQTJwTW1D?=
- =?utf-8?B?NnJtR1dTZTJscDBwZUtodmRBTnR3WVhVdFFrRjFsMGhYdmFFeURHNU5wVmEy?=
- =?utf-8?B?YjBxRThpOW4zVlh5MnlXdGNDcWlpTVlFV3RySXIzRnF6RzI2c2FsQ0NmMnpx?=
- =?utf-8?B?cFhWWHhydnBTNHFmK3NNOFk0dE5DMmtwNHZkaUgxOHVienAwWlFNbjlpMEdE?=
- =?utf-8?B?bzJKSnZOVkNYNWMwYmtpblFiaERhQmZZMjUrc0YzMkRzK3ZncU51UGxVZERM?=
- =?utf-8?B?OXF5WkdiWGlRbnFTbkVXNGJFYzVyK2VpaU00dkVad0pPZjJGSGdBWm9BTTRz?=
- =?utf-8?B?ZWNlVlF6RmZhSnBhZGVwUjMrZHZuWGpUWjR0LzZGN25Id1JSMlowVHpWNG9J?=
- =?utf-8?B?empwSXF2UjBudDRVbDkyWnA4VDNPQUdBWTR4TnJ1RWVBdWtGZlZrTW5POWFP?=
- =?utf-8?B?RkFPME9JOTU3TUxjblRkY3Y2ZnRlTjFKSTlGMWxVRldicE5jYzVZeEpUTDdo?=
- =?utf-8?B?NEhGZnJMQ1l4QVd0b0dack9TL25zVGJSZW9aRTZBdk96Zno5a2lMQ21jNmdT?=
- =?utf-8?B?d3FBMGxyNU82bU5PZytTSmpnSmJ1RlMwcmxGZ2xCQUlheTRBVDNIZUNKcXoz?=
- =?utf-8?B?eS83WkZKbmV4cERKajZXQ0pHdUtOTi9ROXFZM3lDMW5BT2txSkxIZ2YrNlBp?=
- =?utf-8?B?V0pNY3ZsaXkrNWwvUzNVWkdJL1VLRnliZUNxVjdTS0pSaitIVG55NnJUWGFZ?=
- =?utf-8?B?TXJaS1JreVBpUzFCUnluVng1MlpOL0h4SHJZc0pzdVFFQWNadnlrdExoc01Q?=
- =?utf-8?B?NnlldTlFM1lKaFdRWVl3TkxzRlJlOHlOS0s5eGhoT1k5MjhlMjRhN0YrMnd0?=
- =?utf-8?B?elZMTWpISUY5cll0RFhjSEJQUi9KVlhyM0N2d1RtTVBlODM3ZEpXYS9PVVJo?=
- =?utf-8?B?U3g1WmNoVUFyZ2ttb012SEgrd1Q0NHY5WHh5VUZ4c3J6Tm5IL3FLYkhPL0Ns?=
- =?utf-8?B?VlhyaGIzeWhwcmpSRUJHcjVqemJpV1l1azVSMWZWR3BlbTJucXF1bnhxTEZ1?=
- =?utf-8?B?ajRtR2VvU01hcXlJM2Yya2t0YlZudEc3M1pTeTZycml3S0drMFB2RzdicTNN?=
- =?utf-8?B?MStoTEV3RzlhNnVEVWQ2c2JycUlYMjRVOXB1VDhVTWxjUXAvaENCOGNQckU2?=
- =?utf-8?Q?lE+3/kNs7bxUv/EV9mFI7b7+ql3oxRUS?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR03MB5371.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUxrdEdHZ3NUZUlCdTNLcTk0Z0lhNnA3MWNyYUtjLzFjVjFrdTdRUWZ3RGdP?=
- =?utf-8?B?amhXaVRKYzVmQkhKS3RwMzhCaHR5cHFGdFRQalRvU1Bra0tBSjFmOENDSmp2?=
- =?utf-8?B?TG9TVldXdlhHOW15Zm5mTzkrWEhMS1FESFdtNEhRcldzckV3M01IdTlZRitz?=
- =?utf-8?B?N1VVVFJ3VDlraGN3M1NIR3IwdXVvVVBHWXZRNnVvVTltd3RjNHhTME5WSnZO?=
- =?utf-8?B?Q0dnUEViNWdpdDBsN2dkNi81M0pCLzR3c3EyQlYvejVCSThRWFgvMTdjaVZW?=
- =?utf-8?B?OHR6RWdacXRIbHRoR3gxaUYyN29RcE9WOWRHLy9XNEpIOUJ2S0RLY2pXMm05?=
- =?utf-8?B?akk2SUNaKzBxTkVxMjNqeVdGamNyZGIrdlpIa2pPcm5ib3NwejlmRFZuU085?=
- =?utf-8?B?MjhBcExqWTNHelozaWJRK3E4SUpoakovTCsrMUorbXZLejR3Kzh2WDNkV2VU?=
- =?utf-8?B?VHFFYm8xVzRGWUJ2L1FKWkxYbkNDUDIydXlpYk41aUhWWTM0R0YvSDFEMGto?=
- =?utf-8?B?cU5yRUVERTQ5cFZ1WVhtbnFsSUhneHlZaGMxSUo0Y1l1U2EzZkVsS0VEdExt?=
- =?utf-8?B?VmtaaXQxdzJZb29Md3dJRDY3Mng3a0NRakVGbjhjVUJsOXJWNEI0ZmpYTlky?=
- =?utf-8?B?TG1iKzVSUER1ck5CMm9ZTmlWRThsR3U2Vm9jZk1Lb1V5YlI0S29kaU5EWjlJ?=
- =?utf-8?B?RXJSWjl6dUpPSVA2aytKRFRKRVdkRXZmY004djhoM0h3aElNU05EOXJQZk5k?=
- =?utf-8?B?SFFoM21RZkpUMThsV0MxMXRMMldIbDlXZGRSU0xJSnJvbWh4NjFnOGZXMUNr?=
- =?utf-8?B?Ujd4QnhKaWx2QW9tV0wrVlVNaW9Va0N1M3dlVGJzOWxzYlg5YmJrUy8reTI0?=
- =?utf-8?B?MUNkNWpSTTdrdU4xN1dlNWFLejVGb0Q3SFkrYlBPYVJua0J4MmZSTUNUL3Fw?=
- =?utf-8?B?emRlcDlFSGVJY0VZakUxL1dFbHJMMUhVMXhEdnBncWFBUkc3UnkzM09scmJI?=
- =?utf-8?B?SUhYLzU5VVdPdzRyZkc0N1lCdzNGVnR5M1FpSkthQ1lRZDZSdEVYSGo4WFJQ?=
- =?utf-8?B?RTZUUXJDVVJ0QnFtT0pmZTZRVndYcFFXMTlrSjIzbCtXelpEZXB0R0tXRnVX?=
- =?utf-8?B?eTB2NHA4NzdVRWJTeFVZbFNuQmZFbVQxdEJzajgxL05ScUhjNWJHRzlJakN0?=
- =?utf-8?B?aW0yMlhMN3FuanpIV2hMcCsxM1J2MS9NVmFZVEtjc0JhUmR6b2F2Rk1CMWtS?=
- =?utf-8?B?Y1FrYnkxVUc3Tk9odnlBc1ljRlgvdk1xTXd0d0ZnNThzUE8yeFcrNUlMTGFx?=
- =?utf-8?B?d3J2TTU0T1dsVUYwNHNMc3B1M0Z4MjNJVFp3VVNpeGg1aUlxSEE5OE1ocmEz?=
- =?utf-8?B?eDRvYjBWaDY2c2RHWGRzVFYydjNjQllpV3FiS1RnVjJtVGphRDNYQ1BML09i?=
- =?utf-8?B?S1d4V2tYWitPVXp0Ym1SUm4vRUhTOHJPOUFnSnNpYTlFdnpKemVTZk5LeGdO?=
- =?utf-8?B?UktBcXFIdi9Vd2taVk95cmRrWXU3VlR2Q3RxZkNBT2FtSUlCVERnT0pnZG5U?=
- =?utf-8?B?NDlUcDlFblBaZWNQWWlROEZkSXh3OVduRC8yQnJ2QkhVLzA3V2pWYnJ0SEY3?=
- =?utf-8?B?NWh4Sk5TSWRjV0dTOE1kSUkwUjRleHNZVjlMeVNtRUgrVExXZVcvcEpQUGlK?=
- =?utf-8?B?VnFibFp3RUlKTEQ1SUxiZERUbFRTZ2hNV0UvRXRZN3VKQlpvWm9DQnh0clRZ?=
- =?utf-8?B?c3gwWkV6MU01ZlZqS0JVTEZmaGh3ZkVIVkhsTnVISUtZSmxpSFA4Zll6Vytr?=
- =?utf-8?B?ZXE1cTBPNlI0Z3UvZVRkZlhrM1VjRVhvTEpTYzR6WkdkRGsyMzBMM2dyMDlv?=
- =?utf-8?B?Mkc1MHV5cWJ0VjM4ZTMvYzVRNVZodWFNM21hbE9oSUIrYlRSYXlOVEJSb2J1?=
- =?utf-8?B?VkpIOEhmNmhpK1RjZGFSTGhDSDNZWHIvSHdkdWh5R00raGxmTm1aQ1pQN1VK?=
- =?utf-8?B?TzYvaWhzSHFKa3ZtRDBBQ2UwWUlUSDhleTBHWEpSNElTckJwSEFYRmVnWU5O?=
- =?utf-8?B?a0JGTjB2Qzg4VG5qQk1FemhYL3VHOWZzK1ZYd3N6NFdUSXorTFV5RlZBbExn?=
- =?utf-8?B?eTdNNm5vcnl4ZkVlWTh6SlpoL2VnWE5KdHRtdjBBU2dhN1lXL01xaWEzUTV3?=
- =?utf-8?B?cXc9PQ==?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5bf86ca-a324-4a41-fa2a-08de170eb092
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5371.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2025 17:14:59.6610 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8aPCO/Efbw0vGoqn+BMpL57Tuzuq+K3fT/1AbsIAs64GVsaANlMAVRUDas+2fniRR4gyBUSiXSJgvu0jCaAWWZ65MxF7mu7WpyeLe9VkElg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7418
-Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/4] net: stmmac: socfpga:
- Agilex5 EMAC platform configuration
+In-Reply-To: <rclupbdjyk67fee2lgf74k6tkf7mnjcxzwcjvyk2bohgpetqt5@toxvy3m5orm2>
+Cc: Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Icenowy Zheng <uwu@icenowy.me>, Vivian Wang <wangruikang@iscas.ac.cn>,
+ Chen Wang <unicorn_wang@outlook.com>, Russell King <linux@armlinux.org.uk>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Yao Zi <ziyao@disroot.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, sophgo@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Han Gao <rabenda.cn@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v4 1/3] dt-bindings: net: sophgo,
+ sg2044-dwmac: add phy mode restriction
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,49 +66,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============7239908249889911273=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
 
-Thanks for reviewing the patch.
+--===============7239908249889911273==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xiR9j6m1veV/qNYv"
+Content-Disposition: inline
 
-On 10/29/2025 9:44 PM, Russell King (Oracle) wrote:
-> On Wed, Oct 29, 2025 at 04:06:13PM +0800, Rohan G Thomas via B4 Relay wrote:
->> +static void socfpga_common_plat_dat(struct socfpga_dwmac *dwmac)
->> +{
->> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
->> +
->> +	plat_dat->bsp_priv = dwmac;
-> 
-> Surely this is something which is always done? What's the point in
-> moving this to a function that always needs to be called from the
-> implementation specific setup_plat_dat() method?
-> 
 
-Yes, for all the current platforms this is common.
+--xiR9j6m1veV/qNYv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->> +	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
->> +	plat_dat->init = socfpga_dwmac_init;
->> +	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
->> +	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
->> +	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
-> 
->  From what I can see in your patch series, these are never changed.
-> So, I question the value of having this "common_plat_dat"
-> initialisation function. Why not leave this code in
-> socfpga_dwmac_probe(), and just move the initialisation of
-> plat_dat->core_type and plat_dat->riwt_off ?
-> 
+On Wed, Oct 29, 2025 at 08:56:09AM +0800, Inochi Amaoto wrote:
+> On Tue, Oct 28, 2025 at 07:22:37PM +0000, Conor Dooley wrote:
+> > On Tue, Oct 28, 2025 at 08:38:56AM +0800, Inochi Amaoto wrote:
+> > > As the ethernet controller of SG2044 and SG2042 only supports
+> > > RGMII phy. Add phy-mode property to restrict the value.
+> > >=20
+> > > Also, since SG2042 has internal rx delay in its mac, make
+> > > only "rgmii-txid" and "rgmii-id" valid for phy-mode.
+> >=20
+> > Should this have a fixes tag?
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> >=20
+>=20
+> Although I add a fixes tag to the driver, I am not sure whether the
+> binding requires it. But if it is required, I think it should be
 
-Agreed. Will keep it in socfpga_dwmac_probe() itself.
+Kinda depends for bindings, amending a binding for completeness probably
+doesn't need one but amending it to actually permit a functional
+configuration does. This is somewhere in-between I suppose. If a driver
+change is coming along with it which is likely to be backported, that'd
+be a vote in favour of a fixes tag here too, so that the binding and
+driver match in stable.
 
-Best Regards,
-Rohan
+>=20
+> Fixes: e281c48a7336 ("dt-bindings: net: sophgo,sg2044-dwmac: Add support =
+for Sophgo SG2042 dwmac")
+>=20
+> > >=20
+> > > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > > ---
+> > >  .../bindings/net/sophgo,sg2044-dwmac.yaml     | 20 +++++++++++++++++=
+++
+> > >  1 file changed, 20 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/net/sophgo,sg2044-dwma=
+c.yaml b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+> > > index ce21979a2d9a..916ef8f4838a 100644
+> > > --- a/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+> > > +++ b/Documentation/devicetree/bindings/net/sophgo,sg2044-dwmac.yaml
+> > > @@ -70,6 +70,26 @@ required:
+> > > =20
+> > >  allOf:
+> > >    - $ref: snps,dwmac.yaml#
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            const: sophgo,sg2042-dwmac
+> > > +    then:
+> > > +      properties:
+> > > +        phy-mode:
+> > > +          enum:
+> > > +            - rgmii-txid
+> > > +            - rgmii-id
+> > > +    else:
+> > > +      properties:
+> > > +        phy-mode:
+> > > +          enum:
+> > > +            - rgmii
+> > > +            - rgmii-rxid
+> > > +            - rgmii-txid
+> > > +            - rgmii-id
+> > > +
+> > > =20
+> > >  unevaluatedProperties: false
+> > > =20
+> > > --=20
+> > > 2.51.1
+> > >=20
+>=20
+>=20
+
+--xiR9j6m1veV/qNYv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaQJU6QAKCRB4tDGHoIJi
+0r18AP9YHrFoYXPV2dEPqru+c49A0QRQ0TNcKAkMQ1H/ppaEYgD9FQ3HpD0h2vUk
+e+BRSTPq5uaZbxl+044FWdyYYKRVCQE=
+=moFb
+-----END PGP SIGNATURE-----
+
+--xiR9j6m1veV/qNYv--
+
+--===============7239908249889911273==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7239908249889911273==--
