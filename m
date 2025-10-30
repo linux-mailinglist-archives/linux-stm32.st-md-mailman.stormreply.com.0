@@ -2,52 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CFC4C1E14C
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Oct 2025 03:00:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8110EC1E14F
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Oct 2025 03:00:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 319B9C62D79;
-	Thu, 30 Oct 2025 02:00:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43B7BC62D79;
+	Thu, 30 Oct 2025 02:00:42 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76534C62D78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5C7CC62D78
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Oct 2025 02:00:35 +0000 (UTC)
+ Thu, 30 Oct 2025 02:00:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2CD7E404C7;
- Thu, 30 Oct 2025 02:00:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF0EC4CEFD;
- Thu, 30 Oct 2025 02:00:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B8490404C7;
+ Thu, 30 Oct 2025 02:00:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9743BC4CEFD;
+ Thu, 30 Oct 2025 02:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761789634;
- bh=adIWWp6JkooxcKkGWYYawGCvhKj6QLF1nHLdmWN8kTU=;
+ s=k20201202; t=1761789640;
+ bh=TF+xR6KkE5OxIUkvy+8hHfKZ6+KB/cpOjzBZ3NfVqqU=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=DvgD0crXsz2KIHnfdi2gFAs+PUXtkzVqXmU0p99CXOjMOalyelax+Vt3tajwrE6X+
- pLi7P2vQso326M5CXCD369G0Y/kUzkwJeIq/3WmqLYV9OmVRlfqC4bcxH94Ors1RCe
- g5sACvH+KPESlK0/hcbU2jOKBJB6SW5X7Z1GWiRzfyncxOddGTimHShWe1HhHhPc3J
- TLvq89M2lJ4wXUSGW8/4Tmx44Yx0w6Fdkj+2F78x2POLBShSO3YUdkEsIf0GgpBgpq
- +2q8fzLAL8eM7lcXln+LKoQTc4cIV7C6cgv+3fydUpIDsDAdB/nS0DuRnPu1AYHL04
- EjEUP9E3qnzhg==
+ b=IRTOC1bpzA0kKLl18DqZ2dgnna/3cQnn4+WjtiR4iC1LuGUru3GrZx9p8l8KGMkZ+
+ q5A2hgO6cs8ZuchhZNhelEp5cceJPktfnyn/p1MskQDcVFnt8NDh+TR4jpgA82kHLV
+ a44FDRqic4yuZZbwVTcTJzh1hwstNCOFjJ9m16p9GsiGvnJclrPEIXxktoNbY12EcC
+ a/lGzfZ7Xka8HlEbGNsXBjdp1ZF39BwjhFficNpwajotUCJwMA01UA//eePWi1tVHu
+ NFlogkCIy53t9ZMe25+8MNhX89gz6g44JAKASaSS8Nf0CzI8Q9PYiHVAEosoAUoF+1
+ xT6250KQsYmUg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33C123A55ED9; Thu, 30 Oct 2025 02:00:12 +0000 (UTC)
+ CBAC43A55ED9; Thu, 30 Oct 2025 02:00:18 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176178961100.3282477.1158388762703076399.git-patchwork-notify@kernel.org>
-Date: Thu, 30 Oct 2025 02:00:11 +0000
-References: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
-In-Reply-To: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
-To: G@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
- Thomas@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
- Rohan <rohan.g.thomas@altera.com>
-Cc: Jose.Abreu@synopsys.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, boon.khai.ng@altera.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, rohan.g.thomas@intel.com,
- pabeni@redhat.com, matthew.gerlach@altera.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v4 0/3] net: stmmac: Fixes for stmmac
- Tx VLAN insert and EST
+Message-Id: <176178961774.3282477.10436173337048887248.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Oct 2025 02:00:17 +0000
+References: <e869999b-2d4b-4dc1-9890-c2d3d1e8d0f8@gmail.com>
+In-Reply-To: <e869999b-2d4b-4dc1-9890-c2d3d1e8d0f8@gmail.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux@armlinux.org.uk, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 net-next] net: stmmac: mdio: fix
+ incorrect phy address check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,29 +62,26 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This series was applied to netdev/net.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 28 Oct 2025 11:18:42 +0800 you wrote:
-> This patchset includes following fixes for stmmac Tx VLAN insert and
-> EST implementations:
->    1. Disable STAG insertion offloading, as DWMAC IPs doesn't support
->       offload of STAG for double VLAN packets and CTAG for single VLAN
->       packets when using the same register configuration. The current
->       configuration in the driver is undocumented and is adding an
->       additional 802.1Q tag with VLAN ID 0 for double VLAN packets.
->    2. Consider Tx VLAN offload tag length for maxSDU estimation.
->    3. Fix GCL bounds check
+On Sat, 25 Oct 2025 20:35:47 +0200 you wrote:
+> max_addr is the max number of addresses, not the highest possible address,
+> therefore check phydev->mdio.addr > max_addr isn't correct.
+> To fix this change the semantics of max_addr, so that it represents
+> the highest possible address. IMO this is also a little bit more intuitive
+> wrt name max_addr.
+> 
+> Fixes: 4a107a0e8361 ("net: stmmac: mdio: use phy_find_first to simplify stmmac_mdio_register")
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Reported-by: Simon Horman <horms@kernel.org>
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v4,1/3] net: stmmac: vlan: Disable 802.1AD tag insertion offload
-    https://git.kernel.org/netdev/net/c/c657f86106c8
-  - [net,v4,2/3] net: stmmac: Consider Tx VLAN offload tag length for maxSDU
-    https://git.kernel.org/netdev/net/c/ded9813d17d3
-  - [net,v4,3/3] net: stmmac: est: Fix GCL bounds checks
-    https://git.kernel.org/netdev/net/c/48b2e323c018
+  - [v2,net-next] net: stmmac: mdio: fix incorrect phy address check
+    https://git.kernel.org/netdev/net-next/c/cf35f4347ddd
 
 You are awesome, thank you!
 -- 
