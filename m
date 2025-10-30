@@ -2,71 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D255CC1E10A
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Oct 2025 02:57:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CFC4C1E14C
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Oct 2025 03:00:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFC4AC62D79;
-	Thu, 30 Oct 2025 01:56:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 319B9C62D79;
+	Thu, 30 Oct 2025 02:00:36 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97E76C62D6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76534C62D78
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Oct 2025 01:56:57 +0000 (UTC)
+ Thu, 30 Oct 2025 02:00:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A625D4446F;
- Thu, 30 Oct 2025 01:56:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF82EC4CEFD;
- Thu, 30 Oct 2025 01:56:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2CD7E404C7;
+ Thu, 30 Oct 2025 02:00:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF0EC4CEFD;
+ Thu, 30 Oct 2025 02:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761789415;
- bh=HRpBacWvcERcW6Qv0x09GJHb3Ah9hMytMcYGZZIFbVc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Gh4ILMBqEHUxbzVxPNqMOyFKoBk1D/2dQepMJwwn7MC+LxPe8bWzlFc0eOlE3GmMs
- GjyszMZWKU+BKnqE3gljkkBM8c2E3CgG2lA3V8BGoiqAsrCoiDbdpA4LmayHj9+2ct
- btpzGcp+9t29UohHNXRtpOZ22usFiprhf4Q0VHOdumxE8QVL/n8lNGeWrnDzN98pwL
- o96amkoTXFSNP+m+eKA5tRAB0mUJXoaZMs/1ZkRbVT+miZRfxHASMkTAxQ6wyGwkfx
- bw9x/TVL5KywwZOQnv89h5iDMO1jIqg+5uAiBwFh8onEhOd2lCVQWvC35MEHJiKewk
- AdpETnV8lF1Xw==
-Date: Wed, 29 Oct 2025 18:56:52 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Niklas =?UTF-8?B?U8O2ZGVybHVuZA==?= <niklas.soderlund@ragnatech.se>
-Message-ID: <20251029185652.14483c58@kernel.org>
-In-Reply-To: <20251027120559.GA365372@ragnatech.se>
-References: <20251027115022.390997-1-sakari.ailus@linux.intel.com>
- <20251027120559.GA365372@ragnatech.se>
+ s=k20201202; t=1761789634;
+ bh=adIWWp6JkooxcKkGWYYawGCvhKj6QLF1nHLdmWN8kTU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=DvgD0crXsz2KIHnfdi2gFAs+PUXtkzVqXmU0p99CXOjMOalyelax+Vt3tajwrE6X+
+ pLi7P2vQso326M5CXCD369G0Y/kUzkwJeIq/3WmqLYV9OmVRlfqC4bcxH94Ors1RCe
+ g5sACvH+KPESlK0/hcbU2jOKBJB6SW5X7Z1GWiRzfyncxOddGTimHShWe1HhHhPc3J
+ TLvq89M2lJ4wXUSGW8/4Tmx44Yx0w6Fdkj+2F78x2POLBShSO3YUdkEsIf0GgpBgpq
+ +2q8fzLAL8eM7lcXln+LKoQTc4cIV7C6cgv+3fydUpIDsDAdB/nS0DuRnPu1AYHL04
+ EjEUP9E3qnzhg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33C123A55ED9; Thu, 30 Oct 2025 02:00:12 +0000 (UTC)
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Eric Dumazet <edumazet@google.com>,
- Andreas Kemnade <andreas@kemnade.info>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
- Ingo Molnar <mingo@kernel.org>, Michael Nemanov <michael.nemanov@ti.com>,
- Roopni Devanathan <quic_rdevanat@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, Shenwei Wang <shenwei.wang@nxp.com>,
- Clark Wang <xiaoning.wang@nxp.com>, linux-arm-msm@vger.kernel.org,
- Siddharth Vadapalli <s-vadapalli@ti.com>, Paolo Abeni <pabeni@redhat.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Stephan Gerhold <stephan@gerhold.net>, Liu Haijun <haijun.liu@mediatek.com>,
- Kalle Valo <kvalo@kernel.org>,
- Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <linux@weissschuh.net>,
- Paul Barker <paul@pbarker.dev>, Roger Quadros <rogerq@kernel.org>,
- Wei Fang <wei.fang@nxp.com>, Thomas Gleixner <tglx@linutronix.de>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Ricardo Martinez <ricardo.martinez@linux.intel.com>,
- Alex Elder <elder@kernel.org>, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Johannes Berg <johannes@sipsolutions.net>,
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>, "David S.
- Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH RESEND 1/4] net: ethernet: Remove
- redundant pm_runtime_mark_last_busy() calls
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176178961100.3282477.1158388762703076399.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Oct 2025 02:00:11 +0000
+References: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
+In-Reply-To: <20251028-qbv-fixes-v4-0-26481c7634e3@altera.com>
+To: G@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Thomas@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Rohan <rohan.g.thomas@altera.com>
+Cc: Jose.Abreu@synopsys.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, boon.khai.ng@altera.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, rohan.g.thomas@intel.com,
+ pabeni@redhat.com, matthew.gerlach@altera.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v4 0/3] net: stmmac: Fixes for stmmac
+ Tx VLAN insert and EST
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,19 +59,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyNyBPY3QgMjAyNSAxMzowNTo1OSArMDEwMCBOaWtsYXMgU8O2ZGVybHVuZCB3cm90
-ZToKPiA+ICBvdXRfcnBtX3B1dDoKPiA+ICAJaWYgKCFwcml2LT53b2xfZW5hYmxlZCkgewo+ID4g
-LQkJcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeShkZXYpOwo+ID4gIAkJcG1fcnVudGltZV9wdXRf
-YXV0b3N1c3BlbmQoZGV2KTsKPiA+ICAJfSAgCj4gCj4gWW91IGNvdWxkIGRyb3AgdGhlIHsgfSBo
-ZXJlLiBXaXRoIHRoaXMgZml4ZWQgZm9yIFJBVkIsCgpmaXhlZCB3aGVuIGFwcGx5aW5nLCB0aGUg
-d2lyZWxlc3MgcGF0Y2ggbmVlZHMgdG8gZ28gdG8gbGludXgtd2lyZWxlc3MuCllvdSBtYXkgd2Fu
-dCB0byByZXBvc3QgdGhhdCBvbmNlIGFnYWluIGlmIGl0J3Mgbm90IGluIGxpbnV4LW5leHQgYnkK
-bmV4dCB3ZWVrLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 28 Oct 2025 11:18:42 +0800 you wrote:
+> This patchset includes following fixes for stmmac Tx VLAN insert and
+> EST implementations:
+>    1. Disable STAG insertion offloading, as DWMAC IPs doesn't support
+>       offload of STAG for double VLAN packets and CTAG for single VLAN
+>       packets when using the same register configuration. The current
+>       configuration in the driver is undocumented and is adding an
+>       additional 802.1Q tag with VLAN ID 0 for double VLAN packets.
+>    2. Consider Tx VLAN offload tag length for maxSDU estimation.
+>    3. Fix GCL bounds check
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v4,1/3] net: stmmac: vlan: Disable 802.1AD tag insertion offload
+    https://git.kernel.org/netdev/net/c/c657f86106c8
+  - [net,v4,2/3] net: stmmac: Consider Tx VLAN offload tag length for maxSDU
+    https://git.kernel.org/netdev/net/c/ded9813d17d3
+  - [net,v4,3/3] net: stmmac: est: Fix GCL bounds checks
+    https://git.kernel.org/netdev/net/c/48b2e323c018
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
