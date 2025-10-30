@@ -2,55 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58251C1D9E1
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Oct 2025 23:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0C2C1DE98
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Oct 2025 01:30:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E029DC62D5E;
-	Wed, 29 Oct 2025 22:50:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D11AFC62D64;
+	Thu, 30 Oct 2025 00:30:42 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C9D7C62D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CA2BC62D5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Oct 2025 22:50:45 +0000 (UTC)
+ Thu, 30 Oct 2025 00:30:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 33FD160273;
- Wed, 29 Oct 2025 22:50:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6B3C4CEF7;
- Wed, 29 Oct 2025 22:50:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 088DD6033C;
+ Thu, 30 Oct 2025 00:30:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B48C4CEF7;
+ Thu, 30 Oct 2025 00:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761778243;
- bh=mTQHrDxKx7IV8KOA3AyIUBpcpmWdEWskPrlRI2H7uIo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=BWxyrc1rNIVq3ghKKjMEPb+CHpbOQR4VH/HpURcGL3WkMqxVbgR5EA97L8sMLsTIo
- fUcumSh7i0QaKI057eCuOl6khpjKC1dPpmPPaWiBvHP9fJFVl9TbFCcCsgJMYZ2jzb
- 70Eo7KdNpH+h5MNmGi6RnzTy+U/khF4kKQGf6J/wU847J1HdF5vZBwioqyRRRJYfM5
- BfigAmwxQ4Y5Ox8N+vasb29xMlsf7fpNqgTNL5uTOBY4WUfY7x/IfsJPcXP8Kl0MHH
- 75dDEw9a0k5u0lPqlFK/y9E1bU05HR1EHGI6iadBlyqv9vHI3U5DL9KiQ5I4fAOorB
- DsCiy3Qkc042Q==
-Date: Wed, 29 Oct 2025 15:50:42 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <20251029155042.208ecff4@kernel.org>
-In-Reply-To: <71310577-7cea-42ce-8442-49e09e0b958a@bootlin.com>
-References: <20251024070720.71174-1-maxime.chevallier@bootlin.com>
- <20251024070720.71174-3-maxime.chevallier@bootlin.com>
- <20251028151925.12784dca@kernel.org>
- <71310577-7cea-42ce-8442-49e09e0b958a@bootlin.com>
+ s=k20201202; t=1761784239;
+ bh=tQIruejwpKTnBaTSE8KgQ617sg7pjgA/bUfxzMS/3Mc=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=K8kd55vjC1NG01Kdeh4jGuJmG/xyIbES63tC9TUeBMt2tYQTLzYa6MU4RACwGJ5mH
+ 7p6TaqzbMBhEG7JjyKuKkrYnU2kdwhKedaSUD644XDpbHMwMDX2yMndmJIiQr4BQBO
+ JgwtKIRdypeKmf3V//RP/Jr+HxdVtDiyGfuxyg9dtoXLDhklqjAlkJegHPzPFeeZmc
+ izDHIMn/QUtwD36ei0NengCxMAsJcO+T40YnfHTQ+JLIWVsBpxH9h43N9Vo16Wt7So
+ AKQO6crKRES5HRK+wvofPWa2+bzZ30Q36TU9EU5WJpC6++NAGOkwd6cYPNuvzcwNcX
+ WWlf6AFEBWosw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ EB1953A55EC7; Thu, 30 Oct 2025 00:30:17 +0000 (UTC)
 MIME-Version: 1.0
-Cc: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Alexis =?UTF-8?B?TG90aG9yw6k=?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Add a
- devlink attribute to control timestamping mode
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176178421675.3262354.14278133392680967130.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Oct 2025 00:30:16 +0000
+References: <aQFZVSGJuv8-_DIo@shell.armlinux.org.uk>
+In-Reply-To: <aQFZVSGJuv8-_DIo@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/8] net: stmmac: hwif.c
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,13 +61,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 29 Oct 2025 07:59:10 +0100 Maxime Chevallier wrote:
-> The patch was applied, should we revert or add another patch to rename
-> that parameter ?
+Hello:
 
-I think an incremental patch is best here. You're using the register
-naming in the driver code so I suppose you won't even have to make many
-changes there.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 29 Oct 2025 00:01:25 +0000 you wrote:
+> Hi,
+> 
+> This series cleans up hwif.c:
+> 
+> - move the reading of the version information out of stmmac_hwif_init()
+>   into its own function, stmmac_get_version(), storing the result in a
+>   new struct.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v3,1/8] net: stmmac: move version handling into own function
+    https://git.kernel.org/netdev/net-next/c/fc18b6e98cce
+  - [net-next,v3,2/8] net: stmmac: simplify stmmac_get_version()
+    https://git.kernel.org/netdev/net-next/c/f49838f77cf6
+  - [net-next,v3,3/8] net: stmmac: consolidate version reading and validation
+    https://git.kernel.org/netdev/net-next/c/c36b97e4ca77
+  - [net-next,v3,4/8] net: stmmac: move stmmac_get_*id() into stmmac_get_version()
+    https://git.kernel.org/netdev/net-next/c/7b2e41fff76f
+  - [net-next,v3,5/8] net: stmmac: use FIELD_GET() for version register
+    https://git.kernel.org/netdev/net-next/c/b2fe9e29b5f6
+  - [net-next,v3,6/8] net: stmmac: provide function to lookup hwif
+    https://git.kernel.org/netdev/net-next/c/7b510ea8e58e
+  - [net-next,v3,7/8] net: stmmac: use != rather than ^ for comparing dev_id
+    https://git.kernel.org/netdev/net-next/c/f9326b139b4c
+  - [net-next,v3,8/8] net: stmmac: reorganise stmmac_hwif_init()
+    https://git.kernel.org/netdev/net-next/c/6436f408eb21
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
