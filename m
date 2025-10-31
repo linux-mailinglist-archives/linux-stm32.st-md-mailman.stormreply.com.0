@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 938FDC23EC5
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Oct 2025 09:53:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C051C23EE9
+	for <lists+linux-stm32@lfdr.de>; Fri, 31 Oct 2025 09:54:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31539C62D3F;
-	Fri, 31 Oct 2025 08:53:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A429C62D99;
+	Fri, 31 Oct 2025 08:54:13 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28FB9C1A982
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A446FC5F1F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Oct 2025 08:53:19 +0000 (UTC)
+ Fri, 31 Oct 2025 08:54:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BE686438E4;
- Fri, 31 Oct 2025 08:53:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11393C4CEF1;
- Fri, 31 Oct 2025 08:53:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9436540BD3;
+ Fri, 31 Oct 2025 08:54:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0ADAC4CEF1;
+ Fri, 31 Oct 2025 08:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1761900797;
- bh=oK5nbB1LtOV7g02ZprYXgPq8GKEmIM9bcsXX+afO7Kc=;
+ s=k20201202; t=1761900850;
+ bh=Lw7yF10xMLzuOE0JXvv0x2sq04lm1fFuwSZpHCOq9mU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DYEKqxr2pRl3d4ijIZ5ZZYCcw/en5aFTZ5TcxpfP/QJ/ZgAtoCyBwnXU3e4SfKfTW
- WIUQWa+Y0SU4tIKw68AHY4F928BIByHXV5FqmoMmT99dz6DbRvpPJozKjMgge7YxxH
- TjmTg8tIUZvZyr/dlja+uj+/OKCvrbuS2ANl8RXD0vOKF+goo9uuUDr52O1N6T6ciQ
- q/glR4+532A3FeETTACxSYqblvKYGQEfoNgo89uv/UL1TmYJyBrDHns/tDyk/7cvIq
- SqxnjErCtLd3Pf0aCARGpwKJ6mWGAVMfTes+Br3yGaakDaY4gK9hgAfh6tJ+pY1u7G
- HqtI34pitwAOA==
-Date: Fri, 31 Oct 2025 09:53:15 +0100
+ b=G7+hjfxtbZHKoqcFjOPoLfaXzVymj6iAzO+1+my+UGN9xQzo2tbNW0nIZ2hVNb5mz
+ 7oe+qGdpTg/PDFq7EJD3H5eyhEfTwTGX55+0Yt95ZIyKHPI7hN7/43Ap3OrgOPtmTO
+ n+JG7SR6NfhvVrfb7HpyQJzeFHTjfGuv3yQTKqDuVU+/U7WnzDkQyj0hyC7iZzvvrO
+ g2dUM5EqkWRGV1s8VcxVUpbTjgp3IUu60ALra2NYWkb1kQrosb2ppgEDxRV5ARZrVA
+ 7SXhjjIBZK8Zyf5I6fNO0T2IUpUkN/OEDoTHbLICjWUEG9WsrJ3/K77wpMOsdjCIsX
+ 5b66IiXsWzOKQ==
+Date: Fri, 31 Oct 2025 09:54:08 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: weishangjuan@eswincomputing.com
-Message-ID: <20251031-elated-radical-limpet-6a0eaf@kuoka>
+Message-ID: <20251031-enthusiastic-rugged-aardwolf-a5ceb8@kuoka>
 References: <20251030085001.191-1-weishangjuan@eswincomputing.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -71,45 +71,12 @@ On Thu, Oct 30, 2025 at 04:50:01PM +0800, weishangjuan@eswincomputing.com wrote:
 > regarding the eswin,hsp-sp-csr attributes in the
 > eswin,eic7700-eth.yaml file, the link is as follows:
 > https://lore.kernel.org/all/176096011380.22917.1988679321096076522.robh@kernel.org/
-
-Drop, reported already says that.
-
-Just say that this is one phandle with multiple arguments, so the syntax
-should be in the form of:
-
 > Therefore, the eswin,hsp-sp-csr attributes of the eic7700-eth.yaml file
 > regarding eswin and hsp-sp-csr will be changed to the form of:
 
-> items:
->   - items:
->       - description: ...
->       - description: ...
->       - description: ...
->       - description: ...
-> 
-> The MMC,Ethernet,and USB modules of eswin vendor have defined
-> eswin,hsp-sp-csr attribute in YAML. In order to be consistent
-> with the property description of MMC,USB, I have modified the
-> description content of eswin,hsp-sp-csr attribute in Ethernet YAML.
-
-That's redundant paragraph. Write concise messages describing the
-problem, not some background or unrelated bindings. See also submitting
-patches about preferred English form.
-
-> 
-> Fixes: 888bd0eca93c("dt-bindings: ethernet: eswin: Document for EIC7700 SoC")
-
-Missing space, missing checkpatch.
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
-With first paragraph and fixes tag corrected:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Ach, and you forgot net or net-next subject prefix, depending which
+branch/cycle you target. See submitting patches and this subsystem
+maintainer profile document.
 
 Best regards,
 Krzysztof
