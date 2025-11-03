@@ -2,66 +2,170 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEAEC2ADCA
-	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 10:53:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24259C2B162
+	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 11:35:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEDB4C628DE;
-	Mon,  3 Nov 2025 09:53:05 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBF17C62D36;
+	Mon,  3 Nov 2025 10:35:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A381DC57B78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D03FDC628DE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Nov 2025 09:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cMx/pBIc7baCIIFWi7F4x4oW//4oX2tqQgVeFsSMo44=; b=f0o0aiuSsPBELTITSHiT3sl/9F
- ShJW0uMV84XXqKe4DehAuu+wJzWgWhk7SWRFBP0A3rg76j4tuP6h7DgXL0+ao8kzDoUgxYVP9f6Kc
- obDUjGatfPJ1zHDrnwLuMjQItLa0XRvgJA7U6JQUvhQOxBJrNlVx+BUnb1P2aCM/gCPr1AoxGSa66
- 8PdsRaHvNHOSdMpeDAUBDQLXtn/S4vzKPFVAAqLAFUHLmRDPbotH8s7FhKPmJvB/3tSOuAcsNPI6N
- 2ZN0iLv6qwulY6mTM2Jj7MX5w5PmW4UoxJzDR0g9qtgzz3KvfxFLOGdYj8MU/t4KYfb4CuUlJxV4v
- Z04rEpow==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54432)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vFrEz-000000000Tv-17fT;
- Mon, 03 Nov 2025 09:52:45 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vFrEs-000000003hg-47Cx; Mon, 03 Nov 2025 09:52:39 +0000
-Date: Mon, 3 Nov 2025 09:52:38 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Message-ID: <aQh7Zj10C7QcDoqn@shell.armlinux.org.uk>
-References: <aP03aQLADMg-J_4W@shell.armlinux.org.uk>
- <aQExx0zXT5SvFxAk@oss.qualcomm.com>
- <aQHc6SowbWsIA1A5@shell.armlinux.org.uk>
- <aQNmM5+cptKllTS8@oss.qualcomm.com>
- <aQOB_yCzCmAVM34V@shell.armlinux.org.uk>
- <aQOCpG_gjJlnm0A1@shell.armlinux.org.uk>
- <aQhusPX0Hw9ZuLNR@oss.qualcomm.com>
+ Mon,  3 Nov 2025 10:15:40 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5A3A8PRA2953680; Mon, 3 Nov 2025 11:15:23 +0100
+Received: from duzpr83cu001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012025.outbound.protection.outlook.com [52.101.66.25])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4a59yh74yk-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 03 Nov 2025 11:15:23 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MCAC38pvonoQYSZW0E7PsratvjvR6wtVbshq9fXiraVv7dRaMd7FdowCATF7QDo/NMun8XxQRwt/0qUkAjn/yXqPRqfP+iOAAHQ+saDi4Z4qP5m5FR+GBwwkzLlYGtbhHFCxECXYAz0ILVTv/mNRBlNhxtq9BaoxeZcoJ7vR9nLuDeZi0E3qsO/XjrM5OLuTElN3coL/PCkXP0K41lCQUSW3pjNJy8riHPAMbPbm+A7aNdvGJ0WasPA4mj+hzyBrlQRjny1ShVwYIbV3ZHqHY8m5OIYR201CwLwv6iQrSs9MPLgCvJVTAyb5PpbuNutP1shNpeKoH5nhNk0+7RyUPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M3f8RNSTUqTyy9d5J3kkGM6JQNHMAMJcEm9iCkyZ8EM=;
+ b=y0j2TaefpQGdC15XX+4N9rJfJLIYIF70ap2FbkjDFAZ0xrPsWt8szMj8/kqBRiOHNbRkuJ4rnfK3lWYpsEpECEGzbrJXUfnMcbMpxoZzG6lpqM5wLUpVsFjvE0+ZURp5QffT4vVvIFE3AWx+ELQh4GQtF8lOAvLIxQ1ZIqhyKczdEL4zaWKl6ajePJsp+BsqcXxK3o/dB2ZNltLjqzWsMTYTe94DWX+GY9n2QcP4hiYQ3605mJZwbACEcd62VlxsfHKLGHphDQSFt6FWS+vQEaUMiR/rs9w14LZbGeCypniJAaExKtiky3wgW30wx0GxGodWhMB8weZq29ABFroUPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=lists.infradead.org
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M3f8RNSTUqTyy9d5J3kkGM6JQNHMAMJcEm9iCkyZ8EM=;
+ b=Zo5YQwsOyycLSa8dan1NExEKlLrp1AsQ6hpV5TTlGohFH6zluYMnpFRZ2/WMRwUH2m2DEvJk/4joj2MU60tvVp3dDm11YlULgMSA7M5g+4Xju65aUSdQHxzRntPyJ7k3CepNjm2+EHmGdEiODcRPV61I0EtTdW/1RF5QyyaaJE6zh3j7nYt6bQ7IpL7Gzrkuw4S0baESjy3cirJKdiADl7jd6W7Au6+g8ldwwQ9nvAZQoRGbvyxhbgtsZzjG7b/oi2fCBz4qYuiDCYqOVHgMO49FFMWyy0T+5pmHyr6aAc4boNFTExcZxrf4TuF2baE01qwh9/Ncvyj9jKTi5avL6Q==
+Received: from DU7P251CA0012.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:551::18)
+ by DB8PR10MB3765.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:168::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9253.15; Mon, 3 Nov
+ 2025 10:15:20 +0000
+Received: from DB3PEPF0000885A.eurprd02.prod.outlook.com
+ (2603:10a6:10:551:cafe::d6) by DU7P251CA0012.outlook.office365.com
+ (2603:10a6:10:551::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9275.16 via Frontend Transport; Mon,
+ 3 Nov 2025 10:15:17 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DB3PEPF0000885A.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Mon, 3 Nov 2025 10:15:19 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 3 Nov
+ 2025 11:15:24 +0100
+Received: from localhost (10.48.86.127) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 3 Nov
+ 2025 11:15:18 +0100
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Date: Mon, 3 Nov 2025 11:15:09 +0100
+Message-ID: <20251103-dma3_improv-v1-0-57f048bf2877@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aQhusPX0Hw9ZuLNR@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Furong Xu <0x1207@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Daniel Machon <daniel.machon@microchip.com>,
- "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
- Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Yu-Chun Lin <eleanor15x@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: phylink PCS
- conversion part 3 (dodgy stuff)
+X-B4-Tracking: v=1; b=H4sIAK2ACGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1NDQwNj3ZTcROP4zNyCovwy3SSTJGOz1FQjY8NUEyWgjoKi1LTMCrBp0bG
+ 1tQA8GUU2XQAAAA==
+X-Change-ID: 20251103-dma3_improv-b4b36ee231e4
+To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.3
+X-Originating-IP: [10.48.86.127]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB3PEPF0000885A:EE_|DB8PR10MB3765:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61c36eaf-0207-462c-dac2-08de1ac1e433
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bEdjYjB3SUtVQXZsU3FlVnRIT3N3SWlYdTR1VnVJRGQ1L3g2RlJLeDJoVXpU?=
+ =?utf-8?B?MnpuODZtM3JXNkx0a2xMWk8rUTNRQUs3ZkNydWtvS3c4elErUHdockEvRXVY?=
+ =?utf-8?B?am1lMDNxb1ZNVEtGdTdhY05xVGZQS0Y0VmE5MHUzQzYvRUxmOEE5NUlzNlVu?=
+ =?utf-8?B?Z3g0enI2b1pJUUkxODkvMjF3L0psMW5iR0FkU1NMRG05a2RDaThHZmgxZWFQ?=
+ =?utf-8?B?eXQ0QXBucDlKOTlqbmV4T1ZERnRhTWpHRW9yRlllUFowbWZyZVhjckM0UUNz?=
+ =?utf-8?B?N2hEck1IajllZk5PWE4xSnB2OVRWVmp3RWEvQzNaNnM0emZFbUQrSno3RnVt?=
+ =?utf-8?B?c1A4Tk1rMCtLUGkvVVUyWUlVMElNd3lCQUdzVzkwOURzQWZUdzd5MTZ4K0JQ?=
+ =?utf-8?B?c1gzeS91d2NTTGVSbzNoa3NscFBzU1Q1ZnVIY0Q5Z050dUVwZHhEYVRvbUxZ?=
+ =?utf-8?B?dkJHcVFOakRwdUFrQXhpYXoxNHFKdksxekVWSC9lOWNhYkVEZUhvSy85a0Z2?=
+ =?utf-8?B?WC9jbWFDM2x5VXVsVVI4Y0V3SXZLd291ZHZjeklHWnBQbDI5OVhxQzdWUzhB?=
+ =?utf-8?B?b0tNWFIzSGY5K3NGVTRMcUkvbWFSNXJzL3l2Vm9PN093cUV0aWRQTjIwOFVM?=
+ =?utf-8?B?R1hsajdyQjJUNU5OQmY0Mm1LRmgrbTBtaUZqak1ud1V0RGZBZHpxN05EQ1NI?=
+ =?utf-8?B?b3MreHV5anJPd2x2YW1VYnZLRlpBWlBDMW8yc3drWGFrUlg5VXhTNW5vS2Mw?=
+ =?utf-8?B?bXN1MG9YQnEyQkpIckFVRm5uVFlWbGRBZ0JFV1h4dUN4SS9KVG5oNmJyV2Zl?=
+ =?utf-8?B?ZUJtMUxCSWc1Vko3c09mNVg2UjNra0kyT0EvbnNwRCtaS1JVUjRLZkN3VU1o?=
+ =?utf-8?B?ZDdIWTJNOC93aUR0RXB0TzdUR2tOUEFQTVJhU0UxZWc0OVZlVHRPeUtMdHYy?=
+ =?utf-8?B?SXZVTHhhQ0pRSHRGZEZSdFhUTDFLZXNLQTNxTU8zcERWL01Wb05HZVNuV0kv?=
+ =?utf-8?B?OTVRRVg5akxMV0lqRllySm9sai9SSXQyMVh0NUo0c0JiWitQdGUxYVJNQjQ0?=
+ =?utf-8?B?dkZsK2pDdWg5WFJURUVhT3BpRTErNjJJUGt3ZHhnM3NWTHlta3VMUXNoSGRm?=
+ =?utf-8?B?VFJjTXU0L0hCeGErellqUHJWaGpOUzF0RWpUQU9jbnpQYVNBbGtIMVNVRkl6?=
+ =?utf-8?B?MFhuN0VVRFhZU0dnOVpQa3BybkRBalQyZFYrTFBSd1FxQlJLcjlOOTUvNUJz?=
+ =?utf-8?B?MEM2RFhUOGptYUwxTVZlQmpVZVRxTVo5d3lVamZRN3AvNkFpK2tkQ2hHNkRq?=
+ =?utf-8?B?bXl2M3lxZkpjdzdDSkpOSVlycW8zRmlmci9MVE4zbk84NGNSd2dKeEVWTUdS?=
+ =?utf-8?B?TDE0TUtZcEZhVDVKNkppMUgxcGRWUW5mdWs5VmowZS9Kakl3VkhRMjFsdnlZ?=
+ =?utf-8?B?RXFXc1VJY3BWcitUSTFMY0g4RE02SWV3Y2x5SytraE52QzlZbUc4SVBrVjFq?=
+ =?utf-8?B?Rm9qamsvY3llMjhlYnRoZDhnUWd1SDhDUVBCbC9QUHMyV3E5VEtJOHgvNWll?=
+ =?utf-8?B?bFNQbU5YNlRVQmZZV2UzSTVqNTN1WWgzRVdXQWpSaWg1YldBTVVjR0Z2L2Nh?=
+ =?utf-8?B?V2FtN25pckRITk9yNXl1K29PUzNvdlB5cUJZSHRmODZNN01ZK3hXdnluZlgy?=
+ =?utf-8?B?d3p1ZkMzVVdWMlgxdWJySWs1YUd6cHV2b0sxSmFFWTRlTEt5WGFvUS9iRS9i?=
+ =?utf-8?B?WGQ3SDJ5bFZrL25tODJvanV1ZStIMDJ1OGhFNUoyRHhFQThiTmp3S01QR2w4?=
+ =?utf-8?B?T3BwQmRKaWJtUk1BODhXQmEwNXV2U3oyVCt4ZGpYbTVuWTk1cDFUS3FnOUNS?=
+ =?utf-8?B?YjZiMFhwTUxDK1JFQ092alBkVzFxckFsMkloY2t0VDZiSzE5SFAyckN5enhI?=
+ =?utf-8?B?SUFJRkJRdXhjcmVyUEs3Z0txVC9RVVd3S2p2b0o4WVlzRC9Dc0NBZ0psczRG?=
+ =?utf-8?B?dXJzdE4xV2wxN2J6SlViNG5oVzNrL1pxL2wyQ2tPZ3laZFZGSFVjNUlEb2Zj?=
+ =?utf-8?B?VFluTXdlang1RnRZWDZ0amtJYVlNODRVUVRvSldTNkJ1Wm9jZjlWZ1MxV0U1?=
+ =?utf-8?Q?Wzxs=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2025 10:15:19.1626 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61c36eaf-0207-462c-dac2-08de1ac1e433
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB3PEPF0000885A.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3765
+X-Authority-Analysis: v=2.4 cv=Uohu9uwB c=1 sm=1 tr=0 ts=690880bb cx=c_pps
+ a=WIKKr3Q+Zo2wxA0Am9cKlQ==:117 a=uCuRqK4WZKO1kjFMGfU4lQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=iPq3YwKX0LwA:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=F7b9RQ0zxoaY1ic3SWwA:9
+ a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22 a=cPQSjfK2_nFv0Q5t_7PE:22
+X-Proofpoint-GUID: 685feIax238ZfAyW2YtwuRp_1rYyWk-Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTAzMDA5NCBTYWx0ZWRfXz8hYuQRL4rRw
+ 589Y46kYLjkY1hZWyGOc/c7bjfonklqKmpInK0tvBYc2pzdTN3C07JFaBw/MnWLWDG4KPueOhxc
+ DvGQbi/yDjxRFdF2LyqYZAspDdyX/xcuvLCb7Rb6ta/doIPUDkm3C4TyXosk0Vv5JUVHj4ST4xy
+ NsAN4GuuwS3A2DAJThw7ynvm7/mZ+AYh2ew/tq1OPaRXrJsgCOO08cugSYTzdSM4PYfcS46w7fR
+ PBA93NXeIP4RlVjM/rmBt3cnDmEhzNtlWOSbS9FhVICmrZscFAmIl3CV0fwE5obk+c0o0Xet7Q4
+ 4zKGOW5pNshlEzoFuLgVDSOWtwC+rkN/98QriU22OXCPqHNULh4qdyZte9bQGEG++CBUZkK4tZ9
+ dSmI2+XzKWiMeF+42tC/gyMiIKe2LA==
+X-Proofpoint-ORIG-GUID: 685feIax238ZfAyW2YtwuRp_1rYyWk-Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-03_01,2025-10-29_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511030094
+X-Mailman-Approved-At: Mon, 03 Nov 2025 10:35:41 +0000
+Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/4] dmaengine: stm32-dma3: improvements and
+ helper functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,51 +182,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 03, 2025 at 02:28:24PM +0530, Mohd Ayaan Anwar wrote:
-> On Thu, Oct 30, 2025 at 03:22:12PM +0000, Russell King (Oracle) wrote:
-> > On Thu, Oct 30, 2025 at 03:19:27PM +0000, Russell King (Oracle) wrote:
-> > > > 
-> > > > This is probably fine since Bit(9) is self-clearing and its value just
-> > > > after this is 0x00041000.
-> > > 
-> > > Yes, and bit 9 doesn't need to be set at all. SGMII isn't "negotiation"
-> > > but the PHY says to the MAC "this is how I'm operating" and the MAC says
-> > > "okay". Nothing more.
-> > > 
-> > > I'm afraid the presence of snps,ps-speed, this disrupts the test.
-> > 
-> > Note also that testing a 10M link, 100M, 1G and finally 100M again in
-> > that order would also be interesting given my question about the RGMII
-> > register changes that configure_sgmii does.
-> > 
-> 
-> Despite several attempts, I couldn't get 10M to work. There is a link-up
-> but the data path is broken. I checked the net-next tip and it's broken
-> there as well.
-> 
-> Oddly enough, configure_sgmii is called with its speed argument set to
-> 1000:
-> [   12.305488] qcom-ethqos 23040000.ethernet eth0: phy link up sgmii/10Mbps/Half/pause/off/nolpi
-> [   12.315233] qcom-ethqos 23040000.ethernet eth0: major config, requested phy/sgmii
-> [   12.322965] qcom-ethqos 23040000.ethernet eth0: interface sgmii inband modes: pcs=00 phy=03
-> [   12.331586] qcom-ethqos 23040000.ethernet eth0: major config, active phy/outband/sgmii
-> [   12.339738] qcom-ethqos 23040000.ethernet eth0: phylink_mac_config: mode=phy/sgmii/pause adv=0000000,00000000,00000000,00000000 pause=00
-> [   12.355113] qcom-ethqos 23040000.ethernet eth0: ethqos_configure_sgmii : Speed = 1000
-> [   12.363196] qcom-ethqos 23040000.ethernet eth0: Link is Up - 10Mbps/Half - flow control off
+This series introduces improvements and helper functions for channel
+and driver management.
 
-If you have "rate matching" enabled (signified by "pause" in the mode=
-part of phylink_mac_config), then the MAC gets told the maximum speed for
-the PHY interface, which for Cisco SGMII is 1G. This is intentional to
-support PHYs that _really_ do use rate matching. Your PHY isn't using it,
-and rate matching for SGMII is pointless.
+It enables proper unloading of the stm32_dma3 module, replacing the
+previous subsys_initcall() mechanism with module_plaform_driver().
 
-Please re-run testing with phy-mode = "sgmii" which you've tested
-before without your rate-matching patch to the PHY driver, so the
-system knows the _correct_ parameters for these speeds.
+It introduces helfer functions to take and release the channel semaphore,
+and restores the semaphore state on resume, considering the possible
+reset of CxSEMCR register during suspend.
 
+It also adds a helper to retrieve the device pointer from the dma_device
+structure contained in stm32_dma3_ddata, simplifying the code.
+
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+Amelie Delaunay (4):
+      dmaengine: stm32-dma3: use module_platform_driver
+      dmaengine: stm32-dma3: introduce channel semaphore helpers
+      dmaengine: stm32-dma3: restore channel semaphore status after suspend
+      dmaengine: stm32-dma3: introduce ddata2dev helper
+
+ drivers/dma/stm32/stm32-dma3.c | 166 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 137 insertions(+), 29 deletions(-)
+---
+base-commit: 398035178503bf662281bbffb4bebce1460a4bc5
+change-id: 20251103-dma3_improv-b4b36ee231e4
+
+Best regards,
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Amelie Delaunay <amelie.delaunay@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
