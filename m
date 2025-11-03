@@ -2,41 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19AA3C2AB2D
-	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 10:18:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DEAEC2ADCA
+	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 10:53:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAC9DC62D37;
-	Mon,  3 Nov 2025 09:18:09 +0000 (UTC)
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com
- [95.215.58.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEDB4C628DE;
+	Mon,  3 Nov 2025 09:53:05 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD096C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A381DC57B78
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Nov 2025 09:18:08 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1762161488;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=yuMMfRji0QsBlO0qJt9H926jh5AK/yBWl814HSXET8M=;
- b=VCc7uU0o3gSh/l2zJutUq3ddK4nxUqz1cGKERW42Fox8REh1n4QZ1C3ajAxTUc/t3yj+bK
- jNH2aLWTZ4pcGF2UCURHl76dmZqEyk1qBoGf2Qd3gooYiU4+ZXOhBrnTNyJHEAQBv6ycM0
- tDqDmry7YcsZhYMSC32HMLvzrNDlXOA=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon,  3 Nov 2025 10:17:41 +0100
-Message-ID: <20251103091741.2728-2-thorsten.blum@linux.dev>
+ Mon,  3 Nov 2025 09:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cMx/pBIc7baCIIFWi7F4x4oW//4oX2tqQgVeFsSMo44=; b=f0o0aiuSsPBELTITSHiT3sl/9F
+ ShJW0uMV84XXqKe4DehAuu+wJzWgWhk7SWRFBP0A3rg76j4tuP6h7DgXL0+ao8kzDoUgxYVP9f6Kc
+ obDUjGatfPJ1zHDrnwLuMjQItLa0XRvgJA7U6JQUvhQOxBJrNlVx+BUnb1P2aCM/gCPr1AoxGSa66
+ 8PdsRaHvNHOSdMpeDAUBDQLXtn/S4vzKPFVAAqLAFUHLmRDPbotH8s7FhKPmJvB/3tSOuAcsNPI6N
+ 2ZN0iLv6qwulY6mTM2Jj7MX5w5PmW4UoxJzDR0g9qtgzz3KvfxFLOGdYj8MU/t4KYfb4CuUlJxV4v
+ Z04rEpow==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54432)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vFrEz-000000000Tv-17fT;
+ Mon, 03 Nov 2025 09:52:45 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vFrEs-000000003hg-47Cx; Mon, 03 Nov 2025 09:52:39 +0000
+Date: Mon, 3 Nov 2025 09:52:38 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Message-ID: <aQh7Zj10C7QcDoqn@shell.armlinux.org.uk>
+References: <aP03aQLADMg-J_4W@shell.armlinux.org.uk>
+ <aQExx0zXT5SvFxAk@oss.qualcomm.com>
+ <aQHc6SowbWsIA1A5@shell.armlinux.org.uk>
+ <aQNmM5+cptKllTS8@oss.qualcomm.com>
+ <aQOB_yCzCmAVM34V@shell.armlinux.org.uk>
+ <aQOCpG_gjJlnm0A1@shell.armlinux.org.uk>
+ <aQhusPX0Hw9ZuLNR@oss.qualcomm.com>
 MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@linux.dev>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH RESEND] stm class: Remove unnecessary local
-	variable in stm_write()
+Content-Disposition: inline
+In-Reply-To: <aQhusPX0Hw9ZuLNR@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Furong Xu <0x1207@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Daniel Machon <daniel.machon@microchip.com>,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>,
+ Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Yu-Chun Lin <eleanor15x@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: phylink PCS
+ conversion part 3 (dodgy stuff)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,40 +78,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The local variable 'err' and the corresponding if check in stm_write()
-are unnecessary. Remove them.
+On Mon, Nov 03, 2025 at 02:28:24PM +0530, Mohd Ayaan Anwar wrote:
+> On Thu, Oct 30, 2025 at 03:22:12PM +0000, Russell King (Oracle) wrote:
+> > On Thu, Oct 30, 2025 at 03:19:27PM +0000, Russell King (Oracle) wrote:
+> > > > 
+> > > > This is probably fine since Bit(9) is self-clearing and its value just
+> > > > after this is 0x00041000.
+> > > 
+> > > Yes, and bit 9 doesn't need to be set at all. SGMII isn't "negotiation"
+> > > but the PHY says to the MAC "this is how I'm operating" and the MAC says
+> > > "okay". Nothing more.
+> > > 
+> > > I'm afraid the presence of snps,ps-speed, this disrupts the test.
+> > 
+> > Note also that testing a 10M link, 100M, 1G and finally 100M again in
+> > that order would also be interesting given my question about the RGMII
+> > register changes that configure_sgmii does.
+> > 
+> 
+> Despite several attempts, I couldn't get 10M to work. There is a link-up
+> but the data path is broken. I checked the net-next tip and it's broken
+> there as well.
+> 
+> Oddly enough, configure_sgmii is called with its speed argument set to
+> 1000:
+> [   12.305488] qcom-ethqos 23040000.ethernet eth0: phy link up sgmii/10Mbps/Half/pause/off/nolpi
+> [   12.315233] qcom-ethqos 23040000.ethernet eth0: major config, requested phy/sgmii
+> [   12.322965] qcom-ethqos 23040000.ethernet eth0: interface sgmii inband modes: pcs=00 phy=03
+> [   12.331586] qcom-ethqos 23040000.ethernet eth0: major config, active phy/outband/sgmii
+> [   12.339738] qcom-ethqos 23040000.ethernet eth0: phylink_mac_config: mode=phy/sgmii/pause adv=0000000,00000000,00000000,00000000 pause=00
+> [   12.355113] qcom-ethqos 23040000.ethernet eth0: ethqos_configure_sgmii : Speed = 1000
+> [   12.363196] qcom-ethqos 23040000.ethernet eth0: Link is Up - 10Mbps/Half - flow control off
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/hwtracing/stm/core.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+If you have "rate matching" enabled (signified by "pause" in the mode=
+part of phylink_mac_config), then the MAC gets told the maximum speed for
+the PHY interface, which for Cisco SGMII is 1G. This is intentional to
+support PHYs that _really_ do use rate matching. Your PHY isn't using it,
+and rate matching for SGMII is pointless.
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index cdba4e875b28..f3814e4ecf23 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -602,17 +602,11 @@ static ssize_t notrace
- stm_write(struct stm_device *stm, struct stm_output *output,
- 	  unsigned int chan, const char *buf, size_t count, struct stm_source_data *source)
- {
--	int err;
--
- 	/* stm->pdrv is serialized against policy_mutex */
- 	if (!stm->pdrv)
- 		return -ENODEV;
- 
--	err = stm->pdrv->write(stm->data, output, chan, buf, count, source);
--	if (err < 0)
--		return err;
--
--	return err;
-+	return stm->pdrv->write(stm->data, output, chan, buf, count, source);
- }
- 
- static ssize_t stm_char_write(struct file *file, const char __user *buf,
+Please re-run testing with phy-mode = "sgmii" which you've tested
+before without your rate-matching patch to the PHY driver, so the
+system knows the _correct_ parameters for these speeds.
+
 -- 
-2.51.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
