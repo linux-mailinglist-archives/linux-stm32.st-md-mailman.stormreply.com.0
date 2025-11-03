@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A4D9C2B812
-	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 12:50:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F7F7C2B815
+	for <lists+linux-stm32@lfdr.de>; Mon, 03 Nov 2025 12:50:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9CC5C62D2D;
-	Mon,  3 Nov 2025 11:50:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9CA5C62D2D;
+	Mon,  3 Nov 2025 11:50:11 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25094C628DE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01780C628DE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Nov 2025 11:50:03 +0000 (UTC)
+ Mon,  3 Nov 2025 11:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=F9+uCkTTPZNitcXoasL3jxbNQG9cxbs2rnefJEzDKW0=; b=oHRCiuX+2gLwNnnKwa0RLYg3gL
- EauuF8Y6wW6QGs+5nA7kr5ZfXqQZ8pU0F6xDX4B9MOpQLAz8PD6gOenUyb7/nzNCmVwwBXDgsr93z
- ut8ZdkehwkWGQiyb+YKRfoYUdcZm942v/wUT/Wx6T2tOo0SETfizaXMXtyqmMY0gVB3KM41bTVJUn
- pN1YbcxDKxb+0A/Bo/duo5PHibovEwr3fA44N8LU4BejXMlcFGPBYunbkBvovgc7N0wOAKHbWYyO9
- 99XL8I5iLqdXD+hJJlCxE1643AwbW9vmWHVZGKz00Z5r8BE6EQUeZZ/L7tCr3jviMJ80V3RmF/UyF
- J/mU7P7g==;
+ bh=6W0DkUMzifwuDMlc9DiSUqRLpgMXFIVqdSysIfR+dbQ=; b=gYh3Se3MQRjmnvmEL8hRKs1HC6
+ EHX/zY77CnBzHwWKNZbz6WznbHtCMypMvDNyQFMsffbLDiOomjpAe+TyiqHSPswFC/zccbnX8Ek0K
+ t0VwQ3Z7/d5V0QYBYDPDdy1l+xmSuwke8rdmLABJnZdjUcjmiOxtF0A4oD09lHC7T38iildrHsTTq
+ f3sQqOm8ERg+JfB/xVWi0Aq1pUyYIOkIOyo6lwc21daWSOz4OgGFvXD9EHTpyHZ8gQzAUJcdO/lDu
+ 0eVL8bsL5BQmIYLUAKy3HySTgtBhIJzWoaEvyUwFmr9nxtJJBG9ytrdju8NXvoifDzCxCvLzo2P5/
+ JMZu3J5A==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:34308 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39006 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vFt4O-000000000fE-13d5;
- Mon, 03 Nov 2025 11:49:56 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vFt4T-000000000fS-26LA;
+ Mon, 03 Nov 2025 11:50:01 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vFt4N-0000000ChoM-1llp; Mon, 03 Nov 2025 11:49:55 +0000
+ id 1vFt4S-0000000ChoS-2Ahi; Mon, 03 Nov 2025 11:50:00 +0000
 In-Reply-To: <aQiWzyrXU_2hGJ4j@shell.armlinux.org.uk>
 References: <aQiWzyrXU_2hGJ4j@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vFt4N-0000000ChoM-1llp@rmk-PC.armlinux.org.uk>
-Date: Mon, 03 Nov 2025 11:49:55 +0000
+Message-Id: <E1vFt4S-0000000ChoS-2Ahi@rmk-PC.armlinux.org.uk>
+Date: Mon, 03 Nov 2025 11:50:00 +0000
 Cc: imx@lists.linux.dev, s32@nxp.com,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
@@ -51,8 +51,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Fabio Estevam <festevam@gmail.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 01/11] net: stmmac: imx: use
- phylink's interface mode for set_clk_tx_rate()
+Subject: [Linux-stm32] [PATCH net-next 02/11] net: stmmac: s32: move
+ PHY_INTF_SEL_x definitions out of the way
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,29 +69,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-imx_dwmac_set_clk_tx_rate() is passed the interface mode from phylink
-which will be the same as plat_dat->phy_interface. Use the passed-in
-interface mode rather than plat_dat->phy_interface.
+S32's PHY_INTF_SEL_x definitions conflict with those for the dwmac
+cores as they use a different bitmapping. Add a S32 prefix so that
+they are unique.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 4268b9987237..147fa08d5b6e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -195,9 +195,6 @@ static void imx_dwmac_exit(struct platform_device *pdev, void *priv)
- static int imx_dwmac_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
- 				     phy_interface_t interface, int speed)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+index ee095ac13203..2b7ad64bfdf7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+@@ -24,10 +24,10 @@
+ #define GMAC_INTF_RATE_125M	125000000	/* 125MHz */
+ 
+ /* SoC PHY interface control register */
+-#define PHY_INTF_SEL_MII	0x00
+-#define PHY_INTF_SEL_SGMII	0x01
+-#define PHY_INTF_SEL_RGMII	0x02
+-#define PHY_INTF_SEL_RMII	0x08
++#define S32_PHY_INTF_SEL_MII	0x00
++#define S32_PHY_INTF_SEL_SGMII	0x01
++#define S32_PHY_INTF_SEL_RGMII	0x02
++#define S32_PHY_INTF_SEL_RMII	0x08
+ 
+ struct s32_priv_data {
+ 	void __iomem *ioaddr;
+@@ -40,7 +40,7 @@ struct s32_priv_data {
+ 
+ static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
  {
--	struct imx_priv_data *dwmac = bsp_priv;
--
--	interface = dwmac->plat_dat->phy_interface;
- 	if (interface == PHY_INTERFACE_MODE_RMII ||
- 	    interface == PHY_INTERFACE_MODE_MII)
- 		return 0;
+-	writel(PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
++	writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
+ 
+ 	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(*gmac->intf_mode));
+ 
 -- 
 2.47.3
 
