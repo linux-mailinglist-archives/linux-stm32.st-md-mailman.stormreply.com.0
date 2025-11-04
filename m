@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33BEDC311E7
-	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 14:09:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFB8C311EB
+	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 14:09:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA36EC62ECF;
-	Tue,  4 Nov 2025 13:09:12 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06B86C62ECF;
+	Tue,  4 Nov 2025 13:09:17 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6063BC62ECD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C2D1C62ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Nov 2025 13:09:12 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-429b7ba208eso3413806f8f.1
+ Tue,  4 Nov 2025 13:09:16 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-429b9b6ce96so3655105f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Nov 2025 05:09:12 -0800 (PST)
+ Tue, 04 Nov 2025 05:09:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1762261752; x=1762866552;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1762261755; x=1762866555;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=EeInQQFLiIKx9a2aZ0cucvmhXeQc/nRxrd1ryoO5rZk=;
- b=LfJQO+Ne8hdfZVgEnWXxqiEKK/RLh+Zb2f5UWM0Hp7Hy9UOWSQVbkuDUhpzvSYGEVm
- qx2oSjI4GjjYYv3Dmk35OIk6OovW6ZAgmlyVLslLIr3WV9678QfQmc+XeDfc0OmYus8D
- LRREjR4t2JtSahHoZ0CAZjV+Y2vUbkcZWLCnmkqc5RuX0YwAyklQ7v9p12U3axMtYVM8
- 6nsnnXiyqXRZ9oLmJPv+sbJBZ8rCOtz9WLc4TJjkrOtA758kiIDPG7dPc/UqnoCMrOtF
- By1IYr80RazD5NvLltYMqVB316xEXr2N4R3T//LTY2tD7JjH1SGwsQ/kdGBzWHvvGAmK
- OFXw==
+ :reply-to; bh=Y+bD9XMSY/PxNEVtej7SYELNOHLIlDJsCB53kL01eGk=;
+ b=kj/e5BL504Hc7CSApbh914XBqfe2EiggXghMiweIV+4j1OO+jncD8pw34+QAnrZbVo
+ N+QluV8hWoqUrU+s+aoNj5u2y/6RDBIbjU8bb72/jTYPXxYb1XCy/zhunGoivcSK/SFn
+ w3MD7T1EpZaWGdOYWtqMMeCEu5DsRLFGcPUreDz8cvEUgV1/y1HFQ1GIC2KWIFPQN2pv
+ otDftems90PUsA3pfBIIsF8CgbwTiL7VSPdzo1z9Lp13w8ylAQXqZI39DT1rXskc52Mi
+ oY2cyHzO5LUjay0AhglsKXr7QYqNWuERASGFSH4kiplomIm+/iA3Z6AASvc/UB17x2RE
+ 3usQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762261752; x=1762866552;
+ d=1e100.net; s=20230601; t=1762261755; x=1762866555;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EeInQQFLiIKx9a2aZ0cucvmhXeQc/nRxrd1ryoO5rZk=;
- b=dRna4gHkewi4mNZ4UhwRMYPRi7S/p53672gdK0VQeT3R2GxmKY7va+vODvlEZoztxD
- Rf6+0vOS1dVO6RTK1cGLdduYv0kSTMKX8SU91CHCHzUk5fKU+bk0ddRg6APsCSKGF8Vi
- +G03MGp84gTadde5v7uI+52dGXPwfBZQ8yG3PmlgjESc0lrazqRWqhwdpNxkq5DdVdTm
- k0Q8PlPSLTsCcceth7j/E0jrvHR5OWpipUcfB/A+292lagsl4f5BrLZgeWDaBaEDSnr1
- WMoTM2NZBj3h7Oj+ds5eQU5RQoRNzN4ZESv+zy+JXyHcTGAtoPt6EQhx4VKwVi19vIqb
- iW8w==
+ bh=Y+bD9XMSY/PxNEVtej7SYELNOHLIlDJsCB53kL01eGk=;
+ b=HFy2nkloZuvBVchG8hw3BAzTQKB2EOuknDwH8J72iUh7dK44v0Y0ehgkxQH7FaZnEw
+ pWLd/40NkkB3nvHSWwu5wx3cKuJAOeRmLtvj08BQPdXj7ULe/HTW9Ex5dpXVq54gQvet
+ In9wK+X60svpgYJU5ifQZNyedXRICucy9TP+vPBRdLP+kZzKPpjwgHIyfZioZLLQTxlY
+ 7vDboDke7Nmb/qsYbLQl+2lkfCbDM/biHf/mNzTHR8LxHs17xgi4paXj9Bm8VVPfAMSf
+ 9t088r5kPcuHM/0eVdrh4yEeg7Dx4DbO5OrNhvVTFJpxiBecO94Qw+Vfs1ZZwfk8FZVp
+ DVrQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWQxnDFhGeqmpo8ORYWOpy9a2SMhC8WqMhOUy6ZZKpn+qsDiVEt4ORpkQ+2n1C6x8PRF//1cDCptDOjQA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy2TWBEp1Refq4eSofYF8xBX+Vl4qWGAp+t979wdpEYzipEZU2M
- CopfJG2phXzeRD2AotPqN81v4AeYPy+YoYAjf+ewyMoNMTiUAvMtMgGF8s8UWfpOMCA=
-X-Gm-Gg: ASbGncsQBCxsYHUZku1aZ+3APaz+8MgAL5HtY+cVQSHFFpcMznGAgXdG4JKNAzmjoDh
- tatl1ba/1Ch2g4kmI3un37nQpQBMDh2XtMbGgVYcKz1TLCibJv8lWIxApY9N7jtsnD9iijtIlPF
- NM5WTGa+XPEbDdCDcMXxrFjFh+AAIUFT2qs3h8ZjP3BxTWl1WMKTrFc0T0b/4E/elxbZQzmNu+/
- CCcoYk8X7+N8htDqZwyW/JsW60daZkBnzNmLXQ5PDDQ8zYOG4cKUXM3vkg3Yx4rYFK0iz6bLcuN
- QvadiSELoOpnleu0NR+uoanxWPUt3oT+pYK4entMa+SYdEw7OOaa/WMzS1cXFCLPCwIZ7Jzqvsy
- 69yhLAA7WBSYu4PvO7rSChNsNe0rXmupNc8oJQtIFsld0miy1VQqBvsf19voDdaPEQgj0Rg==
-X-Google-Smtp-Source: AGHT+IEazXC1/4e+3C9LIKFv0ME+i45XzCYX35RlKHJ+lvSQy9CFk/4mRB0TKiPc1PmCBPTWdT7aKw==
-X-Received: by 2002:a5d:5f87:0:b0:429:d565:d7b0 with SMTP id
- ffacd0b85a97d-429d565da79mr4914264f8f.40.1762261751551; 
- Tue, 04 Nov 2025 05:09:11 -0800 (PST)
+ AJvYcCUErZ7CHZplnABx7ayvQPYV5YejymeM2F3UDoue+ixAZZnbwcgAxu0KiKihiZ0D/kvgVJcQIOmqHQv8ng==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzJkMnkSXjnrYVaj84GQ0t/WjYgMIam1lN7pgCvoBYsUzlSNIBb
+ aMhhr6cY/J5c80e+ExTD21D0u0xGAy8yOsNfBPdt8hEpfSMo47U4aaic+y7oAgmvkoI=
+X-Gm-Gg: ASbGncvWpvrTPrtFmw3zhrhLWQE02DSE3i4VCoHxmr6v47CqDGBwVOj/9Rq6kVFMd0C
+ SzfoyaWhQVE05eaMHNCA8WNwJRTPeg85k66s38nOjHOnV7Eyg5G/WQYkMUdvWoXc/Bno4tA8OCA
+ R8aO7fHc1vS7gfPLqfih9k+IWDorDi8LtavC/5oZyLx7TQ1f0jERZoNvhSedRW5YAnxbdMiAqCI
+ K9sq8d0viDXq1Nbt2i/2wLFrJCKwrx1An6DLMgO0YHmS2tYpi+B765qPtNE4nLtFSxDxNnD+0fy
+ ZQLces/lbKeLTRaIBa+G4BbxJoX0DLzWPvIG28xyhsgHwNkzRL98DroXDX7fzDZ2HZNukV8dPJn
+ ZpNLRaL6+ZpK71jeUyC0tm9ZUGyFgYc2ZiVl7Ls4hTW03EUNox1281AN9vHNPGq12p+sQTXgJcK
+ d284tB
+X-Google-Smtp-Source: AGHT+IE9zk6mUyeMrPCGURPH5oFLkbzGYKtQvQUpX+mRV+CSiZEUcYKWUiZRVDA25BouoHB69mkSLQ==
+X-Received: by 2002:a5d:5d0a:0:b0:429:d742:87f4 with SMTP id
+ ffacd0b85a97d-429d7428a5dmr6172167f8f.11.1762261755321; 
+ Tue, 04 Nov 2025 05:09:15 -0800 (PST)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:9ea1:7ab7:4748:cae3])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429dc18efd3sm4554431f8f.5.2025.11.04.05.09.08
+ ffacd0b85a97d-429dc18efd3sm4554431f8f.5.2025.11.04.05.09.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Nov 2025 05:09:10 -0800 (PST)
+ Tue, 04 Nov 2025 05:09:13 -0800 (PST)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Tue, 04 Nov 2025 14:08:53 +0100
+Date: Tue, 04 Nov 2025 14:08:54 +0100
 MIME-Version: 1.0
-Message-Id: <20251104-qcom-sa8255p-emac-v4-2-f76660087cea@linaro.org>
+Message-Id: <20251104-qcom-sa8255p-emac-v4-3-f76660087cea@linaro.org>
 References: <20251104-qcom-sa8255p-emac-v4-0-f76660087cea@linaro.org>
 In-Reply-To: <20251104-qcom-sa8255p-emac-v4-0-f76660087cea@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -108,21 +109,21 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Christophe Roullier <christophe.roullier@foss.st.com>, 
  Swathi K S <swathi.ks@samsung.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2896;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1037;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=POv+vDF2xSPchjLMqtdcREByAr5wVSRC/4xfmqCj4bM=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBpCfrsfPxny4b8sz641T3T8EFvMTQx5kwO1QGOR
- 8pb8GTd+BeJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaQn67AAKCRARpy6gFHHX
- cnqVD/97NywmsMZe+hTiJ7jxCsNyrWnMcFO+7cIL2RPel3gou8gIXIQsX7ETeIUDtcJzTZ1KqSm
- agsydioe3Mk2/PKY0XdQxNxEpMu65rEETgcwAzTyKgoU/GZTN7LqKeqxXx3S8aUCDiwGkjQifN8
- X2v8MajyRTcRmY6D54ypAgNEnFYJkeXukrUxi75A6NLw5DrkAJXiElFKV8Tfmc35UABzpEhoqVE
- T88M2BP+jZLRswE6QrLutFh322QPaF+UjIRKHUaSw4FFBTZTy5aDvugwNG/kaGN3HopwyUXjCRf
- ErGV9fj5k1xKzd0LYxkqFzXGd+anLTeceuPdxnQBJJS1WQStSlyRM8YM9o7iyG6Vpn9AwHwPQOX
- IG1GY+EPViR2egEOTkA05k9276NPSpxVnYXxSiEq5Qbk35L4ZJDO96QF/G7uILkWr5coGWSSms/
- P4UoZRGYq4KVQ/m8Q+r5upzCzXVqfEDAyKuhITS4g84ORbRJEezl5MXDte+IYVB+qcRrWEmXjBz
- 8g60W21TaM8AfbRDvZtWVjkNzCIlUv68U1HsXEpCg7dJiPHZYMpZeM6sgFYNYCONcr/XTMwTODa
- ar4PeVg5WExRCx2+/p2gUOp1THWngsIY51xRK43VP8GvryZCHp/WVW7HF7s7bCwOHAoLr0/70vM
- g1Xe3JNSs8RSY5w==
+ bh=/4v1a8QAtlU1YFnwlRQMWe0GMJqjCY4EA0FHsr43o1A=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBpCfrtQQMHHYMvRDKmcuOzena2zyxcsRk8Cq4Li
+ n8c+fyXskKJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaQn67QAKCRARpy6gFHHX
+ cu+sD/9xqcE1M8JRojXs6tNYxWwtB8fmuax3h76PbWJVTattQarQZMV+C6Dw0VjQrSSv0tEQhEJ
+ GUsV70G8JQ7xE4b6MVOmV3Sgzx9hOs4BQCaLek8iBxlwKJ5vo3rbHJMR5K+2Uj+UgUOP2nskA6Z
+ wd3yen9nsBOVyMs7ac9WQzSOPcgeNfxQedMUSvgTbyBR0GcS2CIy89UjHn+zj7Gx2ijsVuLffPd
+ LlxsS8x/QR7QsISJ1ZeyK2515q0yW6X3TBOoKytSgJ8SroZZDX1i1hb+Z6+KhzUbWFSA67ONvkP
+ DsVx1s/4rwloM3QXDV5SG+jc8DQBfeMiSh7tK8l8Ac7DTitkG3s4mmpz9X0dVr73UxVhMMJSYOA
+ LT6fUEV/zpijp7Jj8GXy5EVwpRWGkVm3wj+KOKGoNoDyHDGVfPaMnaAwVaS4WzAl+hjuEgwhhYa
+ ZYRh8qU/FZ3xHQN5JSspjIfCcrBVGbeA06m9w6MrkiOkHbh/o4PxhTGNyHcYf5DYBo56XPyVpkJ
+ LIKcRLbinjavRjNPsp3TsIa872kJloDivMLAPXL08r7gnxp3Ndwyh8zIqDY6sbPG1/0rHrGcvJs
+ IyCz8vr671iiry6UrE2hD3ISMBOM9TDY55vysMSVanhHHypdlq69f60xwNgklQfxHUAVO75i58L
+ BqRbsnIAl52oHoQ==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 Cc: devicetree@vger.kernel.org, linux-mips@vger.kernel.org, imx@lists.linux.dev,
@@ -134,8 +135,8 @@ Cc: devicetree@vger.kernel.org, linux-mips@vger.kernel.org, imx@lists.linux.dev,
  linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
  Drew Fustini <dfustini@tenstorrent.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 2/8] net: stmmac: qcom-ethqos: use generic
- device properties
+Subject: [Linux-stm32] [PATCH v4 3/8] net: stmmac: qcom-ethqos: improve
+ typing in devres callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,72 +155,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-In order to drop the dependency on CONFIG_OF, convert all device property
-getters from OF-specific to generic device properties and stop pulling
-in any linux/of.h symbols.
+It's bad practice to just directly pass void pointers to functions which
+expect concrete types. Make it more clear what type ethqos_clks_config()
+expects.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/Kconfig             | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 9 ++++-----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 87c5bea6c2a243f3be998b2c3935bc1dc23bfe22..22d0eaab35eaffac0bca58f8625ecc5c955b6631 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -135,7 +135,7 @@ config DWMAC_MESON
- config DWMAC_QCOM_ETHQOS
- 	tristate "Qualcomm ETHQOS support"
- 	default ARCH_QCOM
--	depends on OF && (ARCH_QCOM || COMPILE_TEST)
-+	depends on ARCH_QCOM || COMPILE_TEST
- 	help
- 	  Support for the Qualcomm ETHQOS core.
- 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 1a616a71c36ace29a74a0aa23fc8173443aa49a5..8578a2df8cf0d1d8808bcf7e7b57c93eb14c87db 100644
+index 8578a2df8cf0d1d8808bcf7e7b57c93eb14c87db..8493131ca32f5c6ca7e1654da0bbf4ffa1eefa4e 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -1,8 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2018-19, Linaro Limited
+@@ -726,7 +726,9 @@ static int ethqos_clks_config(void *priv, bool enabled)
  
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
--#include <linux/of.h>
- #include <linux/of_net.h>
- #include <linux/platform_device.h>
- #include <linux/phy.h>
-@@ -748,7 +748,6 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
- 
- static int qcom_ethqos_probe(struct platform_device *pdev)
+ static void ethqos_clks_disable(void *data)
  {
--	struct device_node *np = pdev->dev.of_node;
- 	const struct ethqos_emac_driver_data *data;
- 	struct plat_stmmacenet_data *plat_dat;
- 	struct stmmac_resources stmmac_res;
-@@ -799,7 +798,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+-	ethqos_clks_config(data, false);
++	struct qcom_ethqos *ethqos = data;
++
++	ethqos_clks_config(ethqos, false);
+ }
  
- 	ethqos->mac_base = stmmac_res.addr;
- 
--	data = of_device_get_match_data(dev);
-+	data = device_get_match_data(dev);
- 	ethqos->por = data->por;
- 	ethqos->num_por = data->num_por;
- 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
-@@ -836,9 +835,9 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	if (ethqos->has_emac_ge_3)
- 		plat_dat->dwmac4_addrs = &data->dwmac4_addrs;
- 	plat_dat->pmt = 1;
--	if (of_property_read_bool(np, "snps,tso"))
-+	if (device_property_present(dev, "snps,tso"))
- 		plat_dat->flags |= STMMAC_FLAG_TSO_EN;
--	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
-+	if (device_is_compatible(dev, "qcom,qcs404-ethqos"))
- 		plat_dat->flags |= STMMAC_FLAG_RX_CLK_RUNS_IN_LPI;
- 	if (data->dma_addr_width)
- 		plat_dat->host_dma_width = data->dma_addr_width;
+ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
 
 -- 
 2.51.0
