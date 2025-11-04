@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C55C2FB83
-	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 08:50:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D0DC2FEB0
+	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 09:34:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3B6EC62ECF;
-	Tue,  4 Nov 2025 07:50:43 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02011C62ECF;
+	Tue,  4 Nov 2025 08:34:45 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95E7FC030AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8D2FC62ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Nov 2025 07:50:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zFX01VJY+mONJhtkTUSxkKaT0H5G139ZB0xMXIf93pU=; b=wIlEtaBuc6pk0JydqUtkiAPcMk
- HwzT8yrzhnGYhaJ77ceqr0R1uX6nmiTza8Ew6/zLqvmB9oGEK/a5xbrMUJZ6+g8Ie6ZhiPnWChxJT
- 3Ay5bztyapqiwUL8TY2VBasG5z9rfn0o++CpnI9WgkcrAm9BOB5UsaULfBdapeSSuL4/5zUZ4NYRT
- Z8c/7ki/T4w/hXf598eUAbvxyE0Xg2pQmiYfUy1MfRANUr7nnvQlGrGYT5/GoX6OPzP3KrU5ORlwz
- HN8tuTD9OVq2t830RD2CIAPUHoUzcw05FHEToxxkO6gvSUAS4sYKRNgGt+aQBDVaF/DOk12yX3xcD
- kaqsOJ9A==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40358)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vGBoE-000000001p2-3uhA;
- Tue, 04 Nov 2025 07:50:31 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vGBoB-000000004b2-0Cf4; Tue, 04 Nov 2025 07:50:27 +0000
-Date: Tue, 4 Nov 2025 07:50:26 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Message-ID: <aQmwQoxn5CwS9988@shell.armlinux.org.uk>
-References: <E1vEn1W-0000000CHoi-2koP@rmk-PC.armlinux.org.uk>
+ Tue,  4 Nov 2025 08:34:43 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 33E361A184C;
+ Tue,  4 Nov 2025 08:34:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 046FE606EF;
+ Tue,  4 Nov 2025 08:34:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 94FB810B50919; Tue,  4 Nov 2025 09:34:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1762245281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=R2k3S0JM3GjzlqSiHtx7uGU4oJqackuOaOdMcXWCQD4=;
+ b=DCd+FqUxRxIK4KCVyBl2bY1jDIpBnI7OcnY2/p/8CRdl0Idsdm5miT0nvhZL9+PvxW/5g4
+ uhT2R3FGkTAnueao/HshktnCuxoAsYmnJz/QIr9rsKpKRWHbD/9lwGb3brlyQyb7aNQJSt
+ 6YMA05A4UmvBNktmLqQJKBPdxwrZrGQRtExXpstbIvUBv96Huj5Myjkdm3+opAabia8Uf7
+ q6GlH55zcK9qoVuUD50tEindxjboWWp7lMVIRDUeZrHEX3xj2vL8O0eLvOCV/rqiffM6KU
+ jPOeZdZ6P2OK58ZUes2loyO+XbaQ4HDYIsO8PfB7/dVQd0zJE+R1XEGXcKBQJw==
+Message-ID: <db01f926-d5bb-4317-beac-e6dcc0025a80@bootlin.com>
+Date: Tue, 4 Nov 2025 09:34:31 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1vEn1W-0000000CHoi-2koP@rmk-PC.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev,
- netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+References: <aQiWzyrXU_2hGJ4j@shell.armlinux.org.uk>
+ <E1vFt4c-0000000Choe-3SII@rmk-PC.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <E1vFt4c-0000000Choe-3SII@rmk-PC.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: imx@lists.linux.dev, s32@nxp.com,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
  Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Fabio Estevam <festevam@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: imx: use phylink's
- interface mode for set_clk_tx_rate()
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 04/11] net: stmmac: add
+	stmmac_get_phy_intf_sel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,22 +68,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 31, 2025 at 11:10:26AM +0000, Russell King (Oracle) wrote:
-> imx_dwmac_set_clk_tx_rate() is passed the interface mode from phylink
-> which will be the same as plat_dat->phy_interface. Use the passed-in
-> interface mode rather than plat_dat->phy_interface.
+Hi Russell,
+
+On 03/11/2025 12:50, Russell King (Oracle) wrote:
+> Provide a function to translate the PHY interface mode to the
+> phy_intf_sel pin configuration for dwmac1000 and dwmac4 cores that
+> support multiple interfaces. We currently handle MII, GMII, RGMII,
+> SGMII, RMII and REVMII, but not TBI, RTBI nor SMII as drivers do not
+> appear to use these three and the driver doesn't currently support
+> these.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-While checking patchwork this morning, this patch was unexpectedly
-marked as superseded. It appears I accidentally posted it as part of
-the multi-interface stmmac series. This should not have happened.
-Please apply _this_ patch as it has Maxime's attributations on,
-whereas the mistakenly reposted patch does not.
+First, thanks for this work !
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+[...]
+
+> +int stmmac_get_phy_intf_sel(phy_interface_t interface)
+> +{
+> +	int phy_intf_sel = -EINVAL;
+> +
+> +	if (interface == PHY_INTERFACE_MODE_MII ||
+> +	    interface == PHY_INTERFACE_MODE_GMII)
+> +		phy_intf_sel = PHY_INTF_SEL_GMII_MII;
+> +	else if (phy_interface_mode_is_rgmii(interface))
+> +		phy_intf_sel = PHY_INTF_SEL_RGMII;
+> +	else if (interface == PHY_INTERFACE_MODE_SGMII)
+> +		phy_intf_sel = PHY_INTF_SEL_SGMII;
+> +	else if (interface == PHY_INTERFACE_MODE_RMII)
+> +		phy_intf_sel = PHY_INTF_SEL_RMII;
+> +	else if (interface == PHY_INTERFACE_MODE_REVMII)
+> +		phy_intf_sel = PHY_INTF_SEL_REVMII;
+> +
+> +	return phy_intf_sel;
+> +}
+> +EXPORT_SYMBOL_GPL(stmmac_get_phy_intf_sel);
+
+Nothng wrong with your code, this is out of curiosity.
+
+I'm wondering how we are going to support cases like socfpga (and
+probably some other) where the PHY_INTF_SEL_xxx doesn't directly
+translate to the phy_interface, i.e.  when you have a PCS or other
+IP that serialises the MAC interface ?
+
+for socfpga for example, we need to set the PHY_INTF_SEL to GMII_MII
+when we want to use SGMII / 1000BaseX, but we do set it to RGMII when
+we need to output RGMII.
+
+Do you have a plan in mind for that ? (maybe a .get_phy_intf_sel() ops ?)
+
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
