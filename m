@@ -2,38 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC84EC304B1
-	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 10:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D0D1C305E0
+	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 10:55:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FC31C62ED5;
-	Tue,  4 Nov 2025 09:37:12 +0000 (UTC)
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07343C62ED5;
+	Tue,  4 Nov 2025 09:55:41 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50467C030AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60BE6C030AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Nov 2025 09:37:11 +0000 (UTC)
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E01321A0135;
- Tue,  4 Nov 2025 10:37:10 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D26211A004C;
- Tue,  4 Nov 2025 10:37:10 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 38F12202E8;
- Tue,  4 Nov 2025 10:37:10 +0100 (CET)
-Date: Tue, 4 Nov 2025 10:37:10 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aQnJRgJqFY99kDUj@lsv051416.swis.nl-cdc01.nxp.com>
+ Tue,  4 Nov 2025 09:55:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=c3GD3WtzrKWlpy2aI0UjWLqcC9jrT8mGnNqjXDUv8Jk=; b=BajtH6ndoioXThM99+Kw+0rTJv
+ Gw8GLOZ3yhKQCBrgW0hjZXOIXiooqeJevBEQD3QklMWbMPQ+xvqd6ClHBHXtAz3MmMDtOc6PmSj6q
+ s+grZ7qD4pPt7HC2T2a/cTCdr1POGxbXPsFAE89smW0PlGn5r24MVaIQJzgQYM8HRLVoVtwlROz2X
+ 6CTL+BGPxLatk/5cNnIeHK/LanaXPXuGPP77ywbuDSW64RJMPTyYQP4UlfZKm+DZQ8jqox1P0f3pr
+ lemU83FfAUzaJxmbXwxtM9yj5AfWcGfXvScvq9m1Q4aHmMBbD7cl+PvmSIKFcWbEo2jjIL0siFkFA
+ 7aUkoIBQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39054)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vGDlB-000000001ys-3e1I;
+ Tue, 04 Nov 2025 09:55:29 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vGDl7-000000004g1-3uIv; Tue, 04 Nov 2025 09:55:25 +0000
+Date: Tue, 4 Nov 2025 09:55:25 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jan Petrous <jan.petrous@oss.nxp.com>
+Message-ID: <aQnNjWuytebZpZyW@shell.armlinux.org.uk>
 References: <aQiWzyrXU_2hGJ4j@shell.armlinux.org.uk>
  <E1vFt4S-0000000ChoS-2Ahi@rmk-PC.armlinux.org.uk>
+ <aQnJRgJqFY99kDUj@lsv051416.swis.nl-cdc01.nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vFt4S-0000000ChoS-2Ahi@rmk-PC.armlinux.org.uk>
-X-Virus-Scanned: ClamAV using ClamSMTP
+In-Reply-To: <aQnJRgJqFY99kDUj@lsv051416.swis.nl-cdc01.nxp.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, s32@nxp.com,
  Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev,
  netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
@@ -61,53 +71,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 03, 2025 at 11:50:00AM +0000, Russell King (Oracle) wrote:
-> S32's PHY_INTF_SEL_x definitions conflict with those for the dwmac
-> cores as they use a different bitmapping. Add a S32 prefix so that
-> they are unique.
+On Tue, Nov 04, 2025 at 10:37:10AM +0100, Jan Petrous wrote:
+> On Mon, Nov 03, 2025 at 11:50:00AM +0000, Russell King (Oracle) wrote:
+> >  /* SoC PHY interface control register */
+> > -#define PHY_INTF_SEL_MII	0x00
+> > -#define PHY_INTF_SEL_SGMII	0x01
+> > -#define PHY_INTF_SEL_RGMII	0x02
+> > -#define PHY_INTF_SEL_RMII	0x08
+> > +#define S32_PHY_INTF_SEL_MII	0x00
+> > +#define S32_PHY_INTF_SEL_SGMII	0x01
+> > +#define S32_PHY_INTF_SEL_RGMII	0x02
+> > +#define S32_PHY_INTF_SEL_RMII	0x08
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> index ee095ac13203..2b7ad64bfdf7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> @@ -24,10 +24,10 @@
->  #define GMAC_INTF_RATE_125M	125000000	/* 125MHz */
->  
->  /* SoC PHY interface control register */
-> -#define PHY_INTF_SEL_MII	0x00
-> -#define PHY_INTF_SEL_SGMII	0x01
-> -#define PHY_INTF_SEL_RGMII	0x02
-> -#define PHY_INTF_SEL_RMII	0x08
-> +#define S32_PHY_INTF_SEL_MII	0x00
-> +#define S32_PHY_INTF_SEL_SGMII	0x01
-> +#define S32_PHY_INTF_SEL_RGMII	0x02
-> +#define S32_PHY_INTF_SEL_RMII	0x08
->  
->  struct s32_priv_data {
->  	void __iomem *ioaddr;
-> @@ -40,7 +40,7 @@ struct s32_priv_data {
->  
->  static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
->  {
-> -	writel(PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> +	writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
->  
->  	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(*gmac->intf_mode));
->  
-> -- 
-> 2.47.3
-> 
+> Reviewed-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-Reviewed-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+Thanks. One question: is it possible that bits 3:1 are the dwmac
+phy_intf_sel_i inputs, and bit 0 selects an external PCS which
+is connected to the dwmac using GMII (and thus would be set bits
+3:1 to zero) ?
 
-Thanks.
-/Jan
+It's not really relevant as the driver only appears to support
+RGMII.
 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
