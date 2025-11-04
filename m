@@ -2,59 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2141C3029F
-	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 10:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC84EC304B1
+	for <lists+linux-stm32@lfdr.de>; Tue, 04 Nov 2025 10:37:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C33BC62ECF;
-	Tue,  4 Nov 2025 09:08:05 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FC31C62ED5;
+	Tue,  4 Nov 2025 09:37:12 +0000 (UTC)
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7F70C62ECD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50467C030AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Nov 2025 09:08:03 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 177C61A1877;
- Tue,  4 Nov 2025 09:08:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D2ACD606EF;
- Tue,  4 Nov 2025 09:08:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 87FD110B50499; Tue,  4 Nov 2025 10:07:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1762247281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=IqrKvT/39GIw4bETHcXxm6B86XwJZy5zQulp7Zkzg80=;
- b=aPVPylMf2uPJTc5vq8FUwy26OuucAub5M8J+o+CEOCkoo6sjLGddx2uuKXPLxChca5uE9n
- rCXLuYN1N5fV0jjH/bgGSLJaTrW4CvemCkaJB58wOL+bN8kMOtZUORX0zHjAvWGVCblCRL
- 1mOBICgLxRa47LV5NCBmyt104DOWZex53RAm0Lhb9Yok62+5FpbXSPK3BuCkl9tKKzmAUQ
- tbxFO3TU5e2f50fJyb69LnMQWuCzGv6/9rCll6F26cvAbX8GJofb+wJvvg2nZA3WXgI79A
- /g9jd600NqLXDLBVOrJk4PHYNpsN0UOSDA7OAEXG7oR8YBNadRWHBTijAJ96/w==
-Message-ID: <4f029450-df4f-419d-adb4-493a8ca03e63@bootlin.com>
-Date: Tue, 4 Nov 2025 10:07:54 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ Tue,  4 Nov 2025 09:37:11 +0000 (UTC)
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E01321A0135;
+ Tue,  4 Nov 2025 10:37:10 +0100 (CET)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D26211A004C;
+ Tue,  4 Nov 2025 10:37:10 +0100 (CET)
+Received: from lsv051416.swis.nl-cdc01.nxp.com
+ (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 38F12202E8;
+ Tue,  4 Nov 2025 10:37:10 +0100 (CET)
+Date: Tue, 4 Nov 2025 10:37:10 +0100
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <aQnJRgJqFY99kDUj@lsv051416.swis.nl-cdc01.nxp.com>
 References: <aQiWzyrXU_2hGJ4j@shell.armlinux.org.uk>
- <E1vFt4c-0000000Choe-3SII@rmk-PC.armlinux.org.uk>
- <db01f926-d5bb-4317-beac-e6dcc0025a80@bootlin.com>
- <aQm-LnN0LifBvkoz@shell.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <aQm-LnN0LifBvkoz@shell.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
+ <E1vFt4S-0000000ChoS-2Ahi@rmk-PC.armlinux.org.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <E1vFt4S-0000000ChoS-2Ahi@rmk-PC.armlinux.org.uk>
+X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: Andrew Lunn <andrew@lunn.ch>, s32@nxp.com,
  Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev,
  netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Jan Petrous <jan.petrous@oss.nxp.com>, Shawn Guo <shawnguo@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
+ Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, Fabio Estevam <festevam@gmail.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 04/11] net: stmmac: add
-	stmmac_get_phy_intf_sel()
+Subject: Re: [Linux-stm32] [PATCH net-next 02/11] net: stmmac: s32: move
+ PHY_INTF_SEL_x definitions out of the way
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,86 +61,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 04/11/2025 09:49, Russell King (Oracle) wrote:
-> On Tue, Nov 04, 2025 at 09:34:31AM +0100, Maxime Chevallier wrote:
->>> +int stmmac_get_phy_intf_sel(phy_interface_t interface)
->>> +{
->>> +	int phy_intf_sel = -EINVAL;
->>> +
->>> +	if (interface == PHY_INTERFACE_MODE_MII ||
->>> +	    interface == PHY_INTERFACE_MODE_GMII)
->>> +		phy_intf_sel = PHY_INTF_SEL_GMII_MII;
->>> +	else if (phy_interface_mode_is_rgmii(interface))
->>> +		phy_intf_sel = PHY_INTF_SEL_RGMII;
->>> +	else if (interface == PHY_INTERFACE_MODE_SGMII)
->>> +		phy_intf_sel = PHY_INTF_SEL_SGMII;
->>> +	else if (interface == PHY_INTERFACE_MODE_RMII)
->>> +		phy_intf_sel = PHY_INTF_SEL_RMII;
->>> +	else if (interface == PHY_INTERFACE_MODE_REVMII)
->>> +		phy_intf_sel = PHY_INTF_SEL_REVMII;
->>> +
->>> +	return phy_intf_sel;
->>> +}
->>> +EXPORT_SYMBOL_GPL(stmmac_get_phy_intf_sel);
->>
->> Nothng wrong with your code, this is out of curiosity.
->>
->> I'm wondering how we are going to support cases like socfpga (and
->> probably some other) where the PHY_INTF_SEL_xxx doesn't directly
->> translate to the phy_interface, i.e.  when you have a PCS or other
->> IP that serialises the MAC interface ?
+On Mon, Nov 03, 2025 at 11:50:00AM +0000, Russell King (Oracle) wrote:
+> S32's PHY_INTF_SEL_x definitions conflict with those for the dwmac
+> cores as they use a different bitmapping. Add a S32 prefix so that
+> they are unique.
 > 
-> It also doesn't differentiate between MII and GMII. That's fine for
-> this - this is about producing the configuration for the dwmac's
-> phy_intf_sel_i signals. It isn't for configuring the glue hardware
-> for any other parameters such as RGMII delays.
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> index ee095ac13203..2b7ad64bfdf7 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> @@ -24,10 +24,10 @@
+>  #define GMAC_INTF_RATE_125M	125000000	/* 125MHz */
 >  
->> for socfpga for example, we need to set the PHY_INTF_SEL to GMII_MII
->> when we want to use SGMII / 1000BaseX, but we do set it to RGMII when
->> we need to output RGMII.
+>  /* SoC PHY interface control register */
+> -#define PHY_INTF_SEL_MII	0x00
+> -#define PHY_INTF_SEL_SGMII	0x01
+> -#define PHY_INTF_SEL_RGMII	0x02
+> -#define PHY_INTF_SEL_RMII	0x08
+> +#define S32_PHY_INTF_SEL_MII	0x00
+> +#define S32_PHY_INTF_SEL_SGMII	0x01
+> +#define S32_PHY_INTF_SEL_RGMII	0x02
+> +#define S32_PHY_INTF_SEL_RMII	0x08
+>  
+>  struct s32_priv_data {
+>  	void __iomem *ioaddr;
+> @@ -40,7 +40,7 @@ struct s32_priv_data {
+>  
+>  static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
+>  {
+> -	writel(PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
+> +	writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
+>  
+>  	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(*gmac->intf_mode));
+>  
+> -- 
+> 2.47.3
 > 
-> From what I remember for socfpga, you use an external PCS that needs
-> GMII. This function doesn't take account of external PCS, and thus
-> platform glue that makes use of an external PCS can't implement
-> .set_phy_intf_sel() yet.
 
-Makes sense
+Reviewed-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-> As noted, it also doesn't handle TBI (which,
-> although we have PHY_INTERFACE_MODE_TBI, Synopsys intended this mode
-> to be used to connect to a SerDes for 1000BASE-X.)
+Thanks.
+/Jan
 
-That's fine by me, thanks for the clarifications :)
-
-> 
->> Do you have a plan in mind for that ? (maybe a .get_phy_intf_sel() ops ?)
-> 
-> Yes, there will need to be a way to override this when an external
-> PCS is being used. I suspect that all external 1G PCS will use GMII,
-> thus we can probably work it out in core code.
-> 
-> Note, however, that socfpga doesn't use the phy_intf_sel encoding:
-> 
-> #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_GMII_MII 0x0
-> #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RGMII 0x1
-> #define SYSMGR_EMACGRP_CTRL_PHYSEL_ENUM_RMII 0x2
-> 
-> #define PHY_INTF_SEL_GMII_MII   0
-> #define PHY_INTF_SEL_RGMII      1
-> #define PHY_INTF_SEL_RMII       4
-> 
-> It's close, but it isn't the phy_intf_sel_i[2:0] signal values.
-
-> 
-Yeah :/
-
-I'll give this series a try on dwmac-imx once I get a bit of time then !
-
-thanks,
-
-Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
