@@ -2,61 +2,173 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF964C39BDF
-	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 10:06:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6595BC39D28
+	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 10:32:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 907DCC36B3C;
-	Thu,  6 Nov 2025 09:06:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12CF9C349C4;
+	Thu,  6 Nov 2025 09:32:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C54C7C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F4CEC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Nov 2025 09:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762420010; x=1793956010;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=i3D2gBal5+YbLDjTq5ytrhJTTHuFXbJwZnfo0rk6QCQ=;
- b=Z05RICN8hRDHCbgAKwpIybaM2yVqvck79wES1/jtM0VHRDBmyxnSWGfI
- Paz6rPmXmSmwclYhCW6LwwHt7DK/wP4iKLwSRkKtTrgqclRVvUgs6Ak76
- rmdtgp94vlauVXyq/FmWBTiOMMXYsywEPnXbXAAXoniStsPz8u75Uuan2
- hC9RZrkROJ0bOrRSGnntrXRVjmRn7bKZ4JaOn/zmZ29AZDmxHdy1Cn7te
- cwNWbHEEruYGjbT3UmL9Zf5ZkU4N6Z3oThK0oa99Ja+k7Khutpmx5Vlrm
- XR9u38gjp3AgcJS7N/SKKqdjYjya9zme4NJ7LwjJB/m9rukILNBAIHGt5 g==;
-X-CSE-ConnectionGUID: vtxL2pOaQ9u+s/YKneUAxA==
-X-CSE-MsgGUID: gC3cs3DAThWMJZCJtXyVkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11604"; a="63562763"
-X-IronPort-AV: E=Sophos;i="6.19,284,1754982000"; d="scan'208";a="63562763"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2025 01:06:48 -0800
-X-CSE-ConnectionGUID: 2/NgE5SQQ6eOREXwCKlqMw==
-X-CSE-MsgGUID: zC1S65aLSVeEoNWP8khe0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,284,1754982000"; d="scan'208";a="218366584"
-Received: from lkp-server02.sh.intel.com (HELO 66d7546c76b2) ([10.239.97.151])
- by orviesa002.jf.intel.com with ESMTP; 06 Nov 2025 01:06:44 -0800
-Received: from kbuild by 66d7546c76b2 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1vGvx3-000Tha-2Z;
- Thu, 06 Nov 2025 09:06:41 +0000
-Date: Thu, 6 Nov 2025 17:06:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <202511061640.PHWz6zWt-lkp@intel.com>
-References: <E1vGdXJ-0000000CloA-3yVc@rmk-PC.armlinux.org.uk>
+ Thu,  6 Nov 2025 09:32:29 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5A69RqRX1396294; Thu, 6 Nov 2025 10:32:09 +0100
+Received: from duzpr83cu001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4a7g98bqyu-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 06 Nov 2025 10:32:08 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XFnSnfIXwrv8HxjawL8zEKQIRHEfawzPSQ9XbjmX9Ir73lf88BVVXN4gUihB2BHxBXFpkl9d8/BZZ3qrGPTx4H7PjsQEzK/v1gz23hoZ0uXvU7pXwnl5mMWWg2bkbgSOvxjD5sv3lSw1iEKC/69LVUsShiviE2PpFGuRtG/qqus52aS2Ew34inCwzzC2SkZ0umy0eLxfejS6e0EhOKJr915Z/91Sm9T1Jw3P5Ug89iwuyg+9N0fFk8jtncNfeOwojGBfjZEZ0qwK0q9IHqw6ZyNECkim6z17gkQdQx+00MNCPJbo//eZKwnjMWnfj+GReLfYv5WEzkIw1h26mNQiTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CHbUuTgWQLRYnigNUxNvzmCrVjY2uwm5sfeN1Rik5KI=;
+ b=eLh2Llz0YpqKq52BNRgmKVHO8W10GS0Tqj+TxL3xzLH86j1FLGYrlrG5Z40XXUxr8y5c9SNfO4nQIJmTby2QcbHiqm7y3DRd3utuFuVPge4XFDhgbrqSUEKvL7S2bppJTzW03UtMEirW4XlD5aYKLd8biBBSd2PcpFP1d7Z24yCVQEmY1WESiIOp1Kwgt8cFHG30YGT69koOveGRryZuuvxDwkZiATw0tr8Q4FOhcOvHDaSkiebOOaaf3CVxdujZEHZtYmg2O6VJNBtuLhC6Eqyo6LSnzFD8QDo0usgHJtVQ/nMHU+bXcCnc9awpbeCKIdFX0hoFo4YaTj/0dOr8pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CHbUuTgWQLRYnigNUxNvzmCrVjY2uwm5sfeN1Rik5KI=;
+ b=KazQ/G6w0bKRxzVKM3wrxFeYXF3v51tYBqrbOd5MAp8FzpV9KGfK4/cL8ZpiW8+geuhtOwWmVwkyHqTiBQIsL289e2x8V5DnyFO04gm9kR76enudUDKFRYnSCy1mxmxZNapCI7tLwOy5RsqeV0geXrt52Hx+nmQbdAhD1BPULDVd5AHvH4yc344czCR6omn/V04+XPoYYIB+6ELs8sbij8GOh6shDbzBKZWC5O3JREraIE47Y13DKyEawPLxK72JGNwggkznYRfpIFg8JPnBUwOP5STo306DsVpW77XXz7NcULmpSz0i0eJwUwtaMAyiMM5CX4aA+NFMatZAG+QKww==
+Received: from CWLP123CA0056.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:59::20)
+ by AM7PR10MB3811.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:175::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9298.8; Thu, 6 Nov
+ 2025 09:32:06 +0000
+Received: from AMS1EPF00000048.eurprd04.prod.outlook.com
+ (2603:10a6:401:59:cafe::44) by CWLP123CA0056.outlook.office365.com
+ (2603:10a6:401:59::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9298.12 via Frontend Transport; Thu,
+ 6 Nov 2025 09:32:06 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS1EPF00000048.mail.protection.outlook.com (10.167.16.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9298.6 via Frontend Transport; Thu, 6 Nov 2025 09:32:05 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 6 Nov
+ 2025 10:32:12 +0100
+Received: from localhost (10.48.87.185) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 6 Nov
+ 2025 10:32:05 +0100
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Thu, 6 Nov 2025 10:31:47 +0100
+Message-ID: <20251106-rifsc_debugfs-v2-0-f90e94ae756d@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1vGdXJ-0000000CloA-3yVc@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, llvm@lists.linux.dev,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+X-B4-Tracking: v=1; b=H4sIAANrDGkC/3XMywrCMBCF4VcpszYlF4viyveQIk0y087CRjK1K
+ CXvbuze5X/gfBsIZkaBS7NBxpWF01zDHhoI0zCPqDjWBqttZ4w+qswk4R7Rv0YS1enO4aCdC+i
+ gfp4Zid+7d+trTyxLyp+dX81v/SetRml1Qh/J0zk6R1dKIq0sbUgP6EspXwqfV3esAAAA
+X-Change-ID: 20251104-rifsc_debugfs-5053ea033ce3
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.3
+X-Originating-IP: [10.48.87.185]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000048:EE_|AM7PR10MB3811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bd13790-f53d-4708-0f69-08de1d1759c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SHpyUFM2QnhTVFpsbTcvOFVneWxvV0h1blZRb0gyeEkwczY1dHlsTFhQcmVM?=
+ =?utf-8?B?Vk9DbGFtRXlrTHlTUWtPRlZjcEx2aEp4SDNMMkh4anRNSXVlcGZYbGxLYkYw?=
+ =?utf-8?B?U2tkcjkwWXprWTZUK1BGaHlpakhNV2paQldSaGhZazJDcDc3d240TkZ6NlVL?=
+ =?utf-8?B?OTJWdytBMWtNZzdvYWR1VWlJb3NSenpGSnVKWTl5R0ZmV0FZYWZVWkw4OWhl?=
+ =?utf-8?B?UXh0Z2RvZVlHMTFic2w4T0xhZmRZcDZ5Qnd2RmwvUUNDQW1UQTlld3hrS3JG?=
+ =?utf-8?B?Mm1jclZhM21VUjdSR01NVWduUW44Y29zamE4WjZXellZaGhUSmlOdjkwZ2h3?=
+ =?utf-8?B?dkpkMVliejBTMS9wUlZaSjhNNmlqclZFMElXd20ydUtablhuWFBaMUVHdDZ2?=
+ =?utf-8?B?S3QxRHlUbkZiLzRyOCtQczdGNFhBMlJqa1hEalpoM0tNc0wwS1lxdktSdS9W?=
+ =?utf-8?B?cURBbXhYbXkyajQzcFZQcVNGeklpc1BuaXZBaFVIUHRvNlJIcVpJRnpUWlJo?=
+ =?utf-8?B?MXBJY1lDYVRYcHZxanNnVm1CU01DUnNzaWN0azRQQUdmRXA5emI0TTFsZTRE?=
+ =?utf-8?B?TTQwMGlTMlQwc2hURXBEd0hyODY3TkwxcDdZVXMycDZrZzdHVUNHQUJQZ0xF?=
+ =?utf-8?B?UDJNbzQyM3pZbWJxaXRKdS92bjExUTJnM1hiNEkwRlZLNXpCY1J3VVpZMUU0?=
+ =?utf-8?B?ZjNUM1l2SVVPZ0NNVW90WWp3bXFMMGZIRDRCdE1JVzFYSzZLUFo2bGUvb3dW?=
+ =?utf-8?B?ZjRaS0Nlak4yWStuUkxhQjM4SmdxUGZHWVY1VWxKMzdSS1hGMTBNU1NwdUN4?=
+ =?utf-8?B?STBnWGh6a3JHWE1OaE42Vi9pNE1Sb2RSYjg5UnV5MFdpTUhkVnFoeE5wZEFZ?=
+ =?utf-8?B?YTB5UmYrck4rV0wvaVB4TjlRREQvaTZVV0NRRUZoaEZPTXJzZHBkZ0plcklK?=
+ =?utf-8?B?TS9Lb2VPSEtOVTFKQkxyNmdLdlhxek5sVGF6NHMzQ1d1V3pGVE5EUytRRlh1?=
+ =?utf-8?B?S2ZwWFpXdDZYcU9OalBiQ2NWWlRqS29PWCszS24rdENUOXR1Nk04RTgwYkpj?=
+ =?utf-8?B?QTltd2x3clhrditheWxRNWtaNmhtNTc1SngwK2FXWUFPWERRMk12NXg1VGhS?=
+ =?utf-8?B?Q2xMNnBQTmF0NWYwbzdxSHhLTXNmTEl4UHRGMHYyb2pERCtLQU5MbmF0TUdm?=
+ =?utf-8?B?Z1ErWEtkUFdvenhJS2FMQ1p5SVNSdU8vWWl0QnV0RGo4QUVMamFqNGhxcjRB?=
+ =?utf-8?B?RTJNYzkrSFIzdlhoSVpCbUdFK1R1cTNWNU1Ca1VPT2JJdUhwUUxLc0tkalp1?=
+ =?utf-8?B?aEdYcTkyRG5rOFA3Q25lTnF4dGphOWNwWU44MlUvODk5RU4wbGJWU2g0NnNv?=
+ =?utf-8?B?MEJ2ZDl4eDRsTFZIVCt2Sk9lQWszdGNQdEJocTBwUEpEUllWSXJZai9sUU5X?=
+ =?utf-8?B?OC81bThyZ0hTWEQzSTFHNjBtRGZLQVZ6TDVhbGowZE9hdDBId01MbUJvKzI0?=
+ =?utf-8?B?bVlBcEc3UnJ1R1hPN1JEanlOUjhITDBBbDcwYmpLMWllS3BnRHU4Z2xxK21U?=
+ =?utf-8?B?c2puTGxpZjM0d3k3VmRheTFEVlgxU3Q0a3BmNmhpSFhpc080dVpXd3JOZ3ps?=
+ =?utf-8?B?Y3FGTVJGTmowbnYrdjFKOHVjaFJCTFlhUFBCVUtOR3IyZ2lxZFg4ais5UnNC?=
+ =?utf-8?B?RGZPRVZXTHUvVW5pRnVqZ2kwZ3h2U2I5RXp3Zm9PS1RaRjhQcXZKaDB4S21L?=
+ =?utf-8?B?R1R4cGV5MHhvV1NLWHRpN3FNQ2grdHllVTlTL1pwVDVFOTcycjlONzNsN2Q5?=
+ =?utf-8?B?VnBvdWdpRS9Xak5GT2pFbXcxWnFvRWtuS25QTm14cDQxRUk3OEVzcktwd0VT?=
+ =?utf-8?B?UHVVUUNiSysxNC90SzZTVVpJMVJ4WUZXNWZNTi84YWs4dGhRTE5CTTRoZXNa?=
+ =?utf-8?B?OXpsRzJDMlFKeEJDVmV3M2JIb1JYYXh1aVRRQW1GRVRVbDh6SVVIcWV2MkN4?=
+ =?utf-8?B?b2tGdWRCNkcwRWRBaXdmWHU2U2hKNGlEckJRL0tGMjc4Z3RqYUtrbERIYllJ?=
+ =?utf-8?B?YnUwNDRkNlNYbERrWmFzaXFHNTVOdjlOVDN2dWF6UWxiN05teWNaWWFDZEFS?=
+ =?utf-8?Q?/FpM=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2025 09:32:05.9784 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bd13790-f53d-4708-0f69-08de1d1759c3
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000048.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3811
+X-Authority-Analysis: v=2.4 cv=K+sv3iWI c=1 sm=1 tr=0 ts=690c6b18 cx=c_pps
+ a=TZl03fqgByJezl61SFqjKg==:117 a=uCuRqK4WZKO1kjFMGfU4lQ==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Wpbxt3t0qq0A:10 a=IkcTkHD0fZMA:10
+ a=6UeiqGixMTsA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=8b9GpE9nAAAA:8
+ a=Qt6CvwFM3zD-zW8HttkA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+ a=cPQSjfK2_nFv0Q5t_7PE:22
+X-Proofpoint-ORIG-GUID: LKiyMUiLTx_JiqqZam_MZ06nzBO_YZKc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTA2MDA3NiBTYWx0ZWRfX+HqBTIvdI8dZ
+ v/edLRbyLRcpVkUbqCoFBvKCPByldbHUnyuP+fpMO5OSOwC2/acPn8WnvDYBaqfDxzwUkrZsa2n
+ GP/v5I2tLrsxuXaT6RdaaoluchSkXOSBshu+YbqRm1cblEZIkOUUzIGeNLjG4ashAwqfPT+Kxdb
+ kxmlPRe/zzEuYGr8t4/cxyPLa4N9nSKPnHvZWt2+NZ20zSa6Ztp++3YpcZb9BbGiQlaN0EZmpq2
+ AygkpZa5QL9x2i2GYWXSQG07bv7u6TXjYc4K/VrLawvbWL9q9u356LQWn8Gdk5CM8mUoPfW8QTv
+ JKtCIqpL3FjyNX4suPE6u1+qKMYPUybI3yBWZZ/870+d1O/NJAqtWpb53Jq/2KE7UJmhyFL+vMi
+ MxYC7IRJlR01oX45+YItxKsbnsIwqQ==
+X-Proofpoint-GUID: LKiyMUiLTx_JiqqZam_MZ06nzBO_YZKc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-06_02,2025-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
+ suspectscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2511060076
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 09/11] net: stmmac: ingenic:
- simplify x2000 mac_set_mode()
+Subject: [Linux-stm32] [PATCH v2 0/3] bus: rifsc: add stm32mp21 support and
+ config dump debug entry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,79 +185,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
+The STM32MP21x platforms have a slightly different RIFSC. Add support
+for these platforms.
 
-kernel test robot noticed the following build warnings:
+Also, the RIF is a complex firewall framework which can be tricky
+to debug. To facilitate the latter, add a debugfs entry that can
+be used to display the whole RIFSC firewall configuration at runtime.
 
-[auto build test WARNING on net-next/main]
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+Changes in v2:
+- Added Conor tag on bindings
+- Fixed coccinelle warning by using str_enabled_disabled() when
+  applicable
+- Link to v1: https://lore.kernel.org/r/20251104-rifsc_debugfs-v1-0-7ebdfbf8d33f@foss.st.com
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-ingenic-move-ingenic_mac_init/20251106-015834
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/E1vGdXJ-0000000CloA-3yVc%40rmk-PC.armlinux.org.uk
-patch subject: [PATCH net-next 09/11] net: stmmac: ingenic: simplify x2000 mac_set_mode()
-config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20251106/202511061640.PHWz6zWt-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251106/202511061640.PHWz6zWt-lkp@intel.com/reproduce)
+---
+Gatien Chevallier (3):
+      dt-bindings: bus: add stm32mp21 RIFSC compatible
+      arm64: dts: st: set RIFSC as an access controller on stm32mp21x platforms
+      bus: rifsc: add debugfs entry to dump the firewall configuration
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202511061640.PHWz6zWt-lkp@intel.com/
+ .../bindings/bus/st,stm32mp25-rifsc.yaml           |   8 +-
+ arch/arm64/boot/dts/st/stm32mp211.dtsi             |   4 +-
+ drivers/bus/stm32_rifsc.c                          | 597 ++++++++++++++++++++-
+ 3 files changed, 602 insertions(+), 7 deletions(-)
+---
+base-commit: 6146a0f1dfae5d37442a9ddcba012add260bceb0
+change-id: 20251104-rifsc_debugfs-5053ea033ce3
 
-All warnings (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:128:13: warning: variable 'val' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
-     128 |         } else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
-         |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:142:2: note: uninitialized use occurs here
-     142 |         val |= FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
-         |         ^~~
-   drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:128:9: note: remove the 'if' if its condition is always true
-     128 |         } else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
-         |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:123:18: note: initialize the variable 'val' to silence this warning
-     123 |         unsigned int val;
-         |                         ^
-         |                          = 0
-   1 warning generated.
-
-
-vim +128 drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-
-   118	
-   119	static int x2000_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
-   120				      u8 phy_intf_sel)
-   121	{
-   122		struct ingenic_mac *mac = plat_dat->bsp_priv;
-   123		unsigned int val;
-   124	
-   125		if (phy_intf_sel == PHY_INTF_SEL_RMII) {
-   126			val = FIELD_PREP(MACPHYC_TX_SEL_MASK, MACPHYC_TX_SEL_ORIGIN) |
-   127			      FIELD_PREP(MACPHYC_RX_SEL_MASK, MACPHYC_RX_SEL_ORIGIN);
- > 128		} else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
-   129			if (mac->tx_delay == 0)
-   130				val = FIELD_PREP(MACPHYC_TX_SEL_MASK, MACPHYC_TX_SEL_ORIGIN);
-   131			else
-   132				val = FIELD_PREP(MACPHYC_TX_SEL_MASK, MACPHYC_TX_SEL_DELAY) |
-   133				      FIELD_PREP(MACPHYC_TX_DELAY_MASK, (mac->tx_delay + 9750) / 19500 - 1);
-   134	
-   135			if (mac->rx_delay == 0)
-   136				val |= FIELD_PREP(MACPHYC_RX_SEL_MASK, MACPHYC_RX_SEL_ORIGIN);
-   137			else
-   138				val |= FIELD_PREP(MACPHYC_RX_SEL_MASK, MACPHYC_RX_SEL_DELAY) |
-   139					   FIELD_PREP(MACPHYC_RX_DELAY_MASK, (mac->rx_delay + 9750) / 19500 - 1);
-   140		}
-   141	
-   142		val |= FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
-   143	
-   144		/* Update MAC PHY control register */
-   145		return regmap_update_bits(mac->regmap, 0, mac->soc_info->mask, val);
-   146	}
-   147	
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Gatien Chevallier <gatien.chevallier@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
