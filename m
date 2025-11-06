@@ -2,55 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5189C386ED
-	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 01:05:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CACCC38AE8
+	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 02:18:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DFCCC57B68;
-	Thu,  6 Nov 2025 00:05:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFC0DC5F1E0;
+	Thu,  6 Nov 2025 01:18:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E9D5C1A981
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DDD2C57B68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Nov 2025 00:05:34 +0000 (UTC)
+ Thu,  6 Nov 2025 01:18:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AD53439ED;
- Thu,  6 Nov 2025 00:05:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF74BC4CEF5;
- Thu,  6 Nov 2025 00:05:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BE759440FE;
+ Thu,  6 Nov 2025 01:18:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BBBAC4CEF5;
+ Thu,  6 Nov 2025 01:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762387533;
- bh=y/ZAYxCD+K0ben97/l/TcgYvp1v3jhspO1xwcEPug+I=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=e2Tj1pIej2SBYovVy9liByuimeqmIgSHUlUPqS3qaqe4q1iQ9iUL0nhZsrG4m3usd
- TLFBN360oIQrAifta/POgM8nU9YvTGyaHgCVDft5m4cy43QE1vYw/YdF+dZo+bIjl0
- CUXOZDan9dkcWVK3bS/p+7bK1hZr0ZQTseFeYxpmD31C4aLVggm/7YTH/BiywhkoC0
- 9U6yPAVKUEutUFhQ+wtekf21eqJo8Td4ohrhml9TPiMC7JhLiKqcv/KyPJlgsJeRer
- FIWkYxgQHYt7a+iYBVzuSklb8MjOvQCVrEiJzZU+hOSiEt/puGzZcLaiO6lSxo1Kg7
- wfCItHHp/YtYA==
-Date: Wed, 5 Nov 2025 18:05:31 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Message-ID: <20251106000531.GA1930429@bhelgaas>
+ s=k20201202; t=1762391929;
+ bh=7t9OsvQMT3GaIT7WtbZ9AfqGl0859XgGoz1qrHm8cIw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=fK+J64KVtoqMUiia8DqYAj3mLb2EbeTVQJDLNET7uSXx6xkJNbVlqhgBSgS/+esmH
+ osqooD18fN/tusq3rzwdigzwNxx3K/MReAVBadPmPAXV0bUEviLLFat45a2GTiwG2u
+ 47nNca+FpVQG/RslwUlJneevwJGkiMhH1F8z2PXBQGw5nwGulQtJZ9dkhn9TIaapIj
+ 9QNVgkYqAivr2ymBGor2DjZFofAAG3LG0HtCQ5SfxGfNBd2glLNFnng/E/e4n6owDc
+ mlmRLGn58XHMcAxX93bSc+rYeIM9oJd7IJxN0LLrwmraEYlnE2Gxh3AxwfnAI8qsZ2
+ 7QA5lyNghsK4g==
+Date: Wed, 5 Nov 2025 17:18:48 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20251105171848.550f625a@kernel.org>
+In-Reply-To: <E1vGdXJ-0000000CloA-3yVc@rmk-PC.armlinux.org.uk>
+References: <aQtQYlEY9crH0IKo@shell.armlinux.org.uk>
+ <E1vGdXJ-0000000CloA-3yVc@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtCtHquxtK=Zx2WSNm15MmqeUXO8XXi8FkS4EpuP80PP7g@mail.gmail.com>
-Cc: imx@lists.linux.dev, s32@nxp.com, linux-pci@vger.kernel.org,
- lpieralisi@kernel.org, Frank.li@nxp.com, cassel@kernel.org,
- ghennadi.procopciuc@oss.nxp.com, Christian Bruel <christian.bruel@foss.st.com>,
- kwilczynski@kernel.org, robh@kernel.org, larisa.grigore@nxp.com,
- linux-stm32@st-md-mailman.stormreply.com, Ionut.Vicovan@nxp.com,
- Mingkai Hu <mingkai.hu@nxp.com>, bogdan.hamciuc@nxp.com,
- Ghennadi.Procopciuc@nxp.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- Richard Zhu <hongxing.zhu@nxp.com>, mani@kernel.org,
- ciprianmarian.costea@nxp.com, bhelgaas@google.com,
- linux-arm-kernel@lists.infradead.org, chester62515@gmail.com,
- Roy Zang <roy.zang@nxp.com>, mbrugger@suse.com,
- Minghuan Lian <minghuan.Lian@nxp.com>, jingoohan1@gmail.com,
- linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH 3/4 v3] PCI: s32g: Add initial PCIe
-	support (RC)
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 09/11] net: stmmac: ingenic:
+ simplify x2000 mac_set_mode()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,82 +60,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[+cc imx6, layerscape, stm32 maintainers for possible suspend bug]
+On Wed, 05 Nov 2025 13:26:53 +0000 Russell King (Oracle) wrote:
+> As per the previous commit, we have validated that the phy_intf_sel
+> value is one that is permissible for this SoC, so there is no need to
+> handle invalid PHY interface modes. We can also apply the other
+> configuration based upon the phy_intf_sel value rather than the
+> PHY interface mode.
 
-On Fri, Oct 24, 2025 at 08:50:46AM +0200, Vincent Guittot wrote:
-> On Wed, 22 Oct 2025 at 21:04, Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > On Wed, Oct 22, 2025 at 07:43:08PM +0200, Vincent Guittot wrote:
-> > > Add initial support of the PCIe controller for S32G Soc family. Only
-> > > host mode is supported.
+clang sayeth:
 
-> > > +static void s32g_init_pcie_controller(struct s32g_pcie *s32g_pp)
-> > > +{
-> > > ...
-> > > +     /*
-> > > +      * Make sure we use the coherency defaults (just in case the settings
-> > > +      * have been changed from their reset values)
-> > > +      */
-> > > +     s32g_pcie_reset_mstr_ace(pci, memblock_start_of_DRAM());
-> >
-> > This seems sketchy and no other driver uses memblock_start_of_DRAM().
-> > Shouldn't a physical memory address like this come from devicetree
-> > somehow?
-> 
-> I was using DT but has been asked to not use it and was proposed to
-> use memblock_start_of_DRAM() instead
-
-Can you point me to that conversation?
-
-> > > +     s32g_pp->ctrl_base = devm_platform_ioremap_resource_byname(pdev, "ctrl");
-> > > +     if (IS_ERR(s32g_pp->ctrl_base))
-> > > +             return PTR_ERR(s32g_pp->ctrl_base);
-> >
-> > This looks like the first DWC driver that uses a "ctrl" resource.  Is
-> > this something unique to s32g, or do other drivers have something
-> > similar but use a different name?
-> 
-> AFAICT this seems to be s32g specific in the RM
-
-It does look like there's very little consistency in reg-names across
-drivers, so I guess it's fine.
-
-> > > +static int s32g_pcie_suspend_noirq(struct device *dev)
-> > > +{
-> > > +     struct s32g_pcie *s32g_pp = dev_get_drvdata(dev);
-> > > +     struct dw_pcie *pci = &s32g_pp->pci;
-> > > +
-> > > +     if (!dw_pcie_link_up(pci))
-> > > +             return 0;
-> >
-> > Does something bad happen if you omit the link up check and the link
-> > is not up when we get here?  The check is racy (the link could go down
-> > between dw_pcie_link_up() and dw_pcie_suspend_noirq()), so it's not
-> > completely reliable.
-> >
-> > If you have to check, please add a comment about why this driver needs
-> > it when no other driver does.
-> 
-> dw_pcie_suspend_noirq returns an error and the suspend fails
-
-The implication is that *every* user of dw_pcie_suspend_noirq() would
-have to check for the link being up.  There are only three existing
-callers:
-
-  imx_pcie_suspend_noirq()
-  ls_pcie_suspend_noirq()
-  stm32_pcie_suspend_noirq()
-
-but none of them checks for the link being up.
-
-> I will add a comment
-> /*
->  * If the link is not up, there is nothing to suspend and resume
-
-Sometimes true, but still racy as I mentioned, and doesn't explain why
-s32g is different from imx, ls, and stm32.
-
-> > > +     return dw_pcie_suspend_noirq(pci);
-> > > +}
+drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:128:13: warning: variable 'val' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+  128 |         } else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
+      |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:142:2: note: uninitialized use occurs here
+  142 |         val |= FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
+      |         ^~~
+drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:128:9: note: remove the 'if' if its condition is always true
+  128 |         } else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:123:18: note: initialize the variable 'val' to silence this warning
+  123 |         unsigned int val;
+      |                         ^
+      |                          = 0
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
