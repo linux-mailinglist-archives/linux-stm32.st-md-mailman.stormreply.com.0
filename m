@@ -2,56 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C250C38C02
-	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 02:55:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38F9AC38E3B
+	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 03:40:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E414C62D94;
-	Thu,  6 Nov 2025 01:55:43 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB213C62D94;
+	Thu,  6 Nov 2025 02:40:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80281C5F1E0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 990B8C57B68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Nov 2025 01:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4ITqPQA8fRrbxRLD4xqri1t/q83422DhMqqq3jEbapI=; b=JmIY1pv7Y602Ue9TRGVE3iKkZr
- DKbXWpfFusF2yAM32fugEYoHzHzcxqyC+23jOYx24+5PYnR197hQEHICzt3WQGW7S0WTuctCbXefr
- 2RvsZtddE+47OH/HpaMwbQLva9BqWsHiTz4zqgS8sNIQaYN78oNqvhGTp3R88WOSLIufjCtmtTjm6
- ob+etum/3S4QYnsXf3Hx4h8NBTtUpnl6xU3iZd1V9JwHxVyP1SZMbRdUU8dlHz91NFQCxvNvQfV3g
- NTpSwbRgkE4QJVhb5lEYenP0gQzClSIkI3R802GYHb90y8UX/AQomKuxlxi8q8Jj0rxISdK/MYwNc
- efmGaPyw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49948)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vGpDq-000000004A9-1LiQ;
- Thu, 06 Nov 2025 01:55:34 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vGpDn-000000006Ch-1KZs; Thu, 06 Nov 2025 01:55:31 +0000
-Date: Thu, 6 Nov 2025 01:55:31 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <aQwAExA7bAgwNkdI@shell.armlinux.org.uk>
-References: <aQtQYlEY9crH0IKo@shell.armlinux.org.uk>
- <E1vGdXJ-0000000CloA-3yVc@rmk-PC.armlinux.org.uk>
- <20251105171848.550f625a@kernel.org>
+ Thu,  6 Nov 2025 02:40:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2701B44946;
+ Thu,  6 Nov 2025 02:40:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037F8C4CEF8;
+ Thu,  6 Nov 2025 02:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1762396838;
+ bh=GxAFBY0FuzXylt3WKOzyYIHU0Sz+s/MVF/ONHT3Sg0o=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=UHNircHWcHy3PSqdTQHRBGrQqufuaIO7vo9bAJHYDavrkSDS6yd5KUQWNWgxTGwug
+ ce5X2nKkdAstgwgC8PrTSBfOWA0OsfZHrPD7Q8EcVs/0HDhe3qJicv7h0LKF9mbYPd
+ trKNLNtgaGMIeMRM+DpX8KdBIeM7TliSUDBCXFZID8JSYEaLXrei5t9PJHlZh1QfGe
+ 0BBOBaMPALeSeAR0D+oBJ70s27Yly4HDNijFHkFnT0d7oNT53Ec6a7aaDcNIWUZocr
+ DS5yLFR9608fokkKIj6gCWZX2ETBeX8BJ7IrN+Kyd0TJtqin22QDAOzFz8xsPWv8/4
+ Tg5FQ/wedVDlw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 70CFC380AAF9; Thu,  6 Nov 2025 02:40:12 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251105171848.550f625a@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 09/11] net: stmmac: ingenic:
- simplify x2000 mac_set_mode()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176239681110.3843222.1196366168534081089.git-patchwork-notify@kernel.org>
+Date: Thu, 06 Nov 2025 02:40:11 +0000
+References: <20251101-agilex5_ext-v2-0-a6b51b4dca4d@altera.com>
+In-Reply-To: <20251101-agilex5_ext-v2-0-a6b51b4dca4d@altera.com>
+To: Rohan G Thomas <rohan.g.thomas@altera.com>
+Cc: s.trumtrar@pengutronix.de, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/4] net: stmmac: socfpga: Add
+ Agilex5 platform support and enhancements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,36 +61,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 05, 2025 at 05:18:48PM -0800, Jakub Kicinski wrote:
-> On Wed, 05 Nov 2025 13:26:53 +0000 Russell King (Oracle) wrote:
-> > As per the previous commit, we have validated that the phy_intf_sel
-> > value is one that is permissible for this SoC, so there is no need to
-> > handle invalid PHY interface modes. We can also apply the other
-> > configuration based upon the phy_intf_sel value rather than the
-> > PHY interface mode.
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sat, 01 Nov 2025 01:27:06 +0800 you wrote:
+> This patch series adds support for the Agilex5 EMAC platform to the
+> dwmac-socfpga driver.
 > 
-> clang sayeth:
+> The series includes:
+>    - Platform configuration for Agilex5 EMAC
+>    - Enabling Time-Based Scheduling (TBS) for Tx queues 6 and 7
+>    - Enabling TCP Segmentation Offload(TSO)
+>    - Adding hardware-supported cross timestamping using the SMTG IP,
+>      allowing precise synchronization between MAC and system time via
+>      PTP_SYS_OFFSET_PRECISE.
 > 
-> drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c:128:13: warning: variable 'val' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
->   128 |         } else if (phy_intf_sel == PHY_INTF_SEL_RGMII) {
->       |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> [...]
 
-Clang can't know that phy_intf_sel will only ever be one of
-PHY_INTF_SEL_RMII or PHY_INTF_SEL_RGMII here (its already been
-validated as such by the only caller of this function.)
+Here is the summary with links:
+  - [net-next,v2,1/4] net: stmmac: socfpga: Agilex5 EMAC platform configuration
+    https://git.kernel.org/netdev/net-next/c/93d46ea3e984
+  - [net-next,v2,2/4] net: stmmac: socfpga: Enable TBS support for Agilex5
+    https://git.kernel.org/netdev/net-next/c/4c00476d4480
+  - [net-next,v2,3/4] net: stmmac: socfpga: Enable TSO for Agilex5 platform
+    https://git.kernel.org/netdev/net-next/c/e28988aef70f
+  - [net-next,v2,4/4] net: stmmac: socfpga: Add hardware supported cross-timestamp
+    https://git.kernel.org/netdev/net-next/c/fd8c4f645496
 
-I guess the way around this warning is to move:
-
-        val |= FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
-
-up and make it a simple assignment, and make the others |=.
-
-That's the code I originally had before I attempted to minimise the
-noise in the patches. :(
-
+You are awesome, thank you!
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
