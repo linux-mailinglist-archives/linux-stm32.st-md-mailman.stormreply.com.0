@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F62C39AFA
-	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 09:58:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C266CC39AFD
+	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 09:58:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77A41C36B3C;
-	Thu,  6 Nov 2025 08:58:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88D54C597BF;
+	Thu,  6 Nov 2025 08:58:04 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5130C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 817FDC597BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Nov 2025 08:57:58 +0000 (UTC)
+ Thu,  6 Nov 2025 08:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6MUkjUGs5htCVWXpvlmUC7jdUvESYY4WRqn6CV5pz6o=; b=Dt05tnpxwaLbiScxwLYsBakCjJ
- KNsUq2+37NaAqRkAEosj+kibwPF1LpdS6Oe6o8e/cR5apjLwQBYI4zC+LLBbzJSc6/pDeQueAOXul
- yhX+7wxLbECOQSocqOyrJ/a08CMplHgxyXzObNI21PrW3uWg7v0G/w7Qhsgc/TCpt2YmmWy3IIUF0
- lIBd0jccojJYx9hngTP/3WbQ0AYgMpEUKJIs3v+MvInO/WUVciGz0O1CX0hv7lL1pK/qe/W3bg6Iy
- w6FeLfFAw5vqsep1sWMcLzp1ESr7IKIlzh+F8dXSXRJ86NELYwMtfHlo96orB/B9MnLqbbVjrLWQY
- aTCJYivg==;
+ bh=IaRml5eM8v0sO8/PyuoNQT9vv7q3YfUnikJJQRvPq9w=; b=L2s5KFcz2eVwJIG4n/M0lGW0/5
+ cFY4JW7Ksay3PFsYUjFf847ALYKE1R8R9dxpcWXtpPce/y1/G5bn8aL4WYpaPMyOmPJQzmxavnsLI
+ RWmrxIOV5DGUTpx9HrXpz9UDQzSmMeV4bokTHoT8p4AGsNx+nJ4e21kAcoeIqP+y5xlb8Lh6IC6eS
+ cSBzaaJHIHYoTIHvzk1iDGdrT7l11bPPUJG3al50AKif7pwEriz03tNEpUlYm78xcPQSMLvX6C72i
+ lNETzI5yeBUsVqwwp0MplH3jIS7WJQCn+nuHOoFVkYf23QDfx+l5OX+3n1A+RxrMlF85GvBP0zsGw
+ wuiewSlA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56276 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56284 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vGvoW-000000004Yq-2azd;
- Thu, 06 Nov 2025 08:57:52 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vGvoa-000000004Z9-28xh;
+ Thu, 06 Nov 2025 08:57:56 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vGvoU-0000000DWot-29Rw; Thu, 06 Nov 2025 08:57:50 +0000
+ id 1vGvoZ-0000000DWp2-2cxj; Thu, 06 Nov 2025 08:57:55 +0000
 In-Reply-To: <aQxinH5WWcunfP7p@shell.armlinux.org.uk>
 References: <aQxinH5WWcunfP7p@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,15 +41,15 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vGvoU-0000000DWot-29Rw@rmk-PC.armlinux.org.uk>
-Date: Thu, 06 Nov 2025 08:57:50 +0000
+Message-Id: <E1vGvoZ-0000000DWp2-2cxj@rmk-PC.armlinux.org.uk>
+Date: Thu, 06 Nov 2025 08:57:55 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 07/11] net: stmmac: ingenic: move
- "MAC PHY control register" debug
+Subject: [Linux-stm32] [PATCH net-next v2 08/11] net: stmmac: ingenic:
+ simplify mac_set_mode() methods
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,92 +66,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move the printing of the MAC PHY control register interface mode
-setting into ingenic_set_phy_intf_sel(), and use phy_modes() to
-print the string rather than using the enum name.
+x1000, x1600 and x1830 only accept RMII mode. PHY_INTF_SEL_RMII is only
+selected with PHY_INTERFACE_MODE_RMII, and PHY_INTF_SEL_RMII has been
+validated by the SoC's .valid_phy_intf_sel bitmask. Thus, checking the
+interface mode in these functions becomes unnecessary. Remove these.
+
+jz4775 is similar, except for a greater set of PHY_INTF_SEL_x valies.
+Also remove the switch statement here.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac-ingenic.c    | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-ingenic.c   | 50 +------------------
+ 1 file changed, 2 insertions(+), 48 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-index 79735a476e86..539513890db1 100644
+index 539513890db1..7b2576fbb1e1 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-@@ -77,22 +77,12 @@ static int jz4775_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+@@ -75,22 +75,6 @@ static int jz4775_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+ 	struct ingenic_mac *mac = plat_dat->bsp_priv;
+ 	unsigned int val;
  
- 	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_MII:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_MII\n");
+-	switch (plat_dat->phy_interface) {
+-	case PHY_INTERFACE_MODE_MII:
+-	case PHY_INTERFACE_MODE_GMII:
+-	case PHY_INTERFACE_MODE_RMII:
+-	case PHY_INTERFACE_MODE_RGMII:
+-	case PHY_INTERFACE_MODE_RGMII_ID:
+-	case PHY_INTERFACE_MODE_RGMII_TXID:
+-	case PHY_INTERFACE_MODE_RGMII_RXID:
 -		break;
 -
- 	case PHY_INTERFACE_MODE_GMII:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_GMII\n");
+-	default:
+-		dev_err(mac->dev, "Unsupported interface %s\n",
+-			phy_modes(plat_dat->phy_interface));
+-		return -EINVAL;
+-	}
+-
+ 	val = FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel) |
+ 	      FIELD_PREP(MACPHYC_TXCLK_SEL_MASK, MACPHYC_TXCLK_SEL_INPUT);
+ 
+@@ -103,16 +87,6 @@ static int x1000_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+ {
+ 	struct ingenic_mac *mac = plat_dat->bsp_priv;
+ 
+-	switch (plat_dat->phy_interface) {
+-	case PHY_INTERFACE_MODE_RMII:
 -		break;
 -
- 	case PHY_INTERFACE_MODE_RMII:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RMII\n");
+-	default:
+-		dev_err(mac->dev, "Unsupported interface %s\n",
+-			phy_modes(plat_dat->phy_interface));
+-		return -EINVAL;
+-	}
+-
+ 	/* Update MAC PHY control register */
+ 	return regmap_update_bits(mac->regmap, 0, mac->soc_info->mask, 0);
+ }
+@@ -123,16 +97,6 @@ static int x1600_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+ 	struct ingenic_mac *mac = plat_dat->bsp_priv;
+ 	unsigned int val;
+ 
+-	switch (plat_dat->phy_interface) {
+-	case PHY_INTERFACE_MODE_RMII:
 -		break;
 -
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
- 	case PHY_INTERFACE_MODE_RGMII_TXID:
- 	case PHY_INTERFACE_MODE_RGMII_RXID:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RGMII\n");
- 		break;
+-	default:
+-		dev_err(mac->dev, "Unsupported interface %s\n",
+-			phy_modes(plat_dat->phy_interface));
+-		return -EINVAL;
+-	}
+-
+ 	val = FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
  
- 	default:
-@@ -115,7 +105,6 @@ static int x1000_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+ 	/* Update MAC PHY control register */
+@@ -145,18 +109,8 @@ static int x1830_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
+ 	struct ingenic_mac *mac = plat_dat->bsp_priv;
+ 	unsigned int val;
  
- 	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_RMII:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RMII\n");
- 		break;
+-	switch (plat_dat->phy_interface) {
+-	case PHY_INTERFACE_MODE_RMII:
+-		val = FIELD_PREP(MACPHYC_MODE_SEL_MASK, MACPHYC_MODE_SEL_RMII);
+-		break;
+-
+-	default:
+-		dev_err(mac->dev, "Unsupported interface %s\n",
+-			phy_modes(plat_dat->phy_interface));
+-		return -EINVAL;
+-	}
+-
+-	val |= FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
++	val = FIELD_PREP(MACPHYC_MODE_SEL_MASK, MACPHYC_MODE_SEL_RMII) |
++	      FIELD_PREP(MACPHYC_PHY_INFT_MASK, phy_intf_sel);
  
- 	default:
-@@ -136,7 +125,6 @@ static int x1600_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
- 
- 	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_RMII:
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 
- 	default:
-@@ -160,7 +148,6 @@ static int x1830_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
- 	switch (plat_dat->phy_interface) {
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = FIELD_PREP(MACPHYC_MODE_SEL_MASK, MACPHYC_MODE_SEL_RMII);
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 
- 	default:
-@@ -185,7 +172,6 @@ static int x2000_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
- 	case PHY_INTERFACE_MODE_RMII:
- 		val = FIELD_PREP(MACPHYC_TX_SEL_MASK, MACPHYC_TX_SEL_ORIGIN) |
- 			  FIELD_PREP(MACPHYC_RX_SEL_MASK, MACPHYC_RX_SEL_ORIGIN);
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RMII\n");
- 		break;
- 
- 	case PHY_INTERFACE_MODE_RGMII:
-@@ -205,7 +191,6 @@ static int x2000_mac_set_mode(struct plat_stmmacenet_data *plat_dat,
- 			val |= FIELD_PREP(MACPHYC_RX_SEL_MASK, MACPHYC_RX_SEL_DELAY) |
- 				   FIELD_PREP(MACPHYC_RX_DELAY_MASK, (mac->rx_delay + 9750) / 19500 - 1);
- 
--		dev_dbg(mac->dev, "MAC PHY Control Register: PHY_INTERFACE_MODE_RGMII\n");
- 		break;
- 
- 	default:
-@@ -237,6 +222,9 @@ static int ingenic_mac_init(struct platform_device *pdev, void *bsp_priv)
- 			return phy_intf_sel < 0 ? phy_intf_sel : -EINVAL;
- 		}
- 
-+		dev_dbg(mac->dev, "MAC PHY control register: interface %s\n",
-+			phy_modes(interface));
-+
- 		ret = mac->soc_info->set_mode(mac->plat_dat, phy_intf_sel);
- 		if (ret)
- 			return ret;
+ 	/* Update MAC PHY control register */
+ 	return regmap_update_bits(mac->regmap, 0, mac->soc_info->mask, val);
 -- 
 2.47.3
 
