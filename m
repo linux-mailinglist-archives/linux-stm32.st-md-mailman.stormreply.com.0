@@ -2,52 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947F9C3944C
-	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 07:24:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D6FC39708
+	for <lists+linux-stm32@lfdr.de>; Thu, 06 Nov 2025 08:46:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41BBFC597BF;
-	Thu,  6 Nov 2025 06:24:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B94DC349C4;
+	Thu,  6 Nov 2025 07:46:47 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9227EC349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B7D8C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Nov 2025 06:24:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 794FB60216;
- Thu,  6 Nov 2025 06:24:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519A4C4CEF7;
- Thu,  6 Nov 2025 06:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762410281;
- bh=27Pe8FUEHZhfluKmwcfeGnyxW6smtWLMLoJyzAni44c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fRJJ1H4J3GeszBfV1hToQ3FtuV2IZEsEKV/wI2DSAElwJWUkObr/RtpW4V6AYAP7j
- kzclCPXk+of9CsLTi2sSUCxjJBEAp546g7hVvQ5QLnmvK1fDLHtlC6tjVFdArJ7gGS
- 2h6x1fEGQtiQXr6udYxVlomrcH9shBfv2Q2TR65zqezowcDzPVs1L4B+f2/0aZ7poF
- 3lnYtSrjmzPzmz9HEpOO6+Jsma6kar+0PT7QVz2y1MTlYYiwQXrrDRWqjYv8evl2Fz
- z118nreIhF0LaUS2a8xKhbsBrpnuKsHH1kXUf+LcthYry1Qt7DOczlxwYgaHUWUzy2
- /5Snmb3l/In7g==
-Date: Thu, 6 Nov 2025 11:54:18 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Message-ID: <vrgjkulv22hzbx65olh3zpyqxq6dr7d5mepngjwgc3gudjoxwo@ll7xc2teya2s>
+ Thu,  6 Nov 2025 07:46:44 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-b8c0c0cdd61so554706a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 05 Nov 2025 23:46:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1762415203; x=1763020003;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0f5wmX+yoZg0wz1UxGaCZPnItqaKdkuDqolTF8KvNuo=;
+ b=KdGoJ/US9pMHnPTIcH6qV9r8HUhC3J5WYyTQlcs0WGC3Jz+WwLMjNDB+AZ3wN3d+Gj
+ 5kb9TDfk01LP1s14hobRQO7wM01Y2AYYbTWHRfrzF5iKhFEFoTw8A0Ck2z+FxdOjoBWT
+ jpR2mjjNgh77aRRt+p1VoBAIvz62/Mj+mamNGrMRmwhv0h2bHdpmi+JN9Em9+mY0BjvV
+ 521St+878fKaHk+Isp3FYsaq+utET+NDeyiKbkLjCPnY1UppTvshpVMgYdZkRgCfdf4q
+ 481yHQDHgUE9kyO+ba7ZViHQ3VqSuzmveAHcmtugqftlMPcWDTjmQ0ny27+XXCrJ0+/d
+ CKAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762415203; x=1763020003;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0f5wmX+yoZg0wz1UxGaCZPnItqaKdkuDqolTF8KvNuo=;
+ b=VLfz/D/YAjkCPA9D30KoOaXToHUFcp4zTZpWEbJQ/R1fyluAZPnpDOs4elihOwRxpR
+ Aim5FDRRG3x0wcchkn0D1XLPNSWaFXrJsotVwTYvAN336hs08A+520TSxR7dV2rI4sR8
+ IUM5Lcytlj/ny7dfj2AlE+IO0bTSSOHHwkpfQEG1Q8lyZWAPnmw0eXx2pCHmOvCLP26Y
+ GVz3TKVKx5XShMhnpYy5TUDIk/uVTaqboozRf8jfuPZf9vy0PmcMpmCTZ0uKsUP+vS77
+ 3OzEe/iax2BJoZw+vBZwgpmS2pWMcX9cslMBgVo+UqYQqaAlaDenP0tD7aiaqTZZuauL
+ vMZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXu+14U61JnZXVCiHL8zylTlxHheFOCrqS9JwRAyYAbWX9o5nfezHeKYOr8QJXHsvO2xuMupPFsLGShSQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzATUPqXauVZOiJ8leDuA+k1FZ6OKtm+ZAaleOCrK5ov5DvoDqJ
+ yPvUhHkLXqn5z1ZN/dDF9H9bfWL4UVoCRCVlxg3/+FglW4o9AxntLyR/NmceMG4jbYPXzeOAR0W
+ Ew3DTroHc+eLCDCRRg04lqx7FZLbIPa5IOCP1uvGjHA==
+X-Gm-Gg: ASbGnctekmlzjyLo5qxxNjwH/27CrNJeZWGtpVpeCFQHP7iGB0ydjtDsmmXAxxbUcIU
+ UxvyW3v9UL1u3uODa42fvwmnFVmmaBovV96Xm21lWq13pObQDIPe8fFDYLZkS7cxeK1VJ0/FSeK
+ 9umCMBz+Plfb7MD0ZVQlchNy88dsR+r27x5fZugfBoGZdEEGFhXV0m3Ajw6Dbe+DOI48XrXi+qE
+ 5bIeTuoWtiPJvQlocnBPn4avcdQ0o0aPipmUEZ6tS/iDk0Bocsu1yHCy0uDmA==
+X-Google-Smtp-Source: AGHT+IFvj7BYATFPUUfyyTquYUZ+XG2ltlcW863lIimOI+3G3/lJLUOzbLQ43b0xX7YM+rdDM6ZeBwU/rpFRv4aSwps=
+X-Received: by 2002:a05:6a20:728f:b0:350:ee00:3c9f with SMTP id
+ adf61e73a8af0-350ee004101mr3256044637.48.1762415203454; Wed, 05 Nov 2025
+ 23:46:43 -0800 (PST)
+MIME-Version: 1.0
 References: <CAKfTPtCtHquxtK=Zx2WSNm15MmqeUXO8XXi8FkS4EpuP80PP7g@mail.gmail.com>
  <20251106000531.GA1930429@bhelgaas>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20251106000531.GA1930429@bhelgaas>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 6 Nov 2025 08:46:27 +0100
+X-Gm-Features: AWmQ_bmqVCNR3dJpEZPSNIsk4oiASQ7wTNG-cdh5_x2RX44MkoIq9HcAbtR0V5w
+Message-ID: <CAKfTPtA+_VgQQB37Y8qCd6cc5U22kqUkagy2PFnB-5biWUhB9w@mail.gmail.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
 Cc: imx@lists.linux.dev, s32@nxp.com, linux-pci@vger.kernel.org,
  lpieralisi@kernel.org, Frank.li@nxp.com, cassel@kernel.org,
  ghennadi.procopciuc@oss.nxp.com, Christian Bruel <christian.bruel@foss.st.com>,
- kwilczynski@kernel.org, robh@kernel.org,
- Vincent Guittot <vincent.guittot@linaro.org>, larisa.grigore@nxp.com,
+ kwilczynski@kernel.org, robh@kernel.org, larisa.grigore@nxp.com,
  linux-stm32@st-md-mailman.stormreply.com, Ionut.Vicovan@nxp.com,
  Mingkai Hu <mingkai.hu@nxp.com>, bogdan.hamciuc@nxp.com,
  Ghennadi.Procopciuc@nxp.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- Richard Zhu <hongxing.zhu@nxp.com>, ciprianmarian.costea@nxp.com,
- bhelgaas@google.com, linux-arm-kernel@lists.infradead.org,
- chester62515@gmail.com, Roy Zang <roy.zang@nxp.com>, mbrugger@suse.com,
+ Richard Zhu <hongxing.zhu@nxp.com>, mani@kernel.org,
+ ciprianmarian.costea@nxp.com, bhelgaas@google.com,
+ linux-arm-kernel@lists.infradead.org, chester62515@gmail.com,
+ Roy Zang <roy.zang@nxp.com>, mbrugger@suse.com,
  Minghuan Lian <minghuan.Lian@nxp.com>, jingoohan1@gmail.com,
  linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
  Lucas Stach <l.stach@pengutronix.de>
@@ -64,66 +91,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBOb3YgMDUsIDIwMjUgYXQgMDY6MDU6MzFQTSAtMDYwMCwgQmpvcm4gSGVsZ2FhcyB3
-cm90ZToKPiBbK2NjIGlteDYsIGxheWVyc2NhcGUsIHN0bTMyIG1haW50YWluZXJzIGZvciBwb3Nz
-aWJsZSBzdXNwZW5kIGJ1Z10KPiAKPiBPbiBGcmksIE9jdCAyNCwgMjAyNSBhdCAwODo1MDo0NkFN
-ICswMjAwLCBWaW5jZW50IEd1aXR0b3Qgd3JvdGU6Cj4gPiBPbiBXZWQsIDIyIE9jdCAyMDI1IGF0
-IDIxOjA0LCBCam9ybiBIZWxnYWFzIDxoZWxnYWFzQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4gPiBP
-biBXZWQsIE9jdCAyMiwgMjAyNSBhdCAwNzo0MzowOFBNICswMjAwLCBWaW5jZW50IEd1aXR0b3Qg
-d3JvdGU6Cj4gPiA+ID4gQWRkIGluaXRpYWwgc3VwcG9ydCBvZiB0aGUgUENJZSBjb250cm9sbGVy
-IGZvciBTMzJHIFNvYyBmYW1pbHkuIE9ubHkKPiA+ID4gPiBob3N0IG1vZGUgaXMgc3VwcG9ydGVk
-Lgo+IAo+ID4gPiA+ICtzdGF0aWMgdm9pZCBzMzJnX2luaXRfcGNpZV9jb250cm9sbGVyKHN0cnVj
-dCBzMzJnX3BjaWUgKnMzMmdfcHApCj4gPiA+ID4gK3sKPiA+ID4gPiAuLi4KPiA+ID4gPiArICAg
-ICAvKgo+ID4gPiA+ICsgICAgICAqIE1ha2Ugc3VyZSB3ZSB1c2UgdGhlIGNvaGVyZW5jeSBkZWZh
-dWx0cyAoanVzdCBpbiBjYXNlIHRoZSBzZXR0aW5ncwo+ID4gPiA+ICsgICAgICAqIGhhdmUgYmVl
-biBjaGFuZ2VkIGZyb20gdGhlaXIgcmVzZXQgdmFsdWVzKQo+ID4gPiA+ICsgICAgICAqLwo+ID4g
-PiA+ICsgICAgIHMzMmdfcGNpZV9yZXNldF9tc3RyX2FjZShwY2ksIG1lbWJsb2NrX3N0YXJ0X29m
-X0RSQU0oKSk7Cj4gPiA+Cj4gPiA+IFRoaXMgc2VlbXMgc2tldGNoeSBhbmQgbm8gb3RoZXIgZHJp
-dmVyIHVzZXMgbWVtYmxvY2tfc3RhcnRfb2ZfRFJBTSgpLgo+ID4gPiBTaG91bGRuJ3QgYSBwaHlz
-aWNhbCBtZW1vcnkgYWRkcmVzcyBsaWtlIHRoaXMgY29tZSBmcm9tIGRldmljZXRyZWUKPiA+ID4g
-c29tZWhvdz8KPiA+IAo+ID4gSSB3YXMgdXNpbmcgRFQgYnV0IGhhcyBiZWVuIGFza2VkIHRvIG5v
-dCB1c2UgaXQgYW5kIHdhcyBwcm9wb3NlZCB0bwo+ID4gdXNlIG1lbWJsb2NrX3N0YXJ0X29mX0RS
-QU0oKSBpbnN0ZWFkCj4gCj4gQ2FuIHlvdSBwb2ludCBtZSB0byB0aGF0IGNvbnZlcnNhdGlvbj8K
-PiAKPiA+ID4gPiArICAgICBzMzJnX3BwLT5jdHJsX2Jhc2UgPSBkZXZtX3BsYXRmb3JtX2lvcmVt
-YXBfcmVzb3VyY2VfYnluYW1lKHBkZXYsICJjdHJsIik7Cj4gPiA+ID4gKyAgICAgaWYgKElTX0VS
-UihzMzJnX3BwLT5jdHJsX2Jhc2UpKQo+ID4gPiA+ICsgICAgICAgICAgICAgcmV0dXJuIFBUUl9F
-UlIoczMyZ19wcC0+Y3RybF9iYXNlKTsKPiA+ID4KPiA+ID4gVGhpcyBsb29rcyBsaWtlIHRoZSBm
-aXJzdCBEV0MgZHJpdmVyIHRoYXQgdXNlcyBhICJjdHJsIiByZXNvdXJjZS4gIElzCj4gPiA+IHRo
-aXMgc29tZXRoaW5nIHVuaXF1ZSB0byBzMzJnLCBvciBkbyBvdGhlciBkcml2ZXJzIGhhdmUgc29t
-ZXRoaW5nCj4gPiA+IHNpbWlsYXIgYnV0IHVzZSBhIGRpZmZlcmVudCBuYW1lPwo+ID4gCj4gPiBB
-RkFJQ1QgdGhpcyBzZWVtcyB0byBiZSBzMzJnIHNwZWNpZmljIGluIHRoZSBSTQo+IAo+IEl0IGRv
-ZXMgbG9vayBsaWtlIHRoZXJlJ3MgdmVyeSBsaXR0bGUgY29uc2lzdGVuY3kgaW4gcmVnLW5hbWVz
-IGFjcm9zcwo+IGRyaXZlcnMsIHNvIEkgZ3Vlc3MgaXQncyBmaW5lLgo+IAo+ID4gPiA+ICtzdGF0
-aWMgaW50IHMzMmdfcGNpZV9zdXNwZW5kX25vaXJxKHN0cnVjdCBkZXZpY2UgKmRldikKPiA+ID4g
-PiArewo+ID4gPiA+ICsgICAgIHN0cnVjdCBzMzJnX3BjaWUgKnMzMmdfcHAgPSBkZXZfZ2V0X2Ry
-dmRhdGEoZGV2KTsKPiA+ID4gPiArICAgICBzdHJ1Y3QgZHdfcGNpZSAqcGNpID0gJnMzMmdfcHAt
-PnBjaTsKPiA+ID4gPiArCj4gPiA+ID4gKyAgICAgaWYgKCFkd19wY2llX2xpbmtfdXAocGNpKSkK
-PiA+ID4gPiArICAgICAgICAgICAgIHJldHVybiAwOwo+ID4gPgo+ID4gPiBEb2VzIHNvbWV0aGlu
-ZyBiYWQgaGFwcGVuIGlmIHlvdSBvbWl0IHRoZSBsaW5rIHVwIGNoZWNrIGFuZCB0aGUgbGluawo+
-ID4gPiBpcyBub3QgdXAgd2hlbiB3ZSBnZXQgaGVyZT8gIFRoZSBjaGVjayBpcyByYWN5ICh0aGUg
-bGluayBjb3VsZCBnbyBkb3duCj4gPiA+IGJldHdlZW4gZHdfcGNpZV9saW5rX3VwKCkgYW5kIGR3
-X3BjaWVfc3VzcGVuZF9ub2lycSgpKSwgc28gaXQncyBub3QKPiA+ID4gY29tcGxldGVseSByZWxp
-YWJsZS4KPiA+ID4KPiA+ID4gSWYgeW91IGhhdmUgdG8gY2hlY2ssIHBsZWFzZSBhZGQgYSBjb21t
-ZW50IGFib3V0IHdoeSB0aGlzIGRyaXZlciBuZWVkcwo+ID4gPiBpdCB3aGVuIG5vIG90aGVyIGRy
-aXZlciBkb2VzLgo+ID4gCj4gPiBkd19wY2llX3N1c3BlbmRfbm9pcnEgcmV0dXJucyBhbiBlcnJv
-ciBhbmQgdGhlIHN1c3BlbmQgZmFpbHMKPiAKPiBUaGUgaW1wbGljYXRpb24gaXMgdGhhdCAqZXZl
-cnkqIHVzZXIgb2YgZHdfcGNpZV9zdXNwZW5kX25vaXJxKCkgd291bGQKPiBoYXZlIHRvIGNoZWNr
-IGZvciB0aGUgbGluayBiZWluZyB1cC4gIFRoZXJlIGFyZSBvbmx5IHRocmVlIGV4aXN0aW5nCj4g
-Y2FsbGVyczoKPiAKPiAgIGlteF9wY2llX3N1c3BlbmRfbm9pcnEoKQo+ICAgbHNfcGNpZV9zdXNw
-ZW5kX25vaXJxKCkKPiAgIHN0bTMyX3BjaWVfc3VzcGVuZF9ub2lycSgpCj4gCj4gYnV0IG5vbmUg
-b2YgdGhlbSBjaGVja3MgZm9yIHRoZSBsaW5rIGJlaW5nIHVwLgo+IAoKSWYgbm8gZGV2aWNlcyBh
-cmUgYXR0YWNoZWQgdG8gdGhlIGJ1cywgdGhlbiB0aGVyZSBpcyBubyBuZWVkIHRvIGJyb2FkY2Fz
-dApQTUVfVHVybl9PZmYgYW5kIHdhaXQgZm9yIEwyL0wzLiBJJ3ZlIGp1c3Qgc2VudCBvdXQgYSBz
-ZXJpZXMgdGhhdCBmaXhlcyBpdCBbMV0uCkhvcGVmdWxseSwgdGhpcyB3aWxsIGFsbG93IFZpbmNl
-bnQgdG8gdXNlIGR3X3BjaWVfe3N1c3BlbmQvcmVzdW1lfV9ub2lycSgpIEFQSXMuCgotIE1hbmkK
-ClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1wY2kvMjAyNTExMDYwNjEzMjYuODI0
-MS0xLW1hbml2YW5uYW4uc2FkaGFzaXZhbUBvc3MucXVhbGNvbW0uY29tLwoKLS0gCuCuruCuo+Cu
-v+CuteCuo+CvjeCuo+CuqeCvjSDgrprgrqTgrr7grprgrr/grrXgrq7gr40KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, 6 Nov 2025 at 01:05, Bjorn Helgaas <helgaas@kernel.org> wrote:
+>
+> [+cc imx6, layerscape, stm32 maintainers for possible suspend bug]
+>
+> On Fri, Oct 24, 2025 at 08:50:46AM +0200, Vincent Guittot wrote:
+> > On Wed, 22 Oct 2025 at 21:04, Bjorn Helgaas <helgaas@kernel.org> wrote:
+> > > On Wed, Oct 22, 2025 at 07:43:08PM +0200, Vincent Guittot wrote:
+> > > > Add initial support of the PCIe controller for S32G Soc family. Only
+> > > > host mode is supported.
+>
+> > > > +static void s32g_init_pcie_controller(struct s32g_pcie *s32g_pp)
+> > > > +{
+> > > > ...
+> > > > +     /*
+> > > > +      * Make sure we use the coherency defaults (just in case the settings
+> > > > +      * have been changed from their reset values)
+> > > > +      */
+> > > > +     s32g_pcie_reset_mstr_ace(pci, memblock_start_of_DRAM());
+> > >
+> > > This seems sketchy and no other driver uses memblock_start_of_DRAM().
+> > > Shouldn't a physical memory address like this come from devicetree
+> > > somehow?
+> >
+> > I was using DT but has been asked to not use it and was proposed to
+> > use memblock_start_of_DRAM() instead
+>
+> Can you point me to that conversation?
+
+https://lore.kernel.org/all/CAKfTPtDcvrAcgFcyFLnzaKnfuU3iB551qed4fnZH=b7Ntkpxpg@mail.gmail.com/
+
+>
+> > > > +     s32g_pp->ctrl_base = devm_platform_ioremap_resource_byname(pdev, "ctrl");
+> > > > +     if (IS_ERR(s32g_pp->ctrl_base))
+> > > > +             return PTR_ERR(s32g_pp->ctrl_base);
+> > >
+> > > This looks like the first DWC driver that uses a "ctrl" resource.  Is
+> > > this something unique to s32g, or do other drivers have something
+> > > similar but use a different name?
+> >
+> > AFAICT this seems to be s32g specific in the RM
+>
+> It does look like there's very little consistency in reg-names across
+> drivers, so I guess it's fine.
+>
+> > > > +static int s32g_pcie_suspend_noirq(struct device *dev)
+> > > > +{
+> > > > +     struct s32g_pcie *s32g_pp = dev_get_drvdata(dev);
+> > > > +     struct dw_pcie *pci = &s32g_pp->pci;
+> > > > +
+> > > > +     if (!dw_pcie_link_up(pci))
+> > > > +             return 0;
+> > >
+> > > Does something bad happen if you omit the link up check and the link
+> > > is not up when we get here?  The check is racy (the link could go down
+> > > between dw_pcie_link_up() and dw_pcie_suspend_noirq()), so it's not
+> > > completely reliable.
+> > >
+> > > If you have to check, please add a comment about why this driver needs
+> > > it when no other driver does.
+> >
+> > dw_pcie_suspend_noirq returns an error and the suspend fails
+>
+> The implication is that *every* user of dw_pcie_suspend_noirq() would
+> have to check for the link being up.  There are only three existing
+> callers:
+>
+>   imx_pcie_suspend_noirq()
+>   ls_pcie_suspend_noirq()
+>   stm32_pcie_suspend_noirq()
+>
+> but none of them checks for the link being up.
+>
+> > I will add a comment
+> > /*
+> >  * If the link is not up, there is nothing to suspend and resume
+>
+> Sometimes true, but still racy as I mentioned, and doesn't explain why
+> s32g is different from imx, ls, and stm32.
+>
+> > > > +     return dw_pcie_suspend_noirq(pci);
+> > > > +}
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
