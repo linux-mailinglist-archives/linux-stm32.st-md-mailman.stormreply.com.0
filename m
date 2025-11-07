@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67C5C4057B
-	for <lists+linux-stm32@lfdr.de>; Fri, 07 Nov 2025 15:28:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01742C40584
+	for <lists+linux-stm32@lfdr.de>; Fri, 07 Nov 2025 15:28:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF8CCC5F1F4;
-	Fri,  7 Nov 2025 14:28:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF4ECC5F1F4;
+	Fri,  7 Nov 2025 14:28:34 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E146FC5F1CF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2ACEC5F1CF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Nov 2025 14:28:25 +0000 (UTC)
+ Fri,  7 Nov 2025 14:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YkWDyRuLzly7HE6eDI+DM5wRxL4YkJvyXv44420PXio=; b=dtcocSWWChXSacjmfUGppfBUht
- nwM9VECOOxptm1AYk8DD/Gh3Kk+DtGAmmuiFmtuLlCKPGEo9GF4Su0qy+Yd6yxM+Uo5pgWiCykqn6
- Wq3iYgZyLfs1TF5NOLatu8zaXHXGqge3YNQ6ym65BDY7SakfM6viGWkp5sbVS7J6BegIVH5CRTp8y
- aJDiNerYvotorUMtvnX9EhXydg+yTkilf4tHLEpXpteNlwDGo/IkNZjzndkGWt9DOdHMpu+wr+WqU
- H1qK+cw2nFufbcpgswmlorFqvUizk3iP3TnDztw1OddcrMBpS1Ect2H87QnA2TUvMeV2mqVm7MJjY
- GjNSWx7A==;
+ bh=H/rAGufk750DBlTCguDUu86O67RG1ULWAm11JqPmgqI=; b=i4M8+AixldyEAHwsKOahwPbiva
+ CmmkvchIn32GoQ//xuqoBBjQEsI9BBj1JkiRkh821XQ38Cobcxln8EzbCEiKaWnSg/5FoSKxr6lX4
+ FDFqMgODO9amFMYqyak9o5/5iajdYc1q6AqOojU6ToTkblfBlOjBBlGYpydve0jJNsrFaF9uJceP9
+ hwj4rmZncpOEc4Jmd+BEjguqBEyySyQLTlJeYzu3lO+YGi8y8Kqo2gwX/GyOFylEO+wMWJLwCjWiO
+ wMAcrRHajGgq+S2lvqwSo/cDoNtPuqcYvghxsz6v8WbDxC+LygpprCOCxI7P8t2XHji9/go8++VI8
+ GZ9toTbg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42706 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:49690 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vHNRn-000000006fG-21rz;
- Fri, 07 Nov 2025 14:28:15 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vHNRt-000000006fg-1OuK;
+ Fri, 07 Nov 2025 14:28:21 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vHNRm-0000000DkS7-1A57; Fri, 07 Nov 2025 14:28:14 +0000
+ id 1vHNRr-0000000DkSD-1fm9; Fri, 07 Nov 2025 14:28:19 +0000
 In-Reply-To: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
 References: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vHNRm-0000000DkS7-1A57@rmk-PC.armlinux.org.uk>
-Date: Fri, 07 Nov 2025 14:28:14 +0000
+Message-Id: <E1vHNRr-0000000DkSD-1fm9@rmk-PC.armlinux.org.uk>
+Date: Fri, 07 Nov 2025 14:28:19 +0000
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
  linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
@@ -57,8 +57,8 @@ Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  linux-mips@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 03/16] net: stmmac: loongson1: use
- stmmac_get_phy_intf_sel()
+Subject: [Linux-stm32] [PATCH net-next 04/16] net: stmmac: mediatek: use
+	PHY_INTF_SEL_xxx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,37 +75,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use stmmac_get_phy_intf_sel() to decode the PHY interface mode to the
-phy_intf_sel value, validate the result and use that to set the
-control register to select the operating mode for the DWMAC core.
+Use PHY_INTF_SEL_xxx definitions for the fields that correspond to the
+phy_intf_sel inputs to the dwmac core.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c   | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
-index 5f9f66fbc191..894ee66f5c9b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
-@@ -140,14 +140,9 @@ static int ls1c_dwmac_syscon_init(struct platform_device *pdev, void *priv)
- 	struct regmap *regmap = dwmac->regmap;
- 	int phy_intf_sel;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+index f1b36f0a401d..dcdf28418fec 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+@@ -17,9 +17,6 @@
  
--	switch (plat->phy_interface) {
--	case PHY_INTERFACE_MODE_MII:
--		phy_intf_sel = PHY_INTF_SEL_GMII_MII;
--		break;
--	case PHY_INTERFACE_MODE_RMII:
--		phy_intf_sel = PHY_INTF_SEL_RMII;
--		break;
--	default:
-+	phy_intf_sel = stmmac_get_phy_intf_sel(plat->phy_interface);
-+	if (phy_intf_sel != PHY_INTF_SEL_GMII_MII &&
-+	    phy_intf_sel != PHY_INTF_SEL_RMII) {
- 		dev_err(&pdev->dev, "Unsupported PHY-mode %u\n",
- 			plat->phy_interface);
- 		return -EOPNOTSUPP;
+ /* Peri Configuration register for mt2712 */
+ #define PERI_ETH_PHY_INTF_SEL	0x418
+-#define PHY_INTF_MII		0
+-#define PHY_INTF_RGMII		1
+-#define PHY_INTF_RMII		4
+ #define RMII_CLK_SRC_RXC	BIT(4)
+ #define RMII_CLK_SRC_INTERNAL	BIT(5)
+ 
+@@ -118,16 +115,16 @@ static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat)
+ 	/* select phy interface in top control domain */
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+-		intf_val |= PHY_INTF_MII;
++		intf_val |= PHY_INTF_SEL_GMII_MII;
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+-		intf_val |= (PHY_INTF_RMII | rmii_rxc | rmii_clk_from_mac);
++		intf_val |= PHY_INTF_SEL_RMII | rmii_rxc | rmii_clk_from_mac;
+ 		break;
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+-		intf_val |= PHY_INTF_RGMII;
++		intf_val |= PHY_INTF_SEL_RGMII;
+ 		break;
+ 	default:
+ 		dev_err(plat->dev, "phy interface not supported\n");
+@@ -297,17 +294,18 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat)
+ 	/* select phy interface in top control domain */
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+-		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL, PHY_INTF_MII);
++		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL,
++				       PHY_INTF_SEL_GMII_MII);
+ 		break;
+ 	case PHY_INTERFACE_MODE_RMII:
+-		intf_val |= (rmii_rxc | rmii_clk_from_mac);
+-		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL, PHY_INTF_RMII);
++		intf_val |= rmii_rxc | rmii_clk_from_mac;
++		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL, PHY_INTF_SEL_RMII);
+ 		break;
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 	case PHY_INTERFACE_MODE_RGMII_TXID:
+ 	case PHY_INTERFACE_MODE_RGMII_RXID:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+-		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL, PHY_INTF_RGMII);
++		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL, PHY_INTF_SEL_RGMII);
+ 		break;
+ 	default:
+ 		dev_err(plat->dev, "phy interface not supported\n");
 -- 
 2.47.3
 
