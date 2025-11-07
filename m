@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C75C405A2
-	for <lists+linux-stm32@lfdr.de>; Fri, 07 Nov 2025 15:29:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94DA3C405A5
+	for <lists+linux-stm32@lfdr.de>; Fri, 07 Nov 2025 15:29:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37EA9C60466;
-	Fri,  7 Nov 2025 14:29:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61710C60466;
+	Fri,  7 Nov 2025 14:29:18 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65372C60465
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9A07C60465
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Nov 2025 14:29:08 +0000 (UTC)
+ Fri,  7 Nov 2025 14:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bHiUKbo/EJ0H+zKzdJO+2QHlu85wivo4qPxxyW/Gktk=; b=jUmQWNV8nGO14D/HKoZVBBBv0P
- khGIDTO/DR4TgipSFk3KQe7jsn2VKToss/ANzual3+1WmEOOvOFzuz48yVtZ2BTUNw6OyU1eiBPbM
- uHy4z4UdJsSjA45ErzIs+1xoqTBczY2E4AtQxQGKxBjj4a5YSAmrwwYpKJXyqZaLwVDSA6szk7/23
- yA3wV/xc34UvVwxIGx7VP7eIMmRGFziaN7LyyK9i+RlfbzJQDRN5Ze+hQsx0nFHoTmoUwbuMgSSka
- Mdv/uQcAcweighx62jogkWjoiOQoTybIU+yDEiuWCGmK0rQa6AYBRFhlg7FYE2GSQf7Qq3G+lN4q8
- 8/28PhtQ==;
+ bh=DKZiK1dHIewBur5mGc5ojMPJZbRXpMlmQem14quHfpM=; b=qFUpRxXURs31DgQG/63S4J/KUf
+ zKIuAnPnPxt0T0Uthe0lPTzMkEi8SsrHCF7Er5OO6rR/H8Y2sD3bFKOh38bdhccuKvhmYTBW+xfaP
+ 8qJi2ssSYOR5E6dOFtjX0n9OlLcBcIsVBnAQA8IY2F2oK+eS7DpIBL6FtyJnkCH2Bf5BD5x59oL2V
+ 4rbhfIV8QyKvqq3uC4VZLiCydlJd7vHVkCN5TcGlhqUrYeVrCmH/E4kL7GxSnsk49kfeiWlyzEyJS
+ MvNnx2drqoKQwGiyt8iAXCK0O8bCHuBgFlajLXSwKqXGwV68Js+6eHCJEkiKhpfJ2MP1kcXcIJ6uS
+ 5Dg2JOiQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56086 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:43236 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vHNSK-000000006hh-3oRP;
- Fri, 07 Nov 2025 14:28:49 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vHNSQ-000000006i4-0FkI;
+ Fri, 07 Nov 2025 14:28:54 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vHNSG-0000000DkSh-4BIj; Fri, 07 Nov 2025 14:28:45 +0000
+ id 1vHNSM-0000000DkSn-0Seo; Fri, 07 Nov 2025 14:28:50 +0000
 In-Reply-To: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
 References: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vHNSG-0000000DkSh-4BIj@rmk-PC.armlinux.org.uk>
-Date: Fri, 07 Nov 2025 14:28:44 +0000
+Message-Id: <E1vHNSM-0000000DkSn-0Seo@rmk-PC.armlinux.org.uk>
+Date: Fri, 07 Nov 2025 14:28:50 +0000
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
  linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
@@ -57,8 +57,8 @@ Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  linux-mips@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 09/16] net: stmmac: meson8b: use
- stmmac_get_phy_intf_sel()
+Subject: [Linux-stm32] [PATCH net-next 10/16] net: stmmac: starfive: use
+ PHY_INTF_SEL_xxx to select PHY interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,46 +75,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use stmmac_get_phy_intf_sel() to decode the PHY interface mode to the
-phy_intf_sel value, validate the result and use that to set the
-control register to select the operating mode for the DWMAC core.
+Use the common dwmac definitions for the PHY interface selection field.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac-meson8b.c    | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-index 865cd6166134..e4d5c41294f4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-@@ -238,22 +238,12 @@ static int meson_axg_set_phy_mode(struct meson8b_dwmac *dwmac)
- {
- 	int phy_intf_sel;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+index 6938dd2a79b7..1ef72576c6f1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+@@ -15,8 +15,8 @@
  
--	switch (dwmac->phy_mode) {
--	case PHY_INTERFACE_MODE_RGMII:
--	case PHY_INTERFACE_MODE_RGMII_RXID:
--	case PHY_INTERFACE_MODE_RGMII_ID:
--	case PHY_INTERFACE_MODE_RGMII_TXID:
--		/* enable RGMII mode */
--		phy_intf_sel = PHY_INTF_SEL_RGMII;
--		break;
--	case PHY_INTERFACE_MODE_RMII:
--		/* disable RGMII mode -> enables RMII mode */
--		phy_intf_sel = PHY_INTF_SEL_RMII;
--		break;
--	default:
-+	phy_intf_sel = stmmac_get_phy_intf_sel(dwmac->phy_mode);
-+	if (phy_intf_sel != PHY_INTF_SEL_RGMII &&
-+	    phy_intf_sel != PHY_INTF_SEL_RMII) {
- 		dev_err(dwmac->dev, "fail to set phy-mode %s\n",
- 			phy_modes(dwmac->phy_mode));
--		return -EINVAL;
-+		return phy_intf_sel < 0 ? phy_intf_sel : -EINVAL;
- 	}
+ #include "stmmac_platform.h"
  
- 	meson8b_dwmac_mask_bits(dwmac, PRG_ETH0, PRG_ETH0_EXT_PHY_MODE_MASK,
+-#define STARFIVE_DWMAC_PHY_INFT_RGMII		0x1
+-#define STARFIVE_DWMAC_PHY_INFT_RMII		0x4
++#define STARFIVE_DWMAC_PHY_INFT_RGMII		PHY_INTF_SEL_RGMII
++#define STARFIVE_DWMAC_PHY_INFT_RMII		PHY_INTF_SEL_RMII
+ #define STARFIVE_DWMAC_PHY_INFT_FIELD		0x7U
+ 
+ #define JH7100_SYSMAIN_REGISTER49_DLYCHAIN	0xc8
 -- 
 2.47.3
 
