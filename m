@@ -2,87 +2,114 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BFC5C42CC8
-	for <lists+linux-stm32@lfdr.de>; Sat, 08 Nov 2025 13:31:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0BC1C43BC3
+	for <lists+linux-stm32@lfdr.de>; Sun, 09 Nov 2025 11:37:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4FA4C5A4C5;
-	Sat,  8 Nov 2025 12:31:26 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A259C1A97B;
+	Sun,  9 Nov 2025 10:37:09 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9C24C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0157C1A979
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  8 Nov 2025 12:31:24 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-341d07c020fso2092461a91.2
+ Sun,  9 Nov 2025 10:37:07 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-b72cbc24637so384018666b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 08 Nov 2025 04:31:24 -0800 (PST)
+ Sun, 09 Nov 2025 02:37:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20230601; t=1762605083; x=1763209883;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1762684627; x=1763289427;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jFqjvE99b45pu2oCz9ajTBa0meyTTID/k0aUamXBwSM=;
- b=kfM56qhHb3xUe+WPq5JSWJV82JgEabL1ggK0sBEigEGzXI034QuVxC73qDSo3+lgyK
- LwoP6X3En7V9+adL1mQZrZepBhtsG4OEVfPx8DxYOIw8dlsVXhm5W3I0uFPebqeA9Vv8
- ZlVvIN+28MdUh0ZO2FzBIu3fFsULU5rhXrk7Ks1N1dD6Ik5frFWQbxJXKmF5Oii7dGeI
- CnRQA0PGGJEPck4Dcy+9WK3uCYCWFjWhJzbqaZjMwplDZ2V359Q7Wt9PFx7C/9lXpVm1
- KY7ijcvBmL/F/wypW6pmNewI8LA2Hy55MIxP7BzgrIhfsLowVd0V62o4ocynoOZfklBd
- r6vg==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wLEi3FY3R8yLDeWkcJs5QaKXb4kMtZGvr5BAdfLs/b8=;
+ b=3Nl2MA+micfloH5FgvfSgKwT3fImYlUcvIbMPdC9nQUwy8zC/1Pnnkj0TxENDWaZ88
+ /arNBEbAyDz0q70FaQxaoxJnSxE5NrDV6tPgnZtylsl6SB8+aMEJx4h7g9VIcyZKtriO
+ SOEFYY11vHyXnDtsLqVz3AYXvl6+DHteAlBmWWal/OXp3trmIlq1uXJyFiIOA+u4P9lG
+ euHE/uSpgujJQslFe2ZP9dZFn18NplNOlVORtd0ArCMwJ7/flW+xM+pKrdIf8F4KNPuy
+ hsQzAyHnD1O/9GY2eOWYzBWJ+YLn+dcPrNI3LGF0qW/96gUdFqfmrKRI4HlUGqQFK2Xd
+ cZyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762605083; x=1763209883;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jFqjvE99b45pu2oCz9ajTBa0meyTTID/k0aUamXBwSM=;
- b=IwlxU/8hU0MA6wgrmI3ckX/Uo/NFlSFOyg1z/dbrog5MmkltsbioiDMN8TBUycFh9Z
- IfswYyL1W85j4Hvn6QWOoaXDwkQtuWcpgG2nenz8UAotFvy+NE81jqMNTBQs6i5pjCs9
- IH+/5RHI91ld+qOYOtdrqBgYSn4OmWckaexRIQyccWWc1Ok04YY9Gd20M1QyiO1KHYIE
- sbp6CVbXeTNMk/cOOII4+ckebO4ugvnWiu3YtNYnXYMbdC4csDJPGT8RcfETcjGSmOB3
- 2tH7I5WKdWAeKlmkB71enabMJJA+Dxh/ewYxnZBJdz9xt+TqX7TMbpVWPHuGaDdU7Qf2
- T1lw==
+ d=1e100.net; s=20230601; t=1762684627; x=1763289427;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wLEi3FY3R8yLDeWkcJs5QaKXb4kMtZGvr5BAdfLs/b8=;
+ b=nBueoXLNmGKyKti7Xyo5kWU4cYwzQ6HVebELTBBljmO1mL8OuPQvvb2NPznr1lwqcB
+ gJsRhvNOpg1n2E4e4YM6bYltL4OtEb1i3cDNJm2nu8zpfO5lCLZJfYucXviJF8Wa/7Ft
+ 5WG7SDmsmuRmoXs9RdhKla6rw0RE2T/nk8yQ7DO+wwwIST0hjkmFSFtCgiYJFsaz6fA5
+ 8wGWHpnPbpmZmIkbWOQ7gC6MMboWDWh3vGm4fp9371Ukzsk9KBcE6y53RTLysZejBzhF
+ lw1tz//JvvX5TlJUpjGbIQ5/1/Vni94AyzO9u+J2+AAtYH2qwZKOaJp6koI+kyVd3XzR
+ bOlw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZAGjs+8e3K5YikCimM6MStdnPHrAZfREQady/H1uznWbm+yCbDTnZCotU1I96I+hKpLBit6N1dXNWdw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw1/jd5Q3aivSktocaPY4FHxNl1cwIWGWo6vBVHW5fBQrYMMH+3
- 2mig6r9jJgQmOPL2fTI1lR61SBCnbtgdH3qlnkiLOyDbgoyr+r6qcTewOPPybxmwRLzKucWojAs
- 5dEavraHz+nEaMa3PeJMid0KjJdgTh5k=
-X-Gm-Gg: ASbGncuAgKb6S61YJ9YGG2PxvyWyNxG7VtqekT0bkanvoungPLltRrDh4IcOOxqYIlh
- Jrzqbxm9+5AkPSxvFqYsMHqg9xTh0KRkNmvZkhjQ+71F2q87diZW1taMKR8lKC0lTD8Pm8haKgC
- mgt8OH9uGHns1F9wQ2+WBKuBWEyH774NRtrftz0Q7X/rPkUmDTurzFouV/GJyjIXgHJV6xf4gRw
- YmaPBfUGWqRocZcErtM2Fzy8TPMtdtgK0HpKu8veRSUEeuAzle+LWPyjNu6DeGG9b05GYE497o9
- vZA0jqU34vj+MDq6r12ruKlwcoqoj9H3OKvrOg==
-X-Google-Smtp-Source: AGHT+IHx494bsoHJaju4RengP4iXpGRFmMQLliiMWy2Q89R/cSWBMiB3q+hcgQyoomcv+0z0cS+rAooMlyw+VCTekJU=
-X-Received: by 2002:a17:902:f791:b0:297:dfc8:8fd with SMTP id
- d9443c01a7336-297e571236dmr29139155ad.51.1762605083407; Sat, 08 Nov 2025
- 04:31:23 -0800 (PST)
+ AJvYcCVrCSY1/NJAAfs1LxHc98druMg6Mo4y9zpHPXwvDwYdcbGEeZtBX9iNKtyRcoi9FMtjX8NoWeD8CHPKQg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YywHMgA865SWj7DtdWbQDyLNUxV3ciKVnwyi+oJOudma+6hl2Bm
+ SC8Kohs5M0ov7OOZ3msZZUW66KMRQd+A6Gsn67k/XPdR8Q4HYrBvi0JO7WObwBadG1g=
+X-Gm-Gg: ASbGncv+NCGuSuexpcaVy/mScrajllG3ytMOZ6IINobnwKRGeHnHLe8wJA2Yh3ewgR8
+ TUy7uBHUR9Gb35JwDF+FPA7Py9B2CJg3hq6A4jDK9x8k3XsLV323Otj1GpQt/QfYe9lhVZE6Anb
+ SvH5UrBSOL3rFQmLC+U7q+T+7QUs7RlNTEEMSIUXiq2l1xxF04XjqqptrwSvKbn+uSjV1HiPd0q
+ LXSxcyocDl92J45WIX3yEzHs2OlUc1D3DmnbslPeiPbnD8h8aio8wb3Aw6YsPLK4V8aqJz4ls/2
+ wyoSU85zOWfOmdYz0xBlw5sdEXC4Nsc9sMGg+tBROsiKJGl1GozvbA0pnucwGZhsMRq1aF/6y67
+ dlJ/+CoZOn6XLzeLoFRTvgrksNZHoiCmfqv2TjY2PO5mnl+Hnjea4W7Ki/jYeqWSeaivRITu8x0
+ ffS6L2H9VAC3a0Muuz
+X-Google-Smtp-Source: AGHT+IHaHIj6pMYgrtnGgyPEbnoCPcv9+h0U8aTlvRy8s+b5dWYGafxzPV9vjN/4tKYk16VfiLaOFA==
+X-Received: by 2002:a17:907:2d8d:b0:b40:b54d:e687 with SMTP id
+ a640c23a62f3a-b72e055e508mr471128366b.47.1762684626905; 
+ Sun, 09 Nov 2025 02:37:06 -0800 (PST)
+Received: from jiri-mlt ([85.163.81.98]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b72bfa0f1bbsm758571366b.65.2025.11.09.02.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Nov 2025 02:37:06 -0800 (PST)
+Date: Sun, 9 Nov 2025 11:37:03 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Saeed Mahameed <saeed@kernel.org>
+Message-ID: <utjcgietdlf3jva5deqt5a6qtv7clkysth473hfa3szlwmll7l@6i6fqhem64mf>
+References: <20251103194554.3203178-1-daniel.zahka@gmail.com>
+ <20251103194554.3203178-3-daniel.zahka@gmail.com>
+ <mhm4hkz52gmqok56iuiukdcz2kaowvppbqrfi3zxuq67p3otit@5fhpgu2axab2>
+ <db5c46b4-cc66-48bb-aafb-40d83dd3620c@gmail.com>
+ <6aa2f011-3ba5-4614-950d-d8f0ec62222b@gmail.com>
+ <p3pj3mu4mabgninwowqikegeotxgzhc4yptf7qrfhns37bnkoz@ugkbgvlkxqxb>
+ <78db1fab-e482-4ebc-82ce-ba84b3f561e2@gmail.com>
+ <aQ7XWOI68rVDRewR@x130>
 MIME-Version: 1.0
-References: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
- <E1vHNSG-0000000DkSh-4BIj@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1vHNSG-0000000DkSh-4BIj@rmk-PC.armlinux.org.uk>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sat, 8 Nov 2025 13:31:12 +0100
-X-Gm-Features: AWmQ_bn_kIDv-pwz4dNwmzBqCanYs2atUFgMMshyNEi0RKuzPdaQ1v4towlIcoM
-Message-ID: <CAFBinCBp1x3KWe-5mWoGwFEVxEoSKhTXKYfGgNKS-eDsbW8X+A@mail.gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
- Eric Dumazet <edumazet@google.com>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Keguang Zhang <keguang.zhang@gmail.com>,
- Minda Chen <minda.chen@starfivetech.com>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- linux-mips@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 09/16] net: stmmac: meson8b: use
-	stmmac_get_phy_intf_sel()
+Content-Disposition: inline
+In-Reply-To: <aQ7XWOI68rVDRewR@x130>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Brett Creeley <brett.creeley@amd.com>, Dave Ertman <david.m.ertman@intel.com>,
+ linux-doc@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jerin Jacob <jerinj@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Linu Cherian <lcherian@marvell.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Leon Romanovsky <leon@kernel.org>,
+ Daniel Zahka <daniel.zahka@gmail.com>, linux-rdma@vger.kernel.org,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Srujana Challa <schalla@marvell.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Bharat Bhushan <bbhushan2@marvell.com>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Michael Chan <michael.chan@broadcom.com>, linux-omap@vger.kernel.org,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, linux-arm-kernel@lists.infradead.org,
+ Petr Machata <petrm@nvidia.com>, Manish Chopra <manishc@marvell.com>,
+ netdev@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Mark Bloch <mbloch@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ hariprasad <hkelam@marvell.com>, Simon Horman <horms@kernel.org>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Vladimir Oltean <olteanv@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Geetha sowjanya <gakula@marvell.com>,
+ Vlad Dumitrescu <vdumitrescu@nvidia.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net/mlx5: implement
+ swp_l4_csum_mode via devlink params
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,19 +121,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBOb3YgNywgMjAyNSBhdCAzOjI54oCvUE0gUnVzc2VsbCBLaW5nIChPcmFjbGUpCjxy
-bWsra2VybmVsQGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4KPiBVc2Ugc3RtbWFjX2dldF9waHlf
-aW50Zl9zZWwoKSB0byBkZWNvZGUgdGhlIFBIWSBpbnRlcmZhY2UgbW9kZSB0byB0aGUKPiBwaHlf
-aW50Zl9zZWwgdmFsdWUsIHZhbGlkYXRlIHRoZSByZXN1bHQgYW5kIHVzZSB0aGF0IHRvIHNldCB0
-aGUKPiBjb250cm9sIHJlZ2lzdGVyIHRvIHNlbGVjdCB0aGUgb3BlcmF0aW5nIG1vZGUgZm9yIHRo
-ZSBEV01BQyBjb3JlLgo+Cj4gU2lnbmVkLW9mZi1ieTogUnVzc2VsbCBLaW5nIChPcmFjbGUpIDxy
-bWsra2VybmVsQGFybWxpbnV4Lm9yZy51az4KUmV2aWV3ZWQtYnk6IE1hcnRpbiBCbHVtZW5zdGlu
-Z2wgPG1hcnRpbi5ibHVtZW5zdGluZ2xAZ29vZ2xlbWFpbC5jb20+Cl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Sat, Nov 08, 2025 at 06:38:32AM +0100, saeed@kernel.org wrote:
+>On 04 Nov 09:48, Daniel Zahka wrote:
+>> =
+
+>> =
+
+>> On 11/4/25 9:39 AM, Jiri Pirko wrote:
+>> > Tue, Nov 04, 2025 at 01:51:16PM +0100, daniel.zahka@gmail.com wrote:
+>> > > =
+
+>> > > On 11/4/25 6:38 AM, Daniel Zahka wrote:
+>> > > > =
+
+>> > > > On 11/4/25 5:14 AM, Jiri Pirko wrote:
+>> > > > > I did some research. 0/DEVICE_DEFAULT should not be ever reporte=
+d back
+>> > > > > from FW. It's purpose is for user to reset to default FW configu=
+ration.
+>> > > > > What's the usecase for that? I think you could just avoid
+>> > > > > 0/DEVICE_DEFAULT entirely, for both get and set.
+>> > > > I find that 0/DEVICE_DEFAULT is reported back on my device. I have
+>> > > > observed this same behavior when using the mstconfig tool for sett=
+ing the
+>> > > > parameter too.
+>> > > e.g.
+>> > > $ dmesg | grep -i mlx | grep -i firmware
+>> > > [=A0 =A010.165767] mlx5_core 0000:01:00.0: firmware version: 28.46.1=
+006
+>> > > =
+
+>> > > $ ./mstconfig -d 01:00.0 -b ./mlxconfig_host.db query SWP_L4_CHECKSU=
+M_MODE
+>> > > =
+
+>> > > Device #1:
+>> > > ----------
+>> > > =
+
+>> > > Device type:=A0 =A0 =A0 =A0 ConnectX7
+>> > > Name:=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0CX71143DMC-CDAE_FB_Ax
+>> > > Description:=A0 =A0 =A0 =A0 ConnectX-7 Ethernet adapter card; 100 Gb=
+E OCP3.0;
+>> > > Single-port QSFP; Multi Host; 2 Host; PCIe 4.0 x16; Crypto and Secur=
+e Boot
+>> > > Device:=A0 =A0 =A0 =A0 =A0 =A0 =A001:00.0
+>> > > =
+
+>> > > Configurations:=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =
+=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 Next Boot
+>> > > =A0 =A0 =A0 =A0 SWP_L4_CHECKSUM_MODE DEVICE_DEFAULT(0)
+>> > This is next-boot value. You should query current (--enable_verbosity)
+>> > to show in param get.
+>> =
+
+>> I am still seeing that DEVICE_DEFAULT(0) is read back:
+>> =
+
+>> $ ./mstconfig --enable_verbosity -d 01:00.0 -b ./mlxconfig_host.db query
+>> SWP_L4_CHECKSUM_MODE
+>> =
+
+>> Device #1:
+>> ----------
+>> =
+
+>> Device type:=A0 =A0 =A0 =A0 ConnectX7
+>> Name:=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0CX71143DMC-CDAE_FB_Ax
+>> Description:=A0 =A0 =A0 =A0 ConnectX-7 Ethernet adapter card; 100 GbE OC=
+P3.0;
+>> Single-port QSFP; Multi Host; 2 Host; PCIe 4.0 x16; Crypto and Secure
+>> Boot
+>> Device:=A0 =A0 =A0 =A0 =A0 =A0 =A001:00.0
+>> =
+
+>> Configurations:=A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 Default=A0 =A0 =A0 =
+=A0 =A0 =A0 =A0Current =A0 =A0 =A0 Next Boot
+>> =A0 =A0 =A0 =A0 SWP_L4_CHECKSUM_MODE DEVICE_DEFAULT(0) DEVICE_DEFAULT(0)=
+=A0 =A0
+>> DEVICE_DEFAULT(0)
+>> =
+
+>
+>When default value of nvconfig is managed by FW, 0 will always mean
+>DEVICE_DEFAULT, and it is a way for the driver to reset back to default on
+>write, but on read FW should never return it, so this is a FW bug.
+
+What I understand is that 0 is still okay to be read back after writing
+it. I don't think it is a fw bug. Also, I don't think we should expose
+"default" as devlink param value.
+
+>
+>But this shouldn't block this series so just return 'default', from the
+>driver perspective we should return 'default' when we know 0 means that.
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
