@@ -2,57 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7369EC47477
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Nov 2025 15:43:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CA07C48E5D
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Nov 2025 20:09:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39EDAC5A4C4;
-	Mon, 10 Nov 2025 14:43:04 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FC26C60460;
+	Mon, 10 Nov 2025 19:09:37 +0000 (UTC)
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9A99C5A4C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE1B5C5A4C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Nov 2025 14:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3CWXVBhOiA+tRvKyE+/GGXUPBWvE2q22xR+ZQCaN5h4=; b=vEvs389teh52/YLlwapr+eFGbh
- YuUw1usZIlOM1GPy58FgHHlEQtKt2gb16aeU8f64kgwh3pXr7uSut0pbN/nzgvnwt+mQsP2D4MrhO
- 8CFRuwSB0QyXyC1qhkmaEt1LCNinruhztYD2fatvjD451MH3GIVNsGi3vsTqrBOS/VSPaJlQM+/GA
- 1tKShjcbUBH5O+YT8qBIrkoWfTpwh6JNpR9Kej1hdlpoQaP0pR8WaX2yUbPzQAvfCPikBWpBYb6cj
- WARnywcYiXoT2U7y0wn0wRamh2c1cWMHp5y4ub5kJ5r6LzKxN3jxfqWN52vdOJsgVM5uAb2Jve/yC
- jvpQz4Sw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41032 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vIT6c-000000001Eb-3hIR;
- Mon, 10 Nov 2025 14:42:55 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vIT6b-0000000DpPX-1LQ0; Mon, 10 Nov 2025 14:42:53 +0000
-In-Reply-To: <aRH50uVDX4_9O5ZU@shell.armlinux.org.uk>
-References: <aRH50uVDX4_9O5ZU@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Mon, 10 Nov 2025 19:09:35 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-8a3eac7ca30so214916685a.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 10 Nov 2025 11:09:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1762801774; x=1763406574;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Kh/pfFXNphB5J8FM7JSKHKBWUvUQumq6jmykYXtU/Fk=;
+ b=E5f7GS0Yvtl+WLdzWkReR2UNYY8aTWjvCJkxWaOahfgbgwY2x+9HjFWaz5/a9Ty9LA
+ bIcbTylROFTxcjxaGxdjnz1plNAIoLgNvV0ualqcAUjlK5lvAJni0LbSzfhq9vOsIciM
+ NP0xLq1aZQX4XnbYEIclrHiaGGUJgdMLZY6m+/2kIb9aAJ+iyFj4lwMnrLf1kW/6da1U
+ EsxhM4a4PGctykdocPBJdeMLO7KLFUNpbZwgFFh5COtDihEOe5nKdZMxsrDXGxWAGFqc
+ LVJ4v4YUtT9cEcUmwaMZtX0T3M8iivb1vdgHDAiPu+8WYsqQ9ETQRzFQlmC/fWSLsANE
+ 4aPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762801774; x=1763406574;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Kh/pfFXNphB5J8FM7JSKHKBWUvUQumq6jmykYXtU/Fk=;
+ b=kSdnBiEod0ErtQvbkGw79S2d37nF+vE27H9w8GgSUCWT04I27w/FQfYZaYpZlPSZbH
+ 7zoEpQPRm1BgIrmQmt6NzBNU6pNkbinq5qem6tsQrvJyPshc2DHLM6wPiZw90cpx9LJF
+ nNSbburiG+cqtVNseDYjmitQ9GH39cuiMVGf1f07enNg6emKXSbsE69AnC4cLSQ4s7pM
+ lt9oNBKeaeaapgqdSeyYHQPHDbk0GAHIvO2HOQf67sEgp1Rau4aFWQVB0YRASCpP4fXE
+ FAavDLm8Sl0RX+2nrIpJSB64mkXn5xvZZny9U60SYdqpMbMsTFebN24Ey7eNfQbY/2uu
+ fzGw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWcI2IgxgEpc1ZaWrjHR2uGPWEMAHYavZM+Xd1MQrRUmjvfEvDJroW974IeGwdLPqkFckRHHolKW77RFw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz0z5CQOnVUt1gcmJhhQ00jOLY5K4ZDfW21kczbA9XK1pYTOiHj
+ u2hHsUaAIAOJ9V/RGhKjieRJpNOo1awCEWxdpYun6NCp/XGScYrGcFcd
+X-Gm-Gg: ASbGncvvLCv/MMOKx4HUDSl4ukrkDw2EC7NGkpzjwaSXyokPec34kTxcj0t+XEc1tsw
+ PnsB7KPi8IrAPU8t62ScVbHnQ5+SKRlHd2ZajaWtimNEK57PgaNpOBrLhkdbPl5CWOnJRfkZqX/
+ mBWS/Rg87F6tHOPx91jfv+kJemS9nig10dBB4T+57tvpwf5t9K+AH9/5+eu8kKX5+gaCGvijvjq
+ XmWnu6KZ6TghLx10KS6EGKoXafOfVOGMP+GFHaNsJ2zuJLw6RXS9oNhTA2Sewn7xQ4VWEypvGVc
+ wdvfJqlyyRsJ2EeKeDMaasv7B31MIYUzn6mIb+tNXf3NmDcU9WD8LCPyfhnSIr/9yUaAW8+sBlJ
+ eZiGtFL+tLTHRf/kh5sKlFtEY1w29wX35YYl7xVDkBE/zEjdZBGkOXFPr2kzUj+0w+HCIrJvCao
+ NqvHzAZXdLwhftU+nPo1wzlCgPYiQX170=
+X-Google-Smtp-Source: AGHT+IERCXMjJNRnt0BFVnvUSTvP7ZvwPBkw2ba4rSGkzoC1mJwG61sqECbRHnlBF54bJjOGFPQBbg==
+X-Received: by 2002:a05:620a:c41:b0:8b2:1568:82e8 with SMTP id
+ af79cd13be357-8b257f05374mr1272565485a.35.1762801774300; 
+ Mon, 10 Nov 2025 11:09:34 -0800 (PST)
+Received: from ?IPV6:2a03:83e0:1145:4:3280:a85f:e61:4547?
+ ([2620:10d:c091:500::5:432b]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8b23582b0c9sm1066092985a.55.2025.11.10.11.09.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Nov 2025 11:09:33 -0800 (PST)
+Message-ID: <61e1b43c-e8cf-491d-83b0-22ec46784a88@gmail.com>
+Date: Mon, 10 Nov 2025 14:09:31 -0500
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vIT6b-0000000DpPX-1LQ0@rmk-PC.armlinux.org.uk>
-Date: Mon, 10 Nov 2025 14:42:53 +0000
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH net-next v2 3/3] net: stmmac: meson8b: use
- stmmac_get_phy_intf_sel()
+User-Agent: Mozilla Thunderbird
+To: Jiri Pirko <jiri@resnulli.us>, Saeed Mahameed <saeed@kernel.org>
+References: <20251107204347.4060542-1-daniel.zahka@gmail.com>
+ <20251107204347.4060542-3-daniel.zahka@gmail.com> <aQ7f1T1ZFUKRLQRh@x130>
+ <jhmdihtp63rblcjiy2pibhnz2sikvbm6bhnkclq3l2ndxgbqbb@e3t23x2x2r46>
+Content-Language: en-US
+From: Daniel Zahka <daniel.zahka@gmail.com>
+In-Reply-To: <jhmdihtp63rblcjiy2pibhnz2sikvbm6bhnkclq3l2ndxgbqbb@e3t23x2x2r46>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Brett Creeley <brett.creeley@amd.com>, Dave Ertman <david.m.ertman@intel.com>,
+ linux-doc@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jerin Jacob <jerinj@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Linu Cherian <lcherian@marvell.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Leon Romanovsky <leon@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, linux-rdma@vger.kernel.org,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Srujana Challa <schalla@marvell.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Bharat Bhushan <bbhushan2@marvell.com>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Michael Chan <michael.chan@broadcom.com>, linux-omap@vger.kernel.org,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, linux-arm-kernel@lists.infradead.org,
+ Petr Machata <petrm@nvidia.com>, Manish Chopra <manishc@marvell.com>,
+ netdev@vger.kernel.org, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mark Bloch <mbloch@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ hariprasad <hkelam@marvell.com>, Simon Horman <horms@kernel.org>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Vladimir Oltean <olteanv@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Geetha sowjanya <gakula@marvell.com>,
+ Vlad Dumitrescu <vdumitrescu@nvidia.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net/mlx5: implement
+ swp_l4_csum_mode via devlink params
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,55 +118,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use stmmac_get_phy_intf_sel() to decode the PHY interface mode to the
-phy_intf_sel value, validate the result and use that to set the
-control register to select the operating mode for the DWMAC core.
 
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../ethernet/stmicro/stmmac/dwmac-meson8b.c    | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-index 865cd6166134..e4d5c41294f4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-@@ -238,22 +238,12 @@ static int meson_axg_set_phy_mode(struct meson8b_dwmac *dwmac)
- {
- 	int phy_intf_sel;
- 
--	switch (dwmac->phy_mode) {
--	case PHY_INTERFACE_MODE_RGMII:
--	case PHY_INTERFACE_MODE_RGMII_RXID:
--	case PHY_INTERFACE_MODE_RGMII_ID:
--	case PHY_INTERFACE_MODE_RGMII_TXID:
--		/* enable RGMII mode */
--		phy_intf_sel = PHY_INTF_SEL_RGMII;
--		break;
--	case PHY_INTERFACE_MODE_RMII:
--		/* disable RGMII mode -> enables RMII mode */
--		phy_intf_sel = PHY_INTF_SEL_RMII;
--		break;
--	default:
-+	phy_intf_sel = stmmac_get_phy_intf_sel(dwmac->phy_mode);
-+	if (phy_intf_sel != PHY_INTF_SEL_RGMII &&
-+	    phy_intf_sel != PHY_INTF_SEL_RMII) {
- 		dev_err(dwmac->dev, "fail to set phy-mode %s\n",
- 			phy_modes(dwmac->phy_mode));
--		return -EINVAL;
-+		return phy_intf_sel < 0 ? phy_intf_sel : -EINVAL;
- 	}
- 
- 	meson8b_dwmac_mask_bits(dwmac, PRG_ETH0, PRG_ETH0_EXT_PHY_MODE_MASK,
--- 
-2.47.3
+On 11/9/25 5:46 AM, Jiri Pirko wrote:
+> Regardless this patch, since this is param to be reflected on fw reboot
+> (permanent cmode), I think it would be nice to expose indication if
+> param value passed to user currently affects the fw, or if it is going
+> to be applied after fw reboot. Perhaps a simple bool attr would do?
 
+I can add something like this. For permanent cmode params, it might make 
+the most sense to expose current and next values the way mstconfig does, 
+but that would be a more complicated change.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
