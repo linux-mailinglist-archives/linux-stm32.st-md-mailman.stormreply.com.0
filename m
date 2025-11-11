@@ -2,75 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83966C4B560
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Nov 2025 04:34:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A96C2C4C40B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Nov 2025 09:08:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33A9FC60497;
-	Tue, 11 Nov 2025 03:34:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EFEAC60497;
+	Tue, 11 Nov 2025 08:08:46 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14B31C1A981
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F169CC08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Nov 2025 03:34:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 63C5E44427;
- Tue, 11 Nov 2025 03:34:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2054FC16AAE;
- Tue, 11 Nov 2025 03:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762832082;
- bh=rl4quI5CP3hR4drgVFblTgTJWg1WQ4rTS/8XInVRBRs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NbJY+8OuCVAtsk/Qd+DQWuoyHMS9NkjdFKRoJpxSnvZSQFA/3FKgriuCuQ1hTdk6Z
- VjuCJv1ZBON+kwFu3S0k4zhP38utHIs06bxZk/JxbAL4MgY4WZ0b0K66OKFnUgq+Y8
- na1I/6IureNbUb3dwmULna0Fv/98r43yq4TloLeCSGlwnK6LXR8Ab2BJu7lVc8lFno
- wtCf1NiGMqYg2vS4c9AvQiH0rVaCy3zm03oauR/L3PhKsqwYnqFnrGy9EZ8rIKpYJc
- dh1MzY663AuvvZCqkzxOkymtEHga8UogMw9P81gLVBAMYDeOTuCflwVQRDTzh9isAq
- sc2+TiU77i4ig==
-Date: Mon, 10 Nov 2025 19:34:40 -0800
-From: Saeed Mahameed <saeed@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <aRKu0Iknk0jftv2Z@x130>
-References: <20251107204347.4060542-1-daniel.zahka@gmail.com>
- <20251107204347.4060542-3-daniel.zahka@gmail.com>
- <aQ7f1T1ZFUKRLQRh@x130> <20251110150133.04a2e905@kernel.org>
+ Tue, 11 Nov 2025 08:08:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=R4v0T/jYSK8ngu6ACLcnRSLuWsTH7J+YbIQLDPezMxs=; b=cTiTNXOLW3RqLXigzxvsker54y
+ g9a8LCpbcringQVyc8/mHLO9Z+VijvZ62PYOuEJse/aNKrHo6DsdD2JifuRBNEHBMytboM/zxuZ8o
+ W2JevlUfztmI2Iuio2DXqM22dOh6BKWHhjoxD4eU6wSpwQ+2SKVaA+WJ59lZglIMZNQX7mmVyt+2i
+ +7skzzvbhN32GpXwbgX0bz7F2UwpvdlK3rrifLlHPydqJ70EKS4hgK0dvWDc7RcH9+aLMZsqSHA7y
+ Y+oEu6jocsY/myOZkIHq0qT4zN3pQbMjfB7rQQmnRBa46IVHomT/wYF1hQw2lqT6EQVNdbKi21SzW
+ GBKafOTw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37306)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vIjQV-0000000028e-3t9d;
+ Tue, 11 Nov 2025 08:08:32 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vIjQM-000000002m9-2KCm; Tue, 11 Nov 2025 08:08:22 +0000
+Date: Tue, 11 Nov 2025 08:08:22 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aRLu9qdfUnizqJRR@shell.armlinux.org.uk>
+References: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251110150133.04a2e905@kernel.org>
-Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Brett Creeley <brett.creeley@amd.com>, linux-doc@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jerin Jacob <jerinj@marvell.com>,
- Subbaraya Sundeep <sbhatta@marvell.com>,
- linux-stm32@st-md-mailman.stormreply.com, Linu Cherian <lcherian@marvell.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Leon Romanovsky <leon@kernel.org>,
- Daniel Zahka <daniel.zahka@gmail.com>, linux-rdma@vger.kernel.org,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Srujana Challa <schalla@marvell.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
- intel-wired-lan@lists.osuosl.org, Dave Ertman <david.m.ertman@intel.com>,
- Bharat Bhushan <bbhushan2@marvell.com>, Paolo Abeni <pabeni@redhat.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
- Jiri Pirko <jiri@resnulli.us>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ido Schimmel <idosch@nvidia.com>, Roger Quadros <rogerq@kernel.org>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
- Michael Chan <michael.chan@broadcom.com>, linux-omap@vger.kernel.org,
- Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- Siddharth Vadapalli <s-vadapalli@ti.com>, linux-arm-kernel@lists.infradead.org,
- Petr Machata <petrm@nvidia.com>, Manish Chopra <manishc@marvell.com>,
- netdev@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Mark Bloch <mbloch@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
- hariprasad <hkelam@marvell.com>, Simon Horman <horms@kernel.org>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Johannes Berg <johannes@sipsolutions.net>, Vladimir Oltean <olteanv@gmail.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Geetha sowjanya <gakula@marvell.com>,
- Vlad Dumitrescu <vdumitrescu@nvidia.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net/mlx5: implement
- swp_l4_csum_mode via devlink params
+In-Reply-To: <aQ4ByErmsnAPSHIL@shell.armlinux.org.uk>
+Cc: Minda Chen <minda.chen@starfivetech.com>,
+ Emil Renner Berthing <kernel@esmil.dk>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-mediatek@lists.infradead.org,
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: [Linux-stm32] [PATCH net-next 00/13] net: stmmac: convert glue
+ drivers to use stmmac_get_phy_intf_sel()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,32 +66,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10 Nov 15:01, Jakub Kicinski wrote:
->On Fri, 7 Nov 2025 22:14:45 -0800 Saeed Mahameed wrote:
->> >+	err = mlx5_nv_param_read_sw_accelerate_conf(dev, mnvda, sizeof(mnvda));
->> >+	if (err) {
->> >+		NL_SET_ERR_MSG_MOD(extack,
->> >+				   "Failed to read sw_accelerate_conf mnvda reg");
->>
->> Plug in the err, NL_SET_ERR_MSG_FMT_MOD(.., .., err);
->> other locations as well.
->
->Incorrect. extack should basically be passed to perror()
->IOW user space will add strerror(errno) after, anyway.
->Adding the errno inside the string is pointless and ugly.
+This series converts the remaining glue drivers that support
+multi-interface to use stmmac_get_phy_intf_sel(). The reason these
+drivers are not converted to the set_phy_intf_sel() method is
+because it is unclear whether there are ordering dependencies that
+would prevent it.
 
-ernno set by stack. err set by driver. we can't assume err will propagate
-to errno, this is up to the stack.
+For example, reading the stm32mp2 documentation, it is required to
+set the ETH1_SEL field while the dwmac core is in reset and before
+clocks are enabled. This requirement can not be satsified at the
+moment (but could with further changes.)
 
-And not at all ugly, very useful debug hint to the user, unless you
-guarantee err == errno.
+v2:
+- sending meson8b seperately
+- updated a number of commit descriptions: PHY_INTF_SEL_xxx ->
+  PHY_INTF_SEL_x, added note where GMII no longer errors out.
 
+ .../net/ethernet/stmicro/stmmac/dwmac-loongson1.c  | 18 ++---
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 77 ++++++++--------------
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   | 24 ++-----
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c  | 44 +++++++------
+ .../net/ethernet/stmicro/stmmac/dwmac-visconti.c   | 26 ++------
+ 5 files changed, 70 insertions(+), 119 deletions(-)
 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
