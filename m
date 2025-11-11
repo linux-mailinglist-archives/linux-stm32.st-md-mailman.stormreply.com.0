@@ -2,86 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4616DC4D79F
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Nov 2025 12:48:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D922C4E859
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Nov 2025 15:39:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7456C628AA;
-	Tue, 11 Nov 2025 11:48:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F337C597BF;
+	Tue, 11 Nov 2025 14:39:12 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C2DBC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 500EEC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Nov 2025 11:48:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A5F0242B45;
- Tue, 11 Nov 2025 11:48:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E74BC116D0;
- Tue, 11 Nov 2025 11:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1762861689;
- bh=jxi1Gv6OcPtGGFXGFF2QxkwKjLaMbfnLeBrhrAyU/Tg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=U8wDzG2jhPfzS4KLy6BBXjLkq8tbdJdbZ2HLPt/oCduCWbREVPz6XahhQXZNBZvqk
- rL61nJbROp9KbKpanxP6Xm+RhhBC2JjGt3mq5g1Vt8UeeKM8gOKgcYiPO0I2jAA8oR
- 2vP9zcZsjezzMSY7lXp0qcTehuQ5Bvcn5PLIyv21tVd9pJmlDNPzRzYLCVga+fJVZC
- exeLAcTwq2GZWVxiqi/O5Hs9YfEKaR3AZUbkmkVOA0uPAeCkVjy4pmp9+BXSwywuet
- qQS5xfNfqALbItTHOqCEixH82CxNQPweybJmarDGuJMjWDhzcw/4Ag1g8TdQPeJwJh
- M8yYB1Fdu26pw==
-Date: Tue, 11 Nov 2025 11:47:53 +0000
-From: Simon Horman <horms@kernel.org>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <aRMiafCQNPVDOljU@horms.kernel.org>
-References: <20251107-qcom-sa8255p-emac-v5-0-01d3e3aaf388@linaro.org>
- <20251107-qcom-sa8255p-emac-v5-8-01d3e3aaf388@linaro.org>
+ Tue, 11 Nov 2025 14:39:11 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-47721743fd0so21351275e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Nov 2025 06:39:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1762871950; x=1763476750;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BbZiM31j3hF7yHeWrzWbDvWSfA60EWmb9ONaywmv4Bg=;
+ b=WKVLMQZap4z2XMHJQMW03Q7ux8BMpDqA8GapqqkyGciJdhOkyRFL2tphyRxDwFz/NL
+ xYc4j4HLG/U5ydvRCgPtorMFYV1Ej9rOkKWJ7vPqYcbvxlwiurExxI4w7rosf26X75Wn
+ LyaItZI2BJ9U1ITBCtcZ/mY1OzWEgXc3Kb6z8x53c+KR+72fBXRtaSXXvtjddvb6fm1V
+ v2ilQrQBHvUn7Ie+jxtQq5wwBciMtvcPl/HpwZ85DvHiFwb6SPFVCS2MSCTAdMYXeTNR
+ SbtuIW/aRJp+p0vPP/5EwRKFStsoxfhXiUOC9eU/uM7DKw3wXZieFdv1tuzG2EktJICD
+ sSxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762871950; x=1763476750;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BbZiM31j3hF7yHeWrzWbDvWSfA60EWmb9ONaywmv4Bg=;
+ b=F0BlWVpE/LN7HbX5GPRv8LCBcBabanbZD/+Gu3cwmw/TAmx1i+qoi5vpSaQdhvIo6Y
+ dm1I+0MOyxA2UzmonczXb5o/I5/cejyCBC88Af36W2M5rJo7LrYseQn2MtEMGvEc7cwb
+ PTF8/kJ1wzh4uA6whGNadtzm8hePesxpce9Wa5m1mPdE4lg2Db6YigiKS4oPYuD6Rhxs
+ 70B7esRseGASglW+nUXajtz2NqeBpRKyb0cj0tOE1xY0dMAxZIDR6cli4fw8vM93epSV
+ Tnri3McvpdlvPloMbWR4KyefOnyStLkfLlg8Rt0cU3C6X63/27xa6P2CcGTMBAOUK3LU
+ X3MQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJ2Nr1QP8noAwhqq9QjVkJjFY6+RAba2B8Dl4a6En3fXbg2wNwdRH9Dw5qtF7t0OUhokz6LqcafeCnhA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyMErm425qGJsji3gg/PHPgr1XCM51dEwGXQW2z/GnHEMeTlZSJ
+ hSfixW3xiYlKFaRrjnD7YkNK7ksvr9swCuej0VUKX0IpS92mCngJwhCf4c8zXiHI9wY=
+X-Gm-Gg: ASbGncsmz7D3Z+XYkGBkdlubYoAp5RypvDXAPEEYKjrMSMPqGgWTp0yUw/320T000sW
+ URr8T7IdXMMM4c7PjjH+llw287gomj5Wqg0wAIiNDq5Ewbu4RglU/eBFwG1DCFZboO3miUNfQS7
+ Yi9b/dJiVZRf9YXbDFey0WGtsLetxUrFhMiXocfAhi6SvqZqdEzLFDSLk31YC/1zh60t6RQ/FTc
+ PODENkH1pg2vlbQXEoysAV/eJyiVUOEF2r9Zqt7DbTrf6cAk/kcBl3jHONPP3SSYa3WKshM4Ueo
+ kQScWWY4cZ2eRGebLZMqvd6Pc8fQfN2AkOh9x1h4wTxc0O/KaND1W7KLTYtpnnRe+VKC3T+4+ZL
+ O9Cy/vU/vHHz+lK+D1TMDM/XVhRUYX8WDBUSmerzuUZAowtqV+9J9SjOuVI0AnDb1iCVrdpJLKz
+ mkdxcbwGdK
+X-Google-Smtp-Source: AGHT+IEWdT0uV5uWHBTGFPHzbW80DutwkV0QHsEFy4zvFBG9BlThbgSAanJ2aRukrqMaWzzZN+v30Q==
+X-Received: by 2002:a05:600c:350b:b0:46e:5100:326e with SMTP id
+ 5b1f17b1804b1-4777327e71bmr107922525e9.23.1762871950232; 
+ Tue, 11 Nov 2025 06:39:10 -0800 (PST)
+Received: from jiri-mlt ([140.209.217.211]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-477815faadesm21513965e9.0.2025.11.11.06.39.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Nov 2025 06:39:08 -0800 (PST)
+Date: Tue, 11 Nov 2025 15:39:03 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Saeed Mahameed <saeed@kernel.org>
+Message-ID: <cgg6fxjjf6zq6yyzx4njhjmetrlhjgor4lzktwe6nls6rgqd6s@c3abd3ehlzvr>
+References: <20251107204347.4060542-1-daniel.zahka@gmail.com>
+ <20251107204347.4060542-3-daniel.zahka@gmail.com>
+ <aQ7f1T1ZFUKRLQRh@x130>
+ <jhmdihtp63rblcjiy2pibhnz2sikvbm6bhnkclq3l2ndxgbqbb@e3t23x2x2r46>
+ <20251110154643.66d15800@kernel.org> <aRKs6jXqSvC3G_R0@x130>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251107-qcom-sa8255p-emac-v5-8-01d3e3aaf388@linaro.org>
-Cc: Drew Fustini <fustini@kernel.org>, s32@nxp.com,
- Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Guo Ren <guoren@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- linux-amlogic@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Rob Herring <robh@kernel.org>, Drew Fustini <dfustini@tenstorrent.com>,
- Shuang Liang <liangshuang@eswincomputing.com>,
- Samuel Holland <samuel@sholland.org>, sophgo@lists.linux.dev,
- Kevin Hilman <khilman@baylibre.com>, Chen Wang <unicorn_wang@outlook.com>,
- Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-rockchip@lists.infradead.org, Jose Abreu <joabreu@synopsys.com>,
- Clark Wang <xiaoning.wang@nxp.com>, Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Samin Guo <samin.guo@starfivetech.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- David Wu <david.wu@rock-chips.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Maxime Ripard <mripard@kernel.org>, Minda Chen <minda.chen@starfivetech.com>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-sunxi@lists.linux.dev,
- linux-mips@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Inochi Amaoto <inochiama@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH v5 8/8] net: stmmac: qcom-ethqos: add
-	support for sa8255p
+In-Reply-To: <aRKs6jXqSvC3G_R0@x130>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Brett Creeley <brett.creeley@amd.com>, Dave Ertman <david.m.ertman@intel.com>,
+ linux-doc@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jerin Jacob <jerinj@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Linu Cherian <lcherian@marvell.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Leon Romanovsky <leon@kernel.org>,
+ Daniel Zahka <daniel.zahka@gmail.com>, linux-rdma@vger.kernel.org,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Srujana Challa <schalla@marvell.com>,
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Bharat Bhushan <bbhushan2@marvell.com>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Sunil Goutham <sgoutham@marvell.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
+ Roger Quadros <rogerq@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Michal Swiatkowski <michal.swiatkowski@linux.intel.com>,
+ Michael Chan <michael.chan@broadcom.com>, linux-omap@vger.kernel.org,
+ Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>, linux-arm-kernel@lists.infradead.org,
+ Petr Machata <petrm@nvidia.com>, Manish Chopra <manishc@marvell.com>,
+ netdev@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Mark Bloch <mbloch@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ hariprasad <hkelam@marvell.com>, Simon Horman <horms@kernel.org>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Vladimir Oltean <olteanv@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Geetha sowjanya <gakula@marvell.com>,
+ Vlad Dumitrescu <vdumitrescu@nvidia.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net/mlx5: implement
+ swp_l4_csum_mode via devlink params
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,123 +122,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 07, 2025 at 11:29:58AM +0100, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Tue, Nov 11, 2025 at 04:26:34AM +0100, saeed@kernel.org wrote:
+>On 10 Nov 15:46, Jakub Kicinski wrote:
+>> On Sun, 9 Nov 2025 11:46:37 +0100 Jiri Pirko wrote:
+>> > >So, I checked a couple of flows internally, and it seems this allows
+>> > >some flexibility in the FW to decide later on which mode to pick,
+>> > >based on other parameters, which practically means
+>> > >"user has no preference on this param". Driver can only find out
+>> > >after boot, when it reads the runtime capabilities, but still
+>> > >this is a bug, by the time the driver reads this (in devlink), the
+>> > >default value should've already been determined by FW, so FW must
+>> > >return the actual runtime value. Which can only be one of the following
+>> > 
+>> > I don't think it is correct to expose the "default" as a value.
+>> > 
+>> > On read, user should see the configured value, either "full_csum" or
+>> > "l4_only". Reporting "default" to the user does not make any sense.
+>> > On write, user should pass either "full_csum" or "l4_only". Why we would
+>> > ever want to pass "default"?
+>> 
+>> FWIW I agree that this feels a bit odd. Should the default be a flag
+>> attr? On get flag being present means the value is the FW default (no
+>> override present). On set passing the flag means user wants to reset
+>> to FW default (remove override)?
+>> 
+>> > Regardless this patch, since this is param to be reflected on fw reboot
+>> > (permanent cmode), I think it would be nice to expose indication if
+>> > param value passed to user currently affects the fw, or if it is going
+>> > to be applied after fw reboot. Perhaps a simple bool attr would do?
+>> 
+>> IIUC we're basically talking about user having no information that
+>> the update is pending? Could this be done by the core? Core can do
+>> a ->get prior to calling ->set and if the ->set succeeds and
+>> cmode != runtime record that the update is pending?
+>> 
+>
+>Could work if on GET driver reads 'current' value from FW, then it should
+>be simpler if GET != SET then 'pending', one problem though is if SET was
+>done by external tool or value wasn't applied after reboot, then we loose
+>that information, but do we care? I think we shouldn't.
+>
+>> That feels very separate from the series tho, there are 3 permanent
+>> params in mlx5, already. Is there something that makes this one special?
 
-...
+Agreed. That is why I wrote "regardless this patch". But I think the
+pending indication is definitelly nice to have.
 
-> +static int qcom_ethqos_pd_init(struct platform_device *pdev, void *priv)
-> +{
-> +	struct qcom_ethqos *ethqos = priv;
-> +	int ret;
-> +
-> +	/*
-> +	 * Enable functional clock to prevent DMA reset after timeout due
-> +	 * to no PHY clock being enabled after the hardware block has been
-> +	 * power cycled. The actual configuration will be adjusted once
-> +	 * ethqos_fix_mac_speed() is called.
-> +	 */
-> +	ethqos_set_func_clk_en(ethqos);
-> +
-> +	ret = qcom_ethqos_domain_on(ethqos, ETHQOS_PD_CORE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = qcom_ethqos_domain_on(ethqos, ETHQOS_PD_MDIO);
-> +	if (ret) {
-> +		qcom_ethqos_domain_off(ethqos, ETHQOS_PD_CORE);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void qcom_ethqos_pd_exit(struct platform_device *pdev, void *data)
-> +{
-> +	struct qcom_ethqos *ethqos = data;
-> +
-> +	qcom_ethqos_domain_off(ethqos, ETHQOS_PD_MDIO);
-> +	qcom_ethqos_domain_off(ethqos, ETHQOS_PD_CORE);
-> +}
-> +
->  static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
->  {
->  	struct plat_stmmacenet_data *plat_dat = priv->plat;
 
-...
+>
+>In mlx5 they all have the same behavior, devlink sets 'next' value, devlink
+>reads 'next' value. The only special thing about the new param
+>is that it has a 'device_default' value and when you read that from 'next' it
+>will always show 'device_default' as the actual value is only
+>known at run time ,e.g. 'next boot'.
+>
+>I think the only valid solution for permanent and drv_init params is to
+>have 'next' and 'current' values reported by driver on read. Or maybe go just
+>with  'set' != 'get' then 'pending' as discussed above ?
 
-> @@ -852,28 +993,63 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  	ethqos->rgmii_config_loopback_en = drv_data->rgmii_config_loopback_en;
->  	ethqos->has_emac_ge_3 = drv_data->has_emac_ge_3;
->  	ethqos->needs_sgmii_loopback = drv_data->needs_sgmii_loopback;
-> -
-> -	ethqos->pm.link_clk = devm_clk_get(dev, clk_name);
-> -	if (IS_ERR(ethqos->pm.link_clk))
-> -		return dev_err_probe(dev, PTR_ERR(ethqos->pm.link_clk),
-> -				     "Failed to get link_clk\n");
-> -
-> -	ret = ethqos_clks_config(ethqos, true);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = devm_add_action_or_reset(dev, ethqos_clks_disable, ethqos);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ethqos->pm.serdes_phy = devm_phy_optional_get(dev, "serdes");
-> -	if (IS_ERR(ethqos->pm.serdes_phy))
-> -		return dev_err_probe(dev, PTR_ERR(ethqos->pm.serdes_phy),
-> -				     "Failed to get serdes phy\n");
-> -
-> -	ethqos->set_serdes_speed = ethqos_set_serdes_speed_phy;
->  	ethqos->serdes_speed = SPEED_1000;
-> -	ethqos_update_link_clk(ethqos, SPEED_1000);
-> +
-> +	if (pm_data && pm_data->use_domains) {
-> +		ethqos->set_serdes_speed = ethqos_set_serdes_speed_pd;
-> +
-> +		ret = devm_pm_domain_attach_list(dev, &pm_data->pd,
-> +						 &ethqos->pd.pd_list);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "Failed to attach power domains\n");
-> +
-> +		plat_dat->clks_config = ethqos_pd_clks_config;
-> +		plat_dat->serdes_powerup = qcom_ethqos_pd_serdes_powerup;
-> +		plat_dat->serdes_powerdown = qcom_ethqos_pd_serdes_powerdown;
-> +		plat_dat->exit = qcom_ethqos_pd_exit;
+Hmm, is it possible to rebind the driver without fw going through
+next-boot phase? I'm wondering if it wouldn't be safer to have this
+pending flag set to be responsibility of the driver...
 
-Hi Bartosz,
 
-It seems that the intention of this is to ensure
-that domains turned on by qcom_ethqos_pd_init()
-are turned off again on exit or clean-up in error paths.
-
-> +		plat_dat->init = qcom_ethqos_pd_init;
-> +		plat_dat->clk_ptp_rate = pm_data->clk_ptp_rate;
-> +
-> +		ret = qcom_ethqos_pd_init(pdev, ethqos);
-> +		if (ret)
-> +			return ret;
-
-And here those domains are turned on.
-
-> +
-> +		ret = qcom_ethqos_domain_on(ethqos, ETHQOS_PD_SERDES);
-> +		if (ret)
-
-But it seems that if we reach this error path then the cleanup is not
-performed. This is because plat_dat and thus it's exit callback are
-registered until the call to devm_stmmac_pltfr_probe() towards the end of
-this function.
-
-Sorry if I'm on the wrong track here. I did dig into it.
-But this was flagged by Claude Code running
-https://github.com/masoncl/review-prompts/
-
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to enable the serdes power domain\n");
-
-...
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
