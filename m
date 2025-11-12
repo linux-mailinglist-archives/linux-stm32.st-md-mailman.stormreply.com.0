@@ -2,102 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F987C52096
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Nov 2025 12:43:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0A38C52B3A
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Nov 2025 15:26:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF272C5C842;
-	Wed, 12 Nov 2025 11:43:11 +0000 (UTC)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74149C628D1;
+	Wed, 12 Nov 2025 14:26:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22A17C57A52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AF52C628AC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Nov 2025 11:43:11 +0000 (UTC)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6137A3FFD5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Nov 2025 11:43:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1762947790;
- bh=JH9RQWDlZksP3A5WjT/Tdcm9mFgNLOafV5repVUVXmQ=;
- h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=hwgqECDsQzlV6AkQZet/s6MW6kquiGQf88sNdGh4gEQ7/0u/341o10m6Eqjcp7YTT
- YJ3n4dwsOFKkuRkFZHFQ9I1IYTKpFj2NdNAHKZvw+UoxmQJKWcvGZKhkf11Dpl1N2F
- 3dxvIw9MweMvZCrUSK3IB1aoiJBnHhvj7VwNQLivzJXVWF+AN0bqIuPKwZghteRu9I
- uLUk+KidzELo/6A2YP0z6l756KVR2cT2SBgxK2gPerQhcSyfVGLTcMreYhVJzBYMd9
- PNbc/p7Mmh9KVomp3OL6t6ihENY3c3jQsoN0Nz/X73BKLxcWftalvCZlkC/nnHpn21
- ZCjG8WNfi9xOUzNOauBCld4Tq0aH5rgmmymdHgzHElJOorZ4uS0wqlpYsqlWRGFujp
- QA+N/+hjJICMLh4+b9hmIwDVwTBIeya8e9R9ex1kmLdkpLI3QV2xbO34DZSBbqX2vr
- pMZo1w7onvqDEnXdvW9ZxpiaD9l14LaYZATkY7sESRzlHwSalawuNFriZ+mJPBS9IQ
- qbf8JkdWJ6gM/xiWCdt5kzzdamWTsUHJAUDzVXy+KL9xPkoQhF3QX6pMtrWHOD0YQR
- 2PuxYpi8pj5+7POz6rIgi6To+YSRht4s+TV89jY4e9pNpkhxwdAy+BMNRSYBtnkBTc
- l5urrNTKcGbtH5AH9HpRTfes=
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-b70a978cd51so77286566b.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Nov 2025 03:43:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762947789; x=1763552589;
- h=cc:to:subject:message-id:date:user-agent:from:references
- :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JH9RQWDlZksP3A5WjT/Tdcm9mFgNLOafV5repVUVXmQ=;
- b=iA5T7wgiCsJdAVc+QmlGnCSpSO3CR0WjlOQo1NRrMSgDU81b0uKN4UY9aVvOL+c/PC
- YvkVomNLdiDWePcud5+8afmfxnCw63HIu4IrSCtONdFHZ2zGXRnufSv1rHTCiWTDQXuk
- VqGO9JELPzynBJ1Mu/E/amGiTGWbdfvbD4OwbewBAzFf+/XA/bMr3ULEgUupm1YSgRXj
- OS81HHcvZkfAlSHTfYhL19klag25W5JpTvIaneRvV2sVG4VNoaZA+smC1/Smk4lXMxD/
- B3XDY9CQRXqZ+CtKDWf7GqAphv4gBCT6HGwXnED94hJdA7Yf95hz5eKSklUf2mrCbzP1
- WgPQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXf56qEP3wLzAStmnu8VhgnI42l/p0Wwu9hGaBanlAyCEZ0nFAKkiSBzABWo76lS8MKDC4OL9K1w6lyKg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxP35CrYoNEa/pLGykLiaBW9rrf/dmZOcFA1T8DTOJ9Ujy6Gf80
- YwfdxLsc1kcO6mOwY9LqYOE7d+ehyLXU8RyowzvrbuEnQaJZYeTMupOe9n8kzH52cqpt4CGEyrK
- LtXMJZAx3ddTYKYfYN/rS5nn9csQNV2OlL8Di7IGBYsDuZ1rp2cYtOGkblyKjI+ieK5JIhvXh5D
- zP+2GdN5SG9hYr1LQanxrpKwpxepbPNAeip5YZWjIdE+sLOdKqDxnZmzAkwkNE4MGe/xmALzDg
-X-Gm-Gg: ASbGncu/0FwtfacS5cicSDCztRHAzTNDO9cR8n25n1tgW1edfqya0MSLaDmf3iMwgl7
- Akr+V62MmHCDJGtQG0anQMJDQYsh/Y6HTtIg3ArE/P7bqurNMliODc6Q5WASzmRa03ZmNj6dYaG
- Ye9Zz2yW6Nx92n8eCRcFTxL7Y5YZEmbMeQC9OAkSAF555A0GLrkDSxseDfzdWQ+7MvZq1JhRkWg
- hvPMxCJEDeu
-X-Received: by 2002:a17:907:9713:b0:b72:5a54:1720 with SMTP id
- a640c23a62f3a-b7331ae8bbbmr239079366b.57.1762947789518; 
- Wed, 12 Nov 2025 03:43:09 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEACqB0mCN3EX0p95RUNEAUTyaZ39pandxW0+rdirFn7EUt3COrqPK8HKamiHijsSU/fq2Kt0hi/1uzUL2rjsY=
-X-Received: by 2002:a17:907:9713:b0:b72:5a54:1720 with SMTP id
- a640c23a62f3a-b7331ae8bbbmr239077666b.57.1762947789084; Wed, 12 Nov 2025
- 03:43:09 -0800 (PST)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 12 Nov 2025 03:43:08 -0800
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 12 Nov 2025 03:43:08 -0800
+ Wed, 12 Nov 2025 14:26:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CFEF64442F;
+ Wed, 12 Nov 2025 14:26:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E68DC4CEF5;
+ Wed, 12 Nov 2025 14:26:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1762957616;
+ bh=qeuILCfLWad/qbdor3W9n5ZZy0hnPVSh5PPuu3qs/QE=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=qve7G4L0YkbRYzSqsV764xHqJipSwJLZHj1ww/HX7HeUzWhQmoOkvD06mELydd+6p
+ vBe+03Yks5anblHWanxMmaKRFLYdBRYE2LXOk5OQ86x+FvMwLA8KvRjGvoM1tzyXBI
+ 1AqRNa1RCPCD7VE/h9+O5DF8MyE5DTdGzUrZExQwCa6paTArLe6ncDc48usZtCgQpa
+ wix5EmQQky48KVxL1DGT6rU5y3wEH3cvA3WJvTD9yLPDVZV2zxcy2Ps0tNJEOapc1p
+ Y2UnYtiOi+pELcNjbWhpdzUjKNXZxsSTGMh/D3rlKMZRaStt2gWo2lS+nbPDKX1T7q
+ YpgzTjAvTymzQ==
+Date: Wed, 12 Nov 2025 08:26:55 -0600
 MIME-Version: 1.0
-In-Reply-To: <E1vIjUF-0000000Dqth-0gwD@rmk-PC.armlinux.org.uk>
-References: <aRLvrfx6tOa-RhrY@shell.armlinux.org.uk>
- <E1vIjUF-0000000Dqth-0gwD@rmk-PC.armlinux.org.uk>
-From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-User-Agent: alot/0.0.0
-Date: Wed, 12 Nov 2025 03:43:08 -0800
-X-Gm-Features: AWmQ_bkenMvacX26pAHg6nt10w-7MV8cO1nbkR5cqs-fMNBqO4TpuSWeehZ0dCc
-Message-ID: <CAJM55Z9O3BTejaAnTH4nTXT3VcRU701BWdSusRNArt-9vkCFYg@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Cc: Minda Chen <minda.chen@starfivetech.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-mediatek@lists.infradead.org,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Keguang Zhang <keguang.zhang@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 08/13] net: stmmac: starfive:
-	use stmmac_get_phy_intf_sel()
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+In-Reply-To: <20251112-upstream_uboot_properties-v1-0-0b19133710e3@foss.st.com>
+References: <20251112-upstream_uboot_properties-v1-0-0b19133710e3@foss.st.com>
+Message-Id: <176295563590.1637939.3347883345967436731.robh@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/6] Add boot phase tags for
+	STMicroelectronics boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,14 +58,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Russell King (Oracle) (2025-11-11 09:12:23)
-> Use stmmac_get_phy_intf_sel() to decode the PHY interface mode to the
-> phy_intf_sel value, validate the result and use that to set the
-> control register to select the operating mode for the DWMAC core.
->
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+On Wed, 12 Nov 2025 11:46:42 +0100, Patrice Chotard wrote:
+> The bootph-all flag was introduced in dt-schema
+> (dtschema/schemas/bootph.yaml) to define node usage across
+> different boot phases.
+> 
+> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
+> present in all boot stages, so add missing bootph-all phase flag
+> to these nodes to support SD boot.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> ---
+> Patrice Chotard (6):
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f4 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f7 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics h7 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp13 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp15 boards
+>       arm64: dts: st: Add boot phase tags for STMicroelectronics mp2 boards
+> 
+>  arch/arm/boot/dts/st/stm32429i-eval.dts       | 11 +++++
+>  arch/arm/boot/dts/st/stm32746g-eval.dts       | 10 +++++
+>  arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi     | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f429-disco.dts      | 11 +++++
+>  arch/arm/boot/dts/st/stm32f429.dtsi           |  9 ++++
+>  arch/arm/boot/dts/st/stm32f469-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi     | 11 +++++
+>  arch/arm/boot/dts/st/stm32f746-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f746.dtsi           |  5 +++
+>  arch/arm/boot/dts/st/stm32f769-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32h743.dtsi           | 19 +++++++++
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          | 21 ++++++++++
+>  arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 11 +++++
+>  arch/arm/boot/dts/st/stm32mp15-scmi.dtsi      | 26 ++++++++++++
+>  arch/arm/boot/dts/st/stm32mp151.dtsi          | 29 +++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 14 +++++++
+>  arch/arm/boot/dts/st/stm32mp157a-dk1.dts      | 43 +++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-dk2.dts      | 43 +++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 14 +++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ed1.dts      | 60 +++++++++++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 31 ++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ev1.dts      | 36 ++++++++++++++++
+>  arch/arm64/boot/dts/st/stm32mp211.dtsi        |  7 ++++
+>  arch/arm64/boot/dts/st/stm32mp215f-dk.dts     |  1 +
+>  arch/arm64/boot/dts/st/stm32mp231.dtsi        | 22 ++++++++++
+>  arch/arm64/boot/dts/st/stm32mp235f-dk.dts     | 11 +++++
+>  arch/arm64/boot/dts/st/stm32mp251.dtsi        | 27 +++++++++++-
+>  arch/arm64/boot/dts/st/stm32mp257f-dk.dts     | 11 +++++
+>  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 11 +++++
+>  29 files changed, 541 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 53c18dc078bb6d9e9dfe2cc0671ab78588c44723
+> change-id: 20251112-upstream_uboot_properties-22480b0b4b1c
+> 
+> Best regards,
+> --
+> Patrice Chotard <patrice.chotard@foss.st.com>
+> 
+> 
+> 
+
+
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+This patch series was applied (using b4) to base:
+ Base: 53c18dc078bb6d9e9dfe2cc0671ab78588c44723 (use --merge-base to override)
+
+If this is not the correct base, please add 'base-commit' tag
+(or use b4 which does this automatically)
+
+New warnings running 'make CHECK_DTBS=y for arch/arm/boot/dts/st/' for 20251112-upstream_uboot_properties-v1-0-0b19133710e3@foss.st.com:
+
+arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb: pinctrl@50002000 (st,stm32mp157-pinctrl): qspi-bk1-0:pins1: 'pinmux' is a required property
+	from schema $id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml
+arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb: pinctrl@50002000 (st,stm32mp157-pinctrl): qspi-bk1-0:pins2: 'pinmux' is a required property
+	from schema $id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml
+arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb: pinctrl@50002000 (st,stm32mp157-pinctrl): qspi-bk2-0:pins1: 'pinmux' is a required property
+	from schema $id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml
+arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb: pinctrl@50002000 (st,stm32mp157-pinctrl): qspi-bk2-0:pins2: 'pinmux' is a required property
+	from schema $id: http://devicetree.org/schemas/pinctrl/st,stm32-pinctrl.yaml
+
+
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
