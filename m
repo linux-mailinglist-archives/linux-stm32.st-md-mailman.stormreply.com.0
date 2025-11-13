@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F1CC589C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Nov 2025 17:10:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6D2C589C5
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Nov 2025 17:10:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AF8EC628D4;
-	Thu, 13 Nov 2025 16:10:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77D71C628D5;
+	Thu, 13 Nov 2025 16:10:44 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2F72C628B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B82A1C628B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Nov 2025 16:10:40 +0000 (UTC)
+ Thu, 13 Nov 2025 16:10:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9E102600C4;
- Thu, 13 Nov 2025 16:10:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D50DC4CEF1;
- Thu, 13 Nov 2025 16:10:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F063B604D1;
+ Thu, 13 Nov 2025 16:10:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92349C19424;
+ Thu, 13 Nov 2025 16:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763050239;
- bh=ar/J7la8s0fj40xp4GiCiAlJdslTGn7uYA1smJ+0H1o=;
+ s=k20201202; t=1763050240;
+ bh=veR8/nbDtLvQOcg0BwdTy39yB/WVz1ADHJK/sjmFuRY=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=n/iCAXXKC7XSO7b+UMgqZqQ2tnpepOXebi5CtmTlP+jqmaup8o9CUv2mjUFSGCso+
- nRaA/IwsE5JfZHKODj+imNGnNtYI4lO3kfKrO8KbmtG1AS2N4LQhd2zu2Y3SuykQC+
- VcbGhyeuk3jlas72rsmW2QCi0C/wEO87EygXOK/h4CyzbwQTr6mqwlNiRQpKafU6uK
- fQ0sBofZBox0zMJGG6M6X1Obnb2fYeI/0Wc+xpbR09R6Eo2tomZBuXBaqkzXl6KtRU
- uSXIfP2khZbjfJLF7LlpaTOuG1PKzbHHy35tiSm7YDOkBXfGD/xY+7AhijyRBxvMy5
- 5SkiaGAtzFWBg==
+ b=hZ/w9DlzOSe155fEEvNIKgEaJAfii5826P755bO5SGR6Inmfarl8sWNLaK8wVLJ3V
+ 6/nyyb+pM3M78fa3dtzU7kF7nZCviHQ8G66us/WC7nynQ72xVshcSPM1rNaY9+xRIB
+ /GEx2457CxujiDZJ9/CUOp00QqjpXbtyMw3NC2QoHbkgyjRSH8Alipk9T/Tayy0tug
+ gALnDJ+bd9H46n84MFtObcf3eW/tRH1qqszz/w7KiOmOEuEmdd+veSYp3CzwIoUe6T
+ gkOiZG7kdYZd9X5rZ+oeRphjhl/ytJKrLMbWuT6r0RRx4szDetORNhN3cU2DLnhOrQ
+ +mYyBnVCd/82A==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- ADDD9380DBD2; Thu, 13 Nov 2025 16:10:09 +0000 (UTC)
+ EAD9C380DBD2; Thu, 13 Nov 2025 16:10:10 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176305020851.908070.9331102777618461950.git-patchwork-notify@kernel.org>
-Date: Thu, 13 Nov 2025 16:10:08 +0000
-References: <E1vImWF-0000000DrIr-1fmn@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1vImWF-0000000DrIr-1fmn@rmk-PC.armlinux.org.uk>
+Message-Id: <176305020974.908070.1045942084214006271.git-patchwork-notify@kernel.org>
+Date: Thu, 13 Nov 2025 16:10:09 +0000
+References: <E1vImWK-0000000DrIx-28vO@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vImWK-0000000DrIx-28vO@rmk-PC.armlinux.org.uk>
 To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: clean up
-	stmmac_reset()
+Cc: andrew@lunn.ch, edumazet@google.com, samuel@sholland.org,
+ netdev@vger.kernel.org, jernej.skrabec@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch, wens@csie.org,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-sunxi@lists.linux.dev, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: always allocate
+	mac_device_info
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,20 +67,20 @@ Hello:
 This patch was applied to netdev/net-next.git (main)
 by Paolo Abeni <pabeni@redhat.com>:
 
-On Tue, 11 Nov 2025 11:26:39 +0000 you wrote:
-> stmmac_reset() takes the stmmac_priv and an ioaddr. It has one call
-> site, which passes the priv pointer, and dereferences priv for the
-> ioaddr.
+On Tue, 11 Nov 2025 11:26:44 +0000 you wrote:
+> The ->setup() method implemented by dwmac-loongson and dwmac-sun8i
+> allocate the mac_device_info structure, as does stmmac_hwif_init().
+> This makes no sense.
 > 
-> stmmac_reset() then checks whether priv is NULL. If it was, the caller
-> would have oopsed. Remove the checks for NULL, and move the dereference
-> for ioaddr into stmmac_reset().
+> Have stmmac_hwif_init() always allocate this structure, and pass it to
+> the ->setup() method to initialise when it is provided. Rename this
+> method to "mac_setup" to more accurately describe what it is doing.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next] net: stmmac: clean up stmmac_reset()
-    https://git.kernel.org/netdev/net-next/c/d0af55df5a78
+  - [net-next] net: stmmac: always allocate mac_device_info
+    https://git.kernel.org/netdev/net-next/c/f694d215d340
 
 You are awesome, thank you!
 -- 
