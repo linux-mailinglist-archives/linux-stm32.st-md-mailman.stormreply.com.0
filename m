@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37BCC59416
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Nov 2025 18:46:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EC6C59419
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Nov 2025 18:46:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91C53C628D4;
-	Thu, 13 Nov 2025 17:46:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A09E0C628D4;
+	Thu, 13 Nov 2025 17:46:54 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A17D4C628B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D807FC628B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Nov 2025 17:46:48 +0000 (UTC)
+ Thu, 13 Nov 2025 17:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NO6IIoEQNRWpFvMuTQ6qp1i2naIx7VdqjocOSF9i4p8=; b=Qjt3WF/EKcvgZrqTNW5FHAFcmy
- zhthRxx0x2k9Gs97jsK+tmQRe7Ai1XDrcZc3WKITYjLh9j5QSdoZd7Uj26sXHDuR1wvjm0Kme3/v1
- +07O+0LpUTPfqOsAT9jzgg1i4CZffs26fWOJHxO8096EV2PVJvBHHgTCG3i816dHdNb7/KFjpZSwm
- pxFW+yY6jf6w5AacTl96QQC0dtSYsB7qMJlyIs24XY72yrZv4orI5ym43OE/B9/e58L3QBk8w1kdK
- Ubkh6yd/BmsFBTllIlAYEgyWB8fA/jRem8p3t4ySrxNmDrN1WC8mBGbXRvngNnnaMw2hb5zDXGR8m
- 9HLpb99g==;
+ bh=0rNju7eQFm0esNy2lFB6OI4OIIy97M3G9CzH/q8kZmQ=; b=wqI7nteEBuAimdgboDc56uOIV2
+ exg4mCxEDbMjx/YePg6KXWXk2eJDdzeYxxZoAGQs6yK9junMVvbDQCnvt+dsnEsiJ2dnq+HalOhLW
+ r0JXIQ6jhWmNsusZLnU601UmMb9Q8pWEZTJ4LQ8p99gEX8VgokwmT+xQX1Bj94pIFTFPHss0ZEZVt
+ nIWynopf8au6G471C4WH1NE/6adYpZ6rKMEs/JbuFdMS1ZMslkzhaYHhsUXL5xBW6VYn4/BOL3617
+ CyVeMeC1VhKUJoOHGSd9aP71X4qjXq5/bM6PJ4BEUTMeQvizo1mNaQwA4xKjAwZHEAEidvmho2BZA
+ 7h/c4cVg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57060 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57062 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vJbP7-000000005no-13m2;
- Thu, 13 Nov 2025 17:46:41 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vJbPC-000000005o4-2480;
+ Thu, 13 Nov 2025 17:46:46 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vJbP6-0000000EBqP-1cmm; Thu, 13 Nov 2025 17:46:40 +0000
+ id 1vJbPB-0000000EBqV-27GS; Thu, 13 Nov 2025 17:46:45 +0000
 In-Reply-To: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
 References: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,16 +41,16 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vJbP6-0000000EBqP-1cmm@rmk-PC.armlinux.org.uk>
-Date: Thu, 13 Nov 2025 17:46:40 +0000
+Message-Id: <E1vJbPB-0000000EBqV-27GS@rmk-PC.armlinux.org.uk>
+Date: Thu, 13 Nov 2025 17:46:45 +0000
 Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/4] net: stmmac: rk: convert all
- bitfields to GRF_FIELD*()
+Subject: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: rk: use
+	PHY_INTF_SEL_x constants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,330 +67,156 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert all bitfields to GRF_FIELD() or GRF_FIELD_CONST(), which makes
-the bitfield values more readable, and also allows the aarch64 compiler
-to produce better code.
+The values used in the xxx_GMAC_PHY_INTF_SEL_xxx() macros are the
+phy_intf_sel values used for the dwmac core. Use these to define these
+constants.
+
+No change to produced code on aarch64.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 136 ++++++++----------
- 1 file changed, 57 insertions(+), 79 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 46 +++++++++----------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 794a7ed71451..4257cc1f66e9 100644
+index 4257cc1f66e9..49076ee00877 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -151,6 +151,8 @@ static int rk_set_clk_mac_speed(struct rk_priv_data *bsp_priv,
- 
- #define GRF_FIELD(hi, lo, val)		\
- 	FIELD_PREP_WM16(GENMASK_U16(hi, lo), val)
-+#define GRF_FIELD_CONST(hi, lo, val)	\
-+	FIELD_PREP_WM16_CONST(GENMASK_U16(hi, lo), val)
- 
- #define GRF_BIT(nr)			(BIT(nr) | BIT(nr+16))
- #define GRF_CLR_BIT(nr)			(BIT(nr+16))
-@@ -167,7 +169,7 @@ static int rk_set_clk_mac_speed(struct rk_priv_data *bsp_priv,
- #define RK_MACPHY_ENABLE		GRF_BIT(0)
- #define RK_MACPHY_DISABLE		GRF_CLR_BIT(0)
- #define RK_MACPHY_CFG_CLK_50M		GRF_BIT(14)
--#define RK_GMAC2PHY_RMII_MODE		(GRF_BIT(6) | GRF_CLR_BIT(7))
-+#define RK_GMAC2PHY_RMII_MODE		GRF_FIELD(7, 6, 1)
- #define RK_GRF_CON2_MACPHY_ID		GRF_FIELD(15, 0, 0x1234)
- #define RK_GRF_CON3_MACPHY_ID		GRF_FIELD(5, 0, 0x35)
- 
-@@ -203,7 +205,7 @@ static void rk_gmac_integrated_ephy_powerdown(struct rk_priv_data *priv)
- #define RK_FEPHY_SHUTDOWN		GRF_BIT(1)
- #define RK_FEPHY_POWERUP		GRF_CLR_BIT(1)
- #define RK_FEPHY_INTERNAL_RMII_SEL	GRF_BIT(6)
--#define RK_FEPHY_24M_CLK_SEL		(GRF_BIT(8) | GRF_BIT(9))
-+#define RK_FEPHY_24M_CLK_SEL		GRF_FIELD(9, 8, 3)
- #define RK_FEPHY_PHY_ID			GRF_BIT(11)
- 
- static void rk_gmac_integrated_fephy_powerup(struct rk_priv_data *priv,
-@@ -232,8 +234,7 @@ static void rk_gmac_integrated_fephy_powerdown(struct rk_priv_data *priv,
+@@ -234,7 +234,7 @@ static void rk_gmac_integrated_fephy_powerdown(struct rk_priv_data *priv,
  #define PX30_GRF_GMAC_CON1		0x0904
  
  /* PX30_GRF_GMAC_CON1 */
--#define PX30_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | \
--					 GRF_BIT(6))
-+#define PX30_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define PX30_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define PX30_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define PX30_GMAC_SPEED_10M		GRF_CLR_BIT(2)
  #define PX30_GMAC_SPEED_100M		GRF_BIT(2)
  
-@@ -289,19 +290,17 @@ static const struct rk_gmac_ops px30_ops = {
+@@ -290,8 +290,8 @@ static const struct rk_gmac_ops px30_ops = {
  #define RK3128_GMAC_CLK_TX_DL_CFG(val) GRF_FIELD(6, 0, val)
  
  /* RK3128_GRF_MAC_CON1 */
--#define RK3128_GMAC_PHY_INTF_SEL_RGMII	\
--		(GRF_BIT(6) | GRF_CLR_BIT(7) | GRF_CLR_BIT(8))
--#define RK3128_GMAC_PHY_INTF_SEL_RMII	\
--		(GRF_CLR_BIT(6) | GRF_CLR_BIT(7) | GRF_BIT(8))
-+#define RK3128_GMAC_PHY_INTF_SEL_RGMII GRF_FIELD(8, 6, 1)
-+#define RK3128_GMAC_PHY_INTF_SEL_RMII  GRF_FIELD(8, 6, 4)
+-#define RK3128_GMAC_PHY_INTF_SEL_RGMII GRF_FIELD(8, 6, 1)
+-#define RK3128_GMAC_PHY_INTF_SEL_RMII  GRF_FIELD(8, 6, 4)
++#define RK3128_GMAC_PHY_INTF_SEL_RGMII GRF_FIELD(8, 6, PHY_INTF_SEL_RGMII)
++#define RK3128_GMAC_PHY_INTF_SEL_RMII  GRF_FIELD(8, 6, PHY_INTF_SEL_RMII)
  #define RK3128_GMAC_FLOW_CTRL          GRF_BIT(9)
  #define RK3128_GMAC_FLOW_CTRL_CLR      GRF_CLR_BIT(9)
  #define RK3128_GMAC_SPEED_10M          GRF_CLR_BIT(10)
- #define RK3128_GMAC_SPEED_100M         GRF_BIT(10)
- #define RK3128_GMAC_RMII_CLK_25M       GRF_BIT(11)
- #define RK3128_GMAC_RMII_CLK_2_5M      GRF_CLR_BIT(11)
--#define RK3128_GMAC_CLK_125M           (GRF_CLR_BIT(12) | GRF_CLR_BIT(13))
--#define RK3128_GMAC_CLK_25M            (GRF_BIT(12) | GRF_BIT(13))
--#define RK3128_GMAC_CLK_2_5M           (GRF_CLR_BIT(12) | GRF_BIT(13))
-+#define RK3128_GMAC_CLK_125M           GRF_FIELD_CONST(13, 12, 0)
-+#define RK3128_GMAC_CLK_25M            GRF_FIELD_CONST(13, 12, 3)
-+#define RK3128_GMAC_CLK_2_5M           GRF_FIELD_CONST(13, 12, 2)
- #define RK3128_GMAC_RMII_MODE          GRF_BIT(14)
- #define RK3128_GMAC_RMII_MODE_CLR      GRF_CLR_BIT(14)
- 
-@@ -354,19 +353,17 @@ static const struct rk_gmac_ops rk3128_ops = {
+@@ -353,8 +353,8 @@ static const struct rk_gmac_ops rk3128_ops = {
  #define RK3228_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(6, 0, val)
  
  /* RK3228_GRF_MAC_CON1 */
--#define RK3228_GMAC_PHY_INTF_SEL_RGMII	\
--		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
--#define RK3228_GMAC_PHY_INTF_SEL_RMII	\
--		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
-+#define RK3228_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
-+#define RK3228_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define RK3228_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
+-#define RK3228_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define RK3228_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
++#define RK3228_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define RK3228_GMAC_FLOW_CTRL		GRF_BIT(3)
  #define RK3228_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
  #define RK3228_GMAC_SPEED_10M		GRF_CLR_BIT(2)
- #define RK3228_GMAC_SPEED_100M		GRF_BIT(2)
- #define RK3228_GMAC_RMII_CLK_25M	GRF_BIT(7)
- #define RK3228_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(7)
--#define RK3228_GMAC_CLK_125M		(GRF_CLR_BIT(8) | GRF_CLR_BIT(9))
--#define RK3228_GMAC_CLK_25M		(GRF_BIT(8) | GRF_BIT(9))
--#define RK3228_GMAC_CLK_2_5M		(GRF_CLR_BIT(8) | GRF_BIT(9))
-+#define RK3228_GMAC_CLK_125M		GRF_FIELD_CONST(9, 8, 0)
-+#define RK3228_GMAC_CLK_25M		GRF_FIELD_CONST(9, 8, 3)
-+#define RK3228_GMAC_CLK_2_5M		GRF_FIELD_CONST(9, 8, 2)
- #define RK3228_GMAC_RMII_MODE		GRF_BIT(10)
- #define RK3228_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(10)
- #define RK3228_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(0)
-@@ -435,19 +432,17 @@ static const struct rk_gmac_ops rk3228_ops = {
+@@ -432,8 +432,8 @@ static const struct rk_gmac_ops rk3228_ops = {
  #define RK3288_GRF_SOC_CON3	0x0250
  
  /*RK3288_GRF_SOC_CON1*/
--#define RK3288_GMAC_PHY_INTF_SEL_RGMII	(GRF_BIT(6) | GRF_CLR_BIT(7) | \
--					 GRF_CLR_BIT(8))
--#define RK3288_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(6) | GRF_CLR_BIT(7) | \
--					 GRF_BIT(8))
-+#define RK3288_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(8, 6, 1)
-+#define RK3288_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(8, 6, 4)
+-#define RK3288_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(8, 6, 1)
+-#define RK3288_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(8, 6, 4)
++#define RK3288_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(8, 6, PHY_INTF_SEL_RGMII)
++#define RK3288_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(8, 6, PHY_INTF_SEL_RMII)
  #define RK3288_GMAC_FLOW_CTRL		GRF_BIT(9)
  #define RK3288_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(9)
  #define RK3288_GMAC_SPEED_10M		GRF_CLR_BIT(10)
- #define RK3288_GMAC_SPEED_100M		GRF_BIT(10)
- #define RK3288_GMAC_RMII_CLK_25M	GRF_BIT(11)
- #define RK3288_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(11)
--#define RK3288_GMAC_CLK_125M		(GRF_CLR_BIT(12) | GRF_CLR_BIT(13))
--#define RK3288_GMAC_CLK_25M		(GRF_BIT(12) | GRF_BIT(13))
--#define RK3288_GMAC_CLK_2_5M		(GRF_CLR_BIT(12) | GRF_BIT(13))
-+#define RK3288_GMAC_CLK_125M		GRF_FIELD_CONST(13, 12, 0)
-+#define RK3288_GMAC_CLK_25M		GRF_FIELD_CONST(13, 12, 3)
-+#define RK3288_GMAC_CLK_2_5M		GRF_FIELD_CONST(13, 12, 2)
- #define RK3288_GMAC_RMII_MODE		GRF_BIT(14)
- #define RK3288_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(14)
- 
-@@ -501,8 +496,7 @@ static const struct rk_gmac_ops rk3288_ops = {
+@@ -496,7 +496,7 @@ static const struct rk_gmac_ops rk3288_ops = {
  #define RK3308_GRF_MAC_CON0		0x04a0
  
  /* RK3308_GRF_MAC_CON0 */
--#define RK3308_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(2) | GRF_CLR_BIT(3) | \
--					GRF_BIT(4))
-+#define RK3308_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(4, 2, 4)
+-#define RK3308_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(4, 2, 4)
++#define RK3308_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(4, 2, PHY_INTF_SEL_RMII)
  #define RK3308_GMAC_FLOW_CTRL		GRF_BIT(3)
  #define RK3308_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
  #define RK3308_GMAC_SPEED_10M		GRF_CLR_BIT(0)
-@@ -541,19 +535,17 @@ static const struct rk_gmac_ops rk3308_ops = {
+@@ -535,8 +535,8 @@ static const struct rk_gmac_ops rk3308_ops = {
  #define RK3328_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(6, 0, val)
  
  /* RK3328_GRF_MAC_CON1 */
--#define RK3328_GMAC_PHY_INTF_SEL_RGMII	\
--		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
--#define RK3328_GMAC_PHY_INTF_SEL_RMII	\
--		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
-+#define RK3328_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
-+#define RK3328_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define RK3328_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
+-#define RK3328_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define RK3328_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
++#define RK3328_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define RK3328_GMAC_FLOW_CTRL		GRF_BIT(3)
  #define RK3328_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
  #define RK3328_GMAC_SPEED_10M		GRF_CLR_BIT(2)
- #define RK3328_GMAC_SPEED_100M		GRF_BIT(2)
- #define RK3328_GMAC_RMII_CLK_25M	GRF_BIT(7)
- #define RK3328_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(7)
--#define RK3328_GMAC_CLK_125M		(GRF_CLR_BIT(11) | GRF_CLR_BIT(12))
--#define RK3328_GMAC_CLK_25M		(GRF_BIT(11) | GRF_BIT(12))
--#define RK3328_GMAC_CLK_2_5M		(GRF_CLR_BIT(11) | GRF_BIT(12))
-+#define RK3328_GMAC_CLK_125M		GRF_FIELD_CONST(12, 11, 0)
-+#define RK3328_GMAC_CLK_25M		GRF_FIELD_CONST(12, 11, 3)
-+#define RK3328_GMAC_CLK_2_5M		GRF_FIELD_CONST(12, 11, 2)
- #define RK3328_GMAC_RMII_MODE		GRF_BIT(9)
- #define RK3328_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(9)
- #define RK3328_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(0)
-@@ -630,19 +622,17 @@ static const struct rk_gmac_ops rk3328_ops = {
+@@ -622,8 +622,8 @@ static const struct rk_gmac_ops rk3328_ops = {
  #define RK3366_GRF_SOC_CON7	0x041c
  
  /* RK3366_GRF_SOC_CON6 */
--#define RK3366_GMAC_PHY_INTF_SEL_RGMII	(GRF_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_CLR_BIT(11))
--#define RK3366_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_BIT(11))
-+#define RK3366_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
-+#define RK3366_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
+-#define RK3366_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
+-#define RK3366_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
++#define RK3366_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
++#define RK3366_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
  #define RK3366_GMAC_FLOW_CTRL		GRF_BIT(8)
  #define RK3366_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
  #define RK3366_GMAC_SPEED_10M		GRF_CLR_BIT(7)
- #define RK3366_GMAC_SPEED_100M		GRF_BIT(7)
- #define RK3366_GMAC_RMII_CLK_25M	GRF_BIT(3)
- #define RK3366_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3366_GMAC_CLK_125M		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5))
--#define RK3366_GMAC_CLK_25M		(GRF_BIT(4) | GRF_BIT(5))
--#define RK3366_GMAC_CLK_2_5M		(GRF_CLR_BIT(4) | GRF_BIT(5))
-+#define RK3366_GMAC_CLK_125M		GRF_FIELD_CONST(5, 4, 0)
-+#define RK3366_GMAC_CLK_25M		GRF_FIELD_CONST(5, 4, 3)
-+#define RK3366_GMAC_CLK_2_5M		GRF_FIELD_CONST(5, 4, 2)
- #define RK3366_GMAC_RMII_MODE		GRF_BIT(6)
- #define RK3366_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(6)
- 
-@@ -697,19 +687,17 @@ static const struct rk_gmac_ops rk3366_ops = {
+@@ -687,8 +687,8 @@ static const struct rk_gmac_ops rk3366_ops = {
  #define RK3368_GRF_SOC_CON16	0x0440
  
  /* RK3368_GRF_SOC_CON15 */
--#define RK3368_GMAC_PHY_INTF_SEL_RGMII	(GRF_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_CLR_BIT(11))
--#define RK3368_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_BIT(11))
-+#define RK3368_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
-+#define RK3368_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
+-#define RK3368_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
+-#define RK3368_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
++#define RK3368_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
++#define RK3368_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
  #define RK3368_GMAC_FLOW_CTRL		GRF_BIT(8)
  #define RK3368_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
  #define RK3368_GMAC_SPEED_10M		GRF_CLR_BIT(7)
- #define RK3368_GMAC_SPEED_100M		GRF_BIT(7)
- #define RK3368_GMAC_RMII_CLK_25M	GRF_BIT(3)
- #define RK3368_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3368_GMAC_CLK_125M		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5))
--#define RK3368_GMAC_CLK_25M		(GRF_BIT(4) | GRF_BIT(5))
--#define RK3368_GMAC_CLK_2_5M		(GRF_CLR_BIT(4) | GRF_BIT(5))
-+#define RK3368_GMAC_CLK_125M		GRF_FIELD_CONST(5, 4, 0)
-+#define RK3368_GMAC_CLK_25M		GRF_FIELD_CONST(5, 4, 3)
-+#define RK3368_GMAC_CLK_2_5M		GRF_FIELD_CONST(5, 4, 2)
- #define RK3368_GMAC_RMII_MODE		GRF_BIT(6)
- #define RK3368_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(6)
- 
-@@ -764,19 +752,17 @@ static const struct rk_gmac_ops rk3368_ops = {
+@@ -752,8 +752,8 @@ static const struct rk_gmac_ops rk3368_ops = {
  #define RK3399_GRF_SOC_CON6	0xc218
  
  /* RK3399_GRF_SOC_CON5 */
--#define RK3399_GMAC_PHY_INTF_SEL_RGMII	(GRF_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_CLR_BIT(11))
--#define RK3399_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(9) | GRF_CLR_BIT(10) | \
--					 GRF_BIT(11))
-+#define RK3399_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
-+#define RK3399_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
+-#define RK3399_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, 1)
+-#define RK3399_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, 4)
++#define RK3399_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
++#define RK3399_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
  #define RK3399_GMAC_FLOW_CTRL		GRF_BIT(8)
  #define RK3399_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
  #define RK3399_GMAC_SPEED_10M		GRF_CLR_BIT(7)
- #define RK3399_GMAC_SPEED_100M		GRF_BIT(7)
- #define RK3399_GMAC_RMII_CLK_25M	GRF_BIT(3)
- #define RK3399_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3399_GMAC_CLK_125M		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5))
--#define RK3399_GMAC_CLK_25M		(GRF_BIT(4) | GRF_BIT(5))
--#define RK3399_GMAC_CLK_2_5M		(GRF_CLR_BIT(4) | GRF_BIT(5))
-+#define RK3399_GMAC_CLK_125M		GRF_FIELD_CONST(5, 4, 0)
-+#define RK3399_GMAC_CLK_25M		GRF_FIELD_CONST(5, 4, 3)
-+#define RK3399_GMAC_CLK_2_5M		GRF_FIELD_CONST(5, 4, 2)
- #define RK3399_GMAC_RMII_MODE		GRF_BIT(6)
- #define RK3399_GMAC_RMII_MODE_CLR	GRF_CLR_BIT(6)
- 
-@@ -916,9 +902,9 @@ static const struct rk_gmac_ops rk3506_ops = {
- #define RK3528_GMAC1_CLK_RMII_DIV2	GRF_BIT(10)
- #define RK3528_GMAC1_CLK_RMII_DIV20	GRF_CLR_BIT(10)
- 
--#define RK3528_GMAC1_CLK_RGMII_DIV1	(GRF_CLR_BIT(11) | GRF_CLR_BIT(10))
--#define RK3528_GMAC1_CLK_RGMII_DIV5	(GRF_BIT(11) | GRF_BIT(10))
--#define RK3528_GMAC1_CLK_RGMII_DIV50	(GRF_BIT(11) | GRF_CLR_BIT(10))
-+#define RK3528_GMAC1_CLK_RGMII_DIV1	GRF_FIELD_CONST(11, 10, 0)
-+#define RK3528_GMAC1_CLK_RGMII_DIV5	GRF_FIELD_CONST(11, 10, 3)
-+#define RK3528_GMAC1_CLK_RGMII_DIV50	GRF_FIELD_CONST(11, 10, 2)
- 
- #define RK3528_GMAC0_CLK_RMII_GATE	GRF_BIT(2)
- #define RK3528_GMAC0_CLK_RMII_NOGATE	GRF_CLR_BIT(2)
-@@ -1029,10 +1015,8 @@ static const struct rk_gmac_ops rk3528_ops = {
+@@ -1015,8 +1015,8 @@ static const struct rk_gmac_ops rk3528_ops = {
  #define RK3568_GRF_GMAC1_CON1		0x038c
  
  /* RK3568_GRF_GMAC0_CON1 && RK3568_GRF_GMAC1_CON1 */
--#define RK3568_GMAC_PHY_INTF_SEL_RGMII	\
--		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
--#define RK3568_GMAC_PHY_INTF_SEL_RMII	\
--		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
-+#define RK3568_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
-+#define RK3568_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define RK3568_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
+-#define RK3568_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define RK3568_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
++#define RK3568_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define RK3568_GMAC_FLOW_CTRL			GRF_BIT(3)
  #define RK3568_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(3)
  #define RK3568_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
-@@ -1112,12 +1096,9 @@ static const struct rk_gmac_ops rk3568_ops = {
- #define RK3576_GMAC_CLK_RMII_DIV2		GRF_BIT(5)
- #define RK3576_GMAC_CLK_RMII_DIV20		GRF_CLR_BIT(5)
- 
--#define RK3576_GMAC_CLK_RGMII_DIV1		\
--			(GRF_CLR_BIT(6) | GRF_CLR_BIT(5))
--#define RK3576_GMAC_CLK_RGMII_DIV5		\
--			(GRF_BIT(6) | GRF_BIT(5))
--#define RK3576_GMAC_CLK_RGMII_DIV50		\
--			(GRF_BIT(6) | GRF_CLR_BIT(5))
-+#define RK3576_GMAC_CLK_RGMII_DIV1		GRF_FIELD_CONST(6, 5, 0)
-+#define RK3576_GMAC_CLK_RGMII_DIV5		GRF_FIELD_CONST(6, 5, 3)
-+#define RK3576_GMAC_CLK_RGMII_DIV50		GRF_FIELD_CONST(6, 5, 2)
- 
- #define RK3576_GMAC_CLK_RMII_GATE		GRF_BIT(4)
- #define RK3576_GMAC_CLK_RMII_NOGATE		GRF_CLR_BIT(4)
-@@ -1228,9 +1209,9 @@ static const struct rk_gmac_ops rk3576_ops = {
+@@ -1209,9 +1209,9 @@ static const struct rk_gmac_ops rk3576_ops = {
  #define RK3588_GRF_CLK_CON1			0X0070
  
  #define RK3588_GMAC_PHY_INTF_SEL_RGMII(id)	\
--	(GRF_BIT(3 + (id) * 6) | GRF_CLR_BIT(4 + (id) * 6) | GRF_CLR_BIT(5 + (id) * 6))
-+	(GRF_FIELD(5, 3, 1) << ((id) * 6))
+-	(GRF_FIELD(5, 3, 1) << ((id) * 6))
++	(GRF_FIELD(5, 3, PHY_INTF_SEL_RGMII) << ((id) * 6))
  #define RK3588_GMAC_PHY_INTF_SEL_RMII(id)	\
--	(GRF_CLR_BIT(3 + (id) * 6) | GRF_CLR_BIT(4 + (id) * 6) | GRF_BIT(5 + (id) * 6))
-+	(GRF_FIELD(5, 3, 4) << ((id) * 6))
+-	(GRF_FIELD(5, 3, 4) << ((id) * 6))
++	(GRF_FIELD(5, 3, PHY_INTF_SEL_RMII) << ((id) * 6))
  
  #define RK3588_GMAC_CLK_RMII_MODE(id)		GRF_BIT(5 * (id))
  #define RK3588_GMAC_CLK_RGMII_MODE(id)		GRF_CLR_BIT(5 * (id))
-@@ -1242,11 +1223,11 @@ static const struct rk_gmac_ops rk3576_ops = {
- #define RK3588_GMA_CLK_RMII_DIV20(id)		GRF_CLR_BIT(5 * (id) + 2)
- 
- #define RK3588_GMAC_CLK_RGMII_DIV1(id)		\
--			(GRF_CLR_BIT(5 * (id) + 2) | GRF_CLR_BIT(5 * (id) + 3))
-+	(GRF_FIELD_CONST(3, 2, 0) << ((id) * 5))
- #define RK3588_GMAC_CLK_RGMII_DIV5(id)		\
--			(GRF_BIT(5 * (id) + 2) | GRF_BIT(5 * (id) + 3))
-+	(GRF_FIELD_CONST(3, 2, 3) << ((id) * 5))
- #define RK3588_GMAC_CLK_RGMII_DIV50(id)		\
--			(GRF_CLR_BIT(5 * (id) + 2) | GRF_BIT(5 * (id) + 3))
-+	(GRF_FIELD_CONST(3, 2, 2) << ((id) * 5))
- 
- #define RK3588_GMAC_CLK_RMII_GATE(id)		GRF_BIT(5 * (id) + 1)
- #define RK3588_GMAC_CLK_RMII_NOGATE(id)		GRF_CLR_BIT(5 * (id) + 1)
-@@ -1347,8 +1328,7 @@ static const struct rk_gmac_ops rk3588_ops = {
+@@ -1328,7 +1328,7 @@ static const struct rk_gmac_ops rk3588_ops = {
  #define RV1108_GRF_GMAC_CON0		0X0900
  
  /* RV1108_GRF_GMAC_CON0 */
--#define RV1108_GMAC_PHY_INTF_SEL_RMII	(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | \
--					GRF_BIT(6))
-+#define RV1108_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define RV1108_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define RV1108_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define RV1108_GMAC_FLOW_CTRL		GRF_BIT(3)
  #define RV1108_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
  #define RV1108_GMAC_SPEED_10M		GRF_CLR_BIT(2)
-@@ -1384,10 +1364,8 @@ static const struct rk_gmac_ops rv1108_ops = {
+@@ -1364,8 +1364,8 @@ static const struct rk_gmac_ops rv1108_ops = {
  #define RV1126_GRF_GMAC_CON2		0X0078
  
  /* RV1126_GRF_GMAC_CON0 */
--#define RV1126_GMAC_PHY_INTF_SEL_RGMII	\
--		(GRF_BIT(4) | GRF_CLR_BIT(5) | GRF_CLR_BIT(6))
--#define RV1126_GMAC_PHY_INTF_SEL_RMII	\
--		(GRF_CLR_BIT(4) | GRF_CLR_BIT(5) | GRF_BIT(6))
-+#define RV1126_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
-+#define RV1126_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
+-#define RV1126_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, 1)
+-#define RV1126_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, 4)
++#define RV1126_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
++#define RV1126_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
  #define RV1126_GMAC_FLOW_CTRL			GRF_BIT(7)
  #define RV1126_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(7)
  #define RV1126_GMAC_M0_RXCLK_DLY_ENABLE		GRF_BIT(1)
