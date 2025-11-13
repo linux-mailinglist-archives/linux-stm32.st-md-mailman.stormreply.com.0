@@ -2,55 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D57C5941C
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Nov 2025 18:47:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7498BC5B9F9
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 07:52:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3790C628D4;
-	Thu, 13 Nov 2025 17:47:01 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30419C628D5;
+	Fri, 14 Nov 2025 06:52:00 +0000 (UTC)
+Received: from mx13.kaspersky-labs.com (mx13.kaspersky-labs.com
+ [91.103.66.164])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC9AFC628B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43B18C628B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Nov 2025 17:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VoZcSse6v2oqb36n7b6znlM7NzMZX9n4I5tTB7KsEck=; b=fWAKNzjSCernVzquo2UB4ly6W+
- 6ENt4joh7HMM1eIT9HrnqmJXKGaNjU/pHGQIru/Wc+LPpzBb+f1FCotFmSAZB8RG/3867Xr2wWECc
- Lu2/AXFWWuvUPYUZmcJkkmlyEb8HUe29q+WhQ48Mj68KNx0JlIoEQtNz5X8iShBbn9wdQWfcxf6Aq
- NMiTPw3vHMv/vphG0Tjzcz9CnwVWW00/6B1V6q+NA3fRj3Fxm2Wy76jBJ+y2v6+uGxuSQHy3EEaC8
- JcWQqvVbzQTmLwejEAvV0JmucZTgw9dooTAWwPGkm9P6mrh8dC4vty5C64Q4n3poEDW6jv68ImyxR
- q+YPrYsg==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:46244 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vJbPI-000000005oQ-0DFx;
- Thu, 13 Nov 2025 17:46:52 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vJbPG-0000000EBqb-2cF2; Thu, 13 Nov 2025 17:46:50 +0000
-In-Reply-To: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
-References: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Thu, 13 Nov 2025 13:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaspersky.com;
+ s=mail202505; t=1763041213;
+ bh=UgaaNIIdEX1iWMXTquk64k8u/ArECzWZoVmNB09qjKs=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=H+aRAHoM0yCJg2E1f+L0rDS80xdkmBtnzkIS4nbOrOtMxDKTojmKDpVOJJkKdF8mv
+ JK8B8BAlsVV0gLijGDCrnF9HAObbUUQUvYADj4PyLKvMUrcpfEnUmbpb5F0SodfzFU
+ 2PfDn24wTRKjVYjWv6LDw325PtpKaSPjnGzoq4WYzr76jj4UgD+IQ1S9I5yyWGE6wU
+ XC8d1/tQsoXeR04rAiQmRnXvBYanmTQfzD6aFYrimGNSG+dXQ9uakpI9fJJX1sXqXO
+ LqgH2IDr63LUtLpDhgJ9GpCLSFppak3a2LLQv32NkcnhTPi4nlGJjzU2qXVZYWhFK3
+ HjOneFW7E8s9w==
+Received: from relay13.kaspersky-labs.com (localhost [127.0.0.1])
+ by relay13.kaspersky-labs.com (Postfix) with ESMTP id 729013E2675;
+ Thu, 13 Nov 2025 16:40:13 +0300 (MSK)
+Received: from mail-hq2.kaspersky.com (unknown [91.103.66.200])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "mail-hq2.kaspersky.com",
+ Issuer "Kaspersky MailRelays CA G3" (verified OK))
+ by mailhub13.kaspersky-labs.com (Postfix) with ESMTPS id B82DC3E4618;
+ Thu, 13 Nov 2025 16:40:10 +0300 (MSK)
+Received: from zhigulin-p.avp.ru (10.16.104.190) by HQMAILSRV2.avp.ru
+ (10.64.57.52) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 13 Nov
+ 2025 16:40:10 +0300
+From: Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+Date: Thu, 13 Nov 2025 16:40:07 +0300
+Message-ID: <20251113134009.79440-1-Pavel.Zhigulin@kaspersky.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vJbPG-0000000EBqb-2cF2@rmk-PC.armlinux.org.uk>
-Date: Thu, 13 Nov 2025 17:46:50 +0000
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: rk: use
-	PHY_INTF_SEL_x in functions
+X-Originating-IP: [10.16.104.190]
+X-ClientProxiedBy: HQMAILSRV3.avp.ru (10.64.57.53) To HQMAILSRV2.avp.ru
+ (10.64.57.52)
+X-KSE-ServerInfo: HQMAILSRV2.avp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 11/13/2025 13:24:51
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 0
+X-KSE-AntiSpam-Info: Lua profiles 198052 [Nov 13 2025]
+X-KSE-AntiSpam-Info: Version: 6.1.1.11
+X-KSE-AntiSpam-Info: Envelope from: Pavel.Zhigulin@kaspersky.com
+X-KSE-AntiSpam-Info: LuaCore: 76 0.3.76
+ 6aad6e32ec76b30ee13ccddeafeaa4d1732eef15
+X-KSE-AntiSpam-Info: {Tracking_cluster_exceptions}
+X-KSE-AntiSpam-Info: {Tracking_real_kaspersky_domains}
+X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: zhigulin-p.avp.ru:7.1.1,5.0.1; kaspersky.com:7.1.1,5.0.1;
+ 127.0.0.199:7.1.2; d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: {Tracking_white_helo}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: Rate: 0
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Deterministic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 11/13/2025 13:26:00
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 11/13/2025 11:57:00 AM
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
+ rules found
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Interceptor-Info: not scanned
+X-KSMG-AntiSpam-Status: not scanned, disabled by settings
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310,
+ bases: 2025/11/13 09:15:00 #27919685
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 52
+X-Mailman-Approved-At: Fri, 14 Nov 2025 06:51:58 +0000
+Cc: Giuseppe CAVALLARO <peppe.cavallaro@st.com>, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, Inochi Amaoto <inochiama@gmail.com>,
+ Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Rayagond Kokatanur <rayagond@vayavyalabs.com>,
+ Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: add clk_prepare_enable()
+	error handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,366 +118,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rather than defining one xxx_GMAC_PHY_INTF_SEL_xxx() for each mode,
-define xxx_GMAC_PHY_INTF_SEL() which takes the phy_intf_sel value.
-Pass the appropriate value into these new macros in the set_to_xxx()
-methods.
+The driver previously ignored the return value of 'clk_prepare_enable()'
+for both the CSR clock and the PCLK in 'stmmac_probe_config_dt()' function.
 
-No change to produced code on aarch64.
+Add 'clk_prepare_enable()' return value checks.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: bfab27a146ed ("stmmac: add the experimental PCI support")
+Signed-off-by: Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 91 +++++++++----------
- 1 file changed, 43 insertions(+), 48 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 49076ee00877..6e75da577af5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -234,14 +234,14 @@ static void rk_gmac_integrated_fephy_powerdown(struct rk_priv_data *priv,
- #define PX30_GRF_GMAC_CON1		0x0904
- 
- /* PX30_GRF_GMAC_CON1 */
--#define PX30_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define PX30_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define PX30_GMAC_SPEED_10M		GRF_CLR_BIT(2)
- #define PX30_GMAC_SPEED_100M		GRF_BIT(2)
- 
- static void px30_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, PX30_GRF_GMAC_CON1,
--		     PX30_GMAC_PHY_INTF_SEL_RMII);
-+		     PX30_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII));
- }
- 
- static int px30_set_speed(struct rk_priv_data *bsp_priv,
-@@ -290,8 +290,7 @@ static const struct rk_gmac_ops px30_ops = {
- #define RK3128_GMAC_CLK_TX_DL_CFG(val) GRF_FIELD(6, 0, val)
- 
- /* RK3128_GRF_MAC_CON1 */
--#define RK3128_GMAC_PHY_INTF_SEL_RGMII GRF_FIELD(8, 6, PHY_INTF_SEL_RGMII)
--#define RK3128_GMAC_PHY_INTF_SEL_RMII  GRF_FIELD(8, 6, PHY_INTF_SEL_RMII)
-+#define RK3128_GMAC_PHY_INTF_SEL(val)  GRF_FIELD(8, 6, val)
- #define RK3128_GMAC_FLOW_CTRL          GRF_BIT(9)
- #define RK3128_GMAC_FLOW_CTRL_CLR      GRF_CLR_BIT(9)
- #define RK3128_GMAC_SPEED_10M          GRF_CLR_BIT(10)
-@@ -308,7 +307,7 @@ static void rk3128_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3128_GRF_MAC_CON1,
--		     RK3128_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3128_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3128_GMAC_RMII_MODE_CLR);
- 	regmap_write(bsp_priv->grf, RK3128_GRF_MAC_CON0,
- 		     DELAY_ENABLE(RK3128, tx_delay, rx_delay) |
-@@ -319,7 +318,8 @@ static void rk3128_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3128_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3128_GRF_MAC_CON1,
--		     RK3128_GMAC_PHY_INTF_SEL_RMII | RK3128_GMAC_RMII_MODE);
-+		     RK3128_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
-+		     RK3128_GMAC_RMII_MODE);
- }
- 
- static const struct rk_reg_speed_data rk3128_reg_speed_data = {
-@@ -353,8 +353,7 @@ static const struct rk_gmac_ops rk3128_ops = {
- #define RK3228_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(6, 0, val)
- 
- /* RK3228_GRF_MAC_CON1 */
--#define RK3228_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
--#define RK3228_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define RK3228_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define RK3228_GMAC_FLOW_CTRL		GRF_BIT(3)
- #define RK3228_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
- #define RK3228_GMAC_SPEED_10M		GRF_CLR_BIT(2)
-@@ -378,7 +377,7 @@ static void rk3228_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3228_GRF_MAC_CON1,
--		     RK3228_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3228_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3228_GMAC_RMII_MODE_CLR |
- 		     DELAY_ENABLE(RK3228, tx_delay, rx_delay));
- 
-@@ -390,7 +389,7 @@ static void rk3228_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3228_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3228_GRF_MAC_CON1,
--		     RK3228_GMAC_PHY_INTF_SEL_RMII |
-+		     RK3228_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
- 		     RK3228_GMAC_RMII_MODE);
- 
- 	/* set MAC to RMII mode */
-@@ -432,8 +431,7 @@ static const struct rk_gmac_ops rk3228_ops = {
- #define RK3288_GRF_SOC_CON3	0x0250
- 
- /*RK3288_GRF_SOC_CON1*/
--#define RK3288_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(8, 6, PHY_INTF_SEL_RGMII)
--#define RK3288_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(8, 6, PHY_INTF_SEL_RMII)
-+#define RK3288_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(8, 6, val)
- #define RK3288_GMAC_FLOW_CTRL		GRF_BIT(9)
- #define RK3288_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(9)
- #define RK3288_GMAC_SPEED_10M		GRF_CLR_BIT(10)
-@@ -458,7 +456,7 @@ static void rk3288_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3288_GRF_SOC_CON1,
--		     RK3288_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3288_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3288_GMAC_RMII_MODE_CLR);
- 	regmap_write(bsp_priv->grf, RK3288_GRF_SOC_CON3,
- 		     DELAY_ENABLE(RK3288, tx_delay, rx_delay) |
-@@ -469,7 +467,8 @@ static void rk3288_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3288_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3288_GRF_SOC_CON1,
--		     RK3288_GMAC_PHY_INTF_SEL_RMII | RK3288_GMAC_RMII_MODE);
-+		     RK3288_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
-+		     RK3288_GMAC_RMII_MODE);
- }
- 
- static const struct rk_reg_speed_data rk3288_reg_speed_data = {
-@@ -496,7 +495,7 @@ static const struct rk_gmac_ops rk3288_ops = {
- #define RK3308_GRF_MAC_CON0		0x04a0
- 
- /* RK3308_GRF_MAC_CON0 */
--#define RK3308_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(4, 2, PHY_INTF_SEL_RMII)
-+#define RK3308_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(4, 2, val)
- #define RK3308_GMAC_FLOW_CTRL		GRF_BIT(3)
- #define RK3308_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
- #define RK3308_GMAC_SPEED_10M		GRF_CLR_BIT(0)
-@@ -505,7 +504,7 @@ static const struct rk_gmac_ops rk3288_ops = {
- static void rk3308_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3308_GRF_MAC_CON0,
--		     RK3308_GMAC_PHY_INTF_SEL_RMII);
-+		     RK3308_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII));
- }
- 
- static const struct rk_reg_speed_data rk3308_reg_speed_data = {
-@@ -535,8 +534,7 @@ static const struct rk_gmac_ops rk3308_ops = {
- #define RK3328_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(6, 0, val)
- 
- /* RK3328_GRF_MAC_CON1 */
--#define RK3328_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
--#define RK3328_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define RK3328_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define RK3328_GMAC_FLOW_CTRL		GRF_BIT(3)
- #define RK3328_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
- #define RK3328_GMAC_SPEED_10M		GRF_CLR_BIT(2)
-@@ -558,7 +556,7 @@ static void rk3328_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3328_GRF_MAC_CON1,
--		     RK3328_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3328_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3328_GMAC_RMII_MODE_CLR |
- 		     RK3328_GMAC_RXCLK_DLY_ENABLE |
- 		     RK3328_GMAC_TXCLK_DLY_ENABLE);
-@@ -576,7 +574,7 @@ static void rk3328_set_to_rmii(struct rk_priv_data *bsp_priv)
- 		  RK3328_GRF_MAC_CON1;
- 
- 	regmap_write(bsp_priv->grf, reg,
--		     RK3328_GMAC_PHY_INTF_SEL_RMII |
-+		     RK3328_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
- 		     RK3328_GMAC_RMII_MODE);
- }
- 
-@@ -622,8 +620,7 @@ static const struct rk_gmac_ops rk3328_ops = {
- #define RK3366_GRF_SOC_CON7	0x041c
- 
- /* RK3366_GRF_SOC_CON6 */
--#define RK3366_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
--#define RK3366_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
-+#define RK3366_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(11, 9, val)
- #define RK3366_GMAC_FLOW_CTRL		GRF_BIT(8)
- #define RK3366_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
- #define RK3366_GMAC_SPEED_10M		GRF_CLR_BIT(7)
-@@ -648,7 +645,7 @@ static void rk3366_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3366_GRF_SOC_CON6,
--		     RK3366_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3366_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3366_GMAC_RMII_MODE_CLR);
- 	regmap_write(bsp_priv->grf, RK3366_GRF_SOC_CON7,
- 		     DELAY_ENABLE(RK3366, tx_delay, rx_delay) |
-@@ -659,7 +656,8 @@ static void rk3366_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3366_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3366_GRF_SOC_CON6,
--		     RK3366_GMAC_PHY_INTF_SEL_RMII | RK3366_GMAC_RMII_MODE);
-+		     RK3366_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
-+		     RK3366_GMAC_RMII_MODE);
- }
- 
- static const struct rk_reg_speed_data rk3366_reg_speed_data = {
-@@ -687,8 +685,7 @@ static const struct rk_gmac_ops rk3366_ops = {
- #define RK3368_GRF_SOC_CON16	0x0440
- 
- /* RK3368_GRF_SOC_CON15 */
--#define RK3368_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
--#define RK3368_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
-+#define RK3368_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(11, 9, val)
- #define RK3368_GMAC_FLOW_CTRL		GRF_BIT(8)
- #define RK3368_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
- #define RK3368_GMAC_SPEED_10M		GRF_CLR_BIT(7)
-@@ -713,7 +710,7 @@ static void rk3368_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3368_GRF_SOC_CON15,
--		     RK3368_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3368_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3368_GMAC_RMII_MODE_CLR);
- 	regmap_write(bsp_priv->grf, RK3368_GRF_SOC_CON16,
- 		     DELAY_ENABLE(RK3368, tx_delay, rx_delay) |
-@@ -724,7 +721,8 @@ static void rk3368_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3368_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3368_GRF_SOC_CON15,
--		     RK3368_GMAC_PHY_INTF_SEL_RMII | RK3368_GMAC_RMII_MODE);
-+		     RK3368_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
-+		     RK3368_GMAC_RMII_MODE);
- }
- 
- static const struct rk_reg_speed_data rk3368_reg_speed_data = {
-@@ -752,8 +750,7 @@ static const struct rk_gmac_ops rk3368_ops = {
- #define RK3399_GRF_SOC_CON6	0xc218
- 
- /* RK3399_GRF_SOC_CON5 */
--#define RK3399_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RGMII)
--#define RK3399_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(11, 9, PHY_INTF_SEL_RMII)
-+#define RK3399_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(11, 9, val)
- #define RK3399_GMAC_FLOW_CTRL		GRF_BIT(8)
- #define RK3399_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
- #define RK3399_GMAC_SPEED_10M		GRF_CLR_BIT(7)
-@@ -778,7 +775,7 @@ static void rk3399_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RK3399_GRF_SOC_CON5,
--		     RK3399_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3399_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3399_GMAC_RMII_MODE_CLR);
- 	regmap_write(bsp_priv->grf, RK3399_GRF_SOC_CON6,
- 		     DELAY_ENABLE(RK3399, tx_delay, rx_delay) |
-@@ -789,7 +786,8 @@ static void rk3399_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3399_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RK3399_GRF_SOC_CON5,
--		     RK3399_GMAC_PHY_INTF_SEL_RMII | RK3399_GMAC_RMII_MODE);
-+		     RK3399_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII) |
-+		     RK3399_GMAC_RMII_MODE);
- }
- 
- static const struct rk_reg_speed_data rk3399_reg_speed_data = {
-@@ -1015,8 +1013,7 @@ static const struct rk_gmac_ops rk3528_ops = {
- #define RK3568_GRF_GMAC1_CON1		0x038c
- 
- /* RK3568_GRF_GMAC0_CON1 && RK3568_GRF_GMAC1_CON1 */
--#define RK3568_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
--#define RK3568_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define RK3568_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define RK3568_GMAC_FLOW_CTRL			GRF_BIT(3)
- #define RK3568_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(3)
- #define RK3568_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
-@@ -1043,7 +1040,7 @@ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
- 
- 	regmap_write(bsp_priv->grf, con1,
--		     RK3568_GMAC_PHY_INTF_SEL_RGMII |
-+		     RK3568_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RK3568_GMAC_RXCLK_DLY_ENABLE |
- 		     RK3568_GMAC_TXCLK_DLY_ENABLE);
- }
-@@ -1054,7 +1051,8 @@ static void rk3568_set_to_rmii(struct rk_priv_data *bsp_priv)
- 
- 	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
- 				     RK3568_GRF_GMAC0_CON1;
--	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_PHY_INTF_SEL_RMII);
-+	regmap_write(bsp_priv->grf, con1,
-+		     RK3568_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII));
- }
- 
- static const struct rk_gmac_ops rk3568_ops = {
-@@ -1208,10 +1206,8 @@ static const struct rk_gmac_ops rk3576_ops = {
- #define RK3588_GRF_GMAC_CON0			0X0008
- #define RK3588_GRF_CLK_CON1			0X0070
- 
--#define RK3588_GMAC_PHY_INTF_SEL_RGMII(id)	\
--	(GRF_FIELD(5, 3, PHY_INTF_SEL_RGMII) << ((id) * 6))
--#define RK3588_GMAC_PHY_INTF_SEL_RMII(id)	\
--	(GRF_FIELD(5, 3, PHY_INTF_SEL_RMII) << ((id) * 6))
-+#define RK3588_GMAC_PHY_INTF_SEL(id, val)	\
-+	(GRF_FIELD(5, 3, val) << ((id) * 6))
- 
- #define RK3588_GMAC_CLK_RMII_MODE(id)		GRF_BIT(5 * (id))
- #define RK3588_GMAC_CLK_RGMII_MODE(id)		GRF_CLR_BIT(5 * (id))
-@@ -1241,7 +1237,7 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 					 RK3588_GRF_GMAC_CON8;
- 
- 	regmap_write(bsp_priv->php_grf, RK3588_GRF_GMAC_CON0,
--		     RK3588_GMAC_PHY_INTF_SEL_RGMII(id));
-+		     RK3588_GMAC_PHY_INTF_SEL(id, PHY_INTF_SEL_RGMII));
- 
- 	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
- 		     RK3588_GMAC_CLK_RGMII_MODE(id));
-@@ -1258,7 +1254,7 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rk3588_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->php_grf, RK3588_GRF_GMAC_CON0,
--		     RK3588_GMAC_PHY_INTF_SEL_RMII(bsp_priv->id));
-+		     RK3588_GMAC_PHY_INTF_SEL(bsp_priv->id, PHY_INTF_SEL_RMII));
- 
- 	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
- 		     RK3588_GMAC_CLK_RMII_MODE(bsp_priv->id));
-@@ -1328,7 +1324,7 @@ static const struct rk_gmac_ops rk3588_ops = {
- #define RV1108_GRF_GMAC_CON0		0X0900
- 
- /* RV1108_GRF_GMAC_CON0 */
--#define RV1108_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define RV1108_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define RV1108_GMAC_FLOW_CTRL		GRF_BIT(3)
- #define RV1108_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
- #define RV1108_GMAC_SPEED_10M		GRF_CLR_BIT(2)
-@@ -1339,7 +1335,7 @@ static const struct rk_gmac_ops rk3588_ops = {
- static void rv1108_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RV1108_GRF_GMAC_CON0,
--		     RV1108_GMAC_PHY_INTF_SEL_RMII);
-+		     RV1108_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII));
- }
- 
- static const struct rk_reg_speed_data rv1108_reg_speed_data = {
-@@ -1364,8 +1360,7 @@ static const struct rk_gmac_ops rv1108_ops = {
- #define RV1126_GRF_GMAC_CON2		0X0078
- 
- /* RV1126_GRF_GMAC_CON0 */
--#define RV1126_GMAC_PHY_INTF_SEL_RGMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RGMII)
--#define RV1126_GMAC_PHY_INTF_SEL_RMII	GRF_FIELD(6, 4, PHY_INTF_SEL_RMII)
-+#define RV1126_GMAC_PHY_INTF_SEL(val)	GRF_FIELD(6, 4, val)
- #define RV1126_GMAC_FLOW_CTRL			GRF_BIT(7)
- #define RV1126_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(7)
- #define RV1126_GMAC_M0_RXCLK_DLY_ENABLE		GRF_BIT(1)
-@@ -1388,7 +1383,7 @@ static void rv1126_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
- 	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
--		     RV1126_GMAC_PHY_INTF_SEL_RGMII |
-+		     RV1126_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RGMII) |
- 		     RV1126_GMAC_M0_RXCLK_DLY_ENABLE |
- 		     RV1126_GMAC_M0_TXCLK_DLY_ENABLE |
- 		     RV1126_GMAC_M1_RXCLK_DLY_ENABLE |
-@@ -1406,7 +1401,7 @@ static void rv1126_set_to_rgmii(struct rk_priv_data *bsp_priv,
- static void rv1126_set_to_rmii(struct rk_priv_data *bsp_priv)
- {
- 	regmap_write(bsp_priv->grf, RV1126_GRF_GMAC_CON0,
--		     RV1126_GMAC_PHY_INTF_SEL_RMII);
-+		     RV1126_GMAC_PHY_INTF_SEL(PHY_INTF_SEL_RMII));
- }
- 
- static const struct rk_gmac_ops rv1126_ops = {
--- 
-2.47.3
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 27bcaae07a7f..042d542b9c65 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -632,7 +632,9 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
+ 			plat->stmmac_clk = NULL;
+ 		}
+-		clk_prepare_enable(plat->stmmac_clk);
++		rc = clk_prepare_enable(plat->stmmac_clk);
++		if (rc < 0)
++			dev_warn(&pdev->dev, "Cannot enable CSR clock: %d\n", rc);
+ 	}
+
+ 	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
+@@ -640,7 +642,11 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 		ret = plat->pclk;
+ 		goto error_pclk_get;
+ 	}
+-	clk_prepare_enable(plat->pclk);
++	rc = clk_prepare_enable(plat->pclk);
++	if (rc < 0) {
++		dev_err(&pdev->dev, "Cannot enable pclk: %d\n", rc);
++		goto error_pclk_get;
++	}
+
+ 	/* Fall-back to main clock in case of no PTP ref is passed */
+ 	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
+--
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
