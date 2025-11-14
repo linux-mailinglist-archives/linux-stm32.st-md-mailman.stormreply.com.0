@@ -2,106 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7498BC5B9F9
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 07:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91E35C5ACAF
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 01:38:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30419C628D5;
-	Fri, 14 Nov 2025 06:52:00 +0000 (UTC)
-Received: from mx13.kaspersky-labs.com (mx13.kaspersky-labs.com
- [91.103.66.164])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4420FC628B7;
+	Fri, 14 Nov 2025 00:38:35 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43B18C628B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CA6AC1A977
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Nov 2025 13:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaspersky.com;
- s=mail202505; t=1763041213;
- bh=UgaaNIIdEX1iWMXTquk64k8u/ArECzWZoVmNB09qjKs=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=H+aRAHoM0yCJg2E1f+L0rDS80xdkmBtnzkIS4nbOrOtMxDKTojmKDpVOJJkKdF8mv
- JK8B8BAlsVV0gLijGDCrnF9HAObbUUQUvYADj4PyLKvMUrcpfEnUmbpb5F0SodfzFU
- 2PfDn24wTRKjVYjWv6LDw325PtpKaSPjnGzoq4WYzr76jj4UgD+IQ1S9I5yyWGE6wU
- XC8d1/tQsoXeR04rAiQmRnXvBYanmTQfzD6aFYrimGNSG+dXQ9uakpI9fJJX1sXqXO
- LqgH2IDr63LUtLpDhgJ9GpCLSFppak3a2LLQv32NkcnhTPi4nlGJjzU2qXVZYWhFK3
- HjOneFW7E8s9w==
-Received: from relay13.kaspersky-labs.com (localhost [127.0.0.1])
- by relay13.kaspersky-labs.com (Postfix) with ESMTP id 729013E2675;
- Thu, 13 Nov 2025 16:40:13 +0300 (MSK)
-Received: from mail-hq2.kaspersky.com (unknown [91.103.66.200])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "mail-hq2.kaspersky.com",
- Issuer "Kaspersky MailRelays CA G3" (verified OK))
- by mailhub13.kaspersky-labs.com (Postfix) with ESMTPS id B82DC3E4618;
- Thu, 13 Nov 2025 16:40:10 +0300 (MSK)
-Received: from zhigulin-p.avp.ru (10.16.104.190) by HQMAILSRV2.avp.ru
- (10.64.57.52) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 13 Nov
- 2025 16:40:10 +0300
-From: Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-Date: Thu, 13 Nov 2025 16:40:07 +0300
-Message-ID: <20251113134009.79440-1-Pavel.Zhigulin@kaspersky.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-X-Originating-IP: [10.16.104.190]
-X-ClientProxiedBy: HQMAILSRV3.avp.ru (10.64.57.53) To HQMAILSRV2.avp.ru
- (10.64.57.52)
-X-KSE-ServerInfo: HQMAILSRV2.avp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 11/13/2025 13:24:51
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 198052 [Nov 13 2025]
-X-KSE-AntiSpam-Info: Version: 6.1.1.11
-X-KSE-AntiSpam-Info: Envelope from: Pavel.Zhigulin@kaspersky.com
-X-KSE-AntiSpam-Info: LuaCore: 76 0.3.76
- 6aad6e32ec76b30ee13ccddeafeaa4d1732eef15
-X-KSE-AntiSpam-Info: {Tracking_cluster_exceptions}
-X-KSE-AntiSpam-Info: {Tracking_real_kaspersky_domains}
-X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: zhigulin-p.avp.ru:7.1.1,5.0.1; kaspersky.com:7.1.1,5.0.1;
- 127.0.0.199:7.1.2; d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: {Tracking_white_helo}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 11/13/2025 13:26:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 11/13/2025 11:57:00 AM
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Interceptor-Info: not scanned
-X-KSMG-AntiSpam-Status: not scanned, disabled by settings
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310,
- bases: 2025/11/13 09:15:00 #27919685
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 52
-X-Mailman-Approved-At: Fri, 14 Nov 2025 06:51:58 +0000
-Cc: Giuseppe CAVALLARO <peppe.cavallaro@st.com>, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, Inochi Amaoto <inochiama@gmail.com>,
- Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Rayagond Kokatanur <rayagond@vayavyalabs.com>,
- Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+ Fri, 14 Nov 2025 00:38:34 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-7ba55660769so312896b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Nov 2025 16:38:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1763080713; x=1763685513;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FVPzw5zfoDTWTXFnR/h7NqjV1cTezTe2Ib/OrTkeKgU=;
+ b=NBfIiaFyxkVwFSjj0/h6KIH9fgQm+9wz0p5wdqaqK7UPMzqboLj/SJTCkpzV/nCrPN
+ WBt6g/8hieLdCM3CKrJI2uHKUSsDDaKVHSoeS4HN+GQ4LrTFcNLa3tUp1XoRJF2vAsUM
+ z16d3zLRngroX0XLCvfIwSdW0VRp7JNzPfVjuAAw8R4znlR4h524oT3lpmGohljCssyX
+ graJWe5kDmS5dB6dE7Zprftg1o5+GKAzugdlM4u67WcaXrm1kGIm8MCDOtx2F+g6T5LZ
+ 7bI0LJSpWwJ2PqJGDrCICL/s7+qDHb6m1jUTubF9iG9KXFuE0km27iPysyg7LQZgemQr
+ Qi5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763080713; x=1763685513;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FVPzw5zfoDTWTXFnR/h7NqjV1cTezTe2Ib/OrTkeKgU=;
+ b=mHeyp592QwQoPuJNbiPQlDggm3Wp8igsA0VEphRj0S/gh4YiwAOiK8lMqxNGTC2yZC
+ 7YgasRToW1u86CiMwbAZnUKM2xYuhgqRLZ4s79DbsqgJsX45KNDzJM+zwjU5aKJ1uhC4
+ ctDVXrJxCBvERgUz0NAptLlke+WaPwGY5xHXbnmqbe2fCVSeaDdVlYHkKtO9kB8MWdgw
+ MVYKL5iCYPti781kJDnnc63SoP0IlmszjBrMgcTQvKgkvr1Gu9ma8NDXBdr4m37xYriH
+ MzK9XlP6njSWMj6JdUPeAPcPRanPHtM2HibOs2CSktvuJgCRxu6VwyzeU6rT1kENTxt7
+ vjGg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWJxDKF0o9KkKZEAL/5A76tC4dY23NN8PjWgdi7bBe40tKaHj3acwEJuqMPNfNT+PYyry9HIFZ8+yn9kg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzRIl5ndbfJ051/lKh32rsOQDIKDLWZnV8z3WLgEXNCfBs1uEIB
+ h9zeLCAASTzZRkFZ64En6xLbMAeC6LyEHQfe+JiW4S6E9qzXGM2VuNZ3
+X-Gm-Gg: ASbGncvL4zYneIW45Z1ftX8yMMom9DHJ0yCV0aoloaphUDoueDsUN8oW03LkfNIyC3s
+ 8DhqdKeA27Y7Xympb/HEAal8VdvhcbN0gloifqiMthDL0ouEJWkbR+QeG+pN1/iVG6VSdGF7Ufa
+ OdB0yYSMrA2AInYhK+8C+7tDSKhKF6mkX7OAKmh0k3JC/rlLsGgBRi53iHrAJphvI2tiuSAE6Tq
+ C8PZB+mjWs3p5n/wXvzPs34iqZa+SPZgoC1w3dEC57X3DPffi9axumYUBx49JAoT+1+IMv+7rlx
+ BTv6qMIVWIIKOHmzihHyJolS8Uwg/dFpWzzeqt6oC+21TLxuVta1RiIAFHFdojOoDp3HKHNssOZ
+ eOITV6foF8PJy23kf/D5d+alaPnZBQ/v0Fn2hgyMxESzJC4AtD9P8KOJHex58af2tezXg4tDzvK
+ A=
+X-Google-Smtp-Source: AGHT+IFMN4Id0VDWD4vgNY5yrLAnESY2doxKYngxGOLEfNZ2u1GtM7J0GBLB9kpY4AWTmMpVtXfBvw==
+X-Received: by 2002:a05:7022:6284:b0:119:e56b:91ed with SMTP id
+ a92af1059eb24-11b412096e8mr571996c88.30.1763080712752; 
+ Thu, 13 Nov 2025 16:38:32 -0800 (PST)
+Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-11b060885c0sm3384978c88.3.2025.11.13.16.38.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Nov 2025 16:38:32 -0800 (PST)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <ziyao@disroot.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <unicorn_wang@outlook.com>,
+ Inochi Amaoto <inochiama@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Quentin Schulz <quentin.schulz@cherry.de>, Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: add clk_prepare_enable()
-	error handling
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Date: Fri, 14 Nov 2025 08:38:02 +0800
+Message-ID: <20251114003805.494387-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.51.2
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, sophgo@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v8 0/3] net: stmmac: dwmac-sophgo: Add phy
+	interface filter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,49 +103,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The driver previously ignored the return value of 'clk_prepare_enable()'
-for both the CSR clock and the PCLK in 'stmmac_probe_config_dt()' function.
+As the SG2042 has an internal rx delay, the delay should be remove
+when init the mac, otherwise the phy will be misconfigurated.
 
-Add 'clk_prepare_enable()' return value checks.
+Since this delay fix is common for other MACs, add a common helper
+for it. And use it to fix SG2042.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Change from v7:
+- https://lore.kernel.org/all/20251107111715.3196746-1-inochiama@gmail.com
+1. patch 1: fix a mistake that using rgmii-txid instead of rgmii-rxid
+            for SG2042
 
-Fixes: bfab27a146ed ("stmmac: add the experimental PCI support")
-Signed-off-by: Pavel Zhigulin <Pavel.Zhigulin@kaspersky.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Change from v6:
+- https://lore.kernel.org/all/20251103030526.1092365-1-inochiama@gmail.com
+1. patch 2: fixed kdoc warning
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 27bcaae07a7f..042d542b9c65 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -632,7 +632,9 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
- 			plat->stmmac_clk = NULL;
- 		}
--		clk_prepare_enable(plat->stmmac_clk);
-+		rc = clk_prepare_enable(plat->stmmac_clk);
-+		if (rc < 0)
-+			dev_warn(&pdev->dev, "Cannot enable CSR clock: %d\n", rc);
- 	}
+Change from v5:
+- https://lore.kernel.org/all/20251031012428.488184-1-inochiama@gmail.com
+1. patch 1: remove duplicate empty line
 
- 	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
-@@ -640,7 +642,11 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 		ret = plat->pclk;
- 		goto error_pclk_get;
- 	}
--	clk_prepare_enable(plat->pclk);
-+	rc = clk_prepare_enable(plat->pclk);
-+	if (rc < 0) {
-+		dev_err(&pdev->dev, "Cannot enable pclk: %d\n", rc);
-+		goto error_pclk_get;
-+	}
+Change from v4:
+- https://lore.kernel.org/all/20251028003858.267040-1-inochiama@gmail.com
+1. patch 3: add const qualifier to struct sg2042_dwmac_data
 
- 	/* Fall-back to main clock in case of no PTP ref is passed */
- 	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
+Change from v3:
+- https://lore.kernel.org/all/20251024015524.291013-1-inochiama@gmail.com
+1. patch 1: fix binding check error
+
+Change from v2:
+- https://lore.kernel.org/all/20251020095500.1330057-1-inochiama@gmail.com
+1. patch 3: fix comment typo
+2. patch 3: add check for PHY_INTERFACE_MODE_NA.
+
+Change from v1:
+- https://lore.kernel.org/all/20251017011802.523140-1-inochiama@gmail.com
+1. Add phy-mode property to dt-bindings of sophgo,sg2044-dwmac
+2. Add common helper for fixing RGMII phy mode
+3. Use struct to hold the compatiable data.
+
+Inochi Amaoto (3):
+  dt-bindings: net: sophgo,sg2044-dwmac: add phy mode restriction
+  net: phy: Add helper for fixing RGMII PHY mode based on internal mac
+    delay
+  net: stmmac: dwmac-sophgo: Add phy interface filter
+
+ .../bindings/net/sophgo,sg2044-dwmac.yaml     | 19 ++++++++
+ .../ethernet/stmicro/stmmac/dwmac-sophgo.c    | 20 ++++++++-
+ drivers/net/phy/phy-core.c                    | 43 +++++++++++++++++++
+ include/linux/phy.h                           |  3 ++
+ 4 files changed, 84 insertions(+), 1 deletion(-)
+
 --
-2.43.0
+2.51.2
 
 _______________________________________________
 Linux-stm32 mailing list
