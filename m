@@ -2,41 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF24C5E118
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 17:04:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17295C5E11B
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 17:04:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFCB8C628DA;
-	Fri, 14 Nov 2025 16:04:31 +0000 (UTC)
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com
- [95.215.58.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8353C628DD;
+	Fri, 14 Nov 2025 16:04:32 +0000 (UTC)
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com
+ [95.215.58.189])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CB33C628D9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9FB3C628DB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Nov 2025 16:04:30 +0000 (UTC)
+ Fri, 14 Nov 2025 16:04:31 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1763136269;
+ t=1763136271;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=QZlnloDVP5vmwxiC7EMfXur1lHp1LWIvnS5y5fvEpOE=;
- b=bIA4w7bzP88K201RhO5wgzEJc4E+yc81fX+/ClZ34zg3Ee855ptxF7vsJXwi4Xffp52W0k
- 3QD6nUyZBUOEdTiszymEMGmkm9nduLAmgLiAjr0CMakO0Ro4xBhgDd4Jxta9gZusRXO7SM
- D6MwQBNdufxYJ11gBziSzddjs0Nlakg=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rvFgK6FEHqB5imV1GEiicuipGjQZKEOacLlkDJLiHJQ=;
+ b=DxCt/7Ow2uwmuMRtMwG5hyOiaMpLhJfspeTu/qVHeeoHOwfHwEmBl+ugMuCifunsRS2Fs+
+ FoYLsQePkzLgGJzFs1tmHTb4ha0xG5EDek6v03wPjOXAm3kOsG14sN+rx3QS8uda8wG8Bb
+ BzbOVF3i87KmacduttrlNxtVdczF5mc=
 From: Thorsten Blum <thorsten.blum@linux.dev>
 To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 14 Nov 2025 17:04:14 +0100
-Message-ID: <20251114160416.230513-1-thorsten.blum@linux.dev>
+Date: Fri, 14 Nov 2025 17:04:15 +0100
+Message-ID: <20251114160416.230513-2-thorsten.blum@linux.dev>
+In-Reply-To: <20251114160416.230513-1-thorsten.blum@linux.dev>
+References: <20251114160416.230513-1-thorsten.blum@linux.dev>
 MIME-Version: 1.0
 X-Migadu-Flow: FLOW_OUT
 Cc: linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@linux.dev>,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH RESEND 1/2] stm class: Replace kmalloc +
-	copy_from_user with memdup_user
+Subject: [Linux-stm32] [PATCH RESEND 2/2] stm class: Replace kzalloc +
+	copy_from_user with memdup_user_nul
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,40 +56,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace kmalloc() followed by copy_from_user() with memdup_user() to
-simplify and improve stm_char_write().
-
-Allocate and copy only 'count' bytes instead of 'count + 1' since the
-extra byte is unused.
+Replace kzalloc() followed by copy_from_user() with memdup_user_nul() to
+simplify and improve stm_char_policy_set_ioctl(). Remove the obsolete
+comment.
 
 Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- drivers/hwtracing/stm/core.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/hwtracing/stm/core.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index cdba4e875b28..5834f796e86b 100644
+index 5834f796e86b..335bcf749214 100644
 --- a/drivers/hwtracing/stm/core.c
 +++ b/drivers/hwtracing/stm/core.c
-@@ -645,15 +645,9 @@ static ssize_t stm_char_write(struct file *file, const char __user *buf,
- 			return err;
- 	}
+@@ -733,18 +733,9 @@ static int stm_char_policy_set_ioctl(struct stm_file *stmf, void __user *arg)
+ 	if (size < sizeof(*id) || size >= PATH_MAX + sizeof(*id))
+ 		return -EINVAL;
  
--	kbuf = kmalloc(count + 1, GFP_KERNEL);
--	if (!kbuf)
+-	/*
+-	 * size + 1 to make sure the .id string at the bottom is terminated,
+-	 * which is also why memdup_user() is not useful here
+-	 */
+-	id = kzalloc(size + 1, GFP_KERNEL);
+-	if (!id)
 -		return -ENOMEM;
 -
--	err = copy_from_user(kbuf, buf, count);
--	if (err) {
--		kfree(kbuf);
--		return -EFAULT;
+-	if (copy_from_user(id, arg, size)) {
+-		ret = -EFAULT;
+-		goto err_free;
 -	}
-+	kbuf = memdup_user(buf, count);
-+	if (IS_ERR(kbuf))
-+		return PTR_ERR(kbuf);
++	id = memdup_user_nul(arg, size);
++	if (IS_ERR(id))
++		return PTR_ERR(id);
  
- 	pm_runtime_get_sync(&stm->dev);
- 
+ 	if (id->__reserved_0 || id->__reserved_1)
+ 		goto err_free;
 -- 
 2.51.1
 
