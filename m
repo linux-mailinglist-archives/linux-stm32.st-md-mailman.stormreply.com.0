@@ -2,55 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E92C5F620
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Nov 2025 22:35:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D61C5FEAC
+	for <lists+linux-stm32@lfdr.de>; Sat, 15 Nov 2025 03:40:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90EC3C58D7A;
-	Fri, 14 Nov 2025 21:35:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0647C58D7A;
+	Sat, 15 Nov 2025 02:40:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22350C58D79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9725C58D79
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Nov 2025 21:35:43 +0000 (UTC)
+ Sat, 15 Nov 2025 02:40:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B06F043D42;
- Fri, 14 Nov 2025 21:35:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615DFC4CEF1;
- Fri, 14 Nov 2025 21:35:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E525860007;
+ Sat, 15 Nov 2025 02:40:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95060C4CEF1;
+ Sat, 15 Nov 2025 02:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763156141;
- bh=7+gBsjbSf8GGUjKAhjC9BjsZi2tNC9506bmmv93MuO0=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=aa7dTlg+g4JoT9xX34DucEx0Z+AdddJdQXp3TRuzjqjFnyE4M4YPv4U6sDfQ8DaOS
- mPBVLXkF4VNf1JKgb8ADAeETueV3PJuPCTVdDGIhEXCXM1PwjsP27s9Ci5IOrzqkYv
- QNty5UnzGGK89TrFyWlCmjZpuq+Xin2YSIi/lXHdnA9eeuWV9SdXJNdeT5Gd9MbDSD
- qQoW2iBN0NyKRzBoShc+ZNsj7izl4YfPU9R/fBWkVqcSeIjdO1QwhmDaN0RU5HfRmX
- w0ATx4bBEOKtQgV6jE7HEhbXWn/qdxhmwbtQmFfMGvsib42qjUfT7N+Fiz5O4sW2ww
- u7ueHayrsqO9g==
-Date: Fri, 14 Nov 2025 15:35:40 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <20251114213540.GA2335845@bhelgaas>
+ s=k20201202; t=1763174443;
+ bh=FsDd8OSRS1boKHVWER5PG2YUTZRXls0/bADOA6JY/pU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=JcMTQWxzJFH3zV8FtzNtiE+MXJ1ME/2xY9p13ILTSIxmpCrtP/mTB2/EoQ8rQTNyO
+ 8HAEEFb/3lRkkLfo69tKXVBt2fPVtQf3FUdQKOQoHshkYVPfLwPyrTiYH9pIqzOoZw
+ 2GoNgSSXuuR6cZKqTsa4XqRr0OfQF8Q9me1LuoTeobgFnK5NG9lHUje8qZMyZqhkwv
+ TzEwmaaXqYeMcWyG3SUSwePS3UbWDZFPwBszJuHCUJr55TWW4ky9MeM1nnz1tUeai8
+ afSiU0jeB0pm0spKensp0YkzN2mFjqbJvanuyoPC04HREhGSrByF6IOKpVUZ/BiLPF
+ FNw8jEVewMYzA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33E203A78A62; Sat, 15 Nov 2025 02:40:13 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b945e463-52ec-417c-8e6a-599c35a6727d@foss.st.com>
-Cc: imx@lists.linux.dev, s32@nxp.com, linux-pci@vger.kernel.org,
- lpieralisi@kernel.org, Frank.li@nxp.com, cassel@kernel.org,
- ghennadi.procopciuc@oss.nxp.com, linux-stm32@st-md-mailman.stormreply.com,
- kwilczynski@kernel.org, robh@kernel.org,
- Vincent Guittot <vincent.guittot@linaro.org>, larisa.grigore@nxp.com,
- Ionut.Vicovan@nxp.com, Mingkai Hu <mingkai.hu@nxp.com>, bogdan.hamciuc@nxp.com,
- Ghennadi.Procopciuc@nxp.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- Richard Zhu <hongxing.zhu@nxp.com>, Manivannan Sadhasivam <mani@kernel.org>,
- ciprianmarian.costea@nxp.com, bhelgaas@google.com,
- linux-arm-kernel@lists.infradead.org, chester62515@gmail.com,
- Roy Zang <roy.zang@nxp.com>, mbrugger@suse.com,
- Minghuan Lian <minghuan.Lian@nxp.com>, jingoohan1@gmail.com,
- linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH 3/4 v3] PCI: s32g: Add initial PCIe
-	support (RC)
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176317441200.1916016.12907239609584301623.git-patchwork-notify@kernel.org>
+Date: Sat, 15 Nov 2025 02:40:12 +0000
+References: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
+In-Reply-To: <aRYZaKTIvfYoV3wE@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/4] net: stmmac: rk: use
+	PHY_INTF_SEL_x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,76 +61,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 14, 2025 at 11:05:45AM +0100, Christian Bruel wrote:
-> > > The implication is that *every* user of dw_pcie_suspend_noirq() would
-> > > have to check for the link being up.  There are only three existing
-> > > callers:
-> > > 
-> > >    imx_pcie_suspend_noirq()
-> > >    ls_pcie_suspend_noirq()
-> > >    stm32_pcie_suspend_noirq()
-> > > 
-> > > but none of them checks for the link being up.
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 13 Nov 2025 17:46:16 +0000 you wrote:
+> This series is a minimal conversion of the dwmac-rk huge driver to use
+> PHY_INTF_SEL_x constants.
 > 
-> stm32 supports L1.1, so we bail out before pme_turn_off() in
-> dw_pcie_suspend_noirq()
-
-I think you're referring to this code::
-
-  dw_pcie_suspend_noirq()
-  {
-        /*
-         * If L1SS is supported, then do not put the link into L2 as some
-         * devices such as NVMe expect low resume latency.
-         */
-        if (dw_pcie_readw_dbi(pci, offset + PCI_EXP_LNKCTL) & PCI_EXP_LNKCTL_ASPM_L1)
-                return 0;
-
-        if (pci->pp.ops->pme_turn_off) {
-                pci->pp.ops->pme_turn_off(&pci->pp);
-        } else {
-                ret = dw_pcie_pme_turn_off(pci);
-                if (ret)
-                        return ret;
-        }
-
-I think this is bogus.  For starters, the code doesn't match the
-comment.  The comment talks about "L1SS being supported", but the code
-checks for L1 (not L1SS).  And it checks whether L1 is *enabled* (in
-Link Control), not whether it's *supported* (in Link Capabilities).
-
-And it's up to the user whether L1 is enabled.  Users can disable L1
-by building the kernel with PCIEASPM_PERFORMANCE, booting with
-"pcie_aspm.policy=performance", or using sysfs.
-
-It doesn't make sense to me to decide anything about PME_Turn_Off
-based on PCI_EXP_LNKCTL_ASPM_L1.
-
-We've had this conversation before, e.g.,
-https://lore.kernel.org/linux-pci/?q=b%3Adw_pcie_suspend_noirq+b%3ANVMe+f%3Ahelgaas,
-and Richard actually posted a patch to remove this code [2], but I
-hesitated because I didn't think we had a good explanation for why it
-was there in the first place and it was now OK to remove it.
-
-But I think I was wrong and we should just remove this code and debug
-whatever breaks.
-
-> > If no devices are attached to the bus, then there is no need to
-> > broadcast PME_Turn_Off and wait for L2/L3. I've just sent out a
-> > series that fixes it [1].  Hopefully, this will allow Vincent to
-> > use dw_pcie_{suspend/resume}_noirq() APIs.
-> >
-> > - Mani
-> > 
-> > [1] https://lore.kernel.org/linux-pci/20251106061326.8241-1-manivannan.sadhasivam@oss.qualcomm.com/
+> Patch 2 appears to reorder the output functions making diffing the
+> generated code impossible.
 > 
-> dw_pcie_suspend_noirq() path tested OK on stm32mp2.
-> 
-> Regards
-> 
-> Christian
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 245 +++++++++++--------------
+>  1 file changed, 109 insertions(+), 136 deletions(-)
 
-[2] https://lore.kernel.org/linux-pci/20250924194457.GA2131297@bhelgaas/
+Here is the summary with links:
+  - [net-next,1/4] net: stmmac: rk: replace HIWORD_UPDATE() with GRF_FIELD()
+    https://git.kernel.org/netdev/net-next/c/ebb07edf9738
+  - [net-next,2/4] net: stmmac: rk: convert all bitfields to GRF_FIELD*()
+    https://git.kernel.org/netdev/net-next/c/764ebe423ef9
+  - [net-next,3/4] net: stmmac: rk: use PHY_INTF_SEL_x constants
+    https://git.kernel.org/netdev/net-next/c/5e37047f745b
+  - [net-next,4/4] net: stmmac: rk: use PHY_INTF_SEL_x in functions
+    https://git.kernel.org/netdev/net-next/c/1188741cb5a2
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
