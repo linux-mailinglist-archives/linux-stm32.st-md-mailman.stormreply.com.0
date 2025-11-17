@@ -2,55 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9BF9C63C27
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Nov 2025 12:18:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83A31C63E4C
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Nov 2025 12:45:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62437C62D20;
-	Mon, 17 Nov 2025 11:18:39 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C4EAC628DE
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Nov 2025 11:18:37 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F035C62D20;
+	Mon, 17 Nov 2025 11:45:37 +0000 (UTC)
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
+ [95.215.58.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4d94xR54l8z9tPN;
- Mon, 17 Nov 2025 12:18:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1763378315;
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DDC9C628CF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Nov 2025 11:45:36 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1763379935;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=3/yUxH07BZ7z6RY7qPh9V7bK+ouYzlYaoiAPzW2PwTA=;
- b=qP8SReAN+DvwGXLfoMM3KkUe58s99DnzSDTAf1XxGfRjnYhfBORD1wZDUFwm37CoPG+IVJ
- O08FKzwSJLvbAl0N4Q6FzdxDEq1ZmrcMdLshQgzorqd8wC9rN3tEwSxmFb63fhJv5AgP7C
- jJIPdLAy0KQvz2srB1P1+KVdFKLEVA7tMYGKSVcrYb/lRPFmQfnvatOujR7q1fgYR9rWoN
- Z79MzL8sEK57SET0sx5yYtTf64twTb1UE11oLnNU6fgrZ/LTyE65tN4gTczxLU3DFKlUrP
- BpBpjvxWVERm0uPoD13NFIYTTZ9qZt4pfdr1K3VOYzTb8vbZtxVTu9zU4+dV7g==
-Message-ID: <b4ba27e5-a1cc-4477-a254-a318e586ef2a@mailbox.org>
-Date: Mon, 17 Nov 2025 12:18:31 +0100
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=EKOO8XcxSZ0+vg9AvoUfk3Tgt5QFmAZQ9PUVXdNHUKA=;
+ b=wRBTKJNqHgHPZEHOiePGSbwWQP7B3UZy9nbCHlkHQGtRIVWN5j5KQCDZrMcAsYodE4/9q8
+ ZfKpdU4KCBZMtTorUqxKnspgQ8WNYEzLcp3coYVcjmw+KEECZeIYAE9mVWgG1jP3YghSqa
+ ywghcSpqlzL357FRpM4kH4Ps/QAglqM=
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 17 Nov 2025 12:44:26 +0100
+Message-ID: <20251117114426.99713-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-From: Marek Vasut <marek.vasut@mailbox.org>
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20241001024731.140069-1-marex@denx.de>
- <1d72f370-3409-4b0f-b971-8f194cf1644b@lunn.ch>
- <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
-Content-Language: en-US
-In-Reply-To: <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
-X-MBO-RS-ID: c634c576c82130d98b2
-X-MBO-RS-META: z4y1gngkuhdep4ypa3wmytu8h5dof3xm
-Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Daniel Golle <daniel@makrotopia.org>, kernel@dh-electronics.com,
- Pavel Machek <pavel@ucw.cz>, Christian Marangi <ansuelsmth@gmail.com>,
- linux-leds@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload
- ability on interface up
+X-Migadu-Flow: FLOW_OUT
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Thorsten Blum <thorsten.blum@linux.dev>, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] crypto: testmgr - Add missing DES weak and
+	semi-weak key tests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,92 +50,164 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/3/24 2:47 AM, Marek Vasut wrote:
+Ever since commit da7f033ddc9f ("crypto: cryptomgr - Add test
+infrastructure"), the DES test suite has tested only one of the four
+weak keys and none of the twelve semi-weak keys.
 
-Hello again,
+DES has four weak keys and twelve semi-weak keys, and the kernel's DES
+implementation correctly detects and rejects all of these keys when the
+CRYPTO_TFM_REQ_FORBID_WEAK_KEYS flag is set. However, only a single weak
+key was being tested. Add tests for all 16 weak and semi-weak keys.
 
->>> On STM32MP13xx with RTL8211F, it is enough to have the following udev 
->>> rule
->>> in place, boot the machine with cable plugged in, and the LEDs won't 
->>> work
->>> without this patch once the interface is brought up, even if they 
->>> should:
->>> "
->>> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:green:wan", 
->>> ATTR{trigger}="netdev", ATTR{link_10}="1", ATTR{link_100}="1", 
->>> ATTR{link_1000}="1", ATTR{device_name}="end0"
->>> ACTION=="add", SUBSYSTEM=="leds", KERNEL=="stmmac-0:01:yellow:wan", 
->>> ATTR{trigger}="netdev", ATTR{rx}="1", ATTR{tx}="1", ATTR{device_name} 
->>> ="end0"
->>> "
->>
->> Nice use of udev. I had not thought about using it for this.
+While DES is deprecated, it is still used in some legacy protocols, and
+weak/semi-weak key detection should be tested accordingly.
 
-I might have been a bit too hasty with this. The following is only a 
-quick preliminary FYI, I am still investigating the details.
+Tested on arm64 with cryptographic self-tests.
 
-I observe on 6.18-rc6 (ST STM32MP13xx , so STM32 DWMAC ethernet, and 
-RTL8211F PHY), that if I use the these udev rules (SoC has two MACs, 
-there are two rules for each MAC, and 2 rules for each of two LEDs on 
-each MAC PHY , therefore four rules in total ; the rules for both MACs 
-are identical):
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+---
+ crypto/testmgr.h | 120 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 120 insertions(+)
 
-"
-ACTION=="add|change", SUBSYSTEM=="leds", 
-KERNEL=="stmmac-0:01:green:wan", ATTR{trigger}="netdev", 
-ATTR{link_10}="1", ATTR{link_100}="1", ATTR{link_1000}="1", 
-ATTR{device_name}="ethsom0"
-ACTION=="add|change", SUBSYSTEM=="leds", 
-KERNEL=="stmmac-0:01:yellow:wan", ATTR{trigger}="netdev", ATTR{rx}="1", 
-ATTR{tx}="1", ATTR{device_name}="ethsom0"
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index 268231227282..bd8dbd9b7fc7 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -9023,6 +9023,126 @@ static const struct cipher_testvec des_tv_template[] = {
+ 		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
+ 		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
+ 		.len	= 8,
++	}, { /* Weak key */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xe0\xe0\xe0\xe0\xf1\xf1\xf1\xf1",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Weak key */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x1f\x1f\x1f\x1f\x0e\x0e\x0e\x0e",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Weak key */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 1a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x01\xfe\x01\xfe\x01\xfe\x01\xfe",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 1b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xfe\x01\xfe\x01\xfe\x01\xfe\x01",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 2a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x1f\xe0\x1f\xe0\x0e\xf1\x0e\xf1",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 2b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xe0\x1f\xe0\x1f\xf1\x0e\xf1\x0e",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 3a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x01\xe0\x01\xe0\x01\xf1\x01\xf1",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 3b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xe0\x01\xe0\x01\xf1\x01\xf1\x01",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 4a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x1f\xfe\x1f\xfe\x0e\xfe\x0e\xfe",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 4b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xfe\x1f\xfe\x1f\xfe\x0e\xfe\x0e",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 5a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x01\x1f\x01\x1f\x01\x0e\x01\x0e",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 5b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\x1f\x01\x1f\x01\x0e\x01\x0e\x01",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 6a */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xe0\xfe\xe0\xfe\xf1\xfe\xf1\xfe",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
++	}, { /* Semi-weak key pair 6b */
++		.setkey_error = -EINVAL,
++		.wk	= 1,
++		.key	= "\xfe\xe0\xfe\xe0\xfe\xf1\xfe\xf1",
++		.klen	= 8,
++		.ptext	= "\x01\x23\x45\x67\x89\xab\xcd\xe7",
++		.ctext	= "\xc9\x57\x44\x25\x6a\x5e\xd3\x1d",
++		.len	= 8,
+ 	}, { /* Two blocks -- for testing encryption across pages */
+ 		.key	= "\x01\x23\x45\x67\x89\xab\xcd\xef",
+ 		.klen	= 8,
+-- 
+2.51.1
 
-ACTION=="add|change", SUBSYSTEM=="leds", 
-KERNEL=="stmmac-1:01:green:lan", ATTR{trigger}="netdev", 
-ATTR{link_10}="1", ATTR{link_100}="1", ATTR{link_1000}="1", 
-ATTR{device_name}="ethsom1"
-ACTION=="add|change", SUBSYSTEM=="leds", 
-KERNEL=="stmmac-1:01:yellow:lan", ATTR{trigger}="netdev", ATTR{rx}="1", 
-ATTR{tx}="1", ATTR{device_name}="ethsom1"
-"
-
-I get this backtrace. Notice the "sysfs: cannot create duplicate 
-filename ..." part , I suspect there is some subtle race condition ?
-
-"
-sysfs: cannot create duplicate filename 
-'/devices/platform/soc/5c007000.bus/5800e000.ethernet/mdio_bus/stmmac-1/stmmac-1:01/leds/stmmac-1:01:green:lan/link_10'
-CPU: 0 UID: 0 PID: 153 Comm: (udev-worker) Not tainted 6.18.0-rc6 #1 
-PREEMPT
-Hardware name: STM32 (Device Tree Support)
-Call trace:
-  unwind_backtrace from show_stack+0x18/0x1c
-  show_stack from dump_stack_lvl+0x54/0x68
-  dump_stack_lvl from sysfs_warn_dup+0x58/0x6c
-  sysfs_warn_dup from sysfs_add_file_mode_ns+0xf0/0x130
-  sysfs_add_file_mode_ns from internal_create_group+0x344/0x480
-  internal_create_group from internal_create_groups+0x48/0x6c
-  internal_create_groups from led_trigger_set+0x1e4/0x278
-  led_trigger_set from led_trigger_write+0xe0/0x118
-  led_trigger_write from sysfs_kf_bin_write+0x98/0xa0
-  sysfs_kf_bin_write from kernfs_fop_write_iter+0x14c/0x198
-  kernfs_fop_write_iter from vfs_write+0x170/0x1d4
-  vfs_write from ksys_write+0x7c/0xd0
-  ksys_write from ret_fast_syscall+0x0/0x54
-Exception stack(0xedbf1fa8 to 0xedbf1ff0)
-1fa0:                   00000006 bec4476c 00000015 bec4476c 00000006 
-00000001
-1fc0: 00000006 bec4476c 000e7698 00000004 00000006 fffffff7 00000000 
-000d1710
-1fe0: 00000004 bec44578 b6c34397 b6bb15e6
-leds stmmac-1:01:green:lan: Failed to add trigger attributes
-"
-
-If I find out more, I will get back to this thread.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
