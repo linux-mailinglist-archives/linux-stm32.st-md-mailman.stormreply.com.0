@@ -2,50 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40675C6733C
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 05:01:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F6DC67427
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 05:31:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E020EC60460;
-	Tue, 18 Nov 2025 04:00:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3434C60460;
+	Tue, 18 Nov 2025 04:31:01 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED053C35E2E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6ED3AC597BF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Nov 2025 04:00:58 +0000 (UTC)
+ Tue, 18 Nov 2025 04:31:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DA211605E8;
- Tue, 18 Nov 2025 04:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9026EC116D0;
- Tue, 18 Nov 2025 04:00:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4285A60613;
+ Tue, 18 Nov 2025 04:30:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C70AC116B1;
+ Tue, 18 Nov 2025 04:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763438457;
- bh=F4b0uEqOqFj1s5GHGqft9QBk76aJhOT/4bbfeDN+fD4=;
+ s=k20201202; t=1763440258;
+ bh=b0tK/QFOidIQQqfzTvlAPr1kSgWygac/TGHNviqWPbU=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=EVj55QexA1j6BraMVP2dlwMLN2CRv/d0/XGEpHooJ1Yep11lNKf3yEUw+fd74fQb0
- 0PUhZI/fW2p0yuHqQd3q+NUU3+AdT3QojoSXQprU7AWQSoI0r45Wt+HIOFqI0L5awv
- Su4ZfcZEn6yptm61rjpMFZ9FlapiYRmCE/EuReG8l62zx9vGMT9SfNPeIK8mPd83+2
- wPtLT1zFknOTZxQ/bPuO1EjtB9r41MWNVGQYLyTiKPtPqKMakQvowEA13SUjkzthic
- 2N/xdmvS2WmI4SzYmVNqDO2bgV8nFV0j56D5T2DF4w09WXfsSiZdzl+SZpc10DAP3U
- sWTwPiVgRZEPA==
+ b=kHr0Uw0Bjoa7ZnKIST07TsbWvMUE7coMCj+Mn+sszlvaBiJPkR45qgQEmyH0T33cJ
+ vwa7fSHLmtvdybBP8E9lnjb8zlIqCfSaX1NxNseYS5YrH/eYTQd93gQ723mIJBV310
+ ZgzPP2k+/Xwc8SWo1C8oQKmD35q/G2YJdMssggnMOVtQw7aqQiGRvccfxmBHeg953M
+ 0mgNR3xgmJveKIbcHjMeyrqs4AmOtS4MG5/K829TC3wKSShgH5UwTqFEe9F29OXhvD
+ WAVk2GvaqYjeqeBkHMB5Sl/2kk+3JcERe3sAQQzaOTFgSRZZMBfuqugbkGF6/7/xR1
+ +DPh6QTK1f7Eg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 70FE93809A1C; Tue, 18 Nov 2025 04:00:25 +0000 (UTC)
+ 70E143809A1E; Tue, 18 Nov 2025 04:30:25 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176343842426.3578356.2997761543219536696.git-patchwork-notify@kernel.org>
-Date: Tue, 18 Nov 2025 04:00:24 +0000
-References: <aRdKVMPHXlIn457m@shell.armlinux.org.uk>
-In-Reply-To: <aRdKVMPHXlIn457m@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, sophgo@lists.linux.dev, inochiama@gmail.com,
- unicorn_wang@outlook.com, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 00/11] net: stmmac: clean up
- plat_dat allocation/initialisation
+Message-Id: <176344022426.3968687.3804479598141783177.git-patchwork-notify@kernel.org>
+Date: Tue, 18 Nov 2025 04:30:24 +0000
+References: <20251114003805.494387-1-inochiama@gmail.com>
+In-Reply-To: <20251114003805.494387-1-inochiama@gmail.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: looong.bin@gmail.com, edumazet@google.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, uwu@icenowy.me,
+ wangruikang@iscas.ac.cn, unicorn_wang@outlook.com, linux@armlinux.org.uk,
+ kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, ziyao@disroot.org, rmk+kernel@armlinux.org.uk,
+ sophgo@lists.linux.dev, linux-arm-kernel@lists.infradead.org, dlan@gentoo.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, rabenda.cn@gmail.com, krzk+dt@kernel.org,
+ davem@davemloft.net, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH v8 0/3] net: stmmac: dwmac-sophgo: Add phy
+ interface filter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,44 +70,27 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Fri, 14 Nov 2025 15:27:16 +0000 you wrote:
-> This series cleans up the plat_dat allocation and initialisation,
-> moving common themes into the allocator.
+On Fri, 14 Nov 2025 08:38:02 +0800 you wrote:
+> As the SG2042 has an internal rx delay, the delay should be remove
+> when init the mac, otherwise the phy will be misconfigurated.
 > 
-> This results in a nice saving:
+> Since this delay fix is common for other MACs, add a common helper
+> for it. And use it to fix SG2042.
 > 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c  | 43 +---------------
->  .../net/ethernet/stmicro/stmmac/dwmac-loongson.c   | 22 +-------
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sophgo.c |  1 -
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 +
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 34 ++++++++++++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c   | 39 +-------------
->  .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 60 ++++------------------
->  7 files changed, 53 insertions(+), 148 deletions(-)
+> Change from v7:
+> - https://lore.kernel.org/all/20251107111715.3196746-1-inochiama@gmail.com
+> 1. patch 1: fix a mistake that using rgmii-txid instead of rgmii-rxid
+>             for SG2042
+> 
+> [...]
 
 Here is the summary with links:
-  - [net-next,01/11] net: stmmac: add stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/511171e47f8b
-  - [net-next,02/11] net: stmmac: move initialisation of phy_addr to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/99e6ddaabdb4
-  - [net-next,03/11] net: stmmac: move initialisation of clk_csr to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/ae4f29712bf3
-  - [net-next,04/11] net: stmmac: move initialisation of maxmtu to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/528478a746a5
-  - [net-next,05/11] net: stmmac: move initialisation of multicast_filter_bins to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/07cedb9eed41
-  - [net-next,06/11] net: stmmac: move initialisation of unicast_filter_entries to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/bcb145c69690
-  - [net-next,07/11] net: stmmac: move initialisation of queues_to_use to stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/d5e788e86fe3
-  - [net-next,08/11] net: stmmac: setup default RX channel map in stmmac_plat_dat_alloc()
-    https://git.kernel.org/netdev/net-next/c/b6d013b3260b
-  - [net-next,09/11] net: stmmac: remove unnecessary .use_prio queue initialisation
-    https://git.kernel.org/netdev/net-next/c/c03101cb1bf0
-  - [net-next,10/11] net: stmmac: remove unnecessary .prio queue initialisation
-    https://git.kernel.org/netdev/net-next/c/0a20999ed452
-  - [net-next,11/11] net: stmmac: remove unnecessary .pkt_route queue initialisation
-    https://git.kernel.org/netdev/net-next/c/6409249ccc15
+  - [v8,1/3] dt-bindings: net: sophgo,sg2044-dwmac: add phy mode restriction
+    https://git.kernel.org/netdev/net-next/c/6b1aa3c87fcb
+  - [v8,2/3] net: phy: Add helper for fixing RGMII PHY mode based on internal mac delay
+    https://git.kernel.org/netdev/net-next/c/24afd7827efb
+  - [v8,3/3] net: stmmac: dwmac-sophgo: Add phy interface filter
+    https://git.kernel.org/netdev/net-next/c/db37c6e510de
 
 You are awesome, thank you!
 -- 
