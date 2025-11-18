@@ -2,52 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29588C69AEC
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 14:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6759C69C30
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 14:59:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2EB1C628CF;
-	Tue, 18 Nov 2025 13:48:56 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E106C628CF;
+	Tue, 18 Nov 2025 13:59:40 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCA67C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00D43C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Nov 2025 13:48:55 +0000 (UTC)
+ Tue, 18 Nov 2025 13:59:39 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 2B6FC4E4175B;
- Tue, 18 Nov 2025 13:48:55 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 3C561C1267D;
+ Tue, 18 Nov 2025 13:59:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id EED54606FE;
- Tue, 18 Nov 2025 13:48:54 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3C183606FE;
+ Tue, 18 Nov 2025 13:59:39 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9846810371D09; Tue, 18 Nov 2025 14:48:47 +0100 (CET)
+ with ESMTPSA id CC53E10371DD3; Tue, 18 Nov 2025 14:59:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1763473734; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1763474378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=GlBhdagIv79JVcL9in1O72ju+fMc1vc59Oegn0NObR8=;
- b=MiBKtNPN5r33In7hMNTY3A/YcFYzQQpH/KpcDU5sLR3FBaW4H00KnunhPUHpW4ANBNQfUI
- f3rzckotNXn+7FsPmMGoz+TU7uYakDV5l8MsZMe6yad58UecyXZnsjtCUNNcLUhxesg7P7
- iaYjoTdDlDK8TFLO73hdKhVzpxV0ajGcC57emAvuhZPgFf8yA7NrlthI2hcBeEk3UaMc10
- 1j6094cRbYuzUzewCLngiy9EgVPtKXfkgxyZf+4h/pJYXMCXHf7h5AQvl6GUx46J3l/Kbp
- SRo3/bOR3pJH1rI5l0tGlDRhWGpv5MXdkkd+mXod+t1HI0dTUa0YvUkzr0MHEg==
-Message-ID: <7f81c9f1-a061-4269-96cd-ecdaa6137c72@bootlin.com>
-Date: Tue, 18 Nov 2025 14:48:46 +0100
+ bh=MLKf1QB8zzifyWM44fyRAxO5E+WCOo3I8lg4wmBAeoM=;
+ b=RHkFEYAgyvVY3y1++cyuIhzJKbhWpST/loRXeeznyalkCTe1lwAelo6gzFkKb9dYN7mMOM
+ TSsAHdZy9s7j1/t9e8LMYeBqkViUbelLRJiaAboYCgeYZeqe7OpZCVu8QEnnpEakFEkr+v
+ FlJFNKN5x5mCPTHY0RHqx36K6wL5E5dnD1KeItl0tAe2hTFZOwtdD0EOEH5umBO59V9xtm
+ /HQM74ZMXuLLNPG9rWEJZ2O7XVLF9FGfHagICoxkB2yme2HA4OaS+X4l0Kf9/56WoJLoEd
+ icnAGgfTMmTKtgMe9ijDg8HvL5D8n1T03/3iLb0GX+7mthKc6S+LrqUKIBcTKQ==
+Message-ID: <a1f1ad21-fb73-4f30-b428-8cec5ff53ed6@bootlin.com>
+Date: Tue, 18 Nov 2025 14:59:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <E1vLJij-0000000ExKZ-3C9s@rmk-PC.armlinux.org.uk>
+References: <aRxDqJSWxOdOaRt4@shell.armlinux.org.uk>
+ <E1vLIWR-0000000Ewkf-1Tdx@rmk-PC.armlinux.org.uk>
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <E1vLJij-0000000ExKZ-3C9s@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vLIWR-0000000Ewkf-1Tdx@rmk-PC.armlinux.org.uk>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos-eth:
- simplify switch() in dwc_eth_dwmac_config_dt()
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac:
+ stmmac_is_jumbo_frm() len should be unsigned
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,19 +67,11 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 18/11/2025 12:18, Russell King (Oracle) wrote:
-> Simplify the the switch() statement in dwc_eth_dwmac_config_dt().
-> Although this is not speed-critical, simplifying it can make it more
-> readable. This also drastically improves the code emitted by the
-> compiler.
-> 
-> On aarch64, with the original code, the compiler loads registers with
-> every possible value, and then has a tree of test-and-branch statements
-> to work out which register to store. With the simplified code, the
-> compiler can load a register with '4' and shift it appropriately.
-> 
-> This shrinks the text size on aarch64 from 4289 bytes to 4153 bytes,
-> a reduction of 3%.
+On 18/11/2025 11:01, Russell King (Oracle) wrote:
+> stmmac_is_jumbo_frm() and the is_jumbo_frm() methods take skb->len
+> which is an unsigned int. Avoid an implicit cast to "int" via the
+> method parameter and then incorrectly doing signed comparisons on
+> this unsigned value.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
@@ -87,46 +80,50 @@ Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Maxime
 
 > ---
->  .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 26 +++----------------
->  1 file changed, 3 insertions(+), 23 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/chain_mode.c | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h       | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/ring_mode.c  | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> index c7cd6497d42d..e6d5893c5905 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> @@ -84,29 +84,9 @@ static int dwc_eth_dwmac_config_dt(struct platform_device *pdev,
->  	device_property_read_u32(dev, "snps,burst-map", &burst_map);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+> index fb55efd52240..d14b56e5ed40 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+> @@ -83,7 +83,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+>  	return entry;
+>  }
 >  
->  	/* converts burst-map bitmask to burst array */
-> -	for (bit_index = 0; bit_index < 7; bit_index++) {
-> -		if (burst_map & (1 << bit_index)) {
-> -			switch (bit_index) {
-> -			case 0:
-> -			plat_dat->axi->axi_blen[a_index] = 4; break;
-> -			case 1:
-> -			plat_dat->axi->axi_blen[a_index] = 8; break;
-> -			case 2:
-> -			plat_dat->axi->axi_blen[a_index] = 16; break;
-> -			case 3:
-> -			plat_dat->axi->axi_blen[a_index] = 32; break;
-> -			case 4:
-> -			plat_dat->axi->axi_blen[a_index] = 64; break;
-> -			case 5:
-> -			plat_dat->axi->axi_blen[a_index] = 128; break;
-> -			case 6:
-> -			plat_dat->axi->axi_blen[a_index] = 256; break;
-> -			default:
-> -			break;
-> -			}
-> -			a_index++;
-> -		}
-> -	}
-> +	for (bit_index = 0; bit_index < 7; bit_index++)
-> +		if (burst_map & (1 << bit_index))
-> +			plat_dat->axi->axi_blen[a_index++] = 4 << bit_index;
+> -static unsigned int is_jumbo_frm(int len, int enh_desc)
+> +static unsigned int is_jumbo_frm(unsigned int len, int enh_desc)
+>  {
+>  	unsigned int ret = 0;
 >  
->  	/* dwc-qos needs GMAC4, AAL, TSO and PMT */
->  	plat_dat->core_type = DWMAC_CORE_GMAC4;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index d359722100fa..4953e0fab547 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -541,7 +541,7 @@ struct stmmac_rx_queue;
+>  struct stmmac_mode_ops {
+>  	void (*init) (void *des, dma_addr_t phy_addr, unsigned int size,
+>  		      unsigned int extend_desc);
+> -	unsigned int (*is_jumbo_frm) (int len, int ehn_desc);
+> +	unsigned int (*is_jumbo_frm)(unsigned int len, int ehn_desc);
+>  	int (*jumbo_frm)(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+>  			 int csum);
+>  	int (*set_16kib_bfsize)(int mtu);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> index d218412ca832..039903c424df 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> @@ -91,7 +91,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+>  	return entry;
+>  }
+>  
+> -static unsigned int is_jumbo_frm(int len, int enh_desc)
+> +static unsigned int is_jumbo_frm(unsigned int len, int enh_desc)
+>  {
+>  	unsigned int ret = 0;
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
