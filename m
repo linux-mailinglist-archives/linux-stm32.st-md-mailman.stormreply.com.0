@@ -2,54 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0229C68AE3
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 11:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B325CC68B7C
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Nov 2025 11:10:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAA2AC628DE;
-	Tue, 18 Nov 2025 10:01:27 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6501BC628CF;
+	Tue, 18 Nov 2025 10:10:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C786C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DA00C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Nov 2025 10:01:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3xmjMUUvq7h5ZfP5IKPwY8giY0PGq3yEuGIgZGyJhEg=; b=hJSUJUJ7Ojqo8dvGWetwdk7que
- tIGSqMPX3advWES945ykHI2DO5v85FlqDLjcJLx6lWUmUbb0p1lipRfyDJKBAB6OdZPNiXwuto32a
- ESAZtmOGTqG3p37+X9GMvj43w9qUlPNE3/OKzOqoJhN1q8dfqLfqeOPJVd8qr5bTUbRLCxdWdplrX
- yNttHyWEKbFw82rQsBuPk/qMiHsJ01GbJBZgjTPdZu+/V3smzH0/wqd9qM8DdRKf/Px0PLzVx4IHh
- zOJl/axL3nuEuMD6XlzomMtrkLHm5OXoPaTlIOcI9+IkVrOfv8YF58rzBvFfq9mKZ66ukdzM93O69
- ueA7a3MQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39174 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vLIWX-00000000328-1HEy;
- Tue, 18 Nov 2025 10:01:21 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vLIWW-0000000Ewkl-21Ia; Tue, 18 Nov 2025 10:01:20 +0000
-In-Reply-To: <aRxDqJSWxOdOaRt4@shell.armlinux.org.uk>
-References: <aRxDqJSWxOdOaRt4@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Tue, 18 Nov 2025 10:10:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7424660192;
+ Tue, 18 Nov 2025 10:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7580C4CEF5;
+ Tue, 18 Nov 2025 10:10:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1763460644;
+ bh=b+pZBV7epkHUl8mBX3MIDt42yUoTMnfx2I5N3DhgATE=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=rtIjXzbzgyy8I3kPhTEMa3ltWVLtGSjFxyDOdqFwsQQrUXnGe1n7a4Bmo8rxpvlqA
+ 17K2RUJjR5aGxuErQmPscJepT4oLRKvoeY68gBNSpCAl+Znhkw/Y/61HZXI61M6ALo
+ koh07cOdrHj09YrbgmZbJFnboR6sa3i1RfHpNwjX5I5YE3525bIaXvgPCpcc7nIJ+7
+ v9Jpr/9WHlTZqiKVNHm4NeqWnPiIyJlSdrkSbD3Pz4APWktX7u4wOPrBsRrKJTg6pa
+ TLW4Be90dLSe59Tre+1vaAzc0RYyqWsxbYsal32hGI6mWxRWJjq5ApSS5RJoWvnnjI
+ 9/WjtsxaFVcHQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ ADE4A3809A83; Tue, 18 Nov 2025 10:10:10 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vLIWW-0000000Ewkl-21Ia@rmk-PC.armlinux.org.uk>
-Date: Tue, 18 Nov 2025 10:01:20 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac:
- stmmac_is_jumbo_frm() returns boolean
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176346060951.4077292.1388526029829048727.git-patchwork-notify@kernel.org>
+Date: Tue, 18 Nov 2025 10:10:09 +0000
+References: <20251113112721.70500-1-ovidiu.panait.rb@renesas.com>
+In-Reply-To: <20251113112721.70500-1-ovidiu.panait.rb@renesas.com>
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/2] net: stmmac: Disable EEE
+ RX clock stop when VLAN is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,106 +61,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-stmmac_is_jumbo_frm() returns whether the driver considers the frame
-size to be a jumbo frame, and thus returns 0/1 values. This is boolean,
-so convert it to return a boolean and use false/true instead. Also
-convert stmmac_xmit()'s is_jumbo to be bool, which causes several
-variables to be repositioned to keep it in reverse Christmas-tree
-order.
+Hello:
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/chain_mode.c  | 9 ++++-----
- drivers/net/ethernet/stmicro/stmmac/hwif.h        | 2 +-
- drivers/net/ethernet/stmicro/stmmac/ring_mode.c   | 9 ++-------
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 +++---
- 4 files changed, 10 insertions(+), 16 deletions(-)
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-index d14b56e5ed40..120a009c9992 100644
---- a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
-@@ -83,14 +83,13 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
- 	return entry;
- }
- 
--static unsigned int is_jumbo_frm(unsigned int len, int enh_desc)
-+static bool is_jumbo_frm(unsigned int len, bool enh_desc)
- {
--	unsigned int ret = 0;
-+	bool ret = false;
- 
- 	if ((enh_desc && (len > BUF_SIZE_8KiB)) ||
--	    (!enh_desc && (len > BUF_SIZE_2KiB))) {
--		ret = 1;
--	}
-+	    (!enh_desc && (len > BUF_SIZE_2KiB)))
-+		ret = true;
- 
- 	return ret;
- }
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 4953e0fab547..f257ce4b6c66 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -541,7 +541,7 @@ struct stmmac_rx_queue;
- struct stmmac_mode_ops {
- 	void (*init) (void *des, dma_addr_t phy_addr, unsigned int size,
- 		      unsigned int extend_desc);
--	unsigned int (*is_jumbo_frm)(unsigned int len, int ehn_desc);
-+	bool (*is_jumbo_frm)(unsigned int len, bool enh_desc);
- 	int (*jumbo_frm)(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
- 			 int csum);
- 	int (*set_16kib_bfsize)(int mtu);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-index 039903c424df..382d94a3b972 100644
---- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-@@ -91,14 +91,9 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
- 	return entry;
- }
- 
--static unsigned int is_jumbo_frm(unsigned int len, int enh_desc)
-+static bool is_jumbo_frm(unsigned int len, bool enh_desc)
- {
--	unsigned int ret = 0;
--
--	if (len >= BUF_SIZE_4KiB)
--		ret = 1;
--
--	return ret;
-+	return len >= BUF_SIZE_4KiB;
- }
- 
- static void refill_desc3(struct stmmac_rx_queue *rx_q, struct dma_desc *p)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index db68c89316ec..12fc31c909c4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4579,18 +4579,18 @@ static bool stmmac_has_ip_ethertype(struct sk_buff *skb)
-  */
- static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- {
--	unsigned int first_entry, tx_packets, enh_desc;
-+	bool enh_desc, has_vlan, set_ic, is_jumbo = false;
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	unsigned int nopaged_len = skb_headlen(skb);
--	int i, csum_insertion = 0, is_jumbo = 0;
- 	u32 queue = skb_get_queue_mapping(skb);
- 	int nfrags = skb_shinfo(skb)->nr_frags;
-+	unsigned int first_entry, tx_packets;
- 	int gso = skb_shinfo(skb)->gso_type;
- 	struct stmmac_txq_stats *txq_stats;
- 	struct dma_edesc *tbs_desc = NULL;
- 	struct dma_desc *desc, *first;
- 	struct stmmac_tx_queue *tx_q;
--	bool has_vlan, set_ic;
-+	int i, csum_insertion = 0;
- 	int entry, first_tx;
- 	dma_addr_t des;
- 	u32 sdu_len;
+On Thu, 13 Nov 2025 11:27:19 +0000 you wrote:
+> Hi,
+> 
+> This series fixes a couple of VLAN issues observed on the Renesas RZ/V2H
+> EVK platform (stmmac + Microchip KSZ9131RNXI PHY):
+> 
+> - The first patch fixes a bug where VLAN ID 0 would not be properly removed
+> due to how vlan_del_hw_rx_fltr() matched entries in the VLAN filter table.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v2,1/2] net: stmmac: Fix VLAN 0 deletion in vlan_del_hw_rx_fltr()
+    https://git.kernel.org/netdev/net-next/c/d9db25723677
+  - [net-next,v2,2/2] net: stmmac: Disable EEE RX clock stop when VLAN is enabled
+    https://git.kernel.org/netdev/net-next/c/c171e679ee66
+
+You are awesome, thank you!
 -- 
-2.47.3
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
