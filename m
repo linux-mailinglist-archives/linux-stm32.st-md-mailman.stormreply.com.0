@@ -2,57 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636ACC707B0
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 18:34:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2D3C6FFA9
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 17:13:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14426C36B30;
-	Wed, 19 Nov 2025 17:34:47 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80186C36B2A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Nov 2025 17:34:45 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 989DCC36B30;
+	Wed, 19 Nov 2025 16:13:27 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dBTBW16zVz9tl0;
- Wed, 19 Nov 2025 18:34:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1763573683;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=e8QG+N4/1kcdXJQ/ndyF1FfjMK6+46fe00n91fXl4zg=;
- b=yEd2xxualOZVytUgw3Cm0xIpSSC+7i0hA/sy4Jpc/iTSCJvNNzs1XQ0HU5b74/FHvDgBb5
- X6QCpYcnMXyMVeqbdnCjfWM9ZHsbz95+R8P5Ai/2+V9PS0a33sJsxAa4dDebvAqdic28Av
- obTly/Pir2GjLVbNv/RvwHWdFWAMGgTjrNtwVYuO4LcNRiHgIxDhq/GKupAlfvIkaat3Ad
- ZvrX+B+wVyf3eErqKyxWbTdt6/oTWudG1hcfgjwQZ3W7cK7yaSGVoO1IGVXreyah4PpCvC
- 9CuOUsy9k9wCuOuGQ98BEHBzpVFOzZ/Ye1MT8O8XtNXvDRi0ciTzMbnOvUaf9Q==
-Message-ID: <d520f61e-1c51-48dd-aa49-6bf4618d6b54@mailbox.org>
-Date: Wed, 19 Nov 2025 17:09:30 +0100
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9EF6C36B2A
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 19 Nov 2025 16:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=I2Z8/xcjTHwwelfJUI+eSlYaVGFYtTXFWiaz6vN1dqc=; b=BRLKTIepSCsk2GgXJg5XJJxzcW
+ Q01F6+TnlEaz2bHGlKhI12kgEN1NM7BDaQppp5zAAEQgLiaRYg1O8m3hrzul7eWn3PeUTAEyNQOpa
+ Rgx0+25rJnZ+ulN9XZymfV0agn8derlOjokbo4zNIdphtx5TCR/mRxSrDnlp8i+i0nKmehDwFPUh5
+ wCiOZr9B+8svl8RWRnQAv4a7S5L+t4Ywut5foMAGHWsPDrty6gcPagQvHCDtrhcOxfMou91DOitEY
+ et5g38666G9rqA8DRHBDFSgfKlGwdg5LklhRdBbShOvASvSTou/TSBZ6hhPE1dz82M9F44q8Kr8CQ
+ VvsZowzA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33292)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vLko3-0000000058C-3sRn;
+ Wed, 19 Nov 2025 16:13:19 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vLko1-000000003Yg-3fGV; Wed, 19 Nov 2025 16:13:17 +0000
+Date: Wed, 19 Nov 2025 16:13:17 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jisheng Zhang <jszhang@kernel.org>
+Message-ID: <aR3snSb1YUFh9Dwp@shell.armlinux.org.uk>
+References: <20251119153526.13780-1-jszhang@kernel.org>
 MIME-Version: 1.0
-From: Marek Vasut <marek.vasut@mailbox.org>
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20241001024731.140069-1-marex@denx.de>
- <1d72f370-3409-4b0f-b971-8f194cf1644b@lunn.ch>
- <d0411d89-5c83-47b4-bef9-904b63cbc2c0@denx.de>
- <b4ba27e5-a1cc-4477-a254-a318e586ef2a@mailbox.org>
-Content-Language: en-US
-In-Reply-To: <b4ba27e5-a1cc-4477-a254-a318e586ef2a@mailbox.org>
-X-MBO-RS-ID: 846c09ea91c3b08f769
-X-MBO-RS-META: sx15x14jwms1as3f6qs156fxnrhnbrkr
-Cc: netdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Daniel Golle <daniel@makrotopia.org>, kernel@dh-electronics.com,
- Pavel Machek <pavel@ucw.cz>, Vladimir Oltean <vladimir.oltean@nxp.com>,
- Christian Marangi <ansuelsmth@gmail.com>, linux-leds@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] leds: trigger: netdev: Check offload
- ability on interface up
+Content-Disposition: inline
+In-Reply-To: <20251119153526.13780-1-jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 resend] net: stmmac: add support for
+	dwmac 5.20
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,89 +61,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTEvMTcvMjUgMTI6MTggUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgoKSGVsbG8gb25lIG1vcmUg
-dGltZSwKCj4+Pj4gT24gU1RNMzJNUDEzeHggd2l0aCBSVEw4MjExRiwgaXQgaXMgZW5vdWdoIHRv
-IGhhdmUgdGhlIGZvbGxvd2luZyAKPj4+PiB1ZGV2IHJ1bGUKPj4+PiBpbiBwbGFjZSwgYm9vdCB0
-aGUgbWFjaGluZSB3aXRoIGNhYmxlIHBsdWdnZWQgaW4sIGFuZCB0aGUgTEVEcyB3b24ndCAKPj4+
-PiB3b3JrCj4+Pj4gd2l0aG91dCB0aGlzIHBhdGNoIG9uY2UgdGhlIGludGVyZmFjZSBpcyBicm91
-Z2h0IHVwLCBldmVuIGlmIHRoZXkgCj4+Pj4gc2hvdWxkOgo+Pj4+ICIKPj4+PiBBQ1RJT049PSJh
-ZGQiLCBTVUJTWVNURU09PSJsZWRzIiwgS0VSTkVMPT0ic3RtbWFjLTA6MDE6Z3JlZW46d2FuIiwg
-Cj4+Pj4gQVRUUnt0cmlnZ2VyfT0ibmV0ZGV2IiwgQVRUUntsaW5rXzEwfT0iMSIsIEFUVFJ7bGlu
-a18xMDB9PSIxIiwgCj4+Pj4gQVRUUntsaW5rXzEwMDB9PSIxIiwgQVRUUntkZXZpY2VfbmFtZX09
-ImVuZDAiCj4+Pj4gQUNUSU9OPT0iYWRkIiwgU1VCU1lTVEVNPT0ibGVkcyIsIEtFUk5FTD09InN0
-bW1hYy0wOjAxOnllbGxvdzp3YW4iLCAKPj4+PiBBVFRSe3RyaWdnZXJ9PSJuZXRkZXYiLCBBVFRS
-e3J4fT0iMSIsIEFUVFJ7dHh9PSIxIiwgCj4+Pj4gQVRUUntkZXZpY2VfbmFtZX0gPSJlbmQwIgo+
-Pj4+ICIKPj4+Cj4+PiBOaWNlIHVzZSBvZiB1ZGV2LiBJIGhhZCBub3QgdGhvdWdodCBhYm91dCB1
-c2luZyBpdCBmb3IgdGhpcy4KPiAKPiBJIG1pZ2h0IGhhdmUgYmVlbiBhIGJpdCB0b28gaGFzdHkg
-d2l0aCB0aGlzLiBUaGUgZm9sbG93aW5nIGlzIG9ubHkgYSAKPiBxdWljayBwcmVsaW1pbmFyeSBG
-WUksIEkgYW0gc3RpbGwgaW52ZXN0aWdhdGluZyB0aGUgZGV0YWlscy4KPiAKPiBJIG9ic2VydmUg
-b24gNi4xOC1yYzYgKFNUIFNUTTMyTVAxM3h4ICwgc28gU1RNMzIgRFdNQUMgZXRoZXJuZXQsIGFu
-ZCAKPiBSVEw4MjExRiBQSFkpLCB0aGF0IGlmIEkgdXNlIHRoZSB0aGVzZSB1ZGV2IHJ1bGVzIChT
-b0MgaGFzIHR3byBNQUNzLCAKPiB0aGVyZSBhcmUgdHdvIHJ1bGVzIGZvciBlYWNoIE1BQywgYW5k
-IDIgcnVsZXMgZm9yIGVhY2ggb2YgdHdvIExFRHMgb24gCj4gZWFjaCBNQUMgUEhZICwgdGhlcmVm
-b3JlIGZvdXIgcnVsZXMgaW4gdG90YWwgOyB0aGUgcnVsZXMgZm9yIGJvdGggTUFDcyAKPiBhcmUg
-aWRlbnRpY2FsKToKPiAKPiAiCj4gQUNUSU9OPT0iYWRkfGNoYW5nZSIsIFNVQlNZU1RFTT09Imxl
-ZHMiLCAKPiBLRVJORUw9PSJzdG1tYWMtMDowMTpncmVlbjp3YW4iLCBBVFRSe3RyaWdnZXJ9PSJu
-ZXRkZXYiLCBBVFRSe2xpbmtfMTB9IAo+ID0iMSIsIEFUVFJ7bGlua18xMDB9PSIxIiwgQVRUUnts
-aW5rXzEwMDB9PSIxIiwgQVRUUntkZXZpY2VfbmFtZX09ImV0aHNvbTAiCj4gQUNUSU9OPT0iYWRk
-fGNoYW5nZSIsIFNVQlNZU1RFTT09ImxlZHMiLCAKPiBLRVJORUw9PSJzdG1tYWMtMDowMTp5ZWxs
-b3c6d2FuIiwgQVRUUnt0cmlnZ2VyfT0ibmV0ZGV2IiwgQVRUUntyeH09IjEiLCAKPiBBVFRSe3R4
-fT0iMSIsIEFUVFJ7ZGV2aWNlX25hbWV9PSJldGhzb20wIgo+IAo+IEFDVElPTj09ImFkZHxjaGFu
-Z2UiLCBTVUJTWVNURU09PSJsZWRzIiwgCj4gS0VSTkVMPT0ic3RtbWFjLTE6MDE6Z3JlZW46bGFu
-IiwgQVRUUnt0cmlnZ2VyfT0ibmV0ZGV2IiwgQVRUUntsaW5rXzEwfSAKPiA9IjEiLCBBVFRSe2xp
-bmtfMTAwfT0iMSIsIEFUVFJ7bGlua18xMDAwfT0iMSIsIEFUVFJ7ZGV2aWNlX25hbWV9PSJldGhz
-b20xIgo+IEFDVElPTj09ImFkZHxjaGFuZ2UiLCBTVUJTWVNURU09PSJsZWRzIiwgCj4gS0VSTkVM
-PT0ic3RtbWFjLTE6MDE6eWVsbG93OmxhbiIsIEFUVFJ7dHJpZ2dlcn09Im5ldGRldiIsIEFUVFJ7
-cnh9PSIxIiwgCj4gQVRUUnt0eH09IjEiLCBBVFRSe2RldmljZV9uYW1lfT0iZXRoc29tMSIKPiAi
-Cj4gCj4gSSBnZXQgdGhpcyBiYWNrdHJhY2UuIE5vdGljZSB0aGUgInN5c2ZzOiBjYW5ub3QgY3Jl
-YXRlIGR1cGxpY2F0ZSAKPiBmaWxlbmFtZSAuLi4iIHBhcnQgLCBJIHN1c3BlY3QgdGhlcmUgaXMg
-c29tZSBzdWJ0bGUgcmFjZSBjb25kaXRpb24gPwo+IAo+ICIKPiBzeXNmczogY2Fubm90IGNyZWF0
-ZSBkdXBsaWNhdGUgZmlsZW5hbWUgJy9kZXZpY2VzL3BsYXRmb3JtLyAKPiBzb2MvNWMwMDcwMDAu
-YnVzLzU4MDBlMDAwLmV0aGVybmV0L21kaW9fYnVzL3N0bW1hYy0xL3N0bW1hYy0xOjAxL2xlZHMv
-IAo+IHN0bW1hYy0xOjAxOmdyZWVuOmxhbi9saW5rXzEwJwo+IENQVTogMCBVSUQ6IDAgUElEOiAx
-NTMgQ29tbTogKHVkZXYtd29ya2VyKSBOb3QgdGFpbnRlZCA2LjE4LjAtcmM2ICMxIAo+IFBSRUVN
-UFQKPiBIYXJkd2FyZSBuYW1lOiBTVE0zMiAoRGV2aWNlIFRyZWUgU3VwcG9ydCkKPiBDYWxsIHRy
-YWNlOgo+ICDCoHVud2luZF9iYWNrdHJhY2UgZnJvbSBzaG93X3N0YWNrKzB4MTgvMHgxYwo+ICDC
-oHNob3dfc3RhY2sgZnJvbSBkdW1wX3N0YWNrX2x2bCsweDU0LzB4NjgKPiAgwqBkdW1wX3N0YWNr
-X2x2bCBmcm9tIHN5c2ZzX3dhcm5fZHVwKzB4NTgvMHg2Ywo+ICDCoHN5c2ZzX3dhcm5fZHVwIGZy
-b20gc3lzZnNfYWRkX2ZpbGVfbW9kZV9ucysweGYwLzB4MTMwCj4gIMKgc3lzZnNfYWRkX2ZpbGVf
-bW9kZV9ucyBmcm9tIGludGVybmFsX2NyZWF0ZV9ncm91cCsweDM0NC8weDQ4MAo+ICDCoGludGVy
-bmFsX2NyZWF0ZV9ncm91cCBmcm9tIGludGVybmFsX2NyZWF0ZV9ncm91cHMrMHg0OC8weDZjCj4g
-IMKgaW50ZXJuYWxfY3JlYXRlX2dyb3VwcyBmcm9tIGxlZF90cmlnZ2VyX3NldCsweDFlNC8weDI3
-OAo+ICDCoGxlZF90cmlnZ2VyX3NldCBmcm9tIGxlZF90cmlnZ2VyX3dyaXRlKzB4ZTAvMHgxMTgK
-PiAgwqBsZWRfdHJpZ2dlcl93cml0ZSBmcm9tIHN5c2ZzX2tmX2Jpbl93cml0ZSsweDk4LzB4YTAK
-PiAgwqBzeXNmc19rZl9iaW5fd3JpdGUgZnJvbSBrZXJuZnNfZm9wX3dyaXRlX2l0ZXIrMHgxNGMv
-MHgxOTgKPiAgwqBrZXJuZnNfZm9wX3dyaXRlX2l0ZXIgZnJvbSB2ZnNfd3JpdGUrMHgxNzAvMHgx
-ZDQKPiAgwqB2ZnNfd3JpdGUgZnJvbSBrc3lzX3dyaXRlKzB4N2MvMHhkMAo+ICDCoGtzeXNfd3Jp
-dGUgZnJvbSByZXRfZmFzdF9zeXNjYWxsKzB4MC8weDU0Cj4gRXhjZXB0aW9uIHN0YWNrKDB4ZWRi
-ZjFmYTggdG8gMHhlZGJmMWZmMCkKPiAxZmEwOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCAwMDAwMDAwNiBiZWM0NDc2YyAwMDAwMDAxNSBiZWM0NDc2YyAwMDAwMDAwNiAKPiAw
-MDAwMDAwMQo+IDFmYzA6IDAwMDAwMDA2IGJlYzQ0NzZjIDAwMGU3Njk4IDAwMDAwMDA0IDAwMDAw
-MDA2IGZmZmZmZmY3IDAwMDAwMDAwIAo+IDAwMGQxNzEwCj4gMWZlMDogMDAwMDAwMDQgYmVjNDQ1
-NzggYjZjMzQzOTcgYjZiYjE1ZTYKPiBsZWRzIHN0bW1hYy0xOjAxOmdyZWVuOmxhbjogRmFpbGVk
-IHRvIGFkZCB0cmlnZ2VyIGF0dHJpYnV0ZXMKPiAiCj4gCj4gSWYgSSBmaW5kIG91dCBtb3JlLCBJ
-IHdpbGwgZ2V0IGJhY2sgdG8gdGhpcyB0aHJlYWQuCgpJJ3ZlIGJlZW4gdHJhY2tpbmcgaXQgYWxs
-IHRoZSB3YXkgdG8ga2VybmZzLCBidXQgc28gZmFyIHdpdGhvdXQgbXVjaCAKc3VjY2Vzcy4KCkkg
-Zm91bmQgY29tbWl0IDUyYzQ3NzQyZjc5ZCAoImxlZHM6IHRyaWdnZXJzOiBzZW5kIHVldmVudCB3
-aGVuIGNoYW5naW5nIAp0cmlnZ2VycyIpIHdoaWNoIGluZGljYXRlcyB0aGUgdWRldiBydWxlcyBh
-Ym92ZSBhcmUgbGlrZWx5IHdyb25nLCBidXQgCnRoZXkgc3RpbGwgc2hvdWxkbid0IGNvcnJ1cHQg
-c3lzZnMgdGhlIHdheSB0aGV5IGRvLCByaWdodCA/CgpJZiB5b3UgaGF2ZSBhbnkgaGludCBob3cg
-dG8gZmluZCBvdXQgd2hhdCBpcyBhY3R1YWxseSBnb2luZyBvbiwgSSB3b3VsZCAKYmUgbXVjaCBn
-cmF0ZWZ1bC4gSSBhbHJlYWR5IHRyaWVkIEtBU0FOIG9uIHRoaXMgYW5kIExPQ0tERVAsIGJ1dCBu
-ZWl0aGVyIAp0cmlnZ2Vycy4gSSB3YXMgYWxzbyBhZGRpbmcgYSBsb3Qgb2YgdHJhY2VfcHJpbnRr
-KCkgaW50byBuZXRkZXYgTEVEIAp0cmlnZ2VyLCBidXQgYWxsIEkgY291bGQgZmluZCBpcyB0aGUg
-bGlua18qIGF0dHJpYnV0ZXMgYXJlIHJlbW92ZWQsIHRoZW4gCmFkZGVkIGFnYWluLCBhbmQgdGhl
-IGtlcm5lbCBjb21wbGFpbnMgdGhlIGxpbmtfMTAgYXR0cmlidXRlIGFscmVhZHkgZXhpc3RzLgoK
-SSBhbHNvIG5vdGljZWQgdGhhdCBpZiBJIHRyeSB0byBsaXN0IC9zeXMvLi4uc3RtbWFjLTE6MDE6
-Z3JlZW46bGFuLyAKZGlyZWN0b3J5IGFmdGVyIHRoZSBzcGxhdCB3aXRoIG5ldGRldiB0cmlnZ2Vy
-IHNldCwgdGhlIHJlc3VsdCBvZiB0aGUgCmxpc3RpbmcgaXMgbm90IGFsd2F5cyB0aGUgc2FtZSwg
-c29tZXRpbWVzIHRoZXJlIGFyZSB0aGUgbmV0ZGV2IHRyaWdnZXIgCmF0dHJpYnV0ZXMsIHNvbWV0
-aW1lcyBub3QsIGFuZCBzb21ldGltZXMgdGhleSBhcmUgY29ycnVwdGVkLgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Wed, Nov 19, 2025 at 11:35:26PM +0800, Jisheng Zhang wrote:
+> The dwmac 5.20 IP can be found on some synaptics SoCs. 
+> 
+> The binding doc has been already upstreamed by
+> commit 13f9351180aa ("dt-bindings: net: snps,dwmac: Add dwmac-5.20
+> version")
+> 
+> So we just need to add a compatibility flag in dwmac generic driver.
+
+Do we _need_ to add it to the generic driver? Do the platforms that are
+using this really not need any additional code to support them?
+
+Looking at all the DT that mention dwmac-5.20 in their compatible
+strings, that is always after other compatibles that point to other
+platform specific drivers.
+
+So, can you point to a platform that doesn't have its own platform
+glue, and would be functional when using the dwmac-generic driver?
+
+For reference, the dts that refer to dwmac-5.20 are:
+
+arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+arch/arm64/boot/dts/st/stm32mp251.dtsi
+arch/arm64/boot/dts/st/stm32mp253.dtsi
+arch/arm64/boot/dts/st/stm32mp233.dtsi
+arch/arm64/boot/dts/st/stm32mp231.dtsi
+arch/riscv/boot/dts/starfive/jh7110.dtsi
+
+Thanks.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
