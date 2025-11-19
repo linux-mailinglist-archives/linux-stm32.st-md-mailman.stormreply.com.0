@@ -2,53 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069FFC6DE6E
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 11:11:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7FEBC6DF27
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 11:22:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A46C3C62D37;
-	Wed, 19 Nov 2025 10:11:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6165BC62D37;
+	Wed, 19 Nov 2025 10:22:41 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3B82C56611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7B5FC56611
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Nov 2025 10:11:05 +0000 (UTC)
+ Wed, 19 Nov 2025 10:22:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=D34CtWTDd1vUfTflZaY/LmIETvT4QwvilMK5Cvqwxb8=; b=UlqN0QcHrqqCa0kWZnWMI0c1zg
- vxsuRMadYN1IICVUnzqxK5bT4Bm/DvusdFBCFL09cMszWSzQJm5n8cMPBEi0bw3Pap5wZEEB7PXDf
- ZSorIvKaiR76mgRBW+gr9bokyeYiQ3pe5gu6I8p7jZYzy1wg8nJedcteRrkTR4pB1MJyo4R0k4VOQ
- NwWswRybeiQrOKtzYrE2k6+SEx9oBlJ4eMjZq5cNOfxwoO1vMAiVkxtkeL1YtlCmVzeeNEp8NiBhl
- 8edUmFmFjH0gYitWiyhJPOq+tMvdl0+5+cCpQb76qH1l1fuzrNNepmBH+LMFKWYFoSz8px66NTZbG
- ceRnB+oQ==;
+ bh=LMZKxwd8PgRgdlMYw+yU7jfS7/uNgOpqzYUC5NJ6D7g=; b=HXCIUPUXfM62CSAW1aJvwbDwB3
+ aSoqI0m9DNDhLlwWq6Uwm7uDSuRdNxrSBIcoe3vWvSBHe9xxpwQpq+oDFoXRInYo/DWmxHLyWLmld
+ krl2JNELKSeeXVzjxKevQKJ8y8J4iTqYo4ipj6/P8e8zu/zJNa+U8Yjj+47k62uIz958c6uVgQ/DH
+ MVpRIaHjeaE5RItgyiCG68e7gGa+IMiWtmDhGA35ZpZLxGMwpVbxRTNj8n2oXbSb2FXBH+PVH5Uk8
+ aM553oIH7JGa9rJUGPy8+QBA4c98zKVlcl5lPqj8ZarJiS908x4Vefkp9i6GauOiFAft0SFcCDJSE
+ HsQ5Nqqg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50806)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38790)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vLf9Q-000000004Sv-2lDM;
- Wed, 19 Nov 2025 10:11:00 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vLfKc-000000004UL-48D8;
+ Wed, 19 Nov 2025 10:22:35 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vLf9O-000000003Ki-1D9n; Wed, 19 Nov 2025 10:10:58 +0000
-Date: Wed, 19 Nov 2025 10:10:58 +0000
+ id 1vLfKa-000000003L2-1t19; Wed, 19 Nov 2025 10:22:32 +0000
+Date: Wed, 19 Nov 2025 10:22:32 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <aR2Xsk_aNar-2YMV@shell.armlinux.org.uk>
-References: <E1vLJij-0000000ExKZ-3C9s@rmk-PC.armlinux.org.uk>
+Message-ID: <aR2aaDs6rqfu32B-@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vLJij-0000000ExKZ-3C9s@rmk-PC.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwc-qos-eth:
- simplify switch() in dwc_eth_dwmac_config_dt()
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: simplify axi_blen
+	handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,16 +63,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 18, 2025 at 11:18:01AM +0000, Russell King (Oracle) wrote:
-> Simplify the the switch() statement in dwc_eth_dwmac_config_dt().
+stmmac's axi_blen (burst length) handling is very verbose and
+unnecessary.
 
-I notice that "the the" stammer has appeared in this patch commit
-description, which is flagged as a warning in patchwork, so I'll
-re-send with that fixed.
+Firstly, the burst length register bitfield is the same across all
+dwmac cores, so we can use common definitions for these bits which
+platform glue can use.
 
-As I have a number of other patches that depend on this, all centred
-around the axi_blen stuff, I'll send this patch as part of that series.
+We end up with platform glue:
+- filling in the axi_blen[] array with the decimal burst lengths, e.g.
+  dwmac-intel.c, etc
+- decoding a bitmap into burst lengths for this array, e.g.
+  dwmac-dwc-qos-eth.c
 
+Other cases read the array from DT, placing it into the axi_blen
+array, and converting later to the register bitfield.
+
+This series removes all this complexity, ultimately ending up with
+platform glue providing the register value containing the burst
+length bitfield directly. Where necessary, platform glue calls
+stmmac_axi_blen_to_mask() to convert a decimal array (e.g. from
+DT) to the register value.
+
+This also means that stmmac_axi_blen_to_mask() can issue a
+diagnostic message at probe time if the burst length is incorrect.
+
+ drivers/net/ethernet/stmicro/stmmac/common.h       | 13 ++++++++
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 28 ++--------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c  |  5 ++-
+ .../net/ethernet/stmicro/stmmac/dwmac1000_dma.c    | 30 ++---------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   | 30 ++---------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h   | 11 +------
+ drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h    | 13 ++------
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     | 11 ++-----
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c | 33 ++++---------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 38 ++++++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c   |  6 ++--
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  4 ++-
+ include/linux/stmmac.h                             |  2 +-
+ 13 files changed, 78 insertions(+), 146 deletions(-)
+
+- 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
 FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
