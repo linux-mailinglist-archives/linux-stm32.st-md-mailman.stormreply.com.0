@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F38FC6FBF8
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 16:47:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65844C70052
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Nov 2025 17:19:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4B70C36B30;
-	Wed, 19 Nov 2025 15:47:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B7DCC36B30;
+	Wed, 19 Nov 2025 16:19:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9B7DC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0568C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Nov 2025 15:47:33 +0000 (UTC)
+ Wed, 19 Nov 2025 16:19:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D376360172;
- Wed, 19 Nov 2025 15:47:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B901DC4AF4D;
- Wed, 19 Nov 2025 15:47:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B63B40243;
+ Wed, 19 Nov 2025 16:19:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E806EC116B1;
+ Wed, 19 Nov 2025 16:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1763567252;
- bh=vicgZe2Av/U4KqK6bau+u9mHI2W4ZvV0ci7Vd1xAaJg=;
+ s=k20201202; t=1763569168;
+ bh=BPzTK2gEFsViZFmyOno1UxdtkaYyPLFM9cgU3Gme0aY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m/iaFsAPw27Vo7KL+xOhpzChl9HwgPS91l9ZE9SkAkJCY2UaBQjQUzZhvNSIU0aTR
- mjUaPeN+1DpNB9Eu/vA1eUJYgT/Pfoz+V8332karyPbvh9E4dsexBeWKPFw55pyc5w
- HOGrzUy9f5ifz0axsOzC6LhDxNWcDYaObz3ObyauHXxPC+VgMvQ70Q1eU9tbDf32hH
- WGrz9JsHF69HhZs+dekb6hrSb9slrHLfcIHBv4S1HO+h5iw9cAoF4bPD8b5OP2vbtO
- SRL79BsrKKpcZJXfElkS5n7zaxeL8O3UTaUS7UCPqvj9+IRbu++GiYLfOBTOWVIqKP
- yj4TrAxEVZH9Q==
-Date: Wed, 19 Nov 2025 21:17:18 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Christian Bruel <christian.bruel@foss.st.com>
-Message-ID: <k72rxq2j5hbpotgmshwau6tvvem3jnldahxxgg54qoxjs7jaxb@bgh4cgs5j25h>
-References: <20251118212818.GA2591668@bhelgaas>
- <7053f336-59c9-47cc-ac97-eb2f0916ac4f@foss.st.com>
+ b=qT0M/WXX2B9Kv1nVbIu43kmraVe20viEsQAOxsj+uCaOZTXTFtX5KOnOvI5cfNmZm
+ 1fSlTx54W2q3AxaOoKrmQ5pzDOPg+pJvj3VKLpbGobNGSgppaNPXtlUIWhPBR50WJh
+ Sybx5lTWfm5yXaL76r02PUgOwjW90/L9Zjl0USXTbFCERWWrMzx+17YRsqTwijis8Q
+ u0JdTIiPOpqWZjC3uWRDxBEVjq+u+lKKpHddPkhK8sBHV0LoczsBu6274ZzhzcU0FC
+ Sm151mMoH8kI9mCj1Er9C34XhLeKg+50DT2lamDVDt3hO8+WOpEkC5xAdI5oU845dQ
+ ooQgLNOwT7Uaw==
+Date: Thu, 20 Nov 2025 00:01:36 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <aR3p4NBK-AnCGK6a@xhacker>
+References: <20251119153526.13780-1-jszhang@kernel.org>
+ <aR3snSb1YUFh9Dwp@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <7053f336-59c9-47cc-ac97-eb2f0916ac4f@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, linux-kernel@vger.kernel.org,
- Lukas Wunner <lukas@wunner.de>, Bjorn Helgaas <helgaas@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] PCI: stm32: Fix LTSSM EP race with start
-	link.
+In-Reply-To: <aR3snSb1YUFh9Dwp@shell.armlinux.org.uk>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 resend] net: stmmac: add support for
+	dwmac 5.20
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,60 +56,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBOb3YgMTksIDIwMjUgYXQgMDQ6MTM6NDdQTSArMDEwMCwgQ2hyaXN0aWFuIEJydWVs
-IHdyb3RlOgo+IAo+IAo+IE9uIDExLzE4LzI1IDIyOjI4LCBCam9ybiBIZWxnYWFzIHdyb3RlOgo+
-ID4gWytjYyBMdWthcyBpbiBjYXNlIEkgZ290IHRoZSBwY2llaHAgcGFydCB3cm9uZ10KPiA+IAo+
-IAo+ID4gCj4gPiBUbyBiYWNrIHVwIGhlcmUsIEknbSB0cnlpbmcgdG8gdW5kZXJzdGFuZCB0aGUg
-cmFjZS4KPiA+IAo+ID4gSUlVQyB0aGUgcmVsZXZhbnQgZXZlbnRzIGFyZSBsaW5rIHRyYWluaW5n
-IGFuZCByZWdpc3RlciBpbml0LiAgSW4gdGhlCj4gPiBjdXJyZW50IHN0bTMyIEVQIGRyaXZlciwg
-bGluayB0cmFpbmluZyBjYW4gc3RhcnQgd2hlbiB0aGUgRVAgdXNlcnNwYWNlCj4gPiB3cml0ZXMg
-dG8gdGhlICdzdGFydCcgY29uZmlnZnMgZmlsZS4gIEFuZCB0aGUgcmVnaXN0ZXIgaW5pdCBoYXBw
-ZW5zCj4gPiB3aGVuIHN0bTMyX3BjaWVfZXBfcGVyc3RfaXJxX3RocmVhZCgpIGNhbGxzCj4gPiBk
-d19wY2llX2VwX2luaXRfcmVnaXN0ZXJzKCkuCj4gPiAKPiA+IFNvIEkgZ3Vlc3MgdGhlIHByb2Js
-ZW0gaXMgd2hlbiB0aGUgRVAgdXNlcnNwYWNlIGVuYWJsZXMgdGhlIExUU1NNCj4gPiBiZWZvcmUg
-dGhlIGhvc3QgZGVhc3NlcnRzIFBFUlNUIz8gIEFuZCB0aGUgbGluayB0cmFpbiBtYXkgY29tcGxl
-dGUKPiA+IGJlZm9yZSBzdG0zMl9wY2llX2VwX3BlcnN0X2lycV90aHJlYWQoKSBydW5zPwo+IAo+
-IFRoZSBzZXF1ZW5jZSBhbHNvIHZpb2xhdGVkIHRoZSBzcGVjICg0LjAsIFNlY3Rpb24gNi42LjEg
-IkNvbnZlbnRpb25hbAo+IFJlc2V0IiksIGJlY2F1c2UgaXQgYWxsb3dlZCB0aGUgZW5kcG9pbnQg
-dG8gZW50ZXIgdGhlIERldGVjdCBzdGF0ZSBiZWZvcmUKPiBQRVJTVCMgaXMgZGVhc3NlcnRlZAo+
-IAo+ID4gCj4gPiBBbmQgdGhlIGZpeCBoZXJlIGlzIHRvIGRlbGF5IGVuYWJsaW5nIHRoZSBFUCBM
-VFNTTSB1bnRpbCBhZnRlcgo+ID4gc3RtMzJfcGNpZV9wZXJzdF9kZWFzc2VydCgpIGNhbGxzIGR3
-X3BjaWVfZXBfaW5pdF9yZWdpc3RlcnMoKT8KPiA+IAo+IAo+ID4gCj4gPiBJIHRoaW5rIHdlIHdv
-dWxkIHByZWZlciBpZiB0aGUgaG9zdCB3b3VsZCBlbnVtZXJhdGUgdGhlIGVuZHBvaW50Cj4gPiB3
-aGVuZXZlciB0aGUgZW5kcG9pbnQgYmVjb21lcyByZWFkeSwgZXZlbiBpZiB0aGF0IGlzIGFmdGVy
-IHRoZSBob3N0J3MKPiA+IGluaXRpYWwgZW51bWVyYXRpb24sIGJ1dCBJIGd1ZXNzIHRoYXQncyBv
-bmx5IHBvc3NpYmxlIGlmIHRoZSBob3N0IGlzCj4gPiBub3RpZmllZCB3aGVuIHRoZSBsaW5rIGNv
-bWVzIHVwLgo+ID4gCj4gPiBUaGUgbWFpbiBtZWNoYW5pc20gZm9yIHRoYXQgaXMgaG90cGx1Zywg
-aS5lLiwgcGNpZWhwIGhhbmRsZXMgcHJlc2VuY2UKPiA+IGRldGVjdCBhbmQgbGluayBsYXllciBz
-dGF0ZSBjaGFuZ2VkIGV2ZW50cywgYm90aCBvZiB3aGljaCBhcmUgbWFuYWdlZAo+ID4gYnkgdGhl
-IFBDSWUgU2xvdCByZWdpc3RlciBzZXQuICBUaG9zZSByZWdpc3RlcnMgYXJlIG9wdGlvbmFsIGFu
-ZCBtYXkKPiA+IG5vdCBiZSBpbXBsZW1lbnRlZCwgZS5nLiwgaWYgYSBSb290IFBvcnQgaXMgY29u
-bmVjdGVkIHRvIGEKPiA+IHN5c3RlbS1pbnRlZ3JhdGVkIGRldmljZS4KPiA+IAo+ID4gQnV0IGlm
-IHRoZXkgKmFyZSogaW1wbGVtZW50ZWQsIEkgaG9wZSB0aGF0IHBjaWVocCBtYWtlcyBpdCBzbyBu
-byB1c2VyCj4gPiBpbnRlcnZlbnRpb24gb24gdGhlIGhvc3Qgc2lkZSBpcyByZXF1aXJlZC4KPiA+
-IAo+IAo+IAo+IEkgc3VwcG9zZSB0aGF0IGhvdHBsdWcgY2Fubm90IGJlIGltcGxlbWVudGVkIHdp
-dGhvdXQgc29tZSBraW5kIG9mIHByZXNlbmNlCj4gZGV0ZWN0aW9uIHNpZ25hbCBmcm9tIHRoZSBF
-UCAoUFJTTlQjLCAuLi4pID8gRm9yIG5vdyB3ZSBoYXZlIG5vCj4gaW1wbGVtZW50YXRpb24gdG8g
-c3VwcG9ydCB0aGlzIChmcm9tIGdwaW8gb3Igb3RoZXIpLgo+IAoKTW9zdCBvZiB0aGUgbm9uLVBD
-L1NlcnZlciBwbGF0Zm9ybXMgZG8gbm90IGhhdmUgaG90IHBsdWdnYWJsZSBjb25uZWN0b3JzLiBT
-byB0aGUKbGFjayBvZiBQUlNOVCMgc2lnbmFsIGlzIHZlcnkgY29tbW9uLgoKPiBIb3dldmVyLCB1
-c2luZyBhIFBDIGhvc3QsIEkgb2JzZXJ2ZSB0aGF0IHdoZW4gSSByZXN1bWUgdGhlIGhvc3QgZnJv
-bSBQQ0llCj4gYXV0b3N1c3BlbmQsIGZvciBleGFtcGxlLCB3aXRoICdsc3BjaScsIFBFUlNUIyBp
-cyBkZWFzc2VydGVkLCBhbmQgdGhlIHN0bTMyCj4gUENJZSBFUCBkZXZpY2UgaXMgY29ycmVjdGx5
-IGVudW1lcmF0ZWQgd2l0aG91dCBhIG1hbnVhbCByZXNjYW4uIFNvIHRoYW5rcyB0bwo+IHBvd2Vy
-IG1hbmFnZW1lbnQsIGEgZGV2aWNlIGNhbiBiZSBlbnVtZXJhdGVkIGFzeW5jaHJvbm91c2x5IGJ1
-dCB3aGVuCj4gcmVxdWVzdGVkLCBub3Qgd2hlbiByZWFkeS4KPiAKCkkgd291bGQgYXNzdW1lIHRo
-YXQgYW55IGhvc3Qgd2lsbCBkZWFzc2VydCBQRVJTVCMgZHVyaW5nIGJvb3QgaXRzZWxmLCBhbmQg
-a2VlcAp0aGUgTFRTU00gaW4gTGluay5EZXRlY3QuIEJ1dCBpZiB0aGUgbGluayBpcyBub3QgZGV0
-ZWN0ZWQsIGEgaG9zdCAqbWF5KiBhc3NlcnQKUEVSU1QjLiBBbmQgZHVyaW5nIHJlc3VtZSwgaXQg
-d2lsbCB0cnkgdGhlIHNhbWUgc2VxdWVuY2UgYW5kIGlmIHlvdXIgZGV2aWNlIGlzCmNvbm5lY3Rl
-ZCwgaXQgd2lsbCBnZXQgZW51bWVyYXRlZC4KCi0gTWFuaQoKLS0gCuCuruCuo+Cuv+CuteCuo+Cv
-jeCuo+CuqeCvjSDgrprgrqTgrr7grprgrr/grrXgrq7gr40KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Wed, Nov 19, 2025 at 04:13:17PM +0000, Russell King (Oracle) wrote:
+> On Wed, Nov 19, 2025 at 11:35:26PM +0800, Jisheng Zhang wrote:
+> > The dwmac 5.20 IP can be found on some synaptics SoCs. 
+> > 
+> > The binding doc has been already upstreamed by
+> > commit 13f9351180aa ("dt-bindings: net: snps,dwmac: Add dwmac-5.20
+> > version")
+> > 
+> > So we just need to add a compatibility flag in dwmac generic driver.
+> 
+> Do we _need_ to add it to the generic driver? Do the platforms that are
+> using this really not need any additional code to support them?
+> 
+> Looking at all the DT that mention dwmac-5.20 in their compatible
+> strings, that is always after other compatibles that point to other
+> platform specific drivers.
+> 
+> So, can you point to a platform that doesn't have its own platform
+> glue, and would be functional when using the dwmac-generic driver?
+
+Synatpics platforms use the dwmac-generic driver, it's enough now.
+But we haven't upstreamed related platforms, but will do soon.
+> 
+> For reference, the dts that refer to dwmac-5.20 are:
+> 
+> arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+> arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> arch/arm64/boot/dts/st/stm32mp251.dtsi
+> arch/arm64/boot/dts/st/stm32mp253.dtsi
+> arch/arm64/boot/dts/st/stm32mp233.dtsi
+> arch/arm64/boot/dts/st/stm32mp231.dtsi
+> arch/riscv/boot/dts/starfive/jh7110.dtsi
+> 
+> Thanks.
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
