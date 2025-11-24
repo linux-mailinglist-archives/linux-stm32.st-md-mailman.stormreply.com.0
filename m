@@ -2,119 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5792CC81857
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Nov 2025 17:20:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD24C81E91
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Nov 2025 18:34:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2580C32EB0;
-	Mon, 24 Nov 2025 16:20:18 +0000 (UTC)
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de
- [81.169.146.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 937E0C32EB0;
+	Mon, 24 Nov 2025 17:34:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C097C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70ED4C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Nov 2025 16:20:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1764001204; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=Mi6ffgTzeLDd6by16LVPA9WBGsA3fZVxfsWD+cc37oI6ulg6dD65T95bJgc6HltKK7
- N4uWDZgtyOZZdYje8gbuVu9T95X4b6tGrirbXguEMFuLjxnmBeIEHwAlx2PfiDgOUf0X
- Y5unUlSKON44f9TwafsNmg1XK3HCWLwKQQjfA0arXHoDi0VhL9qaRszysZeC26RBdtLK
- YO6XinkyNSO/eRv4GXglIu2zaNXRdLUGDJVxoPF+Ebn7lEWzAKhSqULCVuldOiLIotTx
- q8gu653gQC85578icQWFyQi2iHeAZ1lQr+Y9ej1sK6GmFp8zfbiANYXvd+0sRoKehivg
- eixA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1764001204;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=YAUaPVN/LGE+6Tp5hwdCL/oWm3I9gZiHnGqVnZITlYs=;
- b=cUCmeEBRlYbwM5vOtKFOqHLCauD/E9W7U80NSRAFCB7CoOMD6R2e9+FINz97vTBUxa
- EaSR9ryKUBDxRXQpAuCFmDrC0Vlz24ODRPRgx20QLtw0CMv6m9nQcIyaVoFA8Hxfe7Ns
- oRovNaPokz6MeFJr6evXGsdP1dQAe4qrW7Rhh8UKE+mmCQQTJhJXqs0jPA9JE2TMH1EX
- +yD6kiySzwCuyWvVMLnxzmucLJJrS/5Vb+Y87JuqTctbDFAEVk5grUxKLv8SBccG9mq+
- b+y8Oj/N/tdmVhKCQxdC+mP4Lcd2i8XJLq1ejg/w9WMfARWVbl5i+FddPbgbqtCDfNeR
- mgPQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1764001204;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=YAUaPVN/LGE+6Tp5hwdCL/oWm3I9gZiHnGqVnZITlYs=;
- b=FDRRuZGDOWIr7PVjsgzCEoc3WjvlYfn5g1ULeDbZRLMYz5CmpY7CZr3cK7UpgYkx0e
- MJeOyEuhc+s50fia250GETWkb2KyfPR/uu4luJS0hYtGHVYWjj1C0gj4wgXUQbE8ASZY
- 8cbYgmpw+KOk576zSdy2+AnnWs2yoLYgND53GmUAS0eQCYLLfmWBhCTk49aW9cvhkbHv
- HX6d1mkeNCVs9FwkkOx2Oz+apKUpgSQwGiZb+KHXhrCBW37hjEaBQ2sr0RL/5DH+ejQ7
- vB8wAa9r1qfbx9RWiahdkadBDaB5zU34WX42srJQJlf0ZoT8+a2k/5Sm1R8szDOOpyRd
- RIQw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1764001204;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=YAUaPVN/LGE+6Tp5hwdCL/oWm3I9gZiHnGqVnZITlYs=;
- b=UpfJCvMrspS72WrTrjWL4jgwZQ8Vv8hqUUkLNHFb0/XXkbAeu7OKuXDGtFnCaVbnqc
- 2w8c+jlmQ0tQ0RvKt+AA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9o12DNOsPj0lFzL1yeT0Z"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 54.0.0 DYNA|AUTH)
- with ESMTPSA id Qc14a81AOGJvF96
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Mon, 24 Nov 2025 17:19:57 +0100 (CET)
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.3\))
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <4053840.MHq7AAxBmi@fw-rgant>
-Date: Mon, 24 Nov 2025 17:19:45 +0100
-Message-Id: <732D3F12-0361-4800-8981-EF629B4C491F@goldelico.com>
-References: <20251124-ltm8054-driver-v4-0-107a8a814abe@bootlin.com>
- <23111366.EfDdHjke4D@fw-rgant>
- <563331EB-2460-4CF5-87B3-5FE60B18BB70@goldelico.com>
- <4053840.MHq7AAxBmi@fw-rgant>
-To: Romain Gantois <romain.gantois@bootlin.com>
-X-Mailer: Apple Mail (2.3826.700.81.1.3)
-Cc: linux-hwmon@vger.kernel.org, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Casey Connolly <casey.connolly@linaro.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-phy@lists.infradead.org,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Dixit Parmar <dixitparmar19@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Chen-Yu Tsai <wens@csie.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- linux-input@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, David Lechner <dlechner@baylibre.com>,
- Jaroslav Kysela <perex@perex.cz>, Guenter Roeck <linux@roeck-us.net>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Matheus Castello <matheus@castello.eng.br>, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-mips@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Eugen Hristev <eugen.hristev@linaro.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Iskren Chernev <me@iskren.info>,
- Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Lukasz Luba <lukasz.luba@arm.com>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>, linux-pm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Mon, 24 Nov 2025 17:34:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 61448601DF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Nov 2025 17:34:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDFFDC19425
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Nov 2025 17:34:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764005656;
+ bh=QrwrudDXcmBwv5MpjExmSZyNDnG2x6mJE3eaNfxGUrk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=cSMluTDn9fYYcsY96+RxCVmBU1UT6UeyACkllJmWSzU7gZrvo4gGKXo7uyft1pw/J
+ X0UATKXVk+76/kBFRGVF3WN6uZgdNS3IO4AInkWQW27lHULnedM31JIF4SYAhBxdt1
+ htoENAzwePRLjk5wCvlNeLCA2EhSsiJdEzldD7GbpiOoH+JZ0hIPxhLZNrJGTVLqyY
+ 2rgtF3juLEX+iTIqseecGdaakgW0CW4dYuyzvYUgbL2kageR3wIVXZrIeJIMhRFjpw
+ s8V/JiAZGEYvkqjz/CuBiFxqZYv8hiBAk1mJsvk15Xna/VKLCOvT4hJYMMNMBq/vD8
+ cuwKoO9s+/KJg==
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b7277324054so681943266b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Nov 2025 09:34:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXLJpal+D38/vAzVNzAbvtLiJnei7Dn68vOvGnix6u9Ah/eLnJVdWRZISfcVXXw0uvWScje0XxD0u/wbQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyQCPrpbzk93/N5nC4tZLhvwzLL7NQYsxkuxWHaKwH6KrTcbJMb
+ O9EfSmi7h7KIo+6zviSVq/otTVUb7SIKbQ+xr42wnTAomfVThlCaG2U3x3I6p4N5/A4UFEzq8l4
+ fFJVAvPfve2/aif8UOAwsUzyZ8P3PKw==
+X-Google-Smtp-Source: AGHT+IH4zThrBiVwTM/gMTFGPCf7Ko+9nQcpXA9JRi2zbFqO9WDmcAZTQclKPHj9NMzyHEHvrVsg+wN6QcpewpApah8=
+X-Received: by 2002:a17:907:1b0f:b0:b6d:573d:bbc5 with SMTP id
+ a640c23a62f3a-b767170cca7mr1240223266b.37.1764005654444; Mon, 24 Nov 2025
+ 09:34:14 -0800 (PST)
+MIME-Version: 1.0
+References: <20251031175926.1465360-1-robh@kernel.org> <aRN0fdOAV0B728qo@p14s>
+ <20251111195923.GA3629535-robh@kernel.org>
+ <CANLsYkwcbrTaKASdr5fj0m9ARS4xUgzVH8iWQKwTCvEsoZDDsQ@mail.gmail.com>
+ <CAL_JsqL7HcDkPgJjcqJSagdN=gH2rv6noVS57QMGNRp0YCxUBw@mail.gmail.com>
+ <aRX6DJoaP4MXG3fN@p14s>
+In-Reply-To: <aRX6DJoaP4MXG3fN@p14s>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 24 Nov 2025 11:34:02 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJGtQTVdaJ99DKiqbo3GfxmU7V6QjroTxHi7gR53Dfe-Q@mail.gmail.com>
+X-Gm-Features: AWmQ_bmPMfxmmKwhG7Mzx1bAQRdZoKMheTTGVeWZ-CEQx6BfmTyQnFsumwKZ_Xg
+Message-ID: <CAL_JsqJGtQTVdaJ99DKiqbo3GfxmU7V6QjroTxHi7gR53Dfe-Q@mail.gmail.com>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>,
- =?utf-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Peter Rosin <peda@axentia.se>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 0/6] Add support for the LTM8054
-	voltage regulator
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-remoteproc@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6] remoteproc: Use
+	of_reserved_mem_region_* functions for "memory-region"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,106 +78,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-> Am 24.11.2025 um 16:57 schrieb Romain Gantois <romain.gantois@bootlin.com>:
-> 
-> Hi Nikolaus,
-> 
-> On Monday, 24 November 2025 16:35:28 CET H. Nikolaus Schaller wrote:
-> ...
-> > > Sorry, I don't quite understand your remark. To integrate this voltage
-> > > regulator component into the Linux regulator abstraction, I'm providing a
-> > > current limit control function. To provide such a function, the voltage
-> > > level on a pin has to be controlled. AFAIK, the kernel abstraction used
-> > > to set precise voltages on lines is an IO channel.
-> > 
-> > I was curious to learn about this topic and looked into the data sheet:
-> > 
-> > https://www.analog.com/media/en/technical-documentation/data-sheets/8054fa.p
-> > df
-> > 
-> > As far as I see the LTM8054 does not even have a programming interface.
-> > So is it reasonable to provide a dedicated driver at all?
-> > 
-> > The figure on page 20 seems to suggest that there is an external DAC
-> > which drives the regulator. And the regulator drives for example a fan.
-> > 
-> > So I would think of a driver for the specific DAC and ignore the specific
-> > LTM chip at all.
-> > 
-> 
-> In my use case, the LTM8054 feeds a DC output port on which various devices 
-> may be plugged. Dynamic output current limitation and output voltage level 
-> control for these devices is a requirement, as well as stepped voltage 
-> transitions, thus the need for a proper regulator device.
-> 
-> The LTM8054's feedback pin can be driven by a different DAC, which allows for 
-> dynamic output voltage control. This is a more complex upstreaming topic 
-> however, so I've left it out of this initial series. There are other component 
-> functions which fit in squarely into the regulator framework, such as 
-> input current limit control and soft-start. But I understand that the current 
-> driver might look a bit "bare".
-
-So you just want to have some user-space mechanism to control voltage
-and current limits? Can't this be done by directly controlling them through
-the iio API?
-
-Is this for a device that is already in kernel or planned to be supported?
-Or is it "application support" for some SBC?
-
-Are you looking for a virtual "glue" driver to logically combine several low
-level functions?
-
-> 
-> > What could be necessary is if you really want to be able to "regulate"
-> > the current going to Vout, some bridge between regulator API and some
-> > IIO DAC.
-> > 
-> > And enabling/disabling the regulator by some GPIO can be described in
-> > the DT already through a "regulator-fixed".
-> > 
-> 
-> This is a possibility, but when you bring in all of these other hardware 
-> functions that I mentionned e.g. output voltage control and stepping, you'll 
-> end up with several different devices which look unrelated from userspace, but 
-> actually control the same chip.
-
-That is quite usual... I have often heard: user space must fix this as kernel
-just provides basic functions in a harmonized way and integration has to
-be tailored to the device anyways :)
-
-> Userspace will also have to know about some hardware details to properly 
-> control the DACs, such as the values of the sense and feedback resistors. In 
-> my opinion, this bypasses the kernel's abstraction of hardware.
-
-I came up with this argument several times in the part and got a lot of contrary :)
-
-What I still wonder: does your hardware warrant an upstream driver for a
-non-programable chip if a different solution (with help of user-space) already
-exist?
-
-Another question: is your scheme generic enough so that it can be expected
-that other devices are using it in the same way?
-
-Or could the power controller framework (/sys/class/power_supply) fit better?
-
-There is an API to ask chargers etc. for battery voltage and current limits or
-even write them.
-
-There is also "generic-adc-battery" which allows to hook up with arbitrary
-iio-adcs for measurements - although you need a DAC in your setup. Maybe an
-extension here is a better strategy than a dedicated ltm8054 driver?
-
-BR,
-Nikolaus
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBOb3YgMTMsIDIwMjUgYXQgOTozMuKAr0FNIE1hdGhpZXUgUG9pcmllcgo8bWF0aGll
+dS5wb2lyaWVyQGxpbmFyby5vcmc+IHdyb3RlOgo+Cj4gT24gV2VkLCBOb3YgMTIsIDIwMjUgYXQg
+MTA6NTk6NDJBTSAtMDYwMCwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gPiBPbiBXZWQsIE5vdiAxMiwg
+MjAyNSBhdCA5OjQz4oCvQU0gTWF0aGlldSBQb2lyaWVyCj4gPiA8bWF0aGlldS5wb2lyaWVyQGxp
+bmFyby5vcmc+IHdyb3RlOgo+ID4gPgo+ID4gPiBPbiBUdWUsIDExIE5vdiAyMDI1IGF0IDEyOjU5
+LCBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+IE9u
+IFR1ZSwgTm92IDExLCAyMDI1IGF0IDEwOjM4OjA1QU0gLTA3MDAsIE1hdGhpZXUgUG9pcmllciB3
+cm90ZToKPiA+ID4gPiA+IEhpIFJvYiwKPiA+ID4gPiA+Cj4gPiA+ID4gPiBQbGVhc2Ugc2VlIG1h
+eSBjb21tZW50IGZvciBzdF9yZW1vdGVwcm9jLmMKPiA+ID4gPiA+Cj4gPiA+ID4gPiBPbiBGcmks
+IE9jdCAzMSwgMjAyNSBhdCAxMjo1OToyMlBNIC0wNTAwLCBSb2IgSGVycmluZyAoQXJtKSB3cm90
+ZToKPiA+ID4gPiA+ID4gVXNlIHRoZSBuZXdseSBhZGRlZCBvZl9yZXNlcnZlZF9tZW1fcmVnaW9u
+X3RvX3Jlc291cmNlKCkgYW5kCj4gPiA+ID4gPiA+IG9mX3Jlc2VydmVkX21lbV9yZWdpb25fY291
+bnQoKSBmdW5jdGlvbnMgdG8gaGFuZGxlICJtZW1vcnktcmVnaW9uIgo+ID4gPiA+ID4gPiBwcm9w
+ZXJ0aWVzLgo+ID4KPiA+IFsuLi5dCj4gPgo+ID4gPiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9yZW1v
+dGVwcm9jLmMKPiA+ID4gPiA+ID4gaW5kZXggZTY1NjZhOTgzOWRjLi4wNDMzNDgzNjY5MjYgMTAw
+NjQ0Cj4gPiA+ID4gPiA+IC0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9yZW1vdGVwcm9jLmMK
+PiA+ID4gPiA+ID4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYwo+ID4g
+PiA+ID4gPiBAQCAtMTIwLDQwICsxMjAsMzcgQEAgc3RhdGljIGludCBzdF9ycHJvY19wYXJzZV9m
+dyhzdHJ1Y3QgcnByb2MgKnJwcm9jLCBjb25zdCBzdHJ1Y3QgZmlybXdhcmUgKmZ3KQo+ID4gPiA+
+ID4gPiAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gcnByb2MtPmRldi5wYXJlbnQ7Cj4gPiA+ID4g
+PiA+ICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wID0gZGV2LT5vZl9ub2RlOwo+ID4gPiA+ID4g
+PiAgICAgc3RydWN0IHJwcm9jX21lbV9lbnRyeSAqbWVtOwo+ID4gPiA+ID4gPiAtICAgc3RydWN0
+IHJlc2VydmVkX21lbSAqcm1lbTsKPiA+ID4gPiA+ID4gLSAgIHN0cnVjdCBvZl9waGFuZGxlX2l0
+ZXJhdG9yIGl0Owo+ID4gPiA+ID4gPiAtICAgaW50IGluZGV4ID0gMDsKPiA+ID4gPiA+ID4gLQo+
+ID4gPiA+ID4gPiAtICAgb2ZfcGhhbmRsZV9pdGVyYXRvcl9pbml0KCZpdCwgbnAsICJtZW1vcnkt
+cmVnaW9uIiwgTlVMTCwgMCk7Cj4gPiA+ID4gPiA+IC0gICB3aGlsZSAob2ZfcGhhbmRsZV9pdGVy
+YXRvcl9uZXh0KCZpdCkgPT0gMCkgewo+ID4gPiA+ID4gPiAtICAgICAgICAgICBybWVtID0gb2Zf
+cmVzZXJ2ZWRfbWVtX2xvb2t1cChpdC5ub2RlKTsKPiA+ID4gPiA+ID4gLSAgICAgICAgICAgaWYg
+KCFybWVtKSB7Cj4gPiA+ID4gPiA+IC0gICAgICAgICAgICAgICAgICAgb2Zfbm9kZV9wdXQoaXQu
+bm9kZSk7Cj4gPiA+ID4gPiA+IC0gICAgICAgICAgICAgICAgICAgZGV2X2VycihkZXYsICJ1bmFi
+bGUgdG8gYWNxdWlyZSBtZW1vcnktcmVnaW9uXG4iKTsKPiA+ID4gPiA+ID4gLSAgICAgICAgICAg
+ICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiA+ID4gPiA+ID4gLSAgICAgICAgICAgfQo+ID4gPiA+
+ID4gPiArICAgaW50IGluZGV4ID0gMCwgbXIgPSAwOwo+ID4gPiA+ID4gPiArCj4gPiA+ID4gPiA+
+ICsgICB3aGlsZSAoMSkgewo+ID4gPiA+ID4gPiArICAgICAgICAgICBzdHJ1Y3QgcmVzb3VyY2Ug
+cmVzOwo+ID4gPiA+ID4gPiArICAgICAgICAgICBpbnQgcmV0Owo+ID4gPiA+ID4gPiArCj4gPiA+
+ID4gPiA+ICsgICAgICAgICAgIHJldCA9IG9mX3Jlc2VydmVkX21lbV9yZWdpb25fdG9fcmVzb3Vy
+Y2UobnAsIG1yKyssICZyZXMpOwo+ID4gPiA+ID4gPiArICAgICAgICAgICBpZiAocmV0KQo+ID4g
+PiA+ID4gPiArICAgICAgICAgICAgICAgICAgIHJldHVybiAwOwo+ID4gPiA+ID4KPiA+ID4gPiA+
+IFRoZSBvcmlnaW5hbCBjb2RlIGNhbGxzIHJwcm9jX2VsZl9sb2FkX3JzY190YWJsZSgpIFsxXSBh
+ZnRlciBpdGVyYXRpbmcgdGhyb3VnaAo+ID4gPiA+ID4gdGhlIG1lbW9yeSByZWdpb24sIHNvbWV0
+aGluZyB0aGF0IHdvbid0IGhhcHBlbiB3aXRoIHRoZSBhYm92ZS4KPiA+ID4gPgo+ID4gPiA+IElu
+ZGVlZC4gaXQgbmVlZHMgdGhlIGZvbGxvd2luZyBpbmNyZW1lbnRhbCBjaGFuZ2UuIEl0IGlzIHNs
+aWdodGx5Cj4gPiA+ID4gZGlmZmVyZW50IGluIHRoYXQgcnByb2NfZWxmX2xvYWRfcnNjX3RhYmxl
+KCkgaXMgbm90IGNhbGxlZCBpZgo+ID4gPiA+ICdtZW1vcnktcmVnaW9uJyBpcyBtaXNzaW5nLCBi
+dXQgdGhlIGJpbmRpbmcgc2F5cyB0aGF0J3MgcmVxdWlyZWQuCj4gPiA+ID4KPiA+ID4gPiA4PC0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiA+ID4K
+PiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZW1vdGVwcm9jL3N0X3JlbW90ZXByb2MuYyBi
+L2RyaXZlcnMvcmVtb3RlcHJvYy9zdF9yZW1vdGVwcm9jLmMKPiA+ID4gPiBpbmRleCAwNDMzNDgz
+NjY5MjYuLmNiMDljMjQ0ZmRiNSAxMDA2NDQKPiA+ID4gPiAtLS0gYS9kcml2ZXJzL3JlbW90ZXBy
+b2Mvc3RfcmVtb3RlcHJvYy5jCj4gPiA+ID4gKysrIGIvZHJpdmVycy9yZW1vdGVwcm9jL3N0X3Jl
+bW90ZXByb2MuYwo+ID4gPiA+IEBAIC0xMjAsMTUgKzEyMCwxOSBAQCBzdGF0aWMgaW50IHN0X3Jw
+cm9jX3BhcnNlX2Z3KHN0cnVjdCBycHJvYyAqcnByb2MsIGNvbnN0IHN0cnVjdCBmaXJtd2FyZSAq
+ZncpCj4gPiA+ID4gICAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYgPSBycHJvYy0+ZGV2LnBhcmVu
+dDsKPiA+ID4gPiAgICAgICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAgPSBkZXYtPm9mX25vZGU7
+Cj4gPiA+ID4gICAgICAgICBzdHJ1Y3QgcnByb2NfbWVtX2VudHJ5ICptZW07Cj4gPiA+ID4gLSAg
+ICAgICBpbnQgaW5kZXggPSAwLCBtciA9IDA7Cj4gPiA+ID4gKyAgICAgICBpbnQgaW5kZXggPSAw
+Owo+ID4gPiA+Cj4gPiA+ID4gICAgICAgICB3aGlsZSAoMSkgewo+ID4gPiA+ICAgICAgICAgICAg
+ICAgICBzdHJ1Y3QgcmVzb3VyY2UgcmVzOwo+ID4gPiA+ICAgICAgICAgICAgICAgICBpbnQgcmV0
+Owo+ID4gPiA+Cj4gPiA+ID4gLSAgICAgICAgICAgICAgIHJldCA9IG9mX3Jlc2VydmVkX21lbV9y
+ZWdpb25fdG9fcmVzb3VyY2UobnAsIG1yKyssICZyZXMpOwo+ID4gPiA+IC0gICAgICAgICAgICAg
+ICBpZiAocmV0KQo+ID4gPiA+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOwo+ID4g
+PiA+ICsgICAgICAgICAgICAgICByZXQgPSBvZl9yZXNlcnZlZF9tZW1fcmVnaW9uX3RvX3Jlc291
+cmNlKG5wLCBpbmRleCwgJnJlcyk7Cj4gPiA+ID4gKyAgICAgICAgICAgICAgIGlmIChyZXQpIHsK
+PiA+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoaW5kZXgpCj4gPiA+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPiA+ID4gPiArICAgICAgICAgICAgICAg
+ICAgICAgICBlbHNlCj4gPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1
+cm4gcmV0Owo+ID4gPiA+ICsgICAgICAgICAgICAgICB9Cj4gPiA+Cj4gPiA+IFRoaXMgbG9va3Mg
+YnJpdHRsZSBhbmQgSSdtIG5vdCBzdXJlIGl0IHdvdWxkIHdvcmsuCj4gPiA+Cj4gPiA+IEdvaW5n
+IGJhY2sgdG8gdGhlIG9yaWdpbmFsIGltcGxlbWVudGF0aW9uLCB0aGUgb25seSB0aW1lIHdlIHdh
+bnQgdG8KPiA+ID4gImJyZWFrIiBpcyB3aGVuIEBpbmRleCBpcyBlcXVhbCB0byB0aGUgYW1vdW50
+IG9mIG1lbW9yeSByZWdpb25zIF9hbmRfCj4gPiA+IHJldCBpcyAtRUlOVkFMLiAgQW55IG90aGVy
+IGNvbmRpdGlvbiBzaG91bGQgcmV0dXJuLgo+ID4KPiA+IEBpbmRleCBlcXVhbCB0byBudW1iZXIg
+b2YgZW50cmllcyByZXR1cm5zIC1FTk9ERVYsIHNvIHRoYXQgY29uZGl0aW9uCj4gPiBpcyBpbXBv
+c3NpYmxlLiBXZSBjYW4gc2ltcGx5IGl0IHRvIHRoaXM6Cj4gPgo+ID4gaWYgKHJldCA9PSAtRU5P
+REVWICYmIGluZGV4KQo+ID4gICAgIGJyZWFrOwo+ID4gZWxzZQo+ID4gICAgIHJldHVybiByZXQ7
+Cj4KPiBUbyBtZSB0aGlzIG5lZWRzIHRvIGJlOgo+Cj4gZW50cmllcyA9IG9mX3Jlc2VydmVkX21l
+bV9yZWdpb25fY291bnQobnApOwoKSWRlYWxseSwgd2UgdHJ5IHRvIGF2b2lkIHBhcnNpbmcgdGhl
+IHNhbWUgcHJvcGVydHkgdHdpY2UuIFRoZSBwbGFjZXMKd2UgY291bnQgYW5kIHRoZW4gcmVhZCB0
+aGUgcHJvcGVydHkgYWdhaW4gYXJlIHdoZW4gd2UgbmVlZCB0byBhbGxvY2F0ZQphbiBhcnJheSBv
+ZiB0aGUgcmlnaHQgc2l6ZSBpbiBiZXR3ZWVuLiBCdXQgaWYgdGhhdCBwdXRzIHRoaXMgcGF0Y2gg
+dG8KYmVkIGZpbmFsbHksIHRoZW4gZmluZS4KCj4KPiAuLi4KPiAuLi4KPgo+IGlmIChyZXQgPT0g
+LUVOT0RFViAmJiBpbmRleCA9PSBlbnRyaWVzKQo+ICAgICAgICAgYnJlYWs7Cj4gZWxzZQo+ICAg
+ICAgICAgcmV0dXJuIHJldDsKPgo+IEJ1dCB0YWtpbmcgYSBzdGVwIGJhY2ssIGl0IG1pZ2h0IGV2
+ZW4gYmUgZWFzaWVyIHRvIGdvIGZyb20gYSB3aGlsZSgpIHRvIGEgZm9yKCksCj4gdGhlIHNhbWUg
+d2F5IHlvdSBkaWQgaW4gaW14X3Jwcm9jX2FkZHJfaW5pdCgpLgo+Cj4gPgo+ID4gSWYgeW91IHdh
+bnQgdG8ga2VlcCB0aGUgcHJpb3IgYmVoYXZpb3Igd2hlbiAnbWVtb3J5LXJlZ2lvbicgaXMKPiA+
+IG1pc3NpbmcsIHRoZW4gJyYmIGluZGV4JyBjYW4gYmUgcmVtb3ZlZCwgYnV0IEkgdGhpbmsgdGhh
+dCB3YXMgd3JvbmcKPiA+IGJlaGF2aW9yLgo+ID4KPiA+IFJvYgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
