@@ -2,56 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50F81C8219F
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Nov 2025 19:28:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71AC9C8406E
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Nov 2025 09:42:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1ABE6C56600;
-	Mon, 24 Nov 2025 18:28:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A299C35E3C;
+	Tue, 25 Nov 2025 08:42:06 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48E20C56600
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20869C35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Nov 2025 18:28:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 73CB960176;
- Mon, 24 Nov 2025 18:28:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81B8C4CEF1;
- Mon, 24 Nov 2025 18:28:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764008893;
- bh=LveFK3svzwr3240pinEzhr4cRcEQRM0RRxCFeTRmktU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JGq6Jx7pBzvR2a+xdiqPUncCy1FvjZRbHZDBF+ugQBicvMnPobpFHPoZHIQMCce+J
- 9qpdLngMVe17YC25iva5Kv0+tr1Z502VyIo48cTJeLzt+e/sTE589Ib8NqihaP3Owl
- GaZMkeokHq7NgRUQqA9aJNY5LsS5iAz5bSqpsMXSv4XZKwsQ06gQ9BdHk2MRlTgd8X
- geRahs6QZeiu7vVGLMetG0eXeNctJdJ3GOhG2vThlKG/DQiERnrF4wXdVaV6gjZZGe
- Utcp5ttWxDaiAxjKYH/xDtUR/FLmRGWrqPHpdhFq3XVvI7g8Eo94rWzcfhpCEyHF7Y
- ed9VCgAY54w5Q==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 24 Nov 2025 12:27:48 -0600
-Message-ID: <20251124182751.507624-2-robh@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251124182751.507624-1-robh@kernel.org>
-References: <20251124182751.507624-1-robh@kernel.org>
+ Tue, 25 Nov 2025 08:42:04 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A88F84E418BC;
+ Tue, 25 Nov 2025 08:42:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 76F1D60705;
+ Tue, 25 Nov 2025 08:42:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 937281037160A; Tue, 25 Nov 2025 09:41:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1764060118; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=2o0olBqqiCnYMdbfemBfUTVqO9jEfeuMqW3Jkn2wJC0=;
+ b=np8FqZdym2Wty0W93O7w7shgzDAPxvx7OSrXs0VRuETOjjAW8+HA50+CFTcDPlJ1zO4C7W
+ e6PURzgtrculx7tTu8rN97eJwG2WPlJhw8q6DJTImD2KkbiUG+rt8S7g6YHZd4v6vlZzWI
+ 4KV0igv0n6z6xtyafwxwCTcHE8Eb5vgS9NMtbd+09MDsbnWaraeS/SLEzkokIKtYa2tQnA
+ LE7CCJQabojoGkiALiJgmhfnKLC74eVKEj0pyAvSQmlvHtLFegfXUAYwlMTCjo3Xo8WnoB
+ XKSt0lq2XmLzPCn6oWlE9BzvoJHvLN1w/658oqxZrLUwOEMDLD4Oop8egVF3iw==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Date: Tue, 25 Nov 2025 09:41:34 +0100
+Message-ID: <3021060.e9J7NaK4W3@fw-rgant>
+In-Reply-To: <732D3F12-0361-4800-8981-EF629B4C491F@goldelico.com>
+References: <20251124-ltm8054-driver-v4-0-107a8a814abe@bootlin.com>
+ <4053840.MHq7AAxBmi@fw-rgant>
+ <732D3F12-0361-4800-8981-EF629B4C491F@goldelico.com>
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
- linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Beleswar Padhi <b-padhi@ti.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 2/2] remoteproc: qcom: Use
-	of_reserved_mem_region_* functions for "memory-region"
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: linux-hwmon@vger.kernel.org, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ Casey Connolly <casey.connolly@linaro.org>, linux-iio@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-phy@lists.infradead.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Dixit Parmar <dixitparmar19@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Chen-Yu Tsai <wens@csie.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ linux-input@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
+ Zhang Rui <rui.zhang@intel.com>, David Lechner <dlechner@baylibre.com>,
+ Jaroslav Kysela <perex@perex.cz>, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Matheus Castello <matheus@castello.eng.br>, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-mips@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Eugen Hristev <eugen.hristev@linaro.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Iskren Chernev <me@iskren.info>,
+ Takashi Iwai <tiwai@suse.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>, linux-pm@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sebastian Reichel <sre@kernel.org>, linux-mediatek@lists.infradead.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>,
+ Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>, Peter Rosin <peda@axentia.se>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v4 0/6] Add support for the LTM8054
+	voltage regulator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,381 +92,241 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5913054148789734788=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the newly added of_reserved_mem_region_to_resource() and
-of_reserved_mem_region_count() functions to handle "memory-region"
-properties.
+--===============5913054148789734788==
+Content-Type: multipart/signed; boundary="nextPart3391484.44csPzL39Z";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-The error handling is a bit different in some cases. Often
-"memory-region" is optional, so failed lookup is not an error. But then
-an error in of_reserved_mem_lookup() is treated as an error. However,
-that distinction is not really important. Either the region is available
-and usable or it is not. So now, it is just
-of_reserved_mem_region_to_resource() which is checked for an error.
+--nextPart3391484.44csPzL39Z
+Content-Type: multipart/alternative; boundary="nextPart3384998.aeNJFYEL58";
+ protected-headers="v1"
+Content-Transfer-Encoding: 7Bit
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Date: Tue, 25 Nov 2025 09:41:34 +0100
+Message-ID: <3021060.e9J7NaK4W3@fw-rgant>
+In-Reply-To: <732D3F12-0361-4800-8981-EF629B4C491F@goldelico.com>
+MIME-Version: 1.0
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v7:
- - Split QCom to separate patch
----
- drivers/remoteproc/qcom_q6v5_adsp.c | 24 ++++------
- drivers/remoteproc/qcom_q6v5_mss.c  | 60 ++++++++-----------------
- drivers/remoteproc/qcom_q6v5_pas.c  | 69 +++++++++++------------------
- drivers/remoteproc/qcom_q6v5_wcss.c | 25 +++++------
- drivers/remoteproc/qcom_wcnss.c     | 23 ++++------
- 5 files changed, 72 insertions(+), 129 deletions(-)
+This is a multi-part message in MIME format.
 
-diff --git a/drivers/remoteproc/qcom_q6v5_adsp.c b/drivers/remoteproc/qcom_q6v5_adsp.c
-index e98b7e03162c..d3933a66ed3d 100644
---- a/drivers/remoteproc/qcom_q6v5_adsp.c
-+++ b/drivers/remoteproc/qcom_q6v5_adsp.c
-@@ -625,26 +625,20 @@ static int adsp_init_mmio(struct qcom_adsp *adsp,
- 
- static int adsp_alloc_memory_region(struct qcom_adsp *adsp)
- {
--	struct reserved_mem *rmem = NULL;
--	struct device_node *node;
--
--	node = of_parse_phandle(adsp->dev->of_node, "memory-region", 0);
--	if (node)
--		rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
-+	int ret;
-+	struct resource res;
- 
--	if (!rmem) {
-+	ret = of_reserved_mem_region_to_resource(adsp->dev->of_node, 0, &res);
-+	if (ret) {
- 		dev_err(adsp->dev, "unable to resolve memory-region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	adsp->mem_phys = adsp->mem_reloc = rmem->base;
--	adsp->mem_size = rmem->size;
--	adsp->mem_region = devm_ioremap_wc(adsp->dev,
--				adsp->mem_phys, adsp->mem_size);
-+	adsp->mem_phys = adsp->mem_reloc = res.start;
-+	adsp->mem_size = resource_size(&res);
-+	adsp->mem_region = devm_ioremap_resource_wc(adsp->dev, &res);
- 	if (!adsp->mem_region) {
--		dev_err(adsp->dev, "unable to map memory region: %pa+%zx\n",
--			&rmem->base, adsp->mem_size);
-+		dev_err(adsp->dev, "unable to map memory region: %pR\n", &res);
- 		return -EBUSY;
- 	}
- 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index 3087d895b87f..91940977ca89 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -1970,8 +1970,8 @@ static int q6v5_init_reset(struct q6v5 *qproc)
- static int q6v5_alloc_memory_region(struct q6v5 *qproc)
- {
- 	struct device_node *child;
--	struct reserved_mem *rmem;
--	struct device_node *node;
-+	struct resource res;
-+	int ret;
- 
- 	/*
- 	 * In the absence of mba/mpss sub-child, extract the mba and mpss
-@@ -1979,71 +1979,49 @@ static int q6v5_alloc_memory_region(struct q6v5 *qproc)
- 	 */
- 	child = of_get_child_by_name(qproc->dev->of_node, "mba");
- 	if (!child) {
--		node = of_parse_phandle(qproc->dev->of_node,
--					"memory-region", 0);
-+		ret = of_reserved_mem_region_to_resource(qproc->dev->of_node, 0, &res);
- 	} else {
--		node = of_parse_phandle(child, "memory-region", 0);
-+		ret = of_reserved_mem_region_to_resource(child, 0, &res);
- 		of_node_put(child);
- 	}
- 
--	if (!node) {
--		dev_err(qproc->dev, "no mba memory-region specified\n");
--		return -EINVAL;
--	}
--
--	rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
--	if (!rmem) {
-+	if (ret) {
- 		dev_err(qproc->dev, "unable to resolve mba region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	qproc->mba_phys = rmem->base;
--	qproc->mba_size = rmem->size;
-+	qproc->mba_phys = res.start;
-+	qproc->mba_size = resource_size(&res);
- 
- 	if (!child) {
--		node = of_parse_phandle(qproc->dev->of_node,
--					"memory-region", 1);
-+		ret = of_reserved_mem_region_to_resource(qproc->dev->of_node, 1, &res);
- 	} else {
- 		child = of_get_child_by_name(qproc->dev->of_node, "mpss");
--		node = of_parse_phandle(child, "memory-region", 0);
-+		ret = of_reserved_mem_region_to_resource(child, 0, &res);
- 		of_node_put(child);
- 	}
- 
--	if (!node) {
--		dev_err(qproc->dev, "no mpss memory-region specified\n");
--		return -EINVAL;
--	}
--
--	rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
--	if (!rmem) {
-+	if (ret) {
- 		dev_err(qproc->dev, "unable to resolve mpss region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	qproc->mpss_phys = qproc->mpss_reloc = rmem->base;
--	qproc->mpss_size = rmem->size;
-+	qproc->mpss_phys = qproc->mpss_reloc = res.start;
-+	qproc->mpss_size = resource_size(&res);
- 
- 	if (!child) {
--		node = of_parse_phandle(qproc->dev->of_node, "memory-region", 2);
-+		ret = of_reserved_mem_region_to_resource(qproc->dev->of_node, 2, &res);
- 	} else {
- 		child = of_get_child_by_name(qproc->dev->of_node, "metadata");
--		node = of_parse_phandle(child, "memory-region", 0);
-+		ret = of_reserved_mem_region_to_resource(child, 0, &res);
- 		of_node_put(child);
- 	}
- 
--	if (!node)
-+	if (ret)
- 		return 0;
- 
--	rmem = of_reserved_mem_lookup(node);
--	if (!rmem) {
--		dev_err(qproc->dev, "unable to resolve metadata region\n");
--		return -EINVAL;
--	}
--
--	qproc->mdata_phys = rmem->base;
--	qproc->mdata_size = rmem->size;
-+	qproc->mdata_phys = res.start;
-+	qproc->mdata_size = resource_size(&res);
- 
- 	return 0;
- }
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 158bcd6cc85c..7bac843ce406 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -547,53 +547,37 @@ static void qcom_pas_pds_detach(struct qcom_pas *pas, struct device **pds, size_
- 
- static int qcom_pas_alloc_memory_region(struct qcom_pas *pas)
- {
--	struct reserved_mem *rmem;
--	struct device_node *node;
--
--	node = of_parse_phandle(pas->dev->of_node, "memory-region", 0);
--	if (!node) {
--		dev_err(pas->dev, "no memory-region specified\n");
--		return -EINVAL;
--	}
-+	struct resource res;
-+	int ret;
- 
--	rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
--	if (!rmem) {
-+	ret = of_reserved_mem_region_to_resource(pas->dev->of_node, 0, &res);
-+	if (ret) {
- 		dev_err(pas->dev, "unable to resolve memory-region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	pas->mem_phys = pas->mem_reloc = rmem->base;
--	pas->mem_size = rmem->size;
--	pas->mem_region = devm_ioremap_wc(pas->dev, pas->mem_phys, pas->mem_size);
-+	pas->mem_phys = pas->mem_reloc = res.start;
-+	pas->mem_size = resource_size(&res);
-+	pas->mem_region = devm_ioremap_resource_wc(pas->dev, &res);
- 	if (!pas->mem_region) {
--		dev_err(pas->dev, "unable to map memory region: %pa+%zx\n",
--			&rmem->base, pas->mem_size);
-+		dev_err(pas->dev, "unable to map memory region: %pR\n", &res);
- 		return -EBUSY;
- 	}
- 
- 	if (!pas->dtb_pas_id)
- 		return 0;
- 
--	node = of_parse_phandle(pas->dev->of_node, "memory-region", 1);
--	if (!node) {
--		dev_err(pas->dev, "no dtb memory-region specified\n");
--		return -EINVAL;
--	}
--
--	rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
--	if (!rmem) {
-+	ret = of_reserved_mem_region_to_resource(pas->dev->of_node, 1, &res);
-+	if (ret) {
- 		dev_err(pas->dev, "unable to resolve dtb memory-region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	pas->dtb_mem_phys = pas->dtb_mem_reloc = rmem->base;
--	pas->dtb_mem_size = rmem->size;
--	pas->dtb_mem_region = devm_ioremap_wc(pas->dev, pas->dtb_mem_phys, pas->dtb_mem_size);
-+	pas->dtb_mem_phys = pas->dtb_mem_reloc = res.start;
-+	pas->dtb_mem_size = resource_size(&res);
-+	pas->dtb_mem_region = devm_ioremap_resource_wc(pas->dev, &res);
- 	if (!pas->dtb_mem_region) {
--		dev_err(pas->dev, "unable to map dtb memory region: %pa+%zx\n",
--			&rmem->base, pas->dtb_mem_size);
-+		dev_err(pas->dev, "unable to map dtb memory region: %pR\n", &res);
- 		return -EBUSY;
- 	}
- 
-@@ -603,7 +587,6 @@ static int qcom_pas_alloc_memory_region(struct qcom_pas *pas)
- static int qcom_pas_assign_memory_region(struct qcom_pas *pas)
- {
- 	struct qcom_scm_vmperm perm[MAX_ASSIGN_COUNT];
--	struct device_node *node;
- 	unsigned int perm_size;
- 	int offset;
- 	int ret;
-@@ -612,17 +595,15 @@ static int qcom_pas_assign_memory_region(struct qcom_pas *pas)
- 		return 0;
- 
- 	for (offset = 0; offset < pas->region_assign_count; ++offset) {
--		struct reserved_mem *rmem = NULL;
--
--		node = of_parse_phandle(pas->dev->of_node, "memory-region",
--					pas->region_assign_idx + offset);
--		if (node)
--			rmem = of_reserved_mem_lookup(node);
--		of_node_put(node);
--		if (!rmem) {
-+		struct resource res;
-+
-+		ret = of_reserved_mem_region_to_resource(pas->dev->of_node,
-+							 pas->region_assign_idx + offset,
-+							 &res);
-+		if (ret) {
- 			dev_err(pas->dev, "unable to resolve shareable memory-region index %d\n",
- 				offset);
--			return -EINVAL;
-+			return ret;
- 		}
- 
- 		if (pas->region_assign_shared)  {
-@@ -637,8 +618,8 @@ static int qcom_pas_assign_memory_region(struct qcom_pas *pas)
- 			perm_size = 1;
- 		}
- 
--		pas->region_assign_phys[offset] = rmem->base;
--		pas->region_assign_size[offset] = rmem->size;
-+		pas->region_assign_phys[offset] = res.start;
-+		pas->region_assign_size[offset] = resource_size(&res);
- 		pas->region_assign_owners[offset] = BIT(QCOM_SCM_VMID_HLOS);
- 
- 		ret = qcom_scm_assign_mem(pas->region_assign_phys[offset],
-diff --git a/drivers/remoteproc/qcom_q6v5_wcss.c b/drivers/remoteproc/qcom_q6v5_wcss.c
-index 07c88623f597..ca748e3bcc7f 100644
---- a/drivers/remoteproc/qcom_q6v5_wcss.c
-+++ b/drivers/remoteproc/qcom_q6v5_wcss.c
-@@ -873,27 +873,22 @@ static int q6v5_wcss_init_mmio(struct q6v5_wcss *wcss,
- 
- static int q6v5_alloc_memory_region(struct q6v5_wcss *wcss)
- {
--	struct reserved_mem *rmem = NULL;
--	struct device_node *node;
- 	struct device *dev = wcss->dev;
-+	struct resource res;
-+	int ret;
- 
--	node = of_parse_phandle(dev->of_node, "memory-region", 0);
--	if (node)
--		rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
--
--	if (!rmem) {
-+	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-+	if (ret) {
- 		dev_err(dev, "unable to acquire memory-region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	wcss->mem_phys = rmem->base;
--	wcss->mem_reloc = rmem->base;
--	wcss->mem_size = rmem->size;
--	wcss->mem_region = devm_ioremap_wc(dev, wcss->mem_phys, wcss->mem_size);
-+	wcss->mem_phys = res.start;
-+	wcss->mem_reloc = res.start;
-+	wcss->mem_size = resource_size(&res);
-+	wcss->mem_region = devm_ioremap_resource_wc(dev, &res);
- 	if (!wcss->mem_region) {
--		dev_err(dev, "unable to map memory region: %pa+%pa\n",
--			&rmem->base, &rmem->size);
-+		dev_err(dev, "unable to map memory region: %pR\n", &res);
- 		return -EBUSY;
- 	}
- 
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index 2c7e519a2254..14005fb049a2 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -526,25 +526,20 @@ static int wcnss_request_irq(struct qcom_wcnss *wcnss,
- 
- static int wcnss_alloc_memory_region(struct qcom_wcnss *wcnss)
- {
--	struct reserved_mem *rmem = NULL;
--	struct device_node *node;
--
--	node = of_parse_phandle(wcnss->dev->of_node, "memory-region", 0);
--	if (node)
--		rmem = of_reserved_mem_lookup(node);
--	of_node_put(node);
-+	struct resource res;
-+	int ret;
- 
--	if (!rmem) {
-+	ret = of_reserved_mem_region_to_resource(wcnss->dev->of_node, 0, &res);
-+	if (ret) {
- 		dev_err(wcnss->dev, "unable to resolve memory-region\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
--	wcnss->mem_phys = wcnss->mem_reloc = rmem->base;
--	wcnss->mem_size = rmem->size;
--	wcnss->mem_region = devm_ioremap_wc(wcnss->dev, wcnss->mem_phys, wcnss->mem_size);
-+	wcnss->mem_phys = wcnss->mem_reloc = res.start;
-+	wcnss->mem_size = resource_size(&res);
-+	wcnss->mem_region = devm_ioremap_resource_wc(wcnss->dev, &res);
- 	if (!wcnss->mem_region) {
--		dev_err(wcnss->dev, "unable to map memory region: %pa+%zx\n",
--			&rmem->base, wcnss->mem_size);
-+		dev_err(wcnss->dev, "unable to map memory region: %pR\n", &res);
- 		return -EBUSY;
- 	}
- 
--- 
-2.51.0
+--nextPart3384998.aeNJFYEL58
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+
+On Monday, 24 November 2025 17:19:45 CET H. Nikolaus Schaller wrote:
+...
+> > The LTM8054's feedback pin can be driven by a different DAC, which allows
+> > for dynamic output voltage control. This is a more complex upstreaming
+> > topic however, so I've left it out of this initial series. There are
+> > other component functions which fit in squarely into the regulator
+> > framework, such as input current limit control and soft-start. But I
+> > understand that the current driver might look a bit "bare".
+> 
+> So you just want to have some user-space mechanism to control voltage
+> and current limits? Can't this be done by directly controlling them through
+> the iio API?
+> 
+> Is this for a device that is already in kernel or planned to be supported?
+> Or is it "application support" for some SBC?
+> 
+
+This is planned support for a voltage regulator chip.
+
+> Are you looking for a virtual "glue" driver to logically combine several low
+> level functions?
+> 
+
+I'm looking for a clean userspace abstraction for this component, the low-
+level functions in this case are those of a voltage regulator.
+
+> > > What could be necessary is if you really want to be able to "regulate"
+> > > the current going to Vout, some bridge between regulator API and some
+> > > IIO DAC.
+> > > 
+> > > And enabling/disabling the regulator by some GPIO can be described in
+> > > the DT already through a "regulator-fixed".
+> > 
+> > This is a possibility, but when you bring in all of these other hardware
+> > functions that I mentionned e.g. output voltage control and stepping,
+> > you'll end up with several different devices which look unrelated from
+> > userspace, but actually control the same chip.
+> 
+> That is quite usual... I have often heard: user space must fix this as
+> kernel just provides basic functions in a harmonized way and integration
+> has to be tailored to the device anyways :)
+> 
+
+IMHO this is not integration, it's BSP work. As far as regulator functions are 
+concerned, the current status quo is that the kernel handles getting/setting 
+voltage levels, applying current and voltage constraints and other basic 
+regulator features.
+
+> > Userspace will also have to know about some hardware details to properly
+> > control the DACs, such as the values of the sense and feedback resistors.
+> > In my opinion, this bypasses the kernel's abstraction of hardware.
+> 
+> I came up with this argument several times in the part and got a lot of
+> contrary :)
+> 
+> What I still wonder: does your hardware warrant an upstream driver for a
+> non-programable chip if a different solution (with help of user-space)
+> already exist?
+> 
+
+A different solution does not currently exist (although a userspace-based 
+solution could be designed). I just think that a kernel-based solution is more 
+desirable here.
+
+> Another question: is your scheme generic enough so that it can be expected
+> that other devices are using it in the same way?
+> 
+
+Yes, the LTM8054 has a fairly common design as far as buck-boost chips go. 
+Things like feedback dividers on the output voltage pin are standard practice.
+And since the driver doesn't rely on a particular way of integrating the 
+LTM8054 with other components, it can be reused wherever the same regulator 
+chip is used.
+
+> Or could the power controller framework (/sys/class/power_supply) fit
+> better?
+> 
+--nextPart3384998.aeNJFYEL58
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">On Monday, 24 November 2025 17:19:45 CET H. Nikolaus Schaller wrote:</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">...</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; The LTM8054's feedback pin can be driven by a different DAC, which allows</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; for dynamic output voltage control. This is a more complex upstreaming</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; topic however, so I've left it out of this initial series. There are</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; other component functions which fit in squarely into the regulator</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; framework, such as input current limit control and soft-start. But I</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; understand that the current driver might look a bit &quot;bare&quot;.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; So you just want to have some user-space mechanism to control voltage</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; and current limits? Can't this be done by directly controlling them through</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; the iio API?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; Is this for a device that is already in kernel or planned to be supported?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; Or is it &quot;application support&quot; for some SBC?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">This is planned support for a voltage regulator chip.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; Are you looking for a virtual &quot;glue&quot; driver to logically combine several low</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; level functions?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">I'm looking for a clean userspace abstraction for this component, the low-</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">level functions in this case are those of a voltage regulator.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; What could be necessary is if you really want to be able to &quot;regulate&quot;</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; the current going to Vout, some bridge between regulator API and some</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; IIO DAC.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; And enabling/disabling the regulator by some GPIO can be described in</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; &gt; the DT already through a &quot;regulator-fixed&quot;.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; This is a possibility, but when you bring in all of these other hardware</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; functions that I mentionned e.g. output voltage control and stepping,</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; you'll end up with several different devices which look unrelated from</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; userspace, but actually control the same chip.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; That is quite usual... I have often heard: user space must fix this as</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; kernel just provides basic functions in a harmonized way and integration</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; has to be tailored to the device anyways :)</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">IMHO this is not integration, it's BSP work. As far as regulator functions are </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">concerned, the current status quo is that the kernel handles getting/setting </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">voltage levels, applying current and voltage constraints and other basic </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">regulator features.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; Userspace will also have to know about some hardware details to properly</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; control the DACs, such as the values of the sense and feedback resistors.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; &gt; In my opinion, this bypasses the kernel's abstraction of hardware.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; I came up with this argument several times in the part and got a lot of</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; contrary :)</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; What I still wonder: does your hardware warrant an upstream driver for a</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; non-programable chip if a different solution (with help of user-space)</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; already exist?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">A different solution does not currently exist (although a userspace-based </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">solution could be designed). I just think that a kernel-based solution is more </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">desirable here.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; Another question: is your scheme generic enough so that it can be expected</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; that other devices are using it in the same way?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">Yes, the LTM8054 has a fairly common design as far as buck-boost chips go. </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">Things like feedback dividers on the output voltage pin are standard practice.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">And since the driver doesn't rely on a particular way of integrating the </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">LTM8054 with other components, it can be reused wherever the same regulator </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">chip is used.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; Or could the power controller framework (/sys/class/power_supply) fit</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; better?</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">I don't think the power supply abstraction is relevant here. The LTM8054 is a </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">voltage regulator, it doesn't have charge, capacity, temperature monitoring, </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">power limitation, or other power supply class features.</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; There is an API to ask chargers etc. for battery voltage and current limits</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; or even write them.</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; There is also &quot;generic-adc-battery&quot; which allows to hook up with arbitrary</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; iio-adcs for measurements - although you need a DAC in your setup. Maybe an</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">&gt; extension here is a better strategy than a dedicated ltm8054 driver?</p>
+<br /><br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">What if the LTM8054 is not used to supply a battery?</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">Thanks,</p>
+<br /><p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">-- </p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">Romain Gantois, Bootlin</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">Embedded Linux and Kernel engineering</p>
+<p style="margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;">https://bootlin.com</p>
+<br /></body>
+</html>
+--nextPart3384998.aeNJFYEL58--
+
+--nextPart3391484.44csPzL39Z
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmkla74ACgkQKCYAIARz
+eA4uoA/9H25d5rofXv5yC5jGvCQOKojoS9wGic9EKNLG3RhZlGrCXhEf2dFw9w9I
+KdlTjGKLaXynf0oBz5SfeSL1juql9WOfV2px4AeCeEALikbdQs1ce1O7K126uo4q
+A1zlxkZMPa6Xj3pQ1IIri7WVCjRDiHVFs1hrFJz8XoMbIC0XDycQD+8DEe84cHbk
+aqo/wiWTxLVusXDihmVD2JfaZhDKMKTW6rQ2HW+MJUOGcNtTYNKlQ6PjRQtaAvbq
+0GaffUh2vHyQ0qR1mmhgJibiSX+opzhVeHFua3cA5lfVPZPudubmORMAUnDXeT3j
+coFe7wkMqx34bQG2vf1EUrfl5tM0SLF9yPo3W2Y0rWRpSJhRcnDDqtMBY4LGtU4P
+KzMYczGkdSXG7xA+fT9kR0ANunjMz3ub2kFnR5fJB+B07C1DNAQFA7zA8WRt4iL/
+cNPYb5BX7VDxw33Xripatp9u8hE2Z3CGBKYW7gudC9Jd2U5GoIukMdxn4TJlZHAA
+2TL8/ZJDKBTcUEsca+UU5BUa3tm8gk0jfJpThZwOhB2G+eOuKVbcLejZqAfNN1rG
+quNoBZmTQ51CzAoHiDbTGrnK5oz84q2KWOmHXLAn8O20dlJWEUgb/ghFR79r3EW4
+AuNuKXwXClIOnvF5B9NLbFCwZzFK9L5mIQ69ZwaVN+0kDzg3CAg=
+=LLKl
+-----END PGP SIGNATURE-----
+
+--nextPart3391484.44csPzL39Z--
+
+
+
+
+--===============5913054148789734788==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5913054148789734788==--
+
+
+
