@@ -2,97 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151E8C86471
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Nov 2025 18:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F66C8647A
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Nov 2025 18:45:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BECAFC57B72;
-	Tue, 25 Nov 2025 17:45:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D20A0C57B72;
+	Tue, 25 Nov 2025 17:45:40 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF9BC56611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B603C56611
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Nov 2025 17:45:32 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ Tue, 25 Nov 2025 17:45:39 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5APGgHuh3587283
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 25 Nov 2025 17:45:31 GMT
+ 5APBNchZ1672718
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 25 Nov 2025 17:45:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=BLB/dgVhe3BEdpj5a0hsuy
- Dq7Jx3wTKbCXCAOZWt9d4=; b=hACGw8Mc7aY7u017oxdLcJkj9dcYd6NSMsYLx4
- xrMiLYHKiUz8Po21hEjoAu3JakrHxUNPbZ/sS4O97Fm0HM+zFUeV2YuqkwL7sKnp
- +TgPiI8yBZWEWGKOoyp9UF+/ate4TR6FlwdYR6F1SW2z4RMU6nxXprE77FESVW4d
- DWybg/+0skKxZaSq/mGy8W9FuDxIWZnAAEQeDucICxmsIm/o7J589ObFx7p1xJBz
- NcT6K5/refG3HvOUzRgFCU2+elwPT0Dv0RNu9Y7GykiyKbm5B5OvsD6f+gU2BzCW
- rASXdGHwi8oAz2vbv5GHVO+67/2VfLa25vgg9ZoVK+GSclSg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ang7906e1-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XNAIbN5I0fCUsYofWx4o+kJjxaJJuy6D9amY9U12/wQ=; b=ov2+BXhlfhkyjxkj
+ KnbJISDEgql4rZGwgyntBueF9Ij1iGIq03/TDSXrd62RP9FeJU4y7R9QiB2XtOl1
+ Z4SzFET1nFR+V75xgiUxI2LoJS+YzoPXpLIk0K1Rpvt3Z60F5hKwpGTe3drdhUqe
+ 7Dm8qb3h0Tbey/Ww8Ld2gMycMnvsJ8jFn2cYk8Owpw+lLVrKtW+z66gL/XtISYDR
+ ogayitwjWUHVWC8JbofZZL0kaG4qVLgzlyTu5SDmiEeCiVtkucdEcSn/CrRw5m8f
+ /Yv0DtVCiSaZ3PhUPqsIf4+dwFwNCYNbDG8SMVFkrLukwhKcKE8ODIU7g6fHEq6/
+ T+qBEg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4an5w82bca-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Nov 2025 17:45:30 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2982b47ce35so61371205ad.2
+ Tue, 25 Nov 2025 17:45:37 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-297d50cd8c4so188409055ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Nov 2025 09:45:30 -0800 (PST)
+ Tue, 25 Nov 2025 09:45:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764092730; x=1764697530;
+ d=oss.qualcomm.com; s=google; t=1764092736; x=1764697536;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=BLB/dgVhe3BEdpj5a0hsuyDq7Jx3wTKbCXCAOZWt9d4=;
- b=CJfy09+ZJihRgQpSjaheMVFEED6ltkndTuLlC55wp95kv61yGyd5s89X0TLsxM5vdw
- Ln/0oUVpSWrXKUU1/ofB08/zxIgt86W+mOYm2s0jRxxn39lCmGaR453rW5ZLeJy3Loon
- xF/aTyV6+m5eZ6MuRMm1S9c2KwHZ669wJ+u/3Xa8TsMhmxReUctp7AnqeMHnwAaWQT6i
- dAsdVHGESb/zN1MDSrLL0S7E1rWAF4/5Gb1NvmBqwi4EyvzjK/Xiik6uZ1uXc2oj5Uu8
- 1OBv9gYvbHTq8W4ySbmqwbClfaJcoMXn1q2YwMw2hGlWW9fG6AsWyCtYo1uo0gTEnFIS
- fV5w==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=XNAIbN5I0fCUsYofWx4o+kJjxaJJuy6D9amY9U12/wQ=;
+ b=HkYt9NKUSPFrdhHNghLuuhHBWQGzaEjW/801BYZiMLekySRWE2BH8rl1M8Hdi7Tixx
+ gefirTwPKnRMd8/dLOiK2f1Te/B7FtPLqtXFSz+a9W6RGICSrQBJUmdgEKQbKufQ5l3N
+ fbXHr6ymdtZylmf6oFV3cvzdQZ8Az9Cjng5iS/AsGYiem6o965XoWB11mxn4t66ImRLi
+ pGNDZfzEpg35vz+uXqtP8/L2pBfJhV9PncOAgwNUJQ5wt4K9NEL86tbGKRwspcMxMzRD
+ ljmVfcTbnd3frCP1Z06jtVj69+WEVhftACGdm7rHnhw9AAMX4cf5/+3iLpfnLlTRPmia
+ HUfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764092730; x=1764697530;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BLB/dgVhe3BEdpj5a0hsuyDq7Jx3wTKbCXCAOZWt9d4=;
- b=hdT6euqZOZg2ujbfeH/2nK7eCjSo7Tm0ZTANAHiLpIRe0Q24bAgRocTpzCiEnOP6Rc
- c4d98l+LZhqVkwKVEWKfbeaM6IZSgAm5Y7HKmjwUnWe7tsVlXGM7zlmVf3jWc03DuSBo
- fjxDrqBoUmvqlMdEiseAKJClQxv60aXVPXvGnuWfPeSLxN9P2mknaUgXrLmJm8wo+mI8
- NDXtpz52sEjeb0XmAgGeQaMQIWR9xbzbDDEPe5n0xdcJhHXfnXlgEEbdKYB8TvTfQ9PH
- 7CX5hLxW7vvbtyNO/OcQR35Fb6iu4hzedszDwEC/F6U0YS0VrWbaiwnrN8VWGiZzncKA
- Efxg==
+ d=1e100.net; s=20230601; t=1764092736; x=1764697536;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=XNAIbN5I0fCUsYofWx4o+kJjxaJJuy6D9amY9U12/wQ=;
+ b=Z8m2NIUu+DkjX0HUQLB4Ex4Sl/SoHZg4D/bDihO1NeKx16jrgOIkuelViEQhM1MnTS
+ oxZ1kDIQ47nmsyqRdG0l7mexRRkXxMs3FGUSXH7JYPawUSuyFEf8lpEUsIfvDPu+yT8E
+ NlzGwD4Fhl4NZsv8FZeHziUqDC20u7AoqVFFKFnMQHLOIxfEkVUa3O1f7gwnbYZ7oukO
+ mRe7rNc76uFQcH90Gq3Y97/7jFOedSZp/jgIsazr1viE0FrpYIrGeCSjOPl7sSJd8abG
+ 8/MAyxwhPyST5Y79j3CRV3VdnD9zDXvlKyv9KNEF/uWK1jm6npEG9Ijrpfu5mJn9zqUI
+ LC3Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZzg2u13KHX/Lng6JqiT18eo++ST5F4VJfZbWWkNmxK65/aLiNkrbWt9k9QHmNa7m9bZgF7GEYf4dReg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy03+2NalfEKwfOIJIgLnZPYdfhDbs5+J4MFKUlV73C+eE4AYkC
- zc7+udLa9U61IsMR64QQLOaD4IKaZFl849ADUXAYNmyOW0VQlUD7JiYcblsBO5+ki4ugKpGN+jQ
- hcHdwmB5Vy1KYeNfbBz0o+icusOUgTBsjhYCPTvKLgWnk/GIUPgCcG6ATA5rQCSOxYn1Y8x58BC
- U8PM92Zj4=
-X-Gm-Gg: ASbGncu7OG23Q2Yk+PCIjqZiFQLt6fiAyg4Btt5RbXcWslC7hoV18rQfOZlYRnzRTwY
- e5dWWukb6LVrq2jWv6WReY73StdiqGBYbAdFF8HpdVnT5lhLToapAu/UZLt6r0PZLKGJB75kvbX
- u0lFkwVOOPkV1+ACOlI6Lhoxzpnvrgo1HeBgnkSo0EyjPwBA7cPY32qFTBwQvVDHymZ/b9SmVGc
- wvAxr/GFEU1wOcm3rdZFbX4GdRue7fzjkbI10dejyGGM0ci8R+zoDQZgDZfe8XohoOvny69ckpM
- wOIy1KJuRrZe8MRtOjq8wMUivm3b/0FdcWrlbAxBjyPUEJvJtIkl8ix5K+4hPlO16kO9lHWn5wV
- hpgmdic8RAaRwpMRljLc=
-X-Received: by 2002:a17:903:b4f:b0:295:5613:c19f with SMTP id
- d9443c01a7336-29b6c68d7dfmr203097465ad.42.1764092730247; 
- Tue, 25 Nov 2025 09:45:30 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEfgOyK3bt2O6uanwsFHJxsoyo9esFMOv6LtZKMFgNWt+4F89Wuduzs1jP5jU4DJqm9YWhHUA==
-X-Received: by 2002:a17:903:b4f:b0:295:5613:c19f with SMTP id
- d9443c01a7336-29b6c68d7dfmr203096895ad.42.1764092729738; 
- Tue, 25 Nov 2025 09:45:29 -0800 (PST)
+ AJvYcCWl3lR8GHt3znpsKLIIg1zzZrfNL9ko/O9KJclqRt43zQUpDY41GE5pzjmt0sZ0z7oLjQpvYMoDeyZpRQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwjOFyf7VvsIM6ZUIxVSEEuXdHuodWVzzI0SckG/TRxPotpeG9X
+ UFXYqYFDvWPB6KHgIe0kjHmpbw6/j4o2HfsnR/aYuKYd/nBbnfbEz/3DZyu/1/riPH9JNa7LQLT
+ gbgzA2IWCqqDRVQK2Ve52Cx0DORSyICWhIxdOTh5PJrCYrG4N1LYDgaF0e4CZGBN9hsdsOSBElD
+ 5/Lmofd6E=
+X-Gm-Gg: ASbGnctn8/r6TvsBDhXnNl1pZFjg93P1VEJ8h1BfRU5KsoMt9f1DXW6jimKbglDO2QE
+ KW6ebcDPAdEU9EYoPtb08Gs7EhdXFNm7dvHb5esdaPdJ+UTIkg3wFS4oeFaIh/X+kdgoR3ictjR
+ g2Fi1ZaHLydkXSFM6+m9UKWpvtDzozUozkqiqpowN1oE66ZlAJxFeXQVK0QkcM5sKGeVDKQGoot
+ kiUIwYV2TUSSPLs6DHKGT1Ac59uO4KNXfGMqiq0ff/bODk/Yfup5v3MbkTsOP7cgId29yn7z+5i
+ RoHKL5M57dMoQenUmNcH73kADNBpvMn3mhFTa9vpAw5yDQtBmA56FCWRfANdSRmwX9yEnROKqXN
+ yVgY2Z7yaVDZvl+3pJmtkFJcZtgOgVKPRrg==
+X-Received: by 2002:a17:903:2ec6:b0:295:96bc:8699 with SMTP id
+ d9443c01a7336-29baaf7b90bmr40218195ad.20.1764092736458; 
+ Tue, 25 Nov 2025 09:45:36 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGxPsF73cA1rD9RUUeKsVhqXSVlzd8Y1ZhLmKg/DCFPDWbHJfilV2yMNCSYMEKyoA6qt4Ypxw==
+X-Received: by 2002:a17:903:2ec6:b0:295:96bc:8699 with SMTP id
+ d9443c01a7336-29baaf7b90bmr40217975ad.20.1764092736060; 
+ Tue, 25 Nov 2025 09:45:36 -0800 (PST)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29b5b13964dsm174500785ad.38.2025.11.25.09.45.23
+ d9443c01a7336-29b5b13964dsm174500785ad.38.2025.11.25.09.45.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Nov 2025 09:45:29 -0800 (PST)
+ Tue, 25 Nov 2025 09:45:35 -0800 (PST)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Tue, 25 Nov 2025 23:15:09 +0530
-Message-Id: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
+Date: Tue, 25 Nov 2025 23:15:10 +0530
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIACbrJWkC/y3MQQqDMBCF4avIrDtghgahVxEX02SsgzVqoiKId
- 2/QLr8H7z8gSVRJ8CoOiLJp0jFk0KMA13H4CKrPBirJGkMWe+bAE38Vh8E53AjL1liyz6ry8ob
- 8m6K0ul/NurkdZV5zevmP5/kDqNS03HgAAAA=
-X-Change-ID: 20251125-kaanapali-mmcc-v2-0f1525477deb
+Message-Id: <20251125-kaanapali-mmcc-v2-v2-1-fb44e78f300b@oss.qualcomm.com>
+References: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
+In-Reply-To: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -104,42 +103,38 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Authority-Analysis: v=2.4 cv=P9Q3RyAu c=1 sm=1 tr=0 ts=6925eb3b cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI1MDE0OCBTYWx0ZWRfX4GPuTZKpN2tY
+ BCn2HH3yNB8kGToFyEE+3SjzTfnhyk4Ae2VqC341D4j9SO1JtggSc4yCe2tnYAKUwFekfziHMK0
+ 3Fsgc0gD8ffU1mWrBPKMcwVq+m0nMqRQLBXQqmPae5jVypnY4axeEYcmsS+aHMvCR7/PZW+OhDK
+ KyAJLYb4ZD+5tmq8YVV01mCVdtqWI0BTSkg2IRrYMzuacPawZEC1ajULSfyBKwR9FM/Wk5ObSL6
+ 7VIII+TxseF2x/Iw3e1GSanj9JVG7uCQGvNJuRTW3FA8Jf8j39fH0Ltp3x9LRzFn4Q8SpZzDhx8
+ nMUFWwgDMQ0tqqsJbYeve7IvTezFpAE23Jm4Y8ZDA==
+X-Authority-Analysis: v=2.4 cv=RvTI7SmK c=1 sm=1 tr=0 ts=6925eb41 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=b2bYCZbHhW0TxhAsxsEA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: PUaf0BBkISnIQUYvrEVsvI8LRRM1na-U
-X-Proofpoint-ORIG-GUID: PUaf0BBkISnIQUYvrEVsvI8LRRM1na-U
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI1MDE0NyBTYWx0ZWRfX0a2Gk8gJ2eAg
- OgKyFOhewt3eOIf+jcYBxfKVWKPj03hZGVIjOFMzBIL/Owuw9DAhAhHK9I6mj7E4A0+4sgBKpsD
- wtOnfJ8RbihbPzKuFH9I7pkxtaqK40KhwldYvLdXjUjEQn9YUrSI8hoDJ3739Tp5JyaLq6lzvwg
- 9mieN63gKd0DVz//3K1xBDvF1EFVyA55cldya6acU+w+5BLU1mbJj0wJ3DLh3ibSLjCZERL/cTs
- /i5YLgxNkzVQRPR9gjMFTlsCMbbgIJJEHTRkwdUIxnLxExdMKGYES9gyf2r5jI03V8nMVbXOmE+
- G31dihNiEsjB77o8xTLtniz4k3YFURtqwtOcHsUcf3CPiZchxezUC3sl62FwBDTiiHBNWf6NFD+
- Tcj8UoSq88hG4V66f9wzKamc1/UTNQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=QKPxMsH92d9TYhJkRyAA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: jIdx7m-v1e7yTXy_kd25zrVngFq8zI-c
+X-Proofpoint-GUID: jIdx7m-v1e7yTXy_kd25zrVngFq8zI-c
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2025-11-25_02,2025-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 spamscore=0 phishscore=0 bulkscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2511250147
+ phishscore=0 spamscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2510240001 definitions=main-2511250148
 Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  devicetree@vger.kernel.org, Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
  Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
  Imran Shaik <imran.shaik@oss.qualcomm.com>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Taniya Das <taniya.das@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-clk@vger.kernel.org,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 00/11] Add support for Multimedia Clock
- controllers for Kaanapali
+Subject: [Linux-stm32] [PATCH v2 01/11] clk: qcom: clk-alpha-pll: Update the
+ PLL support for cal_l
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,70 +151,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for Display clock controller, Video, Camera and GPU
-clock controller for the Qualcomm Kaanapali SoC.
+Recent QCOM PLLs require the CAL_L field to be programmed according to
+specific hardware recommendations, rather than using the legacy default
+value of 0x44. Hardcoding this value can lead to suboptimal or incorrect
+behavior on newer platforms.
 
-context dependency: https://lore.kernel.org/lkml/20251121-gcc_kaanapali-v3-v3-0-89a594985a46@oss.qualcomm.com/
+To address this, introduce a `cal_l` field in the PLL configuration
+structure, allowing CAL_L to be set explicitly based on platform
+requirements. This improves flexibility and ensures correct PLL
+initialization across different hardware variants.
 
-Changes in v2:
- - bring in the PLL related code from https://lore.kernel.org/all/20250924-knp-clk-v1-0-29b02b818782@oss.qualcomm.com/
-   to this series.
- - Add RB tag for DISPCC dt-bindings [Krzysztof]
- - Remove the patch 'Remove sc8280xp camcc to from sm8450 camcc' as this
-   series has no functional dependency.
- - Add RB tag for VIDEOCC dt-bindings [Krzysztof , Bryan D]
- - Add RB tag for GPUCC dt-bindings [Bryan D]
- - Fix the commit log for camera cc driver and add RB tag [Byran D]
- - Add comment for using 'ACCU_CFG_MASK' in video cc driver [Bryan D]
- - Describe GXCLKCTL the newly introduced clock controller in the commit
-   log [Bjorn]
- - Move the 'gx_clkctl' driver from subsys initlevel to module.
- - Link to v1: https://lore.kernel.org/lkml/20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com/
-
+Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
-Taniya Das (11):
-      clk: qcom: clk-alpha-pll: Update the PLL support for cal_l
-      clk: qcom: clk-alpha-pll: Add support for controlling Pongo EKO_T PLL
-      clk: qcom: clk-alpha-pll: Add support for controlling Rivian PLL
-      dt-bindings: clock: qcom: document Kaanapali DISPCC clock controller
-      dt-bindings: clock: qcom: Add support for CAMCC for Kaanapali
-      dt-bindings: clock: qcom: Add Kaanapali video clock controller
-      dt-bindings: clock: qcom: document the Kaanapali GPU Clock Controller
-      clk: qcom: dispcc: Add support for display clock controller Kaanapali
-      clk: qcom: camcc: Add support for camera clock controller for Kaanapali
-      clk: qcom: Add support for VideoCC driver for Kaanapali
-      clk: qcom: Add support for GPUCC and GXCLK for Kaanapali
+ drivers/clk/qcom/clk-alpha-pll.c | 6 +++++-
+ drivers/clk/qcom/clk-alpha-pll.h | 1 +
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
- .../bindings/clock/qcom,kaanapali-gxclkctl.yaml    |   63 +
- .../bindings/clock/qcom,sm8450-camcc.yaml          |    6 +
- .../bindings/clock/qcom,sm8450-gpucc.yaml          |    2 +
- .../bindings/clock/qcom,sm8450-videocc.yaml        |    3 +
- .../bindings/clock/qcom,sm8550-dispcc.yaml         |    2 +
- drivers/clk/qcom/Kconfig                           |   38 +
- drivers/clk/qcom/Makefile                          |    4 +
- drivers/clk/qcom/cambistmclkcc-kaanapali.c         |  437 ++++
- drivers/clk/qcom/camcc-kaanapali.c                 | 2661 ++++++++++++++++++++
- drivers/clk/qcom/clk-alpha-pll.c                   |   20 +-
- drivers/clk/qcom/clk-alpha-pll.h                   |    7 +
- drivers/clk/qcom/dispcc-kaanapali.c                | 1956 ++++++++++++++
- drivers/clk/qcom/gpucc-kaanapali.c                 |  494 ++++
- drivers/clk/qcom/gxclkctl-kaanapali.c              |   76 +
- drivers/clk/qcom/videocc-kaanapali.c               |  821 ++++++
- .../clock/qcom,kaanapali-cambistmclkcc.h           |   33 +
- include/dt-bindings/clock/qcom,kaanapali-camcc.h   |  147 ++
- include/dt-bindings/clock/qcom,kaanapali-dispcc.h  |  109 +
- include/dt-bindings/clock/qcom,kaanapali-gpucc.h   |   47 +
- .../dt-bindings/clock/qcom,kaanapali-gxclkctl.h    |   12 +
- include/dt-bindings/clock/qcom,kaanapali-videocc.h |   58 +
- 21 files changed, 6995 insertions(+), 1 deletion(-)
----
-base-commit: 88cbd8ac379cf5ce68b7efcfd4d1484a6871ee0b
-change-id: 20251125-kaanapali-mmcc-v2-0f1525477deb
+diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
+index 6aeba40358c11e44c5f39d15f149d62149393cd3..6f50f0c4b984e991982ee8914a496c00c4ee063b 100644
+--- a/drivers/clk/qcom/clk-alpha-pll.c
++++ b/drivers/clk/qcom/clk-alpha-pll.c
+@@ -2338,7 +2338,11 @@ void clk_lucid_evo_pll_configure(struct clk_alpha_pll *pll, struct regmap *regma
+ 		return;
+ 	}
+ 
+-	lval |= TRION_PLL_CAL_VAL << LUCID_EVO_PLL_CAL_L_VAL_SHIFT;
++	if (config->cal_l)
++		lval |= config->cal_l << LUCID_EVO_PLL_CAL_L_VAL_SHIFT;
++	else
++		lval |= TRION_PLL_CAL_VAL << LUCID_EVO_PLL_CAL_L_VAL_SHIFT;
++
+ 	clk_alpha_pll_write_config(regmap, PLL_L_VAL(pll), lval);
+ 	clk_alpha_pll_write_config(regmap, PLL_ALPHA_VAL(pll), config->alpha);
+ 	clk_alpha_pll_write_config(regmap, PLL_CONFIG_CTL(pll), config->config_ctl_val);
+diff --git a/drivers/clk/qcom/clk-alpha-pll.h b/drivers/clk/qcom/clk-alpha-pll.h
+index 0903a05b18ccc68c9f8de5c7405bb197bf8d3d1d..ec5b4e4810300fa787420356bb073c24bb05da62 100644
+--- a/drivers/clk/qcom/clk-alpha-pll.h
++++ b/drivers/clk/qcom/clk-alpha-pll.h
+@@ -128,6 +128,7 @@ struct clk_alpha_pll_postdiv {
+ 
+ struct alpha_pll_config {
+ 	u32 l;
++	u32 cal_l;
+ 	u32 alpha;
+ 	u32 alpha_hi;
+ 	u32 config_ctl_val;
 
-Best regards,
 -- 
-Taniya Das <taniya.das@oss.qualcomm.com>
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
