@@ -2,53 +2,144 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30267C8629F
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Nov 2025 18:15:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151E8C86471
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Nov 2025 18:45:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBC9BC5A4DF;
-	Tue, 25 Nov 2025 17:15:25 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BECAFC57B72;
+	Tue, 25 Nov 2025 17:45:33 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BCF2C56611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF9BC56611
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Nov 2025 17:15:25 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 277334E418B3;
- Tue, 25 Nov 2025 17:15:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id DA583606A1;
- Tue, 25 Nov 2025 17:15:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9291C102F0891; Tue, 25 Nov 2025 18:15:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1764090923; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=eRMUjzvc385emaM00QkruAlsCUJkwg3kL1OtudlNM8o=;
- b=D+wGRgtpGAyb2M8Agj+56AXrxl6+occfRjhl8yC2nBpOqT004FDP55HpGanCzwgiqpDbTd
- 34z5t8Cgxi+lBpRfxOW3kxXxyaxuPqWLYFBU869BV2x1l7A6Zx4f7PSO5bDPFWrFeJT+lI
- Ul7XzTaYhVCd93gFGSjGbXcJsQMM6ZJOcz6YkNPg6qs2ehKlElkDbco3sypwsEbfzBQYwS
- 75mUXzFBtSgWij5Hrh6EtI12mGMUcaEs1W+oiCkaD/4bXvvZ0BLIETnBk1iXjKSoK3GOPU
- PZk481ms0GIAvcoGM30X+uoOFLr9qJNsrTNeP7yGYryFzQT2xBbu57XlSH442A==
-Message-ID: <58ec46bb-5850-4dde-a1ea-d242f7d95409@bootlin.com>
-Date: Tue, 25 Nov 2025 18:15:16 +0100
+ Tue, 25 Nov 2025 17:45:32 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5APGgHuh3587283
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 25 Nov 2025 17:45:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=BLB/dgVhe3BEdpj5a0hsuy
+ Dq7Jx3wTKbCXCAOZWt9d4=; b=hACGw8Mc7aY7u017oxdLcJkj9dcYd6NSMsYLx4
+ xrMiLYHKiUz8Po21hEjoAu3JakrHxUNPbZ/sS4O97Fm0HM+zFUeV2YuqkwL7sKnp
+ +TgPiI8yBZWEWGKOoyp9UF+/ate4TR6FlwdYR6F1SW2z4RMU6nxXprE77FESVW4d
+ DWybg/+0skKxZaSq/mGy8W9FuDxIWZnAAEQeDucICxmsIm/o7J589ObFx7p1xJBz
+ NcT6K5/refG3HvOUzRgFCU2+elwPT0Dv0RNu9Y7GykiyKbm5B5OvsD6f+gU2BzCW
+ rASXdGHwi8oAz2vbv5GHVO+67/2VfLa25vgg9ZoVK+GSclSg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ang7906e1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Nov 2025 17:45:30 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2982b47ce35so61371205ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Nov 2025 09:45:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1764092730; x=1764697530;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BLB/dgVhe3BEdpj5a0hsuyDq7Jx3wTKbCXCAOZWt9d4=;
+ b=CJfy09+ZJihRgQpSjaheMVFEED6ltkndTuLlC55wp95kv61yGyd5s89X0TLsxM5vdw
+ Ln/0oUVpSWrXKUU1/ofB08/zxIgt86W+mOYm2s0jRxxn39lCmGaR453rW5ZLeJy3Loon
+ xF/aTyV6+m5eZ6MuRMm1S9c2KwHZ669wJ+u/3Xa8TsMhmxReUctp7AnqeMHnwAaWQT6i
+ dAsdVHGESb/zN1MDSrLL0S7E1rWAF4/5Gb1NvmBqwi4EyvzjK/Xiik6uZ1uXc2oj5Uu8
+ 1OBv9gYvbHTq8W4ySbmqwbClfaJcoMXn1q2YwMw2hGlWW9fG6AsWyCtYo1uo0gTEnFIS
+ fV5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764092730; x=1764697530;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BLB/dgVhe3BEdpj5a0hsuyDq7Jx3wTKbCXCAOZWt9d4=;
+ b=hdT6euqZOZg2ujbfeH/2nK7eCjSo7Tm0ZTANAHiLpIRe0Q24bAgRocTpzCiEnOP6Rc
+ c4d98l+LZhqVkwKVEWKfbeaM6IZSgAm5Y7HKmjwUnWe7tsVlXGM7zlmVf3jWc03DuSBo
+ fjxDrqBoUmvqlMdEiseAKJClQxv60aXVPXvGnuWfPeSLxN9P2mknaUgXrLmJm8wo+mI8
+ NDXtpz52sEjeb0XmAgGeQaMQIWR9xbzbDDEPe5n0xdcJhHXfnXlgEEbdKYB8TvTfQ9PH
+ 7CX5hLxW7vvbtyNO/OcQR35Fb6iu4hzedszDwEC/F6U0YS0VrWbaiwnrN8VWGiZzncKA
+ Efxg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZzg2u13KHX/Lng6JqiT18eo++ST5F4VJfZbWWkNmxK65/aLiNkrbWt9k9QHmNa7m9bZgF7GEYf4dReg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy03+2NalfEKwfOIJIgLnZPYdfhDbs5+J4MFKUlV73C+eE4AYkC
+ zc7+udLa9U61IsMR64QQLOaD4IKaZFl849ADUXAYNmyOW0VQlUD7JiYcblsBO5+ki4ugKpGN+jQ
+ hcHdwmB5Vy1KYeNfbBz0o+icusOUgTBsjhYCPTvKLgWnk/GIUPgCcG6ATA5rQCSOxYn1Y8x58BC
+ U8PM92Zj4=
+X-Gm-Gg: ASbGncu7OG23Q2Yk+PCIjqZiFQLt6fiAyg4Btt5RbXcWslC7hoV18rQfOZlYRnzRTwY
+ e5dWWukb6LVrq2jWv6WReY73StdiqGBYbAdFF8HpdVnT5lhLToapAu/UZLt6r0PZLKGJB75kvbX
+ u0lFkwVOOPkV1+ACOlI6Lhoxzpnvrgo1HeBgnkSo0EyjPwBA7cPY32qFTBwQvVDHymZ/b9SmVGc
+ wvAxr/GFEU1wOcm3rdZFbX4GdRue7fzjkbI10dejyGGM0ci8R+zoDQZgDZfe8XohoOvny69ckpM
+ wOIy1KJuRrZe8MRtOjq8wMUivm3b/0FdcWrlbAxBjyPUEJvJtIkl8ix5K+4hPlO16kO9lHWn5wV
+ hpgmdic8RAaRwpMRljLc=
+X-Received: by 2002:a17:903:b4f:b0:295:5613:c19f with SMTP id
+ d9443c01a7336-29b6c68d7dfmr203097465ad.42.1764092730247; 
+ Tue, 25 Nov 2025 09:45:30 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEfgOyK3bt2O6uanwsFHJxsoyo9esFMOv6LtZKMFgNWt+4F89Wuduzs1jP5jU4DJqm9YWhHUA==
+X-Received: by 2002:a17:903:b4f:b0:295:5613:c19f with SMTP id
+ d9443c01a7336-29b6c68d7dfmr203096895ad.42.1764092729738; 
+ Tue, 25 Nov 2025 09:45:29 -0800 (PST)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-29b5b13964dsm174500785ad.38.2025.11.25.09.45.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Nov 2025 09:45:29 -0800 (PST)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Date: Tue, 25 Nov 2025 23:15:09 +0530
+Message-Id: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: rohan.g.thomas@altera.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+X-B4-Tracking: v=1; b=H4sIACbrJWkC/y3MQQqDMBCF4avIrDtghgahVxEX02SsgzVqoiKId
+ 2/QLr8H7z8gSVRJ8CoOiLJp0jFk0KMA13H4CKrPBirJGkMWe+bAE38Vh8E53AjL1liyz6ry8ob
+ 8m6K0ul/NurkdZV5zevmP5/kDqNS03HgAAAA=
+X-Change-ID: 20251125-kaanapali-mmcc-v2-0f1525477deb
+To: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20251126-a10_ext_fix-v1-1-d163507f646f@altera.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20251126-a10_ext_fix-v1-1-d163507f646f@altera.com>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: netdev@vger.kernel.org, Matthew Gerlach <matthew.gerlach@altera.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac: Disable
- flushing frames on Rx Buffer Unavailable
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Authority-Analysis: v=2.4 cv=P9Q3RyAu c=1 sm=1 tr=0 ts=6925eb3b cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=6UeiqGixMTsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=b2bYCZbHhW0TxhAsxsEA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: PUaf0BBkISnIQUYvrEVsvI8LRRM1na-U
+X-Proofpoint-ORIG-GUID: PUaf0BBkISnIQUYvrEVsvI8LRRM1na-U
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMTI1MDE0NyBTYWx0ZWRfX0a2Gk8gJ2eAg
+ OgKyFOhewt3eOIf+jcYBxfKVWKPj03hZGVIjOFMzBIL/Owuw9DAhAhHK9I6mj7E4A0+4sgBKpsD
+ wtOnfJ8RbihbPzKuFH9I7pkxtaqK40KhwldYvLdXjUjEQn9YUrSI8hoDJ3739Tp5JyaLq6lzvwg
+ 9mieN63gKd0DVz//3K1xBDvF1EFVyA55cldya6acU+w+5BLU1mbJj0wJ3DLh3ibSLjCZERL/cTs
+ /i5YLgxNkzVQRPR9gjMFTlsCMbbgIJJEHTRkwdUIxnLxExdMKGYES9gyf2r5jI03V8nMVbXOmE+
+ G31dihNiEsjB77o8xTLtniz4k3YFURtqwtOcHsUcf3CPiZchxezUC3sl62FwBDTiiHBNWf6NFD+
+ Tcj8UoSq88hG4V66f9wzKamc1/UTNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-11-25_02,2025-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 spamscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
+ definitions=main-2511250147
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+ Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/11] Add support for Multimedia Clock
+ controllers for Kaanapali
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,162 +156,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rohan,
+Add support for Display clock controller, Video, Camera and GPU
+clock controller for the Qualcomm Kaanapali SoC.
 
-On 25/11/2025 17:37, Rohan G Thomas via B4 Relay wrote:
-> From: Rohan G Thomas <rohan.g.thomas@altera.com>
-> 
-> In Store and Forward mode, flushing frames when the receive buffer is
-> unavailable, can cause the MTL Rx FIFO to go out of sync. This results
-> in buffering of a few frames in the FIFO without triggering Rx DMA
-> from transferring the data to the system memory until another packet
-> is received. Once the issue happens, for a ping request, the packet is
-> forwarded to the system memory only after we receive another packet
-> and hece we observe a latency equivalent to the ping interval.
-> 
-> 64 bytes from 192.168.2.100: seq=1 ttl=64 time=1000.344 ms
-> 
-> Also, we can observe constant gmacgrp_debug register value of
-> 0x00000120, which indicates "Reading frame data".
-> 
-> The issue is not reproducible after disabling frame flushing when Rx
-> buffer is unavailable. But in that case, the Rx DMA enters a suspend
-> state due to buffer unavailability. To resume operation, software
-> must write to the receive_poll_demand register after adding new
-> descriptors, which reactivates the Rx DMA.
-> 
-> This issue is observed in the socfpga platforms which has dwmac1000 IP
-> like Arria 10, Cyclone V and Agilex 7. Issue is reproducible after
-> running iperf3 server at the DUT for UDP lower packet sizes.
-> 
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-> Reviewed-by: Matthew Gerlach <matthew.gerlach@altera.com>
+context dependency: https://lore.kernel.org/lkml/20251121-gcc_kaanapali-v3-v3-0-89a594985a46@oss.qualcomm.com/
 
-Should this be a fix ?
+Changes in v2:
+ - bring in the PLL related code from https://lore.kernel.org/all/20250924-knp-clk-v1-0-29b02b818782@oss.qualcomm.com/
+   to this series.
+ - Add RB tag for DISPCC dt-bindings [Krzysztof]
+ - Remove the patch 'Remove sc8280xp camcc to from sm8450 camcc' as this
+   series has no functional dependency.
+ - Add RB tag for VIDEOCC dt-bindings [Krzysztof , Bryan D]
+ - Add RB tag for GPUCC dt-bindings [Bryan D]
+ - Fix the commit log for camera cc driver and add RB tag [Byran D]
+ - Add comment for using 'ACCU_CFG_MASK' in video cc driver [Bryan D]
+ - Describe GXCLKCTL the newly introduced clock controller in the commit
+   log [Bjorn]
+ - Move the 'gx_clkctl' driver from subsys initlevel to module.
+ - Link to v1: https://lore.kernel.org/lkml/20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com/
 
-Can you elaborate on how to reproduce this ? I've given this a try on
-CycloneV and I can't see any difference in the ping results and iperf3
-results.
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (11):
+      clk: qcom: clk-alpha-pll: Update the PLL support for cal_l
+      clk: qcom: clk-alpha-pll: Add support for controlling Pongo EKO_T PLL
+      clk: qcom: clk-alpha-pll: Add support for controlling Rivian PLL
+      dt-bindings: clock: qcom: document Kaanapali DISPCC clock controller
+      dt-bindings: clock: qcom: Add support for CAMCC for Kaanapali
+      dt-bindings: clock: qcom: Add Kaanapali video clock controller
+      dt-bindings: clock: qcom: document the Kaanapali GPU Clock Controller
+      clk: qcom: dispcc: Add support for display clock controller Kaanapali
+      clk: qcom: camcc: Add support for camera clock controller for Kaanapali
+      clk: qcom: Add support for VideoCC driver for Kaanapali
+      clk: qcom: Add support for GPUCC and GXCLK for Kaanapali
 
-From the DUT, I've tried :
- - iperf3 -c 192.168.X.X -u -b 0 -l 64
- - iperf3 -c 192.168.X.X -u -b 0 -l 64 -R
- - iperf3 -c 192.168.X.X
- - iperf3 -c 192.168.X.X -R
+ .../bindings/clock/qcom,kaanapali-gxclkctl.yaml    |   63 +
+ .../bindings/clock/qcom,sm8450-camcc.yaml          |    6 +
+ .../bindings/clock/qcom,sm8450-gpucc.yaml          |    2 +
+ .../bindings/clock/qcom,sm8450-videocc.yaml        |    3 +
+ .../bindings/clock/qcom,sm8550-dispcc.yaml         |    2 +
+ drivers/clk/qcom/Kconfig                           |   38 +
+ drivers/clk/qcom/Makefile                          |    4 +
+ drivers/clk/qcom/cambistmclkcc-kaanapali.c         |  437 ++++
+ drivers/clk/qcom/camcc-kaanapali.c                 | 2661 ++++++++++++++++++++
+ drivers/clk/qcom/clk-alpha-pll.c                   |   20 +-
+ drivers/clk/qcom/clk-alpha-pll.h                   |    7 +
+ drivers/clk/qcom/dispcc-kaanapali.c                | 1956 ++++++++++++++
+ drivers/clk/qcom/gpucc-kaanapali.c                 |  494 ++++
+ drivers/clk/qcom/gxclkctl-kaanapali.c              |   76 +
+ drivers/clk/qcom/videocc-kaanapali.c               |  821 ++++++
+ .../clock/qcom,kaanapali-cambistmclkcc.h           |   33 +
+ include/dt-bindings/clock/qcom,kaanapali-camcc.h   |  147 ++
+ include/dt-bindings/clock/qcom,kaanapali-dispcc.h  |  109 +
+ include/dt-bindings/clock/qcom,kaanapali-gpucc.h   |   47 +
+ .../dt-bindings/clock/qcom,kaanapali-gxclkctl.h    |   12 +
+ include/dt-bindings/clock/qcom,kaanapali-videocc.h |   58 +
+ 21 files changed, 6995 insertions(+), 1 deletion(-)
+---
+base-commit: 88cbd8ac379cf5ce68b7efcfd4d1484a6871ee0b
+change-id: 20251125-kaanapali-mmcc-v2-0f1525477deb
 
-I'm reading the same results with and without the patch
-
-I've done ping tests as well, the latency seems to be the same with and
-without this patch, at around 0.193ms RTT.
-
-I'm not familiar with the SF_DMA_MODE though, any thing special to do to
-enter that mode ?
-
-Thanks,
-
-Maxime
-
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c | 5 +++--
->  drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h     | 1 +
->  drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c     | 5 +++++
->  drivers/net/ethernet/stmicro/stmmac/hwif.h          | 3 +++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 2 ++
->  5 files changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-> index 6d9b8fac3c6d0fd76733ab4a1a8cce2420fa40b4..5877fec9f6c30ed18cdcf5398816e444e0bd0091 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-> @@ -135,10 +135,10 @@ static void dwmac1000_dma_operation_mode_rx(struct stmmac_priv *priv,
->  
->  	if (mode == SF_DMA_MODE) {
->  		pr_debug("GMAC: enable RX store and forward mode\n");
-> -		csr6 |= DMA_CONTROL_RSF;
-> +		csr6 |= DMA_CONTROL_RSF | DMA_CONTROL_DFF;
->  	} else {
->  		pr_debug("GMAC: disable RX SF mode (threshold %d)\n", mode);
-> -		csr6 &= ~DMA_CONTROL_RSF;
-> +		csr6 &= ~(DMA_CONTROL_RSF | DMA_CONTROL_DFF);
->  		csr6 &= DMA_CONTROL_TC_RX_MASK;
->  		if (mode <= 32)
->  			csr6 |= DMA_CONTROL_RTC_32;
-> @@ -262,6 +262,7 @@ const struct stmmac_dma_ops dwmac1000_dma_ops = {
->  	.dma_rx_mode = dwmac1000_dma_operation_mode_rx,
->  	.dma_tx_mode = dwmac1000_dma_operation_mode_tx,
->  	.enable_dma_transmission = dwmac_enable_dma_transmission,
-> +	.enable_dma_reception = dwmac_enable_dma_reception,
->  	.enable_dma_irq = dwmac_enable_dma_irq,
->  	.disable_dma_irq = dwmac_disable_dma_irq,
->  	.start_tx = dwmac_dma_start_tx,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-> index d1c149f7a3dd9e472b237101666e11878707f0f2..054ecb20ce3f68bce5da3efaf36acf33e430d3f0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-> @@ -169,6 +169,7 @@ static inline u32 dma_chan_base_addr(u32 base, u32 chan)
->  #define NUM_DWMAC4_DMA_REGS	27
->  
->  void dwmac_enable_dma_transmission(void __iomem *ioaddr, u32 chan);
-> +void dwmac_enable_dma_reception(void __iomem *ioaddr, u32 chan);
->  void dwmac_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
->  			  u32 chan, bool rx, bool tx);
->  void dwmac_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-> index 467f1a05747ecf0be5b9f3392cd3d2049d676c21..97a803d68e3a2f120beaa7c3254748cf404236df 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-> @@ -33,6 +33,11 @@ void dwmac_enable_dma_transmission(void __iomem *ioaddr, u32 chan)
->  	writel(1, ioaddr + DMA_CHAN_XMT_POLL_DEMAND(chan));
->  }
->  
-> +void dwmac_enable_dma_reception(void __iomem *ioaddr, u32 chan)
-> +{
-> +	writel(1, ioaddr + DMA_CHAN_RCV_POLL_DEMAND(chan));
-> +}
-> +
->  void dwmac_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
->  			  u32 chan, bool rx, bool tx)
->  {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index f257ce4b6c66e0bbd3180d54ac7f5be934153a6b..df6e8a567b1f646f83effbb38d8e53441a6f6150 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -201,6 +201,7 @@ struct stmmac_dma_ops {
->  	void (*dma_diagnostic_fr)(struct stmmac_extra_stats *x,
->  				  void __iomem *ioaddr);
->  	void (*enable_dma_transmission)(void __iomem *ioaddr, u32 chan);
-> +	void (*enable_dma_reception)(void __iomem *ioaddr, u32 chan);
->  	void (*enable_dma_irq)(struct stmmac_priv *priv, void __iomem *ioaddr,
->  			       u32 chan, bool rx, bool tx);
->  	void (*disable_dma_irq)(struct stmmac_priv *priv, void __iomem *ioaddr,
-> @@ -261,6 +262,8 @@ struct stmmac_dma_ops {
->  	stmmac_do_void_callback(__priv, dma, dma_diagnostic_fr, __args)
->  #define stmmac_enable_dma_transmission(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, enable_dma_transmission, __args)
-> +#define stmmac_enable_dma_reception(__priv, __args...) \
-> +	stmmac_do_void_callback(__priv, dma, enable_dma_reception, __args)
->  #define stmmac_enable_dma_irq(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, dma, enable_dma_irq, __priv, __args)
->  #define stmmac_disable_dma_irq(__priv, __args...) \
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 6cacedb2c9b3fefdd4c9ec8ba98d389443d21ebd..1ecca60baf74286da7f156b4c3c835b3cbabf1ba 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4973,6 +4973,8 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
->  	rx_q->rx_tail_addr = rx_q->dma_rx_phy +
->  			    (rx_q->dirty_rx * sizeof(struct dma_desc));
->  	stmmac_set_rx_tail_ptr(priv, priv->ioaddr, rx_q->rx_tail_addr, queue);
-> +	/* Wake up Rx DMA from the suspend state if required */
-> +	stmmac_enable_dma_reception(priv, priv->ioaddr, queue);
->  }
->  
->  static unsigned int stmmac_rx_buf1_len(struct stmmac_priv *priv,
-> 
-> ---
-> base-commit: e3daf0e7fe9758613bec324fd606ed9caa187f74
-> change-id: 20251125-a10_ext_fix-5951805b9906
-> 
-> Best regards,
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
 
 _______________________________________________
 Linux-stm32 mailing list
