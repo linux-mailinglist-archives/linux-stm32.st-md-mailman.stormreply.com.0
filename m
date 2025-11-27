@@ -2,55 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F7FC8BC23
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Nov 2025 21:05:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BCDDC8E32A
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Nov 2025 13:10:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 664EDC1A981;
-	Wed, 26 Nov 2025 20:05:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A972CC60468;
+	Thu, 27 Nov 2025 12:10:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E950C290A0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3930DC5A4E4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Nov 2025 20:05:23 +0000 (UTC)
+ Thu, 27 Nov 2025 12:10:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 48A7643F71;
- Wed, 26 Nov 2025 20:05:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BF9C113D0;
- Wed, 26 Nov 2025 20:05:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EFDAF43DEF;
+ Thu, 27 Nov 2025 12:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C802DC4CEF8;
+ Thu, 27 Nov 2025 12:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764187522;
- bh=4UvnEA00ko1lzXg0hdjBBBEsnJicagQcXbbjtn3U4jc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KMmDAc/iJr+WTIK/XNheFgGF6KoMxY8sGn6uKmy7ktSGlsc5vAWgRt5OoP/og4282
- iYmETb05ebG5T/0nIWKMYdjtUyF7kBBvRW51Br6V7CfyjHNIBDPA+HK5KmycbyCF7g
- tGFNL90m86oHbEdTEg+E0W+Vc/56Fq/XSASSc6z88l5ag9WUXVUQ5dSQ7v0C4Q/nXA
- 2u5iLPnCHmGwtAV1uaqmVLkhXEMfEavoGxYU2Wyri7aHXWoeA64ZANBsABB8Jpv65S
- 4M/c2DQYkuMsVf2yLK7BgXqj1rCY6wewj90H4jo+tX/QiXEBqR8lk0P1VeXC+sA3Dt
- c3KUU2YCiOzFg==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 26 Nov 2025 14:10:43 -0600
-Message-ID: <176418784429.1591314.3521019603654312437.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251124182751.507624-1-robh@kernel.org>
-References: <20251124182751.507624-1-robh@kernel.org>
+ s=k20201202; t=1764245444;
+ bh=uhnsNrqtMtQkysk9EvtLzQf+itpVm8Usek2r6BnT+ak=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=RO0NRAZl45XA5ot75mAHnDowIjR04X6kevxTP/ht/X0iW+aJV/HSqd1DkqPUzJ/38
+ fgQjlsjNIbmzTKhnimVO/Q4XPHv+9aOkw4qaBvEhSfjfRSKhGp9awCsJls/EpcBN//
+ 0wkqkJQhuGucl1fTvtcmKfQaJovPFZWhWvsqnEH+Ibw64NhrYhNTHCVTGSIvhqQLEo
+ bM6DopBszbn9uoufcaoFKgkt25IZ3o8eR7khWLioY+8QJxSjMJRT9Ew2DA4SXydBKQ
+ CIoq1Ylo/saAP8rponTA2pcglH4509X+vLM0zaAk3aH5Raam+16WKfpx2KmYSXlmVm
+ 1qQALIu6z0POQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 710E4380CFEF; Thu, 27 Nov 2025 12:10:07 +0000 (UTC)
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Beleswar Padhi <b-padhi@ti.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH v7 1/2] remoteproc: Use
-	of_reserved_mem_region_* functions for "memory-region"
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176424540625.2550562.3416257212075007570.git-patchwork-notify@kernel.org>
+Date: Thu, 27 Nov 2025 12:10:06 +0000
+References: <20251126-a10_ext_fix-v1-1-d163507f646f@altera.com>
+In-Reply-To: <20251126-a10_ext_fix-v1-1-d163507f646f@altera.com>
+To: G@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Thomas@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Rohan <rohan.g.thomas@altera.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, matthew.gerlach@altera.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac: Disable
+ flushing frames on Rx Buffer Unavailable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,29 +63,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
-On Mon, 24 Nov 2025 12:27:47 -0600, Rob Herring (Arm) wrote:
-> Use the newly added of_reserved_mem_region_to_resource() and
-> of_reserved_mem_region_count() functions to handle "memory-region"
-> properties.
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Wed, 26 Nov 2025 00:37:12 +0800 you wrote:
+> From: Rohan G Thomas <rohan.g.thomas@altera.com>
 > 
-> The error handling is a bit different in some cases. Often
-> "memory-region" is optional, so failed lookup is not an error. But then
-> an error in of_reserved_mem_lookup() is treated as an error. However,
-> that distinction is not really important. Either the region is available
-> and usable or it is not. So now, it is just
-> of_reserved_mem_region_to_resource() which is checked for an error.
+> In Store and Forward mode, flushing frames when the receive buffer is
+> unavailable, can cause the MTL Rx FIFO to go out of sync. This results
+> in buffering of a few frames in the FIFO without triggering Rx DMA
+> from transferring the data to the system memory until another packet
+> is received. Once the issue happens, for a ping request, the packet is
+> forwarded to the system memory only after we receive another packet
+> and hece we observe a latency equivalent to the ping interval.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [net-next] net: stmmac: dwmac: Disable flushing frames on Rx Buffer Unavailable
+    https://git.kernel.org/netdev/net-next/c/45d100ee0d6e
 
-[2/2] remoteproc: qcom: Use of_reserved_mem_region_* functions for "memory-region"
-      commit: c70b9d5fdcd707ddac29284ea425fd433f374696
-
-Best regards,
+You are awesome, thank you!
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
