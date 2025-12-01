@@ -2,47 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A638C96D78
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Dec 2025 12:13:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0CA1C977BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Dec 2025 14:08:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 386D8C628B7;
-	Mon,  1 Dec 2025 11:13:09 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 766CEC628D3;
+	Mon,  1 Dec 2025 13:08:20 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13267C01FB5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61CE7C628D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Dec 2025 11:13:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2234260121;
- Mon,  1 Dec 2025 11:13:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD66C113D0;
- Mon,  1 Dec 2025 11:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764587586;
- bh=fYMUbue3Ka37fHtYbiOTRTL0VUjzqr8ncwExp4fw1FE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Pn4Nvlb4RGM/2J1Djw/JQddi/rPHy2L2SrgU5wUXUnhXZ3erHzGf44qJlxd7ZqHwA
- yJN7Vle/JIEZF0TQeGO1vFt8693jeI7pr/V94TDEHSF8mfHH0xSgIjXAmPAXXim7Bm
- Yjz5RGABeUJ3Ze/bYIsjU/vtpQ8W1S6Mz2gS/YxxxbhDhf6Twvo6DG2FSyOTT4fGUh
- jMZEpDLyHunt9uxqS8oFWE7G72LSqK3a0jK/eKFABDtWYJxZynlB45SneYduYroF+G
- S9LGtt+fxGQLHTHgGi/TrM9Lp6yVGuNTtYDNuve6IUXFkmmMgMoW1dq6xMTQaIHEE6
- /89T5rQuMh1KQ==
-Date: Mon, 1 Dec 2025 11:13:02 +0000
-From: Simon Horman <horms@kernel.org>
-To: 2694439648@qq.com
-Message-ID: <aS14PnwjbFcD_J70@horms.kernel.org>
-References: <tencent_22959DC8315158E23D77C14B9B33C97EA60A@qq.com>
+ Mon,  1 Dec 2025 13:08:19 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-b72bf7e703fso727787766b.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 01 Dec 2025 05:08:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1764594499; x=1765199299;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jmWOE8tsVdZV+/3MWOEyJyy+ZPffvlIHcvjJiju9iok=;
+ b=wwW25npSu/5QDNQUikuFvbDnDZ1DiiGXlqTT9sd3My0kjiN/6ms8VyB13uXJDCYOH1
+ JwGXCkWGCh4fUHamMCN6etptX7EYgauRKMDzIajPEOR0hia+xtShuufYcxS4apHvf+wf
+ 2ZJcSBwMq4AL2DL3vT4tY/31FNeZdm0VBiY0ZanzIjPFa3fUjM2uyaOuTg5ButOQQgk1
+ +J8wYIXDFmnfgmDaMQxvmiptbwBwIyYYObRS1zn5AANvVZDunFSptIPtzv8mIi4qZ27u
+ 0E3pgoJpuwW3FbLrJzZ96b2kCI6pTJ94rfTTLenTHZoj0hH2tJFytYAxDLp5y5i+ujeC
+ mzIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764594499; x=1765199299;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jmWOE8tsVdZV+/3MWOEyJyy+ZPffvlIHcvjJiju9iok=;
+ b=Utk1nL3xL2p206LZyZuqSi+TnwDeDIi9LPFQAqfBWn90vBEmc57RKKtX1EHHNUdZNb
+ MSILR8VqPtI/UKFyEw1plipZPrUMvc8TQRSdFPy22SHv0Cu1kR6lIhNaLbxPv/nkL6XR
+ UKflxP1Ayq7uEwAgJWI+AqJ5F0kY7Y0jz0wpnPrdMRbR3tz8zXJ/g1cSF4s3IIrsWNiO
+ OrtIDjve5KaSQa4U04Ugi0l+JxVo63t9taAw746lXl3vsCOCUEEXweA3qxrthxVorsLB
+ WnlFFml52nlWNCwGmZONnOzefva4XsDRyXr7S3H+Uibw6f5iAcBPMMgRI12M9DwZZ9ME
+ YKBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVSFJMtu9iWxE04PJlO3zhFrA7ZRM3DukAamft/sGPTB2EsJAV3BiTftHDWzLCq7T8S4jlaJIjJnATbqA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyRUzfdJQ6+MgeGc61gTPcmDbChomc2dW628og6NGb8lw5uTR7h
+ ZjuRMvG3HbUgNMIL9BALCvnc4+nVwvVaD+FkBjGPy+fDJtfmLSsc0Eg1/FfQYDPLDtw=
+X-Gm-Gg: ASbGncvhVww1TwHtZ9iirT7vPJo5CUWvYAIx8Zh/hDFwt21OLZ2tpWcDwcIt2+UjjZQ
+ XWRpFaUOBT1VVT4z9j15uDj5uxd2bw7Cr0FKRYTQAp34lxmHPOglOradxpCNgjgv4iWRVmvkVog
+ k/Kzh0P+Hco88AF/7Rw6fGeIoNPfelT4dd3dwXG2kg/uDmlJwTqJmEivpU/8BB9rUiFrzgCktU7
+ UAUGxL1nran5ghK6ZFOzfepSagPuDpjM46sbWSvfWnXZO4lupY3zL50aV/CaqHgfc39BpstPvPi
+ 0P2x7RxBBOrL5kOor6IPwBCzvkxJNjvLUHZvy3aLSt8iZu5WLGZenWWpF/lqmJidZ39xs3K44J+
+ WNsJQbtkLAHorSl3sbe1B12BjCVoJjcxlS34mihC6ulco62tkLvxArJ9d7ezKoQPFvjeECco/1D
+ EKGsnjL8CtZzMmQQT2
+X-Google-Smtp-Source: AGHT+IG+9MCSjBtPt6W2+zBUhes3WpovLtX4vLeIrokTyK95t4Xc4QrjoCg1IRxwpvpD0DbH6J0bKQ==
+X-Received: by 2002:a17:907:e8c:b0:b72:eaba:aac2 with SMTP id
+ a640c23a62f3a-b767173c3f7mr4361122366b.26.1764594498454; 
+ Mon, 01 Dec 2025 05:08:18 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-b76f59aecd4sm1238751566b.44.2025.12.01.05.08.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Dec 2025 05:08:17 -0800 (PST)
+Date: Mon, 1 Dec 2025 16:08:14 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Chester Lin <chester62515@gmail.com>
+Message-ID: <cover.1764592300.git.dan.carpenter@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <tencent_22959DC8315158E23D77C14B9B33C97EA60A@qq.com>
-Cc: hailong.fan@siengine.com, inux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Modify the judgment
- condition of "tx_avail" from 1 to 2
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linaro-s32@linaro.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Matthias Brugger <mbrugger@suse.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH 0/4] s32g: Use a syscon for GPR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,52 +101,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 01, 2025 at 10:57:01AM +0800, 2694439648@qq.com wrote:
-> From: "hailong.fan" <hailong.fan@siengine.com>
-> 
->     Under certain conditions, a WARN_ON will be triggered
->     if avail equals 1.
-> 
->     For example, when a VLAN packet is to send,
->     stmmac_vlan_insert consumes one unit of space,
->     and the data itself consumes another.
->     actually requiring 2 units of space in total.
+*** BLURB HERE ***
 
-Hi,
+Dan Carpenter (4):
+  net: stmmac: s32: use the syscon interface PHY_INTF_SEL_RGMII
+  dt-bindings: mfd: syscon: Document the GPR syscon for the NXP S32 SoCs
+  dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
+  dts: s32g: Add GPR syscon region
 
-I am wondering if there are other cases where an extra
-descriptor is needed. And if so, can multiple such conditions
-occur at the same time?
+ .../devicetree/bindings/mfd/syscon.yaml       |  2 ++
+ .../bindings/net/nxp,s32-dwmac.yaml           |  6 +++++
+ arch/arm64/boot/dts/freescale/s32g2.dtsi      |  8 +++++++
+ arch/arm64/boot/dts/freescale/s32g3.dtsi      |  8 +++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 23 +++++++++++++++----
+ 5 files changed, 42 insertions(+), 5 deletions(-)
 
-I am also wondering if the VLAN condition can be detected,
-so a descriptor is only reserved for VLAN use if it will
-actually be used for a VLAN.
+-- 
+2.51.0
 
-And I think it would be worth noting how this problem was discovered
-e.g. by inspection, using tooling (static analysis, AI, ...).
-And how it has been tested e.g. On real HW, compile tested only.
-
-
-As this is a fix for Networking code present in the net tree
-it should be based on that tree. And targeted at that tree like this:
-
-Subject: [PATCH net] ...
-
-Also, as a fix for net, it should have a fixes tag.
-Generally, this should denote the first patch where the problem would
-manifest. In this case this seems to be a likely candidate:
-
-Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload")
-
-The tag should go immediately above other tags, in this case your
-Signed-off-by line, without any blank lines in between. And, like other
-tags, it should not be line-wrapped.
-
-For more information on the workflow for Networking changes please see:
-https://docs.kernel.org/process/maintainer-netdev.html
-
-> 
-> Signed-off-by: hailong.fan <hailong.fan@siengine.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
