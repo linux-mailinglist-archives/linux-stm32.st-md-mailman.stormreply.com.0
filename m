@@ -2,91 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE72C97DB7
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Dec 2025 15:31:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8914EC97E7A
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Dec 2025 15:50:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB93EC628D0;
-	Mon,  1 Dec 2025 14:31:46 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D91BC35E3C;
+	Mon,  1 Dec 2025 14:50:13 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32096C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC2CDC35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Dec 2025 14:31:45 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so26551135e9.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Dec 2025 06:31:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1764599504; x=1765204304;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=P3Udye7A+1mJEIOEFZOxhVuAe/sJ9GEaxJR6U/sqIe4=;
- b=huacjh/pWGUQwsVzlwP9E2KSE/ulbFrLbTegeoAIcS+gAxpnWazLwz2ezCSdkMW2BD
- kxiuJ1TJuirFI0LRswB3RJxKG4M6gcJ1CSAkav6UsUeSXvCQDFSO9q5GEj/oUDZXlwfS
- 5dkrv2q+a6nTP9ZTElcl6U0DSaWZ2qQSgccPf3ciMdbgwrBpuBvldk3fc4KDo83P+M0j
- 1lNT6aKOEsqxNwslRz/VZrTUoDkwCPNH8DE9h/TNNpBa0IXntXHo+Y12ck1RkCpLemfQ
- DX+N3HsLb1WjSc7Mhox+V+eG6ZV3MHizIbo4uOKySiF4mBZN7m8za8KdFXD/boR68V9u
- yPww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764599504; x=1765204304;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=P3Udye7A+1mJEIOEFZOxhVuAe/sJ9GEaxJR6U/sqIe4=;
- b=bbdqsf+GA+V20vvV32bbeOT7cvbqUMNkkwvLNkDJS3jtwKqOSkkNeEMMLOozSuI8LW
- 5POIMl8VndvJyV6s7jWQAhdpOXy8ODxjWDsPAXAHXd/MGvLClBSB+aVEhYCMCIeNNUQl
- EJtlCHxOEntd1Mmsi4Fv9ARx3tuzzsKru8BGx3o2x+fHtFf54RC1UasJQNnUn/K6hYJ3
- Uk2Ilo6m8dy2rjuuToOWQrU7awFMgXTFmoe/Xy1PiHCrjH9wgAw2RYbzg+vy7tu0Upf0
- 9KTom8HwOuMO2pG/a0A4+IAml6iphCMonX2BHds28Pu2k44pqyAzCyeezPygy8hsDBQ7
- wWRg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUpPMD4PyWXPQ9y2JzXOB/jZ5Jxbk1JumpAkrPfBjnXQKXg40UGTN+DR41K8rnsr6zAkUYpQairJVWG2w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yye6mkd8vZNmi5pIcfteF30mK20vhr9kMoqTuYZ+IKYEctKLQW0
- /6vH1hcZoNkjQ87noc5NK573/G06xGR1wMzXpHcEZ/Sl+ARX02HJZK3BGolUcNZptuo=
-X-Gm-Gg: ASbGncs6HNHZR9djdpQKud60eicJCFa5BHV6+OkkvtDWaPUgKBKIjK8otEQmNU2xjl1
- DNHsphw4F0W4Cp1+YxrPb/9iik7mzOvLBhv7hfSjifBEhPiq34M23eiVf9SUt9bGO2wF77S+bvM
- siCFpgEAub+8LMcpvQNhQtI12TppYZ/uIZPn7aSVBb81MTbznt4+m1zfHvDk9YIHOuSDSA3Mz9y
- buv/EtVxWNn92Kftohj3itx2ncyY7+MU+JWCXTdxhQ7jbbws3c6cK5X7xtkAwD8goItGVEkzz2y
- DJPTXwSGfRKImBVwS9oUDN9js5tEPjuzHesNcdDHOusN0qS0Fmhr+yMwJyVNNy7ygNz4Eb1DhKo
- nDGckKu6QcjXCOZpbJSnFKRuD6ELNtSC5z3vmmR5ceWGhkPn8NIomtU2A7Cmll7QzVSnW5b0VUg
- lIRDk/s/cKQiE3F6oh
-X-Google-Smtp-Source: AGHT+IH6A6FJXGfT8Zsjwa2/f7hPiOGak401pIC2WoSIqlHjuQJJxsh60eESxFQX7d8Tr6L3Wxf8Ig==
-X-Received: by 2002:a05:600c:1f8f:b0:46e:1fb7:a1b3 with SMTP id
- 5b1f17b1804b1-477c01ee3camr380965655e9.23.1764599504416; 
- Mon, 01 Dec 2025 06:31:44 -0800 (PST)
-Received: from localhost ([196.207.164.177])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-479052cf8d9sm154964375e9.9.2025.12.01.06.31.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Dec 2025 06:31:43 -0800 (PST)
-Date: Mon, 1 Dec 2025 17:31:38 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Chester Lin <chester62515@gmail.com>
-Message-ID: <aS2myhp8asABFyLt@stanley.mountain>
-References: <cover.1764592300.git.dan.carpenter@linaro.org>
+ Mon,  1 Dec 2025 14:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=eU9psOUffFFLH8iXGGNckKFSi0N1lnrRVekGn56l2Oo=; b=eJa7casIJQrMJzBa++zmER07wC
+ E2rt0q800czairfx7haxMsd4cNy3BmusqoGQGNs/B5xhYVipNpJvAM+c/FyGH2TMmd6O93JSb+n0C
+ VqTmHZoMboC5yxCti8kfhAmm7+Pah6vqDwTvD0zxb+WgBpZHU7su1aOYSmjmbYw+IT+gEDCMAGYWB
+ qc3wGqo2wNKSQYMT4mFqsYDTEfmMLOtPeyC7BVx0zmgefyyuzSTSWu9c139/ngksUpnrfwsaJM2NA
+ 718tAVPDRrh9rNP5/sHAhW/UvK5SEKE+GK9sTmCqwoEyXELA1ceGyPga/roDkXku/hssrxgA5j22T
+ ExlEcVZQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59362)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vQ5E1-000000000ei-0iY7;
+ Mon, 01 Dec 2025 14:50:01 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vQ5Dw-000000006Y9-3GUO; Mon, 01 Dec 2025 14:49:56 +0000
+Date: Mon, 1 Dec 2025 14:49:56 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aS2rFBlz1jdwXaS8@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1764592300.git.dan.carpenter@linaro.org>
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linaro-s32@linaro.org, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
- linux-arm-kernel@lists.infradead.org, Matthias Brugger <mbrugger@suse.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 0/4] s32g: Use a syscon for GPR
+Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC net-next 00/15] net: stmmac: rk: cleanups
+	galore
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,29 +64,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 01, 2025 at 04:08:14PM +0300, Dan Carpenter wrote:
-> *** BLURB HERE ***
-> 
+This is work in progress, cleaning up the excessively large Rockchip
+glue driver somewhat. This series as it currently stands removes
+approximately 200 lines from this file, while adding slightly to its
+flexibility.
 
-Sorry, I obviously meant to write a message here.
+A brief overview of the changes:
 
-The s32g devices have a GPR register region which could be accessed
-via a syscon.  Currently only the stmmac/dwmac-s32.c uses anything
-from there and we just add a line to the device tree to access
-that GMAC_0_CTRL_STS register:
+- similar to previous commits, it seems the RGMII clock field follows
+  a common pattern irrespective of the SoC.
+- update rk3328 to use the ->id mechanism rather than guessing from
+  the PHY interface mode and whether the PHY is integrated.
+- switch to wm16 based masking, providing the lower-16 bits of the
+  mask to indicate appropriate fields, and use this to construct the
+  values to write to the registers.
+- convert px30 to these methods.
+- since many set_to_rmii() methods are now empty, add flags to indicate
+  whether RMII / RGMII are supported.
+- clear RGMII where the specific SoC's GMAC instance doesn't support
+  this.
 
-			reg = <0x4033c000 0x2000>, /* gmac IP */
-			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
+I've spent quite a while mulling over how to deal with these "wm16"
+registers, none of the kernel bitfield macros (not even the
+hw_bitfield.h macros) allow for what I present here, because the
+masks are not constant.
 
-But it would be better to have a syscon instead of adding each
-register to the device tree like this.
+One of the interesting things is that this appears to deal with RGMII
+delays at the MAC end of the link, but there's no way to tell phylib
+that's the case. I've not looked deeply into what is going on there,
+but it is surprising that the driver insists that the delays (in
+register values?) are provided, but then ignores them depending on the
+exact RGMII mode selected.
 
-We still have to maintain backwards compatibility to this format,
-of course.
+One outstanding issue with these patches: RK3528_GMAC0_CLK_RMII_DIV2
+remains, although I deleted its definition, so there's build errors
+in this series. Before I do anything about that, I would like to hear
+from the Rockchip guys whether it is necessary for rk3528_set_to_rmii()
+to set the clock rate, given that rk_set_clk_tx_rate() will do this
+when the link comes up. Does it matter whether it was set to 2.5MHz
+(/ 20) or 25MHz (/ 2) when we switch to RMII mode?
 
-regards,
-dan carpenter
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 968 ++++++++++---------------
+ 1 file changed, 382 insertions(+), 586 deletions(-)
 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
