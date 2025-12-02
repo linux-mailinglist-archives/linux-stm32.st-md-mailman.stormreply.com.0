@@ -2,87 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C4CBC9B39B
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Dec 2025 11:51:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C70E0C9A72C
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Dec 2025 08:31:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30377C58D7A;
-	Tue,  2 Dec 2025 10:51:55 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FEA1C58D7A;
+	Tue,  2 Dec 2025 07:31:22 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F178C1A977
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98F5EC57A52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Dec 2025 02:54:28 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-4ee19b1fe5dso59490211cf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Dec 2025 18:54:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764644067; x=1765248867;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=U3FBb66LhC69xzR90g1eNdryay2txh0Eg4xYtWgJK8o=;
- b=XMYWxx0AqvrOZ+8SF3i1gcv8INXS6n+mrkxpH+n57Q+PQ3Z50voKIa+ljyq0NTdSQi
- WqAPWIz0EPufnTvCzrxUajLtBdySf0zdH3mmsQO1ENGxjIkvu2pBPKBoG8fTBTgw1Q2W
- s4Ukov8ZsIqVeGE1qgOIUDJsNstqmLtfsZgRlHWfdAYSGYzmHMetCHbRua18Hww7e9/u
- J7Ra56osawnoY/Ju7UdwHxKIKcHEhMPPK814PsGZ+x70LWqMLuid/ClykLcHwwtjlirQ
- +3+CHDqCFKwGoFrYqCI36hs+hiHaQS5l3piN4Rw/rtWwq6bEK+eCjSH/TKNB42DRSpEK
- w8gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764644067; x=1765248867;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=U3FBb66LhC69xzR90g1eNdryay2txh0Eg4xYtWgJK8o=;
- b=qDzozgGgSVOj1t47Qs/sJW1f6I1xU0vEnfu45kAZ2X/tBkkcAqbebvB3V0TAH8Lap9
- fh3CX0tTpsX/2LvfZqU85BZ22hdWfFWyeR0u/jJ7khsDdVNGsTlRftIFejCOaDaFkavF
- IAzXrfDKZEDvIXTcpDbz7QLOYnBPrFmRZmrzTbnal7NOmoXiTSnnua+m9qlY7TV2ZAT5
- b3srU50wfmYkjIGTXoSqc4OomntdEzBy/gSr0Oq5KOgb6nkE1fPDJPjwRi2SLpgGf4ZM
- BY9M7GRpEJfNoVxcfcTrdEmrRFJu6m1QoC/yTBEy+8tzN3pCmkx5YXvgtbLpmT+X0xFJ
- ObMQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXuUYJ+QAyKAvjFvA7HWMGLMFB/+H7X2rme4y1+K2JrC+WZN0otLAHw0EQLpX7jAS5YeDlZRtYboKcBBQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxxblIlrqA1wzJMVRSAKURrTXAgzx2luU5gmpgN6gmQci3V7gt+
- g5jrcRdFcIevSf13i8Pbp6/d5NMoXisz1T6ztmCj1ZpDsfTEHwOtWwJl
-X-Gm-Gg: ASbGncvO4r8438RvizKcVydmw6u2MGpBj9NUXn5VcxK8h4cbWyGkflCy9aGFCEWFzEj
- UFcXFYpzZeBA24EwoiZYrQBBt2k79KD9Y8HMZrbLoYuRsKRry2F07FSgTc1PhoDemFM6I4GiZgM
- JMPxk/RN+3dxSdyX3pdAhapiTnluU6djflnFv7Y8UODAXgyxLaXrE0dg4msKGOgdjVbd7OcCdGX
- XNibumPl8+ZRCojEhbcC77t5qajQXBQSrOlGMMpxq0DUUVW32VOI0mfiRbqTJ+uh6h8dmB/vPPn
- Wo0Bk93v+q8jyW27TXV/U3pR+2ES7LAO8nhsoDVJV7cJ5CGasooMUl3otEEHrPhpV7+ATnFfcMA
- ua9+/ndTJ2dfL/uvp9NAwGwWbLR0U07va/tpzXeK4x5Q4P9ztjUmmcHScIPmoFUbMXGh0JA5HeF
- BOGH4ZWM87tM1k8fg9lSORqrv/c/KqjyVuFWdpJ9hgzyPWdKSQFLDG+BmzDlOPb9vPkpkahx6OS
- ao=
-X-Google-Smtp-Source: AGHT+IF1Y26tarkgHugZ4zAMvf/99cbk/6HuQ3PbtQTRf5s5WQrWhUrkganAuIBkyYpvOL7fPVmVdQ==
-X-Received: by 2002:a05:622a:295:b0:4ed:b448:b19f with SMTP id
- d75a77b69052e-4efbdad012amr355218281cf.51.1764644067186; 
- Mon, 01 Dec 2025 18:54:27 -0800 (PST)
-Received: from localhost.localdomain
- (h69-131-24-92.cntcnh.broadband.dynamic.tds.net. [69.131.24.92])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4efd344a188sm88508641cf.33.2025.12.01.18.54.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Dec 2025 18:54:26 -0800 (PST)
-From: Jie Zhang <jzhang918@gmail.com>
-X-Google-Original-From: Jie Zhang <jie.zhang@analog.com>
-To: netdev@vger.kernel.org
-Date: Mon,  1 Dec 2025 21:54:16 -0500
-Message-ID: <20251202025421.4560-1-jie.zhang@analog.com>
-X-Mailer: git-send-email 2.47.3
+ Tue,  2 Dec 2025 07:31:20 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 07D5A1A1EB5;
+ Tue,  2 Dec 2025 07:31:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C3C60606E3;
+ Tue,  2 Dec 2025 07:31:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 403D9103C8F04; Tue,  2 Dec 2025 08:30:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1764660676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=gutkuk21iRBLBzb9hvOl6cUp6HFUU/VZ7OrEhTRZmwQ=;
+ b=bY3TTYiSLFXa5B94KQgeAayt80JXK78ig76Aq2SyfufNuWcT41c/auFS4kPqbVeYIZlJKX
+ QrXrN/qRIP4zNsj2m/7od8XOWVPza9ZQvvaa8nia4r3ByMuNdtTuF/t2v7gxBFCMMsW9RB
+ i0p/8OBYWY3+n3FRUeyswfCRhz6Fv2at184ftP1FUUlpPAnLeFkqXVNSm5O6zbN24Wre4+
+ N8LDjO5ty4mD4BpDEbuBV6eat2hrRdfThqf+Hnymm7a9OslgagnMsXhZ11fV4HVQz7RWeL
+ AMcHDMFpAB93S2dU0dURDWQPs1MVtcc1ZnrYa/w6k4129RIITI9OMaZRIN58Wg==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Guenter Roeck <linux@roeck-us.net>,
+ Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Mariel Tinaco <Mariel.Tinaco@analog.com>,
+ Kevin Tsai <ktsai@capellamicro.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eugen Hristev <eugen.hristev@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Sebastian Reichel <sre@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Hans de Goede <hansg@kernel.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Paul Cercueil <paul@crapouillou.net>, Iskren Chernev <me@iskren.info>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Matheus Castello <matheus@castello.eng.br>,
+ Saravanan Sekar <sravanhome@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Amit Kucheria <amitk@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ David Lechner <dlechner@baylibre.com>
+Date: Tue, 02 Dec 2025 08:30:58 +0100
+Message-ID: <5948030.DvuYhMxLoT@fw-rgant>
+In-Reply-To: <78240755-44dc-4835-aca5-99540cca0304@baylibre.com>
+References: <20251201-iio-inkern-use-namespaced-exports-v1-1-da1935f70243@bootlin.com>
+ <78240755-44dc-4835-aca5-99540cca0304@baylibre.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 02 Dec 2025 10:51:54 +0000
-Cc: Furong Xu <0x1207@gmail.com>, linux-kernel@vger.kernel.org,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Jie Zhang <jzhang918@gmail.com>,
- Jie Zhang <jie.zhang@analog.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: fix oops when split header is
-	enabled
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: linux-hwmon@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-input@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] iio: inkern: Use namespaced exports
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,138 +95,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4964671484253052920=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For GMAC4, when split header is enabled, in some rare cases, the
-hardware does not fill buf2 of the first descriptor with payload.
-Thus we cannot assume buf2 is always fully filled if it is not
-the last descriptor. Otherwise, the length of buf2 of the second
-descriptor will be calculated wrong and cause an oops:
+--===============4964671484253052920==
+Content-Type: multipart/signed; boundary="nextPart6220005.lOV4Wx5bFT";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-Unable to handle kernel paging request at virtual address ffff00019246bfc0
-Mem abort info:
-  ESR = 0x0000000096000145
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000145, ISS2 = 0x00000000
-  CM = 1, WnR = 1, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-swapper pgtable: 4k pages, 48-bit VAs, pgdp=0000000090d8b000
-[ffff00019246bfc0] pgd=180000009dfff403, p4d=180000009dfff403, pud=0000000000000000
-Internal error: Oops: 0000000096000145 [#1]  SMP
-Modules linked in:
-CPU: 0 UID: 0 PID: 157 Comm: iperf3 Not tainted 6.18.0-rc6 #1 PREEMPT
-Hardware name: ADI 64-bit SC598 SOM EZ Kit (DT)
-pstate: 00400009 (nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-pc : dcache_inval_poc+0x28/0x58
-lr : arch_sync_dma_for_cpu+0x28/0x34
-sp : ffff800080dcbc40
-x29: ffff800080dcbc40 x28: 0000000000000008 x27: ffff000091c50980
-x26: ffff000091c50980 x25: 0000000000000000 x24: ffff000092a5fb00
-x23: ffff000092768f28 x22: 000000009246c000 x21: 0000000000000002
-x20: 00000000ffffffdc x19: ffff000091844c10 x18: 0000000000000000
-x17: ffff80001d308000 x16: ffff800080dc8000 x15: ffff0000929fb034
-x14: 70f709157374dd21 x13: ffff000092812ec0 x12: 0000000000000000
-x11: 000000000000dd86 x10: 0000000000000040 x9 : 0000000000000600
-x8 : ffff000092a5fbac x7 : 0000000000000001 x6 : 0000000000004240
-x5 : 000000009246c000 x4 : ffff000091844c10 x3 : 000000000000003f
-x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
-Call trace:
- dcache_inval_poc+0x28/0x58 (P)
- dma_direct_sync_single_for_cpu+0x38/0x6c
- __dma_sync_single_for_cpu+0x34/0x6c
- stmmac_napi_poll_rx+0x8f0/0xb60
- __napi_poll.constprop.0+0x30/0x144
- net_rx_action+0x160/0x274
- handle_softirqs+0x1b8/0x1fc
- __do_softirq+0x10/0x18
- ____do_softirq+0xc/0x14
- call_on_irq_stack+0x30/0x48
- do_softirq_own_stack+0x18/0x20
- __irq_exit_rcu+0x64/0xe8
- irq_exit_rcu+0xc/0x14
- el1_interrupt+0x3c/0x58
- el1h_64_irq_handler+0x14/0x1c
- el1h_64_irq+0x6c/0x70
- __arch_copy_to_user+0xbc/0x240 (P)
- simple_copy_to_iter+0x28/0x30
- __skb_datagram_iter+0x1bc/0x268
- skb_copy_datagram_iter+0x1c/0x24
- tcp_recvmsg_locked+0x3ec/0x778
- tcp_recvmsg+0x10c/0x194
- inet_recvmsg+0x64/0xa0
- sock_recvmsg_nosec+0x1c/0x24
- sock_read_iter+0x8c/0xdc
- vfs_read+0x144/0x1a0
- ksys_read+0x74/0xdc
- __arm64_sys_read+0x14/0x1c
- invoke_syscall+0x60/0xe4
- el0_svc_common.constprop.0+0xb0/0xcc
- do_el0_svc+0x18/0x20
- el0_svc+0x80/0xc8
- el0t_64_sync_handler+0x58/0x134
- el0t_64_sync+0x170/0x174
-Code: d1000443 ea03003f 8a230021 54000040 (d50b7e21)
----[ end trace 0000000000000000 ]---
-Kernel panic - not syncing: Oops: Fatal exception in interrupt
-Kernel Offset: disabled
-CPU features: 0x080000,00008000,08006281,0400520b
-Memory Limit: none
----[ end Kernel panic - not syncing: Oops: Fatal exception in interrupt ]---
+--nextPart6220005.lOV4Wx5bFT
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+Subject: Re: [PATCH] iio: inkern: Use namespaced exports
+Date: Tue, 02 Dec 2025 08:30:58 +0100
+Message-ID: <5948030.DvuYhMxLoT@fw-rgant>
+In-Reply-To: <78240755-44dc-4835-aca5-99540cca0304@baylibre.com>
+MIME-Version: 1.0
 
-To fix this, the PL bit-field in RDES3 register is used for all
-descriptors, whether it is the last descriptor or not.
+On Monday, 1 December 2025 18:15:54 CET David Lechner wrote:
+> On 12/1/25 4:59 AM, Romain Gantois wrote:
+> > Use namespaced exports for IIO consumer API functions.
+> > 
+> > Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+> > ---
+> 
+> ...
+> 
+> > diff --git a/drivers/iio/dac/ds4424.c b/drivers/iio/dac/ds4424.c
+> > index a8198ba4f98a..33d6692f46fe 100644
+> > --- a/drivers/iio/dac/ds4424.c
+> > +++ b/drivers/iio/dac/ds4424.c
+> > @@ -14,7 +14,6 @@
+> > 
+> >  #include <linux/iio/iio.h>
+> >  #include <linux/iio/driver.h>
+> >  #include <linux/iio/machine.h>
+> > 
+> > -#include <linux/iio/consumer.h>
+> 
+> Unrelated change?
 
-Signed-off-by: Jie Zhang <jie.zhang@analog.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+Indeed, I'll leave that out in v2.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7b90ecd3a55e..848b1769c573 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4878,13 +4878,27 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
- 	if (!priv->sph)
- 		return 0;
- 
--	/* Not last descriptor */
--	if (status & rx_not_ls)
-+	/* For GMAC4, when split header is enabled, in some rare cases, the
-+	 * hardware does not fill buf2 of the first descriptor with payload.
-+	 * Thus we cannot assume buf2 is always fully filled if it is not
-+	 * the last descriptor. Otherwise, the length of buf2 of the second
-+	 * descriptor will be calculated wrong and cause an oops.
-+	 *
-+	 * If this is the last descriptor, 'plen' is the length of the
-+	 * received packet that was transferred to system memory.
-+	 * Otherwise, it is the accumulated number of bytes that have been
-+	 * transferred for the current packet.
-+	 *
-+	 * Thus 'plen - len' always gives the correct length of buf2.
-+	 */
-+
-+	/* Not GMAC4 and not last descriptor */
-+	if (!priv->plat->has_gmac4 && (status & rx_not_ls))
- 		return priv->dma_conf.dma_buf_sz;
- 
-+	/* GMAC4 or last descriptor */
- 	plen = stmmac_get_rx_frame_len(priv, p, coe);
- 
--	/* Last descriptor */
- 	return plen - len;
- }
- 
+> >  #define DS4422_MAX_DAC_CHANNELS		2
+> >  #define DS4424_MAX_DAC_CHANNELS		4
+> > 
+> > @@ -321,3 +320,4 @@ MODULE_AUTHOR("Ismail H. Kose
+> > <ismail.kose@maximintegrated.com>");> 
+> >  MODULE_AUTHOR("Vishal Sood <vishal.sood@maximintegrated.com>");
+> >  MODULE_AUTHOR("David Jung <david.jung@maximintegrated.com>");
+> >  MODULE_LICENSE("GPL v2");
+> > 
+> > +MODULE_IMPORT_NS("IIO_CONSUMER");
+> 
+> Is this actually needed if we don't use anything from consumer.h?
+
+No, it's not.
+
+Thanks,
+
 -- 
-2.47.3
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--nextPart6220005.lOV4Wx5bFT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEIcCsAScRrtr7W0x0KCYAIARzeA4FAmkulbIACgkQKCYAIARz
+eA6r+A//aMF01GyQ28Vt1qVRnR+uQNAhVi/B2aUu4XYyy1hc2lVzhHwvSjyYiXET
+h1jorSaLD9m5MsoTo9Scxhpu1d5KWIy5DaNATac1wmHh9t0IdE8gw1kNaUcNmefr
+NFOanFttvVt7e9cko6PsxmX9GOioawS3CVrJuObkGGftqR3KVD3WMOg+n551pkK4
+63Xbfe6PPADF06Lyu2kyyxUXLwIsuXQ8Z4dQ+kX4Bky34L0v4w0Yxos4Uhkwv5ur
+SOUtezyExAQTgAJi9KW5MPADpCdXfB3moTv29CdWRs1K8XLkxxLeprZnutXRFxOu
+CrmiA30lNs2pp7wut+8PfmeYX6btqOCMQ8KENXNV9StrRc9UqD6K6TbbJGE/Vbzg
+gxDVp9t0i0nxcQAwhtvnlmAjf3pxeJWXf1iII5ooXoxv2yW1G+FsL9RBztyEnTA1
+0iLFg1Yyx/28b7iZsf6oD5luqSRnQ7Qi0js5sAA3rVHfMtOlO/rGcUH1BprrpLPa
+m5jycApgp26OuCSxacOhlAZ6iXy1pyepTaDlS9wz1kbdwVJOf3IaWuRhDHrRugCd
+zya/579XFCsbobzejkSRHzgwylhuGsDMAniIn0MaeQw3E5wyBTCVJTXx9qebFj3v
+sUVcLNhFQBy/G8YWighvreSaPr43mWS4ueBmAMClqYmOzq2nF2k=
+=n+bE
+-----END PGP SIGNATURE-----
+
+--nextPart6220005.lOV4Wx5bFT--
+
+
+
+
+--===============4964671484253052920==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4964671484253052920==--
+
+
+
