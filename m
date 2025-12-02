@@ -2,139 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C0BC9BFB8
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Dec 2025 16:37:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E268C9C93B
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Dec 2025 19:17:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97602C597BF;
-	Tue,  2 Dec 2025 15:37:16 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1311BC58D7A;
+	Tue,  2 Dec 2025 18:17:10 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6D0FC349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6C88C349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Dec 2025 15:37:14 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5B29SrTD3242700
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 2 Dec 2025 15:37:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7dvI4jnmIBSLqBzEmGJJZVq3e4u/zHX94LqpdnMLiDQ=; b=MNymD01fnkARBFE8
- f30Xj0Twb7f0JXMlzRlh1AWQmjzx6HXA4kbWVbK+kojTuHMCdOgSwJC7x3FlFDhe
- p1ESF91lcGvnoxNH0/gj4x7PtME5E7FoImmhRbx5eW/g0vIOxoTCLH9055hEy/fh
- 0AiWHa+CYoT3drJcb7auPKuIH7TSlsk13BkfeZIC+MrPgsThZ1UDNEwxPEvSVc0p
- 34TPvYZFldyEZiLjuYPBJ6yxT5ZfovBKNWWImGCGPXG0srgNI5VlMaZo6F05W3/m
- 5BPOlySCNw8R4I3UFXUQzibHm7/xDr6VU/tKzbnSdqEFXbP/wyn+lxIquSuqBPHe
- pAjkiQ==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4aswh5139x-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ Tue,  2 Dec 2025 18:17:08 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-42e2e5da5fcso1981989f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 02 Dec 2025 15:37:13 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-9373377ff51so218998241.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 02 Dec 2025 07:37:13 -0800 (PST)
+ Tue, 02 Dec 2025 10:17:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764689833; x=1765294633;
+ d=linaro.org; s=google; t=1764699428; x=1765304228;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=7dvI4jnmIBSLqBzEmGJJZVq3e4u/zHX94LqpdnMLiDQ=;
- b=GDPcVBjU902L3yjn3NQsBQHjRGhUN571pT2ju1GkLkNGh/WkH9qfVkY/VWfeaEeqW0
- NjlAOfsoftDiuBF0hCwhycx7MtEUaZ7amkB9EuglzTqR5/rPJ7UTnAPCNSV1iikM95pR
- 6M9wXREDVSC2dRSrBcZJx4DBKw9+AdUUg7PToaJ+FfC0CvSYy1HvqA8rClDRiHtze4is
- 1C7AJm7AsaUwTALVqS8l59Kg2gIwM0jYQFc0Wr0CmS4N9n3uDmhe2zzgN46ciitN8vdm
- ZZ7ajolidqJpbM+SKKMriD5Kvn8OZ+dRINPOmWwTQZy7fev/Y+l56aVKpBaIqonUrjaW
- VO0A==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6b74+PpIp4g7MMqPdYt95ZSBDMLgOHp379BS/AlUf30=;
+ b=oHUmyD6GtCAF/d6X/vFZz1dsxEx+qI70YrXQMTCXY4B+5KlXPAlQm3CVcnYvRIfAcN
+ CI+/Zk7IYPIjejGIcgZyjT19WoQZZdEO6lITBY2Ba14rJDjb5jDJ6X6FZWO5FI1kNJJp
+ 2/p3Io3phF68oTj4rmL+EuvOiNOqdzjbMDd8ix4EjL9+rgcV0QNX1GeZQ6vMhchZhWk5
+ aCZ3Aia3FO9631qmqu25Ie+px4TkzQwKLdsEnwQbw1+xdjlQDjQZTx5VzpDQAMK1wdFH
+ mxFIB5MGDiMgUdZfN/CmS3UzKG08a2/8z3h6rq0nOjvSncFTSJKXxAlwZraOsNfBR/5G
+ kshw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764689833; x=1765294633;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7dvI4jnmIBSLqBzEmGJJZVq3e4u/zHX94LqpdnMLiDQ=;
- b=QP/blKvZfuaLs1dr7ZB4CvLNXOgLMU4SzkyMDi4/p1hKYIiZVpRsTF3yDMRCkjH/7m
- YhZ/E38GE5A4YHvd0dAmPwgxZFDagW5vvJqjs979ayG1t0HzYCJ8iYe8h4/a1X6FMEX0
- ls7W6ixR1asxW9ZtaRv/+qHqTbGkrFiBPaN7iGdNSkHTUTeh/SYM8SzaiRCFjb5qle9i
- KVX05Hv1JRXo8HQljmAkf6Bv900KwCXNDjvM4sZUZfx157NQeHBb0pLkPtlL4ulquq0r
- w9s27uyJb1/oIUtwpifPgy49UbS2gRBMs1y9lAN7J/cN7qf8Bk+mI2GI2yzpd+bW+qT9
- 5P4w==
+ d=1e100.net; s=20230601; t=1764699428; x=1765304228;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6b74+PpIp4g7MMqPdYt95ZSBDMLgOHp379BS/AlUf30=;
+ b=Su6n5240pfQnp+qcOOkD1nqq0kXaDh1pL3I7LOBH5denMNav7kxEq/jTAq1nrqHUGr
+ eUsRuXqCSApvqHEqz6kPkJAUimna+a813c/Sl9vJL98PZTHCo5m1SMCobvTsKABX1kjC
+ UxzmaTyvuX2wLA3mRbYaIWEwgvHunlZdttNiBAgpCaM/AO+OXFgKSwKd/XDA6T6Ev67P
+ IbcDJK4uD5LXnb3/5d41U5SE8CxToHQxBZolFSi69/VTCRFHl5xIa4ZdoJoUXmLCRSlk
+ aBGZh1iL2XXjlk5FYubhloBcLMNsilu2UnujTr/hdnc37u2YdZ5NemBOP+42I7ttTPvo
+ iQ7A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVZfTY8gFiLSpp8xp5TxGz6PR/XPEOa2UPrVzUfeTy8ZZKf//7/Avpw2MqrQSuudWeS7pJmg/Z5hmuZDA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzQyGBY3Pt+dgvtqCe8pC6dMSAphiAJgFyaavn8yf+nRSxLkjCH
- hd3dIPppPLAupQ5QHvCnD3ptVmdMe4ceP+lhLvsoxF0w2ywZzWVxA8KfdqXSS4w13nNYEvKBV8u
- n//N6ExnuXOi7RX5ejsqHJe4+0PiSDmTw47gAGPl3PabqUBenE4Q1ykp3P7m32B6vszMGhb+7nX
- z7+epurJA=
-X-Gm-Gg: ASbGncvvzMSmT7Fq+zD5kzKbuTfL7L8mVh6Wi6X6jMGOXhNl4pVcQFnVgA0TKoQ8vku
- E3USms6wiRP2wMeBi7gHavViqSHnKakdqpu1of8787CIx6xLz2GDYAdpkI/nQTivJrWtcFqfxFm
- n+6cFXXzAfs9usoml51zrKKVYCWBWcyzbMyAet7IJ61uSSlQ4qN9SEvw7dR60nzEu+vAsqQYv57
- frwvTJgcQozrMGpttUNme12/KE7LNUVG9YwxN8O78+dnXO8tTAq0kvDq7I2o/YRNsTuLWCe0qj7
- H54LUdt3v6Lr1Rf7ZW27akYKClqbBKQX/kLQ6Cg7DpNv5R59Uj1FPf+6A2H32XjI5f2IbabEfhj
- 2mR9VVZA0Tf9HDV/psamhm583om1qg7hCpKPB9ZtdxmbyhJklnC/5P1CICALRN0RJSA==
-X-Received: by 2002:a05:6102:5ccc:b0:5db:d7a5:ba2e with SMTP id
- ada2fe7eead31-5e1de57c9c5mr9556590137.8.1764689832780; 
- Tue, 02 Dec 2025 07:37:12 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGvD45845hdbmhM+YS7Wjjhg3RBweI2ZE3krzHTkcYizMtoYHA/7UWe6Faae0ZvkArgVzbYoA==
-X-Received: by 2002:a05:6102:5ccc:b0:5db:d7a5:ba2e with SMTP id
- ada2fe7eead31-5e1de57c9c5mr9556563137.8.1764689832343; 
- Tue, 02 Dec 2025 07:37:12 -0800 (PST)
-Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b76f5a4b926sm1544786066b.68.2025.12.02.07.37.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Dec 2025 07:37:11 -0800 (PST)
-Message-ID: <f7609d19-5254-4419-a600-d0904d92d525@oss.qualcomm.com>
-Date: Tue, 2 Dec 2025 16:37:08 +0100
+ AJvYcCUUsz5jHkVl2Rino0SRxshIUUHfhpn+1xHqIi20KH+y14lpE8XWgVnTmQ5AkQkf6ticfX5J7PfZJxewYg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzgTOnYyWLQWQD0QvzruT1okaiFI/+YyM/aPwtUmLX7FZbANCL0
+ VhgUoTPryM2vRVZ1XK/NNnVRAtUUylXZatewx0/g7owCCSFIW93E/J0nOyu01WoNWEA=
+X-Gm-Gg: ASbGncv7IKerNz9W1L+7TVfZfirF7bianovNX3VSSPAIJLUGl8ZrTuilSa4eixeOipq
+ O9Sk6r+kP6Nculmfc3q3BYyH9HTo+OPaBIEtpiA4yS8OEfN4gFbn7waavaoM34kGD64DNZtXU8s
+ nHp2uBqcH39AjT9s53yHZ4xJHySVMTodJStWZE8VjYG6ybQI/EsSSX4MW2B4NIU9Di0FzcRIE5s
+ sSfGpVLdtVHeUcJE08ZwNidyHuXvzhFm6O6idniy0Ib07mUCeifJAjNjbK2R0agnRIjAvXIAcRC
+ yeNNhbDXF4oecUQEMC7X97AJPd8CmZiaUSySFMDmp5DU0rJSBmuDLnQLoSHCKq6DNvZYHvmCXb1
+ vtM2t0H2laKPLv4aO6HzO9bHsVQ/Qr3S/FYqZkAjZx8HinU9i/gdMT1n3jn9g/P106pLFfNs7yL
+ 9n7DGfGCLHXXP6aAvP
+X-Google-Smtp-Source: AGHT+IGdPY6yqrBKJkkOOYWF6CM+7Jwdu1H0nVTCpwkcVSguUh9pxxkKdepb4CrjpvgK1/jyWOMffg==
+X-Received: by 2002:a5d:5f82:0:b0:42b:3220:9412 with SMTP id
+ ffacd0b85a97d-42e0f3491e2mr34996565f8f.28.1764699428016; 
+ Tue, 02 Dec 2025 10:17:08 -0800 (PST)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-42e1ca1a3f1sm34529299f8f.28.2025.12.02.10.17.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Dec 2025 10:17:07 -0800 (PST)
+Date: Tue, 2 Dec 2025 21:17:03 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Frank Li <Frank.li@nxp.com>
+Message-ID: <aS8tH3VD9uxl56ah@stanley.mountain>
+References: <cover.1764592300.git.dan.carpenter@linaro.org>
+ <6275e666a7ef78bd4c758d3f7f6fb6f30407393e.1764592300.git.dan.carpenter@linaro.org>
+ <aS4W0M+ZkQzuUjtT@lizhi-Precision-Tower-5810>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Jagadeesh Kona <quic_jkona@quicinc.com>
-References: <20251202-sm8750_camcc-v1-0-b3f7ef6723f1@oss.qualcomm.com>
- <20251202-sm8750_camcc-v1-1-b3f7ef6723f1@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251202-sm8750_camcc-v1-1-b3f7ef6723f1@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=VNzQXtPX c=1 sm=1 tr=0 ts=692f07a9 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=5mhmk1EvtyQYLrneLBIA:9
- a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: spZX67dkZnL6KwOVOSL14P2I7h0MWH9Z
-X-Proofpoint-GUID: spZX67dkZnL6KwOVOSL14P2I7h0MWH9Z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjAyMDEyNSBTYWx0ZWRfX7yviN/znBG1z
- ZRPBh+3aClX+qvz15IK3Xub0XkXuDDexgQMLatPyeR/z8OeToNNnaGxkRpN+W3K9D5IoYv1y4ZK
- JrT3f1lSzRl7wwo2Lp4obA+5PSLT8VVBVYBEC8NP+IoQ0n0RvWINKnfejR30ZKaPTcxFouOlMIG
- H2IHoRDdLPXznjyEAIeAXpnY8lR1SfXZa9BrJm9wkoYzEadTaehN3hR5owMBIt1QD2g3Q5AU1uT
- AWoK7xEVxHf65YBxcLqXgbvGCvQDjVVldryxdyb3RuMCYpjKkWYjMAQl4u/TK9H7NUdAzNIpCNZ
- mAF+JwBjk7mbjqLMR66iM65oHnSY33HZaS2mx6nbunSBxmLA2rT76o6aGShysxL6ZzIgBwlDEr4
- MRijBfLc8ijH/8wUQdw5lc+PI+n7kg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-01_01,2025-11-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
- adultscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512020125
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <aS4W0M+ZkQzuUjtT@lizhi-Precision-Tower-5810>
+Cc: s32@nxp.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, linaro-s32@linaro.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] clk: qcom: clk-alpha-pll: Add support
- for Rivian ELU PLL
+Subject: Re: [Linux-stm32] [PATCH 1/4] net: stmmac: s32: use the syscon
+ interface PHY_INTF_SEL_RGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,18 +97,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/2/25 11:26 AM, Taniya Das wrote:
-> Add clock ops for Rivian ELU PLL, add the register offsets for supporting
-> the PLL.
+On Mon, Dec 01, 2025 at 05:29:36PM -0500, Frank Li wrote:
+> On Mon, Dec 01, 2025 at 04:08:20PM +0300, Dan Carpenter wrote:
+> > On the s32 chipset the GMAC_0_CTRL_STS register is in GPR region.
+> > Originally, accessing this register was done in a sort of ad-hoc way,
+> > but we want to use the syscon interface to do it.
 > 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
+> What's benefit by use syscon interface here? syscon have not much
+> well consided funcitonal abstraction.
+> 
 
-Matches downstream
+The GPR has a bunch of random registers that aren't really related.
+On these chips they're just regular MMIO registers, but in other
+configurations you can only access them using SCMI.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+It's better to group them together that's how they are in the hardware.
+Otherwise we'd end up randomly adding a register address to the
+ethernet device tree entry, but it's nicer to use a phandle to
+reference the GPR.
 
-Konrad
+The only register we're using now is the GMAC_0_CTRL_STS but here
+is the list of registers in the GPR.
+
+From 0x4007C000
+
+0  Software-Triggered Faults (SW_NCF)
+4  GMAC Control (GMAC_0_CTRL_STS)
+28 CMU Status 1 (CMU_STATUS_REG1)
+2C CMUs Status 2 (CMU_STATUS_REG2)
+30 FCCU EOUT Override Clear (FCCU_EOUT_OVERRIDE_CLEAR_REG)
+38 SRC POR Control (SRC_POR_CTRL_REG)
+54 GPR21 (GPR21)
+5C GPR23 (GPR23)
+60 GPR24 Register (GPR24)
+CC Debug Control (DEBUG_CONTROL)
+F0 Timestamp Control (TIMESTAMP_CONTROL_REGISTER)
+F4 FlexRay OS Tick Input Select (FLEXRAY_OS_TICK_INPUT_SELECT_REG)
+FC GPR63 Register (GPR63)
+
+Then from 0x4007CA00
+
+0  Coherency Enable for PFE Ports (PFE_COH_EN)
+4  PFE EMAC Interface Mode (PFE_EMACX_INTF_SEL)
+20 PFE EMACX Power Control (PFE_PWR_CTRL)
+28 Error Injection on Cortex-M7 AHB and AXI Pipe (CM7_TCM_AHB_SLICE)
+2C Error Injection AHBP Gasket Cortex-M7 (ERROR_INJECTION_AHBP_GASKET_CM7)
+40 LLCE Subsystem Status (LLCE_STAT)
+44 LLCE Power Control (LLCE_CTRL)
+48 DDR Urgent Control (DDR_URGENT_CTRL)
+4C FTM Global Load Control (FLXTIM_CTRL)
+50 FTM LDOK Status (FLXTIM_STAT)
+54 Top CMU Status (CMU_STAT)
+58 Accelerator NoC No Pending Trans Status (NOC_NOPEND_TRANS)
+90 SerDes RD/WD Toggle Control (PCIE_TOGGLE)
+94 SerDes Toggle Done Status (PCIE_TOGGLEDONE_STAT)
+E0 Generic Control 0 (GENCTRL0)
+E4 Generic Control 1 (GENCTRL1)
+F0 Generic Status 0 (GENSTAT0)
+FC Cortex-M7 AXI Parity Error and AHBP Gasket Error Alarm (CM7_AXI_AHBP_GASKET_ERROR_ALARM)
+
+From 4007C800
+
+4  GPR01 Register (GPR01)
+30 GPR12 Register (GPR12)
+58 GPR22 Register (GPR22)
+70 GPR28 Register (GPR28)
+74 GPR29 Register (GPR29)
+
+From 4007CB00
+
+4 WKUP Pad Pullup/Pulldown Select (WKUP_PUS)
+
+regards,
+dan carpenter
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
