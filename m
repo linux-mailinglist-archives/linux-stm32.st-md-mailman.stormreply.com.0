@@ -2,94 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F8B7CA31DB
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Dec 2025 10:58:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A930CA368B
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Dec 2025 12:19:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEA93C58D77;
-	Thu,  4 Dec 2025 09:58:47 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80F31C349C4
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5679C58D77;
+	Thu,  4 Dec 2025 11:19:24 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 498C3C3F95E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Dec 2025 09:58:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1764842325;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=uGMYk1sfGljMrx70XS76pz0+JZldIxvVU7ZbZaIA+pI=;
- b=Zeh85N6riuMWszORPbar8CgZ3IZVUbwtfGxM96vWGfrbVdeEijs/rcb3zMm9haHO9gdveQ
- rNXrGvf2mHfYhpcjCMCoP0508fmPPiwWYupXtPyYOQOy5IOP7NCNmQcP7nilBkS7XVzS6o
- 1Spl4+prTInQgOxT4rZzXNdu+y6HVpE=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-587-jcme_yQfNaSKBWQ-c5F3aA-1; Thu, 04 Dec 2025 04:58:44 -0500
-X-MC-Unique: jcme_yQfNaSKBWQ-c5F3aA-1
-X-Mimecast-MFC-AGG-ID: jcme_yQfNaSKBWQ-c5F3aA_1764842323
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-42e2d105358so467604f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Dec 2025 01:58:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764842323; x=1765447123;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uGMYk1sfGljMrx70XS76pz0+JZldIxvVU7ZbZaIA+pI=;
- b=efltvawwRfYhtWV+GCWSdk3+aG5/toVhyGtWSZOlq1R3e5rVfQa7EAQN68knkQasFF
- 5dRXmFPfrMzv3B4F0WnnjFL/G7pcN+5yN54x4oOfQZZZ+euApDTxiFBw65GunBUgdWAH
- ncGvl02qO/xViAJ5ty2b4ojoSxv7M19GS18CCE/WHav8pUDUVd/Pi8UXpFJLP8KYd3Sp
- bfx95+ROjPkOEAT7A7o4bLGhvMrWRSSqHw+JsH1CN3aNqKyk3mxIyuwlFa7dXnVFSFJp
- 7seweZzMS/rJvxSVSoRlGD7DOk3DRod4lzrasSzkCXR8IGROIoiTW7fscguiWf6ErgRE
- UEcA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVj42QOhCe5zJdl1ADxRH/M0w1RPVjYsd2G+Dndbj+jsgp2NNedaoMhR6QH58aRiNcZrgDRhcypKXggEA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YybF9DHHEaPRr7LvWQTVHNjgfVf7OrmweVkf4pFm/WYekLzs+mj
- 3AGB7ocvedcd2423F7DYwkhvPC8n1kgYxZkT9464g4G94TZ6bCXnrgVDEcdU7KVs/gwhzUtMcn4
- llBrJnnxt7ZaZh0MWVCsi+bDzvJUBsyCIKxl+yOtk4fMJehmZBFy7V4sbUFR4sxb5hfDDkOcfYw
- SIhheyeA==
-X-Gm-Gg: ASbGnctp4UwozccfBE0400oppP4f3yd6UpCpRV4JPv7zehWaCryesd+SeBMeLUmbZTy
- t3HeuPimTZsvXIuZSNOWVLzbkESLIpwu5PsBAVIiVNC32YnQx0WyQzexikh7r8hXPX5JoAazsA6
- 4cVeq4C4CkQF5WxKWWKIlIfyozheuQrrz+BUr4BLq0DzGdX82YxMU1Mis9sFGvKzOCnVkflZQ+Q
- t8hfoB5PQcLbYlG82S9DHBZhu6E5wQlhWxWiTcl88rFhVH/ajBZbxqVoqGv6JabzRTIY+mcJTOA
- c/em6x/YR7f1sD7FLIRHNnxQmKMECH9/2MDOXLsgQjuzudsZsNFBY//7B0cpEK1rp2GCPsIXx17
- QSiR/NHVIkb1A
-X-Received: by 2002:a05:6000:2410:b0:42b:3a84:1ee1 with SMTP id
- ffacd0b85a97d-42f7317dbc9mr5978667f8f.18.1764842322749; 
- Thu, 04 Dec 2025 01:58:42 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IER0C5ptlDk7jPg7WID0quVbFz2V15FUInT+2qvmmyu5lX8HX6WC9NCtkC3D/YD1+okBxxd+w==
-X-Received: by 2002:a05:6000:2410:b0:42b:3a84:1ee1 with SMTP id
- ffacd0b85a97d-42f7317dbc9mr5978625f8f.18.1764842322345; 
- Thu, 04 Dec 2025 01:58:42 -0800 (PST)
-Received: from [192.168.88.32] ([212.105.153.24])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42f7d353f8bsm2297919f8f.43.2025.12.04.01.58.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Dec 2025 01:58:41 -0800 (PST)
-Message-ID: <26656845-d9d6-4fd2-bfff-99996cf03741@redhat.com>
-Date: Thu, 4 Dec 2025 10:58:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Rohan G Thomas <rohan.g.thomas@altera.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Fugang Duan <fugang.duan@nxp.com>,
- Kurt Kanzenbach <kurt@linutronix.de>
+ Thu,  4 Dec 2025 11:19:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=k3+IvcN5Cb0nJ6VY6yDksNa4bwyh6/su6R64NgY1qyg=; b=niif8Ri3Pr6EIrYqqNhb3vmNvQ
+ uOhFIpjmURLVVntX8gXkZYAcVnw4wwsFiHVnoGRbXtjLF55vzyiZVBC9YKVq88t+bg+/VC/LJog0+
+ YNFUP/WoCBH28h5O4qjhgx8r2eYtnY6+w/EMWRz400ttTS5TXBdXrWTT3+Hixf6mpLunEWCZSWH47
+ 9nmzvATT2UfIb/JiZUlteOrMSeO8PV4uQGVsFXJA0za0BGOybVbaTVFyAtv1auWpYVs889xt3OKJc
+ MMFH2wROwaUTpOr/vt6Pbjppxbrh2MrTgqFg6GIGDJYy0YAACEDPtBbSx1h4u0swldFg9UxItkKBO
+ vGv85reg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40064)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vR7MY-000000003Sm-2E0E;
+ Thu, 04 Dec 2025 11:19:06 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vR7MT-000000000yA-3MBl; Thu, 04 Dec 2025 11:19:01 +0000
+Date: Thu, 4 Dec 2025 11:19:01 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Paolo Abeni <pabeni@redhat.com>
+Message-ID: <aTFuJUiLMnHrnpW5@shell.armlinux.org.uk>
 References: <20251129-ext-ptp-2v-v2-1-d23aca3e694f@altera.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20251129-ext-ptp-2v-v2-1-d23aca3e694f@altera.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: jtoKPDnNz2seMAyjOt5lKHaJzOuU26jUp9buHh_8rhc_1764842323
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ <26656845-d9d6-4fd2-bfff-99996cf03741@redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <26656845-d9d6-4fd2-bfff-99996cf03741@redhat.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Fugang Duan <fugang.duan@nxp.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ Kurt Kanzenbach <kurt@linutronix.de>,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Fix E2E delay
 	mechanism
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -108,40 +70,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/29/25 4:07 AM, Rohan G Thomas wrote:
-> For E2E delay mechanism, "received DELAY_REQ without timestamp" error
-> messages show up for dwmac v3.70+ and dwxgmac IPs.
+On Thu, Dec 04, 2025 at 10:58:40AM +0100, Paolo Abeni wrote:
+> On 11/29/25 4:07 AM, Rohan G Thomas wrote:
+> > For E2E delay mechanism, "received DELAY_REQ without timestamp" error
+> > messages show up for dwmac v3.70+ and dwxgmac IPs.
+> > 
+> > This issue affects socfpga platforms, Agilex7 (dwmac 3.70) and
+> > Agilex5 (dwxgmac). According to the databook, to enable timestamping
+> > for all events, the SNAPTYPSEL bits in the MAC_Timestamp_Control
+> > register must be set to 2'b01, and the TSEVNTENA bit must be cleared
+> > to 0'b0.
+> > 
+> > Commit 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism") already
+> > addresses this problem for all dwmacs above version v4.10. However,
+> > same holds true for v3.70 and above, as well as for dwxgmac. Updates
+> > the check accordingly.
+> > 
+> > Fixes: 14f347334bf2 ("net: stmmac: Correctly take timestamp for PTPv2")
+> > Fixes: f2fb6b6275eb ("net: stmmac: enable timestamp snapshot for required PTP packets in dwmac v5.10a")
+> > Fixes: 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism")
+> > Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+> > ---
+> > v1 -> v2:
+> >    - Rebased patch to net tree
+> >    - Replace core_type with has_xgmac
+> >    - Nit changes in the commit message
+> >    - Link: https://lore.kernel.org/all/20251125-ext-ptp-fix-v1-1-83f9f069cb36@altera.com/
 > 
-> This issue affects socfpga platforms, Agilex7 (dwmac 3.70) and
-> Agilex5 (dwxgmac). According to the databook, to enable timestamping
-> for all events, the SNAPTYPSEL bits in the MAC_Timestamp_Control
-> register must be set to 2'b01, and the TSEVNTENA bit must be cleared
-> to 0'b0.
-> 
-> Commit 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism") already
-> addresses this problem for all dwmacs above version v4.10. However,
-> same holds true for v3.70 and above, as well as for dwxgmac. Updates
-> the check accordingly.
-> 
-> Fixes: 14f347334bf2 ("net: stmmac: Correctly take timestamp for PTPv2")
-> Fixes: f2fb6b6275eb ("net: stmmac: enable timestamp snapshot for required PTP packets in dwmac v5.10a")
-> Fixes: 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism")
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-> ---
-> v1 -> v2:
->    - Rebased patch to net tree
->    - Replace core_type with has_xgmac
->    - Nit changes in the commit message
->    - Link: https://lore.kernel.org/all/20251125-ext-ptp-fix-v1-1-83f9f069cb36@altera.com/
+> Given there is some uncertain WRT the exact oldest version to be used,
+> it would be great to have some 3rd party testing/feedback on this. Let's
+> wait a little more.
 
-Given there is some uncertain WRT the exact oldest version to be used,
-it would be great to have some 3rd party testing/feedback on this. Let's
-wait a little more.
+As I said, in the v3.74 documentation, it is stated that the SNAPTYPSEL
+functions changed between v3.50 and v3.60, so I think it would be better
+to propose a patch to test for < v3.6.
 
-Thanks,
+Alternatively, if someone has the pre-v3.6 databook to check what the
+SNAPTYPSEL definition is and compare it with the v3.6+ definition, that
+would also be a good thing to do.
 
-Paolo
+From the 3.74:
 
+SNAPTYPSEL
+00		?
+01		?
+10		Sync, Delay_Req
+11		Sync, PDelay_Req, PDelay_Resp
+
+TSEVNTENA
+0		All messages except Announce, Management and Signalling
+1		Sync, Delay_Req, PDelay_Req, PDelay_Resp
+
+No table is provided, so it's difficult to know what all the bit
+combinations do for v3.74.
+
+From STM32MP151 documentation (v4.2 according to GMAC4_VERSION
+register):
+
+SNAPTYPSEL	TSMSTRENA	TSEVNTENA
+00		x		0		Sync, Delay_Req
+00		0		1		Delay_Req
+00		1		1		Sync
+01		x		0		Sync, PDelay_Req, PDelay_Resp
+01		0		1		Sync, Delay_Req, PDelay_Req,
+						PDelay_Resp
+01		1		1		Sync, PDelay_Req, PDelay_Resp
+10		x		x		Sync, Delay_Req
+11		x		x		Sync, PDelay_Req, PDelay_Resp
+
+For iMX8MP (v5.1) and STM32MP23/25xx (v5.3) documentatiion:
+
+SNAPTYPSEL	TSMSTRENA	TSEVNTENA
+00		x		0		Sync, Follow_Up, Delay_Req,
+						Delay_Resp
+00		0		1		Sync
+00		1		1		Delay_Req
+01		x		0		Sync, Follow_Up, Delay_Req,
+						Delay_Resp, PDelay_Req,
+						PDelay_Resp
+01		0		1		Sync, PDelay_Req, PDelay_Resp
+01		1		1		Delay_Req, PDelay_Req,
+						PDelay_Resp
+10		x		x		Sync, Delay_Req
+11		x		x		PDelay_Req, PDelay_Resp
+
+Differences:
+00 x 0 - adds Follow_Up
+00 X 1 - TSMSTRENA bit inverted
+01 x 0 - adds Follow_Up, Delay_Req, Delay_Resp
+01 0 1 - removes Delay_Req
+01 1 1 - removes Sync, adds Delay_Req
+11 x x - removes Sync
+
+So, it looks like there's another difference between v4.2 and v5.1.
+
+If the STM32MP151 (v4.2) documentation is correct, then from what I see
+in the driver, if HWTSTAMP_FILTER_PTP_V1_L4_SYNC is requested, we set
+SNAPTYPSEL=00 TSMSTRENA=0 TSEVNTENA=1, which semects Delay_Req messages
+only, but on iMX8MP this selects Sync messages.
+
+HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ is the opposite (due to the
+inversion of TSMSTRENA) for SNAPTYPSEL=00.
+
+For HWTSTAMP_FILTER_PTP_V2_EVENT, we currently set SNAPTYPSEL=01
+TSMSTRENA=0 and TSEVNTENA=1 for cores < v4.1:
+- For STM32MP151 (v4.2) we get Sync, PDelay_Req, PDelay_Resp but
+  _not_ Delay_Req. Seems broken.
+- For iMX8MP (v5.1) and STM32MP23/25xx (v5.3), we get
+  Sync, Follow_Up, Delay_Req, Delay_Resp, PDelay_Req, PDelay_Resp
+
+Basically, the conclusion I am coming to is that Synopsys's idea
+of "lets tell the hardware what _kind_ of PTP clock we want to be,
+whether we're master, etc" is subject to multiple revisions in
+terms of which messages each mode selects, and it would have been
+_far_ simpler and easier to understand had they just provided a
+16-bit bitfield of message types to accept.
+
+So, I'm wary about this change - I think there's more "mess"
+here than just that single version check in
+HWTSTAMP_FILTER_PTP_V2_EVENT, I think it's a lot more complicated.
+I'm not sure what the best solution is right now, because I don't
+have the full information, but it looks to me like the current
+approach does not result in the expected configuration for each
+of the dwmac core versions, and there are multiple issues here.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
