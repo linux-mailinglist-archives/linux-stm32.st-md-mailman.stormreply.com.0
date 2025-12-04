@@ -2,141 +2,139 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74CF3CA291B
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Dec 2025 07:51:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C35CA29B9
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Dec 2025 08:12:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FCA1C5F1FC;
-	Thu,  4 Dec 2025 06:51:56 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77E49C5F1FC;
+	Thu,  4 Dec 2025 07:12:58 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012057.outbound.protection.outlook.com [52.101.66.57])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A7EBC3F95E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12B80C3F95E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Dec 2025 06:51:55 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5B468cFD599060
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 4 Dec 2025 06:51:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SwIvTqC0vtcEcT4pWezqNiZK3gnYXhecWCg8UTidylM=; b=F8kdsRl5LEWN6Tn1
- 5FHZaLrLxQxo6Ra1PVUCwutZw95KlEYi7QFYpdKATUS2mFCN4XjCHExVsRsnEb44
- JC+qVhYS/ltNcipCo0tQwqtYXCRp6tmmJlX6IIQ8kuAUl9Sjfm58JFlcubu6EgzZ
- w9yovQTDhluuYULnJAkhHXIgwKct8Im6KmyCRfHS46zLONINXS+CCReEGa4tlz8u
- 6vvdPDaWaFvOfBXArh7m2ZqQmqn4tHMjUmKgjDW0i7n1z+wpcnXkwRrYzCW5bixI
- b+i48exmM7ddaX3CnAPIldhqGYxsCD3Qesban++Vq9HMGzJcdgKfAJoFGk/IH7bL
- HNjuog==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4au1f00n9j-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Dec 2025 06:51:54 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2956f09f382so4385995ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Dec 2025 22:51:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1764831113; x=1765435913;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SwIvTqC0vtcEcT4pWezqNiZK3gnYXhecWCg8UTidylM=;
- b=Q9e1jFzFXJW+zofoMLZnnw8+LvG1ytHFXrtQXvAqeovBNSaFReF/WhOJD31LRdb+B4
- XG84eRwfr4NtdG1qeWbmNIA06EiSBviPqiCZKQqFP/SHcDp9FNpzTeNRDrMhd0pwQgoz
- PT8klFK2yx4bzCmRuvrSpKdROzuILcC3ubCf3qW313e6yKJhZl9QIa2Lxpm0b0FC94D1
- 3J4LF80AIzT1VkNQWRTTQz3zjhnHYKjPDD64wGFnm33aMxammf6g32cZRE/sHBaXMCM5
- 5fDO+cQQf0SAoYt6pcuTgyYPa7ek1HE6yy1rQUAxqa6Qxa4qnMLwXQKXtKZldqtaHheH
- hKTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764831113; x=1765435913;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SwIvTqC0vtcEcT4pWezqNiZK3gnYXhecWCg8UTidylM=;
- b=JSe4X0SHo1J3PhY/dqpRWopSWzfNorIwDA1bF5HFdsMMjbfAoZEMz9bDizX4cshDmI
- s75FXYJ+8GIlCBNelbkJEEJyJwp4Oz08YG2l7/JHbgF+aAp745V3HYnId/Xz0EOVdS47
- VHwshOIITLUNl8U3C4lNFK0i3VJXCOoFeog00waWH7Bdgi40vY0owsPwAnWTdr03yR1V
- 86hoFZZcofET+0256kkuSUA8ykX+zwG83BykT4Ot87CEMXMS2OUECfSdHVlM+nMKxgLu
- IKIBuV+hi3lRMVmeYkJK4pOFxGeI0ilBj1298S+9VAynaDFUQxwmhlfIhFlTIVeFz8bh
- uEWQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU5gO1CWfeckaTqWYPF6CDKJRhr4dxjDk4vndeYgaQ3EPEEeXvBOgFr6ZVtzgw8S4Fw8gIl4VtsJgPT+A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxAxlH6FtJByJyURYfvv8EUvDFBcNnWfFjmuSguGrSY6eZoFFVN
- HYG1zQ5dWdVgP1JaMdPXIUy45QaZCEnXK7PjE1ZBHYWJNB4YbkcQopEaqKCrRkPEUqa+TGcH2t7
- yWQQtagpryimx3z8mijOgpvdWYZXamPVO0qGOGOPB4ZrTMwgJT7Lw18m+9jhuOGY+e4hychmuwy
- gZup8YhaE=
-X-Gm-Gg: ASbGncuBI35FeS4ko+7mP7hNsQqgiRpdBB7sLfoAk6UpNBshmoTf6rY+GW8Xh2bwRoa
- 4FpRMfx2NVWuMCFK8I8QF8QVkiA7gy6MTZEtkCNn+Qs7vExPfIuNUW/4bUgOJ7w46VofZUOr3EH
- w/ymm7HnZntr1cJQjMAOQCMHZZM0jlNRyTm8GmfcLaCEHrTiaRbDIEpz0RBLgpDSKYmYmXFW+Ne
- L3bkJ8YZ29E1n8cJyKZvK5qXAmbavJd9TWDGWgZZaMnyzS1fJUQ4jEyfkDEq3PFTf7hFHK5FWBX
- SER+qbWVomeNOnifa2chR4U8cDnll6DlQ2BS+EUjtFjLDQ2z5r1DuyuEaeCigp9n6lMqnPef/Fz
- siC8I2lno1aMe3RwyHhDEItcOQoDDgyeLZ3Mrwg==
-X-Received: by 2002:a17:902:f544:b0:297:eb3c:51ed with SMTP id
- d9443c01a7336-29d9ed0b4fbmr26080565ad.16.1764831113135; 
- Wed, 03 Dec 2025 22:51:53 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEK/6jD4CnU7c208zP0SLAeyIoeJRxRQ14N6apIAj0JxvDPjIPkL429Mbb2KAq5S0NdCutI0g==
-X-Received: by 2002:a17:902:f544:b0:297:eb3c:51ed with SMTP id
- d9443c01a7336-29d9ed0b4fbmr26080225ad.16.1764831112660; 
- Wed, 03 Dec 2025 22:51:52 -0800 (PST)
-Received: from [10.217.217.147] ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29dae4d3b5dsm9082855ad.40.2025.12.03.22.51.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Dec 2025 22:51:52 -0800 (PST)
-Message-ID: <db8a9c71-8400-46f2-892a-a9a8adcd8dd0@oss.qualcomm.com>
-Date: Thu, 4 Dec 2025 12:21:45 +0530
+ Thu,  4 Dec 2025 07:12:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y1Teo5GNe4e7exitoiOgX5n37HBNVuVsKo/9WBKtyVAd5CVkKGlD2I8CcO8jvpsSwqIoSGua4D1HyAJH+y3RyDwdvLnagdFt0wU0cRFwvB7//nmeEgXzvpU3VEgwI9MtmaKXMho44mYkhiFS+r0k14DjmByaEhORd7VTgS/Jl0gWRIYsPNnVOowWYVJuewFprR7NsS9hSKyPoGRxLvXPJnGMWw4Jx32AiXYNcd6GpCbKn7AjkVwUtBlZ9vxAN1tXGBIUOPX3aZNLGWg5qSDKvKDczWigHWX66T53gO6bNgwfWzw1m3P2Qvzcr3AnshpftzSZUkAoYazFfWB44BNIAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qIP/R1Am2jtLn2tNTHREzJcdQj6E6Ch3IniE5mg2gic=;
+ b=ubUyuSfxsP5EVOJksaSxdeSoe1kzjmHXkU5TucHSQ4OmC1vV3jmOzNAE/CIRfcrtuFwRdS0dyK26t8Q5zK6wL+d7GoBI9w2d8cADWo+b3HmZnwMhQoPstFIaYYjCZmk42BLe6mBkZM/g1On+rDZtLG+hhR4O4p9EiPBlU+Cf5VLTSfPtFRrQCPAdUbqW/IrJ+A6PknYl+JBeTOKK/4iWh0WWzCMTpClkh52Xk60DaGhAahtKlsYklBZceAuPNOC9PbW3/i354bfVFIgDEDSZhNenvEU+lt+dWqxg0PaUtODXuDnXtQYHp2LX8Vz6q893HsUU3JqRKhHIy0qhNX2WNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qIP/R1Am2jtLn2tNTHREzJcdQj6E6Ch3IniE5mg2gic=;
+ b=cEN0mtXro7qbnLGrWM1KaCgLDsa5m9IBST6gFUyBHJNApAwkRqeNq+WdqZzrgFRSBaS3uPIM78qgxLok7lh7vBOR8Od1v0+lhluc3QOv+aZX3MtFXfUqrQpMVcc/w3va/OfiaETH4Ew9uKU0cOU+oUT653UHrQ/7BtedotR6mN3u7ow9M8E5jDLD2M5ajiithrkIc/dXPiByMJy32LDn2DPHs+5ZkpHWnEiHkrAdeyswiVMvrLJsqlmi0cengQIhg5AkOP/Df/tVRv1+OajVuq0PiRmnYGk/Fe65nc+Ar3Cigi/pXobnGBohn9ExEvtd6OP8Rnv9Ix1lS7p4nHBEnQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PAXPR04MB8510.eurprd04.prod.outlook.com (2603:10a6:102:211::7)
+ by DU6PR04MB11184.eurprd04.prod.outlook.com (2603:10a6:10:5c1::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Thu, 4 Dec
+ 2025 07:12:55 +0000
+Received: from PAXPR04MB8510.eurprd04.prod.outlook.com
+ ([fe80::a7c2:e2fa:8e04:40db]) by PAXPR04MB8510.eurprd04.prod.outlook.com
+ ([fe80::a7c2:e2fa:8e04:40db%4]) with mapi id 15.20.9388.009; Thu, 4 Dec 2025
+ 07:12:55 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
+ rmk+kernel@armlinux.org.uk, 0x1207@gmail.com,
+ hayashi.kunihiko@socionext.com, vladimir.oltean@nxp.com,
+ boon.leong.ong@intel.com
+Date: Thu,  4 Dec 2025 15:13:32 +0800
+Message-Id: <20251204071332.1907111-1-wei.fang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SG2P153CA0039.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c6::8)
+ To PAXPR04MB8510.eurprd04.prod.outlook.com
+ (2603:10a6:102:211::7)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
- <20251125-kaanapali-mmcc-v2-v2-10-fb44e78f300b@oss.qualcomm.com>
- <850c172d-66e0-4d28-903d-fbcef7ad7444@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <850c172d-66e0-4d28-903d-fbcef7ad7444@oss.qualcomm.com>
-X-Proofpoint-GUID: si4IOI_AUSSzPrggkUHOjbktO3oWvaEq
-X-Proofpoint-ORIG-GUID: si4IOI_AUSSzPrggkUHOjbktO3oWvaEq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA0MDA1NCBTYWx0ZWRfX/JQAxLgIlbIH
- VbHdn+3KawGTMqEfOmVgKe9OXh7M2995cwyy5s4kcJbKJw/Cy7Cdv3H8F8j6RJtiQbByTuveqG2
- 44vJvA3CaJlxRscRbmNT6nvyzzGr/nJkZ9XGKnk611jqLp1evz+nJTY14AdOdlND+4Czd5i3YYP
- JYWXF3KdJSjiaqV/y7iToKWmXLkbpK1yeDGcyQ1CfRW2uskxOhIoFCu42ZR/HdI0bHPWbpageY/
- WICtQvmavpf/x+7CXyM9VIeu/G1sxqMPxCktZ7Gwo9rdXpwe48RMkFI0G1i10gOYk1GGCVkJu47
- /cr8uM9SuXYiZHhKXkH/2um0VKKg0Q+Y4Yyexu3x/QH+pzjwUPGqWZtZIwGtfjCbseBd9OOUOs5
- EadDCxzOnAp+zZN3FLnRaNlAi7asYA==
-X-Authority-Analysis: v=2.4 cv=Scz6t/Ru c=1 sm=1 tr=0 ts=69312f8a cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=6AvYVb4XUzzG-8MtstsA:9
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-04_02,2025-12-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512040054
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8510:EE_|DU6PR04MB11184:EE_
+X-MS-Office365-Filtering-Correlation-Id: c219e869-efa3-4d5f-5d36-08de33048bc5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|52116014|7416014|1800799024|366016|19092799006|38350700014|921020;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zcDDwxt+KD+0QNhn2qWvhyfnjCQRM91J+yoMcWPIT/mobinI6YqT5iwBHQm4?=
+ =?us-ascii?Q?rS6v8T4CLTiF98cCJiX7mMfGHMTUSDVt+GqemOvqLCOkmXVVng/jrvgbwcmN?=
+ =?us-ascii?Q?R6BLmdq3/GkndTFJ6itbD7TJTuhFLViOXX/RCqHn5o8OVWcux1gIWhF8DD1A?=
+ =?us-ascii?Q?9QThSZVxJRRYlefyXRXe6ExDxpsSuzhofliB52s3reW6qPwwX2XbG6VzvsKO?=
+ =?us-ascii?Q?Tnk9seBdZ7W+lqlu+e9eBk0toF9fFUmI2EorUMHAJldKTZ26i72ZuZt2O3EG?=
+ =?us-ascii?Q?LELDIyqRynz0zAAFFCAZYMbvdvC/9LDhbdBAKZzG1M7c4VrjpVsnk87elyhR?=
+ =?us-ascii?Q?RT3TPwirbyJEvugMWiEat2hZq5ZLh/2KAt2v8IqNjNgc0DidjI+ZJ9TTXE4j?=
+ =?us-ascii?Q?Uvi9lZetGSKo8n5n42YegI+i77+sPUJNgcjkJnyolIlhmzdJH2s2cJWpx9LW?=
+ =?us-ascii?Q?idlc3ndoX8RFbmII4eHtM+234a5C8IIK/oUm5FVIv2bSgOrkPk73YEwnSo5a?=
+ =?us-ascii?Q?6kMrsN9fRBU/Z7c2Xfo2ZkMyrdLZc5Oh7wbrNXAAE63AFExC8DC9PlWc0jrj?=
+ =?us-ascii?Q?LO97fe0o9KgrQJx+hhAg2ZeBarhbic1iBRjjeWShRrDHq7sfSV15jMLXg5zn?=
+ =?us-ascii?Q?yOW0FKNjNGMfW2Q7Odztdu8kZhfbydl1kkRYIMteJOkyOS+Znw41V1JoJa1c?=
+ =?us-ascii?Q?dX3qTqNCXXLKHODb2ltRvGrMCPqfDN2bhKaztKvKoI6kSq/QQpQ0PGKXowTb?=
+ =?us-ascii?Q?lFUpyRaKEP7SNbiREUF61IfAQJLwtzurKIkMhcUOWS6mcJSVv186XSOEC4FT?=
+ =?us-ascii?Q?WbUsC/R6bBBqaG8RPUnNx48sP+Sr9AKZp8dHzhIrNesMCWPxlMwDp3Ngl+HH?=
+ =?us-ascii?Q?b2dY/qTGw0nZLrbGPWQcEUcjrvwLGvV3vKzfpFwbdZljCLDySqU4X+uwwHNF?=
+ =?us-ascii?Q?PrtOdBQHSWnRtjbOqECQJAz8rzq9xUHLVPCSbFtw5JXp9MJ7nXK3chkbMGuQ?=
+ =?us-ascii?Q?O4tLJMGdizUD0vtesS8sN0UJ1l9fFubtOd2kCTRz6qzHBOqw+0MhF8yz5waI?=
+ =?us-ascii?Q?uIR4bsnVz9o7QOU7As2VVuXe45IL+8MMzUHRe9mfNUilOHRWVzhY/I9uqB6S?=
+ =?us-ascii?Q?Rl4tyBZhFodnRBqhlSlZwGfmupdSYQhfnm5PvNMRzy67SdNz9VebMlytf7qS?=
+ =?us-ascii?Q?YiopF1gmVrrwNwmGukNRGxHq6EvnDuJ0W4UU3Sgr6pHdFUzW7uzesV56GrEu?=
+ =?us-ascii?Q?6K/e0iyOTomx1Yd7M5kbsTHEzd2gDxEeibr3KHaO1VIwM0IglDBRfynW7zmZ?=
+ =?us-ascii?Q?jFfOfryHDUvBdVaJ606fSNU/EhaR7U1mF/4BxpBDW/JMpHk/YAGlbzOgoe1t?=
+ =?us-ascii?Q?1Ta9K5JtBLalyEz8nfacnkUq5KPEB7wqg5HhsnL0NQjeiyr3nol4qbGYduDJ?=
+ =?us-ascii?Q?q4Z609+F1pNasiNcGVIOcm6hD00BWJ+vOWKJB4zQZAzI8fqVjh18U+WVDhJ8?=
+ =?us-ascii?Q?8VoQ0am4C40HYFcvo+GCVBSiNzFpKDiJNS2r693Jehn1oajDhIKnIibu/g?=
+ =?us-ascii?Q?=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB8510.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(366016)(19092799006)(38350700014)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3OcbNs0OusLY+pwDq1AnjB5cViSU1aQuh4k0Tyjg224piU+eVRlo53nKTFK6?=
+ =?us-ascii?Q?UM61uV7dFd7sUcOzFE9kQYzvYemU3Iatw5sPLnDIU4+T/8+tAumNmqiypcxi?=
+ =?us-ascii?Q?+J1zlDyEqYRTYj3nsaBq21Oz/x1p7pf5AdW5I0T9UXlp3en0QBjek/3zn6Nz?=
+ =?us-ascii?Q?Q1NQXk5i8k07mUeOV7Aw9iAiqyXIm4OTO12/JTSnzo4S/w71OtFOGAWNJr28?=
+ =?us-ascii?Q?e/yEHV+6zyuNKW0WQxebSetryl0i5LvHs42ZadzUxYE8Yns2k+qBVYOWSpra?=
+ =?us-ascii?Q?cuSX1PLPNPG/C72Z5AHzdCM7XrLQzaLie5MsuROWHiRb3UMAzK2osNt41VlB?=
+ =?us-ascii?Q?2ALGEEaivKQbnutWHyuCAITLEVHEV495DVvnOZ3DQMU4bxhgD4ouTR5hElAQ?=
+ =?us-ascii?Q?1AIRw6YB+7isMpdX8jShmkuOXmSuS9aLa2VfJCZRyGbDN49BkVMcQcG5qzs7?=
+ =?us-ascii?Q?ukNVQxH1QWVuWSYn3xJwtVH2jtL//vl1burQg65oqF5HPplNMb9xlXELFfw0?=
+ =?us-ascii?Q?qGvOEqcTzmKJP2xTXNz08D4w/yKb0DiHO4dMutHmVRi8KqhGaQooF99/FEKp?=
+ =?us-ascii?Q?TzYt6PwuVQYntcBfCpIRcfEdhBFNmbplPDdsfJQ6t2yAcC1k+ihIlGNyRC/f?=
+ =?us-ascii?Q?o/vNXQGZr4dQUS0T0BfPYdVUCkRNIwIkjaC92Lkh2WPEQueuXoGsGhFD3hsp?=
+ =?us-ascii?Q?6PeC8xOjjnS141Np0TFODM0QasgY2CDaeUZxUTyQ2OoAWWLQI6Ia2FWtaAZh?=
+ =?us-ascii?Q?VEGzLmKuvoPktdEKUd2+xj97cYCYd4jnfty9gBlnXcuPfY/nNgfLx5nItndM?=
+ =?us-ascii?Q?UY1cDyL2xTMNBak4l/pl+mb8ytASiLnnogRrZCOFji0aqo1eWFmzy86IkT4I?=
+ =?us-ascii?Q?eGHyxFQRMcAZmObQt/trT55SE/M2rf+iSvK6BmlAdgIPu6CmFtrKpaTXaF+a?=
+ =?us-ascii?Q?bsVJA2ddt9KHjbpWKcy9IlOTgeBr5G+W58ZZx9Xurc6kVBQo8AL3QcC4vVgw?=
+ =?us-ascii?Q?+DCItbwefZ2Iba/yebXjKsqyZzb+45XeucIaCJBV/B6e9vIIUHRsjqf+9DsE?=
+ =?us-ascii?Q?bZpzAUY+utL6NENFz5FBukZSj8oCwY5lKlFsTCI6yLjv5T4GsEdzQ/ZRi4yF?=
+ =?us-ascii?Q?+lOTtJpoKqP6ifW0YcPQXgAqCvKB2qFPgT340aNUtBHzXexNafwu3f+V34nR?=
+ =?us-ascii?Q?Ip2CFPHO83SmkXbQqQGbkxtGqprKCdAGEi/drb2aN3HN5adHnJaj0DzGJmuI?=
+ =?us-ascii?Q?0SWLpiSMF/sSmpBFCo6BzghJuqNYkjhj0F0CGOu6AlXMRhh3SB61y/Nybu+Z?=
+ =?us-ascii?Q?ojHnH8qZplND/V7RnQvJNT1Wl1DWzOrQOloRh9i0R4rAv9Rhv86FjNOqE23l?=
+ =?us-ascii?Q?wLMt9s+FUu21JVeSirbi1Pub+sqqkMwvBUkKxoYLrX5SnfNUipYdTR0FEk6F?=
+ =?us-ascii?Q?wKDQY9KBBMl74YvyOZ6OhPzvBYCg+cP6XBVCYKGID01o/C4NZHnEps4YWl8F?=
+ =?us-ascii?Q?r/71T8sNG8vKNH3WfkRYoj1MkQq3jiWiFzbRLua5Bc0wxckNTLX93Fa4E9zF?=
+ =?us-ascii?Q?hnra8Mzf5PWUAaAbdN7f1EutM9ldWwJmyZS2ug5I?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c219e869-efa3-4d5f-5d36-08de33048bc5
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8510.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 07:12:55.3881 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yKXbyn/EBiDm07D9I9e7BaGcdR4xFnnI6vr9T2xRUNl9tzrYbuh4EH6xt5ximR8hKfM/XOrI7VMNzSAFnAkZrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU6PR04MB11184
+Cc: imx@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 10/11] clk: qcom: Add support for
- VideoCC driver for Kaanapali
+Subject: [Linux-stm32] [PATCH net] net: stmmac: fix the crash issue for zero
+	copy XDP_TX action
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -153,78 +151,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+There is a crash issue when running zero copy XDP_TX action, the crash
+log is shown below.
 
+[  216.122464] Unable to handle kernel paging request at virtual address fffeffff80000000
+[  216.187524] Internal error: Oops: 0000000096000144 [#1]  SMP
+[  216.301694] Call trace:
+[  216.304130]  dcache_clean_poc+0x20/0x38 (P)
+[  216.308308]  __dma_sync_single_for_device+0x1bc/0x1e0
+[  216.313351]  stmmac_xdp_xmit_xdpf+0x354/0x400
+[  216.317701]  __stmmac_xdp_run_prog+0x164/0x368
+[  216.322139]  stmmac_napi_poll_rxtx+0xba8/0xf00
+[  216.326576]  __napi_poll+0x40/0x218
+[  216.408054] Kernel panic - not syncing: Oops: Fatal exception in interrupt
 
-On 12/1/2025 6:45 PM, Konrad Dybcio wrote:
-> On 11/25/25 6:45 PM, Taniya Das wrote:
->> Enable Kaanapali video clock driver for video SW to be able to control
->> the clocks from the Video SW driver.
->>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +static struct clk_mem_branch video_cc_mvs0_freerun_clk = {
->> +	.mem_enable_reg = 0x80E4,
->> +	.mem_ack_reg =  0x80E4,
-> 
-> hex must be lowercase
-> 
+For XDP_TX action, the xdp_buff is converted to xdp_frame by
+xdp_convert_buff_to_frame(). The memory type of the resulting xdp_frame
+depends on the memory type of the xdp_buff. For page pool based xdp_buff
+it produces xdp_frame with memory type MEM_TYPE_PAGE_POOL. For zero copy
+XSK pool based xdp_buff it produces xdp_frame with memory type
+MEM_TYPE_PAGE_ORDER0. However, stmmac_xdp_xmit_back() does not check the
+memory type and always uses the page pool type, this leads to invalid
+mappings and causes the crash. Therefore, check the xdp_buff memory type
+in stmmac_xdp_xmit_back() to fix this issue.
 
-Sure, will fix this.
+Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+Signed-off-by: Wei Fang <wei.fang@nxp.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
->> +	.mem_enable_mask = BIT(3),
->> +	.mem_enable_ack_mask = 0xc00,
-> 
-> GENMASK(11, 10)
-> 
-
-will fix this as well.
-
->> +	.mem_enable_invert = true,
->> +	.branch = {
->> +		.halt_reg = 0x80e0,
->> +		.halt_check = BRANCH_HALT,
->> +		.clkr = {
->> +			.enable_reg = 0x80e0,
->> +			.enable_mask = BIT(0),
->> +			.hw.init = &(const struct clk_init_data) {
->> +				.name = "video_cc_mvs0_freerun_clk",
->> +				.parent_hws = (const struct clk_hw*[]) {
->> +					&video_cc_mvs0_clk_src.clkr.hw,
->> +				},
->> +			.num_parents = 1,
->> +			.flags = CLK_SET_RATE_PARENT,
->> +			.ops = &clk_branch2_ops,
->> +			},
-> 
-> The indentation is a little malformed 
-> 
-
-will check this and fix.
-
-> 
->> +static void clk_kaanapali_regs_configure(struct device *dev, struct regmap *regmap)
->> +{
->> +	/*
->> +	 * Enable clk_on sync for MVS0 and VPP clocks via VIDEO_CC_SPARE1
->> +	 * during core reset by default.
->> +	 */
->> +	regmap_update_bits(regmap, 0x9f24, BIT(0), BIT(0));
-> 
-> regmap_set_bits()
-> 
-
-Will replace with the new API.
-
-> lgtm otherwise
-> 
-> Konrad
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7b90ecd3a55e..a6664f300e4a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -88,6 +88,7 @@ MODULE_PARM_DESC(phyaddr, "Physical device address");
+ #define STMMAC_XDP_CONSUMED	BIT(0)
+ #define STMMAC_XDP_TX		BIT(1)
+ #define STMMAC_XDP_REDIRECT	BIT(2)
++#define STMMAC_XSK_CONSUMED	BIT(3)
+ 
+ static int flow_ctrl = 0xdead;
+ module_param(flow_ctrl, int, 0644);
+@@ -4988,6 +4989,7 @@ static int stmmac_xdp_get_tx_queue(struct stmmac_priv *priv,
+ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+ 				struct xdp_buff *xdp)
+ {
++	bool zc = !!(xdp->rxq->mem.type == MEM_TYPE_XSK_BUFF_POOL);
+ 	struct xdp_frame *xdpf = xdp_convert_buff_to_frame(xdp);
+ 	int cpu = smp_processor_id();
+ 	struct netdev_queue *nq;
+@@ -5004,9 +5006,18 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+ 	/* Avoids TX time-out as we are sharing with slow path */
+ 	txq_trans_cond_update(nq);
+ 
+-	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, false);
+-	if (res == STMMAC_XDP_TX)
++	/* For zero copy XDP_TX action, dma_map is true */
++	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, zc);
++	if (res == STMMAC_XDP_TX) {
+ 		stmmac_flush_tx_descriptors(priv, queue);
++	} else if (res == STMMAC_XDP_CONSUMED && zc) {
++		/* xdp has been freed by xdp_convert_buff_to_frame(),
++		 * no need to call xsk_buff_free() again, so return
++		 * STMMAC_XSK_CONSUMED.
++		 */
++		res = STMMAC_XSK_CONSUMED;
++		xdp_return_frame(xdpf);
++	}
+ 
+ 	__netif_tx_unlock(nq);
+ 
+@@ -5356,6 +5367,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 			break;
+ 		case STMMAC_XDP_CONSUMED:
+ 			xsk_buff_free(buf->xdp);
++			fallthrough;
++		case STMMAC_XSK_CONSUMED:
+ 			rx_dropped++;
+ 			break;
+ 		case STMMAC_XDP_TX:
 -- 
-Thanks,
-Taniya Das
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
