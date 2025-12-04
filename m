@@ -2,91 +2,201 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23ECFC9F3C7
-	for <lists+linux-stm32@lfdr.de>; Wed, 03 Dec 2025 15:10:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A1F2CA20C3
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Dec 2025 01:37:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3C62C5C842;
-	Wed,  3 Dec 2025 14:10:02 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30347C5F1FB;
+	Thu,  4 Dec 2025 00:37:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B0C0C5A4E4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA35C5F1FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Dec 2025 14:10:01 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5957f5e2755so509769e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Dec 2025 06:10:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1764771000; x=1765375800;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zlE4w0TT3D3/y+5QAYjJUU63j0m4KIAcH19JgK8nOY8=;
- b=uq4kMt4Pf1i3DUz2wGvgEz+/XvIrMuQOAee9HFE2JUlRYq9zdZtxWzeAwCdBLRksEb
- TZ/9XvW4NBqS8OhylGhbKz+UMh9OPzRUeACJZlWeOk9zwCPpyvauWdz2eZ+fzjyn/2/H
- 1Mx3mshuMTcFAkfNtR4rze3OcO/fLxSCeuclLjxOmjcN/FZKJVMY2KsW+xTWhigZKErI
- APR4vc/Jr82VdOzSaTA42kn6DpaqiFdL44DxIux4SSZ9BZoyW4NKebrc78m7JySNaTOS
- 1G1meP9bhB+UwUz8zQaQkoNJ6gquzkfTDwYWAFHBbUht9LJPj7QWO6yJi/74IQ/D89eQ
- GgNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764771000; x=1765375800;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zlE4w0TT3D3/y+5QAYjJUU63j0m4KIAcH19JgK8nOY8=;
- b=PFOord03Aip3VQPnOXv2u5ACI4uhxbkRuS13v4tLuvouE0sfW/Ko2LszH+IbHoZ8Bu
- VXLmSvGQrv+F4Jf3CR1QvOX5blCXxnJooD94+G6mQL9JrZVLZG8uqavQW4FtfkM3QKu9
- NKnvH86XpOn5XO8KNTv0V9A9beZLZbRbutnZRXcss93naUGuto4QMbuO47rInIZVoKR6
- DLM/sGVxqRB+NbHY5gAuKlez7Tq7/8SUUf/UrEHjzBBzqk5t3wzeD1ISkCm7Nv1v/BpU
- 5ouao59392HrcOi+rIC9WGgtBUzWnvoebG+41lCFf010XcdJCN/gAtVrjlWQiC6jmdsW
- yRpg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXR5HCpxT9FlPyspyINoknKGLoztL/1+huMdQNUhT1uX87qBcu5fjQrm/+oAEUipG5s7JZXt30NRazIeA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyL7CQtzsLqoccL//nGW0PWyBLx75NFJm/vhCRMW/AdR6sPPou/
- Dan35T5WRmBBPnukPObvXoEzwPXNvsTq0prCAVKNT+ZVUvNXykRWhyrwoDA/b9uaGjs=
-X-Gm-Gg: ASbGnctRXK5/9rZ9lJRAKuiVIQa27pmdVzCX9L9a7mc+FY3SOC4EP2iiorrJ0qayy91
- SmjfwfDI9LNCG2sBKBINTEP7knfto1Pc03Xw6z3NgTeYsZMXpIC4gVCCYOCMedtAYz/d9ZUo0Bq
- 8P4jmQ/OX5PLBNmgMLLVOStDEiWnSURqbmIWLht23kmBS1LB1DpvtykSdY8J5QSAEN3Jv1xyTWk
- hcQL2/0lk+DXkzY6LGxMSv7tFg59LzJKRHCerNsP+vOlW4C7LxZOexeol2Gt6o6eJ3adJEYR830
- UOceACnQkfvqtyIu5/Gxl0At6vsAG+wI6EtgxDJ+pyhyJqcdN4GxxDGzUac12ePNScDEoSOwXqR
- UqHc80mDaeVdX3UAT4eS1jiEgRosWhE2qU14yQUSYyimNuPtZ8levg+0flaK89qG1XcSoKI7dIs
- BcWpddUZT3PjHYDH8cWSEU1JPB7ivTNxLRNlidze8CV7oWEMhmjg7UcbO8Cse81+esX5iuIVNER
- 0YW
-X-Google-Smtp-Source: AGHT+IE/1g55u7Pjo0hsbfs22DU9N430W8TGHsu9DROS2CQlieKXqdQ1amIEvDBBVY1Jc8SO9ZLe7A==
-X-Received: by 2002:a05:6512:3b29:b0:595:8313:3bc8 with SMTP id
- 2adb3069b0e04-597d4afa757mr357765e87.1.1764771000047; 
- Wed, 03 Dec 2025 06:10:00 -0800 (PST)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi.
- [91.159.24.186]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-596c0eb7112sm5453432e87.16.2025.12.03.06.09.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Dec 2025 06:09:59 -0800 (PST)
-Message-ID: <7e22e126-cb08-4bc2-bad6-a895a4e35a8d@linaro.org>
-Date: Wed, 3 Dec 2025 16:09:58 +0200
-MIME-Version: 1.0
+ Thu,  4 Dec 2025 00:37:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764808660; x=1796344660;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:mime-version;
+ bh=0oZ91Rz5d1KzMhaum/d2hn8QptlqGbc0Q+4HBCrzFYk=;
+ b=mSOVnMmaDph9soAlNKXnMbNVA09mu4HdIyfDYR+OF6dA07FRAQEmHAtw
+ PBtcwcUwhundTIWKm4FgdAREK6rdp8SzzD02so6ZPMRj7K1wDIUVapwxo
+ BqfYBlxMPzrFDqStiRsJGcx6npdzg6FU589GZQi/bk+a6Hsd0TCL1+TNx
+ 0vu4AlidnrOwGiyM7NC0q8FrrhN+B9LtjPDb3MU0sYMa8E5uk8RGP4e4P
+ eyaXiBIiXjby/ExR+09lXkER1vSVF8hyy/by0gW0pY+ccn+xn7RtCjpzL
+ w7pFW7zRadrkBsQXyQ6BEe8YoAIrW46erMKYBGVpgMHTcVWj7ho3A6jX5 w==;
+X-CSE-ConnectionGUID: sNkSFLRQQy2RjZXrDA5S0Q==
+X-CSE-MsgGUID: VdQKQyFvR8CoSyqwHuQ3Ag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11631"; a="77926535"
+X-IronPort-AV: E=Sophos;i="6.20,247,1758610800"; 
+ d="asc'?scan'208";a="77926535"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2025 16:37:37 -0800
+X-CSE-ConnectionGUID: ZnWDrtHNSxycdig5QAFT0Q==
+X-CSE-MsgGUID: rUGTN7u1RYeeVRz8wMTNSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,247,1758610800"; 
+ d="asc'?scan'208";a="195633004"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2025 16:37:36 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 3 Dec 2025 16:37:35 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29 via Frontend Transport; Wed, 3 Dec 2025 16:37:35 -0800
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.31) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 3 Dec 2025 16:37:35 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uzb8rVgxaNMDqGEmuW3faFmBj6tNkG6s62oTp9p92g1iMJM2FG7kk7+NjQxgSh8lC8SHFDS1f7xnq1M+CeN6Rq2/7lKu1nAMmeVoYBRzrUx66g2tVQBcmvlLK6G3z7dU5ECBcSr1R/Y/sff1yLAXaQBSjo+Lzdi+yeszmctBd4PKnzh0TOe0QtgqvsfbzVc+KiPIRG9UxlTWVC+oFXqCdN7fT/iwnZDReAi2kDSX2d0GMAUoTz7VOYc25LUEfoMVuGfGuBb7aZ4ACGFtVDNj3lA9d40i35RbkiQ/gt4uSKBuShTHTrkdCS3lmJhXVfVdRhC26bLa/4fepZ7yaM5nhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mkDTpcGRlXRKUxbaMIBdq4PYUyweS694voybiBbA7gs=;
+ b=PH13uSAYYMIoXAHoy2PEDcsiiSr9UQRGQvGl/ypF6iLYivn1QsDQezziz0SlthJ4vwOSBD1nGiygaaTPKiFbgKKdWQaiL0OA6dFA206QixOcn6Men+J4MD0T81M5mQziVacfGW53diSuS9c52i5HC+hSwPV4n2QSza8LY0XbzcfaOZLPSQG7dLe2TrRCRKOeb/owyWsH2B1gyieo1VjiYlUKgTBZ6FOdxOz8gPO3j3wIUpnBigeWvTn5sxgTTDGiw4jCJLZcvijcPbw74TEiVl4KF3nR7Z5jv2ngeRgxarlFMCoWyrTtSxzBCuqTX7vKrZ+nLf9NL20JR+Rs1DuajQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by CY8PR11MB7241.namprd11.prod.outlook.com (2603:10b6:930:94::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Thu, 4 Dec
+ 2025 00:37:28 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::81f7:c6c0:ca43:11c3]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::81f7:c6c0:ca43:11c3%3]) with mapi id 15.20.9366.012; Thu, 4 Dec 2025
+ 00:37:28 +0000
+Message-ID: <662d0fc5-7071-4190-903b-cf37f5a91adc@intel.com>
+Date: Wed, 3 Dec 2025 16:37:11 -0800
 User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jagadeesh Kona <quic_jkona@quicinc.com>
-References: <20251202-sm8750_camcc-v1-0-b3f7ef6723f1@oss.qualcomm.com>
- <20251202-sm8750_camcc-v1-2-b3f7ef6723f1@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20251202-sm8750_camcc-v1-2-b3f7ef6723f1@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: clock: qcom: Add camera
- clock controller for SM8750 SoC
+To: Jie Zhang <jzhang918@gmail.com>, <netdev@vger.kernel.org>
+References: <20251202025421.4560-1-jie.zhang@analog.com>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+Autocrypt: addr=jacob.e.keller@intel.com; keydata=
+ xjMEaFx9ShYJKwYBBAHaRw8BAQdAE+TQsi9s60VNWijGeBIKU6hsXLwMt/JY9ni1wnsVd7nN
+ J0phY29iIEtlbGxlciA8amFjb2IuZS5rZWxsZXJAaW50ZWwuY29tPsKTBBMWCgA7FiEEIEBU
+ qdczkFYq7EMeapZdPm8PKOgFAmhcfUoCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AA
+ CgkQapZdPm8PKOiZAAEA4UV0uM2PhFAw+tlK81gP+fgRqBVYlhmMyroXadv0lH4BAIf4jLxI
+ UPEL4+zzp4ekaw8IyFz+mRMUBaS2l+cpoBUBzjgEaFx9ShIKKwYBBAGXVQEFAQEHQF386lYe
+ MPZBiQHGXwjbBWS5OMBems5rgajcBMKc4W4aAwEIB8J4BBgWCgAgFiEEIEBUqdczkFYq7EMe
+ apZdPm8PKOgFAmhcfUoCGwwACgkQapZdPm8PKOjbUQD+MsPBANqBUiNt+7w0dC73R6UcQzbg
+ cFx4Yvms6cJjeD4BAKf193xbq7W3T7r9BdfTw6HRFYDiHXgkyoc/2Q4/T+8H
+In-Reply-To: <20251202025421.4560-1-jie.zhang@analog.com>
+X-ClientProxiedBy: MW4P222CA0023.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:303:114::28) To CO1PR11MB5089.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|CY8PR11MB7241:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dbf2280-bd12-4e87-c9e5-08de32cd4cb7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OGJQRExqVGNhczdQU0ZWVHdxSFJaN2JXTjFtYnhzcGtSSjRnRE05T0dGdm45?=
+ =?utf-8?B?UnVEZlJ4dm1aNXh4Z0hjSmNBS0ZYVlRrRjZZeERoZlM3UUlEcnluNExEYnFN?=
+ =?utf-8?B?RVkzWVkrUUpIUnhVMzNvWmFXc2J0ckxrYTY2Z0F5ck5rVDVHUXNSaXhYRURS?=
+ =?utf-8?B?YTM1TUZTU3RTTGJ3cVFDM2FoWnF6ZlZ1UkVnK0U0NFhJbHRndGlyZ2crTmlS?=
+ =?utf-8?B?cUx4VmhuVnU4MndaWnE0cGpHaEJkb1IxdWd1aFZKcVJ4NmFqbXk4NnVDRm9L?=
+ =?utf-8?B?UXpnU2phOWFYMHFXQzZQZm9yM3JOZnUxY1czNDlBTHphUHB2TVkybEZtTFp4?=
+ =?utf-8?B?enFXdnhFNDh5ajBtNDQ5Zm1VemdadWFIb1M2TGc0d0FHRmxNbVd4d25ZU0pE?=
+ =?utf-8?B?Z3N3bHRoWVBKTGpVRjRxeXNELzRsa1B4Ylpnc3hFN1J3REplV3NJQjJyNEIv?=
+ =?utf-8?B?VWF1S1ZoOVJjek9WTmVkdzl4UW1KSkZWcUNSOWpwZmtFZnZESHo4QUVBOE50?=
+ =?utf-8?B?TVhlV1N2aTZVQkxrNzBDb0k2NWVBN3dNbFdaV3NraUtoSHZIc1JWSjlZTGpF?=
+ =?utf-8?B?V1VxbUU4dkdCYnpzVVRLWGtlR1NrOGtydXlhUjl6aFBrRjVXcEUxWm5kKzNi?=
+ =?utf-8?B?UDEwdzZWdER6ampMeTJmeVljdVZ5SktzcmI3dDZsbXV2MXFLNWdVQTJjbjND?=
+ =?utf-8?B?c0lXdWZJRmk3VVpCREhUVWg4aTFIWnd3OUJkYjZmMllWY0RRN3VhWVlFMGZD?=
+ =?utf-8?B?TFNsYStaZXNyNitwN1dlbGNHd0R3MnlOTndzMUJtMy9NcitGZ3lyNE5sYU5W?=
+ =?utf-8?B?VFI3Ty9ucjV1TDZqYlVtdkhmeko1TGlKeGFtckRJck9CUlkwTm5PWXpNWm9P?=
+ =?utf-8?B?c2tISElYWmxYdndQejZzamVUcjRZOWJnWHlGcEdsaHp6UmVQVUFHNDhQWUl4?=
+ =?utf-8?B?aHRQNG1hQmlvRWM1bE9UVk12c09DSS8zNi9DUWVQOHl4Q1ErZlVmeTRFUitI?=
+ =?utf-8?B?MVJXMVJwZ2s2TmJuKzhsTXF2dklHdmVxRlBhakptalN0SkhjV3BYdENCdG5t?=
+ =?utf-8?B?a2pDV1RjbS81bjZMekV1c3AvejYzVGFMazVwSXVrZHVkMGVwRW5RY1Z4Z0Jq?=
+ =?utf-8?B?VEc1TWVvWGJFTWw0b2dCL0hRTFlzKzN0aWw5VVJCZSs5aEY2U3pvOHVQMVZL?=
+ =?utf-8?B?NzJuSzBMZzd0V2dKRjJkdWRaRDZJODRSb3hxUStLaUE0a3VSamNERUVGcmJW?=
+ =?utf-8?B?Y2d5ekFwZUdMMGRESlk4bk1MNkJhR2JwSERmSExGdkthWHJlSFdtQzdGdDhB?=
+ =?utf-8?B?aFAzRmJxenRlMWZKRVYrNXNBQmY3aEd3N0NNaEsyeG1KYnVLUGhmeVFRTjIy?=
+ =?utf-8?B?YVZTbllSc21nWHp3T054WDl5eUp6bmRPNUhsZE1WS1BPc0cyRmNkbWVIeU04?=
+ =?utf-8?B?NWN0ZmMvU3A4bjNvdFZOTzhNS1VlMlB4R3lXSmpOQzJzWmpLcVpjcmE3TlZI?=
+ =?utf-8?B?Nkp0Y01EZzkvVll2Qk84Q1ZDeEVuUFZ0cXE0UXNSR0RoYktPQU9LZTdTZS83?=
+ =?utf-8?B?YTFJTlRmRXFpOTI2WkZGdzlnVFRleG5tZmZjR1ZuRHBZSFFlSkJ2MDJTbjMz?=
+ =?utf-8?B?Ylp5RmkwL3cyRlFvQVFTQmV5WEZEeTV1NnBoTVdxN3ZnNmdvazVCTDRuSENr?=
+ =?utf-8?B?bEVLMkoyWXV3YXdpRFJ3eU56dVlQaUpkZHhBRWVBVXhhdnFmYWNyY0R6dExT?=
+ =?utf-8?B?cTVlQTVKemx0VFErUDIrOHoramZCL05XREE2azJyajVxZm9Uei9uQ1A2Qi9t?=
+ =?utf-8?B?ZnZrbW5Pa2RpYWVvaEhibDczUmhlQTJSaU1vbFk1RTVkMEttT1lFdGFsZHdo?=
+ =?utf-8?B?TVg4RWVNWWNOaDVLRWhUUmpONUY3NnN0TmIvRDlFMUx2SnhjekdsRzQzWjlt?=
+ =?utf-8?Q?hrV3BRU9gj9AX+gpEr6XrNulesKRXipx?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWV5aUhYbXN4TUd1eTBFUm05bXg2SlN2NGgwcWxvQlMxQk40SXN1N1pxR1gy?=
+ =?utf-8?B?TTFOdDc0bGZnQUlwN0QwbVcrdU9UWFYwSUxjNHhRWit6dlYwOHRDTGV1bXRk?=
+ =?utf-8?B?WEltcFVjb1VWYk5GYXY5eHpiQ002SmQzbFpWTHFlL0prci9XUkUyYi9udmFn?=
+ =?utf-8?B?K0R6WnNxSFA4TG9vZTBzZ2tTSFdaSmIzV1NrQW9QV0d5VTE1Mnk5Z2kzdTlC?=
+ =?utf-8?B?R2pGRlprbkZqcDlDdWZHK3p2WE41eFUrbGM4V2JEaUhsMVh3L3pHR0F5VVFH?=
+ =?utf-8?B?L3Q3RVFSc2ZFZ3BDaStHVnA0ZWl0YXcvT2s0RG9VSVJ2dmh0a3ovMHJONWNM?=
+ =?utf-8?B?U2EwT2t4aEpqcVRwY2NSbll4Z1hseU1LM1AxeUl6Tnd2VEZYcnNaMVRwU3A1?=
+ =?utf-8?B?d0FEL2F0V2RMeWNkSzRhUXBidjZNTENJNHdCRm9mUnRzR1R3QUE0cXpQZ1RP?=
+ =?utf-8?B?T2tQVk44bmdSMlhHSlZLSHhZTU56RkVhTk4wYWc2cDBuZEtJWkJmRXVzWTZ1?=
+ =?utf-8?B?cGZQTEp0cmM2aFVMWlUvMXNlOU85bEQzT01PK2dSYUpRQ2dWN2NxVnhXYTc0?=
+ =?utf-8?B?MGh4dUhiVkRyYkJwTGtTa0x5OUZ4am5zQXVwTGkyaHpFWHg0Wi9GeS84cUF0?=
+ =?utf-8?B?MlZQOUdhL2V2Q3kvcFpTRDlZR1N0di94RVhLZGI3OE0rWEZRMEpKcFpBTnBC?=
+ =?utf-8?B?UXJTNVR1ZFFqemZBcTA5UHF2Y0JCclFoVllIYlgzSDNIb3lpY1BxWkhkMXJL?=
+ =?utf-8?B?MS9IS0FhQVV6UzVlVGw4MWYvUlNIak55bzBoa285Z0hPaXVjTmhCaHJjWWQz?=
+ =?utf-8?B?RDBkRDlPVUZ5LzUwck1lTERNK0dSWGJja2ZQTENUUS9OLy80MXV6ZVZhU0t0?=
+ =?utf-8?B?bmhERW9JTzJieE5sYkNUTjhMUVhHSDdiLzJ1eHRFV0hOMi9nV2dUeDhqVmtt?=
+ =?utf-8?B?VG1XVFhocGozY2dJYzZzVHhsRmk2MTNNN2UvQzkxNDNnVEdsdngvdnVPaVFH?=
+ =?utf-8?B?emlLS3FtMllOZXN2SkFlYTVyUmtCWWlsbEpQVWFDRGxxRkNjSVNveHg2cWJR?=
+ =?utf-8?B?cEMvWUlEUkJnL1ZrWFNweUVJZGsvMUhEZzZMMldmSGFVaXIxcWlVVkN2amIy?=
+ =?utf-8?B?MGFBWjBkZDBTYytZbXAzclA1ZDNEOVJzV0ZTRm9EdXUvaDI1QkxUY01qVGlQ?=
+ =?utf-8?B?THdxS3ZtMnFXdUVsdFpVT1BjbnU1aEMvV0xOT21iZHFvQ2YxR2o0QkFabVF5?=
+ =?utf-8?B?cnhwb1l4eFE3NEpCVGd1OUU2SE9vbE5MTUtjT3lBaVFzVTJpNTZUWVk2SDZU?=
+ =?utf-8?B?VVI1YkRyemJVNERQelhDQnNVS0JkQnQ5a0ZWRUxTQ2NES3I0UjlieU1qbDZs?=
+ =?utf-8?B?Z2hTUlRPYU1nSXZ6ckpUZ0hkOTdteVNsWDFoVXVWUndaWTliajRBZXpOVDFD?=
+ =?utf-8?B?RVloY2FJNGhxaGJ6UzZLdTNxTG1MbWVEOU4rRlViMi9iVjRwRjJ2RStxT2pt?=
+ =?utf-8?B?ZXRUUlEwcXk2S2cvTWZZdFpkaDRnbC9yMExiQzU2aG9vSkxRdlV2OWZUKyty?=
+ =?utf-8?B?Rm5Ndzd2SXExdUJadXU1bVJ0UEdLY2UyN2tIcFdXSXZMUzRjMzl3QmpLYTU1?=
+ =?utf-8?B?MXMrTEFQZTlMZlNvenk5SUxWUmNQb0ZYU2J5Q3QzWTRkWmR4VTZhR3lWY1Fp?=
+ =?utf-8?B?bVVRcWltWWRtS2NvOXV0Q0dPM3VWK3BpQ1Q0SXFSUmtRRUdIOWlKdExTWklv?=
+ =?utf-8?B?bG5JR3k1K0ozekNhNWhnR3huUTY1R1doTEZudDhpYkd6NWpGQ09IZmR6aGhn?=
+ =?utf-8?B?TWtIY0R1cUMzMGRqZXVYYWo1cEorK0ZXVndiT1hGOWp3czQ4c1NKLzlsQll3?=
+ =?utf-8?B?dUVIN000d2swQU1laGpvUTN6Z1hpNXAxR2hnQXdJd2c0WDB2T0RxNjZQQndD?=
+ =?utf-8?B?RkVhWXpkcWdPdGJlcDVLNlVLS0piRHliMXVMZldOVUFqWWpBWWE1L0JhSFJV?=
+ =?utf-8?B?eXJ2V1lLY1VKaXlOTVpyL1hqUWJrQ3BmUnB1L2NZMlY5NEhXcHhBMzdSUi9l?=
+ =?utf-8?B?K2Rwb09TSFlrUnNFSjlHZHY3OEhhOWYrUW84M0dsZGIyUXk3VmxaSCtmSTBQ?=
+ =?utf-8?B?dzVyd01uTk9wY0pXMTg4WTNXMTc2MTY3MkNtYTRBU0doU2NTVjZFY2poNGNr?=
+ =?utf-8?B?MVE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dbf2280-bd12-4e87-c9e5-08de32cd4cb7
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2025 00:37:28.4989 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yy9gGzjh30uCdcfUqKwObx0F3lqxZ8FomM7q9Djen3y39vlQWCpKZi7tM9lv4VVBPPbz/7CvK56o0umc6x33UfXBkQp+bvQ9dFz5QdzP4Bc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7241
+X-OriginatorOrg: intel.com
+Cc: linux-kernel@vger.kernel.org,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jie Zhang <jie.zhang@analog.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix oops when split header
+	is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,264 +208,179 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============3666971392432739102=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Taniya.
+--===============3666971392432739102==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature";
+	boundary="------------LfCqUjqpO4MfghZKfAJsQ5cX"
 
-On 12/2/25 12:26, Taniya Das wrote:
-> Add device tree bindings for the camera clock controller on
-> Qualcomm SM8750 platform. The camera clock controller is split between
-> camcc and cambist. The cambist controls the mclks of the camera clock
-> controller.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->   .../bindings/clock/qcom,sm8450-camcc.yaml          |   5 +
->   .../dt-bindings/clock/qcom,sm8750-cambistmclkcc.h  |  30 ++++
->   include/dt-bindings/clock/qcom,sm8750-camcc.h      | 151 +++++++++++++++++++++
->   3 files changed, 186 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> index c1e06f39431e68a3cd2f6c2dba84be2a3c143bb1..8e3baba5270b384eb03a68b4e47785e6c91ec6f7 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> @@ -9,6 +9,7 @@ title: Qualcomm Camera Clock & Reset Controller on SM8450
->   maintainers:
->     - Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->     - Jagadeesh Kona <quic_jkona@quicinc.com>
-> +  - Taniya Das <taniya.das@oss.qualcomm.com>
->   
->   description: |
->     Qualcomm camera clock control module provides the clocks, resets and power
-> @@ -18,6 +19,8 @@ description: |
->       include/dt-bindings/clock/qcom,sm8450-camcc.h
->       include/dt-bindings/clock/qcom,sm8550-camcc.h
->       include/dt-bindings/clock/qcom,sm8650-camcc.h
-> +    include/dt-bindings/clock/qcom,sm8750-cambistmclkcc.h
-> +    include/dt-bindings/clock/qcom,sm8750-camcc.h
->   
->   properties:
->     compatible:
-> @@ -26,6 +29,8 @@ properties:
->         - qcom,sm8475-camcc
->         - qcom,sm8550-camcc
->         - qcom,sm8650-camcc
-> +      - qcom,sm8750-cambistmclkcc
+--------------LfCqUjqpO4MfghZKfAJsQ5cX
+Content-Type: multipart/mixed; boundary="------------0osqPRcTEgWJKAvKf204m4Wh";
+ protected-headers="v1"
+Message-ID: <662d0fc5-7071-4190-903b-cf37f5a91adc@intel.com>
+Date: Wed, 3 Dec 2025 16:37:11 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: stmmac: fix oops when split header is enabled
+To: Jie Zhang <jzhang918@gmail.com>, netdev@vger.kernel.org
+Cc: Jie Zhang <jie.zhang@analog.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Furong Xu <0x1207@gmail.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20251202025421.4560-1-jie.zhang@analog.com>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+Autocrypt: addr=jacob.e.keller@intel.com; keydata=
+ xjMEaFx9ShYJKwYBBAHaRw8BAQdAE+TQsi9s60VNWijGeBIKU6hsXLwMt/JY9ni1wnsVd7nN
+ J0phY29iIEtlbGxlciA8amFjb2IuZS5rZWxsZXJAaW50ZWwuY29tPsKTBBMWCgA7FiEEIEBU
+ qdczkFYq7EMeapZdPm8PKOgFAmhcfUoCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AA
+ CgkQapZdPm8PKOiZAAEA4UV0uM2PhFAw+tlK81gP+fgRqBVYlhmMyroXadv0lH4BAIf4jLxI
+ UPEL4+zzp4ekaw8IyFz+mRMUBaS2l+cpoBUBzjgEaFx9ShIKKwYBBAGXVQEFAQEHQF386lYe
+ MPZBiQHGXwjbBWS5OMBems5rgajcBMKc4W4aAwEIB8J4BBgWCgAgFiEEIEBUqdczkFYq7EMe
+ apZdPm8PKOgFAmhcfUoCGwwACgkQapZdPm8PKOjbUQD+MsPBANqBUiNt+7w0dC73R6UcQzbg
+ cFx4Yvms6cJjeD4BAKf193xbq7W3T7r9BdfTw6HRFYDiHXgkyoc/2Q4/T+8H
+In-Reply-To: <20251202025421.4560-1-jie.zhang@analog.com>
 
-Due to the very distinct nature of this new clock controller, I suppose
-it does not inherit most of the properties of other CAMCC clocks, and
-therefore it should be described in a separate dt binding documentation file.
+--------------0osqPRcTEgWJKAvKf204m4Wh
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Looking at the list of macro definitions from a new header file, a noticeable
-remark is that this new clock controller is neither a reset controller nor
-a power domain controller.
 
-> +      - qcom,sm8750-camcc
->   
->     clocks:
->       items:
-> diff --git a/include/dt-bindings/clock/qcom,sm8750-cambistmclkcc.h b/include/dt-bindings/clock/qcom,sm8750-cambistmclkcc.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..51615bee307fd9e7f81f7e5c1662535093dd8b55
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/qcom,sm8750-cambistmclkcc.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_SM8750_H
-> +#define _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_SM8750_H
-> +
-> +/* CAM_BIST_MCLK_CC clocks */
-> +#define CAM_BIST_MCLK_CC_MCLK0_CLK				0
-> +#define CAM_BIST_MCLK_CC_MCLK0_CLK_SRC				1
-> +#define CAM_BIST_MCLK_CC_MCLK1_CLK				2
-> +#define CAM_BIST_MCLK_CC_MCLK1_CLK_SRC				3
-> +#define CAM_BIST_MCLK_CC_MCLK2_CLK				4
-> +#define CAM_BIST_MCLK_CC_MCLK2_CLK_SRC				5
-> +#define CAM_BIST_MCLK_CC_MCLK3_CLK				6
-> +#define CAM_BIST_MCLK_CC_MCLK3_CLK_SRC				7
-> +#define CAM_BIST_MCLK_CC_MCLK4_CLK				8
-> +#define CAM_BIST_MCLK_CC_MCLK4_CLK_SRC				9
-> +#define CAM_BIST_MCLK_CC_MCLK5_CLK				10
-> +#define CAM_BIST_MCLK_CC_MCLK5_CLK_SRC				11
-> +#define CAM_BIST_MCLK_CC_MCLK6_CLK				12
-> +#define CAM_BIST_MCLK_CC_MCLK6_CLK_SRC				13
-> +#define CAM_BIST_MCLK_CC_MCLK7_CLK				14
-> +#define CAM_BIST_MCLK_CC_MCLK7_CLK_SRC				15
-> +#define CAM_BIST_MCLK_CC_PLL0					16
-> +#define CAM_BIST_MCLK_CC_SLEEP_CLK				17
-> +#define CAM_BIST_MCLK_CC_SLEEP_CLK_SRC				18
-> +
-> +#endif
-> diff --git a/include/dt-bindings/clock/qcom,sm8750-camcc.h b/include/dt-bindings/clock/qcom,sm8750-camcc.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..dae788247afe896ef812bef716897c6cf80df2bb
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/qcom,sm8750-camcc.h
-> @@ -0,0 +1,151 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLK_QCOM_CAM_CC_SM8750_H
-> +#define _DT_BINDINGS_CLK_QCOM_CAM_CC_SM8750_H
-> +
-> +/* CAM_CC clocks */
-> +#define CAM_CC_CAM_TOP_AHB_CLK					0
-> +#define CAM_CC_CAM_TOP_FAST_AHB_CLK				1
-> +#define CAM_CC_CAMNOC_DCD_XO_CLK				2
-> +#define CAM_CC_CAMNOC_NRT_AXI_CLK				3
-> +#define CAM_CC_CAMNOC_NRT_CRE_CLK				4
-> +#define CAM_CC_CAMNOC_NRT_IPE_NPS_CLK				5
-> +#define CAM_CC_CAMNOC_NRT_OFE_ANCHOR_CLK			6
-> +#define CAM_CC_CAMNOC_NRT_OFE_HDR_CLK				7
-> +#define CAM_CC_CAMNOC_NRT_OFE_MAIN_CLK				8
-> +#define CAM_CC_CAMNOC_RT_AXI_CLK				9
-> +#define CAM_CC_CAMNOC_RT_AXI_CLK_SRC				10
-> +#define CAM_CC_CAMNOC_RT_IFE_LITE_CLK				11
-> +#define CAM_CC_CAMNOC_RT_TFE_0_BAYER_CLK			12
-> +#define CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK				13
-> +#define CAM_CC_CAMNOC_RT_TFE_1_BAYER_CLK			14
-> +#define CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK				15
-> +#define CAM_CC_CAMNOC_RT_TFE_2_BAYER_CLK			16
-> +#define CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK				17
-> +#define CAM_CC_CAMNOC_XO_CLK					18
-> +#define CAM_CC_CCI_0_CLK					19
-> +#define CAM_CC_CCI_0_CLK_SRC					20
-> +#define CAM_CC_CCI_1_CLK					21
-> +#define CAM_CC_CCI_1_CLK_SRC					22
-> +#define CAM_CC_CCI_2_CLK					23
-> +#define CAM_CC_CCI_2_CLK_SRC					24
-> +#define CAM_CC_CORE_AHB_CLK					25
-> +#define CAM_CC_CPHY_RX_CLK_SRC					26
-> +#define CAM_CC_CRE_AHB_CLK					27
-> +#define CAM_CC_CRE_CLK						28
-> +#define CAM_CC_CRE_CLK_SRC					29
-> +#define CAM_CC_CSI0PHYTIMER_CLK					30
-> +#define CAM_CC_CSI0PHYTIMER_CLK_SRC				31
-> +#define CAM_CC_CSI1PHYTIMER_CLK					32
-> +#define CAM_CC_CSI1PHYTIMER_CLK_SRC				33
-> +#define CAM_CC_CSI2PHYTIMER_CLK					34
-> +#define CAM_CC_CSI2PHYTIMER_CLK_SRC				35
-> +#define CAM_CC_CSI3PHYTIMER_CLK					36
-> +#define CAM_CC_CSI3PHYTIMER_CLK_SRC				37
-> +#define CAM_CC_CSI4PHYTIMER_CLK					38
-> +#define CAM_CC_CSI4PHYTIMER_CLK_SRC				39
-> +#define CAM_CC_CSI5PHYTIMER_CLK					40
-> +#define CAM_CC_CSI5PHYTIMER_CLK_SRC				41
-> +#define CAM_CC_CSID_CLK						42
-> +#define CAM_CC_CSID_CLK_SRC					43
-> +#define CAM_CC_CSID_CSIPHY_RX_CLK				44
-> +#define CAM_CC_CSIPHY0_CLK					45
-> +#define CAM_CC_CSIPHY1_CLK					46
-> +#define CAM_CC_CSIPHY2_CLK					47
-> +#define CAM_CC_CSIPHY3_CLK					48
-> +#define CAM_CC_CSIPHY4_CLK					49
-> +#define CAM_CC_CSIPHY5_CLK					50
-> +#define CAM_CC_DRV_AHB_CLK					51
-> +#define CAM_CC_DRV_XO_CLK					52
-> +#define CAM_CC_FAST_AHB_CLK_SRC					53
-> +#define CAM_CC_GDSC_CLK						54
-> +#define CAM_CC_ICP_0_AHB_CLK					55
-> +#define CAM_CC_ICP_0_CLK					56
-> +#define CAM_CC_ICP_0_CLK_SRC					57
-> +#define CAM_CC_ICP_1_AHB_CLK					58
-> +#define CAM_CC_ICP_1_CLK					59
-> +#define CAM_CC_ICP_1_CLK_SRC					60
-> +#define CAM_CC_IFE_LITE_AHB_CLK					61
-> +#define CAM_CC_IFE_LITE_CLK					62
-> +#define CAM_CC_IFE_LITE_CLK_SRC					63
-> +#define CAM_CC_IFE_LITE_CPHY_RX_CLK				64
-> +#define CAM_CC_IFE_LITE_CSID_CLK				65
-> +#define CAM_CC_IFE_LITE_CSID_CLK_SRC				66
-> +#define CAM_CC_IPE_NPS_AHB_CLK					67
-> +#define CAM_CC_IPE_NPS_CLK					68
-> +#define CAM_CC_IPE_NPS_CLK_SRC					69
-> +#define CAM_CC_IPE_NPS_FAST_AHB_CLK				70
-> +#define CAM_CC_IPE_PPS_CLK					71
-> +#define CAM_CC_IPE_PPS_FAST_AHB_CLK				72
-> +#define CAM_CC_JPEG_0_CLK					73
-> +#define CAM_CC_JPEG_1_CLK					74
-> +#define CAM_CC_JPEG_CLK_SRC					75
-> +#define CAM_CC_OFE_AHB_CLK					76
-> +#define CAM_CC_OFE_ANCHOR_CLK					77
-> +#define CAM_CC_OFE_ANCHOR_FAST_AHB_CLK				78
-> +#define CAM_CC_OFE_CLK_SRC					79
-> +#define CAM_CC_OFE_HDR_CLK					80
-> +#define CAM_CC_OFE_HDR_FAST_AHB_CLK				81
-> +#define CAM_CC_OFE_MAIN_CLK					82
-> +#define CAM_CC_OFE_MAIN_FAST_AHB_CLK				83
-> +#define CAM_CC_PLL0						84
-> +#define CAM_CC_PLL0_OUT_EVEN					85
-> +#define CAM_CC_PLL0_OUT_ODD					86
-> +#define CAM_CC_PLL1						87
-> +#define CAM_CC_PLL1_OUT_EVEN					88
-> +#define CAM_CC_PLL2						89
-> +#define CAM_CC_PLL2_OUT_EVEN					90
-> +#define CAM_CC_PLL3						91
-> +#define CAM_CC_PLL3_OUT_EVEN					92
-> +#define CAM_CC_PLL4						93
-> +#define CAM_CC_PLL4_OUT_EVEN					94
-> +#define CAM_CC_PLL5						95
-> +#define CAM_CC_PLL5_OUT_EVEN					96
-> +#define CAM_CC_PLL6						97
-> +#define CAM_CC_PLL6_OUT_EVEN					98
-> +#define CAM_CC_PLL6_OUT_ODD					99
-> +#define CAM_CC_QDSS_DEBUG_CLK					100
-> +#define CAM_CC_QDSS_DEBUG_CLK_SRC				101
-> +#define CAM_CC_QDSS_DEBUG_XO_CLK				102
-> +#define CAM_CC_SLEEP_CLK					103
-> +#define CAM_CC_SLEEP_CLK_SRC					104
-> +#define CAM_CC_SLOW_AHB_CLK_SRC					105
-> +#define CAM_CC_TFE_0_BAYER_CLK					106
-> +#define CAM_CC_TFE_0_BAYER_FAST_AHB_CLK				107
-> +#define CAM_CC_TFE_0_CLK_SRC					108
-> +#define CAM_CC_TFE_0_MAIN_CLK					109
-> +#define CAM_CC_TFE_0_MAIN_FAST_AHB_CLK				110
-> +#define CAM_CC_TFE_1_BAYER_CLK					111
-> +#define CAM_CC_TFE_1_BAYER_FAST_AHB_CLK				112
-> +#define CAM_CC_TFE_1_CLK_SRC					113
-> +#define CAM_CC_TFE_1_MAIN_CLK					114
-> +#define CAM_CC_TFE_1_MAIN_FAST_AHB_CLK				115
-> +#define CAM_CC_TFE_2_BAYER_CLK					116
-> +#define CAM_CC_TFE_2_BAYER_FAST_AHB_CLK				117
-> +#define CAM_CC_TFE_2_CLK_SRC					118
-> +#define CAM_CC_TFE_2_MAIN_CLK					119
-> +#define CAM_CC_TFE_2_MAIN_FAST_AHB_CLK				120
-> +#define CAM_CC_XO_CLK_SRC					121
-> +
-> +/* CAM_CC power domains */
-> +#define CAM_CC_TITAN_TOP_GDSC					0
-> +#define CAM_CC_IPE_0_GDSC					1
-> +#define CAM_CC_OFE_GDSC						2
-> +#define CAM_CC_TFE_0_GDSC					3
-> +#define CAM_CC_TFE_1_GDSC					4
-> +#define CAM_CC_TFE_2_GDSC					5
-> +
-> +/* CAM_CC resets */
-> +#define CAM_CC_DRV_BCR						0
-> +#define CAM_CC_ICP_BCR						1
-> +#define CAM_CC_IPE_0_BCR					2
-> +#define CAM_CC_OFE_BCR						3
-> +#define CAM_CC_QDSS_DEBUG_BCR					4
-> +#define CAM_CC_TFE_0_BCR					5
-> +#define CAM_CC_TFE_1_BCR					6
-> +#define CAM_CC_TFE_2_BCR					7
-> +
-> +#endif
-> 
 
--- 
-Best wishes,
-Vladimir
+On 12/1/2025 6:54 PM, Jie Zhang wrote:
+> For GMAC4, when split header is enabled, in some rare cases, the
+> hardware does not fill buf2 of the first descriptor with payload.
+> Thus we cannot assume buf2 is always fully filled if it is not
+> the last descriptor. Otherwise, the length of buf2 of the second
+> descriptor will be calculated wrong and cause an oops:
+>=20
+> Unable to handle kernel paging request at virtual address ffff00019246b=
+fc0
+> Mem abort info:
+>   ESR =3D 0x0000000096000145
+>   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+>   SET =3D 0, FnV =3D 0
+>   EA =3D 0, S1PTW =3D 0
+>   FSC =3D 0x05: level 1 translation fault
+> Data abort info:
+>   ISV =3D 0, ISS =3D 0x00000145, ISS2 =3D 0x00000000
+>   CM =3D 1, WnR =3D 1, TnD =3D 0, TagAccess =3D 0
+>   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0, Xs =3D 0
+> swapper pgtable: 4k pages, 48-bit VAs, pgdp=3D0000000090d8b000
+> [ffff00019246bfc0] pgd=3D180000009dfff403, p4d=3D180000009dfff403, pud=3D=
+0000000000000000
+> Internal error: Oops: 0000000096000145 [#1]  SMP
+> Modules linked in:
+> CPU: 0 UID: 0 PID: 157 Comm: iperf3 Not tainted 6.18.0-rc6 #1 PREEMPT
+> Hardware name: ADI 64-bit SC598 SOM EZ Kit (DT)
+> pstate: 00400009 (nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)
+> pc : dcache_inval_poc+0x28/0x58
+> lr : arch_sync_dma_for_cpu+0x28/0x34
+> sp : ffff800080dcbc40
+> x29: ffff800080dcbc40 x28: 0000000000000008 x27: ffff000091c50980
+> x26: ffff000091c50980 x25: 0000000000000000 x24: ffff000092a5fb00
+> x23: ffff000092768f28 x22: 000000009246c000 x21: 0000000000000002
+> x20: 00000000ffffffdc x19: ffff000091844c10 x18: 0000000000000000
+> x17: ffff80001d308000 x16: ffff800080dc8000 x15: ffff0000929fb034
+> x14: 70f709157374dd21 x13: ffff000092812ec0 x12: 0000000000000000
+> x11: 000000000000dd86 x10: 0000000000000040 x9 : 0000000000000600
+> x8 : ffff000092a5fbac x7 : 0000000000000001 x6 : 0000000000004240
+> x5 : 000000009246c000 x4 : ffff000091844c10 x3 : 000000000000003f
+> x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
+> Call trace:
+>  dcache_inval_poc+0x28/0x58 (P)
+>  dma_direct_sync_single_for_cpu+0x38/0x6c
+>  __dma_sync_single_for_cpu+0x34/0x6c
+>  stmmac_napi_poll_rx+0x8f0/0xb60
+>  __napi_poll.constprop.0+0x30/0x144
+>  net_rx_action+0x160/0x274
+>  handle_softirqs+0x1b8/0x1fc
+>  __do_softirq+0x10/0x18
+>  ____do_softirq+0xc/0x14
+>  call_on_irq_stack+0x30/0x48
+>  do_softirq_own_stack+0x18/0x20
+>  __irq_exit_rcu+0x64/0xe8
+>  irq_exit_rcu+0xc/0x14
+>  el1_interrupt+0x3c/0x58
+>  el1h_64_irq_handler+0x14/0x1c
+>  el1h_64_irq+0x6c/0x70
+>  __arch_copy_to_user+0xbc/0x240 (P)
+>  simple_copy_to_iter+0x28/0x30
+>  __skb_datagram_iter+0x1bc/0x268
+>  skb_copy_datagram_iter+0x1c/0x24
+>  tcp_recvmsg_locked+0x3ec/0x778
+>  tcp_recvmsg+0x10c/0x194
+>  inet_recvmsg+0x64/0xa0
+>  sock_recvmsg_nosec+0x1c/0x24
+>  sock_read_iter+0x8c/0xdc
+>  vfs_read+0x144/0x1a0
+>  ksys_read+0x74/0xdc
+>  __arm64_sys_read+0x14/0x1c
+>  invoke_syscall+0x60/0xe4
+>  el0_svc_common.constprop.0+0xb0/0xcc
+>  do_el0_svc+0x18/0x20
+>  el0_svc+0x80/0xc8
+>  el0t_64_sync_handler+0x58/0x134
+>  el0t_64_sync+0x170/0x174
+> Code: d1000443 ea03003f 8a230021 54000040 (d50b7e21)
+> ---[ end trace 0000000000000000 ]---
+> Kernel panic - not syncing: Oops: Fatal exception in interrupt
+> Kernel Offset: disabled
+> CPU features: 0x080000,00008000,08006281,0400520b
+> Memory Limit: none
+> ---[ end Kernel panic - not syncing: Oops: Fatal exception in interrupt=
+ ]---
+>=20
+
+You could probably minify the crash here a bit since much of this
+information isn't that helpful in showing the crash. Not too big a deal
+overall.
+
+> To fix this, the PL bit-field in RDES3 register is used for all
+> descriptors, whether it is the last descriptor or not.
+>=20
+> Signed-off-by: Jie Zhang <jie.zhang@analog.com>
+
+
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+
+--------------0osqPRcTEgWJKAvKf204m4Wh--
+
+--------------LfCqUjqpO4MfghZKfAJsQ5cX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQQgQFSp1zOQVirsQx5qll0+bw8o6AUCaTDXtwUDAAAAAAAKCRBqll0+bw8o6OjA
+AP91xBjSKddftWHvRiOgNtwI/jo6/5sPs/jIqPi4VJBBRAD/d4QR0CSF53EZIvPRSf1Q0j4fEeSb
+TR0mmkM0o0R1SQ4=
+=KyAU
+-----END PGP SIGNATURE-----
+
+--------------LfCqUjqpO4MfghZKfAJsQ5cX--
+
+--===============3666971392432739102==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3666971392432739102==--
