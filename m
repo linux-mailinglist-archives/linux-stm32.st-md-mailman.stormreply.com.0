@@ -2,169 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE94CA6CFB
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Dec 2025 10:05:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A2B2CA7FAA
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Dec 2025 15:38:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD73CC62D32;
-	Fri,  5 Dec 2025 09:05:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AE56C5F1D4;
+	Fri,  5 Dec 2025 14:38:08 +0000 (UTC)
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
+ [74.125.224.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3EFEC62D2D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4829DC57B41
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Dec 2025 09:05:27 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5B5913M02047817; Fri, 5 Dec 2025 10:05:14 +0100
-Received: from duzpr83cu001.outbound.protection.outlook.com
- (mail-northeuropeazon11012031.outbound.protection.outlook.com [52.101.66.31])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4aub8nb5ad-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 05 Dec 2025 10:05:14 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sWi+0hJzGNRlIxgklKsQhaK1/Ajjvti2wPEgHo4/wP+bF1m8kctGp3IhyR4d/w3WbwqTBYVx15Xdp06tu8hQIOblbFJIiO/Sl/eEGW4PGoRHWehYtld7wzIqBfEGVZ5uOTQGUBNHbCJ/ZmVwZFl6iZ9Nfmo9O36cLJ8eDUqg8XwYXNsT7ImmrytYogcSe1nn8CkX6TjlqnkecVMjdXCDiM/nko4lH9xYSWAo1j/Lne4EWgEfbTcZ5zZH4GJMstgb9n5p/FQPohmQkzxJ11YT0olEH89wUphZNoGv12D6wRZfCrPdIvogbHUPtX5B6Q5/0WMR5aBK43uWaW93kHcyFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u35wuCE7vol6K/ekR+LGiXYA9EvNk8QvRyP5wyyfImM=;
- b=s21RBljKDiS1Hesa/LUBS2k+rn8BP2Uo7ZwuOV4KkY7fty8DY2/tGJMJnVJjO8CFJvRxwo+J2mfyBlA6QQV9Jdtb3tsx6mjU/sw6w+vrO09npE475WQZmOsW+xuD2gXjubQHVuHH+0jO8j80KeDV9pM9UrPDHwzCXfCO9zEzugEMoWnCuNDplxnqAjql6VgvOUXGFs7V9AIhnUHpBO9k8JK9sIsNP+JAbjHUhj7+xRQhDoFHPFehGi5/cJeXrg10pHM6WO8FLDlagPvTpEiuC//Csb49lzb3WBNLJhLKGV2mcJvtkbEtJxL2juTGHNAdU3i8HdYKYNzSU4Hv3LwTEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u35wuCE7vol6K/ekR+LGiXYA9EvNk8QvRyP5wyyfImM=;
- b=Ac8tNcS209lW+X07NA79e0xRKIfj7OoQCVFF9F2QD8D321XujgnWOlH4wvszpnqbmhUsADklJwgfL1tu03fH5N5OgweamMmEZ5/96cFShahce8cg5LIgDlCVu5Uo2/yPPf6UbEeQlGBfvdWFqL4ly/XAZ0JVhd3FRwou/iZYj88JDaj1rLuMmgfAiJqL1lC1kpqCGrzFdW44JKvJbP6Q1kHM839iHW9QBhncYpYTPoup5lJ8plekTKXbZROP/jLgo3AKbSkvZBSdSd9E7ZfarIPCVAxEtuHogYkOvFBkBssk3FHbd/LzEmTOuJHfGWzXdHrpOVxA95Z+OMc8Bm1BFg==
-Received: from AS4PR10CA0024.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5d8::16)
- by AS8PR10MB7087.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5ed::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.12; Fri, 5 Dec
- 2025 09:05:13 +0000
-Received: from AMS1EPF0000003F.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d8:cafe::44) by AS4PR10CA0024.outlook.office365.com
- (2603:10a6:20b:5d8::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.11 via Frontend Transport; Fri,
- 5 Dec 2025 09:05:13 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS1EPF0000003F.mail.protection.outlook.com (10.167.16.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9388.8 via Frontend Transport; Fri, 5 Dec 2025 09:05:13 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 5 Dec
- 2025 10:05:53 +0100
-Received: from localhost (10.252.31.202) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 5 Dec
- 2025 10:05:12 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Fri, 5 Dec 2025 10:04:58 +0100
+ Fri,  5 Dec 2025 14:38:06 +0000 (UTC)
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-640d790d444so1871921d50.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Dec 2025 06:38:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764945485; x=1765550285;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rZeX/t9XBIstd9pSBZ5++UMA+6ZEbyBEMYNpSCQ2HHE=;
+ b=aNohQhHiaPcT7jRR3tVpVTgC/j95JRklPHJBcYxrHaOWK55f66F9Uq8p1fw1LC6q2c
+ 9VlgsIudHt4pAdYg1gg0XcEb0qRPI8F9Ecdh2V1AZYWocMmtSTseDi0EfJXetPGvTVGX
+ Tk9mirJc15Zl+dgGcgtPpN4xrDD1nT+v2By0JYiPksQeuzuM9no3NTJjIzaMlWFtALMQ
+ WvA1nWFtp28n35qkj6UZ6IpdSEyyMbY9Y/5S6qtmurULH2NfZaKjWpjOl89/95tDs3tn
+ oFgJfPtSshEF/Au78ahBhfgWrBdFcb1R0NGOsBaC4xOIYlJ7o6DSvZgq9qN6dv6uYgZn
+ DJGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764945485; x=1765550285;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rZeX/t9XBIstd9pSBZ5++UMA+6ZEbyBEMYNpSCQ2HHE=;
+ b=KG24IVLANlH0cZJ4wafbzIlkDTZ95Qzw63C7BIKiuBKaXxRzztdamjyeVqEvqNG1eM
+ a9uIKKMD3uRvXpC96MMvpvo2Y5nnLf0H82Zp5hzimnKEbJRS5Qm6mBUI+i83bxfbwoNe
+ sVY599w1fLlRFVlCaTr59QmoB8FBc+R4v+OuFEGfKJ5H3Bu4Z0PX5IePPAALVmdaakCK
+ y1Dgnkh24kaDC/i9lVhx+II8kzkIfSE9i0ujRQ/RVIsIR3PjAsEZCFYmZpa2BJdC6gRK
+ M1lDCOhT8tL9m4uGDUKUFjpBZU0oMlO7wn8HVTdicRja803ze0ojxxqryUzeMetKAOUQ
+ np6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWiu8cP6iyHScLoF+w/MQwgtf/PoIQy98bmZOAWjVR8tUyNESqs+U2crqQApC02xmsOwLcwtB2qXiunRQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxum2K6n/jsTGJdK0S0VE+AbG7zgKjEUGoXKR+CEj3qonjb4pJU
+ L9RHmDYbkLZiTR3vWTuKF+rnKuzO1fKR9QdnfKcBCYKrwPg24bkIBAH1
+X-Gm-Gg: ASbGncvBY7uTSth4UULTDYpruUz76ntYYsJYWeKLwmKpQqszT7C54VfKKYPC81sRUhY
+ RmYBb069aCMYVCJKElLl458ANsyNBP31/LrJo3JEuf79adnxUbD30joxTuT26OU/xYKtdDIHZDv
+ TahWoBHNHtECXRTPMtAhO2as0QDauvrxvO8BZk/ln4bliqy/pz1wBJjB26E8K6MZTrhWcczu3hf
+ mXF9svZzsnyfN+OzU0RZhFjbiybznqXSbWW7KBvXDtOPZGcQCzscwVhMlfFr+KVTsbnOH8DOPUh
+ spjPOa3t1Isca3eIRbdmYEziYksFosjNMiMHqxkwdBDoddo5Zf67W0AELgu9ZkgVueSslLjlu59
+ MtrsMz8fR1i92QzvZQ73gCTiQZR5vVJcT9BQVZEdko/rpKKvcVauQ5LLsnR5+4CWdY4rS/mI1lJ
+ HI9lS31wVbT6fFnQUPGEa6iN4GiXUhjQ==
+X-Google-Smtp-Source: AGHT+IHZolp98udP+u1AjHHX7nPNhJRkfNJpkP0YtwmKdcia0YfdLvMiUF1UHkN2//HLsO8YP+Ij8g==
+X-Received: by 2002:a05:690e:12ca:b0:640:d038:faf9 with SMTP id
+ 956f58d0204a3-64436fab5f7mr7781946d50.25.1764945484906; 
+ Fri, 05 Dec 2025 06:38:04 -0800 (PST)
+Received: from hoboy.vegasvil.org ([2600:1700:2430:6f6f:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-78c1b4ae638sm17499737b3.4.2025.12.05.06.38.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Dec 2025 06:38:04 -0800 (PST)
+Date: Fri, 5 Dec 2025 06:38:01 -0800
+From: Richard Cochran <richardcochran@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <aTLuSZugpZDNCRzf@hoboy.vegasvil.org>
+References: <20251129-ext-ptp-2v-v2-1-d23aca3e694f@altera.com>
+ <26656845-d9d6-4fd2-bfff-99996cf03741@redhat.com>
+ <aTFuJUiLMnHrnpW5@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Message-ID: <20251205-upstream_qspi_ospi_updates-v1-8-7e6c8b9f5141@foss.st.com>
-References: <20251205-upstream_qspi_ospi_updates-v1-0-7e6c8b9f5141@foss.st.com>
-In-Reply-To: <20251205-upstream_qspi_ospi_updates-v1-0-7e6c8b9f5141@foss.st.com>
-To: Mark Brown <broonie@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.252.31.202]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000003F:EE_|AS8PR10MB7087:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ec59b93-9f9e-49fd-198a-08de33dd6668
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TTE2QW5hR0N2Rk9Zb2QveVo2Q2huTmNybVJ6N2duZnpHSkt2dWd2cENDTUZv?=
- =?utf-8?B?ejBST3FxWmJycUhQZHJsbFErek5uUk5PMmpwV3RCbnhjZ0RWc3JnMmw3RXZE?=
- =?utf-8?B?aXc5RzVPSjN3bzNqcjVPN3B3VDYyL2d4WjI2YXBEbjhXOHVlcHo1RktYSHZ6?=
- =?utf-8?B?S2NGRDV4MTA2QWJGYWZCNk1TOE1yMWV5TXpaT3N3OTZyWkcwdzJ4Wk5MY2s5?=
- =?utf-8?B?V0Jrd01DWWE4UllHSUdCY1NoTjRPNHhNWWxxblcxUEF2dFFsNnhMQ05CQ01J?=
- =?utf-8?B?YVJlYnpwMXZCVFZnRFRqcHo2NHBkRTB1T01pVEFyU0VOY0NtaS9mU0ZDckFp?=
- =?utf-8?B?NnJHdVgvWWdKK29TNk4rU29lREx4V0xxWDNyZGtja09JS052ZWNEbHF1bUZF?=
- =?utf-8?B?cHo0NjF3aWtDU0h2Q0lzVzhheXM3TzQyVjFMRWlxUFV1SnlhYUNPMEViYnB4?=
- =?utf-8?B?ZTdKQ1lSdjgxMURtUXRFSlpOb2lxN2dTaTFpMmhsS1ZESnhwYnRHZE1aTGp6?=
- =?utf-8?B?eThubDRtdFVkcVphdmRIelpncTA2aVQ3bkN0aldYZ3F4Ty8xOVBTTGpqMlBO?=
- =?utf-8?B?bG9zMXgvQjJrWCtJSWM2VXFLTlFKQXMrQjYxZUtpd0VKMG9tcGpoR0V3eitG?=
- =?utf-8?B?bXoxUFJEeG51ZXMzLzU2NU8wU09SU3IvOWcycG5Md0I1R3JqWXF4YlRVYzJ5?=
- =?utf-8?B?ZjZQb1lZMU9Rb2hrOUxSWHN3bGZmcUdjVndHS2pSRWxVYWJ0OEwyOXVoNVZL?=
- =?utf-8?B?eVJVcjNkV2dGQ2x5a3dBRkh6allCU2N6U2ZhWGErczBHbXdERW1WMXBVcWdE?=
- =?utf-8?B?ZnZLOG94K01UUUZoUm0zZHNGS3g4V3A2eG9LRlhVcWFXZXA0YjdBUWd0TnF4?=
- =?utf-8?B?S0xabHVjNmpsd2lSWFhENTZ6eXFCSjdVOVU1aTZuQ3NVMCs1UW94VWMzbWRY?=
- =?utf-8?B?czlxUmNiVnFRYUpUM1kvQ3Q4NGdsdTF0N2U2UWc2cElvU3BqaVBJakM5WjBu?=
- =?utf-8?B?OTRmVHdLS29LeVAxbndiWi8zalMxVDQxblpIOTFja1VncFRtMDAxS0ZZZ2sv?=
- =?utf-8?B?NU9Eb1hsRUdjemxSc2Rqdmo2V1FHRmhycUtJTDhGeElXeklsdzU5RGFFZXB3?=
- =?utf-8?B?clplRXJvUUlKTVlrQXhCcHJndm9ReXZ1MndnM1B2Yk9WbGp6Y0JIUGhZV1VZ?=
- =?utf-8?B?ZXRhcm9XZmpObGo1Sm1XSkJuMFZvZzZYVW16VFl0RjJUaDVYcFJWeG9pNnhT?=
- =?utf-8?B?UXYva2EwWGNKUUdtdUtybmo4TFpKM3ZVTksrTmhkUzd1K3BDR2EzcnJuUW9X?=
- =?utf-8?B?blpPMEthemd3K1kweTBxMzByZDJ5aSthcU1PcExxZUtDck5YbmNHcU0rK29i?=
- =?utf-8?B?ems0b1ZaNTdxRUtSbnBJdXUwOU11R2RpQUx5anQvQU80cEcvTUxpTW96REY4?=
- =?utf-8?B?Q1d4L25RL3pVbm0yNlBWTElRUVJsNDRueUc1a1lJZytqSzk2SU90Vkp2eTJp?=
- =?utf-8?B?VUFFbWNyenc0Wm5OTXZkNmExVFY4ZzhCTVlDOGZ3aEhnNGMxVnp4ZWlTTHM4?=
- =?utf-8?B?Y2lsM2tBcnk4M3lrdEJQWndLK3FMQ1RJaWVCRFdZWGRxRlhpemlxbW1ndkFC?=
- =?utf-8?B?WjFsaEI2QU9MYnhzaG1ZNmNidTNUTnVFcDhpcGN3aWZxdmVoMXZFL2JOcWg5?=
- =?utf-8?B?WWxGeGhuSWFHVkZuYVlTU0lUalpKUm0rSXM2YnJ5ZlNPNmxGZi9sSS9yN1NP?=
- =?utf-8?B?U2tLTjV6QXE3WC82eWlYdHNLbjBMYzhOY0JLL0NqbGE4Rm1hMnAwVlR3bzZw?=
- =?utf-8?B?cERVTHVFdUdFNUNxdHA2N3RoQWdKemMwZzlMOFI4OHRTWG5rcDU4MjlkbGYv?=
- =?utf-8?B?NkhvQ01JOGNRWEpnamZiWDliNlhwc2p2KythN1ZINk80ODBwaXN3NFg3N3BK?=
- =?utf-8?B?VkhtVGNJZ1dXc29ORnJNU2dzY1RGU3JsRG51N2VuYXROWW5McHhXVnY5eTZB?=
- =?utf-8?B?d1Q2UnF6VndBYXRkVFJ1dk02U0VOQ1hTcjUwbDF4OWdib3c5UUphUG92bm9o?=
- =?utf-8?B?VUxyNzdNcDdEblJ3aUFkZnlxSUF4WkdGaDhNWHRtekluYUc3Vm1MQjRudHdh?=
- =?utf-8?Q?nddM=3D?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2025 09:05:13.1246 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ec59b93-9f9e-49fd-198a-08de33dd6668
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000003F.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7087
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjA1MDA2NCBTYWx0ZWRfXwuC1DKXyVu46
- pyA8yDY5H92Fvsx2MwXFKNqi5DvX4uiewfnY+JGd8DAeaQRwTo/weCip/Ep55r6blPja5fQxcXN
- evQsSRe0K0B8HnBYAxSGewsfvtrudFYW4Gzxkql2GGMNoL16UsU+WhAbEQycA+12zwyATyfl//a
- Mrdz/eN7F35ASCFpxAVe8yH+qdVVnw3/V8h+BC7ZRaqyOcU7cw9QcOg/ayUhxLn9E21CAj5D5RB
- 3GL1yMdkSoUFXjAE3WGSvJvapRMY0iUSwgnuvU3rUL+2P8lO/2RpxbGOMK9hv0HG+n2bg6nOwCj
- Ue6xxnvPADUCR0x06Ano9UCNEl5xDaPWcBMeYQJNRiV0BN4M+hzRAhda4iNnOYPRwJc5pFQP3yv
- WuriOJPlWIIoS9dNhuxHOoV4UP+UKg==
-X-Proofpoint-GUID: TqeSy2WlAzOjxvEJhP9sKZE8iv9uPtSg
-X-Authority-Analysis: v=2.4 cv=X99f6WTe c=1 sm=1 tr=0 ts=6932a04a cx=c_pps
- a=0tZRaOFwq0BxzmvfxNdFUA==:117 a=d6reE3nDawwanmLcZTMRXA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Uo5EeBN78AAA:10 a=IkcTkHD0fZMA:10
- a=wP3pNCr1ah4A:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=F6HTmrlUwN8psNLP8S8A:9
- a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-ORIG-GUID: TqeSy2WlAzOjxvEJhP9sKZE8iv9uPtSg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-05_03,2025-12-04_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- malwarescore=0 priorityscore=1501 adultscore=0
- clxscore=1015 bulkscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2512050064
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 8/8] spi: stm32-qspi: Simplify SMIE interrupt
-	test
+Content-Disposition: inline
+In-Reply-To: <aTFuJUiLMnHrnpW5@shell.armlinux.org.uk>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Fugang Duan <fugang.duan@nxp.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Kurt Kanzenbach <kurt@linutronix.de>,
+ Rohan G Thomas <rohan.g.thomas@altera.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Fix E2E delay
+	mechanism
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -181,31 +99,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SR_SMF status bit can only be set if CR_SMIE was previously set,
-keep status bit check only.
+On Thu, Dec 04, 2025 at 11:19:01AM +0000, Russell King (Oracle) wrote:
 
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- drivers/spi/spi-stm32-qspi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Basically, the conclusion I am coming to is that Synopsys's idea
+> of "lets tell the hardware what _kind_ of PTP clock we want to be,
+> whether we're master, etc" is subject to multiple revisions in
+> terms of which messages each mode selects, and it would have been
+> _far_ simpler and easier to understand had they just provided a
+> 16-bit bitfield of message types to accept.
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index d6f6f9d4e5be..2a0ee96786fa 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -132,7 +132,7 @@ static irqreturn_t stm32_qspi_irq(int irq, void *dev_id)
- 	cr = readl_relaxed(qspi->io_base + QSPI_CR);
- 	sr = readl_relaxed(qspi->io_base + QSPI_SR);
- 
--	if (cr & CR_SMIE && sr & SR_SMF) {
-+	if (sr & SR_SMF) {
- 		/* disable irq */
- 		cr &= ~CR_SMIE;
- 		writel_relaxed(cr, qspi->io_base + QSPI_CR);
+Encoding the PTP role in the hardware is a fundamentally stupid idea,
+because it makes changing roles (which is a normal and expected)
+impossible without losing time stamps during the transition.  Some
+early PTP hardware designs had this defect, but vendors figured it out
+in the second generation of cards.
 
--- 
-2.43.0
-
+Thanks,
+Richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
