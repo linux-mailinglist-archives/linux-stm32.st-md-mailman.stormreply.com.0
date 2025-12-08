@@ -2,90 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ED75CAB923
-	for <lists+linux-stm32@lfdr.de>; Sun, 07 Dec 2025 19:48:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E2F0CABCAB
+	for <lists+linux-stm32@lfdr.de>; Mon, 08 Dec 2025 03:04:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B47AAC1A977;
-	Sun,  7 Dec 2025 18:48:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB43CC58D77;
+	Mon,  8 Dec 2025 02:04:24 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F05D9C32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B622C57B41
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Dec 2025 18:48:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 717FD600AA;
- Sun,  7 Dec 2025 18:48:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25EFC4CEFB;
- Sun,  7 Dec 2025 18:48:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765133327;
- bh=i3PBFrjGBQBs0q3+aqCj3KcAnStBM/0oVzLp8ZbqdoA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=CD8ThFBZDwJ9StM2NbaV5N6iNe4+vc30b3pEXddJ5Oo65Cmj3O9bdmORFW1sVXtmY
- LC/YL4KVbdSODRsPq83UcIlFRUV8IxF24wvCw72ErJXBTWIKUELAKR6tJw5w6IEP85
- u3p6oLIwTosCFTBxreZudIHlbc0hdl5qjEyo/KOIM2hpuUz13Rdh8WpILW6/CZt0mV
- R0lUYB8JffGNoMwacw1v8aPFjO2IteAyUgyGJkJDp1ZeWQ2Qp7Ep5lfFeHVGV2rAPv
- lFbDuPO+C5+12PXhp6ElYyqcAL4Eikvf9mV28JoGOOAxynDEG2QMAwLtpRwxlTSlUn
- Rq/8Du/Y5ngFA==
-Date: Sun, 7 Dec 2025 18:48:18 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20251207184818.2ad7cef7@jic23-huawei>
-In-Reply-To: <9b43da0b-61e1-49bb-acc2-392de3817db7@roeck-us.net>
-References: <20251124-ltm8054-driver-v4-0-107a8a814abe@bootlin.com>
- <4053840.MHq7AAxBmi@fw-rgant>
- <732D3F12-0361-4800-8981-EF629B4C491F@goldelico.com>
- <3021060.e9J7NaK4W3@fw-rgant>
- <0E900830-E248-4F0F-A048-075EAF1D2440@goldelico.com>
- <9b43da0b-61e1-49bb-acc2-392de3817db7@roeck-us.net>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+ Mon,  8 Dec 2025 02:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:Cc:Subject:From:To:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=gug9CwpDqb+TCtvtvwUyKvSMovynSjoGfeuTquKCNd8=; b=GJIo+4RI9zScb6ah6vv9oRpxzU
+ Y7EWECcyRQu8nbLGARUrNfg8Tf31lmCdvheA4wizeMRNn8jd2oQZcDFAKM3XtpJOFHgKAIFmFxcTv
+ bVNsYdJ2WBssI0QGKWm0dAlXfAEFt4dYUFXweq8dChvTJhlWS/bFlbMLpmvwR8sVH4LLAn+moUc/e
+ dwPO4XIr7ox2E+EE6HCxsIqlryksDU81uTSUtjnVkU5jqxCVHQsxgXSQICjzZd9bGt39Vynmmg2y9
+ bmZm1gVEVFJDMuvAUWQJs1vvVlr2tI/R5csgXX7eLqAEJF5YMH5r3nH7sEBdxlHU/k0O4WlY47CKF
+ weAnAEQw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1vSQbi-0000000CRpl-40tu; Mon, 08 Dec 2025 02:04:11 +0000
+Message-ID: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+Date: Sun, 7 Dec 2025 18:04:09 -0800
 MIME-Version: 1.0
-Cc: linux-hwmon@vger.kernel.org, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Casey Connolly <casey.connolly@linaro.org>, linux-iio@vger.kernel.org,
- "H. Nikolaus Schaller" <hns@goldelico.com>,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-phy@lists.infradead.org,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Dixit Parmar <dixitparmar19@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Chen-Yu Tsai <wens@csie.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- linux-input@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, David Lechner <dlechner@baylibre.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Matheus Castello <matheus@castello.eng.br>, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-mips@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Eugen Hristev <eugen.hristev@linaro.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Iskren Chernev <me@iskren.info>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>, linux-pm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, linux-mediatek@lists.infradead.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>,
- Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>, Peter Rosin <peda@axentia.se>,
- Lukasz Luba <lukasz.luba@arm.com>
-Subject: Re: [Linux-stm32] [PATCH v4 0/6] Add support for the LTM8054
-	voltage regulator
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Cc: x86@kernel.org, linux-sh@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ andrew.jones@linux.dev, Paul Cercueil <paul@crapouillou.net>,
+ Max Filippov <jcmvbkbc@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, openbmc@lists.ozlabs.org,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
+ Paul Kocialkowski <paulk@sys-base.io>, linux-sound@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-omap@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-mips@vger.kernel.org,
+ asahi@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: [Linux-stm32] Kconfig dangling references (BZ 216748)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,56 +66,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Nov 2025 08:37:20 -0800
-Guenter Roeck <linux@roeck-us.net> wrote:
+from  https://bugzilla.kernel.org/show_bug.cgi?id=216748
 
-> On 11/25/25 02:25, H. Nikolaus Schaller wrote:
-> ...
-> > Another suggestion: what extending the "regulator-fixed", "regulator-gpio",
-> > "regulator-fixed-clock" pattern by some "regulator-gpio-iio-dac-current-limiter"
-> > driver to make it independent of your specific chip?
-> >   
-> The name is terrible ;-), but that is what I would have suggested as well.
-> I don't see anything chip specific in this code. If there is a need for
-> a regulator driver which uses gpio to enable it and a DAC for current limiting,
-> it should be made generic.
+The bugzilla entry includes a Perl script and a shell script.
+This is the edited result of running them (I removed some entries that were noise).
 
-Agreed - something generic is the ideal way to go.
+I'll try to Cc: all of the relevant mailing lists or individuals.
 
-However, before going too far it is worth exploring what are common circuits with
-these things to identify what parameters we need to describe how the DAC channel
-is used - e.g is linear scaling enough?  You'll need to that to define a DT
-binding. If it turns out to be too complex, then fallback to specific
-compatibles in a generic driver to cover the ones that don't fit with a common
-scheme.  A similar case we already have is discrete components as analog front
-ends for ADCs - mostly they fall into a few categories and we have drivers
-covering those, but some are very odd indeed and for those ones we do have a
-driver even though they don't have anything to control as such - most extreme
-case being when it's a non linear analog sensor. 
 
-The mention of a DAC as part of the analog feedback circuit sounds harder
-too generalise but that's specific to this particular buck-boost device,
-it's board specific so probably doesn't change the above.
+ARCH_HAS_HOLES_MEMORYMODEL ---
+arch/arm/mach-omap1/Kconfig:7:	select ARCH_HAS_HOLES_MEMORYMODEL
 
-> 
-> > By the way, are you aware of this feature of the regulator-gpio driver?
-> > 
-> > https://elixir.bootlin.com/linux/v6.18-rc7/source/drivers/regulator/gpio-regulator.c#L97
-> > 
-> > Just to note: I am neither maintainer nor doing any decisions on this, just asking
-> > questions for curiosity and from experience and giving hints for alternative approaches,
-> > where I hope they help to find the really best solution.
-> >   
-> Same here.
+ARM_ERRATA_794072 ---
+arch/arm/mach-npcm/Kconfig:33:	select ARM_ERRATA_794072
 
-Only covering the thing you are consuming so not my problem to maintain either ;)
+ARM_SMC_MBOX ---
+arch/arm64/Kconfig.platforms:375:	select ARM_SMC_MBOX
 
-Jonathan
+CLK_FIXED_FCH ---
+sound/soc/amd/Kconfig:11:	select CLK_FIXED_FCH
+sound/soc/amd/Kconfig:48:	select CLK_FIXED_FCH
+sound/soc/amd/acp/Kconfig:107:	select CLK_FIXED_FCH
 
-> 
-> Thanks,
-> Guenter
-> 
+CONFIG_STM ---
+drivers/hwtracing/stm/Kconfig:16:	default CONFIG_STM  # should be STM
+drivers/hwtracing/stm/Kconfig:31:	default CONFIG_STM
+
+CPU_HAS_LOAD_STORE_LR ---
+arch/mips/Kconfig:1411:	select CPU_HAS_LOAD_STORE_LR
+
+DRM_KMS_DMA_HELPER ---
+drivers/gpu/drm/adp/Kconfig:9:	select DRM_KMS_DMA_HELPER
+drivers/gpu/drm/logicvc/Kconfig:7:	select DRM_KMS_DMA_HELPER
+
+EXTCON_TCSS_CROS_EC ---
+drivers/usb/typec/ucsi/Kconfig:76:	depends on !EXTCON_TCSS_CROS_EC
+
+MACH_JZ4755 ---
+drivers/clk/ingenic/Kconfig:20:	default MACH_JZ4755
+drivers/pinctrl/pinctrl-ingenic.c:158:	IS_ENABLED(CONFIG_MACH_JZ4755) << ID_JZ4755 |
+drivers/pinctrl/pinctrl-ingenic.c:4616:		.data = IF_ENABLED(CONFIG_MACH_JZ4755, &jz4755_chip_info)
+
+MACH_JZ4760 ---
+drivers/clk/ingenic/Kconfig:40:	default MACH_JZ4760
+drivers/pinctrl/pinctrl-ingenic.c:159:	IS_ENABLED(CONFIG_MACH_JZ4760) << ID_JZ4760 |
+drivers/pinctrl/pinctrl-ingenic.c:4620:		.data = IF_ENABLED(CONFIG_MACH_JZ4760, &jz4760_chip_info)
+drivers/pinctrl/pinctrl-ingenic.c:4624:		.data = IF_ENABLED(CONFIG_MACH_JZ4760, &jz4760_chip_info)
+
+MACH_STM32MP25 ---
+drivers/pinctrl/stm32/Kconfig:58:	default MACH_STM32MP25 || (ARCH_STM32 && ARM64)
+
+MFD_AIROHA_AN8855 ---
+drivers/nvmem/Kconfig:33:	depends on MFD_AIROHA_AN8855 || COMPILE_TEST
+
+MFD_TN48M_CPLD ---
+drivers/gpio/Kconfig:1624:	depends on MFD_TN48M_CPLD || COMPILE_TEST
+drivers/reset/Kconfig:365:	depends on MFD_TN48M_CPLD || COMPILE_TEST
+drivers/reset/Kconfig:366:	default MFD_TN48M_CPLD
+
+MIPS_BAIKAL_T1 ---
+drivers/ata/Kconfig:197:	select MFD_SYSCON if (MIPS_BAIKAL_T1 || COMPILE_TEST)
+drivers/bus/Kconfig:43:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/bus/Kconfig:58:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/clk/baikal-t1/Kconfig:4:	depends on (MIPS_BAIKAL_T1 && OF) || COMPILE_TEST
+drivers/clk/baikal-t1/Kconfig:5:	default MIPS_BAIKAL_T1
+drivers/clk/baikal-t1/Kconfig:20:	default MIPS_BAIKAL_T1
+drivers/clk/baikal-t1/Kconfig:33:	default MIPS_BAIKAL_T1
+drivers/clk/baikal-t1/Kconfig:45:	default MIPS_BAIKAL_T1
+drivers/hwmon/Kconfig:462:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/i2c/busses/Kconfig:589:	select MFD_SYSCON if MIPS_BAIKAL_T1
+drivers/memory/Kconfig:69:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/mtd/maps/Kconfig:81:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/pci/controller/dwc/Kconfig:89:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+drivers/spi/Kconfig:370:	depends on MIPS_BAIKAL_T1 || COMPILE_TEST
+
+PINCTRL_MILBEAUT ---
+arch/arm/mach-milbeaut/Kconfig:16:	select PINCTRL_MILBEAUT
+
+SND_SOC_AC97_BUS_NEW ---
+sound/soc/pxa/Kconfig:21:	select SND_SOC_AC97_BUS_NEW
+
+SND_SOC_CS35L56_CAL_SYSFS_COMMON ---
+sound/soc/codecs/Kconfig:920:	select SND_SOC_CS35L56_CAL_SYSFS_COMMON
+
+TEST_KUNIT_DEVICE_HELPERS ---
+drivers/iio/test/Kconfig:11:	select TEST_KUNIT_DEVICE_HELPERS
+
+USB_HSIC_USB3613 ---
+drivers/staging/greybus/Kconfig:209:	depends on USB_HSIC_USB3613 || COMPILE_TEST
+drivers/staging/greybus/arche-platform.c:26:#if IS_ENABLED(CONFIG_USB_HSIC_USB3613)
+
+USB_OHCI_SH ---
+arch/sh/Kconfig:334:	select USB_OHCI_SH if USB_OHCI_HCD
+arch/sh/Kconfig:344:	select USB_OHCI_SH if USB_OHCI_HCD
+arch/sh/Kconfig:429:	select USB_OHCI_SH if USB_OHCI_HCD
+arch/sh/Kconfig:455:	select USB_OHCI_SH if USB_OHCI_HCD
+arch/sh/configs/sh7757lcr_defconfig:61:CONFIG_USB_OHCI_SH=y
+
+X86_P6_NOP ---
+arch/x86/Kconfig.cpufeatures:41:	depends on X86_64 || X86_P6_NOP
+arch/x86/Makefile_32.cpu:48:ifneq ($(CONFIG_X86_P6_NOP),y)
+
+XTENSA_PLATFORM_ESP32 ---
+drivers/tty/serial/Kconfig:1598:	depends on XTENSA_PLATFORM_ESP32 || (COMPILE_TEST && OF)
+drivers/tty/serial/Kconfig:1611:	depends on XTENSA_PLATFORM_ESP32 || (COMPILE_TEST && OF)
+
+
+-- 
+~Randy
 
 _______________________________________________
 Linux-stm32 mailing list
