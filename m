@@ -2,70 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 041A7CAD2F2
-	for <lists+linux-stm32@lfdr.de>; Mon, 08 Dec 2025 13:42:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42111CADF7E
+	for <lists+linux-stm32@lfdr.de>; Mon, 08 Dec 2025 19:14:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2E57C36B3E;
-	Mon,  8 Dec 2025 12:42:45 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57A6DC57B72;
+	Mon,  8 Dec 2025 18:14:20 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D911C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73F6BC1A979
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Dec 2025 12:42:44 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20251208124243euoutp02a1d019db3683ab930388ba413d06c0e5~-PgNn9vKZ2948729487euoutp02T
+ Mon,  8 Dec 2025 18:14:18 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 4B6571F8005E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Dec 2025 12:42:43 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20251208124243euoutp02a1d019db3683ab930388ba413d06c0e5~-PgNn9vKZ2948729487euoutp02T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1765197763;
- bh=TeCHUK8ly3u0CI/lUzUWsXGJUfrPlFtMtRIQkLKm/zU=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=NOJ7rScpu2XkuJCEzxkbY71v5K3qviYiAIeTlGuXEdATb4vaBoNoGO4jgEwNbakyO
- Vy+3TuwK3C6BCfbxjUTpwW+UKXLGijpsWNzWu62pzn93xnzyQpNdrJDuLLEDSs0zPd
- xD2/llIOYQP09TQ2tsV1Au/rjAdj5InkjZ38vCqQ=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20251208124242eucas1p18ad0b3dea76a4e58723a1148e90be629~-PgNJCxmx2269822698eucas1p1t;
- Mon,  8 Dec 2025 12:42:42 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20251208124241eusmtip1faee3b50a42c148b87ef1321d70f043a~-PgL5JH1s0280602806eusmtip1H;
- Mon,  8 Dec 2025 12:42:41 +0000 (GMT)
-Message-ID: <2c274bd2-3bcc-4b75-9a37-9a6441bd7a50@samsung.com>
-Date: Mon, 8 Dec 2025 13:42:40 +0100
+ Mon,  8 Dec 2025 18:13:59 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id A5791B121BF; Mon,  8 Dec 2025 18:13:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on spamassassin
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
+ autolearn=disabled version=4.0.0
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id 74EE8B121BB;
+ Mon,  8 Dec 2025 18:13:53 +0000 (UTC)
+Date: Mon, 8 Dec 2025 19:13:50 +0100
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <aTcVXrUXVsyjaT22@shepard>
+References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-To: Rob Herring <robh@kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <CAL_JsqJTrGAJx-fv8OQGDhsLVKavQzzQotssEq_E5f_aJe8bOg@mail.gmail.com>
-X-CMS-MailID: 20251208124242eucas1p18ad0b3dea76a4e58723a1148e90be629
-X-Msg-Generator: CA
-X-RootMTR: 20251127142839eucas1p186846c6c1ea1d9e43369fbba9bb5d17c
-X-EPHeader: CA
-X-CMS-RootMailID: 20251127142839eucas1p186846c6c1ea1d9e43369fbba9bb5d17c
-References: <20251124182751.507624-1-robh@kernel.org>
- <CGME20251127142839eucas1p186846c6c1ea1d9e43369fbba9bb5d17c@eucas1p1.samsung.com>
- <20251124182751.507624-2-robh@kernel.org>
- <674efe8d-c299-4ce9-bf6b-c1920a5393eb@samsung.com>
- <CAL_JsqJTrGAJx-fv8OQGDhsLVKavQzzQotssEq_E5f_aJe8bOg@mail.gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Peng Fan <peng.fan@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, imx@lists.linux.dev,
- linux-remoteproc@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- linux-renesas-soc@vger.kernel.org, Beleswar Padhi <b-padhi@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 2/2] remoteproc: qcom: Use
- of_reserved_mem_region_* functions for "memory-region"
+In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+Cc: linux-sh@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
+ linux-omap@vger.kernel.org, openbmc@lists.ozlabs.org, x86@kernel.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
+ Matti Vaittinen <mazziesaccount@gmail.com>, linux-sound@vger.kernel.org,
+ linux-gpio@vger.kernel.org, andrew.jones@linux.dev,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-mips@vger.kernel.org,
+ asahi@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] Kconfig dangling references (BZ 216748)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,162 +60,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5529956758356124792=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDIuMTIuMjAyNSAxNToxNSwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gT24gVGh1LCBOb3YgMjcs
-IDIwMjUgYXQgODoyOOKAr0FNIE1hcmVrIFN6eXByb3dza2kKPiA8bS5zenlwcm93c2tpQHNhbXN1
-bmcuY29tPiB3cm90ZToKPj4gT24gMjQuMTEuMjAyNSAxOToyNywgUm9iIEhlcnJpbmcgKEFybSkg
-d3JvdGU6Cj4+PiBVc2UgdGhlIG5ld2x5IGFkZGVkIG9mX3Jlc2VydmVkX21lbV9yZWdpb25fdG9f
-cmVzb3VyY2UoKSBhbmQKPj4+IG9mX3Jlc2VydmVkX21lbV9yZWdpb25fY291bnQoKSBmdW5jdGlv
-bnMgdG8gaGFuZGxlICJtZW1vcnktcmVnaW9uIgo+Pj4gcHJvcGVydGllcy4KPj4+Cj4+PiBUaGUg
-ZXJyb3IgaGFuZGxpbmcgaXMgYSBiaXQgZGlmZmVyZW50IGluIHNvbWUgY2FzZXMuIE9mdGVuCj4+
-PiAibWVtb3J5LXJlZ2lvbiIgaXMgb3B0aW9uYWwsIHNvIGZhaWxlZCBsb29rdXAgaXMgbm90IGFu
-IGVycm9yLiBCdXQgdGhlbgo+Pj4gYW4gZXJyb3IgaW4gb2ZfcmVzZXJ2ZWRfbWVtX2xvb2t1cCgp
-IGlzIHRyZWF0ZWQgYXMgYW4gZXJyb3IuIEhvd2V2ZXIsCj4+PiB0aGF0IGRpc3RpbmN0aW9uIGlz
-IG5vdCByZWFsbHkgaW1wb3J0YW50LiBFaXRoZXIgdGhlIHJlZ2lvbiBpcyBhdmFpbGFibGUKPj4+
-IGFuZCB1c2FibGUgb3IgaXQgaXMgbm90LiBTbyBub3csIGl0IGlzIGp1c3QKPj4+IG9mX3Jlc2Vy
-dmVkX21lbV9yZWdpb25fdG9fcmVzb3VyY2UoKSB3aGljaCBpcyBjaGVja2VkIGZvciBhbiBlcnJv
-ci4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyAoQXJtKSA8cm9iaEBrZXJuZWwu
-b3JnPgo+PiBUaGlzIHBhdGNoIGxhbmRlZCBpbiB0b2RheSdzIGxpbnV4LW5leHQgYXMgY29tbWl0
-IGM3MGI5ZDVmZGNkNwo+PiAoInJlbW90ZXByb2M6IHFjb206IFVzZSBvZl9yZXNlcnZlZF9tZW1f
-cmVnaW9uXyogZnVuY3Rpb25zIGZvcgo+PiAibWVtb3J5LXJlZ2lvbiIiKS4gSW4gbXkgdGVzdHMg
-SSBmb3VuZCB0aGF0IGl0IGJyZWFrcyBib290aW5nIG9mCj4+IERyYWdvbkJvYXJkNDEwYyAoYXJj
-aC9hcm02NC9ib290L2R0cy9xY29tL2FwcTgwMTYtc2JjLmR0cykgYnkgY2F1c2luZwo+PiB0aGUg
-TlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLiBUaGUgaXNzdWUgaXMgY2F1c2VkIGJ5IHJlcGxhY2lu
-Zwo+PiBkZXZtX2lvcmVtYXBfd2MoKSB3aXRoIGRldm1faW9yZW1hcF9yZXNvdXJjZV93YygpLCB3
-aGljaCBmYWlscyBvbgo+PiBkZXZtX3JlcXVlc3RfbWVtX3JlZ2lvbigpLCBzZWUgY29tbWVudCBp
-biB0aGUgY29kZSBiZWxvdy4gSXQgbG9va3MgdGhhdAo+PiB0aGUgZXJyb3IgaGFuZGxpbmcgaXMg
-c29tZXdoZXJlIGJyb2tlbi4gSGVyZSBpcyB0aGUgdGhlIGtlcm5lbCBsb2c6Cj4+Cj4+IHJlbW90
-ZXByb2MgcmVtb3RlcHJvYzA6IDQwODAwMDAucmVtb3RlcHJvYyBpcyBhdmFpbGFibGUKPj4gcWNv
-bS13Y25zcy1waWwgYTIwNDAwMC5yZW1vdGVwcm9jOiBlcnJvciAtRUJVU1k6IGNhbid0IHJlcXVl
-c3QgcmVnaW9uCj4+IGZvciByZXNvdXJjZSBbbWVtIDB4OGUyMDAwMDAtMHg4ZTdmZmZmZl0KPj4g
-cmVtb3RlcHJvYyByZW1vdGVwcm9jMTogYTIwNDAwMC5yZW1vdGVwcm9jIGlzIGF2YWlsYWJsZQo+
-PiByZW1vdGVwcm9jIHJlbW90ZXByb2MxOiBwb3dlcmluZyB1cCBhMjA0MDAwLnJlbW90ZXByb2MK
-Pj4gcmVtb3RlcHJvYyByZW1vdGVwcm9jMTogQm9vdGluZyBmdyBpbWFnZSBxY29tL2FwcTgwMTYv
-d2Nuc3MubWJuLCBzaXplCj4+IDQxMTEzNzYKPj4gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgcGFn
-aW5nIHJlcXVlc3QgYXQgdmlydHVhbCBhZGRyZXNzIGZmZmZmZmZmZmZmZmZmZjAKPj4gTWVtIGFi
-b3J0IGluZm86Cj4+IC4uLgo+PiBJbnRlcm5hbCBlcnJvcjogT29wczogMDAwMDAwMDA5NjAwMDA0
-NiBbIzFdICBTTVAKPj4gTW9kdWxlcyBsaW5rZWQgaW46IGNwdWZyZXFfcG93ZXJzYXZlIHFjb21f
-d2Nuc3NfcGlsIGNwdWZyZXFfY29uc2VydmF0aXZlCj4+IGNvcmVzaWdodF9zdG0gY29yZXNpZ2h0
-X3JlcGxpY2F0b3IgY29yZXNpZ2h0X3RtYyBjb3Jlc2lnaHRfdHBpdSBzdG1fY29yZQo+PiBjb3Jl
-c2lnaHRfZnVubmVsIGNvcmVzaWdodF9jcHVfZGVidWcgY29yZXNpZ2h0X2N0aSgrKSBhZHY3NTEx
-IGNvcmVzaWdodAo+PiBuZmMgcmZraWxsIG1zbSBzbmRfc29jX2xwYXNzX2FwcTgwMTYgc25kX3Nv
-Y19hcHE4MDE2X3NiYwo+PiBzbmRfc29jX2xwYXNzX2NwdSBzbmRfc29jX21zbTg5MTZfYW5hbG9n
-IHNuZF9zb2NfbXNtODkxNl9kaWdpdGFsCj4+IHNuZF9zb2NfcWNvbV9jb21tb24gc25kX3NvY19s
-cGFzc19wbGF0Zm9ybSBzbmRfc29jX2NvcmUgcXJ0ciB1YndjX2NvbmZpZwo+PiBzbmRfY29tcHJl
-c3MgbGxjY19xY29tIHNuZF9wY21fZG1hZW5naW5lIHFjb21fcTZ2NV9tc3Mgc25kX3BjbSBvY21l
-bQo+PiBxY29tX3BpbF9pbmZvIHFjb21fc3BtaV92YWRjIHFjb21fY2Ftc3MgZHJtX2dwdXZtIHFj
-b21fcG9uIHJ0Y19wbTh4eHgKPj4gcWNvbV9xNnY1IHFjb21fc3BtaV90ZW1wX2FsYXJtIHZlbnVz
-X2NvcmUgcWNvbV92YWRjX2NvbW1vbiBzbmRfdGltZXIKPj4gZHJtX2V4ZWMgcWNvbV9zeXNtb24g
-c25kIHFjb21fY29tbW9uIGdwdV9zY2hlZCB2aWRlb2J1ZjJfZG1hX3NnCj4+IHY0bDJfbWVtMm1l
-bSBxY29tX2dsaW5rX3NtZW0gdjRsMl9md25vZGUgc291bmRjb3JlIGRybV9kcF9hdXhfYnVzCj4+
-IHFtaV9oZWxwZXJzIG1kdF9sb2FkZXIgdjRsMl9hc3luYyB2aWRlb2J1ZjJfbWVtb3BzIHZpZGVv
-YnVmMl92NGwyCj4+IHZpZGVvZGV2IHFub2NfbXNtODkxNiB2aWRlb2J1ZjJfY29tbW9uIHFjb21f
-cm5nIGRybV9kaXNwbGF5X2hlbHBlciBtYwo+PiBxY29tX3N0YXRzIHJwbXNnX2N0cmwgcnBtc2df
-Y2hhciBkaXNwbGF5X2Nvbm5lY3RvciByYW1vb3BzIHNvY2luZm8KPj4gcm10ZnNfbWVtIHJlZWRf
-c29sb21vbiBheDg4Nzk2YiBhc2l4IHVzYm5ldCBwaHlfcWNvbV91c2JfaHMgaXB2NiBsaWJzaGEx
-Cj4+IENQVTogMiBVSUQ6IDAgUElEOiAyOCBDb21tOiBrd29ya2VyLzI6MCBUYWludGVkOiBHIFcK
-Pj4gNi4xOC4wLXJjMSsgIzE2MjA5IFBSRUVNUFQKPj4gVGFpbnRlZDogW1ddPVdBUk4KPj4gbHIg
-OiBfX3Fjb21fbWR0X2xvYWQrMHgyMTAvMHgzMDQgW21kdF9sb2FkZXJdCj4+IENhbGwgdHJhY2U6
-Cj4+ICAgIF9fcGlfbWVtY3B5X2dlbmVyaWMrMHgxMjgvMHgyMmMgKFApCj4+ICAgIHFjb21fbWR0
-X2xvYWQrMHg2OC8weDYwYyBbbWR0X2xvYWRlcl0KPj4gICAgd2Nuc3NfbG9hZCsweDJjLzB4NWMg
-W3Fjb21fd2Nuc3NfcGlsXQo+PiAgICBycHJvY19zdGFydCsweDMwLzB4MWI0Cj4+ICAgIHJwcm9j
-X2Jvb3QrMHgxOWMvMHg1NjAKPj4gICAgcnByb2NfYXV0b19ib290X2NhbGxiYWNrKzB4MWMvMHgz
-NAo+PiAgICByZXF1ZXN0X2Zpcm13YXJlX3dvcmtfZnVuYysweDRjLzB4OTgKPj4gICAgcHJvY2Vz
-c19vbmVfd29yaysweDIwOC8weDYwYwo+PiAgICB3b3JrZXJfdGhyZWFkKzB4MjQ0LzB4Mzg4Cj4+
-ICAgIGt0aHJlYWQrMHgxNTAvMHgyMjgKPj4gICAgcmV0X2Zyb21fZm9yaysweDEwLzB4MjAKPj4g
-Q29kZTogOTI3Y2VjMDMgY2IwZTAwMjEgOGIwZTAwNDIgYTk0MTFjMjYgKGE5MDAzNDBjKQo+PiAt
-LS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0KPj4KPj4KPj4+IC0tLQo+Pj4gdjc6
-Cj4+PiAgICAtIFNwbGl0IFFDb20gdG8gc2VwYXJhdGUgcGF0Y2gKPj4+IC0tLQo+Pj4gICAgZHJp
-dmVycy9yZW1vdGVwcm9jL3Fjb21fcTZ2NV9hZHNwLmMgfCAyNCArKysrLS0tLS0tCj4+PiAgICBk
-cml2ZXJzL3JlbW90ZXByb2MvcWNvbV9xNnY1X21zcy5jICB8IDYwICsrKysrKysrLS0tLS0tLS0t
-LS0tLS0tLS0KPj4+ICAgIGRyaXZlcnMvcmVtb3RlcHJvYy9xY29tX3E2djVfcGFzLmMgIHwgNjkg
-KysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0KPj4+ICAgIGRyaXZlcnMvcmVtb3RlcHJvYy9x
-Y29tX3E2djVfd2Nzcy5jIHwgMjUgKysrKystLS0tLS0KPj4+ICAgIGRyaXZlcnMvcmVtb3RlcHJv
-Yy9xY29tX3djbnNzLmMgICAgIHwgMjMgKysrKy0tLS0tLQo+Pj4gICAgNSBmaWxlcyBjaGFuZ2Vk
-LCA3MiBpbnNlcnRpb25zKCspLCAxMjkgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gLi4uCj4+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fd2Nuc3MuYyBiL2RyaXZlcnMvcmVtb3Rl
-cHJvYy9xY29tX3djbnNzLmMKPj4+IGluZGV4IDJjN2U1MTlhMjI1NC4uMTQwMDVmYjA0OWEyIDEw
-MDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fd2Nuc3MuYwo+Pj4gKysrIGIv
-ZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fd2Nuc3MuYwo+Pj4gQEAgLTUyNiwyNSArNTI2LDIwIEBA
-IHN0YXRpYyBpbnQgd2Nuc3NfcmVxdWVzdF9pcnEoc3RydWN0IHFjb21fd2Nuc3MgKndjbnNzLAo+
-Pj4KPj4+ICAgIHN0YXRpYyBpbnQgd2Nuc3NfYWxsb2NfbWVtb3J5X3JlZ2lvbihzdHJ1Y3QgcWNv
-bV93Y25zcyAqd2Nuc3MpCj4+PiAgICB7Cj4+PiAtICAgICBzdHJ1Y3QgcmVzZXJ2ZWRfbWVtICpy
-bWVtID0gTlVMTDsKPj4+IC0gICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqbm9kZTsKPj4+IC0KPj4+
-IC0gICAgIG5vZGUgPSBvZl9wYXJzZV9waGFuZGxlKHdjbnNzLT5kZXYtPm9mX25vZGUsICJtZW1v
-cnktcmVnaW9uIiwgMCk7Cj4+PiAtICAgICBpZiAobm9kZSkKPj4+IC0gICAgICAgICAgICAgcm1l
-bSA9IG9mX3Jlc2VydmVkX21lbV9sb29rdXAobm9kZSk7Cj4+PiAtICAgICBvZl9ub2RlX3B1dChu
-b2RlKTsKPj4+ICsgICAgIHN0cnVjdCByZXNvdXJjZSByZXM7Cj4+PiArICAgICBpbnQgcmV0Owo+
-Pj4KPj4+IC0gICAgIGlmICghcm1lbSkgewo+Pj4gKyAgICAgcmV0ID0gb2ZfcmVzZXJ2ZWRfbWVt
-X3JlZ2lvbl90b19yZXNvdXJjZSh3Y25zcy0+ZGV2LT5vZl9ub2RlLCAwLCAmcmVzKTsKPj4+ICsg
-ICAgIGlmIChyZXQpIHsKPj4+ICAgICAgICAgICAgICAgIGRldl9lcnIod2Nuc3MtPmRldiwgInVu
-YWJsZSB0byByZXNvbHZlIG1lbW9yeS1yZWdpb25cbiIpOwo+Pj4gLSAgICAgICAgICAgICByZXR1
-cm4gLUVJTlZBTDsKPj4+ICsgICAgICAgICAgICAgcmV0dXJuIHJldDsKPj4+ICAgICAgICB9Cj4+
-Pgo+Pj4gLSAgICAgd2Nuc3MtPm1lbV9waHlzID0gd2Nuc3MtPm1lbV9yZWxvYyA9IHJtZW0tPmJh
-c2U7Cj4+PiAtICAgICB3Y25zcy0+bWVtX3NpemUgPSBybWVtLT5zaXplOwo+Pj4gLSAgICAgd2Nu
-c3MtPm1lbV9yZWdpb24gPSBkZXZtX2lvcmVtYXBfd2Mod2Nuc3MtPmRldiwgd2Nuc3MtPm1lbV9w
-aHlzLCB3Y25zcy0+bWVtX3NpemUpOwo+Pj4gKyAgICAgd2Nuc3MtPm1lbV9waHlzID0gd2Nuc3Mt
-Pm1lbV9yZWxvYyA9IHJlcy5zdGFydDsKPj4+ICsgICAgIHdjbnNzLT5tZW1fc2l6ZSA9IHJlc291
-cmNlX3NpemUoJnJlcyk7Cj4+PiArICAgICB3Y25zcy0+bWVtX3JlZ2lvbiA9IGRldm1faW9yZW1h
-cF9yZXNvdXJjZV93Yyh3Y25zcy0+ZGV2LCAmcmVzKTsKPj4gVGhlIGFib3ZlIGxpbmUgY2F1c2Vz
-IHRoZSBmYWlsdXJlLiBBZnRlciByZXN0b3JpbmcgaXQgdG86Cj4+Cj4+IHdjbnNzLT5tZW1fcmVn
-aW9uID0gZGV2bV9pb3JlbWFwX3djKHdjbnNzLT5kZXYsIHdjbnNzLT5tZW1fcGh5cywgd2Nuc3Mt
-Pm1lbV9zaXplKTsKPj4KPj4gdGhlIG1lbnRpb25lZCBib2FyZCBib290cyBmaW5lIGFnYWluLiBJ
-J20gbm90IHN1cmUgYWJvdXQgb3RoZXIgZHJpdmVycywKPj4gaWYgdGhleSBhbHNvIGZhaWwgdGhl
-IHNhbWUgd2F5IGFzIHRoZXkgbWlnaHQgbm90IGJlIHVzZWQgb24gdGhlIHRlc3RlZAo+PiBib2Fy
-ZC4KPiBPdGhlciBwbGF0Zm9ybXMgKG5vbi1RQ29tKSB3ZXJlIHRlc3RlZCBhbHNvIHVzZQo+IGRl
-dm1faW9yZW1hcF9yZXNvdXJjZV93YygpLiBTbyBzb21ldGhpbmcgZWxzZSBpcyBjbGFpbWluZyB0
-aGUgc2FtZQo+IHJlZ2lvbj8gQ2FuIHlvdSBkdW1wIG91dCAvcHJvYy9pb21lbT8KPgo+IFRoZSBy
-ZWdpb24gaXMgZHluYW1pY2FsbHkgYWxsb2NhdGVkLCBzbyBtYXliZSB0aGF0IGhhcyBzb21ldGhp
-bmcgdG8gZG8gd2l0aCBpdC4KCiMgZG1lc2cgfCBncmVwIG1lbQpPRjogcmVzZXJ2ZWQgbWVtOiAw
-eDAwMDAwMDAwOGUyMDAwMDAuLjB4MDAwMDAwMDA4ZTdmZmZmZiAoNjE0NCBLaUIpIApub21hcCBu
-b24tcmV1c2FibGUgd2Nuc3MKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAwMDAwMDhkZDAwMDAwLi4w
-eDAwMDAwMDAwOGUxZmZmZmYgKDUxMjAgS2lCKSAKbm9tYXAgbm9uLXJldXNhYmxlIHZlbnVzCk9G
-OiByZXNlcnZlZCBtZW06IDB4MDAwMDAwMDA4ZGMwMDAwMC4uMHgwMDAwMDAwMDhkY2ZmZmZmICgx
-MDI0IEtpQikgCm5vbWFwIG5vbi1yZXVzYWJsZSBtYmEKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAw
-MDAwMDg2MDAwMDAwLi4weDAwMDAwMDAwODYyZmZmZmYgKDMwNzIgS2lCKSAKbm9tYXAgbm9uLXJl
-dXNhYmxlIHR6LWFwcHNAODYwMDAwMDAKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAwMDAwMDg2MzAw
-MDAwLi4weDAwMDAwMDAwODYzZmZmZmYgKDEwMjQgS2lCKSAKbm9tYXAgbm9uLXJldXNhYmxlIHNt
-ZW1AODYzMDAwMDAKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAwMDAwMDg2NDAwMDAwLi4weDAwMDAw
-MDAwODY0ZmZmZmYgKDEwMjQgS2lCKSAKbm9tYXAgbm9uLXJldXNhYmxlIGh5cGVydmlzb3JAODY0
-MDAwMDAKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAwMDAwMDg2NTAwMDAwLi4weDAwMDAwMDAwODY2
-N2ZmZmYgKDE1MzYgS2lCKSAKbm9tYXAgbm9uLXJldXNhYmxlIHR6QDg2NTAwMDAwCk9GOiByZXNl
-cnZlZCBtZW06IDB4MDAwMDAwMDA4NjY4MDAwMC4uMHgwMDAwMDAwMDg2NmZmZmZmICg1MTIgS2lC
-KSBub21hcCAKbm9uLXJldXNhYmxlIHJlc2VydmVkQDg2NjgwMDAwCk9GOiByZXNlcnZlZCBtZW06
-IDB4MDAwMDAwMDA4NjcwMDAwMC4uMHgwMDAwMDAwMDg2N2RmZmZmICg4OTYgS2lCKSBub21hcCAK
-bm9uLXJldXNhYmxlIHJtdGZzQDg2NzAwMDAwCk9GOiByZXNlcnZlZCBtZW06IDB4MDAwMDAwMDA4
-NjdlMDAwMC4uMHgwMDAwMDAwMDg2N2ZmZmZmICgxMjggS2lCKSBub21hcCAKbm9uLXJldXNhYmxl
-IHJmc2FAODY3ZTAwMDAKT0Y6IHJlc2VydmVkIG1lbTogMHgwMDAwMDAwMDg2ODAwMDAwLi4weDAw
-MDAwMDAwODkyZmZmZmYgKDQ0MDMyIEtpQikgCm5vbWFwIG5vbi1yZXVzYWJsZSBtcHNzQDg2ODAw
-MDAwCk9GOiByZXNlcnZlZCBtZW06IDB4MDAwMDAwMDBiZmYwMDAwMC4uMHgwMDAwMDAwMGJmZmZm
-ZmZmICgxMDI0IEtpQikgbWFwIApub24tcmV1c2FibGUgcmFtb29wc0BiZmYwMDAwMApOVU1BOiBG
-YWtpbmcgYSBub2RlIGF0IFttZW0gMHgwMDAwMDAwMDgwMDAwMDAwLTB4MDAwMDAwMDBiZDlmZmZm
-Zl0KTk9ERV9EQVRBKDApIGFsbG9jYXRlZCBbbWVtIDB4YmQ3YzY4MDAtMHhiZDdjOTQzZl0KIMKg
-wqBETUEgwqDCoMKgwqDCoFttZW0gMHgwMDAwMDAwMDgwMDAwMDAwLTB4MDAwMDAwMDBiZDlmZmZm
-Zl0KRWFybHkgbWVtb3J5IG5vZGUgcmFuZ2VzCiDCoMKgbm9kZSDCoMKgMDogW21lbSAweDAwMDAw
-MDAwODAwMDAwMDAtMHgwMDAwMDAwMDg1ZmZmZmZmXQogwqDCoG5vZGUgwqDCoDA6IFttZW0gMHgw
-MDAwMDAwMDg2MDAwMDAwLTB4MDAwMDAwMDA4OTJmZmZmZl0KIMKgwqBub2RlIMKgwqAwOiBbbWVt
-IDB4MDAwMDAwMDA4OTMwMDAwMC0weDAwMDAwMDAwOGRiZmZmZmZdCiDCoMKgbm9kZSDCoMKgMDog
-W21lbSAweDAwMDAwMDAwOGRjMDAwMDAtMHgwMDAwMDAwMDhlN2ZmZmZmXQogwqDCoG5vZGUgwqDC
-oDA6IFttZW0gMHgwMDAwMDAwMDhlODAwMDAwLTB4MDAwMDAwMDBiZDlmZmZmZl0KCi4uLgoKCiMg
-Y2F0IC9wcm9jL2lvbWVtCgouLi4KODAwMDAwMDAtODVmZmZmZmYgOiBTeXN0ZW0gUkFNCiDCoDgw
-MDAwMDAwLTgyMWFmZmZmIDogS2VybmVsIGNvZGUKIMKgODIxYjAwMDAtODJlNWZmZmYgOiByZXNl
-cnZlZAogwqA4MmU2MDAwMC04NDBmZmZmZiA6IEtlcm5lbCBkYXRhCiDCoDg1MDAwMDAwLTg1MDEz
-ZmZmIDogcmVzZXJ2ZWQKODYwMDAwMDAtODkyZmZmZmYgOiByZXNlcnZlZAo4OTMwMDAwMC04ZGJm
-ZmZmZiA6IFN5c3RlbSBSQU0KOGRjMDAwMDAtOGU3ZmZmZmYgOiByZXNlcnZlZAogwqA4ZGMwMDAw
-MC04ZTdmZmZmZiA6IHJlc2VydmVkCjhlODAwMDAwLWJkOWZmZmZmIDogU3lzdGVtIFJBTQogwqBi
-MTAwMDAwMC1iNmZmZmZmZiA6IHJlc2VydmVkCiDCoGI3MDAwMDAwLWJiZTA4ZmZmIDogcmVzZXJ2
-ZWQKIMKgYmM0ODAwMDAtYmQ1ZmZmZmYgOiByZXNlcnZlZAogwqBiZDYyMTAwMC1iZDYyM2ZmZiA6
-IHJlc2VydmVkCiDCoGJkNjI0MDAwLWJkNzI0ZmZmIDogcmVzZXJ2ZWQKIMKgYmQ3MjUwMDAtYmQ3
-YjBmZmYgOiByZXNlcnZlZAogwqBiZDdiMjAwMC1iZDdiNGZmZiA6IHJlc2VydmVkCiDCoGJkN2I1
-MDAwLWJkN2I1ZmZmIDogcmVzZXJ2ZWQKIMKgYmQ3YjYwMDAtYmQ3YzlmZmYgOiByZXNlcnZlZAog
-wqBiZDdjYTAwMC1iZDlmZmZmZiA6IHJlc2VydmVkCgoKVGhlIGRldm1faW9yZW1hcF9yZXNvdXJj
-ZV93YygpIHJlcXVlc3RlZCByZWdpb24gKDB4OGUyMDAwMDAtMHg4ZTdmZmZmZikgCmlzIG1hcmtl
-ZCBhcyAncmVzZXJ2ZWQnIGluIC9wcm9jL2lvbWVtLgoKQmVzdCByZWdhcmRzCi0tIApNYXJlayBT
-enlwcm93c2tpLCBQaEQKU2Ftc3VuZyBSJkQgSW5zdGl0dXRlIFBvbGFuZAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============5529956758356124792==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z9eEZ2V8rb9VqsSG"
+Content-Disposition: inline
+
+
+--z9eEZ2V8rb9VqsSG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Randy,
+
+On Sun 07 Dec 25, 18:04, Randy Dunlap wrote:
+> from  https://bugzilla.kernel.org/show_bug.cgi?id=3D216748
+>=20
+> The bugzilla entry includes a Perl script and a shell script.
+> This is the edited result of running them (I removed some entries that we=
+re noise).
+
+[...]
+
+> DRM_KMS_DMA_HELPER ---
+> drivers/gpu/drm/adp/Kconfig:9:	select DRM_KMS_DMA_HELPER
+> drivers/gpu/drm/logicvc/Kconfig:7:	select DRM_KMS_DMA_HELPER
+
+For these two, the symbol was removed in commit
+09717af7d13d63df141ae6e71686289989d17efd but these two drivers either were
+missed by the batch rename or were introduced a bit later.
+
+Since the symbol selected DRM_GEM_CMA_HELPER (which is still needed by the
+drivers), it should be replaced with DRM_GEM_CMA_HELPER.
+
+Are you expecting to craft a patch for fixing this or should I do it myself?
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--z9eEZ2V8rb9VqsSG
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmk3FV4ACgkQhP3B6o/u
+lQxHMA/9EINPzAC/mNsqKqe+ejzVAFDvbkqgtj46jdHchIRyg5QqUNEoQvUKACwR
+bZftHenlJS3ho4n0eejvmJG9LkV6HYA4X0vXrPKGJTBCMgy1CUl7j7v8ZFn7qhcc
+KmyK3klG9hxRNAFrMTlxaE3uzNZWaZ56eEINuq5RkJWv5ieiadTkXR03L4x2l++z
+B1RqTh3yh5d57Ckfs7lLGfmiDUQAkhdAm1CASv6bO1jKRiyhuSN95aOZFZ94DV+m
+oV44vbSx4aXyh1lb07PxtPMa+WITGI6/mW0+TKhRNd0eAoO19K0zkSNA18KjgiOw
+3m/4Vs1pdWSKCTDIgtcymufTpdjqWt5LEpxEuzLprgUXrpoQbS7paAfhB4Ex6yIR
+CcQfarVp0SM0/OI5kZc40xoz6UEHrCjw7+loxHuUV+2KHAhfRlQhLcScrQXUO/X3
+L2vzAFURuGyVpPbZnq2ftkMT4h6o+W93ZtKP8vIHJjDijdwM3NAt90FT9byKXAYP
+AvVBPERmf9+savPI0eDYuO825wAcF3D2rvF4ZElPj4+OD6sq93Z52bDN3CUFHsMD
+tKp3GKwBxZ0ENUxQZvrIINzLx40EXOq/MDI1JZd4Nl89W5BBk6QGIRE4hj0FNctf
++4gCjq9z339Ik0u6aVtzq/jdewPuTo2wZ5DVPxsH1RyPX2cBWAg=
+=azY3
+-----END PGP SIGNATURE-----
+
+--z9eEZ2V8rb9VqsSG--
+
+--===============5529956758356124792==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5529956758356124792==--
