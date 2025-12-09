@@ -2,97 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C856CCAF3D1
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Dec 2025 09:04:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4AA4CAF10F
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Dec 2025 07:53:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 979F5C5F1D9;
-	Tue,  9 Dec 2025 08:04:30 +0000 (UTC)
-Received: from toucan.tulip.relay.mailchannels.net
- (toucan.tulip.relay.mailchannels.net [23.83.218.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A927EC5C842;
+	Tue,  9 Dec 2025 06:53:43 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A08A0C030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A66AAC5A4E4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Dec 2025 22:21:03 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|rob@landley.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id F0E3B121E1D;
- Mon, 08 Dec 2025 22:21:01 +0000 (UTC)
-Received: from pdx1-sub0-mail-a247.dreamhost.com
- (100-103-73-45.trex-nlb.outbound.svc.cluster.local [100.103.73.45])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 6ADD1121A28;
- Mon, 08 Dec 2025 22:21:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
- t=1765232461;
- b=qZiy6ry/ZBfinqyEfJvr7nVpcrbPpSKaMlWE9UjDAg/pNCBukuD2NAnMncvzqIGsIAVpzM
- HzwS189SP3AI08MspeucPD8PGF6+8vqsupoIG1T1UzWoKaKKLeyM0pFB/I/OGiGuLK7RO/
- taG2bde3EVeUQg/SSASUb+/AucTAGklXoGKz2tOTFCJVfD4mjizVvlxWzBpJ6SLd/gGmpu
- 04S8D7/mOtwTPu5ynesELlJc3JkwMJQrhGyuhtgaiacRXmicLPNQRjCqf79rW22vErzgUo
- a/ZX9cvMZFfTXg+TKoEuDqoY7bg7kCG8G0BeDh+t9uP7QvLt+O3G1BsO8xFDaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net; s=arc-2022; t=1765232461;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:dkim-signature;
- bh=L1RQ3iFll8k4vyXkf57ManBwY/nb1VghWZ8P3Q8kdCM=;
- b=cbS+u8RxM3GJjfOBZB9V+GlXlYQRkE+Q659aQYj6E3lNCmJjsVKAaz23xirJfrFvV8OTBj
- JwpGeTTwxqXwlvoV+OgR8xyNtH2AEMXSNC2rxVtqAPIUOdr3Lpa8Yax8ubCFnQZnRPz2rF
- hcdQa+Q3SbRdRI+4gwE0+HROavgVG618i2lv8l3f67x855LFsi5s3fKAPIT56leQzWrfkl
- 6DtYDqYQmt4yFSctLfaoIDAL50udm/ye2ZtAwasaZAAidEtElA/GY0lWjrnMLPpGNcGrDu
- ExKh8p7n3YDMPsXtItG3DitQO1A4tu6xLD7Imnt9coo2B/cuk5XSFKCxIcAzrA==
-ARC-Authentication-Results: i=1; rspamd-57b9fc4dc5-grwdn;
- auth=pass smtp.auth=dreamhost smtp.mailfrom=rob@landley.net
-X-Sender-Id: dreamhost|x-authsender|rob@landley.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|rob@landley.net
-X-MailChannels-Auth-Id: dreamhost
-X-Coil-Whispering: 0033e86560d9169c_1765232461776_2558580605
-X-MC-Loop-Signature: 1765232461776:1297394009
-X-MC-Ingress-Time: 1765232461775
-Received: from pdx1-sub0-mail-a247.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.103.73.45 (trex/7.1.3); Mon, 08 Dec 2025 22:21:01 +0000
-Received: from [192.168.88.2] (unknown [209.81.127.98])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: rob@landley.net)
- by pdx1-sub0-mail-a247.dreamhost.com (Postfix) with ESMTPSA id 4dQGf41lb2z106B;
- Mon,  8 Dec 2025 14:21:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=landley.net;
- s=dreamhost; t=1765232461;
- bh=L1RQ3iFll8k4vyXkf57ManBwY/nb1VghWZ8P3Q8kdCM=;
- h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
- b=eJb/RiLlvRi4iGeCSlIcsiY3teg4ovb/kpSB0cIkachS1hxBEWt2NOG9hsGWOG1Nq
- J0ixH5dJhTETWB0rzWaQq4Mus6J9EUG+plLoUuZVp2mk/Gk5UAxj/qktIiG4st54kL
- o7BSP7dknliEVwlz+lYeN9MoXVCjjA9Jt+47QDhMhew3WNtfvk5+deCc5vQF/+0BZZ
- OY/Cb5ZCnAzShd9lL7nzM8DETmqU4u2g32be+3hcrWvKlH39gDhCUaMIhDyd5NxToe
- u7BO9evWD8w37HVK5/igxtD1aH44bI6EEjm53Uh9QB2HtKx5ugRAd/8pi/GGdmSbZT
- 6/t8XN//fiDQQ==
-Message-ID: <f10e135e-14c5-4bc0-8100-1712be3796dd@landley.net>
-Date: Mon, 8 Dec 2025 16:20:57 -0600
+ Tue,  9 Dec 2025 06:53:41 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4777771ed1aso43203155e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 08 Dec 2025 22:53:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765263221; x=1765868021;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qpimlZdEDtuP7WR2mZA0+z1H7nFjtx/bFty3v8hsXUU=;
+ b=XwV+ZQJ3eDfyjsEUcI6GT7xpfgFI3MWslKEUPUb8VbaZBX8p6t8GcdbsCkxFfYPVpB
+ 9kL1Bn4cV53Qs2Nu8YbSVeak1xgtN7jyzZ4WLtzYc7XAokjkFNAo4de7bJJHGX8LXt7R
+ 60Qzn+t8hxR/Yab9qr478SWWyg8340ywmn/6p90XE4asc3W6ltsLEFs7+VaNYw21wsqq
+ WQAWJfj+v12RDkBLdQK31sKQ8FWfUZmTI7VnD5CLLqMPj3xDAnDHNoP5FL5MOm6Ndw7b
+ maxoKreHb6NHTx0xulU2UexOJQBxIirIjKEGEfKxf+og5dNmIIUYem5lWkKFhxmBLscK
+ laAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765263221; x=1765868021;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qpimlZdEDtuP7WR2mZA0+z1H7nFjtx/bFty3v8hsXUU=;
+ b=SqXjxfiOpfPe/z49+telQUiJ/bhvJ204zyGGsoO2bIBoV+1RNwHixdpGG+dINm88LZ
+ u+w7MMXT0tuxntc09PymG9QLZWIo37KT4+JwVG5xEHeQrPXX3rP0Eh6uEbhrsRyNxNtk
+ BJAe60l0LM9n/BVmYqdMuk4U+ofbO0q49bpFgJigid5vAwDSaJP5VkJeolDZRCyBx0gt
+ DBt0ss1jJzdOEDen34m4MZieIJKNuWDuqIg3yQMnT0AtawgmuBNE3wYN9L0f/Io0vJS6
+ 7v3GB1hEHQMcBLOfDdFkftSr3GZaNpCGEayiDaqqbKEJbWK4dUAeuaxfE/6DxrCtwbEt
+ C0/g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVC+s6FUwwlviyVBkIjL91+hgODI4P0q3MxvRrYT4jEkxylnaWxQrFEVvFkdGejVOs5jqBzrhmngzTnvg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YySBqwNr3I1EnFI8ByyPVx31mA79N6PoZUoYyyXp+Ys/U5GnIYz
+ KAzKFgEg7BEhrTQCHOpkQvQKu0RL9A1KI2RQFTtjavKg0S3daNHXWYb3w/kFtKSagr4=
+X-Gm-Gg: ASbGnctnptb776kb6g4A7SSWcN+yb5+mJ85cVpNg9sWdyJDDmDuKktjMidDM6h2rty2
+ vCFq/ez8qXed5Re6IfS5gRYD263t/xBUcySEDmRKYKjH4cwzDK79z3oOuQBOFVo5A1dzRbDkyIf
+ plEpbCTObHFTswQQZkqtjBBc2EXNHgz/+Lczipv2hU6v5bAIlgyhP6fJ1lhu/yMml71a9pgNnbo
+ HLHY3CXlkobRJ6nnrlPR2cjYC+24Xt9DkkQuFPjDMkCS9JAQskAu5PFwsl/CXlaAFTuerW1icKy
+ EjCNWPvVMqij5zLmLOF5RXRLYSq0bBiAjEYdUsgraDrSnEw0HyaQwzXRbZvwcnPLfjYxuk4XpX/
+ eZrpzV3SdNMKZzSKih6SOQHCuw8CWdFpRs1beoFw++zU0dS4jLVLjraWTr83hVZerfE0tOL25/L
+ oRp0k7HXaQ2T3lJUeL
+X-Google-Smtp-Source: AGHT+IGaTnV6DUM6NZ8B996sUpARBrir70sGaGW5NyYdRK9/TvpgGM9K+ozidhKmYpB4+XkFZ3zK7g==
+X-Received: by 2002:a05:600c:1990:b0:477:73e9:dbe7 with SMTP id
+ 5b1f17b1804b1-47939e4d013mr112666895e9.35.1765263220857; 
+ Mon, 08 Dec 2025 22:53:40 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a7d35713asm11916255e9.1.2025.12.08.22.53.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Dec 2025 22:53:40 -0800 (PST)
+Date: Tue, 9 Dec 2025 09:53:36 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Amelie Delaunay <amelie.delaunay@st.com>
+Message-ID: <aTfHcMJK1wFVnvEe@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-Content-Language: en-US
-From: Rob Landley <rob@landley.net>
-In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-X-Mailman-Approved-At: Tue, 09 Dec 2025 08:04:29 +0000
-Cc: chrome-platform@lists.linux.dev, Philipp Zabel <p.zabel@pengutronix.de>,
- Arnd Bergmann <arnd@arndb.de>, Paul Kocialkowski <paulk@sys-base.io>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- andrew.jones@linux.dev, Paul Cercueil <paul@crapouillou.net>,
- Max Filippov <jcmvbkbc@gmail.com>, Srinivas Kandagatla <srini@kernel.org>,
- linux-sh@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] Kconfig dangling references (BZ 216748)
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
+ Fengguang Wu <fengguang.wu@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Johan Hovold <johan+linaro@kernel.org>
+Subject: [Linux-stm32] [PATCH] phy: stm32-usphyc: Fix off by one in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,26 +88,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/7/25 20:04, Randy Dunlap wrote:
-> USB_OHCI_SH ---
-> arch/sh/Kconfig:334:	select USB_OHCI_SH if USB_OHCI_HCD
-> arch/sh/Kconfig:344:	select USB_OHCI_SH if USB_OHCI_HCD
-> arch/sh/Kconfig:429:	select USB_OHCI_SH if USB_OHCI_HCD
-> arch/sh/Kconfig:455:	select USB_OHCI_SH if USB_OHCI_HCD
-> arch/sh/configs/sh7757lcr_defconfig:61:CONFIG_USB_OHCI_SH=y
-Commit 231a72e03af6 removed the only user of CONFIG_USB_OHCI_SH (an 
-#ifdef in drivers/usb/host/ohci-hcd.c), commit f6723b569a67 missed it 
-cleaning up, then commit 4f6dfc2136fb special case removed the symbol 
-but not references to it.
+The "index" variable is used as an index into the usbphyc->phys[] array
+which has usbphyc->nphys elements.  So if it is equal to usbphyc->nphys
+then it is one element out of bounds.  The "index" comes from the
+device tree so it's data that we trust and it's unlikely to be wrong,
+however it's obviously still worth fixing the bug.  Change the > to >=.
 
-It can go.
+Fixes: 94c358da3a05 ("phy: stm32: add support for STM32 USB PHY Controller (USBPHYC)")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/phy/st/phy-stm32-usbphyc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Rob
+diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+index 27fe92f73f33..b44afbff8616 100644
+--- a/drivers/phy/st/phy-stm32-usbphyc.c
++++ b/drivers/phy/st/phy-stm32-usbphyc.c
+@@ -712,7 +712,7 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
+ 		}
+ 
+ 		ret = of_property_read_u32(child, "reg", &index);
+-		if (ret || index > usbphyc->nphys) {
++		if (ret || index >= usbphyc->nphys) {
+ 			dev_err(&phy->dev, "invalid reg property: %d\n", ret);
+ 			if (!ret)
+ 				ret = -EINVAL;
+-- 
+2.51.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
