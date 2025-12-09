@@ -2,59 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F86FCAFFED
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Dec 2025 14:01:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49493CB03B6
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Dec 2025 15:17:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DCF7C5F1FB;
-	Tue,  9 Dec 2025 13:01:31 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9660EC5F1FB;
+	Tue,  9 Dec 2025 14:17:39 +0000 (UTC)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12AD4C5F1FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB506C5F1D9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Dec 2025 13:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sNF4oF6tZY/gCkRoXoRliKrYOLDoPNsc6ELPW7Fexlw=; b=dg8D7Ezl56lz7o0YcwxLF/Bmeg
- CcIFUL2XuKHcnirSqdiMQfi1VEwVG2fcRFuuqkmrYMPEWXKozdGNJEyuqGfym/Pd/wazbbPyv10eF
- y2yfSQoSrwLvqXfFmq9RtdW0SEXpqVvIhbPLY4Z4CZ8qfobhMqlqmPvS0qNUv0nJH2ffDb7P08fdp
- koL5meuoOnDJDT5KsosqJJAfDWZL/8erH347C8mGM5dQGFs/O0cdKDEme9Ymkh0PF1nnRGtK8kNww
- O2R5UXMy7B2vPWp6tqgYOtVs8j6LsMz/S99GkiPF9B+1nlwdBEZC4UOXW0fHIoiOUTXXFzyGTcVl7
- q+JeZ6yg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49898)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vSxLA-000000000UH-3V0J;
- Tue, 09 Dec 2025 13:01:17 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vSxL5-0000000061g-329i; Tue, 09 Dec 2025 13:01:11 +0000
-Date: Tue, 9 Dec 2025 13:01:11 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: "G Thomas, Rohan" <rohan.g.thomas@altera.com>
-Message-ID: <aTgdlykiar3SlNox@shell.armlinux.org.uk>
-References: <20251129-ext-ptp-2v-v2-1-d23aca3e694f@altera.com>
- <26656845-d9d6-4fd2-bfff-99996cf03741@redhat.com>
- <aTFuJUiLMnHrnpW5@shell.armlinux.org.uk>
- <9f0da5db-e92a-42e2-b788-2b07b8d28cfa@altera.com>
+ Tue,  9 Dec 2025 14:17:37 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-2a484a0b7cfso7230275eec.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Dec 2025 06:17:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1765289856; x=1765894656;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=GqGl05z99jHp2ShgOvgQgByFBkkP2VElXGK/JMHVdj4=;
+ b=iLMQPVVTilvEloU+WdQ8sukYlZDzmozlxVVoVimCzk7Rt053GgNfooisOm40vFaybo
+ 5NtKym1oqh4Nf4t0Lj1uvewff1npo9Xg8CGQ+FaimQ/VEU+az9jhsyXVOH2ppTNzulIs
+ g0Bxqha/9B6wyHD4EK4vaFfJysVH5c77zm/sz88Agg47WgA0GcAueEt7kcivoG/pm3j/
+ TYxdiVKOt5AGkgwUHHumsKem2+BnjcMay1PNrgUMcjlCWOgG2jexXdktQ7E/R1S4W74w
+ hfPc8mUSlCjTKUMeZiSQrcg20ZYjhxipfwBMb8qEpjoV5wwUTavU85mFdZVLJX5ZysBm
+ +0kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765289856; x=1765894656;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GqGl05z99jHp2ShgOvgQgByFBkkP2VElXGK/JMHVdj4=;
+ b=ZKPjMS4B13JyIuWXarszGaRfv9SylWlfuLcfWaOjq+GKRWqR8xQC3ym1kD/wKLav4N
+ sJxXdKMYcfq4wOOVUc1X+CqYN5xpDcLMsHlaJ/QhZAsec2H/4vG2cKQzDq3CCUtO3/Mo
+ sEcBcNfCmVOTk4CERaIA7Cn2LMG59xIRO9Fl2drhIX0InJ1fjfm5dHMxYXUoAbEh4YOK
+ 2eRSfb/8Vpm8GuNp/pPpp/oawGzi5dgRtodxg5vlZHXr74ixv49ly6r9rwh41eG+IpU2
+ Ad6WFIu8B6bCFQzu2nL4mIMVoPqpzOFFi8SLH6yjrdL4xkP+Dutd3cgDSt983YzlNMdH
+ /DaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWUedB6YApKKXeNY4zzYxDsYZ0a50yP1Cu7xfbOZOgBiijftFAnxFcFUy1I71//mM+zdKS2lTio0uyU7g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywi8i8igEe7HvbqtKxi4NTwLcXsT7VQLq58A8HXshKEYbHuQFsN
+ eqtkz+6rdPvYpOKkT4/4YN8wq9CnLqkW81cCx6sEtQcnLL5OE7Zd4RwRP/jU02o6b9Lxr9XCamE
+ xMwsEhxjB2/zqQeHPUN32MJgjViLiVqw=
+X-Gm-Gg: AY/fxX4MF4gytEJaAkFdUrfXdo95O+NhmExbryedShCocst4pZQq3sOSssa+0Q2u4h2
+ uNONc0kABUCPnSosMxvJTaGNsa1OFjKAYZ9m1g6Wfo/H/+Tqsln1PYrDs6vZlMbaraSMuyW41Iw
+ inpXqeeNB6C6QbAmUX7b6xIMl0lNeZb2MWU/097w9EabyqbwR+xp0hYR/N0ZB/9omavzERFjlRo
+ +gQPvARCIVmqWMsBtWGbhIcMXZ2u9n75YfRO5SET+EAnsOTf1fTN4jZDMkqfW0K4GjXTfEAHO1n
+ EGD3hSoqsVCf3D8FiZZuX6F0Ry2HtOgkDd8pDnkfkQrQ03lLwAwxKplMrDLCMmIp442aCJHLqLQ
+ f43FMSa4Rvg==
+X-Google-Smtp-Source: AGHT+IHJSK7Qp1zb5om02W592OqiY5udTEsk9nBSftpZyGmqI0e9P/OjwE7rDiAyfrBX382yq5jBhBWzuWKkJmGaXh4=
+X-Received: by 2002:a05:7301:f25:b0:2a4:50c2:a74c with SMTP id
+ 5a478bee46e88-2abf8dee655mr691583eec.8.1765289856143; Tue, 09 Dec 2025
+ 06:17:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9f0da5db-e92a-42e2-b788-2b07b8d28cfa@altera.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Fugang Duan <fugang.duan@nxp.com>,
- netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Fix E2E delay
-	mechanism
+References: <20251124182751.507624-1-robh@kernel.org>
+ <CGME20251127142839eucas1p186846c6c1ea1d9e43369fbba9bb5d17c@eucas1p1.samsung.com>
+ <20251124182751.507624-2-robh@kernel.org>
+ <674efe8d-c299-4ce9-bf6b-c1920a5393eb@samsung.com>
+ <CAL_JsqJTrGAJx-fv8OQGDhsLVKavQzzQotssEq_E5f_aJe8bOg@mail.gmail.com>
+In-Reply-To: <CAL_JsqJTrGAJx-fv8OQGDhsLVKavQzzQotssEq_E5f_aJe8bOg@mail.gmail.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 9 Dec 2025 16:20:03 +0200
+X-Gm-Features: AQt7F2rjwQKc_bRBeYsxUFhD_YJR9U-Y3qN6s4VMgPax1Na8ykfHoapTIdM-w18
+Message-ID: <CAEnQRZDBZ52FoNRBJa1qScbkcEYKwbyP_ephutdkYFaY5b1yLw@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, linux-remoteproc@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Beleswar Padhi <b-padhi@ti.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v7 2/2] remoteproc: qcom: Use
+ of_reserved_mem_region_* functions for "memory-region"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,102 +99,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 09, 2025 at 06:01:05PM +0530, G Thomas, Rohan wrote:
-> Hi Russell,
-> 
-> Thanks for reviewing the patch.
-> 
-> On 12/4/2025 4:49 PM, Russell King (Oracle) wrote:
-> > On Thu, Dec 04, 2025 at 10:58:40AM +0100, Paolo Abeni wrote:
-> > > On 11/29/25 4:07 AM, Rohan G Thomas wrote:
-> > > > For E2E delay mechanism, "received DELAY_REQ without timestamp" error
-> > > > messages show up for dwmac v3.70+ and dwxgmac IPs.
-> > > > 
-> > > > This issue affects socfpga platforms, Agilex7 (dwmac 3.70) and
-> > > > Agilex5 (dwxgmac). According to the databook, to enable timestamping
-> > > > for all events, the SNAPTYPSEL bits in the MAC_Timestamp_Control
-> > > > register must be set to 2'b01, and the TSEVNTENA bit must be cleared
-> > > > to 0'b0.
-> > > > 
-> > > > Commit 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism") already
-> > > > addresses this problem for all dwmacs above version v4.10. However,
-> > > > same holds true for v3.70 and above, as well as for dwxgmac. Updates
-> > > > the check accordingly.
-> > > > 
-> > > > Fixes: 14f347334bf2 ("net: stmmac: Correctly take timestamp for PTPv2")
-> > > > Fixes: f2fb6b6275eb ("net: stmmac: enable timestamp snapshot for required PTP packets in dwmac v5.10a")
-> > > > Fixes: 3cb958027cb8 ("net: stmmac: Fix E2E delay mechanism")
-> > > > Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
-> > > > ---
-> > > > v1 -> v2:
-> > > >     - Rebased patch to net tree
-> > > >     - Replace core_type with has_xgmac
-> > > >     - Nit changes in the commit message
-> > > >     - Link: https://lore.kernel.org/all/20251125-ext-ptp-fix-v1-1-83f9f069cb36@altera.com/
-> > > 
-> > > Given there is some uncertain WRT the exact oldest version to be used,
-> > > it would be great to have some 3rd party testing/feedback on this. Let's
-> > > wait a little more.
-> > 
-> > As I said, in the v3.74 documentation, it is stated that the SNAPTYPSEL
-> > functions changed between v3.50 and v3.60, so I think it would be better
-> > to propose a patch to test for < v3.6.
-> > 
-> 
-> I tested this on socfpga platforms like Agilex7 which are using
-> 3.7x, but don't have any platforms with dwmac <= v3.6.
-> 
-> > Alternatively, if someone has the pre-v3.6 databook to check what the
-> > SNAPTYPSEL definition is and compare it with the v3.6+ definition, that
-> > would also be a good thing to do.
-> > 
-> >  From the 3.74:
-> > 
-> > SNAPTYPSEL
-> > 00		?
-> > 01		?
-> > 10		Sync, Delay_Req
-> > 11		Sync, PDelay_Req, PDelay_Resp
-> > 
-> > TSEVNTENA
-> > 0		All messages except Announce, Management and Signalling
-> > 1		Sync, Delay_Req, PDelay_Req, PDelay_Resp
-> > 
-> > No table is provided, so it's difficult to know what all the bit
-> > combinations do for v3.74.
-> 
-> In 3.73a databook, Table 6-70 has the following information and this is
-> similar to v5.1 and v5.3. But don't have 3.74 databook.
-> 
-> SNAPTYPSEL	TSMSTRENA	TSEVNTENA	PTP Messages
-> 00		X 		0 		SYNC, Follow_Up,
-> 						Delay_Req, Delay_Resp
-> 00 		0 		1 		SYNC
-> 00 		1 		1 		Delay_Req
-> 01 		X 		0 		SYNC, Follow_Up,
-> 						Delay_Req, Delay_Resp,
-> 						Pdelay_Req, Pdelay_Resp,
-> 						Pdelay_Resp_Follow_Up
-> 01 		0 		1 		SYNC, Pdelay_Req,
-> 						Pdelay_Resp
-> 01 		1 		1 		Delay_Req, Pdelay_Req,
-> 						Pdelay_Resp
-> 10 		X 		X 		SYNC, Delay_Req
-> 11 		X 		X 		Pdelay_Req, Pdelay_Resp
+> Other platforms (non-QCom) were tested also use
+> devm_ioremap_resource_wc(). So something else is claiming the same
+> region? Can you dump out /proc/iomem?
+>
+> The region is dynamically allocated, so maybe that has something to do with it.
 
-I can't fathom why they would use this table in v3.73a, then put
-something different in v4.2, and then go back to this table in
-v5.1, so I'm wondering whether any of these tables can be relied
-upon. This seems to be a complete mess.
+We noticed a related issue with imx_dsp_rproc.
 
-I think the only way out of this is to test this - and I wonder
-whether stmmac_selftests.c could have tests added to check which
-PTP messages and in which direction get timestamped in each of
-these modes.
+Because:
+imx_dsp_rproc_prepare:
+ -> imx_dsp_rproc_add_carveout
+     -> /*... */ and this calls devm_ioremap_resource_wc
+-> pm_runtime_get_sync
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+imx_dsp_rproc_unprepare:
+ ->pm_runtime_put_sync
+
+There is no easy way to manually undo devm_ioremap_resource_wc so I have
+sent a patch to use devm_ioremap_wc.
+
+https://lore.kernel.org/imx/20251209140425.766742-1-daniel.baluta@nxp.com/T/#u
+
+In your case Marek at least you need to understand which driver
+reserves    8dc00000-8e7fffff : reserved and why.
+
+thanks,
+Daniel.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
