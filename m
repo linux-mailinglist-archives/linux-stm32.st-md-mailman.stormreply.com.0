@@ -2,61 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52E13CB2F89
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Dec 2025 14:06:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E25BCB420E
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Dec 2025 23:10:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01595C60469;
-	Wed, 10 Dec 2025 13:06:53 +0000 (UTC)
-Received: from aposti.net (aposti.net [185.119.170.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4B9DC1A981;
+	Wed, 10 Dec 2025 22:10:29 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8DAEC60468
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6D3DC290A0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Dec 2025 13:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1765372011;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=cDRFy6vcE6IK0n780GaRWgRqUqt6rq2uXI/t4/Gr+Mo=;
- b=RnCMPHJ8+5bLooq6YXu3nxjc4rHzf3q6p7Xq5Db7RIOUc6t+Xd3ujkkPR0UB3ezQtrVOcb
- eEW6BLRdJMR0FiH+oIzNU8lDYzI29mfeAEpWk0l8VPS1wWY4/shf0rvBVsaV0G+NMHf00k
- +Cudz+YjfUoQ/V5j0AoCmAvEmoGw5dk=
-Message-ID: <4b6db1eb455fff8e3c7372943faa5ef179c1d19f.camel@crapouillou.net>
-From: Paul Cercueil <paul@crapouillou.net>
-To: Randy Dunlap <rdunlap@infradead.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>
-Date: Wed, 10 Dec 2025 14:06:41 +0100
-In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+ Wed, 10 Dec 2025 22:10:28 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 68E341F80060
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Dec 2025 22:09:52 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id ED573B127F5; Wed, 10 Dec 2025 22:09:38 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on spamassassin
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
+ autolearn=disabled version=4.0.0
+Received: from collins (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id EBB48B127E9;
+ Wed, 10 Dec 2025 22:09:35 +0000 (UTC)
+Date: Wed, 10 Dec 2025 23:09:33 +0100
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Janne Grunau <j@jannau.net>
+Message-ID: <aTnvnaRuJ5lF4dVv@collins>
 References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
- keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
- LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
- FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
- z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
- +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
- 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
- 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
- 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
- dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
- 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
- rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
- lBwgAhlGy6nqP7O3u7q23hRU=
+ <aTcVXrUXVsyjaT22@shepard>
+ <20251208200555.GA333481@robin.jannau.net>
 MIME-Version: 1.0
+In-Reply-To: <20251208200555.GA333481@robin.jannau.net>
 Cc: linux-sh@vger.kernel.org,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- andrew.jones@linux.dev, Max Filippov <jcmvbkbc@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Max Filippov <jcmvbkbc@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- openbmc@lists.ozlabs.org, x86@kernel.org,
+ linux-omap@vger.kernel.org, openbmc@lists.ozlabs.org, x86@kernel.org,
  Andy Shevchenko <andy.shevchenko@gmail.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
  Philipp Zabel <p.zabel@pengutronix.de>, Arnd Bergmann <arnd@arndb.de>,
- Paul Kocialkowski <paulk@sys-base.io>, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-omap@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-mips@vger.kernel.org,
+ Matti Vaittinen <mazziesaccount@gmail.com>, linux-sound@vger.kernel.org,
+ linux-gpio@vger.kernel.org, andrew.jones@linux.dev,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-mips@vger.kernel.org,
  asahi@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>,
  Jonathan Cameron <jic23@kernel.org>
 Subject: Re: [Linux-stm32] Kconfig dangling references (BZ 216748)
@@ -71,98 +63,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8134415186387671303=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUmFuZHksCgpMZSBkaW1hbmNoZSAwNyBkw6ljZW1icmUgMjAyNSDDoCAxODowNCAtMDgwMCwg
-UmFuZHkgRHVubGFwIGEgw6ljcml0wqA6Cj4gZnJvbcKgIGh0dHBzOi8vYnVnemlsbGEua2VybmVs
-Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MjE2NzQ4Cj4gCj4gVGhlIGJ1Z3ppbGxhIGVudHJ5IGluY2x1
-ZGVzIGEgUGVybCBzY3JpcHQgYW5kIGEgc2hlbGwgc2NyaXB0Lgo+IFRoaXMgaXMgdGhlIGVkaXRl
-ZCByZXN1bHQgb2YgcnVubmluZyB0aGVtIChJIHJlbW92ZWQgc29tZSBlbnRyaWVzCj4gdGhhdCB3
-ZXJlIG5vaXNlKS4KPiAKPiBJJ2xsIHRyeSB0byBDYzogYWxsIG9mIHRoZSByZWxldmFudCBtYWls
-aW5nIGxpc3RzIG9yIGluZGl2aWR1YWxzLgo+IAo+IAo+IEFSQ0hfSEFTX0hPTEVTX01FTU9SWU1P
-REVMIC0tLQo+IGFyY2gvYXJtL21hY2gtb21hcDEvS2NvbmZpZzo3OglzZWxlY3QgQVJDSF9IQVNf
-SE9MRVNfTUVNT1JZTU9ERUwKPiAKPiBBUk1fRVJSQVRBXzc5NDA3MiAtLS0KPiBhcmNoL2FybS9t
-YWNoLW5wY20vS2NvbmZpZzozMzoJc2VsZWN0IEFSTV9FUlJBVEFfNzk0MDcyCj4gCj4gQVJNX1NN
-Q19NQk9YIC0tLQo+IGFyY2gvYXJtNjQvS2NvbmZpZy5wbGF0Zm9ybXM6Mzc1OglzZWxlY3QgQVJN
-X1NNQ19NQk9YCj4gCj4gQ0xLX0ZJWEVEX0ZDSCAtLS0KPiBzb3VuZC9zb2MvYW1kL0tjb25maWc6
-MTE6CXNlbGVjdCBDTEtfRklYRURfRkNICj4gc291bmQvc29jL2FtZC9LY29uZmlnOjQ4OglzZWxl
-Y3QgQ0xLX0ZJWEVEX0ZDSAo+IHNvdW5kL3NvYy9hbWQvYWNwL0tjb25maWc6MTA3OglzZWxlY3Qg
-Q0xLX0ZJWEVEX0ZDSAo+IAo+IENPTkZJR19TVE0gLS0tCj4gZHJpdmVycy9od3RyYWNpbmcvc3Rt
-L0tjb25maWc6MTY6CWRlZmF1bHQgQ09ORklHX1NUTcKgICMgc2hvdWxkCj4gYmUgU1RNCj4gZHJp
-dmVycy9od3RyYWNpbmcvc3RtL0tjb25maWc6MzE6CWRlZmF1bHQgQ09ORklHX1NUTQo+IAo+IENQ
-VV9IQVNfTE9BRF9TVE9SRV9MUiAtLS0KPiBhcmNoL21pcHMvS2NvbmZpZzoxNDExOglzZWxlY3Qg
-Q1BVX0hBU19MT0FEX1NUT1JFX0xSCj4gCj4gRFJNX0tNU19ETUFfSEVMUEVSIC0tLQo+IGRyaXZl
-cnMvZ3B1L2RybS9hZHAvS2NvbmZpZzo5OglzZWxlY3QgRFJNX0tNU19ETUFfSEVMUEVSCj4gZHJp
-dmVycy9ncHUvZHJtL2xvZ2ljdmMvS2NvbmZpZzo3OglzZWxlY3QgRFJNX0tNU19ETUFfSEVMUEVS
-Cj4gCj4gRVhUQ09OX1RDU1NfQ1JPU19FQyAtLS0KPiBkcml2ZXJzL3VzYi90eXBlYy91Y3NpL0tj
-b25maWc6NzY6CWRlcGVuZHMgb24KPiAhRVhUQ09OX1RDU1NfQ1JPU19FQwo+IAo+IE1BQ0hfSlo0
-NzU1IC0tLQo+IGRyaXZlcnMvY2xrL2luZ2VuaWMvS2NvbmZpZzoyMDoJZGVmYXVsdCBNQUNIX0pa
-NDc1NQo+IGRyaXZlcnMvcGluY3RybC9waW5jdHJsLQo+IGluZ2VuaWMuYzoxNTg6CUlTX0VOQUJM
-RUQoQ09ORklHX01BQ0hfSlo0NzU1KSA8PCBJRF9KWjQ3NTUgfAo+IGRyaXZlcnMvcGluY3RybC9w
-aW5jdHJsLWluZ2VuaWMuYzo0NjE2OgkJLmRhdGEgPQo+IElGX0VOQUJMRUQoQ09ORklHX01BQ0hf
-Slo0NzU1LCAmano0NzU1X2NoaXBfaW5mbykKPiAKPiBNQUNIX0paNDc2MCAtLS0KPiBkcml2ZXJz
-L2Nsay9pbmdlbmljL0tjb25maWc6NDA6CWRlZmF1bHQgTUFDSF9KWjQ3NjAKPiBkcml2ZXJzL3Bp
-bmN0cmwvcGluY3RybC0KPiBpbmdlbmljLmM6MTU5OglJU19FTkFCTEVEKENPTkZJR19NQUNIX0pa
-NDc2MCkgPDwgSURfSlo0NzYwIHwKPiBkcml2ZXJzL3BpbmN0cmwvcGluY3RybC1pbmdlbmljLmM6
-NDYyMDoJCS5kYXRhID0KPiBJRl9FTkFCTEVEKENPTkZJR19NQUNIX0paNDc2MCwgJmp6NDc2MF9j
-aGlwX2luZm8pCj4gZHJpdmVycy9waW5jdHJsL3BpbmN0cmwtaW5nZW5pYy5jOjQ2MjQ6CQkuZGF0
-YSA9Cj4gSUZfRU5BQkxFRChDT05GSUdfTUFDSF9KWjQ3NjAsICZqejQ3NjBfY2hpcF9pbmZvKQoK
-VGhvc2Ugd2VyZSBhZGRlZCB3aGVuIHVwc3RyZWFtaW5nIHN1cHBvcnQgZm9yIHRoZSBKWjQ3NTUv
-Slo0NzYwLCBidXQKdGhlIERUUyBmaWxlcyBhbmQgYWN0dWFsIHN1cHBvcnQgaW4gYXJjaC9taXBz
-LyB3YXMgbmV2ZXIgc2VudC4KCkluc3RlYWQgb2YgZHJvcHBpbmcgdGhvc2UsIEknbGwgdHJ5IHRv
-IHVwc3RyZWFtIHRoZSBiYXNpYyBzdXBwb3J0IGZvcgp0aG9zZSBTb0NzIGluIHRoZSBjb21pbmcg
-ZGF5cy4KCkNoZWVycywKLVBhdWwKCj4gCj4gTUFDSF9TVE0zMk1QMjUgLS0tCj4gZHJpdmVycy9w
-aW5jdHJsL3N0bTMyL0tjb25maWc6NTg6CWRlZmF1bHQgTUFDSF9TVE0zMk1QMjUgfHwKPiAoQVJD
-SF9TVE0zMiAmJiBBUk02NCkKPiAKPiBNRkRfQUlST0hBX0FOODg1NSAtLS0KPiBkcml2ZXJzL252
-bWVtL0tjb25maWc6MzM6CWRlcGVuZHMgb24gTUZEX0FJUk9IQV9BTjg4NTUgfHwKPiBDT01QSUxF
-X1RFU1QKPiAKPiBNRkRfVE40OE1fQ1BMRCAtLS0KPiBkcml2ZXJzL2dwaW8vS2NvbmZpZzoxNjI0
-OglkZXBlbmRzIG9uIE1GRF9UTjQ4TV9DUExEIHx8Cj4gQ09NUElMRV9URVNUCj4gZHJpdmVycy9y
-ZXNldC9LY29uZmlnOjM2NToJZGVwZW5kcyBvbiBNRkRfVE40OE1fQ1BMRCB8fAo+IENPTVBJTEVf
-VEVTVAo+IGRyaXZlcnMvcmVzZXQvS2NvbmZpZzozNjY6CWRlZmF1bHQgTUZEX1RONDhNX0NQTEQK
-PiAKPiBNSVBTX0JBSUtBTF9UMSAtLS0KPiBkcml2ZXJzL2F0YS9LY29uZmlnOjE5NzoJc2VsZWN0
-IE1GRF9TWVNDT04gaWYgKE1JUFNfQkFJS0FMX1QxCj4gfHwgQ09NUElMRV9URVNUKQo+IGRyaXZl
-cnMvYnVzL0tjb25maWc6NDM6CWRlcGVuZHMgb24gTUlQU19CQUlLQUxfVDEgfHwgQ09NUElMRV9U
-RVNUCj4gZHJpdmVycy9idXMvS2NvbmZpZzo1ODoJZGVwZW5kcyBvbiBNSVBTX0JBSUtBTF9UMSB8
-fCBDT01QSUxFX1RFU1QKPiBkcml2ZXJzL2Nsay9iYWlrYWwtdDEvS2NvbmZpZzo0OglkZXBlbmRz
-IG9uIChNSVBTX0JBSUtBTF9UMQo+ICYmIE9GKSB8fCBDT01QSUxFX1RFU1QKPiBkcml2ZXJzL2Ns
-ay9iYWlrYWwtdDEvS2NvbmZpZzo1OglkZWZhdWx0IE1JUFNfQkFJS0FMX1QxCj4gZHJpdmVycy9j
-bGsvYmFpa2FsLXQxL0tjb25maWc6MjA6CWRlZmF1bHQgTUlQU19CQUlLQUxfVDEKPiBkcml2ZXJz
-L2Nsay9iYWlrYWwtdDEvS2NvbmZpZzozMzoJZGVmYXVsdCBNSVBTX0JBSUtBTF9UMQo+IGRyaXZl
-cnMvY2xrL2JhaWthbC10MS9LY29uZmlnOjQ1OglkZWZhdWx0IE1JUFNfQkFJS0FMX1QxCj4gZHJp
-dmVycy9od21vbi9LY29uZmlnOjQ2MjoJZGVwZW5kcyBvbiBNSVBTX0JBSUtBTF9UMSB8fAo+IENP
-TVBJTEVfVEVTVAo+IGRyaXZlcnMvaTJjL2J1c3Nlcy9LY29uZmlnOjU4OToJc2VsZWN0IE1GRF9T
-WVNDT04gaWYgTUlQU19CQUlLQUxfVDEKPiBkcml2ZXJzL21lbW9yeS9LY29uZmlnOjY5OglkZXBl
-bmRzIG9uIE1JUFNfQkFJS0FMX1QxIHx8Cj4gQ09NUElMRV9URVNUCj4gZHJpdmVycy9tdGQvbWFw
-cy9LY29uZmlnOjgxOglkZXBlbmRzIG9uIE1JUFNfQkFJS0FMX1QxIHx8Cj4gQ09NUElMRV9URVNU
-Cj4gZHJpdmVycy9wY2kvY29udHJvbGxlci9kd2MvS2NvbmZpZzo4OToJZGVwZW5kcyBvbiBNSVBT
-X0JBSUtBTF9UMSB8fAo+IENPTVBJTEVfVEVTVAo+IGRyaXZlcnMvc3BpL0tjb25maWc6MzcwOglk
-ZXBlbmRzIG9uIE1JUFNfQkFJS0FMX1QxIHx8Cj4gQ09NUElMRV9URVNUCj4gCj4gUElOQ1RSTF9N
-SUxCRUFVVCAtLS0KPiBhcmNoL2FybS9tYWNoLW1pbGJlYXV0L0tjb25maWc6MTY6CXNlbGVjdCBQ
-SU5DVFJMX01JTEJFQVVUCj4gCj4gU05EX1NPQ19BQzk3X0JVU19ORVcgLS0tCj4gc291bmQvc29j
-L3B4YS9LY29uZmlnOjIxOglzZWxlY3QgU05EX1NPQ19BQzk3X0JVU19ORVcKPiAKPiBTTkRfU09D
-X0NTMzVMNTZfQ0FMX1NZU0ZTX0NPTU1PTiAtLS0KPiBzb3VuZC9zb2MvY29kZWNzL0tjb25maWc6
-OTIwOglzZWxlY3QKPiBTTkRfU09DX0NTMzVMNTZfQ0FMX1NZU0ZTX0NPTU1PTgo+IAo+IFRFU1Rf
-S1VOSVRfREVWSUNFX0hFTFBFUlMgLS0tCj4gZHJpdmVycy9paW8vdGVzdC9LY29uZmlnOjExOglz
-ZWxlY3QgVEVTVF9LVU5JVF9ERVZJQ0VfSEVMUEVSUwo+IAo+IFVTQl9IU0lDX1VTQjM2MTMgLS0t
-Cj4gZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvS2NvbmZpZzoyMDk6CWRlcGVuZHMgb24gVVNCX0hT
-SUNfVVNCMzYxMwo+IHx8IENPTVBJTEVfVEVTVAo+IGRyaXZlcnMvc3RhZ2luZy9ncmV5YnVzL2Fy
-Y2hlLXBsYXRmb3JtLmM6MjY6I2lmCj4gSVNfRU5BQkxFRChDT05GSUdfVVNCX0hTSUNfVVNCMzYx
-MykKPiAKPiBVU0JfT0hDSV9TSCAtLS0KPiBhcmNoL3NoL0tjb25maWc6MzM0OglzZWxlY3QgVVNC
-X09IQ0lfU0ggaWYgVVNCX09IQ0lfSENECj4gYXJjaC9zaC9LY29uZmlnOjM0NDoJc2VsZWN0IFVT
-Ql9PSENJX1NIIGlmIFVTQl9PSENJX0hDRAo+IGFyY2gvc2gvS2NvbmZpZzo0Mjk6CXNlbGVjdCBV
-U0JfT0hDSV9TSCBpZiBVU0JfT0hDSV9IQ0QKPiBhcmNoL3NoL0tjb25maWc6NDU1OglzZWxlY3Qg
-VVNCX09IQ0lfU0ggaWYgVVNCX09IQ0lfSENECj4gYXJjaC9zaC9jb25maWdzL3NoNzc1N2xjcl9k
-ZWZjb25maWc6NjE6Q09ORklHX1VTQl9PSENJX1NIPXkKPiAKPiBYODZfUDZfTk9QIC0tLQo+IGFy
-Y2gveDg2L0tjb25maWcuY3B1ZmVhdHVyZXM6NDE6CWRlcGVuZHMgb24gWDg2XzY0IHx8Cj4gWDg2
-X1A2X05PUAo+IGFyY2gveDg2L01ha2VmaWxlXzMyLmNwdTo0ODppZm5lcSAoJChDT05GSUdfWDg2
-X1A2X05PUCkseSkKPiAKPiBYVEVOU0FfUExBVEZPUk1fRVNQMzIgLS0tCj4gZHJpdmVycy90dHkv
-c2VyaWFsL0tjb25maWc6MTU5ODoJZGVwZW5kcyBvbgo+IFhURU5TQV9QTEFURk9STV9FU1AzMiB8
-fCAoQ09NUElMRV9URVNUICYmIE9GKQo+IGRyaXZlcnMvdHR5L3NlcmlhbC9LY29uZmlnOjE2MTE6
-CWRlcGVuZHMgb24KPiBYVEVOU0FfUExBVEZPUk1fRVNQMzIgfHwgKENPTVBJTEVfVEVTVCAmJiBP
-RikKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+
+--===============8134415186387671303==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MEb6eXQ93P1+3Wd8"
+Content-Disposition: inline
+
+
+--MEb6eXQ93P1+3Wd8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Janne,
+
+Le Mon 08 Dec 25, 21:05, Janne Grunau a =C3=A9crit :
+> On Mon, Dec 08, 2025 at 07:13:50PM +0100, Paul Kocialkowski wrote:
+> > Hi Randy,
+> >=20
+> > On Sun 07 Dec 25, 18:04, Randy Dunlap wrote:
+> > > from  https://bugzilla.kernel.org/show_bug.cgi?id=3D216748
+> > >=20
+> > > The bugzilla entry includes a Perl script and a shell script.
+> > > This is the edited result of running them (I removed some entries tha=
+t were noise).
+> >=20
+> > [...]
+> >=20
+> > > DRM_KMS_DMA_HELPER ---
+> > > drivers/gpu/drm/adp/Kconfig:9:	select DRM_KMS_DMA_HELPER
+> > > drivers/gpu/drm/logicvc/Kconfig:7:	select DRM_KMS_DMA_HELPER
+> >=20
+> > For these two, the symbol was removed in commit
+> > 09717af7d13d63df141ae6e71686289989d17efd
+>=20
+> That commit removed DRM_KMS_CMA_HELPER. Later commit 6bcfe8eaeef0
+> ("drm/fb: rename FB CMA helpers to FB DMA helpers") renamed
+> DRM_KMS_CMA_HELPER erroneously to DRM_KMS_DMA_HELPER.
+>=20
+> > but these two drivers either were
+> > missed by the batch rename or were introduced a bit later.
+>=20
+> In the case of drivers/gpu/drm/adp/Kconfig it was missed much later
+> during review (but iirc went through the same rename out of tree).
+>=20
+> > Since the symbol selected DRM_GEM_CMA_HELPER (which is still needed by =
+the
+> > drivers), it should be replaced with DRM_GEM_CMA_HELPER.
+>=20
+> That symbol doesn't exist anymore either. It's now DRM_GEM_DMA_HELPER
+> which is already present in both files.
+
+Thanks for the details! It seems that I was looking at an older tree.
+
+> So the "select DRM_KMS_DMA_HELPER" lines can be removed from both files.
+
+Good, then I'll craft a patch removing these two lines.
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--MEb6eXQ93P1+3Wd8
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmk5750ACgkQhP3B6o/u
+lQxOag/+J9Lwmq+hqcg9BxoDCZl6KmFGAh/RmelPeBUew6LlQphMcDpjQ0yJavK3
+bxojss4r12rV5307+f47JlSMFJa/100MablzoWV0koupx/JCRszhYf2w1lxYHKJh
+7jwy8GLd9NnaZGaiscrckVEcfaVRufzSM2I6ErSZIMSYEZ1LUTCakTPAwrgtarZb
+b9FzHmCrau56mdC2M6StWaolU90t4em1/We8XVRtLY87MEY/VQK6qLylL2fbpuIX
+5+DjnOBDMrvyB7UJFVbzcQA4ev1ckCBvnB2JdzGOfquj6XTO23m5/L5qfxTVk6qa
+yp9ShU6lQZ9RjinifpGWf8JTYl46U7hch9PrUCE/n0FgVl2frQHb/N08ynKUniCB
+1U76zgnG48Wkj08Sz6anRvER3dqEhzJgxJxpkW1UqoXFOSBQeeJZzZONuuUxYw3M
+8JKSldwJVj/oLlvCOI6QO0Q9T+U4YS1gpNBfHbysPaJgZyqld5tXaElOo9k8P8pX
+kAMhcvAn6FaXqkX5qJOAN+91M+CkQwQlWf16G7HKV0LcOvzCtGHYWVrxb7xWw9Em
+JBZRsrdq4CaQc34D8GkBR14H6WGWkGR4OQSTqxshPv7x/S4u9vV8FQWIhLW2LToY
+kw9ephtALgBj6D79R84K2DGlmZwPH2sunV3y9huDh3SNlR5dZg8=
+=EEMR
+-----END PGP SIGNATURE-----
+
+--MEb6eXQ93P1+3Wd8--
+
+--===============8134415186387671303==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8134415186387671303==--
