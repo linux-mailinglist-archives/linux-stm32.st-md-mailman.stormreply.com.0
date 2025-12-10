@@ -2,81 +2,131 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7DACCB1F74
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Dec 2025 06:25:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21474CB2A63
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Dec 2025 11:16:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BB28C5F1FD;
-	Wed, 10 Dec 2025 05:25:23 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 798A4C5F1FB;
+	Wed, 10 Dec 2025 10:16:17 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11022099.outbound.protection.outlook.com [52.101.66.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53314C5F1D9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91A10C5F1FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Dec 2025 05:25:22 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4779cb0a33fso84769705e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Dec 2025 21:25:22 -0800 (PST)
+ Wed, 10 Dec 2025 10:16:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h9PPsIt7gAXO0sUwubrv0E9hYyd0vzw8yNImj6D6/WFx4evXJg8CvSY4zNSW2YJ7Zk3jq529yamcKJsztvTnM06izA+kqxDkpAqt4uUB8M2UaQ3j3O5cSVN1P1nLIiQVPNgjjuxa6WAjGsHpEQ+y1yTSgspeegZ3vC9yVcwuUAJBkl+Ax0xKD1wfRrm0vXrFKP60oZDc+2p/bFps2wyeEifF1UyRTMVHIwrRhVtfJBKiEkP1hAWswzlpv8vd3pMMN9zhOghr/Qi3+qZhI2oHCFNUzeP30eVlZcxRYHOtALkQYjZ7AlkQHPe98nLRuiW8RiwuHTO/2Q8mihZIsbxKGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j6T7w0eYNfTYqc4qhSaU/I8/p9X2ebFodkFIaOfiUhY=;
+ b=TozD29/HduC6abfu6KBuRk0lzbQbJbL4vkYY56TtRQl/127tPej7X5JR8Ph/710OLcJKBCYL3UIIilEWfP5ZqgIqvwu8+iOaPp39ttafcFnniGIGJteQTiX2lg4S5Ih1vtQL2qC1nTnPM0HkiHlzWby4xAbKhpUxE2MdzDQkbjJZRzIoNG7v9PeaDevZHnYTL5Me9tXTBPSZ0d91FhghcimpkTuEYw+3ntmDYl0Cs075A6StrIXKk3dX6efr2a9no3vj1Cbh7CLqyQxajIKuKuJwXintxrDnek19OYRINtMsNjBtKZJl6yiG3zAi6gXmMF08FrqgXUi+piLvz2Axrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 91.26.50.189) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=phytec.fr;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=phytec.fr; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1765344322; x=1765949122;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gQnnf4/i1gXmHnGWWjHqF82jQwF8lJyYevfy5KcRtwc=;
- b=nBynj73a5UuLou0nU5/wpEVRvMJeHO7GlV2hDNPldzC1HLqwwqHNjW49JUK214zsDa
- HF/kEu/o0OHjsEeUPzSoRh/tN9RshJWDgE1GZoLkRoHY/NLFeyqVR11neluvOqbeXj/+
- aWRLtOyJNV6AGQUJRvhrlAwtJSsl/Z8LCUPK4CqjofPkUYIi69+yTL7fik8ER0+yp6IH
- 1tpB4mO9PfCku089wPV7M+yiYhw5D1SJGxyJXBE9KIbmP5Qg1FG/E98Lo6/uinKupw4P
- 5RdxPa8Gbr1dt2d2jR7+KVT7QUYKehswK9HzoVY1F1r5offakiiP5I9lw5OpSSyRvoXj
- 3Vvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765344322; x=1765949122;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gQnnf4/i1gXmHnGWWjHqF82jQwF8lJyYevfy5KcRtwc=;
- b=YqXQF0gqhveV/gqsH5Xp7Asc8TcxgwnzOANBqVBXrxYx+h5TAnpNGZLdD9zLL8AV7j
- 2PtBFXHA2X5FDUDrn21KggQA3LllK5pClZHOjfv5NrBrcJsPhOEi5AkXgfhLqAfd5D+B
- iqXPnBx0itEXwvnWxj6t0tfqXsP7lkIIlSdIFg+soqJEb4QBSeokN7zHo0EVdxF08F2/
- u4iSlCcUs5pi1hndXGoiQVjuJETeS0CKkRW5a/jMiyVhsOXv7EwXT+PjZ1IjzGtxSjZ0
- rkn929ZGaC4KPcHg9jUG0R8CtbDXNjyPd2cQ8xL3eSVoGnpDw6WTS/TeMDM/GYxe5IJj
- 7j+w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXVCu2R9NpFvfHmSn2dlRNjnmdAqF3XxUNOQ+PgcqrbEXbEs6u3JoQehd/ar4dKxaJDuKxM11aEwjfgOQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxcsY+kARNamfPZOJjYXAsenS8Zm3MqlMe/Bw9t8nwJnes4IK4R
- hzr4QznvlkXMjh8gZ+3TKEoESLvVjjtOLcR8QqaAIQc6eX+aelT6dLBBz3FhAAkEyXE=
-X-Gm-Gg: ASbGncsJaLwpTsWyT7ZdC5oQAqJfdeVLJ9MJ3RYcXzzly+rLf0KjbBTyUENyC7JfGar
- FY3KJBsu/J0wea+K/nMmOETyTgbzj5aUgvyNYW5L8iCzPbpyfO6KQJvUkHFJ4NZ4SmFbWhnKq59
- /7497BlC+ShRaOCC3FWvv8joXrjz3hB3nPO84tfPk1J4dmFJuwi1V+jPS+D+zqmhnRd1Rnku0mp
- PLhHUcALxJWQsLSKjZxniZmopuTMqY9ddgifWrxc5UT5RRM9KJ9Qt0rloG4pRagwJ5B88l2A8nV
- r/QYIgKROPvmYU6A2cqdWT0vUDnNTHa8R/8Wl6jzoz7UbUAlAjoHzVtTFzuLwSErqf612AALrJF
- PON8P4ffvZqnKXTFMFEhRg7O9AIyob2sNFTeXwKFCf/I1V21nzmX06LE952gMS3sYcgEegP/zla
- hxbxL3Mi7clVITI2uNnhEuMcxShZFYi94=
-X-Google-Smtp-Source: AGHT+IHtTQZQEOi/01wtyusFyCfqsqk26GiFjJ4zfoTrpC3Xwr4N2SeeP+sZkYfgwOyzvXl9xv3NXg==
-X-Received: by 2002:a05:600c:4ec9:b0:477:63b5:7148 with SMTP id
- 5b1f17b1804b1-47a8380b2e6mr10228405e9.6.1765344321760; 
- Tue, 09 Dec 2025 21:25:21 -0800 (PST)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:4fde:b93c:87db:86e6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a7d3a75a3sm33485695e9.6.2025.12.09.21.25.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Dec 2025 21:25:21 -0800 (PST)
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-To: wbg@kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-Date: Wed, 10 Dec 2025 06:24:47 +0100
-Message-ID: <20251210052449.4154283-4-daniel.lezcano@linaro.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251210052449.4154283-1-daniel.lezcano@linaro.org>
-References: <20251210052449.4154283-1-daniel.lezcano@linaro.org>
+ d=phytecmesstechnikgmbh.onmicrosoft.com;
+ s=selector1-phytecmesstechnikgmbh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j6T7w0eYNfTYqc4qhSaU/I8/p9X2ebFodkFIaOfiUhY=;
+ b=DzLF3ANF14j2anGjwvXOP5GCRg6cEseYc7wk72wqvXbc70R9lgk4cu64qlOHX5u2Tk3g55qF4GgHXJnpgxW/L+8SXHwQlmPlGZOWjZhpSKkXDTtOp5v8kkFotsYhjC5gvHEfJN4yEASZOy99q/Z37wZcr1o/TYBJwbRpQEr0pCs=
+Received: from DB9PR01CA0022.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:1d8::27) by DB9P195MB1492.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:10:33a::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.7; Wed, 10 Dec
+ 2025 10:16:12 +0000
+Received: from DU2PEPF00028D09.eurprd03.prod.outlook.com
+ (2603:10a6:10:1d8:cafe::8d) by DB9PR01CA0022.outlook.office365.com
+ (2603:10a6:10:1d8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9412.6 via Frontend Transport; Wed,
+ 10 Dec 2025 10:16:16 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 91.26.50.189)
+ smtp.mailfrom=phytec.fr; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.fr;
+Received-SPF: Fail (protection.outlook.com: domain of phytec.fr does not
+ designate 91.26.50.189 as permitted sender) receiver=protection.outlook.com;
+ client-ip=91.26.50.189; helo=Postix.phytec.de;
+Received: from Postix.phytec.de (91.26.50.189) by
+ DU2PEPF00028D09.mail.protection.outlook.com (10.167.242.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9412.4 via Frontend Transport; Wed, 10 Dec 2025 10:16:12 +0000
+Received: from Postix.phytec.de (172.25.0.11) by Postix.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 10 Dec
+ 2025 11:16:11 +0100
+Received: from idefix.phytec.de (172.25.0.20) by mailrelayint.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 10 Dec 2025 11:16:11 +0100
+Received: from pc.home ([172.25.39.2])
+ by idefix.phytec.de (IBM Domino Release 9.0.1FP7)
+ with ESMTP id 2025121011161178-309 ; Wed, 10 Dec 2025 11:16:11 +0100 
+From: Christophe Parant <c.parant@phytec.fr>
+To: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, 
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Wed, 10 Dec 2025 11:16:00 +0100
+Message-ID: <20251210101611.27008-1-c.parant@phytec.fr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, s32@nxp.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH v2 3/3] counter: Add STM based counter
+X-MIMETrack: Itemize by SMTP Server on Idefix/Phytec(Release 9.0.1FP7|August
+ 17, 2016) at 10.12.2025 11:16:11,
+ Serialize by Router on Idefix/Phytec(Release 9.0.1FP7|August  17, 2016) at
+ 10.12.2025 11:16:11
+X-TNEFEvaluated: 1
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D09:EE_|DB9P195MB1492:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e30ad56-64f5-45ac-d435-08de37d5253a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/p/f2P8pGRcRcSUohDRqEeG8Yv83z0M0ZBi4Bp5JqSuXLFiOykEaeAKJZ/Sg?=
+ =?us-ascii?Q?IopXI33rieo9NVvIGRY/yvpcCAUiPOXUsgGJ8zsmu8a0KfsK8oXec8Huz+ST?=
+ =?us-ascii?Q?dWg8MTNvebjndd6ofF3Tr0gVGYUtMBgLLzV99U2wmwW6NqL7fImCM6ukT/en?=
+ =?us-ascii?Q?XZxXDiOdx6P3x8om9kZUmmLYFVmO0lQq721RRqlHp7WaXBPUnvBLSXMQ84sF?=
+ =?us-ascii?Q?kflbb6bOmPm3GN5Uz1jHBxyT5BA6vIMa4XJA0pi3K3wqauRh45uIUHeAuc/0?=
+ =?us-ascii?Q?EO+mZOT5gPv17nOIjC1uxW+IaPgKSqeBGRwovufCYkQEguxz7QCKOMyNTaLL?=
+ =?us-ascii?Q?yDDWFugtBvYB5ioH47H2HIst+gq+7QZqojYpkSBKJwZvt/aOsp0YCpiL73ou?=
+ =?us-ascii?Q?mrYQ4saZRy+qeG87AViKNIotJimT3vHh/M/BdrpIZgfdRrjGXKsg6w2qpMAp?=
+ =?us-ascii?Q?14xvpNDutA7uphSjtGXcd66gRFs2yl2ADnf5oAEVCgwMYTSnYwFXjnfpgPhz?=
+ =?us-ascii?Q?/Iq0ZD9Z/tkN00R6sPBKUVCIwljEVwxXnmxlTrHivQkq/GfZ97bM/j2MHmoj?=
+ =?us-ascii?Q?4/gwZ6dwNH67POgD22E0Y++z+Q9PKhITU4gtOEDaaRQEz5AnB3pMp5EAxUrA?=
+ =?us-ascii?Q?zVoFrzX1yNaN4K+oT780pSRgVhMv/OQlO8fn0t9cG6yxiePw4vWp+4AcFSWU?=
+ =?us-ascii?Q?6lSnrOeujX+lBn7x7TPPqoSzY6qkxfQtDZiEcesTQ2gnoyRTIyQGdxmJr/j9?=
+ =?us-ascii?Q?aDGIv8UC2bhS6HuWeWYC0ztOQraaYgXSB5GJxR4gPheYjpMXQ+wo2NLaHB7t?=
+ =?us-ascii?Q?2a3ldvHoM+rQ/tQ8yHZCxBFap0kSk7iNSThlC/fz8boSGENfW1u+G5edJWzR?=
+ =?us-ascii?Q?KRb1f4LvVDk8hjdlc+wn8NjSO5faqspfQQ6BlW7U46GfEwwuN1rDPytMBa1f?=
+ =?us-ascii?Q?fYcZ0pHs98yG5W6ynTIqGQZxe5hd5B/9V1R8ndPQc/mmpnPGyuCY4utB81rh?=
+ =?us-ascii?Q?LBM4jUPrrlVWZxQdXUeye47LMboiSoCAGGkOksYHAm7siD+kB3Bw9XQp6O2q?=
+ =?us-ascii?Q?A5PrI3pjBBYwwww3xOrlOKLrEs5VIWGsLFZJUqg4n/0I6oHDvoET3xqdFK7w?=
+ =?us-ascii?Q?//IflvSr+jJcNjwrQ0j7ewAkez+r+qGEx4U2Q77tMkH6ai4MVaFZ/KEZUHhl?=
+ =?us-ascii?Q?JAqKuwSKfrwYU3jbMmm7ZiN4Q2oF9jvI2n2tTq1FHxNF92cVxAqSSYSufD6C?=
+ =?us-ascii?Q?VQiCMPzvpsrOmmijsnqUiQ9JXrIzOnnmHt22EFiyMw14eKRh339yJeXGHPE3?=
+ =?us-ascii?Q?SzPIyDUWUoZcrx7ujyRTDGo+C2WOVJ/qUWqO4MjX3A750Z8pGrFBDumFt8ug?=
+ =?us-ascii?Q?AhXUn5vAvMZwlgrOBl70kkIAPalAzJUxHoUxBMjDPhLeHbxEBaYpfVQQdtY4?=
+ =?us-ascii?Q?HhwK2ZOJVcrYdFyztiR6jL+owkl0lcnsvqZ5fbwUD8Sn2npmrUcfYRbLgmok?=
+ =?us-ascii?Q?Gf0mPxV6qptLcvZkC4GXvASb2VdNGrU96shthP5mw4afTVC6fdmAZwff0qEO?=
+ =?us-ascii?Q?mquKlA3FS8yIyl1i1xo=3D?=
+X-Forefront-Antispam-Report: CIP:91.26.50.189; CTRY:DE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:Postix.phytec.de; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1102; 
+X-OriginatorOrg: phytec.fr
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2025 10:16:12.4633 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e30ad56-64f5-45ac-d435-08de37d5253a
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29; Ip=[91.26.50.189];
+ Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D09.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1492
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ upstream@lists.phytec.de, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: [Linux-stm32] [PATCH RESEND v2 00/11] Rework and fix STM32MP15x
+	PHYTEC dts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,459 +143,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The NXP S32G2 automotive platform integrates four Cortex-A53 cores and
-three Cortex-M7 cores, along with a large number of timers and
-counters. These hardware blocks can be used as clocksources or
-clockevents, or as timestamp counters shared across the various
-subsystems running alongside the Linux kernel, such as firmware
-components. Their actual usage depends on the overall platform
-software design.
+This patch series rename and reorganize the STM32MP15x PHYTEC
+baseboard (phyBOARD-Sargas) and SoM (phyCORE-STM32MP15x) device tree
+files.
+Indeed, the current device tree naming and organization is not really
+consistent as it does not align with others STM32MP boards (use common
+dtsi file as much as possible, use one dtsi for SoM and one dtsi for
+baseboard).
 
-In a Linux-based system, the kernel controls the counter, which is a
-read-only shared resource for the other subsystems. One of its primary
-purposes is to act as a common timestamp source for messages or
-traces, allowing correlation of events occurring in different
-operating system contexts.
+The series also fixes some important pinctrl issues and minor one (coding
+style). Additional pinctrl is also added for the optionnal interfaces
+that are not enabled by default (FMC, LTDC, DCMI, PWM).
 
-These changes introduce a basic counter driver that can start, stop,
-and reset the counter. It also handles overflow accounting and
-configures the prescaler value.
+Changes in v2:
+- Rebase on v6.16-rc5
+- Rework Patch 3 (stm32.yaml): for board description, keep "compatible"
+string identifiers as before to not break ABI. But use "enum" type
+instead of "const" for the SoM and phyBOARD indentifiers.
 
-Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
----
- drivers/counter/Kconfig       |  10 +
- drivers/counter/Makefile      |   1 +
- drivers/counter/nxp-stm-cnt.c | 386 ++++++++++++++++++++++++++++++++++
- 3 files changed, 397 insertions(+)
- create mode 100644 drivers/counter/nxp-stm-cnt.c
+Christophe Parant (11):
+  ARM: dts: stm32: phycore-stm32mp15: Rename device tree files
+  ARM: dts: stm32: phyboard-sargas: Introduce SoM device tree
+  dt-bindings: arm: stm32: Modify STM32MP15x Phytec board items types
+  ARM: dts: stm32: Add new pinmux groups for phyboard-sargas and phycore
+  ARM: dts: stm32: phyboard-sargas: Fix uart4 and sai2 pinctrl
+  ARM: dts: stm32: phycore-stm32mp15: qspi: Fix memory map and pinctrl
+  ARM: dts: stm32: phycore-stm32mp15: Add dummy memory-node
+  ARM: dts: stm32: phyboard-sargas: Move aliases from dts to dtsi
+  ARM: dts: stm32: phycore-stm32mp15: Disable optional SoM peripherals
+  ARM: dts: stm32: phyboard-sargas and phycore: Fix coding style issues
+  ARM: dts: stm32: phyboard-sargas and phycore: Add optional interfaces
 
-diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
-index d30d22dfe577..bf5b281f194c 100644
---- a/drivers/counter/Kconfig
-+++ b/drivers/counter/Kconfig
-@@ -90,6 +90,16 @@ config MICROCHIP_TCB_CAPTURE
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called microchip-tcb-capture.
- 
-+config NXP_STM_CNT
-+	tristate "NXP System Timer Module Counter driver"
-+	depends on ARCH_S32 || COMPILE_TEST
-+	help
-+	  Select this option to enable the NXP System Timer Module
-+	  Counter driver.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called nxp_stm_cnt.
-+
- config RZ_MTU3_CNT
- 	tristate "Renesas RZ/G2L MTU3a counter driver"
- 	depends on RZ_MTU3
-diff --git a/drivers/counter/Makefile b/drivers/counter/Makefile
-index 40e644948e7a..196b3c216875 100644
---- a/drivers/counter/Makefile
-+++ b/drivers/counter/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_I8254)			+= i8254.o
- obj-$(CONFIG_INTEL_QEP)			+= intel-qep.o
- obj-$(CONFIG_INTERRUPT_CNT)		+= interrupt-cnt.o
- obj-$(CONFIG_MICROCHIP_TCB_CAPTURE)	+= microchip-tcb-capture.o
-+obj-$(CONFIG_NXP_STM_CNT)		+= nxp-stm-cnt.o
- obj-$(CONFIG_RZ_MTU3_CNT)		+= rz-mtu3-cnt.o
- obj-$(CONFIG_STM32_TIMER_CNT)		+= stm32-timer-cnt.o
- obj-$(CONFIG_STM32_LPTIMER_CNT)		+= stm32-lptimer-cnt.o
-diff --git a/drivers/counter/nxp-stm-cnt.c b/drivers/counter/nxp-stm-cnt.c
-new file mode 100644
-index 000000000000..4b310dbbc76f
---- /dev/null
-+++ b/drivers/counter/nxp-stm-cnt.c
-@@ -0,0 +1,386 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2018,2021-2025 NXP
-+ * Copyright 2025 Linaro Limited
-+ *
-+ * Author: Daniel Lezcano <daniel.lezcano@linaro.org>
-+ *
-+ * NXP S32G System Timer Module counters:
-+ *
-+ *  STM supports commonly required system and application software
-+ *  timing functions. STM includes a 32-bit count-up timer and four
-+ *  32-bit compare channels with a separate interrupt source for each
-+ *  channel. The timer is driven by the STM module clock divided by an
-+ *  8-bit prescale value (1 to 256). It has ability to stop the timer
-+ *  in Debug mode
-+ *
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/counter.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm.h>
-+#include <linux/slab.h>
-+#include <linux/spinlock.h>
-+
-+#define STM_CR(__base)		(__base)
-+#define STM_CR_TEN		BIT(0)
-+#define STM_CR_FRZ		BIT(1)
-+#define STM_CR_CPS_MASK         GENMASK(15, 8)
-+
-+#define STM_CCR0(__base)	((__base) + 0x10)
-+#define STM_CCR_CEN		BIT(0)
-+
-+#define STM_CIR0(__base)	((__base) + 0x14)
-+#define STM_CIR_CIF		BIT(0)
-+
-+#define STM_CMP0(__base)	((__base) + 0x18)
-+
-+#define STM_CNT(__base)		((__base) + 0x04)
-+
-+#define STM_ENABLE_MASK	(STM_CR_FRZ | STM_CR_TEN)
-+
-+struct nxp_stm_cnt {
-+	spinlock_t lock;
-+	void __iomem *base;
-+	u64 overflow;
-+	u32 counter;
-+	u8 prescaler;
-+	bool is_started;
-+};
-+
-+static void nxp_stm_cnt_enable(struct nxp_stm_cnt *stm_cnt)
-+{
-+	u32 reg;
-+
-+	reg = readl(STM_CR(stm_cnt->base));
-+
-+	reg |= STM_ENABLE_MASK;
-+
-+	writel(reg, STM_CR(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_disable(struct nxp_stm_cnt *stm_cnt)
-+{
-+	u32 reg;
-+
-+	reg = readl(STM_CR(stm_cnt->base));
-+
-+	reg &= ~STM_ENABLE_MASK;
-+
-+	writel(reg, STM_CR(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_ccr_disable(struct nxp_stm_cnt *stm_cnt)
-+{
-+	writel(0, STM_CCR0(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_ccr_enable(struct nxp_stm_cnt *stm_cnt)
-+{
-+	writel(STM_CCR_CEN, STM_CCR0(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_set_overflow(struct nxp_stm_cnt *stm_cnt)
-+{
-+	writel(UINT_MAX, STM_CMP0(stm_cnt->base));
-+}
-+
-+static u32 nxp_stm_cnt_get_counter(struct nxp_stm_cnt *stm_cnt)
-+{
-+	return readl(STM_CNT(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_set_counter(struct nxp_stm_cnt *stm_cnt, u32 counter)
-+{
-+	writel(counter, STM_CNT(stm_cnt->base));
-+}
-+
-+static void nxp_stm_cnt_set_prescaler(struct nxp_stm_cnt *stm_cnt, u8 prescaler)
-+{
-+	u32 reg;
-+
-+	reg = readl(STM_CR(stm_cnt->base));
-+
-+	FIELD_MODIFY(STM_CR_CPS_MASK, &reg, prescaler);
-+
-+	writel(reg, STM_CR(stm_cnt->base));
-+}
-+
-+static u8 nxp_stm_cnt_get_prescaler(struct nxp_stm_cnt *stm_cnt)
-+{
-+	u32 reg = readl(STM_CR(stm_cnt->base));
-+
-+	return FIELD_GET(STM_CR_CPS_MASK, reg);
-+}
-+
-+static bool nxp_stm_cnt_is_started(struct nxp_stm_cnt *stm_cnt)
-+{
-+	u32 reg;
-+
-+	reg = readl(STM_CR(stm_cnt->base));
-+
-+	return !!FIELD_GET(STM_CR_TEN, reg);
-+}
-+
-+static void nxp_stm_cnt_irq_ack(struct nxp_stm_cnt *stm_cnt)
-+{
-+	writel(STM_CIR_CIF, STM_CIR0(stm_cnt->base));
-+}
-+
-+static irqreturn_t nxp_stm_cnt_irq(int irq, void *dev_id)
-+{
-+	struct nxp_stm_cnt *stm_cnt = dev_id;
-+
-+	nxp_stm_cnt_irq_ack(stm_cnt);
-+
-+	spin_lock(&stm_cnt->lock);
-+	stm_cnt->overflow++;
-+	spin_unlock(&stm_cnt->lock);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void nxp_stm_cnt_start(struct nxp_stm_cnt *stm_cnt)
-+{
-+	nxp_stm_cnt_ccr_enable(stm_cnt);
-+	nxp_stm_cnt_set_overflow(stm_cnt);
-+	nxp_stm_cnt_enable(stm_cnt);
-+}
-+
-+static void nxp_stm_cnt_stop(struct nxp_stm_cnt *stm_cnt)
-+{
-+	nxp_stm_cnt_disable(stm_cnt);
-+	nxp_stm_cnt_irq_ack(stm_cnt);
-+	nxp_stm_cnt_ccr_disable(stm_cnt);
-+}
-+
-+static int nxp_stm_cnt_overflow_read(struct counter_device *counter,
-+				     struct counter_count *count, u64 *val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+	unsigned long irqflags;
-+
-+	spin_lock_irqsave(&stm_cnt->lock, irqflags);
-+	*val = stm_cnt->overflow;
-+	spin_unlock_irqrestore(&stm_cnt->lock, irqflags);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_overflow_write(struct counter_device *counter,
-+				      struct counter_count *count, u64 val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+	unsigned long irqflags;
-+
-+	spin_lock_irqsave(&stm_cnt->lock, irqflags);
-+	stm_cnt->overflow = val;
-+	spin_unlock_irqrestore(&stm_cnt->lock, irqflags);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_reset_write(struct counter_device *counter,
-+				   struct counter_count *count, u8 val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+
-+	nxp_stm_cnt_set_counter(stm_cnt, 0);
-+	spin_lock(&stm_cnt->lock);
-+	stm_cnt->overflow = 0;
-+	spin_unlock(&stm_cnt->lock);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_prescaler_read(struct counter_device *counter,
-+				      struct counter_count *count, u8 *val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+
-+	*val = nxp_stm_cnt_get_prescaler(stm_cnt);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_prescaler_write(struct counter_device *counter,
-+				       struct counter_count *count, u8 val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+
-+	nxp_stm_cnt_set_prescaler(stm_cnt, val);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_count_enable_write(struct counter_device *counter,
-+					  struct counter_count *count, u8 enable)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+
-+	if (enable)
-+		nxp_stm_cnt_start(stm_cnt);
-+	else
-+		nxp_stm_cnt_stop(stm_cnt);
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_count_enable_read(struct counter_device *counter,
-+					 struct counter_count *count, u8 *enable)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(counter);
-+
-+	*enable = nxp_stm_cnt_is_started(stm_cnt);
-+
-+	return 0;
-+}
-+
-+static struct counter_comp stm_cnt_count_ext[] = {
-+	COUNTER_COMP_COUNT_BOOL("reset",  NULL, nxp_stm_cnt_reset_write),
-+	COUNTER_COMP_COUNT_U8("prescaler", nxp_stm_cnt_prescaler_read, nxp_stm_cnt_prescaler_write),
-+	COUNTER_COMP_COUNT_U64("overflows", nxp_stm_cnt_overflow_read, nxp_stm_cnt_overflow_write),
-+	COUNTER_COMP_ENABLE(nxp_stm_cnt_count_enable_read, nxp_stm_cnt_count_enable_write),
-+};
-+
-+static int nxp_stm_cnt_count_read(struct counter_device *dev,
-+				  struct counter_count *count, u64 *val)
-+{
-+	struct nxp_stm_cnt *stm_cnt = counter_priv(dev);
-+
-+	*val = nxp_stm_cnt_get_counter(stm_cnt);
-+
-+	return 0;
-+}
-+
-+static const struct counter_ops nxp_stm_cnt_counter_ops = {
-+	.count_read  = nxp_stm_cnt_count_read,
-+};
-+
-+static struct counter_count nxp_stm_cnt_counts[] = {
-+	{
-+		.id = 0,
-+		.name = "stm_cnt",
-+		.ext = stm_cnt_count_ext,
-+		.num_ext = ARRAY_SIZE(stm_cnt_count_ext),
-+	},
-+};
-+
-+static int nxp_stm_cnt_suspend(struct device *dev)
-+{
-+	struct nxp_stm_cnt *stm_cnt = dev_get_drvdata(dev);
-+
-+	stm_cnt->is_started = nxp_stm_cnt_is_started(stm_cnt);
-+
-+	if (stm_cnt->is_started) {
-+		nxp_stm_cnt_stop(stm_cnt);
-+		stm_cnt->prescaler = nxp_stm_cnt_get_prescaler(stm_cnt);
-+		stm_cnt->counter = nxp_stm_cnt_get_counter(stm_cnt);
-+	}
-+
-+	return 0;
-+}
-+
-+static int nxp_stm_cnt_resume(struct device *dev)
-+{
-+	struct nxp_stm_cnt *stm_cnt = dev_get_drvdata(dev);
-+
-+	if (stm_cnt->is_started) {
-+		nxp_stm_cnt_set_counter(stm_cnt, stm_cnt->counter);
-+		nxp_stm_cnt_set_prescaler(stm_cnt, stm_cnt->prescaler);
-+		nxp_stm_cnt_start(stm_cnt);
-+	}
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(nxp_stm_cnt_pm_ops, nxp_stm_cnt_suspend,
-+				nxp_stm_cnt_resume);
-+
-+static int nxp_stm_cnt_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	struct counter_device *counter;
-+	struct nxp_stm_cnt *stm_cnt;
-+	struct clk *clk;
-+	void __iomem *base;
-+	int irq, ret;
-+
-+	base = devm_of_iomap(dev, np, 0, NULL);
-+	if (IS_ERR(base))
-+		return dev_err_probe(dev, PTR_ERR(base), "Failed to iomap %pOFn\n", np);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return dev_err_probe(dev, irq, "Failed to get IRQ\n");
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Clock not found\n");
-+
-+	counter = devm_counter_alloc(dev, sizeof(*stm_cnt));
-+	if (!counter)
-+		return -ENOMEM;
-+
-+	stm_cnt = counter_priv(counter);
-+
-+	stm_cnt->base = base;
-+	stm_cnt->overflow = 0;
-+	spin_lock_init(&stm_cnt->lock);
-+
-+	counter->name       = "stm_counter";
-+	counter->parent     = &pdev->dev;
-+	counter->ops        = &nxp_stm_cnt_counter_ops;
-+	counter->counts     = nxp_stm_cnt_counts;
-+	counter->num_counts = ARRAY_SIZE(nxp_stm_cnt_counts);
-+
-+	ret = devm_request_irq(dev, irq, nxp_stm_cnt_irq, IRQF_TIMER | IRQF_NOBALANCING,
-+			       dev_name(&counter->dev), stm_cnt);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Unable to allocate interrupt line\n");
-+
-+	ret = devm_counter_add(dev, counter);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to register counter\n");
-+
-+	platform_set_drvdata(pdev, stm_cnt);
-+
-+	return 0;
-+}
-+
-+static void nxp_stm_cnt_remove(struct platform_device *pdev)
-+{
-+	struct nxp_stm_cnt *stm_cnt = platform_get_drvdata(pdev);
-+
-+	if (nxp_stm_cnt_is_started(stm_cnt))
-+		nxp_stm_cnt_stop(stm_cnt);
-+}
-+
-+static const struct of_device_id nxp_stm_cnt_of_match[] = {
-+	{ .compatible = "nxp,s32g2-stm", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nxp_stm_cnt_of_match);
-+
-+static struct platform_driver nxp_stm_cnt_driver = {
-+	.probe  = nxp_stm_cnt_probe,
-+	.remove = nxp_stm_cnt_remove,
-+	.driver = {
-+		.name           = "nxp-stm-cnt",
-+		.pm		= pm_sleep_ptr(&nxp_stm_cnt_pm_ops),
-+		.of_match_table = nxp_stm_cnt_of_match,
-+	},
-+};
-+module_platform_driver(nxp_stm_cnt_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Daniel Lezcano");
-+MODULE_DESCRIPTION("NXP System Timer Module counter driver");
-+MODULE_IMPORT_NS("COUNTER");
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   8 +-
+ arch/arm/boot/dts/st/Makefile                 |   2 +-
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi   | 164 +++++++++
+ ...ts => stm32mp157c-phyboard-sargas-rdk.dts} |  24 +-
+ .../dts/st/stm32mp15xx-phyboard-sargas.dtsi   | 285 +++++++++++++++
+ ...-som.dtsi => stm32mp15xx-phycore-som.dtsi} | 344 ++++--------------
+ 6 files changed, 525 insertions(+), 302 deletions(-)
+ rename arch/arm/boot/dts/st/{stm32mp157c-phycore-stm32mp1-3.dts => stm32mp157c-phyboard-sargas-rdk.dts} (58%)
+ create mode 100644 arch/arm/boot/dts/st/stm32mp15xx-phyboard-sargas.dtsi
+ rename arch/arm/boot/dts/st/{stm32mp157c-phycore-stm32mp15-som.dtsi => stm32mp15xx-phycore-som.dtsi} (53%)
+
 -- 
-2.43.0
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
