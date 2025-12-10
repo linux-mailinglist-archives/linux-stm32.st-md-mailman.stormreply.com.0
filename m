@@ -2,111 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B679CB052F
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Dec 2025 15:46:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D44CB1F71
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Dec 2025 06:25:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E3C9C1A97C;
-	Tue,  9 Dec 2025 14:46:09 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E69EC5F1FA;
+	Wed, 10 Dec 2025 05:25:22 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58380C1A97B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1953C5F1D9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Dec 2025 14:46:07 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-b79ea617f55so1090183566b.3
+ Wed, 10 Dec 2025 05:25:20 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-47774d3536dso4651265e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Dec 2025 06:46:07 -0800 (PST)
+ Tue, 09 Dec 2025 21:25:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1765291566; x=1765896366;
+ d=linaro.org; s=google; t=1765344320; x=1765949120;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4fmZfYSUNdsaSTLHpM8yeyepmqTOQi5Ko0nHpOXwYuc=;
- b=fALTJw5QfJ2PPcdcavmZeh/l0vLcBkUDsZxwYvRV6E4lnsq2dJzn1QngYCDjAQkM/B
- jtSHHIMmKW08K1szLSSiQpwVLUB+XqNZnjsVfCQRSJv0f4RywTh/KX7S7RFVlj3EE9A+
- Uxqi2NQW/b+9lb49/V9Qi8kbnXZTXSDqWXHKDk+T/HE5P0HqeCkZmpFo3GvHp+50PUCW
- wQhHJiLV1Ds8si08cACDCKiFvYypQniW8nPHGtUGRWfkX/rkX0eiJ620mNrsrCKJ5jhs
- PAdtekYSpH42W82yKZjnPAEEmBxcd84rsrK0SrPHjr4vMfkoIO9r7ZTehc2eXB0OwTc2
- MX5g==
+ bh=4cI6o8go+UXL/S5TqQXusywCs+KEzzJC/G+A907W08g=;
+ b=CU7jCuYVMrnumn+8QHiy2mUgzmrZynpJ4dySanrfWpKoxUxHjEOlk4djzJKayCE2Yv
+ QBXJ83JsQCLZWMNxrL8IH9qcS3hXUFhtcYH+tqv8nDLwvEzdEao7ur5MUHtphOPz9lg7
+ bo3xdt+dMSKfhm97L38dOkMwcEFuRf1Ve0wjgB3lzd5QcsQC+x3eHd4gPB6AhqEpE21L
+ 4BsWeVtpTpo/bxU0LtaAQ0pdeHTdeA9yjRT+VYc1mKH5+ZQcnCm0ozuwW8QmBKMRSPkj
+ MTMNr1l3MabMfNKZBxvBUfzWRZ2jpXDqmnTXDNii/05jRWSydU723tho8t81XOw9IoRG
+ fIlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765291566; x=1765896366;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20230601; t=1765344320; x=1765949120;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4fmZfYSUNdsaSTLHpM8yeyepmqTOQi5Ko0nHpOXwYuc=;
- b=ApEA2YX0HaI4/KQuXRP0tTat5O+GPWlZ70ymqUTt942ZvemmmZXZXkzjVr7w8SjLMn
- tqbgRrKJ0jJux14ShbSwmEmwXh78Gg7AVtmqSVmu5zPhFVcCifcoW0B/Yhysokgf9tUN
- qyLpVZHWbPCMVcGxwszHiYYVfe7q3v2enIGQS8ay5UPJGEYjof41bJysJXOabnc7igzd
- IBqe6EZGiZnQPh+Yt+to2/clUicy4hC4bzVFpjfjXyEQMOb99lTck9lMwNLFhR/xcXkA
- wE7b+crQFY+5ubz1e4DDyJx9VpKa3q6fVVSJey2qnnw2v4A2zbrAwLN/4C9XSsJ2K9mo
- B/ng==
+ bh=4cI6o8go+UXL/S5TqQXusywCs+KEzzJC/G+A907W08g=;
+ b=onLbIzWc9ftC+bhUm+izY8b2nNH7oKYjJEh/AI0VC+Aim1Oxd24Eb7svd3hCmcjEqt
+ orXM8GoOpuT+zPeLFuUomMt87Djc3C5PuHOfbhS2ZCctMbyFm5FK/hlabAb6WW+gZXqr
+ r/Z/5CuAiWudt+q+a0jRWGiEw1XYcTAD+HNjbQsfDeTr+dFkf3/eZ+kPFQ7XscyoOYia
+ //Rw98SWihOk/Pb7hvo6TCgUC0pxE8NRTPHfXLXJEmCVyWkSLsnczVsr9OWY8OSj478K
+ EOxZVnA0+aGfE9o8TZdZ/QM8eqN5K4+1drDGdfunrv20Xppvs/hGSkVWF8fhPyMc0jzO
+ EAPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVgrXiSnk79cTzWcT30u/mN1wVWLSvjVQKGHOMJyZfLPVh0BQJE+4kudWrZpf/wC20HLOKNZRkPtq/odQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxzEXfUNHemYqyhU0z8tyiQVEPgTejCLGhwRIcIv3EO43VGj01d
- bwVtnyV182YYCdtMerkuLiC2jFAs4HSzX9jkTE2udf6bpHboieW4hNiXT4gcLe6Hx8chMiWhbz9
- GhLDcPrHTzBUmchZhr1x/k4R9FUxnjz0=
-X-Gm-Gg: ASbGncutTClsTzMZCCJGQ2Pr9e5spHGBGF3kqDpFVMYOu1gkpTWtUIiXf3hEPuvaOy1
- 6joZVPytR+DjIZjgWNscjJUx5JZ7yI6CNQSXBcWBRjhL5hIrDYTRlHr4QPHIko/PVwQe340OL/U
- CKi8gzryZ6iSB7roLQ7YsyItaOi0ker+8SeGDEfNHm0dQ68Bk17RqogkBPad7/b8eAW52326eWP
- WqlW/lFx0zyzH4E3tFxPJJ3EC4BzrvmaieAw/kr+1X+Oi1IzSiDVSl1L3Wk0IpJyHA0/g8cywad
- GsIk40Q4Suh7uNYkPImvt/gAd7uzGolL0EIa3dJxng+/xfXQU7j75SyXQKXu276htuzjsYo=
-X-Google-Smtp-Source: AGHT+IGlXu3dCFc83X6xkCFhuuTuzxpgBAzwDgILyS6ZUDAbBGi1U97b1Qfz8jIne/sjhUc3CyUOVqmVWZN3jo3XIyM=
-X-Received: by 2002:a17:907:d9e:b0:b73:845f:4432 with SMTP id
- a640c23a62f3a-b7a2455d577mr1325347966b.32.1765291566315; Tue, 09 Dec 2025
- 06:46:06 -0800 (PST)
+ AJvYcCULyRnmi1/7sHf/CkaKwu+JtXjFXyom5N5/F8p5GsTmb+JFH4THCZNFQJKyM73czrc70Yhkyq1QNqmiYQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzB3mhC22iWvUqnddnSX5RCavZRnaVH++Y4jScGjiUXFGApFp5a
+ QErY69+dceMsZyP9bxC48NW0cxmip5dYoTnvDs5y6EJhdbC2V05tkdBqIZCl9iIISgA=
+X-Gm-Gg: ASbGncvuMkKt1IRuDmG+BaYHtt+keAxSQDwx30wOUn8VbGKdtiR0hv1drriBV4lRQX0
+ +H/7xm06NG6nLZA4VC9qh/9fCaHblhQlg9hXEEM2lIa4foHaMJZ722cJzK332M/8eI/I4x/hkNR
+ r1mG79x65wACbUFdMhG82Lxm+ie/6e0uBx9Q9+r4JwjHWrHweqAXJ7qFA9vbSrZA/NehRogZIMj
+ f2xih0csZhwlinPcUdqetwtY9NaDZ/HlJRe02NYgnmK528qQpeqcZJCucTY8+Js6OyIGJJMu+pY
+ yPz/tm67ID79/PRY8Qkmg7JMV4n2aKb7Adk4xABloopjOtXnZ3qP89l4w2slGD3mlquv86pWKkH
+ 66xYXLXaIptyFMvgdLn8pew13C7WaKCPzRdia37VGYfQZhFAJN4gmS+JMqYl5gRnEqhe+L57UIk
+ EQmtIiv+h5Eg0j70GnPThg8BNs5pYmYyQ=
+X-Google-Smtp-Source: AGHT+IFm2uRrTxNeE4MWzwAU4VluA6mvY1no+6jYZZ3xTzIhUq0RwCW0mb7k9rZckuaKaPuIe8SKTw==
+X-Received: by 2002:a05:600c:4e92:b0:479:2a78:4a2e with SMTP id
+ 5b1f17b1804b1-47a838d1688mr9398385e9.7.1765344320173; 
+ Tue, 09 Dec 2025 21:25:20 -0800 (PST)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:4fde:b93c:87db:86e6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47a7d3a75a3sm33485695e9.6.2025.12.09.21.25.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Dec 2025 21:25:19 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: wbg@kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+Date: Wed, 10 Dec 2025 06:24:46 +0100
+Message-ID: <20251210052449.4154283-3-daniel.lezcano@linaro.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251210052449.4154283-1-daniel.lezcano@linaro.org>
+References: <20251210052449.4154283-1-daniel.lezcano@linaro.org>
 MIME-Version: 1.0
-References: <20251209-iio-inkern-use-namespaced-exports-v2-0-9799a33c4b7f@bootlin.com>
- <20251209-iio-inkern-use-namespaced-exports-v2-1-9799a33c4b7f@bootlin.com>
-In-Reply-To: <20251209-iio-inkern-use-namespaced-exports-v2-1-9799a33c4b7f@bootlin.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 9 Dec 2025 16:45:29 +0200
-X-Gm-Features: AQt7F2rGwi5_TocOmRGciLvaWe8Y7Fghi7KYuOXmk6PhKTOAwIFDPQlb6Jsx554
-Message-ID: <CAHp75VcX_z6q879gmWcb76SeFHtqMvpZ=y9PwNn0=eVFb06wAw@mail.gmail.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Casey Connolly <casey.connolly@linaro.org>, linux-iio@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-phy@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Chanwoo Choi <cw00.choi@samsung.com>,
- Chen-Yu Tsai <wens@csie.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- linux-input@vger.kernel.org, Orson Zhai <orsonzhai@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, David Lechner <dlechner@baylibre.com>,
- Guenter Roeck <linux@roeck-us.net>, Mariel Tinaco <Mariel.Tinaco@analog.com>,
- linux-hwmon@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>,
- Saravanan Sekar <sravanhome@gmail.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Matheus Castello <matheus@castello.eng.br>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- linux-mips@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Eugen Hristev <eugen.hristev@linaro.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Iskren Chernev <me@iskren.info>,
- Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Lukasz Luba <lukasz.luba@arm.com>, linux-arm-msm@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andy Shevchenko <andy@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>, linux-pm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-mediatek@lists.infradead.org, Kevin Tsai <ktsai@capellamicro.com>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Peter Rosin <peda@axentia.se>,
- Hans de Goede <hansg@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] iio: dac: ds4424: drop unused
-	include IIO consumer header
+Cc: devicetree@vger.kernel.org, s32@nxp.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH v2 2/3] dt-bindings: counter: Add NXP System
+	Timer Module Counter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,17 +89,95 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBEZWMgOSwgMjAyNSBhdCAxMDoyNuKAr0FNIFJvbWFpbiBHYW50b2lzCjxyb21haW4u
-Z2FudG9pc0Bib290bGluLmNvbT4gd3JvdGU6Cj4KPiBUbyBwcmVwYXJlIGZvciB0aGUgaW50cm9k
-dWN0aW9uIG9mIG5hbWVzcGFjZWQgZXhwb3J0cyBmb3IgdGhlIElJTyBjb25zdW1lcgo+IEFQSSwg
-cmVtb3ZlIHRoaXMgaW5jbHVkZSBkaXJlY3RpdmUgd2hpY2ggaXNuJ3QgYWN0dWFsbHkgdXNlZCBi
-eSB0aGUgZHJpdmVyLgoKUmV2aWV3ZWQtYnk6IEFuZHkgU2hldmNoZW5rbyA8YW5keUBrZXJuZWwu
-b3JnPgoKLS0gCldpdGggQmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Add the System Timer Module description found on the NXP s32 platform
+when it is used as a counter and the compatible for the s32g2 variant.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+---
+ .../bindings/counter/nxp,s32g2-stm-cnt.yaml   | 64 +++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/counter/nxp,s32g2-stm-cnt.yaml
+
+diff --git a/Documentation/devicetree/bindings/counter/nxp,s32g2-stm-cnt.yaml b/Documentation/devicetree/bindings/counter/nxp,s32g2-stm-cnt.yaml
+new file mode 100644
+index 000000000000..4d42996f5ad3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/counter/nxp,s32g2-stm-cnt.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/counter/nxp,s32g2-stm-cnt.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP System Timer Module (STM)
++
++maintainers:
++  - Daniel Lezcano <daniel.lezcano@kernel.org>
++
++description:
++  The System Timer Module supports commonly required system and application
++  software timing functions. STM includes a 32-bit count-up timer and four
++  32-bit compare channels with a separate interrupt source for each channel.
++  The counter is driven by the STM module clock divided by an 8-bit prescale
++  value.
++
++properties:
++  compatible:
++    oneOf:
++      - const: nxp,s32g2-stm-cnt
++      - items:
++          - const: nxp,s32g3-stm-cnt
++          - const: nxp,s32g2-stm-cnt
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Counter clock
++      - description: Module clock
++      - description: Register clock
++
++  clock-names:
++    items:
++      - const: counter
++      - const: module
++      - const: register
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    timer@4011c000 {
++        compatible = "nxp,s32g2-stm-cnt";
++        reg = <0x4011c000 0x3000>;
++        interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clks 0x3b>, <&clks 0x3c>, <&clks 0x3c>;
++        clock-names = "counter", "module", "register";
++    };
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
