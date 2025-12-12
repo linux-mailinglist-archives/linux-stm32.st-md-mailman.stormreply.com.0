@@ -2,84 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF1CCB80AA
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Dec 2025 07:41:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89949CB9C66
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Dec 2025 21:33:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3451C8F276;
-	Fri, 12 Dec 2025 06:41:14 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ABD6C8F277;
+	Fri, 12 Dec 2025 20:33:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1095CC5F1FB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D458C8F276
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Dec 2025 06:41:12 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-477b198f4bcso6331105e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Dec 2025 22:41:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1765521672; x=1766126472;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/0dbF2KGAYM3vdkkaB9ys4HQSTDRocKJY/9bGXcOOVY=;
- b=Fxc1G431Bn/HFsdKD7txA46ktdwb0BY4ykavVo4l+xEApMXC29camz8VlSTLBv77Bp
- TU0xlzOfxvjlCM3ZFr/1wYsA8MefAgVR4vbpatp3oTYHgk9OMabgx06uCoqBGJJ7pV6n
- D0oZFWJYDh4R80C1628/mmikrzURTupQvrjZRLHVMZm3ktrHyWf900SFEIuHDEK+SCD9
- GwZQw+IPelcqpliGaVpvZjfjDlUrsAb0VjO59wyBGp/z4Rnm1yWDltrIt4v4Am4lvp80
- aPK/7ceBydNbCa2Y0ljre/1aBG9VQis7B3BwANeDckxcuteXf7a/ay+8kwRA7fiz4MsT
- VQ/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765521672; x=1766126472;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/0dbF2KGAYM3vdkkaB9ys4HQSTDRocKJY/9bGXcOOVY=;
- b=S4jEl+WV3KbwB42+C5kgYOtypo+1EvUDb3LFd3On5pBESwCltOvdUkk5sSKSbNiCCh
- NmGXPUi1wmKTNrnj6BZQ9jXJgO/B4z555LlbwnwPmDB633ePFor/xONA+3oEmqWzHvQo
- FWDUre+C8WPdcHEx+TmEXJfjUeq50oDZEQLQ+L8j/RWMapOsvdRb1cjlJgqsSKxQcRI3
- N3Swvx/G1X6v99OixoGKm6qCFyTCSGLshNVxibohv3pj6PySEl+F+eXTF+gRGXfDtbJs
- OYKVjGuLm/lWAIvMbHcW2g22w1//vvSpeRWFFPxX8Hw5+3FIEaWYCTgBMFIwSQ7BulZe
- BeKg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVq0BHOIrALW9Fq0ZDITf03v5N2JTm1dL+LCx6/wC/LzcwFBA7KlhDKW18DqWaGw07NUwjX84wlqgDzAw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxmrTkVcsKuvChSYcfogfCJDsvpw5blpVweEpbiWa72MkmCwiU5
- ZOKyP9k2H9o1R5X9ChrAhhLi/hvfO/Y4TtVZPc5CgnpU4YHUQ+QvflvMbyGZwhAsGK0=
-X-Gm-Gg: AY/fxX5azO6de/byuC4jfWnrhXraaYBBWJYI1cA+bO76SXJHsmNx6+wN96rh0fDqnja
- sKq/gNyBHLojz+CtVvEVpkEM9dtEUtNPPaY+wlkS6t9yrLTQ9cvP3M4SAmAMkRyNKp9K9YQ17GN
- Q1ZAYsCnPZoALOlLkk1fJ70qHvElD9otdmW17/daALlYlCnw2oqzcLh8ZqhYoXhdJA8smcIqAcH
- SYZSj81c7UFg698G6IPNFVwcPFrugHjpX2eIPHTLDQGszGbctrzwEyJYidK6JgX+ckUsCNT8HL0
- 92fvsYWaHcu/dcZ7dlzS8As3ZF9zrVoRg687vxosKmzQxhMN5Zv/lPxAMehwLRpJ1Etu1mMkfoF
- BmTzA3/iXdoqvoYhWuEOWGwEeDuK/eOt/67M9gU2lY/puvmI/hy12vwnvKBt7kdf3JIiGABaM54
- 09eTbvVP/Bh4LIOa1F
-X-Google-Smtp-Source: AGHT+IF5qezNkUaAJ9catHYZZtFdsT9KvXk7hbPAPFs0cPAp04mHo7MQ82wa12a1D0dIkmm73s4oQQ==
-X-Received: by 2002:a05:600c:470b:b0:479:2a09:9262 with SMTP id
- 5b1f17b1804b1-47a8f8c00d1mr7099105e9.9.1765521672165; 
- Thu, 11 Dec 2025 22:41:12 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47a8f3a1b17sm5503315e9.2.2025.12.11.22.41.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Dec 2025 22:41:11 -0800 (PST)
-Date: Fri, 12 Dec 2025 09:41:08 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aTu5BB0pMfgzIodh@stanley.mountain>
-References: <cover.1764592300.git.dan.carpenter@linaro.org>
- <6275e666a7ef78bd4c758d3f7f6fb6f30407393e.1764592300.git.dan.carpenter@linaro.org>
- <aS3GzJljbfp2xJmW@shell.armlinux.org.uk>
+ Fri, 12 Dec 2025 20:33:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4309260197;
+ Fri, 12 Dec 2025 20:33:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D849DC4CEF1;
+ Fri, 12 Dec 2025 20:33:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1765571582;
+ bh=oXV52+EBwnwQgsf4JQISAFcL+Q5wlGyp41ZRqonHpZ8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KpvygYdbl+4QNc5B0uRSQKkrD3fQ8etfSezmQ9uT3E2yv1THLQROJFd6eavFCHURo
+ xX0+3Wdd/mbarggr2WfdhfVIfznhmevgSradqiJrVjX4oATKIeQpOidzJxWfYX9UMj
+ mvSRtL8QntugInpc1el8zgQfBM4jRQE3rjSZj38S6XHrdT28tifFqrTWrk+K4xbxZX
+ 5nKqVWjr+g6ZSc5MEPMJTzz39ERSfNQ3UnXiSbDQ2D5/EWhTKYTYPhFDVDJ89u5xok
+ tTS1nIt0485bFcHL0AGVHkTEPjIwH7xF6ygRuyHdLliBze4vkI45jOn8PGJ1ziiTDC
+ SMAmkG1Od/Yjg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 12 Dec 2025 14:32:09 -0600
+Message-ID: <20251212203226.458694-3-robh@kernel.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aS3GzJljbfp2xJmW@shell.armlinux.org.uk>
-Cc: s32@nxp.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Jan Petrous <jan.petrous@oss.nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, linaro-s32@linaro.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+Cc: devicetree@vger.kernel.org, soc@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] net: stmmac: s32: use the syscon
- interface PHY_INTF_SEL_RGMII
+Subject: [Linux-stm32] [PATCH] arm/arm64: dts: st: Drop unused .dtsi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,75 +62,311 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 01, 2025 at 04:48:12PM +0000, Russell King (Oracle) wrote:
-> On Mon, Dec 01, 2025 at 04:08:20PM +0300, Dan Carpenter wrote:
-> > On the s32 chipset the GMAC_0_CTRL_STS register is in GPR region.
-> > Originally, accessing this register was done in a sort of ad-hoc way,
-> > but we want to use the syscon interface to do it.
-> > 
-> > This is a little bit uglier because we to maintain backwards compatibility
-> > to the old device trees so we have to support both ways to access this
-> > register.
-> > 
-> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 23 +++++++++++++++----
-> >  1 file changed, 18 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > index 5a485ee98fa7..20de761b7d28 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > @@ -11,12 +11,14 @@
-> >  #include <linux/device.h>
-> >  #include <linux/ethtool.h>
-> >  #include <linux/io.h>
-> > +#include <linux/mfd/syscon.h>
-> >  #include <linux/module.h>
-> >  #include <linux/of_mdio.h>
-> >  #include <linux/of_address.h>
-> >  #include <linux/phy.h>
-> >  #include <linux/phylink.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> >  #include <linux/stmmac.h>
-> >  
-> >  #include "stmmac_platform.h"
-> > @@ -32,6 +34,8 @@
-> >  struct s32_priv_data {
-> >  	void __iomem *ioaddr;
-> >  	void __iomem *ctrl_sts;
-> > +	struct regmap *sts_regmap;
-> > +	unsigned int sts_offset;
-> >  	struct device *dev;
-> >  	phy_interface_t *intf_mode;
-> >  	struct clk *tx_clk;
-> > @@ -40,7 +44,10 @@ struct s32_priv_data {
-> >  
-> >  static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
-> >  {
-> > -	writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> > +	if (gmac->ctrl_sts)
-> > +		writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> > +	else
-> > +		regmap_write(gmac->sts_regmap, gmac->sts_offset, PHY_INTF_SEL_RGMII);
-> 
-> Sorry, but even if that regmap_write() is targetting the exact same
-> register, these are not identical.
-> 
-> S32_PHY_INTF_SEL_RGMII, which is a S32-specific value, takes the value 2.
-> PHY_INTF_SEL_RGMII is the dwmac specific value, and takes the value 1.
-> 
-> If this targets the same register, then by writing PHY_INTF_SEL_RGMII,
-> you are in effect writing the equivalent of S32_PHY_INTF_SEL_SGMII to
-> it. This seems like a bug.
-> 
+These .dtsi files are not included anywhere in the tree and can't be
+tested.
 
-Yeah.  Sorry, I forward ported this, then back ported it, then forward
-ported this again and I messed up.  :(
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ arch/arm/boot/dts/st/spear320s.dtsi           | 24 -------
+ .../boot/dts/st/stm32mp15xxab-pinctrl.dtsi    | 57 ---------------
+ arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi    | 63 ----------------
+ arch/arm64/boot/dts/st/stm32mp21xc.dtsi       |  8 ---
+ arch/arm64/boot/dts/st/stm32mp23xc.dtsi       |  8 ---
+ arch/arm64/boot/dts/st/stm32mp25xc.dtsi       |  8 ---
+ .../boot/dts/st/stm32mp25xxal-pinctrl.dtsi    | 71 -------------------
+ 7 files changed, 239 deletions(-)
+ delete mode 100644 arch/arm/boot/dts/st/spear320s.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32mp15xxab-pinctrl.dtsi
+ delete mode 100644 arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi
+ delete mode 100644 arch/arm64/boot/dts/st/stm32mp21xc.dtsi
+ delete mode 100644 arch/arm64/boot/dts/st/stm32mp23xc.dtsi
+ delete mode 100644 arch/arm64/boot/dts/st/stm32mp25xc.dtsi
+ delete mode 100644 arch/arm64/boot/dts/st/stm32mp25xxal-pinctrl.dtsi
 
-regards,
-dan carpenter
+diff --git a/arch/arm/boot/dts/st/spear320s.dtsi b/arch/arm/boot/dts/st/spear320s.dtsi
+deleted file mode 100644
+index 133236dc190d..000000000000
+--- a/arch/arm/boot/dts/st/spear320s.dtsi
++++ /dev/null
+@@ -1,24 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * DTS file for SPEAr320s SoC
+- *
+- * Copyright 2021 Herve Codina <herve.codina@bootlin.com>
+- */
+-
+-/include/ "spear320.dtsi"
+-
+-/ {
+-	ahb {
+-		apb {
+-			gpiopinctrl: gpio@b3000000 {
+-				/*
+-				 * The "RM0321 SPEAr320s address and map
+-				 * registers" document mentions interrupt 6
+-				 * (NPGIO_INTR) for the PL_GPIO interrupt.
+-				 */
+-				interrupts = <6>;
+-				interrupt-parent = <&shirq>;
+-			};
+-		};
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32mp15xxab-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15xxab-pinctrl.dtsi
+deleted file mode 100644
+index 328dad140e9b..000000000000
+--- a/arch/arm/boot/dts/st/stm32mp15xxab-pinctrl.dtsi
++++ /dev/null
+@@ -1,57 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2019 - All Rights Reserved
+- * Author: Alexandre Torgue <alexandre.torgue@st.com> for STMicroelectronics.
+- */
+-
+-&pinctrl {
+-	st,package = <STM32MP_PKG_AB>;
+-
+-	gpioa: gpio@50002000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@50003000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@50004000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 32 16>;
+-	};
+-
+-	gpiod: gpio@50005000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@50006000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@50007000 {
+-		status = "okay";
+-		ngpios = <6>;
+-		gpio-ranges = <&pinctrl 6 86 6>;
+-	};
+-
+-	gpiog: gpio@50008000 {
+-		status = "okay";
+-		ngpios = <10>;
+-		gpio-ranges = <&pinctrl 6 102 10>;
+-	};
+-
+-	gpioh: gpio@50009000 {
+-		status = "okay";
+-		ngpios = <2>;
+-		gpio-ranges = <&pinctrl 0 112 2>;
+-	};
+-};
+diff --git a/arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi b/arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi
+deleted file mode 100644
+index 929bdcd45d02..000000000000
+--- a/arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi
++++ /dev/null
+@@ -1,63 +0,0 @@
+-// SPDX-License-Identifier: BSD-3-Clause
+-/*
+- * Copyright (c) 2021, Konrad Dybcio <konrad.dybcio@somainline.org>
+- */
+-
+-#include "msm8996.dtsi"
+-
+-/ {
+-	qcom,msm-id = <246 0x30000>;
+-};
+-
+- /*
+-  * This revision seems to have differ GPU CPR
+-  * parameters, GPU frequencies and some differences
+-  * when it comes to voltage delivery to.. once again
+-  * the GPU. Funnily enough, it's simpler to make it an
+-  * overlay on top of 3.1 (the final one) than vice versa.
+-  * The differences will show here as more and more
+-  * features get enabled upstream.
+-  */
+-
+-gpu_opp_table_3_0: opp-table-gpu30 {
+-	compatible = "operating-points-v2";
+-
+-	opp-624000000 {
+-		opp-hz = /bits/ 64 <624000000>;
+-		opp-level = <7>;
+-	};
+-
+-	opp-560000000 {
+-		opp-hz = /bits/ 64 <560000000>;
+-		opp-level = <6>;
+-	};
+-
+-	opp-510000000 {
+-		opp-hz = /bits/ 64 <510000000>;
+-		opp-level = <5>;
+-	};
+-
+-	opp-401800000 {
+-		opp-hz = /bits/ 64 <401800000>;
+-		opp-level = <4>;
+-	};
+-
+-	opp-315000000 {
+-		opp-hz = /bits/ 64 <315000000>;
+-		opp-level = <3>;
+-	};
+-
+-	opp-214000000 {
+-		opp-hz = /bits/ 64 <214000000>;
+-		opp-level = <3>;
+-	};
+-
+-	opp-133000000 {
+-		opp-hz = /bits/ 64 <133000000>;
+-		opp-level = <3>;
+-	};
+-};
+-
+-&gpu {
+-	operating-points-v2 = <&gpu_opp_table_3_0>;
+-};
+diff --git a/arch/arm64/boot/dts/st/stm32mp21xc.dtsi b/arch/arm64/boot/dts/st/stm32mp21xc.dtsi
+deleted file mode 100644
+index e33b00b424e1..000000000000
+--- a/arch/arm64/boot/dts/st/stm32mp21xc.dtsi
++++ /dev/null
+@@ -1,8 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+- * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+- */
+-
+-/ {
+-};
+diff --git a/arch/arm64/boot/dts/st/stm32mp23xc.dtsi b/arch/arm64/boot/dts/st/stm32mp23xc.dtsi
+deleted file mode 100644
+index e33b00b424e1..000000000000
+--- a/arch/arm64/boot/dts/st/stm32mp23xc.dtsi
++++ /dev/null
+@@ -1,8 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+- * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+- */
+-
+-/ {
+-};
+diff --git a/arch/arm64/boot/dts/st/stm32mp25xc.dtsi b/arch/arm64/boot/dts/st/stm32mp25xc.dtsi
+deleted file mode 100644
+index 5e83a6926485..000000000000
+--- a/arch/arm64/boot/dts/st/stm32mp25xc.dtsi
++++ /dev/null
+@@ -1,8 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
+- * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+- */
+-
+-/ {
+-};
+diff --git a/arch/arm64/boot/dts/st/stm32mp25xxal-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25xxal-pinctrl.dtsi
+deleted file mode 100644
+index 2406e972554c..000000000000
+--- a/arch/arm64/boot/dts/st/stm32mp25xxal-pinctrl.dtsi
++++ /dev/null
+@@ -1,71 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
+- * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+- */
+-
+-&pinctrl {
+-	st,package = <STM32MP_PKG_AL>;
+-
+-	gpioa: gpio@44240000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@44250000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@44260000 {
+-		status = "okay";
+-		ngpios = <14>;
+-		gpio-ranges = <&pinctrl 0 32 14>;
+-	};
+-
+-	gpiod: gpio@44270000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@44280000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@44290000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 80 16>;
+-	};
+-
+-	gpiog: gpio@442a0000 {
+-		status = "okay";
+-		ngpios = <16>;
+-		gpio-ranges = <&pinctrl 0 96 16>;
+-	};
+-
+-	gpioh: gpio@442b0000 {
+-		status = "okay";
+-		ngpios = <12>;
+-		gpio-ranges = <&pinctrl 2 114 12>;
+-	};
+-
+-	gpioi: gpio@442c0000 {
+-		status = "okay";
+-		ngpios = <12>;
+-		gpio-ranges = <&pinctrl 0 128 12>;
+-	};
+-};
+-
+-&pinctrl_z {
+-	gpioz: gpio@46200000 {
+-		status = "okay";
+-		ngpios = <10>;
+-		gpio-ranges = <&pinctrl_z 0 400 10>;
+-	};
+-};
+-- 
+2.51.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
