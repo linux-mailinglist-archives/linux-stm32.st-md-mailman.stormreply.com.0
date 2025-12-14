@@ -2,97 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1840DCBA3AF
-	for <lists+linux-stm32@lfdr.de>; Sat, 13 Dec 2025 04:01:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60B6CBBE0B
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Dec 2025 18:49:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9EE5C57A52;
-	Sat, 13 Dec 2025 03:01:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 516C9C58D77;
+	Sun, 14 Dec 2025 17:49:17 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp-17.smtpout.orange.fr
+ [80.12.242.17])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA1B6C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78C14C1A97B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Dec 2025 03:01:24 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BEDBF600AA;
- Sat, 13 Dec 2025 03:01:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD92C4CEF5;
- Sat, 13 Dec 2025 03:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765594883;
- bh=u4uC+opD9/GDpFJsYurkfVKTjIdwkKonZMXbeLIgp5E=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=G3nhlJCoMGvmOz+XiMZc/DcR6HIW5jKCvJVIs1tjc0OQBqIbqU2hRHpQOfjfRhtNF
- IgbI6VXcef8yOWWk5ik0IBpVRTS/+jzGGw5jDQoKUtY35IRtJNy6fmDtUAPGEjLEEq
- QbsjSXnjCE00gd8GzeygvC1Gdw90e4t2YrFBtERJ+AbTAP9uPM+yaP/++sibFxJcnq
- LPlw98k+NlL5dvbWpIzE9HQKvbWvFtvFwqUJF1Yr/4sqg0Flj90dgP1DImTese0a50
- QhM6qH8F/NZHqML2xcG3TLQplB754leenZbK95FHsPAo8zouQBkbLXK/ySETrb3l5B
- oschu81Pdykow==
-Message-ID: <eb752290-0eb3-4817-b3ca-91a4f423dac4@kernel.org>
-Date: Sat, 13 Dec 2025 04:01:17 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Viresh Kumar <vireshk@kernel.org>,
+ Sun, 14 Dec 2025 17:49:16 +0000 (UTC)
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:8347:f260:7456:7662])
+ by smtp.orange.fr with ESMTPA
+ id UqDZve9EWBoKRUqDZvZY3L; Sun, 14 Dec 2025 18:49:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1765734556;
+ bh=8bTXwwa4yWYmr7RPK5yqMVybpKLz/hsRLqe6vIgI6FU=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=Q0aUFhZlMIAYVtUpnB+Yt+5owMGpqikBvZS7AsEeLg0ZwIqPl5FDLwFkoGjxkdNmX
+ l094Y+/3wL5Ea+GwsjU803rk7oHa/EYRxtETrOrrR45WwlvdDZ/xBHNzBJ0l5hUqJo
+ JWY7cSecI32YgqE56n7HGKUlLnTvgnBgzSlyYquaQE93RD8ZiPFRRpsU5ZcrVglciA
+ HHnJtn0WGrbLxYxyZrbLK+X27jcyc3miJdZbZUklHf4vJNTU9IV4qcnn49VIq+cNYn
+ PgvZxFGi4zPiKWOA5/i/sP5ozpNyQPPF3MUnJ+jpLevSqOR0nvi1l6X72PhVno7dGd
+ 2MNYZRVzufp2A==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 14 Dec 2025 18:49:16 +0100
+X-ME-IP: 2a01:cb10:785:b00:8347:f260:7456:7662
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-References: <20251212203226.458694-3-robh@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20251212203226.458694-3-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, soc@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] arm/arm64: dts: st: Drop unused .dtsi
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Sun, 14 Dec 2025 18:49:09 +0100
+Message-ID: <b5811c1c5efdc6e9c8eb4886b8046b50b09c37f0.1765734533.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] stm class: Constify struct
+	configfs_item_operations and configfs_group_operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,21 +60,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/12/2025 21:32, Rob Herring (Arm) wrote:
-> These .dtsi files are not included anywhere in the tree and can't be
-> tested.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  arch/arm/boot/dts/st/spear320s.dtsi           | 24 -------
->  .../boot/dts/st/stm32mp15xxab-pinctrl.dtsi    | 57 ---------------
->  arch/arm64/boot/dts/qcom/msm8996-v3.0.dtsi    | 63 ----------------
+'struct configfs_item_operations' and 'configfs_group_operations' are not
+modified in this driver.
 
+Constifying these structures moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-This should go to the qcom one.
+On a x86_64, with allmodconfig, as an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  11786	   4216	     64	  16066	   3ec2	drivers/hwtracing/stm/policy.o
 
-Best regards,
-Krzysztof
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  12202	   3800	     64	  16066	   3ec2	drivers/hwtracing/stm/policy.o
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested only.
+
+This change is possible since commits f2f36500a63b and f7f78098690d.
+---
+ drivers/hwtracing/stm/policy.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hwtracing/stm/policy.c b/drivers/hwtracing/stm/policy.c
+index 42103c3a177f..a1af8d585fc9 100644
+--- a/drivers/hwtracing/stm/policy.c
++++ b/drivers/hwtracing/stm/policy.c
+@@ -181,7 +181,7 @@ static void stp_policy_node_release(struct config_item *item)
+ 	kfree(node);
+ }
+ 
+-static struct configfs_item_operations stp_policy_node_item_ops = {
++static const struct configfs_item_operations stp_policy_node_item_ops = {
+ 	.release		= stp_policy_node_release,
+ };
+ 
+@@ -270,7 +270,7 @@ stp_policy_node_drop(struct config_group *group, struct config_item *item)
+ 	config_item_put(item);
+ }
+ 
+-static struct configfs_group_operations stp_policy_node_group_ops = {
++static const struct configfs_group_operations stp_policy_node_group_ops = {
+ 	.make_group	= stp_policy_node_make,
+ 	.drop_item	= stp_policy_node_drop,
+ };
+@@ -364,11 +364,11 @@ static void stp_policy_release(struct config_item *item)
+ 	kfree(policy);
+ }
+ 
+-static struct configfs_item_operations stp_policy_item_ops = {
++static const struct configfs_item_operations stp_policy_item_ops = {
+ 	.release		= stp_policy_release,
+ };
+ 
+-static struct configfs_group_operations stp_policy_group_ops = {
++static const struct configfs_group_operations stp_policy_group_ops = {
+ 	.make_group	= stp_policy_node_make,
+ };
+ 
+@@ -466,7 +466,7 @@ stp_policy_make(struct config_group *group, const char *name)
+ 	return ret;
+ }
+ 
+-static struct configfs_group_operations stp_policy_root_group_ops = {
++static const struct configfs_group_operations stp_policy_root_group_ops = {
+ 	.make_group	= stp_policy_make,
+ };
+ 
+-- 
+2.52.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
