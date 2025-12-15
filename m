@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF18CBE297
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 14:59:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C036CBE29A
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 14:59:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F436C35E2B;
-	Mon, 15 Dec 2025 13:59:34 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C342C35E2B;
+	Mon, 15 Dec 2025 13:59:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BE17C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC271C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Dec 2025 13:59:33 +0000 (UTC)
+ Mon, 15 Dec 2025 13:59:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4FB8943DBB;
- Mon, 15 Dec 2025 13:59:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0D3C4CEFB;
- Mon, 15 Dec 2025 13:59:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EB0E16015E;
+ Mon, 15 Dec 2025 13:59:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93286C4CEF5;
+ Mon, 15 Dec 2025 13:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765807172;
- bh=X8bSPkSn54gl5nm6i0LYZaDo4hg0moqVmaxzKL4v99o=;
+ s=k20201202; t=1765807176;
+ bh=o0X2IyCU5xJJncvKbdeohmJq4Nt8o89APee6pHzCAfE=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=iwvl8iBgu+44+2mrFTRq7DsILnmh9WsWrxJ7FmMphGh4FfjG4tmO+V34NacuArIUF
- m2pVgwx6tvl9Na7dwU7fwhRteO99B/KhsHUoD56Iml+avy/aMHJnvX5eZuF7Zq9wNG
- oq2znZ3YNJCiK89oSmjtUKUNcKnKxNDpE4VhNM3apDGTKGYxt1PcxnrlhCdRw0BDGD
- kCPhy0mDpCk8NzAW4Ez247ov2XZkOoUZxue96xbPQfnHgkV0aJYTS9E5lVxsMJ68AT
- mVG23SQ8NC/EZzsy0AOtP83ttMIl09fTp4Qqq1s/Z5rffxgQlZ7aHFHFJbSSCm+VlR
- L+7AMYNKxIM7g==
+ b=jEvPfafcH0xiTVOe9LMvWBjQf488lqW7thyhMiVVthpo5/vh+2KdAn8BpLKo9i98v
+ FuBThjuFN8DNEY9PWXJVaWsSJHzwCM1SiU5dmrHAGCIm3efvNPFyHFUxZC1w95DFDm
+ hzN45fijycF81XBy2KM2ilr8ukGrEPoV4s00U2aSANlG5xjKwssk4vJceErAAsqU1u
+ eSKXpPjJiUwvDPOl9No4mQogMnMoFoqMKfw/VUYhnhArR9Hjx4m9v09DI59pqCfwWA
+ tyyNYgDkpPBENE0+lTuGw2Ne2fm2D8PMWJZR7Rz+A4bNiZpRMYt8EtFDPl5iLbBJVR
+ 45vCXp0M8calg==
 From: Mark Brown <broonie@kernel.org>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Patrice Chotard <patrice.chotard@foss.st.com>
-In-Reply-To: <20251205-upstream_qspi_ospi_updates-v1-0-7e6c8b9f5141@foss.st.com>
-References: <20251205-upstream_qspi_ospi_updates-v1-0-7e6c8b9f5141@foss.st.com>
-Message-Id: <176580717045.161463.13864912582865667097.b4-ty@kernel.org>
-Date: Mon, 15 Dec 2025 22:59:30 +0900
+In-Reply-To: <20251208-upstream_qspi_ospi_updates-v2-0-62526c9467dc@foss.st.com>
+References: <20251208-upstream_qspi_ospi_updates-v2-0-62526c9467dc@foss.st.com>
+Message-Id: <176580717503.161463.8142752344614450653.b4-ty@kernel.org>
+Date: Mon, 15 Dec 2025 22:59:35 +0900
 MIME-Version: 1.0
 X-Mailer: b4 0.15-dev-47773
 Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/8] spi: stm32: Update for OSPI and QSPI
-	drivers
+Subject: Re: [Linux-stm32] [PATCH v2 0/8] spi: stm32: Update for OSPI and
+	QSPI drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,7 +58,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 05 Dec 2025 10:04:50 +0100, Patrice Chotard wrote:
+On Mon, 08 Dec 2025 08:29:07 +0100, Patrice Chotard wrote:
 > This serie applies the following updates on the spi-stm32-ospi and
 > spi-stm32-qspi dirvers :
 > 
