@@ -2,146 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89FCCBEC9D
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 16:57:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 755BFCBF5B3
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 19:09:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DC0BC35E3C;
-	Mon, 15 Dec 2025 15:57:04 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012055.outbound.protection.outlook.com [52.101.66.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E701C35E3C;
+	Mon, 15 Dec 2025 18:09:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F30EC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1CE7C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Dec 2025 15:57:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dk1d36ufB+tsRidUIuCY5ptA1UMFAGNaL9SbtRm2D9FUjM72alQ7Oo4me9JJGlM8ykZq7HKtS07KQ7i2pOZkK5MoGtlvHxh0h1ZzPNcOtccqczerR4vohHYVcldV/2a+PSdc7JW160H1oMq0pcYb4LTLCkzBBKXLoC8PThNsamZj9OU468i/abFxPfHddTWA3VfUaamLPf/1IKx7yf1m9LNCQCtn689x7OzIOdutroUbdQdsNbBwFvtSIa8oLhCB+gb0Qm1pvLN9YhpTBA73w7E8PMaTD8ng8x1UM1IW+5gXUzjLhgQJT1tQwYPyLo6qFn1j6DXZECkfpUZTUOyrAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C09fmyMEduK1iyPZFMGELqRX5X/nS9NPR5cuFoMTXWo=;
- b=Lxap3lVvGiajEYq/7aHRmWjTgojdsYkHWWiIDVpYk4pX/toqF4IMBPD7i7ZuaBuZR+nlxkUOq6WDdT4Mgf3tyRLYjWv8FlwNgffRfdCW79YT5ssY++cvJJMfNkZwH8LCmktSlIkj87zVTWdavW0tpkd4HV5oVqFesvEj3CJJOn8Ttow3MSehGzVwDkndbp01UJUf34vi/rbGvQRIxZ0375e2U/3X/oX+f/hL+DCYVFxRnX2g87OFsixekyiASwWxDTfHktYAOqoB7FLxH3A4xvpeulMZoXf+ZjHPUOj35UJwLIUwkAVmIzAqev/jy8QXa5dZeSO5qTyNv3giF1yPyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C09fmyMEduK1iyPZFMGELqRX5X/nS9NPR5cuFoMTXWo=;
- b=RmXEVmpLNAg703ipnQj8iWARjO1NwS5kIMnadTJ5YB5rPJ5UkrkMFT4icnSJUMaWQBMv+ftDcMoBnad9QFhEd8JUsgD1fG54OYiT+o6a5ADlyEm+DqKd3z5Ite841DeIwqHc+gbnO2BPnvgcE6YAXRJYVEdwh21wSDBq5GR8BfN1sW7t77mcjNDLCu/pCwns06NnKe3FQX04Q6Pe3fS4zGKpUHEzxRYofU6vo77DHomr2+zVNZZp27F4O0i8yIfP18S1hMwlpIYWPHWn1HoKJOEuM2X4mu4OJNIMLLQ2Gr9ibmBk0t3S1Q6BMeqMJJteNnmcUIX1TXiPvBXX9pEKQQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU2PR04MB8951.eurprd04.prod.outlook.com (2603:10a6:10:2e2::22)
- by VI2PR04MB10859.eurprd04.prod.outlook.com (2603:10a6:800:278::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Mon, 15 Dec
- 2025 15:56:58 +0000
-Received: from DU2PR04MB8951.eurprd04.prod.outlook.com
- ([fe80::753c:468d:266:196]) by DU2PR04MB8951.eurprd04.prod.outlook.com
- ([fe80::753c:468d:266:196%4]) with mapi id 15.20.9412.011; Mon, 15 Dec 2025
- 15:56:58 +0000
-Date: Mon, 15 Dec 2025 10:56:49 -0500
-From: Frank Li <Frank.li@nxp.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Message-ID: <aUAvwRmIZBC0W6ql@lizhi-Precision-Tower-5810>
-References: <cover.1765806521.git.dan.carpenter@linaro.org>
-Content-Disposition: inline
-In-Reply-To: <cover.1765806521.git.dan.carpenter@linaro.org>
-X-ClientProxiedBy: PH7P221CA0075.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:328::26) To DU2PR04MB8951.eurprd04.prod.outlook.com
- (2603:10a6:10:2e2::22)
+ Mon, 15 Dec 2025 18:09:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9FA9D60133;
+ Mon, 15 Dec 2025 18:09:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15912C4CEF5;
+ Mon, 15 Dec 2025 18:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1765822181;
+ bh=sJ0PanZdlGRt6sE05Z//hl9xXWQ8gP2sHeCPp+9cNxU=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+ b=mzOopvwPU06fZET1fGgc81omur+ilBqKE/gwOHBKK2/m+tqXHJ/fPogQbHHDBSDqY
+ k2I2Gk2eZKPb1QMeM/woGiSgPimAA7KT7pBj1ODgKIAB4CO6nEvrnxaqvzkoSPHnDg
+ WaXrXRxMt+JZgW5547zfjtIGTvFlewpbxg9Jzrael5Utudzwg7f4tDGt9mzN+9jEqC
+ c6ehZ1pN+53tCpdcipvNKNAdAc9Kn39/ttnjctzlnw2qhj0qsEDieOk3TqAb2F0zLR
+ f4vTiDRuzKardG6Bg3z+IoVlHpmaIFtUSeh6ZmhQe5fSgcyjeWmVI9L1MDjvJB/lEp
+ 3Ok0ToWxDdbWQ==
+Date: Mon, 15 Dec 2025 12:09:39 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8951:EE_|VI2PR04MB10859:EE_
-X-MS-Office365-Filtering-Correlation-Id: c323dff8-e811-4b9c-1319-08de3bf29419
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|52116014|19092799006|7416014|366016|376014|1800799024|38350700014;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vl0A1vSvJ+1R8pv++pkg9dS1ZpQTMJMvWEqcoZDU935nesgw3Z41gAEN51gG?=
- =?us-ascii?Q?aay91xvSQwsRpHEGUrrNAYnxNvoWTTEE9Ty3xzoHNaX/nM/MZ5/aD8zooZWc?=
- =?us-ascii?Q?2DVeIEblFfIoBHpD9gIu30b3YIU7MDp5yONNXHZEk5Vadojfkjldkuo4vj79?=
- =?us-ascii?Q?RbnbI5dBztPdEfZj7iNrm6z7Kjr1Hdh0yz6KrxoT8zRwKdEZEqAIIZRDVoXL?=
- =?us-ascii?Q?KCvEm06PvnFPfXGftaD3lKiWxw5sdps8lJRaazh/eA/5e7WIc5d2DiMhtH8A?=
- =?us-ascii?Q?XqXw5UwXLk6muoAOHk830lxEzBVZ0ez7yUr9GT6q/n4zJ/JkXDTEkZ7jB9RI?=
- =?us-ascii?Q?YsTAI5hi0z+pkyQFSsu0ZT7mDrCFToyFynpGKHSgGnedEdAVDJSGNNj6HoTv?=
- =?us-ascii?Q?PXZlB8uyXdPm2GmUGA7Cum2QaeEXuZIC0AHbhZCkHcpLcA3+jkhFNsPzVsfc?=
- =?us-ascii?Q?wtUtaOuWZCKLu+MaqTF0auF77Ush9KdBxJg/ne/s3ZAMtodbd55me8zSlJPE?=
- =?us-ascii?Q?y9g01C4jRMTZuuYefHkWCZtnbse3OEVP4P3aeZOhBIKvxhDWGawi2tuCfIt9?=
- =?us-ascii?Q?1FWNuS0JinAKnJc4Kwzrt+CT0J9zvL3OfIGXXm7Le2i4LR7lY2uizy1AnQyx?=
- =?us-ascii?Q?eVKfge6wWi61gC3zGARNwIIzsugTn2jyg5F7HQU828/FdH8EZYCiCmQjyDRl?=
- =?us-ascii?Q?Os2AGYS7d95urDLVHBg07XlpbWlp89BpW2551sZQOaI3y880ae7xCUQrAv9t?=
- =?us-ascii?Q?8cnweRowiDjP+IbUDNzCM1ofye8J1CfJomZye+bZYp9Qamlh+zO7pdtbPT8Z?=
- =?us-ascii?Q?0JavpQpi3CgpEerty3Ds6dsS24Ums6+VWomq70qd33BPi2UYdjHZcddX1HgD?=
- =?us-ascii?Q?RHK0l0nTY27qYdcX8bFNL7AG+O671mA6OZlDgYwAZIWM5S2e0aDB+FjtQ0aJ?=
- =?us-ascii?Q?wyYLihk7YXvbBsLOdBRY5XlefOcym5Mh6btvhEzaWtA6Xcm7oOxlmG6yNags?=
- =?us-ascii?Q?lP0lOmrcCvnMIt9Av6AqywZdpE/2BNUkoWTdSB00j8oUSxpknszmongLqyDQ?=
- =?us-ascii?Q?kpCv+iO2jAbWyfmLJHLlp9DoBiPOHwGDI84AxhaVARopP+6d1fqsIW8f/Qhb?=
- =?us-ascii?Q?58baAd7fa9Sx/+9B9EJiK6PLgGdGlx/oFgM+H/3pH66OCaxvo9kxim1CWlDo?=
- =?us-ascii?Q?ACefF7/82OW7E5q+vf9A49PwH9TOV5q1p4g/cUxLAzH8ZJHgIzjIZ0mjwoxF?=
- =?us-ascii?Q?szU6YO607oXLSQiZjwZC/AEfoNlRliUMxwdqh+mNwQz+BMLENBZM3e6Pq921?=
- =?us-ascii?Q?oy1y7MXjpQe7QGfMTUqG2cnEgLEbxen+pPlQY0tvw+CZTX5GnEmyTI3eV11L?=
- =?us-ascii?Q?EshWWNCDms3+MUa+I4z1SnF2Ksqx/GHAOOnkF6MgGHiRAjH/xLmSR30fpM1C?=
- =?us-ascii?Q?Pwn97ClNLTadVV9TnvMol/G1M3BPgal56IgP5QsLuWfQL28PrGywCQ6Khk2S?=
- =?us-ascii?Q?p6EpmsD0DIMDK/d1fOq4bIZC77LpWhc28v2j?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DU2PR04MB8951.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(52116014)(19092799006)(7416014)(366016)(376014)(1800799024)(38350700014);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jDKOrYFzViGVmo09s7A3kR9qtXW8u5/gs1mExuKEhJLlefSnrb9e7SpOpPPw?=
- =?us-ascii?Q?EM0lIldHuZfPiBW/X9CLraMk3G/olK6iY7wUewHt9s6wBM50m86NzfPemSgu?=
- =?us-ascii?Q?bXz2cOLG3JlqbfZS7NbPTQZs0pyAZe06XCzCeGmLMRbD+WxLPKZ6JUoFntiS?=
- =?us-ascii?Q?rhAeLewIFE6pyVMiWNbrj3GUjqdetsqb6/EAxEcfbENnMGzG8pcAhgzt0pnx?=
- =?us-ascii?Q?KzTXSYnsrLQM/JRsCVHf7OnQ3r1FqkfnD4+DqXjiXzFXlwrvW4QFNjbXMSoE?=
- =?us-ascii?Q?cKgqpoDuI6CWblULc3s9NQzlTkVeqXk0ipPRtG5YmGUZ+kybcR6UlF3QDIx/?=
- =?us-ascii?Q?U7amLrBZwE+jgaprnQx+vYsjTKXTbfiQH9FwNVzJFaNL0gPMCNnzwSNjYktu?=
- =?us-ascii?Q?QV0GeGo7U5D63l2sMI4b86VyNnGHL+E4DoxPjRWpQrICC4njqaKDGSo8Cftp?=
- =?us-ascii?Q?yFXjUZWyA91+WCneCOZ6zz054U9AyZjSeJCioRFN+4QlIlsWs378JQ6513HT?=
- =?us-ascii?Q?/5uShcKLao662HeTeNUkXQVQZ3ZCzaGP1zkQwh2VszuM09QESROav+HdJlpe?=
- =?us-ascii?Q?2BN6QJLnZb6gAxGCL4g4QYxQPaBMd7dFtlTgn0dU5ZSbkfVf5SqxxDCsgVEd?=
- =?us-ascii?Q?lZTfjNCLSaExIX/rVJAVRHVHZeUkohrQhg69XlEgyMYQH//9XBaQoOKudWCD?=
- =?us-ascii?Q?jbO15qXGCD/BDOdg7sQw3wH+r76SIachxc8V4BdjyIZTJMccjJcE6QfwrRqN?=
- =?us-ascii?Q?O4nWrLTawB0DUwRdQdsCtpQWyNXRDh3yKV3LcL4kHs0Wa0a03zRtk32qozFr?=
- =?us-ascii?Q?dGlZtSv+cNLf6F/4f9Cn3cCab0EsJBAQLAxr514TBiYizprPUXBozdxM5SRD?=
- =?us-ascii?Q?xYfG+TjxDwVHP0EragP2QV/dEThUio/3DPB0/LxoAACPmce3Knb5ssimkIfX?=
- =?us-ascii?Q?SCzoTPSvM+O0bipDnNZ5nps5a3caIPYIaY6j0zsQPnrUOoBgxD/fv1EKL5Fo?=
- =?us-ascii?Q?MnYq8rSPg41zRIZMieengjBsWIPTsVLvzt0y0M18NYLr+cJCDmL3qtU6TqGC?=
- =?us-ascii?Q?lEfnPKMTG5HtKlxqwfFyUKBWHYdvEMT9ZUkYjoT0FIKF7kOaov2hlSTi0Sow?=
- =?us-ascii?Q?MPbc/eIbJK2raIm222wnUJoUXBUY7CIA8QTULeaAZ6e8ezuH1qlapUcNtLx6?=
- =?us-ascii?Q?HbFu+E5YE2dJqhBqdsMHEIbHYFUs3rrtu8oDiORK36UdAZehFjHKXtvb8cFA?=
- =?us-ascii?Q?Ax/Xp4Yteho8rTTedAcfLAZGDu9OobhI5csiwnjPRhps4DUpDAQb5yYUdXVF?=
- =?us-ascii?Q?UtMB9lAmovu6tm2dJC8KVtVxCEul/D68zzXMnVWKR/+cYpsfxzW4ikAdGtJn?=
- =?us-ascii?Q?vjaBzHdngls3N08AbqJHM62ulmCgmWvBiuxcp9ziI1PqV1ijk/IX5WmoQB8F?=
- =?us-ascii?Q?f06EzJERPe5mxVcBB/L73UuqAfVUR8UDW65q1EOfqtnMfdcnkNcZjUoM4PiB?=
- =?us-ascii?Q?le1hCA1mnBH5xUdgj84LZEFkG07+vcSWq2jfF01JLEIIEDaSgFO/qjTStO1a?=
- =?us-ascii?Q?aFmkJcQTaq7elYzexAE=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c323dff8-e811-4b9c-1319-08de3bf29419
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8951.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2025 15:56:58.7370 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CHFcZ8Ahw1aJ/PMdezcITfUSh2fWJJzZ5C1MzYRCH67Q6mHb5wGvTKZLlB+Jdi2ujt4Dl4LgqsKsGjzlIRq90w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10859
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+In-Reply-To: <20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com>
+References: <20251214-dwmac_multi_irq-v1-0-36562ab0e9f7@oss.nxp.com>
+ <20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com>
+Message-Id: <176582217911.3066791.4926710165988218857.robh@kernel.org>
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  Eric Dumazet <edumazet@google.com>,
  Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linaro-s32@linaro.org, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
- linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
- Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v2 0/4] s32g: Use a syscon for GPR
+Subject: Re: [Linux-stm32] [PATCH RFC 2/4] dt-bindings: net: nxp,
+ s32-dwmac: Declare per-queue interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,119 +68,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 15, 2025 at 05:41:43PM +0300, Dan Carpenter wrote:
-> The s32g devices have a GPR register region which holds a number of
-> miscellaneous registers.  Currently only the stmmac/dwmac-s32.c uses
-> anything from there and we just add a line to the device tree to
-> access that GMAC_0_CTRL_STS register:
->
->                         reg = <0x4033c000 0x2000>, /* gmac IP */
->                               <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
->
-> We still have to maintain backwards compatibility to this format,
-> of course, but it would be better to access these through a syscon.
-> First of all, putting all the registers together is more organized
-> and shows how the hardware actually is implemented.  Secondly, in
-> some versions of this chipset those registers can only be accessed
-> via SCMI, if the registers aren't grouped together each driver will
-> have to create a whole lot of if then statements to access it via
-> IOMEM or via SCMI,
 
-Does SCMI work as regmap? syscon look likes simple, but missed abstract
-in overall.
+On Sun, 14 Dec 2025 23:15:38 +0100, Jan Petrous (OSS) wrote:
+> The DWMAC IP on supported SoCs has connected queue-based IRQ lines.
+> 
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> ---
+>  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 40 +++++++++++++++++++---
+>  1 file changed, 36 insertions(+), 4 deletions(-)
+> 
 
-You still use regmap by use MMIO. /* GMAC_0_CTRL_STS */
+My bot found errors running 'make dt_binding_check' on your patch:
 
-regmap = devm_regmap_init_mmio(dev, sts_offset, &regmap_config);
+yamllint warnings/errors:
 
-So all code can use regmap function without if-then statements if SCMI work
-as regmap.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: ignoring, error in schema: properties: interrupt-names
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-doc-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
+    ret |= check_doc(f)
+           ~~~~~~~~~^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
+    dtsch.check_schema_refs()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 241, in check_schema_refs
+    self._check_schema_refs(resolver, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            has_constraint=has_constraint)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 216, in _check_schema_refs
+    self._check_schema_refs(resolver, schema[i], parent=parent, is_common=is_common,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            has_constraint=has_constraint)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
+    ref_sch = resolver.lookup(schema['$ref']).contents
+              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
+    retrieved = self._registry.get_or_retrieve(uri)
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
+    registry = self.crawl()
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
+    id = resource.id()
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
+    id = self._specification.id_of(self.contents)
+  File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
+    return contents.get("$id")
+           ^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+Lexical error: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dts:58.13-17 Unexpected 'snps'
+Error: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dts:58.13-17 syntax error
+FATAL ERROR: Unable to parse input tree
+make[2]: *** [scripts/Makefile.dtbs:141: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1559: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Frank
+doc reference errors (make refcheckdocs):
 
+See https://patchwork.kernel.org/project/devicetree/patch/20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com
 
->where if we use a syscon interface we can write
-> a driver to handle that quite transparently without modifying each
-> individual driver which reads or writes to one of these registers.
-> That code is out of tree for now, but eventually we'll want to
-> support this.
->
-> Changed since v1:
-> * Add imx@lists.linux.dev to the CC list.
-> * Fix forward porting bug.  s/PHY_INTF_SEL_RGMII/S32_PHY_INTF_SEL_RGMII/
-> * Use the correct SoC names nxp,s32g2-gpr and nxp,s32g3-gpr instead of
->   nxp,s32g-gpr which is the SoC family.
-> * Fix the phandle name by adding the vendor prefix
-> * Fix the documentation for the phandle
-> * Remove #address-cells and #size-cells from the syscon block
->
-> Here is the whole list of registers in the GPR region
->
-> Starting from 0x4007C000
->
-> 0  Software-Triggered Faults (SW_NCF)
-> 4  GMAC Control (GMAC_0_CTRL_STS)
-> 28 CMU Status 1 (CMU_STATUS_REG1)
-> 2C CMUs Status 2 (CMU_STATUS_REG2)
-> 30 FCCU EOUT Override Clear (FCCU_EOUT_OVERRIDE_CLEAR_REG)
-> 38 SRC POR Control (SRC_POR_CTRL_REG)
-> 54 GPR21 (GPR21)
-> 5C GPR23 (GPR23)
-> 60 GPR24 Register (GPR24)
-> CC Debug Control (DEBUG_CONTROL)
-> F0 Timestamp Control (TIMESTAMP_CONTROL_REGISTER)
-> F4 FlexRay OS Tick Input Select (FLEXRAY_OS_TICK_INPUT_SELECT_REG)
-> FC GPR63 Register (GPR63)
->
-> Starting from 0x4007CA00
->
-> 0  Coherency Enable for PFE Ports (PFE_COH_EN)
-> 4  PFE EMAC Interface Mode (PFE_EMACX_INTF_SEL)
-> 20 PFE EMACX Power Control (PFE_PWR_CTRL)
-> 28 Error Injection on Cortex-M7 AHB and AXI Pipe (CM7_TCM_AHB_SLICE)
-> 2C Error Injection AHBP Gasket Cortex-M7 (ERROR_INJECTION_AHBP_GASKET_CM7)
-> 40 LLCE Subsystem Status (LLCE_STAT)
-> 44 LLCE Power Control (LLCE_CTRL)
-> 48 DDR Urgent Control (DDR_URGENT_CTRL)
-> 4C FTM Global Load Control (FLXTIM_CTRL)
-> 50 FTM LDOK Status (FLXTIM_STAT)
-> 54 Top CMU Status (CMU_STAT)
-> 58 Accelerator NoC No Pending Trans Status (NOC_NOPEND_TRANS)
-> 90 SerDes RD/WD Toggle Control (PCIE_TOGGLE)
-> 94 SerDes Toggle Done Status (PCIE_TOGGLEDONE_STAT)
-> E0 Generic Control 0 (GENCTRL0)
-> E4 Generic Control 1 (GENCTRL1)
-> F0 Generic Status 0 (GENSTAT0)
-> FC Cortex-M7 AXI Parity Error and AHBP Gasket Error Alarm (CM7_AXI_AHBP_GASKET_ERROR_ALARM)
->
-> Starting from 4007C800
->
-> 4  GPR01 Register (GPR01)
-> 30 GPR12 Register (GPR12)
-> 58 GPR22 Register (GPR22)
-> 70 GPR28 Register (GPR28)
-> 74 GPR29 Register (GPR29)
->
-> Starting from 4007CB00
->
-> 4 WKUP Pad Pullup/Pulldown Select (WKUP_PUS)
->
-> Dan Carpenter (4):
->   net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
->   dt-bindings: mfd: syscon: Document the GPR syscon for the NXP S32 SoCs
->   dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
->   dts: s32g: Add GPR syscon region
->
->  .../devicetree/bindings/mfd/syscon.yaml       |  4 ++++
->  .../bindings/net/nxp,s32-dwmac.yaml           | 10 ++++++++
->  arch/arm64/boot/dts/freescale/s32g2.dtsi      |  6 +++++
->  arch/arm64/boot/dts/freescale/s32g3.dtsi      |  6 +++++
->  .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 23 +++++++++++++++----
->  5 files changed, 44 insertions(+), 5 deletions(-)
->
-> --
-> 2.51.0
->
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
