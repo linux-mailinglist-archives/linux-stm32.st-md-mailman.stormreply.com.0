@@ -2,56 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755BFCBF5B3
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 19:09:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CC43CBF713
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 19:34:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E701C35E3C;
-	Mon, 15 Dec 2025 18:09:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFAACC35E2B;
+	Mon, 15 Dec 2025 18:34:00 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1CE7C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC2F4C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Dec 2025 18:09:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FA9D60133;
- Mon, 15 Dec 2025 18:09:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15912C4CEF5;
- Mon, 15 Dec 2025 18:09:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765822181;
- bh=sJ0PanZdlGRt6sE05Z//hl9xXWQ8gP2sHeCPp+9cNxU=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=mzOopvwPU06fZET1fGgc81omur+ilBqKE/gwOHBKK2/m+tqXHJ/fPogQbHHDBSDqY
- k2I2Gk2eZKPb1QMeM/woGiSgPimAA7KT7pBj1ODgKIAB4CO6nEvrnxaqvzkoSPHnDg
- WaXrXRxMt+JZgW5547zfjtIGTvFlewpbxg9Jzrael5Utudzwg7f4tDGt9mzN+9jEqC
- c6ehZ1pN+53tCpdcipvNKNAdAc9Kn39/ttnjctzlnw2qhj0qsEDieOk3TqAb2F0zLR
- f4vTiDRuzKardG6Bg3z+IoVlHpmaIFtUSeh6ZmhQe5fSgcyjeWmVI9L1MDjvJB/lEp
- 3Ok0ToWxDdbWQ==
-Date: Mon, 15 Dec 2025 12:09:39 -0600
+ Mon, 15 Dec 2025 18:33:59 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4779a637712so25737625e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Dec 2025 10:33:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765823639; x=1766428439;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=8ivCXo0tlAhX6SrgNkqQcm5Kx6Z8sjaJXC/TK9cEdNg=;
+ b=V9xP5qsxZ9ls6EhoFWJfnYIvTjO0lETngCNpLtghmJIzuGbXVBJ/38vAvVVO7mwybh
+ MqMu4KK6R/czgyzsOKi9Jx5sKMYA9wulcQGLs1gQAlMmeoCcJyhm4UB/yGZhKfghnIbi
+ q4QqV/IvGJ7m66CbbD6/LCW7BIzZgQC8V48JvP0W3qSP+TZymY67/T62+2mYnfUXM55G
+ /+IX9ZGSZtbkMpZX0LDVg5Eq9wfz54v91Qj25RpzV5oMckqlq92aM3s5dXsyvDVCNOGp
+ h8bI50/zR2abwYJ9iDl6BGJ2REkua+L8MOHUUIbOhbo5SU+SbzHivcyt9hIPjLDhB6Az
+ QauQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765823639; x=1766428439;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8ivCXo0tlAhX6SrgNkqQcm5Kx6Z8sjaJXC/TK9cEdNg=;
+ b=cPKElgEe8gnkTQGYZ1QtS/giPCez3IewkQJyBJJU/SvDc2sgurKmRJyECGPjMhd0dy
+ sd6nGKSqkcCw7D7fRkBwftiWfmvbsPOku8fKjuO435PDCBZAdCPybUJhofh69Ml4Sy18
+ XbM6IQt8LlwP/JoUTlyJznNJMoTpMnCwQ9hboK8UghM1osk+hUMrN6Ca3fX3aWJ9ftHI
+ jFp1k0GjWGZXXoTVdq6DShX4MNrOrCSWIwGo9y5Q8bHkyC/4QSkZTmHpY8dNjXV30nWa
+ 1Oox3u7Wm2cJzEOS7t9Ppgv26dfG1CbTg5ObwP5DUmS5CRcyUpiazv4b9MuWkqwUk5r9
+ 8MNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXygFTuCh/b0oQMzIzlI/C0o8nrmpA3YW5NvLlJaNH3m/jbr4YBrb8Zh62zDs2e3DxjlwAEbSlQByHruw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLKbocx9PcsPFb1f3lJlLXNbS+qGP4H9PsjNeNam5ZgU9cEUEE
+ PKxWnoBGRBVtVSJLSaCoBfDqoJmftOL+j3E3uhgOhcmXzjU349GNwQzdGXN0DDB5sqM=
+X-Gm-Gg: AY/fxX43vo4TXCgpjBdOD+sq+BdZyHtyk8vu24KZsb9njdAry7RHqJy2iT9OH1T4gfj
+ CLplesq9c+9Y1nKFoxx1uRU9vCh/Sk49l1zNRFwI01tLB3HEDVdlKKt5NLFhlLK/mwWrcNQb2bH
+ tA1jhVgI2Civ+TdTCY0njXe+SVJZjsxZubLD08W+JkkAJmN3CWcfzAmDDeqg8IhPOrO72evYc/C
+ Tadk8uL03xazh0VTxSrlWPDorlFSPtTf+jYamttpIKsKBPQUlreBQayAO2Dz2enPm9viftY9lVt
+ kt3cQu4+RIrmOWRDfaxRHCoapjP4mAw+9VL7wnYJQl94aprqByM3bB3fw+i6fYrIFkXtzBnsqkU
+ lzD+nZINcshb/+P6Pa5qVw7K8k4hjnjsev8XlSgZC63bEN2zN5CBeojE8PkX6pw5bC5dtcoYUAj
+ y4jlqVKrB1cmAstfbe
+X-Google-Smtp-Source: AGHT+IGD9iih4mWv4BLSj82m0Ympx0mGmlL43wh+neFiQaKbjBxHvTG8uww0J8sP/od0z1H7q0uRNg==
+X-Received: by 2002:a05:600c:5252:b0:477:76cb:4812 with SMTP id
+ 5b1f17b1804b1-47a8f708ebamr117215125e9.0.1765823638856; 
+ Mon, 15 Dec 2025 10:33:58 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-430f280cf05sm16491842f8f.7.2025.12.15.10.33.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Dec 2025 10:33:58 -0800 (PST)
+Date: Mon, 15 Dec 2025 21:33:54 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Frank Li <Frank.li@nxp.com>
+Message-ID: <aUBUkuLf7NHtLSl1@stanley.mountain>
+References: <cover.1765806521.git.dan.carpenter@linaro.org>
+ <aUAvwRmIZBC0W6ql@lizhi-Precision-Tower-5810>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-In-Reply-To: <20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com>
-References: <20251214-dwmac_multi_irq-v1-0-36562ab0e9f7@oss.nxp.com>
- <20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com>
-Message-Id: <176582217911.3066791.4926710165988218857.robh@kernel.org>
+Content-Disposition: inline
+In-Reply-To: <aUAvwRmIZBC0W6ql@lizhi-Precision-Tower-5810>
 Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
  Eric Dumazet <edumazet@google.com>,
  Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linaro-s32@linaro.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
+ Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH RFC 2/4] dt-bindings: net: nxp,
- s32-dwmac: Declare per-queue interrupts
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] s32g: Use a syscon for GPR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,93 +103,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Sun, 14 Dec 2025 23:15:38 +0100, Jan Petrous (OSS) wrote:
-> The DWMAC IP on supported SoCs has connected queue-based IRQ lines.
+On Mon, Dec 15, 2025 at 10:56:49AM -0500, Frank Li wrote:
+> On Mon, Dec 15, 2025 at 05:41:43PM +0300, Dan Carpenter wrote:
+> > The s32g devices have a GPR register region which holds a number of
+> > miscellaneous registers.  Currently only the stmmac/dwmac-s32.c uses
+> > anything from there and we just add a line to the device tree to
+> > access that GMAC_0_CTRL_STS register:
+> >
+> >                         reg = <0x4033c000 0x2000>, /* gmac IP */
+> >                               <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
+> >
+> > We still have to maintain backwards compatibility to this format,
+> > of course, but it would be better to access these through a syscon.
+> > First of all, putting all the registers together is more organized
+> > and shows how the hardware actually is implemented.  Secondly, in
+> > some versions of this chipset those registers can only be accessed
+> > via SCMI, if the registers aren't grouped together each driver will
+> > have to create a whole lot of if then statements to access it via
+> > IOMEM or via SCMI,
 > 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> ---
->  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 40 +++++++++++++++++++---
->  1 file changed, 36 insertions(+), 4 deletions(-)
+> Does SCMI work as regmap? syscon look likes simple, but missed abstract
+> in overall.
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+The SCMI part of this is pretty complicated and needs discussion.  It
+might be that it requires a vendor extension.  Right now, the out of
+tree code uses a nvmem vendor extension but that probably won't get
+merged upstream.
 
-yamllint warnings/errors:
+But in theory, it's fairly simple, you can write a regmap driver and
+register it as a syscon and everything that was accessing nxp,phy-sel
+accesses the same register but over SCMI.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: ignoring, error in schema: properties: interrupt-names
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml: properties:interrupt-names: [{'items': [{'const': 'macirq'}, {'const': 'rx-queue-0'}, {'const': 'tx-queue-0'}, {'const': 'rx-queue-1'}, {'const': 'tx-queue-1'}, {'const': 'rx-queue-2'}, {'const': 'tx-queue-2'}, {'const': 'rx-queue-3'}, {'const': 'tx-queue-3'}, {'const': 'rx-queue-4'}, {'const': 'tx-queue-4'}]}] is not of type 'object', 'boolean'
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-doc-validate", line 8, in <module>
-    sys.exit(main())
-             ~~~~^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
-    ret |= check_doc(f)
-           ~~~~~~~~~^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
-    dtsch.check_schema_refs()
-    ~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 241, in check_schema_refs
-    self._check_schema_refs(resolver, self)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
-    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                            has_constraint=has_constraint)
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 216, in _check_schema_refs
-    self._check_schema_refs(resolver, schema[i], parent=parent, is_common=is_common,
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                            has_constraint=has_constraint)
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
-    ref_sch = resolver.lookup(schema['$ref']).contents
-              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
-    retrieved = self._registry.get_or_retrieve(uri)
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
-    registry = self.crawl()
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
-    id = resource.id()
-  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
-    id = self._specification.id_of(self.contents)
-  File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
-    return contents.get("$id")
-           ^^^^^^^^^^^^
-AttributeError: 'list' object has no attribute 'get'
-Lexical error: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dts:58.13-17 Unexpected 'snps'
-Error: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dts:58.13-17 syntax error
-FATAL ERROR: Unable to parse input tree
-make[2]: *** [scripts/Makefile.dtbs:141: Documentation/devicetree/bindings/net/nxp,s32-dwmac.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1559: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+> You still use regmap by use MMIO. /* GMAC_0_CTRL_STS */
+> 
+> regmap = devm_regmap_init_mmio(dev, sts_offset, &regmap_config);
+> 
 
-doc reference errors (make refcheckdocs):
+You can use have an MMIO syscon, or you can create a custom driver
+and register it as a syscon using of_syscon_register_regmap().
 
-See https://patchwork.kernel.org/project/devicetree/patch/20251214-dwmac_multi_irq-v1-2-36562ab0e9f7@oss.nxp.com
+> So all code can use regmap function without if-then statements if SCMI work
+> as regmap.
+> 
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+regards,
+dan carpenter
 
 _______________________________________________
 Linux-stm32 mailing list
