@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27562CC17AA
+	by mail.lfdr.de (Postfix) with ESMTPS id 75AF2CC17B2
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 09:10:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6B21C87EDD;
-	Tue, 16 Dec 2025 08:10:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 119D0C8F263;
+	Tue, 16 Dec 2025 08:10:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E271FC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13BA1C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Dec 2025 14:30:06 +0000 (UTC)
+ Mon, 15 Dec 2025 14:30:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E07CB60159;
+ by sea.source.kernel.org (Postfix) with ESMTP id E397544288;
  Mon, 15 Dec 2025 14:30:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ADDB7C4CEF5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BA85DC16AAE;
  Mon, 15 Dec 2025 14:30:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1765809005;
- bh=YVvjG+ad6pHMfUraBILNT039YVFkeM0faHWTaRTnmfo=;
+ bh=ECIRge4VolAPtMWjM+w9B4pFiGXOGHl1dGi9UBY1dM0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=WdduVxGzhJQVjN6khiLe4OSbXFN3OPJbly6stOErcrXSJZPW+OtXAPfvpqxXNx4Lr
- R/wfbGNMZn8gTeyQoC65rLrrBCoJCFx0i/ugKopUL5aHaJzlntwPR6sNbXyN0lRdXF
- 5aAW1J/l/oApl/cuNJSgi5Eq4iSGMCGSVXz4O+4dD0LSlHkp8M1O2Wqd/qN9+aaEXA
- L83Ej0lJZ2hmO6TsaYbX/zAnYPaSL38S0/76nLlf9k9NSBqGZXG2yTOtiTeCnNKnTF
- M5vXwT0D5D9ZPyk7+QN3pV55GWVyulhgae9wvgBJlSmrQHfgrYkWXFyeDbLxx8BavQ
- uX54pneNFylrg==
+ b=XS/JYPfig7JEX+7lPY5AXwkqXjRfzQLYaZ7C8zl16YUHkUsuB7TCJ9E9Bw16tLLVu
+ oLySkVnQDZtNjBYAZbrUwuxBA+B3rd3/CiA2jAyyY5vdTJ4taSly1e5Fih/sVYBJ6E
+ hDO0t86Wbqs3/b4PvOFOPGpUwpvvcrO3P/kxzH7j7bLoWCv4MFkHmjepGab/fYibdt
+ TZGLAIcsJx8rQpNR7Bx5AsRiefu5aAUtKN9/biNpMQZCpp8VMKH+dVgiDAVcynQAC3
+ 4iESSd/SQ8u52DKY48Ef1NDxmnW/UrRaQA4Ihwy55DQu9NepoHlk/3qvB6An7n1eF6
+ LTPY8ZuiwXXIg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 9C3C0D5B16C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B158FD5B172;
  Mon, 15 Dec 2025 14:30:05 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 15 Dec 2025 15:30:01 +0100
+Date: Mon, 15 Dec 2025 15:30:02 +0100
 MIME-Version: 1.0
-Message-Id: <20251215-fts-fixes-v1-1-8c1e3a63ebf1@ixit.cz>
+Message-Id: <20251215-fts-fixes-v1-2-8c1e3a63ebf1@ixit.cz>
 References: <20251215-fts-fixes-v1-0-8c1e3a63ebf1@ixit.cz>
 In-Reply-To: <20251215-fts-fixes-v1-0-8c1e3a63ebf1@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -45,21 +45,21 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Javier Martinez Canillas <javier@osg.samsung.com>, 
  Rob Herring <robh@kernel.org>, Andi Shyti <andi@etezian.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=901; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1218; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=zOdQuMRtwbT9fTBVbDJbgo/FBNojnDOTgGlU+/RFodc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpQBtrMN45yASJj+00VAkGd5xdIZEokXHQ2coVt
- zB6A4cgLICJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaUAbawAKCRBgAj/E00kg
- cmt/D/0WqN7Qnefn04HGZtDjWqh6Xd3bFVndWwMvuHkGWgqXin0Zz/PSV9ITNRECWqPY/ijIjzb
- QRs1FjZjoX0fwPn1I32WGLypaGIwk64KWTIY1vegL/Ocrl++34Y2YIBphH6P6uw+n5yzGRK0/Xh
- hAsOWgiN2FwBd1Q3qn98deFk9PJVrPq7YIDeAp7/58aBIUxvdd9kWq/B8bRv2LzufshyTkxNjq0
- LExaY/z3xkYjEwuI2D9mXagWS3doWS4womk7GYxbfcWhTfW9JuLP5X6YxDhXX0efbf34/xet2Yk
- x4t9PEtwiYR53Y0LbJS18egxymFMXJlJezYbUTIxN8OoK+Kcaqceg3CioSQwrOyzxaeRQNizSo2
- hd2sfwAREdCgTfKy9KX7CrGoMvSSxynuHrYP+0785QiwU9+dXb/kV53HQK9hDGqWJ2xTw24zpKF
- hjeGgxU5qQJsr60EzcT8fFnuh3sn7v5EQP3zO3dyCqG3f7RIX4uT5VQnbEO+IEaTq9g+0EdbfbH
- xdtPtlgZ7i9KmKXBNZRGHnKn3HJB9qLBa/K1OgKsLkos6GHp5qLew9HGDlUhouQns6M4qxBT/d7
- cdUy5LSPRkuW+cBEq54O20NMWj/GwWVs7Vfq5x8lGiYfjX3F51KFq90B91xqliZXDkgphc9wqAC
- GPMM7leEGyjXGuQ==
+ bh=+8T1xTsOJVjn1XL+OiuDFzpjTwMdaheaKiJkn4uzNC0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpQBtrVk+/KB6coTqNYuMnIBrB/vm2/YxgSKgeO
+ 8D5TYOcCq2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaUAbawAKCRBgAj/E00kg
+ covAEACkdHFzLF0RrJb2jwOKLvgWbj8IznAZvFQpIEQkeIU5AwcTJ1W9s2KF9wToGtq0+B0VWj+
+ fhPAsSz1iFl5SYfbBL56CuJp821p0Yn4QY0SyNrahuGyu9n6i900VLzcvB0rWqrR4RV4Bc9UOio
+ VUmytGFM0q3f2/tY2pvHMsjhV9bD3DsUOc5e9WiXBViDmgnr7WCIjtTpFyhGRJ4jMw+bA14Y2TC
+ 07emPYv7j8L2Eq+9sQ4dNmQnP08J4XVlT1049ul3d5gfTNebtKcKoEDQ4rpcSIClPU1ODnMITnu
+ rcWLOekQH4/CgsX62gA7rUqVISQJ0O+2XQmHaIdj6/pDLU+iQNaXcaDI7v/moY03HVuDQBpqrJ3
+ JD8QnHAjwIRiKKG6EDj+i72lrQ21a3w4MMMSnoGTx3k4uJP8/AE3DLzyIaYf107Hrw0hDyC5ji7
+ CbSlohpGYP8vOfzJccv1RnhhfoZeSmVWMPEa6G5mvuHCooAz2qT0d/tWqM3ML1Q2JAfPK6BHfK8
+ rgAfBlxaUqI3lwDntbn9r3fNCuGvQwiaYIZiWGuGFEoBMJbANQuULYQEXDf1kY8o0UMfNb+Qx9C
+ mS8D/VtdQl5WRPVB2YeSpQZgUf9UMQaa6G+oZaS41jzFGqvw/Di6gFm94TxnUW14NK2BbmeCcIw
+ hVftWP6lsLGmQUQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -68,8 +68,7 @@ X-Mailman-Approved-At: Tue, 16 Dec 2025 08:10:20 +0000
 Cc: linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-input@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 1/4] Input: stmfts - correct wording for the
- warning message
+Subject: [Linux-stm32] [PATCH 2/4] Input: stmfts - Make comments correct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,30 +86,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: David Heidelberg <david@ixit.cz>
+From: Petr Hodina <petr.hodina@protonmail.com>
 
-We're trying to enable regulator, not disable it.
+No functional change.
 
 Fixes: 78bcac7b2ae1 ("Input: add support for the STMicroelectronics FingerTip touchscreen")
-Suggested-by: Petr Hodina <petr.hodina@protonmail.com>
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/input/touchscreen/stmfts.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/input/touchscreen/stmfts.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 119cd26851cf6..9f5609524fef6 100644
+index 9f5609524fef6..ad363b3c344cd 100644
 --- a/drivers/input/touchscreen/stmfts.c
 +++ b/drivers/input/touchscreen/stmfts.c
-@@ -120,7 +120,7 @@ static int stmfts_brightness_set(struct led_classdev *led_cdev,
- 			err = regulator_enable(sdata->ledvdd);
- 			if (err) {
- 				dev_warn(&sdata->client->dev,
--					 "failed to disable ledvdd regulator: %d\n",
-+					 "failed to enable ledvdd regulator: %d\n",
- 					 err);
- 				return err;
- 			}
+@@ -141,7 +141,7 @@ static enum led_brightness stmfts_brightness_get(struct led_classdev *led_cdev)
+ 
+ /*
+  * We can't simply use i2c_smbus_read_i2c_block_data because we
+- * need to read more than 255 bytes (
++ * need to read 256 bytes, which exceeds the 255-byte SMBus block limit.
+  */
+ static int stmfts_read_events(struct stmfts_data *sdata)
+ {
+@@ -594,9 +594,6 @@ static void stmfts_power_off(void *data)
+ 						sdata->regulators);
+ }
+ 
+-/* This function is void because I don't want to prevent using the touch key
+- * only because the LEDs don't get registered
+- */
+ static int stmfts_enable_led(struct stmfts_data *sdata)
+ {
+ 	int err;
 
 -- 
 2.51.0
