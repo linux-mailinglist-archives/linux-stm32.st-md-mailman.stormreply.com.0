@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05AE8CC3D24
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 16:07:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E660DCC3D27
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 16:08:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 985F0C7A834;
-	Tue, 16 Dec 2025 15:07:53 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3672C7A834;
+	Tue, 16 Dec 2025 15:08:25 +0000 (UTC)
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7283BC01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D48D9C01FBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Dec 2025 15:07:51 +0000 (UTC)
+ Tue, 16 Dec 2025 15:08:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id; bh=wg9Xf8V8em1zSRB
- 5KPAJPFBdeTO21Kdvkx26K1bPMoE=; b=TytGPF1YqVKWl4BoIq5EE8XbYRAQ7LM
- ZOYiYT9hIFOq4ZeqQdQRn66lpVV2V6mmUGAKCOuJQT/bSB4bzbX+/GGRWPG8vxYd
- eTnrY0Dn5/jmRwjGk8TT7zvFL9R5n9Ta0NFrThm6kH4UCjOogKEYcBqxBWuFwHm+
- o52c5miM5uls=
+ s=s110527; h=From:To:Subject:Date:Message-Id; bh=LFrFoKsKHi5MKf5
+ l5656b7lBtyZwulDZhSgVO40faJg=; b=FQiBv0oU4iOMxeVwCtJMGf2KyQSORP2
+ gHvglybFUQQoljHVroWHfpdTXJ3JvlhKMzwFvobSwi4xzFRiMrZ3AsRTLbyCpeu4
+ zvdj9OV98YqVPqrjZNZwizTrK8KJU73ihYkavw2Stxadnzc88H2fxyiwiht0fs+5
+ aJ49EBKvt00k=
 Received: from localhost.localdomain (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgDnD+lkdUFpZsvsIQ--.30056S2;
- Tue, 16 Dec 2025 23:06:28 +0800 (CST)
+ by gzsmtp1 (Coremail) with SMTP id PCgvCgD3X_ukdUFptVRoHQ--.1199S2;
+ Tue, 16 Dec 2025 23:07:31 +0800 (CST)
 From: Lizhe <sensor1010@163.com>
 To: heiko@sntech.de, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Tue, 16 Dec 2025 07:06:11 -0800
-Message-Id: <20251216150611.3616-1-sensor1010@163.com>
+Date: Tue, 16 Dec 2025 07:07:15 -0800
+Message-Id: <20251216150715.3672-1-sensor1010@163.com>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: PSgvCgDnD+lkdUFpZsvsIQ--.30056S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tFW5Xw4xCrWfXFyDurWrAFb_yoW8Xr47pa
- 97AF9Fyw1kJryxGa12qFsrZa45Cw47try0gF1xZ34fuF13u34qqr10yrW0yF1UKrWkWF9I
- yF4UA3Z7C3W7CrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piG2NtUUUUU=
+X-CM-TRANSID: PCgvCgD3X_ukdUFptVRoHQ--.1199S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZF47Ww4UKr43Zw1UCw48WFg_yoWfCFX_W3
+ WjvFnaqa1UtFW0yrn8Aa13ZryS9Fs8WrZ3ArsFga93Cay7uw1DA34DurZxAr4DWw40vF9r
+ Gr13tF4Iyw1xJjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRMOzVUUUUUU==
 X-Originating-IP: [223.65.97.179]
-X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/xtbC3RQl0GlBdXRpeQAA3F
+X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/xtbC3RQ14GlBdbRwhAAA3B
 Cc: Lizhe <sensor1010@163.com>, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] [PATCH net-next v2 1/2] net: stmmac:
-	dwmac-rk: rename phy_power_on to avoid conflict
+Subject: [Linux-stm32] [PATCH 2/2] [PATCH net-next v2 2/2] net: stmmac:
+	dwmac-rk:return actual error from phy_power_on
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,45 +58,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rename local function 'phy_power_on' to 'rk_phy_power_set' to avoid
-conflict with PHY subsystem function. Keep original error handling.
+The function phy_power_on currently always returns 0, even when
+regulator operations fail. This patch modifies it to return the
+actual error code from regulator_enable/disable operations
 
 Signed-off-by: Lizhe <sensor1010@163.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 0a95f54e725e..2f5a65c235aa 100644
+index 2f5a65c235aa..fa989cb96714 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1498,7 +1498,7 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
- 	return 0;
- }
- 
--static int phy_power_on(struct rk_priv_data *bsp_priv, bool enable)
-+static int rk_phy_power_set(struct rk_priv_data *bsp_priv, bool enable)
- {
- 	struct regulator *ldo = bsp_priv->regulator;
- 	struct device *dev = bsp_priv->dev;
-@@ -1692,7 +1692,7 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
- 		dev_err(dev, "NO interface defined!\n");
+@@ -1514,7 +1514,7 @@ static int rk_phy_power_set(struct rk_priv_data *bsp_priv, bool enable)
+ 			dev_err(dev, "fail to disable phy-supply\n");
  	}
  
--	ret = phy_power_on(bsp_priv, true);
-+	ret = rk_phy_power_set(bsp_priv, true);
- 	if (ret) {
- 		gmac_clk_enable(bsp_priv, false);
- 		return ret;
-@@ -1713,7 +1713,7 @@ static void rk_gmac_powerdown(struct rk_priv_data *gmac)
- 
- 	pm_runtime_put_sync(gmac->dev);
- 
--	phy_power_on(gmac, false);
-+	rk_phy_power_set(gmac, false);
- 	gmac_clk_enable(gmac, false);
+-	return 0;
++	return ret;
  }
  
+ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
 -- 
 2.17.1
 
