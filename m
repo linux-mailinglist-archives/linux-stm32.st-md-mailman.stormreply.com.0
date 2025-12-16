@@ -2,82 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7D0CC1BB8
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 10:21:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88876CC204A
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 11:47:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED639C87EDC;
-	Tue, 16 Dec 2025 09:21:31 +0000 (UTC)
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27EBEC87EDC;
+	Tue, 16 Dec 2025 10:47:52 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40324C01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EEEAC01FBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Dec 2025 09:21:30 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-78c686aa4f9so16527557b3.3
+ Tue, 16 Dec 2025 10:47:50 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-37e8892d4e0so4758791fa.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Dec 2025 01:21:30 -0800 (PST)
+ Tue, 16 Dec 2025 02:47:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1765876889; x=1766481689;
+ d=linaro.org; s=google; t=1765882069; x=1766486869;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NGYedUjMSAQqTTCfPBzG7GGpp5/HnFYa13zWq/TfU5g=;
- b=Cpmcm9568zDGeGrtGce/KuWc2/7nJfoKYXv+vIZp+vzWsJx87GS+6+axv5uBB/IiLP
- NtrUUIyBIw9pc4/it4oMLjAykIvOwkOnn/5nlxP5sCRnAhcKoW4yIxtKN78ZyCSYP3EV
- qAxp1CohoBVOSM7Amkc+7gXBWG/HlRNVA0n72lZ64msJJBIkH5NG1Gu440BWxkW8m9te
- 9rayBuPcUUrj0ghmD9LN6ij9+stYxcIqkFljykn1Cewr1kBKLBk1oWt676zzJSVkkGkG
- Tmf23HZfc1r/cJpRDivbMF9IN65dNI4Ze1JcWPPNhqiuTS4hvS/yDOVhLIJofWX0f6TK
- O+Xg==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wmKGehAtF2aC6hECS065yudbuhoIUUvkuW0P86X+zRI=;
+ b=H93ado8ivQLyv5pEybj3TMQVj8JT8okDorIMblN6yE0D56iD9pQeaGGzpIFGwgKvjf
+ eZDf7UjV2JrclR9y37jcNONUTh4kY/tcRuMVa0yLcxUeufB+1cgnDIPAaGi5P3bxK+mL
+ dNIEPkrcJPHl9UmOLreP5bjxYOTpMLm5kH8bZcbgwbzPRju8rPJOoKTJE4qicnK7JgFx
+ m1XcBPIFAbisc55zphold361ElBA7ibxlGHCvzd/fB185siLAoYXEtfcAdgFrLnXxF/s
+ ORpnUHMm4clF/zD9cizXt25bk6LspCNZojkybllynjQbtiYGNAcSN4tohY3DrVwZmFE6
+ vnpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765876889; x=1766481689;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=NGYedUjMSAQqTTCfPBzG7GGpp5/HnFYa13zWq/TfU5g=;
- b=JDk2Jc5RzqJRDEjegIC/c92zl9wft0she/8uiwPxXr/2pWqTZb2kGKkkzCaHBDJScU
- hxpSTKbaPvakWH6ie/AvF+AM4/KWY0IycnuiEmVXbjHNVBIeqSvAM/SYoX/fSQ+6YNtK
- B5oOrzpbv9tm47x8ltnxOZt3GmQhlxJ3Ng5gNooN4mZJAeukbm82KV5FbJ8mM0nzgv2r
- WeEd4o1ULuLbBnnnXXU5vMCfK4mjwB34WMn0veMZAoOrCVUJuQEpieoVsdPbSR/NsBQV
- QJnJUNUNx8Mg6lB175wIxKHgNnUU0aNPJEPmCI7pL4+xwmDjo9H8NPNYHZCboKobUoKH
- 7Myw==
+ d=1e100.net; s=20230601; t=1765882069; x=1766486869;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wmKGehAtF2aC6hECS065yudbuhoIUUvkuW0P86X+zRI=;
+ b=LQlznm20oFdd9+8VirHzXQy5/hB23xcmK9tS3hIbu5SJFoC2syEMDLHa7/wNbr+a/g
+ Rjl64poYrQDlmT1GBbDLsaF9VZe2h7MyFp0Avr8SGO58HIKVAckrb5+mra4lP/e5Aw88
+ xZSLzRuLgG6w/Be/4TYkUeoOjr5kv/hiT2H5YLgtNm9SNURd1OP5QFOJHCofZRRDlp2p
+ O+MSUlNm0VojFlYIk2gwuKlJtgddIG17to0933VpRVvQ9he5bstugtD29ggNZ3lL+Ur8
+ 4mhK/L24zW6g/n1tXfnODXmGEuLKTshxazhAlG11E8j9edIwlwnEvj6c3v5PV2d0QIvK
+ DA2A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtsyQnhoeFYvqZR3JiGCyPoQWF42t6f4Mh5DJb9FkjONWjMP0XmPiUFBeIHI5u2MmH4Fplqc47Qd8rsw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzyQmg3qNiy14APuLyuP17rojRSChZGTfzhaP4aO10+MQsgMdGR
- 7u6iMtE113CKiKeNWdmteyk9zZTsDET47t63QUbpz2unWwWNH8RRFtqiuU3DPNtzIZ6+5YVxL0k
- kzq/Q+a65gyR7or9wv8CoBGyELjEtBwTF2dFbZfjMaA==
-X-Gm-Gg: AY/fxX4r4J4VLCAFlSCnr85iOkEZkxqOqSluQL4CxcgL5FZXdR5/mz/ucRuVPpTs9/F
- w1LGAsvk9HV6hsv2Qh494/3lvyVreSF7O0zlKn4ZTOTf35J6LQ2xjIX4TQ5XSAYoNJbegxJdvjX
- 5PzVfU3m/LHQHpXBhFzWIaatNa/ZlAZiLTeaSEVxhiPtWyG8v+/CU3kcGENW8nHSS6hvMn5s9x5
- QNT4rwZKaIsYmlzB0xzQ8q3Y+aIRgFgwygo/l3aFJeNMqePterJHhTRjLWlefg1+pza8th85xl6
- 7rm8LW2S0i9jdriwzYZlEhdLOrljYDAoEUcE7Ahx6z6ACG4O67IXM8qW9mqa3gE50wEcVtOZ38T
- MM+AfzDBqjEeFhZY8ptZ+ReytFNxQbCTvtFXZ8Ydqeu9rX9B5lvg1dU+1ScKVqbm+N8jyNIdSaI
- DCLvoDW24f6SKbcSEMssTAntKm6nj/wg+IwFwVU5P42jyOKXta4hrjjuRYQDMnvaQTeTa/WiZhs
- uXdebVl0T4RqopXexckTAO8zMsoQn8S1ticUuy9zm0qDa5QimSLEDFk0vIKd1gMI9ACKWyYLEna
- p7/SFWSwEfGFzL/OE9ESDslX6kjmub8U
-X-Google-Smtp-Source: AGHT+IEAFokQb5D1JItH9s+uj3Sa3EAOeQhnCG2QizFVOaNkP6qUDXOVMm6HltsGpBU7JI8LFSpiz0VIaHoanmm6gBM=
-X-Received: by 2002:a05:690c:688f:b0:78d:6c06:4a0f with SMTP id
- 00721157ae682-78e6809a375mr112570247b3.0.1765876889065; Tue, 16 Dec 2025
- 01:21:29 -0800 (PST)
+ AJvYcCWy2p4vGoUdZt9BqOO2I9GtOaMMZGzivDpi4KltzC1qflLEfn5q9Ih9GWNLhwWgU5yOQBr9p9ugIkeUVw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw7OhR0ed/Gb7pTUPuMOuK5LZnM8XR9XsNQJaQY21DnJ9Lwa3UX
+ +uWxUQlVlMn7f0WSHNcYJxev4WVT6p0y51mWPkNlVdL1f75BthOPk2QNwqx10FePUzA=
+X-Gm-Gg: AY/fxX4F/sg5dI6QHQbRfV8Zna+6g93FKZeas9mG/kjdlhSqfuOlvCcfT/GKUJ9ydtt
+ u15/RD8250kZHqCfLus+tDs4UX65KsWu8a/LcBz3+21NF5Hff1BLVp7DduABY5XB4seGbZkgiaC
+ 6BZ5Z0fp4LbFrVZCh7XmzUAQthXe7drHkIXk3JugZmx4IG/Zax+f6dalmKZixEvDIo9FKjjGG9S
+ z5XLG9Mk7zZE7Kb25CRqsAkABXq0WnkP5EZ8RpxXrqjEz9d67qYGQJ0/3Dv7kNsylsrdIyY4f4f
+ /lIJqHQp9GlTXvI3c45pV5dMffr6UixMomfynI9oKo57RtsJ6iHB+FzvZUivAWO04EvTNGvDatU
+ 87RnNUMo89cTKWvfHo/++C2j5zZhrIKLwq+hKzxwg+Ta8lmjnho/8uqlgKMG4pzcSs7ZyY+rlec
+ SL/Tm6oDgvu3xMSk7gU7BjteIjK9Sus1ETBNQuIk+Aou6V3t7JneiHjsIY/Mh3vdRAog==
+X-Google-Smtp-Source: AGHT+IF0H41NSoDHeiVoQB8t5PFRmbwgMPCmvxitVkRlghvklguwBlJGvPt9E5BeekSJvgfAgDKMYA==
+X-Received: by 2002:a05:6512:3c8b:b0:594:2f72:2f78 with SMTP id
+ 2adb3069b0e04-598faab5a2emr2935465e87.8.1765882069039; 
+ Tue, 16 Dec 2025 02:47:49 -0800 (PST)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi.
+ [91.159.24.186]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5990da119c1sm806260e87.18.2025.12.16.02.47.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Dec 2025 02:47:47 -0800 (PST)
+Message-ID: <3658e6cc-755c-4b38-aec7-b8bfdd7c8bd2@linaro.org>
+Date: Tue, 16 Dec 2025 12:47:46 +0200
 MIME-Version: 1.0
-References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
- <6a56ee61e485703d548e9e44d53b2920b4e43ca6.1765791463.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <6a56ee61e485703d548e9e44d53b2920b4e43ca6.1765791463.git.u.kleine-koenig@baylibre.com>
-From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Date: Tue, 16 Dec 2025 11:20:52 +0200
-X-Gm-Features: AQt7F2rtv6sYjRJcPW49bnernszF66e86Q28fTD0Bfhuswf7pxXDfIzUWVoUNmU
-Message-ID: <CAC_iWjLG7o96E=9W-cjJ=_622RFg-b9t6hQnMrSmgHS+ThaXyw@mail.gmail.com>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jan Kiszka <jan.kiszka@siemens.com>,
- linux-stm32@st-md-mailman.stormreply.com, Ard Biesheuvel <ardb@kernel.org>,
- op-tee@lists.trustedfirmware.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jens Wiklander <jens.wiklander@linaro.org>,
+User-Agent: Mozilla Thunderbird
+Content-Language: ru-RU
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
+ <20251125-kaanapali-mmcc-v2-v2-5-fb44e78f300b@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20251125-kaanapali-mmcc-v2-v2-5-fb44e78f300b@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 08/17] efi: stmm: Make use of
-	module_tee_client_driver()
+Subject: Re: [Linux-stm32] [PATCH v2 05/11] dt-bindings: clock: qcom: Add
+ support for CAMCC for Kaanapali
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,42 +100,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAxNSBEZWMgMjAyNSBhdCAxNjoxNywgVXdlIEtsZWluZS1Lw7ZuaWcKPHUua2xlaW5l
-LWtvZW5pZ0BiYXlsaWJyZS5jb20+IHdyb3RlOgo+Cj4gUmVkdWNlIGJvaWxlcnBsYXRlIGJ5IHVz
-aW5nIHRoZSBuZXdseSBpbnRyb2R1Y2VkIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpLgo+IFRo
-YXQgdGFrZXMgY2FyZSBvZiBhc3NpZ25pbmcgdGhlIGRyaXZlcidzIGJ1cywgc28gdGhlIGV4cGxp
-Y2l0IGFzc2lnbmluZwo+IGluIHRoaXMgZHJpdmVyIGNhbiBiZSBkcm9wcGVkLgo+Cj4gUmV2aWV3
-ZWQtYnk6IFN1bWl0IEdhcmcgPHN1bWl0LmdhcmdAb3NzLnF1YWxjb21tLmNvbT4KPiBTaWduZWQt
-b2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4K
-PiAtLS0KCkFja2VkLWJ5OiBJbGlhcyBBcGFsb2RpbWFzIDxpbGlhcy5hcGFsb2RpbWFzQGxpbmFy
-by5vcmc+Cgo+ICBkcml2ZXJzL2Zpcm13YXJlL2VmaS9zdG1tL3RlZV9zdG1tX2VmaS5jIHwgMTQg
-Ky0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxMyBkZWxl
-dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Zpcm13YXJlL2VmaS9zdG1tL3RlZV9z
-dG1tX2VmaS5jIGIvZHJpdmVycy9maXJtd2FyZS9lZmkvc3RtbS90ZWVfc3RtbV9lZmkuYwo+IGlu
-ZGV4IDY1YzBmZTFiYTI3NS4uNTkwMzgxMTg1OGI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZmly
-bXdhcmUvZWZpL3N0bW0vdGVlX3N0bW1fZWZpLmMKPiArKysgYi9kcml2ZXJzL2Zpcm13YXJlL2Vm
-aS9zdG1tL3RlZV9zdG1tX2VmaS5jCj4gQEAgLTU4NCwyNCArNTg0LDEyIEBAIHN0YXRpYyBzdHJ1
-Y3QgdGVlX2NsaWVudF9kcml2ZXIgdGVlX3N0bW1fZWZpX2RyaXZlciA9IHsKPiAgICAgICAgIC5p
-ZF90YWJsZSAgICAgICA9IHRlZV9zdG1tX2VmaV9pZF90YWJsZSwKPiAgICAgICAgIC5kcml2ZXIg
-ICAgICAgICA9IHsKPiAgICAgICAgICAgICAgICAgLm5hbWUgICAgICAgICAgID0gInRlZS1zdG1t
-LWVmaSIsCj4gLSAgICAgICAgICAgICAgIC5idXMgICAgICAgICAgICA9ICZ0ZWVfYnVzX3R5cGUs
-Cj4gICAgICAgICAgICAgICAgIC5wcm9iZSAgICAgICAgICA9IHRlZV9zdG1tX2VmaV9wcm9iZSwK
-PiAgICAgICAgICAgICAgICAgLnJlbW92ZSAgICAgICAgID0gdGVlX3N0bW1fZWZpX3JlbW92ZSwK
-PiAgICAgICAgIH0sCj4gIH07Cj4KPiAtc3RhdGljIGludCBfX2luaXQgdGVlX3N0bW1fZWZpX21v
-ZF9pbml0KHZvaWQpCj4gLXsKPiAtICAgICAgIHJldHVybiBkcml2ZXJfcmVnaXN0ZXIoJnRlZV9z
-dG1tX2VmaV9kcml2ZXIuZHJpdmVyKTsKPiAtfQo+IC0KPiAtc3RhdGljIHZvaWQgX19leGl0IHRl
-ZV9zdG1tX2VmaV9tb2RfZXhpdCh2b2lkKQo+IC17Cj4gLSAgICAgICBkcml2ZXJfdW5yZWdpc3Rl
-cigmdGVlX3N0bW1fZWZpX2RyaXZlci5kcml2ZXIpOwo+IC19Cj4gLQo+IC1tb2R1bGVfaW5pdCh0
-ZWVfc3RtbV9lZmlfbW9kX2luaXQpOwo+IC1tb2R1bGVfZXhpdCh0ZWVfc3RtbV9lZmlfbW9kX2V4
-aXQpOwo+ICttb2R1bGVfdGVlX2NsaWVudF9kcml2ZXIodGVlX3N0bW1fZWZpX2RyaXZlcik7Cj4K
-PiAgTU9EVUxFX0xJQ0VOU0UoIkdQTCIpOwo+ICBNT0RVTEVfQVVUSE9SKCJJbGlhcyBBcGFsb2Rp
-bWFzIDxpbGlhcy5hcGFsb2RpbWFzQGxpbmFyby5vcmc+Iik7Cj4gLS0KPiAyLjQ3LjMKPgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+Hi Taniya.
+
+On 11/25/25 19:45, Taniya Das wrote:
+> Update the compatible and the bindings for CAMCC support on Kaanapali
+> SoC.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>   .../bindings/clock/qcom,sm8450-camcc.yaml          |   6 +
+>   .../clock/qcom,kaanapali-cambistmclkcc.h           |  33 +++++
+>   include/dt-bindings/clock/qcom,kaanapali-camcc.h   | 147 +++++++++++++++++++++
+>   3 files changed, 186 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
+> index c1e06f39431e68a3cd2f6c2dba84be2a3c143bb1..3ec9bf4d82ad3b0fbb3e58fe312a416b3580c30c 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
+> @@ -15,6 +15,8 @@ description: |
+>     domains on SM8450.
+>   
+>     See also:
+> +    include/dt-bindings/clock/qcom,kaanapali-camcc.h
+> +    include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h
+>       include/dt-bindings/clock/qcom,sm8450-camcc.h
+>       include/dt-bindings/clock/qcom,sm8550-camcc.h
+>       include/dt-bindings/clock/qcom,sm8650-camcc.h
+> @@ -22,6 +24,8 @@ description: |
+>   properties:
+>     compatible:
+>       enum:
+> +      - qcom,kaanapali-cambistmclkcc
+> +      - qcom,kaanapali-camcc
+
+I do have right the same review comment as the given for SM8750 CAMCC one.
+
+The introduced qcom,kaanapali-cambistmclkcc does not inherit reset
+controller or power domain controller properties, thus it should not be
+added to the list of regular camera clock contollers.
+
+Please create a new dt schema file for qcom,kaanapali-cambistmclkcc
+and qcom,sm8750-cambistmclkcc IP descriptions.
+
+>         - qcom,sm8450-camcc
+>         - qcom,sm8475-camcc
+>         - qcom,sm8550-camcc
+> @@ -63,6 +67,8 @@ allOf:
+>           compatible:
+>             contains:
+>               enum:
+> +              - qcom,kaanapali-cambistmclkcc
+> +              - qcom,kaanapali-camcc
+>                 - qcom,sc8280xp-camcc
+>                 - qcom,sm8450-camcc
+>                 - qcom,sm8550-camcc
+> diff --git a/include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h b/include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..ddb083b5289ecc5ddbf9ce0b8afa5e2b3bd7ccad
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h
+> @@ -0,0 +1,33 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_KAANAPALI_H
+> +#define _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_KAANAPALI_H
+> +
+> +/* CAM_BIST_MCLK_CC clocks */
+> +#define CAM_BIST_MCLK_CC_DEBUG_CLK				0
+> +#define CAM_BIST_MCLK_CC_DEBUG_DIV_CLK_SRC			1
+> +#define CAM_BIST_MCLK_CC_MCLK0_CLK				2
+> +#define CAM_BIST_MCLK_CC_MCLK0_CLK_SRC				3
+> +#define CAM_BIST_MCLK_CC_MCLK1_CLK				4
+> +#define CAM_BIST_MCLK_CC_MCLK1_CLK_SRC				5
+> +#define CAM_BIST_MCLK_CC_MCLK2_CLK				6
+> +#define CAM_BIST_MCLK_CC_MCLK2_CLK_SRC				7
+> +#define CAM_BIST_MCLK_CC_MCLK3_CLK				8
+> +#define CAM_BIST_MCLK_CC_MCLK3_CLK_SRC				9
+> +#define CAM_BIST_MCLK_CC_MCLK4_CLK				10
+> +#define CAM_BIST_MCLK_CC_MCLK4_CLK_SRC				11
+> +#define CAM_BIST_MCLK_CC_MCLK5_CLK				12
+> +#define CAM_BIST_MCLK_CC_MCLK5_CLK_SRC				13
+> +#define CAM_BIST_MCLK_CC_MCLK6_CLK				14
+> +#define CAM_BIST_MCLK_CC_MCLK6_CLK_SRC				15
+> +#define CAM_BIST_MCLK_CC_MCLK7_CLK				16
+> +#define CAM_BIST_MCLK_CC_MCLK7_CLK_SRC				17
+> +#define CAM_BIST_MCLK_CC_PLL0					18
+> +#define CAM_BIST_MCLK_CC_PLL_TEST_CLK				19
+> +#define CAM_BIST_MCLK_CC_PLL_TEST_DIV_CLK_SRC			20
+> +#define CAM_BIST_MCLK_CC_SLEEP_CLK				21
+> +
+> +#endif
+
+-- 
+Best wishes,
+Vladimir
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
