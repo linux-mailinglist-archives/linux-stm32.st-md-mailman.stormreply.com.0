@@ -2,95 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1C6BCCAE1E
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Dec 2025 09:29:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AD4CC1BA6
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 10:20:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63F9AC5663A;
-	Thu, 18 Dec 2025 08:29:29 +0000 (UTC)
-Received: from ixit.cz (ip-94-112-25-9.bb.vodafone.cz [94.112.25.9])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFD34C87EDC;
+	Tue, 16 Dec 2025 09:20:34 +0000 (UTC)
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com
+ [74.125.224.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BF97C01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB440C01FBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Dec 2025 09:13:23 +0000 (UTC)
-Received: from [10.0.0.200] (unknown [10.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 345285340E39;
- Tue, 16 Dec 2025 10:13:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1765876399;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=dYWNqRZby8l/r76ad9yVuoSIVi3YA8EglyrkxOUb0Z4=;
- b=JQ1LAsmPY/wkA9pHjD+hiBNy2brOIyFy6PPKDeeqUlVbobO1fXD+cvhboufU+JvbkolKOz
- y7IOhubM9NH3v+zZjdOaExryYOc/p5Zf3EwxJrBc2emLx2rg5GYg8Ple5ZvDDN1Gj5gRxZ
- Mdyfza58Lh9CltBb2JzI3SwQpNnSZBw=
-Message-ID: <f240f2d4-c691-4166-bd5a-4bd2fbe4d736@ixit.cz>
-Date: Tue, 16 Dec 2025 10:13:18 +0100
+ Tue, 16 Dec 2025 09:20:33 +0000 (UTC)
+Received: by mail-yx1-f48.google.com with SMTP id
+ 956f58d0204a3-64470c64c1bso6141532d50.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 16 Dec 2025 01:20:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1765876832; x=1766481632;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vdbkGAZvcEXm5SWEKUVClkLJFjPHLzhKuSzzyVtMACI=;
+ b=dbTX4j5+fUiXECthYkcXRq646cHDYlNEiL4Q7aKIS9Ma6MiUrbJES+QQ8KRWixJfe8
+ g0+czERFmRF7tCm4ePLVzsLlMOzlxMwU246j/i30Hi10iy8rnG3pPGuk190Qu8B7I7Tk
+ Olk558KYggil0Y2XUaXSK8FezHh5b0sayRl+SFFwK9Bm27vvxQ98B798KnsPeFQ4U00j
+ wMSqGY51sQNEvGmGjarRKvNEFduBXCc/HEBc4ObB6SEt2XC8mjenjGiLJ7ETXvCy6Iiw
+ YFU3zMNYhIWRM/OtBQM4R4TlTyaFa1Ut9EP3fWe+NmTM1Zn8vMpQ23IXK+cUR7+FPKKh
+ Adkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1765876832; x=1766481632;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vdbkGAZvcEXm5SWEKUVClkLJFjPHLzhKuSzzyVtMACI=;
+ b=ovYL/UhdREye/WNcMaqGOjnjoOcj1vSAwqOy2x6nJQQS6pNtUo1XzcVq6m2RHVSCMG
+ N4eKfJ9hyxIMowqJNTIO1+3c5AGwwViKyNjrMBQb5vk5y0Oo2ZlrOtoRk8MZNPPageAK
+ y5pJ4MgCgRftkMN0DKd9COqJIuI1xBU8CGpDPTfTqD5sPVzmsj60XFH1naPamMRGgDyj
+ PhDsSm0JgGt9u2yJwgAa0+x6Bs1USF4UOqW5Z64BEy3PBDLNJ0vaAv7S2hTJn/iKfUVi
+ qMsB2phMnou/pl73gpndwe1fWz5v/8lirancFBom5JHQuDY6pumhV1Ik/Z6tZOd/P+yA
+ +GeQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPQUp4PM8NG70TlFi13PoeCANlqXyzjqdWB5yXxnAaXgq3vl2RPJUKhh/yel7ttm89//qncv3oo1RLWw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx74K33UVxQe88ajkp2K7VQyQnqjQ3NeEpge/tDUcX4USM7aye+
+ 6VEEMhxnurWn9LfCbEQy5GEASoxxHq2+zkAzkfOdgB/C6r+YNYSeQQ+FilR2UWCVkr4XVpLb05x
+ lqAazj0fbcM3okoOKovc6IUQ/h4YHMz4tr1qkaL4fsw==
+X-Gm-Gg: AY/fxX4upQ7cuVS+uPHcbEgoptC1XnPOoen21XmqlwIgo8dusN9sM7t8535ozqq2dpg
+ /UUOMlPGjhzSXjc7nl0VKuH/pwSHwAWxeYu90/2uOWd89pizXAaZRDyM9p04MwkEagxmda3kQJR
+ NzPUaQj1k+4EI/cLaseFSKmtPTK/1L7sDpZBtxlMLsvTIi4A/2HSVDHlmd/0ne/DhiX0Ans+zUW
+ 9mHeA7cpwJpiZ2L7LmFZW2ctsAWuNbS8wgqwWrluRY/n4zWzJrDqrkEiMlOYWWViodGsnAl9rn/
+ ZDB1RkkVfRFxjUYbiqKfXYRq1tFrN2jMXa0bewDTCQnZpG2ryZN7JEkkVbOnyiLzoMI7ke+Ml5G
+ BhKoj5r4NM/MMPbGPBnUc5K1Kbg8i0aLWR4sgWk35Sn00GyFQYx6hdjNM3GMMWRq8rTEvOT35xR
+ BTnvSHEB4Aa7+N8ZEdmH8TxsI7QCiDKs2+CXgXjIrInLmC3+ggfIQ5E+ZlhCIbDcynzFE3SMIbH
+ c8CKr6TM6D+LxyDVsSZvyYafeq/favgwMeyDtNY/uhwmE6PGXMmfPLurQ7kWg33yilUVFFvtko4
+ XkaFtkHKTvPMQ7pybqe5uJV3NFkGSym8
+X-Google-Smtp-Source: AGHT+IEctBGbOPb8tWUDebvS3L7V3SseQeGkk4xalk8WHK1PQ+/ej2AUM8IRRWIxM80NV5FFMSeI1zTaZrQqMMcHcdA=
+X-Received: by 2002:a05:690e:d0b:b0:644:60d9:8660 with SMTP id
+ 956f58d0204a3-6447a5a7193mr11828178d50.44.1765876815167; Tue, 16 Dec 2025
+ 01:20:15 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-References: <20251215-fts-fixes-v1-0-8c1e3a63ebf1@ixit.cz>
- <20251215-fts-fixes-v1-4-8c1e3a63ebf1@ixit.cz>
- <hpmm5fhs74swrhkneaif4s5dquqeclujdlua7ygmkvcmtf6n4t@rsahxu23xwfp>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <hpmm5fhs74swrhkneaif4s5dquqeclujdlua7ygmkvcmtf6n4t@rsahxu23xwfp>
-X-Mailman-Approved-At: Thu, 18 Dec 2025 08:29:28 +0000
-Cc: Rob Herring <robh@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-kernel@vger.kernel.org, Petr Hodina <petr.hodina@protonmail.com>,
- Javier Martinez Canillas <javier@osg.samsung.com>,
- Andi Shyti <andi@etezian.org>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/4] Input: stmfts - use client to make
- future code cleaner
+References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
+ <b70ad65c88a82cf56c93cf17cf326213f8273e37.1765791463.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <b70ad65c88a82cf56c93cf17cf326213f8273e37.1765791463.git.u.kleine-koenig@baylibre.com>
+From: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Date: Tue, 16 Dec 2025 11:19:39 +0200
+X-Gm-Features: AQt7F2rnkMoQPLRnnlXil8zyHYfAadd5PzbCSjslnX3-94C0khuY7zIbQk2gds8
+Message-ID: <CAC_iWj+TevKq7TzPQ4_eEhu0rJJ03PV=ASf7SwTszp-mJY6Vzw@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jan Kiszka <jan.kiszka@siemens.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Ard Biesheuvel <ardb@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 09/17] efi: stmm: Make use of tee bus
+	methods
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,65 +89,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 16/12/2025 07:13, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Mon, Dec 15, 2025 at 03:30:04PM +0100, David Heidelberg via B4 Relay wrote:
->> From: Petr Hodina <petr.hodina@protonmail.com>
->>
->> Make code cleaner, compiler will optimize it away anyway.
->>
->> Preparation for FTM5 support, where more steps are needed.
->>
->> Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/input/touchscreen/stmfts.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
->> index 4b166b0a9a5a6..06845a00348cc 100644
->> --- a/drivers/input/touchscreen/stmfts.c
->> +++ b/drivers/input/touchscreen/stmfts.c
->> @@ -747,9 +747,10 @@ static int stmfts_runtime_suspend(struct device *dev)
->>   static int stmfts_runtime_resume(struct device *dev)
->>   {
->>   	struct stmfts_data *sdata = dev_get_drvdata(dev);
->> +	struct i2c_client *client = sdata->client;
->>   	int ret;
->>   
->> -	ret = i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_OUT);
->> +	ret = i2c_smbus_write_byte(client, STMFTS_SLEEP_OUT);
-> 
-> Sorry but I do not see how using a temporary cleans things up compared
-> to a simple structure member access, given that it happens only once
-> here.
-
-Thank you for applying rest of patchset.
-
-This one can be postponed together with introducing fts5 support (where 
-we need do more steps here).
-
-David
-
-> 
->>   	if (ret)
->>   		dev_err(dev, "failed to resume device: %d\n", ret);
->>   
->>
-> 
-> Thanks.
-> 
-
--- 
-David Heidelberg
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAxNSBEZWMgMjAyNSBhdCAxNjoxNywgVXdlIEtsZWluZS1Lw7ZuaWcKPHUua2xlaW5l
+LWtvZW5pZ0BiYXlsaWJyZS5jb20+IHdyb3RlOgo+Cj4gVGhlIHRlZSBidXMgZ290IGRlZGljYXRl
+ZCBjYWxsYmFja3MgZm9yIHByb2JlIGFuZCByZW1vdmUuCj4gTWFrZSB1c2Ugb2YgdGhlc2UuIFRo
+aXMgZml4ZXMgYSBydW50aW1lIHdhcm5pbmcgYWJvdXQgdGhlIGRyaXZlciBuZWVkaW5nCj4gdG8g
+YmUgY29udmVydGVkIHRvIHRoZSBidXMgbWV0aG9kcy4KPgo+IFJldmlld2VkLWJ5OiBTdW1pdCBH
+YXJnIDxzdW1pdC5nYXJnQG9zcy5xdWFsY29tbS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogVXdlIEts
+ZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BiYXlsaWJyZS5jb20+Cj4gLS0tCgpSZXZpZXdl
+ZC1ieTogSWxpYXMgQXBhbG9kaW1hcyA8aWxpYXMuYXBhbG9kaW1hc0BsaW5hcm8ub3JnPgoKPiAg
+ZHJpdmVycy9maXJtd2FyZS9lZmkvc3RtbS90ZWVfc3RtbV9lZmkuYyB8IDExICsrKysrLS0tLS0t
+Cj4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9maXJtd2FyZS9lZmkvc3RtbS90ZWVfc3RtbV9lZmkuYyBiL2Ry
+aXZlcnMvZmlybXdhcmUvZWZpL3N0bW0vdGVlX3N0bW1fZWZpLmMKPiBpbmRleCA1OTAzODExODU4
+YjYuLjdiMDRkZDY0OTYyOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2Zpcm13YXJlL2VmaS9zdG1t
+L3RlZV9zdG1tX2VmaS5jCj4gKysrIGIvZHJpdmVycy9maXJtd2FyZS9lZmkvc3RtbS90ZWVfc3Rt
+bV9lZmkuYwo+IEBAIC01MjAsOCArNTIwLDkgQEAgc3RhdGljIHZvaWQgdGVlX3N0bW1fcmVzdG9y
+ZV9lZml2YXJzX2dlbmVyaWNfb3BzKHZvaWQpCj4gICAgICAgICBlZml2YXJzX2dlbmVyaWNfb3Bz
+X3JlZ2lzdGVyKCk7Cj4gIH0KPgo+IC1zdGF0aWMgaW50IHRlZV9zdG1tX2VmaV9wcm9iZShzdHJ1
+Y3QgZGV2aWNlICpkZXYpCj4gK3N0YXRpYyBpbnQgdGVlX3N0bW1fZWZpX3Byb2JlKHN0cnVjdCB0
+ZWVfY2xpZW50X2RldmljZSAqdGVlX2RldikKPiAgewo+ICsgICAgICAgc3RydWN0IGRldmljZSAq
+ZGV2ID0gJnRlZV9kZXYtPmRldjsKPiAgICAgICAgIHN0cnVjdCB0ZWVfaW9jdGxfb3Blbl9zZXNz
+aW9uX2FyZyBzZXNzX2FyZzsKPiAgICAgICAgIGVmaV9zdGF0dXNfdCByZXQ7Cj4gICAgICAgICBp
+bnQgcmM7Cj4gQEAgLTU3MSwyMSArNTcyLDE5IEBAIHN0YXRpYyBpbnQgdGVlX3N0bW1fZWZpX3By
+b2JlKHN0cnVjdCBkZXZpY2UgKmRldikKPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4KPiAtc3Rh
+dGljIGludCB0ZWVfc3RtbV9lZmlfcmVtb3ZlKHN0cnVjdCBkZXZpY2UgKmRldikKPiArc3RhdGlj
+IHZvaWQgdGVlX3N0bW1fZWZpX3JlbW92ZShzdHJ1Y3QgdGVlX2NsaWVudF9kZXZpY2UgKmRldikK
+PiAgewo+ICAgICAgICAgdGVlX3N0bW1fcmVzdG9yZV9lZml2YXJzX2dlbmVyaWNfb3BzKCk7Cj4g
+LQo+IC0gICAgICAgcmV0dXJuIDA7Cj4gIH0KPgo+ICBNT0RVTEVfREVWSUNFX1RBQkxFKHRlZSwg
+dGVlX3N0bW1fZWZpX2lkX3RhYmxlKTsKPgo+ICBzdGF0aWMgc3RydWN0IHRlZV9jbGllbnRfZHJp
+dmVyIHRlZV9zdG1tX2VmaV9kcml2ZXIgPSB7Cj4gICAgICAgICAuaWRfdGFibGUgICAgICAgPSB0
+ZWVfc3RtbV9lZmlfaWRfdGFibGUsCj4gKyAgICAgICAucHJvYmUgICAgICAgICAgPSB0ZWVfc3Rt
+bV9lZmlfcHJvYmUsCj4gKyAgICAgICAucmVtb3ZlICAgICAgICAgPSB0ZWVfc3RtbV9lZmlfcmVt
+b3ZlLAo+ICAgICAgICAgLmRyaXZlciAgICAgICAgID0gewo+ICAgICAgICAgICAgICAgICAubmFt
+ZSAgICAgICAgICAgPSAidGVlLXN0bW0tZWZpIiwKPiAtICAgICAgICAgICAgICAgLnByb2JlICAg
+ICAgICAgID0gdGVlX3N0bW1fZWZpX3Byb2JlLAo+IC0gICAgICAgICAgICAgICAucmVtb3ZlICAg
+ICAgICAgPSB0ZWVfc3RtbV9lZmlfcmVtb3ZlLAo+ICAgICAgICAgfSwKPiAgfTsKPgo+IC0tCj4g
+Mi40Ny4zCj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
