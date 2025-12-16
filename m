@@ -2,46 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C47DCBFEB8
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Dec 2025 22:27:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73A6CC0E83
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Dec 2025 05:32:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB9DDC35E3C;
-	Mon, 15 Dec 2025 21:27:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76E6FC87ED9;
+	Tue, 16 Dec 2025 04:32:50 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EC77C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C456C01FBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Dec 2025 21:27:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CF732419A7;
- Mon, 15 Dec 2025 21:27:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BDDC4CEF5;
- Mon, 15 Dec 2025 21:27:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765834026;
- bh=ksO7t38lHNhsA2pzzobpl6s+Z69+v/dzbkND9pR8gN4=;
- h=From:To:Cc:Subject:Date:From;
- b=oFjaieZf5e2XHuOqzdwVYbvycw+ge2R0jF1QOMKdAkV+s2YNgyHAi5+XA0ZgQi3Fw
- JtQlscIa2D12MTvsnGBxVanJZRi4jpCbVrIjKSRPztFFoI9oOOhfIUHTYFEaCvUVWN
- C/x8st5nzeJwFlCJADf3yc1jR9yF3t9oBgUOQB+t5nLICg03Yd8K9YbxVIEfosKR0e
- OigtU8Ie90RFCnshKgXHjxaZZ8weRhizWVSGGvs1XEJbF1CdSP0+Wywxf6jVhxZjkh
- n6YeEGjt/MrHBMbt97NdkCbfMsBXB4l2LbqV/L+NFxtDGS+FRIM6v1XXkSURK/aM28
- YAqm1NWbrIIoQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Gatien Chevallier <gatien.chevallier@foss.st.com>
-Date: Mon, 15 Dec 2025 15:26:59 -0600
-Message-ID: <20251215212700.3320634-1-robh@kernel.org>
-X-Mailer: git-send-email 2.51.0
+ Tue, 16 Dec 2025 04:32:48 +0000 (UTC)
+Received: from localhost (unknown [124.16.138.129])
+ by APP-03 (Coremail) with SMTP id rQCowABHaN_j4EBp5ODbAA--.22745S2;
+ Tue, 16 Dec 2025 12:32:35 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: broonie@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Date: Tue, 16 Dec 2025 12:32:10 +0800
+Message-Id: <20251216043210.1521722-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: bus: stm32mp25-rifsc: Allow 2
-	size cells
+X-CM-TRANSID: rQCowABHaN_j4EBp5ODbAA--.22745S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFWDuF4rXw4DWryfGr13CFg_yoWDJFX_CF
+ 1kCw1xC34qvr90y3W7Grn5Jr9Iva1DX3WFqwsYvFsxArZrXa1Uu3y8Zr17Jw47Zw4qk397
+ C3Z7X34akw13KjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbs8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+ 6r43MxkIecxEwVAFwVW8XwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+ C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+ wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+ v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+ jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
+ ZEXa7VUjJ5r7UUUUU==
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
+Cc: linux-kernel@vger.kernel.org, Chen Ni <nichen@iscas.ac.cn>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-spi@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] spi: stm32-ospi: Remove unneeded semicolon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,29 +61,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There are users already with 2 size cells, and there's no reason to not
-support that.
+Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
+semantic patch at scripts/coccinelle/misc/semicolon.cocci.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/spi/spi-stm32-ospi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-index 4d19917ad2c3..c6280c8c54a3 100644
---- a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-+++ b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-@@ -54,7 +54,7 @@ properties:
-     const: 1
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index c36df8d3f5cb..f396439e2281 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -150,7 +150,7 @@ static void stm32_ospi_read_fifo(void *val, void __iomem *addr, u8 len)
+ 		break;
+ 	case sizeof(u8):
+ 		*((u8 *)val) = readb_relaxed(addr);
+-	};
++	}
+ }
  
-   "#size-cells":
--    const: 1
-+    enum: [ 1, 2 ]
+ static void stm32_ospi_write_fifo(void *val, void __iomem *addr, u8 len)
+@@ -164,7 +164,7 @@ static void stm32_ospi_write_fifo(void *val, void __iomem *addr, u8 len)
+ 		break;
+ 	case sizeof(u8):
+ 		writeb_relaxed(*((u8 *)val), addr);
+-	};
++	}
+ }
  
-   ranges: true
- 
+ static int stm32_ospi_abort(struct stm32_ospi *ospi)
 -- 
-2.51.0
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
