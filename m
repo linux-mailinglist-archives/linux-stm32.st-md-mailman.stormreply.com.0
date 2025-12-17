@@ -2,106 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA48CC6FB2
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Dec 2025 11:09:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C0ECC73DB
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Dec 2025 12:09:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62C63C58D7A;
-	Wed, 17 Dec 2025 10:09:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 119BDC56611;
+	Wed, 17 Dec 2025 11:09:15 +0000 (UTC)
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com
+ [67.231.148.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 642B5C01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEA23C01E77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Dec 2025 10:09:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EB5B540A5A;
- Wed, 17 Dec 2025 10:09:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A033C4CEF5;
- Wed, 17 Dec 2025 10:09:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1765966167;
- bh=NDvrx/7kD9DYBw5z2rjeyvn6k+is+NExRwPN54G/f4w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PfumqNM59n0/h2D8RT4CMK9XEEQt6r5l7OgNJKLp4euwVcg83MXtyighanWhK7L0F
- w4yopXBZtyegdnJGq9emKXxwH2z645+LQf/XDvUNbiVA+U5RGuY8WZtu5l3shXIFi7
- Fc3dCWTe5mngT0LbTO61vgUgUB2wK1neDxcFzNffA7aXYQTlnAeCDnxO7Lhi97wivh
- tzPVhbJoVZGz7vSf45l1YiAp4oizVkv5bA+sqnoJgZO3R2TebK5YJLhcmbIidxpIB3
- jeFYu0YkUvSSs/n9+Ysz3/Vc38CqhHmCr51l5dNKZ7NXMv8tjHgiT5UtMQjI5OwSaw
- 5f9Ij8PcQzLsw==
-Message-ID: <e8bdb176-b6fb-4dd2-8b5b-9da8073fa915@kernel.org>
-Date: Wed, 17 Dec 2025 11:09:21 +0100
+ Wed, 17 Dec 2025 11:09:13 +0000 (UTC)
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+ by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5BH6pd1S1394915; Wed, 17 Dec 2025 03:08:21 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pfpt0220; bh=L5LfAcotcrApoC11pZx/JxZ2v
+ PnVWo323nWO/uSuVGM=; b=eiT+qOKBKXFLUlfIJE/OqlHxxJzcxqdo3khktYh7M
+ JJJoWnbK4zkGgbDEnQZs9zsorZZ/ePTPeyC0ddhc8GyBZ19Ei92iFcVXyZTUcAs1
+ QDgWLJhQQOh5utJBw2FSHF7HrKnjFQvzVIuQNK+htF059FH59R1vDTBg/5tzhwK1
+ VDkyGLnQonH294E6/vcOyUhLZ9xhGTXFW1xCx913kiNCEwjsUWCSyCGjD+GKyelB
+ 3fddBPeHhr8qJlJwKdjCzkos7Vk68j2iDkyARKqWVZLX4y2SPIc7g82GBuN+iJ90
+ n6R5M6kdlfXnBYDgroEbEbHC8fGTH4nRzSronGt0zioqQ==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+ by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4b3qm30dvu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Dec 2025 03:08:21 -0800 (PST)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 17 Dec 2025 03:08:33 -0800
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Wed, 17 Dec 2025 03:08:33 -0800
+Received: from test-OptiPlex-Tower-Plus-7010 (unknown [10.29.37.157])
+ by maili.marvell.com (Postfix) with SMTP id 1A6253F7063;
+ Wed, 17 Dec 2025 03:08:13 -0800 (PST)
+Date: Wed, 17 Dec 2025 16:38:13 +0530
+From: Hariprasad Kelam <hkelam@marvell.com>
+To: Wei Fang <wei.fang@nxp.com>
+Message-ID: <aUKPHdtAPDnMqB7X@test-OptiPlex-Tower-Plus-7010>
+References: <20251204071332.1907111-1-wei.fang@nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-References: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
- <20251125-kaanapali-mmcc-v2-v2-7-fb44e78f300b@oss.qualcomm.com>
- <20251126-elated-stoic-scorpion-25b630@kuoka>
- <de44560d-4ed8-41fe-be7b-56412b933a8c@oss.qualcomm.com>
- <fbe39eac-7c92-4a08-bafb-31e5c51a0613@kernel.org>
- <503f445e-0d12-407d-bc77-f48ad335639b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <503f445e-0d12-407d-bc77-f48ad335639b@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
- Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 07/11] dt-bindings: clock: qcom:
- document the Kaanapali GPU Clock Controller
+Content-Disposition: inline
+In-Reply-To: <20251204071332.1907111-1-wei.fang@nxp.com>
+X-Authority-Analysis: v=2.4 cv=d8j4CBjE c=1 sm=1 tr=0 ts=69428f25 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=w373o-ZMvzc93a0z:21 a=kj9zAlcOel0A:10 a=wP3pNCr1ah4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=8AirrxEcAAAA:8 a=Kl3X-cPyiDMRo7OHHioA:9
+ a=CjuIK1q_8ugA:10 a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-GUID: XdCkQVAvRv7gCtPhPvNC9ks__pJciWRQ
+X-Proofpoint-ORIG-GUID: XdCkQVAvRv7gCtPhPvNC9ks__pJciWRQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE3MDA4OCBTYWx0ZWRfX4NQw4KFTQd+R
+ vaaSpXxOppCubo56wif2WEVBU+MZIU384E0wV47reSde0d3PkVCNXxtBiMAhRaXiM1K+YXYKNrI
+ 7/8ZnckBz0Y/R+05DY1y1l0ISKdioUUnaEt2AEG6MmXubWc3FmsuIwafkJEGXnZvr4SkvCdU6eL
+ LGnJsKisU3rQpLNFOXniyfLAdJZXZ+uplzOD+AM61lnQw2fm4+LXYyX5w2kG6M1mNiRMweaiLVc
+ Ugrf9/Y9KgagUPwLEnNCdOuVWP210548nYgoXqH3FcJwk6rrSJUssqzcTSJbqZbPmnAAoGWE41M
+ U84WjISbO9T+adVuTWQJh55aqyWtJ0b9vdqJn0obyyWmB4d9GMuUCJrvoU84kpTh5ka3AzKaUmw
+ r9SSUybpcrocJDUwJbSGFNPmq/ifvQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-17_01,2025-12-16_05,2025-10-01_01
+Cc: imx@lists.linux.dev, hayashi.kunihiko@socionext.com,
+ vladimir.oltean@nxp.com, edumazet@google.com, boon.leong.ong@intel.com,
+ linux-stm32@st-md-mailman.stormreply.com, daniel@iogearbox.net,
+ john.fastabend@gmail.com, 0x1207@gmail.com, sdf@fomichev.me, kuba@kernel.org,
+ pabeni@redhat.com, hawk@kernel.org, ast@kernel.org, rmk+kernel@armlinux.org.uk,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ bpf@vger.kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix the crash issue for
+ zero copy XDP_TX action
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,23 +91,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 17/12/2025 10:32, Taniya Das wrote:
->>>
->>> We would like to leverage the existing common clock driver(GDSC) code to
->>
->> Fix the driver code if it cannot handle other cells. Your drivers do not
->> matter for choices made in bindings.
->>
+On 2025-12-04 at 12:43:32, Wei Fang (wei.fang@nxp.com) wrote:
+> There is a crash issue when running zero copy XDP_TX action, the crash
+> log is shown below.
 > 
-> As it is still a clock controller from hardware design and in SW I will
-> be map the entire hardware region and this way this clock controller
-> will also be aligned to the existing clock controllers and keep the
-> #power-domain-cells = <1> as other CCs.
+> [  216.122464] Unable to handle kernel paging request at virtual address fffeffff80000000
+> [  216.187524] Internal error: Oops: 0000000096000144 [#1]  SMP
+> [  216.301694] Call trace:
+> [  216.304130]  dcache_clean_poc+0x20/0x38 (P)
+> [  216.308308]  __dma_sync_single_for_device+0x1bc/0x1e0
+> [  216.313351]  stmmac_xdp_xmit_xdpf+0x354/0x400
+> [  216.317701]  __stmmac_xdp_run_prog+0x164/0x368
+> [  216.322139]  stmmac_napi_poll_rxtx+0xba8/0xf00
+> [  216.326576]  __napi_poll+0x40/0x218
+> [  216.408054] Kernel panic - not syncing: Oops: Fatal exception in interrupt
+> 
+> For XDP_TX action, the xdp_buff is converted to xdp_frame by
+> xdp_convert_buff_to_frame(). The memory type of the resulting xdp_frame
+> depends on the memory type of the xdp_buff. For page pool based xdp_buff
+> it produces xdp_frame with memory type MEM_TYPE_PAGE_POOL. For zero copy
+> XSK pool based xdp_buff it produces xdp_frame with memory type
+> MEM_TYPE_PAGE_ORDER0. However, stmmac_xdp_xmit_back() does not check the
+> memory type and always uses the page pool type, this leads to invalid
+> mappings and causes the crash. Therefore, check the xdp_buff memory type
+> in stmmac_xdp_xmit_back() to fix this issue.
+> 
+> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+> Signed-off-by: Wei Fang <wei.fang@nxp.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c   | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 7b90ecd3a55e..a6664f300e4a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -88,6 +88,7 @@ MODULE_PARM_DESC(phyaddr, "Physical device address");
+>  #define STMMAC_XDP_CONSUMED	BIT(0)
+>  #define STMMAC_XDP_TX		BIT(1)
+>  #define STMMAC_XDP_REDIRECT	BIT(2)
+> +#define STMMAC_XSK_CONSUMED	BIT(3)
+>  
+>  static int flow_ctrl = 0xdead;
+>  module_param(flow_ctrl, int, 0644);
+> @@ -4988,6 +4989,7 @@ static int stmmac_xdp_get_tx_queue(struct stmmac_priv *priv,
+>  static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+>  				struct xdp_buff *xdp)
+>  {
+> +	bool zc = !!(xdp->rxq->mem.type == MEM_TYPE_XSK_BUFF_POOL);
+>  	struct xdp_frame *xdpf = xdp_convert_buff_to_frame(xdp);
+>  	int cpu = smp_processor_id();
+>  	struct netdev_queue *nq;
+> @@ -5004,9 +5006,18 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+>  	/* Avoids TX time-out as we are sharing with slow path */
+>  	txq_trans_cond_update(nq);
+>  
+> -	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, false);
+> -	if (res == STMMAC_XDP_TX)
+> +	/* For zero copy XDP_TX action, dma_map is true */
+> +	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, zc);
+	Seems stmmac_xdp_xmit_xdpf is using dma_map_single if we pass zc is true.
+        Ideally in case of zc, driver can use page_pool_get_dma_addr, may be you
+        need pass zc param as false. Please check
 
-I don't see how this resolves my comment.
-
-Best regards,
-Krzysztof
+Thanks,
+Hariprasad k
+	
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
