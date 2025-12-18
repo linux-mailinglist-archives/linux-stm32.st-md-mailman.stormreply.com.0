@@ -2,140 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAF6CCBCE2
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Dec 2025 13:36:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEA8DCCC1D2
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Dec 2025 14:53:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2627C5663A;
-	Thu, 18 Dec 2025 12:36:53 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 650F1C5663A;
+	Thu, 18 Dec 2025 13:53:50 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53F1DC01E77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3DCDC030AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Dec 2025 12:36:52 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BI96txr680765
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 18 Dec 2025 12:36:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CeX7zdkTKzUgYrUHEXvo1kAjNi9I0TyGt1y+5V+nf5A=; b=i5WubbSa44riyiyl
- 9Cr7zftRPg0APa58lJPGyB3kZhakWN8hPhnLrAfeAtESdi12ku0Im9fs5tSHGAcw
- mlypYhdThrD++/Rwkd78eUMroJrwudGs4C3oxvHmJ3urkhwpRDWiVu5Nh98c48/6
- hf9IX2GAGhBClL1nbnmLzTvfjNJE6EvKtHC93nkSwtYikMFH9iILehx+tntQhGRa
- pJHCZ/yxV9Tv0ithUDFwqoPbLGWOz0jM2ChKFP/Pc4noli3JpzrjRmeefdM+hqQn
- EizDmsCzK4RpeRnTxS6JfCmWSXHJ2JLLNRDcyOu6xUCebviJUSpRH+BJYraqR+tU
- 6ycJNQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b45bhj8ut-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Dec 2025 12:36:50 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-4ed83a05863so1509021cf.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Dec 2025 04:36:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766061410; x=1766666210;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CeX7zdkTKzUgYrUHEXvo1kAjNi9I0TyGt1y+5V+nf5A=;
- b=V3IhrHZJsn0UkEs8Uku+6llqICURqBId6Hn5xGvAk2lCfEsSXEullDtgQ+H66OsW0M
- 5qhz/AxsOxVosVqJZ3rcrFEVHK1hXmHoG1xOUF2etM20kggUKmu1+r4af7rCBYfZl57T
- 3XkruOTtwgmOLMNRIyoM20lhuaigXTGBooTWgz4usFG9MCNzzj+IdTpm49bXjSPeYQLz
- utlyyJFRx1LgSz9D4eBvLdxYoZmcgtuBi+o5buhnNIk2yOvj1KbpWbgwq1Oie7iZqnnQ
- ucDbtvlq/Y2NMUcKqrwpUQ1hgUdBqDLYvRSo6u9PZuhHk1ZLB15E4t/lxx48nuFm51Xl
- Ef+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766061410; x=1766666210;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CeX7zdkTKzUgYrUHEXvo1kAjNi9I0TyGt1y+5V+nf5A=;
- b=AxVTHcvBwi2WqCg8qo6CxJxrlRII4xQeHogtMeqWKXI6wKsH3B3CbLaFlCFIfmaMuj
- hQCcYeQS5vGZCIlrv8Ml6x7isEUhV1uYmLX+9DT42QxkhUT/HFNEJn7kUKax2IzkoRgU
- kp+LEUfiNfD82LNtDTaunadmNxEtig62PjEptihtCZAnvta+BiqSV0OzU6ejPrBQUUSM
- XRLUxGTYrGNxTAnB4EN3iy9J3zsug0aq/acv4VvbkXfba/deh9aQL/UaNsHvqWOr3p/m
- e67XJzwAPol8qFvk7JsWwVs+j6hw8pMe8zY71oMPc+2gMlwwXUCpnx/5AOpNOa7SS4i9
- zZyg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXfvAEU3HohMxbFPq83uzyk/3/pVy1oiJUr08o0TpLJuz35umBmJqLTqAgLZs8WBT5lJmMHm858tXf5gw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxM2su0bFsHOg5TfjuRazQKvUSnbirs/SxQzxCMTa2Hq2j3cj3U
- t0En180kGzD7mKMEl14qiqtjxtYw1WkpVBizXYl0bj4RbnF32u6VddTaTkHdbC0A7G5I45x/SqH
- jAWO1MxYpNvIevmy8aXcBTav2jnK8HsXv/1r5dBU4XLs7LThtn74lOr40huJJ5CQ8OkTXXTqrrR
- ko1oyNCfg=
-X-Gm-Gg: AY/fxX5kI5KK9eQ3PRTze1bjYZLXPXg/wcHrlJ718l22SNe15cQv/rbMS2mv+KkTaAm
- leIUmEvZA5U8UVg8mpGjE2rL3cimYVahWoLGxKA4E0LFvWuJYmRRJf/jnT9lQeyk/vbNFaUq+8Y
- Lb75FThq9Ch3AEBJjtDUT/S1/RRU42ZYpBKotyANoeWUOYnv0Ey+zDhUxeR0+jedJ+FVJirsytw
- F+z+qsO+JlF5gumuVVwOOpaKnSYG/L54OQzEFZ7HeUT44w9kmy5Ju3CdQEiOm+BPv/vmtdAZV9o
- ekbnLuCji/j1d9GPjB/xhkWV0cF+6nXCU/y6QbVhC15hs5NcmnWMM5oQgnG/3SIwNEgSNSU4k9a
- NpAlx1Sujem5YAD71dZC4pISe3WuglsaZUx22tc4Uupjj6lJXLfNtDGBfhl3XfuLW8Q==
-X-Received: by 2002:a05:622a:178f:b0:4ee:1e33:bc45 with SMTP id
- d75a77b69052e-4f36108c9a5mr17884721cf.5.1766061410144; 
- Thu, 18 Dec 2025 04:36:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEQu2nnxqGUnQynFrRXz+BuL+HJmQqJQwR9k3URYcUz1hnRgEtf2TKddA/5Dpw/OBBUzx5W4w==
-X-Received: by 2002:a05:622a:178f:b0:4ee:1e33:bc45 with SMTP id
- d75a77b69052e-4f36108c9a5mr17884531cf.5.1766061409643; 
- Thu, 18 Dec 2025 04:36:49 -0800 (PST)
-Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8022f9530fsm223265666b.12.2025.12.18.04.36.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Dec 2025 04:36:48 -0800 (PST)
-Message-ID: <69ac0e2b-82d5-43d2-816d-d3ac31963077@oss.qualcomm.com>
-Date: Thu, 18 Dec 2025 13:36:44 +0100
+ Thu, 18 Dec 2025 13:53:49 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id DECB91A22CD;
+ Thu, 18 Dec 2025 13:53:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A4BEE606B6;
+ Thu, 18 Dec 2025 13:53:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 66249102F0B2D; Thu, 18 Dec 2025 14:53:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1766066026; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=RhgSGQYStNGcdPoB3dTlM/CB5TE2tva/NS/z3ptd3wM=;
+ b=qFohZZY8adtmwbRo28+tcgXOIuD5T9ZV6GmStiiS0ZAEXQPvVe9Zcnoe53YsCQv7j9c1kT
+ pTrvVf3pcUkunP7HW/oQvdBg/Lk3nsGsCiYCx3SHIHn49cINe+SDypYYTUNdpwsJxK0JVh
+ ocSroqcU2Nk7str55AMgKkPgbWDRxk2+yhvbttnAqOzQlGRqdP2i4+xde+ODjyK3Zpm5be
+ ZSBh2N3dOdtUob6QOjlSHuVExl0oaNjoD8HBgFGaCPqRDPAFBwnRVvZxfM0UXeEISM/0Op
+ YG/ULfUWn7tCLkV8LWmaP9dHfiDTFdsnlQ2sM6hNfJi3OczZvwptkZvMOkvVJQ==
+Date: Thu, 18 Dec 2025 14:53:32 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+Message-ID: <20251218135332f323fa91@mail.local>
+References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
+ <CAHUa44FrDZbvRvfN8obf80_k=Eqxe9YxHpjaE5jU7nkxPUwfag@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Jagadeesh Kona <quic_jkona@quicinc.com>
-References: <20251202-sm8750_camcc-v1-0-b3f7ef6723f1@oss.qualcomm.com>
- <20251202-sm8750_camcc-v1-3-b3f7ef6723f1@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20251202-sm8750_camcc-v1-3-b3f7ef6723f1@oss.qualcomm.com>
-X-Proofpoint-GUID: hlx66kDHLhUBd5-XanyUVdVYOEmiRUA0
-X-Proofpoint-ORIG-GUID: hlx66kDHLhUBd5-XanyUVdVYOEmiRUA0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjE4MDEwNCBTYWx0ZWRfXx/TXgrAh3abH
- 61y1u8sS9DnVoGqoj7v55mYM3RzAS4dKc58E0cvqiQifjDy94Kef2caLGW2ZLl1e2XFUdfmTedx
- avFHHhXd0n4v0JWRmN4HCpJfkvzHNgsqgklGjY+I6ItqMrXdIyubYIAMp55jZlZ4Mz2FvUpT7vA
- w/CtcSS7cuCDqkCbJLwDSVoqe1WuV9433kDcugXG8Wmmb2OKJqoFGzn3wVpceISGrfxd/f6c9K5
- cKw1T3Pxq6xtjAPKxl9GkqVff9cD3ORwYd9K9V0Quho5csQGBESNLmRgOhhVLyhch43dD5NXv2W
- 8vJfFizB1SDmA/68XeyUTvS9FoH//tFGVfIZVcYo3rUOapFOxYL+d4f739MF86tqBoyPGk6R/mJ
- LEAgOW7C0b3W6n5HM096+UmAitQUdg==
-X-Authority-Analysis: v=2.4 cv=SZr6t/Ru c=1 sm=1 tr=0 ts=6943f562 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=_j3VNrtD_Kzz85i8SO4A:9
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-18_01,2025-12-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
- clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2510240001
- definitions=main-2512180104
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] clk: qcom: camcc: Add camera clock
- controller driver for SM8750 SoC
+Content-Disposition: inline
+In-Reply-To: <CAHUa44FrDZbvRvfN8obf80_k=Eqxe9YxHpjaE5jU7nkxPUwfag@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jan Kiszka <jan.kiszka@siemens.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ linux-mips@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ keyrings@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-rtc@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ James Morris <jmorris@namei.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Jason Gunthorpe <jgg@ziepe.ca>, Cristian Marussi <cristian.marussi@arm.com>,
+ arm-scmi@vger.kernel.org,
+ =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, op-tee@lists.trustedfirmware.org,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Sumit Garg <sumit.garg@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Michael Chan <michael.chan@broadcom.com>, linux-arm-kernel@lists.infradead.org,
+ Paul Moore <paul@paul-moore.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ netdev@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jarkko Sakkinen <jarkko@kernel.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-integrity@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/17] tee: Use bus callbacks instead
+ of driver callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,26 +78,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/2/25 11:26 AM, Taniya Das wrote:
-> Add support for the Camera Clock Controller (CAMCC) on the SM8750
-> platform.
-> 
-> The CAMCC block on SM8750 includes both the primary camera clock
-> controller and the Camera BIST clock controller, which provides the
-> functional MCLK required for camera operations.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTgvMTIvMjAyNSAwODoyMToyNyswMTAwLCBKZW5zIFdpa2xhbmRlciB3cm90ZToKPiBIaSwK
+PiAKPiBPbiBNb24sIERlYyAxNSwgMjAyNSBhdCAzOjE34oCvUE0gVXdlIEtsZWluZS1Lw7ZuaWcK
+PiA8dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbT4gd3JvdGU6Cj4gPgo+ID4gSGVsbG8sCj4g
+Pgo+ID4gdGhlIG9iamVjdGl2ZSBvZiB0aGlzIHNlcmllcyBpcyB0byBtYWtlIHRlZSBkcml2ZXIg
+c3RvcCB1c2luZyBjYWxsYmFja3MKPiA+IGluIHN0cnVjdCBkZXZpY2VfZHJpdmVyLiBUaGVzZSB3
+ZXJlIHN1cGVyc2VkZWQgYnkgYnVzIG1ldGhvZHMgaW4gMjAwNgo+ID4gKGNvbW1pdCA1OTRjODI4
+MWY5MDUgKCJbUEFUQ0hdIEFkZCBidXNfdHlwZSBwcm9iZSwgcmVtb3ZlLCBzaHV0ZG93bgo+ID4g
+bWV0aG9kcy4iKSkgYnV0IG5vYm9keSBjYXJlZCB0byBjb252ZXJ0IGFsbCBzdWJzeXN0ZW1zIGFj
+Y29yZGluZ2x5Lgo+ID4KPiA+IEhlcmUgdGhlIHRlZSBkcml2ZXJzIGFyZSBjb252ZXJ0ZWQuIFRo
+ZSBmaXJzdCBjb21taXQgaXMgc29tZXdoYXQKPiA+IHVucmVsYXRlZCwgYnV0IHNpbXBsaWZpZXMg
+dGhlIGNvbnZlcnNpb24gKGFuZCB0aGUgZHJpdmVycykuIEl0Cj4gPiBpbnRyb2R1Y2VzIGRyaXZl
+ciByZWdpc3RyYXRpb24gaGVscGVycyB0aGF0IGNhcmUgYWJvdXQgc2V0dGluZyB0aGUgYnVzCj4g
+PiBhbmQgb3duZXIuIChUaGUgbGF0dGVyIGlzIG1pc3NpbmcgaW4gYWxsIGRyaXZlcnMsIHNvIGJ5
+IHVzaW5nIHRoZXNlCj4gPiBoZWxwZXJzIHRoZSBkcml2ZXJzIGJlY29tZSBtb3JlIGNvcnJlY3Qu
+KQo+ID4KPiA+IHYxIG9mIHRoaXMgc2VyaWVzIGlzIGF2YWlsYWJsZSBhdAo+ID4gaHR0cHM6Ly9s
+b3JlLmtlcm5lbC5vcmcvYWxsL2NvdmVyLjE3NjU0NzIxMjUuZ2l0LnUua2xlaW5lLWtvZW5pZ0Bi
+YXlsaWJyZS5jb20KPiA+Cj4gPiBDaGFuZ2VzIHNpbmNlIHYxOgo+ID4KPiA+ICAtIHJlYmFzZSB0
+byB2Ni4xOS1yYzEgKG5vIGNvbmZsaWN0cykKPiA+ICAtIGFkZCB0YWdzIHJlY2VpdmVkIHNvIGZh
+cgo+ID4gIC0gZml4IHdoaXRlc3BhY2UgaXNzdWVzIHBvaW50ZWQgb3V0IGJ5IFN1bWl0IEdhcmcK
+PiA+ICAtIGZpeCBzaHV0ZG93biBjYWxsYmFjayB0byBzaHV0ZG93biBhbmQgbm90IHJlbW92ZQo+
+ID4KPiA+IEFzIGFscmVhZHkgbm90ZWQgaW4gdjEncyBjb3ZlciBsZXR0ZXIsIHRoaXMgc2VyaWVz
+IHNob3VsZCBnbyBpbiBkdXJpbmcgYQo+ID4gc2luZ2xlIG1lcmdlIHdpbmRvdyBhcyB0aGVyZSBh
+cmUgcnVudGltZSB3YXJuaW5ncyB3aGVuIHRoZSBzZXJpZXMgaXMKPiA+IG9ubHkgYXBwbGllZCBw
+YXJ0aWFsbHkuIFN1bWl0IEdhcmcgc3VnZ2VzdGVkIHRvIGFwcGx5IHRoZSB3aG9sZSBzZXJpZXMK
+PiA+IHZpYSBKZW5zIFdpa2xhbmRlcidzIHRyZWUuCj4gPiBJZiB0aGlzIGlzIGRvbmUgdGhlIGRl
+cGVuZGVuY2llcyBpbiB0aGlzIHNlcmllcyBhcmUgaG9ub3JlZCwgaW4gY2FzZSB0aGUKPiA+IHBs
+YW4gY2hhbmdlczogUGF0Y2hlcyAjNCAtICMxNyBkZXBlbmQgb24gdGhlIGZpcnN0IHR3by4KPiA+
+Cj4gPiBOb3RlIHRoaXMgc2VyaWVzIGlzIG9ubHkgYnVpbGQgdGVzdGVkLgo+ID4KPiA+IFV3ZSBL
+bGVpbmUtS8O2bmlnICgxNyk6Cj4gPiAgIHRlZTogQWRkIHNvbWUgaGVscGVycyB0byByZWR1Y2Ug
+Ym9pbGVycGxhdGUgZm9yIHRlZSBjbGllbnQgZHJpdmVycwo+ID4gICB0ZWU6IEFkZCBwcm9iZSwg
+cmVtb3ZlIGFuZCBzaHV0ZG93biBidXMgY2FsbGJhY2tzIHRvIHRlZV9jbGllbnRfZHJpdmVyCj4g
+PiAgIHRlZTogQWRhcHQgZG9jdW1lbnRhdGlvbiB0byBjb3ZlciByZWNlbnQgYWRkaXRpb25zCj4g
+PiAgIGh3cm5nOiBvcHRlZSAtIE1ha2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigp
+Cj4gPiAgIGh3cm5nOiBvcHRlZSAtIE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+ID4gICBy
+dGM6IG9wdGVlOiBNaWdyYXRlIHRvIHVzZSB0ZWUgc3BlY2lmaWMgZHJpdmVyIHJlZ2lzdHJhdGlv
+biBmdW5jdGlvbgo+ID4gICBydGM6IG9wdGVlOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMK
+PiA+ICAgZWZpOiBzdG1tOiBNYWtlIHVzZSBvZiBtb2R1bGVfdGVlX2NsaWVudF9kcml2ZXIoKQo+
+ID4gICBlZmk6IHN0bW06IE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+ID4gICBmaXJtd2Fy
+ZTogYXJtX3NjbWk6IG9wdGVlOiBNYWtlIHVzZSBvZiBtb2R1bGVfdGVlX2NsaWVudF9kcml2ZXIo
+KQo+ID4gICBmaXJtd2FyZTogYXJtX3NjbWk6IE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+
+ID4gICBmaXJtd2FyZTogdGVlX2JueHQ6IE1ha2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2Ry
+aXZlcigpCj4gPiAgIGZpcm13YXJlOiB0ZWVfYm54dDogTWFrZSB1c2Ugb2YgdGVlIGJ1cyBtZXRo
+b2RzCj4gPiAgIEtFWVM6IHRydXN0ZWQ6IE1pZ3JhdGUgdG8gdXNlIHRlZSBzcGVjaWZpYyBkcml2
+ZXIgcmVnaXN0cmF0aW9uCj4gPiAgICAgZnVuY3Rpb24KPiA+ICAgS0VZUzogdHJ1c3RlZDogTWFr
+ZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiAgIHRwbS90cG1fZnRwbV90ZWU6IE1ha2UgdXNl
+IG9mIHRlZSBzcGVjaWZpYyBkcml2ZXIgcmVnaXN0cmF0aW9uCj4gPiAgIHRwbS90cG1fZnRwbV90
+ZWU6IE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+ID4KPiA+ICBEb2N1bWVudGF0aW9uL2Ry
+aXZlci1hcGkvdGVlLnJzdCAgICAgICAgICAgICB8IDE4ICstLS0tCj4gPiAgZHJpdmVycy9jaGFy
+L2h3X3JhbmRvbS9vcHRlZS1ybmcuYyAgICAgICAgICAgfCAyNiArKy0tLS0KPiA+ICBkcml2ZXJz
+L2NoYXIvdHBtL3RwbV9mdHBtX3RlZS5jICAgICAgICAgICAgICB8IDMxICsrKysrLS0tCj4gPiAg
+ZHJpdmVycy9maXJtd2FyZS9hcm1fc2NtaS90cmFuc3BvcnRzL29wdGVlLmMgfCAzMiArKystLS0t
+LQo+ID4gIGRyaXZlcnMvZmlybXdhcmUvYnJvYWRjb20vdGVlX2JueHRfZncuYyAgICAgIHwgMzAg
+KystLS0tLQo+ID4gIGRyaXZlcnMvZmlybXdhcmUvZWZpL3N0bW0vdGVlX3N0bW1fZWZpLmMgICAg
+IHwgMjUgKystLS0tCj4gPiAgZHJpdmVycy9ydGMvcnRjLW9wdGVlLmMgICAgICAgICAgICAgICAg
+ICAgICAgfCAyNyArKy0tLS0tCj4gPiAgZHJpdmVycy90ZWUvdGVlX2NvcmUuYyAgICAgICAgICAg
+ICAgICAgICAgICAgfCA4NCArKysrKysrKysrKysrKysrKysrKwo+ID4gIGluY2x1ZGUvbGludXgv
+dGVlX2Rydi5oICAgICAgICAgICAgICAgICAgICAgIHwgMTIgKysrCj4gPiAgc2VjdXJpdHkva2V5
+cy90cnVzdGVkLWtleXMvdHJ1c3RlZF90ZWUuYyAgICAgfCAxNyArKy0tCj4gPiAgMTAgZmlsZXMg
+Y2hhbmdlZCwgMTY0IGluc2VydGlvbnMoKyksIDEzOCBkZWxldGlvbnMoLSkKPiA+Cj4gPiBiYXNl
+LWNvbW1pdDogOGYwYjRjY2U0NDgxZmIyMjY1MzY5N2NjZWQ4ZDBkMDQwMjdjYjFlOAo+ID4gLS0K
+PiA+IDIuNDcuMwo+ID4KPiAKPiBUaGFuayB5b3UgZm9yIHRoZSBuaWNlIGNsZWFudXAsIFV3ZS4K
+PiAKPiBJJ3ZlIGFwcGxpZWQgcGF0Y2ggMS0zIHRvIHRoZSBicmFuY2ggdGVlX2J1c19jYWxsYmFj
+a19mb3JfNi4yMCBpbiBteQo+IHRyZWUgYXQgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2Nt
+L2xpbnV4L2tlcm5lbC9naXQvamVuc3dpL2xpbnV4LXRlZS5naXQvCj4gCj4gVGhlIGJyYW5jaCBp
+cyBiYXNlZCBvbiB2Ni4xOS1yYzEsIGFuZCBJJ2xsIHRyeSB0byBrZWVwIGl0IHN0YWJsZSBmb3IK
+PiBvdGhlcnMgdG8gZGVwZW5kIG9uLCBpZiBuZWVkZWQuIExldCdzIHNlZSBpZiB3ZSBjYW4gYWdy
+ZWUgb24gdGFraW5nCj4gdGhlIHJlbWFpbmluZyBwYXRjaGVzIHZpYSB0aGF0IGJyYW5jaC4KCjYg
+YW5kIDcgY2FuIGdvIHRocm91Z2ggeW91ciBicmFuY2guCgotLSAKQWxleGFuZHJlIEJlbGxvbmks
+IGNvLW93bmVyIGFuZCBDT08sIEJvb3RsaW4KRW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdp
+bmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
