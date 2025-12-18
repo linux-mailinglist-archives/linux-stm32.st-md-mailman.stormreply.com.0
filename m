@@ -2,48 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57FDCCAC13
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Dec 2025 09:01:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05D5CCCAD70
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Dec 2025 09:21:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6557EC5663A;
-	Thu, 18 Dec 2025 08:01:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB26BC5663A;
+	Thu, 18 Dec 2025 08:21:42 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95792C030AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 800C3C030AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Dec 2025 08:01:03 +0000 (UTC)
+ Thu, 18 Dec 2025 08:21:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 538F743FF8;
- Thu, 18 Dec 2025 08:01:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDE6C4CEFB;
- Thu, 18 Dec 2025 08:00:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 41B1541E52;
+ Thu, 18 Dec 2025 08:21:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5581C4CEFB;
+ Thu, 18 Dec 2025 08:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1766044862;
- bh=HHlYP/1oT2kinphPQ9/3fzfi/qcVW054/WKuEsDPs0E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rwV3hKNzLZdlo15r6xATauOc2HzLW5FLvt0Sy/qcHArFX7+rnS1maXD1iZWc48330
- dkKqbS/udUDkqWveQYdACybLxBc6QoEuNVqLBVYED4s/AqqzvnwD305wSeeO3OMxvS
- k/lb3xWkNTasd02uI9ETI0UjGHrCw25GfgI6uYSccJjTgyjIqC6poTL5J5oACHwtJx
- mTnwOQKDrdOBba96aUGdQ93nJM5rTkOzUdBFyps3w6c6NnGHgBKFUbqa7iAua948NN
- umZyshCU9oNNtN7gnx27obLHQOM7MFudQ89pJfWtBc5oe7/ta8cz82JFUjOmI2JeGC
- Y/fvFaTu+9+5A==
-Date: Thu, 18 Dec 2025 08:00:57 +0000
+ s=k20201202; t=1766046099;
+ bh=lwZky4Sy93K9y11fSHxmJSRldxUDXgP06dp7jqDCMlI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=cFSSX/HSJ7LZ6qlKgCo2crWokvtu3I43Toqfg195RazIZYiSnNKRTALn5hHHmDl64
+ L+KgQbUDDi761XJ034i1NN+Q8JpzjSmZl/RJIZNTDcU/aH/Iwd+NpT3nZVh/GbCSnF
+ 1G7q/N81N5+whcxTysGOM0CphtEi9GFLqD5DvFK+bFF8TszGFNrGIVD0TNsXs3h74V
+ Pg/gwwWhaLXK3NhiJSPGrm8CnosSoUyPeMLaiKbbhSfHqWygj730lm/iU/tciIUkGA
+ /xbYtni/ICrsDfuG+fvgpo6Ygbm5e7sqnk4jVOjCu6giKSonfjVwltKPR2YjjbETB/
+ b7IrGpzjtJYCQ==
 From: Mark Brown <broonie@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <129a4deb-ec9c-41f0-910c-57cd43d17fcd@sirena.org.uk>
-References: <20251217-stm32-spi-enhancements-v1-0-943348b8ff66@foss.st.com>
- <20251217-stm32-spi-enhancements-v1-3-943348b8ff66@foss.st.com>
+To: mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+ Chen Ni <nichen@iscas.ac.cn>
+In-Reply-To: <20251217023721.1684244-1-nichen@iscas.ac.cn>
+References: <20251217023721.1684244-1-nichen@iscas.ac.cn>
+Message-Id: <176604609753.49312.11376425894198542181.b4-ty@kernel.org>
+Date: Thu, 18 Dec 2025 08:21:37 +0000
 MIME-Version: 1.0
-In-Reply-To: <20251217-stm32-spi-enhancements-v1-3-943348b8ff66@foss.st.com>
-X-Cookie: Close cover before striking.
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/4] spi: stm32: properly fail on
-	dma_request_chan error
+X-Mailer: b4 0.15-dev-47773
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: Remove unneeded semicolon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,55 +51,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3464604707640539273=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, 17 Dec 2025 10:37:21 +0800, Chen Ni wrote:
+> Remove unnecessary semicolons reported by Coccinelle/coccicheck and the
+> semantic patch at scripts/coccinelle/misc/semicolon.cocci.
+> 
+> 
 
---===============3464604707640539273==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xdYKEQLQFnGb8Mm8"
-Content-Disposition: inline
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
---xdYKEQLQFnGb8Mm8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks!
 
-On Wed, Dec 17, 2025 at 10:51:33PM +0100, Alain Volmat wrote:
-> Correct handling of the dma_request_chan call in order to avoid
-> misleading warn message if no DMA is provided within the device-tree
-> and moreover fail if dma_request_chan has returned a valid error.
+[1/1] spi: stm32-qspi: Remove unneeded semicolon
+      commit: 7f7b350e4a65446f5d52ea8ae99e12eac8a972db
 
-Bug fixes should go at the start of serieses to avoid spurious
-dependencies on new or cleanup changes.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---xdYKEQLQFnGb8Mm8
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmlDtLgACgkQJNaLcl1U
-h9C+xQf/f0u/7bqNRt7Lu7GnVRORacWjnXmidDhHzPASrPGgt/BgyySgqqLUtsT3
-RZnxPRAkHkYlSW+Q5OlSlxnIXV+BBEK80tAUKZmTOSruQQBgkDUm+YJx932XBSUA
-jqRZMpuH3zoYwVrWociYeo2PJClBKdsP8NYvQqj62Ns/xrNy/eM9Ow1afZgt+DQI
-KKE+YHtIFNgTXUOokDuWbNQ6oR1BiP1UYw4M0iIgdSFAJ80q5bDf6EafpZ8s3UN8
-NL6NiqggvpS0sSIJ4PFSheZnwNrdiNoH0I0kvjvuKpmQRBbBE2Jecrzy9WY+G0lA
-brTbY9z8iMKd3oSOP4L64sMAhd1u3A==
-=gJz4
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---xdYKEQLQFnGb8Mm8--
-
---===============3464604707640539273==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks,
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3464604707640539273==--
