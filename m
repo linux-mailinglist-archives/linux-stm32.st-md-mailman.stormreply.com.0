@@ -2,111 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EFBDCCFE98
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Dec 2025 13:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 018ACCCFF25
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Dec 2025 14:02:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BD27C87ED8;
-	Fri, 19 Dec 2025 12:56:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2D66C87EDF;
+	Fri, 19 Dec 2025 13:02:01 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 798A1C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33813C87EDE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Dec 2025 12:56:14 +0000 (UTC)
+ Fri, 19 Dec 2025 13:02:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 447596001D;
- Fri, 19 Dec 2025 12:56:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76105C4CEF1;
- Fri, 19 Dec 2025 12:56:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 23C7E60008;
+ Fri, 19 Dec 2025 13:01:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4FAC4CEF1;
+ Fri, 19 Dec 2025 13:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1766148973;
- bh=tKHyoPcqHO2MUgvZQBKiovkJt+tJh80vJvzQGB3Yrus=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=C0lnkwallTZKjBt4GyRjCCGQIULpAEbKpA+7OJS0yV2TNPbGZET7zOjlHPnooSlRO
- yjVVC5YmTBY3ogjOM0P9lEZQAMSN5DvM3RbFPrCe9awkoglOtpaA1kLZugI9B2pIKB
- JERdw8PpESN0EJAW115hmNumMRBdsDO6wcyQSz1vUzXgV+6PeM9B6KtqCaOs2vvFm9
- TSO21y4u/bfycn+Q7M65Jrv7CIYhGnEL2Tuzz3Q3mFGllmIztoKPGfYUODhos+WnfN
- TM+8kALjvS2AB6CbJYZ2Lm6qlRY1vNcWXe5vRdlAB+S5k8sTzMIODWP8N5au8wDs1p
- 8ps6P0cOKe1Vw==
-Message-ID: <8b02a404-8c5a-4c0d-a80c-63fa401514b2@kernel.org>
-Date: Fri, 19 Dec 2025 13:56:02 +0100
+ s=k20201202; t=1766149318;
+ bh=IcOQ2q6331x/sFy9lNcJP8nlM9e3AYGl939jb8gmCmE=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=sGE3TLtDns0o46iHdyt2yvjTYf+qmBLsez2FBT/V+f8PcdkRmfkKQuoytOLGJwQsx
+ JrU/G2tXYBvJeDh6wdUdhhv6mggP/NFZ/SiOoLImEh/cE0652FHY+bIiBzN65UnbXb
+ nWswUlTNCLY2fahu2y9WyWPfibt0zgL7D+OQ/hzsfcnsihTSGmcf6otErRikPD03w6
+ V85TY33eKYxD5t2N5dS8jBy4GwVBJhP3EGdrSXT7qajTwaiD/NLQi5uuZ33TEk5odc
+ vh/ZM3vqGCiCUNui6megm0KqlkbTHV8F0AqkGWPOP9CPUOVSX200Kh94nDwtGhHZPH
+ RFOguO2yd9DhA==
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>
+In-Reply-To: <20251218-stm32-spi-enhancements-v2-0-3b69901ca9fe@foss.st.com>
+References: <20251218-stm32-spi-enhancements-v2-0-3b69901ca9fe@foss.st.com>
+Message-Id: <176614931636.368879.12913941748381812149.b4-ty@kernel.org>
+Date: Fri, 19 Dec 2025 13:01:56 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com>
- <20251125-kaanapali-mmcc-v2-v2-7-fb44e78f300b@oss.qualcomm.com>
- <20251126-elated-stoic-scorpion-25b630@kuoka>
- <de44560d-4ed8-41fe-be7b-56412b933a8c@oss.qualcomm.com>
- <fbe39eac-7c92-4a08-bafb-31e5c51a0613@kernel.org>
- <503f445e-0d12-407d-bc77-f48ad335639b@oss.qualcomm.com>
- <e8bdb176-b6fb-4dd2-8b5b-9da8073fa915@kernel.org>
- <ca118faf-3451-4b83-9074-82bc5e1f731e@oss.qualcomm.com>
- <3e8128f4-3cba-4c13-a846-e5f1638a1e0f@kernel.org>
- <57ab2d5d-5aaa-4f9c-83ae-0f7ebc1e648b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <57ab2d5d-5aaa-4f9c-83ae-0f7ebc1e648b@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
- Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 07/11] dt-bindings: clock: qcom:
- document the Kaanapali GPU Clock Controller
+X-Mailer: b4 0.15-dev-47773
+Cc: devicetree@vger.kernel.org, Deepak Kumar <deepak.kumar01@st.com>,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 0/4] spi: stm32: stability &
+ performance enhancements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,47 +60,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/12/2025 11:39, Taniya Das wrote:
+On Thu, 18 Dec 2025 11:48:26 +0100, Alain Volmat wrote:
+> The series fixes a stability issue when dealing with <8bpw
+> transfers, as well as enforce an error if the DMA information
+> provided within the DT are incorrect.
 > 
+> Performance enhancement is also provided by allowing a polling
+> mode which is triggered when the transfer is so short that
+> polling mode transfer would lead to faster transfer than
+> if it was done in a interrupt driven manner.
 > 
-> On 12/17/2025 7:24 PM, Krzysztof Kozlowski wrote:
->> On 17/12/2025 14:21, Konrad Dybcio wrote:
->>> On 12/17/25 11:09 AM, Krzysztof Kozlowski wrote:
->>>> On 17/12/2025 10:32, Taniya Das wrote:
->>>>>>>
->>>>>>> We would like to leverage the existing common clock driver(GDSC) code to
->>>>>>
->>>>>> Fix the driver code if it cannot handle other cells. Your drivers do not
->>>>>> matter for choices made in bindings.
->>>>>>
->>>>>
->>>>> As it is still a clock controller from hardware design and in SW I will
->>>>> be map the entire hardware region and this way this clock controller
->>>>> will also be aligned to the existing clock controllers and keep the
->>>>> #power-domain-cells = <1> as other CCs.
->>>>
->>>> I don't see how this resolves my comment.
->>>
->>> Spanning the entire 0x6000-long block will remove your worry about this
->>> description only being 2-register-wide
->>
->> But that was not the comment here. Taniya replied under comment about
->> cells. We are not discussing here some other things...
->>
-> 
-> I will review and add support for handling #power-domain-cells = <0> in
-> our common code of clock & gdsc. However, the initial intent was to keep
-> the GDSC phandle uniform across chipsets as this is a clock controller
-> by hardware design, which is why #power-domain-cells was originally set
-> to <1>.
+> [...]
 
-Having cells=0 or =2 or =3 does not change "as this is a clock
-controller by hardware design" at all.
+Applied to
 
-I do not see any of these arguments relevant to discussion.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-Best regards,
-Krzysztof
+Thanks!
+
+[1/4] spi: stm32: properly fail on dma_request_chan error
+      commit: c266d19b7d4e5ed993ed9fca25ab9d11789c41ee
+[2/4] spi: stm32: fix Overrun issue at < 8bpw
+      commit: 1ac3be217c01d5df55ec5052f81e4f1708f46552
+[3/4] spi: stm32: perform small transfer in polling mode
+      commit: b39ef93a2e5b5f4289a3486d8a94a09a1e6a4c67
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
