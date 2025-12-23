@@ -2,133 +2,114 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D651CD922D
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Dec 2025 12:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74DA0CD9402
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Dec 2025 13:29:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0748FC8F272;
-	Tue, 23 Dec 2025 11:41:54 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59194C8F271
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDD0CC8F272;
+	Tue, 23 Dec 2025 12:29:47 +0000 (UTC)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EDBFC8F271
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 11:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1766490111;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6sLHyZjdhjDBt6Tlyx92GjgIeB1OFSYRftB7W+PXVHI=;
- b=cofKj7gvPWbfDuxsTQXTHbtiquZJt1lbmCmknfDPcbUceNRxMxsk4pRq0VV7t/i5enk3Kp
- d6GVpfWYJk6U1UabcMbfaDuarONGnLHMMxOJVXZfHkJeNxQyiUv4lk50IrgYLO3kWq6e18
- mi1PQxixx3u/8Dm8eMpXSh4NpxLxjPQ=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681--steeTAwOF-NU8z5L6nWfA-1; Tue, 23 Dec 2025 06:41:47 -0500
-X-MC-Unique: -steeTAwOF-NU8z5L6nWfA-1
-X-Mimecast-MFC-AGG-ID: -steeTAwOF-NU8z5L6nWfA_1766490107
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-4325ddc5babso1206695f8f.0
+ Tue, 23 Dec 2025 12:29:46 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-37a3d86b773so39297031fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 03:41:47 -0800 (PST)
+ Tue, 23 Dec 2025 04:29:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1766492985; x=1767097785;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=h6OXWNpcTZmo3fq5/Hn/HjwTOV2GaxRDyFEHGkPfSDM=;
+ b=YQRgIETtyBHTW5uA6DwWbzwZR0s5nAlJcUdx6ehva5o8XzbD5BtIBgdUQVDldsnVz+
+ +PSKx9fvY8icnhdeSFlKBBTTe2YxeDwAuIpsC9Z+9Deb47B6qYPlf2jbc9Bd3WkaauS4
+ pFyyxdOyAFZ1aKqylrgxpsv5WyKRpxTwJVj3AcDkfGquBTzx3Al74B1tdarVZS3EprQd
+ sjfpdDyWkdzXnUsmtkZxQiU8A8Sg8iji4jhzTlk8ZpbmMYvth9gAkinBMd5zDm3ygusI
+ g7eEpja2RVDcOC5uhhccTwonNZOw2ES49kd1EMmOF7GzJUVIw1yddzAtcNz6VANIHg4y
+ Bw0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766490106; x=1767094906;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6sLHyZjdhjDBt6Tlyx92GjgIeB1OFSYRftB7W+PXVHI=;
- b=IpzmtamGGyVozWg/DIe49HWc4QJV3/EBe7k10IIyj7nGAZ9oQgMYUw2XQt3Od4R5XL
- Hr1Wtf5f4u0orq3ok5+gtHPQhkJqHnHqZluUEOe62/IY5aH+3WUDybPyp3IznInXgdd+
- xcPgBwdq5QBoBac6UV76Fjt/madiTqJRxQ4cBkLsbgmKdOeIERFplVYPqTP3HZ9qMJ9T
- RYZXOjXo4gJc7qUHw04yMSyZeHE5RftCjp5/PBiAfqzku3DjgqYsnO+QOojxkl1jP5OC
- 5HXVyaHDZ/rrs1DUFS/pDsORCFshUSR5anFJCXUmTEz0TySZ0TdKofJ9C8INeFE4L5F7
- RxeA==
+ d=1e100.net; s=20230601; t=1766492985; x=1767097785;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=h6OXWNpcTZmo3fq5/Hn/HjwTOV2GaxRDyFEHGkPfSDM=;
+ b=oYMYYiEzCV4qj2DcuggikNCoEOWjrgJMnBVZK1XGgdaf1ZPAD3irn+1TNdNvAihgVc
+ ++bLdIL6RWmzynhAX4ZldIBnFsD95TifYyWrqEx9QWcmk0j+qScVNXR8PIstvnLw3m4U
+ cE37BJHUWvOw/iTirSYC/CV/O5iRnD32JnImlv9zz4/aCVC+LkXUIN47Y3KDP38+jiN9
+ W0YzdHdTzin+2BC22SYBRX4gIuYsalb2ev9YRYlFFA+Y2DnfeVyIEF+IT1PSnifUW1Dk
+ 0nwbFNFkFT0hLnhas1jd8Zolr1IgSX0KKMtcnl2KoU1DrLLUkOtHTqHRSILRREOlv7Q8
+ Zwlg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUKY8+FtnRT+xwOs4TwPv8+MFyIdZ1frxplczZf+/saVs5IHBglyd7iAC6PbZ3ABo+4QLDLUhnuNIY6bg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzj0xXAA2FU2A0eFf4UbJ/9hYoI7GQMingWGhFmE04qQy956IpS
- tniiAcV4QRfdo4k4ujoyA+6cl8fvfpxMvV+LIuATW92GII15Ag2L7TT94HZdUxCHl6e+wYnKXNa
- Q04khNX2JS/Ty+fLp84f14fIweb9QWjv9hFDZ1RNgdrHRGqcuY9NgidkRnU8BusZMvaiv6zrHF4
- KVQKYm4w==
-X-Gm-Gg: AY/fxX5/WEJYxzFHtWcXZQ/uPTrRaCBgkxy/Eki3Q4FLFdYwcvBUlrDOWCBxoGOJzoS
- eIug6AtRMsP5Ern/PiHgaSUMHEou/+LIMLTIXQqU4bQ/J4yFPcB4WnhUbye5HNUzH3P43NP/FnT
- SpAqXaramTmbkff0IHnH8CLqMXh4EeHq2i3vTpy1TJHifRTesvFHFh3Uj9DNuIWtHWrL9LjQFuq
- lWPW2qrcfNIbG6bU7jLJAL6pNczoTWQsBiqX0d2XnjmYjAGuV2womqsm5GrnFGvmV01Z5cBUM3n
- 150hj9NlY3ExxHMqaju4PYt2VV8o9hnTEVOO6CZiQStzR1XwIvkXf+6FXckXKPk25YHE27/BCy2
- rlAtH5XWXEL6U
-X-Received: by 2002:a05:6000:2886:b0:42b:4247:b077 with SMTP id
- ffacd0b85a97d-4324e501629mr16143533f8f.41.1766490106524; 
- Tue, 23 Dec 2025 03:41:46 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFPhaXEvdC/d9UBYntc4O15i4YttaJ4C4olbdEgTOb9sXo4XaU7wPfNoTNX8sKpU6s3I2QtjQ==
-X-Received: by 2002:a05:6000:2886:b0:42b:4247:b077 with SMTP id
- ffacd0b85a97d-4324e501629mr16143448f8f.41.1766490105967; 
- Tue, 23 Dec 2025 03:41:45 -0800 (PST)
-Received: from [192.168.88.32] ([216.128.11.164])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324ea227casm27605658f8f.15.2025.12.23.03.41.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Dec 2025 03:41:45 -0800 (PST)
-Message-ID: <51c7048a-52dc-47e1-97c3-2aa0d6555643@redhat.com>
-Date: Tue, 23 Dec 2025 12:41:41 +0100
+ AJvYcCWiXl1JuIriWGXT+2NYt76V/Uz+hgkR7ph1TijPvuyJvn75haB7F0eoghcUllDjcIzpufP5amNLvWLmQg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwY1GIIBRBYAFMGEQM4zAePuKFEkHwoVLeFitUslewNDumC7XRm
+ SUlotWeldJC52Y9Nww73zcbLYfmkPGib9qvIL7c/mGOra28NvwpN2/axifTlPUbNMhAzC3GKc3b
+ JypTLexBaEpe1TpJdiXEX3rPac2JngLRQDXwUSZVJaA==
+X-Gm-Gg: AY/fxX6YFntkzN5Kb5K2pD/bIJ31CkV0a9r2R5sPflb6WDOjHUPMSHDUXbLKgxkoZCn
+ K33wmjyJJJ6HzCTN2LPNg/g+K/oWpvYEVKieMKXUqII5HcrIsfyHenD/qnpNEsXf+86QAwcGVin
+ qHt2WiXDq8zvO7JhR0dt+pVAna7S60YMVEQUr4vmPmNqWcVDsuKYJuW5/VVnqug08GcdAisbyie
+ D5Nei2cjeAXI8F7+CTOVBlS3nF/OKjCXmnmwrtlFKyobMsYwOjQABy7SAh2ml21LR3WohNZbOS2
+ Q//yE6b94yah3X4mH/f2NCFZDWaHp/C77VpOJQ==
+X-Google-Smtp-Source: AGHT+IEBOhkGPqyyAQ1vT8Z9LQwcalYcPegEonjbT0vsHKYCaYN4/Y7HunNV2ZOFRdC/NVauUA6SJStJulcaNDLUuvw=
+X-Received: by 2002:a2e:a7cf:0:b0:37a:45b0:467a with SMTP id
+ 38308e7fff4ca-3812158ffe9mr48663611fa.5.1766492985167; Tue, 23 Dec 2025
+ 04:29:45 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Keguang Zhang <keguang.zhang@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- s32@nxp.com, Romain Gantois <romain.gantois@bootlin.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Heiko Stuebner <heiko@sntech.de>, Chen Wang <unicorn_wang@outlook.com>,
- Inochi Amaoto <inochiama@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>,
- Minda Chen <minda.chen@starfivetech.com>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Shuang Liang <liangshuang@eswincomputing.com>,
- Zhi Li <lizhi2@eswincomputing.com>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Clark Wang <xiaoning.wang@nxp.com>, Linux Team <linux-imx@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, David Wu <david.wu@rock-chips.com>,
- Samin Guo <samin.guo@starfivetech.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Swathi K S <swathi.ks@samsung.com>
 References: <20251219-qcom-sa8255p-emac-v6-0-487f1082461e@oss.qualcomm.com>
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20251219-qcom-sa8255p-emac-v6-0-487f1082461e@oss.qualcomm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: wcPEQJfEEazZskl5_ZydF-7Lp8DRXfcWbOH86eg1SDs_1766490107
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, linux-mips@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-msm@vger.kernel.org,
+ <51c7048a-52dc-47e1-97c3-2aa0d6555643@redhat.com>
+In-Reply-To: <51c7048a-52dc-47e1-97c3-2aa0d6555643@redhat.com>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Tue, 23 Dec 2025 13:29:32 +0100
+X-Gm-Features: AQt7F2oUd4L6z6INXPzdFurDETLUQbJOAVCbMRjbjb79EkFyrJjgdrXB0o2w2nA
+Message-ID: <CAMRc=Me7++jcT8SpA309F-0XoZvHPQF2Hfr17+Kt=Jmdy635pg@mail.gmail.com>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Drew Fustini <fustini@kernel.org>, s32@nxp.com,
+ Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Guo Ren <guoren@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
+ linux-amlogic@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- sophgo@lists.linux.dev, netdev@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
- Drew Fustini <dfustini@tenstorrent.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ Rob Herring <robh@kernel.org>, Drew Fustini <dfustini@tenstorrent.com>,
+ Shuang Liang <liangshuang@eswincomputing.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Chen Wang <unicorn_wang@outlook.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-rockchip@lists.infradead.org, Jose Abreu <joabreu@synopsys.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, Linux Team <linux-imx@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Maxime Ripard <mripard@kernel.org>, Minda Chen <minda.chen@starfivetech.com>,
+ "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>, sophgo@lists.linux.dev,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-sunxi@lists.linux.dev,
+ linux-mips@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
 Subject: Re: [Linux-stm32] [PATCH v6 0/7] net: stmmac: qcom-ethqos: add
  support for SCMI power domains
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -142,39 +123,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/19/25 12:42 PM, Bartosz Golaszewski wrote:
-> Add support for the firmware-managed variant of the DesignWare MAC on
-> the sa8255p platform. This series contains new DT bindings and driver
-> changes required to support the MAC in the STMMAC driver.
-> 
-> It also reorganizes the ethqos code quite a bit to make the introduction
-> of power domains into the driver a bit easier on the eye.
-> 
-> The DTS changes will go in separately.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
-Quite unusual SoB chain... I think it would be better if you could stick
-to one or the other; also the subj prefix should include the target tree
-(net-next in this case); finally...
-
-## Form letter - net-next-closed
-
-The net-next tree is closed for new drivers, features, code refactoring
-and optimizations due to the merge window and the winter break. We are
-currently accepting bug fixes only.
-
-Please repost when net-next reopens after Jan 2nd.
-
-RFC patches sent for review only are obviously welcome at any time.
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBEZWMgMjMsIDIwMjUgYXQgMTI6NDLigK9QTSBQYW9sbyBBYmVuaSA8cGFiZW5pQHJl
+ZGhhdC5jb20+IHdyb3RlOgo+Cj4gT24gMTIvMTkvMjUgMTI6NDIgUE0sIEJhcnRvc3ogR29sYXN6
+ZXdza2kgd3JvdGU6Cj4gPiBBZGQgc3VwcG9ydCBmb3IgdGhlIGZpcm13YXJlLW1hbmFnZWQgdmFy
+aWFudCBvZiB0aGUgRGVzaWduV2FyZSBNQUMgb24KPiA+IHRoZSBzYTgyNTVwIHBsYXRmb3JtLiBU
+aGlzIHNlcmllcyBjb250YWlucyBuZXcgRFQgYmluZGluZ3MgYW5kIGRyaXZlcgo+ID4gY2hhbmdl
+cyByZXF1aXJlZCB0byBzdXBwb3J0IHRoZSBNQUMgaW4gdGhlIFNUTU1BQyBkcml2ZXIuCj4gPgo+
+ID4gSXQgYWxzbyByZW9yZ2FuaXplcyB0aGUgZXRocW9zIGNvZGUgcXVpdGUgYSBiaXQgdG8gbWFr
+ZSB0aGUgaW50cm9kdWN0aW9uCj4gPiBvZiBwb3dlciBkb21haW5zIGludG8gdGhlIGRyaXZlciBh
+IGJpdCBlYXNpZXIgb24gdGhlIGV5ZS4KPiA+Cj4gPiBUaGUgRFRTIGNoYW5nZXMgd2lsbCBnbyBp
+biBzZXBhcmF0ZWx5Lgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEJhcnRvc3ogR29sYXN6ZXdza2kg
+PGJhcnRvc3ouZ29sYXN6ZXdza2lAbGluYXJvLm9yZz4KPiA+IFNpZ25lZC1vZmYtYnk6IEJhcnRv
+c3ogR29sYXN6ZXdza2kgPGJhcnRvc3ouZ29sYXN6ZXdza2lAb3NzLnF1YWxjb21tLmNvbT4KPgo+
+IFF1aXRlIHVudXN1YWwgU29CIGNoYWluLi4uIEkgdGhpbmsgaXQgd291bGQgYmUgYmV0dGVyIGlm
+IHlvdSBjb3VsZCBzdGljawo+IHRvIG9uZSBvciB0aGUgb3RoZXI7IGFsc28gdGhlIHN1YmogcHJl
+Zml4IHNob3VsZCBpbmNsdWRlIHRoZSB0YXJnZXQgdHJlZQo+IChuZXQtbmV4dCBpbiB0aGlzIGNh
+c2UpOyBmaW5hbGx5Li4uCj4KClRoYXQncyB0b3RhbGx5IG5vcm1hbC4gSSBkaWQgbW9zdCBvZiB0
+aGUgd29yayBvbiB0aGlzIHNlcmllcyB3aGlsZQpzdGlsbCBvbiBMaW5hcm8gcGF5cm9sbCBhbmQg
+Y3JlZGl0IGlzIGR1ZS4gSG93ZXZlciBJJ20gcmVzcGlubmluZyB0aGVtCm5vdyBhcyBhIFF1YWxj
+b21tIGVtcGxveWVlIGFuZCBpdCdzIG5vIGRpZmZlcmVudCB0aGFuIHRha2luZyBzb21lb25lCmVs
+c2UncyBwYXRjaGVzIGFuZCByZXNlbmRpbmcgdGhlbSAtIHlvdSBoYXZlIHRvIGFkZCB5b3VyIFNv
+Qi4KCj4gIyMgRm9ybSBsZXR0ZXIgLSBuZXQtbmV4dC1jbG9zZWQKPgo+IFRoZSBuZXQtbmV4dCB0
+cmVlIGlzIGNsb3NlZCBmb3IgbmV3IGRyaXZlcnMsIGZlYXR1cmVzLCBjb2RlIHJlZmFjdG9yaW5n
+Cj4gYW5kIG9wdGltaXphdGlvbnMgZHVlIHRvIHRoZSBtZXJnZSB3aW5kb3cgYW5kIHRoZSB3aW50
+ZXIgYnJlYWsuIFdlIGFyZQo+IGN1cnJlbnRseSBhY2NlcHRpbmcgYnVnIGZpeGVzIG9ubHkuCj4K
+PiBQbGVhc2UgcmVwb3N0IHdoZW4gbmV0LW5leHQgcmVvcGVucyBhZnRlciBKYW4gMm5kLgoKU3Vy
+ZSwgdGhhbmtzLgoKQmFydApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
