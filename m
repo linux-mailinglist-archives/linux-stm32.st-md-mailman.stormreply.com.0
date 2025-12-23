@@ -2,83 +2,143 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D25CF2263
-	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15CF0CF2266
+	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3ECEC5F1FB;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C81F4C5F1FD;
 	Mon,  5 Jan 2026 07:16:25 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7147AC8F271
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B1B5C8F276
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 10:13:01 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-42fbad1fa90so4047185f8f.0
+ Tue, 23 Dec 2025 15:25:52 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 5BNCgY3L1902630
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 23 Dec 2025 15:25:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=TtEztCWnj7QRqJ0GSyALKfu/qRVEAEmKKSa
+ +oTR2QDU=; b=E3nXzk9RnMdtv4PuC0+mk3KKnbAB0gyZfBD7ctQaDriuv++n0m2
+ dwTvyN4o/lE/iFITXN/b3TZ7umVEJ4ZwFCxcABdROe3XyJ0HNIshbOxppFzIPBnn
+ T2GI1rOvWjgGwefREPJhJjRCsSjiFb1hdWwRzIG2o3StcbKDNfcr+qu1vDgLPiOg
+ RLW9Yesx3ErO9Xwgzdi5yovCv+ZkknxxOa3Eq30KomnAb9dDWBZMNUuQV7aG15Ep
+ D2kl285l3JFrN9s3XW8j96FbcCdvAzpBlvg6O0terYi3ScUy8vX0gDeZMFkFing/
+ sKIE69bKF7PpTyt5dol7CUgdOM8VaWm20AQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b79w8kfva-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 02:13:01 -0800 (PST)
+ Tue, 23 Dec 2025 15:25:50 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8b8738fb141so1508658285a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 23 Dec 2025 07:25:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766484781; x=1767089581;
+ d=oss.qualcomm.com; s=google; t=1766503550; x=1767108350;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=kGMtlDyyRbCcoNhJtD681fIKSx7Hpi6HHJrHp091fTU=;
- b=GlxNTfvN3BI7OBc+yXZqL4Q6T8ngndjDE9T8Ar4CjSJJ+TyRe7aVMSH9uMcpZr7oMp
- ZeVE1ifRZp2BIXu8UdrZ66NYIupZXUC+hSWAUG+LHh8u+ruu/x2zUAaAK7I38A/Hh9JZ
- 41x+3AIbFxG2udn08hx1AWA9M2bCevsTF3DXcG2mJjWPxO4Q8QwT9v8C1A/ZmlzP8h+L
- G/EndDIGoPy+wWKM/U7QsDgLxG2bTJKtUUPc5ZGItfBmMZ/RziDM0qkEZIk/kK+NMS2b
- auhYWUA7ZYLQuUiWu7fRQwkh8ViRY/bVMRHra0DrHrfhTKHz9V42LcIuVZCaQwS69VSS
- vY2A==
+ bh=TtEztCWnj7QRqJ0GSyALKfu/qRVEAEmKKSa+oTR2QDU=;
+ b=LbBqkctUsMTAX/eGdVyZMX8BOzFdodTNXsxLWrMLSmWJKt3K3Imud/XE2m9uxlQn6w
+ FijBwGUX0hHdy4PrR2idBGu+SZAddfaZpNyyHMBBFfarSlvU8oIHjVIZMWx1JCzUVip4
+ ldz3TSfWZM0XKqdXZOCmp5MjiG5Sl0OyRe4hpf/lwmU/iBuT3IRRSnKfSaSZu8WXWBDM
+ I6RVtMEG18hP7rHAa6T08D/bSNw0gifYtuBhtp4LZDJq+BFcOFNvUT4I7m9Jj5lXwjIv
+ LWke9mvytogdESzrOhaOVyTVzkEhPaQTPyJCgGooXZ0yPwjuNqVHxhRYrRK5Loq1N7kX
+ vKpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766484781; x=1767089581;
+ d=1e100.net; s=20230601; t=1766503550; x=1767108350;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kGMtlDyyRbCcoNhJtD681fIKSx7Hpi6HHJrHp091fTU=;
- b=QkIpfKCUVwcXMOFhm+ybRz9q8aXNtBDjyg0N8GwE7L/GS9cmL4qqpXNRNLXXzsXX68
- V9wJncf4AwecoPBFt3H2XNI1DQhfwO04Pl8dUWAq9PJaoYbbz9rHL1ZidXUqCHuZkgyh
- 1Uimnnl3C6SxD6eLS9u1xvsZ0qFtzoYITcHe0EoXORiusA0spTI6b75JF5r9xsfiVqgl
- +qbsBB2p3TtbLz92KcnwxVVbBcZKltrbJ21tESj3Cs/nZ1ThnnTVFRfc9BcubwGELTRm
- LcTfClJOnzBcJ04FI1kIDRFA5oGBmarZFhetBFDwQyNr12XZE+KlPidqyWOKEiL7n2lX
- vJdg==
+ bh=TtEztCWnj7QRqJ0GSyALKfu/qRVEAEmKKSa+oTR2QDU=;
+ b=LW/D7ihuew9mz96Lrd4wGQW2NsYIuEkylOMnuUzjgydQ3/jppCjDcnq/q6Q2vpOWz3
+ R8+qngmtptw93BGU2FD2kIDyrnemzW0pS4A0IkD8+lfNF5X+lxR35BV3bgpofTh3AfBh
+ x2zBkEC1ewPAjES02arifcsC4DA5q0kH2f1DFjaBt8F+ayzch8CUIZbtmIJ9EJBzje+q
+ 4r5NCYngaw7qEZjs9NekXNB4HHqOORqRt0A7C9VMVo8H+oy+OqZzR5XEOG+Xryr8eLQP
+ oAE6dqyvZHINozFiDd+p8shwzmqiaCLO1uv1qqJ2+22oIr3OdtnwHocqdpbv7GmWxPQ/
+ 2clg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXHjrkIvdPO2X5PTwfA3Zb2nLFYQmV+QRXNzmQ3nYUMdaYtqEZyjrtg27YDTFI0cJZagZso4OaiCmbjAg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwpbkIyD0IqTD6Bvfhl4WNmLS90F5owpS05kNbjjCEAe4OKO9F5
- DVWWC2r+A83RuR5OuAvolj3SI2ZvNKFXWNYig58NLsdpCfFRQGHQpQke
-X-Gm-Gg: AY/fxX73BQqnvuzAcwNs/7GDrz0zNvtxNY1GLCPWLIUWmSfm+ZwkFVzoFPDSWy93FWz
- JuJOcGhQ99Uqa691UOXn86UW6hD/RNLaYyJX5ZSrCGF2g8Ut/ffrK2ZUaaSg5XeoSklL9CTIZmI
- M7blKHJ/s+X10jy2a6Y9LfJlpAhycHj+s6ZTEKaCAYww7E1uRKBYnVpnRxKUCFDO3c8+Bzgj8gO
- Ut19zndskY2gqfirpr/5PnNX/WbFhmMJMXsNZRH6gfV3QwoDhWiW5k3/2GTjo8Xov4y8ZzmxJHh
- 7nSHBguiaV/XPGFqokEKiKf1Go8AZrqcCED16j0wBRS8sUjuRxyrclD/l5rC5vjwppyNPvFjE7t
- cX0xO1R0EYE6CMN5Dk7O27FynFcOvdrqyZNHH357MEElL412Tq4fXCttprnN8e8COjoe7W7QwgQ
- 8EQWcKb9TdYW3kJhnPtKlQBi7+SQ==
-X-Google-Smtp-Source: AGHT+IGF0o0X3T9TPemtGA4iv5QpXYtSLA5891eQonPhGoJJdeHdYF9/vi2taBPYEXsT/bnOH7uFfA==
-X-Received: by 2002:a05:6000:188e:b0:430:fb26:3409 with SMTP id
- ffacd0b85a97d-4324e703d95mr14723855f8f.63.1766484780377; 
- Tue, 23 Dec 2025 02:13:00 -0800 (PST)
-Received: from eichest-laptop.lan ([2a02:168:af72:0:db87:3fd:1ea8:b6eb])
+ AJvYcCUlk50imr1nR3BRq8Ov3HFkFZz+Bm/OWH9IykQIEgxyt5Exc18hYrUR1hJPk9FTqALAZ2nc88CHZa+nGA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YygP6X8hgBjUvv0hmjKIBbWL/zRAJ2skHcjCsTJRexC6Y+Ak8hL
+ K4+1ompMlV1oxO7tv4XZ2HX5EdkOnFpEarWXBk29+/3X60zF48IEAGwPDzJNHxN7JVnlGGZiS4+
+ Ccq57+4oZyxdkbEhC2HFflg1DTW5P3TTc3XsmuHXQKDJMkprH1RAoZlw2Ma/9ofzqpExQBhNeAe
+ CJPiHaoFg=
+X-Gm-Gg: AY/fxX4eQ29oDrKo7eDo7vediHZAWe6YfSOBB8chBPj+gEBtwFiGSW7CvUTnvSLrSQi
+ EIZdtxfowssvtF5RAt5iO5nMjbT3YW3sASBNWyFSlN1XWT+1HjfUUrD5WbpSzXkDL4KmPh+dQKp
+ R9+xN3OWc770qjgEFiaJrc6ZmrEwpyROB4S4JCQSr945U/mkiKKP71KIugIXo4dCnqCHKcAHEJo
+ fDnq9wROB4QFcUpGRkVLojAj8nMUnQ1Zz1Xj8CxLw2rOsJ8z4CCmIQk7qm3WxIQ4KCvn1PqoY5S
+ y6uZvVUbN3kMl08q6Ip85u8hb+/Brpg5gKjw/M/ZXeFKUiVPtrwW/z3hlE8XODSU2SzNjDixcdJ
+ XJNaB/EuhhQLlp/dJQC2Zt6JrlZWnrc7bcCR2Lcfqk9OWeQe/+avS/pD1lp39THOUK18=
+X-Received: by 2002:a05:622a:510:b0:4f1:c1d5:e37e with SMTP id
+ d75a77b69052e-4f35f2b5da0mr261741841cf.0.1766503549723; 
+ Tue, 23 Dec 2025 07:25:49 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGfEiyxKd274Zyf+GFBh17CVqHI7gHxe7xWhTEgn25kY+EbcwJaW0WRnZeTw9IKDZq1o5KycA==
+X-Received: by 2002:a05:622a:510:b0:4f1:c1d5:e37e with SMTP id
+ d75a77b69052e-4f35f2b5da0mr261741331cf.0.1766503549176; 
+ Tue, 23 Dec 2025 07:25:49 -0800 (PST)
+Received: from quoll.home (83.31.98.88.ipv4.supernova.orange.pl. [83.31.98.88])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4324eaa0908sm26759247f8f.31.2025.12.23.02.12.59
+ a640c23a62f3a-b8037f18575sm1401626566b.54.2025.12.23.07.25.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Dec 2025 02:13:00 -0800 (PST)
-From: Stefan Eichenberger <eichest@gmail.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com
-Date: Tue, 23 Dec 2025 11:10:59 +0100
-Message-ID: <20251223101240.10634-1-eichest@gmail.com>
+ Tue, 23 Dec 2025 07:25:48 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 23 Dec 2025 16:25:45 +0100
+Message-ID: <20251223152544.155637-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1512;
+ i=krzysztof.kozlowski@oss.qualcomm.com; 
+ h=from:subject; bh=TUV9WBdE7XaextWF8pSmMEIyYIZxno9GibptOAlYOOk=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpSrR4kCyqhm4Gsiig6bqUTW+5/U52bbrX4IHHk
+ Uwz6YjfGo6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaUq0eAAKCRDBN2bmhouD
+ 1wuiD/wOj4LGMQu/gq0pbdXRvVtoSb+cRbxvJrrhYETDzQJ3p0NGp29zy45oNjJnJKf6c176p5L
+ oJuVIaMgEPDsosph6UeWCVEr3TX5S19EYrdfjzMHMAhhw4os1RJpjaOW5pnVxbbhFWbu6TyLiKe
+ oyDuJaw5DCvh3GR6Ec1CwJo1V9LXPCqjqEkzY8PILB1OeGVbzLoh0jM0th53FG+BFkiJ0PlTdag
+ 2epNXoTV3yzJ1ZHO897bsVrnHGhEjC5xWLyIj7jZfuR+d1FX4xVWLlYbkhy+XZUnXLZROoMf482
+ xBUbDyfx6I2wurISdzHJTariuC0s5q3xxQ6m7BTKeH/dO1Zm7ZF40qRV/ar16dCCs0gYt8Pl4qs
+ KwvEmZxn3hi5MHoGXeT/hVsQZNpBAQbND/V1HZWWwa4OGNIhAz7b+PlfEBEFygvtapv0uAXVeJ4
+ IrbmZ+g3jrGbVFBu0xbyTnHfRlpHnBLVdvntdKkkgBmsXDuDZnPMEn5Np1xYuby/LXl42cJEbsu
+ QK8e0DZ7uueuZK1Mo48Vm+qupHJf57F59Sc8vvG0vO1Hll4MQEVi474Hs6Zvp389ONja9dQRlhP
+ kRq1tpeKDru1aep2JZ/a5sOUWD+bTYhRBXSHIwES1aB/sfRpzwTOHwty9lVQpWI4fi9iBEQft5l
+ JX3SuTnUt5zIUyw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIzMDEyNyBTYWx0ZWRfX5wbFdp6iv15N
+ CMBD85jiZnLqvpOqWKL44Z0v3Xzhiz7NmBgpXqVt0WD2WKj/flOGKRwt/Md/aLEAhdYw6GEhlKo
+ 6xQUxG5efGtvPq9yySSJuyE5iW2auXF71UBMnkx6eAXV0EvXxYfnMY/9lkDvdYgQY2fExKTq+D6
+ 6hZZY9HqxgPB10zbXkPw2K2AjpFiHnsPUmxuqAPshNrIbAAkuQ24EA9lIjVIrFNJ+cVa6UIztMz
+ 7CYTk78QoraU5lE9B/ob3HrVrBoXWacAZ2/ogQr/Wf3hvX96bCyRuuSdx9uS7NO9GGiOIPFPALj
+ UHWLdyGYKFbzrkws2d+ExlglbeJOt3GiurIWFZgt7b85zvYbBJPEXHZSf5LE6VOMDIDX7W0VFAk
+ 23lkqr8sKfm3PosdeRmyK9h31X03Dq/Va68lLwLlow+CsXyJRnQMGQYZIhwFWzH2kn74xGPqc0e
+ o5t9hvz0MyOavyRaayw==
+X-Proofpoint-GUID: J0JL7goUk-Vp5aFUi2xCRpy-UjJT92o-
+X-Proofpoint-ORIG-GUID: J0JL7goUk-Vp5aFUi2xCRpy-UjJT92o-
+X-Authority-Analysis: v=2.4 cv=T/eBjvKQ c=1 sm=1 tr=0 ts=694ab47e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=qe4J/qXhiWkb1JZGYKbLYA==:17
+ a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=fzvLM_iN_nYskE6_0WEA:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-23_03,2025-12-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ clxscore=1011 suspectscore=0 malwarescore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512230127
 X-Mailman-Approved-At: Mon, 05 Jan 2026 07:16:21 +0000
-Cc: robh@kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- francesco.dolcini@toradex.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: dwmac: Add a fixup
-	for the Micrel KSZ9131 PHY
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [Linux-stm32] [PATCH 1/2] arm64: dts: st: Use hyphen in node names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,126 +155,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
+DTS coding style prefers hyphens instead of underscores in the node
+names.  Change should be safe, because node names are not considered an
+ABI.
 
-Add a fixup to the stmmac driver to keep the preamble before the SFD
-(Start Frame Delimiter) on the Micrel KSZ9131 PHY when the driver is
-used on an NXP i.MX8MP SoC.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This allows to workaround errata ERR050694 of the NXP i.MX8MP that
-states:
-ENET_QOS: MAC incorrectly discards the received packets when Preamble
-Byte does not precede SFD or SMD.
-
-The bit which disables this feature is not documented in the datasheet
-from Micrel, but has been found by NXP and Micrel following this
-discussion:
-https://community.nxp.com/t5/i-MX-Processors/iMX8MP-eqos-not-working-for-10base-t/m-p/2151032
-
-It has been tested on Verdin iMX8MP from Toradex by forcing the PHY to
-10MBit. Without bit 2 being set in the remote loopback register, no
-packets are received. With the bit set, reception works fine.
-
-Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 ---
-Changes in v2:
-- Use phy_register_fixup_for_uid() instead of adding a new device tree
-  property
-- I will send the conversion of the micrel.txt binding as a separate
-  patch series
-- Link to v1: https://lore.kernel.org/all/20251212084657.29239-1-eichest@gmail.com/
 
- .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 56 ++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+Patches done with sed, verified with comparing unflattened DTB and
+dtx_diff.
+---
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 4 ++--
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index db288fbd5a4df..23bc917d3f0bd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -19,6 +19,7 @@
- #include <linux/regmap.h>
- #include <linux/slab.h>
- #include <linux/stmmac.h>
-+#include <linux/micrel_phy.h>
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index 88e214d395ab..a6658d836122 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -761,11 +761,11 @@ bsec: efuse@44000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
  
- #include "stmmac_platform.h"
+-			part_number_otp@24 {
++			part-number-otp@24 {
+ 				reg = <0x24 0x4>;
+ 			};
  
-@@ -39,6 +40,12 @@
- #define RMII_RESET_SPEED		(0x3 << 14)
- #define CTRL_SPEED_MASK			GENMASK(15, 14)
+-			package_otp@1e8 {
++			package-otp@1e8 {
+ 				reg = <0x1e8 0x1>;
+ 				bits = <0 3>;
+ 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index a8e6e0f77b83..ec5db00b9d72 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1739,11 +1739,11 @@ bsec: efuse@44000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
  
-+/* Undocumented bit of the KSZ9131RNX in the remote loopback register to keep
-+ * the preamble before sfd. It was reported by NXP in cooperation with Micrel.
-+ */
-+#define KSZ9x31_REMOTE_LOOPBACK			0x11
-+#define KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE	BIT(2)
-+
- struct imx_priv_data;
+-			part_number_otp@24 {
++			part-number-otp@24 {
+ 				reg = <0x24 0x4>;
+ 			};
  
- struct imx_dwmac_ops {
-@@ -282,6 +289,30 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	return err;
- }
- 
-+static int imx8mp_dwmac_phy_micrel_fixup(struct phy_device *phydev)
-+{
-+	struct device *mdio_bus_dev = phydev->mdio.dev.parent;
-+	struct device_node *mac_node;
-+
-+	if (!mdio_bus_dev || !mdio_bus_dev->parent)
-+		return 0;
-+
-+	mac_node = mdio_bus_dev->parent->of_node;
-+	if (!mac_node)
-+		return 0;
-+
-+	if (!of_device_is_compatible(mac_node, "nxp,imx8mp-dwmac-eqos"))
-+		return 0;
-+
-+	/* Keep the preamble before the SFD (Start Frame Delimiter) for the
-+	 * Micrel KSZ9131. This is required on the i.MX8MP because of errata
-+	 * ERR050694.
-+	 */
-+	return phy_modify_changed(phydev, KSZ9x31_REMOTE_LOOPBACK,
-+				  KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE,
-+				  KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE);
-+}
-+
- static int imx_dwmac_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
-@@ -389,7 +420,30 @@ static struct platform_driver imx_dwmac_driver = {
- 		.of_match_table = imx_dwmac_match,
- 	},
- };
--module_platform_driver(imx_dwmac_driver);
-+
-+static int __init imx_dwmac_init(void)
-+{
-+	int ret;
-+
-+	if (of_machine_is_compatible("fsl,imx8mp")) {
-+		ret = phy_register_fixup_for_uid(PHY_ID_KSZ9131, MICREL_PHY_ID_MASK,
-+						 imx8mp_dwmac_phy_micrel_fixup);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return platform_driver_register(&imx_dwmac_driver);
-+}
-+module_init(imx_dwmac_init);
-+
-+static void __exit imx_dwmac_exit(void)
-+{
-+	if (of_machine_is_compatible("fsl,imx8mp"))
-+		phy_unregister_fixup_for_uid(PHY_ID_KSZ9131, MICREL_PHY_ID_MASK);
-+
-+	platform_driver_unregister(&imx_dwmac_driver);
-+}
-+module_exit(imx_dwmac_exit);
- 
- MODULE_AUTHOR("NXP");
- MODULE_DESCRIPTION("NXP imx8 DWMAC Specific Glue layer");
+-			package_otp@1e8 {
++			package-otp@1e8 {
+ 				reg = <0x1e8 0x1>;
+ 				bits = <0 3>;
+ 			};
 -- 
 2.51.0
 
