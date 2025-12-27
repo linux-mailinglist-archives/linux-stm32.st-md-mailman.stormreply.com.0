@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92802CF2275
+	by mail.lfdr.de (Postfix) with ESMTPS id AEF72CF2276
 	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5964FC6046C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7565FC60492;
 	Mon,  5 Jan 2026 07:16:26 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D023DC36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2E24C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Dec 2025 12:17:15 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-47d3ffb0f44so13334805e9.3
+ Sat, 27 Dec 2025 12:17:24 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id
+ 5b1f17b1804b1-4779cc419b2so61962615e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Dec 2025 04:17:15 -0800 (PST)
+ Sat, 27 Dec 2025 04:17:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1766837835; x=1767442635;
+ d=suse.com; s=google; t=1766837844; x=1767442644;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=uTPebJjNeKwkChbLQ9kmEHnfHiLVqL0OXrUmcfcwYxQ=;
- b=KKUs6YyKPW2o7c91cFjYItfSiMDLfYTSmXNqdQEPTlY0eCsN96j/lmbgvBLt8S01tr
- oxxcHKItACjzDJBmumo54YT/8L8IiPaVctlJj/aiG/FspqTpoldXHe7ZzJxF1p2Ryiqt
- W8mghe6svQxD6qTZjJkF+BrKH4ntnw5U47Kho4NZwneGDgISKrkRH3ZijQG93lPe91uo
- Bn8WC36oMgJMVifgArwAs8Yg5vmtoQJDBUEJViPk+c0AVD/sSMlC0fwhjEwHcqEThfr4
- EvcGU+YuuhjgXbVvX7npDKmG0VyKvzze5HzpArfmwW87th4Qh2RGI3/5khJhZhlr3DDE
- 6H7w==
+ :reply-to; bh=l5BRw7RvrfQfP/K6gt0hDAa/lWwGnQ3AR1h1gaT2J0c=;
+ b=A++ITmznq3R+Wh4q7jiJpyi4Koa91j+7Bop89Tb4jXYkwUhrXBglHeqkbAcdgggKIf
+ 01pKJG0UQwxcpQpuWat7eJBO6FkGPU/Kwx21igARVaAg83KUR3DCMHY8n54cBoIgU2nX
+ zDCGwZPUSzWMa8HyrR+zGO3+1OwsXEg4iigJLpPKEHuIe9zX2jUOhBxAx7/FnabJpAuf
+ dTwxMg2E3Ymj+e3BEj+CPAItBmyTyjaMVii8eWyMS5AO78Xh189Uo/E7VZAha0GFFw2b
+ a+Fxf2FVX9/InOA03iK1TiKkK87zcnLYHuVB0rFj0/DpAa+B4/wM0G9QIzIleOHmn1b3
+ 4PUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766837835; x=1767442635;
+ d=1e100.net; s=20230601; t=1766837844; x=1767442644;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=uTPebJjNeKwkChbLQ9kmEHnfHiLVqL0OXrUmcfcwYxQ=;
- b=a6ER8stVj5LFa37EQ5EstUMz15z09tlUJ2bppoCd/JQMy9DduhnqZTQRlsNFJjQEIe
- bj+lku2YwwoOtqJaLnTuoSW8j5IN3hHh92UKJJeLoxN3ih7Keu8iJNQcF9LD2/T7iMp4
- zXMpFjghZyMx/LA0RPIw0gZN4LjBocY3QGc82thtU7u4lcdpi5InOmzefM4uJX7wAAQl
- tSgnaFOMYXGu8RucCgsD/0Lqc6K/WNeBUKqe3NPfsls7TwKyHmxtNjnaZ+22UfhY8xMr
- sdEJ6c6oaUjDcznAV+exqr8+Pxi+MMpefAC7OiZiwlzIBhx2FC7spApYzzAaASVu0o5K
- E7Rw==
+ bh=l5BRw7RvrfQfP/K6gt0hDAa/lWwGnQ3AR1h1gaT2J0c=;
+ b=p+fkIoEoDBnwcb545MyYnrKUspKHf2Imk0l+YMOxmF6AUgX1TOpPL/+dibtXTXL4Ih
+ FrY20v2utL/7BrbsZpZnkRDa+7/drbif39kMdY6xs5u0c0P+gYg68Snz4dCdsSogThQ+
+ AQFCNbvdRpG8L60Qp2QsVaeEUZM5jDzwTJKSJF2bX41Aw2LD0YFjNV4ASN+2dX6xyyIT
+ aIZdzRfp18+T60vxUhqBsQv9mJgVhVJGELH3gZncbHq6GO/HDjc6qF1J9h5pfsG/0BbA
+ BPBF9tvSv81fTR9mRhUZh6ha49wIeEySJhv/ws+T5rkbQnvwy1oMJUbZ36HgLvJkTt7G
+ xJtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWmBm9pDmm1KPgFVOKIjfGQcP36OIBUVFXEfuGB9T7r+npkZFiQU5F+EPYJ5n/g+fJ3dPlfdjdGSdfm8w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwM1y3IGKdTwJ/MghSdVFlwaTW+Jxc1yXYxgTZqeRUa+kq4GUJO
- fGoI+IiFdsjEfXGWNc/tpEpVBB++rvjMoIuxBvtyZ3s1u9QwqCt4KXyhm2BpPxcA6Lw=
-X-Gm-Gg: AY/fxX45KhhSgUjaRdjkypQhI4lFkHlNT7+4cPzBlPp0lMUbCYNiKt2N61whCwwoS11
- 2s7yvm6sCLkRr3mEv1NJj//k0hef7iaC3qT7cm6TZU9QHkkxjt5gZ1Si/9GJY0WqG99fb9eiN2D
- Y9M5+eIGbAnSLdGeC4282rd2x73xfVA2Poiil4CAvHK2kP1juvVTQ0tBCR7fHFlxr1NT+h7YVQ3
- M3W0LcAVdNqXd+udNGVcRoDv2mHn/DNYMcqvTN3ssvxrdUIgAsFoyHqsWmmyhn2fzRiJokRD7BD
- Gza/giZuleMtM+c6W3/VQfYHJvR563KxYPhOdkcZ12TX546siDsGFWjTK98DS2crb94k7UZTsWo
- T2GESu5/JSR+jXSWWIHybYRCQQNovXxnQEhL8KzUCUN6FctQPWuAY2CtZ4WnaBvLMUpFQmlV2HF
- brmYPWfCmZlQcaZeiC03M=
-X-Google-Smtp-Source: AGHT+IGwp3EjluLXDesoC0JEyXRGphsbQ8YoWlvkj2Od8DQXEn5G/ySQT/x4pqGRl4etLgLjbGQKkA==
-X-Received: by 2002:a05:600c:1912:b0:477:89d5:fdac with SMTP id
- 5b1f17b1804b1-47d1959f714mr329425925e9.31.1766837835139; 
- Sat, 27 Dec 2025 04:17:15 -0800 (PST)
+ AJvYcCWnV/fvHoffrfevtR5NxvCNmZHGdOP/Wm8y1pmvb3HGD38tISqZ994ZadovckORJx4E16KXSaxpqTX9iA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzD14JBn3A5YmajWIsR2KnmeukHVrf+YwYu6xOSWUi22MjqCBSA
+ sBmEEmmfEHCpMjWKsPJNNlXxXiCWBpG6X8slGAJpMbFNUS4j8iZw1xym7fWVCSQfVo8=
+X-Gm-Gg: AY/fxX7L9bVPfEXic+3QCGRFjoWd53nNbJqTLZsFoBQr+ZfVQJfBeXqqMe8PiLQAnP+
+ 5tLH4hhG09Lg5LaiA8QjhWIN0U7HBLjQpDv0YWrR0qfJYHdmiualq7wP69fVNfQz6pM1m3hwGM8
+ UzTv+YRXtU6rxCvpZ+5Ghp7Q13dxvXysQTEjQTpTK1Dsfc8+fktNKi+PYfmfi+0fNpmlaHQoup4
+ l2+gmYK6w28TL1pL6qc0m1RgY1rxCOfxs+wXN2jSFR5ENS+CwWvQFdJDzEX+JR/OsrZWIfxN5C+
+ 5jiNyRunN5My5mfaTgU9wDCCIw7srP3aHujnYBDOgi8kBfo/I5Rq6n0gAsq7XVQXvgPZ0T2iArH
+ m3h/47Jnml/4f/yDHxAdjdH8mTDqp6ZBMSbhR9APIwWKG1tUJWQn4zskVSadsZ4EwPaXbFfNjIZ
+ jKkb2D5tUB
+X-Google-Smtp-Source: AGHT+IFB/Fm/BbhF4rdbmVdiGzUqk88gX/08HvStcaIXA3100u27BggsIM2y0GxgIqiLG/N+dnbC3Q==
+X-Received: by 2002:a05:600c:4f52:b0:477:a978:3a7b with SMTP id
+ 5b1f17b1804b1-47d1958a5d5mr344953125e9.22.1766837844304; 
+ Sat, 27 Dec 2025 04:17:24 -0800 (PST)
 Received: from [127.0.0.1] ([2804:5078:811:d400:58f2:fc97:371f:2])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-121724cfdd0sm97940127c88.4.2025.12.27.04.17.06
+ a92af1059eb24-121724cfdd0sm97940127c88.4.2025.12.27.04.17.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Dec 2025 04:17:14 -0800 (PST)
+ Sat, 27 Dec 2025 04:17:23 -0800 (PST)
 From: Marcos Paulo de Souza <mpdesouza@suse.com>
-Date: Sat, 27 Dec 2025 09:16:10 -0300
+Date: Sat, 27 Dec 2025 09:16:11 -0300
 MIME-Version: 1.0
-Message-Id: <20251227-printk-cleanup-part3-v1-3-21a291bcf197@suse.com>
+Message-Id: <20251227-printk-cleanup-part3-v1-4-21a291bcf197@suse.com>
 References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 In-Reply-To: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 To: Richard Weinberger <richard@nod.at>, 
@@ -95,11 +95,11 @@ To: Richard Weinberger <richard@nod.at>,
  Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
  Laurentiu Tudor <laurentiu.tudor@nxp.com>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1766837798; l=9456;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1766837798; l=7960;
  i=mpdesouza@suse.com; s=20231031; h=from:subject:message-id;
- bh=vcl36sWudeP+4+BFFAGNAn9YWtzCJyjmd2BzAWTnD/U=;
- b=iD+souMtKfrrqeYTmzgK7GoB+YnYwBZz+b3u1u3z79Hjhj/LyjffFTb6T+KYy3fwP+rT9y9HK
- hjNxNGyaArtAX5IV24Lh1tykQ434DvLfReICQgaATUhSR+uxoFOqy3O
+ bh=lE/1DIYMabiYcINvDQN+J482ZjUVJCV7RenaBaf63GU=;
+ b=0Nm1rVm8usUyQfc8Y8VdqZ5lSxqrxogghCnWlBop68h2x3eX8wvULmkNK1yqxgDQDAsr7NT2A
+ 16smAUrBtylBcdO0yBiCQkV9TDNRTRX47nnARx+C0eR1hFzoRnJz2MU
 X-Developer-Key: i=mpdesouza@suse.com; a=ed25519;
  pk=/Ni/TsKkr69EOmdZXkp1Q/BlzDonbOBRsfPa18ySIwU=
 X-Mailman-Approved-At: Mon, 05 Jan 2026 07:16:22 +0000
@@ -110,8 +110,8 @@ Cc: kgdb-bugreport@lists.sourceforge.net, linux-um@lists.infradead.org,
  sparclinux@vger.kernel.org, Marcos Paulo de Souza <mpdesouza@suse.com>,
  linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/19] printk: Drop flags argument from
-	console_is_usable
+Subject: [Linux-stm32] [PATCH 04/19] printk: Reintroduce consoles_suspended
+	global state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,260 +128,224 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The flags argument was also used to check if CON_NBCON was set, but their
-usage was fixed in the last commit. All current users are reading the
-variable just to call console_is_usable.
+This change partially reverts commit 9e70a5e109a4
+("printk: Add per-console suspended state"). The intent of the original
+commit was to move the management of the console suspended state to the
+consoles themselves to be able to use SRCU instead of console lock.
 
-By calling console_srcu_read_flags inside console_is_usable makes the
-code cleaner and removes one argument from the function.
+But having a global state is still useful when checking if the global
+suspend was triggered by power management. This way, instead of setting
+the state of each individual console, the code would only set/read from the
+global state.
 
-Along with it, create a variant called __console_is_usable that can be
-used under console_list_lock(), like unregister_console_locked.
+Along with this change, two more fixes are necessary: change
+console_{suspend,resume} to set/clear CON_SUSPEND instead of setting
+CON_ENABLED and change show_cons_active to call __console_is_usable to
+check console usefulness.
 
+Link: https://lore.kernel.org/lkml/844j4lepak.fsf@jogness.linutronix.de/
+Signed-off-by: Petr Mladek <pmladek@suse.com>
+[mpdesouza@suse.com: Adapted code related to console_is_usable]
 Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 ---
- arch/um/kernel/kmsg_dump.c |  3 +--
- include/linux/console.h    | 25 +++++++++++++++++--------
- kernel/debug/kdb/kdb_io.c  |  4 +---
- kernel/printk/nbcon.c      | 15 ++++-----------
- kernel/printk/printk.c     | 20 +++++++-------------
- 5 files changed, 30 insertions(+), 37 deletions(-)
+ drivers/tty/tty_io.c    |  6 +++---
+ include/linux/console.h | 53 +++++++++++++++++++++++++++++++++++++++++++++++--
+ kernel/printk/printk.c  | 23 +++++++++++----------
+ 3 files changed, 67 insertions(+), 15 deletions(-)
 
-diff --git a/arch/um/kernel/kmsg_dump.c b/arch/um/kernel/kmsg_dump.c
-index 8ae38308b67c..ca80232cfa2a 100644
---- a/arch/um/kernel/kmsg_dump.c
-+++ b/arch/um/kernel/kmsg_dump.c
-@@ -31,8 +31,7 @@ static void kmsg_dumper_stdout(struct kmsg_dumper *dumper,
- 		 * expected to output the crash information.
- 		 */
- 		if (strcmp(con->name, "ttynull") != 0 &&
--		    console_is_usable(con, console_srcu_read_flags(con),
--				      NBCON_USE_ATOMIC)) {
-+		    console_is_usable(con, NBCON_USE_ATOMIC)) {
- 			break;
- 		}
- 	}
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index e2d92cf70eb7..7d2bded75b75 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3552,9 +3552,9 @@ static ssize_t show_cons_active(struct device *dev,
+ 	for_each_console(c) {
+ 		if (!c->device)
+ 			continue;
+-		if (!(c->flags & CON_NBCON) && !c->write)
+-			continue;
+-		if ((c->flags & CON_ENABLED) == 0)
++		if (!__console_is_usable(c, c->flags,
++					 consoles_suspended,
++					 NBCON_USE_ANY))
+ 			continue;
+ 		cs[i++] = c;
+ 		if (i >= ARRAY_SIZE(cs))
 diff --git a/include/linux/console.h b/include/linux/console.h
-index dd4ec7a5bff9..648cf10e3f93 100644
+index 648cf10e3f93..caf9b0951129 100644
 --- a/include/linux/console.h
 +++ b/include/linux/console.h
-@@ -656,13 +656,8 @@ extern bool nbcon_kdb_try_acquire(struct console *con,
- 				  struct nbcon_write_context *wctxt);
- extern void nbcon_kdb_release(struct nbcon_write_context *wctxt);
+@@ -509,6 +509,7 @@ extern void console_list_lock(void) __acquires(console_mutex);
+ extern void console_list_unlock(void) __releases(console_mutex);
  
--/*
-- * Check if the given console is currently capable and allowed to print
-- * records. Note that this function does not consider the current context,
-- * which can also play a role in deciding if @con can be used to print
-- * records.
-- */
--static inline bool console_is_usable(struct console *con, short flags,
-+/* Variant of console_is_usable() when the console_list_lock is held. */
-+static inline bool __console_is_usable(struct console *con, short flags,
- 				     enum nbcon_write_cb nwc)
- {
- 	if (!(flags & CON_ENABLED))
-@@ -707,6 +702,18 @@ static inline bool console_is_usable(struct console *con, short flags,
- 	return true;
+ extern struct hlist_head console_list;
++extern bool consoles_suspended;
+ 
+ /**
+  * console_srcu_read_flags - Locklessly read flags of a possibly registered
+@@ -561,6 +562,47 @@ static inline void console_srcu_write_flags(struct console *con, short flags)
+ 	WRITE_ONCE(con->flags, flags);
  }
  
-+/*
-+ * Check if the given console is currently capable and allowed to print
-+ * records. Note that this function does not consider the current context,
-+ * which can also play a role in deciding if @con can be used to print
-+ * records.
++/**
++ * consoles_suspended_srcu_read - Locklessly read the global flag for
++ *				suspending all consoles.
++ *
++ * The global "consoles_suspended" flag is synchronized using console_list_lock
++ * and console_srcu_read_lock. It is the same approach as CON_SUSPENDED flag.
++ * See console_srcu_read_flags() for more details.
++ *
++ * Context: Any context.
++ * Return: The current value of the global "consoles_suspended" flag.
 + */
-+static inline bool console_is_usable(struct console *con,
-+				     enum nbcon_write_cb nwc)
++static inline bool consoles_suspended_srcu_read(void)
 +{
-+	return __console_is_usable(con, console_srcu_read_flags(con), nwc);
++	WARN_ON_ONCE(!console_srcu_read_lock_is_held());
++
++	/*
++	 * The READ_ONCE() matches the WRITE_ONCE() when "consoles_suspended"
++	 * is modified with consoles_suspended_srcu_write().
++	 */
++	return data_race(READ_ONCE(consoles_suspended));
 +}
 +
++/**
++ * consoles_suspended_srcu_write - Write the global flag for suspending
++ *			all consoles.
++ * @suspend:	new value to write
++ *
++ * The write must be done under the console_list_lock. The caller is responsible
++ * for calling synchronize_srcu() to make sure that all callers checking the
++ * usablility of registered consoles see the new state.
++ *
++ * Context: Any context.
++ */
++static inline void consoles_suspended_srcu_write(bool suspend)
++{
++	lockdep_assert_console_list_lock_held();
++
++	/* This matches the READ_ONCE() in consoles_suspended_srcu_read(). */
++	WRITE_ONCE(consoles_suspended, suspend);
++}
++
+ /**
+  * console_srcu_is_nbcon - Locklessly check whether the console is nbcon
+  * @con:	struct console pointer of console to check
+@@ -658,8 +700,12 @@ extern void nbcon_kdb_release(struct nbcon_write_context *wctxt);
+ 
+ /* Variant of console_is_usable() when the console_list_lock is held. */
+ static inline bool __console_is_usable(struct console *con, short flags,
+-				     enum nbcon_write_cb nwc)
++				       bool all_suspended,
++				       enum nbcon_write_cb nwc)
+ {
++	if (all_suspended)
++		return false;
++
+ 	if (!(flags & CON_ENABLED))
+ 		return false;
+ 
+@@ -711,7 +757,9 @@ static inline bool __console_is_usable(struct console *con, short flags,
+ static inline bool console_is_usable(struct console *con,
+ 				     enum nbcon_write_cb nwc)
+ {
+-	return __console_is_usable(con, console_srcu_read_flags(con), nwc);
++	return __console_is_usable(con, console_srcu_read_flags(con),
++				   consoles_suspended_srcu_read(),
++				   nwc);
+ }
+ 
  #else
- static inline void nbcon_cpu_emergency_enter(void) { }
- static inline void nbcon_cpu_emergency_exit(void) { }
-@@ -719,7 +726,9 @@ static inline void nbcon_reacquire_nobuf(struct nbcon_write_context *wctxt) { }
- static inline bool nbcon_kdb_try_acquire(struct console *con,
+@@ -727,6 +775,7 @@ static inline bool nbcon_kdb_try_acquire(struct console *con,
  					 struct nbcon_write_context *wctxt) { return false; }
  static inline void nbcon_kdb_release(struct nbcon_write_context *wctxt) { }
--static inline bool console_is_usable(struct console *con, short flags,
-+static inline bool __console_is_usable(struct console *con, short flags,
-+				       enum nbcon_write_cb nwc) { return false; }
-+static inline bool console_is_usable(struct console *con,
+ static inline bool __console_is_usable(struct console *con, short flags,
++				       bool all_suspended,
+ 				       enum nbcon_write_cb nwc) { return false; }
+ static inline bool console_is_usable(struct console *con,
  				     enum nbcon_write_cb nwc) { return false; }
- #endif
- 
-diff --git a/kernel/debug/kdb/kdb_io.c b/kernel/debug/kdb/kdb_io.c
-index d6de512b433a..642eab746577 100644
---- a/kernel/debug/kdb/kdb_io.c
-+++ b/kernel/debug/kdb/kdb_io.c
-@@ -589,9 +589,7 @@ static void kdb_msg_write(const char *msg, int msg_len)
- 	 */
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(c) {
--		short flags = console_srcu_read_flags(c);
--
--		if (!console_is_usable(c, flags, NBCON_USE_ATOMIC))
-+		if (!console_is_usable(c, NBCON_USE_ATOMIC))
- 			continue;
- 		if (c == dbg_io_ops->cons)
- 			continue;
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index f0f42e212caa..f0659c1e50ed 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1164,7 +1164,6 @@ static bool nbcon_emit_one(struct nbcon_write_context *wctxt, bool use_atomic)
- static bool nbcon_kthread_should_wakeup(struct console *con, struct nbcon_context *ctxt)
- {
- 	bool ret = false;
--	short flags;
- 	int cookie;
- 
- 	if (kthread_should_stop())
-@@ -1183,8 +1182,7 @@ static bool nbcon_kthread_should_wakeup(struct console *con, struct nbcon_contex
- 
- 	cookie = console_srcu_read_lock();
- 
--	flags = console_srcu_read_flags(con);
--	if (console_is_usable(con, flags, NBCON_USE_THREAD)) {
-+	if (console_is_usable(con, NBCON_USE_THREAD)) {
- 		/* Bring the sequence in @ctxt up to date */
- 		ctxt->seq = nbcon_seq_read(con);
- 
-@@ -1209,7 +1207,6 @@ static int nbcon_kthread_func(void *__console)
- 		.ctxt.prio	= NBCON_PRIO_NORMAL,
- 	};
- 	struct nbcon_context *ctxt = &ACCESS_PRIVATE(&wctxt, ctxt);
--	short con_flags;
- 	bool backlog;
- 	int cookie;
- 
-@@ -1249,9 +1246,7 @@ static int nbcon_kthread_func(void *__console)
- 		 */
- 		cookie = console_srcu_read_lock();
- 
--		con_flags = console_srcu_read_flags(con);
--
--		if (console_is_usable(con, con_flags, NBCON_USE_THREAD))
-+		if (console_is_usable(con, NBCON_USE_THREAD))
- 			backlog = nbcon_emit_one(&wctxt, false);
- 
- 		console_srcu_read_unlock(cookie);
-@@ -1645,12 +1640,10 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
- 
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(con) {
--		short flags = console_srcu_read_flags(con);
--
- 		if (!console_is_nbcon(con))
- 			continue;
- 
--		if (!console_is_usable(con, flags, NBCON_USE_ATOMIC))
-+		if (!console_is_usable(con, NBCON_USE_ATOMIC))
- 			continue;
- 
- 		if (nbcon_seq_read(con) >= stop_seq)
-@@ -1904,7 +1897,7 @@ void nbcon_device_release(struct console *con)
- 	 */
- 	cookie = console_srcu_read_lock();
- 	printk_get_console_flush_type(&ft);
--	if (console_is_usable(con, console_srcu_read_flags(con), NBCON_USE_ATOMIC) &&
-+	if (console_is_usable(con, NBCON_USE_ATOMIC) &&
- 	    !ft.nbcon_offload &&
- 	    prb_read_valid(prb, nbcon_seq_read(con), NULL)) {
- 		/*
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index bd0d574be3cf..b03ffc23c27c 100644
+index b03ffc23c27c..173c14e08afe 100644
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -3191,7 +3191,6 @@ static bool console_flush_one_record(bool do_cond_resched, u64 *next_seq, bool *
+@@ -104,6 +104,13 @@ DEFINE_STATIC_SRCU(console_srcu);
+  */
+ int __read_mostly suppress_printk;
  
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(con) {
--		short flags = console_srcu_read_flags(con);
- 		u64 printk_seq;
- 		bool progress;
++/*
++ * Global flag for calling down all consoles during suspend.
++ * There is also a per-console flag which is used when the related
++ * device HW gets disabled, see CON_SUSPEND.
++ */
++bool consoles_suspended;
++
+ #ifdef CONFIG_LOCKDEP
+ static struct lockdep_map console_lock_dep_map = {
+ 	.name = "console_lock"
+@@ -2731,8 +2738,6 @@ MODULE_PARM_DESC(console_no_auto_verbose, "Disable console loglevel raise to hig
+  */
+ void console_suspend_all(void)
+ {
+-	struct console *con;
+-
+ 	if (console_suspend_enabled)
+ 		pr_info("Suspending console(s) (use no_console_suspend to debug)\n");
  
-@@ -3203,9 +3202,8 @@ static bool console_flush_one_record(bool do_cond_resched, u64 *next_seq, bool *
- 		if (console_is_nbcon(con) && (ft.nbcon_atomic || ft.nbcon_offload))
- 			continue;
+@@ -2749,8 +2754,7 @@ void console_suspend_all(void)
+ 		return;
  
--		if (!console_is_usable(con, flags,
--				       do_cond_resched ? NBCON_USE_THREAD
--						       : NBCON_USE_ATOMIC))
-+		if (!console_is_usable(con, do_cond_resched ? NBCON_USE_THREAD
-+							    : NBCON_USE_ATOMIC))
- 			continue;
- 		any_usable = true;
+ 	console_list_lock();
+-	for_each_console(con)
+-		console_srcu_write_flags(con, con->flags | CON_SUSPENDED);
++	consoles_suspended_srcu_write(true);
+ 	console_list_unlock();
  
-@@ -3394,7 +3392,7 @@ void console_unblank(void)
- 	 */
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(c) {
--		if (!console_is_usable(c, console_srcu_read_flags(c), NBCON_USE_ATOMIC))
-+		if (!console_is_usable(c, NBCON_USE_ATOMIC))
- 			continue;
+ 	/*
+@@ -2765,7 +2769,6 @@ void console_suspend_all(void)
+ void console_resume_all(void)
+ {
+ 	struct console_flush_type ft;
+-	struct console *con;
  
- 		if (c->unblank) {
-@@ -3434,7 +3432,7 @@ void console_unblank(void)
+ 	/*
+ 	 * Allow queueing irq_work. After restoring console state, deferred
+@@ -2776,8 +2779,7 @@ void console_resume_all(void)
  
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(c) {
--		if (!console_is_usable(c, console_srcu_read_flags(c), NBCON_USE_ATOMIC))
-+		if (!console_is_usable(c, NBCON_USE_ATOMIC))
- 			continue;
- 
- 		if (c->unblank)
-@@ -3621,7 +3619,6 @@ static bool legacy_kthread_should_wakeup(void)
- 
- 	cookie = console_srcu_read_lock();
- 	for_each_console_srcu(con) {
--		short flags = console_srcu_read_flags(con);
- 		u64 printk_seq;
+ 	if (console_suspend_enabled) {
+ 		console_list_lock();
+-		for_each_console(con)
+-			console_srcu_write_flags(con, con->flags & ~CON_SUSPENDED);
++		consoles_suspended_srcu_write(false);
+ 		console_list_unlock();
  
  		/*
-@@ -3632,7 +3629,7 @@ static bool legacy_kthread_should_wakeup(void)
- 		if (console_is_nbcon(con) && (ft.nbcon_atomic || ft.nbcon_offload))
- 			continue;
+@@ -3557,7 +3559,7 @@ void console_suspend(struct console *console)
+ {
+ 	__pr_flush(console, 1000, true);
+ 	console_list_lock();
+-	console_srcu_write_flags(console, console->flags & ~CON_ENABLED);
++	console_srcu_write_flags(console, console->flags | CON_SUSPENDED);
+ 	console_list_unlock();
  
--		if (!console_is_usable(con, flags, NBCON_USE_THREAD))
-+		if (!console_is_usable(con, NBCON_USE_THREAD))
- 			continue;
+ 	/*
+@@ -3576,7 +3578,7 @@ void console_resume(struct console *console)
+ 	bool is_nbcon;
  
- 		if (console_is_nbcon(con)) {
-@@ -4203,7 +4200,7 @@ static int unregister_console_locked(struct console *console)
+ 	console_list_lock();
+-	console_srcu_write_flags(console, console->flags | CON_ENABLED);
++	console_srcu_write_flags(console, console->flags & ~CON_SUSPENDED);
+ 	is_nbcon = console->flags & CON_NBCON;
+ 	console_list_unlock();
+ 
+@@ -4200,7 +4202,8 @@ static int unregister_console_locked(struct console *console)
  
  	if (!console_is_registered_locked(console))
  		res = -ENODEV;
--	else if (console_is_usable(console, console->flags, NBCON_USE_ATOMIC))
-+	else if (__console_is_usable(console, console->flags, NBCON_USE_ATOMIC))
+-	else if (__console_is_usable(console, console->flags, NBCON_USE_ATOMIC))
++	else if (__console_is_usable(console, console->flags,
++				     consoles_suspended, NBCON_USE_ATOMIC))
  		__pr_flush(console, 1000, true);
  
  	/* Disable it unconditionally */
-@@ -4430,7 +4427,6 @@ static bool __pr_flush(struct console *con, int timeout_ms, bool reset_on_progre
- 	struct console *c;
- 	u64 last_diff = 0;
- 	u64 printk_seq;
--	short flags;
- 	int cookie;
- 	u64 diff;
- 	u64 seq;
-@@ -4477,14 +4473,12 @@ static bool __pr_flush(struct console *con, int timeout_ms, bool reset_on_progre
- 			if (con && con != c)
- 				continue;
- 
--			flags = console_srcu_read_flags(c);
--
- 			/*
- 			 * If consoles are not usable, it cannot be expected
- 			 * that they make forward progress, so only increment
- 			 * @diff for usable consoles.
- 			 */
--			if (!console_is_usable(c, flags, NBCON_USE_ANY))
-+			if (!console_is_usable(c, NBCON_USE_ANY))
- 				continue;
- 
- 			if (console_is_nbcon(c)) {
 
 -- 
 2.52.0
