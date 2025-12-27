@@ -2,145 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D041CF2268
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF44CF226A
 	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAB16C5F1FF;
-	Mon,  5 Jan 2026 07:16:25 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04106C60465;
+	Mon,  5 Jan 2026 07:16:26 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B56AC8F276
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60994C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 15:25:53 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 5BNB77vm1356381
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 23 Dec 2025 15:25:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=UdW1aYhvWI0
- surAr2E3GwiYANfzJ7XxjkfIeaqYtXoE=; b=BkZ9QdlJ8Z5uZ2zJYghIid4QPgS
- OSeCArKOoFfat/9sEuS6uH4rAVZwZthBCnhEMhjftv9+JCu9hSXdQ+TbSYRGevrX
- Ac1DNhga3r6YV4VpejBjP5RxIV33bbRapAQVSCAfa+fxDn3udSwsPKsLHqmWfg1S
- dyi3Jen9dPKYejBmBlg8UXtdFJVTBBuS5EpLL1bSQCu9j2asqa/uLqCOUpr0hNhZ
- uJW127TC2BoDH1+t0Fo6g9InwPy67FJDKLnlh4n2uCcUxayFS1CwNt2zfLj7J2+K
- uVO71QyWBBq6ZT6jqrl2q0tcedgRolU/mEEo3PO7Y3H2OHDjsJYTFbwBO+A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b78xc3nnk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ Sat, 27 Dec 2025 12:16:48 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id
+ 5b1f17b1804b1-477b198f4bcso49241315e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 15:25:52 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8b4f267ba01so1568554385a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Dec 2025 07:25:52 -0800 (PST)
+ Sat, 27 Dec 2025 04:16:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1766503552; x=1767108352;
+ d=suse.com; s=google; t=1766837808; x=1767442608;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UdW1aYhvWI0surAr2E3GwiYANfzJ7XxjkfIeaqYtXoE=;
- b=PSkQJ2NLiBl6PY4KerCIVtHJrnIoIptr6PFRfaDMmIVrfzOjbAqsaqcT1J3vF4y9Uw
- 2Y+NWxTqxQoVr1QCVHV0nMQlASCpnoFgCSBIDUvUqVnV9Hqc6p6SxtPSeeYMKi4dIXkG
- CmFhA53kjNmmwCj9kHa+2qVP2fHOl+PGmblHVHaV3MrufmuzYx6+HetLf0wXQxt7GBCh
- GKQNdHxXpdUK4Rrdm2BEsZ5fX38AEpOfb6CTkjn/xKE8EbrQVW5kgdDUGwVWrruEn6xQ
- YzD/TZmwJ7OikaHe2LS8ny7pFKyzpN29Wn2hInUM0+gXOTolRqiSR/EvqwayH4ImmtdJ
- cBJA==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZTn0eoJ78H/BcwAZAT5V21TN0j41vlUozcdKxdaozdI=;
+ b=DIA7PR8tdl1kKvOLaPxEWgopbM6MAgU94y+uY8NV4L1Tf9M6UFYBCiDW299/hgGTDs
+ N/oqZz3lpya6+dbLjvP+6ZrGOg8aHp6xKZ9cBCBm7NUuN4Bb8QvD/s5M9u/UeRKQg0H3
+ wSwBNwFCl7Pbxj+ekpeWVnhtB/plM74e2HukiL6fXNU9RdTu5NoUddW9LVkqhARbly5+
+ FZNDMrddD2CzzPKcufnF9NwxVCZyI+FuzNO8I1YwpQ7WG3YU6v79/gZyValZB94wKSYy
+ NqOX8czDfLRLhK/NxnH1cAVTgS7Y8V6eEXfQiwm0tbXL1HoLgFYzhp0jluxBXjrAYQKH
+ CFyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766503552; x=1767108352;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UdW1aYhvWI0surAr2E3GwiYANfzJ7XxjkfIeaqYtXoE=;
- b=fM6AwJIDBFg1U2Q1+RHi4HDDQWBiuowPblxUy5hfhwTjXeOxCCeVcGv2Oc8muqjYSh
- nfvmeP/C0cniJPw+gBedLk/JhqM7BDtNn39niKXFjCoiD6dHuOvhBfP5+HzhI/pYoSt7
- ljGoD77z9sSo2u1JFZb0kThFLwKcY0hbl8Az+23wRBiydLvPnf8HPLPVwim8q4ygACw4
- d63ny372uEekvLT/rarLMdEQJpbCMVQw66YAln3yDZdWj35othpV9P9I0fH3vAQcCYkS
- mx7zycSsHscfgcAb/3boOaSCIKVMcFF4h883f2oAQAX4nqKaaC9rbb1VDne5w4ch3UeP
- ehBg==
+ d=1e100.net; s=20230601; t=1766837808; x=1767442608;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZTn0eoJ78H/BcwAZAT5V21TN0j41vlUozcdKxdaozdI=;
+ b=DpOpaP4mZvpOCc9caIL7pdcBhfDo2Le9T57OzXQ5ik5M8ibSkX+0H64PwELfG/PMSQ
+ PtOsrGbzuN7r0axN8hsM0lKmoH0i3bjQKYXtIiLU55VXadqpHYD7d1EWqxalbmJc5wP9
+ VQoKz1oBcWI8qZz5dyhNfekVup5HQ2/1UJ0xsPKX7j9XE1byFvcrLyK4if82Z0QvuK+9
+ xY7TDjrfxc+/CrU9vYaFmzqIQi7YY6xqxN9HJaeP6Uy89Fsvi1g5JZL2mojrdq2N4dsr
+ tGNTD9MHcOq2t1VL1GFnWHNdyAf41wz/UsE2Is/0nHN2pgdBYIIcBbjXcD1WQitxJbYF
+ Ea7A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUuWt1TBScbwJL62wopcIJzu1hw1yyyLbAALuJ6x40JXft1oGmvZsWmudngWxzVBjM/EiSK57WX1WBPQA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwysQACJGwG0yiOfTA53p+/Gk2Q3b9IIZzNAlmeTFVlhy6yKYvZ
- i4N47uyMXMInS8OwCTFMeHVMjP86/KGbZjdjB5OtPHw1MJS1TSImSlR5NfwxvxzxxPz92sMElQY
- 33crMOzk8NuoLh0uwx0yVGpFc7C6xFlx9oysZOhRa53Tyk2POQK+UKJGfODiOma7+8oe7y3qa4a
- rdp2Xg2NQ=
-X-Gm-Gg: AY/fxX67SpF/rqmXhgg4G1Oh7FfqiZET9YeNlLuBcrDuXbIo/lrCXbisnjOM9bsoU/w
- 6+8WVWH+gCw4cDuOEWaECwaY8N6YZg4ySBxtJ22OmnrzqcqXDsKHgL8bPU7tg+9J5xHXpPx+VJ1
- Pk6ZMhAWAzHGTO+MJp9YCwAYqZI++E7bQeVvqqFoB9DJIjKC8zAzhyLIBsG0JMHSKstmsPUM8cZ
- 7UZOGqvoiotk/JTS+GLKN+hjpr089h4aKQFcuYGJh6p2T+dTjBOZiRSiCOqeS4XhMA9o7TUI/yd
- sj70HGV7j6arXJqwJbNDfrSmP1wz9AjsAmBtgqW7CapFNkcuyT4v01javf2RTSqpp7LEbI/xegw
- vNsyIW6STlkQvFKUcPrFgt1u+lm2UXFGG3RioEcsbjUoLuUyyyPh0FEfTXzAbyWBr9zQ=
-X-Received: by 2002:ac8:5a81:0:b0:4ee:26b3:e512 with SMTP id
- d75a77b69052e-4f35f3b7834mr261949871cf.13.1766503551545; 
- Tue, 23 Dec 2025 07:25:51 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFCNDdleerV1/mr7P7xnuU+g14yJD9qFowrQWc2bYEBnzRPcsjZ3dwIcpaeMjLcAMNRqp69yA==
-X-Received: by 2002:ac8:5a81:0:b0:4ee:26b3:e512 with SMTP id
- d75a77b69052e-4f35f3b7834mr261949381cf.13.1766503550971; 
- Tue, 23 Dec 2025 07:25:50 -0800 (PST)
-Received: from quoll.home (83.31.98.88.ipv4.supernova.orange.pl. [83.31.98.88])
+ AJvYcCVy8cijz0lXP4smWLv+6ZdhfW6M8Pj/b4Z3hPFiAEG8XxQtUE/PqlkTtTlgzKYISnwHqhn8peYMzjSiIA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyqoA01d+4SBFWQpIsPBzSq/Gu+h2WcsJp6ucNgs/IsYjXbpj3j
+ CpVjnX+d2LBIAvkYqM2vNxFxrfHN+ZjxP5KO6HBOmzpJf34YK/J8688zXm2LBtqKCUM=
+X-Gm-Gg: AY/fxX5P7IWXtagrQpz0/jVBX/Mo1oqRSGrdfppDJQtH0+9azexQX2qYwwZ3qafK5Ih
+ 6aYtvnQ3R41YjsW3A2Ye7QI4MC/HVbTH762fuqAHB6Ng12blGA/19y1CBv5o+Vj6fVvDRotNX+7
+ utrV2ULrgHZ3R3kMhIlFCJPhlm0kglizpknWJF6rViLg/vRuvUMSy8QCJn+2y20MDPgMNbTdkQD
+ jz1XzSOUcE+SqV/qruWECwr41KoCbJThNBiakz3xbcZy5kowKXFA+lDC2Im6MbAzHRJIPxD0sm+
+ 5Dm67Sd4Bz3oNZnzzdmGPoH2kx4m4PbVg8y1mExa7lwRaRqcS9sz+/zYAV7gOSMZs6Ol3eYpilm
+ HfvUcAGBhQYS4AX5MalPuWInMVAh/JX1n/gBtThMNR9T8zDYICtT5qhC2U+kLMi2DGw182UFoZb
+ P2+1VT+0oQMe1S2Seq70s=
+X-Google-Smtp-Source: AGHT+IGAwYPYNfJmaY9Q33nFH+RhwoM5QU0IvIHlZhMLVrSDLSWfjJCihtYGJekOl50CWdODgpBmVA==
+X-Received: by 2002:a05:600c:c086:b0:47b:e0ff:60f9 with SMTP id
+ 5b1f17b1804b1-47d19577114mr202487205e9.20.1766837807525; 
+ Sat, 27 Dec 2025 04:16:47 -0800 (PST)
+Received: from [127.0.0.1] ([2804:5078:811:d400:58f2:fc97:371f:2])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8037f18575sm1401626566b.54.2025.12.23.07.25.49
+ a92af1059eb24-121724cfdd0sm97940127c88.4.2025.12.27.04.16.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Dec 2025 07:25:50 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 23 Dec 2025 16:25:46 +0100
-Message-ID: <20251223152544.155637-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251223152544.155637-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20251223152544.155637-3-krzysztof.kozlowski@oss.qualcomm.com>
+ Sat, 27 Dec 2025 04:16:46 -0800 (PST)
+From: Marcos Paulo de Souza <mpdesouza@suse.com>
+Date: Sat, 27 Dec 2025 09:16:07 -0300
+Message-Id: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1983;
- i=krzysztof.kozlowski@oss.qualcomm.com; 
- h=from:subject; bh=FBEZSzQ0rqkvVrjYCGkubQOeZuQXJmK12Qqhdra07SY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpSrR5CLCbMPCA+E3qJtui3ASvK8v0kBEUlo0Oy
- NQlwLFyfOWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaUq0eQAKCRDBN2bmhouD
- 1+QOEACamFldQRPk9FJbt40Z8CFaom3KSBw0pKmn8z0AJWEldRgP1HS/UX4s6dDYER0i144hxw2
- uR4moxseidWd3P20gX34IKLMao+wSN9KLkWbS/ExhknL80EreoZeU2gDW/QapEwsyYJ9nhPCISL
- OEVSYmRU5TnuJKvciCsORmIRx2mav5ze2EBzSvvqGjUuVwaTUcJAZFmtklYltmDwU92dW7xR0f2
- YxOQ2785PllvGACqJBknyip6lqYPfWJKA8c8gb8ZI88xPceP+lJDVN/Qx2DCNEWDVGSaENzcf1w
- bQuWL2YFIMzz/5f9vKWiwfQzlj7hKFVWsNGGOQl8pLSTt+jKBDpDJpXZqw7uhlJUeXcoStLzTi7
- qi0x5H7LcZrlohKtK4pyp0LknbngbouA8MPo+/E2aZnBhqf5S5liZgvv2Xc5b66PmpqPhd8vCSP
- EA4HqT35Isk1gFWSK2gEzT0KZtyfYshB9LNdfaYlvhXH1r8N3MDJg4aLNGzWM4NLRirexwTscHB
- WhqaYDdM7CwmOUIGi2fOlGQBfTgrTFtockKTF3huEw9bNmnGRxon1k8XQsQnxKhW+sIw+HRgM5j
- BIuXJNDOyUr46C2wKZqUBNgkMybEecAEDjVa7Njg1Nhft5OBN4v6gbLEfTNWGrKGc2pKDcC/St2
- ep5cAKFKILMBRdw==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-GUID: dfq9anCSE0BpqxMWTA2Y70WzVK5pwKZO
-X-Proofpoint-ORIG-GUID: dfq9anCSE0BpqxMWTA2Y70WzVK5pwKZO
-X-Authority-Analysis: v=2.4 cv=cuKWUl4i c=1 sm=1 tr=0 ts=694ab480 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=qe4J/qXhiWkb1JZGYKbLYA==:17
- a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=sndkAbgyudk1eiRVjvgA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIzMDEyNyBTYWx0ZWRfX3O10bEugpgv2
- Zy40sUi9M5IF4jBmpVeRJnuAt1Sz/lbAC08M65hl3ROFoyUMN+hI3MecWIFb6aYzDgy4YNVlNDx
- bgrzDSS4TO2sXS5gUj5vBknl8AQg4T+yXoVwowtCuVGw9zxhCCVLCJ34L8EwZMB5CkWAo62PDsd
- Bi44nVwlP5O8yqzfV2cwBjx/EtntwFPDpRkiQW0EOl8RfH036qwTUAxpNtwpE7c5lW4XaHE7/1T
- CMZLoGQFcxH2jk1VLcYZ5Y7dshtjhSVSqWBL/GXxgMf7D1+G8In+7QaDrjPxaBBnQ76K7Zx6Y1R
- 1e5TX7UzTkxNkM3D0k6uR8IjIknQ+IhoNl6+XjigL8usEclOGz2YuBdvF/B2qEBMpG6tc8V87IO
- 4O9COT1U0En9iY2rGahbbNDBVByhLSC4GRtjBEDUgjVqvp2/0gDrXQ9JeLrGOnvp4YSYEhWDEGw
- nS/5ut9p1ocnc6RDKGQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2025-12-23_03,2025-12-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
- phishscore=0 clxscore=1011 malwarescore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2512230127
+X-B4-Tracking: v=1; b=H4sIAAfOT2kC/x2MwQpAQBBAf0VzNmVsHPyKHAaDidY2i5T8u83l1
+ Tu890AUU4nQZA+YXBp190koz2BY2M+COiaHsigrSsBg6o8Vh03YnwED2+FQmKjuiXrHNaQ0mEx
+ 6/9u2e98PHmJw7WYAAAA=
+X-Change-ID: 20251202-printk-cleanup-part3-ea116b11b3a6
+To: Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jason Wessel <jason.wessel@windriver.com>, 
+ Daniel Thompson <danielt@kernel.org>, 
+ Douglas Anderson <dianders@chromium.org>, Petr Mladek <pmladek@suse.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Breno Leitao <leitao@debian.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <christophe.leroy@csgroup.eu>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1766837798; l=4070;
+ i=mpdesouza@suse.com; s=20231031; h=from:subject:message-id;
+ bh=pGCwrx7s/pzxpnqEvxnowKr5kIMRsCkFnk8/FBkLNPk=;
+ b=DtTvQmWwxI8nBiz56K8JWeAXva4ZUTP1TZfMsHc/t23MukO3Q9HDBbWL5zjE/2eZrLFOXevOl
+ 63plshGMBJVDC6pfWYfhJHhdbEMnrJWz9+G+dP9Hv10iWAGuGbiHgYC
+X-Developer-Key: i=mpdesouza@suse.com; a=ed25519;
+ pk=/Ni/TsKkr69EOmdZXkp1Q/BlzDonbOBRsfPa18ySIwU=
 X-Mailman-Approved-At: Mon, 05 Jan 2026 07:16:22 +0000
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [Linux-stm32] [PATCH 2/2] arm64: dts: st: Minor whitespace cleanup
+Cc: kgdb-bugreport@lists.sourceforge.net, linux-um@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-hardening@vger.kernel.org,
+ linux-serial@vger.kernel.org, netdev@vger.kernel.org,
+ sparclinux@vger.kernel.org, Marcos Paulo de Souza <mpdesouza@suse.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/19] printk cleanup - part 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -157,57 +129,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DTS code coding style expects exactly one space around '=' and
-before '{' characters.
+The parts 1 and 2 can be found here [1] and here[2].
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The changes proposed in this part 3 are mostly to clarify the usage of
+the interfaces for NBCON, and use the printk helpers more broadly.
+Besides it, it also introduces a new way to register consoles
+and drop thes the CON_ENABLED flag. It seems too much, but in reality
+the changes are not complex, and as the title says, it's basically a
+cleanup without changing the functional changes.
+
+This patchset includes a patch from part 2 that needed more work [3], as
+suggested by Petr Mladek.
+
+These changes were tested by reverting f79b163c4231
+("Revert "serial: 8250: Switch to nbcon console""), and used qemu to test
+suspend/resume cycles, and everything worked as expected.
+
+PS: b4 --auto-to-cc added a bunch of people as CC, so I'm not sure if
+I should remove some or not, so I'm leaving the list as it is. If the
+patchset needs a v2, and you feel that you don't need to copied, just
+let me know.
+
+Thanks for checking the patches, and happy holidays!
+
+[1]: https://lore.kernel.org/lkml/20250226-printk-renaming-v1-0-0b878577f2e6@suse.com/#t
+[2]: https://lore.kernel.org/linux-serial/20251121-printk-cleanup-part2-v2-0-57b8b78647f4@suse.com/
+[3]: https://lore.kernel.org/linux-serial/aSgeqM3DWvR8-cMY@pathway.suse.cz/
+
+Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 ---
- arch/arm64/boot/dts/st/stm32mp235f-dk.dts  | 2 +-
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts  | 2 +-
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Marcos Paulo de Souza (19):
+      printk/nbcon: Use an enum to specify the required callback in console_is_usable()
+      printk: Introduce console_is_nbcon
+      printk: Drop flags argument from console_is_usable
+      printk: Reintroduce consoles_suspended global state
+      printk: Add more context to suspend/resume functions
+      printk: Introduce register_console_force
+      drivers: netconsole: Migrate to register_console_force helper
+      debug: debug_core: Migrate to register_console_force helper
+      m68k: emu: nfcon.c: Migrate to register_console_force helper
+      fs: pstore: platform: Migrate to register_console_force helper
+      powerpc: kernel: udbg: Migrate to register_console_force helper
+      sparc: kernel: btext: Migrate to register_console_force helper
+      um: drivers: mconsole_kern.c: Migrate to register_console_force helper
+      drivers: hwtracing: stm: console.c: Migrate to register_console_force helper
+      drivers: tty: serial: mux.c: Migrate to register_console_force helper
+      drivers: tty: serial: ma35d1_serial: Migrate to register_console_force helper
+      drivers: tty: ehv_bytechan: Migrate to register_console_force helper
+      drivers: braille: console: Drop CON_ENABLED console flag
+      printk: Remove CON_ENABLED flag
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-index c3e688068223..9a2b2f50df76 100644
---- a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-@@ -93,7 +93,7 @@ mdio {
- 		phy1_eth1: ethernet-phy@1 {
- 			compatible = "ethernet-phy-id001c.c916";
- 			reg = <1>;
--			reset-gpios =  <&gpioa 2 GPIO_ACTIVE_LOW>;
-+			reset-gpios = <&gpioa 2 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <80000>;
- 		};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index e718d888ce21..4a489a8d9aca 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -93,7 +93,7 @@ mdio {
- 		phy1_eth1: ethernet-phy@1 {
- 			compatible = "ethernet-phy-id001c.c916";
- 			reg = <1>;
--			reset-gpios =  <&gpioa 2 GPIO_ACTIVE_LOW>;
-+			reset-gpios = <&gpioa 2 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <80000>;
- 		};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index bb6d6393d2e4..0c5fc7a7be8d 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -186,7 +186,7 @@ mdio {
- 		phy1_eth1: ethernet-phy@4 {
- 			compatible = "ethernet-phy-id001c.c916";
- 			reg = <4>;
--			reset-gpios =  <&gpioj 9 GPIO_ACTIVE_LOW>;
-+			reset-gpios = <&gpioj 9 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <80000>;
- 		};
--- 
-2.51.0
+ arch/m68k/emu/nfcon.c                           |   5 +-
+ arch/powerpc/kernel/udbg.c                      |   4 +-
+ arch/sparc/kernel/btext.c                       |   4 +-
+ arch/um/drivers/mconsole_kern.c                 |   3 +-
+ arch/um/kernel/kmsg_dump.c                      |   2 +-
+ drivers/accessibility/braille/braille_console.c |   1 -
+ drivers/hwtracing/stm/console.c                 |   4 +-
+ drivers/net/netconsole.c                        |  13 +--
+ drivers/tty/ehv_bytechan.c                      |   4 +-
+ drivers/tty/serial/ma35d1_serial.c              |   4 +-
+ drivers/tty/serial/mux.c                        |   4 +-
+ drivers/tty/tty_io.c                            |   6 +-
+ fs/proc/consoles.c                              |   1 -
+ fs/pstore/platform.c                            |   6 +-
+ include/linux/console.h                         | 143 +++++++++++++++++++-----
+ kernel/debug/debug_core.c                       |   6 +-
+ kernel/debug/kdb/kdb_io.c                       |   6 +-
+ kernel/printk/nbcon.c                           |  17 +--
+ kernel/printk/printk.c                          | 140 ++++++++++++-----------
+ 19 files changed, 230 insertions(+), 143 deletions(-)
+---
+base-commit: 93d65587479cfc97c0d7e41b5e8c6378ca681632
+change-id: 20251202-printk-cleanup-part3-ea116b11b3a6
+
+Best regards,
+--  
+Marcos Paulo de Souza <mpdesouza@suse.com>
 
 _______________________________________________
 Linux-stm32 mailing list
