@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0385CF228E
+	by mail.lfdr.de (Postfix) with ESMTPS id E32ABCF2293
 	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 847B6C7A839;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1C08C7A83B;
 	Mon,  5 Jan 2026 07:16:27 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3641BC36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74BCAC36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Dec 2025 12:18:39 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-477563e28a3so48214895e9.1
+ Sat, 27 Dec 2025 12:18:48 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-47d3ffb0f44so13339925e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Dec 2025 04:18:39 -0800 (PST)
+ Sat, 27 Dec 2025 04:18:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1766837919; x=1767442719;
+ d=suse.com; s=google; t=1766837928; x=1767442728;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=zBuTaAePekdaKhl7Nr4xkMCH+YbgmQZc5bDJsdsSluc=;
- b=XUjC/gVHebgxSJ6Lc07/c9DDCvxlEHY/v9lT4COss1Eus7Yp6ctVS2DV+RjtDTyryW
- DKcBfHfuJP6Vd0uBPNlcTdzLFPvzR7IjhSXu+VKyiOP4p9qMF3I8z+isp0mz9Qrsys7B
- fY8++ubuArRLqIuV3FxhItndw8UHbETRV9mfKR7WgXS1UhQfcgCfsUFwPsYwjgG37xUc
- cri1q5Cf/DaQsWvhYM8HkSmok7+LtGvvybNV6ET+lf2m0GFLu9rLFj9V/qB1XKyJFqM9
- K8D41YcBjY6qbrKWIbBmCYtdlz2vLB/MgxYrssiPLupLvTwQJjXBqt6uB9czeatsMFpG
- TNBQ==
+ :reply-to; bh=NC/xlTHSkC5720zy/KPT378kGxggptiwCzT1YNGAqrI=;
+ b=DwmUinPySGO/w7kpp0yjdCpN6Asl+MU5muI77gyKk/ecNrnTpO084iqhVRyr4hBDlt
+ UeT5lv0aOaHc+vM1QPOJEmph72zOoIPtcIIXHTUwGKcic2sgfAKt02B3NnmVvLw9rSG7
+ eLMyGsqw8VJeEkka1+bxQtkID5oGqNJQuLx9gI1pLibE02XBioupbCteZyk4o9Zgawx8
+ TEYcl2lF5GVtTkAPa6po/wFYw1oMkHWRCNRfLUh1mlrCT6qZRJuswRzKlEOtv2mA5ty1
+ kTB1v8hnqZ99R6Uu/IAzTXIrSBfj+sdQz24K9FT7hywiBbP16NIElNXUMPtB7ZwkAqs9
+ IfFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766837919; x=1767442719;
+ d=1e100.net; s=20230601; t=1766837928; x=1767442728;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=zBuTaAePekdaKhl7Nr4xkMCH+YbgmQZc5bDJsdsSluc=;
- b=gqjV8XKmf77nAIGLe3782mAJIAUbgKSN90IoqghjyL/7+DPYwsGHL8HyZwgPsL43lz
- p4uzHNVz2VDy9ENY5NwBdFGNbNx0kCXdNnNKSN1pQD0DZ4fks8QLhyj4kuHu4RO44J6I
- yYXD4qZYB6GucrCVgFruyor2KsheBA5W2H51KnbDTXBTDCj60buHmoPQcMwWkG1pV9Xk
- /YKkFBszIPNS905W1ZaW9+EPMnBnhPg3XS0HC/jumTs9jV1cESovDdsLoY/gqiyujyUf
- eOw0dp4rdxf/6d3xRr4ztedpshEmCEW/30zTldYATRBix2s9wiUszxnyXknGFKVI090g
- UsQg==
+ bh=NC/xlTHSkC5720zy/KPT378kGxggptiwCzT1YNGAqrI=;
+ b=injEK5LiKKx1u7iQztbIt67A+o07SwK/pA0JFjzIb73qElAkXgQpKfgLNaQB2Lbu75
+ 5/BDmLTb/Y/R/yehvUuHhi5zH+RrWDnfz+zurvdDDzYWX8gB6gsg7YHrlsEgETBymu1u
+ SYPMpgF6Rb1xWu7UDAbDqGFKg/eIIM4ZEYdBfcI5VMicbbp3mopu33QROIQ+FIAW/20v
+ HpeIz8gIZLsGRT15WHYPpBXMx2nRYm1547YNuzHS+XKtgtDyIgoAf9f2GkrsPx0qO+5T
+ fd7C8HwN3S9GwYUTBBTmtZG9XqoD8+ShCpfhPOZXb57qBuoZcHhJt/CLtS031Mm7WfZM
+ hONA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrFEdwzAiBjicfyr5RMCukPr8WS9UobYU+neNHuU/F6KxwdbKSreEJUslRMAYwKeaptg4t8QC+HzVNwQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzj8AUr88GbdoPS3mFCFakjmFS820bvK8kT6VJt4f4R2Io90b3z
- 6sBSCKVgZHKhQLq6oXo7qQFxcA9iezbFyBLrqVIue6nrlwz7MyuQsIlMqJEk5T9UKjY=
-X-Gm-Gg: AY/fxX5wsm9O4sKveNlyU9/ymM7Cbnk+LLXdiwm/BmKeIuulPPhllfwn3WiyqFygJpU
- DEovqzCBDD+YWNs8MPwJKY74dFic6VYJg2Mx34WlsuMDQs9UOJtlfhRjLi90wJgetUif7ahz8ct
- Diyn/3TxrJXE0A9G9Mk91AhiFszgT7q2vvgNZlzW7KArwlX+MjKqWWOOTJgrFGEOf6YQVsmxS7N
- vNV8umVa+JKLS67ON0oTICS+prGKcKY4vkshtLKjs+XWD3WsdLaGsoL8hUU2emsaHkJwMaf9upr
- ukY98WzuI4yLtbDVwcBmHOWNTA3y7SFvPPleqyCHM+Zbn9Obc3MZPqPlkMeTj6E6VG2dNVzndrX
- 3ZvJ2R9dPfYSA6gpJMyNk7rHrViU0IoZ3arwgcU19paRO5akwK6TxcGUO3vZhjfBzn0+2lT0btC
- /l5zOaTeAo
-X-Google-Smtp-Source: AGHT+IEaiNWrbXUQR9Xr4SWeWCswjY7G2xsTNDPKS34qx+Z9cd/RVKqDItuoVsaN7WK8NMfB3mQH/w==
-X-Received: by 2002:a05:600c:3799:b0:477:a71c:d200 with SMTP id
- 5b1f17b1804b1-47be29e87c1mr231953365e9.11.1766837918587; 
- Sat, 27 Dec 2025 04:18:38 -0800 (PST)
+ AJvYcCXcBvGEUZFrxhqc16NtuDkxrS+J+K3fkbgsSG/Al2My9+x9oBbayS4R0jZFnlnCF7BjDq6f1FdT9A+P/A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwysCHr+zMeEFP3X43De2K2lvVRWcjA4F6OQFZEDQOspmdvh7C9
+ O7WG6AxvrH3ty/+uIsqtTAzvua56Loh5A4GHYbonADVLT0Hpz8l1Qndp2j0sl6YLaec=
+X-Gm-Gg: AY/fxX5ZtutsR6xFMEJg197AdBN7mrbeMyAlr0pNDu2eu78XvdwQRRU7sRUtRf7sBK/
+ 9O+ecR+WFlLmU+dFbVQmEEN6EtQ1UVBPqwOb/SUziLuxwovyD4clcAFRrLehqhPlS3Tri9INJyI
+ h/Hksu36kueEYIfVfAuI9n6PsstkG5eh1w4shXxlnV8riFwJDahUChm0oG9anU44udEJSFH7hbX
+ om4qgFZbjX2qEMP0WVh1Z/Y8WOUt6BhApa32zWJbjsMcNByoqWR9lF0vFA3L8Pevxe2ByOBc8KL
+ p3JpbGqTiuyAxRbsXSP0W5tfsoGqrlqbQUGrjcUbqno8fy/8s9pl2yoCwki9c/5ByzTtmHIW4c4
+ iykezU7ZZr4pvkEldWPFr67+ZvUpS0573swTacw7MMlDeV0K08u+gLS63cF3fr3qCScsjZBbrXE
+ hdH9iLecz0
+X-Google-Smtp-Source: AGHT+IFbCGvkCxGExFQLBl5yaU008gmiVvRdmeb7k0sjyaCh7Z1nYJocCXv7ZLYKC/Juko66305eyA==
+X-Received: by 2002:a05:600c:8183:b0:477:fad:acd9 with SMTP id
+ 5b1f17b1804b1-47d195a9834mr270395745e9.34.1766837927833; 
+ Sat, 27 Dec 2025 04:18:47 -0800 (PST)
 Received: from [127.0.0.1] ([2804:5078:811:d400:58f2:fc97:371f:2])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-121724cfdd0sm97940127c88.4.2025.12.27.04.18.29
+ a92af1059eb24-121724cfdd0sm97940127c88.4.2025.12.27.04.18.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Dec 2025 04:18:38 -0800 (PST)
+ Sat, 27 Dec 2025 04:18:47 -0800 (PST)
 From: Marcos Paulo de Souza <mpdesouza@suse.com>
-Date: Sat, 27 Dec 2025 09:16:19 -0300
+Date: Sat, 27 Dec 2025 09:16:20 -0300
 MIME-Version: 1.0
-Message-Id: <20251227-printk-cleanup-part3-v1-12-21a291bcf197@suse.com>
+Message-Id: <20251227-printk-cleanup-part3-v1-13-21a291bcf197@suse.com>
 References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 In-Reply-To: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 To: Richard Weinberger <richard@nod.at>, 
@@ -95,11 +95,11 @@ To: Richard Weinberger <richard@nod.at>,
  Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
  Laurentiu Tudor <laurentiu.tudor@nxp.com>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1766837798; l=1119;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1766837798; l=961;
  i=mpdesouza@suse.com; s=20231031; h=from:subject:message-id;
- bh=rI7fN9M4UYBhm41SNkDmrXmROIuX+aCv9rIYYOtlo+M=;
- b=bcNrmzf90N/BodrKZ64tr7qsRPh416urxDwc2BxCBqWgNmTslPpP/9rT1ZURe+mv3PmWaFnbq
- xnM5PWTrVU8APb7FwkkZf2fGZ3Hw2PsJVWl1KwMiIyJjzl33goH6hX9
+ bh=9A3Brx5a3gQ0NUhTGZ1ViMT9HfTuP00Tgzee1GwnjVM=;
+ b=gNLF1CEZIFvupLFUy4kgNSgx2QLue8Fjf3sjVi+zSBhpSIWUfb0laNahgF6qahlq6x3pophwD
+ dRykPPu3R/nALZM8P2pCpkq//4oDFgsmNLGc4Tixc+Z0JIXH+9rAGGe
 X-Developer-Key: i=mpdesouza@suse.com; a=ed25519;
  pk=/Ni/TsKkr69EOmdZXkp1Q/BlzDonbOBRsfPa18ySIwU=
 X-Mailman-Approved-At: Mon, 05 Jan 2026 07:16:22 +0000
@@ -110,8 +110,8 @@ Cc: kgdb-bugreport@lists.sourceforge.net, linux-um@lists.infradead.org,
  sparclinux@vger.kernel.org, Marcos Paulo de Souza <mpdesouza@suse.com>,
  linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 12/19] sparc: kernel: btext: Migrate to
- register_console_force helper
+Subject: [Linux-stm32] [PATCH 13/19] um: drivers: mconsole_kern.c: Migrate
+ to register_console_force helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,31 +136,27 @@ No functional changes.
 
 Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 ---
- arch/sparc/kernel/btext.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/um/drivers/mconsole_kern.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/sparc/kernel/btext.c b/arch/sparc/kernel/btext.c
-index 2bf558a0c568..951de7733632 100644
---- a/arch/sparc/kernel/btext.c
-+++ b/arch/sparc/kernel/btext.c
-@@ -301,7 +301,7 @@ static void btext_console_write(struct console *con, const char *s,
- static struct console btext_console = {
- 	.name	= "btext",
- 	.write	= btext_console_write,
--	.flags	= CON_PRINTBUFFER | CON_ENABLED | CON_BOOT | CON_ANYTIME,
-+	.flags	= CON_PRINTBUFFER | CON_BOOT | CON_ANYTIME,
- 	.index	= 0,
- };
+diff --git a/arch/um/drivers/mconsole_kern.c b/arch/um/drivers/mconsole_kern.c
+index ff4bda95b9c7..ce4f4ceb7f27 100644
+--- a/arch/um/drivers/mconsole_kern.c
++++ b/arch/um/drivers/mconsole_kern.c
+@@ -582,12 +582,11 @@ static void console_write(struct console *console, const char *string,
  
-@@ -320,7 +320,7 @@ int __init btext_find_display(void)
- 	ret = btext_initialize(node);
- 	if (!ret) {
- 		btext_clearscreen();
--		register_console(&btext_console);
-+		register_console_force(&btext_console);
- 	}
- 	return ret;
+ static struct console mc_console = { .name	= "mc",
+ 				     .write	= console_write,
+-				     .flags	= CON_ENABLED,
+ 				     .index	= -1 };
+ 
+ static int mc_add_console(void)
+ {
+-	register_console(&mc_console);
++	register_console_force(&mc_console);
+ 	return 0;
  }
+ 
 
 -- 
 2.52.0
