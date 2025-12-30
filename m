@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAAFECE8596
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Dec 2025 00:39:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA36CE981D
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Dec 2025 12:10:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82DE1C58D7C;
-	Mon, 29 Dec 2025 23:39:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA328C8F26D;
+	Tue, 30 Dec 2025 11:10:32 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0F5FC57A51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67804C35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Dec 2025 23:39:27 +0000 (UTC)
+ Tue, 30 Dec 2025 11:10:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ACFE56000A;
- Mon, 29 Dec 2025 23:39:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25287C4CEF7;
- Mon, 29 Dec 2025 23:39:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D0CD6000A;
+ Tue, 30 Dec 2025 11:10:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9382C4CEFB;
+ Tue, 30 Dec 2025 11:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767051566;
- bh=EmSJ5RDGVomtHdjap3p2iZ3idrkRaL1n89LOHs60OJQ=;
+ s=k20201202; t=1767093030;
+ bh=cbvXc3P0gkf4daKd1w9/tAFqdLjRVYHyMeg6AMHP2II=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=icO1QuhOjcRTRYphaT9ckAEZt0a0F+8OshHNBctrUvrJXtiiy7JaMhapPmNeMdbbH
- FxF/OsXFQt969xNxNdQtlo2E5D0g43ylTD/qTFQf8pfELCjts7u+xl9lxFMgFc4nwb
- XH+1qzLXwx6wQKy7+NXrxQpJD0N6Rp+NTLaKPtkzC3tlxnQns8GrJjZ2HWgNdHOrbH
- nP+wLabskLg8g0/SDbxwZvpG9xIbWVosokA3/pdLKS4HKzoGwB4WAVYe9XXZS+TkdB
- mrRMRwFEn5eHYbKrCWo402kuwyHMpxP6G8soqrjfkKkummYcTTccAb4cTtNqcbZrSf
- zdJXogqnZM0gw==
-Date: Mon, 29 Dec 2025 17:39:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20251229233925.GA2796847-robh@kernel.org>
-References: <20251218-stm32-dcmi-dma-chaining-v1-0-39948ca6cbf6@foss.st.com>
- <20251218-stm32-dcmi-dma-chaining-v1-9-39948ca6cbf6@foss.st.com>
+ b=jj2yeHVNMmcWbZyQ36+LsSqqhNrtnHbfbuBptIp2dJC9tpdZ2dUqoxzH8uM6U4nOO
+ c8YKQI3+3VLUa1uMz3vu/GaVWH8AE/gXfc6AW9OqQ7mcPmLDpS3P4a79iExn7QA/TC
+ 3KUwP+ScfDmyPf3afJ0CCy8iKO5grkAEX8Aq7RBKBUHyiPalEeTxN88D2p2JEKKnNg
+ LRdyueOslm5SLJU2uOCyT7aVMqaAAfpuyChpy+iYoN+f+aW3ek03ZgqAPr82ASPYWK
+ TWsVQzmjCu9iGYtsxlKEPAxes3k5fKUBZDmse9Q8s1I1E6v9WPLEqWTZFpe5Ykk5tz
+ r26EZ2pH+d5/A==
+Date: Tue, 30 Dec 2025 16:40:21 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <aVOzHWmlJ-eneS-2@sumit-xelite>
+References: <20251217153917.3998544-1-arnaud.pouliquen@foss.st.com>
+ <20251217153917.3998544-2-arnaud.pouliquen@foss.st.com>
+ <20251229232530.GA2753472-robh@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251218-stm32-dcmi-dma-chaining-v1-9-39948ca6cbf6@foss.st.com>
+In-Reply-To: <20251229232530.GA2753472-robh@kernel.org>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- linaro-mm-sig@lists.linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 09/12] dt-bindings: media: st: dcmi: add
- DMA-MDMA chaining properties
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-remoteproc@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Jens Wiklander <jens.wiklander@linaro.org>, op-tee@lists.trustedfirmware.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v20 1/6] dt-bindings: firmware: Add TEE
+ remoteproc service binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,54 +62,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 18, 2025 at 07:44:49PM +0100, Alain Volmat wrote:
-> Add properties update and new sram property necessary in order
-> to enable the DMA-MDMA chaining.
+On Mon, Dec 29, 2025 at 05:25:30PM -0600, Rob Herring wrote:
+> On Wed, Dec 17, 2025 at 04:39:12PM +0100, Arnaud Pouliquen wrote:
+> > Add a device tree binding for the TEE-based remote processor control
+> > service implemented as an OP-TEE Trusted Application identified by
+> > UUID 80a4c275-0a47-4905-8285-1486a9771a08.
+> > 
+> > The TEE service node is a child of the "linaro,optee-tz" firmware node and
+> > acts as a container for remoteproc devices that are controlled via TEE.
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
+> Is this generic for any remoteproc device or just ST's remoteproc. Looks 
+> like the latter to me.
+
+That's true, the DT description of the remoteproc subnode is very
+specific to the vendor which in this case is ST.
+
 > 
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> index 34147127192f..ccaa2d0a2669 100644
-> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> @@ -27,11 +27,14 @@ properties:
->        - const: mclk
->  
->    dmas:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
->  
->    dma-names:
->      items:
->        - const: tx
-> +      - const: mdma_tx
-> +    minItems: 1
->  
->    resets:
->      maxItems: 1
-> @@ -40,6 +43,14 @@ properties:
->      minItems: 1
->      maxItems: 2
->  
-> +  sram:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      phandles to a reserved SRAM region which is used as temporary
+> > In addition, the "linaro,optee-tz" binding is updated to specify the
+> > '#address-cells' and '#size-cells' values used for child TEE service
+> > nodes.
+> 
+> I'm pretty sure I already rejected per service/app child nodes for 
+> OP-TEE when its binding was submitted.
 
-phandle to...
+That was the reason to have discoverable TEE bus in first place and I
+have been motivating people to dynamically discover firmware properties
+rather than hardcoding in the DT.
 
-> +      storage memory between DMA and MDMA engines.
+> If we do need something in DT 
+> to define some resources, then can't we have some sort of 
+> standard/common communications channel? I don't care to see some sort of 
+> free-for-all where we have every vendor doing their own thing. OP-TEE 
+> needs to standarize this.
 
-> +      The region should be defined as child nodes of the AHB SRAM node
-> +      as per the generic bindings in Documentation/devicetree/bindings/sram/sram.yaml
+I suppose this requires a wider scope work as you can see the DT resource
+dependence from here [1]. By standardize communication channel, do you
+mean to say if adding an alternative backend to fwnode for TEE in
+parallel to DT, ACPI or swnode is the way to go for discovering fw
+properties? Or do you have any other suggestion here?
 
-Drop this sentence.
+Along with that the corresponding subsystems has to adopt fwnode APIs
+instead of OF APIs.
 
-Rob
+[1] https://lore.kernel.org/all/0e5a44df-f60a-4523-a791-6318b3c81425@foss.st.com/
+
+-Sumit
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
