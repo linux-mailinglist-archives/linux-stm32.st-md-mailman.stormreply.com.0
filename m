@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0209DCF22B5
-	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1DF8CF22AF
+	for <lists+linux-stm32@lfdr.de>; Mon, 05 Jan 2026 08:16:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD020C7A850;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F7F4C7A84D;
 	Mon,  5 Jan 2026 07:16:28 +0000 (UTC)
-Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
- [209.85.214.226])
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com
+ [74.125.224.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C0D2C57A52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCF00C8F278
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Dec 2025 17:37:25 +0000 (UTC)
-Received: by mail-pl1-f226.google.com with SMTP id
- d9443c01a7336-2a2bff5f774so25910015ad.2
+ Wed, 31 Dec 2025 17:37:24 +0000 (UTC)
+Received: by mail-yx1-f100.google.com with SMTP id
+ 956f58d0204a3-6469e4b0ff6so552932d50.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 31 Dec 2025 09:37:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=purestorage.com; s=google2022; t=1767202643; x=1767807443;
+ d=purestorage.com; s=google2022; t=1767202644; x=1767807444;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CPtJoM4BdsW1AWCT74nIdjccEavCkJ/nIFp8Za4jgwE=;
- b=ZKfAiWISNm3vnhCan9f5nzPMJuQPVKg92xlDdNmyZ/qtc3jSlY0MeqB0lxKAJr0Vzc
- xn6yFnG2s4yHskDcpMTxNCr8vLi+8tEt/WxouFw2ilpeH4p8mvCDziPgx+A8TeW6FNEH
- 0F1J/CUKL68JarNlw2S7yzQGe9tO9+z+UsgQoDrQ0/xO/R0E6yeOfPJD3TEoIgv1lIM4
- fwKhUjkXm5wY9GLnn5Sn1JZDy9sWxJ71iMgeSEBY6a/Lzew9tQI/Am7B2wH6ZsXPl32N
- C3k3XFsnm58l4QlRO0Cm0GjInyktIfe0BV4eapO+Q2QiRQ82dOPSWD1o2KoLwSmOLXg4
- 1p1w==
+ bh=Z65KNwFWdBB4vKMl4Q2RH4hcwYRlqC7hzCG8+fs8pqw=;
+ b=FMuIKaXBnsKavFxXah+BwyHsopkEkGW2gpXe9XIGwN691kmZ+TUNXCtlbNSHqjzfFW
+ RzkH7NuN9FZS/scdnyd2Yji4m/ZKdOolb+QxecoqO6gPCpwlgaokqPUqw071zPjL3ZGy
+ YUC+aIOHP8t41OumD+uBxjZdAFywkSvqUPkd1Ex0Ic3Dd8h+EJ3pLQC6FiR9WlLmdaIE
+ dA41q0y3nqVPXWbh3PonjZmF2RE10/Aispm7SZx1yZ7VxUkqUaHIh+hGnI99fSjfqaGw
+ GSpL1wDlmCPE3HF/WFnQpx75UTVgeLk60TyhSFdWK0PUznnQgRIeQnXNOF7yNp/YK5eX
+ pnZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767202643; x=1767807443;
+ d=1e100.net; s=20230601; t=1767202644; x=1767807444;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=CPtJoM4BdsW1AWCT74nIdjccEavCkJ/nIFp8Za4jgwE=;
- b=UlkhcJD6fKQL+AIrSAnf46Ohk+iIbICUZeEpDl2xb5MUE6txaX78TSt5uWu0RPmhh+
- NtRPhjcqoB5/IBJaL0kRBgAs7bXRLXuqIigeLpTPFXCfd+Fed0ckKE1u/ddvWt5WwzLv
- 6kyWCmgyrB1KckoJ2Q1mXRA/KTFvRJzVbqkApc50HGq2BoRmeOFsNv5IMp487k1oDupY
- 9D9EzBExb6DD0XZPrBFM+A6Bdgupufw7Zl4NPYgK4RHc6SMqPnH5xqx/wEeORJGnDfA8
- RNz40Hjk8dZ4I6hLES0Zi8AUbliUqKHdxqs4UKnfGtIKvj5YonV1tcR42ppFds+SQgtD
- lXLw==
+ bh=Z65KNwFWdBB4vKMl4Q2RH4hcwYRlqC7hzCG8+fs8pqw=;
+ b=URnX7I+seWkVWdRd4f4CUuS5EMjg+DQqJvuM8AYBESB5Pf/kAXSPJwt1699od3E/LN
+ GyTkLBwur+5KzsVL5PVcjKY/Ek96CgTIj4PRPLxzU8uJgUWZf83RMKwM5vzv+wqVwUUG
+ H8N1MUjtvDIwVjbZ58k352SzUBX5MpnAW1mmlOgdGMrbDr1WlcPjU7InlCDXLnaGLBl1
+ 4FiXSVlRRZV3j21zP3wieRj0ZRscWSKYsZZ16o5EXUg96oao2TfH0jv3qDrt7W7DPWzh
+ 8ZuH5HHu+zudwJUOsEUlts1WfA98pZZEEf1iubu+uPiDKYGaSYV6wiRTIrDlDKwyQuTZ
+ 4ANQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWH30VtwiDb+N6+LdKMEIoZ15gbu1bNyLhql650kZS3z8dOSr2UNsefeF0k6pNJK/0P9VM8coRiw0zivA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyTFo4Epwn3pZYeJaWFsYXMYVHi0q9QH8T6LPxx+SDAmyMAVuKj
- MGGlx/tV+f0my3TeyOQ8jZ0YCWNHG3mShSq3TowSay3VR7bu/qGGVVIILVIHRuGHXQeb4ny9YTR
- FgbyqsJffnvNC4v+2azKjJmgzn+M6F/hHAB5Z/Iz+nTuAwgFt3jP8
-X-Gm-Gg: AY/fxX4TP8bp/rhTdKYjZMoS4S6tqyBOuirRcl7tzeIGXz0meRhGoKHy33ecpCrLKXT
- 0KXuvo4PKZfjXuGzsVXZGatwSzAu6pfBm/GNnhzTZYPeeWXeqBkAWN6Y75YfPu72B9ay0QTXKa1
- TSdl2eVL8Ut73QgIih8jc/JGho8V3Ts5Ryx4LDsZLjUGRQSeJ6Kp5Zf4Gc1fAwlEBX8b17Dp3LF
- p9jzafqKxnrBd2BHVZ/1zCn+UPQA1Uk6heYuNQW03kAfp/cHQE2ZjJTvr2dduZ943Rzxn4KyBGU
- IM5QCAddIuvvwk+HIfrhr8cJdeEnvIWKA2AFqLWboLuyd5/IF6EuscYJ+tlZOJnIVZCk1dr9vTz
- sEgOxeUrke9CjlVqfXoLgn3MW1hQ=
-X-Google-Smtp-Source: AGHT+IE/GKsBsuibLffcNY4jnMOysc9JCkTPS2IwqBtEufH6X/186Szw2JKOD3dV6u7dyuha2hnOZCCfweaH
-X-Received: by 2002:a17:903:41cb:b0:295:745a:800a with SMTP id
- d9443c01a7336-2a2f2204346mr260754775ad.2.1767202643449; 
+ AJvYcCVJWvCJalmvZZYrzwdt8I0vxIGCqMg5zRGZWqsojdRCi681xQnTlY6n3SttiXjRPCdLBAZXfzg+VlYBow==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxEQcgbNNjqJuXdZ4b7NaGrlWC+Y2wsq4SYFMttBdcM5JlIE9YY
+ I3Y67R3RSEK9j9CS7DvRp9QUEuAfCi1o+JqLLFzunL4Nc3vbQLI13ZWp5c3z/TVORHI1lPcsPMZ
+ vKabAmXoEl9wTxxGddkIWazOMH0SVhC9+wFc8AGBIby1aNcrXdcZ2
+X-Gm-Gg: AY/fxX7XX/CLJXUh66bdshOBxWKBzmKckrme5e2bOgVvIQq+8IvhhXWAjFBkYPT/qY+
+ PC+gYEov2AJg98rUopGdpoZIN60oqDlJYd7aiW0vsK+OIJ1sxH8PwWmeNtFw7qJaHJEPjurghrB
+ XXTgZpsnRFCAbKcVWKGrkewPiLXEpaytNdivCM+pujWTotPuLeBJzNESqUY5OzwSdaV4rfO32CY
+ viXyYp0BnopdfQKKkeMN0/q2D8gAHzN9GW6qLuFruXtEJqzc0+OBJ2kVc0Olg//2leQaIdKpQf/
+ VFbWkqhEoZ3nihcfqU2USHxRwEOHvijOsRs9imTzbI5CWN57Dbtm+72gbYV+3RNruoy9h8s51Wo
+ Nxj7s7+B87FOj7u8fmKBCgfs6dUc=
+X-Google-Smtp-Source: AGHT+IEBotP5m1Z5wYbNapmTCc4dT38K0CaYELN4ShRlN7De1XjUql9tbwl7WLX8LVNM50Lf/6OW51/NhCsQ
+X-Received: by 2002:a05:690e:c43:b0:644:7b59:4217 with SMTP id
+ 956f58d0204a3-6466a87482amr25194896d50.1.1767202643755; 
  Wed, 31 Dec 2025 09:37:23 -0800 (PST)
 Received: from c7-smtp-2023.dev.purestorage.com ([2620:125:9017:12:36:3:5:0])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2a2f3d06e23sm40792255ad.35.2025.12.31.09.37.23
+ 956f58d0204a3-6466a91dd41sm1876075d50.9.2025.12.31.09.37.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 31 Dec 2025 09:37:23 -0800 (PST)
 X-Relaying-Domain: purestorage.com
 Received: from dev-csander.dev.purestorage.com
  (dev-csander.dev.purestorage.com [10.49.34.222])
- by c7-smtp-2023.dev.purestorage.com (Postfix) with ESMTP id CA55C340879;
- Wed, 31 Dec 2025 10:37:21 -0700 (MST)
+ by c7-smtp-2023.dev.purestorage.com (Postfix) with ESMTP id 291DA341C73;
+ Wed, 31 Dec 2025 10:37:22 -0700 (MST)
 Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
- id C307BE4234A; Wed, 31 Dec 2025 10:37:21 -0700 (MST)
+ id 22C62E4234A; Wed, 31 Dec 2025 10:37:22 -0700 (MST)
 From: Caleb Sander Mateos <csander@purestorage.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
  Alexei Starovoitov <ast@kernel.org>,
@@ -101,8 +101,8 @@ To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
  Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
  Shuah Khan <shuah@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 31 Dec 2025 10:36:30 -0700
-Message-ID: <20251231173633.3981832-3-csander@purestorage.com>
+Date: Wed, 31 Dec 2025 10:36:31 -0700
+Message-ID: <20251231173633.3981832-4-csander@purestorage.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20251231173633.3981832-1-csander@purestorage.com>
 References: <20251231173633.3981832-1-csander@purestorage.com>
@@ -114,7 +114,8 @@ Cc: linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
  bpf@vger.kernel.org, sched-ext@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/5] HID: bpf: make __bpf_hid_bpf_ops const
+Subject: [Linux-stm32] [PATCH 3/5] sched_ext: make __bpf_ops_sched_ext_ops
+	const
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,31 +133,31 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Now that struct bpf_struct_ops's cfi_stubs field is a const pointer,
-declare the __bpf_hid_bpf_ops global variable it points to as const.
-This allows the global variable to be placed in readonly memory.
+declare the __bpf_ops_sched_ext_ops global variable it points to as
+const. This allows the global variable to be placed in readonly memory.
 
 Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
 ---
- drivers/hid/bpf/hid_bpf_struct_ops.c | 2 +-
+ kernel/sched/ext.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hid/bpf/hid_bpf_struct_ops.c b/drivers/hid/bpf/hid_bpf_struct_ops.c
-index 702c22fae136..30ddcf78e0ea 100644
---- a/drivers/hid/bpf/hid_bpf_struct_ops.c
-+++ b/drivers/hid/bpf/hid_bpf_struct_ops.c
-@@ -286,11 +286,11 @@ static int __hid_bpf_hw_request(struct hid_bpf_ctx *ctx, unsigned char reportnum
- static int __hid_bpf_hw_output_report(struct hid_bpf_ctx *ctx, u64 source)
- {
- 	return 0;
- }
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 94164f2dec6d..af8250b64f47 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -5336,11 +5336,11 @@ static s32 sched_ext_ops__init(void) { return -EINVAL; }
+ static void sched_ext_ops__exit(struct scx_exit_info *info) {}
+ static void sched_ext_ops__dump(struct scx_dump_ctx *ctx) {}
+ static void sched_ext_ops__dump_cpu(struct scx_dump_ctx *ctx, s32 cpu, bool idle) {}
+ static void sched_ext_ops__dump_task(struct scx_dump_ctx *ctx, struct task_struct *p) {}
  
--static struct hid_bpf_ops __bpf_hid_bpf_ops = {
-+static const struct hid_bpf_ops __bpf_hid_bpf_ops = {
- 	.hid_device_event = __hid_bpf_device_event,
- 	.hid_rdesc_fixup = __hid_bpf_rdesc_fixup,
- 	.hid_hw_request = __hid_bpf_hw_request,
- 	.hid_hw_output_report = __hid_bpf_hw_output_report,
- };
+-static struct sched_ext_ops __bpf_ops_sched_ext_ops = {
++static const struct sched_ext_ops __bpf_ops_sched_ext_ops = {
+ 	.select_cpu		= sched_ext_ops__select_cpu,
+ 	.enqueue		= sched_ext_ops__enqueue,
+ 	.dequeue		= sched_ext_ops__dequeue,
+ 	.dispatch		= sched_ext_ops__dispatch,
+ 	.tick			= sched_ext_ops__tick,
 -- 
 2.45.2
 
