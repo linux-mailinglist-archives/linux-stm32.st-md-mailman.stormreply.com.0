@@ -2,109 +2,135 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F6C5CECC29
-	for <lists+linux-stm32@lfdr.de>; Thu, 01 Jan 2026 03:10:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16222CEEBA0
+	for <lists+linux-stm32@lfdr.de>; Fri, 02 Jan 2026 15:04:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42301C0693F;
-	Thu,  1 Jan 2026 02:10:53 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F629C8F280;
+	Fri,  2 Jan 2026 14:04:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25896C35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBC7EC8F27F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Jan 2026 02:10:51 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-47d5e021a53so10963805e9.3
+ Fri,  2 Jan 2026 14:04:19 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6029WSOi618624
+ for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 2 Jan 2026 14:04:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Zcdn/7Q48JsxusxJpdZxfM0eNzXVTYp1I4zI3xtwG7Y=; b=gmWAS9B5k/YF2KxC
+ pUQLKgVfTCvW7eB18XPzrAXbjsLtFEqwFoekY1DlvPcq9nJEAAAwqOZL06d4JS9x
+ 3EPB+GriLWm4xz1H5rpr9clywND3baDb25GB4WG0XQv10GHvGyCXYqf6MXMYOCk0
+ vwB8iPQtMBG1r4lwSy4I+rDPmPa7rSiBGXqz9ychUf/KSy1mIyoPIrFDCQpZ2h4E
+ 45VjA+uQ2jn6MmIWm0jFjZmhUl33AKRPDh5UFAtCdd8uAssXeii2caNh3Y6ZM/WX
+ N8JHWp9gqKjscxBk22kkLvCSxWxlMcmQ9ntjHBQz+kdWUOukRXl6jgKRvP3azU1J
+ 9+nqrw==
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4beb4wrh6n-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Dec 2025 18:10:51 -0800 (PST)
+ Fri, 02 Jan 2026 14:04:17 +0000 (GMT)
+Received: by mail-yx1-f72.google.com with SMTP id
+ 956f58d0204a3-6446cbc11a4so4216566d50.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 02 Jan 2026 06:04:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1767233451; x=1767838251;
+ d=oss.qualcomm.com; s=google; t=1767362657; x=1767967457;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L2EkUzQ6sigBd+WWV5Hcl6Vcy/jBU7DTMqVQsenR/Xo=;
- b=F4cvBCMPKvSl9YUupe/CpV+fVl7VN3plGWCCDe+8Pf7U/kUejMtP2+s2yIKocYB5D8
- 1UfcPd6epTvVzZLv14QjHTxZm1XbtZfg8rMfillcak8h9h764FV26FNXwmzeKDepOQjQ
- fEpprUeZhO00eJtRCYs6BTEl95u39lzMh3TMVb83Ui1IcFQ2+zQMRetfoqdtMwWAvrJT
- YInycUfBo9NswQsppXywJx0tLYnOP/rt4D4O9BJ+jnk3nj+oms2nczZzoKLhNfnrJ1nd
- erMXW8ILQID5AtbqxsHHarg3NGgD1oy7Vl9uZB1Bvca0UtMjv74GhySMIyX6ByEgFMzj
- XAEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767233451; x=1767838251;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=L2EkUzQ6sigBd+WWV5Hcl6Vcy/jBU7DTMqVQsenR/Xo=;
- b=KlnemgUYJTIyK8ImkH3/Ur8Aa60iE5PJzDiHQJtnkoc8FvhKAcuSm7EKjZEJ+ju0Xb
- fxx5suj/2wR6dGOJAAO1zD6r7IEnvhpLlzSvCIqRcsdEdesQZlMTKfrVR5Gy62z/Fb9o
- pu2Z8PScpKXiGY+sZiLYwrLC7yAn0pP9OtwQNhIngFUB9Df4iHP/981SIfzzDDITkFob
- /MbsmpPi2YaFwSsUZYsmdaLLEDdsjLiztWcHTj5BXaaPjjsa1hilcaFT1YyS/iydwZvo
- sjiR6JO9WCsQBWAzw4aWozIAmaxjjjzsn3o4cXbOqg232yzBrinL84hOr/HxxGiCZ9s2
- HUgw==
+ bh=Zcdn/7Q48JsxusxJpdZxfM0eNzXVTYp1I4zI3xtwG7Y=;
+ b=N+R2HMhOz0HFN95m9p2e/L8zzem7eD1UbGULxyCztbtK/tmBl7rYWXwxtzf3peQotj
+ kJC4any/wf+5PD33y5zlbOdZ+ZBO15uIfA2Fb2lXyUNyWqUBnIKjNUEtI8TdY7UYvyz7
+ yn/TiSiA9xy4QCHXqwaVj3bvlvW1IoUrUfBHFHhD/vglVu1LMmfYAtgR+6UKchsQckim
+ X/8Zmh4Zgh3CFrnTCHcS68kZl1dMZeiu2uYrxnvdFIJop55ksnruA2tEdll6gmpCYXqk
+ gHOKl4RX/k5yDOfHxiRUbZktm7zmSxbalqKtXtyTdUjVOFPJzLch/ViHTSaH+p+9TGmk
+ uwTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767362657; x=1767967457;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Zcdn/7Q48JsxusxJpdZxfM0eNzXVTYp1I4zI3xtwG7Y=;
+ b=PPeyYtQ2Y5wQlZHHtV53N0SMbL39AMLvJQrV1xUsCkjHfjZX05dFV75G95t90YiPy2
+ cj5e6taognvH/oGgjIgfADSjdcdQBIjOW8Cf5pqJrEpbDbu3YdfJ27mV5AQ3Om4+GRcn
+ AFqxSvYE16Vi3Y3zr5V0RHzIbbGr5GSGQkTXMLCKtTynxPsZXpmvpMPrY054gMc2aOc9
+ w+hpywph/DqdUExojUBrdx72KnnXERQY6E4IA0ZJTcrHmPu12tlXIilRDCWVYdz5fL/n
+ s9AON18G8zcLTk1B6iKSebatXg0GBoGb184O0Ji93p1Nn3flhcvDDRu7C3DSXFjWRY0E
+ oNxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCzBXWksCR60wvk2PJ4/zx79RoX5hL1RCOoiSQUBqsDbrB37gPoexShLfCKYKVh6X9qkylI0uq9SP+Og==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YztLiZo2fGvTVQcSKoAeKuzY37YBFti1OzG3sVaxeMv9ZvLg1h1
- IYBnIbiqdv9jfqK5BAY8x76y7sBQDtofMqh+xvYyvst57jQCX9/luRJdxAQFFagB9fR0qHgbEkB
- ozd3yKGAe+l53yQY4oFfiwPqcEgLW218=
-X-Gm-Gg: AY/fxX4nrfJI4vEfpJ08MIVC/Lk/ztE/+R+689ky+4aCI/pkHYYGG0gfNFYsT6duJEg
- HmSyFghRheFatNuOa9MEov3heWC0nBodQle2sOpVS6CsQdH8dGZSobOmfUbj3MhsOr2Mtyxkd8X
- CW+QcAtM7fKg1l8TKUwDAy4mXj0FcC6ZKKLdxHJ1vetFIjK56TI+RDhUWieGAR+w8K1eq7/Y72h
- aa5VCiDRIPqB/zyBX6SlSx5xkrY1TC37A9+d73GxFcz02+rjo0kZLv/eViYAAzB60axkTtbLBhK
- pnFoRmOUVqIFUm1UERKxzGUMx3jF
-X-Google-Smtp-Source: AGHT+IH5ZrzzFT5UNwTZptN+H56qkFUXA/Ygb+yPt8+WPgM1uThdV3rrZmNHjr6UFJLqBPNEBxHVHfwADBRcBM115zY=
-X-Received: by 2002:a05:600c:638d:b0:477:afc5:fb02 with SMTP id
- 5b1f17b1804b1-47d4c8f4972mr206282295e9.21.1767233450902; Wed, 31 Dec 2025
- 18:10:50 -0800 (PST)
+ AJvYcCUs2yGyVOWvL1CI97amIlBjWJPNG7dgj8isJ+M4N73t6REf/yl9dW5J5egKgXLFm3kjPgHoAMAcbY3bgw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxpqam7EuC0XcUZJ2kgsl3z+RPOCeW38eEt16oPFvCvTnol1czQ
+ 1I0kK8FOXeWdl3Ft1sS65ENqzwFBDodDcuYrwF9QMHGPmvFU6UIbXn6RcvN5dVTOuDvdfxxD4mR
+ bUs33jMkEq8i7Ay1IXkk2ICdbx3+GsIuzIxFHmiZbaSZhIyA+nslGamQW6wsRIo+tRXnfiCmGjn
+ Ajav+y9Zc=
+X-Gm-Gg: AY/fxX6CBu1C3u/ua4/lzccBWafbyR7zTACDJm2h+hqPlDsRwKcgStFdBnqQ3Y6OCZ5
+ FRp5+PsDJs7aBz7/kejeC/0MLXJH5XdV18fvALJQ/EvKr8vt3OSyBulLmB5R8Hp4UJFH0SvpgcE
+ 4t1o6yDKRGEu/WnBe26pfKBT18KcykrSpKK578t8/447jtqWSLX4b6Edym/ggFYREH9By31V6/W
+ hmYMNzE27D5Nx8qTB4kMkbx9WljaD5FyJpbMrgCV+GJOPTeDbqBmJOt7FnCK2gRZUXH6d2BBt7T
+ V8cnnWpPenFFidTXb+UJdbhTNGKeREwFzXprZw4IEMapexGSvsB6In5jTHLn7cd+K1VCkOlBheq
+ Dbl6eTXUjjYlD5TQk3lo4zdYV2NAmMHXULIOhaedvvJLt8NWl4f9nPk7+fyvfddO+Fg==
+X-Received: by 2002:a05:690c:fc1:b0:78c:2d45:519f with SMTP id
+ 00721157ae682-78fb3e6e5a4mr318529087b3.0.1767362657095; 
+ Fri, 02 Jan 2026 06:04:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHDY9o/Da3MH+qVOhc/qqaBC7t55MFtKFA+nrAgBn0dEzUb9bRjnu5r7OGAxL5CcAAw/v349w==
+X-Received: by 2002:a05:690c:fc1:b0:78c:2d45:519f with SMTP id
+ 00721157ae682-78fb3e6e5a4mr318528797b3.0.1767362656686; 
+ Fri, 02 Jan 2026 06:04:16 -0800 (PST)
+Received: from [192.168.119.72] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8037f089fesm4586018066b.46.2026.01.02.06.04.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Jan 2026 06:04:16 -0800 (PST)
+Message-ID: <01a884cc-f5c3-4b1b-9fd9-7459227cf455@oss.qualcomm.com>
+Date: Fri, 2 Jan 2026 15:04:14 +0100
 MIME-Version: 1.0
-References: <20251231173633.3981832-6-csander@purestorage.com>
- <e9a1bd633fb4bb3d2820f63f41a8dd60d8c9c5e3c699fa56057ae393ef2f31d0@mail.kernel.org>
- <CADUfDZpSSikiZ8d8eWvfucj=Cvhc=k-sHN03EVExGBQ4Lx+23Q@mail.gmail.com>
- <CAADnVQKXUUNn=P=2-UECF1X7SR+oqm4xsr-2trpgTy1q+0c5FQ@mail.gmail.com>
- <CADUfDZq5Bf8mVD9o=VHsUqYgqyMJx82_fhy73ZzkvawQi2Ko2g@mail.gmail.com>
-In-Reply-To: <CADUfDZq5Bf8mVD9o=VHsUqYgqyMJx82_fhy73ZzkvawQi2Ko2g@mail.gmail.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Wed, 31 Dec 2025 18:10:39 -0800
-X-Gm-Features: AQt7F2qPTzBBxIXi7mSFxblwdWM4pyxfhqUHnmv1AUlo2Ajz8HPFxUtnTVbWXLM
-Message-ID: <CAADnVQJ0Xhmx0ZyTKbWqaiiX7QwghMznzjDL1CNmraXM4d+T7A@mail.gmail.com>
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: Juri Lelli <juri.lelli@redhat.com>, linux-s390 <linux-s390@vger.kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Peter Zijlstra <peterz@infradead.org>,
- sidraya@linux.ibm.com, Alexei Starovoitov <ast@kernel.org>,
- Benjamin Segall <bsegall@google.com>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
- David Vernet <void@manifault.com>, bot+bpf-ci@kernel.org,
- Tony Lu <tonylu@linux.alibaba.com>, linux-stm32@st-md-mailman.stormreply.com,
- Martin KaFai Lau <martin.lau@kernel.org>, sched-ext@lists.linux.dev,
- Valentin Schneider <vschneid@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Shuah Khan <shuah@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Chris Mason <clm@meta.com>, Dust Li <dust.li@linux.alibaba.com>,
- Ingo Molnar <mingo@redhat.com>, Andrea Righi <arighi@nvidia.com>,
- "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Mel Gorman <mgorman@suse.de>,
- linux-rdma@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
- Simon Horman <horms@kernel.org>, Hao Luo <haoluo@google.com>,
- Jiri Kosina <jikos@kernel.org>, Jamal Hadi Salim <jhs@mojatatu.com>,
- Steven Rostedt <rostedt@goodmis.org>, KP Singh <kpsingh@kernel.org>,
- wenjia@linux.ibm.com, mjambigi@linux.ibm.com,
- Cong Wang <xiyou.wangcong@gmail.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Benjamin Tissoires <bentiss@kernel.org>,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Stanislav Fomichev <sdf@fomichev.me>,
- David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Eduard <eddyz87@gmail.com>, Changwoo Min <changwoo@igalia.com>,
- guwen@linux.alibaba.com, Jiri Olsa <jolsa@kernel.org>,
- Network Development <netdev@vger.kernel.org>, Tejun Heo <tj@kernel.org>,
- bpf <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 5/5] selftests/bpf: make cfi_stubs globals
-	const
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260102125030.65186-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260102125030.65186-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: zCwCms0IlmNOnuSkLIgrFTfnd1tUHsQI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTAyMDEyNSBTYWx0ZWRfX9bvfxuTsRc1b
+ DTALNOnSagHpkJREL0QRzmK7scmUlTYgt/Ti1sOHTdJMtRg9vqeAMOW+Vvaa7cJWWH6BpbTmMte
+ Yy5NsPogELMnXpNlwTsvITRpNoRCuiyyhqjiR1Mj2X3xP9ntZ01Rj8S4zRRWYrlADzMPdKsDRej
+ 8kvvk8dPvw5tnXRozBf4baG0kytGTUG7YDK0v1E7JTRDcWOP6dBpSfdKZ3bGuDKWmqJmhG9Cvil
+ 73RTVupCVqn1kgL7GkWOW5soUvz0x78liyZkd8lDkqAzMbiiklEB2JrbZVmGuB9nmQhZitnxlBj
+ s1H5ffMFlLOAtEyqFQYUta2mblgYLE7KVkWtiLSKg14zbCAYEw8vBi+mPpDDKH73FpxTSb3kpo1
+ brG6Qqf1vbwTw6yyP79S/FEqDjoYVcl4R+0p5+TvMWm5eJ3kFflWYmH1k7voAa3upGM7rqYW9uM
+ 63nWpHOOPmcRQr43a4w==
+X-Authority-Analysis: v=2.4 cv=I5pohdgg c=1 sm=1 tr=0 ts=6957d062 cx=c_pps
+ a=VEzVgl358Dq0xwHDEbsOzA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=9ra_KJl88v3tURVkoeQA:9
+ a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
+X-Proofpoint-GUID: zCwCms0IlmNOnuSkLIgrFTfnd1tUHsQI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-02_02,2025-12-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 malwarescore=0 spamscore=0 impostorscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2601020125
+Subject: Re: [Linux-stm32] [PATCH 1/2] bus: qcom-ebi2: Simplify with scoped
+ for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,62 +142,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBEZWMgMzEsIDIwMjUgYXQgNDoyOOKAr1BNIENhbGViIFNhbmRlciBNYXRlb3MKPGNz
-YW5kZXJAcHVyZXN0b3JhZ2UuY29tPiB3cm90ZToKPgo+IE9uIFdlZCwgRGVjIDMxLCAyMDI1IGF0
-IDEwOjEz4oCvQU0gQWxleGVpIFN0YXJvdm9pdG92Cj4gPGFsZXhlaS5zdGFyb3ZvaXRvdkBnbWFp
-bC5jb20+IHdyb3RlOgo+ID4KPiA+IE9uIFdlZCwgRGVjIDMxLCAyMDI1IGF0IDEwOjA54oCvQU0g
-Q2FsZWIgU2FuZGVyIE1hdGVvcwo+ID4gPGNzYW5kZXJAcHVyZXN0b3JhZ2UuY29tPiB3cm90ZToK
-PiA+ID4KPiA+ID4gT24gV2VkLCBEZWMgMzEsIDIwMjUgYXQgMTA6MDTigK9BTSA8Ym90K2JwZi1j
-aUBrZXJuZWwub3JnPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+ID4gZGlmZiAtLWdpdCBhL3Rvb2xz
-L3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi90ZXN0X2ttb2RzL2JwZl90ZXN0bW9kLmMgYi90b29scy90
-ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9rbW9kcy9icGZfdGVzdG1vZC5jCj4gPiA+ID4gPiBp
-bmRleCA5MGM0YjFhNTFkZTYuLjVlNDYwYjFkYmRiNiAxMDA2NDQKPiA+ID4gPiA+IC0tLSBhL3Rv
-b2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi90ZXN0X2ttb2RzL2JwZl90ZXN0bW9kLmMKPiA+ID4g
-PiA+ICsrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi90ZXN0X2ttb2RzL2JwZl90ZXN0
-bW9kLmMKPiA+ID4gPgo+ID4gPiA+IFsgLi4uIF0KPiA+ID4gPgo+ID4gPiA+ID4gQEAgLTEyNzUs
-NyArMTI3NSw3IEBAIGJwZl90ZXN0bW9kX29wc19fdGVzdF9yZXR1cm5fcmVmX2twdHIoaW50IGR1
-bW15LCBzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRhc2tfX3JlZiwKPiA+ID4gPiA+ICAgICAgIHJldHVy
-biBOVUxMOwo+ID4gPiA+ID4gIH0KPiA+ID4gPiA+Cj4gPiA+ID4gPiAtc3RhdGljIHN0cnVjdCBi
-cGZfdGVzdG1vZF9vcHMgX19icGZfdGVzdG1vZF9vcHMgPSB7Cj4gPiA+ID4gPiArc3RhdGljIGNv
-bnN0IHN0cnVjdCBicGZfdGVzdG1vZF9vcHMgX19icGZfdGVzdG1vZF9vcHMgPSB7Cj4gPiA+ID4g
-PiAgICAgICAudGVzdF8xID0gYnBmX3Rlc3Rtb2RfdGVzdF8xLAo+ID4gPiA+ID4gICAgICAgLnRl
-c3RfMiA9IGJwZl90ZXN0bW9kX3Rlc3RfMiwKPiA+ID4gPgo+ID4gPiA+IElzIGl0IHNhZmUgdG8g
-bWFrZSBfX2JwZl90ZXN0bW9kX29wcyBjb25zdCBoZXJlPyBJbiBicGZfdGVzdG1vZF9pbml0KCks
-Cj4gPiA+ID4gdGhpcyBzdHJ1Y3QgaXMgbW9kaWZpZWQgYXQgcnVudGltZToKPiA+ID4gPgo+ID4g
-PiA+ICAgICB0cmFtcCA9ICh2b2lkICoqKSZfX2JwZl90ZXN0bW9kX29wcy50cmFtcF8xOwo+ID4g
-PiA+ICAgICB3aGlsZSAodHJhbXAgPD0gKHZvaWQgKiopJl9fYnBmX3Rlc3Rtb2Rfb3BzLnRyYW1w
-XzQwKQo+ID4gPiA+ICAgICAgICAgKnRyYW1wKysgPSBicGZfdGVzdG1vZF90cmFtcDsKPiA+ID4g
-Pgo+ID4gPiA+IFdyaXRpbmcgdG8gYSBjb25zdC1xdWFsaWZpZWQgb2JqZWN0IGlzIHVuZGVmaW5l
-ZCBiZWhhdmlvciBhbmQgbWF5IGNhdXNlIGEKPiA+ID4gPiBwcm90ZWN0aW9uIGZhdWx0IHdoZW4g
-dGhlIGNvbXBpbGVyIHBsYWNlcyB0aGlzIGluIHJlYWQtb25seSBtZW1vcnkuIFdvdWxkCj4gPiA+
-ID4gdGhlIG1vZHVsZSBmYWlsIHRvIGxvYWQgb24gc3lzdGVtcyB3aGVyZSAucm9kYXRhIGlzIGFj
-dHVhbGx5IHJlYWQtb25seT8KPiA+ID4KPiA+ID4gWXVwLCB0aGF0J3MgaW5kZWVkIHRoZSBidWcg
-Y2F1Z2h0IGJ5IEtBU0FOLiBNaXNzZWQgdGhpcyBtdXRhdGlvbiBhdAo+ID4gPiBpbml0IHRpbWUs
-IEknbGwgbGVhdmUgX19icGZfdGVzdG1vZF9vcHMgYXMgbXV0YWJsZS4KPiA+Cj4gPiBOby4gWW91
-J3JlIG1pc3NpbmcgdGhlIHBvaW50LiBUaGUgd2hvbGUgcGF0Y2ggc2V0IGlzIG5vIGdvLgo+ID4g
-VGhlIHBvaW50ZXIgdG8gY2ZpIHN0dWIgY2FuIGJlIHVwZGF0ZWQganVzdCBhcyB3ZWxsLgo+Cj4g
-RG8geW91IG1lYW4gdGhlIEJQRiBjb3JlIGNvZGUgd291bGQgbW9kaWZ5IHRoZSBzdHJ1Y3QgcG9p
-bnRlZCB0byBieQo+IGNmaV9zdHVicz8gT3Igc29tZSBCUEYgc3RydWN0X29wcyBpbXBsZW1lbnRh
-dGlvbiAobGlrZSB0aGlzIG9uZSBpbgo+IGJwZl90ZXN0bW9kLmMpIHdvdWxkIG1vZGlmeSBpdD8g
-SWYgeW91J3JlIHRhbGtpbmcgYWJvdXQgdGhlIEJQRiBjb3JlCj4gY29kZSwgY291bGQgeW91IHBv
-aW50IG91dCB3aGVyZSB0aGlzIGhhcHBlbnM/IEkgY291bGRuJ3QgZmluZCBpdCB3aGVuCj4gbG9v
-a2luZyB0aHJvdWdoIHRoZSBoYW5kZnVsIG9mIHVzZXMgb2YgY2ZpX3N0dWJzIChzZWUgcGF0Y2gg
-MS81KS4gT3IKPiBhcmUgeW91IHRhbGtpbmcgYWJvdXQgc29tZSBoeXBvdGhldGljYWwgZnV0dXJl
-IGNvZGUgdGhhdCB3b3VsZCB3cml0ZQo+IHRocm91Z2ggdGhlIGNmaV9zdHVicyBwb2ludGVyPyBJ
-ZiB5b3UncmUgdGFsa2luZyBhYm91dCBhIHN0cnVjdF9vcHMKPiBpbXBsZW1lbnRhdGlvbiwgSSBj
-ZXJ0YWlubHkgYWdyZWUgaXQgY291bGQgbW9kaWZ5IHRoZSBzdHJ1Y3QgcG9pbnRlZAo+IHRvIGJ5
-IGNmaV9zdHVicyAoYmVmb3JlIGNhbGxpbmcgcmVnaXN0ZXJfYnBmX3N0cnVjdF9vcHMoKSkuIEJ1
-dCB0aGVuCj4gdGhlIHN0cnVjdF9vcHMgaW1wbGVtZW50YXRpb24gZG9lc24ndCBoYXZlIHRvIGRl
-Y2xhcmUgdGhlIGdsb2JhbAo+IHZhcmlhYmxlIGFzIGNvbnN0LiBBIG5vbi1jb25zdCBwb2ludGVy
-IGlzIGFsbG93ZWQgYW55d2hlcmUgYSBjb25zdAo+IHBvaW50ZXIgaXMgZXhwZWN0ZWQuCgpZb3Un
-cmUgc2F5aW5nIHRoYXQgdm9pZCBjb25zdCAqIGNmaV9zdHViczsgcG9pbnRpbmcgdG8gbm9uLWNv
-bnN0Cl9fYnBmX3Rlc3Rtb2Rfb3BzIGlzIHNvbWVob3cgb2s/IE5vLiBUaGlzIHJpZ2h0IGludG8g
-dW5kZWZpbmVkIGJlaGF2aW9yLgpOb3QgZ29pbmcgdG8gYWxsb3cgdGhhdC4KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 1/2/26 1:50 PM, Krzysztof Kozlowski wrote:
+> Use scoped for-each loop when iterating over device nodes to make code a
+> bit simpler.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
