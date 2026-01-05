@@ -2,139 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91D5CFED20
-	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 17:18:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 354CACFF046
+	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 18:09:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76015C8F282;
-	Wed,  7 Jan 2026 16:18:48 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D20C9C8F282;
+	Wed,  7 Jan 2026 17:09:39 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A49FFC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECAD3C055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jan 2026 16:18:47 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6079CJtE2453910
- for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 7 Jan 2026 16:18:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=HwZBs/pI4tqrM+YdLcnJrTnM
- DuBq2S6J78a0HWSkjHk=; b=pEqxtVM7ihUy+zNFC6MGh7WxN7cbgbo08zA/hynY
- 4qHlzmqRIEP0uOC/QZOS03kyXGH5cV6Jg1Zs7DorHDtEsn0pmksseXi9TztcuRcz
- HFPBO+TTEU1Gnn6x5m4n2gwHD97Qb0AYcPFYKpv/prYihzGuaHkWbGECD3AwA8YM
- hiuQ/x2DQg9FmXWIk3V+jB8rYHeA3S2OhQBI5+7mslQFkWvaG2HKPwWA4rmbB1Yz
- Ra7FvnhBpgzwyhxD2jxvUV4l8utAzuJszDeEqpfnZabgaz+OIHGPgEWeXvBGAeMf
- e1rQPyb225OO+q0LrD2i9CW+DPXQ2nljlVewAoQl6AikJg==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bhmnbh9fe-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ Mon,  5 Jan 2026 12:52:18 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-42fb5810d39so9321380f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Jan 2026 16:18:46 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-9415ceb0a03so2988718241.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Jan 2026 08:18:45 -0800 (PST)
+ Mon, 05 Jan 2026 04:52:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767802725; x=1768407525;
+ d=riscstar-com.20230601.gappssmtp.com; s=20230601; t=1767617538; x=1768222338;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HwZBs/pI4tqrM+YdLcnJrTnMDuBq2S6J78a0HWSkjHk=;
- b=Tn3mdXklxw6rghNFAUsZ2u6b+TwfRMW2FYSjQiwQXg7CbC+0zQqgtxY1qy4tdqfwzg
- lFAvzFqt42sgyilcwOk1RFgPSL4QTEeS8Z2IVPsqFokdhK3rsscPYD+T0psjcQY7R2Vh
- NI4xya9a2b8fThXERwjHGtt8R2M61HMUdFbqBTMJ6kHhZk93tWU4mSMWGZGpCztpaNC4
- U81W5sIEDLwzYdF4g3UCgVPX8a8S2clFFuzjEF2UJ9cxCc6S8cWX8Ww6mKYXaZ5QA0FC
- KNhnc7Wud5kr+9uSUW41wA+X30/k2eHzykTy3OSuLxThS0beQ7HvNshI7Rr78B4yKtfm
- SeHw==
+ bh=DIfhp3vJVBySXs5/naEXyaaROJC4kEOY5dOC0TJhcN0=;
+ b=cWE3EFYB1k6+nybFwa1Uhq92XJn3UQByiv602/JnqGT9MNLrZ5XplWcMdy30inESTS
+ oTOfwtFiDbeNObMUQ67RGh4SLCTyZHG1M6WwkYOc0YNuHPemPFnmUzycBWnj0XyXDajD
+ KE5NaTz+uRz5kJbwZEm04AAlIcDsoUS7AkdS3DGQ6h7YehFKYa/kdSDGKoR2NgKpDLtl
+ rN8BQBLrLM6TBV6rUv8TPprwaSeV4XkN1It3c279hjnWpxeVimvrr5U5hrRgLckaFO6J
+ 8c+0+N3/33J4MBQbaIpWLW+eijsHSIhYZ1aqmnB9MAUsi0KgQ86aIZMX2hCodqKnAzl4
+ 7GEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767802725; x=1768407525;
+ d=1e100.net; s=20230601; t=1767617538; x=1768222338;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HwZBs/pI4tqrM+YdLcnJrTnMDuBq2S6J78a0HWSkjHk=;
- b=lp2cj3sH8IYB7T1ESCHzTb1f5X8yAelCWg/uR5qKPUp6PmB8sNYEe8YaAtyNp6VQQn
- 9r+TNAnoC5PgXFhAuVPW3T+tybMF+EWE9TwLmJaI1lWfDWkwp7o5MVJIOZlKG86Zfl6u
- Hbr61eXnmEYctr+rk+KfixuD1RWTBYgHVTezxeQIFFstvC/pDOO8AnotuXG0OrD/9XDC
- f+K1BffhxtIJ4GjdPO6i6ecT1SyZ8iclvyPA/41BkrhfqdyE7LXfZePatYhzhBc5cV/V
- QxywVw5bDpGdiUOBmfeJ5Wm1jlfdQ/qSEk/VpXpqF+aQsrRrm8Mk3uTYPuIYb9U/GrZn
- I2fA==
+ bh=DIfhp3vJVBySXs5/naEXyaaROJC4kEOY5dOC0TJhcN0=;
+ b=mmDk6QzjNedw3QeHKgMA9MMuFdslryiPIItJURzs4xKOEnMyFon1EtSlc73QSdp5B+
+ YLQ8O6EAvciw0fZ/WI9pu3UGDmMlFdldypAfdXzMffC1cIl7/UaMkrsglUDPMvWtarRz
+ uW/+yAbSxrh91HIlcNs/KgmHQrsQqdlQGpBuIYzIU+SyMBVOSyGCKA/48lQOapComai+
+ F57c/l62I0FI4LsGE22TPZB+d1SOx4trOXkrXCziTZmyjuZ06HUeTeZyTAQql1uqGJlm
+ mNamGTYZS/2pcwnVerifYZ1joisWK5TiQfRdF3WlUqiAtzUGaYzypJFTd7oWACcBE9/D
+ BN5w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXB7Jdcm9SCBs955ISkb/JUvKisxuAACPsS79spXBiFeIWk4BNynA7P2GPurkeddgRvBSLtc4MJnszl7Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyQadayZ4tcnaAsD3sivo6x6KHp9JCxfgG45q7XBd6V47h1Ra6X
- qacf7moANxyUkK5J4dV9QIN9rGJwALm6ST6G8qQjlgoBR+A/xwH6qeLo8pzqY5uGO3DEt9c4Ltd
- NbF/Jyv6lW/vwl4mfB1zgqv7K2vlT8f8KXrhU2UVAARKA7Lg7LdWSWjBjOGLcTigTLtQ0K8SuJh
- C7S+2bEZc=
-X-Gm-Gg: AY/fxX69uLGrvMnmiv1f4Apr2iXtoN5qIbdSNgvwILO4tqQHZxA9ouifx8o+Wtawh+V
- ZD30gtThlpRMjC1/JH+kPlEPlvov0UHxsLe3JkNy86OOH8geFIlxSDJ3ginw2ex7kGZTxG9Padw
- JNuk+y/Q093sfotIkf5uH71/X6woJ6hNnlTxJ9Jssv9EdQYQciHMbWaYlZ2fd+yCHkApG9Xqfsa
- K4uAddQPfe0efwFyhresJns0nfy1yBehHDjyFLNK3HNWGK5Qt5LJgVVgU3/wuJ63gUWm/dtePfs
- vw8S3m9tihrPZIILNyjTzzf1n8oGH8WFby3HbbCUsx8KWdynzDYh7MhhcJSMi9pLYd2Qyqrr6+2
- OMF3TOaugAIVl7dGD3UD6DrypJMutoulxNWGY3VPMNXh92r0qk95xdvrYPrC0BdTTUMHf0Jwp7l
- QdcfVGH/QKbItmlm7seJf7p84=
-X-Received: by 2002:a05:6102:fa5:b0:5df:b2cd:12b4 with SMTP id
- ada2fe7eead31-5ecb694854bmr888636137.24.1767802724754; 
- Wed, 07 Jan 2026 08:18:44 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGHB5ZRn1QY/K6daz0KlPYsnYXAnz+5ET9h4x0F463Jjq+1VY5FCZCLE1JA9Bad2LVDmCS3+A==
-X-Received: by 2002:a05:6102:fa5:b0:5df:b2cd:12b4 with SMTP id
- ada2fe7eead31-5ecb694854bmr888602137.24.1767802723486; 
- Wed, 07 Jan 2026 08:18:43 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AJvYcCVfMwL7glAahWlSky7uq3mWdFlSl0AfYVFt43aBxHTcK7eZD7jLa093IdNyizdlTeZzK/gm63CmvFSoFA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyroTKgvSllR4qwOVP82bak2xSYimiiIdITjxoYBLaIiIyBzWzM
+ rvZiyK2O9Rp6p0qCuEdffkeAm1RQxm5UFdE7dJnxGjW4Eb3cF1J/A0zeeH+XuyRUoMs=
+X-Gm-Gg: AY/fxX4B5kVCfVXfepNGFPMf0RI22lR6jXkVWSkJqr3tTY+mkGbFKZPfbMK3CQSdf8q
+ Kx6a9OrgyFfTiKYxKuvvi0vwf/yiKOc63weeQG74uSOPYq+nOMyI8eqCwq4lPtXwM7vtSL31J9x
+ 1yGVPan0RpwlANIlJsMZvWRIGY8d1yQlPgcOOVuNp9ehTpWJ3FsnA8TwT29VS3ObGf4I+9U5+SV
+ 7nB475uxtfR2yZZJ+4eA5mAsPlHYiW5nym+QO7Zilf6TJvcFXBOaqfRKn/Foc5wc0n65AY9+S75
+ q5CCWY3IAjIrhRS0pcd5cQA8c1K1hrMEXbEN+EFzPY9HYCoe1tr8pxiUYZ26JXERzdAI9tH0dNd
+ bq01MOWylmrACDFEx/G7z03b2pJjpsbN8OOTpG/pDfZL7HS5Hw2VYDgwWUlh6uYeNDiW7VX0F9U
+ 6tpUsni75zLLhK3ZypIeJyOQNllqA97UrUNW2FtvaoDaS3zTtBqeK3uMqysfktvwndciNhXx5Pz
+ Muw1axDlv22HeZONUBELbtZ7LE8ulGyGIjbS3kg3kPL1s+B0mUC9sK0bOLzPt2O3+hb4DJ9CeV/
+ FWERNMM=
+X-Google-Smtp-Source: AGHT+IE4Mz004OZ0As7rWOFq5sPjHYJ4N8Pzam8+bOUXJdXGQOskOlJaecSDta7VRdPfx5XGGjwohQ==
+X-Received: by 2002:a05:6000:1844:b0:432:8504:b8a9 with SMTP id
+ ffacd0b85a97d-4328504b8e1mr37753933f8f.62.1767617537725; 
+ Mon, 05 Jan 2026 04:52:17 -0800 (PST)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-382eb8a9c39sm12016941fa.23.2026.01.07.08.18.42
+ ffacd0b85a97d-4324ea1b36fsm100029761f8f.5.2026.01.05.04.52.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Jan 2026 08:18:42 -0800 (PST)
-Date: Wed, 7 Jan 2026 18:18:41 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Message-ID: <lsvn2xjz6zxefs772tg26jg2cvfohbjcetrlxfn7mtq6ag5aig@ep6ofq4mrfrh>
-References: <20260107-kaanapali-mmcc-v3-v3-0-8e10adc236a8@oss.qualcomm.com>
- <20260107-kaanapali-mmcc-v3-v3-11-8e10adc236a8@oss.qualcomm.com>
+ Mon, 05 Jan 2026 04:52:17 -0800 (PST)
+Date: Mon, 5 Jan 2026 12:52:14 +0000
+From: Daniel Thompson <daniel@riscstar.com>
+To: Marcos Paulo de Souza <mpdesouza@suse.com>
+Message-ID: <aVuz_hpbrk8oSCVC@aspen.lan>
+References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260107-kaanapali-mmcc-v3-v3-11-8e10adc236a8@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA3MDEyNyBTYWx0ZWRfX9UrBKkADO7j2
- FpMp4kyUPLWhFf46cFt1BIXbNseAldIOW0RCD0an5bWmMUyEwZ5c46E4jZonZkWJlI64k77bzuj
- vi+ctRvAHCZTUSO3j5iQsIctfwCtgYdoh62V0BMGYHFDO8GPbBvxQrIy56pbIWcVglHwIT2wBai
- RXumKROaK1H7wDoB53ItAmq4ZAssDwYNCNc4o+DMlgBb44c9keNU4B0rAP36f1VaRyWyuQ8LnG5
- ugZLDC5rQTm3XR8zERJhn5ThNSgkT/N/gj42Yi83mUAqjPSYLZEuDmCbaXjBhNnPsEO0NIEnr1R
- lAePZvfYgtUYokMuF7MdFYZnO0ODh5D+ikqX4mw5zqc80u7DGR4j779RwIEeQlnoku5h0De1BRm
- NgNYjeZ821ZEoAGBcj6BBXVURIxht4xsjkGSSOTTqnqgs2J8EhlOp+nm+6ZGzEfPnZJ/LFVn0Xy
- lKvpjRsabroV8UjcngQ==
-X-Proofpoint-GUID: km4SC7erXaAo8Vq7UouZs7BDa2m9HzSf
-X-Authority-Analysis: v=2.4 cv=eIkeTXp1 c=1 sm=1 tr=0 ts=695e8766 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=EUspDBNiAAAA:8 a=-momvpiiut8LGs_r7JQA:9 a=CjuIK1q_8ugA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: km4SC7erXaAo8Vq7UouZs7BDa2m9HzSf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-07_02,2026-01-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601070127
-Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+In-Reply-To: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
+X-Mailman-Approved-At: Wed, 07 Jan 2026 17:09:38 +0000
+Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
+ kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ Breno Leitao <leitao@debian.org>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Richard Weinberger <richard@nod.at>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Petr Mladek <pmladek@suse.com>, Jacky Huang <ychuang3@nuvoton.com>,
+ John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
+ Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
+ Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jagadeesh Kona <quic_jkona@quicinc.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Subject: Re: [Linux-stm32] [PATCH v3 11/11] clk: qcom: Add support for GPUCC
- and GXCLK for Kaanapali
+ Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/19] printk cleanup - part 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,28 +118,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 07, 2026 at 03:13:14PM +0530, Taniya Das wrote:
-> Support the graphics clock controller for Kaanapali for Graphics SW
-> driver to use the clocks. GXCLKCTL (Graphics GX Clock Controller) is a
-> block dedicated to managing clocks for the GPU subsystem on GX power
-> domain. The GX clock controller driver manages only the GX GDSC and the
-> rest of the resources of the controller are managed by the firmware.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/Kconfig              |   9 +
->  drivers/clk/qcom/Makefile             |   1 +
->  drivers/clk/qcom/gpucc-kaanapali.c    | 482 ++++++++++++++++++++++++++++++++++
->  drivers/clk/qcom/gxclkctl-kaanapali.c |  76 ++++++
->  4 files changed, 568 insertions(+)
-> 
+Hi Marcos
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Sat, Dec 27, 2025 at 09:16:07AM -0300, Marcos Paulo de Souza wrote:
+> The parts 1 and 2 can be found here [1] and here[2].
+>
+> The changes proposed in this part 3 are mostly to clarify the usage of
+> the interfaces for NBCON, and use the printk helpers more broadly.
+> Besides it, it also introduces a new way to register consoles
+> and drop thes the CON_ENABLED flag. It seems too much, but in reality
+> the changes are not complex, and as the title says, it's basically a
+> cleanup without changing the functional changes.
+
+I ran this patchset through the kgdb test suite and I'm afraid it is
+reporting functional changes.
+
+Specifically the earlycon support for kdb has regressed (FWIW the
+problem bisects down to the final patch in the series where CON_ENABLED
+is removed).
+
+Reproduction on x86-64 KVM outside of the test suite should be easy:
+
+    make defconfig
+    scripts/config \
+        --enable DEBUG_INFO \
+	--enable DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT \
+	--enable DEBUG_FS \
+	--enable KALLSYMS_ALL \
+	--enable MAGIC_SYSRQ \
+	--enable KGDB \
+	--enable KGDB_TESTS \
+	--enable KGDB_KDB \
+	--enable KDB_KEYBOARD \
+	--enable LKDTM \
+	--enable SECURITY_LOCKDOWN_LSM
+    make olddefconfig
+    make -j$(nproc)
+    qemu-system-x86_64 \
+        -m 1G -smp 2 -nographic \
+	-kernel arch/x86/boot/bzImage \
+	-append "console=ttyS0,115200 kgdboc=ttyS0 earlycon=uart8250,io,0x3f8 kgdboc_earlycon kgdbwait"
+
+In a successful test the kdb prompt will appear after only a few lines
+of output:
+~~~
+[    0.000000] Linux version 6.19.0-rc4-00020-g4b7f3b144021 (drt@wychelm) (gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #2 SMP PREEMPT_DYNAMIC Mon Jan 6
+[    0.000000] Command line: console=ttyS0,115200 kgdboc=ttyS0 earlycon=uart8250,io,0x3f8 kgdboc_earlycon kgdbwait
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000003ffdffff] usable
+[    0.000000] BIOS-e820: [mem 0x000000003ffe0000-0x000000003fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
+[    0.000000] earlycon: uart8250 at I/O port 0x3f8 (options '')
+[    0.000000] printk: legacy bootconsole [uart8250] enabled
+[    0.000000] kgdboc: Going to register kgdb with earlycon 'uart'
+[    0.000000] KGDB: Registered I/O driver kgdboc_earlycon
+[    0.000000] KGDB: Waiting for connection from remote gdb...
+
+Entering kdb (current=0x0000000000000000, pid 0) on processor 0 due to NonMaskable Interrupt @ 0xffffffff9101491f
+[0]kdb>
+~~~
+
+After this patchset is applied the earlycon triggers do not work
+correctly and we get:
+~~~
+[    0.000000] Linux version 6.19.0-rc4-00019-g882df99205ba (drt@wychelm) (gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #3 SMP PREEMPT_DYNAMIC Mon Jan 6
+[    0.000000] Command line: console=ttyS0,115200 kgdboc=ttyS0 earlycon=uart8250,io,0x3f8 kgdboc_earlycon kgdbwait
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000003ffdffff] usable
+[    0.000000] BIOS-e820: [mem 0x000000003ffe0000-0x000000003fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
+[    0.000000] earlycon: uart8250 at I/O port 0x3f8 (options '')
+[    0.000000] kgdboc: No suitable earlycon yet, will try later
+...
+~~~
 
 
--- 
-With best wishes
-Dmitry
+Daniel.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
