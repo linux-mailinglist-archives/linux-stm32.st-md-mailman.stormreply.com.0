@@ -2,39 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE49CF7C42
-	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 11:23:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19513CF80BE
+	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 12:30:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B653C8F277;
-	Tue,  6 Jan 2026 10:23:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8A22C8F277;
+	Tue,  6 Jan 2026 11:30:43 +0000 (UTC)
+Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch
+ [79.135.106.117])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B609FC60463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18BCDC60463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jan 2026 10:23:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A3B8560148;
- Tue,  6 Jan 2026 10:23:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB1BC116C6;
- Tue,  6 Jan 2026 10:22:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767694980;
- bh=coo59hx6eOu0vGs3Mvf5pYDqS+tTCWWQ6cQTmjAtPpY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Mcz3AnU23rCd7g3gAAoHuH2oXu847Aljn2Lu4uQGu+fOUwY98XYRy56C4NQ2xr/6H
- n3fDnSqJiEiZTRkdxhwqdYAz7+f70bW/89W3L6qv6lHSXbZ/jSXNbb8zzzdGDhX8mg
- d+hwEDGyB4Psr9wOQEs3oB0le+O72YKBXNM75qXJrXXaTnZRkgoC7dlmZTSNFuJTo4
- FR7DSFp7QCbJSZEF2w83sGjnfzva4fij8UUB/Ds/Tx8PsEwbCl02XICAcwFwHB6tAa
- 9h2RV1+kXH6cDZtyAy07bcKSF6827rsrcl0Bp1RybJHH+TBtyItACp4/+Cd7uYIkXE
- tOzIc1SD/c60w==
-Date: Tue, 6 Jan 2026 11:22:57 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <kemjjoyrhqglqq4p2j6kygspevq2mdbiujtnksw4rkdapoqcfy@zte2c7fhqvn3>
+ Tue,  6 Jan 2026 11:30:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail2; t=1767699039; x=1767958239;
+ bh=mpZ9a6BXZLK2t8VLw/I32vovbpQXSb2aQUMDb54O4es=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=mizbAzOsLh3qycHcIAVYKJQ+eFrxAa5/EfrTxq2h4TvFlUp/ck2DJTtSh2jyedtyw
+ yiusH5ZdqIV3dYLmdc6cxVeixwBM/XaaBCuQDukVVfs4BhJe5sy2seNLHdLR9nf27q
+ yKrmMQn/Nni3gDKD7oqyRu8LRNsJDPa5rvLyXTnTnjn4sOhlQiYxhykXPi1JSIL14r
+ +bbvi+DifomcYj4aIIfg23ECZKtNfcgQBFu8LKWZX3288fYl+3J27ES1Wj3D1gKfxj
+ oXmGa9gponyar1Y9QpPU58qCLEIJlaUGEMXD78WJVPOxEuRYrgPiKQZpI5sb7Da3Fu
+ +ugk9btn6901A==
+Date: Tue, 06 Jan 2026 11:30:34 +0000
+To: =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+From: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <2e2iahbzcepbzwgk7xeta2afxmycfjgv2zofzngqjvp4on46r2@mzpi4bz4uqie>
+In-Reply-To: <kemjjoyrhqglqq4p2j6kygspevq2mdbiujtnksw4rkdapoqcfy@zte2c7fhqvn3>
 References: <20260106-stm32-pwm-v1-1-33e9e8a9fc33@geanix.com>
+ <kemjjoyrhqglqq4p2j6kygspevq2mdbiujtnksw4rkdapoqcfy@zte2c7fhqvn3>
+Feedback-ID: 134068486:user:proton
+X-Pm-Message-ID: 2e006c92e9af34182a73b56e93f3230599eee605
 MIME-Version: 1.0
-In-Reply-To: <20260106-stm32-pwm-v1-1-33e9e8a9fc33@geanix.com>
 Cc: linux-pwm@vger.kernel.org, stable@vger.kernel.org,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -51,152 +52,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8649467173155811756=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8649467173155811756==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="adci6bclvlmizahh"
-Content-Disposition: inline
-
-
---adci6bclvlmizahh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: stm32: handle polarity change when PWM is enabled
-MIME-Version: 1.0
-
-Hello Sean,
-
-On Tue, Jan 06, 2026 at 08:01:57AM +0100, Sean Nyekjaer wrote:
-> After commit 7346e7a058a2 ("pwm: stm32: Always do lazy disabling"),
-> polarity changes are ignored. Updates to the TIMx_CCER CCxP bits are
-> ignored by the hardware when the master output is enabled via the
-> TIMx_BDTR MOE bit.
->=20
-> Handle polarity changes by temporarily disabling the PWM when required,
-> in line with apply() implementations used by other PWM drivers.
->=20
-> Fixes: 7346e7a058a2 ("pwm: stm32: Always do lazy disabling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-> ---
-> This patch is only applicable for stable tree's <=3D 6.12
-> How to explicitly state that and what is the procedure?
-
-I haven't checked in detail yet but I wonder if the problem also exists
-in newer kernels. Also I think that changing the polarity with the
-hardware on happend before 7346e7a058a2; in that case you blamed the
-wrong commit.
-
-So even if we decide to apply a small targetted fix for the issue you
-report to stable without an equivalent commit in mainline (due to the
-rework the driver saw in v6.13-rc1~157^2~9^2~3 ("pwm: stm32:
-Implementation of the waveform callbacks")), I refuse to do that if the
-problem still exists in mainline.
-
-> ---
->  drivers/pwm/pwm-stm32.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-> index eb24054f9729734da21eb96f2e37af03339e3440..d5f79e87a0653e1710d46e6bf=
-9268a59638943fe 100644
-> --- a/drivers/pwm/pwm-stm32.c
-> +++ b/drivers/pwm/pwm-stm32.c
-> @@ -452,15 +452,23 @@ static int stm32_pwm_apply(struct pwm_chip *chip, s=
-truct pwm_device *pwm,
-> =20
->  	enabled =3D pwm->state.enabled;
-> =20
-> +	if (state->polarity !=3D pwm->state.polarity) {
-> +		if (enabled) {
-> +			stm32_pwm_disable(priv, pwm->hwpwm);
-> +			enabled =3D false;
-> +		}
-> +
-> +		ret =3D stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	if (!state->enabled) {
->  		if (enabled)
->  			stm32_pwm_disable(priv, pwm->hwpwm);
->  		return 0;
->  	}
-> =20
-> -	if (state->polarity !=3D pwm->state.polarity)
-> -		stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
-> -
->  	ret =3D stm32_pwm_config(priv, pwm->hwpwm,
->  			       state->duty_cycle, state->period);
->  	if (ret)
-
-I would prefer the following change:
-
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index eb24054f9729..5f118c20f1ca 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -452,12 +452,16 @@ static int stm32_pwm_apply(struct pwm_chip *chip, str=
-uct pwm_device *pwm,
-=20
- 	enabled =3D pwm->state.enabled;
-=20
--	if (!state->enabled) {
-+	/* The hardware must be disabled to honor polarity changes. */
-+	if (!state->enabled || state->polarity !=3D pwm->state.polarity) {
- 		if (enabled)
- 			stm32_pwm_disable(priv, pwm->hwpwm);
--		return 0;
-+		enabled =3D false;
- 	}
-=20
-+	if (!state->enabled)
-+		return 0;
-+
- 	if (state->polarity !=3D pwm->state.polarity)
- 		stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
-=20
-Maybe it's just me, but I think the resulting code is simpler with this
-hunk.
-
-I have hardware using this driver, will set it up later this week for
-testing.
-
-Best regards
-Uwe
-
---adci6bclvlmizahh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmlc4n4ACgkQj4D7WH0S
-/k4PPQgAmawyHAcyv863JANknfAFeEAdQkQ06D1C/9LZyoVJJ7f5ozR8gwqQ+WDj
-MyfVx+Te/oM2rj8Hz94OPihbcEo2aM0VVmWPgcthdcHGBGGPf907/Emts0L9TZi9
-vWQIGys5Mc8DSJWB71krKZSngEEIup8AVQqoUxQIkLRTai7wPr5dH4P/BSe/eXRi
-OgD+EV4ToZQUQl2VnaHakcqKTiDsE5C1KFFCnKwKhHT0YfdYb89BbjT6U9uKL/kc
-BezmtEMe3rKH33czeKLwnKX0WXXCxY7zbHNgsA/Ukr5ZvrrUmlp/3Z+2n9xnnIGe
-qEl/4av0tDgRaS2c+bcGCpfoYo8BJA==
-=dPiB
------END PGP SIGNATURE-----
-
---adci6bclvlmizahh--
-
---===============8649467173155811756==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8649467173155811756==--
+SGkgVXdlLAoKT24gVHVlLCBKYW4gMDYsIDIwMjYgYXQgMTE6MjI6NTdBTSArMDEwMCwgVXdlIEts
+ZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gSGVsbG8gU2VhbiwKPiAKPiBPbiBUdWUsIEphbiAwNiwgMjAy
+NiBhdCAwODowMTo1N0FNICswMTAwLCBTZWFuIE55ZWtqYWVyIHdyb3RlOgo+ID4gQWZ0ZXIgY29t
+bWl0IDczNDZlN2EwNThhMiAoInB3bTogc3RtMzI6IEFsd2F5cyBkbyBsYXp5IGRpc2FibGluZyIp
+LAo+ID4gcG9sYXJpdHkgY2hhbmdlcyBhcmUgaWdub3JlZC4gVXBkYXRlcyB0byB0aGUgVElNeF9D
+Q0VSIENDeFAgYml0cyBhcmUKPiA+IGlnbm9yZWQgYnkgdGhlIGhhcmR3YXJlIHdoZW4gdGhlIG1h
+c3RlciBvdXRwdXQgaXMgZW5hYmxlZCB2aWEgdGhlCj4gPiBUSU14X0JEVFIgTU9FIGJpdC4KPiA+
+IAo+ID4gSGFuZGxlIHBvbGFyaXR5IGNoYW5nZXMgYnkgdGVtcG9yYXJpbHkgZGlzYWJsaW5nIHRo
+ZSBQV00gd2hlbiByZXF1aXJlZCwKPiA+IGluIGxpbmUgd2l0aCBhcHBseSgpIGltcGxlbWVudGF0
+aW9ucyB1c2VkIGJ5IG90aGVyIFBXTSBkcml2ZXJzLgo+ID4gCj4gPiBGaXhlczogNzM0NmU3YTA1
+OGEyICgicHdtOiBzdG0zMjogQWx3YXlzIGRvIGxhenkgZGlzYWJsaW5nIikKPiA+IENjOiBzdGFi
+bGVAdmdlci5rZXJuZWwub3JnCj4gPiBTaWduZWQtb2ZmLWJ5OiBTZWFuIE55ZWtqYWVyIDxzZWFu
+QGdlYW5peC5jb20+Cj4gPiAtLS0KPiA+IFRoaXMgcGF0Y2ggaXMgb25seSBhcHBsaWNhYmxlIGZv
+ciBzdGFibGUgdHJlZSdzIDw9IDYuMTIKPiA+IEhvdyB0byBleHBsaWNpdGx5IHN0YXRlIHRoYXQg
+YW5kIHdoYXQgaXMgdGhlIHByb2NlZHVyZT8KPiAKPiBJIGhhdmVuJ3QgY2hlY2tlZCBpbiBkZXRh
+aWwgeWV0IGJ1dCBJIHdvbmRlciBpZiB0aGUgcHJvYmxlbSBhbHNvIGV4aXN0cwo+IGluIG5ld2Vy
+IGtlcm5lbHMuIEFsc28gSSB0aGluayB0aGF0IGNoYW5naW5nIHRoZSBwb2xhcml0eSB3aXRoIHRo
+ZQo+IGhhcmR3YXJlIG9uIGhhcHBlbmQgYmVmb3JlIDczNDZlN2EwNThhMjsgaW4gdGhhdCBjYXNl
+IHlvdSBibGFtZWQgdGhlCj4gd3JvbmcgY29tbWl0LgoKRm9yIHlvdXIgcmVmZXJlbmNlIGkgYmlz
+ZWN0ZWQgdG8gdGhhdCBjb21taXQuCgo+IAo+IFNvIGV2ZW4gaWYgd2UgZGVjaWRlIHRvIGFwcGx5
+IGEgc21hbGwgdGFyZ2V0dGVkIGZpeCBmb3IgdGhlIGlzc3VlIHlvdQo+IHJlcG9ydCB0byBzdGFi
+bGUgd2l0aG91dCBhbiBlcXVpdmFsZW50IGNvbW1pdCBpbiBtYWlubGluZSAoZHVlIHRvIHRoZQo+
+IHJld29yayB0aGUgZHJpdmVyIHNhdyBpbiB2Ni4xMy1yYzF+MTU3XjJ+OV4yfjMgKCJwd206IHN0
+bTMyOgo+IEltcGxlbWVudGF0aW9uIG9mIHRoZSB3YXZlZm9ybSBjYWxsYmFja3MiKSksIEkgcmVm
+dXNlIHRvIGRvIHRoYXQgaWYgdGhlCj4gcHJvYmxlbSBzdGlsbCBleGlzdHMgaW4gbWFpbmxpbmUu
+Cj4gCgpJIGhhdmUgdHJpZWQgdG8gYm9vdCBzdGFibGUvbWFzdGVyIDYuMTkuMC1yYzQsIG15IGJh
+Y2tsaWdodCBpcyBvbiEKSW4gc3RtMzJfcHdtX3dyaXRlX3dhdmVmb3JtKCkgVElNeF9DQ0VSIGlz
+IHNldCBiZWZvcmUgTU9FIGlzIHNldC4KCj4gPiAtLS0KPiA+ICBkcml2ZXJzL3B3bS9wd20tc3Rt
+MzIuYyB8IDE0ICsrKysrKysrKysrLS0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlv
+bnMoKyksIDMgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3B3bS9w
+d20tc3RtMzIuYyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4gPiBpbmRleCBlYjI0MDU0Zjk3
+Mjk3MzRkYTIxZWI5NmYyZTM3YWYwMzMzOWUzNDQwLi5kNWY3OWU4N2EwNjUzZTE3MTBkNDZlNmJm
+OTI2OGE1OTYzODk0M2ZlIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLmMK
+PiA+ICsrKyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4gPiBAQCAtNDUyLDE1ICs0NTIsMjMg
+QEAgc3RhdGljIGludCBzdG0zMl9wd21fYXBwbHkoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1
+Y3QgcHdtX2RldmljZSAqcHdtLAo+ID4gIAo+ID4gIAllbmFibGVkID0gcHdtLT5zdGF0ZS5lbmFi
+bGVkOwo+ID4gIAo+ID4gKwlpZiAoc3RhdGUtPnBvbGFyaXR5ICE9IHB3bS0+c3RhdGUucG9sYXJp
+dHkpIHsKPiA+ICsJCWlmIChlbmFibGVkKSB7Cj4gPiArCQkJc3RtMzJfcHdtX2Rpc2FibGUocHJp
+diwgcHdtLT5od3B3bSk7Cj4gPiArCQkJZW5hYmxlZCA9IGZhbHNlOwo+ID4gKwkJfQo+ID4gKwo+
+ID4gKwkJcmV0ID0gc3RtMzJfcHdtX3NldF9wb2xhcml0eShwcml2LCBwd20tPmh3cHdtLCBzdGF0
+ZS0+cG9sYXJpdHkpOwo+ID4gKwkJaWYgKHJldCkKPiA+ICsJCQlyZXR1cm4gcmV0Owo+ID4gKwl9
+Cj4gPiArCj4gPiAgCWlmICghc3RhdGUtPmVuYWJsZWQpIHsKPiA+ICAJCWlmIChlbmFibGVkKQo+
+ID4gIAkJCXN0bTMyX3B3bV9kaXNhYmxlKHByaXYsIHB3bS0+aHdwd20pOwo+ID4gIAkJcmV0dXJu
+IDA7Cj4gPiAgCX0KPiA+ICAKPiA+IC0JaWYgKHN0YXRlLT5wb2xhcml0eSAhPSBwd20tPnN0YXRl
+LnBvbGFyaXR5KQo+ID4gLQkJc3RtMzJfcHdtX3NldF9wb2xhcml0eShwcml2LCBwd20tPmh3cHdt
+LCBzdGF0ZS0+cG9sYXJpdHkpOwo+ID4gLQo+ID4gIAlyZXQgPSBzdG0zMl9wd21fY29uZmlnKHBy
+aXYsIHB3bS0+aHdwd20sCj4gPiAgCQkJICAgICAgIHN0YXRlLT5kdXR5X2N5Y2xlLCBzdGF0ZS0+
+cGVyaW9kKTsKPiA+ICAJaWYgKHJldCkKPiAKPiBJIHdvdWxkIHByZWZlciB0aGUgZm9sbG93aW5n
+IGNoYW5nZToKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgYi9kcml2
+ZXJzL3B3bS9wd20tc3RtMzIuYwo+IGluZGV4IGViMjQwNTRmOTcyOS4uNWYxMThjMjBmMWNhIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4gKysrIGIvZHJpdmVycy9wd20v
+cHdtLXN0bTMyLmMKPiBAQCAtNDUyLDEyICs0NTIsMTYgQEAgc3RhdGljIGludCBzdG0zMl9wd21f
+YXBwbHkoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLAo+ICAK
+PiAgCWVuYWJsZWQgPSBwd20tPnN0YXRlLmVuYWJsZWQ7Cj4gIAo+IC0JaWYgKCFzdGF0ZS0+ZW5h
+YmxlZCkgewo+ICsJLyogVGhlIGhhcmR3YXJlIG11c3QgYmUgZGlzYWJsZWQgdG8gaG9ub3IgcG9s
+YXJpdHkgY2hhbmdlcy4gKi8KPiArCWlmICghc3RhdGUtPmVuYWJsZWQgfHwgc3RhdGUtPnBvbGFy
+aXR5ICE9IHB3bS0+c3RhdGUucG9sYXJpdHkpIHsKPiAgCQlpZiAoZW5hYmxlZCkKPiAgCQkJc3Rt
+MzJfcHdtX2Rpc2FibGUocHJpdiwgcHdtLT5od3B3bSk7Cj4gLQkJcmV0dXJuIDA7Cj4gKwkJZW5h
+YmxlZCA9IGZhbHNlOwo+ICAJfQo+ICAKPiArCWlmICghc3RhdGUtPmVuYWJsZWQpCj4gKwkJcmV0
+dXJuIDA7Cj4gKwo+ICAJaWYgKHN0YXRlLT5wb2xhcml0eSAhPSBwd20tPnN0YXRlLnBvbGFyaXR5
+KQo+ICAJCXN0bTMyX3B3bV9zZXRfcG9sYXJpdHkocHJpdiwgcHdtLT5od3B3bSwgc3RhdGUtPnBv
+bGFyaXR5KTsKPiAgCj4gTWF5YmUgaXQncyBqdXN0IG1lLCBidXQgSSB0aGluayB0aGUgcmVzdWx0
+aW5nIGNvZGUgaXMgc2ltcGxlciB3aXRoIHRoaXMKPiBodW5rLgoKRmluZSB3aXRoIG1lLCBJIGp1
+c3QgbG9va2VkIGF0IHRoZSBvdGhlciBQV00gZHJpdmVycyBhbmQgY29weS9wYXN0ZWQKZnJvbSB0
+aGVtIDopCgo+IAo+IEkgaGF2ZSBoYXJkd2FyZSB1c2luZyB0aGlzIGRyaXZlciwgd2lsbCBzZXQg
+aXQgdXAgbGF0ZXIgdGhpcyB3ZWVrIGZvcgo+IHRlc3RpbmcuCgpWZXJ5IGNvb2wsIGxvb2tpbmcg
+Zm9yd2FyZCB0byBoZWFyIGlmIHlvdSBjYW4gcmUtcHJvZHVjZS4KCj4gCj4gQmVzdCByZWdhcmRz
+Cj4gVXdlCgovU2VhbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
