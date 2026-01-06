@@ -2,45 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0776CF987D
-	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 18:05:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF308CF9DD0
+	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 18:52:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FD8FC8F277;
-	Tue,  6 Jan 2026 17:05:28 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5E13C8F279;
+	Tue,  6 Jan 2026 17:52:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F440C8F26B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9171C8F277
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jan 2026 17:05:26 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.18.224.83])
- by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4dlyGW6FwSzJ46YJ;
- Wed,  7 Jan 2026 01:05:23 +0800 (CST)
-Received: from dubpeml100005.china.huawei.com (unknown [7.214.146.113])
- by mail.maildlp.com (Postfix) with ESMTPS id B96AC40086;
- Wed,  7 Jan 2026 01:05:25 +0800 (CST)
-Received: from localhost (10.195.245.156) by dubpeml100005.china.huawei.com
- (7.214.146.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 6 Jan
- 2026 17:05:25 +0000
-Date: Tue, 6 Jan 2026 17:05:21 +0000
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20260106170521.00001668@huawei.com>
-In-Reply-To: <20260106-spi_st_maybe_unused_removal-v1-1-8f5ca7136e96@foss.st.com>
-References: <20260106-spi_st_maybe_unused_removal-v1-0-8f5ca7136e96@foss.st.com>
- <20260106-spi_st_maybe_unused_removal-v1-1-8f5ca7136e96@foss.st.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+ Tue,  6 Jan 2026 17:52:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 01AD660144;
+ Tue,  6 Jan 2026 17:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4AC9C16AAE;
+ Tue,  6 Jan 2026 17:52:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767721975;
+ bh=TYr/HLKbtkL4zdI4yZFxob2Bqal5LW2iewldEZo+O3k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ACj6FdzmPV5d3pS2XzGgLCdA8tk56faq5zPfmA2AGWNss0ICYax5cRRKBa1oDl3lk
+ AMO4r/eoRBePrITT5ilyQihSuRgL/et0sL4bHliiNu6HcnnBvKOQoWrtDPtbv/wckN
+ M5hIh7TYyT4EjctKYd05ORPYSzp1ViDVuwno9LRb1V9O5h9Ym+BRmwzTARfRar3lR7
+ Ebq1BWBk7/zIbJjSvzGvO0D2XrIOehGoO8MItSV04VqtG9enuwuMQecTe5alC3CJDE
+ yINEq/9IzAV+wlz/lHLPYT9cl/mzMsH2vnbzdEiqtqHTYHK0QHW/exhsgRVlf6j8kx
+ Dzy12JBLaSctA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Tue,  6 Jan 2026 11:52:50 -0600
+Message-ID: <176772196925.3106040.16051762780281428458.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260105143657.383621-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260105143657.383621-4-krzysztof.kozlowski@oss.qualcomm.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.195.245.156]
-X-ClientProxiedBy: lhrpeml500011.china.huawei.com (7.191.174.215) To
- dubpeml100005.china.huawei.com (7.214.146.113)
-Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] drivers: spi: st: remove
- __maybe_unused for suspend/resume
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [Linux-stm32] (subset) [PATCH v2 1/3] bus: qcom-ebi2: Simplify
+	with scoped for each OF child loop
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,53 +62,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 6 Jan 2026 13:14:17 +0100
-Alain Volmat <alain.volmat@foss.st.com> wrote:
 
-> Remove useless __maybe_unused statements for suspend and resume
-> functions since this is now used via pm_ptr.
-Patch is fine, but reasoning not quite right. pm_ptr() allows
-the dropping of the structure without needing a __maybe_unused
-on that, but these are passed to the SYSTEM_SLEEP_PM_OPS()
-macro and that is using pm_sleep_ptr().
-
-So tiny description change needed to reflect that. Probably
-mention the pm_sleep_ptr() is as part of the macro as that
-bit is not totally obvious.
-
-Jonathan
-
-
+On Mon, 05 Jan 2026 15:36:58 +0100, Krzysztof Kozlowski wrote:
+> Use scoped for-each loop when iterating over device nodes to make code a
+> bit simpler.
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->  drivers/spi/spi-st-ssc4.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-st-ssc4.c b/drivers/spi/spi-st-ssc4.c
-> index c07c61dc4938..b173ef70d77e 100644
-> --- a/drivers/spi/spi-st-ssc4.c
-> +++ b/drivers/spi/spi-st-ssc4.c
-> @@ -403,7 +403,7 @@ static int spi_st_runtime_resume(struct device *dev)
->  	return ret;
->  }
->  
-> -static int __maybe_unused spi_st_suspend(struct device *dev)
-> +static int spi_st_suspend(struct device *dev)
->  {
->  	struct spi_controller *host = dev_get_drvdata(dev);
->  	int ret;
-> @@ -415,7 +415,7 @@ static int __maybe_unused spi_st_suspend(struct device *dev)
->  	return pm_runtime_force_suspend(dev);
->  }
->  
-> -static int __maybe_unused spi_st_resume(struct device *dev)
-> +static int spi_st_resume(struct device *dev)
->  {
->  	struct spi_controller *host = dev_get_drvdata(dev);
->  	int ret;
 > 
 
+Applied, thanks!
+
+[1/3] bus: qcom-ebi2: Simplify with scoped for each OF child loop
+      commit: 9c252f3c8f390fae4ca09de36c9262a35ae88ace
+
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
