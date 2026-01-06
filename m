@@ -2,70 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 097D9CF6B9A
-	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 06:05:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10210CF6F30
+	for <lists+linux-stm32@lfdr.de>; Tue, 06 Jan 2026 08:02:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A613BC8F26A;
-	Tue,  6 Jan 2026 05:05:33 +0000 (UTC)
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4088C5A4CA;
+	Tue,  6 Jan 2026 07:02:41 +0000 (UTC)
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
+ [79.135.106.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D039EC5A4CA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ECDDC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jan 2026 05:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=fFZdK8UUvenzvPm6N9koDU/fxnR0ekW5TI24xZDY6kc=; 
- b=YCBTmcleUU2N0rXwpVT4Xw527tlZr0N7PHGhoRYbFxi0V1yz0MspEiuaUgluwOHJi7UgUWJeaCo
- aI+V2pDwpQLlu76KzkCMgTJfa8l73o4xERcZiC67fI6SQ38NHKqBernGbeIoTm6iaacIGzGhOr5GY
- a7chkrDVBcwvZvi4K0hkD8kW9kADwG6VB2ySGSO7s2ZMuzQq0jjPbzgahByLEVKD7zpOn7S8o+0U3
- CubE9wpUlCoN7q0wO2G+XJMN/qiJZ8rSECQv2HK4BVh6Uiw6J4b5giymeUTqeEWc7scenPFiItIlz
- iOppOn/L0OnchT/HUMcryCLJmTDYf6itFTjw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
- id 1vczEy-00EaCi-33; Tue, 06 Jan 2026 13:04:22 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Tue, 06 Jan 2026 13:04:20 +0800
-Date: Tue, 6 Jan 2026 13:04:20 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-Message-ID: <aVyX1GXxdJXv438W@gondor.apana.org.au>
-References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
- <CAHUa44FrDZbvRvfN8obf80_k=Eqxe9YxHpjaE5jU7nkxPUwfag@mail.gmail.com>
- <20251218135332f323fa91@mail.local>
- <CAHUa44GpW5aO26GDyL9RZub9vVYvVcJ7etwO0yXBN_mUi0W4AA@mail.gmail.com>
- <CAHUa44HqRbCJTXsrTCm0G5iwtkQtq+Si=yOspCjpAn-N2uVSVg@mail.gmail.com>
+ Tue,  6 Jan 2026 07:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail2; t=1767682957; x=1767942157;
+ bh=Ff33WQ4GQXy7iOXr07oKwZiyvNoomCN0lMUIfbK3JYQ=;
+ h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=KY24gprEBSRLNs4XwnP8ztibL8SJvCsGaIRZl5Luww9RJVgq2f1n7OooViBUZ4eoD
+ 3F6SaU6rkt2Z8FKkDtCYGMXd54dsXinZA1/si92Lu22j0PqlHo6y936qjXCIRIiS7P
+ p2vYjFs4YRnMcmlR436AYZv+GH3MqaCL0KEjWv6rBnB2fQaUZRm1+wX9tc5RIIhve7
+ KsVZPYm2uGvLXnlYv/h78+W4ciQEraJ0pZaBmWJgIG5616aNBv3B0J7tLa0Yf80/qY
+ wlkpmcClHRROnnmb+0JHb6WYCyrOfKTpRiGvUrKAtF5zY/qcKxv5DEWfsr5Ah2eeAh
+ HIJA8EEJ5uclw==
+X-Pm-Submission-Id: 4dlhv00m80z1DFFx
+From: Sean Nyekjaer <sean@geanix.com>
+Date: Tue, 06 Jan 2026 08:01:57 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAHUa44HqRbCJTXsrTCm0G5iwtkQtq+Si=yOspCjpAn-N2uVSVg@mail.gmail.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
- Jan Kiszka <jan.kiszka@siemens.com>, Mimi Zohar <zohar@linux.ibm.com>,
- linux-mips@vger.kernel.org, David Howells <dhowells@redhat.com>,
- keyrings@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
- Ard Biesheuvel <ardb@kernel.org>, linux-rtc@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>, Paul Moore <paul@paul-moore.com>,
- Jonathan Corbet <corbet@lwn.net>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- James Morris <jmorris@namei.org>, linux-stm32@st-md-mailman.stormreply.com,
- Jason Gunthorpe <jgg@ziepe.ca>, Cristian Marussi <cristian.marussi@arm.com>,
- arm-scmi@vger.kernel.org,
- =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, op-tee@lists.trustedfirmware.org,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
- Sumit Garg <sumit.garg@kernel.org>, Olivia Mackall <olivia@selenic.com>,
- Michael Chan <michael.chan@broadcom.com>, linux-arm-kernel@lists.infradead.org,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- netdev@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-integrity@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 00/17] tee: Use bus callbacks instead
- of driver callbacks
+Message-Id: <20260106-stm32-pwm-v1-1-33e9e8a9fc33@geanix.com>
+X-B4-Tracking: v=1; b=H4sIAGSzXGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDQwNT3eKSXGMj3YLyXF1Lw+QkCxNjMwuDNBMloPqCotS0zAqwWdGxtbU
+ AIJCvw1sAAAA=
+X-Change-ID: 20260105-stm32-pwm-91cb843680f4
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.2
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Sean Nyekjaer <sean@geanix.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] pwm: stm32: handle polarity change when PWM
+	is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,20 +62,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 05, 2026 at 10:16:09AM +0100, Jens Wiklander wrote:
->
-> Herbert, you seem happy with the following patches
-> - hwrng: optee - Make use of module_tee_client_driver()
-> - hwrng: optee - Make use of tee bus methods
-> OK if I take them via my tree, or would you rather take them yourself?
+After commit 7346e7a058a2 ("pwm: stm32: Always do lazy disabling"),
+polarity changes are ignored. Updates to the TIMx_CCER CCxP bits are
+ignored by the hardware when the master output is enabled via the
+TIMx_BDTR MOE bit.
 
-Feel free to take them through your tree.
+Handle polarity changes by temporarily disabling the PWM when required,
+in line with apply() implementations used by other PWM drivers.
 
-Thanks,
+Fixes: 7346e7a058a2 ("pwm: stm32: Always do lazy disabling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+---
+This patch is only applicable for stable tree's <= 6.12
+How to explicitly state that and what is the procedure?
+---
+ drivers/pwm/pwm-stm32.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+index eb24054f9729734da21eb96f2e37af03339e3440..d5f79e87a0653e1710d46e6bf9268a59638943fe 100644
+--- a/drivers/pwm/pwm-stm32.c
++++ b/drivers/pwm/pwm-stm32.c
+@@ -452,15 +452,23 @@ static int stm32_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+ 
+ 	enabled = pwm->state.enabled;
+ 
++	if (state->polarity != pwm->state.polarity) {
++		if (enabled) {
++			stm32_pwm_disable(priv, pwm->hwpwm);
++			enabled = false;
++		}
++
++		ret = stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
++		if (ret)
++			return ret;
++	}
++
+ 	if (!state->enabled) {
+ 		if (enabled)
+ 			stm32_pwm_disable(priv, pwm->hwpwm);
+ 		return 0;
+ 	}
+ 
+-	if (state->polarity != pwm->state.polarity)
+-		stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
+-
+ 	ret = stm32_pwm_config(priv, pwm->hwpwm,
+ 			       state->duty_cycle, state->period);
+ 	if (ret)
+
+---
+base-commit: eb18504ca5cf1e6a76a752b73daf0ef51de3551b
+change-id: 20260105-stm32-pwm-91cb843680f4
+
+Best regards,
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Sean Nyekjaer <sean@geanix.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
