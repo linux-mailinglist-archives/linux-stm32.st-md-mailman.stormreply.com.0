@@ -2,102 +2,147 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41F88CFCE74
-	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 10:38:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE3BCCFCEE2
+	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 10:43:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04A14C8F281;
-	Wed,  7 Jan 2026 09:38:34 +0000 (UTC)
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FF3AC8F281;
+	Wed,  7 Jan 2026 09:43:28 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9E85C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B595CC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jan 2026 09:38:31 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-65ecd7fcf36so1002605eaf.1
+ Wed,  7 Jan 2026 09:43:26 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6079bkx83889018
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 7 Jan 2026 09:43:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=l6RdcxF0KkuoMThTWV/0U3
+ PjiCm3+6V4PEqv1V5VmIM=; b=bVBEMGcww4Vw7b/c9KYdn7pvMqA4Tcdx8irdqG
+ mzf1riG3iQ0XlX0ZlwbBzRBQM7ZrRUGp5n+13S86FKN2q4QS6sxTVHuWZUWGAO9r
+ 9lEUlf5IudA8uVWFSYsUqhbHR2Zy2C51c5PSxb4HwYmQa8jPilcy0SLsFQkVcLno
+ xkfkYz49ekF8qo+LXA8+CCBTOJYVuHSm8DyxvtLIanHO5nL8IDBT/3G3jVOfl+gl
+ B/VA5iUTeSH/9HhgkVAzuXSNGvotvF+d3QL1ExXYu/aj9g4z8NHQJs4axaeGG4Zq
+ HU/SQvdHqdIqfhVlp2FoXgU20BGKsGRcUlDK5IWxxkZH9VGA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bh6a0jt25-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Jan 2026 01:38:31 -0800 (PST)
+ Wed, 07 Jan 2026 09:43:24 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-34abd303b4aso4282639a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 07 Jan 2026 01:43:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1767778710; x=1768383510;
+ d=oss.qualcomm.com; s=google; t=1767779004; x=1768383804;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lzcLdE5lW6KjrMioL4MVcYHG8ltNGC1zHqzO2YGzVIs=;
- b=KWIwfFOy3I5COvrj1sBMpy9DbMzOuhIiZvsLD//r6rTeFvSaMaiSadKCnijq4hNaDV
- O7oXYQbzBurs/r4t3n7DWGQCpRA0pt/8JGYlO3T2cC1LfG/AN8sC89iGGhFHeKrFCWeh
- PKAa0tvnQ7TYKwvhthaCo9RHKo3F5cq058nc78pnuh19TuEBzP0qRmz2h7kWhiYodb55
- 2FDb0knXuwHDbGGfwN+X6mJzShPRnDj+hbc62jCk90tV13Jkm+xUyiFHYOFgwFYcA5eK
- /G3cixk6dVyS7W65A7tBFRyYEiNtkEVO3HNEH0zYfwREA/Zm9m1BTl+A2LSuTjVhWI6b
- mLuA==
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l6RdcxF0KkuoMThTWV/0U3PjiCm3+6V4PEqv1V5VmIM=;
+ b=iyHy9Uzicx25ai9oww+oKmt1iztuFazhoDtZEmcYebNd9BET/c7tJjTJR9nWNpjbK7
+ XLy7gWZstjoL1FJEvJNwCnw1EuETRL7sHLJhU0JvrBIByI4sWdYImBDAxrMV4FMi9QGK
+ 1eSyp0segVnTApdEB7ddv8OpniFXZ6nfQNOaH0A6kTvtwq//J1G8QvFCJ1feXwygmewa
+ I4/QCDcoD/hBkA7MxVl2ulM77KquBMShSnTcEsGRX9K8/6r48m2ywcFLvtiuCNjW+WmY
+ dofaN/hqHEp+lu54KUNRAgDqWL3CE2whmiDGGNgx3UKl4GmfP1lm4X8CLbLLV1FKMY7j
+ prHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767778710; x=1768383510;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=lzcLdE5lW6KjrMioL4MVcYHG8ltNGC1zHqzO2YGzVIs=;
- b=aFbEi6zPNNAce1xeGvNxs30bnAxaabfNsO0nALSatxBw+B1BhA1fIMaGslOXD5aXoT
- Z84+cAbTw/kTEra5m+wHfnq5+p6yZ/Blz2TPZ4zFKtBhGb81JgzAXS6kth1U30CR2lfK
- toeVUFQYurYT+R+D2D6n6KydiO3969Z8fgcTNJiUs+XXVk+XqQ0o+Si5/CgZzZED/UQf
- RMa+NGQ9zOiouFc4oFKZ7xiJ4ua9qhzTh4k2ew5ODnZfHRsZj8xwrMblAw4v3efnVH+G
- ExcnyLjbBY3wvKO2vBrv6cri5aMXwIxzAdNg0n6EvzibiFe/jMoQvRmblu59mroozRM0
- 0XAg==
+ d=1e100.net; s=20230601; t=1767779004; x=1768383804;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=l6RdcxF0KkuoMThTWV/0U3PjiCm3+6V4PEqv1V5VmIM=;
+ b=rQYfy3BlRlDWkq53hv4IOlvZdnWjflsxRbPmVJCbH58AiCKTA7lEvt/cI6YxGR5Ng0
+ ywChbbjQPNF+mW2PxZQ1sW30kKdo5FbjXu80gY4jiXscHqfoAeQ0TEDVvM89STANT3dK
+ ejhFb/wPDxSctcLWCrThySl3p0tA4I6awqDsY8XdXbpMg0TnHyofAPIrtgLmI8g3oc0W
+ KYthk6QsWI0IAyh+TEYm2cSIRW5FKaPR+Okc2SLF6eJVQCgquN4OYV8h5dbvCVMG/YRQ
+ vYZM6+VtyvamTTGGF53SKhZUGl5KVas5TB31QwARntI6uyHE21K5QLi+NdoXnSxHcUcx
+ 2MkQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUXWL2YGCuEnaiasW9BCZFDTiLHEXjZQJ5DvmTXHWpvQam/Lxume4JL5pTCtpsGq/bY2oXQCf+j9K94aA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxiONU5vrbSq1gfqCFWu0H8f1SpDSNG4uvTFSu2mqbgEr9tywLq
- gR8ch14iCA0oC+DFqkjKWu3v6s2QkxCr7GsnWqspIim7rxVmeQWy0dTPkb8NJhKSrdphF27xgWX
- L/Ik3NQQDQs/n5XGr3tRpqobnuuSWDRUhzd91d0fvaw==
-X-Gm-Gg: AY/fxX7u58DMU9wMwu7JniX7IUEdUYkLmz7XSrFUok9Z71da6miDnLyLkitEvn/UQRb
- v4t9D8FneAsg0ZTUNCgPI57LrBli9SmvacpbI7bCwsTBXkYbEpLZs6r/W5fTLDP5ba3xiw7orAu
- MtQLpoZL+ubhcMiWDFQdYxpaN7UEmsPbjVs10r8RP3Cezqt6t35c/fNFwjAeKumNTtoqk1jU2UK
- j6NfsvFsm9Nq0X9GGaVc7aF7FY2a4YWQ1o/DHa+WUMxQCjqyAfYxC4Su8hAIU4UfBuZo5dX+fLp
- odFwvG7eu7rac81uDyecr30CWQ==
-X-Google-Smtp-Source: AGHT+IHSj3fyWcR8PeI71mFrFGfZpz1gtYlT37IzGcQAYuwipaKr7ifaf9acDpnsMoegGnuUM/krqm4/4tHZyu+YBdY=
-X-Received: by 2002:a05:6820:f02e:b0:659:9a49:8ff0 with SMTP id
- 006d021491bc7-65f54ef5252mr794898eaf.29.1767778710402; Wed, 07 Jan 2026
- 01:38:30 -0800 (PST)
+ AJvYcCWLr+2ORn1t6uIWjHoRAFRiwvlJsrtrGaCRrU1P1iRk6Wh0HtRgEXgR2aivql1Gh2sVUOmcBUfXXb7MfQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxFWsdL9mULs3/FAW1gjQmSq9MjAuSNfWFAzDIrLdhuMjmk5mzN
+ ufuzfd8JZZwZ57/hGeEcw+EOJ2VhEPqpTz51k+DTwbAnTxnrRrM/vrOwKGbc4vIjk4ZvE1SCQVW
+ w8z0ouJ2nEkS70oKJ0ON+sUUebV2OvDTOmIo0bXs8Kh3mjgRDNC58/zg4b1Hvwws9ICQbcHshLT
+ 64hcvNogU=
+X-Gm-Gg: AY/fxX7+6ik0ENWJqEydAehrmWW7kI7gow3Bg7Vz0titrTeSbDM6kiGPNg9GLHKe9Dq
+ Eoyi1mPlgVqM70Y9tKnv7JjAJ/1bQt0vF5Yq5JcVtmtVxAvAurBwT3WkW4Ejc7EsdutSmsFJ6Xd
+ eiawNRtrXzz05SSE23/J0KIYEcJVC9jbcxB7iliEII6WWz/lx8DuRkt/MF+2rU+JQaI/kR5qIW6
+ YlIn/fyDLOHOk27i3yRogvs/nULQPJPpYA2np+PFgqtYBQuMfgd20k/5EhXS6xrXxX19C/6o+ID
+ il+VY1ErCn44gSxcwsA/fpdFc4lkN02gSbY1x/EptfpgyH1uvlxKkl1U4QWOgabrWhH271Vi8Nc
+ mvGcs8vcZjOOADX87I9/VF1rkraLNRaFBzA==
+X-Received: by 2002:a17:90b:4a07:b0:339:ec9c:b275 with SMTP id
+ 98e67ed59e1d1-34f68c308camr1992730a91.6.1767779003910; 
+ Wed, 07 Jan 2026 01:43:23 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE9utHaerxlmRKQBS/EdaJNmJ7bFN1nMsGjL366kf8cZMjULjE7RzNmpNRtkBxRkq0JoaMtcg==
+X-Received: by 2002:a17:90b:4a07:b0:339:ec9c:b275 with SMTP id
+ 98e67ed59e1d1-34f68c308camr1992696a91.6.1767779003444; 
+ Wed, 07 Jan 2026 01:43:23 -0800 (PST)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-819bafe9568sm4472944b3a.15.2026.01.07.01.43.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Jan 2026 01:43:23 -0800 (PST)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Date: Wed, 07 Jan 2026 15:13:03 +0530
+Message-Id: <20260107-kaanapali-mmcc-v3-v3-0-8e10adc236a8@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
- <CAHUa44FrDZbvRvfN8obf80_k=Eqxe9YxHpjaE5jU7nkxPUwfag@mail.gmail.com>
- <20251218135332f323fa91@mail.local>
- <CAHUa44GpW5aO26GDyL9RZub9vVYvVcJ7etwO0yXBN_mUi0W4AA@mail.gmail.com>
- <CAHUa44HqRbCJTXsrTCm0G5iwtkQtq+Si=yOspCjpAn-N2uVSVg@mail.gmail.com>
- <aV0Qx5BOso5co3tm@bogus>
-In-Reply-To: <aV0Qx5BOso5co3tm@bogus>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 7 Jan 2026 10:38:19 +0100
-X-Gm-Features: AQt7F2rcNsjXN7djR70fxjzIrnv1VtdzPp10juTq1vFrm5vuVSwDuqGbqR3kJLk
-Message-ID: <CAHUa44FhRO0AO3nDXSoZ7O_9T3EFB47D34zRooCTd6fhXFzxXw@mail.gmail.com>
-To: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
- Jan Kiszka <jan.kiszka@siemens.com>, Mimi Zohar <zohar@linux.ibm.com>,
- linux-mips@vger.kernel.org, David Howells <dhowells@redhat.com>,
- keyrings@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
- Ard Biesheuvel <ardb@kernel.org>, linux-rtc@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- James Morris <jmorris@namei.org>, linux-stm32@st-md-mailman.stormreply.com,
- Jason Gunthorpe <jgg@ziepe.ca>, Cristian Marussi <cristian.marussi@arm.com>,
- arm-scmi@vger.kernel.org,
- =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, op-tee@lists.trustedfirmware.org,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Sumit Garg <sumit.garg@kernel.org>, Olivia Mackall <olivia@selenic.com>,
- Michael Chan <michael.chan@broadcom.com>, linux-arm-kernel@lists.infradead.org,
- Paul Moore <paul@paul-moore.com>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- netdev@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-crypto@vger.kernel.org,
+X-B4-Tracking: v=1; b=H4sIAKcqXmkC/x3MMQqAMAxA0atIZgNRsaBXEYfYRg1qlRaKIN7d4
+ viG/x+IElQi9MUDQZJGPX1GUxZgV/aLoLpsqKk2VFGLG7Pni3fF47AWU4NuImvIGWfmDnJ3BZn
+ 1/p/D+L4fuMB+e2MAAAA=
+X-Change-ID: 20260105-kaanapali-mmcc-v3-db0c60d6d6f9
+To: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-integrity@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 00/17] tee: Use bus callbacks instead
-	of driver callbacks
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Jagadeesh Kona <quic_jkona@quicinc.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-ORIG-GUID: SZ7EyooQ6UVDUo1ZEWfv62vc8HjZuEZa
+X-Proofpoint-GUID: SZ7EyooQ6UVDUo1ZEWfv62vc8HjZuEZa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA3MDA3OCBTYWx0ZWRfX4G0TfK+VsMYl
+ 5n0qllyUO5pu5I5IDxCag5H/+qRG0Bl3vkgxQVveBm7TVq6vNOssNyDFBLCpLl0WebIb5i6hwsA
+ UaAcckIg69cIw98RgLwBO/nyDrQ1EGbbU9eC9GzLpzIj90RLIWXK9DyjMzWCgZ5Pib7lnncN6/a
+ rlGSrILSz/UKk0eEi/E6CM1mGskD0VaAxFNxdxDkeczuytvekoSdFpfWFJKfYnygT8kUYi+khcJ
+ FJXmUgTex4TtA+39r659FKuhTfOvWj1etvEKhHUXpq9KAO63l5Ez0IUV0H/QDgSZ8YAiLR0r9HW
+ oHSRg/Nc4bqCZQKwJlMzYSRB8u4AGzDpxIppmgnvd+yqCPopqkdwqxYQxrH0Hn5Q3QsJxD1Xm2X
+ f0wESlHijfFmO1TkW478eqMvOdz4VuQFJILmjEwTMYPnkMuzs+0liXgi5Ui/+JruBBEib68Pt7F
+ ZZDSMrXjB1LKyooKhgg==
+X-Authority-Analysis: v=2.4 cv=MtdfKmae c=1 sm=1 tr=0 ts=695e2abc cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=AqjRrIuq8FlCCJD4mHwA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-06_03,2026-01-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2601070078
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+ Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 00/11] Add support for Multimedia Clock
+ controllers for Kaanapali
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,115 +154,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKYW4gNiwgMjAyNiBhdCAyOjQw4oCvUE0gU3VkZWVwIEhvbGxhIDxzdWRlZXAuaG9s
-bGFAYXJtLmNvbT4gd3JvdGU6Cj4KPiBPbiBNb24sIEphbiAwNSwgMjAyNiBhdCAxMDoxNjowOUFN
-ICswMTAwLCBKZW5zIFdpa2xhbmRlciB3cm90ZToKPiA+IEhpLAo+ID4KPiA+IE9uIFRodSwgRGVj
-IDE4LCAyMDI1IGF0IDU6MjnigK9QTSBKZW5zIFdpa2xhbmRlcgo+ID4gPGplbnMud2lrbGFuZGVy
-QGxpbmFyby5vcmc+IHdyb3RlOgo+ID4gPgo+ID4gPiBPbiBUaHUsIERlYyAxOCwgMjAyNSBhdCAy
-OjUz4oCvUE0gQWxleGFuZHJlIEJlbGxvbmkKPiA+ID4gPGFsZXhhbmRyZS5iZWxsb25pQGJvb3Rs
-aW4uY29tPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+IE9uIDE4LzEyLzIwMjUgMDg6MjE6MjcrMDEw
-MCwgSmVucyBXaWtsYW5kZXIgd3JvdGU6Cj4gPiA+ID4gPiBIaSwKPiA+ID4gPiA+Cj4gPiA+ID4g
-PiBPbiBNb24sIERlYyAxNSwgMjAyNSBhdCAzOjE34oCvUE0gVXdlIEtsZWluZS1Lw7ZuaWcKPiA+
-ID4gPiA+IDx1LmtsZWluZS1rb2VuaWdAYmF5bGlicmUuY29tPiB3cm90ZToKPiA+ID4gPiA+ID4K
-PiA+ID4gPiA+ID4gSGVsbG8sCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IHRoZSBvYmplY3RpdmUg
-b2YgdGhpcyBzZXJpZXMgaXMgdG8gbWFrZSB0ZWUgZHJpdmVyIHN0b3AgdXNpbmcgY2FsbGJhY2tz
-Cj4gPiA+ID4gPiA+IGluIHN0cnVjdCBkZXZpY2VfZHJpdmVyLiBUaGVzZSB3ZXJlIHN1cGVyc2Vk
-ZWQgYnkgYnVzIG1ldGhvZHMgaW4gMjAwNgo+ID4gPiA+ID4gPiAoY29tbWl0IDU5NGM4MjgxZjkw
-NSAoIltQQVRDSF0gQWRkIGJ1c190eXBlIHByb2JlLCByZW1vdmUsIHNodXRkb3duCj4gPiA+ID4g
-PiA+IG1ldGhvZHMuIikpIGJ1dCBub2JvZHkgY2FyZWQgdG8gY29udmVydCBhbGwgc3Vic3lzdGVt
-cyBhY2NvcmRpbmdseS4KPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gSGVyZSB0aGUgdGVlIGRyaXZl
-cnMgYXJlIGNvbnZlcnRlZC4gVGhlIGZpcnN0IGNvbW1pdCBpcyBzb21ld2hhdAo+ID4gPiA+ID4g
-PiB1bnJlbGF0ZWQsIGJ1dCBzaW1wbGlmaWVzIHRoZSBjb252ZXJzaW9uIChhbmQgdGhlIGRyaXZl
-cnMpLiBJdAo+ID4gPiA+ID4gPiBpbnRyb2R1Y2VzIGRyaXZlciByZWdpc3RyYXRpb24gaGVscGVy
-cyB0aGF0IGNhcmUgYWJvdXQgc2V0dGluZyB0aGUgYnVzCj4gPiA+ID4gPiA+IGFuZCBvd25lci4g
-KFRoZSBsYXR0ZXIgaXMgbWlzc2luZyBpbiBhbGwgZHJpdmVycywgc28gYnkgdXNpbmcgdGhlc2UK
-PiA+ID4gPiA+ID4gaGVscGVycyB0aGUgZHJpdmVycyBiZWNvbWUgbW9yZSBjb3JyZWN0LikKPiA+
-ID4gPiA+ID4KPiA+ID4gPiA+ID4gdjEgb2YgdGhpcyBzZXJpZXMgaXMgYXZhaWxhYmxlIGF0Cj4g
-PiA+ID4gPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC9jb3Zlci4xNzY1NDcyMTI1Lmdp
-dC51LmtsZWluZS1rb2VuaWdAYmF5bGlicmUuY29tCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IENo
-YW5nZXMgc2luY2UgdjE6Cj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ICAtIHJlYmFzZSB0byB2Ni4x
-OS1yYzEgKG5vIGNvbmZsaWN0cykKPiA+ID4gPiA+ID4gIC0gYWRkIHRhZ3MgcmVjZWl2ZWQgc28g
-ZmFyCj4gPiA+ID4gPiA+ICAtIGZpeCB3aGl0ZXNwYWNlIGlzc3VlcyBwb2ludGVkIG91dCBieSBT
-dW1pdCBHYXJnCj4gPiA+ID4gPiA+ICAtIGZpeCBzaHV0ZG93biBjYWxsYmFjayB0byBzaHV0ZG93
-biBhbmQgbm90IHJlbW92ZQo+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiBBcyBhbHJlYWR5IG5vdGVk
-IGluIHYxJ3MgY292ZXIgbGV0dGVyLCB0aGlzIHNlcmllcyBzaG91bGQgZ28gaW4gZHVyaW5nIGEK
-PiA+ID4gPiA+ID4gc2luZ2xlIG1lcmdlIHdpbmRvdyBhcyB0aGVyZSBhcmUgcnVudGltZSB3YXJu
-aW5ncyB3aGVuIHRoZSBzZXJpZXMgaXMKPiA+ID4gPiA+ID4gb25seSBhcHBsaWVkIHBhcnRpYWxs
-eS4gU3VtaXQgR2FyZyBzdWdnZXN0ZWQgdG8gYXBwbHkgdGhlIHdob2xlIHNlcmllcwo+ID4gPiA+
-ID4gPiB2aWEgSmVucyBXaWtsYW5kZXIncyB0cmVlLgo+ID4gPiA+ID4gPiBJZiB0aGlzIGlzIGRv
-bmUgdGhlIGRlcGVuZGVuY2llcyBpbiB0aGlzIHNlcmllcyBhcmUgaG9ub3JlZCwgaW4gY2FzZSB0
-aGUKPiA+ID4gPiA+ID4gcGxhbiBjaGFuZ2VzOiBQYXRjaGVzICM0IC0gIzE3IGRlcGVuZCBvbiB0
-aGUgZmlyc3QgdHdvLgo+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiBOb3RlIHRoaXMgc2VyaWVzIGlz
-IG9ubHkgYnVpbGQgdGVzdGVkLgo+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiBVd2UgS2xlaW5lLUvD
-tm5pZyAoMTcpOgo+ID4gPiA+ID4gPiAgIHRlZTogQWRkIHNvbWUgaGVscGVycyB0byByZWR1Y2Ug
-Ym9pbGVycGxhdGUgZm9yIHRlZSBjbGllbnQgZHJpdmVycwo+ID4gPiA+ID4gPiAgIHRlZTogQWRk
-IHByb2JlLCByZW1vdmUgYW5kIHNodXRkb3duIGJ1cyBjYWxsYmFja3MgdG8gdGVlX2NsaWVudF9k
-cml2ZXIKPiA+ID4gPiA+ID4gICB0ZWU6IEFkYXB0IGRvY3VtZW50YXRpb24gdG8gY292ZXIgcmVj
-ZW50IGFkZGl0aW9ucwo+ID4gPiA+ID4gPiAgIGh3cm5nOiBvcHRlZSAtIE1ha2UgdXNlIG9mIG1v
-ZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpCj4gPiA+ID4gPiA+ICAgaHdybmc6IG9wdGVlIC0gTWFr
-ZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPiA+ICAgcnRjOiBvcHRlZTogTWlncmF0
-ZSB0byB1c2UgdGVlIHNwZWNpZmljIGRyaXZlciByZWdpc3RyYXRpb24gZnVuY3Rpb24KPiA+ID4g
-PiA+ID4gICBydGM6IG9wdGVlOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiA+ID4gPiA+
-ID4gICBlZmk6IHN0bW06IE1ha2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpCj4g
-PiA+ID4gPiA+ICAgZWZpOiBzdG1tOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiA+ID4g
-PiA+ID4gICBmaXJtd2FyZTogYXJtX3NjbWk6IG9wdGVlOiBNYWtlIHVzZSBvZiBtb2R1bGVfdGVl
-X2NsaWVudF9kcml2ZXIoKQo+ID4gPiA+ID4gPiAgIGZpcm13YXJlOiBhcm1fc2NtaTogTWFrZSB1
-c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPiA+ICAgZmlybXdhcmU6IHRlZV9ibnh0OiBN
-YWtlIHVzZSBvZiBtb2R1bGVfdGVlX2NsaWVudF9kcml2ZXIoKQo+ID4gPiA+ID4gPiAgIGZpcm13
-YXJlOiB0ZWVfYm54dDogTWFrZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPiA+ICAg
-S0VZUzogdHJ1c3RlZDogTWlncmF0ZSB0byB1c2UgdGVlIHNwZWNpZmljIGRyaXZlciByZWdpc3Ry
-YXRpb24KPiA+ID4gPiA+ID4gICAgIGZ1bmN0aW9uCj4gPiA+ID4gPiA+ICAgS0VZUzogdHJ1c3Rl
-ZDogTWFrZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPiA+ICAgdHBtL3RwbV9mdHBt
-X3RlZTogTWFrZSB1c2Ugb2YgdGVlIHNwZWNpZmljIGRyaXZlciByZWdpc3RyYXRpb24KPiA+ID4g
-PiA+ID4gICB0cG0vdHBtX2Z0cG1fdGVlOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiA+
-ID4gPiA+ID4KPiA+ID4gPiA+ID4gIERvY3VtZW50YXRpb24vZHJpdmVyLWFwaS90ZWUucnN0ICAg
-ICAgICAgICAgIHwgMTggKy0tLS0KPiA+ID4gPiA+ID4gIGRyaXZlcnMvY2hhci9od19yYW5kb20v
-b3B0ZWUtcm5nLmMgICAgICAgICAgIHwgMjYgKystLS0tCj4gPiA+ID4gPiA+ICBkcml2ZXJzL2No
-YXIvdHBtL3RwbV9mdHBtX3RlZS5jICAgICAgICAgICAgICB8IDMxICsrKysrLS0tCj4gPiA+ID4g
-PiA+ICBkcml2ZXJzL2Zpcm13YXJlL2FybV9zY21pL3RyYW5zcG9ydHMvb3B0ZWUuYyB8IDMyICsr
-Ky0tLS0tCj4gPiA+ID4gPiA+ICBkcml2ZXJzL2Zpcm13YXJlL2Jyb2FkY29tL3RlZV9ibnh0X2Z3
-LmMgICAgICB8IDMwICsrLS0tLS0KPiA+ID4gPiA+ID4gIGRyaXZlcnMvZmlybXdhcmUvZWZpL3N0
-bW0vdGVlX3N0bW1fZWZpLmMgICAgIHwgMjUgKystLS0tCj4gPiA+ID4gPiA+ICBkcml2ZXJzL3J0
-Yy9ydGMtb3B0ZWUuYyAgICAgICAgICAgICAgICAgICAgICB8IDI3ICsrLS0tLS0KPiA+ID4gPiA+
-ID4gIGRyaXZlcnMvdGVlL3RlZV9jb3JlLmMgICAgICAgICAgICAgICAgICAgICAgIHwgODQgKysr
-KysrKysrKysrKysrKysrKysKPiA+ID4gPiA+ID4gIGluY2x1ZGUvbGludXgvdGVlX2Rydi5oICAg
-ICAgICAgICAgICAgICAgICAgIHwgMTIgKysrCj4gPiA+ID4gPiA+ICBzZWN1cml0eS9rZXlzL3Ry
-dXN0ZWQta2V5cy90cnVzdGVkX3RlZS5jICAgICB8IDE3ICsrLS0KPiA+ID4gPiA+ID4gIDEwIGZp
-bGVzIGNoYW5nZWQsIDE2NCBpbnNlcnRpb25zKCspLCAxMzggZGVsZXRpb25zKC0pCj4gPiA+ID4g
-PiA+Cj4gPiA+ID4gPiA+IGJhc2UtY29tbWl0OiA4ZjBiNGNjZTQ0ODFmYjIyNjUzNjk3Y2NlZDhk
-MGQwNDAyN2NiMWU4Cj4gPiA+ID4gPiA+IC0tCj4gPiA+ID4gPiA+IDIuNDcuMwo+ID4gPiA+ID4g
-Pgo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoYW5rIHlvdSBmb3IgdGhlIG5pY2UgY2xlYW51cCwgVXdl
-Lgo+ID4gPiA+ID4KPiA+ID4gPiA+IEkndmUgYXBwbGllZCBwYXRjaCAxLTMgdG8gdGhlIGJyYW5j
-aCB0ZWVfYnVzX2NhbGxiYWNrX2Zvcl82LjIwIGluIG15Cj4gPiA+ID4gPiB0cmVlIGF0IGh0dHBz
-Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2plbnN3aS9saW51eC10
-ZWUuZ2l0Lwo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoZSBicmFuY2ggaXMgYmFzZWQgb24gdjYuMTkt
-cmMxLCBhbmQgSSdsbCB0cnkgdG8ga2VlcCBpdCBzdGFibGUgZm9yCj4gPiA+ID4gPiBvdGhlcnMg
-dG8gZGVwZW5kIG9uLCBpZiBuZWVkZWQuIExldCdzIHNlZSBpZiB3ZSBjYW4gYWdyZWUgb24gdGFr
-aW5nCj4gPiA+ID4gPiB0aGUgcmVtYWluaW5nIHBhdGNoZXMgdmlhIHRoYXQgYnJhbmNoLgo+ID4g
-PiA+Cj4gPiA+ID4gNiBhbmQgNyBjYW4gZ28gdGhyb3VnaCB5b3VyIGJyYW5jaC4KPiA+ID4KPiA+
-ID4gR29vZCwgSSd2ZSBhZGRlZCB0aGVtIHRvIG15IGJyYW5jaCBub3cuCj4gPgo+ID4gVGhpcyBl
-bnRpcmUgcGF0Y2ggc2V0IHNob3VsZCBnbyBpbiBkdXJpbmcgYSBzaW5nbGUgbWVyZ2Ugd2luZG93
-LiBJCj4gPiB3aWxsIG5vdCBzZW5kIGFueSBwdWxsIHJlcXVlc3QgdW50aWwgSSdtIHN1cmUgYWxs
-IHBhdGNoZXMgd2lsbCBiZQo+ID4gbWVyZ2VkLgo+ID4KPiA+IFNvIGZhciAoaWYgSSdtIG5vdCBt
-aXN0YWtlbiksIG9ubHkgdGhlIHBhdGNoZXMgSSd2ZSBhbHJlYWR5IGFkZGVkIHRvCj4gPiBuZXh0
-IGhhdmUgYXBwZWFyZWQgbmV4dC4gSSBjYW4gdGFrZSB0aGUgcmVzdCBvZiB0aGUgcGF0Y2hlcywg
-dG9vLCBidXQKPiA+IEkgbmVlZCBPSyBmb3IgdGhlIGZvbGxvd2luZzoKPiA+Cj4KPiBbLi4uXQo+
-Cj4gPgo+ID4gU3VkZWVwLCB5b3Ugc2VlbSBoYXBweSB3aXRoIHRoZSBmb2xsb3dpbmcgcGF0Y2hl
-cwo+ID4gLSBmaXJtd2FyZTogYXJtX3NjbWk6IG9wdGVlOiBNYWtlIHVzZSBvZiBtb2R1bGVfdGVl
-X2NsaWVudF9kcml2ZXIoKQo+ID4gLSBmaXJtd2FyZTogYXJtX3NjbWk6IE1ha2UgdXNlIG9mIHRl
-ZSBidXMgbWV0aG9kcwo+ID4gT0sgaWYgSSB0YWtlIHRoZW0gdmlhIG15IHRyZWUsIG9yIHdvdWxk
-IHlvdSByYXRoZXIgdGFrZSB0aGVtIHlvdXJzZWxmPwo+ID4KPgo+IEkgYW0gaGFwcHkgaWYgeW91
-IHdhbnQgdG8gdGFrZSBhbGwgb2YgdGhlbSBpbiBvbmUgZ28uIEkgdGhpbmsgSSBoYXZlCj4gYWxy
-ZWFkeSBhY2tlZCBpdC4gUGxlYXNlIHNob3V0IGlmIHlvdSBuZWVkIGFueXRoaW5nIGVsc2UgZnJv
-bSBtZSwgaGFwcHkgdG8KPiBoZWxwIGluIGFueXdheSB0byBtYWtlIGl0IGVhc2llciB0byBoYW5k
-bGUgdGhpcyBjaGFuZ2Ugc2V0LgoKVGhhbmtzLCBJJ3ZlIGFwcGxpZWQgYWxsIHRoZSBwYXRjaGVz
-IGluIHRoZSBzZXJpZXMgbm93LCBzaW5jZSBpdApvdGhlcndpc2UgY2F1c2VzIHdhcm5pbmdzIGR1
-cmluZyBib290LgoKL0plbnMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Add support for Display clock controller, Video, Camera and GPU
+clock controller for the Qualcomm Kaanapali SoC.
+
+Changes in v3:
+ - Add RB tag for CAMCC dt-bindings [Krzysztof]
+ - Add more description, commit message for the newly added GX Clock controller
+   for GPUCC dt-bindings. Update the complete region for the controller. [Krzysztof]
+ - Add RB tag for display clock controller [Konrad]
+ - Fix the below for the Video clock controller
+	- use lowercase for mem_enable/mem_ack reg.
+	- use GENMASK for mem_enable_ack_mask.
+	- fix the indentation issue.
+	- update to use regmap_set_bits().
+ - Fix the below for gx clock controller
+	- update offset for gdsc as per new mapping
+	- update regmap_config as per new mapping
+ - Link to v2: https://lore.kernel.org/lkml/20251125-kaanapali-mmcc-v2-v2-0-fb44e78f300b@oss.qualcomm.com/
+
+Changes in v2:
+ - bring in the PLL related code from https://lore.kernel.org/all/20250924-knp-clk-v1-0-29b02b818782@oss.qualcomm.com/
+   to this series.
+ - Add RB tag for DISPCC dt-bindings [Krzysztof]
+ - Remove the patch 'Remove sc8280xp camcc to from sm8450 camcc' as this
+   series has no functional dependency.
+ - Add RB tag for VIDEOCC dt-bindings [Krzysztof , Bryan D]
+ - Add RB tag for GPUCC dt-bindings [Bryan D]
+ - Fix the commit log for camera cc driver and add RB tag [Byran D]
+ - Add comment for using 'ACCU_CFG_MASK' in video cc driver [Bryan D]
+ - Describe GXCLKCTL the newly introduced clock controller in the commit
+   log [Bjorn]
+ - Move the 'gx_clkctl' driver from subsys initlevel to module.
+ - Link to v1: https://lore.kernel.org/lkml/20250924-knp-mmclk-v1-0-d7ea96b4784a@oss.qualcomm.com/
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (11):
+      clk: qcom: clk-alpha-pll: Update the PLL support for cal_l
+      clk: qcom: clk-alpha-pll: Add support for controlling Pongo EKO_T PLL
+      clk: qcom: clk-alpha-pll: Add support for controlling Rivian PLL
+      dt-bindings: clock: qcom: document Kaanapali DISPCC clock controller
+      dt-bindings: clock: qcom: Add support for CAMCC for Kaanapali
+      dt-bindings: clock: qcom: Add Kaanapali video clock controller
+      dt-bindings: clock: qcom: document the Kaanapali GPU Clock Controller
+      clk: qcom: dispcc: Add support for display clock controller Kaanapali
+      clk: qcom: camcc: Add support for camera clock controller for Kaanapali
+      clk: qcom: Add support for VideoCC driver for Kaanapali
+      clk: qcom: Add support for GPUCC and GXCLK for Kaanapali
+
+ .../bindings/clock/qcom,kaanapali-gxclkctl.yaml    |   63 +
+ .../bindings/clock/qcom,sm8450-camcc.yaml          |    6 +
+ .../bindings/clock/qcom,sm8450-gpucc.yaml          |    2 +
+ .../bindings/clock/qcom,sm8450-videocc.yaml        |    3 +
+ .../bindings/clock/qcom,sm8550-dispcc.yaml         |    2 +
+ drivers/clk/qcom/Kconfig                           |   38 +
+ drivers/clk/qcom/Makefile                          |    4 +
+ drivers/clk/qcom/cambistmclkcc-kaanapali.c         |  437 ++++
+ drivers/clk/qcom/camcc-kaanapali.c                 | 2661 ++++++++++++++++++++
+ drivers/clk/qcom/clk-alpha-pll.c                   |   20 +-
+ drivers/clk/qcom/clk-alpha-pll.h                   |    7 +
+ drivers/clk/qcom/dispcc-kaanapali.c                | 1956 ++++++++++++++
+ drivers/clk/qcom/gpucc-kaanapali.c                 |  482 ++++
+ drivers/clk/qcom/gxclkctl-kaanapali.c              |   76 +
+ drivers/clk/qcom/videocc-kaanapali.c               |  821 ++++++
+ .../clock/qcom,kaanapali-cambistmclkcc.h           |   33 +
+ include/dt-bindings/clock/qcom,kaanapali-camcc.h   |  147 ++
+ include/dt-bindings/clock/qcom,kaanapali-dispcc.h  |  109 +
+ include/dt-bindings/clock/qcom,kaanapali-gpucc.h   |   47 +
+ .../dt-bindings/clock/qcom,kaanapali-gxclkctl.h    |   13 +
+ include/dt-bindings/clock/qcom,kaanapali-videocc.h |   58 +
+ 21 files changed, 6984 insertions(+), 1 deletion(-)
+---
+base-commit: f8f97927abf7c12382dddc93a144fc9df7919b77
+change-id: 20260105-kaanapali-mmcc-v3-db0c60d6d6f9
+
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
