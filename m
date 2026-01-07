@@ -2,77 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785FCCFF04D
-	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 18:09:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47295CFF7EB
+	for <lists+linux-stm32@lfdr.de>; Wed, 07 Jan 2026 19:38:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 098CCC8F288;
-	Wed,  7 Jan 2026 17:09:40 +0000 (UTC)
-Received: from smtp-out3.simply.com (smtp-out3.simply.com [94.231.106.210])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDD06C8F282;
+	Wed,  7 Jan 2026 18:38:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01751C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9D9BC8F281
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jan 2026 10:22:48 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by smtp.simply.com (Simply.com) with ESMTP id 4dmPHX1tZwz1DDr1;
- Wed,  7 Jan 2026 11:22:48 +0100 (CET)
-Received: from [10.10.15.21] (h-98-128-223-123.NA.cust.bahnhof.se
- [98.128.223.123])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by smtp.simply.com (Simply.com) with ESMTPSA id 4dmPHS5YrMz1DDdR;
- Wed,  7 Jan 2026 11:22:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=simplycom2; t=1767781367;
- bh=5sCdqnj/RCGcOZ4N1FNFLLmFTy7auxTIhL2QEEcNqFg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=GapqslJRt7PAo/OPdy40/uiS8yl/fdKamd8Ti7v8KhTSWM+dyJpM0kA09WqDkvmTF
- JDac2AP0hk4IXLuaOc19G85CIClqVXmQFScccHC7rgNcYdl16DovAFndj0u/scyZuZ
- rFnlzmQeoXkgQ81qRhHQTXrNih6T2iluIH43PJMds/ZZIo6rm/VM9YDeYihibbVdmg
- uDvdrF41naRrcWhAD/3/BJoa7qr9vCUPqLxuLP48CDDioxfF0rw5/F8n0Js/OfpQsy
- f1VR1SCUMB9l0JY24lstr5qvSKP50VGC6KkhF0cw5Ng7hX+p9V4PT5L0p7hEJpFlek
- UmVwAHzAgacCA==
-Message-ID: <836139d1-1425-4381-bb84-6c2654a4d239@gaisler.com>
-Date: Wed, 7 Jan 2026 11:22:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Marcos Paulo de Souza <mpdesouza@suse.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jason Wessel <jason.wessel@windriver.com>,
- Daniel Thompson <danielt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>, Petr Mladek <pmladek@suse.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Ogness
- <john.ogness@linutronix.de>, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Jiri Slaby <jirislaby@kernel.org>, Breno Leitao <leitao@debian.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Wed,  7 Jan 2026 18:38:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B87F43668;
+ Wed,  7 Jan 2026 18:38:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11763C19423;
+ Wed,  7 Jan 2026 18:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767811114;
+ bh=UnoGgK3rZulvQ7+7qKRL2PAUxy2h9dm7tc2RPR5H5pk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Zjtv75C8bU6LOSZ3PZHsIZhImci8OB9N3l4n+g4QJw9+EZUskkZVAM1UPtmIWq8qD
+ 9y/QTHTfTxYeOHOawoKRbbL6WzEkQNUcZ9t+s6O58Apsi/7VGvWziIs5WaDXdB3xIT
+ ZZ4PTBLu72sZtSwmLEO3QscMYE8XJSixFJRNEqmKAKNd+EAEgG7e2pE1qc+hBXwn3x
+ 7R8UKQBuL2Q0mUw7X6NTXCKWmje4q8fy/C+ZG61+QtwTbCNWAZOHIOYRNySKRWDYn1
+ iIPWudv/JqxQTi8ZwuwCYId8saayD+UOlRFVcAhLT7cLWzNCC0xoZEU1dm//iCbSlV
+ khtt+7PhnJH5g==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>
-References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
-X-Mailman-Approved-At: Wed, 07 Jan 2026 17:09:38 +0000
-Cc: kgdb-bugreport@lists.sourceforge.net, linux-um@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-hardening@vger.kernel.org,
- linux-serial@vger.kernel.org, netdev@vger.kernel.org,
- sparclinux@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/19] printk cleanup - part 3
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Jagadeesh Kona <quic_jkona@quicinc.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Date: Wed,  7 Jan 2026 12:38:21 -0600
+Message-ID: <176781109968.3262943.4143830345398842895.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20251202-sm8750_camcc-v1-0-b3f7ef6723f1@oss.qualcomm.com>
+References: <20251202-sm8750_camcc-v1-0-b3f7ef6723f1@oss.qualcomm.com>
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH 0/3] Add the support for SM8750
+	Camera clock controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,24 +67,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2025-12-27 13:16, Marcos Paulo de Souza wrote:
-> The parts 1 and 2 can be found here [1] and here[2].
+
+On Tue, 02 Dec 2025 15:56:24 +0530, Taniya Das wrote:
+> Support the Camera clock controller for SM8750 Qualcomm SoC.
+>  - The camera MCLK BIST clock controller, which is required
+>    for functional MCLKs.
+>  - The camera CC (clock controller) for managing camera-related
+>     clocks.
+>   - Additionally, the Rivian ELU PLL is utilized within the
+>     SM8750 clock controller, so support for this PLL is also added.
 > 
-> The changes proposed in this part 3 are mostly to clarify the usage of
-> the interfaces for NBCON, and use the printk helpers more broadly.
-> Besides it, it also introduces a new way to register consoles
-> and drop thes the CON_ENABLED flag. It seems too much, but in reality
-> the changes are not complex, and as the title says, it's basically a
-> cleanup without changing the functional changes.
+> [...]
 
-Hi,
+Applied, thanks!
 
-Patches 7-17 all say "replacing the CON_ENABLE flag" in their
-descriptions, which should rather be "replacing the CON_ENABLED flag".
+[1/3] clk: qcom: clk-alpha-pll: Add support for Rivian ELU PLL
+      (no commit info)
+[3/3] clk: qcom: camcc: Add camera clock controller driver for SM8750 SoC
+      commit: f9580bafd39cff31bd51031e8784ea44acddf20e
 
-Cheers,
-Andreas
-
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
