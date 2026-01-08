@@ -2,50 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F97D02685
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 12:33:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF842D02742
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 12:41:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 177BEC8F284;
-	Thu,  8 Jan 2026 11:33:16 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95DBFC8F284;
+	Thu,  8 Jan 2026 11:41:29 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE1A8C8F264
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37BF5C8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 11:33:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D6CBE60140;
- Thu,  8 Jan 2026 11:33:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314D1C116C6;
- Thu,  8 Jan 2026 11:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767871993;
- bh=eN+QfHQIO7Pse9zFJrI5udW/vP/pjvyOhr608oKx/xE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S7SrnItkrXMW/9y7kgKPBTdzC3zvrTpBlT+uGAUUqkdczSAZtVWZDNYG+HFEjN1hC
- i6yasWk5CBt7/D7lXRUzRnpKnVS1QY9xThGc6+2MRr1+cCxOImMlevNXp+Bdv1LJ8l
- VrBhumfkttUS27cxjIm4SUBaXqdw8tORe3AEtYRxJ46tFH19SG4RLAaWp9vgyANBBE
- 8dRZ59FLmfrpDoswZz2Fiy3mr4Q+y6a8QouPbuCMjfRMqLJHCcdih2LVEYvy0sRhIQ
- o3sjRJUi4s6wHL1WL0Ydozt3QqEg1wgZqeXMOZLqjfgGs3zn+yIv6RxxD93cLBTKCQ
- Bj/UTHltTnI4Q==
-Date: Thu, 8 Jan 2026 12:33:10 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <r2jq72u3hfxrl4slgvuei2eobke37apebf67naxrvuabtcvaxe@pamwe3nejqge>
-References: <20260106-stm32-pwm-v1-1-33e9e8a9fc33@geanix.com>
- <kemjjoyrhqglqq4p2j6kygspevq2mdbiujtnksw4rkdapoqcfy@zte2c7fhqvn3>
- <2e2iahbzcepbzwgk7xeta2afxmycfjgv2zofzngqjvp4on46r2@mzpi4bz4uqie>
- <nwhixocvhii27jvcyg7ex5emewntgfhyxa4ds5vo2dphe7xfe4@ibjsjdd5fgmn>
- <fwaodg2ovh7j47ifwjhgeppxs3oiqht5ecbs7bmfbi7j6djejs@shwokpcmutr3>
- <zj2vpruzoeyvyyzxiqcffajyhpmem4q75l6gzgxd4jgaizhrdq@bxuudn4kyvr3>
- <paj3uf6apunonvfz2w2anqmddivjrofmfo5wktygz4r6l7diqf@7gen7gjgyuar>
+ Thu,  8 Jan 2026 11:41:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=m8PVqZyZ8FmHtG2+Jl0DC3lIPhwjBMR5huUDVX7f8pI=; b=En7ZicX0xj8dt/XD1rATyG1ioD
+ xvHd5apW3BZ6RDeQoOirwdTzUSCwCZqV+Mwk9CEvuyzzgRkG6xG9sZnjms+Qd2ntav+yNxe4zLbEz
+ d+UmqAfKqz3l2YGkuCH4+yoNLgYPX6Ona1V2xPRhd9F++SofE8LYoxcu67ExPopp7/kJx1wv0iD/O
+ c7rmMBn+Lspii7dFz3TS7U1z1XBQytCEXs5WcLkcU//Yp5AAM26K6AsWUkmCgcgxmlT9g66MQnQGH
+ XE7k7/5MY53TMWCNLXKnKAFSR9VQ+G3SUC8nYwdl4iTKpk81bMXOLZjKkgLrl5nBV7bnXf5bnDs7t
+ j0rwNZiQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37404)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vdoOE-000000002cJ-3kok;
+ Thu, 08 Jan 2026 11:41:18 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vdoOB-000000002Jw-2P36; Thu, 08 Jan 2026 11:41:15 +0000
+Date: Thu, 8 Jan 2026 11:41:15 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <aV-X20nSS-JahPr6@shell.armlinux.org.uk>
+References: <aV1w9yxPwL990yZJ@shell.armlinux.org.uk>
+ <E1vdDiF-00000002E1d-30rR@rmk-PC.armlinux.org.uk>
+ <4bf4ec53-c972-4009-b827-5083e080f32f@bootlin.com>
 MIME-Version: 1.0
-In-Reply-To: <paj3uf6apunonvfz2w2anqmddivjrofmfo5wktygz4r6l7diqf@7gen7gjgyuar>
-Cc: linux-pwm@vger.kernel.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: handle polarity change when
-	PWM is enabled
+Content-Disposition: inline
+In-Reply-To: <4bf4ec53-c972-4009-b827-5083e080f32f@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 4/9] net: stmmac: descs: fix
+ buffer 1 off-by-one error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,106 +63,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7696659399261985058=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Jan 07, 2026 at 10:28:30AM +0100, Maxime Chevallier wrote:
+> Hi Russell,
+> 
+> On 06/01/2026 21:31, Russell King (Oracle) wrote:
+> > norm_set_tx_desc_len_on_ring() incorrectly tests the buffer length,
+> > leading to a length of 2048 being squeezed into a bitfield covering
+> > bits 10:0 - which results in the buffer 1 size being zero.
+> > 
+> > If this field is zero, buffer 1 is ignored, and thus is equivalent
+> > to transmitting a zero length buffer.
+> > 
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> 
+> Should it be a fix ? I've tried to trigger the bug without success, this
+> seems to be fairly specific so I'm OK with it going to net-next.
 
---===============7696659399261985058==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ljhznkytnrzlaroq"
-Content-Disposition: inline
+Note that you need hardware that doesn't use enhanced descriptors -
+which descriptors get used are dependent on the hardware rather than a
+runtime option.
 
+Note that we have this silly code, which I've brought up in the past:
 
---ljhznkytnrzlaroq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: stm32: handle polarity change when PWM is enabled
-MIME-Version: 1.0
+        if (priv->plat->core_type == DWMAC_CORE_XGMAC)
+                ndev->max_mtu = XGMAC_JUMBO_LEN;
+        else if (priv->plat->enh_desc || priv->synopsys_id >= DWMAC_CORE_4_00)
+                ndev->max_mtu = JUMBO_LEN;
+        else
+                ndev->max_mtu = SKB_MAX_HEAD(NET_SKB_PAD + NET_IP_ALIGN);
 
-Hello Sean,
+where the "silly" part is that last line - SKB_MAX_HEAD() is dependent
+on PAGE_SIZE. So, if you build your kernel for e.g. 64K page sizes, but
+stmmac doesn't have enhanced descriptor support, ->max_mtu ends up being
+close to 64K, and you can configure the netdev's MTU to be that large.
 
-On Thu, Jan 08, 2026 at 06:44:06AM +0000, Sean Nyekjaer wrote:
-> I hope that clarifies things :)
+Even with a 4KiB page size, max_mtu will certainly be greater than
+2KiB.
 
-It does. I'm convinced the following patch implements a simpler fix:
+That means stmmac_xmit() can be called with packets >= 2KiB in length.
+As stmmac_xmit() has this:
 
-diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-index eb24054f9729..86e6eb7396f6 100644
---- a/drivers/pwm/pwm-stm32.c
-+++ b/drivers/pwm/pwm-stm32.c
-@@ -458,8 +458,7 @@ static int stm32_pwm_apply(struct pwm_chip *chip, struc=
-t pwm_device *pwm,
- 		return 0;
- 	}
-=20
--	if (state->polarity !=3D pwm->state.polarity)
--		stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
-+	stm32_pwm_set_polarity(priv, pwm->hwpwm, state->polarity);
-=20
- 	ret =3D stm32_pwm_config(priv, pwm->hwpwm,
- 			       state->duty_cycle, state->period);
+        /* To program the descriptors according to the size of the frame */
+        if (enh_desc)
+                is_jumbo = stmmac_is_jumbo_frm(priv, skb->len, enh_desc);
 
-While is isn't optimal as it might write the polarity into hardware when
-it's not necessary, the same holds true for the values for duty_cycle
-and period. Compared to your patch this is simple enough to make me ok
-with applying it to 6.12.x (and older stable kernels) without an
-equivalent commit in mainline. (Backporting the waveform stuff is out of
-the question IMNSHO.)
+the code will not treat them as jumbo frames, and thus
+stmmac_jumbo_frm() will not be called. This means we'll call
+stmmac_set_desc_addr() and stmmac_prepare_tx_desc() only for each
+fragment of the skb, which only supports buffer 1 in the descriptor.
 
-Also I'm still convinced that 7edf7369205b isn't the correct commit to
-blame. This one changes the preconditions for the problem to occur (and
-thus it's plausible that it's the result of your bisection), but even
-before 7edf7369205b the problem can happen with:
+There is the possibility for a descriptor to supply the next chunk of
+the packet in buffer 2 (with its separate length field of the same
+bit size) but the driver doesn't do that in this path.
 
-	pwm_apply(mypwm, &(struct pwm_state){ .enabled =3D true, .polarity =3D PWM=
-_POLARITY_NORMAL, .period =3D DC, .duty_cycle =3D DC });
-	pwm_apply(mypwm, &(struct pwm_state){ .enabled =3D false, .polarity =3D PW=
-M_POLARITY_INVERSED, .period =3D DC, .duty_cycle =3D DC });
-	pwm_apply(mypwm, &(struct pwm_state){ .enabled =3D true, .polarity =3D PWM=
-_POLARITY_INVERSED, .period =3D DC, .duty_cycle =3D DC });
+So, even if we did get a fragment >= 2KiB, the code would only be able
+to send up to the maximum size that can fit in the descriptor.
 
-After the 1st call polarity is configured to normal (unless the bug
-happens already earlier :-), the 2nd disables the hardware without
-configuration of the polarity (before and after 7edf7369205b), and the
-third skips setting of the polarity because state->polarity already
-matches pwm->state.polarity. The original problem exists since=20
-7edf7369205b ("pwm: Add driver for STM32 plaftorm").
+This patch fixes the logical problem in the code, but doesn't fix this
+larger issue.
 
-Are you able to create an improved patch with these insights in a timely
-manner? (Grab authorship for yourself and honoring my part with a
-Co-developed-by is fine for me.)
+The real problem is the setting of max_mtu - it should _not_ be
+dependent on only the kernel's page size, but should be limited by the
+capabilities of the hardware and software. That was what I was trying
+to raise when I brought up the issue of max_mtu, but no one responded.
 
-Best regards
-Uwe
+So, I decided to only correct the logical problem instead as it seems
+no one cares about the bigger issue.
 
---ljhznkytnrzlaroq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmlflfQACgkQj4D7WH0S
-/k4B2gf+PoC8z8k72vsHufO9Z7qQK5OMzg07sEh4DjJoeiewN8LS7MctFtQ7J7Ks
-zt9/t+w7ZAqegx3cgW46IDW661WTZ8OJujP6dTP/O/AYf/FoCdp1K626zZyzHlti
-bue/YEiVrIcoG5H4ZzOdPukpcYnSUymzaOfbN/+LaBfCVZXnc5y1jbzvHX/7lyMs
-s3+O6tnUw0f1IK4wIvmT49+IJLG727SJwE0isdneut6AERJSumdOM3JnGkciS7yW
-49EZ23jWg+FwM+N68mtMXU4EN75utI2oV9N0aKapEUFv7cCSLVC5H6v5Mwpt9pPx
-mSZNakd34IxbYeawv5NZ96J/OmAPcg==
-=Gl20
------END PGP SIGNATURE-----
-
---ljhznkytnrzlaroq--
-
---===============7696659399261985058==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7696659399261985058==--
