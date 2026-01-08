@@ -2,67 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05960D04D56
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 18:16:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBD44D04D53
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 18:16:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6FCEC8F294;
-	Thu,  8 Jan 2026 17:16:14 +0000 (UTC)
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013068.outbound.protection.outlook.com
- [40.107.162.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7B12C8F292;
+	Thu,  8 Jan 2026 17:16:13 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011020.outbound.protection.outlook.com [52.101.65.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE1CDC8F264
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11484C8F287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 17:16:13 +0000 (UTC)
+ Thu,  8 Jan 2026 17:16:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dMmgQZCnazriLq2G2poTlQhjnrmhJl+7JDUOg1/SHiNwkcsFnK6e5ieDwBkY1EK2pIo7+aDwkk2kN7aPsIEsXJE/2Cupr2zjM2YEsEOLZGiRg9idtB5viU3VIyIY/9Q0Vt8QrX0IPU8NNEmurvrpcjHISzOyZMt1c6mmIMVmOwhyPQLOHHtd4W1LDuAbzuMB5YKoCaBMlSRg3x52zmKQ5ue8kRiIbVWxsSKrtGBehbxDZhEg0hwa8OtZAA8+gqMI5KFHPR3zvnl7cQJFcfd8pC3gPLRqpLhxx4N9rGctKb42rEJ3atqqUvyw4QxEq2WSemVkHdliEHya2ZpeFaAS4Q==
+ b=diZO9Gqq6ATKahQoo0jDQB8N7YDUVOlOebVuepWcZLGFxAQBubbFf+28Cvs3fTRdS7moz1JNZ/fHQEwYBpZyxO7qxXRr81QTUPeCxndY+lOJO1c7vjpHQdo5bZjwg/pDLS2wHFdjAN0eWIjL9Y6CsCobXWsWmzwzs71zudUhlJet/uQ0pn93pQFepQSB2QcJTK6QKinFY1Q6/VtB/LVIgHFhSDhD/ny6fd75teOFJ7CFe5pt5QO6yey7VlxQTwrUG0UF3WUt6oVLzHl14sdBq0uruPH9J7+z+Yl3Xd+ENankIX32yX+f2xXNWfy5mf9ABzLnIZu7UiULi7xWOxkVNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uiuyxLeQgyxw7XgC4GwO3U+M9n2koPdGeNQJdrIezF4=;
- b=jCmlcEixicaIInf0iSdVFxyJRsSfjnh5195s275NpnobypKTxXVw+rgjz7cCBICJQ/XsNjnWbMujr6MKVxnJdYslpUsHVKGmtlyOA07/ucuPTK2PEMesaEmuZaG9SQNtO0t2KfH91AIqE3oMVviQwjbg02aCgZBPJyrFzsx/KnUmjV2kMLOG1ZDtjiWmU+4LeaEPHlu2IobDuCNpmIKa4V43HRle+RegzrvtKeRSsujL4PK2gXyfpLtb1xDOERg3w/pnjgrpTLdKHWXpEtKBuOm9kMmneIUQ8xmvrevR4fqMC/DX7nuu1eoNzhxtIwoAVQ3I3qQbE+4P27kogKv6TQ==
+ bh=dZugsS+tHnNywp5S6uKc3HI/D/+udKkAhPp8i6ASyKU=;
+ b=qpdeOQ7xgTBMpoYw6IJTsWYeNCc0RFYOGyVl9nwjYxGEOmAKsQV+cCSoEJpZo2RxCEHxPLO8HHKUbaXCUtdIaPVkaLDv67WT5lD9sUF92T+T660qpJfP9x5bzurzMU89TFy5l5fE8Xf7i2qzG7xyp10f7XaqA0CApw2R2qXDCv47E1pTAkGydWU6zuCEH6DIS1z2avEJ9d989GOTb18Uh3DRUVhFtLB6n0p7WIYxnwMfdf7PHq6cu/Qg6irzPe3OwJZHPCoYDjN8UMRBzzdBLRA4ZoQ6K8qQzbp9Z80ID4ok8I4p2AJeAMrZNz5s0Feli/Ifzh6cOHWzyPDqZyMTqQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uiuyxLeQgyxw7XgC4GwO3U+M9n2koPdGeNQJdrIezF4=;
- b=IwAyr2QEP/ato6F7VLabiM7q1yojKj/r/iPzmJXk2wCzIgUXNW5JNzj/EP3KSAvJET3F5zoYpphTktjBhosOZWi8CEdCPlMbmns9uxXBUzq9477somQB5XDasfk/h/QKK4zMo8ZplLz1b9NL9vclcX1P6NbIfbi+X1FvMDoeLQzs+AeBfH6VaNR5PWU/IlRShy+nj2BhYKYpzcVG1g+x65ahNuJ5PPdmFOqYbYiiQSv11ySYIRHao9Dg3YKjBPGGyDblMYURJNayC15s+tlirvBPI6RPWJA4nppRRX5KZOSFYkjQWKQQWXWxTkhMnzzqtxYHyqLOcvrKvS2eQqDFMQ==
-Received: from AM0P190CA0006.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::16)
- by GV2PR10MB9676.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:359::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=dZugsS+tHnNywp5S6uKc3HI/D/+udKkAhPp8i6ASyKU=;
+ b=fRl+i3Ka1hQY+zFyiGEPeAZH/pUjQYYJL/kbYsipEp0l1vWBXmYZTTzCPKPOooOa2D76Z6l4YvFiFuL5FYKUUyMHbjBO0YUn9cSQX5T4DgCmFvGvJ4ELzum2Dv7CckarTe9pJc8Y89bNIKMmvKCaZv/xuloBbr9UpmeITpxVzPMMfCLAID64ZkpwoprS6l5WPr3ALcMw9Drk67wi8RmxNl8MPlG4C8ERCKkc3lecSuGyYkd0599zhNN/5zv3NY9vQNvFRzvvtIeD1l0GvJFM04oL3Yjk+SjVHGSI2FoxnTInGZ47gWpKvADbCc4Q/gSaE3HA8IVthGr1Q2/T6NC6Yw==
+Received: from CWLP123CA0106.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:5f::22)
+ by DB9PR10MB5977.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:39c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.3; Thu, 8 Jan
  2026 17:16:07 +0000
-Received: from AMS0EPF0000019B.eurprd05.prod.outlook.com
- (2603:10a6:208:190:cafe::e3) by AM0P190CA0006.outlook.office365.com
- (2603:10a6:208:190::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.3 via Frontend Transport; Thu, 8
- Jan 2026 17:16:07 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+Received: from AMS1EPF0000004B.eurprd04.prod.outlook.com
+ (2603:10a6:401:5f:cafe::7c) by CWLP123CA0106.outlook.office365.com
+ (2603:10a6:401:5f::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.5 via Frontend Transport; Thu, 8
+ Jan 2026 17:16:10 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS0EPF0000019B.mail.protection.outlook.com (10.167.16.247) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS1EPF0000004B.mail.protection.outlook.com (10.167.16.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Thu, 8 Jan 2026 17:16:06 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 8 Jan
- 2026 18:17:20 +0100
+ 15.20.9520.1 via Frontend Transport; Thu, 8 Jan 2026 17:16:07 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 8 Jan
+ 2026 18:17:23 +0100
 Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 8 Jan
  2026 18:16:06 +0100
 From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Thu, 8 Jan 2026 18:16:04 +0100
+Date: Thu, 8 Jan 2026 18:16:05 +0100
 MIME-Version: 1.0
-Message-ID: <20260108-upstream_uboot_properties-v3-5-c1b9d4f2ce8d@foss.st.com>
+Message-ID: <20260108-upstream_uboot_properties-v3-6-c1b9d4f2ce8d@foss.st.com>
 References: <20260108-upstream_uboot_properties-v3-0-c1b9d4f2ce8d@foss.st.com>
 In-Reply-To: <20260108-upstream_uboot_properties-v3-0-c1b9d4f2ce8d@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -75,68 +74,68 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
  (10.75.128.132)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF0000019B:EE_|GV2PR10MB9676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6feaeefe-6a7b-46cc-2dc4-08de4ed99c35
+X-MS-TrafficTypeDiagnostic: AMS1EPF0000004B:EE_|DB9PR10MB5977:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce1018a2-db40-48c8-b47e-08de4ed99c99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aUhlMVYxdjNKSXpxT2VPR2NCNHlFVFUyWTJSSDB2d1Y5WTlXcTdIQ0txYUFl?=
- =?utf-8?B?c2tQNUY3MDFKak5lTnJWQUhvOVFQUmtNSnBqT0VnT3VXMCtscmVRUTAxS1dw?=
- =?utf-8?B?eTV1Q3ZlakkyMGZva1V0N0pBb1NSck9Ndzl5TTRidDladC9qR2laR0lUTys1?=
- =?utf-8?B?M1JOVExhRDJucVI0dHNVZjY0d0MrMDVTQlZHeTRRZkRKSDRpdTRud0JvMVJM?=
- =?utf-8?B?S2dQR0VSLzh6Q0EwV2d5bGhidERsSUdVNnpBVWZFbW8yK0hmdXBYaGQxNjZp?=
- =?utf-8?B?RUlvTC9Ib1IvV3p3Zk11ZURLTWgxTXZBSjdjL3JJY0tBNDBrTDFFbUIzb1M2?=
- =?utf-8?B?WTlQaTFXcVhTQUlzVmpVeHE5clFaZ3BGbS95SjhCMCtpVUhYcVpoZjAvV3g5?=
- =?utf-8?B?My80RzRGdkF5VkRZeXc1MzFqcjhXZzhHdWZwMkFVb2dkK0hnVnArbnZBd1RT?=
- =?utf-8?B?dThMMTRSdnpVY0MwNTZlUDZWUG5CcllQeW10SEVSVWxreEZuRHpMeW51dkh0?=
- =?utf-8?B?TVhvT2RENjBpOUFVQUt1WlgxUjRDeXFCQzRKUGJhOEprUUJNT1Y2Ym03aDlv?=
- =?utf-8?B?UFFpYUlZTCt2Qk1XdzdvQXZ6Qi90WEZFTXpYOGIvWFgxV3NyczducUh2MU9z?=
- =?utf-8?B?UUhxZWV2WS8rZVA2S2hpc1RNVDhOb1gwMGk5WGQrNzVEcnVwaVJ5SGhwRVIz?=
- =?utf-8?B?MmwxMWRsZ1hkNnhkVW0vQlF3QWplSWxwYWF5eER1RjRxTlZYNkF6NkJyT1FV?=
- =?utf-8?B?U1pCRVFrTys5ZUF4WU5ham40Z2luYkU0K3VIZHIyQm9YMnIyYTZCM0pCb1Bp?=
- =?utf-8?B?aXQzOWZjWlU4RHZodlBDU2hyN3M0TEFvY3VmdEVwY0MvSHd3QmZJSUF1ejdj?=
- =?utf-8?B?dlhsbWIzSFF3TEZaa3Y0NCtwSUdMaTloc253WFZRby9UbG5JMENiR2ZCUjZN?=
- =?utf-8?B?d2gzbElubjdRc0ZwL2RjQ1RrMDhOYTdKOUlCRFFmSm5OZHI4Y1VNb2hldFVS?=
- =?utf-8?B?TS9LMXlzVFNsZ1lPUUtFajlESjBiSmJpR2FrTnVreG5JOGtFbFVWcjhBVjdT?=
- =?utf-8?B?cFErRm5qZjRadGhMNGp1QXJKUkJNZVY3cGJocU8zQStNMXdHcXZZb0FJbFdh?=
- =?utf-8?B?eVloTVJIUDRyL3FlWHdPSUpTTDJXQVBkR2tkUFZmRkFuSTNoQm0va0lxK2Mx?=
- =?utf-8?B?b1lyTWVoS3FtemQ3TVQ1dDB0VUpHdTJzeGhnbVY4SEZRZ0d2OWJTOXhGbnhB?=
- =?utf-8?B?S2hBTDE3ZWxoQWZQZzVaZTArNkhpZzdHYnJjR1gzMHVobUk2bVp0NzB4Qjlp?=
- =?utf-8?B?WXFOdENCRVpDbGxQL2R1WDBJUXc2dEl5L0dzWEpmTEFqTkdFdFo4QVprUDM3?=
- =?utf-8?B?R1VVQlBEdnRGbExkTXRHWDM4VmtWbUVLbXhKM2dyamllVlVLaG00ZVgyUUd1?=
- =?utf-8?B?K2lCUTJCdmkwS2hlSjZGVEZJQTcrVDVCd1hSelgvV1NSWEllSy9yclJ5QTdk?=
- =?utf-8?B?UlJ4c1M2NkcyMkFMZW9QRTVKK01OanhIT2xRbVl3V1lwbWNDa0ZYLy9MWTB6?=
- =?utf-8?B?ZzNYaGJEamwva0QvYmI3RWlMd2JENEhNekluL3pHRGgvTExkTStXTytqZjBv?=
- =?utf-8?B?S2FhK21nZ0d6Y3V1NS8ybGRSR3FqVFh3eThVVUVSSVhlQVBZbTNqSUoyRmtC?=
- =?utf-8?B?eTdraE4rOTJNcThjUVN4UmxkTUIvd1lLWmEvdjJQSEJFUVdZNkVIeXFoVHBF?=
- =?utf-8?B?VVg4OVZHZUp1Z1crSEk3Y2VKRnNkMldJMUFsMjFPUjZqMVhUcWp3a00xMzBw?=
- =?utf-8?B?SkRQWkxMbGFySitCM0huL1BQdzBnMks4RXVKVlJJZ282WGIzMDVZUzVXUDkz?=
- =?utf-8?B?cGJxQjNtcHNEdXdHZk5hTFlKbmh0a2lVcDN0R1B3VnVhNUxYMlZMTnNQdDN5?=
- =?utf-8?B?bmNHd1JoUjBJUkVWUCtLakROT3JyT3A0Z1NndTd3ZDVQZ051N1pwQjVWbDZs?=
- =?utf-8?B?cEo3SkFUK0djU2Z3L1VBam9MNE16YlRWOHVwYjZVSHZPOEtqRklWdS9NNjNp?=
- =?utf-8?B?VDdiL3NLY3JGZEhwTkRZTlpsbEViN2Y1WkJwVUNMYUVkY1dqY2Rzd0g0TkhR?=
- =?utf-8?Q?lILY=3D?=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RDJsbDBPalY1TjhDRlZLN3ZhRm5vTTZvaHlyeWJzYjdBTzlkd1ZFaDl5R29h?=
+ =?utf-8?B?U1pkVlE4dzQ1M2NHWTljak1GSlFOaXEwVjJKZzA0QlBLZjkrT1crdS9zTzhD?=
+ =?utf-8?B?WWJCL2wzcFlFRFR3M1BxY3VDandCVUE0VTdwLzhPZkI2M3ZXZGN2OUNaeCtU?=
+ =?utf-8?B?M3hKajR5bUZQZDdxZjBxSmpsMFhWM3kyM3p0MVNMa3RSR1ZaUkRuOE9oMlZZ?=
+ =?utf-8?B?cElOb2FXWW9hQlNBeGVvL3pxNVZhUnRxODZOVTRHUXUxSjJqUWxOb2tsYjBp?=
+ =?utf-8?B?b2xuQlRkaVJSZDBsOVcreHJXUXZ3MTVJbkM2VTdZWGt4UVBOZk0zZzRtRzhM?=
+ =?utf-8?B?TmNwRG0yRUhIQndJTVVUTHlEblNibVdhQnBlY00zWkpQT0JMUDVEYTZENVNv?=
+ =?utf-8?B?cEx6MnJNZDJlVlExaDZBWEo1YU5YZER2bm9aZE9ldzFaMTduYXdEd2RVRmtZ?=
+ =?utf-8?B?bTJXYngxRUo4MERXR2haYjlUS3VuZnJYMFMxa1BuT0lRR2xxeWV1bExSZnBz?=
+ =?utf-8?B?eVBMd2VOQ0Q5NWsxLzlYeEFWVjh2Ni9vRG5lc21qRzhsVUhQZHh2ME53dVlW?=
+ =?utf-8?B?UW5kdFZ2UFFiZXE1Yk9SaEMrcG5zU3NsMlVVaUJkcE1CQlpIbHpqb2k3MEJo?=
+ =?utf-8?B?eVR6amlFT2NnUWRtbm10M01qRFJ3QklQSCtaVnlMbDUzNmFFTGlFTjRFZmda?=
+ =?utf-8?B?Um8vaUwxdXF1Q3FOVlB0aURCSWlFWmxKcUlGR3BCNWFGM2VCRkNlYUk4WlJp?=
+ =?utf-8?B?VDNMTTJBRnM0RTFmanRkZU9zZGI1bXVVSnU3eGFONWkydHBhZjlLMU1NTWdU?=
+ =?utf-8?B?K1NOY3VnSEpEY1ZJNXRJbktLbktCbjJtODFWbERXYVJtSnhrZ0h3U21UcFFm?=
+ =?utf-8?B?SytzTTIvMDJXNUY2TUNqWXE2UURWb1FRMnJLK1Vpemw0Rm5iOW9HTTVWeFAw?=
+ =?utf-8?B?NldnS1dXSEEyNEFxY0RQTnY4dDNzV0g1VHVwRy9uMnJOaE54Q255VE9xY252?=
+ =?utf-8?B?ZkRHTzh6bnIzOXdCMzFmWU5rTW9pRkVpZUpxNkdxc3pLWWoxYVpWVENBNmFM?=
+ =?utf-8?B?RkZPaWtKZVZNbmNlRVlvMUJDSnBiWGtrNUg0N1piWS81SFlCZXJsd1VEQlBN?=
+ =?utf-8?B?TjRTdHJVR01yRFJXSEx0eGpOekpDcjlGUjlFdjYwVm5hc0tWRS9uS2lGWHly?=
+ =?utf-8?B?UDFIVzN5TFVCNUJWL1pUSjZ5ZHg4TmdCL1htbjhLRi9hbkZxS3Z2SitDTWx2?=
+ =?utf-8?B?cFVYUkhGV2IzQ3VrWG5wVTkrNmk2VWRYSEZWQzcwYzFickZEZ2tVTVZ4MVBJ?=
+ =?utf-8?B?R3lpYThaeitodk1Hd3Y0djFUSFZqbFhZMGhDazRwODB1QytQTktmd0pNNVU5?=
+ =?utf-8?B?YmxPTHdpYkJ2VXdzNkd0ZHptcHljSUIvVlk3bkpLWEFQT2M3Z2pJaElveklX?=
+ =?utf-8?B?MVZjRFVuWWlPSHNGZDFTR01CaGpyYU5sZHVDR1AvWFMyM2xPVXAwdU5OMjNa?=
+ =?utf-8?B?N2c4QXcwd0pWTTRzaWFibDJYMVplSUptaTY5QnVORERzdWViQkhLYUcwRkZa?=
+ =?utf-8?B?bk5Md3hodnczSWg4d2VaeHZEdEhya0NmM0VCd0tvb1kyNTFncTNkWHcxN1pw?=
+ =?utf-8?B?L0JrS3NpQWZiUlhYMnVSMUQvUXgzT1FNQSt3TXd1dmc1cVo1Q29JM3FMY0Y0?=
+ =?utf-8?B?b2VuMU5VdHVMd2F0SnpWSHNYNU1nVkJPd2h3bWR2R2ViTXFSM3hiaW5WSDJZ?=
+ =?utf-8?B?UndWSis2ZjVqa1kwNWhxQzlib1BCZWkyU1ZzYldDU2dZM1AzV2FKR3BzbmJG?=
+ =?utf-8?B?SHZ2OWsra1FFS2N0VW5rVGM2dm9DTlc4OE9OM3FFZlUzdUlqa1JKMER6UXU3?=
+ =?utf-8?B?MHY5TGh0VkI2alZNZ2I3RUcxam9QemFra3BFeHAxT3B1Tk5GY3BOSHg0Mjlr?=
+ =?utf-8?B?YmxKMWlzbzBZOGFiZWkxWjlWTHZWdlE3aDRqVXNsRWx1UEgrZjBZb1FVTit0?=
+ =?utf-8?B?ZmVNa1JFQkQ1RmxzNnJCRE16emltSFB5TlRyYzhZWS9kcU1wMklpNjV6TERt?=
+ =?utf-8?B?eFVJdEE0dEozZmNRYjZMSnFUYmtRa2YwbWFCd2V6YVkxNlIwekNhODNxVHBT?=
+ =?utf-8?Q?fh2A=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: SIAFVSahnAlIDNeDYh3CopRqOAY7MbeqAH/0En827Iz42jbo2EjBWUMw11OPaWQnWwFnv7NHX1WW7ul42F+tGigdazddZnwtWlu/Mn4GlTNyBe8HJ5AHvjO8yaYTS63mXF9Y0H/MhoUZBkqWpYrl5MNL2x3uq9y1F3H6pmVLgfI4UyPqtmESHr16M77xkdCn5apuhIDdVx8yQvvRQrHsa18C1U4FaLwADaJXvScmj6SDWrEVK0WOzwZzuDVhJViNajTsDmkyZqVdOArQmB0bl10kY7Bdr3vStlVIESACD892jOh15qiEE7R12Ht4Qgk9MmnAZPiru5XKZKCf+Wr57PrUysnDl0tnk/O0+kA3HzkhCwtRytEVP/oBBTumda3OtxSkruzGbrdAnY0DlFRFnt+uXqkLuNkInn0VIYtf2ELnychg/Yw3nWI4FKLGNoBmP9BPPJ6uf1xCwg9qP/3OYZ5K5zyyJn3wf/sH+WM2BaoJfV+cIuOtHhnmYrs2glxPaquvfv5i6E7NXm6xXX70GeD4rZwNFeoYLy+ag/eZveWrowY5+7fMK4KsmGYimb6SowgJqT+/IrCPj/xumgs3zbKZtgmCovukNu294KxvMwwDMALMjWqAYoA2Bt270vPtFRbVdVVp9KybOZOkcahBE/dpIi2GtR9W8aMFf0OJPl8Hq8pu2u+RyCXpc3e57xSM
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: I5Z+m6WIfMAT1mU71EuXcl3suTrNWSwfYFMCHq1YiN8HCS8gIhVowZn+j7MOWHH222CUg5nTbI5E28O9V8YoYTmnWppWXcYZcfSVwVdylEoDIF0cgWdfSrJZcPXASmWD3AoVeqdUvJJMSKrcopC7JCfWdhEc9oxY/ZUIpQUdbMfeSaZ92qs69m58ucazNeDNwF3Qyxl1pVyXQxh5AxBGBCaE5/rnqHQ+ZrFKJFkcu14gL0XME8Ly2ZFCeAaU/JvgOjQ65y0VgyacYc4JKGqmoJQbIuQ3Iox184ouSonLlykheaQNYOBDVekFKww1NmFh+b3zmBEIyWFCBgXuEvurU42+UzJ3JUh36eDgfcFzUCREWSLKacc2UIJZl41fx5xhsySlc3fyMPWFX/0Oy7X/5skY66W1JDc6/NsO/LQuk23MdVXSTrf1xDSPrM5LyNYCA8quGqfATJbRMiapfGJM6GcXr7qDwvUvrV/FW9pL5gj7qEhmPGgES9skpWJUdv+U4SNlwz+f6vxtUZ9Si7nfq0TVbDQ2QXfggDVk3tV5bxOzcBOchlX9VdNN7WQlz8EpWkX4OHzeHzd88n9jitvXBkc2brK9UDdOt69pSzeJ4DGOY7AFoJsoEmkI/UtpTMngOVdpXhcbrHgibCOZmJCviRvkuDfq6MZLI8hApH6LzQ581/E98f6H3DCAPQoCjnCg
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 17:16:06.7909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6feaeefe-6a7b-46cc-2dc4-08de4ed99c35
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 17:16:07.4464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce1018a2-db40-48c8-b47e-08de4ed99c99
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF0000019B.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000004B.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR10MB9676
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB5977
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 5/6] ARM: dts: stm32: Add boot phase tags
- for STMicroelectronics mp15 boards
+Subject: [Linux-stm32] [PATCH v3 6/6] arm64: dts: st: Add boot phase tags
+ for STMicroelectronics mp2 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,564 +162,536 @@ to these nodes to support SD boot.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm/boot/dts/st/stm32mp15-scmi.dtsi      | 26 ++++++++++++
- arch/arm/boot/dts/st/stm32mp151.dtsi          | 29 +++++++++++++
- arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 14 +++++++
- arch/arm/boot/dts/st/stm32mp157a-dk1.dts      | 43 +++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp157c-dk2.dts      | 43 +++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 14 +++++++
- arch/arm/boot/dts/st/stm32mp157c-ed1.dts      | 60 +++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 25 +++++++++++
- arch/arm/boot/dts/st/stm32mp157c-ev1.dts      | 36 ++++++++++++++++
- 9 files changed, 290 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp211.dtsi     |  7 +++++++
+ arch/arm64/boot/dts/st/stm32mp215f-dk.dts  |  1 +
+ arch/arm64/boot/dts/st/stm32mp231.dtsi     | 22 ++++++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp235f-dk.dts  | 11 +++++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi     | 25 +++++++++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi     |  3 ++-
+ arch/arm64/boot/dts/st/stm32mp257f-dk.dts  | 11 +++++++++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 11 +++++++++++
+ 8 files changed, 90 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp15-scmi.dtsi b/arch/arm/boot/dts/st/stm32mp15-scmi.dtsi
-index 98552fe45d4e..c58d81f505be 100644
---- a/arch/arm/boot/dts/st/stm32mp15-scmi.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15-scmi.dtsi
-@@ -13,6 +13,7 @@ optee: optee {
+diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+index bf888d60cd4f..81b6a71fc032 100644
+--- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+@@ -50,6 +50,7 @@ firmware {
+ 		optee {
+ 			compatible = "linaro,optee-tz";
  			method = "smc";
- 			interrupt-parent = <&intc>;
- 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-+			bootph-some-ram;
++			bootph-all;
  		};
  
  		scmi: scmi {
-@@ -20,6 +21,7 @@ scmi: scmi {
+@@ -57,15 +58,18 @@ scmi: scmi {
  			#address-cells = <1>;
  			#size-cells = <0>;
  			linaro,optee-channel-id = <0>;
-+			bootph-some-ram;
++			bootph-all;
  
  			scmi_clk: protocol@14 {
  				reg = <0x14>;
-@@ -64,6 +66,26 @@ scmi_usb33: regulator@2 {
+ 				#clock-cells = <1>;
++				bootph-all;
+ 			};
+ 
+ 			scmi_reset: protocol@16 {
+ 				reg = <0x16>;
+ 				#reset-cells = <1>;
++				bootph-all;
+ 			};
+ 		};
  	};
- };
- 
-+&iwdg2 {
-+	bootph-all;
-+};
-+
-+&ltdc {
-+	bootph-some-ram;
-+};
-+
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pinctrl_z {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
- &reg11 {
- 	status = "disabled";
- };
-@@ -72,6 +94,10 @@ &reg18 {
- 	status = "disabled";
- };
- 
-+&scmi {
-+	bootph-some-ram;
-+};
-+
- &usb33 {
- 	status = "disabled";
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
-index b1b568dfd126..7abee7ce0580 100644
---- a/arch/arm/boot/dts/st/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
-@@ -33,6 +33,7 @@ arm-pmu {
+@@ -73,6 +77,7 @@ scmi_reset: protocol@16 {
  	psci {
  		compatible = "arm,psci-1.0";
  		method = "smc";
-+		bootph-some-ram;
- 	};
- 
- 	intc: interrupt-controller@a0021000 {
-@@ -54,34 +55,41 @@ timer {
- 	};
- 
- 	clocks {
 +		bootph-all;
-+
- 		clk_hse: clk-hse {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
- 			clock-frequency = <24000000>;
-+			bootph-all;
- 		};
- 
- 		clk_hsi: clk-hsi {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
- 			clock-frequency = <64000000>;
-+			bootph-all;
- 		};
- 
- 		clk_lse: clk-lse {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
- 			clock-frequency = <32768>;
-+			bootph-all;
- 		};
- 
- 		clk_lsi: clk-lsi {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
- 			clock-frequency = <32000>;
-+			bootph-all;
- 		};
- 
- 		clk_csi: clk-csi {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
- 			clock-frequency = <4000000>;
-+			bootph-all;
- 		};
  	};
  
-@@ -122,6 +130,7 @@ soc {
- 		#size-cells = <1>;
+ 	timer {
+@@ -92,6 +97,7 @@ soc@0 {
  		interrupt-parent = <&intc>;
- 		ranges;
+ 		#address-cells = <1>;
+ 		#size-cells = <2>;
 +		bootph-all;
  
- 		ipcc: mailbox@4c001000 {
- 			compatible = "st,stm32mp1-ipcc";
-@@ -142,11 +151,13 @@ rcc: rcc@50000000 {
- 			reg = <0x50000000 0x1000>;
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
+ 		rifsc: bus@42080000 {
+ 			compatible = "simple-bus";
+@@ -100,6 +106,7 @@ rifsc: bus@42080000 {
+ 			dma-ranges;
+ 			#address-cells = <1>;
+ 			#size-cells = <2>;
++			bootph-all;
+ 
+ 			usart2: serial@400e0000 {
+ 				compatible = "st,stm32h7-uart";
+diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+index 7bdaeaa5ab0f..bc366639744a 100644
+--- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
+@@ -45,5 +45,6 @@ &arm_wdt {
+ };
+ 
+ &usart2 {
++	bootph-all;
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index 88e214d395ab..075b4419d3ae 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -57,6 +57,7 @@ optee: optee {
+ 			method = "smc";
+ 			interrupt-parent = <&intc>;
+ 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
 +			bootph-all;
  		};
  
- 		pwr_regulators: pwr@50001000 {
- 			compatible = "st,stm32mp1,pwr-reg";
- 			reg = <0x50001000 0x10>;
+ 		scmi {
+@@ -64,15 +65,18 @@ scmi {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			linaro,optee-channel-id = <0>;
 +			bootph-all;
  
- 			reg11: reg11 {
- 				regulator-name = "reg11";
-@@ -354,6 +365,7 @@ ltdc: display-controller@5a001000 {
- 			clocks = <&rcc LTDC_PX>;
- 			clock-names = "lcd";
- 			resets = <&rcc LTDC_R>;
-+			bootph-some-ram;
- 			status = "disabled";
- 		};
+ 			scmi_clk: protocol@14 {
+ 				reg = <0x14>;
+ 				#clock-cells = <1>;
++				bootph-all;
+ 			};
  
-@@ -364,6 +376,7 @@ iwdg2: watchdog@5a002000 {
- 			clock-names = "pclk", "lsi";
- 			interrupts-extended = <&exti 46 IRQ_TYPE_LEVEL_HIGH>;
- 			wakeup-source;
+ 			scmi_reset: protocol@16 {
+ 				reg = <0x16>;
+ 				#reset-cells = <1>;
++				bootph-all;
+ 			};
+ 
+ 			scmi_voltd: protocol@17 {
+@@ -114,6 +118,7 @@ scmi_vdda18adc: regulator@7 {
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
++		bootph-all;
+ 
+ 		cpu0_pd: power-domain-cpu0 {
+ 			#power-domain-cells = <0>;
+@@ -146,6 +151,7 @@ soc@0 {
+ 		interrupt-parent = <&intc>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
++		bootph-all;
+ 
+ 		hpdma: dma-controller@40400000 {
+ 			compatible = "st,stm32mp25-dma3";
+@@ -223,6 +229,7 @@ rifsc: bus@42080000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+ 			#access-controller-cells = <1>;
 +			bootph-all;
- 			status = "disabled";
- 		};
  
-@@ -404,6 +417,8 @@ bsec: efuse@5c005000 {
- 			reg = <0x5c005000 0x400>;
+ 			i2s2: audio-controller@400b0000 {
+ 				compatible = "st,stm32mp25-i2s";
+@@ -760,6 +767,7 @@ bsec: efuse@44000000 {
+ 			reg = <0x44000000 0x1000>;
  			#address-cells = <1>;
  			#size-cells = <1>;
 +			bootph-all;
-+
- 			part_number_otp: part-number-otp@4 {
- 				reg = <0x4 0x1>;
- 			};
-@@ -1876,6 +1891,7 @@ pinctrl: pinctrl@50002000 {
- 			ranges = <0 0x50002000 0xa400>;
- 			interrupt-parent = <&exti>;
- 			st,syscfg = <&exti 0x60 0xff>;
+ 
+ 			part_number_otp@24 {
+ 				reg = <0x24 0x4>;
+@@ -857,6 +865,7 @@ rcc: clock-controller@44200000 {
+ 				<&scmi_clk CK_SCMI_PLL3>,
+ 				<&clk_dsi_txbyte>;
+ 				access-controllers = <&rifsc 156>;
++			bootph-all;
+ 		};
+ 
+ 		exti1: interrupt-controller@44220000 {
+@@ -955,6 +964,7 @@ exti1: interrupt-controller@44220000 {
+ 		syscfg: syscon@44230000 {
+ 			compatible = "st,stm32mp23-syscfg", "syscon";
+ 			reg = <0x44230000 0x10000>;
++			bootph-all;
+ 		};
+ 
+ 		pinctrl: pinctrl@44240000 {
+@@ -965,6 +975,7 @@ pinctrl: pinctrl@44240000 {
+ 			interrupt-parent = <&exti1>;
+ 			st,syscfg = <&exti1 0x60 0xff>;
+ 			pins-are-numbered;
 +			bootph-all;
  
- 			gpioa: gpio@50002000 {
- 				gpio-controller;
-@@ -1885,6 +1901,7 @@ gpioa: gpio@50002000 {
+ 			gpioa: gpio@44240000 {
  				reg = <0x0 0x400>;
- 				clocks = <&rcc GPIOA>;
+@@ -974,6 +985,7 @@ gpioa: gpio@44240000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOA>;
  				st,bank-name = "GPIOA";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1896,6 +1913,7 @@ gpiob: gpio@50003000 {
- 				reg = <0x1000 0x400>;
- 				clocks = <&rcc GPIOB>;
+@@ -985,6 +997,7 @@ gpiob: gpio@44250000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOB>;
  				st,bank-name = "GPIOB";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1907,6 +1925,7 @@ gpioc: gpio@50004000 {
- 				reg = <0x2000 0x400>;
- 				clocks = <&rcc GPIOC>;
+@@ -996,6 +1009,7 @@ gpioc: gpio@44260000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOC>;
  				st,bank-name = "GPIOC";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1918,6 +1937,7 @@ gpiod: gpio@50005000 {
- 				reg = <0x3000 0x400>;
- 				clocks = <&rcc GPIOD>;
+@@ -1007,6 +1021,7 @@ gpiod: gpio@44270000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOD>;
  				st,bank-name = "GPIOD";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1929,6 +1949,7 @@ gpioe: gpio@50006000 {
- 				reg = <0x4000 0x400>;
- 				clocks = <&rcc GPIOE>;
+@@ -1018,6 +1033,7 @@ gpioe: gpio@44280000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOE>;
  				st,bank-name = "GPIOE";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1940,6 +1961,7 @@ gpiof: gpio@50007000 {
- 				reg = <0x5000 0x400>;
- 				clocks = <&rcc GPIOF>;
+@@ -1029,6 +1045,7 @@ gpiof: gpio@44290000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOF>;
  				st,bank-name = "GPIOF";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1951,6 +1973,7 @@ gpiog: gpio@50008000 {
- 				reg = <0x6000 0x400>;
- 				clocks = <&rcc GPIOG>;
+@@ -1040,6 +1057,7 @@ gpiog: gpio@442a0000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOG>;
  				st,bank-name = "GPIOG";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1962,6 +1985,7 @@ gpioh: gpio@50009000 {
- 				reg = <0x7000 0x400>;
- 				clocks = <&rcc GPIOH>;
+@@ -1051,6 +1069,7 @@ gpioh: gpio@442b0000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOH>;
  				st,bank-name = "GPIOH";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1973,6 +1997,7 @@ gpioi: gpio@5000a000 {
- 				reg = <0x8000 0x400>;
- 				clocks = <&rcc GPIOI>;
+@@ -1062,6 +1081,7 @@ gpioi: gpio@442c0000 {
+ 				#interrupt-cells = <2>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOI>;
+ 				st,bank-name = "GPIOI";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 		};
+@@ -1084,6 +1104,7 @@ pinctrl_z: pinctrl@46200000 {
+ 			interrupt-parent = <&exti1>;
+ 			st,syscfg = <&exti1 0x60 0xff>;
+ 			pins-are-numbered;
++			bootph-all;
+ 
+ 			gpioz: gpio@46200000 {
+ 				reg = <0 0x400>;
+@@ -1094,6 +1115,7 @@ gpioz: gpio@46200000 {
+ 				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
+ 				st,bank-name = "GPIOZ";
+ 				st,bank-ioport = <11>;
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+diff --git a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
+index c3e688068223..391494eda5e6 100644
+--- a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
+@@ -130,7 +130,18 @@ &usart2 {
+ 	pinctrl-0 = <&usart2_pins_a>;
+ 	pinctrl-1 = <&usart2_idle_pins_a>;
+ 	pinctrl-2 = <&usart2_sleep_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
++
++&usart2_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index a8e6e0f77b83..0cc3ac8bb584 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -66,6 +66,7 @@ optee: optee {
+ 			method = "smc";
+ 			interrupt-parent = <&intc>;
+ 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
++			bootph-all;
+ 		};
+ 
+ 		scmi {
+@@ -73,15 +74,18 @@ scmi {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			linaro,optee-channel-id = <0>;
++			bootph-all;
+ 
+ 			scmi_clk: protocol@14 {
+ 				reg = <0x14>;
+ 				#clock-cells = <1>;
++				bootph-all;
+ 			};
+ 
+ 			scmi_reset: protocol@16 {
+ 				reg = <0x16>;
+ 				#reset-cells = <1>;
++				bootph-all;
+ 			};
+ 
+ 			scmi_voltd: protocol@17 {
+@@ -142,6 +146,7 @@ v2m0: v2m@48090000 {
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
++		bootph-all;
+ 
+ 		CPU_PD0: power-domain-cpu0 {
+ 			#power-domain-cells = <0>;
+@@ -174,6 +179,7 @@ soc@0 {
+ 		#size-cells = <1>;
+ 		interrupt-parent = <&intc>;
+ 		ranges = <0x0 0x0 0x0 0x80000000>;
++		bootph-all;
+ 
+ 		hpdma: dma-controller@40400000 {
+ 			compatible = "st,stm32mp25-dma3";
+@@ -305,6 +311,7 @@ rifsc: bus@42080000 {
+ 			#size-cells = <1>;
+ 			#access-controller-cells = <1>;
+ 			ranges;
++			bootph-all;
+ 
+ 			timers2: timer@40000000 {
+ 				compatible = "st,stm32mp25-timers";
+@@ -1577,6 +1584,7 @@ ltdc: display-controller@48010000 {
+ 				clock-names = "lcd", "bus";
+ 				resets = <&rcc LTDC_R>;
+ 				access-controllers = <&rifsc 80>;
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -1738,6 +1746,7 @@ bsec: efuse@44000000 {
+ 			reg = <0x44000000 0x1000>;
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
++			bootph-all;
+ 
+ 			part_number_otp@24 {
+ 				reg = <0x24 0x4>;
+@@ -1842,6 +1851,7 @@ rcc: clock-controller@44200000 {
+ 				<&scmi_clk CK_SCMI_PLL3>,
+ 				<&clk_dsi_txbyte>;
+ 				access-controllers = <&rifsc 156>;
++			bootph-all;
+ 		};
+ 
+ 		exti1: interrupt-controller@44220000 {
+@@ -1941,6 +1951,7 @@ syscfg: syscon@44230000 {
+ 			compatible = "st,stm32mp25-syscfg", "syscon";
+ 			reg = <0x44230000 0x10000>;
+ 			#clock-cells = <0>;
++			bootph-all;
+ 		};
+ 
+ 		pinctrl: pinctrl@44240000 {
+@@ -1951,6 +1962,7 @@ pinctrl: pinctrl@44240000 {
+ 			interrupt-parent = <&exti1>;
+ 			st,syscfg = <&exti1 0x60 0xff>;
+ 			pins-are-numbered;
++			bootph-all;
+ 
+ 			gpioa: gpio@44240000 {
+ 				gpio-controller;
+@@ -1960,6 +1972,7 @@ gpioa: gpio@44240000 {
+ 				reg = <0x0 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOA>;
+ 				st,bank-name = "GPIOA";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -1971,6 +1984,7 @@ gpiob: gpio@44250000 {
+ 				reg = <0x10000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOB>;
+ 				st,bank-name = "GPIOB";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -1982,6 +1996,7 @@ gpioc: gpio@44260000 {
+ 				reg = <0x20000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOC>;
+ 				st,bank-name = "GPIOC";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -1993,6 +2008,7 @@ gpiod: gpio@44270000 {
+ 				reg = <0x30000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOD>;
+ 				st,bank-name = "GPIOD";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -2004,6 +2020,7 @@ gpioe: gpio@44280000 {
+ 				reg = <0x40000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOE>;
+ 				st,bank-name = "GPIOE";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -2015,6 +2032,7 @@ gpiof: gpio@44290000 {
+ 				reg = <0x50000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOF>;
+ 				st,bank-name = "GPIOF";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -2026,6 +2044,7 @@ gpiog: gpio@442a0000 {
+ 				reg = <0x60000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOG>;
+ 				st,bank-name = "GPIOG";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -2037,6 +2056,7 @@ gpioh: gpio@442b0000 {
+ 				reg = <0x70000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOH>;
+ 				st,bank-name = "GPIOH";
++				bootph-all;
+ 				status = "disabled";
+ 			};
+ 
+@@ -2048,6 +2068,7 @@ gpioi: gpio@442c0000 {
+ 				reg = <0x80000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOI>;
  				st,bank-name = "GPIOI";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1984,6 +2009,7 @@ gpioj: gpio@5000b000 {
- 				reg = <0x9000 0x400>;
- 				clocks = <&rcc GPIOJ>;
+@@ -2059,6 +2080,7 @@ gpioj: gpio@442d0000 {
+ 				reg = <0x90000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOJ>;
  				st,bank-name = "GPIOJ";
 +				bootph-all;
  				status = "disabled";
  			};
  
-@@ -1995,6 +2021,7 @@ gpiok: gpio@5000c000 {
- 				reg = <0xa000 0x400>;
- 				clocks = <&rcc GPIOK>;
+@@ -2070,6 +2092,7 @@ gpiok: gpio@442e0000 {
+ 				reg = <0xa0000 0x400>;
+ 				clocks = <&scmi_clk CK_SCMI_GPIOK>;
  				st,bank-name = "GPIOK";
 +				bootph-all;
  				status = "disabled";
  			};
  		};
-@@ -2006,6 +2033,7 @@ pinctrl_z: pinctrl@54004000 {
- 			ranges = <0 0x54004000 0x400>;
- 			interrupt-parent = <&exti>;
- 			st,syscfg = <&exti 0x60 0xff>;
+@@ -2092,6 +2115,7 @@ pinctrl_z: pinctrl@46200000 {
+ 			interrupt-parent = <&exti1>;
+ 			st,syscfg = <&exti1 0x60 0xff>;
+ 			pins-are-numbered;
 +			bootph-all;
  
- 			gpioz: gpio@54004000 {
+ 			gpioz: gpio@46200000 {
  				gpio-controller;
-@@ -2016,6 +2044,7 @@ gpioz: gpio@54004000 {
- 				clocks = <&rcc GPIOZ>;
+@@ -2102,6 +2126,7 @@ gpioz: gpio@46200000 {
+ 				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
  				st,bank-name = "GPIOZ";
  				st,bank-ioport = <11>;
 +				bootph-all;
  				status = "disabled";
  			};
  		};
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-index 847b360f02fc..f721c398e576 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-@@ -85,3 +85,17 @@ &rng1 {
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
-+
-+&uart4 {
-+	bootph-all;
-+};
-+
-+&uart4_pins_a {
-+	bootph-all;
-+	pins1 {
+diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+index 7a598f53a2a0..7b2e07613030 100644
+--- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+@@ -21,6 +21,7 @@ lvds: lvds@48060000 {
+ 		resets = <&rcc LVDS_R>;
+ 		access-controllers = <&rifsc 84>;
+ 		power-domains = <&CLUSTER_PD>;
 +		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
-index 0da3667ab1e0..c4581e28504a 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
-@@ -23,3 +23,46 @@ chosen {
- 		stdout-path = "serial0:115200n8";
+ 		status = "disabled";
  	};
- };
-+
-+&i2c4 {
-+	bootph-all;
-+};
-+
-+&i2c4_pins_a {
-+	bootph-all;
-+	pins {
-+		bootph-all;
-+	};
-+};
-+
-+&pmic {
-+	bootph-all;
-+};
-+
-+&sdmmc1 {
-+	bootph-pre-ram;
-+};
-+
-+&sdmmc1_b4_pins_a {
-+	bootph-pre-ram;
-+	pins1 {
-+		bootph-pre-ram;
-+	};
-+	pins2 {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&uart4 {
-+	bootph-all;
-+};
-+
-+&uart4_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
-index 1ec3b8f2faa9..4fc670bb4cb0 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
-@@ -79,6 +79,17 @@ touchscreen@38 {
+ 
+@@ -40,4 +41,4 @@ venc: venc@480e0000 {
+ 		clocks = <&rcc CK_BUS_VENC>;
+ 		access-controllers = <&rifsc 90>;
  	};
- };
- 
-+&i2c4 {
+-};
+\ No newline at end of file
++};
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+index e718d888ce21..69bac9e719d7 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+@@ -130,7 +130,18 @@ &usart2 {
+ 	pinctrl-0 = <&usart2_pins_a>;
+ 	pinctrl-1 = <&usart2_idle_pins_a>;
+ 	pinctrl-2 = <&usart2_sleep_pins_a>;
 +	bootph-all;
-+};
-+
-+&i2c4_pins_a {
-+	bootph-all;
-+	pins {
-+		bootph-all;
-+	};
-+};
-+
- &ltdc {
- 	status = "okay";
- 
-@@ -93,6 +104,10 @@ ltdc_ep1_out: endpoint@1 {
- 	};
- };
- 
-+&pmic {
-+	bootph-all;
-+};
-+
- &rtc {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&rtc_rsvd_pins_a>;
-@@ -103,6 +118,20 @@ rtc_lsco_pins_a: rtc-lsco-0 {
- 	};
- };
- 
-+&sdmmc1 {
-+	bootph-pre-ram;
-+};
-+
-+&sdmmc1_b4_pins_a {
-+	bootph-pre-ram;
-+	pins1 {
-+		bootph-pre-ram;
-+	};
-+	pins2 {
-+		bootph-pre-ram;
-+	};
-+};
-+
- /* Wifi */
- &sdmmc2 {
- 	pinctrl-names = "default", "opendrain", "sleep";
-@@ -127,6 +156,20 @@ brcmf: wifi@1 {
- 	};
- };
- 
-+&uart4 {
-+	bootph-all;
-+};
-+
-+&uart4_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-+
- /* Bluetooth */
- &usart2 {
- 	pinctrl-names = "default", "sleep", "idle";
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-index 6f27d794d270..00d4855f9a85 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-@@ -90,3 +90,17 @@ &rng1 {
- &rtc {
- 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
- };
-+
-+&uart4 {
-+	bootph-all;
-+};
-+
-+&uart4_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-index f6c478dbd041..f63a3d68d2b4 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
-@@ -168,7 +168,9 @@ &i2c4 {
- 	i2c-scl-rising-time-ns = <185>;
- 	i2c-scl-falling-time-ns = <20>;
- 	clock-frequency = <400000>;
-+	bootph-all;
- 	status = "okay";
-+
- 	/* spare dmas for other usage */
  	/delete-property/dmas;
  	/delete-property/dma-names;
-@@ -179,6 +181,7 @@ pmic: stpmic@33 {
- 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
-+		bootph-all;
- 		status = "okay";
- 
- 		regulators {
-@@ -314,6 +317,13 @@ watchdog {
- 	};
+ 	status = "okay";
  };
- 
-+&i2c4_pins_a {
++
++&usart2_pins_a {
 +	bootph-all;
-+	pins {
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
 +		bootph-all;
 +	};
 +};
-+
- &ipcc {
- 	status = "okay";
- };
-@@ -365,9 +375,30 @@ &sdmmc1 {
- 	sd-uhs-sdr25;
- 	sd-uhs-sdr50;
- 	sd-uhs-ddr50;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-+&sdmmc1_b4_pins_a {
-+	bootph-pre-ram;
-+	pins1 {
-+		bootph-pre-ram;
-+	};
-+	pins2 {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&sdmmc1_dir_pins_a {
-+	bootph-pre-ram;
-+	pins1 {
-+		bootph-pre-ram;
-+	};
-+	pins2 {
-+		bootph-pre-ram;
-+	};
-+};
-+
- &sdmmc2 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-@@ -381,9 +412,27 @@ &sdmmc2 {
- 	vmmc-supply = <&v3v3>;
- 	vqmmc-supply = <&vdd>;
- 	mmc-ddr-3_3v;
-+	bootph-pre-ram;
- 	status = "okay";
- };
- 
-+&sdmmc2_b4_pins_a {
-+	bootph-pre-ram;
-+	pins1 {
-+		bootph-pre-ram;
-+	};
-+	pins2 {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&sdmmc2_d47_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
- &timers6 {
- 	status = "okay";
- 	/* spare dmas for other usage */
-@@ -399,11 +448,22 @@ &uart4 {
- 	pinctrl-0 = <&uart4_pins_a>;
- 	pinctrl-1 = <&uart4_sleep_pins_a>;
- 	pinctrl-2 = <&uart4_idle_pins_a>;
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+index 6e165073f732..307b9692b00a 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
+@@ -477,11 +477,22 @@ &usart2 {
+ 	pinctrl-0 = <&usart2_pins_a>;
+ 	pinctrl-1 = <&usart2_idle_pins_a>;
+ 	pinctrl-2 = <&usart2_sleep_pins_a>;
 +	bootph-all;
  	/delete-property/dmas;
  	/delete-property/dma-names;
  	status = "okay";
  };
  
-+&uart4_pins_a {
++&usart2_pins_a {
 +	bootph-all;
 +	pins1 {
 +		bootph-all;
@@ -730,99 +701,9 @@ index f6c478dbd041..f63a3d68d2b4 100644
 +	};
 +};
 +
- &usbotg_hs {
- 	vbus-supply = <&vbus_otg>;
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-index 6ae391bffee5..bcf80f76d6bc 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-@@ -77,6 +77,31 @@ &optee {
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
- };
- 
-+&qspi {
-+	bootph-pre-ram;
-+};
-+
-+&qspi_clk_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_bk1_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_bk2_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
- &rcc {
- 	compatible = "st,stm32mp1-rcc-secure", "syscon";
- 	clock-names = "hse", "hsi", "csi", "lse", "lsi";
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-index 8f99c30f1af1..879436cbb72d 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-@@ -262,6 +262,7 @@ &qspi_bk2_sleep_pins_a
- 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
-+	bootph-pre-ram;
- 	status = "okay";
- 
- 	flash0: flash@0 {
-@@ -283,6 +284,41 @@ flash1: flash@1 {
- 	};
- };
- 
-+&qspi_clk_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_bk1_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_cs1_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_bk2_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
-+&qspi_cs2_pins_a {
-+	bootph-pre-ram;
-+	pins {
-+		bootph-pre-ram;
-+	};
-+};
-+
- &sdmmc3 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+ &usart6 {
+ 	pinctrl-names = "default", "idle", "sleep";
+ 	pinctrl-0 = <&usart6_pins_a>;
 
 -- 
 2.43.0
