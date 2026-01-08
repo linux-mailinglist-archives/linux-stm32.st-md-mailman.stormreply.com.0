@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66262D012FE
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 07:05:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11B05D0145B
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 07:44:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 228BFC8F284;
-	Thu,  8 Jan 2026 06:05:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B75C8C8F284;
+	Thu,  8 Jan 2026 06:44:10 +0000 (UTC)
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66CC2C8F283
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D43C3C8F282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 06:05:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 04C7F43F89;
- Thu,  8 Jan 2026 06:05:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B2EC16AAE;
- Thu,  8 Jan 2026 06:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767852321;
- bh=Y0fA6F5gUKCiQEzQ6rqIGJ2uKAFcVjNQMVrpQtOL7pY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lIXYRiaVhagNWfVsVfoP5Th5/6rWC/KxcfFTbaHxSGjmtjsWNnNb41BLHiRpxxXUq
- vD/8p65ebOpFi2ZzyaehMslFktgp/gOGRoC+Aw3EpY95vqUcq4h4mO8vFPTe5IUnsi
- 7FlyRh8qCePW1T4IQxiinj05H1YcgON2RDiBmMwJT7Cz7dqfOiVuDypRrgxSHv4Rlw
- mzyArY6SuUnl/uC48lcx2F88VVTwsLodSYF7LXzqfoWclhwP6+d8ttZk/3j2hVYcIR
- uqqwTiXSYRJi4HGz17ytPKe1N/i9BM3/S6UxiFQeD+y2DUr75RXQnKcjUgzuzyzkZX
- XnSb5YRaAFR+g==
-Date: Thu, 8 Jan 2026 07:05:15 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <zj2vpruzoeyvyyzxiqcffajyhpmem4q75l6gzgxd4jgaizhrdq@bxuudn4kyvr3>
+ Thu,  8 Jan 2026 06:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+ s=protonmail2; t=1767854649; x=1768113849;
+ bh=JvbqfdE84s/Q3OOhKk+KWzNYUT7BCFUTKaN5MZ+iwW8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=e5KrIPDzjg1eSWFaPCAMJbQZi9QV6uXXbAp8JUNHoExGxRVbZYfPic5fG1Stk+ety
+ UglMdcOOJzCoJhMUgZm9hviKfZl3fGbI9RWfijo6ADEua7tzieJTcJ1tEbJcQUAzWH
+ EkQlM+nAIari9yZuVeKSy6NK1iDvyruNab0gvzuqy+QJiQknsoen5KM5UmFhnc5oPh
+ CugkPCSuozE+CMdPaeCodhQ4SfuqaPLyya41H1JmE0W7kDRrhYFAX8uOLS2JarTlBF
+ xV1cyBCoyVEQbwNblQZBlFLihg+w/3mJAMR61vodMHj/+FsiTqZIjZZVXH+ju+oUtf
+ Aw5U8tsJUWdKA==
+Date: Thu, 08 Jan 2026 06:44:06 +0000
+To: =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+From: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <paj3uf6apunonvfz2w2anqmddivjrofmfo5wktygz4r6l7diqf@7gen7gjgyuar>
+In-Reply-To: <zj2vpruzoeyvyyzxiqcffajyhpmem4q75l6gzgxd4jgaizhrdq@bxuudn4kyvr3>
 References: <20260106-stm32-pwm-v1-1-33e9e8a9fc33@geanix.com>
  <kemjjoyrhqglqq4p2j6kygspevq2mdbiujtnksw4rkdapoqcfy@zte2c7fhqvn3>
  <2e2iahbzcepbzwgk7xeta2afxmycfjgv2zofzngqjvp4on46r2@mzpi4bz4uqie>
  <nwhixocvhii27jvcyg7ex5emewntgfhyxa4ds5vo2dphe7xfe4@ibjsjdd5fgmn>
  <fwaodg2ovh7j47ifwjhgeppxs3oiqht5ecbs7bmfbi7j6djejs@shwokpcmutr3>
+ <zj2vpruzoeyvyyzxiqcffajyhpmem4q75l6gzgxd4jgaizhrdq@bxuudn4kyvr3>
+Feedback-ID: 134068486:user:proton
+X-Pm-Message-ID: 014263d0e98d319b81f8ce02eec1a63633eddc36
 MIME-Version: 1.0
-In-Reply-To: <fwaodg2ovh7j47ifwjhgeppxs3oiqht5ecbs7bmfbi7j6djejs@shwokpcmutr3>
 Cc: linux-pwm@vger.kernel.org, stable@vger.kernel.org,
  linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -55,135 +55,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6066169715009873667=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6066169715009873667==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2fbnr5emdw3vpmkk"
-Content-Disposition: inline
-
-
---2fbnr5emdw3vpmkk
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: stm32: handle polarity change when PWM is enabled
-MIME-Version: 1.0
-
-Hello Sean,
-
-On Wed, Jan 07, 2026 at 04:05:56PM +0000, Sean Nyekjaer wrote:
-> On Wed, Jan 07, 2026 at 04:54:46PM +0100, Uwe Kleine-K=F6nig wrote:
-> > On Tue, Jan 06, 2026 at 11:30:34AM +0000, Sean Nyekjaer wrote:
-> > > On Tue, Jan 06, 2026 at 11:22:57AM +0100, Uwe Kleine-K=F6nig wrote:
-> > > > On Tue, Jan 06, 2026 at 08:01:57AM +0100, Sean Nyekjaer wrote:
-> > > > > After commit 7346e7a058a2 ("pwm: stm32: Always do lazy disabling"=
-),
-> > > > > polarity changes are ignored. Updates to the TIMx_CCER CCxP bits =
-are
-> > > > > ignored by the hardware when the master output is enabled via the
-> > > > > TIMx_BDTR MOE bit.
-> > > > [...]
-> > > > I have hardware using this driver, will set it up later this week f=
-or
-> > > > testing.
-> > >=20
-> > > Very cool, looking forward to hear if you can re-produce.
-> >=20
-> > I cannot. I have:
-> >=20
-> > 	# uname -r
-> > 	6.11.0-rc1-00028-geb18504ca5cf-dirty
-> >=20
-> > (the -dirty is only from enabling the pwm for my machine, no driver
-> > changes)
-> >=20
-> > 	# cat /sys/kernel/debug/pwm
-> > 	0: platform/40001000.timer:pwm, 4 PWM devices
-> > 	...
-> > 	 pwm-3   (sysfs               ): requested enabled period: 313720 ns d=
-uty: 10000 ns polarity: normal
-> >=20
-> > and pulseview/sigrok detects 3.187251% with a period of 313.8 =B5s.
-> >=20
-> > After
-> >=20
-> > 	echo inversed > /sys/class/pwm/pwmchip0/pwm3/polarity
-> >=20
-> > the output changes to
-> >=20
-> > 	# cat /sys/kernel/debug/pwm
-> > 	0: platform/40001000.timer:pwm, 4 PWM devices
-> > 	...
-> > 	 pwm-3   (sysfs               ): requested enabled period: 313720 ns d=
-uty: 10000 ns polarity: inverse
-> >=20
-> > and pulseview/sigrok claims 96.812749% with a period of 313.8 =B5s.
-> > So the polarity change happend as expected.
-> >=20
-> > This is on an st,stm32mp135f-dk board.
-> >=20
-> > Where is the difference to your observations?
-> >=20
->=20
-> Thanks for taking a look!
-> I'm using the PWM for a backlight. With this [0] in my dts:
->=20
-> [0]:
-> 	backlight: backlight {
-> 		compatible =3D "pwm-backlight";
-> 		pwms =3D <&pwm4 0 125000 PWM_POLARITY_INVERTED>;
-> 		brightness-levels =3D <102 235 255>;
-> 		default-brightness-level =3D <80>;
-> 		num-interpolated-steps =3D <100>;
-> 		enable-gpios =3D <&gpiof 12 GPIO_ACTIVE_LOW>;
-> 	status =3D "okay";
-> 	};
->=20
-> Maybe that is doing something differently.
-
-What is the actual problem you have? I assume it's the backlight being
-off after boot? Does it start working if you disable and reenable?
-
-Can you please boot with
-
-	trace_event=3Dpwm
-
-on the command line and provide /sys/kernel/debug/tracing/trace from
-after the problem happend?
-
-Best regards
-Uwe
-
---2fbnr5emdw3vpmkk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmlfSRgACgkQj4D7WH0S
-/k76/wf+NFddM6PhSOYwyq/PnXeCfIhk+HaeZvBs4UvpXIOr4ndVeTWKnzuWw1Da
-Pg2CmR/mfGLa4KZFQx6++CwRb/vWKtaAWIFWO4WtVRG4GIGinHvzB6SOPMXrcPFZ
-R0L+ORoiCV6U0sMqmQpOIVIE7k8hRSp0f3uIB1wJY4J1br/ltzBwi1BWDmj6WvmV
-PIll80wwi3lEpWj18zpt74atfQG34YXeT+RoZNqj/FVUKxHMRS7WSE3/tSAnXiCw
-csNFUAlb+htjXqecAZU9D6Ay9C1jUL5lCYxISZRQGB8alzYTSKA2KyuEHdhqzaYT
-pE+/udBA5H5rD34ILTOdL4N3aY+5ew==
-=ofVw
------END PGP SIGNATURE-----
-
---2fbnr5emdw3vpmkk--
-
---===============6066169715009873667==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6066169715009873667==--
+SGkgVXdlLAoKT24gVGh1LCBKYW4gMDgsIDIwMjYgYXQgMDc6MDU6MTVBTSArMDEwMCwgVXdlIEts
+ZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gT24gV2VkLCBKYW4gMDcsIDIwMjYgYXQgMDQ6MDU6NTZQTSAr
+MDAwMCwgU2VhbiBOeWVramFlciB3cm90ZToKPiA+IE9uIFdlZCwgSmFuIDA3LCAyMDI2IGF0IDA0
+OjU0OjQ2UE0gKzAxMDAsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+ID4gPiBPbiBUdWUsIEph
+biAwNiwgMjAyNiBhdCAxMTozMDozNEFNICswMDAwLCBTZWFuIE55ZWtqYWVyIHdyb3RlOgo+ID4g
+PiA+IE9uIFR1ZSwgSmFuIDA2LCAyMDI2IGF0IDExOjIyOjU3QU0gKzAxMDAsIFV3ZSBLbGVpbmUt
+S8O2bmlnIHdyb3RlOgo+ID4gPiA+ID4gT24gVHVlLCBKYW4gMDYsIDIwMjYgYXQgMDg6MDE6NTdB
+TSArMDEwMCwgU2VhbiBOeWVramFlciB3cm90ZToKPiA+ID4gPiA+ID4gQWZ0ZXIgY29tbWl0IDcz
+NDZlN2EwNThhMiAoInB3bTogc3RtMzI6IEFsd2F5cyBkbyBsYXp5IGRpc2FibGluZyIpLAo+ID4g
+PiA+ID4gPiBwb2xhcml0eSBjaGFuZ2VzIGFyZSBpZ25vcmVkLiBVcGRhdGVzIHRvIHRoZSBUSU14
+X0NDRVIgQ0N4UCBiaXRzIGFyZQo+ID4gPiA+ID4gPiBpZ25vcmVkIGJ5IHRoZSBoYXJkd2FyZSB3
+aGVuIHRoZSBtYXN0ZXIgb3V0cHV0IGlzIGVuYWJsZWQgdmlhIHRoZQo+ID4gPiA+ID4gPiBUSU14
+X0JEVFIgTU9FIGJpdC4KPiA+ID4gPiA+IFsuLi5dCj4gPiA+ID4gPiBJIGhhdmUgaGFyZHdhcmUg
+dXNpbmcgdGhpcyBkcml2ZXIsIHdpbGwgc2V0IGl0IHVwIGxhdGVyIHRoaXMgd2VlayBmb3IKPiA+
+ID4gPiA+IHRlc3RpbmcuCj4gPiA+ID4gCj4gPiA+ID4gVmVyeSBjb29sLCBsb29raW5nIGZvcndh
+cmQgdG8gaGVhciBpZiB5b3UgY2FuIHJlLXByb2R1Y2UuCj4gPiA+IAo+ID4gPiBJIGNhbm5vdC4g
+SSBoYXZlOgo+ID4gPiAKPiA+ID4gCSMgdW5hbWUgLXIKPiA+ID4gCTYuMTEuMC1yYzEtMDAwMjgt
+Z2ViMTg1MDRjYTVjZi1kaXJ0eQo+ID4gPiAKPiA+ID4gKHRoZSAtZGlydHkgaXMgb25seSBmcm9t
+IGVuYWJsaW5nIHRoZSBwd20gZm9yIG15IG1hY2hpbmUsIG5vIGRyaXZlcgo+ID4gPiBjaGFuZ2Vz
+KQo+ID4gPiAKPiA+ID4gCSMgY2F0IC9zeXMva2VybmVsL2RlYnVnL3B3bQo+ID4gPiAJMDogcGxh
+dGZvcm0vNDAwMDEwMDAudGltZXI6cHdtLCA0IFBXTSBkZXZpY2VzCj4gPiA+IAkuLi4KPiA+ID4g
+CSBwd20tMyAgIChzeXNmcyAgICAgICAgICAgICAgICk6IHJlcXVlc3RlZCBlbmFibGVkIHBlcmlv
+ZDogMzEzNzIwIG5zIGR1dHk6IDEwMDAwIG5zIHBvbGFyaXR5OiBub3JtYWwKPiA+ID4gCj4gPiA+
+IGFuZCBwdWxzZXZpZXcvc2lncm9rIGRldGVjdHMgMy4xODcyNTElIHdpdGggYSBwZXJpb2Qgb2Yg
+MzEzLjggwrVzLgo+ID4gPiAKPiA+ID4gQWZ0ZXIKPiA+ID4gCj4gPiA+IAllY2hvIGludmVyc2Vk
+ID4gL3N5cy9jbGFzcy9wd20vcHdtY2hpcDAvcHdtMy9wb2xhcml0eQo+ID4gPiAKPiA+ID4gdGhl
+IG91dHB1dCBjaGFuZ2VzIHRvCj4gPiA+IAo+ID4gPiAJIyBjYXQgL3N5cy9rZXJuZWwvZGVidWcv
+cHdtCj4gPiA+IAkwOiBwbGF0Zm9ybS80MDAwMTAwMC50aW1lcjpwd20sIDQgUFdNIGRldmljZXMK
+PiA+ID4gCS4uLgo+ID4gPiAJIHB3bS0zICAgKHN5c2ZzICAgICAgICAgICAgICAgKTogcmVxdWVz
+dGVkIGVuYWJsZWQgcGVyaW9kOiAzMTM3MjAgbnMgZHV0eTogMTAwMDAgbnMgcG9sYXJpdHk6IGlu
+dmVyc2UKPiA+ID4gCj4gPiA+IGFuZCBwdWxzZXZpZXcvc2lncm9rIGNsYWltcyA5Ni44MTI3NDkl
+IHdpdGggYSBwZXJpb2Qgb2YgMzEzLjggwrVzLgo+ID4gPiBTbyB0aGUgcG9sYXJpdHkgY2hhbmdl
+IGhhcHBlbmQgYXMgZXhwZWN0ZWQuCj4gPiA+IAo+ID4gPiBUaGlzIGlzIG9uIGFuIHN0LHN0bTMy
+bXAxMzVmLWRrIGJvYXJkLgo+ID4gPiAKPiA+ID4gV2hlcmUgaXMgdGhlIGRpZmZlcmVuY2UgdG8g
+eW91ciBvYnNlcnZhdGlvbnM/Cj4gPiA+IAo+ID4gCj4gPiBUaGFua3MgZm9yIHRha2luZyBhIGxv
+b2shCj4gPiBJJ20gdXNpbmcgdGhlIFBXTSBmb3IgYSBiYWNrbGlnaHQuIFdpdGggdGhpcyBbMF0g
+aW4gbXkgZHRzOgo+ID4gCj4gPiBbMF06Cj4gPiAJYmFja2xpZ2h0OiBiYWNrbGlnaHQgewo+ID4g
+CQljb21wYXRpYmxlID0gInB3bS1iYWNrbGlnaHQiOwo+ID4gCQlwd21zID0gPCZwd200IDAgMTI1
+MDAwIFBXTV9QT0xBUklUWV9JTlZFUlRFRD47Cj4gPiAJCWJyaWdodG5lc3MtbGV2ZWxzID0gPDEw
+MiAyMzUgMjU1PjsKPiA+IAkJZGVmYXVsdC1icmlnaHRuZXNzLWxldmVsID0gPDgwPjsKPiA+IAkJ
+bnVtLWludGVycG9sYXRlZC1zdGVwcyA9IDwxMDA+Owo+ID4gCQllbmFibGUtZ3Bpb3MgPSA8Jmdw
+aW9mIDEyIEdQSU9fQUNUSVZFX0xPVz47Cj4gPiAJc3RhdHVzID0gIm9rYXkiOwo+ID4gCX07Cj4g
+PiAKPiA+IE1heWJlIHRoYXQgaXMgZG9pbmcgc29tZXRoaW5nIGRpZmZlcmVudGx5Lgo+IAo+IFdo
+YXQgaXMgdGhlIGFjdHVhbCBwcm9ibGVtIHlvdSBoYXZlPyBJIGFzc3VtZSBpdCdzIHRoZSBiYWNr
+bGlnaHQgYmVpbmcKPiBvZmYgYWZ0ZXIgYm9vdD8gRG9lcyBpdCBzdGFydCB3b3JraW5nIGlmIHlv
+dSBkaXNhYmxlIGFuZCByZWVuYWJsZT8KClllcywgbm8gYmFja2xpZ2h0IGF0IGRlZmF1bHQgYnJp
+Z2h0bmVzcy4gQnV0IHRoZSByYW5nZSBpcyBpbnZlcnRlZCBzbyBhIGxvdyBicmlnaHRuZXNzCnNl
+dHRpbmcgaSBnZXQgbWF4aW11bSBicmlnaHRuZXNzLgpObywgaXQgbmV2ZXIgZW50ZXJzIHN0bTMy
+X3B3bV9zZXRfcG9sYXJpdHkoKS4KCj4gCj4gQ2FuIHlvdSBwbGVhc2UgYm9vdCB3aXRoCj4gCj4g
+CXRyYWNlX2V2ZW50PXB3bQo+IAo+IG9uIHRoZSBjb21tYW5kIGxpbmUgYW5kIHByb3ZpZGUgL3N5
+cy9rZXJuZWwvZGVidWcvdHJhY2luZy90cmFjZSBmcm9tCj4gYWZ0ZXIgdGhlIHByb2JsZW0gaGFw
+cGVuZD8KClRyYWNpbmcgb3V0cHV0IGlzIHRoZSBzYW1lIGJlZm9yZSBhbmQgYWZ0ZXIgdGhpcyBw
+YXRjaDoKIyB0cmFjZXI6IG5vcAojCiMgZW50cmllcy1pbi1idWZmZXIvZW50cmllcy13cml0dGVu
+OiAyLzIgICAjUDoyCiMKIyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXy0tLS0tPT4g
+aXJxcy1vZmYvQkgtZGlzYWJsZWQKIyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvIF8t
+LS0tPT4gbmVlZC1yZXNjaGVkCiMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IC8gXy0t
+LT0+IGhhcmRpcnEvc29mdGlycQojICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfHwgLyBf
+LS09PiBwcmVlbXB0LWRlcHRoCiMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8fHwgLyBf
+LT0+IG1pZ3JhdGUtZGlzYWJsZQojICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfHx8fCAv
+ICAgICBkZWxheQojICAgICAgICAgICBUQVNLLVBJRCAgICAgQ1BVIyAgfHx8fHwgIFRJTUVTVEFN
+UCAgRlVOQ1RJT04KIyAgICAgICAgICAgICAgfCB8ICAgICAgICAgfCAgIHx8fHx8ICAgICB8ICAg
+ICAgICAgfAogICAga3dvcmtlci91NTowLTI0ICAgICAgWzAwMF0gLi4uLi4gICAgIDEuODY3Mzg5
+OiBwd21fYXBwbHk6IDQ4MmYxYzBlOiBwZXJpb2Q9MTI1MDAwIGR1dHlfY3ljbGU9MCBwb2xhcml0
+eT0xIGVuYWJsZWQ9MCBlcnI9MAogICAgIGt3b3JrZXIvMTowLTIyICAgICAgWzAwMV0gLi4uLi4g
+ICAgIDEuOTg0MDQ0OiBwd21fYXBwbHk6IDQ4MmYxYzBlOiBwZXJpb2Q9MTI1MDAwIGR1dHlfY3lj
+bGU9MTAxOTYwIHBvbGFyaXR5PTEgZW5hYmxlZD0xIGVycj0wCgpJIGhhdmUgYWRkZWQgdGhpcyBk
+aWZmIHRvIHRoZSBrZXJuZWwgdG8gc2hvdyB3aGF0IGhhcHBlbnM6CmRpZmYgLS1naXQgYS9kcml2
+ZXJzL3B3bS9wd20tc3RtMzIuYyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCmluZGV4IDY3NDE0
+Yjk3ZWY0ZC4uOTRmNmQwZjMzMzY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIu
+YworKysgYi9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwpAQCAtMzk0LDYgKzM5NCw3IEBAIHN0YXRp
+YyBpbnQgc3RtMzJfcHdtX3NldF9wb2xhcml0eShzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2LCBpbnQg
+Y2gsCiB7CiAJdTMyIG1hc2s7CgorCXByaW50aygic3RtMzJfcHdtX3NldF9wb2xhcml0eTogJWRc
+biIsIHBvbGFyaXR5KTsKIAltYXNrID0gVElNX0NDRVJfQ0MxUCA8PCAoY2ggKiA0KTsKIAlpZiAo
+cHJpdi0+aGF2ZV9jb21wbGVtZW50YXJ5X291dHB1dCkKIAkJbWFzayB8PSBUSU1fQ0NFUl9DQzFO
+UCA8PCAoY2ggKiA0KTsKQEAgLTQ1NSw2ICs0NTYsNyBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9h
+cHBseShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpwd20sCiAJaW50
+IHJldDsKCiAJZW5hYmxlZCA9IHB3bS0+c3RhdGUuZW5hYmxlZDsKKwlwcmludGsoInN0bTMyX3B3
+bV9hcHBseTogZW5hYmxlZCAlZCwgc3RhdGUtPnBvbGFyaXR5ICVkLCBwd20tPnN0YXRlLnBvbGFy
+aXR5ICVkXG4iLCBlbmFibGVkLCBzdGF0ZS0+cG9sYXJpdHksIHB3bS0+c3RhdGUucG9sYXJpdHkp
+OwoKIAlpZiAoIXN0YXRlLT5lbmFibGVkKSB7CiAJCWlmIChlbmFibGVkKQoKQmVmb3JlIHRoaXMg
+cGF0Y2g6CnJvb3RAbG9jYWxob3N0On4jIGpvdXJuYWxjdGwgLWsgfCBncmVwIHB3bQpKYW4gOCA3
+OjMwOjMzIGxvY2FsaG9zdCBrZXJuZWw6IHN0bTMyX3B3bV9hcHBseTogZW5hYmxlZCAwLCBzdGF0
+ZS0+cG9sYXJpdHkgMSwgcHdtLT5zdGF0ZS5wb2xhcml0eSAwCkphbiA4IDc6MzA6MzMgbG9jYWxo
+b3N0IGtlcm5lbDogc3RtMzJfcHdtX2FwcGx5OiBlbmFibGVkIDAsIHN0YXRlLT5wb2xhcml0eSAx
+LCBwd20tPnN0YXRlLnBvbGFyaXR5IDEKCkFmdGVyIHRoaXMgcGF0Y2g6CnJvb3RAbG9jYWxob3N0
+On4jIGpvdXJuYWxjdGwgLWsgfCBncmVwIHB3bQpKYW4gOCA3OjM4OjMzIGxvY2FsaG9zdCBrZXJu
+ZWw6IHN0bTMyX3B3bV9hcHBseTogZW5hYmxlZCAwLCBzdGF0ZS0+cG9sYXJpdHkgMSwgcHdtLT5z
+dGF0ZS5wb2xhcml0eSAwCkphbiA4IDc6Mzg6MzMgbG9jYWxob3N0IGtlcm5lbDogc3RtMzJfcHdt
+X3NldF9wb2xhcml0eTogMQpKYW4gOCA3OjM4OjMzIGxvY2FsaG9zdCBrZXJuZWw6IHN0bTMyX3B3
+bV9hcHBseTogZW5hYmxlZCAwLCBzdGF0ZS0+cG9sYXJpdHkgMSwgcHdtLT5zdGF0ZS5wb2xhcml0
+eSAxCgpJIGhvcGUgdGhhdCBjbGFyaWZpZXMgdGhpbmdzIDopCgovU2VhbgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
+aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
