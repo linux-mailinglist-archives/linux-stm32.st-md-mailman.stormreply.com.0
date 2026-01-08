@@ -2,57 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4816D02928
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 13:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19450D02AD1
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 13:38:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CA00C8F284;
-	Thu,  8 Jan 2026 12:19:28 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C11EFC8F284;
+	Thu,  8 Jan 2026 12:38:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B291CC8F264
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB864C8F282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 12:19:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hif2hvnGrWVjKRMJEAdc4UWKgX381vfN7zL1PT9/Ogg=; b=J+7D1kdkycHTtChi2XvssBNcbU
- w5KuTSCZfiUJu4wSPTGY27d6eir99M1S+gjGJmPNPyAwMyGhw3SDy/926ebKBNS4wCrdJNSVH5NKO
- mz3nDx/hqkvsLkJdEzkJIImS17xDlqm6B6CzhyLK3atsP3RRpurPsv7nmr8W6VwOKc2CilVNp00OP
- VMoG+VJ5xaziRx5Bi0BJ1n+Mkxy+wlqzfBCjSib94EqcaQyEEc2oIpmNSQ172BD4zPRWXhQlAPZGm
- Mp6Bw3oYJV8R3CI07yVWp9+oXQmXJPk/Yx4eP8B7UWlU8PnJuERzP7HoDFccP4UXBe8MgyLlLrkIo
- e/u34BWg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56296)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vdoz2-000000002dh-1oTm;
- Thu, 08 Jan 2026 12:19:20 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vdoyz-000000002L8-3aLA; Thu, 08 Jan 2026 12:19:17 +0000
-Date: Thu, 8 Jan 2026 12:19:17 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aV-gxT3Ijk_8cmHS@shell.armlinux.org.uk>
-References: <aV1w9yxPwL990yZJ@shell.armlinux.org.uk>
- <E1vdDiF-00000002E1d-30rR@rmk-PC.armlinux.org.uk>
- <4bf4ec53-c972-4009-b827-5083e080f32f@bootlin.com>
- <aV-X20nSS-JahPr6@shell.armlinux.org.uk>
+ Thu,  8 Jan 2026 12:38:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7BE8F60138;
+ Thu,  8 Jan 2026 12:38:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6B5C19421;
+ Thu,  8 Jan 2026 12:38:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767875932;
+ bh=rRFi3QZQyDSaI7EXHpS+Y+kBFm4kORrlVSy4ytIs2fw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fcQ03nkULZY4K2hMjKQzQb8YD9w6WhEP3klYpCG+pWcCHsTOBSZ90PqbgcJKXJovv
+ u8OD+4y7+CncU5AcgUfx1htEWuUa0cIq7hb4dxyjOtdlPB1eulPhveHYa5j73fdcl6
+ sH9lG5DXnX4gp9r69jltDWJkQje7FeNkCYdX9/GtKapJHSqB6kBBfoFa+BgmM24s52
+ brKBSleGLrtxHlIUi8E1D76cIKGJvhYJLQ8eD0ELJt3SKAdBthw3NijmMKitI/gaQw
+ vqbpoJIClRizqweRds5+lj/l1xCPIcjQG6a36w/jNXfn5OuZFhSuCGHvoDrFqM4VMH
+ UC/ME8YN46EpQ==
+Date: Thu, 8 Jan 2026 14:38:47 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+Message-ID: <aV-lV5l-rwyceWqr@kernel.org>
+References: <cover.1765791463.git.u.kleine-koenig@baylibre.com>
+ <CAHUa44FrDZbvRvfN8obf80_k=Eqxe9YxHpjaE5jU7nkxPUwfag@mail.gmail.com>
+ <20251218135332f323fa91@mail.local>
+ <CAHUa44GpW5aO26GDyL9RZub9vVYvVcJ7etwO0yXBN_mUi0W4AA@mail.gmail.com>
+ <CAHUa44HqRbCJTXsrTCm0G5iwtkQtq+Si=yOspCjpAn-N2uVSVg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aV-X20nSS-JahPr6@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/9] net: stmmac: descs: fix
- buffer 1 off-by-one error
+In-Reply-To: <CAHUa44HqRbCJTXsrTCm0G5iwtkQtq+Si=yOspCjpAn-N2uVSVg@mail.gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jan Kiszka <jan.kiszka@siemens.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ linux-mips@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ keyrings@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>,
+ Ard Biesheuvel <ardb@kernel.org>, linux-rtc@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ James Morris <jmorris@namei.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Jason Gunthorpe <jgg@ziepe.ca>, Cristian Marussi <cristian.marussi@arm.com>,
+ arm-scmi@vger.kernel.org,
+ =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, op-tee@lists.trustedfirmware.org,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ Sumit Garg <sumit.garg@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Michael Chan <michael.chan@broadcom.com>, linux-arm-kernel@lists.infradead.org,
+ Paul Moore <paul@paul-moore.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ netdev@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ linux-integrity@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/17] tee: Use bus callbacks instead
+ of driver callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,114 +78,120 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 08, 2026 at 11:41:15AM +0000, Russell King (Oracle) wrote:
-> On Wed, Jan 07, 2026 at 10:28:30AM +0100, Maxime Chevallier wrote:
-> > Hi Russell,
-> > 
-> > On 06/01/2026 21:31, Russell King (Oracle) wrote:
-> > > norm_set_tx_desc_len_on_ring() incorrectly tests the buffer length,
-> > > leading to a length of 2048 being squeezed into a bitfield covering
-> > > bits 10:0 - which results in the buffer 1 size being zero.
-> > > 
-> > > If this field is zero, buffer 1 is ignored, and thus is equivalent
-> > > to transmitting a zero length buffer.
-> > > 
-> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > 
-> > Should it be a fix ? I've tried to trigger the bug without success, this
-> > seems to be fairly specific so I'm OK with it going to net-next.
-> 
-> Note that you need hardware that doesn't use enhanced descriptors -
-> which descriptors get used are dependent on the hardware rather than a
-> runtime option.
-> 
-> Note that we have this silly code, which I've brought up in the past:
-> 
->         if (priv->plat->core_type == DWMAC_CORE_XGMAC)
->                 ndev->max_mtu = XGMAC_JUMBO_LEN;
->         else if (priv->plat->enh_desc || priv->synopsys_id >= DWMAC_CORE_4_00)
->                 ndev->max_mtu = JUMBO_LEN;
->         else
->                 ndev->max_mtu = SKB_MAX_HEAD(NET_SKB_PAD + NET_IP_ALIGN);
-> 
-> where the "silly" part is that last line - SKB_MAX_HEAD() is dependent
-> on PAGE_SIZE. So, if you build your kernel for e.g. 64K page sizes, but
-> stmmac doesn't have enhanced descriptor support, ->max_mtu ends up being
-> close to 64K, and you can configure the netdev's MTU to be that large.
-> 
-> Even with a 4KiB page size, max_mtu will certainly be greater than
-> 2KiB.
-> 
-> That means stmmac_xmit() can be called with packets >= 2KiB in length.
-> As stmmac_xmit() has this:
-> 
->         /* To program the descriptors according to the size of the frame */
->         if (enh_desc)
->                 is_jumbo = stmmac_is_jumbo_frm(priv, skb->len, enh_desc);
-> 
-> the code will not treat them as jumbo frames, and thus
-> stmmac_jumbo_frm() will not be called. This means we'll call
-> stmmac_set_desc_addr() and stmmac_prepare_tx_desc() only for each
-> fragment of the skb, which only supports buffer 1 in the descriptor.
-> 
-> There is the possibility for a descriptor to supply the next chunk of
-> the packet in buffer 2 (with its separate length field of the same
-> bit size) but the driver doesn't do that in this path.
-> 
-> So, even if we did get a fragment >= 2KiB, the code would only be able
-> to send up to the maximum size that can fit in the descriptor.
-
-Reviewing the docs again, I actually think it's worse than this.
-
-Consider the case where enh_desc = false, so we're using normal
-descriptors. in stmmac_xmit() is_jumbo will always be false because
-we never check stmmac_is_jumbo_frm() for normal descriptors. Thus,
-we use the paths in stmmac_xmit() which only call
-stmmac_set_desc_addr() and stmmac_prepare_tx_desc().
-
-For normal descriptors, these correspond with ndesc_set_addr() and
-ndesc_prepare_tx_desc().
-
-ndesc_set_addr() sets tdes2 to the address - this is the buffer1 DMA
-address.
-
-In ring mode, ndesc_prepare_tx_desc() calls
-norm_set_tx_desc_len_on_ring() which divides the buffer between the
-buffer1 length and buffer2 length. This means, in theory, that normal
-descriptors can transmit up to 4KiB - 2 split across two 2KiB - 1
-buffers. However, nothing sets tdes3, which is the buffer2 DMA address,
-so either we transmit garbage (I suspect whatever happens to be at
-DMA address zero) or DMA fails.
-
-In chain mode, ndesc_prepare_tx_desc() calls
-norm_set_tx_desc_len_on_chain() which only sets the buffer1 length
-(masking off the bits that don't fit in the field.) This is because
-tdes3 is used to point at the next descriptor, so each normal
-descriptor can only contain buffers up to 2KiB - 1.
-
-This all comes down to the "silly" code that I mentioned previously.
-
-While one can argue that it would be nice to fully fix this, I suspect
-the reality is that almost no one cares, because hardly anyone uses
-"normal" descriptors, especially with more recent hardware.
-
-However, my thoughts more centre around the idiotic max_mtu setting
-that didn't gain any traction when I tried to bring that topic up.
-The simple solution here would be to ensure max_mtu isn't set to
-SKB_MAX_HEAD() but left as the standard setting (thus not allowing
-the MTU to be increased beyond ETH_DATA_LEN, aka 1500) which would
-then prevent buffer1 being anywhere near crossing the 2KiB-1
-threshold.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBKYW4gMDUsIDIwMjYgYXQgMTA6MTY6MDlBTSArMDEwMCwgSmVucyBXaWtsYW5kZXIg
+d3JvdGU6Cj4gSGksCj4gCj4gT24gVGh1LCBEZWMgMTgsIDIwMjUgYXQgNToyOeKAr1BNIEplbnMg
+V2lrbGFuZGVyCj4gPGplbnMud2lrbGFuZGVyQGxpbmFyby5vcmc+IHdyb3RlOgo+ID4KPiA+IE9u
+IFRodSwgRGVjIDE4LCAyMDI1IGF0IDI6NTPigK9QTSBBbGV4YW5kcmUgQmVsbG9uaQo+ID4gPGFs
+ZXhhbmRyZS5iZWxsb25pQGJvb3RsaW4uY29tPiB3cm90ZToKPiA+ID4KPiA+ID4gT24gMTgvMTIv
+MjAyNSAwODoyMToyNyswMTAwLCBKZW5zIFdpa2xhbmRlciB3cm90ZToKPiA+ID4gPiBIaSwKPiA+
+ID4gPgo+ID4gPiA+IE9uIE1vbiwgRGVjIDE1LCAyMDI1IGF0IDM6MTfigK9QTSBVd2UgS2xlaW5l
+LUvDtm5pZwo+ID4gPiA+IDx1LmtsZWluZS1rb2VuaWdAYmF5bGlicmUuY29tPiB3cm90ZToKPiA+
+ID4gPiA+Cj4gPiA+ID4gPiBIZWxsbywKPiA+ID4gPiA+Cj4gPiA+ID4gPiB0aGUgb2JqZWN0aXZl
+IG9mIHRoaXMgc2VyaWVzIGlzIHRvIG1ha2UgdGVlIGRyaXZlciBzdG9wIHVzaW5nIGNhbGxiYWNr
+cwo+ID4gPiA+ID4gaW4gc3RydWN0IGRldmljZV9kcml2ZXIuIFRoZXNlIHdlcmUgc3VwZXJzZWRl
+ZCBieSBidXMgbWV0aG9kcyBpbiAyMDA2Cj4gPiA+ID4gPiAoY29tbWl0IDU5NGM4MjgxZjkwNSAo
+IltQQVRDSF0gQWRkIGJ1c190eXBlIHByb2JlLCByZW1vdmUsIHNodXRkb3duCj4gPiA+ID4gPiBt
+ZXRob2RzLiIpKSBidXQgbm9ib2R5IGNhcmVkIHRvIGNvbnZlcnQgYWxsIHN1YnN5c3RlbXMgYWNj
+b3JkaW5nbHkuCj4gPiA+ID4gPgo+ID4gPiA+ID4gSGVyZSB0aGUgdGVlIGRyaXZlcnMgYXJlIGNv
+bnZlcnRlZC4gVGhlIGZpcnN0IGNvbW1pdCBpcyBzb21ld2hhdAo+ID4gPiA+ID4gdW5yZWxhdGVk
+LCBidXQgc2ltcGxpZmllcyB0aGUgY29udmVyc2lvbiAoYW5kIHRoZSBkcml2ZXJzKS4gSXQKPiA+
+ID4gPiA+IGludHJvZHVjZXMgZHJpdmVyIHJlZ2lzdHJhdGlvbiBoZWxwZXJzIHRoYXQgY2FyZSBh
+Ym91dCBzZXR0aW5nIHRoZSBidXMKPiA+ID4gPiA+IGFuZCBvd25lci4gKFRoZSBsYXR0ZXIgaXMg
+bWlzc2luZyBpbiBhbGwgZHJpdmVycywgc28gYnkgdXNpbmcgdGhlc2UKPiA+ID4gPiA+IGhlbHBl
+cnMgdGhlIGRyaXZlcnMgYmVjb21lIG1vcmUgY29ycmVjdC4pCj4gPiA+ID4gPgo+ID4gPiA+ID4g
+djEgb2YgdGhpcyBzZXJpZXMgaXMgYXZhaWxhYmxlIGF0Cj4gPiA+ID4gPiBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9hbGwvY292ZXIuMTc2NTQ3MjEyNS5naXQudS5rbGVpbmUta29lbmlnQGJheWxp
+YnJlLmNvbQo+ID4gPiA+ID4KPiA+ID4gPiA+IENoYW5nZXMgc2luY2UgdjE6Cj4gPiA+ID4gPgo+
+ID4gPiA+ID4gIC0gcmViYXNlIHRvIHY2LjE5LXJjMSAobm8gY29uZmxpY3RzKQo+ID4gPiA+ID4g
+IC0gYWRkIHRhZ3MgcmVjZWl2ZWQgc28gZmFyCj4gPiA+ID4gPiAgLSBmaXggd2hpdGVzcGFjZSBp
+c3N1ZXMgcG9pbnRlZCBvdXQgYnkgU3VtaXQgR2FyZwo+ID4gPiA+ID4gIC0gZml4IHNodXRkb3du
+IGNhbGxiYWNrIHRvIHNodXRkb3duIGFuZCBub3QgcmVtb3ZlCj4gPiA+ID4gPgo+ID4gPiA+ID4g
+QXMgYWxyZWFkeSBub3RlZCBpbiB2MSdzIGNvdmVyIGxldHRlciwgdGhpcyBzZXJpZXMgc2hvdWxk
+IGdvIGluIGR1cmluZyBhCj4gPiA+ID4gPiBzaW5nbGUgbWVyZ2Ugd2luZG93IGFzIHRoZXJlIGFy
+ZSBydW50aW1lIHdhcm5pbmdzIHdoZW4gdGhlIHNlcmllcyBpcwo+ID4gPiA+ID4gb25seSBhcHBs
+aWVkIHBhcnRpYWxseS4gU3VtaXQgR2FyZyBzdWdnZXN0ZWQgdG8gYXBwbHkgdGhlIHdob2xlIHNl
+cmllcwo+ID4gPiA+ID4gdmlhIEplbnMgV2lrbGFuZGVyJ3MgdHJlZS4KPiA+ID4gPiA+IElmIHRo
+aXMgaXMgZG9uZSB0aGUgZGVwZW5kZW5jaWVzIGluIHRoaXMgc2VyaWVzIGFyZSBob25vcmVkLCBp
+biBjYXNlIHRoZQo+ID4gPiA+ID4gcGxhbiBjaGFuZ2VzOiBQYXRjaGVzICM0IC0gIzE3IGRlcGVu
+ZCBvbiB0aGUgZmlyc3QgdHdvLgo+ID4gPiA+ID4KPiA+ID4gPiA+IE5vdGUgdGhpcyBzZXJpZXMg
+aXMgb25seSBidWlsZCB0ZXN0ZWQuCj4gPiA+ID4gPgo+ID4gPiA+ID4gVXdlIEtsZWluZS1Lw7Zu
+aWcgKDE3KToKPiA+ID4gPiA+ICAgdGVlOiBBZGQgc29tZSBoZWxwZXJzIHRvIHJlZHVjZSBib2ls
+ZXJwbGF0ZSBmb3IgdGVlIGNsaWVudCBkcml2ZXJzCj4gPiA+ID4gPiAgIHRlZTogQWRkIHByb2Jl
+LCByZW1vdmUgYW5kIHNodXRkb3duIGJ1cyBjYWxsYmFja3MgdG8gdGVlX2NsaWVudF9kcml2ZXIK
+PiA+ID4gPiA+ICAgdGVlOiBBZGFwdCBkb2N1bWVudGF0aW9uIHRvIGNvdmVyIHJlY2VudCBhZGRp
+dGlvbnMKPiA+ID4gPiA+ICAgaHdybmc6IG9wdGVlIC0gTWFrZSB1c2Ugb2YgbW9kdWxlX3RlZV9j
+bGllbnRfZHJpdmVyKCkKPiA+ID4gPiA+ICAgaHdybmc6IG9wdGVlIC0gTWFrZSB1c2Ugb2YgdGVl
+IGJ1cyBtZXRob2RzCj4gPiA+ID4gPiAgIHJ0Yzogb3B0ZWU6IE1pZ3JhdGUgdG8gdXNlIHRlZSBz
+cGVjaWZpYyBkcml2ZXIgcmVnaXN0cmF0aW9uIGZ1bmN0aW9uCj4gPiA+ID4gPiAgIHJ0Yzogb3B0
+ZWU6IE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+ID4gPiA+ID4gICBlZmk6IHN0bW06IE1h
+a2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpCj4gPiA+ID4gPiAgIGVmaTogc3Rt
+bTogTWFrZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPiAgIGZpcm13YXJlOiBhcm1f
+c2NtaTogb3B0ZWU6IE1ha2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpCj4gPiA+
+ID4gPiAgIGZpcm13YXJlOiBhcm1fc2NtaTogTWFrZSB1c2Ugb2YgdGVlIGJ1cyBtZXRob2RzCj4g
+PiA+ID4gPiAgIGZpcm13YXJlOiB0ZWVfYm54dDogTWFrZSB1c2Ugb2YgbW9kdWxlX3RlZV9jbGll
+bnRfZHJpdmVyKCkKPiA+ID4gPiA+ICAgZmlybXdhcmU6IHRlZV9ibnh0OiBNYWtlIHVzZSBvZiB0
+ZWUgYnVzIG1ldGhvZHMKPiA+ID4gPiA+ICAgS0VZUzogdHJ1c3RlZDogTWlncmF0ZSB0byB1c2Ug
+dGVlIHNwZWNpZmljIGRyaXZlciByZWdpc3RyYXRpb24KPiA+ID4gPiA+ICAgICBmdW5jdGlvbgo+
+ID4gPiA+ID4gICBLRVlTOiB0cnVzdGVkOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiA+
+ID4gPiA+ICAgdHBtL3RwbV9mdHBtX3RlZTogTWFrZSB1c2Ugb2YgdGVlIHNwZWNpZmljIGRyaXZl
+ciByZWdpc3RyYXRpb24KPiA+ID4gPiA+ICAgdHBtL3RwbV9mdHBtX3RlZTogTWFrZSB1c2Ugb2Yg
+dGVlIGJ1cyBtZXRob2RzCj4gPiA+ID4gPgo+ID4gPiA+ID4gIERvY3VtZW50YXRpb24vZHJpdmVy
+LWFwaS90ZWUucnN0ICAgICAgICAgICAgIHwgMTggKy0tLS0KPiA+ID4gPiA+ICBkcml2ZXJzL2No
+YXIvaHdfcmFuZG9tL29wdGVlLXJuZy5jICAgICAgICAgICB8IDI2ICsrLS0tLQo+ID4gPiA+ID4g
+IGRyaXZlcnMvY2hhci90cG0vdHBtX2Z0cG1fdGVlLmMgICAgICAgICAgICAgIHwgMzEgKysrKyst
+LS0KPiA+ID4gPiA+ICBkcml2ZXJzL2Zpcm13YXJlL2FybV9zY21pL3RyYW5zcG9ydHMvb3B0ZWUu
+YyB8IDMyICsrKy0tLS0tCj4gPiA+ID4gPiAgZHJpdmVycy9maXJtd2FyZS9icm9hZGNvbS90ZWVf
+Ym54dF9mdy5jICAgICAgfCAzMCArKy0tLS0tCj4gPiA+ID4gPiAgZHJpdmVycy9maXJtd2FyZS9l
+Zmkvc3RtbS90ZWVfc3RtbV9lZmkuYyAgICAgfCAyNSArKy0tLS0KPiA+ID4gPiA+ICBkcml2ZXJz
+L3J0Yy9ydGMtb3B0ZWUuYyAgICAgICAgICAgICAgICAgICAgICB8IDI3ICsrLS0tLS0KPiA+ID4g
+PiA+ICBkcml2ZXJzL3RlZS90ZWVfY29yZS5jICAgICAgICAgICAgICAgICAgICAgICB8IDg0ICsr
+KysrKysrKysrKysrKysrKysrCj4gPiA+ID4gPiAgaW5jbHVkZS9saW51eC90ZWVfZHJ2LmggICAg
+ICAgICAgICAgICAgICAgICAgfCAxMiArKysKPiA+ID4gPiA+ICBzZWN1cml0eS9rZXlzL3RydXN0
+ZWQta2V5cy90cnVzdGVkX3RlZS5jICAgICB8IDE3ICsrLS0KPiA+ID4gPiA+ICAxMCBmaWxlcyBj
+aGFuZ2VkLCAxNjQgaW5zZXJ0aW9ucygrKSwgMTM4IGRlbGV0aW9ucygtKQo+ID4gPiA+ID4KPiA+
+ID4gPiA+IGJhc2UtY29tbWl0OiA4ZjBiNGNjZTQ0ODFmYjIyNjUzNjk3Y2NlZDhkMGQwNDAyN2Ni
+MWU4Cj4gPiA+ID4gPiAtLQo+ID4gPiA+ID4gMi40Ny4zCj4gPiA+ID4gPgo+ID4gPiA+Cj4gPiA+
+ID4gVGhhbmsgeW91IGZvciB0aGUgbmljZSBjbGVhbnVwLCBVd2UuCj4gPiA+ID4KPiA+ID4gPiBJ
+J3ZlIGFwcGxpZWQgcGF0Y2ggMS0zIHRvIHRoZSBicmFuY2ggdGVlX2J1c19jYWxsYmFja19mb3Jf
+Ni4yMCBpbiBteQo+ID4gPiA+IHRyZWUgYXQgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2Nt
+L2xpbnV4L2tlcm5lbC9naXQvamVuc3dpL2xpbnV4LXRlZS5naXQvCj4gPiA+ID4KPiA+ID4gPiBU
+aGUgYnJhbmNoIGlzIGJhc2VkIG9uIHY2LjE5LXJjMSwgYW5kIEknbGwgdHJ5IHRvIGtlZXAgaXQg
+c3RhYmxlIGZvcgo+ID4gPiA+IG90aGVycyB0byBkZXBlbmQgb24sIGlmIG5lZWRlZC4gTGV0J3Mg
+c2VlIGlmIHdlIGNhbiBhZ3JlZSBvbiB0YWtpbmcKPiA+ID4gPiB0aGUgcmVtYWluaW5nIHBhdGNo
+ZXMgdmlhIHRoYXQgYnJhbmNoLgo+ID4gPgo+ID4gPiA2IGFuZCA3IGNhbiBnbyB0aHJvdWdoIHlv
+dXIgYnJhbmNoLgo+ID4KPiA+IEdvb2QsIEkndmUgYWRkZWQgdGhlbSB0byBteSBicmFuY2ggbm93
+Lgo+IAo+IFRoaXMgZW50aXJlIHBhdGNoIHNldCBzaG91bGQgZ28gaW4gZHVyaW5nIGEgc2luZ2xl
+IG1lcmdlIHdpbmRvdy4gSQo+IHdpbGwgbm90IHNlbmQgYW55IHB1bGwgcmVxdWVzdCB1bnRpbCBJ
+J20gc3VyZSBhbGwgcGF0Y2hlcyB3aWxsIGJlCj4gbWVyZ2VkLgo+IAo+IFNvIGZhciAoaWYgSSdt
+IG5vdCBtaXN0YWtlbiksIG9ubHkgdGhlIHBhdGNoZXMgSSd2ZSBhbHJlYWR5IGFkZGVkIHRvCj4g
+bmV4dCBoYXZlIGFwcGVhcmVkIG5leHQuIEkgY2FuIHRha2UgdGhlIHJlc3Qgb2YgdGhlIHBhdGNo
+ZXMsIHRvbywgYnV0Cj4gSSBuZWVkIE9LIGZvciB0aGUgZm9sbG93aW5nOgo+IAo+IEphcmtrbywg
+eW91IHNlZW0gaGFwcHkgd2l0aCB0aGUgZm9sbG93aW5nIHBhdGNoZXMKPiAtIEtFWVM6IHRydXN0
+ZWQ6IE1pZ3JhdGUgdG8gdXNlIHRlZSBzcGVjaWZpYyBkcml2ZXIgcmVnaXN0cmF0aW9uIGZ1bmN0
+aW9uCj4gLSBLRVlTOiB0cnVzdGVkOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiAtIHRw
+bS90cG1fZnRwbV90ZWU6IE1ha2UgdXNlIG9mIHRlZSBzcGVjaWZpYyBkcml2ZXIgcmVnaXN0cmF0
+aW9uCj4gLSB0cG0vdHBtX2Z0cG1fdGVlOiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhvZHMKPiBP
+SyBpZiBJIHRha2UgdGhlbSB2aWEgbXkgdHJlZSwgb3Igd291bGQgeW91IHJhdGhlciB0YWtlIHRo
+ZW0geW91cnNlbGY/CgpJIGRvbid0IG1pbmQuCgo+IAo+IEhlcmJlcnQsIHlvdSBzZWVtIGhhcHB5
+IHdpdGggdGhlIGZvbGxvd2luZyBwYXRjaGVzCj4gLSBod3JuZzogb3B0ZWUgLSBNYWtlIHVzZSBv
+ZiBtb2R1bGVfdGVlX2NsaWVudF9kcml2ZXIoKQo+IC0gaHdybmc6IG9wdGVlIC0gTWFrZSB1c2Ug
+b2YgdGVlIGJ1cyBtZXRob2RzCj4gT0sgaWYgSSB0YWtlIHRoZW0gdmlhIG15IHRyZWUsIG9yIHdv
+dWxkIHlvdSByYXRoZXIgdGFrZSB0aGVtIHlvdXJzZWxmPwo+IAo+IFN1ZGVlcCwgeW91IHNlZW0g
+aGFwcHkgd2l0aCB0aGUgZm9sbG93aW5nIHBhdGNoZXMKPiAtIGZpcm13YXJlOiBhcm1fc2NtaTog
+b3B0ZWU6IE1ha2UgdXNlIG9mIG1vZHVsZV90ZWVfY2xpZW50X2RyaXZlcigpCj4gLSBmaXJtd2Fy
+ZTogYXJtX3NjbWk6IE1ha2UgdXNlIG9mIHRlZSBidXMgbWV0aG9kcwo+IE9LIGlmIEkgdGFrZSB0
+aGVtIHZpYSBteSB0cmVlLCBvciB3b3VsZCB5b3UgcmF0aGVyIHRha2UgdGhlbSB5b3Vyc2VsZj8K
+PiAKPiBNaWNoYWVsLCBQYXZhbiwgYXJlIHlvdSBPSyB3aXRoIHRoZSBmb2xsb3dpbmcgcGF0Y2hl
+cwo+IC0gZmlybXdhcmU6IHRlZV9ibnh0OiBNYWtlIHVzZSBvZiBtb2R1bGVfdGVlX2NsaWVudF9k
+cml2ZXIoKQo+IC0gZmlybXdhcmU6IHRlZV9ibnh0OiBNYWtlIHVzZSBvZiB0ZWUgYnVzIG1ldGhv
+ZHMKPiBPSyBpZiBJIHRha2UgdGhlbSB2aWEgbXkgdHJlZSwgb3Igd291bGQgeW91IHJhdGhlciB0
+YWtlIHRoZW0geW91cnNlbGY/Cj4gCj4gVGhhbmtzLAo+IEplbnMKCkJSLCBKYXJra28KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
