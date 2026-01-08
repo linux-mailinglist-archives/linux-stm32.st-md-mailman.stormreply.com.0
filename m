@@ -2,61 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2066CD062CE
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 21:55:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B0BD063AB
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 22:17:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6809C8F286;
-	Thu,  8 Jan 2026 20:55:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25258C8F285
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21283C8F286;
+	Thu,  8 Jan 2026 21:17:09 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B04F8C8F285
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 20:55:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5F8A040989;
- Thu,  8 Jan 2026 20:55:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B290C116C6;
- Thu,  8 Jan 2026 20:55:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767905740;
- bh=xBJe/1TFcmT6ykWBd9m6VDk/sy5CDIe6A5UhmE5fQMc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SjSg9NeThhyh+++t7oDphRi9jrjfHMpyjFOTzaeh0gYoZ3izGVjS4O26bFUA1QUvm
- J3SqsMuOQCewM7IKUQ96hK2KMq/kcHx9beh18yud/0R4cTYRVZLISqCM0zEThG8jQ+
- h5AYr5uN46Rj5jEJLWP1pW79KbPjBYUs+2Un3MzTPCOu3AXqD7aNoNxS/PtrsiFlh/
- hahC8p89QMUHjsXVrAsAGZl/GL0U9LcdaKzZNuS74lwloUO1xDsSnYzTWALX39Z9GL
- rvyrOUOB/9IfhehMJlaoXTpriWA0L1IpI4LhNpjLMymvGJSP5UfbZz9Kzfuz+mPimt
- U7lpSI5WgMQxg==
-Date: Thu, 8 Jan 2026 21:55:27 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Message-ID: <aWAZv3ZwdUmo4_wc@ryzen>
-References: <20260108172403.2629671-1-den@valinux.co.jp>
- <20260108172403.2629671-4-den@valinux.co.jp>
+ Thu,  8 Jan 2026 21:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1767907026;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ne57iAfUngCEZ/eJnFXNUIoW6Gx1gYxdMUdG2ktOUNY=;
+ b=JxU0u2rAqLLgObICtO/LydX4/F68sVrdPi7tDQ8qIcYcf/4q4vTBeCQt8APznRlIc3irsA
+ mSc/8w1RSNM7WyKl/gEBKqBqeEZiGg3L+W8KZTE0V1EFK+kEMthHtMnwyKbSXzJ262L/Fp
+ 8K4OjlHCkk3MEkwSd5785vNfEzVmoCs=
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-680-JDkS-NTBPNm0vUp54alp5A-1; Thu, 08 Jan 2026 16:17:05 -0500
+X-MC-Unique: JDkS-NTBPNm0vUp54alp5A-1
+X-Mimecast-MFC-AGG-ID: JDkS-NTBPNm0vUp54alp5A_1767907025
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-93f5ac349ecso3577921241.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 08 Jan 2026 13:17:05 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767907025; x=1768511825;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ne57iAfUngCEZ/eJnFXNUIoW6Gx1gYxdMUdG2ktOUNY=;
+ b=SZDoovVgQUGzPWxnq3K7gKXrc1qu9/YvwEDT2ARcJ9C0q4rd02Mr2lBvEMgMNLX2b7
+ cqBRpIZXY/kJtHHvCRdgYIqViv68XvCp5gfA4c5flTI4+gZj0SVl1/fY0IPwOhTFeym2
+ 2jV1eiwUKqD2zkk4d92+65OWDjKj+0pIn/FS5v03pFxqSrk1AqgtFAcVygk8/hq91COR
+ TuYnr7jNlBdEcpeTF15puv/4Pf21SjFCEIl3/hnmYgveXniqIR31U4Kg+EE79bTZUsSn
+ fFqWiz3JMyN+feWzsvzMKJzxrQ8IdEvikxhABrSKj4fEEioDqSMPwB3wS+ojXWqc+P2u
+ Sc+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYz9scW5FONs3c4YoIP5fJ9KQJsg6VRWJo/CexSTNXAnriNu8nfqGAPFIhst/itmLTNQqSw2H0iGKQqg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy81vgmITyxpK26PTd4REkxWNPbZih23Bg2DFam4izbbPd/jZqX
+ 2NCQ9mW+Z6U0l8YefDpLvVGwztpndr4uU5L9spVaO1PeEJRCzecgsL8utYp9KapLN7y7IiRTxcG
+ laxWq+3HZFvdKocm7B00DrQKFJMiyhj3vXYoljmv8gIHm1P/9KkL1qGs7DMcYh/DA2a1byi5g+x
+ OcDQHyVg==
+X-Gm-Gg: AY/fxX56qksP981CQHsb+2mXMlMYNtZdTzITN4mcyI86PEIneO0Eexf8advtm+uVSaU
+ j5e+fI5c+9912MxqFCZBhs/Ps2Ni2FhEQX/DLtD9l9amBN2muDmFr4KNpYZV3abtTnczGa6DwLr
+ J/B0Z9hZbrstjbL5xnQOQmuBRtf3Jpi4fOe4BWaTAgqzP6jdVWjPUvgnhL+r1SYuA0TFsaAg/Gu
+ LRgrLtSJjdMBbe/filVKTijvCghlgFOE9wMO/Z0t25NmI/575FHFcWBH9wO8ECcttlaOUPUmoTY
+ 1FDt8uWvouNh+5rS4/kOflit6EvwcLG+4KlgkP5nzi7M2fKH42J47W3zAGYvWFvHoSiu8LSm3Hg
+ EwN0BgJd8nWJDNEw=
+X-Received: by 2002:a05:6102:554b:b0:5ea:67f4:c1ad with SMTP id
+ ada2fe7eead31-5ecb68aff05mr2988594137.21.1767907024797; 
+ Thu, 08 Jan 2026 13:17:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFz/p7kGP9fvfk2vXLPq3R9VUjKVw1cdN6NrP5mq/P0PGpCjqA4/hKeGKMrVWaYIPrb1wIVZw==
+X-Received: by 2002:a05:6102:554b:b0:5ea:67f4:c1ad with SMTP id
+ ada2fe7eead31-5ecb68aff05mr2988572137.21.1767907024314; 
+ Thu, 08 Jan 2026 13:17:04 -0800 (PST)
+Received: from [10.30.226.224] ([2600:382:811f:d757:daa5:b867:12a3:9d12])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-5ec77064e86sm7623329137.7.2026.01.08.13.16.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Jan 2026 13:17:03 -0800 (PST)
+From: Brian Masney <bmasney@redhat.com>
+Date: Thu, 08 Jan 2026 16:16:18 -0500
+Message-Id: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260108172403.2629671-4-den@valinux.co.jp>
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
- minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
- kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
- shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
- mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
- s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
- linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
- roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
- linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
- heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
- shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] PCI: dwc: ep: Support BAR subrange
- inbound mapping via Address Match Mode iATU
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAyA4VeRnA0kHizsVcYO2kQNG3WkKkLpu
+ 6/s+B3+v0BWN83w6Aq4XpZtTw3cdxC3Ka2KJs0w0DASU8D4eaPYZaKOvp9J0KdDkeMizGGmMRC
+ 0+Ou62P0fP1+1/gDlVpEzaAAAAA==
+X-Change-ID: 20260107-clk-divider-round-rate-1cfd117b0670
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5523; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=5gEzfGrJrZBcK9ab2+97vww3qO4uDY2TibGccFpsz3I=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGDIT5Lb+j2COyZDSrq1aGtHuW3Hnjb6jSZa7wqEZi1UKM
+ +/wfPfoKGVhEONikBVTZFmSa1QQkbrK9t4dTRaYOaxMIEMYuDgFYCLePxj+cE8JZ4ir1XC94hPf
+ wLfqhfvjO0u5RdiClDPF9/n9TrNyZGT4NKcq8ciUz4qK0XG3a+4381Zd+31jtWu5nMfx+TvuVsY
+ xAAA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: bshkr-h_ZF99H2fuNppap2Qg8ePmzh8DEA7MKI2g6pE_1767907025
+X-Mimecast-Originator: redhat.com
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ Shan-Chun Hung <schung@nuvoton.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Chen Wang <unicorn_wang@outlook.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
+ Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
+ linux-sunxi@lists.linux.dev, Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Simona Vetter <simona@ffwll.ch>, Jacky Huang <ychuang3@nuvoton.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-actions@lists.infradead.org,
+ Brian Masney <bmasney@redhat.com>, Maxime Ripard <mripard@kernel.org>,
+ Vladimir Zapolskiy <vz@mleia.com>, sophgo@lists.linux.dev,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ linux-mips@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Takao Orito <orito.takao@socionext.com>, freedreno@lists.freedesktop.org,
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
+Subject: [Linux-stm32] [PATCH 00/27] clk: remove deprecated API
+ divider_round_rate() and friends
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,100 +135,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Koichiro,
+Here's a series that gets rid of the deprecated APIs
+divider_round_rate(), divider_round_rate_parent(), and
+divider_ro_round_rate_parent() since these functions are just wrappers
+for the determine_rate variant.
 
-On Fri, Jan 09, 2026 at 02:24:03AM +0900, Koichiro Den wrote:
+Note that when I converted some of these drivers from round_rate to
+determine_rate, this was mistakenly converted to the following in some
+cases:
 
-(snip)
+    req->rate = divider_round_rate(...)
 
-> +/* Address Match Mode inbound iATU mapping */
-> +static int dw_pcie_ep_ib_atu_addr(struct dw_pcie_ep *ep, u8 func_no, int type,
-> +				  const struct pci_epf_bar *epf_bar)
-> +{
-> +	const struct pci_epf_bar_submap *submap = epf_bar->submap;
-> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> +	enum pci_barno bar = epf_bar->barno;
-> +	struct device *dev = pci->dev;
-> +	u64 pci_addr, parent_bus_addr;
-> +	struct dw_pcie_ib_map *new;
-> +	u64 size, off, base;
-> +	unsigned long flags;
-> +	int free_win, ret;
-> +	unsigned int i;
-> +
-> +	if (!epf_bar->num_submap || !submap || !epf_bar->size)
-> +		return -EINVAL;
-> +
-> +	ret = dw_pcie_ep_validate_submap(ep, submap, epf_bar->num_submap,
-> +					 epf_bar->size);
-> +	if (ret)
-> +		return ret;
-> +
-> +	base = dw_pcie_ep_read_bar_assigned(ep, func_no, bar, epf_bar->flags);
-> +	if (!base) {
-> +		dev_err(dev,
-> +			"BAR%u not assigned, cannot set up sub-range mappings\n",
-> +			bar);
-> +		return -EINVAL;
-> +	}
+This is invalid in the case when an error occurs since it can set the
+rate to a negative value. So this series fixes those bugs and removes
+the deprecated APIs all in one go.
 
-Sorry for giving additional review comments.
+Three of the patches ended up being a more complicated migration, and I
+put them as the first three patches in this series (clk: sophgo:
+cv18xx-ip), (clk: sunxi-ng), and (rtc: ac100). The remaining patches I
+feel are all straight forward.
 
-But there is one thing that I might not be so obvious for someone just
-reading this source. How is this API supposed to be used in practice?
+Merge strategy
+==============
 
-Most DWC-based controllers are not hotplug capable.
+Only three of the patches are outside of drivers/clk (drm/msm, phy, and
+rtc). For simplicity, I think it would be easiest if Stephen takes this
+whole series through the clk tree. Subsystem maintainers please leave an
+Acked-by for Stephen. Thanks!
 
-That means that we must boot the EP, create the EPF symlink in configfs,
-and start link training by writing to configfs, before starting the host.
+Signed-off-by: Brian Masney <bmasney@redhat.com>
+---
+Brian Masney (27):
+      clk: sophgo: cv18xx-ip: convert from divider_round_rate() to divider_determine_rate()
+      clk: sunxi-ng: convert from divider_round_rate_parent() to divider_determine_rate()
+      rtc: ac100: convert from divider_round_rate() to divider_determine_rate()
+      clk: actions: owl-composite: convert from owl_divider_helper_round_rate() to divider_determine_rate()
+      clk: actions: owl-divider: convert from divider_round_rate() to divider_determine_rate()
+      clk: bm1880: convert from divider_ro_round_rate() to divider_ro_determine_rate()
+      clk: bm1880: convert from divider_round_rate() to divider_determine_rate()
+      clk: hisilicon: clkdivider-hi6220: convert from divider_round_rate() to divider_determine_rate()
+      clk: loongson1: convert from divider_round_rate() to divider_determine_rate()
+      clk: milbeaut: convert from divider_ro_round_rate() to divider_ro_determine_rate()
+      clk: milbeaut: convert from divider_round_rate() to divider_determine_rate()
+      clk: nuvoton: ma35d1-divider: convert from divider_round_rate() to divider_determine_rate()
+      clk: nxp: lpc32xx: convert from divider_round_rate() to divider_determine_rate()
+      clk: qcom: alpha-pll: convert from divider_round_rate() to divider_determine_rate()
+      clk: qcom: regmap-divider: convert from divider_ro_round_rate() to divider_ro_determine_rate()
+      clk: qcom: regmap-divider: convert from divider_round_rate() to divider_determine_rate()
+      clk: sophgo: sg2042-clkgen: convert from divider_round_rate() to divider_determine_rate()
+      clk: sprd: div: convert from divider_round_rate() to divider_determine_rate()
+      clk: stm32: stm32-core: convert from divider_ro_round_rate() to divider_ro_determine_rate()
+      clk: stm32: stm32-core: convert from divider_round_rate_parent() to divider_determine_rate()
+      clk: versaclock3: convert from divider_round_rate() to divider_determine_rate()
+      clk: x86: cgu: convert from divider_round_rate() to divider_determine_rate()
+      clk: zynqmp: divider: convert from divider_round_rate() to divider_determine_rate()
+      drm/msm/dsi_phy_14nm: convert from divider_round_rate() to divider_determine_rate()
+      phy: ti: phy-j721e-wiz: convert from divider_round_rate() to divider_determine_rate()
+      clk: divider: remove divider_ro_round_rate_parent()
+      clk: divider: remove divider_round_rate() and divider_round_rate_parent()
 
-dw_pcie_ep_ib_atu_addr() reads the PCI address that the host has assigned
-to the BAR, and returns an error if the host has not already assigned a
-PCI addres to the BAR.
+ drivers/clk/actions/owl-composite.c        |  11 +--
+ drivers/clk/actions/owl-divider.c          |  17 +---
+ drivers/clk/actions/owl-divider.h          |   5 -
+ drivers/clk/clk-bm1880.c                   |  13 +--
+ drivers/clk/clk-divider.c                  |  44 ---------
+ drivers/clk/clk-loongson1.c                |   5 +-
+ drivers/clk/clk-milbeaut.c                 |  15 +--
+ drivers/clk/clk-versaclock3.c              |   7 +-
+ drivers/clk/hisilicon/clkdivider-hi6220.c  |   6 +-
+ drivers/clk/nuvoton/clk-ma35d1-divider.c   |   7 +-
+ drivers/clk/nxp/clk-lpc32xx.c              |   6 +-
+ drivers/clk/qcom/clk-alpha-pll.c           |  21 ++--
+ drivers/clk/qcom/clk-regmap-divider.c      |  16 +--
+ drivers/clk/sophgo/clk-cv18xx-ip.c         | 154 ++++++++++++++++-------------
+ drivers/clk/sophgo/clk-sg2042-clkgen.c     |  15 +--
+ drivers/clk/sprd/div.c                     |   6 +-
+ drivers/clk/stm32/clk-stm32-core.c         |  42 +++-----
+ drivers/clk/sunxi-ng/ccu_div.c             |  25 +++--
+ drivers/clk/sunxi-ng/ccu_mp.c              |  26 ++---
+ drivers/clk/sunxi-ng/ccu_mult.c            |  16 +--
+ drivers/clk/sunxi-ng/ccu_mux.c             |  49 +++++----
+ drivers/clk/sunxi-ng/ccu_mux.h             |   8 +-
+ drivers/clk/sunxi-ng/ccu_nkm.c             |  25 ++---
+ drivers/clk/x86/clk-cgu.c                  |   6 +-
+ drivers/clk/zynqmp/divider.c               |   5 +-
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c |   7 +-
+ drivers/phy/ti/phy-j721e-wiz.c             |   5 +-
+ drivers/rtc/rtc-ac100.c                    |  75 +++++++-------
+ include/linux/clk-provider.h               |  28 ------
+ 29 files changed, 257 insertions(+), 408 deletions(-)
+---
+base-commit: f8f97927abf7c12382dddc93a144fc9df7919b77
+change-id: 20260107-clk-divider-round-rate-1cfd117b0670
 
-Does that mean that the usage of this API will be something like:
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
 
-1) set_bar() ## using BAR match mode, since BAR match mode can write
-   the BAR mask to define a BAR size, so that the host can assign a
-   PCI address to the BAR.
-
-2) start() ## start link
-
-3) link up
-
-4) wait for some special command, perhaps NTB_EPF_COMMAND
-CMD_CONFIGURE_DOORBELL or NTB_EPF_COMMAND CMD_CONFIGURE_MW
-
-5) set_bar() ## using Address match mode. Because address match mode
-   requires that the host has assigned a PCI address to the BAR, we
-   can only change the mapping for a BAR after the host has assigned
-   PCI addresses for all bars.
-
-
-
-Perhaps you should add some text to:
-Documentation/PCI/endpoint/pci-endpoint.rst
-
-Because right now the documentation for pci_epc_set_bar() says:
-
-   The PCI endpoint function driver should use pci_epc_set_bar() to configure
-   the Base Address Register in order for the host to assign PCI addr space.
-   Register space of the function driver is usually configured
-   using this API.
-
-So it is obviously meant to be called *before* the host assigns a PCI
-address for the BAR. Now with submap ranges, it appears that it has to
-be called *after* the host assigned a PCI address for the BAR.
-
-So I can only assume that you will call set_bar() twice.
-Once with BAR match mode, and then a second time with address map mode.
-
-It might be obvious to you, but I think it makes sense to also have some
-kind of documentation for this feature.
-
-
-Kind regards,
-Niklas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
