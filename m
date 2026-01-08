@@ -2,123 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B0BD063AB
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 22:17:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93120D063ED
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 22:18:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21283C8F286;
-	Thu,  8 Jan 2026 21:17:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E1D7C8F286;
+	Thu,  8 Jan 2026 21:18:53 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B04F8C8F285
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9E11C8F285
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 21:17:07 +0000 (UTC)
+ Thu,  8 Jan 2026 21:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1767907026;
+ s=mimecast20190719; t=1767907130;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ne57iAfUngCEZ/eJnFXNUIoW6Gx1gYxdMUdG2ktOUNY=;
- b=JxU0u2rAqLLgObICtO/LydX4/F68sVrdPi7tDQ8qIcYcf/4q4vTBeCQt8APznRlIc3irsA
- mSc/8w1RSNM7WyKl/gEBKqBqeEZiGg3L+W8KZTE0V1EFK+kEMthHtMnwyKbSXzJ262L/Fp
- 8K4OjlHCkk3MEkwSd5785vNfEzVmoCs=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5VJzg69xakfxW3VOCyLK7wumPwPeLQPf6YPBQqS8knU=;
+ b=GdghG0vA29eBSTmbLZqAG+tuhKc+aHR2Wko3I440SuzeFSzOajaGrdsKlg5SrV6/k0+ahf
+ RIYtVQL+dqnDcfqM5GrP6yKs9CINzlV8e7QkT4fPstvoQln6ZzQ2YC4HGdSP5XiA4uz9Z6
+ m6NjxlEHdVWiE2QGXgy+D6sN179nQbY=
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-680-JDkS-NTBPNm0vUp54alp5A-1; Thu, 08 Jan 2026 16:17:05 -0500
-X-MC-Unique: JDkS-NTBPNm0vUp54alp5A-1
-X-Mimecast-MFC-AGG-ID: JDkS-NTBPNm0vUp54alp5A_1767907025
-Received: by mail-ua1-f71.google.com with SMTP id
- a1e0cc1a2514c-93f5ac349ecso3577921241.3
+ us-mta-695-xGo-u7tAMg6Q5hs51AZAvQ-1; Thu, 08 Jan 2026 16:18:49 -0500
+X-MC-Unique: xGo-u7tAMg6Q5hs51AZAvQ-1
+X-Mimecast-MFC-AGG-ID: xGo-u7tAMg6Q5hs51AZAvQ_1767907129
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-93f57cdeb11so3869371241.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 08 Jan 2026 13:17:05 -0800 (PST)
+ Thu, 08 Jan 2026 13:18:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767907025; x=1768511825;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ne57iAfUngCEZ/eJnFXNUIoW6Gx1gYxdMUdG2ktOUNY=;
- b=SZDoovVgQUGzPWxnq3K7gKXrc1qu9/YvwEDT2ARcJ9C0q4rd02Mr2lBvEMgMNLX2b7
- cqBRpIZXY/kJtHHvCRdgYIqViv68XvCp5gfA4c5flTI4+gZj0SVl1/fY0IPwOhTFeym2
- 2jV1eiwUKqD2zkk4d92+65OWDjKj+0pIn/FS5v03pFxqSrk1AqgtFAcVygk8/hq91COR
- TuYnr7jNlBdEcpeTF15puv/4Pf21SjFCEIl3/hnmYgveXniqIR31U4Kg+EE79bTZUsSn
- fFqWiz3JMyN+feWzsvzMKJzxrQ8IdEvikxhABrSKj4fEEioDqSMPwB3wS+ojXWqc+P2u
- Sc+A==
+ d=1e100.net; s=20230601; t=1767907129; x=1768511929;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=5VJzg69xakfxW3VOCyLK7wumPwPeLQPf6YPBQqS8knU=;
+ b=UzXSt/08Wy3Npq1SpiZy/ss/rfo8xTbLRbSfgqLaBroQYKGHrKwEURli7d+xD6Lspg
+ ooVhBef4K0jHkJo06ayMUvyVXl7c3x4EfVvj/iI7MQFxyTlMyadUOKMy44SiYZZsAYWq
+ jHVHcH+ykjSWvrWddte9VBe7o2wmklHRrXBI0yzogAu5NoRU5f8nv1qb+990QDGPiQYB
+ 2qsKl5QfTvr4qu3UO0ldzZ87KIX0rM7Ql3yUD681tGQQtjnLCfcYx525g8VJVgL55yC3
+ H8PKCKiZaMCCZbjhmJDDC/kNOLRirk/m90pYAyalQQAFGwsSEyY27DkxGLtoHXPPZqo5
+ dbjw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYz9scW5FONs3c4YoIP5fJ9KQJsg6VRWJo/CexSTNXAnriNu8nfqGAPFIhst/itmLTNQqSw2H0iGKQqg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy81vgmITyxpK26PTd4REkxWNPbZih23Bg2DFam4izbbPd/jZqX
- 2NCQ9mW+Z6U0l8YefDpLvVGwztpndr4uU5L9spVaO1PeEJRCzecgsL8utYp9KapLN7y7IiRTxcG
- laxWq+3HZFvdKocm7B00DrQKFJMiyhj3vXYoljmv8gIHm1P/9KkL1qGs7DMcYh/DA2a1byi5g+x
- OcDQHyVg==
-X-Gm-Gg: AY/fxX56qksP981CQHsb+2mXMlMYNtZdTzITN4mcyI86PEIneO0Eexf8advtm+uVSaU
- j5e+fI5c+9912MxqFCZBhs/Ps2Ni2FhEQX/DLtD9l9amBN2muDmFr4KNpYZV3abtTnczGa6DwLr
- J/B0Z9hZbrstjbL5xnQOQmuBRtf3Jpi4fOe4BWaTAgqzP6jdVWjPUvgnhL+r1SYuA0TFsaAg/Gu
- LRgrLtSJjdMBbe/filVKTijvCghlgFOE9wMO/Z0t25NmI/575FHFcWBH9wO8ECcttlaOUPUmoTY
- 1FDt8uWvouNh+5rS4/kOflit6EvwcLG+4KlgkP5nzi7M2fKH42J47W3zAGYvWFvHoSiu8LSm3Hg
- EwN0BgJd8nWJDNEw=
-X-Received: by 2002:a05:6102:554b:b0:5ea:67f4:c1ad with SMTP id
- ada2fe7eead31-5ecb68aff05mr2988594137.21.1767907024797; 
- Thu, 08 Jan 2026 13:17:04 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFz/p7kGP9fvfk2vXLPq3R9VUjKVw1cdN6NrP5mq/P0PGpCjqA4/hKeGKMrVWaYIPrb1wIVZw==
-X-Received: by 2002:a05:6102:554b:b0:5ea:67f4:c1ad with SMTP id
- ada2fe7eead31-5ecb68aff05mr2988572137.21.1767907024314; 
- Thu, 08 Jan 2026 13:17:04 -0800 (PST)
+ AJvYcCXqDq47JIT5rI/8bmnZdX8BP1lVgKnOcUO/PabfLH6SPNz6W0fw9H8B1OdOt9tsLY2D4Lt7bVl+LcwOlg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyBxjCxjRn5vItWPHVOsWMFXShwNkJ3af12O49a49VJhOqCFShc
+ 3WOsZwoks8bdEEUOp9wnTEgcRJWTfpMMhx3kerzKFYY/I67UoovIWY2ekFv9S3k/qclTfJhXYDK
+ nqYHkTeuHvQsQZQie2nm0UJdkDjLTMAgBbeAr3ymDBffyPNHj6hXNG+X5id5zW5j9mbb0Pqhhug
+ Qq9xKVug==
+X-Gm-Gg: AY/fxX4lvdD2Zj7yjmfGcTuNno3iPFqzmxLp9QfZ4lC43VPgh9kMAwiUFVpRpYG9ial
+ ESMKmBpGPIjZKGVHide1cnz5B83q3YT8ZmzY81w85syaeSbExFeSIEHb1TePHaZQ07d1s1zoBvl
+ Q1UArmLoITw4YIORgylIEDXTKlA+e6QYb7TDg5/t6jWQPIPGmDqe0Kx7EoMOrBw2+i6HoHxskyG
+ v55afyGVApMfwJcKS4UUIi9zPzwqPBLtevQ2cMzGZBmVfHiqiH/Vl0XvjedewrRYfga0Hmd4vU5
+ s9VX2d1LB3OlVaSB7Qr5VglI7K5m7iXnsafdC0v4jjfdHc5XLMkFVF5Aht21FydKhaPOz4FCsC5
+ Dcf67cBrz147TuZ4=
+X-Received: by 2002:a67:e105:0:b0:5ed:f26:5615 with SMTP id
+ ada2fe7eead31-5ed0f265843mr1992110137.18.1767907128955; 
+ Thu, 08 Jan 2026 13:18:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFLX2O0KlmxzrMSo3tby5b/YZN082iMeszi4qbktrWtgNvTKagIIyv7NxGpAo9E2TfU0DUiFg==
+X-Received: by 2002:a67:e105:0:b0:5ed:f26:5615 with SMTP id
+ ada2fe7eead31-5ed0f265843mr1992095137.18.1767907128511; 
+ Thu, 08 Jan 2026 13:18:48 -0800 (PST)
 Received: from [10.30.226.224] ([2600:382:811f:d757:daa5:b867:12a3:9d12])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-5ec77064e86sm7623329137.7.2026.01.08.13.16.43
+ ada2fe7eead31-5ec77064e86sm7623329137.7.2026.01.08.13.18.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jan 2026 13:17:03 -0800 (PST)
+ Thu, 08 Jan 2026 13:18:48 -0800 (PST)
 From: Brian Masney <bmasney@redhat.com>
-Date: Thu, 08 Jan 2026 16:16:18 -0500
-Message-Id: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
+Date: Thu, 08 Jan 2026 16:16:37 -0500
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAyA4VeRnA0kHizsVcYO2kQNG3WkKkLpu
- 6/s+B3+v0BWN83w6Aq4XpZtTw3cdxC3Ka2KJs0w0DASU8D4eaPYZaKOvp9J0KdDkeMizGGmMRC
- 0+Ou62P0fP1+1/gDlVpEzaAAAAA==
-X-Change-ID: 20260107-clk-divider-round-rate-1cfd117b0670
+Message-Id: <20260108-clk-divider-round-rate-v1-19-535a3ed73bf3@redhat.com>
+References: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
+In-Reply-To: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
 To: Michael Turquette <mturquette@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5523; i=bmasney@redhat.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2367; i=bmasney@redhat.com;
  s=20250903; h=from:subject:message-id;
- bh=5gEzfGrJrZBcK9ab2+97vww3qO4uDY2TibGccFpsz3I=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGDIT5Lb+j2COyZDSrq1aGtHuW3Hnjb6jSZa7wqEZi1UKM
- +/wfPfoKGVhEONikBVTZFmSa1QQkbrK9t4dTRaYOaxMIEMYuDgFYCLePxj+cE8JZ4ir1XC94hPf
- wLfqhfvjO0u5RdiClDPF9/n9TrNyZGT4NKcq8ciUz4qK0XG3a+4381Zd+31jtWu5nMfx+TvuVsY
- xAAA=
+ bh=HZjZ3HcnfJ6Gv1Fz5dnPy/7RL1U8mVqJINJWM79xQHk=;
+ b=kA0DAAoWt9LdJ11+wIcByyZiAGlgHrmgM6LOwEM19Z0uuBjchVDfhpfoJgJDmN/xDONnYVJb0
+ 4h1BAAWCgAdFiEEpG0ycFhlqj3e3CkEt9LdJ11+wIcFAmlgHrkACgkQt9LdJ11+wIfnBwD/WXtd
+ f9bkMoE+hr+2zc6UAhat71CaYeY1QhFMrePNhoUBAOsjGZioUPoLJfrsd/8VSuM/9DruUEUcARU
+ bPxSu5FkJ
 X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
  fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: bshkr-h_ZF99H2fuNppap2Qg8ePmzh8DEA7MKI2g6pE_1767907025
+X-Mimecast-MFC-PROC-ID: MYnLi1Eg4ify3O-RriiUwqVF2fqfuClHbYWGT_pgh5s_1767907129
 X-Mimecast-Originator: redhat.com
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- Shan-Chun Hung <schung@nuvoton.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Chen Wang <unicorn_wang@outlook.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-msm@vger.kernel.org,
- Orson Zhai <orsonzhai@gmail.com>, Keguang Zhang <keguang.zhang@gmail.com>,
- linux-sunxi@lists.linux.dev, Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Simona Vetter <simona@ffwll.ch>, Jacky Huang <ychuang3@nuvoton.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-actions@lists.infradead.org,
- Brian Masney <bmasney@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Vladimir Zapolskiy <vz@mleia.com>, sophgo@lists.linux.dev,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Chen-Yu Tsai <wens@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Inochi Amaoto <inochiama@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-mips@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Takao Orito <orito.takao@socionext.com>, freedreno@lists.freedesktop.org,
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH 00/27] clk: remove deprecated API
- divider_round_rate() and friends
+Cc: linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
+ linux-clk@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 19/27] clk: stm32: stm32-core: convert from
+ divider_ro_round_rate() to divider_ro_determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,102 +110,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Here's a series that gets rid of the deprecated APIs
-divider_round_rate(), divider_round_rate_parent(), and
-divider_ro_round_rate_parent() since these functions are just wrappers
-for the determine_rate variant.
+The divider_ro_round_rate() function is now deprecated, so let's migrate
+to divider_ro_determine_rate() instead so that this deprecated API can
+be removed.
 
-Note that when I converted some of these drivers from round_rate to
-determine_rate, this was mistakenly converted to the following in some
-cases:
+Note that when the main function itself was migrated to use
+determine_rate, this was mistakenly converted to:
 
     req->rate = divider_round_rate(...)
 
 This is invalid in the case when an error occurs since it can set the
-rate to a negative value. So this series fixes those bugs and removes
-the deprecated APIs all in one go.
+rate to a negative value.
 
-Three of the patches ended up being a more complicated migration, and I
-put them as the first three patches in this series (clk: sophgo:
-cv18xx-ip), (clk: sunxi-ng), and (rtc: ac100). The remaining patches I
-feel are all straight forward.
-
-Merge strategy
-==============
-
-Only three of the patches are outside of drivers/clk (drm/msm, phy, and
-rtc). For simplicity, I think it would be easiest if Stephen takes this
-whole series through the clk tree. Subsystem maintainers please leave an
-Acked-by for Stephen. Thanks!
-
+Fixes: cd1cb38836c0 ("clk: stm32: stm32-core: convert from round_rate() to determine_rate()")
 Signed-off-by: Brian Masney <bmasney@redhat.com>
----
-Brian Masney (27):
-      clk: sophgo: cv18xx-ip: convert from divider_round_rate() to divider_determine_rate()
-      clk: sunxi-ng: convert from divider_round_rate_parent() to divider_determine_rate()
-      rtc: ac100: convert from divider_round_rate() to divider_determine_rate()
-      clk: actions: owl-composite: convert from owl_divider_helper_round_rate() to divider_determine_rate()
-      clk: actions: owl-divider: convert from divider_round_rate() to divider_determine_rate()
-      clk: bm1880: convert from divider_ro_round_rate() to divider_ro_determine_rate()
-      clk: bm1880: convert from divider_round_rate() to divider_determine_rate()
-      clk: hisilicon: clkdivider-hi6220: convert from divider_round_rate() to divider_determine_rate()
-      clk: loongson1: convert from divider_round_rate() to divider_determine_rate()
-      clk: milbeaut: convert from divider_ro_round_rate() to divider_ro_determine_rate()
-      clk: milbeaut: convert from divider_round_rate() to divider_determine_rate()
-      clk: nuvoton: ma35d1-divider: convert from divider_round_rate() to divider_determine_rate()
-      clk: nxp: lpc32xx: convert from divider_round_rate() to divider_determine_rate()
-      clk: qcom: alpha-pll: convert from divider_round_rate() to divider_determine_rate()
-      clk: qcom: regmap-divider: convert from divider_ro_round_rate() to divider_ro_determine_rate()
-      clk: qcom: regmap-divider: convert from divider_round_rate() to divider_determine_rate()
-      clk: sophgo: sg2042-clkgen: convert from divider_round_rate() to divider_determine_rate()
-      clk: sprd: div: convert from divider_round_rate() to divider_determine_rate()
-      clk: stm32: stm32-core: convert from divider_ro_round_rate() to divider_ro_determine_rate()
-      clk: stm32: stm32-core: convert from divider_round_rate_parent() to divider_determine_rate()
-      clk: versaclock3: convert from divider_round_rate() to divider_determine_rate()
-      clk: x86: cgu: convert from divider_round_rate() to divider_determine_rate()
-      clk: zynqmp: divider: convert from divider_round_rate() to divider_determine_rate()
-      drm/msm/dsi_phy_14nm: convert from divider_round_rate() to divider_determine_rate()
-      phy: ti: phy-j721e-wiz: convert from divider_round_rate() to divider_determine_rate()
-      clk: divider: remove divider_ro_round_rate_parent()
-      clk: divider: remove divider_round_rate() and divider_round_rate_parent()
 
- drivers/clk/actions/owl-composite.c        |  11 +--
- drivers/clk/actions/owl-divider.c          |  17 +---
- drivers/clk/actions/owl-divider.h          |   5 -
- drivers/clk/clk-bm1880.c                   |  13 +--
- drivers/clk/clk-divider.c                  |  44 ---------
- drivers/clk/clk-loongson1.c                |   5 +-
- drivers/clk/clk-milbeaut.c                 |  15 +--
- drivers/clk/clk-versaclock3.c              |   7 +-
- drivers/clk/hisilicon/clkdivider-hi6220.c  |   6 +-
- drivers/clk/nuvoton/clk-ma35d1-divider.c   |   7 +-
- drivers/clk/nxp/clk-lpc32xx.c              |   6 +-
- drivers/clk/qcom/clk-alpha-pll.c           |  21 ++--
- drivers/clk/qcom/clk-regmap-divider.c      |  16 +--
- drivers/clk/sophgo/clk-cv18xx-ip.c         | 154 ++++++++++++++++-------------
- drivers/clk/sophgo/clk-sg2042-clkgen.c     |  15 +--
- drivers/clk/sprd/div.c                     |   6 +-
- drivers/clk/stm32/clk-stm32-core.c         |  42 +++-----
- drivers/clk/sunxi-ng/ccu_div.c             |  25 +++--
- drivers/clk/sunxi-ng/ccu_mp.c              |  26 ++---
- drivers/clk/sunxi-ng/ccu_mult.c            |  16 +--
- drivers/clk/sunxi-ng/ccu_mux.c             |  49 +++++----
- drivers/clk/sunxi-ng/ccu_mux.h             |   8 +-
- drivers/clk/sunxi-ng/ccu_nkm.c             |  25 ++---
- drivers/clk/x86/clk-cgu.c                  |   6 +-
- drivers/clk/zynqmp/divider.c               |   5 +-
- drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c |   7 +-
- drivers/phy/ti/phy-j721e-wiz.c             |   5 +-
- drivers/rtc/rtc-ac100.c                    |  75 +++++++-------
- include/linux/clk-provider.h               |  28 ------
- 29 files changed, 257 insertions(+), 408 deletions(-)
 ---
-base-commit: f8f97927abf7c12382dddc93a144fc9df7919b77
-change-id: 20260107-clk-divider-round-rate-1cfd117b0670
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+---
+ drivers/clk/stm32/clk-stm32-core.c | 22 +++++++---------------
+ 1 file changed, 7 insertions(+), 15 deletions(-)
 
-Best regards,
+diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
+index 72825b9c36a4d3b8ba3f7615b9026c09ffaf88d1..b95b9c591fda7d900d523f50c8bd449398aba49f 100644
+--- a/drivers/clk/stm32/clk-stm32-core.c
++++ b/drivers/clk/stm32/clk-stm32-core.c
+@@ -369,13 +369,10 @@ static int clk_stm32_divider_determine_rate(struct clk_hw *hw,
+ 		val =  readl(div->base + divider->offset) >> divider->shift;
+ 		val &= clk_div_mask(divider->width);
+ 
+-		req->rate = divider_ro_round_rate(hw, req->rate,
+-						  &req->best_parent_rate,
+-						  divider->table,
+-						  divider->width,
+-						  divider->flags, val);
+-
+-		return 0;
++		return divider_ro_determine_rate(hw, req,
++						 divider->table,
++						 divider->width,
++						 divider->flags, val);
+ 	}
+ 
+ 	req->rate = divider_round_rate_parent(hw, clk_hw_get_parent(hw),
+@@ -455,14 +452,9 @@ static int clk_stm32_composite_determine_rate(struct clk_hw *hw,
+ 		val =  readl(composite->base + divider->offset) >> divider->shift;
+ 		val &= clk_div_mask(divider->width);
+ 
+-		rate = divider_ro_round_rate(hw, req->rate, &req->best_parent_rate,
+-					     divider->table, divider->width, divider->flags,
+-					     val);
+-		if (rate < 0)
+-			return rate;
+-
+-		req->rate = rate;
+-		return 0;
++		return divider_ro_determine_rate(hw, req, divider->table,
++						 divider->width, divider->flags,
++						 val);
+ 	}
+ 
+ 	rate = divider_round_rate_parent(hw, clk_hw_get_parent(hw),
+
 -- 
-Brian Masney <bmasney@redhat.com>
+2.52.0
 
 _______________________________________________
 Linux-stm32 mailing list
