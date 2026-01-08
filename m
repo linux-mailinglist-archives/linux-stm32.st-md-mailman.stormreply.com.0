@@ -2,73 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10408D02DCB
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 14:08:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21EE1D02FAB
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 14:23:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1143C8F284;
-	Thu,  8 Jan 2026 13:08:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CED9DC8F282;
+	Thu,  8 Jan 2026 13:23:08 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4955CC8F284
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A99A9C5A4EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 13:08:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 41A2E40D72;
- Thu,  8 Jan 2026 13:08:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8F6C19422;
- Thu,  8 Jan 2026 13:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767877710;
- bh=BEFqASubnMhLuZshwv8XM1o9a6Rbhxs2caSt9SThpyQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XRMBic0G5unXBBKtPVKjxLP9Y21Uw1rOGHGXAdcJY+W+/4GY/AZXl7TsdSOv37RbZ
- 61xlZT8ixVHx4g0L7GbF8oKbMcBXdHa1+IeoRUWXbiPWkRSz0ps/8caEufs/g/hbCK
- e8Vai3kIOSHV5bLEhiY2zY2bOZ/DBYQ/+HufR7NfR7BmbGxuvhwjPgVZl/hEw6WRIA
- sRmxBoImpSjAgoDKZr9nnHFIcrk26Nl614qIhniVpDlqNKzx6YcIengo4fXZfhtcnn
- 9tSX4XKE1fv2yFOpANCggDXjuem8gpXLQRZDD95/UN6ftHrv8eq49KkKXgV7oqEgjp
- 7PYEnxduZarrQ==
-From: Dinh Nguyen <dinguyen@kernel.org>
-Date: Thu, 08 Jan 2026 07:08:11 -0600
-MIME-Version: 1.0
-Message-Id: <20260108-remove_ocp-v3-3-ea0190244b4c@kernel.org>
-References: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
-In-Reply-To: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Mamta Shukla <mamta.shukla@leica-geosystems.com>, 
+ Thu,  8 Jan 2026 13:23:07 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1vdpyU-0005cJ-PR; Thu, 08 Jan 2026 14:22:50 +0100
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
+ helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1vdpyS-009gXW-2F;
+ Thu, 08 Jan 2026 14:22:48 +0100
+Received: from pza by lupine with local (Exim 4.98.2)
+ (envelope-from <p.zabel@pengutronix.de>) id 1vdpyS-000000007uP-1b8C;
+ Thu, 08 Jan 2026 14:22:48 +0100
+Message-ID: <1fe08251f091bd695f630b7b46ae8c8d85d664a3.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Dinh Nguyen <dinguyen@kernel.org>, Maxime Chevallier	
+ <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue	 <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mamta Shukla	 <mamta.shukla@leica-geosystems.com>,
  Ahmad Fatoum <a.fatoum@pengutronix.de>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1088; i=dinguyen@kernel.org;
- h=from:subject:message-id; bh=BEFqASubnMhLuZshwv8XM1o9a6Rbhxs2caSt9SThpyQ=;
- b=owEBbQKS/ZANAwAKARmUBAuBoyj0AcsmYgBpX6xGixoksxcAk+BFIhc7a5PDFAUf6fYBGoSrA
- QcXF26GOf6JAjMEAAEKAB0WIQSgeEx6LKTlWbBUzA0ZlAQLgaMo9AUCaV+sRgAKCRAZlAQLgaMo
- 9HqGEACCdtcSvnQAfq+6jLL6yfY2+XXhl5DnzWzojSs6HegHQ0ZbpDwfCGPrifVoSJXFmkD7nr0
- CltAAh4vut2VGb3rI9/x+5N01I14VcqhnKhiABEFf3YYyHYOi824DJ2sVosKuYycm3GRvHPqw7l
- wkxNNjK1DLhriPS0GSjbmBllVOwdtIYAi/MUFrybzDAT1eVKd0Nt6WUifwwx4GOR48aXPzXOImT
- iSGrytZczmKbxCRNR91MYOQPNpaupejVUiv+qk49e1Wvo5/zw1j2c8P+x4kbgIQ5hsI7I95CtY1
- Om6E9OJDZeEBg+fH+EYZAhwfRIueYWLKPi/LkJENvBkJxPWODdxTipNv5+tjfO3iV6PjjivYz2w
- 2sj8/XjplvBsA2a7A30BB9KLxqqcLFubf24+DoFqOmNh3pBTAoezTfZoU6NfTk+uKKTGoh5uYZ8
- D7D+HbKQ3qJ+rSbt9PX/m+uzA4FaYZsJjR9plqPHYuXRPQfW3PfkrlZzH89f9PcSNPH3OD0k6dO
- AxxEjPE/Ky/2CCNxN+NF6DStkntbtUTJkVuCZbRwZM333eIaZWMKZmgNfizBOd4w5mUhg7Qw63D
- Zm6KHOdH9e1jh8H+4ABegP6ar0SPeJbLGeIPvccBNiypKQZGMgBtF/g0tpvcKWyBXt6ccVLmyPo
- UDCLYSxQxcxiDTA==
-X-Developer-Key: i=dinguyen@kernel.org; a=openpgp;
- fpr=A0784C7A2CA4E559B054CC0D1994040B81A328F4
+Date: Thu, 08 Jan 2026 14:22:48 +0100
+In-Reply-To: <20260108-remove_ocp-v3-1-ea0190244b4c@kernel.org>
+References: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
+ <20260108-remove_ocp-v3-1-ea0190244b4c@kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dinh Nguyen <dinguyen@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/3] dt-bindings: net: altr,
- socfpga-stmmac: remove TODO note
+Subject: Re: [Linux-stm32] [PATCH v3 1/3] net: stmmac: socfpga: add call to
+ assert/deassert ahb reset line
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,35 +72,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The 'stmmaceth-ocp' will no longer be used as a reset-name, going forward
-and 'ahb' shall be used.
+On Do, 2026-01-08 at 07:08 -0600, Dinh Nguyen wrote:
+> The "stmmaceth-ocp" reset line of stmmac controller on the SoCFPGA
+> platform is essentially the "ahb" reset on the standard stmmac
+> controller. But since stmmaceth-ocp has already been introduced into
+> the wild, we cannot just remove support for it. But what we can do is
+> to support both "stmmaceth-ocp" and "ahb" reset names. Going forward we
+> will be using "ahb", but in order to not break ABI, we will be call reset
+> assert/de-assert both ahb and stmmaceth-ocp.
+> 
+> The ethernet hardware on SoCFPGA requires either the stmmaceth-ocp or
+> ahb reset to be asserted every time before changing the phy mode, then
+> de-asserted when the phy mode has been set.
+> 
+> With this change, we should be able to revert patch:
+> commit 62a40a0d5634 ("arm: dts: socfpga: use reset-name "stmmaceth-ocp"
+> instead of "ahb"")
+> 
+> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> index a2b52d2c4eb6f..79df55515c718 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> @@ -407,6 +407,7 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
+>  
+>  	/* Assert reset to the enet controller before changing the phy mode */
+>  	reset_control_assert(dwmac->stmmac_ocp_rst);
+> +	reset_control_assert(dwmac->plat_dat->stmmac_ahb_rst);
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
-v3: Addressed Rob Herring's comments and updated commit header/message
-v2: Introduced
-v1: n/a
----
- Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 2 --
- 1 file changed, 2 deletions(-)
+Since these two are just different names for the same reset,
+I think it would be cleaner to rename dwmac->stmmac_ocp_rst to
+dwmac->stmmac_ahb_rst and assign this either to
+dwmac->plat_dat->stmmac_ahb_rst or to the stmmac-ocp reset during
+probe.
 
-diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-index fc445ad5a1f1a..8e7077d4319eb 100644
---- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-+++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-@@ -13,8 +13,6 @@ description:
-   This binding describes the Altera SOCFPGA SoC implementation of the
-   Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
-   families of chips.
--  # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
--  # does not validate against net/snps,dwmac.yaml.
- 
- select:
-   properties:
+Also, a comment explaining that the dem_reset_control_get_optional(dev,
+"stmmaceth-ocp") is for backwards compatibility with legacy device
+trees could be helpful to future readers.
 
--- 
-2.42.0.411.g813d9a9188
 
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
