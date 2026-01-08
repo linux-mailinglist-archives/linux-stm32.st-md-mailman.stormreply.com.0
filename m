@@ -2,49 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F04FD02B72
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 13:45:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01408D02DC2
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 14:08:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36F45C8F284;
-	Thu,  8 Jan 2026 12:45:35 +0000 (UTC)
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 925F0C8F282;
+	Thu,  8 Jan 2026 13:08:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63C6BC8F282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E495C5A4EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 12:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail2; t=1767876332; x=1768135532;
- bh=aLc1ABNGDOubKMqJjdyEE2rUDJu3+cw3hXTWYt1I64k=;
- h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
- Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=lyOmVC6eOUwGhcHBO5Eb3462sjFxqRvWZvq2Tnb1kiC0M83ZmLC0cGE15QPCn0EMK
- kF1laGjM9ulpW5X22nlxzMJ85BP/dhI7K6CWlDtnKld6FfPTWSR6zdv03ndr4j9NU0
- Ss/4Guj/HI1LBft19+e9PmHrG+KRRO93IF1DGv3PUieuC+syUKAKulF+7GR/KaNubo
- rSujErEg5+imTtlN4P9JxaF+q7AsQKKt35FTBBrIMYq2GRHE5SgO12fWaPNKBy+jWn
- pWPn+Ojc2VX2jb9s/f57BlvSiBYPBr5QSGNKGcWchPAUuBNNwDVezVFpSCX5lzuqNc
- asTVPIsgl8NHw==
-X-Pm-Submission-Id: 4dn4Pk0Vvcz1DLbC
-From: Sean Nyekjaer <sean@geanix.com>
-Date: Thu, 08 Jan 2026 13:45:23 +0100
+ Thu,  8 Jan 2026 13:08:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A80F419CD;
+ Thu,  8 Jan 2026 13:08:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8166CC16AAE;
+ Thu,  8 Jan 2026 13:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1767877705;
+ bh=d2oLmhos7FqCo4pDfLBY/b8vig+4Qxoc9GDWKS1KhqE=;
+ h=From:Subject:Date:To:Cc:From;
+ b=CK3/NvR6zP+u9HAE6mvU73Xn1ldX+Q60SocIgj3CI3jU1oeoNie+AX9b08X3dBMYI
+ wTfl6a3M3WSDte55xE+u9h/x5wnKppn06TQT7g4dwUe74L83Q6W68Tz0l0dMRenPnI
+ NHkXHCiJ/ldaY+7+R5FgmBUT3yuroKKvFgTxXWTshFMoL/Eg3IAjZJM57CqEa+N5QM
+ pM8j4j5zanHFRAFgC3G8jqTcmubR8L4VwIhnhTnAD1gKz5EhGZA9U2HLope9oPnmR0
+ 66IMaiO0WvzPnFX9urRJSHM3SLtTWJqmV+XJSZE795ruvZkaGc8HB054zjuzGrM/4e
+ rTCH2Oy+NzsRA==
+From: Dinh Nguyen <dinguyen@kernel.org>
+Date: Thu, 08 Jan 2026 07:08:08 -0600
+Message-Id: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
 MIME-Version: 1.0
-Message-Id: <20260108-stm32-pwm-v2-1-ced582974f8b@geanix.com>
-X-B4-Tracking: v=1; b=H4sIAOKmX2kC/03MSwrCMBSF4a2UOzaSRw2NI/chHcR4095B05KUW
- CnZu7EgOPwPh2+HhJEwwbXZIWKmRHOoIU8NuNGGARk9a4PkUnPBLyytk5JseU3MCPfoWqU77lu
- o/yWip+2w7n3tkdI6x/dBZ/Fdf4r+U7JggimFBjtrvFPqNqANtJ3dPEFfSvkAjw/CIKMAAAA=
-X-Change-ID: 20260105-stm32-pwm-91cb843680f4
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIADisX2kC/23MywrCMBCF4VeRWRuZTJPauPI9RKSXaRvUpiQSl
+ NJ3Ny24KLg8B75/gsDecoDTbgLP0QbrhjSy/Q7qvhw6FrZJGwhJSyIjPD9d5JurR6HUscizwlS
+ oCRIYPbf2vcYu17R7G17Of9Z2lMv7NxOlQKGNIqMYVdWo8539wI+D8x0snUg/m6NEvbGUrGpLq
+ poSjSa5sfM8fwHxL/kh4QAAAA==
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.2
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Sean Nyekjaer <sean@geanix.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] pwm: stm32: Always program polarity
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mamta Shukla <mamta.shukla@leica-geosystems.com>, 
+ Ahmad Fatoum <a.fatoum@pengutronix.de>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1888; i=dinguyen@kernel.org;
+ h=from:subject:message-id; bh=d2oLmhos7FqCo4pDfLBY/b8vig+4Qxoc9GDWKS1KhqE=;
+ b=owEBbQKS/ZANAwAKARmUBAuBoyj0AcsmYgBpX6xE2Yv8WhiMeSHCVFto9B7KJXVsVuB7XuVX0
+ MCoEwOLzlyJAjMEAAEKAB0WIQSgeEx6LKTlWbBUzA0ZlAQLgaMo9AUCaV+sRAAKCRAZlAQLgaMo
+ 9FSoEACYWlkgvXysoU+OTl8MRzOUImHYPeTWo3Y9ZGS/I1eEvVP2cRpYR9EtiiWpyV4xsIEN/+J
+ 5fWBwc+1wgQC8nh8ENVWWQaNSAPFB41LhwQ7JyjBGFIjz6phv8mHLW0YT1qsSVRbxUv9WRbO8S4
+ XpaVnsbx1oRrSVk9sXmDrKwt0VIPXcLJL0lejv7iQPD2bBCTtYA6OyZqgkdK0ZJoLbW8O1Qb6mT
+ vjEmFlnQUgH5HZdiAvQvRd9gB8g8K+uzYaUS/V3b3V+UvQbk786BcY9hM1QpKD8geljGXPCQb3A
+ 9g6F4HBnys43WjondrIriZSNPPIWQqpn3IUJ4+7742Ky0siZUho0hlg+FEhYi3uDbOj7uWokmS9
+ fkNxhQhLgSAUTFn3rprlC+DpVl18yQT0b2WZZ8yUflhB0REPo3ggTX4adeVskkBmXnPqcoN+bT2
+ Nran/niGE3745TINqzRCYJ6jqrcaVebshZ8+Ph7ia/piiyNkpxcAiGTtbSvb2QF+1DDNioKwCiG
+ M7EG0I3A1cWbjwHkXPrOz8yuCbkI0dpKWdpJIk3vyCH/grUiL3vRlBQnKN/Utw+LDuQAqau/NIk
+ FS8vZcWqKE/+JEWfgyMx5aHDtXrtsH65U8v2uSM9uMBAdkrMbHiBZVGj/J17w/Hyb+Zgy3qShIJ
+ Ftemo8mazwGC7Dg==
+X-Developer-Key: i=dinguyen@kernel.org; a=openpgp;
+ fpr=A0784C7A2CA4E559B054CC0D1994040B81A328F4
+Cc: devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/3] net: stmmac: socfpga: support both
+ stmmaceth-ocp and ahb reset names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,39 +82,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Q29tbWl0IDczNDZlN2EwNThhMiAoInB3bTogc3RtMzI6IEFsd2F5cyBkbyBsYXp5IGRpc2FibGlu
-ZyIpIHRyaWdnZXJlZCBhCnJlZ3Jlc3Npb24gd2hlcmUgUFdNIHBvbGFyaXR5IGNoYW5nZXMgY291
-bGQgYmUgaWdub3JlZC4KCnN0bTMyX3B3bV9zZXRfcG9sYXJpdHkoKSB3YXMgc2tpcHBlZCBkdWUg
-dG8gYSBtaXNtYXRjaCBiZXR3ZWVuIHRoZQpjYWNoZWQgcHdtLT5zdGF0ZS5wb2xhcml0eSBhbmQg
-dGhlIGFjdHVhbCBoYXJkd2FyZSBzdGF0ZSwgbGVhdmluZyB0aGUKaGFyZHdhcmUgcG9sYXJpdHkg
-dW5jaGFuZ2VkLgoKRml4ZXM6IDdlZGY3MzY5MjA1YiAoInB3bTogQWRkIGRyaXZlciBmb3IgU1RN
-MzIgcGxhZnRvcm0iKQpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZyAjIDw9IDYuMTIKU2lnbmVk
-LW9mZi1ieTogU2VhbiBOeWVramFlciA8c2VhbkBnZWFuaXguY29tPgpDby1kZXZlbG9wZWQtYnk6
-IFV3ZSBLbGVpbmUtS8O2bmlnIDx1a2xlaW5la0BrZXJuZWwub3JnPgotLS0KVGhpcyBwYXRjaCBp
-cyBvbmx5IGFwcGxpY2FibGUgZm9yIHN0YWJsZSB0cmVlJ3MgPD0gNi4xMgotLS0KQ2hhbmdlcyBp
-biB2MjoKLSBUYWtlbiBwYXRjaCBpbXByb3ZlbWVudHMgZm9yIFV3ZQotIExpbmsgdG8gdjE6IGh0
-dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNjAxMDYtc3RtMzItcHdtLXYxLTEtMzNlOWU4YTlm
-YzMzQGdlYW5peC5jb20KLS0tCiBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYyB8IDMgKy0tCiAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgYi9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwppbmRleCBl
-YjI0MDU0Zjk3Mjk3MzRkYTIxZWI5NmYyZTM3YWYwMzMzOWUzNDQwLi44NmU2ZWI3Mzk2ZjY3OTkw
-MjQ5NTA5ZGQzNDdjYjVhNjBjOWNjZjE2IDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20tc3Rt
-MzIuYworKysgYi9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwpAQCAtNDU4LDggKzQ1OCw3IEBAIHN0
-YXRpYyBpbnQgc3RtMzJfcHdtX2FwcGx5KHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0IHB3
-bV9kZXZpY2UgKnB3bSwKIAkJcmV0dXJuIDA7CiAJfQogCi0JaWYgKHN0YXRlLT5wb2xhcml0eSAh
-PSBwd20tPnN0YXRlLnBvbGFyaXR5KQotCQlzdG0zMl9wd21fc2V0X3BvbGFyaXR5KHByaXYsIHB3
-bS0+aHdwd20sIHN0YXRlLT5wb2xhcml0eSk7CisJc3RtMzJfcHdtX3NldF9wb2xhcml0eShwcml2
-LCBwd20tPmh3cHdtLCBzdGF0ZS0+cG9sYXJpdHkpOwogCiAJcmV0ID0gc3RtMzJfcHdtX2NvbmZp
-Zyhwcml2LCBwd20tPmh3cHdtLAogCQkJICAgICAgIHN0YXRlLT5kdXR5X2N5Y2xlLCBzdGF0ZS0+
-cGVyaW9kKTsKCi0tLQpiYXNlLWNvbW1pdDogZWIxODUwNGNhNWNmMWU2YTc2YTc1MmI3M2RhZjBl
-ZjUxZGUzNTUxYgpjaGFuZ2UtaWQ6IDIwMjYwMTA1LXN0bTMyLXB3bS05MWNiODQzNjgwZjQKCkJl
-c3QgcmVnYXJkcywKLS0gClNlYW4gTnlla2phZXIgPHNlYW5AZ2Vhbml4LmNvbT4KCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+The dwmac-socfpga stmmac ethernet controller supports 2 standard reset
+lines, named "stmmaceth" and "stmmaceth-ocp". At the time of upstreaming
+support for the platform, the "stmmaceth-ocp" name was used for the 2nd
+reset name. We later realized that the "stmmaceth-ocp" reset name is
+the same as the "ahb" name that is used by the standard stmmac driver.
+But since the "stmmaceth-ocp" name support has already been introduced
+to the wild, it cannot just be removed from the driver, thus we can
+modify the driver to support both "stmmaceth-ocp" and "ahb", with the
+idea that "ahb" will be used going forward.
+
+This series add the support to call reset assert/de-assert both "abh"
+and "stmmaceth-ocp" to the dwmac-socfpga platform driver, then reverts
+the patch that uses the DTS "stmmaceth-ocp" reset name.
+
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+---
+Changes in v3:
+- Edit dt-bindings patch to just remove TODO note
+- Link to v2: https://lore.kernel.org/r/20260105-remove_ocp-v2-0-4fa2bda09521@kernel.org
+
+Changes in v2:
+- Added a dt-binding patch to mark 'stmmaceth-ocp' as deprecated
+- Link to v1: https://lore.kernel.org/r/20251229-remove_ocp-v1-0-594294e04bd4@kernel.org
+
+---
+Dinh Nguyen (3):
+      net: stmmac: socfpga: add call to assert/deassert ahb reset line
+      Revert "arm: dts: socfpga: use reset-name "stmmaceth-ocp" instead of "ahb""
+      dt-bindings: net: altr,socfpga-stmmac: remove TODO note
+
+ Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 2 --
+ arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi           | 6 +++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c            | 4 ++++
+ 3 files changed, 7 insertions(+), 5 deletions(-)
+---
+base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
+change-id: 20251229-remove_ocp-44786389b052
+
+Best regards,
+-- 
+Dinh Nguyen <dinguyen@kernel.org>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
