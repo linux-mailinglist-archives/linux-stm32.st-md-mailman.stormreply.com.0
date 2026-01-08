@@ -2,54 +2,155 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B21CD050EE
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 18:37:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E479BD06103
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 21:30:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68E1FC8F285;
-	Thu,  8 Jan 2026 17:37:04 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E58FC8F284;
+	Thu,  8 Jan 2026 20:30:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F8FC8F282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A97DC8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 17:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=d5EH9CN/M6xoNGKrm1WaBtVLEC1EjhpBswnHDX8iinE=; b=x9/dsjyPwoZALn0bSOlQe+X6hP
- DLXMDUUFDaxnIZChhW89PHfsP9v6cDyND+bhwIfQbkxoEjIJ0cU1WGkWATBXCkcTPUD55wUzwX+Nn
- yQZdlxpXll1DWyNs0cjgHMASspv23umFYv3AKYADy4aUdy2hMd7IENZvVc9ePaeEOPoR35y1+nfQt
- qZ83Z7yTS6bM6kANeROtnRq9080nGtl4y+R0lfOpdiyuzsd3LiAbURtL+5qEY4pz4c3VF9AayJRo/
- HJQXsOvUdzBg8nWxDskVstqmVsj2Ap98Y8O80C4+dBlSKcDiGHJ3YQi1RfxUgInucElBDN5is41Ul
- UI99XA9Q==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44468 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vdtwK-00000000314-29Pi;
- Thu, 08 Jan 2026 17:36:52 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vdtwI-00000002Gu6-1HYu; Thu, 08 Jan 2026 17:36:50 +0000
-In-Reply-To: <aV_q2Kneinrk3Z-W@shell.armlinux.org.uk>
-References: <aV_q2Kneinrk3Z-W@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Thu,  8 Jan 2026 20:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1767904229; x=1799440229;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=5FDjJzy6AOW1qFhOgfm62fFBhHaSU5fD45eqi9Wu6i4=;
+ b=cmloEnK0g+d8AyL6E3V4UJxBewyrg3z8xDH8SMDZlEkfLhGw8mEbc19c
+ YCAvjM2hzhOnppArJDhSz2dhsfHbruAYDtS57ZtRf6GI/+yq9GqUbPEdN
+ 1JtII08LGCr0IIJnSZVMzIZlPcuvra9U2fwQCh4S6HCApl0qaRJ5vrKy4
+ j3/jV2f5yXL21b4uirU4a1gB34/dXX5MCaCFDhbuwDv2h8DezGJKh83h3
+ xMDXBxmQ/gG4Q5GSdab3oXHNWkTNXC4VxlFj26nlYxeuA9KW2RlJczZcI
+ uryFg6xZPEZjAslSZwv7Qxq4UN+ol0uCZQKvMNXz6AMcw257l0yEXZnuJ Q==;
+X-CSE-ConnectionGUID: U0EzqXLxRnidwvTIvYQfWQ==
+X-CSE-MsgGUID: X2iG1kmFTmOTGJ0oC9bTRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11665"; a="68485853"
+X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="68485853"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jan 2026 12:30:26 -0800
+X-CSE-ConnectionGUID: Rb7WE93tRy+8OPHVD/Fexw==
+X-CSE-MsgGUID: Ba3oBSLTQpek6cr9+Yqu0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="226706557"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa002.fm.intel.com with ESMTP; 08 Jan 2026 12:30:16 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+ id 8983166; Thu, 08 Jan 2026 21:30:15 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+ Varshini Rajendran <varshini.rajendran@microchip.com>,
+ Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sunny Luo <sunny.luo@amlogic.com>, Janne Grunau <j@jannau.net>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+ CL Wang <cl634@andestech.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>,
+ David Lechner <dlechner@baylibre.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jonas Gorski <jonas.gorski@gmail.com>, Hang Zhou <929513338@qq.com>,
+ Jun Guo <jun.guo@cixtech.com>, Philipp Stanner <phasta@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ =?UTF-8?q?Beno=C3=AEt=20Monin?= <benoit.monin@bootlin.com>,
+ Shiji Yang <yangshiji66@outlook.com>, James Clark <james.clark@linaro.org>,
+ Jonathan Marek <jonathan@marek.ca>, Carlos Song <carlos.song@nxp.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>,
+ Prajna Rajendra Kumar <prajna.rajendrakumar@microchip.com>,
+ Sergio Perez Gonzalez <sperezglz@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Qianfeng Rong <rongqianfeng@vivo.com>, Haibo Chen <haibo.chen@nxp.com>,
+ Gabor Juhos <j4g8y7@gmail.com>, Md Sadre Alam <quic_mdalam@quicinc.com>,
+ Rosen Penev <rosenp@gmail.com>, Luis de Arquer <luis.dearquer@inertim.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Longbin Li <looong.bin@gmail.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ =?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <clement.legoffic@foss.st.com>,
+ Alessandro Grassi <alessandro.grassi@mailbox.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Darshan R <rathod.darshan.0896@gmail.com>,
+ Aaron Kling <webgeek1234@gmail.com>, Vishwaroop A <va@nvidia.com>,
+ Haixu Cui <quic_haixcui@quicinc.com>,
+ Darshan Rathod <darshanrathod475@gmail.com>, linux-spi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, asahi@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org,
+ patches@opensource.cirrus.com, imx@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev
+Date: Thu,  8 Jan 2026 21:23:37 +0100
+Message-ID: <20260108203004.3538449-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vdtwI-00000002Gu6-1HYu@rmk-PC.armlinux.org.uk>
-Date: Thu, 08 Jan 2026 17:36:50 +0000
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 9/9] net: stmmac: remove unused
-	definitions
+Cc: Kursad Oney <kursad.oney@broadcom.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Lixu Zhang <lixu.zhang@intel.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Jean-Marie Verdun <verdun@hpe.com>, Frank Li <Frank.Li@nxp.com>,
+ David Rhodes <david.rhodes@cirrus.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Masahisa Kojima <masahisa.kojima@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Li-hao Kuo <lhjeff911@gmail.com>, Benjamin Fair <benjaminfair@google.com>,
+ Yogesh Gaur <yogeshgaur.83@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Nancy Yuen <yuenn@google.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Kamal Dasu <kamal.dasu@broadcom.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>, Anand Gore <anand.gore@broadcom.com>,
+ William Zhang <william.zhang@broadcom.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Jassi Brar <jaswinder.singh@linaro.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+ Nick Hawkins <nick.hawkins@hpe.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Han Xu <han.xu@nxp.com>, Sven Peter <sven@kernel.org>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Yang Shen <shenyang39@huawei.com>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Patrick Venture <venture@google.com>, Linus Walleij <linusw@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Samuel Holland <samuel.holland@sifive.com>, Tali Perry <tali.perry1@gmail.com>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>, Ray Liu <ray.liu@airoha.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+ Neal Gompa <neal@gompa.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Daniel Mack <daniel@zonque.org>
+Subject: [Linux-stm32] [PATCH v1 0/4] spi: Make SPI core to take care of
+	fwnode assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,421 +162,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Potentially unused definitions were discovered using:
-
-$ for m in $(grep '#define ' $header | sed -e 's,#define[  ]*\([^  ]*\)[   ].*,\1,;s,(.*,,'); do if ! grep -q $m *.c; then echo $m; fi; done
-
-Each was verified, and then removed where truly unused.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac100.h    | 29 ----------
- .../net/ethernet/stmicro/stmmac/dwmac1000.h   | 54 +------------------
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  | 44 ---------------
- .../net/ethernet/stmicro/stmmac/dwmac_dma.h   | 23 --------
- 4 files changed, 1 insertion(+), 149 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100.h b/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
-index eae929955ad7..547863cb982f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100.h
-@@ -30,59 +30,30 @@
- #define MAC_VLAN2	0x00000024	/* VLAN2 Tag */
- 
- /* MAC CTRL defines */
--#define MAC_CONTROL_RA	0x80000000	/* Receive All Mode */
--#define MAC_CONTROL_BLE	0x40000000	/* Endian Mode */
- #define MAC_CONTROL_HBD	0x10000000	/* Heartbeat Disable */
- #define MAC_CONTROL_PS	0x08000000	/* Port Select */
--#define MAC_CONTROL_DRO	0x00800000	/* Disable Receive Own */
--#define MAC_CONTROL_EXT_LOOPBACK 0x00400000	/* Reserved (ext loopback?) */
- #define MAC_CONTROL_OM	0x00200000	/* Loopback Operating Mode */
- #define MAC_CONTROL_F	0x00100000	/* Full Duplex Mode */
- #define MAC_CONTROL_PM	0x00080000	/* Pass All Multicast */
- #define MAC_CONTROL_PR	0x00040000	/* Promiscuous Mode */
- #define MAC_CONTROL_IF	0x00020000	/* Inverse Filtering */
--#define MAC_CONTROL_PB	0x00010000	/* Pass Bad Frames */
- #define MAC_CONTROL_HO	0x00008000	/* Hash Only Filtering Mode */
- #define MAC_CONTROL_HP	0x00002000	/* Hash/Perfect Filtering Mode */
--#define MAC_CONTROL_LCC	0x00001000	/* Late Collision Control */
--#define MAC_CONTROL_DBF	0x00000800	/* Disable Broadcast Frames */
--#define MAC_CONTROL_DRTY	0x00000400	/* Disable Retry */
--#define MAC_CONTROL_ASTP	0x00000100	/* Automatic Pad Stripping */
--#define MAC_CONTROL_BOLMT_10	0x00000000	/* Back Off Limit 10 */
--#define MAC_CONTROL_BOLMT_8	0x00000040	/* Back Off Limit 8 */
--#define MAC_CONTROL_BOLMT_4	0x00000080	/* Back Off Limit 4 */
--#define MAC_CONTROL_BOLMT_1	0x000000c0	/* Back Off Limit 1 */
--#define MAC_CONTROL_DC		0x00000020	/* Deferral Check */
--#define MAC_CONTROL_TE		0x00000008	/* Transmitter Enable */
--#define MAC_CONTROL_RE		0x00000004	/* Receiver Enable */
- 
- #define MAC_CORE_INIT (MAC_CONTROL_HBD)
- 
- /* MAC FLOW CTRL defines */
- #define MAC_FLOW_CTRL_PT_MASK	GENMASK(31, 16)	/* Pause Time Mask */
--#define MAC_FLOW_CTRL_PASS	0x00000004	/* Pass Control Frames */
- #define MAC_FLOW_CTRL_ENABLE	0x00000002	/* Flow Control Enable */
--#define MAC_FLOW_CTRL_PAUSE	0x00000001	/* Flow Control Busy ... */
--
--/* MII ADDR  defines */
--#define MAC_MII_ADDR_WRITE	0x00000002	/* MII Write */
--#define MAC_MII_ADDR_BUSY	0x00000001	/* MII Busy */
- 
- /*----------------------------------------------------------------------------
-  * 				DMA BLOCK defines
-  *---------------------------------------------------------------------------*/
- 
- /* DMA Bus Mode register defines */
--#define DMA_BUS_MODE_DBO	0x00100000	/* Descriptor Byte Ordering */
--#define DMA_BUS_MODE_BLE	0x00000080	/* Big Endian/Little Endian */
- #define DMA_BUS_MODE_PBL_MASK	GENMASK(13, 8)	/* Programmable Burst Len */
--#define DMA_BUS_MODE_DSL_MASK	GENMASK(6, 2)	/* Descriptor Skip Length */
--#define DMA_BUS_MODE_BAR_BUS	0x00000002	/* Bar-Bus Arbitration */
- #define DMA_BUS_MODE_DEFAULT	0x00000000
- 
--/* DMA Control register defines */
--#define DMA_CONTROL_SF		0x00200000	/* Store And Forward */
--
- /* Transmit Threshold Control */
- enum ttc_control {
- 	DMA_CONTROL_TTC_DEFAULT = 0x00000000,	/* Threshold is 32 DWORDS */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-index 17e013e97607..b3135df0a359 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-@@ -20,15 +20,11 @@
- #define GMAC_FLOW_CTRL		0x00000018	/* Flow Control */
- #define GMAC_VLAN_TAG		0x0000001c	/* VLAN Tag */
- #define GMAC_DEBUG		0x00000024	/* GMAC debug register */
--#define GMAC_WAKEUP_FILTER	0x00000028	/* Wake-up Frame Filter */
- 
- #define GMAC_INT_STATUS		0x00000038	/* interrupt status register */
--#define GMAC_INT_STATUS_PMT	BIT(3)
--#define GMAC_INT_STATUS_MMCIS	BIT(4)
- #define GMAC_INT_STATUS_MMCRIS	BIT(5)
- #define GMAC_INT_STATUS_MMCTIS	BIT(6)
- #define GMAC_INT_STATUS_MMCCSUM	BIT(7)
--#define GMAC_INT_STATUS_TSTAMP	BIT(9)
- #define GMAC_INT_STATUS_LPIIS	BIT(10)
- 
- /* interrupt mask register */
-@@ -89,8 +85,6 @@ enum power_event {
- 
- /* GMAC Configuration defines */
- #define GMAC_CONTROL_2K 0x08000000	/* IEEE 802.3as 2K packets */
--#define GMAC_CONTROL_TC	0x01000000	/* Transmit Conf. in RGMII/SGMII */
--#define GMAC_CONTROL_WD	0x00800000	/* Disable Watchdog on receive */
- #define GMAC_CONTROL_JD	0x00400000	/* Jabber disable */
- #define GMAC_CONTROL_BE	0x00200000	/* Frame Burst Enable */
- #define GMAC_CONTROL_JE	0x00100000	/* Jumbo frame */
-@@ -102,41 +96,25 @@ enum inter_frame_gap {
- #define GMAC_CONTROL_DCRS	0x00010000	/* Disable carrier sense */
- #define GMAC_CONTROL_PS		0x00008000	/* Port Select 0:GMI 1:MII */
- #define GMAC_CONTROL_FES	0x00004000	/* Speed 0:10 1:100 */
--#define GMAC_CONTROL_DO		0x00002000	/* Disable Rx Own */
- #define GMAC_CONTROL_LM		0x00001000	/* Loop-back mode */
- #define GMAC_CONTROL_DM		0x00000800	/* Duplex Mode */
- #define GMAC_CONTROL_IPC	0x00000400	/* Checksum Offload */
--#define GMAC_CONTROL_DR		0x00000200	/* Disable Retry */
--#define GMAC_CONTROL_LUD	0x00000100	/* Link up/down */
--#define GMAC_CONTROL_ACS	0x00000080	/* Auto Pad/FCS Stripping */
--#define GMAC_CONTROL_DC		0x00000010	/* Deferral Check */
--#define GMAC_CONTROL_TE		0x00000008	/* Transmitter Enable */
--#define GMAC_CONTROL_RE		0x00000004	/* Receiver Enable */
- 
- #define GMAC_CORE_INIT (GMAC_CONTROL_JD | GMAC_CONTROL_PS | \
- 			GMAC_CONTROL_BE | GMAC_CONTROL_DCRS)
- 
- /* GMAC Frame Filter defines */
- #define GMAC_FRAME_FILTER_PR	0x00000001	/* Promiscuous Mode */
--#define GMAC_FRAME_FILTER_HUC	0x00000002	/* Hash Unicast */
- #define GMAC_FRAME_FILTER_HMC	0x00000004	/* Hash Multicast */
--#define GMAC_FRAME_FILTER_DAIF	0x00000008	/* DA Inverse Filtering */
- #define GMAC_FRAME_FILTER_PM	0x00000010	/* Pass all multicast */
--#define GMAC_FRAME_FILTER_DBF	0x00000020	/* Disable Broadcast frames */
- #define GMAC_FRAME_FILTER_PCF	0x00000080	/* Pass Control frames */
--#define GMAC_FRAME_FILTER_SAIF	0x00000100	/* Inverse Filtering */
--#define GMAC_FRAME_FILTER_SAF	0x00000200	/* Source Address Filter */
- #define GMAC_FRAME_FILTER_HPF	0x00000400	/* Hash or perfect Filter */
- #define GMAC_FRAME_FILTER_RA	0x80000000	/* Receive all mode */
--/* GMII ADDR  defines */
--#define GMAC_MII_ADDR_WRITE	0x00000002	/* MII Write */
--#define GMAC_MII_ADDR_BUSY	0x00000001	/* MII Busy */
- /* GMAC FLOW CTRL defines */
- #define GMAC_FLOW_CTRL_PT_MASK	GENMASK(31, 16)	/* Pause Time Mask */
- #define GMAC_FLOW_CTRL_UP	0x00000008	/* Unicast pause frame enable */
- #define GMAC_FLOW_CTRL_RFE	0x00000004	/* Rx Flow Control Enable */
- #define GMAC_FLOW_CTRL_TFE	0x00000002	/* Tx Flow Control Enable */
--#define GMAC_FLOW_CTRL_FCB_BPA	0x00000001	/* Flow Control Busy ... */
- 
- /* DEBUG Register defines */
- /* MTL TxStatus FIFO */
-@@ -145,14 +123,12 @@ enum inter_frame_gap {
- #define GMAC_DEBUG_TWCSTS	BIT(22) /* MTL Tx FIFO Write Controller */
- /* MTL Tx FIFO Read Controller Status */
- #define GMAC_DEBUG_TRCSTS_MASK	GENMASK(21, 20)
--#define GMAC_DEBUG_TRCSTS_IDLE	0
- #define GMAC_DEBUG_TRCSTS_READ	1
- #define GMAC_DEBUG_TRCSTS_TXW	2
- #define GMAC_DEBUG_TRCSTS_WRITE	3
- #define GMAC_DEBUG_TXPAUSED	BIT(19) /* MAC Transmitter in PAUSE */
- /* MAC Transmit Frame Controller Status */
- #define GMAC_DEBUG_TFCSTS_MASK	GENMASK(18, 17)
--#define GMAC_DEBUG_TFCSTS_IDLE	0
- #define GMAC_DEBUG_TFCSTS_WAIT	1
- #define GMAC_DEBUG_TFCSTS_GEN_PAUSE	2
- #define GMAC_DEBUG_TFCSTS_XFER	3
-@@ -176,9 +152,6 @@ enum inter_frame_gap {
- 
- /*--- DMA BLOCK defines ---*/
- /* DMA Bus Mode register defines */
--#define DMA_BUS_MODE_DA		0x00000002	/* Arbitration scheme */
--#define DMA_BUS_MODE_DSL_MASK	0x0000007c	/* Descriptor Skip Length */
--#define DMA_BUS_MODE_DSL_SHIFT	2		/*   (in DWORDS)      */
- /* Programmable burst length (passed thorugh platform)*/
- #define DMA_BUS_MODE_PBL_MASK	GENMASK(13, 8)	/* Programmable Burst Len */
- #define DMA_BUS_MODE_ATDS	0x00000080	/* Alternate Descriptor Size */
-@@ -197,16 +170,9 @@ enum rx_tx_priority_ratio {
- #define DMA_BUS_MODE_AAL	0x02000000
- 
- /* DMA CRS Control and Status Register Mapping */
--#define DMA_HOST_TX_DESC	  0x00001048	/* Current Host Tx descriptor */
--#define DMA_HOST_RX_DESC	  0x0000104c	/* Current Host Rx descriptor */
--/*  DMA Bus Mode register defines */
--#define DMA_BUS_PR_RATIO_MASK	  0x0000c000	/* Rx/Tx priority ratio */
--#define DMA_BUS_PR_RATIO_SHIFT	  14
--#define DMA_BUS_FB	  	  0x00010000	/* Fixed Burst */
- 
- /* DMA operation mode defines (start/stop tx/rx are placed in common header)*/
- /* Disable Drop TCP/IP csum error */
--#define DMA_CONTROL_DT		0x04000000
- #define DMA_CONTROL_RSF		0x02000000	/* Receive Store and Forward */
- #define DMA_CONTROL_DFF		0x01000000	/* Disaable flushing */
- /* Threshold for Activating the FC */
-@@ -238,8 +204,6 @@ enum ttc_control {
- #define DMA_CONTROL_TC_TX_MASK	0xfffe3fff
- 
- #define DMA_CONTROL_EFC		0x00000100
--#define DMA_CONTROL_FEF		0x00000080
--#define DMA_CONTROL_FUF		0x00000040
- 
- /* Receive flow control activation field
-  * RFA field in DMA control register, bits 23,10:9
-@@ -276,20 +240,8 @@ enum ttc_control {
-  */
- 
- #define RFA_FULL_MINUS_1K	0x00000000
--#define RFA_FULL_MINUS_2K	0x00000200
--#define RFA_FULL_MINUS_3K	0x00000400
--#define RFA_FULL_MINUS_4K	0x00000600
--#define RFA_FULL_MINUS_5K	0x00800000
--#define RFA_FULL_MINUS_6K	0x00800200
--#define RFA_FULL_MINUS_7K	0x00800400
--
--#define RFD_FULL_MINUS_1K	0x00000000
-+
- #define RFD_FULL_MINUS_2K	0x00000800
--#define RFD_FULL_MINUS_3K	0x00001000
--#define RFD_FULL_MINUS_4K	0x00001800
--#define RFD_FULL_MINUS_5K	0x00400000
--#define RFD_FULL_MINUS_6K	0x00400800
--#define RFD_FULL_MINUS_7K	0x00401000
- 
- enum rtc_control {
- 	DMA_CONTROL_RTC_64 = 0x00000000,
-@@ -302,10 +254,6 @@ enum rtc_control {
- #define DMA_CONTROL_OSF	0x00000004	/* Operate on second frame */
- 
- /* MMC registers offset */
--#define GMAC_MMC_CTRL      0x100
--#define GMAC_MMC_RX_INTR   0x104
--#define GMAC_MMC_TX_INTR   0x108
--#define GMAC_MMC_RX_CSUM_OFFLOAD   0x208
- #define GMAC_EXTHASH_BASE  0x500
- 
- /* PTP and timestamping registers */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-index e8f103cb6cd5..5f1e2916f099 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-@@ -24,7 +24,6 @@
- 
- #define DMA_SYS_BUS_MODE		0x00001004
- 
--#define DMA_BUS_MODE_SPH		BIT(24)
- #define DMA_BUS_MODE_PBL		BIT(16)
- #define DMA_BUS_MODE_RPBL_MASK		GENMASK(21, 16)
- #define DMA_BUS_MODE_MB			BIT(14)
-@@ -32,24 +31,6 @@
- 
- #define DMA_STATUS			0x00001008
- 
--#define DMA_STATUS_MAC			BIT(17)
--#define DMA_STATUS_MTL			BIT(16)
--#define DMA_STATUS_CHAN7		BIT(7)
--#define DMA_STATUS_CHAN6		BIT(6)
--#define DMA_STATUS_CHAN5		BIT(5)
--#define DMA_STATUS_CHAN4		BIT(4)
--#define DMA_STATUS_CHAN3		BIT(3)
--#define DMA_STATUS_CHAN2		BIT(2)
--#define DMA_STATUS_CHAN1		BIT(1)
--#define DMA_STATUS_CHAN0		BIT(0)
--
--#define DMA_DEBUG_STATUS_0		0x0000100c
--#define DMA_DEBUG_STATUS_1		0x00001010
--#define DMA_DEBUG_STATUS_2		0x00001014
--
--#define DMA_DEBUG_STATUS_TS_MASK	0xf
--#define DMA_DEBUG_STATUS_RS_MASK	0xf
--
- #define DMA_AXI_BUS_MODE		0x00001028
- 
- #define DMA_AXI_EN_LPI			BIT(31)
-@@ -58,16 +39,10 @@
- #define DMA_AXI_RD_OSR_LMT		GENMASK(19, 16)
- 
- #define DMA_SYS_BUS_MB			BIT(14)
--#define DMA_AXI_1KBBE			BIT(13)
- #define DMA_SYS_BUS_AAL			DMA_AXI_AAL
- #define DMA_SYS_BUS_EAME		BIT(11)
- #define DMA_SYS_BUS_FB			BIT(0)
- 
--#define DMA_BURST_LEN_DEFAULT		(DMA_AXI_BLEN256 | DMA_AXI_BLEN128 | \
--					DMA_AXI_BLEN64 | DMA_AXI_BLEN32 | \
--					DMA_AXI_BLEN16 | DMA_AXI_BLEN8 | \
--					DMA_AXI_BLEN4)
--
- #define DMA_TBS_CTRL			0x00001050
- 
- #define DMA_TBS_FTOS			GENMASK(31, 8)
-@@ -91,12 +66,9 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- 	return addr;
- }
- 
--#define DMA_CHAN_REG_NUMBER		17
--
- #define DMA_CHAN_CONTROL(addrs, x)	dma_chanx_base_addr(addrs, x)
- 
- #define DMA_CONTROL_SPH			BIT(24)
--#define DMA_CONTROL_MSS_MASK		GENMASK(13, 0)
- 
- #define DMA_CHAN_TX_CONTROL(addrs, x)	(dma_chanx_base_addr(addrs, x) + 0x4)
- 
-@@ -125,16 +97,8 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- #define DMA_CHAN_INTR_ENA_AIE		BIT(15)
- #define DMA_CHAN_INTR_ENA_NIE_4_10	BIT(15)
- #define DMA_CHAN_INTR_ENA_AIE_4_10	BIT(14)
--#define DMA_CHAN_INTR_ENA_CDE		BIT(13)
- #define DMA_CHAN_INTR_ENA_FBE		BIT(12)
--#define DMA_CHAN_INTR_ENA_ERE		BIT(11)
--#define DMA_CHAN_INTR_ENA_ETE		BIT(10)
--#define DMA_CHAN_INTR_ENA_RWE		BIT(9)
--#define DMA_CHAN_INTR_ENA_RSE		BIT(8)
--#define DMA_CHAN_INTR_ENA_RBUE		BIT(7)
- #define DMA_CHAN_INTR_ENA_RIE		BIT(6)
--#define DMA_CHAN_INTR_ENA_TBUE		BIT(2)
--#define DMA_CHAN_INTR_ENA_TSE		BIT(1)
- #define DMA_CHAN_INTR_ENA_TIE		BIT(0)
- 
- #define DMA_CHAN_INTR_NORMAL		(DMA_CHAN_INTR_ENA_NIE | \
-@@ -173,9 +137,6 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- 
- /* Interrupt status per channel */
- #define DMA_CHAN_STATUS_REB		GENMASK(21, 19)
--#define DMA_CHAN_STATUS_REB_SHIFT	19
--#define DMA_CHAN_STATUS_TEB		GENMASK(18, 16)
--#define DMA_CHAN_STATUS_TEB_SHIFT	16
- #define DMA_CHAN_STATUS_NIS		BIT(15)
- #define DMA_CHAN_STATUS_AIS		BIT(14)
- #define DMA_CHAN_STATUS_CDE		BIT(13)
-@@ -209,11 +170,6 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- 					 DMA_CHAN_STATUS_TI | \
- 					 DMA_CHAN_STATUS_MSK_COMMON)
- 
--#define DMA_CHAN0_DBG_STAT_TPS		GENMASK(15, 12)
--#define DMA_CHAN0_DBG_STAT_TPS_SHIFT	12
--#define DMA_CHAN0_DBG_STAT_RPS		GENMASK(11, 8)
--#define DMA_CHAN0_DBG_STAT_RPS_SHIFT	8
--
- int dwmac4_dma_reset(void __iomem *ioaddr);
- void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			   u32 chan, bool rx, bool tx);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-index a57ecef098e3..e1c37ac2c99d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_dma.h
-@@ -22,13 +22,9 @@
- #define DMA_TX_BASE_ADDR	0x00001010	/* Transmit List Base */
- 
- #define DMA_STATUS		0x00001014	/* Status Register */
--#define DMA_STATUS_GLPII	0x40000000	/* GMAC LPI interrupt */
- #define DMA_STATUS_GPI		0x10000000	/* PMT interrupt */
- #define DMA_STATUS_GMI		0x08000000	/* MMC interrupt */
- #define DMA_STATUS_GLI		0x04000000	/* GMAC Line interface int */
--#define DMA_STATUS_EB_MASK	0x00380000	/* Error Bits Mask */
--#define DMA_STATUS_EB_TX_ABORT	0x00080000	/* Error Bits - TX Abort */
--#define DMA_STATUS_EB_RX_ABORT	0x00100000	/* Error Bits - RX Abort */
- #define DMA_STATUS_TS_MASK	GENMASK(22, 20)	/* Transmit Process State */
- #define DMA_STATUS_RS_MASK	GENMASK(19, 17)	/* Receive Process State */
- #define DMA_STATUS_NIS	0x00010000	/* Normal Interrupt Summary */
-@@ -79,9 +75,7 @@
- /* DMA Normal interrupt */
- #define DMA_INTR_ENA_NIE 0x00010000	/* Normal Summary */
- #define DMA_INTR_ENA_TIE 0x00000001	/* Transmit Interrupt */
--#define DMA_INTR_ENA_TUE 0x00000004	/* Transmit Buffer Unavailable */
- #define DMA_INTR_ENA_RIE 0x00000040	/* Receive Interrupt */
--#define DMA_INTR_ENA_ERE 0x00004000	/* Early Receive */
- 
- #define DMA_INTR_NORMAL	(DMA_INTR_ENA_NIE | DMA_INTR_ENA_RIE | \
- 			DMA_INTR_ENA_TIE)
-@@ -89,14 +83,7 @@
- /* DMA Abnormal interrupt */
- #define DMA_INTR_ENA_AIE 0x00008000	/* Abnormal Summary */
- #define DMA_INTR_ENA_FBE 0x00002000	/* Fatal Bus Error */
--#define DMA_INTR_ENA_ETE 0x00000400	/* Early Transmit */
--#define DMA_INTR_ENA_RWE 0x00000200	/* Receive Watchdog */
--#define DMA_INTR_ENA_RSE 0x00000100	/* Receive Stopped */
--#define DMA_INTR_ENA_RUE 0x00000080	/* Receive Buffer Unavailable */
- #define DMA_INTR_ENA_UNE 0x00000020	/* Tx Underflow */
--#define DMA_INTR_ENA_OVE 0x00000010	/* Receive Overflow */
--#define DMA_INTR_ENA_TJE 0x00000008	/* Transmit Jabber */
--#define DMA_INTR_ENA_TSE 0x00000002	/* Transmit Stopped */
- 
- #define DMA_INTR_ABNORMAL	(DMA_INTR_ENA_AIE | DMA_INTR_ENA_FBE | \
- 				DMA_INTR_ENA_UNE)
-@@ -128,8 +115,6 @@ static inline u32 dma_chan_base_addr(u32 base, u32 chan)
- #define DMA_CHAN_STATUS(chan)	dma_chan_base_addr(DMA_STATUS, chan)
- #define DMA_CHAN_CONTROL(chan)	dma_chan_base_addr(DMA_CONTROL, chan)
- #define DMA_CHAN_INTR_ENA(chan)	dma_chan_base_addr(DMA_INTR_ENA, chan)
--#define DMA_CHAN_MISSED_FRAME_CTR(chan)	\
--				dma_chan_base_addr(DMA_MISSED_FRAME_CTR, chan)
- #define DMA_CHAN_RX_WATCHDOG(chan)	\
- 				dma_chan_base_addr(DMA_RX_WATCHDOG, chan)
- 
-@@ -145,14 +130,6 @@ static inline u32 dma_chan_base_addr(u32 base, u32 chan)
- #define DMA_AXI_WR_OSR_LMT	GENMASK(23, 20)
- #define DMA_AXI_RD_OSR_LMT	GENMASK(19, 16)
- 
--#define DMA_AXI_OSR_MAX		0xf
--#define DMA_AXI_MAX_OSR_LIMIT ((DMA_AXI_OSR_MAX << DMA_AXI_WR_OSR_LMT_SHIFT) | \
--			       (DMA_AXI_OSR_MAX << DMA_AXI_RD_OSR_LMT_SHIFT))
--#define DMA_BURST_LEN_DEFAULT	(DMA_AXI_BLEN256 | DMA_AXI_BLEN128 | \
--				 DMA_AXI_BLEN64 | DMA_AXI_BLEN32 | \
--				 DMA_AXI_BLEN16 | DMA_AXI_BLEN8 | \
--				 DMA_AXI_BLEN4)
--
- #define	DMA_AXI_1KBBE		BIT(13)
- 
- #define DMA_AXI_UNDEF		BIT(0)
--- 
-2.47.3
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SXQgc2VlbXMgYWxsIG9mIHRoZSBTUEkgZHJpdmVycyB3YW50IHRvIHByb3BhZ2F0ZSBmd25vZGUg
+KG9yIG9mX25vZGUpCm9mIHRoZSBwaHlzaWNhbCBkZXZpY2UgdG8gdGhlIFNQSSBkZXZpY2UuIE1h
+a2Ugc3VyZSB3ZSBkb24ndCBkdXBsaWNhdGUKaXQgb3ZlciBhbmQgb3ZlciBpbiBlYWNoIG5ldyBk
+cml2ZXIgKCsyIGluIHRoaXMgY3ljbGUpIGJ5IG1ha2luZyBjb3JlCnRvIHRha2UgY2FyZSBvZiB0
+aGF0LiBOb3RlLCBzaW1pbGFyIGlzIGRvbmUgYWxyZWFkeSBieSBJSU8gYW5kCknCskMgc3Vic3lz
+dGVtcy4KClRoZXJlIGlzIG9uZSBub3RpY2VhYmxlIGFuZCBxdWl0ZSBzcGVjaWZpYyBjYXNlIHRo
+YXQgaXMgdGFrZW4gY2FyZSBpbgp0aGUgZmlyc3QgcGF0Y2ggYW5kIHdvdWxkIGJlIG5pY2UgdG8g
+aGF2ZSBhIGNvbmZpcm1hdGlvbiBmcm9tIENpcnJ1cwp0aGF0IGV2ZXJ5dGhpbmcgaXMgb2theS4g
+VGhlIHJlc3QgaXMganVzdCBhIG1lY2hhbmljYWwgY29udmVyc2lvbi4KCkFuZHkgU2hldmNoZW5r
+byAoNCk6CiAgc3BpOiBQcm9wYWdhdGUgZGVmYXVsdCBmd25vZGUgdG8gdGhlIFNQSSBjb250cm9s
+bGVyIGRldmljZQogIHNwaTogRHJvcCBkdXBsaWNhdGUgb2Zfbm9kZSBhc3NpZ25tZW50CiAgc3Bp
+OiBEcm9wIGR1cGxpY2F0ZSBmd25vZGUgYXNzaWdubWVudAogIHNwaTogRHJvcCBkdXBsaWNhdGUg
+ZGV2aWNlX3NldF9ub2RlKCkgY2FsbAoKIGRyaXZlcnMvc3BpL2F0bWVsLXF1YWRzcGkuYyAgICAg
+ICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWFpcm9oYS1zbmZpLmMgICAgICAgIHwgMSAtCiBk
+cml2ZXJzL3NwaS9zcGktYWx0ZXJhLXBsYXRmb3JtLmMgICAgfCAyIC0tCiBkcml2ZXJzL3NwaS9z
+cGktYW1sb2dpYy1zcGlmYy1hMS5jICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1hbWxvZ2ljLXNw
+aXNnLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWFwcGxlLmMgICAgICAgICAgICAgIHwg
+MSAtCiBkcml2ZXJzL3NwaS9zcGktYXI5MzR4LmMgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMv
+c3BpL3NwaS1hcm1hZGEtMzcwMC5jICAgICAgICB8IDQgKy0tLQogZHJpdmVycy9zcGkvc3BpLWFz
+cGVlZC1zbWMuYyAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYXRjc3BpMjAwLmMgICAg
+ICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1hdGg3OS5jICAgICAgICAgICAgICB8IDEgLQog
+ZHJpdmVycy9zcGkvc3BpLWF0bWVsLmMgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9z
+cGktYXhpLXNwaS1lbmdpbmUuYyAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1iY20tcXNwaS5j
+ICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWJjbTI4MzUuYyAgICAgICAgICAgIHwg
+MSAtCiBkcml2ZXJzL3NwaS9zcGktYmNtMjgzNWF1eC5jICAgICAgICAgfCAxIC0KIGRyaXZlcnMv
+c3BpL3NwaS1iY202M3h4LWhzc3BpLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWJjbTYz
+eHguYyAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYmNtYmNhLWhzc3BpLmMgICAg
+ICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1jYWRlbmNlLXF1YWRzcGkuYyAgICB8IDEgLQogZHJp
+dmVycy9zcGkvc3BpLWNhZGVuY2UteHNwaS5jICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkt
+Y2FkZW5jZS5jICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1jYXZpdW0tb2N0ZW9u
+LmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWNhdml1bS10aHVuZGVyeC5jICAgIHwgMSAt
+CiBkcml2ZXJzL3NwaS9zcGktY2xwczcxMXguYyAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3Bp
+L3NwaS1jczQybDQzLmMgICAgICAgICAgICB8IDggKysrKysrKysKIGRyaXZlcnMvc3BpL3NwaS1k
+YXZpbmNpLmMgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWRsbjIuYyAgICAgICAg
+ICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3BpLWR3LWNvcmUuYyAgICAgICAgICAgIHwgMiAt
+LQogZHJpdmVycy9zcGkvc3BpLWVwOTN4eC5jICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3Nw
+aS9zcGktZmFsY29uLmMgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1mc2wtZHNw
+aS5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWZzbC1lc3BpLmMgICAgICAgICAg
+IHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktZnNsLWxpYi5jICAgICAgICAgICAgfCAxIC0KIGRyaXZl
+cnMvc3BpL3NwaS1mc2wtbHBzcGkuYyAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWdl
+bmktcWNvbS5jICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktZ3Bpby5jICAgICAgICAg
+ICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1neHAuYyAgICAgICAgICAgICAgICB8IDEgLQog
+ZHJpdmVycy9zcGkvc3BpLWhpc2kta3VucGVuZy5jICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9z
+cGktaW1nLXNwZmkuYyAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1pbXguYyAgICAg
+ICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWluZ2VuaWMuYyAgICAgICAgICAgIHwg
+MSAtCiBkcml2ZXJzL3NwaS9zcGktbGFudGlxLXNzYy5jICAgICAgICAgfCAxIC0KIGRyaXZlcnMv
+c3BpL3NwaS1samNhLmMgICAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWxvb25n
+c29uLWNvcmUuYyAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbHA4ODQxLXJ0Yy5jICAgICAg
+ICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tZXNvbi1zcGljYy5jICAgICAgICB8IDEgLQogZHJp
+dmVycy9zcGkvc3BpLW1lc29uLXNwaWZjLmMgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkt
+bWljcm9jaGlwLWNvcmUtc3BpLmMgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tcGM1MTJ4LXBzYy5j
+ICAgICAgICB8IDIgLS0KIGRyaXZlcnMvc3BpL3NwaS1tcGM1Mnh4LXBzYy5jICAgICAgICB8IDIg
+LS0KIGRyaXZlcnMvc3BpL3NwaS1tcGM1Mnh4LmMgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9z
+cGkvc3BpLW1wZnMuYyAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbXQ2NXh4
+LmMgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tdDc2MjEuYyAgICAgICAgICAg
+ICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLW10ay1ub3IuYyAgICAgICAgICAgIHwgMSAtCiBkcml2
+ZXJzL3NwaS9zcGktbXRrLXNuZmkuYyAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1t
+dXguYyAgICAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLW14aWMuYyAgICAgICAg
+ICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbnBjbS1maXUuYyAgICAgICAgICAgfCAxIC0K
+IGRyaXZlcnMvc3BpL3NwaS1ucGNtLXBzcGkuYyAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkv
+c3BpLW54cC1mc3BpLmMgICAgICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3BpLW54cC14c3Bp
+LmMgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktb2MtdGlueS5jICAgICAgICAgICAg
+fCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1vcmlvbi5jICAgICAgICAgICAgICB8IDEgLQogZHJpdmVy
+cy9zcGkvc3BpLXBsMDIyLmMgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktcHhh
+Mnh4LmMgICAgICAgICAgICAgfCAyIC0tCiBkcml2ZXJzL3NwaS9zcGktcWNvbS1xc3BpLmMgICAg
+ICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1xcGljLXNuYW5kLmMgICAgICAgICB8IDEgLQog
+ZHJpdmVycy9zcGkvc3BpLXF1cC5jICAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9z
+cGktcmI0eHguYyAgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1yZWFsdGVrLXJ0
+bC1zbmFuZC5jICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXJlYWx0ZWstcnRsLmMgICAgICAgIHwg
+MSAtCiBkcml2ZXJzL3NwaS9zcGktcm9ja2NoaXAtc2ZjLmMgICAgICAgfCAxIC0KIGRyaXZlcnMv
+c3BpL3NwaS1yb2NrY2hpcC5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXJzcGku
+YyAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktcnp2MmgtcnNwaS5jICAgICAg
+ICAgfCAyIC0tCiBkcml2ZXJzL3NwaS9zcGktcnp2Mm0tY3NpLmMgICAgICAgICAgfCAyIC0tCiBk
+cml2ZXJzL3NwaS9zcGktczNjNjR4eC5jICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3Nw
+aS1zYzE4aXM2MDIuYyAgICAgICAgICB8IDIgLS0KIGRyaXZlcnMvc3BpL3NwaS1zZzIwNDQtbm9y
+LmMgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXNoLWhzcGkuYyAgICAgICAgICAgIHwg
+MSAtCiBkcml2ZXJzL3NwaS9zcGktc2gtbXNpb2YuYyAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMv
+c3BpL3NwaS1zaWZpdmUuYyAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXNsYXZl
+LW10Mjd4eC5jICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktc24tZi1vc3BpLmMgICAgICAg
+ICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1zcHJkLWFkaS5jICAgICAgICAgICB8IDEgLQogZHJp
+dmVycy9zcGkvc3BpLXNwcmQuYyAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkt
+c3RtMzItb3NwaS5jICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1zdG0zMi1xc3BpLmMg
+ICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXN0bTMyLmMgICAgICAgICAgICAgIHwgMSAt
+CiBkcml2ZXJzL3NwaS9zcGktc3VuNGkuYyAgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3Bp
+L3NwaS1zdW42aS5jICAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXN1bnBsdXMt
+c3A3MDIxLmMgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktc3lucXVhY2VyLmMgICAgICAgICAg
+fCAzIC0tLQogZHJpdmVycy9zcGkvc3BpLXRlZ3JhMTE0LmMgICAgICAgICAgIHwgMSAtCiBkcml2
+ZXJzL3NwaS9zcGktdGVncmEyMC1zZmxhc2guYyAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS10
+ZWdyYTIwLXNsaW5rLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXRlZ3JhMjEwLXF1YWQu
+YyAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktdGktcXNwaS5jICAgICAgICAgICAgfCAxIC0K
+IGRyaXZlcnMvc3BpL3NwaS11bmlwaGllci5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkv
+c3BpLXZpcnRpby5jICAgICAgICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3BpLXdwY20tZml1
+LmMgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkteGNvbW0uYyAgICAgICAgICAgICAg
+fCAxIC0KIGRyaXZlcnMvc3BpL3NwaS14aWxpbnguYyAgICAgICAgICAgICB8IDEgLQogZHJpdmVy
+cy9zcGkvc3BpLXhscC5jICAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkteHRl
+bnNhLXh0ZnBnYS5jICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS5jICAgICAgICAgICAgICAg
+ICAgICB8IDMgKysrCiAxMDggZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMTIxIGRl
+bGV0aW9ucygtKQoKLS0gCjIuNTAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
