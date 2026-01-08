@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DA56D0612B
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 21:30:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CD09D06133
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 21:30:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED50EC8F287;
-	Thu,  8 Jan 2026 20:30:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37D7CC8F288;
+	Thu,  8 Jan 2026 20:30:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB908C8F286
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B277C8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 20:30:39 +0000 (UTC)
+ Thu,  8 Jan 2026 20:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1767904240; x=1799440240;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gweGXKEQGc4/hwMnHXoXPIZG21hxC6IQVTr9HcEdhzU=;
- b=khPQG38KKaoILw1+CGqYktTwBgz0h06EJmzVxbBzeVuFCYhu22dylAdm
- /qVzn1Vt+n8166aBSp9MbkivA578/oBvOjYRsYunCyQfqsrCuXYaRhhBP
- Y345W4EJbzoFnPZJqKuLLTVAB+vAojLKDF7dAR5X/kvCaYKV2Fiez6oIg
- vZms0H/FEMeiNsDBCHutRBKZsiFFqqI/mrvU64WPVyDPuztDnOl0gzx3N
- y+2iLa9kNNublroRBgI3nSbBBAuO4A/piKu2prbFl1fAiPbrPX6cBF1B/
- 6CAL0EueGBNxaEYrjU9OtZrWgaOK1FFRa7UZtNNaqF22QywJrnr4xtCv6 w==;
-X-CSE-ConnectionGUID: SyIOar4DS3+ncxGcb+8ISQ==
-X-CSE-MsgGUID: Y00a9o3iTdS3mNM43e0dDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11665"; a="68486023"
-X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="68486023"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=XvoZK5lpHEsYrhjI8crr80zdiNNDdAfxUb3SyVtNmXE=;
+ b=AnA7m73QIekpx7UwHsqNi9htQl+hKhcY/vvC9WQsoB3YV5pLDuqHW+eK
+ UfQwx02jyfHdoAuoCN2dJfp/tlmg5pCkwKeQHhueg32p+POU5Sc3xeIYN
+ 6iZamLhX8fBUuhsMlM0mtzmY46WHilDoaxfFyhIxIG/c3be/6AJSC1q2k
+ 2GBnx3EpFt+xKPYFyXF785BHH2dFNMLmVo1u8yCt6UrYl4gz5gQml8fWk
+ vl8lcT6B9bMz44Gbou7MzI9Y/lXpLerut3vZ5WaiK9QD2sKIuSbaQzODZ
+ jT8IkfiDkErZHY3rKUpjOqzgMyOpvwUrXtP6QyF3PAQv92IGF79TlpqtI w==;
+X-CSE-ConnectionGUID: 05xZcrXITCSJzFJMlGmgbA==
+X-CSE-MsgGUID: S8mSld1kQEerw6dBoWtqXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11665"; a="80737677"
+X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="80737677"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Jan 2026 12:30:37 -0800
-X-CSE-ConnectionGUID: nOEw7AxLRH+oqOtO0nbFhg==
-X-CSE-MsgGUID: Sloao9zrQne3aKaUlEruyg==
+X-CSE-ConnectionGUID: +hlMmcsOSJa3GrckFOmgaw==
+X-CSE-MsgGUID: 67vCNpkQTjKaxJXkcpyXbg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="226706614"
+X-IronPort-AV: E=Sophos;i="6.21,211,1763452800"; d="scan'208";a="208135922"
 Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa002.fm.intel.com with ESMTP; 08 Jan 2026 12:30:27 -0800
+ by fmviesa004.fm.intel.com with ESMTP; 08 Jan 2026 12:30:28 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 65F759B; Thu, 08 Jan 2026 21:30:18 +0100 (CET)
+ id 715939D; Thu, 08 Jan 2026 21:30:19 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Varshini Rajendran <varshini.rajendran@microchip.com>,
@@ -89,8 +89,8 @@ To: Mark Brown <broonie@kernel.org>,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, virtualization@lists.linux.dev
-Date: Thu,  8 Jan 2026 21:23:40 +0100
-Message-ID: <20260108203004.3538449-4-andriy.shevchenko@linux.intel.com>
+Date: Thu,  8 Jan 2026 21:23:41 +0100
+Message-ID: <20260108203004.3538449-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260108203004.3538449-1-andriy.shevchenko@linux.intel.com>
 References: <20260108203004.3538449-1-andriy.shevchenko@linux.intel.com>
@@ -151,7 +151,8 @@ Cc: Kursad Oney <kursad.oney@broadcom.com>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Paul Walmsley <pjw@kernel.org>,
  Neal Gompa <neal@gompa.dev>, Shawn Guo <shawnguo@kernel.org>,
  Daniel Mack <daniel@zonque.org>
-Subject: [Linux-stm32] [PATCH v1 3/4] spi: Drop duplicate fwnode assignment
+Subject: [Linux-stm32] [PATCH v1 4/4] spi: Drop duplicate device_set_node()
+	call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,48 +170,243 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The SPI core provides the default fwnode for the controller,
-inherited from the actual (parent) device. No need to repeat it
-in the driver.
+assigned by device_set_node(). No need to repeat it in the driver.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi-hisi-kunpeng.c | 1 -
- drivers/spi/spi-synquacer.c    | 3 ---
- 2 files changed, 4 deletions(-)
+ drivers/spi/spi-airoha-snfi.c       | 1 -
+ drivers/spi/spi-dln2.c              | 2 --
+ drivers/spi/spi-dw-core.c           | 2 --
+ drivers/spi/spi-ep93xx.c            | 1 -
+ drivers/spi/spi-gpio.c              | 1 -
+ drivers/spi/spi-ljca.c              | 1 -
+ drivers/spi/spi-loongson-core.c     | 1 -
+ drivers/spi/spi-mpc512x-psc.c       | 2 --
+ drivers/spi/spi-mpc52xx-psc.c       | 2 --
+ drivers/spi/spi-nxp-fspi.c          | 2 --
+ drivers/spi/spi-pxa2xx.c            | 2 --
+ drivers/spi/spi-realtek-rtl-snand.c | 1 -
+ drivers/spi/spi-rzv2h-rspi.c        | 2 --
+ drivers/spi/spi-rzv2m-csi.c         | 2 --
+ drivers/spi/spi-sc18is602.c         | 2 --
+ drivers/spi/spi-sunplus-sp7021.c    | 1 -
+ drivers/spi/spi-virtio.c            | 2 --
+ 17 files changed, 27 deletions(-)
 
-diff --git a/drivers/spi/spi-hisi-kunpeng.c b/drivers/spi/spi-hisi-kunpeng.c
-index dadf558dd9c0..afe51adcc507 100644
---- a/drivers/spi/spi-hisi-kunpeng.c
-+++ b/drivers/spi/spi-hisi-kunpeng.c
-@@ -497,7 +497,6 @@ static int hisi_spi_probe(struct platform_device *pdev)
- 	host->cleanup = hisi_spi_cleanup;
- 	host->transfer_one = hisi_spi_transfer_one;
- 	host->handle_err = hisi_spi_handle_err;
--	host->dev.fwnode = dev->fwnode;
- 	host->min_speed_hz = DIV_ROUND_UP(host->max_speed_hz, CLK_DIV_MAX);
+diff --git a/drivers/spi/spi-airoha-snfi.c b/drivers/spi/spi-airoha-snfi.c
+index 70327aebc26b..7b6c09f91fef 100644
+--- a/drivers/spi/spi-airoha-snfi.c
++++ b/drivers/spi/spi-airoha-snfi.c
+@@ -1124,7 +1124,6 @@ static int airoha_snand_probe(struct platform_device *pdev)
+ 	ctrl->bits_per_word_mask = SPI_BPW_MASK(8);
+ 	ctrl->mode_bits = SPI_RX_DUAL;
+ 	ctrl->setup = airoha_snand_setup;
+-	device_set_node(&ctrl->dev, dev_fwnode(dev));
  
- 	hisi_spi_hw_init(hs);
-diff --git a/drivers/spi/spi-synquacer.c b/drivers/spi/spi-synquacer.c
-index eaf560487591..d0a875249910 100644
---- a/drivers/spi/spi-synquacer.c
-+++ b/drivers/spi/spi-synquacer.c
-@@ -600,7 +600,6 @@ static irqreturn_t sq_spi_tx_handler(int irq, void *priv)
+ 	err = airoha_snand_nfi_init(as_ctrl);
+ 	if (err)
+diff --git a/drivers/spi/spi-dln2.c b/drivers/spi/spi-dln2.c
+index 2013bc56ded8..fac737e18ac5 100644
+--- a/drivers/spi/spi-dln2.c
++++ b/drivers/spi/spi-dln2.c
+@@ -689,8 +689,6 @@ static int dln2_spi_probe(struct platform_device *pdev)
+ 	if (!host)
+ 		return -ENOMEM;
  
- static int synquacer_spi_probe(struct platform_device *pdev)
- {
--	struct device_node *np = pdev->dev.of_node;
- 	struct spi_controller *host;
- 	struct synquacer_spi *sspi;
- 	int ret;
-@@ -699,8 +698,6 @@ static int synquacer_spi_probe(struct platform_device *pdev)
- 		goto disable_clk;
+-	device_set_node(&host->dev, dev_fwnode(dev));
+-
+ 	platform_set_drvdata(pdev, host);
+ 
+ 	dln2 = spi_controller_get_devdata(host);
+diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+index 9ebf244294f8..0d59c141beb0 100644
+--- a/drivers/spi/spi-dw-core.c
++++ b/drivers/spi/spi-dw-core.c
+@@ -936,8 +936,6 @@ int dw_spi_add_controller(struct device *dev, struct dw_spi *dws)
+ 	if (!ctlr)
+ 		return -ENOMEM;
+ 
+-	device_set_node(&ctlr->dev, dev_fwnode(dev));
+-
+ 	dws->ctlr = ctlr;
+ 	dws->dma_addr = (dma_addr_t)(dws->paddr + DW_SPI_DR);
+ 
+diff --git a/drivers/spi/spi-ep93xx.c b/drivers/spi/spi-ep93xx.c
+index e1d097091925..90d5f3ea6508 100644
+--- a/drivers/spi/spi-ep93xx.c
++++ b/drivers/spi/spi-ep93xx.c
+@@ -689,7 +689,6 @@ static int ep93xx_spi_probe(struct platform_device *pdev)
+ 	/* make sure that the hardware is disabled */
+ 	writel(0, espi->mmio + SSPCR1);
+ 
+-	device_set_node(&host->dev, dev_fwnode(&pdev->dev));
+ 	error = devm_spi_register_controller(&pdev->dev, host);
+ 	if (error) {
+ 		dev_err(&pdev->dev, "failed to register SPI host\n");
+diff --git a/drivers/spi/spi-gpio.c b/drivers/spi/spi-gpio.c
+index c8dadb532c40..072127a38fad 100644
+--- a/drivers/spi/spi-gpio.c
++++ b/drivers/spi/spi-gpio.c
+@@ -351,7 +351,6 @@ static int spi_gpio_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	if (fwnode) {
+-		device_set_node(&host->dev, fwnode);
+ 		host->use_gpio_descriptors = true;
+ 	} else {
+ 		status = spi_gpio_probe_pdata(pdev, host);
+diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
+index 3f412cf8f1cd..0c6e6248d8ba 100644
+--- a/drivers/spi/spi-ljca.c
++++ b/drivers/spi/spi-ljca.c
+@@ -238,7 +238,6 @@ static int ljca_spi_probe(struct auxiliary_device *auxdev,
+ 	controller->auto_runtime_pm = false;
+ 	controller->max_speed_hz = LJCA_SPI_BUS_MAX_HZ;
+ 
+-	device_set_node(&ljca_spi->controller->dev, dev_fwnode(&auxdev->dev));
+ 	auxiliary_set_drvdata(auxdev, controller);
+ 
+ 	ret = spi_register_controller(controller);
+diff --git a/drivers/spi/spi-loongson-core.c b/drivers/spi/spi-loongson-core.c
+index b46f072a0387..f50423c3db4c 100644
+--- a/drivers/spi/spi-loongson-core.c
++++ b/drivers/spi/spi-loongson-core.c
+@@ -210,7 +210,6 @@ int loongson_spi_init_controller(struct device *dev, void __iomem *regs)
+ 	controller->unprepare_message = loongson_spi_unprepare_message;
+ 	controller->set_cs = loongson_spi_set_cs;
+ 	controller->num_chipselect = 4;
+-	device_set_node(&controller->dev, dev_fwnode(dev));
+ 	dev_set_drvdata(dev, controller);
+ 
+ 	spi = spi_controller_get_devdata(controller);
+diff --git a/drivers/spi/spi-mpc512x-psc.c b/drivers/spi/spi-mpc512x-psc.c
+index 3c1638ba5bee..a1aeb5403a74 100644
+--- a/drivers/spi/spi-mpc512x-psc.c
++++ b/drivers/spi/spi-mpc512x-psc.c
+@@ -480,8 +480,6 @@ static int mpc512x_psc_spi_of_probe(struct platform_device *pdev)
+ 	host->use_gpio_descriptors = true;
+ 	host->cleanup = mpc512x_psc_spi_cleanup;
+ 
+-	device_set_node(&host->dev, dev_fwnode(dev));
+-
+ 	tempp = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
+ 	if (IS_ERR(tempp))
+ 		return dev_err_probe(dev, PTR_ERR(tempp), "could not ioremap I/O port range\n");
+diff --git a/drivers/spi/spi-mpc52xx-psc.c b/drivers/spi/spi-mpc52xx-psc.c
+index 3bbeb8d5bfb8..73d2383461ca 100644
+--- a/drivers/spi/spi-mpc52xx-psc.c
++++ b/drivers/spi/spi-mpc52xx-psc.c
+@@ -319,8 +319,6 @@ static int mpc52xx_psc_spi_of_probe(struct platform_device *pdev)
+ 	host->transfer_one_message = mpc52xx_psc_spi_transfer_one_message;
+ 	host->cleanup = mpc52xx_psc_spi_cleanup;
+ 
+-	device_set_node(&host->dev, dev_fwnode(dev));
+-
+ 	mps->psc = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
+ 	if (IS_ERR(mps->psc))
+ 		return dev_err_probe(dev, PTR_ERR(mps->psc), "could not ioremap I/O port range\n");
+diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
+index 50a7e4916a60..320b3d93df57 100644
+--- a/drivers/spi/spi-nxp-fspi.c
++++ b/drivers/spi/spi-nxp-fspi.c
+@@ -1383,8 +1383,6 @@ static int nxp_fspi_probe(struct platform_device *pdev)
+ 	else
+ 		ctlr->mem_caps = &nxp_fspi_mem_caps;
+ 
+-	device_set_node(&ctlr->dev, fwnode);
+-
+ 	ret = devm_add_action_or_reset(dev, nxp_fspi_cleanup, f);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
+index ec7117a94d5f..78c399e95ef2 100644
+--- a/drivers/spi/spi-pxa2xx.c
++++ b/drivers/spi/spi-pxa2xx.c
+@@ -1290,8 +1290,6 @@ int pxa2xx_spi_probe(struct device *dev, struct ssp_device *ssp,
+ 	drv_data->controller_info = platform_info;
+ 	drv_data->ssp = ssp;
+ 
+-	device_set_node(&controller->dev, dev_fwnode(dev));
+-
+ 	/* The spi->mode bits understood by this driver: */
+ 	controller->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LOOP;
+ 
+diff --git a/drivers/spi/spi-realtek-rtl-snand.c b/drivers/spi/spi-realtek-rtl-snand.c
+index 741cf2af3e91..7d5853d202c6 100644
+--- a/drivers/spi/spi-realtek-rtl-snand.c
++++ b/drivers/spi/spi-realtek-rtl-snand.c
+@@ -400,7 +400,6 @@ static int rtl_snand_probe(struct platform_device *pdev)
+ 	ctrl->mem_ops = &rtl_snand_mem_ops;
+ 	ctrl->bits_per_word_mask = SPI_BPW_MASK(8);
+ 	ctrl->mode_bits = SPI_RX_DUAL | SPI_RX_QUAD | SPI_TX_DUAL | SPI_TX_QUAD;
+-	device_set_node(&ctrl->dev, dev_fwnode(dev));
+ 
+ 	return devm_spi_register_controller(dev, ctrl);
+ }
+diff --git a/drivers/spi/spi-rzv2h-rspi.c b/drivers/spi/spi-rzv2h-rspi.c
+index aae916882915..23f0e92ae208 100644
+--- a/drivers/spi/spi-rzv2h-rspi.c
++++ b/drivers/spi/spi-rzv2h-rspi.c
+@@ -797,8 +797,6 @@ static int rzv2h_rspi_probe(struct platform_device *pdev)
+ 		controller->dma_rx = NULL;
  	}
  
--	host->dev.of_node = np;
--	host->dev.fwnode = pdev->dev.fwnode;
- 	host->auto_runtime_pm = true;
- 	host->bus_num = pdev->id;
+-	device_set_node(&controller->dev, dev_fwnode(dev));
+-
+ 	ret = devm_spi_register_controller(dev, controller);
+ 	if (ret)
+ 		dev_err(dev, "register controller failed\n");
+diff --git a/drivers/spi/spi-rzv2m-csi.c b/drivers/spi/spi-rzv2m-csi.c
+index 7c0442883ac0..5d80939dddb5 100644
+--- a/drivers/spi/spi-rzv2m-csi.c
++++ b/drivers/spi/spi-rzv2m-csi.c
+@@ -634,8 +634,6 @@ static int rzv2m_csi_probe(struct platform_device *pdev)
+ 	controller->use_gpio_descriptors = true;
+ 	controller->target_abort = rzv2m_csi_target_abort;
  
+-	device_set_node(&controller->dev, dev_fwnode(dev));
+-
+ 	ret = devm_request_irq(dev, irq, rzv2m_csi_irq_handler, 0,
+ 			       dev_name(dev), csi);
+ 	if (ret)
+diff --git a/drivers/spi/spi-sc18is602.c b/drivers/spi/spi-sc18is602.c
+index 1627aa66c965..78c558e7228e 100644
+--- a/drivers/spi/spi-sc18is602.c
++++ b/drivers/spi/spi-sc18is602.c
+@@ -251,8 +251,6 @@ static int sc18is602_probe(struct i2c_client *client)
+ 	if (!host)
+ 		return -ENOMEM;
+ 
+-	device_set_node(&host->dev, dev_fwnode(dev));
+-
+ 	hw = spi_controller_get_devdata(host);
+ 
+ 	/* assert reset and then release */
+diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
+index 256ae07db6be..789b092fe8c0 100644
+--- a/drivers/spi/spi-sunplus-sp7021.c
++++ b/drivers/spi/spi-sunplus-sp7021.c
+@@ -419,7 +419,6 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
+ 		ctlr = devm_spi_alloc_host(dev, sizeof(*pspim));
+ 	if (!ctlr)
+ 		return -ENOMEM;
+-	device_set_node(&ctlr->dev, dev_fwnode(dev));
+ 	ctlr->bus_num = pdev->id;
+ 	ctlr->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH | SPI_LSB_FIRST;
+ 	ctlr->auto_runtime_pm = true;
+diff --git a/drivers/spi/spi-virtio.c b/drivers/spi/spi-virtio.c
+index 6aad9f1fd016..9e66c917fb75 100644
+--- a/drivers/spi/spi-virtio.c
++++ b/drivers/spi/spi-virtio.c
+@@ -344,8 +344,6 @@ static int virtio_spi_probe(struct virtio_device *vdev)
+ 	priv->vdev = vdev;
+ 	vdev->priv = priv;
+ 
+-	device_set_node(&ctrl->dev, dev_fwnode(&vdev->dev));
+-
+ 	dev_set_drvdata(&vdev->dev, ctrl);
+ 
+ 	virtio_spi_read_config(vdev);
 -- 
 2.50.1
 
