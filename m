@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00490D02DC8
-	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 14:08:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10408D02DCB
+	for <lists+linux-stm32@lfdr.de>; Thu, 08 Jan 2026 14:08:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C53E5C8F282;
-	Thu,  8 Jan 2026 13:08:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1143C8F284;
+	Thu,  8 Jan 2026 13:08:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96E37C8F284
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4955CC8F284
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jan 2026 13:08:29 +0000 (UTC)
+ Thu,  8 Jan 2026 13:08:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B032E60136;
+ by sea.source.kernel.org (Postfix) with ESMTP id 41A2E40D72;
+ Thu,  8 Jan 2026 13:08:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8F6C19422;
  Thu,  8 Jan 2026 13:08:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07276C116C6;
- Thu,  8 Jan 2026 13:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1767877708;
- bh=zzfKZcs3JKUANgBbQm5V67WGSuiqbzhNyOZ+JkUeHv0=;
+ s=k20201202; t=1767877710;
+ bh=BEFqASubnMhLuZshwv8XM1o9a6Rbhxs2caSt9SThpyQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EFqj2r7h+3BQhj13CjsMQez9jQX02SF95uG1X5t7ID2LqMEwrzqJB1aZrx4fqu061
- W458UVJC1WDgkijW+H4/sMqKwZ2ic9TWZa3IWxrgftf3JQlGct+oHtK42buxuq/7ZR
- V19pJqvXovETaDE5T21+oSC9RAIDMIec5UPMQLo3ZN90fT534LY5xsIcGz8K24hObn
- iBGjyJCgMqATD6kSsD1Q15FWTQMnBQZEyJs6eVrY8Rr8eg4CbqZCOpsWPQ+vSBcLpg
- +1mF6GdGPxbf0dOjCFC3X427fXbzXX+Qzkx1GSKMDSnL50friBb/IhNCFLi0YNCIFp
- ARVUuDhfV3lIQ==
+ b=XRMBic0G5unXBBKtPVKjxLP9Y21Uw1rOGHGXAdcJY+W+/4GY/AZXl7TsdSOv37RbZ
+ 61xlZT8ixVHx4g0L7GbF8oKbMcBXdHa1+IeoRUWXbiPWkRSz0ps/8caEufs/g/hbCK
+ e8Vai3kIOSHV5bLEhiY2zY2bOZ/DBYQ/+HufR7NfR7BmbGxuvhwjPgVZl/hEw6WRIA
+ sRmxBoImpSjAgoDKZr9nnHFIcrk26Nl614qIhniVpDlqNKzx6YcIengo4fXZfhtcnn
+ 9tSX4XKE1fv2yFOpANCggDXjuem8gpXLQRZDD95/UN6ftHrv8eq49KkKXgV7oqEgjp
+ 7PYEnxduZarrQ==
 From: Dinh Nguyen <dinguyen@kernel.org>
-Date: Thu, 08 Jan 2026 07:08:10 -0600
+Date: Thu, 08 Jan 2026 07:08:11 -0600
 MIME-Version: 1.0
-Message-Id: <20260108-remove_ocp-v3-2-ea0190244b4c@kernel.org>
+Message-Id: <20260108-remove_ocp-v3-3-ea0190244b4c@kernel.org>
 References: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
 In-Reply-To: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
@@ -46,20 +46,20 @@ To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
  Mamta Shukla <mamta.shukla@leica-geosystems.com>, 
  Ahmad Fatoum <a.fatoum@pengutronix.de>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1820; i=dinguyen@kernel.org;
- h=from:subject:message-id; bh=zzfKZcs3JKUANgBbQm5V67WGSuiqbzhNyOZ+JkUeHv0=;
- b=owEBbQKS/ZANAwAKARmUBAuBoyj0AcsmYgBpX6xGGWdQPpVq8qYm9OlaaTePBrJYKVLBxsdwv
- 083GmzhNlyJAjMEAAEKAB0WIQSgeEx6LKTlWbBUzA0ZlAQLgaMo9AUCaV+sRgAKCRAZlAQLgaMo
- 9OuZD/0cEohrZMBiJ9+Hr8v+FNP4SWi2PDnbdjjrrH1XtMNbDYBr4nQRJXrlqGCvRsbj3HI+jBp
- WP2HQkHGaHYmsHXnVt16KNOgqxFsxWKcT6oQt81RvsCDmQ+NUl9iHEqYAWDSaPsKY5fFxqy3gFc
- s1oXUvptc8oac7b1x1nevpzFMpdt/zV/pnJSwiKaDeRvhF219Kh5oihYBOO7xYYCaAmkRbL2FG1
- 2KWGHhNSPJ9rxCk+MUVDFMaJX2ILjyfmKoM/suoLKzh4/jo+Om/9H2irhbLXQXekurU7S1FFzkP
- fZ+86SFc7wkSJ8NrpHVBs7PWqzIH0TBkMvqqNv8L2z7y5oIYM4QmNQhnyhoIwrI1uhPK7bQHdx7
- 0fokdMs7SGRpAPBwLOsdavcWN+1ndBWfU+P2LzkTWaqYFLr/EL+JQO12K9qqytngujojC2dBbd6
- xVVsaA7vmfu5yjAF7Crn+hVVWFUqajOKqZttrbk+8s3ZgRT7SGXivTP5CsaPGXVwvxtVRxxXlEY
- WJi/ykJYVOFqE5EfkG6GMyBG3vNIK0/noa7g3phua5fzvCfeFsWIkGsbFhLsPr+7tg5wq4PcrV4
- 6KCIVkhrFzWpnMZhUOMZ7kTPm4OxyJYNUAJHTvklgfPbPX0eiNtzKNZRim2aGgbzTMNW22j4SUy
- 2NFHASTH1iB1sdw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1088; i=dinguyen@kernel.org;
+ h=from:subject:message-id; bh=BEFqASubnMhLuZshwv8XM1o9a6Rbhxs2caSt9SThpyQ=;
+ b=owEBbQKS/ZANAwAKARmUBAuBoyj0AcsmYgBpX6xGixoksxcAk+BFIhc7a5PDFAUf6fYBGoSrA
+ QcXF26GOf6JAjMEAAEKAB0WIQSgeEx6LKTlWbBUzA0ZlAQLgaMo9AUCaV+sRgAKCRAZlAQLgaMo
+ 9HqGEACCdtcSvnQAfq+6jLL6yfY2+XXhl5DnzWzojSs6HegHQ0ZbpDwfCGPrifVoSJXFmkD7nr0
+ CltAAh4vut2VGb3rI9/x+5N01I14VcqhnKhiABEFf3YYyHYOi824DJ2sVosKuYycm3GRvHPqw7l
+ wkxNNjK1DLhriPS0GSjbmBllVOwdtIYAi/MUFrybzDAT1eVKd0Nt6WUifwwx4GOR48aXPzXOImT
+ iSGrytZczmKbxCRNR91MYOQPNpaupejVUiv+qk49e1Wvo5/zw1j2c8P+x4kbgIQ5hsI7I95CtY1
+ Om6E9OJDZeEBg+fH+EYZAhwfRIueYWLKPi/LkJENvBkJxPWODdxTipNv5+tjfO3iV6PjjivYz2w
+ 2sj8/XjplvBsA2a7A30BB9KLxqqcLFubf24+DoFqOmNh3pBTAoezTfZoU6NfTk+uKKTGoh5uYZ8
+ D7D+HbKQ3qJ+rSbt9PX/m+uzA4FaYZsJjR9plqPHYuXRPQfW3PfkrlZzH89f9PcSNPH3OD0k6dO
+ AxxEjPE/Ky/2CCNxN+NF6DStkntbtUTJkVuCZbRwZM333eIaZWMKZmgNfizBOd4w5mUhg7Qw63D
+ Zm6KHOdH9e1jh8H+4ABegP6ar0SPeJbLGeIPvccBNiypKQZGMgBtF/g0tpvcKWyBXt6ccVLmyPo
+ UDCLYSxQxcxiDTA==
 X-Developer-Key: i=dinguyen@kernel.org; a=openpgp;
  fpr=A0784C7A2CA4E559B054CC0D1994040B81A328F4
 Cc: devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com,
@@ -67,8 +67,8 @@ Cc: devicetree@vger.kernel.org, bsp-development.geo@leica-geosystems.com,
  Dinh Nguyen <dinguyen@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 2/3] Revert "arm: dts: socfpga: use
- reset-name "stmmaceth-ocp" instead of "ahb""
+Subject: [Linux-stm32] [PATCH v3 3/3] dt-bindings: net: altr,
+ socfpga-stmmac: remove TODO note
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,48 +85,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This reverts commit 62a40a0d5634834790f7166ab592be247390d857.
-
-With the patch "add call to assert/deassert ahb reset line" in place, we can
-safely remove the "stmmaceth-ocp" reset name and just use the standard
-"ahb" reset name.
+The 'stmmaceth-ocp' will no longer be used as a reset-name, going forward
+and 'ahb' shall be used.
 
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v3: Addressed Rob Herring's comments and updated commit header/message
+v2: Introduced
+v1: n/a
+---
+ Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi b/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
-index b108265e9bde4..6b6e77596ffa8 100644
---- a/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi
-@@ -440,7 +440,7 @@ gmac0: ethernet@ff800000 {
- 			clocks = <&l4_mp_clk>, <&peri_emac_ptp_clk>;
- 			clock-names = "stmmaceth", "ptp_ref";
- 			resets = <&rst EMAC0_RESET>, <&rst EMAC0_OCP_RESET>;
--			reset-names = "stmmaceth", "stmmaceth-ocp";
-+			reset-names = "stmmaceth", "ahb";
- 			snps,axi-config = <&socfpga_axi_setup>;
- 			status = "disabled";
- 		};
-@@ -460,7 +460,7 @@ gmac1: ethernet@ff802000 {
- 			clocks = <&l4_mp_clk>, <&peri_emac_ptp_clk>;
- 			clock-names = "stmmaceth", "ptp_ref";
- 			resets = <&rst EMAC1_RESET>, <&rst EMAC1_OCP_RESET>;
--			reset-names = "stmmaceth", "stmmaceth-ocp";
-+			reset-names = "stmmaceth", "ahb";
- 			snps,axi-config = <&socfpga_axi_setup>;
- 			status = "disabled";
- 		};
-@@ -480,7 +480,7 @@ gmac2: ethernet@ff804000 {
- 			clocks = <&l4_mp_clk>, <&peri_emac_ptp_clk>;
- 			clock-names = "stmmaceth", "ptp_ref";
- 			resets = <&rst EMAC2_RESET>, <&rst EMAC2_OCP_RESET>;
--			reset-names = "stmmaceth", "stmmaceth-ocp";
-+			reset-names = "stmmaceth", "ahb";
- 			snps,axi-config = <&socfpga_axi_setup>;
- 			status = "disabled";
- 		};
+diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+index fc445ad5a1f1a..8e7077d4319eb 100644
+--- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
++++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+@@ -13,8 +13,6 @@ description:
+   This binding describes the Altera SOCFPGA SoC implementation of the
+   Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
+   families of chips.
+-  # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
+-  # does not validate against net/snps,dwmac.yaml.
+ 
+ select:
+   properties:
 
 -- 
 2.42.0.411.g813d9a9188
