@@ -2,178 +2,173 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CE9D09164
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 12:55:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09825D09B92
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 13:34:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE2DBC8F286;
-	Fri,  9 Jan 2026 11:55:55 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57A5AC8F286;
+	Fri,  9 Jan 2026 12:34:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6853C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99417C8F27B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 11:55:54 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6099Xgmp1048208
- for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 9 Jan 2026 11:55:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SSDrpISmvVn+NO6fRjyzCxGmtTWn0qHHaWxBnhLgTRw=; b=pgOMANCprkJwasRk
- eEd4MYHFC4D/oEu/AVhwCa1dujnPr5drXX2/kVVpOf62KZf213Gin9ckOPTP/50F
- OzNZIjM82mv8Jp4GHuzFDMlQtkVxcl+j17ouuouKvIST5Jat2kCq2LTZnn1/DUY+
- BE8o3ED2NOm2GuSSMVzIG7r2mZ652l814XxNwP04dkYNKQpJmGcQMBiN7xjkMlkw
- 6gNhS3nMG1bojXL8zDJVIrGNFfaghK/891hcFHXq81ciAPNdle/PRrSybzTcawDp
- t7f6cOII/7gsKMn8CeOTF1vPvUurMvinVoDXt4ekafGLIUTJf7ZUPy8coM6TrKIc
- 82E4tA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bjy5b8cnn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 Jan 2026 11:55:53 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8c277fe676eso1244123585a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 Jan 2026 03:55:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1767959753; x=1768564553;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=SSDrpISmvVn+NO6fRjyzCxGmtTWn0qHHaWxBnhLgTRw=;
- b=a25K4GMRd2Y+vVfsnkQVbYa+xwZ5Vmf3why1aWloSfuj/VJLM0CxIqFcbokt0vqKti
- eGXR7tDfVMURfo93r3YgfTHOzkEcm1TVtboHBPceY4rAM4l+rdPdaEBswYBtdybsnMzI
- FHpd79NVsRP5YnLWFr0/8nbRdHXGcOTqRcSC7G3VsPL9bN/l2wicP8SG22GTnodm7VFX
- a08/zQXrWuVY1NTaqSVKPXJzOPZ8he1r53IpDqNXsaGmsC8F5CHaqpjzPjdQxd+tgen/
- FyHfj4emfcumb3XA6bNtHWJfqygQAtr4lavNPkvxEY+ef0PTVmq191JLCthspYwIUbHs
- W0CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767959753; x=1768564553;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SSDrpISmvVn+NO6fRjyzCxGmtTWn0qHHaWxBnhLgTRw=;
- b=H6IEpObjFZdoLj6fA2H72j4y9VTnUD6g8XHULOndjkHbqK7U6BaQ2KTlS0W085JTk0
- RvV6aRnLmdjkn9g15rJ5A5zhPO+FUV+QOfaKDAG5HMssUQGDXTgA7S6GzJI5pzMzWWpJ
- UfyynYx18BjvABEdd0YR7/u4oOJDKD1+pZ7iJQNBDURVSbDEqM+c2tLHdOrgG/RYvmcs
- PAleyUZ8pmu25W+UH47eAKbuN250X1IfAssPJWz2wACDwGJoxNv0afxe+MGmZE/WjlCw
- qJ6+pdubNJ3TJbSVEO0ErFVLn+9hFKz0++6ltMg+Vp4NQ4+vg9NeF4/9YCD3jhLYEJNu
- Irtw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUVMwQ0W3Z6b1IEvtz/iLkRbuQvFLj2+xZZsK48lKq38Y0F2c7LrGw+GnzdeuAFgYE6ivmRaAeYw3REHQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxbOU8SKhwBaYVq2PW4LWR3g57vYAJ3rPogZm3o1HDmLaS798jv
- /6upeNlkBKZ230Q40w1oz+almI5sgllAmp7nt4HmZ4rL/GL/vss13YWmPscvqjsor6IZmYjGdID
- Z8vSUvlOj5nC28Oyxbb6AWZofOct37nLS49A60tcVAWEJojQSmh6j7pDSZjZLSKF3IgagXUrBEV
- vC8Zf/o4I=
-X-Gm-Gg: AY/fxX4SLEF7q8ld53lEcfMdZk40JqjLcfyuqFRLPNzCec3E8pyaLpT5bB8KLcht/AC
- 6UPQP1xsbrvyU1NQSmJVsWjZDwpCAlaaV4KGnDrG1e/K7W5ICkWHffBWdQys+c79KhtTR245kaH
- ncXQ+mWdfKu3R9hWN8ujygwCyZyW3wf9ndqJk7xbg2YLjZvQG1pwgV/obBwyGDwB9qOLRc/ADwo
- 5SV50LbUTtYspfZCQ1Q3Bdfl7nkhgukzMqT3kbLAKtTLZFCYZRbL2/xDgHHD8s6Box3ICjXlba7
- OiBniKrxHqMWqP8iBmVO+e+eBr2tZRXAm+juFUeI+ghF58JwHo7W2zqK8M0zFLjbb0kkLqylVA8
- Bq5IptaoHpmnuxoKwBJDRv9Y3ZOvac1ATTBFadw==
-X-Received: by 2002:a05:620a:2686:b0:8b2:f269:f897 with SMTP id
- af79cd13be357-8c389409ddcmr1207345485a.41.1767959752714; 
- Fri, 09 Jan 2026 03:55:52 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IG+067aZV0hc94pvEUtBhDJm9uD0GOXh7JwLSZyYZ8jclFPY800/XQwNVtwW9PmsF3O1oGaOw==
-X-Received: by 2002:a05:620a:2686:b0:8b2:f269:f897 with SMTP id
- af79cd13be357-8c389409ddcmr1207342385a.41.1767959752208; 
- Fri, 09 Jan 2026 03:55:52 -0800 (PST)
-Received: from [192.168.1.29] ([178.197.218.229])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b842a4d1c6csm1074238366b.39.2026.01.09.03.55.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Jan 2026 03:55:51 -0800 (PST)
-Message-ID: <ccebe9a6-34e7-4699-a4ff-1ee925f9c150@oss.qualcomm.com>
-Date: Fri, 9 Jan 2026 12:55:50 +0100
+ Fri,  9 Jan 2026 12:34:55 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 609CVHcs3880014; Fri, 9 Jan 2026 13:34:34 +0100
+Received: from duzpr83cu001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012041.outbound.protection.outlook.com [52.101.66.41])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4bjqctt7v2-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 09 Jan 2026 13:34:34 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WBTYd3rdZKVWFvPwgQEqGHKWrLFwFRnYkM5V0C6pyjzhgWtHZFDQb6V0GRQ1BoUDX6hYlZTOdlgviFNYlEJ5dvp4TeI2CXGMTX8ljSx9HpG7t0ji4YxCOLPioCfGEYKZCFwutsr5a0JGv9hTPeKd+DHHlTw7JymWoaISswq47cyDs5eyPr6n5R/Y9u4uahIQUCrca9wF/Ch1+2BOSGpIARPp1hzEtcmrJVMJvFaMyYjf28RYldwV7E1b4hLWVW1a/MRqYKX1hNOl3abM7+iPEdWmFHZbgS8epUTa/nUn07LQ/CGcnHUe8arc1wm2eP50eq7QG0evlJpHWLeZ/H9zoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ynJGk2UFrGUmLWBjx7UGUFmhWxRrGX8HO1Stc99QgWY=;
+ b=Rfb1gPtGMp0YNPZjsXNvtmKC0AUcJyBAtUOEIpJLPbE08G3rYD/4L96tPxb8CkT3PLYTz+jDCVq8typhjwcV2gQZSJ/THMcx/f1O8UvqmvPGJWawu60ygqCdtTw3HhGnM0sMocVawUnmUqeXMemwRhG/WwfS9n5ZBEa22/2FteindPUFtufeYW9moL/rpZaG9AVhzxW1SNbPwHHpzPUx1GkXNpJlVb7DSYtQ6OU8R5W8pWveOdf/nS/Ti+0F+vMW3Q7h3z1G1WDYtphk58nswA36SgdLvtiQ9atDgfxKAQFmTOLLn+rJkw52C13uGRXRmhq4GcNEREDQvfO8XAP7GA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ynJGk2UFrGUmLWBjx7UGUFmhWxRrGX8HO1Stc99QgWY=;
+ b=efISTupxRu+MCtswvcwI+ghExbvBgCjrXjOGX0F0kXvHXss0XnHHHbf7CWNRWMvFvaS8RhNRvh/uV66fe1SOkb3oM0iNEFF92UVI//aHN1H65pJm7jag4fP9A10I+ksXy6fQgSks0muTDXow/AyUAZZuMU0jj43jk6LSh1FDKyBHZocyeuDMjeKk4Fzbnpxx/q4DvUfU7MH/YIEx1VUcCyArMYNrAFSDXof72NcX7rlqDQpcNTUKPjDSExF5ZeD/fhGayWflI5TOcCIcV/3Ux6Hbx9cEG9RHrFAKzl3jEOamw3DfFtcMsDGdnY5He15j5AkPJSsXqk9DSCTIPYDByw==
+Received: from AS4PR10CA0023.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5d8::15)
+ by AM9PR10MB4037.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fe::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Fri, 9 Jan
+ 2026 12:34:32 +0000
+Received: from AM4PEPF00027A5D.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d8:cafe::ba) by AS4PR10CA0023.outlook.office365.com
+ (2603:10a6:20b:5d8::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.5 via Frontend Transport; Fri, 9
+ Jan 2026 12:34:32 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AM4PEPF00027A5D.mail.protection.outlook.com (10.167.16.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 12:34:31 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
+ 2026 13:35:48 +0100
+Received: from [10.48.86.212] (10.48.86.212) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
+ 2026 13:34:30 +0100
+Message-ID: <cd8fc344-37a0-4281-b3c0-29514b97f5f3@foss.st.com>
+Date: Fri, 9 Jan 2026 13:34:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, "Bjorn
+ Andersson" <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
 References: <20260105143657.383621-4-krzysztof.kozlowski@oss.qualcomm.com>
  <20260105143657.383621-6-krzysztof.kozlowski@oss.qualcomm.com>
  <fe8bdea9-4bd2-4200-8b7c-3c231dc6dcb2@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ <ccebe9a6-34e7-4699-a4ff-1ee925f9c150@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTpLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFsY29tbS5jb20+wsGXBBMB
- CgBBFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmkknB4CGwMFCRaWdJoFCwkIBwICIgIGFQoJ
- CAsCBBYCAwECHgcCF4AACgkQG5NDfTtBYpuCRw/+J19mfHuaPt205FXRSpogs/WWdheqNZ2s
- i50LIK7OJmBQ8+17LTCOV8MYgFTDRdWdM5PF2OafmVd7CT/K4B3pPfacHATtOqQFHYeHrGPf
- 2+4QxUyHIfx+Wp4GixnqpbXc76nTDv+rX8EbAB7e+9X35oKSJf/YhLFjGOD1Nl/s1WwHTJtQ
- a2XSXZ2T9HXa+nKMQfaiQI4WoFXjSt+tsAFXAuq1SLarpct4h52z4Zk//ET6Xs0zCWXm9HEz
- v4WR/Q7sycHeCGwm2p4thRak/B7yDPFOlZAQNdwBsnCkoFE1qLXI8ZgoWNd4TlcjG9UJSwru
- s1WTQVprOBYdxPkvUOlaXYjDo2QsSaMilJioyJkrniJnc7sdzcfkwfdWSnC+2DbHd4wxrRtW
- kajTc7OnJEiM78U3/GfvXgxCwYV297yClzkUIWqVpY2HYLBgkI89ntnN95ePyTnLSQ8WIZJk
- ug0/WZfTmCxX0SMxfCYt36QwlWsImHpArS6xjTvUwUNTUYN6XxYZuYBmJQF9eLERK2z3KUeY
- 2Ku5ZTm5axvlraM0VhUn8yv7G5Pciv7oGXJxrA6k4P9CAvHYeJSTXYnrLr/Kabn+6rc0my/l
- RMq9GeEUL3LbIUadL78yAtpf7HpNavYkVureuFD8xK8HntEHySnf7s2L28+kDbnDi27WR5kn
- u/POwU0EVUNcNAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDy
- fv4dEKuCqeh0hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOG
- mLPRIBkXHqJYoHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6
- H79LIsiYqf92H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4ar
- gt4e+jum3NwtyupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8
- nO2N5OsFJOcd5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFF
- knCmLpowhct95ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz
- 7fMkcaZU+ok/+HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgN
- yxBZepj41oVqFPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMi
- p+12jgw4mGjy5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYC
- GwwWIQSb0H4ODFH41ZZ3t1Qbk0N9O0FimwUCaBdQXwUJFpZbKgAKCRAbk0N9O0Fim07TD/92
- Vcmzn/jaEBcqyT48ODfDIQVvg2nIDW+qbHtJ8DOT0d/qVbBTU7oBuo0xuHo+MTBp0pSTWbTh
- LsSN1AuyP8wFKChC0JPcwOZZRS0dl3lFgg+c+rdZUHjsa247r+7fvm2zGG1/u+33lBJgnAIH
- 5lSCjhP4VXiGq5ngCxGRuBq+0jNCKyAOC/vq2cS/dgdXwmf2aL8G7QVREX7mSl0x+CjWyrpF
- c1D/9NV/zIWBG1NR1fFb+oeOVhRGubYfiS62htUQjGLK7qbTmrd715kH9Noww1U5HH7WQzeP
- t/SvC0RhQXNjXKBB+lwwM+XulFigmMF1KybRm7MNoLBrGDa3yGpAkHMkJ7NM4iSMdSxYAr60
- RtThnhKc2kLIzd8GqyBh0nGPIL+1ZVMBDXw1Eu0/Du0rWt1zAKXQYVAfBLCTmkOnPU0fjR7q
- VT41xdJ6KqQMNGQeV+0o9X91X6VBeK6Na3zt5y4eWkve65DRlk1aoeBmhAteioLZlXkqu0pZ
- v+PKIVf+zFKuh0At/TN/618e/QVlZPbMeNSp3S3ieMP9Q6y4gw5CfgiDRJ2K9g99m6Rvlx1q
- wom6QbU06ltbvJE2K9oKd9nPp1NrBfBdEhX8oOwdCLJXEq83vdtOEqE42RxfYta4P3by0BHp
- cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <fe8bdea9-4bd2-4200-8b7c-3c231dc6dcb2@foss.st.com>
-X-Proofpoint-ORIG-GUID: mfFYr0Y34dEkjX4oXzb4KM5Dje0nHsv7
-X-Authority-Analysis: v=2.4 cv=JP42csKb c=1 sm=1 tr=0 ts=6960ecc9 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Eb9f15NH/cHKzfGOmZSO4Q==:17
- a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <ccebe9a6-34e7-4699-a4ff-1ee925f9c150@oss.qualcomm.com>
+X-Originating-IP: [10.48.86.212]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00027A5D:EE_|AM9PR10MB4037:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1c8c8c8-37a9-48de-e504-08de4f7b7057
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|376014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cDBpVkhvblRZZ0xWTUlCVm4ybGEyOWRqdUVLcW5TaEt3U2ZVTFhXMy81Qklr?=
+ =?utf-8?B?U2Qxb01zZ29hNk1DTzhldE05OVNPb0dNSGJwQUQybEdVUE5TN1A2a1JDdXJQ?=
+ =?utf-8?B?ZlNzSVNmeVFiUTE2bkNhdFdVRU9uMDVQYTJHRzJhQlpzY2RtWmQ1YlFlUW4z?=
+ =?utf-8?B?bGJTYWh5Q3lXYkQzd3lVSHVSV3RkbVFOemhjRkxwdWZXN2grTW54WkE3QVpH?=
+ =?utf-8?B?WER5RU51YU5IS0lsOXJVSGJUbEt1WkpibHg2M050NGNXZGxTc1BWemJvSVpY?=
+ =?utf-8?B?bS9NRHZVNUlFZXFLdG9TTldPQ3lmVHNJTDFUSzNlbTRobE04M2xDb3RRQ0wy?=
+ =?utf-8?B?UjY3a2ZsS0JYamU4aVZFbFRaRnZtS1p1QmN4OG9YYmdZUXk1ZXZxV2M1aEJ0?=
+ =?utf-8?B?dGVkSjRnUVVSbDEyd1lwY2NUMHhsZXpUTDEzeThoQ1lCaytpN1FVdFNYdnZn?=
+ =?utf-8?B?VjFwbGlxbUZYdFRIaDVrT0RKNy9aK2tJdXY5bEFUeU5QUERsUkdtTnF6K3pQ?=
+ =?utf-8?B?TEM3V29EZ2U0TlNzek1NT3V2dHhYU1FoS3kybmR5R0lQaUg2amMyZFg2L0or?=
+ =?utf-8?B?WGJIaDJ0S3lzbUN0YmlvYXZGcGNKRWZmUVJtNWY4WHRBa0xjQ2wvZzdHTFht?=
+ =?utf-8?B?NlArRUZMY2kzdXN1M2R0QU9aK3pza253SmJBdlZyQmRXK0VxRkk4VzdJVGVo?=
+ =?utf-8?B?dVJOZGZ4QW1WN3VpeXlmbkZNczlhbEJCL3Y1c0U4WmhPb3ZuN1dTcHJZRWZq?=
+ =?utf-8?B?aWFtWFpDamF4YWhPSWhSa3gxbDREWjJSTUNxTlIvb0wvU2x1NnNKU0RTUEFO?=
+ =?utf-8?B?NnVVVlpOZzA3VVpIYS80NmF4M05sRjI5UDRUYzJZV2tqeHpTOUhtTlV0bkN0?=
+ =?utf-8?B?S2xpaXVUSm9nMlAyS0VZNURYUGFkNkhwdE40bHJES3RxVUV2L1BSaWVEUlVy?=
+ =?utf-8?B?UHlRYlFPSUlEK09nWFNuNDZoZVY4MVFNc0dpNWc2VUMwM0IrcENURGo2TkJn?=
+ =?utf-8?B?dU5nK05EYjhGV1Z4Z0ZxZXRpNjNxU3hUOGV3ZXhPbWlhV3hnYm90V3NqZGtm?=
+ =?utf-8?B?VE5mS2FSMnp1cDVoU3F3bW5CMzZyZzJpdFVqa0tya0xKcTY2aHNyYXRoUGRT?=
+ =?utf-8?B?eHFyWi9hS2htczdlZS8rdThMVFkySHpsSHkwVHNxS0o4d3ZEUGtUclBUdGtE?=
+ =?utf-8?B?dmdob0tXcXZJZEdMNS83SDU5WjlJQzNYb0JZbFoyS0FHcjZjNisrYWFxS0x2?=
+ =?utf-8?B?Z2hqS0tOam9FdVEzQmxxK29JS1BWZWllOXlwRjdCNlNiY1NiOWhSQ1p5RmFX?=
+ =?utf-8?B?NXpxR2JwM3hNbGRuNkJMZkI5dHpESUYrZ2pWTjBVejFVN09wcCtpa1NyLzFU?=
+ =?utf-8?B?MWg2M1p3WHMxUmZCZitMR0RmV1AxZWp2WmxlYU1KM3luTkxvWWdWWjdBcXY1?=
+ =?utf-8?B?aml0M1hPT2p1SjExWWtiRi9mTURoZUxLWVB6UUNlTjdLYlRwS3lKdTl1MnVq?=
+ =?utf-8?B?b3BOL2lYd3k4elE3M3BCNXlOU2dGOHdZSTRZTzhWaWVjWVp1ZlR4cGZITEZn?=
+ =?utf-8?B?ckFMcjVqSGFsNmNDQ0FUSHc1SlYrajZJMkN6QldJUXBOVjl0RGg5SExuUDNi?=
+ =?utf-8?B?bm0vVzdVTnh0UnlXUDFOeFNrY205R2dEL1FhQXFtbC9rYklKa3BmVUNGb3Qw?=
+ =?utf-8?B?ZlV0ajZXdGFlY094RElTMUdBVU1jQ1E0eVQ0MlRtUWU3ektUaTJ3Z3dEY3pQ?=
+ =?utf-8?B?a1BmRGR2Zk5HaVFTMHdIaEtEN2FwN210TFc1Zm83MVR4N2VQWGlmZ2JuZnVC?=
+ =?utf-8?B?Z3IzMmJtZnNtbFYzK1dkTDZtb0dNZXJHOW81d0huc0tNdDZsRFZDZXpPSkl6?=
+ =?utf-8?B?TjBSSmdEeVlEcnRNYWNLUFZSc2xaWkpER2pTREhLQThDZE9nT0F1dUpKR1lF?=
+ =?utf-8?B?OTFEbkJReFpLbTFZM0FieUg2ODNEMGo5N1NWcVNmMzIvdVN0eGpVY1hXeWhM?=
+ =?utf-8?B?ZUg3MG1mS1kvUXprYVdIQStnQTRJMWFERURpUE1LSmZQbk9sMDdEQU81SnZO?=
+ =?utf-8?B?UGtGSFFiM0ZxRmEzbnc3a2pOcTFqdGl2U2FnKzRkNHRKTzE1T1BXRkJ1clZw?=
+ =?utf-8?Q?J2GA=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 12:34:31.6803 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1c8c8c8-37a9-48de-e504-08de4f7b7057
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A5D.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR10MB4037
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA5MDA5MyBTYWx0ZWRfXwnKCUu6TdhCA
+ T/NZMpJycRnSsfZwynhl/LePWEfGGhdPjuZBLEot41aj2g5l4V0Jo7iWEJ+0hl+YIuwHSjuJ6Kj
+ Ro1un6AgelYJY4ZAAO5msRz2+Q994Um6bZJ4UzgAlHLiY6OAaDKVIuCw93ephVqpQL/DNWhXKyO
+ fdhyfHjzLvpQT/vbEUqGasCNNV1MMHVSeqRloDKVar65f2jCRntivXYRQ6Kpb2Dq9siK6Sm6bEc
+ TwKopQRbHEQxj2HRkFAj3V1ZCoM0lasED1XM4GmMMOrS+v3AA3Ak7Z2wiy2YdkquROmwtJCeiGr
+ YD5s9j260ROeoyKSiUq0jlfTjL1RQ1H71xAOGMO/dZxQM9ZXmltUBG4dQZbQyvlu+PkSDkA1P/q
+ WH2s54bK8t0Y1yDlgB09PrQNvqWPb8+12QqwAlpahLQyr1aTON257MTXcqccrMiXDjabX+fP00B
+ 5ZVgH57oTTwiv28+psA==
+X-Proofpoint-ORIG-GUID: HwrwR1O26mhR_vCxfX5tq6r0puxYXG11
+X-Authority-Analysis: v=2.4 cv=RubI7SmK c=1 sm=1 tr=0 ts=6960f5da cx=c_pps
+ a=GxenEFv9DmgebrKzBBA+LA==:117 a=d6reE3nDawwanmLcZTMRXA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=rg8MelPR9j8A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=i0EeH86SAAAA:8 a=EUspDBNiAAAA:8 a=8b9GpE9nAAAA:8
- a=81cV5ACUyFlniFfumqcA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
- a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA5MDA4OCBTYWx0ZWRfX3ODcwqqZTfWc
- gWF4j0dlZPdkfIZhikg3vtSQiult6CzSXXVR5DnDie6Ilf1gPtxNLWiWF4cklRPh8uN1SRgf8cl
- KhRVW2PfctHWn6LZpLdaav+3KqedbOGuGvuBL0rVDPsr/wLEcjBsiF5DMRvOEtTHtwNHbKUAjuP
- G84RuepMOKljVr3kX/5I9NQCSiE3BWk6Kzq2nmflx0eNEollh8+bAGVeFSovVGT43ec2h5/HGt8
- v04uX9PHflfMwB3Ff9r4kJbUML5c2re3UXDl1jSWzwYJ4szoLlWaSAeqSBQ9PBHyxa5BoZWDI8I
- z0wr5NgVCfhKH75/eThlxOZUU+BiDi17ePvQbraFJnR0KRGeplTj9PrVTb/smCOZrlbObqHn4bk
- CLYzmlPzl3GrNNuuCQEAEcHH9jJgDwf7lEfa0J6jo4yeCS6e4TFzCpyHPbE0ieu5XQFmOwQ09X8
- WFs9wqSTFOWR+EkqA5A==
-X-Proofpoint-GUID: mfFYr0Y34dEkjX4oXzb4KM5Dje0nHsv7
+ a=MNamDEBCCk8IJXUJmIkA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-GUID: HwrwR1O26mhR_vCxfX5tq6r0puxYXG11
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
  definitions=2026-01-09_03,2026-01-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601090088
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601090093
 Cc: Jonathan Cameron <jonathan.cameron@huawei.com>
 Subject: Re: [Linux-stm32] [PATCH v2 3/3] bus: stm32_firewall: Use scoped
  allocation to simplify cleanup
@@ -188,64 +183,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 09/01/2026 11:37, Gatien CHEVALLIER wrote:
-> On 1/5/26 15:37, Krzysztof Kozlowski wrote:
->> Allocate the memory with scoped/cleanup.h to reduce error handling and
->> make the code a bit simpler.
+
+
+On 1/9/26 12:55, Krzysztof Kozlowski wrote:
+> On 09/01/2026 11:37, Gatien CHEVALLIER wrote:
+>> On 1/5/26 15:37, Krzysztof Kozlowski wrote:
+>>> Allocate the memory with scoped/cleanup.h to reduce error handling and
+>>> make the code a bit simpler.
+>>>
+>>> Suggested-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>
+>>> ---
+>>>
+>>> Changes in v2:
+>>> 1. New patch
+>>> ---
+>>>    drivers/bus/stm32_firewall.c | 10 +++-------
+>>>    1 file changed, 3 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/bus/stm32_firewall.c b/drivers/bus/stm32_firewall.c
+>>> index fae881cea9a0..92414a4c7bb1 100644
+>>> --- a/drivers/bus/stm32_firewall.c
+>>> +++ b/drivers/bus/stm32_firewall.c
+>>> @@ -240,7 +240,6 @@ EXPORT_SYMBOL_GPL(stm32_firewall_controller_unregister);
+>>>    
+>>>    int stm32_firewall_populate_bus(struct stm32_firewall_controller *firewall_controller)
+>>>    {
+>>> -	struct stm32_firewall *firewalls;
+>>>    	struct device *parent;
+>>>    	unsigned int i;
+>>>    	int len;
+>>> @@ -257,15 +256,14 @@ int stm32_firewall_populate_bus(struct stm32_firewall_controller *firewall_contr
+>>>    		if (len <= 0)
+>>>    			return -EINVAL;
+>>>    
+>>> -		firewalls = kcalloc(len, sizeof(*firewalls), GFP_KERNEL);
+>>> +		struct stm32_firewall *firewalls __free(kfree) =
+>>> +			kcalloc(len, sizeof(*firewalls), GFP_KERNEL);
 >>
->> Suggested-by: Jonathan Cameron <jonathan.cameron@huawei.com>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Hello,
 >>
->> ---
+>> I'd prefer to keep declarations separated.
+> 
+> Separated how? This is the coding style of cleanup (which is quite
+> explicit around other styles)? Or you meant one line without wrapping?
+> 
+
+I found odd to declare and assign a variable mid-loop but I found
+multiple occurrences of the same kind of cleanup.
+
+You can drop my comment, I'm fine with how it is. Thanks for the
+cleanup.
+
 >>
->> Changes in v2:
->> 1. New patch
->> ---
->>   drivers/bus/stm32_firewall.c | 10 +++-------
->>   1 file changed, 3 insertions(+), 7 deletions(-)
+>> Otherwise:
 >>
->> diff --git a/drivers/bus/stm32_firewall.c b/drivers/bus/stm32_firewall.c
->> index fae881cea9a0..92414a4c7bb1 100644
->> --- a/drivers/bus/stm32_firewall.c
->> +++ b/drivers/bus/stm32_firewall.c
->> @@ -240,7 +240,6 @@ EXPORT_SYMBOL_GPL(stm32_firewall_controller_unregister);
->>   
->>   int stm32_firewall_populate_bus(struct stm32_firewall_controller *firewall_controller)
->>   {
->> -	struct stm32_firewall *firewalls;
->>   	struct device *parent;
->>   	unsigned int i;
->>   	int len;
->> @@ -257,15 +256,14 @@ int stm32_firewall_populate_bus(struct stm32_firewall_controller *firewall_contr
->>   		if (len <= 0)
->>   			return -EINVAL;
->>   
->> -		firewalls = kcalloc(len, sizeof(*firewalls), GFP_KERNEL);
->> +		struct stm32_firewall *firewalls __free(kfree) =
->> +			kcalloc(len, sizeof(*firewalls), GFP_KERNEL);
+>> Tested-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>
 > 
-> Hello,
 > 
-> I'd prefer to keep declarations separated.
-
-Separated how? This is the coding style of cleanup (which is quite
-explicit around other styles)? Or you meant one line without wrapping?
-
 > 
-> Otherwise:
-> 
-> Tested-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> 
+> Best regards,
+> Krzysztof
 
-
-
-Best regards,
-Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
