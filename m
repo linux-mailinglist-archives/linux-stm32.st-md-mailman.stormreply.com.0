@@ -2,140 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2489D0828A
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 10:22:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18FA8D08416
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 10:38:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84D63C8F288;
-	Fri,  9 Jan 2026 09:22:59 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013024.outbound.protection.outlook.com [52.101.72.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCCD7C8F286;
+	Fri,  9 Jan 2026 09:38:44 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B95ADC8F27B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5CBBC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 09:22:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hlZNhSUPW9OSSI7CfqaUpoWdJSv0KGFfA43ZFp863inzgxJfweUHsGhWT+/TkgJUiO6jMTEod+5wF8M+B5+UDQiue2ylgKYgB7hsDHkRkuLZ30+1ZKkv4T5ZHwLURfcXp1vw0cUrHzC/EbQXCOnFB7sS2pz14x4ES5F7s9asMRKSm+Gv9TJFN/h1YCrEqjPmAHJT1VKrDw9zLYQ0mFOz3ph99LUqLoFseyTzGLvybBMzId+xAnMcXXh1L6fCZ8KWcS2c5nJTIRco2M/mXb798qWvypGHaqn8N1MLruJZi1a47Cj1yX/2fVZ+IZqq4jJHd4oqGzBZnjLZlEdg/Yn9xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dZugsS+tHnNywp5S6uKc3HI/D/+udKkAhPp8i6ASyKU=;
- b=JgpWWZI2CiQl6yOx1LXp8b4oluHtjscPOJqmBXNbi3w/vq7ksNLfdDJJUMj+iJPESNovPio16CSShok2EUzEDZoH8v0JBsWDogtkkGGjZU/ow7+kORCrxOD/9zDGPyv+YVokM1ZbORlBhID8PXNSrQ9YrAeeZ1ri0UKADlpJbLQ/Fz7WRy3LaI2x8HTGnTVzflkSpyKkSJFo7BzMFIQlTNazN61ltVdDLOiLZqHXv5OxgEazOCDtEd0nPxlqqiGLT5JhjWOGIwFAOe3pUxvwaIWqaMwOagzbpIe9fXn0K8vqBjMHp1UoBxs1B4nKLOMG6fZL7MtltKNP+HDgpNy1YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dZugsS+tHnNywp5S6uKc3HI/D/+udKkAhPp8i6ASyKU=;
- b=Rmt13KLit0Dv+XF12Yq8dPtqnrqFKSRstw4H7yGvvR6HMeaaomFn5aL+vwhFzpIrbgODoZ0RXoyA9pxBsdSQUD4fx7jV9g9w9X6sEhuJ+QOkScyJVbMuazCvhJLAwnVaLffpbs3zpfX11Ah/kHjzoB8U8SO72JAF94xH+YzBCJmGgOPhpatsu9TGRGaN69VBJXKpkXmec8cP148lrt0qEHmzxdRXI4IpgPM6YPcwNU4aoZ8EubYm7Mj7IXxLDDzRkYMjdXqHD781wr3qCyYSeX6Eh6hUaQePbCrgkrBCTOywhMKljJxPxTswnlTdLQ7dTO0qRisK7OpjMxskOWhWiw==
-Received: from AM9P193CA0026.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::31)
- by DB4PR10MB6237.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:383::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Fri, 9 Jan
- 2026 09:22:52 +0000
-Received: from AM4PEPF00025F96.EURPRD83.prod.outlook.com
- (2603:10a6:20b:21e::4) by AM9P193CA0026.outlook.office365.com
- (2603:10a6:20b:21e::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.3 via Frontend Transport; Fri, 9
- Jan 2026 09:22:39 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM4PEPF00025F96.mail.protection.outlook.com (10.167.16.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.0 via Frontend Transport; Fri, 9 Jan 2026 09:22:51 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 9 Jan
- 2026 10:24:06 +0100
-Received: from localhost (10.252.25.201) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 10:22:50 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Fri, 9 Jan 2026 10:22:50 +0100
+ Fri,  9 Jan 2026 09:38:42 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 358FB1A273D;
+ Fri,  9 Jan 2026 09:38:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 065EF60734;
+ Fri,  9 Jan 2026 09:38:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E3529103C87CC; Fri,  9 Jan 2026 10:38:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1767951521; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=JRAJH9fBOd961NcgKi+jmYxD8E+1gYZ7UQ1tbcQg+GY=;
+ b=wMaJ5JcSagj3AqIWTTLy4J7dxcTi5IsBqHkOOvTasVGNFxUBD4SiXVZI2HmcxxwBv/kuUI
+ BSGJRM9PewmgRHEVGRkvIBM35NmiKyUgvzOKc2uD9d3X/ykNySDf5CPmk+/zsXPxiIcMHV
+ qoNcHKaPprGiQxYpVz+iSJtn6vkxcinKhTtjaRJJGV35EZmKwisNys51sjnfIlWTutnRHw
+ yf9d9Xw9WjkzPkx5QO0JsTUlLTjOFJ5H9FHQEmu7303lFX/7664/YjGIXHAmvIVgTo0E4B
+ SvjQTn574q8VxxYKIDE6QGXYNzVOTsG3FxksROn64h7QGSebxBDTeaYWd27B+Q==
+Message-ID: <8f70bd9d-747f-4ffa-b0f2-1020071b5adc@bootlin.com>
+Date: Fri, 9 Jan 2026 10:38:30 +0100
 MIME-Version: 1.0
-Message-ID: <20260109-upstream_uboot_properties-v4-6-75e06657c600@foss.st.com>
-References: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
-In-Reply-To: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.252.25.201]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00025F96:EE_|DB4PR10MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 088764c3-ea22-4bf6-6a4b-08de4f60a9da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M0lEUUNRRldPVDJ5Mm9pc1c0SDNaSzFmSDMzWWtrZCtnQ2pjT2daQmkxVjk5?=
- =?utf-8?B?YzVvc0paWGt6bXhhY2JadW94SE1HejZja01QKyt5MUJlOVA1dFhLSHNKZko2?=
- =?utf-8?B?bHkwQjFzSGZtN1Q0Y3lDT0RvNlI1RHdCWW9WZW1jaVZoTGgxYzVHRHBaTStu?=
- =?utf-8?B?U3UrUHlJM29BT2U1VDI5UWxuK3Ztc21VRVVkUmVsUDJlU1UyVFBqQWlHS0Rq?=
- =?utf-8?B?M2dtamFPTmlOOVdNSTl5dzRwWk4ya3lEbXpqMTBNdlN0M1BndmxsU0xMak01?=
- =?utf-8?B?WnBPb0FCd1A1WmFpT1FQejQ5M1AwM3dOMk5taDNkNWhIZWVOQ3huZ0p5RzdB?=
- =?utf-8?B?aWlUSTJIVG42N0hjd1BLTEw1S0RzSUxzUmszS1Y0cG5sell4WXVHVXgzbnVi?=
- =?utf-8?B?WmZkbS9zZk5qT2YrTUk4K0VwVjl5bVVxMG9mSDE3QmhRUXp4VnRqZzBEOUIv?=
- =?utf-8?B?dDQ4dWV1TDF5b3o0L25KMjJYOFloOExzZVZZQVVybCt4WDVUaHV3bzVHd0JP?=
- =?utf-8?B?TnA5a1N2MWtSaDM5NjNNV2JrZnQ1ZUZYbTI1WEdiV3YwTHNDTkJoLzg2SVc5?=
- =?utf-8?B?YnNCSEN2ZVFyRXJLN0ZVYW16bDJoSDlPK0NTVnR3UzFHWWVvQW5tNFM0S05y?=
- =?utf-8?B?bE53VWJpbzFKbThiTFNmdWNxd3Q3Qm5NRElRejk0Y29zZkZiakxVYTU2OXhU?=
- =?utf-8?B?KzNaS1F3TUdXSW03aG1aalV1Z21Ud1RIVkpsTW9rRG40cGt0cDZLUW1VZ2NV?=
- =?utf-8?B?YlNrT085SFVrV1BmT3kvVlhGNDNvRHlRKzEvOXN4bDMyVm1aTlF0QVVjUkxJ?=
- =?utf-8?B?dUdDUDRaMjFuQ3Z6YXl1N2E5UXBGUzF1V2tWVUdMSG5xd3B4ZExXLzVRcFl5?=
- =?utf-8?B?SXlTdElnUmp6MDFTZFpLdkRGTG5aeUJFNHhldTZobkdnVm1mNGl3cjA0dVg2?=
- =?utf-8?B?RVdmTU9tc2I3eS9Dd1pvdDNqb0NKUjRvRGRsbnNzTzlLMDZvWFVoZXFTY202?=
- =?utf-8?B?Ukp3V0xNZ3RGR29ITkVWc2VBckpvcmREakJFK0ozNjd3SUNacFBJanFheTlq?=
- =?utf-8?B?YzZ0ZlJ1Zm1kQTRFeTZ5ZzhWS2RqRSt6Nzgvbk5sR1hiTUl4VldwRTJpMzNi?=
- =?utf-8?B?ZmhYL09SZ3RSa05iSG9ZaWtMdXVBTFpMVjZURm5sWElMYWtweDcyc0xpSnhZ?=
- =?utf-8?B?YjVUTjc2ZHRmSGtTN2M2RjdJWFI1Vm02WFp0U0ZQMGJFYnpaQmN4SE0zUVlG?=
- =?utf-8?B?N3owOWhvRXQxbnFiUTAzQmQrRTdXdktsRXQvS0hDTkVRVFcrd1oxTVdrdWwr?=
- =?utf-8?B?dVE4dE5LWDVXbFhqbGc3eGRSclIyTFJ2a1Z0VGpUck41VHlhaXhxYmhPV1lx?=
- =?utf-8?B?NFoxQ0ZzclYrWGI3WUxtOFkzbnE2amYvdW0rZzRJRmpNMlJJUXcrTDA2TzZC?=
- =?utf-8?B?cGdEQW81M3E5ZjIwb0ptTVQzcnArVVh1Vm5LR0lHOUx5RlBXS0ZlNnhuRGY5?=
- =?utf-8?B?cDl1bHpyV29OcWVuOGdnSk42eDNUeC96ZGpaK2xrckZ3SkMwOVhkRWphQThY?=
- =?utf-8?B?WXdHZDJxRWVvNDhTb1Y2RlN0QW5VVG01dnJMWXhmZ3ZBRktXNm9sdC8rNGwy?=
- =?utf-8?B?UHhKZ1F3MmJlZDNmLzFwNWRnRVdXYXZDMUhKTkFMU214dXNFcGRnREZ6UGNz?=
- =?utf-8?B?Szd2K1BmcG5FNXh0SmJXdWtHVkJ3MmNBYlI3eXlzeEM0UVFET0FqQ3NWQWxN?=
- =?utf-8?B?OEh6ZjNCQ1ZXNjEyaHc5L0QyZ2F3RFNTc0VGODRRS3dTMHdVOEo3WDMxVjMw?=
- =?utf-8?B?SCtJdUphV1NQSGMxNmlqNDk5Q2dBY2dWZFhRU0krdGdDZXEwTE9TSHE2a2pC?=
- =?utf-8?B?ZlpPOTJabHVuQ2hBMWpFWjdzMzdWNEpBYzd1a2htVURsbjNnUVdrN1hMdGRV?=
- =?utf-8?B?ajhvNzFOSjdVRU8xTXRuMmNzR2NGTTd6S09CYktib2pOS1lIZGpUUTZ3Ry9Y?=
- =?utf-8?B?SGd2SDZXRFdFTlpKWnVuREpGQzB2RmhoZjJCNXRwaDJCVDhqcUZ5QlRBOTNy?=
- =?utf-8?B?Z2ZqOHQ4WFVpN2gwU0ZNT3NPN3hMM2Fmdjh3Tm1WQjRIcDdNcktsQ3RQajU3?=
- =?utf-8?Q?58QQ=3D?=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: G1gNXv8QHsXAe/+qFcqzFZuu/g/vU4wnQAjWm9IIRAewrgIkJl63qUkI4dJoROJUUBjLPwQIgcHmNmBL7+mfeWI9wMiH9+jGa9HX3gm5+iJLJ68I6JhMiqxUIUI1wlzFbAELxI0tbRNqcjE3Y6lj78RBsYeUOKRBewN5LKnZMYJb6JGt48/dwxv1QhgSMzYyeiPLiPs2HTmIXWzhieEjOt+aaVWosP/JN5vrWpnQzrve9TKq0ahcAIIFTIcrlDfyStBMsyFNzZb0KY4xmNJ99CPuHeSsKyiD1JaFgdYbrPubikSuVl3FXttE3rCRCME5iZO6ZiDGQzxK8HMbMdYFRJen271tJCS5e2st3wKUGp92ilNVGEnQLGvNukZdnbcpAt/5X/xsy+XNAFvyDwy+UdI6n7UbD1id9IfCS2d39iBX2Q/7iDPYoyJxRwWx/JOtJy9GO/ZZKB60Y1wC8FHQWgALUJXzlWiVWzKEx90wHhDKPCFHZBRV178ik1kiiXaASPSRUvshw4EpaPddaHb2rn9YM/7sxbApnuXff9rowM8l/RlRFYuJ2w02bW+WBtsusHCoWQJO1tbk7PKuj9IjOfMoQJFxrRwWcC5UvOpQz4bVTNRHZHEFO/AMGE97eJGZaOHTfl7o7ufBKS//+6IQJf3K4ABWjq7FaC2ERixaEhWrFGlT8aqiMuYgPvb8Ch/T
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 09:22:51.7469 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 088764c3-ea22-4bf6-6a4b-08de4f60a9da
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00025F96.EURPRD83.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6237
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v4 6/6] arm64: dts: st: Add boot phase tags
- for STMicroelectronics mp2 boards
+User-Agent: Mozilla Thunderbird
+To: Stefan Eichenberger <eichest@gmail.com>,
+ "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <20260105100245.19317-1-eichest@gmail.com>
+ <6ee0d55a-69de-4c28-8d9d-d7755d5c0808@bootlin.com>
+ <aVuxv3Pox-y5Dzln@eichest-laptop>
+ <a597b9d6-2b32-461f-ac90-2db5bb20cdb2@lunn.ch>
+ <aVvp70S2Lr3o_jyB@eichest-laptop> <aVvwOYce1CFOLiBk@shell.armlinux.org.uk>
+ <aVv7wD2JFikGkt3F@eichest-laptop> <aWC_ZDu0HipuVhQS@eichest-laptop>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <aWC_ZDu0HipuVhQS@eichest-laptop>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: robh@kernel.org, Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, imx@lists.linux.dev, festevam@gmail.com,
+ s.hauer@pengutronix.de, francesco.dolcini@toradex.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, kernel@pengutronix.de, netdev@vger.kernel.org,
+ kuba@kernel.org, Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RESEND net-next v2] net: stmmac: dwmac:
+ Add a fixup for the Micrel KSZ9131 PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,568 +67,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The bootph-all flag was introduced in dt-schema
-(dtschema/schemas/bootph.yaml) to define node usage across
-different boot phases.
-
-To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-present in all boot stages, so add missing bootph-all phase flag
-to these nodes to support SD boot.
-
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp211.dtsi     |  7 +++++++
- arch/arm64/boot/dts/st/stm32mp215f-dk.dts  |  1 +
- arch/arm64/boot/dts/st/stm32mp231.dtsi     | 22 ++++++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp235f-dk.dts  | 11 +++++++++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi     | 25 +++++++++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp255.dtsi     |  3 ++-
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts  | 11 +++++++++++
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 11 +++++++++++
- 8 files changed, 90 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-index bf888d60cd4f..81b6a71fc032 100644
---- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-@@ -50,6 +50,7 @@ firmware {
- 		optee {
- 			compatible = "linaro,optee-tz";
- 			method = "smc";
-+			bootph-all;
- 		};
- 
- 		scmi: scmi {
-@@ -57,15 +58,18 @@ scmi: scmi {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			linaro,optee-channel-id = <0>;
-+			bootph-all;
- 
- 			scmi_clk: protocol@14 {
- 				reg = <0x14>;
- 				#clock-cells = <1>;
-+				bootph-all;
- 			};
- 
- 			scmi_reset: protocol@16 {
- 				reg = <0x16>;
- 				#reset-cells = <1>;
-+				bootph-all;
- 			};
- 		};
- 	};
-@@ -73,6 +77,7 @@ scmi_reset: protocol@16 {
- 	psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
-+		bootph-all;
- 	};
- 
- 	timer {
-@@ -92,6 +97,7 @@ soc@0 {
- 		interrupt-parent = <&intc>;
- 		#address-cells = <1>;
- 		#size-cells = <2>;
-+		bootph-all;
- 
- 		rifsc: bus@42080000 {
- 			compatible = "simple-bus";
-@@ -100,6 +106,7 @@ rifsc: bus@42080000 {
- 			dma-ranges;
- 			#address-cells = <1>;
- 			#size-cells = <2>;
-+			bootph-all;
- 
- 			usart2: serial@400e0000 {
- 				compatible = "st,stm32h7-uart";
-diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-index 7bdaeaa5ab0f..bc366639744a 100644
---- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-@@ -45,5 +45,6 @@ &arm_wdt {
- };
- 
- &usart2 {
-+	bootph-all;
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index 88e214d395ab..075b4419d3ae 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -57,6 +57,7 @@ optee: optee {
- 			method = "smc";
- 			interrupt-parent = <&intc>;
- 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-+			bootph-all;
- 		};
- 
- 		scmi {
-@@ -64,15 +65,18 @@ scmi {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			linaro,optee-channel-id = <0>;
-+			bootph-all;
- 
- 			scmi_clk: protocol@14 {
- 				reg = <0x14>;
- 				#clock-cells = <1>;
-+				bootph-all;
- 			};
- 
- 			scmi_reset: protocol@16 {
- 				reg = <0x16>;
- 				#reset-cells = <1>;
-+				bootph-all;
- 			};
- 
- 			scmi_voltd: protocol@17 {
-@@ -114,6 +118,7 @@ scmi_vdda18adc: regulator@7 {
- 	psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
-+		bootph-all;
- 
- 		cpu0_pd: power-domain-cpu0 {
- 			#power-domain-cells = <0>;
-@@ -146,6 +151,7 @@ soc@0 {
- 		interrupt-parent = <&intc>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
-+		bootph-all;
- 
- 		hpdma: dma-controller@40400000 {
- 			compatible = "st,stm32mp25-dma3";
-@@ -223,6 +229,7 @@ rifsc: bus@42080000 {
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			#access-controller-cells = <1>;
-+			bootph-all;
- 
- 			i2s2: audio-controller@400b0000 {
- 				compatible = "st,stm32mp25-i2s";
-@@ -760,6 +767,7 @@ bsec: efuse@44000000 {
- 			reg = <0x44000000 0x1000>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+			bootph-all;
- 
- 			part_number_otp@24 {
- 				reg = <0x24 0x4>;
-@@ -857,6 +865,7 @@ rcc: clock-controller@44200000 {
- 				<&scmi_clk CK_SCMI_PLL3>,
- 				<&clk_dsi_txbyte>;
- 				access-controllers = <&rifsc 156>;
-+			bootph-all;
- 		};
- 
- 		exti1: interrupt-controller@44220000 {
-@@ -955,6 +964,7 @@ exti1: interrupt-controller@44220000 {
- 		syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp23-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
-+			bootph-all;
- 		};
- 
- 		pinctrl: pinctrl@44240000 {
-@@ -965,6 +975,7 @@ pinctrl: pinctrl@44240000 {
- 			interrupt-parent = <&exti1>;
- 			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
-+			bootph-all;
- 
- 			gpioa: gpio@44240000 {
- 				reg = <0x0 0x400>;
-@@ -974,6 +985,7 @@ gpioa: gpio@44240000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOA>;
- 				st,bank-name = "GPIOA";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -985,6 +997,7 @@ gpiob: gpio@44250000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOB>;
- 				st,bank-name = "GPIOB";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -996,6 +1009,7 @@ gpioc: gpio@44260000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOC>;
- 				st,bank-name = "GPIOC";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1007,6 +1021,7 @@ gpiod: gpio@44270000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOD>;
- 				st,bank-name = "GPIOD";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1018,6 +1033,7 @@ gpioe: gpio@44280000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOE>;
- 				st,bank-name = "GPIOE";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1029,6 +1045,7 @@ gpiof: gpio@44290000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOF>;
- 				st,bank-name = "GPIOF";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1040,6 +1057,7 @@ gpiog: gpio@442a0000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOG>;
- 				st,bank-name = "GPIOG";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1051,6 +1069,7 @@ gpioh: gpio@442b0000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOH>;
- 				st,bank-name = "GPIOH";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1062,6 +1081,7 @@ gpioi: gpio@442c0000 {
- 				#interrupt-cells = <2>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOI>;
- 				st,bank-name = "GPIOI";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 		};
-@@ -1084,6 +1104,7 @@ pinctrl_z: pinctrl@46200000 {
- 			interrupt-parent = <&exti1>;
- 			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
-+			bootph-all;
- 
- 			gpioz: gpio@46200000 {
- 				reg = <0 0x400>;
-@@ -1094,6 +1115,7 @@ gpioz: gpio@46200000 {
- 				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
- 				st,bank-name = "GPIOZ";
- 				st,bank-ioport = <11>;
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-diff --git a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-index c3e688068223..391494eda5e6 100644
---- a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-@@ -130,7 +130,18 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index a8e6e0f77b83..0cc3ac8bb584 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -66,6 +66,7 @@ optee: optee {
- 			method = "smc";
- 			interrupt-parent = <&intc>;
- 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
-+			bootph-all;
- 		};
- 
- 		scmi {
-@@ -73,15 +74,18 @@ scmi {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			linaro,optee-channel-id = <0>;
-+			bootph-all;
- 
- 			scmi_clk: protocol@14 {
- 				reg = <0x14>;
- 				#clock-cells = <1>;
-+				bootph-all;
- 			};
- 
- 			scmi_reset: protocol@16 {
- 				reg = <0x16>;
- 				#reset-cells = <1>;
-+				bootph-all;
- 			};
- 
- 			scmi_voltd: protocol@17 {
-@@ -142,6 +146,7 @@ v2m0: v2m@48090000 {
- 	psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
-+		bootph-all;
- 
- 		CPU_PD0: power-domain-cpu0 {
- 			#power-domain-cells = <0>;
-@@ -174,6 +179,7 @@ soc@0 {
- 		#size-cells = <1>;
- 		interrupt-parent = <&intc>;
- 		ranges = <0x0 0x0 0x0 0x80000000>;
-+		bootph-all;
- 
- 		hpdma: dma-controller@40400000 {
- 			compatible = "st,stm32mp25-dma3";
-@@ -305,6 +311,7 @@ rifsc: bus@42080000 {
- 			#size-cells = <1>;
- 			#access-controller-cells = <1>;
- 			ranges;
-+			bootph-all;
- 
- 			timers2: timer@40000000 {
- 				compatible = "st,stm32mp25-timers";
-@@ -1577,6 +1584,7 @@ ltdc: display-controller@48010000 {
- 				clock-names = "lcd", "bus";
- 				resets = <&rcc LTDC_R>;
- 				access-controllers = <&rifsc 80>;
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1738,6 +1746,7 @@ bsec: efuse@44000000 {
- 			reg = <0x44000000 0x1000>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+			bootph-all;
- 
- 			part_number_otp@24 {
- 				reg = <0x24 0x4>;
-@@ -1842,6 +1851,7 @@ rcc: clock-controller@44200000 {
- 				<&scmi_clk CK_SCMI_PLL3>,
- 				<&clk_dsi_txbyte>;
- 				access-controllers = <&rifsc 156>;
-+			bootph-all;
- 		};
- 
- 		exti1: interrupt-controller@44220000 {
-@@ -1941,6 +1951,7 @@ syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp25-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
- 			#clock-cells = <0>;
-+			bootph-all;
- 		};
- 
- 		pinctrl: pinctrl@44240000 {
-@@ -1951,6 +1962,7 @@ pinctrl: pinctrl@44240000 {
- 			interrupt-parent = <&exti1>;
- 			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
-+			bootph-all;
- 
- 			gpioa: gpio@44240000 {
- 				gpio-controller;
-@@ -1960,6 +1972,7 @@ gpioa: gpio@44240000 {
- 				reg = <0x0 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOA>;
- 				st,bank-name = "GPIOA";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1971,6 +1984,7 @@ gpiob: gpio@44250000 {
- 				reg = <0x10000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOB>;
- 				st,bank-name = "GPIOB";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1982,6 +1996,7 @@ gpioc: gpio@44260000 {
- 				reg = <0x20000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOC>;
- 				st,bank-name = "GPIOC";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -1993,6 +2008,7 @@ gpiod: gpio@44270000 {
- 				reg = <0x30000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOD>;
- 				st,bank-name = "GPIOD";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2004,6 +2020,7 @@ gpioe: gpio@44280000 {
- 				reg = <0x40000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOE>;
- 				st,bank-name = "GPIOE";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2015,6 +2032,7 @@ gpiof: gpio@44290000 {
- 				reg = <0x50000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOF>;
- 				st,bank-name = "GPIOF";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2026,6 +2044,7 @@ gpiog: gpio@442a0000 {
- 				reg = <0x60000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOG>;
- 				st,bank-name = "GPIOG";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2037,6 +2056,7 @@ gpioh: gpio@442b0000 {
- 				reg = <0x70000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOH>;
- 				st,bank-name = "GPIOH";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2048,6 +2068,7 @@ gpioi: gpio@442c0000 {
- 				reg = <0x80000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOI>;
- 				st,bank-name = "GPIOI";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2059,6 +2080,7 @@ gpioj: gpio@442d0000 {
- 				reg = <0x90000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOJ>;
- 				st,bank-name = "GPIOJ";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 
-@@ -2070,6 +2092,7 @@ gpiok: gpio@442e0000 {
- 				reg = <0xa0000 0x400>;
- 				clocks = <&scmi_clk CK_SCMI_GPIOK>;
- 				st,bank-name = "GPIOK";
-+				bootph-all;
- 				status = "disabled";
- 			};
- 		};
-@@ -2092,6 +2115,7 @@ pinctrl_z: pinctrl@46200000 {
- 			interrupt-parent = <&exti1>;
- 			st,syscfg = <&exti1 0x60 0xff>;
- 			pins-are-numbered;
-+			bootph-all;
- 
- 			gpioz: gpio@46200000 {
- 				gpio-controller;
-@@ -2102,6 +2126,7 @@ gpioz: gpio@46200000 {
- 				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
- 				st,bank-name = "GPIOZ";
- 				st,bank-ioport = <11>;
-+				bootph-all;
- 				status = "disabled";
- 			};
- 		};
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index 7a598f53a2a0..7b2e07613030 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -21,6 +21,7 @@ lvds: lvds@48060000 {
- 		resets = <&rcc LVDS_R>;
- 		access-controllers = <&rifsc 84>;
- 		power-domains = <&CLUSTER_PD>;
-+		bootph-all;
- 		status = "disabled";
- 	};
- 
-@@ -40,4 +41,4 @@ venc: venc@480e0000 {
- 		clocks = <&rcc CK_BUS_VENC>;
- 		access-controllers = <&rifsc 90>;
- 	};
--};
-\ No newline at end of file
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index e718d888ce21..69bac9e719d7 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -130,7 +130,18 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 6e165073f732..307b9692b00a 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -477,11 +477,22 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
- 
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-+
- &usart6 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart6_pins_a>;
-
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgU3RlZmFuLAoKT24gMDkvMDEvMjAyNiAwOTo0MiwgU3RlZmFuIEVpY2hlbmJlcmdlciB3cm90
+ZToKPiBIaSBldmVyeW9uZSwKPiAKPiBPbiBNb24sIEphbiAwNSwgMjAyNiBhdCAwNjo1ODoyNFBN
+ICswMTAwLCBTdGVmYW4gRWljaGVuYmVyZ2VyIHdyb3RlOgo+PiBPbiBNb24sIEphbiAwNSwgMjAy
+NiBhdCAwNTowOToxM1BNICswMDAwLCBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgd3JvdGU6Cj4+PiBP
+biBNb24sIEphbiAwNSwgMjAyNiBhdCAwNTo0MjoyM1BNICswMTAwLCBTdGVmYW4gRWljaGVuYmVy
+Z2VyIHdyb3RlOgo+Pj4+IFllcyB0aGlzIGlzIGNvcnJlY3QuIEVSUjA1MDY5NCBmcm9tIE5YUCBz
+dGF0ZXM6Cj4+Pj4gVGhlIElFRUUgODAyLjMgc3RhbmRhcmQgc3RhdGVzIHRoYXQsIGluIE1JSS9H
+TUlJIG1vZGVzLCB0aGUgYnl0ZQo+Pj4+IHByZWNlZGluZyB0aGUgU0ZEICgweEQ1KSwgU01ELVMg
+KDB4RTYsMHg0QywgMHg3Riwgb3IgMHhCMyksIG9yIFNNRC1DCj4+Pj4gKDB4NjEsIDB4NTIsIDB4
+OUUsIG9yIDB4MkEpIGJ5dGUgY2FuIGJlIGEgbm9uLVBSRUFNQkxFIGJ5dGUgb3IgdGhlcmUgY2Fu
+Cj4+Pj4gYmUgbm8gcHJlY2VkaW5nIHByZWFtYmxlIGJ5dGUuIFRoZSBNQUMgcmVjZWl2ZXIgbXVz
+dCBzdWNjZXNzZnVsbHkKPj4+PiByZWNlaXZlIGEgcGFja2V0IHdpdGhvdXQgYW55IHByZWFtYmxl
+KDB4NTUpIGJ5dGUgcHJlY2VkaW5nIHRoZSBTRkQsCj4+Pj4gU01ELVMsIG9yIFNNRC1DIGJ5dGUu
+Cj4+Pj4gSG93ZXZlciBkdWUgdG8gdGhlIGRlZmVjdCwgaW4gY29uZmlndXJhdGlvbnMgd2hlcmUg
+ZnJhbWUgcHJlZW1wdGlvbiBpcwo+Pj4+IGVuYWJsZWQsIHdoZW4gcHJlYW1ibGUgYnl0ZSBkb2Vz
+IG5vdCBwcmVjZWRlIHRoZSBTRkQsIFNNRC1TLCBvciBTTUQtQwo+Pj4+IGJ5dGUsIHRoZSByZWNl
+aXZlZCBwYWNrZXQgaXMgZGlzY2FyZGVkIGJ5IHRoZSBNQUMgcmVjZWl2ZXIuIFRoaXMgaXMKPj4+
+PiBiZWNhdXNlLCB0aGUgc3RhcnQtb2YtcGFja2V0IGRldGVjdGlvbiBsb2dpYyBvZiB0aGUgTUFD
+IHJlY2VpdmVyCj4+Pj4gaW5jb3JyZWN0bHkgY2hlY2tzIGZvciBhIHByZWFtYmxlIGJ5dGUuCj4+
+Pj4KPj4+PiBOWFAgcmVmZXJzIHRvIElFRUUgODAyLjMgd2hlcmUgaW4gY2xhdXNlIDM1LjIuMy4y
+LjIgUmVjZWl2ZSBjYXNlIChHTUlJKQo+Pj4+IHRoZXkgc2hvdyB0d28gdGFibGVzIG9uZSB3aGVy
+ZSB0aGUgcHJlYW1ibGUgaXMgcHJlY2VkaW5nIHRoZSBTRkQgYW5kIG9uZQo+Pj4+IHdoZXJlIGl0
+IGlzIG5vdC4gVGhlIHRleHQgc2F5czoKPj4+PiBUaGUgb3BlcmF0aW9uIG9mIDEwMDAgTWIvcyBQ
+SFlzIGNhbiByZXN1bHQgaW4gc2hyaW5rYWdlIG9mIHRoZSBwcmVhbWJsZQo+Pj4+IGJldHdlZW4g
+dHJhbnNtaXNzaW9uIGF0IHRoZSBzb3VyY2UgR01JSSBhbmQgcmVjZXB0aW9uIGF0IHRoZSBkZXN0
+aW5hdGlvbgo+Pj4+IEdNSUkuIFRhYmxlIDM14oCTMyBkZXBpY3RzIHRoZSBjYXNlIHdoZXJlIG5v
+IHByZWFtYmxlIGJ5dGVzIGFyZSBjb252ZXllZAo+Pj4+IGFjcm9zcyB0aGUgR01JSS4gVGhpcyBj
+YXNlIG1heSBub3QgYmUgcG9zc2libGUgd2l0aCBhIHNwZWNpZmljIFBIWSwgYnV0Cj4+Pj4gaWxs
+dXN0cmF0ZXMgdGhlIG1pbmltdW0gcHJlYW1ibGUgd2l0aCB3aGljaCBNQUMgc2hhbGwgYmUgYWJs
+ZSB0bwo+Pj4+IG9wZXJhdGUuIFRhYmxlIDM14oCTNCBkZXBpY3RzIHRoZSBjYXNlIHdoZXJlIHRo
+ZSBlbnRpcmUgcHJlYW1ibGUgaXMKPj4+PiBjb252ZXllZCBhY3Jvc3MgdGhlIEdNSUkuCj4+Pj4K
+Pj4+PiBXZSB3b3VsZCBjaGFuZ2UgdGhlIGJlaGF2aW9yIGZyb20gIm5vIHByZWFtYmxlIGlzIHBy
+ZWNlZGluZyBTRkQiIHRvICJ0aGUKPj4+PiBlbml0cmUgcHJlYW1ibGUgaXMgcHJlY2VkaW5nIFNG
+RCIuIEJvdGggYXJlIGxpc3RlZCBpbiB0aGUgc3RhbmRhcmQgYW5kCj4+Pj4gc2hhbGwgYmUgc3Vw
+cG9ydGVkIGJ5IHRoZSBNQUMuCj4+Pgo+Pj4gVGhhbmtzIGZvciBwcm92aWRpbmcgdGhlIGZ1bGwg
+ZXhwbGFuYXRpb24sIGl0IHdvdWxkIGJlIGdvb2QgdG8gaGF2ZQo+Pj4gdGhhdCBpbiB0aGUgY29t
+bWl0IG1lc3NhZ2UuCj4+Cj4+IE9rYXkgdGhhbmtzLCBJIHdpbGwgcHJvdmlkZSB0aGUgZnVsbCBl
+eHBsYW5hdGlvbiBpbiB0aGUgbmV4dCBjb21taXQKPj4gbWVzc2FnZS4KPj4KPj4+Cj4+PiBUaGUg
+bmV4dCBxdWVzdGlvbiB3b3VsZCBiZSwgaXMgaXQganVzdCB0aGUgTlhQIEVRT1MgaW1wbGVtZW50
+YXRpb24KPj4+IHRoYXQgdGhpcyBicmVha3Mgb24sIG9yIGFyZSBvdGhlciBFUU9TIGltcGxlbWVu
+dGF0aW9ucyBhZmZlY3RlZD8KPj4+Cj4+PiBJbiBvdGhlciB3b3JkcywgaWYgd2UgY2hvb3NlIHRv
+IGNvbmRpdGlvbmFsbHkgZW5hYmxlIHRoZSBwcmVhYmxlIGF0Cj4+PiB0aGUgUEhZLCBzaG91bGQg
+dGhlIGdlbmVyaWMgcGFydHMgb2Ygc3RtbWFjIGhhbmRsZSB0aGlzIHJhdGhlciB0aGFuCj4+PiBl
+bmRpbmcgdXAgd2l0aCBtdWx0aXBsZSBwbGF0Zm9ybSBzcGVjaWZpYyBnbHVlIGhhdmluZyB0byBj
+b2RlIHRoaXMuCj4+PiAoVGhpcyBpcyBzb21ldGhpbmcgSSByZWFsbHkgd2FudCB0byBhdm9pZCAt
+IGl0IGRvZXNuJ3Qgc2NhbGUuKQo+Pgo+PiBGcm9tIHRoZSBlcnJhdGEgZnJvbSBOWFAgaXQgc291
+bmRzIHRvIG1lIGxpa2UgaXQgaXMgYSBjb25maWd1cmF0aW9uCj4+IGlzc3VlIGJ5IE5YUC4gSSBj
+aGVja2VkIHRoZSBmb2xsb3dpbmcgRVJSQVRBcyBmcm9tIHZlbmRvcnMgd2hlcmUgSSBoYXZlCj4+
+IGFjY2VzcyB0bzoKPj4gLSBTVCBTVE0zMk1QMTogbm90IGFmZmVjdGVkOiBodHRwczovL3d3dy5z
+dC5jb20vcmVzb3VyY2UvZW4vZXJyYXRhX3NoZWV0L2VzMDQzOC1zdG0zMm1wMTUxeDN4N3gtZGV2
+aWNlLWVycmF0YS1zdG1pY3JvZWxlY3Ryb25pY3MucGRmCj4+IC0gUmVuZXNhcyBSWk4xOiBub3Qg
+YWZmZWN0ZWQ6IGh0dHBzOi8vd3d3LnJlbmVzYXMuY29tL2VuL2RvY3VtZW50L3RjdS9ldGhlcm5l
+dC1tYWMtZ21hYy1mdW5jdGlvbi1pc3N1ZS0wP3I9MTA1NDU2MQo+PiAtIFN0YXJ2aXZlIEpINzEx
+MDogbm90IGFmZmVjdGVkOiBodHRwczovL2RvYy1lbi5ydnNwYWNlLm9yZy9KSDcxMTAvUERGL0pI
+NzExMF9FcnJhdGEucGRmCj4+IC0gTlhQIFMzMjogYWZmZWN0ZWQ6IChFUlIwNTA3MDYgdW5kZXIg
+TkRBKQo+Pgo+PiBTbyBmcm9tIHRoYXQgSSB3b3VsZCBjb25jbHVkZSB0aGF0IGl0IGlzIGFuIE5Y
+UCBzcGVjaWZpYyBpc3N1ZSBhbmQgaXQncwo+PiBub3QgdGhlIGZ1bGwgRVFPUyBpbXBsZW1lbnRh
+dGlvbiB0aGF0IGlzIGJyb2tlbi4KPiAKPiBJIGp1c3Qgd2FudGVkIHRvIGNoZWNrIHdoZXRoZXIg
+SSBzaG91bGQgY29udGludWUgd2l0aCB0aGUgY3VycmVudAo+IGFwcHJvYWNoIG9yIGlmIEkgc2hv
+dWxkIGluc3RlYWQgZW5hYmxlIHRoZSBwcmVhbWJsZSBpbiB0aGUgUEhZIGZvciBhbGwKPiBNQUNz
+LiBXaGlsZSBJIHByZWZlciB0aGUgY3VycmVudCBhcHByb2FjaCwgYXMgdGhlIGlzc3VlIGxpZXMg
+d2l0aCB0aGUKPiBNQUMgcmF0aGVyIHRoYW4gdGhlIFBIWSwgSSBjYW4gYWxzbyBzZWUgdGhlIGFk
+dmFudGFnZSBvZiBhbHdheXMgZW5hYmxpbmcKPiB0aGUgZmVhdHVyZS4KCk15IG1haW4gY29uY2Vy
+biB3YXMgdGhhdCB3ZSBtYXkgZW5kLXVwIHdpdGggYSBsb3Qgb2YgZGlmZmVyZW50IGZpeHVwcwpm
+b3IgdGhlIHZhcmlvdXMgS1NaLWZhbWlseSBQSFkgZGV2aWNlcywgZXNwZWNpYWxseSBzaW5jZSB0
+aGlzIGZlYXR1cmUgaXMKc29tZXRpbWVzIHVuZG9jdW1lbnRlZC4KCkkndmUgZ29uZSB0aHJvdWdo
+IHRoZSBtaWNyZWwuYyBkcml2ZXIsIGFuZCBsb29rZWQgYXQgdGhlIGRhdGFzaGVldCBvZgptb3N0
+IFBIWXMgaW4gdGhlcmUsIGFuZCBzbyBmYXIgSSd2ZSBmb3VuZCB0aGF0IHRvIGZpeCB0aGlzIGlz
+c3VlLCB3ZQpuZWVkIHRvIHNldCA6CgpLU1o5MTMxIC8gS1NaODA0MTogUmVnaXN0ZXIgMHgxNCBi
+aXQgNgpLU1o4MDYxIC8gS1NaODA1MSA6IFJlZ2lzdGVyIDB4MTggYml0IDYKClNvIGluIHRoZSBl
+bmQsIHRoZSBjb21wbGV4aXR5IGFwcGVhcnMgdG8gYmUgYSBiaXQgbGVzcyBleHBvbmVudGlhbCB0
+aGFuCkkgb3JpZ2luYWxseSB0aG91Z2h0LCB3ZSBtYXkgZW5kLXVwIHdpdGggb25seSBhIGZldyBm
+aXh1cHMgaW4gdGhpcyBkcml2ZXIuCgpJJ2Qgc2F5LCBJJ20gZmluZSB3aXRoIHlvdSBwcm9jZWVk
+aW5nIHdpdGggdGhpcyBvcmlnaW5hbCBhcHByb2FjaCBhcyBpdAptaW5pbWl6ZXMgdGhlIGltcGFj
+dCBhbmQgcmlzayB0byBicmVhayBvdGhlciBzZXR1cHMuCgpJJ20gc29ycnkgZm9yIHRyaWdnZXJp
+bmcgdGhpcyB3aG9sZSBkaXNjdXNzaW9uIG9ubHkgdG8gZ2V0IGJhY2sgdG8gdGhlCnN0YXJ0aW5n
+IHBvaW50IDooCgpNYXhpbWUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
