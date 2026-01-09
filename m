@@ -2,45 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82E48D08A11
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:40:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC39D08BBB
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:56:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F264FC8F286;
-	Fri,  9 Jan 2026 10:40:27 +0000 (UTC)
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013011.outbound.protection.outlook.com
- [40.107.162.11])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F1FEC8F287;
+	Fri,  9 Jan 2026 10:56:25 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF6BCC8F27B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04672C8F27B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 10:40:25 +0000 (UTC)
+ Fri,  9 Jan 2026 10:56:23 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 609ArtSk011276; Fri, 9 Jan 2026 11:55:58 +0100
+Received: from du2pr03cu002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011056.outbound.protection.outlook.com [52.101.65.56])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4bjv2212tj-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 09 Jan 2026 11:55:58 +0100 (CET)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u3CY7Ii/KIPEZMz4bfMyG3/JDuJTv7S9aBurzaZCj9OqUbCvWy589hBVAkTgA2DijqXRCjO5aVy+Wr3Pc4pUl5pQeW+sMkCU4+SWb8BT+seTH5EnZ3CyvHigRe/yzTe6FEJThrcJzOSgNPM0RCNneAgRSxKxZxxOuPgMEDsDmgigLmKqm8bJc+9NKG5Sd6kwY7x5F+uawfJbA3BUmc89RONN7f+TUvcaVaWLGrDpf9w0KHBfY910WgiRhaqbUjbQONe6Jk5YHSjkjQMkv5+mihxtgStWlQIAhjsPP1W+BgtKKDRHU6INWXwzP/e4Zn7eFB4Z92hYZh1uHdiJx70Aew==
+ b=QsNV1HHSAqFtvjfWIr3vluIyOGwc580jOYyRUSvNgrnUUzP/2bdxbVOINlSQsX+tn9LrneKwhzUc5BzCqUcTm+wjuIvDDS+KzLYMv7HF87yJfFpAzyOIWXKk6W7ElDViF+amiA1hKDhLKjxrM01WbqdOmJN2EKh+OSKlZ8xjeHfhjs6D9Gg4RHCOEhC9Pq7EVsSmHWNrYHkuZp+HyrHP+/U+6vB1L36sDjAvsDAKmNzczfXK6UFRK/yHv/TWUqmHjQMBdFIU5+pKagQJb08F/zzXzC5NyBMbOF40D3r8ygvikc+ThcfoYDdVltrul7WX/9sOPeo51sqZQcnd1T5UYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wexDerHpGSJFdquYd7GS2z8cagHA6emprlVWE53paH8=;
- b=hKnjxOKXB8VCrTvD5RZDGXAYHEvFQac79kpLlkVhNRKRbwm56MzqbrgD/tuP3kpJF+g7Q9PCmnoIkXSBBkXuzF7F5szUR9vCVMUtf4f5/95swPbDn1+TkIKsHuzFG0gMB+c9NWZ6OfcYCAFVlNGUtQ80zMCtLz7f07Q3NhCL+3GswXEHDIIomGzQhZu6vWbZaS1mBHYAVSE69mU0LC8tGS5zhMwrCqddARmazgHo5iNNJTVTzFub3Gj2Jbl5y4lLGdcL86ERYJiaCFzNlJuCgsQ2dOipNAHQxdJYOM4/6A5Fzr4xGh/z9PpKzWa6Okr7BZeqQ1kod0VsFvIVsADW9w==
+ bh=Hs49s1S0w7flFCSV0bhPRzbmCwwrX9036EkAQFhufJE=;
+ b=A2EkGttJcKw1Z4d5+LB9HrYZIdnr2Cl6Wdt4+bWwyH01y1ZsYsvYLJSHmVGYTeGNoNRV2uuMx2GF1s96kG1WEUUtVFuDPI8eULupNZMxrPQeW8QtOTOOb6U+vK7Z6UI2WH04QImQKhrgB78DptSr38yyigPvYOFFk2Iu0VH6hjJV64+vr4dmJB1ug0HayCNC9Yb5w1Z5//DNXSbdOEaRkyxiaeBOFWsmRcBPzkZWtskM/EZj5CenofD32OudHD7zWsgojEQIq3zI0btheRdOVSKEgeVwLM0Tj+TnF6fRS+TydGOe46HxLvuBLNRn3xPBtEg/b0AarPyeP4ry1MmZkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+ 164.130.1.59) smtp.rcpttodomain=linaro.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wexDerHpGSJFdquYd7GS2z8cagHA6emprlVWE53paH8=;
- b=VHPLkbMve0+N/8mTAtbqlXcezuVuTFNBlEOXxH4uHSLcjhI9aKkxVSKy3V8RPdZirMCySsIKFVwYNUnJH/vw4kZCU9ZaKO5UQKxmHTiQESJg+Js+FzDZbsHUpWadZfTNdGDiMJBWd7nt7VgIi1pk3WosqxZXI34JWp3BPicazuFvP9vcadJw17S6oxPdhfMAVDMiy+zDmarwbTMqZS2udrBP+tf3W6IhHp8cKVvQKEnoJVA4u7yGNJS5/FlvKwkbHfDySkFxfz622D3t0hQtCAMzlh9jCmSXeOSsapn42pNkwMUs9visrmgxQs4YzpIeEcuz7wobYklYGkxJD0MitA==
-Received: from AS4P192CA0036.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:658::29)
- by DU0PR10MB6899.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:466::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Hs49s1S0w7flFCSV0bhPRzbmCwwrX9036EkAQFhufJE=;
+ b=F/gOggguhfAAo3sau0yp8vt9t5F7mw36SweOjsfWoSz6+UY2w3CzLACG6OIkcZgYYfeH+aU0lPKaRe+b+E2sA60kewJ8P9Rp6CuhVrkcauXNpB+cwCQnguOVc/PVZYT6cjgA1carwHw50HWvOufQFQrE3vd3ZrcGpwRxQub19Hc8mHGxXH349QrbJ39Hv+yNzMg5gaF7i6tys2d4QGiFRSi1Q2GnmO6U/dFBrw+L/oF3bsgqZi5YTE8CMi226Kac5kmPPqN/jhTAHM8R46gh7FDnTespD4iJvKRHfeN54/37lI6sor46oPY1uPoQikNb3fYHd4phhqV7rtA7veLfjw==
+Received: from DUZPR01CA0022.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:46b::12) by AS8PR10MB5950.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:529::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Fri, 9 Jan
- 2026 10:40:23 +0000
-Received: from AMS0EPF000001B2.eurprd05.prod.outlook.com
- (2603:10a6:20b:658:cafe::45) by AS4P192CA0036.outlook.office365.com
- (2603:10a6:20b:658::29) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 10:55:54 +0000
+Received: from DU6PEPF0000A7E0.eurprd02.prod.outlook.com
+ (2603:10a6:10:46b:cafe::25) by DUZPR01CA0022.outlook.office365.com
+ (2603:10a6:10:46b::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.5 via Frontend Transport; Fri, 9
- Jan 2026 10:40:22 +0000
+ Jan 2026 10:56:19 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -48,97 +55,124 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.59; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.59) by
- AMS0EPF000001B2.mail.protection.outlook.com (10.167.16.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 10:40:22 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ DU6PEPF0000A7E0.mail.protection.outlook.com (10.167.8.39) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 10:55:53 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 11:41:39 +0100
-Received: from [10.252.25.201] (10.252.25.201) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 11:57:08 +0100
+Received: from localhost (10.48.86.212) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 11:40:21 +0100
-Message-ID: <58006bf6-425a-4016-996b-4a01fdb22cea@foss.st.com>
-Date: Fri, 9 Jan 2026 11:40:21 +0100
+ 2026 11:55:50 +0100
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Fri, 9 Jan 2026 11:55:00 +0100
+Message-ID: <20260109-debug_bus-v1-0-8f2142b5a738@foss.st.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20260107194541.1843999-1-dario.binacchi@amarulasolutions.com>
- <20260107194541.1843999-2-dario.binacchi@amarulasolutions.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260107194541.1843999-2-dario.binacchi@amarulasolutions.com>
-X-Originating-IP: [10.252.25.201]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
+X-B4-Tracking: v=1; b=H4sIAITeYGkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDQwML3ZTUpNL0+KTSYl1jSyMzM7Nk80TjxEQloPqCotS0zAqwWdGxtbU
+ AdmAExFsAAAA=
+X-Change-ID: 20260108-debug_bus-392666c7a3aa
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Leo Yan <leo.yan@linux.dev>, =?utf-8?q?Cl=C3=A9ment_Le_Goffic?=
+ <legoffic.clement@gmail.com>, Linus Walleij <linusw@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.3
+X-Originating-IP: [10.48.86.212]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF000001B2:EE_|DU0PR10MB6899:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5777c0e-8e01-467d-dc74-08de4f6b7dfd
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000A7E0:EE_|AS8PR10MB5950:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea5ff5e0-3d2a-4c4c-4e0f-08de4f6da8ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|82310400026|36860700013|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VTdsblFnNFRSNVRTdHpnWmZXVVN1N3IxWmk2R2szNXl2QXBOWjNpZ2NMMkJO?=
- =?utf-8?B?cHR6NFZ4bStYTjBWYXhsTmJUcVdabWVkVGZnaFpBZklYaE1iVC9HTW93SFNp?=
- =?utf-8?B?L2tVWTFITE5oUk5lL2tMNkhsakVaeEZmSEozUURkbE1BZmtpYTBUemJHcFBn?=
- =?utf-8?B?ejJCUFFObjhhWkFsZXpzbUNZaFpsam0yNExkNU1Ea2hrVzJsMXRaM3ZSYmR2?=
- =?utf-8?B?Zks0ZUpKaHUvWlhPU3BSTUdRZHJFcFNBTHlKRk1oQ3dkSE94TlVaRHgva0Y4?=
- =?utf-8?B?MVFvckdDaW1NeUdPVnd1TTVGN3phK2hMajFQZnE2R3JLc2hwellJdm9VTkFS?=
- =?utf-8?B?TDVRTzU4ekg2cEY2aEszVEdaQXNUYXdFc1VTZGszaVVFTUc1NTZGMzRBdjB0?=
- =?utf-8?B?Yi9SbDVvVkVGS3o0a08zMWlrZEJpN1NNR3hjMEMwZ1g3N0tlY1U3eHZxdTFY?=
- =?utf-8?B?dkdkTWdRZWZMUnlSTWhGYzQvR3pNUzlnUnpja0VZb3dTZHNOWDlwdDNVOWJ0?=
- =?utf-8?B?QUh2UzhIeThqR2R5blAxUHM5VEF1SmFFTHNudjhhMmZSOUE0Q0lKZDZPejcr?=
- =?utf-8?B?OVcvRzJhWHRFNnFsZmhIeDFUaGQya3Q4WmhLTjNyNUtGNEhsRkVoQ00rQnI1?=
- =?utf-8?B?MElubXRVVWNqdjdVK1c5bVJnb05YUmxWK1h4T3pVVGlobTFtbVloYTZ6Y3Ju?=
- =?utf-8?B?cnBGeGNaZ1hna2RMOVpZeS9zMEtFK1VjNXVVbDczcEhFRkQwS1I4ME5sUm92?=
- =?utf-8?B?WUVJc2NUR0FPbm9ZL3psVlZrZGZYZFFkS2taampMV01RTXVZMjRHdVk5dHEy?=
- =?utf-8?B?cS9sTTJBaVlNWTdydHlLbTNqcHozam5IMFphV3hNZEZaeHhtci9nTG5oTGs4?=
- =?utf-8?B?akNIZFBGekd6MkhHOEpRYzVMWVZCVjBrZU9Qd0VCUXA5cUszaXVPZ3RmWGNO?=
- =?utf-8?B?bXJGWVhhY0M1d011TlVjaTVZVXJ6M1FiSlVPck5sNnA3d2w5VkE2TE9zUjZ0?=
- =?utf-8?B?WE9EU0VmdUJHR0JZdkdRK1YzMXVteWNKcFZaN29Gam9qLzdSamRqM01MNWdI?=
- =?utf-8?B?OUdOVzhCV1hLWmY4ejZsSU1RUVVwbDlBQWFTL1J2UzRrWGVPY3BlcG5XSTFw?=
- =?utf-8?B?c0YyS3JRSlZicHFpZzduRU5qKzk4UWJTTmtTL1lBc1BRVnRpN2xGWitDQ1Yx?=
- =?utf-8?B?Zkd6bVlmaURCcGY4Z3E1aDBDUW8rZGtoVkUrR0EvUW1qc1ZQMUhsdFhVcENv?=
- =?utf-8?B?eFAvMXZDcjJSU1RBbTJZTkVjWGRMTWVtVWhqT1FXL1pjVU96blRSdHRtdEdN?=
- =?utf-8?B?TDI3Njk5QkVCWFVhZnpTY2VURStSTnpIWjFiSTcxL3RhaFUwclVLTG1zN3Vq?=
- =?utf-8?B?M2tIQWVDZlBGaHpIVTJHcHZhc1JVV29ZOXZoTGFVRGNIYnloWXUvamVKTDgr?=
- =?utf-8?B?NXBMYmJ0MXVWU1pKQWtjbDRHN1BTdHBjZlB2V210cDZ1U1hvZzltZGF0TmRO?=
- =?utf-8?B?aTRKS1VIYVd0bEZCYktsb3hUWDhhMkdvcDRqTTFFdFFENFQ4dUNlcWpIanp5?=
- =?utf-8?B?OVlJWkdkMExZSTJJcDkvV0ZoMG1GV0FENnNRSEpmLzNUMzg0RERpZG9xNDVk?=
- =?utf-8?B?YTF1czJzam5wNndkM2pkY0RhcTZ0dVhlWnVEQ2U2V3VkU2VyOW1wMkdSeXNR?=
- =?utf-8?B?NWxmdDZGRE9oMjJKSitoWXdGcmZucUtjbEVLbHdrV3hjd2pib2J0RmJzZXRY?=
- =?utf-8?B?Y1psNlVSRHhOald4UHZLeFhsbkc2am9vT2tGSXhwL2lFVDJLRlZWTStRRWti?=
- =?utf-8?B?aXN6aWx2OURadVJmSER4anFVekdIci9lVThMK3dneGJzNXRCcXg5VnRlY0wy?=
- =?utf-8?B?YnowMGJ0UnFkZ1J5S0JrajJnMzRuUzdLcnhoSTVyMUt3dWEwKzBBWkFXNkpm?=
- =?utf-8?B?SDVrQUxoOFVXYm9CVGROZ0NZMEVvZzBXVW1OQmxaclNKN0kxMXFyb0k4WDFP?=
- =?utf-8?B?V09xd3kzU2VmUlArajNDR1BvRXVwVjVIQjN0SmFBYjFmRW9wWEJkVCtYd20z?=
- =?utf-8?B?R1FFMXRFdmhHejJCTXR5OW9zVDlWb3VLMXBMUjZjQlpGWWhjWit5Tm1hRHNo?=
- =?utf-8?Q?LoDQ=3D?=
+ ARA:13230040|82310400026|36860700013|1800799024|376014|7416014|921020|13003099007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bkpIUUdYc0F4anlPamZnWlVJNTJid2txcHYxRDB3dmhDNFdCUlcyWFhEQWxO?=
+ =?utf-8?B?c05aUG1xVzV3WmJ3TGdCbWFZbmlPa2YrazE0K09WYnJVM29jc3U4bkRndGJu?=
+ =?utf-8?B?WGVCbHFTUmVLbldZUm9XdEhyNnJPM1dHMGlndlY5ZDluSUYyUXVRN1hUUnQv?=
+ =?utf-8?B?WG15L1BkZWk0bzBZUUgwK012MDNNUGRPTzg2cmZqdHowSzlKV01iZmVzQnNW?=
+ =?utf-8?B?cUlJMGZuZytrVWJsMUNpa3Qza0YwTjRrNTNaS0llUjJ6RnYwOVRvcGVSdFIw?=
+ =?utf-8?B?TXNNVmRVa0JmVnJOVy9WUkMvNUlVMkNZdkFQR2pzUE5lak9COFFOV1Rhendh?=
+ =?utf-8?B?Umk2dHZvQ1BGWE84K1czVXlSYVN4VitWYmNHd3EweUdZU29qRmJrOWF0YUE4?=
+ =?utf-8?B?OVlqWWxoSUxFNWtjcmw1SW5ZeGJNMXZIWVpraHo2Nk9XQ2VqOG9KdEUxS05p?=
+ =?utf-8?B?TnlNZlBzYUZua3hXNGlFUXNjeTlYL0ZtQUFWZDVFRHV6RGYrNVBBSXJjUVlF?=
+ =?utf-8?B?amg4RTZ6bG44OFpjaHpMRis4SDhHZzVFMHh6N016R28rdThSNzFhMWZlL0p1?=
+ =?utf-8?B?TmJEREREOGZIQlJXdG9VU2RZVG5MOU1nQXJtVXBqU2pMTmc5RVJUcjFmYkw2?=
+ =?utf-8?B?TjJTMU5GdTdrcXdteWlvOVB3SHhZSTRibGdNUlJYS09yUUVLWGY1YXpNbG54?=
+ =?utf-8?B?MUpqQVR4YXY2L2lMd0ZvUGI4bkxoQmJGVlZmVWNlZkVuOVBBbUp6V0w4STcr?=
+ =?utf-8?B?eE1rN2VGL1FmeEt1ZklMbkkwZGdRZlRkeTFLZ1hKanhWU2pMUTZEaHdnOStk?=
+ =?utf-8?B?cHgwTWdteFpWU3l3WGliOGI3RHc2MUQ3a2VYK3VRVHRCMTd4WlRXV21KRjJa?=
+ =?utf-8?B?NDAzT1JLczBVYzJpM1JNdGZScUhzTzhiYmpndzhmbmt4UVIxOW90T3F0M1JQ?=
+ =?utf-8?B?aFRoWWxYV1RaSGRUNnVxWnV0amZxQ2o0N3VOL2I5UXpoeWIxdGRONWQ5WmpP?=
+ =?utf-8?B?MERjaE5vQ1hqbXdHRmdxNGhJNG0vU29hYkN2eW94SnU0b0hQODB4T3dQQ05t?=
+ =?utf-8?B?MzZUYTg1VjJwL3hRVWhjZElRSGJFR0VxYUYranZPUm9CVUMvL2gvODFGVXdh?=
+ =?utf-8?B?ZXlsbGxwZEx4Tmoxdm1LQlFCcnR0RExoeEk1UUZxME1CV1V6NFBPMG1DSngy?=
+ =?utf-8?B?Rlc1c0IzdDZ6MnJkY3BJRWk2UlFIeFU5NjRsUG8xZkluanI1cm1ONGFHajVW?=
+ =?utf-8?B?QVRyd1M3Rk1oSzFuL1RxVXRjSEhtWDYvK1AyeGRzYWN5djF2ZnlhbGdTNEtN?=
+ =?utf-8?B?TzFrV0E3THQvMzdDaG5tVzFZMHp6bmwra25UU2lQMVAzc0RuLzhpUjg5b25G?=
+ =?utf-8?B?UDRPVkZ4MkJWdk1Jcyt3TVNtVzh5dHZPVDdYd0NudUp0S2l5bG53QzZwLzZ0?=
+ =?utf-8?B?WUxZVFErR3hIcEFzTkNiaEd5WjNOL3RPRHYwMHl0OGtxRGRVOTZlRXIwYXN0?=
+ =?utf-8?B?VnVZWnRWSmdIYkxici9POVVaZTZia0x4TWhBRVlmaDRUblFIUDMrcHhLbU5M?=
+ =?utf-8?B?ZVNUYmE3Qis5YnJlWDk4YmRZNkFhSzdLTXdjdWtBL0cvOWl2c2o1WDN0bGRP?=
+ =?utf-8?B?TVY4bEZLWlZZVTBzMDRTQkdyR1hJWGlEcW1LcnE3ai8wU1ZmZEpjajVXajJW?=
+ =?utf-8?B?MnkwaHBRR0syaWkzbkZhblc1eFdmaWdMc1NVNGdwS3hrN1BvalgxclhaazFG?=
+ =?utf-8?B?Wm9kTGVjeUFiNlFNTHZpUkVHZ2wzU1ZTaTR1UGtRQnVKN01qYU5kOG0rcDVE?=
+ =?utf-8?B?WmVuc0poMFJtNVJxa0FFZU1yUWVaeWlhY09wL1hMdGJ3TSt1L1dQdTZEY3Yr?=
+ =?utf-8?B?K2dpQzFDdTVtUEwyOG1Ea2llSUpJVkE3cmpRd0ptMStvN3h3S09iMXhjNkNm?=
+ =?utf-8?B?SVBSN24zOXQ5RFFuTkFWY1FseWdnd2V2cDI5amlkdnQ2d3d0U0dpSlZacHg4?=
+ =?utf-8?B?bVk0djUxNEtxMGY3VWlmbHBJaCtDZnlNTC9JdG5JU2RzdmJGZEhCbXZqV1lZ?=
+ =?utf-8?B?YVEzMTd2dER1UVZiUnpKSmRiODVYaTdhZHN2LzJRSExyWTA1RENTY2grWi9m?=
+ =?utf-8?Q?gWLY4PTZUQREYobX6vtrRv/+h?=
 X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(82310400026)(36860700013)(1800799024)(7053199007);
+ SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(7416014)(921020)(13003099007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: oCzytRUSAncR7wYh8ZvrsvWtQsKjyEd0bLQzUAMSx0UFpBg/sKGtC1edhzASfHQiEcHNRFQMrbrZvjXOlfzU2BxvaHhh3l+Pv2yDBk4ZDXeX/kPc2g0plIqckvaddryN5W3xeicorfKliz9o6KRWqoQC1AZYIJOAu1Lnc7X4LVEJ1o4zUTZf5fCjYKZB3/qrMUMhJwviywC+k3lLtm5Nq1fvgLXx0A4XPdwY6kRWX7cbres8tqBgfzVNBctSbSLDGg5gcdky8Y71F/kOgXJU+b3x4Mr27d2odGaHSr3+J46MeSE71CPTT9WcHQTxEEb73DPFzRquf6b7gIkyX6atWmDkhVQdGUA8U+ovTiIhiw6WJuS8VKgkrSadaD7mTQWHkQcDybvIpg/V7nDtS7JTpT4q8W9WftyCwx78rUow3jjtbNLJs7lsdvD/bnlv1qXUk1Cg5OTevnuggwkshZmQVkwjLS1UupFf6Ilg7xI4CjqoudQhCLvc3aQY3rKY/2zQbeG9iF82qltmtUDZymZVORMVmz8tKsvIrNbU86ByJemBmK5e9hox1iEdA/McDFC+qz7+BSrb84/wYW+Sou8VdmqToZMA0VWVEvftrXS16NYsojrcpFRBr+ecJ5os0mNYsZtwXy0dbdcnyz3aCIcOo51JfSPFVzbPidrNHUNnZiJLowRScZeAnigKAQuLJMjp
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 10:40:22.6277 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5777c0e-8e01-467d-dc74-08de4f6b7dfd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 10:55:53.1798 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea5ff5e0-3d2a-4c4c-4e0f-08de4f6da8ab
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001B2.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000A7E0.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6899
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com,
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB5950
+X-Proofpoint-ORIG-GUID: NCDqUX-TK_ElScMylCQC-z2gA6jGY98D
+X-Authority-Analysis: v=2.4 cv=d4f4CBjE c=1 sm=1 tr=0 ts=6960debe cx=c_pps
+ a=1vQRXpsGNmEGKh2qpy4sKg==:117 a=d6reE3nDawwanmLcZTMRXA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=rg8MelPR9j8A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=NEAV23lmAAAA:8 a=8b9GpE9nAAAA:8
+ a=ypHp3MR7veaYCG1KK1EA:9 a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-GUID: NCDqUX-TK_ElScMylCQC-z2gA6jGY98D
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA5MDA3OSBTYWx0ZWRfXzrnexqe+TyRn
+ xDQhctX94Vqs5uYqgNYRY+ECJlu7AE9reQW6UMFmK6t5pZRwUcs5M0mNx39MzTlX8JEYtcCXRgJ
+ kq+yRM8Da0nQLDR8SyFR29dFVC8vvCjvTQo5G4I8sppEkE1tAwuGA/zfFyOSZSe3cYl0TYaiHwt
+ UjFNk8J3YgC3ymQwY6rnkpz34E6c8377W8q9qJ3TtAVEzNcUmyUFgkvQmgmUMRjUfy5uiCPrGVf
+ zHn+zUfUFvKrUHg2/akYnzK4CfGocfFpPHdOxCg5HkanlaZMzjZ/p3dBhmch33kl+R59zyKdTjE
+ hvhKAFL1b53J2rPwQ4jnUii0Y5GvGLdkQqlS5u6g2EwrieqI1s9l+x58a3A5x8q9AnyP6PLnK8r
+ RJGVt9/rdpukZ+rHkLIOOVAI3rY8AiMjLqI4sC7QU1+xkKUK8wx06x0qzlRdhzGJfkDTMmm4+kv
+ Z8SUNZ0X7i7S01zBzFg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-09_03,2026-01-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601090079
+Cc: devicetree@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] arm64: dts: st: add TAMP-NVRAM
- support for STM32MP25
+Subject: [Linux-stm32] [PATCH 00/11] bus: add stm32 debug bus and coresight
+ support for stm32mp1x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -155,67 +189,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Stm32 SoCs embed debug peripherals such as Coresight. These peripherals
+can monitor the activity of the cores. Because of that, they can be
+used only if some features in the debug configuration are enabled.
+Else, errors or firewall exceptions can be observed. Similarly to
+the ETZPC(on stm32mp1x platforms) or the RIFSC(on stm32mp2x platforms),
+debug-related peripherals access can be assessed at bus level to
+prevent these issues from happening.
 
+The debug configuration can only be accessed by the secure world.
+That means that a service must be implemented in the secure world for
+the kernel to check the firewall configuration. On OpenSTLinux, it is
+done through a Debug access PTA in OP-TEE [1].
+To represent the debug peripherals present on a dedicated debug bus,
+create a debug bus node in the device tree and the associated driver
+that will interact with this PTA.
 
-On 1/7/26 20:45, Dario Binacchi wrote:
-> Add the TAMP node along with its NVRAM child node and define the
-> fixed-layout for fwu_info and boot_mode registers.
-> 
-> The TAMP (Tamper and backup registers) block is a system controller that
-> provides access to backup registers as NVMEM storage that persists across
-> reboots.
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
-> ---
-> 
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index a8e6e0f77b83..c7839e732f31 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -2084,6 +2084,32 @@ rtc: rtc@46000000 {
->  			status = "disabled";
->  		};
->  
-> +		tamp: tamp@46010000 {
-> +			compatible = "st,stm32-tamp", "syscon", "simple-mfd";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			reg = <0x46010000 0x400>;
-> +			ranges;
-> +
-> +			nvram: nvram@46010100 {
-> +				compatible = "st,stm32mp25-tamp-nvram";
-> +				reg = <0x46010100 0x200>;
-> +				nvmem-layout {
-> +					compatible = "fixed-layout";
-> +					#address-cells = <1>;
-> +					#size-cells = <1>;
-> +
-> +					fwu_info: tamp-bkp@c0 {
-> +						reg = <0xc0 0x4>;
-> +					};
-> +
-> +					boot_mode: tamp-bkp@180 {
-> +						reg = <0x180 0x4>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->  		pinctrl_z: pinctrl@46200000 {
->  			#address-cells = <1>;
->  			#size-cells = <1>;
-Hi Dario
+[1]: https://github.com/OP-TEE/optee_os/pull/7673
 
-At STMicroelectronics we intend to upstream tamp-vram driver for STM32MP series.
-If you don't see any objection, we prefer to manage it in our side.
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+Gatien Chevallier (11):
+      dt-bindings: document access-controllers property for coresight peripherals
+      dt-bindings: pinctrl: document access-controllers property for stm32 HDP
+      dt-bindings: bus: document the stm32 debug bus
+      bus: stm32_firewall: allow check on different firewall controllers
+      drivers: bus: add the stm32 debug bus driver
+      arm: dts: stm32: introduce the debug bus for stm32mp1x platforms
+      arm: dts: stm32: enable the debug bus on stm32mp1x boards
+      arm: dts: stm32: enable CoreSight on stm32mp15xx-dkx boards
+      arm: dts: stm32: enable CoreSight on the stm32mp157c-ev1 board
+      arm: dts: stm32: enable CoreSight on the stm32mp135f-dk board
+      pinctrl: stm32: add firewall checks before probing the HDP driver
 
-Thanks
-Patrice
+ .../devicetree/bindings/arm/arm,coresight-cti.yaml |   3 +
+ .../devicetree/bindings/arm/arm,coresight-etm.yaml |   3 +
+ .../devicetree/bindings/arm/arm,coresight-tmc.yaml |   3 +
+ .../bindings/arm/arm,coresight-tpiu.yaml           |   3 +
+ .../bindings/bus/st,stm32mp131-dbg-bus.yaml        |  86 +++++++
+ .../devicetree/bindings/pinctrl/st,stm32-hdp.yaml  |   4 +
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/st/stm32mp131.dtsi               | 119 +++++++++
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts            |  24 ++
+ arch/arm/boot/dts/st/stm32mp151.dtsi               | 173 +++++++++++++
+ arch/arm/boot/dts/st/stm32mp153.dtsi               |  68 +++++
+ arch/arm/boot/dts/st/stm32mp157c-ev1.dts           |  40 +++
+ arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi          |  40 +++
+ drivers/bus/Kconfig                                |  10 +
+ drivers/bus/Makefile                               |   1 +
+ drivers/bus/stm32_dbg_bus.c                        | 285 +++++++++++++++++++++
+ drivers/bus/stm32_firewall.c                       |   2 +-
+ drivers/pinctrl/stm32/pinctrl-stm32-hdp.c          |  41 +++
+ 18 files changed, 905 insertions(+), 1 deletion(-)
+---
+base-commit: 9ace4753a5202b02191d54e9fdf7f9e3d02b85eb
+change-id: 20260108-debug_bus-392666c7a3aa
+
+Best regards,
+-- 
+Gatien Chevallier <gatien.chevallier@foss.st.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
