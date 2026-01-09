@@ -2,172 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E591AD07A58
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 08:49:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8820D07B55
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 09:08:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1695BC8F286;
-	Fri,  9 Jan 2026 07:49:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7137FC1A97C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0A5CC8F286;
+	Fri,  9 Jan 2026 08:08:10 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [52.229.168.213])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97453C1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 07:49:44 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6097dm9Q092795; Fri, 9 Jan 2026 08:49:33 +0100
-Received: from as8pr04cu009.outbound.protection.outlook.com
- (mail-westeuropeazon11011051.outbound.protection.outlook.com [52.101.70.51])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4bjkxmsbtm-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Fri, 09 Jan 2026 08:49:33 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u5jeyOhkcZuu8OvcMjwhkVg3xqOD59y5HicDkB7Yyvu0F7KKydSIPIJDsbrzGTMW3njJ2QKxCYiEx/ZoKKzkAv5j517+cZ8vuXMR/Ro/V6niLaxfidBNN1d0iTodV9u4fzCRq6JFBuNLPOURrx+kxjuSLFG5/EyEhgUTqxGmYKzNTF5WVdvxN/Y+ck/OE8dkJBzAOBkz1FZ+quh9eRom9td3crLBGJcUgVVwkwzpFqMZAJEzxWg5vMRwtpEj62ZwMtgU0IemIoPbgVw+slddvFtpJjl6NbATVHu/6E5drqAKXF8GE8H2erk4M/2z0sDkZZXMMhRfQUPy8MLGEwGRlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YP/Ji01uhAm9K92jtj7rbZlu+UyrKD5cqctC4U24XMY=;
- b=pPY4G0jP1vsRp4o0Mj+5sot/ZPzTknM/gEsce+K6jvl7XaHGaf5d1/DIiR0JECnYCb/1oJmhekfu1x/XjUn8dB3F2R8gkaMZWb1i6Hv34JRFCXKZ5pyPyH2Gellk3Y1tpHoyaXzSZWGFNdySBKmm3c9rOHwuCHBZ9hzh3aS3/9LvG0W13kh3OVjnbKaCYR0MqnfgGlP0LKQ75R8/MvN1wKH3Z4vYQN4WSoeM3yKRq2MFrgGTwRY8hJeZdrGy33z/AXuAnKPuPN6gjlmdseyxpeasW2k/nWqJ7Ot0OTXOka9ANZrJETNmPZRSev+r6L97G0klAP2nR6NE6iyIXJQLPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YP/Ji01uhAm9K92jtj7rbZlu+UyrKD5cqctC4U24XMY=;
- b=l32t3jWoZ4fiABVu88PHAHm7mKWILaiR6D5VIeZv2wqsSjq+9mWmGnmzYOvdl610erz1yZiFjZm3pv1ROKSCT80i+ubatK4V0rMPRE24LcypWZ+s5OUofXgIaVx+vlSdzXWXB3DknH5WrXLxRrjVWL+3ZGCcMNHanQ4NejExGQN8fmxIEdQYnTo0/45xP35tUgUpacjMH/aAntVVOTWF6Bl5UxIR3tKSMuBIx6jX71iEWPLdr7e849SQuXSoWkp+bfo3kxHVOqi8lEkHILcXUsLCtjd5m8QModAGWoCelkog17O8mhPmyrtPy3As7/V1gBr7VxFWufZ44J29HZDGYw==
-Received: from DB3PR06CA0008.eurprd06.prod.outlook.com (2603:10a6:8:1::21) by
- VI0PR10MB9334.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:2b1::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9499.2; Fri, 9 Jan 2026 07:49:31 +0000
-Received: from DU2PEPF00028D0D.eurprd03.prod.outlook.com
- (2603:10a6:8:1:cafe::ed) by DB3PR06CA0008.outlook.office365.com
- (2603:10a6:8:1::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.4 via Frontend Transport; Fri, 9
- Jan 2026 07:49:30 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028D0D.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 07:49:30 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 08:50:47 +0100
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 08:49:29 +0100
-Message-ID: <aa296b61-eba0-407f-a80b-a5c574a6a7c9@foss.st.com>
-Date: Fri, 9 Jan 2026 08:49:29 +0100
+ Fri,  9 Jan 2026 08:08:08 +0000 (UTC)
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+ by app1 (Coremail) with SMTP id TAJkCgB3fmtOt2Bp+ImSAA--.13189S2;
+ Fri, 09 Jan 2026 16:07:43 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ rmk+kernel@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri,  9 Jan 2026 16:06:01 +0800
+Message-ID: <20260109080601.1262-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Alain Volmat <alain.volmat@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Hugues Fruchet <hugues.fruchet@foss.st.com>
-References: <20251219-stm32-mp2x-dcmipp-csi-power-domain-v1-0-a6edb2aa8154@foss.st.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20251219-stm32-mp2x-dcmipp-csi-power-domain-v1-0-a6edb2aa8154@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0D:EE_|VI0PR10MB9334:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ef4cd0e-4290-41ad-305c-08de4f539f4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014|7416014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bFcyeHRLUHZxeVhHb1hmbXMwNDl6UHRFNGU3UFQyOGZNNHF5QWNLMlJvSys0?=
- =?utf-8?B?b2dFUFdoRkVzWThKTVJCSjBlY1ZoZm84TWJldnp1aHhyK0R2eWVuditEM1BW?=
- =?utf-8?B?bGt5TURMZTVsWEQvemxOcVREblAyc3dkeVB6blp0MmVCbmZPaGFzNGNZTHRa?=
- =?utf-8?B?Um1NNW9abVdzSi9DTWdQYm4xWEZvbnM3WUtjUldGOEtXb2ZvWllQZGRkeThO?=
- =?utf-8?B?aWtUNVNCSW9KK1AwOUdjeTZYK3Q2cEJ1YWU2TXBTVlpmUWpaSk5ncFFmNnFD?=
- =?utf-8?B?cTEzWXJwUGZGZnhSK3g4RFBFK3ZwSi9jdXBrd2prT0krWG52REkwblhTWnpz?=
- =?utf-8?B?TGlHaER1eWpKWkFxcUJZZkppdHVMM1J1MEpVbVlxaUp3bmhOV0xzN2RaQzBu?=
- =?utf-8?B?MFdFRjJWMGx3QU9QaWpoOUJWUzA0bVQ3ckdvSForTlhBdlUxOUYwUkdPaVhH?=
- =?utf-8?B?M3pNbnhKY1BjclRVYyt0Qk9WdHZMeWdPVTl2ZUhwamdlQWNSUXhqRXZlc0lX?=
- =?utf-8?B?eGhFaWo2VllMOVYyZUN3eVlld2RlZTdiM2prOTN3UHp5cVRmK280bWhKcXRU?=
- =?utf-8?B?NDl0RUR2MTU3UTFqVnhJMmJJeWh0V3Z6ZXlhb1NhQ29sck10aGZHa0hzbUlz?=
- =?utf-8?B?SXpCeEMwbXVSRXJ5RGZPNnY1ak0ra3hkaGtUY2ZLYlVpQndDZ3h3ZjZ1YVBU?=
- =?utf-8?B?TEtxeGU4dTJTTFd3Qyt4SXhJZXNHMGExTVczZTNSbCtEajA5d1NoM3VsaGsw?=
- =?utf-8?B?d3VVQ3hVVzVIVmo4bWlxSXNHc0t1clJYV0thMmhDQ1ZVVXY2UURQMWpIbG5m?=
- =?utf-8?B?ZlR4M0FWQWpHWVdjZ0h0ZFZxd3pXemRZZGhueFNUakIrRzQwQTRrUVBDYVpk?=
- =?utf-8?B?MThBN0dJYVZrdVhvNDRvWWVybUFKWnAyUStyTXI0cFBCRll6SGtkd2pRZzdB?=
- =?utf-8?B?VWQ3N25YNG9UZ09CZVZ0cXV1T2ZXT3hkVmJFWGpLYTExSU5kOUNOeUh5ZUEx?=
- =?utf-8?B?aG9tSHJhSXh3aG42bzFQbzhWYjhtV0hWMlZHV2hhK3hnMHI3djc1bE9NVTU3?=
- =?utf-8?B?b3JCUHlDVkFLK0UwRWM3VEhPUnNLRVN2YVh1c2ZuRjhXaUhPTi8rcVpwQWY3?=
- =?utf-8?B?MDQ3WG0vNGVlQ3BmYWduaDNJeEIxRjZiR2pVcysyT0NZUGdLOXJNWDh0Rkx6?=
- =?utf-8?B?MDdwRGZncGU0NXBsSlFqU2Rac1hiV05OcE03YkU1d25adlNOdkJ5czdBaldT?=
- =?utf-8?B?NFRnU1Z4a3lQYXNCQlZWNDQ4b1U5blM1bXk2T01XaVh4ZDhYR3lYck45ZUZ6?=
- =?utf-8?B?Zm5mM1NCK055anlkb0NSMTJKRWdCVkJDNGp3NVdJbExya0o3c0NTeDlpaHYy?=
- =?utf-8?B?NzRiWkF2V0xzaDl5MVB1VUc5YXNWbU85Q21rMUhtamhZQjhzSDhYUlNINERa?=
- =?utf-8?B?TzQ4ZWI4SHRISXJ6eFBUYnMyY3A4b2w2bU5zdDhMdFlHWjh2dmhKRkJBM1pL?=
- =?utf-8?B?WmprM0htVlVuREpqdHFoSzZNN3FXemwyanhtRXJjZ0RuSDhFOHpHZGpnUFox?=
- =?utf-8?B?bk5hZUtWN054QkdoT0twSHJZRndwa1J5bXVyUjF1SFVQSFVCdXhEVDh2eXdW?=
- =?utf-8?B?bnlnZk5uVkd4cXFzU1hnU2lRT1Jyblp1RHl1aU5VTVhZZms0ODlIWE1MYktq?=
- =?utf-8?B?TFZhYUY3YUhoUHN2UWJUV0d2MlI2a29GSExXRERWYjNhQ0RUZDNMTFpJNDJB?=
- =?utf-8?B?NE5kK2pqWE5NakxQMDZ5eDhVVDZPQlN6MWc1UjhBZHErRitGOUZpQ2poL1Iz?=
- =?utf-8?B?MnFpVncwS1laZEFVQ05PT2luaFFHQ1oxdVNQemtJd1B5a254Mk9XTDk5OVZZ?=
- =?utf-8?B?TENQVUhNN0RmQXlna002SXhBZ1RTVmpHd2RaSGtVTlphWkgvL2JGdnZKSnA0?=
- =?utf-8?B?c0RRbTRzQXNhRjhmVFc5U0FTOGhzdlAwU1d5UENaaG10VExFYTRRU243STFK?=
- =?utf-8?B?ZDZ3RENpaEhhTWVseGt1aC9PMDNlWnhaMzkxajZwUDRoZ0IvalRxTytheWY2?=
- =?utf-8?B?cnZTMnpCNGxPbWFiMFVNMUVNMWhPeW03VGNrZVZDdGxvQm55STVhNU51VmJs?=
- =?utf-8?Q?mCgQ=3D?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7416014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 07:49:30.5567 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef4cd0e-4290-41ad-305c-08de4f539f4d
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D0D.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9334
-X-Proofpoint-GUID: fEVlvDYnMv6DDTQjmNMymfzI4p64pTh7
-X-Authority-Analysis: v=2.4 cv=O9s0fR9W c=1 sm=1 tr=0 ts=6960b30d cx=c_pps
- a=kPSeKj3yqbVmzWy7JHOGrQ==:117 a=d6reE3nDawwanmLcZTMRXA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=TP8aPCUxYTYA:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=j-HlW0InjF_BdKxMxSMA:9
- a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTA5MDA1NCBTYWx0ZWRfXztLVCJbr+9NY
- Szvg0BYsYfkjI8Sle0ndTqEjL/D7b5fIgZidxRoPlJPYMesXT8945t4JhJZ4in8HKMK4FXBhqUK
- gChz0Yyj0hvOXocWBzJlXJQOruLP/WS9ygMtRI6rdvmBVgLbvO8PiQvTyhbLeSBxRbFpPqgWyay
- DTtXYgX/nYQzYN1tsfrZyXeevvT/8d/vf8wi431NKDGXdImazlrhYX3pvxDqrbUx3VaCwrbnBv3
- tuieHBsZNJI0VYOfKYjv4AtJ2LsnAVSoorWZaau5214Dcqq0d8vuPuhuMlNsyY2XaUHoXN+qdv6
- nuf0tCn4vbAqnZBn0jlDJ7S3j6/iDxeJTGomSUhYVmeNvzPUDfb0YNq/QC6droRH0/RVUtjaHIo
- np9HYmGk0hH/2osINqIwSD6gsOXqB+GrzLHsC3SWW84PlLnUeMgFrDeZG6OMBG+iRw8Z2TejXAy
- 4iTxOevDz+ooxVPmr8A==
-X-Proofpoint-ORIG-GUID: fEVlvDYnMv6DDTQjmNMymfzI4p64pTh7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-09_02,2026-01-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1011
- priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601090054
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/6] media: stm32: add dcmipp/csi
- power-domain support for mp2x
+X-CM-TRANSID: TAJkCgB3fmtOt2Bp+ImSAA--.13189S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr4fZw15XryfAw1xuF1fXrb_yoW5Gry5pF
+ WrGry3tr4qgw1ftwn2vr40gFyrXan5tF47uF1rJwn0vwn8CF1Fqr43tan5XFyDGrs3u3Wj
+ 9r1jqr4DCayq9FJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
+ k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+ MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
+ 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+ IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+ A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRkwIhUUUUU=
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+ Zhi Li <lizhi2@eswincomputing.com>, weishangjuan@eswincomputing.com,
+ linmin@eswincomputing.com
+Subject: [Linux-stm32] [PATCH v1 0/2] net: stmmac: eic7700: fix EIC7700 eth1
+	RX sampling timing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -179,42 +60,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-On 12/19/25 16:58, Alain Volmat wrote:
-> This series adds the bindings & dtsi updates related to the power-domain
-> properties for CSI & DCMIPP of the STM32MP2x.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
-> Alain Volmat (6):
->        dt-bindings: media: st: csi: add 'power-domains' property
->        arm64: dts: st: add power-domain of csi in stm32mp251.dtsi
->        arm64: dts: st: add power-domain of csi in stm32mp231.dtsi
->        dt-bindings: media: st: dcmipp: add 'power-domains' property
->        arm64: dts: st: add power-domain of dcmipp in stm32mp251.dtsi
->        arm64: dts: st: add power-domain of dcmipp in stm32mp231.dtsi
-> 
->   Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml  | 3 +++
->   Documentation/devicetree/bindings/media/st,stm32mp25-csi.yaml | 3 +++
->   arch/arm64/boot/dts/st/stm32mp231.dtsi                        | 2 ++
->   arch/arm64/boot/dts/st/stm32mp251.dtsi                        | 2 ++
->   4 files changed, 10 insertions(+)
-> ---
-> base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
-> change-id: 20251219-stm32-mp2x-dcmipp-csi-power-domain-7d57c8ce622f
-> 
-> Best regards,
+This series addresses an RX data sampling timing issue observed on the
+second Ethernet controller (eth1) of the Eswin EIC7700 SoC.
 
-Series applied on stm32-next.
+On the EIC7700 SoC, the hardware introduces a receive clock to data skew
+on eth1 that is not strictly fixed, but remains within a bounded range
+under normal operating conditions. At Gigabit speed, this skew causes
+the receive clock edge to occur later than the corresponding RX data at
+the MAC input, which can result in incorrect RX data sampling.
 
-Thanks
-Alex
+The existing internal RX delay mechanisms, including the use of rgmii-id
+mode and rx-internal-delay-ps adjustment, provide only a limited amount
+of additional delay on the receive path, which does not offer sufficient
+adjustment range to compensate for this condition. To address this, the
+EIC7700 MAC provides an EIC7700-specific clock sampling inversion control,
+which effectively shifts the sampling edge earlier and restores a valid
+RX sampling window for Gigabit operation.
+
+In addition, this series updates the enum values of the
+rx-internal-delay-ps and tx-internal-delay-ps properties in the device
+tree binding to reflect the actual delay step resolution implemented by
+the EIC7700 hardware. The hardware applies delay in 20 ps increments,
+while the previous enum values were based on an incorrect 100 ps per
+step mapping.
+
+The binding enum values and the driver conversion logic are updated
+together so that the specified delay in picoseconds maps correctly to
+the underlying hardware delay steps. This change corrects the DT-to-
+hardware mapping and does not change the meaning or intended usage of
+the delay properties.
+
+The first patch updates the device tree binding to describe optional
+clock sampling inversion control and the required HSP CSR registers.
+
+The second patch updates the EIC7700 DWMAC glue driver to apply the
+sampling correction at Gigabit speed, clear residual delay settings
+left by the bootloader, and ensure all register accesses are performed
+only after clocks are enabled.
+
+These changes restore reliable RX operation on eth1 and ensure the
+hardware is initialized into a known and consistent state.
+
+Zhi Li (2):
+  dt-bindings: ethernet: eswin: add clock sampling control
+  net: stmmac: eic7700: enable clocks before syscon access and correct
+    RX sampling timing
+
+ .../bindings/net/eswin,eic7700-eth.yaml       |  57 +++++++-
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 132 +++++++++++++-----
+ 2 files changed, 148 insertions(+), 41 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
