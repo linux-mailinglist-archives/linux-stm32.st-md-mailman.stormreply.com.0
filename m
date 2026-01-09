@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE14D08886
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:24:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C422ED0888D
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:24:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87680C8F286;
-	Fri,  9 Jan 2026 10:24:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96A63C8F286;
+	Fri,  9 Jan 2026 10:24:20 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E125C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 564E1C1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 10:24:08 +0000 (UTC)
+ Fri,  9 Jan 2026 10:24:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 87FD260166;
- Fri,  9 Jan 2026 10:24:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A89C16AAE;
- Fri,  9 Jan 2026 10:24:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86A896017A;
+ Fri,  9 Jan 2026 10:24:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E51C16AAE;
+ Fri,  9 Jan 2026 10:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1767954247;
- bh=sws3c2Q7sg64FTK0Tatp3OBfCQZp2TP1cZM4XUeIng8=;
+ s=korg; t=1767954258;
+ bh=iUq+dtxfpnC8FVWbeMWFgIFXrNcEMGIR+2oWrSColt8=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=HPgzd3cTDGmpuSSytjWkPz7twtNmWuAUCZCV7iXqT/gdUEQvEhLe35/bz6K0gSvEx
- pm1z8i71/uh3FRAYLbs6BFsS54v4ModDZGaeJsVDF46XLsOUNHfm1C5FZXdabKehAu
- H/yz25uIKAXpOmFv86dTQVWenOALG2NwmIBh1PSM=
+ b=j1W1tB1fwOFADXFGzgGgNgsJBz1rZyeNFTA6Ys++eim+syFOpgKWObR3ThW7oH6q+
+ yKmuQkVUN7cQMDK8siezcaRATrH3yTwVGOsFqM9v2GOaW+DcATFzVdWU1Ss0S3UBKg
+ yA1JKqukuU7GNQT5ejIPltCLxRO/tiLy5J06bvY0=
 To: alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  mcoquelin.stm32@gmail.com, sean@geanix.com, u.kleine-koenig@baylibre.com,
  ukleinek@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 09 Jan 2026 11:24:04 +0100
+Date: Fri, 09 Jan 2026 11:24:15 +0100
 In-Reply-To: <20260108-stm32-pwm-v2-1-ced582974f8b@geanix.com>
-Message-ID: <2026010904-erased-prologue-1282@gregkh>
+Message-ID: <2026010915-overlay-condense-db9d@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
 Subject: [Linux-stm32] Patch "pwm: stm32: Always program polarity" has been
-	added to the 5.10-stable tree
+	added to the 5.15-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,13 +60,13 @@ This is a note to let you know that I've just added the patch titled
 
     pwm: stm32: Always program polarity
 
-to the 5.10-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.git=
 ;a=3Dsummary
 
 The filename of the patch is:
      pwm-stm32-always-program-polarity.patch
-and it can be found in the queue-5.10 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -121,7 +121,7 @@ Signed-off-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
 
 Patches currently in stable-queue which might be from sean@geanix.com are
 
-queue-5.10/pwm-stm32-always-program-polarity.patch
+queue-5.15/pwm-stm32-always-program-polarity.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
