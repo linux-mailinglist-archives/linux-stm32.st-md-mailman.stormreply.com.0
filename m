@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01189D08897
-	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:24:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1183AD0889D
+	for <lists+linux-stm32@lfdr.de>; Fri, 09 Jan 2026 11:24:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6F7BC8F286;
-	Fri,  9 Jan 2026 10:24:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7411C8F286;
+	Fri,  9 Jan 2026 10:24:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9C7EC1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65D6BC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jan 2026 10:24:35 +0000 (UTC)
+ Fri,  9 Jan 2026 10:24:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E86336016B;
- Fri,  9 Jan 2026 10:24:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45188C16AAE;
- Fri,  9 Jan 2026 10:24:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4390F40693;
+ Fri,  9 Jan 2026 10:24:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9303AC16AAE;
+ Fri,  9 Jan 2026 10:24:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1767954274;
- bh=FW9b4sfyAM8QZdUznkWtL4KKn67NHjDt0Os2I6oZf7U=;
+ s=korg; t=1767954283;
+ bh=QLg70m52S+BZ/YlLw0GoYosME7rDVF1RLDHJ1MV2EEk=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=YyaCYu84bFN34xMP7JMfIBXgFfJgpQsuxgMxoyWupVlCZ1mOL0GvLZYVFJe6lYu4I
- sVIhm+YrKtURU3WytjBXXDtvA1jaMXsu7iTbZtD1kBYioJyEAWd9ZAxAHPAK4y6T+H
- BCrZBexc134pmRhE1TtkD+AEqIj6CgT83skRxILM=
+ b=fX+mz7wtbjB3i84dupJqpxXg2rV7lDi4uFgnS17LKsgvqc4EbZlue27OJoVFz4obP
+ SvnuBeBtYa7cH5H0pNpeq/cIIRvcwt5bqfS6CFEiFgJR6ui+nO/PrZ/Gtp9/nvnCLA
+ h2OcFpqds/O0zGiRVk0Oo2UJr+dPKdUbHGx4DmRg=
 To: alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  mcoquelin.stm32@gmail.com, sean@geanix.com, u.kleine-koenig@baylibre.com,
  ukleinek@kernel.org
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 09 Jan 2026 11:24:32 +0100
+Date: Fri, 09 Jan 2026 11:24:40 +0100
 In-Reply-To: <20260108-stm32-pwm-v2-1-ced582974f8b@geanix.com>
-Message-ID: <2026010932-vivacious-idly-1ade@gregkh>
+Message-ID: <2026010940-skewed-curable-c81f@gregkh>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
 Subject: [Linux-stm32] Patch "pwm: stm32: Always program polarity" has been
-	added to the 6.6-stable tree
+	added to the 6.12-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,13 +60,13 @@ This is a note to let you know that I've just added the patch titled
 
     pwm: stm32: Always program polarity
 
-to the 6.6-stable tree which can be found at:
+to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.git=
 ;a=3Dsummary
 
 The filename of the patch is:
      pwm-stm32-always-program-polarity.patch
-and it can be found in the queue-6.6 subdirectory.
+and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -105,7 +105,7 @@ Signed-off-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
 
 --- a/drivers/pwm/pwm-stm32.c
 +++ b/drivers/pwm/pwm-stm32.c
-@@ -462,8 +462,7 @@ static int stm32_pwm_apply(struct pwm_ch
+@@ -458,8 +458,7 @@ static int stm32_pwm_apply(struct pwm_ch
  		return 0;
  	}
  =
@@ -121,7 +121,7 @@ Signed-off-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
 
 Patches currently in stable-queue which might be from sean@geanix.com are
 
-queue-6.6/pwm-stm32-always-program-polarity.patch
+queue-6.12/pwm-stm32-always-program-polarity.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
