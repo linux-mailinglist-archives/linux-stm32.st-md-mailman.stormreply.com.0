@@ -2,156 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D94D0D763
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jan 2026 15:29:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69685D0D8DF
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jan 2026 16:47:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95ADFC1A97F;
-	Sat, 10 Jan 2026 14:29:13 +0000 (UTC)
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11020077.outbound.protection.outlook.com [52.101.229.77])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44A01C8F283;
+	Sat, 10 Jan 2026 15:47:41 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24685C055F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D091EC055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jan 2026 14:29:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGq9nH6kLKlOYIIkcxDv2vMgIet7YnbDtFfdwOQMCvQO0OqQuBv7J8rZtEkOl1yy+5pS/K/tZiyZYOrq3cA/nvyiVfpO6bRIliymL8U1lFPUYckK246AALaYVsxju8/UdMiJKjZhanrzgpLfmTl01DPDzbis1v5m5T9vwZ7ZrEIHZGDEl4MUWIXfJdbMX7D6wcA5cOdogMkPzIuFWlogAOOYrLpJhJx39Q/uhIh0G01PtmFhoMsiKSBCrovK4f0W4ipOx+K3IwkeNg7Gb2MncO6HAWGunDC7bVaehY9wVHK2t1j5uMbTO67kdd3DwzFB2O6ZuaGLo8AoSWVIhkcJSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oEewp1sVgCNjI+9i/2Pnki3CvghtK/9axvfuDDuPUAE=;
- b=i01CjjJ7FeeNTxSDwWNfT0GMEvozax95UjMK3iXAhnYlezh8EhY9mV7h4WbW2818l9e6/PwXjbKB3ybkXyM1Mr1ZaIHZGqgBbGV539/cydkkhp4CrfrC2GYi7pfe/oV1S7PZko3OdNJAthEfz3x7t1yhSTxtRoiHGYJkHuCLckg7Ao7SH4K/puCjx+HCkHoOEbJJyCV3uiXJmL2/lBFmoirLKcHYcjatT3jzVxSk3JlrlxXluFljSVZam6h2AhwmMYHQ9lU8X5SIpvecDZKqYHvwo6o1EGObB+X1CBclY23RGyZdkdZA4NEiZpb/LkyAKN+NAlvgqqeG1wfHIEU90w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oEewp1sVgCNjI+9i/2Pnki3CvghtK/9axvfuDDuPUAE=;
- b=X9DupauA2JK2Kc5C2oGgJ3HKbLFmr5mpORgtSul1pn0T99IitzCwrUrj0Os5M1446IVit2zgkRztlsUvw6X5aQHUuTpDY9p/yAG/2ht73xLncNDYwrpOwSap9RtU1VS/s7k2/ljIcG+laj2yR11Ascua6cgm2zbYFjH65ayogLI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by OS9P286MB4045.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2cd::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.6; Sat, 10 Jan
- 2026 14:29:08 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9499.005; Sat, 10 Jan 2026
- 14:29:07 +0000
-Date: Sat, 10 Jan 2026 23:29:06 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Niklas Cassel <cassel@kernel.org>
-Message-ID: <wvb42kyfcpyii3jql2gm75dd6hqpcd32yat2yb7cg7sl3raw4l@d4mfxk47l6md>
-References: <20260108172403.2629671-1-den@valinux.co.jp>
- <20260108172403.2629671-4-den@valinux.co.jp>
- <aWAZv3ZwdUmo4_wc@ryzen>
- <nqpwi6ewen4kf7jqgon4ljerceqjeaule25dzb6ytas3wslqhp@ddkr3jum6eac>
- <aWC8jGTtKIzVuG-X@ryzen>
-Content-Disposition: inline
-In-Reply-To: <aWC8jGTtKIzVuG-X@ryzen>
-X-ClientProxiedBy: TYCP301CA0066.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7d::7) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+ Sat, 10 Jan 2026 15:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=nUHVAoAREYLF1TzcvPdgfaRGlq1lrNPziR3WwRPXhq4=; b=A0iYr7prmMiASSL1AOz8/XgGnp
+ ovZha2vbY0r/bjN1U7KLi7QQ95Ls88EQ7rWpiXyuL4qd5r5L5sAxP6f18XrMYnZfdbPpXk+CATM+k
+ 7hyz++Y0TvK6+c6JaSPTlVYElOR7Ov9sUzc4dGjAtrF6+Mc8Ev73r4UOwQBLJdlJaVVlaOk9Yz91e
+ 0EFZdcfLSQC9+VcyGqk7RdkISvlDd9/jUERKYAM1CLejmpG+vYtP50qQE3HqPSiGJ4gsrh0MS5trN
+ Pk1sI854m9fkkLK88dF6pD/ZIrKSKrM6I04zOdgPRGmSAfZgxygS1zea+BnrP0mGVUT8dwzXKd7Bt
+ lbHi5hXQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53048)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vebBV-000000004qn-3BkF;
+ Sat, 10 Jan 2026 15:47:25 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vebBR-000000004Mx-2YK5; Sat, 10 Jan 2026 15:47:21 +0000
+Date: Sat, 10 Jan 2026 15:47:21 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Stefan Eichenberger <eichest@gmail.com>
+Message-ID: <aWJ0iV6-_4XqpeHD@shell.armlinux.org.uk>
+References: <20260105100245.19317-1-eichest@gmail.com>
+ <6ee0d55a-69de-4c28-8d9d-d7755d5c0808@bootlin.com>
+ <aVuxv3Pox-y5Dzln@eichest-laptop>
+ <a597b9d6-2b32-461f-ac90-2db5bb20cdb2@lunn.ch>
+ <aVvp70S2Lr3o_jyB@eichest-laptop>
+ <aVvwOYce1CFOLiBk@shell.armlinux.org.uk>
+ <aVv7wD2JFikGkt3F@eichest-laptop> <aWC_ZDu0HipuVhQS@eichest-laptop>
+ <8f70bd9d-747f-4ffa-b0f2-1020071b5adc@bootlin.com>
+ <aWJXNSiDLHLFGV8F@eichest-laptop>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OS9P286MB4045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55fb5687-b86a-486a-afdc-08de50549d16
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|10070799003; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2NkuIC3mjPBRSePFjjCDRX+JcpckD7TwIJCnWOxENi9wl4kBBVrS94np0DqN?=
- =?us-ascii?Q?WRdjspkbLc7/V+YHaMLN7miz9Nb5Y44N8xAIdtVmUk1hkExUhg1KSnExrTD/?=
- =?us-ascii?Q?fQZBeR5W9GPJfV0RLVolz499Mfv9jHXeYRyMiMQW6dK28/54g2jId/c9UbNH?=
- =?us-ascii?Q?0dfHz+noXPru9QpUyEsVnOGpUQs6NQshisZH3HCEJYeBvF1fEcJVXQdai716?=
- =?us-ascii?Q?qKn25UYAsszAB0IRpzJC2dURoyibGYdAyMAceQ+YZVQm1RIsbCQoh1UxvWtt?=
- =?us-ascii?Q?dUIOG5oQmc8hDRPAwiyVtzBNLVCDeBSLpZ6oVnGK5EczSSJgiSQrrZ/khPE0?=
- =?us-ascii?Q?zHc/mIOY4GPZE3KWoUGWg9y9eG0to3bCF/mzyAXHO24eXViwTZfy6LMba3DP?=
- =?us-ascii?Q?z/jaUHo/rhzFfQs+oDKWVd1ickKDM1gb5f+FkV0pvh+2Ruh1uX9HWDO1JahL?=
- =?us-ascii?Q?ReklImDM4jaNRAvOunOE0ZZjRF73K9IfUj97nx+ZBCR8WPMJt8Nj/0x8FmZG?=
- =?us-ascii?Q?p59FRKQTzKiHqig5rmUq63cxga+qYFFB8AYGrE9HxVZpM0nuAEzsJcjUS07O?=
- =?us-ascii?Q?sFBLOcFF/GGtvpw8fu9YiQ2WdMAOmkwOU/h83ZjkPKkYAchCc094x/is7a8o?=
- =?us-ascii?Q?q2lGp7KxdJZJHrvAguRQTTrY/gowBFsGMo2OjwSmqAheIIZjYN2rEqXh8nKe?=
- =?us-ascii?Q?fC1OtYsdcaN38r7izYuDwNCfhpbCGJ8gM0EOrOuRTHS5LUf0hxVYoGMd7U7x?=
- =?us-ascii?Q?QCzyHUQs2eGTcRlwSfHokRmQ5qneWtauqHn4/o7nrCpFWXuC8RvRqsSPxM1U?=
- =?us-ascii?Q?R0cgAVFC5iVVGv6GhHod9S2RaQzSVRK5kl7vY4Lpa+hgPCZjiomeUjESAAxG?=
- =?us-ascii?Q?x2P5TODi4cARcWnQinNerp12RwT0lKxtVTuIDZl3wFDk7Tjkx9NyqSNV4lnp?=
- =?us-ascii?Q?wNStmRBZHx4fZapv+XQqFBIKTkRoMfYXIv+7zEw8HQV1VNzB0ltoyUBUC2JI?=
- =?us-ascii?Q?WljYP+KqcHPmse1mrqFOO6BCG+XLm1WjIlQRxLNj9oz8eKXeTa3x0xTjCsaA?=
- =?us-ascii?Q?NxUW3etp2g9W54QI6uO30b1MMpQVaeyEhh/nceATnCP6Uobp7XQIQTaQKCOm?=
- =?us-ascii?Q?y3WQcOJf7u9HWhxNWa0eRJLgUdBMvRuLGhn24e7Md6TNDZT2riDP/RwM6IHo?=
- =?us-ascii?Q?8lZRSdjie3S+voI/Mn0SIab+IyQ4z1xLu8U0SyFuPOoolTT6FDcEinm/D3XZ?=
- =?us-ascii?Q?5GwjdZrN479gblDGbJTTEI8ueBiQfHITYHuE1QpFDCMSUXZQSAgb92nIQxUJ?=
- =?us-ascii?Q?2GOIVpAywI59R61dkdYssJwNS/fp9xwo+x7XA8GggeayQCeXAqL2flbNVYGC?=
- =?us-ascii?Q?JorIEl9JTcHAjQ44FlPixrSEEbc0qZmutS0Lnf7jZbaNdvpO4p0hCKuGmWHv?=
- =?us-ascii?Q?j3G/4PE7hh7uJlZOx2AI3PJ+xIv4kYt6z9JbBQCSuZRRrkPqjfanuA=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003); DIR:OUT;
- SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NGYGn+WIGyzR/n6p7j1yRq1qJ/dlDPtF9xNpO1eBfJRgdD6XbMg6H6UPZGU0?=
- =?us-ascii?Q?iLaPzwK3ecSaYI2qWrcR4r+aErlWpC+XeAcIZhfKKI85jFQNFAhxECJPQQRB?=
- =?us-ascii?Q?AseW0kM4rlsqPKF5heWsg6nhsUSaIlJiidwS4zxFT1JsKPJdd+cbmeOJ0HgM?=
- =?us-ascii?Q?0w4/94NizQajpMc9QqTDZlBUq3G6KanpYyKmt/t6u0NBOQOqBcsN2ayRJXhh?=
- =?us-ascii?Q?FnSOd7Gr7azBiFNj+s7/2xDFN5Ze/0wzfztxj9uYw4jyTpDneNwtvrm2j2fh?=
- =?us-ascii?Q?m9ZWMwp0Gnq9fJxnZureC35CAtAnUeW5lNUWC//a9N+GbAIk8LP4zcCUA406?=
- =?us-ascii?Q?dMuhMoJi5UM519e2pGQhfMecX63IWsBbdNCi67c62ve003s2lGbp2SCnz2+z?=
- =?us-ascii?Q?09K0G2wqUKR1AJ1ySuRocn+8OZHIE7dAPVgnpUB3aslncrJ+trUfa8iXkDos?=
- =?us-ascii?Q?fJwajtmRuKJocpfCi72oTZZMu4XYfqbyp+tvkK3z2kXpnJ2I4/8iwAqWLtg6?=
- =?us-ascii?Q?n5f+GDzUV4D/32MHjwROT+X7+U79z5jN0mU1vsqof4cyCb5O5dpPBRxv5R8P?=
- =?us-ascii?Q?rMckaZHBGacHFdAbsc3/ztGeaNV700CDYUh6icncx+UInBVGJI6B45CJ6tS/?=
- =?us-ascii?Q?XRpZGyEf0yNOfPT235HlVjZlIa4EFe8jjsR6kE/UXanc5nYTtQdsMq39ywLJ?=
- =?us-ascii?Q?Skl5F2NhHhCfEiIOsAXsQdanHI3NvKS5rQajL9qIQzFXv3JJ0IgODMqpdFKp?=
- =?us-ascii?Q?icI3L16wHhKf9BBULyJJpbXzLz12r/XZRQIE2CeXULXKlcXjgrTWKnOxtbVI?=
- =?us-ascii?Q?ElAb2bm2ST3VB5bQnZOp/4MGS9zr6iCvAIAHPzkYxBz02kQ7SKtULRFEzCMk?=
- =?us-ascii?Q?ndbX9c+GtE+qE0HoNSTuY0em2B9w29kuQdY0xfLQzAX/ICaDKMLd7VlWvGx6?=
- =?us-ascii?Q?yOf0gD+qDYA3VwXrMQuG7Ma7sPFi0BOHOfnJHWDoTeIJFtUVnASXwM5NRHAc?=
- =?us-ascii?Q?n/VPJTmRGcd+NeV0axFBkH4uh7Gwz+qvy+iH3opRmLsJKZMCxF44QuJR0LIE?=
- =?us-ascii?Q?IlZjjyVZw1i63qsBcmTpExB+V83BLQ/x9aaKT+QS4sKgXxDiKcuZLJAi1SiK?=
- =?us-ascii?Q?oXUv9e81JmyzBzlzh0hB4QfK8u2EyKYtuJkG/b+DUKxPyjdDzzqeg3Z6datR?=
- =?us-ascii?Q?LldZDFtLgEMSOFWIgEpKVO/uJ1SW8BfJA29cNp3MElfsWpk8t8dQ5UaKThxh?=
- =?us-ascii?Q?p6uKpRRY2dWRUjjrhxCdVFwEDxOpM8dBfj3yvN6hnk1sm6Vk61Xrn9hAA3IA?=
- =?us-ascii?Q?U+uW8l33mBrza0HnN3OslwRhOJIkcdb6tQANgYfqhrL9/21wS24pdEdo3L6s?=
- =?us-ascii?Q?N2txVgY0E+Oc1HnT41DLj5Yt+tE/O32rejj8I/zj44ThydZTSbNZaU9NabAU?=
- =?us-ascii?Q?/ON953msueYuNDt6YG/s5U1V5UqsvrHPCHHjkBcqbNcJta3sYytLVWvN0Wtb?=
- =?us-ascii?Q?klld0HsI5d0cAQw8vsO7aoYEnfjtsqatOloZVa/poMymwbs1Z9om6b2cuBmV?=
- =?us-ascii?Q?DjPgm2RHcvV0rFMYubpa6huEVZkf0oHWRN6PSaJg8opOa3ToYH/MF1jEd6WA?=
- =?us-ascii?Q?WSo+n7FLvK2obNPOlOqo6L+yLMn6fH+89kTlfqv1vGAaG0wirMM0bpeEIhat?=
- =?us-ascii?Q?I1B01r567YlK4JRCc80cvzFMa6G7y1CoZ0SZNismGTerniT/SyAyG2pYbgSz?=
- =?us-ascii?Q?JcSa3qu35/pp6Kcfo5VEEuGLh0qAYErkgDgIiIFC6wcXVIvZKqdg?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55fb5687-b86a-486a-afdc-08de50549d16
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2026 14:29:07.7389 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8tNl7bOkcfBH72j0ereURQzNiTX5SJvMWg28wHIpadj83wc+f9dexAhE6Dk6HtAzY28Biv2lra5QoHkDIr5EyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4045
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
- minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
- kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
- shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
- mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
- s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
- linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
- roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
- linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
- heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
- shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] PCI: dwc: ep: Support BAR subrange
- inbound mapping via Address Match Mode iATU
+Content-Disposition: inline
+In-Reply-To: <aWJXNSiDLHLFGV8F@eichest-laptop>
+Cc: robh@kernel.org, Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, imx@lists.linux.dev, festevam@gmail.com,
+ s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ francesco.dolcini@toradex.com, andrew+netdev@lunn.ch, edumazet@google.com,
+ kernel@pengutronix.de, netdev@vger.kernel.org, kuba@kernel.org,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, pabeni@redhat.com,
+ shawnguo@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RESEND net-next v2] net: stmmac: dwmac:
+ Add a fixup for the Micrel KSZ9131 PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,133 +75,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 09, 2026 at 09:30:04AM +0100, Niklas Cassel wrote:
-> On Fri, Jan 09, 2026 at 04:29:14PM +0900, Koichiro Den wrote:
-> > > Does that mean that the usage of this API will be something like:
-> > > 
-> > > 1) set_bar() ## using BAR match mode, since BAR match mode can write
-> > >    the BAR mask to define a BAR size, so that the host can assign a
-> > >    PCI address to the BAR.
-> > 
-> > BAR sizing is done by dw_pcie_ep_set_bar_{programmable,resizable}() before
-> > iATU programming regardless of match mode. I keep BAR match mode here just
-> > because Address match mode requires a valid base address. That's why I
-> > added the `if (!base)` guard.
-> > 
-> > > 
-> > > 2) start() ## start link
-> > > 
-> > > 3) link up
-> > > 
-> > > 4) wait for some special command, perhaps NTB_EPF_COMMAND
-> > > CMD_CONFIGURE_DOORBELL or NTB_EPF_COMMAND CMD_CONFIGURE_MW
-> > > 
-> > > 5) set_bar() ## using Address match mode. Because address match mode
-> > >    requires that the host has assigned a PCI address to the BAR, we
-> > >    can only change the mapping for a BAR after the host has assigned
-> > >    PCI addresses for all bars.
-> > > 
-> > 
-> > The overall usage flow matches what I'm assuming.
+On Sat, Jan 10, 2026 at 02:42:13PM +0100, Stefan Eichenberger wrote:
+> Hi Maxime,
 > 
-> Ok, perhaps document something that the submap feature requires that the
-> BAR already has been assigned an address (and that it thus has to call
-> set_bar() twice, without calling clear_bar() in-between.
-> 
-> This is a new feature, and since you provide a mapping for the whole BAR,
-> I think it is logical for people to incorrectly assume that you could use
-> this feature by just calling set_bar() once.
-> 
-> 
-> > > Perhaps you should add some text to:
-> > > Documentation/PCI/endpoint/pci-endpoint.rst
-> > > 
-> > > Because right now the documentation for pci_epc_set_bar() says:
-> > > 
-> > >    The PCI endpoint function driver should use pci_epc_set_bar() to configure
-> > >    the Base Address Register in order for the host to assign PCI addr space.
-> > >    Register space of the function driver is usually configured
-> > >    using this API.
-> > > 
-> > > So it is obviously meant to be called *before* the host assigns a PCI
-> > > address for the BAR. Now with submap ranges, it appears that it has to
-> > > be called *after* the host assigned a PCI address for the BAR.
-> > 
-> > I agree. As I understand it, the current text seems not to reflect mainline
-> > since commit 4284c88fff0e ("PCI: designware-ep: Allow pci_epc_set_bar()
-> > update inbound map address"), but anyway I should add explicit
-> > documentation for this subrange mapping use case.
-> 
-> Sure, 4284c88fff0e ("PCI: designware-ep: Allow pci_epc_set_bar() update
-> inbound map address") modified so that set_bar() can be called twice,
-> without calling clear_bar().
-> 
-> However, that patch was a mess because:
-> 1) It got merged via the NTB tree, even though the PCI maintainer wanted a
->    different design:
->    https://lore.kernel.org/linux-pci/20220818060230.GA12008@thinkpad/T/#m411b3e9f6625da9dde747f624ed6870bef3e8823
-> 2) It was buggy:
->    https://github.com/torvalds/linux/commit/c2a57ee0f2f1ad8c970ff58b78a43e85abbdeb7f
-> 3) It lacked the proper conditional checks for the feature to work (and it
->    lacked any comments in the source explaining why it was skipping steps):
->    https://github.com/torvalds/linux/commit/3708acbd5f169ebafe1faa519cb28adc56295546
-> 4) It failed to update the documentation.
-> 5) It failed to add a new flag for this feature in epc_features.
->    I seriously doubt that any non-DWC based EP controller supports changing
->    the inbound address translations without first disabling the BAR.
->    (It probably should have added a epc_features->dynamic_inbound_mapping bit.)
-> 
+> Not problem, thanks a lot for the feedback and the discussion. I will
+> then proceed with the current approach and send a new version with an
+> updated commit message.
 
-Thanks for pointing me to the context, that really helps.
+We could add a flag to:
 
-> 
-> So all in all 4284c88fff0e in not the best example :)
-> 
-> 
-> Your new feature (epc_features->subrange_mapping) in epc_features appears
-> to depend on epc_features->dynamic_inbound_mapping, so it is a shame that
-> we don't have a epc_features->dynamic_inbound_mapping bit, so that this new
-> feature could have depended on that bit.
-> 
-> 	if (epf_bar->use_submap &&
-> 	    !(epc_features->dynamic_inbound_mapping &&
-> 	      epc_features->subrange_mapping))
-> 		return -EINVAL;
-> 
-> 
-> I think adding some documentation is a good step.
-> 
-> Perhaps we should also introduce a epc_features->dynamic_inbound_mapping bit?
-> Since you are making DWC glue drivers return a mutable EPC features, we could
-> set this bit in the DWC driver after that commit. What do you think?
+/* Generic phy_device::dev_flags */
+#define PHY_F_NO_IRQ            0x80000000
+#define PHY_F_RXC_ALWAYS_ON     0x40000000
 
-As you pointed out, support for dynamic_inbound_mapping is needed
-independently of my series. Given that, it would make sense to handle it
-either before this series, or to fold it into the next iteration (=v6) of
-the series if that is preferred.
+indicating that the MAC requires the full preamble, which the PHY can
+then test for and configure appropiately.
 
-If you already have a patch for dynamic_inbound_mapping in mind, I'm happy
-to wait for it and help test it.
+The question is, whether the requirement for the full preamble applies
+to many MACs, and whether there are PHYs that default to producing
+short preambles.
 
-> 
-> I realize that we would not be able to add any actual verification for the
-> epc_features->dynamic_inbound_mapping feature itself (in set_bar()), since
-> there is no way for set_bar() to know if a BAR has already been configured
-> (since struct pci_epc does not have an array of the currently configured BARs).
-> 
-> But at least it would allow an EPF driver (e.g. vNTB) to know if it can call
-> set_bar() twice or not, and can error out if the EPF driver is being used on
-> a EPC that doesn't support epc_features->dynamic_inbound_mapping.
+Looking at Marvell 88e151x, the only control it has is to pad odd
+nibbles of preambles on copper (page 2, register 16, bit 6.)
 
-That makes sense.
+AR8035 seems to make no mention of preamble for the MII interfaces, so
+I guess it has no control over it.
 
-Thanks again,
-Koichiro
+I've not looked further than that.
 
-> 
-> 
-> Kind regards,
-> Niklas
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
