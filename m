@@ -2,92 +2,156 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F98D0D67E
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jan 2026 14:42:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72D94D0D763
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jan 2026 15:29:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A35F0C055F4;
-	Sat, 10 Jan 2026 13:42:18 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95ADFC1A97F;
+	Sat, 10 Jan 2026 14:29:13 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11020077.outbound.protection.outlook.com [52.101.229.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53211C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24685C055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jan 2026 13:42:17 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-47a95efd2ceso45680775e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jan 2026 05:42:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768052536; x=1768657336;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=niKD7lwOtoha0TRVTxtTbBYIAZIgplZuxoTzqvKJ568=;
- b=HfI0pqeEDJeqhFpw7FijAOGrL6MPHmguUGk6IikLl07DI3zfxdsmz3KyZfMIkIjRdg
- IBMczMkcemXIbXcMtHMEUi51CC+cIfXGdiiIM+X9E/j/3QCWUmTWuP201OxNS1gx2Rn0
- 2dFKwkIqEHuslvw0TfNhchhzRQE0TaJeeJVEeiO/KowBAOHLPIOUuvzxgubumyJNptek
- P/B+gUtOvieb0M7cGEaE3aFf4rfUuJc6f07H00ppo4F+LJkp+xKkERiQSLfrsm8AiVF7
- Bu4SEnGLlMbHal7/mGGMpf9M6EXP286U7BrsVQV1O/S07BXs5JMPaaGzmWP7EXSsbwgV
- cmmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768052536; x=1768657336;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=niKD7lwOtoha0TRVTxtTbBYIAZIgplZuxoTzqvKJ568=;
- b=PUBUBE5yHOKBKh0sz39cRMOdLTiW2j88Py1oAPz5Mt3UlPrXQybTCxeSmJkgrvEUT3
- 6l50wy2mUCoOCZdTWTO6BDUG+gkP2mcyV4q04qSlOsJLLVYs1rMc09SFYIrLgxv9SvCj
- miWGwtGOrW+5+M1ovoKlP2DteNmmndOuzGJZyjNQ0FW7AedAbyoG5hpxxF/VPDgXOJIh
- MUt9V/encdwwGgJRnEcEbyMTGtdhPFX5WD7YyTivAxSseYdKvGCQBIQQsWc1pOd7T/PM
- eZnDCFVbiaI+eorjeYONLmQPTtTCrWrfup5flYHiWXU5dYTfIuKRDQ2Pjxemi0kXW9+b
- QCiA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVofaFiB/G2XY91JRdDrghkHhuZoIPLSzFJ5EJLxmJY5NWT0zDyeSEzDirqZwah9kMPGXBStKb5c8N+Bw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxzD57OhqHvEE/90sfzRE2KlzZ/jq5OjPyOUcMHMq4s5Z5YR0nv
- zCXPzCglk8GYb58qhq7No9Hfn295eCPgjdQ2XkC2CL/d1OjUnXsUYbbb
-X-Gm-Gg: AY/fxX7hhEGO0WvtuTz7nW/rXFCMtyOg8exVYuQNTEzUMEj6unZQ4626yCFKHZH043g
- l1z1GNaBC45rDuZI6zp71VJYW203CvhVFDeeHeZWIC4XAmENbs9dVifUpRK0N9ZD9U4Mpf5z7sO
- M+wWbEqp/uRCv2BKmP+r7rA5kt6xzjFpp8AMmYsYxvyJ/9KKFFS6fC6SUJiG9auDT/3T/HBp3vL
- O4i/QFJo+qP01P8Z32IWes6EB1Z1bTCaVAhWrLzqyTHjWE07t4iG5ItkRJHJC0ZID/yO5CSkaig
- rTk1JNT7B1t4zRv9eqpRG5zl2vx7kJxnc6eYVspc4PRXjtjlubDJMDAR2N8Oy5F0+TZ8248+myT
- UOw1hV09SNBVoMwk1bADiSGlo+F10V9E1j8VMedBUm+9LnirxZFudKccn5fHrkxaqL24+fYIb+G
- n4HhL7bRqn6pQ1i0SPaxucvg==
-X-Google-Smtp-Source: AGHT+IGNmY6EuRXQMgmECxnNtQwrRUp+VeCi3/b3F25cOPZ8t8M9RwpG6+Ph3Pg2FEMSimcUer23+w==
-X-Received: by 2002:a05:600c:4f53:b0:479:1a09:1c4a with SMTP id
- 5b1f17b1804b1-47d84b3b389mr154806905e9.31.1768052536352; 
- Sat, 10 Jan 2026 05:42:16 -0800 (PST)
-Received: from eichest-laptop ([2a02:168:af72:0:6968:58fa:e72d:87c0])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47d871ac28bsm85184595e9.20.2026.01.10.05.42.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 10 Jan 2026 05:42:15 -0800 (PST)
-Date: Sat, 10 Jan 2026 14:42:13 +0100
-From: Stefan Eichenberger <eichest@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aWJXNSiDLHLFGV8F@eichest-laptop>
-References: <20260105100245.19317-1-eichest@gmail.com>
- <6ee0d55a-69de-4c28-8d9d-d7755d5c0808@bootlin.com>
- <aVuxv3Pox-y5Dzln@eichest-laptop>
- <a597b9d6-2b32-461f-ac90-2db5bb20cdb2@lunn.ch>
- <aVvp70S2Lr3o_jyB@eichest-laptop>
- <aVvwOYce1CFOLiBk@shell.armlinux.org.uk>
- <aVv7wD2JFikGkt3F@eichest-laptop> <aWC_ZDu0HipuVhQS@eichest-laptop>
- <8f70bd9d-747f-4ffa-b0f2-1020071b5adc@bootlin.com>
-MIME-Version: 1.0
+ Sat, 10 Jan 2026 14:29:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oGq9nH6kLKlOYIIkcxDv2vMgIet7YnbDtFfdwOQMCvQO0OqQuBv7J8rZtEkOl1yy+5pS/K/tZiyZYOrq3cA/nvyiVfpO6bRIliymL8U1lFPUYckK246AALaYVsxju8/UdMiJKjZhanrzgpLfmTl01DPDzbis1v5m5T9vwZ7ZrEIHZGDEl4MUWIXfJdbMX7D6wcA5cOdogMkPzIuFWlogAOOYrLpJhJx39Q/uhIh0G01PtmFhoMsiKSBCrovK4f0W4ipOx+K3IwkeNg7Gb2MncO6HAWGunDC7bVaehY9wVHK2t1j5uMbTO67kdd3DwzFB2O6ZuaGLo8AoSWVIhkcJSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oEewp1sVgCNjI+9i/2Pnki3CvghtK/9axvfuDDuPUAE=;
+ b=i01CjjJ7FeeNTxSDwWNfT0GMEvozax95UjMK3iXAhnYlezh8EhY9mV7h4WbW2818l9e6/PwXjbKB3ybkXyM1Mr1ZaIHZGqgBbGV539/cydkkhp4CrfrC2GYi7pfe/oV1S7PZko3OdNJAthEfz3x7t1yhSTxtRoiHGYJkHuCLckg7Ao7SH4K/puCjx+HCkHoOEbJJyCV3uiXJmL2/lBFmoirLKcHYcjatT3jzVxSk3JlrlxXluFljSVZam6h2AhwmMYHQ9lU8X5SIpvecDZKqYHvwo6o1EGObB+X1CBclY23RGyZdkdZA4NEiZpb/LkyAKN+NAlvgqqeG1wfHIEU90w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oEewp1sVgCNjI+9i/2Pnki3CvghtK/9axvfuDDuPUAE=;
+ b=X9DupauA2JK2Kc5C2oGgJ3HKbLFmr5mpORgtSul1pn0T99IitzCwrUrj0Os5M1446IVit2zgkRztlsUvw6X5aQHUuTpDY9p/yAG/2ht73xLncNDYwrpOwSap9RtU1VS/s7k2/ljIcG+laj2yR11Ascua6cgm2zbYFjH65ayogLI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OS9P286MB4045.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2cd::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.6; Sat, 10 Jan
+ 2026 14:29:08 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9499.005; Sat, 10 Jan 2026
+ 14:29:07 +0000
+Date: Sat, 10 Jan 2026 23:29:06 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Niklas Cassel <cassel@kernel.org>
+Message-ID: <wvb42kyfcpyii3jql2gm75dd6hqpcd32yat2yb7cg7sl3raw4l@d4mfxk47l6md>
+References: <20260108172403.2629671-1-den@valinux.co.jp>
+ <20260108172403.2629671-4-den@valinux.co.jp>
+ <aWAZv3ZwdUmo4_wc@ryzen>
+ <nqpwi6ewen4kf7jqgon4ljerceqjeaule25dzb6ytas3wslqhp@ddkr3jum6eac>
+ <aWC8jGTtKIzVuG-X@ryzen>
 Content-Disposition: inline
-In-Reply-To: <8f70bd9d-747f-4ffa-b0f2-1020071b5adc@bootlin.com>
-Cc: robh@kernel.org, Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, imx@lists.linux.dev, festevam@gmail.com,
- s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- francesco.dolcini@toradex.com, andrew+netdev@lunn.ch, edumazet@google.com,
- kernel@pengutronix.de, netdev@vger.kernel.org, kuba@kernel.org,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>, pabeni@redhat.com,
- shawnguo@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND net-next v2] net: stmmac: dwmac:
- Add a fixup for the Micrel KSZ9131 PHY
+In-Reply-To: <aWC8jGTtKIzVuG-X@ryzen>
+X-ClientProxiedBy: TYCP301CA0066.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7d::7) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OS9P286MB4045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55fb5687-b86a-486a-afdc-08de50549d16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|10070799003; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2NkuIC3mjPBRSePFjjCDRX+JcpckD7TwIJCnWOxENi9wl4kBBVrS94np0DqN?=
+ =?us-ascii?Q?WRdjspkbLc7/V+YHaMLN7miz9Nb5Y44N8xAIdtVmUk1hkExUhg1KSnExrTD/?=
+ =?us-ascii?Q?fQZBeR5W9GPJfV0RLVolz499Mfv9jHXeYRyMiMQW6dK28/54g2jId/c9UbNH?=
+ =?us-ascii?Q?0dfHz+noXPru9QpUyEsVnOGpUQs6NQshisZH3HCEJYeBvF1fEcJVXQdai716?=
+ =?us-ascii?Q?qKn25UYAsszAB0IRpzJC2dURoyibGYdAyMAceQ+YZVQm1RIsbCQoh1UxvWtt?=
+ =?us-ascii?Q?dUIOG5oQmc8hDRPAwiyVtzBNLVCDeBSLpZ6oVnGK5EczSSJgiSQrrZ/khPE0?=
+ =?us-ascii?Q?zHc/mIOY4GPZE3KWoUGWg9y9eG0to3bCF/mzyAXHO24eXViwTZfy6LMba3DP?=
+ =?us-ascii?Q?z/jaUHo/rhzFfQs+oDKWVd1ickKDM1gb5f+FkV0pvh+2Ruh1uX9HWDO1JahL?=
+ =?us-ascii?Q?ReklImDM4jaNRAvOunOE0ZZjRF73K9IfUj97nx+ZBCR8WPMJt8Nj/0x8FmZG?=
+ =?us-ascii?Q?p59FRKQTzKiHqig5rmUq63cxga+qYFFB8AYGrE9HxVZpM0nuAEzsJcjUS07O?=
+ =?us-ascii?Q?sFBLOcFF/GGtvpw8fu9YiQ2WdMAOmkwOU/h83ZjkPKkYAchCc094x/is7a8o?=
+ =?us-ascii?Q?q2lGp7KxdJZJHrvAguRQTTrY/gowBFsGMo2OjwSmqAheIIZjYN2rEqXh8nKe?=
+ =?us-ascii?Q?fC1OtYsdcaN38r7izYuDwNCfhpbCGJ8gM0EOrOuRTHS5LUf0hxVYoGMd7U7x?=
+ =?us-ascii?Q?QCzyHUQs2eGTcRlwSfHokRmQ5qneWtauqHn4/o7nrCpFWXuC8RvRqsSPxM1U?=
+ =?us-ascii?Q?R0cgAVFC5iVVGv6GhHod9S2RaQzSVRK5kl7vY4Lpa+hgPCZjiomeUjESAAxG?=
+ =?us-ascii?Q?x2P5TODi4cARcWnQinNerp12RwT0lKxtVTuIDZl3wFDk7Tjkx9NyqSNV4lnp?=
+ =?us-ascii?Q?wNStmRBZHx4fZapv+XQqFBIKTkRoMfYXIv+7zEw8HQV1VNzB0ltoyUBUC2JI?=
+ =?us-ascii?Q?WljYP+KqcHPmse1mrqFOO6BCG+XLm1WjIlQRxLNj9oz8eKXeTa3x0xTjCsaA?=
+ =?us-ascii?Q?NxUW3etp2g9W54QI6uO30b1MMpQVaeyEhh/nceATnCP6Uobp7XQIQTaQKCOm?=
+ =?us-ascii?Q?y3WQcOJf7u9HWhxNWa0eRJLgUdBMvRuLGhn24e7Md6TNDZT2riDP/RwM6IHo?=
+ =?us-ascii?Q?8lZRSdjie3S+voI/Mn0SIab+IyQ4z1xLu8U0SyFuPOoolTT6FDcEinm/D3XZ?=
+ =?us-ascii?Q?5GwjdZrN479gblDGbJTTEI8ueBiQfHITYHuE1QpFDCMSUXZQSAgb92nIQxUJ?=
+ =?us-ascii?Q?2GOIVpAywI59R61dkdYssJwNS/fp9xwo+x7XA8GggeayQCeXAqL2flbNVYGC?=
+ =?us-ascii?Q?JorIEl9JTcHAjQ44FlPixrSEEbc0qZmutS0Lnf7jZbaNdvpO4p0hCKuGmWHv?=
+ =?us-ascii?Q?j3G/4PE7hh7uJlZOx2AI3PJ+xIv4kYt6z9JbBQCSuZRRrkPqjfanuA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NGYGn+WIGyzR/n6p7j1yRq1qJ/dlDPtF9xNpO1eBfJRgdD6XbMg6H6UPZGU0?=
+ =?us-ascii?Q?iLaPzwK3ecSaYI2qWrcR4r+aErlWpC+XeAcIZhfKKI85jFQNFAhxECJPQQRB?=
+ =?us-ascii?Q?AseW0kM4rlsqPKF5heWsg6nhsUSaIlJiidwS4zxFT1JsKPJdd+cbmeOJ0HgM?=
+ =?us-ascii?Q?0w4/94NizQajpMc9QqTDZlBUq3G6KanpYyKmt/t6u0NBOQOqBcsN2ayRJXhh?=
+ =?us-ascii?Q?FnSOd7Gr7azBiFNj+s7/2xDFN5Ze/0wzfztxj9uYw4jyTpDneNwtvrm2j2fh?=
+ =?us-ascii?Q?m9ZWMwp0Gnq9fJxnZureC35CAtAnUeW5lNUWC//a9N+GbAIk8LP4zcCUA406?=
+ =?us-ascii?Q?dMuhMoJi5UM519e2pGQhfMecX63IWsBbdNCi67c62ve003s2lGbp2SCnz2+z?=
+ =?us-ascii?Q?09K0G2wqUKR1AJ1ySuRocn+8OZHIE7dAPVgnpUB3aslncrJ+trUfa8iXkDos?=
+ =?us-ascii?Q?fJwajtmRuKJocpfCi72oTZZMu4XYfqbyp+tvkK3z2kXpnJ2I4/8iwAqWLtg6?=
+ =?us-ascii?Q?n5f+GDzUV4D/32MHjwROT+X7+U79z5jN0mU1vsqof4cyCb5O5dpPBRxv5R8P?=
+ =?us-ascii?Q?rMckaZHBGacHFdAbsc3/ztGeaNV700CDYUh6icncx+UInBVGJI6B45CJ6tS/?=
+ =?us-ascii?Q?XRpZGyEf0yNOfPT235HlVjZlIa4EFe8jjsR6kE/UXanc5nYTtQdsMq39ywLJ?=
+ =?us-ascii?Q?Skl5F2NhHhCfEiIOsAXsQdanHI3NvKS5rQajL9qIQzFXv3JJ0IgODMqpdFKp?=
+ =?us-ascii?Q?icI3L16wHhKf9BBULyJJpbXzLz12r/XZRQIE2CeXULXKlcXjgrTWKnOxtbVI?=
+ =?us-ascii?Q?ElAb2bm2ST3VB5bQnZOp/4MGS9zr6iCvAIAHPzkYxBz02kQ7SKtULRFEzCMk?=
+ =?us-ascii?Q?ndbX9c+GtE+qE0HoNSTuY0em2B9w29kuQdY0xfLQzAX/ICaDKMLd7VlWvGx6?=
+ =?us-ascii?Q?yOf0gD+qDYA3VwXrMQuG7Ma7sPFi0BOHOfnJHWDoTeIJFtUVnASXwM5NRHAc?=
+ =?us-ascii?Q?n/VPJTmRGcd+NeV0axFBkH4uh7Gwz+qvy+iH3opRmLsJKZMCxF44QuJR0LIE?=
+ =?us-ascii?Q?IlZjjyVZw1i63qsBcmTpExB+V83BLQ/x9aaKT+QS4sKgXxDiKcuZLJAi1SiK?=
+ =?us-ascii?Q?oXUv9e81JmyzBzlzh0hB4QfK8u2EyKYtuJkG/b+DUKxPyjdDzzqeg3Z6datR?=
+ =?us-ascii?Q?LldZDFtLgEMSOFWIgEpKVO/uJ1SW8BfJA29cNp3MElfsWpk8t8dQ5UaKThxh?=
+ =?us-ascii?Q?p6uKpRRY2dWRUjjrhxCdVFwEDxOpM8dBfj3yvN6hnk1sm6Vk61Xrn9hAA3IA?=
+ =?us-ascii?Q?U+uW8l33mBrza0HnN3OslwRhOJIkcdb6tQANgYfqhrL9/21wS24pdEdo3L6s?=
+ =?us-ascii?Q?N2txVgY0E+Oc1HnT41DLj5Yt+tE/O32rejj8I/zj44ThydZTSbNZaU9NabAU?=
+ =?us-ascii?Q?/ON953msueYuNDt6YG/s5U1V5UqsvrHPCHHjkBcqbNcJta3sYytLVWvN0Wtb?=
+ =?us-ascii?Q?klld0HsI5d0cAQw8vsO7aoYEnfjtsqatOloZVa/poMymwbs1Z9om6b2cuBmV?=
+ =?us-ascii?Q?DjPgm2RHcvV0rFMYubpa6huEVZkf0oHWRN6PSaJg8opOa3ToYH/MF1jEd6WA?=
+ =?us-ascii?Q?WSo+n7FLvK2obNPOlOqo6L+yLMn6fH+89kTlfqv1vGAaG0wirMM0bpeEIhat?=
+ =?us-ascii?Q?I1B01r567YlK4JRCc80cvzFMa6G7y1CoZ0SZNismGTerniT/SyAyG2pYbgSz?=
+ =?us-ascii?Q?JcSa3qu35/pp6Kcfo5VEEuGLh0qAYErkgDgIiIFC6wcXVIvZKqdg?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55fb5687-b86a-486a-afdc-08de50549d16
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2026 14:29:07.7389 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8tNl7bOkcfBH72j0ereURQzNiTX5SJvMWg28wHIpadj83wc+f9dexAhE6Dk6HtAzY28Biv2lra5QoHkDIr5EyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4045
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
+ minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
+ kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
+ hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
+ linux-arm-kernel@axis.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
+ shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
+ mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
+ s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
+ linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
+ roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
+ linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
+ heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
+ shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v5 3/3] PCI: dwc: ep: Support BAR subrange
+ inbound mapping via Address Match Mode iATU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,95 +163,139 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTWF4aW1lLAoKT24gRnJpLCBKYW4gMDksIDIwMjYgYXQgMTA6Mzg6MzBBTSArMDEwMCwgTWF4
-aW1lIENoZXZhbGxpZXIgd3JvdGU6Cj4gSGkgU3RlZmFuLAo+IAo+IE9uIDA5LzAxLzIwMjYgMDk6
-NDIsIFN0ZWZhbiBFaWNoZW5iZXJnZXIgd3JvdGU6Cj4gPiBIaSBldmVyeW9uZSwKPiA+IAo+ID4g
-T24gTW9uLCBKYW4gMDUsIDIwMjYgYXQgMDY6NTg6MjRQTSArMDEwMCwgU3RlZmFuIEVpY2hlbmJl
-cmdlciB3cm90ZToKPiA+PiBPbiBNb24sIEphbiAwNSwgMjAyNiBhdCAwNTowOToxM1BNICswMDAw
-LCBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgd3JvdGU6Cj4gPj4+IE9uIE1vbiwgSmFuIDA1LCAyMDI2
-IGF0IDA1OjQyOjIzUE0gKzAxMDAsIFN0ZWZhbiBFaWNoZW5iZXJnZXIgd3JvdGU6Cj4gPj4+PiBZ
-ZXMgdGhpcyBpcyBjb3JyZWN0LiBFUlIwNTA2OTQgZnJvbSBOWFAgc3RhdGVzOgo+ID4+Pj4gVGhl
-IElFRUUgODAyLjMgc3RhbmRhcmQgc3RhdGVzIHRoYXQsIGluIE1JSS9HTUlJIG1vZGVzLCB0aGUg
-Ynl0ZQo+ID4+Pj4gcHJlY2VkaW5nIHRoZSBTRkQgKDB4RDUpLCBTTUQtUyAoMHhFNiwweDRDLCAw
-eDdGLCBvciAweEIzKSwgb3IgU01ELUMKPiA+Pj4+ICgweDYxLCAweDUyLCAweDlFLCBvciAweDJB
-KSBieXRlIGNhbiBiZSBhIG5vbi1QUkVBTUJMRSBieXRlIG9yIHRoZXJlIGNhbgo+ID4+Pj4gYmUg
-bm8gcHJlY2VkaW5nIHByZWFtYmxlIGJ5dGUuIFRoZSBNQUMgcmVjZWl2ZXIgbXVzdCBzdWNjZXNz
-ZnVsbHkKPiA+Pj4+IHJlY2VpdmUgYSBwYWNrZXQgd2l0aG91dCBhbnkgcHJlYW1ibGUoMHg1NSkg
-Ynl0ZSBwcmVjZWRpbmcgdGhlIFNGRCwKPiA+Pj4+IFNNRC1TLCBvciBTTUQtQyBieXRlLgo+ID4+
-Pj4gSG93ZXZlciBkdWUgdG8gdGhlIGRlZmVjdCwgaW4gY29uZmlndXJhdGlvbnMgd2hlcmUgZnJh
-bWUgcHJlZW1wdGlvbiBpcwo+ID4+Pj4gZW5hYmxlZCwgd2hlbiBwcmVhbWJsZSBieXRlIGRvZXMg
-bm90IHByZWNlZGUgdGhlIFNGRCwgU01ELVMsIG9yIFNNRC1DCj4gPj4+PiBieXRlLCB0aGUgcmVj
-ZWl2ZWQgcGFja2V0IGlzIGRpc2NhcmRlZCBieSB0aGUgTUFDIHJlY2VpdmVyLiBUaGlzIGlzCj4g
-Pj4+PiBiZWNhdXNlLCB0aGUgc3RhcnQtb2YtcGFja2V0IGRldGVjdGlvbiBsb2dpYyBvZiB0aGUg
-TUFDIHJlY2VpdmVyCj4gPj4+PiBpbmNvcnJlY3RseSBjaGVja3MgZm9yIGEgcHJlYW1ibGUgYnl0
-ZS4KPiA+Pj4+Cj4gPj4+PiBOWFAgcmVmZXJzIHRvIElFRUUgODAyLjMgd2hlcmUgaW4gY2xhdXNl
-IDM1LjIuMy4yLjIgUmVjZWl2ZSBjYXNlIChHTUlJKQo+ID4+Pj4gdGhleSBzaG93IHR3byB0YWJs
-ZXMgb25lIHdoZXJlIHRoZSBwcmVhbWJsZSBpcyBwcmVjZWRpbmcgdGhlIFNGRCBhbmQgb25lCj4g
-Pj4+PiB3aGVyZSBpdCBpcyBub3QuIFRoZSB0ZXh0IHNheXM6Cj4gPj4+PiBUaGUgb3BlcmF0aW9u
-IG9mIDEwMDAgTWIvcyBQSFlzIGNhbiByZXN1bHQgaW4gc2hyaW5rYWdlIG9mIHRoZSBwcmVhbWJs
-ZQo+ID4+Pj4gYmV0d2VlbiB0cmFuc21pc3Npb24gYXQgdGhlIHNvdXJjZSBHTUlJIGFuZCByZWNl
-cHRpb24gYXQgdGhlIGRlc3RpbmF0aW9uCj4gPj4+PiBHTUlJLiBUYWJsZSAzNeKAkzMgZGVwaWN0
-cyB0aGUgY2FzZSB3aGVyZSBubyBwcmVhbWJsZSBieXRlcyBhcmUgY29udmV5ZWQKPiA+Pj4+IGFj
-cm9zcyB0aGUgR01JSS4gVGhpcyBjYXNlIG1heSBub3QgYmUgcG9zc2libGUgd2l0aCBhIHNwZWNp
-ZmljIFBIWSwgYnV0Cj4gPj4+PiBpbGx1c3RyYXRlcyB0aGUgbWluaW11bSBwcmVhbWJsZSB3aXRo
-IHdoaWNoIE1BQyBzaGFsbCBiZSBhYmxlIHRvCj4gPj4+PiBvcGVyYXRlLiBUYWJsZSAzNeKAkzQg
-ZGVwaWN0cyB0aGUgY2FzZSB3aGVyZSB0aGUgZW50aXJlIHByZWFtYmxlIGlzCj4gPj4+PiBjb252
-ZXllZCBhY3Jvc3MgdGhlIEdNSUkuCj4gPj4+Pgo+ID4+Pj4gV2Ugd291bGQgY2hhbmdlIHRoZSBi
-ZWhhdmlvciBmcm9tICJubyBwcmVhbWJsZSBpcyBwcmVjZWRpbmcgU0ZEIiB0byAidGhlCj4gPj4+
-PiBlbml0cmUgcHJlYW1ibGUgaXMgcHJlY2VkaW5nIFNGRCIuIEJvdGggYXJlIGxpc3RlZCBpbiB0
-aGUgc3RhbmRhcmQgYW5kCj4gPj4+PiBzaGFsbCBiZSBzdXBwb3J0ZWQgYnkgdGhlIE1BQy4KPiA+
-Pj4KPiA+Pj4gVGhhbmtzIGZvciBwcm92aWRpbmcgdGhlIGZ1bGwgZXhwbGFuYXRpb24sIGl0IHdv
-dWxkIGJlIGdvb2QgdG8gaGF2ZQo+ID4+PiB0aGF0IGluIHRoZSBjb21taXQgbWVzc2FnZS4KPiA+
-Pgo+ID4+IE9rYXkgdGhhbmtzLCBJIHdpbGwgcHJvdmlkZSB0aGUgZnVsbCBleHBsYW5hdGlvbiBp
-biB0aGUgbmV4dCBjb21taXQKPiA+PiBtZXNzYWdlLgo+ID4+Cj4gPj4+Cj4gPj4+IFRoZSBuZXh0
-IHF1ZXN0aW9uIHdvdWxkIGJlLCBpcyBpdCBqdXN0IHRoZSBOWFAgRVFPUyBpbXBsZW1lbnRhdGlv
-bgo+ID4+PiB0aGF0IHRoaXMgYnJlYWtzIG9uLCBvciBhcmUgb3RoZXIgRVFPUyBpbXBsZW1lbnRh
-dGlvbnMgYWZmZWN0ZWQ/Cj4gPj4+Cj4gPj4+IEluIG90aGVyIHdvcmRzLCBpZiB3ZSBjaG9vc2Ug
-dG8gY29uZGl0aW9uYWxseSBlbmFibGUgdGhlIHByZWFibGUgYXQKPiA+Pj4gdGhlIFBIWSwgc2hv
-dWxkIHRoZSBnZW5lcmljIHBhcnRzIG9mIHN0bW1hYyBoYW5kbGUgdGhpcyByYXRoZXIgdGhhbgo+
-ID4+PiBlbmRpbmcgdXAgd2l0aCBtdWx0aXBsZSBwbGF0Zm9ybSBzcGVjaWZpYyBnbHVlIGhhdmlu
-ZyB0byBjb2RlIHRoaXMuCj4gPj4+IChUaGlzIGlzIHNvbWV0aGluZyBJIHJlYWxseSB3YW50IHRv
-IGF2b2lkIC0gaXQgZG9lc24ndCBzY2FsZS4pCj4gPj4KPiA+PiBGcm9tIHRoZSBlcnJhdGEgZnJv
-bSBOWFAgaXQgc291bmRzIHRvIG1lIGxpa2UgaXQgaXMgYSBjb25maWd1cmF0aW9uCj4gPj4gaXNz
-dWUgYnkgTlhQLiBJIGNoZWNrZWQgdGhlIGZvbGxvd2luZyBFUlJBVEFzIGZyb20gdmVuZG9ycyB3
-aGVyZSBJIGhhdmUKPiA+PiBhY2Nlc3MgdG86Cj4gPj4gLSBTVCBTVE0zMk1QMTogbm90IGFmZmVj
-dGVkOiBodHRwczovL3d3dy5zdC5jb20vcmVzb3VyY2UvZW4vZXJyYXRhX3NoZWV0L2VzMDQzOC1z
-dG0zMm1wMTUxeDN4N3gtZGV2aWNlLWVycmF0YS1zdG1pY3JvZWxlY3Ryb25pY3MucGRmCj4gPj4g
-LSBSZW5lc2FzIFJaTjE6IG5vdCBhZmZlY3RlZDogaHR0cHM6Ly93d3cucmVuZXNhcy5jb20vZW4v
-ZG9jdW1lbnQvdGN1L2V0aGVybmV0LW1hYy1nbWFjLWZ1bmN0aW9uLWlzc3VlLTA/cj0xMDU0NTYx
-Cj4gPj4gLSBTdGFydml2ZSBKSDcxMTA6IG5vdCBhZmZlY3RlZDogaHR0cHM6Ly9kb2MtZW4ucnZz
-cGFjZS5vcmcvSkg3MTEwL1BERi9KSDcxMTBfRXJyYXRhLnBkZgo+ID4+IC0gTlhQIFMzMjogYWZm
-ZWN0ZWQ6IChFUlIwNTA3MDYgdW5kZXIgTkRBKQo+ID4+Cj4gPj4gU28gZnJvbSB0aGF0IEkgd291
-bGQgY29uY2x1ZGUgdGhhdCBpdCBpcyBhbiBOWFAgc3BlY2lmaWMgaXNzdWUgYW5kIGl0J3MKPiA+
-PiBub3QgdGhlIGZ1bGwgRVFPUyBpbXBsZW1lbnRhdGlvbiB0aGF0IGlzIGJyb2tlbi4KPiA+IAo+
-ID4gSSBqdXN0IHdhbnRlZCB0byBjaGVjayB3aGV0aGVyIEkgc2hvdWxkIGNvbnRpbnVlIHdpdGgg
-dGhlIGN1cnJlbnQKPiA+IGFwcHJvYWNoIG9yIGlmIEkgc2hvdWxkIGluc3RlYWQgZW5hYmxlIHRo
-ZSBwcmVhbWJsZSBpbiB0aGUgUEhZIGZvciBhbGwKPiA+IE1BQ3MuIFdoaWxlIEkgcHJlZmVyIHRo
-ZSBjdXJyZW50IGFwcHJvYWNoLCBhcyB0aGUgaXNzdWUgbGllcyB3aXRoIHRoZQo+ID4gTUFDIHJh
-dGhlciB0aGFuIHRoZSBQSFksIEkgY2FuIGFsc28gc2VlIHRoZSBhZHZhbnRhZ2Ugb2YgYWx3YXlz
-IGVuYWJsaW5nCj4gPiB0aGUgZmVhdHVyZS4KPiAKPiBNeSBtYWluIGNvbmNlcm4gd2FzIHRoYXQg
-d2UgbWF5IGVuZC11cCB3aXRoIGEgbG90IG9mIGRpZmZlcmVudCBmaXh1cHMKPiBmb3IgdGhlIHZh
-cmlvdXMgS1NaLWZhbWlseSBQSFkgZGV2aWNlcywgZXNwZWNpYWxseSBzaW5jZSB0aGlzIGZlYXR1
-cmUgaXMKPiBzb21ldGltZXMgdW5kb2N1bWVudGVkLgo+IAo+IEkndmUgZ29uZSB0aHJvdWdoIHRo
-ZSBtaWNyZWwuYyBkcml2ZXIsIGFuZCBsb29rZWQgYXQgdGhlIGRhdGFzaGVldCBvZgo+IG1vc3Qg
-UEhZcyBpbiB0aGVyZSwgYW5kIHNvIGZhciBJJ3ZlIGZvdW5kIHRoYXQgdG8gZml4IHRoaXMgaXNz
-dWUsIHdlCj4gbmVlZCB0byBzZXQgOgo+IAo+IEtTWjkxMzEgLyBLU1o4MDQxOiBSZWdpc3RlciAw
-eDE0IGJpdCA2Cj4gS1NaODA2MSAvIEtTWjgwNTEgOiBSZWdpc3RlciAweDE4IGJpdCA2Cj4gCj4g
-U28gaW4gdGhlIGVuZCwgdGhlIGNvbXBsZXhpdHkgYXBwZWFycyB0byBiZSBhIGJpdCBsZXNzIGV4
-cG9uZW50aWFsIHRoYW4KPiBJIG9yaWdpbmFsbHkgdGhvdWdodCwgd2UgbWF5IGVuZC11cCB3aXRo
-IG9ubHkgYSBmZXcgZml4dXBzIGluIHRoaXMgZHJpdmVyLgo+IAo+IEknZCBzYXksIEknbSBmaW5l
-IHdpdGggeW91IHByb2NlZWRpbmcgd2l0aCB0aGlzIG9yaWdpbmFsIGFwcHJvYWNoIGFzIGl0Cj4g
-bWluaW1pemVzIHRoZSBpbXBhY3QgYW5kIHJpc2sgdG8gYnJlYWsgb3RoZXIgc2V0dXBzLgo+IAo+
-IEknbSBzb3JyeSBmb3IgdHJpZ2dlcmluZyB0aGlzIHdob2xlIGRpc2N1c3Npb24gb25seSB0byBn
-ZXQgYmFjayB0byB0aGUKPiBzdGFydGluZyBwb2ludCA6KAoKTm90IHByb2JsZW0sIHRoYW5rcyBh
-IGxvdCBmb3IgdGhlIGZlZWRiYWNrIGFuZCB0aGUgZGlzY3Vzc2lvbi4gSSB3aWxsCnRoZW4gcHJv
-Y2VlZCB3aXRoIHRoZSBjdXJyZW50IGFwcHJvYWNoIGFuZCBzZW5kIGEgbmV3IHZlcnNpb24gd2l0
-aCBhbgp1cGRhdGVkIGNvbW1pdCBtZXNzYWdlLgoKUmVnYXJkcywKU3RlZmFuCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, Jan 09, 2026 at 09:30:04AM +0100, Niklas Cassel wrote:
+> On Fri, Jan 09, 2026 at 04:29:14PM +0900, Koichiro Den wrote:
+> > > Does that mean that the usage of this API will be something like:
+> > > 
+> > > 1) set_bar() ## using BAR match mode, since BAR match mode can write
+> > >    the BAR mask to define a BAR size, so that the host can assign a
+> > >    PCI address to the BAR.
+> > 
+> > BAR sizing is done by dw_pcie_ep_set_bar_{programmable,resizable}() before
+> > iATU programming regardless of match mode. I keep BAR match mode here just
+> > because Address match mode requires a valid base address. That's why I
+> > added the `if (!base)` guard.
+> > 
+> > > 
+> > > 2) start() ## start link
+> > > 
+> > > 3) link up
+> > > 
+> > > 4) wait for some special command, perhaps NTB_EPF_COMMAND
+> > > CMD_CONFIGURE_DOORBELL or NTB_EPF_COMMAND CMD_CONFIGURE_MW
+> > > 
+> > > 5) set_bar() ## using Address match mode. Because address match mode
+> > >    requires that the host has assigned a PCI address to the BAR, we
+> > >    can only change the mapping for a BAR after the host has assigned
+> > >    PCI addresses for all bars.
+> > > 
+> > 
+> > The overall usage flow matches what I'm assuming.
+> 
+> Ok, perhaps document something that the submap feature requires that the
+> BAR already has been assigned an address (and that it thus has to call
+> set_bar() twice, without calling clear_bar() in-between.
+> 
+> This is a new feature, and since you provide a mapping for the whole BAR,
+> I think it is logical for people to incorrectly assume that you could use
+> this feature by just calling set_bar() once.
+> 
+> 
+> > > Perhaps you should add some text to:
+> > > Documentation/PCI/endpoint/pci-endpoint.rst
+> > > 
+> > > Because right now the documentation for pci_epc_set_bar() says:
+> > > 
+> > >    The PCI endpoint function driver should use pci_epc_set_bar() to configure
+> > >    the Base Address Register in order for the host to assign PCI addr space.
+> > >    Register space of the function driver is usually configured
+> > >    using this API.
+> > > 
+> > > So it is obviously meant to be called *before* the host assigns a PCI
+> > > address for the BAR. Now with submap ranges, it appears that it has to
+> > > be called *after* the host assigned a PCI address for the BAR.
+> > 
+> > I agree. As I understand it, the current text seems not to reflect mainline
+> > since commit 4284c88fff0e ("PCI: designware-ep: Allow pci_epc_set_bar()
+> > update inbound map address"), but anyway I should add explicit
+> > documentation for this subrange mapping use case.
+> 
+> Sure, 4284c88fff0e ("PCI: designware-ep: Allow pci_epc_set_bar() update
+> inbound map address") modified so that set_bar() can be called twice,
+> without calling clear_bar().
+> 
+> However, that patch was a mess because:
+> 1) It got merged via the NTB tree, even though the PCI maintainer wanted a
+>    different design:
+>    https://lore.kernel.org/linux-pci/20220818060230.GA12008@thinkpad/T/#m411b3e9f6625da9dde747f624ed6870bef3e8823
+> 2) It was buggy:
+>    https://github.com/torvalds/linux/commit/c2a57ee0f2f1ad8c970ff58b78a43e85abbdeb7f
+> 3) It lacked the proper conditional checks for the feature to work (and it
+>    lacked any comments in the source explaining why it was skipping steps):
+>    https://github.com/torvalds/linux/commit/3708acbd5f169ebafe1faa519cb28adc56295546
+> 4) It failed to update the documentation.
+> 5) It failed to add a new flag for this feature in epc_features.
+>    I seriously doubt that any non-DWC based EP controller supports changing
+>    the inbound address translations without first disabling the BAR.
+>    (It probably should have added a epc_features->dynamic_inbound_mapping bit.)
+> 
+
+Thanks for pointing me to the context, that really helps.
+
+> 
+> So all in all 4284c88fff0e in not the best example :)
+> 
+> 
+> Your new feature (epc_features->subrange_mapping) in epc_features appears
+> to depend on epc_features->dynamic_inbound_mapping, so it is a shame that
+> we don't have a epc_features->dynamic_inbound_mapping bit, so that this new
+> feature could have depended on that bit.
+> 
+> 	if (epf_bar->use_submap &&
+> 	    !(epc_features->dynamic_inbound_mapping &&
+> 	      epc_features->subrange_mapping))
+> 		return -EINVAL;
+> 
+> 
+> I think adding some documentation is a good step.
+> 
+> Perhaps we should also introduce a epc_features->dynamic_inbound_mapping bit?
+> Since you are making DWC glue drivers return a mutable EPC features, we could
+> set this bit in the DWC driver after that commit. What do you think?
+
+As you pointed out, support for dynamic_inbound_mapping is needed
+independently of my series. Given that, it would make sense to handle it
+either before this series, or to fold it into the next iteration (=v6) of
+the series if that is preferred.
+
+If you already have a patch for dynamic_inbound_mapping in mind, I'm happy
+to wait for it and help test it.
+
+> 
+> I realize that we would not be able to add any actual verification for the
+> epc_features->dynamic_inbound_mapping feature itself (in set_bar()), since
+> there is no way for set_bar() to know if a BAR has already been configured
+> (since struct pci_epc does not have an array of the currently configured BARs).
+> 
+> But at least it would allow an EPF driver (e.g. vNTB) to know if it can call
+> set_bar() twice or not, and can error out if the EPF driver is being used on
+> a EPC that doesn't support epc_features->dynamic_inbound_mapping.
+
+That makes sense.
+
+Thanks again,
+Koichiro
+
+> 
+> 
+> Kind regards,
+> Niklas
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
