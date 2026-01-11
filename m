@@ -2,70 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 141C4D0DACE
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jan 2026 20:11:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F204D0E0F7
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jan 2026 05:01:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B63CCC8F283;
-	Sat, 10 Jan 2026 19:11:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA0C3C8F283;
+	Sun, 11 Jan 2026 04:01:34 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0075FC36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7ADE5C055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jan 2026 19:11:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D2D260168;
- Sat, 10 Jan 2026 19:11:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22EEFC4CEF1;
- Sat, 10 Jan 2026 19:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768072294;
- bh=ifQtDtBDcokzLccqf8aQCht97s3eipcMMEmXbpDw6Aw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qCiyrFAU2xicKCibTXPIf3XhBQmk0g6ZWmSgHHXVP1B02QbrV77FWTZFOP1VjWDCw
- qjMrQb+XKb5f4XadhrY/24Ap8FT4i3zPkyp8Hq83pZ7Qd05yBLYY/SjBLAoBYN1J91
- tZcXYUR9WCowuaBnwQNH+5l+izoJ34YwXyJn9pNjN9mFqtBAcF6dVgtvosb5DN2PQH
- UkWDCIMetOEIB1XAkKVOYI7Wkyc0F3Lm5PBO/vh7rnB4GSTP0L4HqCSOjm7fLM7dry
- DJ/5zv35sUADTSmPEivxJvudoLJxOMiPSlaVLC0wreck+xhcPR7Tw1K+pdiPCNoYJW
- fAQibqBj2d1ug==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Date: Sat, 10 Jan 2026 13:11:17 -0600
-Message-ID: <176807228457.3708332.10766520174431957453.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
-References: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
+ Sun, 11 Jan 2026 04:01:33 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-34abc7da414so3093735a91.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 10 Jan 2026 20:01:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768104092; x=1768708892;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6aSQimWPEMhTKsPYUy1vj9/5sPSG4zuP/FMO33v30Ew=;
+ b=nfTuisQRGygWY74UATdXQ1De0DborFPK1PbvgL4oV2Lt2sIOY6nQeQgmcN4YcYMxOn
+ bGxIP50U6U01ULewAzap/m3V4MnO1hD/fyUy5PBqzzBw7A6D5rfaMq4y+4Icf7ouJbrZ
+ +5FhdRzmGyM1lv3HjRvNsNe82UmncrxBLufGalB04VrNQFW9FJ3Lv2ThQ1UHuz0FoUTI
+ 0olADcB7gM2vFggBUFOndhfyTynbRQHm3zCHID5cbxC2CdPSeGhZv/3BawFcLcgHfV2o
+ 8n1wbJRQ3R3xo3KAiz0mE0Ift8lnqCK3eL8Ii1ysuAMuDziieUfgyfPmBk0u6p3UZKvC
+ TD5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768104092; x=1768708892;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6aSQimWPEMhTKsPYUy1vj9/5sPSG4zuP/FMO33v30Ew=;
+ b=DLo22qILCcYV8PcIbRhwSLJ9hsXrZnfbC5nHTm6K+yT2KazE3NxYI9/jEIbKlzE9vh
+ KiWYRITLugljVXUsEXR8SoC6TxxkFZwVsldzcahKlTF4n1PZFtwtGEwlq94eYXBPyxP7
+ hU39UVMv0UNPE8kjdfYChTXpzm/i+p5yKOdpC35XH6KPFkHtcYC5UmRmTIZZNYLjul9p
+ yPMSH6xmLn/vEFMNJNsCUYqX+Rc8phBCBaC7uMKNo0GhAAd0DelsNAxzhLBjCx82JWWZ
+ YzMNvCZ1N6kdX5UNIDC/xf+SxQ0GvJLQUEzmQrGVz8cwDMmwO8oNjsvUOojGxKSrVglY
+ AXTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV3P86XwiSTBDUip0LKVBOd/dT5jo2sImoEl/b9h94AwGc+cz15e9EnzkDEH6J91wdNVyYVnV8LR0HpNQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLemNhoTgux6leVFnaendSkjk8LXYQNaD22DZ1hvwjeT6EKVgi
+ vj/3L9pAWm2EA4b2oquK4WZAp0JTRnLNItnNQBLSJHNZxDzC66/8sJS9
+X-Gm-Gg: AY/fxX5SSJYuUXiy2ho+X/lXaNVo/8G0nv3bVWX2DdYCElyusT/BhRDk3W4RqlKoAsW
+ 4JodNCHDZ2/MDC7g2CZ+LYClqg4xRVCL/kO7aPNg0YqfS4e8aG1LBxY8ddN4wiNKN8Q/OD0OA6b
+ l+hXAjw/uxR2TtjvRp8Zm3+b4wp/LyHS0TwtktRGJ4oALWEzltG4bUq6OYSGrSVqWl3rpfVvsz9
+ FNbrN+s8yaTs+iyimjYPYGaCcaXK4Bn8Sz380C7jb68lcMQ0TJ4FbmT7gIRhpZnWpm+9gJFtP9Q
+ v1NoOl7ME4qUhS6pKCNdE7wdIIkOrFpSYmUiomgxeNnsvPVQ4s33pztzWODAKkxOtN1vLH/vhUA
+ 006GOZM0iVjeLu5uHmyhGcywdg9qxDxEalqCDcZjUvJ9MmaoEJTg/psLRGKdt8PgEN0jFgMgHoI
+ jR7JWh
+X-Google-Smtp-Source: AGHT+IGPybPvZupy/FYihDwzQNc/n+V1kR/RRvYwaA6/FcFDZUxpWNk2e4gufz92hDuNfXzVOvBWtg==
+X-Received: by 2002:a05:6a20:a128:b0:35f:68d:430e with SMTP id
+ adf61e73a8af0-3898f8f45bemr12792422637.9.1768104091706; 
+ Sat, 10 Jan 2026 20:01:31 -0800 (PST)
+Received: from [0.0.0.0] ([8.222.167.232]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c4cc96ca7a9sm13871167a12.25.2026.01.10.20.01.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 10 Jan 2026 20:01:31 -0800 (PST)
+Message-ID: <0d54ddca-9270-40a5-aa82-d8a7b65027ff@gmail.com>
+Date: Sat, 10 Jan 2026 20:05:31 -0800
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- Shan-Chun Hung <schung@nuvoton.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Chen Wang <unicorn_wang@outlook.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Orson Zhai <orsonzhai@gmail.com>,
- Keguang Zhang <keguang.zhang@gmail.com>, linux-sunxi@lists.linux.dev,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Simona Vetter <simona@ffwll.ch>, Jacky Huang <ychuang3@nuvoton.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-actions@lists.infradead.org, Maxime Ripard <mripard@kernel.org>,
- Vladimir Zapolskiy <vz@mleia.com>, sophgo@lists.linux.dev,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Chen-Yu Tsai <wens@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Inochi Amaoto <inochiama@gmail.com>, linux-mips@vger.kernel.org,
- Jessica Zhang <jesszhan0024@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Takao Orito <orito.takao@socionext.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] (subset) [PATCH 00/27] clk: remove deprecated API
-	divider_round_rate() and friends
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>
+References: <20260109080601.1262-1-lizhi2@eswincomputing.com>
+ <20260109080859.1285-1-lizhi2@eswincomputing.com>
+ <00b7b42f-2f9d-402a-82f0-21641ea894a1@lunn.ch>
+ <aWKZvEW7rKFFwZLG@shell.armlinux.org.uk>
+Content-Language: en-US
+From: Bo Gan <ganboing@gmail.com>
+In-Reply-To: <aWKZvEW7rKFFwZLG@shell.armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linmin@eswincomputing.com, robh@kernel.org,
+ ningyu@eswincomputing.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ weishangjuan@eswincomputing.com, andrew+netdev@lunn.ch,
+ lizhi2@eswincomputing.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: ethernet: eswin: add
+ clock sampling control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,36 +97,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Thu, 08 Jan 2026 16:16:18 -0500, Brian Masney wrote:
-> Here's a series that gets rid of the deprecated APIs
-> divider_round_rate(), divider_round_rate_parent(), and
-> divider_ro_round_rate_parent() since these functions are just wrappers
-> for the determine_rate variant.
+On 1/10/26 10:26, Russell King (Oracle) wrote:
+> On Fri, Jan 09, 2026 at 07:27:54PM +0100, Andrew Lunn wrote:
+>>>     rx-internal-delay-ps:
+>>> -    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
+>>> +    enum: [0, 20, 60, 100, 200, 400, 800, 1600, 2400]
+>>>   
+>>>     tx-internal-delay-ps:
+>>> -    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
+>>> +    enum: [0, 20, 60, 100, 200, 400, 800, 1600, 2400]
+>>
+>> You need to add some text to the Changelog to indicate why this is
+>> safe to do, and will not cause any regressions for DT blobs already in
+>> use. Backwards compatibility is very important and needs to be
+>> addressed.
+>>
+>>> +  eswin,rx-clk-invert:
+>>> +    description:
+>>> +      Invert the receive clock sampling polarity at the MAC input.
+>>> +      This property may be used to compensate for SoC-specific
+>>> +      receive clock to data skew and help ensure correct RX data
+>>> +      sampling at high speed.
+>>> +    type: boolean
+>>
+>> This does not make too much sense to me. The RGMII standard indicates
+>> sampling happens on both edges of the clock. The rising edge is for
+>> the lower 4 bits, the falling edge for the upper 4 bits. Flipping the
+>> polarity would only swap the nibbles around.
 > 
-> Note that when I converted some of these drivers from round_rate to
-> determine_rate, this was mistakenly converted to the following in some
-> cases:
+> I'm going to ask a rather pertinent question. Why do we have this
+> eswin stuff in the kernel tree?
 > 
-> [...]
+> I've just been looking to see whether I can understand more about this,
+> and although I've discovered the TRM is available for the EIC7700:
+> 
+> https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
+> 
+> that isn't particularly helpful on its own.
+> 
+> There doesn't appear to be any device tree source files that describe
+> the hardware. The DT bindings that I can find seem to describe only
+> ethernet and USB. describe the ethernet and USB, and maybe sdhci.
+> 
+> I was looking for something that would lead me to what this
+> eswin,hsp-sp-csr thing is, but that doesn't seem to exist in our
+> DT binding documentation, nor does greping for "hsp.sp.csr" in
+> arch/*/boot/dts find anything.
+> 
+> So, we can't know what this "hsp" thing is to even know where to look
+> in the 80MiB of PDF documentation.
+> 
 
-Applied, thanks!
+HSP -> High-Speed Peripheral. eswin,hsp-sp-csr is mentioned in
 
-[14/27] clk: qcom: alpha-pll: convert from divider_round_rate() to divider_determine_rate()
-        commit: e1f08613e113f02a3ec18c9a7964de97f940acbf
-[15/27] clk: qcom: regmap-divider: convert from divider_ro_round_rate() to divider_ro_determine_rate()
-        commit: 35a48f41b63f67c490f3a2a89b042536be67cf0f
-[16/27] clk: qcom: regmap-divider: convert from divider_round_rate() to divider_determine_rate()
-        commit: b2f36d675e09299d9aee395c6f83d8a95d4c9441
+Documentation/devicetree/bindings/mmc/snps,dwcmshc-sdhci.yaml
+Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+Documentation/devicetree/bindings/usb/eswin,eic7700-usb.yaml
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+ From ESWIN's vendor/testing kernel tree:
+
+hsp_sp_csr: hsp-sp-top-csr@0x50440000 {
+   compatible = "syscon";
+   #size-cells = <2>;
+   reg = <0x0 0x50440000 0x0 0x2000>;
+};
+
+Apparently it's just a register block that controls varies behaviors of
+high speed peripherals. I'm not sure if DT bindings mandates it, but it's
+undocumented in the TRM. Perhaps ESWIN should properly document it going
+forward? Also, I think ESWIN needs to check-in the sdhci/eth/usb device-
+tree components ASAP, so folks can test it.
+
+Bo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
