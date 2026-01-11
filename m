@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED2BD0EF5C
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jan 2026 14:15:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACD6ED0EF62
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jan 2026 14:15:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66C94C349C4;
-	Sun, 11 Jan 2026 13:15:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C2BCC349C4;
+	Sun, 11 Jan 2026 13:15:29 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAAB9C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AEC3C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jan 2026 13:15:19 +0000 (UTC)
+ Sun, 11 Jan 2026 13:15:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=THLsEIx5KCo69nqVfgk6skirBKnfFJLIs+GEZLigxTw=; b=Vrv1kbfhlc97cAlpavrHdxFS+n
- D9RaVm4I0zlpRSiEysDZjgg8enR18gLl0X9u35AenAm8rxcxz/mzN8KdWiX4N6l6n+j24mXQEqfG7
- mni1EroN3PJtnHy0Hki5+yFDR3cIgHefLHt9butS6r/LfY5xNoH/UeL4OqfC+JMp7YcfvNtc2HmHZ
- gLgJr98sGukAqWY0Ezt5w7LxtyopAmi15YlJvkx0Rai2elrGNZFm/nn4YGpM0Yfh7tUmgiqYQuxm6
- sE+1Vpf4See/YGLVgkCik7unfQXuZxN9s64wmiXugYA4PGYrcJuoJOE5QxMqDsoeZCM19iHa3vkXW
- T65m6Rzw==;
+ bh=nFhtn4p2FlQEd+TUlXbxYtPvgidB34TfUAa+AKEK7tM=; b=rObUxIlRUz6EjvirtkvPfk5VHv
+ qWD3FPbpdEGqh1t7DtQCcH8EcB/yCVadLWMuzO0X89WddFRDRymo5DHYO1ZiKhIKC8rRt3DztLXMW
+ hDAH5V0Kv+N0Zb65TP5oEr0oOIq4A5gv0aEWKA1+QBjjrNztADfa4KJe6NIui8isI0wQLNwJWtwLq
+ zjBTP53wW25ojSlBR8upJm6rt66tuc8lYkgj1stEPoZ79IpiwnHSA1tx+1dayDEzr8Di8OX4ig3lE
+ gbi76pEuoBB3aP5kyn1zj6B0UJITevIxetDsHvXkkBBjwOxs3DKprYYu0oYULstgPSgtdVlv+aMuB
+ prkb/yVw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58718 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42248 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vevHn-000000005UB-1YCv;
- Sun, 11 Jan 2026 13:15:15 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vevHs-000000005US-2b8Z;
+ Sun, 11 Jan 2026 13:15:20 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vevHm-00000002YoS-23RX; Sun, 11 Jan 2026 13:15:14 +0000
+ id 1vevHr-00000002YoY-2X2i; Sun, 11 Jan 2026 13:15:19 +0000
 In-Reply-To: <aWOiOfDQkMXDwtPp@shell.armlinux.org.uk>
 References: <aWOiOfDQkMXDwtPp@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,15 +41,15 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vevHm-00000002YoS-23RX@rmk-PC.armlinux.org.uk>
-Date: Sun, 11 Jan 2026 13:15:14 +0000
+Message-Id: <E1vevHr-00000002YoY-2X2i@rmk-PC.armlinux.org.uk>
+Date: Sun, 11 Jan 2026 13:15:19 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: move and rename
-	dwmac_pcs_isr()
+Subject: [Linux-stm32] [PATCH net-next 3/5] net: stmmac: pass struct
+ stmmac_priv to host_irq_status() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,139 +66,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dwmac_pcs_isr() doesn't need to be inlined into the MAC's
-host_irq_status method, as handling PCS interrupts isn't performance
-critical. However, there is little point calling this function unless
-an interrupt is pending for the PCS.
-
-Rename it to stmmac_integrated_pcs_irq() while moving it.
+Rather than passing struct mac_device_info to the host_irq_status()
+method, pass struct stmmac_priv so that we can pass the integrated
+PCS to the PCS interrupt handler.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac1000_core.c  |  4 ++-
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c |  4 ++-
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.c  | 30 +++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  | 33 ++-----------------
- 4 files changed, 39 insertions(+), 32 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 4 ++--
+ drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c  | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c    | 4 ++--
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c  | 4 ++--
+ drivers/net/ethernet/stmicro/stmmac/hwif.h           | 4 ++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c    | 2 +-
+ 6 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-index a2ae136d2c0e..9cc8f38e7e45 100644
+index 9cc8f38e7e45..b01815a28280 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
-@@ -304,7 +304,9 @@ static int dwmac1000_irq_status(struct mac_device_info *hw,
- 			x->irq_rx_path_exit_lpi_mode_n++;
- 	}
- 
--	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
-+	if (intr_status & (PCS_ANE_IRQ | PCS_LINK_IRQ))
-+		stmmac_integrated_pcs_irq(ioaddr, GMAC_PCS_BASE, intr_status,
-+					  x);
- 
- 	return ret;
+@@ -265,10 +265,10 @@ static void dwmac1000_pmt(struct mac_device_info *hw, unsigned long mode)
+ 	writel(pmt, ioaddr + GMAC_PMT);
  }
+ 
+-static int dwmac1000_irq_status(struct mac_device_info *hw,
++static int dwmac1000_irq_status(struct stmmac_priv *priv,
+ 				struct stmmac_extra_stats *x)
+ {
+-	void __iomem *ioaddr = hw->pcsr;
++	void __iomem *ioaddr = priv->hw->pcsr;
+ 	u32 intr_status = readl(ioaddr + GMAC_INT_STATUS);
+ 	u32 intr_mask = readl(ioaddr + GMAC_INT_MASK);
+ 	int ret = 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+index 14e847c0e1a9..cd2928c05550 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+@@ -53,7 +53,7 @@ static int dwmac100_rx_ipc_enable(struct mac_device_info *hw)
+ 	return 0;
+ }
+ 
+-static int dwmac100_irq_status(struct mac_device_info *hw,
++static int dwmac100_irq_status(struct stmmac_priv *priv,
+ 			       struct stmmac_extra_stats *x)
+ {
+ 	return 0;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index a4282fd7c3c7..2a531c3c2e14 100644
+index 2a531c3c2e14..e7ca181e8e76 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -658,7 +658,9 @@ static int dwmac4_irq_status(struct mac_device_info *hw,
- 			x->irq_rx_path_exit_lpi_mode_n++;
- 	}
- 
--	dwmac_pcs_isr(ioaddr, GMAC_PCS_BASE, intr_status, x);
-+	if (intr_status & (PCS_ANE_IRQ | PCS_LINK_IRQ))
-+		stmmac_integrated_pcs_irq(ioaddr, GMAC_PCS_BASE, intr_status,
-+					  x);
- 
+@@ -615,10 +615,10 @@ static int dwmac4_irq_mtl_status(struct stmmac_priv *priv,
  	return ret;
  }
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-index e2f531c11986..90cdff30520b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-@@ -45,6 +45,36 @@ static const struct phylink_pcs_ops dwmac_integrated_pcs_ops = {
- 	.pcs_config = dwmac_integrated_pcs_config,
- };
  
-+/**
-+ * stmmac_integrated_pcs_irq - TBI, RTBI, or SGMII PHY ISR
-+ * @ioaddr: IO registers pointer
-+ * @reg: Base address of the AN Control Register.
-+ * @intr_status: GMAC core interrupt status
-+ * @x: pointer to log these events as stats
-+ * Description: it is the ISR for PCS events: Auto-Negotiation Completed and
-+ * Link status.
-+ */
-+void stmmac_integrated_pcs_irq(void __iomem *ioaddr, u32 reg,
-+			       unsigned int intr_status,
-+			       struct stmmac_extra_stats *x)
-+{
-+	u32 val = readl(ioaddr + GMAC_AN_STATUS(reg));
-+
-+	if (intr_status & PCS_ANE_IRQ) {
-+		x->irq_pcs_ane_n++;
-+		if (val & GMAC_AN_STATUS_ANC)
-+			pr_info("stmmac_pcs: ANE process completed\n");
-+	}
-+
-+	if (intr_status & PCS_LINK_IRQ) {
-+		x->irq_pcs_link_n++;
-+		if (val & GMAC_AN_STATUS_LS)
-+			pr_info("stmmac_pcs: Link Up\n");
-+		else
-+			pr_info("stmmac_pcs: Link Down\n");
-+	}
-+}
-+
- int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
- 			       u32 int_mask)
+-static int dwmac4_irq_status(struct mac_device_info *hw,
++static int dwmac4_irq_status(struct stmmac_priv *priv,
+ 			     struct stmmac_extra_stats *x)
  {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-index fd2e2d7d5bd4..bfc3d665265c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-@@ -62,39 +62,12 @@ phylink_pcs_to_stmmac_pcs(struct phylink_pcs *pcs)
- 	return container_of(pcs, struct stmmac_pcs, pcs);
+-	void __iomem *ioaddr = hw->pcsr;
++	void __iomem *ioaddr = priv->hw->pcsr;
+ 	u32 intr_status = readl(ioaddr + GMAC_INT_STATUS);
+ 	u32 intr_enable = readl(ioaddr + GMAC_INT_EN);
+ 	int ret = 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index b40b3ea50e25..6724a3f866fe 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -298,10 +298,10 @@ static void dwxgmac2_dump_regs(struct mac_device_info *hw, u32 *reg_space)
+ 		reg_space[i] = readl(ioaddr + i * 4);
  }
  
-+void stmmac_integrated_pcs_irq(void __iomem *ioaddr, u32 reg,
-+			       unsigned int intr_status,
-+			       struct stmmac_extra_stats *x);
- int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
- 			       u32 int_mask);
+-static int dwxgmac2_host_irq_status(struct mac_device_info *hw,
++static int dwxgmac2_host_irq_status(struct stmmac_priv *priv,
+ 				    struct stmmac_extra_stats *x)
+ {
+-	void __iomem *ioaddr = hw->pcsr;
++	void __iomem *ioaddr = priv->hw->pcsr;
+ 	u32 stat, en;
+ 	int ret = 0;
  
--/**
-- * dwmac_pcs_isr - TBI, RTBI, or SGMII PHY ISR
-- * @ioaddr: IO registers pointer
-- * @reg: Base address of the AN Control Register.
-- * @intr_status: GMAC core interrupt status
-- * @x: pointer to log these events as stats
-- * Description: it is the ISR for PCS events: Auto-Negotiation Completed and
-- * Link status.
-- */
--static inline void dwmac_pcs_isr(void __iomem *ioaddr, u32 reg,
--				 unsigned int intr_status,
--				 struct stmmac_extra_stats *x)
--{
--	u32 val = readl(ioaddr + GMAC_AN_STATUS(reg));
--
--	if (intr_status & PCS_ANE_IRQ) {
--		x->irq_pcs_ane_n++;
--		if (val & GMAC_AN_STATUS_ANC)
--			pr_info("stmmac_pcs: ANE process completed\n");
--	}
--
--	if (intr_status & PCS_LINK_IRQ) {
--		x->irq_pcs_link_n++;
--		if (val & GMAC_AN_STATUS_LS)
--			pr_info("stmmac_pcs: Link Up\n");
--		else
--			pr_info("stmmac_pcs: Link Down\n");
--	}
--}
--
- /**
-  * dwmac_ctrl_ane - To program the AN Control Register.
-  * @ioaddr: IO registers pointer
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index df6e8a567b1f..0db96a387259 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -354,7 +354,7 @@ struct stmmac_ops {
+ 	/* Dump MAC registers */
+ 	void (*dump_regs)(struct mac_device_info *hw, u32 *reg_space);
+ 	/* Handle extra events on specific interrupts hw dependent */
+-	int (*host_irq_status)(struct mac_device_info *hw,
++	int (*host_irq_status)(struct stmmac_priv *priv,
+ 			       struct stmmac_extra_stats *x);
+ 	/* Handle MTL interrupts */
+ 	int (*host_mtl_irq_status)(struct stmmac_priv *priv,
+@@ -453,7 +453,7 @@ struct stmmac_ops {
+ #define stmmac_dump_mac_regs(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, mac, dump_regs, __args)
+ #define stmmac_host_irq_status(__priv, __args...) \
+-	stmmac_do_callback(__priv, mac, host_irq_status, __args)
++	stmmac_do_callback(__priv, mac, host_irq_status, __priv, __args)
+ #define stmmac_host_mtl_irq_status(__priv, __args...) \
+ 	stmmac_do_callback(__priv, mac, host_mtl_irq_status, __priv, __args)
+ #define stmmac_set_filter(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b3730312aeed..c2589f02ff7e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6137,7 +6137,7 @@ static void stmmac_common_interrupt(struct stmmac_priv *priv)
+ 
+ 	/* To handle GMAC own interrupts */
+ 	if (priv->plat->core_type == DWMAC_CORE_GMAC || xmac) {
+-		int status = stmmac_host_irq_status(priv, priv->hw, &priv->xstats);
++		int status = stmmac_host_irq_status(priv, &priv->xstats);
+ 
+ 		if (unlikely(status)) {
+ 			/* For LPI we need to save the tx status */
 -- 
 2.47.3
 
