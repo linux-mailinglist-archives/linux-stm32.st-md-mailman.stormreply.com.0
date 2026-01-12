@@ -2,144 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF55ED0FAC6
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jan 2026 20:43:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D19BBD10AAD
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 07:01:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7508AC3F945;
-	Sun, 11 Jan 2026 19:43:19 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36552C36B30
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86EA2C3F945;
+	Mon, 12 Jan 2026 06:01:16 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [13.76.78.106])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68E86C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jan 2026 19:43:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=vyCElViucl+cLlUVhuVJcUJ20mw8TamaI7jWvsVoS30=; b=zGZTG77h1xr2PAvnP5M0ngyGAl
- Es/dPUiyTwI/SyqG+ZIuZ3rOtVW/12j7XQr7d5aonB3wQsRXE8UHrw1tFxPg5ZpfiVZNO2T/cVHLv
- geG9A3sxKpjugqC8rZYrqV6SEDZZUv5Mz/zmQPX6EGdmLZxgq9EMlRFHGWX2Mj+wXPYPwpJiZFl2h
- QE7JGQYc7ldmySSxW/k/g2PQfDlA1r7cGsQGuGCqeUQsGaO0Atp/LPRP6U/zy/n24zT2DumDZuWLJ
- 5LcE+MEJKyZ6YgCn00XU73GORZqYWdgtEKhSu84RJQfG43W/cHzHlVz5lv2JLULcfv+EnfC0Ud7yw
- 4NKTtwbQ==;
-Received: from i53875aef.versanet.de ([83.135.90.239] helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1vf1K0-001rtK-85; Sun, 11 Jan 2026 20:41:56 +0100
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Mark Brown <broonie@kernel.org>,
- Varshini Rajendran <varshini.rajendran@microchip.com>,
- Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Sunny Luo <sunny.luo@amlogic.com>, Janne Grunau <j@jannau.net>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, CL Wang <cl634@andestech.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- David Lechner <dlechner@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Jonas Gorski <jonas.gorski@gmail.com>, Hang Zhou <929513338@qq.com>,
- Jun Guo <jun.guo@cixtech.com>, Philipp Stanner <phasta@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>,
- Shiji Yang <yangshiji66@outlook.com>, James Clark <james.clark@linaro.org>,
- Jonathan Marek <jonathan@marek.ca>, Carlos Song <carlos.song@nxp.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Huacai Chen <chenhuacai@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Prajna Rajendra Kumar <prajna.rajendrakumar@microchip.com>,
- Sergio Perez Gonzalez <sperezglz@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Qianfeng Rong <rongqianfeng@vivo.com>, Haibo Chen <haibo.chen@nxp.com>,
- Gabor Juhos <j4g8y7@gmail.com>, Md Sadre Alam <quic_mdalam@quicinc.com>,
- Rosen Penev <rosenp@gmail.com>, Luis de Arquer <luis.dearquer@inertim.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Longbin Li <looong.bin@gmail.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- =?UTF-8?B?Q2zDqW1lbnQ=?= Le Goffic <clement.legoffic@foss.st.com>,
- Alessandro Grassi <alessandro.grassi@mailbox.org>,
- Chen-Yu Tsai <wens@kernel.org>, Darshan R <rathod.darshan.0896@gmail.com>,
- Aaron Kling <webgeek1234@gmail.com>, Vishwaroop A <va@nvidia.com>,
- Haixu Cui <quic_haixcui@quicinc.com>,
- Darshan Rathod <darshanrathod475@gmail.com>, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, asahi@lists.linux.dev,
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org,
- patches@opensource.cirrus.com, imx@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Date: Sun, 11 Jan 2026 20:41:50 +0100
-Message-ID: <2911099.XrmoMso0CX@diego>
-In-Reply-To: <20260108203004.3538449-3-andriy.shevchenko@linux.intel.com>
-References: <20260108203004.3538449-1-andriy.shevchenko@linux.intel.com>
- <20260108203004.3538449-3-andriy.shevchenko@linux.intel.com>
+ Mon, 12 Jan 2026 06:01:14 +0000 (UTC)
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 12 Jan 2026 14:00:47 +0800 (GMT+08:00)
+X-Originating-IP: [10.11.96.26]
+Date: Mon, 12 Jan 2026 14:00:47 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Andrew Lunn" <andrew@lunn.ch>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <00b7b42f-2f9d-402a-82f0-21641ea894a1@lunn.ch>
+References: <20260109080601.1262-1-lizhi2@eswincomputing.com>
+ <20260109080859.1285-1-lizhi2@eswincomputing.com>
+ <00b7b42f-2f9d-402a-82f0-21641ea894a1@lunn.ch>
 MIME-Version: 1.0
-Cc: Kursad Oney <kursad.oney@broadcom.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Lixu Zhang <lixu.zhang@intel.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Jean-Marie Verdun <verdun@hpe.com>, Frank Li <Frank.Li@nxp.com>,
- David Rhodes <david.rhodes@cirrus.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Masahisa Kojima <masahisa.kojima@linaro.org>,
- Fabio Estevam <festevam@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Li-hao Kuo <lhjeff911@gmail.com>, Benjamin Fair <benjaminfair@google.com>,
- Yogesh Gaur <yogeshgaur.83@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Yinbo Zhu <zhuyinbo@loongson.cn>,
- Jonathan Hunter <jonathanh@nvidia.com>, Nancy Yuen <yuenn@google.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Kamal Dasu <kamal.dasu@broadcom.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ryan Wanner <ryan.wanner@microchip.com>, Anand Gore <anand.gore@broadcom.com>,
- William Zhang <william.zhang@broadcom.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Jonathan =?UTF-8?B?TmV1c2Now6RmZXI=?= <j.neuschaefer@gmx.net>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Jassi Brar <jaswinder.singh@linaro.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- =?UTF-8?B?Q8OpZHJpYw==?= Le Goater <clg@kaod.org>,
- Nick Hawkins <nick.hawkins@hpe.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Han Xu <han.xu@nxp.com>, Sven Peter <sven@kernel.org>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Yang Shen <shenyang39@huawei.com>,
- Vladimir Oltean <olteanv@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Scott Branden <sbranden@broadcom.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Patrick Venture <venture@google.com>, Linus Walleij <linusw@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Samuel Holland <samuel.holland@sifive.com>, Tali Perry <tali.perry1@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>, Ray Liu <ray.liu@airoha.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- Neal Gompa <neal@gompa.dev>, Shawn Guo <shawnguo@kernel.org>,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [Linux-stm32] [PATCH v1 2/4] spi: Drop duplicate of_node
-	assignment
+Message-ID: <308b676.2d03.19bb0caebed.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: TAJkCgAXH2wRjmRpdw2UAA--.9113W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQEFDGlj0IseagABst
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ linmin@eswincomputing.com, devicetree@vger.kernel.org,
+ ningyu@eswincomputing.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: ethernet: eswin: add
+ clock sampling control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,15 +61,76 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QW0gRG9ubmVyc3RhZywgOC4gSmFudWFyIDIwMjYsIDIxOjIzOjM5IE1pdHRlbGV1cm9ww6Rpc2No
-ZSBOb3JtYWx6ZWl0IHNjaHJpZWIgQW5keSBTaGV2Y2hlbmtvOgo+IFRoZSBTUEkgY29yZSBwcm92
-aWRlcyB0aGUgZGVmYXVsdCBvZl9ub2RlIGZvciB0aGUgY29udHJvbGxlciwKPiBpbmhlcml0ZWQg
-ZnJvbSB0aGUgYWN0dWFsIChwYXJlbnQpIGRldmljZS4gTm8gbmVlZCB0byByZXBlYXQgaXQKPiBp
-biB0aGUgZHJpdmVyLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHkgU2hldmNoZW5rbyA8YW5kcml5
-LnNoZXZjaGVua29AbGludXguaW50ZWwuY29tPgo+IC0tLQoKPiAgZHJpdmVycy9zcGkvc3BpLXJv
-Y2tjaGlwLXNmYy5jICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvc3BpL3NwaS1yb2NrY2hpcC5jICAg
-ICAgICAgICB8IDEgLQoKQWNrZWQtYnk6IEhlaWtvIFN0dWVibmVyIDxoZWlrb0BzbnRlY2guZGU+
-CgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAiQW5kcmV3IEx1bm4iIDxh
+bmRyZXdAbHVubi5jaD4KPiDlj5HpgIHml7bpl7Q6MjAyNi0wMS0xMCAwMjoyNzo1NCAo5pif5pyf
+5YWtKQo+IOaUtuS7tuS6ujogbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbQo+IOaKhOmAgTogZGV2
+aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGFuZHJldytuZXRkZXZAbHVubi5jaCwgZGF2ZW1AZGF2
+ZW1sb2Z0Lm5ldCwgZWR1bWF6ZXRAZ29vZ2xlLmNvbSwga3ViYUBrZXJuZWwub3JnLCByb2JoQGtl
+cm5lbC5vcmcsIGtyemsrZHRAa2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2
+QHZnZXIua2VybmVsLm9yZywgcGFiZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBnbWFp
+bC5jb20sIGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgu
+b3JnLnVrLCBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tLCBsaW51eC1h
+cm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
+cmcsIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5jb20s
+IHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0
+aW5nLmNvbQo+IOS4u+mimDogUmU6IFtQQVRDSCB2MSAxLzJdIGR0LWJpbmRpbmdzOiBldGhlcm5l
+dDogZXN3aW46IGFkZCBjbG9jayBzYW1wbGluZyBjb250cm9sCj4gCj4gPiAgICByeC1pbnRlcm5h
+bC1kZWxheS1wczoKPiA+IC0gICAgZW51bTogWzAsIDIwMCwgNjAwLCAxMjAwLCAxNjAwLCAxODAw
+LCAyMDAwLCAyMjAwLCAyNDAwXQo+ID4gKyAgICBlbnVtOiBbMCwgMjAsIDYwLCAxMDAsIDIwMCwg
+NDAwLCA4MDAsIDE2MDAsIDI0MDBdCj4gPiAgCj4gPiAgICB0eC1pbnRlcm5hbC1kZWxheS1wczoK
+PiA+IC0gICAgZW51bTogWzAsIDIwMCwgNjAwLCAxMjAwLCAxNjAwLCAxODAwLCAyMDAwLCAyMjAw
+LCAyNDAwXQo+ID4gKyAgICBlbnVtOiBbMCwgMjAsIDYwLCAxMDAsIDIwMCwgNDAwLCA4MDAsIDE2
+MDAsIDI0MDBdCj4gCj4gWW91IG5lZWQgdG8gYWRkIHNvbWUgdGV4dCB0byB0aGUgQ2hhbmdlbG9n
+IHRvIGluZGljYXRlIHdoeSB0aGlzIGlzCj4gc2FmZSB0byBkbywgYW5kIHdpbGwgbm90IGNhdXNl
+IGFueSByZWdyZXNzaW9ucyBmb3IgRFQgYmxvYnMgYWxyZWFkeSBpbgo+IHVzZS4gQmFja3dhcmRz
+IGNvbXBhdGliaWxpdHkgaXMgdmVyeSBpbXBvcnRhbnQgYW5kIG5lZWRzIHRvIGJlCj4gYWRkcmVz
+c2VkLgo+IApUaGFua3MgZm9yIHRoZSByZXZpZXcuCgpVbmRlcnN0b29kLiBPdXIgdW5kZXJzdGFu
+ZGluZyBpcyB0aGF0IGNoYW5naW5nIHRoZSBhbGxvd2VkIHZhbHVlcyBvZgpyeC1pbnRlcm5hbC1k
+ZWxheS1wcyAvIHR4LWludGVybmFsLWRlbGF5LXBzIG5lZWRzIHRvIGJlIGV4cGxpY2l0bHkKanVz
+dGlmaWVkIGFzIERUIEFCSSBzYWZlLgoKRm9yIHYyLCB3ZSBhcmUgcGxhbm5pbmcgdG8gcmVwbGFj
+ZSB0aGUgZW51bSB3aXRoIGEgbWluL21heCBjb25zdHJhaW50LgpUaGVzZSBwcm9wZXJ0aWVzIGNh
+cnJ5IGxpdGVyYWwgZGVsYXkgdmFsdWVzIGluIHBpY29zZWNvbmRzLCBhbmQgYWxsCnByZXZpb3Vz
+bHkgdmFsaWQgdmFsdWVzIHdpbGwgcmVtYWluIHZhbGlkIGFuZCByZXRhaW4gdGhlIHNhbWUgbWVh
+bmluZy4KRXhpc3RpbmcgRFQgYmxvYnMgd2lsbCB0aGVyZWZvcmUgY29udGludWUgdG8gd29yayB1
+bmNoYW5nZWQuCgpXZSB3aWxsIGFsc28gYWRkIGV4cGxpY2l0IHRleHQgdG8gdGhlIGNvbW1pdCBt
+ZXNzYWdlIGV4cGxhaW5pbmcgd2h5IHRoaXMKY2hhbmdlIGlzIERUIEFCSSBzYWZlIGFuZCB3aHkg
+bm8gcmVncmVzc2lvbnMgYXJlIGV4cGVjdGVkLgoKPiA+ICsgIGVzd2luLHJ4LWNsay1pbnZlcnQ6
+Cj4gPiArICAgIGRlc2NyaXB0aW9uOgo+ID4gKyAgICAgIEludmVydCB0aGUgcmVjZWl2ZSBjbG9j
+ayBzYW1wbGluZyBwb2xhcml0eSBhdCB0aGUgTUFDIGlucHV0Lgo+ID4gKyAgICAgIFRoaXMgcHJv
+cGVydHkgbWF5IGJlIHVzZWQgdG8gY29tcGVuc2F0ZSBmb3IgU29DLXNwZWNpZmljCj4gPiArICAg
+ICAgcmVjZWl2ZSBjbG9jayB0byBkYXRhIHNrZXcgYW5kIGhlbHAgZW5zdXJlIGNvcnJlY3QgUlgg
+ZGF0YQo+ID4gKyAgICAgIHNhbXBsaW5nIGF0IGhpZ2ggc3BlZWQuCj4gPiArICAgIHR5cGU6IGJv
+b2xlYW4KPiAKPiBUaGlzIGRvZXMgbm90IG1ha2UgdG9vIG11Y2ggc2Vuc2UgdG8gbWUuIFRoZSBS
+R01JSSBzdGFuZGFyZCBpbmRpY2F0ZXMKPiBzYW1wbGluZyBoYXBwZW5zIG9uIGJvdGggZWRnZXMg
+b2YgdGhlIGNsb2NrLiBUaGUgcmlzaW5nIGVkZ2UgaXMgZm9yCj4gdGhlIGxvd2VyIDQgYml0cywg
+dGhlIGZhbGxpbmcgZWRnZSBmb3IgdGhlIHVwcGVyIDQgYml0cy4gRmxpcHBpbmcgdGhlCj4gcG9s
+YXJpdHkgd291bGQgb25seSBzd2FwIHRoZSBuaWJibGVzIGFyb3VuZC4KPiAKWW91IGFyZSBjb3Jy
+ZWN0IGFib3V0IHRoZSBSR01JSSBzcGVjaWZpY2F0aW9uLiBUaGUgaW50ZW50IG9mCmVzd2luLHJ4
+LWNsay1pbnZlcnQgaXMgbm90IHRvIGNoYW5nZSB0aGUgUkdNSUkgc2FtcGxpbmcgcnVsZSwgYnV0
+IHRvCmNvbXBlbnNhdGUgZm9yIFNvQy1pbnRlcm5hbCBSWEMtdG8tUlhEIHNrZXcgYW5kIHJlc3Rv
+cmUgdGhlIGNvcnJlY3QKc2FtcGxpbmcgcmVsYXRpb25zaGlwIGF0IHRoZSBNQUMgaW5wdXQuCgpP
+biBFSUM3NzAwLCBSWEMgYW5kIFJYRCBleHBlcmllbmNlIGFuIGludGVybmFsIHNrZXcgYmVmb3Jl
+IHJlYWNoaW5nIHRoZQpNQUMuIEF0IGhpZ2ggc3BlZWQsIHRoaXMgY2FuIHNoaWZ0IHRoZSBlZmZl
+Y3RpdmUgc2FtcGxpbmcgcG9pbnQgYnkKYXBwcm94aW1hdGVseSBoYWxmIGEgY3ljbGUsIGNhdXNp
+bmcgdGhlIE1BQyB0byBzYW1wbGUgdGhlIHdyb25nIG5pYmJsZQpvbiBlYWNoIGVkZ2UuCgpDb25j
+ZXB0dWFsbHksIHRoZSBzaXR1YXRpb25zIGFyZSBhcyBmb2xsb3dzLgoKUkdNSUktc3BlY2lmaWVk
+IGJlaGF2aW9yIChjb3JyZWN0KToKClJYQzogICBfXy/igL7igL5cX18v4oC+4oC+XF9fCiAgICAg
+ICAgIOKGkSAg4oaTICAgICAgCiAgICAgICAgIHwgIHwgICAgICAKICAgICAgICAgfCAgfCAgICAg
+IAogICAgICAgICB8ICArLS0tLS0tLS0tIHNhbXBsZSBSWERbNDo3XQogICAgICAgICArLS0tLS0t
+LS0tLS0tIHNhbXBsZSBSWERbMDozXQoKU29DLWludGVybmFsIHNrZXcgY2F1c2luZyBpbmNvcnJl
+Y3Qgc2FtcGxpbmcgKHdpdGhvdXQgaW52ZXJ0KToKClJYQzogICBfXy/igL7igL5cX18v4oC+4oC+
+XF9fCiAgICAgICAgIOKGkSAg4oaTICAgICAgCiAgICAgICAgIHwgIHwgICAgICAKICAgICAgICAg
+fCAgfCAgICAgIAogICAgICAgICB8ICArLS0tLS0tLS0tIHNhbXBsZSBSWERbMDozXSAgICh3cm9u
+ZykKICAgICAgICAgKy0tLS0tLS0tLS0tLSBzYW1wbGUgUlhEWzQ6N10gICAod3JvbmcpCgpBZnRl
+ciBlbmFibGluZyBpbnRlcm5hbCBSWCBjbG9jayBpbnZlcnQ6CgpSWEM6ICAgX18v4oC+4oC+XF9f
+L+KAvuKAvlxfXwogICAgICAgICDihpEgIOKGkyAgICAgIAogICAgICAgICB8ICB8ICAgICAgCiAg
+ICAgICAgIHwgIHwgICAgICAKICAgICAgICAgfCAgKy0tLS0tLS0tLSBzYW1wbGUgUlhEWzQ6N10g
+ICAoY29ycmVjdCkKICAgICAgICAgKy0tLS0tLS0tLS0tLSBzYW1wbGUgUlhEWzA6M10gICAoY29y
+cmVjdCkKClRoZSBpbnZlcnQgY29udHJvbCByZXN0b3JlcyBzYW1wbGluZyBvZiBSWERbMDozXSBv
+biB0aGUgcmlzaW5nIGVkZ2UKYW5kIFJYRFs0OjddIG9uIHRoZSBmYWxsaW5nIGVkZ2UsIGV4YWN0
+bHkgYXMgZGVmaW5lZCBieSB0aGUgUkdNSUkKc3BlY2lmaWNhdGlvbi4gTm8gcHJvdG9jb2wtbGV2
+ZWwgYmVoYXZpb3Igb3IgZWRnZSBhc3NpZ25tZW50IGlzCmNoYW5nZWQuCgpUaGFua3MsCkxpIFpo
+aQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
